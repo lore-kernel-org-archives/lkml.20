@@ -1,230 +1,438 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B61D370D57
-	for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:59:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FD84502F
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790294381; cv=none; b=a+jTEAc+lRZ1cLQ7oot283t6SQa7Od796XLCHdfaPn3EsYansaSCK4RDdtvblCMIcW5N9vsbd5GjXTTu2s9Ka2FSBxnLOo8Tf7tWG5CGoGc30xgbrO0pgzgUKakSpO9XtPIhcBTiTQiqf7sCyrJv4tHXTmd411WibN2loqhkFF8=
+	t=1790294460; cv=none; b=cKR1z+ABXAdVN49j96WKf4G9EHBG0qpH0QL7FyE0fSQ6l9Ina/YUX7+Cl3Nl5VWzcD2yzPO1P4tLLwa/Uyz9D1yHrXDHT3PbaQpX+ckO2b2X4CbuGtGjpx2tMFWYM/F262uM5Dpod+a+5/jqonCopJ/KV9s9de8dXZxV+RmtfHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790294381; c=relaxed/simple;
-	bh=cZl8jUmPCC2YDRh4uue366K9dg4z+dvGR3JZ9BCJQ8I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ucQp1yngWuZ6cEZ6/lt0lo+4x/aBQjpFRdAx/DhHnqBZexDRafavbhzQr1dwW831x7tFlavnZmur2zhKwaxA6DI2WqOQV+QogO2wlzvcVpcSxEuRixNooIaztkUfmUihxYR+GX9mU7zneCsjCZjL+MdnHsJdY84cPIXxEFxVIL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tnb/o9Kz; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790294460; c=relaxed/simple;
+	bh=BYqICiGMLgWqpntKQzARpSvKHz0b8tGLohHeOvC50YE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KhxUUUvo3SaOJKNxFSY/g+2ewllx+YKVZn2c6y+RLEEAq7DII+aa/M1cCzrzHrwVhXIYa80mGY6+rYyu3roEk9l3wubPJDk2Yy+RIyCZKjbxGgrj3IWEuAN9K7W4eZ8VBQThImSXRrPUpEe2p4wbktnWDNdviJ9E4fM1Wtq1+5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gECyGoLr; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OsVN6BKT; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tnb/o9Kz"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f38so1190655ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 16:59:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gECyGoLr";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OsVN6BKT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790294457;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lumaw4lMD1kTG9v3IY32vA8t/Mv1AVxHna5hqi0XQCc=;
+	b=gECyGoLr/a69+CpXx1jH/m2PI1HoRmCLYSXU9IWfWWaGmnjJb+fSXdy33EBAT38tcUQmxt
+	WUuBlcXqOlzsVVTtCVERy6Djs6q0/W+9EB4r3s9o9TxPlkkvpk75IYgebCpamfkPaZgsLF
+	CB43djhWjL/Kw+Ws4pe+eXfrzF5TA0c=
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-35-VXuP0PEJPRKxlTt5Lz7QRQ-1; Thu, 24 Sep 2026 20:00:51 -0400
+X-MC-Unique: VXuP0PEJPRKxlTt5Lz7QRQ-1
+X-Mimecast-MFC-AGG-ID: VXuP0PEJPRKxlTt5Lz7QRQ_1790294450
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2db8e9fe9c7so2791745ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:00:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790294380; x=1790899180; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G+v5BjqCby3H9JvgpWm1j7CmRuzYXHs5Ge9kI+2lfbI=;
-        b=Tnb/o9Kz4MAbnj+seNVfD4P7zfnxRlsBdspIpHka6F1PFxV6L3f8vl0CXWX4FqmEqn
-         kf6VkAg7jOqcViVULKM3lo2lCbA0ql9qEchxARAuqgMYzeOVcso3lSRIaWKp2HFwnM4S
-         UuMYvbKkBPoU2socZzpyGNVkg0+AyAbeWMxod/LLpRIDcrVog7wWIOfQRUnVJs6Nd8PE
-         DhrBLdqZkqZta842ivz88adx4MXIPYfTiQqyA8zkPgZTaz3icOeGLA+P8mrd6mTZ1afC
-         /YlQMZuvppt9RuSs9Ey2sxgKpm0Qabshkpenp+sUBVEXG16eGqcy4S27qCxPPy1Wkvtq
-         DHrg==
+        d=redhat.com; s=google; t=1790294450; x=1790899250; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lumaw4lMD1kTG9v3IY32vA8t/Mv1AVxHna5hqi0XQCc=;
+        b=OsVN6BKTRlOx19HKjVCcfXf+nqecmYL8ku95Vb8nPcjW4dYJQmVJPvBgCarROhrkGz
+         UsZLuVo4WNzipEjUevQrnTar1/3j5iD4r3H5tWRkkVDGS7QjeJVBrsYvW0gMx2B2hapr
+         VzR4Ry/FEU6x/HPvToZ7sx1YaUJ7lp4L/b3Jp2lZSVyMNwh0YoUZYbCn9x4bYJSE68zX
+         8Ttm8yIoL6yVx971zquOaRwtDv3/NQVCPFlbI8bIwoNzC/Yb56bRMu9keh5AqvcwTsCg
+         ErcLbczYwotBywLoAjc+3tcOUS5fNWehvtI5XdwdC592l7166ZH23hIvxLLfdF+Wlhgi
+         Iy1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790294380; x=1790899180;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790294450; x=1790899250;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G+v5BjqCby3H9JvgpWm1j7CmRuzYXHs5Ge9kI+2lfbI=;
-        b=WRjn/c/mcixsTs2yG40wogqAm3KgV1Er9+4GPZAF7jYoUy/PHzjVIOPsXSYd9vgkEs
-         Bo6nN69h1ZXW+TSUeNtv3aWRju1gT2zPKqHLciVFPn3oSn3No1Yewo6D0sz12mSpMcYJ
-         BRAun0/Wxf6Yk/4n7LjmqtSuDK0I4iMELYobphoiZuPxPuFl1oO1Pd0DRcVpqY8FAThy
-         wuUyIoEGr3TCQbsFzB2etpQiHgPHu6kOGdG7Jc0PKjwpzYGCgpKgN57FkDycKNEfpu+E
-         q0/QsBBRlMNd29hgeBjfUb4RTYsRtal6XtfpCjxpR43QScYAOpBLhMs59sLYBYP8xVR5
-         h2Ig==
-X-Forwarded-Encrypted: i=1; AKwUvBzCXMdDSoOpl6AfWhQWIT1geAQ0Fa5M2nkwx0pD8AtNb7cY347ArHNe9B9IppICJE57m3z/fMwowUnJ/ic=@vger.kernel.org
-X-Gm-Message-State: AFuF++kU4HgRabaN3IvXZL0EZzKdx+GdLz0dZWNj3ztZlTiaR8kwZ9Km
-	ERjaudMplcMnZFg95V8Smg6NSs1Ubjbse3VOAroU0U2uKz+CoL/5R97E
-X-Gm-Gg: AYBFou2wa2su17Mqj8SqJZN4OChN3JvWy2Adgi4THrt0nyQJnEsN+lYbaYO4Qv7ACSh
-	AQHj7F+DhcFID52CQkr05Qxd8yPfAY1qSYszUMBPHIaK1C1OKxZVNATj7G30qhmVy404aDMoXtw
-	xvPDWi7oG8Z25aly5vVQyGZdIf8E4uMzJxGhJbMlV+EbiQYqNGiTJEnnLK6/fK3o7FsPgb/ezGz
-	HETz1MzGfQCDJPq+Y72ayPlM/QTrO62oulZtCxtXFPz+TKuzMqQZswhHOMO1UF54QQgAPVL/iHA
-	N3pIurBiwQVVM1WpcxQ7nYC4BzOx5G9qDWSRJOdKWv1AA3mLUWpGkBEIRgRQH6f2YE6aAw8U+/K
-	rgt5UrbdmUqhCuE4I15scv2N3h67pRQ74rVNggWuUBz7v4lQnoxd7hylWP6PFW02nKkgzDUT4LM
-	xiDBXyihoo4gyArhWoM7AKJCqZuGgGkMYDuM0nqBTCRG4LmNOa2VQGfyAiaR47AE8obP1xJP8pH
-	eQLMoRFocXu8WOOcLNQbGnDH8q5f6cdfkZd8ZJoTQwRPw1NXsN9pP0ohEqo4B8XkiyDrmZvd0dL
-	GgixuznpTOhsAugHx6w0KqLrgp/T2zyoJdyjSVjM6LaJ4NkL
-X-Received: by 2002:a17:902:ef12:b0:2dd:b772:57fe with SMTP id d9443c01a7336-2df7da5ce53mr38368675ad.10.1790294379591;
-        Thu, 24 Sep 2026 16:59:39 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142bafesm2134785ad.51.2026.09.24.16.59.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 16:59:38 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-crypto@vger.kernel.org
-Cc: Srujana Challa <schalla@marvell.com>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] crypto: cesa: complete pending requests on device remove
-Date: Thu, 24 Sep 2026 16:59:37 -0700
-Message-ID: <20260924235937.148475-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=lumaw4lMD1kTG9v3IY32vA8t/Mv1AVxHna5hqi0XQCc=;
+        b=0dREZaKDePjdDGPoZnfPHP4vR0BcstlyCc9Hbfc5Q7YdHdUMutAjT31J7jCweEXt9L
+         hj04pRfO3gmG/ROYPKV/W094MUAHVqE95Jx6iQOCBNIDvhkNKjc5sw2e4vueyG3lSxhC
+         R3j2T1z1/bEpI4FQUo8PCtajIBmfBwIO5ufV31KW+DX+g3dHGkG0hp4oQjLIuBZk0LPQ
+         Gs4l/URv3lvtmrXUlRvHjo1KfYGXN2ZhWRGTGFvbkQ5OyxfKUVy3qaHTityTmWireFhn
+         6Kj5KiTWVkZkePPX/ezf3d/R3/crtkZ5gLibfXQX9z+DKkk7YxWmpbXaHRejT8AFDFPW
+         9YUw==
+X-Forwarded-Encrypted: i=1; AKwUvBz740N2O1HUEqj56RT2ZMRpYRW9CzGUk4hHPyupNKUaI6lvDd5mOf8rMV9tePmbBqZJH50vklNC55SaSrw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kljguWUqBwSYBE8NXB8/Oy1trCU+0SZtXYPEpSsNvQReMb7pNX
+	JuX50v1KGP7hP42y9YkvizpsZj2ZF+9F3lJrcRvkMPzJrBwVYdBKozW3fIAvwsPkmcjPy4nEfFJ
+	RCprZE7hKsU35hlBF/s7OSbAAdbbSShB0q4LKqIVv0lrE0lma26WQxzre0BYAQWFf5Q==
+X-Gm-Gg: AYBFou3YqtXIJvfDHZURbG6S6H7x68HjSFEr1ItbE2SAf42hjMtAKl964IcXpzQA0qH
+	ki0Mt7R6iwZi6D+PpmgoTtxERiL+oOzHd6mki+j2Q0kq3fekg5eovmnRD5qbhIU5eC5cqREtTve
+	dLvUrUE/G8JNIdnK9vGYx++lIIvO5/+NTtG7a2EJHe/crdgR0OFdj0cp4p/9QBtzi+6yK3uJB54
+	6mmcUqX3tpPi+xJ3dIAnGDTNSLXUcvyROQp7cWhZS4GNzgb7aE67IDl+3kBTfxFNdp9rRsqUQUm
+	chdHsT+uDQtWICXB5HYQn6iEBbeao5ycA2rw3I4UHsA8v50y5hWNmqS/Qr8YwvWyR9TzxfHo/Xc
+	PTrHveWvIuHTfRCBUuQtwLfmNWE1l326gI3n6n//03A==
+X-Received: by 2002:a17:903:1b6b:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2df94964b02mr3973125ad.14.1790294449525;
+        Thu, 24 Sep 2026 17:00:49 -0700 (PDT)
+X-Received: by 2002:a17:903:1b6b:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2df94964b02mr3972225ad.14.1790294448725;
+        Thu, 24 Sep 2026 17:00:48 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913ff040sm2112955ad.32.2026.09.24.17.00.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 17:00:42 -0700 (PDT)
+Message-ID: <1ffe72ff-f20b-4621-a586-10e0358fee67@redhat.com>
+Date: Fri, 25 Sep 2026 10:00:33 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 2/7] firmware: arm_rmm: Check for RMI support at init
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-3-suzuki.poulose@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20260924135201.850038-3-suzuki.poulose@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-mv_cesa_remove() unregisters the algorithms but never drains the engine
-queues.  Each engine can still hold outstanding requests in three
-places: engine->req (currently in flight), engine->queue (queued but
-not started), and engine->complete_queue (processed but not yet
-reported).  After unregistration those waiters never receive their
-completion callback and block indefinitely, leaking the request and its
-scatterlist buffers.
+On 9/24/26 11:51 PM, Suzuki K Poulose wrote:
+> From: Steven Price <steven.price@arm.com>
+> 
+> Query the RMI version number and check if it is a compatible version.
+> The first two feature registers are read and exposed for future code to
+> use.
+> 
+> We only support this for Little Endian kernels, the Big Endian kernel
+> support is anyway marked BROKEN and is being removed.
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+> v19:
+>   * Read all implemented RmiFeatureRegisters - 5
+>   * Use ARRAY_SIZE(rmi_feat_reg_cache) for the loop in rmi_read_features()
+>   * Fold rmi_features() into rmi_read_features
+>   * Fix comment for rmi_smccc_invoke()
+>   * Drop default y
+>   * Add retry for RMI_BLOCKED and return to caller
+> v18:
+>   * Always use arm_smccc_1_2_invoke() for all RMIs making sure the unsused
+>     parameters are 0 - Sashiko
+>   * Move rmi_features() calls away from the arm-rmi-cmds.h to rmi.c - Gavin
+> v17:
+>   * Rename ARM_RMM to ARM_RMM_RMI to make it easier to add Guest facing RSI
+>     support, which is also in progress
+> v16:
+>   * Update Kconfig text to include PCIe TDISP.
+>   * Export rmi_feat_reg() here rather than in a later commit.
+> v15:
+>   * The code is moved again, this time into the 'firmware' directory.
+> v14:
+>   * This moves the basic RMI setup into the 'kernel' directory. This is
+>     because RMI will be used for some features outside of KVM so should
+>     be available even if KVM isn't compiled in.
+> ---
+>   arch/arm64/Kconfig                |   1 +
+>   arch/arm64/kernel/cpufeature.c    |   1 +
+>   drivers/firmware/Kconfig          |   1 +
+>   drivers/firmware/Makefile         |   1 +
+>   drivers/firmware/arm_rmm/Kconfig  |  25 +++++++
+>   drivers/firmware/arm_rmm/Makefile |   2 +
+>   drivers/firmware/arm_rmm/rmi.c    | 109 ++++++++++++++++++++++++++++++
+>   include/linux/arm-rmi-cmds.h      |  48 +++++++++++++
+>   8 files changed, 188 insertions(+)
+>   create mode 100644 drivers/firmware/arm_rmm/Kconfig
+>   create mode 100644 drivers/firmware/arm_rmm/Makefile
+>   create mode 100644 drivers/firmware/arm_rmm/rmi.c
+>   create mode 100644 include/linux/arm-rmi-cmds.h
+> 
 
-In mv_cesa_remove() stop each engine (mask interrupts, clear the CMD and
-TDMA control registers, then wait for the engine to report idle), quiesce
-the threaded IRQ with disable_irq()/synchronize_irq(), and drain the
-three queues, completing every outstanding request with -ENOENT.  The
-completion callbacks unmap DMA buffers through the global cesa_dev
-pointer, so keep it valid until the engines are drained, and mark the
-engines aborted under their lock so a racing submitter cannot restart a
-halted engine.
+Some nitpicks below, with them addressed:
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: fix a bunch of sashiko errors
- drivers/crypto/marvell/cesa/cesa.c | 80 ++++++++++++++++++++++++++++++
- drivers/crypto/marvell/cesa/cesa.h |  4 ++
- 2 files changed, 84 insertions(+)
+Reviewed-by: Gavin Shan <gshan@redhat.com>
 
-diff --git a/drivers/crypto/marvell/cesa/cesa.c b/drivers/crypto/marvell/cesa/cesa.c
-index 564b09773507..d91e1af0fe9c 100644
---- a/drivers/crypto/marvell/cesa/cesa.c
-+++ b/drivers/crypto/marvell/cesa/cesa.c
-@@ -52,6 +52,14 @@ static void mv_cesa_rearm_engine(struct mv_cesa_engine *engine)
- 
- 	spin_lock_bh(&engine->lock);
- 	if (!engine->req) {
-+		if (engine->aborted) {
-+			/*
-+			 * The device is being removed: do not restart the
-+			 * engine nor fetch any new request.
-+			 */
-+			spin_unlock_bh(&engine->lock);
-+			return;
-+		}
- 		req = mv_cesa_dequeue_req_locked(engine, &backlog);
- 		engine->req = req;
- 	}
-@@ -542,9 +550,81 @@ static int mv_cesa_probe(struct platform_device *pdev)
- static void mv_cesa_remove(struct platform_device *pdev)
- {
- 	struct mv_cesa_dev *cesa = platform_get_drvdata(pdev);
-+	struct mv_cesa_engine *engine;
-+	struct crypto_async_request *req;
-+	unsigned int i;
-+	unsigned int timeout;
- 
- 	mv_cesa_remove_algs(cesa);
- 
-+	for (i = 0; i < cesa->caps->nengines; i++) {
-+		engine = &cesa->engines[i];
-+
-+		/*
-+		 * Stop the engine so it no longer issues DMA to the SRAM
-+		 * region or to request scatterlists that are about to be
-+		 * unmapped.
-+		 */
-+		writel(0, engine->regs + CESA_SA_INT_MSK);
-+		writel(0, engine->regs + CESA_SA_CMD);
-+		writel(0, engine->regs + CESA_TDMA_CONTROL);
-+
-+		/*
-+		 * Flush the posted writes above and wait for the engine to
-+		 * report that it is stopped before any buffer is released.
-+		 */
-+		timeout = CESA_ENGINE_STOP_TIMEOUT_US;
-+		while ((readl(engine->regs + CESA_SA_CMD) &
-+			CESA_SA_CMD_EN_CESA_SA_ACCL0) && --timeout)
-+			udelay(1);
-+
-+		/*
-+		 * Synchronize with the threaded IRQ handler so that it cannot
-+		 * run while the queues below are drained.
-+		 */
-+		disable_irq(engine->irq);
-+		synchronize_irq(engine->irq);
-+
-+		spin_lock_bh(&engine->lock);
-+		engine->aborted = true;
-+
-+		/*
-+		 * Complete the request currently in flight and drain the
-+		 * pending and already-processed queues with an error so that
-+		 * waiters do not block indefinitely when the device is unbound
-+		 * while requests are still outstanding.
-+		 */
-+		if (engine->req) {
-+			req = engine->req;
-+			engine->req = NULL;
-+			spin_unlock_bh(&engine->lock);
-+			mv_cesa_complete_req(crypto_tfm_ctx(req->tfm), req,
-+					     -ENOENT);
-+			spin_lock_bh(&engine->lock);
-+		}
-+
-+		while ((req = crypto_dequeue_request(&engine->queue)) != NULL) {
-+			spin_unlock_bh(&engine->lock);
-+			mv_cesa_complete_req(crypto_tfm_ctx(req->tfm), req,
-+					     -ENOENT);
-+			spin_lock_bh(&engine->lock);
-+		}
-+
-+		while ((req = mv_cesa_engine_dequeue_complete_request(engine))
-+		       != NULL) {
-+			spin_unlock_bh(&engine->lock);
-+			mv_cesa_complete_req(crypto_tfm_ctx(req->tfm), req,
-+					     -ENOENT);
-+			spin_lock_bh(&engine->lock);
-+		}
-+		spin_unlock_bh(&engine->lock);
-+	}
-+
-+	/*
-+	 * The completion callbacks above (and any concurrent submitter) rely
-+	 * on the global cesa_dev pointer: only clear it once the engines are
-+	 * fully drained.
-+	 */
- 	cesa_dev = NULL;
- }
- 
-diff --git a/drivers/crypto/marvell/cesa/cesa.h b/drivers/crypto/marvell/cesa/cesa.h
-index 44351b252861..56c0dd6f5772 100644
---- a/drivers/crypto/marvell/cesa/cesa.h
-+++ b/drivers/crypto/marvell/cesa/cesa.h
-@@ -10,6 +10,9 @@
- 
- #define CESA_ENGINE_OFF(i)			(((i) * 0x2000))
- 
-+/* Max time in microseconds to wait for the engine to stop */
-+#define CESA_ENGINE_STOP_TIMEOUT_US		1000
-+
- #define CESA_TDMA_BYTE_CNT			0x800
- #define CESA_TDMA_SRC_ADDR			0x810
- #define CESA_TDMA_DST_ADDR			0x820
-@@ -450,6 +453,7 @@ struct mv_cesa_engine {
- 	struct mv_cesa_tdma_chain chain_sw;
- 	struct list_head complete_queue;
- 	int irq;
-+	bool aborted;
- };
- 
- /**
--- 
-2.55.0
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index b5a51b0ef9440..ff9565d3ffa59 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -38,6 +38,7 @@ config ARM64
+>   	select ARCH_HAS_MEMBARRIER_SYNC_CORE
+>   	select ARCH_HAS_MEM_ENCRYPT
+>   	select ARCH_SUPPORTS_MSEAL_SYSTEM_MAPPINGS
+> +	select ARCH_SUPPORTS_RMM
+>   	select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
+>   	select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
+>   	select ARCH_HAS_NONLEAF_PMD_YOUNG if ARM64_HAFT
+> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+> index 32102c3912fa7..e8b29983b0021 100644
+> --- a/arch/arm64/kernel/cpufeature.c
+> +++ b/arch/arm64/kernel/cpufeature.c
+> @@ -293,6 +293,7 @@ static const struct arm64_ftr_bits ftr_id_aa64isar3[] = {
+>   static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV3_SHIFT, 4, 0),
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV2_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_RME_SHIFT, 4, 0),
+>   	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_DIT_SHIFT, 4, 0),
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_AMU_SHIFT, 4, 0),
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_MPAM_SHIFT, 4, 0),
+> diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+> index b7cc11e4fbfa6..62660bf520a8d 100644
+> --- a/drivers/firmware/Kconfig
+> +++ b/drivers/firmware/Kconfig
+> @@ -310,5 +310,6 @@ source "drivers/firmware/samsung/Kconfig"
+>   source "drivers/firmware/smccc/Kconfig"
+>   source "drivers/firmware/tegra/Kconfig"
+>   source "drivers/firmware/xilinx/Kconfig"
+> +source "drivers/firmware/arm_rmm/Kconfig"
+>   
+>   endmenu
+> diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+> index be46f1e1dc77f..196a650ccf025 100644
+> --- a/drivers/firmware/Makefile
+> +++ b/drivers/firmware/Makefile
+> @@ -39,3 +39,4 @@ obj-y				+= samsung/
+>   obj-y				+= smccc/
+>   obj-y				+= tegra/
+>   obj-y				+= xilinx/
+> +obj-y				+= arm_rmm/
+> diff --git a/drivers/firmware/arm_rmm/Kconfig b/drivers/firmware/arm_rmm/Kconfig
+> new file mode 100644
+> index 0000000000000..a37cba6647360
+> --- /dev/null
+> +++ b/drivers/firmware/arm_rmm/Kconfig
+> @@ -0,0 +1,25 @@
+> +
+> +config ARCH_SUPPORTS_RMM
+> +	bool
+> +
+> +config ARM_RMM_RMI
+> +	bool "Realm Management Interface (RMI) Support"
+> +	depends on ARCH_SUPPORTS_RMM
+> +	help
+> +	  Support the Realm Management Monitor (RMM) on Arm systems that
+> +	  implement the Realm Management Extension (RME), as defined by the
+> +	  Arm Confidential Compute Architecture.
+> +
+> +	  The RMM runs at EL2 in the Realm world and provides the Realm
+> +	  Management Interface (RMI) used by a Normal World host to create,
+> +	  manage and run protected virtual machines called Realms. The RMM can
+> +	  also act as a TSM, as defined by the PCIe TDISP and can manage the
+> +	  PCI IDE setup for securing the PCIe links.
+> +
+> +	  This option builds the host-side RMI support used by KVM to detect a
+> +	  compatible RMM, configure it, manage delegated memory and enable
+> +	  Realm guests.
+> +
+> +	  Selecting this option does not by itself make Realm guests available:
+> +	  the system must also provide RME-capable hardware and firmware with a
+> +	  compatible RMM implementation.
+> diff --git a/drivers/firmware/arm_rmm/Makefile b/drivers/firmware/arm_rmm/Makefile
+> new file mode 100644
+> index 0000000000000..65171988fdcae
+> --- /dev/null
+> +++ b/drivers/firmware/arm_rmm/Makefile
+> @@ -0,0 +1,2 @@
+> +
+> +obj-$(CONFIG_ARM_RMM_RMI)	= rmi.o
+> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+> new file mode 100644
+> index 0000000000000..3baba931f92e4
+> --- /dev/null
+> +++ b/drivers/firmware/arm_rmm/rmi.c
+> @@ -0,0 +1,109 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2023-2026 ARM Ltd.
+> + */
+> +
+> +#include <linux/cpufeature.h>
+> +#include <linux/memblock.h>
+> +#include <linux/arm-rmi-cmds.h>
+> +#include <linux/slab.h>
+> +
+> +#include <asm/memory.h>
+> +#include <asm/pgtable-hwdef.h>
+> +
+> +/* RMM defines RmiFeatureRegister0 to RmiFeatureRegister5. */
+> +static unsigned long rmi_feat_reg_cache[5] __ro_after_init;
+> +
+
+Based on the latest RMM implementation, the highest feature register
+index is RMI_FEATURE_REGISTER_4_INDEX. So RmiFeatureRegister5 is out of
+the range and the correct comments would be: 'RMM defines RmiFeatureRegister0
+to RmiFeatureRegister4', or we could simplify this to:
+
+/* RMM defines 5 feature registers */
+
+> +static int rmi_check_version(void)
+> +{
+> +	unsigned short version_major, version_minor;
+> +	unsigned long host_version = RMI_ABI_VERSION(RMI_ABI_MAJOR_VERSION,
+> +						     RMI_ABI_MINOR_VERSION);
+> +	unsigned long aa64pfr0 = read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1);
+> +	struct arm_smccc_1_2_regs res = {
+> +		SMC_RMI_VERSION, host_version,
+> +	};
+> +
+> +	/* If RME isn't supported, then RMI can't be */
+> +	if (cpuid_feature_extract_unsigned_field(aa64pfr0, ID_AA64PFR0_EL1_RME_SHIFT) == 0)
+> +		return -ENXIO;
+> +
+> +	rmi_smccc_invoke(&res);
+> +	if (res.a0 == SMCCC_RET_NOT_SUPPORTED)
+> +		return -ENXIO;
+> +
+> +	version_major = RMI_ABI_VERSION_GET_MAJOR(res.a1);
+> +	version_minor = RMI_ABI_VERSION_GET_MINOR(res.a1);
+> +
+> +	if (res.a0 != RMI_SUCCESS) {
+> +		unsigned short high_version_major, high_version_minor;
+> +
+> +		high_version_major = RMI_ABI_VERSION_GET_MAJOR(res.a2);
+> +		high_version_minor = RMI_ABI_VERSION_GET_MINOR(res.a2);
+> +
+> +		pr_err("Unsupported RMI ABI (v%d.%d - v%d.%d) we want v%d.%d\n",
+> +		       version_major, version_minor,
+> +		       high_version_major, high_version_minor,
+> +		       RMI_ABI_MAJOR_VERSION,
+> +		       RMI_ABI_MINOR_VERSION);
+> +		return -ENXIO;
+> +	}
+> +
+> +	pr_info("RMI ABI version %d.%d\n", version_major, version_minor);
+> +
+> +	return 0;
+> +}
+> +
+> +static int rmi_read_features(void)
+> +{
+> +	/*
+> +	 * Since we've negotiated a compatible version these feature registers
+> +	 * should always be available
+> +	 */
+> +	for (int i = 0; i < ARRAY_SIZE(rmi_feat_reg_cache); i++) {
+> +		struct arm_smccc_1_2_regs args = {
+> +			SMC_RMI_FEATURES, i,
+> +		};
+> +
+> +		rmi_smccc_invoke(&args);
+> +		if (WARN_ON(args.a0 != RMI_SUCCESS))
+> +			return -EINVAL;
+> +
+> +		rmi_feat_reg_cache[i] = args.a1;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +unsigned long rmi_feat_reg(unsigned long index)
+> +{
+> +	if (WARN_ON(index >= ARRAY_SIZE(rmi_feat_reg_cache)))
+> +		return 0;
+> +
+> +	return rmi_feat_reg_cache[index];
+> +}
+> +EXPORT_SYMBOL_GPL(rmi_feat_reg);
+> +
+
+I guess "unsigned int index" is sufficient for the space as we shouldn't
+have that much feature registers :)
+
+> +
+> +static int __init arm64_init_rmi(void)
+> +{
+> +	int ret;
+> +
+> +	/* If we can't agree on the RMI ABI version, don't proceed further */
+> +	ret = rmi_check_version();
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = rmi_read_features();
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Note arm64_init_rmi() must be called before kvm_init_rmi() otherwise KVM
+> + * will not support realm guests. subsys_initcall() is called before
+> + * module_init() (used for KVM) so this is OK.
+> + */
+> +subsys_initcall(arm64_init_rmi);
+> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+> new file mode 100644
+> index 0000000000000..5c6c563c81555
+> --- /dev/null
+> +++ b/include/linux/arm-rmi-cmds.h
+> @@ -0,0 +1,48 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2026 ARM Ltd.
+> + */
+> +
+> +#ifndef __LINUX_ARM_RMI_CMDS_H_
+> +#define __LINUX_ARM_RMI_CMDS_H_
+> +
+> +#include <linux/arm-smccc-rmi.h>
+> +#include <linux/bug.h>
+> +#include <linux/processor.h>
+> +#include <linux/types.h>
+> +
+> +#define RMM_BLOCKED_RETRY_COUNT		2
+> +/*
+> + * rmi_smccc_invoke: Invoke the RMI call and return the results, retrying the
+> + * command when status is RMI_BUSY. If we encounter RMI_BLOCKED, we retry
+> + * it one more time before we give up. The caller is supposed to handle the
+> + * result and reissue if required.
+> + *
+> + * We don't expect to see RMI_BLOCKED on a practical system, except when
+> + * there are parallel requests that results in long standing operation,
+> + * with one blocking the other.
+> + *
+> + * @regs: Input parameters filled in. Updated with the ouptput results
+> + * after the call.
+> + */
+> +static inline void rmi_smccc_invoke(struct arm_smccc_1_2_regs *regs)
+> +{
+> +	struct arm_smccc_1_2_regs args = *regs;
+> +	long status;
+> +	int i = 0;
+> +
+> +	while (i < RMM_BLOCKED_RETRY_COUNT) {
+> +		arm_smccc_1_2_invoke(&args, regs);
+> +
+> +		status = RMI_RESULT_STATUS(regs->a0);
+> +		if (status != RMI_BUSY && status != RMI_BLOCKED)
+> +			break;
+> +		if (status == RMI_BLOCKED)
+> +			i++;
+> +		cpu_relax();
+> +	}
+> +}
+> +
+> +unsigned long rmi_feat_reg(unsigned long index);
+> +
+> +#endif
+
+As spotted in the previous comments:
+
+#endif /* __LINUX_ARM_RMI_CMDS_H_ */
+
+Thanks,
+Gavin
 
