@@ -1,65 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA96D44065E;
-	Fri, 25 Sep 2026 13:00:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D894D49E145;
+	Fri, 25 Sep 2026 13:00:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341241; cv=none; b=dl1ESpifa7yntvzqeISfJrEp+4oSwgFEZR4euGwmXimyv0EBTNiE1NwolWztT9LzA+Om19Tx8I78TCOOpU6KGRkYmOhOPW/YCnHGJeY7TI68U2e2kZq+8CUUO1sh8hOMDAIJUcgLY7aUCGO4C1cNhvYmlZCMHItcgtUJ8c3cNy0=
+	t=1790341252; cv=none; b=PIb+1gDceZW7Ezis/5banY86uCcovoHX+bxLHiGKQm/lif5rMmoMdtHS7MRqQ5Gh0FPmy/VWuUrv+4OD1VstRe2+ulh2izhDvcgqoXKsQdgfs3ebBZtgeDldG1Ook+kXGvaSgSS2csXfMO8MGcmz2ZuWmkv/84Rr+V6PzegpTxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341241; c=relaxed/simple;
-	bh=llz87AJIbWyhj0ZA+baC4W0bJU7jcx4/W6AURj19Txs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rCrziTaASwWWfHfyWBayXGukShrD5krH9VekapLoxLdxPpwpP0qvgBsQBHDtZxnZOqRmqjoiDSPhWfQwcnB7pTnXuDKUvS08ajotrMRf+w4am+lRPqBuDBGlmzND3nakcNy2UQTi7V7/qO+FRf6U/LtzZJ/vqsIw1ww4ESo9dho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cchWlNOq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790341252; c=relaxed/simple;
+	bh=+nsd19O0IGxNaWLL7pTlfjT5jDNXR6MQWz0WmqGua68=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=C06FwT6nyFwADodQOr7A2o+6LjtFd+o+xRmBWuzYKUBW0+kzRB+1S/cq4MBZUJ85JyF9swq6H6kdmsc4fi10pV66Ygu0CUQ0+Rh52qlj4PpqupP0kiLKxRsTcvvMrjIuUk4IOgNPqOcJcv+sWfGs8+HXoGwHRBg1EQhuUtASYPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Q8AkbQho; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cchWlNOq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036551F000FF;
-	Fri, 25 Sep 2026 13:00:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790341240;
-	bh=MPJyy2BHIDkce8XTnOu6bbqLDOSaexmEKIrNPW0uwfo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cchWlNOqhst5Qf72EFF87tl/wXmLQl72TuKzWlWlUNn0X3NTaXQzD28Oy48CA1nlz
-	 bL40QBrTduL1hZY9ENOrSx85axw8NiFKRNrZjyD50XF2Oto+lVJyil/gwXabdWJsik
-	 NSxK4pw5zbQUhrd6vBL1bC8vaFbcJNwMbIWaRNEXko3rRnIUpKxpKrSMbkQsgAgtoo
-	 uoqnq3DCit3lH+ZaKRL5XIdBI0YZ0MuVoCVR0gjSIqy4Ag/5zCH3maTd75+Vuk44Kp
-	 2hWtN+W8qE1Jp/yIYfs5EFdsBE0J71X4nMZKt4oQX1n52d3w/bUg8ugEufKDGrVTDQ
-	 lkGncs7/zJf7Q==
-Date: Fri, 25 Sep 2026 15:00:38 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Namhyung Kim <namhyung@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/5] perf trace: Tracepoint format error handling and
- leak fixes
-Message-ID: <arZwdv3BzLFQWq8X@x2>
-References: <20260918063249.2172589-1-irogers@google.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Q8AkbQho"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=LV
+	3bkyLz81TkY90a89eHH4W25TChOkupguJavIs8Sus=; b=Q8AkbQhodop8tOwmx1
+	ztwl99PfwMerd2sNU4zAWNIHgK11z+7WhOlxwNMJsbua0bWY1eb9azzhidcgYfwa
+	QLGgqnPbDRdoW/qUyUjLKsRg0IteisZ1OVbpEN5AL/SBaRMN2UCfIC2dyfHB8qou
+	wBwEX/RUV2kiFydK01xrVgiLY=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3f3zUb7ZqOLTlAg--.28269S8;
+	Fri, 25 Sep 2026 20:58:05 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Matti Vaittinen <mazziesaccount@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 6/9] iio: adc: ti-adc128s052: validate SPI match data
+Date: Fri, 25 Sep 2026 20:57:44 +0800
+Message-Id: <20260925125754.2162337-7-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260925125754.2162337-1-yaojiale02@163.com>
+References: <20260925125754.2162337-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918063249.2172589-1-irogers@google.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f3zUb7ZqOLTlAg--.28269S8
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tw15Gw4rArW3ZFWDCF48JFb_yoW8Ww1kpF
+	WDWFy5ury7WF9xKF48W34jkFy5Ga1Yyw1Fga4kW3Z09w4rZrWFvryrK3Wftw1YkFZ3u3Wj
+	qFWxZr18WF1xZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRa0P-UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzR1blWq2b92bXgAA31
 
-On Thu, Sep 17, 2026 at 11:32:44PM -0700, Ian Rogers wrote:
-> Running 'perf trace' under address sanitizer turned up a handful of
-> problems around the global tracepoint format cache.
-<SNIP>
-> With these, and with an unrelated libtraceevent fix I will send
-> separately to linux-trace-devel, 'perf trace' exits with no leaks
-> reported.
-> 
-> Tested on x86_64. Every patch builds individually, and the series also
-> builds with NO_LIBTRACEEVENT=1.
+SPI driver_override allows a device to bind to this driver without
+matching either the firmware tables or SPI device ID table. In that
+case, spi_get_device_match_data() returns NULL.
 
-Thanks, applied to perf-tools-next, for v7.4.
+adc128_probe() also obtains the IIO device name by dereferencing the
+result of spi_get_device_id(), which is NULL on the same override path.
+The probe can therefore crash before it reaches the match data access.
 
-- Arnaldo
+Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
+data") fixed the same driver_override issue in another SPI driver.
+Reject devices without match data and use the always available SPI
+modalias for the IIO device name.
+
+Fixes: d5f0da0c6972 ("iio: adc: ti-adc128s052: Switch to use spi_get_device_match_data()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/iio/adc/ti-adc128s052.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/iio/adc/ti-adc128s052.c b/drivers/iio/adc/ti-adc128s052.c
+index 1899813c1aee..f9a995ff403e 100644
+--- a/drivers/iio/adc/ti-adc128s052.c
++++ b/drivers/iio/adc/ti-adc128s052.c
+@@ -195,12 +195,14 @@ static int adc128_probe(struct spi_device *spi)
+ 	adc = iio_priv(indio_dev);
+ 	adc->spi = spi;
+ 
+-	indio_dev->name = spi_get_device_id(spi)->name;
++	config = spi_get_device_match_data(spi);
++	if (!config)
++		return -ENODATA;
++
++	indio_dev->name = spi->modalias;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 	indio_dev->info = &adc128_info;
+ 
+-	config = spi_get_device_match_data(spi);
+-
+ 	indio_dev->channels = config->channels;
+ 	indio_dev->num_channels = config->num_channels;
+ 
+-- 
+2.34.1
+
