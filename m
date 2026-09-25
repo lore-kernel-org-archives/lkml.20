@@ -1,127 +1,118 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5C72D77F7
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:57:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57CE93B7769
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790355450; cv=none; b=L5iJHyewbA7bvaW9FMHG2T9JQ66rjV9siE/nkZ0uNYXgr/Zz0tQ0cd/P1pV60fomd3GB8d07kaJVyssOC8A92kW6qxEquM4SJvd9UVQtMLKxynV09TaMXbauEJ5yRCfRkisN1wixczu+EvlET6oIDjBDs/vjX9+CzueZW9KxkZA=
+	t=1790355462; cv=none; b=IpvTR82oQMYKRJiGF86d+kbXm6pef5lvnb/v6Q2Hnf0YNY7CQsGsoH43Q8PWqS5hxgKQN+BI10QUx+jGFEWelx27rK1e1v8FSJGVv5YAzk9LMfHhrVuOeE5mZqDfIXUCYqsiKDtkpD7w6YAqTs9GEauLAKntyR7T1xppIJR/u1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790355450; c=relaxed/simple;
-	bh=z/bCn8iYH5OH94S5ln4YbRVsxMDASAN4nggVicBGOWU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=meQrwzCV8Rkp2dfIdovcdk7R2fJ2+IRQedaR0gwfxquCEZZ5llYExEkjBfW8Ro3tSAsh68vWRjecc26ZWXYx92+jP0ZpolX6WoajawjxVrl8u0hFPjAnxVsmYVomyLQGpVzT8AQcnF8BmI3shKdx0CdAfCiReTTfv19HyGL/40Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kn2yB/7U; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790355462; c=relaxed/simple;
+	bh=wKiEAtSxfqLqTn4v47xq9A+3BpdkJv42ne5zWwg3FS4=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FXAcWK4UB4QhhG51yTRdKLZK7xUyG+GJaUew9gaYkYWtTLkoPqH3sE+wCacXddOclpDiX5exyUMbTRB9UepoKI50VawRSD+/JInB5ZO0jRH0wcZsdnKlR1p2DICQ2Q44wMiHpnbEnUE0ft1kTZ4ZXcnYzkRj5vlB6yVBH1ZthMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Jw2Sl8fV; arc=none smtp.client-ip=74.125.230.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kn2yB/7U"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so6928075e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:57:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Jw2Sl8fV"
+Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-914274b9bfaso832346d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:57:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790355435; x=1790960235; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F8+cDpA4o8IIv8At6bigSA0d6QqqnQSZKyoTG42fL74=;
-        b=Kn2yB/7U9We8hFm5Yu+Mo0t0ajbvgdWASh3ofEZR5aicQINh8DKscVcF4CJvClmLl7
-         3f/9UcYea1RfrfxtMAyLqRpJTg+Z2ZLJ/8AQsTACHGfcP4SFDAT/7RJ5oZ5q3Zpux/K8
-         SG1frcoeHVfeHQIvrIbljQOIAQAG4ZRAcE5xBi4XXr9rk2KkKSExubMZZffrqq4R9UQB
-         T+NOGc2LkYaC+U06gNk7D0FTNjQ3DPvIiecM/kHzAa1V5QZUO8yKKZ+6eJRyUKriq+OA
-         QmBBdti8y2u55BCuOgKy7XyNNxMijv3x4KMH/BpYhnb3PX/YvrlQqHv2O+S6AtdQzKap
-         NCEg==
+        d=gourry.net; s=google; t=1790355450; x=1790960250; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9bjrkiL4iEq9ZNMKHNSHheXCqmdqWwp0fVo1stfpkbA=;
+        b=Jw2Sl8fVtNahxbmS5pEsg42w7kYS6uU6BTEYy3XNiUu8aaua+ig2r8wRGzadH5K7HO
+         nn6EPmkXY/RZJGCUATzSNx+OOt7wSYCyfBISSVaHbgQoC3Vey8wca9k2KELDmnKXFgBK
+         lkYhMftGZuDpespGI43fgxyKoKljWf3x5smOaX/NW2nJd2HCXqypTdQshjtttxhPsTUb
+         OCj2jxBmWm6yFzXF8aV246OWGd3v5nHcF+487/JdtEWBTJUH+jqPvNsmJD0e3/n/+Muq
+         VPwDLFnSDuobHjUn6VYnTCOL+LUV+m03/gVibkJATzTNykKwzCuUGgtAKSZkbhv6ukrI
+         FfIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790355435; x=1790960235;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F8+cDpA4o8IIv8At6bigSA0d6QqqnQSZKyoTG42fL74=;
-        b=J8i7hkjfYlYcuG9I+0Y0uv+sglYto0Pf/+4yYv1tI2/0LB8dEiSzzgH18HlV6OM6VL
-         3XHjaqAKSlC7ltkpIrT6aLMvoc/xmgxM9aLxfCf+028nFJtFP0JEDbhZ9FCWVBsm81sz
-         JNJzOWIowqZ90+oy6GraamV4MoeC/JQF0NfJ/9QMxylQtfmd9O2ciPDUf43Z9v3viGC8
-         zIaNaH1CTj3uHLdRb0T2UZ929kavZyWqemY80dKH4v/T9LuRJQuhJKLNnM5D2X0zNZXm
-         jHKwfraZb7stKvF8oWpgWBbFqMhywv8A2+cADhb1xxJHgkx7wnDhAKOpIr0Myk5r51xJ
-         Gh0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxA1uZ47vAdMwlV6LKQtDoHYTJgswAWgrgGjcvG8bCYGXB7SgPvO42s5HkUxJRNrCoKTXRaRPTf2jHihYA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6+HceoYu7bvBrllq68EMlZV/nGNsxFKHOkYF+anlzEX///DMO
-	QfjZaGUHG2Aw/6+niuPzuCx6e6QMJFz4sXkrUS2tUbXsIpwcnMczOrpX
-X-Gm-Gg: AYBFou3UaE2cQVaWCo+gJaea/YLag8ynCGuuNFLdbgO/U+l02WyoqtgNY+srVNo76h5
-	GmEPJo40CvqjzjMUSxLQXMXkbYmYIOKD4EXibsgSz1/THbavdOL6Zbltan31tYeqEh4unyf7cDK
-	5jIL3CBW40ufej+0H3uJ6maODpEAIHLQXXH3SPvbDgZ8p7XfV8XQgwU/M1e9a4SWuU7gYNplHEP
-	18dOf6thhccIo72mGizvYkquqKIwYFOey4cZcqSdGGX8DUqzb7u1Ojm1X8z1cXPW/9g70z+Jzkv
-	U8L2nTPAvUzlZ/n3/x15UdMHAH2Nlcp9pkMUvdXRxrAfZO25rsMM+TxncUih9tG3vB3trk8BZx4
-	onFRXWgK1uKcKksJt5bHMNCg1Xf/DXRPOcSnXtiRUGT2Sd+pFhX1iAq60CiqcXAKLWdSgs40G6z
-	ICRVF7UdX4sLBqRCdinX8PBgBm+H1vNCJkIT5d7FIHe4n5mghI/jHJ6jRc2RNz5By9+RElWvCUm
-	Jmivf2tnLICy0l+5Wz8JeYuPyeJH/rfSUcPRQATTAecXX9aSPx6yu6tlm9Dc9NXu7CFgiOJYAFs
-	4uMNteypXlbDsyTTdFMBtNx5rsXt/HU4dGw92QZs0RDfYvjHlV7OAjHJraHGr2NMSNWekRBOUlh
-	kdu8AVVekPWa4f1XQ
-X-Received: by 2002:a05:600c:1391:b0:49f:c18a:61c8 with SMTP id 5b1f17b1804b1-49fe66ff2c3mr114387595e9.29.1790355434688;
-        Fri, 25 Sep 2026 09:57:14 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-adc6-9c01-89ae-b145-8960-cf19.310.pool.telefonica.de. [2a02:3100:adc6:9c01:89ae:b145:8960:cf19])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a36189bsm8020363f8f.21.2026.09.25.09.57.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 25 Sep 2026 09:57:14 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: John Stultz <jstultz@google.com>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Miroslav Lichvar <mlichvar@redhat.com>,
-	Deepa Dinamani <deepa.kernel@gmail.com>,
-	Cassio Neri <cassio.neri@gmail.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	David Laight <david.laight.linux@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] time: Prevent time64_to_tm() day truncation on 32-bit
-Date: Fri, 25 Sep 2026 18:57:00 +0200
-Message-Id: <20260925165702.51677-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1790355450; x=1790960250;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9bjrkiL4iEq9ZNMKHNSHheXCqmdqWwp0fVo1stfpkbA=;
+        b=eFzbhfzf13t+FXNlusgT1tu03yJbpy1RU/fGGuNXvETFW4ueFMkil/fxpTVYK/SwQF
+         nB5QEmjobE1Lq9EHOXuwES2K3XM37/qFjhEIZwLLAHHpkn+1K8FR1anbpR3Y33Xdr6ig
+         80wWFXtCLCCfYF8WyJdECklgzxdq/SHH0OQ1CFujSH8cUCq7nSf4hjcdOvMGfTyRxFrn
+         RXe3cH4KF0Md8e1EHVG70zeGVgKlM2e6E/2+YT9BW+Cw4N3/LgYk0o+k5QhaynETXhUS
+         Ev0KwHdYicfhNENUPZ5tE43P+GgPYa4S4G5+0yqkcoxGbZvL7SOkPiKCx2iZ2p56OWUy
+         7J6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwfh4jMN9Vf+ZUkczmiSXfISb/QzQ5PN5JO3KlqWn5Sb7zUtbEaFtt+1LSw6GDydi8nlLCGAFEnfNyolPk=@vger.kernel.org
+X-Gm-Message-State: AFuF++koua4vJ3QCtuCUdGRb3n2nOryZ4CGkL1yRNYZPOAWOwjyrCoNa
+	JgPwYtt3ddHdjpyL/IyDGJf8NoNrBlWDKOPTuNNGfcLbWqJvUKzYpcJMz/IE6ghb6YA=
+X-Gm-Gg: AYBFou08My4I592M+8G7dvCcIVdD6eJb/1wKlg70qXWO741NzoXV38tkiBiMCsR5Xpr
+	gFf+Dn1tV6+giXjipypAZgD10TX0QXzJpFG4UQJu8xNen5XHUF+wNRFoBfyyj6ZQvKTqcCa0E7j
+	TMyNyNw3swAn37KtzETrJqhTLaxZ4ToY/pKQ0D7PxkJ7G/thrqnVx3JDiwCSVSzeI2NFJguo+us
+	zbDwOYvUqpl61nYkSlHdmjx5ZQcY4IeYYoHjDWXALzOD/QAj2UjKtKlRx6/wRjKfMvr2620W2wj
+	AYOax1/htN6znRlkIrXMoFKxq0TXetGHJZa2Fym6x2SHifh69KRYeL9nTzY47gheAHsxU7BJT7z
+	/4jO95R+cf21a01oEOPo/rQNwOgVWnq1ImRtEmKXcq1ZCAjYobUj+LYR10EOIsrfTeHBvxoHFFv
+	XvCBcapggJwpxJ+M7QHgk/tpnTq7HTLMxKfrRLhEkGej9dMOD9iS6ZKeoJ4DwudkGe6yy9NsXiw
+	WPubxyQxxE6Aav1STGSfOqtXHc65q9ZzE5jsSZqKYDWxQnOm8u0ZA1fYXKG5/SO5Q==
+X-Received: by 2002:a05:6214:1c8f:b0:912:517b:7be0 with SMTP id 6a1803df08f44-9142f9ba67emr60909446d6.43.1790355444970;
+        Fri, 25 Sep 2026 09:57:24 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9143a7f3062sm11614896d6.8.2026.09.25.09.57.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 09:57:24 -0700 (PDT)
+Date: Fri, 25 Sep 2026 12:57:22 -0400
+From: Gregory Price <gourry@gourry.net>
+To: SJ Park <sj@kernel.org>, Bharata B Rao <bharata@amd.com>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, jic23@kernel.org, dave.hansen@intel.com, 
+	mgorman@techsingularity.net, mingo@redhat.com, peterz@infradead.org, raghavendra.kt@amd.com, 
+	riel@surriel.com, rientjes@google.com, weixugc@google.com, willy@infradead.org, 
+	ying.huang@linux.alibaba.com, ziy@nvidia.com, nifan.cxl@gmail.com, xuezhengchu@huawei.com, 
+	yiannis@zptcorp.com, akpm@linux-foundation.org, david@kernel.org, byungchul@sk.com, 
+	kinseyho@google.com, joshua.hahnjy@gmail.com, yuanchu@google.com, balbirs@nvidia.com, 
+	alok.rathore@samsung.com, shivankg@amd.com, donettom@linux.ibm.com
+Subject: Re: [PATCH v8 0/8] mm: Hot page tracking and promotion infrastructure
+Message-ID: <aranZV13vzTHR8cL@gourry-fedora-PF4VCD3F>
+References: <20260925021226.52kpnmvfylw73dz4@offworld>
+ <20260925095039.48831-1-sj@kernel.org>
+ <20260925163051.vuh5y33xemwqgohc@offworld>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925163051.vuh5y33xemwqgohc@offworld>
 
-time64_to_tm() keeps the day count in a long, which wraps on 32-bit
-kernels once it reaches 2^31 days (about 5.88 million years after the
-epoch). Patch 1 widens it to s64; patch 2 adds a KUnit case at that
-boundary.
+On Fri, Sep 25, 2026 at 09:30:51AM -0700, Davidlohr Bueso wrote:
+> >    +/**
+> >    + * damos_add_folios - Add a list of folios as highest priority target for given
+> >    + *                    damos.
+> >    + * @scheme:    DAMOS scheme for the specific access-aware operation.
+> >    + * @folios:    List of folios to apply the access-aware operation.
+> >    + *
+> >    + * If a kernel component finds folios that eligible for a specific memory
+> >    + * management operation (e.g., CXL-promotion or demotion), execution of the
+> >    + * operation can be requested to be done by DAMOS using this function.  The
+> >    + * execution of the operation will be asynchronously done by DAMOS worker
+> >    + * thread.  DAMOS features for resource control (DAMOS quotas) will also be
+> >    + * applied.
+> >    + */
+> >    +void damos_add_folios(struct damos *scheme, struct list_head *folios)
+> 
+> Considering chmu alone would not justify a generic mm interface, I am more and more
+> inclined to go with the chmu <-> DAMON option (I recall your presentation) + do
+> NUMAB async (1 and 2) and that would solve most problems in a practical manner.
+> 
 
-Why years beyond LONG_MAX are not handled: with this series the
-calculation is correct on 32-bit for every year that fits struct tm's
-long tm_year. Timestamps whose year - 1900 exceeds LONG_MAX (about 2.1
-billion years; time64_t reaches about 292 billion) still truncate, but
-only in the final assignment to tm_year. Fixing that means widening
-tm_year for every struct tm user, so I have left it out of this fix.
+The major pushback on NUMAB async has been that there is no good way to
+charge this work to the cgroup.  
 
-Changes in v2:
-  - Split the KUnit case into its own patch so the fix can be backported
-    on its own (Thomas).
-  - Declare 'long rem;' before 's64 days;' (Thomas).
-  - Carried Thomas' Reviewed-by on both patches; the code is unchanged
-    apart from the declaration order.
+Shakeel recently posted something that might help:
+https://lore.kernel.org/linux-mm/20260924184714.912181-1-shakeel.butt@linux.dev/#t
 
-Testing: time_test_cases KUnit suite under QEMU, i386 and arm, built
-with clang 22 (LLVM=1); arm also with gcc 13.3. With the series both cases
-pass. With only patch 2 applied the new case fails on both architectures
-with tm_year=-5879541 and wrong tm_mon, tm_mday, tm_yday and tm_wday.
-timeconv.o references only div_s64_rem() and div64_u64_rem(), no compiler
-runtime division helpers.
+But the approach does not generalize for everyone (see Tejun's response,
+net rx).  May be worth a look for folks.
 
-v1: https://lore.kernel.org/r/8d421725051450cecf0a7e6d2c514b6926df43b1.1788019619.git.kmehltretter@gmail.com
-
-Karl Mehltretter (2):
-  time: Prevent time64_to_tm() day truncation on 32-bit
-  time/kunit: Add time64_to_tm() case beyond 32-bit day count
-
- kernel/time/time_test.c | 16 ++++++++++++++++
- kernel/time/timeconv.c  |  6 ++++--
- 2 files changed, 20 insertions(+), 2 deletions(-)
-
-
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
--- 
-2.39.5 (Apple Git-154)
-
+~Gregory
