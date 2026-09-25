@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A49E2F8E88;
-	Fri, 25 Sep 2026 14:02:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E0936DA03
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:02:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790344972; cv=none; b=uM3J3t1hMf8GrEFIm+pjKVBe+mZ0RLBWDqFPXY3ti8EAz3DTkIq5G46CCsEubnfM9OVCfMaEZsZeVfCN5SFATmgzIqd87H6mO/p5k6bQcCGyL2ufx6J9G+Fo9B+4IvmkfuZT0I7tds7y0f+unbIavMO/GrCKOYjXnm6GtN4CmKM=
+	t=1790344977; cv=none; b=UviWBlFNTOKrtONR+St39Use9ep6yaS4xmAsA5uJskBg419OpIRr4/qQNXr+bZ99G4I1fLHmyKYyAMN5BUyhFqbSj6Tr5ugUrucnZU2m0fq5yrDnfr0Jxv6phbGxaKZlpMRuTCY9wjV12liTdZgkTBRMrtLIeaZDDzO/E5muWFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790344972; c=relaxed/simple;
-	bh=vJmM53T1gvLVt2GOugt91tr2ZoRcYIz6a2/D9x2PQuA=;
+	s=arc-20240116; t=1790344977; c=relaxed/simple;
+	bh=mEzL/oVYgP16JstPT/eHMLuuYDSV7fG1M/zHAKMzfBc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OX1aA/QxMGkdtNOh8ddLRafAPlPz8vXd0ROZoppHRCUDPwHGNxJT7M98C3NdMHPV0FVwKm9j5b6hMSpw3PHPWM51R+4PJ4Kw6rWK1i1H77CZoWKBgB5lA3iApEPPRVWlmRPVbq66bkrr9gy8k1/mGQY9dku7TMKvQDCz5jmIAeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVd9KAcu; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=IOdpTSGYcORjJPicmyDFGu5Tx+R8CESrksmSDBPGELoOOqiys+10tN8dbQH8vrzoG5zRB67ao2QOOyx6tu62w9Y7Q3cfkZFN9gl4P32zS8yP0KjKIYNY1/DtkRsAfMdM5caLy1xS4iTEvJpcuGGphorBPTWKqiibL0D4u1ln2cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EdTV3Yml; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVd9KAcu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A503F1F000FF;
-	Fri, 25 Sep 2026 14:02:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EdTV3Yml"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11A841F00893;
+	Fri, 25 Sep 2026 14:02:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790344970;
-	bh=NNCsrq1Pv4PJ3tCFfQhR0ITmItYI/b9/JCcKk5G3gR4=;
+	s=k20260515; t=1790344975;
+	bh=YVoSDjgao1hiZcDHTW+JplfooUkhmyZ1eZ6I1I7S+yY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jVd9KAcuMu0TNXZeoByHF3KAzOSxm8XMBVZ6mQ6QBVKKxJTc7/cm529qR6DbrR8Io
-	 rAoWeoJCZM+eN7ARUYqNxWblUf31m2r8SH6cjJX46DD/Ph0kY85iYkqO+a6eDEYMZC
-	 faitM5TpGFrED073qp0WLAr9ejfunVcNc6wbGLBDwxjfqJ6mj9NfeZqPmKsVicfzjB
-	 2cSe6opxwp84fTugfEwBHskJZj9y016emGRNn7jtQLkyaSHF38KgsAmK7vfWQHA37k
-	 y0fbpezVJaTCm7/xo1L1ImRh6Rh1nLMVf8GNdqXYNgD2hNuaoKD6HTGx2FeZlD8QO4
-	 5QAZSjCeKoROQ==
-Message-ID: <d7460bcd-b9c2-4a83-8248-d13a9ac1678b@kernel.org>
-Date: Fri, 25 Sep 2026 13:28:30 +0200
+	b=EdTV3YmltqmF7He/aozNeHtXl+aENragv8NRXN70r1qHSHp/eP3SWcC14FNNWWGJb
+	 M++wWTN0EcIT6IgJ8nBfUwJyBNySJuXFxepYnqGuMHEu616jhzt6Szp+jZdn1ARx4I
+	 m0SLpWyh/bmDdH+6ovd7cNxC7PgisL07t1EWIpo4TqG9mv3Udf6D7K5esrHlNoAnDj
+	 +sbRzCt0A4e/+y11s1n/hF0L2/FtNccOqGxq+2uZyvp9tNkPd2dai+8ikN3Wnl5vZp
+	 sIeZgbAgxuNkznWkdAamJxgzygvLMiYBYJuL+e0A55B0eJI0oH7WFZMkDqCNAa4Px3
+	 EVZt/DVA+s1cw==
+Message-ID: <66f5a0c2-6adb-4e03-9225-cf566b7f76f8@kernel.org>
+Date: Fri, 25 Sep 2026 13:29:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,15 +35,15 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] proc/task_mmu: handle special PMDs in clear_refs and
- pagemap
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel-team@meta.com, akpm@linux-foundation.org, liam@infradead.org,
- ljs@kernel.org, vbabka@kernel.org, jannh@google.com, pfalcato@suse.de,
- peterx@redhat.com, jgg@ziepe.ca, sashiko-bot <sashiko-bot@kernel.org>,
- stable@vger.kernel.org
-References: <20260912122822.3348978-1-gourry@gourry.net>
+Subject: Re: [PATCH v2] mm: shmem: ignore sysfs configs for shmem forced
+ collapse
+To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org,
+ hughd@google.com
+Cc: ziy@nvidia.com, liam@infradead.org, nico.pache@linux.dev,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, ljs@kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <063f655b4d6c4234f3aa27ed6ecab10283ecb880.1789351825.git.baolin.wang@linux.alibaba.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -90,72 +90,32 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260912122822.3348978-1-gourry@gourry.net>
+In-Reply-To: <063f655b4d6c4234f3aa27ed6ecab10283ecb880.1789351825.git.baolin.wang@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/12/26 14:28, Gregory Price wrote:
-> mshv_vtl_low can install a special PMD from a PFN supplied in the mmap file
-> offset.  That PFN need not have a memmap entry.  Reading /proc/PID/pagemap
-> or writing /proc/PID/clear_refs for such a mapping oopses the kernel.
+On 9/14/26 04:12, Baolin Wang wrote:
+> According to Documentation/mm/transhuge.rst, MADV_COLLAPSE is expected to
+> ignore any THP or mTHP interface settings.
 > 
-> With a test driver mapping the PFN at the 1 TiB mark:
+> However, after commit 26c7d8413aaf ("mm: thp: support "THPeligible" semantics
+> for mTHP with anonymous shmem"), performing MADV_COLLAPSE on shmem will
+> depend on /sys/.../hugepages-2048kB/shmem_enabled being set to "inherit"
+> (although that is the default), which can cause MADV_COLLAPSE to fail
+> unexpectedly.
 > 
->   echo 1 > /proc/self/clear_refs
+> Fix this by returning the result of shmem_huge_global_enabled() directly
+> when MADV_COLLAPSE is requested, allowing PMD-order collapse while ignoring
+> shmem THP/mTHP settings.
 > 
->   BUG: unable to handle page fault for address: fffffb5b80000008
->   #PF: supervisor read access in kernel mode
->   #PF: error_code(0x0000) - not-present page
->   RIP: 0010:clear_refs_pte_range+0xb1/0x1e0
->   Call Trace:
->    walk_pgd_range+0x50a/0xad0
->    __walk_page_range+0x6a/0x1d0
->    walk_page_range_mm_unsafe+0x193/0x230
->    clear_refs_write+0x18e/0x3f0
-> 
->   pread(pagemap_fd, buf, 512 * 8, addr / PAGE_SIZE * 8)
-> 
->   BUG: unable to handle page fault for address: fffff57840000008
->   RIP: 0010:pagemap_pmd_range+0x3cf/0x6b0
->   Call Trace:
->    walk_pgd_range+0x50a/0xad0
->    __walk_page_range+0x6a/0x1d0
->    walk_page_range_mm_unsafe+0x193/0x230
->    pagemap_read+0x1dc/0x350
-> 
-> clear_refs_pte_range() passes the PMD to pmd_folio(), while
-> pagemap_pmd_range_thp() uses pmd_page() followed by page_folio().
-> 
-> Both paths assume the PFN has a struct page and dereference bad address.
-> 
-> Use vm_normal_folio_pmd() and vm_normal_page_pmd() so clear_refs skips
-> folio operations and pagemap skips folio-derived flags for special PMDs.
-> This matches the PTE paths, which already use vm_normal_folio() and
-> vm_normal_page().
-> 
-> User-facing notes:
->  - Pagemap still reports PM_PRESENT and the PFN to a CAP_SYS_ADMIN reader.
-> 
->  - For a special PMD backed by a valid memmap entry and for the huge
->    zero PMD, PM_FILE changes from set to clear.
-> 
->  - PM_MMAP_EXCLUSIVE is already clear in both cases.
-> 
->  - The output for an anonymous THP is unchanged.
-> 
-> Tested in QEMU with the test driver on broken and fixed kernels.  Both proc
-> operations oops before the fix and return 0 after it.
-> 
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260912034833.2952750-1-gourry%40gourry.net
-> Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-> Cc: <stable@vger.kernel.org> # v6.19+
-> Assisted-by: LLM
-> Signed-off-by: Gregory Price <gourry@gourry.net>
+> Fixes: 26c7d8413aaf ("mm: thp: support "THPeligible" semantics for mTHP with anonymous shmem")
+> Reported-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Closes: https://lore.kernel.org/all/20260908125105.1510704-7-kirill@shutemov.name/
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 > ---
-
-Simple fix, let's CC-stable indeed (unless I am too late and this is already
-upstream :) )
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
