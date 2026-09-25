@@ -1,105 +1,114 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2DE3515D7
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:00:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB2C35F180;
+	Fri, 25 Sep 2026 14:00:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790344831; cv=none; b=ehIoXjQcQmGLLypLy8BtVM8gWFCfLdqkcS+cPBhhoztPKJRE3Uxb0cyczttTTvEqinJ95h2Ayljuf9b30XGxLMmYriLsah/pqlspbsQkqzTFDel5Y77TA+2n5MD7caOjYiNUHCMWLklCKCO81Om5yj45WZ41k+zd3Kgy+oLqRWg=
+	t=1790344848; cv=none; b=B6WzOzcblcMu1pnaRQJtDIP6Ong/Kh48XWce6866AN834XiMebAXqbPtATft507ExA1/3KkzBqqIW61VRry5B4DzQtZd8KtO38uTeLM12zhowBl1JMvDHmLLA3eGYL3UZ6EHeu0uQeaACK8lV+ZEgTa92OkhCo8HVDw7SXO3gNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790344831; c=relaxed/simple;
-	bh=2H8He1fIaWEIMN/Us026LinmPPPSEuu9arhpUonNLWM=;
+	s=arc-20240116; t=1790344848; c=relaxed/simple;
+	bh=/D7OLlAcSt4bHGM6mQVL2tDwdF72U2tVdBVQLq6CrgM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q2Xdu5OebifGfms1pCiYQL+TYCViXVVRZIH1bHDOsMVB/bvkjjYMkqeTAT+nCgQhdjkAnK9oOImiirvj76bxoa9Ih2OF1tlT27EnYkQwtsCGdE9w4t06ZOraCottIhRaAKpLMT/ogj6dmW6RUrPLulSSvhVJ2Hm58bJ0PKxBy4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OsHGSbSE; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=CPC3JaCluADmQhYFU9g09WeiH2XGlyQJoYTdFV4CaPvzCsDOJdGe5NpgiC+fKHLsQbr8mEHfLWHdZOOvGDpAKebJg9QpRvbrLBWkdiqs5HnsqbP9Wl8bmXDtcSWQynzfd8WPf5CGOlRDoJyPVfU1FbyZMVwxdEICijdnlmZGvfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCwhotO3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OsHGSbSE"
-Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc433d52421so343132a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:00:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790344829; x=1790949629; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UIT8Wz/kXm8JbJjsdHOy8KnROa55AifnObjuh2CsK/E=;
-        b=OsHGSbSE/Dou2eSCRNoobq56lEr11LbsgaP9FoCGLna+XbV2fW4izGkhG3xCZTLgq+
-         2zSnPq3TFs30vLyvpLxCSRWRYXYzr94TKF0c/7tW30Q304wiQixBI8jVx6qTUw1YBIYK
-         +HVVqeDYcagxtgYkCvhn/rQnt9+PQ1hYj5iBu+O2woZq9pVqDrnaU+TaRqzya4/FKAZB
-         F4kBIQp3/ucRWYotdfy4xfvcgnb2DZ0Jj8EYIiVEm6YrxNus1YAfNoOb/O6gK0sqxRJd
-         YUVGIsHJ/I34Ldc4Ssr5/YKh+1Ew28UCz+zZ2pEKbqKYg4lrmTl+VdeSJ0h5GK+oH/Tr
-         kAjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790344829; x=1790949629;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UIT8Wz/kXm8JbJjsdHOy8KnROa55AifnObjuh2CsK/E=;
-        b=dd1pXy7eXaW+DEV8juWhErAX7avjZrkWxnmaNw/WzYecKq5ZoHL0tlSK7j/7dHRm37
-         u4mD1HpfyrJS+eyuAj043gG2lkUr/PO/PWNvn+R+hqtrN6/2bBcco8lU4iz10cAjtffu
-         RN2wc8HTIVOLKrQ9WqXknybTolqbyG8vr/LfW/7hpbnVBNsl52agqTU6N9cJVCf/G8K4
-         IYYMpgW2xJMK7Fw/I/JytLbcF8Q09mXGK49ViudmuSrwyjuywqBJMobHJJSVoZ80XEBg
-         DxrSTfszXGiFvuIZxBtsn2L2IzTLVQVr3oboGSaxv/5RNDAdgRNIUXl6rjat1ME9IdE9
-         oTPw==
-X-Forwarded-Encrypted: i=1; AKwUvBzs6I6eZkFOfk4pMdL0TPECs9HFevsRL2pw5cc1pFxJqPNLFk5ZABtKU3D2Djx+4D4YoOvmayx2U+zE1ZA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCAYCgMlmuYfMvWqzPd9ujkKIL3ikUKZK6nscpdUQ5odEa7TFV
-	Zx59cb9hiRTjg4j1I07D+8wVx2eaBOguNBg9xuERLgxAsuEPfTpXq7YS
-X-Gm-Gg: AYBFou0KKJdK285ijs9X56MIiqkO+5vob8xv4AJ3jdDrleRC6smnzZDbkrNM3qVWQA/
-	aryjljkszfli8PG9yD4eP3eIla1zhEqls092BWhm/WUori/WXaIpJGP43R0zumM69hVyMkrRIAH
-	tIH2RklJ5gnHKvZLUhdx8yVupyvOkLlW2aSyormtY+mBc0UzntCHJdVWDqX4yLblivNjW88F6Hn
-	Fpd7OwLzFzhMO46lST9XseeGK9loTGFY/LxKRhIVA3vG9cJ2/s9/yJjPFX2UoqwbSZ1GP5YoKAj
-	EsQCM+R9mxTUyLcami9X7pmIAkzjXMZnUBFfnwjCQxjbzsUpkeaInLlv70m+/TEwA+5L9tKBnTd
-	+AHKCycZZ+tPUOUz9h/MuPvv8wenSwwX19AuQdId/3avhRV7w3vD78avINGv0YuDa867IJZ7MP7
-	6waSpMvk3AzweoT/mha5MlY0ZIwm9kmfy+258+1R6uxkTmEEd5JhaFCs2kn9dx84u+EAO1RqaSw
-	kshn17dAn7CEOIxIwF593M=
-X-Received: by 2002:a05:6a21:6e86:b0:3d1:39e9:b269 with SMTP id adf61e73a8af0-3de0e713a13mr5286119637.4.1790344828912;
-        Fri, 25 Sep 2026 07:00:28 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feb57e56csm1193045b3a.48.2026.09.25.07.00.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 07:00:28 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 25 Sep 2026 07:00:27 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: ashish yadav <ashishyadav78@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ashish Yadav <ashish.yadav@infineon.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH 0/2] Add support for Infineon Digital Multi-phase
-Message-ID: <6d6d168d-acad-4ba0-b0e4-214dd07822d3@roeck-us.net>
-References: <20260921065702.93196-1-Ashish.Yadav@infineon.com>
- <CAJKbuCZ1733m5UKXNwOV-3WBYNOFbgUA7QUfhAY51yskv6z-Aw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCwhotO3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C094E1F000FF;
+	Fri, 25 Sep 2026 14:00:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790344847;
+	bh=miitlFqrZJ3O9f+cCMnSVGG6jxgp5wyJfCxurXE3ANQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VCwhotO3kSlrDkcBmXFAxNYyyNJOkNcK7Ux9Dd4nk0be2BG+oJFEsOjIeHXlH5mOW
+	 PIXNdPSHjGD3tDCS6A9YRAe1dgGUg9GU2mc6t01b4rIdhzNI6dSGKzuWPoFvHCR+2Y
+	 QVFqENDPIMVS/dXbnLy8Vi7Di/u/9aBy7Z4unEn8iz1kmYkgpQGXDvq1b8qcPLshqz
+	 24cUJIT5ivMSssUltWhhHuJAPPob4NHFhKi3GJV5CftLKG/UeANK4EFPNXyofl/3L8
+	 qQlZ/jS/G48JzCPCyR+A/VbvmglxLQ77JzVFqozKpBL3hYlf0Eksz295w+UIJmPcuJ
+	 8dyC5ZyQ3O9Og==
+Date: Fri, 25 Sep 2026 15:00:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: webgeek1234@gmail.com
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Weidong Wang <wangweidong.a@awinic.com>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Val Packett <val@packett.cool>
+Subject: Re: [PATCH 1/6] ASoC: codecs: aw88166: support changing sample rate
+ and bit width
+Message-ID: <93d91d10-3d3c-4dae-bd5a-62a2f71458a0@sirena.org.uk>
+References: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
+ <20260925-aw88166-cleanup-v1-1-11f74cb5fe28@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FTu+px7R4XOd4BJN"
+Content-Disposition: inline
+In-Reply-To: <20260925-aw88166-cleanup-v1-1-11f74cb5fe28@gmail.com>
+X-Cookie: Love America -- or give it back.
+
+
+--FTu+px7R4XOd4BJN
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAJKbuCZ1733m5UKXNwOV-3WBYNOFbgUA7QUfhAY51yskv6z-Aw@mail.gmail.com>
 
-On Fri, Sep 25, 2026 at 12:01:28PM +0530, ashish yadav wrote:
-> Hi Guenter,
-> 
-> I hope you are doing well.
-> When you have a moment, could you please look into the patch to add
-> support for the XDPE1A2G7C voltage regulator?
-> I would highly appreciate your review, feedback, or any guidance on
-> next steps when your schedule allows.
-> Thank you very much for your time and continued support.
-> 
+On Fri, Sep 25, 2026 at 02:47:29AM -0500, Aaron Kling via B4 Relay wrote:
 
-Please do not top post. Also, I was waiting for DT patch approval.
-Besides that, I do have a paid day job, unlike this one that isn't paid.
-If you had bothered, you could have checked the status of this series at
-https://patchwork.kernel.org/project/linux-hwmon/list/. This e-mail is just
-noise adding more to my work load without any benefit for anyone, including
-you.
+> The aw88166 driver only worked with 32-bit 48kHz streams so far due to
+> the lack of a proper PLL initialization sequence. Fix by selecting all
+> the necessary PLL settings based on what was passed to us by the
+> hw_params/set_fmt ops. This replaces the strange downstream routine
+> that tries two divider modes in sequence.
 
-Guenter
+> -	ret = regmap_read(aw_dev->regmap, AW88166_PLLCTRL2_REG, &reg_val);
+> +	/* PLL divider must be used for 8/16/32 kHz modes */
+> +	ret = regmap_update_bits(aw_dev->regmap, AW88166_PLLCTRL1_REG,
+> +			~AW88166_CCO_MUX_MASK, aw88166->cco_mux_value);
+
+We seem to just completely drop all reference to PLLCTRL2 and switch
+over to PLLCTRL1, I'm going to guess that this means that something that
+used to work now no longer works...
+
+> +static int aw88166_hw_params(struct snd_pcm_substream *substream,
+> +	struct snd_pcm_hw_params *params,
+> +	struct snd_soc_dai *dai)
+> +{
+> +	struct snd_soc_component *component = dai->component;
+> +	struct aw88166 *aw88166 = snd_soc_component_get_drvdata(component);
+> +
+> +	case 32:
+> +		aw88166->bck_value = AW88166_I2SBCK_64FS_VALUE;
+> +		break;
+> +	default:
+> +		dev_err(aw88166->aw_pa->dev, "unsupported physical bit width %d\n",
+> +			params_physical_width(params));
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+
+This doesn't touch the hardware, it just writes state so if hw_params()
+is called while things are powered up nothing is going to take effect
+until the next stream.
+
+--FTu+px7R4XOd4BJN
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2fooACgkQJNaLcl1U
+h9CQagf/VJ3Qdqzt5DWOXKiXjLnL4JSOL5OU6LUK3UmwqOQiAmvIbiP6jH0mGuYH
+3WAkMfI9GSoDkItViKVUL7I0AyVTRpkklT2pz0ElZukygBktFs9r9iwHE7UP/73I
+hGEBIwWvJZACHPb8TYlz53fgt/PAbN4Lb4xNUf1LS2+1dzE1+lRNLt6JFmoxLKUq
+HYPzevrIcO5Ob58SRWgVPwoVsrTeVi8FVhmjeTIN7+HHDhKsWLRnMyYXhyOr5k7x
+OY1mZ2gq52k9Wa4tWf7Sy6P4t7LdEpg5XhHSl1jQvwzguUuJV4oQCL5SZsOxotvD
+kamgznXoJFugw2aaS+QY5NZRtAKrOA==
+=iLDV
+-----END PGP SIGNATURE-----
+
+--FTu+px7R4XOd4BJN--
