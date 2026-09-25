@@ -1,229 +1,322 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E7641D208
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA58442FA4
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790318511; cv=pass; b=ndI2G1iyQ+Z7ZSjeNNwS0t+yYDxlNHf8w9gDZR26f7+OczXp2nssA6uMI0Iv16vSTAPgtLB97CYDsDDtWXMN2ofuvwaiLENvWHQAzqdB1Q1OvVbdiF2pcaC3KF1DZihnOuAeYHlKQ0ZCoTGIQ4ILnpxrctUQjRT/F+PU+2X+Mbw=
+	t=1790318544; cv=pass; b=QMF5hlBNJriGEckLgdJdbGPj3xklq7kS3htJqUeJNbR+l6k0TBsGkwjpAoZEnXyHAdEaS7ObQofKegVEmEvRqqV9NvP211IaLCtnvPAQHLU6gjjya9cls5HVNsrGDj2PR1EqUHVMzu3y4LcVBxF3tXDxk+h2MTYE/a5fcM/klOQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790318511; c=relaxed/simple;
-	bh=RkD0ncrXK0q4FdIjZkUOUclIn2t5h5U0/ZqoP0P9Mzw=;
+	s=arc-20240116; t=1790318544; c=relaxed/simple;
+	bh=PIlXHAeNurzh/y2B+H0FitUxNrKxWKb3mLvgkGiI3zk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oynEN/VBoxByQ7o71r6RKpekMpsqnqgU3b8YsxKjJrS0wZWWSInh0h4NrgH6qenfqWDy/FZXpsQ9rL7x5lrGqsmYq8giivO8BBybx77d8vYSLpPHCHL+egBHokNrcoI3tKEZMf7gICebyScEOW005el3h0RMwdHBSdtO5T2SOVI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k8OriHiS; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=L+rF638rm9nJujK5Z8ham1km8vSWopIItZOuOS1AFpd6uCjfkg5sZhHKYOpuwp9ZeN800C83mrTzWUelsQ8a8jkBqiW3xXdrzo9M6fKKKAokUDmj0xrRswvhoBMz4MEzrkuYQ75H5Y2lhTqT7dxOpTqpu5R2+oPvcSChskaHPwA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ua0NHD76; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k8OriHiS"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b76ff64d78so568223e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:41:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790318508; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ua0NHD76"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6aa13d8d9d0so6830a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:42:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790318540; cv=none;
         d=google.com; s=arc-20260327;
-        b=oYN6+HrVO2BTtdyPGA4XRiUOso4K8Zs6bdmnWUShspY3QYWyDg9H0DqJiuVcLW1Vt2
-         3cWU4xQYfXrUNvsLT4F1MNFLKPi8zA74kGZgxKjYrdFdMccXvWX0sG8rbkWI2TDe/dTL
-         NsmGbg0tex0qIOJ+nfAUelUJ99nH5XZ88qJeCPT3c7s4a/xFf88UovzgLlLubF+L9jXK
-         lj+rf4qM4k07NqNcUQEfX2XxttvDfUQ1FXIiTVhWzNoF1fYSMbo1D2TBndptL1BtWIpm
-         VagoywuvrEEcak9o8VdOw/aBcKHWhrF7/q/p6ujEVqRfwYVyaQ/o78nGYjzo3eubPexQ
-         52DQ==
+        b=oKKTLff6HSWxeGy6NYh6T1gzy9MmzGzXqFaqvWcF8SUtLiihFfQR+bPdZS5VRpAt7j
+         GZmpVbz7r6edhwKOEf6V+5MJpJDQmptmpallCcbNAT4AzE89b3oTMU90uEnHDX5WkQQu
+         ujROAXScbCembDwk5EYiOkNYypQOpLLtbClkbP4sYwGH5O+VVF80QCWgEy3NbboZw5oI
+         CU3mDrt97nby3voecWd5ychQJQn3NnoYHJd/XCRlaCncC0jCdOTqzrVW/eYfFfDfsApC
+         afKsJfcGtXGrxZZuzIatnPbw90J4wwfWhgE3CRqDJl9Y0teYWZobyZogEGeOpmrm9w+u
+         yhtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=oCUKdWQbsHJgUOSvdlicS2cHjAoZu9s1v/XdrzjTDIU=;
-        fh=COaWGEZc+eg2aH/dN/CUJZiUgEUb/Cj847tTh3iK8e4=;
-        b=qq084tbf/WUCEgTkKqH5sPYJPQiuQa+amRamP7k/v4y83cZJj3xfBPFXCXwKNUNfh4
-         FqAAoS0LdYin019+nfHD1Biys8Gwp0tCOx6z2cOPCdml6TxQ7FPMKDV9VMYtceOJ/UuD
-         8QOZGzwZvR2Tajny+thqFZxdmOTCpkKVaKmyESK1kBo/WgoBzqUnjvzr3AiE2io+f7mo
-         mSlN/lR31Y0N9jchjp9F3gB9N8GcbxjKVHu46SPo3778WDHgAbGMnuFZ3lJeL7JRqwwF
-         azBfGo3s78oowkIKsNBFwzQnRBR+hzMgAFQyI1K8zfSciWODGdo/hl9g0NvsPsjD/i0D
-         wH+w==;
+        bh=U931IUFkMVd98OtvL0P43sJytu2CWHhy0Gubri2GWP8=;
+        fh=JHDU8nBtXjdTNue24sz69rPiqoeHYeKR0IBNDKhNa+U=;
+        b=j+CgzcvRLE8uS8Xu7ZdZl/D2J1dceGJXpDTHA4Ge0uUkNcrbTu/pUCF7Xb1HRxvB9e
+         JO6s38HJN09LgV0xmMzFLJ6DmyHeKermQOZk74hPjTHlln3wMHcbMnpPSb6uS/YyEfQ8
+         DxsaKmpHdYvGlqc1byrF9Nm5xUv0labWyhEC6ZKV2UyBUp220DuS7/gtQwO3OWA51CHN
+         Wify857Az/sLjwTdvgV/lsmP5yL44ymEibkKyLoX8lcXtTo7MUmW6FVlF5pBy1iMptKn
+         IEuNS0TiMw8zMKrOix8KXsJT7RBs269aAvPOnT/M2NPu/xqLX8Yhrk+fBZqddfF8pQ2j
+         zmWg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790318508; x=1790923308; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790318540; x=1790923340; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=oCUKdWQbsHJgUOSvdlicS2cHjAoZu9s1v/XdrzjTDIU=;
-        b=k8OriHiSUhYSimjZzzOgSQ7fiEthApf0hKVCTywB39HydjMmF7ElQ7E5hbLnK/D7X2
-         lsL+IyNTnAFrXfSBQBDEKiRXUlIOgrhcaKVz+yOoVuKumnZqlVZa+NyBzq8aFLPzaJMf
-         qwywzm58NdIhx26NEYDfvBloknkhd6IXUp8s+t8t84SGSA5n5/CnvHAQxeclKQtBkVTc
-         ISodHerrV/Vsr9t5pzFAGVWJwCmTBXm5vfgMt8QxX+iDDCWc3ZfyhEbr0tUOKBjKJXCN
-         SMjQLydGyjTJL6rON25JN7RW31yvpkk83v15UaIczLo42OXj9zQdgPc32hQowIGcNtX2
-         8SSA==
+        bh=U931IUFkMVd98OtvL0P43sJytu2CWHhy0Gubri2GWP8=;
+        b=ua0NHD763Klybd6sOAhy6Zrkh90RyVqAwPpOOTWSbJNQQMoCY0etb1ln7bjuhdmErJ
+         6Qp0Jr6BkEni5ttUluyDnlbXphc/SRJK0CrDmi/ZNxcApRXbcMasxDOJFZvJA9XS5VqT
+         rxH6frhGT3DtFMA8QbE5fAMc9vtXUK+M4Y+aOTmRgZwHqh+fAvt4gWFlk8ufCWC8G0od
+         DsMNNRrCPDyOSwbxYm38BJSPOitaeFCX68Re4W/UMNBQ0TBvYpDzJdbYIoHFWzXRVUFU
+         rhDY1xV/7706WnhQiU8+SQZkn6Qh6je215QbDkj/DuihwCcQojPaCtqZf2NkKfyeQXGY
+         rXgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790318508; x=1790923308;
+        d=1e100.net; s=20260707; t=1790318540; x=1790923340;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oCUKdWQbsHJgUOSvdlicS2cHjAoZu9s1v/XdrzjTDIU=;
-        b=p4ZitxmQPHuZVC8I2yXe1OsaxNKpR0qhSVPAH4HPpUHt1cElzHSzbY0k24iItbf9sY
-         WQhOC0/hRT9nP1gxzEpuNSt6HFQJSgSBJspX5pVDGcoydS6BdVcx9iR7EeFJKCfhSD09
-         y1qooQzdlTG6TGwbnobdBC7tp68ki73GJ/kszSrJ/PeIof2qiS9x+h/K6tlcQW/vQca6
-         KMJk+/LRwVxheVTnYiN1OEeBzo+PtUj5mWNzUdXKN4yvp9UEFuXm/Jgqxw0yK/rgQbn8
-         nKXPG13mmNFA0XNkIGBBI2Tcf4FfcGj+IHWDupFqlyBwlFX95XHDokTIXcDTLFH10DIY
-         h11g==
-X-Forwarded-Encrypted: i=1; AKwUvBzSGmdFgs4Vl6EHuTBO/A/kVIUGm2xXgG880DHZMypCspnXVbQeXCCJiTSY4S1x4c1Tli8Nl1Fc4p7E8pY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8Q/w4i3tKmjlId367U2hRbCo78nUPlRt90RZtyxBi8/pqKuDq
-	QhgrCgsUHlhKveFibzReqX2q2bAmwOu9qBTKGKWJV/Yf1sUMi0o3q3r/pOvUtzY6RYIfgG+AMY0
-	y333X9/oHdI3VFk7G68W+j/dUPnfpXak=
-X-Gm-Gg: AYBFou0QRXEr9kOA5etIgmX5s6nsvRjrTl1zR1KCTlvBQQokx+NQhzSVsPKcap/uDl4
-	RwsaDGAmXn1wpkVp4CLURzo47wE0WnSJMyLfRrKtf0GUUIlxQxmpc5Mp0D/7DqICD7jhkr2ZIuY
-	q6VeouRugh6d3KXolZI6v6UyAE/AwuRfSbxHoaDc4L1mwuUYdZdyr/3RPCHMgXCKnhR3BNOqQ+l
-	+tMUMbN3/zye1ixXTwSDr+F+2sIci723v2STisO5UsUUawY6Q33qNDjJKLfxnIIV/JCGH9oGN3/
-	ARFvg2EM7LYM0aN1k08KBm44JmVs2nwruR93EciaZz7ywgbXRS3eEM8yd1FXF5PxhwugohafkxA
-	Wzjtdic9iewbexSzlXkC6p6ZbmFrFjW9V3UwAgM9QA14=
-X-Received: by 2002:a05:6512:b23:b0:5b6:1a7c:59e7 with SMTP id
- 2adb3069b0e04-5b8e0fda144mr1478322e87.65.1790318507668; Thu, 24 Sep 2026
- 23:41:47 -0700 (PDT)
+        bh=U931IUFkMVd98OtvL0P43sJytu2CWHhy0Gubri2GWP8=;
+        b=lAcZRcRju9lk+5Y7OGjPCIpad8jyOuEHHuqA0VnbpFJ/O+rolzsZyIiRr8yAP6JZni
+         AlB7pguwjg3WHiHcWMih8HHhlDUJGGOrC/XoQbEzJAvGMq4BGdcJseDXCzDnFZP50Y6Y
+         YACBoVfYNXrEIl9F84OBD4Di+bETeM+P2AlZsY4fKOtf8sg0nRfyw/JQp+HQpr46kzMd
+         axLYFCP6Vt1/yQjzE/jR1B6ZgRXk481THIN/Xfl5/57vLAEtVCP0F7uiXQD868iQpZ6j
+         Y7SOzQp+a7YfcA6hWGZrWjYw1VZDlsyuMXFRW0/j9p+Gd0IHSgxMyq5G75sXeepIH10a
+         vQ6A==
+X-Forwarded-Encrypted: i=1; AKwUvBx0neMxIR6XEc/XeqIlgoCeusIzZObS4KwQr78CZ2B9dc7SbGZtYJqsWYolVrRtM/HMq36QDb8l8eubRp0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDjEenWYhwGDFw1HX5cI3j006n29JZUS41S3LxKR1Wsy3EnAJg
+	Ak134XGCLtbcMok0RHPB+nG0ABIxR3jF+hxCt6g3T/xRHnQ13xDygr/L7S+ZmMMJ1wAzxYlSYmQ
+	bV6SYzy6NFOm+Nz+8dApvf2/HemPOknYB3uun7on2xKzutW9OjBF2iLHIPkM=
+X-Gm-Gg: AYBFou1nDPVNAmgm3gN32/8AapjzjKe8PYttxvidd3Fh2ubL+FGiPxnsX4tW6ew9MfY
+	DsF5hZR64TKCGlZGFscPevnEeypSwLNIbrvSwP+R5XHmSS5/LrA8AUYHEu4a48LW4AJdzi/iJMi
+	dJXqfsGYbJIfy6XUHgwETTdgbjvO5LZJ7kjjLdUO2fEgGUJUSTX4hqPvfuC43aM06kNzBGWXk/u
+	GvvLIvzNbGWIUH8blrNSpAGokpwKbiDjEXc05tShkL5HA8b6+RspaoLN43AK4ZnD4comOSpB2YF
+	RvHBC0/oeIU6MMFTYN4VVuxeG18CYXpBBkLffbB7biwMRbQG7xGK+Q==
+X-Received: by 2002:a05:6402:38c:b0:6aa:b663:4801 with SMTP id
+ 4fb4d7f45d1cf-6aaea0fb6d8mr14030a12.15.1790318539859; Thu, 24 Sep 2026
+ 23:42:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727-ayn-qcs8550-v9-0-e3db456e10e5@gmail.com>
-In-Reply-To: <20260727-ayn-qcs8550-v9-0-e3db456e10e5@gmail.com>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Fri, 25 Sep 2026 01:41:36 -0500
-X-Gm-Features: AclHuK_MIE9jeQicmnij_O4juXzqsKzVql5g7gyWzlaf76vc-yY3NplBZb2k_9o
-Message-ID: <CALHNRZ8kFm98HAxoSya1uzV9TnPL8NAey3y5nUaaiqPiE+Fe4Q@mail.gmail.com>
-Subject: Re: [PATCH v9 0/6] arm64: dts: qcom: Support AYN QCS8550 Devices
-To: webgeek1234@gmail.com
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Teguh Sobirin <teguh@sobir.in>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260902040725.877155-1-cui.tao@linux.dev> <aphkAGKpg3dgFc6c@localhost.localdomain>
+ <8c816b23-d394-4389-94ab-7fec889b1300@linux.dev>
+In-Reply-To: <8c816b23-d394-4389-94ab-7fec889b1300@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Thu, 24 Sep 2026 23:42:06 -0700
+X-Gm-Features: AclHuK-5vOY-egLSEE_bH_0i2hCHj7p-HnkJlCAYVNPv8oCs54l4oqzVV9WylcQ
+Message-ID: <CAJuCfpEFmV9hE4dT2B_KTEaZfPe-tfkwJmYhgRRRFm-LqiwUrQ@mail.gmail.com>
+Subject: Re: [PATCH v5] selftests/cgroup: add PSI pressure trigger and
+ validation tests
+To: Tao Cui <cui.tao@linux.dev>
+Cc: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Shuah Khan <shuah@kernel.org>, 
+	cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ziyang Men <ziyang.meme@gmail.com>, 
+	Tao Cui <cuitao@kylinos.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 27, 2026 at 7:20=E2=80=AFPM Aaron Kling via B4 Relay
-<devnull+webgeek1234.gmail.com@kernel.org> wrote:
+On Thu, Sep 3, 2026 at 12:24=E2=80=AFAM Tao Cui <cui.tao@linux.dev> wrote:
 >
-> This specifically includes:
-> * Odin 2 Mini
-> * Odin 2 Portal
-> * Thor
+> Hello Michal, Suren,
 >
-> The original Odin 2 dts is not currently included as it has not yet
-> been verified.
+> =E5=9C=A8 2026/9/3 02:47, Michal Koutn=C3=BD =E5=86=99=E9=81=93:
+> > Hello Tao.
+> >
+> > On Wed, Sep 02, 2026 at 12:07:25PM +0800, Tao Cui <cui.tao@linux.dev> w=
+rote:
+> >> +/* PSI triggers are written with a trailing NUL the kernel parser exp=
+ects. */
+> >> +static ssize_t write_trigger(int fd, const char *trigger)
+> >> +{
+> >> +    return write(fd, trigger, strlen(trigger) + 1);
+> >> +}
+> >
+> > Hyrum's law. It all works for me: NUL, \n or just write(2) the exact
+> > length of the string.
+> > For conventionality, I'd prefer the simple literals and plain strlen() =
++
+> > 0. (I reckon cg_write() cannot be used because of FD access.)
+> >
 >
-> The initial port was done by Teguh Sobirin for ROCKNIX and was made
-> available on the AYN github [0].
+> Your Hyrum's law point made me look at the parser, and I'm glad it
+> did, because the behavior is more subtle than "all of them work".
+> psi_write() does
 >
-> Support has been removed for things not yet supported by the upstream
-> kernel, these will be added later when the related drivers are submitted
-> and picked up. Such includes:
+>         buf[buf_size - 1] =3D '\0';
 >
-> * The Odin 2 Mini panel, backlight, and touch
-> * All rgb leds
-> * The built-in uart gamepad
+> i.e. it overwrites the last byte of whatever was written. With a plain
+> strlen()-sized write that eats the last digit: "some 150000 2000000"
+> silently arms a 200000us window when privileged, and fails with EINVAL
+> for unprivileged users (200000 is not a multiple of the 2s minimum). I
+> reproduced both on 7.0.0-28 here. I suspect your runs succeeded
+> because a truncated window still makes a valid trigger for root, so
+> nothing looked off.
 >
-> [0] https://github.com/AYNTechnologies/linux/commits/sm8550/v6.17.5/
+> I went with your \n variant instead: the newline gets clobbered, the
+> payload stays intact, and it is the conventional procfile form. So the
+> reliance on the undocumented NUL is gone, even though not quite via
+> strlen()+0.
 >
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
-> Changes in v9:
-> - Add mi2s clock control in patch 2 as driver support for such was
->   recently picked up
-> - Drop unnecessary address and size cells from patches 4 and 5
-> - Track renamed pcie port label from current linux-next
-> - Add panels to patches 4 and 5 as driver support has been picked up
-> - Add patch to document chipwealth vendor as used by patch 5
-> - Delete ipa node in patch 2 as it now depends on the mem node already
->   being deleted
-> - Link to v8: https://lore.kernel.org/r/20260503-ayn-qcs8550-v8-0-d733f5e=
-57446@gmail.com
+> Two follow-ups this suggests, if there is interest (I'm not pushing
+> either within this series):
 >
-> Changes in v8:
-> - Properly order and format amplifier properties
-> - Set amplifiers name prefix to Amplifier L/R
-> - Link to v7: https://lore.kernel.org/r/20260430-ayn-qcs8550-v7-0-591a967=
-35fa3@gmail.com
->
-> Changes in v7:
-> - Add back pinmuxes dropped last revision, but without output-low
-> - Link to v6: https://lore.kernel.org/r/20260430-ayn-qcs8550-v6-0-06a7e7b=
-54aaa@gmail.com
->
-> Changes in v6:
-> - Fix comment style in patch 3
-> - Drop a pair of unnecessary pinmuxes in patch 3
-> - Lower usb sbu pins drive strength in patch 3
-> - Link to v5: https://lore.kernel.org/r/20260408-ayn-qcs8550-v5-0-c90abeb=
-7a152@gmail.com
->
-> Changes in v5:
-> - Fix some style reviews in patch 6 which required matching labels in
->   patch 3
-> - Drop hdmi support in patch 4, since it doesn't work
-> - Link to v4: https://lore.kernel.org/r/20260323-ayn-qcs8550-v4-0-33a8ac3=
-d53fa@gmail.com
->
-> Changes in v4:
-> - Fold vendor description patch into the series
-> - Link to v3: https://lore.kernel.org/r/20260322-ayn-qcs8550-v3-0-4afa89c=
-20888@gmail.com
->
-> Changes in v3:
-> - Drop unused backlight regulator in patch 3
-> - Move zap shader firmware to standalone reference
-> - Move i2c controller enables from common to devices
-> - Add ABL dtbo workarounds to patch 2 as per:
->   https://lore.kernel.org/linux-arm-msm/dczz4uvcq4hc6p3zb6xnrsgmfeomwliag=
-whf36tewdz4z6mndp@afbxzhjziiwv/
-> - Fix multiple property alphabetical order issues in patch 2
-> - Use interrupts-extended for pwm-fan in patch 2
-> - Ensure blank line before status in patches 2-5
-> - Rename spk_amp_l/r to amplifier in patch 2
-> - Remove a few properties that are already in the soc dtsi in patch 2
-> - Order tlmm nodes by pin index in patch 2
-> - Drop qcom,dll-config from sdhc node in patch 2
-> - Drop dtbo support, convert common to dtsi, and include it directly in
->   device specific dts'
-> - Link to v2: https://lore.kernel.org/r/20260311-ayn-qcs8550-v2-0-e66986e=
-0f0cb@gmail.com
->
-> Changes in v2:
-> - Drop awinic bindings dep as a duplicated patch already exists
-> - Change Co-authored-by tags to Co-developed-by
-> - Drop alias to currently unused uart15 in patch 2
-> - Link to v1: https://lore.kernel.org/r/20260311-ayn-qcs8550-v1-0-fe8b2fa=
-ad1ea@gmail.com
->
-> ---
-> Aaron Kling (2):
->       dt-bindings: vendor-prefixes: Add Chip Wealth Technology
->       dt-bindings: arm: qcom: Add AYN QCS8550 Devices
->
-> Teguh Sobirin (4):
->       arm64: dts: qcom: Add AYN QCS8550 Common
->       arm64: dts: qcom: Add AYN Odin 2 Mini
->       arm64: dts: qcom: Add AYN Odin 2 Portal
->       arm64: dts: qcom: Add AYN Thor
->
->  Documentation/devicetree/bindings/arm/qcom.yaml    |    9 +
->  .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
->  arch/arm64/boot/dts/qcom/Makefile                  |    3 +
->  .../arm64/boot/dts/qcom/qcs8550-ayntec-common.dtsi | 1819 ++++++++++++++=
-++++++
->  .../boot/dts/qcom/qcs8550-ayntec-odin2mini.dts     |   44 +
->  .../boot/dts/qcom/qcs8550-ayntec-odin2portal.dts   |   99 ++
->  arch/arm64/boot/dts/qcom/qcs8550-ayntec-thor.dts   |  250 +++
->  7 files changed, 2226 insertions(+)
-> ---
-> base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
-> change-id: 20260217-ayn-qcs8550-16c07b63de26
->
-> Best regards,
-> --
-> Aaron Kling <webgeek1234@gmail.com>
+> - psi.rst says nothing about the terminator while sysfs documents its
+>   (append, not clobber) behavior explicitly; a sentence in psi.rst
+>   would at least make the convention discoverable.
+> - kernfs and sysfs both append the NUL after the written data, so the
+>   user bytes survive. psi_write() could do the same with
+>   buf_size =3D min(nbytes, sizeof(buf) - 1) and buf[buf_size] =3D '\0'.
+>   Terminator-terminated writes keep their exact meaning, and a bare
+>   strlen() write would parse in full instead of losing its last digit.
+>   That would be the more principled fix, but it is a behavior change
+>   for unterminated writes, so it needs a call from the PSI maintainers.
 
-Is there anything holding this series and the matching Retroid Pocket
-one? As far as I know, there's nothing more I need to do. Could these
-please get picked up?
+Yeah, I was expecting a NUL-terminated string with the NUL included
+when we write, like shown in the psi.rst code example:
 
-Aaron
+write(fds.fd, trig, strlen(trig) + 1)
+
+but I agree that this might be unconventional.
+I guess we could check if buf[buf_size - 1] is already '\0' then do
+nothing (keeps current users happy) and otherwise we append the NUL at
+the end. That way both write(fds.fd, trig, strlen(trig) + 1) and
+write(fds.fd, trig, strlen(trig) + 0) would work. Would you agree or
+did I miss anything?
+
+>
+> >> +
+> >> +static int pressure_open(const char *resource)
+> >> +{
+> >> +    char path[PATH_MAX];
+> >> +    int fd;
+> >> +
+> >> +    snprintf(path, sizeof(path), "/proc/pressure/%s", resource);
+> >> +    fd =3D open(path, O_RDWR);
+> >> +    if (fd < 0)
+> >> +            ksft_perror(path);
+> >
+> > This outputs:
+> > | # /proc/pressure/irq: No such file or directory (2)
+> > | #      SKIP      /proc/pressure/irq unavailable
+> >
+> > I.e. similar message is printed twice.
+> > Since strace is a companion of cgroup selftests, I'd keep this helper
+> > silent.
+> >
+>
+> Agreed, the helper is silent now. The duplicate was my own doing: I
+> added the print in v5 on Suren's v4 request (it replaced a raw
+> fprintf) without noticing the SKIP message right below it already
+> carries the reason, so removing it satisfies both comments.
+>
+> >> +    return fd;
+> >> +}
+> >> +
+> >> +FIXTURE(psi)
+> >> +{
+> >> +    char root[PATH_MAX];
+> >> +    char *cg;
+> >> +};
+> >> +
+> >> +FIXTURE_SETUP(psi)
+> >> +{
+> >> +    int psi_fd;
+> >> +
+> >> +    if (cg_find_unified_root(self->root, sizeof(self->root), NULL))
+> >> +            SKIP(return, "cgroup v2 isn't mounted");
+> >> +
+> >> +    /* PSI must be enabled (CONFIG_PSI=3Dy, not disabled on the cmdli=
+ne). */
+> >> +    psi_fd =3D open("/proc/pressure/memory", O_RDONLY);
+> >> +    if (psi_fd < 0)
+> >> +            SKIP(return, "PSI unavailable (CONFIG_PSI=3Dn or psi=3D0)=
+");
+> >> +    close(psi_fd);
+> >> +
+> >> +    self->cg =3D cg_name(self->root, "psi_trigger_test");
+> >> +    if (!self->cg)
+> >> +            SKIP(return, "failed to allocate cgroup name");
+> >> +    if (cg_create(self->cg))
+> >> +            SKIP(return, "failed to create cgroup: %s", strerror(errn=
+o));
+> >
+> > Why are these two SKIPs (not failures)?
+> >
+>
+> You're right, they are not environment problems. They are ASSERTs in
+> FIXTURE_SETUP() now, so a run without privileges fails loudly instead
+> of vanishing into skips.
+>
+> >> +TEST_F(psi, cgroup_trigger_fire)
+> >> +{
+> >> +    char *cpupress;
+> >> +    struct pollfd pfd =3D { .events =3D POLLPRI };
+> >> +    long ncpus;
+> >> +    int fd;
+> >> +    int i;
+> >> +
+> >> +    cpupress =3D cg_control(self->cg, "cpu.pressure");
+> >> +    ASSERT_NE(NULL, cpupress);
+> >> +    fd =3D open(cpupress, O_RDWR);
+> >> +    free(cpupress);
+> >> +    ASSERT_GE(fd, 0);
+> >> +    pfd.fd =3D fd;
+> >> +
+> >> +    /*
+> >> +     * 1usec threshold over a 2s window: any CPU stall fires it. The =
+2s
+> >> +     * window is the smallest unprivileged users are allowed to arm.
+> >> +     */
+> >> +    ASSERT_GT(write_trigger(fd, "some 1 2000000"), 0);
+> >
+> > The selftest rarely can be run as unprivileged user (even test cgroup
+> > creation needs privileges), so this comment is irrelevant. (But it's
+> > fine to test with that value.)
+> >
+>
+> Dropped.
+>
+> > On the more abstract level -- I was playing with this and thinking abou=
+t
+> > a value that'd test both sides, i.e. false triggers as well as false
+> > non-triggers. I'd find that to be the half of the window and the number
+> > of tasks should be then (3*ncpus + 1) / 2.
+> > Or perhaps test two thresholds, one tiny like you did and one maximum
+> > (whole window) with same amount tasks but expect trigger, no trigger
+> > respectively.
+> >
+>
+> I tried both of your variants before picking one. The half-window
+> threshold with (3*ncpus+1)/2 hogs fired reliably, and the two-threshold
+> variant also held up on the negative side: with the threshold equal to
+> the whole window, ncpus+1 hogs never fired it (measured cpu.pressure
+> "some" stays around 2-17% under that oversubscription, so the margin
+> is comfortable rather than borderline). I kept the existing tiny-
+> threshold test and added cgroup_trigger_no_fire for the whole-window
+> side, which matches your second variant and keeps the hog setup shared.
+>
+> >
+> >> +
+> >> +    ncpus =3D sysconf(_SC_NPROCESSORS_ONLN);
+> >> +    if (ncpus =3D=3D -1)
+> >> +            TH_LOG("sysconf(_SC_NPROCESSORS_ONLN): %s", strerror(errn=
+o));
+> >> +    ASSERT_NE(-1, ncpus);
+> >
+> > Same as messages from pressure_open() above. Simply assert.
+> >
+> >> +
+> >> +    /* ncpus+1 hogs guarantee CPU contention inside the cgroup. */
+> >> +    for (i =3D 0; i < ncpus + 1; i++)
+> >> +            ASSERT_GE(cg_run_nowait(self->cg, hog_cpu, NULL), 0);
+> >> +
+> >> +    ASSERT_EQ(1, poll(&pfd, 1, PSI_POLL_TIMEOUT_MS));
+> >> +    ASSERT_NE(0, pfd.revents & POLLPRI);
+> >> +    close(fd);
+> >> +}
+> >> +
+> >> +TEST_HARNESS_MAIN
+> >
+> > All in all, this looks so much better than the initial version, well
+> > done. Just a few polishing touches.
+> >
+>
+> All 7 tests pass on a 2-CPU and a 16-CPU machine.
+>
+> Thank you both, this series learned a lot from you: Suren walked me
+> through the harness conversion and the reporting details, and you kept
+> the semantics honest, which is what surfaced the parser behavior. The
+> test is in a much better shape than what I started with, and the
+> parser finding above came out of your push on both directions of the
+> trigger.
+>
+> Thanks
+> Tao
+>
+> > Michal
+>
