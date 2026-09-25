@@ -1,104 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5C73E0081;
-	Fri, 25 Sep 2026 23:51:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380DE509EF5
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790380282; cv=none; b=WbztQ8oZWbGbeOp/6OA1YVm3m0DNCdgSaWimjFEU1q7cxQ6AWtXllMlWrpuI2mLHNklpvFvFrvwQEMg7YuC1gddnKZmN17Ux2PmeWqND2mEEuPObBHUxYqU3wrYwyzyGhChveSOP3cSsBY1RVFi1PzFIF3LEgfuPKTVYyWBqefY=
+	t=1790380311; cv=none; b=jCSchYyGVDXh8JH1MDbSlsMwfw6caXFU8sx0SB020IRsRptkleOtlB9ylS5x7gGX+d7KpevMIiIemYGl3MxLzttSX432gQUKXoHX5sQbvsZTIJUtYrvrS1e8aUWGctmx3177PQdBiyUUQZUD91gQM4oEQwqgRGDWFSJp8suajPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790380282; c=relaxed/simple;
-	bh=kxoXZIYkx0R+9+sMxrk8MUwzoHZeQVJiRJWNj7PjlGU=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=fsXhpYfzgiLi4+8mmmbH/KCcLRhgNDIUbgckiBFU4MzBh7cw9usdt8pDp1wSe08bN0YhRCTPoJziH7KdwiRPrNewvmwytdAIDFJbjyUQsyeEV0iefaudXw9pTqGB236zwuefFm2U3+FuPdu8uK0GSiOntuCDBmr/ZNpo506pb6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMiRA0lr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790380311; c=relaxed/simple;
+	bh=3QLNsaPkK3curOoC1ICtLFEmh0y4zwg0WbKg78hReDo=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=ZWQXD/1rmXbg6fdESoWGS0B/P55k3DuxuFmvw8vOM6I58Q7lhDBvuyEN0g9ra8XyOR8S7+UjJXOGHeGYRvj+uep76yv90qnRUHhzXqhQ28k7BEGr5/pk+JezwOtOOGb8DJ2AnWCLPFf0qyM8Bijb1iUzRQoVVpa9+e5Hm8t7mzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VaSjW78O; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMiRA0lr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120021F000FF;
-	Fri, 25 Sep 2026 23:51:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790380281;
-	bh=sMJbYuN8fyiAF/FnkbIJ7XZRLLaQrOPqRWfMIHMkbWY=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=LMiRA0lrUgUBGiymOVS0g6xhAHkHC3urar97B8Aj8TekGkN/CHmY/xDEpHuQ8I26r
-	 RJ7Efe/oc38Rt+qwe0hyyVhsHUoKl/yaRT+Z8zSFvOjOvmUx1AibKg2RGGoFFtG3F6
-	 v6jgb9HxlF5tzLwhOtLwtATIoI+NUa4STNh99YZLcQ6vXzR8posfLdxoi3QZEsWgFg
-	 tnEGsk4DPWbtGA5oxB6illJ8bWRmXdIDPfv5IJI2tJF167XC6U0seEcrhtAstTBpDg
-	 ydjhPjOM7XaMcLC3b0nmnES8s5GM9RdHkzZ7GmnN9y8TwfQw4RHqmqKTEC32V7+IvI
-	 bs/SloEoZry3g==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D09303809A04;
-	Fri, 25 Sep 2026 23:50:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VaSjW78O"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790380308; x=1821916308;
+  h=date:from:to:cc:subject:message-id;
+  bh=3QLNsaPkK3curOoC1ICtLFEmh0y4zwg0WbKg78hReDo=;
+  b=VaSjW78Og7cLpH4/0AbrNDfvOFz0kBZA0k/xy3Tz+l6afndu1h8PvFHE
+   keQWWY3b+C7ruFPZWCamwDrZCmohUaMIx5sSO1R7KD6cDBbXnCwXe8sMU
+   ImAJtXJv5g+HMCet/DE/k+os1rENkprbTPiTIWc8J8A+3A0vFjz3hp8r6
+   CRiHfsAq5yeYRH1bVKCkICJktuI/7UrZvgiFxBvEIkhYoYMdrI9+/KRbX
+   /80Ub6Hj4U/KhTBD/mbxav4r821pZjlRxlRarME/vrdj57NtjtjxydGvZ
+   Y1XXJHM+N2E4Hp0bYQfH7m5fPKY/OCPuaGAjh03C4Lnkriozn01se02PJ
+   g==;
+X-CSE-ConnectionGUID: 1l2qLeM0QYK6EhGg9ul4Dg==
+X-CSE-MsgGUID: PuSV/7AWTdeqDwSDq2orqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="89938231"
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="89938231"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 16:51:48 -0700
+X-CSE-ConnectionGUID: 3H4GkYmxRW+bpMvRsqGLBg==
+X-CSE-MsgGUID: OtmC+MdwSjWhesEr3AthSg==
+X-ExtLoop1: 1
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 25 Sep 2026 16:51:46 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xAFhf-00000000LLT-1jgc;
+	Fri, 25 Sep 2026 23:51:43 +0000
+Date: Sat, 26 Sep 2026 07:51:33 +0800
+From: kernel test robot <lkp@intel.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Jon Hunter <jonathanh@nvidia.com>
+Subject: arch/xtensa/boot/boot-elf/bootstrap.S:68: Warning: value
+ 0x1a0003000 truncated to 0xa0003000
+Message-ID: <202609260743.V1BFyc9T-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v5 00/10] ravb: Add gPTP support for Gen4
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179038020845.3210501.7347729491663204858.git-patchwork-notify@kernel.org>
-Date: Fri, 25 Sep 2026 23:50:08 +0000
-References: <20260921175037.4084310-1-niklas.soderlund+renesas@ragnatech.se>
-In-Reply-To: <20260921175037.4084310-1-niklas.soderlund+renesas@ragnatech.se>
-To: =?utf-8?q?Niklas_S=C3=B6derlund_=3Cniklas=2Esoderlund+renesas=40ragnatech=2E?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
-	=?utf-8?q?se=3E?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
-Cc: paul@pbarker.dev, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
- richardcochran@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- vadim.fedorenko@linux.dev, sergei.shtylyov@gmail.com,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
 
-Hello:
+Hi Guenter,
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+First bad commit (maybe != root cause):
 
-On Mon, 21 Sep 2026 19:50:27 +0200 you wrote:
-> Hello,
-> 
-> This series is the second part cleaning up how PTP timer support is
-> implemented on R-Car Gen4. Currently there is partial support for it in
-> some of the Ethernet devices that can use it, but not all.
-> 
-> On Gen2 and Gen3 each RAVB instance have it's own private PTP clock as
-> part of the RAVB register space. For this reason the PTP functionally
-> was implemented directly in the RAVB driver. For Gen4 however there is a
-> system-wide PTP clock shared by all RAVB instances, and on some Gen4
-> platforms with other Ethernet devices.
-> 
-> [...]
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   5fc5768c7ca92895ccd1de94dc521e5a55ae7896
+commit: 916aa36042db8ee230543ffe0d192f900e8b8c9f clocksource/drivers/timer-tegra186: Avoid 64-bit divide operation
+date:   1 year ago
+config: xtensa-randconfig-r1303-20260925 (https://download.01.org/0day-ci/archive/20260926/202609260743.V1BFyc9T-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 8.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260926/202609260743.V1BFyc9T-lkp@intel.com/reproduce)
 
-Here is the summary with links:
-  - [net-next,v5,01/10] net: ethernet: ravb: Remove gPTP control from WoL setup and restore
-    https://git.kernel.org/netdev/net-next/c/e8bfdd91469c
-  - [net-next,v5,02/10] net: ethernet: ravb: Move programming of gPTP timer interval
-    https://git.kernel.org/netdev/net-next/c/d9519789d098
-  - [net-next,v5,03/10] net: ethernet: ravb: Simplify gPTP start and stop
-    https://git.kernel.org/netdev/net-next/c/b9c1216c0156
-  - [net-next,v5,04/10] net: ethernet: ravb: Remove redundant argument to ravb_ptp_init()
-    https://git.kernel.org/netdev/net-next/c/b784f9ed2e3b
-  - [net-next,v5,05/10] net: ethernet: ravb: Propagate error from ptp_clock_register()
-    https://git.kernel.org/netdev/net-next/c/121cc8a3acf8
-  - [net-next,v5,06/10] net: ethernet: ravb: Replace gPTP flags with callbacks
-    https://git.kernel.org/netdev/net-next/c/14bf0091dd0d
-  - [net-next,v5,07/10] net: ethernet: ravb: Add callback for gPTP probe
-    https://git.kernel.org/netdev/net-next/c/9a85f9dfbc3f
-  - [net-next,v5,08/10] net: ethernet: ravb: Add callback for gPTP clock index
-    https://git.kernel.org/netdev/net-next/c/931770c1995f
-  - [net-next,v5,09/10] dt-bindings: net: renesas,etheravb: Add optional gPTP phandle for Gen4
-    https://git.kernel.org/netdev/net-next/c/ef488a9da66d
-  - [net-next,v5,10/10] net: ethernet: ravb: Add gPTP support for Gen4
-    https://git.kernel.org/netdev/net-next/c/2b240cfc6de4
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 916aa36042db ("clocksource/drivers/timer-tegra186: Avoid 64-bit divide operation")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609260743.V1BFyc9T-lkp@intel.com/
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+All warnings (new ones prefixed by >>):
+
+   arch/xtensa/boot/boot-elf/bootstrap.S: Assembler messages:
+   arch/xtensa/boot/boot-elf/bootstrap.S:58: Error: invalid register 'atomctl' for 'wsr' instruction
+>> arch/xtensa/boot/boot-elf/bootstrap.S:68: Warning: value 0x1a0003000 truncated to 0xa0003000
 
 
+vim +68 arch/xtensa/boot/boot-elf/bootstrap.S
+
+e85e335f8ff615 Max Filippov 2012-12-03  60  
+e85e335f8ff615 Max Filippov 2012-12-03  61  	rsil    a0, XCHAL_DEBUGLEVEL-1
+e85e335f8ff615 Max Filippov 2012-12-03  62  	rsync
+4bedea94545165 Chris Zankel 2005-06-23  63  reset:
+037602705109ec Max Filippov 2018-12-05  64  #if defined(CONFIG_INITIALIZE_XTENSA_MMU_INSIDE_VMLINUX) && \
+037602705109ec Max Filippov 2018-12-05  65  	XCHAL_HAVE_PTP_MMU && XCHAL_HAVE_SPANNING_WAY
+037602705109ec Max Filippov 2018-12-05  66  	movi	a0, CONFIG_KERNEL_LOAD_ADDRESS
+037602705109ec Max Filippov 2018-12-05  67  #else
+037602705109ec Max Filippov 2018-12-05 @68  	movi	a0, KERNELOFFSET
+
+:::::: The code at line 68 was first introduced by commit
+:::::: 037602705109ec2ab96340bea93ad87daa3ac046 xtensa: don't use l32r opcode directly
+
+:::::: TO: Max Filippov <jcmvbkbc@gmail.com>
+:::::: CC: Max Filippov <jcmvbkbc@gmail.com>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
