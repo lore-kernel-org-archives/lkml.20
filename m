@@ -1,237 +1,493 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021086.outbound.protection.outlook.com [52.101.100.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f18.google.com (mail-pj2-f18.google.com [74.125.227.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF2A40A926;
-	Fri, 25 Sep 2026 20:41:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.86
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790368919; cv=fail; b=RyB50iNylejzKLzI8img5AUvUu3jTJ4Ky2eL6L+mxdZ7aMJe6pnfs+3pji/eUv8qEgDP0YGK6P7+nZahXtSb0uabqkLg7go6At8FciD6uKYItEgIyztzcEGDXY3qPs7eqWTNCVpicP4COdsGfjTE0ljIrvbvmd3NZxNG9MZcAN8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790368919; c=relaxed/simple;
-	bh=6GTsilTF0BgRGmnDX4NLfPb2crUR0IwNMnV89+FIDIk=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=H2rHioVC+3hw6rWbomycbfy0amwukW8c/po3LPwxQcqekwJUA4M/IKkP2mDveBIo+uuubaCM9BO4+sBWV4qYbKC03k0uQ2cLuUDVe0Ma1ywQFsQyFBjydkEiZh1VuNWHufgZVjUGC0VIfVEEnceG6s+dvd8W2rYo0qOGWTXDXE8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=DTJrgM4D; arc=fail smtp.client-ip=52.101.100.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3593B47D2
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.146
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790369062; cv=none; b=uL5gTk+Fn/IxMqOr6RKLZuzWX29seeqNwIhdU3ZWZ321cDj4Ch4R3AXT9nE2RLKtKa1gIAGTMI5W6pnAzm5qo6iUCEoIO+nREFdqdpIut99sIFgeFfqpALgU29Iuk+0d3vuIoaxYAPNcXGuxRpL+OR/Ufa2YEmf40H0ii3CicFo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790369062; c=relaxed/simple;
+	bh=Fty3PtDIdbpGHkF+ESk4EG6R72qc9XLNp4twO0/zo8I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V5LJu8bZd8jqN4XP4KWlONCPlAizQ/mfCAz9mJrIkQxOBX9b8v3BWLIYwrbI1jkCP1DnhlVFgji3fvf0NjO/FMKKB9V9d2NTAbXxLmVyVo7WeOAvhmrPaDSUuymcUr/AbyNo+phH1qWTy329uvmGVqJGdytY3eJAGz2AayEx8LA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DP4EsSUB; arc=none smtp.client-ip=74.125.227.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="DTJrgM4D"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nxf8Nmn66A+YE9GmwJI+36dZ1sDTMVwkZXM5dEs8Phi0/BgxTMldYuIV7zCoaS3MlGHk241UtxqmSrBj5g+VdFab/AY+8Y/7um5h/gIXK9Hm2pbvlIlB/QnTr0PumpGxt/TmFAXDx87TGaW7j+uaXoiS4u3AtiVes1fVH3e6KbsTlN1kYegJyDabEgx1FiB00/hpGT4NymoV3TMSD/MZ3ZlFcWZQjyYxWZKJSt69lBtaOIlZH5RUZrHVOM1Gm2W712dadwU8BJf3GKU6pFvpxdNd3Uaqjr1fsxco+DXAap76aNrrndjtBHgZaAe5QCzuhT1xgFKY6hs0GHwObHI/NA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XP5+j4Mc10yUKuQzoT7jNLZGO+GrnoTFnPxiB6t1LLE=;
- b=JA4MVKzkiJV0QF2GkoUwVnlOd14r5R4fjWpbkD40S+QDTKsgEZsKvJ6uOk1UMGGb4g7r8LcKE3aEsEixiSJXF2w2xEzoj1y6MJ3vnsxeBWEsE+tebk1Ic0ZGOkXNvi8Smhzob3ub3ubBJAXpS+kzB5lJ7nF6aBhgY3E6f7uNTypgjkGsGhAccwkL1QF1Yg2Ln2YEEvxBq76m/6b11WYtPEsdzuWkUVY3HjqO03GElRsPHn+c54fOnzn5lvbaZR8iL6q6cdXPrEKADvubvd0RTZTkdzyvzCJbSNIOq4moIaZFT818rzCmRNe4BTwu0w3rVCCjeLuRVxfLaLTdObcwyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XP5+j4Mc10yUKuQzoT7jNLZGO+GrnoTFnPxiB6t1LLE=;
- b=DTJrgM4DFZtOdXpDlOyByhwKg9lAXUAjiwMH2VCd18B753UdEyNJ8JevSmGHks4fj65StUU4mKtg/oI/Tlr6+NhTUy3i6Mzzx1Ry83HCmzeHIoT0KXemo+gs/PhZzf3i2BjazljqJ6SkM3yhulJVuW6UUxrvm5484xE4LgCyq2A=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO8P265MB7506.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3b2::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 20:41:54 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 20:41:54 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 25 Sep 2026 21:41:54 +0100
-Message-Id: <DLOOT8LDHDKA.3853XGXDK1GFI@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Gary Guo" <gary@garyguo.net>, "Benno Lossin" <lossin@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 0/5] rust: pin-init: improve diagnostics of missing
- `#[pin_data]` and `#[pin]`
-X-Mailer: aerc 0.22.0
-References: <20260923-dev-pin-data-diag-v1-0-e4d7193569e5@garyguo.net>
-In-Reply-To: <20260923-dev-pin-data-diag-v1-0-e4d7193569e5@garyguo.net>
-X-ClientProxiedBy: LO4P265CA0214.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:33a::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DP4EsSUB"
+Received: by mail-pj2-f18.google.com with SMTP id d9443c01a7336-2db22383fe8so5346525ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:44:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790369060; x=1790973860; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lnZPCNkuYlkSQQSolmN0z74V+niIjfG3d6O9GzevQ5o=;
+        b=DP4EsSUBeVQVbufwQcxosHMM4sR0btiKLHZ6+GMph54ac65jzctz74ZlDRSV+ebZJW
+         m/SOXAXEs3YDPCioDcd97FPmi9rVBcDlx5OPw8M/dKX71+lUPD15yB4hLGkNyhm0foKj
+         qOdoulBBe/BNdCCeKimhXUJ6lL2PP/3bcauBp6PFCmDhvw8BsuxOg6j5rWv1QbgMWVwJ
+         HUDo+9yclJnHreNEgY2jJeRWp/fzKJU8r55xrh7LKHDuKFFVIgCnFadg6RH6O2yNK3U6
+         HzBZExemROnXlL1VTNk64ND5eroDHF2yyP2iUHtvqDtzkC3SuQhwITd4HVv77ljBfzHb
+         waNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790369060; x=1790973860;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lnZPCNkuYlkSQQSolmN0z74V+niIjfG3d6O9GzevQ5o=;
+        b=oXQlATtaE/Hut32CGNvSr2rdqeDS2tj+0PjjgPZijtDBZVyK0Pdo6OuYcBQFyB+Wyl
+         +MwomDHhEom8eomgEs+Y4f/plq8JHyofjybJkF6qXnsh/fQMpfq56fPrZTkn8dS802vG
+         zg5M+82a+ZPKMkZK16ETFt1P+SYbEoTed9JkCvDllfvc2R4wuiKRBvhIDy6fcrc+bSS6
+         ZE+0cry99t3W2N4kEXSN5L/UgNY7zDmzzToaPhV+XXlVSq0XXODpssbNbRD7Hg9xKBV8
+         Eg3UtovN14ESnAbQWLrL/h8oPsyZZgbGp+aymnshozdrqAj6ovLGZr7fUytQNACBnYQP
+         FmJA==
+X-Forwarded-Encrypted: i=1; AKwUvBxWAsrI+SlfdKMDwp46/jHRjvaqwAjiKp3pst2cWEwcoddfrgFq+XBeL5tWPweYSXBMpXwQIhcw2H7zni4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lA3JX/Qkc0WvpaK4mu/BWd+mtnNDEICuTgRTZN4NDLQA6Ek9Gi
+	Eatk8HrzpaKNOFY6g16qsABJ0FXJG87uyk7GNvmCwYaa2Gsjxx1akJ3C
+X-Gm-Gg: AYBFou1oFP/T5e+e4Vop1oLtwlij5U1SVcEYo+xK+ryRlKZKAlszTEsXIheWyfQY2JI
+	H8nCXTVQ/borO9Px1i3BTo1LKnyx4aJ0puVPNY0LMh3B/3ojLZKoba+V3yBibHh+I07ep0w4DCd
+	On8Hj2cI1m3d9ZD3jNtjRCQe8kiPndlLfTDi/BZk2fe05qVpmeJQPF2Jh3r2IgscmfKvuQ8/TXB
+	SvEwhu2bv3zM70USFB2oStWpzUzADLi3BiYBFT5Cr5/IXcDfem/NR7enS2QevQq/1TNpTNXvSBo
+	gk+xO5e09iT8helABhyY7FCEtrT0QeGULjHhfIoBLR3GC/ffbifY1yi4OgK1K+1m2GlNPNcwvJ0
+	zlQugjMriW0HcRatUyVzra6dFJl10vHsFjfwTwyzsVuvoj9emvwKLHJC5fu9X+5hOh32nMnk0Q+
+	sG1tkNWCOyrHZcHBXXKPCDs+drKJ/kkyrJQa8lMrnN/fCDk9aC018p29fQ5q4shTsh8JZqtEDEF
+	vLD/vZu2KERmtLKo7HSAD53sW511bj7CGkFOKsdm6RKZ8TLbg==
+X-Received: by 2002:a17:903:3c4d:b0:2dd:ad73:c989 with SMTP id d9443c01a7336-2df7dc4d86dmr58659805ad.33.1790369059625;
+        Fri, 25 Sep 2026 13:44:19 -0700 (PDT)
+Received: from KASONG-MC4 ([1.203.116.237])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9144940asm15623855ad.62.2026.09.25.13.44.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 13:44:17 -0700 (PDT)
+Date: Sat, 26 Sep 2026 04:44:07 +0800
+From: Kairui Song <ryncsn@gmail.com>
+To: Gregory Price <gourry@gourry.net>
+Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Rik van Riel <riel@surriel.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <arbJ1LTzc7H4GL27@KASONG-MC4>
+References: <aqjpYHbZ14A8xRtK@fedora>
+ <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
+ <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+ <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+ <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+ <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
+ <arUcil9kxUPiymXI@KASONG-MC4>
+ <araKDOz5bce52oyg@gourry-fedora-PF4VCD3F>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO8P265MB7506:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad49e9eb-a9e8-4d89-c7d3-08df1b456f6a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|10070799003|23010399003|366016|10067099003|56012099006|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	93d+TRD8cElPdSHI7L/B927R//iu96EeKxEl/biheBQSJ/Yer2303YJlTccl3o4fS5Y5WCP6/XqCIeatOfMIbNIy/Oocx+Joa3VfC/mhXJSNT35pUrBvD4UCTljCLgmLUgroHOM09LRRoU0GR032msJc11O1WGGs0dSIMKTnHYGJ7QZf/e7j5ry00erXCXPHQ1hts826kBgPvW7ws3W9dD5d0ZkvW6QXx4eCKzPzHocwFRcfrDWEkBwLRowgz1pf8l+ad2l5txvwqRxi+rvze1Wne2IntEPG3gon2aNXMtNz4/NmJRwZudSrt+5n7GRMGuM/Qblbni3GpTXbJZlBXFATd2S1wzXSInUKnT4N8bFBaC+wOCdYExJhZ6sT5kXlClaThIAM7IdE6zjC9MFhclpvvEJrKnOepGUsIfgkxxWZ2AbTPPgiZpPtUcZFq+anwQvvjNKPpge9rmLaEiXXe1s80y4CTFRkk8hkBmho0FoQ8Juzhk6twWE3agMQer9Iy3BL3gnBD7u/ZGYKWwnKH3T2GV+UWMTGxh3ZB9oFB+S2GSWxpqwc14fuWQlwDDtbUgvkxDplSiBplTB3lMpUACaTurAZq0mxSDUdl8J3eHvX3eV9gsWFgp4eo3X0veGX61uHHhu8h6XtKnLEwt1Xb4TBALRnwwGut8xcfcmn+ctY4l9YlotjlmGzrYxnOPXe9CNixXVTj6F8Ka8MjgHu6Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(10070799003)(23010399003)(366016)(10067099003)(56012099006)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bE1vL0YwQUJPZCtGalV0OGVuM0hOWCtkUE5FYkR2aEk4cjE2TEt4QXBpNmU3?=
- =?utf-8?B?SVhyWk5hdUdDelByMWhKSElGVkJXK3BSZHVRMXRPVkd5RDlzWVpwbUMvNUw5?=
- =?utf-8?B?bXEraElhd2JPSXY1bWk4TGdPVmRsM3d1SWNQbmRIV3I3MXRMLzV1WlVvUyt1?=
- =?utf-8?B?TmRxWWlDa1JaTkVSSEFwNkRRUmxWSno3RWd0cXVGK3dOYkhNUjZQbnJyZ0Rj?=
- =?utf-8?B?QzRTcDZjMHp6TGZBMkQ3TmNDTytwdWRWRG9qNnFKUTYyYnJPNVBZeDNldSt2?=
- =?utf-8?B?SGpvaEZIL1R3Y3ZhTVJFbEljTGk5YzNtL0Rya2dJeFlOQWtrMDBCUGJ5OEhN?=
- =?utf-8?B?cU56OUpOanJHTUJQZUVpMjBweDN5amIvTld4ODAvT1RseFlVc0VVOEhUdU9K?=
- =?utf-8?B?dzRxamJLdThkQXVuNXd6VFN3VUlBSWF2cXduN3RHcVAxUDQzTnFOdGM2OGRs?=
- =?utf-8?B?VHMrYjcxUXVRL1JKUHlETWhpMC9pU3NsNVM1bHR1dlJIVng5OTI2emVNb25B?=
- =?utf-8?B?MXRieENKM1hERnhIdE1zbVkrR1QxTVl6QmtRNE9iSEVGYjQydjNhSXMyRU5Q?=
- =?utf-8?B?THNDQW4yVjVmeFZEMGd4b2g4KzdlcDVxQWlYeEhOelJtSEZyQ1lXU09zZkZl?=
- =?utf-8?B?RlFFWDhwdzhRd1R0YUhOWjdrRGVNZHdkcm05RVRpaUNUNURxaEcrbW1sRHZP?=
- =?utf-8?B?TXlrb0V0bWdIOXJ4S3R0VUJ1Tm5XQmVYaTNzUkZpSFpPQ3VGUzQrSGhSL0lm?=
- =?utf-8?B?V0paRlIxTE5ld1NiQUFWQmVHZlJ3WXZQMzJYYkdXMXVuYTNFNTlHL3Brc09M?=
- =?utf-8?B?K2l0dVZCSmlHdzN5RlRDdWFGaURKSm5YV2RMK0RKaStUZVk5U2ljZkZkK0pk?=
- =?utf-8?B?bHBNalR0SWUxVnQwMW5lb2dQd3JHWEVGTWwyNE9hTEp5b0h1bVltelVDcmNs?=
- =?utf-8?B?ZnB6cU9rYlVzL2I0QUpJSStRcldSVlpsM1lVY3dRRzc0akJCM05oWS9yR0J3?=
- =?utf-8?B?RXBUaks3WDRqNFhEUCtQZTVPZUVYbWVrUG1lQ1AwMVg0MXNwdWNUUnpyTXQ3?=
- =?utf-8?B?M3B1UkdJVmNkcm9qRjNaT2F1ZzRMakVYeHdtZWZQOTNKUUNuZXZpMUNFWkQ0?=
- =?utf-8?B?Y0NvREgvS0RmeU1oL0JwYXdwemtSK3dTNExGMERLSWVkZXg3Vkt0YzB6WjJ5?=
- =?utf-8?B?N0pRNS9ibG1pWXpmU0Q3OE92TTNPSXBTVzNnZURrdEdDSlFCeGFJLytlRUtN?=
- =?utf-8?B?a01YZzJOMlJFUzFVRXFwOFAra29rWE94aXpiV1k4WGVoZHd3YVFVcnNxeFpT?=
- =?utf-8?B?MVhpRVNkMUcweXJxUWd3QjBUOS9LVjJORkhGbUw4eXJPZmJ1K01HOEJNOExa?=
- =?utf-8?B?OURsdlFXNzJKMGJIMDRzakd2K0MxTHlKSWtpVWZLWHFOUkh6Y1l3NStnOUxw?=
- =?utf-8?B?QW10QkFVZWtZQ0E0UmNWV1l6OWpnWkZscHYxakRjNmJEQWx5ZEliNDJJZlhE?=
- =?utf-8?B?QkQ5TC9VVkxRNlI4alQxREZPbVpMZTZkbXJpUXB4MW9RNFFHbDgvait5ajh2?=
- =?utf-8?B?M1pRMUM1NVVEWGJIekRRZjRWa0FDUWxpLzk1MjdJaG9ieFZCcmZLVnVZWXd5?=
- =?utf-8?B?QTN3NWs3ZDg2LzdJNFczNHdHUS9tbGYvK2ZpM0ZhaXN0UFNTSktTRDF0aGp6?=
- =?utf-8?B?MUl6MnFPRzVsbkU1aG5GbDJPS3NTWTZHWkQ1K3FqVXFsS2Ria2J3dFJCSFNG?=
- =?utf-8?B?bGhqMEdPcXRVb0poNVJrUkFvVVJIL1dldGdERmRSS2VRRVBIaUNnQnpEQkVE?=
- =?utf-8?B?bVZ6dm5YR1hJYjUrN2tkSElPcS91aGVmbWNka2Q0SktxZUNzektGenBPQ2F0?=
- =?utf-8?B?ODJ0RmtmOXQ3VHg4cFJvMWRYVkYwWThBZXBvRG8xOGZnYkZLbTloVnIzUUV2?=
- =?utf-8?B?NWJXMGdsRjluTndzRWxDWWorZi9LV0Z4dW5oM0xEbDJTYlhTMjdSK2k3WldP?=
- =?utf-8?B?TUhpR0pOdnh2NzBSL0tnQUN2OWFGZnBRVlFycU5kSUhsZm9mUld6eDVYdXVt?=
- =?utf-8?B?dlFiNkJhSE9zMzZCY0MyZUFyTVV4YXRFeGpUalE3RjhGazhyVjZQSS95MXUr?=
- =?utf-8?B?czE3RmpNem9wUitYTCtZS2oxTjUrcGxPR3dUamF3b1IvdGpsUWEyNlowZyts?=
- =?utf-8?B?aDZRMmpHbDB6Q0R0WUl2bDBlTVVlZlM5R2pvNlhNc3pzT3RacUZPbU02bXVB?=
- =?utf-8?B?eXNGYVVPUExhSXQ5c3Q3VE9XS29sWmpyTG9GOTZHTHZHMXorRm5HVk5hN0lY?=
- =?utf-8?B?TU85K2k0TWdzOVhxamdnb0lTYVkrNkpTN3hidFl6SkR3LzIwTjlHQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad49e9eb-a9e8-4d89-c7d3-08df1b456f6a
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 20:41:54.6610
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7VsSKMv6IPwQqnmoig7X2S4m6VjqHGzcfH0kdvynNgqzUE4VgkT83kL0athvm1GAPvCvcuqHAWsBLxOk06P+XA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7506
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <araKDOz5bce52oyg@gourry-fedora-PF4VCD3F>
 
-On Wed Sep 23, 2026 at 7:20 PM BST, Gary Guo wrote:
-> Improve the diagnostics of missing `#[pin_data]` and `#[pin]`, by adding
-> diagnostics attributes. For `#[pin_data]`, we have to change the expansio=
-n
-> to retrieve `PinData` in a two-step process, so we change the error messa=
-ge
-> from "method exists but trait bound not satisfied" to "trait not
-> implemented".
->
-> This is the new error message for missing `#[pin_data]`:
->
->     error[E0277]: `Foo` cannot be used with `pin_init!` macro
->      --> tests/ui/compile-fail/init/missing_pin_data.rs:9:19
->       |
->     9 |         pin_init!(Self { a: 42 })
->       |                   ^^^^ unsatisfied trait bound
->       |
->     help: the trait `pin_init::__internal::HasPinData` is not implemented=
- for `Foo`
->
-> where it was previously
->
->     error[E0599]: no associated function or constant named `__pin_data` f=
-ound for struct `Foo` in the current scope
->      --> tests/ui/compile-fail/init/missing_pin_data.rs:9:9
->       |
->     3 | struct Foo {
->       | ---------- associated function or constant `__pin_data` not found=
- for this struct
->     ...
->     9 |         pin_init!(Self { a: 42 })
->       |         ^^^^^^^^^^^^^^^^^^^^^^^^^ associated function or constant=
- not found in `Foo`
->       |
->       =3D help: items from traits can only be used if the trait is implem=
-ented and in scope
->       =3D note: the following trait defines an item `__pin_data`, perhaps=
- you need to implement it:
->               candidate #1: `pin_init::__internal::HasPinData`
->
-> and this is the new error message for missing `#[pin]`:
->
->     error[E0277]: `impl PinInit<usize>` cannot be used to movably initial=
-ize `usize` with error `_`
->       --> tests/ui/compile-fail/pin_data/missing_pin.rs:12:18
->        |
->     12 |             a <- a,
->        |             -----^
->        |             |    |
->        |             |    the trait `Init<usize, _>` is not implemented f=
-or `impl PinInit<usize>`
->        |             required by a bound introduced by this call
->        |
->        =3D note: if your type implements `PinInit` but not `Init`, you mi=
-ght be forgetting a `#[pin]` annotation on fields
->
-> where it was previously
->
->     error[E0277]: the trait bound `impl pin_init::PinInit<Bar>: Init<Bar,=
- _>` is not satisfied
->       --> tests/ui/compile-fail/init/invalid_init.rs:19:16
->        |
->     19 |         bar <- Bar::new(),
->        |         -------^^^^^^^^^^
->        |         |      |
->        |         |      the trait `Init<Bar, _>` is not implemented for `=
-impl pin_init::PinInit<Bar>`
->        |         required by a bound introduced by this call
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
-> Gary Guo (5):
->       rust: pin-init: internal: make `__init_data` and `__pin_data` safe
->       rust: pin-init: internal: remove associated type of `HasInitData`
->       rust: pin-init: internal: use `HasInitData` to provide inference he=
-lp only
->       rust: pin-init: internal: add custom diagnostic when `#[pin_data]` =
-is not implemented
->       rust: pin-init: add diagnostic attribute for `PinInit` and `Init`
+On Fri, Sep 25, 2026 at 12:11:55PM +0800, Gregory Price wrote:
+> On Fri, Sep 25, 2026 at 09:15:17PM +0800, Kairui Song wrote:
+> > 
+> 
+> First, thank you for the very nice email, this provides a lot of
+> missing context to the discussion and clarifies the issue.
+> 
+> I really appreciate you taking the time to spell it out.
+> 
+> I've given it a read thrice over to make sure i haven't missed,
+> so please don't take my trimming for skipping something, if you feel
+> I missed something important let me know.
 
-Applied to pin-init-next, with typo pointed out by Sashiko fixed.
+Thanks for taking the time reading this :)
 
-Best,
-Gary
+> 
+> > 
+> > First a little bit off topic, I'll be really happy if we can make
+> > both compressed memory and swap as separate counters (I even once
+> > tried to implement a zpool accounting to account compressed memory
+> > in some unified way, but, well, zpool got killed before I post
+> > that :P), or at least a way to do that, e.g. something like nokmem.
+> > Due to our real usage:
+> > 
+> 
+> I think we all want the same thing, just in mildly different shapes.
+> I really see this breaking into two core issues:
+> 
+> 1) memory.swap is overloaded, and we disagree on its semantics
+> 
+>    I think there is a strong use case for both detaching zswap/swap
+>    and for retaining swap as a logical limit.  You lay it out fairly
+>    well here that you are replacing a memsw SLO mechanism with the
+>    counters available in memcg, and I think we need to give this
+>    consideration as something more than simply luck.
 
->
->  rust/pin-init/internal/src/init.rs     | 25 +++++++++---------
->  rust/pin-init/internal/src/pin_data.rs |  2 +-
->  rust/pin-init/src/__internal.rs        | 48 +++++++++++++++-------------=
-------
->  rust/pin-init/src/lib.rs               | 11 +++++++-
->  4 files changed, 45 insertions(+), 41 deletions(-)
-> ---
-> base-commit: dfb6a037fd586f1ffcba3b143dab58f5c88294d1
-> change-id: 20260923-dev-pin-data-diag-65209ab751fc
->
-> Best regards,
-> -- =20
-> Gary Guo <gary@garyguo.net>
+Yeah there are still effort trying to push memsw into V2 upstreamly,
+I even got a suggestion to hold a topic on that last year at LSFMM
+but didn't find enough time :P
 
+> 2) something has to pay the price of virtualization - period.
+> 
+>    No matter how we cut this issue, something in the stack is going
+>    to implement a method of virtualizing a swap entry.  Whether that's
+>    a virtualization layer that virtualizes every backend, or some kind
+>    of franken-swap device that lets a non-physical swap backend look
+>    like a physical swap back end without charging physical swap.
+> 
+>    If the history of virtualization has taught us anything it's that
+>    the overhead of a virtualization layer is *almost* never so extreme
+>    that it isn't worth the utility of the layer
+>    ( unless you virtualize the wrong things :] )
 
+Hmmm... I mean there are tons and tons of projects trying to get
+rid of the overhead of virtualization, if you are referring to
+virtialization as a broad topic..
+
+With careful design we can miminize the overhead for sure, and
+that's exactly why we need to do the design carefully :D
+
+> 
+> I also think these problems are mildly orthogonal.
+> 
+> We can solve the memory.swap problem without having to solve the
+> virtualization problem at the same time.
+> 
+> The virtualization issue is much more compositionally complex - we
+> need to account not only for ordering (tiers, priorities, etc), but
+> also writeback mechanics and migrations.
+> 
+> Quoting roman:
+> 
+>  > I don't think it's reasonable to add a new interface, but having a
+>  > patch/config option or even a mount option which changes the semantics
+>  > of memory.swap.max to the v1-like behavior should be ok.
+> 
+> It seems we're having the same discussion.  We have users who want
+> them decoupled, and users who want them tied together. I think boot
+> or build option that switches this behavior is the worst of both
+> worlds when the counters compose cleanly:
+> 
+>    memory.max = max physical ram you can use
+>    zswap.max  = max physical ram zswap can use
+>    pswap.max  = max physical storage swap can use
+>    swap.max   = max logical swap storage a container can use
+> 
+> > But with compression as a fixed part in memory.current, first the
+> > compression rate is totally uncontrollable, both the user and us
+> > will be fully *unaware* of how much memory they can *actually* use,
+> > that makes the planning really awkward. memory.max stops being the
+> > bound of what we planned or sold, anything compressed lets the raw
+> > footprint go past it by however much the compression ratio happens
+> > to give, so what we oversold is bounded by the workload's data and
+> > not by anything we configure. We can substract the zswap reading
+> > though with adaption, however it's hard to change the performance,
+> > OOM behavior or reclaim behavior:
+> > 
+> 
+> I do in fact this is solved by splitting the counters.
+> 
+> Consider:
+> 
+>   memory.max = 8GB
+>   zswap.max  = 2GB
+>   pswap.max  = 0
+>   swap.max   = 2GB
+> 
+> This looks silly on its face - but it's not. This says limit total
+> swappable capacity to 25% of ram, and you can only offload 25% of
+> your total logical memory sapce - i don't care how much it compresses.
+> 
+> You could offload 2GB of anon at whatever compression ratio you get
+> and fill the dead space with page cache.  There's utility.
+> 
+>   memory.max = 8GB
+>   zswap.max  = 2GB
+>   pswap.max  = 0
+>   swap.max   = 4GB
+> 
+> Limit overall compression ratio to 2:1 and 25% of memory size.  If you
+> happen to compress more, you can eat some page cache, but you're never
+> getting more than 4GB of anon swapped.
+> 
+>   memory.max = 8GB
+>   zswap.max  = 2GB
+>   pswap.max  = 0
+>   swap.max   = 8GB
+> 
+> Limit compression ratio to 4:1 and 25% of memory size.  Same as above,
+> you can fill the slack space with page cache.
+> 
+>   memory.max = 8GB
+>   zswap.max  = 0
+>   pswap.max  = 4GB
+>   swap.max   = 4GB
+> 
+> Limit logical and physical swap to 4GB
+> 
+>   memory.max = 8GB
+>   zswap.max  = 2GB
+>   pswap.max  = 4GB
+>   swap.max   = 8GB
+> 
+> Limit zswap to 25% of memory - maximum of 4:1 compression ratio
+> if you don't hit that ratio use up to 4GB of physical swap.
+> if compression hits 2:1 and you can use all of your physical swap.
+> but you cannot swap out more than 8GB of logical memory
+> 
+>   memory.max = 8GB
+>   zswap.max  = 4GB
+>   pswap.max  = 2GB
+>   swap.max   = 8GB
+> 
+> Limit zswap to 50% of memory, and a 2:1 compression ratio overall, but
+> if you don't hit that ratio use up to 2GB of physical swap.
+> 
+> In all of these scenarios swap.max is exact same counter it has been for
+> you, and what we get out of this is:
+> 
+>   memory.max = 8GB
+>   zswap.max  = 2GB
+>   pswap.max  = 8GB
+>   swap.max   = max
+> 
+> I don't care how much you compress, you're limited to 2GB of ram, have
+> at it - and feel free to use another 8GB of storage. If your PSI gets
+> too high we'll do you a favor and OOM kill you so you don't spin
+> endlessly churning your swap.
+> 
+>   memory.max = 8GB
+>   zswap.max  = 2GB
+>   pswap.max  = 0
+>   swap.max   = max
+> 
+> Only zswap up to 25% of your memory, i don't care how much to squeeze.
+> 
+> I struggle to think of a scenario that cannot be described
+> compositionally this way - and that is without adding any kind of
+> "tier" logic.
+
+That sounds interesting, but I think this is already a mini
+version of swap tiering :D
+
+And not sure if the implementation will looks odd, e.g. like if you
+adjust that midway, you get different slot of different compression
+rates.?
+
+> > And if the memory compression is really fully transparent (not
+> > doable by software), yeah, that's great as there is nothing to do
+> > with reclaim.  But, for now, we have to go through page fault / folio
+> > allocation / map it again.
+> 
+> Transparent compression creates a completely different accounting
+> problem.  You lose ALL ability to see the per-page and per-memcg
+> compression ratio, and as a result you can have 1 container jam
+> 300 billion zero pages into 1 page, and another container spew
+> /dev/random to its memory - the result is the 300-billion zero-page
+> consumer is the one that will get killed for over-consumption.
+> 
+> Unless hardware provides a way to attach a token to a particular page
+> (either by out of band reporting or some architecture extension that
+> reports this as it is written), this problem won't get solved.
+> 
+> Until then, don't count on having anything more than a logical-view
+> of offloaded compressed ram consumption.
+
+Right, thanks for the info, I don't have any transparent compression
+hardware so not aware of how that part works, the software based
+one is being very commonly used though.
+
+> 
+> (this one of a few reasons it should not be serviced by the swap
+>  subsystem, but I digress).
+> 
+> > So For example, if we already have
+> > memory.max == memory.current or under high pressure, then now
+> > doing any read from the compressed part would need to some
+> > require further eviction first to make place for the decompressed
+> > new data, this is not like any kind of "real" memory, something
+> > feels not right here.
+> >
+> 
+> This is in fact how numa balancing works on tiered systems.  You eat a
+> fault to migrate a page to the socket, and with tiered counters you are
+> required to drive reclaim to get that promotion. (Presently this isn't
+> true of global pressure, migrations will happily fail).
+> 
+> In practice, we find this is acceptable but could be better if we
+> allowed the promotions to occur asynchronously outside the fault path,
+> but this has other trade offs (loss of locality information).
+> 
+> Anyway, this is exactly like real memory, just a bit more stringent
+> (a "Swap migration" cannot be allowed to fail, while a promotion can).
+> 
+> I have also experimented with this particular issue in compressed-ram
+> forcing promote-on-write instead of letting the hardware-compressed
+> memory be written to uncontended (which is a RAS nightmare).
+> 
+> In practice, if you are decent about proactively reclaiming your
+> workloads, or if fairness is enforced across workloads, this kind of
+> issue is not as big an issue as it looks. Fault time can be minimized.
+> 
+> Some partially simulated data:
+> 
+>                       Cost of a page fault
+> backend                   p50       p90       p99	max
+> disk swap-in (NVMe)       59 탎     70 탎    145 탎     1.63 ms
+> swap-cache hit          1.13 탎   1.15 탎   1.25 탎     79.9 탎
+> zswap-in (zstd)           26 탎     31 탎     44 탎     0.27 ms
+> cram write-fault        2.10 탎   2.24 탎   2.43 탎       70 탎
+>   (promotion)
+> cram read               0.13 탎   0.14 탎   0.14 탎     14.7 탎
+>   (read-in-place)
+
+...
+
+> 
+> Generally I disagree but the data above shows you are technically
+> correct for extreme outliars (zswap-in max vs disk swap-in p50).
+> 
+
+That data is very helpful info! But it could be very hardware dependent,
+especially with certain mitigations and hardwares, the faulting
+process may slowdown by a lot. This is the right picture for most
+cases, and for another example on one of our certain instance of VM, I
+observed this (high pressure, batch fault):
+
+                    component                      탎/page
+page fault handling (directly calibrated)          ~1.92
+swap machinery (slot, swap cache, rmap, zram, etc) ~1.04
+lzo decompression                                  ~0.32
+
+Kind of crazy that decompression only take a very minor part
+of it.  While storage based SWAP goes through SPDK so it changes
+dramatically according to the host, setup or spec.
+
+BTW CRAM looks really nice from the data of yours :) !
+
+> But I can understand why the point here is that you might want to limit
+> the total amount of swappable memory, regardless of where it ends up.
+> 
+> The real issue is when your hot (or warm) memory exceeds your real
+> memory limit - at which point you start entering a churn cycle where
+> every swap-in swaps out a hot page.
+> 
+> That shows up as stalls and PSI pretty quickly and can be dealt with
+> by monitoring - but I can see the desire to just have them OOM.
+
+Right, monitoring is less effective from somehting that is directly
+in the kernel.
+
+> 
+> > I also want to separate two things that I think got bundled together
+> > here: not requiring a physical slot behind a compressed entry, and not
+> > charging the raw size to the swap counter. The first one is great, yeah,
+> > and it's exactly the part we want, it's what makes compression usable
+> > without provisioning disk.
+> 
+> agree
+> 
+> > The second one is a policy change,
+> 
+> Disagree.
+> 
+> If zswap does not charge a physical slot, then it is correct to stop
+> charging the counter based on the historic definition - it just was
+
+Hmm, but the historical defination is the logical entry, no?
+
+> lucky happenstance that the swap counter and logical accounting matched
+> up until now.
+> 
+> That said, I think there's a strong argument that breaking that coupling
+> may in fact break users - but the answer may not be to do nothing, but
+> to simply give physical swap its own counter and begrudingly change the
+> contract.
+> 
+> I can hear Johannes rolling his eyes at me from 3 states away :]
+> 
+> > maybe it's not needed for the first stage, charging a cgroup for the
+> > memories it has offloaded doesn't require any slot to exist behind them.
+> > If someone wants to run memory compression with no disk at all,
+> > memory.swap.max defaults to max, so that still works fine, right?
+> >
+> 
+> It becomes confusing, because we also want to use the swap counter to
+> control physical consumption.  To run with only zswap w/ swap.max you
+> must have no physical disk limit.
+> 
+> It is the exact opposite issue of yours.
+> 
+> > And I'm not asking the compression layer to have an opinion on how
+> > much compression or ratio is too much, just think we need a sane limit
+> > for container schedulers to sets on top of it.
+> >
+> 
+> I don't think it's unreasonable.  This just seems like a distraction if
+> we can come to a conclusion where both scenarios can be composed.
+> 
+> > memory.max: control the raw usage of application.
+> > memory.swap.current/max: controls the offloaded size/limit of a application.
+> > With (memory.max + memory.swap.max) <= planned usage (and this is memsw).
+> > 
+> > We can keep the compressed part in memory.current of course, as already
+> > did in upstream with ZSWAP, and things can be further adapted, we
+> > still have:
+> > 
+> > memory.max: control the real usage of application.
+> > memory.swap.current/max: controls the offloaded size/limit of a application.
+> > With (memory.max - <compress memory> + memory.swap.max) <= planned usage.
+> > 
+> 
+> This makes me wonder whether a pswap counter functionally deprecates
+> zram, since the hard memory consumption limit becomes composable
+> (putting aside the implementation details).
+> 
+> i.e. is there a zram scenario which cannot be composed with something
+> like zswap/pswap/swap
+> 
+> > Just for reference. Maybe a seperate counter, tiering, is a better idea
+> > than changing the swap counter?
+> 
+> I would push back on tiering - this seems like more complexity than the
+> requirement warrants.  We may find memory-backed and storage-backed swap
+> want different solutions in the "tiering" worlds.
+
+Hmm, I mean in general swap are page fault (swap entry) based, that makes
+them similiar and that's the common point?
+
+> 
+> e.g. it may never make sense to give zswap/zram/xswap a lower priority
+> than a physical swap layer, and you may never really want to compose
+> them with one another, so why does it need to be considered?
+
+Making ZRAM have a lower priority could make sense... Well I haven't
+actually see it being used that way, but first there are users of
+multiple ZRAMs indeed, and e.g. if you put offline batch tasks on the
+same machine with high priority tasks, and the offline batch task only
+want to finish their work, however slow is fine, and the user want to
+have lower impact on CPU usage from them, with a limited storage space.
+Well I have to say this looks odd and just a theory, but we have see
+too many bizzard usage of the Linux kernel, there are even people
+using deprecated GPU's VRAM as SWAP for CPU's RAM, and hey they
+still make sense, you can easily found popular community projects
+based on that.
