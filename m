@@ -1,63 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A52D41D652;
-	Fri, 25 Sep 2026 10:54:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AD147F2ED;
+	Fri, 25 Sep 2026 10:54:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790333648; cv=none; b=GJnfgG+BXqpa8sf12fsVGD8ycrsxxka5AF/zC8AVq9Wbape8Bkq/vlMQDzYr0+xnLple9LVs7Tf0wnZN+4q5fHQ1uMxGhUrD5sC/UXHlBPs6TGq3QYXY7qyhbFai0MJGvA5NEbf86BXHpsKbeoj2tJGZDGkqc7MLeHseYGxbKjg=
+	t=1790333652; cv=none; b=OCQWjyywbyZtbZTx1/Q7bFaSvj6hMIcoDYI8Cd3rqgGNJ+47UfuSEiciWcXvu6nMP9C30LufUaRNPU4dK/ULQ/ZCOV3r64sARKZLHmg2uCnv654MZtT8DmNHh3r/T/b0jwCRXluNPtZdiecYk68zsYEYlEaOV870633JrOyAkuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790333648; c=relaxed/simple;
-	bh=T1lt3bZWsB02M6i0kvJJk7ePB1qkpOBtDhqX8cLOPOg=;
+	s=arc-20240116; t=1790333652; c=relaxed/simple;
+	bh=R0ziVUcuLd2xOGMrKBf7sdrwC6KNrSPuVmFdinVgKus=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=SaeN7EnXUddtID1hIWa0/QwJgX3RtWeH9xVwiXJOavNQsJOL3hvQX+e0M1mR3ik/jwGPxjSie52snUO6dwsdHG7wniZqY/xLgoY/5CBtI482M5OXRYb6khoNlPdNRQNYogaYfxKjD/ZPY+u0Sq2ipiVoEDS4dsOMMK3B/ZYdQ8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=2LUXOyCi; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=N4Fkd0tn; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=i407z430ZUo9b9j+PmeU8v30PJsi8kz+t7+Vgh1ffycsP4TI0BZ2ppkTB0ksBXQ4mAWT4pyWl3UrRLxfB0zQDC5FvFFFTG/mhnkh3QEqwlh9sfsWZvIlA3ASJ7squnfveT2S4wY86yX/cjUWNwEgS/tP2pYQY6aHxht8JYqzb4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3p6mWR0G; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=V2OObFSe; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="2LUXOyCi";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="N4Fkd0tn"
-Date: Fri, 25 Sep 2026 10:54:03 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3p6mWR0G";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="V2OObFSe"
+Date: Fri, 25 Sep 2026 10:54:06 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790333644;
+	s=2020; t=1790333647;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rA81wtX08A7BN29fNI7DoQWAsdQopHJCKcmiB1C2MKA=;
-	b=2LUXOyCiLmqPMtdRbu6sVOX9O1rW1AASaYsyVDAW8GFpsSz7j1h1dOsrSi3f0S8MqZFHWC
-	biEwJqix4tYVNoAYlTmKp5xdtseFAu8KhzSaq2tQicDahR4OFAi/d0ooy2jygdNEJyUvi8
-	8oru5B6tdx+ZXjZvkxK96uYP3Huli5tAiNgiomHoPgeNJdYFFsc6SXqMHa+4CFOgQeNfGo
-	fdr54zzWyLbrZi6hHdjXnTIC4HNno4UQkWkoJt+FuN/Y63ZUyfrnmkMJmnNVEFR3O/P5/o
-	b2cnnrAYDgzMCMQYfA8obX2WFeR3nHGk8n9DrsDzroKnhWH8oXxveNZ6Kf/u1Q==
+	bh=gYXiUGV2HWeYozbX8QRL9Y28oQ/1MlADOs1gQb0JbZc=;
+	b=3p6mWR0GqoCLP/vo5KJnPu+FWrM+RkszF4ITOKSk2iKdXLe6fWRpA/CdA4zvlhqFQXL6Vv
+	Vt6QUtQUnpTnBT7Bg0darcPLqfTn4gemHImF5uXYZaSBhRt81mHo36ayIFy22Ys2Od5TcU
+	Wt0wpha5+JNVlt8NBQKq5XOf/+jgeWQAtLoaU6OFJ6JsPfFmw22xZ1xNLA4sS9l2ulsR49
+	aSMQODQpUQ5mpRXrehSTji/flDtRJndbdUWoiHeFKCCSjA0LI9I7gZU7HTna/H4RJDOe7M
+	4sZphpDs6pGeGtYelV07fH6rzPr46wCfqBPExDt/Jrm6s7UHpLVPxE43gLSx3A==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790333644;
+	s=2020e; t=1790333647;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rA81wtX08A7BN29fNI7DoQWAsdQopHJCKcmiB1C2MKA=;
-	b=N4Fkd0tnQLcMGuL9LVfTJ9pdDZ+9lTxClVUHMlmwDIPAQSBUY4/yV1EL0nw43V30MVKHXK
-	jiyVgTK6dIPooPAA==
+	bh=gYXiUGV2HWeYozbX8QRL9Y28oQ/1MlADOs1gQb0JbZc=;
+	b=V2OObFSe57b8ForzDUBxeSYeNjUdJRZ57GmC6xdd0JR5tL308lE1CBnV7yeeyC4T3iYR9D
+	/sdyMnjN/sGiduAw==
 From: "tip-bot2 for Vincent Guittot" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/core] sched/eevdf: Handle more short slice waking cases
+Subject: [tip: sched/core] sched/eevdf: Ensure that vprot will never go above
+ a min slice
 Cc: Vincent Guittot <vincent.guittot@linaro.org>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260921152238.3804392-4-vincent.guittot@linaro.org>
-References: <20260921152238.3804392-4-vincent.guittot@linaro.org>
+In-Reply-To: <20260921152238.3804392-2-vincent.guittot@linaro.org>
+References: <20260921152238.3804392-2-vincent.guittot@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179033364338.2819794.17721544590591938311.tip-bot2@tip-bot2>
+Message-ID: <179033364613.2819794.18177332963834046075.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,47 +68,41 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the sched/core branch of tip:
 
-Commit-ID:     d2e0100827578641df2f85546bdb57bb1d8ff55b
-Gitweb:        https://git.kernel.org/tip/d2e0100827578641df2f85546bdb57bb1d8=
-ff55b
+Commit-ID:     aae2a33ea66299f39252bc1891bb4f05f631255d
+Gitweb:        https://git.kernel.org/tip/aae2a33ea66299f39252bc1891bb4f05f63=
+1255d
 Author:        Vincent Guittot <vincent.guittot@linaro.org>
-AuthorDate:    Mon, 21 Sep 2026 17:22:33 +02:00
+AuthorDate:    Mon, 21 Sep 2026 17:22:31 +02:00
 Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Fri, 25 Sep 2026 12:45:59 +02:00
+CommitterDate: Fri, 25 Sep 2026 12:45:58 +02:00
 
-sched/eevdf: Handle more short slice waking cases
+sched/eevdf: Ensure that vprot will never go above a min slice
 
-Handle better the cases with several short slice tasks waking up
-simultaneously.
+ineligible_vruntime() can be after the duration of a min slice but we
+want to make sure that current will not run more than a min slice.
 
 Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260921152238.3804392-4-vincent.guittot@linar=
+Link: https://patch.msgid.link/20260921152238.3804392-2-vincent.guittot@linar=
 o.org
 ---
- kernel/sched/fair.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ kernel/sched/fair.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 82155d9..03206e1 100644
+index 2f5c706..0969be2 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -9836,8 +9836,14 @@ static inline bool set_preempt_buddy(struct cfs_rq *cf=
+@@ -1128,10 +1128,9 @@ static inline void set_protect_slice(struct cfs_rq *cf=
 s_rq, struct sched_entity=20
 =20
- static inline bool set_short_buddy(struct cfs_rq *cfs_rq, struct sched_entit=
-y *pse)
- {
--	if (cfs_rq->next && cfs_rq->next->slice < pse->slice)
--		return false;
-+	if (cfs_rq->next) {
-+		if (cfs_rq->next->slice < pse->slice)
-+			return false;
-+
-+		if (cfs_rq->next->slice =3D=3D pse->slice &&
-+		    entity_before(cfs_rq->next, pse))
-+			return false;
-+	}
+ 	/* If there are shorter slices than se's one */
+ 	if (slice !=3D se->slice) {
++		vprot =3D min_vruntime(vprot, se->vruntime + calc_delta_fair(slice, se));
+ 		if (sched_feat(PREEMPT_SHORT))
+ 			vprot =3D min_vruntime(vprot, ineligible_vruntime(cfs_rq));
+-		else
+-			vprot =3D min_vruntime(vprot, se->vruntime + calc_delta_fair(slice, se));
+ 	}
 =20
- 	set_next_buddy(cfs_rq, pse);
- 	return true;
+ 	se->vprot =3D vprot;
