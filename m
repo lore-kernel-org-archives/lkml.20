@@ -1,262 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92FF23D9DDF;
-	Fri, 25 Sep 2026 09:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD44483BED
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:25:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790328224; cv=none; b=sPnxn7UMFAlAAVfGWnS8p22tTtItHXXYBKleD0hi5EXvFY7cVNl5XvKCae7dchgcfmoLB74bGVFUQ/H5r0udElm+q0Qzs1vnGDGm0MG26muImQiGVVFKvicNMp7ywepebOMl312NcrH5p50vUeoeYUYuV6aFeyAPwJIkzFPYeIA=
+	t=1790328304; cv=none; b=kvgNhUfxOUeCZUmtEiJzLFnAzbVFSMfS98bzN3O7koRS7o8KUy47FoosFK/IWkJ3O8FRTeRpgno91mpzUpKUqdDmnYXsQd32phwybgyc335bFRuZ40A9galLWHk5OCnhgaiYPNeCf210T9IqhfftjBqQzpZgFKtddHzaK+mxKjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790328224; c=relaxed/simple;
-	bh=hXsLIa6FqLuT/CqkgfXJAD1+FNY/9Qm+D0njNVV+zbI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=l8EGwm9PjDoEuIY/LSVBYFbO1W7SuRgXMNHWBxGNv+VWD9dRvki1VAfDsr1agi5rBV/8PcXNcfKCRx3dmCc/DbWcd4F6r+0Qhtkf9qGCW8uzE1bsG0ulAbySD3u/HaDzukU2f2IfIt3Fm5mKnGLC4xjHflOCiQMLuwy/gWjkmp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gc1lv/zb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790328304; c=relaxed/simple;
+	bh=rsyuw981n4NVhsIaBTUsHYg+kOmfbqnfnOOq108N0y8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=alH2tqNsCU+U/7AYiSEa2kgIJDaqQ+qlPEoopFt8DDkjMmNKTNgm9OS8nKLIgFone3Qv3+sly4AFas6H7Ma4EakFOfYDpvEJ4rzEhm7ZeGRRHuUyUZy7rL94nsb/5IzhxNVWGbHY19KAXtqeSnXDzBpuFCje+uksr6SIUdC8PIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wg2tGkdn; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gc1lv/zb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985531F000FF;
-	Fri, 25 Sep 2026 09:23:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790328218;
-	bh=TR/DNrhj4WhK6vMwKQdC89k1M0VPZBcpP0nz9xUvfK0=;
-	h=From:To:Cc:Subject:Date;
-	b=Gc1lv/zbiwypEWXkd2e4N/soj7QRIeRNaveQQl99ifZ+DBlrBIRFziYNEbDo6+PQ8
-	 FTOo2FjHHrEw8JroZ8Uya+jorFqhPd5ju98dlgUhL4hSs+h3+FlxlgD1X0HyIaE1g9
-	 H54CleBATbSkjgGHVhNsmxYeBhjKLf5Ah2VxkyVXWQ6vVJ6aIBykgNF2LSYxMITrPR
-	 2FGQ7SdZWLaSWPGL8DeUPDMVURnjDmI63/l/iWnWAolGrf2rz4UVq6MbTZQSodx3pr
-	 qJU5BkvnhTqac8q19wZoegW4yEyZnmfBpZeMh1TOiiePp6hDjeewoLhWEM24sySufF
-	 jPzwMpNOMoM/w==
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>,
- Linux Driver Core Development <driver-core@lists.linux.dev>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linux ACPI <linux-acpi@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Michael Kelley <mhklinux@outlook.com>,
- Hyper-V List <linux-hyperv@vger.kernel.org>
-Subject: [PATCH v3] driver core/ACPI: Introduce companion_bus_register()
-Date: Fri, 25 Sep 2026 11:23:35 +0200
-Message-ID: <12985239.O9o76ZdvQC@rafael.j.wysocki>
-Organization: Linux Kernel Development - Intel
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wg2tGkdn"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-32dec843c37so920059eec.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:25:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790328298; x=1790933098; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v2Xgw42/7p7dsnyTvA1Jhb5iy5oJXJ+/JZaVZl7VGKg=;
+        b=Wg2tGkdn9RVFIkNyo0uNbmXlKH3UVq9/GnB1Mm3+tKWdIqF55dZR5N/nOzRRu8RH4w
+         deUDuaztTm1WWcVnggP8OWLquX/FwbFLR01a8MTsdVZRXZTHffYfYiDCYBrcoClq4rZ1
+         QbQ78XpL1NzrJJFGtTjR7z+wpx5t056QRfpPDoborOP3mjbLQcRMJ9Wr7nWK+m2Xpb3S
+         c0/TzFZ5G0Es8PjhH+mCWP+/Q29iviRyWK8L/hi4o09Pv7fvgjlZNlA+7UwkaxNrytUW
+         v6dsuoUxNbeN1plfKZZ1X+QH/4HvwvUYdL5OR3cftUQraKRJD9ovtlyjzLbyi1W1J42F
+         uliQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790328298; x=1790933098;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v2Xgw42/7p7dsnyTvA1Jhb5iy5oJXJ+/JZaVZl7VGKg=;
+        b=UsKPdkQalB71csXosQG+8StCd2O4NqbIw3ScTSMeMl0jaVkBVK+Ddr+fuhNlYMS/iM
+         d6ZSkCddwmWjI8aEg48NDVM68nXfH+OLw9fAYWr3d6DoH5vIF9kIlMiJDkUXJb9NHSwa
+         AQMHIpOUc+xqMJs1JrzFq1hh4nR1CRbFANxY9uaQHp+jnYbN8o5QEfWuhou/9fw2uKga
+         K31zYKRmM0BSRaNd1vDN8Bh6rnvBnBRcWq+SUEO3aCG8V9WtPp0fA+70ktTZQCxEanbw
+         FHCXJM2ypzRP0tpZNAi6Vva74i0c6zTYj2MSpDYNZKv8cxMpbXR41TKZqpNektXu82zM
+         oZkw==
+X-Forwarded-Encrypted: i=1; AKwUvBxZdRPvGBGOTVob2SiXShb655DYLaXqXumxCD5E/JcxnQuEOQqDpBMXCdC3hPHjqwYTT1qzsYpeT8FySPo=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3n+m65jzIvqAofepTebLfcu5mCZENCdHfMXp2wTVLu/7nx6HS
+	hxIe7TyVZYVjdE/a+0U6CbbhoverigU4yiNI/R4H0EDnz9EYhMCpOaMS
+X-Gm-Gg: AYBFou1RLAMz4dMMYp85c+xugsPPGV/2G3Mg5bC/mzv5g9WJv3RhcERgfI/3LrmSELI
+	ikUtWH4ogeu/zTcQDfU7bBnCOPZ9RUxa8iCQqRyHDHW3qxZN2Uta8RYv/+TDvTwiksRovp4ufjF
+	hxgoKzOPVqn3fsQlClG/ywcMGwn+C2nMPlSgcRPHwAed05fa7TmUNGeFnrMMfAp2Pz24zM6ThYR
+	Jvs188GWCTLakbjQIsbQu+tIDq/ht7S7Xm+NIzMxr4mkigmkJt7SS4f5zffCresvnBT1vAXSY/X
+	aYUgVMj3vRjSDyaNWj3BbFuxdKs8SjMCfN9jpy2um0VuBT9Qrba2etFVhYO2n2Bd650Swg0yyib
+	a8vJg/r8dPegC+3PbQ/mnVwWwNVKyD+QJmFIXAd1SgfdvYqMEH1e2ia/iQ+h4T8Zev5+Z13IeVS
+	C4D18zHHGov0vHZWCuv2ARPYZ4PDDews/ZWgyptcIDE1RAcKDYNfPU1cp/oRRjAVacJdUaQ6GYP
+	0D8B630Dv2JbOGxD5Dbln6GrUY=
+X-Received: by 2002:a05:693c:6082:b0:33c:19bc:d8d2 with SMTP id 5a478bee46e88-340039b5202mr6094857eec.31.1790328297715;
+        Fri, 25 Sep 2026 02:24:57 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:8004:98ea:c60f:8ff:fe17:57ff])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145727589sm5035806eec.23.2026.09.25.02.24.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 02:24:57 -0700 (PDT)
+From: Bihaan Sen <stevewholikesthings@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bihaan Sen <stevewholikesthings@gmail.com>
+Subject: [PATCH] Input: xpad - add support for 8BitDo Pro 2 Wired Controller for Xbox
+Date: Fri, 25 Sep 2026 14:54:34 +0530
+Message-ID: <20260925092439.79904-1-stevewholikesthings@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+The 8BitDo Pro 2 Wired Controller for Xbox is already matched by the
+vendor-wide XPAD_XBOXONE_VENDOR(0x2dc8) entry, but a later hardware
+revision reports product ID 0x201e, which has no entry in the
+xpad_device table. The device therefore binds and functions but is
+exposed to userspace as "Generic X-Box pad".
 
-The ACPI bus type does not allow drivers to be matched to devices, so
-the sysfs attributes related to drivers created for it are useless and
-their existence is confusing.
+Add the VID/PID pair so the controller is named correctly.
 
-Moreover, it is better to prevent drivers from being registered and
-looked up for a bus like that.
-
-To allow skipping the creation of those sysfs attributes and preventing
-driver registration and lookup for the ACPI bus type, introduce a
-"companion" bus type concept and add a special registration function
-for registering "companion" bus types, companion_bus_register().
-
-The "drivers" directory under the ACPI bus type is still needed because
-there are versions of systemd that depend on it [1].
-
-Link: https://lore.kernel.org/linux-acpi/SN6PR02MB41575266A4580339E186E5D9D4812@SN6PR02MB4157.namprd02.prod.outlook.com/ [1]
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Bihaan Sen <stevewholikesthings@gmail.com>
 ---
+ drivers/input/joystick/xpad.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-v2 -> v3:
-   * Retain /sys/bus/acpi/drivers/ because the lack of it confuses some
-     versions of systemd (Michael Kelley)
-   * Add flag in struct subsys_private to indicate a bus with no drivers
-   * Add ACK from Greg (tentatively, but the patch is generally along the
-     same lines as before)
-   * Update the changelog
-
-v1 -> v2:
-   * Address Sashiko feedback regarding possible leaks of references in two
-     places:
-
-     https://sashiko.dev/#/patchset/8753121.T7Z3S40VBb%40rafael.j.wysocki
-
----
- drivers/acpi/bus.c         |    8 -----
- drivers/base/base.h        |    2 +
- drivers/base/bus.c         |   63 +++++++++++++++++++++++++++++++++++----------
- include/linux/device/bus.h |    1 
- 4 files changed, 54 insertions(+), 20 deletions(-)
-
---- a/drivers/acpi/bus.c
-+++ b/drivers/acpi/bus.c
-@@ -1110,11 +1110,6 @@ EXPORT_SYMBOL_GPL(acpi_driver_match_devi
-                               ACPI Bus operations
-    -------------------------------------------------------------------------- */
- 
--static int acpi_bus_match(struct device *dev, const struct device_driver *drv)
--{
--	return 0;
--}
--
- static int acpi_device_uevent(const struct device *dev, struct kobj_uevent_env *env)
- {
- 	return __acpi_device_uevent_modalias(to_acpi_device(dev), env);
-@@ -1122,7 +1117,6 @@ static int acpi_device_uevent(const stru
- 
- const struct bus_type acpi_bus_type = {
- 	.name		= "acpi",
--	.match		= acpi_bus_match,
- 	.uevent		= acpi_device_uevent,
- };
- 
-@@ -1441,7 +1435,7 @@ static int __init acpi_bus_init(void)
- 	 */
- 	acpi_root_dir = proc_mkdir(ACPI_BUS_FILE_ROOT, NULL);
- 
--	result = bus_register(&acpi_bus_type);
-+	result = companion_bus_register(&acpi_bus_type);
- 	if (!result)
- 		return 0;
- 
---- a/drivers/base/base.h
-+++ b/drivers/base/base.h
-@@ -27,6 +27,7 @@
-  * @drivers_autoprobe: gate whether new devices are automatically attached to
-  *		       registered drivers, or new drivers automatically attach
-  *		       to existing devices.
-+ * @no_drivers: gate whether drivers can be registered.
-  * @bus: pointer back to the struct bus_type that this structure is associated
-  *	 with.
-  * @dev_root: Default device to use as the parent.
-@@ -51,6 +52,7 @@ struct subsys_private {
- 	struct klist klist_drivers;
- 	struct blocking_notifier_head bus_notifier;
- 	unsigned int drivers_autoprobe:1;
-+	unsigned int no_drivers:1;
- 	const struct bus_type *bus;
- 	struct device *dev_root;
- 
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -738,6 +738,11 @@ int bus_add_driver(struct device_driver
- 	if (!sp)
- 		return -EINVAL;
- 
-+	if (sp->no_drivers) {
-+		error = -ENXIO;
-+		goto out_put_bus;
-+	}
-+
- 	/*
- 	 * Reference in sp is now incremented and will be dropped when
- 	 * the driver is removed from the bus
-@@ -930,15 +935,7 @@ static ssize_t bus_uevent_store(const st
- static struct bus_attribute bus_attr_uevent = __ATTR(uevent, 0200, NULL,
- 						     bus_uevent_store);
- 
--/**
-- * bus_register - register a driver-core subsystem
-- * @bus: bus to register
-- *
-- * Once we have that, we register the bus with the kobject
-- * infrastructure, then register the children subsystems it has:
-- * the devices and drivers that belong to the subsystem.
-- */
--int bus_register(const struct bus_type *bus)
-+static int bus_register_internal(const struct bus_type *bus, bool use_drivers)
- {
- 	int retval;
- 	struct subsys_private *priv;
-@@ -960,7 +957,8 @@ int bus_register(const struct bus_type *
- 
- 	bus_kobj->kset = bus_kset;
- 	bus_kobj->ktype = &bus_ktype;
--	priv->drivers_autoprobe = 1;
-+	priv->drivers_autoprobe = use_drivers;
-+	priv->no_drivers = !use_drivers;
- 
- 	retval = kset_register(&priv->subsys);
- 	if (retval)
-@@ -989,9 +987,11 @@ int bus_register(const struct bus_type *
- 	klist_init(&priv->klist_devices, klist_devices_get, klist_devices_put);
- 	klist_init(&priv->klist_drivers, NULL, NULL);
- 
--	retval = add_probe_files(bus);
--	if (retval)
--		goto bus_probe_files_fail;
-+	if (use_drivers) {
-+		retval = add_probe_files(bus);
-+		if (retval)
-+			goto bus_probe_files_fail;
-+	}
- 
- 	retval = sysfs_create_groups(bus_kobj, bus->bus_groups);
- 	if (retval)
-@@ -1016,9 +1016,41 @@ out:
- 	kfree(priv);
- 	return retval;
- }
-+
-+/**
-+ * bus_register - register a driver-core subsystem
-+ * @bus: bus to register
-+ *
-+ * Once we have that, we register the bus with the kobject
-+ * infrastructure, then register the children subsystems it has:
-+ * the devices and drivers that belong to the subsystem.
-+ */
-+int bus_register(const struct bus_type *bus)
-+{
-+	return bus_register_internal(bus, true);
-+}
- EXPORT_SYMBOL_GPL(bus_register);
- 
- /**
-+ * companion_bus_register - register a companion bus type
-+ * @bus: companion bus to register
-+ *
-+ * A companion bus is a bus without drivers.  Devices that belong to it can be
-+ * bound to other devices as their "companions" and represent interfaces that
-+ * can be used by the drivers of those other devices.  They may also be used for
-+ * the enumeration of those other devices.
-+ *
-+ * The ACPI bus is a specific example of a companion bus.
-+ *
-+ * Registering a companion bus is like registering a regular bus except that it
-+ * skips the creation of sysfs interfaces related to drivers for @bus.
-+ */
-+int companion_bus_register(const struct bus_type *bus)
-+{
-+	return bus_register_internal(bus, false);
-+}
-+
-+/**
-  * bus_unregister - remove a bus from the system
-  * @bus: bus.
-  *
-@@ -1415,6 +1447,11 @@ struct device_driver *driver_find(const
- 	if (!sp)
- 		return NULL;
- 
-+	if (sp->no_drivers) {
-+		subsys_put(sp);
-+		return NULL;
-+	}
-+
- 	k = kset_find_obj(sp->drivers_kset, name);
- 	subsys_put(sp);
- 	if (!k)
---- a/include/linux/device/bus.h
-+++ b/include/linux/device/bus.h
-@@ -113,6 +113,7 @@ struct bus_type {
- 	bool need_parent_lock;
- };
- 
-+int __must_check companion_bus_register(const struct bus_type *bus);
- int __must_check bus_register(const struct bus_type *bus);
- 
- void bus_unregister(const struct bus_type *bus);
-
-
+diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
+index feb8f368f834..e7af88bfb8da 100644
+--- a/drivers/input/joystick/xpad.c
++++ b/drivers/input/joystick/xpad.c
+@@ -371,6 +371,7 @@ static const struct xpad_device {
+ 	{ 0x294b, 0x3404, "Snakebyte GAMEPAD RGB X", 0, XTYPE_XBOXONE },
+ 	{ 0x2993, 0x2001, "TECNO Pocket Go", 0, XTYPE_XBOX360 },
+ 	{ 0x2dc8, 0x2000, "8BitDo Pro 2 Wired Controller fox Xbox", 0, XTYPE_XBOXONE },
++	{ 0x2dc8, 0x201e, "8BitDo Pro 2 Wired Controller for Xbox", 0, XTYPE_XBOXONE },
+ 	{ 0x2dc8, 0x200f, "8BitDo Ultimate 3-mode Controller for Xbox", MAP_SHARE_BUTTON, XTYPE_XBOXONE },
+ 	{ 0x2dc8, 0x3106, "8BitDo Ultimate Wireless / Pro 2 Wired Controller", 0, XTYPE_XBOX360 },
+ 	{ 0x2dc8, 0x3109, "8BitDo Ultimate Wireless Bluetooth", 0, XTYPE_XBOX360 },
+-- 
+2.55.0
 
