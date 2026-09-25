@@ -1,126 +1,104 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-139.mta0.migadu.com [91.218.175.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADEE40F743
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790362029; cv=pass; b=UoypDK99vAiWLUQOjySgcjKLUzxGmaY1gnn7r9DTltsTwOGUTHle1OAhoGsarJn7GWWl0G2AdrtWN4yKTgNWTb53QOCx55t7CMEgJAqX/EjPbN702t9qYCr0NbMqei6WVrfvRGIORMv8TuPuAfsq2/XFLYnQzm/8ms6VcCp7Y00=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790362029; c=relaxed/simple;
-	bh=t0pKAbH0SA2araO3s4z8ycC80JiA92CZd/FQ3/v+S5g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l0g44pD1CuynREPZU6mx2sZiQTaCFFzBh4aYYqUfS2JxxpaiLDzWGtDRblquCLAtfN8kHq67Kwc0HR2Bw5On0dUmiTuudPX2k2dozFHm0qkLSzeS4FagK3WiIeEXiVxbu7DogYTvPfLxzlDGpG/LJTz92A1ljhVh1m6Rzon+xGo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=jGVlsM9F; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE154119F7
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790362033; cv=none; b=m/EFWEIq90n5kRPMEZUzW9/RGww3XdIBixnhqr//9/S7/sBPMhLhw3tTLhuUVeN0dZ3j/VbdU6zppWp8HXZn69Phpb/nQRRm9j6gOlQvR7OzJND6IS4wKcDuZ0WuSR8hvq2AgVLpUsKGbDbCdB/b2hxmTKiIOrKSUvi+FwU5eDc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790362033; c=relaxed/simple;
+	bh=ZDB7Cv/GoRAaoC2nMm2ohyzn0qw/lGYfH7aEvgoflCA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nbWzGhXkMXo7hn3ZS4fwSGK+WiUEboXuYF9Pbo8kwAlq0erIUsLHI2EMD9WUg+gdfbheDS10Jz02m7bnD1kfEqQEU7gyW7z2GWPcGLrHqpvfGnq3d9REy327frATaab9TZDhWgCQpiiLx7TPQELINtqcWhTSIm4Fbz6ANElAOQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F0qMOSRQ; arc=none smtp.client-ip=91.218.175.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="jGVlsM9F"
-ARC-Seal: i=1; a=rsa-sha256; t=1790362002; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=QRRZ845cVExKAOfca4ssSzQfLJKQdrmQSJe/9tUVRRe/2XtDUyE59OC8VpI5+ExXp8meNH34mIeHfCQ36hDtYz20IU18VR1MR9wY1AbOAD1ArzQwwvdh7GHEEaKn2deozdeyVlcJa757+dkoSs/lnUqote2hmoJP38T5IFPMexg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790362002; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Z6RRS3cshQwsXc3rA/U7BvQ2XdAR4lAqGHrehoKydrQ=; 
-	b=lu40QZ6XV4uGV+LtIdlAsEibPACE+IW/8npWp0iOSTzg+5R14NKrje5mpoqYC4edxEE9gQhSKooJ8LPeb9JxH3S6bNJJ9V08nyj+vWmrCSOca2AQcYggPL3B9+gfkOuKg5dJUxhCawmQUpc/g5nKkcHjuTFacig9ARgtFKPjAng=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790362002;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=Z6RRS3cshQwsXc3rA/U7BvQ2XdAR4lAqGHrehoKydrQ=;
-	b=jGVlsM9F+d/phPRkHKVM27PRrck8G7Iuzup1rH0twmk9K0YQn51qSmBBbjt57xxL
-	3dD8bBh1MqtOFYJmuTt2rfrJH/I79QAVYSeyumkjYlv6HJwcpUoz/ekC+J7wG45EW78
-	7NjRpiGS9F17x+RQddj/M0y0dtaBDZgJSWYWqvCg=
-Received: by smtp.zohomail.com with SMTPS id 1790361999845716.5502045892146;
-	Fri, 25 Sep 2026 11:46:39 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Fri, 25 Sep 2026 19:45:33 +0100
-Subject: [PATCH v11 12/15] drm/panfrost: Skip cache flush/invalidate when
- enabling perfcnt
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F0qMOSRQ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZDB7Cv/GoRAaoC2nMm2ohyzn0qw/lGYfH7aEvgoflCA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790362028; v=1; x=1790966828;
+ b=F0qMOSRQ6JdStYwkIiLROThp5fhWQvDBe4b4+Ss5aOXnkYoUS+EptNCziAOUr88AjVPfSCn+
+ XXt64a96e436lPhdtAfUhahXy0Pc33Gw4EH9BGe9dnb42OkDIfBBDHHKRXNY5soNMjgcA29M5ov
+ OmtVCYoUKRoUjPceKbIEYC94=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 58196d26f865613b;
+	Fri, 25 Sep 2026 18:47:07 +0000
+X-Mizu-Trace-ID: 58196d26f865613b
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 25 Sep 2026 11:47:02 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Kairui Song <ryncsn@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel team <kernel-team@meta.com>, 
+	Linux Memory Management List <linux-mm@kvack.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <arbA6J7n999U7v0L@linux.dev>
+References: <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
+ <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora>
+ <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <arKRdaNEaKvFOtMg@linux.dev>
+ <CACePvbX7aM45SE9H0hg1_uXBt1i4W7Pgk+d33Z2sG5bj8cHudA@mail.gmail.com>
+ <arKerXANxjILrKNs@MiWiFi-R3L-srv>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260925-claude-fixes-v11-12-0dbf5a58e7ce@collabora.com>
-References: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
-In-Reply-To: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1716;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=t0pKAbH0SA2araO3s4z8ycC80JiA92CZd/FQ3/v+S5g=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqtsFEnU8MaIxk/nlskpgiIVTgRr6KGp7uVdqN+
- hKKvUqrpp+JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCarbBRAAKCRAOJn5M7lND
- Pd/ZDACDnWBy7gzQaFzmuxeIdYtp9mp1IgBSp/aUAzfyfT4q60T86kk/1Xdvt3sjAXnPtkp5aSi
- ctOUh7PcroYEo+VlqYRHDbEdZHA+Ew/NZ/aTL/WGBnjcoClflyfNI8dAJBxI0woFI1s3qzJQpk/
- mpefDR7/V+ZjmLoEKSRrFilaBQMM1zqgSFfP2onrdAMQGqeBSKgQN/sHb/w/Qv5aqkvOwOXoxTb
- kUVDFwmGyPtSCModcn4Cgzf/djzAkV3aDRLjkO7wwFUOXbiWIu7q4DB3mrH7hFyIE0ZxWQRv5QF
- VktaSr9oJHHOJ/rI5/htgF/BmQxBDI8i8QtDpzLy5YRv8MUNzA/YzqgXuvbfEoRo5SWRKy7g6QT
- 9J39a6ODxN3g6FzJ4njRsqcRnvfwZ7fu+l9pEGaI1FRsLQ9EDAeWUssQ8K4XEXNVbEVLqwPgcol
- U5rqHU+CcmNkdWSxKu5XeWLjYRvq+kF9G1DJHvfyC9fPdLC9X1yBD5A62v8wbyb652rsE=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+In-Reply-To: <arKerXANxjILrKNs@MiWiFi-R3L-srv>
 
-The GPU cache flush/invalidate operation is unnecessary. First off, the
-GPU doesn't read off the perfcnt sample buffer, only writes into it, so
-an invalidate doesn't make a difference. Then flushing GPU caches after
-each sample has been written is enough for the CPU to see updated values.
+On Tue, Sep 22, 2026 at 11:28:45PM +0800, Baoquan He wrote:
+> On 09/22/26 at 04:56am, Chris Li wrote:
+> > On Tue, Sep 22, 2026 at 4:43 AM Shakeel Butt <shakeel.butt@linux.dev> wrote:
+> > >
+> > > People can speak for themselves and suggest other time slots. You do not speak
+> > > for anyone but yourself here. At this point this is derailing the conversation.
+> > >
+> > 
+> > I am expressing my opinion, freedom of speech. As you can see in the
+> > previous discussion, Baoquan wasn't able to join that time slot. He is
+> > a major shareholder in XSwap. I worry that alignment vswap vs xswap
+> > without Baoquan is ineffective. That is my opinion.
+> 
+> Thanks Chris. I know you are trying to involve more people to join and
+> talk, and I appreciate it.
+> 
+> About the meeting time. I am in UTC+8. If the meeting is before 23:00
+> my time, I can join. If it is later than that, it is too late for me,                                 
+> and I can only discuss in the mailing list.                                                           
+>                                                                                                       
+> But I am fine if other people meet without me. Please do not block the                                
+> meeting because of me.                                                                                
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index f71534e741b6..ffc77121070e 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- 	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
- 
- 	/*
--	 * Invalidate the cache and clear the counters to start from a fresh
--	 * state.
-+	 * Clear the counters to start from a fresh state.
- 	 */
--	reinit_completion(&pfdev->perfcnt->dump_comp);
--	gpu_write(pfdev, GPU_INT_CLEAR,
--		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
--		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-+	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
- 	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
--	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
--	ret = wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
--					  msecs_to_jiffies(1000));
--	if (!ret) {
--		ret = -ETIMEDOUT;
--		goto err_vunmap;
--	}
- 
- 	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
- 	if (ret < 0)
-
--- 
-2.55.0
+Hi Baoquan, don't worry, I will make sure that you are present in the
+conversation. There isn't much time left before LPC and many people are
+travelling next week, so we may have to schedule one after the LPC. 
 
