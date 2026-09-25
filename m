@@ -1,176 +1,181 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C66395AF0;
-	Fri, 25 Sep 2026 19:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7523343BDA3
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:44:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365388; cv=none; b=kMt2aMLblvuZM+1lK499W5oZmTqYOVOKKkuvoiTZ6igs7x0WJjEwqqZQG0WVBlFP4VSs5OPlrRRcR4v70lzlPZgVLxCNjs6mgYIAPkDYrQlqwdzHejsmvpU7gcb411mLONlsXyBF+Zyug4BDklZGkBL5uQ5l1ifd3OEolabnFv4=
+	t=1790365443; cv=none; b=U7kNFdc4I/y05YKNY20jsK6OuiRKnCpjpvqCKACOb8DmPKL2LuAdSp3GI6W4QhpHutqGl5h4sm/A+5GhLDOSBNobQZNu4uLeH3CucGLbnnMn9CGbIwaloAUClw7fz4kmObikYrc46X1r90jq0rqog3yN+IaXcSRDiLUO1QAYxfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365388; c=relaxed/simple;
-	bh=SJ7IJ7GJ+AoefIfvafr/HiupVw1ODCxgXPBKnuitgss=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=j8aIKzaW1CKOI4JUgehpn2z2w9HeUePPkNhO0uq5RnhRSYyEEZ3YlqfYTNzrzQvUblCTuy43gBD3OA+LcM4JBz9EI74ofaP7iF6anW5B0EW5uNW0oyGA66ApYJ+bHUzYqNwFfaGMg5Bq2SRIE0V2vn30uVy780LV/8egESBz+Hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=foQvcMvh; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=cyc/sPs7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Btj40VuR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hve9HCwY; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790365443; c=relaxed/simple;
+	bh=XLBHiYVbY4XboqeYH53a089Bs0z0CZeIc845oCpHAWE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=SyUeytel0O31GRHrERSZIW33IdNTR5htBb+/Z+Kgf43On/QeaCcpHf47VoMVS9ZOlGNcB1y9PwTDgyHgzY4PRdi0CkbyguQeCPzmD/x3IypacbWzHcqlZwOrN+edXvuqntc9EcFYQ5E5+1bINdhEVt/fIXWO+bB5zTml7cF8IKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xp3t0K5/; arc=none smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="foQvcMvh";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cyc/sPs7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Btj40VuR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hve9HCwY"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 55BDA1F388;
-	Fri, 25 Sep 2026 19:42:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790365380; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Aehel2drv8Soy4wmnRsMRnnKuR2/R9gych/XhpDwjp0=;
-	b=foQvcMvhutQ97LXCyUo/GslCR85heFVvH28oA/9xoyVKyon3tncWFspEheH5BHZcKg9/K9
-	kcBM4fsXVFMv2kDQrPB4nURi/nOEPncFm9kV48i9eY9QiXoN/+qHig27bz50dy7/Gvzj2u
-	3NyTFPlYiT4ewPpqbZMMTZ/3kyWVHm0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790365380;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Aehel2drv8Soy4wmnRsMRnnKuR2/R9gych/XhpDwjp0=;
-	b=cyc/sPs7dWHkZdF+Hd8/pquWtlQ2ABvZMe3MzfbtE6SuHiN10+EXdhRzsmmXBusf9UCg9p
-	AsLkgmhM6chjxECg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Btj40VuR;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=hve9HCwY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790365376; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Aehel2drv8Soy4wmnRsMRnnKuR2/R9gych/XhpDwjp0=;
-	b=Btj40VuRRP/Ih68p6bSiT+i2PHQXMiDCKaT3wUyT16jO7NObAfj2Rk9PY9n1B0VrtL74mz
-	LZFVoPwhB9Aum7SgRzjzt+azvrw5IandxqLMizGwf26ptUqXlbZ3ROcQC2zLIUrPRwi9QX
-	amPU6HEZ+li1FnwhErq3MU6h2aK0vIc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790365376;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Aehel2drv8Soy4wmnRsMRnnKuR2/R9gych/XhpDwjp0=;
-	b=hve9HCwYWAJjjV7oiHZiIh13uyBjprDZOKVhPvWHwPX7k2Q9otnx8wm++w+2AqqEy15uZ4
-	jLs9a0nixz4QDyCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC84813274;
-	Fri, 25 Sep 2026 19:42:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oKrkK7/Otmr2NwAAD6G6ig
-	(envelope-from <krisman@suse.de>); Fri, 25 Sep 2026 19:42:55 +0000
-From: Gabriel Krisman Bertazi <krisman@suse.de>
-To: Uzair Beg <uzairbeg11@gmail.com>
-Cc: io-uring@vger.kernel.org, axboe@kernel.dk, asml.silence@gmail.com,
- lin2530632123@gmail.com, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 3/3] io_uring/rsrc: prefill the node cache when a
- file table is registered empty
-In-Reply-To: <20260925163916.524653-1-uzairbeg11@gmail.com>
-Organization: SUSE
-References: <87fqza1imr.fsf@mailhost.krisman.be>
- <20260925163916.524653-1-uzairbeg11@gmail.com>
-Date: Fri, 25 Sep 2026 15:42:46 -0400
-Message-ID: <87cxu1yv61.fsf@mailhost.krisman.be>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xp3t0K5/"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-145ab8fd39cso1124916c88.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:44:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790365441; x=1790970241; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZYLzW5RinpejYLZI0RBfejVj09PiRk3kGoXJkMm971A=;
+        b=Xp3t0K5/1Jj3CFSXumS/lC/8YeOmOrPq5p31dpMvxmIe6fpP0HOlLEL4IIOWaM/Am/
+         nNf9ns4VyEYKf9fjzawfVum0Wa4CfoK0olXqXXnmXjRYvikfUGNP9nRI/v3vyd9+9kMK
+         KtShCGR0plvt1sL6Qa04e5IuSUcFn7XVmJ9nEJFVRU7U7JImsRF/14fprnwm6RFYH3y9
+         VLsUaKOLpv5F+S77Ofx0XJIisdO5VOX++ZaTwJcsGu/ymCEt5YVL0tHMwm+hYl7aVOAv
+         AEwOG5bB5xhwv/3KZ3MGBf/rPm25jU4fEwWwEX2B1UOkdYBpNXo64Xz3qFTK8o/3O96d
+         ZNjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790365441; x=1790970241;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZYLzW5RinpejYLZI0RBfejVj09PiRk3kGoXJkMm971A=;
+        b=ALRhvI0BL8ISdiKaZ/UPbkBA0NWjjzFDkmoMwHzsJ+s3IEqFPSzT98oG+dog9Y2Emw
+         8BwIfrcvQl63QW7b7Ukl+JSm/DcMplrfx1oy3pegAPZZG81jJW0ylLtja4Gw5k6xdwn1
+         Zm9RTidIbDS5Q6WLOCHupVVvTpgwXdWrmu4MKEmTeOl+3lv0f6GBLveI35iZ5esc8gPM
+         ZnwMEo3L8I7tFYioOdkliZRWnMRHwLLqHZ/tS4Kop8zQe5qQ8pdQ2GWg/bVZsxgE+201
+         JgP0oXPOKAR+Eo2FNcxwyRfouQAXEKQvuA8UfBn1+zuRPdgsHNChjU9ZGZetpVlgAUEI
+         L+NA==
+X-Forwarded-Encrypted: i=1; AKwUvBzezP/C9J2IigrJoKdbz/YH61zSIYgLAFYzh2AwTD7nEkl0PIflXH2bjjixEKHEBkapUewt3bSS8byh8pM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLyDBFPEhENFiC2SnLNLSmY6KDvyQ8UJimxSg7LWfkdQ53sF1r
+	Q8nqt9jcb6bRwJvBjnIKNG5sxK6+HPa5gh6GXX/O654Sknxnv/NYSsMM
+X-Gm-Gg: AYBFou2WtJLWizzs9AgFNLtGi9y5QunCLIElormU0FoKzYWS5XS6ToTMofwNuBJO/dD
+	Qy4ZjZKPo0HIJ1vnf13/LXikuE3keLhQ73Ub7wGgNXRO1oBjDYrh+voPJcHCMrIy07RRRFIQ/ig
+	s/zsoQDGXJHwiFGVwODs7fPp9/5qlXE26YjJmSLYlYGMPeMIroqoaVNo2RZlHnL0uNgbiR3clM0
+	DA3KuNgoUAOnFUVUMCqrhozebORorUXuc2BNARMX6J8pqxOMKSsr4VCe+MXxqwx3/RgdB8AK/qK
+	ye9a1WhPC1fRQ9BuAv0bsjGxT/Ml0JZh9HsDnSaktnkRLvsMEvv1Xq4WSKX9D8Txy+uLsu0Ltl1
+	R0IMdrrw18ZXJreJFoLmmNG9+RbPDqsWsleEuDX7zniotJnrE4Kk2d2zmsosPWi9YKdKZAO53Yv
+	1we3LPLpYt9vLH5j2lb+gWZIwDv59tYcTj/Znk7NokcsNOO6hrg3ZeyF4Ly9Tt/S7NVn1orU9Sh
+	7wCtHusuGRXn3uZrGfLzVZ5rG6t98FxY5lBWE8xogHbtuahI/bj7vYn0aLAeP9pK3QHd8YsaWw=
+X-Received: by 2002:a05:701b:21d3:20b0:145:123:5bfd with SMTP id a92af1059eb24-146cddbcdb0mr1091632c88.10.1790365441309;
+        Fri, 25 Sep 2026 12:44:01 -0700 (PDT)
+Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:afc1:567c:4083:c0c4])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ac67c0ccsm7253008c88.4.2026.09.25.12.43.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 12:44:00 -0700 (PDT)
+From: "Hemendra M. Naik" <hemendranaik@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	hemendranaik@gmail.com,
+	horms@kernel.org,
+	jhs@mojatatu.com,
+	jiri@resnulli.us,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	shuah@kernel.org,
+	tahiliani@nitk.edu.in,
+	vishy0777@gmail.com
+Subject: Re: [PATCH net-next v8 1/3] net/sched: sch_fq_pie: add per-flow statistics via class ops
+Date: Sat, 26 Sep 2026 01:13:51 +0530
+Message-Id: <20260925194351.8139-1-hemendranaik@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <179028363994.2160803.3084881967142411218@kernel.org>
+References: <179028363994.2160803.3084881967142411218@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 55BDA1F388
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.dk,gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,mailhost.krisman.be:mid]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
+Content-Transfer-Encoding: 8bit
 
-Uzair Beg <uzairbeg11@gmail.com> writes:
 
-> Gabriel Krisman Bertazi <krisman@suse.de> writes:
->> Does it make
->> sense to pre-allocated up to 192KB in memory for short-lived
->> applications that might use only a couple of those nodes?
+Thank you for the review. Replies are inline below. No code changes are
+planned for this patch.
+
+> [Severity: Medium]
+> Will this layout limit how both views can be extended later?
 >
-> As a default, I don't think it does. Would it be acceptable to drop the
-> prefill and only let the node cache capacity follow the table size,
-> capped?
+> type sits at offset 36 and class_stats at offset 40, so the struct is 64
+> bytes. Once this is released:
 >
-> Nothing would be allocated up front beyond the pointer array,
-> so registering a large table and using a few slots costs almost
-> nothing, and nodes are only retained up to what the application
-> actually had installed. That gives up the first fill result but keeps
-> the churn case, and it needs neither the dedicated slab nor the bulk
-> refill.
+>   - a new qdisc-level counter can only be appended after class_stats
+>   - after that, struct tc_fq_pie_cl_stats can never grow again
 >
-> I'll measure that variant and follow up with numbers before posting
-> anything. If you would rather the node cache stay at a fixed size,
-> that is useful to know too.
+> Every message also carries both views. fq_pie_dump_stats() sends 24 zero
+> bytes of class stats, and fq_pie_dump_class_stats() sends nine zeroed qdisc
+> counters.
+>
+> The sibling struct in the same header avoids this with a union:
+>
+> struct tc_fq_codel_xstats {
+> 	__u32	type;
+> 	union {
+> 		struct tc_fq_codel_qd_stats qdisc_stats;
+> 		struct tc_fq_codel_cl_stats class_stats;
+> 	};
+> };
+>
+> Keeping the existing offsets means type cannot go first here. Would a
+> union after the discriminator still let the two views grow independently?
+>
+> 	__u32 type;
+> 	union {
+> 		struct tc_fq_pie_cl_stats class_stats;
+> 		/* future qdisc extension */
+> 	};
+>
+> The commit message gives the new size and offsets but does not mention this
+> constraint.
 
-The problem with increasing the cache size is that we don't have (and
-should not have) a reclaim mechanism for the cached nodes.  By
-increasing the cache size arbitrarily for every ring in the system you
-are now sitting on a much bigger pile of unreclaimable memory that most
-applications are unlikely to need.  I think that would even be
-worse as a general solution.
+We actually posted exactly this in an earlier round:
 
-Beyond microbenchmarks, this would only be a "problem" for applications
-with a working set that frequently recycles over 128 nodes at a time.
-The question remains how well this microbenchmark replicates any
-real-world scenarios.  And if 128 is not enough, what would be? To be
-fair, this is true for all type of magazine-like caches we have in
-io_uring. In addition, you install a fd because you want to do one or
-more operations with it, diluting the update cost.  In this case, would
-the cost of going to slab for a node update of a working set of >128 fds
-be diluted by the other operations, and likely invisible?  If it is
-really a problem, I guess I would be ok with the bulk refilling of the
-128 nodes at a time when you have an empty cache missing, while keeping
-the table the same size.
+	__u32 type;
+	union {
+		struct tc_fq_pie_cl_stats class_stats;
+		struct tc_fq_pie_xqd_stats xqdisc_stats;
+	};
 
-On another topic... it would be excellent if we could do bulk refill on the
-shared slab without a separate a kmem_cache!
+It was removed after review flagged that the qdisc-side arm
+(tc_fq_pie_xqd_stats) had no concrete member yet, making it an empty
+struct in a UAPI header.
+We flattened class_stats to a direct member specifically to avoid that
+portability problem. We're not planning to reintroduce a union now,
+since there's still no concrete qdisc-only field to justify the second
+arm. Once one exists, wrapping class_stats and it in an anonymous union is
+straightforward and won't break anything, since everything from offset
+36 onward is still unshipped.
 
-Thanks,
 
--- 
-Gabriel Krisman Bertazi
+> [Severity: Medium]
+> Does this silently truncate the rate?
+>
+> The product is computed in 64 bits and then assigned to the __u32
+> tc_fq_pie_cl_stats.avg_dq_rate, so the high bits are lost.
+>
+> pie_vars.avg_dq_rate holds bytes per psched tick scaled by 2^8.
+> pie_process_dequeue() fills it from (dq_count << PIE_SCALE) / dtime, and
+> dtime can be only a few ticks during back-to-back GSO dequeues.
+>
+> PSCHED_TICKS_PER_SEC is 15625000 and PIE_SCALE is 8. Any internal value
+> above about 70369 (roughly 4.29e9 B/s, about 34.4 Gbit/s) wraps. For
+> example, 81920 converts to 5,000,000,000 B/s but is exported as 705,032,704.
+>
+> The commit message says:
+>
+>   Widen avg_dq_rate to u64 before scaling it by PSCHED_TICKS_PER_SEC.
+>
+> That moves the overflow to the narrowing assignment instead of avoiding it.
+> This is a new uAPI field. Could it be made __u64, or saturated at U32_MAX,
+> before it is released?
+
+We're keeping avg_dq_rate as __u32 by design, to stay consistent with
+the sibling field in the older tc_pie_xstats. pie_dump_stats() in
+sch_pie.c computes the exact same formula into the exact same __u32
+width, with the exact same ~34.4 Gbit/s wrap ceiling, and has shipped
+that way, unchanged, since the original 2014 PIE merge without this
+being a reported problem. We'd rather keep the two structs consistent
+with each other than introduce an asymmetry between them for one field.
+
+
+
