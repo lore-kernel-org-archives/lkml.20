@@ -1,108 +1,100 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385054078D1
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:11:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C623B346784
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790356312; cv=none; b=Z274opgJjGIhOPeB8aITGWUGBZIzWfWaTkFcnvYLXjS1CoOhYF6B+JmAZDMuIZl+9cEaNmoc0fPsc0f389mqdqFVKyCFZWy1McXii8ksjjxFD2SFC5qQA0dfrjCCTXi1wvTlkGRce9Yj+17Zwpfh+EKl01dJ9+aHEH+jkS/SkQE=
+	t=1790356419; cv=none; b=tdB4KADkkRSQLg8uVRyJ7m3a36SsoBl2s8tF7K4Fd3Ay2xFvfXMSBNCvOdNvlIjkYjlPXEYU5mkv/Aa8lgsp/+XMBPWD7An1RekbtXarlTg5U/9fwTy+BHStaFztVQaD+mbQpWRojgKyYussLfjXqf6haRDFDsybVLxh3P9gSj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790356312; c=relaxed/simple;
-	bh=nYw7CrwIsWWZ2NPPuERLElRuvwBTOJ+y+XwzJT93iaM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ebffIr4Pfymbvn5ArPSF/ik5bjdJZ5CGr2xGZncM6dTRVzkouzqD5pr1kU3B1ieTBTdmkX6RKzLLc1WQbOrg5g/Dgow2FdkQ7FbwnxdJ59cpOgJYIu+fdd8qFIQCq5HpTD5zd+vnlmftveWhqew/tQBUWNyIDEN4zaX4+oneGIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SKuux+ka; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790356419; c=relaxed/simple;
+	bh=384v7QNU8uMOwn752osb83Wsjox2PvAoX3x1D79y4yU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fEKDE7beyP+XqjKWj3RzvwYtpH/1BxIkvYHHuG77QlCqT/dgji2xnAJIBsXSYL1NgduWe59CwsESlIZ5aCOxALvv+KvDz28O5o1SbAmmg+qz6C8SMykB1Faj1x2EZXNsoNBwkT5h+QiVnBpT7EZ8OLvWcCwt1JkxzmMPla5XU58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMNy01MX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SKuux+ka"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so8707295e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:11:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790356306; x=1790961106; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zI1uNrLXO6lrfRFZprfTQ1p/tdW6w070lpBa0j3NKS8=;
-        b=SKuux+kaMroUezcTyhTj78WsTeqy0PQj+fD8CumhpehUz9T1lnbrD8mw1nXpYUMiKq
-         wQmm8oNVtNLMx9IU3xyfSqQaK/wleoe3wrEn5RoD2pE/FignMBL6JEC6EBSSjPwuNSlZ
-         2zdz3JudS3TcuPBpDJG5AlcftbJTrWqd6sbClBc/1Cd9NMc4DPKBFsRHYfEnDjqNE+L/
-         5hmc0ftVqoMhuB+U2EMwZ1OoPdoA1M5l4bR1T/iLNY7hHxAh/xmUh9bB42TxJGwyjynF
-         NIyrGgSvo11wwLdlY0OJ4skHQCymXW3XMnvY3Q+bFAOj3GBh11uoRfzO4uciIipmA4VN
-         k4jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790356306; x=1790961106;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zI1uNrLXO6lrfRFZprfTQ1p/tdW6w070lpBa0j3NKS8=;
-        b=z3YnNDkkyyAqF31QivJLDpup8oP6gQe78GaiccjqgVE6DJqAlWTnXpjsYn2xLRN9kN
-         fgbeudzYxc+oRZgrYalE3X2EBZ27PlvHbgizunJHYwaj/lNPoNwa4n1qyPBZZoiCGjJ0
-         8kAyOIOJipfJaLmLxkWipQVWN1yzVi81V761ZqG/bP71h2E15Pa3DzlXLaRVq3loYKMg
-         GOVsFQh89C9Fq0MAu3ZQVG0Lug3s1ZHeQYk7kxs9JnoE4JakYQuya645FUGXqlRinM4Q
-         JW0d9PzuK8I5iQSFHc2ERJuRNCCFHA3rT/I3pu1E7Hr5sJtGore34fWHgVZlG4Yc7s33
-         xDsA==
-X-Forwarded-Encrypted: i=1; AKwUvByYgw7z32XksN7DCpOVLj1YgNOq9Dx5+bzU4Pg9AHN6xhJPYZy9bmkM8zm0gs7/JQes2XrfZkqKSAhzq18=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTonKThVnFFS8qQAKHD9Cp3MYJMPadT9wPPJ+jyyq7h4dHeXR+
-	dDq5LNvducxB6MSfhhgBAsPWAnuK7SKNnQdOo29ZTMLWXir5w+LviNtW
-X-Gm-Gg: AYBFou0jtP6EyOaM+HyB8U4sWqoN4M8nescHrJU728u+y19ykVVKPYkj8e9NKWa69yh
-	Yctpczyrbu5vsLKXOvLuVYTJZcByo7QkuMp/InlxW0JBUVAmHK7o1QC44NaXIUMeu6ZgcKVy9oX
-	VeOBIZKTiFr21crg/qRXd0BnIQaj9gj1OoVTrR7D9cZm60yT3RVNMBecnxT+QAeLi3QtlwBS3Ne
-	j7YxMUWfxWaHqZLuTP3/QxDRYUt215qU/SXM3pLonTpZtp4A7vDeml53uPn7FT7/yK0e6RFynHG
-	mOGl/5jwEt0+718Qb/+qhckkgrP/Jdh6sHpRJuUHRVcPsvcDZfQAPDBS4YnGVhCwPGhboKaWixB
-	9y/dN2bXzvlO1gpnrryNdkPx0iijs2/XHGuOaD/rixMbrmyjsuSPuU9Vzk+LhOqJ/QoTR9VhSuK
-	tFUbwAo+pxjWtylqc7qT3pzCG44W7oolKozQr89HFPbyj/QgAcC0joYk624X1UIGGkX3ud5v0zd
-	egkUxyuFIooQJmVRvzH4v0f60qt9SzdDnA/PyIIuMzDLodMFwA9fg5KCToLNwi4+nr3HcAHsGm4
-	YeqPz2Tf1qCwAxuzBwa8fE/05QsezQZZPIVId92ajRoHVhNFshQlVV4Iu6ioBAHFwiZC1y+FqBD
-	zeQ+JwD7ocio55FdI
-X-Received: by 2002:a05:600c:4e93:b0:49b:d45:703e with SMTP id 5b1f17b1804b1-49fe66d1097mr122428005e9.8.1790356305537;
-        Fri, 25 Sep 2026 10:11:45 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-adc6-9c01-89ae-b145-8960-cf19.310.pool.telefonica.de. [2a02:3100:adc6:9c01:89ae:b145:8960:cf19])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a35fb05sm9422346f8f.20.2026.09.25.10.11.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 10:11:45 -0700 (PDT)
-Date: Fri, 25 Sep 2026 19:11:40 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Doug Berger <opendmb@gmail.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Justin Chen <justin.chen@broadcom.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: bcmgenet: allocate RX buffers as page fragments
-Message-ID: <araqwSZWDYqbPZWa@gmail.com>
-References: <20260924101922.2675127-1-nb@tipi-net.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMNy01MX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0261F008A6
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:13:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790356400;
+	bh=w6oFhP4d897O6hevgiojapWqh1TxSc/Rze+fEmEjBbw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fMNy01MXgn7yDOs0oUjw2jFUQpwSTt24yg6pry8fPPD9ZjG/DC4y+11g0emIcDJIi
+	 hBMCQ6qnUD2U60Sdxm/PYcEvWhFXPpcZbXoGvmsQn8x4ykjNye8a+ODobDiz/WS/9c
+	 vKKEIZ3WQdoyNoJk2MS8ZSvzlLFGP/2PJywiLoXM/E3dcMKwW84FGNHSjJEq+hBCgC
+	 oMiqUrtNDM/Os21ic2vpMuicGFwFzf2/adVvjqe6fKyBUefZzFfgsXtCWW6FrgcDvQ
+	 wbyqtcIN9stuVPfi9d1QymqYItr+2hbB761p4yeQGMB0KfbVIzznpHVcAQBV+hCrIa
+	 J+FiRHKbElF4Q==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8e820df9dso930834e87.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:13:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy6KZlAmrnjRkrHdhFrqX9IRyl3uq4w70W0BrfEeeUKthXqZjFwmi3mjXmfPQsFlhXnKKvJTOKWOlXd0Vo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtPzi6qxt1vZ9cr++cIs4WuiiFIkgVdwna3BuSIOHkCu8anuVt
+	007KIkgDRJC9d6E9QuIWYIMvqy583C0QoQit2s4PZPUpwCLvT0UWoKQmwr96vkrwIXvu5YuJylQ
+	vbzekH5XORx814rlP1az/hRkmzEGSr5w=
+X-Received: by 2002:a05:651c:2127:b0:3a3:5a01:a794 with SMTP id
+ 38308e7fff4ca-3a63bf674d8mr15117381fa.1.1790356398423; Fri, 25 Sep 2026
+ 10:13:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924101922.2675127-1-nb@tipi-net.de>
+References: <20260907064725.10686-1-hemanth.selam@gmail.com> <20260907064725.10686-2-hemanth.selam@gmail.com>
+In-Reply-To: <20260907064725.10686-2-hemanth.selam@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 25 Sep 2026 19:11:41 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jXy6J9Lw929W5RNiz9AetGjAOu0GxdFrG7T1zF3Coe5A@mail.gmail.com>
+X-Gm-Features: AclHuK-gDqMuvMxuWX6tWnCQEQ9B7j9h5lfzr84tihm8zFD470uBDG-yTmqpy0Y
+Message-ID: <CAJZ5v0jXy6J9Lw929W5RNiz9AetGjAOu0GxdFrG7T1zF3Coe5A@mail.gmail.com>
+Subject: Re: [PATCH 1/5] driver core: fix typo "sucessfully" in comment
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>, 
+	Christian Loehle <christian.loehle@arm.com>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-pm@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-omap@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-acpi@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 24, 2026 at 12:19:21PM +0100, Nicolai Buchwitz wrote:
-> Fix this and allocate the buffers as page fragments, so the truesize is
-> what a packet occupies. 4 KiB pages stay one buffer per page.
-> 
+On Mon, Sep 7, 2026 at 8:47=E2=80=AFAM Hemanth Selam <hemanth.selam@gmail.c=
+om> wrote:
+>
+> Correct "sucessfully" to "successfully", reported by scripts/checkpatch.p=
+l
+> using the misspelling list in scripts/spelling.txt.  Only touches comment=
+s,
+> no code changes.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+>  drivers/base/power/clock_ops.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/base/power/clock_ops.c b/drivers/base/power/clock_op=
+s.c
+> index 59bb37e8244c..3b8ba27802a8 100644
+> --- a/drivers/base/power/clock_ops.c
+> +++ b/drivers/base/power/clock_ops.c
+> @@ -250,7 +250,7 @@ EXPORT_SYMBOL_GPL(pm_clk_add);
+>   *
+>   * Add the clock to the list of clocks used for the power management of =
+@dev.
+>   * The power-management code will take control of the clock reference, s=
+o
+> - * callers should not call clk_put() on @clk after this function sucessf=
+ully
+> + * callers should not call clk_put() on @clk after this function success=
+fully
+>   * returned.
+>   */
+>  int pm_clk_add_clk(struct device *dev, struct clk *clk)
+> --
 
-Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-
-I applied this unchanged to current net at 11536ee3d3e0, current net-next at
-42a9fb3382fc, and after patches 129 and 130 from 6.18.54-rc1. I tested each
-with a 64 KiB arm64 kernel in a custom QEMU Pi 400 model with GENET v5 DMA.
-
-My LLM agent helped me running these tests.
-
-Results with a 524,288-byte receive buffer (repeated over five rounds):
-
-                             Unpatched net   Patched net/net-next
-Charge per 512-byte UDP      65,792 bytes    2,624 bytes
-Datagrams queued (of 1,000)  7               195
-Socket drops                 993             805
-
-Thanks,
-Karl
+Applied as 7.4 material, thanks!
