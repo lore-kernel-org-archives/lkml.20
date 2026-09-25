@@ -1,100 +1,64 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337734A4832;
-	Fri, 25 Sep 2026 14:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16C04AB3C1;
+	Fri, 25 Sep 2026 14:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346113; cv=none; b=MlgBLzPHG0osmVlYkcdYSX38UjDGp5x5aq+sa99V2FMGCrjq95bos5fNP8Fss1XRBD2IhsW5GbHwZviBPzizf8vJttHgVYXHHIX/bWb+Q639gwILQwTPLh0gJmIi7ZfjTTawhnYgsJB9AoezZex9YBWW7dOhnMYxH3v9zvEFKgw=
+	t=1790346147; cv=none; b=NzUYSf+BkYVQq9AY+5ALbu3nimzFn5M37F9goMLGJKgSw0HXv7+jUUJrvuFL6uvXEWD38TbbmSCcAGgQHvM+VFeENQkyfwf+zvwLF4m8gQq2lyMLZwKzvahGgrNffTlAQbh3NW4m7HU3b4IIFBe4g6o3zOT7dHiYyrqpuEytOKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346113; c=relaxed/simple;
-	bh=znabeNVR3AGepeCsA1EnxA5x4xL1xP957GJyIN1seys=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Jh4saw5x14ucylBOZoO9fiAUpu6BrtsApykAJJkF8xdqdUBUkansnUZDC+O5lSV/YOpcWeydo6tpY9bU0Am2CqbV7gzKGUfXYgbQek5pFlvbSEE9JzvmkfuPsRpSQKZRegnVIBfeY4b8j6EbzQsen8y2GNQ5xOSwsSp/PSD4koI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RCOMbVpW; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790346147; c=relaxed/simple;
+	bh=6OvlCDBlqfe+Wfi51GEcsiAcHeLuRaFZd2h+Mb4Ww9k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s6hi+efvsFW1XEUNQc3O9UqxUkGyrpBel8s+fRBPZAXnY9Ys79FZC+A35PGQhw8QL4hD24zhojgqGcUlegXGDmC8sLZjYYN5nFyRKwv1PwqyT00PxY6eRZoGQFDwo7U3b6ZERBAbsQBTMOtGboYTHW+8t1OggmFtnvn5QkV1CdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FqohbjGS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RCOMbVpW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=bI
-	vTjCdR8QBh40bXwP6YddIJiZylzjt30RVaHWiRRic=; b=RCOMbVpWAOnHoMIElp
-	b7MsiAjWPdQCE8uBfHZdGyliK4jaWJsxImdMFHVpWql/K2f4K3UDFalIzyQhBL2p
-	/Wd8AF26E0iMheLbuP4DbQHT6OlANgpbO+54yLdxuQoWprXRaF9M9I95vZY0XSTK
-	3CUc3NLgTjKP/7MBknhagA0iY=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgA39tRcg7ZqXmxsBQ--.50533S2;
-	Fri, 25 Sep 2026 22:21:17 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Nilesh Javali <njavali@marvell.com>,
-	GR-QLogic-Storage-Upstream@marvell.com,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] scsi: qla2xxx: Protect VPD aux image query with optrom mutex
-Date: Fri, 25 Sep 2026 22:21:15 +0800
-Message-Id: <20260925142115.2265572-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FqohbjGS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320A51F000FF;
+	Fri, 25 Sep 2026 14:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790346143;
+	bh=O2c1usmYKIZDPcYrY9Y3fobPzqHu/U/QvOM1YjiSoII=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FqohbjGSf+vx72YIqf9tGk/fKK8ZPWJh1gCj04tgPFPU0EhF/7oABLZRW7joMylDR
+	 DqkRaAURcI/XWNvWHa+XYyfbu6sCf+zTrYbP9XOezGiJxHQz7bLpfVSA9GICtLrYBZ
+	 oRIPJdicFAvkJy08oIvSRNSFlnBfIE4eASBxcu8RA3FCIMeBthTX6a73czN+nSpXon
+	 QLRWq6soDSDoN8ijmYcYx5Y1UAMbMilexMcemxRbBP0Yb1HY71BDWRG05wNV3/9Jz8
+	 pvgZjZNgLVdGw5ZoBRh7AtD96Ij0JWaTvyi3oAa7k1ev8Y6VYoJnRhHFPBmwU1VASJ
+	 SKbPXCX54ZFcw==
+Date: Fri, 25 Sep 2026 16:22:18 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Jori Koolstra <jkoolstra@xs4all.nl>
+Cc: Mark Brown <broonie@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+	Daan De Meyer <daan@amutable.com>, "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: manual merge of the security tree with the
+ vfs-brauner tree
+Message-ID: <20260925-anlocken-winkt-glotz-d9135b11a8a3@brauner>
+References: <aqffHOsZaT92Fkg_@sirena.co.uk>
+ <1264706227.899081.1789391881838@kpc.webmail.kpnmail.nl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgA39tRcg7ZqXmxsBQ--.50533S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFWfXFyfGrWxXw13Ar1xGrg_yoW8Ww15pa
-	4rKryakryrJrs7Xry8u3WxuFyYkFnrKFWUG3yrta4a93WkXF9I9rWUAr98uFn7C3s3Jr4v
-	vF4kXrZ5JayYyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_FApUUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8B1Aemq2g12EbQAA38
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <1264706227.899081.1789391881838@kpc.webmail.kpnmail.nl>
 
-qla2x00_sysfs_read_vpd() calls qla28xx_get_aux_images() before taking
-optrom_mutex. That helper reads flash directly, so it can overlap with
-other flash operations that hold optrom_mutex. The resulting image
-selection can be based on corrupted auxiliary image status and cause the
-wrong VPD region to be read.
+On Mon, Sep 14, 2026 at 03:18:01PM +0200, Jori Koolstra wrote:
+> Hi Mark/Christian,
+> 
+> @Mark Wasn't aware that Christian pulled this already. There are some obvious
+> errors in the v5 of the O_CREAT|O_DIRECTORY that Christian also pointed out.
+> I messed something up during rebasing and somehow forgot to format-patch
+> again when sending that series out.
+> 
+> Anyway, finally got back from holiday and fixed everything in the v6, which
+> I sent yesterday. So please don't pull this just yet. I am a bit surprised,
+> because I hadn't gotten an explicit reviewed-by on every patch in the series.
+> 
+> @Christian, could you review the v6 so that we can fix this for next quickly?
 
-Take optrom_mutex before querying the auxiliary images and keep it held
-until the selected VPD region has been read, matching the locking order
-used by qla2x00_sysfs_read_nvram().
-
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/scsi/qla2xxx/qla_attr.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/scsi/qla2xxx/qla_attr.c b/drivers/scsi/qla2xxx/qla_attr.c
-index a4ca22024ede..03feade738e2 100644
---- a/drivers/scsi/qla2xxx/qla_attr.c
-+++ b/drivers/scsi/qla2xxx/qla_attr.c
-@@ -560,6 +560,12 @@ qla2x00_sysfs_read_vpd(struct file *filp, struct kobject *kobj,
- 
- 	faddr = ha->flt_region_vpd << 2;
- 
-+	mutex_lock(&ha->optrom_mutex);
-+	if (qla2x00_chip_is_down(vha)) {
-+		mutex_unlock(&ha->optrom_mutex);
-+		return -EAGAIN;
-+	}
-+
- 	if (IS_QLA28XX(ha)) {
- 		qla28xx_get_aux_images(vha, &active_regions);
- 		if (active_regions.aux.vpd_nvram == QLA27XX_SECONDARY_IMAGE)
-@@ -571,12 +577,6 @@ qla2x00_sysfs_read_vpd(struct file *filp, struct kobject *kobj,
- 		    "primary" : "secondary");
- 	}
- 
--	mutex_lock(&ha->optrom_mutex);
--	if (qla2x00_chip_is_down(vha)) {
--		mutex_unlock(&ha->optrom_mutex);
--		return -EAGAIN;
--	}
--
- 	ha->isp_ops->read_optrom(vha, ha->vpd, faddr, ha->vpd_size);
- 	mutex_unlock(&ha->optrom_mutex);
- 
--- 
-2.34.1
-
+Sure.
