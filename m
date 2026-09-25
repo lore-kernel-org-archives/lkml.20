@@ -1,180 +1,117 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1411C184524
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:07:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790294867; cv=none; b=PT0ScmLhLu4GMz+apKjqE8OmHiOz+rsxeZQMbYrUhmzbG/mwPpkABOfic0UbofzRcf7VwViX+7DZ75rvp0/uRWgUhZezMbVR3X49pimjagsDNVqqDKTt4CZumXHMe+saMZeYexKE/FlCOglE7PjVBmgm375tvTtFKKgS72C8vC4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790294867; c=relaxed/simple;
-	bh=MfzCj5n/qzaDRiZjBdIWIPdLsqB/Z8mKb7SNpeiywnE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ACQRfGahsH92fruQyQsMfRqD5zVoNq0aG4szz3sm3OCAMOdrvDHeFHEQpx7gRo0c54Y8aF1TSmPG8odlzMcM/NI2t4MHW99WRON7wU9G5RKcxhz9iUl/b8seKCgppiF1OI+204u8BAPpR1TIUU4sB5TmZZVxtgFchR6Ase0T7qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=F3awLiiB; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=uCnwzKKz; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F192D7BF
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790294951; cv=pass; b=kEtDOoqMLWrAIHv6aNitBco0I+HRPuxoirx1raaMJ6KAVWa2CF2yCFlpAaiUhym8aHtaoSeAh7UCf8OrJX1YYHmQyDIWhiyu1EkdKFJ7NN1Rs2uN2SsDAI9E9ryPbIqiEyrKEUnq1FUpMfV6VmEKDlwLzLUepl58wyZnQEgwVBw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790294951; c=relaxed/simple;
+	bh=CECXwz9NVJRqM1zgzja4MxTHWcCU82DN3pcsUZd/76I=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=HCQ1bB/oT7f22o0RImDhjGccnPumwh6+zxuPE/r5rzcEigvQUtzBstMnX8kci7TUfpZbgNxQsEuo8uR6wYQR9YNM3nGxeYu4kAfMYLTb1tF47PLaropdVMYrA0Wku6wgscivg/Mh4JUGGJFeRpCwMPcmuwzAqtqd8Tzhcza9YTw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iYP5aIVy; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F3awLiiB";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="uCnwzKKz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790294865;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QtjK9f50/jK8SHecvHOqY5pCCQhpN2otdhXEwvLzMjs=;
-	b=F3awLiiBniggHGjUD8BAJfzOzOFE9VrPiYefLhSvcIuJ5/TMVOWNqTfsueWn1c3PqhQ8oa
-	3B3rdmOMeMonmuVcvPHG9hf+67XUp/DAr/f58F7s+2tHnrlCovmGH6hCNDXW47zBcUWmJY
-	SOEjdJ6UqEFUlU+C5zalai+n5LPreqA=
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-7-o1_IXe0HN7itOMjtxu7D_Q-1; Thu, 24 Sep 2026 20:07:43 -0400
-X-MC-Unique: o1_IXe0HN7itOMjtxu7D_Q-1
-X-Mimecast-MFC-AGG-ID: o1_IXe0HN7itOMjtxu7D_Q_1790294863
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so712771a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:07:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iYP5aIVy"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa65080so37106266b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:09:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790294948; cv=none;
+        d=google.com; s=arc-20260327;
+        b=e8uEmDcURiFp3R/TqH1is6NbhkJJyb2qvLNkFBuIbfMYaXx6Lf5tBxBjMdlEmA7OOp
+         ATkRiMdVBBCcKg/D05ZqZV/VTsMQkx2G+MH48kpCjdahtwprfsBlgE82GDP3dcM/yahl
+         4DYMcgw7OTZNbPGcPkSmGGvi6BrCYcQ4JtSZrpeVl3PZSsYDr6Jl5irfGE5lJwjhMaeg
+         IheTSDbNQRNh9o4X3Y1so8Bf5Ikgdkx/5n45jfSiSCtN/Cc/edN7T65I2jxHiGyjW9Gv
+         bdB0tG/7tRSHmfPuxt3mukdJSLXOYccNTRvtw+biuOKx/rAvw036sk5pm1HEqkQPj6ns
+         oxxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=JvVb1ppKBUi1pgXwEpUrjpuTGibjVjV3ESWoiV2gIGo=;
+        fh=GZMaVWaUNBSJJ4YiyPAZv2boySa8cyCkqpeRK0+wNZg=;
+        b=bTa622o4H42nR967ez6nm3HPYNaEitGzk8gVLH4SSj2RTA/mF7AT/eWfML8XV/mgTW
+         cfny9ykApQtYVbgywkfk2TWdmZ3HhfByjjObVgZtzcl30E7blFU4wJ1qOeC4GSX+fwty
+         fuEOsLKQACyzcKrWWt+TV47Ufyn0BamTQpYohthTXBKJJlbclmIN97F4zNAL38QjOV87
+         57tDbnBNoN1SWcCcJZGqEpJ/r6fRPc88RjABq98GWXtzQ+GttV12HapfnH0LVH12jjD+
+         gBZXlV4WlrawAQtR/fyg6GM8L1LD5K/aMwEPjC/hNzNeKnkngUaHo32VYxDcs5XxXLWt
+         B66g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790294863; x=1790899663; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QtjK9f50/jK8SHecvHOqY5pCCQhpN2otdhXEwvLzMjs=;
-        b=uCnwzKKzMCBHXiiBLLNX+yNnO6gvlgiCuzc5hGYC2dwS8jhXCyIUlPrmDUYd7U6KyS
-         Q/pF5Esuj2Ki3A/n+J75Yj5XRsXh6O3ybe0K+GLzr/5QxCbFYJjnsWT8RUv/le32NDR/
-         f0WqB5dTBYGEybDrDexQTvdvDJvL+hX3/ls/+dh6ygSuOud2ca+/Qvc8c0fRDRptX/jw
-         zpUfPkI5W9NglK15L1VWZEVZ38s9uQmmocXZm6+1iEN7Rgfm1mRDNQd6yLoTmh1p4lB4
-         tNc3m6mGx2cXMlfL4lRMSVZNVlXRkOuM6J9z6UizPU147+JVtnOR6EZpJpCnlWeyRb9k
-         rb3Q==
+        d=gmail.com; s=20251104; t=1790294948; x=1790899748; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JvVb1ppKBUi1pgXwEpUrjpuTGibjVjV3ESWoiV2gIGo=;
+        b=iYP5aIVyIeeS1wxy0RrhItS7i7zqc16eXkOgnFkJjoUNC/uyPZ+Yz1nI5FISpHqyET
+         DZ7gGonG9YtPmxlKQVGoSykkEKghqLCJPEHZKCv3ZCaDsg/ceH+LGcY8mmiu1Q3YZxep
+         MVCbh9Y1umWemrFjuN9suStgzII0kccsWFi9MZjuP+i4WlFlDeSwQhZfkGSoVtaTf9bs
+         4WLlS13TQXIIseuxOHINovaI/4h1aZzpMCzhMtmFB1Aumna8Y/YHeUvRYzu5iqD3RJUS
+         74bdH2QMbdZPuDJ9AmHfTcuqnw1rUlKOV9AqATiWV1W6hLbHpZGU23SMkz/v7bY0aHaD
+         puWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790294863; x=1790899663;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QtjK9f50/jK8SHecvHOqY5pCCQhpN2otdhXEwvLzMjs=;
-        b=q4fi9IOhoCxj4CXE6gJMEpH/htjzPJEGLIasJX2V0fgC7CD+fI1zI1mzYvvxPF8mgA
-         8+hKSXfuG0rSypLC2PyGl6i0YUTQ/wXqeev41bIVopGyPRCwC2oAY9IzK1vMyYP6+757
-         cmSZwNARurzbHcudwWiCGw+aI5PwVNHfnmsurlkxufOtXQtsyqc/rmMO7ODDiJJbLVct
-         8KDTIJEH7s1xzg/CE57n/RS5d4fJsZTlwLVIQC51HV+uN9GfFO0EPv5gk+wqo2beKw2L
-         4I38UsVwxqV0ciaa4DY+8B8L99sO12CNSiWxoFyQ3aGQ7LzJ70axguz8SLR1M8ri5Bi5
-         lrJA==
-X-Forwarded-Encrypted: i=1; AKwUvBye/cFfXBacfHEZ1ubmWT1AUqgje9gVrY/LzQ9EjoAuBcdpNwhptyjELlqVrHv0S/WNBs3TQ4TEuDp25WI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kE/sWFEy6L6xE0VrvDdesn7GhH8EWNzBfcv/QUaCzte7RSD1lh
-	innRdg1hErhjGyQh4RRDb729QroauJuu4wRhZPYXXHJ8jrKioHR9iRXs7Xtxbgbot4YJQGuAblb
-	icqOkMb8wJ7DuNpdfBVjhE/y2faGva5Oh00bnZkI1R/aT97cHphUvnhVkIo6nFw8K+Q==
-X-Gm-Gg: AYBFou3slNcxxGq9FSVWHDLPCQDcCwTIOTjHNOZU0f+OLNXFZA2wDBwRQUHVzHw05cQ
-	l/j05PvRvNAIc/lGnNqSsKF9BD04t6oUEBLErGcukntKMVEB8ZotQbZiDvA1iccaQJ+gNAvkTDr
-	XGUoOOgQDpfV16W3FX3ypSY6D28Ewc6X0TC/K6FN2SAwQbAucxlFJ9Dp3tfjZqfvrT5Uji84IjP
-	PmOo09l3Bsji/07nl+xLRq53xSqPH2zxbSq/npNbc3vUXIudiFkpPwGf+v04G151uu8UGogd6bH
-	bU6MrAEvM+q30Hat2LTqLJ9/VMwCoWYmO0ksyD6CMnOgi92do/Vkj8JLzM11ael5ou4pWborSnx
-	AMC1k4zBBJ4bN+icKx7pd1+RaxcJ7j3/4vMSKefY16Q==
-X-Received: by 2002:a17:90b:49:b0:3a0:9ed5:5420 with SMTP id 98e67ed59e1d1-3a0bb6139bdmr380670a91.44.1790294862485;
-        Thu, 24 Sep 2026 17:07:42 -0700 (PDT)
-X-Received: by 2002:a17:90b:49:b0:3a0:9ed5:5420 with SMTP id 98e67ed59e1d1-3a0bb6139bdmr380627a91.44.1790294861906;
-        Thu, 24 Sep 2026 17:07:41 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9355e49sm997611a91.4.2026.09.24.17.07.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 17:07:41 -0700 (PDT)
-Message-ID: <a3984ac2-ca04-4e46-87e9-6277491acf7c@redhat.com>
-Date: Fri, 25 Sep 2026 10:07:34 +1000
+        d=1e100.net; s=20260707; t=1790294948; x=1790899748;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JvVb1ppKBUi1pgXwEpUrjpuTGibjVjV3ESWoiV2gIGo=;
+        b=aaND749zrxWHDtGft+tEq49u7Axjezo+zUaY5ZyU0rn/BRX4gkovfV2m7QxyCrqBrs
+         0LjL2Y2TnhLmusSAyOgk01hX9+X5/OHaEvfIZPpNNOOJpNxKnNl/ZMYCeQmLqAclxagD
+         /8AL0tI6FoRTFDMtaagXSQ2Z60WRFqgLnQFKf+41SJQFoDYpRk5OT8te9MHMe5Dr94F+
+         puU4/Zd+VCHBLYC76nkyiGlmweZ1rSov5BNuvSkWPhSUVOnUZa82wGpL4/zmzM1/EG/7
+         rkHJMlL+wvujaQeA1gBNV53ehZ2h4xMgl8B7i0UvIit8+i7ATd0H9BsPx8NNiJTj0NSZ
+         uQoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwiA6UmzuBwpKBHBCf9E7f/ErWJ0kA2XFQmAJJgGVHF6gD3G4O/qAPssIp3T0pdqGhnOD3IRo8p/cmRKew=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLWtDdIgOGW0fee3WhfmF5HrVYB6iyC8vl3RRARAeg6N4hPe/u
+	Edw7pwV+dEsSrFdDVD2fmdT0FVdP3bDd0AsO4Ub/j6kD5b9FWyDQ9qC1A0MFSE8waYg9cn6WvTD
+	4bPHWULFfxwvr5OElpZP9pVUMzHmTzw==
+X-Gm-Gg: AYBFou2rSMuaYVbe7NwY+yS8rFtdRzEhFIBQNuqsXYlYAnZEXfqebD9sQ1pHLywHNVW
+	6kz/iSdI6wlu2UW9UMj0rqf/PJ0TzHnYrPJLAMafRpthGMSQ3nh+/b+Jokqe3zva9rP1SbnsBI0
+	7hJ12cW6VHR6OgTDeP8iaV6vEFMDZF04ZU6zhDGMvsqRG4IcEMJAwDFCACdQNrbEt4ZnF2xAqf5
+	Ev+kK+Cve/DRnWGo5zW3YyCmjDmVnET4Rt2/PAOP5zt24/o8ShDgXo6filpsajHlKlL4yZQ2/vC
+	2cV/5DQAm1kgPUoqD0RNhisAuGYqOu2D+W52lU+WEAXKHr12R9XS/tH9An09uHN4/1FsUbVmIpi
+	KoOinbaY3PVGD/7BTdYf7lFvI1nHTLPDi8Ahjg35HBtgAkPwAcgXqNL+r0PsGNZ1v
+X-Received: by 2002:a17:907:97c3:b0:c25:9102:ed with SMTP id
+ a640c23a62f3a-c2ac2311b07mr339426566b.5.1790294947745; Thu, 24 Sep 2026
+ 17:09:07 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 25 Sep 2026 00:09:06 +0000
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 25 Sep 2026 00:09:06 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 6/7] firmware: arm_rmm: Ensure the RMM has GPT entries
- for memory
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-7-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260924135201.850038-7-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: mhun512@gmail.com
+Date: Fri, 25 Sep 2026 00:09:06 +0000
+X-Gm-Features: AclHuK_ad8LwT8kuVDl63QDbO1AN6EHbYByYWzU8WNbNKdgNeemyDEcExbIrb2Q
+Message-ID: <CAGEsz8GkK7ZZoweuoR0DwA=CaDzJtQnmTWasEW=wPRv-yBeKew@mail.gmail.com>
+Subject: [PATCH 0/2] media: venus: fix HFI teardown races
+To: vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com
+Cc: bod@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	mhun512@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/24/26 11:52 PM, Suzuki K Poulose wrote:
-> From: Steven Price <steven.price@arm.com>
-> 
-> The RMM maintains the state of all the granules in the system to make
-> sure that the host is abiding by the rules. This state can be maintained
-> at different granularity, per page (TRACKING_FINE) or per region
-> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
-> underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region,
-> all pages in the region must be of the same state, this implies we need to
-> have "fine" tracking for DRAM, so that we can delegate individual pages.
-> 
-> For now we only support a statically carved out memory for tracking
-> granules for the "fine" regions. This can be extended in the future to
-> allow modifying the tracking granularity and remove the need for a
-> static allocation by the firmware.
-> 
-> Similarly, the firmware may create L0 GPT entries describing the total
-> address space. But if we change the "PAS" (Physical Address Space) of a
-> granule, then the firmware may need to create L1 tables to track the PAS
-> at a finer granularity. Linux therefore checks if the platform firmware
-> manages the PAR region. i.e., the firmware is in charge of managing the
-> L1 GPTs (creation and the required memory for the GPT tables - via static
-> carveouts) without host intervention. Support for dynamic GPT creation by
-> the host will be added later.
-> 
-> If the firmware requires us to manage the tracking or GPT memory,
-> deactivate the RMM and reclaim any memory donated at RMM activation.
-> 
-> Apply the same checks when hotplugged memory is brought online.
-> 
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> [ Switch to RMI_GPT_L1_INFO for checking GPTs and deactivate RMM ]
-> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
->   Changes since v19:
->       * Avoid mixing gotos with __free cleanups for arm64_init_rmi()
->   Changes since v18:
->       * Handle buggy RMM to make forward progress for RMI_GPT_INFO and
->         RMI_GRANULE_TRACKING_GET
->       * Make sure the memory ranges are not inverted and reject such ranges.
->       * Move granule_tracking_get/gpt_info wrappers closer to the callers
->         Drop "inline", let the compiler do its job
->   Changes since v17:
->       * Move wrappers that may not be used elsewhere, out of arm-rmi-cmds.h
->   Changes since v16:
->       * Check fine tracking and create L1 GPTs for hotplug-added memory.
->       * Clarify the L1 GPT setup and move the explanatory comment.
->       * Switch to using RMI_GPT_INFO command for checking the GPTs.
->       * Deactivate the RMM and reclaim the memory if we can't proceed.
->   Changes since v15:
->       * Skip firmware-reserved NOMAP memory in rmi_init_metadata()
->       * Handle negative error codes from wrappers.
->   Changes since v14:
->       * Move the implementation into drivers/firmware/arm_rmm.
->   Changes since v13:
->       * Moved out of KVM
-> ---
->   drivers/firmware/arm_rmm/rmi.c | 218 ++++++++++++++++++++++++++++++++-
->   include/linux/arm-rmi-cmds.h   |   2 +
->   2 files changed, 219 insertions(+), 1 deletion(-)
-> 
+As part of our ongoing static-analysis research, we reviewed the Venus
+teardown path and confirmed the race reported by Sashiko.
 
-With Jonathan's comments addressed:
+This series fixes two HFI lifetime races during teardown. The first patch
+waits for the hard and threaded IRQ handlers before releasing HFI state.
+The second disables and drains recovery work so it cannot be requeued
+while HFI state is being torn down.
 
-Reviewed-by: Gavin Shan <gshan@redhat.com>
+The later Sashiko report also identifies a separate resource leak when IRQ
+registration fails during probe. That issue is outside this series.
 
-Thanks,
-Gavin
+Myeonghun Pak (2):
+  media: venus: hfi: disable IRQ before freeing HFI device
+  media: venus: disable recovery work before HFI teardown
 
+ drivers/media/platform/qcom/venus/core.c      | 2 +-
+ drivers/media/platform/qcom/venus/hfi_venus.c | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+-- 
+2.53.0
