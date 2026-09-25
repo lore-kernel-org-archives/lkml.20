@@ -1,93 +1,77 @@
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-197.mta1.migadu.com [95.215.58.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96304332EBB;
-	Fri, 25 Sep 2026 13:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C434A2070
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343369; cv=none; b=OstYSOC3rqb14zqYvqdGTcIwG8KYaUpeo3YYBMFgt1QqMaV3o3rmy58JMFdyPG01RCt6rBPn/94fHyTPm9X+/OnMhrbFQGO6Fd7/x0SWCrGoRSdBJ+NBZQ/IJJADftXX2s9Fao0a/ASsU/Md5T3gYGHipMEh3Ipy/liV+BEqlX4=
+	t=1790343432; cv=none; b=ghN4CsW7volGdXMtT/IlRL5fsc2pRLLKIf1W7negOFObcyKhOMxrywfAK83oW7vkxNSEfFmPe5pgSD972hFL91yc4Y8ZD55ETSCndOIK5/7uNgg7XgA3GXe5rMchdnkRFoU1XNht9hcgyTnbEQllLrO700Djcg1tm7BkqC0Yxcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343369; c=relaxed/simple;
-	bh=/Buq5Yxd9oTyoi0yzaGhQAl28zMu9ChgTZ/Ifz/kZqE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hfOpxZikPC5/Eq2capz0FquuTEBL0uuwDmn+a3q3BMpatbApkwQYcABFOhfrdRDKkl6ea5nVibG+uXdvi/ZL5rez2jxmy73l3k4yBF9UDAX/AXmvTWSq8EgQzdD93q9Q3TeIsf7hd/6qbkqoDtufpcu+APqjWS+9hdM04ZsvoRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=aALP+iof; arc=none smtp.client-ip=130.117.225.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	s=arc-20240116; t=1790343432; c=relaxed/simple;
+	bh=yUbhz4q8Bk6ad7ykhWaGlMSrczLK4cYYxIxLGl+Ap/U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LJ6gpp4SZJX7OB4rM3JWIUZz6WxfosWSGqe/yOK7E3caW+4W0wlcnhOXviVpb0YSXRzDEYUC9UORr8mk3dveL77hwfDfzvtkGfUzd3pvFfXA0bG9kAl2DsH61eiZeD6FklW4aEGXEBUIZmXM6Nc81V8hmAki1SsVnwePp3Qk3+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vcxsB362; arc=none smtp.client-ip=95.215.58.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="aALP+iof"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=MIME-Version:Message-ID:Date:Subject:From:
-	Content-Type; bh=NUZFZugQcaUOtbGUptFU8+qpfI74flmUKE/bgA+blDc=; b=aALP+iofqqFy
-	/qvMa65VtnuZy31h7CcyVj3VnpgNKrG1aBbnAbpGFreE7cwClfokn3Oe86wxdtJEoMZ/9AOusxme2
-	rt77bN036G+KINxUs6gE7eiEhwJH/XEWz4nTfQaNVy65q7gBKQRJrEVJfoKr9QRVj7nhF77jzHTVB
-	mqbidsWf8n1iC26JUKQfK6qFu9FDyqH4eC7bim/sSz9uyZdYpThTd6S+PCboZQCOBAtZ6xe8zx3Um
-	JcvqvVWw8BXFlihdJUm8qtT5syJaPVAl7H7qRT8HtWiQ73X2CDh4NqiynZcriXtfa20Ow4D5ZQA08
-	mng77JIJgLyQItd4kmQu/g==;
-Received: from ch-vpn.virtuozzo.com ([130.117.225.6] helo=LekKit-T14)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <eva.kurchatova@virtuozzo.com>)
-	id 1xA62s-008UcG-0Z;
-	Fri, 25 Sep 2026 15:35:58 +0200
-From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH] selftests/ftrace: skip gcov symbols when picking a function to probe
-Date: Fri, 25 Sep 2026 16:35:41 +0300
-Message-ID: <20260925133558.3636030-1-eva.kurchatova@virtuozzo.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vcxsB362"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yUbhz4q8Bk6ad7ykhWaGlMSrczLK4cYYxIxLGl+Ap/U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790343428; v=1; x=1790948228;
+ b=vcxsB3625tFAL4PybA5yYvTPD9o3Ji3J8lNkM/K7VMe9fSXuBcyE6W0LVi5ObLYWEq07ZQqY
+ /vCO2yAPdz13DpjC6cWKr1aXX34foP5I/Dek+cu0JaFfyC2Pkq4RNPyUDLsYHOpHOdopT6yGy7o
+ Pc3CHfHevyuFya2CgHOF9K0Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 5d53d689c26fed9d;
+	Fri, 25 Sep 2026 13:37:07 +0000
+X-Mizu-Trace-ID: 5d53d689c26fed9d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <69579dae-285d-472c-ba69-4279e5170502@linux.dev>
+Date: Fri, 25 Sep 2026 14:37:06 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 5/9] block: fail a short atomic pin in
+ bio_iov_iter_get_pages()
+To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Christian Brauner <brauner@kernel.org>, "Darrick J. Wong"
+ <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
+ "Martin K. Petersen" <mkp@kernel.org>
+Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20260923-blkdev-fixes-v5-0-89e60d66eb38@columbia.edu>
+ <20260923-blkdev-fixes-v5-5-89e60d66eb38@columbia.edu>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <20260923-blkdev-fixes-v5-5-89e60d66eb38@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-kprobe_eventname.tc takes the last kallsyms entry whose name ends in
-vfs_read and puts a probe on it. On a kernel built with
-CONFIG_GCOV_PROFILE_ALL=y the counter symbol gcc emits for the function
-sorts after it:
+On 9/24/26 00:56, Tal Zussman wrote:
+> On a partial page pin, __blkdev_direct_IO_simple() and
+> __blkdev_direct_IO_async() submit what was pinned with REQ_ATOMIC set
+> and leave the rest to the buffered fallback, tearing an IOCB_ATOMIC
+> write.
+> 
+> This can be triggered deterministically. A 16K pwritev2(RWF_ATOMIC)
+> whose last page is PROT_NONE, on a scsi_debug device with atomic_wr=1,
+> completes short with only three of the four pages written, violating
+> RWF_ATOMIC semantics.
 
-  ffffffff819bd1e0 T vfs_read
-  ffffffff845013e0 t __gcov_.vfs_read
+I don't mean to load more work, but a blktests case for this would be 
+great. I am consider doing it if you are too busy.
 
-so the test picks __gcov_.vfs_read, which is not a function entry, and
-the write fails:
-
-  kprobe_eventname.tc: line 10: echo: write error: Invalid argument
-
-Leave those symbols out of the choice. The test then picks vfs_read and
-passes; without a coverage build nothing changes, as no such symbol
-exists there.
-
-This is the same class of problem as commit 23a4b108accc
-("tracing/selftests: Fix kprobe event name test for .isra. functions"),
-where a compiler-generated symbol was picked instead of a real function.
-
-Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
----
- .../testing/selftests/ftrace/test.d/kprobe/kprobe_eventname.tc  | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_eventname.tc b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_eventname.tc
-index ba19b81cef39..0688a5c47d1e 100644
---- a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_eventname.tc
-+++ b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_eventname.tc
-@@ -5,7 +5,7 @@
- 
- :;: "Add an event on function without name" ;:
- 
--FUNC=`grep " [tT] .*vfs_read$" /proc/kallsyms | tail -n 1 | cut -f 3 -d " "`
-+FUNC=`grep " [tT] .*vfs_read$" /proc/kallsyms | grep -v __gcov | tail -n 1 | cut -f 3 -d " "`
- [ "x" != "x$FUNC" ] || exit_unresolved
- echo "p $FUNC" > kprobe_events
- PROBE_NAME=`echo $FUNC | tr ".:" "_"`
--- 
-2.55.0
-
+Thanks!
