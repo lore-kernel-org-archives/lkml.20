@@ -1,105 +1,433 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mta0.migadu.com (out-152.mta0.migadu.com [91.218.175.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1C749A3A6
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:16:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580513B0594
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790334995; cv=none; b=UcrY6xRXzyU7KTXAZx3i9IAJTRRcj306uBwkB302pwtjSCybQzMNC5BmtA50+YruxFlEOzC83ZdAj4J2U6GxIIXrVHdORlkL4A7CO0+Jn7iKOu3mikQYhGq44EUeYeSQQlGWkfVTsGUQfqv1VP/CKOJeITSnGdhncDKIVs+SFIc=
+	t=1790334997; cv=none; b=lkeG+APMMwlK/uxKx4QfX0RIBnlkETnJIkDBW4+cbk7lh/3gbCEUDKqHYWkcz3FnAR0lJwHfo8CCofw35punYVMofkDQxVYfYspFoXnQeANEZTXD3bkn9TKRbSt1pesixrroYWdzJZKL6Gveik3o9/uRuw7ZhxsVFhEkGIzI54I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790334995; c=relaxed/simple;
-	bh=U1jbHaueY7MC/HxzyFNnEOFEzHSMOSsXPYHrHaf6/ZM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YMpylr0pt0+qFk6rHbQLmvo9I86wRVLVhfcZHUwdTpoWMVp6UC68eGJFDbZLPHWnV43KSCyQEsVIaNo0ZjAJAJkkVaqaGdNf3DGJhkBbP+JRBSIjLPeP6ldp3BVUFhMieJo1oeU4bB1KTAfAWp0ouU8syQqsSB+yVbjH1e/hw/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=mTOJu6AX; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
+	s=arc-20240116; t=1790334997; c=relaxed/simple;
+	bh=oz2pG9OBJ90Gf8k78u+aJ5rMU8R7Mx6xKJpcKa4YZPA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mSo3Cd2EiFgLtzNZOwAvJ0XMs9jT54BYs49HBedMkjRGarm7B+RLVBPqaYyJGu7oXFyrHwwqubDPCuwMIsUJyXolhC1YCOadXnuQssU1lx1EbjWH9KmN7x27Z/Lq79hw5Yo/YbEPjvDDmAcSnh/9FECjQVPiY2mq8Y89FcXzoO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PeGq2pIP; arc=none smtp.client-ip=91.218.175.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="mTOJu6AX"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so5760565e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:16:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bynar.io; s=google; t=1790334991; x=1790939791; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ik+WyQO23IiOEtGjTwj6K1Ip96ewUvjpBHAq+J58URE=;
-        b=mTOJu6AXAbErpC6CGz46a/NG7BzAMIANTKPqHafmCIEXgEhPhD9BOiortObrdjItxA
-         xeNr56PCe6VGsxH2oUbLxp9zt+X6v4zq7/sRvzuA/yK17JCUVFl/VmQLRNybyt54yNrr
-         UKt79tPYpmXm/aETFD4ePbdJzfLrtdtx933m2TRMB+7VWqM7fG7rTIQwyDM7pR9gzixc
-         kl8ppYLx+WddAx4oVT/oIt1A+S5fIBBWGtDgqOJooIz9ijjeimSBZTwB9Jg8oIfOGWMI
-         I25cP8KuuvkuMjnoIczsWNzQv2fiEnH0v+zEL8VxQPIfJYOZ84Ei0ejxvZXIJ+vB+nPw
-         FsZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790334991; x=1790939791;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ik+WyQO23IiOEtGjTwj6K1Ip96ewUvjpBHAq+J58URE=;
-        b=o2cZCSzvo/afoVGi7sk+9icSB/aJ4Xo5StI2J7ZaHjnKSe1FrqeZzsssq4m1/jNNbV
-         hY7rX6Ho96Wi0n9zjAKd2TldwKBASdWQ4i3a0/ecUtzD/ynp6gxLtREVMJNKsTMgQVAd
-         AuSkuPPoTxSJSfUMxLgKQPjxcXWrmI1ZmrWp8DPFFPne8pxg2xLuUfV7usx/Y1cDFqJF
-         lBf52JFgKSPc514lMM2dnkep5WI/dsEdNg8g8RfKQgAvxZ22BxC0b006QCiRhG6+VXnt
-         4gdwrT0vdi71LhUQdp7b/sqfLnDk5vOZjK0mariSSVd9PHPHPG8CpmKtICqfzadKNEsQ
-         nrQw==
-X-Forwarded-Encrypted: i=1; AKwUvBxcaWUc8FOAjW/aLCmIr0M+mUfXpzLTPAqhX0/wa5ZlJWNXvr30Y7UEhzD7sG0ClUxn8Kwgu+CSGXkr1ic=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6+942HsJF8hhvqx3dbQ5f7vgDAmXSY5tnvbnstBmT1funy6KD
-	wQZ1zgZJy31Tgl4JX5TD657KA/9i3OTr0vrU/pFDi1/7d61pVs0N7xddspzTrKoRWzSX
-X-Gm-Gg: AYBFou3JO9knS14ohofdCLicto9IirnkUCdKyRvl4uz5tFVTGZjrRIM15jvM7lJns56
-	+5jrEMtejF32nJKHEEM7EZwL1hROzzsqPkwRyi04M2wbRtKYklhWNy8gDf+bG2Ug4Z8da0JY87D
-	XEKQZnj1hBhMg3b1gDnzmOH82uFUavPob2DjjKgkyupnnDkcJJL5+24EbgTuhHibkfHqGsTPvCL
-	KCfv6iMrkGkLNm8xo7MkIabwDu2Ed4rBp2ddejAhP5wAL9WZ821QWHKNU9hYF1w4FDZrJmxaJS8
-	YQYkCMS/qPR6Zr4W8hcMdndGlqY0v2lwt2jpmBN0cXJ4muSxdguRJ+hI3YTCYpF2jhojBHNDsie
-	kR4v+9BoU8lZD1rpcKVORl6y0/2hCMrwS9ISVPwW/5VJUjAKHADwzK2WZfLjOoR9pJRkPlTI/4Q
-	/AS5hb4U64dOmR8vcgTLmlm4m53GIg9z2aMT+BwU2KibtxshY6UA==
-X-Received: by 2002:a05:600c:4e86:b0:49e:6ac4:b76e with SMTP id 5b1f17b1804b1-49fe66f720bmr97531355e9.30.1790334990763;
-        Fri, 25 Sep 2026 04:16:30 -0700 (PDT)
-Received: from cachyos ([151.36.34.128])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06cbd2dsm50237695e9.12.2026.09.25.04.16.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 04:16:30 -0700 (PDT)
-From: Giulia Aloia <giulia@bynar.io>
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] fs/ntfs3: fix log replay payload overreads
-Date: Fri, 25 Sep 2026 13:16:12 +0200
-Message-ID: <20260925111619.68345-1-giulia@bynar.io>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PeGq2pIP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oz2pG9OBJ90Gf8k78u+aJ5rMU8R7Mx6xKJpcKa4YZPA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790334991; v=1; x=1790939791;
+ b=PeGq2pIPWZn81HPrdJU/xMFq5qkieUhspXKwW8nyx2BAFWxWYqzSqalzGOUD2D2efNUTt/ZK
+ ssMssZ7j0lCR1bXIWpQ1/281cEVgxLwyaBfWK9kWm4i+ie0adTnTLjiTb/R+jXiHwKiEP8FI7W1
+ Zfn4lqn9J0sG6Cn59FhxAYdE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0b8268681074fdf1;
+	Fri, 25 Sep 2026 11:16:31 +0000
+X-Mizu-Trace-ID: 0b8268681074fdf1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <94cb5e25-770a-4a13-ba0f-ffe4119cafd6@linux.dev>
+Date: Fri, 25 Sep 2026 12:16:30 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 12/29] mm: handle PMD swap entries in fork path
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-13-usama.arif@linux.dev>
+ <69c54254-9657-4b95-a1cb-a6c0429c1c8c@kernel.org>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <69c54254-9657-4b95-a1cb-a6c0429c1c8c@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This series fixes two journal replay paths that can read past crafted
-redo or undo payloads while mounting a dirty NTFS volume.
 
-Patch 1 validates that redo and undo payload ranges stay within the log
-record before replay uses them, while preserving the compensation-log
-record undo exception used by Windows. It also validates the fixed-size
-OpenNonresidentAttribute redo entry and optional undo name before the
-analysis pass copies them.
 
-Patch 2 validates the minimum payload length for SetNewAttributeSizes,
-which always reads alloc_size, valid_size and data_size but previously
-only checked whether the optional total_size field was present.
+On 24/09/2026 21:28, David Hildenbrand (Arm) wrote:
+> On 9/14/26 14:28, Usama Arif wrote:
+>> copy_huge_pmd() only knows about migration and device-private PMDs, so a
+>> PMD swap entry would fall through to the present-PMD path and fork() would
+>> duplicate it without taking a reference on the slots it points at.
+>>
+>> Copy it the way copy_nonpresent_pte() copies a PTE swap entry: duplicate
+>> the swap references, clear the exclusive marker on the source, put the
+>> destination mm on mmlist, and account the child's slots to MM_SWAPENTS.
+>>
+>> Duplicating HPAGE_PMD_NR slots one at a time would be wasteful, so give
+>> swap_dup_entry_direct() an nr argument and rename it accordingly. Unlike
+>> the put side it hands nr straight to the per-cluster helper, so the range
+>> has to sit inside one cluster - which it does, since SWAPFILE_CLUSTER ==
+>> HPAGE_PMD_NR under CONFIG_THP_SWAP and a PMD-order folio's slots are only
+>> ever allocated at a cluster head. Reject a crossing range with -EINVAL so a
+>> future caller cannot walk off the end of the swap table.
+> 
+> You have a lot of patches, put you could (should? :) ) consider moving the
+> swapfile.c stuff into a separate patch, such that we can more reliably catch
+> swap maintainers attention (and shrink this patch here).
 
-The two checks are complementary. Patch 1 makes sure the selected
-payload range is inside the log record when that range is expected to be
-present. Patch 2 makes sure that the selected range is large enough for
-the SetNewAttributeSizes operation that interprets it.
+Ack, the next revision will have the code to duplicate a range of swap entries
+as a patch before this one.
 
-Both issues are reachable while mounting crafted images. Each patch
-contains the KASAN report observed before the fix. With these patches,
-the same images are rejected during mount without sanitizer reports.
+> 
+>>
+>> The GFP_ATOMIC extend-table allocation inside the dup can fail;
+>> copy_huge_pmd() then drops both PMD locks and retries once with
+>> GFP_KERNEL. Bound it to one retry, because swap_retry_table_alloc() also
+>> returns 0 when it decides the table is not needed. Normalise any remaining
+>> failure to -ENOMEM: copy_pmd_range() treats every other error as "not a
+>> huge PMD" and would then reach pmd_none_or_clear_bad(), clearing the source
+>> PMD and leaking its swap slots.
+>>
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> 
+> [...]
+> 
+>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>> index 0e347a545588c..6dfe8ef6dd371 100644
+>> --- a/mm/huge_memory.c
+>> +++ b/mm/huge_memory.c
+>> @@ -1894,7 +1894,7 @@ bool touch_pmd(struct vm_area_struct *vma, unsigned long addr,
+>>  	return false;
+>>  }
+>>  
+>> -static void copy_huge_non_present_pmd(
+>> +static int copy_huge_non_present_pmd(
+>>  		struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>>  		pmd_t *dst_pmd, pmd_t *src_pmd, unsigned long addr,
+>>  		struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
+>> @@ -1940,14 +1940,40 @@ static void copy_huge_non_present_pmd(
+>>  		 */
+>>  		folio_try_dup_anon_rmap_pmd(src_folio, &src_folio->page,
+>>  					    dst_vma, src_vma);
+>> +	} else if (softleaf_is_swap(entry)) {
+>> +		int err;
+>> +
+>> +		/*
+>> +		 * PMD swap entry: duplicate swap references and clear
+>> +		 * exclusive on source, matching copy_nonpresent_pte().
+>> +		 *
+> 
+> I'd drop that, rather obvious.
+> 
+>> +		 * A PMD swap entry only exists under CONFIG_THP_SWAP, where
+>> +		 * SWAPFILE_CLUSTER == HPAGE_PMD_NR, and it is cluster aligned,
+>> +		 * so these HPAGE_PMD_NR slots are exactly one cluster - which
+>> +		 * is what swap_dup_entries_direct() requires.
+> 
+> This is the more relevant information.
 
-Giulia Aloia (2):
-  fs/ntfs3: fix out-of-bounds read of redo/undo data during log replay
-  fs/ntfs3: validate SetNewAttributeSizes payload length
+Dropped the first half, kept the cluster paragraph.
 
- fs/ntfs3/fslog.c | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
 
--- 
-2.55.0
+> 
+>> +		 */
+>> +		err = swap_dup_entries_direct(entry, HPAGE_PMD_NR);
+>> +		if (err < 0)
+>> +			return err;
+>> +
+>> +		mm_prepare_for_swap_entries(dst_mm);
+>> +
+>> +		if (pmd_swp_exclusive(pmd)) {
+>> +			pmd = pmd_swp_clear_exclusive(pmd);
+>> +			set_pmd_at(src_mm, addr, src_pmd, pmd);
+>> +		}
+>>  	}
+>>  
+>> -	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
+>> +	if (softleaf_is_swap(entry))
+>> +		add_mm_counter(dst_mm, MM_SWAPENTS, HPAGE_PMD_NR);
+>> +	else
+>> +		add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
+> 
+> Can we instead just do it like the PTE variant and move these into the
+> respective cases?
+> 
+
+Have done it for next revision, but it makes the diff slightly longer.
+The migration arm had to grow a nested if: the outer test is now
+softleaf_is_migration(), because a plain readable migration entry
+matched none of the old arms yet still needed MM_ANONPAGES.
+
+
+> BTW, I'm surprised that we don't have to handle file THP migration and always
+> assume MM_ANONPAGES. Maybe we always zap them instead of using migration entries
+> ... maybe :)
+
+
+Not zapped, just never copied.  copy_huge_pmd() bails long before this:
+
+  /* Skip if can be re-fill on fault */
+  if (!vma_is_anonymous(dst_vma))
+          return 0;
+
+so a file THP is simply refilled from the page cache on the child's
+first fault.
+
+> 
+>>  int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>> @@ -1957,6 +1983,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>>  	spinlock_t *dst_ptl, *src_ptl;
+>>  	struct page *src_page;
+>>  	struct folio *src_folio;
+>> +	bool retried = false;
+> 
+> Do we really need this retried logic? I cannot easily spot something similar in
+> copy_pte_range(). I'd assume once swap_retry_table_alloc() succeeds we should be
+> mostly good.
+
+I actually implemented it similar to copy_pte_range() until v5, but changed it because
+of sashiko feedback which looked reasonable to me at that time :)
+
+
+> 
+> 
+>>  	pmd_t pmd;
+>>  	pgtable_t pgtable = NULL;
+>>  	int ret = -ENOMEM;
+>> @@ -1988,6 +2015,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>>  	if (unlikely(!pgtable))
+>>  		goto out;
+>>  
+>> +retry:
+>>  	dst_ptl = pmd_lock(dst_mm, dst_pmd);
+>>  	src_ptl = pmd_lockptr(src_mm, src_pmd);
+>>  	spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+>> @@ -1995,11 +2023,34 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>>  	ret = -EAGAIN;
+>>  	pmd = *src_pmd;
+>>  
+>> -	if (unlikely(thp_migration_supported() &&
+>> -		     pmd_is_valid_softleaf(pmd))) {
+> 
+> That thp_migration_supported() thingy is one ugly function.
+
+pmd_is_valid_softleaf() should actually be sufficient here.
+
+I dropped thp_migration_supported() here.
+
+> 
+>> -		copy_huge_non_present_pmd(dst_mm, src_mm, dst_pmd, src_pmd, addr,
+>> -					  dst_vma, src_vma, pmd, pgtable);
+>> -		ret = 0;
+>> +	if (unlikely(pmd_is_valid_softleaf(pmd))) {
+>> +		ret = copy_huge_non_present_pmd(dst_mm, src_mm, dst_pmd, src_pmd,
+>> +						addr, dst_vma, src_vma, pmd,
+>> +						pgtable);
+>> +		if (ret) {
+>> +			spin_unlock(src_ptl);
+>> +			spin_unlock(dst_ptl);
+>> +			/*
+>> +			 * For PMD swap entries -ENOMEM means the per-cluster
+>> +			 * swap-extend table couldn't be GFP_ATOMIC-allocated.
+>> +			 * Try the GFP_KERNEL fallback once before giving up.
+>> +			 * swap_retry_table_alloc() also returns 0 when it
+>> +			 * decides the table is not needed after all, so bound
+>> +			 * this to a single retry rather than looping on it.
+>> +			 */
+>> +			if (ret == -ENOMEM && !retried) {
+>> +				softleaf_t entry = softleaf_from_pmd(pmd);
+>> +
+>> +				retried = true;
+>> +				if (softleaf_is_swap(entry) &&
+> 
+> How can we suddenly not have a PMD
+> 
+>> +				    !swap_retry_table_alloc(entry, HPAGE_PMD_NR,
+>> +							    GFP_KERNEL))
+>> +					goto retry;
+>> +			}
+>> +			pte_free(dst_mm, pgtable);
+>> +			ret = -ENOMEM;
+>> +			goto out;
+>> +		}
+> 
+> 
+> That's .... messy :)
+> 
+> 
+> I was wondering whether we could handle it slightly like the PTE case: return
+> -EIO and let the caller do that for us. We only have to return the "softleaf_t
+> entry"
+> 
+> Would avoid the retry label, the manual unlocking etc.
+> 
+> Nit sure, just a thought. The code as is is definitely too messy :)
+
+
+Yeah sorry about this.
+
+I have changed it now, copy_huge_pmd() now returns -EIO and the softleaf_t,
+with copy_pmd_range() handling the retry like the PTE path. The next revision
+will look like:
+
+
+ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+                  pmd_t *dst_pmd, pmd_t *src_pmd, unsigned long addr,
+-                 struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma)
++                 struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
++                 softleaf_t *entryp)
+ {
+        spinlock_t *dst_ptl, *src_ptl;
+        struct page *src_page;
+@@ -1995,11 +2020,14 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+        ret = -EAGAIN;
+        pmd = *src_pmd;
+
+-       if (unlikely(thp_migration_supported() &&
+-                    pmd_is_valid_softleaf(pmd))) {
+-               copy_huge_non_present_pmd(dst_mm, src_mm, dst_pmd, src_pmd, addr,
+-                                         dst_vma, src_vma, pmd, pgtable);
+-               ret = 0;
++       if (unlikely(pmd_is_valid_softleaf(pmd))) {
++               ret = copy_huge_non_present_pmd(dst_mm, src_mm, dst_pmd, src_pmd,
++                                               addr, dst_vma, src_vma, pmd,
++                                               pgtable);
++               if (ret) {
++                       *entryp = softleaf_from_pmd(pmd);
++                       pte_free(dst_mm, pgtable);
++               }
+                goto out_unlock;
+        }
+
+diff --git a/mm/memory.c b/mm/memory.c
+index 477d7e359b447..c0ad446d0cea4 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -1437,11 +1437,21 @@ copy_pmd_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
+        do {
+                next = pmd_addr_end(addr, end);
+                if (pmd_is_huge(*src_pmd)) {
++                       softleaf_t entry = softleaf_mk_none();
+                        int err;
+
+                        VM_BUG_ON_VMA(next-addr != HPAGE_PMD_SIZE, src_vma);
++again:
+                        err = copy_huge_pmd(dst_mm, src_mm, dst_pmd, src_pmd,
+-                                           addr, dst_vma, src_vma);
++                                           addr, dst_vma, src_vma, &entry);
++                       if (err == -EIO) {
++                               VM_WARN_ON_ONCE(!entry.val);
++                               if (swap_retry_table_alloc_nr(entry,
++                                                             HPAGE_PMD_NR,
++                                                             GFP_KERNEL) < 0)
++                                       return -ENOMEM;
++                               goto again;
++                       }
+                        if (err == -ENOMEM)
+                                return -ENOMEM;
+                        if (!err)
+
+
+and then in copy_huge_non_present_pmd(), I added:
+
+
++               err = swap_dup_entries_direct(entry, HPAGE_PMD_NR);
++               if (err)
++                       /* Only -ENOMEM is worth a GFP_KERNEL retry. */
++                       return err == -ENOMEM ? -EIO : -ENOMEM;
+
+as returning -EIO causes a retry. Only -ENOMEM is made retryable,
+malformed-entry errors remain terminal rather than potentially retrying indefinitely.
+
+
+> 
+>>  		goto out_unlock;
+>>  	}
+>>  
+>> diff --git a/mm/memory.c b/mm/memory.c
+>> index 477d7e359b447..84e1e1c22bffa 100644
+>> --- a/mm/memory.c
+>> +++ b/mm/memory.c
+>> @@ -979,7 +979,7 @@ copy_nonpresent_pte(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>>  	struct page *page;
+>>  
+>>  	if (likely(softleaf_is_swap(entry))) {
+>> -		if (swap_dup_entry_direct(entry) < 0)
+>> +		if (swap_dup_entries_direct(entry, 1) < 0)
+>>  			return -EIO;
+>>  
+>>  		mm_prepare_for_swap_entries(dst_mm);
+>> @@ -1394,7 +1394,7 @@ copy_pte_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
+>>  
+>>  	if (ret == -EIO) {
+>>  		VM_WARN_ON_ONCE(!entry.val);
+>> -		if (swap_retry_table_alloc(entry, GFP_KERNEL) < 0) {
+>> +		if (swap_retry_table_alloc(entry, 1, GFP_KERNEL) < 0) {
+>>  			ret = -ENOMEM;
+>>  			goto out;
+> 
+> 
+> For both, I'd provide a simple inline helper that maintains the existing
+> interface. Less chrun in unrelated code.
+
+
+Done, I added:
+
+static inline int swap_dup_entry_direct(swp_entry_t entry)
+  {
+          return swap_dup_entries_direct(entry, 1);
+  }
+
+  static inline int swap_retry_table_alloc(swp_entry_t entry, gfp_t gfp)
+  {
+          return swap_retry_table_alloc_nr(entry, 1, gfp);
+  }
+
+swap_retry_table_alloc_nr() is not a name I love - suggestions welcome.
+
+
+> 
+> [...]
+> 
+>>  
+>>  /*
+>> - * swap_dup_entry_direct() - Increase reference count of a swap entry by one.
+>> + * swap_dup_entries_direct() - Increase reference count of swap entries by one.
+>>   * @entry: first swap entry from which we want to increase the refcount.
+>> + * @nr: number of contiguous swap entries to duplicate.
+>>   *
+>>   * Returns 0 for success, or -ENOMEM if the extend table is required
+>>   * but could not be atomically allocated.  Returns -EINVAL if the swap
+>> @@ -3978,8 +3997,16 @@ void si_swapinfo(struct sysinfo *val)
+>>   * owner. e.g., locking the PTL of a PTE containing the entry being increased.
+>>   * Also the swap entry must have a count >= 1. Otherwise folio_dup_swap should
+>>   * be used.
+>> + *
+>> + * Unlike swap_put_entries_direct(), the whole range [entry, entry + nr) must
+>> + * lie within one swap cluster; a range that crosses a cluster boundary is
+>> + * rejected with -EINVAL. The only caller passing nr > 1 is the PMD swap entry
+>> + * fork path: a PMD swap entry can only exist with CONFIG_THP_SWAP, where
+>> + * SWAPFILE_CLUSTER == HPAGE_PMD_NR, and a PMD-order folio's slots are only ever
+>> + * allocated at a cluster head (see alloc_swap_scan_cluster()), so such a range
+>> + * is exactly one cluster.
+> 
+> I would reduce this drastically. This will bitrot easily and the details are
+> only relevant if this actually ever starts failing.
+> 
+> Just keep the first sentence and add the details to the patch description (which
+> you effectively already have)
+> 
+
+Done!
+
+
+Thanks for the reviews!
