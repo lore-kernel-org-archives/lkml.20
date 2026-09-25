@@ -1,85 +1,83 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7124D2EF8
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75494B0E28;
+	Fri, 25 Sep 2026 16:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352603; cv=none; b=Ke5RFOVs6weJNU4crNQT4paSHmlnlWUPuYojfJTMAmRosrLc2D28yVbH7WGPi9uzJ91Us/jSwPe12oggMmh1C26SpEQ8yjuoplrKzl/uf1F34iJDlgW5zB3McLFBDegGFMDwRfwHHhD7bVsRdcrucdITZKhpUq2BJCidHJjk2VU=
+	t=1790352604; cv=none; b=hYqbN50geA3D3exWo1RBib6wqbE0K8xw+gkoUA+JqxT77QO/fkGtq00qoh/LwXHXiakp98WiEYbMosTb0GTIbzNqkK6TMal38Av+rrF/pOuc34slcBqdvDZjNzkitLSJKSlCwHACqB7wvSMO0LBKh/EtA6q3uRXvGipRAipK7hc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790352603; c=relaxed/simple;
-	bh=DT1bAHlmvJKGXF5jRNpxaG8VzstRFoRP8KpoU/9KKgE=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=Y2IaC/GU14MSTkwXmWsB0y5XlVtCgzLOco3H3reianLXleBScvHxDzhupPvef1gY+rvz0Re6+ZUHoWU5YZP3ruXw3MR7xYTrdUdA3yXh0/bQTkk9lECVAO2TO8DfRYVP5AegMU9wbIz+iIYdKdRjQcMlo7H2ZyYoUKlko8jW3+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JYPcE/V3; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790352604; c=relaxed/simple;
+	bh=JCwtQgwBd4uwiQQ9cruublW3anVCiwN2cr1QB/kcyNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=s6IPr4/4eVlU5z3Q0oyRNdeX9+Yg4neb0gdxpEfSaN/2V4psb2as9t0qIsBKVSkT+whsmo+IkNRgwjI547Sc8njYWK8xyBnK6NvMYhriq/57HDTBau0gjZRZhT3Geiz624sVFJCr9XmL8IHR6WY5dKNxdfUewxLQ8rh8U6OYSlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BjXAqtIi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JYPcE/V3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790352598; x=1821888598;
-  h=date:from:to:cc:subject:message-id;
-  bh=DT1bAHlmvJKGXF5jRNpxaG8VzstRFoRP8KpoU/9KKgE=;
-  b=JYPcE/V3OdBYK22qdLDnu8LkxUJ1G0MC9aRWrLMVNrl2A6SjyaTwSSJM
-   V3MGkUJKhN552LMgHk89tZi1BaSlFzn0kRdyttXDPITHtVBtKGKbH013v
-   iWfhghczQdmauAloypzJ33vbt6Fpj8dJ/qFpUms5/tPqftA7ChPsKpiX5
-   QSZnleKKZ275M4UnHS6R3oJltNYUj8vsXRu/kfEsvPo/VNsi2SUNazBRy
-   8/+enXvk0Q8lzo/XPK/W5GVAXUhsMSYL96sriSrnsSE7kKJqg3/OYnAp5
-   d3rvbAe5PK6vdflCWQgG6xekpZv2c8G/6arzIIWOWwZkXGqSfRNsPqYzU
-   w==;
-X-CSE-ConnectionGUID: OQuYoo5ERESMVuAFc9KSvw==
-X-CSE-MsgGUID: CzhNHAqYTT6KbqAxKxhdTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="102503666"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="102503666"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 09:09:55 -0700
-X-CSE-ConnectionGUID: feiM3FCsRtmb1Z2PlakzKg==
-X-CSE-MsgGUID: bo2hLYw+Sjq6qUMsVyo2AQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="302311969"
-Received: from igk-lkp-server01.igk.intel.com (HELO a88263cc608e) ([10.211.93.152])
-  by fmviesa001.fm.intel.com with ESMTP; 25 Sep 2026 09:09:53 -0700
-Received: from kbuild by a88263cc608e with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xA8Uh-000000000og-1gFW;
-	Fri, 25 Sep 2026 16:09:51 +0000
-Date: Fri, 25 Sep 2026 18:09:27 +0200
-From: kernel test robot <lkp@intel.com>
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Christian Brauner <brauner@kernel.org>,
- David Disseldorp <ddiss@suse.de>, SeongJae Park <sj@kernel.org>
-Subject: WARNING: modpost: vmlinux: section mismatch in reference:
- strcpy.isra.0+0x18 (section: .text.unlikely) -> initcall_level_names
- (section: .init.data)
-Message-ID: <202609251820.2UzxY51q-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BjXAqtIi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C401F00893;
+	Fri, 25 Sep 2026 16:09:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790352596;
+	bh=lxcuWMccAAILLnFy6ETqKbmwxnpl0hasudonI0mgeG4=;
+	h=Date:From:To:Cc:Subject;
+	b=BjXAqtIi1Zv7kgI97vY+BEwfEX8Ir32tAJH2BgnOiPsbz/VQlo34JINcjViRNAlh8
+	 +KB4oWLb/gmHkZXM02TcnojJbWpq/n2fiWPMRBDTtKT9j3mAdZtbvzrFPUzsi5m/yG
+	 A26k2x1ezcp8xCZQuOA4pWbg6Vsejv+Zw2nEiQ6jFmv3GAfchCWg7Zbz+D7MsfCOYO
+	 ARLimIx+lxB5ICIUH6rQuDUMTtw1a/7UfHPmDI6gxO82uFyKFSw8d/z5889nYfNB1S
+	 bGZvvhjPjv+7kpQPsdo2L9cBtGueIOl995zEU9upyh6yW0YKds2g3IzO6r5mjHtdXp
+	 uOVFhrJSTwt0A==
+Date: Fri, 25 Sep 2026 17:09:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Odell <loganodell@google.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure in the final build
+Message-ID: <arac0WyK8MIbFeNP@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FFXBYXPNDcVTjvZc"
+Content-Disposition: inline
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   165768bb70265b5c38cf0b73fafd75be235f8b14
-commit: 3fb2d124b64716f16355b9b722b2f062c0702f24 init: do_mounts: use kmalloc() for allocations of temporary buffers
-date:   4 months ago
-config: xtensa-randconfig-2000-20260925 (https://download.01.org/0day-ci/archive/20260925/202609251820.2UzxY51q-lkp@intel.com/config)
-compiler: xtensa-linux-gcc (GCC) 12.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260925/202609251820.2UzxY51q-lkp@intel.com/reproduce)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 3fb2d124b647 ("init: do_mounts: use kmalloc() for allocations of temporary buffers")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609251820.2UzxY51q-lkp@intel.com/
+--FFXBYXPNDcVTjvZc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-All warnings (new ones prefixed by >>, old ones prefixed by <<):
+Hi all,
 
->> WARNING: modpost: vmlinux: section mismatch in reference: strcpy.isra.0+0x18 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
+In the final build today's linux-next build (i386 defconfig) failed like
+this:
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+/tmp/next/build/drivers/pci/probe.c: In function 'pci_class':
+/tmp/next/build/drivers/pci/probe.c:1902:12: error: unused variable 'rev' [-Werror=unused-variable]
+ 1902 |         u8 rev;
+      |            ^~~
+
+Caused by commit
+
+   8a2a9fa37b814 (PCI/IOV: Read VF config values that need not match PF)
+
+I have reverted that commit for today.
+
+--FFXBYXPNDcVTjvZc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2nNAACgkQJNaLcl1U
+h9C0sAf/W4V6I4zEF0lAbIsEKN9ON7EDSJHWqLJStLQPhkBvRw/sC4ff317rM0of
+w2S65QCShVuu7IDiSH8ct2chUzHu0TPl/NOxTOk2jdYrFPYanNo3yk/derccXKSm
+cxVLgVzOV6mJbtOLA5tVK6N+ubzvb0Euq5LVhAlHAFVdkoJdqIDWfveLpo42Zotq
+ESNG61+osg9dtvCzaFx99GttfYenthUBcbtp0oGBjYuM5AnksEKc3+7+tO8W2cfP
+5OThr6s08eas7QDqJyyMfnVdR0DwI/2VbwA4VaVImVCBlx1nUQxHb8FZXOqSU8B+
+DHif1fUnFgiRkqarsOny0L932w9xjA==
+=Wm/R
+-----END PGP SIGNATURE-----
+
+--FFXBYXPNDcVTjvZc--
