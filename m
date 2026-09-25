@@ -1,438 +1,317 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FD84502F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF28E2F30;
+	Fri, 25 Sep 2026 00:02:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790294460; cv=none; b=cKR1z+ABXAdVN49j96WKf4G9EHBG0qpH0QL7FyE0fSQ6l9Ina/YUX7+Cl3Nl5VWzcD2yzPO1P4tLLwa/Uyz9D1yHrXDHT3PbaQpX+ckO2b2X4CbuGtGjpx2tMFWYM/F262uM5Dpod+a+5/jqonCopJ/KV9s9de8dXZxV+RmtfHI=
+	t=1790294533; cv=none; b=kcvLEJ2sgfT+lPt3gD+jhH7uvkstDrl9aSScvs4PB6UfvxpSr82DPiNofek6EiFGZubAMXEQIBsTqJCITtjBFyy8DWPrSE2ZpQB/EPuJcoFZIZNckFyg71tQIwBsaG0h2+VnmYzzDxoggfIqRlO4fw7+VKCYT9g6cGm8S6Bz85o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790294460; c=relaxed/simple;
-	bh=BYqICiGMLgWqpntKQzARpSvKHz0b8tGLohHeOvC50YE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KhxUUUvo3SaOJKNxFSY/g+2ewllx+YKVZn2c6y+RLEEAq7DII+aa/M1cCzrzHrwVhXIYa80mGY6+rYyu3roEk9l3wubPJDk2Yy+RIyCZKjbxGgrj3IWEuAN9K7W4eZ8VBQThImSXRrPUpEe2p4wbktnWDNdviJ9E4fM1Wtq1+5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gECyGoLr; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OsVN6BKT; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790294533; c=relaxed/simple;
+	bh=M0qqUhExflkBpJdQXFREW4nc8VekqNfpY/O8LodQ24Y=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GosoUfqyQqY/MzjlqCg7tPDdpGRDcbLSddvEvc+17hUQPt1EMZqVQKCNmCsc9hh9cFlGrOiiuDWq6FuB8sS1PI3cUM29+HmxGQDYTbHh3Ia+PXPW+sdoYh9Qj+eHsi4UPSlXeD673t7P/UdsDParbEQu2AuJM3oUOat5SghfqIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MZLwBTiY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gECyGoLr";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OsVN6BKT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790294457;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lumaw4lMD1kTG9v3IY32vA8t/Mv1AVxHna5hqi0XQCc=;
-	b=gECyGoLr/a69+CpXx1jH/m2PI1HoRmCLYSXU9IWfWWaGmnjJb+fSXdy33EBAT38tcUQmxt
-	WUuBlcXqOlzsVVTtCVERy6Djs6q0/W+9EB4r3s9o9TxPlkkvpk75IYgebCpamfkPaZgsLF
-	CB43djhWjL/Kw+Ws4pe+eXfrzF5TA0c=
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-35-VXuP0PEJPRKxlTt5Lz7QRQ-1; Thu, 24 Sep 2026 20:00:51 -0400
-X-MC-Unique: VXuP0PEJPRKxlTt5Lz7QRQ-1
-X-Mimecast-MFC-AGG-ID: VXuP0PEJPRKxlTt5Lz7QRQ_1790294450
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2db8e9fe9c7so2791745ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:00:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790294450; x=1790899250; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lumaw4lMD1kTG9v3IY32vA8t/Mv1AVxHna5hqi0XQCc=;
-        b=OsVN6BKTRlOx19HKjVCcfXf+nqecmYL8ku95Vb8nPcjW4dYJQmVJPvBgCarROhrkGz
-         UsZLuVo4WNzipEjUevQrnTar1/3j5iD4r3H5tWRkkVDGS7QjeJVBrsYvW0gMx2B2hapr
-         VzR4Ry/FEU6x/HPvToZ7sx1YaUJ7lp4L/b3Jp2lZSVyMNwh0YoUZYbCn9x4bYJSE68zX
-         8Ttm8yIoL6yVx971zquOaRwtDv3/NQVCPFlbI8bIwoNzC/Yb56bRMu9keh5AqvcwTsCg
-         ErcLbczYwotBywLoAjc+3tcOUS5fNWehvtI5XdwdC592l7166ZH23hIvxLLfdF+Wlhgi
-         Iy1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790294450; x=1790899250;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lumaw4lMD1kTG9v3IY32vA8t/Mv1AVxHna5hqi0XQCc=;
-        b=0dREZaKDePjdDGPoZnfPHP4vR0BcstlyCc9Hbfc5Q7YdHdUMutAjT31J7jCweEXt9L
-         hj04pRfO3gmG/ROYPKV/W094MUAHVqE95Jx6iQOCBNIDvhkNKjc5sw2e4vueyG3lSxhC
-         R3j2T1z1/bEpI4FQUo8PCtajIBmfBwIO5ufV31KW+DX+g3dHGkG0hp4oQjLIuBZk0LPQ
-         Gs4l/URv3lvtmrXUlRvHjo1KfYGXN2ZhWRGTGFvbkQ5OyxfKUVy3qaHTityTmWireFhn
-         6Kj5KiTWVkZkePPX/ezf3d/R3/crtkZ5gLibfXQX9z+DKkk7YxWmpbXaHRejT8AFDFPW
-         9YUw==
-X-Forwarded-Encrypted: i=1; AKwUvBz740N2O1HUEqj56RT2ZMRpYRW9CzGUk4hHPyupNKUaI6lvDd5mOf8rMV9tePmbBqZJH50vklNC55SaSrw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kljguWUqBwSYBE8NXB8/Oy1trCU+0SZtXYPEpSsNvQReMb7pNX
-	JuX50v1KGP7hP42y9YkvizpsZj2ZF+9F3lJrcRvkMPzJrBwVYdBKozW3fIAvwsPkmcjPy4nEfFJ
-	RCprZE7hKsU35hlBF/s7OSbAAdbbSShB0q4LKqIVv0lrE0lma26WQxzre0BYAQWFf5Q==
-X-Gm-Gg: AYBFou3YqtXIJvfDHZURbG6S6H7x68HjSFEr1ItbE2SAf42hjMtAKl964IcXpzQA0qH
-	ki0Mt7R6iwZi6D+PpmgoTtxERiL+oOzHd6mki+j2Q0kq3fekg5eovmnRD5qbhIU5eC5cqREtTve
-	dLvUrUE/G8JNIdnK9vGYx++lIIvO5/+NTtG7a2EJHe/crdgR0OFdj0cp4p/9QBtzi+6yK3uJB54
-	6mmcUqX3tpPi+xJ3dIAnGDTNSLXUcvyROQp7cWhZS4GNzgb7aE67IDl+3kBTfxFNdp9rRsqUQUm
-	chdHsT+uDQtWICXB5HYQn6iEBbeao5ycA2rw3I4UHsA8v50y5hWNmqS/Qr8YwvWyR9TzxfHo/Xc
-	PTrHveWvIuHTfRCBUuQtwLfmNWE1l326gI3n6n//03A==
-X-Received: by 2002:a17:903:1b6b:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2df94964b02mr3973125ad.14.1790294449525;
-        Thu, 24 Sep 2026 17:00:49 -0700 (PDT)
-X-Received: by 2002:a17:903:1b6b:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2df94964b02mr3972225ad.14.1790294448725;
-        Thu, 24 Sep 2026 17:00:48 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913ff040sm2112955ad.32.2026.09.24.17.00.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 17:00:42 -0700 (PDT)
-Message-ID: <1ffe72ff-f20b-4621-a586-10e0358fee67@redhat.com>
-Date: Fri, 25 Sep 2026 10:00:33 +1000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MZLwBTiY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADA181F000FF;
+	Fri, 25 Sep 2026 00:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790294531;
+	bh=+n+g/iryFmlJRzPkc8R8xL++KcDJ3FmwydzBcRCRH5k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=MZLwBTiYFNeQvwU4HHYggPa17e6xZ3/srx9TwQW79alxJyb0uP38yvC/RuhQnDaPz
+	 wld+W0D0EpfrKB22mKp4I6GhoKmokpeN8QD6o/qE+hQVosllJQuR3q64+NC/ltcLD9
+	 UGq0PH8JGCkTOHxnVUs9aMsfFgvhgEmKna6bmBkLmKSVqrNVSrllHwphRXTmWqai6u
+	 pBJqV14NGORtl7RAcXod/DPJ7ByZE+pTIx6QVLtV7RMlwJbhm8S5nU+hBk4bDnsKBY
+	 cpMPJWOoIWHTy/XAJjXoUtKAyprAKw/Zs2cIZwLhBf8ub7e7txqKfi2R64axuNXCUF
+	 PYVX6MMoeDYXw==
+Subject: Re: [PATCH net-next v4 1/2] selftests/bpf: Track test_xdp_features
+ DUT processes
+From: netdev-bot+sashiko@kernel.org
+To: bochaolucky@gmail.com
+Cc: ast@kernel.org, daniel@iogearbox.net, davem@davemloft.net, kuba@kernel.org,
+ hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, andrii@kernel.org,
+ eddyz87@gmail.com, ihor.solodrai@linux.dev, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, shuah@kernel.org,
+ andrew+netdev@lunn.ch, edumazet@google.com, pabeni@redhat.com,
+ alexis.lothore@bootlin.com, lorenzo@kernel.org, tiozhang@didiglobal.com,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 00:02:09 +0000
+Message-ID: <179029452919.2160803.5159362643144415417@kernel.org>
+In-Reply-To: <20260921-xdp-features-v4-send-v4-1-a0d4ec392cb7@gmail.com>
+References: <20260921-xdp-features-v4-send-v4-1-a0d4ec392cb7@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 2/7] firmware: arm_rmm: Check for RMI support at init
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-3-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260924135201.850038-3-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/24/26 11:51 PM, Suzuki K Poulose wrote:
-> From: Steven Price <steven.price@arm.com>
-> 
-> Query the RMI version number and check if it is a compatible version.
-> The first two feature registers are read and exposed for future code to
-> use.
-> 
-> We only support this for Little Endian kernels, the Big Endian kernel
-> support is anyway marked BROKEN and is being removed.
-> 
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
-> v19:
->   * Read all implemented RmiFeatureRegisters - 5
->   * Use ARRAY_SIZE(rmi_feat_reg_cache) for the loop in rmi_read_features()
->   * Fold rmi_features() into rmi_read_features
->   * Fix comment for rmi_smccc_invoke()
->   * Drop default y
->   * Add retry for RMI_BLOCKED and return to caller
-> v18:
->   * Always use arm_smccc_1_2_invoke() for all RMIs making sure the unsused
->     parameters are 0 - Sashiko
->   * Move rmi_features() calls away from the arm-rmi-cmds.h to rmi.c - Gavin
-> v17:
->   * Rename ARM_RMM to ARM_RMM_RMI to make it easier to add Guest facing RSI
->     support, which is also in progress
-> v16:
->   * Update Kconfig text to include PCIe TDISP.
->   * Export rmi_feat_reg() here rather than in a later commit.
-> v15:
->   * The code is moved again, this time into the 'firmware' directory.
-> v14:
->   * This moves the basic RMI setup into the 'kernel' directory. This is
->     because RMI will be used for some features outside of KVM so should
->     be available even if KVM isn't compiled in.
-> ---
->   arch/arm64/Kconfig                |   1 +
->   arch/arm64/kernel/cpufeature.c    |   1 +
->   drivers/firmware/Kconfig          |   1 +
->   drivers/firmware/Makefile         |   1 +
->   drivers/firmware/arm_rmm/Kconfig  |  25 +++++++
->   drivers/firmware/arm_rmm/Makefile |   2 +
->   drivers/firmware/arm_rmm/rmi.c    | 109 ++++++++++++++++++++++++++++++
->   include/linux/arm-rmi-cmds.h      |  48 +++++++++++++
->   8 files changed, 188 insertions(+)
->   create mode 100644 drivers/firmware/arm_rmm/Kconfig
->   create mode 100644 drivers/firmware/arm_rmm/Makefile
->   create mode 100644 drivers/firmware/arm_rmm/rmi.c
->   create mode 100644 include/linux/arm-rmi-cmds.h
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Some nitpicks below, with them addressed:
+Critical: 0 · High: 0 · Medium: 2 (1) · Low: 2
 
-Reviewed-by: Gavin Shan <gshan@redhat.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index b5a51b0ef9440..ff9565d3ffa59 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -38,6 +38,7 @@ config ARM64
->   	select ARCH_HAS_MEMBARRIER_SYNC_CORE
->   	select ARCH_HAS_MEM_ENCRYPT
->   	select ARCH_SUPPORTS_MSEAL_SYSTEM_MAPPINGS
-> +	select ARCH_SUPPORTS_RMM
->   	select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
->   	select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
->   	select ARCH_HAS_NONLEAF_PMD_YOUNG if ARM64_HAFT
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 32102c3912fa7..e8b29983b0021 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -293,6 +293,7 @@ static const struct arm64_ftr_bits ftr_id_aa64isar3[] = {
->   static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
->   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV3_SHIFT, 4, 0),
->   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV2_SHIFT, 4, 0),
-> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_RME_SHIFT, 4, 0),
->   	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_DIT_SHIFT, 4, 0),
->   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_AMU_SHIFT, 4, 0),
->   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_MPAM_SHIFT, 4, 0),
-> diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-> index b7cc11e4fbfa6..62660bf520a8d 100644
-> --- a/drivers/firmware/Kconfig
-> +++ b/drivers/firmware/Kconfig
-> @@ -310,5 +310,6 @@ source "drivers/firmware/samsung/Kconfig"
->   source "drivers/firmware/smccc/Kconfig"
->   source "drivers/firmware/tegra/Kconfig"
->   source "drivers/firmware/xilinx/Kconfig"
-> +source "drivers/firmware/arm_rmm/Kconfig"
->   
->   endmenu
-> diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
-> index be46f1e1dc77f..196a650ccf025 100644
-> --- a/drivers/firmware/Makefile
-> +++ b/drivers/firmware/Makefile
-> @@ -39,3 +39,4 @@ obj-y				+= samsung/
->   obj-y				+= smccc/
->   obj-y				+= tegra/
->   obj-y				+= xilinx/
-> +obj-y				+= arm_rmm/
-> diff --git a/drivers/firmware/arm_rmm/Kconfig b/drivers/firmware/arm_rmm/Kconfig
-> new file mode 100644
-> index 0000000000000..a37cba6647360
-> --- /dev/null
-> +++ b/drivers/firmware/arm_rmm/Kconfig
-> @@ -0,0 +1,25 @@
-> +
-> +config ARCH_SUPPORTS_RMM
-> +	bool
-> +
-> +config ARM_RMM_RMI
-> +	bool "Realm Management Interface (RMI) Support"
-> +	depends on ARCH_SUPPORTS_RMM
-> +	help
-> +	  Support the Realm Management Monitor (RMM) on Arm systems that
-> +	  implement the Realm Management Extension (RME), as defined by the
-> +	  Arm Confidential Compute Architecture.
-> +
-> +	  The RMM runs at EL2 in the Realm world and provides the Realm
-> +	  Management Interface (RMI) used by a Normal World host to create,
-> +	  manage and run protected virtual machines called Realms. The RMM can
-> +	  also act as a TSM, as defined by the PCIe TDISP and can manage the
-> +	  PCI IDE setup for securing the PCIe links.
-> +
-> +	  This option builds the host-side RMI support used by KVM to detect a
-> +	  compatible RMM, configure it, manage delegated memory and enable
-> +	  Realm guests.
-> +
-> +	  Selecting this option does not by itself make Realm guests available:
-> +	  the system must also provide RME-capable hardware and firmware with a
-> +	  compatible RMM implementation.
-> diff --git a/drivers/firmware/arm_rmm/Makefile b/drivers/firmware/arm_rmm/Makefile
-> new file mode 100644
-> index 0000000000000..65171988fdcae
-> --- /dev/null
-> +++ b/drivers/firmware/arm_rmm/Makefile
-> @@ -0,0 +1,2 @@
-> +
-> +obj-$(CONFIG_ARM_RMM_RMI)	= rmi.o
-> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> new file mode 100644
-> index 0000000000000..3baba931f92e4
-> --- /dev/null
-> +++ b/drivers/firmware/arm_rmm/rmi.c
-> @@ -0,0 +1,109 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2023-2026 ARM Ltd.
-> + */
-> +
-> +#include <linux/cpufeature.h>
-> +#include <linux/memblock.h>
-> +#include <linux/arm-rmi-cmds.h>
-> +#include <linux/slab.h>
-> +
-> +#include <asm/memory.h>
-> +#include <asm/pgtable-hwdef.h>
-> +
-> +/* RMM defines RmiFeatureRegister0 to RmiFeatureRegister5. */
-> +static unsigned long rmi_feat_reg_cache[5] __ro_after_init;
-> +
+- [Medium] `wait_for_dut_server()` replaces the previously unbounded
+  readiness wait with at most 10 one-second polls and turns a timeout…
+- [Medium] `cleanup()` unconditionally runs `ip link del v1` and, via the
+  newly added `trap cleanup EXIT`, is now reachable on every exit path…
+- [Low] Missing `Fixes:` tag.
+- [Low] The signal traps stay armed while the EXIT trap (`cleanup`)
+  executes.
 
-Based on the latest RMM implementation, the highest feature register
-index is RMI_FEATURE_REGISTER_4_INDEX. So RmiFeatureRegister5 is out of
-the range and the correct comments would be: 'RMM defines RmiFeatureRegister0
-to RmiFeatureRegister4', or we could simplify this to:
+Pre-existing issues:
+- [Medium] The shell selftest reports success even when the detected XDP
+  capability disagrees with the capability advertised by the driver:…
 
-/* RMM defines 5 feature registers */
+--
 
-> +static int rmi_check_version(void)
-> +{
-> +	unsigned short version_major, version_minor;
-> +	unsigned long host_version = RMI_ABI_VERSION(RMI_ABI_MAJOR_VERSION,
-> +						     RMI_ABI_MINOR_VERSION);
-> +	unsigned long aa64pfr0 = read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1);
-> +	struct arm_smccc_1_2_regs res = {
-> +		SMC_RMI_VERSION, host_version,
-> +	};
+selftests/bpf: Track test_xdp_features DUT processes
+
+This reworks test_xdp_features.sh so the device-under-test xdp_features
+server is tracked by pid and job spec instead of being matched by name with
+pidof, replaces the readiness poll loop with a bounded retry loop, and moves
+teardown to an EXIT trap plus explicit signal traps.
+
+A few questions on the new shell logic below.
+
+> selftests/bpf: Track test_xdp_features DUT processes
+>
+> Track the DUT process instead of matching processes by name to avoid
+> interference between concurrent tests. Fix readiness retries under
+> set -e and clean up the DUT and network state on exit or interruption.
+>
+> Signed-off-by: Bochao Cao <bochaolucky@gmail.com>
+
+[Severity: Low]
+Should this carry a Fixes: tag?  Both defects repaired here came in with
+the original script.
+
+In the baseline, wait_for_dut_server() ran the failing command in the body
+of the loop:
+
+	while sleep 1; do
+		ss -tlp | grep -q xdp_features
+		[ $? -eq 0 ] && break
+	done
+
+errexit exempts only the loop condition, so with set -e a DUT that is not
+yet listening after one second aborted the script instead of retrying.
+
+Also, trap cleanup 2 3 6 9 never trapped EXIT (and signal 9 cannot be
+trapped), while cleanup was only reached at the end of a fully successful
+run, so every [ $? -ne 0 ] && exit path left the netns, the v1 veth and a
+live xdp_features process behind, and the leftover v1 then makes the next
+run's ip link add v1 fail.
+
+git blame attributes both constructs to 4dba3e7852b7 ("selftests/bpf:
+introduce XDP compliance test tool"), so a
+Fixes: 4dba3e7852b7 ("selftests/bpf: introduce XDP compliance test tool")
+trailer would let this be selected for the affected history.
+
+> diff --git a/tools/testing/selftests/bpf/test_xdp_features.sh b/tools/testing/selftests/bpf/test_xdp_features.sh
+> index 0aa71c4455c0..a78e0fb9ed63 100755
+> --- a/tools/testing/selftests/bpf/test_xdp_features.sh
+> +++ b/tools/testing/selftests/bpf/test_xdp_features.sh
+
+[ ... ]
+
+> @@ -30,77 +31,124 @@ setup() {
+>  	} > /dev/null 2>&1
+>  }
+>  
+> +terminate_dut_server() {
+> +	local pid
 > +
-> +	/* If RME isn't supported, then RMI can't be */
-> +	if (cpuid_feature_extract_unsigned_field(aa64pfr0, ID_AA64PFR0_EL1_RME_SHIFT) == 0)
-> +		return -ENXIO;
+> +	# Use the shell job instead of dut_pid, which may not have been assigned
+> +	# yet if a signal arrived immediately after the server was started.
+> +	pid=$(jobs -pr %% 2> /dev/null) || true
+> +	if [ -z "$pid" ]; then
+> +		dut_pid=""
+> +		return
+> +	fi
 > +
-> +	rmi_smccc_invoke(&res);
-> +	if (res.a0 == SMCCC_RET_NOT_SUPPORTED)
-> +		return -ENXIO;
-> +
-> +	version_major = RMI_ABI_VERSION_GET_MAJOR(res.a1);
-> +	version_minor = RMI_ABI_VERSION_GET_MINOR(res.a1);
-> +
-> +	if (res.a0 != RMI_SUCCESS) {
-> +		unsigned short high_version_major, high_version_minor;
-> +
-> +		high_version_major = RMI_ABI_VERSION_GET_MAJOR(res.a2);
-> +		high_version_minor = RMI_ABI_VERSION_GET_MINOR(res.a2);
-> +
-> +		pr_err("Unsupported RMI ABI (v%d.%d - v%d.%d) we want v%d.%d\n",
-> +		       version_major, version_minor,
-> +		       high_version_major, high_version_minor,
-> +		       RMI_ABI_MAJOR_VERSION,
-> +		       RMI_ABI_MINOR_VERSION);
-> +		return -ENXIO;
-> +	}
-> +
-> +	pr_info("RMI ABI version %d.%d\n", version_major, version_minor);
-> +
-> +	return 0;
+> +	kill -KILL %% 2> /dev/null || true
+> +	wait "$pid" 2> /dev/null || true
+> +	dut_pid=""
 > +}
 > +
-> +static int rmi_read_features(void)
-> +{
-> +	/*
-> +	 * Since we've negotiated a compatible version these feature registers
-> +	 * should always be available
-> +	 */
-> +	for (int i = 0; i < ARRAY_SIZE(rmi_feat_reg_cache); i++) {
-> +		struct arm_smccc_1_2_regs args = {
-> +			SMC_RMI_FEATURES, i,
-> +		};
+>  cleanup() {
+> -	ip link del v1 2> /dev/null
+> -	ip netns del ${NS} 2> /dev/null
+> -	[ "$(pidof xdp_features)" = "" ] || kill $(pidof xdp_features) 2> /dev/null
+> +	terminate_dut_server
+> +	ip link del v1 2> /dev/null || true
+> +	ip netns del "${NS}" 2> /dev/null || true
+>  }
+
+[Severity: Medium]
+Can this cleanup() tear down a veth pair that belongs to a different
+instance of the script?
+
+The host side name in setup() is fixed:
+
+	ip link add v1 type veth peer name v0 netns ${NS}
+
+If instance A is mid-test and instance B starts, B's ip link add v1 fails
+because the name is taken.  With set -e that exits B, which now fires the
+newly added trap cleanup EXIT and runs:
+
+	ip link del v1 2> /dev/null || true
+
+deleting A's interface while A is still using it.  The baseline never ran
+cleanup on that path, since the old trap covered only signals 2/3/6/9.
+
+Since the commit message gives "avoid interference between concurrent
+tests" as the motivation, should teardown only remove interfaces this
+invocation actually created, and should the veth name (and the fixed DUT
+control/echo ports) become per-invocation like ${NS} already is?
+
+Note the follow-on patch "selftests/net: Move XDP feature test to driver
+framework" deletes this script and moves the test to the NetDrvEpEnv
+framework, which does not create a fixed v1 veth, so this may only matter
+for the intermediate state of the series.
+
+>  
+>  wait_for_dut_server() {
+> -	while sleep 1; do
+> -		ss -tlp | grep -q xdp_features
+> -		[ $? -eq 0 ] && break
+> +	local i
 > +
-> +		rmi_smccc_invoke(&args);
-> +		if (WARN_ON(args.a0 != RMI_SUCCESS))
-> +			return -EINVAL;
+> +	for ((i = 0; i < 10; i++)); do
+> +		if [ "$(jobs -pr %% 2> /dev/null)" != "$dut_pid" ]; then
+> +			echo "xdp_features server $dut_pid exited before accepting connections" >&2
+> +			return 1
+> +		fi
 > +
-> +		rmi_feat_reg_cache[i] = args.a1;
-> +	}
+> +		if ss -tlp 2> /dev/null | grep -q "pid=$dut_pid,"; then
+> +			return 0
+> +		fi
 > +
-> +	return 0;
+> +		sleep 1
+>  	done
+> +
+> +	echo "Timed out waiting for xdp_features server $dut_pid" >&2
+> +	return 1
 > +}
 > +
-> +unsigned long rmi_feat_reg(unsigned long index)
-> +{
-> +	if (WARN_ON(index >= ARRAY_SIZE(rmi_feat_reg_cache)))
-> +		return 0;
-> +
-> +	return rmi_feat_reg_cache[index];
+> +start_dut_server() {
+> +	./xdp_features "$@" &
+> +	dut_pid=$!
+> +	wait_for_dut_server
 > +}
-> +EXPORT_SYMBOL_GPL(rmi_feat_reg);
-> +
 
-I guess "unsigned int index" is sufficient for the space as we shouldn't
-have that much feature registers :)
+[Severity: Medium]
+Is a ten second budget enough here, and should exceeding it kill the whole
+run?
 
-> +
-> +static int __init arm64_init_rmi(void)
-> +{
-> +	int ret;
-> +
-> +	/* If we can't agree on the RMI ABI version, don't proceed further */
-> +	ret = rmi_check_version();
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = rmi_read_features();
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Note arm64_init_rmi() must be called before kvm_init_rmi() otherwise KVM
-> + * will not support realm guests. subsys_initcall() is called before
-> + * module_init() (used for KVM) so this is OK.
-> + */
-> +subsys_initcall(arm64_init_rmi);
-> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
-> new file mode 100644
-> index 0000000000000..5c6c563c81555
-> --- /dev/null
-> +++ b/include/linux/arm-rmi-cmds.h
-> @@ -0,0 +1,48 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2026 ARM Ltd.
-> + */
-> +
-> +#ifndef __LINUX_ARM_RMI_CMDS_H_
-> +#define __LINUX_ARM_RMI_CMDS_H_
-> +
-> +#include <linux/arm-smccc-rmi.h>
-> +#include <linux/bug.h>
-> +#include <linux/processor.h>
-> +#include <linux/types.h>
-> +
-> +#define RMM_BLOCKED_RETRY_COUNT		2
-> +/*
-> + * rmi_smccc_invoke: Invoke the RMI call and return the results, retrying the
-> + * command when status is RMI_BUSY. If we encounter RMI_BLOCKED, we retry
-> + * it one more time before we give up. The caller is supposed to handle the
-> + * result and reissue if required.
-> + *
-> + * We don't expect to see RMI_BLOCKED on a practical system, except when
-> + * there are parallel requests that results in long standing operation,
-> + * with one blocking the other.
-> + *
-> + * @regs: Input parameters filled in. Updated with the ouptput results
-> + * after the call.
-> + */
-> +static inline void rmi_smccc_invoke(struct arm_smccc_1_2_regs *regs)
-> +{
-> +	struct arm_smccc_1_2_regs args = *regs;
-> +	long status;
-> +	int i = 0;
-> +
-> +	while (i < RMM_BLOCKED_RETRY_COUNT) {
-> +		arm_smccc_1_2_invoke(&args, regs);
-> +
-> +		status = RMI_RESULT_STATUS(regs->a0);
-> +		if (status != RMI_BUSY && status != RMI_BLOCKED)
-> +			break;
-> +		if (status == RMI_BLOCKED)
-> +			i++;
-> +		cpu_relax();
-> +	}
-> +}
-> +
-> +unsigned long rmi_feat_reg(unsigned long index);
-> +
-> +#endif
+wait_for_dut_server() is the last command of start_dut_server(), so its
+return 1 becomes that function's status, and with set -e in effect the
+script terminates at the first feature case, skipping XDP_DROP,
+XDP_ABORTED, XDP_TX, XDP_REDIRECT and XDP_NDO_XMIT.
 
-As spotted in the previous comments:
+The loop also sleeps after its last observation (check at i=9, then
+sleep 1, then return 1), so readiness is only sampled over roughly the
+first nine seconds and the tenth second is dead time.  The DUT only reaches
+listen() after xdp_features__open()/__load() has verified all the XDP
+programs, which on KASAN/lockdep kernels or a busy CI host can take longer
+than that.
 
-#endif /* __LINUX_ARM_RMI_CMDS_H_ */
+The changelog mentions only "Fix readiness retries under set -e", with no
+mention of the new deadline.  Could the retry budget be documented in the
+changelog, and could a timeout fail just the current case rather than the
+whole script?
 
-Thanks,
-Gavin
+The later patch "selftests/net: Move XDP feature test to driver framework"
+removes this loop in favour of the framework's
+bkg(..., ksft_ready=True) handshake, so this too is limited to the
+intermediate state of the series.
 
+[ ... ]
+
+>  	## XDP_NDO_XMIT
+> -	./xdp_features -f XDP_NDO_XMIT -D ::ffff:$V1_IP4 -T ::ffff:$V0_IP4 v1 &
+> -	wait_for_dut_server
+> +	start_dut_server -f XDP_NDO_XMIT -D ::ffff:$V1_IP4 -T ::ffff:$V0_IP4 v1
+>  	ip netns exec ${NS} ./xdp_features -t -f XDP_NDO_XMIT \
+>  					   -D ::ffff:$V1_IP4 \
+>  					   -C ::ffff:$V1_IP4 \
+>  					   -T ::ffff:$V0_IP4 v0
+>  	ret=$?
+> -	cleanup
+> +	reap_dut_server
+>  }
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but while the result handling is
+being reshuffled: does this script ever notice a mismatch between the
+detected and the advertised XDP capability?
+
+Every case in test_xdp_features(), including this last one, derives its
+result purely from the exit status of the tester process.  In
+tester_run() in xdp_features.c the two values only reach stdout:
+
+	fprintf(stdout, "Feature %s: [%s][%s]\n", get_xdp_feature_str(),
+		detected_cap ? GREEN("DETECTED") : RED("NOT DETECTED"),
+		env.feature.drv_feature & advertised_feature ? ...
+
+detected_cap and advertised_feature are never compared and never influence
+the returned status, so a driver that advertises a feature it does not
+implement still passes.
+
+The follow-on patch "selftests/net: Move XDP feature test to driver
+framework" closes this by adding xdp_features.py with
+ksft_eq(detected, advertised, ...), so at the end of the series the gap is
+gone.
+
+>  
+>  set -e
+> -trap cleanup 2 3 6 9
+> +trap cleanup EXIT
+> +trap 'exit 129' HUP
+> +trap 'exit 130' INT
+> +trap 'exit 131' QUIT
+> +trap 'exit 134' ABRT
+> +trap 'exit 143' TERM
+
+[Severity: Low]
+Should cleanup() disarm the traps on entry, for example with
+trap - EXIT HUP INT QUIT ABRT TERM?
+
+The signal traps stay armed while the EXIT trap runs, and bash does not
+block signals during a trap handler.  cleanup() starts with
+terminate_dut_server(), which can block in wait "$pid", so a second
+Ctrl-C or SIGTERM in that window dispatches the signal trap's exit and
+bash terminates without resuming or re-entering the EXIT trap:
+
+	cleanup() {
+		terminate_dut_server      <-- second signal arrives here
+		ip link del v1 ...        <-- never runs
+		ip netns del "${NS}" ...  <-- never runs
+	}
+
+That leaves the v1 veth and the netns behind, which is the state the new
+trap machinery is meant to avoid.
+
+As with the other comments, the following patch deletes this script, so
+this only applies to the intermediate state of the series.
+
+>  
+>  test_xdp_features
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921-xdp-features-v4-send-v4-0-a0d4ec392cb7%40gmail.com
