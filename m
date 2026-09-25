@@ -1,90 +1,114 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51145481FAA;
-	Fri, 25 Sep 2026 13:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FC91A6839;
+	Fri, 25 Sep 2026 13:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343434; cv=none; b=p0H0QwLxrRrl/msEBdDc1XKQn+fi+eZNiXqeMVfWrprFcQeRfITfgP0LglB2s7qSIH9hbgTkiW2aiaH08tyzv6+9y49pkBFCTHk5VEiYcFjB0XlD7g7smS4apawmRclP1/ogZ/KWnQXEFK/6cXN/02RSpn07BjVIW7Pc2lGhVBE=
+	t=1790343474; cv=none; b=beUViK2f7TrjkgQ9gSKR0IHAE2JTpIG7q0Lu66M9vTS5zbwqBUoGq80BaocbcA6ZR+fPCLqBUAhXDoGr4xWn6NUlMTfazQmRb4EscFLjxyam0RCW9UHkojXxvdJr0W5u+PYYfqp+aHE94u6Ye2ElDSPuZZRu+MWvzcj1AO4dUTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343434; c=relaxed/simple;
-	bh=tppLKGihpPbrBaoD6zrC97omhc4nZCVt4fENCagZiKo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ce+UF4dJbRKBB1Kv8yXyASIGE2CdLwIZ8ghtDF6n29KV08pss0CepBVjIRwIbY9jQGZYp0UtbR4HOWASZTSSUAbA7Gy4IstEQBBsjpE2KFrS5Msi0mhG+9prtCv2eoj5dJJ1RojZqDWA/YZitqqNvcExwKJdBfnwhYarMJcP7KE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=D0a7jcAT; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790343474; c=relaxed/simple;
+	bh=no8+looG0WsomoDxrT8Jj4yE0i92R+oAVoUxuTXdUlw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YQf9MJdsyDQ4ht/PpOcDAwqE6iSoH3yAVrekpSulrn9tTFustyVXlFygATUOTvR7IZCgWhRScudLO75vX7cYn7RMuyZZZDY4czb0TH+Xnpz3nnHX+p9+0f11ugaquSbj+5b6B4uQH5P8uTNiTVGPsmJnIKg+YQw3IYQXlALh3ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F0OvQzGw; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="D0a7jcAT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Rz
-	F04bESnonyKgD5D1eC1a+7YoFMLwMQxE8AgHg55KQ=; b=D0a7jcAT4BrkA0qSV1
-	7Jsick2GZ/50XBPro1ifVUVbEDKF1B9kyrY2MlatMcgdJsmol4n5jUj3H4Krhf6Y
-	IvpM++cNSGFq9BOfVyiJvTM8ppAeqvnETqItvz83Y8p9SIfstn8vnKXWw8+60ijf
-	BfQcewQKb/ni3m/Fa8hl8jGvk=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3P5vpeLZqaNgdAw--.65146S2;
-	Fri, 25 Sep 2026 21:36:42 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jens Reidel <adrian@mainlining.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] Input: goodix_berlin - reject devices without match data
-Date: Fri, 25 Sep 2026 21:36:38 +0800
-Message-Id: <20260925133639.2229728-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F0OvQzGw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790343472; x=1821879472;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=no8+looG0WsomoDxrT8Jj4yE0i92R+oAVoUxuTXdUlw=;
+  b=F0OvQzGwZmhDXInV55FOvDCtl8wYPALwTgi4IpHux++AnWjmllkulSXg
+   jIdCNjp2HUoMCZRpL2N8oJ+qLFCu7ukY5Qsy/8TqvpBRa0DOEJ5NFM9wU
+   zLrfsD8RD0OipHSFfh+8g4gGyHokyx0E8roKvMc6gy27/2lUVzTRKNK9b
+   7J7udgbucVspTyM403ORW4MZieVg+rQpQI/MdfcFTMMqGpJh6vyNwiTV1
+   G5lmFJyvhyGAay+cWvGx0sTMDRzO3cHfckfy8wAcge1vDtqRk+wEuIDn4
+   icurDRtYBhmZwJ1Lk/IuFHOBJ9p6AbGUzAoPkw9p5o3//n74eUI/9jMCu
+   w==;
+X-CSE-ConnectionGUID: yEg6YvExTv2dPf/36J5aIA==
+X-CSE-MsgGUID: 6tNG9tvDTWeWY5VkMt7i1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101300675"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="101300675"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 06:37:52 -0700
+X-CSE-ConnectionGUID: LTl/mEoASz21F6/05k7vHw==
+X-CSE-MsgGUID: QXWscqDORNukc7p06SItzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="279042879"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 06:37:50 -0700
+Date: Fri, 25 Sep 2026 16:37:47 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+Cc: Malathi A <malathi.a2000@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] serial: 8250_uniphier: Use devm_clk_get_enabled()
+Message-ID: <arZ5KxIp55qA6UA7@ashevche-desk.local>
+References: <20260917040511.103232-1-malathi.a2000@gmail.com>
+ <97e4ab26-b147-4cf4-97f9-307903f14e61@socionext.com>
+ <arUvJyvChXXcasSu@ashevche-desk.local>
+ <3ea1f574-ddb5-46a6-9bc1-7a8ea84c54bd@socionext.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P5vpeLZqaNgdAw--.65146S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uFW8Ww45CryrArykCw1xKrg_yoW8GFW3pF
-	W5Ca4xKryUXa13tw48tryDZFya9w18Ww4rKFyqk3y093s8WryUZr1akrW3Za4YyFW5J3WU
-	Ary7Z3sru3sxA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEjg4wUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wqg2mq2eOrHmgAA3M
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3ea1f574-ddb5-46a6-9bc1-7a8ea84c54bd@socionext.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-A device bound through driver_override need not match an entry in the
-driver tables. In that case spi_get_device_match_data() returns NULL,
-but goodix_berlin_spi_probe() dereferences the result while calculating
-the regmap transfer limits.
+On Fri, Sep 25, 2026 at 08:32:20PM +0900, Kunihiko Hayashi wrote:
+> On 2026/09/24 23:09, Andy Shevchenko wrote:
+> > On Thu, Sep 24, 2026 at 06:07:37PM +0900, Kunihiko Hayashi wrote:
+> > > On 2026/09/17 13:05, Malathi A wrote:
 
-Reject devices without match data before using the chip information.
+...
 
-Fixes: 4d395cb071a3 ("Input: goodix_berlin - add support for Berlin-A series")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/input/touchscreen/goodix_berlin_spi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+> > > I'm a bit concerned about the error path in uniphier_uart_resume().
+> > > The clock may have been disabled in uniphier_uart_suspend(), and
+> > > clk_prepare_enable() can fail when trying to enable it again.
+> > > 
+> > > In that case, wouldn't devres try to disable an already disabled
+> > > clock on detach?
+> > 
+> > Isn't there is a guarantee that the .remove() is called with PM runtime on
 
-diff --git a/drivers/input/touchscreen/goodix_berlin_spi.c b/drivers/input/touchscreen/goodix_berlin_spi.c
-index 01f850f484c2..db9e151ced65 100644
---- a/drivers/input/touchscreen/goodix_berlin_spi.c
-+++ b/drivers/input/touchscreen/goodix_berlin_spi.c
-@@ -127,12 +127,16 @@ static const struct input_id goodix_berlin_spi_input_id = {
- 
- static int goodix_berlin_spi_probe(struct spi_device *spi)
- {
--	const struct goodix_berlin_ic_data *ic_data = spi_get_device_match_data(spi);
-+	const struct goodix_berlin_ic_data *ic_data;
- 	struct regmap_config regmap_config;
- 	struct regmap *regmap;
- 	size_t max_size;
- 	int error = 0;
- 
-+	ic_data = spi_get_device_match_data(spi);
-+	if (!ic_data)
-+		return -ENODATA;
-+
- 	spi->mode = SPI_MODE_0;
- 	spi->bits_per_word = 8;
- 	error = spi_setup(spi);
+After reading a code of driver core I see that this is the opposite actually.
+The PM runtime might be off.
+
+> > and get, meaning it's called with the enabled clock? But if not the case,
+> > we might use PM runtime force operations (resume and suspend in the
+> > respective cases.
+> 
+> My concern was just the case where clk_prepare_enable() in the system
+> resume callback fails, leaving the clock disabled before devres cleanup.
+> 
+> This driver currently only uses SET_SYSTEM_SLEEP_PM_OPS(), so I wasn't
+> considering runtime PM here.
+
+So, in such a case how do you see the scenario when system is resumed (Right?
+Otherwise we can't do anything, like detaching driver from the device.) and
+clock is disabled?
+
+> I don't have a strong opinion on whether runtime PM should be involved,
+> but if it guarantees that the clock is enabled before .remove(),
+> that would address my concern.
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
