@@ -1,39 +1,56 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D38E3B6354;
-	Fri, 25 Sep 2026 14:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15FFA440632;
+	Fri, 25 Sep 2026 14:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346303; cv=none; b=dpi+eK6Xq8mUE19oZg+ET1hF/uFhx9MwZ9Ibj3aEmFfnje03awZJDP16pz8Tu+7PTpUERl/5yVB8PmGEpsQqCmE8sbMagNyALEIU2Wfu+qpQdHrP2iyFRVCLsfp7JTjvwxd8uT2kjLRG/2V9dEpQ7/wUxBM6JPPglsxtQLhEIEI=
+	t=1790346327; cv=none; b=AXkMY9dSPMJiiqljLxawB5Y6hqn1UlFeAWxH+AcjXsW2qOCdXClwpWaDdDVpW1MQQu0lyoaKWhe3DzCT46fxodxnDyv10y06xF9IeFpnLOdArK05aVl7rm9DlOmnq5dQOq05js3g0Wuc6S/kXMcLxLFDLoSkQdVq7f1q8NHE+1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346303; c=relaxed/simple;
-	bh=pXhSqihyKIhrGlI/g7JpN60mg7P6zkd6YEhrc0H8qmE=;
+	s=arc-20240116; t=1790346327; c=relaxed/simple;
+	bh=El1QITU3qpLvvUdEiQ9fxzYfH725rKJWjGdoB0s8u5U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jb3HwSTCvt8pkpZjc5WAtYNYygfQsUt+JfL08CpOgeGx83WCV8rcr7nEAgdzEDO9OGUmG6UopLm+mPINp/gFCV/QxSVnuzaCJ5Re34bY4YVX/ghXI72AYsJJgge5HXDaWtuYyTLvFpBR7AuVi0L1Fg7uUMzeFoA7EHbcKOCo1Vc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hgtu+P2Z; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y9EtjX3lrqSho/pEQQT7x/Bo0s7MaGa7V59FSWr180ivgYWMwZxHTc/zZzrB/C/9Kd04DdNEsg0VCfaxUC+KduIlmHJYmswhHodSMszIVTAUALTG3lQ24KgXbuZn+98vZzZX9KOarMJlmwhda3yjQhsBRszvqg2LepO8k/VndRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YSAupVJI; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hgtu+P2Z"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 263161F000FF;
-	Fri, 25 Sep 2026 14:25:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790346301;
-	bh=rvlxCQWiFsofw/X+q3JJnC3wVDxfV/pS+iCNTdegIuU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hgtu+P2ZUwI0mOcXbFEL62FxxreB0EMiSdeDQM28ZnvyWtrs7iCzwgpE0oZg2TLUz
-	 fZ+XzLpuyrJWUNZ+GTnzjxeZC0gF2GXanKV4jAQehwhDHr2Jdcp5ne+VafKv49t31x
-	 N6SHeJmI3vwdKIP4FnXvYnkvY92uxObqb0p/wlu0taAKq9Nsb+F5q/DwzARB9YKo8T
-	 8oMw8LaU4TDw7ol1rM++ka2wudZQC30+m/D+Ne64CV14O9ggPtk57jfr/ZHopBJXZv
-	 Ne15iPxaevyg+A9aGsSzG0LvwK+d8nuRINHgF0Dc4jXSadBbQvRh5a6j5cNvw6MtIh
-	 aWuJNtSVfufVg==
-Date: Fri, 25 Sep 2026 17:24:58 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Delton Ding <dsh0416@gmail.com>
-Cc: f13208471983@163.com, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tpm: crb: handle ACPI NVS memory region overlap
-Message-ID: <araEOkjz1f_vnl3A@kernel.org>
-References: <CA+mXNo2bBZg69RkKYauV_+K5zp=1kuHm1xLPwD6_ihZ_MzL0SQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YSAupVJI"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CD6522F;
+	Fri, 25 Sep 2026 07:25:20 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 788073F85F;
+	Fri, 25 Sep 2026 07:25:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790346324; bh=El1QITU3qpLvvUdEiQ9fxzYfH725rKJWjGdoB0s8u5U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YSAupVJIBvAx9uHHYFskgna4GCDoxpLp26nfaAHBNg0Wc6F8sbHLSJ8Z1TFZBejl9
+	 cmoy8SzPoCKDQG/qekljmEOJIVI9g/t75g7WV67KOLfA5/nerh7uLHWX8a730ZtK4Y
+	 wwnWL5xCBqeR1PyB2LpdN5xTkawRCSZbgMzuIp9c=
+Date: Fri, 25 Sep 2026 15:25:19 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Sarthak Sharma <sarthak.sharma@arm.com>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 1/4] kselftest: mm: prevent random failure of huge
+ page split for khugepaged
+Message-ID: <araET4RRCM2PxqaW@e129823.arm.com>
+References: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
+ <20260924-fix_split-v8-1-cba7359d882a@arm.com>
+ <07f94688-55ed-407a-a11a-78a4feedf5e2@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,86 +59,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CA+mXNo2bBZg69RkKYauV_+K5zp=1kuHm1xLPwD6_ihZ_MzL0SQ@mail.gmail.com>
+In-Reply-To: <07f94688-55ed-407a-a11a-78a4feedf5e2@arm.com>
 
-On Sun, Sep 20, 2026 at 02:33:12PM +0800, Delton Ding wrote:
-> Hi Jarkko and MicroFish,
 > 
-> I'm following up on this discussion:
-> https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg2652132.html
 > 
-> I would like to add a Fujitsu/Intel platform with what appears to be a
-> related NVS resource reservation failure. I have not tested the proposed
-> patch; this is an additional hardware report.
+> On 9/25/26 12:41 AM, Yeoreum Yun wrote:
+> > There're some random failure for split_huge_page_test when khugepaged
+> > collapses pages into pmd again which had split by the test.
+> > 
+> > Prevent the khugepaged's collapses for split page by setting the
+> > mapped pmd-huge-page with MADV_NOHUGEPAGE before split.
+> > 
+> > Suggested-by: Kevin Brodsky <kevin.brodsky@arm.com>
+> > Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> > Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > ---
+> >  tools/testing/selftests/mm/split_huge_page_test.c | 19 +++++++++++++++++++
+> >  1 file changed, 19 insertions(+)
+> > 
+> > diff --git a/tools/testing/selftests/mm/split_huge_page_test.c b/tools/testing/selftests/mm/split_huge_page_test.c
+> > index c5d96a4b1db3..ef4058662b91 100644
+> > --- a/tools/testing/selftests/mm/split_huge_page_test.c
+> > +++ b/tools/testing/selftests/mm/split_huge_page_test.c
+> > @@ -108,6 +108,18 @@ static char *allocate_zero_filled_hugepage(size_t len)
+> >  	return result;
+> >  }
+> >  
+> > +static void disable_khugepaged(void *addr, size_t len)
+> > +{
+> > +	/*
+> > +	 * Disables khugepaged from collapsing THPs in range, existing THP
 > 
-> Hardware and software:
-> 
->   System: FUJITSU FMVU14003
->   Board: FJNB2B5
->   CPU: Intel Core i5-7300U (family 6, model 142, stepping 9)
->   BIOS: Version 1.33, 11/25/2025
->   OS: NixOS 26.05
->   Running kernel: 7.2.5 (NixOS build)
->   /proc/sys/kernel/tainted: 0
-> 
-> On this machine, the TPM2 table specifies StartMethod 2 (ACPI Start).
-> The control area, rather than the MMIO range reported by _CRS, lies
-> inside ACPI NVS:
-> 
->   TPM2 table (length 52, revision 3, checksum valid):
->     ControlAddress: 0x000000008ff6e000
->     StartMethod:    2
-> 
->   Relevant /proc/iomem entries:
->     8d77f000-8ff7efff : ACPI Non-volatile Storage
->     fed40000-fed44fff : MSFT0101:00
-> 
->   The TPM SSDT declares _CRS with base 0xfed40000 and length 0x5000.
->   It also contains:
-> 
->     OperationRegion (TPMR, SystemMemory, 0xFED40000, 0x5000)
->     OperationRegion (TNVS, SystemMemory, 0x8FF6F000, 0x27)
->     OperationRegion (CONA, SystemMemory, 0x8FF6E000, 0x30)
-> 
-> The kernel reports:
-> 
->   tpm_crb_acpi MSFT0101:00: error -EBUSY: can't request region for
-> resource [mem 0x8ff6e000-0x8ff6e02f]
->   tpm_crb_acpi MSFT0101:00: probe with driver tpm_crb_acpi failed with error -16
->   ima: No TPM chip found, activating TPM-bypass!
-> 
-> Neither /dev/tpm0 nor /dev/tpmrm0 exists, and both /sys/class/tpm and
-> /sys/class/tpmrm are empty. The ACPI device has status 15 and an existing
-> platform physical_node, so platform device creation itself succeeded.
-> 
-> Based on the ACPI tables and source inspection, this appears to reach the
-> iores == NULL path in crb_map_res() when crb_map_io() first maps the
-> 48-byte control area. That area lies outside _CRS but within the NVS
-> reservation. This is an inference from the tables and error range;
-> I have not instrumented the driver to trace the call path.
-> 
-> Earlier boot logs show the same error and address on BIOS 1.10, 1.30
-> with kernel 7.2.6. I do not have a known-good Linux kernel on this machine,
-> so I am not reporting this as a confirmed regression. The TPM works in
-> Windows on the same machine; its TPM firmware has also been updated.
-> The vendor of the TPM is infineon, but the exact TPM firmware revision
-> has not been collected here.
-> 
-> The missing devices cause systemd 260.2 to wait 90 seconds in the initrd
-> and another 90 seconds after switching to the real root. We have prepared
-> systemd.tpm2_wait=0 as a local workaround for the boot delay; it does not
-> restore the TPM device.
-> 
-> Does this look like another instance of the NVS mapping issue, and is
-> there a preferred revised patch or targeted diagnostic for this ACPI
-> StartMethod 2 layout? I can provide the raw TPM2 table and TPM SSDT,
-> including its disassembly, if useful.
-> 
-> Best Regards,
-> Delton Ding
+> Should it be "collapsing pages in range into THPs" instead?
 
-Yes it does.
+That would be clear. I'll change with it.
 
-I need to revisit this properly. Thanks for reminding.
+> 
+> > +	 * pages remain.
+> > +	 */
+> > +	if (!madvise(addr, len, MADV_NOHUGEPAGE))
+> > +		return;
+> > +
+> > +	ksft_exit_fail_msg("MADV_NOHUGEPAGE failed, err=%d\n", errno);
+> 
+> I feel a ksft_exit_fail_perror() would be better here, since it will
+> automatically print strerror(errno) as well. Still, it is not something
+> that should require a respin of its own, so if you plan to respin for
+> some other changes, you might fold these changes in as well.
 
-Br, Jarkko
+Yeap. I'll change it with _perror.
+
+> 
+> Rest looks good, so:
+> 
+> Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
+> 
+> > +}
+> > +
+> >  static void verify_rss_anon_split_huge_page_all_zeroes(char *one_page, int nr_hpages, size_t len)
+> >  {
+> >  	unsigned long rss_anon_before, rss_anon_after;
+> > @@ -120,6 +132,8 @@ static void verify_rss_anon_split_huge_page_all_zeroes(char *one_page, int nr_hp
+> >  	if (!rss_anon_before)
+> >  		ksft_exit_fail_msg("No RssAnon is allocated before split\n");
+> >  
+> > +	disable_khugepaged(one_page, len);
+> > +
+> >  	/* split all THPs */
+> >  	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
+> >  		      (uint64_t)one_page + len, 0);
+> > @@ -167,6 +181,8 @@ static void split_pmd_thp_to_order(int order)
+> >  	if (!check_huge_anon(one_page, 4 * pmd_pagesize, 4, pmd_pagesize))
+> >  		ksft_exit_fail_msg("No THP is allocated\n");
+> >  
+> > +	disable_khugepaged(one_page, len);
+> > +
+> >  	/* split all THPs */
+> >  	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
+> >  		(uint64_t)one_page + len, order);
+> > @@ -215,6 +231,8 @@ static void split_pte_mapped_thp(void)
+> >  		goto out;
+> >  	}
+> >  
+> > +	disable_khugepaged(thp_area, thp_area_size);
+> > +
+> >  	/*
+> >  	 * To challenge spitting code, we will mremap a single page of each
+> >  	 * THP (page[i] of thp[i]) in the thp_area into page_area. This will
+> > @@ -482,6 +500,7 @@ static int create_pagecache_thp_and_fd(const char *testfile, size_t fd_size,
+> >  		ksft_test_result_skip("Pagecache folio split skipped\n");
+> >  		return -2;
+> >  	}
+> > +	disable_khugepaged(*addr, fd_size);
+> >  	return 0;
+> >  err_out_close:
+> >  	close(*fd);
+> > 
+> 
+
+-- 
+Sincerely,
+Yeoreum Yun
