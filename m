@@ -1,199 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5070477E4D;
-	Fri, 25 Sep 2026 09:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C7847D441
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790327460; cv=none; b=NLVtCivs4Y9olEXc7fHaAcpnytwUU4DIxqjqYOapAVE1gl81qjh+1MbP/We0C4iq7qAsuqbeot6gdbS8D1FnQvfc5S1gdnICf5QK4D+lozD9ucE0C5bJjpkoq78BECX9pJq4bb+WjgiSJBCOFw/aulSTw/FVkIeEJ5sOBtOUprQ=
+	t=1790327584; cv=none; b=bEzPmLpsOjgmW/QBSertcvqll9tPkh1Dt4gAE6HySQUJjE7czNY6qg4/BXUek+QqRMuUmGkTbcrTmnd9nk/m5INmMkyGo3m0y8H6OdnEs6OqxknQXQFe8IwEBvOMkIAT6LE0EbUo4vfEIkk4AowY068H2PERqztZJTOnvU7F+Xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790327460; c=relaxed/simple;
-	bh=g+73qLoYaz6+pvyfvA5np/DdngHoGLgjI1wJ9+pR5P4=;
+	s=arc-20240116; t=1790327584; c=relaxed/simple;
+	bh=1Z3pKVsAB7cGlrs84ql54irrn4EOTKXXllBebSmuuGs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=boi3eXHoL5Y/D25ujDY8ZPU27UmBDHcdRaow95seL+mK4HzMYS+J4fGB0508/vaIItu0/mfpTlyu8gsdQid5z/Ai+O1AheXVjT4uM+4ppO6Q9/Jkmg5W4QeQfm/YDY8iUCZKrcxb0mmUq48sD6ByQOtAWOlqX4SM7+abGfMQMHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UNsMafiw; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=re+CvZunouB55Pr8ytqZ1Cslj+LYrOXCBlNLybmUoamC4BIMBXKZb/B0/dFwu63vIqto8cAxcnSmimBc05gXn9pjgaaSZ1UGcb8mbMwl6iPQR2XUaUziJlW30K8v5kL0+LmFRF4+pmSIIpjsHm07UwdF8mPZCtrcRaGCfOVIIUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Q7c/UsqZ; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UNsMafiw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790327458; x=1821863458;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=g+73qLoYaz6+pvyfvA5np/DdngHoGLgjI1wJ9+pR5P4=;
-  b=UNsMafiwm0lfFTaZwqLtf31zos91Ghfq9z4e4ZWHXwvWT+MlOxldN4WK
-   vBlYhLZ3UJ/9177XkI/n0BVQY5oeNaHShba5vCxFyFmD4MgCWouR3n4yv
-   VV7Mm4fhp/XBYd9T+eh/3eAEQ9Zcv/44W0KB2hTc+Ib4nnXf3OHZ+t7Vl
-   o92OuAcKPdh2iLKic5KRFx9b4M7dWU/dlSIoqwQ7gNukPU4UgrxD59W2H
-   PW0ax7NdfZ5T6tdDKHZidKulJrWB+fuuzr4tnBQ+E8176vnsxXcB/ZFAb
-   G5Wl+u9jlWpLp0YqxWZTLaIy53VX2xGPC6etfwnJ9/k40uVRTqR7IJgHe
-   g==;
-X-CSE-ConnectionGUID: hbCWX9CLQKumgaQBX/J9Zg==
-X-CSE-MsgGUID: 9eoOIXofSYmgbqtvlrtKDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="116639363"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="116639363"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 02:10:57 -0700
-X-CSE-ConnectionGUID: QFpkLrKQSBSUj4oVroqcRQ==
-X-CSE-MsgGUID: kGT9NfHbQ7qsBksGc/ByfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="274373884"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 02:10:47 -0700
-Date: Fri, 25 Sep 2026 12:10:45 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
-	linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
-	vitor.soares@toradex.com, samagazaryan@google.com,
-	gregkh@linuxfoundation.org, arnd@arndb.de,
-	boris.brezillon@collabora.com,
-	oleksandr.shulzhenko.viktorovych@intel.com,
-	tgopinath@linux.microsoft.com, corbet@lwn.net,
-	skhan@linuxfoundation.org, linux@roeck-us.net, Frank.Li@nxp.com,
-	jorge.marques@analog.com, pgaj@cadence.com,
-	wsa+renesas@sang-engineering.com, tommaso.merciai.xr@bp.renesas.com,
-	nuno.sa@analog.com, Michael.Hennerich@analog.com, jic23@kernel.org,
-	dlechner@baylibre.com, andy@kernel.org, lorenzo@kernel.org,
-	enelsonmoore@gmail.com, rppt@kernel.org, pratyush@kernel.org,
-	giovanni.cabiddu@intel.com, gabewhigham@gmail.com,
-	haren@linux.ibm.com, pasha.tatashin@soleen.com,
-	jirislaby@kernel.org, adrian.ho.yin.ng@altera.com,
-	ustc.gu@gmail.com, jszhang@kernel.org, adrian.hunter@intel.com,
-	akhilrajeev@nvidia.com, tze.yee.ng@altera.com,
-	manikanta.guntupalli@amd.com, shubhrajyoti.datta@amd.com,
-	jarkko.nikula@linux.intel.com, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux@analog.com, linux-iio@vger.kernel.org
-Subject: Re: [PATCH 3/3] i3c: add i3cdev character device module for
- user-space access
-Message-ID: <arY6lReqi-UDuorI@ashevche-desk.local>
-References: <20260911210935.1353126-1-meaganlloyd@linux.microsoft.com>
- <20260911210935.1353126-4-meaganlloyd@linux.microsoft.com>
- <aqVUyYkpKT8iX4Jz@ashevche-desk.local>
- <20260916-454d66ca84cc91479b195aa5@linux.microsoft.com>
- <aqt_dCazxTDR4cpk@ashevche-desk.local>
- <f6eb60e0-e318-4846-a906-31cb965ccb15@gmx.de>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Q7c/UsqZ"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d3b445a84fso32775ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:13:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790327583; x=1790932383; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CTMJNzZxuTPM6C0AemlJt6uT6H/3eGpfCZ5SiFyGRfQ=;
+        b=Q7c/UsqZ+BkPhRagwSV8XfMXx5DdZ+CbSZVSQrztE/7yNTq5cq14IljASBBZEMnTgm
+         Kph0p9nJTpr1KABuWWNP4zSUiA7HrHfhpmWl1YsrBkcKjBXZ2agbzXW+TkiVL+1kOr6z
+         6ZBE2T+imklmdAeBA6rhzP9y7uth4PApbGD3LR0ROQDNAEg3lUyG3bOrLis/ovNRUekK
+         LIi/5N5NTlC7DGcly8cndfcq17wvmfKbMAQaZ3Sau02eXUm2iJrpyFXEcMwQGRPACLo6
+         9sSaMeh7CskzgcBCm3sOR9BMOXp/rW+kmrYfZOABWOaN9xtKqlPMEH50wJCtVUM1XdoQ
+         3wJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790327583; x=1790932383;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CTMJNzZxuTPM6C0AemlJt6uT6H/3eGpfCZ5SiFyGRfQ=;
+        b=VkiBU63j50LtAr8uIG1vR+haT49TbyaI6Owu8QHDJgPlzkQPbIPXfOnvnWFc5v5mLH
+         Zv8NeOJJyh/6rnF9r8RzXcCs+0C0v4yX0DiJ1nnU8Rmsbe5MrFZ04s8cPGG6DBmX7hYG
+         L/ay0YQGdHmV2TcWcj1SU/YY4+47zAc8wwL71oVoQTramboQV9N5bqT8ZKLiQ+yrvnkj
+         8nDHlY//WKhkiBkfn4D0Htw5qf7vS5NPtOwb78n2KCVoIPmxqNygaVwoSFb+ig/Zn6h2
+         kefjsMu9Y4ekBsky+OVqLaWtSndotvhFUpBuis9e1oHIh8e5MCOrNIM7Q4VF0KQ3JeOz
+         OOKg==
+X-Forwarded-Encrypted: i=1; AKwUvByiManS4EuBduYj+PyxqYSA0flOx+2zN45qiRYJWpd8mB4F5AcA4xKv/Cia+MMF0F1Ns1UdpTmj/E3ADuo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSCPCiLnn83BYbFnQUrp+g+qeSIdBhe1HA+YaBYgqf2hL7bVEE
+	8kwbcLxz34lsiEXnIu/SW+BJAx0792mhhOk1Q3FNMFcYoLBZ32g8UbYDEIzpS5bGpQ==
+X-Gm-Gg: AYBFou35s1MRLClOOkTWUhTW9jusXQLx2faQhFCrmh/8Hf8oCPCrJosjLCzNvI/two7
+	3EGUOImakuk7b82xZ1/fBWaJlR1BxR3Kn9jI5nV90x04Ih325shGAFulYgS3omyfY7xAxpXiSM5
+	TscYC1Mr/e//xdM/neNMGTzEI2yYDOutZoir/OgrUZa8d44nmetDTXAcSoK/KUNuqnQbiwkPMDB
+	0hJA//Eh2isKqWh8Zj8LZWHC1kblRPKxCkt/7kr0IB0dhmUm3yu6USctKArhnWjq8OWkRtDRX7S
+	bXio1n57WwE59ld89D8SdOuN2ipOSelwLM/3jqCcemIWne1q2mTESf3Q/QWxNY8kP+wnjmrLyFA
+	dDsGIQSMOfLe6/l/XBOGJit4LkCNHaGqv6u9Jgg74LDuFMBzgDX1ugP/OwI40HGjF9gePJ0IK89
+	tycXcEYN+E+hPO+KnwAhbdMTVLUzwixPDCXYdriXCTKntDYmx611GjuPUwAJpf4MJhc0itdgZve
+	E94tHeQnSCZZNxTKCWnNtXM7FwlrY59An1x
+X-Received: by 2002:a17:902:cf03:b0:2d5:db3d:1a42 with SMTP id d9443c01a7336-2df94314b89mr3126305ad.15.1790327582104;
+        Fri, 25 Sep 2026 02:13:02 -0700 (PDT)
+Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9356f48sm3426477a91.6.2026.09.25.02.12.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 02:13:00 -0700 (PDT)
+Date: Fri, 25 Sep 2026 09:12:53 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Joerg Roedel <joro@8bytes.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: iommu@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Ankit Soni <ankit.soni@amd.com>, Jason Gunthorpe <jgg@nvidia.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Samiullah Khawaja <skhawaja@google.com>
+Subject: Re: [PATCH v4 0/4] iommu/amd: Refactors for ATS robustness
+Message-ID: <arY7FeYaOG9oglgI@google.com>
+References: <20260910142655.3281464-1-praan@google.com>
+ <arUOoLwpfNlIvIXy@8bytes.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f6eb60e0-e318-4846-a906-31cb965ccb15@gmx.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <arUOoLwpfNlIvIXy@8bytes.org>
 
-On Tue, Sep 22, 2026 at 10:53:09PM +0200, Armin Wolf wrote:
-> Am 17.09.26 um 07:49 schrieb Andy Shevchenko:
-> > > On Sat, Sep 12, 2026 at 04:34:01PM +0300, Andy Shevchenko wrote:
-> > > > On Fri, Sep 11, 2026 at 02:09:35PM -0700, Meagan Lloyd wrote:
-> > > > > The i3cdev driver is a character device driver that allows user-space
-> > > > > to control and interact with I3C devices.
-> > > > > Currently, it has the ability to perform Single Data Rate (SDR)
-> > > > > transfers - basic reads/writes.
-> > > > > 
-> > > > > With the addition of sysfs driver_override, there is now a
-> > > > > straightforward and direct way to match the i3cdev driver to any i3c
-> > > > > device without stepping on the toes of more specialized drivers that are
-> > > > > loaded automatically.
-> > > > Is it safe? Why on the earth do we need this? The commit message has not enough
-> > > > information.
-> > > I can't see a reason that it'd be unsafe. To give additional confidence,
-> > > it's already in-use in many bus_types:
-> > This argument has nothing to do with i³c. Each bus is different on a physical
-> > layer, electrical protocols and programming flow. Each of them has own
-> > constraints.
+On Thu, Sep 24, 2026 at 01:51:45PM +0200, Joerg Roedel wrote:
+
+Hi Bjorn / Joerg,
+
+> On Thu, Sep 10, 2026 at 02:26:51PM +0000, Pranjal Shrivastava wrote:
+> > Pranjal Shrivastava (4):
+> >   iommu/amd: Refactor device probe and capability initialization
+> >   iommu/amd: Remove iommu_ignore_device()
+> >   iommu/amd: Fail probe on ATS configuration failure
+> >   PCI/ATS: Mandate checking pci_ats_supported() before pci_prepare_ats()
 > > 
-> > > To answer why we need it:
-> > > If we want to write i3cdev as a standard device driver, it can't
-> > > actually match anything by default. This is because, some devices on the
-> > > system may need specific drivers and i3cdev is generic and should
-> > > technically match every device.
-> > Yes, but I have seen no reason why we should expose i³c bus to the user
-> > space. With i²c we already know very well that it was (and still is)
-> > a bad idea. Why i³c is better (especially taking into account i²c
-> > compatible mode and more complex programming flow)?
+> >  drivers/iommu/amd/iommu.c | 164 +++++++++++++++++++-------------------
+> >  drivers/pci/ats.c         |   6 +-
+> >  2 files changed, 86 insertions(+), 84 deletions(-)
 > 
-> in my experience sometimes during driver development you want to access the device
-> directly to test things, but of course this is incredibly unsafe.
+> Applied the iommu parts (1-3), please submit patch 4 through the PCI tree.
 
-Exactly, and not only unsafe, it's also quite dangerous to the HW. The users must
-*not* see or have this feature.
+Thanks for applying patches 1-3.
 
-> I think we should taint the kernel as soon as userspace applications perform raw
-> i3c accesses, but the idea itself is fine from my point of view.
+Shall I send patch 4 separately or can it be picked into the PCI tree
+directly?
 
-Not only this, but guard it in the first place.
-However my personal opinion is an bsolute NAK to this idea. If you want do
-something, do the proper driver in the kernel.
-
-> > > Since the driver_override is default NULL and is set via sysfs, this
-> > > allows any specific drivers on boot to be loaded up and would allow
-> > > explicit control on what device i3cdev gets bound to.
-> > > 
-> > > This was my rational. I will refine the commit message with more details.
-> > Put a real life example why the exposing i³c devices into user space is
-> > absolutely necessary.
-> > 
-> > > > > This is accomplished by the i3cdev driver not having any entries in
-> > > > > the i3c_device_id table. After boot, simply set the driver_override
-> > > > > to "i3cdev" and bind the device manually via the sysfs bind knob.
-> > > > > This can also be automated with udev rules as well.
-> > > > > 
-> > > > > The character device interface will be exposed at: /dev/bus/i3c/<bus
-> > > > > id>-<Provisional ID>
-> > ...
-> > 
-> > > > > +	for (int i = 0; i < metadata->nxfers; i++) {
-> > > > Why is 'i' signed?
-> > > Mostly for readability and to make sure the line length on loop headers
-> > > is kept below 80 chars. As a precaution, to make sure that 'i' can
-> > > represent any metadata->nxfers value without overflow during loops, I
-> > > check that metadata->nxfers is less than/equal to INT_MAX in
-> > > get_metadata().
-> > No need to add useless checks.
-> > 
-> > ...
-> > 
-> > > > > +/** + * print_i3c_err() - Prints the I3C error encountered during
-> > > > > the prior + * call to the core's transfer function.  + * @i3cdev:
-> > > > > i3cdev_data object + * @metadata: Kernel's copy of i3cdev_xfers
-> > > > > (ioctl I3CDEV_XFER input) + * @i3c_xfers: i3c_xfer array that was
-> > > > > sent to the I3C core
-> > > > > + * Returns: void
-> > > > Huh?! Where is this coming from?
-> > > In i3cdev_ioctl_do_xfers, if i3c_device_do_xfers failed, I wanted to
-> > > print out the first I3C controller error encountered. The controller
-> > > drivers can set this in the i3c_xfer.err field. Hence this function.
-> > > 
-> > > It's to aid debugging and provide useful error information.
-> > > I can certainly refine the wording on the print_i3c_err documentation
-> > > header to make this more clear.
-> > My point is about kernel-doc. Why do we need the return section for void?
-> > Where it comes from?
-> > 
-> > > > > + */
-> > ...
-> > 
-> > > > Please, rely less on AI and more on the common sense and
-> > > > proof-reading.
-> > > I think I gave you the wrong impression. The new contributions in this
-> > > series were written and developed by me. I used AI for quality assurance
-> > > and cross-referencing. Since I incorporated some AI-flagged suggestions,
-> > > I tried to acknowledge that with the Assisted-by tag.
-> > I see, then there is a room to improve the code. But the main question is
-> > why do we even need this whole interface to begin with?
-> > 
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Praan
