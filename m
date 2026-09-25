@@ -1,61 +1,63 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3174C3DE44E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:48:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EDA1990A7
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:48:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790340492; cv=none; b=epOf1mRX9E27Fkg73vhlPoIJYTHBL/1429iUXiAjHqfMWaHa8F+Lj/OI+wNhEk5I7N4hKBGMFxPhj8Q0SjWK6fOPRcCS4D37MWrj7XArzdpstpFFRIsZuzpfjhQmjsvArbg/P6wzAWfraqe/m5aw+mj6xlivcQzU6y+VyUjIEmY=
+	t=1790340493; cv=none; b=kiA2yZi70XKwKSXzfW3TE2566keXqfTQ+HYuneM6UwKcv+kTfP4P+ygUdarhvmTUzegzKQPU3fZ69y235LIOYh3N2niEEZVyA3j8bAin+y4gjg10FLAH/Zq9pyuwsxrm3h9lmIsj8XwXBQzz96NIpWGL16AQWy9lVA1MU59iok0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790340492; c=relaxed/simple;
-	bh=pjUUw4hJYxF1X34eP8oUA4Qvp739kD7LK7JPdMLwD64=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=luQ3UHajCWaCJXGq0p5+TiwAt0G1xoG0JhnMDUvRx/9E8CpmlUTPgKIU6kbtNsxDyU/5MxoSKZVlOa5tvVzsW+ePjSQ98wHa7eenLDhBZau6wLfsL8hZK/QPEQRW8BbPjKHE3bJu+e1wwaY5X8ERw+SyVCoVZqCiGKndeYGCi6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cjQQTfoD; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1790340493; c=relaxed/simple;
+	bh=YZB/Dc5gBCNXHwDQZ5iKEsO+P64SlYZ8B/RwKtbkhPA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jbGyhktNS70Ed+PdF3aA4LQIYRxmYoFlgT8Sb1FKLxMkH6BHiPh1jGstlFDgCANw7C1d5BLUatin6jdD0aZBlZ0ZyxRZNh4vBKz+X06QfRS+4tqLdvnfI80cRP8AUY1OXKDsTMiUSTzc3eIHYJYPvpNIcRDIeUEEkWyJq+ZvalU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LrIYrRX6; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cjQQTfoD"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f635552aso630013f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:48:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LrIYrRX6"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-488811c9ebaso258320f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:48:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790340489; x=1790945289; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mb/FTfEtET6YgPWtFLjQYy9z8TLsr4HMB0wFXAmYD3c=;
-        b=cjQQTfoD3axKNof5IbuIeJknJ6qhcMuw0AoORdT8tRrUp2PuwvndRcC6A+3vOZJrwL
-         nWhTysXYokCSS6YSRm6sN+lpEIhsEVjXjzqQPOpo8yTTWjehHXLKPfC6QTtF9FH2oNtz
-         dyTtMjkmCvXVvn3kvbHjtA2sl28DDs1ga9r+tFc68GH8jilZEM6PSeFlnz6jrEJjigcL
-         5qoHOtIwSF0xgHCEALxoXdXSz3T3fNHXyZXVtWU4I1L/Wi2JTav4RYQ9lBGGq4d8d7Tq
-         KqOUSJPg+2jLzu6wGByayTejmwmldbkV9zFPEy/caH3Fnu16t1wSJXi557fDHixBcvRH
-         X9Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790340489; x=1790945289;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790340490; x=1790945290; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mb/FTfEtET6YgPWtFLjQYy9z8TLsr4HMB0wFXAmYD3c=;
-        b=bIrSjKSGXfrySpVPfE5BTXmXr9y+FhUlzQ/ASLBZvWm1oZDweB1Jc4xv3rHPdcrj2n
-         hKpSOqFzxe43NRpZeFV3onEH/+vS2JpvJmNp9kbM2OdUP5AXMKm4dNmwgczBNEqRIsWD
-         bZZi8UqeGEz9Cf/5fJcvPjw5T+sW08DsKjF8OQZ4bSEx986cu/uXM6ci3V2b8k5Cia2j
-         C1Eh7PSOqpKu03sBlwaaia4QOS8835hkaP7NVxhR23Nv7J9NFdHM5V4DCNiEnboryyD9
-         rKJTd7Pl/IkZEZ325j3yuqXeEhyhLOwHXrjKr8Fl8i6Z8+CmtOvWzRMe7OLpklJdNZGl
-         EFFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwPaJosRE+lTS8lX2tF+3YggcE16/gU3ne+5o9P7vN3qg0YL2dudKGhIbr559GDvskoY0PMcpZTcdE0ftA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJpOZFpQif/3T/tB0NjygtpM2BuHPUjrkkXeoWYnEHyr9/XS+B
-	yv2Oa5Zy9Z/Q9lRXq6/CUgqtVOloU5H9vjkvLuHwRxhmoa+E6GjNP0Vo
-X-Gm-Gg: AYBFou3ZJc42r3qqkVAjbVU9yDq5s+7w0Iw6SFKlwpXcIMp/WCm2OxIEnTZ2l9cs6WO
-	uAb8KiPkDY7Ue6sgsMCTBBlV21QFtR5A5DDlsb+8hXSUcWKK4CgkADGVtWJdM2oUBv4A0YpsWhb
-	ezBLriP2EvGNi9Tbk03vi4qUVf1AG7+2LqpqAY4gJwuEo7RrxHGTf+33VWXDI1/OhUIoJltJvHf
-	TfPrEcewioXKIBeM/K9ZAU9HIb9xyCJgplFQ3hwmkbGSrd9MOiYqfuW1qZc3BotIaGYQSJLRJmT
-	WjqJv73QSeISYf2zjKNUBExExhFdc6sDLKopGiNVRVTa5Wga8GBTxnEZe51qL/fzMlL8/w1KTVX
-	ODCnrswkh8MTYdcSxV9LoSAEMnGbu9irWjZ1AuVYnVweRf3q372x4soNBzT3/FpklL9WOWsWW9l
-	mCqCEmD87wHUaCbHCfqxfEx/sg6k0diJ7egKiv2rDKCthHd4r+EVVpLJ/TuOc=
-X-Received: by 2002:a05:6000:400f:b0:486:f856:1975 with SMTP id ffacd0b85a97d-48872a7ed6emr10250041f8f.22.1790340489018;
-        Fri, 25 Sep 2026 05:48:09 -0700 (PDT)
+        bh=L4PIEXS1O+9+24VT1vn/XjTFXnHCWV+rBSZ2OYKFHlQ=;
+        b=LrIYrRX6hJ/C/+LUz8XFGzziy9aiR5w2iwSUC0kHh06UqRn67Ls1x/Tmh6So4LAayU
+         JEQYPTk2HU3OaKvdGxCNlNdMC6+/XykbYCEFbo5pqecDzqzozpgR+LGzgcYAYU01Ab9D
+         u7l9gTbgFw7AkpbdZn/jC51rb0r5mhGQwgQA8Fmw1qx9TOTA7Zg0JyWSyVG1HHdL1t8O
+         vaxTnbEAwakLgYfPIXIfj5V8gn6vtHukv/o4t2s7247Z4RPvfxalW06IfyTC5Q+PlNe/
+         WqRxxJqkR/PDQ4cgKZoHHcJgsAPcyDakhACpNVqnmYzgGK/gIT9YtyGIls/NWu4Fs06I
+         QR1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790340490; x=1790945290;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L4PIEXS1O+9+24VT1vn/XjTFXnHCWV+rBSZ2OYKFHlQ=;
+        b=rexC8u1HrrZewDXZ7S0M33UphrNh2+ngjI/3TW5I0zqG64fJzl+d9TwmeqId3FpLsD
+         GJDYPebHK1EGOVlOh/XQqhIcpx7pJrtLNNFUJz68mhyYQWE1qb0k+GRrSJsM9IYpXqe2
+         olp0Ca1OopyQU1fVT+Uqq8Lc1CnUBgYHV9yAmbMoP2eOr6zlKkDlBT2zjcQMo+0TDGR0
+         r0J6DkQN8ElfhXXmLLVJ74VvekYuwwAzTeTtx1VA5Saqe8AjrfakWFr8DF7uRt/y0AdJ
+         KmM65iSEXhemkjNV97MbJo5cc1+EZl/TIFpBeRGLPnCm+2mMlFbeYEq65aZByZ7V0aHy
+         LU1A==
+X-Forwarded-Encrypted: i=1; AKwUvBynXVNTBSBC9osdv/vVEvJOHzCaTzA9mMCcZEtG2GNHbBIHTnGLSJoBuzB5T10GTQmFdNnfI4nSRHxQvqM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nztt6QIWYxQ58CVyL97+zmktNojtwO9EmV6V4uvNB0WCrmhUqk
+	JejtdU1th+YPKeV8TRRIv0d5Mf1txHk0bjD1FsJg2E2WTHLauof4Tv6d
+X-Gm-Gg: AYBFou0ZiOitCzW4UsAlKEtWaGOxppFi91PyaC504Z1AY7954QYlD4XWpjMdaAnrvmK
+	PpHL48qJzpyHRJw33z7R5vf786Ykh5hfWDDVO0ZvLI3JLMFIfIuuIU3xY9Aa7eQ3tD7LYT1WWya
+	684/VG+q3Iu0yF7W7QW1DHBiymYBnN25RBTUpqbP7RGz5QTY2uk13/o9Cqgs7ZYGqlh2Tut6wWQ
+	VWPylduuCTVw0R3bkBKHMK7gMJ9/26PmCs588EsFH+A9CDCkhlcoVxxmaKa+nSyiv/dQHClwfLe
+	hI4GIzz6JolwO5LOvnmB09dRCQCWnbkA8s/3mwLWsO9BM17qBhM5QffExJ+Fp0JjknVTZvAx8X1
+	DUb3qtXXcvqXD0ugGdueNw7f74pRhV+KKQoqHvYXgNm7M9YwR0hNVzpQl5EkO/RLLUj+G4ZB606
+	/pWGbHKSwkgqaVbEgMSXkjux/+wnbDZsuVogZU6xaRL2j/lK2uriLayZ1Nj8s=
+X-Received: by 2002:a05:600c:4f4d:b0:49c:dadb:18a7 with SMTP id 5b1f17b1804b1-49fe66cbb21mr116104615e9.10.1790340490347;
+        Fri, 25 Sep 2026 05:48:10 -0700 (PDT)
 Received: from fedora ([2a02:587:200f:d100:bf67:f785:caad:e278])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a36189bsm6670499f8f.21.2026.09.25.05.48.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a36189bsm6670499f8f.21.2026.09.25.05.48.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 05:48:08 -0700 (PDT)
+        Fri, 25 Sep 2026 05:48:09 -0700 (PDT)
 From: George Karagounis <taterraster@gmail.com>
 X-Google-Original-From: George Karagounis <mail@taterr.org>
 To: Min Ma <mamin506@gmail.com>,
@@ -66,10 +68,12 @@ Cc: Koby Elbaz <koby.elbaz@intel.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	mail@taterr.org
-Subject: [PATCH 0/2] accel: Replace deprecated create_singlethread_workqueue
-Date: Fri, 25 Sep 2026 15:48:02 +0300
-Message-ID: <20260925124804.58808-1-mail@taterr.org>
+Subject: [PATCH 1/2] accel/amdxdna: Replace create_singlethread_workqueue with alloc_ordered_workqueue
+Date: Fri, 25 Sep 2026 15:48:03 +0300
+Message-ID: <20260925124804.58808-2-mail@taterr.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260925124804.58808-1-mail@taterr.org>
+References: <20260925124804.58808-1-mail@taterr.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,27 +82,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi maintainers,
+create_singlethread_workqueue() is deprecated. Replace it with
 
-This patch series replaces the deprecated create_singlethread_workqueue()
-with the more efficient alloc_ordered_workqueue() in the amdxdna and
-habanalabs accel drivers.
+alloc_ordered_workqueue() to use the shared system workqueue
 
-Both patches have been compile tested with W=1 and produce no warnings.
+infrastructure more efficiently.
 
-Best regards,
-George
+WQ_MEM_RECLAIM is added to ensure the mailbox can process
 
-George Karagounis (2):
-  accel/amdxdna: Replace create_singlethread_workqueue with
-    alloc_ordered_workqueue
-  accel/habanalabs: Replace create_singlethread_workqueue with
-    alloc_ordered_workqueue
+interrupts under memory pressure.
 
- drivers/accel/amdxdna/amdxdna_mailbox.c  | 2 +-
- drivers/accel/habanalabs/common/device.c | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+Signed-off-by: George Karagounis <mail@taterr.org>
+---
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index cc8865f4e79c..05c3786de135 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -481,7 +481,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
+ 		return NULL;
+ 
+ 	INIT_WORK(&mb_chann->rx_work, mailbox_rx_worker);
+-	mb_chann->work_q = create_singlethread_workqueue(MAILBOX_NAME);
++	mb_chann->work_q = alloc_ordered_workqueue(MAILBOX_NAME, WQ_MEM_RECLAIM);
+ 	if (!mb_chann->work_q) {
+ 		MB_ERR(mb_chann, "Create workqueue failed");
+ 		goto free_chann;
 -- 
 2.55.0
 
