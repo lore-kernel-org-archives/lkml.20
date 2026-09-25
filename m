@@ -1,60 +1,50 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3890C175A88
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A40175A88
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346551; cv=none; b=VVKIIEYOnI5PkpjRNsmNd9lGOQxOPP7UuyzB/ciCgmziLVKqBpKKn7oIVhrJM8kHNQDb16zG9Z1MRI3jv79tB+7y6TepsXS9lQRZdtOFpn0LBuJVBZMOEvoaHtagTFMn9zv/q3/VlxUMAgW+lBQzg2yG6auWtz0QBtI8rd8jqYo=
+	t=1790346558; cv=none; b=fLNRJPwObpC88umMaEx/Gls2gA7zXYwCjMLKkPqi9f6iv/786idcfOKMmP98teoYsqj2PIak4pj5Iq/SR9tMh2zynCX0B33Jvew0A6xsjk5KqmGUPZm4VA5N3lZc46qXgppuXvFX/yJSIeYdKvCysCI4iXumf4sgrgPwpaQBEaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346551; c=relaxed/simple;
-	bh=ml/kJmd2QciEkxkIPM0iG2xc9A8CmDKmcLQrId8i3uw=;
+	s=arc-20240116; t=1790346558; c=relaxed/simple;
+	bh=5vzcO8f31bmo6Vu4GDThoVWBQk8dvps7v/tsBz4Pjjw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=GIWZP9RdXvqkqbIiNSG5C+QY/koyTu6BOKwdg9hgGbc8/VAqU+WWv3f4xUba5AGIEKgBJo+UP5P/F6Pxk1OH49pHSeDL2ehD9tr+fuGYFjTMECjZsxFRiHndj8eP/1cVH97UxDIvzIRTszYiLHC5U8VxYbE393g5XBkBdyjaNkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ijk3lvV5; arc=none smtp.client-ip=185.246.85.4
+	 MIME-Version:Content-Type; b=fyjsqpBzHNFBSY92tWUAkK+e7iAQtPt3nS5oO6qZH4gbn0p9SsxvkNsLiaB9e4HeZtMu4Yz//HNkcbV5rRJElKLhHQURX43v/rl2nLjpzW/3oft5MHtRlTFLItmDcyuCzvw7yV6Lc24IQ3hMxFPSvR2ZRBDbL+3NBKmQFSUox+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JjWHZhg3; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ijk3lvV5"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JjWHZhg3"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id BFF014E41072;
-	Fri, 25 Sep 2026 14:29:08 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BD8371A1024;
+	Fri, 25 Sep 2026 14:29:15 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8F3196073B;
-	Fri, 25 Sep 2026 14:29:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55F52102F08C8;
-	Fri, 25 Sep 2026 16:28:55 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8A1DB6073B;
+	Fri, 25 Sep 2026 14:29:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 74849102F1E13;
+	Fri, 25 Sep 2026 16:29:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790346546; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790346550; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=B9SAdsKIM9po5e3COkJx3/f5eCr9H91R3DRSye2x0s0=;
-	b=ijk3lvV5Ytolj7ONBao+6E1jKrnPnfqy9PllVh0sQCIKiPAby37e8RfcmECcCv+xY5uLnP
-	4JvEKceRY00bMEL3lG2XtcvoIuwGkJbZaS3yZV+5WifBxC67dfZ3v9AwpGbE99XT75VJto
-	q7Tak5DIT/J8DVIyRCsa/db6qkwEwG/Mae2miTe95upekFvjLycmzNk2ERWRoHGxA+gRg0
-	9w6BtmJ+qGCeIm0mKS50LpaDZVzGFdRx/AYZV9Kh8nSShWs+CGTqXxyQVc9pdtgZW6DcOJ
-	vsy96kev8o5HMZpeYOx/l14ApShn4aI5DXIWAe3q8tpuxM8k4H0KA69523GogQ==
+	bh=yfCX8H+M35XhP8P+4I5oT/TqJldGzETIWgil3VkSoIU=;
+	b=JjWHZhg31ZQVx1/oeHXBS40KM0R+ZGG/MgajUJMgoqzKeA1205BjTPajr3loued6vvyfjU
+	Gn1jOil1XfQw5s2gJiMw/0iKqe06+Wq2XSovCu1hHuVaRKjBxXHWJtqYcl8SOJsJMBGvAt
+	Js3M73SDAxShSZUt686hkNApdsJoA8DSJ+YD/MbNgNqJndc44WXAAxBb/TZbTOVpXo3mfM
+	T10Y40nPysXBbkh9bTpbPg6J/beTW1m2jQQESu/Dg4BtYaLpLIm4IF+KEKyiNovnBWhQuV
+	9wRjFMX/XhN0iGDvM/fHzPewpEZ+UDC/Ipz4hSywYSxXwjCscf/4fVGqHkzfZg==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Vignesh Raghavendra <vigneshr@ti.com>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Richard Weinberger <richard@nod.at>, 
- Keguang Zhang <keguang.zhang@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, 
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, 
- Niravkumar L Rabara <niravkumarlaxmidas.rabara@altera.com>, 
- Alok Tiwari <alok.a.tiwari@oracle.com>, Chen Ni <nichen@iscas.ac.cn>, 
- Runyu Xiao <runyu.xiao@seu.edu.cn>, Frank Li <Frank.Li@nxp.com>, 
- Pengpeng Hou <pengpeng@iscas.ac.cn>, Haotian Zhang <vulab@iscas.ac.cn>, 
- Johan Hovold <johan@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
- Rosen Penev <rosenp@gmail.com>, linux-mtd@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Frank.Li@oss.nxp.com
-Cc: imx@lists.linux.dev, vkoul@kernel.org
-In-Reply-To: <20260917204724.1289912-1-Frank.Li@oss.nxp.com>
-References: <20260917204724.1289912-1-Frank.Li@oss.nxp.com>
-Subject: Re: [PATCH 1/1] mtd: use dmaengine_get_dma_device() instead of
- chan->device->dev
-Message-Id: <179034653501.1166139.9018677426507757712.b4-ty@bootlin.com>
-Date: Fri, 25 Sep 2026 16:28:55 +0200
+To: Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Kees Cook <kees@kernel.org>, 
+ Karl Mehltretter <kmehltretter@gmail.com>, Peng Fan <peng.fan@nxp.com>, 
+ Breno Leitao <leitao@debian.org>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org
+In-Reply-To: <20260919130811.3041516-1-peng.fan@oss.nxp.com>
+References: <20260919130811.3041516-1-peng.fan@oss.nxp.com>
+Subject: Re: [PATCH] mtd: cfi_cmdset_0001: use assign_bit() where
+ applicable
+Message-Id: <179034654691.1166139.13579096219818232472.b4-ty@bootlin.com>
+Date: Fri, 25 Sep 2026 16:29:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,21 +56,15 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 17 Sep 2026 16:47:06 -0400, Frank.Li@oss.nxp.com wrote:
-> Replace direct dma_chan::device::dev access with the proper
-> dmaengine_get_dma_device() for consumer API.
+On Sat, 19 Sep 2026 21:08:06 +0800, Peng Fan (OSS) wrote:
+> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
 > 
-> chan->device->dev is not always the device used for DMA mapping.
-> Some DMA engines support per-channel IOMMU mappings, so different
-> channels may use different DMA devices.  dmaengine_get_dma_device()
-> returns the correct device for each channel.
 > 
-> [...]
 
 Applied to mtd/next, thanks!
 
-[1/1] mtd: use dmaengine_get_dma_device() instead of chan->device->dev
-      commit: a018524a2ec96da5bb1965053967a20e0069ed9e
+[1/1] mtd: cfi_cmdset_0001: use assign_bit() where applicable
+      commit: 30c70e01f79f04b802821d6de24a6480538e3909
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
