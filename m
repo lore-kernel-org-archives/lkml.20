@@ -1,228 +1,147 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0494038DC57
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:40:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365243; cv=pass; b=BSvCtFYw3shqDhJdsa5Rnb88FvnXRPQYmrHF+Fg5aSrsU6OnqyApwnODRZyWE9tmGJi5oEbHOecLMHW3843YGqeC+YRfnV+myqh0Cr6Zx//DpgRO5+Jv0Djo+B9eeRoiMWNkChqhtHOeiyrF012eBozwFbmKh0pait3thUcPePw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365243; c=relaxed/simple;
-	bh=OiihpvIIlzoVJu2DCK6dCNo1iVpixAYRYF6mCtC37lg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kk3Lb/Jrqqbvj+e4mMB1xkWTD+60gOeBTWfU5+o8pcG2ymVfulXJDPBtMnPNktVUSnVyC+97T09lVXiyzsEsOdAdPAJrEl4qx1tn4CLnhmOZyc/8mUdYFzBsLlxs1x4aArB2jHlzDYe8ywXx3DqbaKgjF22/pNP370rKZI5m8aE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QKxq5/VI; arc=pass smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52859483815;
+	Fri, 25 Sep 2026 19:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790365332; cv=none; b=M9E64OjkZjTOtaajCEFh+eu0tsFt0FWGJ7Kk6wBGksHUNuL6pRwcPvlsIGTbEOSwbS9Tr9vruD35A/OjaqLEn8iYx/OvgcoudDjhedkK/0aunw2I5wavtBSbdeFmapq7E3w5xDje4lgRp0HlDyLLmi8ohNx2iQWfdJSFhZ2wkRk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790365332; c=relaxed/simple;
+	bh=5hp8KrXDqdBntqhblDhTZU7jIodCL3GxH2httSOAw3E=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=NwUd+ZUkEzni15FiS364UFXq+yBI9spDii71NDqJ5Jz5pHxllcKDQp1+a5H201Bn26c3pwbkjujuPdL9Hqgj8/SqUlKdI4yYrAI5BP1ESXoDToWcAzVaZqdJ8MgUF/cs5A6HQxUyLcEF19wm2EALr7aFoE/1DH6hCpUOIhXg3bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YDDWkQNB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QKxq5/VI"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c206dc8adcso601077b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:40:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790365241; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MffsGzau9v7G1/c0qaacNeFHQxLsJFd0mGhBrQl8kEk3fnurjau7okffWtsMckGAu4
-         Yzma4gz9Fj6Gj9lFBXmchP40Ve7gEwhHAWFDQgSdDNUcz6uFPEx/06M06e4Na5wPVek6
-         I3wMjI8E9Qj5KGD4jkDeoeQOVVDK+Gskea7KWRN8gCUuJbqWXqGPxpvjZki4Nc/VE2Fd
-         V+yYBDySRf48Ay1U2ou6PmrmDTLrG//fZ9qSkcn3xsJp2sHSvI9cot4RL1jE2Uyya+sU
-         /qcyT4SMXb1ax35Up1q4/sjePtHHNCDmhcsM7QkUCuaKrrOJdHd8CV94TeITs3HtWIdW
-         E25Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QRtQwrI36+tl+6Prwhx/Tagi3Pi4qOHQ7OtnSC5ifgE=;
-        fh=P+GqX98MQ+xmDrPhfzYAUixiyJgnSlpTwBcrcVCI6SE=;
-        b=brM3Ln0zGhRb5WPYqthuRzenN3RuQfZ5Ics0Og4b+WlSEvsxJhHSJK0i3SE9wQd46r
-         unWOI/k28SOZGaxVenwmIS9e5PhhqIDBQ3GEd7zl3gSWhU+pOyMoghlEeW6LJISxuvpS
-         sB8jXJgt5rDVVM1oBIWh/gMxE9d6XlgsHWgahMjiNfuvr+5KUebmyTt23fSs6R3G1qKI
-         eX5TKTBltgZ8DmMh0BuQ802dHzirWqJDOO//mV8MmklLrUp1kNzGC7f8FIhQRlflBlUh
-         XtXS8UF5DpQcPJONc/v0eU4DmSbEpH8J7rcQbvGlE8MezoCNRr/zEvULzQccMcekm+nl
-         ppCw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790365241; x=1790970041; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QRtQwrI36+tl+6Prwhx/Tagi3Pi4qOHQ7OtnSC5ifgE=;
-        b=QKxq5/VIOaGIN3ETW2kO5BE585sPd3T+R5MlPhz1HBBqMb7Q0DuVytci+Yx0K8nW8Y
-         0eYnOUkUZrm9g2Nyg2yxQodVBsk5j4bjuCov1Z2mQZfAQLOkhdeNo7V7mim/K72ReJud
-         iIJ2d5WM0CqwqrurBwWtbGuBuFSJ/RidfX3DF9Ka9eO1vfzJ/RFqMe4EYcMpLUkUkT7Y
-         xSH2TlXtExBIwumqocbBTPbAaXcBIpAs/F37rzVGRFltgaUDu20YE5x7F6VjnCRs4GDh
-         I3NGZJQATYo1KnB+aV7j6vetPysdhhgXqbXZNFUbeQvrRK9mRN94T1VhRoTscaZFOAmM
-         ErgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790365241; x=1790970041;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QRtQwrI36+tl+6Prwhx/Tagi3Pi4qOHQ7OtnSC5ifgE=;
-        b=GVCM11wTcdxOSny+Pn+pd5yMyun4IFgWRUmkeX04jl7kuqvn9T5RPCsSPQZMgCMUnM
-         us6P1P5NQrEyKW1+5bsNjsseHdt9yn0MbXzbjT2xLZUIPLIEVaGpwfVmzuR03zTVU8kV
-         8YM29T9nRp1QMDhhz8fdCoiUfuc2MT1hW2mPeJbfXr/6yNwVvXlcLoN7jtdAvz7NYJpq
-         uV+DUWgiHw6d+T8KqsvwFAlpQPnmKzRjUm770gcJxJuUf5TECz28wHyyE4phHkEPLzAi
-         A9JCJfqqcS9IZxTbhvYdSM+VPCMR9nxmfQdUcvw+mhs4UsfKZybKolALNOq8kmy6TEny
-         CnaQ==
-X-Forwarded-Encrypted: i=1; AKwUvByCJc0VWElYjuh/oSjKm/s4JD5geFxDwqVjlgEOYXK2Op0ZekVt9oeJoItmGru2RF4lXHD2v9GyVsqxNII=@vger.kernel.org
-X-Gm-Message-State: AFuF++kasUQuUXV0PWLIKQ1VWLoPjGwjVuNwyi2MVool6nj4bJzPO/b6
-	xP7MV+nuFZynUAsrBeWk99slohqyMFK5Q8OiUyDe8r0QFQVGHZ48vO7Ia52R9lepv7Htn3x2SoP
-	Xus8DOHi8yMNaU4zMLzNlBGmD+8yf7kfJnZItRZGX
-X-Gm-Gg: AYBFou1oLYL0AiHow4E0nG0f6GzfvU12Kxts/VfKbH5k0XdiVD3bgeYPfWHvv8YtVsH
-	RLtV/5Xzi62Lfsj5k0+TBZozzEIXKbNnqFO3xqhkpDPWp9pejZH27miRKvS4xCycVNDRvmG6mOg
-	KGMSVlhqj8CGw992WQYagd/r0wEc9aAYzoJBHTeYke+spLJ4cuHMtiH/Uz/8g0wDoOdxkiqAm0M
-	ykn54bMZ6IaLbFiRPMxxJf40TlEUmCkIEdUgz2Qbc2HDFIssjeFJbc3+gDWIwrpjKh1/P7n9ngr
-	DiXfo2cBNVKGRLp0flOL0lOsXmPh2RMUeM6HH0EgimVWBK0Tz6PRDVS8TyJYOdMwAh2h6G1dt+/
-	7mOx2dzANSMCM
-X-Received: by 2002:a05:6808:30aa:b0:4d6:90f3:74ae with SMTP id
- 5614622812f47-4dc6606bcc9mr4067609b6e.46.1790365240133; Fri, 25 Sep 2026
- 12:40:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YDDWkQNB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9806A1F000FF;
+	Fri, 25 Sep 2026 19:42:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790365329;
+	bh=dfXt9qaDcC/oPAvJye+3wyvTWiD4tmETUwkn1zkGmw0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=YDDWkQNB4BuOPzPzydlyaW7BATamkuHlTAeSRrJa2RK4908o5hlkIBo1l7GCL/F5y
+	 GVvv6O5TC503897TpgyT5NtIlcgFwWKqtgOtrSirs86MRjHvMkUYmRZhauTQ4qb/op
+	 3XGjf/jg57h2g042vlOSAy8tc3HGscM/qhBVBKV1llBWSj7w9le9MQkStTxuy/vC6K
+	 62qS4nrh179L+pD2y/vAKLvlQmHMYkZS98RVa1IVdaM401QmJGTcLxUVgLOM9bR2Ik
+	 lJdFhviN9Hfdnd/nYf+bJwIAGeBpcGIc9+uEJEi08H3u7g35UUkr17IR6qW1EzebTH
+	 K3P6WmbUOf1EQ==
+Date: Fri, 25 Sep 2026 14:42:08 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	"open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+	"open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <linux-kernel@vger.kernel.org>,
+	"open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)" <linux-ide@vger.kernel.org>,
+	Arthur Husband <artmoty@gmail.com>,
+	Roland Waltersson <roland.waltersson@netinsight.net>,
+	snoep <snoepke@live.nl>
+Subject: Re: [PATCH v2 2/2] Revert "ata: ahci: force 32-bit DMA for JMicron
+ JMB582/JMB585"
+Message-ID: <20260925194208.GA2072993@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918222513.2633456-2-rdbabiera@google.com> <arF3fynAGG5khe3B@google.com>
-In-Reply-To: <arF3fynAGG5khe3B@google.com>
-From: RD Babiera <rdbabiera@google.com>
-Date: Fri, 25 Sep 2026 12:40:29 -0700
-X-Gm-Features: AclHuK_91DQZxLqN7uLYqBpJX2aYJ1LY4FTA5TNLS7LM4bAkU5HscFKOZ-tm8pA
-Message-ID: <CALzBnUEw4J1SB8a7is5Q-OKhkuQuPWUJcu9KHRrZO37k==FEOQ@mail.gmail.com>
-Subject: Re: [PATCH v7] phy: Add USB3 PHY support to Google Tensor SoC USB PHY driver
-To: Neill Kapron <nkapron@google.com>
-Cc: vkoul@kernel.org, peter.griffin@linaro.org, andre.draszik@linaro.org, 
-	tudor.ambarus@linaro.org, p.zabel@pengutronix.de, neil.armstrong@linaro.org, 
-	badhri@google.com, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908190600.226485-3-mario.limonciello@amd.com>
 
-Hi Neill, thanks for the thorough review. Will send v8 out shortly.
+[+cc Roland, snoep]
 
-On Mon, Sep 21, 2026 at 11:29=E2=80=AFAM Neill Kapron <nkapron@google.com> =
-wrote:
-> The driver is now using readl_poll_timeout() and
-> pm_runtime_get_if_active(), we should be including linux/iopoll.h and
-> linux/pm_runtime.h explicitly.
+On Tue, Sep 08, 2026 at 02:06:00PM -0500, Mario Limonciello wrote:
+> This reverts commit 105c42566a550e2d05fc14f763216a8765ee5d0e.
+> 
+> The issue is actually a problem with BIOS configuaration of PCIe
+> root ports, enabling a feature that causes problems with 64-bit
+> DMA.  It is fixed by adjusting the kernel adjusting the
+> configuration of those root ports.
 
-Acknowledged.
+I'm a little concerned about doing this revert for v7.3:
 
-> > +#define TCA_CTRLSYNCMODE_CFG1_XA_TIMEOUT_VAL_100MS 0x1e85
-> > +#define TCA_PSTATE_0_OFFSET 0x50
-> > +#define TCA_PSTATE_0_UPCS_LANE0_PHYSTATUS BIT(8)
-> > +
-> > +#define GPHY_TCA_DELAY_US 10
-> > +#define GPHY_TCA_TIMEOUT_US 100000
->
-> With the addition of TCA_CTRLSYNCMODE_CFG1_XA_TIMEOUT_VAL_100MS, we
-> should consider bumping GPHY_TCA_TIMEOUT_US to be slightly larger (e.g.
-> 110000us) to ensure the hardware timeout is guaranteed to expire before
-> the software poll timeout.
+  - The AMD issue should affect any SATA controller, but 105c42566a55
+    ("ata: ahci: force 32-bit DMA for JMicron JMB582/JMB585") is very
+    specific about JMicron JMB582/JMB585.
 
-Will change here.
+  - The BIOS configuration change only affects AMD NBIO 7.7 and 7.11
+    but the original posting [1] of 105c42566a55 ("ata: ahci: force
+    32-bit DMA for JMicron JMB582/JMB585") mentions Raspberry Pi,
+    which isn't AMD (the Raspberry Pi mention was removed before
+    105c42566a55 was merged).
 
-> > +static const char * const u2phy_clk_names[] =3D {
-> > +     "usb2",
-> > +     "usb2_apb",
-> > +};
-> > +static const char * const u3phy_clk_names[] =3D {
-> > +     "usb3"
-> > +};
-> > +static const char * const u2phy_rst_names[] =3D {
-> > +     "usb2",
-> > +     "usb2_apb",
-> > +};
-> > +static const char * const u3phy_rst_names[] =3D {
-> > +     "usb3"
-> > +};
->
-> nit: checkpatch.pl --strict flags missing blank lines between these
-> array declarations (and the inline helper functions + DEFINE__FREE
-> macros below).
+  - There are reports of problems on Raspberry Pi 5 JMB585 [2], [3]
+    that don't seem completely resolved.
 
-Will check.
+  - The revert doesn't seem like it fixes a problem, so I don't know
+    that I can justify it as post-rc1 material for v7.3; maybe the ATA
+    folks should take it for v7.4?
 
-> >  static int google_usb_set_orientation(struct typec_switch_dev *sw,
-> >                                     enum typec_orientation orientation)
-> >  {
-> >       struct google_usb_phy *gphy =3D typec_switch_get_drvdata(sw);
-> > +     int ret =3D 0;
-> >
-> >       dev_dbg(gphy->dev, "set orientation %d\n", orientation);
-> >
-> > -     gphy->orientation =3D orientation;
-> > +     guard(mutex)(&gphy->phy_mutex);
-> >
-> > -     if (pm_runtime_suspended(gphy->dev))
-> > -             return 0;
-> > +     gphy->orientation =3D orientation;
-> >
-> > -     guard(mutex)(&gphy->phy_mutex);
-> > +     if (IS_ENABLED(CONFIG_PM)) {
-> > +             if (pm_runtime_get_if_active(gphy->dev) <=3D 0)
-> > +                     return 0;
-> > +     }
-> >
-> >       set_vbus_valid(gphy);
-> >
-> > -     return 0;
-> > +     if (gphy->phy_state =3D=3D COMBO_PHY_TCA_READY && orientation !=
-=3D TYPEC_ORIENTATION_NONE)
-> > +             ret =3D program_tca_locked(gphy);
-> > +
-> > +     pm_runtime_put(gphy->dev);
-> > +
-> > +     return ret;
-> >  }
->
-> Previously, sashiko recommended moving to pm_runtime_get_if_active(),
-> which was done in v6. However I think this may have changed the behavior
-> of google_usb_set_orientation() and potentially introduced a regression
-> due to the pre-existing ordering of calls in gooogle_usb_phy_probe(),
-> causing this function to always take the early 'return 0' path.
->
-> In google_usb_phy_probe(), we call devm_phy_create() prior to calling
-> pm_runtime_enable(dev).
->
-> In drivers/phy/phy-core.c, devm_phy_create() calls phy_create(), which
-> has the following check:
->
->     if (pm_runtime_enabled(dev)) {
->         pm_runtime_enable(&phy->dev);
->         pm_runtime_no_callbacks(&phy->dev);
->     }
->
-> Therefore, the phy device never has pm_runtime_enabled, causing this
-> call to pm_runtime_get_if_active() to always return 0, and the function
-> exits prior to calling `set_vbus_valid()`.
->
-> I think moving the pm_runtime_enable(dev) call prior to
-> devm_phy_create() will resolve the issue, but we should audit power
-> managment in this driver to verify.
+What if I just merge patch [1/2] ("x86/PCI: Disable enhanced atomics
+on AMD NBIO 7.7 and 7.11") for v7.3?  Would that leave anything
+broken?
 
-The check here is called on gphy->dev as opposed to phy->dev. fw_devlink us=
-es
-FW_DEVLINK_FLAGS_RPM by default, so the dwc3 consumer controller holds
-DL_FLAG_PM_RUNTIME on the phy platform device. Every resume call on
-the dwc3 controller results in the supplier resuming as well under this
-model, so the runtime_get() call here passes.
+[1] https://lore.kernel.org/all/20260403050225.50186-1-artmoty@gmail.com/t/#u)
+[2] https://forum.radxa.com/t/repeated-ext4-metadata-corruption-on-raspberry-pi-5-with-penta-sata-hat-jmb585-despite-healthy-ssds-and-raid1/31393/10
+[3] https://forums.raspberrypi.com/viewtopic.php?p=2386959#p2386959
 
-> I think this introduces a regression between v6 and v7, as usb3_tca_base
-> may be accessed prior to the 'usb3' clock being enabled, and
-> furthermore, the call to reset_control_bulk_deassert() will clear this
-> value.
->
-> Therefore, I think we need to this after the call to
-> reset_control_bulk_deassert().
-
-usb3_tca_base is powered by a different clock as opposed to the 'usb3'
-one, so the register access will be safe as long as the platform driver's
-power domain is on. Register reads in either order both result in the
-same behavior during testing, but I would argue that writing before
-the call to reset_control_bulk_deassert() ensures that the parameter
-is applied on PoR.
-
-Best,
-RD
+> Cc: Arthur Husband <artmoty@gmail.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/ata/ahci.c | 18 ------------------
+>  1 file changed, 18 deletions(-)
+> 
+> diff --git a/drivers/ata/ahci.c b/drivers/ata/ahci.c
+> index 9b8c0935001cb..bffe50a109b88 100644
+> --- a/drivers/ata/ahci.c
+> +++ b/drivers/ata/ahci.c
+> @@ -68,7 +68,6 @@ enum board_ids {
+>  	/* board IDs for specific chipsets in alphabetical order */
+>  	board_ahci_al,
+>  	board_ahci_avn,
+> -	board_ahci_jmb585,
+>  	board_ahci_mcp65,
+>  	board_ahci_mcp77,
+>  	board_ahci_mcp89,
+> @@ -213,15 +212,6 @@ static const struct ata_port_info ahci_port_info[] = {
+>  		.udma_mask	= ATA_UDMA6,
+>  		.port_ops	= &ahci_avn_ops,
+>  	},
+> -	/* JMicron JMB582/585: 64-bit DMA is broken, force 32-bit */
+> -	[board_ahci_jmb585] = {
+> -		AHCI_HFLAGS	(AHCI_HFLAG_IGN_IRQ_IF_ERR |
+> -				 AHCI_HFLAG_32BIT_ONLY),
+> -		.flags		= AHCI_FLAG_COMMON,
+> -		.pio_mask	= ATA_PIO4,
+> -		.udma_mask	= ATA_UDMA6,
+> -		.port_ops	= &ahci_ops,
+> -	},
+>  	[board_ahci_mcp65] = {
+>  		AHCI_HFLAGS	(AHCI_HFLAG_NO_FPDMA_AA | AHCI_HFLAG_NO_PMP |
+>  				 AHCI_HFLAG_YES_NCQ),
+> @@ -954,14 +944,6 @@ static const struct pci_device_id ahci_pci_tbl[] = {
+>  		/* Elkhart Lake AHCI */
+>  		PCI_VDEVICE(INTEL, 0x4b63),
+>  		.driver_data = board_ahci_pcs_quirk,
+> -	}, {
+> -		/* JMicron JMB582/585: force 32-bit DMA (broken 64-bit implementation) */
+> -		PCI_VDEVICE(JMICRON, 0x0582),
+> -		.driver_data = board_ahci_jmb585,
+> -
+> -	}, {
+> -		PCI_VDEVICE(JMICRON, 0x0585),
+> -		.driver_data = board_ahci_jmb585,
+>  	}, {
+>  		/* JMicron 360/1/3/5/6, match class to avoid IDE function */
+>  		PCI_DEVICE(PCI_VENDOR_ID_JMICRON, PCI_ANY_ID),
+> -- 
+> 2.43.0
+> 
