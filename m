@@ -1,72 +1,74 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5741D49A3DE;
-	Fri, 25 Sep 2026 10:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7451A497B8A;
+	Fri, 25 Sep 2026 10:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790332953; cv=none; b=a/NBNtQGb/o6EtH1bXmlWsM3CGk188qJEfpqwknpLD/n0g9u1jrp93v+BJnFeLXVpiMbLxYePykuyQ0Ktz5pd322vvcS8dTzjx4B94k8kwxtSi+CjStvhgNyy/GzGbm8/Wp8o5JnPVmVaxEMEYYrv4JOx5YXU3UMPk0i6gWIQJc=
+	t=1790332970; cv=none; b=a6v3T0OjOzLT4YUogKvrc8jiHWPrJXBwWy5jm9gqU+P651x7iAByKhqytsMOqAKhLt4C9zZVlxP0R1P3s/8jwXYx4LieYDD7CiwccmRRK70zGl5UbKAKj40iszZTsTvTic7fiL4O6qw8Zs8GqAOqRYSlBgi1TjmHUTxJopFZNn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790332953; c=relaxed/simple;
-	bh=UUyhn4ypefH8nO4Rrn4P6xc3nFeWoLuAA1eQpSu4Akc=;
+	s=arc-20240116; t=1790332970; c=relaxed/simple;
+	bh=KcardFD8DAGQ7e7khcgcpBT1t4GfrgFXB3N8ue0fUF4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GMbCfxK2IZ45eByrdDaT2+si2Bxb7K54Dl28Q2PhpFEaJ2okykXtbiM8lSZoq1qC+FwEOJkY5LGhXMP5Adrcb0Glt38hKdaAIC+UOyAxi4y8u6oG38zOwXzbSmGOogfjqmyllDbrh6OC0Zz/bYNRufSDjMCsEHiGCo2+jIPZIio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YDM+yiyK; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lmk6gncNJDC1LAshH+StEwUJxOKMpwCoT9Bs1olkAKwuxc30nQ2XQP3Nsj9wxtdjKQpTKn7OdgZwn+NWEqiYmTDZVe5OA0tQ/Hl2gdSHBi0nIzvvX4jm0UIhJcjv3edfPyY7UoUAMnjX39VtwIu4pgPULFMergfa5TRivSA7Cls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FPeC49qc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YDM+yiyK"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5592A169C;
-	Fri, 25 Sep 2026 03:42:20 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 768373F86F;
-	Fri, 25 Sep 2026 03:42:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790332943; bh=UUyhn4ypefH8nO4Rrn4P6xc3nFeWoLuAA1eQpSu4Akc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YDM+yiyKthxFhTKEmv9i+I4SBvhmEM/1ix0t1Zi4BCJYjZJ4kcAmvy299BLpzlw3y
-	 cT6K+p2MVhx1f4Q9XiRhkD/OVCLxnl59uvS2/1JEPvzvgn9q/QBtQqw3QYM9pQeWcg
-	 VoHtTvnvMrACrhnlvDU4LlnhgXJ3vauae0k3g6DE=
-Date: Fri, 25 Sep 2026 11:42:18 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v19 2/7] firmware: arm_rmm: Check for RMI support at init
-Message-ID: <arZQCiF3iqp9eCsy@arm.com>
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-3-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FPeC49qc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26B8D1F000FF;
+	Fri, 25 Sep 2026 10:42:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790332968;
+	bh=3ZTzhLuxEXouR3TAU4feLXrI0GNfd/I47bIeg4EAUXo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FPeC49qcWkXmzPw3W0T4pIzxDlK+vS1Nou5Qdcd01cqjsXTJO7SwrbhAPrDihTueH
+	 Y3E9D63YjF3gQlqFn76iiM2prg5+yvo8/6i3Q+yBROlkYXoLSe/y9UPySKLYKkREgR
+	 4WaW4Nl191DsG1s+j6hk6KJVSBgAl0zSr0VPnXeAkq2WfrozRKXibIOt74xTv0rLYW
+	 V7txUWYbZB2wxYrKYhTgCLKi/DY4+bTJynLS5zBdO+SWiGtbn5goisyjvbE/gBsY72
+	 2SRykHTUvCHTnJRemntWUUGpH+GwMN1qnLmB2q/EIpDDwu0exPfkP7pi1M9rvudD1N
+	 +yTNBKwuiQy0Q==
+Date: Fri, 25 Sep 2026 12:42:45 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Sandipan Das <sandipan.das@amd.com>, Ian Rogers <irogers@google.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Ravi Bangoria <ravi.bangoria@amd.com>,
+	Ananth Narayan <ananth.narayan@amd.com>
+Subject: Re: [PATCH] perf jevents: Limit the number of JSON reading workers
+Message-ID: <arZQJZvMWyksoJ9E@x2>
+References: <20260917095921.2802275-1-sandipan.das@amd.com>
+ <CAP-5=fXcDT7Vi32odox1_gSbiGakN8KQMjXCZjmh=SyxuaVDZw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260924135201.850038-3-suzuki.poulose@arm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fXcDT7Vi32odox1_gSbiGakN8KQMjXCZjmh=SyxuaVDZw@mail.gmail.com>
 
-On Thu, Sep 24, 2026 at 02:51:56PM +0100, Suzuki K Poulose wrote:
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 32102c3912fa7..e8b29983b0021 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -293,6 +293,7 @@ static const struct arm64_ftr_bits ftr_id_aa64isar3[] = {
->  static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV3_SHIFT, 4, 0),
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV2_SHIFT, 4, 0),
-> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_RME_SHIFT, 4, 0),
+On Fri, Sep 18, 2026 at 08:31:46AM -0700, Ian Rogers wrote:
+> On Thu, Sep 17, 2026 at 3:00 AM Sandipan Das <sandipan.das@amd.com> wrote:
+> > The ProcessPoolExecutor is created without max_workers, so
+> > concurrent.futures defaults to one worker per CPU and forks all of them
+> > when the first task is submitted. Each worker costs the parent a few
+> > file descriptors. For systems with high core-count processors like the
+> > AMD EPYC 9996, the pool can easily exhaust RLIMIT_NOFILE as seen below.
+<SNIP>
 
-I think we end up exposing this to (any) guest unless we mask it out in
-sanitise_id_aa64dfr0_el1(). Do the guests care about the RME version? I
-don't think they should, especially the non-realm ones. For nested it's
-masked away already (limit_nv_id_reg()).
+> > Fixes: eaab2eb09dc2 ("perf pmu-events: Parallelize JSON and metric pre-computation in jevents.py")
+ 
+> Reviewed-by: Ian Rogers <irogers@google.com>
 
--- 
-Catalin
+Thanks, applied to perf-tools-next, for v7.4.
+
+- Arnaldo
