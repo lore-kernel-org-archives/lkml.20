@@ -1,193 +1,67 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A6204BB276;
-	Fri, 25 Sep 2026 14:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D7E370D41;
+	Fri, 25 Sep 2026 14:57:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348234; cv=none; b=QyrX4ajTRhYiiYIH/xsRzzN27Tvg/2fGeFdtmCOak7FztyUqEtx7z25GOLK6jlLy3ww3l/luzEkMVbRr9MD6H29TL0e1WbgUsZWka0gQzQ41gORq5MVDmugu1seM4sdasH2i2o2wU3VJRb+4INqNvWlV54jPjKNGo4yoFRGL5fI=
+	t=1790348259; cv=none; b=ZFaXQue3h53emQ2rL43ws7uGr8SacLCF3aZW/+owR8psaauwEwDya1HeCTHxGGM6zXosY5LU2hBJh99ban/cCo14GN65UkRzYWWVjU/YueY8yS77Fx7iQBFX//wKwgHYw4t8DXGuIpNqIBKLkxb/3N5Mcv8Sk7WnhZouyHQzq34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348234; c=relaxed/simple;
-	bh=RZHBsgyig+278+Pk9MVvJjizLmN6flpWBBaUvmoly5M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EcPrs28Kj62Y+lZY7m25BYH6qHAQrlE9hfIYH6a4hytsaj9yCU+vxv0AH4vdCfndhpxs5MG2b9LdZIa8ooAXQxGoavaqusmPu/f8PzOVzlS/u3TB/dAnV3RkHZFsoDZNZuxgQWfhiooshq2LfEXJKZtkRebjVQrl6EbPi/4MDCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=brYYPVQz; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790348259; c=relaxed/simple;
+	bh=vokxpPPeJFF9m4UiOT54OmKjxI7Lroxu8kn2nd0T4+Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N0Qcg8yFK2f7DZrNhfGrajspUVZw/OVsg6qUPuEg29+YoyBASG45P9laEWbz4HjNfbMgq9Gk7ImVltBfgy9GLl3f2fpJYypxKwvEeXDzDPyDOeFNifq2mKbXk88WDbd6FlDP8SJIzaYmsC5CeWYZs4opz6f4mw0RMWSWnfGL/VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=VkvErMx+; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="brYYPVQz"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B4F71688;
-	Fri, 25 Sep 2026 07:56:56 -0700 (PDT)
-Received: from [10.57.10.17] (unknown [10.57.10.17])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E8C133F85F;
-	Fri, 25 Sep 2026 07:56:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790348219; bh=RZHBsgyig+278+Pk9MVvJjizLmN6flpWBBaUvmoly5M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=brYYPVQzJiNqSbLCXvb+WIW2JFJOqyWjRA/7kKfpsPdcZYLdSjMpdW5GHK3KWBmu9
-	 zjMbEt3eF5s6OZuBfCkDDun6Moq3PRvKUKiS6jTOSFWrIVdTOjKW1kp0Cca83G44oY
-	 IUmJK9GDdDXHpfPhIWW40zZRav/PzcdzRodv8Nm0=
-Message-ID: <bb4a6fa1-721c-44f8-a8d2-54e80b5449c6@arm.com>
-Date: Fri, 25 Sep 2026 15:56:54 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="VkvErMx+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=B3X/8T/KxsERTXdE9gjbpSLjxra0gRxccQouuWityYo=; b=VkvErMx+c1zApjiTSzU7Fo76q2
+	nfQj+trbiy2fxHZ9RN+3bxZPEged/aevjI1KqnM/VCkckVG+sI6ihFvgPCiRYXl1BxSUleI5PPAJ8
+	d5KTlyz0tKRm4+f752Ybv8TxJuv91amhWs2WKdjwL26eVf7En6HQUCekqN/EUoVqY6IE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xA7MU-007EVC-5n; Fri, 25 Sep 2026 16:57:18 +0200
+Date: Fri, 25 Sep 2026 16:57:18 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 3/8] net: dsa: motorcomm: Identify port type
+ at runtime
+Message-ID: <bdc8063e-0141-4cf0-9070-8424e3ac7812@lunn.ch>
+References: <20260923021945.2203368-1-mmyangfl@gmail.com>
+ <20260923021945.2203368-4-mmyangfl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 3/7] firmware: arm_rmm: Configure the RMM with the
- host's page size
-Content-Language: en-GB
-To: Venkata Rao Kakani <venkata.kakani@oss.qualcomm.com>,
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, trilok.soni@oss.qualcomm.com
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-4-suzuki.poulose@arm.com>
- <20260924100313.00003be7@oss.qualcomm.com>
- <d4b768e5-c942-43cf-aea2-c266a8bab353@oss.qualcomm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <d4b768e5-c942-43cf-aea2-c266a8bab353@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923021945.2203368-4-mmyangfl@gmail.com>
 
-On 25/09/2026 14:23, Venkata Rao Kakani wrote:
-> Hi Suzuki,
+On Wed, Sep 23, 2026 at 10:19:35AM +0800, David Yang wrote:
+> The yt921x_port_is_internal/external() macros hardcoded the port layout:
+> they treat ports 8 and 9 as external on every chip and count the dummy
+> ports as internal.
 > 
-
-Hi Venkat,
-
-> Now, with this patch Host can set RMM Granule size equal to PAGE_SIZE. 
-> Does RMM send the request to root to set GPT physical granule size = 
-> PAGE_SIZE?
-
-I don't think FIRME lets you do that and it would be too complex. Please
-remember that the GPT is not just for the Non-secure/Realm world, but
-also for the Secure world.
-So, the Physical Granule size would be statically configured to 4KB on a
-platform unless it supports the 4KB granule size, to support all
-possible Sofware components.
-
-
+> Identify the actual port capabilities using chip info and track
+> configuration of external ports (although only SerDes is supported now).
+> This is a hardening and cleanup step ahead of the SerDes PCS support, no
+> behavior changes intended.
 > 
-> In a scenario where, GPT granule size (|GPCCR_EL3|) set to 64K and Host 
-> PAGE_SIZE set to 4K, how does root handle GPT granule mappings, when 
-> Host send RMI_GRANULE_DELEGATE(PAGE_SIZE)?
+> Signed-off-by: David Yang <mmyangfl@gmail.com>
 
-If GPCCR_EL3 is set to 64K, RMM must not report it supports 4K GRANULE
-size.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-nit: Please avoid top posting your comments and use plain text for
-discussions on the list.
-
-Suzuki
-
-
-
-
-> 
-> 
-> -- Venkat
-> 
-> On 24-09-2026 10:33 pm, Jonathan Cameron wrote:
->> On Thu, 24 Sep 2026 14:51:57 +0100
->> Suzuki K Poulose<suzuki.poulose@arm.com> wrote:
->>
->>> RMM v2.0 brings the ability to set the RMM's granule size. Check the
->>> feature registers and configure the RMM so that it matches the host's
->>> page size. This means that operations can be done with a granularity
->>> equal to PAGE_SIZE.
->>>
->>> Signed-off-by: Steven Price<steven.price@arm.com>
->>> Signed-off-by: Suzuki K Poulose<suzuki.poulose@arm.com>
->> Hi Suzuki,
->>
->> Some trivial stuff inline.  Assuming that is addressed.
->>
->> Reviewed-by: Jonathan Cameron<jonathan.cameron@oss.qualcomm.com>
->>
->>> ---
->>>   drivers/firmware/arm_rmm/rmi.c | 70 ++++++++++++++++++++++++++++++++++
->>>   1 file changed, 70 insertions(+)
->>>
->>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
->>> index 3baba931f92e4..c9ea964fd9081 100644
->>> --- a/drivers/firmware/arm_rmm/rmi.c
->>> +++ b/drivers/firmware/arm_rmm/rmi.c
->>> +
->>> +static int rmi_configure(void)
->>> +{
->>> +	unsigned long granule_feature;
->>> +	unsigned long granule_size;
->>> +	int ret = 0;
->> Value not used.  Fine if it is future churn reduction, but I didn't spot
->> where if so. I'm guessing left over from refactoring
->>
->>> +
->>> +	switch (PAGE_SIZE) {
->>> +	case SZ_4K:
->>> +		granule_size = RMI_GRANULE_SIZE_4KB;
->>> +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_4KB;
->>> +		break;
->>> +	case SZ_16K:
->>> +		granule_size = RMI_GRANULE_SIZE_16KB;
->>> +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_16KB;
->>> +		break;
->>> +	case SZ_64K:
->>> +		granule_size = RMI_GRANULE_SIZE_64KB;
->>> +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_64KB;
->>> +		break;
->>> +	default:
->>> +		BUILD_BUG();
->>> +	}
->>> +
->>> +	if (!(rmi_feat_reg(1) & granule_feature)) {
->>> +		pr_err("RMM does not support %luKB granules\n",
->>> +		       PAGE_SIZE >> 10);
->>> +		return -ENXIO;
->>> +	}
->>> +
->>> +	struct rmm_config *config __free(free_page) =
->>> +		(struct rmm_config *)get_zeroed_page(GFP_KERNEL);
->>> +
->>> +	if (!config) {
->>> +		pr_err("Unable to allocate memory for RMM config\n");
->>> +		return -ENOMEM;
->>> +	}
->>> +
->>> +	config->rmi_granule_size = granule_size;
->>> +
->>> +	/*
->>> +	 * For now we set the tracking_region_size to 0 which is the only option
->>> +	 * for 4KB PAGE_SIZE (1GB for 4KB PAGE_SIZE, 32MB/512MB for 16KB/64KB).
->>> +	 * TODO: Support other tracking sizes via Kconfig option for other
->>> +	 * PAGE_SIZES
->>> +	 */
->>> +	config->tracking_region_size = 0;
->>> +
->>> +	ret = rmi_rmm_config_set(virt_to_phys(config));
->>> +	if (ret) {
->>> +		pr_err("RMM config set failed (%d)\n", ret);
->>> +		ret = -EINVAL;
->> 		return -EINVAL;
->>
->>> +	}
->>> +
->>> +	return ret;
->> 	return 0;
->>
->> So obvious this is the good path without anyone having to think about it!
->>
->> I did quick check on whether this was to reduce churn due to later changes
->> but couldn't immediately spot anything
->>
->>
->>> +}
-
+    Andrew
