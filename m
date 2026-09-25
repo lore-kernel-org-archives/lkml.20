@@ -1,78 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E153445AC4
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25C8477998;
+	Fri, 25 Sep 2026 08:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790325673; cv=none; b=iY6G/S1gVX3fm3VHLtyie5tT2KyZqpCjoWPzpJy9mPevUISRZOWYeGCunOnhTyYpVInILXkUyt9L3/XzzvZH32n6CC5EGt/WIyKO4M0gpce7ENP9sj7WdhK7YpjXgbKrXkXbJwQL5Wr/gnvU6PDcZGGPvaLzvXTYCy81ggl6VyI=
+	t=1790325736; cv=none; b=UpV4eRRZpiFI8TsBUX3yQ9kf9tMQfJcOjqVqS9f66wcg1phetdKdcK4MCHaQ3mWb0Fi6tUAh8SwEHc8XeqWuOC0Kj9fxay5dYxgyCyn8QKi3BYrcwuW+LVBiHwhzm/egP2K9W7tN4O4JjC3z1uPtCmAwmUXTulJnL2jmOLPakXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790325673; c=relaxed/simple;
-	bh=y9XteAkCyP+v0FYz44SQwqSifvuiXc3WM9WstF3aM5U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jj4hjyX9WWYCVeuc4kxV1WZVOtK/3ndH15vaUnFIgiCMXp5UuMd2N3mwI/T/RUvGsT5AUdIm+kumthAjIafWEXJAydOFKDBuyFv6Ki5Ym4b52vRza2Fq8UeL/l5h/aP711imyjBu+zwAjxqiJ2+g4foquVw4+Y5g/Dr9+D4lvtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IuovNcyL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790325736; c=relaxed/simple;
+	bh=vRvOW5NrkIUrw9dWfkyAdujFBwy7oebVmERVFMWai8Y=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RPam7IialPCyLMdhDoY7C9yew1jnJXXuvpfVL6jx6q5vgoLyOpaLoL3lp4tvqZFZ+scbb2p0qFDptM+OVzz1qp+Ra67sJgCVSDou9AcfUVDZQUcQ8/SWxvTSJWBe9nc+EAOx7Nd7+50ekZ5nf+uAIZgJOZmOXTfylqNcsYHitR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jzhL2YVu; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IuovNcyL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57041F00893
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790325671;
-	bh=TBQwqB2tvKCGdJ3ul4N5dIovuA+f4EhpXvTWX1hdc6A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IuovNcyLixXSMbgQQQn4wor3DqLr3t5QoDKb9+RbTHElGuRy0VOuwu7a+0iD0M404
-	 PuCy+I3C/RRpAbA5a1IFuMrjcWvmqORWfIlOEJaFcsjtSCKQF8NYhwTou4RJHc/mJk
-	 SDLTh5ahW+J6nMcLYviwpBx1w46Z0r3j0y6pJnZhByaNrn/Ckv+3wE6UREV/1mAIJt
-	 9LCD7t9ldqjDD4Q0ootv1GY4Zfy1Yd3ujDtSsR6cbS3VChFk7+xMhg+XtCwxblA1cE
-	 SKa8wBFl3JaUrmjHBy97kUlX30XTbOqd7ektenWhBA2NF6eNf3E6OmIdp8IwfW/xV2
-	 +pN27q6IsR31A==
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ef15c1so77496266b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:41:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxSGdIE9z6Rq1iPlkXcylxRxM1gbkiR6b0oh6SyKhIUbuCAqFjRPAEPAP/dZWwrOP9K/Lt1WOfhbfXNY70=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWKve8RMh/zWLIblu9MxuU5F0f/0GmdflFBwjzgngZCI9J2lKJ
-	fLlPmW2/3v7bgOJ143LUhrWKIwEPvyznZH7N4BUGsKAu40OP/qeAt8tkh+znc62V8XaYB3eWCDb
-	0dV36zpHmaSMFq/vI62NxseYTSdb+B0U=
-X-Received: by 2002:a17:906:9c82:b0:c29:49fd:c98 with SMTP id
- a640c23a62f3a-c2ac24c4c6dmr434654866b.32.1790325670498; Fri, 25 Sep 2026
- 01:41:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jzhL2YVu"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hrkhq5Kd5zMlN2;
+	Fri, 25 Sep 2026 10:42:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790325723; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vRvOW5NrkIUrw9dWfkyAdujFBwy7oebVmERVFMWai8Y=;
+	b=jzhL2YVuv3ff2aE5LMGqBShNaDSCXIjidBG3CC124ceWlQZjbfOxQpIScjA50TNl3dqdVY
+	0b3Axa6oJwQ3KRSpeBzN30pqPEqMDvJDbainpz/6fUDS/FKz3Ouf+NslWP5vacyPJ1e3rB
+	pUvYgomNYXd2DXp0CJ26SVHPk269eSCAtOhqfBb8PH7E8Q3opP2NgWjtQhCc1Z+K+koXYX
+	xgJ9JmRX8HkpXTxQZwwlpvx1EW4L9Kvenop9L1AVDDN7NrBrgSmlYZiHjkLj6hV9bgk4D5
+	M0gi/cvf2jxsSlZB14XuCGpWMO2PiYgrgTJ5BzEzkijkhxdpFf698Ql2jUs8eg==
+Message-ID: <7b8942e29f6c714979415a59b42af450afa101e4.camel@mailbox.org>
+Subject: Re: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 10:42:01 +0200
+In-Reply-To: <c7d9c659-d903-456f-87f2-d75aafb8de3b@amd.com>
+References: <20260923150308.1294592-2-phasta@kernel.org>
+	 <3983b2de-b6ee-4674-be22-9ecb2525a055@amd.com>
+	 <469d5deb2ef644b5d77d21bc2d700443f00c0b4d.camel@mailbox.org>
+	 <c400f12a-04db-45eb-853b-629f19e3060e@amd.com>
+	 <a4655e4ab7a2477b75351a0e83b98e0cb0396fdb.camel@mailbox.org>
+	 <c7d9c659-d903-456f-87f2-d75aafb8de3b@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924014207.1678305-1-wangxuewen@kylinos.cn>
-In-Reply-To: <20260924014207.1678305-1-wangxuewen@kylinos.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 25 Sep 2026 17:40:56 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8HNjkz68hk__RmZ8geWt4eCWXbETCHcRAAFz7t_qUDTA@mail.gmail.com>
-X-Gm-Features: AclHuK_g2TYqXeJoYpryfeiypDlcSa2suqJy_86YFTUgbbmD3dvnTxeYCKUybDU
-Message-ID: <CAKYAXd8HNjkz68hk__RmZ8geWt4eCWXbETCHcRAAFz7t_qUDTA@mail.gmail.com>
-Subject: Re: [PATCH v1 0/4] ntfs: fix MFT bitmap extension allocation
-To: Xuewen Wang <wangxuewen@kylinos.cn>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MBO-RS-ID: 7c07fbf7874eee8c257
+X-MBO-RS-META: ysrckashgmocyszoea99kqe6zsniwgxt
 
-On Thu, Sep 24, 2026 at 10:42=E2=80=AFAM Xuewen Wang <wangxuewen@kylinos.cn=
-> wrote:
->
-> This series fixes four bugs in the MFT bitmap extension path:
->
->   - The adjacent-cluster candidate can be outside the volume. Check it
->     before accessing $Bitmap and fall back to the regular allocator.
->   - The allocator can return an adjacent cluster that merges with the
->     existing run. Preserve that run when rolling back a failed extension.
->   - Rollback can wait for the initial $Bitmap scan while holding a folio
->     the scanner needs. Wait for the scan before starting the allocation.
->   - Direct allocation changes $Bitmap without updating the cached free
->     counts. Update both counts and honor per-page accounting and space
->     reserved for delayed allocation.
->
-> Xuewen Wang (4):
->   ntfs: bound the adjacent cluster in MFT bitmap extension
->   ntfs: fix rollback after MFT bitmap run coalescing
->   ntfs: wait for the bitmap scan before MFT bitmap extension
->   ntfs: account for direct MFT bitmap cluster allocation
-Applied them to #ntfs-next.
-Thanks!
+On Fri, 2026-09-25 at 10:21 +0200, Christian K=C3=B6nig wrote:
+> Some problems like the locking design are still WIP, but we are
+> slowly moving towards that.
+
+The question will be whether we can reach common ground with that one.
+
+>=20
+> But some problems like parts of the dma_fence uAPI are unfixable
+> without time travel.
+
+I would be especially interested in learning about who the party is
+that apparently is spinning on dma_fence_is_signaled(), supposedly
+preventing us from getting the memory ordering right.
+
+Also learning more about the users that definitely *need* ops-
+>signaled() and ops->enable_signaling() would be interesting. drm_sched
+users cannot make use of these, since the sched-fence does not pass the
+request through to the hardware fence.
+
+So who are the users? Parties like Nouveau implement these callbacks,
+but it's not clear whether they actually need them.
+
+(btw, funnily enough, with the Rust-fence design we finally have the
+ability to fully support all callbacks with or without a scheduler,
+since the need for an intermediate fence disappeared)
+
+
+P.
