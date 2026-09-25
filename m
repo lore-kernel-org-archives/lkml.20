@@ -1,115 +1,127 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F294D47206A
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:26:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4574FC8CF
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:27:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790375211; cv=none; b=ItZwO/gYTs1IBXyOKoyocU0qO3mHEyz7bj6lDxugGrvSLzEGkt3HIH332FE77hqg6xtEzEH4XDMCiT1uVr/9k+txrdOU7+M/xY4pB0wTrAvo7iFOk6WNOCI+dU/55whKHHTsi5V4tiFd3t+dKDEqp/EuCDV7UxEohkogJ1JFnsA=
+	t=1790375263; cv=none; b=a60lkoxKBcK7oN/aZPuD5+8J056LeqSNyxY7Emo0RHd6EK6wkub7Pn6Ng1DsotPJa0ZbcK0faQC22wIUxg1XgYYOZ1nuZivoQj8QmeNdPZ5scUMqiZrLHnWBqQYimdCnYscjfTf0d0TW0ymylqThZlpc6n8xaLfIhL3exF9s0Qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790375211; c=relaxed/simple;
-	bh=pbG/AYM9kJMiCDDL1oq4EHAKeqkUEcL5mAGVpm4Ljf0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FfP4k9FhP4EpGTb0O4I2fZF5L7Q39Sa4BAZFWUX4b2c06ITeLKpNbt4r5Lmqtp+M19VW3Lk3SUxaXcIgPffqQ9/4pVvCsNTE0lf53fLx0nI0nljqNcJpNOJiA/booNBcXld06dcN08elVYOcMhGJbSOrtO4MlQq4yGmkAE/WKuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=monogon.tech; spf=pass smtp.mailfrom=monogon.tech; dkim=pass (2048-bit key) header.d=monogon-tech.20251104.gappssmtp.com header.i=@monogon-tech.20251104.gappssmtp.com header.b=epU7J9D7; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=monogon.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=monogon.tech
+	s=arc-20240116; t=1790375263; c=relaxed/simple;
+	bh=eqrGq9U7VRoYaZqERBwu6fkmIt7Dpd2MB+CWCce54G0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uq3qp1vOBMAtEAma58sgPrFue8ZtRK4Rxj46Emvp4y+yER3Zk8VikRQY9z9SoeR4D0w1fDqXPYQ2pvl9aolEWZMwLasoZWTrJwIpAPlFgAdAnrXG3QOET33oR0m3S+imitefQ4vQm7jQhJPtvPLyxpQZDtq3w1tDLReLin1fP2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IB5Vk0Kw; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=monogon-tech.20251104.gappssmtp.com header.i=@monogon-tech.20251104.gappssmtp.com header.b="epU7J9D7"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so8190935e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:26:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IB5Vk0Kw"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so11745ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:27:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=monogon-tech.20251104.gappssmtp.com; s=20251104; t=1790375208; x=1790980008; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xVJh1LUOI1qqCZmZziafmPKKwrteIiiL63WKB73QvIk=;
-        b=epU7J9D70dit7j1M5kkTIruzf4Isv1PkkPYxxgN4tDDXJLwnTGOKm1C/ID+kz1H7EF
-         J/iJPV6cb32QfHQe9hpAvBGzdeqz6GiVnvQ5pgn+DHbE2zX1Oo+CA3NeMMwpj7Dg1q10
-         Sg+6tNODoT3qLjRzP2YYFVuCJJJMlpSzx8yN5DS4jn3GrfnXHUW51EqrYBOLtTTsYAy5
-         3lBHEIfKAViGn5+85sMlB/ZA9kIPPrzcZslTPkW40dIMAWPCeQSi0yr9f7+V1YM8ujJn
-         mOJg8I0M0NXmHfh0yiGxpDPjOcrhPTFFOq+3CqeIGDZrIbGdpH8V1971YU672lVEGFtk
-         rHbQ==
+        d=google.com; s=20251104; t=1790375261; x=1790980061; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eqrGq9U7VRoYaZqERBwu6fkmIt7Dpd2MB+CWCce54G0=;
+        b=IB5Vk0KwbbRHOExzuHjuS6kMNpxRhp4VxQHF7VTzFm0WhxZGWi36nVvFV9fz6Uz9mI
+         dHZJx79DEkM0jI8s49fDSS5Kjo1OKIip13b6w4NxvCTAhlmXgh+mBnEi52ZR98yudHi+
+         ckS8hwGPwSi3ASbtQZWpYp9Wdau4fBE0Ep31z85hakkejYttaxL+UQElkF5bCZSy4yNK
+         x3QdapehFXRf4nx9MC0uba3OqN6DussrnzDhoOWa50jUG0f9dCoyeTRtWkvLQkf+4Z6N
+         /maNGWDvMSp+uKYa0DwlqqiIyH+2tme3Qz5v5qb5vAiRVg8Fvog0z4ZHKDWMegju7rRG
+         kwFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790375208; x=1790980008;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xVJh1LUOI1qqCZmZziafmPKKwrteIiiL63WKB73QvIk=;
-        b=JHr4yCR89siwXX61CnG8ct7RF4zKZgu5A/h5NTLE7EsVmj9nTq+KUWl6qyL3ik7U4i
-         5WvPjZ66v0NpMBwEYmzEF9ZOigFV3XubuNdoQJF7v5PZQPzssTt7QV/hXQnjCrhj1tOP
-         Ah7fnEO9NmKPKpI8WW1J8T+rnCaVLf75kwroD+uQuDugIs945iEQmaDytqKMqFmazy32
-         QULpkKL2G8v7NMzvNHq13CmwAInJFROtdkQwiCshpBMHMT17Qs5B35Y8IlQaVk4w+2Fl
-         wNO3I9zIo/MIb61zTFN0clSH84iLysdvWL6MSax1msXGWxHoUPpH5ZsdZ4Krl1qeyrOg
-         oeAA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1L1ggw7Oqgl1lH4W0dnipeesz8faKnxTm8kzYTjRddpn3bEd/7ISFAJlL7646BuwDeQjkMShBt2t8sZU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvgSyNMTt97VcccZFDDN+//vOLxOxurHcHdTKkgMgDVcgB3+yL
-	aJAffI3NlriHbSpZt3W1neZSok/2RUXKA9oDEumCNSZWgJLDTIamYrOZmI3gqIcM4BI=
-X-Gm-Gg: AYBFou3WpD0yX/m1BmAMrj7Lmt6qxw5xaQRCxV+ZeQx3ndZEsr38VWKjfS3hEbGiCHo
-	pF2E1W8H9IZB3KsIYn/e4O+ms6UvVTiS+FycYrhTdZ1fBf7DCsgX6lLKBqBUV3ax+HvJU8wt8p8
-	8wOR6DruAHAvfwOn6euWsKoNXNs5JNlzvATSZ85phhq0jVfTl0KU3uzELROqRwqWgAShs6Hc4N4
-	Xl72qjmN+UIJ8I7eFM8OsCQk9vt75XXhUb65fsoFAUHo2zkvnSAdl6sn/X39psroM+x4bMxPDb/
-	7wGZFZbS3w+boArTAEdy4WDys1lbKzyZJDnNkPyggbJUjSzb3Fg4zO6YsJT200nujyN/aoYV6uK
-	ik4zM8FGZJufc0x7Yc46wB/uAhxaM+xfmt2YeAHVfFOsX9o2kv0sWn8uHw6kPy3VvYSwxtLpalA
-	rLH7DFhTK9OhBegfWD8U39Aq2kBqDoiDiB1tbTja8kZ2l1p3mz2je1KqowNeUPHjehMB2imCy4P
-	Qm46prFug==
-X-Received: by 2002:a05:600c:468d:b0:49f:f9d1:e618 with SMTP id 5b1f17b1804b1-49ff9d1e6b1mr6117185e9.17.1790375208314;
-        Fri, 25 Sep 2026 15:26:48 -0700 (PDT)
-Received: from localhost ([2a02:21b4:a206:6d0c:a5d9:765b:ca48:8993])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fe5cd4271sm260036395e9.5.2026.09.25.15.26.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 15:26:46 -0700 (PDT)
-From: Lorenz Brun <lorenz@monogon.tech>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ice: fix pktgen crash in eswitch mode
-Date: Sat, 26 Sep 2026 00:26:44 +0200
-Message-ID: <20260925222645.354053-1-lorenz@monogon.tech>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1790375261; x=1790980061;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eqrGq9U7VRoYaZqERBwu6fkmIt7Dpd2MB+CWCce54G0=;
+        b=J3DKH8zyoXRFT8OB9+/L11Nir0FIot2GeB3BJIGpWWEPat7DRF+cxhwNROAQ6pwEh5
+         qIc5bVZ9JSJ1Zlupa46jMMMf6aqQDVWwywI0NHYGpKV5cMqbecgYBQK63okqH3M/b/em
+         6BQcxBDTciIahqVap2D33S8uN2dT0gV5Dz8YBqvwRfws80L4Mh+vCoPZDsPBR6POGzRE
+         zlGj/jZCnJA3qUtRE2pC0UwdB+nSyN5dyZjde8L1rO7vUYsQJL6tDnslcQsU9XWi7KlD
+         SAndimyW8fV4oJ+jFqBIrWdaMnKFZ7D+Ck2YxIzRf+WGCZJN0tzO8TIsOnKrmu5+T7Tr
+         tXHw==
+X-Forwarded-Encrypted: i=1; AKwUvBznvgkD3zIUDLXgAKK/CgHILwkt+24cvpgqQt/vw4NmdJmhQmDdevqbDv7sTnFd2XO6ET06cj2xo6kPJ1s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRlHsuJTGGwJLBSdQUrZTToPCfwQIb0+NvB38EuHELQdHuSDfm
+	t1M4dfc4F+aA/SUcuWBSs8J1ZIoGLF4oNWyreSVDskf9OC1KH3pqntV43gNjTLqoDA==
+X-Gm-Gg: AYBFou1S/ApAC4bZIyB4PXOn82CjnBaIXwopMa9sXSXPTVvYW47wMtWkwQc7OGewUB2
+	LAFu0J6DkHYwvDuY0rip0k+Hix2SKmvZTKy6JmPSWlseH0Unkuf8nHfr1RaaroUa1oIrUmzl/Qu
+	jUdbfzK2AhGWoTDUwIsPu7jABcnDEHB1bU0Yx9ujj2UIbABFi6IKRyBqo+yrxVt8TfZrbmmYlH5
+	wCnqMhSpifQFH62ujzMkXqTgB1yvjpdG2TOYOGfXcg8x6g5becco/l+N/DdLj82TXtmz3TNL5xh
+	uZy4b3EjYFdM3/lyexhBOjhRtB2fVFI0Hja/MNnLY6iMtL5ekMJkW8juO2mrd9mWTze6Fy5Atqi
+	N8rmA+qQG4/4lQETat40keBXX0XZ/aYWtaVKXR0nDkSxLnto8HLydwC/6I8u860TPt4AidcClcj
+	qPv7zSER5h1PVA0x+IUnp/p0kpcmor6FYdMzj6GpIaMBeW0WtReYqCIzu6EXyC/SqzC7lEh6UPa
+	mS4EklUpJ/aR1tjCF4xheueeCgGNi24y2n3kMaSqVSt68JX7jmXWPIpDWptYPdePpm6mA==
+X-Received: by 2002:a17:903:46c6:b0:2c9:d89f:fd98 with SMTP id d9443c01a7336-2dfa968787fmr828795ad.1.1790375260342;
+        Fri, 25 Sep 2026 15:27:40 -0700 (PDT)
+Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0bda430b3sm5720254a91.0.2026.09.25.15.27.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 15:27:39 -0700 (PDT)
+Date: Fri, 25 Sep 2026 22:27:35 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: David Matlack <dmatlack@google.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Robin Murphy <robin.murphy@arm.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Lu Baolu <baolu.lu@linux.intel.com>, 
+	Pranjal Shrivastava <praan@google.com>
+Subject: Re: [RFC PATCH 0/3] iommu/arm-smmu-v3: Add support for hitless
+ replace of CD entries
+Message-ID: <arb0EZ7mPWUfhy9K@google.com>
+References: <20260925011308.3381953-1-skhawaja@google.com>
+ <arbrJYsILS1IPpCK@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <arbrJYsILS1IPpCK@google.com>
 
-When pktgen reuses an skb on an ICE port representor, the representor
-forwards it to the uplink through dev_queue_xmit(). If the lower qdisc
-retains the skb, a subsequent transmission of the same skb overwrites
-its list pointers. Dequeuing it from qdisc->gso_skb then dereferences a
-NULL skb->next in __skb_unlink().
+On Fri, Sep 25, 2026 at 09:44:05PM +0000, David Matlack wrote:
+>On 2026-09-25 01:13 AM, Samiullah Khawaja wrote:
+>> This patch series adds support for replacing IOMMU domains with S1 page
+>> tables hitlessly, that is without disrupting the ongoing DMAs. This is
+>> one of the dependencies of the Liveupdate IOMMU support for Arm SMMUv3.
+>>
+>> S1 domains are programmed by CD entries in the CD table. During a new
+>> domain attach these are updated using arm_smmu_write_cd_entry(). Since
+>> ASID and TTB0 are in different 64-bit words, arm_smmu_write_cd_entry()
+>> considers it a non-hitless update and sets V=0. This means such an
+>> update is disruptive and would generate translation faults if there are
+>> ongoing DMAs.
+>>
+>> Replace the CD entries by using an unused temporary ASID in the
+>> following sequence to allow hitless replacement of CD entry,
+>>
+>> - Update the CD entry with temporary ASID.
+>> - Update the CD entry with the target TTB0.
+>> - Invalidate the temporary ASID.
+>> - Update the CD entry with target ASID.
+>> - Invalidate and release the temporary ASID.
+>>
+>> The series adds a vfio selftest that triggers a continuous DMA and does
+>> the hwpt replace while the DMA is ongoing. Since domain replacement is a
+>> race with the translation requests, the test does it multiple times to
+>> capture the small window where IOMMU faults can occur.
+>>
+>> Without this change we can observe the SMMU faults in the kernel logs
+>> and with it the SMMU faults do not occur.
+>>
+>> This is only tested on qemu with the emulated SMMUv3 and an out of tree
+>> NVMe vfio selftest driver, not on real hardware. Following are not
+>> covered and can be done later,
+>
+>Out of curiousity, does the in-tree VFIO selftests driver for IGB not
+>work for this testing scenario?
 
-Disable SKB reuse for this ice path to prevent this.
+I tried with the IGB driver first, but I couldn't get the DMAs to work.
+Its probably my setup, will recheck.
 
-Crash signature:
-   __dev_queue_xmit+0x5c9/0xf20
-   ice_eswitch_port_start_xmit+0x83/0xd0 [ice]
-   pktgen_thread_worker+0x82f/0x1c10 [pktgen]
-
-Signed-off-by: Lorenz Brun <lorenz@monogon.tech>
----
- drivers/net/ethernet/intel/ice/ice_repr.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/ethernet/intel/ice/ice_repr.c b/drivers/net/ethernet/intel/ice/ice_repr.c
-index 096566c697f4..2603cb0f6a54 100644
---- a/drivers/net/ethernet/intel/ice/ice_repr.c
-+++ b/drivers/net/ethernet/intel/ice/ice_repr.c
-@@ -305,6 +305,7 @@ ice_repr_reg_netdev(struct net_device *netdev, const struct net_device_ops *ops)
- 	eth_hw_addr_random(netdev);
- 	netdev->netdev_ops = ops;
- 	ice_set_ethtool_repr_ops(netdev);
-+	netdev->priv_flags &= ~IFF_TX_SKB_SHARING;
- 
- 	netdev->hw_features |= NETIF_F_HW_TC;
- 
--- 
-2.54.0
-
+Sami
