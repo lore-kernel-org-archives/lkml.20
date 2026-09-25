@@ -1,112 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1D84DAF84
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:25:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5432549B21F;
+	Fri, 25 Sep 2026 16:27:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790353554; cv=none; b=QTPBXzr1kdGF/jiOqiNvTcE2AxD4gOVZcXuBbO6EjzjQNHjz/59aiZ1Q7wwA7K6y051WJotPX55SIhVI7bm9nKG9YqC7HlbTh9wERKmtoqnZGlbA4p8qRPs7sgPYuAMQ+MUd3j1o0geQzj0gptTcRhRbC7up8O40/Eh/iKv8XZY=
+	t=1790353626; cv=none; b=uCa1zSfE+Rd08wWK6X41jpxVVg1FhviXmK5ObMqnzkvt4DnfnI4Sg/P0RToOo9wiAYnOUAPpHghJQsJyvAngiDr7iEiKSgeacU/nyX8PXiA3WjPlHnrzwjP6qOBWL1gQ7ElxMlzM47Iw6or4ZPbOmy4Z9ovii0/LDPYzx78xUuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790353554; c=relaxed/simple;
-	bh=6fYDLPuw7TdEq9beCl8lZHCEAKip/STw7RgtlWkrkg8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bWBUSf+RynqF/li/F5GcpFQ/7pagPQU/B7+WUyAm8Vd8OVW43UJUqirUwTQ35/nWOO4dwExNLI0xCYJSRx18oB13dWjhDqScQIQ0QtpKChpm+M3zxASY/3Wecx2sQpgOD/V9GUjN/JTj/m0kgtWfO3QohYlSv71XRgQDYtYAy/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SkZTyo4x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790353626; c=relaxed/simple;
+	bh=hjUWQ6xwumS2LVP6fAvgstFoEviYCEn5V/c4NaPulWE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lDMuuyvhrHw/RDKsCU178ScIyNWQ5LjmuL6pTfbYfh9WQDqe2FuBkVSwq76Uopgg+2l11pcy6RJ0igroH8R8jt8nyTRZbU83spG4GrEB+8xlSLmWW7GiTstJcNoyWW2LhSV5bNZ+Tdpq3+WAxZg2XS/ZXH20iCwRcwjMqO+dSU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UPWXbDQs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SkZTyo4x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5C41F0089C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:25:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UPWXbDQs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71F481F000FF;
+	Fri, 25 Sep 2026 16:27:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790353552;
-	bh=6fYDLPuw7TdEq9beCl8lZHCEAKip/STw7RgtlWkrkg8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=SkZTyo4xxfFfIHkKIcVzKt/r6NVyGCRHYPlxBuj/CfdOc5/UiPnHhsNeysafJ83uT
-	 PrsApt20TbtzJyRpj/ArQV+ysPRtw70TjqJbVdGUsvZcqDtlWD9Kq6uCr9e2hR5TcQ
-	 WqHkFq31PmtukKbdE6y/W8GS9/XSR4o73yuajz9jGmCx6GdhINz2kzewMKYZle40Rz
-	 Jc4eglh/tm38aa+rDhaE+rYk23PpYcf8o3TBVaTamJ/idDzDGvcrFiD2suq/GxYFWK
-	 zgFkLbpLOozrM5LhUI306UQ1mmZ30ZjqiBsz8Sk4d6Pq2YHLUgL3h7x5LiWU8/PFE8
-	 PJ7V94nNq5nFA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8e6ec4d9bso757115e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:25:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx0aGdlvfV6y+ChQ0GlxkCJsIi4yfLRjo33OWhnla0jDABcvpkYJH4DTdFCCrbvIQoBW+C0omMY7FAjkEE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMTV4QFeW1QUUQGmCz9lmze5ReQYDh+5EVAco3EkIsCrYpKisH
-	kNcQkzhbJORcPfQwS+m/U9KwHhPG+Q/6ZkYS7RZRjs3+NmmtuQxsoMqOGpyQzh9aaZ6+HHjKyDu
-	P5TRnn1MK1849DWEgPgF33yBjoV5DiM4=
-X-Received: by 2002:a05:6512:1344:b0:5b6:1a7c:59db with SMTP id
- 2adb3069b0e04-5b8df0d22f7mr2083445e87.53.1790353550897; Fri, 25 Sep 2026
- 09:25:50 -0700 (PDT)
+	s=k20260515; t=1790353625;
+	bh=swrCMgFetqWTONiUrY+1EojwgYniOZ0M9dGmPKPM9NM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UPWXbDQsxqC0F+ApgRoKs0al+UjteDCN7I7MS2W2b1LjkZulcOsGdG1AFMgaacdwN
+	 5qPXepho/V+3Pnfl1w+MhXJtTBPQD7L0RNkFJy2n7cEyXpS+8Vk59ubje9uoS7L3QO
+	 pTE2p7LjXvwBqy3a0+rPzR1WyNpNB0Ct2zKpeGW77uP6pRqydPcpekyA5M8Gx3Xx6W
+	 kzhm2QmTCqZyHWIQEbDUIO1QPv6fOHBJLkv5PjuI3IDJ4qVHsVVwR3J4XCBQXVtl2K
+	 mrDtoXBql+boclYS4sNfnWtTMSNd3K/4oMA1lH3N6s2xgVK4vL0CyePZEgFX2RxGxJ
+	 DpKfXscnV9FFQ==
+Date: Fri, 25 Sep 2026 17:27:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Aaron Kling <webgeek1234@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Weidong Wang <wangweidong.a@awinic.com>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Val Packett <val@packett.cool>
+Subject: Re: [PATCH 4/6] ASoC: codecs: aw88166: remove fade in/out on
+ start/stop
+Message-ID: <127bf2a0-989e-48e6-bbe9-88a87ca66d1a@sirena.org.uk>
+References: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
+ <20260925-aw88166-cleanup-v1-4-11f74cb5fe28@gmail.com>
+ <3863fc1b-dd0b-4841-99bd-f2b34b2a97f0@sirena.org.uk>
+ <CALHNRZ97Uije_nbzZp7kba88di=dXrRr6_1S62SXMyUBgP0gcQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
- <20260916-drm-bridge-every-panel-v3-12-83afb4f1a707@bootlin.com>
- <arInho2bsfJiCgjV@houat> <DLNCQEG62F5N.O98WAO4U2FJO@bootlin.com>
- <CAD++jLkk-a0MrQUiaDD8OoDDoYVwBwSjFTj5ZBy=Xo7MS4+01g@mail.gmail.com> <arTlpd-KAsVpj3UH@houat>
-In-Reply-To: <arTlpd-KAsVpj3UH@houat>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 25 Sep 2026 18:25:35 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmktDoqn2EbXsNnyGRudo-q2NCxUf+9ZjeU+WrY4CBMWw@mail.gmail.com>
-X-Gm-Features: AclHuK_fq2ZWJ1A-qMmc6hpV7kHeTfdnkXq9HUzMYWRHIkAmDRIf8rPpfyjUW1o
-Message-ID: <CAD++jLmktDoqn2EbXsNnyGRudo-q2NCxUf+9ZjeU+WrY4CBMWw@mail.gmail.com>
-Subject: Re: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
-	Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
-	Paul Kocialkowski <paulk@sys-base.io>, Inki Dae <inki.dae@samsung.com>, 
-	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Sean Paul <sean@poorly.run>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Albert Esteve <aesteve@redhat.com>, 
-	Anusha Srivatsa <asrivats@redhat.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
-	asahi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
-	freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xkata4SOAgk1B97i"
+Content-Disposition: inline
+In-Reply-To: <CALHNRZ97Uije_nbzZp7kba88di=dXrRr6_1S62SXMyUBgP0gcQ@mail.gmail.com>
+X-Cookie: Love America -- or give it back.
+
+
+--xkata4SOAgk1B97i
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 24, 2026 at 10:57=E2=80=AFAM Maxime Ripard <mripard@kernel.org>=
- wrote:
-> On Thu, Sep 24, 2026 at 09:51:53AM +0200, Linus Walleij wrote:
+On Fri, Sep 25, 2026 at 10:59:24AM -0500, Aaron Kling wrote:
+> On Fri, Sep 25, 2026 at 9:11=E2=80=AFAM Mark Brown <broonie@kernel.org> w=
+rote:
 
-> > > Linus, unless you have more info I'm going to apply the patch as
-> > > is. Removing this special case would be welcome as a later patch.
-> >
-> > I'd say go ahead as-is.
->
-> I'm fine with that, but I really want this removed at some point.
+> > Are you sure?  Some devices have really bad pop/click performance and
+> > need ramps to mask the effects, we've got other drivers with soft ramps
+> > in them.
 
-If Luca wanna fix this up (drop this path) that's fine by me,
-else send a patch immediately after this is applied and I'll
-ACK it.
+> Ditto replies on the other changes. This was accepted for aw88261, is
+> there anything specific to this driver that doesn't apply there? I
+> have not experienced any such noise on the AYN and Retroid Pocket
+> devices that use this amp since making these changes.
 
-> > I do have the idea to code up and submit the AV8100 encoder
-> > and I have the hardware to test it, but every other user should
-> > be using panels directly, and I would be the only non-panel
-> > user so I can deal with it when it comes up.
->
-> It won't change a thing. All existing "panel" users will be bridge users
-> after this patch is merged. So whether you want to enable a bridge or
-> not shouldn't matter, the only thing that does is whether the existing
-> users would still work.
+Perhaps as Cezary sugested the changelogs on the aw88261 were better and
+didn't set off alarm bells in the same way.  I don't know anything in
+particular about either of these devices, the drivers aren't the best
+but sometimes hardware is also bad. =20
 
-I know, all it does is create a snag that I would run into myself.
+--xkata4SOAgk1B97i
+Content-Type: application/pgp-signature; name="signature.asc"
 
-But it's not gonna be a problem for anyone else, that's all I meant.
+-----BEGIN PGP SIGNATURE-----
 
-Yours,
-Linus Walleij
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2oNMACgkQJNaLcl1U
+h9Cf2wf9ExTC/MVPpk7t7KoEqqZpuAh2DR+nYWYx3b2Y05ddy7JZTCIwqRAMHQY7
+a33HupRI6GV9vVFZTEG+UAmZSCEsIjJ4rA70IBQIoJ0YSCkQ6++JKnZZ8+AkU20i
+tfWXwqH0JSyZg4Hh8rk9x/4RszXm+kgTL8CjfZbSSPJRjXF4l8i9LLXxzykPcZfo
+3yrkGC1zkjsMhIxCT33ubn0iLi6VRglhU9OmyFHOmnyqQDTPzthzU5sa1koLZtqt
+hk1OkYUe0FOe40iqiMaKrklSRc/XXX9T0i2ZsiBzJm0EFWEZmNQhbNNEXyB63hZP
+XkQZPtko7Tj4zbfwFP4JGBBwVBDf7Q==
+=R0nH
+-----END PGP SIGNATURE-----
+
+--xkata4SOAgk1B97i--
