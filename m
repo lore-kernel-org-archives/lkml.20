@@ -1,194 +1,118 @@
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6184EA371;
-	Fri, 25 Sep 2026 20:00:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC8630EF6C;
+	Fri, 25 Sep 2026 20:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790366406; cv=none; b=nouqvPTnxDFikdlyRFRZILk9EWNjLmIGlU19QdMOrQFOYRxpuZ0qFkRZB/Egqg9uv31s0rdLWZ2wdk7vHmglOsMzydEqsZXBjpGjRKTurdQxE4PNpJaS65BlCzEU0lgI0MzpBUt2kG8QrwQ/44NGxjUjd/KgxaKmhPEMh51XNGw=
+	t=1790366433; cv=none; b=UpBKe9+a6D1g3QVfyMuLL7lfoSFcj139HKyKlud73195zmCZijRvQYdbTel/Rm1FvGuQumL+yfs4Z4PH9ZdLnJaby3DEYnR67F0BToWnUXZdpmoLd7SCNy61IP0XBMsc21KvsAJiB03lgZdq7BcRmSlcDr/ImPclCV6GRrUVJzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790366406; c=relaxed/simple;
-	bh=hA0P3QXG4vIUQALa5dP18gAvwez1VjTIFyHeDe3I9TA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l3Z4fRd+C00nyHoekEhIJLrDAFODM7smDgT6oG/7uv5dBmc4kAQnfbyD9+EikezcngN+7tDTA7L1PG9UvRO9pfhFu7XBCqcTUIQKhPdybgP9qk1fbqjdM7RphHRfYyBYrI16nUYhWJ1qSpWx657hZ0hfKt9r2RZwHxMnd4cAhzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=dovgLtC4; arc=none smtp.client-ip=158.69.130.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	s=arc-20240116; t=1790366433; c=relaxed/simple;
+	bh=TZ/jYkQEQkYrb4voHmctluCqEH+VoM9eratR6lsHly8=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=HwSI6ucQL0jdYQo5SjLtL7gFmTxjYMm7ynOX6i1ykqIkJR9onkejjvyyHCnaHljhC6fZ+eBjihF5LGTQrbiwPUciqgEln1zMSI523Ps1VhKwOI9LWMVWw3ElhL4LZZMsQiDkMElB5UihYZ2QrLnXGtYKxDazc3UzxoTxxVhTnyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0R04JBl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="dovgLtC4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1790366403;
-	bh=oBXpuKfAKM6qngbSZJkmYnuEFIrisykwM4g9m2Jhhyo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=dovgLtC4xFy7ddBMs/fImF5IIGksQLGvcQ/WtoQK5HY6nTCiDWXkgDDcMAYPr6Mk2
-	 OZo4bYYnZf37thh/R//lmO7dQUnbw+F18EcYAYN3T5enb9RJeVLTSvQIy1uEYjv/ER
-	 jBKffT9NvP0/MSG0quLoqHyHGivxhbkzxL6zilQ3+hNURv4lB7BQbtpBhlCtvj4zS/
-	 oQVwdGayyQmqJLP6LonuI551mfe5qnVkscwOCzLxTNmtJ5HXeM2wgC+47XzE69MJnv
-	 Ch+VXXLoAEhsWIF/lQdkh53ukbBSAi6IuwQQZ1Uvm7j08uWpZAJcgKiQBwviC2HM96
-	 SQPQFklmpIKkA==
-Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hs1l732fyzg1W;
-	Fri, 25 Sep 2026 16:00:03 -0400 (EDT)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: "Paul E . McKenney" <paulmck@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Boqun Feng <boqun@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	Gary Guo <gary@garyguo.net>,
-	rcu@vger.kernel.org,
-	lkmm@lists.linux.dev
-Subject: [PATCH v1] hazptr: Fix two-phase hazptr_synchronize race with detach
-Date: Fri, 25 Sep 2026 15:59:50 -0400
-Message-ID: <20260925195958.4766-1-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0R04JBl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62DF1F000FF;
+	Fri, 25 Sep 2026 20:00:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790366431;
+	bh=Bq/9Sjwl3fVjCD+ItDEtDoElofLtRAAjBrLkJknNdFQ=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=E0R04JBlyqh3KtOFH7YC7oJxFvyA4FzxHpr6BW2dkrfFmEYaSxNiu7lEuy3vXrfzi
+	 f9tumIAdUJX4lH3fSjPfFK8qodZ67xKuA5Y6S9tuYtfREVX0aOXwwsEpIlzGPzUdIS
+	 9tICWRxb91nS3P0+1OjYb/HQ3z5OfUtBIVEXQ2GdmgirOjG4GIQ5hhuMDJDT85al5X
+	 lWCybM722YU4Yy8fC0e0BXTLUCWVDdHogrY9GtdxfHUa/QYRZfZNyBUShLnwN4D8WU
+	 9ylxNlHvVW/+eMOiMjD5VxV2vQBZBEXg+zQHNDHMGvbaXAhhs0aYF2Pj91dxKvK3AO
+	 PhvgDIUs2UPag==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/4] kconfig: tests: Reset KCONFIG_WARN_CHANGED_INPUT
+ by default
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nicolas Schier <nsc@kernel.org>
+Cc: Julian Braha <julianbraha@gmail.com>, 
+ Nathan Chancellor <nathan@kernel.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
+ Ulf Magnusson <ulfalizer@gmail.com>, 
+ Masahiro Yamada <yamada.masahiro@socionext.com>, 
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <arTSvcwLenaZwKm7@levanger>
+References: <20260917-kconfig-tests-minor-updates-v1-0-286e5c985244@fritz.com>
+ <20260917-kconfig-tests-minor-updates-v1-1-286e5c985244@fritz.com>
+ <a1efc002-c34b-43a4-be02-ff4746d13241@gmail.com>
+ <arTSvcwLenaZwKm7@levanger>
+Date: Fri, 25 Sep 2026 21:00:20 +0100
+Message-Id: <179036642082.3653489.376583884931759728.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2566; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=TZ/jYkQEQkYrb4voHmctluCqEH+VoM9eratR6lsHly8=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFnbLl0NvCz3l2H/Nc9nrIprGHJ1pj9KdN8d7HlvdtOdD
+ I8dWyft7ChlYRDjYpAVU2Spfqx63NBwzlnGG6cmwcxhZQIZwsDFKQAT2ZnO8L/sWt0OtdBZzE/a
+ OgROHLtR5XEwzPD8dz7+eLOfFooRE8MY/so828+lyPF2Y0P3unkNezjez06/aKM2q01uzor9iQv
+ tH3AAAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-Boqun Feng pointed out that a detach happening concurrently with
-hazptr_synchronize can miss a slot. Indeed, scanning the per-CPU
-slots needs to be done *before* scanning the overflow lists. Fix the
-implementation accordingly.
+On 2026-09-24 09:35 +0200, Nicolas Schier wrote:
+> On Sat, Sep 19, 2026 at 06:29:39PM +0100, Julian Braha wrote:
+> > On 9/17/26 14:38, Nicolas Schier wrote:
+> > > Reset KCONFIG_WARN_CHANGED_INPUT by default for all kconfig tests but
+> > > those which set it explicitly.
+> > >
+> > > This fixes the 'warn_changed_input' test on systems with
+> > > KCONFIG_WARN_CHANGED_INPUT=1 and ensures a cleaner test environment.
+> > >
+> > > Fixes: 645323a7f4e5 ("kconfig: add optional warnings for changed input values")
+> > > Signed-off-by: Nicolas Schier <n.schier@fritz.com>
+> > > ---
+> > >  scripts/kconfig/tests/conftest.py | 8 ++++++++
+> > >  1 file changed, 8 insertions(+)
+> > >
+> > > diff --git a/scripts/kconfig/tests/conftest.py b/scripts/kconfig/tests/conftest.py
+> > > index 66f95e4ed58c..e92f0cf1421a 100644
+> > > --- a/scripts/kconfig/tests/conftest.py
+> > > +++ b/scripts/kconfig/tests/conftest.py
+> > > @@ -34,6 +34,9 @@ class Conf:
+> > >          """
+> > >          # the directory of the test being run
+> > >          self._test_dir = os.path.dirname(str(request.fspath))
+> > > +        self.default_env = {
+> > > +            "KCONFIG_WARN_CHANGED_INPUT": "",
+> > > +        }
+> > >
+> > >      # runners
+> > >      def _run_conf(self, mode, dot_config=None, out_file='.config',
+> > > @@ -57,6 +60,11 @@ class Conf:
+> > >          # Override 'srctree' environment to make the test as the top directory
+> > >          extra_env['srctree'] = self._test_dir
+> > >
+> > > +        # Set default environment variables, if not set by caller
+> > > +        for var in self.default_env:
+> > > +            if not var in extra_env:
+> > > +                extra_env[var] = self.default_env[var]
+> >
+> > Maybe it makes more sense to have the tests ignore users' env vars if
+> > they would cause tests to fail? For example, this recent patch
+> > explicitly unsets the KCONFIG_WERROR flag:
+> > https://lore.kernel.org/linux-kbuild/4d1eee3a-a5f9-467e-880e-4f2815851b09@gmail.com/T/#m25be9ad4d5e62956c5f98759398f91a555afb4df
+>
+> Good point, but I am not sure, if we really should ignore all of the
+> user's environment.  Maybe it's better for now, to just reset all
+> environment variables that start with KCONFIG_ and KBUILD_ ?
 
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reported-by: Boqun Feng <boqun@kernel.org>
-Cc: Paul E. McKenney <paulmck@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>
-Cc: Bradley Morgan <brads@mainlining.org>
-Cc: Gary Guo <gary@garyguo.net>
-Cc: <rcu@vger.kernel.org>
-Cc: <lkmm@lists.linux.dev>
----
-Changes since v0:
-- Load the new overflow list phase word in "hazptr_chain_backup_slot".
-- Rename the lock to hazptr_phase_lock to make it clear that it
-  protects both the wildcard and the overflow list phases.
----
- kernel/hazptr.c | 50 +++++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 40 insertions(+), 10 deletions(-)
+Given these are Kconfig tests, we could probaby just ignore KCONFIG_, I
+don't see any instances of KBUILD_ within scripts/kconfig outside of the
+Makefile. We could do both anyways and just adapt based on reports
+though, I don't really have a strong opinion on that though.
 
-diff --git a/kernel/hazptr.c b/kernel/hazptr.c
-index d3d1050d92cf..13faa5ba7677 100644
---- a/kernel/hazptr.c
-+++ b/kernel/hazptr.c
-@@ -13,6 +13,8 @@
- #include <linux/list.h>
- #include <linux/export.h>
- 
-+static DEFINE_MUTEX(hazptr_phase_lock);	/* Protect the wildcard and list phase flip. */
-+
- /*
-  * The current hazard pointer wildcard. Flips between 1UL and 2UL to guarantee
-  * hazptr_synchronize forward progress even with a steady stream of readers.
-@@ -20,10 +22,12 @@
-  * This also affects the overflow list selection: the current list used by
-  * readers is array[(unsigned long) hazptr_wildcard - 1].
-  */
--static DEFINE_MUTEX(hazptr_wildcard_lock);	/* Protect the wildcard flip. */
- void *hazptr_wildcard = (void *) 1UL;
- EXPORT_SYMBOL_GPL(hazptr_wildcard);
- 
-+/* The current overflow list phase. */
-+static unsigned int hazptr_overflow_list_phase;
-+
- struct hazptr_overflow_list {
- 	raw_spinlock_t lock;		/* Lock protecting overflow list and list generation. */
- 	struct hlist_head head;		/* Overflow list head. */
-@@ -53,6 +57,12 @@ void *flip_wildcard(void *wildcard)
- 	return ((unsigned long) wildcard == 1UL) ? (void *) 2UL : (void *) 1UL;
- }
- 
-+static
-+unsigned int flip_list_phase(unsigned int phase)
-+{
-+	return 1 - phase;
-+}
-+
- static
- bool is_wildcard(void *addr)
- {
-@@ -178,15 +188,12 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
- }
- 
- static
--void hazptr_scan_period(void *addr, void *scan_wildcard)
-+void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
- {
--	unsigned int scan_idx = (unsigned long) scan_wildcard - 1;
- 	int cpu;
- 
- 	/* Scan all CPUs slots. */
- 	for_each_possible_cpu(cpu) {
--		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
--
- 		/*
- 		 * Scan CPU slots.
- 		 * Forward progress against recurring wildcards is guaranteed
-@@ -199,6 +206,17 @@ void hazptr_scan_period(void *addr, void *scan_wildcard)
- 		 * to acquire that same hazard pointer value.
- 		 */
- 		hazptr_synchronize_cpu_slots(cpu, addr, scan_wildcard);
-+	}
-+}
-+
-+static
-+void hazptr_scan_overflow_list_period(void *addr, unsigned int scan_idx)
-+{
-+	int cpu;
-+
-+	/* Scan all CPUs overflow lists. */
-+	for_each_possible_cpu(cpu) {
-+		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
- 
- 		/*
- 		 * Scan backup slots in percpu overflow lists.
-@@ -218,6 +236,7 @@ void hazptr_scan_period(void *addr, void *scan_wildcard)
-  */
- void hazptr_synchronize(void *addr)
- {
-+	unsigned int scan_list_phase;
- 	void *scan_wildcard;
- 
- 	/*
-@@ -235,18 +254,29 @@ void hazptr_synchronize(void *addr)
- 	/* Memory ordering: Store A before Load B. */
- 	smp_mb();
- 
--	guard(mutex)(&hazptr_wildcard_lock);
-+	guard(mutex)(&hazptr_phase_lock);
-+
-+	/* Scan per-CPU slots. */
- 	scan_wildcard = flip_wildcard(hazptr_wildcard);
--	hazptr_scan_period(addr, scan_wildcard);
--	WRITE_ONCE(hazptr_wildcard, scan_wildcard);	/* Flip the current wildcard. */
--	hazptr_scan_period(addr, flip_wildcard(scan_wildcard));
-+	hazptr_scan_cpu_slots_period(addr, scan_wildcard);
-+	WRITE_ONCE(hazptr_wildcard, scan_wildcard);			/* Flip the current wildcard. */
-+	hazptr_scan_cpu_slots_period(addr, flip_wildcard(scan_wildcard));
-+
-+	/*
-+	 * Scan overflow lists *after* scanning per-CPU slots. See
-+	 * hazptr_promote_to_backup_slot() for scan ordering requirement.
-+	 */
-+	scan_list_phase = flip_list_phase(hazptr_overflow_list_phase);
-+	hazptr_scan_overflow_list_period(addr, scan_list_phase);
-+	WRITE_ONCE(hazptr_overflow_list_phase, scan_list_phase);	/* Flip the current list phase. */
-+	hazptr_scan_overflow_list_period(addr, flip_list_phase(scan_list_phase));
- }
- EXPORT_SYMBOL_GPL(hazptr_synchronize);
- 
- struct hazptr_slot *hazptr_chain_backup_slot(struct hazptr_ctx *ctx)
- {
- 	struct hazptr_overflow_list_flip *overflow_list_flip = this_cpu_ptr(&percpu_overflow_list_flip);
--	unsigned int list_idx = (unsigned long) READ_ONCE(hazptr_wildcard) - 1;
-+	unsigned int list_idx = READ_ONCE(hazptr_overflow_list_phase);
- 	struct hazptr_overflow_list *overflow_list = &overflow_list_flip->array[list_idx];
- 	struct hazptr_slot *slot = &ctx->backup_slot.slot;
- 
 -- 
-2.43.0
+Cheers,
+Nathan
 
