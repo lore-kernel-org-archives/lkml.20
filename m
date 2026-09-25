@@ -1,178 +1,228 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C43B1940B0;
-	Fri, 25 Sep 2026 00:42:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F411BC08F
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:44:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790296930; cv=none; b=R8XJteFvVxO0Qsuse25E3297v2/Zh0uxKSzOtfn0cftuVzO04HDV9QlRNlwnF0OPNwVfDyQQ8keDT+7j/UKw1/KhL2qWOLng74rQxpQ6JnaJFhP1H1oZgQnjB4CykwzC0hs+Z53tMrA07c69BQKZirlAF5ldKwkehjHiaWbNSBE=
+	t=1790297051; cv=none; b=WCY/SteVnXgF86EV98tpMzZKOqHrCX5sSRpAeg73r3qukO/At/vzD5Shzpvrej9MCxgOEp4NhM9EtZqzctwT+pPIu/9LNfERVs1ZI4qeZZz1HCkeQ4V3wwefY4O1Y9MRLMAHwrgZMztGlmA0XSVsMXUbrVIVIPwIviiWMv1jObw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790296930; c=relaxed/simple;
-	bh=KEVJ6rMIpvKl53nSX5YVx6fLfLuGg1hgPzGX4bYEUCw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j8Q5km4lLocqnflUHL6McwkJLEAQ88WkQt7Cj6Sd9XwjIJPNPSqwZfruSAEEQqukLBS9KYVTyi7RC/ZrFo9QiwnsZl20+YyO/nPaCNibqbifh/Kl+hHa91TFH1z7qJbGxP+6fbE0hvolsgoRFHGIZAhQa+kGMj13j6oiKKJfz/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JDaW0g3M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790297051; c=relaxed/simple;
+	bh=iTp7mHFpYtjPJ0TFHzNBVGHwA7eK5o58yIHHx9Ka7V0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HKL+Sw2KJdw7HRdErhfoRk5NvnIyjKNT9R3flHbSe3djsSg2t5oZi/WxMBi3YoJdpMoONRUu5qXDThDq8DpBkkqOuvNPHUxXQ4MI2X6lnSdn7F0s4S4aH7V4o991X/Cs3a338VafIjzsYGoVyZdE6qIQ3p4LYCvLz6IHPLi2jRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YYI9kiAb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JDaW0g3M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7CB1F000FF;
-	Fri, 25 Sep 2026 00:42:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YYI9kiAb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39D061F0089C
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:44:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790296929;
-	bh=gnmElWGSlVHOj2f2vg7AU0fD66c2WCDk2AaQ31UoZoQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JDaW0g3Ml1I24evCa0rOGZd3bSMp+x/IoWWbQHm9s90cXfLHHc6eYcamwnUKpJzHn
-	 Z7485Gp6/SpUxJeIoY+gHiDhg/BndQcnOhLwIkHyeXcorSFBaB1yqXBZLGsBvQ5tUV
-	 /xSA/Ahtl95eA78DLGmkC0EequkwgmXO3uZwTZ1LAHxxz9XrhAv9533pWKE8+DVZss
-	 v0OuJVjx0RuvYvR6JCRiEBMRWZu76KfXLX7JYZbpM/WDkvFa42CpIZaXj+FtUwI4yC
-	 o687lmWx8OTL8ZVanrNeulGcsxr/lOg18oq4GbCbRjM+Ysn/DG8f7WOYcOQSbuBzyV
-	 lQx2tL2ucsj/g==
-Date: Fri, 25 Sep 2026 01:42:03 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jaakko Koivisto <jmatko@utu.fi>
-Cc: Andreas Klinger <ak@it-klinger.de>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, <linux-iio@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] iio: chemical: sgp40: Implement
- turn_heater_off-command
-Message-ID: <20260925014203.07e0dce3@jic23-hlaptop>
-In-Reply-To: <DLNE2OD7OJ8Y.HONYZ4LYDTQM@utu.fi>
-References: <20260918134019.1101308-1-jmatko@utu.fi>
-	<20260918134019.1101308-4-jmatko@utu.fi>
-	<aq3LDTnLuJm6vjFt@mail.your-server.de>
-	<20260920185201.5a25dc05@jic23-hlaptop>
-	<DLNE2OD7OJ8Y.HONYZ4LYDTQM@utu.fi>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1790297050;
+	bh=7CueezjDbKGuBoVz0Yahi05qKiOZJU4eRx078XbgJlA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YYI9kiAbgX1TdDDAgkEuTAlJ0KkFp2+uT33t80rtu9RyLC5Hpa+cT70M7QH/STGJy
+	 GtljrnarEHB5Xu4ajcF+/FpnXGlmLXBtjMOb18yXRgaUhSE3l/d4jcqByEvokX9q2x
+	 4w72CE7EtH9tbtbyjg3tA/KbT76ApiW/3uSk8LVyD4M7qlcK6pFDdyJd0FTXg4UMJA
+	 S93Z618G2yRMrr5zbRV3b7u6v51Q80yCLRwbRceYbRlRJa4EsV2O9ycmvvipDAXblS
+	 QJwDkYqSq5zoTGyvQ0Brl6UeI9UUszo1U1HuyHWDxo+Ujp8us7rs7L4hkelY6huZzK
+	 C1EVsXcStG5tQ==
+Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-89666ee9b3bso3288157b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:44:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx+pdBuZoVmWIIXDb8cQ0LBipodK2fJA8rL0grqfU7e9SyY8hmxX/DISij6ToYb5lX4sPjwH/LA/IWVyKs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8lFsL/6VvD/tNEjsGo2CoYZrIwmmKH2hhu4hRfv9aVZjmsfeg
+	ZIkDDPWQNIoRxcnkVdZom/QalSjBnMPPbyuDyxueNkRB7DsL4L7nFhedmTnCyEf9gx2Y5tns+gt
+	eN+0TihIOuA5zdO1EYoyauVCGuKHG3uavzHxpfPKPrw==
+X-Received: by 2002:a05:690e:14c3:b0:672:f5f5:49e5 with SMTP id
+ 956f58d0204a3-672f5f549fdmr2112852d50.58.1790297049175; Thu, 24 Sep 2026
+ 17:44:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260918180241.3424851-1-nphamcs@gmail.com> <20260918180241.3424851-2-nphamcs@gmail.com>
+ <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com> <CAKEwX=OP3Gb9sVOvch+p4j7quzgy-rUY=UTZau5ztMj7heJJoA@mail.gmail.com>
+In-Reply-To: <CAKEwX=OP3Gb9sVOvch+p4j7quzgy-rUY=UTZau5ztMj7heJJoA@mail.gmail.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Thu, 24 Sep 2026 14:43:57 -1000
+X-Gmail-Original-Message-ID: <CACePvbVQsHXt4=+qfKz-KTar9CG+3OiAfLd1EZgnRE-1gyoKOQ@mail.gmail.com>
+X-Gm-Features: AclHuK8hG4dvBqcdqpHs3htOH0tZw8UjHorplhBJiHcYxmcYx2dg2FX15nlFTP4
+Message-ID: <CACePvbVQsHXt4=+qfKz-KTar9CG+3OiAfLd1EZgnRE-1gyoKOQ@mail.gmail.com>
+Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: akpm@linux-foundation.org, kasong@tencent.com, hannes@cmpxchg.org, 
+	mhocko@kernel.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
+	yosry@kernel.org, david@kernel.org, muchun.song@linux.dev, 
+	shikemeng@huaweicloud.com, baoquan.he@linux.dev, baohua@kernel.org, 
+	youngjun.park@lge.com, chengming.zhou@linux.dev, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	qi.zheng@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, riel@surriel.com, gourry@gourry.net, 
+	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
+	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
+	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	cgroups@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 24 Sep 2026 11:04:21 +0300
-Jaakko Koivisto <jmatko@utu.fi> wrote:
-
-> On Sun Sep 20, 2026 at 8:52 PM EEST, Jonathan Cameron wrote:
-> > On Sat, 19 Sep 2026 01:36:45 +0200
-> > Andreas Klinger <ak@it-klinger.de> wrote:
-> >  
-> >> Hi Jaakko,
-> >> 
-> >> Jaakko Koivisto <jmatko@utu.fi> schrieb am Fr, 18. Sep 16:40:  
-> >> > -Turn the heating element off and enter idle mode.
-> >> > -Present the functionality as device attribute,
-> >> >  'echo 1 > turn_heater_off'.    
-> >> 
-> >> Instead of introducing a device specific attribute couldn't this be implemented
-> >> as standard power management operations (RUNTIME_PM_OPS)?  
+On Thu, Sep 24, 2026 at 6:20=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
+:
+>
+> On Wed, Sep 23, 2026 at 2:18=E2=80=AFAM Chris Li <chrisl@kernel.org> wrot=
+e:
 > >
-> > May not apply in this case but normally the warm up time of these sorts of
-> > heaters are in the seconds.  No one wants that latency when they want
-> > a measurement.  As such normal runtime pm doesn't work - it needs to
-> > be a specific userspace opt in.  
-> 
-> For SGP40 the heater must be on for 60 seconds for reliable data, and up
-> to 60 minutes to reach all datasheet specs. These are very long times, so I
-> would not want to turn the heater off automatically.
-> 
-> > We have defined ABI for this though and this isn't it
-> > See Documentation/ABI/testing/sysfs-bus-iio (and more in -humidity)  
-> 
-> Thanks, missed that there was already ABI for heaters. I will change to
-> use this instead.
-> 
-> While looking at this I noticed this driver is using mutex_lock() and
-> mutex_unlock(). Recent commits, e.g. eb60a24b35bfb9e85a272e561379833e49a12a79,
-> say using the newer guard() is the preferred way these days. Should this be
-> updated as well?
-> 
-There is no universal right answer to this.  If guard() and related
-give cleaner, easier to understand code then it may well be useful to
-update to that whilst you are touching the driver.
-
-Sometimes the code is such that they provide very little advantage
-and in those cases we should just leave things as they are!
-
-Jonathan
-
 > >
-> > Jonathan
-> >  
-> >> 
-> >> Andreas
-> >>   
-> >> > Saves approx. 2.5 mA compared to regular operation. The heating element
-> >> > is automatically turned back on when measurement is performed.
-> >> > 
-> >> > Signed-off-by: Jaakko Koivisto <jmatko@utu.fi>
-> >> > ---
-> >> >  drivers/iio/chemical/sgp40.c | 28 ++++++++++++++++++++++++++++
-> >> >  1 file changed, 28 insertions(+)
-> >> > 
-> >> > diff --git a/drivers/iio/chemical/sgp40.c b/drivers/iio/chemical/sgp40.c
-> >> > index 28d5e737d1dc..a4fc5c778303 100644
-> >> > --- a/drivers/iio/chemical/sgp40.c
-> >> > +++ b/drivers/iio/chemical/sgp40.c
-> >> > @@ -29,6 +29,7 @@
-> >> >   * by writing to the out values of temp and humidityrelative.
-> >> >   */
-> >> >  
-> >> > +#include "linux/device.h"
-> >> >  #include <linux/delay.h>
-> >> >  #include <linux/crc8.h>
-> >> >  #include <linux/module.h>
-> >> > @@ -259,6 +260,21 @@ static int sgp40_execute_self_test(struct sgp40_data *data)
-> >> >  	}
-> >> >  }
-> >> >  
-> >> > +static int sgp40_turn_heater_off(struct sgp40_data *data)
-> >> > +{
-> >> > +	int ret;
-> >> > +	struct i2c_client *client = data->client;
-> >> > +	struct sgp40_command turn_off = {.command = {0x36, 0x15}};
-> >> > +
-> >> > +	ret = i2c_master_send(client, (char*)&turn_off, sizeof(turn_off.command));
-> >> > +	if (ret != sizeof(turn_off.command)) {
-> >> > +		dev_err(data->dev, "i2c_master_send ret: %d, expected %zu", ret, sizeof(turn_off.command));
-> >> > +		return -EIO;
-> >> > +	}
-> >> > +	msleep(1);
-> >> > +	return 0;
-> >> > +}
-> >> > +
-> >> >  static int sgp40_measure_resistance_raw(struct sgp40_data *data, u16 *resistance_raw)
-> >> >  {
-> >> >  	int ret;
-> >> > @@ -417,10 +433,22 @@ static ssize_t serial_number_show(struct device *dev,
-> >> >  	return sysfs_emit_at(buf, 0, "%llu\n", data->serial_number);
-> >> >  }
-> >> >  
-> >> > +static ssize_t turn_heater_off_store(struct device *dev,
-> >> > +				     struct device_attribute *attr,
-> >> > +				     const char *buf, size_t len)
-> >> > +{
-> >> > +	struct sgp40_data *data = iio_priv(dev_to_iio_dev(dev));
-> >> > +	sgp40_turn_heater_off(data);
-> >> > +
-> >> > +	return len;
-> >> > +}
-> >> > +
-> >> >  static IIO_DEVICE_ATTR_RO(serial_number, 0);
-> >> > +static IIO_DEVICE_ATTR_WO(turn_heater_off, 0);
-> >> >  
-> >> >  static struct attribute *sgp40_attributes[] = {
-> >> >  	&iio_dev_attr_serial_number.dev_attr.attr,
-> >> > +	&iio_dev_attr_turn_heater_off.dev_attr.attr,
-> >> >  	NULL
-> >> >  };
-> >> >  
-> >> > -- 
-> >> > 2.55.0
-> >> >     
-> >>   
-> 
-> 
+> > There are too many swap_is_vswap() in this series. It fragments the
+> > code path, making things harder to reason about. Esepcially around
+> > locks. I count 22 in this patch alone.
+> >
+> > I consider this the biggest drawback of this series. This
+> > fragmentation of the code path.
+>
+> This will mirror my response at [1], but I'm responding here for the
+> record and for your convenience.
 
+Thank you. Really appriciate that.
+
+> It is needed because vswap *is* a special device, with its own
+> requirements. If you don't special case-it, you'd get undesirable
+> behaviors.
+
+Ack, that is why I am against making it a special device. That is the
+whole idea behind xswap. It is just normal swap device implemented via
+swap_ops just like ext4 is a file system implemnet on top of VFS.
+
+> Let's take Baoquan's patch series as an example.  It treats the xswap
+> device as just another swap device, without any special consideration
+> for it. Which creates several problem:
+
+That is a careful design choice. Keep in mind that design choice
+usually has pros and cons.
+
+I will follow your feedback here.
+
+> 1. At allocation time, cgroups that disable zswap might get an xswap
+> slot, because you don't do any check that the device you allocating
+> the swap slots for is xswap. At swap_writeout() time, it is *stuck* -
+> we already do the unmapping step, so we cannot reclaim the page.
+>
+> Ironically a physical swapfile backend could have bailed us out here,
+> but it's not in that patch series yet :)
+
+I am not sure I follow. Are you referring to the uncompressible pages
+that xswap would have to reject?
+
+One way to address that is for xswap to just bite the bullet and store
+the uncompressible pages within xswap. That way it will stay out of
+the reclaim LRU. Zswap also stores some uncompressible pages. The last
+time I checked, it was unfortunately not able to serve my case but
+perfect for yours.
+
+> Vswap both has swapfile backend, AND allows you to bypass it if the
+> cgroup disables zswap. Both involves a bit of swap_is_vswap() check,
+> but I think it's worth it :)
+
+If xswap needs the lower tier it can allocate for one. I don't think
+xswap should need to have swap_is_xswap() there. Also xswap does not
+have all the baggage of zswap.writeback enable interface.
+
+
+>
+> 2. Per-CPU allocation caching: since all devices share the same cache,
+> xswap will invalidate the caching of other devices, and vice versa. It
+> would be fine if the these devices are interchangeable, but as noted
+> above, it's not, especially without physical swapfile as the backend
+> option. So you're forced to taken the slow path more often.
+
+This will be addressed by the swap tiers series if it is not delayed.
+This should be addressed in the core swap layer not vswap. Kairui also
+has some ideas to improve that. Yes, it is a problem area, but it is
+not specific to xswap. We are well aware of it and have plans to
+improve it.
+
+>
+> Vswap gets around this by adding its own per-cpu allocation caching,
+>
+> So by being too lazy and not carefully distinguish the swap devices,
+> not only does xswap not work for the writeback use case, it cannot
+> even work in deployments where some workloads (cgroup) select zswap,
+> whereas others select disk swap. It can only work if you intend to
+> have a single class of device - either virtual/xswap or disk swap -
+> but not both.
+
+Baoquan's writeback series is out. It is by no means perfect. But it
+is much closer to what I have in mind. That is a much better base to
+work on.
+>
+> Maybe instead of just grepping for swap_is_vswap() and throw your hand
+> at the complexity, read the code and try to understand why it's
+> necessary first, then propose simplifications if you have good ideas
+> in minds.
+
+Yes, I already read your code I decide that most of the
+swap_is_vswap() should not be needed if taking a proper swap_ops
+approach. I wanted to offer you the chance to work closely with me to
+achieve that, but you did not follow that suggestion.
+
+Quote from my old email:
+https://lore.kernel.org/all/CACePvbX+3tO91BmRwaLqf3Xia32GCemt3W8tayErG81BYL=
+grzA@mail.gmail.com/
+
+"I am happy to spend some time working with you to discuss the generic
+adopted version of vswap, if you are open to it. Or if you don't want
+to waste time on it. I can have someone else or myself come up with
+the generic adopted version of vswap for you to review, which I prefer
+less."
+
+Anyway, Baoquan's xswap writeback patch series is out. I suggest
+following and improving that series instead.
+
+> > This is questionable. A vswap device does not go through swap on.
+> >
+> > This changes the behavior where swap devices always go through swap on/=
+off.
+> >
+> > I wish the swap device went through swap on to be able to start swappin=
+g.
+> >
+
+>
+> What usecase would necessitate the need for swapon/swapoff interface?
+> Other than just trying to shoehorn it to an existing interface?
+
+I like universal interfaces. Your vswap will break the /etc/fstab. The
+current suggestion for xswap using sysfs will break that as well.
+I would like to keep the /etc/fstab interface working, including
+support for UUIDs for swap devices, etc.
+I am very concerned that vswap will start kicking in without me
+explicitly enabling it. That changes the previous user-visible
+behavior. It breaks my mental model. Please take this feedback
+seriously.
+
+It is a different design philosophy to adopt a swap device to
+implement VFS-like file systems for swap, making them swap file
+systems.
+Just like all file systems have a superblock so you can probe what
+file system it is. You don't get a special sysfs interface for each
+different file system to create them.
+This aligns neatly with swap ops and makes room for future
+flash-friendly swap file systems for example.
+
+> I've expressed why I dislike the interface in [1]. Other than the
+> sizing aspect, which we are already discussing in another thread,
+> priority also makes zero sense. You are literally exposing an
+> interface with only one correct answer - what's the point?
+>
+> Justify your interface choice with real userspace use case, not just by
+> conforming to the status quo.
+
+That is why I feel your patch series are really unclean. I dislike
+special cases, I try to avoid them as much as possible.
+
+Chris
+
+>
+> [1]: https://lore.kernel.org/all/CAKEwX=3DPEEkYiNRaVhCuM4E6mxB9huPKfkDa4m=
+62VMTzedg1oYw@mail.gmail.com/
