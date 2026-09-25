@@ -1,174 +1,114 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCC81E3DDE
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:12:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E4C3101B6;
+	Fri, 25 Sep 2026 03:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790305959; cv=none; b=trFMGJP6KMPswRI0wvBw/2E4tomz+Jqntj98cgyGJPGNiwhWB2EEsjPLuJTKTFfXomXUuxGAbzhzHHeG8Qfjl+ZCNJMHcBiPefnps93nW6pbZSqB9BQ62FJPZyplCkpPIf4bojlN8d3RbQp25bZnZEQUKIpW4QnSMEqAZsOG3gg=
+	t=1790306011; cv=none; b=HUk8ax1TjUOU46xECbdvDEdr0TrIO7jVpvL66Hp5RmzYrNDhqgSSdoqEe9rWLHR6aYVaPQiVUb6RSlb2nd1SQ4x08EYSNcbchobuVsFa8/o6UJhad+JEjHbrvH9PIhJ1iatpXjJnxCoh6zMZ2OHZvufy7qtUsf3p1XOjZQqc2+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790305959; c=relaxed/simple;
-	bh=BEGQyAViAFvo9buNB17wzKBw6fwyufkWzHqjSUbgeUY=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=D6bkKoUta6Pjc/iv9LtrJ5Hrbh51QPo83I7HAD2t+JoYZDYypH6qXDJMDTUCRUDYf3okPTt8l0bHdNGHpnE7dVk20UXU/qr3yirSE1A9bL6jl1N67m8pHVaaDey+bARqADfmSFv4mL0tuKDcq2JjdxgmSYgKv2Pg4G5G8+GtGPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4dc57e2a3f2so416297b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:12:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790305957; x=1790910757;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vY0NX4ApRysCA7uTZsdZ7zWqUDLZEMeIYv6ocAtfnU0=;
-        b=XGW/liykGjRAsTffoHphm55xYhLsKFLkkHHGrdhG4PpAYYyZ+snOXgMNBeYc25k2i6
-         EfiwdsL8QOJfIQdh50hF9YEzsGhnQGlJ+M2HG2Su8to70qHZr1/8WXNIy5D5oHqTd7LJ
-         ZUUfp1+GAq7vpPuPMhJ5K/qHbabvoLB7/tU3sXZ58h6YMYHtL5cgBPGkWbgGkg2skM6h
-         9FLpEUYF0hExqtKdpPYNHz2rM0o1OgQvcON6hiO5Ih1L6h9rcFlv+OyOkwJpkBQ7ZtEG
-         fQHmz4Pftiu2c5A36DKUxBCBmNJQsaVQ29Rgy1ldtSFZQv4sVLtOg+kH1qmOn+UlmZJh
-         JGww==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ7gMYIUSKGxUcdNMcHq9QirM4tNJ/vBOwqAoUi2XF9dLSFmpiTik9D8wVHgFbC9pfpuFjeAtBqvX3nw0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lA7sb1o3Ib4QJ7J5Jktlea6E8/SEzbFuH6sXXTCqfo2LtdtYic
-	TsXwV7bT6mH+BZ3Mk4uO1wC1uD8nVUXa5PCsjgVfRH+DikuzD7qyzMtasLVSJSL8vriU+t1SoXl
-	iWYMac/xl4lwxpTokqgiWUlLN1s/Fiq2nyOEXsbnyi540jPrdK4co7QcQaN8=
+	s=arc-20240116; t=1790306011; c=relaxed/simple;
+	bh=T32/hjgORTXsuMbRW8Zkp2AeUJQZyw698e6PwAdRKlA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F4dm9vdixLDOsHewRCqotSfGWtGDq5nut+swYMW924vBZM1tAhVAskPUtrStk51ORj+OvIEoBPyFNOJzsWfn8UtT8sAP0XQa4W42shtbkhwXxtZJ+cCSjPxq842+vbOhd3E9PFAhuwfgqKl/5jllaeSESXWiTAguuYG327JDyC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fgGXXrFW; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fgGXXrFW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88D931F000FF;
+	Fri, 25 Sep 2026 03:13:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790306009;
+	bh=zWZpOHbrH1ynze092c7hjoCL9rCDDiHK3exAqFp1cns=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fgGXXrFW6On3qVsYRcFztHK5sR6Gzv9CffQqICfr7IDvnDcp6ZukGGw1D2ZTZPNzM
+	 K6Ui0zvKU91/VOMImec650GtrE7p+g9VHveW01vT0iBzhngnCSfcfWHV1lEzVcIYW5
+	 SjirHULhgS4U+PYXsepHRNSAjd1mDfwnHWB8vlhSvljP8SJv3Cm9at+0S8xAk9rEtB
+	 M4QJP4KZ6AdI3uMbIalk9P0y0+TkZld39oNbwg5gpVQAwMxL3b5l8U9R603EKsY+gV
+	 zEjT8k8vI1gU6DwR46lLvQQk4RXyiqs02hO+Hnq5+pBG0PXSku6Etgri4u08gBj9OE
+	 r1sBVpzuQ49JA==
+Date: Fri, 25 Sep 2026 04:13:25 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] iio: adc: add support for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <20260925041325.0efac345@jic23-hlaptop>
+In-Reply-To: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
+References: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:190c:b0:4d6:92d4:c804 with SMTP id
- 5614622812f47-4d72bc45aacmr5565913b6e.60.1790305957037; Thu, 24 Sep 2026
- 20:12:37 -0700 (PDT)
-Date: Thu, 24 Sep 2026 20:12:37 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab5e6a5.80e1c6cc.1e8e5f.0022.GAE@google.com>
-Subject: [syzbot] [input?] general protection fault in wacom_report_numbered_buttons
-From: syzbot <syzbot+ae7f998154426e723cbf@syzkaller.appspotmail.com>
-To: bentiss@kernel.org, jason.gerecke@wacom.com, jikos@kernel.org, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ping.cheng@wacom.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On Thu, 24 Sep 2026 15:14:14 +0200
+Neil Armstrong <neil.armstrong@linaro.org> wrote:
 
-syzbot found the following issue on:
+> The MAX34417 is a specialized current and voltage monitor used to determine
+> power consumption of portable systems. The driver support getting the channel
+> voltage and accumulated average power over an I2C/SMBUS serial interface.
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-HEAD commit:    62f4c998b297 Merge tag 'parisc-for-7.3-rc5' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=135c9d15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=ae7f998154426e723cbf
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17bb9c05580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15fdc2c9580000
+Hi Neil,
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-62f4c998.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/c666932d3795/vmlinux-62f4c998.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/70accf49dc19/bzImage-62f4c998.xz
+As pointed out too fast for a v2.  You aren't new upstream so
+that shouldn't come as a surprise!
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ae7f998154426e723cbf@syzkaller.appspotmail.com
+Secondly for devices that are all about monitoring power supplies
+etc we always ask for a clear statement of why IIO rather than
+hwmon + to CC at least the maintainer and often the hwmon list.
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc000000006c: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000360-0x0000000000000367]
-CPU: 2 UID: 0 PID: 6256 Comm: syz.0.237 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:dev_get_drvdata include/linux/device.h:991 [inline]
-RIP: 0010:input_get_drvdata include/linux/input.h:396 [inline]
-RIP: 0010:wacom_report_numbered_buttons+0x37/0x210 drivers/hid/wacom_wac.c:4225
-Code: f5 53 48 89 fb 48 83 ec 10 48 89 3c 24 e8 71 92 f1 f8 48 8d bb 60 03 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 b7 01 00 00 48 8b 04 24 4c 8b a0 60 03 00 00 49
-RSP: 0018:ffffc90027b5f9a0 EFLAGS: 00010206
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 000000000000006c RSI: ffffffff891a901f RDI: 0000000000000360
-RBP: 0000000000000008 R08: 0000000000000005 R09: 000000000000001f
-R10: 0000000000000008 R11: 0000000000000000 R12: 0000000000000000
-R13: 00000000000002a8 R14: 0000000000000000 R15: 0000000000000000
-FS:  000055558f635500(0000) GS:ffff8880d5d53000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000200000001000 CR3: 000000003797a000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- wacom_intuos_pad drivers/hid/wacom_wac.c:643 [inline]
- wacom_intuos_irq+0x2f8/0x3430 drivers/hid/wacom_wac.c:1042
- wacom_bpt_irq drivers/hid/wacom_wac.c:3290 [inline]
- wacom_wac_irq+0x196b/0xab80 drivers/hid/wacom_wac.c:3560
- wacom_raw_event+0x6bb/0xba0 drivers/hid/wacom_sys.c:183
- __hid_input_report.constprop.0+0x319/0x470 drivers/hid/hid-core.c:2175
- uhid_dev_input2 drivers/hid/uhid.c:609 [inline]
- uhid_char_write+0xb6b/0x10e0 drivers/hid/uhid.c:767
- vfs_write+0x2aa/0x1050 fs/read_write.c:685
- ksys_write+0x1f8/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f6e4899e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffee1ed0688 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f6e48c25fa0 RCX: 00007f6e4899e159
-RDX: 0000000000000010 RSI: 0000200000000300 RDI: 0000000000000003
-RBP: 00007f6e48a3506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f6e48c25fac R14: 00007f6e48c25fa0 R15: 00007f6e48c25fa0
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:dev_get_drvdata include/linux/device.h:991 [inline]
-RIP: 0010:input_get_drvdata include/linux/input.h:396 [inline]
-RIP: 0010:wacom_report_numbered_buttons+0x37/0x210 drivers/hid/wacom_wac.c:4225
-Code: f5 53 48 89 fb 48 83 ec 10 48 89 3c 24 e8 71 92 f1 f8 48 8d bb 60 03 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 b7 01 00 00 48 8b 04 24 4c 8b a0 60 03 00 00 49
-RSP: 0018:ffffc90027b5f9a0 EFLAGS: 00010206
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 000000000000006c RSI: ffffffff891a901f RDI: 0000000000000360
-RBP: 0000000000000008 R08: 0000000000000005 R09: 000000000000001f
-R10: 0000000000000008 R11: 0000000000000000 R12: 0000000000000000
-R13: 00000000000002a8 R14: 0000000000000000 R15: 0000000000000000
-FS:  000055558f635500(0000) GS:ffff8880d5d53000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000200000001000 CR3: 000000003797a000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	f5                   	cmc
-   1:	53                   	push   %rbx
-   2:	48 89 fb             	mov    %rdi,%rbx
-   5:	48 83 ec 10          	sub    $0x10,%rsp
-   9:	48 89 3c 24          	mov    %rdi,(%rsp)
-   d:	e8 71 92 f1 f8       	call   0xf8f19283
-  12:	48 8d bb 60 03 00 00 	lea    0x360(%rbx),%rdi
-  19:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  20:	fc ff df
-  23:	48 89 fa             	mov    %rdi,%rdx
-  26:	48 c1 ea 03          	shr    $0x3,%rdx
-* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
-  2e:	0f 85 b7 01 00 00    	jne    0x1eb
-  34:	48 8b 04 24          	mov    (%rsp),%rax
-  38:	4c 8b a0 60 03 00 00 	mov    0x360(%rax),%r12
-  3f:	49                   	rex.WB
+There are various valid reasons for that choice, but it is good
+if they are clearly stated for discussion.
 
+Thanks,
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Jonathan
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> ---
+> Changes in v2:
+> - switch to shunt-resistor-micro-ohms no more required
+> - removed gpio.h from example
+> - Fixed max34417->MAX34417 in Kconfig and comments
+> - Added missing includes and remove unneeded
+> - Fixed typos in comments
+> - Switched to fsleep()
+> - Better aligned max34417_read_power declararation
+> - Handled 0 acc_count
+> - Switched to GENMASK_ULL() for 32bits systems
+> - Added missing empty lines
+> - Moved the input correction into a helper
+> - Set default input correction for all channels
+> - Switched to dev_err_probe() to return from probe
+> - Switched to device_for_each_child_node_scoped()
+> - Handled invalid shunt-resistor-micro-ohms value
+> - Link to v1: https://patch.msgid.link/20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org
+> 
+> ---
+> Neil Armstrong (2):
+>       dt-bindings: iio: add: document the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+>       iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+> 
+>  .../bindings/iio/adc/maxim,max34417.yaml           | 100 ++++++
+>  drivers/iio/adc/Kconfig                            |  11 +
+>  drivers/iio/adc/Makefile                           |   1 +
+>  drivers/iio/adc/max34417.c                         | 374 +++++++++++++++++++++
+>  4 files changed, 486 insertions(+)
+> ---
+> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+> change-id: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
+> 
+> Best regards,
+> --  
+> Neil Armstrong <neil.armstrong@linaro.org>
+> 
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
