@@ -1,108 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1171A6807;
-	Fri, 25 Sep 2026 02:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488E930F958
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790304181; cv=none; b=S6A8vaS8ulI+MOQO3kzhh0O1nqrB7qj2raV5QQXqwR8hVUvDf7o51v4kKyxYUZkXK0kA6ts1sEJ3cdfJ5+QZ/1ASR0N+D36GMYu1J6ickhO7BcYj0S1vZEkm56yXqamosSXRu1Vf4I2VJJoEM4v0mia+weAyrMsL01H4VndMp64=
+	t=1790304241; cv=none; b=nk+5xBLbI1kBZllfrxF1/5xQaMcbKmu1PnrBsWrFOaONA4QNJFUKEorvWdJIERAmLgu+c4n2XVNGsHpgzku2FtYKHAiLr6ulXwZbt79qrT+wrTlMi2uoT3uaHUdFm2Tc98nzXlRH3rj/BFL5PWVWvxDtBp7dYHQDtAFh/+Kbm9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790304181; c=relaxed/simple;
-	bh=RWuF28mSIJqsKyjpE7Z+j1COv7ALs2Tcuj7Dycg/reU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nMQb/3GvmFQ7LvWN+jMcS0X8+AVYBGzd5NOHuG6uZYQuZhe/oUhH1SBPolAP1yz19r2oXCgLqCgsJfa6kfJm1opW5xwJCk/7PGH5fX3myFtIolFdrWavfqC79w/tSiH/sk1e3cnlIr55MUbU4gg9zM+LeudHu4eKuIFq7RlEHIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JohkxDHa; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JohkxDHa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDD281F000FF;
-	Fri, 25 Sep 2026 02:42:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790304180;
-	bh=CBaKEWexDMlKGogM2tzTmc3hP2HGDXOByGKHoSy6W1I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JohkxDHaYmfR8bj+RI3Ux2U89Fz9UyCN497zNlUcDwB50P+HQsX9E/FBmjlMjLAVX
-	 01Ge1XgPdhJFXoUMMC3shh8P+yfosCEc7RhPy/Ch0W+NE6/u7RPZ95Ytb6MlJ6uVlG
-	 O7HPa+PPyn5MxEAoOCNOpJSUhRNNAt8ZY7PV7JnxJm6y6mP0Y79Bvwqi2ZgYu73d+a
-	 KanZSnACLsZFRJ+3DfHbF7uG9YfL1I391TGXD6V79C2ihP+l7bOV9F0LGJwGNBFt5F
-	 wswf3q62zsvKxLA5iFSI4ku2/CBQFJdpn0+u5G33jud2N+eGO1Sti+Uhw7MAzVHj3u
-	 uYuY9nFlysltw==
-Date: Fri, 25 Sep 2026 03:42:57 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Bill Wendling <morbo@google.com>, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, Jishnu
- Prakash <jishnu.prakash@oss.qualcomm.com>, Daniel Lezcano
- <daniel.lezcano@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- codemender-patching+linux@google.com
-Subject: Re: [PATCH] iio: adc: qcom-adc5-gen3: Annotate struct
- adc5_device_data with __counted_by_ptr
-Message-ID: <20260925034257.0f034a59@jic23-hlaptop>
-In-Reply-To: <202609230056.DF2B9BE56@keescook>
-References: <20260922220950.2267270-1-morbo@google.com>
-	<202609230056.DF2B9BE56@keescook>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1790304241; c=relaxed/simple;
+	bh=2+C2/yDW/lCd9sFNH5wVE7e/HaICG3qrbLAnK1W/8i4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qms2YwmeDFJaLWO5sN7KMsaACvEGg9gT40bM8TemJ0sWgu1wsN7l96maXV//xGx1X1HrHrZqM5yMXPw7ojM7yG/6gS8VdFSiCacFXQLfqHXz6xPpCTFj0WT31uwNcXFQmo8Yn+rq4sLHBZ/TUcKdp98uNJtpDocSZkruUrQAFIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: zesmtpgz7t1790304168tdb809021
+X-QQ-Originating-IP: w3XVdAtjPMZd2A4bnKpct9MNG2vg7Sbf9tEaRwle0Gc=
+Received: from [10.200.8.55] ( [175.0.204.93])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 25 Sep 2026 10:42:46 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 965729528590291737
+EX-QQ-RecipientCnt: 9
+Message-ID: <E6F9385348472E5C+1794efa3-5320-412a-ae81-cfcc4969b76a@kylinsec.com.cn>
+Date: Fri, 25 Sep 2026 10:40:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] coresight: syscfg: fix deadlock on device
+ registration failure
+To: Leo Yan <leo.yan@arm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, qinyungao@kylinsec.com.cn
+References: <B16F90D29FAA2B3E+20260914074524.1694-1-dengyingchao@kylinsec.com.cn>
+ <6CC680FFAC60931F+20260914074900.1711-1-dengyingchao@kylinsec.com.cn>
+ <20260924162404.GN200420@e132581.arm.com>
+From: yingchao deng <dengyingchao@kylinsec.com.cn>
+In-Reply-To: <20260924162404.GN200420@e132581.arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
+X-QQ-XMAILINFO: Ns4vsXN8dJBsIxuMhu7o/4WgHbz7725FQkvC/bpT+bpmLQi4VqWqDDC+
+	XLlGH0Txezz0QT3XZbMZj0nk+fe2pMsyh5n3oHQPDTQW67zCLAHoaQvE/YphbuLG5FqDSDx
+	40vqVO9UxzMjNSesxwc/noP9509r8MDNDPNp2C/FK2OaZP7WIgAWzVT8CmORcGjOq8Wlimq
+	7qhWm0Nw4G7mZjHjTAGGl7/VljrWWU8JrvrKMeEKNzb92NgQEMU5ad+WVHtIa2AdGT4gMzZ
+	mHf4AeSHVKl6EDP5eI/4Mur4LnMUQzvi/4gkK6E4TxVRLS+yc+tWvacfIWXLe1lxnJWWly6
+	HugMNXkEUORIb/VWMifNsB1d3Bo2+pVjgq3LuWkfSMVwa/Mm8mFEnwdK4pf15ZV06XSwxm1
+	ECKc8dQWLQnhT4OwYWRTuUEV6jBs0TU2Fb3H/1OMHyGNBWLPUayWtrdxLbmHwygxNGGDS2k
+	rn44XyCgXOcoZc3xP38ElerOmHmPpaDS6ryhPmr+mUU2zsrM2aZfkUBonjP2tPwQQRciLon
+	RPQ76wLPMV9HLvYtY+Wd5Fwiyx18WCczQVwVYIkzv5jd/eHwv5uuXp6vcmbgKPV9mJ5Vnup
+	Qy/jOUIdmHKZbsOwIwww3p3C/Hb121JHdmGef5vBz1yB2pfMNFEftdvS7CCbtQ5dvxsoGLk
+	QZ8J88qa+++duD9/kDKXqbS/yuPevzN2d5Nx+V7kLT/CVJ4PG/l9vadQbrluDC9Z/3z/Sob
+	/ru68IF+LN2cDRtMg2UuiDsPZJqFDFBRhrhPR2cb0JHMMlIyh0/B9yXKrL8l3QwAFxeKvcm
+	BxHixVZZgCWam1HLZbn/5RzZ2PQWamu0moFPoWG6RQrJWx2EZRuzD6X2oDKRH5GPVbiCGCz
+	wbYxZ+ZgEpEEtsT/Q2Ue3KlG3OFNZ9IXh5qKtfyam+oO3ZadQBGT2yH458/G83xys54iRQT
+	RtMePukVMs0cpbQlXfmOdg4SMx6R008S+2xoCVTjchJyqM2i0zVUXg3J/FLNE3zeTUYmWmA
+	G2/PGDt9MhtUTDXFJTuQQNNBDNuTM=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-On Wed, 23 Sep 2026 01:01:42 -0700
-Kees Cook <kees@kernel.org> wrote:
 
-> On Tue, Sep 22, 2026 at 10:09:50PM +0000, Bill Wendling wrote:
-> > Under compiler-supported bounds checking (via KASAN or UBSAN), pointer
-> > fields inside structures can be annotated with the '__counted_by_ptr'
-> > attribute to specify which field in the same structure holds the element
-> > count. This enables the compiler to perform runtime bounds checking on
-> > the pointer.
-> > 
-> > Annotate the "base" pointer field in "struct adc5_device_data" with the
-> > "__counted_by_ptr" attribute pointing to "num_sdams". The number of
-> > SDAMs is determined from the device property and assigned to "num_sdams"
-> > which is then used to initialize "base" via "devm_kcalloc".
-> > 
-> > By ensuring "num_sdams" is set to the correct element count prior to
-> > the "base" pointer allocation, and since the size of "base" is never
-> > reallocated or changed, this annotation is safe and will not cause any
-> > false-positive runtime bounds check panics or KASAN issues.  
-> 
-> Welp, yes, it's allocated correctly to the size. It'll be interesting to
-> see if this:
-> 
->         ret = device_property_count_u32(dev, "reg");
->         if (ret < 0)
->                 return ret;
-> 
->         adc->dev_data.num_sdams = ret;
-> 
-> is never at odds with this:
-> 
->         ret = devm_request_threaded_irq(dev, adc->dev_data.base[ADC5_GEN3_VADC_SDAM].irq,
->                                         NULL, adc5_gen3_isr, IRQF_ONESHOT | IRQF_SHARED,
->                                         adc->dev_data.base[ADC5_GEN3_VADC_SDAM].irq_name,
->                                         adc);
-> 
-> Nothing checks that num_sdams >= ADC5_GEN3_VADC_SDAM (0). I feel like
-> that ret = device_property_count_u32 should check for < 1 :)
-
-Whilst it's sensible to sanity check dt, I'm not sure we will ever
-close down all the crazy ways an invalid dt can break things!
-
-I'd certainly be fine with some additional hardening of this particular
-case though.
-
-Applied this one as any such change is a different issue anyway
+On 25/09/2026 00:24, Leo Yan wrote:
+> For this patch:
+>
+> Reviewed-by: Leo Yan<leo.yan@arm.com>
+>
+> Sashiko reported an issue for null pointer dereference if configfs
+> init fails fails [1]. It is good to fix it using a separate patch:
+>
+> @@ -1299,8 +1299,10 @@ int __init cscfg_init(void)
+>
+>          /* initialise configfs subsystem */
+>          err = cscfg_configfs_init(cscfg_mgr);
+> -       if (err)
+> -               goto exit_err;
+> +       if (err) {
+> +               device_unregister(cscfg_device());
+> +               return err;
+> +       }
+>
+>          /* preload built-in configurations */
+>          err = cscfg_preload(THIS_MODULE);
+>
+> @Yingchao, do you mind to work out a formal patch for this?
+Happy to. I'll send the patch.
 
 Thanks,
-
-Jonathan
-
-> 
-> 
+Yingchao
 
