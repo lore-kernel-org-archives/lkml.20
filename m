@@ -1,152 +1,65 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0A0F1485CEF;
-	Fri, 25 Sep 2026 12:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F2146C844;
+	Fri, 25 Sep 2026 12:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790338253; cv=none; b=b6CV6a7PypCGpcm12fh3sOaEw0fSb4+0fcAYdrXh2uoagJemfXIJp3cwgENU2wsyT+NY0J5SLVhCPkjUt6lXDfnwqDnWbEJmWsd+33yh31kbNUVku41iSAGrtg7+J9CdtF6n4vIFhw3/IHEzF3rN3dpc8hjuH04IIC5BwaNy44c=
+	t=1790338289; cv=none; b=nrak0RuLBzCuBBirkM4QP/8eimzVDUw0oMeIyzCfJJ8cLycEBbpIDHClwuZdte9WUHDWB3rLDsXK1puKQdntwtGInal0QlQ9mDd/O18sSWiGEOz39iOELhBhpk+F6T7QKHgmHzj/aM3MpSA38eqd2VBilmFq97nIRqWAD0zKS8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790338253; c=relaxed/simple;
-	bh=NEYUebGz1uDI7Npr1A5moQGPlxhm/IrhMht840u7NQc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UZt0s9nmMQkPP2fiVX/qoBgeemXEXDYDEHygjUNUsvOH43Dvw4oC6UIq+XaKGu2mD0n7guhi6HW9P8G9wzSOz0XFqCoJc43K2YTXkuv4thkmvrd0zGi/HwfYpSclTZtGs05fa/Np5pEf4sCBex5xOLf2NWw7mkiC2pc93VlwfEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Er6Bps5u; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790338289; c=relaxed/simple;
+	bh=gj62A2SpGZAhUgc90zdhvT7pPKGEdSt5NSwdC4IaOq0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EDfOcAJmccsNRQuX7dm0ljjtf1Hux7lt+Bo66mGJCc41PcrZVBmhKYSZdnbU1OklJlGybAzTBkMPG+qnRwDehtuLsBf8lzfsCmqXlCiqgipCuDlfLNkCIw1rIu2E9x35FlQQYZoTjHDz+hLhAJQ6ZMTzRxSjYXBGwrk+rx7oXLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IhHZ5V92; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Er6Bps5u"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 44A1D1688;
-	Fri, 25 Sep 2026 05:10:46 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3E67F3F86C;
-	Fri, 25 Sep 2026 05:10:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790338249; bh=NEYUebGz1uDI7Npr1A5moQGPlxhm/IrhMht840u7NQc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Er6Bps5u28i6dwAxosn/pPKCYRMfwt73pA1zVb2TfE6fj8cf/A5kmRyUPZv2+ciQ2
-	 j1TBYB48z5UXdNCINevu8QF8PkZUhtuiQ5Pn2Ro5HP7OJI2hN54ESlSYvVJvlz7uGi
-	 wFpSLMRb/mEw4Rs/Nt2uP+2z8wwx6+vbNNgTL11g=
-Message-ID: <07f94688-55ed-407a-a11a-78a4feedf5e2@arm.com>
-Date: Fri, 25 Sep 2026 17:40:41 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IhHZ5V92"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265121F000FF;
+	Fri, 25 Sep 2026 12:11:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790338287;
+	bh=THj7X5BYhRyhBWSsYEa3Qh57VlIqUQyhi23en46tx3Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IhHZ5V9219Ubw6cVhLmMC+sNgR4AhrAWeTzyGCVhFDTiUbJYQr4rMjis13PwBblLQ
+	 aKY67/KSdvz+Oca/3seYR2y8GwhhxXKmEabO5w7SDhYjvQ2AygdUr4RcOLigtdImce
+	 mbZDmkUDwVK5x+abdMM2TctPwfN2xeP4b7X5rday864ZlH7hMku7sVe9xv5RxxyIxQ
+	 gbQZUAopGi+qsnzfdy1UAVN95aFqpHDGNH5dmITr9oWtlpB3EZ6MBOWaYjyO6QM4TU
+	 xfsKm49JshfbjJYnrcckfKanzdDUnC4FnRJ5O6CSgTZpyfxgl0VAotVr0QG6NzeWdH
+	 FJeZuRIzYzpkg==
+Date: Fri, 25 Sep 2026 14:09:11 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Namhyung Kim <namhyung@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] perf machine: Add session back pointer to fix out of
+ bounds read
+Message-ID: <arZkZ-3QFuZHs75G@x2>
+References: <20260918062620.2145220-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/4] kselftest: mm: prevent random failure of huge page
- split for khugepaged
-To: Yeoreum Yun <yeoreum.yun@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
- <20260924-fix_split-v8-1-cba7359d882a@arm.com>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <20260924-fix_split-v8-1-cba7359d882a@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918062620.2145220-1-irogers@google.com>
 
-
-
-On 9/25/26 12:41 AM, Yeoreum Yun wrote:
-> There're some random failure for split_huge_page_test when khugepaged
-> collapses pages into pmd again which had split by the test.
+On Thu, Sep 17, 2026 at 11:26:20PM -0700, Ian Rogers wrote:
+> A NULL session is treated as live. The tests use synthetic pids that
+> have no /proc entry, so the read fails there and the e_machine falls
+> back to EM_HOST as before, rather than being decided by whatever the
+> out of bounds read happened to return. perf inject registers its
+> session with the aslr tool once the session exists, before any event is
+> processed, so that tool keeps reporting file based threads as not live.
 > 
-> Prevent the khugepaged's collapses for split page by setting the
-> mapped pmd-huge-page with MADV_NOHUGEPAGE before split.
-> 
-> Suggested-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
->  tools/testing/selftests/mm/split_huge_page_test.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/mm/split_huge_page_test.c b/tools/testing/selftests/mm/split_huge_page_test.c
-> index c5d96a4b1db3..ef4058662b91 100644
-> --- a/tools/testing/selftests/mm/split_huge_page_test.c
-> +++ b/tools/testing/selftests/mm/split_huge_page_test.c
-> @@ -108,6 +108,18 @@ static char *allocate_zero_filled_hugepage(size_t len)
->  	return result;
->  }
->  
-> +static void disable_khugepaged(void *addr, size_t len)
-> +{
-> +	/*
-> +	 * Disables khugepaged from collapsing THPs in range, existing THP
+> Fixes: 70351029b556 ("perf thread: Add support for reading the e_machine type for a thread")
+> Assisted-by: Antigravity:gemini-3.1-pro
 
-Should it be "collapsing pages in range into THPs" instead?
+Thanks, applied to perf-tools-next, for v7.4.
 
-> +	 * pages remain.
-> +	 */
-> +	if (!madvise(addr, len, MADV_NOHUGEPAGE))
-> +		return;
-> +
-> +	ksft_exit_fail_msg("MADV_NOHUGEPAGE failed, err=%d\n", errno);
-
-I feel a ksft_exit_fail_perror() would be better here, since it will
-automatically print strerror(errno) as well. Still, it is not something
-that should require a respin of its own, so if you plan to respin for
-some other changes, you might fold these changes in as well.
-
-Rest looks good, so:
-
-Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
-
-> +}
-> +
->  static void verify_rss_anon_split_huge_page_all_zeroes(char *one_page, int nr_hpages, size_t len)
->  {
->  	unsigned long rss_anon_before, rss_anon_after;
-> @@ -120,6 +132,8 @@ static void verify_rss_anon_split_huge_page_all_zeroes(char *one_page, int nr_hp
->  	if (!rss_anon_before)
->  		ksft_exit_fail_msg("No RssAnon is allocated before split\n");
->  
-> +	disable_khugepaged(one_page, len);
-> +
->  	/* split all THPs */
->  	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
->  		      (uint64_t)one_page + len, 0);
-> @@ -167,6 +181,8 @@ static void split_pmd_thp_to_order(int order)
->  	if (!check_huge_anon(one_page, 4 * pmd_pagesize, 4, pmd_pagesize))
->  		ksft_exit_fail_msg("No THP is allocated\n");
->  
-> +	disable_khugepaged(one_page, len);
-> +
->  	/* split all THPs */
->  	write_debugfs(PID_FMT, getpid(), (uint64_t)one_page,
->  		(uint64_t)one_page + len, order);
-> @@ -215,6 +231,8 @@ static void split_pte_mapped_thp(void)
->  		goto out;
->  	}
->  
-> +	disable_khugepaged(thp_area, thp_area_size);
-> +
->  	/*
->  	 * To challenge spitting code, we will mremap a single page of each
->  	 * THP (page[i] of thp[i]) in the thp_area into page_area. This will
-> @@ -482,6 +500,7 @@ static int create_pagecache_thp_and_fd(const char *testfile, size_t fd_size,
->  		ksft_test_result_skip("Pagecache folio split skipped\n");
->  		return -2;
->  	}
-> +	disable_khugepaged(*addr, fd_size);
->  	return 0;
->  err_out_close:
->  	close(*fd);
-> 
-
+- Arnaldo
