@@ -1,196 +1,120 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011063.outbound.protection.outlook.com [52.101.52.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02557476040;
-	Fri, 25 Sep 2026 08:28:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E944749F6
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790324921; cv=fail; b=XQaENkJYr2vXOiqZuGNgO/un1tbshnIg4KAoDG/e1zFIBUpkQaIRr7vgXjX7B9Pi5mLM2h9+mQtNNjzZKOE07nWnXBgHZsTAV/rBLIND+jjXmX5y+UwuxwHGKcLKyIuHMzH6CxoWOUfprI7SH986WLhlYCuOX31ACM4NxSjqMgg=
+	t=1790324928; cv=pass; b=a8skOUYqCuY43T9RxVRETenJxG5xMlfg0iQlI92Z2j25/U2IS0CR5RrWO+isuPPxhFy1oKY0RhXhuWHST/U8GDNHyCY8okExmaj8L/CfbnK86K6PHt8gMbeUiBh3Btnuv17wko04STP8GgZEeq1JDchbxVEASjEOIR/m07Vy9aQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790324921; c=relaxed/simple;
-	bh=Ax4cWwD8fXsVKYSUD9zpjsc2pNGES0dAW4DROMlsgSU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Pedk7ZJwKUcWnyNFFo0WpImglN6VjUByiCxtJLH0VdJV2F4tGds87QxF3vu+u4EmFy9UNhiHCrDvNbos3f7y/jUcOmLBreK2SZxev0U0YmpfgWa6wlS0KxAlxfVcDs486ynv3Q2D8LCB4xXQdHF99hLraeQWhj7kWVKPnQsRnW4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OhRb9n/v; arc=fail smtp.client-ip=52.101.52.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790324928; c=relaxed/simple;
+	bh=EQbxlDZ2Pxmd04MLVhgPkCvPnuaf/4pa06BQ8C5/Jzo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hxx3N8Z5yDhLg57WOXYVGGY2EZBwKtE5og1FR6Q1LTa8GgUW4IB5Z9CSjcn2lu3Ph/mSqPViQs5Hryq+oRLj+Ds9owIR6NGTp/8PQ/lsA15WHwtMMED/uNhApU5kkm3xt1xEceXGXtXT+WANLpzZ6PM6vSQk/KwF3Axq4nyIBIk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BPyh4q8z; arc=pass smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OhRb9n/v"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qhwv0y0tUngc49VeChgE6f0vymOPmCJtZ1QFrpWHfNeHFLWNPDk0YnvWrKL7SkqX8TFWjRZ7p/+njYEcw/rtiiCqYdyGO+HJ7Fshy6wVEFPdqYuKJJn3ieeCCTFAXec+rrm6/32x4DulLE6M7zcp1wuyTROvDt1pYfA4AcoNdPL+LQC4WFpEySALCHwpwMBTsHbIFsa22iZSjpr556Jx70XtRoacCpR/XnfGLlI6dxJsyR7xayt/gEs+O2YRHrwyJzlrr4k47tQklPbcPqnij6VvQjTxWqHa5wWHvbQpuw7lClzVDnYGreZeCImBnBwzGME9ON5Gqu/rlHYpDseo1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yQOl11d3kvdeSAELIMiTDvh5hBH0f4SAk9IjriaTRts=;
- b=bw4oaFCjSVjQ7wkomz9dQsDJ9ws3AjQ3V/mc9lAqIfENBVh0Wpx6pU2tT2KNnK2EZ1yLTgkk611eTvZ8GofcpyLI8Mkc0la6KwdmZBg6AecnCIgeO5fEZjgsUxxA+08fzBMO8ynnC+HHhyEnW6dOXfwCZwQJ0atTwCtsV3NSjjvvP1H4czsu32Krb37XeFM97wxJ/yNHhqNyRQM+BQqkb9hWGKJvF7bZYYEP6gOeIllP0ZZ8z26km5czmc9DSLcmJq97Vt8cEOzKJwpu46idMM+vcQwMA+OD8n4E6jqyeaC6kQt5feRrANtmE0nUyDRtBTpuctcHKLC6BsFJ2Ov8iQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yQOl11d3kvdeSAELIMiTDvh5hBH0f4SAk9IjriaTRts=;
- b=OhRb9n/vfR57fALg5mOYOFNo7UU1rLJwzp7zwOhPye5u56HJ4VWCIn4OrsNJwxCc6/4I5/IA5np/y9Fs3hEBXkXDrePK674/+Zz8jmw75Wjo9UPLqI8Z1b2lmUpkDNoQx8SQn5QtLms4jqFynXbHW0rTvEjfKMEDbMEYyZt6OMc=
-Received: from BN9PR03CA0125.namprd03.prod.outlook.com (2603:10b6:408:fe::10)
- by CY8PR12MB7146.namprd12.prod.outlook.com (2603:10b6:930:5e::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Fri, 25 Sep
- 2026 08:28:32 +0000
-Received: from BN3PEPF00022BCF.namprd03.prod.outlook.com
- (2603:10b6:408:fe:cafe::3d) by BN9PR03CA0125.outlook.office365.com
- (2603:10b6:408:fe::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
- 25 Sep 2026 08:28:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BCF.mail.protection.outlook.com (10.167.248.170) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 08:28:31 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 03:28:30 -0500
-Received: from xhdipdslab46.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 25 Sep 2026 03:28:26 -0500
-From: Abhijit Gangurde <abhijit.gangurde@amd.com>
-To: <jgg@ziepe.ca>, <leon@kernel.org>, <brett.creeley@amd.com>,
-	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>
-CC: <allen.hubbe@amd.com>, <a.k@amd.com>, <nikhil.agarwal@amd.com>,
-	<linux-rdma@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Abhijit Gangurde <abhijit.gangurde@amd.com>
-Subject: [for-next v3 1/5] net: ionic: Fetch qid allocation and SRQ capability from firmware
-Date: Fri, 25 Sep 2026 13:57:58 +0530
-Message-ID: <20260925082802.2675902-2-abhijit.gangurde@amd.com>
-X-Mailer: git-send-email 2.44.4
-In-Reply-To: <20260925082802.2675902-1-abhijit.gangurde@amd.com>
-References: <20260925082802.2675902-1-abhijit.gangurde@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BPyh4q8z"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2aeee96adeso31190466b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:28:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790324913; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qQvk18/sITt4i1TY29VN4Gf+LeaXM3dWbV0CPR7EuA1OxKzYEBzUBY6nbHO9RbECtO
+         tCQ7yn2ZMvsC0l2IIkRddsxb8mPHq6YhUxOP2IFn2VP64OnegehbPY5jS8S8BGUISJlu
+         pB8T84/nAu9Z6nEaD9Wue0vKoiydO1rd9hVXD2O8jgAcfjXiwHtGaX4Fnrr063pGjV2/
+         e5CSmsvtiGZdGsbXYygfWi1S34Cd0F2mohcXlDOT0Zh1Ungu2qRCym4oJtPItqSfoctg
+         ikyXgdWzIve+EQ9HTGorUD/Qj/GaRDNI3hmvwBfoaOM02a+DgjcvbvVZEVps9Z1mDE/a
+         Cz/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q1gcwgKHE2o/eF0p/9qzOmI8efuyhVZE8JJPzxDfjp8=;
+        fh=soNAOpQpS/UE7T0VB1kkH1sK2My73zsEZz5pGutoIjo=;
+        b=oNFIagE+F+C+qwT+A9szb9Gkv7ClkMow0XfSBaYNXf5XqGZX+9PIlbnu6rvsM1/zuo
+         jSL63MI9BQwZcuBkS5Yy6u74n/7A0qqh5PDr56PjYtGZNtFJS7hobVsQ2g99YD+6+i2M
+         +w3vz+VPTA112uUIVHQQrb4JOBGssI1LgYM1mHvHkHHdhyGP4nRMCt2ZhByTJvj9p0o0
+         layt3uzrNuxCiK+GVTzHTNWQdijDmdNS1ju3gcV7IfOJW9leFJTzRU9MGdwiSvwq205K
+         8wU+BsXwU7G4hi/Rst7/p/ATqtQZF+LGbPd7F50M8U/1ZdRdHcb1HgqcL+BH+3zhRHrB
+         S7Ng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790324913; x=1790929713; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q1gcwgKHE2o/eF0p/9qzOmI8efuyhVZE8JJPzxDfjp8=;
+        b=BPyh4q8zm+qh21MHmAltAxjEbQc3TRxffCY0i8f4SlcQN7ERJO7rbi6ssBhmkUU+Zv
+         8lr1UeKxp2kCYHBZlpBX+g62wEK+rOFX0HV8fIUWYALzvDXRAoCBd7WSYE9PsuK6l9pB
+         ii8MO+XPdYup94SgEsWh20CixrkPKaYQzrTvY5qkiRMSswNPUUH5chk874kD06tlbdMd
+         2L2ESwAspow0XI/nKUxZsjTOQAwM7JFuI5e3tA0D2nmLbROP+3bAWZ6+5mXkti7XNjs8
+         h9ny0kCKmwE6TbN/pKEMAAZWMMAWbKazCefmrqXdpjPVwCVJd8i7zHWia5g+b3eZvLao
+         Jf0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790324913; x=1790929713;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q1gcwgKHE2o/eF0p/9qzOmI8efuyhVZE8JJPzxDfjp8=;
+        b=UC952c5nz7zSxav/O3pd3li5w+RJgID1O0AM5zfP2YZJwmP+o+FEt5Am9EAVy3uTKA
+         0zGJVdiqFutcQq0Iu5kngVBbOkyHt6LkzwwvxKY/DGPfu7CZRlhtkn158zp4q38116WB
+         gji2NJOcfwSO7h8AucytwwUaejmKt9oHbDW72kZXmUCk1ZbRLfOoITIih/HCIYPycPK9
+         /1i++tBmP64g2i9Ys4Tulj9R6nCCbTU7lLZgYOxpnQ/uWWiskiCtvwPKlXAcCZ3VPAua
+         0fgZwfcC3d+ZSPusshcKSUldz3oUPvE6L6qa00/QRNNclmpu7iaA0OXF+4+iRgQwOswg
+         GK9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzNjqcfkBdaxQXmw2DUXS4oU/BlzWSrKLKmi/TkXZ/6+BMTMMvus5s4DRP/s2fkAwZkwcNGMNtcWnOs9Zo=@vger.kernel.org
+X-Gm-Message-State: AFuF++k09LFoeskRppeddrTvhdvTdnbq8FLXICcF5T/41hf/+5T0vICT
+	YGRvKeOX2wKr38Bta+uDiOll6rC13pRXbO740YqsVXRtIImoz3ehdyTD5905zq+dKkscpSYEVq7
+	Vz/f+DZX0g8JX8Vyr+jPdd8t7XoqUeQM=
+X-Gm-Gg: AYBFou1cSQj44phTbaQZmln8lHZflV+jJHykWaTuZlknCtXl1dowks3G+OjTOPrLROa
+	aHmXogVVvpQHA44Q+ndAgvgd3X3J1V0/ccpfdU2vNPuyKOEAhFy0Fyc2l3sP3WgjWHNPiEa7I6x
+	F+gmOUvT1V5oQ8bHe8DnWk9sEn/ik/mRJERmEXQC9iYv65nzUSgXVoyn0fFakTpJwGlXnli+vS2
+	g8nj5a75Ylt6eXmS22nRLusI5Nss2mLNMBKmjE32ioUjc0N2wGCoOQG/o/JRXd90hpgPHvWDzmI
+	AOztYn3jgbIKl/0GI66SECsXznnivFrEpPA+Bd5UZq5qU0r1mATj1Ty6hdTaaiIxGHECmHPD9XH
+	DXKKgyluqG9p+CaNHN13nYqlpnZMq+Ca0ArZ8EsW+xH5QSFaxEoJwDESWpi6ZEE3hgAlRNusQkH
+	BNztl0OFH2wvlkkCUPNbzzmOBdyLh6f1V8Y1qCIW4V
+X-Received: by 2002:a17:906:9f91:b0:c2a:8cd4:cf36 with SMTP id
+ a640c23a62f3a-c2ae9f6a802mr113044466b.34.1790324913122; Fri, 25 Sep 2026
+ 01:28:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCF:EE_|CY8PR12MB7146:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95accbff-bcb5-439b-da4b-08df1adefb80
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|36860700016|82310400026|10067099003|56012099006|11063799006|22082099003|3023799007|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	JJf95emRTIHeyScMK9ft8Ai3oAuYoU4fX0bTKkwj/jXxamaFuSAbDG3EwnhZ9OO3YjGWFrJ4n/+XDiSIi+pdohNZTb7aV1vDQuh4TsdNGO9oJj0EjdraQeNfITubwRaI3bpmzSCVLgVBSqX8UZJV5zKrS+20AcvrOJ2UxgET6r4nVzx5FRZYtKiHtHmr8M1LiFOSn2e7CifCiVM/4H0XSgrF0ZkNs4teYXWpCq5JtA5kmMPX0o69pgbWdX3RL+Z5M2bspShdRqwASQE/85eIehF5RA4G/x8TQa7wUIV7zJo3+9afHc3WpVtbi3eQPHJeQPUn8dTVmNvnrx+65jJMvNj5cJSyxHB/OLMH/6sYCJQSpI8RjvrgQNDyDcg66KgniWAMXFPAulq8qqGlzIkZ3+G4NH6VcGlx4aBqc2NtcIDRXIUkU13BvFAoutQaGcY9GH7QBJDcqiYPv5M41jy+G/oEJNED9bEswqr/1sZwKdgxfuLybuPn69nALIUCEykJHl7DpjG73vCR9AH8eiJS5YVmgSsS+663VKB8HMUxDAcBd7lpMw+uyc3ElznfAYmdNmZ01/Wh2LSUbUcBpZ0pXyax3a0W6MLTG/d7jOB1uE2phn+xKAcuZlsZGBxHYDQLMUxjTijkAzE+mzvzBjn4s32lPoWKl00anIUm+mwlZD2kitk84WFF1pghIKWcrJXkY908ZVcZ9GqJ2j9rQ2SJrQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(36860700016)(82310400026)(10067099003)(56012099006)(11063799006)(22082099003)(3023799007)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	nGjoC2OQZFST1konw8mnPfy+FvakyCB92Al5w6GvS2QZtPDBM6Zqxm6Ow1rbJRhAaLfKPLOZWbJMbbwZqrzJJYhV5CjAYmCZxUAXPOHDuw4si2xnr/NCaoAVM/V9fDFDUi20pMvS/6jiTq0O4Qrkz/DZg4OxPrjdjIaIPONGW6IuHie9lalXddiYugorvQZnVeeJ4yhInY8OIIe6pSX6ospphf6iF0Ahmg4WJYSVVAojeopD3rnV1Pqes7wh3+ClXwB/Hc4e+g/wByfWXR5Abd1d46m/Nn3D3Bndo5z/7NNcRKoYhv/cz46LPNAg2v37w1kiKysNOO/lWTzhQDcK/TnQOV1N0uhody33oUokfUrcQVjaqRiAGuWapz/MU5iaVjy3asRAJQOq52DzkhGbivZIfzXMWeX1wVMh4la+SX721DJ9BWfweHyr4PGZdFO2
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 08:28:31.4069
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95accbff-bcb5-439b-da4b-08df1adefb80
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BCF.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7146
+References: <20260924083512.461838-1-peng.fan@oss.nxp.com> <179032407610.10527.4008737984510756760.b4-ty@oss.qualcomm.com>
+In-Reply-To: <179032407610.10527.4008737984510756760.b4-ty@oss.qualcomm.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Fri, 25 Sep 2026 11:27:55 +0300
+X-Gm-Features: AclHuK9v8ThjxwkXmKFN9Q8U5cIPNT79Q4CGnC9umBYE0HzIKSyDvA5ZTne3z2k
+Message-ID: <CAHp75VdBbr5TgEXrJ6XDQiPvsGfhyKQmVL+zUQ3mNS=GiWw1RQ@mail.gmail.com>
+Subject: Re: [PATCH] gpio: wcove: use regmap_assign_bits() for conditional set/clear
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Andy Shevchenko <andy@kernel.org>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	"Peng Fan (OSS)" <peng.fan@oss.nxp.com>, linux-kernel@vger.kernel.org, 
+	Peng Fan <peng.fan@nxp.com>, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Read the qid allocation and SRQ capability from the RDMA LIF identity
-reported by firmware.
+On Fri, Sep 25, 2026 at 11:14=E2=80=AFAM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
+> On Thu, 24 Sep 2026 16:35:11 +0800, Peng Fan (OSS) wrote:
+> > Replace if/else block using regmap_set_bits()/regmap_clear_bits() with
+> > the simpler regmap_assign_bits() call.
+>
+> Applied, thanks!
+>
+> [1/1] gpio: wcove: use regmap_assign_bits() for conditional set/clear
+>       https://git.kernel.org/brgl/c/428cb7603f95d0ee6fad06cbf56321b1bdeaa=
+a85
 
-Signed-off-by: Abhijit Gangurde <abhijit.gangurde@amd.com>
----
- .../net/ethernet/pensando/ionic/ionic_if.h    | 31 +++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
+Are you going to handle all the Intel GPIO drivers that have a
+MAINTAINERS record?
 
-diff --git a/drivers/net/ethernet/pensando/ionic/ionic_if.h b/drivers/net/ethernet/pensando/ionic/ionic_if.h
-index 15f2bc3f4043..e911fad545d6 100644
---- a/drivers/net/ethernet/pensando/ionic/ionic_if.h
-+++ b/drivers/net/ethernet/pensando/ionic/ionic_if.h
-@@ -7,6 +7,7 @@
- #define IONIC_DEV_INFO_SIGNATURE		0x44455649      /* 'DEVI' */
- #define IONIC_DEV_INFO_VERSION			1
- #define IONIC_IFNAMSIZ				16
-+#define IONIC_CREATE_CQ_CMD_V2_MAGIC		-1
- 
- /*
-  * enum ionic_cmd_opcode - Device commands
-@@ -513,6 +514,23 @@ enum ionic_lif_rdma_cap_stats {
- 	IONIC_LIF_RDMA_STAT_QP = BIT(1),
- };
- 
-+/**
-+ * enum ionic_lif_rdma_alloc_qid - RDMA QID allocation capability
-+ *
-+ * Bitmask of RDMA queue types for which firmware can automatically
-+ * allocate queue IDs. When a bit is set, the driver can request the
-+ * firmware to allocate QIDs for that queue type during creation.
-+ *
-+ * @IONIC_LIF_RDMA_ALLOC_QID_CQ:  Firmware can allocate QIDs for
-+ *                                Completion Queues
-+ * @IONIC_LIF_RDMA_ALLOC_QID_SRQ: Firmware can allocate QIDs for
-+ *                                Shared Receive Queues
-+ */
-+enum ionic_lif_rdma_alloc_qid {
-+	IONIC_LIF_RDMA_ALLOC_QID_CQ = BIT(0),
-+	IONIC_LIF_RDMA_ALLOC_QID_SRQ = BIT(1),
-+};
-+
- /**
-  * struct ionic_lif_identity - LIF identity information (type-specific)
-  *
-@@ -557,6 +575,10 @@ enum ionic_lif_rdma_cap_stats {
-  *	                       (enum ionic_lif_rdma_cap_stats)
-  *	@rdma.rsvd:            Reserved byte
-  *	@rdma.rcq_sign_bit:    RCQ sign bit
-+ *	@rdma.srq_qtype:       RDMA Shared Receive Qtype
-+ *	@rdma.rsvd2:           Reserved byte(s)
-+ *	@rdma.alloc_qid_cap:   RDMA queue type QID allocation capability
-+ *	                       (bitmask of enum ionic_lif_rdma_alloc_qid)
-  *	@rdma.rsvd1:           Reserved byte(s)
-  * @words:               word access to struct contents
-  */
-@@ -604,7 +626,10 @@ union ionic_lif_identity {
- 			__le16 stats_type;
- 			u8 rsvd;
- 			u8 rcq_sign_bit;
--			u8 rsvd1[160];
-+			struct ionic_lif_logical_qtype srq_qtype;
-+			u8 rsvd2[5];
-+			u8 alloc_qid_cap;
-+			u8 rsvd1[142];
- 		} __packed rdma;
- 	} __packed;
- 	__le32 words[478];
-@@ -2608,6 +2633,7 @@ struct ionic_rdma_reset_cmd {
-  * @depth_log2:    log base two of queue depth
-  * @stride_log2:   log base two of queue stride
-  * @dma_addr:      address of the queue memory
-+ * @udma_idx:      udma index
-  * @rsvd2:         reserved byte(s)
-  *
-  * The same command struct is used to create an RDMA event queue, completion
-@@ -2637,7 +2663,8 @@ struct ionic_rdma_queue_cmd {
- 	u8     depth_log2;
- 	u8     stride_log2;
- 	__le64 dma_addr;
--	u8     rsvd2[40];
-+	u8     udma_idx;
-+	u8     rsvd2[39];
- };
- 
- /******************************************************************
--- 
-2.43.0
-
+--=20
+With Best Regards,
+Andy Shevchenko
