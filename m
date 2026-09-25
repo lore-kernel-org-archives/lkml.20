@@ -1,138 +1,158 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 874833A5433;
-	Fri, 25 Sep 2026 16:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from outbound.pv.icloud.com (pv-2006a-snip4-10.eps.apple.com [57.103.67.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372BC3A7820
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:48:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.67.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354919; cv=none; b=QtVq3Z64DFwEug6v5qMCzri751zzaUH94Btkx7GNASA8Vjgv4X1ehlgBsthCMPzDa8HRDv4L5o+Fch1XiV5LfTiVey9YxAjYnzMyXkwL4yO8DLglPov92KqS51Vu0CYZjgW5k9baTHoI7hdI3R54I8bFAIq97IpKhb7FT793hvM=
+	t=1790354939; cv=none; b=Oj7i7KyA3odkkzbUyjKn/yifJGu8VK8tiTrw2OY0y8Jso0HnV6xLPa3bvOoZxCoD4VZBTRykm/dw9m+ohh02mxN27oNHPdyfDt8hpRGk4/8hImPkYPlQY22qGHPxafbTycWj5H4M3NkMdw/s9jWH4KncpylMV/CuGJ0K72PXNbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354919; c=relaxed/simple;
-	bh=TzUGic9pMOny7EGR5g7usgpgx797/IJRE1u9ts1Wm0g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ltRmi8pRvcjWQjOg7XA5tJGe9xyzwCgWsMtEzqJfwQ9LZ4ikWMZYcO2T5AbQSgltevPJn53ml7xV8YZncWzMWSSjmQCFmubctYmn+MnrMnpp0h4lWI15lAMSlvLa387RNv2ymxYwaVy01W56qeFyCoFzDQJCJ+D+cwx0/L5uq2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ofYM+MpN; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790354939; c=relaxed/simple;
+	bh=d0EAaselWhtwFqQjs//oTuOpV3lYDMw4jQFD5eFN+no=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hPFprZ+uku9cxKi8QJ5CLC25lZyBk+hL+PBSSQAknHLRHTHvZYqZXjkGUHwiNOvRz4hX5Csf0PUVldERxnK3Ulga2a/N+0+f+dHrdz2VbSwLr8UXsBg8YhP2ytEQobyreRhV8Bf+BJn7tB9uLgka8rQmFH/t49cG0PKzFCuQy70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=matias.me; spf=pass smtp.mailfrom=matias.me; dkim=pass (2048-bit key) header.d=matias.me header.i=@matias.me header.b=QGJobpvv; arc=none smtp.client-ip=57.103.67.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=matias.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matias.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ofYM+MpN"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 02AD4169C;
-	Fri, 25 Sep 2026 09:48:26 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 22A6D3F86F;
-	Fri, 25 Sep 2026 09:48:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790354909; bh=TzUGic9pMOny7EGR5g7usgpgx797/IJRE1u9ts1Wm0g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ofYM+MpN4pf0AQiHkEr6+VnR19TayQDECqyBJXDP5SqIguchrv1aGdXz4dXVLNmhb
-	 dfFleGp0EeFmpr1ed3q40j4OQLi8cop06TNfATdKAfliLLJDCFKwbpMmZn39nVKi1m
-	 Qn97RoWBgt5cO39iAOiYsEnFxJY7QXFKUVOFe83M=
-Message-ID: <1b55f680-2413-4db1-b928-ed5741696d07@arm.com>
-Date: Fri, 25 Sep 2026 17:48:25 +0100
+	dkim=pass (2048-bit key) header.d=matias.me header.i=@matias.me header.b="QGJobpvv"
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-10-percent-2 (Postfix) with ESMTPS id 9197818000AC;
+	Fri, 25 Sep 2026 16:48:31 +0000 (UTC)
+X-ICL-RepId: 01a0d977-f084-7be2-b406-d702d9c8146a
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhAAkMDWBxBDUAdVQFLVxQEEFYBWwRyHVgMWgxERV8VGR5XUFoKRhlYCx0AUktAEwRJAk1fDl4fBBdGGVUERx5dVkMbGQJRHFYNV0NUBF9QSQxBUGxaAEcXSB1dGVlvUF0cDgBWH1sRSlZeCBcGWxQERAFdBV0CSQtNAlsDUwBDF0ACVQNZH0EUEFYBWwRyHVgMWgxERV8VB1hHFEcODxNMC0cCWjRWH1QZWgM=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=matias.me; s=sig1; t=1790354919; x=1792946919; bh=pKrb+00BnD56KGeauHWqxEBRwP61f6KPp4UQvsrluyY=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=QGJobpvviDSGonyo1O6QX50oBa0fHebgjDaxdv935rlRs8OAj3ikgBt2BD1CO5rWhCwXkv4cDp23dIFv37UgoloKOwg4xe2LPAAb6E15ZfxoS4s05uXbz8vxgLGCqfOrHoMj7GP+yhku6Pk0sOINxBoxf+xOQJ81yZwlQOIct7bMkC+bmszBJiNoOO8DfHEwuI7A09V7aUwdj9qg/WHXg2W11tvvBFOS6laDNxpRL506A5E70xjuOkifpadalyXPTG4h63TpSA1/ePOTCPZNG+7Sk4Im1A/B3kLwlOlXtbBvyUOYGVYWB82QPeayRX3OqZOu5g7jk3QttwxO8nozsw==
+mail-alias-created-date: 1705102286191
+Received: from localhost.localdomain (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-10-percent-2 (Postfix) with ESMTPSA id 054CC1800198;
+	Fri, 25 Sep 2026 16:48:27 +0000 (UTC)
+From: =?UTF-8?q?Mat=C3=ADas=20Mart=C3=ADnez?= <hello@matias.me>
+To: Antheas Kapenekakis <lkml@antheas.dev>
+Cc: =?UTF-8?q?Mat=C3=ADas=20Mart=C3=ADnez?= <hello@matias.me>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Denis Benato <denis.benato@linux.dev>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Armin Wolf <W_Armin@gmx.de>
+Subject: Re: [PATCH v4] HID: ayaneo: Add AYANEO 3 detachable controller driver
+Date: Fri, 25 Sep 2026 13:48:23 -0300
+Message-ID: <20260925164823.81842-1-hello@matias.me>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <CAGwozwEDBCs3zmCb6xbTBd48F+tbFOtZC-sC+F5uGvo82UL4zg@mail.gmail.com>
+References: <20260925061941.75121-1-hello@matias.me> <CAGwozwEDBCs3zmCb6xbTBd48F+tbFOtZC-sC+F5uGvo82UL4zg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 06/12] remoteproc: virtio: add bounce buffering for
- data buffers
-To: Mathieu Poirier <mathieu.poirier@linaro.org>,
- Francesco Valla <francesco@valla.it>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Mark Brown
- <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, virtualization@lists.linux.dev,
- imx@lists.linux.dev, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-6-dac8c5eb4aa9@valla.it>
- <arKlvZGqu2nt6Ci0@p14s> <arLXthhYbKkwZ9zY@bywater>
- <CANLsYkwNOukGX68=NVvwNP7iudP3EcKN6C2L2o9nVCTRxFVxFg@mail.gmail.com>
- <arP38OEaabFFu8lJ@bywater> <araOI_duKIAbphq6@p14s>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <araOI_duKIAbphq6@p14s>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: oyx-XpE-PM2gk4koaKmt0NS96vS1ueYE
+X-Authority-Info-Out: v=2.4 cv=FMwWBuos c=1 sm=1 tr=0 ts=6ab6a5e4
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=IkcTkHD0fZMA:10 a=MKtGQD3n3ToA:10
+ a=1oJP67jkp3AA:10 a=VdqzKS8jKosA:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=b4MELKoKnEC4wfmd7KwA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2NyBTYWx0ZWRfX5+CY2MTbvvqs
+ kQh6OQVWgvfCoXwF9+fSAEegmT9p00OA2YHnUHrrOKvSNdi2AsTE+HDkyqtaRvoD00QCj2U3RRY
+ +KDSdNd7XHDhql6NE+4ENLw3OvCDklFpt56PsWrTYKEtsONCRkSu2howP4iUdqXUCGk2Cwpk9W1
+ EIrFdlKnXRcY3m9CLVGF3kiA8wM+21aRqw7wJi1bceDOuMrBnNILEihhWA/1ld88WzX+MlZQRuG
+ vya2epIc3wBvwwQ4q+xkBuaElkabAW3xI0+vAhjrN4Mp8fholzu2tVN7TYtdmvmV4Z6JtzUBzfj
+ uAtwDoUi6gYPCwSM9QxczG1dwOuHW9dGTNf2hqCQhfDMuPnRREZPXc0hv/ImzY=
+X-Proofpoint-GUID: oyx-XpE-PM2gk4koaKmt0NS96vS1ueYE
+X-JNJ: AAAAAAABk66Ecr/Ttss0fJMYXAjhqZ5unT8jUh/xmlMf4RKlOatEZoFZQuBhTeYV0hI4drYfR+J7Bvl78TFqa1n87BzxLKupVfonC53tVIJxvL0Fv2ibBaJpGAurYatq28FZkZxACO3/Iv4xzZZUQIVVznGFDv064zkuY+Mqb4vxV/9HfEMEDujvOxv92WfrMThL9NeAes8erjjPunHjgEPAMSUTu1sZZxIOxgLqNE3tQY/FcloLaO0A7KTEuFFoUYMEPFharx75PzcvLehd2NLTuc6iHY/qZAsKGE1Jrvm4H0oKzulrxOX1Z0IgF3CPUHjKDYfOHVUYw8YyH8qXHC6t16Rf3VscR7xk6fkrgRn/yVhIPpMrg0NOkWIKEJab1XkdzR3qHHJ5T0tjWi5jeTP+6/fMngKZ1vlwfxy15DTKz1wNMwZItnVQc/pQH6xihW/WtRHpftwAP2ry3+S6dVeOBA81+xOTTzlYO1LAqBhNwNef8ATxTW11otuz7Wd1sn7qPNj3nhgMci/opEX19uEAJhLDIDVYzYgbc36vgcg4P8GlR1nUESw+YZpokm62WLmXxt0kAyNzJLWhTGkZq5cRW5W2BNVaPimA6g1cuNw5hxKr4LWO9578N5hOHR+TMLHbWClwJ+j+PCsjeWqJZcBOVfYZPLWVfkcQTT+KR5n5P3z6Y4UPLkXGJ/BWeCftxOqIVlgfFfoIqAqExfnvhWbpHamwz1K2dpKI/irQR/W1/CpCTE+e41sn0jddHTgvNpOuNtzIrr1yTHM+K5bXGHbI3gDDS1hJhrAE6pWSxUp2b9B3+FXMPGch+GKhU2IvvXqtWz7cV2lIyTfTjex52q9paIeuJ85uoH+s/B7faYOk/MKsUiQvn5AI9Q15BazPagijz+nPDKlphmIs2Tgd3X3Go0sZIH3KemtkKklFZg8BUEQf1bTgTb95qtlaahmd6Oyyqj+72bsC8HG8nC1Yo9GaC0Ls94O
+ NE0hFj2UU40sFS8ggqEdvZKfDi62XMds1uV86VHiC1o4BcpTf/ZifruBTVgU/zTPdoCl24BIFcUbiYoGFkuFX0eMdD39/ebtoEjehL+xcssnSRJIqm07z7jNIK6azM4wMsBO/R15g1eNzmqhz5/FLb9fQSGBjw4tHO9X+7UDZe7YbszNH/7ExPoMUjCNYyGEMLR4pnAqXi+xfbpieAxs4JKxXvLObFgCiWi6ITpP6ByxT6LRzAz+J6ePxO3FjSrRl1oAd5jJvA6OHLMMKpiJpZM7/uBQjNQc5mZH5zM8EqPA3YeXJzgabbqNZqwSQeq6ribC6LgASHseof0X6yROg3V1WFvMbmfhSKNAt4GAEiAK444yfLq6KijCkc0nA/EeyAJy9WgCJEqmzkjCn8LVdabGOdcht
 
-On 25/09/2026 4:07 pm, Mathieu Poirier wrote:
-> On Wed, Sep 23, 2026 at 06:05:35PM +0200, Francesco Valla wrote:
->> On Wed, Sep 23, 2026 at 08:44:41AM -0600, Mathieu Poirier wrote:
->>> On Tue, 22 Sept 2026 at 13:39, Francesco Valla <francesco@valla.it> wrote:
->>>>
->>>> On Tue, Sep 22, 2026 at 09:58:53AM -0600, Mathieu Poirier wrote:
->>>>> On Wed, Sep 16, 2026 at 11:10:51PM +0200, Francesco Valla wrote:
->>>>>> Depending on the driver originating them, data buffers used for virtio
->>>>>> communication can either:
->>>>>>
->>>>>>    - already be allocated from the coherent memory area that is
->>>>>>      accessible by the remote processor; this is the case of rpmsg
->>>>>>      and the rproc flavor of virtio-console;
->>>>>>    - be allocated from generic kmem, and thus not accessible directly by
->>>>>>      the remote processor.
->>>>>>
->>>>>> Exploiting the map operations, which are used by the virtio framework
->>>>>> when VIRTIO_F_ACCESS_PLATFORM is part of a vdev's feature flags, add
->>>>>> bounce buffering for the second case: when the map() callback is called
->>>>>> for a buffer, one or more pages of coherent memory are allocated and
->>>>>> data is copied to them, then they are exposed to the remote processor;
->>>>>> the data is  then bounced back on unmap().
->>>>>>
->>>>>> The first case is not impacted, since buffers already suitable for
->>>>>> remote transmission are passed through.
->>>>>>
->>>>>> With the bounce buffering in place, any kind of virtio device can be
->>>>>> supported through the remoteproc-virtio transport, at least from a
->>>>>> data exchange standpoint.
->>>>>
->>>>> Is this _necessary_ for the imx93 platform you are implementing feature for?
->>>>>
->>>>
->>>> If I don't want to fundamentally change how the remoteproc integration
->>>> works (i.e.: using buffers only from a pre-shared area), yes. While in
->>>> my test environment the Cortex-M33 serving as remoteproc is able to
->>>> access the whole RAM space, that is not always the case.
->>>
->>> The first sentence tells me it is mandatory while the second says it
->>> is not.  I understand the use case but don't want to bloat the
->>> subsystem with code that is trying to address a problem you currently
->>> don't have.
->>>
->>
->> Let me rephrase: while on i.MX93 the Cortex-M33 can theoretically access
->> the whole RAM space, that is not a good idea from a security point of
->> view and can be the source of a number of bugs. The target is to
->> statically define a static shared memory area (as I am doing on i.MX95)
->> and only use that.
-> 
-> As Robin pointed out, have you looked at using a restricted-dma-pool for that?
-> Note that I am not familiar with the concept but open to go that way if it can
-> work for us.
-> 
-> Robin, can you point us to a simple example we could look at?
-The only in-tree example is mt8192-asurada.dtsi, but even there the 
-fundamental principle seems exactly the same - the system interconnect 
-is locked down such that there's only a particular region of "shared" 
-memory that PCIe DMA can access, so the restricted pool is placed there, 
-and in that case can occupy the entire region since the wifi adapter 
-only really does streaming DMA - restricted pools have some limited 
-ability to act as a fallback for coherent allocations, which won't work 
-for everything, but does happen to be enough for that wifi driver.
+On Fri, 25 Sept 2026 at 12:01, Antheas Kapenekakis <lkml@antheas.dev> wrote:
+> >   Antheas suggested generalizing the lenovo-go file instead, but that
+> >   left it internally inconsistent (its other entries on the same LED
+> >   keep the go: prefix) and placed this driver's ABI outside its
+> >   MAINTAINERS entry, so the lenovo-go-s model won.
+>
+> That is fine. You should have asked for me to clarify. This driver
+> does not need to own that sysfs entry.
 
-Here it would be a case of reserving some of the shared region for a 
-restricted pool alongside the "vdevbuffer" coherent pool, adding it to 
-the memory-region list of the relevant device(s), and usually that would 
-then just work, since the setup is all done automatically by the core DT 
-code. However I know remoteproc does some funky stuff with child 
-devices, so it's quite possible there might need to be something more 
-done there. But still far, far less than reimplementing a whole other 
-bounce-buffering system.
+Got it, plan for v5 below, under your ABI comment.
 
-Thanks,
-Robin.
+> > - Default the subled intensities to full so brightness writes produce
+> >   light before userspace configures colours.
+>
+> You mean the opposite? Writes to colors produce full brightness if
+> brightness is not written? Because the other way is not a problem. You
+> can skip led writes if a color has not been provided.
+
+No: the multicolor class computes each channel as
+brightness * intensity / max_brightness (led_mc_calc_color_components),
+and the subled intensities start at zero. Without this change a plain
+"brightness" write reports the LED as on while emitting nothing until
+multi_intensity is also written. With intensities defaulting to full, a
+bare brightness write produces white at that brightness, and a
+multi_intensity write scales it as usual. Nothing lights up
+spontaneously: brightness starts at 0 and the driver sends no command
+until userspace writes something.
+
+Skipping the device write when no colour was provided keeps that
+surprising state: brightness-only users (desktop sliders, triggers)
+would write brightness and see nothing. hid-lenovo-go-s also starts
+from non-zero subled intensities; it can read the current colour back
+from the firmware, which this device cannot (the protocol has no
+config read-back), so a fixed default is the only option, and white
+seemed the least surprising one.
+
+> > +What:          /sys/class/leds/<dev>:rgb:joystick_rings/effect
+> [...]
+> > +What:          /sys/class/leds/<dev>:rgb:joystick_rings/effect_index
+>
+> You cannot add a new sysfs entry for an existing ABI. You must correct
+> the original one or move the led registrations to their own unique
+> file and correct them.
+
+Noted for v5. I will make it a two-patch series again: patch 1 adds
+Documentation/ABI/testing/sysfs-class-led-effect describing
+/sys/class/leds/<led>/effect and effect_index generically (the shared
+value names — monocolor, breathe, chroma, rainbow — defined once,
+effect_index listing what each device supports), and removes those
+entries from sysfs-driver-hid-lenovo-go and -go-s, which currently
+duplicate each other. Patch 2 then adds nothing LED-related to this
+driver's ABI file. Should the other duplicated LED entries (enabled,
+enabled_index) move in the same patch, or only effect/effect_index?
+
+> Too much detail in comments. Obvious observations need not be listed.
+> This applies to most comments in the current driver. E.g., the generic
+> vid/pid note may remain.
+
+Will definitely trim for v5.
+
+> Review the use of reset_resume. It is only used for buggy devices.
+> Doesn't resume work? Is it needed in your usage? does the device not
+> restore colors after sleep?
+
+Ordinary resume is fine and the driver does not hook it. reset_resume
+is a different path: usbhid's hid_reset_resume only runs when the
+device was reset while suspended (post hid_post_reset), i.e. the
+firmware state is gone no matter how well normal resume behaves.
+
+Two uses here. On the transparent interfaces it mirrors hid-generic,
+which registers reset_resume itself (hid_generic_reset_resume ->
+hidinput_reset_resume); since this driver takes over interfaces
+hid-generic would otherwise drive, dropping it would regress keyboard
+LED-state restoration after a reset. On the vendor interface it
+reapplies the cached configuration for the same reason, and only if
+userspace had successfully applied one ("configured"), so an untouched
+device stays untouched.
+
+> I think these are all my comments. Given you are still doing changes
+> for stability's shake, this will need to be tested for a bit longer.
+
+Agreed. The v4 driver is now soaking on the distribution kernel this
+device ships with, and v5 will wait for that plus any maintainer
+comments.
+
+Thanks for the review and for all of your help,
+Matías
