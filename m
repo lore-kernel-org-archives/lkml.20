@@ -1,79 +1,163 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA33B41DDEC;
-	Fri, 25 Sep 2026 20:23:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E9B39E6FD;
+	Fri, 25 Sep 2026 20:24:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367805; cv=none; b=Zyhs2vVHwDJCo7T6+c+eEc2OzZj83Nf+NTSSzSJJSeTTKrDvAwGuTrz0Tep+IrZuk3RHAdnqBEW5zFZGfobCuZUp11yERMFO2GgJHWcBXK5t2lG2w+8PzvVRbS1Iai5AMepppyI2RWixbNWzvD4H0yCq6zqreiok2Zaz/DLLa8I=
+	t=1790367845; cv=none; b=C8geZNAJ4vOLq9IkbpX9NBOE7rPklKeQtr7KgDU8Q4uy/8xKNp0pdeQKjLdoUwg7oWshJctz5tsFf4PKNInIYf/Vj0X2yP2giYf0mOW16Ac/PX28zBrvf4c3yY4rvcdh0eNlo+bwUIRHxD4G4J3yi0FCjRP6Z7J7Anx4PIRhUwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367805; c=relaxed/simple;
-	bh=yku3ipPh57nbU+UgKjHx2/722iALfb4YCYhKbE75SZ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u+QymQlub1yJModUWToyt4SPXQDqcyK74C+docqA3oGooWSl97tqvdg3dpk35RPzXXrmvIE4wlQqz/oZhIbIyVuIqSlEG0KZtTJOfcexCoVyoSMSqEGXkobwEVgZh7lUCkbmujEaUqNtqApRw8ddmqFgg6H0RnTGadeE9HGg6fA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EtXFoqh7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790367845; c=relaxed/simple;
+	bh=sEy0iS3lMe+7dT7VRMQG77lvgBadr1yYxPHFXErlTAg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pNVmbEjahIhXBel5dBRvWX5/j9ynxjRCtCkzEnhRUJMLJU3FTUokhJlT1c9VgpQXy2R4O8eVeSN5EfolSLXDc56cMmiKu8anCzH5CCP8n+l4uggAfLig5ixUhiuIZPEYlXFh5dkY6q0AvLIxGU746iIgzr3ePPt5h4+IIk+ACCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXk6iOiF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EtXFoqh7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62E21F000FF;
-	Fri, 25 Sep 2026 20:23:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXk6iOiF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39DB31F000FF;
+	Fri, 25 Sep 2026 20:24:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790367803;
-	bh=be7aOpwVM70umZjqiE59C+n0H3rASjAY9dZun5+KBHQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=EtXFoqh75BWAK5V012E9A+bi+Qa0NXe57pOz37rERkyCg0JqZIK/MvNnra6gpyHjg
-	 OILUO4/2Qysh8b96YxFvHPqvYh6JcFwkZnuXHW8E29ehpIh0IlJO4YPvgbIEKDRAUt
-	 grGBJOtJW3j8eh4DYVrxCJDoMn0qx1tsum9YUy/dOcrNKRSyjfPbzYSOiaQPxIsZ2r
-	 8ohqvQr9t74YPTf4HhG8AGossqe/aQa0ikcYTDrDEmtzwTbKitq70xuHBSN+HHv1Nu
-	 G1CkCgMYGkpHGSuOK1QyhbymQq2ulHcCZA/XQ8zWeCFjWO14w91CZ/+gPFV1ZfQuE9
-	 7g1LSZyxRMqZQ==
-Date: Fri, 25 Sep 2026 13:23:22 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Paolo Abeni <pabeni@redhat.com>, Ming Wang <wangming01@loongson.cn>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org, stable@vger.kernel.org,
- Oliver Neukum <oliver@neukum.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] net: usb: cdc_mbim: add MeiG Smart SRM821 to ZLP
- whitelist
-Message-ID: <20260925132322.1798356b@kernel.org>
-In-Reply-To: <2026092507-jurist-protector-c7e7@gregkh>
-References: <20260920074500.826121-1-wangming01@loongson.cn>
-	<4d5e2857-e6eb-43e2-b668-83e779aaa734@redhat.com>
-	<2026092409-status-rocker-0fef@gregkh>
-	<20260924092851.33737b1e@kernel.org>
-	<2026092507-jurist-protector-c7e7@gregkh>
+	s=k20260515; t=1790367843;
+	bh=0XtDr7CWLuuPjZmyPXX7gre02vj8EXdAecl3xCM4xLI=;
+	h=From:To:Cc:Subject:Date;
+	b=fXk6iOiFDfp2qzi6JReKLwJ9xcBr9WCwQ3EDjSGqsfsFnEt0x4ArV9IxRDkcj1hyF
+	 IlIovwFjZBVOkluBJ2OMvXgmWNqKDIrtXeZt2oZldErQlX77+InRPdO47h2YmPvh/W
+	 znwzDi6aAnO3NwYy9s0toEwgGlbc7+PxQIqV3Oh0RQVPkR/2aNKfEjCpd2jkyiGbAK
+	 YidyHZmRlEmvwYFEn7q1msBUbNqsy9ZQZjz0hEfwNCLLY1GJul0X6Z3NZsyS7LIsP7
+	 92nvTRMGfN0ozGsODR6QE0lygvoGTKm1ZtYusv7GebbhctfHOo6FMxgSE5o3fc0Uw6
+	 csQ/vsaXQG3Kw==
+From: Eric Biggers <ebiggers@kernel.org>
+To: linux-crypto@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Jason A . Donenfeld" <Jason@zx2c4.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH v2] crypto: aes - Fix undesired override of some optimized AES modes
+Date: Fri, 25 Sep 2026 13:23:53 -0700
+Message-ID: <20260925202353.10763-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 25 Sep 2026 07:12:06 +0200 Greg KH wrote:
-> On Thu, Sep 24, 2026 at 09:28:51AM -0700, Jakub Kicinski wrote:
-> > On Thu, 24 Sep 2026 16:22:54 +0200 Greg KH wrote:  
-> > > > > Cc: stable@vger.kernel.org
-> > > > > Signed-off-by: Ming Wang <wangming01@loongson.cn>    
-> > > > 
-> > > > Before any other step, please read:
-> > > > 
-> > > > https://elixir.bootlin.com/linux/v7.3-rc3/source/Documentation/process/maintainer-netdev.rst#L454
-> > > > 
-> > > > AFAICS this is actually support for additional H/W, just worded in
-> > > > very unusual way: please reword the commit message accordingly and
-> > > > drop stable from CC.    
-> > > 
-> > > Why drop stable from cc:?  Do you not want it in any stable kernel
-> > > release?  Seems like it should be to me, we gladly take quirk additions
-> > > and new device ids in stable kernels.  
-> > 
-> > the irony of telling someone to RTFM while not reading 
-> > someone else's FM :)  
-> 
-> I did, and it says to keep stable tags, not to remove them, unlike the
-> request here.
+The new library APIs for AES encryption modes were wired up to the
+traditional crypto API via crypto/aes.c.  However, for now the kernel is
+still in a transitional state where various architectures still have
+architecture-optimized implementations of AES modes in arch/*/crypto/,
+wired up to the traditional crypto API only.  Because of that, the
+crypto/aes.c algorithms were given a cra_priority of only 110 to prevent
+them from overriding arch/*/crypto/ in the traditional crypto API.
 
-I meant Paolo did not read the stable one, sorry.
+However, because of how the traditional crypto API works, the
+cra_priority trick doesn't work in cases where the relevant algorithm
+isn't directly implemented by arch/*/crypto/ but rather is provided by a
+template instance using other code in arch/*/crypto/.
+
+For example, x86 doesn't have its own "ccm(aes)" but rather relies on
+the "ccm" template constructing it from the x86-optimized "ctr(aes)".
+The existence of the library-based "ccm(aes)" prevents that, even though
+its priority is lower than what the template would produce.
+
+Thus, "ccm(aes)" ends up using the slower single-block AES code.
+
+Therefore, skip wiring up the relevant library-based code to the
+traditional crypto API on architectures where this problem can occur, as
+determined by what exists in arch/*/crypto/ for each architecture.
+
+This is ugly, but it's also temporary: these conditions will go away as
+architecture-optimized implementations of AES modes are migrated into
+the library.  But until then, we need to prevent performance regressions
+by ensuring that the optimized code continues to be used.
+
+Note: "xts(aes)" is left alone.  Though the "xts" template can use
+"ecb(aes)" as an inner algorithm, in practice this isn't very efficient
+and a dedicated "xts(aes)" is already provided in all the important
+cases anyway.  (This omission is also consistent with the fact that the
+library isn't planned to provide a similar ECB-to-XTS "adapter".)
+
+Fixes: 20df21a482aa ("crypto: aes - Add CBC and CBC-CTS support using library")
+Fixes: 8ca62072faa1 ("crypto: aes - Add GCM support using library")
+Fixes: f70ad727d1d6 ("crypto: aes - Add CCM support using library")
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
+
+This patch is intended to be taken through libcrypto-fixes
+
+v2: Fixed PowerPC config option, and resent as standalone patch
+
+ crypto/aes.c | 39 ++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 36 insertions(+), 3 deletions(-)
+
+diff --git a/crypto/aes.c b/crypto/aes.c
+index 94791f481e984..5046b887ac9a0 100644
+--- a/crypto/aes.c
++++ b/crypto/aes.c
+@@ -637,7 +637,17 @@ static struct skcipher_alg skcipher_algs[] = {
+ 		.decrypt = crypto_aes_cbc_decrypt,
+ 	},
+ #endif
+-#if IS_ENABLED(CONFIG_CRYPTO_CTS)
++#if IS_ENABLED(CONFIG_CRYPTO_CTS) && \
++	/*
++	 * Skip registering this when it might block a "better" implementation
++	 * from being instantiated via the "cts" template wrapping an arch-
++	 * optimized "cbc(aes)" that hasn't yet been migrated into the library.
++	 */ \
++	!(IS_ENABLED(CONFIG_ARM) || \
++	  IS_ENABLED(CONFIG_ARM64) || \
++	  IS_ENABLED(CONFIG_PPC) || \
++	  IS_ENABLED(CONFIG_S390) || \
++	  IS_ENABLED(CONFIG_SPARC))
+ 	{
+ 		.base.cra_name = "cts(cbc(aes))",
+ 		.base.cra_driver_name = "cts-cbc-aes-lib",
+@@ -980,7 +990,18 @@ static __maybe_unused int crypto_aes_ccm_decrypt(struct aead_request *req)
+ }
+ 
+ static struct aead_alg aead_algs[] = {
+-#if IS_ENABLED(CONFIG_CRYPTO_GCM)
++#if IS_ENABLED(CONFIG_CRYPTO_GCM) && \
++	/*
++	 * Skip registering these when they might block "better" implementations
++	 * from being instantiated via the corresponding templates using
++	 * arch-optimized code that hasn't yet been migrated into the library.
++	 */ \
++	!(IS_ENABLED(CONFIG_ARM) || \
++	  IS_ENABLED(CONFIG_ARM64) || \
++	  IS_ENABLED(CONFIG_PPC) || \
++	  IS_ENABLED(CONFIG_RISCV) || \
++	  IS_ENABLED(CONFIG_S390) || \
++	  IS_ENABLED(CONFIG_SPARC))
+ 	{
+ 		.base.cra_name = "gcm(aes)",
+ 		.base.cra_driver_name = "gcm-aes-lib",
+@@ -1012,7 +1033,19 @@ static struct aead_alg aead_algs[] = {
+ 		.chunksize = AES_BLOCK_SIZE,
+ 	},
+ #endif /* CONFIG_CRYPTO_GCM */
+-#if IS_ENABLED(CONFIG_CRYPTO_CCM)
++#if IS_ENABLED(CONFIG_CRYPTO_CCM) && \
++	/*
++	 * Skip registering this when it might block a "better" implementation
++	 * from being instantiated via the "ccm" template wrapping an arch-
++	 * optimized "ctr(aes)" that hasn't yet been migrated into the library.
++	 */ \
++	!(IS_ENABLED(CONFIG_ARM) || \
++	  IS_ENABLED(CONFIG_ARM64) || \
++	  IS_ENABLED(CONFIG_PPC) || \
++	  IS_ENABLED(CONFIG_RISCV) || \
++	  IS_ENABLED(CONFIG_S390) || \
++	  IS_ENABLED(CONFIG_SPARC) || \
++	  IS_ENABLED(CONFIG_X86))
+ 	{
+ 		.base.cra_name = "ccm(aes)",
+ 		.base.cra_driver_name = "ccm-aes-lib",
+
+base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.55.0
+
