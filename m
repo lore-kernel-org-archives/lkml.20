@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60E84A4852;
-	Fri, 25 Sep 2026 13:43:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DD34A5C44;
+	Fri, 25 Sep 2026 13:43:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343824; cv=none; b=NNfTMfX+gACWWCNGCYvJ85fWBKdIMwemoDC+0AV8YYIck8Cr4+rMeli8FFpCwjhHrAftTpr4XBMXQBlb6FxVQsR1K9rXzp0AWrkfJ7+4WNIkdmoSmCDziZ9SNtijKzUANe4zM9nTCdqKIGpK9OUZEKcpw3LXVTLy3ZhqYVz3ogI=
+	t=1790343825; cv=none; b=iFH/WebcYl/6c7mLBMYzfuzPNLl5ZJHY7HL2pLgTCByvbc7HrfQi3nXLVnlgYC7hlJLuptSYw9QLEjBJ4KEOdPZECiVgy7qcEPVEDUTCF3EdV6RaRMLFeQFki4tA9vMYi4y3kEqdeWYY8tvC6/9W1EDxcRl0D+0/t1sz5Si/7TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343824; c=relaxed/simple;
-	bh=YAliB6yiRhdFuFa2qcrpPlG9FntTlMUY/Ng0JWgZkIM=;
+	s=arc-20240116; t=1790343825; c=relaxed/simple;
+	bh=LG8d3j9KLsAwk2JGh5vXVUC6pIYqvPNVK7hCBA2Rz3A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qfxmF1B/Lzb2Po3HYzW4ttHey9/um+MFsTv9crSGrQmc8HsAPmhMiPrzLELDDrtv6IKRtOlv7pwVcQNJNAaDVeKxMxZolrBdZ23QsnI/GEaHcuW9R8ygJCvXiIlH/v0IoBtlbvj7CozZAfFA36/H+cH51mmrLb9IZtRIhLenWG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RTOhU1/n; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=fhpbUyENcgRdkZXJUytubbQeS1A0k9kAiFT85lyBSayxSE0v10RVfqWLWserGkKoXxXkZ2193k0ParDz9a6ncUym58XM6LKSc4gneDtE/JGtsOVSSqqFxQw647VrgVnlPakV1s8BTRCpC1AhsSJ6ijqXFfBJGfXDWEzoBunPiao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuKNlp3B; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RTOhU1/n"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A9B35C2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuKNlp3B"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ED7E9C2BCFF;
 	Fri, 25 Sep 2026 13:43:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790343824;
-	bh=YAliB6yiRhdFuFa2qcrpPlG9FntTlMUY/Ng0JWgZkIM=;
+	s=k20201202; t=1790343825;
+	bh=LG8d3j9KLsAwk2JGh5vXVUC6pIYqvPNVK7hCBA2Rz3A=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=RTOhU1/nSTsHXuW2yFTaPmDscE2tpEQt1lEqCHCQiqJdnUnukk8HwHbnBqV0pL8Qa
-	 7Lz1P0J7Fn/qJLefunNRTxvUvrsQGnSEaKfYVzO/Hn4du00UFU6/2CsbEY3cP1vsil
-	 2HteDCdgoEWU+y/yPjX9cGTvuS9D9fwE+lIwzufh5yeTiEmkkah03qRoqLT4AFF90D
-	 SHcgVInzPYi856Cmk/5uBt+fp56VNo/OBcc2cIZsnINENjl4CpgI1kYsXjnW8+/HG1
-	 Nl0/UQ7YHSpN38O437WryssUlw8WdDY/0EIi3ziiL2t5b3SaClgwb7k13UInp9dAJ0
-	 qOPs6QukqliOw==
+	b=UuKNlp3B0QjpotZpMwp7RxBzM2WYVGnnRqSR0RfjBS8/p17KcgTz9oEc7/D5zVMOq
+	 3E8gFeyqnLCWCxR2wNyqX56+zuqXQEF9G6EQrnxszcJlKM4b7ursmN/JiqMgHP9q2T
+	 5eQUmW5SyhjFnG8FQqfenCva8dEaHVGUNwMkN4uRjH6th++dF7FOXi+9RTjWzkRYG0
+	 yhulrvuzEEhaPiRoOyUKb8IWN25nDCllO64S9MfjfwdcSkNSP38pgWND5JpF0iB+3i
+	 wAp8LIao/bzKKaymMwYaWYO+Ck8gf275sPrmeiInApXbxI7q9W1ThoxFkUmzbzMwOR
+	 rOvrXFrkNXugQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 98A05C98328;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DCEFEC9830D;
 	Fri, 25 Sep 2026 13:43:44 +0000 (UTC)
 From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Fri, 25 Sep 2026 23:43:44 +1000
-Subject: [PATCH 09/13] wifi: brcmfmac: Accept newer BSS information
- versions
+Date: Fri, 25 Sep 2026 23:43:47 +1000
+Subject: [PATCH 12/13] wifi: brcmfmac: Handle extended PMK command payloads
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-brcm4388-submit-v1-9-b5cbc2cde2fb@gmail.com>
+Message-Id: <20260925-brcm4388-submit-v1-12-b5cbc2cde2fb@gmail.com>
 References: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
 In-Reply-To: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
 To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
@@ -56,12 +55,12 @@ Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
  Hante Meuleman <meuleman@broadcom.com>, linux-hardening@vger.kernel.org, 
  Michael Reeves <michael.reeves077@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790343821; l=2112;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790343821; l=3793;
  i=michael.reeves077@gmail.com; s=fedora-20260918;
  h=from:subject:message-id;
- bh=8kqW4IsiAZD50rAfacLlp9/XbfRe0/TGm5y0e1tN9dQ=;
- b=H8igOmyL5UUB1TH17yWYjV21xuzli872/7XgS5NYtw2Cor9W2YERquEW3/lrUHgwHjWclwz1O
- q6cgtn/WPstBz1zsjG6FHu4dZRFj6rgDjl9j8WqUMNHGyOjaMj+A74e
+ bh=21CTJ1cSuNsOBHHOhHZPHR3ABfniMlmWG0c7gN9QAGE=;
+ b=e+uuYW//sDzL0yIRy08EQa9gPMjdoNz7dUKwMR4kGX7ylSI9mFDzOeqN/J8V7vLaxDU43LSVo
+ zkrYgYZ09qtBBqS5B7r4QegIL4Niv8x3FySnZ2f3GlR1LO6B2H7Jq34
 X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
  pk=VJ0TvyQ9TvfzYZa908YSE9kpkjFLLD5luv0bERu+boc=
 X-Endpoint-Received: by B4 Relay for
@@ -69,51 +68,121 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
 Reply-To: michael.reeves077@gmail.com
 
-From: Hector Martin <marcan@marcan.st>
+From: Michael Reeves <michael.reeves077@gmail.com>
 
-The driver accepts only BSS information version 109, rejecting scan
-results with newer versions even though the common fields used for
-reporting remain compatible.
+Some firmware rejects the legacy BRCMF_C_SET_WSEC_PMK payload despite
+advertising firmware supplicant support.
 
-Accept versions 109 through 112 when reporting scan results.
+Add the extended PMK layout. Try the legacy payload first when the key
+fits, and retry with the extended layout only after -EBADE. Use the
+extended layout directly for larger keys and reject keys that exceed its
+capacity.
 
+Co-developed-by: Hector Martin <marcan@marcan.st>
 Signed-off-by: Hector Martin <marcan@marcan.st>
 Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
 ---
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c   | 5 +++--
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h | 3 ++-
- 2 files changed, 5 insertions(+), 3 deletions(-)
+ .../broadcom/brcm80211/brcmfmac/cfg80211.c         | 39 ++++++++++++++++------
+ .../broadcom/brcm80211/brcmfmac/fwil_types.h       | 18 ++++++++++
+ 2 files changed, 46 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 5d99708007..4f1768c8bb 100644
+index 2a742ae8cc..c9cc6e0ccd 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -3484,8 +3484,9 @@ static s32 brcmf_inform_bss(struct brcmf_cfg80211_info *cfg)
+@@ -1584,28 +1584,45 @@ int brcmf_set_wsec(struct brcmf_if *ifp, const u8 *key, u16 key_len, u16 flags)
+ {
+ 	struct brcmf_pub *drvr = ifp->drvr;
+ 	struct brcmf_wsec_pmk_le pmk;
++	struct brcmf_wsec_pmk_ext_le pmk_ext;
+ 	int err;
  
- 	bss_list = (struct brcmf_scan_results *)cfg->escan_info.escan_buf;
- 	if (bss_list->count != 0 &&
--	    bss_list->version != BRCMF_BSS_INFO_VERSION) {
--		bphy_err(drvr, "Version %d != WL_BSS_INFO_VERSION\n",
-+	    (bss_list->version < BRCMF_BSS_INFO_MIN_VERSION ||
-+	     bss_list->version > BRCMF_BSS_INFO_MAX_VERSION)) {
-+		bphy_err(drvr, "BSS info version %d unsupported\n",
- 			 bss_list->version);
- 		return -EOPNOTSUPP;
+-	if (key_len > sizeof(pmk.key)) {
++	if (key_len > sizeof(pmk_ext.key)) {
+ 		bphy_err(drvr, "key must be less than %zu bytes\n",
+-			 sizeof(pmk.key));
++			 sizeof(pmk_ext.key));
+ 		return -EINVAL;
  	}
+ 
+-	memset(&pmk, 0, sizeof(pmk));
++	if (key_len <= sizeof(pmk.key)) {
++		memset(&pmk, 0, sizeof(pmk));
+ 
+-	/* pass key material directly */
+-	pmk.key_len = cpu_to_le16(key_len);
+-	pmk.flags = cpu_to_le16(flags);
+-	memcpy(pmk.key, key, key_len);
++		pmk.key_len = cpu_to_le16(key_len);
++		pmk.flags = cpu_to_le16(flags);
++		memcpy(pmk.key, key, key_len);
++
++		err = brcmf_fil_cmd_data_set(ifp, BRCMF_C_SET_WSEC_PMK,
++					     &pmk, sizeof(pmk));
++		if (!err)
++			return 0;
++		if (err != -EBADE)
++			goto fail;
++	}
++
++	memset(&pmk_ext, 0, sizeof(pmk_ext));
++	pmk_ext.key_len = cpu_to_le16(key_len);
++	pmk_ext.flags = cpu_to_le16(flags);
++	memcpy(pmk_ext.key, key, key_len);
+ 
+-	/* store key material in firmware */
+ 	err = brcmf_fil_cmd_data_set(ifp, BRCMF_C_SET_WSEC_PMK,
+-				     &pmk, sizeof(pmk));
++				     &pmk_ext, sizeof(pmk_ext));
+ 	if (err < 0)
+-		bphy_err(drvr, "failed to change PSK in firmware (len=%u)\n",
+-			 key_len);
++		goto fail;
++
++	return 0;
+ 
++fail:
++	bphy_err(drvr, "failed to change PSK in firmware (len=%u, err=%d)\n",
++		 key_len, err);
+ 	return err;
+ }
+ BRCMF_EXPORT_SYMBOL_GPL(brcmf_set_wsec);
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h
-index d591f17960..c786da4336 100644
+index 917966ad70..37d9414546 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h
-@@ -18,7 +18,8 @@
- #define BRCMF_ARP_OL_HOST_AUTO_REPLY	0x00000004
- #define BRCMF_ARP_OL_PEER_AUTO_REPLY	0x00000008
+@@ -75,6 +75,7 @@
+ #define BRCMF_WSEC_MAX_PSK_LEN		32
+ #define	BRCMF_WSEC_PASSPHRASE		BIT(0)
  
--#define	BRCMF_BSS_INFO_VERSION	109 /* curr ver of brcmf_bss_info_le struct */
-+#define BRCMF_BSS_INFO_MIN_VERSION	109
-+#define BRCMF_BSS_INFO_MAX_VERSION	112
- #define BRCMF_BSS_RSSI_ON_CHANNEL	0x0004
++#define BRCMF_WSEC_MAX_PMK_LEN		256
+ #define BRCMF_WSEC_MAX_SAE_PASSWORD_LEN 128
  
- #define BRCMF_STA_BRCM			0x00000001	/* Running a Broadcom driver */
+ /* primary (ie tx) key */
+@@ -667,6 +668,23 @@ struct brcmf_wsec_pmk_le {
+ 	u8 key[BRCMF_WSEC_MAX_SAE_PASSWORD_LEN];
+ };
+ 
++/**
++ * struct brcmf_wsec_pmk_ext_le - extended firmware pmk material.
++ *
++ * @key_len: number of octets in key material.
++ * @flags: key handling qualifiers.
++ * @key: PMK key material.
++ * @opt_len: optional field length.
++ * @opt_tlvs: optional fields in TLV format.
++ */
++struct brcmf_wsec_pmk_ext_le {
++	__le16  key_len;
++	__le16  flags;
++	u8 key[BRCMF_WSEC_MAX_PMK_LEN];
++	__le16  opt_len;
++	u8 opt_tlvs[];
++};
++
+ /**
+  * struct brcmf_wsec_sae_pwd_le - firmware SAE password material.
+  *
 
 -- 
 2.55.0
