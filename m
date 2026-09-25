@@ -1,73 +1,128 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB0D3C5857;
-	Fri, 25 Sep 2026 04:48:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1593D3C4B8E
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:49:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790311741; cv=none; b=j5ZonywCToIpq57fmUufx4T1nP+kytSUYqejvBZFsgl42VZS2mVaO78PNVZU+bJXxNmLh50fl5DhyMQkkBoe5vdpus+p1ezSVviaNZdccEKYziiN98MvR7HbGJKRxpNMLKBjBMceu985A3LO77U5z2RHOwa4TImBh4h+QhGMq2g=
+	t=1790311766; cv=none; b=YA3d7f+GsU9y6WM5FtggC4hrAfaYhA+TfGok1XJlgG0R7Yaaa3seBkgcWGSQ/azxjGPtVJBnhsueVW9xBM0N/ED3n+4pMFn+9dbT6zbmHt33AFp0/blPcTxy7yWfa0v3snb5xstjk3bqc8k1AG2cWQw5gr/p8qvJfIFKe51kV7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790311741; c=relaxed/simple;
-	bh=xeZMm00cq1ucAu0NBvg/3ZoA3JT2I574LMpHAhmS5ks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=keNQuRFwtzCZJ9dfc3MAMaD8lZx7hNtYA0OMBa23GYmRo5CyxQzqDXZwpSslOsCNjsh/xYxqawLOy1Td7v+P+RsYecxIAR+eeeMDmjjqY4U9MkLwbvbqIg92CN3ZsUSUzI3Irh6bszdr+1QhHwYldEgUEVTgeq7KZAwIO+UPCfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=au56LCcq; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1790311766; c=relaxed/simple;
+	bh=Sw50ybQz8s9syiHD7m+se5DHakcc1EVB0zADgnHwXUg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l3HTaEB6ccg820+XRSO0YB38xq7yOJyuqOw7StOBhpTSLl00UskNFSnNEKXgJbTOVxt5WUEjub6LSUISk9sT5cfxslRHkYANKLq/UgGBkIjOLzl3FuADDIMWIlAX+V0UjfpvZAt2Vyj5vunTLLutyaNmN+ulIq60tF0fEFU38W8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BP8fDhGH; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="au56LCcq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=GsoRQ0uuAuufBuo10SyAWxiYnMHdCRwAcrXikpluL5g=; b=au56LCcqbjnCnvnan0F+vvdNh4
-	bnaslkBOTVJPKcPp0h2zoQQK3YxvRzEy2dRVYOhYoUMrqg5mCW0qwwgnX9A6JHU7UN5KchTkfVhKC
-	buaSsDFT08zAzq72gQsL41w4SH79nzaA5ft9SHzJ5qX60BTQNww813Twn52s33lfYW4KXj1sCN1M1
-	FLj9sBdjzhY5f6ZrbEQ4+LkF2k6ztDkAAJKXUyyXtkaqeaVNUckujOP9oLmzbLCJGuvOjNyouargO
-	ZZrvK1O8DiWCoYyHm9NgDPHKkNspJio3sQGLPW+WOaCL32Xw5tC86oygG2d+Y0jQZvD05FmQQaqzG
-	xzFqMsLw==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9xrj-0000000Cd0b-30Yu;
-	Fri, 25 Sep 2026 04:48:55 +0000
-Date: Thu, 24 Sep 2026 21:48:55 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>,
-	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] iomap: don't lose a failed direct I/O bio's error
- when zeroing the tail
-Message-ID: <arX9N5ruzSmp7bmJ@infradead.org>
-References: <20260924091203.198225-1-parri.andrea@gmail.com>
- <20260924091203.198225-5-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BP8fDhGH"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccafb752so297111a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:49:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790311764; x=1790916564; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5tULBCWFB/U0caaVPBQD4RzyLkFgB8apGNGUQ7Hv3hk=;
+        b=BP8fDhGHtfva+EisZlk9FJ+Wc8gLVmk9yrAxL493rhPThKyDAJNcAZgBEP7bGydMDc
+         LxyEXAZAKgPaW6d32sV/ajR51wEE4uGD8uDC65u3gdZhqRVuiZc3lv1mwFObEXso+dOD
+         CFI9ArNSDsy/aXA8pCJjzJX0AmzYvB7HADiBjXa+a45b4gscr38PgbltljCDRkW0wWhB
+         QzpSO0dkIWBt/li4RCeRmKsJzS3mm/bKgVfpLAgT1e687dcgoXZx8CO1T45mc4VQtPvp
+         wjpAkYpm9wIa0Ym/sMYByXHo/8UI6ktku0hc24Bu1ab+pwUdzQZHr8cdedCRQSgLmik3
+         UdHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790311764; x=1790916564;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5tULBCWFB/U0caaVPBQD4RzyLkFgB8apGNGUQ7Hv3hk=;
+        b=SnrPEm78dBUFCTHZyDKnRQU5GXg6Pg1Bn6Cvsl4HBEPVikUWGdzam8/xFeWgRDOhV5
+         +f6C4KgdSO7F8Os9xnGv4qyr6Ic+aGOO5JPY2DkSAZMzo1WgCQBOXiV9RuaC1AJbi25i
+         SpMr77IeoFP2ZMpec/dBOfDeK/MrDdbB/Tausc4CgdkW0slHSo2K36srEnYbrTRyAF+D
+         nhuOojGs6PZGSMSaBTxT6XbB4p3ush+dsKsQ8bQpukUkCuKUyo9QbzLoqXv0WEec365F
+         OZ9rNE+CeZMIYFQmQ0Cq4Lozn2rR6nk8CHJpe8RpScxJBbySR5LQLlr8aDOi2CgbnGS7
+         vKjQ==
+X-Forwarded-Encrypted: i=1; AKwUvByIkdwBvvKgFPYBxQzT+iy0LDfzKJIkKj+dj4HVo93guHQBvsFy+ZyamH2+LBF/P75eRTMc82T31IHWw00=@vger.kernel.org
+X-Gm-Message-State: AFuF++mraA7mkxQnTAq3pqt52MCYWdyQt9AkINRcvl9l1s5k14ceLHw/
+	nSpL3bLAw513J0XRX3SoeTUmXWb5/xMzHq8RwpZSDwdiSpsNQAK+dlx6
+X-Gm-Gg: AYBFou0/yUBleGw52w0ErefSAmb6DIaFLeASUGbVmX/rBN+u+eK87O4yJ5HIAOWiP/z
+	DYM3Typ43/sZEquwjgLbwM9qTIU9bnYKekmIrag/pfYs3BOwwJM0QCCpBKq/hyzd0lhUAhodTHw
+	sTaDAb7Iy7a0NHaMw/YNBLw5rSj/Y/80g6IOPW885AjTut5n9L9GALdvd1gE8vYnL8rB62LE5wK
+	MLJEx3KRq93XawIuh5/CuDJrnIsr1r9sADCEBEbKLmkcCpUf4G8Xxoxeov8H6gbUyEBNgZhXko8
+	a58lHsVcd3WispS5IVUN7c9L+1TIMhRmlTGE5dVzEs5n5Bb50btBUsauiWDcFCRswTQgOLvcOSC
+	qXaBEPXv4WNiBuilCDgFb2+YDW4yNP25bkPAibsegwQrfEXRvxBlSJ8IAx/yUsrEUEUYB5KZNc+
+	mtBVGXh2T89Z7I63clCyGZIJGB6NWjWP50PvK9PzNyn2Z9LRxTRNkf0MXBR1WYkuhqnVDMaHpnj
+	VnFKeXWYfHNNCfoadUsK6SsOVWJlTWeQcrKzg0v3DJYA2Rix0UCrHpeQK7/Hp81n1nPxbYTlbBT
+	fHiknm5TELYlKQ==
+X-Received: by 2002:a17:90b:3c4f:b0:39e:6c69:7775 with SMTP id 98e67ed59e1d1-3a09898525fmr4416407a91.30.1790311764283;
+        Thu, 24 Sep 2026 21:49:24 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976cacbesm8151528a91.13.2026.09.24.21.49.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 21:49:23 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Trevor Wu <trevor.wu@mediatek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	cassiogabrielcontato@gmail.com,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Haotian Zhang <vulab@iscas.ac.cn>,
+	HariKrishna Sagala <hariconscious@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 00/14] ASoC: mediatek: mt8195: Fix clock error handling
+Date: Fri, 25 Sep 2026 11:48:54 +0700
+Message-ID: <20260925044908.450775-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924091203.198225-5-parri.andrea@gmail.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Transfer-Encoding: 8bit
 
-> -static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
-> -		loff_t pos, unsigned len)
-> +static void iomap_dio_zero(const struct iomap_iter *iter,
-> +			   struct iomap_dio *dio, loff_t pos,
-> +			   unsigned int len)
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Please drop this reformatting.  While not all of the kernel agrees,
-the two-tab indent style is technically much superior and we want to
-stick to it for iomap.
+Hi all, 
 
-Otherwise thi looks great, thanks!
+This series improves error handling in the MT8195 ASoC driver,
+mainly by checking and propagating errors from clock operations.
+
+Compile-tested only.
+
+Best regards,
+Phuc
+
+bui duc phuc (14):
+  ASoC: mediatek: mt8195: Fix tuner clock error handling
+  ASoC: mediatek: mt8195: Use dev_err_probe() in mt8195_afe_init_clock()
+  ASoC: mediatek: mt8195: Fix register access clock error handling
+  ASoC: mediatek: mt8195: Fix timing system clock error handling
+  ASoC: mediatek: mt8195: Fix paired memif clock error handling
+  ASoC: mediatek: mt8195: Fix FE startup error handling
+  ASoC: mediatek: mt8195: Fix runtime resume error handling
+  ASoC: mediatek: mt8195: Remove redundant error message
+  ASoC: mediatek: mt8195: Propagate IRQ lookup errors
+  ASoC: mediatek: mt8195: Fix ETDM MCLK error handling
+  ASoC: mediatek: mt8195: Fix ETDM startup error handling
+  ASoC: mediatek: mt8195: Fix HDMI TX startup error handling
+  ASoC: mediatek: mt8195: Fix ETDM probe error handling
+  ASoC: mediatek: mt8195: Fix clock parent error handling
+
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.c  | 69 ++++++++++----
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c  | 98 ++++++++++++++------
+ sound/soc/mediatek/mt8195/mt8195-dai-adda.c |  3 +-
+ sound/soc/mediatek/mt8195/mt8195-dai-etdm.c | 99 +++++++++++++++------
+ 4 files changed, 196 insertions(+), 73 deletions(-)
+
+-- 
+2.43.0
+
