@@ -1,181 +1,156 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC506472771
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C27945A288
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790323335; cv=none; b=JXg8GrximLgq+UzGoGsS8dl9m8ertAyFdeakndJSVlWIpVAi6JZnmoNNsW58+FsLxyg+XrsurOBm/RimV94UPnnC8WSqLIfXjuCS53lgy7f7gacQx8KoYbvhICVgagenpqHNmgzDmfOp+iFOlvrwze9sEyAyPHRayCwi0fy88Hs=
+	t=1790323356; cv=none; b=nSbWDIYVwBRZJcPV2VhIgijVszE9rtoHxQNM7vADZP+VdxKjCeHmhPG8rAnT+1zQcaH4sGrauYaDL+wWYCBNvk1xZFngTOW6ZAbpkhpgihH/CEl+hRjEiidgwUGu8K30Ct4LSNXoATJvIA0NELufDEArxrKS4LTDbndT9d9Vxus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790323335; c=relaxed/simple;
-	bh=9fbFmR9iY0bRKtXRl8r82DlzR/N7O6JJecGIFx60540=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o2V9hjaEfqaA6ophmb8kPQ+mWcPKnjDxlRL3orx7229CQY6Mml4tu609YdC8YmRitJfm0jWye1Hxx9x8Jl3SN/AWkRVd5WLCCR77ahebllcqFU1jOfwu1faOO19d5wB2FjJRRTjvnW3lUNzrBZeyZpI7U1PYGt7pvwPi8d/CbjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jJQ7Ic/c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Pk7/Rj/L; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jJQ7Ic/c";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Pk7/Rj/L"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4ZGS81195211
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:02:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=2LxWyDlvs6Zc7Hauu9RxcNc/fgAYjbcpM+O
-	YjZnHY0U=; b=jJQ7Ic/cW5doLqfvvMp7zaGEP3y3r5GWD4JKiof4xRnKKNkZGWv
-	8wkucODjn0ZmvenjdVp37yTQN1BlfGxRmd4XhJSF9cBg4yFsa9BnRV4kXuEAFdy3
-	NM9x9Fu8BowAAW3GTfd1CJF69YefUzx/Z+0FXN9TnRAUiiKYnC3z1owRJIa6Bph7
-	OPFFvrYNJY5yTM4QZn96WnDU+IfwzoKQAw1k2oqyRbTveutA8L8WwEEIdRw3Q0eT
-	NpcB9+7soTThcOKZJLqw/AaqV7Kry+6X6mtGC2F/y0SF+Oe5NrS66544XsLjzHTS
-	gHjL7aA0jeXHsuwiYhrpX3cqwPkd1n+LCnQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw874jk5a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:02:11 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9393ac4961fso90698285a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:02:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790323331; x=1790928131; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2LxWyDlvs6Zc7Hauu9RxcNc/fgAYjbcpM+OYjZnHY0U=;
-        b=Pk7/Rj/LkVO+fyp/NNrsqGTMnyluC12uZnyXePM34WYyNeF7DQp5iCwq0dGHA65oVY
-         iObjTBpUUBiWyPZ48Dti0jivmvyL/fvdhEQQshIQZ4TSDBEdR4dvoWkjO9FLuUEdc8m9
-         NHj2Wzz5u9EoCg2RyjKDDvcveuW4wSdrnZTfCflRWA54t7T0wmpj9GWZdZS9vej2m4Ch
-         /gTgoo9oBb4RJV16IW1o4oVKfFqhwG+EC2mtn8XWBakcaHsypSsmIhFkn30Iy8xR1AyQ
-         5U6RSl7Uzl095oEhIP0yMSG5pdTLARo1rzFRIEenBBOLOz82JTFlpyIMK6oNZkEmBmcc
-         rdVA==
+	s=arc-20240116; t=1790323356; c=relaxed/simple;
+	bh=qNr6Apk3Godwi/9ImXuWGabmY96dx2BaJxTeEFghH6E=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=PLp1hKt+5ALlhlv82UbPXWLRKezR3HwojIlo9Snvmv+OmlT0eN8hCEGMrDkO2TAWrPt2rOnUxMp6IksUY5z2YO/hEEVfSPvdaprrmIfIPfObx6h05HS/+EQb0FGHYVz7F+bkhiC4mCrm7uTvNiZDLSNHCOqs/jf+d7N5KtiTkIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28d7ffab1so1118986b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:02:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790323331; x=1790928131;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2LxWyDlvs6Zc7Hauu9RxcNc/fgAYjbcpM+OYjZnHY0U=;
-        b=hBx87RxGTz7GOR3/pKTnZ1jjGakhVibie0Se6aOHhigRVPGR4Z2Q5YYnN+fTX7XtFE
-         VbouMdRJpqNnJAjHAtdhvHCqc+OCY9ELhEb6qnkAjKzPfFKTGME6PL+L5CHzCwwY0zNZ
-         s3yb5ho+lUkqLm8V0nuWoNOKVlLndBpYgZ1tVR+hcF6XSppEB/wQZd375rLYXqMHAVVG
-         6lh+RwD23o0YICUgikZhhcpFSFG9pajR40YrE9dNVZHrAL3H3RR5PJXrI3JaY1KpLiNm
-         rWL7TGbNyT6V7JAS0xtPSIID3GI2Niqj1wCs+vPKN5smOEyL0ZO0rjSUw/zAc+0l/XYb
-         RgVg==
-X-Forwarded-Encrypted: i=1; AKwUvByPn2r+hkePiU2xG8XejcQUQCmMAD8Lp1485LsNfUJ1oCboudqhogRmVBD0dOXX5GyDIfuU0/aiUBl0bLw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3J7iLE4/5tqcaufA+Nvc0Q5sXinBpdIq83WFDf+sBXVOaAQO8
-	CGA1eJVVvPWYv0wj5tYcZ6s+EmIcmmSe/ie+X6hF8uhXJlA69lZwzNRjdCwpZuHmX7UGX8zXCHv
-	y21fmVPWBI+ZUsLIiLttc89G0S1cMmkDCOrvXlDQFaHC7GxMW/yDl5xPhs73uPnmZoOImDgpIv0
-	k=
-X-Gm-Gg: AYBFou0PyesrAOYsgS1bbkqD30ldcPHwabFDpiaLULzGrF4ntgR7ijjH6Vp7z/CwsC4
-	/asIWskX8u9tIL3/bulSyKW2Fi+xGaitrTf2oo88g9QO8lplRd5cC8ck2AMGDu9mlzQm+CPT+Mv
-	29xGmv0jJIck7v1Tjg6/xECfGBafEtczINqQWLwNm6eZ9GRjIorYNOvI9E88MAcnb1evv4zKpA9
-	VeTkKw5kMo5VpskG1zHFwUBbl+3ownuisPZrRen/BKmN3vcw01l4giIWkZvj09Tj361Ms6lJr6b
-	XwEr7HkZe9OTMgg1dHwWV28fwfAyuO5vYN4J56qrw/XP9CSQJI+IlC+VWBFr8c92MgKAFtw+yHp
-	zLCsr8Fa81VnWuPGNRodGeL7OluU=
-X-Received: by 2002:a05:620a:26aa:b0:93a:2a59:2ad0 with SMTP id af79cd13be357-93c43bca4b9mr322848485a.16.1790323330755;
-        Fri, 25 Sep 2026 01:02:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:26aa:b0:93a:2a59:2ad0 with SMTP id af79cd13be357-93c43bca4b9mr322843985a.16.1790323330228;
-        Fri, 25 Sep 2026 01:02:10 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:bde1:52f9:d7f0:c581])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a36189bsm4918793f8f.21.2026.09.25.01.02.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 01:02:09 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [GIT PULL] gpio fixes for v7.4-rc5
-Date: Fri, 25 Sep 2026 10:02:04 +0200
-Message-ID: <20260925080204.9234-1-bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1790323354; x=1790928154;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+JdXLViuf1GiHiJeHTfCLCCXl9xI/LP8+sA7j9T/9hY=;
+        b=B0mN6ED5FIhaGOQgi4VPOk62l0DFBarcyNgls4+YZJel6qolOgqTvqdyICIlJ+NuXP
+         jXWlfkpuOnzJcR17vxNdWP+2LAbZcshsfc973LVOAGBvgNmndk0WuT6A/60BkmTmVq1a
+         WwIjbdt3PXfllvtwAU5AUR468TRtjEbgk9oDe2FM1ZuxK/mg0C+w2e9Z6lp/EoXfD6e5
+         V0sEwtMuXZ790v96WCCnBVuWTSFRQS0YDzaMLJzbPiP5OrU52hyD1s2//EI0yGKt0L2T
+         9aW/u2S6/Kw36u7u7ZkVOE07e/Go7nF+q/lhxoRTdu/QwYnw5LqvhG0rR2jpjixjBM9l
+         jU9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwzlHWGC6lJcTnMlXymI3hjDBJ1D3N6DPt0sij2kd50K/JXwpKWleCQlQKfsd6EplUHgCAUwhHKjLdMO6k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nztQFlRrBr2qsEJTmYxzYhIEEVCfA5WCV/8hPdACJLug7sJPsr
+	KvPQb105srh8gvGEhe+URuXjgVbkKBWSzDfgApv8J1yUAQYAzpuk5HFOwbPUdv2ibenwcYQ9mFU
+	GNsUsn9eKhv+ADWFo0tAAJnU5oHNNSN7uS5KLXis2I0nF96vdJqhl+wi4/Nc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: cCIFHvifWqyJTZYjMQ1ykV5Suy2IkD5K
-X-Authority-Analysis: v=2.4 cv=MI71C8Zl c=1 sm=1 tr=0 ts=6ab62a83 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8 a=iA3Hgnq0jmySKlLmdQYA:9
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzMSBTYWx0ZWRfX+j1E69hSzc4Q
- j+X2HXTgWYsB+VzHqg+6yZQnyY3hht+swtmPbepENS0G9MEWmgJMFO3yUYS5+oYIp52Rpp/7veY
- CIFvtXtESpfaehJ5P3/qWr55AuOEQlQhTb0fR9FfKELzjfHdUQ7gUq47M5HEqFXCclvGaozL9jL
- 0S23FQlcZypUAtBfQVAqHHgq3L27T2HehLzFg3Q09zkaGGustjDiku/vFlExYr/stPxtSJ64a5d
- aTarUq18x74/YpeqzRLB5U7aA8YdPyYmtA27SBVlCSTdNi6NzRfhW8+I+IPV/sRGbcyicJTW/1V
- tPNFzofPd7Mt6tLKjqE7HZWCYf5nxOj9OBaml+nHD3IDpBBcAp2sN4kSy+oAn0efhjQZMoAwUdl
- 2d9IZuiCUxG3s5UeryWNm0GcZiqqS/4geIn6rQVwRMIkiKQKq4VHejb+6LKXbk15JkGXVYYN+98
- tUyEdCoHKVO7u89xvaw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzMSBTYWx0ZWRfX3CHMM00wcghz
- bwxPgBsvQfEh3fXvZD9Xl+YKWoPV5Ac5YW2kPaEin4hT5djM+DM/n2bAZ4QJBAnWK2Nn9PqnvaH
- 2pGSmoaDg1bT7BOyTIceaq5N6vHbw8U=
-X-Proofpoint-GUID: cCIFHvifWqyJTZYjMQ1ykV5Suy2IkD5K
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 clxscore=1015 spamscore=0 priorityscore=1501
- impostorscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250031
+X-Received: by 2002:a05:6808:1642:b0:4d6:9133:cfe0 with SMTP id
+ 5614622812f47-4d72cd32638mr3804097b6e.37.1790323354036; Fri, 25 Sep 2026
+ 01:02:34 -0700 (PDT)
+Date: Fri, 25 Sep 2026 01:02:34 -0700
+In-Reply-To: <6a895324.ae6ddae5.3da009.0053.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab62a9a.7eec07f4.c25c.0004.GAE@google.com>
+Subject: Re: [syzbot] [usb?] possible deadlock in lookup_open
+From: syzbot <syzbot+c39ae720fb00e7e6f14b@syzkaller.appspotmail.com>
+To: a.hindborg@kernel.org, gregkh@linuxfoundation.org, leitao@debian.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Linus,
+syzbot has found a reproducer for the following issue on:
 
-Please pull the following set of GPIO fixes for the next RC.
+HEAD commit:    5fc5768c7ca9 Merge tag 'bpf-fixes' of git://git.kernel.org..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15a7a2c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2a820d8842c77560
+dashboard link: https://syzkaller.appspot.com/bug?extid=c39ae720fb00e7e6f14b
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1562fc05580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1409ed25580000
 
-Thanks,
-Bartosz
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-5fc5768c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/2038b7f58a0e/vmlinux-5fc5768c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/1f03bad44e45/bzImage-5fc5768c.xz
 
-The following changes since commit 93f51579e7df248780214094418f205253383cc5:
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c39ae720fb00e7e6f14b@syzkaller.appspotmail.com
 
-  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
+LUN: removable file: (no medium)
+============================================
+WARNING: possible recursive locking detected
+syzkaller #0 Not tainted
+--------------------------------------------
+syz.0.17/5921 is trying to acquire lock:
+ffff888022716460 (sb_writers#12){.+.+}-{0:0}, at: lookup_open+0x150/0x1990 fs/namei.c:4451
 
-are available in the Git repository at:
+but task is already holding lock:
+ffff888022716460 (sb_writers#12){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/gpio-fixes-for-v7.3-rc5
+other info that might help us debug this:
+ Possible unsafe locking scenario:
 
-for you to fetch changes up to 270437f3fe62516f16482742a7762a075e7a9457:
+       CPU0
+       ----
+  lock(sb_writers#12);
+  lock(sb_writers#12);
 
-  gpio: tps65219: Fix TPS65214 GPIO direction programming (2026-09-23 16:42:01 +0200)
+ *** DEADLOCK ***
 
-----------------------------------------------------------------
-gpio fixes for v7.4-rc5
+ May be due to missing lock nesting notation
 
-- fix a regression introduced by moving GPIO hog handling into GPIOLIB
-  core where of_node_name was used if line name property was missing on
-  DT systems
-- fix kernel stack leak to user-space in error path in GPIO character
-  device code
-- fix runtime PM leaks in gpio-xilinx and gpio-arizona
-- fix several register programming bugs in gpio-tps65219
-- fix interrupt storm on resume in gpio-mvebu
+locks held by syz.0.17/5921: 4, last CPU#1:
+ #0: ffff888022716460 (sb_writers#12){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
+ #1: ffff88802a22f280 (&buffer->mutex){+.+.}-{4:4}, at: configfs_write_iter+0x76/0x4e0 fs/configfs/file.c:226
+ #2: ffff888023773970 (&p->frag_sem){.+.+}-{4:4}, at: flush_write_buffer fs/configfs/file.c:205 [inline]
+ #2: ffff888023773970 (&p->frag_sem){.+.+}-{4:4}, at: configfs_write_iter+0x218/0x4e0 fs/configfs/file.c:229
+ #3: ffff888024051120 (&common->filesem){+.+.}-{4:4}, at: fsg_store_file+0x193/0x450 drivers/usb/gadget/function/storage_common.c:452
 
-----------------------------------------------------------------
-Bartosz Golaszewski (2):
-      Merge tag 'v7.3-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux into gpio/for-current
-      gpio: cdev: fix kernel stack leak to user-space in error path
+stack backtrace:
+CPU: 1 UID: 0 PID: 5921 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_deadlock_bug.cold+0xbd/0xca kernel/locking/lockdep.c:3085
+ check_deadlock kernel/locking/lockdep.c:3137 [inline]
+ validate_chain kernel/locking/lockdep.c:3939 [inline]
+ __lock_acquire+0x13f4/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+ percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
+ __sb_start_write include/linux/fs/super.h:19 [inline]
+ sb_start_write include/linux/fs/super.h:125 [inline]
+ mnt_want_write+0x6f/0x420 fs/namespace.c:494
+ lookup_open+0x150/0x1990 fs/namei.c:4451
+ open_last_lookups fs/namei.c:4767 [inline]
+ path_openat+0xa2c/0x2440 fs/namei.c:4997
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ file_open_name+0x1c3/0x3e0 fs/open.c:1375
+ filp_open+0x2e/0x50 fs/open.c:1392
+ fsg_lun_open+0x6b/0x7b0 drivers/usb/gadget/function/storage_common.c:194
+ fsg_store_file+0x1e7/0x450 drivers/usb/gadget/function/storage_common.c:455
+ flush_write_buffer fs/configfs/file.c:207 [inline]
+ configfs_write_iter+0x302/0x4e0 fs/configfs/file.c:229
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf701efec
+Code: Unable to access opcode bytes at 0xf701efc2.
+RSP: 002b:00000000ff91c89c EFLAGS: 00000292 ORIG_RAX: 0000000000000004
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00000000800003c0
+RDX: 0000000000000005 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+mass_storage.0/lun.0: unable to open backing file: file0
 
-Frank Wunderlich (1):
-      gpiolib: use of_node_name if line-name is missing
 
-Karl Mehltretter (3):
-      gpio: tps65219: Fix GPIO input value reads
-      gpio: tps65219: Use the variant-specific direction callback
-      gpio: tps65219: Fix TPS65214 GPIO direction programming
-
-Ridham Khurana (1):
-      gpio: zynq: fix runtime PM leak on request error path
-
-Rosen Penev (1):
-      gpio: mvebu: keep resume masks within the irqchip cache
-
-Wentao Liang (1):
-      gpio: arizona: Fix runtime PM leak in arizona_gpio_direction_out()
-
- drivers/gpio/gpio-arizona.c  |  8 ++++++--
- drivers/gpio/gpio-mvebu.c    | 33 +++++++++++++++++++++++++++------
- drivers/gpio/gpio-tps65219.c | 12 +++++++-----
- drivers/gpio/gpio-zynq.c     | 10 +---------
- drivers/gpio/gpiolib-cdev.c  | 32 +++++++++++++++++++++++++-------
- drivers/gpio/gpiolib.c       |  7 +++++++
- 6 files changed, 73 insertions(+), 29 deletions(-)
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
