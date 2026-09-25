@@ -1,147 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D6E1DDF0;
-	Fri, 25 Sep 2026 12:41:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163291DDF0;
+	Fri, 25 Sep 2026 12:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790340093; cv=none; b=qSOiuyJWbkrztj3cdWCkB+flx9zfc9Bq0ga4uQoCV4UpBu6Upi0uU+QOJ3mpsgvDNgMlbyHl2ZAWR2UndVzS0a4kgVCup9x2GpzeoeiJDuip0/GBpx0UoSAnfYaf6ZmJElD84llT05oIPFwNtcr9Tq1cTin0u2pdofZeSSxMpLI=
+	t=1790340131; cv=none; b=StG6+Ps6ZvkJqbLs/afkXYAwEfz6SHu0wN0Dfxi5YoldsXm4hhBRst0iPB+b0c7k/cZ8SFLM2yTbolbTRATkEBDnrZlccpWlA6NT8KnudCMErzaDJ6RPMs4TiJQXjKGgPZQvMbC242tfcW3pr+1+roRAvgppNvEdz24oTpYa6JY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790340093; c=relaxed/simple;
-	bh=WKO/plG+XZDmd3cranbFqBBTghCxRIULPDoRVVexiTY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=avcnE+w4PA9ASgHuoCw5pSwyCZqEl8xfNBvoaWYgiaZPaOlSv/mea4JNz/X7vn2TLY/QI6XOysTcRvC0W+pNBl5Q5DLn9SfDpZzJzH7/ujCOLMdOxJaFXWCGgO3dkVkzRBs2lK36VTyfHocoyDs1Kp4xa+ZfhYX9K/I0rk+W+20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IA7Q0h9o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790340131; c=relaxed/simple;
+	bh=q4QS4UE3at3YzFmXewffE5SIQq54qBpHCXi2+KEP1r4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gRiJpAlF4/wAbi+fXgnuAHTSXe0l5yVYwlbkv19E5Ka24rggGv2a0juZX1rMQrxVuHU6zvGjiLWrPnGptaSzxnFmBnBkbA7TUmNcyk8g0lOrsEyaF0+BrzJA2K6wJWbklNAdMVv9Z0qmos3sTSZJZfjTeQNHInpwwwvQzKnAl1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=hQSNA8OW; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IA7Q0h9o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4D31F000FF;
-	Fri, 25 Sep 2026 12:41:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790340092;
-	bh=Qr+tEsTCJfTScS02sjU9Yed8it9/1Ompuc2nj2RW7Y4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IA7Q0h9oVLLpE8DmTnSsWfXyvV/VcK+713MO04KEo9xkex8lfPZZ9mk8jeNCRuJU8
-	 jU7K0qLuh29sPghOP0M8+w5A82svXpE45xNF3M6TOJofvFfWwbrvUAWAlK2jwAbGUY
-	 uQhpVH7rWvjUbETjKwqZIOtPMyxVoFo2O3w3BE0ChWMUBI+0/O+0DOjXFxzGEXzyBv
-	 +9Max5kvex53oWFxUJny/hjZoPPrTV045VQBbAnApUxUIhSAdxECbVnn9IgIhfbNMH
-	 qHfikGpLIXIXPYY7MyVXgGgw46JWtodS45byGFWWsHvz498YMpLqJjoEIDcvz8dTWE
-	 Z+mwO5YK/7M9Q==
-Date: Fri, 25 Sep 2026 14:41:27 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-	tytso@mit.edu, krzk@kernel.org, maz@kernel.org, ebiggers@kernel.org,
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] MAINTAINERS: document the branch in git T: entries
-Message-ID: <arZr94JdJFPpsC2h@ryzen>
-References: <20260925120047.1093617-1-matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="hQSNA8OW"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 8571382D29;
+	Fri, 25 Sep 2026 14:42:00 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id POdwVJKzNGET; Fri, 25 Sep 2026 14:41:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1790340119; bh=q4QS4UE3at3YzFmXewffE5SIQq54qBpHCXi2+KEP1r4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hQSNA8OW/YLPq6fjpTGbXWiKzr6o1DgQqHdX8KlK4tteXES+59Ov34VRB64nr/0Q3
+	 hPiCysBvI3Vlq1Rh2qVU+XyVw7C4htcNuH6aX6gwHq5WUk/hRUBaOgtCzhkE23/WlD
+	 oqQw2yw78m9u7dzAR+Ly4DqXb9B1bSf6xPqBI+yazrQJ0WTDhzogU5cGsYwakOfVFo
+	 Ig1MMIFocEHvbaQuWzsfGHnhoODd3Ix3ROunObfoAajpm8PvXMcDj/5JhtnH1pfmio
+	 uzM9AlN8de2fMLJDbeAa1yf7peooYjrJmN4rCusJ6Qkw0dx4xZnLLHUnGPTxDRfzHE
+	 gV07a7kG0uonw==
+From: Marco Scardovi <scardracs@disroot.org>
+To: Denis Benato <denis.benato@linux.dev>,
+ Ilpo =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ Liang Haowen <nbg2974@gmail.com>
+Cc: linux-leds@vger.kernel.org, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, "Martin K.  Petersen" <mkp@kernel.org>,
+ linux-scsi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Armin Wolf <W_Armin@gmx.de>,
+ Hans de Goede <hansg@kernel.org>,
+ "Derek J.  Clark" <derekjohn.clark@gmail.com>,
+ Ahmed Yaseen <yaseen@ghoul.dev>
+Subject:
+ Re: [RFC v7 0/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver for ROG
+ NVMe enclosures
+Date: Fri, 25 Sep 2026 14:41:46 +0200
+Message-ID: <mTEVQW_BRQmYsDDsTddE2A@disroot.org>
+In-Reply-To: <202609251958.ReplyMarco.lhw@gmail.com>
+References:
+ <UuqOxFagT_OBL0l5ZYtfKg@disroot.org> <202609251958.ReplyMarco.lhw@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925120047.1093617-1-matthias.goergens@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, Sep 25, 2026 at 08:00:47PM +0800, Matthias Goergens wrote:
-> A git T: entry can name a branch after the repository URL.  The first
-> to do so, commit a1aa5a770dc3 ("MAINTAINERS: update hwmon subsystem
-> git trees"), added two T: lines for one repository, one per branch.
-> Today 109 of the 846 git T: lines name a branch, and ten entries list
-> one repository more than once with different branches.  Commit
-> 083bf9c56d06 ("get_maintainer: add more --self-test options") taught
-> get_maintainer.pl to check the branch with git ls-remote.  Neither the
-> MAINTAINERS preamble nor submitting-patches.rst mentions any of this.
-> 
-> Document the syntax only.  What a named branch is for varies: many
-> entries name the branch linux-next merges, others a fixes or topic
-> branch, and some subsystems want patches based on a mainline tag rather
-> than on any branch of their tree.  maintainer-entry-profile.rst already
-> asks a profile to say which branches go into linux-next and which one
-> contributors should submit against, so point there.
-> 
-> In submitting-patches.rst, say that fixes for the current release cycle
-> and new development usually start from different places, and where to
-> find out which.
-> 
-> Suggested-by: Theodore Ts'o <tytso@mit.edu>
-> Link: https://lore.kernel.org/all/arSMwd1bGO1vrif-@mit.edu/
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
-> v2:
-> - Krzysztof: one patch instead of two.  The header no longer says when
->   to name a branch (v1 tied that to the repository's HEAD); it
->   documents the syntax only.  submitting-patches.rst names the branch
->   that queues work for linux-next as the usual base for new
->   development.  The cgit about page he mentions is a good place to
->   describe branches, but not every tree has one, so the text does not
->   point there.
-> - Marc: some trees are integration-only and want patches on a mainline
->   tag, so what to base patches on is left to the P: profile or the
->   maintainer:
->   https://lore.kernel.org/all/875wzu4vuv.wl-maz@kernel.org/
-> - Niklas: fixes for the current release cycle are now told apart from
->   new development.  memblock is not alone: ten entries list one
->   repository with several branches, so the header says an entry may do
->   that, without recommending it over a single line.
-> - Eric: his fsverity patch uses one T: line per branch, which the text
->   allows:
->   https://lore.kernel.org/all/20260925041654.112935-1-ebiggers@kernel.org/
->   Pointing HEAD at the main branch with gitolite's symbolic-ref, as he
->   suggested, is up to each maintainer and is not covered here:
->   https://lore.kernel.org/all/20260924040030.GB5048@sol/
-> - Ted: documenting the branch at all was his suggestion (Link: above).
-> 
-> v1: https://lore.kernel.org/all/64b0be79c535bb9545f9f81a5044146a8726c761.1790220653.git.matthias.goergens@gmail.com/
-> 
->  Documentation/process/submitting-patches.rst | 8 ++++++++
->  MAINTAINERS                                  | 5 +++++
->  2 files changed, 13 insertions(+)
-> 
-> diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
-> index 7ae79452e1b4..cfc72975a9d6 100644
-> --- a/Documentation/process/submitting-patches.rst
-> +++ b/Documentation/process/submitting-patches.rst
-> @@ -40,6 +40,14 @@ patches prepared against those trees.  See the **T:** entry for the subsystem
->  in the MAINTAINERS file to find that tree, or simply ask the maintainer if
->  the tree is not listed there.
->  
-> +What to base a patch on also depends on what it is.  A fix that should reach
-> +mainline during the current release cycle, such as a regression fix, is
-> +usually based on the latest mainline or on the subsystem's fixes branch.  New
-> +development is usually based on the branch where the subsystem queues work for
-> +the next merge window, which linux-next merges and which the **T:** entry may
-> +name.  When in doubt, check the subsystem's **P:** profile, if there is one,
-> +or ask the maintainer.
-> +
->  .. _describe_changes:
->  
->  Describe your changes
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c52ec2d7d3c1..c3f8fc52f3ec 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -30,6 +30,11 @@ Descriptions of section entries and preferred order
->         See Documentation/maintainer/maintainer-entry-profile.rst for details.
->  	T: *SCM* tree type and location.
->  	   Type is one of: git, hg, quilt, stgit, topgit
-> +	   A git entry may name a branch after the URL, and an entry may
-> +	   have several T: lines, for example one per branch.  What each
-> +	   branch is for, and what to base patches on, differs between
-> +	   subsystems: see the P: profile, if there is one, or ask the
-> +	   maintainer.
->  	F: *Files* and directories wildcard patterns.
->  	   A trailing slash includes all files and subdirectory files.
->  	   F:	drivers/net/	all files in and below drivers/net
-> 
-> base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
-> -- 
-> 2.55.0
-> 
+In data venerd=C3=AC 25 settembre 2026 14:22:03 Ora legale dell=E2=80=99Eur=
+opa centrale,=20
+Liang Haowen ha scritto:
+> Hi Marco,
+>=20
+> I went through your SCSI version in PR #17 against what the hardware
+> told us while developing this series. The class layout fits the
+> device well: the ENE mode register is the hardware effect offload,
+> and direct streaming as table write + apply-without-save matches
+> what the controller does.
+>=20
+> A few things our hardware testing can add:
+>=20
+> - ene_write() maps the caller's buffer with blk_rq_map_kern(); your
+>   call sites pass stack buffers (colors[12] in direct_write). That
+>   is the VMAP_STACK DMA issue Lee caught in my v8: the payload needs
+>   a DMA-safe buffer in the device struct.
+>=20
+> - asus_aura_brightness_set_blocking() will never run on the current
+>   LED core: brightness_set_blocking is superseded by the fast-path
+>   brightness_set there, verified with a test module on 7.2. The
+>   callback to use is brightness_set plus deferred work.
+>=20
+> - The firmware effect numbers from register probing here are
+>   1 Static, 3 Strobe, 4 the rainbow flow (all verified on device);
+>   2 looks like Breathing but was not confirmed. Your mapping sends
+>   Spectrum Cycle to 4 and Rainbow to 5: on this enclosure 4 is the
+>   rainbow flow, so those two need on-device confirmation, and
+>   mode 0 for OFF is plausible but unverified.
+>=20
+> - If the class core serializes the ops with led_access, sysfs ops
+>   cannot race each other, but trigger events reach the LED core
+>   without that lock, so a trigger-driven brightness update can
+>   still interleave with an ops sequence. The device ignores a
+>   sequence that loses its leading MODE write; one work item owning
+>   the sequence, like in this series, closes that too.
+>=20
+> The 12-byte block write to both colour tables in one go is verified
+> working, so your direct_write shape is fine once the buffer is
+> DMA-safe.
+>=20
+> Whatever survives your rebase, the verified SCSI core in this series
+> is yours to reuse; happy to rebase my side onto the class once it
+> settles.
 
-Looks like a good change to me:
+Hi Liang,
 
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
+I've read your mail: as said on github I've dropped both scsi and tuf as
+I don't own any of these: I'll leave them to you and voidvore. If you find
+my pieces of code useful in any way feel free to pick them up and implement
+them in your code (please don't add me as co-author as I would not be able =
+to=20
+test or maintain the code in the long run): as soon as it will be stable=20
+enough I'll proceed to post it here in lore too.
+
+Marco
+
+
+
