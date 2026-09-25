@@ -1,183 +1,130 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0DDEC45D5FF;
-	Fri, 25 Sep 2026 11:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF0B4071E2
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:51:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790337047; cv=none; b=jPFrxL281MaKtcQgiFdjPN+MeltaF/RcKW7Uh7/XyrvU1fxkQJ/nCqC3MxWYIfgCI3DAdVwq4oTXd7BTUAwiPPEdvdXjXIRKd8HW9leVWprK5X2rosjQc8Pm2Hc6T1TtfCabHQEMX0BlSO/gywphs5MJtgWmxfZoUMF3xBAG7LE=
+	t=1790337095; cv=none; b=XDZWOf9hzyNwg4iwfhjLn2ykznMDwQqBmCAHZ+4myXJtmLveTil/Wmma3HmWpGy2DCPXaUl6qwwwWir4Pwyh/o7wkrg1Ag/4qU2dQfR0ic2wHkGCS9Vgue6R4nNOBurp4bqB2vZCGXFXmfF0mI4OIVvNJq90t6LQ7NWqDVmLHoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790337047; c=relaxed/simple;
-	bh=QVCeiKaLLsWqFAAQeL9n0+h8tt+vp+tZtOpFNlQ3uRw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hh/VJN4CvXkfy+LpbBGajNnm1Rhz8Z8LI/bgkTvCx4JZE5jbkpVyw9M4OGssFvW4l1nH6ITOcVZEY0ml5gV6M82m0bZuG+IuiNkNxT5EDOc9yYfyKB7ygv6CAMQwjlnDMJhjMUiv+Isup2egQXQXi7S8TZqOrsWqlzcT/svCuZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SvrqnLBu; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790337095; c=relaxed/simple;
+	bh=iVtiOX8u/kXTIM0DwIluX1QQOzwDY0+H1VCpCPXuNHQ=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=omDMvFwHZOXWTjjBmEk49gJKu94KHLPhhKh+VrjRaBAOLj2yWckt1KbH5apppszaSwLK5lXXg31RMkC+tTjA8/wVM0aifXwJ3wmNnoIX7iVxZ5gOqoOdsK3stnBGURPE1KjI25zFnBWpba+viuVMW/FwPmnWnGW5CE0jMwSDta8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--elver.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ewrFBkar; arc=none smtp.client-ip=209.85.221.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elver.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SvrqnLBu"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BF234169C;
-	Fri, 25 Sep 2026 04:50:40 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E1F353F86F;
-	Fri, 25 Sep 2026 04:50:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790337044; bh=QVCeiKaLLsWqFAAQeL9n0+h8tt+vp+tZtOpFNlQ3uRw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SvrqnLBui3M+PrATNF/BP/rA6CJ5DGdYxCAJft3/xiR14cPQcEvRfcJIPsSQxAGoz
-	 xIKuAjGm0HQCK6kPgoni6UCZ1QNEdGsGP+fTEzNiH6+GqVN89AsMVcJTvbkoe2PWbl
-	 r0s5D58XQ2hSGXwtCFtmPqkU+U66vuwoEOVWS70Q=
-Date: Fri, 25 Sep 2026 12:50:38 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v19 4/7] firmware: arm_rmm: Add support for SRO
-Message-ID: <arZgDmHV8uK1kv8R@arm.com>
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-5-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ewrFBkar"
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4887f5e8e23so440389f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:51:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790337092; x=1790941892; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YZjbSgTrSX0LpMu4ps7o/SXlWGnyzPNXvmV986ovar4=;
+        b=ewrFBkarvovDRzPzC9fMox2THVv+2hMnAja3CWvTAa2OjJZ6DJunEiACadPT8gdk7U
+         M3RCnHCdk68vwTmLs1H64g68250iVnPV6kkRYmaUBfHb7AA67AorFa6kii9r++8flLhk
+         tx9Ayk2Pl3g6lSlomP8OiwOREmX0qBoJInYPyKcD8CM0SaplMr9FyDtK6LgIdeqgmVRx
+         HH7Mj2dtEpAXEt1aCNRBUVwFNMVVdmFeMmlfbazwVRiJQYx6r3Tiu7zvNe1AV433O0zA
+         6KRc79d/8g2bCoEXo6aFtfqWo8MAp2d/Ey+7i1AecIyWgl3137AUlh+B5CT9G3qq7pIo
+         qDyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790337092; x=1790941892;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YZjbSgTrSX0LpMu4ps7o/SXlWGnyzPNXvmV986ovar4=;
+        b=eH2TWe8MZ4pny6WhE9s2Azo0RRVtL7ltkC/1QikZ2en5jLqCn5s0zzau1kWjCcC7AT
+         n/f9mvu6LjRvp0UpqlysBPOSxg6uFenhl2WnDBAu7TbDx34XkNdBlwQeBe4vEeZ4HhJ0
+         remZWSTMd8oiJ6Q50661j6nke0pTKc1g61OmDagCzohmCBccRAq4bdRp7aQgajvxsFgy
+         AFKrE2FfkQ+zwEHFWlWCqUKPlSOH5npRRLHi1hoHxYvIDdKsQmPOq+aqr41G9eWZAWiy
+         8YdB7V/CRBZ8rHZzLGNIPotI0AwLE60RmT4D+ZrJ/HYZ2XOP3qSB4cu5orzyZnnN2TAP
+         SHCg==
+X-Forwarded-Encrypted: i=1; AKwUvBw7jQvFRTJt38vnr5OF8/4jGe0NxQs/4v63vlJK4JK7QZxgzXdNFmXwfP1nBurNOcXtaVlgFYZ/ATRBYm4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXTtA2DC0RGUkfKNUCuIVculKUaPB09EuY0Or/O2g6mHUfdPkB
+	B9DO4zTN4EeuUWnnHpMqtU1HbkvB/2ty7xwj6xJZOHwlAjGuBG312I2POcf9hb/l1Jiduu/pxNI
+	Piw==
+X-Received: from wrbft16.prod.google.com ([2002:a05:6000:2b10:b0:488:613b:9428])
+ (user=elver job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6000:25c4:b0:485:8c16:5efc
+ with SMTP id ffacd0b85a97d-4887197adcamr9710572f8f.54.1790337091978; Fri, 25
+ Sep 2026 04:51:31 -0700 (PDT)
+Date: Fri, 25 Sep 2026 11:51:22 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924135201.850038-5-suzuki.poulose@arm.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260925115128.362186-1-elver@google.com>
+Subject: [PATCH] csky: Implement _THIS_IP_ using inline asm
+From: Marco Elver <elver@google.com>
+To: elver@google.com, Guo Ren <guoren@kernel.org>
+Cc: linux-csky@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 24, 2026 at 02:51:58PM +0100, Suzuki K Poulose wrote:
-> +static int rmi_sro_donate_contig(struct rmi_sro_state *sro,
-> +				 unsigned long sro_handle,
-> +				 unsigned long donatereq,
-> +				 struct arm_smccc_1_2_regs *out_regs,
-> +				 gfp_t gfp)
-> +{
-> +	unsigned long block_size_fld = RMI_DONATE_BLOCK_SIZE(donatereq);
-> +	unsigned long block_size = rmi_addr_block_size_to_bytes(block_size_fld);
-> +	unsigned long count = RMI_DONATE_COUNT(donatereq);
-> +	unsigned long state = RMI_DONATE_STATE(donatereq);
-> +	unsigned long size = block_size * count;
-> +	unsigned long addr_range;
-> +	unsigned long donated_granules;
-> +	unsigned long donated_size;
-> +	int ret;
-> +	void *virt;
-> +	phys_addr_t phys;
-> +
-> +	/*
-> +	 * The RMM specification requires contiguous allocations are always a
-> +	 * power of 2
-> +	 */
-> +	if (WARN_ON_ONCE(!is_power_of_2(size)))
-> +		return -EINVAL;
-> +
-> +	/* Reuse the cached address range if we have one */
-> +	for (int i = 0; i < sro->addr_count; i++) {
-> +		unsigned long entry = sro->addr_list[i];
-> +
-> +		if (RMI_ADDR_RANGE_BLOCK_SIZE(entry) == block_size_fld &&
-> +		    RMI_ADDR_RANGE_COUNT(entry) == count &&
-> +		    RMI_ADDR_RANGE_STATE(entry) == state &&
-> +		    IS_ALIGNED(RMI_ADDR_RANGE_ADDR(entry), size)) {
-> +			sro->addr_count--;
-> +			swap(sro->addr_list[sro->addr_count],
-> +			     sro->addr_list[i]);
-> +
-> +			goto mem_donate;
-> +		}
-> +	}
-> +
-> +	ret = rmi_sro_ensure_capacity(sro, 1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	virt = alloc_pages_exact(size, gfp);
-> +	if (!virt)
-> +		return -ENOMEM;
-> +	phys = virt_to_phys(virt);
-> +
-> +	if (state == RMI_OP_MEM_DELEGATED) {
-> +		phys_addr_t delegated_phys;
-> +
-> +		if (rmi_delegate_range(phys, size, &delegated_phys)) {
-> +			if (!rmi_undelegate_range(phys, delegated_phys - phys))
-> +				free_pages_exact(virt, size);
-> +			return -ENXIO;
-> +		}
-> +	}
-> +
-> +	addr_range = phys & RMI_ADDR_RANGE_ADDR_MASK;
-> +	FIELD_MODIFY(RMI_ADDR_RANGE_BLOCK_SIZE_MASK, &addr_range, block_size_fld);
-> +	FIELD_MODIFY(RMI_ADDR_RANGE_COUNT_MASK, &addr_range, count);
+Both GCC [1] and Clang [2] consider the generic version of _THIS_IP_ to
+be broken:
 
-Courtesy of an LLM - if we get a contiguous/4K pages request for 4MB
-(1024 pages), the above 10-bit field becomes 0. Should we reject the
-request or the updated spec will guarantee this won't happen?
+        #define _THIS_IP_  ({ __label__ __here; __here: (unsigned long)&&__here; })
 
-Somewhat related, with RMI_BLOCK_L2 or higher and appropriate count we
-can easily go over the MAX_PAGE_ORDER allocation and fail alloc_pages()
-(the contig case). IIUC, the kernel can reject the donation but current
-TF-RMM does not report RMI_OP_CAN_CANCEL (R_SZVNK says it can be
-cancelled). It gets complicated if we want to support large contiguous
-allocations here (e.g. alloc_contig_pages() can sleep). I'd rather just
-cancel the request, not support such large sizes.
+In particular, the address of a label is only expected to be used with a
+computed goto.
 
-[...]
+While the generic version more or less works today, it is known to be
+brittle and may break with current and future optimizations. For
+example, Clang -O2 always returns 1 when this function is inlined:
 
-> +static int rmi_sro_donate_noncontig(struct rmi_sro_state *sro,
-> +				    unsigned long sro_handle,
-> +				    unsigned long donatereq,
-> +				    struct arm_smccc_1_2_regs *out_regs,
-> +				    gfp_t gfp)
-> +{
-> +	unsigned long block_size_fld = RMI_DONATE_BLOCK_SIZE(donatereq);
-> +	unsigned long block_size = rmi_addr_block_size_to_bytes(block_size_fld);
-> +	unsigned long count = RMI_DONATE_COUNT(donatereq);
-> +	unsigned long state = RMI_DONATE_STATE(donatereq);
-> +	unsigned long found = 0;
-> +	unsigned long donated_granules;
-> +	unsigned long granules_per_block = block_size >> PAGE_SHIFT;
-> +	unsigned long consumed_blocks;
-> +	int addr_list_start = sro->addr_count;
-> +	int ret, i;
+        static inline unsigned long get_ip(void)
+        { return ({ __label__ __here; __here: (unsigned long)&&__here; }); }
 
-[...]
+Fix it by overriding _THIS_IP_ in <asm/linkage.h> (which is included by
+<linux/instruction_pointer.h>) using an architecture-specific inline asm
+version.
 
-> +	for (int i = 0, src = addr_list_start + consumed_blocks;
+This also fixes this GCC ICE [3]:
 
-Nit: we have 'int ret, i' earlier already, so you can drop the 'int'
-here.
+sound/core/oss/mixer_oss.c: In function 'snd_mixer_oss_proc_write':
+sound/core/oss/mixer_oss.c:1202:1: error: could not split insn
+ 1202 | }
+      | ^
+(insn 183 400 184 (set (reg:SI 0 a0 [orig:307 _55 ] [307])
+        (xor:SI (reg:SI 3 a3 [orig:308 random_kmalloc_seed ] [308])
+            (const:SI (plus:SI (symbol_ref:SI ("*.LANCHOR0") [flags 0x182])
+                    (const_int 132 [0x84]))))) "include/linux/slab.h":759:52 288 {cskyv2_xorsi3}
+     (expr_list:REG_DEAD (reg:SI 3 a3 [orig:308 random_kmalloc_seed ] [308])
+        (nil)))
+during RTL pass: final
+sound/core/oss/mixer_oss.c:1202:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
+0x779b51e2a1c9 __libc_start_call_main
+        ../sysdeps/nptl/libc_start_call_main.h:58
+0x779b51e2a28a __libc_start_main_impl
+        ../csu/libc-start.c:360
 
-[...]
+Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120071 [1]
+Link: https://github.com/llvm/llvm-project/issues/138272 [2]
+Link: https://lore.kernel.org/all/6106aefa-47c7-4bda-a51f-8a2fba3bf715@roeck-us.net/ [3]
+Tested-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Marco Elver <elver@google.com>
+---
+ arch/csky/include/asm/linkage.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
+ create mode 100644 arch/csky/include/asm/linkage.h
 
-> +/*
-> + * rmi_sro_execute: Execute an RMI command that is Stateful but not memory
-> + * tranfserring. Takes regs, filled with the FIDs and the arguments in place.
-> + *
-> + * Returns :
-> + *  -ECANCELLED - If the operation had to be aborted and SRO was cancellable.
-
-Nit: -ECANCELED.
-
-> + *  Otherwise, returns the result of the RMI command.
-> + */
-> +long rmi_sro_execute(struct arm_smccc_1_2_regs *regs)
-> +{
-> +	bool cancelled = false;
-> +	unsigned long sro_handle = regs->a1;
-> +
-> +	rmi_smccc_invoke(regs);
-> +
-> +	sro_handle = regs->a1;
-
-Nit: drop the first initialisation maybe?
-
+diff --git a/arch/csky/include/asm/linkage.h b/arch/csky/include/asm/linkage.h
+new file mode 100644
+index 000000000000..04afd3583e25
+--- /dev/null
++++ b/arch/csky/include/asm/linkage.h
+@@ -0,0 +1,7 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __ASM_CSKY_LINKAGE_H
++#define __ASM_CSKY_LINKAGE_H
++
++#define _THIS_IP_ ({ unsigned long __ip; asm volatile("grs %0, ." : "=r" (__ip)); __ip; })
++
++#endif /* __ASM_CSKY_LINKAGE_H */
 -- 
-Catalin
+2.56.0.rc1.315.gc6ed9934b7-goog
+
