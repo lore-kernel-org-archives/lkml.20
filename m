@@ -1,128 +1,132 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD8D3FFAA4
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:15:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CB73CC330;
+	Fri, 25 Sep 2026 18:16:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360135; cv=none; b=mgeLH2chrh72Ako6/VNqUWGm/DQbVDe5JR0sAZuVXHYuPU0LbPb4jHvFoRkFYTKQaeSuBoEXXArIv6M+/qLTOLgsB4zt3XBGj7DpC+YU1DX6OiexTcpQoIqmO5eUC5EnBB8LXSKwuXBNiUokZuPfZ9uN6QUHbwCDQi6c1J7sH0s=
+	t=1790360209; cv=none; b=GsIjcKn8tKlS1S3xXxiCmtt3PHKuIR1yMfxxDHfjYMQjc6dGLqNHGK3kCwEwam55mgDxxqsDqmOO3Kw2vY/DxMPeVQTG9h+grf4EwE/9rPeAokX71I5UU1SJ7ZM/QIGcp6HFxkN5dlvFy5kjgSL5iqA2EmUXliDrlqPLPONVioo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360135; c=relaxed/simple;
-	bh=D/qNw9UAh8WrokAnq0jEmYXVQQVZjClahEe4SFSygBs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d4bRZN5oVAGuYJqsp4+qbsoFrZjdm1yKlxoGsPObKNYFWUcm23xWpz9IWJ4obzT5RS9UrXW/vWpNshY9kC8dpHBN9SzZ9zgFmTkNGdQfMbn1/L81i1iVw0SYMM8HIldPDt5+slfB2rE2NNgNq7l2yplVXCj1MDO02YmdRB0v1A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EZ0ZiPMP; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790360209; c=relaxed/simple;
+	bh=e7YcTSG3JNePysFqDol3WEbcUqdGmOQ4IkGhWY86vEc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lr1gQcMMwXf1eBvLZUpeOmOjkP/oKG04+YnroGB2DXKBxEXnQwmVY/YdI3acsmdYeXW8dvFE9k41V9xH+Ysx2uaJcpLm9mbYQhzaOlUdanpHs9qCg6aNmHEyGoRP+9Re1Bg/xV5f4ClHgi2Jm9g093ndQW4aoSFNyFqqgmQLExM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHGh2WDq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EZ0ZiPMP"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469f20513so677924b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:15:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790360133; x=1790964933; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hSjAv0OuWBW4Au8AUzMyyhP6gGploPWcJ53nZfLOcdc=;
-        b=EZ0ZiPMP4MJdu+kZmZ8yGxo6kxCBg/MFhIG3q6L+jQlSzDtExNps3PgnxdzWqTnngm
-         brdBBo4bs1r1o8Tz3y1ySjNE3lPuqA54eFLZqfJFx7/2UPwYO7QU4AFkXjlZK9Ghx8gH
-         oogGIQqbfDp3BcZMhsDc50FCDMY6XHb+uYUZNP0F0RaZMDQbSSOZaj1gJDnmqFLGx29l
-         ObmCaa7TXB7Vfhu6dERyd3lUhce3DUn1y0l7sgVRI7v9XrtqXa1qsyROOPUfKuWISOZQ
-         jAh/ZenFDL3z8BGiHk0bbjfP5QGMevrDR9pqFfkPn+4TJlP0dtqqPZuiD+kslBNYPU6L
-         onTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790360133; x=1790964933;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hSjAv0OuWBW4Au8AUzMyyhP6gGploPWcJ53nZfLOcdc=;
-        b=XRkHXzE2d8GBPbi6Tit0IZFqWmRGFAHb8SRZXO2AKpje3NUNjRQQ8gCe9tXOed8Hdk
-         2a4tVB1HtViA0pMQrwpqdZEedeJjdbByzjMkXq9//XVYkDp51FTaXdm1nj6pXHG5Ui4h
-         KJHFpkdV6wWFtur2XY32CQjAXeE1tgZbcAdmTYv+CiH9rmqKzkp6cDaLQarfDpGrDzTD
-         Y8bSIMAVVfzbNQnnkGyimOZIaVm15xZaggdY7sPm/nNL0X5KRkcFZ0A4T+6iBfNJYcUy
-         RBekzWtbPJ4gspnaPiHFg3fkvi8oZa1S70C3gu11kYpw949n6md9b1edetiFzrOR8TQS
-         1daA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKbV9/+5TGnCsjw5MUvk3GPiFfFTaWHdO7xOf/a3O3IaA76Hj+ezzxhJxOQVd6mv8arnocogqssL4RQpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQ+upqP3ur6jnWZSIVO2brdjk7ikjR5RypxNr1+F2+12MopTjT
-	b2uLI/irXjuiWVcgMRF2FrheKCqlHduKRK6kzNIHdBIaKGrl7lf+h48q
-X-Gm-Gg: AYBFou0L3lt3aym5a7oCLLqaRp5NuXk7uD8sGr1pVLtaKbod/cK4BBmnWWaqMrdi9QT
-	ioPaExVLhvayIWI/WeV5CHHTh976UeuX5DD3ABOfJv+l4gxVWsiRFaXehrlmGyLQjmUcKIzMIfS
-	FWfZsbZXYvKHYjJna4AtFdHjF6zrPYYzyGWg2Q5cXnQO2BKHAXD4iFcnmpNeca01f9Bz25ELN1f
-	PczKFaSkmgRZR8jSEgbHfq7sGUStgwn594yeMBX6DsA7V6JE40cX7Mr309FiIDqKCkk0P2qBZNL
-	6YwZ+cV+31SGCXkBifF8b8zq1Zv0HSiwe6vN2l5KWRxG5l0ukl9Sv4116xCfN1Hq/8eNazPy6pE
-	Pm7ZeWFhVA+yqX3uNDOmWXkXfNo3hh+GkKfnBzROgtLUAOQ39DvcWxueDlG5UJTnw3rq1Qz5cM6
-	D0P1u30mN3J6fIqQNgC/PH+j4lrmiKK0Cl87QGN4GizkSv32WoS6qfnG4bSsd8xV8Qu6F4YUptB
-	TrcW1tqfvDYLrFFHFnAhQWdo2wrRKVVJM2W6ph8qnZk+FOaZCCvXjtiscSEZJ3qwBPMumgq9v4Z
-	ae8eclQbkxAcq5AjZthYgGLyqsPsZV1IxeKopV4lHMzeJqX5
-X-Received: by 2002:a05:6a00:440d:b0:87b:3bcc:bce2 with SMTP id d2e1a72fcca58-87e9b69f75bmr5713648b3a.33.1790360132795;
-        Fri, 25 Sep 2026 11:15:32 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87fea18ff77sm1605440b3a.14.2026.09.25.11.15.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:15:31 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-serial@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Rosen Penev <rosenp@gmail.com>,
-	linux-kernel@vger.kernel.org (open list:TTY LAYER AND SERIAL DRIVERS)
-Subject: [PATCH] serial: cpm_uart: use irq variable for platform_get_irq()
-Date: Fri, 25 Sep 2026 11:15:30 -0700
-Message-ID: <20260925181530.52953-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHGh2WDq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884521F000FF;
+	Fri, 25 Sep 2026 18:16:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790360203;
+	bh=C10OfJrTYrQwW2kHvp4SQjJlJjZdUq9RgN2NQu4kbDU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nHGh2WDqjA05pVPtQb61qOpaXARQXuvnjw2U4K0vg7GZOk6Egj4XnxYBi9XranQ9z
+	 5t9zkIUq7EkPt2XNrNAo3twzZvovyQb5D6ZdQ7azyAIfssZFAT/SX6+FhqL7wDZc0n
+	 gIxH8o5UUIeuFBIF8BWIrMYqydhsTZyQPossDC7jkwA2vb5xRwJlVnsWwb/KdU4yKT
+	 QvMKACnDJMHYAmV+0drmdjSwKtAKMcRu5NE1yWmgynB2NRePPQ4okicudL0aMBJb8U
+	 YcNP28Y+J8/Mla8ZJLcl+rpiUYlqvHY4+K5J0T1yDXPC3qS5DvDSzPIlmC2DtWdDUS
+	 iN2cB0/7isbmA==
+Date: Fri, 25 Sep 2026 13:16:40 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Bharath Kumar <quic_bkumar@quicinc.com>, 
+	Chenna Kesava Raju <quic_chennak@quicinc.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Mahima Bhattaram <mbhattar@qti.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v2] arm64: dts: qcom: glymur: Fix fastrpc compute-cb reg
+ values for cdsp
+Message-ID: <ara6DbubyajRiJ51@zenbook>
+References: <20260923-glymur-dtfix-v2-1-a4b1928e0c72@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-glymur-dtfix-v2-1-a4b1928e0c72@oss.qualcomm.com>
 
-struct uart_port has its irq member as an unsigned int, which does not
-work when platform_get_irq() returns an error.
+On Wed, Sep 23, 2026 at 09:29:39AM +0530, Ekansh Gupta wrote:
+> The reg value of a compute-cb node must match the SID (the lower
+> nibble of its IOMMU stream ID) it is associated with. In the cdsp
+> fastrpc node, compute-cb@10, compute-cb@11 and compute-cb@12 were
+> mistakenly given reg values of 10, 11 and 12 instead of 12, 13 and
+> 14, which don't match their SIDs and leads to SMMU translation errors.
+> Fix the reg values, and rename the nodes accordingly.
+> 
+> Fixes: cd1d174c75f7 ("arm64: dts: qcom: glymur: Add ADSP and CDSP for Glymur SoC")
+> Co-developed-by: Mahima Bhattaram <mbhattar@qti.qualcomm.com>
+> Signed-off-by: Mahima Bhattaram <mbhattar@qti.qualcomm.com>
+> Reviewed-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Change unit adress to hex.
+> - Link to v1: https://lore.kernel.org/r/20260922-glymur-dtfix-v1-1-159da6b0eed9@oss.qualcomm.com
+> ---
+>  arch/arm64/boot/dts/qcom/glymur.dtsi | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> index de7c395d9c35..3219603372ce 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> @@ -8471,9 +8471,9 @@ compute-cb@8 {
+>  
+>  					/* note: compute-cb@9 is secure */
+>  
+> -					compute-cb@10 {
+> +					compute-cb@c {
 
-Use a local irq variable to handle this and write to struct uart_port's
-irq member when platform_get_irq() succeeds. On success, it returns an
-IRQ >= 0, which is representable by unsigned int.
+This looks better, but it's not allowed by the fastrpc binding. Please
+resubmit this together with adequate dt-binding updates; and please run
+dtbs_check when you're patching DeviceTree files.
 
-Fixes: 831603b3e8aa ("serial: cpm_uart: replace irq_of_parse_and_map with platform_get_irq")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609251916.1XlVHLwd-lkp@intel.com/
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/tty/serial/cpm_uart.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Thanks,
+Bjorn
 
-diff --git a/drivers/tty/serial/cpm_uart.c b/drivers/tty/serial/cpm_uart.c
-index 39f54bb7b485..ca0acccd3dd8 100644
---- a/drivers/tty/serial/cpm_uart.c
-+++ b/drivers/tty/serial/cpm_uart.c
-@@ -1517,6 +1517,7 @@ static int cpm_uart_probe(struct platform_device *ofdev)
- {
- 	int index = probe_index++;
- 	struct uart_cpm_port *pinfo = &cpm_uart_ports[index];
-+	int irq;
- 	int ret;
- 
- 	pinfo->port.line = index;
-@@ -1524,14 +1525,15 @@ static int cpm_uart_probe(struct platform_device *ofdev)
- 	if (index >= UART_NR)
- 		return -ENODEV;
- 
-+	irq = platform_get_irq(ofdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
- 	platform_set_drvdata(ofdev, pinfo);
- 
- 	/* initialize the device pointer for the port */
- 	pinfo->port.dev = &ofdev->dev;
--
--	pinfo->port.irq = platform_get_irq(ofdev, 0);
--	if (pinfo->port.irq < 0)
--		return pinfo->port.irq;
-+	pinfo->port.irq = irq;
- 
- 	ret = cpm_uart_init_port(ofdev->dev.of_node, pinfo);
- 	if (!ret)
--- 
-2.55.0
-
+>  						compatible = "qcom,fastrpc-compute-cb";
+> -						reg = <10>;
+> +						reg = <12>;
+>  
+>  						iommus = <&apps_smmu 0x240c 0x440>,
+>  							 <&apps_smmu 0x196c 0x0>,
+> @@ -8481,9 +8481,9 @@ compute-cb@10 {
+>  						dma-coherent;
+>  					};
+>  
+> -					compute-cb@11 {
+> +					compute-cb@d {
+>  						compatible = "qcom,fastrpc-compute-cb";
+> -						reg = <11>;
+> +						reg = <13>;
+>  
+>  						iommus = <&apps_smmu 0x240d 0x440>,
+>  							 <&apps_smmu 0x196d 0x0>,
+> @@ -8491,9 +8491,9 @@ compute-cb@11 {
+>  						dma-coherent;
+>  					};
+>  
+> -					compute-cb@12 {
+> +					compute-cb@e {
+>  						compatible = "qcom,fastrpc-compute-cb";
+> -						reg = <12>;
+> +						reg = <14>;
+>  
+>  						iommus = <&apps_smmu 0x240e 0x440>,
+>  							 <&apps_smmu 0x196e 0x0>,
+> 
+> ---
+> base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
+> change-id: 20260922-glymur-dtfix-6314526b4b02
+> 
+> Best regards,
+> -- 
+> Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> 
