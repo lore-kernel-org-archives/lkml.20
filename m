@@ -1,180 +1,136 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA86349B5C6;
-	Fri, 25 Sep 2026 12:48:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790340537; cv=none; b=ZJ1GoAcTsLPVRMmsDarEfC02uK7cg1J860wlbSkK+E85Onix31mb5CPos0zpb2BYHVen6CXCA279SfOEBARSwOec0lZfcnEnpLdOrhycN731cHox5zrYVYfsDdxj/8WGakYyrl1zjzRKk9JKOtD38aY1owvtzEHKp06T+UpQ2yA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790340537; c=relaxed/simple;
-	bh=keLjwrDnaX1oNrwQa0KCt9pvuS+VJLQJ2PEo4P6RmXU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=gUeAQb2upf59XA/3dqC0owz9w0MMp2RY8bQDhxYhJQqdW2vV+1CQsaMKx3JmUzpgXQ/cLqWqEhydClp/3jnTFuJkM3IgA6s3on7zJDwQiKFkX+0WwtRy8UxgyR5aSD3bujTjDMqs89NitiEPMUkwfqonx1xPJqxe87RFJVr9kxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eWNorY40; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BFB48F836
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:49:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790340573; cv=pass; b=LH2V73jUviETkE8QsGlsLXsttGeG0R38bRYa/Bi2jrqcyGicFM0CatfOD+jMywxEivUygrE0BJb5Gx2Nc9fRu103bs7G5wBbI7a9N1h/z0JvAdSJtMUffaaQJDIqrD8ECXDMLqc9CmdhyGqeshBKGMtw5jMguzF4/urqZu+Y2wM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790340573; c=relaxed/simple;
+	bh=xwK25Er/UyTdN8xX3u3ar9ULjVXabUcm1PASpwoLyi8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RcOfwPaVkE0J939KNAiorTguhP1GLTLkcqSVb5Ors6F1xkfu1WKOAnP2+CEMVZZpAfqoog5NGmJM3YqcuUtvEW7Jw3aRk6hNDe4Z/W9YvQVdilTL79IONUtRJqDxPftQKllsazcn3xB4uCqczxjZezVI0muQo4PvlyNFBem/akw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mAM68r6Q; arc=pass smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eWNorY40"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790340535; x=1821876535;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=keLjwrDnaX1oNrwQa0KCt9pvuS+VJLQJ2PEo4P6RmXU=;
-  b=eWNorY402PPo/wU/H9ROwR8Tivj12J6BYcuIEJ2ZfEJ2NV7u0BRNuPQl
-   54uzv8JUdct2l6xryEmMmMTPZMo3W2he8K5ADiORXKH1lUqYOPRTLlGuk
-   ZcyJVwaM0J/dDkRBhmZHl6gWq6hgC+bS3NpQfOLH3Nve8LFDjCgtKhNJc
-   DAXOJ0pgFgpjmJV1TBC+bJQCtc6arKLs7iMLE6yOX2G+ELh/RjORL0Cbw
-   x1z/6xK4rR7N2JJ18RM3hcFa1BW21TMQK4BNHH6WGn95pH6bvQUO0XvwJ
-   xUJ67DUWYqMPKLR2PCSQGqoG9lvqzyoc22xhY7RLBiIfg+jpk9G0BMDZq
-   w==;
-X-CSE-ConnectionGUID: BmObNpjwRHS6gaPvrTT7Nw==
-X-CSE-MsgGUID: PStdVRYuTR261JRb8LQzrQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89892457"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="89892457"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 05:48:54 -0700
-X-CSE-ConnectionGUID: SO2hFo73QoixFnmSHsjGhg==
-X-CSE-MsgGUID: 63gI6Dn/QPmBXq5kxfrvAQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="272136683"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 05:48:50 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Marcel Hamer <marcel@solidxs.se>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Ville =?utf-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Vinod
- Govindapillai <vinod.govindapillai@intel.com>
-Cc: Marcel Hamer <marcel@solidxs.se>, stable@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/irq: crtc guard inside interrupt handlers
-In-Reply-To: <20260925115511.1655213-1-marcel@solidxs.se>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260925115511.1655213-1-marcel@solidxs.se>
-Date: Fri, 25 Sep 2026 15:48:48 +0300
-Message-ID: <5bd47464aaf0f7eeb6b993ca1124d2f2858ee857@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mAM68r6Q"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2ae61dcbcfso52220566b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:49:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790340570; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iVeoh3ob3OeP55ZJbghBskXyPVSxQ4EqWvRyLhV73BXk8jQilXXCIj2E3vFchqUOin
+         H9fxdV1tgk7iFL09YfNbfTN1+iQKhglpKmm+1gLb1PA0mHs/DoZXh1XWnXPk5UFPTTFd
+         mLf7GOlDV/JnPpXqDEBg2++byl159q0x+O7UMlnfpTnTczQ7U+7qVdWFhXof+36OdSCa
+         jX5NNJBcQjXU5i7clLaP6pCp6WZX/2Iznhnlak9/xLbGWGoDr6ohSyjLX8xVF1AGmssQ
+         I6YA6KXdSIbAw68jleRZ24pCpMPznE7JpEX47iIX9skAaPc3JylQh5VKqfqPbXUwWbJS
+         QeGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TtIS8EApTnblvzoeUBrwBUCbydvF8aeUGatUpWHCCRQ=;
+        fh=6xOVb6tKokhVyhXJuMNZoNoRr0LxGtCgU0NRioe561A=;
+        b=c9FfxDitOiHXvfKCv+i3JSK8oh9RJZP6hE6DiBE+nM1cyzQCxhJpiKSF9yJzujxYVp
+         Pe6O5nQTYctmOAYMdip0tI6Zg05l0zaYEsjNoCl0wOEUyURb2neExR7jZAzLaMpAJcRk
+         b+urBU+RcNeleNt9BtJTzTCOBeED2N2hga8FBf0+ea659YB4HwJ7ACJTe6qrkqISPOAT
+         5E1aEUVcq4BB5VB6OGAQT5lEQYrjr/ad0MfGR1xi9jHNbhtMmr2PI+pd8DIkq3fPAOGj
+         FqJiSuPr5GK/nhv7Y83brvrpvv2o3LcEsfFloEy/hCmeKQ6+nn/ck7VZho8LI9ID4pOL
+         QWag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790340570; x=1790945370; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TtIS8EApTnblvzoeUBrwBUCbydvF8aeUGatUpWHCCRQ=;
+        b=mAM68r6Qo6zTrbK5IrJhTyuUAOLpXwz//bpsm3QlH8JduNJNcv1WvqqexWjmsys5Jw
+         FSAPUdLkYLe3ehyWlTmu4cybygdC41G+2K/9AolkFab+TucXJHiSmolmhJk8cgQOhtGh
+         u/ZrHdBsIcW1W2fNgfOaNrBS1C11oHw5XoczSj2e9bkM4Te8jp7Q90uaFvRUE0vaZsQW
+         dHpQs7XNSkK2diNwlQLnoWff8jC9wAUeMiHq8oa2ZUakyjjY1WSgrcYWobsbCKt4VZxw
+         WycS4DwQY910VOsl00YU0sFpVCgbdulsrRMWh/IBHWCEImYYmgtVLi26L1NgSv9oAPRQ
+         9eEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790340570; x=1790945370;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TtIS8EApTnblvzoeUBrwBUCbydvF8aeUGatUpWHCCRQ=;
+        b=NOcd4vLEDHzvDpIUWaITssRJjimSR0D8l/Nw4Nz/68uXv2kCXTIw8u3S9/6M3Cqil6
+         tsFK/Yp+HUje6VNyb/gjCvXhzP2ahr8Blbgyb+mtUDp8n0sQ2oCpDejdktGv+ba3WmGG
+         8FXx1B1lnAqATM6iJTX0KUPpcmYeqamWAKcK1dLpfzvLomzKxx92ePc2v2cAgXUORiV2
+         r9ywpRMmJvKAZL8MboejHWPxCEMg1Pq2s2CeYD/5xlajxeCjibMVWjXFS0VOEZGwfcL0
+         al37yIYX/9UhKsExClxf5gYpX9O9Q7O9r48Lq5Apx8DnfttiRFvRum/E4k6EpKhNfIzH
+         nkMw==
+X-Forwarded-Encrypted: i=1; AKwUvBxU5Bk5odgd8jht22fxMA2odgtfQj7i7QCgrIHe1FtPg2hIHIoRGuNITrCPpmm5Kai8XMGzqT9B6ti9aKo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRcGVmfHUTkEX4Q1wAOf2Hmbt/bhX+bcUIzNiE2ov8PgMg2rEl
+	pan/CA3zRyIB6fzCLM+1VmVlD/0SN8uqVVqU0IfSn7fXAIFDNoYbBPIZ53v1JZpsL7nq25S2QTu
+	Uz5bTRC+ZiBPkE2qgPrB1+CX4smujGUg=
+X-Gm-Gg: AYBFou2maPWfJvSawL7lITqhip+H0CMWAZ7ZAzNeKjuf7V/1RzXkwWRvUudMK8ooCjX
+	DEuD0GjYE9XhS2CF8WOsPePVNuAxTcK4LVGbJI77fiVELJJ9FEEMhPiaVMImDlkzggfkQogit8y
+	m0LqmcI7LHuAV8QB9ocK6GtvK2/a7Wmpcqtf6UZDsXpuPdnyXGq2p59bck2Dw0yedlvz6aScySD
+	RQxwPJYJIKVd7NkNwETBG8/7XrT+d+8lNflNvWeOWuT8vdM+apEZkYVFWb25pc13BV4b32SOY/F
+	ipV3HGEXQoPPfKaQSsabv5DVF3dI76BGb2kz1GAog7fJUktebsRO6dqbwdi24KV0mBHDfX2TvTp
+	i5bUsPdOaXoaJ+hNKtndnyIiH5YWardO/N/r5zTimpzoFunRCf69vAmrpK+R0kexiQCcTGR6AkO
+	Y4Bh3KGXdpv7Fcq2pKUzMGu1SqfVZ7mXePruz5Xe69N7sZC1SYsbI=
+X-Received: by 2002:a17:906:9fce:b0:c29:d0a8:79d3 with SMTP id
+ a640c23a62f3a-c2ac2334081mr530795966b.14.1790340569589; Fri, 25 Sep 2026
+ 05:49:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260925-gpio-organize-by-vendor-v1-1-8feefd60581b@oss.qualcomm.com>
+ <arZRZfa7AmDxmwoJ@ashevche-desk.local> <1299262d-a9f0-4f2d-8456-bb40a3078f95@kernel.org>
+In-Reply-To: <1299262d-a9f0-4f2d-8456-bb40a3078f95@kernel.org>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Fri, 25 Sep 2026 15:48:53 +0300
+X-Gm-Features: AclHuK_kA9pocaktebhafDtwbGAICjNyxWcnIMclsLHy5_vqYuNz5aHt90y2SE4
+Message-ID: <CAHp75Ve4hCd-WVrNvdmSOiCo8j0jXBbnvOvxoFh7-Rj1ctnybQ@mail.gmail.com>
+Subject: Re: [PATCH RFC] gpio: move intel drivers into their own directory
+To: Hans de Goede <hansg@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>, 
+	Lixu Zhang <lixu.zhang@intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>, Mika Westerberg <westeri@kernel.org>, 
+	Israel Cepeda <israel.a.cepeda.lopez@intel.com>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 25 Sep 2026, Marcel Hamer <marcel@solidxs.se> wrote:
-> Interrupts are enabled before the crtc datastructures are initialized.
-> As intel_crtc_for_pipe() is called inside interrupt handlers and can
-> return a NULL value, this can in rare cases lead to the following NULL
-> pointer dereference and panic:
+On Fri, Sep 25, 2026 at 2:42=E2=80=AFPM Hans de Goede <hansg@kernel.org> wr=
+ote:
+> On 25-Sep-26 12:48, Andy Shevchenko wrote:
+> > On Fri, Sep 25, 2026 at 12:22:15PM +0200, Bartosz Golaszewski wrote:
+
+...
+
+> >>  drivers/gpio/{ =3D> intel}/gpio-graniterapids.c   |  0
+> >>  drivers/gpio/{ =3D> intel}/gpio-novalake-events.c |  0
+> >
+> > These are interesting drivers, not sure where to put them
+> >
+> >>  drivers/gpio/{ =3D> intel}/gpio-ljca.c            |  0
+> >>  drivers/gpio/{ =3D> intel}/gpio-usbio.c           |  0
+> >
+> > These are definitely not going to intel subfolder, they have nothing to=
+ do with
+> > Intel HW, they are against some custom external (to Intel SoC) HW.
 >
-> RIP: 0010:handle_plane_fault+0x19/0xc0 [i915]
-> Code: 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 0f
-> 1f 44 00 00 55 48 89 e5 41 55 41 54 49 89 fc 53 48 83 ec 18 <48> 8b 1f
-> 65 4c 8b 2d 24 90 31 ef 4c 89 6d e0 41 89 f5 48 85 db 74
-> RSP:
-> 0018:ffff92b180003e50 EFLAGS: 00010086
-> RAX: ffffffffc0911fc0 RBX: ffffffffc06e0b90 RCX: 0000000000000005
-> RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-> RBP: ffff92b180003e80 R08: 0000000000000005 R09: 000000010517d5f6
-> R10: 0000008000000041 R11: 000000010517d5f6 R12: 0000000000000000
-> R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
-> FS:  00007f72f5b72780(0000) GS:ffff8bbdcbfe9000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 0000000000000000 CR3: 0000000102f2c000 CR4: 00000000003506f0
-> Kernel panic - not syncing: Fatal exception in interrupt
-> Kernel Offset: 0x2c800000 from 0xffffffff81000000 (relocation range:
-> 0xffffffff80000000-0xffffffffbfffffff)
-> Call Trace:
->  <IRQ>
->  intel_pipe_fault_irq_handler+0x42/0xc0 [i915]
->  gen8_de_irq_handler+0x1ed/0xdf0 [i915]
->  gen8_irq_handler+0xb5/0xd0 [i915]
->  __handle_irq_event_percpu+0x6e/0x230
->  handle_irq_event+0x3a/0x90
->  handle_edge_irq+0xd1/0x1a0
->  __common_interrupt+0x48/0xe0
->  ? generic_smp_call_function_single_interrupt+0x17/0x20
->  common_interrupt+0x84/0xa0
+> Hmm, those "external" SoCs are only found on Intel IPU6/IPU7 laptops
+> and come from camera designs for OEMs done by Intel's camera team.
 >
-> Fixes: f13011a79999 ("drm/i915: Pimp display fault reporting")
-> Fixes: 138d2bda4eaf ("drm/i915/display: pass display to intel_crtc_for_pipe()")
-> Cc: stable@vger.kernel.org # 6.18.x
-> Signed-off-by: Marcel Hamer <marcel@solidxs.se>
+> I don't care much either way, but for all intent and purposes these
+> really are Intel USB GPIO expander drivers.
 
-Please file a bug as described at [1], attaching full dmesg reproducing
-the problem. I don't think we're seeing this in our CI, so would be good
-to understand the root cause better.
+Fair enough, I can move them in a separate patch.
 
-BR,
-Jani.
-
-
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-
-
-> ---
->  drivers/gpu/drm/i915/display/intel_display_irq.c | 16 ++++++++++++++--
->  1 file changed, 14 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-> index a59b75830bd1..4ffc8789c9f3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-> @@ -131,6 +131,9 @@ static void intel_pipe_fault_irq_handler(struct intel_display *display,
->  	struct intel_crtc *crtc = intel_crtc_for_pipe(display, pipe);
->  	const struct pipe_fault_handler *handler;
->  
-> +	if (!crtc)
-> +		return;
-> +
->  	for (handler = handlers; handler && handler->fault; handler++) {
->  		if ((fault_errors & handler->fault) == 0)
->  			continue;
-> @@ -148,7 +151,8 @@ intel_handle_vblank(struct intel_display *display, enum pipe pipe)
->  {
->  	struct intel_crtc *crtc = intel_crtc_for_pipe(display, pipe);
->  
-> -	drm_crtc_handle_vblank(&crtc->base);
-> +	if (crtc)
-> +		drm_crtc_handle_vblank(&crtc->base);
->  }
->  
->  /**
-> @@ -425,9 +429,14 @@ static void display_pipe_crc_irq_handler(struct intel_display *display,
->  					 u32 crc4)
->  {
->  	struct intel_crtc *crtc = intel_crtc_for_pipe(display, pipe);
-> -	struct intel_pipe_crc *pipe_crc = &crtc->pipe_crc;
-> +	struct intel_pipe_crc *pipe_crc;
->  	u32 crcs[5] = { crc0, crc1, crc2, crc3, crc4 };
->  
-> +	if (!crtc)
-> +		return;
-> +
-> +	pipe_crc = &crtc->pipe_crc;
-> +
->  	trace_intel_pipe_crc(crtc, crcs);
->  
->  	spin_lock(&pipe_crc->lock);
-> @@ -465,6 +474,9 @@ static void flip_done_handler(struct intel_display *display,
->  {
->  	struct intel_crtc *crtc = intel_crtc_for_pipe(display, pipe);
->  
-> +	if (!crtc)
-> +		return;
-> +
->  	spin_lock(&display->drm->event_lock);
->  
->  	if (crtc->flip_done_event) {
->
-> base-commit: f49a343b305c0b6c19a3b50c0bbf10bcd0e2e8fd
-
--- 
-Jani Nikula, Intel
+--=20
+With Best Regards,
+Andy Shevchenko
