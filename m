@@ -1,222 +1,91 @@
-Received: from mail-dy2-f25.google.com (mail-dy2-f25.google.com [74.125.229.25])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B4B448384
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F0B3CC303
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364464; cv=none; b=nfCpmQXqXxhy3tlK3c1QzqEyaIe1NBrw8mkJTLmwPT0cmXnMRwwtxOPj5b/3C8n5F6EgzujEqlwn00IBvZrdBhMDcaXV4ZANw5Edn5wc+mCBfDjG10EnsrFC4c3s3jGF48xQumuJKxlzSH6BgKOYf8wWpcKklS8CYJOHJw+07fk=
+	t=1790364493; cv=none; b=f8lKo4e+eJmXiLuwsNGMKwteAzlRIIcrXnbVfg+dok4U5pGFR3Ej51K4MAk9NntKO4pp3yqjCyLFpFpQokIaF9ClCkRgqujXzYFMdbvd9STfrc7vQLS4fklJtpAZX2zyeF993A941K+FLux3jcAuK8AzmTjjaDp/LPSZfV5BxRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364464; c=relaxed/simple;
-	bh=6SU9XvusmasAr35BYeFHgnzOH+gX4OvUuLSAZmMQ2ho=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BVNsSCL6j/VC73Wzt/CwnbfHTtFCGb+ycjLLMyn3RTZYOcmq9OjcHRE8VrTM0HqdFfrZ2QpnZhtOo2uk8H3mHeymHoNcsKHuqFqkfvgcAWOSd5tZvb7tUOZFNEw3BXR3QwZl84oWQlJkOjBa1zaARwW0A6gHsrjxRdTT5CKWrk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xv6dVm3M; arc=none smtp.client-ip=74.125.229.25
+	s=arc-20240116; t=1790364493; c=relaxed/simple;
+	bh=kxURIRZzgPTJfdLg5CzkMpeoAgOAG8CcHM4nRKTEVRQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LtJQwYC7XZEj+TS6zAboB7uL1K1tCB1OMLs2QCu1NSgonlsp/1citILEs2zGOINjHt/uhGHky0PxHo7FsONyl/8GbCMrSishDdiX1JTaZse1agY606Zd/yPx7EAP1CQdSwd/W1pABUGuymrAPJfNyA/257/JsKUIB0KobwUrDNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QC+1nhFS; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xv6dVm3M"
-Received: by mail-dy2-f25.google.com with SMTP id 5a478bee46e88-328664e061cso1345374eec.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:27:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QC+1nhFS"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac898fa4so1013362f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:28:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790364462; x=1790969262; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RWDSKWZuEkPlk2u1p84ALBilVUhoSm1EjrDy3t/LqSE=;
-        b=Xv6dVm3M9sree4WnoqgszAszL6cjx9VZVK8h2qE8l4YBo7bfBOi17WM0NCuy9lB+N9
-         Ew+rC11bB1Mj8hPezFuX9HLdQt5N7uTCybS7eFTsrJiwdJVvHjsglG9/rO2itkuEaGRv
-         in351Yt4wQEb354KFefOAJRlSg7ROYWoD4guWvS4I9lRs8338YxyWLyRkhaJdQcaP5k6
-         cusGF1n32FDdSsq168qLJpcp6z89Ka/U5ctkVkaQ0LTUKMyWmBALqmIy6ViXQsE5pWmn
-         DypVsistOIlds4DJiiw9wgYGcnMxgBm6IWxNTFOrE0J0MX3HsY2EYJucubpm+WrMIs2t
-         Ri3w==
+        d=gmail.com; s=20251104; t=1790364490; x=1790969290; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nLkp8tKPyA53T/OKC2x3SgMSN2485FWk3XxTVjLfsT4=;
+        b=QC+1nhFS+BzkrCUK7Wskk7yNFQpF9SqmWt1XUVkSfT3bwa1jYwGQimUnFeP+2JrRHo
+         sesnXt5ftg0+lT2sZiWjre1N+DYI2dccYG1cQWCdLzmC7YHWcVDoFCmMxNeIzfTzwZJd
+         IWbUCFU1bqk6wT9v8OByF9YKBCso1lM0CzC3VyN1jvUWrLFCnHtPbsGN1qPagMRsfvH8
+         qPJAzGJLeehg44XU5k1I68vnH7Yyj+z6JwQHV/GsO9oApMuHIl+ZfsX7gaAeNeSD4ImZ
+         GJVejEcoBbmhPurDBP5wNxD7OT9A+pwkul5CpbybRYXyr3HE8S/77YbuzfmXPst8ePyP
+         Kxaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790364462; x=1790969262;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RWDSKWZuEkPlk2u1p84ALBilVUhoSm1EjrDy3t/LqSE=;
-        b=MrNA6CAZ6lf85HMf6Cl9nqySb9MpIh7LJefJF6nlYJbBGpPpnT1UsS9L+59cUvQ2wn
-         tveOjzHZLDvEpalIal1nxtjxDxcAt+PTHkT5zKtb+zSloWEw6K9dNll5HvxuscVP4wvZ
-         NffFUQP2zIfOckaMRlMViOzqufoKOfduHGGIml4knMRlhb0lugFZ5ObsCy6g18lIL52P
-         dnvsqRqpCEW0PohvW4lttAdSs7Lz6O0AsNX6Bw9m53OhHGtci5MwjUM24uINd17+9ih6
-         d1FQOLfH3XTdtc3Wkqk/MaBZcNV2VVcVt94MpPNcDR1idQzwKY3rXJUTfDBhb3eUWzT0
-         akQA==
-X-Forwarded-Encrypted: i=1; AKwUvBwXy/FxJNSk8t43ukJ37jc+VgEGuj19snIZPOy5GrBUHquoO3K4Xt+2LpIkr0QF4tvkdytkMnIR0smgaaQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAEKm+aUe3N1o2g9H2jrVhv9/tmpeekiaa00a1E8tDoFBCozD2
-	E8gOdnI/FhUshqbuM2AwTEhtG+Kr2RmEA5xQSUDJqgXAftkF5/0H1tt8
-X-Gm-Gg: AYBFou2TVxJ0cIbWftgWG6HPnpSTTp3JOSPsWZuRa0FCcNUueq5DJlVnkMPkNfvF45u
-	uA2lJLqd5NBdaKRB1xAGUyagxXc0lCLWXQQcsXr8zIERec0gCeV3usoUINdyI8XChj0cbpyG9rs
-	O2k/iY9M2kPIRFsLEXnVfiENCIXy+ELJ4kA6Dp5dVDIYdnFYQJoHg4nkWplRnr7DPOqiB0aJTO7
-	N6V3E83cFmJMHPdB0k4tqkg8toM8MicyTursb83PNX//GnvFJcpZOOCcOi4EvF0lDYpX12PI7g+
-	4gcI6ubtyIl3VjzGhwPbCqQ6PoJ948xR1CQeW6NW/JUEWDeySz4qJKj3GB4t5k0qEErIsyxVSEP
-	hL39mz7pCPxWpgz3da8Vg6Fgg2+wD97Sx4MsXaGRMPrk6NYBOOncLo+dJyblJ+XPg1OKrvKEf5j
-	E5CF+EcFNfpPCLt0iwMENRLELb4nnB2i3sL/thaXq9xOrW9X900MgQhajyt7IjsIbbv4DFikWV2
-	QTEC5Xfp1cDx+L0Fjea3VoHBkGcspL1GjG+H7o=
-X-Received: by 2002:a05:7300:ae23:b0:342:890a:40a8 with SMTP id 5a478bee46e88-342890a4389mr792661eec.30.1790364461569;
-        Fri, 25 Sep 2026 12:27:41 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:375:19cf:5fee:be32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341460f5166sm7801383eec.29.2026.09.25.12.27.39
+        d=1e100.net; s=20260707; t=1790364490; x=1790969290;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nLkp8tKPyA53T/OKC2x3SgMSN2485FWk3XxTVjLfsT4=;
+        b=b+M1AtfDP3q5j6uDq+dfDmW3mo3SXF2FI/RUaK4Op3/nhfQblacKa5367Y4gk2uziv
+         7pNL24MRQg2bFUcO0Lm/e4AEpjW80uD5nMzTT49Ny3A0Wk5lNtjtLRdWfiG+IDFjSOoO
+         JZu8zX+Di6ufzxGfjkqVDr71XtHQjji5ZMx5XeKTGI3AbsxQ8bO67voUS2lULS8VUpGI
+         ZaUdktmcHH0tIGCKaatXi0EgSbTGZoT6kv9yJ+jBgWMjcq7NR+asaKnvL0PgtbggvM7m
+         GMJWmTofPsVrckDXzleNWoB3NlMuJaEilADVDcvpaEh58Tlz82Bvw6rzj+pRRKqodeaX
+         XzlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzXwYCCF7iuzPXa/DvXUlYKcMmRb4NkZK2HiyX/oRpqIvmKgkpuUDCM446pt853zjEVjlQ8hDqJxUc5V2E=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6mVV2iIF2+Xw5FBKfZxBaOBjYptl+T9+SzKwHRBmAqnKaqn7+
+	QcosTOdtX4tfiSfxMK5KC1tPa6+ghOqFXvEsAvVSDQrZsfG1otvRvEYT
+X-Gm-Gg: AYBFou0WD0xVDa1Dg/YRQpeKXTJd5pBsV+k2dCl3Bpd7rKuMf5l7AJ+YLQpnF9AuRTN
+	RDGj2wdWIQBPbrFYptFe6z0AmPbYfesUuvkk75/znrWVwzKut3vAm5pWZKrl52NytvTsqLKaYDH
+	PxeuGAOQuYdjVFFylGccFYA1a2rn9EQZc1lrSqcnN8aK+CXVyGZCYa6nv0FemfN0Y7D+fEFiZqg
+	hA2wTUfuexYbxdVFZG+GfCJQfS9por981Pb2ol9pOJGH2UUqA5eONNS7+us8ZwdVD11XGPmRls0
+	ApqRWVk4QJy68X0TgwO1l1V3OJu5rsXB5UCUjNw99KfYCOH+OlK6IaI3Qam0N3u6m9i+ATjfUbc
+	onoi6erK+boW8UaKd5xfM1vkfDrELrygNaDpk9PtvVEE6g8YUi0gWs7US5DU2d0KOoXWZk8um/a
+	nHLtToORHzXLGhUe52LfZ57WmrX9yk6IbbUjDc8GFXrR5yWaZVSa1NE+fX5/bll1IbMa40uTFQo
+	jDwEojBW3ifd6lHKYfqNjgdNAbY3onRDeRa1U8zQVAeaS+v45WwDQ==
+X-Received: by 2002:a05:600c:8b71:b0:49f:dd6d:79a1 with SMTP id 5b1f17b1804b1-49fe6701ee2mr106024745e9.26.1790364489603;
+        Fri, 25 Sep 2026 12:28:09 -0700 (PDT)
+Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff21c38a4sm39369075e9.2.2026.09.25.12.28.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 12:27:40 -0700 (PDT)
-Date: Fri, 25 Sep 2026 12:27:37 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: david@ixit.cz
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Henrik Rydberg <rydberg@bitmath.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Petr Hodina <petr.hodina@protonmail.com>, 
-	linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	phone-devel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v7 1/4] Input: stmfts - wait for controller ready after
- reset
-Message-ID: <arbJrK9zfoO1dGzy@google.com>
-References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
- <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz>
+        Fri, 25 Sep 2026 12:28:09 -0700 (PDT)
+From: German Pablo Lindo <germanpapulindez@gmail.com>
+To: lsa.uz@pm.me
+Cc: dave.stevenson@raspberrypi.com,
+	germanpapulindez@gmail.com,
+	kieran.bingham@ideasonboard.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com
+Subject: Test for [PATCH] media: i2c: ov13858: add horizontal and vertical flip controls
+Date: Fri, 25 Sep 2026 21:28:08 +0200
+Message-ID: <20260925192808.8114-1-germanpapulindez@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921124444.79396-1-lsa.uz@pm.me>
+References: <20260921124444.79396-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz>
+Content-Transfer-Encoding: 8bit
 
-Hi David,
+As stated in https://lore.kernel.org/linux-media/20260913185735.6607-1-germanpapulindez@gmail.com/ a previous patch involved in the correction of the orientation of the camera, didnt manage to correcly flip the camera specifically in qcam. This patch seems already upstream (or at least in linux-next) and solves part of the problem, but not entirely
 
-On Mon, Sep 07, 2026 at 12:50:19PM +0200, David Heidelberg via B4 Relay wrote:
->  
-> -static void stmfts_reset(struct stmfts_data *sdata)
-> +static int stmfts_reset(struct stmfts_data *sdata)
->  {
->  	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
->  	msleep(20);
->  
-> +	reinit_completion(&sdata->cmd_done);
->  	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
-> -	msleep(50);
-> +	enable_irq(sdata->client->irq);
-> +
-> +	if (!wait_for_completion_timeout(&sdata->cmd_done,
-> +					 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS)))
-> +		return -ETIMEDOUT;
-> +
-> +	return 0;
->  }
->  
->  static int stmfts_configure(struct stmfts_data *sdata)
->  {
->  	int err;
->  
->  	err = stmfts_command(sdata, STMFTS_SYSTEM_RESET);
->  	if (err)
-> @@ -593,42 +602,47 @@ static int stmfts_power_on(struct stmfts_data *sdata)
->  		return err;
->  
->  	/*
->  	 * The datasheet does not specify the power on time, but considering
->  	 * that the reset time is < 10ms, I sleep 20ms to be sure
->  	 */
->  	msleep(20);
->  
-> -	if (sdata->reset_gpio)
-> -		stmfts_reset(sdata);
-> +	if (sdata->reset_gpio) {
-> +		err = stmfts_reset(sdata);
-> +		if (err) {
-> +			dev_err(&sdata->client->dev,
-> +				"controller not ready after reset: %d\n", err);
-> +			goto err_disable_irq;
-> +		}
-> +	} else {
-> +		enable_irq(sdata->client->irq);
-> +		msleep(50);
-> +	}
->  
->  	err = stmfts_read_system_info(sdata);
->  	if (err)
-> -		goto err_disable_regulators;
-> -
-> -	enable_irq(sdata->client->irq);
-> -
-> -	msleep(50);
-> +		goto err_disable_irq;
+After applying the patch, the orientation was the expected and the same as previous test with firefox and gnome snapshot, i also tested both apps again and no new bug or error ocured apart from the debayer bug not related to this series of patches
+
+   Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
 
 
-I think the logic is becoming quite convoluted here, and factored out
-stmfts_reset() does not help. How about we make it look like this:
-
-static int stmfts_power_on(struct stmfts_data *sdata)
-{
-	int err;
-
-	if (sdata->reset_gpio) {
-		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
-		/* a short delay before powering up */
-		usleep_range(1000, 1500);
-	}
-
-	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
-				    sdata->supplies);
-	if (err)
-		return err;
-
-	if (sdata->reset_gpio) {
-		reinit_completion(&sdata->cmd_done);
-
-		/*
-		 * The datasheet does not specify the power on time, but
-		 * considering that the reset time is < 10ms, sleep for 20ms
-		 * to be sure before releasing reset line.
-		 */
-		msleep(20);
-		gpiod_set_value_cansleep(sdata->reset_gpio, 0);
-
-		enable_irq(sdata->client->irq);
-
-		if (!wait_for_completion_timeout(&sdata->cmd_done,
-						 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS))) {
-			dev_err(&sdata->client->dev, "controller not ready after reset");
-			err = -ETIMEDOUT;
-			goto err_disable_irq;
-		}
-	} else {
-		/*
-		 * We do not know the real controller state (was it powered
-		 * off or reset). Let's hope that this is enough time to
-		 * initialize.
-		 */
-		msleep(70);
-
-		enable_irq(sdata->client->irq);
-	}
-
-	err = sdata->ops->configure(sdata);
-	if (err)
-		goto err_disable_irq;
-
-	/*
-	 * At this point no one is using the touchscreen
-	 * and I don't really care about the return value
-	 */
-	(void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
-
-	return 0;
-
-err_disable_irq:
-	disable_irq(sdata->client->irq);
-
-	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies), sdata->supplies);
-	return err;
-}
-
-
-Thanks.
-
--- 
-Dmitry
