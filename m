@@ -1,77 +1,65 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4DF4E430C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:39:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB124E06FA;
+	Fri, 25 Sep 2026 16:39:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354390; cv=none; b=h7gLKHq2xVvq+wW47gaqyIR1wip8onNEB2r4MOPUTVKDE1N9iycPpfbGp5pFmUe1cGxCQBARoWcbWXEyDNCvnqTXcuMNNXzPMDy+xokifvDk1lykDm1QmG97yQ7R0JIZZwPWNoCpuQ4BoKAjFAkIcPsEF1Yp3AJUI5Jt2ONVP08=
+	t=1790354393; cv=none; b=atQ0MRHrFtnMYSFv+SaFXrPEhApl+nre01gIwWfOTEAovnFMiHQjW/6sMFqTsyG4aFhEJ9W3T3m/n0SE6+PHl0LivuZ1z1chy5zNfQjM1lH5bgD8EXbh99Z7UzVCOTvNTEz40fRSI/s6nOMzIbj23kcK8/Y1jY4qtmtCchakJP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354390; c=relaxed/simple;
-	bh=piiNMhDZqsXj6hX5HCGLusCJOyYSSVJ4zi5UC2seskg=;
+	s=arc-20240116; t=1790354393; c=relaxed/simple;
+	bh=9KgwWoen8eQwgRgAmsggf9RKts821AvQGpwwRSVZbWQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xv+yCT4BvDwxGWBMuPsS4sbs0+UvcDFLg9IfFjqt1LO71ZgNKubrwcazEQXXH0aGTVLVgx7jE/n8LP5rfp2afqbIEAf+Spk+iX2JBFxFVbwOw9SY6vQCbiX4j+xgPfYMhpUfRifZJNqMymcvKpftlhJktriS5CPlB/m83mpRfQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fxpXMw23; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=I+I183PrJWl7fZXUc+OfBIT8IlDkkyJm3/ZXyInL812HUAWzUV+kke8gwYH2FZFrtlnosGvqIeAAvVcZ03Uczd9ebbigtAWd11oqUvyXgyqh99IDop6D2Up8rswEVGeGp/k53CqCE2B6fV1nqVc+ioqnVZ7PYm3p1Ny4fdoo4cA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tb3YSOMp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fxpXMw23"
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910cc46c7so109408685a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:39:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790354365; x=1790959165; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mXkCvwWsAa2E+Hn6icM7sU9ne8b/y7FRO5EIaNV7g30=;
-        b=fxpXMw23ux7b9WzZ14zuyJVH3TeEIi10sTN2gESPER9P+9v8p5g9gZVJBOBiogIaqp
-         BUJWQDA9g3INmPV3tiwLsAN+/LY1YHI+s+rzHmA0liD3iLw2aZfl77gkucEI40dTwRRz
-         4SiPddPDhsiZMmtW1jcHtobVxrCvCtMc9Cxcrr/Es+YeFoozdJTMvnvFtT/aMc365rHk
-         f3o9z8PdcBR71VrsPImb2bVmLxyM+xaYXUHCPdCfoswUQHMArskSLzlMDIxCLxniYOfb
-         5xNtKnihPn0oNLM7PCu17eqcyEOH1Y94us4IbC1y5u0VVHsdsljbYs5ORfyZ31aw6bTz
-         kYrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790354365; x=1790959165;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mXkCvwWsAa2E+Hn6icM7sU9ne8b/y7FRO5EIaNV7g30=;
-        b=ZpnHscnmtfW7sVfY2lOpxR1dcbkPOkmEEM2G3OKLi6IeB3H01yJfTSzOJhitDeMbNM
-         Lp+gmGPG9T/4wafp/BjqdFxp/gFY0QC/svfxxTAXEoEISdqXmFqBkUXT7qzblBJ8nzyZ
-         8VVUA9wNVoae5jp/H05Nz1HcOupa+MOy/QP7EL94jDsx+5OCtERjaiI75R9wQma/rBYL
-         siKqA/WQQwpQ2dl+FSTB5fokDcRVieQHw6UTHPN+wagCeu48s+qbJYNeZem/wjMr8aaV
-         N5uBg4ukvOD+5Wa9zVw5yWrWydf11Qo/SVCzUHPJRXQFQu+3bBpibXLU3OBdkWl4GZvO
-         q9pA==
-X-Forwarded-Encrypted: i=1; AKwUvBwEOiSy1oCyD8vlGDgObl90GCcisdU3LHXI8QdXs3rnpgyboy65FPBEoDf9vAswU5x6cjDmU/MuDJKBaVM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwlnc6ppFsyikDH0j/qNtgHqd9EqQhxtLJXjmm06BVPmu4qJ+H
-	SfmouykjoKY93JNdRwB+flAXOry5KiPo7xnjEEtztBnYMeUtKdmkw2rw
-X-Gm-Gg: AYBFou3AcdCo7r53MdInc3vHEtvXLBrdS8xopOcib2TT8ttLclVG9dfnT+pLmDfAxmz
-	8FzpDXe9Mv5s7paHS/eOedXtIVrGP2Znepz39JWRUpJGDMxX5t5HOmvkc3lytA83eZ/Y0CJfI1r
-	9/yfeY4Mu3ijz4Aislmr9EJfuen4B6dqX09qGU+/aUcYK9hFygLnmpZpDSiP8faV+fH9btNTOkB
-	S2pmiGs2C7lX4T28SL6pXMttX9LTsjbmbK3K3DVsuXagQzpFIiIXaviwjZ3ptPWr9dfHk9UNjG8
-	YggulYjohLO8hjzO2O6SzlFu+nuJRNeI2M5oTPxdhxTz8x5ch6i8V15lsjHX96wnr3tOU35pBBL
-	FcBpbVqmIDozigsbrSqUZZ9vpVVSrLf7AAYoejofOrukuydRyXwWqWerwUFiJg68nphMGCeAj5j
-	CXDIPBeYYEZBfNi1yEUOkugZUU63Nj0oTVRK1Cq08mtI76BW3GAgnAmlRnUUqvgGAOUIquQxLiF
-	CXI2O1HPHg7O6DISwoA9oQuQ/AYV9OH+J1OA4GCd/qPhtxeJV5bIe++1w==
-X-Received: by 2002:a05:620a:660a:b0:93b:d7a0:d9e6 with SMTP id af79cd13be357-93c43d7571fmr552568185a.64.1790354364663;
-        Fri, 25 Sep 2026 09:39:24 -0700 (PDT)
-Received: from kernel-dev.. ([2a01:4ff:f0:3ff2::1])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c5222f371sm81163085a.33.2026.09.25.09.39.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 09:39:24 -0700 (PDT)
-From: Uzair Beg <uzairbeg11@gmail.com>
-To: krisman@suse.de
-Cc: io-uring@vger.kernel.org,
-	axboe@kernel.dk,
-	asml.silence@gmail.com,
-	lin2530632123@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 3/3] io_uring/rsrc: prefill the node cache when a file table is registered empty
-Date: Fri, 25 Sep 2026 16:39:16 +0000
-Message-ID: <20260925163916.524653-1-uzairbeg11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <87fqza1imr.fsf@mailhost.krisman.be>
-References: <87fqza1imr.fsf@mailhost.krisman.be>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tb3YSOMp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6471F000FF;
+	Fri, 25 Sep 2026 16:39:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790354372;
+	bh=d+zQp+1omJq6CVjx/eZB1Bfc+CtQiGvnhxcCaK3LH4U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Tb3YSOMplqpOF3cxjCQg/bciM6BGVSONhj2VD61sVGA9NAOdhbB1hIci9rGi1KUfz
+	 kNLSDtzMgnBMtca+AJlMw11c6H31IsQ0oRQLLWqglTF0RSnrYN0PdYpnnnhK7WhlcF
+	 09xLNl5muH1W/Fmj/8lRsv6KW+02fb4/t7X7UPPjw99u8dCiOBumKdrPIyC843XW21
+	 X4Xl6LDfabblPXcQvORce202TGMT4mTgpc5GcoVMKgrAeLf2RiED+ZXUYPVwOuq4KA
+	 0B+9LE8zlgEnfWuEXH0NbAVWVR0f32jFVJnKwumRDcAVH9YkaWqxTjgaOHXZl0yu3h
+	 zxbcbGxaNKiKg==
+From: Simon Horman <horms@kernel.org>
+To: parvathi@couthit.com
+Cc: Simon Horman <horms@kernel.org>,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	danishanwar@ti.com,
+	rogerq@kernel.org,
+	pmohan@couthit.com,
+	afd@ti.com,
+	vadim.fedorenko@linux.dev,
+	haokexin@gmail.com,
+	basharath@couthit.com,
+	arnd@arndb.de,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	pratheesh@ti.com,
+	j-rameshbabu@ti.com,
+	vigneshr@ti.com,
+	praneeth@ti.com,
+	srk@ti.com,
+	rogerq@ti.com,
+	m-malladi@ti.com,
+	krishna@couthit.com,
+	mohan@couthit.com
+Subject: Re: [PATCH net-next v4 1/3] net: ti: icssm-prueth: Add HSR and PRP HW offload mode support for AM57xx, AM437x and AM335x
+Date: Fri, 25 Sep 2026 17:39:14 +0100
+Message-ID: <20260925163914.721071-1-horms@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921134343.200426-2-parvathi@couthit.com>
+References: <20260921134343.200426-2-parvathi@couthit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,44 +68,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Gabriel Krisman Bertazi <krisman@suse.de> writes:
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://sashiko.dev/#/patchset/20260921134343.200426-4-parvathi@couthit.com?part=1
+---
+net: ti: icssm-prueth: Add HSR and PRP HW offload mode support for AM57xx, AM437x and AM335x
 
-> I'm unconvinced this is the right approach.  This is only relevant for
-> initialization overhead: once the ring is in operation, the overhead is
-> gone because nodes are recycled.
+This commit extends the ICSSM PRUETH driver to support HSR and PRP redundancy
+protocols on compatible TI SoCs. It enables dynamically switching PRU ethernet
+ports from dual-EMAC mode into HSR/PRP slave modes via firmware reconfiguration.
 
-For the first fill I agree. The part I would push back on is the
-recycling. The node cache holds 128 entries, so an application that
-removes and reinstalls more than 128 files keeps allocating past that
-point. In the remove and refill test from the cover letter (4096 files
-on one ring, FILES_UPDATE with -1 followed by SEND_FD) the unpatched
-kernel allocated 3968 new nodes per cycle. As far as I can tell the
-18.8% there comes from the larger cache keeping those nodes rather
-than from the prefill itself, since the prefill runs once at
-registration, outside the timed cycles.
+> diff --git a/drivers/net/ethernet/ti/icssm/icssm_prueth.c b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
+> --- a/drivers/net/ethernet/ti/icssm/icssm_prueth.c
+> +++ b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
+[ ... ]
+> +static int icssm_prueth_hsr_port_link(struct net_device *ndev,
+> +				      struct net_device *hsr_ndev)
+> +{
+[ ... ]
+> +free_hsr:
+> +	prueth->eth_type = prev_mode;
+> +
+> +	spin_lock_irqsave(&prueth->addr_lock, flags);
+> +
+> +	prueth->hsr_dev = NULL;
+> +	prueth->hsr_members &= ~all_slaves;
 
-> So this will really benefit
-> short-lived applications that create large tables, something that I
-> suspect is rare outside of artificial benchmarks.
+[Severity: High]
+Can this rollback improperly destroy the state for the already-linked first
+port alongside the failing second port?
 
-That is fair. The reported workload is a microbenchmark, and I don't
-have a real application to point to that fills a large sparse table
-once and exits.
+If the second port fails to transition to HSR/PRP mode, the free_hsr error
+path clears the hsr_members mask for all ports by applying ~all_slaves.
 
-> On the other hand,
-> people are creating sparse but arbitrarily large tables.  Does it make
-> sense to pre-allocated up to 192KB in memory for short-lived
-> applications that might use only a couple of those nodes?
+Because the first port was successfully enrolled into the HSR bridge in a
+previous invocation, it remains an active slave in the networking stack's
+view. By wiping its membership state here, the driver drastically
+desynchronizes its internal state from the kernel.
 
-As a default, I don't think it does. Would it be acceptable to drop the
-prefill and only let the node cache capacity follow the table size,
-capped? Nothing would be allocated up front beyond the pointer array,
-so registering a large table and using a few slots costs almost
-nothing, and nodes are only retained up to what the application
-actually had installed. That gives up the first fill result but keeps
-the churn case, and it needs neither the dedicated slab nor the bulk
-refill.
+Would it be safer to only clear the bit for the specific port that is
+failing to link?
 
-I'll measure that variant and follow up with numbers before posting
-anything. If you would rather the node cache stay at a fixed size,
-that is useful to know too.
+> +
+> +	spin_unlock_irqrestore(&prueth->addr_lock, flags);
+> +	return ret;
+> +}
