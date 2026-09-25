@@ -1,91 +1,176 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47314E8DFB
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C66395AF0;
+	Fri, 25 Sep 2026 19:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365363; cv=none; b=TLby3Wpsa0lUIF3YlGL6H1YIVUxK/xwoUi3pPuZDX68F+6ZC7Tms5gANNpKC8kqtgsHqBrLV3v1kfPyXgQA/oeZuZKaeovLIoG+pq+C6uyb27JHaBgSiavV+wn9sw1X0gIB8QqLeD9xaWce2M8ONoO5YEuOWLR+F2AY3c+8U3qY=
+	t=1790365388; cv=none; b=kMt2aMLblvuZM+1lK499W5oZmTqYOVOKKkuvoiTZ6igs7x0WJjEwqqZQG0WVBlFP4VSs5OPlrRRcR4v70lzlPZgVLxCNjs6mgYIAPkDYrQlqwdzHejsmvpU7gcb411mLONlsXyBF+Zyug4BDklZGkBL5uQ5l1ifd3OEolabnFv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365363; c=relaxed/simple;
-	bh=1VWZYciLHbgddZTdHE/3XXjdoTgU8Dsut3G+9HXnAdM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fm3gZrQITIqjd/rDbBoIrskKz2JBapRTqGXE16t6FA+TazDDgvo6E/dvnwDLKkmeaGRIcJfESNBvCRiu1yT5gr+9RFTAg2TXEYdK1BO4pKONOEeX1IJCzWpb6ZsJd5m7lbf01td2o1X65/Q871eH2KXiNb5sosMvOpEEfd5la0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a2AJXEJs; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790365388; c=relaxed/simple;
+	bh=SJ7IJ7GJ+AoefIfvafr/HiupVw1ODCxgXPBKnuitgss=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=j8aIKzaW1CKOI4JUgehpn2z2w9HeUePPkNhO0uq5RnhRSYyEEZ3YlqfYTNzrzQvUblCTuy43gBD3OA+LcM4JBz9EI74ofaP7iF6anW5B0EW5uNW0oyGA66ApYJ+bHUzYqNwFfaGMg5Bq2SRIE0V2vn30uVy780LV/8egESBz+Hg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=foQvcMvh; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=cyc/sPs7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Btj40VuR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hve9HCwY; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a2AJXEJs"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so6497575e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:42:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790365358; x=1790970158; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y01LBiaH2IwpyL6MELf0OxRYiwawGfhA1ZMvZPY+wcQ=;
-        b=a2AJXEJsI5MILmvdYBs0fj6UFC46kJXV8LAU7KYp8UAJvwTwshqbr9I9roNEcrLpiH
-         WwYVxH1K9eu66s7kq5DcfrU2LkVZsR9fuCOQGAgDS3YZ7Kc0Dek6gfvN8mBA9Fn4A0CE
-         SjkyIpqIY3cgTXcJ6oNQLLhP3DQaDLT2UVP7llRM4MqaNkKBhJvVGbN9jg+VDHdR3Kfu
-         FsX3U8MvkO1m9vMp8Pvjisw1bqSpHuUzWfqG7JcpXvp0rNWmhg3bVrnFtUOTFOdPhv4G
-         WtOIuLYL0EHEiGWOwwbTTvVkYRQmV67H7I/C6ttwbpaaLeyLiAUGMu/1//7322e9a77P
-         SgPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790365358; x=1790970158;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y01LBiaH2IwpyL6MELf0OxRYiwawGfhA1ZMvZPY+wcQ=;
-        b=QOW6XGuuUEZkhlKpLGX1SSEPJ/XRx4Vmw1VWdOBxnlTavBhaESoUxhtKM9ECO31RFi
-         1ZK6qUcmF5hWAtZAfouzzszrBTvjVbXyqRHktE09f9HCcRtwgTnwnp0CGPuFQvrk+2lV
-         jdaQsM+cGmQE1AC78WAYPNAbeGrznxGszZIeut+aAqmEyBYBam+K1KbPGYt1T0bJHLyK
-         aEn6mvmUH+nh9w/ydjWnFOHztolyVcoWPs0+UOq0E4c7YzbTLUH9cyLrmNbLGXHQmcxd
-         +mhc5CuqcosGjLT2KSJ5iwCqMQcRD1ueFiZX18k+B6RLev6ArmOD2iKnINZPNtG8q/o3
-         oWkw==
-X-Forwarded-Encrypted: i=1; AKwUvBwWpVf2wLwv88MpRS4+5t7strdu8QAL6bk8svaKGBPPKSTpiUaCj2a07j9H65l4IoY86UVfRAeXazTWGCw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwV1AbpsaChKoKkN8WzWPIMhRGrhJEEhMMY7tOA4IB4zwBqeRm
-	B8YkR0GU8JFBJBl+HNHHajG0bwMKmhwkie4Kj0raDCVBhXCHJKtkFcHX
-X-Gm-Gg: AYBFou27uia8iLo3QtN+kkC02DOdSrGFLWyZkzlVuS/5+0XK+uf+UthWDRvHQwUSaMD
-	iSpYmIQURPzqY3FTryxo7wMgBVBq6uj88uXElQt1kRLMoWDnrk0naZnGUZUi7vlw4EbcgTl6Bh0
-	sB41aHG715n6M46El0/pjdno2FGdbG/vUefol1xJNzZKpRb8851GI8CKaU/30kwc7JqcNcgt5K7
-	mGjOffYIKAOuJG7DFyND9b3fUXSVYE0pDF3QdC8z9argOsB56/rpVsSsAdQxZam/yYYmpHl2dkU
-	JsWFCKR0Sx8O8YzeDm00TvfBx1p9lyGEo4lLhdA9JsHWQYrJ54F1X8KrxZ8Of9kVNErwkQjHpTS
-	Ol4ilGvevDtRF9scHRHkZ+PBmiXjlTrxqpYFiAG8hrP3xBrTa1QunuL0uTDG4dSqu54qxx88CpJ
-	y4TfO3//F5Anl71hArToww57kNJcz8ureK4SSjKcFlTsuMsI7pgi2zHWjKpu0L9rRY4hFIUMUIo
-	rkh5g6KqDV44PuQgUfzq+sh6wmNqVjNAiPJ2b2lRnE/IA8rvUxZaA==
-X-Received: by 2002:a05:600c:1548:b0:49d:257c:a735 with SMTP id 5b1f17b1804b1-49fe66f164bmr120031085e9.11.1790365357978;
-        Fri, 25 Sep 2026 12:42:37 -0700 (PDT)
-Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5de187asm168549765e9.7.2026.09.25.12.42.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 12:42:37 -0700 (PDT)
-From: German Pablo Lindo <germanpapulindez@gmail.com>
-To: lsa.uz@pm.me
-Cc: bard.liao@intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	pierre-louis.bossart@linux.dev,
-	vkoul@kernel.org,
-	yung-chuan.liao@linux.intel.com,
-	zlzzm2014@outlook.com
-Subject: Test for [PATCH v4] soundwire: dmi-quirks: drop the ghost RT1320 on the Surface Pro 11 (Intel)
-Date: Fri, 25 Sep 2026 21:42:36 +0200
-Message-ID: <20260925194236.9651-1-germanpapulindez@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260913210849.6446-1-lsa.uz@pm.me>
-References: <20260913210849.6446-1-lsa.uz@pm.me>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="foQvcMvh";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cyc/sPs7";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Btj40VuR";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hve9HCwY"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 55BDA1F388;
+	Fri, 25 Sep 2026 19:42:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790365380; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Aehel2drv8Soy4wmnRsMRnnKuR2/R9gych/XhpDwjp0=;
+	b=foQvcMvhutQ97LXCyUo/GslCR85heFVvH28oA/9xoyVKyon3tncWFspEheH5BHZcKg9/K9
+	kcBM4fsXVFMv2kDQrPB4nURi/nOEPncFm9kV48i9eY9QiXoN/+qHig27bz50dy7/Gvzj2u
+	3NyTFPlYiT4ewPpqbZMMTZ/3kyWVHm0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790365380;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Aehel2drv8Soy4wmnRsMRnnKuR2/R9gych/XhpDwjp0=;
+	b=cyc/sPs7dWHkZdF+Hd8/pquWtlQ2ABvZMe3MzfbtE6SuHiN10+EXdhRzsmmXBusf9UCg9p
+	AsLkgmhM6chjxECg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Btj40VuR;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=hve9HCwY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790365376; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Aehel2drv8Soy4wmnRsMRnnKuR2/R9gych/XhpDwjp0=;
+	b=Btj40VuRRP/Ih68p6bSiT+i2PHQXMiDCKaT3wUyT16jO7NObAfj2Rk9PY9n1B0VrtL74mz
+	LZFVoPwhB9Aum7SgRzjzt+azvrw5IandxqLMizGwf26ptUqXlbZ3ROcQC2zLIUrPRwi9QX
+	amPU6HEZ+li1FnwhErq3MU6h2aK0vIc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790365376;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Aehel2drv8Soy4wmnRsMRnnKuR2/R9gych/XhpDwjp0=;
+	b=hve9HCwYWAJjjV7oiHZiIh13uyBjprDZOKVhPvWHwPX7k2Q9otnx8wm++w+2AqqEy15uZ4
+	jLs9a0nixz4QDyCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC84813274;
+	Fri, 25 Sep 2026 19:42:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id oKrkK7/Otmr2NwAAD6G6ig
+	(envelope-from <krisman@suse.de>); Fri, 25 Sep 2026 19:42:55 +0000
+From: Gabriel Krisman Bertazi <krisman@suse.de>
+To: Uzair Beg <uzairbeg11@gmail.com>
+Cc: io-uring@vger.kernel.org, axboe@kernel.dk, asml.silence@gmail.com,
+ lin2530632123@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 3/3] io_uring/rsrc: prefill the node cache when a
+ file table is registered empty
+In-Reply-To: <20260925163916.524653-1-uzairbeg11@gmail.com>
+Organization: SUSE
+References: <87fqza1imr.fsf@mailhost.krisman.be>
+ <20260925163916.524653-1-uzairbeg11@gmail.com>
+Date: Fri, 25 Sep 2026 15:42:46 -0400
+Message-ID: <87cxu1yv61.fsf@mailhost.krisman.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 55BDA1F388
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.dk,gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,mailhost.krisman.be:mid]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
 
-The Surface Pro 11 with intel lunar lake series suffers form audio problems caused by ghost peripherals, using this patch solves the problem and makes usable not only the speakers, but also the microphone.
+Uzair Beg <uzairbeg11@gmail.com> writes:
 
-The cuality is not the same as in windows, but is good enough for casual use
+> Gabriel Krisman Bertazi <krisman@suse.de> writes:
+>> Does it make
+>> sense to pre-allocated up to 192KB in memory for short-lived
+>> applications that might use only a couple of those nodes?
+>
+> As a default, I don't think it does. Would it be acceptable to drop the
+> prefill and only let the node cache capacity follow the table size,
+> capped?
+>
+> Nothing would be allocated up front beyond the pointer array,
+> so registering a large table and using a few slots costs almost
+> nothing, and nodes are only retained up to what the application
+> actually had installed. That gives up the first fill result but keeps
+> the churn case, and it needs neither the dedicated slab nor the bulk
+> refill.
+>
+> I'll measure that variant and follow up with numbers before posting
+> anything. If you would rather the node cache stay at a fixed size,
+> that is useful to know too.
 
-The Patch seems it has gotten stuck/forgotten, hope this test brings back on track the patch
+The problem with increasing the cache size is that we don't have (and
+should not have) a reclaim mechanism for the cached nodes.  By
+increasing the cache size arbitrarily for every ring in the system you
+are now sitting on a much bigger pile of unreclaimable memory that most
+applications are unlikely to need.  I think that would even be
+worse as a general solution.
 
-   Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
+Beyond microbenchmarks, this would only be a "problem" for applications
+with a working set that frequently recycles over 128 nodes at a time.
+The question remains how well this microbenchmark replicates any
+real-world scenarios.  And if 128 is not enough, what would be? To be
+fair, this is true for all type of magazine-like caches we have in
+io_uring. In addition, you install a fd because you want to do one or
+more operations with it, diluting the update cost.  In this case, would
+the cost of going to slab for a node update of a working set of >128 fds
+be diluted by the other operations, and likely invisible?  If it is
+really a problem, I guess I would be ok with the bulk refilling of the
+128 nodes at a time when you have an empty cache missing, while keeping
+the table the same size.
+
+On another topic... it would be excellent if we could do bulk refill on the
+shared slab without a separate a kmem_cache!
+
+Thanks,
+
+-- 
+Gabriel Krisman Bertazi
