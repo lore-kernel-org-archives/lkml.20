@@ -1,50 +1,45 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D8DCD351C20;
-	Fri, 25 Sep 2026 10:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB153148C9;
+	Fri, 25 Sep 2026 10:53:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790333574; cv=none; b=er7+r69f4yubM8TdyqejJ6CIlDhkVdNCw0L5k0kKTx2MFoONm17xTjQB85Q09wd55Vfs+x567A+7pwrSqqff1goXOht02iel7+offyOOlvBZm5g23F1cfbp6YB1COewkYeaZq2qTFb7TDawHC7mWxqW10Acye0AdGGm+70VnvpY=
+	t=1790333610; cv=none; b=c88ZMKVBnJwZGtpyoCorPKyCf0/KRSuaqoWidvSKTWV8uxAaP0wvtdovdDkNgygnL56zFKwDlPFbKDAVur4U/H49dUXTYyAIFlV/2/i7WtG6wbIguRKG1eF0YWVwFhzo4Xu20tSkyBCzaIjPUJ4p9kHrbcP51Eg7qEFariw0c9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790333574; c=relaxed/simple;
-	bh=5CuDEdL9d8TbbYaEEXIEL/IwPXE3DV7YkxY7DhU4+yQ=;
+	s=arc-20240116; t=1790333610; c=relaxed/simple;
+	bh=74M8WMfSK3tXPdmAwZp5Fjj2BU8muBNPryU5DHx+BhA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kbKH4WXAlSLWWcBQSxkjaY9LmGYQD2uGFd505He+pprnqRoAlwuiC/iqi9nKy8hWflLFZXDfZ2d08M6evH3gaUGbTJmhCSWMQZpSNU5oXd+UOIwOJLDrbOHOx26BTnmCRPysLWp810i1Lb8SJWyLKNli033GqwJvM6+miVeAhNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ve6g2dxA; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=cnGwHISXfLtSgxM3twNOebO28Ox64YEyazmZ+I3cFq0kQgJ8GPSwT9zXe4BiQaqFiwbNv1ZWbFZf/r909AKubDeztr5HBkI7LA/cwZt09EPOcyDnIlHAN7fgMFSxjF/8MXHYN12gbKvVkKw9W4SkhxDVWGh0Jk+gCiwjeOnV0Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ii3M8jd+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ve6g2dxA"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D17B4169C;
-	Fri, 25 Sep 2026 03:52:47 -0700 (PDT)
-Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E8C633F86F;
-	Fri, 25 Sep 2026 03:52:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790333571; bh=5CuDEdL9d8TbbYaEEXIEL/IwPXE3DV7YkxY7DhU4+yQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ve6g2dxAVpq6FXJMw7XDuiNFz6ragF4OO1ORyYsq8r1qvZZ9WS0+JKSDH9FRYQ1aR
-	 vHmRGkjra7jR0Wp8TUIWIZlxngRg/GI9oKE3bfbWugeGxss4Nn8Ut3W0WW8CXcfaCQ
-	 I7yaQUXem5BGCdyt0Ym4YfDTytnrUFd63uJhyESg=
-Date: Fri, 25 Sep 2026 11:52:43 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Kees Cook <kees@kernel.org>
-Cc: Ben Cressey <ben@cressey.dev>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, Sami Tolvanen <samitolvanen@google.com>,
-	David Woodhouse <dwmw@amazon.co.uk>, kexec@lists.infradead.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] arm64: kexec: mark machine_kexec() __nocfi
-Message-ID: <arZSe8hNnRPM5FqY@J2N7QTR9R3.cambridge.arm.com>
-References: <20260924-arm64-kexec-nocfi-v1-1-bbae2e2eadc8@cressey.dev>
- <202609241804.BB23BF10@keescook>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ii3M8jd+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9DB41F00893;
+	Fri, 25 Sep 2026 10:53:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790333608;
+	bh=Kqd4k3+YghzJLEW4DKMD6Gk6e5UXEXrK9UZa6/7H/M8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ii3M8jd+fOFo0PTByllXH6G5V0OkmPJqMXBiru/7rEcg0bRBm+pY051LPW9KvEnIO
+	 HviGNO81m3+zmPOvT2q9y2ty1Rsv+2lr8tiLvGlfluvlHm0xZRXwXWmbaoj1/j9NJT
+	 GkqzABIhckvD0YDWkgR8DhzdlWTzsSzVsSJD2wKAHPOAchck5VDUVJLSudrWigzVGW
+	 5s57YIqFLhhnAhDKwWsKG5RRIA/9elQNro/+kV3cKyxXNMD7nYIqDn6iflc3/byx1i
+	 82WMnrSXFIyRDLXN/3BXupA1NjqE4x0Cu6ssqxBM/U+Qwg4ZGqigwcMy/CBjopSbY1
+	 ErF8LxrPh8QwQ==
+Date: Fri, 25 Sep 2026 12:53:25 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+	Chun-Tse Shao <ctshao@google.com>,
+	Qinxin Xia <xiaqinxin@huawei.com>, Yu Peng <pengyu@kylinos.cn>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] perf test: Fix PMU metric parsing tests for unknown
+ literals
+Message-ID: <arZSpXYtyUW_UhDr@x2>
+References: <20260923224106.3268925-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,168 +48,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <202609241804.BB23BF10@keescook>
+In-Reply-To: <20260923224106.3268925-1-irogers@google.com>
 
-On Thu, Sep 24, 2026 at 07:14:52PM -0700, Kees Cook wrote:
-> On Thu, Sep 24, 2026 at 10:42:30PM +0000, Ben Cressey wrote:
-> > With CONFIG_CFI=y the kCFI check on this call loads a type hash from
-> > kern_reloc - 4. arm64_relocate_new_kernel is SYM_CODE_START and carries
-> > no hash. Its copy also sits at the start of the control page, which is
-> > all that TTBR0 maps at this point, so the load faults and the kernel
-> > oopses after "Bye!" instead of entering the new kernel:
-> > [...]
-> > arm64_relocate_new_kernel cannot be given a type hash, since the linker
-> > script asserts that the relocation code starts at that symbol and a
-> > hash would have to precede it. Mark machine_kexec() __nocfi instead, as
-> > commit e2f8216ca2d8 ("arm64: Set __nocfi on swsusp_arch_resume()") did
-> > for the same pattern on the hibernate path and commit 2114796ca041
-> > ("x86/kexec: Mark machine_kexec() with __nocfi") did on x86.
-> 
-> I think e2f8216ca2d8 made a mistake here; using SYM_TYPED_FUNC_START
-> wouldn't have been tautological: the defense is making sure that the
-> indirect call itself can't be used with a bad pointer. 
+On Wed, Sep 23, 2026 at 03:41:06PM -0700, Ian Rogers wrote:
+> On ARM the #slots literal may or may not be present, it won't be
+> present on x86. As it is missing it causes the ampereone and
+> ampereonex PMU metric tests to fail when run say on x86. Extend the
+> fake_pmu logic so that in these test cases we fake the unknown
+> literals like #slots as 1.0. When building with JEVENTS_ARCH=all the
+> ampere metric tests no longer fail.
+ 
+> Signed-off-by: Ian Rogers <irogers@google.com>
 
-It wasn't a mistake as such; it was a temporary bodge which wasn't
-followed up with a complete fix. See:
 
-  https://lore.kernel.org/linux-arm-kernel/aXOZ1vsFvQRkxK9x@J2N7QTR9R3.cambridge.arm.com/
 
-We knew the more complete fix was to use SYM_TYPED_FUNC_START(), but
-that was a bigger job, and (unfortunately) no-one followed up with the
-complete fix.
+Thanks, applied to perf-tools-next, for v7.4.
 
-If someone's happy to do that (as you have tried below), let's do that
-and remove the existing bodge for swsusp_arch_resume(), and do the right
-thing here.
+- Arnaldo
 
-Mark.
-
-> Fixing this correctly isn't so bad: it just needs to decouple the
-> entrypoint from the page address.
+> ---
+>  tools/perf/util/expr.c        |  5 ++++-
+>  tools/perf/util/metricgroup.c | 37 ++++++++++++++++++++++++-----------
+>  2 files changed, 30 insertions(+), 12 deletions(-)
 > 
-> But, barring that, what I don't like here (and with x86) is that it
-> covers the entire function, so _all_ indirect calls go unprotected.
-> 
-> Can you pull the call out into an inline helper so that the other
-> indirect call (cpu_soft_restart) doesn't lose coverage?
-> 
-> -Kees
-> 
-> P.S.
-> 
-> Doing the whole SYM_TYPED_FUNC_START change (below, only build tested)
-> is larger, but maybe things besides KCFI will want things before the
-> entry point?
-> 
->  arch/arm64/include/asm/kexec.h      |    2 ++
->  arch/arm64/kernel/machine_kexec.c   |   13 +++++++++++--
->  arch/arm64/kernel/relocate_kernel.S |   14 +++++++++-----
->  arch/arm64/kernel/vmlinux.lds.S     |    5 +++--
->  4 files changed, 25 insertions(+), 9 deletions(-)
-> 
-> 
-> diff --git a/arch/arm64/include/asm/kexec.h b/arch/arm64/include/asm/kexec.h
-> index 892e5bebda957..0be042ec22c1f 100644
-> --- a/arch/arm64/include/asm/kexec.h
-> +++ b/arch/arm64/include/asm/kexec.h
-> @@ -100,6 +100,8 @@ void cpu_soft_restart(unsigned long el2_switch, unsigned long entry,
->  		      unsigned long arg0, unsigned long arg1,
->  		      unsigned long arg2);
+> diff --git a/tools/perf/util/expr.c b/tools/perf/util/expr.c
+> index 8aef3c7418f7..f1164c4666b1 100644
+> --- a/tools/perf/util/expr.c
+> +++ b/tools/perf/util/expr.c
+> @@ -431,7 +431,10 @@ double expr__get_literal(const char *literal, const struct expr_scanner_ctx *ctx
+>  	}
 >  
-> +void arm64_relocate_new_kernel(struct kimage *kimage);
-> +
->  int machine_kexec_post_load(struct kimage *image);
->  #define machine_kexec_post_load machine_kexec_post_load
->  #endif
-> diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
-> index 8f9bc2327dc85..1cf4cb135ee2b 100644
-> --- a/arch/arm64/kernel/machine_kexec.c
-> +++ b/arch/arm64/kernel/machine_kexec.c
-> @@ -136,9 +136,18 @@ int machine_kexec_post_load(struct kimage *kimage)
->  	kimage->arch.ttbr1 = __pa(trans_pgd);
->  	kimage->arch.zero_page = __pa_symbol(empty_zero_page);
+>  	pr_debug2("literal: %s = %f\n", literal, result);
+> -	return result;
+> +	if (!ctx->is_test)
+> +		return result;
+> +	else
+> +		return isnan(result) ? 1.0 : result;
+>  }
 >  
-> +	/*
-> +	 * The whole .kexec_relocate.text section is copied to the control
-> +	 * page, but arm64_relocate_new_kernel is not required to be the first
-> +	 * thing in it. Allow for whatever precedes it (e.g. a landing pad,
-> +	 * a kCFI type hash, etc) by carrying its offset within the section
-> +	 * across the copy.
-> +	 */
->  	reloc_size = __relocate_new_kernel_end - __relocate_new_kernel_start;
->  	memcpy(reloc_code, __relocate_new_kernel_start, reloc_size);
-> -	kimage->arch.kern_reloc = __pa(reloc_code);
-> +	kimage->arch.kern_reloc = __pa(reloc_code) +
-> +		((unsigned long)arm64_relocate_new_kernel -
-> +		 (unsigned long)__relocate_new_kernel_start);
->  	rc = trans_pgd_idmap_page(&info, &kimage->arch.ttbr0,
->  				  &kimage->arch.t0sz, reloc_code);
->  	if (rc)
-> diff --git a/arch/arm64/kernel/vmlinux.lds.S b/arch/arm64/kernel/vmlinux.lds.S
-> index af1d720209764..81540c09a3db8 100644
-> --- a/arch/arm64/kernel/vmlinux.lds.S
-> +++ b/arch/arm64/kernel/vmlinux.lds.S
-> @@ -432,6 +432,7 @@ ASSERT(swapper_pg_dir - tramp_pg_dir == TRAMP_SWAPPER_OFFSET,
->  ASSERT(__relocate_new_kernel_end - __relocate_new_kernel_start <= SZ_4K,
->         "kexec relocation code is bigger than 4 KiB")
->  ASSERT(KEXEC_CONTROL_PAGE_SIZE >= SZ_4K, "KEXEC_CONTROL_PAGE_SIZE is broken")
-> -ASSERT(__relocate_new_kernel_start == arm64_relocate_new_kernel,
-> -       "kexec control page does not start with arm64_relocate_new_kernel")
-> +ASSERT(arm64_relocate_new_kernel >= __relocate_new_kernel_start &&
-> +       arm64_relocate_new_kernel < __relocate_new_kernel_end,
-> +       "kexec relocation entry point is outside the copied region")
->  #endif
-> diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
-> index 1cf4cb135ee2b..90302efebb426 100644
-> --- a/arch/arm64/kernel/machine_kexec.c
-> +++ b/arch/arm64/kernel/machine_kexec.c
-> @@ -202,7 +202,7 @@ void machine_kexec(struct kimage *kimage)
->  		restart(is_hyp_nvhe(), kimage->start, kimage->arch.dtb_mem,
->  			0, 0);
+>  /* Does the event 'id' parse? Determine via ctx->ids if possible. */
+> diff --git a/tools/perf/util/metricgroup.c b/tools/perf/util/metricgroup.c
+> index 5a60cb95e31c..779fe56fe8d0 100644
+> --- a/tools/perf/util/metricgroup.c
+> +++ b/tools/perf/util/metricgroup.c
+> @@ -224,7 +224,8 @@ static struct metric *metric__new(const struct pmu_metric *pm,
+>  				  bool metric_no_threshold,
+>  				  int runtime,
+>  				  const char *user_requested_cpu_list,
+> -				  bool system_wide)
+> +				  bool system_wide,
+> +				  bool fake_pmu)
+>  {
+>  	struct metric *m;
+>  
+> @@ -256,6 +257,7 @@ static struct metric *metric__new(const struct pmu_metric *pm,
+>  	}
+>  	m->pctx->sctx.runtime = runtime;
+>  	m->pctx->sctx.system_wide = system_wide;
+> +	m->pctx->sctx.is_test = fake_pmu;
+>  	m->group_events = !metric_no_group && metric__group_events(pm, metric_no_threshold);
+>  	m->default_show_events = pm->default_show_events;
+>  	m->metric_refs = NULL;
+> @@ -699,6 +701,7 @@ static int add_metric(struct list_head *metric_list,
+>  		      bool metric_no_threshold,
+>  		      const char *user_requested_cpu_list,
+>  		      bool system_wide,
+> +		      bool fake_pmu,
+>  		      struct metric *root_metric,
+>  		      const struct visited_metric *visited,
+>  		      const struct pmu_metrics_table *table);
+> @@ -724,6 +727,7 @@ static int metricgroup__find_metric_callback(const struct pmu_metric *pm,
+>   *                   user may override.
+>   * @user_requested_cpu_list: Command line specified CPUs to record on.
+>   * @system_wide: Are events for all processes recorded.
+> + * @fake_pmu: Are PMUs and events being faked for testing?
+>   * @root_metric: Metrics may reference other metrics to form a tree. In this
+>   *               case the root_metric holds all the IDs and a list of referenced
+>   *               metrics. When adding a root this argument is NULL.
+> @@ -739,6 +743,7 @@ static int resolve_metric(struct list_head *metric_list,
+>  			  bool metric_no_threshold,
+>  			  const char *user_requested_cpu_list,
+>  			  bool system_wide,
+> +			  bool fake_pmu,
+>  			  struct metric *root_metric,
+>  			  const struct visited_metric *visited,
+>  			  const struct pmu_metrics_table *table)
+> @@ -788,7 +793,7 @@ static int resolve_metric(struct list_head *metric_list,
+>  	for (i = 0; i < pending_cnt; i++) {
+>  		ret = add_metric(metric_list, &pending[i].pm, modifier, metric_no_group,
+>  				 metric_no_threshold, user_requested_cpu_list, system_wide,
+> -				 root_metric, visited, table);
+> +				 fake_pmu, root_metric, visited, table);
+>  		if (ret)
+>  			break;
+>  	}
+> @@ -809,6 +814,7 @@ static int resolve_metric(struct list_head *metric_list,
+>   * @runtime: A special argument for the parser only known at runtime.
+>   * @user_requested_cpu_list: Command line specified CPUs to record on.
+>   * @system_wide: Are events for all processes recorded.
+> + * @fake_pmu: Are PMUs and events being faked for testing?
+>   * @root_metric: Metrics may reference other metrics to form a tree. In this
+>   *               case the root_metric holds all the IDs and a list of referenced
+>   *               metrics. When adding a root this argument is NULL.
+> @@ -825,6 +831,7 @@ static int __add_metric(struct list_head *metric_list,
+>  			int runtime,
+>  			const char *user_requested_cpu_list,
+>  			bool system_wide,
+> +			bool fake_pmu,
+>  			struct metric *root_metric,
+>  			const struct visited_metric *visited,
+>  			const struct pmu_metrics_table *table)
+> @@ -851,7 +858,7 @@ static int __add_metric(struct list_head *metric_list,
+>  		 * metrics that are added recursively.
+>  		 */
+>  		root_metric = metric__new(pm, modifier, metric_no_group, metric_no_threshold,
+> -					  runtime, user_requested_cpu_list, system_wide);
+> +					  runtime, user_requested_cpu_list, system_wide, fake_pmu);
+>  		if (!root_metric)
+>  			return -ENOMEM;
+>  
+> @@ -924,7 +931,7 @@ static int __add_metric(struct list_head *metric_list,
+>  
+>  		ret = resolve_metric(metric_list, pmu, modifier, metric_no_group,
+>  				     metric_no_threshold, user_requested_cpu_list,
+> -				     system_wide, root_metric, &visited_node,
+> +				     system_wide, fake_pmu, root_metric, &visited_node,
+>  				     table);
+>  	}
+>  	if (ret) {
+> @@ -944,6 +951,7 @@ static int add_metric(struct list_head *metric_list,
+>  		      bool metric_no_threshold,
+>  		      const char *user_requested_cpu_list,
+>  		      bool system_wide,
+> +		      bool fake_pmu,
+>  		      struct metric *root_metric,
+>  		      const struct visited_metric *visited,
+>  		      const struct pmu_metrics_table *table)
+> @@ -955,7 +963,7 @@ static int add_metric(struct list_head *metric_list,
+>  	if (!strstr(pm->metric_expr, "?")) {
+>  		ret = __add_metric(metric_list, pm, modifier, metric_no_group,
+>  				   metric_no_threshold, 0, user_requested_cpu_list,
+> -				   system_wide, root_metric, visited, table);
+> +				   system_wide, fake_pmu, root_metric, visited, table);
 >  	} else {
-> -		void (*kernel_reloc)(struct kimage *kimage);
-> +		typeof(arm64_relocate_new_kernel) *kernel_reloc;
+>  		int j, count;
 >  
->  		if (is_hyp_nvhe())
->  			__hyp_set_vectors(kimage->arch.el2_vectors);
-> diff --git a/arch/arm64/kernel/relocate_kernel.S b/arch/arm64/kernel/relocate_kernel.S
-> index 6cb4209f5dab5..e3e575c57fe12 100644
-> --- a/arch/arm64/kernel/relocate_kernel.S
-> +++ b/arch/arm64/kernel/relocate_kernel.S
-> @@ -8,6 +8,7 @@
->   * Pasha Tatashin <pasha.tatashin@soleen.com>
->   */
+> @@ -969,7 +977,7 @@ static int add_metric(struct list_head *metric_list,
+>  		for (j = 0; j < count && !ret; j++)
+>  			ret = __add_metric(metric_list, pm, modifier, metric_no_group,
+>  					   metric_no_threshold, j, user_requested_cpu_list,
+> -					   system_wide, root_metric, visited, table);
+> +					   system_wide, fake_pmu, root_metric, visited, table);
+>  	}
 >  
-> +#include <linux/cfi_types.h>
->  #include <linux/kexec.h>
->  #include <linux/linkage.h>
+>  	return ret;
+> @@ -1030,6 +1038,7 @@ struct metricgroup__add_metric_data {
+>  	bool metric_no_group;
+>  	bool metric_no_threshold;
+>  	bool system_wide;
+> +	bool fake_pmu;
+>  	bool has_match;
+>  };
 >  
-> @@ -32,11 +33,14 @@
->   * new image to its final location.  To assure that the
->   * arm64_relocate_new_kernel routine which does that copy is not overwritten,
->   * all code and data needed by arm64_relocate_new_kernel must be between the
-> - * symbols arm64_relocate_new_kernel and arm64_relocate_new_kernel_end.  The
-> - * machine_kexec() routine will copy arm64_relocate_new_kernel to the kexec
-> - * safe memory that has been set up to be preserved during the copy operation.
-> + * symbols __relocate_new_kernel_start and __relocate_new_kernel_end.  The
-> + * machine_kexec() routine will copy that whole region to the kexec safe
-> + * memory that has been set up to be preserved during the copy operation,
-> + * and enter it at arm64_relocate_new_kernel's offset within it.
-> + *
-> + * It is called indirectly, through the copy, so it needs a kCFI type hash.
->   */
-> -SYM_CODE_START(arm64_relocate_new_kernel)
-> +SYM_TYPED_FUNC_START(arm64_relocate_new_kernel)
->  	/*
->  	 * The kimage structure isn't allocated specially and may be clobbered
->  	 * during relocation. We must load any values we need from it prior to
-> @@ -98,4 +102,4 @@ SYM_CODE_START(arm64_relocate_new_kernel)
->  	mov	x2, xzr
->  	mov	x3, xzr
->  	br	x28				/* Jumps from el1 */
-> -SYM_CODE_END(arm64_relocate_new_kernel)
-> +SYM_FUNC_END(arm64_relocate_new_kernel)
-> 
-> 
+> @@ -1047,7 +1056,7 @@ static int metricgroup__add_metric_callback(const struct pmu_metric *pm,
+>  		data->has_match = true;
+>  		ret = add_metric(data->list, pm, data->modifier, metric_no_group,
+>  				 data->metric_no_threshold, data->user_requested_cpu_list,
+> -				 data->system_wide, /*root_metric=*/NULL,
+> +				data->system_wide, data->fake_pmu, /*root_metric=*/NULL,
+>  				 /*visited_metrics=*/NULL, table);
+>  	}
+>  	return ret;
+> @@ -1065,6 +1074,7 @@ static int metricgroup__add_metric_callback(const struct pmu_metric *pm,
+>   *                   user may override.
+>   * @user_requested_cpu_list: Command line specified CPUs to record on.
+>   * @system_wide: Are events for all processes recorded.
+> + * @fake_pmu: Are PMUs and events being faked for testing?
+>   * @metric_list: The list that the metric or metric group are added to.
+>   * @table: The table that is searched for metrics, most commonly the table for the
+>   *       architecture perf is running upon.
+> @@ -1072,7 +1082,7 @@ static int metricgroup__add_metric_callback(const struct pmu_metric *pm,
+>  static int metricgroup__add_metric(const char *pmu, const char *metric_name, const char *modifier,
+>  				   bool metric_no_group, bool metric_no_threshold,
+>  				   const char *user_requested_cpu_list,
+> -				   bool system_wide,
+> +				   bool system_wide, bool fake_pmu,
+>  				   struct list_head *metric_list,
+>  				   const struct pmu_metrics_table *table)
+>  {
+> @@ -1087,6 +1097,7 @@ static int metricgroup__add_metric(const char *pmu, const char *metric_name, con
+>  		.metric_no_threshold = metric_no_threshold,
+>  		.user_requested_cpu_list = user_requested_cpu_list,
+>  		.system_wide = system_wide,
+> +		.fake_pmu = fake_pmu,
+>  		.has_match = false,
+>  	};
+>  
+> @@ -1118,6 +1129,7 @@ static int metricgroup__add_metric(const char *pmu, const char *metric_name, con
+>   *                   user may override.
+>   * @user_requested_cpu_list: Command line specified CPUs to record on.
+>   * @system_wide: Are events for all processes recorded.
+> + * @fake_pmu: Are PMUs and events being faked for testing?
+>   * @metric_list: The list that metrics are added to.
+>   * @table: The table that is searched for metrics, most commonly the table for the
+>   *       architecture perf is running upon.
+> @@ -1126,7 +1138,8 @@ static int metricgroup__add_metric_list(const char *pmu, const char *list,
+>  					bool metric_no_group,
+>  					bool metric_no_threshold,
+>  					const char *user_requested_cpu_list,
+> -					bool system_wide, struct list_head *metric_list,
+> +					bool system_wide, bool fake_pmu,
+> +					struct list_head *metric_list,
+>  					const struct pmu_metrics_table *table)
+>  {
+>  	char *list_itr, *list_copy, *metric_name, *modifier;
+> @@ -1145,7 +1158,8 @@ static int metricgroup__add_metric_list(const char *pmu, const char *list,
+>  		ret = metricgroup__add_metric(pmu, metric_name, modifier,
+>  					      metric_no_group, metric_no_threshold,
+>  					      user_requested_cpu_list,
+> -					      system_wide, metric_list, table);
+> +					      system_wide, fake_pmu,
+> +					      metric_list, table);
+>  		if (ret == -EINVAL)
+>  			pr_err("Fail to parse metric or group `%s'\n", metric_name);
+>  		else if (ret == -ENOENT)
+> @@ -1403,7 +1417,8 @@ static int parse_groups(struct evlist *perf_evlist,
+>  
+>  	ret = metricgroup__add_metric_list(pmu, str, metric_no_group, metric_no_threshold,
+>  					   user_requested_cpu_list,
+> -					   system_wide, &metric_list, table);
+> +					   system_wide, fake_pmu,
+> +					   &metric_list, table);
+>  	if (ret)
+>  		goto out;
+>  
 > -- 
-> Kees Cook
+> 2.56.0.rc1.310.g51773c2048-goog
