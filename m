@@ -1,72 +1,207 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mta1.migadu.com (out-234.mta1.migadu.com [95.215.58.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6774D4D794C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0FA4D9557
 	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790370245; cv=none; b=WyMq9OLMXEYiptVg2MrOUma6QBBswvRoTHKXdy7IHo85KUwX6vG1LiFyvSZgk7J/JnSGodZIbzRtbUJIZe6A99VAFSsES3Vxn05K2/3mHSqc5R6LWsDETQnn1pTnqetcPX0Hj5RWoWRR6ZsS125Pr7JLqHzSH7gt1TpgoR2vc0k=
+	t=1790370246; cv=none; b=XSfW5HwpaQVyuxQamVbdqtQm+ZVcTTPfTPsHkIohLL/WhAwEGkqLHGOmcRPxlp5kvGddIJih9CQvIl5NLtyfZVT77udQ6hbpThXnUdG04HbBRmB+ckQOnB11/q8Xa11s+4a6nmQQxI4ATB5j327kDQvQul/Y42p4+G1EH/scjJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790370245; c=relaxed/simple;
-	bh=BE21cmSFfuAQ83Rs9m2L3At3+YqRFs1oevcw/2tS8mk=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=kIy7xM56+vfKbQbRciuewvhSkXaQ1yooMDI/46ABid5PkX6rRnmr9EL4IgUB3K330291zGsYEriqoD0RDlLpQVFd4N/W1uYA+hVuumCjAmJ1kcM77nepWK0w59CTX1yaOb70FcGZ1IHDmRFaGZU1MnqcY6Cx6Jjeb1l/IURTv9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dab94dc3e7so2206030b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:04:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790370243; x=1790975043;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QMv4zUnWDsMBQN3OtbAXR4nIKmgx+GY56qtAo6bYdh8=;
-        b=YJZindGMXAX4S+EM4Siw/XW9IPFZCWCxvVD75uuv2YYaYlRz2VYamDmmKcnC+X1RT6
-         3Rkx/kXKQ+TOiawJU28jb+9zoRm6gkoj2wxwZVo9m38bqxhDJXXMI/46jCh5vx0CSj5q
-         eIgSd88AsMvJi3Hvz1kMHxsXUJUpoBKxj5Axn/xjqRWVrCj4L5FK3sAxCvLxaKr8Q+5o
-         qd4ZxUKY4jjk3tyRM8ncLj2KqacOEWZdah6N++QTClIMijvnuLhRVaT6HFyAhi4YRbNP
-         9IWBMJvbotO47cc3tTJfqh5WguXyYBGRfeseS1xpmPQdBYW8ko7MagssUYdZT+uy5yyF
-         3k6g==
-X-Forwarded-Encrypted: i=1; AKwUvBxJb9C21Sj0wvOKQbKFvjOxyHnlibSumPVFbpskvYRkOoIG/ZHvQiSs3tASgS243nAOyeaqZzqZnmOTp7I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyVIPEgk2a1mTH8aYt03hIbRVjmh2nticimQF0UHVuAUU9YVax
-	G1Gmpp2DN/bV+zHxGUm20jhdTWiIiIOa+98m6e8HUrDvEEC07vfRt/rbSeI7y/5adf+qOPXR3Lz
-	6UQoV7G9VsWGS6pVJbsJjnKq4QPuwQfuHoZzm3n3WnXRrbkl+h7UCWklirWI=
+	s=arc-20240116; t=1790370246; c=relaxed/simple;
+	bh=oDFcoy1voIAbJ/dIOfvzZnGVfZGVOYNAVHo3DJEz29w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bZPA7QdvOYlTRSANhgSv49u5HCYrWUHZ+v/7neeEn2kPT0i+5DG/IZp5vEmPcWHM8/WSXzoYYgGrvmNLbiKYFFSBMj5Q6EtUlcjIT5QSBa1tZdQqMVyvSqvm3KZhPuCi3m4gvnAUFZDhtO/JKxv+5V7maOv0q4vlxItXKBxsgCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xL/mTWUU; arc=none smtp.client-ip=95.215.58.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xL/mTWUU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oDFcoy1voIAbJ/dIOfvzZnGVfZGVOYNAVHo3DJEz29w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790370242; v=1; x=1790975042;
+ b=xL/mTWUUkeDRMa8ycH4fnPwBS4y4d2X/1d8OTW7vLqSzmSGP3ACDfXiH5h/B8RZa74cFOPIp
+ JN2WeKmLfkVgMGFgam2Gig1znQ/qzqiHtzgQD/a5FilTv92eHm6i6leScN0Mr3ZvncRIsoDggZY
+ jfx1eBDAJtgWRCBxPdym2lpY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id bad3a27905a050d9;
+	Fri, 25 Sep 2026 21:04:01 +0000
+X-Mizu-Trace-ID: bad3a27905a050d9
+X-Migadu-Flow: FLOW_OUT
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+To: Christian Brauner <brauner@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	NeilBrown <neil@brown.name>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH vfs v2] bpf: Allow bpf_d_path() from filp_close_sync()
+Date: Fri, 25 Sep 2026 14:03:47 -0700
+Message-ID: <20260925210347.1364191-1-ihor.solodrai@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:50a3:b0:4c5:cd9d:c6de with SMTP id
- 5614622812f47-4d72c635ff8mr7595835b6e.7.1790370243336; Fri, 25 Sep 2026
- 14:04:03 -0700 (PDT)
-Date: Fri, 25 Sep 2026 14:04:03 -0700
-In-Reply-To: <20260926.053927.1813206630085668690.konishi.ryusuke@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab6e1c3.7eec07f4.c25c.0007.GAE@google.com>
-Subject: Re: [syzbot] [nilfs?] WARNING in nilfs_rename (2)
-From: syzbot <syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com>
-To: konishi.ryusuke@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+The d_path selftest closes its descriptors with close_range() so that
+its fentry program on filp_close() runs. The vfs commit
+c1ed65ea167b ("fs: make close_range() synchronous") switched
+close_range() to filp_close_sync(), so the program still attaches but
+is never called:
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+  test_d_path_basic:FAIL:close trampoline for filp_close was not called
 
-Reported-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Tested-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
+With that series, close(), close_range() and the closes on exec and
+exit all go through filp_close_sync(). Few paths still reach
+filp_close(), dup2() being one of them, so a program on filp_close()
+no longer sees most file closes.
 
-Tested on:
+Allow bpf_d_path() from filp_close_sync(), but only from fentry.
+filp_close_sync() drops the last file reference inline, so by the time
+an fexit program runs, file->f_path may already be freed, with no RCU
+delay for NORCU dentries such as pipes and sockets.
 
-commit:         89a31299 Merge tag 'cifs-fixes-7.3-rc2' of https://git..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1725fc5e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=db6ce8c8614a5a8f
-dashboard link: https://syzkaller.appspot.com/bug?extid=f6c7e1f1809f235eeb90
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1021e2c9580000
+Attach the selftest program to filp_close_sync() and keep triggering
+it with close_range().
 
-Note: testing is done by a robot and is best-effort only.
+Add a test rejecting bpf_d_path() from fexit/filp_close_sync.
+
+Assisted-by: LLM
+Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+
+---
+
+v1->v2:
+  * Allow bpf_d_path() from filp_close_sync() only for fentry (bpf-ci-bot)
+  * Add a verifier test rejecting bpf_d_path() from fexit/filp_close_sync
+v1: https://lore.kernel.org/bpf/20260924204226.190315-1-ihor.solodrai@linux.dev/
+
+The issue was found by BPF CI when running on linux-next:
+https://github.com/kernel-patches/bpf/actions/runs/35923662147/job/107398237366
+---
+ kernel/trace/bpf_trace.c                      | 16 ++++++++++++--
+ .../testing/selftests/bpf/prog_tests/d_path.c |  7 ++++---
+ .../testing/selftests/bpf/progs/test_d_path.c |  2 +-
+ .../selftests/bpf/progs/verifier_d_path.c     | 21 +++++++++++++++++++
+ 4 files changed, 40 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index 29260951aa87..c3b869646bae 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -974,6 +974,10 @@ BTF_ID(func, vfs_getattr)
+ BTF_ID(func, filp_close)
+ BTF_SET_END(btf_allowlist_d_path)
+ 
++BTF_SET_START(btf_allowlist_d_path_fentry)
++BTF_ID(func, filp_close_sync)
++BTF_SET_END(btf_allowlist_d_path_fentry)
++
+ static bool bpf_d_path_allowed(const struct bpf_prog *prog)
+ {
+ 	if (prog->type == BPF_PROG_TYPE_TRACING &&
+@@ -983,8 +987,16 @@ static bool bpf_d_path_allowed(const struct bpf_prog *prog)
+ 	if (prog->type == BPF_PROG_TYPE_LSM)
+ 		return bpf_lsm_is_sleepable_hook(prog->aux->attach_btf_id);
+ 
+-	return btf_id_set_contains(&btf_allowlist_d_path,
+-				   prog->aux->attach_btf_id);
++	if (btf_id_set_contains(&btf_allowlist_d_path,
++				prog->aux->attach_btf_id))
++		return true;
++
++	if (btf_id_set_contains(&btf_allowlist_d_path_fentry,
++				prog->aux->attach_btf_id))
++		return prog->expected_attach_type == BPF_TRACE_FENTRY ||
++		       prog->expected_attach_type == BPF_TRACE_FENTRY_MULTI;
++
++	return false;
+ }
+ 
+ BTF_ID_LIST_SINGLE(bpf_d_path_btf_ids, struct, path)
+diff --git a/tools/testing/selftests/bpf/prog_tests/d_path.c b/tools/testing/selftests/bpf/prog_tests/d_path.c
+index 1a2a2f1abf03..7665e1d28a64 100644
+--- a/tools/testing/selftests/bpf/prog_tests/d_path.c
++++ b/tools/testing/selftests/bpf/prog_tests/d_path.c
+@@ -109,8 +109,9 @@ static int trigger_fstat_events(pid_t pid)
+ 	fstat(indicatorfd, &fileStat);
+ 
+ out_close:
+-	/* sys_close no longer triggers filp_close, but we can
+-	 * call sys_close_range instead which still does
++	/*
++	 * filp_close_sync() may be inlined into close(2), so use
++	 * close_range(2), which calls it directly.
+ 	 */
+ 	syscall_close(pipefd[0]);
+ 	syscall_close(pipefd[1]);
+@@ -165,7 +166,7 @@ static void test_d_path_basic(void)
+ 
+ 	if (CHECK(!bss->called_close,
+ 		  "close",
+-		  "trampoline for filp_close was not called\n"))
++		  "trampoline for filp_close_sync was not called\n"))
+ 		goto cleanup;
+ 
+ 	for (int i = 0; i < MAX_FILES; i++) {
+diff --git a/tools/testing/selftests/bpf/progs/test_d_path.c b/tools/testing/selftests/bpf/progs/test_d_path.c
+index 561b2f861808..edb5494a47f7 100644
+--- a/tools/testing/selftests/bpf/progs/test_d_path.c
++++ b/tools/testing/selftests/bpf/progs/test_d_path.c
+@@ -41,7 +41,7 @@ int BPF_PROG(prog_stat, struct path *path, struct kstat *stat,
+ 	return 0;
+ }
+ 
+-SEC("fentry/filp_close")
++SEC("fentry/filp_close_sync")
+ int BPF_PROG(prog_close, struct file *file, void *id)
+ {
+ 	pid_t pid = bpf_get_current_pid_tgid() >> 32;
+diff --git a/tools/testing/selftests/bpf/progs/verifier_d_path.c b/tools/testing/selftests/bpf/progs/verifier_d_path.c
+index 87e51a215558..7ab9b6b1d589 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_d_path.c
++++ b/tools/testing/selftests/bpf/progs/verifier_d_path.c
+@@ -45,4 +45,25 @@ __naked void d_path_reject(void)
+ 	: __clobber_all);
+ }
+ 
++SEC("fexit/filp_close_sync")
++__description("d_path fexit reject")
++__failure __msg("helper call is not allowed in probe")
++__naked void d_path_fexit_reject(void)
++{
++	asm volatile ("					\
++	r1 = *(u64 *)(r1 + 0);				\
++	r2 = r10;					\
++	r2 += -8;					\
++	r6 = 0;						\
++	*(u64*)(r2 + 0) = r6;				\
++	r3 = 8 ll;					\
++	call %[bpf_d_path];				\
++	r0 = 0;						\
++	exit;						\
++	"
++	:
++	: __imm(bpf_d_path)
++	: __clobber_all);
++}
++
+ char _license[] SEC("license") = "GPL";
+
+base-commit: 6b97d8b942960f55e821df4f618438e3da125887
+-- 
+2.55.0
+
