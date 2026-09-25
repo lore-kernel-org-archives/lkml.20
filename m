@@ -1,47 +1,52 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E1E3CC9F6;
-	Fri, 25 Sep 2026 13:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 489952E03E4;
+	Fri, 25 Sep 2026 13:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342297; cv=none; b=bIQMXcNjBwotJO800IUux7DwHdCJiuvmmNeaBTcC5RBgwXVrMxYaixP8WGyzBC331GxZSEPtRoNYcrgQxUVGmKpZCdPF9qP4WLg3wEzElwq0LmtPuZ04/kqrK6WZ/LFqilrZmipD0pO0F8Cy3w9BRe8ci1++1QQQs7yblGQyEuo=
+	t=1790342299; cv=none; b=HjmZ2ntbyeM7lkmB+GEWjfx3IgZd/f7Je5q/gkQpSakoROSAqqjKNonAynmQaKeNDRPNF4BDLZhYIuEyTIHpskTi78Zuo3LH+Z9j64K9pQYYlN/Tb6iENH8czLsKfmyC7pdSxtOw9VSMFmw77bU5Mz/mWJLGXhqYGxVXOKoMLLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342297; c=relaxed/simple;
-	bh=gb6i8FzjevRIjvzpN9E3g5hh/QcDTZNQ4RlXQyLVGKw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Ys0aBw4PS8GX6GKuwKs2vpUJUOOcan7Wpzi+2G2/nlUY+DTpm8ZdlH2Fir5PXk6qEUjm3RckrqFOp/GFU3d1j4Jv5eO06SVvQweboGyHQ2PV26U+oc+iJTqnbGukeBKASvSW/ss1sHyV0dL9r5oYJL+My8i5SIIZbhN0qK72zJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kOGnFiRT; arc=none smtp.client-ip=220.197.31.5
+	s=arc-20240116; t=1790342299; c=relaxed/simple;
+	bh=fXw1XFTYpoIA44mnFG03BeQj5rr+UWOhlpOmSxYb0LU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=q0QPgDuWn4dLhMR9/aT+p9mPBim405n7nEh7JogbMxyJc9pwMK90zUizXtV3G2b7xDdCWjuasWOjL0IEDMX0yipdmHsAQime1kl+TtsMpBa/tnA7Ft3lF1CAv+cNL20anB85jRusT1SsZJmrigpoZjj/Nx0ggtGVMaxTf9TpDAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=C06Xiv20; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kOGnFiRT"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="C06Xiv20"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Rp
-	PMYKB8KsAlddsQUtxh3FJtCq1RUYTUiISqyX70d88=; b=kOGnFiRTQTH71YotDI
-	+OMmLvmXHI/a7sjPLD5FlGapj9YfmMdq+7kWPvvcuDO5SZXPbBb8yPV/ZMVTbGHQ
-	jT3oPa1uU59Wo/4Je/ug7Kur2mRzyzma1sAtHhmFlPXnrOOkT3Fb6PMGw9fjnSb+
-	Y8oN7UCvP0dIs559ahMyW5JaM=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=CT
+	DPZT871AVQpArpk16gfTXtCUkE5IK6MbL1Vv3qNnE=; b=C06Xiv2021QQH5+I+6
+	kB+gFZ5rNkPjxoORbXCOATD+P0lg0wadr2+JIA2L+wJlX7vINfOCEePVaibSHEpG
+	0213z9AZ+3KKK4kagx6hXf8wwWe9oOmNI9Mm77d+pqoxwTISHUIaZNpHsQWoIgUz
+	KIwc3mtnaZDZMsOAS6X0j3Sus=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgC3fy9zdLZq8jiZBA--.52716S3;
-	Fri, 25 Sep 2026 21:17:42 +0800 (CST)
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgC3fy9zdLZq8jiZBA--.52716S2;
+	Fri, 25 Sep 2026 21:17:40 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Michael Hennerich <Michael.Hennerich@analog.com>,
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
 	Rodrigo Alencar <rodrigo.alencar@analog.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
 	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
+	Anshul Dalal <anshulusr@gmail.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Angel Iglesias <ang.iglesiasg@gmail.com>,
 	linux@analog.com,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 1/7] iio: amplifiers: ad8366: reject devices without match data
-Date: Fri, 25 Sep 2026 21:17:30 +0800
-Message-Id: <20260925131738.2200612-2-yaojiale02@163.com>
+Subject: [PATCH 0/7] iio: validate SPI match data before use
+Date: Fri, 25 Sep 2026 21:17:29 +0800
+Message-Id: <20260925131738.2200612-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260925131738.2200612-1-yaojiale02@163.com>
-References: <20260925131738.2200612-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,39 +54,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgC3fy9zdLZq8jiZBA--.52716S3
-X-Coremail-Antispam: 1Uf129KBjvdXoWruFWDGFykuF1UGw15GFW5GFg_yoWDArc_Cw
-	n7Za4xXwn7Ars5KF12yr1SvrZ5KryxtrZYyr4vvayFgry7Xr1rXFn8Zr47Ar47uFyxJFn8
-	WF1jgr4rAw13WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRZ5rctUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BaCvGq2dHaDAwAA3G
+X-CM-TRANSID:PCgvCgC3fy9zdLZq8jiZBA--.52716S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZw18WF1xJw4xXrykXr1kZrb_yoWDuFg_Wr
+	1qvrn7XFyIkw1UKw4IqFnavryjkFWxWr1kArs2yrWS9rZrZr15Ar4qvr4kAwsrZFyqqFn8
+	X3WUKw4Fy3s3ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRKF4EDUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BWCvGq2dHWC7gAA3q
 
-A device bound through driver_override need not match an entry in the
-driver tables. In that case spi_get_device_match_data() returns NULL,
-but ad8366_probe() later dereferences the result while setting up the
-IIO device.
+SPI driver_override can bind a device without a matching entry in the
+driver's ID tables.  spi_get_device_match_data() then returns NULL.
 
-Reject devices without match data before using the chip information.
+These seven IIO drivers use that result without checking it, causing a
+NULL pointer dereference during probe.  Add the missing checks before
+the match data is used.
 
-Fixes: d5e02d0d00b9 ("iio: amplifiers: ad8366: add device tree support")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/iio/amplifiers/ad8366.c | 2 ++
- 1 file changed, 2 insertions(+)
+Jiale Yao (7):
+  iio: amplifiers: ad8366: reject devices without match data
+  iio: dac: ad5755: validate SPI match data
+  iio: dac: mcp4821: reject devices without match data
+  iio: frequency: adf4377: reject devices without match data
+  iio: imu: adis16400: validate SPI match data
+  iio: potentiometer: x9250: reject devices without match data
+  iio: pressure: bmp280: validate SPI match data
 
-diff --git a/drivers/iio/amplifiers/ad8366.c b/drivers/iio/amplifiers/ad8366.c
-index e12f8604f59f..9adff120de1a 100644
---- a/drivers/iio/amplifiers/ad8366.c
-+++ b/drivers/iio/amplifiers/ad8366.c
-@@ -326,6 +326,8 @@ static int ad8366_probe(struct spi_device *spi)
- 
- 	st->spi = spi;
- 	st->info = spi_get_device_match_data(spi);
-+	if (!st->info)
-+		return -ENODATA;
- 
- 	enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_HIGH);
- 	if (IS_ERR(enable_gpio))
+ drivers/iio/amplifiers/ad8366.c   | 2 ++
+ drivers/iio/dac/ad5755.c          | 3 +++
+ drivers/iio/dac/mcp4821.c         | 7 +++++--
+ drivers/iio/frequency/adf4377.c   | 3 +++
+ drivers/iio/imu/adis16400.c       | 3 +++
+ drivers/iio/potentiometer/x9250.c | 7 ++++++-
+ drivers/iio/pressure/bmp280-spi.c | 2 ++
+ 7 files changed, 24 insertions(+), 3 deletions(-)
+
 -- 
 2.34.1
 
