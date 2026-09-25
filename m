@@ -1,122 +1,194 @@
-Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76C52571B8
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2E92472AE
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:31:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790299776; cv=none; b=K+tAfJJksxA8eb0CbRL/lZui17cwjWpVk5rxbHUPxwa9RgS0I7HJo+mzk6D/l9r5EGYX8Db3OMmEPxZ6DX+JPU6kLrXe0oxtBeLB2tE3HklsRR7F725Z9LZ9Sksgwfqy28SiiG+yb6t0zji1Q588wSPS3nhj0ts6QAursCemCYs=
+	t=1790299873; cv=none; b=Yg1U310DfUA51R062YK/vQiOTWkVNbWi0FVQ0ezFAWvKomvhtS3YYjl7TaLBG2yBmAwwi2n5g3SCEZZcWdYpbkQgWKweK7ifjnxqCQcIoEWw/JU1NGShRfG36ZHCt3J37zxfHe8//kdcUX1opNum5Whg1BkuZa2BRebNNxEjDFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790299776; c=relaxed/simple;
-	bh=dE4rLE15UVkW/FcpdWYDCqKhVBmziqyc83G34Mkj9Mk=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=IaB/oWA88Ll0XVOm0n7q/2BrdN7N5Q+2VSLAjhxOri1wSFroEgblDO6c9t50qPei+nqN8+78saNX8UKMuutyWKHsIYuD9lJf+7YTLza3rv4PMQFhoQyeLOU/SlU+k35wqpxptHs7aqj9n1IUK1r09yYx2BQVWFI4Bh1wFTk7dJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MQi/9DRW; arc=none smtp.client-ip=91.218.175.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790299873; c=relaxed/simple;
+	bh=wQKRtKLqGJCDEPvz/iqrGK9BVlTgRu7XZjqe2Rl0nXs=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=O9FW3RWo0ynRoTrDWP1EQzkooQT5tdkl5zLVU1dw4euFfgigCQqVIRtT/kJ364C/Yxz+ZLEOLLySoLVGnk3NnIPzEJV1JBabqBk7/zYnohrIMlLmorcqAxkqzgt6Qqt6uYIBn42ntDXjYizX6hm1rmH9pzoypvilScLdXEltbTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EyJ9Gtl4; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MQi/9DRW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dE4rLE15UVkW/FcpdWYDCqKhVBmziqyc83G34Mkj9Mk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790299771; v=1; x=1790904571;
- b=MQi/9DRWeHdw4ThHm5A7vm45QJ3/AdhzIXvn7up0JgOLvpw87ufrlTc7b2ZHjGpXK4zevUNG
- K3cxa/v99zaJD7NR9sO7djda4XMqXLHe/8REtdpZrz++ihjWjAFZyWcMUvSO5i3Ov6nUpBIEN6v
- ls4x+aEdWsbWtrHnn1MF6s1w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c07214f194ab2ff9;
-	Fri, 25 Sep 2026 01:29:31 +0000
-X-Mizu-Trace-ID: c07214f194ab2ff9
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2df087b0-2a00-4e30-8e6c-d2f76e3ebd79@linux.dev>
-Date: Fri, 25 Sep 2026 09:29:28 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EyJ9Gtl4"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2df8d1e91c9so5374955ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:31:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790299871; x=1790904671; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RweWv4r3+tfjVI8UGCUJFPVFEYFdP24TgU4ruOZ3H6U=;
+        b=EyJ9Gtl4rCV5Xuw2Q4c1sZaWwL0EL2DjMgQHWhhHqWvRf+5tdVER+ZN7iB929AOWrf
+         K7rtVKUuHHEmBLdzFXvXR5BVg+V6XkxwmbD1pm5GuTT42DM7GbYtYM+EklNDs15vvkYQ
+         YCkgWKeX5GK3SNX7TUf//zqn8CUsY5WV4KMAxZQH6xlHiN0Lp3HG6DN6gS8u5k2XW/pn
+         d49NBzDUqXonjjmIqd1Uqw319FBOkNIsZUdjYB0OP0MnPeJN/SlE96kUxhimCwCSM9G9
+         f9Bc/kcScxvAyTbA0t6LjqOPONN+IM2wwluvxGOZYDwbrdz/TJo24w/sYSmJjpU3FR/E
+         //Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790299871; x=1790904671;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RweWv4r3+tfjVI8UGCUJFPVFEYFdP24TgU4ruOZ3H6U=;
+        b=R6qRJX7P13mhUzBlHVSp5LHfYhTOm4rO2RSTznxBYaUlFLHuPlMvr7OZAuVXC6SdoG
+         vRcdsqHIb32Ex2ABZpMiVwc6XHTiKt5f5iGLZs+C3mk70ohkF2+WqgzJid/j3DHGfem4
+         62ePte4j3LnPGwTXj3P238H6IGCUTvDRTRvNmHVTVZYbbGIMuT89n8BHRKFDPagGBd+h
+         8r0KK3FYpeZYmVuuYAtgI97SUreYp2DrzK8N7K8my7REzOXHM1lLQsITGioSc8seGx5l
+         R/6vTBAVv8GODXwz1IjtjnJ1iKuaujf6aGcwd4L9apbZ2fhKrJv/2r0FPupVQ/ltQvdn
+         CMug==
+X-Forwarded-Encrypted: i=1; AKwUvBxaxXPdAHaRR+GvMTAH8hfgj9m8E8fVits/Nd5RJvYBmk7WOlQZbH/93OATJ/URhHwB5qYSMM1DRZSHHfM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTi2hnE5asbV43MCkrzD0FVvOiul1BY4Wb1Q+jQ/WMSXb/H+bS
+	1HfgIrcJF4yCVFg9SbiN6TFz5FUuAIf5NEFGDdoKZfqhEy0O8iLhjgqHGSskodTUD6nSM1aw0If
+	0atvcQZsMIL8iWA==
+X-Received: from plmo2.prod.google.com ([2002:a17:903:18c2:b0:2df:7a17:a791])
+ (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:902:d4c8:b0:2dd:ad73:c938 with SMTP id d9443c01a7336-2df7daa9ba8mr31900875ad.25.1790299871207;
+ Thu, 24 Sep 2026 18:31:11 -0700 (PDT)
+Date: Fri, 25 Sep 2026 01:30:55 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, cuitao@kylinos.cn, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] loop: defer the queue limits clear to a workqueue
-To: Bart Van Assche <bvanassche@acm.org>, axboe@kernel.dk, hch@lst.de,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-References: <20260924102027.2307044-1-cui.tao@linux.dev>
- <b6e08595-50f5-494b-ae5e-726513d8dae2@acm.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <b6e08595-50f5-494b-ae5e-726513d8dae2@acm.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260925013110.3447626-1-skhawaja@google.com>
+Subject: [PATCH] vfio: selftests: Remove libuuid dependency
+From: Samiullah Khawaja <skhawaja@google.com>
+To: David Matlack <dmatlack@google.com>, Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>
+Cc: Samiullah Khawaja <skhawaja@google.com>, Raghavendra Rao Ananta <rananta@google.com>, 
+	Alex Mastro <amastro@fb.com>, Sean Christopherson <seanjc@google.com>, Rubin Du <rubind@nvidia.com>, 
+	Josh Hilke <jrhilke@google.com>, Vipin Sharma <vipinsh@google.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Bart,
+Libvfio depends on an external dependency libuuid for parsing vf_tokens.
+Building it in cross compilation environments gives the following error,
 
-Thanks for the review. 
+ ld: cannot find -luuid: No such file or directory
 
-在 2026/9/25 02:01, Bart Van Assche 写道:
-> On 9/24/26 3:20 AM, Tao Cui wrote:
->> +    memflags = blk_mq_freeze_queue(lo->lo_queue);
->> +    mutex_lock(&lo->clear_limits_lock);
->> +    if (lo->clear_limits_gen == lo->rebind_gen) {
->> +        mode = lo->clear_limits_mode;
->> +        lo->clear_limits_mode = 0;
->> +
->> +        if (mode & FALLOC_FL_ZERO_RANGE)
->> +            lim.max_write_zeroes_sectors = 0;
->> +
->> +        if (mode & FALLOC_FL_PUNCH_HOLE) {
->> +            lim.max_hw_discard_sectors = 0;
->> +            lim.discard_granularity = 0;
->> +        }
->> +    }
-> 
-> I propose to remove the member variables clear_limits_gen and
-> rebind_gen. These member variables complicate verifying correctness
-> of the code and IMHO are not necessary. If loop_clear_limits() races
-> with loop_clear_limits_workfn(), the work will be rescheduled and
-> loop_clear_limits_workfn() will be called another time.
-> 
+As it is only used for parsing vf_tokens, remove the dependency by open
+coding the parser where it is required.
 
-The generation counters were intended to prevent a clear request
-queued for an old backing file from being applied after the loop
-device had been rebound. However, you're right that resetting
-clear_limits_mode in loop_assign_backing_file() and __loop_clr_fd()
-under the same mutex already prevents that, so the generation
-counters are redundant. I'll remove them.
+Tested by running vfio_pci_sriov_uapi_test selftest.
 
->>       queue_limits_commit_update(lo->lo_queue, &lim);
->> +    mutex_unlock(&lo->clear_limits_lock);
-> 
-> Since the mutex_lock(&lo->clear_limits_lock) call occurs after
-> queue_limits_start_update(), please move the
-> mutex_unlock(&lo->clear_limits_lock) call above the
-> queue_limits_commit_update() call. This has no impact on
-> correctness nor on the lock nesting order but makes the code
-> easier to follow.
-> 
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+---
+ tools/testing/selftests/vfio/lib/libvfio.mk   |  2 -
+ .../selftests/vfio/lib/vfio_pci_device.c      | 57 ++++++++++++++++---
+ 2 files changed, 50 insertions(+), 9 deletions(-)
 
-On moving mutex_unlock() above queue_limits_commit_update(): with
-the generation counters removed, the mutex is what keeps consuming
-clear_limits_mode and committing the resulting queue limits atomic
-with respect to a rebind. blk_mq_freeze_queue() is
-reference-counted, so the workfn and loop_change_fd() can both hold
-a freeze concurrently. If the workfn drops the mutex after consuming
-a non-zero mode but before queue_limits_commit_update(),
-loop_change_fd() could install a new backing file in that window,
-and the pending clear would then be committed to the new file. Since
-loop_change_fd() does not recompute the queue limits afterward, the
-incorrectly cleared discard limits would persist until the next
-reconfiguration.
+diff --git a/tools/testing/selftests/vfio/lib/libvfio.mk b/tools/testing/selftests/vfio/lib/libvfio.mk
+index bcfa74ae040e..7d6916ca3940 100644
+--- a/tools/testing/selftests/vfio/lib/libvfio.mk
++++ b/tools/testing/selftests/vfio/lib/libvfio.mk
+@@ -29,8 +29,6 @@ $(LIBVFIO_O_DIRS):
+ 
+ CFLAGS += -I$(LIBVFIO_SRCDIR)/include
+ 
+-LDLIBS += -luuid
+-
+ $(LIBVFIO_O): $(LIBVFIO_OUTPUT)/%.o : $(LIBVFIO_SRCDIR)/%.c | $(LIBVFIO_O_DIRS)
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+ 
+diff --git a/tools/testing/selftests/vfio/lib/vfio_pci_device.c b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
+index 4063a0e2b3df..774d1e90ec0e 100644
+--- a/tools/testing/selftests/vfio/lib/vfio_pci_device.c
++++ b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
+@@ -23,11 +23,54 @@
+ #include <linux/types.h>
+ #include <linux/vfio.h>
+ 
+-#include <uuid/uuid.h>
+-
+ #include "kselftest.h"
+ #include <libvfio.h>
+ 
++/*
++ * Minimal replacement for libuuid's uuid_parse(). libuuid is part of
++ * util-linux and is routinely absent from cross-compilation sysroots, which
++ * makes the vfio selftests unbuildable for non-native architectures. The only
++ * thing needed from it is parsing a VF token, so open-code that instead.
++ */
++#define VFIO_UUID_LEN		16
++#define VFIO_UUID_STR_LEN	36
++
++static int vfio_uuid_hexval(char c)
++{
++	if (c >= '0' && c <= '9')
++		return c - '0';
++	if (c >= 'a' && c <= 'f')
++		return c - 'a' + 10;
++	if (c >= 'A' && c <= 'F')
++		return c - 'A' + 10;
++	return -1;
++}
++
++static int vfio_uuid_parse(const char *in, unsigned char uu[VFIO_UUID_LEN])
++{
++	const char *p = in;
++	int i, hi, lo;
++
++	if (strlen(in) != VFIO_UUID_STR_LEN)
++		return -1;
++
++	for (i = 0; i < VFIO_UUID_LEN; i++) {
++		if (i == 4 || i == 6 || i == 8 || i == 10) {
++			if (*p++ != '-')
++				return -1;
++		}
++
++		hi = vfio_uuid_hexval(*p++);
++		lo = vfio_uuid_hexval(*p++);
++		if (hi < 0 || lo < 0)
++			return -1;
++
++		uu[i] = (hi << 4) | lo;
++	}
++
++	return 0;
++}
++
+ static void vfio_pci_irq_set(struct vfio_pci_device *device,
+ 			     u32 index, u32 vector, u32 count, int *fds)
+ {
+@@ -167,13 +210,13 @@ static void vfio_device_feature_set(int fd, u16 feature, void *data, size_t data
+ 
+ void vfio_device_set_vf_token(int fd, const char *vf_token)
+ {
+-	uuid_t token_uuid = {0};
++	unsigned char token_uuid[VFIO_UUID_LEN] = {0};
+ 
+ 	VFIO_ASSERT_NOT_NULL(vf_token, "vf_token is NULL");
+-	VFIO_ASSERT_EQ(uuid_parse(vf_token, token_uuid), 0);
++	VFIO_ASSERT_EQ(vfio_uuid_parse(vf_token, token_uuid), 0);
+ 
+ 	vfio_device_feature_set(fd, VFIO_DEVICE_FEATURE_PCI_VF_TOKEN,
+-				token_uuid, sizeof(uuid_t));
++				token_uuid, sizeof(token_uuid));
+ }
+ 
+ static void vfio_pci_region_get(struct vfio_pci_device *device, int index,
+@@ -415,10 +458,10 @@ int __vfio_device_bind_iommufd(int device_fd, int iommufd, const char *vf_token)
+ 		.argsz = sizeof(args),
+ 		.iommufd = iommufd,
+ 	};
+-	uuid_t token_uuid;
++	unsigned char token_uuid[VFIO_UUID_LEN];
+ 
+ 	if (vf_token) {
+-		VFIO_ASSERT_EQ(uuid_parse(vf_token, token_uuid), 0);
++		VFIO_ASSERT_EQ(vfio_uuid_parse(vf_token, token_uuid), 0);
+ 		args.flags |= VFIO_DEVICE_BIND_FLAG_TOKEN;
+ 		args.token_uuid_ptr = (u64)token_uuid;
+ 	}
 
-For that reason, I'd prefer to keep the mutex held until after
-queue_limits_commit_update(). I can add a comment explaining this if
-that would help.
-
-Thanks,
-Tao
-
-> Thanks,
-> 
-> Bart.
+base-commit: 3d7783543c2646af69ad65825e810060494bea21
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
