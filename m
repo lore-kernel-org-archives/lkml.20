@@ -1,110 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f42.google.com (mail-wr2-f42.google.com [74.125.225.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133413E00B4;
-	Fri, 25 Sep 2026 19:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9964119F9
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:06:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790363177; cv=none; b=GJIyijyEoRYlrNdM8/E+s+M2eIo51NgbaK4HxGRZeJgzzBVfoSMn4530aht3GkCbjSI0ZT/8XPaHr7/noBw5WjR3Pq38nE/qVq6OsX6O6IIDD0wVG/yHP43qyQb/8OvFHpXuOpVPeL/BucnZAPoX9Zpq9fVyC8ufJWNK7c1kHvs=
+	t=1790363188; cv=none; b=I7I4uW1x6cnW15jAb6kqHuTz/xoAzGAOCjPdiWduiq2fdE6C76r/c0xJzh99abBVxiA3knF2pdwKIBxvGzfpB2bgddlXtirxfuFUvmz2zR1I40B3aAeBPkZumo3UMEXdpxeV3zGQjc8JDEPX71Mjj1on38F5vDXhFiICTEhtSh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790363177; c=relaxed/simple;
-	bh=4lQL8gvWv/CFv31QtGZeKfHoIiCncwG4xwXyGmUI0rg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=plUhzbGEuSpUZ4cXfW648C3OFRwEfmjVxF7A00EU2TnaDdoIL14VpCgZPHYmsXXYwZzos82phGOfKaGBp3AmfLZzWY4KzVtPSDvm8mbKzDx9b2t6a8YPL4/LBqBgCCNG07t9N+NNOA4lKkfqXAN1QO0YwOC7Txy8mtIbINlplbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SsFiR1YG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790363188; c=relaxed/simple;
+	bh=22OIZAAh7ibjcvrRXB3CKQNHMedxOCRyHyT2npXmdEg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gLilKoMzirCYHHAfyvZgfwrs2MrWoWZ5Vv95hMYHNNy2YwxEFhB7uB2YwIrWRp0Afpk91I/BoB4XICixc3DW0Z5KkdcrxahNMuQydZNPfctThb4dvIL6DNQ5TyrkVJ/aQuqXM2m3nwRiznyroBMB8C2voD81yjWIjkNlHEDRScw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ncnnCgee; arc=none smtp.client-ip=74.125.225.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SsFiR1YG"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2BC441F000FF;
-	Fri, 25 Sep 2026 19:06:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790363175;
-	bh=VrjegtRrcpHSSr45DJrYT3eYx+8WnvK+ZO8tTcjuv4g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SsFiR1YGFJy5AdhnxNWv5YhA82om7Bft1hdAbO06IyE4VjaAOVVJlpSlU+2sugNMG
-	 fIQqXfx8svme6i88RRuuqYbEV2/nF72+E9aih7GqJ2p9DbmdQI7iOUGnzpuBbxBzpD
-	 DvqNRPKbaLpyulbLRn/m0Nz6AmIp2E2e0ItJKPr5D2g/vBl1RiVGNFPlIrjxmfg3yS
-	 ck+TGuZgjiemPHHYiCTX5cZsYi9FnjNyfLPQ6SAT4f/wSyEazJ3mCv00ac30x66/Uu
-	 HLF/nYcrxpRSDz/cDo93W4i3DibTEuZIyRUl2wnbsdnQqkP+XjU2UD1u5SNCWIuzKQ
-	 pHEPBSZqXJ7YA==
-Date: Fri, 25 Sep 2026 20:58:47 +0200
-From: Nicolas Schier <nsc@kernel.org>
-To: iav@iav.lv
-Cc: Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>
-Subject: Re: [PATCH] fortify: Disable colored diagnostics in test_fortify.sh
-Message-ID: <arbEZ5YW_sF4yMjp@levanger>
-References: <20260924-fortify-test-color-v1-1-37f6d50e31ec@iav.lv>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ncnnCgee"
+Received: by mail-wr2-f42.google.com with SMTP id ffacd0b85a97d-4888598e4f9so95310f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:06:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790363185; x=1790967985; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=X/VTim21cUbONkR5xr0XPo1pElUY4th2lja5IDVOCpg=;
+        b=ncnnCgeeWQNdaPYRhNG8aMGVrYAntJHMECbpSYae4So2L6lErAGM2OTZaAhZ7jvxEu
+         ZmtXZoqsydSQvA5vXnP7BJpjyTlhs6VEC4K8i4OyPMzm3WXiKpqPVqrPk+9XJPc0qpxW
+         Vw1yMUy6/t9q+jFT61aTP0uGA8CKFI1hlezxLT0iQc/xfVFLw7BfFB9Tr8m1vbkXcoEW
+         9/ytUoFbBr0LKkMYJYBkf+brMIMn7at5LJF1i4T5h6YN3QXtvq6ctPVrlGNut5l50KpK
+         rC8qvFsgQPXN5q4bezDNEfcEzI1f6uxxUDGunE6GOwVeLbPQdnCNKBRKGNm6zEedc5lk
+         cbVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790363185; x=1790967985;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=X/VTim21cUbONkR5xr0XPo1pElUY4th2lja5IDVOCpg=;
+        b=F90DaBMJD5b1V6zSsNaztflQx2G2zRoGTTin0JK/JYxGlXhF09ySvQvQyLV2Qpj9sS
+         gtaSRxsBzeiPVl76PUeKBgvpgWIdp+6hdtwv0qTeI+rJe3fAMtRLL2Rz0GwIoemkGzwL
+         6JFsKIHD3O7e/8+nH/lAYWQWf93st7Bqa7SeA662n6IHKuOLonG6cXFjptkJaZGszmtA
+         c2wZbz3gBeqNl1bmW73lENqp6hfydy0mo/hX0hS5mgLugy1sSR0qdg7NTiDbi/Fcxi4q
+         WteiQKxDyK5F5Gv+aAqAUbdzBOsjnRWnXvv9ijiklt50slYim8eKtM9PcMOjwjXY6F4i
+         ARig==
+X-Forwarded-Encrypted: i=1; AKwUvBzmg/dsmsnQLQf7Tf8jSWxNFYj5jhDcGnJv9n24FOz5wE+olTmQDcDpP4q28j/fbJfaR14hJvE2zQrTCTI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksTC4o2KOJoFdmK36+620lNUlkvFnSgEGGgaFYQivb8VSLVngp
+	JF7h9UUC3jz2uwa6kIIO2l2V27+qpQ69ik8bD28RVd4LumKN4i46806M
+X-Gm-Gg: AYBFou08qs71j2hsl/Y8Sq30DnAtsW2eR2ZGo7hWkpPvqorkQXN1qL174eqDQDpAEtY
+	4EM6Nc1bca4SHDW0RS5366zatGpkRfUFw9PBw8SlSbP9tn8aT0nXIZV6ulBfeeSUG1aj82QEXBX
+	o/fA80YaEMXr9GsXX1ktQ44kmjqUsJljKuKgOpqESa7onrJtSay6cMz8MoUATEqybvPYvbdvT+8
+	LHp1Xqy/JVEGLjsxzArsjNVFEzlXC4wo2LO/3P4YuCfu6mHE4ahbfTjAYSMxjthK67eZWGJz/25
+	111jvBDHjma5HnZJJZvulzo5hXhpADBQc7HU9qrTyutIkMFYrZ6BAgUlAe80FevKnn5gdZAJRQ6
+	jGJyF0WImjV6lE1eQ29jzDb5PkmeLWH2o1BMCDg1rRTmoOK9hhq6EdqmeaFKkpEJh79lkRUjK4q
+	l7pSKdtSEDiLHnZs58BUmZK0Gqs66Mu6V8bDQSfR2Z4JIGam5XKyiKxcLqIEsNKv3dN+QQAKZEX
+	L3KUGFmt+VGfJs+lprIHlal/QEqmZuMTyva2FA=
+X-Received: by 2002:a05:6000:41c9:b0:487:f31:8037 with SMTP id ffacd0b85a97d-488716c227cmr11887423f8f.14.1790363184973;
+        Fri, 25 Sep 2026 12:06:24 -0700 (PDT)
+Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm9467234f8f.4.2026.09.25.12.06.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 12:06:24 -0700 (PDT)
+From: Gabor Juhos <j4g8y7@gmail.com>
+Subject: [PATCH v2 0/8] mtd: rawnand: qcom: share more common code
+Date: Fri, 25 Sep 2026 21:06:09 +0200
+Message-Id: <20260925-qcom_nandc-share-more-code-v2-0-a1b088052d6a@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924-fortify-test-color-v1-1-37f6d50e31ec@iav.lv>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQrCMBBEf6Xs2ZUkarGe/A8pkqSbdsEmmkhQS
+ v7dWPDqZeANzJsFEkWmBKdmgUiZEwdfQW0asJP2IyEPlUEJ1YpOKXzYMF+99oPFNOlIOIcaNgy
+ EjoyxwhyMPhJUwT2S49cqv/SVJ07PEN/rV5bf9qfd/9NmiQLdTkglu87IVp7HWfNtWxfQl1I+y
+ pDnkMQAAAA=
+X-Change-ID: 20260922-qcom_nandc-share-more-code-febbc0b5ba8e
+To: Manivannan Sadhasivam <mani@kernel.org>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Md Sadre Alam <md.alam@oss.qualcomm.com>, linux-mtd@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Gabor Juhos <j4g8y7@gmail.com>
+X-Mailer: b4 0.14.3
 
-On Thu, Sep 24, 2026 at 11:34:29PM +0300, Igor Velkov via B4 Relay wrote:
-> From: Igor Velkov <iav@iav.lv>
-> 
-> When the build forces colored diagnostics, e.g. with
-> KCFLAGS=-fdiagnostics-color=always, the compiler wraps the expected
-> error in ANSI escape sequences and the grep does not match it. Every
-> test then reports "lacked '__write_overflow' warning" although FORTIFY
-> caught the overflow, and a real FORTIFY regression looks the same.
-> 
->   warning: unsafe strcpy() usage lacked '__write_overflow' warning in lib/test_fortify/write_overflow-strcpy.c
-> 
-> Pass -fdiagnostics-color=never after the caller's flags so that the
-> test compile always emits plain text.
-> 
-> Fixes: be58f7103700 ("fortify: Add compile-time FORTIFY_SOURCE tests")
-> Assisted-by: LLM
-> Signed-off-by: Igor Velkov <iav@iav.lv>
-> ---
-> Found in Armbian kernel builds, which pass -fdiagnostics-color=always
-> in KCFLAGS: all 18 tests reported "lacked".
-> 
-> Tested on arm64, 7.2.y, KCFLAGS=-fdiagnostics-color=always,
-> building lib/test_fortify/ (tests ok out of 18):
-> 
->                  before   after   after, -D__NO_FORTIFY
->   GCC 14.2          0       18        0
->   clang 19.1.7      0       18        0
-> 
-> An LLM assistant found the cause, wrote the fix and the changelog,
-> and ran the tests; I reviewed all of it.
-> ---
->  lib/test_fortify/test_fortify.sh | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/lib/test_fortify/test_fortify.sh b/lib/test_fortify/test_fortify.sh
-> index ad6dd44fa31c..c07eb3302c9d 100644
-> --- a/lib/test_fortify/test_fortify.sh
-> +++ b/lib/test_fortify/test_fortify.sh
-> @@ -37,7 +37,8 @@ export LANG=C
->  
->  status=
->  # Attempt to build a source that is expected to fail with a specific warning.
-> -if "$@" -Werror -c "$IN" -o "$OUT".o 2> "$TMP" ; then
-> +# Disable colors so that the grep below can match the warning.
-> +if "$@" -Werror -fdiagnostics-color=never -c "$IN" -o "$OUT".o 2> "$TMP" ; then
->  	# If the build succeeds, either the test has failed or the
->  	# warning may only happen at link time (Clang). In that case,
->  	# make sure the expected symbol is unresolved in the symbol list.
-> 
-> ---
-> base-commit: 760f96b7f54beb8dc6f85d97ac7854fddba86835
-> change-id: 20260924-fortify-test-color-f34a31b56bcc
-> 
-> Best regards,
-> -- 
-> Igor Velkov <iav@iav.lv>
-> 
-> 
+In commit fdf3ee5c6e52 ("mtd: nand: Add qpic_common API file")
+lots of code has benn moved from the 'qcom_nandc' driver into
+the 'qpic_common' module to allow using that also from the 
+'spi-qpic-snand' driver. Yet, the 'qcom_nandc' driver contains
+more code which could be used by the other driver. 
 
-Tested-by: Nicolas Schier <nsc@kernel.org>
-Reviewed-by: Nicolas Schier <nsc@kernel.org>
+The patches in the series generalizes several functions and a
+simple structure then moves the generalized code into the 
+'qpic_common' module so it can be used by the two NAND drivers.
 
+There should be no functional impact in regard to the 'qcom_nandc'
+driver.
+
+Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+---
+Changes in v2:
+  - Replace 'qpic_nandc' to 'qcom_nandc' in the commit messages of patches 1-6
+    to match the actual code (spotted by sashiko-bot) 
+  - Link to v1: https://lore.kernel.org/r/20260924-qcom_nandc-share-more-code-v1-0-f3012199b161@gmail.com
+
+---
+Gabor Juhos (8):
+      mtd: rawnand: qcom: make check_flash_errors() more generic
+      mtd: rawnand: qcom: make config_nand_page_read() more generic
+      mtd: rawnand: qcom: make config_nand_page_write() more generic
+      mtd: rawnand: qcom: make config_nand_cw_write() more generic
+      mtd: rawnand: qcom: make nandc_set_read_loc_first() more generic
+      mtd: rawnand: qcom: make nandc_set_read_loc_last() more generic
+      mtd: rawnand: qcom: rename 'nand_stats' structure
+      mtd: rawnand: qcom: move common code to the 'qpic_common' module
+
+ drivers/mtd/nand/qpic_common.c       | 131 +++++++++++++++++++++++++
+ drivers/mtd/nand/raw/qcom_nandc.c    | 184 +++++------------------------------
+ include/linux/mtd/nand-qpic-common.h |  17 ++++
+ 3 files changed, 172 insertions(+), 160 deletions(-)
+---
+base-commit: 55c5b6d5f59f59a8c98a7effc3195226cc20175c
+change-id: 20260922-qcom_nandc-share-more-code-febbc0b5ba8e
+
+Best regards,
 -- 
-Nicolas
+Gabor Juhos <j4g8y7@gmail.com>
+
