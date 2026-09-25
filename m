@@ -1,149 +1,224 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mta0.migadu.com (out-24.mta0.migadu.com [91.218.175.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0B4331EAB
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:59:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F4847ECF1
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790330380; cv=none; b=DCG4aZayoEaTNz/YNXfiZuHAyGpzWoE6dZoALLXSF99Y31FsTRhlCrKgK31ugXaX/RW+hasCd5KjYGGKwSEb4b+5WNLeb/LxowoWUWCEUF0VmylnwBZbAct7ZMq5r7zRTGdsr/KUNwlK+fMZfNuaA23dRXJuMi8UmsdydoluMjc=
+	t=1790330405; cv=none; b=UE4BXeaKnmacPREG8At68FfqOaYZl6zkMntEl1l8b3I5cbfjYNFFjxqEmF3C5ym+GNqtk2b0Gg0lm/QvWN/BJMvbW4HgQMPAGHv+M3ZZKil9ZyJjJlKzV+dwFSnjO0MTELJg2OEpl6GM5OSe4pb+KcTXMjSZZhzZ3S6h9tC/GE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790330380; c=relaxed/simple;
-	bh=3wuIbZJ8bFkmwk3yPngoJC5LLgfogAdH4lIaqG+juGk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LHLiCgVEs2lrUatizZ8yxKV35Uq6Sm89+LoDoCOowCssDNIWH5uRjyG4aczPW9S4OySIq/Z1vM1UmJZfQkuK0sj50T379uA+a6iISGAlW9Uov7qX0bAl6n3My6cD89JI7okwzWZWLr4n1vaFTZpQGX5eCHCPW1JFMp+4sxh0NaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=TaazaTwe; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790330405; c=relaxed/simple;
+	bh=oDrTnQSt3rnYXR+E6uqseuk/HuuLa/CRWtEAh3DDTwU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=oRbmWZksBpVW771+rMpWV+ktswAGnBXih3emM1xChPvSUBPyuKR+a6hvxezLFmst35MTfjS0+HcQMERPoL5OiTNM/yxcNoz96SsnmT4tdrS7K5TbWaidpjp4BVLUMQHspiH2FKlmhazPbqKTKk7wSUDzt0gUWsWrT3FDf7GaXCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DPHbsfpk; arc=none smtp.client-ip=91.218.175.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="TaazaTwe"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-482f63546c5so537116f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:59:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790330377; x=1790935177; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GrJoJ2ytny91PPyFUjjfr4sdS6p1y6Xpxf8VbUCYFbo=;
-        b=TaazaTwepfO/Nn3RZjRxrk/PoRkBXrAQMWZj6y7Gl7+W4nQg8C2TCW26X1Nt7vOau1
-         KfMHiALUAJh6n1MUHBOLQhw6Yi7J78CrzKXHNvKSLuWLacjdk8wV/E8nwOVdCQJiQYNA
-         lE+bQyKGEctiyKpoGd24io6VpF+34sVyN1LAkzx+B8uPBA6VFimjuvdjnKsfTY8j2jZM
-         w8MRtdn37Nr+rLVbufuAAnYCeybRMmkaiYftoPzRIBBbqMV5c3ymntn1QD555gIhnK8Z
-         zDaLCmcyCsuP7/Y23tTAU8QbTwGYBBPKgIxdDPHsIa0XrMt58eFRVW7X3g7dTdJcyaqL
-         utEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790330377; x=1790935177;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GrJoJ2ytny91PPyFUjjfr4sdS6p1y6Xpxf8VbUCYFbo=;
-        b=eC8mKeahb4WRxW9N2XRVnxB8hKSZfoy1MSqMJj3YQYNd7L3yoDqdiiGdgkWji9YdqI
-         dm2MAFOGpxOfp6jnSPGW26JmmecCQi09swRu4+4vvqjAsa+rTmvv4+xwvveq8VsR+UPW
-         OHC5nXCXCE4UxDjvLU1aSYG0kihc05ezTEX+8XprBhk+yyXX12AhTEhCnnho4rwngq9S
-         3OQgwuQDKKDoXWA+d0LvbP5Jvrm18/XUeuO7jewEa96sTbk6s1UjKpQhG0Jzbxzp98zm
-         auYvCH8SgDMplP9ougfvv8dKHh3RaNk2fxEcAGXtISyAl52Cvnb3j805oHPrk+LOMsjM
-         pfjg==
-X-Forwarded-Encrypted: i=1; AKwUvBwj0jyYbH+BWyJMQczbvt5GJzIKdS3lcfnCLBeX9Tl8iQclBYREBLnsi2nezY9FN4n28C6kxr8pMMJCOzs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lEsRxxMhCH5rZGjkdjSQSidfm729s+FESJy55whZuMi+eNyTo8
-	KNewXaBDleBudwKDIv9seFpjzX37cXSRhHc1sQrHU31HDJqvtpNY5cV1wrnkbs+fXC4=
-X-Gm-Gg: AYBFou3bbQe+PHsJWYqzJ3v2koYPJlIEohc1/igrx73bY5973/+8nggkVCQDnLP5dnJ
-	ZwZnQU+YV9Eyf/24GV1jU/1dsDXEM57zIGlTSHEClmOOJV77/hmK6WmvXyZZvFUZP1LrOzfWtQP
-	Q+T2AMiyxYbvWB8YcJC6m+Lwaw25U7TcUpsetPjlzz6kA+Rh0GBkIoCicQ8iq1aPvcGgJkV4pFM
-	QgIq9GdQPmI65yunstgeWYE6X97+1bGG9xqh4VIb6NhW+Kd3s5IC+50ohkXDOTXM61rD40yInvX
-	g1+utHYc005Kg9SnzGLAfc8JUZHwqDagapWBy/x4aCMnb+hWqhCG08bcGK9ArBxaro8gkwO6xbY
-	6Oesus9xxPOtfbm8WjZIppFYWx8yUWR5VPgknvhDHymbG/l8VikU26Xgp3218+57A5jibyn6KS3
-	vntLrWM/AE8WcCezu43fFKC9jqwZGY8NUE6TKlZ4ie5yqxDIWv6Ufjsk26XLa+8UbljvNLH+Jq0
-	lvnBDE8yf5sbg==
-X-Received: by 2002:a05:6000:26d2:b0:488:5af8:eabc with SMTP id ffacd0b85a97d-4887175d8a4mr10728228f8f.26.1790330376886;
-        Fri, 25 Sep 2026 02:59:36 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a2acb4dsm5878334f8f.0.2026.09.25.02.59.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 02:59:36 -0700 (PDT)
-Date: Fri, 25 Sep 2026 11:59:34 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: peng yu <yupeng0921@gmail.com>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
-	Chaitanya Kulkarni <kch@nvidia.com>, Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Josef Bacik <josef@toxicpanda.com>, Jens Axboe <axboe@kernel.dk>, 
-	Maurizio Lombardi <mlombard@arkamax.eu>, cgroups@vger.kernel.org, linux-block@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] nvmet: add cgroup_path to charge namespace I/O to a
- cgroup
-Message-ID: <arZFtIkV0vg_aQR7@localhost.localdomain>
-References: <20260923152653.40953-1-yupeng0921@gmail.com>
- <arP0TmdK3FnNfbwH@localhost.localdomain>
- <CAG3TDc0bQJATmJR5dF5j9RoDp1ti-tbAiUkLRGq4zX2CYD3unQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DPHbsfpk"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oDrTnQSt3rnYXR+E6uqseuk/HuuLa/CRWtEAh3DDTwU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790330399; v=1; x=1790935199;
+ b=DPHbsfpkbzqn//PXgl9msY+ijBSEg9eoXD/stokh9mdQMytpav2YWjiYuOyafglAOD914TRb
+ +y9XwV04vp34TYWQF9iARpaxR3PlrA7+EyYw/PwqGIo1hZyFp5MIqSerFulqU8tscG7XPk9OBOK
+ MdvZAcr1D+BEA4je5cFuR/6E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ea20b57e532c7474;
+	Fri, 25 Sep 2026 09:59:58 +0000
+X-Mizu-Trace-ID: ea20b57e532c7474
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4zjvtwofog4yq6f5"
-Content-Disposition: inline
-In-Reply-To: <CAG3TDc0bQJATmJR5dF5j9RoDp1ti-tbAiUkLRGq4zX2CYD3unQ@mail.gmail.com>
-
-
---4zjvtwofog4yq6f5
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] nvmet: add cgroup_path to charge namespace I/O to a
- cgroup
-MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 25 Sep 2026 09:59:53 +0000
+Message-Id: <DLOB5OKRK23X.1VAD9QKRHYJ35@linux.dev>
+Cc: <martin.lau@linux.dev>, <eddyz87@gmail.com>, <memxor@gmail.com>,
+ <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+ <kpsingh@kernel.org>, <john.fastabend@gmail.com>, <leon.hwang@linux.dev>,
+ <zirajs7@gmail.com>, <rhkrqnwk98@gmail.com>, <puranjay@kernel.org>,
+ <xukuohai@huaweicloud.com>, <iii@linux.ibm.com>, <hbathini@linux.ibm.com>,
+ <chleroy@kernel.org>, <naveen@kernel.org>, <bjorn@kernel.org>,
+ <pulehui@huawei.com>, <yangtiezhu@loongson.cn>, <hengqi.chen@gmail.com>,
+ <linux-kernel@vger.kernel.org>, <martin.lau@kernel.org>,
+ <eddyz87@gmail.com>, <yonghong.song@linux.dev>, <mason@kernel.org>,
+ <ihor.solodrai@linux.dev>
+Subject: Re: [PATCH bpf v3 3/3] selftests/bpf: Detach a trampoline prog
+ while a task sleeps before it
+From: "Florent Revest" <florent.revest@linux.dev>
+To: <bot+bpf-ci@kernel.org>, <bpf@vger.kernel.org>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <andrii@kernel.org>
+X-Mailer: aerc 0.17.0
+References: <20260924170543.1017048-4-florent.revest@linux.dev>
+ <9ff9f911b980da0e9100578ccf6dba5c7a5414e0b0075922e750161220370554@mail.kernel.org>
+In-Reply-To: <9ff9f911b980da0e9100578ccf6dba5c7a5414e0b0075922e750161220370554@mail.kernel.org>
 
-On Wed, Sep 23, 2026 at 09:34:48PM -0700, peng yu <yupeng0921@gmail.com> wr=
-ote:
-> The LVMs are close to my real use case, so I mentioned them to explain why
-> I need this feature.
-> When I write the testing code, I try to demonstrate the usage in a
-> simpler way, so
-> I use RAM devices.
-> Sorry for the inconsistency.
+On Thu Sep 24, 2026 at 5:53 PM UTC,  wrote:
+> > diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_mod_race.c b/to=
+ols/testing/selftests/bpf/prog_tests/bpf_mod_race.c
+> > index ecc3d47919ad..f8497e764beb 100644
+> > --- a/tools/testing/selftests/bpf/prog_tests/bpf_mod_race.c
+> > +++ b/tools/testing/selftests/bpf/prog_tests/bpf_mod_race.c
+>
+> [ ... ]
+>
+> > diff --git a/tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c=
+ b/tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c
+> > new file mode 100644
+> > index 000000000000..002eb4920c91
+> > --- /dev/null
+> > +++ b/tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c
+>
+> [ ... ]
+>
+> > +static void test_detach(bool sleepable_fexit, bool victim_fexit)
+> > +{
+> > +	struct tramp_prog_detach *sleepable =3D NULL, *victim =3D NULL;
+> > +	struct pollfd pfd =3D { .events =3D POLLIN };
+> > +	struct uffdio_copy uffd_copy =3D {};
+> > +	struct uffd_msg uffd_msg;
+> > +	void *fault_page, *src_page =3D MAP_FAILED;
+> > +	long page_size =3D getpagesize();
+> > +	bool started =3D false;
+> > +	void *thread_ret;
+> > +	pthread_t thread;
+> > +	int uffd =3D -1;
+>
+> [ ... ]
+>
+> > +	sleepable_prog =3D pick_prog(sleepable, sleepable_fexit, true);
+> > +
+> > +	/* Not armed yet so this doesn't block, make sure sleepable runs firs=
+t */
+> > +	if (!ASSERT_OK((long)run_sleepable(NULL), "dry run"))
+> > +		goto out;
+> > +	if (!ASSERT_LT(sleepable->bss->ts, victim->bss->ts, "prog order"))
+> > +		goto out;
+> > +
+> > +	uffd =3D uffd_block_page(fault_page);
+> > +	if (!ASSERT_GE(uffd, 0, "userfaultfd open + register address"))
+> > +		goto out;
+>
+> A subsystem pattern flags this as potentially concerning: uffd_block_page=
+()
+> returns -errno when syscall(__NR_userfaultfd, O_CLOEXEC) fails. On a kern=
+el
+> without CONFIG_USERFAULTFD that is -ENOSYS, and the test then fails throu=
+gh
+> ASSERT_GE() instead of calling test__skip() with a message saying userfau=
+ltfd
+> is not available. While tools/testing/selftests/bpf/config sets
+> CONFIG_USERFAULTFD=3Dy so the BPF CI kernel always has it, and the same
+> ASSERT_GE pattern already exists in bpf_mod_race.c (serial_test_bpf_mod_r=
+ace)
+> from before this commit, is this the intended behavior for environments
+> without userfaultfd support?
 
-Understood.
+This is the same as bpf_mod_race. CONFIG_USERFAULTFD is in the selftests co=
+nfig
+so I'd just leave it like that.
 
-> > > * The subsystems are exported to different users.
-> > > * We should provide each user a specific iops/bps quota, thus a noisy
-> > >   neighbor won't impact the performance of other logical volumes.
-> >
-> > Why cannot you place users into respective cgroups and configure
-> > appropriate per-device limits?
->=20
-> I export the devices to nvme target. Per my understanding, the IOs are
-> controlled by kernel threads. The users are remote users, so I can't find
-> a way to put them in a local cgroup.
+> > +	sleepable->bss->fault_addr =3D fault_page;
+> > +
+> > +	if (!ASSERT_OK(pthread_create(&thread, NULL, run_sleepable, NULL),
+> > +		       "pthread_create"))
+> > +		goto out;
+> > +	started =3D true;
+> > +
+> > +	/* Wait for the thread to sleep in bpf_copy_from_user() */
+> > +	pfd.fd =3D uffd;
+> > +	if (!ASSERT_EQ(poll(&pfd, 1, 10000), 1, "poll uffd"))
+> > +		goto out;
+> > +	if (!ASSERT_EQ(read(uffd, &uffd_msg, sizeof(uffd_msg)), sizeof(uffd_m=
+sg),
+> > +		       "read uffd"))
+> > +		goto out;
+> > +	if (!ASSERT_EQ(uffd_msg.event, UFFD_EVENT_PAGEFAULT, "uffd pagefault"=
+))
+> > +		goto out;
+> > +
+> > +	/* Detach and unload the victim prog, and make sure it is gone */
+> > +	tramp_prog_detach__destroy(victim);
+> > +	victim =3D NULL;
+> > +	kern_sync_rcu();
+> > +	usleep(100 * 1000);
+> > +	kern_sync_rcu();
+>
+> Does this wait actually ensure the victim prog is gone before the task
+> resumes?
 
-I see, so the core of the issue is that local storage is exported
-remotely as NVME (over TCP) and you want to regulate IO on the local
-storage.
+It doesn't anymore. With patch 1 the prog is freed much later, and the test
+passed even without patch 2. v4 waits for the .bss map of the detached prog=
+ to
+go away, which happens when the prog is freed, and the test crashes again w=
+ith
+patch 1 alone. The prog ID can't be used for this, it goes away when the la=
+st
+reference is dropped, before the grace periods.
 
-1) resembles loopback devices where original task's blkcg is transferred
-   to the kthread issuing actual IO. Is there any userspace component
-   fronting the clients? (whose cgroup the IO could be associated with.)
+> The test only catches the use-after-free if the victim prog has actually =
+been
+> freed before UFFDIO_COPY releases the sleeping task. The wait here does n=
+ot
+> guarantee that, and on the kernel this series produces it most likely is =
+not
+> freed yet.
+>
+> Commit 1c2316cf73ba ("bpf: Wait for an RCU tasks grace period before free=
+ing
+> trampoline progs") changed __bpf_prog_put_noref() so that a tramp_linked
+> prog is freed through call_rcu_tasks(&prog->aux->rcu, __bpf_prog_put_rcu_=
+tasks),
+> then call_rcu(), then bpf_prog_free(), which calls schedule_work() for th=
+e
+> final vfree.
+>
+> RCU Tasks callbacks are lazy. call_rcu_tasks_generic() only sets needwake
+> for wakeme_after_rcu (a synchronous waiter) or when the queue reaches
+> rcu_task_lazy_lim. Otherwise it arms lazy_timer with rcu_tasks.lazy_jiffi=
+es
+> =3D DIV_ROUND_UP(HZ, 4) (kernel/rcu/tasks.h:145), which is about 250ms by
+> default.
+>
+> Nothing on the detach path forces a synchronous RCU Tasks wait. Detaching
+> the victim while the sleepable prog stays attached goes through
+> modify_ftrace_direct(), and its tmp_ops is static, so it is not
+> FTRACE_OPS_FL_DYNAMIC and ftrace_shutdown() does not call
+> synchronize_rcu_tasks().
+>
+> The test waits only kern_sync_rcu() + 100ms + kern_sync_rcu().
+> kern_sync_rcu() is membarrier(MEMBARRIER_CMD_SHARED), which is
+> synchronize_rcu() on SMP and a no-op with one CPU online. That is well sh=
+ort
+> of 250ms lazy delay + RCU Tasks GP + RCU GP + workqueue.
+>
+> So when the thread resumes in the old image, the victim's bpf_prog and JI=
+T
+> image are usually still allocated. On a kernel that has 1c2316cf73ba but
+> lacks 2ece3357872c (or breaks it later), the thread would run the victim
+> prog without a KASAN report and the test would pass.
+>
+> Consider waiting well beyond the RCU Tasks lazy period (for example about=
+ 1s,
+> or polling until the victim prog ID is no longer returned by
+> bpf_prog_get_next_id()/bpf_prog_get_fd_by_id()) before releasing the thre=
+ad.
+>
+> [ ... ]
+>
+>
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a =
+bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
+E.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/360342=
+51810
 
-2) it also resembles FC app ids (blkcg_set_fc_appid()/blkcg_get_fc_appid())
-   Could you look at that whether a common concept could be used? (I
-   haven't looked into detail how the client side is handled [*].)
-
-Thanks,
-Michal
-
-[*] And now when I'm thinking about it, I'm not sure one can trust any
-    app ID that is sent over...
-
---4zjvtwofog4yq6f5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCarZGARsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AjBEAD/RgvrgWqx1vN7nwvnz6LZ
-kUdSY5YucNYWhEz/l2B6FdIA+wdvKZi11fYFtWArfARj5k2swH2W5L9SKaCFbKx9
-EhsJ
-=C5Iy
------END PGP SIGNATURE-----
-
---4zjvtwofog4yq6f5--
