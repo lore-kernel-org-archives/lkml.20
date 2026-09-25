@@ -1,284 +1,228 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A5C38945A
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:40:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0494038DC57
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365237; cv=pass; b=QpXPU+YZQUaWrvKFbM8iftkjkCYur107uTIxy2hN6jgqFswaPkpFkOKgy6EYOJm7tqE32SAcdJ2r+Bwse9njC28lCr8mpnFZ3zFS9DITFsGakK1U6QKfjYMNMnB+VRAd7oU0p9wTKZlLuaCbtwKAvx0HdJODYbiVOji4TnuI+tI=
+	t=1790365243; cv=pass; b=BSvCtFYw3shqDhJdsa5Rnb88FvnXRPQYmrHF+Fg5aSrsU6OnqyApwnODRZyWE9tmGJi5oEbHOecLMHW3843YGqeC+YRfnV+myqh0Cr6Zx//DpgRO5+Jv0Djo+B9eeRoiMWNkChqhtHOeiyrF012eBozwFbmKh0pait3thUcPePw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365237; c=relaxed/simple;
-	bh=cSEPaWrxu9J9A6Q6ZKxTTatML/3vuqOsToEKTBJGE+o=;
+	s=arc-20240116; t=1790365243; c=relaxed/simple;
+	bh=OiihpvIIlzoVJu2DCK6dCNo1iVpixAYRYF6mCtC37lg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DZu1eR+aYPT5FA5OM1CTj8rsn+7Jgtcy8TEY0CEaZ7F4JCX/yk/bhn9OCgyvGTK+z8vIjHunT3OEjTLKo6xl6TmWMrGItjkepdCmxXjCccL3khJ654WSsD5SG0+nTetKK4FiH/0VeSCwulXw5UiMvkwH6+FZvZLkgBJWt/Rp2jY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AEi9bH3o; arc=pass smtp.client-ip=209.85.160.179
+	 To:Cc:Content-Type; b=kk3Lb/Jrqqbvj+e4mMB1xkWTD+60gOeBTWfU5+o8pcG2ymVfulXJDPBtMnPNktVUSnVyC+97T09lVXiyzsEsOdAdPAJrEl4qx1tn4CLnhmOZyc/8mUdYFzBsLlxs1x4aArB2jHlzDYe8ywXx3DqbaKgjF22/pNP370rKZI5m8aE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QKxq5/VI; arc=pass smtp.client-ip=74.125.231.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AEi9bH3o"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-52faa58bff5so63201cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:40:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790365235; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QKxq5/VI"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c206dc8adcso601077b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:40:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790365241; cv=none;
         d=google.com; s=arc-20260327;
-        b=f4+aXjuW8qw3gRWYuGZsRFzlla3+6MQ6Roh+mexUwIpKSYkL6qGlzMhO4iZloJJMfz
-         SqSN8pMCqgvGz7lvhVgU80KSZeGZ2zfHoRScbrXF+ZVCZmkn0ZfPJwunfEoP92mXLwKg
-         KxOJRnhlKblrbGfQhFcNphT3d2ota8ztGcOAUUQIpcAknBTOapYmNRKd76RfFMZvbStT
-         dkJ1B/PZuYSBU/d4l0aXfZh4mmFMEt+/cF2PpB6MkyOFJGCb++3YhTXbxuyp02bwqyVy
-         M7nbeWfMPlhZrj/OZeCqZ9hVPpAc1BABh6gqPJT9pKYWLZ2RW2BynHq/sWh4Mc4604g/
-         E/5Q==
+        b=MffsGzau9v7G1/c0qaacNeFHQxLsJFd0mGhBrQl8kEk3fnurjau7okffWtsMckGAu4
+         Yzma4gz9Fj6Gj9lFBXmchP40Ve7gEwhHAWFDQgSdDNUcz6uFPEx/06M06e4Na5wPVek6
+         I3wMjI8E9Qj5KGD4jkDeoeQOVVDK+Gskea7KWRN8gCUuJbqWXqGPxpvjZki4Nc/VE2Fd
+         V+yYBDySRf48Ay1U2ou6PmrmDTLrG//fZ9qSkcn3xsJp2sHSvI9cot4RL1jE2Uyya+sU
+         /qcyT4SMXb1ax35Up1q4/sjePtHHNCDmhcsM7QkUCuaKrrOJdHd8CV94TeITs3HtWIdW
+         E25Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=7w0ggNaiJUtaov8Aw9vNOQm+fzqQlGb0OSXJBvfDhk4=;
-        fh=Tagp0oWbdE1aYjoxAQ+2PrYWj8vj7tqhEyLlF5/7wQo=;
-        b=Tw7QXGCaYKZva+Dz+8o/njySsZgY3Jm8Xw25X4MJHW2qG4gg0iMvNfbXxnctk1lfgR
-         2fALIGGT9kvUofucmQqpZwnwpAigC7gdJCwHmN3Vhst+sfEtIEt21KinVlSh4Tujy1Iz
-         eAafQi1sqxmSAk7GOffZE9paGqEz9iR5g2oj1yDNDuPiFog1XW8jcZxbqnvpxEETN2el
-         5sNvSbEeec/QwdOobRXWxoD85TZ0i28FBHMSAfPsn8/4T/XoBYE04nFxtbSYaCrxylNk
-         +o013PAfrCENe3/a+ZFlAOmXdJYTemL+WMI1ARS3XUtLVnPvllM+cA3OmY06Skc7wc4H
-         F/NQ==;
+        bh=QRtQwrI36+tl+6Prwhx/Tagi3Pi4qOHQ7OtnSC5ifgE=;
+        fh=P+GqX98MQ+xmDrPhfzYAUixiyJgnSlpTwBcrcVCI6SE=;
+        b=brM3Ln0zGhRb5WPYqthuRzenN3RuQfZ5Ics0Og4b+WlSEvsxJhHSJK0i3SE9wQd46r
+         unWOI/k28SOZGaxVenwmIS9e5PhhqIDBQ3GEd7zl3gSWhU+pOyMoghlEeW6LJISxuvpS
+         sB8jXJgt5rDVVM1oBIWh/gMxE9d6XlgsHWgahMjiNfuvr+5KUebmyTt23fSs6R3G1qKI
+         eX5TKTBltgZ8DmMh0BuQ802dHzirWqJDOO//mV8MmklLrUp1kNzGC7f8FIhQRlflBlUh
+         XtXS8UF5DpQcPJONc/v0eU4DmSbEpH8J7rcQbvGlE8MezoCNRr/zEvULzQccMcekm+nl
+         ppCw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790365235; x=1790970035; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790365241; x=1790970041; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7w0ggNaiJUtaov8Aw9vNOQm+fzqQlGb0OSXJBvfDhk4=;
-        b=AEi9bH3oxyHPPEOyHgN0ToCVOd3BT00e2+aaPjnBALdvJ6LcnjOlGx58Elj30y1chA
-         55JXz8O/gcMruzEXwzZ/ZKfEI80dfhzRboxchwg7lbJ7XOGmAjABK9onLnD0/oFobmk5
-         EYUhnuI5E+USvVi/lYJaKnIqeov5lvgrX4EK4x5xt/6VujvMZskSZmdLoR+Sx417rffc
-         TXGK8H6a0F65/8oCcf7EI+dq1ZFDHHtpYClzPRdAKoHuJoxk1gWgNk2XeRcX2SwvxbHp
-         g47rS3CaIDMocXdmSWTnwwT+ED5yoIwmPXVLu5XW7ZRzXxhQJXLlVHM+15iXWa2K1VMH
-         5Ysw==
+        bh=QRtQwrI36+tl+6Prwhx/Tagi3Pi4qOHQ7OtnSC5ifgE=;
+        b=QKxq5/VIOaGIN3ETW2kO5BE585sPd3T+R5MlPhz1HBBqMb7Q0DuVytci+Yx0K8nW8Y
+         0eYnOUkUZrm9g2Nyg2yxQodVBsk5j4bjuCov1Z2mQZfAQLOkhdeNo7V7mim/K72ReJud
+         iIJ2d5WM0CqwqrurBwWtbGuBuFSJ/RidfX3DF9Ka9eO1vfzJ/RFqMe4EYcMpLUkUkT7Y
+         xSH2TlXtExBIwumqocbBTPbAaXcBIpAs/F37rzVGRFltgaUDu20YE5x7F6VjnCRs4GDh
+         I3NGZJQATYo1KnB+aV7j6vetPysdhhgXqbXZNFUbeQvrRK9mRN94T1VhRoTscaZFOAmM
+         ErgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790365235; x=1790970035;
+        d=1e100.net; s=20260707; t=1790365241; x=1790970041;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7w0ggNaiJUtaov8Aw9vNOQm+fzqQlGb0OSXJBvfDhk4=;
-        b=qv4nh8MGkZSqoYrJ6j2IzCLrbjJ75DA5c2xxrRJ/dMVGZYWpeBY5SkGsXufAKLRBpP
-         Z6nr4QuFR4Ke4nGvMFw4IfdLRxdQLxpSsfC3HXzJoXoZhsfdt8CT01jHGv08b6mkc8hb
-         u5Wrzkj6CxjL6bN5EOfpzq8sHHcR1MG/7lH4onc4zmow55V4OApkJnzwK5xO3pqhHnwe
-         ei1gam0+2jMww1ELHYro6DdjUCIgdDwsfsteWlMYPOG//LUNHERYWhR3X6KG5zORPtpV
-         2x+m3ghlPPefKBB4Yuubrnjay6NAeVHm3vgciob0+t15n07bXxJz48ymRCBMpFt6CUjl
-         cvIA==
-X-Forwarded-Encrypted: i=1; AKwUvBzcpUynlz6S+q6X1KXmw/t1jGQsVpQkCg9DNdVUFotndlgIB1+hiN5Cpg6oxHARvjxgoO4JNzwJGNslYSs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYdZlC6i7UCiMOk73PIekDZml4M75GiN0oaYujHwZ7+mHPcRUb
-	vhXf57TPgyatRlhTQFYFkRHkNE9KlC1qcNHpY9pNoy78dTeb2ncpl1nStnzZG503vl1hVPkK8C3
-	qbbpDc6D+oNd5+ehsfrLB/EjdgGuwPLRAst89JV4t
-X-Gm-Gg: AYBFou36xlfuvWqHV7znVYncDtCXHEOAmSJvPDF8Gp9r1v/p/kHnTuRKFTGdUm3qsH/
-	xkFDB6i1B67gR5Y4Mig7fgiTRAZ0KUb8jIHVCOaji8+fkjwJTcLb8J4vzAvr7WuTaXu5a4HWVi8
-	Iznf0ehIGcsBEBwz/hrEz52InCVCBEYoZ2t45dZRf7Zu1UcDdYzyJl3uaW9knPaibOLdzRv8M1E
-	B+A6TXjSR1jkdCJcC3v1UluW8ofYH+ifWpax0PzVnNM7KIbYPASMkQiYI7vANfPwdTd9RDdrm45
-	gMBlBQ1FBVtMCLIaVvY/rRxyJJEczWJz5HJ9ZN2X+P7Tg3UIAb8qhQIwH8T5B6UerOkUsQdZMpZ
-	Z1zLlgScmYjfY+0nV6kmG
-X-Received: by 2002:ac8:5a8e:0:b0:532:8423:1e78 with SMTP id
- d75a77b69052e-53320158245mr2288241cf.10.1790365234077; Fri, 25 Sep 2026
- 12:40:34 -0700 (PDT)
+        bh=QRtQwrI36+tl+6Prwhx/Tagi3Pi4qOHQ7OtnSC5ifgE=;
+        b=GVCM11wTcdxOSny+Pn+pd5yMyun4IFgWRUmkeX04jl7kuqvn9T5RPCsSPQZMgCMUnM
+         us6P1P5NQrEyKW1+5bsNjsseHdt9yn0MbXzbjT2xLZUIPLIEVaGpwfVmzuR03zTVU8kV
+         8YM29T9nRp1QMDhhz8fdCoiUfuc2MT1hW2mPeJbfXr/6yNwVvXlcLoN7jtdAvz7NYJpq
+         uV+DUWgiHw6d+T8KqsvwFAlpQPnmKzRjUm770gcJxJuUf5TECz28wHyyE4phHkEPLzAi
+         A9JCJfqqcS9IZxTbhvYdSM+VPCMR9nxmfQdUcvw+mhs4UsfKZybKolALNOq8kmy6TEny
+         CnaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByCJc0VWElYjuh/oSjKm/s4JD5geFxDwqVjlgEOYXK2Op0ZekVt9oeJoItmGru2RF4lXHD2v9GyVsqxNII=@vger.kernel.org
+X-Gm-Message-State: AFuF++kasUQuUXV0PWLIKQ1VWLoPjGwjVuNwyi2MVool6nj4bJzPO/b6
+	xP7MV+nuFZynUAsrBeWk99slohqyMFK5Q8OiUyDe8r0QFQVGHZ48vO7Ia52R9lepv7Htn3x2SoP
+	Xus8DOHi8yMNaU4zMLzNlBGmD+8yf7kfJnZItRZGX
+X-Gm-Gg: AYBFou1oLYL0AiHow4E0nG0f6GzfvU12Kxts/VfKbH5k0XdiVD3bgeYPfWHvv8YtVsH
+	RLtV/5Xzi62Lfsj5k0+TBZozzEIXKbNnqFO3xqhkpDPWp9pejZH27miRKvS4xCycVNDRvmG6mOg
+	KGMSVlhqj8CGw992WQYagd/r0wEc9aAYzoJBHTeYke+spLJ4cuHMtiH/Uz/8g0wDoOdxkiqAm0M
+	ykn54bMZ6IaLbFiRPMxxJf40TlEUmCkIEdUgz2Qbc2HDFIssjeFJbc3+gDWIwrpjKh1/P7n9ngr
+	DiXfo2cBNVKGRLp0flOL0lOsXmPh2RMUeM6HH0EgimVWBK0Tz6PRDVS8TyJYOdMwAh2h6G1dt+/
+	7mOx2dzANSMCM
+X-Received: by 2002:a05:6808:30aa:b0:4d6:90f3:74ae with SMTP id
+ 5614622812f47-4dc6606bcc9mr4067609b6e.46.1790365240133; Fri, 25 Sep 2026
+ 12:40:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-perf-symbol-memory-send-v3-0-3e4e234c363b@uber.com> <20260925-perf-symbol-memory-send-v3-3-3e4e234c363b@uber.com>
-In-Reply-To: <20260925-perf-symbol-memory-send-v3-3-3e4e234c363b@uber.com>
-From: Ian Rogers <irogers@google.com>
-Date: Fri, 25 Sep 2026 12:40:21 -0700
-X-Gm-Features: AclHuK9x629fLWASLEqLzbb_AP5DIooOcwJ0_0bd24zHfXGr_vdmWoYtnhtMltE
-Message-ID: <CAP-5=fUumhE1-DT3a-EBYQADy6Az=nViGmz==n1ocqXiXAEQjg@mail.gmail.com>
-Subject: Re: [PATCH v3 3/6] perf symbols: Factor out duplicate symbol selection
-To: haghdoost@uber.com
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
+References: <20260918222513.2633456-2-rdbabiera@google.com> <arF3fynAGG5khe3B@google.com>
+In-Reply-To: <arF3fynAGG5khe3B@google.com>
+From: RD Babiera <rdbabiera@google.com>
+Date: Fri, 25 Sep 2026 12:40:29 -0700
+X-Gm-Features: AclHuK_91DQZxLqN7uLYqBpJX2aYJ1LY4FTA5TNLS7LM4bAkU5HscFKOZ-tm8pA
+Message-ID: <CALzBnUEw4J1SB8a7is5Q-OKhkuQuPWUJcu9KHRrZO37k==FEOQ@mail.gmail.com>
+Subject: Re: [PATCH v7] phy: Add USB3 PHY support to Google Tensor SoC USB PHY driver
+To: Neill Kapron <nkapron@google.com>
+Cc: vkoul@kernel.org, peter.griffin@linaro.org, andre.draszik@linaro.org, 
+	tudor.ambarus@linaro.org, p.zabel@pengutronix.de, neil.armstrong@linaro.org, 
+	badhri@google.com, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org, linux-phy@lists.infradead.org, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 12:15=E2=80=AFPM Alireza Haghdoost via B4 Relay
-<devnull+haghdoost.uber.com@kernel.org> wrote:
->
-> From: Alireza Haghdoost <haghdoost@uber.com>
->
-> symbols__fixup_duplicate() chooses between symbols with the same start
-> address through choose_best_symbol(), which needs fully constructed
-> struct symbol objects. A loader that selects among aliases before
-> allocating symbols cannot use it.
->
-> Move the policy into symbol__choose_best(), which compares the size,
-> name, type and binding of two candidates described by struct
-> symbol_candidate, and pass the same description to the
-> arch__choose_best_symbol() hook. choose_best_symbol() becomes a wrapper
-> that describes two struct symbols. No functional change intended.
->
-> Signed-off-by: Alireza Haghdoost <haghdoost@uber.com>
-> ---
->  tools/perf/arch/powerpc/util/sym-handling.c |  6 ++--
->  tools/perf/util/symbol.c                    | 43 +++++++++++++++++++++--=
-------
->  tools/perf/util/symbol.h                    | 14 +++++++++-
->  3 files changed, 47 insertions(+), 16 deletions(-)
->
-> diff --git a/tools/perf/arch/powerpc/util/sym-handling.c b/tools/perf/arc=
-h/powerpc/util/sym-handling.c
-> index 947bfad7aa59..c263cbfefba5 100644
-> --- a/tools/perf/arch/powerpc/util/sym-handling.c
-> +++ b/tools/perf/arch/powerpc/util/sym-handling.c
-> @@ -10,10 +10,10 @@
->  #include "probe-event.h"
->  #include "probe-file.h"
->
-> -int arch__choose_best_symbol(struct symbol *syma,
-> -                            struct symbol *symb __maybe_unused)
-> +int arch__choose_best_symbol(const struct symbol_candidate *syma,
-> +                            const struct symbol_candidate *symb __maybe_=
-unused)
->  {
-> -       char *sym =3D syma->name;
-> +       const char *sym =3D syma->name;
->
->  #if !defined(_CALL_ELF) || _CALL_ELF !=3D 2
->         /* Skip over any initial dot */
-> diff --git a/tools/perf/util/symbol.c b/tools/perf/util/symbol.c
-> index 163652f071c6..4b50250d07fa 100644
-> --- a/tools/perf/util/symbol.c
-> +++ b/tools/perf/util/symbol.c
-> @@ -145,8 +145,8 @@ int __weak arch__compare_symbol_names_n(const char *n=
-amea, const char *nameb,
->         return strncmp(namea, nameb, n);
->  }
->
-> -int __weak arch__choose_best_symbol(struct symbol *syma,
-> -                                   struct symbol *symb __maybe_unused)
-> +int __weak arch__choose_best_symbol(const struct symbol_candidate *syma,
-> +                                   const struct symbol_candidate *symb _=
-_maybe_unused)
->  {
->         /* Avoid "SyS" kernel syscall aliases */
->         if (strlen(syma->name) >=3D 3 && !strncmp(syma->name, "SyS", 3))
-> @@ -157,38 +157,39 @@ int __weak arch__choose_best_symbol(struct symbol *=
-syma,
->         return SYMBOL_A;
->  }
->
-> -static int choose_best_symbol(struct symbol *syma, struct symbol *symb)
-> +int symbol__choose_best(const struct symbol_candidate *syma,
-> +                       const struct symbol_candidate *symb)
->  {
->         s64 a;
->         s64 b;
->         size_t na, nb;
->
->         /* Prefer a symbol with non zero length */
-> -       a =3D syma->end - syma->start;
-> -       b =3D symb->end - symb->start;
-> +       a =3D syma->size;
-> +       b =3D symb->size;
->         if ((b =3D=3D 0) && (a > 0))
->                 return SYMBOL_A;
->         else if ((a =3D=3D 0) && (b > 0))
->                 return SYMBOL_B;
->
-> -       if (symbol__type(syma) !=3D symbol__type(symb)) {
-> -               if (symbol__type(syma) =3D=3D STT_NOTYPE)
-> +       if (syma->type !=3D symb->type) {
-> +               if (syma->type =3D=3D STT_NOTYPE)
->                         return SYMBOL_B;
-> -               if (symbol__type(symb) =3D=3D STT_NOTYPE)
-> +               if (symb->type =3D=3D STT_NOTYPE)
->                         return SYMBOL_A;
->         }
->
->         /* Prefer a non weak symbol over a weak one */
-> -       a =3D symbol__binding(syma) =3D=3D STB_WEAK;
-> -       b =3D symbol__binding(symb) =3D=3D STB_WEAK;
-> +       a =3D syma->binding =3D=3D STB_WEAK;
-> +       b =3D symb->binding =3D=3D STB_WEAK;
->         if (b && !a)
->                 return SYMBOL_A;
->         if (a && !b)
->                 return SYMBOL_B;
->
->         /* Prefer a global symbol over a non global one */
-> -       a =3D symbol__binding(syma) =3D=3D STB_GLOBAL;
-> -       b =3D symbol__binding(symb) =3D=3D STB_GLOBAL;
-> +       a =3D syma->binding =3D=3D STB_GLOBAL;
-> +       b =3D symb->binding =3D=3D STB_GLOBAL;
->         if (a && !b)
->                 return SYMBOL_A;
->         if (b && !a)
-> @@ -213,6 +214,24 @@ static int choose_best_symbol(struct symbol *syma, s=
-truct symbol *symb)
->         return arch__choose_best_symbol(syma, symb);
->  }
->
-> +static int choose_best_symbol(struct symbol *syma, struct symbol *symb)
-> +{
-> +       struct symbol_candidate a =3D {
-> +               .size =3D syma->end - syma->start,
-> +               .name =3D syma->name,
-> +               .type =3D symbol__type(syma),
-> +               .binding =3D symbol__binding(syma),
-> +       };
-> +       struct symbol_candidate b =3D {
-> +               .size =3D symb->end - symb->start,
-> +               .name =3D symb->name,
-> +               .type =3D symbol__type(symb),
-> +               .binding =3D symbol__binding(symb),
-> +       };
-> +
-> +       return symbol__choose_best(&a, &b);
-> +}
-> +
->  void symbols__fixup_duplicate(struct rb_root_cached *symbols)
->  {
->         struct rb_node *nd;
-> diff --git a/tools/perf/util/symbol.h b/tools/perf/util/symbol.h
-> index 46b1649c64fc..b9fa722a9a14 100644
-> --- a/tools/perf/util/symbol.h
-> +++ b/tools/perf/util/symbol.h
-> @@ -299,10 +299,22 @@ const char *arch__normalize_symbol_name(const char =
-*name);
->  #define SYMBOL_A 0
->  #define SYMBOL_B 1
->
-> +/* Attributes used to choose between symbols that share a start address.=
- */
-> +struct symbol_candidate {
-> +       u64             size;
-> +       const char      *name;
-> +       u8              type;
-> +       u8              binding;
-> +};
-> +
-> +int symbol__choose_best(const struct symbol_candidate *a,
-> +                       const struct symbol_candidate *b);
-> +
->  int arch__compare_symbol_names(const char *namea, const char *nameb);
->  int arch__compare_symbol_names_n(const char *namea, const char *nameb,
->                                  unsigned int n);
-> -int arch__choose_best_symbol(struct symbol *syma, struct symbol *symb);
-> +int arch__choose_best_symbol(const struct symbol_candidate *a,
-> +                            const struct symbol_candidate *b);
+Hi Neill, thanks for the thorough review. Will send v8 out shortly.
 
-Given you can change this function definition and only change 1 C
-file, is there any reason not to make the function static in symbol.c
-and move the struct symbol_candidate definition also to symbol.c?
+On Mon, Sep 21, 2026 at 11:29=E2=80=AFAM Neill Kapron <nkapron@google.com> =
+wrote:
+> The driver is now using readl_poll_timeout() and
+> pm_runtime_get_if_active(), we should be including linux/iopoll.h and
+> linux/pm_runtime.h explicitly.
 
-Thanks,
-Ian
+Acknowledged.
 
+> > +#define TCA_CTRLSYNCMODE_CFG1_XA_TIMEOUT_VAL_100MS 0x1e85
+> > +#define TCA_PSTATE_0_OFFSET 0x50
+> > +#define TCA_PSTATE_0_UPCS_LANE0_PHYSTATUS BIT(8)
+> > +
+> > +#define GPHY_TCA_DELAY_US 10
+> > +#define GPHY_TCA_TIMEOUT_US 100000
 >
->  enum symbol_tag_include {
->         SYMBOL_TAG_INCLUDE__NONE =3D 0,
+> With the addition of TCA_CTRLSYNCMODE_CFG1_XA_TIMEOUT_VAL_100MS, we
+> should consider bumping GPHY_TCA_TIMEOUT_US to be slightly larger (e.g.
+> 110000us) to ensure the hardware timeout is guaranteed to expire before
+> the software poll timeout.
+
+Will change here.
+
+> > +static const char * const u2phy_clk_names[] =3D {
+> > +     "usb2",
+> > +     "usb2_apb",
+> > +};
+> > +static const char * const u3phy_clk_names[] =3D {
+> > +     "usb3"
+> > +};
+> > +static const char * const u2phy_rst_names[] =3D {
+> > +     "usb2",
+> > +     "usb2_apb",
+> > +};
+> > +static const char * const u3phy_rst_names[] =3D {
+> > +     "usb3"
+> > +};
 >
-> --
-> Git-157)
+> nit: checkpatch.pl --strict flags missing blank lines between these
+> array declarations (and the inline helper functions + DEFINE__FREE
+> macros below).
+
+Will check.
+
+> >  static int google_usb_set_orientation(struct typec_switch_dev *sw,
+> >                                     enum typec_orientation orientation)
+> >  {
+> >       struct google_usb_phy *gphy =3D typec_switch_get_drvdata(sw);
+> > +     int ret =3D 0;
+> >
+> >       dev_dbg(gphy->dev, "set orientation %d\n", orientation);
+> >
+> > -     gphy->orientation =3D orientation;
+> > +     guard(mutex)(&gphy->phy_mutex);
+> >
+> > -     if (pm_runtime_suspended(gphy->dev))
+> > -             return 0;
+> > +     gphy->orientation =3D orientation;
+> >
+> > -     guard(mutex)(&gphy->phy_mutex);
+> > +     if (IS_ENABLED(CONFIG_PM)) {
+> > +             if (pm_runtime_get_if_active(gphy->dev) <=3D 0)
+> > +                     return 0;
+> > +     }
+> >
+> >       set_vbus_valid(gphy);
+> >
+> > -     return 0;
+> > +     if (gphy->phy_state =3D=3D COMBO_PHY_TCA_READY && orientation !=
+=3D TYPEC_ORIENTATION_NONE)
+> > +             ret =3D program_tca_locked(gphy);
+> > +
+> > +     pm_runtime_put(gphy->dev);
+> > +
+> > +     return ret;
+> >  }
 >
+> Previously, sashiko recommended moving to pm_runtime_get_if_active(),
+> which was done in v6. However I think this may have changed the behavior
+> of google_usb_set_orientation() and potentially introduced a regression
+> due to the pre-existing ordering of calls in gooogle_usb_phy_probe(),
+> causing this function to always take the early 'return 0' path.
 >
+> In google_usb_phy_probe(), we call devm_phy_create() prior to calling
+> pm_runtime_enable(dev).
+>
+> In drivers/phy/phy-core.c, devm_phy_create() calls phy_create(), which
+> has the following check:
+>
+>     if (pm_runtime_enabled(dev)) {
+>         pm_runtime_enable(&phy->dev);
+>         pm_runtime_no_callbacks(&phy->dev);
+>     }
+>
+> Therefore, the phy device never has pm_runtime_enabled, causing this
+> call to pm_runtime_get_if_active() to always return 0, and the function
+> exits prior to calling `set_vbus_valid()`.
+>
+> I think moving the pm_runtime_enable(dev) call prior to
+> devm_phy_create() will resolve the issue, but we should audit power
+> managment in this driver to verify.
+
+The check here is called on gphy->dev as opposed to phy->dev. fw_devlink us=
+es
+FW_DEVLINK_FLAGS_RPM by default, so the dwc3 consumer controller holds
+DL_FLAG_PM_RUNTIME on the phy platform device. Every resume call on
+the dwc3 controller results in the supplier resuming as well under this
+model, so the runtime_get() call here passes.
+
+> I think this introduces a regression between v6 and v7, as usb3_tca_base
+> may be accessed prior to the 'usb3' clock being enabled, and
+> furthermore, the call to reset_control_bulk_deassert() will clear this
+> value.
+>
+> Therefore, I think we need to this after the call to
+> reset_control_bulk_deassert().
+
+usb3_tca_base is powered by a different clock as opposed to the 'usb3'
+one, so the register access will be safe as long as the platform driver's
+power domain is on. Register reads in either order both result in the
+same behavior during testing, but I would argue that writing before
+the call to reset_control_bulk_deassert() ensures that the parameter
+is applied on PoR.
+
+Best,
+RD
