@@ -1,145 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFFF4EA368;
-	Fri, 25 Sep 2026 16:42:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0354233943;
+	Fri, 25 Sep 2026 16:43:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354593; cv=none; b=jutzZN+3xbwZtK2ZsC7nqWdNJRU+re7Mgjp+7thkpKDX8OpovGxxvKcrXZ8eqzfgWJaQTzhk/DQyfYXUsOB6FBR/odDu3JWWmaNV309ceL1lrSs4rGJO3PzXkOXygLvm3n6sJzXet32G/OQzwZk2OoWTUuXtS3yicTRiClcbGcE=
+	t=1790354599; cv=none; b=iW20VfJ6++dYf9idpVu3qEo/AmoT++I99jTaiQikN3GdJE2SH0thUbWGikUVICRPijFtzOY+VH05IgCKI8KGq54VVfFmxeDivoLnfcQBexETWKHWHmdHZxTNE4jDNE+2ub2pG+Qq5Mv8YMepfClOEsbqtsR3Llh06scv0wQlIpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354593; c=relaxed/simple;
-	bh=P3w6KMXjzLlN6nAljQD/5grUF93zr/UQ9AJoIQbvkpw=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=M1SuUK1zkn+K5WCptRsFEkBjjX4pYOAKUvYDhY+In8PFCw9ySt7B0Eu5r2qqzkG9DIjGODkZnjO5Xypwdmsr11lFDTxya3p+8EGPopbgO1M3EU00N+Q1yk5kSv/AIcbjQYuTgNytIJ62eKPWPwBV8oW9AL6HbEoMLzwve5DYCT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QFGDgU7I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790354599; c=relaxed/simple;
+	bh=C0VoGDzcMAmv6Or+++plvdMsJr8cWNXzmxPzoPDA5cs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GDoNYNY1eyf0wHYni4Is5AO2fgU8E9huLHviAgxjvap1LdTOYcHphW1Gm+xoJA9rBma2zr/FEaDTAHvIbyXBiKKeHphPq5ZsenUAGtc3ZEmHbrt0kOLqldhihmJAghpZkdp771tb2YyVcJKgopqSg8hJhkmPXoZYKXOOfDV+3Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZC9r9L3i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QFGDgU7I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72A31F000FF;
-	Fri, 25 Sep 2026 16:42:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZC9r9L3i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8697B1F00893;
+	Fri, 25 Sep 2026 16:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790354563;
-	bh=Td8d4StGwfViCnmZPo1eb0gqFXmqlEDNpKnck2rJhM8=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=QFGDgU7IKMnHqdexzNTe0J9OMuvOr7gXytEcQR5jvi5F+E0moIp5uwXVWFrhZuqpA
-	 tQu5zKqPQ9sXNki6y5QXUPclXS4I3jt7QDVjiHziQVh3nobUMaghdYb1NKjVzxUY7r
-	 n56U64tB+OEzMGbGsUmxUP942DJzYitlSB1QzhJCXFLqFzmG/lzBlaFiUSah6kXWdO
-	 upVPFVojzMDT+AjxE0J0H3K2Xqmt3k6nh0zQ9QoHLQ7DP1qdVJALDFCOAP2mzP3pJq
-	 WRORlXemmQjOHARWBTZL+V4DEUHmKzM+6FaHadtiraYtOD4vhhLs+Jz3Z9h3vT21da
-	 MZTP+y+tCnVMA==
-Content-Type: multipart/mixed; boundary="===============6809303146770183891=="
+	s=k20260515; t=1790354593;
+	bh=C0VoGDzcMAmv6Or+++plvdMsJr8cWNXzmxPzoPDA5cs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZC9r9L3ipKqdS4ni6DqvA4ARifkGSw3WL51f2A9NTR8yWW3oXp7kmpJ+2TUce3Uj7
+	 7xo4sU9RrDyA5uUkuJi3bTrxMUrh0ygYjCX8UVIUwC6TOj1uk2fLT5Vtf8BrJtiI6I
+	 HnZQZk0dN8jJJMZRQtPMc4aXQyd6h+j2jDZiJMQH4aqmdpayDnYfWHczqPw9RpyYr3
+	 3KVRGwckY9cwViH9/0ZAJgJbvQdSuYLjWxuf6aR1CUelxCzwzd3Wurkpefw0jHxECU
+	 sHT4X60LzL+/eDFST9Nxpe4mtszcg4jPEBcSLrjp55c7JeGsfBld+PNflsCTVCJSeD
+	 57aXjMA9rW1mA==
+Date: Fri, 25 Sep 2026 17:43:05 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>,
+	Joao Pinto <Joao.Pinto@synopsys.com>,
+	Hannes Reinicke <hare@suse.de>, linux-scsi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org, clizzi@redhat.com,
+	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com
+Subject: Re: [PATCH v6 07/12] dt-bindings: ufs: Add NXP S32N79 UFS host
+ controller
+Message-ID: <20260925-afoot-tinsel-096f8efd16d3@spud>
+References: <20260925143534.3298540-1-larisa.grigore@oss.nxp.com>
+ <20260925143534.3298540-8-larisa.grigore@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <6a6f53bff017aa1e0c758a1a87da09ae0165d5523b13e65dc944e3494377e3fd@mail.kernel.org>
-In-Reply-To: <20260925154029.3673513-2-eva.kurchatova@virtuozzo.com>
-References: <20260925154029.3673513-2-eva.kurchatova@virtuozzo.com>
-Subject: Re: [PATCH bpf-next v2 1/1] selftests: bpf: size the map in test_lru_sanity3 to whole refills
-From: bot+bpf-ci@kernel.org
-To: eva.kurchatova@virtuozzo.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,willemb@google.com
-Cc: linux-kernel@vger.kernel.org,eva.kurchatova@virtuozzo.com,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri, 25 Sep 2026 16:42:42 +0000 (UTC)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Dh1WmLbrcdsVY8Bn"
+Content-Disposition: inline
+In-Reply-To: <20260925143534.3298540-8-larisa.grigore@oss.nxp.com>
 
---===============6809303146770183891==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+--Dh1WmLbrcdsVY8Bn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> selftests: bpf: size the map in test_lru_sanity3 to whole refills
->
-> test_lru_sanity3 fills a map of tgt_free * 2 elements, and then reads
-> back all but the last few. Whether that passes depends on the cpu
-> count alone; on a machine with six it does not:
->
->   test_lru_sanity3 (map_type:9 map_flags:0x0): test_lru_map.c:463:
->   test_lru_sanity3: Assertion `!bpf_map_lookup_elem_with_ref_bit(
->   lru_map_fd, key, value)' failed.
->
-> The kernel hands elements out in refills of lru->target_free, which is
-> clamp((size / nr_cpus) / 2, 1, LOCAL_FREE_TARGET), that is 128 / nr_cpus
-> rounded down. A refill the global free list cannot satisfy in full
-> calls __bpf_lru_list_shrink() for the remainder, and that evicts live
-> elements. Filling the map therefore evicts nothing only when computed
-> 128 / nr_cpus is a power of two. Any other nr_cpus variation fails.
->
-> batch_size is already __tgt_size(tgt_free), the refill size of a map
-> is __map_size(batch_size) elements, so size the map that way and the
-> fill consumes whole refills. Start the keys of the last insert at
-> map_size + 1, just past the new size.
->
-> Above 128 cpus __tgt_size(tgt_free) is 0 and there is no size to build
-> on. Skip the test there.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-The changelog states the skip triggers "Above 128 cpus", but the code
-skips from 65 CPUs up. main() passes tgt_free = LOCAL_FREE_TARGET (128),
-and __tgt_size() computes:
+--Dh1WmLbrcdsVY8Bn
+Content-Type: application/pgp-signature; name=signature.asc
 
-    batch_size = (128 / nr_cpus) / 2 = floor(64 / nr_cpus)
+-----BEGIN PGP SIGNATURE-----
 
-which is 0 for any nr_cpus >= 65 (since 128 / 65 = 1, and 1 / 2 = 0).
-The new `if (!batch_size)` check fires on 65..128 CPU machines, not only
-"above 128 cpus".
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarakmQAKCRB4tDGHoIJi
+0rwoAP0dM83jHfdNPJ071+EP930GYRzZ/9MxGHj9aiDL/l2yaAEA72eN8EreupVH
++nObbELyyrwyJ6xSnymW3QYolOyVhAk=
+=8Spa
+-----END PGP SIGNATURE-----
 
-The sentence "batch_size is already __tgt_size(tgt_free), the refill
-size of a map is __map_size(batch_size) elements" is also hard to parse.
-The refill size is batch_size (not tgt_free); the map is sized to make
-the kernel's target_free equal batch_size.
-
-Could the last paragraph say "Above 64 cpus", and could the sentence be
-reworded to clarify that batch_size becomes the refill size after the
-map is resized?
-
-> diff --git a/tools/testing/selftests/bpf/test_lru_map.c b/tools/testing/selftests/bpf/test_lru_map.c
-> index 0921939532c6..84e9a930471a 100644
-> --- a/tools/testing/selftests/bpf/test_lru_map.c
-> +++ b/tools/testing/selftests/bpf/test_lru_map.c
-> @@ -441,8 +441,15 @@ static void test_lru_sanity3(int map_type, int map_flags, unsigned int tgt_free)
->  	assert(sched_next_online(0, &next_cpu) != -1);
->
->  	batch_size = __tgt_size(tgt_free);
-> +	if (!batch_size) {
-> +		/* More cpus than this tgt_free gives a refill for */
-> +		printf("Skip\n");
-> +		return;
-> +	}
-
-A subsystem pattern flags this as potentially concerning: the new skip
-reports with printf("Skip\n") and then returns, so the binary exits 0
-and CI counts it as a pass. The selftests guide asks for skip results to
-go through kselftest.h (ksft_test_result_skip() with a reason string),
-and says skip messages should always include a reason.
-
-test_lru_map.c is a legacy binary that never includes kselftest.h, and
-converting just this line would be inconsistent with the existing
-printf("Pass\n") pattern used elsewhere in the file. The concern is
-narrow: could the message at least say why the test was skipped, for
-example printf("Skip: nr_cpus %d > %u\n", nr_cpus, tgt_free / 2)?
-
-> +
-> +	/* A partial refill shrinks the LRU and evicts live elements */
-> +	map_size = __map_size(batch_size);
->
-> -	map_size = tgt_free * 2;
->  	lru_map_fd = create_map(map_type, map_flags, map_size);
-
-[ ... ]
-
-> @@ -466,7 +473,7 @@ static void test_lru_sanity3(int map_type, int map_flags, unsigned int tgt_free)
->  	}
->
->  	/* Insert new batch_size: replaces the non-referenced elements */
-> -	key = 2 * tgt_free + 1;
-> +	key = 1 + map_size;
->  	end_key = key + batch_size;
->  	for (; key < end_key; key++) {
->  		assert(!bpf_map_update_elem(lru_map_fd, &key, value,
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36157128898
---===============6809303146770183891==--
+--Dh1WmLbrcdsVY8Bn--
