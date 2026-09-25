@@ -1,255 +1,140 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012045.outbound.protection.outlook.com [52.101.53.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27048423E9F;
-	Fri, 25 Sep 2026 11:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790336556; cv=fail; b=iYBaFIIJtii0tknzJ0AxJryeCYFwiWYryiRJnQYrvPDvho+mqtRCTpMS+rL+Iv61lIFoO0qDSi/qgA68HZeWsyQRdfaYwt8pUkkM6EyV5tg/QJ0rr2sexKxkA66K3KzLFK09MlZb8jwppGd1HJaU5v8SKXyfVp4GvxsFJKoGJxU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790336556; c=relaxed/simple;
-	bh=z0VLupQrMpCJhlG3aScizptyq39Oae3F0xs3HFWNgh4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=POikQx/ewjsq15CScJtATLBP7LQx88WAKvehgZCabyx20EYpIUUnoXzvE+b8ifR2F46ioRbBiXZuah64KSfY56IhnIhZEIWku/jF3bOalN9g7Is0bFxuXUQWBrW/YMejc+Mn7TCYPrycEs3SWSPJLCS1B+Cbz1HN3T7/tEdE7LM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=RPiQVyVb; arc=fail smtp.client-ip=52.101.53.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687A349BD8B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790336562; cv=none; b=VkIkAHVEX+ifcqEuK71TSogxzTrHIdeCaZOyA5QMalvPg/C2hzul0m17cD7tzGTdpa0vi2Gtj4yhn6rFUBqQZUwiP3D7RcBB5/Lx7wMHLR04LIeBGQ3GDIdTjmDJznglOVvTU9o7BBdpRuB+RWtEA94PSiWghNEHI1UhlOQZik8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790336562; c=relaxed/simple;
+	bh=rBJnsaVCHfaOL/WHv+pHL3sj4oETCI/VZTPPqHKVDRU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mnVw0jZDjWd4m17WFiD4Yid8KYOEYhByhhPvVAKHzAa7Uex5NXjui/x+y9YnRkz7XZRXfMM5uXPVCVfLTizfjbE/UhRnX2k+TjEmycMe92OEJl3ycDjYn5dq3GdzpOVeX9brCCiXx+ug3phd7v0/UbxDpXaqL9wcLP8NxrLTjRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wo02HaYP; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="RPiQVyVb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=njUAouPqgURHsXncACwtIyzBKdPHBU/lT1vibzHfXyI8p9cVZsc2uI2LpBVeQDxklsMViIsJ8YcDuqIxZYIew+tnidSWcSkzAy0kQPQYWLptoDbv+jLzpmAXVEy/ajcl/GBx1InY+sXsBamEhcuz0/54hyuONBdURnwstfbQB6r+8Y/N4uy4H/TXR50Us0yR91kfI9hcmxQZM9cL/oh450Nlbc/Ym+c5wXC6ujgEFhvJaRytTE7SFbtypzNP912MyPPwPMJ5AngF1SmAQahz+EvydCh49S0HksE22mCEzwhQBAzoPB51Eo5A1QM0cEeSaWq6uQ2/JnOAJ0wJVAM4rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y4Zy/wOpHBzpnQBmZbuayMjz9HbMbQI+96DVZPaZTRk=;
- b=VYaaow0cQWJBH0mV2JctOsk/Fc/nJY+JnJBkucmdXiZ3ixZ8+FWkTMvMH8Hi4nue0haSxvYsgErm/DR2fkRUEXiXK5E9UNZdDZ+Y7iQhtZnLObgp/WZjgIqqFSC2U/IEbn3g/zMJs+WoXl0eTHUlG9eGEcMml8YVfriFczTXkAtWUGLvMcNIe/j4FMkAGTtTmPz/bkhiNmz+1v9x9S5lHOJTkSWJECzKWYgnFcotgufXIRfol+k8ckb9iNMmPMx30pPbZBQ1YZTxqBibVOm0VqKzKbRmvb/l7R7bnksyxzuseUJEvulfX98xnX+6KCLruYfygdDdmA7ghL88Ve6obA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y4Zy/wOpHBzpnQBmZbuayMjz9HbMbQI+96DVZPaZTRk=;
- b=RPiQVyVbeTwBAhsk7cRmmHM8twkUEsbsI2FnNruPRktFlKLbjAfC4xcvApClvU5ytzCZZv3nut1L4QzUXJss2j0Hs7DLEB27RqMTc1CmhjoXKuiSzOy+G5ayAxtuRm12ScYwvj9330xPjkwNqfY959M+4yB4CVAYUv136XsYgoQ=
-Received: from SJ0PR05CA0103.namprd05.prod.outlook.com (2603:10b6:a03:334::18)
- by IA0PR12MB8716.namprd12.prod.outlook.com (2603:10b6:208:485::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Fri, 25 Sep
- 2026 11:42:28 +0000
-Received: from SJ1PEPF000023CE.namprd02.prod.outlook.com
- (2603:10b6:a03:334:cafe::33) by SJ0PR05CA0103.outlook.office365.com
- (2603:10b6:a03:334::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
- 25 Sep 2026 11:42:28 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023CE.mail.protection.outlook.com (10.167.244.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 11:42:28 +0000
-Received: from purico-abeahost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 06:42:22 -0500
-From: Shivansh Dhiman <shivansh.dhiman@amd.com>
-To: <seanjc@google.com>, <pbonzini@redhat.com>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>
-CC: <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<xin@zytor.com>, <andrew.cooper3@citrix.com>, <sohil.mehta@intel.com>,
-	<dwmw@amazon.co.uk>, <yosry@kernel.org>, <nikunj.dadhania@amd.com>,
-	<santosh.shukla@amd.com>, <shivansh.dhiman@amd.com>
-Subject: [PATCH v3 0/9] KVM: SVM: Enable FRED support
-Date: Fri, 25 Sep 2026 11:40:08 +0000
-Message-ID: <20260925114017.2208531-1-shivansh.dhiman@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wo02HaYP"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so4713765e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:42:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790336559; x=1790941359; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ivBplz0pPix7WscLWvh29/mI0h6ugzDIMPQk1yJ2WUw=;
+        b=Wo02HaYPw8gr2wfBPe2GBXKKieIYrT21mArXUtRiRfJo0Niz7rzXN8HnqPJfCp2nEW
+         Yd8J6Q5TgpBD92lq/Lvd9BKUhFVH/phZTfuTbHSfNBTSzGQ3OSxYqXZMXnwfEpJpwPi8
+         vtCwNRWoVKavYWIU38uGKG1v578BZXXqqKLYYrr9v6ZXyhbkFw82FxdYf6nLl3otTxtk
+         2EybzJiYQNbWP6CFcVhx04X/7BT3i3J01Vgzx6L/kxczIBKYfp+3U1nlj0/+9bjQiEPv
+         fV3HPAPYKlSg0fD7ywsJhRhogBvBQUzVO4VRKaI0+lyaF9HuOMzh0H+N+H+3FPwKzNK4
+         q9Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790336559; x=1790941359;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ivBplz0pPix7WscLWvh29/mI0h6ugzDIMPQk1yJ2WUw=;
+        b=gOe30hcLss5WWkL+3D/aSLCJkhInGLmaktbNfGceUzYWr4ebhCzgGvnC/Sxz1zptlo
+         t8X3IvhcxFa62tBLomQAAAPdnb32PHLb4a4Shs9pfm/2EjvlkyIUw6tKTofmC6U+7+Mg
+         tm/9sH5xbFdMvnS8MqM/QJqo8Sw0Zs5m+E9PT0i6SK2ogjWuv1Yk86AH8hJFh1sN/X1F
+         e1kF5x5xij1htXvqcztHzeEXvenZx5asoo3Mhr4R3SvrRoYb5ge1p8WKtnFVlc0aCJYD
+         09RxCqBaHWr5W9lOv2Vyn/jaitfczeZ2oXpGpylAjxXXUuMv89SqI+cjXy2Uz5jWeov0
+         P+gw==
+X-Forwarded-Encrypted: i=1; AKwUvBxn/eFvDAle7Y8RiGA2QFRkDaoNHlyXi0HGDPXa97N8QZUEJEVqZS1pEQVeLxgr9U21XGxkKze5uCPqCME=@vger.kernel.org
+X-Gm-Message-State: AFuF++nE4bJqQWEOl3gJGIR1upJkaQxAbd0VLtr7Ex0+WmxGHNnmkWFx
+	pCzEQSDOirs7CMzAakvtpXB7PVEOcdO7dwIsIxk4BGjaojs9BcQkLTOC
+X-Gm-Gg: AYBFou3AqwTdMboCuWxSuYchXKhEncaL3sHs/w08CTIF5/Gyu7W1PWmp+FavDz1HDZZ
+	ewA/LceI7PYaPqLPYqGdFJwu2HP5nOy5QbRvbfPYOOkn88mGk3x6KAFl4e6Fik0ciQM+QlTq0Xl
+	5Keuk/gSQRhq0mZuO7hd4SSWB18oljeWBcrI9u9GOjhYxRwOFxM+JwvJxdYlMFQq6FfJEjnB67j
+	TN7dHQvcUOYKiwEk2g6M2y3hHO3uiWMGd8YFYKLMupETb/406uACxTKmCeS7tVaL7SN6xWAyuis
+	D4DsOQ1UIIufuWCXv+3vMfyNMupI27urc4FufDhGLV4sj7r0wKmxGMO73/ft3DjFxZluUsdiVba
+	IQFCRWdSOjE0iBr5+e1oHqCbYDJeLJU+7dEayusiapNE7a81sSgC6nQ+EF8Cba/kSAP9SqXnO0d
+	UW5BKJhIJyCzZBY4LcV+hV4KE87wYc8Bn3o8weylhz+0ucWREaMlK5a3voCF5uM5aK1a8dWGKau
+	bYNAjIiX+kkPKTd5a78sLQZx/3WFsVM4B7x99CcL5udGbOqByK/Gfj0YgcnQLNH0/7lDt9pJOmm
+	oqUyCNE1nK5JBtPoMyLesmtW3AxZ2DbXNnypNhrT1K+152fT
+X-Received: by 2002:a05:600c:37c9:b0:49f:c2ef:cfb9 with SMTP id 5b1f17b1804b1-49fe66c897cmr87889265e9.4.1790336558641;
+        Fri, 25 Sep 2026 04:42:38 -0700 (PDT)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a638sm6221839f8f.9.2026.09.25.04.42.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 04:42:37 -0700 (PDT)
+Message-ID: <8d1c634d-f481-4c10-a773-c4cab414f6c5@gmail.com>
+Date: Fri, 25 Sep 2026 12:42:34 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 1/3] net: netmem: add net_iov_area freelist
+ helpers
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, hawk@kernel.org,
+ ilias.apalodimas@linaro.org, axboe@kernel.dk, sdf@fomichev.me,
+ bobbyeshleman@meta.com, kaiyuanz@google.com, linux-kernel@vger.kernel.org,
+ io-uring@vger.kernel.org
+References: <20260922204348.717198-1-sdf@fomichev.me>
+ <20260922204348.717198-2-sdf@fomichev.me>
+ <CAHS8izPwLBCJXM_0Df8P6S-FVwAq+TaRKn3uTh1h=33Ffj8VmQ@mail.gmail.com>
+ <f566591a-cef3-459f-a39e-86addb0c5d7e@gmail.com>
+ <arVTvlvKsBRNG2aQ@devvm7509.cco0.facebook.com>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <arVTvlvKsBRNG2aQ@devvm7509.cco0.facebook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CE:EE_|IA0PR12MB8716:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5796c8c4-7af6-4fb6-2bb9-08df1afa138f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|7416014|1800799024|36860700016|23010399003|6133799003|18002099003|3023799007|13003099007|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	9ndKIIQrWzILkaPm9dUewGYYdKlg/PWyDM3dBPCMtFFyMqv/1zU56bEXDbV7hmCnSVPqruiF2qSEfoQhKR+AkxDyPEdCq6Rxn9ALXeCOOXj9R+GbD6ZDKiz5uTEFnLzLq0YXT71EMod+Nbdti8Snc3r41P/eQQpIiedj4XhYWxDv7mE3OojcgnPKA3xmFu+UjCMKTUp57Hd6EUxj5tzrSaEGvZ0Ew3Fg9flMK8V/jM0LrpGwPV1T9MmBmk4P3HOhKPH9/dHtA1e/5OfLLcz7CYd9dTej84n6ZJYLxs3tOU4+JpiCclOv2yCAdDUD68y/rg/A5XIDrLqkMIiiT8+ktzDrqx3FZsb2N0l86AcWctwCacVFBiTDiwPeqXD+MYzOYpo2XuNRjESYkndyM7XtqmuLONwFbeb1MnSw3wWO1VB53gMDF53nU+F+oTofcr5nwRx7PpaqU8kkthFeDOhB4ZOUK0iQ4QB6Edjnrh4Q7PWAserva9+gp9Otnb4usDINYk9y3PnkZFK/jbnVtcwmxRh2vp8P+K5nom4WRUwR/eThWVPTqtg9Ye8BlE/AiQMVP3PZ4O8REpSR5i0AkShjvV0h3GZ88Kei+I/AGllumn3qVSeX1vojddazvosrLnhpRxNlLm9lysU/AqkzEqyYA58scfs4ceRV/cJcv0Jlbzg=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(1800799024)(36860700016)(23010399003)(6133799003)(18002099003)(3023799007)(13003099007)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	BPY3MNqAwUfxQiqqDxJfMAsLnZCTPp6Jm1zzYvxdkvNqv79yrP7/B0GKZXQ+t8n3s4e/jOxqSaEGa+JIhnnluGT4fmmLDgxK0w4GMjoTK4Fi4tWFzXxgGNZrChz1WIJt8G7Tdv0Z/6tVO8qH02IQGhQ0N+8NVbEW9qo90IAv/6xoOmpNHnzTK3mtjymhyKSX3zxntQdc6apiQKhuYAznEcw3ee2v42dXNYR4FlAmKk06WMLma51k5F4zZcSoAhaY7vcoNTqIOAWwD/HELJ2C8Eif1CFzb1xopQ69Se5n5HroaTB/xlhQmGBa/l3ZgxiCcf2guT3dA8n+igMY28sTEv7KD1hKp+UrnHWvRbEHLc2bAx544mVgJP5WNu1Q1Ok7IbBM63nZWH0QxHa28DhRif+jwUeq9b+HyWBH9D2+SstOrT6wx4ZaT4XNtljavqvb
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 11:42:28.0944
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5796c8c4-7af6-4fb6-2bb9-08df1afa138f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023CE.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8716
 
-This series adds SVM support for FRED (Flexible Return and Event Delivery)
-virtualization in KVM.
+On 9/24/26 17:48, Stanislav Fomichev wrote:
+> On 09/24, Pavel Begunkov wrote:
+>> On 9/24/26 16:02, Mina Almasry wrote:
+>>> On Tue, Sep 22, 2026 at 1:43 PM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
+>>>>
+>>>> io_uring zero-copy receive and devmem both maintain a bounded LIFO for
+>>>> net_iovs in a contiguous area. Store the freelist in struct net_iov_area
+>>>> and provide common push and pop helpers.
+>>>>
+>>>> Leave synchronization to area owners. Keep devmem's area adjacent to its
+>>>
+>>> This could be a follow up change, but I think synchronization should
+>>> be provided by the netmem/niov infra, rather than the area owners. TBH
+>>> the infra providing an unsynchronized data structure and letting the
+>>> area owner use it and shoot themselves in the foot feels error prone.
+>>> For now we could use a comment.
+>>
+>> I don't think we want it. The duplication is minor, but I'm not set
+>> on the per area index array approach, and it'd make changing it
+>> more difficult.
+> 
+> Do you want me to not touch iou in this patch at all? Or are you talking
+> about potential future synchronization part?
 
-Background
-----------
-FRED introduces simplified privilege level transitions to replace IDT-based
-event delivery and IRET returns, providing lower latency event handling while
-ensuring complete supervisor context on delivery and full user context on
-return. FRED defines event delivery for both ring 3->0 and ring 0->0
-transitions, and introduces ERETU for returning to ring 3 and ERETS for
-remaining in ring 0.
+Sorry, I should've more specific. I meant that I don't think trying to
+consolidate it at all makes much sense, and I'd just drop this patch.
+> I don't see how this is making changing it more difficult, the freelist is
+> now behind push/pop which you can freely change, and both UAPIs benefit
+> from a faster/better freelist.
 
-AMD hardware extends the VMCB to support FRED virtualization [1] with
-dedicated save area fields for FRED MSRs (RSP1-3, SSP1-3, STKLVLS, CONFIG;
-RSP0 only in the SEV-ES VMSA) and control fields for event injection data
-(EXITINTDATA, EVENTINJDATA).
-
-The implementation spans nine patches. The important changes are:
-
-1) Extend VMCB structures with the FRED fields mentioned above, disable MSR
-   interception for FRED-enabled guests to avoid unnecessary VM exits, and
-   context switch FRED_RSP0, which hardware doesn't save/restore for
-   non-SEV-ES guests.
-
-2) Support for nested exceptions, where we populate event injection data
-   when delivering exceptions like page faults and debug traps.
-
-3) Let userspace save/restore the FRED MSRs, and don't intercept ICEBP
-   while the guest has FRED enabled.
-
-Major changes in v3
--------------------
- * Rebased on v10 of the FRED VMX series [2].
- * New patch to save/restore the FRED MSRs for live migration.
- * New patch to disable interception of ICEBP when the guest enables FRED.
- * Update the FRED fields and their offsets in the VMCB to match the latest
-   APM.
- * Clear FRED from the KVM capabilities when vNMI is unavailable.
-
-The full changelog is at the end of this letter.
-
-Dependencies
-------------
-This series applies on top of:
- * v10 of the FRED VMX series [2], which adds the common x86 FRED support
-   (CR4.FRED, the FRED MSRs, exception event data and nested exception
-   tracking).
- * "KVM: SVM: Clear VMCB save area instead of entire VMCB on shutdown
-   intercept" [3]. It keeps FRED_VIRT_ENABLE set across an intercepted
-   shutdown.
-
-Testing
--------
-Testing was done on a Zen 6 machine in the following scenarios:
- * Booting FRED-enabled guests and checking that FRED is exposed
- * Running SEV, SEV-ES and SEV-SNP guests with FRED enabled
- * Live migration of a guest with FRED enabled
- * KVM selftests
-
-The msrs_test modified in the VMX series is passing, however, fred_test
-doesn't pass on SVM yet. A fix, if needed, will be posted in upcoming
-versions.
-
-Opens
------
- * INT1 event type: As I understand it, SVM intercepts ICEBP only because
-   an ICEBP-induced #DB delivered through a task gate otherwise ends up
-   with the wrong RIP [4]. FRED has no task gates, so patch 9 drops the
-   intercept for FRED-enabled guests. The CPU then delivers INT1 itself,
-   and the guest sees the correct event type 5. David, does this look
-   like a reasonable approach to you?
-
-   However, when KVM itself injects an INT1, the guest still sees event
-   type 3 instead of 5, even though the hardware supports it. I think a
-   generic fix in KVM may be required. Any thoughts would be appreciated.
-
- * Nested FRED: FRED for L2 under nested SVM isn't part of this series
-   and will be posted in upcoming versions.
-
-Links
------
-[1]: https://docs.amd.com/v/u/en-US/69191-PUB
-[2]: https://lore.kernel.org/all/20260911213659.2025974-1-sohil.mehta@intel.com/
-[3]: https://lore.kernel.org/all/20260824131824.6040-1-shivansh.dhiman@amd.com/
-[4]: https://lore.kernel.org/kvm/e03f092dfbb7d391a6bf2797ba01e122ba080bcd.camel@infradead.org/
-
-Previous versions
------------------
-v2: https://lore.kernel.org/all/20260402184240.1939480-1-shivansh.dhiman@amd.com/
-v1: https://lore.kernel.org/kvm/20260129063653.3553076-1-shivansh.dhiman@amd.com/
-
-Regards,
-Shivansh
-
----
-Changelog:
-
-v2 -> v3:
- * Rebased on v10 of the FRED VMX series.
- * New patch to save/restore FRED MSRs via KVM_{GET,SET}_MSRS (patch 4).
- * New patch to stop intercepting ICEBP for FRED guests (patch 9).
- * Keep the guest's FRED_RSP0 in vcpu_svm for non-SEV-ES guests.
- * Updated the FRED fields and offsets in the VMCB per the latest APM.
- * Clear the FRED capability when vNMI is unavailable (Andrew Cooper).
- * Renamed FRED_VIRT_ENABLE_MASK to SVM_MISC2_ENABLE_V_FRED.
- * Use ex->is_nested to check for nested exceptions.
- * Updated the FRED prints in dump_vmcb().
- * Updated the commit messages.
-
-v1 -> v2:
- * Modified the zeroing of FRED MSRs from INIT to RESET and updated the
-   commit message (Sean Christopherson).
- * Moved FRED MSRs save/restore logic from svm_vcpu_enter_exit() to
-   svm_prepare_[host_switch/switch_to_guest]() to reduce some MSR
-   accesses.
- * Confined the enabling of vFRED to svm_vcpu_after_set_cpuid() only
-   (Sean Christopherson).
- * Removed the need for a new function parameter 'reinject_on_vmexit' in
-   svm_complete_interrupts() (Paolo Bonzini).
- * Used guest_cpu_cap_has() instead of checking VMCB bit in recalc
-   intercepts (Sean Christopherson).
- * Gate all the FRED MSRs through guest_cpu_cap_has() while dumping VMCB
-   (Sean Christopherson).
- * While switching to host, added a safety check on guest_state_loaded.
- * Variable rename from 'fred_enable' to 'intercept' (Sean Christopherson).
- * Replace variable 'nested' with 'is_nested' (Sean Christopherson).
- * Formatted variables in reverse fir-tree order (Sean Christopherson).
-
----
-Neeraj Upadhyay (2):
-  KVM: SVM: Populate FRED event data on event injection
-  KVM: SVM: Support FRED nested exception injection
-
-Shivansh Dhiman (7):
-  KVM: SVM: Initialize FRED VMCB fields
-  KVM: SVM: Disable interception of FRED MSRs for FRED supported guests
-  KVM: SVM: Save/restore FRED_RSP0 for FRED supported guests
-  KVM: SVM: Add support for saving and restoring FRED MSRs
-  KVM: SVM: Dump FRED context in dump_vmcb()
-  KVM: SVM: Enable FRED virtualization
-  KVM: SVM: Don't intercept ICEBP while the guest has FRED enabled
-
- arch/x86/include/asm/svm.h |  33 ++++++-
- arch/x86/kvm/svm/svm.c     | 180 +++++++++++++++++++++++++++++++++++--
- arch/x86/kvm/svm/svm.h     |   2 +
- 3 files changed, 207 insertions(+), 8 deletions(-)
+There are several reasons. If there is any mismatch in how it's done
+b/w io_uring and devmem it'd need to be split back, and then having it
+in struct net_iov_area for devmem only wouldn't make sense. E.g.
+Packaging of {area/offset} pair if converted to a ifq global list might
+differ. And it moves one part of buffer management to another tree, and
+there was already a precedent of patches being blocked for no technical
+reasons; I'd rather minimise cross-tree changes. Synchronisation might
+also be a bit difficult, zcrx uses it to protect more than just the
+freelist modifications, patterns like lock(zcrx_area->common_area.lock)
+in the zcrx code is usually not a great idea. In general, I just think
+the upside is smaller comparing to losing the development flexibility,
+it's not it makes it faster, nor the current code is tricky or complex.
+Hope it explains it.
 
 -- 
-2.43.0
+Pavel Begunkov
 
