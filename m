@@ -1,199 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262334078F4;
-	Fri, 25 Sep 2026 14:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0662C49EC78
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790347333; cv=none; b=SDVcsnR+WNyVSh0Sifs/5uJcVG7FmpvOH+ajM0+r4blTmVucf97OiX2MbWtGtTwZtjPIHWSfDI6uq3ae8tIYlaxIOceuZx/wuRHRj5Q32994oSXH53cwSilzuh9lQQPg8zD857tdTLK3PcNmbS7oNk4ExckQEVGq5z2puWuPfcc=
+	t=1790347357; cv=none; b=DJymXWxXNSheqpJeHvoK81b79LlZsA+0ottIXnRLjZPsLofGMl58hXrFt/2nKYDOMUrH0aBcZz9/U5Xu9oi3ETGLyuZMVomNk8qshnhUDUvOS525EutaDgPN99JqL5Kp41gdMj0tWmJG0r1UWe7ra8NZVWlmt+Y6zPXWcD7wOOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790347333; c=relaxed/simple;
-	bh=ZgnS1uSsOKLV3yTpO+oxJvDOX9CJRo0Y1UrfD5oqtd0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HGXJMfH459AI2cnlxcixF0qnxCackeBCt8DEWMxAFuIBgXtbpFeCR7xTP0Mtyk7/DUAqM3BTIb8ejQ8+z03HW+zm5X+7pt98gJhcNyniCdAAk0uDP4V0y5Bo7bbVLMQKon3U/WjeFOULCnavOdXCHHFPAIcafgEbQE5pK2wmLMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DHwzq0sT; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DHwzq0sT"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EB75B1F000FF;
-	Fri, 25 Sep 2026 14:42:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790347324;
-	bh=Ck2/IRQO5EbPVSsCOLm10dPKfvHZkxDIrhiZ1koO7JQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DHwzq0sTtnh3z3xN/JE86CFeLrIZtsWppDkoBQ4Zp0j6+FCy7q3f4rDQosslFH/Ce
-	 yDWX+nhdM9N6GsKwNQbp/wWAy3Vl+mJYeEKD5kANaAom4PIJJUg/kxYfAc9YoRcYPt
-	 GgQv4HOA8zQ3tyhLP6U/tobe9M+ovQ3u1YPZ8lBicvFdqBccEHUQhGM5UbAE4+QxHo
-	 9A/lApUkUawOsjdt8StLmydraYm2CVO+QzBNfiZSGT4eW6mwtKlMZQV3N4dJjRWXWN
-	 CYDLuKXsa5qu3Hfqe8LWTGG3e4wLJK4MhxWpVxtyDQ9cIHOjelocLcdB7H944tw2N+
-	 v3LT0C1bM/3fQ==
-Date: Fri, 25 Sep 2026 17:42:00 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: microfish <f13208471983@163.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Stefano Garzarella <sgarzare@redhat.com>
-Subject: Re: [PATCH] tpm: crb: handle ACPI NVS memory region overlap
-Message-ID: <araIEern4nSqmeFn@kernel.org>
-References: <20260827035511.49582-1-f13208471983@163.com>
+	s=arc-20240116; t=1790347357; c=relaxed/simple;
+	bh=mJKMhoCyAtR0UxOKPvYGtqYhysF33pibPFssqwuToEc=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=L3bTlS/juhjc+pfhA48yGyfMTp2YgMDeTSCxMPEc4Id4wV/DmUbCh2dmMfAcVpx82BiFhOrdwGBcgWRC3zlawE0v5E6hFQpbXjou7rby87CCRqzRLpt1u7eljN7//99GVWsti9z8N3NMrs7yfsWyr46JzS4UcwjXGJLLVnx/Z6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-466d41a1d9aso1182556fac.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:42:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790347350; x=1790952150;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3plWnNTkUlR3THa6vSylFRM5p3cT0mVJsll5kMqLqrM=;
+        b=K8vSwX9qn/pYvqPSDOmcLxi9lFpDq7MmBfshDgYYM9sO0zEqgwtn6tpCsWHL/TL1Q8
+         FvG7mTkcyubNG7Td+nGz3r2Pk36D5KQQr8nakG5Zo2b4nMM1MPepx5jEWpWMmEx+pkVS
+         gSatHBDM6sG+hMR6bZiwgA8qr0zOxgvG3C4vn3TmTyViUdpoY7pj1HAj/HIZv8tYxQgr
+         IzQitOf3w6u5JUKoroTZLvbM+e0lp2thrE2PJh9HxDWYOKrsOU8hRUl5gWTiLVEU1+Aq
+         rfV0DP84sXis1usLkhRCA3HiymRQ8un3g/ToLPOv5QWxnaBJjxNMyvI1Kwl3084Zwq74
+         WajQ==
+X-Gm-Message-State: AFuF++mH94iba3t/2P2m0WHj3yOmJNIvC7VgtUIuXS0qknAMZ2CGxvFw
+	kyZPxKAttlsvwhlt/sya6OLPC1auIRElWcq/JTfrraFsFM3KBmElp1cXGipxl17WcLpQhQQbDZj
+	kvzivhwGf2Uz/RzYaXov+20HpDRWaLuRQN0h0wLO7pI3lhe6rZ1D0Cu6Wtqw=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827035511.49582-1-f13208471983@163.com>
+X-Received: by 2002:a05:6808:1817:b0:4d6:92b3:c1b6 with SMTP id
+ 5614622812f47-4d73124cec1mr7631579b6e.57.1790347350434; Fri, 25 Sep 2026
+ 07:42:30 -0700 (PDT)
+Date: Fri, 25 Sep 2026 07:42:30 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab68856.80e1c6cc.1e8e5f.0037.GAE@google.com>
+Subject: [syzbot] KCSAN: data-race in __se_sys_inotify_add_watch / fsnotify_handle_inode_event
+From: syzbot <syzbot+181b8b439f5207144b16@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Aug 27, 2026 at 11:55:11AM +0800, microfish wrote:
-> On certain Lenovo/AMD systems, the BIOS declares an ACPI NVS region
-> that covers a large memory range (e.g. 0xccc40000-0xccd3efff) which
-> includes the TPM CRB MMIO area (0xccd35000-0xccd38fff). The E820
-> subsystem registers this NVS region with IORESOURCE_BUSY in the
-> iomem_resource tree.
-> 
-> When tpm_crb probes, it calls devm_ioremap_resource() to map the CRB
-> registers, which internally calls devm_request_mem_region(). This fails
-> with -EBUSY because the NVS region already claims that address range.
-> 
-> Fix this by adding a crb_try_nvs_fallback() helper that detects the
-> ACPI NVS overlap using region_intersects() and falls back to
-> devm_memremap() when the resource falls inside ACPI NVS.
-> devm_memremap() does not require exclusive resource reservation,
-> making it safe to use on NVS-overlapping regions. This approach is
-> identical to the one used by the WDAT watchdog driver (wdat_wdt_map_mem).
-> 
-> The NVS fallback is applied in both code paths of crb_map_res():
-> 1. When iores is NULL (no ACPI resource encompasses the target address)
-> 2. When iores is non-NULL but devm_ioremap_resource() fails with EBUSY
-> 
-> Before this patch:
->   tpm_crb MSFT0101:00: error -EBUSY: can't request region for resource
->   [mem 0xccd35000-0xccd38fff]
->   tpm_crb MSFT0101:00: probe with driver tpm_crb failed with error -16
-> 
-> After this patch:
->   tpm_crb MSFT0101:00: [mem 0xccd35000-0xccd38fff] is inside ACPI NVS,
->   mapping without reservation
->   tpm_crb MSFT0101:00: of device registration complete, result 0: 0
-> 
-> Signed-off-by: microfish <microfish@kernel.org>
-> Signed-off-by: microfish <f13208471983@163.com>
+Hello,
 
-Sorry this took so long.
+syzbot found the following issue on:
 
-Mention the hardware that you remarked in the response and provide only
-single SOB with your real first and last name.
+HEAD commit:    f49a343b305c Merge tag 'pinctrl-v7.3-2' of git://git.kerne..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1244d205580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ea1e6d8de13bab08
+dashboard link: https://syzkaller.appspot.com/bug?extid=181b8b439f5207144b16
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10737c5e580000
 
-> ---
->  drivers/char/tpm/tpm_crb.c | 50 ++++++++++++++++++++++++++++++++++++--
->  1 file changed, 48 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
-> index ceb4100ba..c4e8b925c 100644
-> --- a/drivers/char/tpm/tpm_crb.c
-> +++ b/drivers/char/tpm/tpm_crb.c
-> @@ -13,6 +13,7 @@
->  
->  #include <linux/acpi.h>
->  #include <linux/highmem.h>
-> +#include <linux/mm.h>
->  #include <linux/rculist.h>
->  #include <linux/module.h>
->  #include <linux/platform_device.h>
-> @@ -557,6 +558,39 @@ static int crb_check_resource(struct acpi_resource *ares, void *data)
->  	return 1;
->  }
->  
-> +/*
-> + * Try to map a resource region. If devm_ioremap_resource() fails with
-> + * -EBUSY because the region falls inside an ACPI NVS area (common on
-> + * certain Lenovo/AMD firmware), fall back to devm_memremap() which
-> + * does not require exclusive resource reservation. This is analogous
-> + * to the approach used by the WDAT watchdog driver (wdat_wdt_map_mem).
-> + */
-> +static void __iomem *crb_try_nvs_fallback(struct device *dev, u64 start,
-> +					   u32 size)
-> +{
-> +	struct resource res = {
-> +		.start	= start,
-> +		.end	= start + size - 1,
-> +		.flags	= IORESOURCE_MEM,
-> +	};
-> +	void *addr;
-> +
-> +	if (region_intersects(res.start, resource_size(&res), IORESOURCE_MEM,
-> +			     IORES_DESC_ACPI_NV_STORAGE) !=
-> +			     REGION_INTERSECTS)
-> +		return NULL;
-> +
-> +	dev_warn(dev,
-> +		 "%pR is inside ACPI NVS, mapping without reservation\n",
-> +		 &res);
-> +
-> +	addr = devm_memremap(dev, res.start, resource_size(&res), MEMREMAP_WB);
-> +	if (IS_ERR(addr))
-> +		return IOMEM_ERR_PTR(PTR_ERR(addr));
-> +
-> +	return (void __iomem __force *)addr;
-> +}
-> +
->  static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
->  				 void __iomem **iobase_ptr, u64 start, u32 size)
->  {
-> @@ -565,18 +599,30 @@ static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
->  		.end	= start + size - 1,
->  		.flags	= IORESOURCE_MEM,
->  	};
-> +	void __iomem *p;
->  
->  	/* Detect a 64 bit address on a 32 bit system */
->  	if (start != new_res.start)
->  		return IOMEM_ERR_PTR(-EINVAL);
->  
-> -	if (!iores)
-> +	if (!iores) {
-> +		p = crb_try_nvs_fallback(dev, start, size);
-> +		if (p)
-> +			return p;
->  		return devm_ioremap_resource(dev, &new_res);
-> +	}
->  
->  	if (!*iobase_ptr) {
->  		*iobase_ptr = devm_ioremap_resource(dev, iores);
-> -		if (IS_ERR(*iobase_ptr))
-> +		if (IS_ERR(*iobase_ptr)) {
-> +			p = crb_try_nvs_fallback(dev, iores->start,
-> +						 resource_size(iores));
-> +			if (p) {
-> +				*iobase_ptr = p;
-> +				return p + (new_res.start - iores->start);
-> +			}
->  			return *iobase_ptr;
-> +		}
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+181b8b439f5207144b16@syzkaller.appspotmail.com
 
-Now I recall what I had in mind, and sorry this took so long.
+==================================================================
+BUG: KCSAN: data-race in __se_sys_inotify_add_watch / fsnotify_handle_inode_event
 
-I did what I was unhappy about:
+write to 0xffff88811afe9be0 of 4 bytes by task 3651 on cpu 0:
+ inotify_update_existing_watch fs/notify/inotify/inotify_user.c:558 [inline]
+ inotify_update_watch fs/notify/inotify/inotify_user.c:632 [inline]
+ __do_sys_inotify_add_watch fs/notify/inotify/inotify_user.c:769 [inline]
+ __se_sys_inotify_add_watch+0x2ea/0x720 fs/notify/inotify/inotify_user.c:717
+ __x64_sys_inotify_add_watch+0x43/0x50 fs/notify/inotify/inotify_user.c:717
+ x64_sys_call+0xa19/0x2550 arch/x86/include/generated/asm/syscalls_64.h:255
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-https://lore.kernel.org/linux-integrity/20260901142955.187856-1-jarkko@kernel.org/
+read to 0xffff88811afe9be0 of 4 bytes by task 3653 on cpu 1:
+ fsnotify_handle_inode_event+0x18a/0x230 fs/notify/fsnotify.c:272
+ fsnotify_handle_event fs/notify/fsnotify.c:330 [inline]
+ send_to_group fs/notify/fsnotify.c:378 [inline]
+ fsnotify+0x16ae/0x1860 fs/notify/fsnotify.c:597
+ __fsnotify_parent+0x2f8/0x3a0 fs/notify/fsnotify.c:241
+ fsnotify_parent include/linux/fsnotify.h:96 [inline]
+ fsnotify_path include/linux/fsnotify.h:113 [inline]
+ fsnotify_file include/linux/fsnotify.h:127 [inline]
+ fsnotify_close include/linux/fsnotify.h:461 [inline]
+ __fput+0x1e2/0x630 fs/file_table.c:498
+ fput_close_sync+0xad/0x190 fs/file_table.c:617
+ __do_sys_close fs/open.c:1560 [inline]
+ __se_sys_close fs/open.c:1545 [inline]
+ __x64_sys_close+0x55/0xf0 fs/open.c:1545
+ x64_sys_call+0x812/0x2550 arch/x86/include/generated/asm/syscalls_64.h:4
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-It does not make sense to apply this change before my patch is
-ack'd because it reduces complexity of this change considerably.
+value changed: 0x00002018 -> 0x00000000
 
-E.g., that helper function will not be needed given no multiple
-call sites.
+Reported by Kernel Concurrency Sanitizer on:
+CPU: 1 UID: 0 PID: 3653 Comm: syz-executor126 Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+==================================================================
 
-1. You pick my patch to your series. I.e. make this a two patch
-   series.
-2. We'll hold until my patch is accepted.
 
->  	}
->  
->  	return *iobase_ptr + (new_res.start - iores->start);
-> -- 
-> 2.47.3
-> 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Br, Jarkko
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
