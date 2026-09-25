@@ -1,79 +1,97 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047AB470440
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC60D36E489;
+	Fri, 25 Sep 2026 07:51:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322712; cv=none; b=ErKvHZ8pw6ruhLZRJ1ORATL0DlW/5eKwEVDR2W6qGdBvo5Z8DbKOxsl8+uVM65mvprDRO+MdzXGk9rD8gkwHz5ENQYJbW+GsWvnJmP/UphnsapXBzBzqnK1slikNK6jmMNYOvgqM6/GDMyFdxrBn4884c7H8sQOxzkVDn/ui6hE=
+	t=1790322718; cv=none; b=HSIGKh0qr14nF+sx58KHjoMoSrjp7/vCkYtlsmUyYSa2S/HxmvRLlYU5QsH6U+tEZzM8uts+i0MVgsyOPVrp7WKkcGPEBGPvkWuZcOg1+OYs3XEt8AHaMJ6+EQIa8BHqalFxtMlImwShMAdFAHSSiUPz9F1ICINRD3oTab5uX98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322712; c=relaxed/simple;
-	bh=GjpeIY/pG0iyYr5NWnH1XKSCrH0YfSl/S1f/surn4EU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MUXTC/EPrgHTfM4LIrTNZjPOSnJgAIH+3cjWihs590TJK9fkbvVgFCgbOekNdPuejrJSzfuRjY0K/j1WzZy8VZdzoNOdXXM8OToaW94+t4hvfWNDLzmf3QBNHum1G/P4rDSeooOqReypw35Abs9ueu0qqEo1H3gc9kJYCenPQZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=vZCG5JLk; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790322718; c=relaxed/simple;
+	bh=kHVPFXbJ8EqkKfRf8xzGYsQcndBVosP2b9IUPfJiLdo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hUFDOi7VTm8DrDs/AYWL5FqVRSRQ4YPF7g0cTXQ12u8eDiPOlsw+jQmBAPzrUy69XeRqcFfiI6ZzWagROKe0UmnVz3Jw2sRp4NdyOjbLdw0exUrDZjkTIzmN7Taf+c35yWQ53Z1HrqGtCr4fidihahiONrNbbCb7JEaySYdLASc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lpp3ptlz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="vZCG5JLk"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hrjZn74kzzMlM9;
-	Fri, 25 Sep 2026 09:51:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790322706; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GjpeIY/pG0iyYr5NWnH1XKSCrH0YfSl/S1f/surn4EU=;
-	b=vZCG5JLkHEX1PNzOIaK9ft628SrijD+0AzYbRyqzLc7b3Mf+xCGIAGZ1yrtNgDoOmO1ZT5
-	7eu0qA8UbgNYLqqVgVRV6Ph5BAhxKsaoWZBESI1G9y0jYfxKRKB1+Dsg23Vr8HxVcjCkFm
-	/Zh3LEv2POQdRb/EiaC8Y22gLoj6OhzDIky6TljqWe5UMU0Azuf32KT40mP2SijPqPvY5W
-	OY988CYe4+ZfnM8HostD7qPD0KivcSjHLPZI9bWtSa+aOoujej6oWmy1aQd6/bWXvQ0cwM
-	26xcj37OcwWb8/iHoKeUxAJxyqvsm3kD4t6lIs29NeRBVSF3eRhyeVT7q+KH9Q==
-Message-ID: <c74e694483833b6eb1fa56228e67a9fdf9f1ab6c.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Remove forgotten header
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Marco Pagani <marco.pagani@linux.dev>, Philipp Stanner
- <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Matthew
- Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
- Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	 <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Date: Fri, 25 Sep 2026 09:51:42 +0200
-In-Reply-To: <50b4b64d-7948-418b-9f3e-9d841fc426a3@linux.dev>
-References: <20260625104903.1713213-2-phasta@kernel.org>
-	 <50b4b64d-7948-418b-9f3e-9d841fc426a3@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lpp3ptlz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A90A71F000FF;
+	Fri, 25 Sep 2026 07:51:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790322717;
+	bh=kq3SqEusRgNdp0z9oySPm66wZTMWFLa2zSE1QTiVlbA=;
+	h=From:To:Cc:Subject:Date;
+	b=Lpp3ptlzyt4eBDfPN/C9Yjt6ic8WkJj7sXKTeu2jXx1vCtkDGNGCiBswOGzaqo1Jg
+	 eVBgdR1CIoEQdH4XnIiyEpEg9Fy+fzCUKz19TKYo+d1jv4ZMBwpujUr2d59HALbJgY
+	 NnYiXbUr30W3WbAzNf25Msztw9h9QSgbSswJEju9WH2nerlsJ4XGpbAzg2U9/yVTCI
+	 ku7pp7gMVTWZabX4ugYDzTcgpSB5zAeDpXsbOE9oIkxpIecGKW9Ao47apnVOqq3nUu
+	 uXN3ekgmTAHx4zS1vDHzLhw6hiLtJa+4JvBQ3Oh4n7/dKehGHj3HCxH6/zLIDmGqXg
+	 zq5Id+8sYTRLg==
+From: Ard Biesheuvel <ardb@kernel.org>
+To: linux-efi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Subject: [PATCH v2 0/3] Move memory acceptance x86 arch code into EFI stub
+Date: Fri, 25 Sep 2026 09:51:38 +0200
+Message-ID: <20260925075137.44298-5-ardb@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: a77a23f4c045a7a67a9
-X-MBO-RS-META: cnzc14fysmehxmxbtp16dpdx4p7htn9t
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2033; i=ardb@kernel.org; h=from:subject; bh=kHVPFXbJ8EqkKfRf8xzGYsQcndBVosP2b9IUPfJiLdo=; b=owGbwMvMwCn83sBh/rljoYmMp9WSGLK2aXDucPkt/fBlamik7rtA77obVuvvHQ9OeTNpdd6mf T9iHSvUO6ayMAhzMsiKKbLsVM7pfu0i+k5foTIHZg4rE8gQBi5OAZjI1wrGGo5vHVpXjxnu7Ekv 4NCUZHz3prp8ssuG0v3P2L4Gbvp0/rzovrkz/CZdP/zp6KGdp9eYnGKsD5uVvSJsV918FangTYr Nhy7vPbZ17yx25YgZv79dvFZy91rrr0QWHk3/I4wy+suCLb2UAA==
+X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-09-24 at 12:08 +0200, Marco Pagani wrote:
->=20
->=20
-> On 25/06/2026 12:49, Philipp Stanner wrote:
-> > sched_main.c still contains the spsc queue header, which is not needed
-> > anymore in that file.
-> >=20
-> > Remove the surplus header import.
-> >=20
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
->=20
-> Reviewed-by: Marco Pagani <marco.pagani@linux.dev>
+This is a follow-up to [0].
 
-Thx Marco. Pushed it now
+Move arch_accept_memory(), which is only called by the EFI stub and
+never by the decompressor on a non-EFI boot, into the EFI stub, and
+avoid relying directly on decompressor APIs such as error().
 
-P.
+Instead, call tdx_panic() on a failure to accept memory in a TDX guest.
+
+This makes the decompressor's implementation of panic() obsolete, and
+allows it to be removed. This is a prerequisite for dropping the
+implementation of snprintf() from the EFI stub entirely, which is what
+the series containing [0] implements.
+
+Changes since v1 [1]:
+- Add missing stub for early_is_sevsnp_guest() when SEV support is
+  compiled out but TDX support is built in.
+- Use native_cpuid() in EFI stub code so it does not get paravirtualized
+- Set __NO_FORTIFY when including tdx-shared.c so the decompressor/stub
+  version does not get instrumented. Needed for the memcpy() in
+  tdx_panic().
+
+[0] http://lore.kernel.org/r/20260909115530.1924665-13-ardb+git@google.com
+[1] https://lore.kernel.org/all/20260914183745.37538-5-ardb@kernel.org/
+
+Cc: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Edgecombe, Rick P <rick.p.edgecombe@intel.com>
+
+Ard Biesheuvel (3):
+  x86/tdx: Share tdx_panic() with the EFI stub
+  x86/boot: Move unaccepted memory handling out of the decompressor
+  x86/boot: Drop unused implementation of panic()
+
+ arch/x86/boot/compressed/error.c        | 19 ---------
+ arch/x86/boot/compressed/error.h        |  1 -
+ arch/x86/boot/compressed/mem.c          | 42 --------------------
+ arch/x86/boot/compressed/sev.h          |  2 -
+ arch/x86/boot/compressed/tdx-shared.c   |  2 +
+ arch/x86/coco/tdx/tdx-shared.c          | 31 +++++++++++++++
+ arch/x86/coco/tdx/tdx.c                 | 35 ----------------
+ arch/x86/include/asm/sev.h              |  2 +
+ arch/x86/include/asm/shared/tdx.h       |  1 +
+ drivers/firmware/efi/libstub/x86-stub.c | 39 ++++++++++++++++++
+ 10 files changed, 75 insertions(+), 99 deletions(-)
+
+-- 
+2.53.0
+
