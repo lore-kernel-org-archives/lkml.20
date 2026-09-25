@@ -1,297 +1,268 @@
-Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A048041DEC8;
-	Fri, 25 Sep 2026 22:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.77.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928A53CB8E9;
+	Fri, 25 Sep 2026 22:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790376278; cv=none; b=jK4kdzHW/ESnR3Z+bNZfN8Z1vgkHaRTlqobF8SvgsRwMZvrL3mqDKWkpkps4enGRAqddp/KRq1Xbfhb51rCXYpurlBear7jJN4kBiHnMV4aPvT8M7a0qnUW30edt8RPMtpyUbPV+WV6/UXBkKIQ+DaVeAKd8Me/Z0jgQKXSmxPk=
+	t=1790376291; cv=none; b=rEe116S/3dIoZsxPvblP3ot//33zepkL4IxL8uZgjAa1rBAIpj2sTGWPvqWOs37PCbrhHULYbw5H96JE2+JcFjmpFAwc67ABP/1kDDQ0nrgYkdGaOvGhHxitejTvhqtSBUSfArzNQrlZiAg3itF9jT6UXq27XxBetP2hRgMLAWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790376278; c=relaxed/simple;
-	bh=nnMejE+pPhm6nlELtL96ZT+rATgCIsZWxJDBMflL3f0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EWOoUOX8EuQDOC19+apaAFYwscFbVPQdG8CzapKD9gf2pXNSTXYAJyfdhMQKuJx5GIl560f1dPdj73H8TDrTv+msPN9RebDxM9pt7+F/qHc6HQMW7Re9vnpcZB1GqWR5tlrV3kA0axp24WaQhn1AvCJb1SQ+1pnIqGr/JZ4ZH7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=McKzoowy; arc=none smtp.client-ip=44.246.77.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790376291; c=relaxed/simple;
+	bh=gRsMG9vyNVnm0P7DbLD9VqbtkEJT6gPcPKPRHrjFOcQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fj1Nt+WSuKjlm03HrWfpoafoP2FLOen6HHRQE1evPgHosw5SHCoHHQMi7MuH0X3VE+UzOp0zn7SC8OQZx451d71tD41FGKxw9lJjnAVctPlRM718DMCpaR2RwhYPPAkbosVOMlRGaz1/tN9kzQncOgRoUhOjwuKnKrFQ1IkTIdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RatJQX/A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="McKzoowy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790376276; x=1821912276;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=skyvb0OYvU/UgzRmEi/KiT+zwrNZCvM0501pt/7wNbw=;
-  b=McKzoowyoOgrs8tc8plabaIv6i7RP0kGMgTgB4/iqTi8qJ3Wai3uVfaL
-   IE4oOSBBGp/ph/Hq0dcf0o+Wic3m1H7zS4740v3/P1lkRQ1vcokXeZMyY
-   oAzLW91hJI5TllxwR56+cHxeKiz8J3cctq0F1KEkHkRygtJ/3cZgKYNIs
-   J/PHHEF8wYcwMeqf6JHSWR2DHJLuxXLGnqaMj6tMbcbYrgt7CcAgD7e/l
-   CA7/lyJY5+WCDQlVP6BBwbPAS9KqakFt98hWwafEj3HG2SAUblXRJXlkV
-   6Vfn7uVB34NfHbl31Bv6EnC6WTWgOkCWAqN7Z2sK7jvO8GxW1RN4aTLtL
-   A==;
-X-CSE-ConnectionGUID: F/6zKesARnm8DUWUoFHZmA==
-X-CSE-MsgGUID: udKo7b/3S6Kw1TOoQCg4uw==
-X-IronPort-AV: E=Sophos;i="6.27,123,1787011200"; 
-   d="scan'208";a="29674668"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 22:44:36 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:17207]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.58.237:2525] with esmtp (Farcaster)
- id 2f4045db-81d1-4eb0-9697-ab6d76a4f2b9; Fri, 25 Sep 2026 22:44:36 +0000 (UTC)
-X-Farcaster-Flow-ID: 2f4045db-81d1-4eb0-9697-ab6d76a4f2b9
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 25 Sep 2026 22:44:35 +0000
-Received: from dev-dsk-wanjay-2c-d25651b4.us-west-2.amazon.com (172.19.198.4)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 25 Sep 2026 22:44:35 +0000
-From: Jay Wang <wanjay@amazon.com>
-To: <bpf@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>, "Daniel
- Borkmann" <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
-	"Eduard Zingerman" <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi
-	<memxor@gmail.com>
-CC: Alan Maguire <alan.maguire@oracle.com>, Martin KaFai Lau
-	<martin.lau@linux.dev>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
-	<jolsa@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier
-	<nsc@kernel.org>, <linux-kbuild@vger.kernel.org>, Luis Chamberlain
-	<mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, Sami Tolvanen
-	<samitolvanen@google.com>, <linux-modules@vger.kernel.org>, Miguel Ojeda
-	<ojeda@kernel.org>, <rust-for-linux@vger.kernel.org>, Arnd Bergmann
-	<arnd@arndb.de>, <linux-kernel@vger.kernel.org>, Hazem Mohamed Abuelfotoh
-	<abuehaze@amazon.com>, Bjoern Doebel <doebel@amazon.de>, Martin Pohlack
-	<mpohlack@amazon.de>, <jay.wang.upstream@gmail.com>
-Subject: [PATCH bpf-next v3 8/9] bpf, trace, net: prepare CONFIG_DEBUG_INFO_BTF checks for a tristate
-Date: Fri, 25 Sep 2026 22:42:28 +0000
-Message-ID: <20260925224229.1850-9-wanjay@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260925224229.1850-1-wanjay@amazon.com>
-References: <20260925224229.1850-1-wanjay@amazon.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RatJQX/A"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C32BB1F000FF;
+	Fri, 25 Sep 2026 22:44:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790376290;
+	bh=S57bUIN+2Jz25Fw2JoescnMVb5QndsgsNFhP4OhluBQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RatJQX/AgdTrXwFLW93vi4xsWnSSvnM3ItINfTX8ELN38gaQBGjcH6nnM4UY/9vqf
+	 cC0VZ4XrX4H7g8pTQREUCBPQdEZPtBxARhe9DO8e1UPVcuM7l1LG4X3vyPxB2qydGs
+	 15eMFYltnYP60Oe9zdkbCotUi9FwPD1Q9U22lkSRi6P1I+VKUvLbG7SXirdkKWOIDv
+	 xRjGN0zx4XT83NBmwJrgHeii/JLGWZCO2mHCz8/HAoBvpbRNPRhrb7Ktw3tJH3EpUW
+	 A7capIN7H711uywvtbEzIxcTmRwzsuMppW20B+d787qcvSaO5Yq2qU2d7EDPo0eGRG
+	 uf8+Os2DsAFnQ==
+Date: Sat, 26 Sep 2026 01:44:46 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Srish Srinivasan <ssrish@linux.ibm.com>
+Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+	stefanb@linux.ibm.com, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+	rnsastry@linux.ibm.com
+Subject: Re: [PATCH v2] keys/trusted/tpm2: Validate TPM2_Create object sizes
+ separately
+Message-ID: <arb5XnpAHe3SZEfv@kernel.org>
+References: <20260910100222.247529-1-ssrish@linux.ibm.com>
+ <aqydqxpVmp67kTQO@kernel.org>
+ <e05d8ca7-ac48-47ef-bc47-bef5b22cb723@linux.ibm.com>
+ <arZZTGtmo1ZLit0j@kernel.org>
+ <bec84181-565a-478e-a485-7f63819024cc@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D040UWA002.ant.amazon.com (10.13.139.113) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+In-Reply-To: <bec84181-565a-478e-a485-7f63819024cc@linux.ibm.com>
 
-The next patch makes CONFIG_DEBUG_INFO_BTF a tristate.  With =m, Kconfig
-defines CONFIG_DEBUG_INFO_BTF_MODULE instead of CONFIG_DEBUG_INFO_BTF,
-so every check that must hold for both =y and =m has to be written for
-it:
+On Fri, Sep 25, 2026 at 08:42:09PM +0530, Srish Srinivasan wrote:
+> Hi Jarkko,
+> Thanks for taking a look.
+> 
+> On 9/25/26 4:51 PM, Jarkko Sakkinen wrote:
+> > On Fri, Sep 18, 2026 at 12:18:25PM +0530, Srish Srinivasan wrote:
+> > > On 9/18/26 7:40 AM, Jarkko Sakkinen wrote:
+> > > > On Thu, Sep 10, 2026 at 03:32:22PM +0530, Srish Srinivasan wrote:
+> > > > > TPM2_Create returns outPrivate, outPublic, creationData, creationHash and
+> > > > > creationTicket in its response parameter area. However, only outPrivate and
+> > > > > outPublic are included in the trusted key blob. The size of the blob is
+> > > > > therefore not determined by the size of the complete response parameter
+> > > > > area.
+> > > > > 
+> > > > > tpm2_seal_trusted() currently compares the size of the complete response
+> > > > > parameter area against MAX_BLOB_SIZE. This can reject a valid response
+> > > > > when the remaining response outputs cause the entire response parameter
+> > > > > area to exceed MAX_BLOB_SIZE, even though the outPrivate and outPublic
+> > > > > TPM2B structures consumed by tpm2_key_encode() remain small enough to be
+> > > > > encoded in the key blob.
+> > > > > 
+> > > > > This is observed when creating larger trusted keys using an swtpm TPM 2.0
+> > > > > emulator backed by libtpms.
+> > > > > 
+> > > > > For example, requesting a 113-byte key succeeds, 114 fails.
+> > > > > 
+> > > > > ~$ keyctl add trusted trusted_key1 "new 113 keyhandle=0x81000001" @u
+> > > > > 520504613
+> > > > > ~$ keyctl add trusted trusted_key2 "new 114 keyhandle=0x81000001" @u
+> > > > > add_key: Argument list too long
+> > > > > ~$
+> > > > > 
+> > > > > Remove the MAX_BLOB_SIZE check on the complete response parameter area.
+> > > > > Instead, use the response length passed to tpm2_key_encode() to validate
+> > > > > that the outPrivate and outPublic TPM2B structures are fully contained
+> > > > > in the response before accessing them.
+> > > > > 
+> > > > > Previously, a response parameter area larger than MAX_BLOB_SIZE was
+> > > > > rejected with -E2BIG before ASN.1 encoding. With this change, if the
+> > > > > resulting encoded blob does not fit in payload->blob, the error returned by
+> > > > > asn1_encode_sequence() is propagated instead.
+> > > > > 
+> > > > > Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+> > > > > ---
+> > > > > Changelog:
+> > > > > 
+> > > > >    v2:
+> > > > >     - Exclude a comment pointed out by Jarkko
+> > > > > 
+> > > > >    security/keys/trusted-keys/trusted_tpm2.c | 35 +++++++++++++++++------
+> > > > >    1 file changed, 27 insertions(+), 8 deletions(-)
+> > > > > 
+> > > > > diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+> > > > > index 01f18bb37047..cbec4f591952 100644
+> > > > > --- a/security/keys/trusted-keys/trusted_tpm2.c
+> > > > > +++ b/security/keys/trusted-keys/trusted_tpm2.c
+> > > > > @@ -24,24 +24,42 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+> > > > >    			   u8 *src, u32 len)
+> > > > >    {
+> > > > >    	const int SCRATCH_SIZE = PAGE_SIZE;
+> > > > > -	u8 *scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
+> > > > > -	u8 *work = scratch, *work1;
+> > > > > -	u8 *end_work = scratch + SCRATCH_SIZE;
+> > > > > +	u8 *scratch;
+> > > > > +	u8 *work, *work1;
+> > > > > +	u8 *end_work;
+> > > > >    	u8 *priv, *pub;
+> > > > > -	u16 priv_len, pub_len;
+> > > > > +	u32 priv_len, pub_len;
+> > > > >    	int ret;
+> > > > > -	priv_len = get_unaligned_be16(src) + 2;
+> > > > > +	if (len < sizeof(__be16))
+> > > > > +		return -EFAULT;
+> > > > > +
+> > > > > +	priv_len = get_unaligned_be16(src);
+> > > > > +	if (priv_len > len - sizeof(__be16))
+> > > > > +		return -EFAULT;
+> > > > > +
+> > > > > +	priv_len += sizeof(__be16);
+> > > > >    	priv = src;
+> > > > > +	if (len - priv_len < sizeof(__be16))
+> > > > > +		return -EFAULT;
+> > > > This caused for me some head scrathing tbh.
+> > > > 
+> > > > See:
+> > > > 
+> > > > 1. len >= 2
+> > > > 2. priv_len <= len - 2
+> > > > 3. 2 - priv_len + priv_len <= 2 - priv_len + len - 2
+> > > > 4. 2 <= len - priv_len
+> > > > 
+> > > > Is this check required?
+> > > 
+> > > Hi Jarkko,
+> > > Thanks for taking a look.
+> > > 
+> > > The preceding check,
+> > > 
+> > > 
+> > >      if (priv_len > len - sizeof(__be16))
+> > >          return -EFAULT;
+> > > 
+> > > 
+> > > ensures that the complete TPM2B_PRIVATE, including its size field,
+> > > fits within len. After this check, priv_len is incremented by 2 and
+> > > therefore represents the complete TPM2B_PRIVATE length.
+> > > 
+> > > 
+> > > The check you pointed out,
+> > > 
+> > > 
+> > >      if (len - priv_len < sizeof(__be16))
+> > >          return -EFAULT;
+> > > 
+> > > 
+> > > then ensures that at least 2 bytes remain for reading the following
+> > > TPM2B_PUBLIC size field.
+> > OK, maybe I got something wrong in my deduction but I'm not
+> > still entirely sure whether this is leanest way to do these
+> > checks.
+> 
+> 
+> Sure, I will simplify this. Would the following be better?
+> 
+> 
+>     if (len < 4)
+>       return -EINVAL;
+> 
+>     priv_len = get_unaligned_be16(src) + 2;
+>     if (priv_len + 2 > len)
+>       return -EIO;
+> 
+>     priv = src;
+>     src += priv_len;
+> 
+>     pub_len = get_unaligned_be16(src) + 2;
+>     if (priv_len + pub_len > len)
+>       return -EIO;
+> 
+>     pub = src;
+> 
+> 
+> The first check ensures that len can contain both TPM2B size fields.
+> The second verifies that the complete TPM2B_PRIVATE leaves room for the
+> TPM2B_PUBLIC size field. The final check ensures that both the complete
+> TPM2B_PRIVATE and TPM2B_PUBLIC structures fit within len.
+> 
+> > 
+> > I'll iterate some other remarks so that this can move forward.
+> > 
+> > I was not either entirely sure why this was done:
+> > 
+> > -	u16 priv_len, pub_len;
+> > +	u32 priv_len, pub_len;
+> 
+> 
+> Yes, so the change from u16 to u32 was because the values stored in priv_len
+> and
+> pub_len include both the 16-bit value read from the response and the
+> two-byte TPM2B
+> size field.
+> 
+> 
+> > 
+> > Why wrong len causes -EFAULT and not -EINVAL? EFAULT is for
+> > memory failures. Probably two that follow should return -EIO.
+> 
+> 
+> Agreed, I will fix this.
+> 
+> 
+> > 
+> > One more that came to mind:
+> > 
+> > -	priv_len = get_unaligned_be16(src) + 2;
+> > +	if (len < sizeof(__be16))
+> > +		return -EFAULT;
+> > +
+> > +	priv_len = get_unaligned_be16(src);
+> > +	if (priv_len > len - sizeof(__be16))
+> > +		return -EFAULT;
+> > +
+> > +	priv_len += sizeof(__be16);
+> > 
+> > Removing the line above is not necessary and neither is the last
+> > the last statement if you just change your check accordingly.
+> 
+> 
+> Yes, that's right. And I have made this change in the diff
+> that I have pasted above.
+> 
+> Please let me know if this looks better now.
+> 
+> And, thanks for the feedback.
 
- - #ifdef CONFIG_DEBUG_INFO_BTF becomes #if IS_ENABLED(...) where the
-   generated BTF and its id tables must be the same for =y and =m: the
-   .BTF_ids tables (btf_ids.h), the BTF type tags (compiler_types.h), and
-   the tracepoint and syscall BTF ids (trace_events.h, trace_syscalls.c).
-   Leaving them would silently produce empty id sets with =m.
+Yeah, so this is a patch that needs a few iterations I'm not against
+the change itself per se :-)
 
- - obj-$(CONFIG_DEBUG_INFO_BTF) and include-$(CONFIG_DEBUG_INFO_BTF)
-   become $(subst m,y,...) where the object is built into the kernel
-   regardless: sysfs_btf.o, the netfilter and xfrm kfunc objects, and
-   scripts/Makefile.btf.  Otherwise =m would try to build them as
-   modules (xfrm_state_bpf.o fails modpost for lack of MODULE_LICENSE)
-   or skip the BTF generation flags.
+I think it would make sense to declare "u8 *scratch __free(kfree)"
+while at it so that rollback does not complicate this function 
+further.
 
- - "depends on !DEBUG_INFO_BTF" becomes "depends on DEBUG_INFO_BTF=n"
-   for RUST and GENDWARFKSYMS: with =m the BTF is generated as with =y,
-   so the pahole restrictions they express still apply, but !m is m,
-   which a bool option takes as y.
+> 
+> > 
+> > 
+> > BR, Jarkko
+> 
+> 
+> Thanks,
+> Srish.
+> 
 
-No functional change: CONFIG_DEBUG_INFO_BTF is still a bool, for which
-IS_ENABLED() and #ifdef agree, $(subst m,y,y) is y and "=n" is "!".
-
-Signed-off-by: Jay Wang <wanjay@amazon.com>
----
- Makefile                       | 3 ++-
- include/linux/btf_ids.h        | 2 +-
- include/linux/compiler_types.h | 2 +-
- include/trace/trace_events.h   | 2 +-
- init/Kconfig                   | 2 +-
- kernel/bpf/Makefile            | 2 +-
- kernel/module/Kconfig          | 2 +-
- kernel/trace/trace_syscalls.c  | 6 +++---
- net/netfilter/Makefile         | 6 +++---
- net/xfrm/Makefile              | 4 ++--
- 10 files changed, 16 insertions(+), 15 deletions(-)
-
-diff --git a/Makefile b/Makefile
-index 751a08643bf8..f561516e1735 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1208,7 +1208,8 @@ endif
- # include additional Makefiles when needed
- include-y			:= scripts/Makefile.warn
- include-$(CONFIG_DEBUG_INFO)	+= scripts/Makefile.debug
--include-$(CONFIG_DEBUG_INFO_BTF)+= scripts/Makefile.btf
-+# CONFIG_DEBUG_INFO_BTF is a tristate; BTF is generated for both y and m
-+include-$(subst m,y,$(CONFIG_DEBUG_INFO_BTF)) += scripts/Makefile.btf
- include-$(CONFIG_KASAN)		+= scripts/Makefile.kasan
- include-$(CONFIG_KCSAN)		+= scripts/Makefile.kcsan
- include-$(CONFIG_KMSAN)		+= scripts/Makefile.kmsan
-diff --git a/include/linux/btf_ids.h b/include/linux/btf_ids.h
-index 8b5a9ee92513..c665afff100e 100644
---- a/include/linux/btf_ids.h
-+++ b/include/linux/btf_ids.h
-@@ -22,7 +22,7 @@ struct btf_id_set8 {
- 	} pairs[];
- };
- 
--#ifdef CONFIG_DEBUG_INFO_BTF
-+#if IS_ENABLED(CONFIG_DEBUG_INFO_BTF)
- 
- #include <linux/compiler.h> /* for __PASTE */
- #include <linux/compiler_attributes.h> /* for __maybe_unused */
-diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
-index c5921f139007..a90a99849cee 100644
---- a/include/linux/compiler_types.h
-+++ b/include/linux/compiler_types.h
-@@ -34,7 +34,7 @@
-  * Skipped when running bindgen due to a libclang issue;
-  * see https://github.com/rust-lang/rust-bindgen/issues/2244.
-  */
--#if defined(CONFIG_DEBUG_INFO_BTF) && defined(CONFIG_PAHOLE_HAS_BTF_TAG) && \
-+#if IS_ENABLED(CONFIG_DEBUG_INFO_BTF) && defined(CONFIG_PAHOLE_HAS_BTF_TAG) && \
- 	__has_attribute(btf_type_tag) && !defined(__BINDGEN__)
- # define BTF_TYPE_TAG(value) __attribute__((btf_type_tag(#value)))
- #else
-diff --git a/include/trace/trace_events.h b/include/trace/trace_events.h
-index 93011f800d0f..2a0098929771 100644
---- a/include/trace/trace_events.h
-+++ b/include/trace/trace_events.h
-@@ -398,7 +398,7 @@ static inline notrace int trace_event_get_offsets_##call(		\
- #define _TRACE_PERF_INIT(call)
- #endif /* CONFIG_PERF_EVENTS */
- 
--#if defined(CONFIG_BPF_EVENTS) && defined(CONFIG_DEBUG_INFO_BTF)
-+#if defined(CONFIG_BPF_EVENTS) && IS_ENABLED(CONFIG_DEBUG_INFO_BTF)
- /*
-  * Per-template BTF id list, populated at link time by resolve_btfids:
-  *   [0] FUNC   __bpf_trace_<call>     (the BPF dispatcher)
-diff --git a/init/Kconfig b/init/Kconfig
-index 8583d9f06c52..9f9562f813c5 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -2257,7 +2257,7 @@ config RUST
- 	depends on !MODVERSIONS || GENDWARFKSYMS
- 	depends on !GCC_PLUGIN_RANDSTRUCT
- 	depends on !RANDSTRUCT
--	depends on !DEBUG_INFO_BTF || (PAHOLE_HAS_LANG_EXCLUDE && !LTO)
-+	depends on DEBUG_INFO_BTF=n || (PAHOLE_HAS_LANG_EXCLUDE && !LTO)
- 	depends on !CFI || HAVE_CFI_ICALL_NORMALIZE_INTEGERS_RUSTC
- 	select CFI_ICALL_NORMALIZE_INTEGERS if CFI
- 	depends on !KASAN || CC_IS_CLANG
-diff --git a/kernel/bpf/Makefile b/kernel/bpf/Makefile
-index c1f9b0d3468d..0b7db88f1bed 100644
---- a/kernel/bpf/Makefile
-+++ b/kernel/bpf/Makefile
-@@ -41,7 +41,7 @@ ifeq ($(CONFIG_INET),y)
- obj-$(CONFIG_BPF_SYSCALL) += reuseport_array.o
- endif
- ifeq ($(CONFIG_SYSFS),y)
--obj-$(CONFIG_DEBUG_INFO_BTF) += sysfs_btf.o
-+obj-$(subst m,y,$(CONFIG_DEBUG_INFO_BTF)) += sysfs_btf.o
- endif
- ifeq ($(CONFIG_BPF_JIT),y)
- obj-$(CONFIG_BPF_SYSCALL) += bpf_struct_ops.o
-diff --git a/kernel/module/Kconfig b/kernel/module/Kconfig
-index 43b1bb01fd27..da49cb984b0d 100644
---- a/kernel/module/Kconfig
-+++ b/kernel/module/Kconfig
-@@ -197,7 +197,7 @@ config GENDWARFKSYMS
- 	# X86, requires pahole before commit 47dcb534e253 ("btf_encoder: Stop
- 	# indexing symbols for VARs") or after commit 9810758003ce ("btf_encoder:
- 	# Verify 0 address DWARF variables are in ELF section").
--	depends on !X86 || !DEBUG_INFO_BTF || PAHOLE_VERSION < 128 || PAHOLE_VERSION > 129
-+	depends on !X86 || DEBUG_INFO_BTF=n || PAHOLE_VERSION < 128 || PAHOLE_VERSION > 129
- 	help
- 	  Calculate symbol versions from DWARF debugging information using
- 	  gendwarfksyms. Requires DEBUG_INFO to be enabled.
-diff --git a/kernel/trace/trace_syscalls.c b/kernel/trace/trace_syscalls.c
-index e35744049e3f..7a0d59c308c2 100644
---- a/kernel/trace/trace_syscalls.c
-+++ b/kernel/trace/trace_syscalls.c
-@@ -1304,7 +1304,7 @@ struct trace_event_functions exit_syscall_print_funcs = {
- 	.trace		= print_syscall_exit,
- };
- 
--#if defined(CONFIG_BPF_EVENTS) && defined(CONFIG_DEBUG_INFO_BTF)
-+#if defined(CONFIG_BPF_EVENTS) && IS_ENABLED(CONFIG_DEBUG_INFO_BTF)
- /* BTF id lists for the shared sys_enter/sys_exit dispatcher tracepoints. */
- BTF_ID_LIST(syscall_enter_btf_ids)
- BTF_ID(func,   __bpf_trace_sys_enter)
-@@ -1321,7 +1321,7 @@ struct trace_event_class __refdata event_class_syscall_enter = {
- 	.fields_array	= syscall_enter_fields_array,
- 	.get_fields	= syscall_get_enter_fields,
- 	.raw_init	= init_syscall_trace,
--#if defined(CONFIG_BPF_EVENTS) && defined(CONFIG_DEBUG_INFO_BTF)
-+#if defined(CONFIG_BPF_EVENTS) && IS_ENABLED(CONFIG_DEBUG_INFO_BTF)
- 	.btf_ids	= syscall_enter_btf_ids,
- #endif
- };
-@@ -1336,7 +1336,7 @@ struct trace_event_class __refdata event_class_syscall_exit = {
- 	},
- 	.fields		= LIST_HEAD_INIT(event_class_syscall_exit.fields),
- 	.raw_init	= init_syscall_trace,
--#if defined(CONFIG_BPF_EVENTS) && defined(CONFIG_DEBUG_INFO_BTF)
-+#if defined(CONFIG_BPF_EVENTS) && IS_ENABLED(CONFIG_DEBUG_INFO_BTF)
- 	.btf_ids	= syscall_exit_btf_ids,
- #endif
- };
-diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
-index 6bf74d488a29..a2c7f00794d2 100644
---- a/net/netfilter/Makefile
-+++ b/net/netfilter/Makefile
-@@ -18,7 +18,7 @@ nf_conntrack-$(CONFIG_NF_CT_PROTO_GRE) += nf_conntrack_proto_gre.o
- ifeq ($(CONFIG_NF_CONNTRACK),m)
- nf_conntrack-$(CONFIG_DEBUG_INFO_BTF_MODULES) += nf_conntrack_bpf.o
- else ifeq ($(CONFIG_NF_CONNTRACK),y)
--nf_conntrack-$(CONFIG_DEBUG_INFO_BTF) += nf_conntrack_bpf.o
-+nf_conntrack-$(subst m,y,$(CONFIG_DEBUG_INFO_BTF)) += nf_conntrack_bpf.o
- endif
- 
- obj-$(CONFIG_NETFILTER) = netfilter.o
-@@ -65,7 +65,7 @@ nf_nat-$(CONFIG_NF_NAT_OVS) += nf_nat_ovs.o
- ifeq ($(CONFIG_NF_NAT),m)
- nf_nat-$(CONFIG_DEBUG_INFO_BTF_MODULES) += nf_nat_bpf.o
- else ifeq ($(CONFIG_NF_NAT),y)
--nf_nat-$(CONFIG_DEBUG_INFO_BTF) += nf_nat_bpf.o
-+nf_nat-$(subst m,y,$(CONFIG_DEBUG_INFO_BTF)) += nf_nat_bpf.o
- endif
- 
- # NAT helpers
-@@ -147,7 +147,7 @@ nf_flow_table-$(CONFIG_NF_FLOW_TABLE_PROCFS) += nf_flow_table_procfs.o
- ifeq ($(CONFIG_NF_FLOW_TABLE),m)
- nf_flow_table-$(CONFIG_DEBUG_INFO_BTF_MODULES) += nf_flow_table_bpf.o
- else ifeq ($(CONFIG_NF_FLOW_TABLE),y)
--nf_flow_table-$(CONFIG_DEBUG_INFO_BTF) += nf_flow_table_bpf.o
-+nf_flow_table-$(subst m,y,$(CONFIG_DEBUG_INFO_BTF)) += nf_flow_table_bpf.o
- endif
- 
- obj-$(CONFIG_NF_FLOW_TABLE_INET) += nf_flow_table_inet.o
-diff --git a/net/xfrm/Makefile b/net/xfrm/Makefile
-index 5a1787587cb3..b7f6e5046a0e 100644
---- a/net/xfrm/Makefile
-+++ b/net/xfrm/Makefile
-@@ -8,7 +8,7 @@ xfrm_interface-$(CONFIG_XFRM_INTERFACE) += xfrm_interface_core.o
- ifeq ($(CONFIG_XFRM_INTERFACE),m)
- xfrm_interface-$(CONFIG_DEBUG_INFO_BTF_MODULES) += xfrm_interface_bpf.o
- else ifeq ($(CONFIG_XFRM_INTERFACE),y)
--xfrm_interface-$(CONFIG_DEBUG_INFO_BTF) += xfrm_interface_bpf.o
-+xfrm_interface-$(subst m,y,$(CONFIG_DEBUG_INFO_BTF)) += xfrm_interface_bpf.o
- endif
- 
- obj-$(CONFIG_XFRM) := xfrm_policy.o xfrm_state.o xfrm_hash.o \
-@@ -23,4 +23,4 @@ obj-$(CONFIG_XFRM_IPCOMP) += xfrm_ipcomp.o
- obj-$(CONFIG_XFRM_INTERFACE) += xfrm_interface.o
- obj-$(CONFIG_XFRM_IPTFS) += xfrm_iptfs.o
- obj-$(CONFIG_XFRM_ESPINTCP) += espintcp.o
--obj-$(CONFIG_DEBUG_INFO_BTF) += xfrm_state_bpf.o
-+obj-$(subst m,y,$(CONFIG_DEBUG_INFO_BTF)) += xfrm_state_bpf.o
--- 
-2.47.3
-
+Br, Jarkko
