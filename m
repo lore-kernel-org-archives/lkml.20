@@ -1,250 +1,142 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644BD40BCB8;
-	Fri, 25 Sep 2026 20:20:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A2B45D5FC
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367661; cv=none; b=bxASarUXhVB2QHJ0IrRDWtR8kZQsLcDzIxpkgE5ScG5X7lHDagwFLqh9xWN+gpOiu3029NSXvV0JbLkoE2KZn5hilkPi7m8t4wwflLUP/4p1muZP0FC4qooC5rdt6HH7DZr/OVviogDFuxf6hEphZ3IgkrroG2h0L+D1oOKoBEQ=
+	t=1790367665; cv=none; b=n0rsJwj95vFse2h3F6AhOwaah/Ie+SnbLsQPUIK7Lq9OlUOuM2EFx7XEu76bd4fSGH8URYd18P4RGDoTeJnkLCi49KbwRwfNUjleRVfqcSxvAXVzsxDodefzDDzNq8uIwwjD00MseaUc6p5/u76MZ6dVgiAzKOh+egvoHDzOjDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367661; c=relaxed/simple;
-	bh=tAQBxFgeNXRYWDnVw3qPWSdDudkU5b4E58qID2FP0sc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r+/Aa+jpCJ4xs/Zzc9njZqAAZWDAH3Yi+jC/sK5xY/JF5vErb1ujf1+X6RLLbtRpr3OZMn71HV9NVxHbJSjC1zgl6QRoCdNpnViM2EaU/PUtY6H3LTcx+2+KJfigjLELXCoyVqubi6Er6OS+yg6nerPARG49NrQjUFs3u2jzEBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=rSfzWamQ; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790367665; c=relaxed/simple;
+	bh=aQdcMnaGRWrcT2d6YZ42NdwPibTOqQqRSFGnSDUxUa0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YmbaqDmCN59ODsKX493uW6xgQrQqjqIMx+E1XmqwqyHBUCVgA32w4Sg21GkKh/JAahohpjPdb+tXBTxGWExJKX/1BKeli0rJy/JgvKQwOAgAJ65zz9XK1N3B9PgUhIFBAx9qqlwHUYi9gD7NKDoJIYWjRKNiAwvyr69Wm5Gwg/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AZfvwi9M; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="rSfzWamQ"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id C6B1B5340215;
-	Fri, 25 Sep 2026 22:20:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790367656;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=PgOgOgX/53l72xX/VCoPzjEGh8tHz10dY4VffJmYMnQ=;
-	b=rSfzWamQPk8r0LfhDfHY11UnKlZihsBnF7ExdfD+7jEEapvq3lZgcCaLZcSdCpR6JO5DwU
-	E4HgGUGOCGvi/1QBYn0JUkWIEVRCAcQkbnKy571y5aK1CowtpM1z6puja4rIqxiAMi/nve
-	LzVML0cPLkjTRTjgDAiOYAfzu4CrS+0=
-Message-ID: <b684b88b-55a6-41a9-a4da-3bca33550164@ixit.cz>
-Date: Fri, 25 Sep 2026 22:20:56 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AZfvwi9M"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so814260a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:21:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790367663; x=1790972463; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xWHZht3/sG7ZvX5La1aBebgJu63RUAKhR/+jLnkgrMk=;
+        b=AZfvwi9M+WMp11YAT6155HO1GrvbdzC1CKj+dEnJN5iex4MvSpu30MiNq5bcb0X4Zv
+         ojBdMZ+R+5SimlQsM66D/ihwWT6OgGpGwKkprX6pA49ZjR84c8Iq10035mDELRyEP+7W
+         YAn3BSoGAOwcSXtc+c66XkNVsexbqhaKFM8s7TNrJvk421FMIzcTU0UGd0Woai16F522
+         KOP2FZnNkTU+QzVMserVL/rk8rBa2MmpZugvT+XZWtSwivrSsjHczmWs63pHIJuR3++1
+         kduU+XrOgqIyWjp7jHXJlovGXQvcZ96t93Vqx9o8uUPjhDgW7c0VWnTBvhfbMUkybmQY
+         0jRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790367663; x=1790972463;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xWHZht3/sG7ZvX5La1aBebgJu63RUAKhR/+jLnkgrMk=;
+        b=qNlQ3NkSvwyiVzPL7vyVaXhpwAFcEuO01lsupIWG8QsCLXyeEyKxUzUOhuIsgH7Ki/
+         6OuvSVoSr+zLAIrZQWLLhKN9B4aB6Zr+CNlpTWGtJKcX4xNRa7ydPVJ7D0DIMol6Bn2/
+         alMB+91DsFLA4mEBpBQIO5iV6T0Jb/FhNApnQ6P74W2xH2PWkF8mapyz3G7dJXubtxM9
+         R6mjSiU5lxoflOSZQ2/1RU5HG4DFvlfhANxtXLZec8IlOfUKSwgiDFn4wS2GUj8ntVxA
+         hKmYyfZED0/p0aK9BZo/n7t5wqFKnr/OYBkgeHMpsZBNT7oSukX70AQFYQD7lv+Mssk8
+         Lnww==
+X-Forwarded-Encrypted: i=1; AKwUvByQpjm1tbbWPKPF4YIGuWpuOEvap41XQNWMbJrE7HAc3j23A68vhjDeJG56y9fD61sLO3CIdjhNdstIJoI=@vger.kernel.org
+X-Gm-Message-State: AFuF++md5Z+Dmo8Fco7AkjgdoWuzDN0kJX2NMQ6DLa75Jnc7ai3eCYPV
+	0UhWaY4xu7QgXYG+EoCDVk8Sew9Ca2q/1XjrJged04uaoNRBKnIw5WGJ
+X-Gm-Gg: AYBFou1UG7VT35OSqCy8y/63uqrlA/GwZXbf96lLqOAX76GoyeTbO8tmMbMZgZtyLJo
+	OpeBfmNONNKLPaKzZP8W12mZZ4atzeeH+g+2ME64IBR5Jnog+vtdbxW8a96UjURRiiZqZ2JeAj9
+	0xzzH/5SLXQAv34LmHNAh0yjbEQn5TYkOun0DRn5EDnZbyWKcgXQ3Eiwm5P4smAiABSHMKExI9O
+	+pd7rxIJaq4WXFBFzBAwLJ53DAbtpSpl8rkDP+U8JQyQCz/OrTVnh8+r2H0EIHKUobUZAIB5t3G
+	XmI2k9085Cp7Dfuga1hvNWwzB8EN6aprPWnl7Z53ZvGmeHVxn13omzUQznfpTuyr+LUE5AglI4D
+	psuLp3NewJv7HeZW0QDlohMaP2h0NdtuMlwWgWpdhQM3gYuj03BwTUQqwUjx0TML1KORTg7K1R8
+	FLQZOY0oA+03ifrPRckvs+AMe2+W9ASycRJ52aa1nhnL4cr/VNF+i+H0zNapXVyjv6of5W6RaLI
+	5Pi6uE5iY30lzkQTDLhK/M0UQl3EvvMLIi7VkoG8A4gsMXqNw==
+X-Received: by 2002:a17:90b:518c:b0:3a0:dbfd:1a1f with SMTP id 98e67ed59e1d1-3a0dbfd269bmr214015a91.25.1790367663092;
+        Fri, 25 Sep 2026 13:21:03 -0700 (PDT)
+Received: from KASONG-MC4 ([1.203.116.237])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99917besm5937983a91.14.2026.09.25.13.20.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 13:21:02 -0700 (PDT)
+Date: Sat, 26 Sep 2026 04:20:51 +0800
+From: Kairui Song <ryncsn@gmail.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Rik van Riel <riel@surriel.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Gregory Price <gourry@gourry.net>, 
+	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <arbUA-XwLBsty34_@KASONG-MC4>
+References: <aqjpYHbZ14A8xRtK@fedora>
+ <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
+ <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+ <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+ <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+ <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
+ <arUcil9kxUPiymXI@KASONG-MC4>
+ <arbGo3QTYlUD5cVW@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/4] Input: stmfts - wait for controller ready after
- reset
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
- <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz> <arbJrK9zfoO1dGzy@google.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <arbJrK9zfoO1dGzy@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arbGo3QTYlUD5cVW@linux.dev>
 
-On 25/09/2026 21:27, Dmitry Torokhov wrote:
-> Hi David,
+On Fri, Sep 25, 2026 at 12:36:46PM +0800, Shakeel Butt wrote:
+> On Fri, Sep 25, 2026 at 09:15:17PM +0800, Kairui Song wrote:
+> [...]
 > 
-> On Mon, Sep 07, 2026 at 12:50:19PM +0200, David Heidelberg via B4 Relay wrote:
->>   
->> -static void stmfts_reset(struct stmfts_data *sdata)
->> +static int stmfts_reset(struct stmfts_data *sdata)
->>   {
->>   	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
->>   	msleep(20);
->>   
->> +	reinit_completion(&sdata->cmd_done);
->>   	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
->> -	msleep(50);
->> +	enable_irq(sdata->client->irq);
->> +
->> +	if (!wait_for_completion_timeout(&sdata->cmd_done,
->> +					 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS)))
->> +		return -ETIMEDOUT;
->> +
->> +	return 0;
->>   }
->>   
->>   static int stmfts_configure(struct stmfts_data *sdata)
->>   {
->>   	int err;
->>   
->>   	err = stmfts_command(sdata, STMFTS_SYSTEM_RESET);
->>   	if (err)
->> @@ -593,42 +602,47 @@ static int stmfts_power_on(struct stmfts_data *sdata)
->>   		return err;
->>   
->>   	/*
->>   	 * The datasheet does not specify the power on time, but considering
->>   	 * that the reset time is < 10ms, I sleep 20ms to be sure
->>   	 */
->>   	msleep(20);
->>   
->> -	if (sdata->reset_gpio)
->> -		stmfts_reset(sdata);
->> +	if (sdata->reset_gpio) {
->> +		err = stmfts_reset(sdata);
->> +		if (err) {
->> +			dev_err(&sdata->client->dev,
->> +				"controller not ready after reset: %d\n", err);
->> +			goto err_disable_irq;
->> +		}
->> +	} else {
->> +		enable_irq(sdata->client->irq);
->> +		msleep(50);
->> +	}
->>   
->>   	err = stmfts_read_system_info(sdata);
->>   	if (err)
->> -		goto err_disable_regulators;
->> -
->> -	enable_irq(sdata->client->irq);
->> -
->> -	msleep(50);
->> +		goto err_disable_irq;
+> Thanks Kairui for very clear description of what you want and looking for.
+> After reading your email, I think you want memsw support in v2. Currently you
+> somehow are implementing memsw using memory.current and memory.swap.current.
+> (I am assuming you need to subtract swapcache to avoid double counting.)
+> To conclude, you want to use vswap (the aim is it to default) but you still want
+> your way to implementing memsw keep working.
 > 
+> Please correct me if I missed something.
 > 
-> I think the logic is becoming quite convoluted here, and factored out
-> stmfts_reset() does not help. How about we make it look like this:
-> 
-> static int stmfts_power_on(struct stmfts_data *sdata)
-> {
-> 	int err;
-> 
-> 	if (sdata->reset_gpio) {
-> 		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
-> 		/* a short delay before powering up */
-> 		usleep_range(1000, 1500);
-> 	}
-> 
-> 	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
-> 				    sdata->supplies);
-> 	if (err)
-> 		return err;
-> 
-> 	if (sdata->reset_gpio) {
-> 		reinit_completion(&sdata->cmd_done);
-> 
-> 		/*
-> 		 * The datasheet does not specify the power on time, but
-> 		 * considering that the reset time is < 10ms, sleep for 20ms
-> 		 * to be sure before releasing reset line.
-> 		 */
-> 		msleep(20);
-> 		gpiod_set_value_cansleep(sdata->reset_gpio, 0);
-> 
-> 		enable_irq(sdata->client->irq);
-> 
-> 		if (!wait_for_completion_timeout(&sdata->cmd_done,
-> 						 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS))) {
-> 			dev_err(&sdata->client->dev, "controller not ready after reset");
-> 			err = -ETIMEDOUT;
-> 			goto err_disable_irq;
-> 		}
-> 	} else {
-> 		/*
-> 		 * We do not know the real controller state (was it powered
-> 		 * off or reset). Let's hope that this is enough time to
-> 		 * initialize.
-> 		 */
-> 		msleep(70);
-> 
-> 		enable_irq(sdata->client->irq);
-> 	}
-> 
-> 	err = sdata->ops->configure(sdata);
-> 	if (err)
-> 		goto err_disable_irq;
-> 
-> 	/*
-> 	 * At this point no one is using the touchscreen
-> 	 * and I don't really care about the return value
-> 	 */
-> 	(void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
-> 
-> 	return 0;
-> 
-> err_disable_irq:
-> 	disable_irq(sdata->client->irq);
-> 
-> 	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies), sdata->supplies);
-> 	return err;
-> }
+> I am wondering if you really want memsw, why not propose memsw. Someone from
+> tencent proposed memsw [1] previously, so why not continue that effort? I am
+> pretty sure folks from Google (people who actually work on prodkernel there)
+> will be happy to collaborate with you on that.
 
-Thanks, it seems to be better (thou would be nicer if we didn't have two 
-branches, but... what we can do).
+Hi Shakeel,
 
-I added you as Co-developed-by :)
-
-David
+Right, I believe it is still being proposes as you can see there are some
+previous progress, year that work need updated, let me try to do something
+about it.
 
 > 
+> [1] https://lore.kernel.org/20250319064148.774406-1-jingxiangzeng.cas@gmail.com/
 > 
-> Thanks.
-> 
+> Setting aside the memsw conversation, I think we should go back to the actual
+> vswap conversation and list down what we agree on and where we still need
+> discussion and decision. (I will take a stab at it and start a separate thread
+> but still on this email and will use AI for the summary.)
 
+Right, the things here is that I think it's not hard to see that
+memory.current / memory.swap and memsw (if in V2) is tangled with each
+other so I'm hope we won't create blocker for the future.
