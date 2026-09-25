@@ -1,110 +1,122 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E39840B0EE
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4DD46A5FE
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:22:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790338874; cv=none; b=qEw+DmZI2XFu9aawtb4OQuBS1KY2GTpIosL/0BLhLepADeSFIxS6aJYe/4wEEMMBay7DowAUSiO3IDSRAV0x9TwJoTmfE1aFaksn3NWvKoAaJYs9Q7egi8r1GEHfDdtp82ZNl4ktOU2PBT5JNhk0ZX/71ESpccpMAjmLZnYp2bo=
+	t=1790338933; cv=none; b=p+6C1ZWWEJkigS/2bFJ4fWTD+uppwsphc5Cu3sgLVRinkLROkuS9AlVVEB7QWSk3G2P+yHRkZGt2Hx7Q1VtH++AGD5zn0lesdj8mXP/AVMHiW8cMKwQ0uMai1+zaodCmVjhzf5hcoJe0mAc/8lOk2k08L/qweVFK+CZ34Wp1wxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790338874; c=relaxed/simple;
-	bh=R3g0qMKyEsRuZkRO8pRVCOksVJJlTG6JMTRbXgkDV3k=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=unZqaMCghswR2FfOSTbgd78t5+ejcf1SRVa3Ha/WmWSpPEQnr5IEocHUBLHAFk8qTB4s0bPBW+vtqOSFSCq6/6Aftiyu7tW7Hd8NNTb8EBHO8AS1V0PaU9rB9pJ5Cmr4jytQfiYKvwJ3BnixRbitYSW6ER9J1AjyetwunOR2GKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PRwDCchp; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1790338933; c=relaxed/simple;
+	bh=s/PvtkNVZ4YIzTo0qHBPvGUkdcNJ0VSkXZVSnkH2sMo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=MSyJSE2UExG7EZK3sPsUj29vcKWISdoWb86JNppzgkYDTaU08r4XMz1nihkaF2R03gAK1uCrel6YNXHsoekQnGTP8AkVuJL26UmW003bu9SaDOceN2v0V0+6YWf6X56f9AefLQIfeVHIfVQ2RJRtpMK3vRtfexk57FdEp1oMc2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JvMoKYbP; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PRwDCchp"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so6328855e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:21:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JvMoKYbP"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso443772a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:22:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790338871; x=1790943671; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uE38oAB42n7bmIsl4KnELZdu25j4VHGq3gSZMQshQlc=;
-        b=PRwDCchpEYRqki0Vtpo6CPRNqbj8jn3tmHrmIwr9xZSeK4cRYFGa73CdL/xpIDqRr7
-         ExAxm4bwOJbvj6yIoiz/4XdJXcQsL1XRDKAvTUoiPr2GEYzj1rP1mkRQ21kjoCTu/nzx
-         3d/ioNqimSoOHbfGLC0gXFVJPZ8BwWdgfLOtwyWO3n6k5Ka+eUPf+gNm6BeEKA0o8yi+
-         ZbUAQ613a3WKViNS3fqKjSKDx7EBSbFwP+58a0mWu1Kq2Dc7etyuWcvTbzXsoDd7du5x
-         f6PAfSTGUbXyXOFbxJvAujYrLhpu9wIRLwBUcN1t55q2B2AFMlOM5OlxbIpyjl4uly4g
-         4uGA==
+        d=gmail.com; s=20251104; t=1790338931; x=1790943731; darn=vger.kernel.org;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=uwHCeFBiFb/S6cPK4uw5VdO3mz9Lko0oibblDJPiB/Y=;
+        b=JvMoKYbPgZowh+cUd03xGDt8C/HYh617X+ApuVZzdhbespxQ/Qfh/u2yhFBBi2eQpA
+         9izYkThVQX9X3HgrNYGf+2kbwq/dqEQlk69gIqqHb2CPMwYenVKAcITfxzH28fc1Zvia
+         SJs1SKuhm1RGqW4NeUitV+9EYt41gyle+aEQdEHVKd5rEq89Te0wQllZjpSZ718KlJGk
+         YM8Eqq4g4ZNA24zCoVTsUOrcxOSxndABIK9EEYk2a1eFf4xgyA42ebTndpECbs8K+Hxo
+         kcAewrwwSoB7o9+XsZFaSmcFaawroVsK/vNRezluovIuCTvxHuA1CnaFXmeCeWFqSVY/
+         o7Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790338871; x=1790943671;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1790338931; x=1790943731;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uE38oAB42n7bmIsl4KnELZdu25j4VHGq3gSZMQshQlc=;
-        b=pGHBpxSLGdV6ZTb/DrqrjeGaYLidzimIGnjKBRJWb0vt2+rQ3/G4T9WFKPRrZmOWBM
-         KopxFzz4613Oa/ALw8iN9lYHOgP6pPEdAE3v9wamUR4qYVfzWrxpUPEtODcnhtu49Gnq
-         3JIrpBQ2O6ZxjwKCVCRZPAgMNiknpj8i41/kp5tHe4QD+Dn++uXkVVTFI4QAEMxNB798
-         MoPgoWuDnJViTEd1RMoYFdcIrgilxyWgyfQousRLi7NHrrg1d2SeCkckkyXfj4q5ExdV
-         CmHIAgdJqY2L3Oyk/QqbQ0AeXXGG1c2zVdcdNLopKRqcV2Ic9vInA56ixcNCphW5VPVk
-         QlRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdVKCgXcGKORCn9MiBgU/mWijbZW8mcFnbjZWUUrhhRKgwzaomN/NVRiS0V7Kv8+fWWQhJFs2c4d++mqE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nu1f+X+/TEjheNnuLfK/2A69TYeyF+rIRpf/kqpxojCXyetTbd
-	OXsXdA9WwHbbM4NUnzw18VtZ8TrPx6t9T6nfEzVS1a4sD0+mNXio1Gz0
-X-Gm-Gg: AYBFou1112rl5RKZZdXdFvcD4wuvu/U0kH5csZI5Bl9nx+3q48phqgdpzOWBTxURtHI
-	V8l6NA+ex91xLlFbS6exJtzy67d0mLDZNusohkLF8wmhxMhYKwDZxPOQ+tP9MvdzGgE/HzEePP+
-	DAUij4jJnd2XzdyPmntEUmYTBHlEsrLCFpgaUBCkrmXqWQxDL7b/i0HmlaFUCBWfpfLtgiDt187
-	vqqUnYVUF19L3DeRr5crFFDOCuOGVFtD/VNLCzmerQ20YKdpmJznsfSApM6DoeZec+gtKHyfl02
-	CbNnGxY4NF5QzCSjP/SfEGlBYmmWkwkE3FJ9/NxJAXEMX3odY4AXbmSkBIRTWVDpHZdOxXUSv5R
-	rVhwFtpyz+9kpe58+T6YTBfL5cA8gzW3y3SU843G3lbJgEWRFiHWAwu84Olh48dW+IoHcxVhEKg
-	UYHoJHI32v1tG22fuzr/eL0EWR9HfnJZjfoqoKz2h2o13etFm/N7nwS6teEDXrPMYfHd/Yfl6//
-	q7R3Yb+MlJBC9ARoQgujXp0i3+iQcHmKHKAuW7x0OBPwFY=
-X-Received: by 2002:a05:600c:c177:b0:49c:fc6c:be19 with SMTP id 5b1f17b1804b1-49fe67080b1mr104067595e9.31.1790338871100;
-        Fri, 25 Sep 2026 05:21:11 -0700 (PDT)
-Received: from Ansuel-XPS. (host-79-29-83-136.business.telecomitalia.it. [79.29.83.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06bdd58sm68080805e9.10.2026.09.25.05.21.10
+        bh=uwHCeFBiFb/S6cPK4uw5VdO3mz9Lko0oibblDJPiB/Y=;
+        b=K5aU9O5/2+j4n4AIdVXk+X8mtP5rrvm1FHCHWqJi0rbaYrv/zPbwwSBl+v1c4sStxG
+         /yBip2/nTOLXF5Qfa5YHL597nMT0nnpoLV7Xo/fCre90yKOWSpAc6irVRmtMebKEZshf
+         dyq2cSE4hN3U7tv6MUV3hj+kwnEGaOxP9O/geHYn2NwwTflRCpvW/FclZ07Bn/WXWHOO
+         mYL7PI4yCDsCh+jNHIObdUqe8yiOmeSZwl1MTQJWvne8M+9y/SPPfirXVviwhivUF6LA
+         stDzvdX8do/IbtEnjppnywvkkuGoJ3TG3ZvLu/Z0YgmkN1azo8XAYN80paMiZHZA9pPH
+         SXyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwEVMSTlZdHsxPQE7tLlj3I31eOqULtSusqti79yRQsDdV3LAFhsWuNICimAK05LhudkWBDKrb9rnJUXiA=@vger.kernel.org
+X-Gm-Message-State: AFuF++li2zMHM20pJkitsl/9Y3zeGKSxZ62FTUtpD3CD0qVM5gEv5mwd
+	Yf+NsXmO3M545vr9V2QB/oWcWFoG8GLvdNnsmHNN1hhSwrwXsWCtLymTJ9M4wuI4Bic=
+X-Gm-Gg: AYBFou2sNZROiwIh28x+RkBtCZ5nvqwaABmBXCcQd40hl6mZDoG0OQMnkROVR7xLZAc
+	oV1rpdpT6G/TWm7PUr11ZiC+94FeUPbaK5MVfa5ztZCQ1V2AJ+1A7Z+SyPIbrbtH8hl/Txu3/uI
+	JYLKJwHa2799ngSzh9H+3qR/bHb7uf71IFXb2BZG9D6rK2qTwtL75/pNRvKo6TSx3fsvbyHPmS3
+	Jx6D4GWje5XK7TUCGWpfiAK2B+tnpvLKdM7r5/3tTH05HooxngCWYJ1hnITvdxLNlxUUIzjyvDG
+	yU/MFvKnZ3Di8oPsHw175nChWu+EZmrnPYLV1p4fBmSHBfxeAqmgqq5gY4Bmt1arYDZeamyjvpV
+	kJYzpgRJmMuoSbwUnlNll7qNtd6kdLc0MpqEP79HCeXYxJyLiWTxkWBlQq4CjSYvd/OlZELNh/f
+	5VoquPd4OhWKRzjgWiaPd1yljACsuL9fs1y0rXxKJ2Y6O1lpFwjz610a+9pw8ZdSTHLgRYsxU+r
+	384kuQS
+X-Received: by 2002:a17:90a:38e4:b0:3a0:b223:6830 with SMTP id 98e67ed59e1d1-3a0b2236c1dmr1533648a91.7.1790338931135;
+        Fri, 25 Sep 2026 05:22:11 -0700 (PDT)
+Received: from [127.0.1.1] ([240e:b8f:977f:f400:ec2a:b15e:fef8:70a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9feddd0sm1229303a91.2.2026.09.25.05.22.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 05:21:10 -0700 (PDT)
-Message-ID: <6ab66736.82f08bcd.9574c.5483@mx.google.com>
-X-Google-Original-Message-ID: <arZnNemCJV6C8TEE@Ansuel-XPS.>
-Date: Fri, 25 Sep 2026 14:21:09 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [RFC PATCH net-next v2] net: pcs: airoha: add support for Airoha
- AN7583 SoC
-References: <20260925072712.23419-1-ansuelsmth@gmail.com>
- <d1f5d3ce-65bf-4f87-908b-39d1022e934e@lunn.ch>
+        Fri, 25 Sep 2026 05:22:10 -0700 (PDT)
+From: Liang Haowen <nbg2974@gmail.com>
+To: Marco Scardovi <scardracs@disroot.org>,
+ Denis Benato <denis.benato@linux.dev>,
+ Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: linux-leds@vger.kernel.org, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Martin K. Petersen <mkp@kernel.org>,
+ linux-scsi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Armin Wolf <W_Armin@gmx.de>,
+ Hans de Goede <hansg@kernel.org>, Derek J. Clark <derekjohn.clark@gmail.com>,
+ Marco Scardovi <scardracs@disroot.org>, Ahmed Yaseen <yaseen@ghoul.dev>
+Subject: Re: [RFC v7 0/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver
+ for ROG NVMe enclosures
+Date: Fri, 25 Sep 2026 12:22:03 -0000
+Message-Id: <202609251958.ReplyMarco.lhw@gmail.com>
+In-Reply-To: <UuqOxFagT_OBL0l5ZYtfKg@disroot.org>
+References: <UuqOxFagT_OBL0l5ZYtfKg@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d1f5d3ce-65bf-4f87-908b-39d1022e934e@lunn.ch>
 
-On Fri, Sep 25, 2026 at 02:10:24PM +0200, Andrew Lunn wrote:
-> On Fri, Sep 25, 2026 at 09:27:10AM +0200, Christian Marangi wrote:
-> > Add support for Airoha AN7583 PCS. This use a new analog PHY
-> > implementation that doesn't require manual calibration but makes use of
-> > internal algo to lock to the center of the band EYE.
-> 
-> Is this PHY capable of other things? PCIE? USB?
-> 
-> I ask because a generic PHY driver is often used to represent the PHY,
-> and that can support PCIE, USB as well as networking.
+Hi Marco,
 
-Ethernet and PON serdes are only for Ethernet usage. pcs-usb is USB or
-ethernet 2500base-x and pcs-pcie is the special thing described in the
-other message.
+I went through your SCSI version in PR #17 against what the hardware
+told us while developing this series. The class layout fits the
+device well: the ENE mode register is the hardware effect offload,
+and direct streaming as table write + apply-without-save matches
+what the controller does.
 
-I'm already using the PHY API where possible to configure the dedicated
-mode and speed where the double usage is present.
+A few things our hardware testing can add:
 
-> 
->     Andrew
+- ene_write() maps the caller's buffer with blk_rq_map_kern(); your
+  call sites pass stack buffers (colors[12] in direct_write). That
+  is the VMAP_STACK DMA issue Lee caught in my v8: the payload needs
+  a DMA-safe buffer in the device struct.
 
--- 
-	Ansuel
+- asus_aura_brightness_set_blocking() will never run on the current
+  LED core: brightness_set_blocking is superseded by the fast-path
+  brightness_set there, verified with a test module on 7.2. The
+  callback to use is brightness_set plus deferred work.
+
+- The firmware effect numbers from register probing here are
+  1 Static, 3 Strobe, 4 the rainbow flow (all verified on device);
+  2 looks like Breathing but was not confirmed. Your mapping sends
+  Spectrum Cycle to 4 and Rainbow to 5: on this enclosure 4 is the
+  rainbow flow, so those two need on-device confirmation, and
+  mode 0 for OFF is plausible but unverified.
+
+- If the class core serializes the ops with led_access, sysfs ops
+  cannot race each other, but trigger events reach the LED core
+  without that lock, so a trigger-driven brightness update can
+  still interleave with an ops sequence. The device ignores a
+  sequence that loses its leading MODE write; one work item owning
+  the sequence, like in this series, closes that too.
+
+The 12-byte block write to both colour tables in one go is verified
+working, so your direct_write shape is fine once the buffer is
+DMA-safe.
+
+Whatever survives your rebase, the verified SCSI core in this series
+is yours to reuse; happy to rebase my side onto the class once it
+settles.
