@@ -1,128 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C142D488D86
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB2547A0C4;
+	Fri, 25 Sep 2026 09:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790329890; cv=none; b=Qn8qnaePA6qUv18plbPIGkLrvd8zXV8KZ7kQaxe/+EXH4Cchqm6Ap7UFZE1nTV22+A4WBZiQD5bX5yHpaLWJDMu0aq79CWSOSEg8HdqwFHsjmugTtUMQF4BSD4oX1tN6RsqG83WKxgnJC/f+JPRzgGBamCDEK+2sMGEDT5WkyWE=
+	t=1790329924; cv=none; b=VgSFRscoPfAX8KC8/xFm+5PI4Z9TqXPrRCKf/tp3k0LK5Vd0u2gEhFe6sXwKDUr0ptvlrBwfYfe+coC3aRfQzJyzWojR89lqEfxIe2Ppb4jsCs/+7Y2ohp722n/OrkoK7DISgEZp7YOf4mL4JK6umAG+p1ZeAvJYzpcm6iO9FVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790329890; c=relaxed/simple;
-	bh=nmelBe0rmd37EZkhBked9r9baRkcfjjrnCyRf48iobU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E/9oH30821futxtFajONmq6pISsjl4pkiI0uQCLnvy3/itStLKojd5aWQFL5BcyvqqosiVk0j31turYPviB2MUYutT/ONv4/L3qJfiYkAxfWF2ajJAcMq3yKFBlITc9D8z32q+B5oOMDOKxm1SGZzVJPIwOyFJlGX5oxa2gu1X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MII10lLe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790329924; c=relaxed/simple;
+	bh=fg6c6P0/fMma64VSqM6W0bcXy6oK5l6e028sdtXnnxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iheaWD73HCx7uVoSClVhRvYqu7/1I/TVH7Q7I5q+wAfXx2pcl9+S4Vvth4tM7qI3PS77l6SD0mtAThPGszit9ZSZ7tdu8X5D1pTahbIs/vvHLbawcCkxUr8875hxlqdo72eheFjiSn4vHwTpwUOyrO7eN2NhahPvCdnSWTEzR/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=KVWVybj9; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MII10lLe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4231F000FF;
-	Fri, 25 Sep 2026 09:51:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790329887;
-	bh=K+D5INLgXRmSCP8dX1DI2YP9WCAPf2XRP1YftFg3Z8w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MII10lLeWnl76mMmwR6zRYIBDQPFBBLpplp/A1G72hA8hNqWE/KFpBvE8lGBHSGxv
-	 p9xWx5JxHALI59tElqwE3PrmzeOAa8ZHbK4hPsP3Du0TnHtQPUwpIro2YQSPqzgBJZ
-	 7PvFyIpf3XbqI/j+XMABy2Fi1IgkNGPDfbDN5dYMVe0k8LpcCzyBwfdSyK7U6RlH/9
-	 Om4KSie2kQZ9qi6kqA85+W/Yyy+a+8dZYBsv/J0k3ZNZXPS6BhmzbC6uZCFRaMNlQn
-	 CkBzQjZjD4OYsjB4VDOsDtyJ2ln6dA5wzbsCBCrlVqWHY8r2CShJqIUl8EviQxpJfq
-	 mHmvIzwF2GKGA==
-From: SJ Park <sj@kernel.org>
-To: Davidlohr Bueso <dave@stgolabs.net>
-Cc: SJ Park <sj@kernel.org>,
-	Bharata B Rao <bharata@amd.com>,
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="KVWVybj9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=5xfEJH+6O2A299+Q6ks5W8v7WUawHM5WLwZmhR3IQ4M=; b=KVWVybj9ZK9Rf8m552n+A+cEMP
+	/1CB7Ch8LmpHLFdDgnjNTU84vozopg8SuKhm7XMzQ11AAaYuoiSPQxy0G+9BEIyHC62H+02MrSOOA
+	cXDCVAKgLYMl6NKBpVh/Ney9sHnGYUQa8jJYIWLKIGiKDvP82Wikwef7P48HJ8vOz2XIPsBNKGCj2
+	1pitq/yRkdgsabshmJClb+y6Xb2twQU7PZIhFnILJSWQgVP4Ix2CeQVWOQiYLrYyUfw/pZvv8V34I
+	dcR7PR5wboQ3R35uzWGguxnYJxTV+Q8ZOwEdXYX+pWSCxbKrj6HyU0MmJTMwPtB+l20bApfsKXK6G
+	NLY5Dm/w==;
+Received: from [151.115.150.205] (port=55806 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xA2av-0000000EqYZ-3i7v;
+	Fri, 25 Sep 2026 11:51:53 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	jic23@kernel.org,
-	dave.hansen@intel.com,
-	gourry@gourry.net,
-	mgorman@techsingularity.net,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	raghavendra.kt@amd.com,
-	riel@surriel.com,
-	rientjes@google.com,
-	weixugc@google.com,
-	willy@infradead.org,
-	ying.huang@linux.alibaba.com,
-	ziy@nvidia.com,
-	nifan.cxl@gmail.com,
-	xuezhengchu@huawei.com,
-	yiannis@zptcorp.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	byungchul@sk.com,
-	kinseyho@google.com,
-	joshua.hahnjy@gmail.com,
-	yuanchu@google.com,
-	balbirs@nvidia.com,
-	alok.rathore@samsung.com,
-	shivankg@amd.com,
-	donettom@linux.ibm.com
-Subject: Re: [PATCH v8 0/8] mm: Hot page tracking and promotion infrastructure
-Date: Fri, 25 Sep 2026 02:50:38 -0700
-Message-ID: <20260925095039.48831-1-sj@kernel.org>
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH] xfrm: esp4: use current ESN high bits for IV and AAD
+Date: Fri, 25 Sep 2026 09:51:29 +0000
+Message-ID: <20260925095128.446450-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260925021226.52kpnmvfylw73dz4@offworld>
-References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Hello Davidlohr,
+esp_xmit() saves the low half of the current packet sequence number
+before advancing the GSO sequence state, but builds esp.seqno with the
+high half after the advance. When the low half wraps, the packet whose
+transmitted sequence number is 0xffffffff is encrypted as though it
+belonged to the next sequence-number cycle. With AES-GCM, this assigns
+the boundary packet the same nonce as the packet sent one complete
+32-bit sequence-number cycle later. esp_output_set_extra() also reads
+the advanced high half when constructing the associated data, so the
+two packets use identical associated data.
 
-On Thu, 24 Sep 2026 19:12:26 -0700 Davidlohr Bueso <dave@stgolabs.net> wrote:
-[...]
-> So perhaps any mm interface for this stuff should just not be designed
-> around sampling, and instead proper hardware sources?
+Because GCM uses CTR mode for encryption, known plaintext from either
+record reveals the corresponding plaintext in the other. More
+importantly, reusing the nonce makes the GHASH authentication key
+recoverable, allowing an attacker to forge valid tags for arbitrary
+ciphertexts under that nonce and key.
 
-Makes sense to me.  I proposed [1] damos_add_folios() in LSFMMBPF'25 for a
-reason that is similar to your points in my humble view.  To quote from the
-slide [2],
+Starting from sequence number zero, reaching the faulty packet requires
+2^32 - 1 outbound ESP packet sequence increments. Reusing its nonce
+requires another 2^32 increments under the same AES-GCM key, for
+2^33 - 1 increments in total.
 
-    +/**
-    + * damos_add_folios - Add a list of folios as highest priority target for given
-    + *                    damos.
-    + * @scheme:    DAMOS scheme for the specific access-aware operation.
-    + * @folios:    List of folios to apply the access-aware operation.
-    + *
-    + * If a kernel component finds folios that eligible for a specific memory
-    + * management operation (e.g., CXL-promotion or demotion), execution of the
-    + * operation can be requested to be done by DAMOS using this function.  The
-    + * execution of the operation will be asynchronously done by DAMOS worker
-    + * thread.  DAMOS features for resource control (DAMOS quotas) will also be
-    + * applied.
-    + */
-    +void damos_add_folios(struct damos *scheme, struct list_head *folios)
+Snapshot both halves of the current sequence before changing the GSO
+state. Derive the authenticated high half from that same immutable
+sequence value so the IV and associated data cannot diverge.
 
-> A lot of the complexity in pghot can be removed without this imo (per-pfn
-> metadata, accumulate+decay phase). Of course we still have the problem
-> to evaluate the cost of replacing a chunk from the top tier(s) with the
-> what the low tier is reporting has "hot". And this is particularly true
-> with chmu with limited full system memory visibility (as opposed to IBS,
-> for example). I don't really have a good answer for this, other than the
-> user could use proactive reclaim along with the per-device tunables
-> (ie unit sizes and thresholds for chmu) to configure things realistically
-> for their use cases - prob. easier said than done.
+Fixes: 4b549ccce941 ("xfrm: replay: Fix ESN wrap around for GSO")
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ net/ipv4/esp4.c         | 13 ++++---------
+ net/ipv4/esp4_offload.c |  6 ++++--
+ 2 files changed, 8 insertions(+), 11 deletions(-)
 
-As the above quote says, the API caller can still use DAMOS features for fine
-controls such as quotas, filtrers and quota auto-tuning.  We could add more
-optimized features for the API callers.  My rough idea was that such
-operation-focused features could help serving this kind of additional
-requirements.
+diff --git a/net/ipv4/esp4.c b/net/ipv4/esp4.c
+index e76db5817e78..04f27c41ea50 100644
+--- a/net/ipv4/esp4.c
++++ b/net/ipv4/esp4.c
+@@ -271,20 +271,15 @@ static void esp_output_restore_header(struct sk_buff *skb)
+ static struct ip_esp_hdr *esp_output_set_extra(struct sk_buff *skb,
+ 					       struct xfrm_state *x,
+ 					       struct ip_esp_hdr *esph,
+-					       struct esp_output_extra *extra)
++					       struct esp_output_extra *extra,
++					       __be64 seqno)
+ {
+ 	/* For ESN we move the header forward by 4 bytes to
+ 	 * accommodate the high bits.  We will move it back after
+ 	 * encryption.
+ 	 */
+ 	if ((x->props.flags & XFRM_STATE_ESN)) {
+-		__u32 seqhi;
+-		struct xfrm_offload *xo = xfrm_offload(skb);
+-
+-		if (xo)
+-			seqhi = xo->seq.hi;
+-		else
+-			seqhi = XFRM_SKB_CB(skb)->seq.output.hi;
++		__u32 seqhi = upper_32_bits(be64_to_cpu(seqno));
+ 
+ 		extra->esphoff = (unsigned char *)esph -
+ 				 skb_transport_header(skb);
+@@ -543,7 +538,7 @@ int esp_output_tail(struct xfrm_state *x, struct sk_buff *skb, struct esp_info *
+ 	else
+ 		dsg = &sg[esp->nfrags];
+ 
+-	esph = esp_output_set_extra(skb, x, esp->esph, extra);
++	esph = esp_output_set_extra(skb, x, esp->esph, extra, esp->seqno);
+ 	esp->esph = esph;
+ 
+ 	sg_init_table(sg, esp->nfrags);
+diff --git a/net/ipv4/esp4_offload.c b/net/ipv4/esp4_offload.c
+index abd77162f5e7..79f7d08325c5 100644
+--- a/net/ipv4/esp4_offload.c
++++ b/net/ipv4/esp4_offload.c
+@@ -272,7 +272,7 @@ static int esp_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features_
+ 	struct crypto_aead *aead;
+ 	struct esp_info esp;
+ 	bool hw_offload = true;
+-	__u32 seq;
++	__u32 seq, seq_hi;
+ 	int encap_type = 0;
+ 
+ 	esp.inplace = true;
+@@ -315,7 +315,9 @@ static int esp_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features_
+ 			return esp.nfrags;
+ 	}
+ 
++	/* Keep the sequence used by this packet before advancing GSO state. */
+ 	seq = xo->seq.low;
++	seq_hi = xo->seq.hi;
+ 
+ 	esph = esp.esph;
+ 	esph->spi = x->id.spi;
+@@ -334,7 +336,7 @@ static int esp_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features_
+ 	if (xo->seq.low < seq)
+ 		xo->seq.hi++;
+ 
+-	esp.seqno = cpu_to_be64(seq + ((u64)xo->seq.hi << 32));
++	esp.seqno = cpu_to_be64(seq + ((u64)seq_hi << 32));
+ 
+ 	if (hw_offload && encap_type == UDP_ENCAP_ESPINUDP) {
+ 		/* In the XFRM stack, the encapsulation protocol is set to iphdr->protocol by
+-- 
+2.47.3
 
-We didn' find a real request for damos_add_folios() so far, though.  And hence
-no progress has made for that since LSFMMBPF'25, and I have no plan to work on
-it for now.
-
-[1] https://lwn.net/Articles/1016525/
-[2] https://github.com/damonitor/talks/blob/master/2025/lsfmmbpf/damon_requirements_lsfmmbpf_2025.pdf
-
-
-Thanks,
-SJ
-
-[...]
