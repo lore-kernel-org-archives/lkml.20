@@ -1,131 +1,115 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5734C4F6C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:30:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9273672A8;
+	Fri, 25 Sep 2026 18:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790361056; cv=none; b=fJybCd9UZGcErgZ84xxX8cb/55tYOfm51WwVXTt34OGnCVfV55AIWEIUksVjkfL07mzd4vAMe8T62JMiZHj/3nZaTF427CvjBVTV0Q0u07bVMwRCNMMMqNlfVx9LqGXbIuKsx3Dye9UT9LQ1xXIdl2zxbdgqyvBcbE62pMPvKmk=
+	t=1790361095; cv=none; b=ZX3BoPM5idI7R05GVIPVOfcP04xvgUytNGz0byc9lc6FqylG/HTkwsDF0icfNPjQbABq1u/md0j21NQ5HI+3RbvLANsSk7X6FdSPmpdhgC6KrpxS4wtPg26cbUZJcd8q0UAMNKMddBumGT6CIr+DietwLxOe9nIhF634Y948SZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790361056; c=relaxed/simple;
-	bh=5bTeIx/3s3lWKZ4nDNCgKXw7Rt+gYVbleVn2IGZZ9Yw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fHBtBi+6ntSmoL8Wd+TuNOtSG5K8ujA5WRkM/d5N5D+bsabTQUkImefZ0iIgdYhkVEoE//FJjot4HeJet4+9mhSgm0YD0z/GEyOSoiPJ19lrcM+lwv/cYlDjyafgZYMXDCljfwiYuy9QZsQmNl3+Z2NN8ZljJGtrICAcZTw2ed0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U0GnIiDF; arc=none smtp.client-ip=74.125.231.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790361095; c=relaxed/simple;
+	bh=GhWSGXgb6ez4OOrQiFVWLTGHIi3aVeLSqI5fxtUPyJs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fjm0D0sJFXEUKt9/LFUZyUOlyfeI61kTGXKiNzt4MVXxcuqK6tEKoRQpi/rZ6oIkq+FAcp4av94tEqRb7tfgR38bMtfdPUBCPFnU4ORFGCkkGGAr6Ker1aRzcXFnsVRhay9AiPAGLn2mMKWcyMlWzBn8HI7o/JagOAWNwl+OuV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=OfYHt7Ka; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U0GnIiDF"
-Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6b1ae6b200fso865929eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:30:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790361054; x=1790965854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cW2XG4Hoqs2N1NPgfs1kba+XBAoXoAzgs1+8F/XNb98=;
-        b=U0GnIiDFUnMHJgw6yHDx5rw6p+Y4ALU+1yCXVcHaNMRaknxDf25EgcXgpqyBfkd6w4
-         Qb5vvMy/s7FShC7gevlCgIyVJL3Ug5eV2XaEAHuu4NNuYgkkK9BsBNVR0t91JGl3xnLl
-         csr++Kfoe5n338SlprhKWXhgOOcSkJrGNkPLFHHUY5M/67VDqN1QbmuGE/RMSm58JyXt
-         Q7MbnxQad8V2hrMsBeNRvconG7au/rx8Pr6cyo3UyKJHyTx42csynwvkCnAUVe0iW0xk
-         Ts8qixGVnxeTEY/treY+EyQus6i+TI4l+IyLDC3Qgo+yTdlUW7IRG6kOUJkTVh4MmeI8
-         Xx8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790361054; x=1790965854;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cW2XG4Hoqs2N1NPgfs1kba+XBAoXoAzgs1+8F/XNb98=;
-        b=MIYmAlsZ3rPYTH9dA4NSNYo1WFjCwOPQIU5rGA1sfFL8/mRDtCtBY6iWa/NFxF1IhD
-         j2SikNjtWCqmdgjkuZ2syHdAgwSKfOSWGD5x39c8zjmY96SZ5rkoPwP5yLFMy1MBWoEN
-         4++PrP9RK2xd+zE7HSBcQkTYQm5FmK+dlGXqvrOdQvZrChrVhtaEX7Q2jQt3qveuva28
-         H2EQOCINNHlCEAKVkv+kKo3FW7ZPB+ekDhpC10X5xmL3JhXX8ZrgS0FoU7bV1oi7G7Xi
-         HZQ9zVAuACOeRnCp73toTCB1A9OzaTP7D3P/ajGAo5TPe6qhaOPUTaLZmZoEd01nchEp
-         zhqA==
-X-Forwarded-Encrypted: i=1; AKwUvByYbhGHHQ5PbahrnL+yuql17PnBvaFzdygDOKQcsLqaWSxpPfVGU8OEVuHut6rEybNKLlp9DpBqMj38TaE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGaSv0OeXdOebAA7KuYzcA0a+aUW/YGtY+9PlmhX7Pw8Ftv2jo
-	ZcSjfVUCTX8RPyYiApF8APSK9zvJ6oTNUVgtuZ2ebkdJfbeM9/FVUZ9taeYNLA==
-X-Gm-Gg: AYBFou15zcO79Q8U3lc5jNhj19Q8x1mNee5rYyZ2s50FufIDJF2JoMhLg1U6k5F7BGH
-	QHPySP+U+38AHdzUYNZtRmt+hpgE0271rgPsKGl2xY6sBMdVxq6Uw6Qm2GyBt3vu1UUitIWEONJ
-	3TRLn4KsLzx0g5+jytkbUQ1XZfOyZLxuWkOtiQuKgwsI2bdHUUAFJYtV9tecV6GNl/3OnJJNVWR
-	IQMnbAaurQk9DUgtmEwkQ59h6VkKyKA3omwU3W2nhgqbVg/Nlilsn/Qz5zYVpa/601yXjlPy+i6
-	BIEDBGVP9Y6czVglC/yEUMLX37BX3zC+8yAt3BwQsL4dUpr8ZKD30ft5+ibJFtQSF/IVgzNWEs6
-	pOCwCNXrYZW9NBVhEQdfmB3VvS235Cu8tieCBFPei1qLtD6YVKsfyvESu4uVBsjJYbMSYNJpblC
-	7kadJWAWGZ+nDDz7QoNzbFuK0N7XzOPCRgx/202W6PHokYDN9+e3KbKqxx3n5cARUaL/FpKaPhh
-	6uFgeBG7OPJgrrCmpck8E/hQfZoxikdDHg4XphbMWmGuH3GueI7OyA4TWkXBnp+27VZOrQTyYiN
-	EmpBR+tEXiw/DOUT//CJZukUMUBdj+eidiO3SFC5HVjpAkVW
-X-Received: by 2002:a05:6820:4b0c:b0:6c3:2390:c293 with SMTP id 006d021491bc7-6d43e80cbd2mr6577666eaf.32.1790361053750;
-        Fri, 25 Sep 2026 11:30:53 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-818e8beb374sm3181560a34.10.2026.09.25.11.30.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:30:52 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-serial@vger.kernel.org
-Cc: Vineet Gupta <vgupta@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	linux-snps-arc@lists.infradead.org (open list:SYNOPSYS ARC ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list:TTY LAYER AND SERIAL DRIVERS)
-Subject: [PATCH] serial: arc_uart: Use platform IRQ helper
-Date: Fri, 25 Sep 2026 11:30:50 -0700
-Message-ID: <20260925183050.56839-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="OfYHt7Ka"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1790361084; bh=GhWSGXgb6ez4OOrQiFVWLTGHIi3aVeLSqI5fxtUPyJs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OfYHt7KaVKjMMMuMCiLtQ8+0J0j7VXGxdimP72otOLHqJA2GE1h4EA0QIMVcJp12B
+	 8jhRMbCgfK1XszzV/UuHfMHxq0tLGq8LPGOSjhemOHwj1yZV6a0jC6zl089dzxxZ9L
+	 Qn6rwNj1XZEdpGcUw8i7dLpb0X1QGJkv4iCvzFfcI3aOVX79ZPUFOedQrXn+OAcB5z
+	 FOIBrviUFrIv5YbrPVDxXnLOxjE4VMfflEBNaxIJOuo9cSoNTknqTo6VL41MtrCapo
+	 OWVZcKEy8H9WaVL7kGtKE8S6eDjOrdqcmUQgW/WWv91nm8iE4knkVNcbrLmzYNgdQv
+	 9k9mOW9GYzBXQ==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 4D67740B86; Fri, 25 Sep 2026 19:31:24 +0100 (BST)
+Date: Fri, 25 Sep 2026 19:31:24 +0100
+From: Sean Young <sean@mess.org>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] media: redrat3: unregister the rc device when probe
+ fails
+Message-ID: <ara9_KQVA4qPK37y@extorris.mess.org>
+References: <20260925170711.22447-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925170711.22447-1-ngocthang2710.1999@gmail.com>
 
-Avoid calling irq_dispose_mapping() by letting the platform_device
-machinery handle it. Also enable possibility of handling -EPROBE_DEFER
-and other errors. Handle as early as possible to avoid doing unnecessary
-work.
+On Sat, Sep 26, 2026 at 12:07:11AM +0700, Nguyen Ngoc Thang wrote:
+> redrat3_dev_probe() registers the rc device, whose input device points
+> its name and phys at strings embedded in struct redrat3_dev, and only
+> then calls redrat3_enable_detector(). If that fails, the error path
+> frees rr3 but leaves the rc device registered and leaks it. Reading its
+> "uevent" attribute afterwards dereferences the freed name/phys:
+> 
+>   BUG: KASAN: slab-use-after-free in string+0x4a9/0x4f0
+>   Read of size 1 at addr ffff8880272bf758 by task repro/4968
+>    add_uevent_var+0x183/0x3a0
+>    input_dev_uevent+0x162/0x900
+>    dev_uevent+0x2f1/0x870
+>    uevent_show+0x1ca/0x3a0
+>    ...
+> 
+> Unregister and free the rc device on that path, mirroring
+> redrat3_dev_disconnect(): stop the URBs first, since their handlers use
+> the rc device, and only then unregister it.
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/tty/serial/arc_uart.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+This is already fixed in:
 
-diff --git a/drivers/tty/serial/arc_uart.c b/drivers/tty/serial/arc_uart.c
-index 3988e5958896..b46b057a181b 100644
---- a/drivers/tty/serial/arc_uart.c
-+++ b/drivers/tty/serial/arc_uart.c
-@@ -30,7 +30,6 @@
- #include <linux/tty_flip.h>
- #include <linux/serial_core.h>
- #include <linux/io.h>
--#include <linux/of_irq.h>
- #include <linux/of_address.h>
- 
- /*************************************
-@@ -571,12 +570,17 @@ static int arc_serial_probe(struct platform_device *pdev)
- 	struct arc_uart_port *uart;
- 	struct uart_port *port;
- 	int dev_id;
-+	int irq;
- 	u32 val;
- 
- 	/* no device tree device */
- 	if (!np)
- 		return -ENODEV;
- 
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
- 	dev_id = of_alias_get_id(np, "serial");
- 	if (dev_id < 0)
- 		dev_id = 0;
-@@ -607,7 +611,7 @@ static int arc_serial_probe(struct platform_device *pdev)
- 		return PTR_ERR(port->membase);
- 	}
- 
--	port->irq = irq_of_parse_and_map(np, 0);
-+	port->irq = irq;
- 
- 	port->dev = &pdev->dev;
- 	port->iotype = UPIO_MEM;
--- 
-2.55.0
+https://gitlab.freedesktop.org/linux-media/media-committers/-/commit/af452b9e01331b5338a1e5141624f17607239207?anubis_answer=mango
 
+Thank you for reporting and writing a patch, it's appreciated.
+
+Sean
+
+> 
+> Reproduced with a raw-gadget RedRat3 that reports detector status 0.
+> 
+> Fixes: 2154be651b90 ("[media] redrat3: new rc-core IR transceiver device driver")
+> Cc: stable@vger.kernel.org
+> Reported-by: syzbot+2a123f6269da57ffefaa@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=2a123f6269da57ffefaa
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> ---
+>  drivers/media/rc/redrat3.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
+> index 3f828a564e19..e9dd563e9cb3 100644
+> --- a/drivers/media/rc/redrat3.c
+> +++ b/drivers/media/rc/redrat3.c
+> @@ -1111,13 +1111,19 @@ static int redrat3_dev_probe(struct usb_interface *intf,
+>  	/* might be all we need to do? */
+>  	retval = redrat3_enable_detector(rr3);
+>  	if (retval < 0)
+> -		goto led_free;
+> +		goto rc_unreg;
+>  
+>  	/* we can register the device now, as it is ready */
+>  	usb_set_intfdata(intf, rr3);
+>  
+>  	return 0;
+>  
+> +rc_unreg:
+> +	/* URB handlers use rc */
+> +	usb_kill_urb(rr3->narrow_urb);
+> +	usb_kill_urb(rr3->wide_urb);
+> +	rc_unregister_device(rr3->rc);
+> +	rc_free_device(rr3->rc);
+>  led_free:
+>  	led_classdev_unregister(&rr3->led);
+>  redrat_free:
+> -- 
+> 2.43.0
+> 
