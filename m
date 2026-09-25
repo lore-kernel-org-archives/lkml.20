@@ -1,71 +1,69 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FB43FFAD0
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:08:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597FA3FFAD0;
+	Fri, 25 Sep 2026 12:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790338103; cv=none; b=Y2m7JImixYMsRSFj3jHgplaN7RnoOXpXwaxTaNYi1t/0Oo3CqIHEGbvl1aixdwM45Qac+L1FHy2wuokVohf6Z3yzWEKzDa3XSXWSX9qlRwtQIy8QM+4C3zRBLj9xsLzGYAIZ9PfVTxHopX8U7ZiN+Y358ScVd5zx2hHDAN+JIHc=
+	t=1790338124; cv=none; b=Zi01HFQJCjrX+rkcbG7K4CEPXtzQNSkijWTJk1uYBGqRlKtsMQC3SMeldGBkPWA8m7FcmwlyPANHwpXbcpvGp0GePxR1Zw4jgupE9iWI90cvR0hIk1o8060jOPvCoip6ulwYsOUCfJdw7bjswXMOgy+pxlRMFD9ysl8VgtrJjYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790338103; c=relaxed/simple;
-	bh=3xiGYcGCpLekFy4MnM5aKwu2XPbPz2F0XU5z6IGqgbs=;
+	s=arc-20240116; t=1790338124; c=relaxed/simple;
+	bh=AwxyG5WjFSPOA4DXGl6nSCXX/DAk43iGaZN9VXxQsX0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bhTIQClmFFEnejksGjr06fekiq9U/D836m0BvtgnpQ/7EEXegiJJMIvlHLvW0R1tt7CfnM6x+LgP2/ZQmVxuRT0uG5rM3akVfWHNoueE5GeWrBh4LDZKzm3b91e4z8o36CKh+LOYLJtM2MuSV3LcPxyioy2ME+Kpu5wj9fVhOq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=4Z0oQm15; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=RGPLXGZY; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=H34jEiHiJaU3rQi2fd9MmAdfoWeLfobm67Z4m45ig8KbT/us5FxxbK5sYKbaEafkXeRSbQ2ramaHFGxB860nLya6sVucM99pCPruMJhI4lmvVnMDm3ajKRkGm13TjxlqkinxbtO2yZFTOJOhmKeXk28E4WYhC0ac12DIB2jpy90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USfcKXXq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4Z0oQm15";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RGPLXGZY"
-Date: Fri, 25 Sep 2026 14:08:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790338099;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3xiGYcGCpLekFy4MnM5aKwu2XPbPz2F0XU5z6IGqgbs=;
-	b=4Z0oQm15hWy1J2FfLHkTo0OeLoU9nVeSfApdspOyDy2nTFvaWCosLSLAdOnXFVNOU3IJ1p
-	k+1IWqXBRK4Fz5aNspLwu4wC6Ie1KVvMuf45FbTSm32DDezbjx6Nooi04zFhvyjSmrEOrR
-	NPPy7N0iKdjxOCXdQR4jkJwXFe9QPhYQxM+8WjgOCGIoWwi91RANlEJjePfappG81NZ+0f
-	cUj7W0/H/rA15hz3uGcCPBstytLQr/0N+Q22ZHVmE2W3LrtqvUN5XuJ2UVZy35qgo4eaMe
-	MEXmHISEZSF0QZe3MBUTDDk9Eypu0G1+ACBwWsUCUkAihZQxMO4ow5lTbajVKw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790338099;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3xiGYcGCpLekFy4MnM5aKwu2XPbPz2F0XU5z6IGqgbs=;
-	b=RGPLXGZY9cXjYVGEIfrblGLawfjPD2+j04aGhPQEhJaNH4SqHnEAtFcgGblzJdQHx5doYj
-	5xBef0peNppLkgCg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Carlos Llamas <cmllamas@google.com>
-Cc: linux-kernel@vger.kernel.org,
-	Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Todd Kjos <tkjos@android.com>,
-	"Tiffany Y. Yang" <ynaffit@google.com>
-Subject: Re: [PATCH] binder: Use %p for pointer formatting
-Message-ID: <20260925120818.Fn99twz9@linutronix.de>
-References: <20260918103008.IkhCxRgs@linutronix.de>
- <arWhYvDBYgLwaY9w@google.com>
- <20260925075901.OqQNDQhN@linutronix.de>
- <arZihAm72SO3V7ig@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USfcKXXq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 196461F000FF;
+	Fri, 25 Sep 2026 12:08:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790338123;
+	bh=JJcQcWXKM91Wp9usBJAs1HzIdDkXwwZD6eVWcZetdn4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=USfcKXXqZ8m1CP3pEiRO2fYhjFPCGY3yCbbk2bEPMav/bMcuq4WxBwu4p6VvGYGle
+	 HwM+OhYt1JVICL/LrRlzDvhm0Zu9Fyoey8l4uTuGmNA1c3U5XqVLZjhIRbaBDTRv1d
+	 pA1sq2Gr8v51lrb1D6uK87AOUxQFclDSfBn2UkSOsiwg/W+Mw5QQyySPSNfbekU4NP
+	 VWPr6Xe4PQxpXsRhK8RBCo6JU7ykdNbqgMnQXJ5fvYRF0c4+2VNkUcQdHb5t2X8tBI
+	 HzBJt+0BZw8XI2ST6KoNFbxYpOdvGoXJ1AEBiQ/lOHHBOoqjDHzC9+y45or7HvFvDD
+	 BrMiQeeEgEN7g==
+Date: Fri, 25 Sep 2026 13:08:38 +0100
+From: Simon Horman <horms@kernel.org>
+To: Ratheesh Kannoth <rkannoth@marvell.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, sgoutham@marvell.com,
+	Subbaraya Sundeep <sbhatta@marvell.com>
+Subject: Re: [PATCH v2 net-next] octeontx2-af: nix: Log TX scheduler queue
+ validation failures
+Message-ID: <20260925120838.GI13925@horms.kernel.org>
+References: <20260923033500.1752732-1-rkannoth@marvell.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arZihAm72SO3V7ig@google.com>
+In-Reply-To: <20260923033500.1752732-1-rkannoth@marvell.com>
 
-On 2026-09-25 12:01:08 [+0000], Carlos Llamas wrote:
-> Yeah, it's all gone now:
-> https://git.kernel.org/gregkh/char-misc/c/fd2bc059ed46
+On Wed, Sep 23, 2026 at 09:05:00AM +0530, Ratheesh Kannoth wrote:
+> From: Subbaraya Sundeep <sbhatta@marvell.com>
+> 
+> Emit logs  when is_valid_txschq() rejects a scheduler queue
+> mapping so misconfigured TX scheduler allocations are easier to
+> diagnose.
+> 
+> Signed-off-by: Subbaraya Sundeep <sbhatta@marvell.com>
+> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
+> 
+> ---
+> v1 -> v2:
+> 
+>      - Switch dev_err() to dev_err_ratelimited() on PF/VF-driven paths
+>      - Add schq and lvl to both rejection messages
+>      - Clarify PF/link mismatch wording instead of "Invalid tx link"
+>      - Stop logging another function's map_func pcifunc
 
-fabulous.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Sebastian
