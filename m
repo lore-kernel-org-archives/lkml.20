@@ -1,206 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C6C4A49A4;
-	Fri, 25 Sep 2026 13:48:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE924A4824;
+	Fri, 25 Sep 2026 13:48:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790344128; cv=none; b=mIxK9NpDLe8mMlPGxKAn8AOOK9LVDOcU6mqAJzL0lq40H+ckkFDPLua1smw6Dpba9H/5K0fXCN88cAp2H0NrxUEU3eeQBUXBHpMuKelHLAzrQjPAKu+AbK2AycStuCnp3b5LznhCYSuTUiEP/uREYBg7MhRnIh3w56MQptZ+zTQ=
+	t=1790344137; cv=none; b=QdyMM3yudEb5K+vt+QG/EmrqPzrFhYCLxsO6JxGEQ2V8PxAZ1akbkO+V3i61e2I8QZTKCioXG9+HzJtNK2JL+BvqOIJhgkgS0cETeOnOJhoOv29bwuMswJ2BRiZUSZDuKOhoxBKLyq/onB1c8HX+9MNez7JXZJlpr2AKJoiqM5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790344128; c=relaxed/simple;
-	bh=UcrWuWhkRMDMY4gnPWAfQUybcFFH3uus77Mh1K3jYTM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AsWdIV9EE6zAKiivz7D4G6M7JJNwSjawop+5JZwJNnKaKTnEpu/nyfFT1i/JULFJsVcapFE36cVif0H6l6cK1WbHTVEqaUFvPXK4a405jLbIRdOM6zgPIZ9LRRZSzmpL5cCatUIgBwTGEWXaIPjWqpPyYzvejqzqr2wdU3AH7Ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVzIyaOx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790344137; c=relaxed/simple;
+	bh=77/6/CXC5eEqOAbDf2VL5do3xXWQl21bE1WQ8hsWW4w=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=CANYiwHD7Nht+3jh13c2Ggsr8tJ2Kyqadv9WjCE1XDzj+SvylNXWia5SYYJZYf+XHPhe3vLLcPY07SwCim6VTMH74166DUfSJQC+0gDYn2D+LVTKnxW5p+g4EBiG1mS9jcsDttDG4jd57tETt2O9A8riji9go7GXBf1/3eWHl+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TIEOfqiF; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vfZ14JnL; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVzIyaOx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A54B1F000FF;
-	Fri, 25 Sep 2026 13:48:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790344126;
-	bh=fPNhIHFch0A4xLlqEVDNSvcYa4zuY/ufThLtXS9JaHI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fVzIyaOxtU6qTk1UJow5QnvefCqdk1CFRr/0HR2kaN4CKgHJuV+LbsgbewPBfC9IQ
-	 xPzVF7oRAxcrn3eZ1t/jjjKU1UhtdXQtdm2GPmeSlcCuAGRzLFN95j2oN5nEKSSsnb
-	 yxolG2p+D7bZywp21kld5Z5ZoX1m2bROivdnH9JehBgnSnot0LCUkV6nrgmNimLKFM
-	 K2PWY7kcWUOyee9rglM0hSa/Ax4Xd68kiT9fPM8xXac7vy8L6eJ3hMDwPYPEl4Ohur
-	 MB5o2tsH10Jlz7nszkk3lYU4BJGbSUrL6KaTyRqZ7atubW08d/i5HvWg22eOb5YGCS
-	 uSljaMjJuJXbA==
-From: Puranjay Mohan <puranjay@kernel.org>
-To: bpf@vger.kernel.org
-Cc: Puranjay Mohan <puranjay@kernel.org>,
-	"Alexei Starovoitov" <ast@kernel.org>,
-	"Daniel Borkmann" <daniel@iogearbox.net>,
-	"Andrii Nakryiko" <andrii@kernel.org>,
-	"Martin KaFai Lau" <martin.lau@linux.dev>,
-	"Eduard Zingerman" <eddyz87@gmail.com>,
-	"Kumar Kartikeya Dwivedi" <memxor@gmail.com>,
-	"Song Liu" <song@kernel.org>,
-	"Yonghong Song" <yonghong.song@linux.dev>,
-	"Tejun Heo" <tj@kernel.org>,
-	"David Vernet" <void@manifault.com>,
-	"Andrea Righi" <arighi@nvidia.com>,
-	"Changwoo Min" <changwoo@igalia.com>,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next v3 3/3] sched_ext: Use fetching atomics for cmask instead of a cmpxchg loop
-Date: Fri, 25 Sep 2026 06:48:22 -0700
-Message-ID: <20260925134828.2012199-4-puranjay@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260925134828.2012199-1-puranjay@kernel.org>
-References: <20260925134828.2012199-1-puranjay@kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TIEOfqiF";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vfZ14JnL"
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790344133;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tYq97oBUtqR+GJo2BO+H3oAKBSljqVFGPXkhvtP6W3g=;
+	b=TIEOfqiFnn2bA05tS7ahPWr6OCJYpVsTTbd1idE1tBQ28eaCWu6n2b62YA4ea8SHqGZxXl
+	dF2O+L35o1ZdSz9itUt42YRUpLB+48/aM5dLT5ONq7odRYy68WINrHWqnbk8vYhvC/CBxT
+	/BhNMFTU4T9JcIj1+3CLuqbhVgS/VPL7/Q+YWNRnHYGPtyeK6R9j9e6GO6Hc7OAKPJ8hsx
+	ZgUCGvWYFtDP24v7LEh96qpQxQ/pgA6dhoJnracxMRsLsTKVgnd1vT8rPoZEsl6eqIu6gI
+	BFY5ZE/usZz+POcjKJuOuTMvya7v94wu+icZ5QszlSPi+7zrgSGXb1qPWaL7kQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790344133;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tYq97oBUtqR+GJo2BO+H3oAKBSljqVFGPXkhvtP6W3g=;
+	b=vfZ14JnLmaRieMbG3YR5Q1yn/4Xrf8ae0Oi8uKfMCxwnXAcJlIYBx5yehqnoQ0Eh/F+dyZ
+	U7RYzo1dmj9sb5BQ==
+To: Petr Mladek <pmladek@suse.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
+ <rostedt@goodmis.org>, Marcos Paulo de Souza <mpdesouza@suse.com>, Samuel
+ Thibault <samuel.thibault@ens-lyon.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Ilpo
+ =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Hugo Villeneuve
+ <hvilleneuve@dimonoff.com>, Fushuai Wang <wangfushuai@baidu.com>, Kees
+ Cook <kees@kernel.org>, Stepan Ionichev <sozdayvek@gmail.com>,
+ linux-serial@vger.kernel.org, Manuel Lauss <manuel.lauss@gmail.com>,
+ linux-kernel@vger.kernel.org, Petr Mladek <pmladek@suse.com>
+Subject: Re: [PATCH 1/2] printk: nbcon: Introduce Braille helpers
+In-Reply-To: <20260922072558.98854-2-pmladek@suse.com>
+References: <20260922072558.98854-1-pmladek@suse.com>
+ <20260922072558.98854-2-pmladek@suse.com>
+Date: Fri, 25 Sep 2026 15:54:52 +0206
+Message-ID: <87fqyxigqj.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-cid.bpf.h implements cmask_set(), cmask_clear() and the test_and_
-variants with a bounded cmpxchg loop, because the x86 BPF JIT used to
-reject BPF_OR | BPF_FETCH and BPF_AND | BPF_FETCH on arena pointers.
+On 2026-09-22, Petr Mladek <pmladek@suse.com> wrote:
+> These helpers will be used when calling console->write_atomic
+> in the Braille console driver.
+>
+> The Braille console is not registered as a standard printk console.
+> Instead, it is integrated with the virtual terminal (VT) and writes
+> data using the legacy con->write() callback of the associated serial
+> console driver.
+>
+> When the underlying console driver is converted to the NBCON API, the
+> Braille console needs to use the con->write_atomic() callback instead.
+> This callback must be synchronized by acquiring the nbcon console context.
+>
+> Fixes: d3539347022a ("serial: 8250: Switch to nbcon console, take 2")
 
-It no longer does, and the loop was never the portability fallback its
-comment claimed. A JIT that turns down a fetching OR or AND in an arena
-turns down CMPXCHG there too: arm64 without LSE rejects every arena
-read-modify-write, so the loop does not work there either. riscv without
-Zacas is the other way round and rejects only CMPXCHG, which makes the
-loop strictly worse than the fetching insn on that configuration.
+This is not 8250 specific. But I am not sure which commit you want to
+mark as Fixes.
 
-Native fetching OR and AND are therefore accepted everywhere the loop
-was, and in one place where it was not. Use them, and drop
-CMASK_CAS_TRIES along with the error paths that could only be reached
-from a loop that no longer exists.
+For 62627bf0cadf ("kdb: Adapt kdb_msg_write to work with NBCON
+consoles") there was no Fixes tag.
 
-Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
----
- tools/sched_ext/include/scx/cid.bpf.h | 79 +++------------------------
- 1 file changed, 8 insertions(+), 71 deletions(-)
+> Signed-off-by: Petr Mladek <pmladek@suse.com>
+> ---
+>  include/linux/console.h |  8 ++++++
+>  kernel/printk/nbcon.c   | 59 +++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 67 insertions(+)
+>
+> diff --git a/include/linux/console.h b/include/linux/console.h
+> index 502d1abe3f50..d780f6de303a 100644
+> --- a/include/linux/console.h
+> +++ b/include/linux/console.h
+> @@ -615,6 +615,10 @@ extern bool nbcon_allow_unsafe_takeover(void);
+>  extern bool nbcon_kdb_try_acquire(struct console *con,
+>  				  struct nbcon_write_context *wctxt);
+>  extern void nbcon_kdb_release(struct nbcon_write_context *wctxt);
+> +extern bool nbcon_is_braille(struct nbcon_write_context *wctxt);
+> +extern bool nbcon_braille_try_acquire(struct console *con,
+> +				      struct nbcon_write_context *wctxt);
+> +extern void nbcon_braille_release(struct nbcon_write_context *wctxt);
+>  
+>  /*
+>   * Check if the given console is currently capable and allowed to print
+> @@ -678,8 +682,12 @@ static inline void nbcon_reacquire_nobuf(struct nbcon_write_context *wctxt) { }
+>  static inline bool nbcon_kdb_try_acquire(struct console *con,
+>  					 struct nbcon_write_context *wctxt) { return false; }
+>  static inline void nbcon_kdb_release(struct nbcon_write_context *wctxt) { }
+> +static inline bool nbcon_is_braille(struct nbcon_write_context *wctxt) { return false; }
+>  static inline bool console_is_usable(struct console *con, short flags,
+>  				     bool use_atomic) { return false; }
+> +static inline bool nbcon_braille_try_acquire(struct console *con,
+> +					     struct nbcon_write_context *wctxt) { return false; }
+> +static inline void nbcon_braille_release(struct nbcon_write_context *wctxt) { }
+>  #endif
+>  
+>  extern int console_set_on_cmdline;
+> diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
+> index d17704fe93ae..a5e053ffe4da 100644
+> --- a/kernel/printk/nbcon.c
+> +++ b/kernel/printk/nbcon.c
+> @@ -2002,3 +2002,62 @@ void nbcon_kdb_release(struct nbcon_write_context *wctxt)
+>  	 */
+>  	__nbcon_atomic_flush_pending_con(ctxt->console, prb_next_reserve_seq(prb));
+>  }
+> +
+> +/**
+> + * nbcon_is_braille - Checks whether the nbcon write context is using Braille console
+> + *
+> + * @wctxt:	checked nbcon write context
+> + *
+> + * Return: True when the write context is associated with a Braille console.
+> + *	   Othrewise, return false.
+> + *
+> + * Context: Can be called in any context but only when Braille console is
+> + *	registered and the struct console could not disappear.
+> + */
+> +bool nbcon_is_braille(struct nbcon_write_context *wctxt)
+> +{
+> +	struct nbcon_context *ctxt = &ACCESS_PRIVATE(wctxt, ctxt);
+> +	struct console *con = ctxt->console;
+> +
+> +	return con && con->flags & CON_BRL;
+> +}
+> +
+> +/**
+> + * nbcon_braille_try_acquire - Try to acquire nbcon console for braille_write()
+> + *
+> + * @con:	The nbcon console to acquire
+> + * @wctxt:	The nbcon write context to be used on success
+> + *
+> + * Context:	braille_write() for emitting a single buffer on Braille console.
+> + *
+> + * Return:	True if the console was acquired. False otherwise.
+> + *
+> + * Braille console is not registered as a proper printk consoles. Instead,
+> + * it is integrated with the graphical virtual terminal.
+> + *
+> + * This function acquires the nbcon console using priority NBCON_PRIO_EMERGENCY.
+> + */
+> +bool nbcon_braille_try_acquire(struct console *con,
+> +			   struct nbcon_write_context *wctxt)
+> +{
+> +	struct nbcon_context *ctxt = &ACCESS_PRIVATE(wctxt, ctxt);
+> +
+> +	memset(ctxt, 0, sizeof(*ctxt));
+> +	ctxt->console = con;
+> +	ctxt->prio    = NBCON_PRIO_EMERGENCY;
+> +
+> +	return nbcon_context_try_acquire(ctxt, false);
+> +}
 
-diff --git a/tools/sched_ext/include/scx/cid.bpf.h b/tools/sched_ext/include/scx/cid.bpf.h
-index 69fb4e97bc771..d0d4cea19e29f 100644
---- a/tools/sched_ext/include/scx/cid.bpf.h
-+++ b/tools/sched_ext/include/scx/cid.bpf.h
-@@ -3,8 +3,8 @@
-  * BPF-side helpers for cids and cmasks. See kernel/sched/ext/cid.h for the
-  * authoritative layout and semantics. The BPF-side helpers use the cmask_*
-  * naming (no scx_ prefix); cmask is the SCX bitmap type so the prefix is
-- * redundant in BPF code. Atomics use __sync_val_compare_and_swap and every
-- * helper is inline (no .c counterpart).
-+ * redundant in BPF code. Atomics use the __sync_* builtins and every helper
-+ * is inline (no .c counterpart).
-  *
-  * Included by scx/common.bpf.h; don't include directly.
-  *
-@@ -129,101 +129,38 @@ static __always_inline bool cmask_test(u32 cid, const struct scx_cmask __arena *
- 	return *__cmask_word(cid, m) & BIT_U64(cid & 63);
- }
- 
--/*
-- * x86 BPF JIT rejects BPF_OR | BPF_FETCH and BPF_AND | BPF_FETCH on arena
-- * pointers (see bpf_jit_supports_insn() in arch/x86/net/bpf_jit_comp.c). Only
-- * BPF_CMPXCHG / BPF_XCHG / BPF_ADD with FETCH are allowed. Implement
-- * test_and_{set,clear} and the atomic set/clear via a cmpxchg loop.
-- *
-- * CMASK_CAS_TRIES is sized so exhausting it means seconds of real spinning
-- * on one word - past any plausible contention. Abort hard.
-- */
--#define CMASK_CAS_TRIES		(1U << 23)
--
- static __always_inline void cmask_set(u32 cid, struct scx_cmask __arena *m)
- {
--	u64 __arena *w;
--	u64 bit, old, new;
--	u32 i;
--
- 	if (!__cmask_contains(cid, m))
- 		return;
--	w = __cmask_word(cid, m);
--	bit = BIT_U64(cid & 63);
--	bpf_for(i, 0, CMASK_CAS_TRIES) {
--		old = *w;
--		if (old & bit)
--			return;
--		new = old | bit;
--		if (__sync_val_compare_and_swap(w, old, new) == old)
--			return;
--	}
--	scx_bpf_error("cmask_set CAS exhausted at cid %u", cid);
-+	__sync_fetch_and_or(__cmask_word(cid, m), BIT_U64(cid & 63));
- }
- 
- static __always_inline void cmask_clear(u32 cid, struct scx_cmask __arena *m)
- {
--	u64 __arena *w;
--	u64 bit, old, new;
--	u32 i;
--
- 	if (!__cmask_contains(cid, m))
- 		return;
--	w = __cmask_word(cid, m);
--	bit = BIT_U64(cid & 63);
--	bpf_for(i, 0, CMASK_CAS_TRIES) {
--		old = *w;
--		if (!(old & bit))
--			return;
--		new = old & ~bit;
--		if (__sync_val_compare_and_swap(w, old, new) == old)
--			return;
--	}
--	scx_bpf_error("cmask_clear CAS exhausted at cid %u", cid);
-+	__sync_fetch_and_and(__cmask_word(cid, m), ~BIT_U64(cid & 63));
- }
- 
- static __always_inline bool cmask_test_and_set(u32 cid, struct scx_cmask __arena *m)
- {
--	u64 __arena *w;
--	u64 bit, old, new;
--	u32 i;
-+	u64 bit;
- 
- 	if (!__cmask_contains(cid, m))
- 		return false;
--	w = __cmask_word(cid, m);
- 	bit = BIT_U64(cid & 63);
--	bpf_for(i, 0, CMASK_CAS_TRIES) {
--		old = *w;
--		if (old & bit)
--			return true;
--		new = old | bit;
--		if (__sync_val_compare_and_swap(w, old, new) == old)
--			return false;
--	}
--	scx_bpf_error("cmask_test_and_set CAS exhausted at cid %u", cid);
--	return false;
-+	return __sync_fetch_and_or(__cmask_word(cid, m), bit) & bit;
- }
- 
- static __always_inline bool cmask_test_and_clear(u32 cid, struct scx_cmask __arena *m)
- {
--	u64 __arena *w;
--	u64 bit, old, new;
--	u32 i;
-+	u64 bit;
- 
- 	if (!__cmask_contains(cid, m))
- 		return false;
--	w = __cmask_word(cid, m);
- 	bit = BIT_U64(cid & 63);
--	bpf_for(i, 0, CMASK_CAS_TRIES) {
--		old = *w;
--		if (!(old & bit))
--			return false;
--		new = old & ~bit;
--		if (__sync_val_compare_and_swap(w, old, new) == old)
--			return true;
--	}
--	scx_bpf_error("cmask_test_and_clear CAS exhausted at cid %u", cid);
--	return false;
-+	return __sync_fetch_and_and(__cmask_word(cid, m), ~bit) & bit;
- }
- 
- static __always_inline void __cmask_set(u32 cid, struct scx_cmask __arena *m)
--- 
-2.53.0-Meta
+This is really the same thing as nbcon_kdb_try_acquire().
 
+As you mentioned in your cover letter, it is a bug that
+nbcon_kdb_try_acquire() enters an unsafe section because @unsafe is a
+bool rather than a usage counter.
+
+Since we have limited bits for struct nbcon_state, we need to stop
+entering unsafe within nbcon_kdb_try_acquire(). As I mentioned in the
+response to your cover letter, all the other CPUs should be quiesced
+anyway.
+
+John
