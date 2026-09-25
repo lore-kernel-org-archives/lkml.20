@@ -1,158 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C4D47C10B;
-	Fri, 25 Sep 2026 08:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5413448BA7;
+	Fri, 25 Sep 2026 08:51:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790326226; cv=none; b=lJzfbvdVW+b0XiIMiJJrwdABlAw4brQo8g5BxGOt9VPv6jeNPirreqmj8yaS3gEeXXCJ2nPRh93onzfMS28+ghb+A7qKnbRcmT6oHpOhbNltUPHOymcJcOzALbzuPmsVwvwpO5Z5ECQQD+Bfw5nyUV1WShT+2awnVGSnuMyqQq0=
+	t=1790326278; cv=none; b=jyn5he1M/ei0dHM/Ih7/Ae79vSbxdZNguwJ/C1lHXoEKX13VXVCDVbA3ZYrDocgS9NzVNyThPHf7DxgHPq6A6/zRsJQayQcwNNmUZ/DH+uSUiotBZxSg0RysBAqWTo4sozO3O9yk/EtwcNpyVKVje8NRGQgYiTezdcw0YgXDuWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790326226; c=relaxed/simple;
-	bh=ZrqQea9QfkZIfeOp+G1ykf1/KoVZrNbjpHZRRBgZypo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MKs1mSXa6Aj0vhbQcbYSLD4CRmliHuNxMh1aFx2t0r69K2l1RWoiArlV/k8XR3JOdBqtScRPUr60BXzK0wFSEu/OaUZjGQd6gnVS3ZaQ9KLaAHyk6vsLSZLYQ3m9GNT+a31mLTOv1BYfW7myjFLXduJh5xR8vNI7/rqEatkaRdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Bmprr1Yw; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790326278; c=relaxed/simple;
+	bh=fZFt/ovr62lmtilpmcNcwd33GhGHy+KYsVKhY1PdPm4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pdkx5fHPuTkUwKFpW+7bvJkgreaHl2M0ja8l7aj90Fu8cN1uSk0H9bnkYO16wNmukC6l5Mk4cR0p2fCvS9RO5tnt1JfHpOQfcZKj28j5dD0JfSH+jaOjRo3vWvS6w2UTcvw8zQaowWMMCXght21PbNghavIIBCPTxCORPjpKLpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rkoUn5FU; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Bmprr1Yw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790326222; x=1821862222;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ZrqQea9QfkZIfeOp+G1ykf1/KoVZrNbjpHZRRBgZypo=;
-  b=Bmprr1YwnQZRRgwpJpURgtrJQJ8jTJe6L0UDKEn6ztUnGh62jMYyirph
-   /c5L44pg1L62zjNf5m+VbiJgPDTbW6u90D4cVFdtZdVm6PiVsNQyUx46N
-   aRG4UbLENbkzFe73VgovtN/yLJFoKbiiUokfAdIdOhlP+SIcJgJDhENxS
-   ifDBc80VLZMvzVlwuBk2L5vGyJX3UuFYxZJzy7FLHumgikYqcREhHtapB
-   qbDwJrX9n0fGKIecoTbzaW7324zD8bFuIQgS3wfNvkOBtBQkQGWLEv4Vf
-   PXdrLot3sPBsdckFm6ujNuXfV/R9PS5+tl9kN2nKjccwPxa9deWsQvRtZ
-   w==;
-X-CSE-ConnectionGUID: zy88QQKYQema1TACp1DC9A==
-X-CSE-MsgGUID: LwLGJ/ePQ/eQEUtOwO42nQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="107490046"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="107490046"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 01:50:19 -0700
-X-CSE-ConnectionGUID: +tmOa1deSK6kvpaIvTS51Q==
-X-CSE-MsgGUID: Eip1mKhXQWyde3+uEpgK1A==
-X-ExtLoop1: 1
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.84])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 01:50:16 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 29189121BA5;
-	Fri, 25 Sep 2026 11:50:16 +0300 (EEST)
-Date: Fri, 25 Sep 2026 11:50:16 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Ruslan Koreev <koreev.r@gmail.com>
-Cc: benjamin.mugnier@foss.st.com, sylvain.petinot@foss.st.com,
-	dan.scally@ideasonboard.com, mchehab@kernel.org, hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com, gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Peter Marshall <pm@petermarshall.ca>
-Subject: Re: [PATCH 3/4] media: i2c: vd55g1: Add ACPI support for the Lenovo
- TBE20A1 HID
-Message-ID: <arY1yBWSAD-6IkQD@kekkonen.localdomain>
-References: <20260924171820.1179823-1-koreev.r@gmail.com>
- <20260924171820.1179823-4-koreev.r@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rkoUn5FU"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A4820497;
+	Fri, 25 Sep 2026 01:51:06 -0700 (PDT)
+Received: from [10.57.10.88] (unknown [10.57.10.88])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E76743F86C;
+	Fri, 25 Sep 2026 01:51:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790326270; bh=fZFt/ovr62lmtilpmcNcwd33GhGHy+KYsVKhY1PdPm4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=rkoUn5FUz90XxWVaSzAEimdJbnnlRVmexbZxgfGtO1OW2VUJt/zq8SuVLin5teVD1
+	 6pdYmN0XB4eKgrioqlZ7ePRIPiSoLnP5lKbipYQaQXotu4kYXb16rXynoJ/uD/2Byy
+	 JLfGeL2sGWip+veR3zBdTlLGiNv99DaX5pCe0Oaw=
+Message-ID: <c48703b3-3cd7-473d-8ae1-d6389e57b757@arm.com>
+Date: Fri, 25 Sep 2026 09:51:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924171820.1179823-4-koreev.r@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 2/7] firmware: arm_rmm: Check for RMI support at init
+Content-Language: en-GB
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-3-suzuki.poulose@arm.com>
+ <1ffe72ff-f20b-4621-a586-10e0358fee67@redhat.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <1ffe72ff-f20b-4621-a586-10e0358fee67@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Ruslan,
-
-Thanks for the set.
-
-On Thu, Sep 24, 2026 at 08:18:19PM +0300, Ruslan Koreev wrote:
-> The IR camera of the Lenovo ThinkPad X1 Carbon Gen 14 is an ST VD55G1
-> enumerated by ACPI as TBE20A1, connected to the Intel IPU7 with one
-> CSI-2 lane and powered through an INT3472 discrete device. Match the
-> HID and take the sensor version from the match data, as for OF. Only
-> the analog supply is switchable on this platform; vcore and vddio are
-> always on and fall back to dummy regulators.
+On 25/09/2026 01:00, Gavin Shan wrote:
+> On 9/24/26 11:51 PM, Suzuki K Poulose wrote:
+>> From: Steven Price <steven.price@arm.com>
+>>
+>> Query the RMI version number and check if it is a compatible version.
+>> The first two feature registers are read and exposed for future code to
+>> use.
+>>
+>> We only support this for Little Endian kernels, the Big Endian kernel
+>> support is anyway marked BROKEN and is being removed.
+>>
+>> Signed-off-by: Steven Price <steven.price@arm.com>
+>> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>> v19:
+>>   * Read all implemented RmiFeatureRegisters - 5
+>>   * Use ARRAY_SIZE(rmi_feat_reg_cache) for the loop in 
+>> rmi_read_features()
+>>   * Fold rmi_features() into rmi_read_features
+>>   * Fix comment for rmi_smccc_invoke()
+>>   * Drop default y
+>>   * Add retry for RMI_BLOCKED and return to caller
+>> v18:
+>>   * Always use arm_smccc_1_2_invoke() for all RMIs making sure the 
+>> unsused
+>>     parameters are 0 - Sashiko
+>>   * Move rmi_features() calls away from the arm-rmi-cmds.h to rmi.c - 
+>> Gavin
+>> v17:
+>>   * Rename ARM_RMM to ARM_RMM_RMI to make it easier to add Guest 
+>> facing RSI
+>>     support, which is also in progress
+>> v16:
+>>   * Update Kconfig text to include PCIe TDISP.
+>>   * Export rmi_feat_reg() here rather than in a later commit.
+>> v15:
+>>   * The code is moved again, this time into the 'firmware' directory.
+>> v14:
+>>   * This moves the basic RMI setup into the 'kernel' directory. This is
+>>     because RMI will be used for some features outside of KVM so should
+>>     be available even if KVM isn't compiled in.
+>> ---
+>>   arch/arm64/Kconfig                |   1 +
+>>   arch/arm64/kernel/cpufeature.c    |   1 +
+>>   drivers/firmware/Kconfig          |   1 +
+>>   drivers/firmware/Makefile         |   1 +
+>>   drivers/firmware/arm_rmm/Kconfig  |  25 +++++++
+>>   drivers/firmware/arm_rmm/Makefile |   2 +
+>>   drivers/firmware/arm_rmm/rmi.c    | 109 ++++++++++++++++++++++++++++++
+>>   include/linux/arm-rmi-cmds.h      |  48 +++++++++++++
+>>   8 files changed, 188 insertions(+)
+>>   create mode 100644 drivers/firmware/arm_rmm/Kconfig
+>>   create mode 100644 drivers/firmware/arm_rmm/Makefile
+>>   create mode 100644 drivers/firmware/arm_rmm/rmi.c
+>>   create mode 100644 include/linux/arm-rmi-cmds.h
+>>
 > 
-> On these platforms the CSI-2 endpoint is a software node that
-> ipu-bridge attaches to the sensor device when the IPU driver probes,
-> which can happen after the sensor driver has been bound. Defer probing
-> instead of failing when there is no endpoint yet, as the other sensor
-> drivers used with the IPU bridge do and as v4l2_fwnode_endpoint_parse()
-> itself does for a missing endpoint.
+> Some nitpicks below, with them addressed:
 > 
-> Tested on a ThinkPad X1 Carbon Gen 14 (Core Ultra X7 358H, IPU7),
-> streaming 804x704 through libcamera.
-
-Please describe here what the patch does; most of the above goes to the
-cover letter.
-
-I'd split the endpoint handling changes into a separate patch, too.
-
+> Reviewed-by: Gavin Shan <gshan@redhat.com>
 > 
-> Signed-off-by: Ruslan Koreev <koreev.r@gmail.com>
-> ---
->  drivers/media/i2c/vd55g1.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-> index 6f458f611..64889c35d 100644
-> --- a/drivers/media/i2c/vd55g1.c
-> +++ b/drivers/media/i2c/vd55g1.c
-> @@ -1903,10 +1903,9 @@ static int vd55g1_parse_dt(struct vd55g1 *sensor)
->  
->  	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(sensor->dev),
->  						   0, 0, 0);
-> -	if (!endpoint) {
-> -		dev_err(sensor->dev, "Endpoint node not found\n");
-> -		return -EINVAL;
-> -	}
-> +	if (!endpoint)
-> +		return dev_err_probe(sensor->dev, -EPROBE_DEFER,
-> +				     "waiting for fwnode graph endpoint\n");
 
-I'd drop the check here and return v4l2_fwnode_endpoint_alloc_parse()'s
-return value in vd55g1_check_csi_conf(). Then -EPROBE_DEFER is returned
-when appropriate.
+Thank you Gavin, much appreciated ! I have addressed the comments below
+and the Makefile one.
 
->  
->  	ret = vd55g1_check_csi_conf(sensor, endpoint);
->  	fwnode_handle_put(endpoint);
-> @@ -2084,6 +2083,13 @@ static const struct of_device_id vd55g1_dt_ids[] = {
->  };
->  MODULE_DEVICE_TABLE(of, vd55g1_dt_ids);
->  
-> +static const struct acpi_device_id vd55g1_acpi_ids[] = {
-> +	/* Lenovo ThinkPad X1 Carbon Gen 14 IR camera, Intel IPU7 */
-
-No need for such a comment here, I think it's enough it's documented in the
-IPU bridge.
-
-> +	{ "TBE20A1", (kernel_ulong_t)&vd55g1_versions[0] },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(acpi, vd55g1_acpi_ids);
-> +
->  static const struct dev_pm_ops vd55g1_pm_ops = {
->  	SET_RUNTIME_PM_OPS(vd55g1_power_off, vd55g1_power_on, NULL)
->  };
-> @@ -2092,6 +2098,7 @@ static struct i2c_driver vd55g1_i2c_driver = {
->  	.driver = {
->  		.name  = "vd55g1",
->  		.of_match_table = vd55g1_dt_ids,
-> +		.acpi_match_table = vd55g1_acpi_ids,
->  		.pm = &vd55g1_pm_ops,
->  	},
->  	.probe = vd55g1_probe,
-
--- 
-Kind regrds,
-
-Sakari Ailus
+Cheers
+Suzuki
