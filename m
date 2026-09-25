@@ -1,93 +1,91 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFA941A504
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37CF39769B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790318212; cv=none; b=Xu1LTjwaSFVExXqLGXj0mLZVbdl6sWJLEYdSvi/cJw3+gu7pAOcCaNDehxXE+O+eZNLWFCQSaONhyTjjPEu48awR92ChkoyVRgxngaqbfg39UF7m1gYjmGXPJio18EUSPYDlvJWO9DDC0FlazLZt/HzFQ/3UlPMMCy0KW2w9B8o=
+	t=1790318343; cv=none; b=mFCnPTRSc3UhlAENKKM9gW8H1U8njXUSp7zRW2BJ5tudmUB1uE2eMyqZsL3B/Q6s/TfMMH21RvOsEIWkhFpTC2Ufukbjyi+EpMRisasZ16fD9zjyPzGgsYkLIu2s1lPQRtU9K1iei56fcpeKoKJsGnaBbwzz2FNJ/GyXJRIAwW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790318212; c=relaxed/simple;
-	bh=Y0BkeFR+jc7KLjpu5J0dm3/R2PZPKVLNTuUhB0q6vEo=;
+	s=arc-20240116; t=1790318343; c=relaxed/simple;
+	bh=bBEIpBUB43BZa53CSuyn25k126QXXsrK9MijXSC+VwE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZKAdXeTUZQ9+Kd7w7UNTEPdB2Luxw76pT5+XH2foX18JoYY8LO5nR5jA2TWNeZBLmxDWIbjgWZHveLS+WCVo4CcYiud/S0eZIZQtqjuSTxuidntrgd3Pk5GQuoMIu56N86CyOdctaLw8QNsqtHxsaEh3bXeqIlCbiWbIeIQKBFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CafBEdOC; arc=none smtp.client-ip=74.125.229.12
+	 Content-Type:Content-Disposition:In-Reply-To; b=P59pMq/SyD6Klfl0hO05WCpcn/40w5qFBMa2rttW/Mu3ttxQnpAGgA8+hk8E/hMqyqQWk9k5NphjlByD2AQLdVbN7LCycih8tUJE2RGx0bgcY7zELJZ+IatxbgxFzE9/oUyEvRCzXTWO2IAsm2xMxH+ggGWXs8YWTccnU6ym76U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kjHUu+hR; arc=none smtp.client-ip=74.125.229.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CafBEdOC"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664d3421so351088eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:36:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kjHUu+hR"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3411e0ace19so256059eec.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:39:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790318210; x=1790923010; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790318340; x=1790923140; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=GkZl7SRHY1wbGx3TBWUhC4BzBN19cLafsEXyXuI3yfg=;
-        b=CafBEdOCzcg4JNUMwKe46woQX4QFu6Mn1IG3Nx6YQw0TvGI6WLvPjcL7723jQPbJUG
-         skwyoNSWWeHZag7EITUu9kKFU1vJTOEEddUDS0fGQQIfPsm5T73sPn5IH3XUpJP7a2M+
-         SIkc7HI4ktohsXOJRcWpXRjc1F21OekQe0Zt6kV05CiRVQmn1FV/2kAi6tQ6xmb0MlZY
-         V5Jvn6vkVLgFJEyG24OvhJenxiVay56LjBHJ18Q1qv7WCkW71A6IShEAf2FCXTt+UATA
-         8ARNYomP8aD0L2KZ//5DitCJ8QRYry+gtoXRQ+Yo3by1WQW8eAw2XVAePuZiR9IMGU7y
-         iPzA==
+        bh=+XCKYNMunQtwjsoXeGr7yLk4ydEdG3nbjO5mlaJXoXQ=;
+        b=kjHUu+hRDiAjx/GTeNB7c+y11/uouUMKOLJ7gegIystcmre94e+ZE2VmfY91wwDdoX
+         OkmFdlVABrSNSJMyrgI62SAf6Lb6GiGJmsNKKYOCVLyd1SxNrW12Ad0CWg4WbF8AWYO2
+         KFez60cTOpOz/gSQ/cgfbRWcPO6qdXlKXrhaXJpZuXpofNFuI47DxCw8Lnf0QC+a6+Ma
+         KJDDVzI5sUb4/hpmBeJ7HJGnPlMhlLxJBRDSGGOi4nQcTjZgg+ef0SDoiMVVE4xeFeLn
+         jg6VTL43h9kNORo1Mdd2dnFxQ+wuFtQiVP/2VpY8ejXtJEQR3oP/45AQePAhb9zgEgKx
+         qYoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790318210; x=1790923010;
+        d=1e100.net; s=20260707; t=1790318340; x=1790923140;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GkZl7SRHY1wbGx3TBWUhC4BzBN19cLafsEXyXuI3yfg=;
-        b=LXzF+3TsmQW7o1XRyEWRupfMRh5L5ZwjXZsTllvDIwVIT83bb6MbQi9fiXIN/B5O+t
-         oEyJr84TNcNJxIM1TdIBji6XigCHOy/6oCKoy/ilu4xPIoq1tL3PjaXjaMEmdvuM7yDq
-         bXce5Yuab6DWtSh3lo8CcTX38XLXSzCJjGEUWFCIIKhh/EIdY11klj0GFl0kurti5qww
-         0emAClUFCZy10MbX/Wl1enBRLv/yWfiF93tyBmm8ogYE48B4iAdLpOAzaKTdb75bAFvl
-         C/Ue3yXOTFoE+V97MFxj+XCxV26ZrV6lbL6zoXVNM2stibTAJI/1HghAstEkgBJ/gxAG
-         bV+w==
-X-Forwarded-Encrypted: i=1; AKwUvByXL1kFvvaY49B2Ec5gZ3IQzSW4G5QWhDeeDRLTKxsCZ8mkuZmcqU3rKjYfJ6JLCghN6fnD838AEO2RgYI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kT5lXbtTui6/BY3rrqLmizu1MwDvqRi4ZVl+KCv9uasj994MAI
-	DHkh5BrNzsXayV8qTMeei9xXsBDDscRvINRUpgEqi+0sW9gtLAX1PxBr
-X-Gm-Gg: AYBFou11LvUOyEWmCEU0A1XDWIAYZo0ztXA8O2dodQioxBoaUTQJIjH4vrSkMACAFeD
-	kEb/kSEloBBuldGIEgO9UrG+XXiPe8Va6QbvyHBJXnPA50pT0OHV6NximBxSEDOQ9Dm6JxGAHf2
-	NWBgwV5/Nlat44jnSIWReDJ/ca3OkiA8/+9NRX+ARuaGnUfXxHVoiyfJ0US/39iWmEibzdWovFJ
-	+QQ8Obe6Mv3JKqUn963vQq7fzNrYBa2xCeL2JKX/kSul7Y91V8nv01iyQ3BuW5DqogKf2ZhDkDJ
-	s0TE5/UQ5tnIDDXuAGza7AK71w4im8j+pmTi5YX/a/QbBi4HH3FcpPeSA4hFtUuo7OUy5hmCQ3V
-	Z8Sm2n3kR5lQ6wu9AeH0kg4gBufK0MD4BPx/l/gVcUiRA3eVgCHdGTjPSRdsf7ixo9yfefMCZX8
-	UP7Yv876+4W+35CPO1ox2tKLZ4Pk/GUqCgL+xvQi+f4vleODo30Bq3pvgE2Zn0zyPlPFEyFpi6V
-	nGCkKnkZ6NklndsmIC1yRC2syi8Sum2KiArzaSwy2XG
-X-Received: by 2002:a05:7301:160a:b0:33b:dc33:7f98 with SMTP id 5a478bee46e88-340db4b9d18mr2352154eec.14.1790318209994;
-        Thu, 24 Sep 2026 23:36:49 -0700 (PDT)
+        bh=+XCKYNMunQtwjsoXeGr7yLk4ydEdG3nbjO5mlaJXoXQ=;
+        b=EKzuf2c96BG2N17on8gYUM92S9Hybn2w4XXFrUnN/uNbxGKYmf4VrH7t2LEeenAMlU
+         6uhuBY/u/p4/t/kD4OgD4SkFWMP7YbT7EoDE0wmlhC2LmKIJOU2WPVH1I4MR5j5tmdbR
+         RuiDfBfoo4ls+12M3/WsBmEGQSZrpJki5kj87iRN7gvSZeej5LBKNmxZqvDir3+Nlf7t
+         EjLldyImuPG7AJZxjY/BDDs7ZZ+skNZRWvTfx3HggyvXDqS45htjAhgrepduROSw4WiO
+         eVYTthIU9SwwftFTXDpdOFxZw0QGXnt9NnW6s03Ot6caftzOK7ot8TamLG19bc88aFcT
+         BDtA==
+X-Forwarded-Encrypted: i=1; AKwUvBx+MyOunyn0GN0dnjc/r2YbMcyPcSiOwz0r3GfYwv9Jyg+CxRZ6IMz+UXP2b7j1DOoGQPijObFADtVLE54=@vger.kernel.org
+X-Gm-Message-State: AFuF++mK7itdiXeHhpbmtXoGKlatjf69Fy6CAIvdmnStn9n6G1J/0eX7
+	DTGLbz0wQq1CW9xK0AmhujSL2CgTR2EvkD5TQhyrOTOTfzugh6iQiFnN
+X-Gm-Gg: AYBFou1fRbPog9SQ3FgTfQprpAMuKwTN75gUMXwrGXMrWX6CTl23UXHHJLO7ydtI8P7
+	o6fDB2zxQpLSzQGSmxLYSVGZh9U3oPlQ8fExqlBzLaFMrfgFetHhJ4EbjsJ2poIZKcbKI/0Qm/F
+	BV1z0nRhy5q5cMxNwq3EFo/j3ML8Y0mjrOxWsnhcuSkxQBKKLzBU+qX4EpCbEV2dv60lrvn0NVv
+	/1l8MJOEA3o0QODMNI2X2czJsk1pA012NCiT4k8JsA1dAkst2BT+2H0rqiYYiyWYMnncbmeiBNB
+	dKZl7m1LgPlq5No5QPQ/taZ8RWTkWzZl8tzkaZzneIlVIkx5wpeVgsHS2T+6Ig4TuszJNcl+TAT
+	RzhbiwH7l+T0uQOFsD1+Tk9RAiQD8QCrCDDtLgYKziX2VT+S7yzdL0I/ym0DXReUKO91oukm23k
+	Mtr5pf/Mdlwn6Q0md9PwbCABuLSM7OrNC8XHQC3rwzniKc2n1tSL1X7Hd07bSgdgm8sLwu/XTVP
+	EhaH0EJ1uoKrZGFJwg7L6GXf/vWdEec1Px+IHRCAKWl
+X-Received: by 2002:a05:7300:7315:b0:33b:e9a7:d81f with SMTP id 5a478bee46e88-340031cca3cmr5226961eec.11.1790318339666;
+        Thu, 24 Sep 2026 23:38:59 -0700 (PDT)
 Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145727589sm3789127eec.23.2026.09.24.23.36.31
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757f31sm6418823eec.14.2026.09.24.23.38.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 23:36:49 -0700 (PDT)
-Date: Fri, 25 Sep 2026 12:06:28 +0530
+        Thu, 24 Sep 2026 23:38:58 -0700 (PDT)
+Date: Fri, 25 Sep 2026 12:08:38 +0530
 From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, catalin.marinas@arm.com, 
-	will@kernel.org, mark.rutland@arm.com, maddy@linux.ibm.com, mpe@ellerman.id.au, 
-	npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com, 
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com, 
-	svens@linux.ibm.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, ojeda@kernel.org, 
-	boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org, 
-	a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org, 
-	daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, 
-	nathan@kernel.org, ndesaulniers@google.com, morbo@google.com, 
-	justinstitt@google.com, jszhang@kernel.org, japo@linux.ibm.com, jpoimboe@kernel.org, 
-	seanjc@google.com, pmladek@suse.com, thuth@redhat.com, ynorov@nvidia.com, 
-	joelagnelf@nvidia.com, david@davidgow.net, fujita.tomonori@gmail.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	llvm@lists.linux.dev
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, 
+	ritesh.list@gmail.com, sshegde@linux.ibm.com, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, hca@linux.ibm.com, gor@linux.ibm.com, 
+	agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com, tglx@kernel.org, 
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, 
+	hpa@zytor.com, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com, 
+	tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org, 
+	acourbot@nvidia.com, work@onurozkan.dev, nathan@kernel.org, ndesaulniers@google.com, 
+	morbo@google.com, justinstitt@google.com, jszhang@kernel.org, japo@linux.ibm.com, 
+	jpoimboe@kernel.org, seanjc@google.com, pmladek@suse.com, thuth@redhat.com, 
+	ynorov@nvidia.com, joelagnelf@nvidia.com, david@davidgow.net, 
+	fujita.tomonori@gmail.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
 Subject: Re: [RFC] rust: kernel: Add KUnit tests for ARCH_WARN_ASM bug table
  emission
-Message-ID: <arYWDWmMJgIAt1_W@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+Message-ID: <arYWpnhia9icB-60@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
 References: <20260922054959.955093-2-mkchauras@gmail.com>
  <20260922064735.GS4121339@noisy.programming.kicks-ass.net>
  <arNxAn7I7NCVWmD1@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
  <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
- <20260924151335.18402A8b-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -96,50 +94,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260924151335.18402A8b-hca@linux.ibm.com>
+In-Reply-To: <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
 
-On Thu, Sep 24, 2026 at 05:13:35PM +0200, Heiko Carstens wrote:
-> On Thu, Sep 24, 2026 at 01:15:57PM +0200, Peter Zijlstra wrote:
-> > Untested thingies for arm64 and s390x.
-> ...
-> > diff --git a/arch/s390/kernel/traps.c b/arch/s390/kernel/traps.c
-> > index b6ba4465f59d..8bbb082fd5e3 100644
-> > --- a/arch/s390/kernel/traps.c
-> > +++ b/arch/s390/kernel/traps.c
-> > @@ -26,6 +26,7 @@
-> >  #include <linux/entry-common.h>
-> >  #include <linux/kmsan.h>
-> >  #include <linux/bug.h>
-> > +#include <linux/uaccess.h>
-> >  #include <asm/entry-percpu.h>
-> >  #include <asm/asm-extable.h>
-> >  #include <asm/irqflags.h>
-> > @@ -55,7 +56,12 @@ static inline void __user *get_trap_ip(struct pt_regs *regs)
-> >  #ifdef CONFIG_GENERIC_BUG
-> >  int is_valid_bugaddr(unsigned long addr)
-> >  {
-> > -	return 1;
-> > +	u16 insn;
-> > +
-> > +	if (get_kernel_nofault(insn, (u16 *)addr))
-> > +		return 0;
-> > +
-> > +	return insn == 0x0001 || insn == 0x000e;
+> Untested thingies for arm64 and s390x.
 > 
-> I have no idea why anybody wants to do this, but it looks like I'm not
-> alone :) In any case: the check is wrong.
-> s390 uses only the monitor call instruction and this should be
-> 
-> 	return insn == 0xaf00;
-> 
-> At least it is not possible to set a kprobe on bug instructions, which
-> would make this "interesting".
-
-Hey Heiko,
-
-should i send this out along with ppc. I am not paricularly very good
-with s390's assembly, but if this looks correct to you, i can send it
-out.
+> diff --git a/arch/arm64/kernel/traps.c b/arch/arm64/kernel/traps.c
+> index 914282016069..3d8a969eab5f 100644
+> --- a/arch/arm64/kernel/traps.c
+> +++ b/arch/arm64/kernel/traps.c
+> @@ -987,14 +987,13 @@ void do_serror(struct pt_regs *regs, unsigned long esr)
+>  #ifdef CONFIG_GENERIC_BUG
+>  int is_valid_bugaddr(unsigned long addr)
+>  {
+> -	/*
+> -	 * bug_brk_handler() only called for BRK #BUG_BRK_IMM.
+> -	 * So the answer is trivial -- any spurious instances with no
+> -	 * bug table entry will be rejected by report_bug() and passed
+> -	 * back to the debug-monitors code and handled as a fatal
+> -	 * unexpected debug exception.
+> -	 */
+> -	return 1;
+> +	u32 insn;
+> +
+> +	if (aarch64_insn_read((u32 *)addr, &insn))
+> +		return 0;
+> +
+> +	/* Match ASM_BUG_FLAGS() / BUG() instructions. */
+> +	return insn == (0xd4200000 | (BUG_BRK_IMM << 5));
+>  }
+>  #endif
+>  
+> diff --git a/arch/s390/kernel/traps.c b/arch/s390/kernel/traps.c
+> index b6ba4465f59d..8bbb082fd5e3 100644
+> --- a/arch/s390/kernel/traps.c
+> +++ b/arch/s390/kernel/traps.c
+> @@ -26,6 +26,7 @@
+>  #include <linux/entry-common.h>
+>  #include <linux/kmsan.h>
+>  #include <linux/bug.h>
+> +#include <linux/uaccess.h>
+>  #include <asm/entry-percpu.h>
+>  #include <asm/asm-extable.h>
+>  #include <asm/irqflags.h>
+> @@ -55,7 +56,12 @@ static inline void __user *get_trap_ip(struct pt_regs *regs)
+>  #ifdef CONFIG_GENERIC_BUG
+>  int is_valid_bugaddr(unsigned long addr)
+>  {
+> -	return 1;
+> +	u16 insn;
+> +
+> +	if (get_kernel_nofault(insn, (u16 *)addr))
+> +		return 0;
+> +
+> +	return insn == 0x0001 || insn == 0x000e;
+>  }
+>  #endif
+>  
+Thanks for this.
+lemme test these and i'll send it out after verifying.
 
 Regards,
 Mukesh
+
