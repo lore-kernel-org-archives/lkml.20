@@ -1,137 +1,130 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1BF9048D872;
-	Fri, 25 Sep 2026 10:18:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B4D48D896;
+	Fri, 25 Sep 2026 10:18:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331526; cv=none; b=NvALpFefPZBnVLDhBNBtHefcDY5FkY5/kIDiQBtIxfKoeek6SoaDEAFJjoa/jFk6W03WVoKQoR0jxtlZK0sZS/616fRGqoyvg1+6X2GsxDJo8dJGucu3AAzDiVKbKsHxcQmZLXCIW2eCGOMNVFVTfXCF+tct9eEiDcHpdPaWVh0=
+	t=1790331536; cv=none; b=uMZtx/dye9neAhUH9kRg2u5C8A7UIKKWO3SYvFeF4bw4AeGeQLqCklFgw3J+6eV4NiZW1YivCnIyHT62oLtGNu8z9L9dxHkk7EfyTlOImVtrCQ5uXrO8GyR6HeKonG53GOkMt3fCU69JoH3CyCu9dCs7g926cb0qa/EGmESjF+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331526; c=relaxed/simple;
-	bh=CpmxRU9+iKFpg5bvhhGZQGyt3vfrqBdpwbEgHOrLymI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tEwfZ2tiMjnJ4db5kkuzbhx5n3jm1vtzn8SXAJoTZ1P3itXSMh3w/TYrzqc7VXISJOfqfmSXpb1ddWUU7AKgptady+Ac8BbWTHYAmeeQrlTGI93bu9htsKrSknXBFHFjdb6eeqE0V/IKOv/zsixdn1hfU0VwPNUAzO/NiNdFXlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LgQww5oP; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790331536; c=relaxed/simple;
+	bh=S/utM3sdImddBhCWP9nOtG9Myaz0h7gbm/vUzk5NP0Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=fK2SuKxSkWy626iPOMx/KLOC//6TpR7vrCx/K5tKMbMYlVx5YcbFxbHasFkyizL1MTs+zLNUw2uTwsYZ2Jw7S3/lo9Upr+Pic6ZDw6/0wv8zYBGO039pUKbw+ZovsuBZ6fEVbSCGRxbmilRrRdNT3wLSiGmitiBc4luXD1XEeDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KGze+7yT; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LgQww5oP"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BE7A316F8;
-	Fri, 25 Sep 2026 03:18:39 -0700 (PDT)
-Received: from [10.164.19.30] (unknown [10.164.19.30])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9179B3F86F;
-	Fri, 25 Sep 2026 03:18:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790331523; bh=CpmxRU9+iKFpg5bvhhGZQGyt3vfrqBdpwbEgHOrLymI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LgQww5oPUbWf6eN1nsr5Vqe8WzyaweKdK4VVcKTQhvjT69wK5zHR+5KHcLt7XF12r
-	 TsVecaMJUffvIsSdeTElshKH4e47IB00ch8tZtuwNdRiZcHmvoP+F7hw21x7TMJkp0
-	 HtumcBkNgo5CX6e1gbxob2bHp/O9wGSpLN5CjmrQ=
-Message-ID: <638cdbef-016a-41f1-986f-7ed6e65e80c4@arm.com>
-Date: Fri, 25 Sep 2026 15:48:32 +0530
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KGze+7yT"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 0F07EC211D7;
+	Fri, 25 Sep 2026 10:19:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C7F26073B;
+	Fri, 25 Sep 2026 10:18:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 312DC1032950D;
+	Fri, 25 Sep 2026 12:18:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790331530; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=mApBpQp0os5vr24PicEoNzJZQZry7H/S7laJ5tY3XaU=;
+	b=KGze+7yTzC2ZY6N6yVIJmusuIUu9hSelV4KsMoKlaBqEOlEOreXhY2p7qEN1BkL8VHpo5L
+	o1HLNKcMUT+4pHbbpdDlUsZpLZp91+Xxdb77RZHBwwoLmL1OA7Oyw+ATkmPVBBsuRfwXWa
+	/0eMo98+rjfyTMsCRZT+JbeuDwvAbqgOzECFNND5GEt5dwNOUDi+i1TUKgnknt02vuXVh+
+	fFnwhZn7cOOuFHy7c0tKcoSVyuRrEoR7YJlEWHgm30n1YB8wlCUdmBSCtCGtdGAJ/uPFex
+	MFCav7TCGV/ullelpzYMZMn9939pRMMtKSV/eIBs3g6oAd6X62UO5mF90xzNgw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  devicetree@vger.kernel.org,  Jacky Huang
+ <ychuang570808@gmail.com>,  stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] clk: nuvoton: ma35d1: Add missing WDT/WWDT
+ parent clocks
+In-Reply-To: <20260924-bald-awesome-griffin-7d1d5b@quoll> (Krzysztof
+	Kozlowski's message of "Thu, 24 Sep 2026 15:25:16 +0200")
+References: <20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com>
+	<20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
+	<20260924-bald-awesome-griffin-7d1d5b@quoll>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Fri, 25 Sep 2026 12:18:43 +0200
+Message-ID: <87jyo9ljlo.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/9] mm: move anon-exclusive batch helper to rmap.h
-To: Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- hughd@google.com, chrisl@kernel.org, kasong@tencent.com,
- davem@davemloft.net, andreas@gaisler.com, riel@surriel.com,
- liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- lance.yang@linux.dev, baolin.wang@linux.alibaba.com,
- shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev,
- youngjun.park@lge.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, pfalcato@suse.de,
- jgg@ziepe.ca, thuth@redhat.com, sparclinux@vger.kernel.org,
- ryan.roberts@arm.com, anshuman.khandual@arm.com
-References: <20260924131106.1730494-1-dev.jain@arm.com>
- <20260924131106.1730494-4-dev.jain@arm.com>
- <CAGsJ_4yVhXF+-gOrOB+JOK6nZt19SA=LT+gXpmaMpErg6Ra5NQ@mail.gmail.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <CAGsJ_4yVhXF+-gOrOB+JOK6nZt19SA=LT+gXpmaMpErg6Ra5NQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hello Krzysztof,
 
-
-On 25/09/26 2:32 am, Barry Song wrote:
-> On Thu, Sep 24, 2026 at 9:11 PM Dev Jain <dev.jain@arm.com> wrote:
->>
->> In preparation for optimizing large folio unmapping, we need to reuse
->> the page_anon_exclusive_batch helper in rmap.c and rmap.h and obey the
->> existing use in mprotect.c .
->>
->> Therefore, move it from mprotect.c to rmap.h.
->>
->> While at it, change return type, start_idx and max_len to unsigned long
->> type for future proofing against THP support at >= PUD level. Also
->> shorten expected_anon_exclusive -> anon_exclusive.
-> 
-> I really think the `expected` prefix makes the semantics clearer, so I
-> don't think it's necessary to remove it.
-> 
-> If you really find it too long, maybe just use
-> `expected_exclusive`, since we're already in the anon context and
-> know that it is definitely anon.
-> 
-> Another option might be to make `*exclusive` an output parameter.
-> Then we wouldn't need to call
-> `expected_anon_exclusive = PageAnonExclusive(first_page + batch_idx);`
-> in the caller.
-
-Ah nice! This looks much cleaner, thanks.
-
-
-> 
->  static __always_inline unsigned long
-> page_anon_exclusive_batch(unsigned long start_idx,
->                 unsigned long max_len, struct page *first_page, bool *exclusive)
-> 
->>
->> Signed-off-by: Dev Jain <dev.jain@arm.com>
-> 
-> Otherwise, the patch looks good to me.
-> 
-> Reviewed-by: Barry Song <baohua@kernel.org>
-
-Thanks.
-
-> 
+>> Reported-by: Jacky Huang <ychuang570808@gmail.com>
+>> Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc=
+48795a@gmail.com/
+>> Suggested-by: Jacky Huang <ychuang570808@gmail.com>
+>> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock co=
+ntroller")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 >> ---
->>  include/linux/rmap.h | 17 +++++++++++++++++
->>  mm/mprotect.c        | 18 +-----------------
->>  2 files changed, 18 insertions(+), 17 deletions(-)
->>
->> diff --git a/include/linux/rmap.h b/include/linux/rmap.h
->> index 74cca0e3c7264..62ef511a6175a 100644
->> --- a/include/linux/rmap.h
->> +++ b/include/linux/rmap.h
->> @@ -106,6 +106,23 @@ enum ttu_flags {
->>
->>  #ifdef CONFIG_MMU
->>
->> +/*
->> + * Get max length of consecutive PTEs pointing to PageAnonExclusive() pages or
->> + * !PageAnonExclusive() pages, starting from start_idx. Caller must enforce
->> + * that the PTEs point to consecutive pages of the same anon large folio.
->> + */
->> +static __always_inline unsigned long page_anon_exclusive_batch(unsigned long start_idx,
->> +               unsigned long max_len, struct page *first_page, bool anon_exclusive)
->> +{
->> +       unsigned long idx;
->> +
->> +       for (idx = start_idx + 1; idx < start_idx + max_len; ++idx) {
->> +               if (anon_exclusive != PageAnonExclusive(first_page + idx))
->> +                       break;
->> +       }
->> +       return idx - start_idx;
->> +}
->> +
-> 
-> Thanks
-> Barry
+>>  drivers/clk/nuvoton/clk-ma35d1.c               | 2 ++
+>>  include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 4 +++-
+>
+> Please do not combine patches.
 
+I thought splitting these changes would not make sense in this (=3D a fix)
+case, but fine.
+
+[...]
+
+>> @@ -248,6 +248,8 @@
+>>  #define ADC_GATE	233
+>>  #define EADC_DIV	234
+>>  #define EADC_GATE	235
+>> -#define	CLK_MAX_IDX	236
+>> +#define PCLK3_DIV4096	236
+>> +#define PCLK4_DIV4096	237
+>> +#define	CLK_MAX_IDX	238
+>
+> This cannot be updated. If it has to, then not a binding and should be
+> first dropped from the bindings like we did for most of the platforms
+> having similar issue.
+
+When you say "This cannot be updated", do we agree that you mean
+"CLK_MAX_IDX cannot be updated"?
+
+I'm not sure I fully understand the reasoning behind, because the whole
+point of defining this CLK_MAX_IDX value is to let drivers know the
+number of clocks, so it must obviously follow the updates in this
+file. I cannot just drop it, the driver does not work without it. If we
+enlarge that number, what is the problem as long as we keep the other
+numbers identical?
+
+Maybe one way to fix that mess is to:
+1- Add the 2 new values (238 and 239) + a new define:
+   NUVOTON_MA35D1_MAX_IDX 240
+   238 would then have two definitions for a short period of time.
+2- Replace CLK_MAX_IDX by NUVOTON_MA35D1_MAX_IDX in the driver
+3- Drop CLK_MAX_IDX in the bindings.
+or
+3bis- Keep CLK_MAX_IDX in the bindings, but add a comment stating that
+      it is a stale definition in step 2. This solution looks horrible
+      :-)
+
+Let me know what is the best way forward here, the goal being to merge
+the big fix that I do care about (currently PATCH 2/3). Fixing the
+missing watchdog clock definition has been asked by Jacky in v1, but I
+will drop this part and keep v1 if it turns out to be too much churn.
+
+Thanks,
+Miqu=C3=A8l
