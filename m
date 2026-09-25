@@ -1,113 +1,165 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8643672A8
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D683D79E9;
+	Fri, 25 Sep 2026 18:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790361388; cv=none; b=IAxxtNVDllxx9c8xAJxN/aRytDd7tLgZEhkm0wFEPwJFSMMhqvyWXH72DWuXgLozmh7BHmrZ2Z6L+PXV6IO7qO1OtqdVvS/EFdcbTKI7m3xb2OpzkJegPbJuiwAJJBEmcTZmXCDIYYijK/hqF0ii7ewk/ZFpOEtrJoQ0+6sYWrQ=
+	t=1790361424; cv=none; b=XduVW1DGXvsg6aOmp/uDdRxl9H6VINBXSMEhXRf8sfBNYvodCpVZ94tMGSI9OEZIXFBZ8hyp4xwKtSqGFAFEuOMirKwpfi9syvER/I5eZFmVtmwkeiY6ZBOK9SptX/oY82U4TznX0Wavtcpl2TAnssg2iAi1JcWdp0z2POLyRJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790361388; c=relaxed/simple;
-	bh=ttsxstSQkiFn6W0emOQF/sZm8xB1JLtPixjXhsyDNfY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yr4qdOMb5/T+piG7h4q9plPfseeKTlp9H8fpKTRrPQFtjO2gtxzAnfhpM1BvYxryP0RS+x1fTOHuvdeDuJL6H/0Im95YftKZWRKLduGcdrm1G8SkZ88WwPDvCfXIt/y6zuVzXrekF8vHS/nx6lloME/2A+/mKaKUMFW2XFTKc1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V7BeRZDo; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790361424; c=relaxed/simple;
+	bh=hcB9fCmXF3d7YAKNDw8wecj4k8bOQuRxLly0Dqr8Dwk=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=KvCBgn3ywqXRFCLuoLF9eQZWM0IIpFkqsPd/SpEquutwHhOQ+FHug+I7A8fv6cCzGJ3eLTiHPTlL0krwUdHcQX+3nl9bJFRgmYbL4pTE9h4Y9vrRiyjvm1eJDaW07MdtiPUK5R/kcN/7QU1gtkpkSe3vIfiqihnLrQkZfhE3hYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=2zQqaxHk; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=y4GGQJUn; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V7BeRZDo"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8e820df9dso994695e87.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:36:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790361385; x=1790966185; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oTI8JOYIkeEhDhIISZUKJnYZH98Is2I5ZYdQTGS/9Yo=;
-        b=V7BeRZDo6Vp4XTc2prehK/dsX7sLaeIjxHhxVr3J+gqjCYTF1hRLq9maWEJNURHm9+
-         2vBFX/DSHOuYIw9N1HdHKeIF+9ca3rz2AG8kbd6ZWvRwPGKJL3LVIcIeQd1Q3efqJSs0
-         4L10PWP5NN7ypTHJR1e+9HVfR1A2lcxqeCUb64xA9mdngVPbn0XyK8Lk8lfMv7Z4pMgR
-         3sz2vy5f9xlDhvPQg+58a9PAYLShLfi+rMi65TXQekpfBFzrSLeROqWCwfPQKL3k5Kev
-         udIOp9nEM2R7bAubpVRFknbUrsghPtCEzZBSAgFQ8oW9dz+VHBBmd++gD4dZPwRWo3/b
-         L5MQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790361385; x=1790966185;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oTI8JOYIkeEhDhIISZUKJnYZH98Is2I5ZYdQTGS/9Yo=;
-        b=c4Q3InltCWpiDjJycv1pETDm8ctmTRjgFb9pYUC4fFWNQ4bSDHLxEBDvv/O/RL2xKf
-         7VMW3KM4+JYIaeJrpwT8paLSy4ehM2BBQVdRzHalfobQnWK1EIU1pof/pkdakd8vRkDa
-         wwG8MijvqNJIwwqaaS0l7hg9v6B5y5docQeAk7SMb2Vk8i2XETIOC/oxC0RReXo8vPnq
-         IJYvEHsHMkH5IrdggAoOQbODg3Gc74W1v92um673QFteq0B3elCszySTIxW7KP/KomjS
-         a2U9d8d64wbe+Ml02yJ69/Vlx5IK9af3/kjvBovhJBPp9TiyiBiJUIeCICec6hjykQAf
-         G++g==
-X-Forwarded-Encrypted: i=1; AKwUvBwNzIqXNJsx5j0tElX/DYflSQYNBku94rCXGo3Rj4k3ZPZ1mp1HKEFq/GcS/wjcEannnJDaQu5EySPOVek=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiLczocnz5Nqu8a495YFQECq9Qpr8eXWicluhKqzP21F2DRQcf
-	i94ViSbjEjNm7h12gPsct2EGyTHMupSubqla+3H4JvzCQHaO390bbv92
-X-Gm-Gg: AYBFou3bGcbRn60CHqlnq4GhTzcKZ03J4USyC2xeDTVVl2g1ogu/jaCE2PSLwjncoRe
-	y7xTTTa/n7H0ZMjTWx0CmlgXZXk4EU0jgnwkKz6NXMbVSS2uBZS3yGL8g0ZNdV4FBX6/DTPOLSE
-	eMwZ5QP+x2ujPbYXD+sBFGiZP0i2dDQ6Kh2OwUZdY0BE+bwjLvLDLgkQvGQrocOdU04WQ7qQfNK
-	EgkQU4znQ1lqKhIYvybVhO+Es7tCMInMcjDIKKIt7t//zFjzqTER3UgnYezu08EAkdQ1OQx50B8
-	Ofp+14x6t9Wydur79QDRQAM196xSHHRTSkfK3SU7FewLSto7pL5PbM7JcgEVhHI2KeU595Xysqd
-	ZmCZl01AX/TXCl3wAMjpY6fK0AvEoUAp03d6V2gapl8Nl786HnmAWTNHaX+MNtgig8J1fvI1f0n
-	ub0OaNrSod+CWhCouSzAZwOvfiy15X3NaqbOO4BhWTOOeO6g2VrSsAkxZ3TrAr/K3cKGCP5YD/B
-	uQF0T7NFXe5AsxMPpKM2wiVX8habfzdv4R1AQVUJgHcf9blKI+hREOda+64dGZsIqJnuKik5H9M
-	kPRDRw==
-X-Received: by 2002:a05:6512:128a:b0:5b6:183d:2a72 with SMTP id 2adb3069b0e04-5b8df092a18mr2193674e87.18.1790361384899;
-        Fri, 25 Sep 2026 11:36:24 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8e85e560esm649366e87.73.2026.09.25.11.36.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:36:24 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: andriy.shevchenko@intel.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v7 09/10] iio: pressure: dps310: implement .hwfifo_flush_to_buffer()
-Date: Fri, 25 Sep 2026 21:36:05 +0300
-Message-ID: <20260925183605.129614-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <ara694wYo2qwBo5j@ashevche-desk.local>
-References: <20260918122517.377565-1-zoone.rupert@gmail.com> <20260918122517.377565-10-zoone.rupert@gmail.com> <178992913316.706584.1446996024286841775.b4-review@b4> <20260921183106.231972-1-zoone.rupert@gmail.com> <20260922005347.069c490e@jic23-hlaptop> <20260925175816.75842-1-zoone.rupert@gmail.com> <ara694wYo2qwBo5j@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="2zQqaxHk";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="y4GGQJUn"
+Date: Fri, 25 Sep 2026 18:36:57 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790361420;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wNQaRn18pZgUgMjbKX1tp2Ja/Sl8j1P0GzKu1h20CP4=;
+	b=2zQqaxHkNEcQPOVh08NWK6E/P6n9fFkuxb0G8aisMZE4jGEyQeJcUXsobOr/Lf/BLQhtDr
+	ju9FA2vH75pTLLMeRJD+zD+yC22plAjdp759YpSHKbxGPoNYOIdSdIHSyT1sRhBUgiFbzm
+	DVNL7DXZJZ5BHiaSH4xmyzozHGYdXsLdRlu/rw6o7NaBV2eOnsUWhq8NwWspxaZHWd47vA
+	RKMBy/YrGP/xYuTTpVALLfVLqQHM7LZPIM5GxEhdQPhbovczKIiyGIau2pfov3B5wcMwD1
+	iAOGH9G7p69mEPL9LZkylpm3xWxHr08Kdt5qbMaoQlS1cCX+kzDBJ6k9a6QUxA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790361420;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wNQaRn18pZgUgMjbKX1tp2Ja/Sl8j1P0GzKu1h20CP4=;
+	b=y4GGQJUna0TbKva0MZZgds1TZcT385Xs6b2wSRxFN9u9FUQf1wIaLStEG7VegUKqeiNcl6
+	yIem2XFOZutexyDw==
+From: "tip-bot2 for Shubhang Kaushik (Ampere)" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: sched/core] sched/wait: Clarify WF_SYNC wakeup semantics
+Cc: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260922-sched-wf-sync-doc-v3-1-23ebe9e27bef@gentwo.org>
+References: <20260922-sched-wf-sync-doc-v3-1-23ebe9e27bef@gentwo.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <179036141797.2819794.7397034938096207501.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 09:18:31PM +0300, Andy Shevchenko wrote:
-> On Fri, Sep 25, 2026 at 08:58:16PM +0300, Rupesh Majhi wrote:
-> > context_lock_struct() is needed because clang rejects the existing
-> > __acquires(indio_dev) on a type that is not a lock. The header
-> > suppression list hides that today.
->
-> But why you can't supply the full lock to the __acquires()? If
-> to_iio_dev_opaque() is a macro it should all work.
+The following commit has been merged into the sched/core branch of tip:
 
-to_iio_dev_opaque() needs iio-opaque.h, which drivers do not include,
-and pulling it into iio.h makes clang 23 crash on the container_of().
-An accessor works though:
+Commit-ID:     627ea30aca3b309af40cdd07a35eb1027ba4a0bc
+Gitweb:        https://git.kernel.org/tip/627ea30aca3b309af40cdd07a35eb1027ba=
+4a0bc
+Author:        Shubhang Kaushik (Ampere) <sh@gentwo.org>
+AuthorDate:    Tue, 22 Sep 2026 14:57:05 -07:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Fri, 25 Sep 2026 20:32:31 +02:00
 
-  struct mutex *__iio_dev_mode_mutex(struct iio_dev *indio_dev);
-  void __iio_dev_mode_lock(struct iio_dev *indio_dev)
-	__acquires(__iio_dev_mode_mutex(indio_dev));
+sched/wait: Clarify WF_SYNC wakeup semantics
 
-With the core helpers locking through it too, clang checks them as
-well, so context_lock_struct() and __no_context_analysis both go away.
-I will use that in v9.
+The synchronous waitqueue wakeup comments currently state that a
+synchronous wakee will not be migrated to another CPU. This is not
+guaranteed by the scheduler wakeup path.
 
-Rupesh
+WF_SYNC is an advisory hint that the caller expects the waker to
+schedule away soon. Scheduler classes may use it for placement or
+preemption, but callers must not rely on it to prevent migration,
+preserve CPU locality, or make the wakee run next.
+
+Keep this contract next to the flag definition, remove the stale
+waitqueue wording, and make the locked helper refer to the unlocked
+variant.
+
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Link: https://patch.msgid.link/20260922-sched-wf-sync-doc-v3-1-23ebe9e27bef@g=
+entwo.org
+---
+ kernel/sched/sched.h |  9 +++++++--
+ kernel/sched/wait.c  | 22 +++++-----------------
+ 2 files changed, 12 insertions(+), 19 deletions(-)
+
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index f7d0b64..b98084e 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2535,8 +2535,13 @@ static inline int task_on_rq_migrating(struct task_str=
+uct *p)
+ #define WF_EXEC			0x02 /* Wakeup after exec; maps to SD_BALANCE_EXEC */
+ #define WF_FORK			0x04 /* Wakeup after fork; maps to SD_BALANCE_FORK */
+ #define WF_TTWU			0x08 /* Wakeup;            maps to SD_BALANCE_WAKE */
+-
+-#define WF_SYNC			0x10 /* Waker goes to sleep after wakeup */
++/*
++ * Hint that the caller expects the waker to sleep soon.
++ * Scheduler classes may use it for placement or preemption.
++ * Callers must not rely on it to prevent migration,
++ * preserve CPU locality or make the wakee run next.
++ */
++#define WF_SYNC			0x10
+ #define WF_MIGRATED		0x20 /* Internal use, task got migrated */
+ #define WF_CURRENT_CPU		0x40 /* Prefer to move the wakee to the current CPU.=
+ */
+ #define WF_RQ_SELECTED		0x80 /* ->select_task_rq() was called */
+diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
+index d033f60..477e4bf 100644
+--- a/kernel/sched/wait.c
++++ b/kernel/sched/wait.c
+@@ -174,15 +174,11 @@ EXPORT_SYMBOL_GPL(__wake_up_locked_key);
+  * @mode: which threads
+  * @key: opaque value to be passed to wakeup targets
+  *
+- * The sync wakeup differs that the waker knows that it will schedule
+- * away soon, so while the target thread will be woken up, it will not
+- * be migrated to another CPU - ie. the two threads are 'synchronized'
+- * with each other. This can prevent needless bouncing between CPUs.
++ * Passes WF_SYNC to waitqueue wake functions. The default wake function
++ * forwards it to the scheduler; see WF_SYNC for the hint's semantics.
+  *
+- * On UP it can prevent extra preemption.
+- *
+- * If this function wakes up a task, it executes a full memory barrier before
+- * accessing the task state.
++ * If this function wakes up a task, it executes a full memory barrier
++ * before accessing the task state.
+  */
+ void __wake_up_sync_key(struct wait_queue_head *wq_head, unsigned int mode,
+ 			void *key)
+@@ -200,15 +196,7 @@ EXPORT_SYMBOL_GPL(__wake_up_sync_key);
+  * @mode: which threads
+  * @key: opaque value to be passed to wakeup targets
+  *
+- * The sync wakeup differs in that the waker knows that it will schedule
+- * away soon, so while the target thread will be woken up, it will not
+- * be migrated to another CPU - ie. the two threads are 'synchronized'
+- * with each other. This can prevent needless bouncing between CPUs.
+- *
+- * On UP it can prevent extra preemption.
+- *
+- * If this function wakes up a task, it executes a full memory barrier before
+- * accessing the task state.
++ * Same as __wake_up_sync_key(), but called with @wq_head->lock held.
+  */
+ void __wake_up_locked_sync_key(struct wait_queue_head *wq_head,
+ 			       unsigned int mode, void *key)
