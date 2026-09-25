@@ -1,114 +1,158 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3634279E3
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACDE4279E3;
+	Fri, 25 Sep 2026 07:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322167; cv=none; b=R+ic3+tcozr/6BMQnyea58m9dsZkdi8Poh6Yzgb0JufJEg5MbYce9N/uxqZI/G86mVZEfllPB4EUve13dMlhpvVyId/JxTUFCJ7E35pUslatOX0E4jetebWhUW07mqdyxPTck+oEdLE//YGddDJZ642d0GW91CXX1GDgfGzVRNs=
+	t=1790322181; cv=none; b=dOgcBN5MgRJYGvZj/rCogvvE3mpT0i+EaQPDSsAaPryM4H0/R5xVkoQ+tiF+Tsya/xw9URZ32wVmM4kYuMSZpPRXmUGFiNT9qt76hoy/B4XlzLs0TmsWK0jFljkURQuFugkipIml0BA4a2H4Ln1aqW6mX1pj5C9pUHBPoAcHMYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322167; c=relaxed/simple;
-	bh=4Ms1j6HDHR9POx8IQpp5n2Cvct/LATjoKlGYR8Bb2vM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PNXW5nRiedmGdNO/edmhnICdz3okTzfeJwiM+NvWSRpGezlYBwbnhoBXfw8n+9MSk7wkiDF32crvJpjmImJvhgesPYu4V6ynEy4489akWJ9dkgfSp7j+P+nQH42soXs1QMR56OIuXHIaCWlxruaeMgtsYNLBHFsAcKUAsF9kAzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HVexedt5; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790322181; c=relaxed/simple;
+	bh=faKLy99jfXh5Bdw9bgAz5BVyXtyH14SJgh3PYPr2L+U=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=N1ii3EzJBOtUN6qkQuNYw24lzdJ810wyMUs9fVfjd81a6BBvhKa+i67NZfHcZgMcvnuIwxS0/jNKlQFU3LHCvf2l1Jppj94sq/KOz5f+QV3QhguKqbD9ZuWWglOa0NADD6cs/dorXa3osklfV96cW7eG0IvNO56z/WCoUY3QQxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wnlz4Jbj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HVexedt5"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4888129c46eso71622f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:42:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790322164; x=1790926964; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zWr1PMB3Rc/UXhUDgKdBkp20G3Gj5KQDsYg0EGVPPQM=;
-        b=HVexedt5QhZ3flESB+YIwesNwxvTOdgSlJoXb0w4VO7ZvvFkhcCMiirjZTX1AUcBfZ
-         7gVUFFOc69/lMgr8Nmljftwl+4QOG5Vh8V5xwB19bFLgZAVj1xsrVy6XWIA8Qsp5K2xg
-         hN9PU9tFl5IJ1vtXL/CPmxpyWjPQGtg+uqnvtpY6WgkgunShCAyMxTPpS2TYhwjHqu6Y
-         HOtHSmt4QVM489IPExXJWkD69tAtxCPz0cxU0L28h5HtHv7fUnsyibRbS2+oi9LZNKoe
-         UjR+xOrVMTnit0A8q6KyTqdn0niVGh3Kyx8QcqVHMHEsxkyXdlhhLmZgAkXhsA1pgkIq
-         TA5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790322164; x=1790926964;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zWr1PMB3Rc/UXhUDgKdBkp20G3Gj5KQDsYg0EGVPPQM=;
-        b=qSX/uToSgR3Z2lmFBkntTGFY6gIw4JHdYbTUqxS0/r08+Zs6Tzgd6OC0tV1S6AZcXk
-         pn9+9fbD8igJySVW6E8PPYwqXQD0dJ4GwyW1cxNW4SJXWmTCgXjsJSKONqKWpg6co7Va
-         JvuaSzAZqHeVWfuy/KnDQSHhPfg6TE4lk9ICT0g5us8eSrVIrMs385z5qDc794eQBzCK
-         Bzu89Pk18am9jOEyPMybPrEjcL+6fe9f1kUR3jVXUxONkO9+ggT1SQyYUJ8dX7kaJw2v
-         0/JFk94uuveQnOy06P6R/2gkMGscWuFZx3nWWAI+vAf4oWXTSgR2A8ZPI6fzAa0gJD/F
-         M1Gw==
-X-Forwarded-Encrypted: i=1; AKwUvBxP3Jv37ZRNscPMZTFlA5b1YTzmCkoTgzUYd4sIO9QYxVlzBePopLf/l8nqUoJw26Sn7kH6LZLERr3B0ao=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkH7Ak5j0ttGzgqpB4Ndnd1lNIsL8lyAKNVd+NJ9tWT//FgSl7
-	kJAwsFRN6uljdmgumCGvhKJhlalWa5vSHgh2Yde0M+bGwu8icAAMeGziuxz3O/jxu+vqeQst
-X-Gm-Gg: AYBFou2N2X9Ssff/YGqAgWUKy5FDaMamRhHKo10JtEIQGcibg076zLIw/mtBZ6NehdK
-	2drAXLIIdRFqWAqN6PGtZ4Q8H2bljxh+P12hup09AYSHUI7bUne396Xi8pi23ElaSKCfKKGDFg/
-	2aCCblI3i8ZuC9S/MQsL499LfOrz5ldSqZza8UocU5NgbSs7QJQReY3Us+ZB+xd57n7W+7Y65zy
-	h4Alia3BylJ8Rb5HFkBcJWxslbeE9+9BhxAe7K0/tO+H0C5IOuNgaXnqyYc0dzzz8kJsgfX9Vmv
-	72BIxo4NfDZmCf2qGXMOiSezXXa8CRjkMDM6rbdpH5Yn5H5FA3KRbU2GciunhV9/pgDdg2aNDIA
-	6lNO4367XFIaNsjlnVgot8BLNobqySBAUAn+/2ithKIt0Yv2LlN3Ox5Wrqo3HUDHSS/bINSqyLH
-	K0C6bUOlDXtSmQd6+63Vw6TlF7BgppZrwIK79cAoxBngsYhh2ezwknozx2lCzVzvEZZ+c=
-X-Received: by 2002:a05:6000:4103:b0:488:7496:15b5 with SMTP id ffacd0b85a97d-48874961605mr5882933f8f.47.1790322163538;
-        Fri, 25 Sep 2026 00:42:43 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a355d96sm5487752f8f.17.2026.09.25.00.42.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 00:42:42 -0700 (PDT)
-Date: Fri, 25 Sep 2026 10:42:38 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: oe-kbuild@lists.linux.dev, kernel test robot <lkp@intel.com>,
-	oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: drivers/xen/gntdev.c:817 gntdev_get_page() warn: mask and shift
- to zero: expr='(addr & ~(~((1 << 12) - 1))) >> 12'
-Message-ID: <arYl7m87hzxROT86@stanley.mountain>
-References: <202609241805.VsLzGPLn-lkp@intel.com>
- <94cbe491-1b32-47ec-a9b5-bed69bc4d52c@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wnlz4Jbj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10E141F000FF;
+	Fri, 25 Sep 2026 07:42:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790322179;
+	bh=vjsg4Wj+K6OrOCo4Yqdu+MiECMz9xX2jvzxJRIo10mc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Wnlz4JbjmIce14GtOMBFOEB87hINaCwgWrhbq6lFd63F/0JbLjY/e7KlnBSdB06fm
+	 RbhCIRML+fIA0BZJPtGA1hMLtzsNM6LwMqQhG9K/wGJKnqwFgGpGnilaWgnvX8gcOZ
+	 Ufj+oRLgwmnTXrjXU6+DAzDNGjlCbYxg3irrZXFMDJdXxCzLL6q0ePUO93gzTkNF5W
+	 /iylKP3PUXhr6evAQLevxuSHTvcEe8jXdpgNDm1//cAhqPIAY9ydtSYyhoskLQyv6q
+	 ou5DtoS3aetApF+V1mwBYNpu6S9JGqIMZ9xihd1sBfDPTTars3hAuq82e+LPkIKDmQ
+	 oBq+dTlA4tocg==
+Subject: Re: [PATCH net] net/mlx5: HV VHCA: Fix the agent registration race
+From: netdev-bot+sashiko@kernel.org
+To: ginger.jzllee@gmail.com
+Cc: saeedm@nvidia.com, leon@kernel.org, tariqt@nvidia.com, mbloch@nvidia.com,
+ netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kuba@kernel.org
+Date: Fri, 25 Sep 2026 07:42:58 +0000
+Message-ID: <179032217859.2160803.16820194707566685207@kernel.org>
+In-Reply-To: <20260922074246.20411-1-ginger.jzllee@gmail.com>
+References: <20260922074246.20411-1-ginger.jzllee@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <94cbe491-1b32-47ec-a9b5-bed69bc4d52c@app.fastmail.com>
 
-On Fri, Sep 25, 2026 at 08:43:54AM +0200, Arnd Bergmann wrote:
-> On Thu, Sep 24, 2026, at 21:39, Dan Carpenter wrote:
-> 
-> >    489                          return -EFAULT;
-> >    490                  break;
-> >    491          case 2:
-> >    492                  if (copy_from_user(&m, udata, sizeof(struct 
-> > privcmd_mmapbatch_v2)))
-> >    493                          return -EFAULT;
-> >    494                  /* Returns per-frame error code in m.err. */
-> >    495                  if (!access_ok(m.err, m.num * (sizeof(*m.err))))
-> >                                               ^^^^^^^^^^^^^^^^^^^^^^^
-> > These integer overflow bugs are from 2012, but I guess your patch 
-> > exposed
-> > the arm32 build to the zero day bot.  The bugs only affect 32bit 
-> > systems.
-> 
-> Right, the randconfig came up with an ARMv6 Xen build, which was not
-> possible before my patch. I'm sure this was reported for other configs
-> before and just showed up as introduced by my patch here.
-> 
-> This is clearly a bug but it does look harmless to me, as it only
-> results in the userspace corrupting itself when passing invalid
-> data.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-In ancient times, these access_ok() overflows were a much bigger deal.
-Easy to solve with a size_mul(m.num, sizeof(*m.err)).
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-regards,
-dan carpenter
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The patch's second hunk does not achieve its stated purpose
+  and leaves the lock coverage of…
+
+--
+
+net/mlx5: HV VHCA: Fix the agent registration race
+
+This keeps agents_lock held across the duplicate-type check, the agent
+allocation and the publish into hv_vhca->agents[] in
+mlx5_hv_vhca_agent_create(), so two concurrent create calls for the same
+type can no longer both pass the check.  It also wraps the read of
+hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL] in mlx5_hv_vhca_cleanup()
+with agents_lock.
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
+> index 4c4cf6da519fa..eac8afdfc67a3 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
+> @@ -228,7 +228,10 @@ void mlx5_hv_vhca_cleanup(struct mlx5_hv_vhca *hv_vhca)
+>  	if (!hv_vhca)
+>  		return;
+>  
+> +	mutex_lock(&hv_vhca->agents_lock);
+>  	agent = hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL];
+> +	mutex_unlock(&hv_vhca->agents_lock);
+> +
+>  	if (agent)
+>  		mlx5_hv_vhca_control_agent_destroy(agent);
+
+[Severity: Medium]
+What does this new critical section in mlx5_hv_vhca_cleanup() actually
+protect?  The lock is dropped immediately after the load, and the pointer
+is consumed afterwards:
+
+	mutex_lock(&hv_vhca->agents_lock);
+	agent = hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL];
+	mutex_unlock(&hv_vhca->agents_lock);
+
+	if (agent)
+		mlx5_hv_vhca_control_agent_destroy(agent);
+
+So the only guarantee gained over the previous code is a non-torn load of
+an aligned pointer, which a plain load already provides.  Nothing is
+serialized against the destroy itself.  Extending the lock over the call
+is not an option either, since mlx5_hv_vhca_agent_destroy() takes
+agents_lock itself and that would self-deadlock.
+
+The changelog says:
+
+    While at it, read hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL] under
+    the lock in mlx5_hv_vhca_cleanup() as well, since that slot is
+    written under the lock.
+
+Is that accurate?  mlx5_hv_vhca_init() still stores to the same slot with
+no lock held:
+
+	agent = mlx5_hv_vhca_control_agent_create(hv_vhca);
+	if (IS_ERR_OR_NULL(agent)) {
+		mlx5_hv_unregister_invalidate(hv_vhca->dev);
+		return;
+	}
+
+	hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL] = agent;
+
+That store is now fully redundant with the locked publish that
+mlx5_hv_vhca_agent_create() already performs:
+
+	hv_vhca->agents[type] = agent;
+	mutex_unlock(&hv_vhca->agents_lock);
+
+and it contradicts the field's own contract:
+
+	struct mutex                agents_lock; /* Protect agents array */
+
+Can it also race with the locked reader?  mlx5_hv_register_invalidate()
+has already run by that point, and mlx5_hv_vhca_agent_create() queues
+work before returning to init:
+
+mlx5_hv_vhca_agent_create()
+  mlx5_hv_vhca_agents_update()
+    mlx5_hv_vhca_invalidate()
+      queue_work(hv_vhca->work_queue, &work->invalidate_work);
+
+while the worker reads the array under the mutex:
+
+	mutex_lock(&hv_vhca->agents_lock);
+	for (i = 0; i < MLX5_HV_VHCA_AGENT_MAX; i++) {
+		struct mlx5_hv_vhca_agent *agent = hv_vhca->agents[i];
+
+Since the value stored by init() is identical to the one already
+published under the lock, the practical effect today looks like a benign
+data race that KCSAN would flag rather than a functional failure.  Would
+it be cleaner to drop the unlocked assignment in mlx5_hv_vhca_init()
+instead, so agents[] has exactly one locked writer per slot, drop the
+no-op lock/unlock in mlx5_hv_vhca_cleanup(), and adjust the changelog
+wording accordingly?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922074246.20411-1-ginger.jzllee%40gmail.com
