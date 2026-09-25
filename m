@@ -1,72 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FE3442B3C;
-	Fri, 25 Sep 2026 13:11:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE5E3CB2E5;
+	Fri, 25 Sep 2026 13:11:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341862; cv=none; b=gWyK2NteZbxWOWCq9hDyv+/ChLUAxT2ck/oAGTQNwZPQ35yyiSNz33UuYnJ3feiitlx0zCFbHgJu3hqrFT+EhqWeg0H7JMDECZKFOXLFx9ZuOsY0TlRyAeYxNh48iGgXwQeIKav1GtB8sTq6UKlrdlfZkci1iPH0kQJJ904vzZM=
+	t=1790341871; cv=none; b=urBy3zxwuD8UwXGAqeFaKpBytDgGOooaoMsVvqkyS1/u2rkDfwpumywfZ7ZIZjZadvM2soMk3QaNrWYnqiCcqCtnqda0FkDs5SEfrPdePGVS+3JMYuH81dBqT6WF4o1zWbhloVVrY14n3ff2rub7NBL8BblSaYcwXxZy+PAf3YI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341862; c=relaxed/simple;
-	bh=509zKjJim0GG5jL8NdMoH4U8eOJwMUQ5iOysVNkLZgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fFdfWW3I+j6/lOCO1gI6l5Qv9qRLRvv7UfxZP3Az+DJspuCRNDZ09GQtE6/FHlilcs7DDfz4X5xNLIcNbGQcOKwZ+rENQTyVz8hQUDpO87lbqaIgRY9Jtwyzfppwua4Bf2pW26BcmSSPJihtnulFb0o3lbMEBgv/VeVjdnVCLZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGDWvzUz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790341871; c=relaxed/simple;
+	bh=3uAzuFE+b9SS9OZZiv6hNHmPaAwSzPB3bSnF9LQw35Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SxffcmGMLu7oe4VGecphpCyuByUM/usRxTOhuSfjbGWcOkyOIOxm+LUwjMxISNC30C7TpGdPTiBj/B7SqFqMn4Mx7NeSedk24DIdHMRju81ACDUoNfGg5lmsZnZJUW9vakQFIXDonAMNIf9Oxg29xByHozkjj1Ye9kGXL2rUwkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k3JV0TDu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGDWvzUz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404361F000FF;
-	Fri, 25 Sep 2026 13:10:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k3JV0TDu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E7B1F000FF;
+	Fri, 25 Sep 2026 13:11:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790341861;
-	bh=BB+RBucDn7drafKRirY+tsjOIqaMLesM5kPeSmCd7Ds=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XGDWvzUz5K7sPSuNwzw/BAgvYQUFyLAagTEKLuLXafBAuYKXiXsSVDgsFU57wslfG
-	 6mHKbUEirDLfW+s/HU0+Ed92AOIsp/ezcuUvnwb5+UWWk0h3c2hG55RHLc+ZaAKUsx
-	 82kXvNsvImo3Jqqg4vq8elG+OTSJU/RzHX6/hRdFF9I7exrq48mzAmw59u8T5eE+Sv
-	 tDDiycX9zsJKK8AexpuXZ1/H9pVFHCyEz7NAlPGRb3qjxq8NOQmjjnzBMNjHx95Hvf
-	 Fk1q7+wKkRCcjWzYMElSrJxGDHYrqHup0A7oLF1l0nFwFFVu8HOhmPUQvxusgwLI4D
-	 zeVclsXl5v9BA==
-Date: Fri, 25 Sep 2026 15:10:56 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
- qcs8300 16 GT/s PHY
-Message-ID: <20260925-nocturnal-voracious-lobster-3de6ea@quoll>
-References: <20260921-monaco_ep-v1-0-63c5282fb0db@oss.qualcomm.com>
- <20260921-monaco_ep-v1-1-63c5282fb0db@oss.qualcomm.com>
+	s=k20260515; t=1790341870;
+	bh=SR+fn6Vy4sh/JaT+8eQ71WUN7UGOcZwBf1BAODLFDoY=;
+	h=From:To:Cc:Subject:Date;
+	b=k3JV0TDuZpuT4T6ThBXMjh1gNhHlbnzLsnfkzzqoEmJDdmF5Y4YPmeysPu1iIoQKc
+	 Lt86YNvx/vgJVkYQCTClfNjX3M9EfY+ifVAnvytoSeLKtCArQouA3jpaOeLPe000+D
+	 6Na+DZABZAQpNiUXCId424aD73vORDaqWdaFDUcOU1V48jjK58gI5PHHMkeU+YUPqq
+	 +DgkIsR9exwdqAjZgmiGQ2iI6/geTCYgKBFqXod5LgeqBXS0HfIUwHfX2E7OujhnLG
+	 UXfPuaBKx4QkFOdsLzMuYcCCeRUawf5ZWHg0S/KfPgfYLbYbNxRHAncMgRgW6bk1DG
+	 nImSi3Y9ZqYtA==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	sound-open-firmware@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: SOF: amd: fix building without CONFIG_ACPI
+Date: Fri, 25 Sep 2026 15:10:57 +0200
+Message-ID: <20260925131104.118993-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260921-monaco_ep-v1-1-63c5282fb0db@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 04:28:12PM +0530, Krishna Chaitanya Chundru wrote:
-> The QCS8300 16 GT/s x4 QMP PCIe PHY was previously described using only
-> the qcom,sa8775p-qmp-gen4x4-pcie-phy compatible, since no QCS8300-specific
-> compatible existed for this PHY. This was a mistake, as it left the PHY
-> undocumented as QCS8300 hardware and indistinguishable from SA8775P in
-> the binding.
-> 
-> Correct this by documenting a dedicated
-> "qcom,qcs8300-qmp-gen4x4-pcie-phy" compatible, with
-> "qcom,sa8775p-qmp-gen4x4-pcie-phy" listed as its fallback compatible.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+From: Arnd Bergmann <arnd@arndb.de>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+When ACPI is disabled, this driver runs into a build failure:
 
-Best regards,
-Krzysztof
+sound/soc/sof/amd/acp.c:1374:13: error: call to undeclared function 'acpi_find_child_device'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+ 1374 |                 pdm_dev = acpi_find_child_device(adev, ACP7X_DMIC_ADDR, 0);
+
+The code block is already guarded by an 'if (adev)' check that
+can only be true if ACPI is enabled, so add another #ifdef
+to match this.
+
+Fixes: 203ea76c4b0a ("ASoC: SOF: amd: add ACP7.B/7.F PDM controller scan and pdata propagation")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+I also tried adding ACPI Kconfig dependencies, but that quickly
+got out of hand since the acp module is selected by a number of
+drivers that then all need the same dependency.
+
+It may be possible to work around this in the ACPI code by adding
+a stub macro for acpi_find_child_device() that does nothing.
+
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/soc/sof/amd/acp.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
+index b059039c9e0d..4b2d7cb244c9 100644
+--- a/sound/soc/sof/amd/acp.c
++++ b/sound/soc/sof/amd/acp.c
+@@ -1059,6 +1059,7 @@ int amd_sof_acp_resume(struct snd_sof_dev *sdev)
+ }
+ EXPORT_SYMBOL_NS(amd_sof_acp_resume, "SND_SOC_SOF_AMD_COMMON");
+ 
++#ifdef CONFIG_ACPI
+ static void acp_sof_scan_pdm_devices(struct snd_sof_dev *sdev,
+ 				     struct acpi_device *pdm_dev)
+ {
+@@ -1083,6 +1084,7 @@ static void acp_sof_scan_pdm_devices(struct snd_sof_dev *sdev,
+ 	}
+ 	fwnode_handle_put(child);
+ }
++#endif
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_AMD_SOUNDWIRE)
+ static int acp_sof_scan_sdw_devices(struct snd_sof_dev *sdev, u64 addr)
+@@ -1299,9 +1301,7 @@ int amd_sof_acp7x_probe(struct snd_sof_dev *sdev)
+ 	struct pci_dev *pci = to_pci_dev(sdev->dev);
+ 	struct acp_dev_data *adata;
+ 	const struct sof_amd_acp_desc *chip;
+-	const union acpi_object *obj;
+ 	struct acpi_device *adev;
+-	struct acpi_device *pdm_dev;
+ 	unsigned int addr;
+ 	unsigned int irqflags;
+ 	int ret;
+@@ -1369,7 +1369,11 @@ int amd_sof_acp7x_probe(struct snd_sof_dev *sdev)
+ 		adata->is_sdw_dev = true;
+ 
+ skip_soundwire:
++#ifdef CONFIG_ACPI
+ 	if (adev) {
++		struct acpi_device *pdm_dev;
++		const union acpi_object *obj;
++
+ 		/* DMIC ACPI child address is 2 on ACP7x platforms */
+ 		pdm_dev = acpi_find_child_device(adev, ACP7X_DMIC_ADDR, 0);
+ 		if (pdm_dev)
+@@ -1379,6 +1383,7 @@ int amd_sof_acp7x_probe(struct snd_sof_dev *sdev)
+ 					   ACPI_TYPE_INTEGER, &obj))
+ 			adata->acp_sof_signed_firmware_image = obj->integer.value;
+ 	}
++#endif
+ 
+ 	sdev->dsp_box.offset = 0;
+ 	sdev->dsp_box.size = BOX_SIZE_512;
+-- 
+2.53.0
 
