@@ -1,63 +1,65 @@
-Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531E53E1723
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B57369D7B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:16:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790363819; cv=none; b=jN7URqgk7XBR3gOjCSnHjZSKE9U2zZe1LFhAULYCsglk+wLtF4tulXjhzrmv09iwAgRiguyPvmcthINoELHopFU75EVPWv5Il/9UPbMoPfZD64/0RX+iBtXJvrsucqqRrU6K06at0aYNsXVNhUL0BFhL0ONHHwdcXENFNabj1Yk=
+	t=1790363820; cv=none; b=ZFv2qd97VM1vV/Am+x2hTFmKtFKSVGBrcpjv1G27KA8UDgCtb5xvjjMEy2Sn1pHZyxR5S+2E+5Gs+OvU1NJQQ9L14s/0453irYsbQqP97bahUTG0S4whoSP25dBvcF+Wrazy19YvyCbSuZLFtmvcrea8PT1JKZ0ln3XqhA3G+rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790363819; c=relaxed/simple;
-	bh=LmDohTXcxb9m7JrOrmG+Y32/Ci8WQptcCIicn5s+8/E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JF0RVGe2pRx+1UStu1/32btJJXkVYT+O5bI4Y8r7BZIfjkAVxNIFor+B5qTCoCJzR+4oPrXdr8m3dSTianYiNtJl087AXeLHBH33oHXraf2rLzPgArVnFEjm7ko6FGPh2B9I4Cc6Es3ZgcybufqGAJb7kxm06hwWxPpLhO11euY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rUVYScKV; arc=none smtp.client-ip=74.125.230.171
+	s=arc-20240116; t=1790363820; c=relaxed/simple;
+	bh=j5qbuXrDX2plwlT/z3lSzoNInbPkdLmaRYkhQoo2lGM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G46ZSEcazwoNkc5MEf10Vnl6AOidX1ZbmBlDHwyOd+MClAWXPe9QobLnrF6i+NUn3naNQOWrqDRbQqJ5TywEb1kMGcj5OlN9z9YWOW3mZ94uczkUp772R1pxsGeRrUtbSE2kh4YjXxd4PW2YZI1+voL4WrcgbSj9K46E0LAlXlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dlL1i+Bb; arc=none smtp.client-ip=209.85.160.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rUVYScKV"
-Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-9142e0b0668so13887286d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:16:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dlL1i+Bb"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-52f9fc510e1so16767611cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:16:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790363816; x=1790968616; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P8eF+kTesN6ABi4qFLszfBvuUIZqOPzgqacuEmXgYpA=;
-        b=rUVYScKVOkQ+m70+eLmvAMIB/ImF2v73gQ9pEpToYLj5QwB7jotM6uUW/o/HTBh0KU
-         Fy4vOjwkEzR0+LcVIGPIHkAbSGlD/2RTxW9QFvRTwmnneY9RY34nNVVUVfZwLEOlh0SS
-         9jCOvalxTp6xfiNqOSUq8jGhVqoJvN3UXPC53QFmxwVbrLUZ2kCATrcbxGMEko35A34v
-         I0xQboEShNyQYpLToACbCscxBG2HlU7ouUxssWLCdSzLR/uVxF688DvtaG+L8NHvaCwX
-         LCu7+LKTaH/pvC9RM5TxsNofZ+WCXCZOH6ADI8kkfwG6UhtLtKy5ueD89wKjhhn9fjLj
-         OwFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790363816; x=1790968616;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790363817; x=1790968617; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P8eF+kTesN6ABi4qFLszfBvuUIZqOPzgqacuEmXgYpA=;
-        b=ny8AuJB+G1A3771tKk15cvj1a9JUbVvqXEE4cqWrXg16QC5SdMRFC9ihq8e+P+Q1ne
-         YYf4XwW3F+aZ+cXNL1pGtjzjOr1Ylu/cKpm6TBhhDhOGCpj35S5pyO3Pt2gbmxfo+a2S
-         hCNyNz3wbU6sTDPZFGnA9fV/BlM/1MRjr6iT6ytpK/XGd/xCugUMITtLsYedqb1LYGA3
-         pP9gL/HHpmyrfmzYM56NtrrPzI0NxDgWVEjTIzMRuSqLYJ6/U7toP590WXv4Vsar7ZOd
-         3ibOWMI879ZJTHC/kd2TjGfKh+s5NlTJlAwMfYWQ5bBtR7kPGiwROKOgg9pLQE6+Ry/6
-         pZuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzYSgttpKLENYQBNKpmdvsKwE4LzZsldCwFaFriU43/BUO5nRb3iM24Kdo3RKqgKxCNIgP480wEYwurMEc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSCM3vjZNFySmeC/sJNG1iwRD50cHywFoAJeCoa8p51AItZgvY
-	fPxNvrF2tnYKzhApmVkL3iZBJ1pJLfQaRbk0RVq8UuHqyWnCPnd/vRA=
-X-Gm-Gg: AYBFou3WwrgZvOQNc7kecr6m8PYwY+sWcC4QLbUg/DWNSuQzmTHgr/QILzsyuMlncn8
-	FdUPRnFLUp68ghNPN6tBfP/Foddjmng8JNep+HP8Nlzdz2/UoRhuJhwGb586irmPHCxvnblduVA
-	JCYAlaJj7Lvce/euKy1nP7UIJbACoO4iObgYJTWew0u00/MvY7YTRjqBeu3Wco41tIHiXi+m2Yb
-	Hsv9OEwgF0Q2D7hk0dpKinfsxyxeLv1ki6SMxa86kqlQ98xPWwoyzaVSf1lr2zTrtLB9FKKbQ2w
-	Oton0mlBsG9FGEz/RdrUP3wgbfuLgqKEbqhAiNrsE/JZ4qbFeRLagbiSSJP40E4q5qB19ORg21F
-	DNdx4iqbUkptw9dBaytgjlLUGcoQ+NWoEJleXFev7C+WVa2QkISCIs1oJGY4gWsVIV6IrW8paXn
-	H5QniwiKVR6MhllCW4MnJWQzxHcpKQNPxCVY7XjAXrpTQTkOwrNN2KAmunLNjIa6XXl92ZkP1cf
-	oUos1t0xitxb0OnuixqAuWUbUhVmp/rVpqihUQ2knDGjrkWmUpkdBWAdU92xYYfA0M9wFxmlp+e
-	Wea3UzbWJ5o48ehc9nP82c8WypMf
-X-Received: by 2002:a05:6214:4004:b0:912:5836:82cf with SMTP id 6a1803df08f44-9142f797f41mr59798056d6.27.1790363816086;
-        Fri, 25 Sep 2026 12:16:56 -0700 (PDT)
+        bh=Lfjo9pAawGhp175tsWiMgt+u8R0WsNzuMBsHkL3MrJQ=;
+        b=dlL1i+Bb52Um433seW73O7dcdH2e9hWMsQX+rkvscV9Wvdz1mMrjVsY8GOXoqxQPlm
+         Aoaqyse9+uuHpidc3CS+twF+Jne+LMAUql8wYeQvqEMkUX1q2C73CiAjOZC8lHnh6+B7
+         BCHVcgtJua85zps8cZCXW3c9BvLo5WwoJwOcYmzsIPYOaDf4Yaw6V+a3FF7crvYdg3xc
+         6dBRCCT/+lKxH0RYDQC94f0gZioKD+dRED9+rvrHZSVRdWjgDxotXx9Qa9oL5K6c4NkG
+         OTd8VRbToR4KaOvcs9VScSqpX6qWsbi9NHV/ECPPK4WJqhuLGfm/NiXe6HZ9B73Vbxwa
+         MpWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790363817; x=1790968617;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lfjo9pAawGhp175tsWiMgt+u8R0WsNzuMBsHkL3MrJQ=;
+        b=CPyPorpndddFjA0JoP6+yOp3p42pHcgkXh0AebBZoP6bpTJxVdX7FY7+rRU1asfvkK
+         pebUx2FOwA0BRXMDqPl56CcJW+6Hd/M0Et7Iz+6QWQCGCxCwclh4Imk6SoptZE2W+csU
+         5FdFa8CU1WO9X6mrBGOF0mEFd7ALyu6LMcpmHtE2wRL+CrMXQNzMpsu/BZYFHBo8xldm
+         qvVfLIIsjqTC9f4HS5zqFLO2mRukpL2w/LaLf+lf46+vdotXH20HrBevhcvP892rOjW/
+         7oAt5BxWeNta9bQmVJfUqgAcmZYk6ReVGFNcv7B7srCg1GmptNLprx5TLagd7v/RzrWa
+         HqWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBySP+SA+gASILDpp4zFFzUs+d6ad3Tbb04GAcMzJwOL1ZgT5etx93hYYN0SF39KxA6+G3npDoUCKJdvczc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/6cxeIHLmqy67N48psBxZBaGb7X280NqJsd4HZwW6xnue0Z+b
+	LH/F5UaAKyBcQiRbke1uDVrRHyiWkhXjwGlnsDc/tIW/aLsRrqas+Bw=
+X-Gm-Gg: AYBFou26zngDAQqb6oHh6iIMROq1fapxI65tQkVMClB+2bmieYgu1CHS9IhbC/oorq+
+	n4z4SoxMmCpjtEZVVimyTVknBTJ3o4QoKjCoLP3uCZcu7ngrjU1Zk7nBXDg3Wc+Ykoh10XpzNcJ
+	4hRhwoWLEDN5fGKmomR6IvWdeCjEgHJEytOKv2aUpqXuf5cgQ9AITyVRQX+1KcS2zH94Dv/WwU9
+	OwuS/wbcGFWizuCUxsTdoiBURdFmVuXKV/yeSNtD2DWEmSQToFqO7KvxpnV/LtxcjHQKS7t5006
+	wnknK5YJvVJaJfRYv252SJ1geXE2+y9EX7xnUI0PyOWxC/CXiy4SrHq271Vd8BNcaoRhS77rQ26
+	mqLzyfYMbvx69OLtQ44wuVxle77dFMdCHwCmFBdTP/SxDC3n14lUO4uAJ0CoioCbuLSTNDWucvz
+	exiSzxlZ5nkJE1JYXHwdDjx9YJAPdQSHKmPwqDc2kvbVYcmhUyfb8pTjQNEhjhMJP/tPtF3FYRC
+	18s+GebmvanNY0g5eqCUguQkzV6xBFm7wjNGqnko82WTdXZxkGflBcXCewPE2Ja9l+X14/XoTaL
+	mR6s9iRm7jn/6YUeyX4iTaloUiys
+X-Received: by 2002:a05:620a:4045:b0:93b:cb64:25a5 with SMTP id af79cd13be357-93c43c28e52mr647745785a.12.1790363817360;
+        Fri, 25 Sep 2026 12:16:57 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914309a24c4sm24142666d6.6.2026.09.25.12.16.55
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914309a24c4sm24142666d6.6.2026.09.25.12.16.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 12:16:55 -0700 (PDT)
+        Fri, 25 Sep 2026 12:16:56 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
 	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
@@ -66,11 +68,16 @@ Cc: Myeonghun Pak <mhun512@gmail.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] media: venus: fix HFI teardown races
-Date: Fri, 25 Sep 2026 15:16:51 -0400
-Message-ID: <20260925191653.3144006-1-mhun512@gmail.com>
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v3 1/2] media: venus: hfi: disable IRQ before freeing HFI device
+Date: Fri, 25 Sep 2026 15:16:52 -0400
+Message-ID: <20260925191653.3144006-2-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260925191653.3144006-1-mhun512@gmail.com>
+References: <20260925191653.3144006-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,36 +86,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As part of our ongoing static-analysis research, we reviewed the Venus
-teardown path and confirmed the race reported by Sashiko.
+venus_hfi_destroy() releases the interface queues and frees hdev before
+calling disable_irq(). An IRQ handler that has already read core->priv
+can continue to access hdev and its queues after they are freed. Clearing
+core->priv does not revoke the handler's local pointer.
 
-This series fixes two HFI lifetime races during teardown. The first patch
-waits for the hard and threaded IRQ handlers before releasing HFI state.
-The second disables and drains recovery work so it cannot be requeued
-while HFI state is being torn down.
+Commit 640803003cd9 ("media: venus: hfi: explicitly release IRQ during
+teardown") added disable_irq(), but placed it after kfree(hdev), too late
+to protect a handler already using hdev.
 
-The later Sashiko report also identifies a separate resource leak when IRQ
-registration fails during probe. That issue is outside this series.
+Disable the IRQ first so that both the hard IRQ and threaded handler have
+completed before clearing core->priv or releasing hdev.
 
-Changes in v3:
-- Send through git send-email over SMTP. The v2 cover letter incorrectly
-  said git send-email was used; v2 was sent through the Gmail API, which
-  still wrapped the diff --git lines before delivery.
-- No code changes.
+Fixes: d96d3f30c0f2 ("[media] media: venus: hfi: add Venus HFI files")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260612103333.5585D1F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/media/platform/qcom/venus/hfi_venus.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v2:
-- Regenerated the patch files with git format-patch after the v1 mail
-  delivery wrapped the diff --git lines. No code changes.
-
-Myeonghun Pak (2):
-  media: venus: hfi: disable IRQ before freeing HFI device
-  media: venus: disable recovery work before HFI teardown
-
- drivers/media/platform/qcom/venus/core.c      | 2 +-
- drivers/media/platform/qcom/venus/hfi_venus.c | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
-
-
-base-commit: 4efa625593e1e9c76346232413997556dea1d89f
+diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c b/drivers/media/platform/qcom/venus/hfi_venus.c
+index bd82066bb6e7..e7e4e78a186a 100644
+--- a/drivers/media/platform/qcom/venus/hfi_venus.c
++++ b/drivers/media/platform/qcom/venus/hfi_venus.c
+@@ -1689,11 +1689,11 @@ void venus_hfi_destroy(struct venus_core *core)
+ {
+ 	struct venus_hfi_device *hdev = to_hfi_priv(core);
+ 
++	disable_irq(core->irq);
+ 	core->priv = NULL;
+ 	venus_interface_queues_release(hdev);
+ 	mutex_destroy(&hdev->lock);
+ 	kfree(hdev);
+-	disable_irq(core->irq);
+ 	core->ops = NULL;
+ }
+ 
 -- 
 2.53.0
+
