@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301BE412C0D;
-	Fri, 25 Sep 2026 05:34:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C98842E437;
+	Fri, 25 Sep 2026 05:34:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790314463; cv=none; b=OTaZPxlCZu8kAIgQFfKJVEBhy+j3QDREeUQ8cZEzBlAh8WUuNLmOdF3Tad29ks9x6ougL1xqL6a3G2QTOK0cd3kEFqM1yCD1B9PtnKJ8wHP7R8Z7V4NNi9ZQVM+pMNCs0g9IfO95FEoZBQXFQW1Q5/vrRasUNA0SRG9b6/a8bpM=
+	t=1790314467; cv=none; b=QUvrrp+2snOGWsNoBG41DpqTLZ0WIKCEUP9+hEG/oZTH/YnEdeCot/LtWnNCB+e+iLOfBynrN6+W05zh+fD1+FCESBrT595OtDk79/noby54FIcEt2xFpnsHOaP7hc+vrWonUHdDpqfI0opZwZMQa8s3EiUQ7J1hcwCJJ1Gf0IQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790314463; c=relaxed/simple;
-	bh=oXAA8SjdQnumCwzVY9sdEV3aDC8MaRO9uGj/5zw0+oA=;
+	s=arc-20240116; t=1790314467; c=relaxed/simple;
+	bh=fU6Wbsft1wL3tiHwqhy+D4YuGagBlWpYiM4Mto7kixQ=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=euy2V+ZtqZTg8T6zcqSb0F+IygZ4Yr6drqkO4Rm/EWRd1Qp9PwmQlqZL1c4wJn1Z7RbRh4TRt5NUtVj34qv/2HSUi34M9E1pOo8Lp0VBYE14K3RmC6zSkn4gwdDcdsnLCTOpCqHgkiDDhJpiUCTuB8sKXVY2tsrCX74uGVl2Onc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FKmnFyNb; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=kDz60ZD5leSI5aeb/izj+gm2w4fAnGkayycqlYV3I4jZq+j+W0j79vanqu7DTba/NALTXwr75u/jhPSlY6aiH5+OI+iPvRim9TcoIGCvlgd1z3KF/NAmdnFdkJf+8eQqjMbKhHuvLO96o04U5h+mWBIDdWt2jx46ky7VMPa+noo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qacdg9Si; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FKmnFyNb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0BCB1F00893;
-	Fri, 25 Sep 2026 05:34:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qacdg9Si"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DF211F00893;
+	Fri, 25 Sep 2026 05:34:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790314461;
-	bh=PYeOfjKtRZRbMeYOkspCymqLbzQNJLxAV+uF3DjfoAU=;
+	s=k20260515; t=1790314465;
+	bh=0zjee7LBZp4ThBjD99PhmhzgGuaGV/k+FawOuYMWgkM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FKmnFyNbUzE3S/hiTXY6UXLHaU+aLkvg5la/x8sNZ0nDUTiz3KiQ/O6auCrC9Hw08
-	 1GtFtxqyKixl6OqoPNYnxFHt3Afi2PZHdPn+L0qKkaGgJNLUSHB5yZYJRSRFNX5Lrx
-	 xg4Iy1DrwFbXbkELD6XA4lHnWgKVwDIj+5fDrcjDmIg9JhFYFN/ZeRTIBIkxZB6Kj1
-	 3iaa3CA5SGKey1HDGC/B3z8QZ6EBsqZrGZWQqAdSAQy3VvnBCNMxsb/8jdnvAu3gB3
-	 qmZJS1wpxIPSQmCEQq11e8pp/M0Tb5bHgiPevCXmAn7TIwM0hNRZY5eEx0V0C4gEps
-	 1pimBGkY9wisw==
-Subject: Re: [PATCH net-next v17 4/6] net: dsa: mxl862xx: add devlink
- flash_update and info_get
+	b=Qacdg9SiUc7GylU/vTNMtldVIANA8q3ZTJiKCcida94JY+XPlspz4KcFWd1X8l9TF
+	 1KoQtbXV0HQqFj7F+eAbQ+/ALcC3+ThAL0eSuOIzX5buQg+Aj4d5Gf6chIDO7gIhAI
+	 nbioD7M/3qXB8d+YXh5zRcvr1Cq3z+AUEjM6KDdaBo/q0an599Rox+LVCuKUw//Zmf
+	 m+RJiJhZ4R0m4mqbPJbluwhXVwHWCwl7ua8H6N4z8Vhhtv2Z2nXAkl5qQ0bZs69f8X
+	 i9B0RnQYA/yM4J7DxJ06cBZc6jvgQFvGFAzZ90yga4MQZkAPhPkNPrH0kc1Qct0lVu
+	 gyCTMxg3Nt+jQ==
+Subject: Re: [PATCH net-next v17 6/6] net: dsa: mxl862xx: document devlink
+ flash and info support
 From: netdev-bot+sashiko@kernel.org
 To: daniel@makrotopia.org
 Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
@@ -36,13 +36,13 @@ Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
  rafael@kernel.org, dakr@kernel.org, andrew@lunn.ch, olteanv@gmail.com,
  linux@armlinux.org.uk, netdev@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
-Date: Fri, 25 Sep 2026 05:34:20 +0000
-Message-ID: <179031446039.2160803.7361896493328823357@kernel.org>
-In-Reply-To: =?utf-8?q?=3C4e9a8b6062f8dccfa5564400b4f80dda983e4c33=2E1790130?=
+Date: Fri, 25 Sep 2026 05:34:23 +0000
+Message-ID: <179031446380.2160803.7779219284987374198@kernel.org>
+In-Reply-To: =?utf-8?q?=3Cac0b51c0505596d1523b3d471b497a0c5515108e=2E1790130?=
  =?utf-8?q?482=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-References: =?utf-8?q?=3C4e9a8b6062f8dccfa5564400b4f80dda983e4c33=2E17901304?=
+References: =?utf-8?q?=3Cac0b51c0505596d1523b3d471b497a0c5515108e=2E17901304?=
  =?utf-8?q?82=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-X-sashiko-severity: Medium
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -52,182 +52,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 2
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] After a failed transfer in mxl862xx_devlink_flash_update()
-  (drivers/net/dsa/mxl862xx/mxl862xx-fw.c), the driver sets…
-- [Medium] mxl862xx_port_mdb_add() and mxl862xx_port_mdb_del()
-  (drivers/net/dsa/mxl862xx/mxl862xx.c) decide whether a failed…
-- [Medium] In mxl862xx_devlink_flash_update()
-  (drivers/net/dsa/mxl862xx/mxl862xx-fw.c), the…
-- [Medium] After writing STAT := 20 to hand over the header,
-  mxl862xx_flash_firmware() waits for the header ACK with…
-- [Low] The commit message says the post-flash re-probe scheduled through
-  device_schedule_reprobe() 'runs in the driver core off the devlink…
-- [Low] The kernel-doc no longer matches how the cached identity fields
-  are handled at runtime.
+- [Low] mxl862xx.rst says that "In the rare case that the reprobe cannot
+  be scheduled at all, ``devlink dev flash`` reports that error and the…
+- [Low] The "Rescue lifecycle" overview comment at the top of
+  drivers/net/dsa/mxl862xx/mxl862xx-fw.c says "devlink dev info exposes…
 
 --
 
-net: dsa: mxl862xx: add devlink flash_update and info_get
+net: dsa: mxl862xx: document devlink flash and info support
 
-This patch adds devlink info_get and flash_update support to the mxl862xx
-DSA driver. A flash reboots the switch into its MCUboot loader, streams the
-image over the SB PDI clause-22 SMDIO protocol, and then schedules a
-deferred re-probe through device_schedule_reprobe() to reinitialise the
-driver. Firmware API access is blocked while the flash runs, and
-->shutdown() and .remove() take the devlink instance lock so they wait for
-a flash that is already in progress.
+This adds Documentation/networking/devlink/mxl862xx.rst. The new file
+describes the devlink info versions and how flash update behaves,
+including recovery from MCUboot rescue mode. The file is linked from the
+devlink index and added to the driver's MAINTAINERS entry.
 
-> MCUboot offers no in-place path back, so the driver reinitialises with a
-> deferred re-probe scheduled through device_schedule_reprobe() from the
-> previous patch, which runs in the driver core off the devlink caller's
-> locks and without holding a module or device reference. ->shutdown() and
+> diff --git a/Documentation/networking/devlink/mxl862xx.rst b/Documentation/networking/devlink/mxl862xx.rst
+> new file mode 100644
+> index 0000000000000..793f3521f505f
+> --- /dev/null
+> +++ b/Documentation/networking/devlink/mxl862xx.rst
+> @@ -0,0 +1,91 @@
+
+[ ... ]
+
+> +Flash Update
+> +============
+> +
+> +The ``mxl862xx`` driver implements support for ``devlink dev flash``.
+> +The signed firmware image is transferred to the switch over the same
+> +MDIO bus which is also used to manage the switch, then verified and
+> +installed by the MCUboot bootloader running on the switch. All ports
+> +of the switch are closed for the duration of the update and the driver
+> +reprobes the switch after it has rebooted into the new firmware; they
+> +come back registered but down, so userspace brings them up again. A
+> +complete flash and reprobe cycle takes about one minute. In the rare
+> +case that the reprobe cannot be scheduled at all, ``devlink dev
+> +flash`` reports that error and the driver stays bound to a switch it
+> +no longer tracks until it is unbound and rebound. A reboot started
 
 [Severity: Low]
-Is the part about the device reference accurate? device_schedule_reprobe()
-takes one:
+Does this hold on every path through mxl862xx_devlink_flash_update()?
+The reprobe scheduling error is only returned and logged when the
+transfer succeeded:
 
-drivers/base/dd.c:device_schedule_reprobe() {
+drivers/net/dsa/mxl862xx/mxl862xx-fw.c:mxl862xx_devlink_flash_update() {
     ...
-	rp->dev = get_device(dev);
-	rp->drv = drv;
+	priv->skip_teardown = true;
+	mutex_unlock(&priv->mdiodev->bus->mdio_lock);
     ...
+	err = device_schedule_reprobe(ds->dev, MXL862XX_FW_REPROBE_DELAY_MS);
+	if (!ret && err)
+		dev_err(ds->dev,
+			"flash: new firmware is running but re-probe could not be scheduled (%pe); unbind and rebind to reinitialise\n",
+			ERR_PTR(err));
+
+	return ret ? ret : err;
 }
 
-device_reprobe_work_fn() drops it with put_device(dev) after the attach, so
-only the module reference is avoided. Could this sentence be reworded?
+Suppose mxl862xx_flash_firmware() or mxl862xx_wait_ready() failed, and
+device_schedule_reprobe() then also returned -ENOMEM or -EINVAL. In that
+case the reprobe error is not returned, and the dev_err() that tells the
+user to rebind is skipped.
 
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx-fw.c b/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
-> new file mode 100644
-> index 0000000000000..7a506d110c8da
-> --- /dev/null
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
-> @@ -0,0 +1,680 @@
-
-[ ... ]
-
-> +	/* the byte count in STAT triggers the erase */
-> +	ret = mxl862xx_smdio_write(priv, MXL862XX_SB_PDI_STAT,
-> +				   MXL862XX_FW_HDR_SIZE);
-> +	if (ret < 0)
-> +		goto write_err;
-> +
-> +	/* ACK is byte count + 1 */
-> +	ret = mxl862xx_sb_pdi_poll_stat(priv, MXL862XX_FW_HDR_SIZE + 1,
-> +					MXL862XX_FW_ACK_TIMEOUT_MS);
-> +	if (ret) {
-> +		dev_err(&priv->mdiodev->dev,
-> +			"flash: header ACK failed: %pe\n", ERR_PTR(ret));
-> +		goto no_end;
-> +	}
-
-[Severity: Medium]
-Can this poll miss the header ACK? The protocol description at the top of
-this file says STAT only holds 21 until the erase finishes:
-
- *                          <-------------- STAT=21 (len+1), then STAT=0
- *                                          (erased)
-
-mxl862xx_sb_pdi_poll_stat() only accepts an exact match, and its reads come
-2.5 to 10 ms apart, each read being two MDIO transactions. STAT can go from
-21 to 0 between two samples, for example with a short erase, preemption, or
-a wait on mdio_lock. The poll then sees 0 until the 5 s ACK timeout runs
-out, logs "header ACK failed" and jumps to no_end. By then the loader has
-accepted the header, erased the flash and is waiting in its receive loop.
-
-mxl862xx_sb_pdi_flush_last() in the same file avoids this by waiting for
-STAT to change away from the value the host wrote. Could the header ACK
-poll accept either 21 or 0 in the same way?
-
-At this commit, a missed ACK leaves the switch in MCUboot with its flash
-erased. The poll is unchanged later in the series, where a missed ACK leads
-to the rescue-mode drain. That drain feeds one byte at a time and can take
-tens of minutes.
-
-[ ... ]
-
-> +write_err:
-> +	dev_err(&priv->mdiodev->dev, "flash: SMDIO write failed: %pe\n",
-> +		ERR_PTR(ret));
-> +no_end:
-> +	/* A failure leaves the loader mid transfer; do not signal END (a STAT
-> +	 * write is a byte count then, and END would be misread as one, risking
-> +	 * a receive-counter underflow). Return the error; the caller reprobes.
-> +	 */
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Does the reprobe recover the device at this point in the series? After a
-failed transfer the switch is still in MCUboot, but at this commit
-mxl862xx_setup() goes straight to the clause-45 firmware API:
-
-	ret = mxl862xx_reset(priv);
-	if (ret)
-		return ret;
-
-	ret = mxl862xx_wait_ready(ds);
-
-MCUboot does not answer that API, so the re-probe fails and
-device_reprobe_work_fn() logs "re-probe failed, device left unbound". Once
-the device is unbound, no devlink instance is left to retry the flash from.
-The loader also stays resident across a power cycle, because the flash is
-erased or half written.
-
-The next patch in the series, "net: dsa: mxl862xx: recover switch stuck in
-MCUboot rescue mode", fixes this by calling mxl862xx_rescue_mode_detect()
-at the top of mxl862xx_setup(). So the gap only affects bisection within
-the series. Could the patches be reordered, or the "the caller reprobes"
-comment and the commit message be adjusted until the rescue-mode patch
-lands?
-
-[ ... ]
-
-> +	mutex_lock_nested(&priv->mdiodev->bus->mdio_lock, MDIO_MUTEX_NESTED);
-> +	priv->flash_owner = NULL;
-> +	priv->block_host = false;
-> +	priv->skip_teardown = true;
-> +	mutex_unlock(&priv->mdiodev->bus->mdio_lock);
-> +
-> +	/* Reinitialise through a deferred re-probe: remove() runs with
-> +	 * skip_teardown set, then a fresh probe() starts against whatever
-> +	 * the switch now runs. The core skips the re-probe if the device
-> +	 * is unbound or shut down before it fires.
-> +	 */
-> +	err = device_schedule_reprobe(ds->dev, MXL862XX_FW_REPROBE_DELAY_MS);
-> +	if (!ret && err)
-> +		dev_err(ds->dev,
-> +			"flash: new firmware is running but re-probe could not be scheduled (%pe); unbind and rebind to reinitialise\n",
-> +			ERR_PTR(err));
-> +
-> +	return ret ? ret : err;
-> +}
-
-[Severity: Medium]
-What happens if the transfer fails and device_schedule_reprobe() also
-fails, for example with -ENOMEM from kzalloc_obj() or kstrdup()?
-
-The scheduling error is only logged when ret is 0, and the return
-statement drops it otherwise. By this point the user ports are closed and
-detached, the conduit is closed, stats_work is disabled and skip_teardown
-is set. Only the reprobe undoes any of that.
-
-The device then stays bound, but every firmware read fails with -ENODEV
-and every write is dropped. Nothing in the log says that an unbind and
-rebind is needed.
-
-A retry of devlink dev flash then hits the early check in
-mxl862xx_devlink_flash_update():
+skip_teardown has already been set unconditionally. With no reprobe
+pending, nothing clears it. Would every later flash then fail here until
+a manual rebind?
 
 	if (priv->skip_teardown) {
 		NL_SET_ERR_MSG_MOD(extack,
@@ -235,139 +130,60 @@ mxl862xx_devlink_flash_update():
 		return -EBUSY;
 	}
 
-That check fails even though no reprobe is pending. The path is still the
-same at the end of the series, where the rescue-mode reprobe would
-otherwise recover the switch.
+The document says -EBUSY only means that a rescue recovery is in
+progress. Should the code report the reprobe failure on this path too?
+Or should the document mention this -EBUSY and the rebind it needs?
 
-Should the scheduling failure also be logged, and possibly returned, when
-the transfer failed?
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx.c b/drivers/net/dsa/mxl862xx/mxl862xx.c
-> index e05ad52cd297e..33a7cdb8edd31 100644
-> --- a/drivers/net/dsa/mxl862xx/mxl862xx.c
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx.c
+> +while an update is running waits for the transfer to finish, and an
+> +update requested after the system has begun shutting down is refused
+> +with ``-ENODEV``.
 
 [ ... ]
 
-> @@ -222,7 +230,45 @@ static int mxl862xx_phy_write_c45_mii_bus(struct mii_bus *bus, int addr,
-
-[ ... ]
-
-> +/**
-> + * mxl862xx_wait_ready - wait for the switch firmware to become operational
-> + * @ds: DSA switch instance
-> + *
-> + * Poll the firmware until it reports its version and accepts
-> + * configuration commands, then cache the firmware version and chip ID.
-> + * Takes at least two seconds.
-> + *
-> + * Return: 0 on success or a negative error code.
-> + */
-> +int mxl862xx_wait_ready(struct dsa_switch *ds)
->  {
-
-[ ... ]
-
-> @@ -254,6 +300,11 @@ static int mxl862xx_wait_ready(struct dsa_switch *ds)
->  		priv->fw_version.major = ver.iv_major;
->  		priv->fw_version.minor = ver.iv_minor;
->  		priv->fw_version.revision = le16_to_cpu(ver.iv_revision);
-> +
-> +		ret = mxl862xx_read_chip_id(priv);
-> +		if (ret)
-> +			dev_warn(ds->dev, "failed to read chip ID: %pe\n",
-> +				 ERR_PTR(ret));
->  		return 0;
+> +If the driver gives up on the recovery, ``devlink dev flash`` returns
+> +``-EIO`` and says so in its extack message. The drain runs once and is
+> +never resumed, so a failed MDIO transaction ends it as well. A loader
+> +that stops answering the drain needs a power cycle; a completed drain
+> +whose reprobe could not be scheduled, and a drain a bus error cut
+> +short, need only a driver rebind. The driver re-examines the switch
+> +when it binds and at no other time, so a power cycle on a board where
+> +the switch can be cycled on its own still has to be followed by an
+> +unbind and rebind for the recovered switch to be recognised.
 
 [Severity: Low]
-This isn't a bug, but the kernel-doc here and in struct mxl862xx_priv no
-longer quite matches the code.
+This paragraph documents the -EIO case. The rescue lifecycle comment at
+the top of drivers/net/dsa/mxl862xx/mxl862xx-fw.c was added earlier in
+this series, and it still says:
 
-The mxl862xx_wait_ready() kernel-doc says it will "cache the firmware
-version and chip ID". However, a failed mxl862xx_read_chip_id() is only
-logged and the function still returns 0. If SYS_MISC_REG_RD fails after a
-successful flash, asic_id and asic_rev keep their pre-flash values, and
-mxl862xx_devlink_flash_update() treats the 0 return as a complete refresh.
+ * devlink dev info exposes the fw version (the "flashable" signal) only once at
+ * READY; flash_update returns -EBUSY until then, and reprobes to WSP firmware
+ * on success.
 
-The @fw_version comment in mxl862xx.h still says:
+However, once rescue_failed is set, mxl862xx_devlink_flash_update()
+returns -EIO permanently:
 
- * @fw_version:         cached firmware version, populated at probe and
- *                      compared with MXL862XX_FW_VER_MIN()
-
-mxl862xx_devlink_flash_update() now also rewrites fw_version at runtime,
-through mxl862xx_wait_ready() after a successful flash and with memset()
-after a failed one. So MXL862XX_FW_VER_MIN() checks can see 0.0.0 until
-the reprobe.
-
-Could these comments be updated?
-
-[ ... ]
-
-> @@ -1547,6 +1598,13 @@ static int mxl862xx_port_mdb_add(struct dsa_switch *ds, int port,
->  	qparam.tci = cpu_to_le16(FIELD_PREP(MXL862XX_TCI_VLAN_ID, mdb->vid));
->  
->  	ret = MXL862XX_API_READ(priv, MXL862XX_MAC_TABLEENTRYQUERY, qparam);
-> +	/* A flash blocks the API (-EBUSY) and its teardown drops the MAC
-> +	 * table (-ENODEV); there is then nothing to program, and the reprobe
-> +	 * rebuilds the configuration. See mxl862xx_port_mdb_del().
-> +	 */
-> +	if ((ret == -EBUSY && priv->block_host) ||
-> +	    (ret == -ENODEV && priv->skip_teardown))
-> +		return 0;
->  	if (ret)
->  		return ret;
-
-[Severity: Medium]
-Can this check race with the end of a flash? mxl862xx_api_wrap() returns
--EBUSY while holding mdio_lock with block_host set. Here, though,
-block_host and skip_teardown are read again after that lock has been
-released. mxl862xx_devlink_flash_update() changes both flags in a single
-critical section:
-
-	priv->flash_owner = NULL;
-	priv->block_host = false;
-	priv->skip_teardown = true;
-
-If that runs between api_wrap() returning and this check, neither
-condition matches:
-
-CPU1 (MDB add/del)                     CPU2 (flash task)
-mxl862xx_api_wrap()
-  block_host set -> -EBUSY
-  mutex_unlock(mdio_lock)
-                                       mutex_lock(mdio_lock)
-                                       block_host = false
-                                       skip_teardown = true
-                                       mutex_unlock(mdio_lock)
-ret == -EBUSY && block_host   -> false
-ret == -ENODEV && ...         -> false
-return -EBUSY
-
-The flash task holds only the devlink lock at this point, so an MDB change
-from a bridge teardown can run at the same time.
-
-For a CPU port, dsa_port_do_mdb_del() in net/dsa/switch.c then keeps the
-entry on dp->mdbs:
-
-	err = ds->ops->port_mdb_del(ds, port, mdb, db);
-	trace_dsa_mdb_del_hw(dp, mdb->addr, mdb->vid, &db, err);
-	if (err) {
-		refcount_set(&a->refcount, 1);
-		goto out;
+	if (READ_ONCE(priv->rescue_failed)) {
+		NL_SET_ERR_MSG_MOD(extack, "download recovery failed");
+		return -EIO;
 	}
 
-The entry stays until dsa_switch_release_ports() in the reprobe cleans it
-up. In the add direction, port_mdb_add() reports a failure that should not
-happen. The v17 changelog and the comment above both say this case is
-handled.
+rescue_failed is set in three cases:
 
-The change from block_host to skip_teardown only goes one way. Would it
-work to treat either errno as success whenever block_host or skip_teardown
-is set? Another option is for mxl862xx_api_wrap() to return a distinct
-result for a command blocked by a flash. The same check in
-mxl862xx_port_mdb_del() has the same window.
+- mxl862xx_rescue_heal_work_fn(), when the drain fails
+- mxl862xx_rescue_heal_work_fn(), when the post-drain reprobe cannot be
+  scheduled
+- mxl862xx_rescue_mode_detect(), for an interrupted opening handshake
+
+In each of these cases the loader never reaches READY.
+
+Could that comment be updated to mention the -EIO state, so that it
+matches both the code and this document?
+
+> +
+> +A download interrupted during its opening handshake, before the image
+> +header reached the loader, is reported the same way. The loader waits
+> +for a header that no later session can supply, so that state needs a
+> +power cycle.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1790130482.git.daniel%40makrotopia.org
