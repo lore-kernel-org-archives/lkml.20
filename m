@@ -1,32 +1,33 @@
-Received: from mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
+Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A984734C1
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:06:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF87636E489
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:06:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790327185; cv=none; b=ldtdG3hUM5TlIYxO0OI7NQAt5ChYfjFOtL54v39E+M32Sv4aJPJsabz9qI+XZdG18vZIFvVYyRh6plg5ppeb8zIIjDwwGuTp0GNMB8TMVjIH2/a7bwHEHt1KDp/IXYR9eT6Azk/l+0Pjss1D69dosvNeUSPl73jpNAtbZexLW6M=
+	t=1790327186; cv=none; b=V7sCc+w7RYGQ7pUpL0onbnUfRBoV0BYM3x9BA+YZFExNzXmPLIo8O6vfcUst7ivKhZqeNvzkf/8TfCzV0hMJEsH6+jQlpgSZWDaVm57CUaR3w/SIFSWPSLWbBRpbAaOGe8sfLD9N+9dqQCDF1hKLOIJF57FgrCzqDO4RepUdDAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790327185; c=relaxed/simple;
-	bh=ZITxk4HraLSo7l0zjsQliO/uP2wjwsUcYzQpwin/yRQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oRlqAYXhXTXX8kQ6qWavR9XNx9vJ3vcgDOR+WKoOrTRswDryMXr4ELSNj/RC0rOmnay1cV8TiwWeSs+8iFiK9kXHEvWROpBfscIaXH3fasLMlA3+1qWe7eivaVTUgur67U1VySU7yTgKedOGSW9kUaRR8886YZfSBWWtBad85no=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JmohhVcg; arc=none smtp.client-ip=95.215.58.59
+	s=arc-20240116; t=1790327186; c=relaxed/simple;
+	bh=uT67jQLLkVIaTp0qSTH277698A/g5o9SVMksMSSr6LM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=NydG41YFP/ScNunSONp56o+mJ7dSE4PrFoJMLa8u/Aooklogn3p9PBdWM7QY0QBp654B5OsQ4wQvoVM9cdB4X4ZcFm8mU4FWEppuVZKeijk6GvV2RDgQ4QBPUaIMspYrFr1n6hzRGqvnd4xt6ZJDmFeFqPR1G4Aa1C6JMCGkNHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=u4ji/SGu; arc=none smtp.client-ip=91.218.175.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JmohhVcg"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="u4ji/SGu"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZITxk4HraLSo7l0zjsQliO/uP2wjwsUcYzQpwin/yRQ=;
+DKIM-Signature: a=rsa-sha256; bh=uT67jQLLkVIaTp0qSTH277698A/g5o9SVMksMSSr6LM=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790327180; v=1; x=1790931980;
- b=JmohhVcgVsqSBcDGuC0e3WvDKsInmcrppCdikxY7yTDi3/3w03BhkfPu0pHcx81gGqgCOCDl
- 7h2PYoUVNmUFbGciFDcsBSxXWq+ZyalOMblAnjazazweBO1TB48ZlmJt3rgb5f4XIhSSvK9vdKv
- edlFfy1HQQIXzB0jhdtWUCxs=
+ t=1790327181; v=1; x=1790931981;
+ b=u4ji/SGuK7WT3Xkdo6yolw5trjxl5lo25MrWKrgRJqzaL5rzjwhe4epnBovhQT7cgx3gnBR/
+ nbULNmo6uHfdveaEC9rAkOTEDzKuaULMoZ3DkU96NOFC8ZTdFH+2wXCMrU8c98YsYTMtt0VRPJ/
+ oX29T6h8m/Cu7qCL6fS55apA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9160c77694c73bbb;
-	Fri, 25 Sep 2026 09:06:20 +0000
-X-Mizu-Trace-ID: 9160c77694c73bbb
+Received: by smtp.migadu.com with ESMTPS id 784084d02c7ed006;
+	Fri, 25 Sep 2026 09:06:21 +0000
+X-Mizu-Trace-ID: 784084d02c7ed006
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -44,10 +45,12 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	Vincent Donnefort <vdonnefort@google.com>,
 	Fuad Tabba <tabba@google.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 0/4] KVM: arm64: Fix HCR_EL2 for non-protected VMs in pKVM
-Date: Fri, 25 Sep 2026 10:06:15 +0100
-Message-Id: <20260925090619.852995-1-fuad.tabba@linux.dev>
+Subject: [PATCH v1 2/4] KVM: arm64: Clear HCR_EL2.RW for 32-bit non-protected vCPUs
+Date: Fri, 25 Sep 2026 10:06:17 +0100
+Message-Id: <20260925090619.852995-3-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260925090619.852995-1-fuad.tabba@linux.dev>
+References: <20260925090619.852995-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,57 +59,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+In pKVM, KVM_RUN on a vCPU created with KVM_ARM_VCPU_EL1_32BIT fails
+with KVM_EXIT_FAIL_ENTRY. pkvm_vcpu_reset_hcr(), pKVM's EL2 counterpart
+of vcpu_set_hcr(), never clears HCR_EL2.RW, so the first ERET into the
+vCPU is an illegal exception return. Protected VMs are AArch64-only, so
+only non-protected VMs are affected.
 
-In pKVM, EL2 sets a non-protected VM's HCR_EL2 in pkvm_vcpu_reset_hcr(),
-which covers only part of vcpu_set_hcr(), and takes only TWI, TWE and
-VSE from the host. As a result, an AArch32 VM can't run, a VM can read
-GMID_EL1 or execute a TLBI OS its ID registers hide, and the host's TVM,
-VI and VF never reach it.
+Clear RW for 32-bit vCPUs. The vCPU's features come from the host, and
+on a CPU without AArch32 EL1 a cleared RW would make EL2 switch
+registers that are UNDEFINED there. Clear it only when the system has
+AArch32 EL1, the same check system_supported_vcpu_features() makes on
+the host.
 
-Rather than add each missing bit at EL2, the third patch uses the host's
-HCR_EL2 on every entry, except for the bits EL2 owns. A bit added to
-vcpu_set_hcr() then reaches pKVM with no change at EL2, unless it opens
-state EL2 doesn't switch, in which case it goes in PKVM_HCR_EL2_OWNED,
-as ATA and DCT do.
+Fixes: b56680de9c648 ("KVM: arm64: Initialize trap register values in hyp in pKVM")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/kvm/hyp/nvhe/pkvm.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-The third patch depends on the first: once TTLBOS reaches the VM, a
-trapped TLBI OS from a non-nested guest hits a WARN in
-handle_tlbi_el1(), as it does without pKVM.
-
-The last patch adds a selftest that checks a feature hidden in an ID
-register is UNDEFINED in the guest. Its TLBI OS case fails in pKVM
-before the third patch.
-
-VSE still comes from the host as before. Syncing it back after delivery
-is a separate fix [1].
-
-Based on Linux 7.3-rc4 (93f51579e7df2).
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20260921101030.1231605-1-fuad.tabba@linux.dev/
-
-Fuad Tabba (4):
-  KVM: arm64: Don't WARN on an unsupported TLBI OS from vEL1
-  KVM: arm64: Clear HCR_EL2.RW for 32-bit non-protected vCPUs
-  KVM: arm64: Use the host's HCR_EL2 for non-protected VMs in pKVM
-  KVM: arm64: selftests: Check a feature hidden in an ID register is
-    UNDEF
-
- arch/arm64/include/asm/kvm_arm.h              |   1 +
- arch/arm64/kvm/hyp/include/nvhe/pkvm.h        |  13 ++
- arch/arm64/kvm/hyp/nvhe/hyp-main.c            |   7 +-
- arch/arm64/kvm/hyp/nvhe/pkvm.c                |  24 ++-
- arch/arm64/kvm/sys_regs.c                     |   7 +-
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/arm64/hidden_features.c     | 184 ++++++++++++++++++
- 7 files changed, 222 insertions(+), 15 deletions(-)
- create mode 100644 tools/testing/selftests/kvm/arm64/hidden_features.c
-
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index 459bd9eb7e4bc..affc9595fda20 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -54,6 +54,14 @@ static void pkvm_vcpu_reset_hcr(struct kvm_vcpu *vcpu)
+ 	else
+ 		vcpu->arch.hcr_el2 |= HCR_TID2;
+ 
++	/*
++	 * At EL2, vcpu_el1_is_32bit() reads HCR_EL2.RW, and EL2 switches the
++	 * *32_EL2 registers when it returns true; they're UNDEFINED without AArch32 EL1.
++	 */
++	if (vcpu_has_feature(vcpu, KVM_ARM_VCPU_EL1_32BIT) &&
++	    cpus_have_final_cap(ARM64_HAS_32BIT_EL1))
++		vcpu->arch.hcr_el2 &= ~HCR_RW;
++
+ 	if (vcpu_has_ptrauth(vcpu))
+ 		vcpu->arch.hcr_el2 |= (HCR_API | HCR_APK);
+ 
 -- 
 2.39.5
 
