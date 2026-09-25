@@ -1,107 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE8A3F8EB7;
-	Fri, 25 Sep 2026 22:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1041B477E4D
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790375662; cv=none; b=bZo0tFI6U8K2NyqICSXIUSzWYi2VzyDP/gnCJqttZBeOwlMmc94I0SdCRdUKGaq6Ksu9+PJBrwFfDAqgkqLooNFVxKe9YSRt5igK0/zTzSv5O1aTRKZkeV3EFRug6qwWeoewZqK+Ya8wrfBOJI9PMPgTNxrQkY59Ios0LcX8bWw=
+	t=1790375713; cv=none; b=q0ww4MKIauhOu971yuDxxPIq3QWi6S/Z1iZnMahORYXB/FQh2uXnKpdiNN3nVoyfnI2lQVTWuBoPKHsX1lBeKX+wSaJnURNtYKWOa/aLq0BaNd86kTB418VAt4zg6krB3C40zzfxkeYtH9akxpCszjH5+TyB9TgjZFwhOo5kmuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790375662; c=relaxed/simple;
-	bh=tX1ZUsz/e3rGKGnfkJVQfG1XgBOccNslQa8RBduFZ2A=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=U3i01fPN+0ekbjRf4f2cCjDFRCprpk+yCexEE8YSFLGYp9bRlx5yPaqdmcbaHbJ0lHfFpU6oawwUDF6BDd2qorzIYENh7qwJUPb9y4FUBGB3HeNn8q2qWP2JG8avGhElSznVo5rkkIz23sCB+5loDtTeFsZMV6IYjGsRxC/IFCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S07rFfqi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790375713; c=relaxed/simple;
+	bh=F3r4Pt93ZYmVG+52AqmtfaD2QoqGou95WRZ95gRBLDc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aGmIyfqpct8P5VFHxbj0/HAmdyePNqJsC9SDZ4jcWZmIIXiHqMHuhnyEpgd6uN+2RtbpSpNljqwuKsStVwH+UhzDZPmWDAMGtCiOsVW+Bd8gtO0IAJa+vQq6W4laWsopzl3xrCXX8K4ich7rUJ00a21piC3sc2JvIcWtsuQyOwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=u7x3LEBp; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S07rFfqi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8531F000FF;
-	Fri, 25 Sep 2026 22:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790375661;
-	bh=aITeuYia8itF4SMTQUZnXmogWzeqC/Cn61W96CfNPLs=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=S07rFfqi+H+8UNNSCOjpX0krnknUgrcRQGjE4D1LGyV1XWXKQjDQwe+MY2KN+cfUw
-	 ZRwvDbwvE8lSobwoDwRWk6XB2q9S/9LbXaDhf+lccJp2Tzt0UGD+gaxEWKl2uh8RqA
-	 NlcmJT0p8g4+g7ZICepgQ4zrm2cKRMo/Yxw4mHmR6mPB4Cc76ZzDGqZXiQKYFUpI/g
-	 NAJS8iQQTCoqban+Wrur77C0vShFn/29hG4C/TF1QLlK7OL9PAby9HiT+aePd95k2R
-	 xkD4Yz/mDHGwFPQtTTcTykgdmj/CoQqIYHRoJ5OhXyon3PYvNCPOc+ZhrdWdXRvCuZ
-	 a2h+jpvhv1xqA==
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="u7x3LEBp"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e50968489so1361366d50.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:35:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790375711; x=1790980511; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jdZOr2UDvjkI8E67XQaxA/iXClxgNNHva2zS2rI+PG8=;
+        b=u7x3LEBpbgalCgKCBF7SNBK1p3sUzXs/v0JiAUZPhBUgd/+N7xLx7ZlIbxr2myUUuj
+         05h8TTE3LwJo60Qwt69aq6/5B2RylQ4e4P7/pOLyZtoJIFLDq1TaofimPnRSIqvHN5Vk
+         Lg67Ie4EjP/8qS0Dr1mtsccZot6JyKRGLBhl35Myyn+abjuxToRfm7J06zp9fFS6RtVF
+         21kZPj9TW5MMfCh7t/ZnS1YQTQVkIAt+ONcSezDFbI2AQJszPXv1HewDf9WLHtgCgOnz
+         X+PZz4CmD7a4WPaaghQD2L86vLyreUJUeSVH+2QAby9g7lz3OeMpJqCVPFQrcvudkEpz
+         KGmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790375711; x=1790980511;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jdZOr2UDvjkI8E67XQaxA/iXClxgNNHva2zS2rI+PG8=;
+        b=XqnhuyLPjcZ/b0l7rmOOBhSuMEgkOYjFS8gJV47K7eWReifL3/1LJcUT+1KgIQD1Km
+         AOLmNt6JhO2/1CSlGInrbP7nqBpYPkVj2CT7Sw+E+QWF8yxsdRI61McBW6qAiaY5MyV1
+         QbTgfYRYq4fbfgq+amieH9tuUtQ13vmUnzci8aIX23Nc9/PFsqcMRcduJC4EWIwYre4O
+         M912obkSwfJAAga4tHn9IfqOyQzapdd67gT6Z7ACSLY0zVxXZxVsjM8mRIYAWHhf9pRe
+         oqxXM/IxnfpkT/3SQ3NU/0TD59c2b8ProFH4LUbwbipLsjeKBoLHlY1+hln1Uqb08cnG
+         O92w==
+X-Forwarded-Encrypted: i=1; AKwUvBy4eDSLBNHbNI5n9XjlelhLb87BavTVv4iS30FPa03Rs9Um3Kh5d9UiLkevBHDGSIhJUvSrHwYvMm73gtU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nl5XxIwS90dxYH2jqM5TplwP0FwzLBPxNhu5WL9BhGW0Q/smX6
+	LisdWMoLn7B8vLDRlnFon6G6ib6SfmXlvcO9b6tgJPExcsaSVOtHLnNyBPR8Um7qCLHa0Od4fxL
+	7pDCZpORb9Q==
+X-Gm-Gg: AYBFou38VqKgcUjWJbmQkVcSMDnu4+DhoZ9RhA6GKFN2gOAhc4P1XxtLMkCk21WYqpF
+	oozFjs2X0WQdIFdw4ySfomegjJ6f1WRXA1bz+a0oA0xdvXGdhIZGUxXRD1GWlfBo3cXbt+f/Dt1
+	UGVu6jasLg3FcCrI1z7+ylMA3+LuyigdL1sQrgmKNXqBaaGGyesIlzdN5r/Q5J+61bNPc5rsESD
+	l+H+ywtUn3XlKaWQw18aj5wzwobnGEphSXHxK9zDpTvcmLfEbwgkYMcBrNS6l476NFO4UMCjrd4
+	5c0Zp81cnQxXLswwz5lkcL8A4Gxe6huHY3rOAnIEr6DHBuoyuIVzbbFqBaGW9ZtsbDKJ6LAcpt1
+	EEf3HHouydQoNnw2J/nfknmqGM4EmCsiuILEKMICsTpB1YP9VYQqoXR/dfUkYWvuQpS+R3GmeeJ
+	0J2IbYcLoMO8FMkaVVi4FVtSZkezQsPfxzG5XaFK/RJmmKNSsHWS03lVoqkG3Iy7EuYqm96h5Vm
+	OIfCL+p3Is2oKRLN79ZbU+ykvd5h1yXFZWx6Iow9Lmq0DYhVQJrwMTuJPhwlL1bKuMzJZE4CNXh
+	uZA84uMbcuxHbEjS2Qi6bWfGZFqmqjI2GNcib9yHdGfB/oLP+VESL4boYhV/bvEDWznKZ2mKxGs
+	=
+X-Received: by 2002:a53:ac9a:0:b0:66d:1877:121b with SMTP id 956f58d0204a3-672ed1e41a8mr3828828d50.32.1790375710785;
+        Fri, 25 Sep 2026 15:35:10 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:2dbc:64a3:86d9:3cfa? ([2600:1700:6476:1430:2dbc:64a3:86d9:3cfa])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740ef7f4f4sm1495367d50.16.2026.09.25.15.35.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 15:35:10 -0700 (PDT)
+Message-ID: <2bb826db81e9d1fadb175be873623d003d7ce385.camel@dubeyko.com>
+Subject: Re: [PATCH v4 7/7] hfsplus: switch address_space_operations on
+ iomap-based support
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	vdubeyko@coreweave.com, willy@infradead.org, brauner@kernel.org,
+ djwong@kernel.org
+Date: Fri, 25 Sep 2026 15:35:08 -0700
+In-Reply-To: <20260918135747.GA18697@lst.de>
+References: <20260914233941.2966421-1-slava@dubeyko.com>
+	 <20260914233941.2966421-8-slava@dubeyko.com>
+	 <20260918135747.GA18697@lst.de>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] clang-tools: Import os for broken pipe handling
-From: Nathan Chancellor <nathan@kernel.org>
-To: houtinghang <ue081723@gmail.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-In-Reply-To: <179017337986.52388.7943687183785012868@gmail.com>
-References: <179017337986.52388.7943687183785012868@gmail.com>
-Date: Fri, 25 Sep 2026 23:34:15 +0100
-Message-Id: <179037565553.3985470.12035061965740287126.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2132; i=nathan@kernel.org;
- h=from:subject:message-id; bh=tX1ZUsz/e3rGKGnfkJVQfG1XgBOccNslQa8RBduFZ2A=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFnbvj0vfRZrfvFE58VpKz/OOVEm92/xwUWmZW9mbv1Tv
- it94dfuHR2lLAxiXAyyYoos1Y9VjxsazjnLeOPUJJg5rEwgQxi4OAVgIodlGP7HSLx/37XY5/q1
- Ywd0Xugxvri0rW/y/BMrOQ7JCT4OXLfNiuE3q6q0cJbuHcODM9/XBf8KZK78kPaBk9d+6cPvR5b
- PlNrGCwA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On 2026-09-23 22:22 +0800, houtinghang wrote:
-> The BrokenPipeError handler in run-clang-tools.py calls os.open() and
-> os.dup2() without importing os. When the analysis pool raises this
-> exception, the handler raises NameError instead of redirecting stdout
-> and exiting with status 1.
-> 
-> Import os and add a regression test that injects BrokenPipeError from
-> Pool.map(), then checks the redirection and exit status.
-> 
-> Fixes: 87c7ee67deb7 ("scripts: handle BrokenPipeError for python scripts")
-> Assisted-by: LLM
-> Signed-off-by: houtinghang <ue081723@gmail.com>
-> ---
-> Testing: python scripts/clang-tools/run-clang-tools_test.py -v
-> The test fails before the import with NameError and passes after it.
-> Tested with Python 3.13 on Windows using exception injection; no complete
-> kernel build or real clang-tidy pipeline test was performed.
-> 
-> AI disclosure: Codex found the missing import, wrote the fix and test,
-> ran the test, reviewed the diff, and drafted this message in response to
-> a request to find, fix, review and submit a Linux kernel bug.
-> 
->  scripts/clang-tools/run-clang-tools.py      |  1 +
->  scripts/clang-tools/run-clang-tools_test.py | 41 +++++++++++++++++++++
->  2 files changed, 42 insertions(+)
->  create mode 100644 scripts/clang-tools/run-clang-tools_test.py
-> 
-> diff --git a/scripts/clang-tools/run-clang-tools.py b/scripts/clang-tools/run-clang-tools.py
-> index e78be82..79d58b3 100755
-> --- a/scripts/clang-tools/run-clang-tools.py
-> +++ b/scripts/clang-tools/run-clang-tools.py
-> @@ -12,6 +12,7 @@ compile_commands.json.
->  import argparse
->  import json
->  import multiprocessing
-> +import os
->  import subprocess
->  import sys
->  
-> diff --git a/scripts/clang-tools/run-clang-tools_test.py b/scripts/clang-tools/run-clang-tools_test.py
+On Fri, 2026-09-18 at 15:57 +0200, Christoph Hellwig wrote:
+> On Mon, Sep 14, 2026 at 04:39:41PM -0700, Viacheslav Dubeyko wrote:
+> > =C2=A0/* Compare two extents keys, returns 0 on same, pos/neg for
+> > difference */
+> > =C2=A0int hfsplus_ext_cmp_key(const hfsplus_btree_key *k1,
+> > @@ -275,6 +276,8 @@ int hfsplus_map_extent(struct inode *inode, u32
+> > ablock, int create,
+> > =C2=A0		*max_blocks =3D hfsplus_ext_find_block(hip-
+> > >first_extents,
+> > =C2=A0						=C2=A0=C2=A0=C2=A0=C2=A0 ablock,
+> > =C2=A0						=C2=A0=C2=A0=C2=A0=C2=A0 dblock);
+> > +		if (!*max_blocks)
+> > +			return -EIO;
+>=20
+> What is this for?=C2=A0 It feels like something that should go into a
+> well-documented prep patch.
+>=20
+> > @@ -342,7 +348,7 @@ int hfsplus_get_block(struct inode *inode,
+> > sector_t iblock,
+> > =C2=A0
+> > =C2=A0	if (create) {
+> > =C2=A0		set_buffer_new(bh_result);
+> > -		hip->phys_size +=3D sb->s_blocksize;
+> > +		hip->phys_size =3D (loff_t)(iblock + 1) << sb-
+> > >s_blocksize_bits;
+>=20
+> How is this change related to iomap?
+>=20
+> > =C2=A0	if (inode->i_size > hip->phys_size) {
+> > -		struct address_space *mapping =3D inode->i_mapping;
+> > -		struct folio *folio;
+> > -		void *fsdata =3D NULL;
+> > -		loff_t size =3D inode->i_size;
+> > +		if (S_ISREG(inode->i_mode)) {
+> > +			res =3D hfsplus_iomap_cont_expand(inode,
+> > hip->phys_size,
+> > +							inode-
+> > >i_size);
+> > +			if (res)
+> > +				return;
+> > +
+> > +			mark_inode_dirty(inode);
+> > +		} else {
+> > +			struct address_space *mapping =3D inode-
+> > >i_mapping;
+> > +			struct folio *folio;
+> > +			void *fsdata =3D NULL;
+> > +
+> > +			res =3D hfsplus_write_begin(NULL, mapping,
+> > +						=C2=A0 inode->i_size,
+> > 0,
+> > +						=C2=A0 &folio,
+> > &fsdata);
+> > +			if (res)
+> > +				return;
+> > +
+> > +			res =3D generic_write_end(NULL, mapping,
+> > +						inode->i_size, 0,
+> > 0,
+> > +						folio, fsdata);
+> > +			if (res < 0)
+> > +				return;
+> > +
+> > +			mark_inode_dirty(inode);
+> > +		}
+>=20
+> Is this for symlinks?=C2=A0 Any reason you can't pull in
+>=20
+> =C2=A0 iomap: add iomap_symlink_write
+>=20
+> that has been posted on fsdevel and use iomap for symlinks as well?
 
-The change to run-clang-tools.py is obviously correct but I am not sure
-this test really adds much other than noise. Please drop it and resend
-with an adjusted commit message. Additionally, please adjust your name
-in the signoff to be a "known identity" per the Documentation.
+Does it landed into some branch or is it still only on fsdevel list?
+Otherwise, I need to wait when this patch will be in some release.
 
--- 
-Cheers,
-Nathan
-
+Thanks,
+Slava.
