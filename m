@@ -1,139 +1,120 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15EC4E3EEC
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:30:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790368214; cv=pass; b=SQJYwpSHgBF1gh6ba02jOj1DxOZxUOneZT8AsF/E2RIRPeqt8GvFtarXXmQSMf2PkUmUrSJ+Ls1dHzuxbq4WLpCbSfskmBA+T9trmjXqHdczYwFz/BYzJM/hkbVmNPOMG5QYP3nnmVYb1m81+8gMLNHNmxtSKgHlZST6GakA2bc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790368214; c=relaxed/simple;
-	bh=f2G3rIcVbUkPXRw3yL1RsO+v6Cd5VpLS11PIe+5qkBs=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=nDVErM862ouCf1j8x2qdpY9MKmjCWOFt8M7IlA3UPVtQcdT4ELaZNAnoxlxOCFXQkIpQjpMEepdalL1y3aWNnNsTRUDOT8bE3emraYQfv0E5R1VucY862wwrZ/h+t9alQ4E1VbVk9kTPi8T4egpqJ/oAixxcSo/czOj9P/Nlj+c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=JkDTBBn6; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3073E2ADD;
+	Fri, 25 Sep 2026 20:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790368262; cv=none; b=OH3D7Z6YC38TM512I9K+RYskQjTfBXyzfwdHRTD4VCNXSZ67zDKP9pDTZjqEo9HLXxmvGHpqEhKathgt2n8HtSoR9Tb7nKUPDSrKHP9ZEfPPxTJVPYc7WkHJl3uzBNzZeSdZLScZbz/xqh/LLXfFyt6vmZh5m9y2J55M3RojqcU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790368262; c=relaxed/simple;
+	bh=M9sQtsrZE+zW52A31eNSj54pCl6wu3flAEO/7CvfkcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gVfc8Pb+DpycIayKPQX1qB3yLIG3i+wlbfqV87WDAvRY6xLr3078nrl2w0rOhlAHP6LLSzRaVZjwa2OU4c5XZTrKFKe63YWPWy3rhzYIjlnzC2z8sdu/+aZmBiDXuQcbg6In7FLkQo7acP3Gzd/j0x8LU/M6l9z8nBxjqF5wwAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=C85wXDZB; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=vouODrhj; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="JkDTBBn6"
-ARC-Seal: i=1; a=rsa-sha256; t=1790368181; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=VeLWciMwTMVVK+lpjTa9TkDt4m/KIlR81Q9C4+lt33yAEDku2dUblLkqtHJ6IibeHioljeQ2SoeyzRTyctvCzCaKfihNTvMX/qGD9hp2BHNcHTOIq2pQHqXQnyY/UedCuTa4b46a//z8NpxC3DuVYc+4+i58vCxIov6CAFoTILQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790368181; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=oXVsbnHCfHgZRtmigu6uQYFIon/PekNJDyCxr6hMBQs=; 
-	b=mVw6ce0WYYM8RVMyNElyD+h8WjdEDA4m/NTy6a2rgwn2L2IhgY4oPOkBbVuM7nvw1dMHTT4FitvyaqdzJ4M1zjG4wto2zYiDsx8jCFIpFOp2dcZYdkF0J5t/o0ISql/EH53/VCjsfqTDnf0M9AhLbIy3bPdwxw72F1BNh9g5L6Y=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790368181;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
-	bh=oXVsbnHCfHgZRtmigu6uQYFIon/PekNJDyCxr6hMBQs=;
-	b=JkDTBBn6Rj7HsyEvP3TnlwSEHDGs8bxBI90+Shnf6gs8RU4J/yxYe0B4hG9z38s+
-	EdQ7NM9RXHGOB3Ot5hYcUOtPTdL1BrkJqwKyk1o2fI3Vo4XJ2jlzyTnMZg/rhLHXRyt
-	7jFkjGrT2gWDETawdv5AJTFTQyoXu4xCDaKbLKTk=
-Received: by smtp.zohomail.com with SMTPS id 1790368180560498.8332627282434;
-	Fri, 25 Sep 2026 13:29:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="C85wXDZB";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="vouODrhj"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hs2Qg2dGVzMlFn;
+	Fri, 25 Sep 2026 22:30:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790368251;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=M4JDupUoFY30dKt82SQKJaxPVVLkSrwF1C+uPs42vVQ=;
+	b=C85wXDZBbUxMcftKtyqJ5MkWtnIMUAWsebdsslEjEIbgTuEbIF3uedCHuLoQhrBitOyEge
+	nFyB0YghOSE9mkF8KUQQiqb+1h8sk3rQ7Oq/FGqlKKAaiw7Bfp2rjAysXQ2KiZb/2BT3ap
+	1Aq7eWj3zjzeskNLNklAPvlJH/1Yad9xNPj+y7OBma6R3zJSePwRa87cWTIrnUCASiScM+
+	MiDqkbFjkOTyY9KdN8rjHLqnOSj/HUpwFDz6a2QV0IVJ60eLkE8WHl6TEXbL/oXAr62imd
+	oaTtZ2Oh5niaF94kGJlTC+wFzYwDNXuVBaJEACoXx8Ktwd3pzr93nFJ3WfU4yA==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790368249;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=M4JDupUoFY30dKt82SQKJaxPVVLkSrwF1C+uPs42vVQ=;
+	b=vouODrhjnzWdn8wEAkIkXQ2KWCXfBq9li+wmbbyd1wr5BhngtZ6DU//ULW7tomJUubIysD
+	NKqpICEmpWtUTz1QXZGHltjGBb+kuM9ud+B1QtT0arpXEhUYN1PnrlK+IpmE1XdrLNoN7R
+	06dwmEzn/orbYTyloL9Knp/Epf68AMKt1Zi5Ioh40oRE8jmOkxzmRCgG5hOVc7QDiv1xJy
+	8d+js9EhJELWU2Zff/EQP6Kc7cYRRJ6BSUaz7Q3n53FjWjCIfKb7p5Qv2mkl0T3Lx2lGb6
+	4dZzEO+r9wqS0cdxtwodZmTx08wDBXDe0+s49vMetiERn0UKz5Gg/FotSkfkJw==
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 1/2] dt-bindings: PCI: rcar-gen4-pci-host: Fix reset-names
+Date: Fri, 25 Sep 2026 22:29:51 +0200
+Message-ID: <20260925203039.110653-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v11 15/15] drm/panfrost: Fix races between perfcnt and
- reset sequence
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <20260925-claude-fixes-v11-15-0dbf5a58e7ce@collabora.com>
-References: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
- <20260925-claude-fixes-v11-15-0dbf5a58e7ce@collabora.com>
-Date: Fri, 25 Sep 2026 21:29:30 +0100
-Message-Id: <179036817030.2217255.13352963220274511347.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2095;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=f2G3rIcVbUkPXRw3yL1RsO+v6Cd5VpLS11PIe+5qkBs=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqttmv2JKgZOwq8GLSCnmvXG24cb6Hyav9EM/lH
- TpTeJHIksGJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCarbZrwAKCRAOJn5M7lND
- PUn9DACr88FMBpXFQ+BkcC96tjw2V59YOO76pnbVFIyBmG/2LpSv9lY2Nv0lcvUzpclobJ62Ckt
- kkp9GgsON+IdZQZFUAAHdDBwe1fJk9jKK2KdSaGkGYxCg2rjle0nRCzj41RIDvwQoCVhHPq/xOL
- 01gZoaHM5v6yg/25LmFf3gczctu4U9ZR3PzDbIR/plj0v1zYxvvuxQ6tHNvOGFD1QeWjEcjCaTq
- hImHmgfV3BlcxIsoMklVK7rdKO4vQNnb1j6TfjQhDjijVQDVNRxKi9LGv56hauuMdjUt7WXILG6
- Qm2P/XnsxzLkmZx7uDgsGqsemaMOPpYtk5JM5y+rX8N0zwMl5HjX29oqoggY97NCYsdQKsxUIkb
- +FdYEpnQqItG49PxqgsquVpObYESkure5xuadvbPMa+GjQcu1tJsFDUECCwYwVY6zXtHjXlmJzD
- xCiViO3qoqz9+gQ4XimHy+WEeUlVz33X2InTIw6BcYvSH517Y43zA8V/uzn4Ff0TTTjdI=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+X-MBO-RS-ID: 4b95f761df38acb62f0
+X-MBO-RS-META: or1r55copitpbhkbpwj64xjdk631y44p
 
-On Fri, 25 Sep 2026 19:45:36 +0100, Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> index b3f71d7fd82a..96c3c41cd269 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> @@ -58,44 +70,154 @@ void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
->  		complete(&pfdev->perfcnt->dump_comp);
->  }
->  
-> -static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
-> +static int panfrost_perfcnt_hw_enable(struct panfrost_device *pfdev)
-> +{
-> +	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
-> +	u32 cfg, as;
-> +	int ret;
-> +
+Drop maxItems: from reset-names, since the entry already contains items: .
+Fixes the following warning detected by DT checker:
+"
+Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml: properties:reset-names: {'minItems': 1, 'maxItems': 2, 'items': [{'const': 'pwr'}, {'const': 'core'}]} should not be valid under {'required': ['maxItems']}
+        hint: "maxItems" is not needed with an "items" list
+        from schema $id: http://devicetree.org/meta-schemas/items.yaml
+"
 
-I might add a lockdep_assert_held(&pfdev->reset.lock); here.
+Fixes: 50b1333e0c7b ("dt-bindings: PCI: rcar-gen4-pci-host: Document Application/Local register reset")
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml | 1 -
+ 1 file changed, 1 deletion(-)
 
-> [ ... skip 152 lines ... ]
-> +		if (perfcnt->user != user)
-> +			return -EBUSY;
-> +
-> +		if (perfcnt->state & PANFROST_PERFCNT_SESSION_DEAD)
-> +			drm_WARN_ON(&pfdev->base,
-> +				    panfrost_perfcnt_disable_locked(pfdev, file_priv));
-
-Forgot to add an 'else return 0'. Also checking the state flag here is racy with the reset sequence,
-which could keep coming through, because perfcnt->user hasn't changed.
-Also, on a second thought, it seems going through  perfcnt_disable to recreate a whole new session
-from scratch is an overkill, since the only thing we need is an MMU reference for the perfcnt
-BO's AS. On top of that, panfrost_perfcnt_disable_locked() might power the device off and then
-getting a PM reference right below might power it up again, a completely pointless cycle.
-
-So maybe:
-
-if (perfcnt->user == user) {
-	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-		if (perfcnt->state & PANFROST_PERFCNT_SESSION_DEAD) {
-			ret = panfrost_perfcnt_hw_enable(pfdev);
-			if (!ret)
-				perfcnt->state = 0;
-			return ret;
-		}
-	}
-
-	return 0;
-}
-
-if (perfcnt->user != NULL)
-	return -EBUSY;
-
-An alterantive would be expecting UM to issue a perfcnt_disable before being able to enable a new session.
-
+diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+index 30e244fda56b7..362c43a1a15d0 100644
+--- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
++++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+@@ -52,7 +52,6 @@ properties:
+ 
+   reset-names:
+     minItems: 1
+-    maxItems: 2
+     items:
+       - const: pwr
+       - const: core
 -- 
-Adrián Larumbe <adrian.larumbe@collabora.com>
+2.53.0
+
