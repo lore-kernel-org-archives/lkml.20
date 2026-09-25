@@ -1,410 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8AA4CE673
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15164CCDD4;
+	Fri, 25 Sep 2026 15:28:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350071; cv=none; b=fvesGs5xst3WqiBsACLP6fuGBSpDlYM2wXH4SeWFZiP7pEWAlYFQZ6uscLesC4OFpwHMffOAYaVixFAuijANGZ/TLGz4enhu9Posb/c8b5LFylCJNLB+J1wq5dH1yyGEmZljMfs5XKVyarabNtQaxjfqTOUhJzwi6+7syZllX8w=
+	t=1790350088; cv=none; b=cI+1rpvgxrX2P0Bbv14S5Q+AP69ypk77WbRdY8ToX+9+ObWQSEsMk4dWPQ7CgqqPjIouP9a4H80Px4CZ3DJMZdL18V6FyZzI+X42S2IPQ8UAewwU1WQ2RZ6uBiZOUpNCS0AxeJoi96/NNeOYjLvUnVyN0Yn5uhwNIHBvKaWVTQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790350071; c=relaxed/simple;
-	bh=8RW2cScGLgeuUsiRe4jZbjBpcgMI9zM0n+98JrWdg3I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=er4yWtjxS0+dFmYAaUvgImUUBpJW//L/7tVELth1R7ucWvC2EEGdj/8HdZLAgbEfEV0LUmnNqbxAri9jz+Y5ONExruDMdfjn6aWhsKm2cu4EM/+oqQufCZGfPUgJ3tlXQyT01SdqNpndecIqc9WTeShHQtkTsPnKwaTuzIh/+ZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iRpDPLm9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790350088; c=relaxed/simple;
+	bh=QwCCE9iA03DRV1OiIpwEbsBnInBMMcPUgJLYTqpWaZE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DWAVGrqnbeoTFppGCFk3WmjRxYR/ghcC4+aPI22qmkhakOuqpOUk0W7hW8fkFlvupHUB2CP0FT+7DF+G+gF/RoCeCAvfkirftcjG+osDF9cdvHifkOsMxx6NhIDVlneuzsAlB6O/xIl8rYRnKCm7B/o+CnU11qHWU6Z4bJb+8GY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SinVewHH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iRpDPLm9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E151F000FF;
-	Fri, 25 Sep 2026 15:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790350069;
-	bh=8IhNTnSowkvoPqsv59kmEwhamP/kmFP819XmCUN0LR4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iRpDPLm9lEfcTsdQw2zGOzaMxNQLWbNpple/UcbkgQZUtwxdAyIFGxc8SWOJIWQjd
-	 RagltJrIiQfVMf18yVko4L4gnwiX+1mVbTAcZLSGumka2CVgYoA6bCdV4SGymIejC9
-	 4qkIxLehFRAjOtWvz8B0LHN/LcSetBZH6SjWTzdQPT5c0z6+LkgobnjFfNK0nhrC0I
-	 5eyFATRv8h9F8n+L9JmQEWEZfIfnJsm54vcHibe7FD4IZo4rDxrgP4jtwbXlHT6E/d
-	 FC47Opijfmjcgee9oCLrjzavCEVPzyNwebeOdslQs5XggGi5oJwit1lyqhkpRqbELk
-	 mTRswlpFOLN6Q==
-Date: Fri, 25 Sep 2026 16:27:44 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Pan Deng <pan.deng@intel.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
-	jannh@google.com, pfalcato@suse.de, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Tianyou Li <tianyou.li@intel.com>, 
-	Wangyang Guo <wangyang.guo@intel.com>, Zhiguo Zhou <zhiguo.zhou@intel.com>, 
-	Tim Chen <tim.c.chen@linux.intel.com>
-Subject: Re: [PATCH] mm/vma: avoid redundant file rmap tree re-insert on
- new_below=0 split
-Message-ID: <araI4WsI0XMXOR10@gremlin>
-References: <20260924054301.2330822-1-pan.deng@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SinVewHH"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6BD06C32786;
+	Fri, 25 Sep 2026 15:28:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790350088;
+	bh=QwCCE9iA03DRV1OiIpwEbsBnInBMMcPUgJLYTqpWaZE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=SinVewHHooX7vI/IFo+meNvHfAM48FB1Vi4TYPNGP3BNbRRYo5RNeu3QStqdXNDJD
+	 YRkpgfHZIo1SeVtnG+M6zk1UWwBcKFtlwFiusIlVUAMseEm3+hSNFpfgcup+EPuwo5
+	 R684BlMcH/0bPUTQtbgO+8MDH5dQOyUP5r/QtsYMELSsEopVdQzCXwSYoxNotmCK94
+	 /nlS6crZqhHC5VwSOIUf/symxfpAggrL2IGU32JRSJSWsk+VPsGAeRP8l4uCKB8soJ
+	 7jID0iJFsC4QANy0i5w90JrhKAEYskqQF5Pwda5BUl620FZkiTnewmT/VlyvpoFpkU
+	 RjzZTcFeTjt0w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56ED5C98328;
+	Fri, 25 Sep 2026 15:28:08 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Fri, 25 Sep 2026 17:28:05 +0200
+Subject: [PATCH v5 4/7] ASoC: qcom: sdm845: Set codec dai and component
+ sysclk during startup
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924054301.2330822-1-pan.deng@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-pixel3-audio-v5-4-7ffb32c980bf@ixit.cz>
+References: <20260925-pixel3-audio-v5-0-7ffb32c980bf@ixit.cz>
+In-Reply-To: <20260925-pixel3-audio-v5-0-7ffb32c980bf@ixit.cz>
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ David Rhodes <drhodes@opensource.cirrus.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1734; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=Z8qWthLOmn2/btoR+RRIL+/KcnpzGuSOEGEitmr2DFY=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtpMFwtoqCPHsE4uxyqouCuoLZ5wtZ+r8b3Gsl
+ uTbZh6zBOmJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaraTBQAKCRBgAj/E00kg
+ csZ4D/9ONMQvkNRXeBs565c4W2eZNFqkHnyWEZcY+3Nm2AahObwOvUlXlyy4r8kd8fOm5jy87Dl
+ lYTGfQBEojGScxCI/x8Mge/Z5RWlWQAIXxvMz4p7rZ/BIYsyH8Fi8/FcjkUcwItXBbzDFlixv9d
+ xVO+99JjMjirTv/TzpqJEFQpjEyImZHGM0luZwN6f6R6n7PKAcojgzbH+s3udOJGshqaZ0psOS1
+ Jr+HmGkOyOQ8u0RA3cR1Qw2XTFX28cJDUop0rsY8MKUmy5nVkzoEIg547FKzg4wmYVHo3Jj7qof
+ r7cAayWUGeVzQrkZg+hQU1LT97LrICsgp540l+Tw+jl8zQ/ARR/P/Q8zwqTgxTMtPwhfb9FRdNy
+ Ej1d3+Eg0sF4nm+uAcsCjiOrGoWjvUWtgRT0v8q0/S8IkvkkhFt305pE3b2tD1sYdjkqvEyJwa6
+ CltPLSKNW6+XF1cM79tYk5WOuqOhkHnU5FGeH3tlMDzheXaAbHwM5S+qX0KQ5EBkzdkc2eNs9X4
+ 1EPAiCk2h4I3E+RqKQyHhNJXW9ae9MvhcnDdp7LiHwyH2gmZ435a3k4/hGDjjakPlxaRn7IVJpH
+ CpJoGdrVcbK9dVeJO4hlGrK3YXJGWvALOCRAqkPfOHRZu5nIY/Ke9PqTDC73IOw7r7V9HrH1QG1
+ JRRdhnhSiY52QVw==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+
+From: David Heidelberg <david@ixit.cz>
+
+The cs35l36 codec needs the codec dai and component sysclk to be set
+during TDM startup. Set these for all codec DAIs on the QUATERNARY_TDM
+path, gracefully handling codecs that don't support sysclk by ignoring
+-ENOTSUPP returns.
+
+Based on work of Joel Selvaraj.
+
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ sound/soc/qcom/sdm845.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
+index 59cfa3b26cd4d..f0fbec9c8df25 100644
+--- a/sound/soc/qcom/sdm845.c
++++ b/sound/soc/qcom/sdm845.c
+@@ -407,16 +407,38 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
+ 				ret = snd_soc_dai_set_fmt(
+ 						codec_dai, codec_dai_fmt);
+ 				if (ret < 0) {
+ 					dev_err(rtd->dev,
+ 						"Right TDM slot err:%d\n", ret);
+ 					return ret;
+ 				}
+ 			}
++
++			/* Set codec sysclk needed by codecs like cs35l36. */
++			ret = snd_soc_dai_set_sysclk(codec_dai, 0,
++						     TDM_BCLK_RATE,
++						     SND_SOC_CLOCK_IN);
++			if (ret < 0 && ret != -ENOTSUPP) {
++				dev_err(codec_dai->dev,
++					"Failed to set codec dai sysclk: %d\n",
++					ret);
++				return ret;
++			}
++
++			ret = snd_soc_component_set_sysclk(codec_dai->component,
++							   0, 0,
++							   TDM_BCLK_RATE,
++							   SND_SOC_CLOCK_IN);
++			if (ret < 0 && ret != -ENOTSUPP) {
++				dev_err(codec_dai->dev,
++					"Failed to set codec component sysclk: %d\n",
++					ret);
++				return ret;
++			}
+ 		}
+ 		break;
+ 	case SLIMBUS_0_RX...SLIMBUS_6_TX:
+ 		break;
+ 
+ 	default:
+ 		pr_err("%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
+ 		break;
 
-Sorry this patch feels like AI schlopp.
+-- 
+2.55.0
 
-Please read https://docs.kernel.org/process/generated-content.html
-especially:
 
-	If tools permit you to generate a contribution automatically,
-	expect additional scrutiny in proportion to how much of it was
-	generated.
-
-	As with the output of any tooling, the result may be incorrect or
-	inappropriate. You are expected to understand and to be able to
-	defend everything you submit. If you are unable to do so, then do
-	not submit the resulting changes.
-
-	If you do so anyway, maintainers are entitled to reject your series
-	without detailed review.
-
-You are changing a very subtle and fragile part of the kernel, and you seem
-to be an absolute newcomer to mm.
-
-In general we expect newcomers to mm to do smaller work and gradually work
-their way up towards larger changes.
-
-I think it's best to treat this as a report rather than a patch, and for a
-member of the core team to take this over. I'll take a look.
-
-Thanks!
-
-(Review for below as reference only).
-
-On Thu, Sep 24, 2026 at 01:43:01PM +0800, Pan Deng wrote:
-> Splitting a file-backed VMA removes it from the mapping's i_mmap interval
-> tree and re-inserts it, two O(log n) walks with rebalancing, all inside
-> the i_mmap_rwsem write-side critical section.  For a file mapped by many
-> processes that lock is a single serialization point, so the cost translates
-> into reduced exec throughput.
->
-> While the re-insert is needed whenever the sort key changes, it is not for
-> a new_below=0 split: there the new VMA takes the upper half and only the
-> original VMA's vm_end shrinks, so vma_start_pgoff(), the sort key of the
-> interval tree, stays constant and the VMA is already in the correct
-> position.
->
-> This change skips the re-insert for that case.  vma_prepare() no longer
-> removes vp->vma from the tree; instead vma_complete() detects that case and
-> only recomputes shared.rb_subtree_last up the ancestor chain.  Everything
-> else keeps the remove + re-insert path.
-
-This could really do with a diagram and a simple explanation.
-
-In general you should rewrite the entire commit message yourself and not
-use the LLM output at all.
-
->
-> The case is detected by comparing vma_start_pgoff(vp->insert) against
-> vma_start_pgoff(vp->vma): only a new_below=0 split leaves the former
-> greater.  __split_vma() adjusts pgoff via vma_add_pgoff(new,
-> linear_page_delta(vma, addr)), and linear_page_delta() is
-> (addr - vm_start) >> PAGE_SHIFT with addr strictly inside the VMA, so the
-> delta is at least one page and the new VMA's pgoff is strictly greater.
-> For new_below=1 the two are initially equal and vp->vma's pgoff then
-> increases, so the comparison is false both before and after the caller's
-> endpoint updates, and the original path is taken.
-
-This is useless description of the code in English, it's not telling me
-anything useful at all. Human beings don't have a large 'stack' with which
-to hold things in our minds.
-
-Write with humans in mind please :)
-
->
-> Inferring the case this way keeps the change small: struct vma_prepare
-> gains no field and no caller changes.
-
-I don't understand what inferring the case means? I think this can be
-dropped.
-
->
-> Moving the remove() out of vma_prepare() leaves vp->vma in the tree with a
-> possibly stale sort key across the caller's endpoint updates, so
-
-I mean what?
-
-What does a 'possibly stale sort key' mean? And what does 'across the
-caller's endpoint updates' mean? Which caller? What's an endpoint? What
-updates?
-
-> vma_complete() re-keys it *before* inserting vp->adj_next: otherwise that
-> key-driven descent could place adj_next in the wrong subtree.
-
-Re-keys what? WHat does re-key mean?
-
-What you're saying here really makes me nervous. You're changing a very
-sensitive part of the kernel and talking about intentionally leaving stale
-state around.
-
-This patch cannot possibly be considered for upstream until I fully
-understand exactly what this means and that you understand what you're
-doing.
-
->
-> Measured on v7.3-rc4, on a 2-socket 192C/384T system running UnixBench
-> execl (384 concurrent execve of the same binary), dropping the redundant
-> remove + re-insert yields ~14% higher throughput by shortening the
-> i_mmap_rwsem write-side critical section during the file VMA splits that
-> execve performs on the shared libraries.
-
-This is really unconvincing I'm sorry. Real numbers please with statistical
-evidence to back them.
-
-Additionally I notice you have not made one comment referring to locking
-anywhere.
-
-This part of the kernel has VERY subtle and sensitive locking
-requirements. I am not convinced you understand this, either.
-
->
-> Signed-off-by: Pan Deng <pan.deng@intel.com>
-
-This patch feels like a hack. You are creating a whole new set of very
-fragile assumptions that have to be maintained throughout.
-
-Again as above, a member of the core team should take this over.
-
-> Reviewed-by: Tianyou Li <tianyou.li@intel.com>
-> Reviewed-by: Wangyang Guo <wangyang.guo@intel.com>
-> Reviewed-by: Zhiguo Zhou <zhiguo.zhou@intel.com>
-> Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
-
-Please don't do this.
-
-Upstream is not interested in private reviews. Review tags upstream are
-based on review done in _public_.
-
-> Assisted-by: LLM
-
-Thank you for acking.
-
-> ---
->  include/linux/mm.h                |  1 +
->  mm/interval_tree.c                | 13 ++++++++
->  mm/vma.c                          | 54 +++++++++++++++++++++++++++++--
->  mm/vma.h                          |  1 +
->  tools/testing/vma/include/stubs.h |  4 +++
->  5 files changed, 71 insertions(+), 2 deletions(-)
->
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index dd09c438fa23..baf489343f86 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -4181,6 +4181,7 @@ void mapping_rmap_tree_insert_after(struct vm_area_struct *vma,
->  				    struct address_space *mapping);
->  void mapping_rmap_tree_remove(struct vm_area_struct *vma,
->  			      struct address_space *mapping);
-> +void mapping_rmap_tree_propagate(struct vm_area_struct *vma);
->  struct vm_area_struct *
->  mapping_rmap_tree_iter_first(struct address_space *mapping,
->  			     pgoff_t pgoff_start, pgoff_t pgoff_last);
-> diff --git a/mm/interval_tree.c b/mm/interval_tree.c
-> index 7bbbf15cfbf0..3b81c990aab2 100644
-> --- a/mm/interval_tree.c
-> +++ b/mm/interval_tree.c
-> @@ -64,6 +64,19 @@ void mapping_rmap_tree_remove(struct vm_area_struct *vma,
->  	__mapping_rmap_tree_remove(vma, &mapping->i_mmap);
->  }
->
-> +/*
-> + * Recompute shared.rb_subtree_last for vma and its ancestors, for a vma whose
-> + * interval changed but whose vma_start_pgoff() (the tree's sort key) did not.
-> + * The NULL stop node makes the walk run up to the root, though it ends early
-> + * once the recomputed value stops changing.
-
-Again this is a bunch of unnecesary text that is explaining implementation
-details and very typical of LLM comments.
-
-> + *
-> + * Wrapper because INTERVAL_TREE_DEFINE() above declares the callbacks static.
-
-This is completely useless. Don't write comments like this please.
-
-Having written a lot of LLM-assisted code now in my build speedup series I
-understand that responsible use of an LLM involves a _lot_ of human work
-checking and auditing and ensuring understanding.
-
-Please do make sure you do this part, it is not optional.
-
-> + */
-> +void mapping_rmap_tree_propagate(struct vm_area_struct *vma)
-> +{
-> +	__mapping_rmap_tree_augment.propagate(&vma->shared.rb, NULL);
-
-Is it safe to arbitrarily perform a 'propagate' at any time within the
-interval tree?
-
-I didn't notice any comment about locks or when this can or cannot be done?
-
-> +}
-> +
->  struct vm_area_struct *
->  mapping_rmap_tree_iter_first(struct address_space *mapping,
->  			     pgoff_t pgoff_start, pgoff_t pgoff_last)
-> diff --git a/mm/vma.c b/mm/vma.c
-> index f29abb30956b..e1dbfd5094cd 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -365,11 +365,43 @@ static void vma_prepare(struct vma_prepare *vp)
->
->  	if (vp->file) {
->  		flush_dcache_mmap_lock(vp->mapping);
-> -		mapping_rmap_tree_remove(vp->vma, vp->mapping);
-
-vma_prepare() is called before performing the work that actually performs
-the underlying operation ON THE ASSUMPTION that the VMA is correctly
-removed from the tree.
-
-So this would require some strong set of requirements to establish that it
-is safe.
-
-
-> +		/* vp->vma is re-keyed by vma_complete(), if it needs to be. */
-
-What does re-key me? Please don't invent new terminology :)
-
->  		if (vp->adj_next)
->  			mapping_rmap_tree_remove(vp->adj_next, vp->mapping);
->  	}
-> +}
->
-> +/*
-> + * vma_split_keeps_rmap_key() - Check if vp->vma keeps its file rmap tree key
-> + * @vp: The vma_prepare struct
-> + *
-> + * True only for a new_below=0 __split_vma(): the new VMA takes the upper half,
-> + * so its vma_start_pgoff() is strictly greater, while vp->vma's (its key in the
-> + * file rmap interval tree) is unchanged and its tree position still correct, so
-> + * only shared.rb_subtree_last has to be recomputed.
-> + *
-> + * Relies on vp->insert being assigned by __split_vma() only; the check below
-> + * catches a second assignment site whose VMA does not abut vp->vma.
-> + */
-
-Not a kdoc, you're writing implementation details in the comment, this
-feels like noise.
-
-> +static bool vma_split_keeps_rmap_key(const struct vma_prepare *vp)
-
-This doesn't seem to be differentiating against file? There's nothing here
-about file.
-
-And 'keeps rmap key'? What key? What do you mean?
-
-> +{
-> +	if (!vp->insert ||
-> +	    vma_start_pgoff(vp->insert) <= vma_start_pgoff(vp->vma))
-> +		return false;
-> +
-> +	/*
-> +	 * Today only a new_below=0 __split_vma() reaches here, where the new
-> +	 * VMA abuts vp->vma at the split point once the caller has updated
-
-'abuts' :) this is not helpful to non-native speakers and is rather an
-obscure turn of phrase for native speakers, even.
-
-> +	 * vp->vma->vm_end.  If a future vp->insert user ever violates that,
-> +	 * fall back to the safe remove + re-insert instead of trusting the
-> +	 * fast path.
-> +	 */
-
-Sorry this is just another horrible LLM-generated comment.
-
-And it's totally unacceptable to write 'rules' into comments like this or
-to say 'if a future xxx'.
-
-> +	if (vp->insert->vm_start != vp->vma->vm_end) {
-> +		VM_WARN_ON_ONCE(1);
-> +		return false;
-> +	}
-
-This is not good :) we musn't set traps for ourselves like this.
-
-> +
-> +	return true;
->  }
->
->  /*
-> @@ -384,9 +416,27 @@ static void vma_complete(struct vma_prepare *vp, struct vma_iterator *vmi,
->  			 struct mm_struct *mm)
->  {
->  	if (vp->file) {
-> +		if (vma_split_keeps_rmap_key(vp)) {
-> +			/*
-> +			 * Split paths go through init_vma_prep(), which
-> +			 * passes a NULL vmg, so vp->adj_next is never set.
-> +			 */
-
-No, you don't make assumptions like this in the code that can explode
-later.
-
-> +			VM_WARN_ON_ONCE(vp->adj_next);
-> +			mapping_rmap_tree_propagate(vp->vma);
-> +		} else {
-> +			/*
-> +			 * Re-key vp->vma *before* the insert of vp->adj_next
-> +			 * below, so that the latter descends a valid
-> +			 * search tree: vp->vma is the only node left in
-> +			 * the tree that may carry a stale sort key
-> +			 * (vp->adj_next itself was removed in
-> +			 * vma_prepare()).
-> +			 */
-
-This is not great, it doesn't explain anything.
-
-> +			mapping_rmap_tree_remove(vp->vma, vp->mapping);
-> +			mapping_rmap_tree_insert(vp->vma, vp->mapping);
-
-'Re-key'?
-
-> +		}
->  		if (vp->adj_next)
->  			mapping_rmap_tree_insert(vp->adj_next, vp->mapping);
-> -		mapping_rmap_tree_insert(vp->vma, vp->mapping);
->  		flush_dcache_mmap_unlock(vp->mapping);
->  	}
->
-> diff --git a/mm/vma.h b/mm/vma.h
-> index 024fabe63560..3f791e4d13f6 100644
-> --- a/mm/vma.h
-> +++ b/mm/vma.h
-> @@ -23,6 +23,7 @@ struct vma_prepare {
->  	struct file *file;
->  	struct address_space *mapping;
->  	struct anon_vma *anon_vma;
-> +	/* Set by __split_vma() only; see vma_split_keeps_rmap_key(). */
->  	struct vm_area_struct *insert;
-
-Again feels like adding a fragile assumption.
-
->  	struct vm_area_struct *remove;
->  	struct vm_area_struct *remove2;
-> diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-> index d6136e19a8af..3b5184aeee54 100644
-> --- a/tools/testing/vma/include/stubs.h
-> +++ b/tools/testing/vma/include/stubs.h
-> @@ -267,6 +267,10 @@ static inline void mapping_rmap_tree_remove(struct vm_area_struct *vma,
->  {
->  }
->
-> +static inline void mapping_rmap_tree_propagate(struct vm_area_struct *vma)
-> +{
-> +}
-> +
->  static inline void flush_dcache_mmap_unlock(struct address_space *mapping)
->  {
->  }
-> --
-> 2.43.5
->
-
---
-Cheers, Lorenzo
