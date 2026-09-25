@@ -1,297 +1,172 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2128.outbound.protection.partner.outlook.cn [139.219.17.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47403F1ABE
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790317816; cv=none; b=kWg4XWsQ5AcbZfhCxmkR1iQaPBuf46iHvCnVoy3XPYSmgmqdWW01ytpJj7d+T/XahwFPXIWgUmnaSPqWyQMc35x0RwFDuHz4Fp8/EU4DLBeVjIyQDyaqVnql5ZGyo69yBcHn1IA4cfRZfRfzqPb3EoINPq0jo811jEEYPpvxl0A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790317816; c=relaxed/simple;
-	bh=1hopgipp8IQS8reQAnkR2tkd8Q7mBQJhUhCs4gGFAgs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nWx0AdNhZW3J/fseXQarp5DABPNabApZGtkZ1zGZNgvBXbS74Z5thUoN49nOvENOSwUWWunAzW45UxrEGfBuiTWzWdo60596+KoMjtS3OdKKCYKIUgcBaMrpKifoOwwdGll7Bc/W4AFQ/H2kId5MqZyFyrZmGylESnDdPUjl4Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KroggXHR; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=s0CrirDX; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KroggXHR";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="s0CrirDX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790317813;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yfk4cJE/2TH75hcZwf8G295/UuF1Hgth6EccecOFI0w=;
-	b=KroggXHR1fMwwuU+378JKkSYvLAQn6eNXgBemoOBS83tUSIQbyCbp6iTujkZ4n91EUyilz
-	G51DWqVOS6MXiUyk3ztWjn8ciBaCOmetlfTYgyHL7cPfw9E3PGgj1gF1CW6AKkhonGBzP4
-	gzW+3/9P2X8wZSxy30V039iJg/AsLxg=
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-85-hCRs1WPRM0qFKqKyWwLgZA-1; Fri, 25 Sep 2026 02:30:12 -0400
-X-MC-Unique: hCRs1WPRM0qFKqKyWwLgZA-1
-X-Mimecast-MFC-AGG-ID: hCRs1WPRM0qFKqKyWwLgZA_1790317811
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8688139460bso625538b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:30:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790317811; x=1790922611; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yfk4cJE/2TH75hcZwf8G295/UuF1Hgth6EccecOFI0w=;
-        b=s0CrirDXi+yLcKZVt26reSeeERD8F0jKMB4+2joiJrpKmbb3FkCItzZ4C7xuD9amzH
-         gEAYWcr+KD3wzUX/rLoGP7I3ftTY0RisgkTq209PtRuYlCsXb7QKZHGs7hN64bFZHDep
-         RXLnkeAdfxh0rzdnciQP0VbG+e/gxKzBFnrn3XTs+dUXpkyhBP5TwwK4mVDbjCYkC3fB
-         Jz8gtHACOOG022j0d6lGDsnE8K1vO9C46ojrx0xjM396bvQVyVyykbFd/z4fJJulXJve
-         yNyl3TdsZs24uNVb2a/iyn1sstS7ckdr20n+XQHL+EMlwwK8519TpNtefvuow7hTyBHw
-         yQlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790317811; x=1790922611;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yfk4cJE/2TH75hcZwf8G295/UuF1Hgth6EccecOFI0w=;
-        b=goiD2nmmr8TH6MQvPMuuCmvTE5Amd6zMV5CH+asb8B1yHWYXHn4RvGAB4DCJjiVT4G
-         IDv4YaeFCzv7/M0a5Da9UQRKkazg1+HIRAiIQ30Q/dFT7R9eVkAt/hg2H8qtBazOzWBG
-         hV2QlkE/Z+C0VLZTCoT2LwhW7KTC9cbqyto16bTI7gSObIo5lo945WTtm9zeNfVEsU12
-         8LzvnXAFIZFBRLASdDnoaT1RdmnzAVz1paZ9+jdRVW+1zFIwtwtX8IgQGBgTtP4prIcB
-         Fs0/BnrUzehLzKfGkbqXkWkCzk4ba1YGExG9TqEQdXFGD+LiNmf/8n1C1hkXQ9UF/6Lv
-         naNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0/MIoaDfz0W0kHDLWMZJ+R9V/9J/YFrN/dFX8+8upqY3AD8/VgNb+yVD6p/yr5p6R+b0rXjvzO1PurBk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lI69iOdrJQ2mj4hm3DEz4n5VlAppwWxEJfi274s9QA/Z3FXXzv
-	qb6a96r3yJyHhLed1itJhUYIQ4ho/Rp9Ub70w5uWmf/6Nz+Of6nldLk/5BvSSMTZPHi1T/gQQKx
-	5iFA9gACbN1s1dWqWoVI74vkL/kzHvSmNMhwGB9H6q6YtyKsUBV+TtT21lTMD2i8gQA==
-X-Gm-Gg: AYBFou0tCQr5ciki8xdCjiDS2889q9h23Fd4g9qEBGDMe7doo81I5LOlRLnDK+4412M
-	UVF7zuKxiAqN0RZGM+K7G1ucxbPL+/RRbNLyBtz6NSaheGKUJCgSpvz79ips5EQ5Duo4mHZbT7e
-	ylvKtygW6iDQGw89ANEboN+LU1lH+NJytZKHivyshR863YmOkGGFRjrFlx3gRYJNcbYvsGYAGr7
-	XNvFou1xbmIBQsrvF8JcZa427uW6WSGjn3rNGA6GOuOTKnaCdFa14SuHdHiOtu9GtY85TnYhU/z
-	NvW42SvXC7ljRS4MtIlq9dHfVY3eq9MQJ+O1bfo0rYl16C60Lp+U1uc5zZE4eHJhmGoRXaiHJrP
-	47tfkoWRi1Jxo2ZrxMH4tWd1rMjGfR/5QfboE+pdAnQ==
-X-Received: by 2002:a05:6a21:7104:b0:3cd:9f99:3381 with SMTP id adf61e73a8af0-3de0e539da5mr4381007637.0.1790317810570;
-        Thu, 24 Sep 2026 23:30:10 -0700 (PDT)
-X-Received: by 2002:a05:6a21:7104:b0:3cd:9f99:3381 with SMTP id adf61e73a8af0-3de0e539da5mr4380923637.0.1790317808985;
-        Thu, 24 Sep 2026 23:30:08 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7879057f2sm709257a12.5.2026.09.24.23.30.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 23:30:08 -0700 (PDT)
-Message-ID: <fd404549-9c40-4fdf-9259-104c28b64c76@redhat.com>
-Date: Fri, 25 Sep 2026 16:29:59 +1000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2B93515C2;
+	Fri, 25 Sep 2026 06:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.128
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790317827; cv=fail; b=cLY8TG23aKts5C/VDvlga3mcdiCrVa1px1z/XBxtLcDZ2+H6yrUlorKZipdnqhuMoqaVpEJUYYixzCN0K3lZ0nkMxzolMNCUIEe/c2oiSzO7UeuPenysPF3ucVycgY3hwqWkzyo8/7umkV66tnA0N5H+5c9XF8n4pZdDtHgdDgQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790317827; c=relaxed/simple;
+	bh=R8MBgqwFLny6raBEjwHOttBmvYUA8yATg+p9SSUDM4Y=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=qJw7De6PP8BeC4p3veeUTZNdC/2ZTuxo5+1qgbjtB+fMETI+LGwWgXqJYABmcE5k01NFLR4ivO67ZoMnIyTILlm5zMiBMkuMkoqv4ELnYXX3FJdtGD1k38bpfvl9zmTj6qmGLDM0YRNLqQcMXGnSiMIT7L67Yk1uN5R4qUMsC3g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BazmKBB5tA3Kqku9Tx1plcaJYsXRrvtoF7QiMjdRZ5T/H8/mRabv4UIfUrB4aXTsqkZjT13hTBd5m8TQ3XjuL0tv2YH/JVjelXEg2OdxqDAtPIgTNDJZl1ZmZytPXrVDRSJ5GNWEFID7qDieOVpKAlpU6BEosj0woicD3df63aaFe49KZVTxSd2XvyNfWPHOnW7T6l1Yl9RpQ5C/DEXCQIWosA7BSFsKhb9cFsd2lLQx7b2yNo0spEDD/sbjduux/Ryhf6sCYJskumU6jMwHD5EAtYF3gF5JfMfc1kr6G6OP8AP3nGvJK/bYZS6w0wqDZIwKEG5FdYTfDcvnF+c+JA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7dbE2UPOOCp5RXzDsdJ9923uXCGDvSvgOJXPkHZ34/c=;
+ b=jSochopN/yqthSvVfQP4J5CZcgxygPuV1N0YyhRBLZvHX01XnUEay2rYxCKUa0kgHEA4sLm/OaeMZ8WjhF6Wlqjv6k///JCqasO5w/AoL8T4I/+CYwoCoWl12dV2gfe9pC1wJo/PfmK0T60yxs36VimQNxFC534csRo+fF2/PHn9zba8nP3urNKNhy8FIU9Rw0SvnsY+wAbJb07HBnFrUfCKbjdZL4lm5kHsXCi9uRHbzrAz0m/kbmMmqaLnwOwMQBRAx3NclDe1njDczG7N3L82M022vaTAMulCz8rtgcBF/29aUSgBw6bm7d8jlOSUnopLmkI4vVDLwNNwVOTMFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1332.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 06:30:14 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0451.014; Fri, 25 Sep 2026 06:30:14 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Mark Brown <broonie@kernel.org>
+CC: Serge Semin <fancer.lancer@gmail.com>, "linux-spi@vger.kernel.org"
+	<linux-spi@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1 1/2] spi: dw: Request DMA channels at runtime instead
+ of probe
+Thread-Topic: [PATCH v1 1/2] spi: dw: Request DMA channels at runtime instead
+ of probe
+Thread-Index: AQHdS0HoNlKEArO3nEamu3mxZh2zNbbeBy+AgADQ8SA=
+Date: Fri, 25 Sep 2026 06:30:14 +0000
+Message-ID:
+ <ZQ4PR01MB1202847DC79D630EE98A8FD8F2802@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260923095705.233297-1-changhuang.liang@starfivetech.com>
+ <20260923095705.233297-2-changhuang.liang@starfivetech.com>
+ <4688e732-0fab-4e23-9d3c-e0326b3bd65e@sirena.org.uk>
+In-Reply-To: <4688e732-0fab-4e23-9d3c-e0326b3bd65e@sirena.org.uk>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1332:EE_
+x-ms-office365-filtering-correlation-id: 0b0e657b-0baa-4157-0707-08df1ace755a
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10067099003|56012099006|4143699003|38070700021|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ BTQUkdZGXZe6DK+NeJViFebbGqgxwoQ7ho3CiWHhC2FJ0qppnKJafaVxmueWtKxmEyX8bI9o5TJrUwP6ehpXlaNcdwyP1a5vUYqSByWI5Vl881jgwRzLXdNO7j0bqAQY1D7Akbxx0Dz7GwoZgQJe2V/6kiQ4WlPxEnXVa22/I3epSIas7kSwlDS+UXeGMKmYHR/9J703+strB95azOuo631LM3rRppb2dLAOfEw5bfImUykynzxNkiasCry6JcrdL74+ML/QmNOirSWWE2hosQmGETHESj0A+gdDWfpLEUFRy1REOvqqYIQH2jT1r3g+WJAFBoFRL/oCViGgQmXuxEEzhCHvc0hVhfECvH8iM9kSZzJII1lI/W5/YN0CzM/MsAzcMDI8bdQiUzAz4GyzaMQJJmcJziWJaQ9s28Y9yUB80ecxbbmcQLi18OrsgxpEdC705RrnEazpjn2vtULH1EIOoCk5keknT/iYWRfVlqQSDsKa+rRDmLKGuG54WcSPctoA1tTOu6v1ZVjdUJwF8bQ+0qs+xdnkei30RdwJDGZ94zP6nMUFnh61Dsuxrh+i
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(4143699003)(38070700021)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?z8I+hFVdYjk34iFHQQRs8D4YlLZNVJYRCSfWhEizGCjykmZdnYCdQNvGgbKd?=
+ =?us-ascii?Q?/oODVriAbrgwAg4KvFd71hQTIQao3i6MF+sIf1i1yVypE5d10Z+h9tbsZfNY?=
+ =?us-ascii?Q?cxqPOcZeYnRF3RjlFivRkMU0LFyvQDofXSbf2Za6wbo5sZd//TJqc9J1+YAU?=
+ =?us-ascii?Q?N68RhUPpBWeEYDhPeyGW07AYEPYDYdISyRNYBkx27bMoOwy/+J5TO6Hq+X91?=
+ =?us-ascii?Q?lCdeuLmUbDN4CrG/qWZjTjVEhqU6gj8Bd6hQu8Yc9cq2MJXu9whJQt3dayUx?=
+ =?us-ascii?Q?tbP1AEDyktjkmUBqPrEg8mf7tgcItR6rBNa4Iw3C9UxcObA6eBq5mZdUMfw8?=
+ =?us-ascii?Q?zV6kSozMxr4Gsa3gH61aYzPVnP4U9oLFva95UG+soDXBhvZ78dxAofTF67vM?=
+ =?us-ascii?Q?yxsMOdkajc2ChnJD6sMMm7NBnRbxLNf03MmGFPRd+B3lGlZVE7wf1alW7TSZ?=
+ =?us-ascii?Q?+TKE4dpTjCChyVEL4Su1XX8yBFKA8rN3cSUoLcdaByiXTNoA4Ac8GxlNAycz?=
+ =?us-ascii?Q?r0xXiQzk3z7BA2JWTQXsaQCLkty4mYOD905/Xs5FCnv3LNlQzlSCLaXcgdbc?=
+ =?us-ascii?Q?aabuluiHvEVvqNvzw9wN1Dt5bZR9sjGDpBrEMw2pAiOy16uBL8fmvfGGySnP?=
+ =?us-ascii?Q?otBUQKPOuNGKJqwXf9y6Mr0dbM8Z3RUTgpFIWbnO3b3V7zEBw1zLovM+bHh8?=
+ =?us-ascii?Q?rOb7R1d0xRxayXNdEni4vCOOENIS9A1m2NS4M/n/iItFxlRKXr+hg4OX/cTO?=
+ =?us-ascii?Q?f06KPUIsu/i9qoqujV7BzQO5lMcGcNM2fGD8WhDhbI/zIzfCOxInewASeeEr?=
+ =?us-ascii?Q?HMgNgzToh6mVp3vRTvup/geiCm0YZ0YEyzkW0992uwJnRIKn9/91u+Sh2der?=
+ =?us-ascii?Q?jnRe9Ak9O1Aj3NhBRbTrMmaiIkMgboUSco1K4/W4MentV1rfVEnb2k//S3DV?=
+ =?us-ascii?Q?adM63cIvIN/55mL//8JCl0xFXVJAV6pV4UGA7dsfmELsamLKZbyo7X5tDO3v?=
+ =?us-ascii?Q?wc9mpDiz611K2Dmw/eeEIck2Q3bOfs/sr/WkwRQ9mBk3F73OgwXuHWSg0GZF?=
+ =?us-ascii?Q?nPtlKhV/ahm+TT8hAaLG8TuByvVDNvxk9R2tY+FGG0xOJ+4DNmjT3nrgMyIJ?=
+ =?us-ascii?Q?ScaQiLrmg4K3+d+rm5O9Xqyzv29lKkmTzveSJ9G8ZiFgezulAc0d85IRF8vK?=
+ =?us-ascii?Q?79kdIuGRucMRU+s2FVaT/Jn9VKPs/L+ee64MlqsT6yC6QsbwPYkzHVxWi2Fv?=
+ =?us-ascii?Q?8SUXk/cGOFopT0GKYa9i+UJBNt/FZ7uzemToiVVVeypwSN6V7Farw2xhU/nt?=
+ =?us-ascii?Q?XPw6hdTZiXgZXc4kv1TeFIuarFbK+94YsoxNK0SMJoUpX3d4OioRJQ3yw2Q0?=
+ =?us-ascii?Q?0Zsnl1m/iAqyFR6SgLBmKxBEvOdI01+yNfzZm/5L6dFpASljuCNSDxVf5xVo?=
+ =?us-ascii?Q?erTsGlYBJ45iJmVaDEOiinvB36/7wysTYBZpbH87I6rXIuTyaazhoGHA/qdZ?=
+ =?us-ascii?Q?uchTb+D9bD56WbXviq+lT1bPDRJ8c86tHxxew6+FoZ62nv30YUtqQKfqHoXV?=
+ =?us-ascii?Q?ODwRrwOjK1BarrRWhjc/F4ZLBcaJkeR9L/3HOmGeHDlSYrtN4HSas0j9pIz4?=
+ =?us-ascii?Q?81m5PgVFula4ISVFNwJn0FIvKt94SCtW8GmNoSTA2/farAEE3bh/fc3fXTpa?=
+ =?us-ascii?Q?QcLSp8dkw4ymjYXLxEJu1xRVnogE3rN/XcTUA3yP4NQjHBbKXfQrvHzQH3cK?=
+ =?us-ascii?Q?YhbKcXdueiMby4IEeB+sPFPoBMK9nuc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 0/7] firmware: arm_rmm: Add RMM v2.0 base RMI support
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260924135201.850038-1-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b0e657b-0baa-4157-0707-08df1ace755a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2026 06:30:14.4082
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ma1O40zw80Kb7M1nEZw03iRp2ulRqPL3VkaqIoQ6UyLZfBnKfZZEL8cdr4TZgL6qePA8FtcM1xSRxBFE4KMf2R296X5cFi/mpqrZSaRwodJZBEGc0mCNsP6R0NH39XFZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1332
 
-On 9/24/26 11:51 PM, Suzuki K Poulose wrote:
-> This series adds the generic firmware layer for talking to the Realm
-> Management Monitor (RMM), as specified by the RMM v2.0-bet3
-> specification[1]. It is the first part of the Arm CCA host support that
-> was previously posted as part of the larger KVM series.
-> 
-> The split allows this RMM support to be used as a base for other work,
-> including Aneesh's PCI IDE support with Arm CCA RMM as the TSM,
->   without depending on the KVM Realm support that will follow as separate
->   series. (See more on that below)
-> 
-> The series adds:
-> 
->   * The RMI SMC definitions and direct-call wrappers.
-> 
->   * RMM discovery and version checks during firmware init.
-> 
->   * RMM host configuration, including the host page size.
-> 
->   * Stateful RMI Operation (SRO) infrastructure for commands which the RMM
->     can complete across multiple SMC calls while requesting or returning
->     memory to the host.
-> 
->   * Verification that granule tracking is available at fine granularity.
->     Fine-grained tracking allows each granule in the system to be tracked
->     independently, which is required before individual granules can be
->     delegated. A future series will add support for dynamically supplying
->     memory to the RMM for this tracking.
-> 
->   * Support for fully firmware-managed systems, where the Granule Protection
->     Tables for memory regions are allocated and managed by firmware. RMM v2.0
->     also allows dynamic GPT creation on demand; support for that will be added
->     in a later series.
-> 
->   * Wrappers for the RMI commands that are used for managing the "Realm VM"
->     lifecycle. This is added in to make it easier for the on-going KVM support
->     to evolve in parallel pieces.
-> 
-> If the platform firmware cannot manage the granule tracking or the GPTs, we
-> bail out and deactivate the RMM, reclaiming any memory that we have donated.
-> 
-> The RMM v2.0 spec introduces Stateful RMI Operations (SROs), which allow
-> the RMM to complete an operation over several SMC calls while requesting
-> or returning memory to the host. This allows interrupts to be handled in
-> the middle of an operation and lets the RMM dynamically allocate memory
-> for internal tracking purposes. For example, RMI_REC_CREATE no longer
-> needs auxiliary granules to be provided up front, and can instead
-> request memory during the operation.
-> 
-> This series applies on v7.3-rc2 and a branch is available at [2]. The KVM
-> CCA support that builds on this series is available at [3] as an integration
-> branch. The KVM support depends on guest-memfd-in-place conversion support v13
-> from Ackerley [4], we plan to split that into parts, which apply cleanly on
-> v7.3-rcx without any dependency and is in progress. This will be made available
-> as soon as it is ready. Until then [3] shows how this base series enables KVM
-> CCA support. You may find the tf-RMM [5] and kvmtool support [6] below.
-> 
-> [1] RMM spec : https://support.arm.com/documentation/den0137/2-0bet3/
-> [2] This series: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/fw_rmm/v19
-> [3] KVM CCA v17 integration branch: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca/cca-host/kvm-v20/integration
+Hi, Mark
 
-s/v17/v20 ?
+Thanks for the review.
 
-> [4] Gmem inplace conversion https://github.com/googleprodkernel/linux-cc/tree/guest_memfd-inplace-conversion-v13
-> [5] TF-RMM https://git.trustedfirmware.org/TF-RMM/tf-rmm.git main (commit: 134266ae)
-> [6] kvmtool https://gitlab.arm.com/linux-arm/kvmtool-cca.git tag:cca-kvm-v20 (Also cca/kvm-v18)
-> 
-> Known issues: RMMv2.0 spec.
->   * RmiOpMemDonateReq:count (Uint14) is incompatible with RmiAddrRangeDesc4KB
->    (Uint10) and RmiAddrRangeDesc16KB (Uint12). i.e., a larger contiguous request
->    may not be satisfiable by the host. This is resolved in the RMM spec, by clamping
->    the upper limit on the number to match the RmiAddrRangeDesc* and will be published
->    in the next release.
->   * RMM to clarify the scenarios that triggers the RMI_BLOCKED and the
->     recommendations to limit the cases.
-> 
+> On Wed, Sep 23, 2026 at 02:57:04AM -0700, Changhuang Liang wrote:
+> > The DW SPI controller requests its DMA channels in
+> > dw_spi_add_controller(), which ties them up for the entire lifetime of
+> > the controller. Even a controller that is only ever used for standard
+> > SPI transfers and never for enhanced SPI transfers holds the channels
+> > exclusively from probe onwards, preventing them from being shared with
+> > other users.
+>=20
+> > +static int dw_spi_prepare_hardware(struct spi_controller *ctlr) {
+> > +	struct dw_spi *dws =3D spi_controller_get_devdata(ctlr);
+> > +	int ret;
+> > +
+> > +	if (!ctlr->can_dma)
+> > +		return 0;
+> > +
+> > +	ret =3D dws->dma_ops->dma_init(ctlr->dev.parent, dws);
+> > +	if (ret) {
+> > +		/*
+> > +		 * DMA is optional: fall back to the PIO/IRQ path instead of
+> > +		 * failing the message. Use dev_dbg() since this may happen
+> > +		 * on every prepare.
+> > +		 */
+> > +		dev_dbg(&ctlr->dev, "DMA init failed (%d), using PIO\n", ret);
+> > +
+> > +		return 0;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+>=20
+> This seems like a lot of overhead for every existing controller with DMA,=
+ we'll
+> have to go through the request/release cycle whenever DMA gets used which
+> feels like a bunch of overhead for a hot path - especially in the fast pa=
+th in
+> spi_sync().  If some platforms need it they should be able to opt into it=
+ rather
+> than forcing it on every single platform.
+>=20
 
-Applied this series on top of upstream linux v7.3.rc4. The built kernel can boot up on
-GH200 machine and CCA host emulated by QEMU with various combinations: 4KB or 64KB base
-page size, CONFIG_ARM_RMM_RMI is {Y, N}. The RMI is only detected and configured on CCA
-host when the base page size is 4KB because RMM only support 4KB granule size at present.
-Details can be found from TF-RMM/runtime/rmi/granule.c::smc_rmm_config_set(). Besides,
-some of the added functions based on the RMI calls aren't covered by the tests obviously.
-So I think this series doesn't introduce regressions at least.
+I will reorganize this series, trying to avoid affecting the current flow.
 
-Tested-by: Gavin Shan <gshan@redhat.com>
+> > +static int dw_spi_unprepare_hardware(struct spi_controller *ctlr) {
+>=20
+> Adding this also causes overhead since we do the unprepare in the thread.
 
-Thanks,
-Gavin
-
-> Changes since v18:
->   - Use _ULL version for masks spanning beyond 32bits
->   - Add GENMASK, FIELD_* friends for RMI_ABI_VERSION_*
->   - Consistent naming for masks and order the fields by MSB to LSB (missed out
->     ones.
->   - Rename RMI_RETURN_ => RMI_RESULT, RMI_RETURN_INDEX => RMI_RESULT_DATA_LEVEL
->     and add relevant Rmi types for clear indication on what they represent.
->   - Read and cache all implemented RmiFeatureRegisters (5), use ARRAY_SIZE()
->     droping the macro for the number of registers.
->   - Fold sinlge caller rmi calls to the caller (rmi_features)
->   - Drop "default y" from Kconfig
->   - Don't loop forever with RMI_BLOCKED, instead retry once and return to the
->     caller.
->   - Move rmi_config_set closer to rmi_configure.
->   - Use __free() cleanup for rmm_config object
->   - SRO: Clamp the mem donate request count to RMI_MAX_ADDR_LIST (the max we can
->     hold in the struct sro, to prevent overflows in handling non_contig requests
->   - Donate gathered memory when sro list runs out of space for non_contig case
->     and donate the rest in the next iteration
->   - Fix handling of buggy RMM for rmi_delegate_range()
->   - Add comments for the exported interfaces rmi_delegate_range(), rmi_undelegate_range()
->   - Move rmi_granule_{,un}delegate_range() closer to their callers
->   - Clarify the requirements for rmi_granule_delegate_range()
->   - Fix return result to -ENXIO if the MEM_OP is unknown
->   - Handle unsupported RMI_OP_MEM_CONDITIONAL, bail out early
->   - Rename "out" lable to mem_donate, where the actual donation happens
->   - Switch to use readable loop construct in donate_noncontig, add comments
->     to explain what we do.
->   - Add comment, make the code reader friendly for caching the entries not
->     consumed by RMM.
->   - Add documentatoin for rmi_sro_execute()
->   - Avoid mixing gotos with __free cleanups for arm64_init_rmi()
->   - Convert the remaining nested if for results to early return based.
->   - Pass out_top for RMI_ERROR_RTT in rmi_rtt_destroy() [ This boosts the
->     Realm tear down ]
-> 
-> Changes since v17:
->   - All RMIs are now issued using smccc-v1.2 helpers as mandated by the RMM
->   - Add a helper function to reclaim an RmiAddrRange entry, which may be partially
->     consumed. Used by rmi_sro_free and by rmi_sro_donate_*contig to reclaim
->     partially consumed granules.
->   - Move all RMI wrappers that are used only by rmi.c out of the arm-rmi-cmds.h
->   - Rename macros, varibles to match RMM spec
->   - Handle buggy RMM cases and sanitise the output values
->   - Change sro_state.addr_count to int, giving us better handling of overflows
->     and RMM bugs.
->   - Avoid splling literal pools on stack for sro initialisation.
->   - Print error messages for critical failures during RMM init
->   - Use scope based cleanup for SRO object
->   - Prevent overflow for donated_granules output from buggy RMM
->   - Handle corrupted addr_count in the sro
->   - Handle buggy RMM when the out_top is not changed with RMI_SUCCESS
->     for delegate/undelegate range calls
->   - Rename free_delegated_page => rmi_free_delegated_page
->   - Rename donate_req_to_unit_size => donate_req_to_block_size
->   - Introduce rmi_addr_block_size_to_bytes() helper to convert a RmiAddrBlockSize
->     encoding used in RMI_DONATE_REQ and RMI_ADDR_RANGE Descriptors, replaces
->     donate_req_to_unit_size(). Matches the RMM spec.
->   - Rename unit_size => block_size_fld, unit_size_bytes => block_size etc.
->   - Explicitly check for MEM_CONTIG/CAN_CANCEL fields to match the RMM spec values.
->   - Rename free_delegated_page => rmi_free_delegated_page()
->   - Drop RMI_BUSY, RMI_BLOCKED checks from rmi_*delegate_range as they are already
->     handled by the rmi_smccc_invoke() used by the SRO.
->   - Ensure RMI_OP_RECLAIM output is valid before consumption
->   - Use GENMASK()/BIT() for masks consistently for RMI SMCCC defintions
->   - Rename RMI_{ADDR_RANGE, DONATE}_SIZE => RMI_{*}_BLOCK_SIZE
->   - Reorder the definitions for MSB to LSB
->   - Add definions for RMI_OP_MEM_*CONTIG and RMI_OP_CAN*_CANCEL
-> 
-> 
-> 
-> Steven Price (6):
->    firmware: arm_rmm: Add SMC definitions for calling the RMM
->    firmware: arm_rmm: Check for RMI support at init
->    firmware: arm_rmm: Add support for SRO
->    firmware: arm_rmm: Activate the RMM
->    firmware: arm_rmm: Ensure the RMM has GPT entries for memory
->    firmware: arm_rmm: Add wrappers for Realm related RMI commands
-> 
-> Suzuki K Poulose (1):
->    firmware: arm_rmm: Configure the RMM with the host's page size
-> 
->   arch/arm64/Kconfig                |    1 +
->   arch/arm64/kernel/cpufeature.c    |    1 +
->   drivers/firmware/Kconfig          |    1 +
->   drivers/firmware/Makefile         |    1 +
->   drivers/firmware/arm_rmm/Kconfig  |   25 +
->   drivers/firmware/arm_rmm/Makefile |    2 +
->   drivers/firmware/arm_rmm/rmi.c    | 1072 +++++++++++++++++++++++++++++
->   include/linux/arm-rmi-cmds.h      |  558 +++++++++++++++
->   include/linux/arm-smccc-rmi.h     |  505 ++++++++++++++
->   9 files changed, 2166 insertions(+)
->   create mode 100644 drivers/firmware/arm_rmm/Kconfig
->   create mode 100644 drivers/firmware/arm_rmm/Makefile
->   create mode 100644 drivers/firmware/arm_rmm/rmi.c
->   create mode 100644 include/linux/arm-rmi-cmds.h
->   create mode 100644 include/linux/arm-smccc-rmi.h
-> 
-
+Best Regards,
+Changhuang
