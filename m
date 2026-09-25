@@ -1,183 +1,118 @@
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A590B471402;
-	Fri, 25 Sep 2026 13:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.66.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745CE46F4BD;
+	Fri, 25 Sep 2026 13:06:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341596; cv=none; b=GXSioNaDm8l/9zjydLPDdJsQpejLc3UAVCu2ipgJK4OUTouWwaezOEhmwqd/JNpUyFZuJNdJFWM+sQ8iuMCtW8S6Ve1vJxdUUs7ymOGMIl8ENe7xN/PJABADEOLWSWJx+Elgj7PhIDCZabOvg79jos4032qIKbRBQSQoGLfockE=
+	t=1790341612; cv=none; b=U+bgZknTvwzq4vpYcT1Kg/wBDTVW2l1VHmSkJHDksZkSbNwX8I5IaCU9LrAxJP3b4UNxTqU3doV9bvo0k2BrBiB2hZp5R5HGZtnHd/dhLCDfp8nnPgKkKfFuVF9fSUrKSFVrltIsUnaWDM6kPSsUol4rsfnq5AW7C8ubsq1BvdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341596; c=relaxed/simple;
-	bh=78O9kZWyXHmb3QRI0o3vBS4521JbbQIxKlPpbFqwmyc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iXx2AapK3rERkor4ZFnyf18rBxYUFuQhKVekraRv59zbkwUNyPs7XB2Vpy30Oo9SkG+n59/UaHfBOz6qsaYv53rCK1p1mp7ybKyqQN/2qZS5rx/rYaIc+0LYhUjy8GBw+gmt2QWJpKj/lYYxVrUE8FJA9NQxrzbB7GqjDXAklMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com; spf=unknown smtp.mailfrom=hallyn.com; dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b=ZT02gRL4; arc=none smtp.client-ip=178.63.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=tempfail smtp.mailfrom=hallyn.com
+	s=arc-20240116; t=1790341612; c=relaxed/simple;
+	bh=5LiU7u1Sd8vqr5RRPtFupIejm8J7rPUf9Xtw/ZZXIiA=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tG7mvvV86VFf6DveAPTA/QJ9y//6zQ3fXM1SIgTLzn9iJUirE0sRAnsgA4E6/rtJOEF2JI9XCDENsGKdywTg3sDUH7oz6xFih6FbkIiLKviO6p6lJEDDzuYv+3R2nehiAzZ5d0KGD8ClaW9v/8z0U+qtw4wVr9yra7U6ox8X3vA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=P6sPMLxJ; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b="ZT02gRL4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1790341583; bh=78O9kZWyXHmb3QRI0o3vBS4521JbbQIxKlPpbFqwmyc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZT02gRL4AiFFpPHfcQKgeFCbRmRbcJXdUcJ6QxYGpEcxCPRzvvRXL+tPEq9WkdRJ1
-	 w2GBM/E9lSQSuxP8LzcsSWoRJ/iEelqk5YhTzKTrJ9tSW2lMkVeTsOrhIW+wGjOYmY
-	 QRad6lFtLh/vnua+fPezbqyH+xzaMqVhsQeJX20Z0FzEv3wBtNrvyouxgCmjjopYyB
-	 9Vg+saqgBKmaajMK7H5Iz0vamYk/hIxBx5PEUCQPbBEnLUoojiIRaP+VarCtWij2IG
-	 XZE3XCE+O9oVUUcnkHLvAM/A2y4iad2dQ0z1CGMMSSvOLMs03exnDZ8g3y4Rnj47RH
-	 9DXg71wAq7+Cg==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id A470D4CD; Fri, 25 Sep 2026 08:06:23 -0500 (CDT)
-Date: Fri, 25 Sep 2026 08:06:23 -0500
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: =?utf-8?B?5rSb56We6JG1?= <chengjna@gmail.com>
-Cc: linux-security-module@vger.kernel.org, linux-api@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC] Proposal for a standard Competitive / Protected Session
- API in Linux
-Message-ID: <arZxz8rz6H6L99l4@hallyn.com>
-References: <CAHDTbUFX=8aAQnwv32hqmwHKkeJR0UA5XfZtMZRD1H+kV7uCzA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="P6sPMLxJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790341610; x=1821877610;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5LiU7u1Sd8vqr5RRPtFupIejm8J7rPUf9Xtw/ZZXIiA=;
+  b=P6sPMLxJ1iDDQks46WQX4Ee0nsTRGWGW5CN/npI0i+mLG9vvGSu6Kumm
+   WsREuH3tuJFWAm/L2st8YO895mKDWstLp7s3Qm8hPbILuCt4K8THQzaRl
+   LbzOR/TwuOk+/Kr5Oakt2LLOw6BcA1wqiRpdqPeLAbq9MEV8PNsLVcpo/
+   pNSfY7xoQkuOBuQhLYsOxpK/282ZAJ30Vpp4WI0XshsKOtxuYDrmxiJMi
+   y0G99mUp6wb9+w9WYg/5+TeFFXk0BtMl5OLY4sboix1B9UoDZCoxxrguj
+   kLeOPsNZwIuLiwx5GXa1BS5zuvXbE9taJ58egdZICrmlR3MbxdOzpTi9Z
+   w==;
+X-CSE-ConnectionGUID: 0oTG/wW9SWmgreduiR0bWg==
+X-CSE-MsgGUID: U+rPuNpRSV2rV5jNhfO0Yg==
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="295561569"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 06:06:44 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Fri, 25 Sep 2026 06:06:43 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Fri, 25 Sep 2026 06:06:41 -0700
+Date: Fri, 25 Sep 2026 15:06:41 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+CC: Steen Hegelund <Steen.Hegelund@microchip.com>,
+	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	<linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <kernel-janitors@vger.kernel.org>,
+	<error27@gmail.com>
+Subject: Re: [PATCH] net: microchip: vcap: stop scanning after deleting key
+ field
+Message-ID: <20260925130641.awviajhuq6mcb22w@DEN-DL-M70577.microsemi.net>
+References: <20260925063937.963430-1-harshit.m.mogalapalli@oracle.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHDTbUFX=8aAQnwv32hqmwHKkeJR0UA5XfZtMZRD1H+kV7uCzA@mail.gmail.com>
+In-Reply-To: <20260925063937.963430-1-harshit.m.mogalapalli@oracle.com>
 
-On Fri, Sep 25, 2026 at 05:14:46PM +0800, 洛神葵 wrote:
-> Hello,
-> 
-> I would like to propose an idea for a Linux API intended for
-> competitive games, online games, and potentially other applications
-> that require a high-integrity execution environment.
-> 
-> Linux already provides a number of relevant security mechanisms,
-> including ptrace restrictions, process memory access controls, LSM,
-> Secure Boot, kernel lockdown, and kernel module signing.
-> 
-> However, these mechanisms are currently exposed separately. A game
-> that wants to establish a trusted competitive environment may need to
-> detect and combine several different mechanisms on its own.
-> 
-> I would like to ask whether it would make sense to provide a unified
-> Protected Session / Competitive Session API.
-> 
-> The basic model could be relatively simple.
-> 
-> When a game starts, it requests a protected session, for example:
-> 
-> competitive_session_create(...)
-> 
-> The kernel checks whether the current environment satisfies the
-> requested protection level and returns something similar to:
-> 
-> ALLOWED: the environment satisfies the requested requirements;
-> 
-> DENIED: the environment does not satisfy them, together with a
-> standardized reason.
-> 
-> While the protected session is active, Linux would protect processes
-> belonging to that session from unauthorized interference.
-> 
-> For example, depending on the selected protection level, this could
-> restrict other processes from:
-> 
-> debugging or attaching to the protected process through ptrace;
-> 
-> reading or modifying its process memory;
-> 
-> obtaining sensitive information through /proc;
-> 
-> using other kernel interfaces to observe or interfere with the
-> protected process.
-> 
-> The exact interfaces covered by such a mechanism would of course need
-> further discussion.
-> 
-> The game may explicitly terminate the protected session:
-> 
-> competitive_session_close(...)
-> 
-> Normal system behavior would then be restored.
-> 
-> If the game crashes, is terminated, or the protected process exits,
-> the session should automatically be destroyed by the kernel.
-> 
-> This would ensure that the system cannot accidentally remain in a
-> competitive/protected state if the application fails to shut down
-> cleanly.
-> 
-> A major advantage of this model is that game developers would not need
-> broad permission to scan the user's system, inspect unrelated files,
-> or monitor every other application.
+> The only call outside the KUnit tests is in
+> sparx5_tc_add_rule_copy(), which passes a fixed key list with no
+> duplicate entries. Therefore, the potential double-free is not
+> currently reachable in tree.
 
-Why would they need to do that anyway?  What are you protecting them
-from exactly?  Cheating?  Secret stealing?  Playing without a license?
+Agree. Not reachable today.
 
-This sounds like us going out of our way to enable proprietary software
-to lock us down to protect their "rights" - DRM.
+> 
+> However, vcap_filter_rule_keys() is exported and does not require its
+> key list entries to be unique. If a future or external caller supplies
+> the same key at another position that the inner loop visits, it calls
+> list_del() and kfree() a second time on the freed field, leading to a
+> potential double-free.
+> 
 
-I guess what you're promising us is that "this way you won't be forced
-to run crowdstrike and tenable and intune to be able to play these games".
-But 1. I still prefer to say "then nobody *needs* to play these particular
-games", and 2. I could just compile my own kernel with
-competitive_session_create() being a noop, so you'd still be digging
-around to make sure I didn't do that, right?
+Also agree.
 
-> Instead, Linux itself would establish and enforce the protected environment.
+> Break the inner loop after removing a matching field. The outer safe
+> list traversal continues to process the remaining rule fields.
 > 
-> The game would only need to know:
+> Fixes: 465a38a269e9 ("net: microchip: sparx5: Support for copying and modifying rules in the API")
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Closes: https://lore.kernel.org/all/ahs-lCAXXikkaHky@stanley.mountain/
+> Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+> ---
+>  drivers/net/ethernet/microchip/vcap/vcap_api.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> "Does the current system satisfy the requirements for this protected session?"
+> diff --git a/drivers/net/ethernet/microchip/vcap/vcap_api.c b/drivers/net/ethernet/microchip/vcap/vcap_api.c
+> index 788c0728d763..0f8d98f2094d 100644
+> --- a/drivers/net/ethernet/microchip/vcap/vcap_api.c
+> +++ b/drivers/net/ethernet/microchip/vcap/vcap_api.c
+> @@ -3527,8 +3527,8 @@ int vcap_filter_rule_keys(struct vcap_rule *rule,
+>                                 if (key == keylist[idx]) {
+>                                         list_del(&ckf->ctrl.list);
+>                                         kfree(ckf);
+> -                                       idx++;
+>                                         err = 0;
+> +                                       break;
+>                                 }
+>                 }
+>         }
+> --
+> 2.52.0
 > 
-> In other words, the API would provide a trusted execution environment
-> for the application rather than granting the application broader
-> system-monitoring privileges.
-> 
-> A simplified lifecycle would look like this:
-> 
-> Game starts
-> |
-> v
-> Request Protected Session
-> |
-> v
-> Linux checks the environment
-> |
-> v
-> ALLOWED / DENIED
-> |
-> v
-> Game enters competitive mode
-> |
-> v
-> Game exits or explicitly closes the session
-> |
-> v
-> Protected Session is automatically destroyed
-> 
-> My main questions are:
-> 
-> Does Linux already provide a unified interface with similar semantics?
 
-I think the closest you could come today is to run it in a
-confidential computing VM like SEV-SNP/TDX.
+Patch is missing the target tree (net), the fix LGTM.
 
-> If not, would a Protected Session abstraction like this be worth
-> discussing as a generic userspace API?
-
-Possibly, but the first objection you'd have to overcome is that
-you are asking us to reduce our rights on the hardware and software
-that we own.  E.g. not being able to strace to figure out what is
-missing when the software isn't working - yuck.
-
-> Competitive gaming is the most obvious use case, but such a mechanism
-> could potentially also be useful for other applications that need
-> stronger protection of their process integrity or confidentiality, so
-> I do not think it necessarily needs to be designed as a game-specific
-> API.
-> 
-> Thank you.
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
