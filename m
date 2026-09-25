@@ -1,49 +1,50 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB4F4D9F74;
-	Fri, 25 Sep 2026 16:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FC44D0CF1;
+	Fri, 25 Sep 2026 16:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352583; cv=none; b=jb+VmywEP1DawV5gK5uXVSQG4+cIcV8pq10IQPii+8Ix2mbr9QqKELL/Tlro/O2mtkOw6NHCC8sXtKMGdeQ6YM+KOSkf5ucyN1DCpn7IsXt1kDHQiLx5kJ5jjXMtf8GJGMvKkXJBkyRigy/G85im5g6j0sQPpTyxH2/SCLoB5ko=
+	t=1790352585; cv=none; b=Bwvc0rXtJQcxv57X+O9WlJJfnkoD/uozqUrV5NE8OJjTqYvnryDw+U2/eUtH9aB/C1HhpLrqe2rbk0x6aILl8yCqjbbO5kSL4tJiTakqfInMqS4/risKfhPCDiGmNaX/U39TL+eeshIqllRnPTLl+uaAJBc7T/+uddX2AqnViMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790352583; c=relaxed/simple;
-	bh=acR0oFswQLFdJnzGHUMQCI7FJQeiDJlOpkIxZblquj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j2MYpDUXsYpLLp495uD/8V8qiuneLMKKfbltXYakE9mvm0/lgR8xU3dpC4Ip+91vgyCaNO2xj/pzHqQem4E+gWQTPXIBm020IKG4QLdyQE6om9LAsDtwqQk+U083/+gZ3L/mXDjAL8EAWdLzcn3QMv8XJDVbzsrwPVzCDTx0bEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A15C9k8r; arc=none smtp.client-ip=198.175.65.15
+	s=arc-20240116; t=1790352585; c=relaxed/simple;
+	bh=+V0A6VK6H6a9Qj6akZvP5O63YKi7bW4Z9sXgZ1Ina64=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GlhvmuxUEHNPVS1H5dcTUaQwXehQdX0+PWFwoDRGMnunnbqDB6X1+O/KswRx4WnrDBxSfjMwbYw5LY/QVwIoKx5hHyt4DGyv7IyAbwQdU2dYk6Tqf09HYy4XiIfn/63vI1Ro+6RDO+weu+Y4zz60gcUbaNkU2en36+ZSkdmgTKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fMHcUvoe; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A15C9k8r"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fMHcUvoe"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790352578; x=1821888578;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=acR0oFswQLFdJnzGHUMQCI7FJQeiDJlOpkIxZblquj8=;
-  b=A15C9k8rFePmbRAGeMNjpScCUawYCMcdZ2aM4ShA3qg48YecYbL6/wD2
-   64QLSypJ3gS4yv5WCazCOSUJTTdTn5mG4zWh8VUbkDu+PkamZyATtiy25
-   uOdAJwiKuCS7cw0o2EoeSikduJSlpaRaRX++397AOIffK8GVSgYCywq3r
-   Gi/OEOZ1rO/4/ADzvJS/GiqdKbB6Oz4UP3d5AkspE8PyADtpGQTtFxCnf
-   OmYlDw8XJDIZFanytJXY1F7hWE0YVHoR3k720QgXRa/XrFR50rXZTnRzi
-   K3ozCDsnyfJFlhtXqc9RLy1WVJKzL/ntTw0m2jDH2/98zVqzazjAztW4q
-   A==;
-X-CSE-ConnectionGUID: CT6+P1otReCVWiSHH/MBqQ==
-X-CSE-MsgGUID: aRCmZp7dS5SZuOCTcY0xYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="93859818"
+  t=1790352581; x=1821888581;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=+V0A6VK6H6a9Qj6akZvP5O63YKi7bW4Z9sXgZ1Ina64=;
+  b=fMHcUvoe13dKNUS91g/OM+PToiyupWUlCXuR50+5wYwdFdQ09x8WYQuD
+   H/ZEJkf1gXVNEUpRwVn9NMR+agnZXdISwTO3H0XVMWPH3F7XhLH2sh+Bj
+   yqBk/Z4JvKgvmzyZGseLpPdY6zDlIalLoeQDo1toebaCK+tgMsmvsqYUH
+   7h9qZ5gGz/9hlrmznTpAlRxWttOx06nskCYp64j4XNM13g4hgQ9/a/Sjh
+   XiJCnepQZMwDv1eDg90VyuBLwvvZsLzqy0XdAWIpTx+hku37IOV9le80h
+   RehymYaZHuotCYAd3wa/bHKyxYY3+avp5Oo8tpreUYQEFsAb9KjGe/aP/
+   w==;
+X-CSE-ConnectionGUID: czMmGJ+9SSOmBjUOBoXhEQ==
+X-CSE-MsgGUID: ZDHwRnsRTqmQVZJ4NJt5Vw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="102503614"
 X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="93859818"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 09:09:32 -0700
-X-CSE-ConnectionGUID: HGa7kB8NTaaSg8ajpoeFNw==
-X-CSE-MsgGUID: zT28DDtkR9yRKizxDrTNUA==
+   d="scan'208";a="102503614"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 09:09:31 -0700
+X-CSE-ConnectionGUID: zmRMQqNXSCCC6g66gETcNg==
+X-CSE-MsgGUID: ZA/ZycOSTwGjKeCugSihow==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="277533837"
+   d="scan'208";a="302311899"
 Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa003.jf.intel.com with ESMTP; 25 Sep 2026 09:09:28 -0700
+  by fmviesa001.fm.intel.com with ESMTP; 25 Sep 2026 09:09:27 -0700
 Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 9BD1699; Fri, 25 Sep 2026 18:09:26 +0200 (CEST)
+	id A428A9D; Fri, 25 Sep 2026 18:09:26 +0200 (CEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Linus Walleij <linusw@kernel.org>,
@@ -66,10 +67,12 @@ Cc: Bartosz Golaszewski <brgl@kernel.org>,
 	Hans de Goede <hansg@kernel.org>,
 	Lixu Zhang <lixu.zhang@intel.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: [PATCH v1 0/5] gpio: Move most of the Intel GPIO to the dedicated folder
-Date: Fri, 25 Sep 2026 17:57:02 +0200
-Message-ID: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 2/5] gpio: Move Intel PMIC GPIO drivers to the dedicated subfolder
+Date: Fri, 25 Sep 2026 17:57:04 +0200
+Message-ID: <20260925160913.1648565-3-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
+References: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,78 +81,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For the easier maintenance and future development move most of Intel GPIO
-drivers to the dedicated 'intel' folder. For now it only covers the drivers
-I maintain (as per record in the MAINTAINERS).
+For better maintenance and development experience, move
+Intel PMIC GPIO drivers to the dedicated subfolder.
 
-The idea is to have the 'intel' folder to be associated with the respective
-Git tree from which the maintainer (currently me) sends PRs to Bart (GPIO
-maintainer) from time to time.
-
-Nova Lake event driver is up to their maintainers what to do (co-maintainers
-are welcome!).
-
-USBIO drivers as per Hans are for the camera (IPU) only, perhaps media tree
-is the best to handle them. I can, of course, host them in 'intel/usbio'
-subfolder on the terms that I do not touch or handle anything behind it.
-Otherwise co-maintainers are a must.
-
-Cc'ed to William on the point to might be hosting i8255 et alia (PC104?)
-under the 'intel/i8255' subfolder on the terms like described above for USBIO.
-Or you, William, can send me PRs, either way I don't want to maintain those.
-
-PXA driver is indeed was used on early Intel MID, but we used to have
-a different (now gone) driver and PXA was never adapted for that.
-
-IPX one is Intel by vendor, but quite alien to anything listed above. Don't
-think its place is in 'intel' subfolder.
-
-This mini-series is supposed to go via my tree to avoid current conflicts.
-
-Andy Shevchenko (5):
-  gpio: Move Intel GPIO drivers to the dedicated subfolder
-  gpio: Move Intel PMIC GPIO drivers to the dedicated subfolder
-  gpio: Move Intel PCH type of GPIO drivers to the intel subfolder
-  gpio: Move Intel Sodaville GPIO driver to the intel subfolder
-  gpio: Move Intel vGPIO driver to the intel subfolder
-
- MAINTAINERS                                   |  21 +--
- drivers/gpio/Kconfig                          | 147 +-----------------
- drivers/gpio/Makefile                         |  13 +-
- drivers/gpio/intel/Kconfig                    | 136 ++++++++++++++++
- drivers/gpio/intel/Makefile                   |  19 +++
- drivers/gpio/{ => intel}/gpio-elkhartlake.c   |   0
- drivers/gpio/{ => intel}/gpio-graniterapids.c |   0
- drivers/gpio/{ => intel}/gpio-ich.c           |   0
- drivers/gpio/{ => intel}/gpio-merrifield.c    |   0
- drivers/gpio/{ => intel}/gpio-ml-ioh.c        |   0
- drivers/gpio/{ => intel}/gpio-pch.c           |   0
- drivers/gpio/{ => intel}/gpio-sch.c           |   0
- drivers/gpio/{ => intel}/gpio-sodaville.c     |   0
- drivers/gpio/{ => intel}/gpio-tangier.c       |   0
- drivers/gpio/{ => intel}/gpio-tangier.h       |   0
- drivers/gpio/intel/pmic/Kconfig               |  30 ++++
- drivers/gpio/intel/pmic/Makefile              |   5 +
- .../gpio/{ => intel/pmic}/gpio-crystalcove.c  |   0
- drivers/gpio/{ => intel/pmic}/gpio-wcove.c    |   0
- 19 files changed, 200 insertions(+), 171 deletions(-)
- create mode 100644 drivers/gpio/intel/Kconfig
- create mode 100644 drivers/gpio/intel/Makefile
- rename drivers/gpio/{ => intel}/gpio-elkhartlake.c (100%)
- rename drivers/gpio/{ => intel}/gpio-graniterapids.c (100%)
- rename drivers/gpio/{ => intel}/gpio-ich.c (100%)
- rename drivers/gpio/{ => intel}/gpio-merrifield.c (100%)
- rename drivers/gpio/{ => intel}/gpio-ml-ioh.c (100%)
- rename drivers/gpio/{ => intel}/gpio-pch.c (100%)
- rename drivers/gpio/{ => intel}/gpio-sch.c (100%)
- rename drivers/gpio/{ => intel}/gpio-sodaville.c (100%)
- rename drivers/gpio/{ => intel}/gpio-tangier.c (100%)
- rename drivers/gpio/{ => intel}/gpio-tangier.h (100%)
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ MAINTAINERS                                   |  4 +--
+ drivers/gpio/Kconfig                          | 26 ----------------
+ drivers/gpio/Makefile                         |  2 --
+ drivers/gpio/intel/Kconfig                    |  2 ++
+ drivers/gpio/intel/Makefile                   |  2 ++
+ drivers/gpio/intel/pmic/Kconfig               | 30 +++++++++++++++++++
+ drivers/gpio/intel/pmic/Makefile              |  5 ++++
+ .../gpio/{ => intel/pmic}/gpio-crystalcove.c  |  0
+ drivers/gpio/{ => intel/pmic}/gpio-wcove.c    |  0
+ 9 files changed, 41 insertions(+), 30 deletions(-)
  create mode 100644 drivers/gpio/intel/pmic/Kconfig
  create mode 100644 drivers/gpio/intel/pmic/Makefile
  rename drivers/gpio/{ => intel/pmic}/gpio-crystalcove.c (100%)
  rename drivers/gpio/{ => intel/pmic}/gpio-wcove.c (100%)
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 51e27580be9f..1943aa049c87 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13394,7 +13394,7 @@ INTEL PMIC GPIO DRIVERS
+ M:	Andy Shevchenko <andy@kernel.org>
+ S:	Supported
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/andy/linux-gpio-intel.git
+-F:	drivers/gpio/gpio-*cove.c
++F:	drivers/gpio/intel/pmic/
+ 
+ INTEL PMIC MULTIFUNCTION DEVICE DRIVERS
+ M:	Andy Shevchenko <andy@kernel.org>
+@@ -29374,7 +29374,7 @@ WHISKEYCOVE PMIC GPIO DRIVER
+ M:	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+ L:	linux-gpio@vger.kernel.org
+ S:	Maintained
+-F:	drivers/gpio/gpio-wcove.c
++F:	drivers/gpio/intel/pmic/gpio-wcove.c
+ 
+ WHWAVE RTC DRIVER
+ M:	Dianlong Li <long17.cool@163.com>
+diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+index e04f6d761153..a80f4303bb0e 100644
+--- a/drivers/gpio/Kconfig
++++ b/drivers/gpio/Kconfig
+@@ -1407,19 +1407,6 @@ config GPIO_CROS_EC
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called gpio-cros-ec.
+ 
+-config GPIO_CRYSTAL_COVE
+-	tristate "GPIO support for Crystal Cove PMIC"
+-	depends on (X86 || COMPILE_TEST) && INTEL_SOC_PMIC
+-	select GPIOLIB_IRQCHIP
+-	help
+-	  Support for GPIO pins on Crystal Cove PMIC.
+-
+-	  Say Yes if you have a Intel SoC-based tablet with Crystal Cove PMIC
+-	  inside.
+-
+-	  This driver can also be built as a module. If so, the module will be
+-	  called gpio-crystalcove.
+-
+ config GPIO_CS5535
+ 	tristate "AMD CS5535/CS5536 GPIO support"
+ 	depends on X86 || MIPS || COMPILE_TEST
+@@ -1759,19 +1746,6 @@ config GPIO_TWL6040
+ 	  Say yes here to access the GPO signals of twl6040
+ 	  audio chip from Texas Instruments.
+ 
+-config GPIO_WHISKEY_COVE
+-	tristate "GPIO support for Whiskey Cove PMIC"
+-	depends on (X86 || COMPILE_TEST) && INTEL_SOC_PMIC_BXTWC
+-	select GPIOLIB_IRQCHIP
+-	help
+-	  Support for GPIO pins on Whiskey Cove PMIC.
+-
+-	  Say Yes if you have an Intel SoC-based tablet with Whiskey Cove PMIC
+-	  inside.
+-
+-	  This driver can also be built as a module. If so, the module will be
+-	  called gpio-wcove.
+-
+ config GPIO_WM831X
+ 	tristate "WM831x GPIOs"
+ 	depends on MFD_WM831X
+diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+index a4f1ec80b794..747df558ba92 100644
+--- a/drivers/gpio/Makefile
++++ b/drivers/gpio/Makefile
+@@ -57,7 +57,6 @@ obj-$(CONFIG_GPIO_CGBC)			+= gpio-cgbc.o
+ obj-$(CONFIG_GPIO_CLPS711X)		+= gpio-clps711x.o
+ obj-$(CONFIG_GPIO_SNPS_CREG)		+= gpio-creg-snps.o
+ obj-$(CONFIG_GPIO_CROS_EC)		+= gpio-cros-ec.o
+-obj-$(CONFIG_GPIO_CRYSTAL_COVE)		+= gpio-crystalcove.o
+ obj-$(CONFIG_GPIO_CS5535)		+= gpio-cs5535.o
+ obj-$(CONFIG_GPIO_DA9052)		+= gpio-da9052.o
+ obj-$(CONFIG_GPIO_DA9055)		+= gpio-da9055.o
+@@ -209,7 +208,6 @@ obj-$(CONFIG_GPIO_VISCONTI)		+= gpio-visconti.o
+ obj-$(CONFIG_GPIO_VX855)		+= gpio-vx855.o
+ obj-$(CONFIG_GPIO_WAVESHARE_DSI_TOUCH)	+= gpio-waveshare-dsi.o
+ obj-$(CONFIG_GPIO_WCD934X)		+= gpio-wcd934x.o
+-obj-$(CONFIG_GPIO_WHISKEY_COVE)		+= gpio-wcove.o
+ obj-$(CONFIG_GPIO_WINBOND)		+= gpio-winbond.o
+ obj-$(CONFIG_GPIO_WM831X)		+= gpio-wm831x.o
+ obj-$(CONFIG_GPIO_WM8350)		+= gpio-wm8350.o
+diff --git a/drivers/gpio/intel/Kconfig b/drivers/gpio/intel/Kconfig
+index 4d1a37a6c5e8..64fd3aa84ac2 100644
+--- a/drivers/gpio/intel/Kconfig
++++ b/drivers/gpio/intel/Kconfig
+@@ -35,3 +35,5 @@ config GPIO_MERRIFIELD
+ 	  Say Y here to support Intel Merrifield GPIO.
+ 
+ endif
++
++source "drivers/gpio/intel/pmic/Kconfig"
+diff --git a/drivers/gpio/intel/Makefile b/drivers/gpio/intel/Makefile
+index c8c8aea69c29..acff63df179a 100644
+--- a/drivers/gpio/intel/Makefile
++++ b/drivers/gpio/intel/Makefile
+@@ -4,3 +4,5 @@
+ obj-$(CONFIG_GPIO_TANGIER)		+= gpio-tangier.o
+ obj-$(CONFIG_GPIO_ELKHARTLAKE)		+= gpio-elkhartlake.o
+ obj-$(CONFIG_GPIO_MERRIFIELD)		+= gpio-merrifield.o
++
++obj-y				+= pmic/
+diff --git a/drivers/gpio/intel/pmic/Kconfig b/drivers/gpio/intel/pmic/Kconfig
+new file mode 100644
+index 000000000000..fe21314697a3
+--- /dev/null
++++ b/drivers/gpio/intel/pmic/Kconfig
+@@ -0,0 +1,30 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Intel PMIC GPIO drivers
++#
++
++config GPIO_CRYSTAL_COVE
++	tristate "GPIO support for Crystal Cove PMIC"
++	depends on (X86 || COMPILE_TEST) && INTEL_SOC_PMIC
++	select GPIOLIB_IRQCHIP
++	help
++	  Support for GPIO pins on Crystal Cove PMIC.
++
++	  Say Yes if you have a Intel SoC-based tablet with Crystal Cove PMIC
++	  inside.
++
++	  This driver can also be built as a module. If so, the module will be
++	  called gpio-crystalcove.
++
++config GPIO_WHISKEY_COVE
++	tristate "GPIO support for Whiskey Cove PMIC"
++	depends on (X86 || COMPILE_TEST) && INTEL_SOC_PMIC_BXTWC
++	select GPIOLIB_IRQCHIP
++	help
++	  Support for GPIO pins on Whiskey Cove PMIC.
++
++	  Say Yes if you have an Intel SoC-based tablet with Whiskey Cove PMIC
++	  inside.
++
++	  This driver can also be built as a module. If so, the module will be
++	  called gpio-wcove.
+diff --git a/drivers/gpio/intel/pmic/Makefile b/drivers/gpio/intel/pmic/Makefile
+new file mode 100644
+index 000000000000..2a95d7735153
+--- /dev/null
++++ b/drivers/gpio/intel/pmic/Makefile
+@@ -0,0 +1,5 @@
++# SPDX-License-Identifier: GPL-2.0
++# Intel PMIC GPIO drivers
++
++obj-$(CONFIG_GPIO_CRYSTAL_COVE)		+= gpio-crystalcove.o
++obj-$(CONFIG_GPIO_WHISKEY_COVE)		+= gpio-wcove.o
+diff --git a/drivers/gpio/gpio-crystalcove.c b/drivers/gpio/intel/pmic/gpio-crystalcove.c
+similarity index 100%
+rename from drivers/gpio/gpio-crystalcove.c
+rename to drivers/gpio/intel/pmic/gpio-crystalcove.c
+diff --git a/drivers/gpio/gpio-wcove.c b/drivers/gpio/intel/pmic/gpio-wcove.c
+similarity index 100%
+rename from drivers/gpio/gpio-wcove.c
+rename to drivers/gpio/intel/pmic/gpio-wcove.c
 -- 
 2.50.1
 
