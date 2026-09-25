@@ -1,161 +1,90 @@
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE3CE44065E;
-	Fri, 25 Sep 2026 12:33:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.101.248.176
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDEC44065E
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790339610; cv=none; b=uro1wFTVb3F3Le0Y1yCUZvavAkufmElnx4pgAJ+b4jppM7P3tyO0QExe7RIqs419fSHh6JTdY4CqagsTQJHfEa2q/8xofboa7e7hUEy3gY0jqu7ObrbUEW6fp5uPFqopZaKRELXWeOiWDWzQH70JRwfTS9vZtpDIHHCPiIYtI60=
+	t=1790339620; cv=none; b=bvlGCxfOyJ0HdbYBmBQqwpbbXXDgdEWyIF7gwkfQer8+w10YwcPKSii9PuGrayb/Tc7xUjJOM+uEAQgXqJxMxZmb3PxgwQhYQfkH7b3eitcJ0qlVaPxvJsL+O68RIpXBTpRjerxBQvX/SJZDJtPRM4C2o3BlZZ/bn01JNqj9DwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790339610; c=relaxed/simple;
-	bh=X4/O+AJm17rChMycOscXIFnqLU3slbWX0N5lM+BZH64=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lljtv2Qns8o0yKpbjyXZknzZtDgdxMp9QAPf/c5RqpxEO5G6TBoOA2bTSPMn2xDzr517f5jztZeMtBlTISyoXmMAQj1TGlsxGX45wiNVt9OydNh1b7W9WbyJmhRsFCg5bXsPhvKP3hQetElfZIVRfN4yZgKml+radKJwy5RoFxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn; spf=pass smtp.mailfrom=hust.edu.cn; arc=none smtp.client-ip=46.101.248.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app1 (Coremail) with UTF8SMTP id IAEQrMBWnqQLarZq2L03AA--.52358S2;
-	Fri, 25 Sep 2026 20:33:15 +0800 (CST)
-Received: from [100.81.40.43] (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wBHmg0HarZqCUA_AA--.8334S2;
-	Fri, 25 Sep 2026 20:33:13 +0800 (CST)
-Message-ID: <cfc9cb8d-d13a-4dd6-809c-1ecf3bc9c758@hust.edu.cn>
-Date: Fri, 25 Sep 2026 20:33:11 +0800
+	s=arc-20240116; t=1790339620; c=relaxed/simple;
+	bh=fUjQ52ag332CiUrQx7rmtoK/j5URJZjewRsvMLE4k6U=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=TW/vBj6VNSnKWRYO3im66x+9D0761CHi4x4F9QtCmFxHUpUPl2HV/YeuIZDWFskKaL+NlOTCRvubqZfP8rY81+SWRTWACm3ye6yr45ThLa4vv2E92022xTeIb4c88elz6j67BBsRpdFQZKC/QcKoRZg6lseDN+HcP91lus34Df4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cd3e90ff97so928751b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:33:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790339618; x=1790944418;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mNU2C5KmBRcs2Ebwo4gD57Zy+MYfjXnr8InYiS34/8c=;
+        b=tYoteVFo+XZcvkfBp0kGit+q+w7ET3pIiMvfdyttdYQCCJ2q5iUzy6aCuv11pNyM/K
+         PFHGt59W6DiqPEbF5uokTFo/9TnbC6aj3uZrx8PYvDJFH73QRYdmfoudHR25YwBMerRp
+         FcqRmdo6OY12zW35Q3i1vWKUf95LC/7VJz5RSe+gWDS53cVhBpbBTO/3ADHOSQjXrDIO
+         x/XQqZxZkfGK8Ua9hhY6QsLLo0DRPYHSvdBlMDd1jKk7EgqC+UpbKS0a5XX0YYcBr3m+
+         9UonaCrsrgfK3lp9fwqUTxuMkiyUIlZu2ospWZ3LnHv2nNtyGpLkUISA7ywhbfmeWMUD
+         S1hA==
+X-Forwarded-Encrypted: i=1; AKwUvBxKsrUyXHtR6bvn7bBp5+VWkJQ6zpIK/EbwUyFXxiKKphtHJu1JmLnP8vnWmglL6yvJh2zBcDBxpSY4hdA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mG+IFjuzXEomyZhR331dImv72ZIk9FjNSQV3qU4OxeaOZJg0i1
+	iUliIKHlfz7U36C0k25BeF6OfoMcXK0HNyzYt/bDac5iMX+cedqpOVkO7+JG5AcQHS/MkbTHZp6
+	jLUDTywPJjd3s+JDXeWcPcE/jFnU5xlNhFfoO6uTL1ueIabjCDYdOxRfV9rE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/zh_CN: add Chinese translation for usb/ohci.rst
-To: Jiaming Ouyang <jiamingouyang13@gmail.com>, linux-kernel@vger.kernel.org
-Cc: linux-doc@vger.kernel.org, alexs@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, si.yanteng@linux.dev, rdunlap@infradead.org,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-References: <CAMnqnYyO98AEDOHfm32Cb4uGBDucLiZ8gKZ5S+jVf3DDCoFA5w@mail.gmail.com>
-From: Dongliang Mu <dzm91@hust.edu.cn>
-In-Reply-To: <CAMnqnYyO98AEDOHfm32Cb4uGBDucLiZ8gKZ5S+jVf3DDCoFA5w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IAEQrMBWnqQLarZq2L03AA--.52358S2
-Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoWxZr1kWFy3XryrKFW5uFy7GFg_yoWrJw4rpF
-	Z7KryxKF4fJr1jyryxGr1UKr18A3WIga17K3srJ3Z5JrZ7Ja40vrnrtrW2grWIgrWxuay2
-	qFsYgFyrC3W2kw7anT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQCb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
-	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
-	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
-	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
-	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCY02
-	Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr
-	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxG
-	rwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
-	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
-	z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUVYhFDUUUU
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+X-Received: by 2002:a05:6808:17aa:b0:4d6:90d4:6bc with SMTP id
+ 5614622812f47-4d72cc3cba3mr6843640b6e.46.1790339617858; Fri, 25 Sep 2026
+ 05:33:37 -0700 (PDT)
+Date: Fri, 25 Sep 2026 05:33:37 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab66a21.80e1c6cc.1e8e5f.0030.GAE@google.com>
+Subject: [syzbot] Monthly gfs2 report (Sep 2026)
+From: syzbot <syzbot+list410acf864b0ea39e7b49@syzkaller.appspotmail.com>
+To: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
+Hello gfs2 maintainers/developers,
 
-On 9/25/26 6:57 PM, Jiaming Ouyang wrote:
-> Subject: [PATCH] docs/zh_CN: add Chinese translation for usb/ohci.rst
->
-> Translate Documentation/usb/ohci.rst into Chinese Simplified.
->
-> The translation covers OHCI driver overview, hardware protocol
-> differences (OHCI vs UHCI), improvements since 2.4 kernel,
-> queueable interrupt transfers, and non-PCI support.
+This is a 31-day syzbot report for the gfs2 subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/gfs2
 
-The git apply --check failed in my local workspace. And there are some 
-translation issues below.
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 24 issues are still open and 47 have already been fixed.
+There are also 10 low-priority issues.
 
-Dongliang Mu
+Some of the still happening issues:
 
-> Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
-> ---
->   .../translations/zh_CN/usb/index.rst          |  2 +-
->   Documentation/translations/zh_CN/usb/ohci.rst | 37 +++++++++++++++++++
->   2 files changed, 38 insertions(+), 1 deletion(-)
->   create mode 100644 Documentation/translations/zh_CN/usb/ohci.rst
->
-> diff --git a/Documentation/translations/zh_CN/usb/index.rst
-> b/Documentation/translations/zh_CN/usb/index.rst
-> index df99814c6497..c96eacf13e11 100644
-> --- a/Documentation/translations/zh_CN/usb/index.rst
-> +++ b/Documentation/translations/zh_CN/usb/index.rst
-> @@ -32,6 +32,7 @@ USB 支持
->       chipidea
->       dwc3
->       ehci
-> +    ohci
->       usbmon
->
->   待翻译文档：
-> @@ -49,7 +50,6 @@ USB 支持
->   * mass-storage
->   * misc_usbsevseg
->   * mtouchusb
-> -* ohci
->   * raw-gadget
->   * usbip_protocol
->   * usb-serial
-> diff --git a/Documentation/translations/zh_CN/usb/ohci.rst
-> b/Documentation/translations/zh_CN/usb/ohci.rst
-> new file mode 100644
-> index 000000000000..8469f5659f8d
-> --- /dev/null
-> +++ b/Documentation/translations/zh_CN/usb/ohci.rst
-> @@ -0,0 +1,37 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +:Original: Documentation/usb/ohci.rst
-> +
-> +:翻译: 欧阳家铭 Jiaming Ouyang <jiamingouyang13@gmail.com>
-> +
-> +========
-> +OHCI驱动
-> +========
-> +
-> +2026年9月7日
-Do not modify the date - "23-Aug-2002"
-> +
-> +“OHCI-HCD”驱动程序是一个USB主机控制器程序（HCD），它源自2.4内核系列中的“usb-oh
-> +ci”驱动程序。“usb-ohci”代码主要由 Romen Weissgaerber <weissg@vienna.at>编写
+Ref Crashes Repro Title
+<1> 103     Yes   kernel BUG in do_qc
+                  https://syzkaller.appspot.com/bug?extid=bad65435361712796381
+<2> 78      Yes   INFO: task hung in gfs2_recover_journal (4)
+                  https://syzkaller.appspot.com/bug?extid=9013411dc43f3582823a
+<3> 56      Yes   WARNING in gfs2_ri_update (2)
+                  https://syzkaller.appspot.com/bug?extid=7567dc5c8aa8f68bde74
+<4> 56      Yes   general protection fault in gfs2_glock_dq (2)
+                  https://syzkaller.appspot.com/bug?extid=5a5f492ccae698fd7434
+<5> 33      No    KASAN: slab-use-after-free Read in gfs2_ail_drain
+                  https://syzkaller.appspot.com/bug?extid=84a21b16aba9f279d96a
+<6> 172     Yes   kernel BUG in gfs2_quota_cleanup (3)
+                  https://syzkaller.appspot.com/bug?extid=af4d53576692f8956fd6
 
-Do not separate usb-ohci into two lines.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Romen -> Roman
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
-> +但也获得了许多其他人的贡献（请阅读其版权）。
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
 
-read its copyright/licencing header
-
-Re-translate this part.
-
-> +
-> +它支持“开放主机控制器接口”（OHCI），该接口标准化了用于与USB 1.1主机控制器通信的
-> +硬件寄存器协议。“与英特尔早期的“通用主机控制器接口”（UHCI）相比，它将更多只能功能
-只能功能？
-> +注入到硬件中。除英特尔和威盛之外的其他供应商的USB1.1控制器通常使用OHCI。
-> +
-> +自2.4内核以来的更改包括
-> +
-> +         - 提高了健壮性; 修复了错误; 减少了开销
-> +         - 支持更新和简化的usbcore API
-> +         - 中断传输可以更大，并且可以排队
-> +         - 通过使用上层“hcd”框架，减少代码量
-> +         - 支持一些非PCI的OHCI实现
-> +         - ... 以及更多
-> +
-> +“OHCI-hcd”驱动程序处理所有USB 1.1传输类型。所有类型的传输都可以排队。在“usb-ohc
-> +i”中也是如此，但中断传输除外。以前，使用一帧的周期会因为IRQ处理的开销而导致数据丢
-Do not separate usb-ohci into two lines.
-> +失的风险。当中断传输排队时，可以通过确保硬件在操作系统处理相关IRQ时始终有传输需要
-> +处理，来最大限度的降低这些风险。
-> +
-> +- David Brownell
-> +  <dbrownell@users.sourceforge.net>
-> +
-
+You may send multiple commands in a single email message.
