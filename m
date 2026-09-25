@@ -1,308 +1,497 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 550AC4D0CE1;
-	Fri, 25 Sep 2026 19:08:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790363290; cv=none; b=WLOY02KhIsv4Ac16GaXtpw/H7m81r6B5weW8Y3GdBtuQ/BCKDyXmyBK/2Fwm/4y/4rtMHFP3IO4eS03HqiNrbrm841QQLnjFlXOG7QPnFGjS2Xy7/hogOeFHqWw8RTgJsdZBI6uSoIM5reXEzE6SXWi9d2XjPdRYpCSIAUadVNw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790363290; c=relaxed/simple;
-	bh=GZZMXG8OarCWWW+jwF7/L5uJFiWpK4K/j+8dsbx/yPA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e72uEp8cwN5OzqckBDv+f41guIfqlJ27KHoVzVs67EpWC01ZQw9ZtKyG8hpqjLXdo2FcGOiecrRgdiyV/dXkD0lpazFYcq7Z1HDfSP/NmyOsMYNuH1fciTEmDLbQJATBg7mqOFX13O9G6BlIKlgYSI2Q24x+wosDOmrqFoVha8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=qDfH5P+t; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020120.outbound.protection.outlook.com [52.101.191.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CC1442370;
+	Fri, 25 Sep 2026 19:09:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.191.120
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790363349; cv=fail; b=HEpBLVEtjGE3fddlKwfWmZj73Y4KSMEXZWEZPrBiYcBExDzjOla+f0pjOpmeA1Xe7O3g+JNYX91+QIIIVGSMVXGlT4PnPTAAz61QPXmT7PB185FkvIiD1fnyqHcXYWqdJp8XrCeI6EAvMlOhq+KrG2SdCHKhJpAYayR8C6czt7c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790363349; c=relaxed/simple;
+	bh=YypHUnjDIQ548IwWG+SholPYac3wImjWaMsxvaCyh+w=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=QIV6f++9iRAcpIk3asNr6eEdZXxSArCrrqmz5kS4kUGkxFw8rC54x6wEIBWaf9QjFIFUTSpjrrHjSLhjDlp4MIhERFyB/ioSPyhmQ8vT1wfQcizVnxJho4PIi6CWEEWNs9wT8/6wfkKWZTzBxc7G41w5fPDESlsURXNI8kQhADQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=P+32TQYd; arc=fail smtp.client-ip=52.101.191.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="qDfH5P+t"
-Received: from administrator-PowerEdge-R660.corp.microsoft.com (unknown [131.107.1.135])
-	by linux.microsoft.com (Postfix) with ESMTPSA id CFBC620B7171;
-	Fri, 25 Sep 2026 12:07:00 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CFBC620B7171
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790363221;
-	bh=FoeEr+OnLwxx2zLyfVK537I78o+eF433Mirxja5xOvw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qDfH5P+tFwXtkWJr3ON3rc1hK1VX3Tlcft/tm4vdEk/zx+PSHT+2Zx+UTAYdYvMGi
-	 WcXuHg7F9/0QjwIF4Dm7njX5IJSoFCKcISLZEvWaXUvHyAHxTcAZW07mqPVzJrCvVV
-	 eopQh4lHzJSyI9k83iTjLOjJCsXvvQa2TZ+NfNio=
-From: Jacob Pan <jacob.pan@linux.microsoft.com>
-To: iommu@lists.linux.dev
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	linux-hyperv@vger.kernel.org,
-	Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
-	Mukesh Rathor <mukeshrathor@microsoft.com>,
-	John Starks <John.Starks@microsoft.com>,
-	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
-	Yu Zhang <zhangyu1@linux.microsoft.com>,
-	Easwar Hariharan <eahariha@linux.microsoft.com>,
-	Alex Williamson <alex@shazbot.org>
-Subject: [PATCH RFC 9/9] iommu/hyperv: Add IOMMUFD external domains
-Date: Fri, 25 Sep 2026 12:07:42 -0700
-Message-ID: <20260925190742.1575380-10-jacob.pan@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260925190742.1575380-1-jacob.pan@linux.microsoft.com>
-References: <20260925190742.1575380-1-jacob.pan@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="P+32TQYd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UmQF4MJxs+2mm3hccHM2vnSeZNXUFzNn5JvytU5w4onufkpjpe3SurIU0sw46WCM8kmeyjZExKBknleIcwmi7Hg67RrI128MSRyp9gUgRRj2IOjFGQMPFwFLXDdfqFdoomumZQHd5yK8ftwAj9jvLoDExQor1CJIls8vXT1h7grYzk3Jn2L5+OIdD+pSZ/xsEWp4dnI2CHoQamAprVMz7S8byMFaRbKgEjszuOeGPcihPsPMdgx8+ilJ6s4Ogp4ml+mYZt2VokRJvpleDJNCPWn1iAdFUh0nW4zj+CmPTXq/zIJQA0FcHJXJdIWIuiT6p3p2m27b1hTgv/+/CUkMyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BYyX9q2aPAXZ1F1/WBj9pKHgr8AyTqaFk+SLtIKD0DE=;
+ b=fgD1/gBlYtwAkpQvkE7UlyPdFcBVHUjjh7BRSXnY4KBn+mc1so6IU88/jvVpQFclDKsvFoYxdpea3H27DF/nAgad4YelbNQHGIxSVhsgoM24AA7EOjgOJC799DAN6GvV6xrKEZs7Jx76TwhVwrjjttU5Lg0qSDti7VuKtCfKMLwpLS2e6OSJ7uT43clEJt/tDzH85GR3Gy02eWwKlNIj5n9BhUuBWZ0vng6+seotDNdKdOSP9fiZTaZawVP5IobjAr+bIxfUoDSipF/TUkSNqwc7tU6RYe3Z0DstF1VtRIOdIUBwJS7GjVJoVgBZ7uf2JtOzQmXRNiQaDExRqc/7pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BYyX9q2aPAXZ1F1/WBj9pKHgr8AyTqaFk+SLtIKD0DE=;
+ b=P+32TQYdkQr01SMR9gGfp4MJhZYxKH+Ee8H1i6AvjjFsuQX24zdZugIumd3FWFBNvZ2nqs2NoyFI5db9kbC+AxbWE75I/HfDbFxdqjOl66GefxBrV3vcCuwKDzJ/UA1tNUBEMTppkcDw1AOUVlaQ+kDhOqchV+dwjIPDLy9XdZnqLouUGkYHnoRAAvsxPeqABywpI0lCxFR1bHXuu4Fn/nnXHZrea5ZH29ojXPqLMZSc+2GN6T04rqdT7fLadugS3n32ApPBqnwdxxxr+KnqkooR51B6TBTGXRasjqXG/QLcRYJ3GlgqwiJsKq/5LnPmRrhg7+VbZjOWCqPvOW3SFg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YQ1PR01MB004688.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:c8::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Fri, 25 Sep
+ 2026 19:08:53 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 19:08:53 +0000
+Message-ID: <61c5fbbe-be15-4eda-9286-b8daf718b25c@efficios.com>
+Date: Fri, 25 Sep 2026 15:08:50 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 26/28] hazptr: Implement two-phase wildcard scan
+To: Boqun Feng <boqun@kernel.org>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>, rcu@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ Steven Rostedt <rostedt@goodmis.org>, lkmm@lists.linux.dev,
+ Zqiang <qiang.zhang@linux.dev>, Wang Lian <lianux.mm@gmail.com>,
+ Kunwu Chan <kunwu.chan@gmail.com>, Bradley Morgan <brads@mainlining.org>,
+ Bradley Morgan <include@grrlz.net>
+References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
+ <20260919000056.3132131-26-paulmck@kernel.org>
+ <aq6N7BPWJ2jl8y-1@MacBook-0RXW5>
+ <b6887389-6683-4cef-b612-5bee7faad1f3@efficios.com>
+ <arAB94gx8kFpU4rx@MacBook-0RXW5>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <arAB94gx8kFpU4rx@MacBook-0RXW5>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQ1P288CA0024.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:9e::7) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB004688:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20692a08-da44-4c5f-4ad1-08df1b3870aa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|10067099003|5023799004|56012099006|4143699003|6133799003|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	3QPY0FYNRRceGdKrhEcX1iD70wLkNJkqfNDOvARAf5V+/PyxvruylMfOTbpACcR1Pzm0GOFXkoTIZ1Bqx72mWctF3EoOz/nHxLqy+M3/uPSt9xS6xSfo+drUGuOjQgMabythYeXrg63yb1aGbDUG1AP1YhszrGVkVhNuxBessCR0f6jKMSRl0GpGByomE8n0ymYqeTBZgtm/Yz/SPYnAMQGpaDQuKP5lBbiaoVL2z04Yr0VSbaLcTMWX56b/WFhlqKDjE+OrZGDfNU+pkUTO/tEYO8YmCVCbpJ3ZolE/hbCFEFt0BhJ0n+bdKqyZdXdzpRdaWCI4D8WFyLBuGI4MKTIAp0TOg8mLINndTPqfseosY67uGPcDewkNTTz0yEllmOvnNFWqngdOyzk7u+finQPzJYSGkW4oG3LJPdPXvfJAjp/Cq0Kl0Hd5/ymajdNqjfHGSe0AjQRn2Lj8hErx1mFnK+hU9thkdglJ5PwQGLak5YPlDYKvsFl8+zFCSQY5IZBs9ZqkC4DMox+fMaeKA0Ihrt7hsHKtwfLt5tPPbaxp6wzPzIgxIiU0oMYl938iRUyR6yubflfuIcBas5ohYlnCqMRIc0Jo0TZExjQTl1g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(10067099003)(5023799004)(56012099006)(4143699003)(6133799003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SUlsa0JqWVlRbkVNN1ZCMWdnN1NBNzFxUU1RSHl2V1NhK3ZBR1I4VU1vVWhY?=
+ =?utf-8?B?TUgzSGQwakRhWjIwVEo2NGkwT29RQWU0WFU3alJTZkFYMGpMcGVaeWlDRHI3?=
+ =?utf-8?B?TlFvWjQxUVZHNWxTbU1BYmI0cUJSNkJEUzdEUCtlcHZBYmRQR0hnTXE3ZVVs?=
+ =?utf-8?B?WnZ4ZmtZN0N6RmFPTHBXcWFacjcrd1BFeC9xZ1RRblZiUzl6QjFKV0ZLczFB?=
+ =?utf-8?B?dTlhanBORytMcFZ4eFBaUERnMVRBR1lXOWEvUWIvYzZXRDZzL1k4RmRZNDF2?=
+ =?utf-8?B?MzBlY3NDV0YxRzNBSThjVjZNOWVCc0hJN3lFZGIvdk14VThHMjNwWjcvRGxy?=
+ =?utf-8?B?UGs2eDUzdGFKL0poeXVtTlpMM2tYeWJYQW9GQ2JiNjFWL0lGTUVHaUZ0L2Iw?=
+ =?utf-8?B?bThSd2RiZGdpN0E2VENGVmxwZGlPTFY2clZyVVFFQXNucmUyaEdQeVBvWUxh?=
+ =?utf-8?B?ZE5DQlNOWVg0cHBvV0M2cGdkdzJRWExpV09QQ1kzNmppbTRpZE4zdTNVQko0?=
+ =?utf-8?B?cXovL3lrWkRHT0JHbE5Gajl6TldYWVk4dzIrb2pJdWRJTEpRNkxtVmlXYUUy?=
+ =?utf-8?B?SjBrWDBtZEVsckFFQk5vMEpiK1RlQzRnby83V1dneFZjYXkwTHFScXU2Uy9R?=
+ =?utf-8?B?eDN5OEJRdUtxeXdjU1RlVHgwNy81N3ZhQWQrWlpIRWdQTkR4akJVMFJGSU5a?=
+ =?utf-8?B?VHZHcmE1enZSWFY1K3JiMElKQjljZkZmNStPMk01MUxlTHNDQ2c3bEJOSEM3?=
+ =?utf-8?B?K0JSWlRpWmc0ckZVMUtlamVEVytYcWZNaUlDendUWkVRNy9tRUpTV1B0Zmdy?=
+ =?utf-8?B?ZmI4QzRqUHF5Z1NITEUyZDB6NDB6TWQxbkFaelBUenFHdlJxZDZOendidCts?=
+ =?utf-8?B?SVFaZlU0ZzNXaUFBZ1Azc3RxT3NYODdxZ1U3L1JydzJ4MG1TQjdPTDhGT3lq?=
+ =?utf-8?B?VVQyYWhpR1RURXRXK3RKZ1ZqbDF4ZFNWaTNuTUtWUnBYVXhHeW5KWGRQVnRQ?=
+ =?utf-8?B?T3VUcmVsV0RHdDluSnZWc0Zna285Rmt0bmNhNFo5QmZFN0k3clJZMzhiUGdj?=
+ =?utf-8?B?QndDYXJkOXRqdE4vV0x3OWg3ZFkrZDJRN05NYWljb1J6dGczVTJ2eG1FcVpU?=
+ =?utf-8?B?blFWZVlnT09FN1JJajlzVHRudXhEbWIwaWZwenc1RWlhTlVFNmw5TklWM08w?=
+ =?utf-8?B?VzlWaEwyL1NXaU9PdVhRK3RwQmltR2tkREhOd2VpTnpTYlhnMnl2NmQxV2g1?=
+ =?utf-8?B?ZUpCTVI3YVM4eCtaYXRBR2IvSWpvaVp6WlkvVHRENC9GTHNVYzdVcDF1cng4?=
+ =?utf-8?B?ayt1cThXVnJwOXZmTzFZdDNub0N1YzNuOVJYSllHeWVGdXZabTd6Wmc1YWh1?=
+ =?utf-8?B?bzZyLzhXd0ppN0xnc0l2ckJrMG5PMEtGbXNCbytOMTFBdU5oNjVWUUFjbVZm?=
+ =?utf-8?B?V1JUZXFMZWc1SHhMVUR2REpVYzNNWjV6N2JockpJYzZjU3FwWXE2NFBud0ho?=
+ =?utf-8?B?WGp2WWZpWUR3elZmL21wb055MnNIWnNRUC90T25tSFZxaENpNG9xLzdMUmJk?=
+ =?utf-8?B?dkxjdFQzdUg5VS9wdWVjV2NyOEt1STAxcjB1bjFqM2FFNlBkTEZ1SzRnbG1V?=
+ =?utf-8?B?Qjk0Wjh2WXVpMENyOVlLNERnYXhnc3ZHa3FNWUpucmZGYjdZZFFZbHE0NHM3?=
+ =?utf-8?B?emlnZms5Zlc1cWVWTVIrcEFYWVVZQ0dCUXdTYTQ5Z2VOUW02bXErcWR1VEFu?=
+ =?utf-8?B?UGNZdWhhUkwwTnZlajVYVkhuejhkM2phVkdiYjFnSlVnWE9pemt0WGdLY3ho?=
+ =?utf-8?B?aDEvYmhWSjh2OWx1U0dTbkpCZGNwN09SMExaYnl4STlhcDJWNmd1VGVRdnpU?=
+ =?utf-8?B?cFA3dmY2UGRLNEx6MzlMWTlFTFF5Vks4VHpQSWxOUGYrejBGVXA5dWRWNXZJ?=
+ =?utf-8?B?YXdCV01aR1YwVXIwVmlLRm1vNUFhSGJqN2ZDRGNMMVIyeEFvazdha0I1MmZw?=
+ =?utf-8?B?blVtSkRzQ3Zrb3VmWVZMcUFLemwvVkc2UGNDZ1Q2am14V1dEM2pnWTVDK2tv?=
+ =?utf-8?B?M2dOYlNzQ2Zxbk9MZGtRYmVrY3VDeHBndUJNR3hZSHdjTzI5bkZtL0ZCK0dR?=
+ =?utf-8?B?cjlqQU82WXpYQWhJNjJ3Q2I2UDhmR3dMc1lZNnV4L0QvbDgxaHVDaUp6SWRR?=
+ =?utf-8?B?NlNEb3dUQlpCQXpRZzdCVFUyODFoZ2xWdGhYaTJYN28xenhRNEI3RG5PTFBZ?=
+ =?utf-8?B?YlRCSkdxMHVZcWlIYk4xVFNTWGl5bTFHOU5aOHY1K0lScm92Qzh1dVlOTWhY?=
+ =?utf-8?B?blp5NUtrbzVKUTdSR2k5emVUMFk5OVJuM0p5QzIzMjFhcVZ5L2VEK0tpSkM2?=
+ =?utf-8?Q?79INGH5Bq1BaIqa4=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20692a08-da44-4c5f-4ad1-08df1b3870aa
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 19:08:53.4193
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zLGtSqiTmY4jp6xna8S29X5zd/84T15/mCTm/dQp8O8Kvvo5cOiRJQOAsVeHQGkpWLVaUUIAjIC9OtbyEWTHze5ijFmK4Em7kdJ9lhSOQEE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB004688
 
-Allocate IOMMU_DOMAIN_EXTERNAL domains under Hyper-V vIOMMUs and use
-HVCALL_ATTACH_DEVICE to assign devices to an MSHV partition.
+On 2026-09-20 11:55, Boqun Feng wrote:
+> On Sun, Sep 20, 2026 at 08:46:55AM -0400, Mathieu Desnoyers wrote:
+>> On 2026-09-19 09:28, Boqun Feng wrote:
+>>> On Fri, Sep 18, 2026 at 05:00:54PM -0700, Paul E. McKenney wrote:
+>>>> From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>>>>
+>>>> Implement a two-phase wildcard scan to guarantee forward progress of
+>>>> synchronize_hazptr() even if there is a steady stream of ill-timed
+>>>> readers which populate wildcards into per-CPU slots.
+>>>>
+>>>> This is performed by flipping between two wildcard values (1UL and 2UL),
+>>>> and alternatively scanning for the opposite wildcard while newcoming
+>>>> readers use the other one.
+>>>>
+>>>> There is no possibility to miss a reader because all slots for all
+>>>> wildcards are accounted for during a synchronize.
+>>>>
+>>>> As a simplification, use this period flip to drive the hazptr overflow
+>>>> list selection as well, since there is really no point is making the
+>>>> overflow list flip use a different state.
+>>>>
+>>>> Protect the wildcard flip with a mutex.
+>>>>
+>>>> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>>>> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+>>>> Cc: Boqun Feng <boqun@kernel.org>
+>>>> Reviewed-by: Bradley Morgan <include@grrlz.net>
+>>>> ---
+>>>>    include/linux/hazptr.h |  6 ++-
+>>>>    kernel/hazptr.c        | 98 ++++++++++++++++++++++++++++++------------
+>>>>    2 files changed, 74 insertions(+), 30 deletions(-)
+>>>>
+>>>> diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
+>>>> index 43998bf43de4..43122c5673bd 100644
+>>>> --- a/include/linux/hazptr.h
+>>>> +++ b/include/linux/hazptr.h
+>>>> @@ -28,7 +28,9 @@
+>>>>    /* 4 slots (each sizeof(hazptr_slot_item)) fit in a single 64-byte cache line. */
+>>>>    #define NR_HAZPTR_PERCPU_SLOTS	4
+>>>> -#define HAZPTR_WILDCARD		((void *) 0x1UL)
+>>>> +
+>>>> +/* The current hazard pointer wildcard. */
+>>>> +extern void *hazptr_wildcard;
+>>>>    /*
+>>>>     * Hazard pointer slot.
+>>>> @@ -243,7 +245,7 @@ void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+>>>>    #endif
+>>>>    	if (unlikely(slot->addr))
+>>>>    		return __hazptr_acquire(ctx, addr_p);
+>>>> -	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
+>>>> +	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
+>>>>    	/* Memory ordering: Store B before Load A. */
+>>>>    	smp_mb();
+>>>> diff --git a/kernel/hazptr.c b/kernel/hazptr.c
+>>>> index a9d3d68a1525..d3d1050d92cf 100644
+>>>> --- a/kernel/hazptr.c
+>>>> +++ b/kernel/hazptr.c
+>>>> @@ -13,6 +13,17 @@
+>>>>    #include <linux/list.h>
+>>>>    #include <linux/export.h>
+>>>> +/*
+>>>> + * The current hazard pointer wildcard. Flips between 1UL and 2UL to guarantee
+>>>> + * hazptr_synchronize forward progress even with a steady stream of readers.
+>>>> + * This wildcard value is used by acquire to temporarily tag the per-CPU slots.
+>>>> + * This also affects the overflow list selection: the current list used by
+>>>> + * readers is array[(unsigned long) hazptr_wildcard - 1].
+>>>> + */
+>>>> +static DEFINE_MUTEX(hazptr_wildcard_lock);	/* Protect the wildcard flip. */
+>>>> +void *hazptr_wildcard = (void *) 1UL;
+>>>> +EXPORT_SYMBOL_GPL(hazptr_wildcard);
+>>>> +
+>>>>    struct hazptr_overflow_list {
+>>>>    	raw_spinlock_t lock;		/* Lock protecting overflow list and list generation. */
+>>>>    	struct hlist_head head;		/* Overflow list head. */
+>>>> @@ -28,8 +39,6 @@ struct hazptr_overflow_list {
+>>>>     * limited to the number of list elements.
+>>>>     */
+>>>>    struct hazptr_overflow_list_flip {
+>>>> -	struct mutex lock;		/* Mutex protecting add_idx from concurrent updates. */
+>>>> -	unsigned int add_idx;		/* Index of current flip-list to add to. */
+>>>>    	struct hazptr_overflow_list array[2];
+>>>>    };
+>>>> @@ -38,6 +47,20 @@ static DEFINE_PER_CPU(struct hazptr_overflow_list_flip, percpu_overflow_list_fli
+>>>>    DEFINE_PER_CPU(struct hazptr_percpu_slots, hazptr_percpu_slots);
+>>>>    EXPORT_PER_CPU_SYMBOL_GPL(hazptr_percpu_slots);
+>>>> +static
+>>>> +void *flip_wildcard(void *wildcard)
+>>>> +{
+>>>> +	return ((unsigned long) wildcard == 1UL) ? (void *) 2UL : (void *) 1UL;
+>>>> +}
+>>>> +
+>>>> +static
+>>>> +bool is_wildcard(void *addr)
+>>>> +{
+>>>> +	if ((unsigned long) addr == 1UL || (unsigned long) addr == 2UL)
+>>>> +		return true;
+>>>> +	return false;
+>>>> +}
+>>>> +
+>>>>    static
+>>>>    struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
+>>>>    {
+>>>> @@ -72,7 +95,7 @@ void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+>>>>    	 */
+>>>>    	if (unlikely(!slot))
+>>>>    		slot = hazptr_chain_backup_slot(ctx);
+>>>> -	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
+>>>> +	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
+>>>>    	/* Memory ordering: Store B before Load A. */
+>>>>    	smp_mb();
+>>>> @@ -118,7 +141,9 @@ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list
+>>>>    		for (;;) {
+>>>>    			void *load_addr = smp_load_acquire(&backup_slot->slot.addr);	/* Load B */
+>>>> -			if (load_addr != addr && load_addr != HAZPTR_WILDCARD)
+>>>> +			/* We don't expect wildcards in overflow list. */
+>>>> +			WARN_ON_ONCE(is_wildcard(load_addr));
+>>>> +			if (load_addr != addr)
+>>>>    				break;
+>>>>    			raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
+>>>>    			cpu_relax();
+>>>> @@ -139,7 +164,7 @@ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list
+>>>>    }
+>>>>    static
+>>>> -void hazptr_synchronize_cpu_slots(int cpu, void *addr)
+>>>> +void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
+>>>>    {
+>>>>    	struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
+>>>>    	unsigned int idx;
+>>>> @@ -148,7 +173,39 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr)
+>>>>    		struct hazptr_slot_item *item = &percpu_slots->items[idx];
+>>>>    		/* Busy-wait if node is found. */
+>>>> -		smp_cond_load_acquire(&item->slot.addr, VAL != addr && VAL != HAZPTR_WILDCARD); /* Load B */
+>>>> +		smp_cond_load_acquire(&item->slot.addr, VAL != addr && VAL != scan_wildcard); /* Load B */
+>>>> +	}
+>>>> +}
+>>>> +
+>>>> +static
+>>>> +void hazptr_scan_period(void *addr, void *scan_wildcard)
+>>>> +{
+>>>> +	unsigned int scan_idx = (unsigned long) scan_wildcard - 1;
+>>>> +	int cpu;
+>>>> +
+>>>> +	/* Scan all CPUs slots. */
+>>>> +	for_each_possible_cpu(cpu) {
+>>>> +		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+>>>> +
+>>>> +		/*
+>>>> +		 * Scan CPU slots.
+>>>> +		 * Forward progress against recurring wildcards is guaranteed
+>>>> +		 * by scanning for one wildcard while new elements use the
+>>>> +		 * other wildcard value (1UL vs 2UL).
+>>>> +		 * Forward progress against recurring single hazard pointer
+>>>> +		 * values is guaranteed by the fact that a hazard pointer
+>>>> +		 * is not reclaimed nor reused until the scan for that hazard
+>>>> +		 * pointer completes, which prevents a steady flow of readers
+>>>> +		 * to acquire that same hazard pointer value.
+>>>> +		 */
+>>>> +		hazptr_synchronize_cpu_slots(cpu, addr, scan_wildcard);
+>>>> +
+>>>> +		/*
+>>>> +		 * Scan backup slots in percpu overflow lists.
+>>>> +		 * Forward progress is guaranteed by scanning one list
+>>>> +		 * while new elements are added into the other list.
+>>>> +		 */
+>>>> +		hazptr_synchronize_overflow_list(&overflow_list_flip->array[scan_idx], addr);
+>>>>    	}
+>>>>    }
+>>>> @@ -161,7 +218,7 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr)
+>>>>     */
+>>>>    void hazptr_synchronize(void *addr)
+>>>>    {
+>>>> -	int cpu;
+>>>> +	void *scan_wildcard;
+>>>>    	/*
+>>>>    	 * Busy-wait should only be done from preemptible context.
+>>>> @@ -177,33 +234,19 @@ void hazptr_synchronize(void *addr)
+>>>>    		return;
+>>>>    	/* Memory ordering: Store A before Load B. */
+>>>>    	smp_mb();
+>>>> -	/* Scan all CPUs slots. */
+>>>> -	for_each_possible_cpu(cpu) {
+>>>> -		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+>>>> -		unsigned int scan_idx;
+>>>> -
+>>>> -		/* Scan CPU slots. */
+>>>> -		hazptr_synchronize_cpu_slots(cpu, addr);
+>>>> -		/*
+>>>> -		 * Scan backup slots in percpu overflow lists.
+>>>> -		 * Forward progress is guaranteed by scanning one list
+>>>> -		 * while new elements are added into the other list.
+>>>> -		 */
+>>>> -		guard(mutex)(&overflow_list_flip->lock);
+>>>> -		scan_idx = overflow_list_flip->add_idx ^ 1;
+>>>> -		hazptr_synchronize_overflow_list(&overflow_list_flip->array[scan_idx], addr);
+>>>> -		/* Flip current list. */
+>>>> -		WRITE_ONCE(overflow_list_flip->add_idx, scan_idx);
+>>>> -		hazptr_synchronize_overflow_list(&overflow_list_flip->array[scan_idx ^ 1], addr);
+>>>> -	}
+>>>> +	guard(mutex)(&hazptr_wildcard_lock);
+>>>> +	scan_wildcard = flip_wildcard(hazptr_wildcard);
+>>>> +	hazptr_scan_period(addr, scan_wildcard);
+>>>> +	WRITE_ONCE(hazptr_wildcard, scan_wildcard);	/* Flip the current wildcard. */
+>>>> +	hazptr_scan_period(addr, flip_wildcard(scan_wildcard));
+>>>>    }
+>>>>    EXPORT_SYMBOL_GPL(hazptr_synchronize);
+>>>>    struct hazptr_slot *hazptr_chain_backup_slot(struct hazptr_ctx *ctx)
+>>>>    {
+>>>>    	struct hazptr_overflow_list_flip *overflow_list_flip = this_cpu_ptr(&percpu_overflow_list_flip);
+>>>> -	unsigned int list_idx = READ_ONCE(overflow_list_flip->add_idx);
+>>>> +	unsigned int list_idx = (unsigned long) READ_ONCE(hazptr_wildcard) - 1;
+>>>
+>>>
+>>> What if this happens?
+>>>
+>>> 	{ <hazptr_wildcard == 2UL> }
+>>>
+>>> 	CPU 0				CPU 1
+>>> 	=====				=====
+>>> 	hazptr_acquire(ctx, &gp):
+>>> 	  WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
+>>> 	  // slot->addr == 2
+>>> 	  smp_mb();
+>>>
+>>> 	  addr = READ_ONCE(*addr_p);      /* Load A */
+>>> 	  // ^ addr == gp == old, i.e not NULL
+>>>
+>>> 	  				/* unpublish and wait for reader */
+>>> 	  				old = gp;
+>>> 	  				WRITE_ONCE(gp, NULL);
+>>> 					hazptr_synchronize(old):
+>>> 					  smp_mb();
+>>> 					  guard(mutex)(&hazptr_wildcard_lock);
+>>> 					  scan_wildcard = flip_wildcard(hazptr_wildcard);
+>>> 					  // ^ scan_wildcard == 1;
+>>>
+>>> 					  hazptr_scan_period(addr, scan_wildcard);
+>>> 					  // ^ will miss reader on CPU 0
+>>> 					  // because its slot->addr == 2
+>>>                                             WRITE_ONCE(hazptr_wildcard, scan_wildcard);	/* Flip the current wildcard. */
+>>>
+>>> 	{ <hazptr_wildcard == 1UL> }
+>>>
+>>> 	  WRITE_ONCE(slot->addr, addr);
+>>>
+>>> 	hazptr_detach():
+>>> 	  hazptr_chain_backup_slot():
+>>> 	    list_idx = READ_ONCE(hazptr_wildcard) - 1;
+>>> 	    // ^ list_idx == 0
+>>>
+>>> 	  smp_store_release(&slot->addr, NULL);
+>>>             // ^ clear the per-CPU slot
+>>> 	    				  // flip_wildcard(scan_wildcard) == 2
+>>>                                             hazptr_scan_period(addr, flip_wildcard(scan_wildcard));
+>>> 					  // ^ will miss reader on CPU 0
+>>> 					  // because it only scans list
+>>> 					  // 1.
+>>>
+>>> If I'm not missing anything, then it means a reader can dodge the
+>>> hazptr_synchronize() scan, because its per-CPU slot can appear on
+>>> wildchard=1 but its backup slot can be on wildcard=2.
+>>
+>> The scenario presented here includes a call to hazptr_detach,
+>> which moves the slot to the backup list, which is handled by
+> 
+> But the slot move happens between the two scans in one
+> hazptr_synchronize(), so it's moved to the scan list 0 instead of 1,
+> after we already finished the the scan of list 0, no? That's why the
+> scan can miss it.
 
-Resolve the userspace-assigned vDEVICE virt_id during attach and use it
-as the Hyper-V logical device ID. External domains retain their vIOMMU
-so attach preparation can pin guest memory before atomically replacing
-the previous device assignment.
+Just to be clear, there are really two mechanisms combined here:
 
-Keep paging domains backed by normal Hyper-V device domains.
+1) The per-cpu slots scan (fast path), now made two-phases.
 
-Assisted-by: GPT-5.6 Sol
-Signed-off-by: Jacob Pan <jacob.pan@linux.microsoft.com>
----
- drivers/iommu/hyperv/hv-iommu-iommufd.c | 44 ++++++++++++
- drivers/iommu/hyperv/hv-iommu-root.c    | 89 +++++++++++++++++++++++++
- drivers/iommu/hyperv/hv-iommu.h         |  5 ++
- 3 files changed, 138 insertions(+)
+2) A two-phases overflow list scan, for "detached" slots.
 
-diff --git a/drivers/iommu/hyperv/hv-iommu-iommufd.c b/drivers/iommu/hyperv/hv-iommu-iommufd.c
-index 486a85c0d1e8..e595f53ddc66 100644
---- a/drivers/iommu/hyperv/hv-iommu-iommufd.c
-+++ b/drivers/iommu/hyperv/hv-iommu-iommufd.c
-@@ -33,10 +33,54 @@ static void hv_iommu_viommu_destroy(struct iommufd_viommu *viommu)
- 	fput(hv_viommu->vm_file);
- }
- 
-+static struct iommu_domain *
-+hv_iommu_alloc_domain_external(struct iommufd_viommu *viommu, u32 flags,
-+			       const struct iommu_user_data *user_data)
-+{
-+	struct hv_iommu_viommu *hv_viommu = to_hv_iommu_viommu(viommu);
-+	struct iommu_hwpt_external external = {};
-+	struct hv_domain *hvdom;
-+	int rc;
-+
-+	if (viommu->type != IOMMU_VIOMMU_TYPE_HYPERVISOR)
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (flags)
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (!user_data || user_data->type != IOMMU_HWPT_DATA_EXTERNAL)
-+		return ERR_PTR(-EOPNOTSUPP);
-+
-+	rc = iommu_copy_struct_from_user(&external, user_data,
-+					 IOMMU_HWPT_DATA_EXTERNAL, flags);
-+	if (rc)
-+		return ERR_PTR(rc);
-+	if (external.flags || external.__reserved)
-+		return ERR_PTR(-EOPNOTSUPP);
-+
-+	hvdom = kzalloc_obj(*hvdom, GFP_KERNEL_ACCOUNT);
-+	if (!hvdom)
-+		return ERR_PTR(-ENOMEM);
-+
-+	hvdom->iommu_dom.type = IOMMU_DOMAIN_EXTERNAL;
-+	hvdom->iommu_dom.ops = &hv_iommu_external_domain_ops;
-+	hvdom->iommu_dom.pgsize_bitmap = HV_IOMMU_PGSIZES;
-+	hvdom->partid = hv_viommu->partid;
-+	hvdom->viommu = viommu;
-+
-+	return &hvdom->iommu_dom;
-+}
-+
- static const struct iommufd_viommu_ops hv_iommu_hypervisor_viommu_ops = {
- 	.destroy = hv_iommu_viommu_destroy,
-+	.alloc_domain_external = hv_iommu_alloc_domain_external,
- };
- 
-+int hv_iommufd_prepare_attach(struct iommufd_viommu *viommu)
-+{
-+	struct hv_iommu_viommu *hv_viommu = to_hv_iommu_viommu(viommu);
-+
-+	return mshv_partition_file_prepare_attach(hv_viommu->vm_file);
-+}
-+
- size_t hv_iommufd_get_viommu_size(struct device *dev,
- 				  enum iommu_viommu_type viommu_type)
- {
-diff --git a/drivers/iommu/hyperv/hv-iommu-root.c b/drivers/iommu/hyperv/hv-iommu-root.c
-index d6424b9ea0cd..b87152489630 100644
---- a/drivers/iommu/hyperv/hv-iommu-root.c
-+++ b/drivers/iommu/hyperv/hv-iommu-root.c
-@@ -7,6 +7,7 @@
- #include <linux/dma-map-ops.h>
- #include <linux/interval_tree.h>
- #include <linux/hyperv.h>
-+#include <linux/iommufd.h>
- #include "hv-iommu.h"
- #include <asm/iommu.h>
- #include <asm/mshyperv.h>
-@@ -59,6 +60,13 @@ static bool hv_special_domain(struct hv_domain *hvdom)
- 	return hvdom == &hv_def_identity_dom || hvdom == &hv_def_blocked_dom;
- }
- 
-+static u64 hv_iommu_host_device_id(struct pci_dev *pdev)
-+{
-+	u64 devid = hv_pci_vmbus_device_id(pdev);
-+
-+	return devid ? devid : hv_build_devid_type_pci(pdev);
-+}
-+
- static atomic_t hv_unique_id;		/* unique numeric id for a new domain */
- 
- static bool hv_iommu_capable(struct device *dev, enum iommu_cap cap)
-@@ -205,6 +213,11 @@ static void hv_iommu_domain_free(struct iommu_domain *immdom)
- 	if (hv_special_domain(hvdom))
- 		return;
- 
-+	if (immdom->type == IOMMU_DOMAIN_EXTERNAL) {
-+		kfree(hvdom);
-+		return;
-+	}
-+
- 	/* Cleanup any remaining. 0 for size results in ULONG_MAX as the last */
- 	hv_iommu_del_tree_mappings(hvdom, 0, 0);
- 
-@@ -269,6 +282,10 @@ static int hv_iommu_attach_dev(struct iommu_domain *immdom, struct device *dev,
- 
- 	pdev = to_pci_dev(dev);
- 
-+	/*
-+	 * HVCALL_ATTACH_DEVICE_DOMAIN atomically replaces any existing
-+	 * assignment, leaving @old intact if the new attachment fails.
-+	 */
- 	rc = hv_iommu_att_dev2dom(hvdom_new, pdev);
- 	if (rc)
- 		WARN(1, "Failed to attach pdev:%s\n", pci_name(pdev));
-@@ -276,6 +293,73 @@ static int hv_iommu_attach_dev(struct iommu_domain *immdom, struct device *dev,
- 	return rc;
- }
- 
-+static int hv_iommu_external_attach_device(struct pci_dev *pdev, u64 partid,
-+					   unsigned long vdev_id)
-+{
-+	struct hv_input_attach_device *input;
-+	union hv_device_id host_devid;
-+	unsigned long flags;
-+	u64 status;
-+	int rc;
-+
-+	if (partid == HV_PARTITION_ID_INVALID)
-+		return -EINVAL;
-+
-+	host_devid.as_uint64 = hv_iommu_host_device_id(pdev);
-+
-+	do {
-+		local_irq_save(flags);
-+		input = *this_cpu_ptr(hyperv_pcpu_input_arg);
-+		memset(input, 0, sizeof(*input));
-+
-+		input->partition_id = partid;
-+		input->device_id = host_devid;
-+		input->attdev_flags.logical_id = 1;
-+		input->logical_devid = vdev_id;
-+
-+		status = hv_do_hypercall(HVCALL_ATTACH_DEVICE, input, NULL);
-+		local_irq_restore(flags);
-+
-+		if (hv_result(status) == HV_STATUS_INSUFFICIENT_MEMORY) {
-+			rc = hv_call_deposit_pages(NUMA_NO_NODE, partid, 1);
-+			if (rc)
-+				return rc;
-+		}
-+	} while (hv_result(status) == HV_STATUS_INSUFFICIENT_MEMORY);
-+
-+	if (!hv_result_success(status))
-+		hv_status_err(status, "\n");
-+
-+	return hv_result_to_errno(status);
-+}
-+
-+static int hv_iommu_external_attach_dev(struct iommu_domain *immdom,
-+					struct device *dev,
-+					struct iommu_domain *old)
-+{
-+	struct hv_domain *hvdom_new = to_hv_domain(immdom);
-+	unsigned long vdev_id;
-+	int rc;
-+
-+	if (!dev_is_pci(dev))
-+		return -EINVAL;
-+
-+	rc = iommufd_viommu_get_vdev_id(hvdom_new->viommu, dev, &vdev_id);
-+	if (rc)
-+		return rc;
-+
-+	rc = hv_iommufd_prepare_attach(hvdom_new->viommu);
-+	if (rc)
-+		return rc;
-+
-+	/*
-+	 * HVCALL_ATTACH_DEVICE atomically replaces any existing assignment,
-+	 * leaving @old intact if the new attachment fails.
-+	 */
-+	return hv_iommu_external_attach_device(to_pci_dev(dev),
-+					       hvdom_new->partid, vdev_id);
-+}
-+
- static u64 hv_iommu_unmap_batch(u32 domid_num, ulong iova, u16 count)
- {
- 	ulong flags;
-@@ -527,6 +611,11 @@ static struct iommu_domain_ops hv_paging_domain_ops = {
- 	.free = hv_iommu_domain_free,
- };
- 
-+const struct iommu_domain_ops hv_iommu_external_domain_ops = {
-+	.attach_dev = hv_iommu_external_attach_dev,
-+	.free = hv_iommu_domain_free,
-+};
-+
- static struct iommu_ops hv_iommu_ops = {
- 	.capable	    = hv_iommu_capable,
- 	.domain_alloc_paging	= hv_iommu_domain_alloc_paging,
-diff --git a/drivers/iommu/hyperv/hv-iommu.h b/drivers/iommu/hyperv/hv-iommu.h
-index 6fdbe56a4b1d..647fead81533 100644
---- a/drivers/iommu/hyperv/hv-iommu.h
-+++ b/drivers/iommu/hyperv/hv-iommu.h
-@@ -20,16 +20,21 @@ struct iommu_user_data;
- struct hv_domain {
- 	struct iommu_domain iommu_dom;
- 	u32 domid_num;			      /* as opposed to domain_id.type */
-+	u64 partid;			      /* partition id for external attach */
-+	struct iommufd_viommu *viommu;
- 	spinlock_t mappings_lock;	      /* protects mappings_tree */
- 	struct rb_root_cached mappings_tree;  /* iova to pa lookup tree */
- };
- 
- #define to_hv_domain(d) container_of(d, struct hv_domain, iommu_dom)
- 
-+extern const struct iommu_domain_ops hv_iommu_external_domain_ops;
-+
- size_t hv_iommufd_get_viommu_size(struct device *dev,
- 				  enum iommu_viommu_type viommu_type);
- int hv_iommufd_viommu_init(struct iommufd_viommu *viommu,
- 			   struct iommu_domain *parent_domain,
- 			   const struct iommu_user_data *user_data);
-+int hv_iommufd_prepare_attach(struct iommufd_viommu *viommu);
- 
- #endif /* __HYPERV_IOMMU_H */
+If we look at hazptr_promote_to_backup_slot():
+
+          * Move hazard pointer from the per-CPU slot to the
+          * backup slot. This requires hazard pointer
+          * synchronize to iterate on per-CPU slots with
+          * load-acquire before iterating on the overflow list.
+
+This means synchronize needs to observe the per-cpu slots
+*before* it observes the overflow list.
+
+Now your point: because my current implementation observes
+each phase separately, for each cpu, your concern is that
+a detached per-cpu slot being moved to an overflow list of
+a different phase could be missed.
+
+Indeed, when hazptr_chain_backup_slot is invoked, it re-loads
+hazptr_wildcard, and therefore its phase is completely
+independent of the phase used for the per-cpu counter.
+
+I think you're onto something. The safe approach out of this
+would be to restructure hazptr_synchronize() to scan for
+both per-cpu slots phases _first_ and then scan for the
+overflow lists. This could be done by separating the
+scan_wildcard into separate words: one driving the fast-path
+"wildcard", the other for the overflow list phase selection.
+
+> 
+>> hazptr_synchronize() _after_ scanning the per-cpu slots
+>> for address and both wildcard values. So the synchronize
+>> algorithm on the right column should be completed to show the
+>> role of the backup slot handling as well.
+>>
+> 
+> I don't think I see the enough explanantion here, maybe you can
+> elaborate more? Especially when the hazptr_detach() happens in-between
+> these two hazptr_scan_period()?
+
+As I explained above, I think you've found a hole. Does my
+analysis and proposed solution make sense ?
+
+Thanks,
+
+Mathieu
+
+> 
+> Regards,
+> BOqun
+> 
+>> Thanks,
+>>
+>> Mathieu
+>>
+>>
+>>>
+>>> Thoughts?
+>>>
+>>> Regards,
+>>> Boqun
+>>>
+>>>>    	struct hazptr_overflow_list *overflow_list = &overflow_list_flip->array[list_idx];
+>>>>    	struct hazptr_slot *slot = &ctx->backup_slot.slot;
+>>>> @@ -233,7 +276,6 @@ void __init hazptr_init(void)
+>>>>    	for_each_possible_cpu(cpu) {
+>>>>    		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+>>>> -		mutex_init(&overflow_list_flip->lock);
+>>>>    		for (int i = 0; i < 2; i++) {
+>>>>    			raw_spin_lock_init(&overflow_list_flip->array[i].lock);
+>>>>    			INIT_HLIST_HEAD(&overflow_list_flip->array[i].head);
+>>>> -- 
+>>>> 2.40.1
+>>>>
+>>
+>>
+>> -- 
+>> Mathieu Desnoyers
+>> EfficiOS Inc.
+>> https://www.efficios.com
+
+
 -- 
-2.43.0
-
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
