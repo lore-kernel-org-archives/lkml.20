@@ -1,374 +1,127 @@
-Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022090.outbound.protection.outlook.com [40.107.193.90])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0CA3B05B1;
-	Fri, 25 Sep 2026 20:18:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.193.90
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367497; cv=fail; b=MyGyqhqBOpvLykeCIhPpcAK8KmLqPR0/2HfJkAnFFKRgY76L0kKRj2RnFC8I04AXUc3L+hAuHZ0ABtpDQdw+HBZOLWrY+gjrZfCqHzEPQmC8de7q4EINwnY6AVM7ApRew3zyW8vzlSDvwioZqjfJj0WZh962Tev9OTV0Xk8e8FI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367497; c=relaxed/simple;
-	bh=yD7cYYz+x27xw7rilUghbTjwp/N2svQASvY26kVM4mQ=;
-	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=leUJnskR5QfucmUGpZhBuIiCzFFNpfiyEuvkhIa0Tj+S17nZLRPIB1maIvKBXo7pie451U7VZPstAq6E/x8sMpboInUTSvFRocYoRDeRzCyCmSvxXulCijWQsybE5tnuldTZbxK8BtBTJKNKJ9FfNSXIppWtU4UYhcuZ3WY7fYo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=QsyzmHWJ; arc=fail smtp.client-ip=40.107.193.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EDDF33936C
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790367534; cv=none; b=X+mEUG/S219WjGEy3iJksbCowDe2bjVgEhNnNyHipYQmB6bs7m9qJCIHFYIK/HV5o4wsaSIWYpSvW16GaZGUYD67P8cy2+8TUJZGmaO65ycmkuEs/DkYLm9TMfMglqKCUiQ+0g9GKblnLV5ixZLV+e9vnByY5c9xBWDPEPXGTw4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790367534; c=relaxed/simple;
+	bh=MDC0xNoHPcJkUMGe0dbDvfzkLmD46EgBAoA1GJEDaj0=;
+	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
+	 References:In-Reply-To; b=Nrz3ycBOZAqX3SryarkMVyG0Oj1rLNkG049sbLXv/VXhvxsAYkd1NVfXEqc8sYuUhobC+B5PlF0CLIFizrBRUlqEdCslo3oXzhmV+/uCZ5E971fD1pLkBpT5vJsyng0ti2fFP3LybXbixipIVe/w3YEsW+RMOhAOMKP7WDboZhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=QLvpTLt9; arc=none smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="QsyzmHWJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lBUIk+ldnMGqYESOr4pYyohqCZhWeTCOY6s5tbWUE3tyoibA0TQ47pf+L1PywoLzC7e6P0KeM/x+ygI4agRYk655zMRmrqh/XIGObR3w3XMATYglYS5kYCWhi04wKubZUWxmgJC9iTO72alQ8CYbDR+OWcPQ0dfHZGaZE0MrU49nEBZreB6MwJoEWF6/0/0QG7LlDEXORCCX3yppWPH+UQTVYSskc+oZdqYCElofgO8D7Tsyc5eBkIRRRtStjD1vf0Apw7YhZruHW5i6pTrjHfFcQNUDPR0Fn15iNOMru7yk1DGogQK12Nd1zvxvDXJIhsDP0hyQGObc9oFfELJDaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C7SkYhYcWlmgV9QWQV8yp1TR6/8bytzyPC9ysmNa6Ys=;
- b=TqOTbJbs4l2KcZfu24nbSY8/1p/HBY1XhmCjI9VvG/SlICYBhghMUYfCgoN3FssFhjXOl5VY7IRyaJLnsMrCGKapAoVRuZwo/eztJX8q0MsyS0CA2zJQ6vL2BQnx33aYaAu/1jcyvpgrvQxQNJyAFS+s9Lns+S5vLIfrcJqCx7Anu/cghpkBkHIMn+tMuvaESbMh21pr5DfA6GK6NtaqIU6CqndVqk9K3y4US1O1bnFXrrVWC6aH5L7hs/K0b6+pM4B1vQ7Im85T5Z5NXIH/DUl0x2/bLy9JpgIrnzmKx2P6GBmecUYHrLsMEYbAXmOrvtoBeI6BPoQbGpjUAaM5Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C7SkYhYcWlmgV9QWQV8yp1TR6/8bytzyPC9ysmNa6Ys=;
- b=QsyzmHWJMDx3cTdfJd0mQGFdMvsaXDWnp1YzJXziqnlzz4ZLRTE10fg+XCa7RxBGJQckVPKuTTdpSUkSpj6G+ruNITKBvlMVaudCJW5mNuEnBKc6BJIpv3WmBN4QUAWadzODGGyi0oeYa1Uwrfxfp8KDsUPyfl0hWd5Ie/e0CjYR7Uct1b5X33RzoLcKT8AuA1Sag8coHk+7r4xtws2kYos+obzjrXQeXvrvF01PYyNr5OoOpyWrrh9oLwz/t1s8IYdJk3IXrCop0rAhfexAXLLqqxoT0p8o1ttp+3QsYfseHgvrG58ED/FNId+g9UoXgw9PzfbxE17b7bFkW3X10A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YT3PR01MB9626.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:8a::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Fri, 25 Sep
- 2026 20:18:10 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 20:18:10 +0000
-Message-ID: <9bbdc65f-7dda-43d5-98d6-957ba9cd73cc@efficios.com>
-Date: Fri, 25 Sep 2026 16:18:08 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 26/28] hazptr: Implement two-phase wildcard scan
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: Gary Guo <gary@garyguo.net>, "Paul E. McKenney" <paulmck@kernel.org>,
- rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: kernel-team@meta.com, Boqun Feng <boqun@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, lkmm@lists.linux.dev,
- Zqiang <qiang.zhang@linux.dev>, Wang Lian <lianux.mm@gmail.com>,
- Kunwu Chan <kunwu.chan@gmail.com>, Bradley Morgan <brads@mainlining.org>,
- Bradley Morgan <include@grrlz.net>
-References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
- <20260919000056.3132131-26-paulmck@kernel.org>
- <DLK84KYP9NRK.2254MY7D9AU11@garyguo.net>
- <51044724-7c3d-4200-b0d3-540a31d95804@efficios.com>
- <DLK9MW1N86KD.2GRWUAD2NX4FU@garyguo.net>
- <4da27ea8-6f1a-40a6-9be1-8bbd474d8367@efficios.com>
-Content-Language: en-US
-In-Reply-To: <4da27ea8-6f1a-40a6-9be1-8bbd474d8367@efficios.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0310.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6c::18) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="QLvpTLt9"
+Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-53321c5743fso1299101cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:18:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1790367531; x=1790972331; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JZdx+DZFZa1b0duab3tuVw6VRThacq7nTtOH8sGQNuQ=;
+        b=QLvpTLt962mwt0a4VqGb9y6fLXSn+uHD7SNqRBE/WQgXle57inGHcbf1MBzHJb3jgV
+         clmE6P+mkfvhbcUnC/ofISLEmDj3gmS+A3VXoFr/RTsOS5rvAleCoKlNGG9ygaiKvW0S
+         id1dgcgfLXkfIU9E5GRcGL6sSSnZ2U893wUFHgtYMotEadaUUgn9tlTDltiezjzU/VRk
+         AL9vlQKwjbUXhgAmbTo+tjiB4oK/y5ZCGm+3+rf6p7dshGW74fgF6HDXR1spSQm+hAja
+         B4HQfqXa28PIjzVkLLiA33ta5frbSjZMZZcXCQHX8SgYcIM2mfoAXW+sckcqjw90etlE
+         hW5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790367531; x=1790972331;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JZdx+DZFZa1b0duab3tuVw6VRThacq7nTtOH8sGQNuQ=;
+        b=s4zUTTxO9bNIjApuzCXYHUdXaFnfIKY+JKgxnXPWzj0t1oOMsrLTOPr8htKqZwXMGK
+         NuYdnnCNfL68AywnrCbK7qghO8bmDd6XsrTocUuN0xKOzyHOH4+CF+AYsr/hEcyfewNI
+         t5lKfq1QJJnKEF16sDkNz95p+iLamTU7dm9BS2oehQtzu1gq2r0qjphBf/gdXZ9fhVdy
+         8vDQYgNtFyy9WPlDwfk9hZ3sVIXwYmHNe6vCP5/RAc3Qv395N+PUQGTQRDaDf9RbXrkq
+         xZGAXa7iwSahUOpZBxBxPzbV2GKBWw81hvTVuLunwU4Y4fZhXHO1a1x63HyLbXpLv3Xy
+         E//Q==
+X-Forwarded-Encrypted: i=1; AKwUvByX/6nl+RHu+F8aPfiqS8bwZzpkmiqEN51VFULryO+XInKpX5eY1BzznlPsniBVCEbZU2uC36FifTu/YS8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyHi+fiyNsH5rSY5qKJPWgq9Oy1pwWaES2DjkEXM8NZdMTyRcW
+	t3VM05PzvLAVWvQKYKFl2Ps+oK/khek4Hh3jb/qVAtlkSUE7IUr8MZ3aly0qebMQo0sOrIqVMAQ
+	8+0fgm8TK
+X-Gm-Gg: AYBFou0BhP07CMcuBxqlV89hlYTLSACG155vMwHlO9rSggjO5JiPt0+X+DwZjYniv8j
+	j2UWJnGfAs9E73DKAdWuqnxGsBn3tMFT+GAo/16sidcuROtwFJ+UxYccG7lTK736tlaCztDSeV5
+	fVGjOw+x6f3Rhm1fdlRsVSVziiaj59A29knTrve8BGjZQrSnCq0RiJIVelfGThPl7lRzqUoyu+Y
+	r5TZJh/SeC3b0s48O8MSZ20fFQ7b3JkjUdoLSfRC9zCHXidlixh+zCKJv5+2AQnagoQjeRRulW9
+	oWMY9IwPa17NzD/bZniFLK0f0e1RkTjHAbiBFLGwe0A4vRKrlEYpX2lc/5kCTZL94sKQYDRf+ms
+	qkYBlVZOyxCfxBOUhsRvpPdKu8BTuoHJcPlzucrgTqoil+mok7h+HTncqNZJeSHTbmIBlS/ZRyp
+	GTXMesS9jlT6dwUVMh2hmYvkTzqmuvUCTgTeJGtC+PixkOJ735ML0yKFZLjfBxvi+T5CZ38nyly
+	YcINmUbtx4Nw/t7pZBn5gT6265Oyj1pDzOAt7LTojWiyCvon4MwmQhI4HUEouK376zK/1GwOII=
+X-Received: by 2002:ac8:7f8c:0:b0:532:b3ce:f38 with SMTP id d75a77b69052e-5330b59362cmr70183791cf.4.1790367531306;
+        Fri, 25 Sep 2026 13:18:51 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332238c585sm1201211cf.20.2026.09.25.13.18.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 13:18:50 -0700 (PDT)
+Date: Fri, 25 Sep 2026 16:18:49 -0400
+Message-ID: <10caf8daf99a8f6acd7c8dd65f086b44@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT3PR01MB9626:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9b5c3b7-1f98-48f3-840d-08df1b421e8a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|7416014|23010399003|4143699003|260925021311599003|260925021911599003|260925022911599003|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	TeGj+rRD+3F71aYS15Capha0+K16+R5dwrdos18JkqENYI6RNim7qS1RyHn6t4CdhSLfeT2DiL74QKfsmHr9MZyfEBnj5IB0MtFFiNsWemhNr5k64FTeh6Ree0gYv3jC9YFmgz+lnCe1dJmXXgOxVfe8GM8sZ5DLhcj39NZqk5JtNu+a8nQ+HvASzLcnApYbwq3Oq/V/sc2VKAl6O9L8RfJnNT+UvHA0T8Y/xsu3/uFyjvldvuzpmpWdwsSt0RKKa35E6VAXHwWfjqwqFqj6ak9zrIoAQzvbh9cC4a41PxyIzk/Eqzv+t5GyI2zpJHJg9FvFGYYrJyA1mMZe2hwLJgpqr2NWoiFrRCZqeZHAIkhu/+zk2DpCIQI/36inIcCBsVX6CYiUtAGuIai72ZjkxisJDNX1UB5FG+sNyr3/4ArCVWv4Ens3m7ujW2lsDjOwWJl72oDQ4eYnnsCwYfEW9QS+kdCFHbEKwVv/aU/oNypipi7yj0dgp1U1Iut53fZCEd2+4plJ8UgFtDfUONDuDcQlSm+I//U2FtaOWZVm2iIvM5jdjrwwCjN3hACFSJuLZ4Y0e+pZMZrb348DNlkwgiVcuAx3oxZ7pZKXqVLkoq4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(23010399003)(4143699003)(260925021311599003)(260925021911599003)(260925022911599003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bzV6Y09peEtDbnFWOXBxelp3UWJ4K3owUlBQbHVTYSs5d1VQckQ1M1dOak1G?=
- =?utf-8?B?cGdyalVTaU8vM2IzdC85cHhrUzBVOHNsc2VyVXhJaEoxSlhnZFNiOUZjUHQz?=
- =?utf-8?B?NDBsOW1LWDlTOUxRL2dZOGdNbmJSdmVWWHVPM1NhQU9qUGFPVTdUMXBBK1RH?=
- =?utf-8?B?a012N1pLMVNWbGkraGs3NDlQS2N5Slpmd0dkNmswSjllaWZSYk9ia1VINWZo?=
- =?utf-8?B?b1JsL3ErdmtFeVpjejlEQTBFTVdzTlpkUENoaFUzQkNvWWdlMlJ2YjFhclJv?=
- =?utf-8?B?REgxK1BQSzZUU0ZOUGczdi9uNTZ0dDJ4M29jVzczWVROSVZBZkpKdnkvbktn?=
- =?utf-8?B?Zzk4cFVEaEswYmVERDR2U0I5bTl6UjZiOC9YSERVdStyYWJhVzJpZCtDTWdo?=
- =?utf-8?B?WkNOVG1aZTJSdXFvLzhhRFMyWXB6MTRLdzFlYmFEb21aSDQzK1ZBL2tidlBp?=
- =?utf-8?B?Rm02Q2g4d2ZzR0dadlFRU0dReVRDTGNxRFlmQ2Qyd3FDMVR5d1k3RFlRSEd2?=
- =?utf-8?B?L3hMVTJFOFc5OXVzTXczZjZ3MlpYL2Z1b1JlYmQvUXJ4NHdocFdFcEZFMjN3?=
- =?utf-8?B?NWRLMTM2S0lLRXd4Wk4xeUMvZHR5cEVuZk5iaHI1NmFGUG5IQ0k5S2xYY1Y0?=
- =?utf-8?B?RE1nallib1h0MTltenY1T2dLVHNpNkRnaVJ3Y0YzQXExTXUvc3REZ1NDSEhV?=
- =?utf-8?B?MWhDL2NVTmQ1TE1TeTZwdjFHcmExY01OU3RuZ1hualVvK0lTblpoZVF3U0N4?=
- =?utf-8?B?V1pDU3g2MXBIS2VoZzRmU2tYSjdVNG12ZWM3ajY5NTlGYkowNUUzYy9YNHZp?=
- =?utf-8?B?bXcxNUc5cWJoWWgvU0JYYW5DR0FwMy9RUmxQWHBlRFkrUWg0SlNHZCsxVWN6?=
- =?utf-8?B?aERMUzJ5UVFPS3JqTWF6K2VrQVNqODlkOFFKVnRTTkozblUzL0ZVbW95SXp1?=
- =?utf-8?B?M0IreXdnVjU3R1ZscWJZL0tlcldtWmRYK3JRREw1T1N4TldBeXJJUTA2N1o0?=
- =?utf-8?B?d0JXWkFmTk9tUDM3NU40T0ZmaExVMHo3cHRCZjRjTkNuZDRsWHc2enhvMGcw?=
- =?utf-8?B?elZaS2s1NWVON1A1V3dCY3dsTTJOTWpwQk1BTWo1eEZwd1A5ZGpITjlibWtM?=
- =?utf-8?B?QWoyb1d4cU81UEJkVlZ2QW9nSDZ4MGU2UjN4Qno2RjlUR2dZWDZDS2luQVVw?=
- =?utf-8?B?MXdDSUhyWndTWUtRWkZLeG1WcUFSSDhEQXV5UDVQOFpDVHRoSVRRNFBDU2dG?=
- =?utf-8?B?RE1PNmFtZU5EWWVwV2pla0xKNUtiMzNkWkVIcG4zMXlaRzJTWldCKzFYclBB?=
- =?utf-8?B?a0Mxd1hlZC9aRHcvMzk1a1ZjNDg5ZllaTFBKRndQTVFYWXYyWlJVNlBtVGNk?=
- =?utf-8?B?UzJXck0rL1RxU0ZOa0k2RmdkOGNhelJabjZFL2ZJZGZ3K21JcjRzNDk5TXpp?=
- =?utf-8?B?cUM2MW9VdkM5MHZESVRGcUZucE8wN2VoVEJIdmw0U29xWktDWHdjSklZbmxJ?=
- =?utf-8?B?K3ZTMFk5cmQxZXZQMXB0Zk9rZVgrUXN5Y2Y4SkJKd0NOMHIxQ3VSeUxTbVpQ?=
- =?utf-8?B?R3dMdnJoNGU1S2RFT0RLVThvY2pSNzVaazNhSFBCTzMxN25GTGc5Y1d4V2or?=
- =?utf-8?B?RHJlZStnU3NEMm1VSUMxY0l4VXoxNUNULzZUc05vbk94cjIzc2VKa0lzQm1V?=
- =?utf-8?B?Vll4b3J5MVd2VWxxYzdGQU8vU0dGV0tXQjE2NmZlYnFHTDBGU0lRL3Vxd0tm?=
- =?utf-8?B?ZEkxc0VzVVErbUFyOEZheEo4bStVYm00dmQ1YWNweXE0ekl6cHV1bm5nUWJX?=
- =?utf-8?B?OVY2Wndyb3VpQVF6bkRMMm1KcEZydDBaZ3p2OWJPQmQ2Z3d2RTFIQk5Hemk4?=
- =?utf-8?B?K0ZzbE1OOURGQTNkQzB0WTVwMWxYNmVPUXkyeTZiQUFxR2pXckErdDVpWTFw?=
- =?utf-8?B?YU8rcTVFM0tWT09zcjZPMUh6ZGhUK200Ykl5ZllUYTBLTHM4bFgrelE4UmQx?=
- =?utf-8?B?R00wVnNWY0JEWkYzcDlGb0QySFhkcTJ6ZWxFakwxU1N4ZXhsS1AvbTI2WVVx?=
- =?utf-8?B?aVFaYms5NHJlcHFiREpBUVlMSU05eWN4S1hLbnU2NlhLVlRBSlh5amU1bHlY?=
- =?utf-8?B?UUlrdXVBK3U3b0d3ZWtvQUJYTGpkdUhvOUpZK0NJY0REOUJCQUdUNHZVRGJk?=
- =?utf-8?B?bE1oek95VFdkVnYrN3ZCQVlOOExYbDVZL0FLZk5EQVlJSnl1TlZWRGMrTmQx?=
- =?utf-8?B?dmlZRjJVdG5nbU5WeWhMOTJmWFQyY3NRbGwwaUIrSXA0NEZMbVU0a1BnR3Az?=
- =?utf-8?B?NDJobi9zWlhDRWU0Mk1PMDRSa0FyQWRnWElUcWJMSmRpQURTdzRmeWsyZU9D?=
- =?utf-8?Q?KOb9LPEfrTg9aGgo=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9b5c3b7-1f98-48f3-840d-08df1b421e8a
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 20:18:10.5031
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wgIQe2YheH5IquK+RtfdwVd33qFrbwlXLBsrTOpEmRe1Pq1MIXKCVOXDeGEUnTWGdzVseRDItY0Yadg1BSwHMwr0oUVEwnVagi/NhYH60nc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT3PR01MB9626
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20260924_1657/pstg-lib:20260924_1656/pstg-pwork:20260924_1657
+From: Paul Moore <paul@paul-moore.com>
+To: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>, Eric Paris <eparis@redhat.com>
+Cc: rrobaina@redhat.com, brads@mainlining.org, audit@vger.kernel.org, linux-kernel@vger.kernel.org, =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: Re: [PATCH v2] audit: fix exe mark UAF in kill_rules()
+References: <20260922202734.1344770-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20260922202734.1344770-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-On 2026-09-25 15:19, Mathieu Desnoyers wrote:
-> On 2026-09-20 11:57, Gary Guo wrote:
->> On Sun Sep 20, 2026 at 4:44 PM BST, Mathieu Desnoyers wrote:
->>> On 2026-09-20 10:46, Gary Guo wrote:
->>>> On Sat Sep 19, 2026 at 1:00 AM BST, Paul E. McKenney wrote:
->>>>> From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
->>>>>
->>>>> Implement a two-phase wildcard scan to guarantee forward progress of
->>>>> synchronize_hazptr() even if there is a steady stream of ill-timed
->>>>> readers which populate wildcards into per-CPU slots.
->>>>
->>>> Hmm, I am not sure that I understand the problem here. The per-CPU 
->>>> slot is
->>>> scanned only once per CPU, and patch 1 already introduces flipping 
->>>> of the
->>>> overflow list. What prevents the forward progress?
->>>
->>> A steady stream of readers acquiring and releasing various hazard
->>> pointers happening concurrently with the percpu slots checks, being
->>> unlucky enough that each of the slot is constantly in a "wildcard"
->>> state, thus preventing forward progress of the synchronize, just with
->>> a steady stream of individually time-bound readers.
->>
->> Oh, so the issue is that we cannot progress over a single slot, 
->> because with
->> ill-timing a new iteration of the inner loop of 
->> "smp_cond_load_acquire" could
->> see a new reader while waiting for the slot to be released?
+On Sep 22, 2026 =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
 > 
-> Correct.
+> kill_rules() removes mixed AUDIT_DIR and AUDIT_EXE rules when an audit
+> tree is pruned. It drops entry->rule.exe before removing the rule from
+> the RCU-visible filter lists.
 > 
->>
->> So, in essence, the flipping is used to prevent ABA problem on percpu 
->> slots?
+> After a rule has been installed with AUDIT_ADD_RULE, which requires
+> CAP_AUDIT_CONTROL, removing the watched directory can race with another
+> task that is still evaluating the rule. In that case, fsnotify can free
+> the executable mark before the reader reaches audit_mark_compare(),
+> causing a use-after-free.
 > 
-> Yes, specifically an ABA which could theoretically prevent forward
-> progress of synchronize given a steady flow of hazptr acquire/release.
+> KASAN reports:
 > 
->>
->>>
->>>>
->>>> I think having a shared global read by all CPUs sounds really 
->>>> undesirable,
->>>> especially that it gets flipped for each hazptr_synchronize -- this 
->>>> means that
->>>> in the pathological case where there are a steady stream of 
->>>> hazptr_synchronize
->>>> calls, each fast-path hazptr_acquire will have a cache miss reading
->>>> hazptr_wildcard.
->>>
->>> There is a straightforward optimization we can do if this happen to
->>> cause performance issues: only do the flip when the synchronize
->>> encounters a wildcard retry delay beyond a specified threshold.
->>> So we ensure synchronize observe the absence of both wildcard
->>> values in each cpu slots, and only flip the current wildcard on retry
->>> delay.
->>
->> Another option would be avoid using WILDCARD if possible. IIRC the 
->> wildcard is
->> used to ensure forward progress on the reader side, so it avoids the 
->> possibility
->> of READ_ONCE(*addr_p) changing before and after protecting.
+>     BUG: KASAN: slab-use-after-free in audit_mark_compare+0x8d/0xa0
 > 
-> Using the wildcard has a few benefits:
+> Unlink the published rules from the RCU-visible lists and retain them
+> on tree->rules for cleanup. If any rule has an executable mark, wait for
+> a single RCU grace period before removing the marks and scheduling the
+> entries for freeing. Otherwise, call_rcu() already provides the required
+> deferred freeing without a synchronous wait.
 > 
-> 1) Prevents this retry loop on the read-side.
+> Fixes: 34d99af52ad4 ("audit: implement audit by executable")
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> Reviewed-by: Ricardo Robaina <rrobaina@redhat.com>
+> Tested-by: Ricardo Robaina <rrobaina@redhat.com>
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> ---
+> v2: Address Sashiko's review with Ricardo Robaina's improved patch:
+> - Batch executable-mark teardown behind one synchronize_rcu() after
+>   unlinking all rules, instead of waiting once per rule under the audit
+>   mutexes.
+> - Skip the synchronous wait when none of the removed rules has an
+>   executable mark.
 > 
-> 2) Prevents comparison of a loaded pointer value against a re-load of
->     that value, which causes issues with compiler optimizations (I did a
->     ptr_eq() patch in a prior version of the hazard pointer patches to
->     handle this).
+> v1: https://lore.kernel.org/all/20260921195921.4174830-2-Jeremy.Jean@oss.cyber.gouv.fr/
 > 
-> It does have a downside though: given a very long preemption by a host
-> VM, the guest VM could technically keep a wildcard present for a long
-> time in a per-cpu slot, which would prevent hazptr synchronize from
-> progressing for a long time in the guest VM kernel.
-> 
->>
->> One option would be to first use the typical hazard pointer impl that 
->> read the
->> pointer twice, and when that fails, use the wildcard protection. This 
->> would mean
->> that in the common case where the hazptr_acquire does not race with a 
->> pointer
->> update, the WILDCARD protection is not used at all.
-> 
-> So your idea is to use the hazptr load+reload approach (with ptr_eq()
-> check preventing the compiler from removing the dependency on the
-> second load), but rather than retry, fallback to the two-phases
-> wildcard. This way, we get the best of both worlds: guaranteed
-> progress for the read-side (with the wildcard fallback), and typically
-> we are immune to long-host-VM preemption delays, because the
-> wildcard fallback would almost never fire.
-> 
-> I like it. What do you guys think ?
-> 
-Something like this lightly compile tested patch on top of my prior
-[PATCH v1] hazptr: Fix two-phase hazptr_synchronize race with detach
-?
+>  kernel/audit_tree.c | 24 ++++++++++++++++++++----
+>  1 file changed, 20 insertions(+), 4 deletions(-)
 
-It also depends on my ptr_eq() patch sent in an earlier hazard pointer
-series.
+Merged into audit/stable-7.3 with a stable tag, I'll send this up to Linus
+next week after it has had some time in linux-next.  Thanks!
 
-diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
-index d1670121947a..8a005a1125f1 100644
---- a/include/linux/hazptr.h
-+++ b/include/linux/hazptr.h
-@@ -233,7 +233,7 @@ void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
-  	struct hazptr_percpu_slots *percpu_slots;
-  	struct hazptr_slot_item *slot_item;
-  	struct hazptr_slot *slot;
--	void *addr;
-+	void *early_addr, *addr;
-  
-  	guard(preempt)();
-  	percpu_slots = this_cpu_ptr(&hazptr_percpu_slots);
-@@ -247,22 +247,38 @@ void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
-  #endif
-  	if (unlikely(slot->addr))
-  		return __hazptr_acquire(ctx, addr_p);
--	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
-  
-+	early_addr = READ_ONCE(*addr_p);	/* Early load. */
-+	WRITE_ONCE(slot->addr, early_addr);	/* Store B */
-  	/* Memory ordering: Store B before Load A. */
-  	smp_mb();
--
--	/*
--	 * Load @addr_p after storing wildcard to the hazard pointer slot.
--	 */
--	addr = READ_ONCE(*addr_p);	/* Load A */
--
-+	addr = READ_ONCE(*addr_p);		/* Load A */
-  	/*
--	 * We don't care about ordering of Store C. It will simply
--	 * replace the wildcard by a more specific address. If addr is
--	 * NULL, we simply store NULL into the slot.
-+	 * Validate that address did not change between Initial
-+	 * load and Load A. Use ptr_eq() to make sure that result from
-+	 * Load A is returned to preserve address dependency.
-  	 */
--	WRITE_ONCE(slot->addr, addr);	/* Store C */
-+	if (unlikely(!ptr_eq(addr, early_addr))) {
-+		/*
-+		 * Address don't match. Use a wildcard rather than a
-+		 * retry loop to guarantee reader forward progress.
-+		 */
-+		WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
-+
-+		/* Memory ordering: Store B before Load A. */
-+		smp_mb();
-+
-+		/*
-+		 * Load @addr_p after storing wildcard to the hazard pointer slot.
-+		 */
-+		addr = READ_ONCE(*addr_p);	/* Load A */
-+		/*
-+		 * We don't care about ordering of Store C. It will simply
-+		 * replace the wildcard by a more specific address. If addr is
-+		 * NULL, we simply store NULL into the slot.
-+		 */
-+		WRITE_ONCE(slot->addr, addr);	/* Store C */
-+	}
-  	slot_item->ctx.ctx = ctx;
-  	ctx->slot = slot;
-  	return addr;
-diff --git a/kernel/hazptr.c b/kernel/hazptr.c
-index 13faa5ba7677..8c4fe0a45304 100644
---- a/kernel/hazptr.c
-+++ b/kernel/hazptr.c
-@@ -97,7 +97,7 @@ struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
-  void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
-  {
-  	struct hazptr_slot *slot = hazptr_get_free_percpu_slot(ctx);
--	void *addr;
-+	void *early_addr, *addr;
-  
-  	/*
-  	 * If all the per-CPU slots are already in use, fallback
-@@ -105,22 +105,38 @@ void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
-  	 */
-  	if (unlikely(!slot))
-  		slot = hazptr_chain_backup_slot(ctx);
--	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
-  
-+	early_addr = READ_ONCE(*addr_p);	/* Early load. */
-+	WRITE_ONCE(slot->addr, early_addr);	/* Store B */
-  	/* Memory ordering: Store B before Load A. */
-  	smp_mb();
--
-+	addr = READ_ONCE(*addr_p);		/* Load A */
-  	/*
--	 * Load @addr_p after storing wildcard to the hazard pointer slot.
-+	 * Validate that address did not change between Initial
-+	 * load and Load A. Use ptr_eq() to make sure that result from
-+	 * Load A is returned to preserve address dependency.
-  	 */
--	addr = READ_ONCE(*addr_p);	/* Load A */
-+	if (unlikely(!ptr_eq(addr, early_addr))) {
-+		/*
-+		 * Address don't match. Use a wildcard rather than a
-+		 * retry loop to guarantee reader forward progress.
-+		 */
-+		WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
-  
--	/*
--	 * We don't care about ordering of Store C. It will simply
--	 * replace the wildcard by a more specific address. If addr is
--	 * NULL, we simply store NULL into the slot.
--	 */
--	WRITE_ONCE(slot->addr, addr);	/* Store C */
-+		/* Memory ordering: Store B before Load A. */
-+		smp_mb();
-+
-+		/*
-+		 * Load @addr_p after storing wildcard to the hazard pointer slot.
-+		 */
-+		addr = READ_ONCE(*addr_p);	/* Load A */
-+		/*
-+		 * We don't care about ordering of Store C. It will simply
-+		 * replace the wildcard by a more specific address. If addr is
-+		 * NULL, we simply store NULL into the slot.
-+		 */
-+		WRITE_ONCE(slot->addr, addr);	/* Store C */
-+	}
-  	ctx->slot = slot;
-  	if (!addr && hazptr_slot_is_backup(ctx, slot))
-  		hazptr_unchain_backup_slot(ctx);
-
-
--- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+--
+paul-moore.com
