@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD844519BB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBF741CB31;
 	Fri, 25 Sep 2026 07:47:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322451; cv=none; b=lcVxG7lU3D5y7UCshD3L+gvz2bhHK6+pmKYIlquGDV8/tWwkfJSrw+cRYL6kZQUF+O3bhg8gQCO0922gcmBPeStnAAmx/Smnox4+x6EBzhtxrQDpo4nbkcLexFFl4N7N+F1E7LohxDNS+5gk9DM99kZqiGNTeQdDFxgC5Pjtb4A=
+	t=1790322451; cv=none; b=BEdYr8crKxJU5VdiI+Y/kNrsM4PH0Ih6+Wa7PqDph7Zzupozhv97GiE6SAE5e5Rshf+EVdeA32IU/caTO+xvKUEbuBbbBnbU5+n6DakwpdXlW8rQds/vSo6WTadFN4nqrAaMI+vDrDZ0UuV7Wy8Ta2g9L0CeEEWz7Bm35HvRNxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790322451; c=relaxed/simple;
-	bh=wRQj1jGdJpPogEyBWPzlxR2QbDgoPw+HOw6mei+3EjI=;
+	bh=jWeNjJqfdbaMlN7IXSMDSvpH8Qf4b6wYCglIWEa8f6s=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ff3PXrqBkWHBuDzspHzS1JC+wuAXkMt25hA/JPMhSzfzAWGH73miVvKAgvtsBs1LKfUtRq5HieHTjZGqU7bEnVLeJyViW9SpegCWV1nIXQqJ9d1HRDR7Z7HWn3cwa2V8km8dROkgw9PvNWzOnVc34m+ocrzSrWcHo8RkgJM5+AQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/nNUmyf; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=dKgUB+KgDOGlMkPLKgs5TxalGTW0JyGWkkZDC/SwASWzKwzY+m2Tc0RsGFErNfPapSP1796r4a2uccr7MHF/vu0TqoR9c6qNQtbIF7Xd3wYInFHeTxsnAa29CwCYmO+M+dTxFg26gHQfKYNhqvpvseuddGWdM9UmjB5U5r+jL1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=blKyXOC1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/nNUmyf"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 19662C2BCFD;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="blKyXOC1"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0409EC2BCF7;
 	Fri, 25 Sep 2026 07:47:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790322451;
-	bh=wRQj1jGdJpPogEyBWPzlxR2QbDgoPw+HOw6mei+3EjI=;
+	bh=jWeNjJqfdbaMlN7IXSMDSvpH8Qf4b6wYCglIWEa8f6s=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=l/nNUmyf41ND1QX1T/jQ9STX7kClXUBmVQMOWrzo0k3+c8xbXN7m/3l05Xys78bG6
-	 z+JnjW9RoySDWERpuwIPrsZ6oH+DLCI1EzcyAXkXytu8DdjQc+BF8tBENwyBuqE/gx
-	 RzmypuX77IOtUXVJA7gKIwZZvsIrkix/Tf6lv0Vy6PeRzMEfpDbfmfXNJTP0wUo3x+
-	 EWfhfx6mPlK4wex8iU9riPaiXwTRUSlomYQtzbxtJMLjoxoXA1XOyvgJO3NmBu9ajK
-	 eKI5G8T3hcxwxU8F9jkxrpZycaYXmHWWJAHfcogbZhT8s/3fKH7Al/lbrL47zR2iU3
-	 TYi0EUYGKVXQw==
+	b=blKyXOC1iiyyYFQ6RkkghRjjDA2GTnBjZtTgM3y3ZTmMLktCWdUjEWw/yyg22Q+79
+	 U439sxywu7I+ce8U3jO54l/Ho5GQWISEqv5KEJhtrlHQQetdNHsRadLThtTOzeZus9
+	 tDAGCrocOhrKmLWaunX77hifuokkjhICFzhps+l7FGKS4Lp4dvBJDFi8/ngTbyyOA3
+	 o56qN1mkQNrNRQb7wlKxsYKGbvjHP5tprk2OK4c9dJfVoPEJn+p35WuFjMUA7T3Iyb
+	 3Co7pn1XCANvgsNp2aun12lBNd4of8zV7bpZVjJZ5Ux4Wo5xyiGqD7GJGjaRFRSJv+
+	 AaIihB3eNtHuQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02F0DC98326;
-	Fri, 25 Sep 2026 07:47:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8CE1C9830E;
+	Fri, 25 Sep 2026 07:47:30 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Fri, 25 Sep 2026 02:47:32 -0500
-Subject: [PATCH 4/6] ASoC: codecs: aw88166: remove fade in/out on
- start/stop
+Date: Fri, 25 Sep 2026 02:47:30 -0500
+Subject: [PATCH 2/6] ASoC: codecs: aw88166: add TDM support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-aw88166-cleanup-v1-4-11f74cb5fe28@gmail.com>
+Message-Id: <20260925-aw88166-cleanup-v1-2-11f74cb5fe28@gmail.com>
 References: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
 In-Reply-To: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -50,11 +49,11 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Val Packett <val@packett.cool>, Aaron Kling <webgeek1234@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790322449; l=7814;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790322449; l=8987;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=KMVJyBO5ts0AVLaE2Gkn9rHugXaRsqSgphCz6QG+Aco=;
- b=+Cn3xExpi9StFSctBQMLvjxPVTSb91Yjf9QzNveFoLPcYKSVlgVmD1GLYAbv1A0N5nj3Cx46/
- mGrH6aMXVs1CzoTifv7bG3mCWa7BM3uXn8PpKAI6UbZXiHpV0SY+2yN
+ bh=tfGg+gbmR1wTDH3bnClADh1N75XgFSpxuSsHm9PykiU=;
+ b=s8nWKJY4hWsKU4XbV0D9rOkJ0+jhkE5O1+vKuEcUBlXiG9e4frUKR3et5sxDGn7dE+lXej2l8
+ dajXH6qIaWJCHXo/2BKm4DmbAfADBmvwycVxB6kSZZWRl+yNJ2P4csu
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -64,239 +63,277 @@ Reply-To: webgeek1234@gmail.com
 
 From: Aaron Kling <webgeek1234@gmail.com>
 
-This "feature" was copied from downstream, but it does not belong in
-the kernel at all. Remove it to simplify the driver.
+This amp supports TDM mode, so implement the set_tdm_slot operation to
+let the SoC driver configure the TDM slot number, width, and masks.
 
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
- sound/soc/codecs/aw88166.c | 157 +--------------------------------------------
- sound/soc/codecs/aw88166.h |   2 -
- 2 files changed, 2 insertions(+), 157 deletions(-)
+ sound/soc/codecs/aw88166.c | 123 ++++++++++++++++++++++++++++++++++++++++++++-
+ sound/soc/codecs/aw88166.h |  50 ++++++++++++++++++
+ 2 files changed, 171 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/aw88166.c b/sound/soc/codecs/aw88166.c
-index c8b8c70aaf356..ab7af3eaceb28 100644
+index 89608118cac6c..cd8773e316b90 100644
 --- a/sound/soc/codecs/aw88166.c
 +++ b/sound/soc/codecs/aw88166.c
-@@ -668,59 +668,16 @@ static int aw_dev_set_volume(struct aw_device *aw_dev, unsigned int value)
- 	return ret;
- }
+@@ -7,6 +7,7 @@
+ // Author: Weidong Wang <wangweidong.a@awinic.com>
+ //
  
--static void aw_dev_fade_in(struct aw_device *aw_dev)
--{
--	struct aw_volume_desc *desc = &aw_dev->volume_desc;
--	u16 fade_in_vol = desc->ctl_volume;
--	int fade_step = aw_dev->fade_step;
--	int i;
--
--	if (fade_step == 0 || aw_dev->fade_in_time == 0) {
--		aw_dev_set_volume(aw_dev, fade_in_vol);
--		return;
--	}
--
--	for (i = AW88166_MUTE_VOL; i >= fade_in_vol; i -= fade_step) {
--		aw_dev_set_volume(aw_dev, i);
--		usleep_range(aw_dev->fade_in_time, aw_dev->fade_in_time + 10);
--	}
--
--	if (i != fade_in_vol)
--		aw_dev_set_volume(aw_dev, fade_in_vol);
--}
--
--static void aw_dev_fade_out(struct aw_device *aw_dev)
--{
--	struct aw_volume_desc *desc = &aw_dev->volume_desc;
--	int fade_step = aw_dev->fade_step;
--	int i;
--
--	if (fade_step == 0 || aw_dev->fade_out_time == 0) {
--		aw_dev_set_volume(aw_dev, AW88166_MUTE_VOL);
--		return;
--	}
--
--	for (i = desc->ctl_volume; i <= AW88166_MUTE_VOL; i += fade_step) {
--		aw_dev_set_volume(aw_dev, i);
--		usleep_range(aw_dev->fade_out_time, aw_dev->fade_out_time + 10);
--	}
--
--	if (i != AW88166_MUTE_VOL) {
--		aw_dev_set_volume(aw_dev, AW88166_MUTE_VOL);
--		usleep_range(aw_dev->fade_out_time, aw_dev->fade_out_time + 10);
--	}
--}
--
- static void aw88166_dev_mute(struct aw_device *aw_dev, bool is_mute)
- {
- 	if (is_mute) {
--		aw_dev_fade_out(aw_dev);
-+		aw_dev_set_volume(aw_dev, AW88166_MUTE_VOL);
- 		regmap_update_bits(aw_dev->regmap, AW88166_SYSCTRL_REG,
- 				~AW88166_HMUTE_MASK, AW88166_HMUTE_ENABLE_VALUE);
- 	} else {
- 		regmap_update_bits(aw_dev->regmap, AW88166_SYSCTRL_REG,
- 				~AW88166_HMUTE_MASK, AW88166_HMUTE_DISABLE_VALUE);
--		aw_dev_fade_in(aw_dev);
-+		aw_dev_set_volume(aw_dev, aw_dev->volume_desc.ctl_volume);
- 	}
- }
++#include <linux/bitops.h>
+ #include <linux/cleanup.h>
+ #include <linux/crc32.h>
+ #include <linux/firmware.h>
+@@ -38,8 +39,14 @@ struct aw88166 {
+ 	unsigned int fs_value;
+ 	unsigned int bck_value;
+ 	unsigned int bck_inv_value;
++	unsigned int tdm_bck_value;
+ 	unsigned int md_value;
  
-@@ -1515,75 +1472,6 @@ static struct snd_soc_dai_driver aw88166_dai[] = {
- 	},
++	unsigned int slot_num_value;
++	unsigned int tx_slotvld_mask;
++	unsigned int rxl_slotvld_mask;
++	unsigned int rxr_slotvld_mask;
++
+ 	bool phase_sync;
  };
  
--static int aw88166_get_fade_in_time(struct snd_kcontrol *kcontrol,
--	struct snd_ctl_elem_value *ucontrol)
--{
--	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
--	struct aw88166 *aw88166 = snd_soc_component_get_drvdata(component);
--	struct aw_device *aw_dev = aw88166->aw_pa;
--
--	ucontrol->value.integer.value[0] = aw_dev->fade_in_time;
--
--	return 0;
--}
--
--static int aw88166_set_fade_in_time(struct snd_kcontrol *kcontrol,
--	struct snd_ctl_elem_value *ucontrol)
--{
--	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
--	struct aw88166 *aw88166 = snd_soc_component_get_drvdata(component);
--	struct soc_mixer_control *mc =
--		(struct soc_mixer_control *)kcontrol->private_value;
--	struct aw_device *aw_dev = aw88166->aw_pa;
--	int time;
--
--	time = ucontrol->value.integer.value[0];
--
--	if (time < mc->min || time > mc->max)
--		return -EINVAL;
--
--	if (time != aw_dev->fade_in_time) {
--		aw_dev->fade_in_time = time;
--		return 1;
--	}
--
--	return 0;
--}
--
--static int aw88166_get_fade_out_time(struct snd_kcontrol *kcontrol,
--	struct snd_ctl_elem_value *ucontrol)
--{
--	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
--	struct aw88166 *aw88166 = snd_soc_component_get_drvdata(component);
--	struct aw_device *aw_dev = aw88166->aw_pa;
--
--	ucontrol->value.integer.value[0] = aw_dev->fade_out_time;
--
--	return 0;
--}
--
--static int aw88166_set_fade_out_time(struct snd_kcontrol *kcontrol,
--	struct snd_ctl_elem_value *ucontrol)
--{
--	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
--	struct aw88166 *aw88166 = snd_soc_component_get_drvdata(component);
--	struct soc_mixer_control *mc =
--		(struct soc_mixer_control *)kcontrol->private_value;
--	struct aw_device *aw_dev = aw88166->aw_pa;
--	int time;
--
--	time = ucontrol->value.integer.value[0];
--	if (time < mc->min || time > mc->max)
--		return -EINVAL;
--
--	if (time != aw_dev->fade_out_time) {
--		aw_dev->fade_out_time = time;
--		return 1;
--	}
--
--	return 0;
--}
--
- static int aw88166_dev_set_profile_index(struct aw_device *aw_dev, int index)
+@@ -125,11 +132,35 @@ static int aw88166_dev_check_pll(struct aw_device *aw_dev)
+ 	return -EPERM;
+ }
+ 
+-static int aw88166_dev_configure_syspll(struct aw88166 *aw88261)
++static int aw88166_dev_configure_syspll(struct aw88166 *aw88166)
  {
- 	/* check the index whether is valid */
-@@ -1704,38 +1592,6 @@ static int aw88166_volume_set(struct snd_kcontrol *kcontrol,
+ 	struct aw_device *aw_dev = aw88166->aw_pa;
+ 	int ret;
+ 
++	/* Configure TDM slots (I2S is represented as no slots) */
++	ret = regmap_update_bits(aw_dev->regmap, AW88166_I2SCTRL2_REG,
++			~AW88166_SLOT_NUM_MASK, aw88166->slot_num_value);
++	if (ret)
++		return ret;
++
++	ret = regmap_update_bits(aw_dev->regmap, AW88166_I2SCTRL2_REG,
++			~AW88166_I2S_TX_SLOTVLD_MASK,
++			aw88166->tx_slotvld_mask);
++	if (ret)
++		return ret;
++
++	ret = regmap_update_bits(aw_dev->regmap, AW88166_I2SCTRL2_REG,
++			~AW88166_I2S_RXL_SLOTVLD_MASK,
++			aw88166->rxl_slotvld_mask);
++	if (ret)
++		return ret;
++
++	ret = regmap_update_bits(aw_dev->regmap, AW88166_I2SCTRL2_REG,
++			~AW88166_I2S_RXR_SLOTVLD_MASK,
++			aw88166->rxr_slotvld_mask);
++	if (ret)
++		return ret;
++
+ 	/* PLL divider must be used for 8/16/32 kHz modes */
+ 	ret = regmap_update_bits(aw_dev->regmap, AW88166_PLLCTRL1_REG,
+ 			~AW88166_CCO_MUX_MASK, aw88166->cco_mux_value);
+@@ -144,7 +175,9 @@ static int aw88166_dev_configure_syspll(struct aw88166 *aw88261)
+ 
+ 	/* The bit clock (BCK) defines the length of a frame */
+ 	ret = regmap_update_bits(aw_dev->regmap, AW88166_I2SCTRL1_REG,
+-			~AW88166_I2SBCK_MASK, aw88166->bck_value);
++			~AW88166_I2SBCK_MASK,
++			(aw88166->tdm_bck_value != AW88166_TDM_BCK_UNSET)
++			? aw88166->tdm_bck_value : aw88166->bck_value);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1260,9 +1293,11 @@ static int aw88166_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 
+ 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+ 	case SND_SOC_DAIFMT_I2S:
++	case SND_SOC_DAIFMT_DSP_A:
+ 		aw88166->md_value = AW88166_I2SMD_PHILIPS_STANDARD_VALUE;
+ 		break;
+ 	case SND_SOC_DAIFMT_MSB:
++	case SND_SOC_DAIFMT_DSP_B:
+ 		aw88166->md_value = AW88166_I2SMD_MSB_JUSTIFIED_VALUE;
+ 		break;
+ 	case SND_SOC_DAIFMT_LSB:
+@@ -1369,9 +1404,90 @@ static int aw88166_hw_params(struct snd_pcm_substream *substream,
  	return 0;
  }
  
--static int aw88166_get_fade_step(struct snd_kcontrol *kcontrol,
--				struct snd_ctl_elem_value *ucontrol)
--{
--	struct snd_soc_component *codec = snd_kcontrol_chip(kcontrol);
--	struct aw88166 *aw88166 = snd_soc_component_get_drvdata(codec);
--
--	ucontrol->value.integer.value[0] = aw88166->aw_pa->fade_step;
--
--	return 0;
--}
--
--static int aw88166_set_fade_step(struct snd_kcontrol *kcontrol,
--				struct snd_ctl_elem_value *ucontrol)
--{
--	struct snd_soc_component *codec = snd_kcontrol_chip(kcontrol);
--	struct aw88166 *aw88166 = snd_soc_component_get_drvdata(codec);
--	struct soc_mixer_control *mc =
--		(struct soc_mixer_control *)kcontrol->private_value;
--	int value;
--
--	value = ucontrol->value.integer.value[0];
--	if (value < mc->min || value > mc->max)
--		return -EINVAL;
--
--	if (aw88166->aw_pa->fade_step != value) {
--		aw88166->aw_pa->fade_step = value;
--		return 1;
--	}
--
--	return 0;
--}
--
- static int aw88166_re_get(struct snd_kcontrol *kcontrol,
- 				struct snd_ctl_elem_value *ucontrol)
- {
-@@ -1780,8 +1636,6 @@ static int aw88166_dev_init(struct aw88166 *aw88166, struct aw_container *aw_cfg
- 		dev_err(aw_dev->dev, "aw_dev acf parse failed\n");
- 		return -EINVAL;
- 	}
--	aw_dev->fade_in_time = AW88166_1000_US / 10;
--	aw_dev->fade_out_time = AW88166_1000_US >> 1;
- 	aw_dev->prof_cur = aw_dev->prof_info.prof_desc[0].id;
- 	aw_dev->prof_index = aw_dev->prof_info.prof_desc[0].id;
++static int aw88166_set_tdm_slot(struct snd_soc_dai *dai,
++	unsigned int tx_mask, unsigned int rx_mask, int slots, int slot_width)
++{
++	struct snd_soc_component *component = dai->component;
++	struct aw88166 *aw88166 = snd_soc_component_get_drvdata(component);
++	int chan;
++
++	switch (slots) {
++	case 0:
++		/* Just reset everything TDM related to I2S values */
++		aw88166->slot_num_value = AW88166_SLOT_NUM_I2S_MODE_VALUE;
++		aw88166->tdm_bck_value = AW88166_TDM_BCK_UNSET;
++		aw88166->tx_slotvld_mask = 0 << AW88166_I2S_TX_SLOTVLD_START_BIT;
++		aw88166->rxl_slotvld_mask = 0 << AW88166_I2S_RXL_SLOTVLD_START_BIT;
++		aw88166->rxr_slotvld_mask = 1 << AW88166_I2S_RXR_SLOTVLD_START_BIT;
++		return 0;
++	case 1:
++		aw88166->slot_num_value = AW88166_SLOT_NUM_TDM1S_VALUE;
++		break;
++	case 2:
++		aw88166->slot_num_value = AW88166_SLOT_NUM_TDM2S_VALUE;
++		break;
++	case 4:
++		aw88166->slot_num_value = AW88166_SLOT_NUM_TDM4S_VALUE;
++		break;
++	case 6:
++		aw88166->slot_num_value = AW88166_SLOT_NUM_TDM6S_VALUE;
++		break;
++	case 8:
++		aw88166->slot_num_value = AW88166_SLOT_NUM_TDM8S_VALUE;
++		break;
++	case 16:
++		aw88166->slot_num_value = AW88166_SLOT_NUM_TDM16S_VALUE;
++		break;
++	default:
++		dev_err(aw88166->aw_pa->dev, "unsupported slot count %d\n", slots);
++		return -EINVAL;
++	}
++
++	switch (slot_width) {
++	case 16:
++		aw88166->tdm_bck_value = AW88166_I2SBCK_32FS_VALUE;
++		break;
++	case 20:
++	case 24:
++		aw88166->tdm_bck_value = AW88166_I2SBCK_48FS_VALUE;
++		break;
++	case 32:
++		aw88166->tdm_bck_value = AW88166_I2SBCK_64FS_VALUE;
++		break;
++	default:
++		dev_err(aw88166->aw_pa->dev, "unsupported slot width %d\n",
++			slot_width);
++		return -EINVAL;
++	}
++
++	if (tx_mask != 0) {
++		if ((chan = __ffs(tx_mask)) > 16)
++			return -EINVAL;
++
++		aw88166->tx_slotvld_mask = chan << AW88166_I2S_TX_SLOTVLD_START_BIT;
++	}
++
++	if (rx_mask != 0) {
++		if ((chan = __ffs(rx_mask)) > 16)
++			return -EINVAL;
++
++		aw88166->rxl_slotvld_mask = chan << AW88166_I2S_RXL_SLOTVLD_START_BIT;
++	}
++
++	if ((rx_mask & ~BIT(chan)) != 0) {
++		if ((chan = __ffs(rx_mask & ~BIT(chan))) > 16)
++			return -EINVAL;
++
++		aw88166->rxr_slotvld_mask = chan << AW88166_I2S_RXR_SLOTVLD_START_BIT;
++	}
++
++	return 0;
++}
++
+ static const struct snd_soc_dai_ops aw88166_dai_ops = {
+ 	.set_fmt = aw88166_set_fmt,
+ 	.hw_params = aw88166_hw_params,
++	.set_tdm_slot = aw88166_set_tdm_slot,
+ };
  
-@@ -1856,12 +1710,6 @@ static const struct snd_kcontrol_new aw88166_controls[] = {
- 	SOC_SINGLE_EXT("PCM Playback Volume", AW88166_SYSCTRL2_REG,
- 		6, AW88166_MUTE_VOL, 0, aw88166_volume_get,
- 		aw88166_volume_set),
--	SOC_SINGLE_EXT("Fade Step", 0, 0, AW88166_MUTE_VOL, 0,
--		aw88166_get_fade_step, aw88166_set_fade_step),
--	SOC_SINGLE_EXT("Volume Ramp Up Step", 0, 0, FADE_TIME_MAX, FADE_TIME_MIN,
--		aw88166_get_fade_in_time, aw88166_set_fade_in_time),
--	SOC_SINGLE_EXT("Volume Ramp Down Step", 0, 0, FADE_TIME_MAX, FADE_TIME_MIN,
--		aw88166_get_fade_out_time, aw88166_set_fade_out_time),
- 	SOC_SINGLE_EXT("Calib", 0, 0, AW88166_CALI_RE_MAX, 0,
- 		aw88166_re_get, aw88166_re_set),
- 	AW88166_PROFILE_EXT("AW88166 Profile Set", aw88166_profile_info,
-@@ -1989,7 +1837,6 @@ static int aw88166_init(struct aw88166 *aw88166, struct i2c_client *i2c, struct
- 	aw_dev->channel = AW88166_DEV_DEFAULT_CH;
- 	aw_dev->fw_status = AW88166_DEV_FW_FAILED;
+ static struct snd_soc_dai_driver aw88166_dai[] = {
+@@ -1891,12 +2007,15 @@ static int aw88166_i2c_probe(struct i2c_client *i2c)
+ 		return -ENOMEM;
  
--	aw_dev->fade_step = AW88166_VOLUME_STEP_DB;
- 	aw_dev->volume_desc.ctl_volume = AW88166_VOL_DEFAULT_VALUE;
+ 	/* set defaults */
++	aw88166->slot_num_value = AW88166_SLOT_NUM_I2S_MODE_VALUE;
+ 	aw88166->sr_value = AW88166_I2SSR_48KHZ_VALUE;
+ 	aw88166->cco_mux_value = AW88166_CCO_MUX_BYPASS_VALUE;
+ 	aw88166->fs_value = AW88166_I2SFS_24_BITS_VALUE;
+ 	aw88166->bck_value = AW88166_I2SBCK_64FS_VALUE;
+ 	aw88166->bck_inv_value = AW88166_BCKINV_NOT_INVERT_VALUE;
++	aw88166->tdm_bck_value = AW88166_TDM_BCK_UNSET;
+ 	aw88166->md_value = AW88166_I2SMD_PHILIPS_STANDARD_VALUE;
++	aw88166->rxr_slotvld_mask = 1 << AW88166_I2S_RXR_SLOTVLD_START_BIT;
  
- 	aw88166_parse_channel_dt(aw88166);
+ 	mutex_init(&aw88166->lock);
+ 
 diff --git a/sound/soc/codecs/aw88166.h b/sound/soc/codecs/aw88166.h
-index 377a733447e70..1a61e56f607c9 100644
+index 0aa92b3b6c3b8..377a733447e70 100644
 --- a/sound/soc/codecs/aw88166.h
 +++ b/sound/soc/codecs/aw88166.h
-@@ -607,8 +607,6 @@
- #define AW88166_DEV_SYSST_CHECK_MAX		(10)
- #define AW88166_START_RETRIES			(5)
- #define AW88166_START_WORK_DELAY_MS		(0)
--#define FADE_TIME_MAX				100000
--#define FADE_TIME_MIN				0
- #define AW88166_CHIP_ID			(0x2066)
- #define AW88166_I2C_NAME			"aw88166"
- #define AW88166_ACF_FILE			"aw88166_acf.bin"
+@@ -437,6 +437,8 @@
+ #define AW88166_I2SBCK_64FS_VALUE	\
+ 	(AW88166_I2SBCK_64FS << AW88166_I2SBCK_START_BIT)
+ 
++#define AW88166_TDM_BCK_UNSET			UINT_MAX
++
+ #define AW88166_I2SSR_START_BIT			(0)
+ #define AW88166_I2SSR_BITS_LEN			(4)
+ #define AW88166_I2SSR_MASK				\
+@@ -476,6 +478,54 @@
+ #define AW88166_I2SSR_192KHZ_VALUE		\
+ 	(AW88166_I2SSR_192KHZ << AW88166_I2SSR_START_BIT)
+ 
++#define AW88166_SLOT_NUM_START_BIT	(12)
++#define AW88166_SLOT_NUM_BITS_LEN	(3)
++#define AW88166_SLOT_NUM_MASK	\
++	(~(((1<<AW88166_SLOT_NUM_BITS_LEN)-1) << AW88166_SLOT_NUM_START_BIT))
++
++#define AW88166_SLOT_NUM_I2S_MODE	(0)
++#define AW88166_SLOT_NUM_I2S_MODE_VALUE	\
++	(AW88166_SLOT_NUM_I2S_MODE << AW88166_SLOT_NUM_START_BIT)
++
++#define AW88166_SLOT_NUM_TDM1S	(1)
++#define AW88166_SLOT_NUM_TDM1S_VALUE	\
++	(AW88166_SLOT_NUM_TDM1S << AW88166_SLOT_NUM_START_BIT)
++
++#define AW88166_SLOT_NUM_TDM2S	(2)
++#define AW88166_SLOT_NUM_TDM2S_VALUE	\
++	(AW88166_SLOT_NUM_TDM2S << AW88166_SLOT_NUM_START_BIT)
++
++#define AW88166_SLOT_NUM_TDM4S	(3)
++#define AW88166_SLOT_NUM_TDM4S_VALUE	\
++	(AW88166_SLOT_NUM_TDM4S << AW88166_SLOT_NUM_START_BIT)
++
++#define AW88166_SLOT_NUM_TDM6S	(4)
++#define AW88166_SLOT_NUM_TDM6S_VALUE	\
++	(AW88166_SLOT_NUM_TDM6S << AW88166_SLOT_NUM_START_BIT)
++
++#define AW88166_SLOT_NUM_TDM8S	(5)
++#define AW88166_SLOT_NUM_TDM8S_VALUE	\
++	(AW88166_SLOT_NUM_TDM8S << AW88166_SLOT_NUM_START_BIT)
++
++#define AW88166_SLOT_NUM_TDM16S	(6)
++#define AW88166_SLOT_NUM_TDM16S_VALUE	\
++	(AW88166_SLOT_NUM_TDM16S << AW88166_SLOT_NUM_START_BIT)
++
++#define AW88166_I2S_TX_SLOTVLD_START_BIT	(8)
++#define AW88166_I2S_TX_SLOTVLD_BITS_LEN	(4)
++#define AW88166_I2S_TX_SLOTVLD_MASK	\
++	(~(((1<<AW88166_I2S_TX_SLOTVLD_BITS_LEN)-1) << AW88166_I2S_TX_SLOTVLD_START_BIT))
++
++#define AW88166_I2S_RXR_SLOTVLD_START_BIT	(4)
++#define AW88166_I2S_RXR_SLOTVLD_BITS_LEN	(4)
++#define AW88166_I2S_RXR_SLOTVLD_MASK	\
++	(~(((1<<AW88166_I2S_RXR_SLOTVLD_BITS_LEN)-1) << AW88166_I2S_RXR_SLOTVLD_START_BIT))
++
++#define AW88166_I2S_RXL_SLOTVLD_START_BIT	(0)
++#define AW88166_I2S_RXL_SLOTVLD_BITS_LEN	(4)
++#define AW88166_I2S_RXL_SLOTVLD_MASK	\
++	(~(((1<<AW88166_I2S_RXL_SLOTVLD_BITS_LEN)-1) << AW88166_I2S_RXL_SLOTVLD_START_BIT))
++
+ #define AW88166_CCO_MUX_START_BIT	(8)
+ #define AW88166_CCO_MUX_BITS_LEN	(1)
+ #define AW88166_CCO_MUX_MASK		\
 
 -- 
 2.54.0
