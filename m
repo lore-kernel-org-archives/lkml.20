@@ -1,136 +1,116 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F0F38553F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63F21C28E
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790303741; cv=none; b=jd40l0NC1iuyUoSrnAC03Z/hSlh6bT1W1QrzPkiltiahWMDtQn6CG8vmkUpBtMUaWIoXM6O6riOgM2PZx7lkRrwoSYOsWPqQKMh4gucZcFxEyWfx5R+hBpmyp36+bnsPpnTVB+toJX+PaKi6Tdh2aaWA6paJw80ILP4FggN9A1w=
+	t=1790303842; cv=none; b=KcJZSk5lh8x/uF4PunESEoI96AooD3NuCgDNhone8ETQQnhvjo7Rh/WYismf/0MGHINEc0wyNqBeUP3ZWu0cMvqOThzpSQzGqdcHdC7Cr7GzZnoC/X4zZMdix9bYfqBUe6sFIFK6RMuw40YTK9H3NWXZJ1BLjrWqpgbznLGkVZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790303741; c=relaxed/simple;
-	bh=mLzFb0wUMf/2JsZbOeNHMQqBI0nCl4svyVfY+mfVD3U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LLA6pOkOXvQPpjPlx/u0x7oDG3YaMLSDWFbda2STnZoqwHkU+tWUrtDhy5qKtHG5KCGKGGsdSXnxk9YMhq75E66Pn2J11tLd/5HEJsvs57ED2mA/HHZsVUZ06awfMlvxfgsAWB7inv+PXUarA3YbFVilNjHNhwI71P+Eh1mxuI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FRKvamD8; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1790303842; c=relaxed/simple;
+	bh=l04TOEpZhNykE621pEvmbpIKDfEahGsajnZ9Kaku39g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m4OWhiAM3vgLTCp7lCO3C1JerAo3RLgzsy9pGn+wSPOGnK7wbF/Mu13JGM91GSiCLmXx7yeei/grYNxYsdfu8Jw93Z2dYGhMsZ9+WhHamesTl2TozCtvP+JTv70KXgG9jCkH43SPnvpNT3BgOlI9xjTIn6fR7df1oG8RPFAdr1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KL+zBgxt; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FRKvamD8"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e630052ebso416345eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:35:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KL+zBgxt"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398cb5615deso381084a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:37:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790303738; x=1790908538; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L60OKz5e4cB68kG1U4rmEvHYKKWbnczDtlXEaWaKfOg=;
-        b=FRKvamD8KDeTbuN/DQJzIlnclGtOqL1RKAyGdsS460x7V+RMQkYONxjYhnrTmLJb0u
-         +ibHibimbArtD5B/mIAcr3Yi1kQKmkA9YyX0xnejr5C/2MerHDLSEAqnXulIxlWrDiEA
-         g3XzaSCSUpRvYu4nxqcz2PD9dNjcj1d0aIuai3KBBqB6v2LnT948J+DwbXcO8IS25d9o
-         4YVmonE85sZXuMCRXjDqMrcOr7BRadBq5DAIvbDU0byK1KX5cv1LmOp7muR9OLTGafGH
-         et1HPeWSkapJ3Bn+ZmJshiplnFG/K9l+/E/XZhy6HIEcE2cSVGoG7tPsAJ7YUMkgiyxq
-         yCFA==
+        d=gmail.com; s=20251104; t=1790303840; x=1790908640; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1hvE16omYzK/0hBy/Co0mAjilr6lqIeUfcQO23ZacDw=;
+        b=KL+zBgxtIBssg8/Unkb7HE/+n4xWKkedfY3JR03MT2YtJ8CL8ZXVBsBrfRIQUUjmzc
+         X/KcWJe6UlQ7myW02AUMmrd6Y8PPl31K+G09Fq8lJktNlE2Y01mc5zQL4NAJW9Knd52O
+         2LhhJo7KXDUBIfdXE3dxbn9Fq66D7uNJ2RWoEGCFFvaJ00zUqhjMMlOyxpzK9UsgXXKk
+         NsFEM/yNrvM6CwvF7FdnXG0rNDRF/iEkT2Iv2NRnD7ez2HPCwMYDIrdHXkOw2Li7id3e
+         I7LF+3OLM2VYd/1nN/qk5oIKETzwSZRj8My+xo3j0hQAE5LQONQ3Fq6nm+RtcR08taV3
+         1fdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790303738; x=1790908538;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L60OKz5e4cB68kG1U4rmEvHYKKWbnczDtlXEaWaKfOg=;
-        b=NE07g959v+Tp7Kpt8YbraZzcnPLBo52GDQsIIjfhfk/9WeEvq+FWZ2YIJ1mmhad80n
-         THoc1yYa2/J74uh8x/R4+FgPb/P6Vw7Z605S1Od3AbfBC2MEdssBXtluO1DcFmLGlQWH
-         8eHkc+/Mqv6RYtF0vUcvTBSJ7OS/f+3R4Bpxo/yMJx1eFYjRXEZBP1lK5HGdlHgj0OGq
-         94RmiNjloGYVV22rlF5upEn0x9NROuQGuiDTcZtLfhEYGTdWw5bDtlQBVr4l22n8Imm/
-         WpsLt7wc0s8ZFSZbXQ3HMbU5UmOwOw/JUZdDdiH2Angj0GWnES007tS8dlBcTyYsUEZk
-         SwKw==
-X-Forwarded-Encrypted: i=1; AKwUvByr34EDH+/OozNTYYCtM0jvoIps0UaIrN4FDbbMpaYUCeKYisCxL1JrPasC+uzZluxEsnhZVJdoVEvJhHY=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldSJpHK2Ry1mcNYQ8h4O0NTVM99jae/YV6VEWgWTadwY26nO9u
-	Gn/YsewnbwfDtjx1/vCjPLOYpI/cVY9Uq5bU40mJXnXwgbhIRNJq60+/
-X-Gm-Gg: AYBFou3q0oTmECbimRF5V6Q2ybP8oJPzz9HtJn5Ur4BiOf0JRPXxYXswvMVQrGhOml/
-	QGO2D/OmCppIizNIvvaMxBfnTc3WQtDQc1Xm8G9pL6645FYTeOgaG5EnZjtzI9a/yiRAkKadsnn
-	33WJJDqmYmusJlTFUyXXEFQ33gSCiu2aQu/obEZvCGw0iezhO5nnKlZ1oU95Fn5Siuc6l0qtU7Y
-	attDkzobutTKxdfB/0E5uQhFcvowls+FFtWSD64f1flJtXD6/pPFRt/Gt3ZG5OKneykReC6E4+x
-	erWJYEUKkDqYQsiEZuL0ffX9zX8G5k7aJIdtNPDM8hbFwvFTT0Unh5YLq5OIoGhjh92MRMowBMG
-	3Nb8l0TrKN6tOiflWLn3yCi3eSdRtYcGBtBtRw2vZWiMwbAjSMkETJw36UOSauiglpjM8z3lyXQ
-	sOg5BrIdFglBsMknuzRU8wHnLpgKQdpptCorwgLubJHef9LWwvxGQwWURZgEXqnrU=
-X-Received: by 2002:a05:693c:8381:20b0:33b:bd89:26d1 with SMTP id 5a478bee46e88-34004c81f1emr4004679eec.12.1790303737909;
-        Thu, 24 Sep 2026 19:35:37 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145632298sm2364961eec.22.2026.09.24.19.35.33
+        d=1e100.net; s=20260707; t=1790303840; x=1790908640;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1hvE16omYzK/0hBy/Co0mAjilr6lqIeUfcQO23ZacDw=;
+        b=Gr++vJefSOFsN+oh7dvR3xxZ7OHjpdyBoa3DBGVprN8nxrWav0HXNvbovsC6SOLwyL
+         wLWoCUa/Q2fP75Nxc5zHFzzsCf5Z8trshVATCQo4VtTZgjZITQrVshFSVvUzoo0C/e8R
+         Wh4cKDRFjzVxTcUeea2Tlqpuz1fFgh0dXkG6UVrkElbxrp+rdsvdmeoGxK2nt+ijFZBe
+         QWKx2YC7FJmLvPBTA8sB//w34hNWQAG6NP02QbhTg3DfGUQDHIlCk/HTcZnVzI1ijpdI
+         U+u9Kpb9bjo4aSBEQcWM3PWEE5cn4VWlmcIsZh62jXFcXWRmN0vwIrOlQwYjMRY1FtnL
+         wLOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxqzEJlaLDE58rpsb+VBN7RfT6tr2UNmMEUJdZ7cfZpzZvVyfsHuNplHmdiR5TShIHxbK1JxG7QgrRiMF8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7mdeW6OuLWcdeO7NzhT5jZm8NrfMCXvVW+u45GsjiqWN+e0ht
+	8rOZEnO9S9sj17pjQJi947Op8dS28v2JlFWSHijagdCT4gXx62oOUVLg
+X-Gm-Gg: AYBFou1UISHqx9pqyLpiw76Hwibk/agv7mghp08LE5595rulnfwIBrvBCvBDalW8fRj
+	KNP8aR+rsON04KA0yobybeJBMxiK5gAKXX+406Xo+5Bsv/CpMPViZcjU1038FvN9pjbBauzsEIr
+	Si50dDr7K8UTQki4h5ZQWDhZfiWGMj5NAnU8HmFqzWcGRboTUCBzDSdr8wf9i41W1T2lrP6uWyx
+	I2lkEIhsDXmcVPp08ZaYVr8E+zObNw9jkBJ7meiSL0+09H/eQ1UGeN0BUeb14olSSu0nHmicLiC
+	JGnoUTAEzHpZ0gT+YW+uisx6X/Vz/tVatM0CdGRVrRuJHjSlWT0MjWAHgNOf6/lVvP2geBkCgcD
+	2kcnh4aRfYYnoy4tKAN3rWtIZSLoSaSi/lyEUKUHdj7iFLY1D+jJFYHsEsN3Fjf9qMtyrcJvjZZ
+	/KsF4gvYvAyh8dHem9XarOG5MhujHmIKIUZDzdCYNkd9jiu9nJpYshvA4r5FMm5a1hdU3KaOFaz
+	tfWwpochVlM
+X-Received: by 2002:a17:90a:d446:b0:39e:6c69:9b8d with SMTP id 98e67ed59e1d1-3a099230f6amr3868920a91.50.1790303840107;
+        Thu, 24 Sep 2026 19:37:20 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9356f48sm1507678a91.6.2026.09.24.19.37.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 19:35:37 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Lacuku <qwe.aldo@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net] nfc: llcp: prevent resource leak on repeated connect after DM
-Date: Thu, 24 Sep 2026 23:35:27 -0300
-Message-ID: <20260925023527.3065197-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 24 Sep 2026 19:37:19 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 24 Sep 2026 19:37:18 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Cc: david.nystrom@est.tech, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	ricardo.neri@intel.com
+Subject: Re: [PATCH 0/3] hwmon: (coretemp) Report unreliable temperature
+ readings
+Message-ID: <46f9f319-de71-412f-a424-6cb801478456@roeck-us.net>
+References: <20260924-coretemp-temp-fault-v1-0-1884f0ff97d5@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-coretemp-temp-fault-v1-0-1884f0ff97d5@linux.intel.com>
 
-From: Aldo Lacuku <qwe.aldo@gmail.com>
+On Thu, Sep 24, 2026 at 07:33:19PM -0700, Ricardo Neri wrote:
+> Hi,
+> 
+> Intel CPUs indicate in IA32_[PACKAGE]_THERM_STATUS whether the digital
+> thermal readout they expose is valid. coretemp deliberately ignores that
+> indication, for the reason given in commit bf6ea084ebb5 ("hwmon:
+> (coretemp) Do not return -EAGAIN for low temperatures"): some CPUs clear
+> it while the temperature is too low to be measured, and the value reported
+> in that state is more useful to userspace than an error would be.
+> 
+> The consequence is that userspace cannot distinguish a genuinely low
+> temperature from one the CPU could not measure. This series exposes the
+> indication through the standard hwmon temp%d_fault attribute, leaving
+> temp%d_input exactly as it is.
+> 
+> One user-visible effect is worth mentioning: sensors(1) prints FAULT in
+> place of the temperature when temp%d_fault reads 1. On a CPU that clears
+> the valid bit at low temperature, that core stops showing a number in the
+> default output, although sensors -u and -j still report it, as does
+> anything that reads temp%d_input from sysfs directly. A driver-custom
+> attribute name would avoid this, but would be invisible to generic tools.
+> Reporting the condition through the documented attribute looks like a
+> better option, but please say if you prefer otherwise.
 
-A nonblocking connect can return while the socket is still connecting.
-If the peer rejects the connection with a DM PDU, nfc_llcp_recv_dm()
-changes the socket state to LLCP_CLOSED.  A subsequent connect() on that
-socket currently overwrites the previous local, SAP and service name
-without releasing them.  Repeated retries therefore leak local references
-and SAP allocations until no SAPs remain.
+I think it would be _much_ better to return -ENODATA for invalid readings.
+This isn't really a fault, after all. The sensor is not defective,
+it just can not provide valid data.
 
-Release any resources left on the socket before obtaining resources for a
-new connection.  A closed socket can also retain the device reference held
-by an asynchronous connect, so drop that reference as well.  Bound sockets
-do not hold the device reference, so release it only when reconnecting from
-LLCP_CLOSED.
+With -ENODATA the sensors command reports N/A for the temperature
+measurement, which I also think would be better than reporting FAULT.
 
-Fixes: d646960f7986 ("NFC: Initial LLCP support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260923133339.2518641-1-qwe.aldo@gmail.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Lacuku <qwe.aldo@gmail.com>
----
-  net/nfc/llcp_sock.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
-index 5558d8a..e76361e 100644
---- a/net/nfc/llcp_sock.c
-+++ b/net/nfc/llcp_sock.c
-@@ -690,6 +690,23 @@ static int llcp_sock_connect(struct socket *sock, struct sockaddr_unsized *_addr
- 		goto error;
- 	}
- 
-+	if (sk->sk_state == LLCP_CLOSED) {
-+		/* Release resources retained by a previous failed connection. */
-+		if (llcp_sock->local) {
-+			if (llcp_sock->reserved_ssap < LLCP_SAP_MAX)
-+				nfc_llcp_put_ssap(llcp_sock->local, llcp_sock->ssap);
-+			nfc_llcp_local_put(llcp_sock->local);
-+		}
-+		if (llcp_sock->dev)
-+			nfc_put_device(llcp_sock->dev);
-+		kfree(llcp_sock->service_name);
-+		llcp_sock->local = NULL;
-+		llcp_sock->dev = NULL;
-+		llcp_sock->service_name = NULL;
-+		llcp_sock->service_name_len = 0;
-+		llcp_sock->reserved_ssap = LLCP_SAP_MAX;
-+	}
-+
- 	dev = nfc_get_device(addr->dev_idx);
- 	if (dev == NULL) {
- 		ret = -ENODEV;
--- 
-2.43.0
+Thanks,
+Guenter
