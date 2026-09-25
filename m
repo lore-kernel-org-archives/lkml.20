@@ -1,184 +1,147 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021125.outbound.protection.outlook.com [52.101.100.125])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F047A493638;
-	Fri, 25 Sep 2026 10:29:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.125
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790332157; cv=fail; b=TK7jyde76VVcf5fSIqXAKEerKWMW2jD6MqrCadmnwKJZUoOuj8aefRujt57zwnecI1a8Wrn1mfHhuB4WZncCArzkkEbKUMWs155xf8qa/VtTgfYtD8IqHBrxKAOgHcbLs2neKpFDTIHapGVkUPiJRdUDe9Z46H8g1/3M5HCDGKU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790332157; c=relaxed/simple;
-	bh=sxjsxFHoYdELjeP4Y2+qg2AfABHp+CmZcqUvVsK6i4g=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=PWMqHltF9ORIunbyW8Ve2MPcg9QhIWNMLoadDetp0kV+V871rNnomdBT0muvC05cyH4SrdfPLFObeC7U+JBoImSepJlJ9eZL9+JP6Fh9czZn2HEPLce159d9mS+1TGrMue4GFLPVvwC0OU0ofDGcknL5QzAdlTKmSl7iB6BA/tU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=pd5UJsxx; arc=fail smtp.client-ip=52.101.100.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C76493D4E;
+	Fri, 25 Sep 2026 10:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790332216; cv=none; b=HIPH4vB2T0skZSUFbyGn/0ilQ6ahYBLTOHeRfgTX2t7WtLnt6HvDm4Hv/IohO9h7DvXjN37r1Q5sm5534yOfbEpDk4HqknswrmyiepcBDW8rXkqpKeV7hL3a8fqDVDPz4FlrY3EiQAFVHNm9zJiUbxreVsrkntTkPtZT/UuXtbg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790332216; c=relaxed/simple;
+	bh=G38+9Xi1BL5x3HemPTXAYafBVSe9mK5t4PCHwW9U/+g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T4C4POeeCdRem7tpP15VRVyBMMboNjxjtOc6j0SEXsx9paNeP+gxcSqoaagLgdRA6hcnRojfTBgFJN0hdelDeQ4tTzcZ0BbvUSIggA/dKk43/wghbtSbYO/+vC1o+BUKV0Yfa/I3LINdWdIbrv17rOmYqxu6yOEmyWiT+Oyjlz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/PC1qgX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="pd5UJsxx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BQJWtpyAZOym/wJdICELh1wDLPdlVRA4I/oohZZZFo+jl/Z7aEqtc/PRbNdn3q9LuQr444WqvvIoyZjcqc0+5x5D1fyeCJYpwa/pTpXIq+cvdsncbxj9fbWjnmiKRyPPmJgv1+DBKha+sFdRjYb75pQX4GVTpsu75SB8kgnviCsxQHA4YLkBcCh7PjiqxXCjJTDdlhvlB0bp9L/svPcj7Ltutv/lMfE4KZMFH0/bpyBMbFVpNrG8Jn2eAW1U0MBcZ9KW/f/u+YFHW/MfD2GxmTnRz/f8zwtMHI54ckUIDktHN9U9LCZiBftAALpIVlc/9P+1z13Q7jB0RDyGTX96eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sxjsxFHoYdELjeP4Y2+qg2AfABHp+CmZcqUvVsK6i4g=;
- b=T5C6vudqPaDmUzJJrv5sqM7h+D4Dr8U5w/SdDQiGvkvFzqwCVocn8Tt8wlzr/5wHvwdgSF9ace/UEWsxLWFPeH/d06WCFWnd2nHYqcAEEojRCpZzNog6hhgHCltL7XwvyHd/u1t9buTRQV4CFDwl4/PJkNlJi1SV3oiucjJClsxOSDIwWIaFBUkQwOZ/2gHDe8S8Ob6jCZMb5Gj1yOGZqat0IKv6zDIqgtv2BlPNHN+rmFxpHbr0Uloi4GTzkB0v1uzFhEVOBvnSZVgFoCSdB4R4BSAPcLGQqJqAWNIQoJMQ0xGV5DcUJeIujotXcC2TsCoB6TuJ5CujsZ11s8xJvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sxjsxFHoYdELjeP4Y2+qg2AfABHp+CmZcqUvVsK6i4g=;
- b=pd5UJsxxTXdUNQlMPxu4n3zvrCZ0/kYWZtsU/FNVtVbLxnn55QqLJs85o/Fas5gqTi6E4Nt3rSvR3yL96nxg16VOjfkiUPw/yYdHxiFP8laV00A4+xSIXJ3OVnJMoJKKzFXk/23aXJfU0/YVGIM/kAloytJvrL0yQlwhgC8Mn+w=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CW1P265MB7405.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:219::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 10:29:11 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 10:29:08 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 25 Sep 2026 11:29:07 +0100
-Message-Id: <DLOBS2HQYSWS.2W0JMY91EZ48V@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] drm/tyr: safely write GpuInfo to userspace
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alice Ryhl" <aliceryhl@google.com>, "Deborah Brouwer"
- <deborah.brouwer@collabora.com>
-X-Mailer: aerc 0.22.0
-References: <20260924-b4-gpu_info_intobytes-v2-1-1b05e33df8a4@collabora.com>
- <CAH5fLgj=h_riWoOvEX_TOH3+0FNbKBtjO1OrxzwHDQq7uzXg_A@mail.gmail.com>
-In-Reply-To: <CAH5fLgj=h_riWoOvEX_TOH3+0FNbKBtjO1OrxzwHDQq7uzXg_A@mail.gmail.com>
-X-ClientProxiedBy: LO0P123CA0001.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:354::10) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/PC1qgX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDABB1F00893;
+	Fri, 25 Sep 2026 10:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790332214;
+	bh=u0UNCp5jO3JC5Gl7IqvtlCZ2BmcuD3WupLp9PnEdBrA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I/PC1qgXUGnaE4DvqOgsMbPQTZn2nVuMsNNnif3JLU7v5NloNltpDdIV8iSK/TZmb
+	 +mh2Ck91xOwSKHSDdKxXVz+yyj9whQWuVYYfiwRqhDyH+faUYY18Z5YIrBpkrNRMP/
+	 uNQQSf5eQE0TVTsS8LXy/Nosl63JqRWVc6SrqVl6KnrUsRYWFCbxqae0EI3G+ypZ2H
+	 ZQCIEgAXl7BfPtcdBhc7/IQz4+BQz+gu6/Hd/EeX6nhIQcmXdxpAvbN6U8LddkyeKn
+	 x7NaFqcK4ooeA/eUN0TRkoaionFpY5Uf7ceIDpt8lo2PUceZQJUiFPLkrU1u6m6nc5
+	 mUqEOB9Hh9sPQ==
+Date: Fri, 25 Sep 2026 12:30:07 +0200
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
+Message-ID: <arZNL9BnTGK0Klwc@red-moon>
+References: <20260925-acpi-static-table-irq-probe-defer-v1-0-2c62125d0085@kernel.org>
+ <20260925-acpi-static-table-irq-probe-defer-v1-2-2c62125d0085@kernel.org>
+ <arZDwutoadki7tiZ@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB7405:EE_
-X-MS-Office365-Filtering-Correlation-Id: a90e7ecd-6a1e-4831-c60b-08df1aefd530
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|366016|1800799024|376014|7416014|56012099006|18002099003|4143699003|22082099003|10067099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	qK46F+gLzoN/ZXmeLCI4psc0u9KaCdbJPLDQxuTspiFqfR+qtyArIa04cl7q3kxqFqhhVEo/OOwj9+w9SrVSHa0kZ4gViSiCijMLvDiC1tLL3vgUqw/m8GYPRDdHdB7awUxQTKkLfU++b/lxy84BR72PqtNsG+b21mG3ILEP8hldsMMLKOdHfUPR5eoawVKAutJ8JSgSn/njW2hk8n98hyKhPyppYwAv+o4K8hIpBtZp0p+vI0hs6dSYE1yTAW8bOMiurZ8KhwtvPuL+nCbtW5x6MAdSNJftbQmBwUxc6FuuCqnFfNvtHmi8O6wGceMzrBMVHZtqTh2qSDubw41vJ1X8g5e+EfGtL/EeQvyFBhQOZ1+TSApT1QpemBeAwFqJApC3k0UIcDogQkEKfKhYNd1+FRc5sPNZsGooqZ0eDosXekletCxt2D9bcoZQqC/cm6zgGbPl0561inYMfJLhOXcv/X6HQ15ZobMbgJBTmU00T8n71d3GV3e/wD1gqgTza1Y6LKL2wzs1cN+QimDYci1GZb72H4KkMLRxQxqdc+WgGKoC9UoBIrIQLqgVk0C6Tm9aWBRUlOyYe5otI9gmPJZ/x5G1QEZMxSiqAlWs/SPow2GIaAOTFeEFsIlUXxxIoYJuxwX/WIROdOHctX9sHP0TQT6GI3fADBn741BJZoI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(366016)(1800799024)(376014)(7416014)(56012099006)(18002099003)(4143699003)(22082099003)(10067099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TE8ycDZYZmVvT2dMcUJTYlpvOFdQUDVSZGJaMXJRckFPbjNOcVgyOW5XQzJU?=
- =?utf-8?B?cElrWnhsWWpZVkhPOUNMc1NUaDB6NFpneFZFek5Gejc4N1V0bE4zWTA1eHp6?=
- =?utf-8?B?Y3hnU0t5RGg4QUF0am9xVmxmWGRaTDk3T24vRG9CSXk1c3ppMHVyRjVIdUY2?=
- =?utf-8?B?MlJwK1N6Y3c3VmhBWjM3ZG9vTGc5bFFGTmFxODk0Z2xzM01MaFlIM216d1NL?=
- =?utf-8?B?T2pLa1YwSEZOWEF1akNIbDhteWRwZHVvTEFLeExXNVNrUVFJZVBnOWdrVE9P?=
- =?utf-8?B?ZUlBQ01vTzdNQjkwS3Bpd21EVjUzQTJRR0Q5WXNHTFAvYitVR3FLQTJzaG9B?=
- =?utf-8?B?dVRNd2xGdWw3b240SVdzN093N2FycUV3Zzl1TStoZ2pTSGdRTTMzUzJ3eURQ?=
- =?utf-8?B?YlZteXJ1RlhwRWRXdnB1Qlh4UUtjd2hEeWZ6dWZWQ01yckN6ajBETUF3dW1Y?=
- =?utf-8?B?aHBBaGlVOHM1ZTJEYXhIcWNhODhTKzlDVDFCWjVXQXg2dFFsVVlpRzJ3Njcx?=
- =?utf-8?B?cUs1OUw0L1JQRFpXUlVMWTY4dVI0OTZyTUxYaWpMVFdPRXB1V1hWbVlGUjlv?=
- =?utf-8?B?dlRWbk4yQTQ1TW8zc0tLSWZ1enV6d2RxM3JrSmdUN0lSRm4vYzlvdXZSck1D?=
- =?utf-8?B?dm0wTGV6M3ZWNG9jWTNYa3RGMHlYRWZ4aE5QY2czajVzd3VqOThFa3FnK3Nj?=
- =?utf-8?B?SUw4UUtlMDVmZWZ6ZVV2dDcraTZaVGUrL3YyeXQzTFhldXN0WDNJU2gxTGxJ?=
- =?utf-8?B?bHRhbG9uU3VjWVVLdnRCTU83VUl4c2JnMmtvbDA1Y1hvSUZHalhJWERKVmNr?=
- =?utf-8?B?L1JuR1J4dktNTzZwcVRHYWE3OTBaV0Y2ZDZkV2thZVVrV0lGMUhzSXlkWFNZ?=
- =?utf-8?B?YmFRaC9DUEVoUUpWWDVIQ0FBQldhOWhkNjdJdmdzcXJpL2Noa0VWYTZrdFZj?=
- =?utf-8?B?ZUVxek9LVHBuQjhiSUtReVNEb1NvVSt6L2JtbHVwSUFDK3JRQ25qZjdBWFRS?=
- =?utf-8?B?SEdtOUlxTHR3Q2krZ0ZHeHN1ZGNqb0ZvZHpQODQ5WFdxYW5NN2thL2xra1M1?=
- =?utf-8?B?WURjbUt6Z0laZzFsSjE0NWo2QUUwSUM1MnNod0h2YXQ1K1RNMzlWZzJqbjBO?=
- =?utf-8?B?aVFEVTVWMmNVbXZuTG5yZHVmRjRwTmlld0hzSWFmTS9MaGdMZ25zNXpIREZm?=
- =?utf-8?B?WXYvOENuTURsdklIa0o5QjA4ZkZZWXBLN0RlVFNKNW5BeXlsZDNqbFRoZkZC?=
- =?utf-8?B?WEs1WmI1MEJxV0tiQ1BaNThCeHRZRWx1eHpIbHp1YzA0ek96ZGVtcVdYLytE?=
- =?utf-8?B?czMzOEh5Ykd4SkxpQkpURVJhZDdsamdiTUpKcEMvb1lWZEpxbFBwdEF2NHRi?=
- =?utf-8?B?QmY2MzNockZzWVdOT2tkck1oMDI3MjhiNFFjL3lqd0F4cGVrMFk1WUtHbHdL?=
- =?utf-8?B?dC83QUtWWXhBK2FqVnprT0MzTUliVXowVERKZGI3Uis3eVlHSnNwcEJyQ0RG?=
- =?utf-8?B?OXlDL1lORHhEcnFzdklBTEZUNDBxMmdpK0FUYU5LWnRTajE0YkxZR1IyUHMr?=
- =?utf-8?B?TG15Rm1XNXpIT0NrOGpISUkyNU1TQVNEcGVwYmphYjBZTE9mUnorNWE1RUhN?=
- =?utf-8?B?ZHdKTXJXN2hiS0FqMjljVmRHa1pvWjdmN0JUdEVOMFJMNGJRWC9LKzFoSVEx?=
- =?utf-8?B?Zll6Q3pDeE5NODliQTVXZUYyd1U1SEFkaDc3NXVnTVU3YlpGSkEzMjVqS1hY?=
- =?utf-8?B?OWMxTUFQMzl2UVBzbjVNVGNmNS9MSDZZeVY5OElTMDhoc2dPNXpVRXR4OGdy?=
- =?utf-8?B?WnRMNFkyemF6bnI0UzlFMWVhQTVyd0JjVUpCeGJ4Q2djMjF6WVZaWS9tSHlt?=
- =?utf-8?B?d3VzdFU3bFovQ1BuWjlROVBmN2hTZW9kcFplSGNha01YRGZRcFBHdVo1Mk95?=
- =?utf-8?B?Q2J1YlcvVlBVTHBoUXhEOURYaTQ3Ymh5MDBhSEZRTkUwL1JCNmFBOUNKNEVw?=
- =?utf-8?B?SDZRRXlwN1pZTnhSalV3WjBkc0ZneHRSUVRXZHRNejBncksyR1c1eXRmbUhJ?=
- =?utf-8?B?MTQvUVRPT0Zxc2NKMVZTTStHMTh1K2k4Rk13eWlVNXFPeDdHcTJwQ3ZMTUNO?=
- =?utf-8?B?VkJpRHhNcFNYUDR4VnV4d3ZFUSt4enZvOENjMU94K2lZeC9DYXNDaGplWUZk?=
- =?utf-8?B?SFhKSE5KM3ZISld6WXEwWmFxL0lWSUxHQWswb2dQWUJYY0VIbkxVVHFEdmwy?=
- =?utf-8?B?eWhKOWRBb2tqL3Q4UDhKMmN6VzI0QVBxbWxMMVFUUm92WC9VNnoyNzZSUFpi?=
- =?utf-8?B?S2hxbTh4VXNRc1ZFMS9vR0Uwc1NjUjFpVlNrVXNkUHh6MjY5ZkM2Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: a90e7ecd-6a1e-4831-c60b-08df1aefd530
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 10:29:08.6951
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YUbiSRso30hyDTbCt6Bwt/4TLgiVlulkB/5dPG7YSMVgWXsOjvv+eFcFmPEhaVBgMACZHQssp7NRTM+goIV8pw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7405
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arZDwutoadki7tiZ@ashevche-desk.local>
 
-On Fri Sep 25, 2026 at 8:56 AM BST, Alice Ryhl wrote:
-> On Thu, Sep 24, 2026 at 7:22=E2=80=AFPM Deborah Brouwer
-> <deborah.brouwer@collabora.com> wrote:
->>
->> Tyr creates the struct drm_panthor_gpu_info from the Panthor UAPI
->> bindings. It initializes this struct by querying the gpu and then writes
->> the struct into userspace memory faithfully byte-by-byte.
->>
->> Currently, the struct drm_panthor_gpu_info does not have any implicit
->> padding, but if implicit padding were added in the future Rust does not
->> guarantee that it would be initialized. Then when Tyr writes the struct
->> back to userspace it could expose uninitialized kernel memory.
->>
->> Tyr implements the unsafe trait AsBytes for GpuInfo whereby the develope=
-r
->> guarantees that struct drm_panthor_gpu_info does not include implicit
->> padding, pointers, or interior mutability. This allows Tyr to safely cop=
-y
->> the struct into userspace memory. However, relying on the unsafe trait
->> AsBytes is fragile because if the Panthor UAPI changes, the SAFETY
->> guarantees may no longer be accurate.
->>
->> Instead, use the derive macro `zerocopy_derive::most_traits` for struct
->> drm_panthor_gpu_info. This macro will attempt to implement the zerocopy
->> traits for struct drm_panthor_gpu_info. If the Panthor UAPI changes so
->> that the traits IntoBytes or Immutable can no longer be implemented, Tyr
->> will no longer compile.
->>
->> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
->
-> So this looks good to me
->
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
->
-> but needs Miguel's ok since it modifies the Makefile. And I imagine he
-> may ask the commit to be split into two.
+On Fri, Sep 25, 2026 at 12:49:54PM +0300, Andy Shevchenko wrote:
+> On Fri, Sep 25, 2026 at 09:48:01AM +0200, Lorenzo Pieralisi wrote:
+> > To describe and map GSIs for firmware nodes created out of ACPI static
+> > table entries in a uniform way it is required to define some standard
+> > properties and attach them to ACPI static fwnode as secondary nodes.
+> > 
+> > Define properties names to describe GSIs and their trigger-mode/polarity,
+> > and implement an irq_get() callback for static fwnodes so that core code
+> > can retrieve and map IRQs for ACPI static fwnodes in standard manner.
+> > 
+> > An empty stub for property_read_string_array() is also added, so that
+> > the fwnode_irq_get_byname() interface falls back (through
+> > fwnode_property_read_string_array()) to the secondary
+> > fwnode to grab the "interrupt-names" property.
+> 
+> > Signed-off-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> > Cc: Bartosz Golaszewski <brgl@kernel.org>
+> > Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> > ---
+> 
+> Same here, please avoid polluting commit message with the Cc list.
+> 
+> ...
+> 
+> > +static int acpi_static_fwnode_read_u32_prop_index(const struct fwnode_handle *fwnode,
+> > +						  const char *propname,
+> > +						  unsigned int index, u32 *value)
+> > +{
+> > +	u32 *values;
+> > +	int ret, count;
+> > +
+> > +	count = fwnode_property_count_u32(fwnode, propname);
+> > +	if (count < 0)
+> > +		return count;
+> > +
+> > +	if (index >= count)
+> > +		return -ENOENT;
+> > +
+> > +	values = kcalloc(count, sizeof(*values), GFP_KERNEL);
+> > +	if (!values)
+> > +		return -ENOMEM;
+> > +
+> > +	ret = fwnode_property_read_u32_array(fwnode, propname, values, count);
+> > +	if (!ret)
+> > +		*value = values[index];
+> 
+> Use standard pattern, id est
+> 
+> 	if (ret)
+> 		...
+> 
+> > +	kfree(values);
+> 
+> You want to use __free()
+> 
+> > +	return ret;
+> > +}
+> 
+> I believe the whole approach is suboptimal, if you wish get indexed value (but why?)
 
-FWIW I do think this should be two commits, one making Make changes and app=
-ly to
-both uapi and bindings, and the second adding the Tyr-specific parts.
+Why what (that's what the irq_get() interface requires ?) I agree it is
+suboptimal - the whole point of the series is an RFC on using properties
+to store GSI number/flags, then how to read them we will optimize it
+when/if we agree that's the approach to be taken.
 
-Best,
-Gary
+> it needs to be retrieved as that in the guts of ACPI. Allocating memory for the whole
+> array to retrieve a single element is simply wrong.
+> 
+> ...
+> 
+> > +#define ACPI_IRQ_PROP_GSI		"linux,acpi-gsi"
+> > +#define ACPI_IRQ_PROP_GSI_TRIGGER	"linux,acpi-gsi-trigger"
+> > +#define ACPI_IRQ_PROP_GSI_POLARITY	"linux,acpi-gsi-polarity"
+> 
+> Oh... This sounds like a big ugly hack.
 
+That does not help much I am afraid.
 
+What's a ugly hack ? Property names ? Using properties for this purpose ?
+
+Again, it is an RFC for this specific reason and I mentioned that in the
+cover letter, thank you for your inputs.
+
+Lorenzo
