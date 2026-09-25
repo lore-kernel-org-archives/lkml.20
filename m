@@ -1,50 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB784E3EFC;
-	Fri, 25 Sep 2026 16:44:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D22A4EA368;
+	Fri, 25 Sep 2026 16:43:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354653; cv=none; b=TjZ7cDu+YtUjU8Hp9ojc+UB7IyTtAJMMbdsZmKm+q7Auw2XbLV0MYki8hjRPjNV6SRo6atKlrV8zz7AzY+fvaqIjDnmJ8m6wSX/eHNs3fWcWvG9Fmivi9bSrnAd2ZUVfIyJ2uznHTF/BklNTXvX7/UVVv7RLtK1RPT+ufYqi1SY=
+	t=1790354650; cv=none; b=T0DzaFjydSSx6uv/omFBqqaXHw86JnMIRYz353KuaKRkmWdxjdUOSvAKLBv8MlZNxU11LCiBv+oLgq71PyVq92n75Kixwt0jzaZohGYPkt7P1SodA3Ok6/ycqpYwdUeYiML7P3bgwDkeSroIybs2R+axkQvSpU9A1SvLtF/dX7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354653; c=relaxed/simple;
-	bh=dOBEGIQtMJi3KyEd0JisrI5Up/OLmXa+pw1vErLI0b4=;
+	s=arc-20240116; t=1790354650; c=relaxed/simple;
+	bh=0QjSPUV2mLNIMJVpzn7y22XNazVaWOpw8QtUVslXs4k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nhd5c50VgrU3kDTJCrIFqzppc98BrDm2qsJnuQK4i0kQfPSwe4Qu6+SRyg0xH1fSsAHM5diE3VNXW8IXlNVLwW/wgUGUsB9OmXN5vDJMieMzM3MVLaSNvTTH4wI3XMYbVtwxVOP8tTStWVD+Z4hIXE3m4X4RPbEAP3RqzOYLLdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DkOvw2/K; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Xv3XIXEQTRAXHs4zIYVpEIkT84XhItgwW652cCt9nepu0cqGiuS3CDEx9Jv1FKVR25vqFk+8ijivCjtUacTjN90kuFIuo9wqSXnwTIXHTrWsh7MhqPEFyiecDo25S0x2PFiVizxtO3f/vHboRcpG0LOfK/xTn3LXyiQUHY64Bjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=glnhtDTC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DkOvw2/K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D65C1F00893;
-	Fri, 25 Sep 2026 16:43:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="glnhtDTC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969D11F0089C;
+	Fri, 25 Sep 2026 16:43:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790354637;
-	bh=kn0obPV5ydy5Ru9WFgJv0zuDn2drdBWekrb5BDSICjA=;
+	s=k20260515; t=1790354633;
+	bh=UfJj5X35VFR0hL/9LFgD4EpW4YjXuL8mq6Rrb6Mt1y8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DkOvw2/KzOz4PlNqA/ENeTOh2L8cm028uE0yNfu73UlW16nNjVkGYpWC6yJdHL/EA
-	 YzrFlGMyCkVrSZt0/iFIcVabUnFVmv/6xWL50WHHnXYLU49BkUDunZB7RCoVIN88EE
-	 dRMUljUc80PhW/rJJT/rAwYAQoIkxb3KDgiJ55I7Ttk3BVNMmxiefP18uyGwLgRsLn
-	 O3D5u+xjR9ARTt+TzhOHiSW17nTwn/UTm0veOuXJmRiXloQlHgjW0h+V2camEX29jZ
-	 LnLQjCEPZcfZSxHuaAAThHbkA7mBUAlF8DrhmnsPL3VC6uerOmD6TjzWmW0mcd2D73
-	 h00li36nbsGsw==
+	b=glnhtDTC+BxTNZ6ND0KBpyRBq1cSpiwoGHgWIZl086uLvBdmVjw87X6Wp1QnY+P1m
+	 NHP80IErETdU4GijrpDx/8m80GDR4IM2Ta95GErn0TsIrjb+/a5jMa/J3L7tNLOBNm
+	 pQ90g+2uTOGi1H43AOsx3PrvwhaZoHXKCUwyGNEkzhSp6wePKHQtu7TfyTSx2YeEwi
+	 LJDjOFU9F20bsP44pP8vE5MZk1yEPal7jAdgHbBO0E6G1vOn5dB01gZWsr5TBaZCWH
+	 5boOSNzUhQvJHwr+JeR39KjLAiS84qekzsWUQgiU70szNkqVZF11+pqO1iA8gxe3Xz
+	 vO6TqpbY7bF5Q==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
+To: Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Amit Nischal <quic_anischal@quicinc.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 	Taniya Das <taniya.das@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 0/3] Assorted fix-ups for clk/qcom/rcg2
-Date: Fri, 25 Sep 2026 11:43:28 -0500
-Message-ID: <179035461249.1296652.15594940609307519440.b4-ty@b4>
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/2] clk: qcom: glymur: Add rpmh LNBB clks support and update UFS mux ops
+Date: Fri, 25 Sep 2026 11:43:26 -0500
+Message-ID: <179035461235.1296652.9489845377688945023.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917-topic-qc_clk_fixes-v1-0-5531cb00514b@oss.qualcomm.com>
-References: <20260917-topic-qc_clk_fixes-v1-0-5531cb00514b@oss.qualcomm.com>
+In-Reply-To: <20260915-glymur-ufs-clk-changes-v2-0-d0aa1c60c269@oss.qualcomm.com>
+References: <20260915-glymur-ufs-clk-changes-v2-0-d0aa1c60c269@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,18 +59,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 17 Sep 2026 11:06:52 +0200, Konrad Dybcio wrote:
-> The robot found a couple of small issues that I believe are valid.
-> Compile-tested only.
+On Tue, 15 Sep 2026 17:37:30 +0530, Jagadeesh Kona wrote:
+> This series adds support for rpmh LNBB clocks and update the clocks
+> ops of UFS muxes on Qualcomm Glymur platform.
 
 Applied, thanks!
 
-[1/3] clk: qcom: rcg2: Initialize shared floor clock state
-      commit: b9a14395e6edfeb3ce241f19f84991106efcd3b3
-[2/3] clk: qcom: rcg2: Propagate force-enable status errors
-      commit: 396e900a120db686c3fe375df3b9fb6a62f173a6
-[3/3] clk: qcom: rcg2: Clear force enable after rate failure
-      commit: ae881bdb1b1d081ea3febcc16fe6ee16d3a2a0d1
+[1/2] clk: qcom: rpmhcc: Add LNBB clocks support for Glymur
+      commit: 8021bdc3f4fb8d9eecbe01cdde0d3b99fd76e37b
+[2/2] clk: qcom: gcc-glymur: Use clk_regmap_phy_mux_ops for GCC UFS muxes
+      commit: a1720f3eac0f32ae7079103f57d8aad3fa816f10
 
 Best regards,
 -- 
