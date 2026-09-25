@@ -1,551 +1,163 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7441046DFF6
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7D8353A90;
+	Fri, 25 Sep 2026 14:03:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790345017; cv=none; b=cW2IHIjAA1Ydk3O7ginNEHF+AskymzvyWzZDW0e5z0GBX3SRIn2Y+j2AKVp9DiEvkRyPSpOFSOAZvDTKU3YfMX/FG0MnKwGCP6hC2lxWZB0mJdfVjOsqZCUgBaxD/RzicAO8fMHpnyVOL5MZ/V+oYZRP7Hyho665GBM+0BpA3g8=
+	t=1790345023; cv=none; b=vELEmCuUpc3W7lOfaYu1s0TceQVtdrbudJWM6otK3NnIs4U37uF61+lwqq6dCieKSaUxcGiw9y8+z9XdjbDoFCVLrLIveIVnSHNlrh8ye7U2mC0yo8U3aZKfGMUC5ujjdztWWhBVRYYzwTluxcZdXNTozwLlMQlBOF9o3bfr7t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790345017; c=relaxed/simple;
-	bh=A+S8zM70++2CyTh5w44EgNHlA4fthPXMOminnTCsz0M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qt9JT19hFRm1sL62hroKwVfesdDfHdH+SvEoYVmzmxRCoIeKOkWPWJ9ZPL8vka6+oHJiNR+UE0Dw/+5TwHuKHZ4ClW6qS+uVauz1t8cf7JGG/3g6ARayk+VaZPHi/0mTPI0DqHbtcSXeq2SAmd2yaigxhYNg8saDMWJxTzqNRIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KHTsuAzw; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KHTsuAzw"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48877902c99so781228f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:03:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790345012; x=1790949812; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZHL25+9BtzIxeyN3O079v7dWv7/2sidG/Nr5MSNkz30=;
-        b=KHTsuAzwu59WCtGfgTcs7bizNM/F3EIb2XNKsODyNgWnMx4KbIxZM4iMolMdxrhcjl
-         KdntkuxdZGvQeAsRjFQcHYl7Qv20Q1Vj4ZwiOiV7KTB5mhPV6+5wpEGz9wvanOH02m00
-         EL3G14pTYAjGBmEB5t+a10KA12O5ViwC0KJ9R8IBFRR0J8a1Eb5H6fwbtpVxBg5/XSzA
-         BGhhAgJ0uYIz0JIbzsfW9CB19bCIHqjJ7tZ76kb5fMwkVOgg6jIvcCk2JC+/dfKhWiBl
-         zBDjIQNRHaI1S0KFzWhWBOPU24LifQj6NxWGQqJ8s4VnjqRQRUh1WZ/XZ+z28vWzszNh
-         S58Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790345012; x=1790949812;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZHL25+9BtzIxeyN3O079v7dWv7/2sidG/Nr5MSNkz30=;
-        b=NHgjlGqPDd4oG5gUpqruQuIqjDfH/15NavktG59Mo8LH6ILVW39yZNt/QivPiODeNC
-         i5SI2M4kfDxq5DIRRumSQoXmOnThSD+0oelz+D0yn2IK1IcjZiJ0k8XnQH5d9NZ6/4vl
-         pedbCMctUTyAg4QgyBQJyy01eP7jokJ1PRw8Dv93pnbSmVMl2YQQV6IsdDO9EceefW3f
-         3zWfpAuRWIpRdPubZGCisX0aTLTMnhMsnyJiCDdZd931P/W+hkJJvRTE9t8HAsrNXKbx
-         aTdeivx2myGWYJU/YlRjW8zFnuhQBESsDSfskFXchqQSyxRivlFwtjfw8uen0vJLMuxf
-         CBcg==
-X-Forwarded-Encrypted: i=1; AKwUvByKtmfS4GeVgiAwX8rKU3MK0QwUduAWCevQJ6eWSpmYRglrp/mJNcdfZGvgh88D1a8dhqdpQqQHvQrX50U=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEAcTLR0fXykYJjI6YbFZjjpVMGMXitgmPEuchWUc05C6IbxeX
-	JrkHzosfkm3jB9BnUOreK7/koUiVzThWNZ67Q2FUSQOgMntVqMTXwKks
-X-Gm-Gg: AYBFou36oGXherdTTOZhDvkbbCFSJTW/zQff8Xw9x28GtLcPWzeQkV1+jSiuO/9ZFe+
-	RkMI9SOWQ2RH/MhyfUlX6TL+UMBezIOmUeGsnCzh5jAFXYf2oWVIcneGGm3MfaKf38f5LfMCN2I
-	ScD2L82jhPrufu/BFD0MG5uB4N00wjx7DRNykXqjCn76Ek9/+vTYfS88DRCIBqIb8c9kDnKO5CP
-	Izb89hXp/1nxZ+caUrTQQv4oKITfzCrnpx0Mo5ekvTb0r/rTR3DnCvUjKT8vOFBrjbeuvkR7xka
-	fkb7l+RNFMeKe2cXJ4TeDSQ2vwTAjcF6D0y6DyR0OkMqdgK/lG4ZL7jy0L62/KMpqD2P0GaclC1
-	DET8kvykl90Jb70HVN6XIzEBsz9XHHOUc163mVi1x7jix63En7dz51Y6dpeNAkSZcn1NN4af9XU
-	H5g3OufG9AMh6rGeu6ieJfP/L9nCBaP836HashqklGzB3GeQm0gC/HcwTQRm+8FFuTDEP/kWXsJ
-	Q+OUaMLuwt7ahsmrTsn67RS93LhoJ/7hfEEXzSUbnzt8qfrYWhMVQANT1qazo1NtbeMlpoCVWA7
-	x2ZnG0g3xVpCW0MQ/3v1Vg==
-X-Received: by 2002:a05:6000:178d:b0:488:8192:c765 with SMTP id ffacd0b85a97d-4888192c938mr3117134f8f.18.1790345012149;
-        Fri, 25 Sep 2026 07:03:32 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a355c65sm7522431f8f.19.2026.09.25.07.03.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 07:03:31 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Joseph Guo <qijian.guo@nxp.com>,
-	Josua Mayer <josua@solid-run.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Stefan Eichenberger <eichest@gmail.com>,
-	netdev@vger.kernel.org
-Subject: [PATCH v1 05/11] ARM: dts: imx6ul: Add Variscite storage and wireless files
-Date: Fri, 25 Sep 2026 16:02:22 +0200
-Message-ID: <778be59a32afc9054147fc40143b502d49d37ffb.1790344389.git.stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790344389.git.stefano.r@variscite.com>
-References: <cover.1790344389.git.stefano.r@variscite.com>
+	s=arc-20240116; t=1790345023; c=relaxed/simple;
+	bh=WzqSw9TPi1uq7hvWinX527KKvJhojSFLzb5QPhZFD/U=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AES9ObOeLk8soNMh7q4Q7oNkxtmhx0QHiTPWBqSaymhmkqhX/zwBxKxaJS22EOpFGINsC99WhSWkWG9V4njl/MABQL2+wPYQ59w83zbM21RYXxP7GzAEVRr69Ghpw9giUUnbjBtObiJCJ3Reb4AjjdH1r8PXGlVFfvC6sJacOIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
+	by APP-01 (Coremail) with SMTP id qwCowAA3D_P+frZqWmXzCA--.32169S2;
+	Fri, 25 Sep 2026 22:02:41 +0800 (CST)
+Message-ID: <2a3e3ce8d62805394ef41a2e9f84a5051af30ac2.camel@iscas.ac.cn>
+Subject: Re: [PATCH v3 13/19] clk: starfive: jh7110-vout: Allow pixel clock
+ rate propagation
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Jerome Brunet <jbrunet@baylibre.com>, Michal Wilczynski	
+ <m.wilczynski@samsung.com>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Andrzej Hajda	 <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, David Airlie	 <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko
+ Stuebner <heiko@sntech.de>,  Conor Dooley <conor@kernel.org>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+ Belhachemi <db@domibel.de>,  Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
+ Szyprowski	 <m.szyprowski@samsung.com>, Maud Spierings
+ <maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>
+Date: Fri, 25 Sep 2026 22:02:38 +0800
+In-Reply-To: <1j5wzt8plp.fsf@starbuckisacylon.baylibre.com>
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+	 <CGME20260904132733eucas1p1a6529cb2ea97bc75c9cd190d1ba901c0@eucas1p1.samsung.com>
+	 <20260904-jh7110-clean-send-v3-13-484f9ae72715@samsung.com>
+	 <1j5wzt8plp.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAA3D_P+frZqWmXzCA--.32169S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZFW5WrW3Kr47uw4UtFWrZrb_yoW5Aw4rpr
+	s7Ca4rJFs0qF48Za4xX3WYqFW5Aan2ya45tFn7ZF10vr45Ka1UWw1vkF9xWF97XrZ7Cw13
+	Wr4v9F4fuF4DXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Wrv_ZF1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IUnPl1DUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+=E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 14:47 +0200=EF=BC=8CJerome Brunet=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On ven. 04 sept. 2026 at 15:27, Michal Wilczynski
+> <m.wilczynski@samsung.com> wrote:
+>=20
+> > The dc8200_pix0 and dc8200_pix1 MUXes feed the display controller,
+> > and
+> > the rate they carry is ultimately produced by the HDMI PHY, which
+> > registers hdmitx0_pixelclk as a clock provider.
+> >=20
+> > Add CLK_SET_RATE_PARENT to both MUXes so a rate requested on them
+> > reaches that parent, instead of being clamped to whatever rate the
+> > parent already happens to run at.
+> >=20
+> > Co-developed-by: Dominique Belhachemi <db@domibel.de>
+> > Signed-off-by: Dominique Belhachemi <db@domibel.de>
+> > Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> > ---
+> > =C2=A0drivers/clk/starfive/clk-starfive-jh7110-vout.c | 6 ++++--
+> > =C2=A01 file changed, 4 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+> > b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+> > index
+> > bad20d5d794a72f071b4d547b7304786a8ba9afa..aeba42cd3c44ba205ced52b18
+> > 26d2d2de82ad78f 100644
+> > --- a/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+> > +++ b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
+> > @@ -40,10 +40,12 @@ static const struct jh71x0_clk_data
+> > jh7110_voutclk_data[] =3D {
+> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_AXI, "dc8200_axi", 0,
+> > JH7110_VOUTCLK_VOUT_TOP_AXI),
+> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_CORE, "dc8200_core", 0,
+> > JH7110_VOUTCLK_VOUT_TOP_AXI),
+> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_AHB, "dc8200_ahb", 0,
+> > JH7110_VOUTCLK_VOUT_TOP_AHB),
+> > -	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX0, "dc8200_pix0", 0,
+> > 2,
+> > +	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX0, "dc8200_pix0",
+> > +		=C2=A0=C2=A0=C2=A0 CLK_SET_RATE_PARENT |
+> > CLK_SET_RATE_NO_REPARENT, 2,
+>=20
+> I see that you've added CLK_SET_RATE_NO_REPARENT following a previous
+> sashiko advice.
 
-Add reusable DTSI files for eMMC, NAND, Broadcom Wi-Fi and NXP IW61x
-options on VAR-SOM-6UL and DART-6UL modules.
+I think the problem is that the Innosilicon HDMI PHY is designed to be
+solely the pixel clock provider when HDMI output is enabled, so manual
+clock parent assginment is required when using HDMI to prevent the
+general PLL from driving the pixel clock, and for DSI to prevent
+abusing the HDMI PHY clock generator.
 
-Keep the module options independent of the carrier board so each
-board DTS can select its assembled storage and wireless devices.
+Thanks,
+Icenowy
 
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- .../nxp/imx/imx6ul-imx6ull-var-dart-emmc.dtsi | 32 ++++++++++
- .../nxp/imx/imx6ul-imx6ull-var-dart-nand.dtsi | 63 +++++++++++++++++++
- .../imx6ul-imx6ull-var-dart-wifi-brcm.dtsi    | 42 +++++++++++++
- .../imx6ul-imx6ull-var-dart-wifi-iw61x.dtsi   | 45 +++++++++++++
- .../nxp/imx/imx6ul-imx6ull-var-som-emmc.dtsi  | 32 ++++++++++
- .../nxp/imx/imx6ul-imx6ull-var-som-nand.dtsi  | 63 +++++++++++++++++++
- .../imx/imx6ul-imx6ull-var-som-wifi-brcm.dtsi | 42 +++++++++++++
- .../imx6ul-imx6ull-var-som-wifi-iw61x.dtsi    | 45 +++++++++++++
- 8 files changed, 364 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-emmc.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-nand.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wifi-brcm.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wifi-iw61x.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-emmc.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-nand.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-wifi-brcm.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-wifi-iw61x.dtsi
-
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-emmc.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-emmc.dtsi
-new file mode 100644
-index 000000000000..26c8ca8f21a0
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-emmc.dtsi
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
-+ */
-+
-+&usdhc2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_usdhc2>;
-+	bus-width = <8>;
-+	no-1-8-v;
-+	non-removable;
-+	keep-power-in-suspend;
-+	wakeup-source;
-+	status = "okay";
-+};
-+
-+&iomuxc {
-+	pinctrl_usdhc2: usdhc2-grp {
-+		fsl,pins = <
-+			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x10069
-+			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x17059
-+			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x17059
-+			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x17059
-+			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x17059
-+			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x17059
-+			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x17059
-+			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x17059
-+			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x17059
-+			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x17059
-+		>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-nand.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-nand.dtsi
-new file mode 100644
-index 000000000000..1522b5d7e092
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-nand.dtsi
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
-+ */
-+
-+&gpmi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpmi_nand_1>;
-+	status = "okay";
-+
-+	partitions {
-+		compatible = "fixed-partitions";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		partition@0 {
-+			label = "spl";
-+			reg = <0x00000000 0x00200000>;
-+		};
-+
-+		partition@200000 {
-+			label = "uboot";
-+			reg = <0x00200000 0x00200000>;
-+		};
-+
-+		partition@400000 {
-+			label = "uboot-env";
-+			reg = <0x00400000 0x00100000>;
-+		};
-+
-+		partition@500000 {
-+			label = "kernel";
-+			reg = <0x00500000 0x00c00000>;
-+		};
-+
-+		partition@1100000 {
-+			label = "rootfs";
-+			reg = <0x01100000 0x3ef00000>;
-+		};
-+	};
-+};
-+
-+&iomuxc {
-+	pinctrl_gpmi_nand_1: gpmi-nand-1-grp {
-+		fsl,pins = <
-+			MX6UL_PAD_NAND_CLE__RAWNAND_CLE		0xb0b1
-+			MX6UL_PAD_NAND_ALE__RAWNAND_ALE		0xb0b1
-+			MX6UL_PAD_NAND_WP_B__RAWNAND_WP_B	0xb0b1
-+			MX6UL_PAD_NAND_READY_B__RAWNAND_READY_B	0xb000
-+			MX6UL_PAD_NAND_CE0_B__RAWNAND_CE0_B	0xb0b1
-+			MX6UL_PAD_NAND_RE_B__RAWNAND_RE_B	0xb0b1
-+			MX6UL_PAD_NAND_WE_B__RAWNAND_WE_B	0xb0b1
-+			MX6UL_PAD_NAND_DATA00__RAWNAND_DATA00	0xb0b1
-+			MX6UL_PAD_NAND_DATA01__RAWNAND_DATA01	0xb0b1
-+			MX6UL_PAD_NAND_DATA02__RAWNAND_DATA02	0xb0b1
-+			MX6UL_PAD_NAND_DATA03__RAWNAND_DATA03	0xb0b1
-+			MX6UL_PAD_NAND_DATA04__RAWNAND_DATA04	0xb0b1
-+			MX6UL_PAD_NAND_DATA05__RAWNAND_DATA05	0xb0b1
-+			MX6UL_PAD_NAND_DATA06__RAWNAND_DATA06	0xb0b1
-+			MX6UL_PAD_NAND_DATA07__RAWNAND_DATA07	0xb0b1
-+		>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wifi-brcm.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wifi-brcm.dtsi
-new file mode 100644
-index 000000000000..d7952233a1ee
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wifi-brcm.dtsi
-@@ -0,0 +1,42 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
-+ */
-+
-+/ {
-+	reg_sd1_vmmc: regulator-sd1-vmmc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VSD_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+};
-+
-+&tsc {
-+	status = "disabled";
-+};
-+
-+&usdhc1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
-+	pinctrl-0 = <&pinctrl_usdhc1>, <&pinctrl_32k_clk>, <&pinctrl_wifi>;
-+	pinctrl-1 = <&pinctrl_usdhc1_100mhz>, <&pinctrl_32k_clk>, <&pinctrl_wifi>;
-+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>, <&pinctrl_32k_clk>, <&pinctrl_wifi>;
-+	keep-power-in-suspend;
-+	vmmc-supply = <&reg_sd1_vmmc>;
-+	status = "okay";
-+
-+	brcmf: wifi@1 {
-+		compatible = "brcm,bcm4329-fmac";
-+		reg = <1>;
-+	};
-+};
-+
-+&iomuxc {
-+	pinctrl_32k_clk: 32k-clk-grp {
-+		fsl,pins = <
-+			MX6UL_PAD_GPIO1_IO03__OSC32K_32K_OUT	0x03029
-+		>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wifi-iw61x.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wifi-iw61x.dtsi
-new file mode 100644
-index 000000000000..4d47cea982ec
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wifi-iw61x.dtsi
-@@ -0,0 +1,45 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright 2026 Variscite Ltd. - https://www.variscite.com
-+ */
-+
-+/ {
-+	reg_sd1_vmmc: regulator-sd1-vmmc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VSD_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+
-+	iw61x_pwrseq: mmc-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		post-power-on-delay-ms = <100>;
-+		power-off-delay-us = <10000>;
-+		reset-gpios = <&gpio5 6 GPIO_ACTIVE_LOW>, /* WIFI_RESET */
-+			      <&gpio5 2 GPIO_ACTIVE_LOW>; /* WIFI_PWR_EN */
-+	};
-+};
-+
-+&tsc {
-+	status = "disabled";
-+};
-+
-+&uart2 {
-+	bluetooth_iw61x: bluetooth {
-+		compatible = "nxp,88w8987-bt";
-+	};
-+};
-+
-+&usdhc1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
-+	pinctrl-0 = <&pinctrl_usdhc1>, <&pinctrl_wifi>;
-+	pinctrl-1 = <&pinctrl_usdhc1_100mhz>, <&pinctrl_wifi>;
-+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>, <&pinctrl_wifi>;
-+	keep-power-in-suspend;
-+	non-removable;
-+	vmmc-supply = <&reg_sd1_vmmc>;
-+	mmc-pwrseq = <&iw61x_pwrseq>;
-+	status = "okay";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-emmc.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-emmc.dtsi
-new file mode 100644
-index 000000000000..26c8ca8f21a0
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-emmc.dtsi
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
-+ */
-+
-+&usdhc2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_usdhc2>;
-+	bus-width = <8>;
-+	no-1-8-v;
-+	non-removable;
-+	keep-power-in-suspend;
-+	wakeup-source;
-+	status = "okay";
-+};
-+
-+&iomuxc {
-+	pinctrl_usdhc2: usdhc2-grp {
-+		fsl,pins = <
-+			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x10069
-+			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x17059
-+			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x17059
-+			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x17059
-+			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x17059
-+			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x17059
-+			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x17059
-+			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x17059
-+			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x17059
-+			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x17059
-+		>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-nand.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-nand.dtsi
-new file mode 100644
-index 000000000000..1522b5d7e092
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-nand.dtsi
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
-+ */
-+
-+&gpmi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpmi_nand_1>;
-+	status = "okay";
-+
-+	partitions {
-+		compatible = "fixed-partitions";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		partition@0 {
-+			label = "spl";
-+			reg = <0x00000000 0x00200000>;
-+		};
-+
-+		partition@200000 {
-+			label = "uboot";
-+			reg = <0x00200000 0x00200000>;
-+		};
-+
-+		partition@400000 {
-+			label = "uboot-env";
-+			reg = <0x00400000 0x00100000>;
-+		};
-+
-+		partition@500000 {
-+			label = "kernel";
-+			reg = <0x00500000 0x00c00000>;
-+		};
-+
-+		partition@1100000 {
-+			label = "rootfs";
-+			reg = <0x01100000 0x3ef00000>;
-+		};
-+	};
-+};
-+
-+&iomuxc {
-+	pinctrl_gpmi_nand_1: gpmi-nand-1-grp {
-+		fsl,pins = <
-+			MX6UL_PAD_NAND_CLE__RAWNAND_CLE		0xb0b1
-+			MX6UL_PAD_NAND_ALE__RAWNAND_ALE		0xb0b1
-+			MX6UL_PAD_NAND_WP_B__RAWNAND_WP_B	0xb0b1
-+			MX6UL_PAD_NAND_READY_B__RAWNAND_READY_B	0xb000
-+			MX6UL_PAD_NAND_CE0_B__RAWNAND_CE0_B	0xb0b1
-+			MX6UL_PAD_NAND_RE_B__RAWNAND_RE_B	0xb0b1
-+			MX6UL_PAD_NAND_WE_B__RAWNAND_WE_B	0xb0b1
-+			MX6UL_PAD_NAND_DATA00__RAWNAND_DATA00	0xb0b1
-+			MX6UL_PAD_NAND_DATA01__RAWNAND_DATA01	0xb0b1
-+			MX6UL_PAD_NAND_DATA02__RAWNAND_DATA02	0xb0b1
-+			MX6UL_PAD_NAND_DATA03__RAWNAND_DATA03	0xb0b1
-+			MX6UL_PAD_NAND_DATA04__RAWNAND_DATA04	0xb0b1
-+			MX6UL_PAD_NAND_DATA05__RAWNAND_DATA05	0xb0b1
-+			MX6UL_PAD_NAND_DATA06__RAWNAND_DATA06	0xb0b1
-+			MX6UL_PAD_NAND_DATA07__RAWNAND_DATA07	0xb0b1
-+		>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-wifi-brcm.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-wifi-brcm.dtsi
-new file mode 100644
-index 000000000000..d7952233a1ee
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-wifi-brcm.dtsi
-@@ -0,0 +1,42 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
-+ */
-+
-+/ {
-+	reg_sd1_vmmc: regulator-sd1-vmmc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VSD_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+};
-+
-+&tsc {
-+	status = "disabled";
-+};
-+
-+&usdhc1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
-+	pinctrl-0 = <&pinctrl_usdhc1>, <&pinctrl_32k_clk>, <&pinctrl_wifi>;
-+	pinctrl-1 = <&pinctrl_usdhc1_100mhz>, <&pinctrl_32k_clk>, <&pinctrl_wifi>;
-+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>, <&pinctrl_32k_clk>, <&pinctrl_wifi>;
-+	keep-power-in-suspend;
-+	vmmc-supply = <&reg_sd1_vmmc>;
-+	status = "okay";
-+
-+	brcmf: wifi@1 {
-+		compatible = "brcm,bcm4329-fmac";
-+		reg = <1>;
-+	};
-+};
-+
-+&iomuxc {
-+	pinctrl_32k_clk: 32k-clk-grp {
-+		fsl,pins = <
-+			MX6UL_PAD_GPIO1_IO03__OSC32K_32K_OUT	0x03029
-+		>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-wifi-iw61x.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-wifi-iw61x.dtsi
-new file mode 100644
-index 000000000000..4d47cea982ec
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-wifi-iw61x.dtsi
-@@ -0,0 +1,45 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright 2026 Variscite Ltd. - https://www.variscite.com
-+ */
-+
-+/ {
-+	reg_sd1_vmmc: regulator-sd1-vmmc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VSD_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+
-+	iw61x_pwrseq: mmc-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		post-power-on-delay-ms = <100>;
-+		power-off-delay-us = <10000>;
-+		reset-gpios = <&gpio5 6 GPIO_ACTIVE_LOW>, /* WIFI_RESET */
-+			      <&gpio5 2 GPIO_ACTIVE_LOW>; /* WIFI_PWR_EN */
-+	};
-+};
-+
-+&tsc {
-+	status = "disabled";
-+};
-+
-+&uart2 {
-+	bluetooth_iw61x: bluetooth {
-+		compatible = "nxp,88w8987-bt";
-+	};
-+};
-+
-+&usdhc1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
-+	pinctrl-0 = <&pinctrl_usdhc1>, <&pinctrl_wifi>;
-+	pinctrl-1 = <&pinctrl_usdhc1_100mhz>, <&pinctrl_wifi>;
-+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>, <&pinctrl_wifi>;
-+	keep-power-in-suspend;
-+	non-removable;
-+	vmmc-supply = <&reg_sd1_vmmc>;
-+	mmc-pwrseq = <&iw61x_pwrseq>;
-+	status = "okay";
-+};
--- 
-2.47.3
+>=20
+> Note that saying it will 'hijack' the parent without it is kind of
+> strong. It is fine to let a mux reparent while setting a rate, as
+> long
+> as you understand the possible consequences for the rest of the tree.
+>=20
+> Regardless
+>=20
+> Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+>=20
+> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_DC8200_PIX,
+> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_HDMITX0_PIXELCLK),
+> > -	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX1, "dc8200_pix1", 0,
+> > 2,
+> > +	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX1, "dc8200_pix1",
+> > +		=C2=A0=C2=A0=C2=A0 CLK_SET_RATE_PARENT |
+> > CLK_SET_RATE_NO_REPARENT, 2,
+> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_DC8200_PIX,
+> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_HDMITX0_PIXELCLK),
+> > =C2=A0	/* LCD */
+> >=20
+> > --=20
+> > 2.34.1
+> >=20
 
