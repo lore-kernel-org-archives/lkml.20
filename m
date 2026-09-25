@@ -1,64 +1,64 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257D44E06F1
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5940C4E50B7
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352726; cv=none; b=LxOOMrv+PSuAb3xeyMs0sVO09m6XwsCVE8ITDgxe5/c5qW7S15+CggtE08Vnkqk3jvxabmY1oevzBT9FTvJQp7SX9c1E9ejDq7goXZSfo07c7GeWF3IyGsQ4l8ExhZXXGNQ3stQRgmGj9PDbTi8TbQfjtJg3TAQWAav6S4uFV9s=
+	t=1790352728; cv=none; b=ckPfSwRFAG1mBoURy1GbEXFMo0uT9mD2Tjwguy80QcLcwpVksKpj2O6HX+inWSEEFc0i/IyauEX/3SFajiDEQNAEYrrBfrt8KbTo/w3KjrCcLDjlJaRr+cuFQwKL4ygn7jybCJBDW9ZQWMyy9CpxAO397Ftt1O04uuaf1oQ+qNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790352726; c=relaxed/simple;
-	bh=Wfze54LtPMmI0xqKGIBHk5HpMn0us4cGASNlC9vZDgI=;
+	s=arc-20240116; t=1790352728; c=relaxed/simple;
+	bh=WGq2HRYeziGGP8jxJ0+hdrLjQktzzJ7M9H08pWduDg0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FiquVDE3kcQAdDRS31lTYHfP/TLPBn3y7JiO94tLWni9Bo1oS43rlCry/eR5lFeYfJ/2BNdEkF6h57JrNcBdl6KPsLoh+RnTPmwmvOzUQbJ6iqwgnKR90lxc9Xw5LkXaWRkUyukc1e8qSjXr+5RG8vIgApou/+51oypf9Esmuww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sNgjUbZI; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=AOD2geG8bodiLWLYxOTjO/tBVm5N9HF6yqbOiBHSUqYAwUDUxMBh+KqoWePZffGkDIjMEIKlhMz6taqQcCQhvmvez6h+Lck7ZroQgK6JXm9olHPyg30XMEdwqjO6+nQ34jJP2QRaBR0RAI2I7i/0vj/9100fX3LEEutYWNIJHOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eP9dmbOh; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sNgjUbZI"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso5309995e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:12:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eP9dmbOh"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso5310165e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:12:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790352722; x=1790957522; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790352724; x=1790957524; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gEfLZw+SZ9l3bCU1EQAdMa/xVIANZgIsiXamG4UPSuY=;
-        b=sNgjUbZIhygAZIkzzXLeekEyzPl1Zbb/HGIyvknQLWjo7H/n9l/TphO1K4oMsUNBrO
-         oYzvxfN++4dbmQNRTdbkMq63Q1omdMItldekZ+by82xNOU1g81F2xKQNgm+YWYhrz+QE
-         xR812hSyZWmXRPSJG77v8F4MFP/n8E6HVeDJcrXE8v7TIjlRG47R24EZ8jyDiYo1Fsz9
-         UMsy/25BUx2gs4fIFv4oF8Id/yxOu5x1OCQrDCQBh0iyKlHUawwrrwouFs+MyVnwDDW5
-         noTNODFwNmPFNl4fF0CXChlKNhYTuQgBdq2/KyP1pSx6fo/poLsQoQ4NVmALl04Tv1Cr
-         QEIQ==
+        bh=5zAdqXxvKpdaLjEa5r1LYZ4puNr9pTrnan0b9GFEiEg=;
+        b=eP9dmbOhsBBiYIRpY0Hm1ya9DMSQ1gWuGeLizSoi4xfXcFNdzSavnMoJgxo5VRxeos
+         kSLMgX5RNKwV8oCdxFyhlKy7pgWGdLFXkFKcPhFEYhJ1znLVpVg00pGySxogQiRPLWGA
+         V6MSt1OVI2haq/PCFcVjVa1aJ1bM9YhYqNEC+TZzDftx9/HbjkOTdRWQ0/IxbTzE2ViF
+         eESxiz7yzwEq/smAaOAnex4IDbSXeKXh1AiQ2dORx0ZCtJIViBDI4zxH4J3tqlUaQaTk
+         94eiP5REKQRSHmenCitT1RF5pCOxR8JM+h8XU0OaikOFjXg83yB/8LTtk0HS8GJ/hGRj
+         5/XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790352722; x=1790957522;
+        d=1e100.net; s=20260707; t=1790352724; x=1790957524;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gEfLZw+SZ9l3bCU1EQAdMa/xVIANZgIsiXamG4UPSuY=;
-        b=lR1htOu3c82Bo18qEczjUgPDjV/daTOeWNCv8hF/VeNmY3qh3EhVYrHqeQAI/Utd8Z
-         egoCQlBCs/ghUELQfg3F0dULp182uh7oRF2JniPWYsWUr12YcojI23gDKv86o2/czKG5
-         WFqylXjmYBq4QOfGJdoZjcMc1L6DCMyJzdrNqz/Sl85hlYpy8jr1NrvomA7W8rWpt24Q
-         Fb53TmnQVn7jvCbaltfGSzl9YUMiDvQkXXPXeeUhOetnMpKWNWxmpTpzhr1WtmMlYPeQ
-         PWPgH8egzmzFCSpm7a1qchUFmglYr8hQTqa0M4NZQ8DZYreOJruy/3zIjA7A7giyXwc/
-         kXKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzRJPITTeAALoqS1GaxU3qGiCdzKwFMJauY8lcaWXFt8oQnXhAXPHA29wLE+7axBJMjKf+ld+gkXzKfOUA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nt1E4GpdXh8Uq9S3cxSc4wcHHUi4a3PXvfVa+ASxOcdXPyjhSk
-	xRN6iR0QlUcEkMUploXV6s7RY/qqBDM7NTJtxGM0rMWlM8hMPzb5v1xc
-X-Gm-Gg: AYBFou0paGqQtuS2wr6zO9G6Y0IS1QO1hbYsTpxr/2Xae/oZCZxr+Ss5Oghdo4uf+vF
-	YQ2XMmtX4if5Q0tKbD5n8U8qfUktTERDYOWJJLq8+2RGKTFYlFWxmq6/3AKXlrw0dnG/H26uCP4
-	5sCn4imDSX88/AlVNRu7L7pXpVH8v57j30+1JjJyuIhc447zRRuX4835F64QAs7QQUwm37/mtku
-	Q5l2mGo+6WV6WhanKU+nDUTlOqmNuU3nABBZ0/dxhmwnRkdG/Dr9CaDnpH7wHGjmoYdZBMLEZzH
-	8320mrm+2p+jzjm41H7bgSHIUmp+Dga/f605Jv1UUyyax+iFhD9ZApuF+0AKLtlP03lLRMeTn8Q
-	AkeEPWEmBCGzYLp07QpGU1wGVP0rTAp7Fc1sRAyF0T/MWl09rgJgURBFpBLz/G83fXNnGsysE+X
-	zRIdeZAFrncmADDGfLZtiQn73TWLFSXqfVxP4cT6W/KIiFtjicx15on8Y4yHQ4vFqrN1HkoB9sd
-	OzGulf9X88EaDC78HjseWbKjB4qsbK2fwRCFOnnWhCd
-X-Received: by 2002:a05:600c:8518:b0:49f:d325:9912 with SMTP id 5b1f17b1804b1-49ff06bcd79mr47529705e9.10.1790352721951;
-        Fri, 25 Sep 2026 09:12:01 -0700 (PDT)
+        bh=5zAdqXxvKpdaLjEa5r1LYZ4puNr9pTrnan0b9GFEiEg=;
+        b=jdkE4GM8Z6pyxuwq/JOwdmAwynMlCRCfu5qQ2fuKLTuJtrMQAMyxWv2COpdq28yi1G
+         3xpRS69tHz3Wle98ww6ce1GO7uHmomb+p198G6xXE/DZtAJVzlLhOzguFXfcDXGssq69
+         xEjFRcUPJgNmAXHOYvrJi8EmhqMFEuqCBpolv/UBP98ekPJDubZDPMvwACF/pVymAS6K
+         gB/Cr2HcDS04l//5cw4hCzaqSIGHqR5BsJTQ780Ib9HSCZXiAOEtoacHSymGkmJ5VZUL
+         S5oEdZJYNJLMFctOVr5mfPUAJdgit0vCmX+q/nA2oVlQVJLWDSLVNNCe+eKzeN8N39Kp
+         EIBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxVS1WQ0Fva5gfcu6sKLBjw8zqtLFdFpgTxy2duO0oVfm5wy27PjngApH0ft2BxGXo2TM63kHNA+fTfamk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nA26CGanznbVtb8HaFbU5mrCVC579haaTgdS59BKrsuOzNglXY
+	O6aIZGFAidi00t5iIwyykpVoByUkQtP1VALR3uPoTwqUQKwLSEeIYKSC
+X-Gm-Gg: AYBFou1wolXrgjY+QezR9CtsCELeamUOHahHozUaZjwsv1xf8dW9I6cCqEekTgedUD1
+	Hsr4an5gR4n39SN9fEu+EHKbp3Ye+Xk/lg4DJN3P6duLSoaKpSIM+sXEo5mmLpo84CoO0x2xOio
+	uOK+IbKrGgRF9x9DsAAtSwHufGAUI0s6SA6LympUoKASkx502ikdWujJtGA/ouRyQceGbx9vPok
+	iZI0JILHJ/Sgn4Nbbz0hLuLO9PcQpACZQnv3O5LBiouthmCTxwbr4RW/yaEOR+7tcPhVU3UgTnp
+	qruNK/FTPacvjxvfDpmcljac5K6MQmfhUWXLUVU6w3mUME7fTWt2zxVp5DmDIoC2rM5+XexQAIc
+	52/vNeqq7OE3NAPcAIMUAInw8ONFJTj/nLEd4BSNAM+PdVOivjBxMqKSnA15mt9e+hhJL3D0AWB
+	qKI5LkdvlhYI25hnGGQuIIAxUuqV8Ks0XNC3a81KldiuAqvnsO7kskEQoTRpXrQgVINpr7RHdCx
+	PT14gpw5jAJ7I96AKhqU+wQOsi4b92MwjXSposcdTBB
+X-Received: by 2002:a05:600c:6206:b0:49d:1d7e:4085 with SMTP id 5b1f17b1804b1-49ff06e6be0mr45983515e9.22.1790352723909;
+        Fri, 25 Sep 2026 09:12:03 -0700 (PDT)
 Received: from andreayoga.wind3.hub ([31.189.116.68])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff0658747sm81238665e9.1.2026.09.25.09.12.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff0658747sm81238665e9.1.2026.09.25.09.12.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 09:12:01 -0700 (PDT)
+        Fri, 25 Sep 2026 09:12:03 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>,
 	Kevin Tian <kevin.tian@intel.com>
@@ -72,11 +72,10 @@ Cc: Andrea Parri <parri.andrea@gmail.com>,
 	Yishai Hadas <yishaih@nvidia.com>,
 	iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/4] iommufd/iova_bitmap: Clip recorded ranges to the bitmap
-Date: Fri, 25 Sep 2026 18:11:37 +0200
-Message-ID: <20260925161142.189813-2-parri.andrea@gmail.com>
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH 2/4] iommufd/selftest: Test dirty bitmap recording past the query
+Date: Fri, 25 Sep 2026 18:11:38 +0200
+Message-ID: <20260925161142.189813-3-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260925161142.189813-1-parri.andrea@gmail.com>
 References: <20260925161142.189813-1-parri.andrea@gmail.com>
@@ -88,80 +87,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-IOMMU_HWPT_GET_DIRTY_BITMAP can set bits in the caller's memory past the
-end of the bitmap.  When the queried range ends inside a dirty huge
-IOPTE, the generic page-table dirty code records the whole entry, and
-iova_bitmap_set() then sets every bit up to the end of the pinned page.
+Add a dirty-tracking test that dirties a huge IOPTE and queries only part
+of it, with a guard placed after an exactly sized bitmap.
 
-iova_bitmap_mapped_range() checks a range only against the pages
-currently pinned, and iova_bitmap_mapped_length() caps only the pinning
-window, so neither limits the write.  A range that starts inside the
-bitmap but ends past it passes iova_bitmap_advance_to() on its start,
-and the write loop runs to the end of the last pinned page.
+The test maps hugetlb-backed memory, allocates a MOCK_IOMMUPT_HUGE
+dirty-tracking HWPT, and dirties the first 1M IOPTE.  It then queries a
+128K window at the mock 2K page size, so the request covers 64 bits while
+the tracker records 512.  A guard follows the one-u64 bitmap in the same
+pinned page.
 
-Clip the range to [bitmap->iova, bitmap->iova + bitmap->length - 1]
-before computing cur_bit and last_bit.  A range that starts before the
-bitmap now has its in-range part recorded; the unsigned underflow in
-iova_bitmap_advance_to() previously rejected it whole.
+Without the clip in iova_bitmap_set(), the kernel sets 56 bytes past the
+bitmap and the guard check fails:
 
-The clip runs before any pinning or indexing, so for a validated query
-range cur_bit and last_bit can no longer address outside the bitmap.  It
-only narrows the requested range; the bitmap bounds are fixed at
-allocation.
+  # iommufd.c:2470:get_dirty_bitmap_overrun:Expected 0xaaaaaaaaaaaaaaaaULL (12297829382473034410) == bitmap[bitmap_words + i] (18446744073709551615)
+  #          FAIL  iommufd_dirty_tracking.domain_dirty64M_huge.get_dirty_bitmap_overrun
 
-Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
-Cc: stable@vger.kernel.org
+With the fix the guard stays intact.  The test runs only on the *_huge
+variants and skips the rest.  Tested on x86-64 under virtme-ng with
+CONFIG_IOMMUFD_TEST=y and hugepages=128 on the kernel command line; the
+whole iommufd_dirty_tracking fixture reports PASSED: 63/63, the seven
+skips being this test on the non-huge variants.
+
 Assisted-by: LLM
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- drivers/iommu/iommufd/iova_bitmap.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ tools/testing/selftests/iommu/iommufd.c | 49 +++++++++++++++++++++++++
+ 1 file changed, 49 insertions(+)
 
-diff --git a/drivers/iommu/iommufd/iova_bitmap.c b/drivers/iommu/iommufd/iova_bitmap.c
-index dac3e657d498d..44826ae330c4b 100644
---- a/drivers/iommu/iommufd/iova_bitmap.c
-+++ b/drivers/iommu/iommufd/iova_bitmap.c
-@@ -388,6 +388,30 @@ int iova_bitmap_for_each(struct iova_bitmap *bitmap, void *opaque,
+diff --git a/tools/testing/selftests/iommu/iommufd.c b/tools/testing/selftests/iommu/iommufd.c
+index 44193d171ba98..47d861b3bdd7b 100644
+--- a/tools/testing/selftests/iommu/iommufd.c
++++ b/tools/testing/selftests/iommu/iommufd.c
+@@ -2423,6 +2423,55 @@ TEST_F(iommufd_dirty_tracking, get_dirty_bitmap_no_clear)
+ 	test_ioctl_destroy(hwpt_id);
  }
- EXPORT_SYMBOL_NS_GPL(iova_bitmap_for_each, "IOMMUFD");
  
-+/*
-+ * Trim [@iova..@iova+@length-1] to the IOVA range covered by @bitmap.
-+ * Dirty trackers may report more than was asked for, for instance a whole
-+ * huge IOPTE of which only a part was queried.
-+ */
-+static bool iova_bitmap_clip(struct iova_bitmap *bitmap, unsigned long *iova,
-+			     size_t *length)
++TEST_F(iommufd_dirty_tracking, get_dirty_bitmap_overrun)
 +{
-+	unsigned long first = max(*iova, bitmap->iova);
-+	unsigned long last = bitmap->iova + bitmap->length - 1;
-+	unsigned long end;
++	uint32_t ioas_id = self->ioas_id;
++	uint32_t hwpt_id;
++	size_t nbits = 64;
++	size_t query_len = nbits * self->page_size;
++	__u64 *bitmap = self->bitmap;
++	size_t bitmap_words =
++		DIV_ROUND_UP(nbits, BITS_PER_BYTE * sizeof(*bitmap));
++	__u64 set = 1;
++	__u64 nr_dirty;
++	size_t i;
 +
-+	if (!*length)
-+		return false;
-+	if (!check_add_overflow(*iova, *length - 1, &end))
-+		last = min(last, end);
-+	if (first > last)
-+		return false;
++	if (!variant->hugepages)
++		SKIP(return, "test requires a huge IOPTE");
 +
-+	*iova = first;
-+	*length = last - first + 1;
-+	return true;
++	/* The canary sits in the same pinned page, right after the bitmap. */
++	memset(bitmap, 0, (bitmap_words + 8) * sizeof(*bitmap));
++	for (i = 0; i < 8; i++)
++		bitmap[bitmap_words + i] = 0xaaaaaaaaaaaaaaaaULL;
++
++	test_ioctl_ioas_map_fixed_id(ioas_id, self->buffer,
++				     variant->buffer_size, MOCK_APERTURE_START);
++	test_cmd_hwpt_alloc_iommupt(self->idev_id, ioas_id,
++				    IOMMU_HWPT_ALLOC_DIRTY_TRACKING,
++				    MOCK_IOMMUPT_HUGE, &hwpt_id);
++	test_cmd_set_dirty_tracking(hwpt_id, true);
++
++	/* Dirty the whole first huge IOPTE */
++	test_cmd_mock_domain_set_dirty(self->fd, hwpt_id, MOCK_HUGE_PAGE_SIZE,
++				       MOCK_APERTURE_START, MOCK_HUGE_PAGE_SIZE,
++				       &set, &nr_dirty);
++	ASSERT_EQ(1, nr_dirty);
++
++	/* Query only part of it */
++	test_cmd_get_dirty_bitmap(self->fd, hwpt_id, query_len,
++				  MOCK_APERTURE_START, self->page_size, bitmap,
++				  0);
++
++	/* The queried window is dirty */
++	ASSERT_EQ(~0ULL, bitmap[0]);
++
++	/* Bits past the queried bitmap must not be set */
++	for (i = 0; i < 8; i++)
++		ASSERT_EQ(0xaaaaaaaaaaaaaaaaULL, bitmap[bitmap_words + i]);
++
++	test_ioctl_destroy(hwpt_id);
 +}
 +
- /**
-  * iova_bitmap_set() - Records an IOVA range in bitmap
-  * @bitmap: IOVA bitmap
-@@ -404,6 +428,9 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
- 	struct iova_bitmap_map *mapped = &bitmap->mapped;
- 	unsigned long cur_bit, last_bit, last_page_idx;
+ /* VFIO compatibility IOCTLs */
  
-+	if (!iova_bitmap_clip(bitmap, &iova, &length))
-+		return;
-+
- update_indexes:
- 	if (unlikely(!iova_bitmap_mapped_range(mapped, iova, length))) {
- 		/*
+ TEST_F(iommufd, simple_ioctls)
 -- 
 2.53.0
 
