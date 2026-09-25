@@ -1,1479 +1,1425 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010027.outbound.protection.outlook.com [52.101.69.27])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8334837F315;
-	Fri, 25 Sep 2026 14:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790347576; cv=fail; b=b3pCgJ11kgic7E9CB6wDVtqRPe5JW5OL+qDbhGcevyFZV0+Z3IKqI/ot75zBfj41gEZj0i+tKKukfziEefEcX+Uoond5HcFCr4DOfkBc9RZMclLB4hp5YhB53paPsXD3LXMp+jvyzdTbH86wtKausDFtilHEdO/0Z6BJRs+oHzk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790347576; c=relaxed/simple;
-	bh=BRL3y2m3wDCeNAII02Yuse+nSQz3S06tZxj6bbuuzAM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PINR/+HfDWQAl2jup8qQpSFdAaL6NkHMl0zbO0euqAqUO4eQPkokNE8Eyv2/BPZGub5bXuRhw0NwPj2XKMoqOy1j0H2geUeIlVV6yUT5RaipJ8RQKAg5AUPhZG68Swl+4dZqiYnTbHHRD18HXld1EqvJ84SgVOl8cIs9JrRufTg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=xxf+Jtqv; arc=fail smtp.client-ip=52.101.69.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382B94AA032;
+	Fri, 25 Sep 2026 14:46:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790347579; cv=none; b=fYf4tuM/r6lIdKT1etMkanQos6k4Nhd879kfbKeoqfwXZkhR4jsRQhxUkffKt0fl7bNrLCHdO0+aKW8XjIdi4uHuMeVCSz92i9n+BDhg/FFvN3/x+8zSlslg+QsqQKPgOd0KPSqAT7s+GIBVZ+qImb7SQYlvFounOLEQHq+hDQ0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790347579; c=relaxed/simple;
+	bh=J6M0Hu3dhwP0F4LeYca+t4dF2C63+1c7qFrsPGaYX6g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=i/qm7EGWixa/2tixFK3z5QJiGaMaXzlSfxTQuGtmx2acYFLBdS6nee8SmaVeZbFsw0ZzmdTlC1qVXe8rZ/lWY+nluueaUChBe21jAq1kXRAm/kCFMHFQqzZ5nrAY1O6/1XLOJCA1/Rp06DSu68uAlnFJA9RT39Qf1WHzNtNSFT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WT3eOTNC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="xxf+Jtqv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dcDDd2O9IVUNUmj0+hqipJu7XyMvzojLmosKxsdbavpe8UafNa9yu/n5qgUChfA37FdPzdxi7k0vNTTdvq5S3viBnFjV5sHihoenC+qa8XmC6N1R74A1VPJAGnYWzQGLDNuEAQlLzyQQ4RtU3ghVCYCHD8FXMGM5qCKoB/fKAU6OB7WyoHUUovB7J7QEhFdWWblEKxj2HTWe34LT9lWaZvFF5ZJ3rLl7NtN/xC65aVd9T2+GYo8BsZ8AeQBmN5OHGmaM+cc9TsD32GS2j7ZDGA6hzzmpk4xvANsNz5UquyVb+MM4a04wwE1pC30qfKHuAHpK/8oY2dJUcev80b/hEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fc5TbSsuRTN+cZ1DzeEA7QfO8KbplnJWWL3CecUwTN8=;
- b=KVNGfAnoJOq6cdvPHpVptQWzDIw+0GWbbq5VBXGoVM4NVDQf7CFuR5fllNCtERtyery5vcvfLMNLxO2Bqjt3sO5qODTAQlHvKu1EuTln1ssLlGkI/MsunA9n7BgDD0u/rj6og1nSz5CEFFDcxmm23vdeXNFpp1vcI6Z0/evO7EeHq7FLH8fT0STBcSL51xng60laXvbwVElfkKuw/0KjNXIOsAURvwq47+bJu7t9JWMdL3c5GG9A6MmIrrKIV8gJdf8gy2piOrprUo+rz79OqNi9/uwR+KOyO+eVDoOgn2l0QA/IgUChOUr2UUCaRevJX8E0fyw/2f2aviSveU1jQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fc5TbSsuRTN+cZ1DzeEA7QfO8KbplnJWWL3CecUwTN8=;
- b=xxf+Jtqv4Eg7YIzDq4tRCbmi1GiXIJCOoRhC4h0cgmGdZ8mZrZFnrz2yHNVmoV+vo43xop+lFfGuMYZJs4LY3bofMGClu3758NqP6SG0KyBkaEAarEz6kedJS5cAxpgwpz5K4s1ZxZDYSYVIbe70yuogTghsqXmJtr8f8ImMHQAy/lY9zJgmMqvS8NpHp30Flv1Pra2MF2zFkOY0qWgwzwh7tvHhOAJ7C5PcmbPMPsOIWv0LACE8UwSSOZJpRR7hpfOVm0oDCtBcehy6PU4UoomxZj8cvZYKbXL3FcOaAewFsDnndNbHtnv/zt/jCiZjOELsG0pBIY8K/Kq09LL0uw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
- by BR0PR04MB337759.eurprd04.prod.outlook.com (2603:10a6:2c8:60::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 14:46:04 +0000
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6%3]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 14:46:04 +0000
-From: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Max Staudt <max@enpas.org>,
-	Markus Schneider-Pargmann <msp@baylibre.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Thomas Kopp <thomas.kopp@microchip.com>,
-	Ming Yu <tmyu0@nuvoton.com>
-Cc: kernel@pengutronix.de,
-	linux-can@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	NXP S32 Linux Team <s32@nxp.com>,
-	imx@lists.linux.dev,
-	Haibo Chen <haibo.chen@nxp.com>,
-	Enric Balletbo <eballetb@redhat.com>,
-	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-Subject: [PATCH v6 2/3] can: rx-offload: add a per-IRQ receive context
-Date: Fri, 25 Sep 2026 16:45:57 +0200
-Message-ID: <20260925144558.2909639-3-ciprianmarian.costea@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260925144558.2909639-1-ciprianmarian.costea@oss.nxp.com>
-References: <20260925144558.2909639-1-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR5P281CA0014.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f2::7) To AM0PR04MB5858.eurprd04.prod.outlook.com
- (2603:10a6:208:132::23)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WT3eOTNC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 481051F00893;
+	Fri, 25 Sep 2026 14:46:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790347572;
+	bh=TjYM7UBEVRCJdsOitFrZK6aWE6WIwCNj6XjVLwsSXa4=;
+	h=From:To:Cc:Subject:Date;
+	b=WT3eOTNCizdgaHDV/SPOL7audwa80a+SR87RudUrGCxsqiJAkTmIgpd7iyfoTRHd3
+	 yur7KEwLqSfUCRQ881SyfBKm+aMgdw8YEV6kN7j4KBezJWFXpxlDgBSR3jtklswqwZ
+	 LeLpWwQFEUxWUhzYYZSjJ8VxDvuGhufC88gWIWbM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	torvalds@linux-foundation.org,
+	stable@vger.kernel.org
+Cc: lwn@lwn.net,
+	jslaby@suse.cz,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Linux 7.2.8
+Date: Fri, 25 Sep 2026 16:46:01 +0200
+Message-ID: <2026092502-collapse-bully-a8f5@gregkh>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|BR0PR04MB337759:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1523cbec-8c53-440d-6e2f-08df1b13b995
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|23010399003|376014|7416014|366016|921020|11063799006|10067099003|11062099010|56012099006|22082099003|18002099003|7136999003;
-X-Microsoft-Antispam-Message-Info:
-	SFm+w6mPhe6w22UAYqpTdp2nqcpZybbscVZtkms36Puig+m5p/BZ/6A2pggrwRbY5lGO2J277B1JcFAOMHglD+90qFdOTYTMdw8lkL11DPvEp7fcfl1lsyHTTFgh7ax8VeivlE8AoMTVQ3XqCd9jI9IizoG11sHPuGA97FF3e7Tz/O/w3Sg+V/FT5sOFUn07y19B+n1jgJqOkQSxofVxvnF+Pe5LlnRGQTq4vPjBW1R+m2eIP68YfPIQ21JfCjv9sZLHwK7cTbJ69V1FbTsh3uVnpql9sL2upmGH/iY/6zWrhCBQp9QxGPMohNSzqyXTuqODQ0zQMgXuW1mjMzi4t9ealdaIkcIRuVJBflSPtItqkalJoewIVnMDfWvtKEpwuBR80xQGx02S5LFq90BI6aTd8pihlcoBsKUQOhhFBPqD4xH0EU7DLEVh24B+UX7X5VGwHwfL/gt0EJpvbIKWoKEagXJkRSRmZLRlzMijmPFngDBxyDhp3u4J6r+laoRGqS2g0h3rxJaYQWl5cVJ1PLC05sBefT2v7ILRikui+oaliy+vbIG5gDnx8bHP0v30mOHqfuHGXZFe7ZjovH08Zz1dImivjGGNq3xgFUGOmVfDVK8zYpkTTUZNkh99pD1eBaQhCxVW5aNo0DlGZH+Vo/dPkmTiQKvXhaMixNLIt1auKQ0V9XzTnDI/BljyEuSaZkFPASsfS4R6GV2BZt9ocQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(376014)(7416014)(366016)(921020)(11063799006)(10067099003)(11062099010)(56012099006)(22082099003)(18002099003)(7136999003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UzhyNWpKTDZydFRVYnFTc09kYW5MRXZCUlM0T2RicmlzU0xyRkt3cFNrZnNl?=
- =?utf-8?B?VmRoQUZPQThYTkd3MDBUQnNNLzBkYTA2SHRjVVM1Z0dzNUVUVzN6bDBkK29F?=
- =?utf-8?B?V1ZvbTVrSzh2SmsvcG5hejFtY3dzQzVLRTNOUFlsL0VRNE5aQUs2SXZnOFZN?=
- =?utf-8?B?bmFjTWRqOTNLbDNqTUF0bnJZVXgvVzA2NjBtRjlzbHBhVmRpbitSSFlWK1RS?=
- =?utf-8?B?MTFkTFBKVVlNaUYzR2x2MHFhSHZHN3BBRzNTTEpsSUtROGtBbmJXSG0zclYz?=
- =?utf-8?B?QTJRbldSY2JucWxCckVHT0ZpTmNEaDBEVlNXc1RlQTFUZ3N0N2MvUWRvK0dD?=
- =?utf-8?B?RGk4QlFwNnBFWWc3MldIc1phTVQ4WGVXTVZHUmZsZXU3ZTg1V0p0bzZXdG10?=
- =?utf-8?B?OWR4dklaZ1NnVU01NGYrL01QK24wNEpVUXhyQ2NmRnkvbmQydWlaWDdMV0VR?=
- =?utf-8?B?QXhZZHRZaHNIQ0FKU24vcjdxUFNMeEQyUkhXRUczZFNybTVQcTBJZ1ZIZ1R2?=
- =?utf-8?B?WmZrRUJtbm15cjVjTEVodlpoL2dxeUJjWHpKSlU1SFFVbnl6bzNQaW0zZWp1?=
- =?utf-8?B?N09HUkNidjZBak1sNzlrcGtIazlzSjMyRjBZQWJ3YlUvbXZkWU10VEFvZnF5?=
- =?utf-8?B?b1UxNUpDOW5YZnM3M1U5NlJTTVVuQ3JGek5ZRW9vcTdkMzNXVVM5RXRISjR1?=
- =?utf-8?B?WGlWOEJnUzFHdDNPQVJUUi90UzZBb1FuaXZTTkEzQTErNVVJaEZ3cW9xMU1j?=
- =?utf-8?B?T0taMHR1aDdUZmd0eUg0bDFPVDlvV01uS3lJK1NqRXA1NkhoSE9Jd1pybEhh?=
- =?utf-8?B?UEpHN0lFdVpCM2JLQWFZV1JLRVBWK1pvTFEwSmtNenBSRzFwTmhZckdKS1oz?=
- =?utf-8?B?OTlQNkExOXVlVnRKdjI3T0IyNW4rd2lBN0VPS3NKL0IwdXNuNjFnTDJmRUtZ?=
- =?utf-8?B?elFtWFFUc3FBU3dvbWVTMGp0eFFQME5Td2I3UUxtRUVXR2NEVWIySXFDZjRp?=
- =?utf-8?B?VloycFE0eXRESXdYVHFPdU45RmVYRWg4K2d4VUJqQnBqeTQ3YUJBM0pTWTNG?=
- =?utf-8?B?QzJDQlhoekRWazdFdzJFRnpNZzJsRHdSSGVQWWV5MnNyUmp0M2FCMUM5WEZL?=
- =?utf-8?B?MVBoNDFjY1JXYy9OOW5vNUtDM2hNdlRUTldqOU51QldET3Y1d2tiaEd0OVFG?=
- =?utf-8?B?REtBbGVrTWk5YUZxSjZZdnp2Y1R0c20zMFdHOFcrV2J4N2hxU0htMGJuN2dN?=
- =?utf-8?B?Yi9oOVBFVnVNM0RJbW9CL3ZFd2RkWjhpZzhzMGNWaU04Uk9LbkJ5U1gwOFkv?=
- =?utf-8?B?cXJkVXg1Y01rTFlFeGFFRzh4MUs1Uzd2SnI0b0RDbUw3cFNXa1BIMk1xUnNt?=
- =?utf-8?B?aEZNWmVtNU04Q3Job2p5UnhubXBtTWNyZnhpSjFyMWh2Z0ljWVJ4aEswcWxC?=
- =?utf-8?B?ZW5zZUR1dGFSaFVjcTBDWkFZWmpkbFpZUklMUXBGa2tVeHQwWm9oZ21ZQmdB?=
- =?utf-8?B?OHB2TjJuZUxtQzMrVDRWYUtRNTJ0WWVxN3d1UGlseVhyYXdBVnQvZW1LRXdz?=
- =?utf-8?B?cDg3VVZ4K2Z2eFdaeFh0dm5jNW54R0t1cG1taWlRRHlXTFN1K1B3OCtLcVJz?=
- =?utf-8?B?WHRGVmZzRW9UVGg2Zm5Hc2JiazdGVGJsV1VneWhZdDEwZjVaUndJTlliYnhG?=
- =?utf-8?B?WVRpa3NCd1k3dGhweE9YWXBHRnVBZGNNNXVBbUIrN3pIUHoxTGZDbHRJMjhU?=
- =?utf-8?B?bWFHS0tkMHJYRkdrYmdIRGliS0k0VFNPSmZGVENKUTlINjVBaHk3aFhBWFJQ?=
- =?utf-8?B?aHBVN1B5MDRiK0cvYk1qcSt2Zm02d2xkSnhVZ0czWnNEWXpsTGFPei90bHpE?=
- =?utf-8?B?N0RzTkZ6RHB5TXl3S0lmRGJKQktNdm1MNHJjWVZFa2R1M01MK1RJYndSek01?=
- =?utf-8?B?ZXM1cDlPaDVrSk45S3NUcVpha2RmWDFpd3RtZ01uSW42NWtDRXg5VU4wZFlZ?=
- =?utf-8?B?L1JWNjVLY2VXUUdQOVFKUHBpZW9IeW5PMDAwK0pJUWVrN0RnRytjM0VRSGVm?=
- =?utf-8?B?eGZ3NkUzaENSV1BFQ0lUVnh0TjhkNUJpMlJpOFlyazQ4RWN1bjhueThrMGtk?=
- =?utf-8?B?dFpRNExINEpqeFg0TGcrcE9YSThTbnZORGFxQ1VMdzJsYzNVbHR4TUI2cEtD?=
- =?utf-8?B?Wjk4ODZ1Vkt6OWlpcjJnVkVmVGdPQmpsNG1ROTg2YU1VWnNZTHBNejU1MllU?=
- =?utf-8?B?dTg5TG5ZWW5teUpUcFF1RVdBVGZUQmRYeWFwY2J2d1ZjTTR5U1dRVktGZFF2?=
- =?utf-8?B?RkJFNS9odnRkbXpOd2Qzb2pBc1BRU2ZuNGRwQ1FOS0kzUnRpclBvanVDMjFE?=
- =?utf-8?Q?NYT6zrW3zW/PMzvU=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1523cbec-8c53-440d-6e2f-08df1b13b995
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 14:46:04.3131
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qMHliLPgtWoHJhG3VSRaldmk7UMOBii7SSYi0PaDQTF/cA/AtYAdCe9y+bMSR51G0gB9wa+9/Y8AT/dhPeL15Eez05ZXBjeQezx/q6bUJ/Q=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB337759
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+I'm announcing the release of the 7.2.8 kernel.
 
-The IRQ handler fills skb_irq_queue without a lock and the finish helpers
-then splice it into skb_queue under skb_queue.lock. This breaks when a
-driver uses the helpers from more than one IRQ line. On NXP S32G2, the
-flexcan handlers can run at the same time on different CPUs and corrupt
-skb_irq_queue.
+All users of the 7.2 kernel series must upgrade.
 
-Add struct can_rx_offload_irq, one per IRQ line, which holds
-skb_irq_queue, skb_queue_len_max and the mailbox range. skb_queue and napi
-stay in struct can_rx_offload and are shared by all contexts.
+The updated 7.2.y git tree can be found at:
+	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux-7.2.y
+and can be browsed at the normal kernel.org git web browser:
+	https://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=summary
 
-With a single context the finish helpers splice the queue as before. With
-more than one, the skbs are sorted into skb_queue by timestamp, unless the
-driver queues them without one, in which case they are appended.
+thanks,
 
-The queue, echo and finish helpers now take a struct can_rx_offload_irq,
-the add helpers take the offload and the context. The NAPI weight is the
-largest weight of the registered contexts and the queue length limit
-derived from it is shared.
+greg k-h
 
-Convert all users to a single context, no functional change for them.
-flexcan is converted to one context per IRQ line in the next patch.
+------------
 
-Suggested-by: Marc Kleine-Budde <mkl@pengutronix.de>
-Assisted-by: LLM
-Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
----
- drivers/net/can/at91_can.c                    |  18 +-
- drivers/net/can/bxcan.c                       |  14 +-
- drivers/net/can/can327.c                      |   8 +-
- drivers/net/can/dev/rx-offload.c              | 196 ++++++++++++------
- drivers/net/can/flexcan/flexcan-core.c        |  26 +--
- drivers/net/can/flexcan/flexcan-ethtool.c     |   4 +-
- drivers/net/can/flexcan/flexcan.h             |   1 +
- drivers/net/can/m_can/m_can.c                 |   7 +-
- drivers/net/can/m_can/m_can.h                 |   1 +
- .../net/can/rockchip/rockchip_canfd-core.c    |   9 +-
- drivers/net/can/rockchip/rockchip_canfd-rx.c  |   2 +-
- drivers/net/can/rockchip/rockchip_canfd-tx.c  |   2 +-
- drivers/net/can/rockchip/rockchip_canfd.h     |   1 +
- .../net/can/spi/mcp251xfd/mcp251xfd-core.c    |  13 +-
- drivers/net/can/spi/mcp251xfd/mcp251xfd-rx.c  |   2 +-
- drivers/net/can/spi/mcp251xfd/mcp251xfd-tef.c |   2 +-
- drivers/net/can/spi/mcp251xfd/mcp251xfd.h     |   1 +
- drivers/net/can/ti_hecc.c                     |  18 +-
- drivers/net/can/usb/gs_usb.c                  |  23 +-
- drivers/net/can/usb/nct6694_canfd.c           |  20 +-
- include/linux/can/rx-offload.h                |  48 ++++-
- 21 files changed, 263 insertions(+), 153 deletions(-)
+ Documentation/ABI/testing/sysfs-devices-platform-trackpoint    |    2 
+ Documentation/arch/arm64/memory-tagging-extension.rst          |    5 
+ Documentation/hwmon/cgbc-hwmon.rst                             |   42 
+ Documentation/netlink/specs/rt-neigh.yaml                      |    3 
+ Documentation/networking/ip-sysctl.rst                         |    4 
+ Makefile                                                       |    2 
+ arch/arm/mach-socfpga/Kconfig                                  |    2 
+ arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts        |    2 
+ arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts  |  113 +
+ arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi                    |   44 
+ arch/arm64/boot/dts/renesas/r8a779f0.dtsi                      |    1 
+ arch/arm64/boot/dts/renesas/r9a09g047.dtsi                     |   10 
+ arch/arm64/boot/dts/renesas/r9a09g056.dtsi                     |   10 
+ arch/arm64/boot/dts/renesas/r9a09g057.dtsi                     |   10 
+ arch/arm64/boot/dts/renesas/r9a09g077.dtsi                     |   27 
+ arch/arm64/boot/dts/renesas/r9a09g087.dtsi                     |   27 
+ arch/arm64/include/asm/percpu.h                                |   20 
+ arch/arm64/kernel/hibernate-asm.S                              |    2 
+ arch/arm64/kernel/hibernate.c                                  |    4 
+ arch/arm64/kernel/mte.c                                        |    2 
+ arch/mips/Kconfig                                              |    4 
+ arch/mips/cavium-octeon/octeon-platform.c                      |    4 
+ arch/powerpc/kernel/iommu.c                                    |    2 
+ arch/powerpc/kvm/book3s_hv_nested.c                            |    2 
+ arch/powerpc/kvm/book3s_hv_uvmem.c                             |    5 
+ arch/x86/Kconfig.cpu                                           |   11 
+ arch/x86/Makefile                                              |    5 
+ arch/x86/entry/entry_fred.c                                    |   11 
+ arch/x86/include/asm/div64.h                                   |    2 
+ arch/x86/include/asm/text-patching.h                           |    4 
+ arch/x86/kernel/alternative.c                                  |    6 
+ arch/x86/kernel/cpu/microcode/intel.c                          |   26 
+ arch/x86/kernel/kprobes/core.c                                 |    5 
+ drivers/ata/libahci.c                                          |   15 
+ drivers/ata/libahci_platform.c                                 |    2 
+ drivers/block/sunvdc.c                                         |    9 
+ drivers/bluetooth/btintel_pcie.c                               |    8 
+ drivers/bluetooth/btmtk.c                                      |    7 
+ drivers/bluetooth/btmtksdio.c                                  |   24 
+ drivers/bluetooth/btmtkuart.c                                  |   20 
+ drivers/bluetooth/btusb.c                                      |   17 
+ drivers/bluetooth/hci_qca.c                                    |   14 
+ drivers/clk/clk-scpi.c                                         |    8 
+ drivers/dma-buf/dma-buf-mapping.c                              |   31 
+ drivers/dma-buf/dma-fence.c                                    |   14 
+ drivers/dma/dmaengine.c                                        |   10 
+ drivers/dma/mmp_pdma.c                                         |    5 
+ drivers/dma/pxa_dma.c                                          |    3 
+ drivers/dma/sprd-dma.c                                         |    3 
+ drivers/dma/sun6i-dma.c                                        |    9 
+ drivers/dma/ti/k3-udma-glue.c                                  |    5 
+ drivers/dma/xilinx/xilinx_dma.c                                |   26 
+ drivers/firmware/arm_scpi.c                                    |    4 
+ drivers/gpio/gpio-virtuser.c                                   |    3 
+ drivers/gpio/gpiolib-of.c                                      |    6 
+ drivers/gpio/gpiolib-shared.c                                  |    9 
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                            |    3 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c                     |    2 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c                     |  145 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c                    |   43 
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c                          |    7 
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c                         |    2 
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c          |    7 
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c               |    2 
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c               |    2 
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c               |   61 
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c             |   70 
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c                |    6 
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c                |    5 
+ drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c        |   13 
+ drivers/gpu/drm/drm_atomic_uapi.c                              |   13 
+ drivers/gpu/drm/gud/gud_pipe.c                                 |    7 
+ drivers/gpu/drm/i915/display/intel_cursor.c                    |   15 
+ drivers/gpu/drm/i915/display/skl_universal_plane.c             |   15 
+ drivers/gpu/drm/msm/adreno/adreno_device.c                     |    2 
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c                        |    2 
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c                     |    1 
+ drivers/gpu/drm/msm/dp/dp_display.c                            |   21 
+ drivers/gpu/drm/msm/dsi/dsi_host.c                             |   36 
+ drivers/gpu/drm/msm/hdmi/hdmi_phy.c                            |    8 
+ drivers/gpu/drm/msm/msm_drv.c                                  |    2 
+ drivers/gpu/drm/msm/msm_gem.h                                  |    3 
+ drivers/gpu/drm/msm/msm_gem_vma.c                              |    2 
+ drivers/gpu/drm/msm/msm_ringbuffer.c                           |    2 
+ drivers/gpu/drm/msm/msm_ringbuffer.h                           |    1 
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c         |    2 
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c          |    8 
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c         |    8 
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c          |    3 
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h     |    8 
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h                |    2 
+ drivers/gpu/drm/scheduler/sched_entity.c                       |    8 
+ drivers/gpu/drm/scheduler/sched_rq.c                           |   20 
+ drivers/gpu/drm/ttm/ttm_bo.c                                   |    2 
+ drivers/gpu/drm/vc4/vc4_kms.c                                  |    2 
+ drivers/gpu/drm/xe/xe_i2c.c                                    |    3 
+ drivers/gpu/drm/xe/xe_mmio_gem.c                               |   33 
+ drivers/gpu/drm/xe/xe_mmio_gem.h                               |    2 
+ drivers/gpu/drm/xe/xe_shrinker.c                               |  124 -
+ drivers/hwmon/cgbc-hwmon.c                                     |  129 +
+ drivers/hwmon/gpio-fan.c                                       |    4 
+ drivers/hwmon/hp-wmi-sensors.c                                 |   32 
+ drivers/hwmon/pmbus/pmbus.h                                    |    3 
+ drivers/hwmon/pmbus/tps53679.c                                 |   11 
+ drivers/hwmon/pwm-fan.c                                        |   13 
+ drivers/hwmon/w83791d.c                                        |    1 
+ drivers/hwmon/w83793.c                                         |    4 
+ drivers/i2c/busses/i2c-at91-core.c                             |    3 
+ drivers/i2c/busses/i2c-at91-master.c                           |   12 
+ drivers/i2c/busses/i2c-at91.h                                  |    1 
+ drivers/i2c/busses/i2c-imx.c                                   |    3 
+ drivers/i2c/busses/i2c-qcom-cci.c                              |   20 
+ drivers/i2c/i2c-atr.c                                          |    1 
+ drivers/infiniband/core/iwpm_util.c                            |    9 
+ drivers/infiniband/core/mad.c                                  |    3 
+ drivers/infiniband/core/rdma_core.c                            |    1 
+ drivers/infiniband/core/ucma.c                                 |    7 
+ drivers/infiniband/core/uverbs_flow.c                          |    1 
+ drivers/infiniband/core/uverbs_main.c                          |   25 
+ drivers/infiniband/core/verbs.c                                |   12 
+ drivers/infiniband/hw/bnxt_re/main.c                           |   10 
+ drivers/infiniband/hw/bnxt_re/uapi.c                           |    6 
+ drivers/infiniband/hw/efa/efa_com.c                            |    7 
+ drivers/infiniband/hw/efa/efa_com.h                            |    1 
+ drivers/infiniband/hw/efa/efa_main.c                           |   33 
+ drivers/infiniband/hw/erdma/erdma_main.c                       |    4 
+ drivers/infiniband/hw/erdma/erdma_verbs.c                      |   18 
+ drivers/infiniband/hw/hfi1/file_ops.c                          |   23 
+ drivers/infiniband/hw/irdma/verbs.c                            |    2 
+ drivers/infiniband/hw/mlx4/sysfs.c                             |    4 
+ drivers/infiniband/hw/mlx5/main.c                              |    7 
+ drivers/infiniband/sw/rxe/rxe_mcast.c                          |   50 
+ drivers/infiniband/sw/rxe/rxe_mr.c                             |    3 
+ drivers/infiniband/sw/rxe/rxe_odp.c                            |   16 
+ drivers/infiniband/sw/rxe/rxe_verbs.c                          |   13 
+ drivers/infiniband/sw/siw/siw_cm.c                             |    7 
+ drivers/infiniband/sw/siw/siw_qp_rx.c                          |    2 
+ drivers/infiniband/ulp/ipoib/ipoib.h                           |    7 
+ drivers/infiniband/ulp/ipoib/ipoib_ib.c                        |   12 
+ drivers/infiniband/ulp/ipoib/ipoib_multicast.c                 |   16 
+ drivers/infiniband/ulp/iser/iser_initiator.c                   |   16 
+ drivers/infiniband/ulp/isert/ib_isert.c                        |   22 
+ drivers/infiniband/ulp/isert/ib_isert.h                        |    2 
+ drivers/infiniband/ulp/rtrs/rtrs-clt-trace.h                   |    2 
+ drivers/infiniband/ulp/rtrs/rtrs-clt.c                         |    8 
+ drivers/infiniband/ulp/rtrs/rtrs-clt.h                         |    2 
+ drivers/infiniband/ulp/rtrs/rtrs-srv-trace.h                   |    2 
+ drivers/input/evdev.c                                          |    2 
+ drivers/input/input-compat.c                                   |    2 
+ drivers/input/joystick/xpad.c                                  |   10 
+ drivers/input/keyboard/adp5588-keys.c                          |   12 
+ drivers/input/keyboard/atkbd.c                                 |    8 
+ drivers/input/misc/soc_button_array.c                          |   16 
+ drivers/input/mouse/synaptics.c                                |    8 
+ drivers/input/rmi4/rmi_driver.c                                |   13 
+ drivers/input/rmi4/rmi_smbus.c                                 |   10 
+ drivers/input/serio/hp_sdc.c                                   |    2 
+ drivers/input/serio/i8042-acpipnpio.h                          |    7 
+ drivers/input/touchscreen/cyttsp5.c                            |    1 
+ drivers/input/touchscreen/eeti_ts.c                            |    1 
+ drivers/memstick/core/ms_block.c                               |    2 
+ drivers/misc/ntsync.c                                          |    3 
+ drivers/mmc/core/bus.c                                         |    2 
+ drivers/mmc/core/host.c                                        |    1 
+ drivers/mmc/core/sdio_uart.c                                   |    3 
+ drivers/mmc/host/mmc_hsq.c                                     |    8 
+ drivers/mmc/host/mmc_spi.c                                     |    1 
+ drivers/mmc/host/mmci.c                                        |    3 
+ drivers/mmc/host/mxcmmc.c                                      |    4 
+ drivers/mmc/host/rtsx_pci_sdmmc.c                              |    5 
+ drivers/mmc/host/sdhci-of-aspeed.c                             |    5 
+ drivers/mmc/host/sdhci_am654.c                                 |   43 
+ drivers/mmc/host/sh_mmcif.c                                    |    3 
+ drivers/net/dsa/mxl862xx/mxl862xx.c                            |   23 
+ drivers/net/ethernet/airoha/airoha_ppe.c                       |   17 
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c                 |   19 
+ drivers/net/ethernet/cadence/macb_ptp.c                        |    9 
+ drivers/net/ethernet/cortina/gemini.c                          |    2 
+ drivers/net/ethernet/intel/igc/igc_tsn.c                       |    6 
+ drivers/net/ethernet/intel/ixgbe/ixgbe_main.c                  |    7 
+ drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c                |    3 
+ drivers/net/ethernet/mediatek/mtk_ppe_offload.c                |   17 
+ drivers/net/ethernet/mellanox/mlx5/core/en_main.c              |    2 
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.c                   |   42 
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.h                   |    9 
+ drivers/net/ethernet/microchip/lan743x_main.c                  |    2 
+ drivers/net/ethernet/sfc/falcon/tx.c                           |    8 
+ drivers/net/ethernet/sfc/siena/tx.c                            |    8 
+ drivers/net/ethernet/socionext/netsec.c                        |    2 
+ drivers/net/ethernet/stmicro/stmmac/hwif.h                     |    2 
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c           |    2 
+ drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c               |   14 
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c              |    6 
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c                |   99 -
+ drivers/net/fddi/skfp/skfddi.c                                 |    3 
+ drivers/net/phy/mediatek/mtk-phy-lib.c                         |   27 
+ drivers/net/wireless/ath/ath11k/mac.c                          |   25 
+ drivers/net/wireless/ath/wcn36xx/dxe.c                         |    2 
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c        |    2 
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c    |    5 
+ drivers/net/wireless/broadcom/brcm80211/brcmsmac/mac80211_if.c |    4 
+ drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c        |   12 
+ drivers/net/wireless/intel/ipw2x00/libipw_rx.c                 |    6 
+ drivers/net/wireless/intel/iwlegacy/common.c                   |    2 
+ drivers/net/wireless/intersil/p54/eeprom.c                     |   22 
+ drivers/net/wireless/marvell/libertas_tf/main.c                |    2 
+ drivers/net/wireless/marvell/mwifiex/cfg80211.c                |   12 
+ drivers/net/wireless/marvell/mwifiex/pcie.c                    |    2 
+ drivers/net/wireless/marvell/mwifiex/scan.c                    |   54 
+ drivers/net/wireless/marvell/mwifiex/util.c                    |   10 
+ drivers/net/wireless/microchip/wilc1000/cfg80211.c             |   14 
+ drivers/net/wireless/microchip/wilc1000/wlan.c                 |    9 
+ drivers/net/wireless/rsi/rsi_91x_mgmt.c                        |    2 
+ drivers/net/wireless/ti/wlcore/main.c                          |    4 
+ drivers/net/wireless/virtual/mac80211_hwsim_main.c             |   39 
+ drivers/net/wireless/virtual/virt_wifi.c                       |    4 
+ drivers/net/wwan/mhi_wwan_mbim.c                               |   28 
+ drivers/net/wwan/t7xx/t7xx_netdev.c                            |    4 
+ drivers/pci/controller/dwc/pci-imx6.c                          |   12 
+ drivers/perf/arm-cmn.c                                         |   10 
+ drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c                     |    4 
+ drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h                     |    3 
+ drivers/phy/renesas/phy-rcar-gen3-usb2.c                       |  310 +++-
+ drivers/power/sequencing/Kconfig                               |    3 
+ drivers/power/sequencing/core.c                                |   11 
+ drivers/scsi/fnic/fdls_disc.c                                  |  726 +++++-----
+ drivers/scsi/fnic/fip.c                                        |  117 -
+ drivers/scsi/fnic/fip.h                                        |    2 
+ drivers/scsi/fnic/fnic.h                                       |   78 -
+ drivers/scsi/fnic/fnic_fcs.c                                   |  126 -
+ drivers/scsi/fnic/fnic_isr.c                                   |   41 
+ drivers/scsi/fnic/fnic_main.c                                  |   89 -
+ drivers/scsi/fnic/fnic_scsi.c                                  |  210 +-
+ drivers/scsi/pm8001/pm8001_init.c                              |    6 
+ drivers/scsi/qla2xxx/qla_os.c                                  |    2 
+ drivers/scsi/scsi.c                                            |   24 
+ drivers/soc/samsung/exynos-pmu.c                               |    7 
+ drivers/soundwire/cadence_master.c                             |    7 
+ drivers/soundwire/dmi-quirks.c                                 |    7 
+ drivers/spi/spi-fsl-qspi.c                                     |    5 
+ drivers/spi/spi-qpic-snand.c                                   |    4 
+ drivers/spi/spi-virtio.c                                       |    2 
+ drivers/spi/spi-zynqmp-gqspi.c                                 |   34 
+ drivers/watchdog/da9062_wdt.c                                  |    4 
+ drivers/watchdog/da9063_wdt.c                                  |    4 
+ drivers/watchdog/digicolor_wdt.c                               |   13 
+ drivers/watchdog/msc313e_wdt.c                                 |   16 
+ drivers/watchdog/rtd119x_wdt.c                                 |    7 
+ drivers/watchdog/rzv2h_wdt.c                                   |    7 
+ drivers/watchdog/sp5100_tco.c                                  |    6 
+ drivers/watchdog/starfive-wdt.c                                |    2 
+ fs/9p/vfs_addr.c                                               |   28 
+ fs/btrfs/dev-replace.c                                         |    1 
+ fs/btrfs/disk-io.c                                             |    4 
+ fs/btrfs/file.c                                                |    4 
+ fs/btrfs/free-space-tree.c                                     |   14 
+ fs/btrfs/inode.c                                               |   18 
+ fs/btrfs/super.c                                               |    8 
+ fs/btrfs/tree-checker.c                                        |    2 
+ fs/btrfs/verity.c                                              |   18 
+ fs/dax.c                                                       |    9 
+ fs/exec.c                                                      |   29 
+ fs/nfsd/export.c                                               |    3 
+ fs/ntfs/attrib.c                                               |  259 ++-
+ fs/ntfs/attrib.h                                               |    9 
+ fs/ntfs/attrlist.c                                             |  224 ++-
+ fs/ntfs/attrlist.h                                             |    2 
+ fs/ntfs/compress.c                                             |    2 
+ fs/ntfs/file.c                                                 |    3 
+ fs/ntfs/inode.c                                                |   35 
+ fs/ntfs/mft.c                                                  |  447 ++++--
+ fs/ntfs/mft.h                                                  |    2 
+ fs/ntfs/namei.c                                                |    2 
+ fs/ntfs/super.c                                                |   12 
+ fs/ntfs/volume.h                                               |   12 
+ fs/smb/client/cifssmb.c                                        |    2 
+ fs/smb/client/connect.c                                        |    9 
+ fs/smb/client/file.c                                           |    4 
+ fs/smb/client/misc.c                                           |   12 
+ fs/smb/client/reparse.c                                        |   58 
+ fs/smb/client/reparse.h                                        |    7 
+ fs/smb/client/sess.c                                           |  106 -
+ fs/smb/client/smb2inode.c                                      |   11 
+ fs/smb/client/smb2ops.c                                        |   51 
+ fs/smb/client/smb2pdu.c                                        |   13 
+ fs/smb/client/trace.h                                          |    1 
+ fs/smb/server/connection.c                                     |   84 +
+ fs/smb/server/connection.h                                     |    3 
+ fs/smb/server/mgmt/user_session.c                              |  199 ++
+ fs/smb/server/mgmt/user_session.h                              |    8 
+ fs/smb/server/misc.h                                           |    7 
+ fs/smb/server/proc.c                                           |  159 ++
+ fs/smb/server/server.c                                         |    9 
+ fs/smb/server/smb2pdu.c                                        |  126 +
+ fs/smb/server/smb2pdu.h                                        |    3 
+ fs/smb/server/smb_common.h                                     |    2 
+ fs/smb/server/stats.h                                          |   58 
+ fs/smb/server/vfs_cache.c                                      |   26 
+ fs/smb/server/vfs_cache.h                                      |    1 
+ fs/super.c                                                     |    1 
+ include/keys/request_key_auth-type.h                           |    2 
+ include/linux/dma-fence.h                                      |    6 
+ include/linux/ieee80211-mesh.h                                 |    4 
+ include/linux/netdevice.h                                      |   13 
+ include/net/bluetooth/coredump.h                               |    2 
+ include/net/codel.h                                            |    5 
+ include/net/codel_impl.h                                       |   16 
+ include/net/mac80211.h                                         |    5 
+ include/net/sock.h                                             |    2 
+ include/rdma/uverbs_types.h                                    |    2 
+ include/sound/soc.h                                            |    3 
+ include/sound/soc_sdw_utils.h                                  |   31 
+ include/trace/events/dma.h                                     |    2 
+ include/uapi/rdma/bnxt_re-abi.h                                |    2 
+ kernel/cgroup/cgroup.c                                         |    7 
+ kernel/dma/coherent.c                                          |    3 
+ kernel/dma/swiotlb.c                                           |    4 
+ kernel/events/core.c                                           |    4 
+ kernel/exit.c                                                  |   11 
+ kernel/fork.c                                                  |    4 
+ kernel/sched/core.c                                            |    9 
+ kernel/sched/ext/ext.c                                         |   27 
+ kernel/sched/ext/idle.c                                        |   11 
+ kernel/signal.c                                                |  115 +
+ kernel/time/jiffies.c                                          |    2 
+ kernel/time/posix-cpu-timers.c                                 |   40 
+ mm/filemap.c                                                   |    2 
+ mm/huge_memory.c                                               |   86 -
+ mm/memblock.c                                                  |   18 
+ mm/memcontrol.c                                                |    2 
+ mm/mlock.c                                                     |    2 
+ mm/mremap.c                                                    |    9 
+ mm/shrinker.c                                                  |    2 
+ mm/swapfile.c                                                  |    2 
+ mm/vma.c                                                       |    6 
+ net/atm/pppoatm.c                                              |   42 
+ net/bluetooth/coredump.c                                       |   65 
+ net/bluetooth/eir.c                                            |   10 
+ net/bluetooth/hci_codec.c                                      |   36 
+ net/bluetooth/hci_conn.c                                       |   21 
+ net/bluetooth/hci_core.c                                       |   18 
+ net/bluetooth/hci_sync.c                                       |    2 
+ net/bluetooth/iso.c                                            |   53 
+ net/bluetooth/rfcomm/sock.c                                    |   13 
+ net/bridge/br_mst.c                                            |   20 
+ net/bridge/br_vlan.c                                           |   31 
+ net/core/dev.c                                                 |  108 +
+ net/core/drop_monitor.c                                        |   18 
+ net/core/neighbour.c                                           |   35 
+ net/core/skbuff.c                                              |   32 
+ net/core/sock.c                                                |   16 
+ net/ipv4/esp4.c                                                |    6 
+ net/ipv4/icmp.c                                                |   17 
+ net/ipv4/ip_tunnel_core.c                                      |   16 
+ net/ipv4/sysctl_net_ipv4.c                                     |    4 
+ net/ipv4/tcp_input.c                                           |    3 
+ net/ipv4/tcp_ulp.c                                             |    4 
+ net/ipv6/esp6.c                                                |    6 
+ net/ipv6/seg6_local.c                                          |    3 
+ net/ipv6/tcp_ipv6.c                                            |    3 
+ net/ipv6/xfrm6_output.c                                        |   10 
+ net/mac80211/cfg.c                                             |   18 
+ net/mac80211/debugfs.c                                         |    2 
+ net/mac80211/debugfs_netdev.c                                  |    9 
+ net/mac80211/ieee80211_i.h                                     |    2 
+ net/mac80211/iface.c                                           |   39 
+ net/mac80211/main.c                                            |    4 
+ net/mac80211/mesh.c                                            |   34 
+ net/mac80211/offchannel.c                                      |    7 
+ net/mac80211/pm.c                                              |    8 
+ net/mac80211/scan.c                                            |    2 
+ net/mac80211/tdls.c                                            |   40 
+ net/mac80211/tx.c                                              |  107 -
+ net/netfilter/nf_flow_table_core.c                             |   12 
+ net/netfilter/nf_flow_table_path.c                             |    7 
+ net/netfilter/nf_nat_core.c                                    |   46 
+ net/netfilter/nf_tables_api.c                                  |   22 
+ net/netfilter/nft_nat.c                                        |    2 
+ net/netlink/af_netlink.c                                       |   42 
+ net/netlink/diag.c                                             |   20 
+ net/openvswitch/conntrack.c                                    |    2 
+ net/packet/af_packet.c                                         |    4 
+ net/packet/internal.h                                          |    2 
+ net/psp/psp_sock.c                                             |    4 
+ net/rds/ib_cm.c                                                |    2 
+ net/sched/act_api.c                                            |   11 
+ net/sched/sch_hhf.c                                            |    9 
+ net/sched/sch_mqprio.c                                         |    4 
+ net/sched/sch_mqprio_lib.c                                     |    7 
+ net/sched/sch_taprio.c                                         |   26 
+ net/unix/garbage.c                                             |   17 
+ net/wireless/core.c                                            |  126 +
+ net/wireless/core.h                                            |   16 
+ net/wireless/ibss.c                                            |   36 
+ net/wireless/rdev-ops.h                                        |    3 
+ net/wireless/reg.c                                             |    2 
+ net/wireless/scan.c                                            |   43 
+ net/wireless/util.c                                            |   38 
+ net/xfrm/espintcp.c                                            |    6 
+ net/xfrm/xfrm_input.c                                          |   22 
+ net/xfrm/xfrm_iptfs.c                                          |   12 
+ net/xfrm/xfrm_policy.c                                         |   20 
+ net/xfrm/xfrm_state.c                                          |    9 
+ net/xfrm/xfrm_user.c                                           |   18 
+ rust/kernel/net/phy.rs                                         |   38 
+ scripts/generate_rust_target.rs                                |    5 
+ security/keys/encrypted-keys/encrypted.c                       |   20 
+ security/keys/gc.c                                             |    4 
+ security/keys/request_key_auth.c                               |   12 
+ security/keys/trusted-keys/trusted_tpm2.c                      |   12 
+ security/selinux/avc.c                                         |    5 
+ security/selinux/hooks.c                                       |  150 +-
+ security/selinux/include/objsec.h                              |   10 
+ sound/core/init.c                                              |    3 
+ sound/core/pcm_timer.c                                         |    7 
+ sound/hda/common/controller.c                                  |    2 
+ sound/soc/amd/acp/acp-sdw-legacy-mach.c                        |   16 
+ sound/soc/amd/acp/acp-sdw-sof-mach.c                           |   21 
+ sound/soc/codecs/cs-amp-lib.c                                  |    2 
+ sound/soc/codecs/hdmi-codec.c                                  |    6 
+ sound/soc/codecs/rt712-sdca-dmic.c                             |   14 
+ sound/soc/intel/boards/sof_sdw.c                               |    2 
+ sound/soc/sdw_utils/soc_sdw_bridge_cs35l56.c                   |    4 
+ sound/soc/sdw_utils/soc_sdw_utils.c                            |    9 
+ sound/soc/soc-pcm.c                                            |   18 
+ sound/soc/ux500/ux500_msp_i2s.h                                |    4 
+ sound/usb/6fire/comm.c                                         |   42 
+ sound/usb/6fire/comm.h                                         |    2 
+ sound/usb/6fire/midi.c                                         |   43 
+ sound/usb/6fire/midi.h                                         |    2 
+ sound/usb/6fire/pcm.c                                          |  138 +
+ sound/usb/6fire/pcm.h                                          |    5 
+ sound/usb/bcd2000/bcd2000.c                                    |   33 
+ sound/usb/card.h                                               |    1 
+ sound/usb/endpoint.c                                           |   12 
+ sound/virtio/virtio_card.c                                     |    4 
+ tools/objtool/Makefile                                         |    8 
+ tools/testing/selftests/arm64/mte/check_gcr_el1_cswitch.c      |    2 
+ tools/testing/selftests/landlock/fs_test.c                     |  197 ++
+ 439 files changed, 6817 insertions(+), 2709 deletions(-)
 
-diff --git a/drivers/net/can/at91_can.c b/drivers/net/can/at91_can.c
-index 09aa676a03fb..f7b775f7c6d7 100644
---- a/drivers/net/can/at91_can.c
-+++ b/drivers/net/can/at91_can.c
-@@ -151,6 +151,7 @@ struct at91_devtype_data {
- struct at91_priv {
- 	struct can_priv can;		/* must be the first member! */
- 	struct can_rx_offload offload;
-+	struct can_rx_offload_irq offload_irq;
- 	struct phy *transceiver;
- 
- 	void __iomem *reg_base;
-@@ -568,7 +569,7 @@ static void at91_rx_overflow_err(struct net_device *dev)
- 	cf->can_id |= CAN_ERR_CRTL;
- 	cf->data[1] = CAN_ERR_CRTL_RX_OVERFLOW;
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, timestamp);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, timestamp);
- 	if (err)
- 		stats->rx_fifo_errors++;
- }
-@@ -745,7 +746,7 @@ static void at91_irq_err_line(struct net_device *dev, const u32 reg_sr)
- 		cf->data[7] = bec.rxerr;
- 	}
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, timestamp);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, timestamp);
- 	if (err)
- 		stats->rx_fifo_errors++;
- }
-@@ -810,7 +811,7 @@ static void at91_irq_err_frame(struct net_device *dev, const u32 reg_sr)
- 	if (!cf)
- 		return;
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, timestamp);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, timestamp);
- 	if (err)
- 		stats->rx_fifo_errors++;
- }
-@@ -836,7 +837,7 @@ static irqreturn_t at91_irq(int irq, void *dev_id)
- 	 * Some bits of AT91_SR are cleared on read, keep them in reg_sr.
- 	 */
- 	while ((reg_sr_rx = at91_get_reg_sr_rx(priv, &reg_sr))) {
--		ret = can_rx_offload_irq_offload_timestamp(&priv->offload,
-+		ret = can_rx_offload_irq_offload_timestamp(&priv->offload_irq,
- 							   reg_sr_rx);
- 		handled = IRQ_HANDLED;
- 
-@@ -864,7 +865,7 @@ static irqreturn_t at91_irq(int irq, void *dev_id)
- 	}
- 
- 	if (handled)
--		can_rx_offload_irq_finish(&priv->offload);
-+		can_rx_offload_irq_finish(&priv->offload_irq);
- 
- 	return handled;
- }
-@@ -1120,10 +1121,11 @@ static int at91_can_probe(struct platform_device *pdev)
- 	priv->pdata = dev_get_platdata(&pdev->dev);
- 	priv->mb0_id = 0x7ff;
- 	priv->offload.mailbox_read = at91_mailbox_read;
--	priv->offload.mb_first = devtype_data->rx_first;
--	priv->offload.mb_last = devtype_data->rx_last;
-+	priv->offload_irq.mb_first = devtype_data->rx_first;
-+	priv->offload_irq.mb_last = devtype_data->rx_last;
- 
--	err = can_rx_offload_add_timestamp(dev, &priv->offload);
-+	err = can_rx_offload_add_timestamp(dev, &priv->offload,
-+					   &priv->offload_irq);
- 	if (err) {
- 		dev_err(&pdev->dev, "can_rx_offload_add_timestamp() failed\n");
- 		goto exit_free;
-diff --git a/drivers/net/can/bxcan.c b/drivers/net/can/bxcan.c
-index baf494d20bef..fd032e094ee3 100644
---- a/drivers/net/can/bxcan.c
-+++ b/drivers/net/can/bxcan.c
-@@ -165,6 +165,7 @@ struct bxcan_regs {
- struct bxcan_priv {
- 	struct can_priv can;
- 	struct can_rx_offload offload;
-+	struct can_rx_offload_irq offload_irq;
- 	struct device *dev;
- 	struct net_device *ndev;
- 
-@@ -420,8 +421,8 @@ static irqreturn_t bxcan_rx_isr(int irq, void *dev_id)
- 	if (!(rf0r & BXCAN_RF0R_FMP0_MASK))
- 		return IRQ_NONE;
- 
--	can_rx_offload_irq_offload_fifo(&priv->offload);
--	can_rx_offload_irq_finish(&priv->offload);
-+	can_rx_offload_irq_offload_fifo(&priv->offload_irq);
-+	can_rx_offload_irq_finish(&priv->offload_irq);
- 
- 	return IRQ_HANDLED;
- }
-@@ -507,7 +508,7 @@ static void bxcan_handle_state_change(struct net_device *ndev, u32 esr)
- 	if (skb) {
- 		int err;
- 
--		err = can_rx_offload_queue_timestamp(&priv->offload, skb,
-+		err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb,
- 						     priv->timestamp);
- 		if (err)
- 			ndev->stats.rx_fifo_errors++;
-@@ -592,7 +593,7 @@ static void bxcan_handle_bus_err(struct net_device *ndev, u32 esr)
- 	if (skb) {
- 		int err;
- 
--		err = can_rx_offload_queue_timestamp(&priv->offload, skb,
-+		err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb,
- 						     priv->timestamp);
- 		if (err)
- 			ndev->stats.rx_fifo_errors++;
-@@ -618,7 +619,7 @@ static irqreturn_t bxcan_state_change_isr(int irq, void *dev_id)
- 
- 	msr |= BXCAN_MSR_ERRI;
- 	writel(msr, &regs->msr);
--	can_rx_offload_irq_finish(&priv->offload);
-+	can_rx_offload_irq_finish(&priv->offload_irq);
- 
- 	return IRQ_HANDLED;
- }
-@@ -1008,7 +1009,8 @@ static int bxcan_probe(struct platform_device *pdev)
- 		CAN_CTRLMODE_LISTENONLY	| CAN_CTRLMODE_BERR_REPORTING;
- 
- 	priv->offload.mailbox_read = bxcan_mailbox_read;
--	err = can_rx_offload_add_fifo(ndev, &priv->offload, BXCAN_NAPI_WEIGHT);
-+	err = can_rx_offload_add_fifo(ndev, &priv->offload,
-+				      &priv->offload_irq, BXCAN_NAPI_WEIGHT);
- 	if (err) {
- 		dev_err(dev, "failed to add FIFO rx_offload\n");
- 		goto out_free_candev;
-diff --git a/drivers/net/can/can327.c b/drivers/net/can/can327.c
-index 90f5e35f3c8f..6d505ac7d8b9 100644
---- a/drivers/net/can/can327.c
-+++ b/drivers/net/can/can327.c
-@@ -69,6 +69,7 @@ struct can327 {
- 	struct can_priv can;
- 
- 	struct can_rx_offload offload;
-+	struct can_rx_offload_irq offload_irq;
- 
- 	/* TTY buffers */
- 	u8 txbuf[CAN327_SIZE_TXBUF];
-@@ -272,11 +273,11 @@ static void can327_feed_frame_to_netdev(struct can327 *elm, struct sk_buff *skb)
- 	/* Queue for NAPI pickup.
- 	 * rx-offload will update stats and LEDs for us.
- 	 */
--	if (can_rx_offload_queue_tail(&elm->offload, skb))
-+	if (can_rx_offload_queue_tail(&elm->offload_irq, skb))
- 		elm->dev->stats.rx_fifo_errors++;
- 
- 	/* Wake NAPI */
--	can_rx_offload_irq_finish(&elm->offload);
-+	can_rx_offload_irq_finish(&elm->offload_irq);
- }
- 
- /* Called when we're out of ideas and just want it all to end. */
-@@ -772,7 +773,8 @@ static int can327_netdev_open(struct net_device *dev)
- 	can327_init_device(elm);
- 	spin_unlock_bh(&elm->lock);
- 
--	err = can_rx_offload_add_manual(dev, &elm->offload, CAN327_NAPI_WEIGHT);
-+	err = can_rx_offload_add_manual(dev, &elm->offload,
-+					&elm->offload_irq, CAN327_NAPI_WEIGHT);
- 	if (err) {
- 		close_candev(dev);
- 		return err;
-diff --git a/drivers/net/can/dev/rx-offload.c b/drivers/net/can/dev/rx-offload.c
-index 46e7b6db4a1e..854be0b2c051 100644
---- a/drivers/net/can/dev/rx-offload.c
-+++ b/drivers/net/can/dev/rx-offload.c
-@@ -21,19 +21,19 @@ can_rx_offload_get_cb(struct sk_buff *skb)
- }
- 
- static inline bool
--can_rx_offload_le(struct can_rx_offload *offload,
-+can_rx_offload_le(struct can_rx_offload_irq *offload_irq,
- 		  unsigned int a, unsigned int b)
- {
--	if (offload->inc)
-+	if (offload_irq->inc)
- 		return a <= b;
- 	else
- 		return a >= b;
- }
- 
- static inline unsigned int
--can_rx_offload_inc(struct can_rx_offload *offload, unsigned int *val)
-+can_rx_offload_inc(struct can_rx_offload_irq *offload_irq, unsigned int *val)
- {
--	if (offload->inc)
-+	if (offload_irq->inc)
- 		return (*val)++;
- 	else
- 		return (*val)--;
-@@ -118,7 +118,7 @@ static int can_rx_offload_compare(struct sk_buff *a, struct sk_buff *b)
- 
- /**
-  * can_rx_offload_offload_one() - Read one CAN frame from HW
-- * @offload: pointer to rx_offload context
-+ * @offload_irq: pointer to rx_offload per-IRQ context
-  * @n: number of mailbox to read
-  *
-  * The task of this function is to read a CAN frame from mailbox @n
-@@ -126,9 +126,9 @@ static int can_rx_offload_compare(struct sk_buff *a, struct sk_buff *b)
-  * sk_buff.
-  *
-  * If the struct can_rx_offload::skb_queue exceeds the maximal queue
-- * length (struct can_rx_offload::skb_queue_len_max) or no skb can be
-- * allocated, the mailbox contents is discarded by reading it into an
-- * overflow buffer. This way the mailbox is marked as free by the
-+ * length (struct can_rx_offload_irq::skb_queue_len_max) or no skb can
-+ * be allocated, the mailbox contents is discarded by reading it into
-+ * an overflow buffer. This way the mailbox is marked as free by the
-  * driver.
-  *
-  * Return: A pointer to skb containing the CAN frame on success.
-@@ -138,8 +138,10 @@ static int can_rx_offload_compare(struct sk_buff *a, struct sk_buff *b)
-  *         ERR_PTR() in case of an error
-  */
- static struct sk_buff *
--can_rx_offload_offload_one(struct can_rx_offload *offload, unsigned int n)
-+can_rx_offload_offload_one(struct can_rx_offload_irq *offload_irq,
-+			   unsigned int n)
- {
-+	struct can_rx_offload *offload = offload_irq->offload;
- 	struct sk_buff *skb;
- 	struct can_rx_offload_cb *cb;
- 	bool drop = false;
-@@ -147,7 +149,7 @@ can_rx_offload_offload_one(struct can_rx_offload *offload, unsigned int n)
- 
- 	/* If queue is full drop frame */
- 	if (unlikely(skb_queue_len(&offload->skb_queue) >
--		     offload->skb_queue_len_max))
-+		     offload_irq->skb_queue_len_max))
- 		drop = true;
- 
- 	skb = offload->mailbox_read(offload, n, &timestamp, drop);
-@@ -172,25 +174,25 @@ can_rx_offload_offload_one(struct can_rx_offload *offload, unsigned int n)
- 	return skb;
- }
- 
--int can_rx_offload_irq_offload_timestamp(struct can_rx_offload *offload,
-+int can_rx_offload_irq_offload_timestamp(struct can_rx_offload_irq *offload_irq,
- 					 u64 pending)
- {
- 	unsigned int i;
- 	int received = 0;
- 
--	for (i = offload->mb_first;
--	     can_rx_offload_le(offload, i, offload->mb_last);
--	     can_rx_offload_inc(offload, &i)) {
-+	for (i = offload_irq->mb_first;
-+	     can_rx_offload_le(offload_irq, i, offload_irq->mb_last);
-+	     can_rx_offload_inc(offload_irq, &i)) {
- 		struct sk_buff *skb;
- 
- 		if (!(pending & BIT_ULL(i)))
- 			continue;
- 
--		skb = can_rx_offload_offload_one(offload, i);
-+		skb = can_rx_offload_offload_one(offload_irq, i);
- 		if (IS_ERR_OR_NULL(skb))
- 			continue;
- 
--		__skb_queue_add_sort(&offload->skb_irq_queue, skb,
-+		__skb_queue_add_sort(&offload_irq->skb_irq_queue, skb,
- 				     can_rx_offload_compare);
- 		received++;
- 	}
-@@ -199,19 +201,19 @@ int can_rx_offload_irq_offload_timestamp(struct can_rx_offload *offload,
- }
- EXPORT_SYMBOL_GPL(can_rx_offload_irq_offload_timestamp);
- 
--int can_rx_offload_irq_offload_fifo(struct can_rx_offload *offload)
-+int can_rx_offload_irq_offload_fifo(struct can_rx_offload_irq *offload_irq)
- {
- 	struct sk_buff *skb;
- 	int received = 0;
- 
- 	while (1) {
--		skb = can_rx_offload_offload_one(offload, 0);
-+		skb = can_rx_offload_offload_one(offload_irq, 0);
- 		if (IS_ERR(skb))
- 			continue;
- 		if (!skb)
- 			break;
- 
--		__skb_queue_tail(&offload->skb_irq_queue, skb);
-+		__skb_queue_tail(&offload_irq->skb_irq_queue, skb);
- 		received++;
- 	}
- 
-@@ -219,13 +221,14 @@ int can_rx_offload_irq_offload_fifo(struct can_rx_offload *offload)
- }
- EXPORT_SYMBOL_GPL(can_rx_offload_irq_offload_fifo);
- 
--int can_rx_offload_queue_timestamp(struct can_rx_offload *offload,
-+int can_rx_offload_queue_timestamp(struct can_rx_offload_irq *offload_irq,
- 				   struct sk_buff *skb, u32 timestamp)
- {
-+	struct can_rx_offload *offload = offload_irq->offload;
- 	struct can_rx_offload_cb *cb;
- 
- 	if (skb_queue_len(&offload->skb_queue) >
--	    offload->skb_queue_len_max) {
-+	    offload_irq->skb_queue_len_max) {
- 		dev_kfree_skb_any(skb);
- 		return -ENOBUFS;
- 	}
-@@ -233,7 +236,7 @@ int can_rx_offload_queue_timestamp(struct can_rx_offload *offload,
- 	cb = can_rx_offload_get_cb(skb);
- 	cb->timestamp = timestamp;
- 
--	__skb_queue_add_sort(&offload->skb_irq_queue, skb,
-+	__skb_queue_add_sort(&offload_irq->skb_irq_queue, skb,
- 			     can_rx_offload_compare);
- 
- 	return 0;
-@@ -241,11 +244,11 @@ int can_rx_offload_queue_timestamp(struct can_rx_offload *offload,
- EXPORT_SYMBOL_GPL(can_rx_offload_queue_timestamp);
- 
- unsigned int
--can_rx_offload_get_echo_skb_queue_timestamp(struct can_rx_offload *offload,
-+can_rx_offload_get_echo_skb_queue_timestamp(struct can_rx_offload_irq *offload_irq,
- 					    unsigned int idx, u32 timestamp,
- 					    unsigned int *frame_len_ptr)
- {
--	struct net_device *dev = offload->dev;
-+	struct net_device *dev = offload_irq->offload->dev;
- 	struct net_device_stats *stats = &dev->stats;
- 	struct sk_buff *skb;
- 	unsigned int len;
-@@ -255,7 +258,7 @@ can_rx_offload_get_echo_skb_queue_timestamp(struct can_rx_offload *offload,
- 	if (!skb)
- 		return 0;
- 
--	err = can_rx_offload_queue_timestamp(offload, skb, timestamp);
-+	err = can_rx_offload_queue_timestamp(offload_irq, skb, timestamp);
- 	if (err) {
- 		stats->rx_errors++;
- 		stats->tx_fifo_errors++;
-@@ -265,27 +268,29 @@ can_rx_offload_get_echo_skb_queue_timestamp(struct can_rx_offload *offload,
- }
- EXPORT_SYMBOL_GPL(can_rx_offload_get_echo_skb_queue_timestamp);
- 
--int can_rx_offload_queue_tail(struct can_rx_offload *offload,
-+int can_rx_offload_queue_tail(struct can_rx_offload_irq *offload_irq,
- 			      struct sk_buff *skb)
- {
-+	struct can_rx_offload *offload = offload_irq->offload;
-+
- 	if (skb_queue_len(&offload->skb_queue) >
--	    offload->skb_queue_len_max) {
-+	    offload_irq->skb_queue_len_max) {
- 		dev_kfree_skb_any(skb);
- 		return -ENOBUFS;
- 	}
- 
--	__skb_queue_tail(&offload->skb_irq_queue, skb);
-+	__skb_queue_tail(&offload_irq->skb_irq_queue, skb);
- 
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(can_rx_offload_queue_tail);
- 
- unsigned int
--can_rx_offload_get_echo_skb_queue_tail(struct can_rx_offload *offload,
-+can_rx_offload_get_echo_skb_queue_tail(struct can_rx_offload_irq *offload_irq,
- 				       unsigned int idx,
- 				       unsigned int *frame_len_ptr)
- {
--	struct net_device *dev = offload->dev;
-+	struct net_device *dev = offload_irq->offload->dev;
- 	struct net_device_stats *stats = &dev->stats;
- 	struct sk_buff *skb;
- 	unsigned int len;
-@@ -295,7 +300,7 @@ can_rx_offload_get_echo_skb_queue_tail(struct can_rx_offload *offload,
- 	if (!skb)
- 		return 0;
- 
--	err = can_rx_offload_queue_tail(offload, skb);
-+	err = can_rx_offload_queue_tail(offload_irq, skb);
- 	if (err) {
- 		stats->rx_errors++;
- 		stats->tx_fifo_errors++;
-@@ -305,20 +310,44 @@ can_rx_offload_get_echo_skb_queue_tail(struct can_rx_offload *offload,
- }
- EXPORT_SYMBOL_GPL(can_rx_offload_get_echo_skb_queue_tail);
- 
--void can_rx_offload_irq_finish(struct can_rx_offload *offload)
-+static void
-+can_rx_offload_move_to_skb_queue(struct can_rx_offload_irq *offload_irq)
- {
-+	struct can_rx_offload *offload = offload_irq->offload;
- 	unsigned long flags;
-+
-+	spin_lock_irqsave(&offload->skb_queue.lock, flags);
-+
-+	if (offload->irq_cnt > 1 && offload->sort) {
-+		/* Merge this IRQ's sorted queue into skb_queue to keep the
-+		 * overall timestamp order.
-+		 */
-+		struct sk_buff *skb;
-+
-+		while ((skb = __skb_dequeue(&offload_irq->skb_irq_queue)))
-+			__skb_queue_add_sort(&offload->skb_queue, skb,
-+					     can_rx_offload_compare);
-+	} else {
-+		/* Single producer, or no timestamp to sort by. */
-+		skb_queue_splice_tail_init(&offload_irq->skb_irq_queue,
-+					   &offload->skb_queue);
-+	}
-+
-+	spin_unlock_irqrestore(&offload->skb_queue.lock, flags);
-+}
-+
-+void can_rx_offload_irq_finish(struct can_rx_offload_irq *offload_irq)
-+{
-+	struct can_rx_offload *offload = offload_irq->offload;
- 	int queue_len;
- 
--	if (skb_queue_empty_lockless(&offload->skb_irq_queue))
-+	if (skb_queue_empty_lockless(&offload_irq->skb_irq_queue))
- 		return;
- 
--	spin_lock_irqsave(&offload->skb_queue.lock, flags);
--	skb_queue_splice_tail_init(&offload->skb_irq_queue, &offload->skb_queue);
--	spin_unlock_irqrestore(&offload->skb_queue.lock, flags);
-+	can_rx_offload_move_to_skb_queue(offload_irq);
- 
- 	queue_len = skb_queue_len(&offload->skb_queue);
--	if (queue_len > offload->skb_queue_len_max / 8)
-+	if (queue_len > offload_irq->skb_queue_len_max / 8)
- 		netdev_dbg(offload->dev, "%s: queue_len=%d\n",
- 			   __func__, queue_len);
- 
-@@ -326,20 +355,18 @@ void can_rx_offload_irq_finish(struct can_rx_offload *offload)
- }
- EXPORT_SYMBOL_GPL(can_rx_offload_irq_finish);
- 
--void can_rx_offload_threaded_irq_finish(struct can_rx_offload *offload)
-+void can_rx_offload_threaded_irq_finish(struct can_rx_offload_irq *offload_irq)
- {
--	unsigned long flags;
-+	struct can_rx_offload *offload = offload_irq->offload;
- 	int queue_len;
- 
--	if (skb_queue_empty_lockless(&offload->skb_irq_queue))
-+	if (skb_queue_empty_lockless(&offload_irq->skb_irq_queue))
- 		return;
- 
--	spin_lock_irqsave(&offload->skb_queue.lock, flags);
--	skb_queue_splice_tail_init(&offload->skb_irq_queue, &offload->skb_queue);
--	spin_unlock_irqrestore(&offload->skb_queue.lock, flags);
-+	can_rx_offload_move_to_skb_queue(offload_irq);
- 
- 	queue_len = skb_queue_len(&offload->skb_queue);
--	if (queue_len > offload->skb_queue_len_max / 8)
-+	if (queue_len > offload_irq->skb_queue_len_max / 8)
- 		netdev_dbg(offload->dev, "%s: queue_len=%d\n",
- 			   __func__, queue_len);
- 
-@@ -351,64 +378,88 @@ EXPORT_SYMBOL_GPL(can_rx_offload_threaded_irq_finish);
- 
- static int can_rx_offload_init_queue(struct net_device *dev,
- 				     struct can_rx_offload *offload,
-+				     struct can_rx_offload_irq *offload_irq,
- 				     unsigned int weight)
- {
--	offload->dev = dev;
--
--	/* Limit queue len to 4x the weight (rounded to next power of two) */
--	offload->skb_queue_len_max = 2 << fls(weight);
--	offload->skb_queue_len_max *= 4;
--	skb_queue_head_init(&offload->skb_queue);
--	__skb_queue_head_init(&offload->skb_irq_queue);
-+	struct can_rx_offload_irq *pos;
-+	u32 skb_queue_len_max;
-+
-+	offload_irq->offload = offload;
-+	__skb_queue_head_init(&offload_irq->skb_irq_queue);
-+
-+	/* The first registered IRQ initializes the shared state. */
-+	if (!offload->irq_cnt) {
-+		offload->dev = dev;
-+		skb_queue_head_init(&offload->skb_queue);
-+		INIT_LIST_HEAD(&offload->irqs);
-+		netif_napi_add_weight(dev, &offload->napi,
-+				      can_rx_offload_napi_poll, weight);
-+	} else if (weight > offload->napi.weight) {
-+		/* All contexts feed the same NAPI, keep the largest weight. */
-+		offload->napi.weight = weight;
-+	}
-+	list_add_tail(&offload_irq->node, &offload->irqs);
-+	offload->irq_cnt++;
- 
--	netif_napi_add_weight(dev, &offload->napi, can_rx_offload_napi_poll,
--			      weight);
-+	/* Limit queue len to 4x the weight (rounded to next power of two).
-+	 * All contexts feed the same skb_queue, so they share its limit.
-+	 */
-+	skb_queue_len_max = 2 << fls(offload->napi.weight);
-+	skb_queue_len_max *= 4;
-+	list_for_each_entry(pos, &offload->irqs, node)
-+		pos->skb_queue_len_max = skb_queue_len_max;
- 
- 	dev_dbg(dev->dev.parent, "%s: skb_queue_len_max=%d\n",
--		__func__, offload->skb_queue_len_max);
-+		__func__, skb_queue_len_max);
- 
- 	return 0;
- }
- 
- int can_rx_offload_add_timestamp(struct net_device *dev,
--				 struct can_rx_offload *offload)
-+				 struct can_rx_offload *offload,
-+				 struct can_rx_offload_irq *offload_irq)
- {
- 	unsigned int weight;
- 
--	if (offload->mb_first > BITS_PER_LONG_LONG ||
--	    offload->mb_last > BITS_PER_LONG_LONG || !offload->mailbox_read)
-+	if (offload_irq->mb_first > BITS_PER_LONG_LONG ||
-+	    offload_irq->mb_last > BITS_PER_LONG_LONG || !offload->mailbox_read)
- 		return -EINVAL;
- 
--	if (offload->mb_first < offload->mb_last) {
--		offload->inc = true;
--		weight = offload->mb_last - offload->mb_first;
-+	if (offload_irq->mb_first < offload_irq->mb_last) {
-+		offload_irq->inc = true;
-+		weight = offload_irq->mb_last - offload_irq->mb_first;
- 	} else {
--		offload->inc = false;
--		weight = offload->mb_first - offload->mb_last;
-+		offload_irq->inc = false;
-+		weight = offload_irq->mb_first - offload_irq->mb_last;
- 	}
- 
--	return can_rx_offload_init_queue(dev, offload, weight);
-+	offload->sort = true;
-+
-+	return can_rx_offload_init_queue(dev, offload, offload_irq, weight);
- }
- EXPORT_SYMBOL_GPL(can_rx_offload_add_timestamp);
- 
- int can_rx_offload_add_fifo(struct net_device *dev,
--			    struct can_rx_offload *offload, unsigned int weight)
-+			    struct can_rx_offload *offload,
-+			    struct can_rx_offload_irq *offload_irq,
-+			    unsigned int weight)
- {
- 	if (!offload->mailbox_read)
- 		return -EINVAL;
- 
--	return can_rx_offload_init_queue(dev, offload, weight);
-+	return can_rx_offload_init_queue(dev, offload, offload_irq, weight);
- }
- EXPORT_SYMBOL_GPL(can_rx_offload_add_fifo);
- 
- int can_rx_offload_add_manual(struct net_device *dev,
- 			      struct can_rx_offload *offload,
-+			      struct can_rx_offload_irq *offload_irq,
- 			      unsigned int weight)
- {
- 	if (offload->mailbox_read)
- 		return -EINVAL;
- 
--	return can_rx_offload_init_queue(dev, offload, weight);
-+	return can_rx_offload_init_queue(dev, offload, offload_irq, weight);
- }
- EXPORT_SYMBOL_GPL(can_rx_offload_add_manual);
- 
-@@ -420,8 +471,19 @@ EXPORT_SYMBOL_GPL(can_rx_offload_enable);
- 
- void can_rx_offload_del(struct can_rx_offload *offload)
- {
-+	struct can_rx_offload_irq *offload_irq, *tmp;
-+
- 	netif_napi_del(&offload->napi);
- 	skb_queue_purge(&offload->skb_queue);
--	__skb_queue_purge(&offload->skb_irq_queue);
-+
-+	/* Drop the contexts, so that re-adding them (e.g. on the next
-+	 * ndo_open()) initializes the shared state again.
-+	 */
-+	list_for_each_entry_safe(offload_irq, tmp, &offload->irqs, node) {
-+		__skb_queue_purge(&offload_irq->skb_irq_queue);
-+		list_del_init(&offload_irq->node);
-+	}
-+	offload->irq_cnt = 0;
-+	offload->sort = false;
- }
- EXPORT_SYMBOL_GPL(can_rx_offload_del);
-diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
-index f5d22c61503f..a81132d3afa8 100644
---- a/drivers/net/can/flexcan/flexcan-core.c
-+++ b/drivers/net/can/flexcan/flexcan-core.c
-@@ -885,7 +885,7 @@ static void flexcan_irq_bus_err(struct net_device *dev, u32 reg_esr)
- 	if (tx_errors)
- 		dev->stats.tx_errors++;
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, timestamp);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, timestamp);
- 	if (err)
- 		dev->stats.rx_fifo_errors++;
- }
-@@ -932,7 +932,7 @@ static void flexcan_irq_state(struct net_device *dev, u32 reg_esr)
- 	if (unlikely(new_state == CAN_STATE_BUS_OFF))
- 		can_bus_off(dev);
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, timestamp);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, timestamp);
- 	if (err)
- 		dev->stats.rx_fifo_errors++;
- }
-@@ -1088,7 +1088,7 @@ static irqreturn_t flexcan_irq(int irq, void *dev_id)
- 
- 		while ((reg_iflag_rx = flexcan_read_reg_iflag_rx(priv))) {
- 			handled = IRQ_HANDLED;
--			ret = can_rx_offload_irq_offload_timestamp(&priv->offload,
-+			ret = can_rx_offload_irq_offload_timestamp(&priv->offload_irq,
- 								   reg_iflag_rx);
- 			if (!ret)
- 				break;
-@@ -1099,7 +1099,7 @@ static irqreturn_t flexcan_irq(int irq, void *dev_id)
- 		reg_iflag1 = priv->read(&regs->iflag1);
- 		if (reg_iflag1 & FLEXCAN_IFLAG_RX_FIFO_AVAILABLE) {
- 			handled = IRQ_HANDLED;
--			can_rx_offload_irq_offload_fifo(&priv->offload);
-+			can_rx_offload_irq_offload_fifo(&priv->offload_irq);
- 		}
- 
- 		/* FIFO overflow interrupt */
-@@ -1120,7 +1120,7 @@ static irqreturn_t flexcan_irq(int irq, void *dev_id)
- 
- 		handled = IRQ_HANDLED;
- 		stats->tx_bytes +=
--			can_rx_offload_get_echo_skb_queue_timestamp(&priv->offload, 0,
-+			can_rx_offload_get_echo_skb_queue_timestamp(&priv->offload_irq, 0,
- 								    reg_ctrl << 16, NULL);
- 		stats->tx_packets++;
- 
-@@ -1189,7 +1189,7 @@ static irqreturn_t flexcan_irq(int irq, void *dev_id)
- 	}
- 
- 	if (handled)
--		can_rx_offload_irq_finish(&priv->offload);
-+		can_rx_offload_irq_finish(&priv->offload_irq);
- 
- 	return handled;
- }
-@@ -1410,16 +1410,18 @@ static int flexcan_rx_offload_setup(struct net_device *dev)
- 	priv->offload.mailbox_read = flexcan_mailbox_read;
- 
- 	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_USE_RX_MAILBOX) {
--		priv->offload.mb_first = FLEXCAN_RX_MB_RX_MAILBOX_FIRST;
--		priv->offload.mb_last = priv->mb_count - 2;
-+		priv->offload_irq.mb_first = FLEXCAN_RX_MB_RX_MAILBOX_FIRST;
-+		priv->offload_irq.mb_last = priv->mb_count - 2;
- 
--		priv->rx_mask = GENMASK_ULL(priv->offload.mb_last,
--					    priv->offload.mb_first);
--		err = can_rx_offload_add_timestamp(dev, &priv->offload);
-+		priv->rx_mask = GENMASK_ULL(priv->offload_irq.mb_last,
-+					    priv->offload_irq.mb_first);
-+		err = can_rx_offload_add_timestamp(dev, &priv->offload,
-+						   &priv->offload_irq);
- 	} else {
- 		priv->rx_mask = FLEXCAN_IFLAG_RX_FIFO_OVERFLOW |
- 			FLEXCAN_IFLAG_RX_FIFO_AVAILABLE;
- 		err = can_rx_offload_add_fifo(dev, &priv->offload,
-+					      &priv->offload_irq,
- 					      FLEXCAN_NAPI_WEIGHT);
- 	}
- 
-@@ -1600,7 +1602,7 @@ static int flexcan_chip_start(struct net_device *dev)
- 	}
- 
- 	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_USE_RX_MAILBOX) {
--		for (i = priv->offload.mb_first; i <= priv->offload.mb_last; i++) {
-+		for (i = priv->offload_irq.mb_first; i <= priv->offload_irq.mb_last; i++) {
- 			mb = flexcan_get_mb(priv, i);
- 			priv->write(FLEXCAN_MB_CODE_RX_EMPTY,
- 				    &mb->can_ctrl);
-diff --git a/drivers/net/can/flexcan/flexcan-ethtool.c b/drivers/net/can/flexcan/flexcan-ethtool.c
-index 50e86b2da532..e34afafbbd54 100644
---- a/drivers/net/can/flexcan/flexcan-ethtool.c
-+++ b/drivers/net/can/flexcan/flexcan-ethtool.c
-@@ -28,8 +28,8 @@ flexcan_get_ringparam(struct net_device *ndev, struct ethtool_ringparam *ring,
- 	ring->tx_max_pending = priv->mb_count;
- 
- 	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_USE_RX_MAILBOX)
--		ring->rx_pending = priv->offload.mb_last -
--			priv->offload.mb_first + 1;
-+		ring->rx_pending = priv->offload_irq.mb_last -
-+			priv->offload_irq.mb_first + 1;
- 	else
- 		ring->rx_pending = 6;	/* RX-FIFO depth is fixed */
- 
-diff --git a/drivers/net/can/flexcan/flexcan.h b/drivers/net/can/flexcan/flexcan.h
-index 16692a2502eb..90f9c2b9fed8 100644
---- a/drivers/net/can/flexcan/flexcan.h
-+++ b/drivers/net/can/flexcan/flexcan.h
-@@ -88,6 +88,7 @@ struct flexcan_stop_mode {
- struct flexcan_priv {
- 	struct can_priv can;
- 	struct can_rx_offload offload;
-+	struct can_rx_offload_irq offload_irq;
- 	struct device *dev;
- 
- 	struct flexcan_regs __iomem *regs;
-diff --git a/drivers/net/can/m_can/m_can.c b/drivers/net/can/m_can/m_can.c
-index 16f80607e150..be66c52a09ff 100644
---- a/drivers/net/can/m_can/m_can.c
-+++ b/drivers/net/can/m_can/m_can.c
-@@ -543,7 +543,7 @@ static void m_can_receive_skb(struct m_can_classdev *cdev,
- 		struct net_device_stats *stats = &cdev->net->stats;
- 		int err;
- 
--		err = can_rx_offload_queue_timestamp(&cdev->offload, skb,
-+		err = can_rx_offload_queue_timestamp(&cdev->offload_irq, skb,
- 						     timestamp);
- 		if (err)
- 			stats->rx_fifo_errors++;
-@@ -1100,7 +1100,7 @@ static unsigned int m_can_tx_update_stats(struct m_can_classdev *cdev,
- 
- 	if (cdev->is_peripheral)
- 		stats->tx_bytes +=
--			can_rx_offload_get_echo_skb_queue_timestamp(&cdev->offload,
-+			can_rx_offload_get_echo_skb_queue_timestamp(&cdev->offload_irq,
- 								    msg_mark,
- 								    timestamp,
- 								    &frame_len);
-@@ -1303,7 +1303,7 @@ static int m_can_interrupt_handler(struct m_can_classdev *cdev)
- 	}
- 
- 	if (cdev->is_peripheral)
--		can_rx_offload_threaded_irq_finish(&cdev->offload);
-+		can_rx_offload_threaded_irq_finish(&cdev->offload_irq);
- 
- 	return IRQ_HANDLED;
- }
-@@ -2535,6 +2535,7 @@ int m_can_class_register(struct m_can_classdev *cdev)
- 
- 	if (cdev->is_peripheral) {
- 		ret = can_rx_offload_add_manual(cdev->net, &cdev->offload,
-+						&cdev->offload_irq,
- 						NAPI_POLL_WEIGHT);
- 		if (ret)
- 			goto out_reset_control_assert;
-diff --git a/drivers/net/can/m_can/m_can.h b/drivers/net/can/m_can/m_can.h
-index 4743342b2fba..dfec64aeffa5 100644
---- a/drivers/net/can/m_can/m_can.h
-+++ b/drivers/net/can/m_can/m_can.h
-@@ -81,6 +81,7 @@ struct m_can_tx_op {
- struct m_can_classdev {
- 	struct can_priv can;
- 	struct can_rx_offload offload;
-+	struct can_rx_offload_irq offload_irq;
- 	struct napi_struct napi;
- 	struct net_device *net;
- 	struct device *dev;
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net/can/rockchip/rockchip_canfd-core.c
-index 37c1c22c40c9..db4fa0c8a171 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-core.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
-@@ -563,7 +563,7 @@ static int rkcanfd_handle_error_int(struct rkcanfd_priv *priv)
- 	if (!cf)
- 		return 0;
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, timestamp);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, timestamp);
- 	if (err)
- 		stats->rx_fifo_errors++;
- 
-@@ -608,7 +608,7 @@ static int rkcanfd_handle_state_error_int(struct rkcanfd_priv *priv)
- 		cf->data[7] = bec.rxerr;
- 	}
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, timestamp);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, timestamp);
- 	if (err)
- 		stats->rx_fifo_errors++;
- 
-@@ -641,7 +641,7 @@ rkcanfd_handle_rx_fifo_overflow_int(struct rkcanfd_priv *priv)
- 	cf->data[6] = bec.txerr;
- 	cf->data[7] = bec.rxerr;
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, timestamp);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, timestamp);
- 	if (err)
- 		stats->rx_fifo_errors++;
- 
-@@ -715,7 +715,7 @@ static irqreturn_t rkcanfd_irq(int irq, void *dev_id)
- 	if (reg_int & RKCANFD_REG_INT_OVERLOAD_INT)
- 		netdev_info(priv->ndev, "%s: OVERLOAD_INT\n", __func__);
- 
--	can_rx_offload_irq_finish(&priv->offload);
-+	can_rx_offload_irq_finish(&priv->offload_irq);
- 
- 	return IRQ_HANDLED;
- }
-@@ -930,6 +930,7 @@ static int rkcanfd_probe(struct platform_device *pdev)
- 	}
- 
- 	err = can_rx_offload_add_manual(ndev, &priv->offload,
-+					&priv->offload_irq,
- 					RKCANFD_NAPI_WEIGHT);
- 	if (err)
- 		goto out_free_candev;
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-rx.c b/drivers/net/can/rockchip/rockchip_canfd-rx.c
-index 24e87daa1df0..85af71cc60f2 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-rx.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-rx.c
-@@ -269,7 +269,7 @@ static int rkcanfd_handle_rx_int_one(struct rkcanfd_priv *priv)
- 	memcpy(skb_cfd, cfd, len);
- 	rkcanfd_skb_set_timestamp(priv, skb, header->ts);
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, header->ts);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, header->ts);
- 	if (err)
- 		stats->rx_fifo_errors++;
- 
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-index 12200dcfd338..3cfbdb2b8373 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-@@ -160,7 +160,7 @@ void rkcanfd_handle_tx_done_one(struct rkcanfd_priv *priv, const u32 ts,
- 	if (skb)
- 		rkcanfd_skb_set_timestamp(priv, skb, ts);
- 	stats->tx_bytes +=
--		can_rx_offload_get_echo_skb_queue_timestamp(&priv->offload,
-+		can_rx_offload_get_echo_skb_queue_timestamp(&priv->offload_irq,
- 							    tx_tail, ts,
- 							    frame_len_p);
- 	stats->tx_packets++;
-diff --git a/drivers/net/can/rockchip/rockchip_canfd.h b/drivers/net/can/rockchip/rockchip_canfd.h
-index 95bea9bfd8a2..6b4cdbaffe4a 100644
---- a/drivers/net/can/rockchip/rockchip_canfd.h
-+++ b/drivers/net/can/rockchip/rockchip_canfd.h
-@@ -472,6 +472,7 @@ struct rkcanfd_stats {
- struct rkcanfd_priv {
- 	struct can_priv can;
- 	struct can_rx_offload offload;
-+	struct can_rx_offload_irq offload_irq;
- 	struct net_device *ndev;
- 
- 	void __iomem *regs;
-diff --git a/drivers/net/can/spi/mcp251xfd/mcp251xfd-core.c b/drivers/net/can/spi/mcp251xfd/mcp251xfd-core.c
-index f441f2265299..e4ad461cd9e8 100644
---- a/drivers/net/can/spi/mcp251xfd/mcp251xfd-core.c
-+++ b/drivers/net/can/spi/mcp251xfd/mcp251xfd-core.c
-@@ -972,7 +972,7 @@ static int mcp251xfd_handle_rxovif(struct mcp251xfd_priv *priv)
- 	cf->can_id |= CAN_ERR_CRTL;
- 	cf->data[1] = CAN_ERR_CRTL_RX_OVERFLOW;
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, ts_raw);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, ts_raw);
- 	if (err)
- 		stats->rx_fifo_errors++;
- 
-@@ -1077,7 +1077,7 @@ static int mcp251xfd_handle_ivmif(struct mcp251xfd_priv *priv)
- 		return 0;
- 
- 	mcp251xfd_skb_set_timestamp_raw(priv, skb, ts_raw);
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, ts_raw);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, ts_raw);
- 	if (err)
- 		stats->rx_fifo_errors++;
- 
-@@ -1151,7 +1151,7 @@ static int mcp251xfd_handle_cerrif(struct mcp251xfd_priv *priv)
- 		cf->data[7] = bec.rxerr;
- 	}
- 
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, ts_raw);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, ts_raw);
- 	if (err)
- 		stats->rx_fifo_errors++;
- 
-@@ -1515,7 +1515,7 @@ static irqreturn_t mcp251xfd_irq(int irq, void *dev_id)
- 				  priv->regs_status.intf);
- 
- 		if (!(intf_pending)) {
--			can_rx_offload_threaded_irq_finish(&priv->offload);
-+			can_rx_offload_threaded_irq_finish(&priv->offload_irq);
- 			return handled;
- 		}
- 
-@@ -1610,7 +1610,7 @@ static irqreturn_t mcp251xfd_irq(int irq, void *dev_id)
- 			 * directly.
- 			 */
- 			if (priv->can.state == CAN_STATE_BUS_OFF) {
--				can_rx_offload_threaded_irq_finish(&priv->offload);
-+				can_rx_offload_threaded_irq_finish(&priv->offload_irq);
- 				return IRQ_HANDLED;
- 			}
- 		}
-@@ -1619,7 +1619,7 @@ static irqreturn_t mcp251xfd_irq(int irq, void *dev_id)
- 	} while (1);
- 
- out_fail:
--	can_rx_offload_threaded_irq_finish(&priv->offload);
-+	can_rx_offload_threaded_irq_finish(&priv->offload_irq);
- 
- 	netdev_err(priv->ndev, "IRQ handler returned %d (intf=0x%08x).\n",
- 		   err, priv->regs_status.intf);
-@@ -2358,6 +2358,7 @@ static int mcp251xfd_probe(struct spi_device *spi)
- 		goto out_free_candev;
- 
- 	err = can_rx_offload_add_manual(ndev, &priv->offload,
-+					&priv->offload_irq,
- 					MCP251XFD_NAPI_WEIGHT);
- 	if (err)
- 		goto out_free_candev;
-diff --git a/drivers/net/can/spi/mcp251xfd/mcp251xfd-rx.c b/drivers/net/can/spi/mcp251xfd/mcp251xfd-rx.c
-index fe897f3e4c12..8c5a371bcf61 100644
---- a/drivers/net/can/spi/mcp251xfd/mcp251xfd-rx.c
-+++ b/drivers/net/can/spi/mcp251xfd/mcp251xfd-rx.c
-@@ -201,7 +201,7 @@ mcp251xfd_handle_rxif_one(struct mcp251xfd_priv *priv,
- 
- 	mcp251xfd_skb_set_timestamp(skb, timestamp);
- 	mcp251xfd_hw_rx_obj_to_skb(priv, hw_rx_obj, skb);
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, hw_rx_obj->ts);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, hw_rx_obj->ts);
- 	if (err)
- 		stats->rx_fifo_errors++;
- 
-diff --git a/drivers/net/can/spi/mcp251xfd/mcp251xfd-tef.c b/drivers/net/can/spi/mcp251xfd/mcp251xfd-tef.c
-index e94321849fd7..752068691958 100644
---- a/drivers/net/can/spi/mcp251xfd/mcp251xfd-tef.c
-+++ b/drivers/net/can/spi/mcp251xfd/mcp251xfd-tef.c
-@@ -104,7 +104,7 @@ mcp251xfd_handle_tefif_one(struct mcp251xfd_priv *priv,
- 	if (skb)
- 		mcp251xfd_skb_set_timestamp_raw(priv, skb, hw_tef_obj->ts);
- 	stats->tx_bytes +=
--		can_rx_offload_get_echo_skb_queue_timestamp(&priv->offload,
-+		can_rx_offload_get_echo_skb_queue_timestamp(&priv->offload_irq,
- 							    tef_tail, hw_tef_obj->ts,
- 							    frame_len_ptr);
- 	stats->tx_packets++;
-diff --git a/drivers/net/can/spi/mcp251xfd/mcp251xfd.h b/drivers/net/can/spi/mcp251xfd/mcp251xfd.h
-index d3f4704e2678..0706bc5459be 100644
---- a/drivers/net/can/spi/mcp251xfd/mcp251xfd.h
-+++ b/drivers/net/can/spi/mcp251xfd/mcp251xfd.h
-@@ -624,6 +624,7 @@ enum mcp251xfd_flags {
- struct mcp251xfd_priv {
- 	struct can_priv can;
- 	struct can_rx_offload offload;
-+	struct can_rx_offload_irq offload_irq;
- 	struct net_device *ndev;
- 
- 	struct regmap *map_reg;			/* register access */
-diff --git a/drivers/net/can/ti_hecc.c b/drivers/net/can/ti_hecc.c
-index 1d3dbf28b105..bf7a2df0435a 100644
---- a/drivers/net/can/ti_hecc.c
-+++ b/drivers/net/can/ti_hecc.c
-@@ -177,6 +177,7 @@ static const struct can_bittiming_const ti_hecc_bittiming_const = {
- struct ti_hecc_priv {
- 	struct can_priv can;	/* MUST be first member/field */
- 	struct can_rx_offload offload;
-+	struct can_rx_offload_irq offload_irq;
- 	struct net_device *ndev;
- 	struct clk *clk;
- 	void __iomem *base;
-@@ -623,7 +624,7 @@ static int ti_hecc_error(struct net_device *ndev, int int_status,
- 			cf->data[3] = CAN_ERR_PROT_LOC_ACK;
- 
- 		timestamp = hecc_read(priv, HECC_CANLNT);
--		err = can_rx_offload_queue_timestamp(&priv->offload, skb,
-+		err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb,
- 						     timestamp);
- 		if (err)
- 			ndev->stats.rx_fifo_errors++;
-@@ -659,7 +660,7 @@ static void ti_hecc_change_state(struct net_device *ndev,
- 	}
- 
- 	timestamp = hecc_read(priv, HECC_CANLNT);
--	err = can_rx_offload_queue_timestamp(&priv->offload, skb, timestamp);
-+	err = can_rx_offload_queue_timestamp(&priv->offload_irq, skb, timestamp);
- 	if (err)
- 		ndev->stats.rx_fifo_errors++;
- }
-@@ -747,7 +748,7 @@ static irqreturn_t ti_hecc_interrupt(int irq, void *dev_id)
- 			spin_unlock_irqrestore(&priv->mbx_lock, flags);
- 			stamp = hecc_read_stamp(priv, mbxno);
- 			stats->tx_bytes +=
--				can_rx_offload_get_echo_skb_queue_timestamp(&priv->offload,
-+				can_rx_offload_get_echo_skb_queue_timestamp(&priv->offload_irq,
- 									    mbxno, stamp, NULL);
- 			stats->tx_packets++;
- 			--priv->tx_tail;
-@@ -762,7 +763,7 @@ static irqreturn_t ti_hecc_interrupt(int irq, void *dev_id)
- 
- 		/* offload RX mailboxes and let NAPI deliver them */
- 		while ((rx_pending = hecc_read(priv, HECC_CANRMP))) {
--			can_rx_offload_irq_offload_timestamp(&priv->offload,
-+			can_rx_offload_irq_offload_timestamp(&priv->offload_irq,
- 							     rx_pending);
- 		}
- 	}
-@@ -776,7 +777,7 @@ static irqreturn_t ti_hecc_interrupt(int irq, void *dev_id)
- 		int_status = hecc_read(priv, HECC_CANGIF0);
- 	}
- 
--	can_rx_offload_irq_finish(&priv->offload);
-+	can_rx_offload_irq_finish(&priv->offload_irq);
- 
- 	return IRQ_HANDLED;
- }
-@@ -930,9 +931,10 @@ static int ti_hecc_probe(struct platform_device *pdev)
- 	}
- 
- 	priv->offload.mailbox_read = ti_hecc_mailbox_read;
--	priv->offload.mb_first = HECC_RX_FIRST_MBOX;
--	priv->offload.mb_last = HECC_RX_LAST_MBOX;
--	err = can_rx_offload_add_timestamp(ndev, &priv->offload);
-+	priv->offload_irq.mb_first = HECC_RX_FIRST_MBOX;
-+	priv->offload_irq.mb_last = HECC_RX_LAST_MBOX;
-+	err = can_rx_offload_add_timestamp(ndev, &priv->offload,
-+					   &priv->offload_irq);
- 	if (err) {
- 		dev_err(&pdev->dev, "can_rx_offload_add_timestamp() failed\n");
- 		goto probe_exit_disable_clk;
-diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-index 3b9b2f104d86..db9c17642131 100644
---- a/drivers/net/can/usb/gs_usb.c
-+++ b/drivers/net/can/usb/gs_usb.c
-@@ -305,6 +305,7 @@ struct gs_can {
- 	struct can_priv can; /* must be the first member */
- 
- 	struct can_rx_offload offload;
-+	struct can_rx_offload_irq offload_irq;
- 	struct gs_usb *parent;
- 
- 	struct net_device *netdev;
-@@ -539,15 +540,15 @@ static u32 gs_usb_set_timestamp(struct gs_can *dev, struct sk_buff *skb,
- static void gs_usb_rx_offload(struct gs_can *dev, struct sk_buff *skb,
- 			      const struct gs_host_frame *hf)
- {
--	struct can_rx_offload *offload = &dev->offload;
-+	struct can_rx_offload_irq *offload_irq = &dev->offload_irq;
- 	int rc;
- 
- 	if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP) {
- 		const u32 ts = gs_usb_set_timestamp(dev, skb, hf);
- 
--		rc = can_rx_offload_queue_timestamp(offload, skb, ts);
-+		rc = can_rx_offload_queue_timestamp(offload_irq, skb, ts);
- 	} else {
--		rc = can_rx_offload_queue_tail(offload, skb);
-+		rc = can_rx_offload_queue_tail(offload_irq, skb);
- 	}
- 
- 	if (rc)
-@@ -558,18 +559,19 @@ static unsigned int
- gs_usb_get_echo_skb(struct gs_can *dev, struct sk_buff *skb,
- 		    const struct gs_host_frame *hf)
- {
--	struct can_rx_offload *offload = &dev->offload;
-+	struct can_rx_offload_irq *offload_irq = &dev->offload_irq;
- 	const u32 echo_id = hf->echo_id;
- 	unsigned int len;
- 
- 	if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP) {
- 		const u32 ts = gs_usb_set_timestamp(dev, skb, hf);
- 
--		len = can_rx_offload_get_echo_skb_queue_timestamp(offload, echo_id,
--								  ts, NULL);
-+		len = can_rx_offload_get_echo_skb_queue_timestamp(offload_irq,
-+								  echo_id, ts,
-+								  NULL);
- 	} else {
--		len = can_rx_offload_get_echo_skb_queue_tail(offload, echo_id,
--							     NULL);
-+		len = can_rx_offload_get_echo_skb_queue_tail(offload_irq,
-+							     echo_id, NULL);
- 	}
- 
- 	return len;
-@@ -743,7 +745,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
- 		gs_usb_rx_offload(dev, skb, hf);
- 	}
- 
--	can_rx_offload_irq_finish(&dev->offload);
-+	can_rx_offload_irq_finish(&dev->offload_irq);
- 
- resubmit_urb:
- 	usb_fill_bulk_urb(urb, parent->udev,
-@@ -1487,7 +1489,8 @@ static struct gs_can *gs_make_candev(unsigned int channel,
- 		dev->can.fd.data_bittiming_const = &dev->data_bt_const;
- 	}
- 
--	can_rx_offload_add_manual(netdev, &dev->offload, GS_NAPI_WEIGHT);
-+	can_rx_offload_add_manual(netdev, &dev->offload,
-+				  &dev->offload_irq, GS_NAPI_WEIGHT);
- 	SET_NETDEV_DEV(netdev, &intf->dev);
- 
- 	rc = register_candev(dev->netdev);
-diff --git a/drivers/net/can/usb/nct6694_canfd.c b/drivers/net/can/usb/nct6694_canfd.c
-index e5f7f8849a73..7d0360708b93 100644
---- a/drivers/net/can/usb/nct6694_canfd.c
-+++ b/drivers/net/can/usb/nct6694_canfd.c
-@@ -133,6 +133,7 @@ struct __packed nct6694_canfd_frame {
- struct nct6694_canfd_priv {
- 	struct can_priv can;	/* must be the first member */
- 	struct can_rx_offload offload;
-+	struct can_rx_offload_irq offload_irq;
- 	struct net_device *ndev;
- 	struct nct6694 *nct6694;
- 	struct workqueue_struct *wq;
-@@ -172,13 +173,13 @@ static const struct can_bittiming_const nct6694_canfd_bittiming_data_const = {
- 	.brp_inc = 1,
- };
- 
--static void nct6694_canfd_rx_offload(struct can_rx_offload *offload,
-+static void nct6694_canfd_rx_offload(struct can_rx_offload_irq *offload_irq,
- 				     struct sk_buff *skb)
- {
--	struct nct6694_canfd_priv *priv = rx_offload_to_priv(offload);
-+	struct nct6694_canfd_priv *priv = rx_offload_to_priv(offload_irq->offload);
- 	int ret;
- 
--	ret = can_rx_offload_queue_tail(offload, skb);
-+	ret = can_rx_offload_queue_tail(offload_irq, skb);
- 	if (ret)
- 		priv->ndev->stats.rx_fifo_errors++;
- }
-@@ -202,7 +203,7 @@ static void nct6694_canfd_handle_lost_msg(struct net_device *ndev)
- 	cf->can_id |= CAN_ERR_CRTL;
- 	cf->data[1] = CAN_ERR_CRTL_RX_OVERFLOW;
- 
--	nct6694_canfd_rx_offload(&priv->offload, skb);
-+	nct6694_canfd_rx_offload(&priv->offload_irq, skb);
- }
- 
- static void nct6694_canfd_handle_rx(struct net_device *ndev, u8 rx_evt)
-@@ -262,7 +263,7 @@ static void nct6694_canfd_handle_rx(struct net_device *ndev, u8 rx_evt)
- 			memcpy(cf->data, frame->data, cf->len);
- 	}
- 
--	nct6694_canfd_rx_offload(&priv->offload, skb);
-+	nct6694_canfd_rx_offload(&priv->offload_irq, skb);
- }
- 
- static int nct6694_canfd_get_berr_counter(const struct net_device *ndev,
-@@ -305,7 +306,7 @@ static void nct6694_canfd_handle_state_change(struct net_device *ndev, u8 status
- 	}
- 
- 	if (skb)
--		nct6694_canfd_rx_offload(&priv->offload, skb);
-+		nct6694_canfd_rx_offload(&priv->offload_irq, skb);
- }
- 
- static void nct6694_canfd_handle_bus_err(struct net_device *ndev, u8 bus_err)
-@@ -363,7 +364,7 @@ static void nct6694_canfd_handle_bus_err(struct net_device *ndev, u8 bus_err)
- 	}
- 
- 	if (skb)
--		nct6694_canfd_rx_offload(&priv->offload, skb);
-+		nct6694_canfd_rx_offload(&priv->offload_irq, skb);
- }
- 
- static void nct6694_canfd_handle_tx(struct net_device *ndev)
-@@ -371,7 +372,7 @@ static void nct6694_canfd_handle_tx(struct net_device *ndev)
- 	struct nct6694_canfd_priv *priv = netdev_priv(ndev);
- 	struct net_device_stats *stats = &ndev->stats;
- 
--	stats->tx_bytes += can_rx_offload_get_echo_skb_queue_tail(&priv->offload,
-+	stats->tx_bytes += can_rx_offload_get_echo_skb_queue_tail(&priv->offload_irq,
- 								  0, NULL);
- 	stats->tx_packets++;
- 	netif_wake_queue(ndev);
-@@ -422,7 +423,7 @@ static irqreturn_t nct6694_canfd_irq(int irq, void *data)
- 	}
- 
- 	if (handled)
--		can_rx_offload_threaded_irq_finish(&priv->offload);
-+		can_rx_offload_threaded_irq_finish(&priv->offload_irq);
- 
- 	priv->bec.rxerr = event->rec;
- 	priv->bec.txerr = event->tec;
-@@ -775,6 +776,7 @@ static int nct6694_canfd_probe(struct platform_device *pdev)
- 		goto free_candev;
- 
- 	ret = can_rx_offload_add_manual(ndev, &priv->offload,
-+					&priv->offload_irq,
- 					NCT6694_NAPI_WEIGHT);
- 	if (ret) {
- 		dev_err_probe(&pdev->dev, ret, "Failed to add rx_offload\n");
-diff --git a/include/linux/can/rx-offload.h b/include/linux/can/rx-offload.h
-index d29bb4521947..6f9a5739ecf5 100644
---- a/include/linux/can/rx-offload.h
-+++ b/include/linux/can/rx-offload.h
-@@ -20,40 +20,66 @@ struct can_rx_offload {
- 					bool drop);
- 
- 	struct sk_buff_head skb_queue;
-+
-+	/* Registered per-IRQ contexts, only changed on add/del. A single
-+	 * context lets the finish path splice, more than one makes it sort
-+	 * the skbs into skb_queue.
-+	 */
-+	struct list_head irqs;
-+	unsigned int irq_cnt;
-+
-+	/* Set if the queued skbs carry a timestamp to sort them by. */
-+	bool sort;
-+
-+	/* weight is the largest one over the registered per-IRQ contexts */
-+	struct napi_struct napi;
-+};
-+
-+/* Per-IRQ receive context, one per IRQ line producing RX frames.
-+ * skb_irq_queue has a single producer, so it needs no lock. The finish
-+ * helpers move the skbs into can_rx_offload::skb_queue under its lock.
-+ */
-+struct can_rx_offload_irq {
-+	struct can_rx_offload *offload;
-+
- 	struct sk_buff_head skb_irq_queue;
- 	u32 skb_queue_len_max;
- 
- 	unsigned int mb_first;
- 	unsigned int mb_last;
- 
--	struct napi_struct napi;
--
- 	bool inc;
-+
-+	/* entry on can_rx_offload::irqs */
-+	struct list_head node;
- };
- 
- int can_rx_offload_add_timestamp(struct net_device *dev,
--				 struct can_rx_offload *offload);
-+				 struct can_rx_offload *offload,
-+				 struct can_rx_offload_irq *offload_irq);
- int can_rx_offload_add_fifo(struct net_device *dev,
- 			    struct can_rx_offload *offload,
-+			    struct can_rx_offload_irq *offload_irq,
- 			    unsigned int weight);
- int can_rx_offload_add_manual(struct net_device *dev,
- 			      struct can_rx_offload *offload,
-+			      struct can_rx_offload_irq *offload_irq,
- 			      unsigned int weight);
--int can_rx_offload_irq_offload_timestamp(struct can_rx_offload *offload,
-+int can_rx_offload_irq_offload_timestamp(struct can_rx_offload_irq *offload_irq,
- 					 u64 reg);
--int can_rx_offload_irq_offload_fifo(struct can_rx_offload *offload);
--int can_rx_offload_queue_timestamp(struct can_rx_offload *offload,
-+int can_rx_offload_irq_offload_fifo(struct can_rx_offload_irq *offload_irq);
-+int can_rx_offload_queue_timestamp(struct can_rx_offload_irq *offload_irq,
- 				   struct sk_buff *skb, u32 timestamp);
--unsigned int can_rx_offload_get_echo_skb_queue_timestamp(struct can_rx_offload *offload,
-+unsigned int can_rx_offload_get_echo_skb_queue_timestamp(struct can_rx_offload_irq *offload_irq,
- 							 unsigned int idx, u32 timestamp,
- 							 unsigned int *frame_len_ptr);
--int can_rx_offload_queue_tail(struct can_rx_offload *offload,
-+int can_rx_offload_queue_tail(struct can_rx_offload_irq *offload_irq,
- 			      struct sk_buff *skb);
--unsigned int can_rx_offload_get_echo_skb_queue_tail(struct can_rx_offload *offload,
-+unsigned int can_rx_offload_get_echo_skb_queue_tail(struct can_rx_offload_irq *offload_irq,
- 						    unsigned int idx,
- 						    unsigned int *frame_len_ptr);
--void can_rx_offload_irq_finish(struct can_rx_offload *offload);
--void can_rx_offload_threaded_irq_finish(struct can_rx_offload *offload);
-+void can_rx_offload_irq_finish(struct can_rx_offload_irq *offload_irq);
-+void can_rx_offload_threaded_irq_finish(struct can_rx_offload_irq *offload_irq);
- void can_rx_offload_del(struct can_rx_offload *offload);
- void can_rx_offload_enable(struct can_rx_offload *offload);
- 
--- 
-2.43.0
+Aamir Ahmed (1):
+      Bluetooth: eir: validate service data length before reading UUID
+
+Abdurrahman Hussain (1):
+      gpiolib: of: don't mark hog nodes OF_POPULATED before a chip is found
+
+Ahmed Naseef (1):
+      net: phy: mediatek: do not report link and per-speed LED rules together
+
+Alberto Carboneri (1):
+      scsi: core: Validate MODE SENSE lengths in scsi_cdl_enable()
+
+Aleksandr Nogikh (1):
+      xfrm: add missing RCU read lock in xfrm_send_migrate_state()
+
+Alex Bereza (2):
+      dmaengine: xilinx_dma: Fix hardware buffer descriptor reuse order
+      dmaengine: xilinx_dma: Fix hardware buffer descriptor chain after cyclic DMA
+
+Alexander Chesnokov (1):
+      dmaengine: ti: k3-udma-glue: fix NULL dereference in k3_udma_glue_release_rx_chn()
+
+Alexei Turtanov (1):
+      Input: atkbd - skip deactivate for Xiaomi Redmi Book Pro 16 2026
+
+Alexey Klimov (1):
+      soc: samsung: exynos-pmu: fix use-after-free of interrupt generator node
+
+Ali Ahmet Memis (1):
+      wifi: wilc1000: fix out-of-bounds read in P2P public action frames
+
+Alvin Šipraga (1):
+      Input: adp5588-keys - cache GPIO state before registering the gpiochip
+
+Amit Machhiwal (2):
+      KVM: PPC: Book3S HV: fix use-after-free in kvmhv_emulate_tlbie_all_lpid()
+      KVM: PPC: Book3S HV: fix secure device page leak on uv_page_in() failure
+
+Anand Jain (1):
+      btrfs: derive f_fsid with dev_t only when temp_fsid is active
+
+Andrea Mayer (1):
+      seg6: set IPSKB_L3SLAVE from IP6SKB_L3SLAVE on IPIP decapsulation
+
+Andrea Righi (1):
+      sched/core: Avoid false migration warning for proxy donors
+
+AngeloGioacchino Del Regno (2):
+      phy: mediatek: phy-mtk-hdmi-mt8195: Fix PLL calc divisor overflow
+      phy: mediatek: phy-mtk-hdmi-mt8195: Fix TMDS clk bit ratio setting
+
+Aohan Mei (1):
+      rds: ib: use rds_conn_drop() on protocol version mismatch
+
+April Cardenas (1):
+      smb/client: send lease break ACKs thru correct session for multiuser mounts
+
+Arun Easi (1):
+      scsi: fnic: Fix missed link-up when critical IRQ targets offline CPU
+
+Baineng Shou (1):
+      dmaengine: mmp_pdma: fix wrong sg length in mmp_pdma_prep_slave_sg()
+
+Bard Liao (1):
+      soundwire: cadence_master: wait and cancel cdns->work before clock stop
+
+Bartosz Golaszewski (3):
+      power: sequencing: don't call .post_enable() if pwrseq_unit_enable() failed
+      power: sequencing: fix NULL-pointer dereference in pwrseq_unit_new()
+      power: sequencing: fix NULL-pointer dereference in pwrseq_device_register()
+
+Biju Das (1):
+      power: sequencing: Fix build issue with COMPILE_TEST
+
+Bogdan Nicolae (1):
+      wifi: brcmfmac: cyw: pass PMKID to firmware if present
+
+Bradley Morgan (1):
+      arm64: hibernate: pass HVC_SET_VECTORS args to the resume hvc
+
+Breno Leitao (1):
+      arm64: hibernate: clone only the linear map that exists at runtime
+
+Carolina Jubran (1):
+      IB/IPoIB: Avoid restoring OPER_UP after multicast flush
+
+Catalin Marinas (1):
+      arm64: mte: Fix PTRACE_{PEEK,POKE}MTETAGS error documentation
+
+Cen Zhang (1):
+      KEYS: encrypted: fix integer overflow of datablob_len
+
+Cen Zhang (Microsoft Security FORGE Labs) (1):
+      xfrm: hold net_device reference under RCU in bundle creation
+
+Chandrashekar Devegowda (1):
+      Bluetooth: btintel_pcie: validate TX skb length in send_sync
+
+Chang S. Bae (2):
+      x86/build/64: Prevent native builds from generating EGPR use
+      x86/microcode/intel: Reject problematic loading on Granite Rapids systems
+
+Cheng Xu (1):
+      RDMA/erdma: Use IRQ-safe XArray helpers for QP and CQ tables
+
+Chengfeng Ye (2):
+      Bluetooth: hci_sync: Serialize local codec list cleanup
+      xfrm: serialize state GC with device state flush
+
+Chengjun Yao (1):
+      drm/amdgpu: fix rmmio iounmap skipped on device removal
+
+Chris Lu (2):
+      Bluetooth: btmtk: fix wrong status for short WMT FUNC_CTRL events
+      Bluetooth: btmtksdio, btmtkuart: validate WMT event length before struct access
+
+Chris Sommers (1):
+      Input: i8042 - add quirk for Acer Aspire Go 15 AG15-42P
+
+Christian Göttsche (1):
+      selinux: always fill AVC decision in avc_has_perm_noaudit()
+
+Christian König (1):
+      dma-buf/dma-fence: fix checking signaling bit for timeline and driver name v3
+
+Christian Lugnberg (2):
+      dmaengine: sun6i: fix non-atomic read of DMA position registers
+      dmaengine: sun6i: fix undefined behaviour in sun6i_dma_tx_status
+
+Chunfeng Song (1):
+      rust: net: phy: fix off-by-one bit positions in device status accessors
+
+Claudiu Beznea (1):
+      phy: renesas: rcar-gen3-usb2: Avoid long delay in atomic context
+
+Cong Nguyen (1):
+      hwmon: (gpio-fan) return IRQ_HANDLED from the shared alarm IRQ handler
+
+Daehyeon Ko (1):
+      wifi: libipw: reject TKIP frames without a full MIC
+
+Daniel Golle (1):
+      net: dsa: mxl862xx: disable the stats poll on teardown
+
+Daniel Linjama (1):
+      btrfs: handle lack of space when cleaning up verity items
+
+Daniel Zahka (1):
+      net: psp: avoid conflicts with skb->decrypted and sk_validate_xmit_skb()
+
+David Francis (2):
+      drm/amdkfd: Avoid integer underflow in EOP ring size calculation.
+      drm/amdkfd: Avoid integer underflow with ffs in EOP ring size calc
+
+David Howells (1):
+      9p: Fix v9fs_issue_write() to update i_size and remote_i_size
+
+David Hu (2):
+      dma-buf: Fix silent overflow for phys vec to sgt
+      dma-buf: Split sgl by largest page-aligned chunk
+
+David Laight (1):
+      x86/div64: Fix addition of large constants in mul_u64_add_u64_div_u64()
+
+Devin Wittmayer (1):
+      wifi: mac80211: refuse to make a monitor active when it has no queue
+
+Dinh Nguyen (1):
+      arm64: dts: socfpga: change access permission from 755 to 644
+
+Diogo Ivo (Schneider Electric) (4):
+      mmc: sdhci_am654: Move tuning_loop to local variable
+      mmc: sdhci_am654: Reset command and data lines on failed tuning
+      mmc: sdhci_am654: Clear ITAPDLY on tuning failure
+      mmc: sdhci_am654: Fallback to DT-provided itap delay on DDR50 tuning failure
+
+Dmitriy Chumachenko (1):
+      drm/amdgpu: check ras and obj before dereference
+
+Dmitriy Okunev (1):
+      net: mvpp2: prevent buffer overflow in page_pool allocation
+
+Dmitry Baryshkov (1):
+      drm/msm/dsi: round the byte clock rate after reparenting to the PHY PLL
+
+Dmitry Torokhov (2):
+      Input: rmi_smbus - fix out-of-bounds read in rmi_smb_write_block()
+      Input: synaptics-rmi4 - fix GPF in suspend and resume when unbound
+
+Dong Chenchen (1):
+      ipv4: icmp: reject RTN_UNREACHABLE input routes in icmp_route_lookup
+
+Donggeun Yoo (3):
+      dma-coherent: report a failed reserved memory assignment
+      dma-mapping: don't trace the DMA address when the allocation fails
+      swiotlb: use the adjusted address for the highmem page lookup
+
+Doruk Tan Ozturk (1):
+      wifi: mwifiex: bound the pairwise-cipher OUI walk to the IE length
+
+Eric Dumazet (11):
+      xfrm: add missing rcu_read_lock(), skb_dst_force() and dev_hold() for xfrm_trans_reinject()
+      tcp: do not let tcp_rmem be set below 4096
+      pppoatm: ensure a writable skb header and linear data
+      drop_monitor: synchronize tracepoint unregistration on error path
+      drop_monitor: use timer_shutdown_sync() to prevent timer rearming during teardown
+      drop_monitor: use raw_cpu_ptr() in tracepoint probes
+      drop_monitor: fix out-of-bounds write in reset_per_cpu_data()
+      netlink: do not free nlk->groups while lockless readers can use it
+      net: lock the socket in sock_gettstamp()
+      net: prevent torn reads in netdev_tc_txq
+      net: skbuff: do not leave stale header offsets after pskb_carve()
+
+Erich Sartison (1):
+      Input: xpad - add support for Victrix Pro BFG Controller
+
+Fan Wu (5):
+      mmc: core: Cancel SDIO IRQ work before freeing host
+      mmc: hsq: Fix use-after-free in retry work
+      mmc: mmci: Fix use-after-free in busy-timeout work
+      mmc: mxcmmc: cancel data work and watchdog on remove
+      wifi: wcn36xx: Fix potential use-after-free in TX ack timer teardown
+
+Farhad Alemi (1):
+      net: remove WARN_ON_ONCE() from the dev_fill_forward_path() loop check
+
+Felix Gu (1):
+      mmc: sdio_uart: fix xmit_fifo leak when the port table is full
+
+Fernando Fernandez Mancera (1):
+      netfilter: nf_tables: fix device name and prefix match in hook lookup
+
+Filipe Manana (4):
+      btrfs: tree-checker: print dev extent offset in error message
+      btrfs: abort transaction on failure to update inode for hole punching and reflinking
+      btrfs: check if there is space for chunk item when validating sys chunk array
+      btrfs: fix creation of compressed inline extents that don't save space
+
+Florian Maillard (1):
+      mmc: rtsx_pci_sdmmc: ignore broken write-protect on ThinkPad X260
+
+Francis Marlou Pacaro (1):
+      drm/amd/display: fix MALL hysteresis timer underflow at high refresh rates
+
+Frank Sorenson (8):
+      smb: client: reject short Next offsets in parse_server_interfaces()
+      smb: client: fix next_buffer UAF and NextCommand bounds in compound PDUs
+      smb: client: fix OOB struct field reads in move_smb2_ea_to_cifs()
+      smb: client: fix potential OOB read in smb3_enum_snapshots()
+      smb: client: fix reparse buffer bounds in cifs_query_reparse_point()
+      smb: client: fix server->total_read for compound encrypted PDUs
+      smb: client: fix missing lower-bound check on DFS referral string offsets
+      smb: client: fix missing iov bounds check in parse_posix_sids()
+
+Frieder Schrempf (1):
+      spi: fsl-qspi: Reprogram the clock rate when the operation frequency changes
+
+Gabor Juhos (1):
+      spi: spi-qpic-snand: avoid writing QPIC_EBI2_ECC_BUF_CFG register
+
+Gang Yan (1):
+      RDMA/rxe: Fix integer overflow in mr_check_range() leading to OOB access
+
+Greg Kroah-Hartman (1):
+      Linux 7.2.8
+
+Gris Ge (1):
+      net: ip_tunnel: initialize `options_len` before referencing options
+
+Guanghui Yang (1):
+      btrfs: clear free space tree creation state on rebuild failure
+
+Guanglei Zhu (3):
+      net: wwan: t7xx: validate the netif index in t7xx_ccmni_recv_skb()
+      net: wwan: mhi_wwan_mbim: guard against a cyclic NDP chain
+      net: wwan: mhi_wwan_mbim: check skb_copy_bits() return value
+
+Guangshuo Li (5):
+      i2c: imx: disable autosuspend on remove
+      hwmon: (w83791d) remove fan/pwm 4-5 sysfs group on remove
+      hwmon: (w83793) release probe data through kref
+      drm/msm/adreno: fix autosuspend cleanup during teardown
+      drm/msm/hdmi_phy: fix runtime PM cleanup on probe failure
+
+Guoqing Jiang (1):
+      RDMA/siw: Clear association under lock if siw_qp_modify fails in siw_accept
+
+Günther Noack (3):
+      selftests/landlock: Use an actual chardev for MAKE_CHAR audit test
+      selftests/landlock: Add tests for whiteout object creation
+      selftests/landlock: Add audit test for whiteout object creation
+
+Hans de Goede (2):
+      Input: soc_button_array - fix MS Surface Pro 11 probe failure
+      Input: soc_button_array - check btns_desc->package.count
+
+Hao-Qun Huang (1):
+      spi: virtio: Use the per-transfer bits per word
+
+Henry Martin (1):
+      xfrm: iptfs: fix runt reassembly panic from short inner tot_len
+
+Hohyun Sim (1):
+      net: fddi: skfp: fix NULL deref when setting the MAC address while down
+
+Hongling Zeng (1):
+      btrfs: take commit root semaphore when iterating in mark_block_group_to_copy()
+
+HyeongJun An (1):
+      ASoC: hdmi-codec: Report a change when the channel status moves
+
+Hyunwoo Kim (1):
+      exec: Cleanup POSIX timers right after de_thread()
+
+Ian Luites (1):
+      soundwire: dmi-quirks: Disable ghost Realtek on Asus GX651AX
+
+Ibrahim Abdelkader (1):
+      Bluetooth: hci_qca: Do not write to the serial port after it is closed
+
+Ilia Levi (2):
+      drm/xe/mmio_gem: forbid VMA split
+      drm/xe/mmio_gem: use write-back mapping for dummy page
+
+Inbal Schussheim (1):
+      tcp: exclude old ACKs from tcp fast path
+
+Itai Handler (1):
+      spi: spi-zynqmp-gqspi: stop the controller on shutdown
+
+Ivan Pustogarov (1):
+      wifi: mac80211: avoid out-of-bounds read for empty PREQ elements
+
+Iván Ezequiel Rodriguez (3):
+      Input: evdev - zero absinfo before partial copy in EVIOCSABS
+      Input: zero ff_effect before compat copy in input_ff_effect_from_user
+      ntsync: reject wait ioctls with zero owner
+
+Jacob Moroni (1):
+      RDMA/irdma: Enforce local fence for IB_WR_REG_MR
+
+Jakub Kicinski (1):
+      eth: fbnic: ring the doorbell if a burst ends in a drop
+
+Jamal Hadi Salim (2):
+      net/sched: codel: bound the dropping loop per dequeue call
+      net/sched: hhf: cap hh_flows_limit at change time
+
+James Clark (1):
+      net: macb: fix ordering around PTP timestamp read
+
+James Seo (1):
+      hwmon: (hp-wmi-sensors) Improve raw WMI string handling
+
+Jarkko Sakkinen (1):
+      KEYS: trusted: Fix tpm2_load_cmd() boundary check
+
+Jeff Layton (1):
+      nfsd: fix handling of NFSEXP_PNFS in the netlink codepath
+
+Jeffin Philip (1):
+      RDMA/core: fix refcount bug in iwpm_get_nlmsg_request()
+
+Jens Axboe (1):
+      sunvdc: fix -EIO issue due to lack of retries
+
+Jeremy Nyberg (1):
+      Input: xpad - fix PDP Marvel Xbox 360 controller
+
+Jesse Casco (1):
+      drm/msm/dp: skip PUSH_IDLE when the link was never enabled
+
+Jiangshan Yi (3):
+      ASoC: codecs: rt712-sdca-dmic: fix uninitialized stream_config->type
+      wifi: brcmsmac: fix UAF in brcms_free_timer()
+      wifi: libertas_tf: fix UAF in lbtf_free_adapter()
+
+Jiayuan Chen (1):
+      mm/shrinker: fix bogus set_shrinker_bit() with cgroup.memory=nokmem
+
+Jinke Han (1):
+      x86/kprobes: Fix crash when probing CS CALL instructions
+
+Johannes Berg (30):
+      wifi: cfg80211: don't get the radio mask for netdev-less wdevs
+      wifi: cfg80211: check IP header size in cfg80211_classify8021d()
+      wifi: cfg80211: don't free driver-owned scan requests
+      wifi: cfg80211: only group hidden BSSes with beacon entries
+      wifi: cfg80211: don't filter by BSS type when removing stale entries
+      wifi: cfg80211: ibss: ref BSS entry for joined event
+      wifi: cfg80211: fix NAN regulatory enforcement
+      wifi: mac80211: don't start a ROC while scanning
+      wifi: mac80211: don't warn when an IBSS has no channel to scan
+      wifi: mac80211: don't offload TC setup on AP_VLAN interfaces
+      wifi: mac80211: suppress chanctx warning for debugfs reset
+      wifi: mac80211: abort chanswitch when leaving a mesh
+      wifi: mac80211: reset state when starting AP fails
+      wifi: mac80211: reset the LED state when ifup fails
+      wifi: mac80211: only operate on TDLS peers in the TDLS code
+      wifi: cfg80211: restore netns_immutable on failures
+      wifi: cfg80211: undo netns switch if renaming the wiphy fails
+      wifi: mac80211: unlist vifs when their netdev is unregistered
+      wifi: cfg80211: get the wiphy out of a dying network namespace
+      wifi: mac80211_hwsim: don't hand frames to mac80211 while stopping
+      wifi: mac80211: don't allow injecting frames wider than the chanctx
+      wifi: mac80211: reset the AP_VLAN tailroom counter on ifdown
+      wifi: mac80211: require a peer station for TDLS setup confirm
+      wifi: mac80211: don't allow link changes when iface is down
+      wifi: mac80211: don't RCU-dereference the mesh CSA settings we just set
+      wifi: mac80211: don't access the TSF of a down interface
+      wifi: mac80211: add HE 6 GHz capability in the scan elems len
+      wifi: mac80211: mesh: reset the CSA state when leaving
+      wifi: mac80211: mesh: release the channel if start fails
+      wifi: mac80211: set up the TX info early to fix failure paths
+
+Jonghyuk Kim(MalHyuk) (1):
+      drm/msm: RCU-free the scheduler-containing ring and VM objects
+
+Joseph Qi (1):
+      smb: client: fix use-after-free of iface in cifs_try_adding_channels()
+
+Juan Perdomo (1):
+      Bluetooth: RFCOMM: avoid socket lock inversion in listener cleanup
+
+Julian Braha (1):
+      mips: econet: fix unmet dependencies for ECONET
+
+Jérémy Jean (2):
+      RDMA/siw: Bound fragmented header copies by the remaining length
+      smb: client: validate absolute native symlink targets before NT fixups
+
+Karan Tilak Kumar (2):
+      scsi: fnic: Make debug logging protocol independent
+      scsi: fnic: Bump up version number
+
+Karl Mehltretter (10):
+      scsi: pm80xx: Fix the use_msix, use_tasklet and read_wwn parameter descriptions
+      scsi: qla2xxx: Fix the ql2xfc2target parameter description
+      drm/msm: Fix the separate_gpu_kms parameter description
+      drm/msm/adreno: Fix the skip_gpu parameter description
+      keys: fix lost wakeup when reaping a dead key type
+      Input: trackpoint - fix the inertia attribute name in the ABI document
+      drm/vc4: Use managed KMS polling to fix UAF on unbind
+      wifi: brcmfmac: fix lost 802.1x TX completion wakeup
+      selinux: preserve user SID across nested backing files
+      selinux: recheck intermediate backing files on mprotect()
+
+Koichiro Den (1):
+      arm64: dts: renesas: r8a779f0: Set UFS lane count
+
+Krystian Kaniewski (1):
+      RDMA/core: Reject unregistering netdevs in ib_get_eth_speed
+
+Kuninori Morimoto (2):
+      ASoC: sdw_utils: tidyup .count_sidecar
+      ASoC: sdw_utils: tidyup asoc_sdw_parse_sdw_endpoints()
+
+Kuniyuki Iwashima (7):
+      neighbour: Add missing RCU annotation for neightbl_dump_info().
+      neighbour: Enforce min/max to NDTPA_INTERVAL_PROBE_TIME_MS.
+      neighbour: Don't render blackhole_netdev via RTM_GETNEIGHTBL.
+      neighbour: Skip default parms when resumed in neightbl_dump_info().
+      sysctl: Check range in proc_dointvec_ms_jiffies_minmax
+      tcp: Don't call skb_clone_and_charge_r() for close()d listener in tcp_v6_do_rcv().
+      af_unix: Unify scc_index when finalising SCC in __unix_walk_scc().
+
+Kyle Zeng (1):
+      xfrm: fix compat ALLOCSPI request use-after-free
+
+Lachlan Hodges (1):
+      wifi: mac80211: include TIM bitmap control for buffered S1G mcast traffic
+
+Laxman Acharya Padhya (1):
+      Bluetooth: hci_codec: validate vendor codec count length
+
+Leon Romanovsky (2):
+      RDMA/efa: Keep admin queues alive while IRQ is registered
+      RDMA/efa: Keep EQ resources alive while IRQ is registered
+
+Li Jun (2):
+      watchdog: da9062: fix suspend/resume handling of HW_RUNNING watchdog
+      watchdog: da9063: fix suspend/resume handling of HW_RUNNING watchdog
+
+Li RongQing (2):
+      RDMA/uverbs: Fix potential leak of resources->collection in flow_resources_alloc()
+      RDMA/mad: Fix receive buffer leak when PKey enforcement fails
+
+Linkai Gong (3):
+      RDMA/bnxt_re: check create_singlethread_workqueue() in DCB setup
+      i2c: atr: fix dangling adapter pointer on add failure
+      Input: cyttsp5 - clamp the HID report size before memcpy
+
+Linmao Li (1):
+      wifi: mwifiex: prevent authentication frame length truncation
+
+Linus Walleij (1):
+      net: ethernet: cortina: Ack RX overrun interrupt correctly
+
+Liu Zhenlong (1):
+      i2c: qcom-cci: fix device_node refcount leak in cci_probe()/cci_remove()
+
+Lorenzo Bianconi (5):
+      net: stmmac: fix TSO header length truncation
+      net: stmmac: do not overwrite phc_index when no PTP clock is registered
+      net: pass net_device_path_ctx to dev_fill_forward_path()
+      net: stmmac: propagate FPE preemption-class mapping errors
+      net: stmmac: preserve real_num_tx_queues on mqprio setup failure
+
+Lorenzo Stoakes (ARM) (3):
+      mm/huge_memory: bypass THP tuneables for huge pfnmap mappings
+      mm/mremap: account mm->locked_vm correctly for MREMAP_DONTUNMAP
+      mm/vma: correctly unaccount on mmap_prepare() failure
+
+Lucas Tanure (5):
+      arm64: dts: amlogic: t7: use the real UART pclk
+      arm64: dts: amlogic: t7: khadas-vim4: allow the SD card to be power cycled
+      arm64: dts: amlogic: t7: fix the pin groups of two PWM outputs
+      arm64: dts: amlogic: t7: khadas-vim4: add the PWM-driven supplies
+      arm64: dts: amlogic: t7: fix the pin groups of the vsync PWM
+
+Luiz Augusto von Dentz (2):
+      Bluetooth: ISO: Fix parent socket leak in iso_conn_ready()
+      Bluetooth: ISO: set BT_LISTEN before requesting a BIG sync
+
+Lyude Paul (4):
+      Revert "nouveau/gsp: fix suspend/resume regression on r570 firmware"
+      drm/nouveau/gsp: Increase delay for magic sleep in r535_gsp_fini()
+      drm/nouveau/gsp/r570: Set GcOff = 0 in fbsr
+      drm/nouveau/gsp/r570: Enable S/R Display workaround in GSP
+
+Maher Azzouzi (1):
+      esp: downgrade zerocopy managed frags before mutating skb frags
+
+Maoyi Xie (1):
+      keys: translate request_key_auth pid for the reading procfs instance
+
+Mariano Baragiola (1):
+      wifi: virt_wifi: free skb when disconnected
+
+Mario Limonciello (3):
+      drm/amdgpu: Skip KFD mapping clear before initialization
+      drm/amdgpu: Fix GPU PCIe link capability reporting
+      drm/amdgpu: restrict BAR0 fallback read to SR-IOV VFs only
+
+Mark Amirkan (3):
+      net: lan743x: fix RX checksum use-after-free
+      net/packet: clear RX owner on VNET header error
+      net/packet: avoid truncating TPACKET_V3 private size
+
+Mark Rutland (3):
+      arm64: percpu: Fix this_cpu_write() casting
+      arm64: percpu: Fix this_cpu_and() mask generation
+      arm64: percpu: Fix LSE operations on {8,16}-bit types
+
+Matthew Schwartz (1):
+      x86/fred: Reconstruct the #GP context for rejected INT instructions
+
+Meijing Zhao (1):
+      mm: memblock: show all region flags in debugfs
+
+Michael Bommarito (1):
+      RDMA/rxe: insert mcg into mcg_tree only after rxe_mcast_add() succeeds
+
+Michail Tatas (1):
+      gpiolib: Put fwnode reference on failure
+
+Michal Koutný (1):
+      cgroup: Avoid iteration of dying tasks with zero refcount
+
+Mike Lothian (1):
+      drm/amdgpu: hold a runtime PM reference for P2P dma-buf attachments
+
+Muhammad Bilal (1):
+      hwmon: (hp-wmi-sensors) Fix use-after-free in fungible_show()
+
+Myeonghun Pak (1):
+      mmc: sdhci-of-aspeed: Remove children before releasing SDC resources
+
+Namjae Jeon (13):
+      ntfs: use dynamic MFT tail reservation
+      ntfs: repack $MFT/$ATTRIBUTE LIST
+      ntfs: account for MFT records added during allocation
+      ntfs: protect runlist updates with the runlist lock
+      ntfs: propagate folio errors
+      ntfs: ignore interrupted inode reads as corruption
+      ksmbd: fix malformed procfs status output
+      ksmbd: extend procfs server statistics
+      ksmbd: follow SMB2 session expiration semantics
+      ksmbd: return buffer overflow for partial filesystem info
+      ksmbd: fix partial file information responses
+      ksmbd: keep compound responses on query info errors
+      ksmbd: fix partial normalized name responses
+
+Nemesa Garg (1):
+      Revert "drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable"
+
+Nguyen Ngoc Thang (1):
+      ALSA: pcm: set timer->private_data before registering the PCM timer
+
+Nhat Pham (1):
+      mm, swap: fix SWAP_USAGE_OFFLIST_BIT collision with real usage count
+
+Nicolai Buchwitz (1):
+      net: bcmgenet: restore the hardware filters on open
+
+Nicolas Escande (1):
+      wifi: ath11k: cleanup arsta in ath11k_mac_peer_cleanup_all()
+
+Nicolas Thibert (1):
+      Bluetooth: btusb: fix NXP IW610 composite device handling
+
+Niklas Cassel (1):
+      ata: libahci: clear PxCLBU and PxFBU for AHCI_HFLAG_32BIT_ONLY
+
+Nikolay Aleksandrov (2):
+      net: bridge: mst: move switchdev call outside rcu
+      net: bridge: vlan: fix bugs caused by switchdev deletion errors
+
+Norbert Szetei (1):
+      RDMA/rxe: validate access flags before swapping the MR's PD
+
+Nuno Sá (1):
+      hwmon: (pmbus/core) increase number of phases and add new mask
+
+Or Har-Toov (2):
+      RDMA/mlx5: Remove warn on missing representor in query_port_speed
+      RDMA/uverbs: Fix mmap_lock/disassociation_lock circular dependency
+
+Orgad Shaneh (1):
+      MIPS: Octeon: apply USB FDT fixups also when USB is modular
+
+Ovidiu Panait (5):
+      arm64: dts: renesas: r9a09g057: Switch GBETH TX queue scheduling to WRR
+      arm64: dts: renesas: r9a09g056: Switch GBETH TX queue scheduling to WRR
+      arm64: dts: renesas: r9a09g047: Switch GBETH TX queue scheduling to WRR
+      arm64: dts: renesas: r9a09g077: Switch GBETH TX queue scheduling to WRR
+      arm64: dts: renesas: r9a09g087: Switch GBETH TX queue scheduling to WRR
+
+Pablo Neira Ayuso (4):
+      netfilter: nf_nat: unregister and release hooks on error
+      netfilter: flowtable: hold reference on ct until flow is released
+      net: do not advance stack index from dev_fwd_path()
+      net: pass dst via net_device_path in dev_fill_forward_path()
+
+Paulo Alcantara (5):
+      smb: client: cancel reconnect work in clean_demultiplex_info()
+      smb: client: fix rlist race and missing initialization
+      smb: client: fix smbd_connection leak on cifs_get_tcp_session() error
+      smb: client: fix unaligned access in WSL reparse point parser
+      smb: client: fix fattr leaking on wsl_to_fattr() failure
+
+Peng Hao (1):
+      wifi: mwifiex: fix IRQ leak using wrong index in MSI-X error path
+
+Pengpeng Hou (2):
+      ARM: socfpga: select the PL310 erratum 753970 workaround
+      wifi: mwifiex: validate scan response extents
+
+Peter Zijlstra (1):
+      futex: Also allocate private hash on vfork()
+
+Qi Zheng (1):
+      fs: fix missed removal of super_fs_objects_eligible()
+
+Quanye Yang (2):
+      RDMA/rtrs-clt: Fix CQ pool leak when connect is interrupted
+      RDMA/ucma: Serialize join and leave on copy_to_user failure
+
+Raag Jadav (1):
+      drm/xe/i2c: Disable IRQ on unbind
+
+Radek Podgorny (2):
+      Bluetooth: put the peer's on-air address on air when we cannot resolve
+      Bluetooth: keep dst_type with dst when reusing an LE connection
+
+Raphaël Larocque (1):
+      Input: synaptics - disable InterTouch on ThinkPad T440p (board id 2722)
+
+Richard Fitzgerald (4):
+      ASoC: Rename snd_soc_dai_link_ch_map.ch_mask to cpu_ch_mask
+      ASoC: Add codec_ch_mask to snd_soc_dai_link_ch_map
+      ASoC: soc-pcm: Apply snd_soc_dai_link_ch_map.codec_ch_mask to codec params
+      ASoC: cs-amp-lib: Prevent NULL pointer if efi variable is zero length
+
+Richard Zhu (1):
+      PCI: imx6: Move clock enable after core reset assertion
+
+Rik van Riel (1):
+      wifi: mac80211: avoid WARN in set_bitrate_mask when sdata not in driver
+
+Roberts Kursitis (1):
+      Input: xpad - add support for Azeron devices
+
+Roshan Kumar (1):
+      xfrm: iptfs: fix stack OOB read in iptfs_skb_reset_frag_walk()
+
+Runyu Xiao (4):
+      gpio: virtuser: skip free_irq when no IRQ is installed
+      mmc: sh_mmcif: initialize IRQ-thread mutex before requesting interrupt
+      Input: hp_sdc - shut down kicker timer on module exit
+      wifi: wlcore: release runtime PM ref on regdomain config failure
+
+Ruoyu Wang (1):
+      dmaengine: sprd: Fix runtime PM reference leak in probe
+
+Ryan Mehri (1):
+      RDMA/rtrs: guard against null kobj name
+
+Sai Teja Aluvala (1):
+      Bluetooth: btintel_pcie: fix off-by-one bounds check in RX submit
+
+Saim Shujah (1):
+      drm/msm/dpu: clear pending peripheral flush state
+
+Sajal Gupta (1):
+      drm/gud: fix out-of-bounds write in gud_plane_atomic_check()
+
+Sanman Pradhan (2):
+      hwmon: (pmbus/tps53679) Fix TPS53676 phase page decoding
+      hwmon: (pmbus/tps53679) Select page 0 for single-page TPS53676
+
+Sascha Hauer (1):
+      dmaengine: pxa: fix double counting of the hw descriptors
+
+Sasha Levin (1):
+      ASoC: ux500: Parenthesize MSP_{RX,TX}_CLKPOL_BIT() arguments
+
+Seunguk Shin (1):
+      fs/dax: check zero or empty entry before converting xarray entry
+
+Shakeel Butt (2):
+      memcg: avoid charging the root memcg from obj_cgroup_charge_pages()
+      mm/mlock: use the IRQ-safe accessor for NR_MLOCK in __munlock_folio()
+
+Shengzhuo Wei (4):
+      i2c: at91: release DMA channels on remove and probe error
+      i2c: imx: release DMA channels on probe error
+      wifi: p54: validate curve data length in the calibration curve converters
+      wifi: p54: require a full exp_if record in PDR_INTERFACE_LIST
+
+Shivank Garg (3):
+      dmaengine: Fix device kref underflow in dma_chan_put()
+      dmaengine: fix use-after-free in dma_chan_put() and dma_release_channel()
+      dmaengine: wait for RCU readers before releasing dma_device
+
+Shivaprasad G Bhat (1):
+      powerpc/iommu: Fix the overflow validation in iommu_tce_check_ioba
+
+Shmulik Cohen (2):
+      wifi: libipw: reject too-short beacon and probe responses
+      wifi: libipw: reject too-short association responses
+
+Shouping Wang (1):
+      perf/arm-cmn: Fix wp_dev_sel2 setting for multi-DTM configurations
+
+Shuangpeng Bai (1):
+      IB/mlx4: Fix use-after-free on pkey sysfs registration failure
+
+Shuhei Takeshita (2):
+      IB/hfi1: Resolve the credit-return buffer through the send context's node
+      IB/hfi1: Fix the PIO_CRED credit-return mmap
+
+Shuicheng Lin (3):
+      drm/xe/mmio_gem: Revoke drm_vma_node on xe_mmio_gem destroy
+      drm/xe/shrinker: Return the freed page count through a parameter
+      drm/xe/shrinker: Take a runtime PM ref before shrinking non-system memory
+
+Siwei Zhang (1):
+      xfrm: use hlist_del_init_rcu for state_cache and state_cache_input
+
+Slavin Liu (1):
+      ALSA: hda: trace PCM open only after assigning a stream
+
+Sophie D (1):
+      drm/gud: Ignore damage clips in full update mode
+
+Sriharsha Basavapatna (1):
+      RDMA/bnxt_re: Avoid exposing umdbr to userspace
+
+Stanislaw Gruszka (1):
+      wifi: iwlegacy: fix broadcast stations deallocation
+
+Takashi Iwai (3):
+      ALSA: bcd2000: Fix race between rawmidi and disconnect
+      ALSA: usb: 6fire: Avoid embedded URBs
+      ALSA: core: Fix potential UAF after asynchronous card release
+
+Thadeu Lima de Souza Cascardo (1):
+      drm: Fix drm_pending_vblank_event leak in error path for out_fence_ptr
+
+ThangNN99 (1):
+      Bluetooth: hci_core: Fix queuing tx_work after workqueue is drained
+
+Theodor Arsenij Larionov Trichkine (1):
+      netfilter: nft_nat: fully initialise new_addr in netmap setup
+
+Thomas Gleixner (2):
+      posix-cpu-timers: Prevent freeing a timer which is queued on the expiry list
+      signal: Prevent exec() race
+
+Thomas Huth (1):
+      kselftest/arm64: Fix size of thread_data values for pthread_join()
+
+Thomas Richard (congatec GmbH) (2):
+      hwmon: (cgbc-hwmon) Fix current sensors ID lookup
+      hwmon: (cgbc-hwmon) Add missing sensors
+
+Théo Lebrun (1):
+      mips: select CONFIG_WEAK_REORDERING_BEYOND_LLSC from CONFIG_EYEQ
+
+Tianchu Chen (2):
+      wifi: rsi: fix heap OOB write on key removal
+      wifi: wilc1000: fix RX buffer OOB-write in wilc_wlan_handle_isr_ext()
+
+Troy Mitchell (1):
+      dmaengine: mmp_pdma: fix wrong extended DRCMR base for SpacemiT K3
+
+Tvrtko Ursulin (1):
+      drm/sched: Fix virtual runtime race
+
+Tzung-Bi Shih (6):
+      Bluetooth: btmtksdio: Fix PM runtime reference leak in shutdown
+      watchdog: digicolor: Avoid division by zero
+      watchdog: msc313e: Fix premature reset during timeout update
+      watchdog: msc313e: Propagate error code in resume()
+      watchdog: rtd119x: Avoid division by zero
+      watchdog: rzv2h: Avoid division by zero
+
+Ulises Mendez Martinez (1):
+      objtool: Validate disassembler headers in libopcodes probe
+
+Usama Arif (1):
+      fs/super: skip non-memcg-aware nr_cached_objects in memcg slab shrink
+
+Vadim Nikitushkin (1):
+      drm/ttm: fix swapped-out resources never leaving their bulk_move range
+
+Vijendar Mukunda (3):
+      ASoC: amd: acp: bounds-check SoundWire link ID in machine drivers
+      ASoC: amd: acp: refactor codec config count in SOF SoundWire machine driver
+      ASoC: amd: acp: fix ffs() operator precedence for SoundWire link ID
+
+Vinay Belgaumkar (1):
+      perf: Fix null pointer access in is_include_guest_event()
+
+Vladimir Marioukhine (1):
+      drm/amdkfd: implement restore_mqd callbacks for GFX12/12.1
+
+Wanwu Li (1):
+      sched_ext: Fix NULL sched deref in kfunc sub-sched error paths
+
+Weiming Shi (2):
+      RDMA/rxe: Restore HMM_PFN_WRITE check in ODP write paths
+      Bluetooth: coredump: Quiesce dump work on unregister
+
+Wenjie Qi (1):
+      mm: filemap: retain mapped dropbehind folios
+
+Wentao Liang (4):
+      ata: libahci_platform: Fix device reference leak in ahci_platform_get_resources()
+      cifs: Fix server use-after-free in cifs_chan_skip_or_disable()
+      watchdog: sp5100_tco: Fix pci_dev reference leak in sp5100_tco_init()
+      watchdog: starfive-wdt: Fix runtime PM leak in starfive_wdt_pm_start()
+
+William Bright (1):
+      drm/msm/dp: fix link bandwidth check when wide bus is enabled
+
+Wyatt Feng (1):
+      net: xfrm: reject unrepresentable espintcp transport headers
+
+Xiang Mei (2):
+      ALSA: 6fire: fix OOB write from device-reported iso length
+      ALSA: usb-audio: Clamp implicit feedback packet count to URB capacity
+
+Xixin Liu (3):
+      firmware: arm_scpi: reject DVFS OPP count above MAX_DVFS_OPPS
+      clk: scpi: bound-check DVFS index in scpi_dvfs_recalc_rate
+      clk: scpi: register scpi-cpufreq once and clear on failure
+
+Xu Rao (1):
+      mmc: spi: reset bytes_xfered before retrying CRC failures
+
+Xuanqiang Luo (1):
+      net/sched: act_api: release tail references on DELACTION failure
+
+Yehyeong Lee (2):
+      IB/iser: reject a remote invalidation of an unregistered direction
+      IB/isert: wait for deferred control PDU completions before releasing the connection
+
+Yibo Tan (1):
+      hwmon: (pwm-fan) Stop RPM timer before freeing tach data
+
+Yifei Gao (1):
+      memstick: ms_block: destroy io_queue workqueue on removal
+
+Yige Jiang (1):
+      net: netsec: fix device_node reference leak on phy_np
+
+Yuho Choi (1):
+      ALSA: virtio: reset device before deleting virtqueues
+
+Zhao Li (1):
+      wifi: mwifiex: validate action frame fixed fields
+
+Zhiling Zou (3):
+      openvswitch: avoid reallocating confirmed conntrack labels
+      ipv6: xfrm: use full sockets in local error paths
+      xfrm: save input state data before secpath resets
+
+Zhu Ling (1):
+      mmc: core: Fix OF node reference leak on card add failure
+
+Zihan Xi (1):
+      wifi: virt_wifi: don't transfer operstate before register
+
+chong li (1):
+      drm/amdgpu: reduce early full GPU access during SR-IOV init
+
+fangqiurong (1):
+      sched_ext: Close the pre-enable ops error claim window
+
+hpp.iscas (1):
+      Input: eeti_ts - publish the OF module alias
 
