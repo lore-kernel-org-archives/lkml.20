@@ -1,89 +1,114 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CF013777E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:16:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531E53E1723
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790363798; cv=none; b=MxBIfLmblqax9C/b/FhjQUxVR7hpt5L+mqRsE4YML31aeT1iU+kJ5sw2Tg9lbYUVGA+YQDY0vpd5w3ewhLQVP+Xg42IvGVhR/CxJ0nFCO06aMFMsvskSbw5CFDIO2Tk2+8BvqION5MFgx3MaKUFsIcniYybW1m+AKcSGyMCZDeA=
+	t=1790363819; cv=none; b=jN7URqgk7XBR3gOjCSnHjZSKE9U2zZe1LFhAULYCsglk+wLtF4tulXjhzrmv09iwAgRiguyPvmcthINoELHopFU75EVPWv5Il/9UPbMoPfZD64/0RX+iBtXJvrsucqqRrU6K06at0aYNsXVNhUL0BFhL0ONHHwdcXENFNabj1Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790363798; c=relaxed/simple;
-	bh=MKW3JyKMw5pWr+goHZluAQDGinqpg4YEMETVyvCJc2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=inqtjcO5dcxzO8LgABncbpgFBMXOYKyzzefRX+T/jEKZMJ2VJE3G1jk1YQG4Bo+hLsrG8X7+PuBpwp9W4bOs2ajnjVpGRK4XmDTX2jxza5nduK6lMv3/N9LoUB4/5NxZ6rk9Iihnzg1FlN+KZh5RIudMxEc1tf6M2XhkpT0RG6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=GMG/9aVk; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1790363819; c=relaxed/simple;
+	bh=LmDohTXcxb9m7JrOrmG+Y32/Ci8WQptcCIicn5s+8/E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JF0RVGe2pRx+1UStu1/32btJJXkVYT+O5bI4Y8r7BZIfjkAVxNIFor+B5qTCoCJzR+4oPrXdr8m3dSTianYiNtJl087AXeLHBH33oHXraf2rLzPgArVnFEjm7ko6FGPh2B9I4Cc6Es3ZgcybufqGAJb7kxm06hwWxPpLhO11euY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rUVYScKV; arc=none smtp.client-ip=74.125.230.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="GMG/9aVk"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 12A7840E021A;
-	Fri, 25 Sep 2026 19:16:34 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id Jn4u6Yue8xF5; Fri, 25 Sep 2026 19:16:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790363784; bh=+tcasoT67ws4EFzQEtIpw08LOiTZf7cNRgv7xVLpQpc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GMG/9aVkePcYpMPvU4bPmwq5pTxVUDtn6nwx9mQezd8SzF4GcMZIFqt/o4LpNrZ6N
-	 ZGoFr/GyG0KwI63oBSzV4QbOtKpMUM8sEWByLWZdTDwN2rmu2fcdsTt8Tw0GRtGZ6U
-	 sXJKrN75+i20Q0PhLgWmDCzVffsQp65XCoPhOgNP/Pllf9DeUmcB0BSDnuOZOjVVsP
-	 WbfCXzzqVhLgSmUg5z37lYldEDNr29sd26VTDzmoLtUU8yJmDfhvKjyyioUiSlIS3c
-	 02FPVrahxHVdfdsmK48WvNXMXXL2RzHd89n7/5aKk1xcClq8YsYdSyijEbjynnATpm
-	 jqcLKPS0n4ysC4yAXvyg/t8hAEW8zQrjg8Lr6Tgwo7mt7WoAsjvNayBnOdI+jz9rwH
-	 P1gsBxCOvcDPSMUPTL839aWmJ5SRHMiXY/WB767WlQwVO4ftDJpbWdlAOpkOdkX1L7
-	 ZbktQigf/4+xLHrL47qlcb05szHhty8lKKMWMInCEeZszE+gKtbY+e6TjzuGfYV9cf
-	 tZskmBRytipv8WApv1K3c8KwqM/ezAXoaKcj4Eibtq6L3p4H/zZPnJDTavelkvkiZ/
-	 8WuyxnlvE4YJdLDwHkjVXseNIk5qBOtzyFJk6GocRpG99MihRjKEiE7cw3S+higgmR
-	 D29HX9FIX8qQ0HRg8sI7dPtw=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6848340E015D;
-	Fri, 25 Sep 2026 19:16:12 +0000 (UTC)
-Date: Fri, 25 Sep 2026 12:16:08 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Andrei Vagin <avagin@gmail.com>
-Cc: Andrei Vagin <avagin@google.com>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	"Chang S. Bae" <chang.seok.bae@intel.com>,
-	linux-kernel@vger.kernel.org, criu@lists.linux.dev,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH 6/7] x86/fpu: Pre-fault only required size of xstate
- buffer
-Message-ID: <20260925191608.GAarbIeDRVdrWMczbx@fat_crate.local>
-References: <20260924210121.87032-1-avagin@google.com>
- <20260924210121.87032-7-avagin@google.com>
- <20260925040215.GAarXyR6cUzn9OH4ZD@fat_crate.local>
- <CANaxB-yxzmDr3K4qQ+f-pVyUOjn8jKJeEydR7adi5N+_TiFHZg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rUVYScKV"
+Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-9142e0b0668so13887286d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:16:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790363816; x=1790968616; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P8eF+kTesN6ABi4qFLszfBvuUIZqOPzgqacuEmXgYpA=;
+        b=rUVYScKVOkQ+m70+eLmvAMIB/ImF2v73gQ9pEpToYLj5QwB7jotM6uUW/o/HTBh0KU
+         Fy4vOjwkEzR0+LcVIGPIHkAbSGlD/2RTxW9QFvRTwmnneY9RY34nNVVUVfZwLEOlh0SS
+         9jCOvalxTp6xfiNqOSUq8jGhVqoJvN3UXPC53QFmxwVbrLUZ2kCATrcbxGMEko35A34v
+         I0xQboEShNyQYpLToACbCscxBG2HlU7ouUxssWLCdSzLR/uVxF688DvtaG+L8NHvaCwX
+         LCu7+LKTaH/pvC9RM5TxsNofZ+WCXCZOH6ADI8kkfwG6UhtLtKy5ueD89wKjhhn9fjLj
+         OwFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790363816; x=1790968616;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P8eF+kTesN6ABi4qFLszfBvuUIZqOPzgqacuEmXgYpA=;
+        b=ny8AuJB+G1A3771tKk15cvj1a9JUbVvqXEE4cqWrXg16QC5SdMRFC9ihq8e+P+Q1ne
+         YYf4XwW3F+aZ+cXNL1pGtjzjOr1Ylu/cKpm6TBhhDhOGCpj35S5pyO3Pt2gbmxfo+a2S
+         hCNyNz3wbU6sTDPZFGnA9fV/BlM/1MRjr6iT6ytpK/XGd/xCugUMITtLsYedqb1LYGA3
+         pP9gL/HHpmyrfmzYM56NtrrPzI0NxDgWVEjTIzMRuSqLYJ6/U7toP590WXv4Vsar7ZOd
+         3ibOWMI879ZJTHC/kd2TjGfKh+s5NlTJlAwMfYWQ5bBtR7kPGiwROKOgg9pLQE6+Ry/6
+         pZuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzYSgttpKLENYQBNKpmdvsKwE4LzZsldCwFaFriU43/BUO5nRb3iM24Kdo3RKqgKxCNIgP480wEYwurMEc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSCM3vjZNFySmeC/sJNG1iwRD50cHywFoAJeCoa8p51AItZgvY
+	fPxNvrF2tnYKzhApmVkL3iZBJ1pJLfQaRbk0RVq8UuHqyWnCPnd/vRA=
+X-Gm-Gg: AYBFou3WwrgZvOQNc7kecr6m8PYwY+sWcC4QLbUg/DWNSuQzmTHgr/QILzsyuMlncn8
+	FdUPRnFLUp68ghNPN6tBfP/Foddjmng8JNep+HP8Nlzdz2/UoRhuJhwGb586irmPHCxvnblduVA
+	JCYAlaJj7Lvce/euKy1nP7UIJbACoO4iObgYJTWew0u00/MvY7YTRjqBeu3Wco41tIHiXi+m2Yb
+	Hsv9OEwgF0Q2D7hk0dpKinfsxyxeLv1ki6SMxa86kqlQ98xPWwoyzaVSf1lr2zTrtLB9FKKbQ2w
+	Oton0mlBsG9FGEz/RdrUP3wgbfuLgqKEbqhAiNrsE/JZ4qbFeRLagbiSSJP40E4q5qB19ORg21F
+	DNdx4iqbUkptw9dBaytgjlLUGcoQ+NWoEJleXFev7C+WVa2QkISCIs1oJGY4gWsVIV6IrW8paXn
+	H5QniwiKVR6MhllCW4MnJWQzxHcpKQNPxCVY7XjAXrpTQTkOwrNN2KAmunLNjIa6XXl92ZkP1cf
+	oUos1t0xitxb0OnuixqAuWUbUhVmp/rVpqihUQ2knDGjrkWmUpkdBWAdU92xYYfA0M9wFxmlp+e
+	Wea3UzbWJ5o48ehc9nP82c8WypMf
+X-Received: by 2002:a05:6214:4004:b0:912:5836:82cf with SMTP id 6a1803df08f44-9142f797f41mr59798056d6.27.1790363816086;
+        Fri, 25 Sep 2026 12:16:56 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914309a24c4sm24142666d6.6.2026.09.25.12.16.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 12:16:55 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] media: venus: fix HFI teardown races
+Date: Fri, 25 Sep 2026 15:16:51 -0400
+Message-ID: <20260925191653.3144006-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CANaxB-yxzmDr3K4qQ+f-pVyUOjn8jKJeEydR7adi5N+_TiFHZg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 09:51:03AM -0700, Andrei Vagin wrote:
-> I've sent v8.1, which is based on tip/fpu. In this version, I moved the
-> xstate_calculate_size prototype to arch/x86/include/asm/fpu/xstate.h.
-> This matches b84c96283684 to avoid the same problem when tip/x86/fpu and
-> tip/perf/core will be merged.
+As part of our ongoing static-analysis research, we reviewed the Venus
+teardown path and confirmed the race reported by Sashiko.
 
-Thanks, makes sense.
+This series fixes two HFI lifetime races during teardown. The first patch
+waits for the hard and threaded IRQ handlers before releasing HFI state.
+The second disables and drains recovery work so it cannot be requeued
+while HFI state is being torn down.
 
-Lemme queue them and see what conflicts I get.
+The later Sashiko report also identifies a separate resource leak when IRQ
+registration fails during probe. That issue is outside this series.
 
+Changes in v3:
+- Send through git send-email over SMTP. The v2 cover letter incorrectly
+  said git send-email was used; v2 was sent through the Gmail API, which
+  still wrapped the diff --git lines before delivery.
+- No code changes.
+
+Changes in v2:
+- Regenerated the patch files with git format-patch after the v1 mail
+  delivery wrapped the diff --git lines. No code changes.
+
+Myeonghun Pak (2):
+  media: venus: hfi: disable IRQ before freeing HFI device
+  media: venus: disable recovery work before HFI teardown
+
+ drivers/media/platform/qcom/venus/core.c      | 2 +-
+ drivers/media/platform/qcom/venus/hfi_venus.c | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+
+base-commit: 4efa625593e1e9c76346232413997556dea1d89f
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+2.53.0
