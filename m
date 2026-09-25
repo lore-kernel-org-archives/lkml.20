@@ -1,110 +1,147 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24DC3EC822;
-	Fri, 25 Sep 2026 17:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B623ADB89
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790357199; cv=none; b=GvSbkaNrDRap/RRb6MnO1hL1FRTuwOvPWSyZQbRQshbTLdw5ooBFxuO7insRVXNtoZABW/nGs1AGhBeTo/EeSWxXxGPFw4gpKUMSiVnJvNykKqYwc/NiOiLn3GebO47jXQqLYREy2QLyepKesT/MIuxazWYmbbJsOA6yjtawCF0=
+	t=1790357225; cv=none; b=W4TiiLZimlRzwW/EEcIMvecUQ0oNRGVGtyzn+5udx7rNrudG1t/aFdqqCmQGc+O4MwjI8WrqcDWhUGzbOpKMGx65gteflil9qfZcgoxDh/JfnsOAqX8DDUQQdwDuZC2Klpz0vzIfnNvb4oG9PBQjpzC/0Swb+mrFAngJzky39sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790357199; c=relaxed/simple;
-	bh=ZDIeDNrKSGITmzRvjeeUWbOrpGlqqvdGeO5BfxfjdZI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=jPVwz7Wocrrj3PiskwfE5mzua2wr3XDyhzJR61kazeR7MZwjfy2lZe5C9hQMmm1msOrvApQz/VHYXqE/JQVIxFWFj0Mn1aHQpnhn2WFbzfFq/0uOe8iKyckAeut2m8PsktoTMR4EzeSk6XPJhZIVo941iwUyKf2L+PQ1wY6jCew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=ckP3Vutd; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1790357225; c=relaxed/simple;
+	bh=xDh1Ss17oGJ0UYJjAazKqzsfdZ+kwOSaB4uaBWStnx4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oj//VIK4Ao0HiqlGQodD3LBn2/Rl/OWec0Vd9bxKgTIfuodHM4K9WaON2jZSE5JGttUMAfaO3PkwhWIYSzAYYqGPucqzdT6b7uOmjejt8Gmh+ZdPn7Ea+LiaXN5vX3pFBp6Ssop7Q9H5WNo9xfjr2oWoqGezlJ6NbU3TcczW5HU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfFKqsvK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="ckP3Vutd"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hryL50wwBz1XM4Tl;
-	Fri, 25 Sep 2026 17:26:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:content-language:references:from:from:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1790357190; x=1792949191; bh=QVplyjxbHwWiyaiEA6huSbJc
-	eEv7U3L3IXN1wwGbOE4=; b=ckP3VutdDoFelpjshEu6fl/n+7dnf+oR3lBXNxl3
-	zbU3N/BcjTqFswSuo0oUt4R6AlqF53BKkKNsarrRpqjXfM7kWgGZT2kWfPcbI8SQ
-	ryFOGiFGXIbHbjA9GGNBOGG8WGrzlYJ4c3cEDEXjdxPNqMTNUsZrS7bD3jsybbhs
-	XAeKXwNQiptBIHPGtG3pxNiEMUiVtNt8e+8XvSjWwGoa8EMSOX/+GkJRlAMdOdSE
-	HHxgnmWZScKQvHe1+54jba7hy3zrYbQYqTjO6apmZxqx7TwcicPYbrVfa/YSVyGO
-	6r+l9GSmFMXixs1wTOqwHf1z/eqD1NVcxdEvhMjF+wUTFg==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id uxZHYV3JltT7; Fri, 25 Sep 2026 17:26:30 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hryKt72Nfz1XM4Sx;
-	Fri, 25 Sep 2026 17:26:26 +0000 (UTC)
-Message-ID: <400fdf78-c021-4fa4-9024-6575e01bec89@acm.org>
-Date: Fri, 25 Sep 2026 10:26:25 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfFKqsvK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D95C1F000FF
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:27:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790357224;
+	bh=nrCZY+w8ZAuOgUKyJ5bzQ3lA0kZX185uW8oYwG5RuQA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UfFKqsvK75p5eO5B5LPWqx7YmtHZp5SiX1PFOsrb/Rw7u/0QFbVRoYO3MBcG/t5cL
+	 f0grYRNmRlCV/gnwPAuW3LI+ccOXT0MjTt7Y8FeHXxJ869jP4sIIJdGs5M2A3YPkRs
+	 ukh/P2eflHnEpauu+zEccKoAmEXT4qeEDi7o0bJS06Qz1CCYGEgXO5YqMpVQhl3no4
+	 lLRGB99pVq05PP0MRgcsH4//8wpFOz+qWgGYKGx2Z78V8f5l9jdhS4QzuPEDb8kFis
+	 pnJBNA0VYqlKgjIBYJuffADzzi0g5B+u1BB7AUPs4ANGSHG8KVd1IE7vW4tmTi93D2
+	 bENY6AcgbMT3A==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f16f15so1081841e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:27:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzP26udAFiwh67ZWlH89buGIkZBWpB1j29kAqzAH6E2MHZ7dEK+l9daj1yeGf4enQwhQXdaGu8mHVOEUMg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k34ZWfr0h3SwQKE01vehCv32kXcjTD8f83pfmpffrMJIrScumW
+	2eKV09QHuMmJJC/VRC5rXjlgSjv/d36Ad7bS1zU+j4QmoHHzWFRykdeLxrQ81YLdeoCKB9EMXaR
+	hi6nbwCRlS3aJAR8Ucfc6JXpzwBJvqNE=
+X-Received: by 2002:a05:651c:43dc:10b0:3a6:95a:52ab with SMTP id
+ 38308e7fff4ca-3a63c0e006emr12420831fa.18.1790357222990; Fri, 25 Sep 2026
+ 10:27:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] scsi: ufs: core: Decouple CQ sweep from request
- iterator in MCQ
-From: Bart Van Assche <bvanassche@acm.org>
-To: Stanley Jhu <stanleyjhu@google.com>, Peter Wang <peter.wang@mediatek.com>
-Cc: linux-scsi@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman
- <avri.altman@sandisk.com>, Bean Huo <beanhuo@micron.com>,
- "Bao D. Nguyen" <quic_nguyenb@quicinc.com>,
- Can Guo <can.guo@oss.qualcomm.com>, Manivannan Sadhasivam <mani@kernel.org>,
- linux-kernel@vger.kernel.org
-References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
- <20260918143809.3034592-1-stanleyjhu@google.com>
- <20260918143809.3034592-3-stanleyjhu@google.com>
- <1ddc5181-f547-465c-bfbe-dbf14a91493e@acm.org>
- <20260920135014.3528082-1-stanleyjhu@google.com>
- <e3538f10-fb9e-48ce-b48f-bca25c8f3d6c@acm.org>
- <bab059b9a2dfed258db23993b5a6b4aceca2da49.camel@mediatek.com>
- <df31eb82-7211-415a-9ec1-53ecbc3e39b0@acm.org>
- <f116f82d28f7af4cfca76adf5cff6093fdf393a2.camel@mediatek.com>
- <CAE14pdfbxX7BWzKg9z7ytB9rZPAp40ipXk8NPOdAp2Jv7eq6Xw@mail.gmail.com>
- <eac2f886-61af-4b3e-b237-88d59cc4eab3@acm.org>
-Content-Language: en-US
-In-Reply-To: <eac2f886-61af-4b3e-b237-88d59cc4eab3@acm.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <20260912191156.185448-1-sumeet4linux@gmail.com> <20260912191156.185448-5-sumeet4linux@gmail.com>
+In-Reply-To: <20260912191156.185448-5-sumeet4linux@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 25 Sep 2026 19:25:25 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0inzDfF5zNba7BHnq=-xTH1ucHvBv-bJSKXW0dTF71Q0g@mail.gmail.com>
+X-Gm-Features: AclHuK-zkJzcW3eTrPbI8n4uwvaOkU97xV6DSlSAXWBceH5EJVI8blUeGSzDawM
+Message-ID: <CAJZ5v0inzDfF5zNba7BHnq=-xTH1ucHvBv-bJSKXW0dTF71Q0g@mail.gmail.com>
+Subject: Re: [PATCH v2 4/5] thermal: Use %pe to print error pointers symbolically
+To: Sumeet Pawnikar <sumeet4linux@gmail.com>
+Cc: rafael@kernel.org, krzk@kernel.org, amit.kachhap@gmail.com, 
+	daniel.lezcano@kernel.org, thara.gopinath@gmail.com, talel@amazon.com, 
+	hayashi.kunihiko@socionext.com, mhiramat@kernel.org, mmayer@broadcom.com, 
+	viresh.kumar@linaro.org, sumitg@nvidia.com, peter.griffin@linaro.org, 
+	myungjoo.ham@samsung.com, kyungmin.park@samsung.com, cw00.choi@samsung.com, 
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, matthias.bgg@gmail.com, 
+	angelogioacchino.delregno@collabora.com, sven@kernel.org, j@jannau.net, 
+	marcan@marcan.st, casey.connolly@linaro.org, sre@kernel.org, wens@kernel.org, 
+	t.schramm@manjaro.org, bcm-kernel-feedback-list@broadcom.com, 
+	linux-samsung-soc@vger.kernel.org, kernel@pengutronix.de, imx@lists.linux.dev, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On 9/23/26 10:02 AM, Bart Van Assche wrote:
-> On 9/23/26 4:18 AM, Stanley Jhu wrote:
->> Would DID_RESET be a better fit after a controller reset (including
->> ufshcd_eh_timed_out() right after ufshcd_link_recovery()), similar
->> to mpi3mr_flush_scmd() and mpt3sas's _scsih_flush_running_cmds()?
->> It reports what the driver actually knows at that point without
->> pulling the command into the SCSI error handler.
->=20
-> Calling scsi_done() from a .eh_host_reset_handler() implementation is
-> not allowed because calling scsi_done() for a command that is on the
-> SCSI error handler list corrupts that list. One of the functions called
-> by scsi_done() is scsi_complete(). From that function:
->=20
->  =C2=A0=C2=A0=C2=A0=C2=A0INIT_LIST_HEAD(&cmd->eh_entry);
->=20
-> This corrupts the command lists maintained by the SCSI error handler,
-> e.g. work_q and done_q.
+On Sat, Sep 12, 2026 at 9:13=E2=80=AFPM Sumeet Pawnikar <sumeet4linux@gmail=
+.com> wrote:
+>
+> Replace PTR_ERR() and %ld with %pe and pass the original pointer directly
+> to pr_err() and dev_err(). The %pe format specifier prints a symbolic err=
+or
+> name (e.g. -ENOMEM) when CONFIG_SYMBOLIC_ERRNAME is enabled, otherwise it
+> falls back gracefully and prints the raw integer value. This makes messag=
+es
+> more readable without any functional change.
+>
+> Signed-off-by: Sumeet Pawnikar <sumeet4linux@gmail.com>
+> ---
+>  drivers/thermal/cpufreq_cooling.c        | 4 ++--
+>  drivers/thermal/devfreq_cooling.c        | 4 ++--
+>  drivers/thermal/qcom/qcom-spmi-adc-tm5.c | 4 ++--
+>  3 files changed, 6 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/thermal/cpufreq_cooling.c b/drivers/thermal/cpufreq_=
+cooling.c
+> index 768859a7aed0..856d619370db 100644
+> --- a/drivers/thermal/cpufreq_cooling.c
+> +++ b/drivers/thermal/cpufreq_cooling.c
+> @@ -661,8 +661,8 @@ of_cpufreq_cooling_register(struct cpufreq_policy *po=
+licy)
+>
+>                 cdev =3D __cpufreq_cooling_register(np, policy, em);
+>                 if (IS_ERR(cdev)) {
+> -                       pr_err("cpufreq_cooling: cpu%d failed to register=
+ as cooling device: %ld\n",
+> -                              policy->cpu, PTR_ERR(cdev));
+> +                       pr_err("cpufreq_cooling: cpu%d failed to register=
+ as cooling device: %pe\n",
+> +                              policy->cpu, cdev);
+>                         cdev =3D NULL;
+>                 }
+>         }
+> diff --git a/drivers/thermal/devfreq_cooling.c b/drivers/thermal/devfreq_=
+cooling.c
+> index 0330a8112832..9ada52cbf7dd 100644
+> --- a/drivers/thermal/devfreq_cooling.c
+> +++ b/drivers/thermal/devfreq_cooling.c
+> @@ -156,8 +156,8 @@ static unsigned long get_voltage(struct devfreq *df, =
+unsigned long freq)
+>                 opp =3D dev_pm_opp_find_freq_exact(dev, freq, false);
+>
+>         if (IS_ERR(opp)) {
+> -               dev_err_ratelimited(dev, "Failed to find OPP for frequenc=
+y %lu: %ld\n",
+> -                                   freq, PTR_ERR(opp));
+> +               dev_err_ratelimited(dev, "Failed to find OPP for frequenc=
+y %lu: %pe\n",
+> +                                   freq, opp);
+>                 return 0;
+>         }
+>
+> diff --git a/drivers/thermal/qcom/qcom-spmi-adc-tm5.c b/drivers/thermal/q=
+com/qcom-spmi-adc-tm5.c
+> index af72db6299cd..4554a6fa55d1 100644
+> --- a/drivers/thermal/qcom/qcom-spmi-adc-tm5.c
+> +++ b/drivers/thermal/qcom/qcom-spmi-adc-tm5.c
+> @@ -680,8 +680,8 @@ static int adc_tm5_register_tzd(struct adc_tm5_chip *=
+adc_tm)
+>                                 continue;
+>                         }
+>
+> -                       dev_err(adc_tm->dev, "Error registering TZ zone f=
+or channel %d: %ld\n",
+> -                               adc_tm->channels[i].channel, PTR_ERR(tzd)=
+);
+> +                       dev_err(adc_tm->dev, "Error registering TZ zone f=
+or channel %d: %pe\n",
+> +                               adc_tm->channels[i].channel, tzd);
+>                         return PTR_ERR(tzd);
+>                 }
+>                 adc_tm->channels[i].tzd =3D tzd;
+> --
 
-A correction: the INIT_LIST_HEAD(&cmd->eh_entry) statement is not
-reached while SCSI host recovery is in progress because
-SCMD_STATE_COMPLETE is set for all pending commands before the SCSI
-host recovery starts. scsi_done() skips SCSI commands for which that
-bit is set due to the following code:
-
-	if (unlikely(test_and_set_bit(SCMD_STATE_COMPLETE, &cmd->state)))
-		return;
-
-Hence, the scmd->result value is ignored if scsi_done() is called
-while SCSI host recovery is in progress.
-
-Bart.
+Applied as 7.4 material, thanks!
