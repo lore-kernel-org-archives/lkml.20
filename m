@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB17477E58
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 861483B0582
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:22:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790328086; cv=none; b=kYBmLek2CzMZmNuNOyScShGfDKTbNhkWJ3D5sH85OOopcUN/uu8NDMjGcwGTU86sfufX0kXp1F5mivQlsobne/yeY0uUiQunKUTjK0UY2mSxo47LqY5nghrpbmEY3S9bjL0KqiMGTD9GXK1H7BHHTqRRiaw0mqDYFmxjP2R5kYs=
+	t=1790328128; cv=none; b=ls7Gj66EaSK33U/xLxE8NCKHIWDmcuv4FiEIsJw4gyZTnht7pZ64FVL7K/kDQygu5nD/kKnGcwAY2f5mKf9RG6xwJV5S8nTdsRWcYHXRkcf7uFtp2Y4uZH8sxrqFsc4GC1QxNvNoGE7sCNotXTT16cwKe2ykbSxGDkgr8XaF8q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790328086; c=relaxed/simple;
-	bh=mvedpIxak0Fnzj/mZY4251qn7YJgCBi9zAfCHtRMKVM=;
+	s=arc-20240116; t=1790328128; c=relaxed/simple;
+	bh=vvsH/jsy0p9RrLtoELsLs64nRul6iFMtU+55j8ZDHK8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=URoO6kNXtB2Sl9fNGWJAhoL5oMsYqJsFu0Y43hWmlLjMQSPU3Y4TVCr7YNbBmAEHXztsz/igmsiuA3JSYlFxP4kZ4S/6/GvXmOS1kOVijKBs2sD8VUF0G0iGimiAhx2II8tJznCyjRV+vzBbw7VZ7aUbxcVAE68Z6PtdZtUc1Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fRTYy2jv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NFDGXV22; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=nf9rYXG53dqLq46LSKUPc3YH6AMyVSB+QMTqAYRudqEKPoUrJoXahl/wz6NuGUiA2qtxrtOMFwYFwIAc9CJm1bPDxsYXj1jnFyjSBDLID7dWbgG2mN718nSpHDIHdAIhfHcB594xfdeMUxkhKssdvrgTcaipHcCevyN/1CH2rss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YWQAfP+/; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fRTYy2jv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NFDGXV22"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YWpl1055788
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:21:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RBsfdl/T6Ue4W2/aqLwt1CKH7MzyP/xPKpBBNUg1PjI=; b=fRTYy2jvZM+gocIf
-	Anjg/IjTKq5zbwrdhfH419Jt9409fi3VgGXtPuFwOFCnhHnXB/O2OMFELzUd+LGU
-	qidQpL17GbphNSW2n46rTQBteVN+Fd0wWNmJU82LS06qVnGSC4L5nyMtdsYiy4sw
-	3hdh0/99kT4e4y2WluAK8vsczO9uDilKk1njvv9dkGBwlVJJUf8PSxf3+3G9hSCG
-	6UTveLjrwCTzrMVmTNBU5IPZW9P1X2pytvwd531JXQ5yZrX4WHxDzg/oTiCYUJzc
-	jvf0XzQU1Bpc59PbAptplKXqsKbU/OlGF7xlk5j97AWuBSsP2jl/c/SBJwOAv9bP
-	4GgaMA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwce79t7n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:21:20 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-342217d8d53so444289eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:21:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790328080; x=1790932880; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RBsfdl/T6Ue4W2/aqLwt1CKH7MzyP/xPKpBBNUg1PjI=;
-        b=NFDGXV22LJtS3zJ380XsL2sMxKlYapYiicnk/oPEEt1tPpeqq3wX1cD67fgtB5HwjG
-         m4xUiaOsHNI9PKW1CL3oGORisgq6P9PmdKH8X0hnunxciW6nnUx9vaIv3CCHkrO12enz
-         A4nvPn1HjsaAlE6zABQLkU1EXXey+FfJmWkXpi+DadF74XvHvqv3SuQzclFSExjBOUOL
-         r2DNl2GoZ+GiJt7dS3yqZlFjuG9bQE3YccO77D9CVrkyn/qm2N/PbVcQeiE7BzAd+7Lz
-         fq5P2pKnx543iMcj8mlX7W1gltQO/sS/G+dfzT+fgVlZANlLccHufeauu3esKjEMHyQa
-         g5+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790328080; x=1790932880;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RBsfdl/T6Ue4W2/aqLwt1CKH7MzyP/xPKpBBNUg1PjI=;
-        b=ZZIeDiKwM/Q8KtB9f1fL8WDRluHJzTqVRh0U4WybQcu3v72t41okJ/yiHTZua2PTG8
-         lwB4vhYuuAWD2EhYbiGGX/YcOgfPKmEaqpwl6AHLA00Cd5jZgquu2kd9pRmHVcPLNMqD
-         EaWWx7ORfNWbxZ7mtifSBhB37udnZCTRtw45gopBIWeedvWG8lsqXgIr/U6HHWuvY6DP
-         BiMPVnqkJiwz8M2WXdyxRJn4exwd0XHqn3ZWBEyTG8kcf0mVATVhNrryzPz8fZfOsUmK
-         5t0TyHDpSz2UWlkkbZr8fvHtihf+FJF6/ogLp8nD8nQk1eaOvpki9NtQEoNyklN3hgWd
-         BlGw==
-X-Forwarded-Encrypted: i=1; AKwUvBzzzyYR7aNyCiovBaI14EBjWRkBGCISVAF76iFkvRa11PsZALsQs0RSOIqOs9286D8hWAg+79ugdGvtED4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqiQ+8n0bcu40olk0Hvz3NevG658nP3Ur5K9LODHfPakZtuDe5
-	xZzRtY+YsxQl99IYTooRoip5/HVp/TfR4nbN6jX/UU4mZJm8MmpUidY1wYAS7wekHNaWMDVk9ax
-	wp/EEUL/2rGNAIY7izrd+iDWPaWlVdsWfwMQc90jhinOCZc/JAk07hx3scmdnuDEcs2M=
-X-Gm-Gg: AYBFou34Lt6ODsK10D7APU4UFQBxulDS+UVudHtRrruvPgP30f8TdK8jkUgn5eZ2Unt
-	xOwB6+BsFuo0OhzXtzIFvovVgy8AJ1yZYFc2jGOpKCkxZG6o4vn1//3joUWwcg96f00slEr7OeY
-	dmb8ejLlueQpZYtxFFPO1tgUrg6J2locO90gfhNXfOHqfLOxWjhr/J3/wRnfM0YpVUKyHj8juQQ
-	OaDTnScg22A9ULFlMcG/Jo1w/mssiqtseR4koPcoQ5oHoYMYx0967Kd+pmCOBq6mRTf3OMrrO2U
-	oHGuVvIZt0+YbGcTiMC6zfo2wTmDYjH+3KylUbTrFMdIRCouqAB974XUt++Vo3ZMgniy2Atm6pg
-	p1SN1tHiRG9F46PYrYrC6V/HalImq
-X-Received: by 2002:a05:7301:618c:10b0:341:ea04:4102 with SMTP id 5a478bee46e88-341ea0445b5mr810784eec.19.1790328079328;
-        Fri, 25 Sep 2026 02:21:19 -0700 (PDT)
-X-Received: by 2002:a05:7301:618c:10b0:341:ea04:4102 with SMTP id 5a478bee46e88-341ea0445b5mr810746eec.19.1790328078540;
-        Fri, 25 Sep 2026 02:21:18 -0700 (PDT)
-Received: from [192.168.1.25] ([122.183.173.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757263sm4813814eec.12.2026.09.25.02.21.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 02:21:18 -0700 (PDT)
-Message-ID: <8ea976cd-b012-4ae6-a74b-b5c2dceaecbc@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 14:51:11 +0530
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YWQAfP+/"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D76F71688;
+	Fri, 25 Sep 2026 02:22:00 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 297283F86C;
+	Fri, 25 Sep 2026 02:22:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790328124; bh=vvsH/jsy0p9RrLtoELsLs64nRul6iFMtU+55j8ZDHK8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YWQAfP+/lL054XUPcunay8V7CV83HKV0gj7w9Me3wDmcY4WYSKp2e6L4c/UrD8rXj
+	 YzsmT9PEI7ClMQNYb8byBScTZWPrRwHKeoum/yUy+ksIMRCf/1Gccko0slkAZjK+FU
+	 QTLYwQ+11S3bwZUa31sItFEj4mqMMlWI5hmHqRb8=
+Message-ID: <05714056-53b7-46ce-86eb-fdb7d2afe1fa@arm.com>
+Date: Fri, 25 Sep 2026 10:22:00 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,101 +35,162 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/8] ASoC: qcom: lpass-va-macro: Add SoundWire
- microphone support
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ajay.nandam@oss.qualcomm.com
-References: <20260922-add_shikra_support-v1-0-6c6cb6444caf@oss.qualcomm.com>
- <20260922-add_shikra_support-v1-5-6c6cb6444caf@oss.qualcomm.com>
+Subject: Re: [PATCH v4] KVM: arm64: Trap guest MPAM accesses whenever MPAM is
+ implemented
+To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
+ Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+Cc: James Morse <james.morse@arm.com>, Xi Ruoyao <xry111@xry111.site>,
+ Mark Rutland <mark.rutland@arm.com>, Joey Gouly <joey.gouly@arm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
+ <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
+ Gavin Shan <gshan@redhat.com>, Yuan Yao <yaoyuan@linux.alibaba.com>,
+ Fuad Tabba <tabba@google.com>, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260924165329.1684155-1-fuad.tabba@linux.dev>
 Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <20260922-add_shikra_support-v1-5-6c6cb6444caf@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20260924165329.1684155-1-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: leYROTq93zNULjDCLOqC0_FwZrKZ9esG
-X-Proofpoint-ORIG-GUID: leYROTq93zNULjDCLOqC0_FwZrKZ9esG
-X-Authority-Analysis: v=2.4 cv=NJFAaE6g c=1 sm=1 tr=0 ts=6ab63d10 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=uk8ae9/F1LYL5lfeGCaUoA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=ohAgsov0r_a2WbmJIscA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzNyBTYWx0ZWRfXxT1OTX25E0RO
- aeESOjj2QCIkwbvsYDA7lfdVn1Y+TAM4G+etU+L4L6zUhI5ZItJN9KVrQ7yA1J9rKAAal4QvkoZ
- 5NvQ6PtQfIuLxvDR2iB63FfXHk21/kPBdFSfkufIRm1B5oDXgth0m1tU69FZwbPKKC+TWyNhJOj
- xgdXkgnl9bzissOcTeLXI4xNnE+cxwn5lH7wcw0JFUGgRabh1VYOd21NpWAhL6LXINynojNKgP9
- CxIgvkH0wDoU3L8Fvd4iIGxIa2gWV/xnmX3q28UIFguj4ZRdBXUe0/OM7Hk7uVPZNFF3Dx2A63m
- reyPmkZnBjc4zitdTqCfkK+5rqHeP3wdHHi19vrFilr00sd2d90BHTDZ6AGQurVYBu7ngdHPTUB
- Ig1BckYpDh1gbLvum1y4IfcC//EL+HCSyMQMHfopWbpaR0HH0ddzABGzUG5tlh4777j5bY/wCFs
- IpG5g/3W2eSO4vhcc0A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzNyBTYWx0ZWRfXwzjw/YaiJsUO
- fL/PbBovuIJbC0fIEXSXj857koX0Kimmfh3M10v9n7npuB3kgCTOGyZT8s8kWfuGOl3A07KJKXN
- BqnWCgLsVyZKElgR6qrWmtY8dnFhmXo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 priorityscore=1501 bulkscore=0 spamscore=0
- phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250037
 
+Hi Fuad,
 
+On 24/09/2026 17:53, Fuad Tabba wrote:
+> finalise_el2_state() clears the EL2 MPAM traps on every CPU whose ID
+> registers, with the arm64.nompam override applied, advertise MPAM.
+> KVM sets the traps again on guest entry, but only when the ARM64_MPAM
+> capability is set, and that capability also requires
+> MPAM1_EL1.MPAMEN. MPAMEN is writable only at the highest implemented
+> exception level. Without EL3 that is MPAM2_EL2.MPAMEN, which the
+> kernel does not set, so ARM64_MPAM is never set either and the traps
+> stay clear. A guest on such a machine can access MPAM0_EL1,
 
-On 9/22/2026 3:12 PM, Mohammad Rafi Shaik wrote:
-> The VA decimators can currently capture audio only from DMIC inputs.
-> Add support for routing audio from SoundWire microphone (SMIC) inputs
-> as well.
+IIUC, this patch also covers the mismatched system case where EL3 f/w may set MPAMEN for cpus that
+support MPAM but system_supports_mpam() returns false.
+
+> MPAM1_EL1, MPAMSM_EL1 and MPAMIDR_EL1 while its ID_AA64PFR0_EL1.MPAM
+> reads 0.
 > 
-> Update the decimator source selection logic to switch between DMIC and
-> SMIC sources based on the active input path.
+> Set the traps under the condition finalise_el2_state() clears them:
+> record per CPU whether its ID registers, with the override applied,
+> advertise MPAM, and whether MPAMIDR_EL1.HAS_HCR is set, since
+> MPAMHCR_EL2 is UNDEFINED without it. MPAMEN does not appear in the
+> conditions that trap an MPAM register access to EL2, so the traps
+> take effect whether or not it is set.
 > 
-> The ADC_DMIC_SEL bit of CDC_VA_TXn_TX_PATH_CFG0 is shared by the DMIC and
-> the SoundWire mic mux, so a mixer write to the mux that is not part of the
-> active path can leave it stale. Program it from the resolved mux state
-> when the decimator is enabled, so capture does not depend on the order in
-> which userspace restores the two controls.
-> 
-> Add a helper to detect whether a decimator is using a SoundWire microphone
-> input. Use this information to skip DMIC-specific HPF programming sequences
-> when the decimator is configured for an SMIC source.
-> 
-> This enables VA decimators to capture audio from either DMIC or SoundWire
-> microphone inputs.
-> 
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Fixes: 31ff96c38ea3 ("KVM: arm64: Fix missing traps of guest accesses to the MPAM registers")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+
+Thanks,
+
+Ben
+
 > ---
-
-> +		if (!is_amic_enabled(comp, decimator))
-> +			snd_soc_component_update_bits(comp, hpf_gate_reg,
-> +						      CDC_VA_TX_HPF_ZERO_GATE_MASK,
-> +						      CDC_VA_TX_HPF_ZERO_GATE);
->   
->   		usleep_range(1000, 1010);
->   		hpf_cut_off_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
-> @@ -1046,7 +1079,6 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
->   				0x0);
->   		}
+> 
+> Notes:
+>     Changes since v3:
+>      - MPAMIDR_EL1.HAS_HCR probed once at CPU init into a second flag,
+>        HAS_MPAM_HCR, instead of read on every guest entry and exit (Marc).
+>      - A comment on why the ID registers are read through
+>        __read_sysreg_by_encoding() (Marc).
+>      - Commit message reworded around MPAMEN being writable only at the
+>        highest implemented exception level (Ben).
+>      - Ben's Reviewed-by dropped, since the MPAMHCR_EL2 test changed.
+>     
+>     Based on Linux 7.3-rc1 (cee9395acd80).
+>     
+>     v3: https://lore.kernel.org/all/20260911104715.307500-1-fuad.tabba@linux.dev/
+>     v2: https://lore.kernel.org/all/20260908145651.2828597-1-fuad.tabba@linux.dev/
+>     v1: https://lore.kernel.org/all/20260903160819.831518-1-fuad.tabba@linux.dev/
+> 
+>  arch/arm64/include/asm/kvm_host.h       |  2 ++
+>  arch/arm64/kvm/arm.c                    | 13 +++++++++++++
+>  arch/arm64/kvm/hyp/include/hyp/switch.h | 13 ++++++++-----
+>  3 files changed, 23 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 27fe0cd5b2d7a..3f5b347093fe8 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -755,6 +755,8 @@ struct kvm_host_data {
+>  #define KVM_HOST_DATA_FLAG_VCPU_IN_HYP_CONTEXT		4
+>  #define KVM_HOST_DATA_FLAG_L1_VNCR_MAPPED		5
+>  #define KVM_HOST_DATA_FLAG_HAS_BRBE			6
+> +#define KVM_HOST_DATA_FLAG_HAS_MPAM			7
+> +#define KVM_HOST_DATA_FLAG_HAS_MPAM_HCR			8
+>  	unsigned long flags;
 >  
+>  	struct kvm_cpu_context host_ctxt;
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 8b080804bc90b..9677d234e17b1 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -2281,9 +2281,22 @@ static void cpu_set_hyp_vector(void)
+>  
+>  static void cpu_hyp_init_context(void)
+>  {
+> +	u64 pfr0 = __read_sysreg_by_encoding(SYS_ID_AA64PFR0_EL1);
+> +	u64 pfr1 = __read_sysreg_by_encoding(SYS_ID_AA64PFR1_EL1);
+> +
+>  	kvm_init_host_cpu_context(host_data_ptr(host_ctxt));
+>  	kvm_init_host_debug_data();
+>  
+> +	/*
+> +	 * The ID registers are read above with the arm64.nompam override
+> +	 * applied, as finalise_el2_state() reads them.
+> +	 */
+> +	if (id_aa64pfr0_mpam(pfr0) || id_aa64pfr1_mpamfrac(pfr1)) {
+> +		host_data_set_flag(HAS_MPAM);
+> +		if (read_sysreg_s(SYS_MPAMIDR_EL1) & MPAMIDR_EL1_HAS_HCR)
+> +			host_data_set_flag(HAS_MPAM_HCR);
+> +	}
+> +
+>  	if (!is_kernel_in_hyp_mode())
+>  		cpu_init_hyp_mode();
+>  }
+> diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
+> index 1ce7130e25490..c7adf8c206d84 100644
+> --- a/arch/arm64/kvm/hyp/include/hyp/switch.h
+> +++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
+> @@ -298,14 +298,17 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
+>  	u64 clr = MPAM2_EL2_EnMPAMSM;
+>  	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
+>  
+> -	if (!system_supports_mpam())
+> +	if (!host_data_test_flag(HAS_MPAM))
+>  		return;
+>  
+>  	/* trap guest access to MPAMIDR_EL1 */
+> -	if (system_supports_mpam_hcr()) {
+> +	if (host_data_test_flag(HAS_MPAM_HCR)) {
+>  		write_sysreg_s(MPAMHCR_EL2_TRAP_MPAMIDR_EL1, SYS_MPAMHCR_EL2);
+>  	} else {
+> -		/* From v1.1 TIDR can trap MPAMIDR, set it unconditionally */
+> +		/*
+> +		 * TIDR is RES0 without MPAMIDR_EL1.HAS_TIDR, which MPAM v1.0
+> +		 * prohibits: such a PE without HAS_HCR can't trap MPAMIDR_EL1.
+> +		 */
+>  		set |= MPAM2_EL2_TIDR;
+>  	}
+>  
+> @@ -317,12 +320,12 @@ static inline void __deactivate_traps_mpam(void)
+>  	u64 clr = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1 | MPAM2_EL2_TIDR;
+>  	u64 set = MPAM2_EL2_EnMPAMSM;
+>  
+> -	if (!system_supports_mpam())
+> +	if (!host_data_test_flag(HAS_MPAM))
+>  		return;
+>  
+>  	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
+>  
+> -	if (system_supports_mpam_hcr())
+> +	if (host_data_test_flag(HAS_MPAM_HCR))
+>  		write_sysreg_s(MPAMHCR_HOST_FLAGS, SYS_MPAMHCR_EL2);
+>  }
+>  
+> 
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 
-The commit message says the DMIC-specific HPF programming sequence is 
-skipped for SMIC paths. However, this only skips the initial ZERO_GATE 
-write; the cutoff programming and the later ZERO_GATE clear still run 
-unconditionally.
-
-Is only the ZERO_GATE assertion DMIC-specific, or should the whole HPF
-set/program/clear sequence be under the same `!is_amic_enabled() condition?
-
-Thanks
-Ajay Kumar Nandam
-
-> -
