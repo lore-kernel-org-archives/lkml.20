@@ -1,111 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88FB3839A1;
-	Fri, 25 Sep 2026 08:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A7B2DC331;
+	Fri, 25 Sep 2026 08:16:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790324119; cv=none; b=D2IuW3/gROFFLVzSaQ3UHHokdhWzCbQ1x+YapJx4XcW4M5nvtgn/wm/J1qlFxgr6vWh5LVOeO/hUfH+hdnc8F4ln7RcEpDCRh320fYQlbipQkz1qicstCBqkplEl+wqoJ8LEa1Tjlc6yBaQ4UauGRkz9jnQjDev8Ll1D/hU8aTw=
+	t=1790324175; cv=none; b=gha3kEpK0hnXVQ7OS+RRCnjnyYVJwZmGrHLKYfsp/aTax8Ai+oou3f0r5N9SrCM40Wcqgzk5WzBcPhmyfSpk5ie4hAM9opABJrjLoubAT35pdeigliEctb0CP7rzC1BUD8WyB2X4zwayEWinD2a+ZqmaSk2FHRTJJsWQpY8Rm6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790324119; c=relaxed/simple;
-	bh=Sq/MD1CFF/lMn7OeW4eS8v+dN6o67iz5k9bCvyWWybs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=GD+Ulrd0c0IvUF04V4IVqKALkEvBbhFDBLU6hTQor0erGHJJgNBCYa+Wv0+afJiES5EAvNMbgsMjTlOALyz5WO5D1YdDz2msBWu44YoKYj4+PZOOU5Vyy9Tdi+z3T/keVvRurEOh4LAn2Z3i1nTZ+jXUzNDQ1JUcppctg95ralA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ErBo7dVP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790324175; c=relaxed/simple;
+	bh=tKNPfsJ9mISILplX5VTvMd+rNVJMBKard5iwZiAOBFY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qIlmY0D7Glrps3KBxoLGZN2LbxhRvOOJoLsTLTlKVxFns5zEvl1fCd0+9iE7o6N9FPbXXxEuUIwyYluOriNrL6eO2NaR96YIAIF+5Up77WG3W4Vs+4GjIjsnnrmqpHwWp/7SziMBMuVh9+dZCKLaVqSs2hERPQKNOvne4Y6MBz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=efwBXqkK; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ErBo7dVP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA541F000FF;
-	Fri, 25 Sep 2026 08:15:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790324117;
-	bh=TMnV0+CZTZ3CTcbhvPznc395O+R0dQa3TL8v5SgEixY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ErBo7dVPdwX4a8pOrt/GeYLdIw8Y6TfCZvXL2/lgy+ZkP5xgsoVP0UiqtFyWiFOll
-	 +7+fJLVfMrHcQyjAcz/U+MJPQjvAqwh27T+EenszutG4VzbQaTwdh03iyops8WAk0f
-	 81XfYLQZhNwqZAItsJGjSc5UycIKJqcTql52R0Z9xOQt+oKbznnzo8j8UxWwE9P9Sw
-	 XKdxRsYFshQVCfxTSKM26ZLpgefIwvaSM6S9xvOOsXrqksnI/Cu83+PwmfsC9UMgVv
-	 PNbwaNIGuxRFSoVqqmxGIAhDI1n4v0LgfNMiApdccol1Yn9a25Z8ucYOXEKKPg74ZD
-	 IY1VJcm7Hp4PQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-coco@lists.linux.dev, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [RFC PATCH v6 11/11] PCI/TSM: Add reference-counted contexts
- for vdevice providers
-In-Reply-To: <179027891417.104879.16761593878106297870.b4-review@b4>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <20260917140159.1163281-12-aneesh.kumar@kernel.org>
- <179027891417.104879.16761593878106297870.b4-review@b4>
-Date: Fri, 25 Sep 2026 13:45:08 +0530
-Message-ID: <yq5a5wztkar7.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="efwBXqkK"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 231471A1018;
+	Fri, 25 Sep 2026 08:16:10 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DDC4F6073B;
+	Fri, 25 Sep 2026 08:16:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9CEE210329139;
+	Fri, 25 Sep 2026 10:16:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790324168; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=x+RDaa4Ywv949YblYO9XAtuVXj1k1GMS39cDkHKcyo8=;
+	b=efwBXqkKtUYUaC+svsL2+ozQ0lAJ8mYz9WbrvauU20N+yE3LFKTQ28X6XU1vrgk7Uw/trT
+	geVHw2KggL4DyCKPSoFXPvvWBQHGj3uj2Kq6Fc3WJQrW5O6itIa87odqe+cZ5DanjJFYRn
+	f4hO2DbXsgm/PiT/gb9NBqhMxa4BunECOEv9doHc1B8ZKuXBhih71uKIrph067lj2AN5OI
+	hiT3Jo5GLw6SzScMDrtW9AMO8ej05qCmP/uswygFMC2kNVxXjzWFUeOINpfK9hFk2MOyee
+	2roZ4Y7vnIN89pRL6Rf1CNdTTrPknm/YykKJHXG2Jwmvr3atT9jWghOJu9KutA==
+From: "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
+Subject: [PATCH 6.1.y 0/2] netfilter: nf_tables: join hook list via
+ splice_list_rcu() in commit phase
+Date: Fri, 25 Sep 2026 10:15:43 +0200
+Message-Id: <20260925-cve-2026-52988-6-1-v1-0-ff64026f03ff@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3ZJu0gBX8V4gLLAekDTKtEQ3
+ t0ix2+S+VdECSoRl2xFkEWjPuYEe8rgp3YehbRPBht2puGS/CK0g0pu6pocWRrOBZvOmaKtKqT
+ jM8ign3/0Cpfb/IvbMcd3dxf/2oPYth/DS1TofQAAAA==
+X-Change-ID: 20260925-cve-2026-52988-6-1-f4320b603a77
+To: stable@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <quic_neeraju@quicinc.com>, 
+ Josh Triplett <josh@joshtriplett.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, 
+ Joel Fernandes <joel@joelfernandes.org>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: thomas.petazzoni@bootlin.com, rcu@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ coreteam@netfilter.org, netdev@vger.kernel.org, 
+ "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>, 
+ Sasha Levin <sashal@kernel.org>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-Jason Gunthorpe <jgg@nvidia.com> writes:
+I backported an additional patch, which adds list_splice_rcu(), which is
+required.
 
->> [ ... 32 lines skipped ... ]
->> @@ -676,17 +679,21 @@ Description:	(RO) Return PCI device name of this device's DSM (Device
->>  
->>  What:		/sys/bus/pci/devices/.../tsm/bound
->>  Contact:	linux-coco@lists.linux.dev
->> -Description:	(RO) Return the device name of the TSM when the device is in a
->> -		TDISP (TEE Device Interface Security Protocol) operational state
->> -		(LOCKED, RUN, or ERROR, not UNLOCKED). Bound devices consume
->> -		platform TSM resources and depend on the device's configuration
->> -		(e.g. BME (Bus Master Enable) and MSE (Memory Space Enable)
->> -		among other settings) to remain stable for the duration of the
->> -		bound state. This attribute is only visible for devices that
->> -		support TDISP operation, and it is only populated after
->> -		successful connect and TSM bind. The TSM bind operation is
->> -		initiated by VFIO/IOMMUFD. This is a "link" TSM attribute, see
->> -		Documentation/ABI/testing/sysfs-class-tsm.
->> +Description:	(RO) Return the device name of the TSM when this PCI function
->> +		has a successfully initialized TSM-backed vdevice binding, or
->> +		an empty line when no such binding exists. The binding is
->> +		established through VFIO/IOMMUFD and remains visible until
->> +		the provider releases its context during vdevice teardown.
->> +		Merely connecting the device to a TSM or acquiring a context
->> +		does not establish a binding. Bindings of other functions
->> +		managed by the same DSM do not affect this attribute.
->> +
->> +		This reports the binding lifetime, not the current TDISP
->> +		(TEE Device Interface Security Protocol) state. A bound vdevice
->> +		may be UNLOCKED, and TDISP lock/unlock transitions do not
->> +		change this attribute. This attribute is only visible for
->> +		devices that support TDISP operation. This is a "link" TSM
->> +		attribute, see Documentation/ABI/testing/sysfs-class-tsm.
->
-> Should we just delete this sysfs instead of torturing the code to
-> implement it?
->
-> Why would anyone ever read it? What purpose would it serve to read it?
->
-> Leaking the iommufd vdevice outside the iommufd world is a horrible
-> idea from a lifetime perspective. We should only do it with an
-> incredibly strong reason. A debugging sysfs should be deleted. We can
-> create a debugfs around the viommu if that is really important,
-> somehow I doubt it is..
+Signed-off-by: Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
+---
+Pablo Neira Ayuso (2):
+      rculist: add list_splice_rcu() for private lists
+      netfilter: nf_tables: join hook list via splice_list_rcu() in commit phase
 
-OK, I will drop support for the "tsm/bound" sysfs attribute.
+ include/linux/rculist.h       | 29 +++++++++++++++++++++++++++++
+ net/netfilter/nf_tables_api.c |  4 ++--
+ 2 files changed, 31 insertions(+), 2 deletions(-)
+---
+base-commit: 1a8763b93150b2c8f3992c27a5ce7857fee4ab0f
+change-id: 20260925-cve-2026-52988-6-1-f4320b603a77
 
--aneesh
+Best regards,
+--  
+Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
+
