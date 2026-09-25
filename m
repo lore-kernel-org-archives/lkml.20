@@ -1,158 +1,165 @@
-Received: from outbound.pv.icloud.com (pv-2006a-snip4-10.eps.apple.com [57.103.67.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372BC3A7820
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.67.32
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354939; cv=none; b=Oj7i7KyA3odkkzbUyjKn/yifJGu8VK8tiTrw2OY0y8Jso0HnV6xLPa3bvOoZxCoD4VZBTRykm/dw9m+ohh02mxN27oNHPdyfDt8hpRGk4/8hImPkYPlQY22qGHPxafbTycWj5H4M3NkMdw/s9jWH4KncpylMV/CuGJ0K72PXNbY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354939; c=relaxed/simple;
-	bh=d0EAaselWhtwFqQjs//oTuOpV3lYDMw4jQFD5eFN+no=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hPFprZ+uku9cxKi8QJ5CLC25lZyBk+hL+PBSSQAknHLRHTHvZYqZXjkGUHwiNOvRz4hX5Csf0PUVldERxnK3Ulga2a/N+0+f+dHrdz2VbSwLr8UXsBg8YhP2ytEQobyreRhV8Bf+BJn7tB9uLgka8rQmFH/t49cG0PKzFCuQy70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=matias.me; spf=pass smtp.mailfrom=matias.me; dkim=pass (2048-bit key) header.d=matias.me header.i=@matias.me header.b=QGJobpvv; arc=none smtp.client-ip=57.103.67.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=matias.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matias.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746113B1017
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.167
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790355084; cv=pass; b=rPxeFPVlWAu2Dkwdb55TTwve9yom2CepJ3JweLz6KTQuNKujjLp8ng8vSQ4VMpfQDtfSwKLR4AMinJ0eCiYAd8It+oIrV54JZurjZQnQoeuJ/Y3S82M2KeSTrdAQHO1d6xaYfKJoVmPk0ER26PG8TFpy1+q+xGg3ssUmDl/KtdQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790355084; c=relaxed/simple;
+	bh=23wAQ5ZWAzix9d03eE68AP/f5zvLg5ULDLy11oTgET8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n7th4mJKgF0LYj4pyhdoRmI9Jp3/plEJluUIxD4IQH1IZTPP7jK+x5j2ykHljY46gjcCY4kh8YuNLX3Aep3ru7yMXsQKLRFVbJUPWnWgOPzyMEMRo8cOaEil52FoH4CY9Jo/Mr3iFY/SeSho8GGYq0jo98mJQoD4T9JTcuXN1UA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qDzFITpr; arc=pass smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=matias.me header.i=@matias.me header.b="QGJobpvv"
-Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-10-percent-2 (Postfix) with ESMTPS id 9197818000AC;
-	Fri, 25 Sep 2026 16:48:31 +0000 (UTC)
-X-ICL-RepId: 01a0d977-f084-7be2-b406-d702d9c8146a
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhAAkMDWBxBDUAdVQFLVxQEEFYBWwRyHVgMWgxERV8VGR5XUFoKRhlYCx0AUktAEwRJAk1fDl4fBBdGGVUERx5dVkMbGQJRHFYNV0NUBF9QSQxBUGxaAEcXSB1dGVlvUF0cDgBWH1sRSlZeCBcGWxQERAFdBV0CSQtNAlsDUwBDF0ACVQNZH0EUEFYBWwRyHVgMWgxERV8VB1hHFEcODxNMC0cCWjRWH1QZWgM=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=matias.me; s=sig1; t=1790354919; x=1792946919; bh=pKrb+00BnD56KGeauHWqxEBRwP61f6KPp4UQvsrluyY=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=QGJobpvviDSGonyo1O6QX50oBa0fHebgjDaxdv935rlRs8OAj3ikgBt2BD1CO5rWhCwXkv4cDp23dIFv37UgoloKOwg4xe2LPAAb6E15ZfxoS4s05uXbz8vxgLGCqfOrHoMj7GP+yhku6Pk0sOINxBoxf+xOQJ81yZwlQOIct7bMkC+bmszBJiNoOO8DfHEwuI7A09V7aUwdj9qg/WHXg2W11tvvBFOS6laDNxpRL506A5E70xjuOkifpadalyXPTG4h63TpSA1/ePOTCPZNG+7Sk4Im1A/B3kLwlOlXtbBvyUOYGVYWB82QPeayRX3OqZOu5g7jk3QttwxO8nozsw==
-mail-alias-created-date: 1705102286191
-Received: from localhost.localdomain (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-10-percent-2 (Postfix) with ESMTPSA id 054CC1800198;
-	Fri, 25 Sep 2026 16:48:27 +0000 (UTC)
-From: =?UTF-8?q?Mat=C3=ADas=20Mart=C3=ADnez?= <hello@matias.me>
-To: Antheas Kapenekakis <lkml@antheas.dev>
-Cc: =?UTF-8?q?Mat=C3=ADas=20Mart=C3=ADnez?= <hello@matias.me>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Denis Benato <denis.benato@linux.dev>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	"Derek J . Clark" <derekjohn.clark@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Armin Wolf <W_Armin@gmx.de>
-Subject: Re: [PATCH v4] HID: ayaneo: Add AYANEO 3 detachable controller driver
-Date: Fri, 25 Sep 2026 13:48:23 -0300
-Message-ID: <20260925164823.81842-1-hello@matias.me>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <CAGwozwEDBCs3zmCb6xbTBd48F+tbFOtZC-sC+F5uGvo82UL4zg@mail.gmail.com>
-References: <20260925061941.75121-1-hello@matias.me> <CAGwozwEDBCs3zmCb6xbTBd48F+tbFOtZC-sC+F5uGvo82UL4zg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qDzFITpr"
+Received: by mail-oo2-f39.google.com with SMTP id 46e09a7af769-804ef461aedso602627a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:51:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790355075; cv=none;
+        d=google.com; s=arc-20260327;
+        b=tBJxiDInPp0s0pPaqi6OaMyd4lby2xsVfS/us1zFVO4e1NExiUVSbGxIJ1Of3suW8T
+         F4p1fjS5oXfW6TbontafaDTgUecfsBVTHPcbYRp/UktA0uix94e6ZAKc2be2TTlcRk5L
+         EOO3E/OCNlGWGoCyHljyzQmHrDWMdsR4Q0gztA2xiM8nxZYbU777fOhOsuCm40F8XFt/
+         fdnOUbOXWWMyQGOVIdls3srJ1mOcL4C4JNxoaMdBM7oygUjs68z4WcrpvwX6p7csMITb
+         aDQSO758hpQtDztLvwPbKhNowE8PfLt7pJqBPHrq45pBKs0AAZiFQ3W9RNOQcYdc7p6s
+         +MnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9uKAp4yPEgYO485eCZ0g5hxhWjiMqUr198N8wk2031E=;
+        fh=cCC4w0OdWA8JUY9wiKwjuEeCZepnG9yfyPUON4+9Yf8=;
+        b=eYvXv/tjk0lh/Ssz3lOO0cbcH5W5gPRdKkfOJyFI3/EnbPk6m8ITbGX1LFAzFyrut8
+         Mk3TxZc3tfsyywPRVy9z8OVuoaDqwSwanWdng9+tt4qs39Q3gVTw8EdftL6qj60KWH5G
+         2JLidzcisYN04NvnbcGug9hFJIU3Fx28fA0hQ6tuZYa8HueXG+2KJVjbq6O/MM35Pfu8
+         XEfC9kBG2aNyax5WqBDDDgmSXcV/zHTC6VijAY18I3VIorQrz2dt5MEwV6INZTuk0MLJ
+         nJOaYu6fML+AEWP20ftUm8vDY2Q0TuU+i7x7wU6anodosmVkRJl+T/A85hcWE9GqoWt5
+         n4EQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790355075; x=1790959875; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9uKAp4yPEgYO485eCZ0g5hxhWjiMqUr198N8wk2031E=;
+        b=qDzFITpr2h9zfaSNr52rwXa6QdM72MLLrwI1wgpmP0JK+pTL67cGPrUI6NzW/dr+xk
+         9qTFwigIUmnV3yXeWCfFowLm73hV+BuwNvz43ASZFbYJAvDbzLb638F+riYkjwGBWlAy
+         3Ax64FsduPORKqNDd11m5K8mpHXdLDZJ4EFtqZACACA9vxuff1Kz71qnvgaktZGOKRM/
+         X8dWCTvBsKVDmzstt9FyZPsi9sti5F0HY8776u3wrRKTjbmKrNuqlwWcqd0vQFYLqi2z
+         doldIqbP3BjerOodYMA2GF82g6GZWe9tcljuU/jx8UjcHHr+azxIt1UVkDmBFgxyFwAi
+         gQlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790355075; x=1790959875;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9uKAp4yPEgYO485eCZ0g5hxhWjiMqUr198N8wk2031E=;
+        b=R+RDAz02xDHO9tEQVlkt2xvjrvxGRndWaKMTSbp8vma2t2vgCssbOvY8gqptxSdMDY
+         PJuwBhupNXMw5UrWX2wHEXlJBGHVvRdePntQ+rcQJMRpdnMoAQtXgfEmQvkQS6cdR7tr
+         RdrbWviqnIrjm0IlO9MSf5J733LAKrP5MKLcemTyUlbAsFSBqXdJE02eoR17aUdenYV+
+         3eckrI7WiuVU+lZt1h7cR8hKjf3+qg19MYb3irDKXn1vkVcIE2qK6Q8hxQcwgKr5Q8pA
+         Yg/rGDq7OJiPU4hjROmrTJPx0eTRWQ1yUdh30JEsAJcl1dP1eZ4BZddm7rCHj384pn3Q
+         4VuQ==
+X-Forwarded-Encrypted: i=1; AKwUvByj2Ac8rAnWNoymVJrpsrUjQkUlU+SmxRn84/XQtoS6IKrU8M0D24u92Q02GThW5LvGF/JcPDUTaJS+rlI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltWr0rX3EGIGIeZPPfPXfPUwld6dW/1YNq7mIWGiAvf12zqR4j
+	0c9fMMfodBAbQA96XukgM0nO3Hn85TReN5ZtGyPIaPanhpX/rufqLHOYsYaT7u2pRkbsFlfs0Mq
+	lHG540Eu66CLI1slSqp6QNdwD9flHdM0=
+X-Gm-Gg: AYBFou3JIn2X9fQkVTUagASY1TUySj9MY3+WcvZi0cOobmYI+QYo4FFG/WoTh5c++oH
+	3VnfVgXYZdy2WzgIFmNx7lvWg2fO8d4NrE8gaF/5LsnKNz+8HpE5snmWeQTWObm5cIEcjyfrF4e
+	53AUhep0wWo4U5Lnx+tvafaOr6X92kQ2M8rjnqRRdO6VA4oe6dOELD36bp7O3+SRz90VhEyndtm
+	7E2rYtFjUQN9aEEVF6ZX2WV/0WXrMbHd6ytzowfQFc5xG+yN40HkoCjcnhZHw/x05OuuradC6i3
+	7e4pxghbSS89cTnOVIIAZg5rqJj7cHIk5vFYnrzFTMjVSWM1PtJWSAYfYJjvQu904A==
+X-Received: by 2002:a05:6820:f025:b0:6c7:7668:a2a9 with SMTP id
+ 006d021491bc7-6d43f2c6ce7mr6782198eaf.26.1790355075127; Fri, 25 Sep 2026
+ 09:51:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: oyx-XpE-PM2gk4koaKmt0NS96vS1ueYE
-X-Authority-Info-Out: v=2.4 cv=FMwWBuos c=1 sm=1 tr=0 ts=6ab6a5e4
- cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
- a=aW9mcIavGNWWFvFFKOxBSA==:17 a=IkcTkHD0fZMA:10 a=MKtGQD3n3ToA:10
- a=1oJP67jkp3AA:10 a=VdqzKS8jKosA:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=b4MELKoKnEC4wfmd7KwA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2NyBTYWx0ZWRfX5+CY2MTbvvqs
- kQh6OQVWgvfCoXwF9+fSAEegmT9p00OA2YHnUHrrOKvSNdi2AsTE+HDkyqtaRvoD00QCj2U3RRY
- +KDSdNd7XHDhql6NE+4ENLw3OvCDklFpt56PsWrTYKEtsONCRkSu2howP4iUdqXUCGk2Cwpk9W1
- EIrFdlKnXRcY3m9CLVGF3kiA8wM+21aRqw7wJi1bceDOuMrBnNILEihhWA/1ld88WzX+MlZQRuG
- vya2epIc3wBvwwQ4q+xkBuaElkabAW3xI0+vAhjrN4Mp8fholzu2tVN7TYtdmvmV4Z6JtzUBzfj
- uAtwDoUi6gYPCwSM9QxczG1dwOuHW9dGTNf2hqCQhfDMuPnRREZPXc0hv/ImzY=
-X-Proofpoint-GUID: oyx-XpE-PM2gk4koaKmt0NS96vS1ueYE
-X-JNJ: AAAAAAABk66Ecr/Ttss0fJMYXAjhqZ5unT8jUh/xmlMf4RKlOatEZoFZQuBhTeYV0hI4drYfR+J7Bvl78TFqa1n87BzxLKupVfonC53tVIJxvL0Fv2ibBaJpGAurYatq28FZkZxACO3/Iv4xzZZUQIVVznGFDv064zkuY+Mqb4vxV/9HfEMEDujvOxv92WfrMThL9NeAes8erjjPunHjgEPAMSUTu1sZZxIOxgLqNE3tQY/FcloLaO0A7KTEuFFoUYMEPFharx75PzcvLehd2NLTuc6iHY/qZAsKGE1Jrvm4H0oKzulrxOX1Z0IgF3CPUHjKDYfOHVUYw8YyH8qXHC6t16Rf3VscR7xk6fkrgRn/yVhIPpMrg0NOkWIKEJab1XkdzR3qHHJ5T0tjWi5jeTP+6/fMngKZ1vlwfxy15DTKz1wNMwZItnVQc/pQH6xihW/WtRHpftwAP2ry3+S6dVeOBA81+xOTTzlYO1LAqBhNwNef8ATxTW11otuz7Wd1sn7qPNj3nhgMci/opEX19uEAJhLDIDVYzYgbc36vgcg4P8GlR1nUESw+YZpokm62WLmXxt0kAyNzJLWhTGkZq5cRW5W2BNVaPimA6g1cuNw5hxKr4LWO9578N5hOHR+TMLHbWClwJ+j+PCsjeWqJZcBOVfYZPLWVfkcQTT+KR5n5P3z6Y4UPLkXGJ/BWeCftxOqIVlgfFfoIqAqExfnvhWbpHamwz1K2dpKI/irQR/W1/CpCTE+e41sn0jddHTgvNpOuNtzIrr1yTHM+K5bXGHbI3gDDS1hJhrAE6pWSxUp2b9B3+FXMPGch+GKhU2IvvXqtWz7cV2lIyTfTjex52q9paIeuJ85uoH+s/B7faYOk/MKsUiQvn5AI9Q15BazPagijz+nPDKlphmIs2Tgd3X3Go0sZIH3KemtkKklFZg8BUEQf1bTgTb95qtlaahmd6Oyyqj+72bsC8HG8nC1Yo9GaC0Ls94O
- NE0hFj2UU40sFS8ggqEdvZKfDi62XMds1uV86VHiC1o4BcpTf/ZifruBTVgU/zTPdoCl24BIFcUbiYoGFkuFX0eMdD39/ebtoEjehL+xcssnSRJIqm07z7jNIK6azM4wMsBO/R15g1eNzmqhz5/FLb9fQSGBjw4tHO9X+7UDZe7YbszNH/7ExPoMUjCNYyGEMLR4pnAqXi+xfbpieAxs4JKxXvLObFgCiWi6ITpP6ByxT6LRzAz+J6ePxO3FjSrRl1oAd5jJvA6OHLMMKpiJpZM7/uBQjNQc5mZH5zM8EqPA3YeXJzgabbqNZqwSQeq6ribC6LgASHseof0X6yROg3V1WFvMbmfhSKNAt4GAEiAK444yfLq6KijCkc0nA/EeyAJy9WgCJEqmzkjCn8LVdabGOdcht
+References: <20260924210121.87032-1-avagin@google.com> <20260924210121.87032-7-avagin@google.com>
+ <20260925040215.GAarXyR6cUzn9OH4ZD@fat_crate.local>
+In-Reply-To: <20260925040215.GAarXyR6cUzn9OH4ZD@fat_crate.local>
+From: Andrei Vagin <avagin@gmail.com>
+Date: Fri, 25 Sep 2026 09:51:03 -0700
+X-Gm-Features: AclHuK-sn1-sqTjJxX0ASMST64hvgy9ihrDudc6Me32wqncqjDg-lggnEp2N5Ag
+Message-ID: <CANaxB-yxzmDr3K4qQ+f-pVyUOjn8jKJeEydR7adi5N+_TiFHZg@mail.gmail.com>
+Subject: Re: [PATCH 6/7] x86/fpu: Pre-fault only required size of xstate buffer
+To: Borislav Petkov <bp@alien8.de>
+Cc: Andrei Vagin <avagin@google.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	"Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org, 
+	criu@lists.linux.dev, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>, "H. Peter Anvin" <hpa@zytor.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 25 Sept 2026 at 12:01, Antheas Kapenekakis <lkml@antheas.dev> wrote:
-> >   Antheas suggested generalizing the lenovo-go file instead, but that
-> >   left it internally inconsistent (its other entries on the same LED
-> >   keep the go: prefix) and placed this driver's ABI outside its
-> >   MAINTAINERS entry, so the lenovo-go-s model won.
+On Thu, Sep 24, 2026 at 9:02=E2=80=AFPM Borislav Petkov <bp@alien8.de> wrot=
+e:
 >
-> That is fine. You should have asked for me to clarify. This driver
-> does not need to own that sysfs entry.
-
-Got it, plan for v5 below, under your ABI comment.
-
-> > - Default the subled intensities to full so brightness writes produce
-> >   light before userspace configures colours.
+> On Thu, Sep 24, 2026 at 09:01:20PM +0000, Andrei Vagin wrote:
+> > diff --git a/arch/x86/kernel/fpu/xstate.h b/arch/x86/kernel/fpu/xstate.=
+h
+> > index 38a2862f09d3..c73cf2444de6 100644
+> > --- a/arch/x86/kernel/fpu/xstate.h
+> > +++ b/arch/x86/kernel/fpu/xstate.h
+> > @@ -55,6 +55,8 @@ extern int copy_sigframe_from_user_to_xstate(struct t=
+ask_struct *tsk, const void
+> >  extern void fpu__init_cpu_xstate(void);
+> >  extern void fpu__init_system_xstate(unsigned int legacy_size);
+> >
+> > +extern unsigned int xstate_calculate_size(u64 xfeatures, bool compacte=
+d);
+> > +
+> >  extern void __user *get_xsave_addr_user(struct xregs_state __user *xsa=
+ve, int xfeature_nr);
+> >
+> >  static inline u64 xfeatures_mask_supervisor(void)
+> > --
 >
-> You mean the opposite? Writes to colors produce full brightness if
-> brightness is not written? Because the other way is not a problem. You
-> can skip led writes if a color has not been provided.
+> Hmm, so which tree are you basing your stuff ontop?
 
-No: the multicolor class computes each channel as
-brightness * intensity / max_brightness (led_mc_calc_color_components),
-and the subled intensities start at zero. Without this change a plain
-"brightness" write reports the LED as on while emitting nothing until
-multi_intensity is also written. With intensities defaulting to full, a
-bare brightness write produces white at that brightness, and a
-multi_intensity write scales it as usual. Nothing lights up
-spontaneously: brightness starts at 0 and the driver sends no command
-until userspace writes something.
+It is based on tip/master:
+commit 2edcfb3bc04385e287ebc2408be2882842bf6111
+Merge: 3a7bb97db232 c9fc85f1e44e
+Author: Ingo Molnar
+Date:   Wed Sep 23 13:28:15 2026 +0200
 
-Skipping the device write when no colour was provided keeps that
-surprising state: brightness-only users (desktop sliders, triggers)
-would write brightness and see nothing. hid-lenovo-go-s also starts
-from non-zero subled intensities; it can read the current colour back
-from the firmware, which this device cannot (the protocol has no
-config read-back), so a fixed default is the only option, and white
-seemed the least surprising one.
+    Merge branch into tip/master: 'x86/tdx'
 
-> > +What:          /sys/class/leds/<dev>:rgb:joystick_rings/effect
-> [...]
-> > +What:          /sys/class/leds/<dev>:rgb:joystick_rings/effect_index
+
 >
-> You cannot add a new sysfs entry for an existing ABI. You must correct
-> the original one or move the led registrations to their own unique
-> file and correct them.
+> Because in patch 5, xstate_calculate_size() is not static so you must be
+> basing it ontop of some tip/master branch from sometime because tip/perf/=
+core
+> has
+>
+> b84c96283684 ("perf/x86: Enable XMM register sampling for non-PEBS events=
+")
+>
+> which drops the static qualifier of that function.
+>
+> But then you're declaring a prototype above in the header while that same
+> patch is declaring the same prototype too. So if you were applying ontop =
+of
+> some tip/master state which has tip/perf/core, then you wouldn't need the
+> extern.
+>
+> Weird.
 
-Noted for v5. I will make it a two-patch series again: patch 1 adds
-Documentation/ABI/testing/sysfs-class-led-effect describing
-/sys/class/leds/<led>/effect and effect_index generically (the shared
-value names — monocolor, breathe, chroma, rainbow — defined once,
-effect_index listing what each device supports), and removes those
-entries from sysfs-driver-hid-lenovo-go and -go-s, which currently
-duplicate each other. Patch 2 then adds nothing LED-related to this
-driver's ABI file. Should the other duplicated LED entries (enabled,
-enabled_index) move in the same patch, or only effect/effect_index?
+I started this series before b84c96283684 landed. I put the prototype in
+arch/x86/kernel/fpu/xstate.h because I didn't need it outside of x86.
+Then the rebase went through cleanly, so I ended up with the duplicate
+prototypes without realizing it.
 
-> Too much detail in comments. Obvious observations need not be listed.
-> This applies to most comments in the current driver. E.g., the generic
-> vid/pid note may remain.
+I've sent v8.1, which is based on tip/fpu. In this version, I moved the
+xstate_calculate_size prototype to arch/x86/include/asm/fpu/xstate.h.
+This matches b84c96283684 to avoid the same problem when tip/x86/fpu and
+tip/perf/core will be merged.
 
-Will definitely trim for v5.
-
-> Review the use of reset_resume. It is only used for buggy devices.
-> Doesn't resume work? Is it needed in your usage? does the device not
-> restore colors after sleep?
-
-Ordinary resume is fine and the driver does not hook it. reset_resume
-is a different path: usbhid's hid_reset_resume only runs when the
-device was reset while suspended (post hid_post_reset), i.e. the
-firmware state is gone no matter how well normal resume behaves.
-
-Two uses here. On the transparent interfaces it mirrors hid-generic,
-which registers reset_resume itself (hid_generic_reset_resume ->
-hidinput_reset_resume); since this driver takes over interfaces
-hid-generic would otherwise drive, dropping it would regress keyboard
-LED-state restoration after a reset. On the vendor interface it
-reapplies the cached configuration for the same reason, and only if
-userspace had successfully applied one ("configured"), so an untouched
-device stays untouched.
-
-> I think these are all my comments. Given you are still doing changes
-> for stability's shake, this will need to be tested for a bit longer.
-
-Agreed. The v4 driver is now soaking on the distribution kernel this
-device ships with, and v5 will wait for that plus any maintainer
-comments.
-
-Thanks for the review and for all of your help,
-Matías
+Thanks,
+Andrei
