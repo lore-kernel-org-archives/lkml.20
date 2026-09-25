@@ -1,221 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from tiger.tulip.relay.mailchannels.net (tiger.tulip.relay.mailchannels.net [23.83.218.248])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C05260565;
-	Fri, 25 Sep 2026 02:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755623537FD
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:20:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.218.248
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790302787; cv=none; b=eYHWHV2OzTIbTnGYemCIQG4w8NRUV8dJOt8vxjkNpYHm/Ty0O5xjj1JlCkmlL+wvYj//6DyCmJlLj/EJCRy5z7ZR/Lz3rvN/LtmyAg7BcsF66QyL5AW+RVJyJoZRDMZ17Xxs1CFEGXbzen8Xx3IfcJeLchjJCSseSU6k9qmOt+Q=
+	t=1790302817; cv=none; b=cqZr+P7X+Dffvi8XtzerZ02q4mDJ6qMi0i9X/FubvbN3vv7DzI0MPTvw/FctFYOk/PVzgfMSGe8ZbJ4caieKJCbxd5UCs1zMPRdMsEPbHs9ZbdNPGarL1huT8IQA5Ftfxd/HFXq7m2RbHxJEDHuUSn3zM9VuQWqlq+to+iC8q0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790302787; c=relaxed/simple;
-	bh=FZLW6Z301vg9tosLGCcFV5OVEm4BXSyaoExMBsdLOqc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oDmmIZe+arfef0vIRdiZ4+/Pm/oFk7Zc/1TOX64QILZZsLjpO10LouopEjoKBPEsQ4yAYP2iO1JFiEGyp0ha9b+a8r10y1L1FQS6hTrHJVxlufxDtHgDYQlP/wHSVNlwpQuHW0s+3h8wCjfvskPoWnDxsqDI8JXotO5ujiy6Nj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zv6073YO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790302817; c=relaxed/simple;
+	bh=uNvqXtUUkiWSofVJtjxDHYlxLFgw9YkSTv1n3ziPnTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iRNYnr1Wm5WfLrJUdKdHz6VGIz2UGJnfAqiqo66kF3mfgfO+81kCyASUDq4rXnxxFf67Ff372sjqqze9Rp91W6Xr2Iwzb2LR0VuDI99D8vmzzJXFl9e2qwtGm0ndwa3khdM/JDz9Fymiba8eNqZ0FPRlaXYMfekUDa8XGVAsIks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=hAMu6hkf; arc=none smtp.client-ip=23.83.218.248
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zv6073YO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B64E01F00893;
-	Fri, 25 Sep 2026 02:19:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790302786;
-	bh=QCBXTItV/Ej+9VMQJX+ydvpVTjj/i9whV6yiT8aq+Ek=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Zv6073YOLbzsKKOhuUrI5vL9TBuC9WKJvkFxF+ATc37oqwcxHthlshAmK4WQTmyT4
-	 4fbX/PHu7PuBECz/vfjLDKOPcQd5GQvX7TQcnjFS6Zw6gOWIFr0vKh3U0L/glyqkJF
-	 BsODHrKUthMALEvLDKmKkuWAuBHwozu0zlVSC2SOdcFIObEZAr79Zgtq/3HzGHnkC+
-	 nN57Koy/Am15khWyUtefIinoiR9HBRteFPd3HDCeFRVg79AOG5a3kWmxC7AGIALYqJ
-	 o+uUTcfLZwgB/6JzeSa4/iarapJ5Bo/l5pfhal7rum4MdDFJfTCSaK3+onYq7BHdZJ
-	 ZVci/k5WfW9UA==
-Subject: Re: [PATCH net-next v4 3/8] net: dsa: motorcomm: Identify port type
- at runtime
-From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux@armlinux.org.uk, linux-kernel@vger.kernel.org
-Date: Fri, 25 Sep 2026 02:19:45 +0000
-Message-ID: <179030278530.2160803.5892691162510957034@kernel.org>
-In-Reply-To: <20260923021945.2203368-4-mmyangfl@gmail.com>
-References: <20260923021945.2203368-4-mmyangfl@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="hAMu6hkf"
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id C72233E1FB5;
+	Fri, 25 Sep 2026 02:12:31 +0000 (UTC)
+Received: from pdx1-sub0-mail-a247.dreamhost.com (trex-green-6.trex.outbound.svc.cluster.local [100.100.66.64])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 1D8BD3E1F9D;
+	Fri, 25 Sep 2026 02:12:31 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Battle-Callous: 7196804e2346228b_1790302351581_998903741
+X-MC-Loop-Signature: 1790302351581:2710523619
+X-MC-Ingress-Time: 1790302351581
+Received: from pdx1-sub0-mail-a247.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.100.66.64 (trex/8.0.2);
+	Fri, 25 Sep 2026 02:12:31 +0000
+Received: from offworld (unknown [76.167.199.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a247.dreamhost.com (Postfix) with ESMTPSA id 4hrZ3K2pmmzyrG;
+	Thu, 24 Sep 2026 19:12:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1790302350;
+	bh=djP5XwafCJ4cxBiTvz9MUWwQtYHkRPgJgZ89NauuvtU=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=hAMu6hkfDkFG2sGtKgJUR6x7TvXaA3XybQus6zjPGz9VFNcIW7t8XUUdrqX1OKRYz
+	 nM5UTYkQQuwfkaNcmQZFlUKnwOF/RxPFzFomIY84Nj5u4tp2nXBmx0nCfRcsby2Vrs
+	 2ZxdDjuNozBGTMHqt231JsCFHmbhKF+xKZakbXQ7FG2W7scbEt2FpyOSsCofD8cjBI
+	 fc8VKBC0/wbB2cOgwynv+w8c+yI639oEUYuairqMoyUEP0XDBdU/NCmaRawkq0KY/b
+	 97IrhjjjR1Ag72f0WB+DTGbwbu1rtFFyQvS7ZOxYleaYobkYKAh0JyLKnpA/VYFhlP
+	 uRXf4PhqTRtWA==
+Date: Thu, 24 Sep 2026 19:12:26 -0700
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Bharata B Rao <bharata@amd.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, jic23@kernel.org,
+	dave.hansen@intel.com, gourry@gourry.net,
+	mgorman@techsingularity.net, mingo@redhat.com, peterz@infradead.org,
+	raghavendra.kt@amd.com, riel@surriel.com, rientjes@google.com,
+	sj@kernel.org, weixugc@google.com, willy@infradead.org,
+	ying.huang@linux.alibaba.com, ziy@nvidia.com, nifan.cxl@gmail.com,
+	xuezhengchu@huawei.com, yiannis@zptcorp.com,
+	akpm@linux-foundation.org, david@kernel.org, byungchul@sk.com,
+	kinseyho@google.com, joshua.hahnjy@gmail.com, yuanchu@google.com,
+	balbirs@nvidia.com, alok.rathore@samsung.com, shivankg@amd.com,
+	donettom@linux.ibm.com
+Subject: Re: [PATCH v8 0/8] mm: Hot page tracking and promotion infrastructure
+Message-ID: <20260925021226.52kpnmvfylw73dz4@offworld>
+References: <20260728054356.291998-1-bharata@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260728054356.291998-1-bharata@amd.com>
+User-Agent: NeoMutt/20220429
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Tue, 28 Jul 2026, Bharata B Rao wrote:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+>Performance summary
+>===================
+>All results are on 3-node tiered systems (DRAM top tier + CPU-less CXL
+>lower tier). Speedups below are normalized to the base kernel with no
+>tiering (NUMAB=0). Columns compare mainline hint-fault tiering
+>(base NUMAB=2) against pghot in two modes: hint-fault driven (pghot-hf,
+>NUMAB=2) and HW-hint driven via the AMD IBS memory profiler (pghot-hw,
+>NUMAB=0, no NUMA scanning). Single run per config (abench is avg of 3).
+>
+>Benchmark      Metric (higher=better)   base-NUMAB2  pghot-hf  pghot-hw
+>-------------------------------------------------------------------------
+>NAS BT (MPI)   Mop/s total                  2.26x     2.26x     2.13x
+>Graph500 BFS   harmonic-mean TEPS           2.64x     2.49x     2.68x
+>llama.cpp      decode tok/s (tg128)         1.09x     1.41x     1.21x
+>Redis+memtier  ops/sec                      1.05x     1.05x     1.00x
+>Microbench     completion time (1/t)        2.41x     2.40x     2.35x
+>-------------------------------------------------------------------------
+>(baseline = base kernel, no tiering = 1.00x)
+>
+>Summary: pghot hint-faults reproduces mainline NUMAB=2 with no
+>regression on every workload; pghot HW-hints/IBS matches it mostly.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The IBS doesn't seem to bring anything to the table, other than just
+serve as an example - we've discussed this in the past this. And for
+NUMAB2 I would expect this to be the very best case in that you are
+not suffering from loosing the locality info.
 
-- [Medium] The commit message says "no behavior changes intended", but
-  the patch changes which registers are programmed on SerDes link-up and…
-- [Low] yt921x_port_up() chooses the XMII register block using only
-  pp->serdes and never checks info->xmii_mask.
+This is a lot of added complexity and code just to break even. And
+hardware sources should really outperform NUMAB2 for this to be
+worthwhile, methinks.
 
---
+I know Joshua mentioned some improved PSI by doing the promotion async;
+which makes me wonder that perhaps just a simpler promoting kthread is
+enough, so NUMAB2 just kicks the migration to it and not done in the
+accessing tasks' context etc. And Gregory also recently improved this
+path vs NUMAB1.
 
-net: dsa: motorcomm: Identify port type at runtime
+I mention this because I have integrated the chmu as a source of
+hotness for pghot and this was tested on a real device vs NUMAB3.
+This was based on Jonathan's rfc for the perf driver, only that I carve
+out the first chmu instance for this, and leave the rest of them (if any
+for perf).
+For example, 'XSBench' improved by a factor of ~2.7x (I would like to
+report a wider range of benchmarks at some point, but this is what I have
+now). But a lot of this bypasses most of this framework and just piggy
+backs on kmigrated moving memory. chmu does not do well with
+pghot_record_access(), which is designed for sampling... so I just set
+MIGRATE_READY right away. I also added a pghot call/api to make use of
+the regions chmu deals with instead of per access/page. The cxl driver
+just takes the dpa range given by the chmu hotlist, coalesces into adjacent
+hpa ranges (just 1 for the case of no interleaving) and feeds that to the
+pghot subsystem as a list of these contiguous physical chunks ranked/sorted
+by access density (accesses per page per second, so a large lukewarm region
+and a smaller hotter one can be differentiated and promote the latter
+first).
 
-This commit removes the hardcoded yt921x_port_is_internal/external()
-macros and checks the per-chip internal_mask, serdes_mask and xmii_mask
-instead. It also adds a per-port serdes flag, set in yt921x_port_config(),
-which decides which register block yt921x_port_up() programs.
+So perhaps any mm interface for this stuff should just not be designed
+around sampling, and instead proper hardware sources?
+A lot of the complexity in pghot can be removed without this imo (per-pfn
+metadata, accumulate+decay phase). Of course we still have the problem
+to evaluate the cost of replacing a chunk from the top tier(s) with the
+what the low tier is reporting has "hot". And this is particularly true
+with chmu with limited full system memory visibility (as opposed to IBS,
+for example). I don't really have a good answer for this, other than the
+user could use proactive reclaim along with the per-device tunables
+(ie unit sizes and thresholds for chmu) to configure things realistically
+for their use cases - prob. easier said than done.
 
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 54881856b796a..ea4b29882b5cb 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
+Anyway these are some thoughts prior to LPC.
 
-[ ... ]
-
-> @@ -3746,12 +3747,13 @@ static int yt921x_port_down(struct yt921x_priv *priv, int port)
->  	if (res)
->  		return res;
->  
-> -	if (yt921x_port_is_external(port)) {
-> +	if (BIT(port) & info->serdes_mask) {
->  		mask = YT921X_SERDES_LINK;
->  		res = yt921x_reg_clear_bits(priv, YT921X_SERDESn(port), mask);
->  		if (res)
->  			return res;
-> -
-> +	}
-> +	if (BIT(port) & info->xmii_mask) {
->  		mask = YT921X_XMII_LINK;
->  		res = yt921x_reg_clear_bits(priv, YT921X_XMIIn(port), mask);
->  		if (res)
-
-[ ... ]
-
-> @@ -3800,7 +3804,10 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
->  	if (res)
->  		return res;
->  
-> -	if (yt921x_port_is_external(port)) {
-> +	if (!(BIT(port) & (info->serdes_mask | info->xmii_mask)))
-> +		return 0;
-> +
-> +	if (pp->serdes) {
->  		mask = YT921X_SERDES_SPEED_M;
->  		switch (speed) {
->  		case SPEED_10:
-
-[ ... ]
-
-> @@ -3836,7 +3843,7 @@ yt921x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
->  					     mask, ctrl);
->  		if (res)
->  			return res;
-> -
-> +	} else {
->  		mask = YT921X_XMII_LINK;
->  		res = yt921x_reg_set_bits(priv, YT921X_XMIIn(port), mask);
->  		if (res)
-
-[Severity: Medium]
-The commit message says "no behavior changes intended". Doesn't this
-change which registers get programmed on SerDes link up and link down?
-
-Before this patch, yt921x_port_up() did all three of these on ports 8
-and 9:
-
-    update YT921X_SERDESn(port)
-    set YT921X_XMII_LINK in YT921X_XMIIn(port)
-    write link/speed/duplex to YT921X_MDIO_POLLINGn(port)
-
-With the new if/else, the XMII_LINK set and the MDIO_POLLINGn write are
-skipped once yt921x_port_config() has set pp->serdes.
-
-The yt921x_port_down() hunk above changes in the same way:
-
-    port 8 on YT9215SC, YT9215S and YT9214NB no longer gets XMII_LINK
-    cleared
-
-    ports 8 and 9 on YT9215RB no longer get SERDES_LINK cleared
-
-Does a SerDes link really not need the XMIIn and MDIO_POLLINGn writes? If
-it does need them, this looks like a regression on every SerDes-capable
-chip. If those writes were wrong, could the commit message say so, so
-that readers and backporters don't treat this as a pure refactor?
-
-The split is still in place after the later "net: dsa: motorcomm: Add
-SerDes PCS" patch in this series.
-
->  
-> @@ -3876,17 +3883,16 @@ static int
->  yt921x_port_config(struct yt921x_priv *priv, int port, unsigned int mode,
->  		   phy_interface_t interface)
-
-[ ... ]
-
-> @@ -3896,6 +3902,9 @@ yt921x_port_config(struct yt921x_priv *priv, int port, unsigned int mode,
->  	case PHY_INTERFACE_MODE_100BASEX:
->  	case PHY_INTERFACE_MODE_1000BASEX:
->  	case PHY_INTERFACE_MODE_2500BASEX:
-> +		if (!(BIT(port) & info->serdes_mask))
-> +			goto err;
-> +
->  		mask = YT921X_SERDES_CTRL_PORTn(port);
->  		res = yt921x_reg_set_bits(priv, YT921X_SERDES_CTRL, mask);
->  		if (res)
-> @@ -3906,6 +3915,11 @@ yt921x_port_config(struct yt921x_priv *priv, int port, unsigned int mode,
->  		if (res)
->  			return res;
->  
-> +		/* The order is quite arbitrary - we can't return to a safe
-> +		 * state on IO errors.
-> +		 */
-> +		pp->serdes = true;
-> +
-
-[Severity: Low]
-What does yt921x_port_up() do if yt921x_port_config() returns before it
-reaches this assignment?
-
-Either of these writes can fail with an I/O error first:
-
-	res = yt921x_reg_set_bits(priv, YT921X_SERDES_CTRL, mask);
-	...
-	res = yt921x_reg_clear_bits(priv, YT921X_XMII_CTRL, mask);
-
-If one fails, pp->serdes keeps its devm_kzalloc() value of false. Because
-yt921x_phylink_mac_config() only logs the error, phylink still calls
-mac_link_up.
-
-Port 8 on YT9215S, YT9214NB and YT9215SC is SerDes-only. On that port,
-yt921x_port_up() gets past this check:
-
-	if (!(BIT(port) & (info->serdes_mask | info->xmii_mask)))
-		return 0;
-
-It then goes into the bare else branch and writes YT921X_XMIIn(port) and
-YT921X_MDIO_POLLINGn(port). SERDES_LINK is never set, the SerDes
-speed/duplex is never programmed, and the function returns 0. If the
-SERDES_CTRL write worked but the XMII_CTRL write failed, the SerDes lane
-is already muxed in, yet link up programs the wrong block.
-
-yt921x_port_down() only touches the XMII registers when info->xmii_mask
-covers the port. Should the else branch in yt921x_port_up() check
-info->xmii_mask as well?
-
-The reverse can also happen. pp->serdes is set before the
-YT921X_SERDESn MODE update below. If that update fails, link up forces
-the SerDes link while the MODE field is still stale.
-
-Before this patch both blocks were written, so a transient error here
-could still end with a working link. The same logic is still there at
-the end of the series.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923021945.2203368-1-mmyangfl%40gmail.com
+Thanks,
+Davidlohr
