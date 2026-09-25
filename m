@@ -1,316 +1,139 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB8E4FB9B9
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:16:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837864F798D
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:19:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790371004; cv=none; b=IwZZ/++nIRcosuxS5yz+DG6JR/C7UpgicCuE7mawXNSEPodDL9EPLAcvY5fYd4dYec3hyoLPhzd2FRJqtH6wL3OC02FvxaCvdb1ncI0Zlph7TM+/X2zzC6CkZT+AyE96xLzP4BRCjoF6AhQrXaEKzzlG6WSAFuPhybmt9qj4ADM=
+	t=1790371173; cv=none; b=A2RlJoiyYEaAkgXxViWGOngtl+7QQ90tYytgRENIdOXAhDCz9fCMhONDmNjjGDamrquD6ruxmbLzlnW7t9gfJdgtqKtnTitTXTHv9Xvi7r+X4xF/3irit1mlhs41t75qjsZFWR1DWp7hCHf+htGAKY43JnIMm7MIVewDP4nb/AM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790371004; c=relaxed/simple;
-	bh=AW7GmJbvvUZLv/S3aozdsexkzu3edregCAMjxYRowE8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=abw10WAn+0qbbIlISD4McQwfXNvaxeWJYqxgmk6PWBByCONXH/GT3MlnHqbsiOTLo5XI8m+XykWZvTEJEUiczciXn8nB+vQplYARMXdzYeYWBvlw9/pLY9jcbBDK4JXGdVwQD3d+TZGtiYj/yQAKpq5XJLrbnrHoGRjEqR811fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ECTrJ3Bp; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1790371173; c=relaxed/simple;
+	bh=+ycUu4Lrfdhzd9jKGwQrR5OBQYug2brCLTLBMKycAlE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b6ISK4OAG6hP6hIy+cWZm44FrIjsiN/1omkWXx/idAw4OG08RAdZFj6QpOOTUJ03NHTtCq5m1UUUewHzyD9F39363AgAFaM7IbnlNvtFY866QUav7eF59qaZUx/6hMMpPI0SEqQPpMI7JGofYg54i/4menuQLxzsXF+8ttcQ47k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BcgtoNnN; arc=none smtp.client-ip=74.125.229.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ECTrJ3Bp"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843378fb37so781160f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:16:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BcgtoNnN"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-342773d94a7so358060eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:19:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790371000; x=1790975800; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0OpiJYgEy2fH0EKJHkY2bvSEZYmp9XcXhKKG0UR6cbc=;
-        b=ECTrJ3Bph+G1OdgMECUHzQy8XUfkZRQdpH0st22kO+bdFlwX5IJjoPRjvtDULRkxac
-         lFszwQ9GSEclvRVGImCk6/nYUFtBE5OobCwmRyoLz+uWDjZcq/6mDXMVbudX33yGCYes
-         RFIKB+f5VNsIkp5Hiq1wYhMCi/HOF2vfeLPW4r2eNAeEOuB/G0Ic7vI0NSrw8CQopYUK
-         2X8zj/pJT2U6SabUdRa06ZGRrmvlbqZd5RQthZn1+ydDrPTpIy8vg6D9B7JcKUt2g1vF
-         cXS/d7CY/nVR0BvtYyj0bXK6TMH91uoZmAbSkwuYoQWXcMCC5n/Q2jXJM5ctXZw4eIiX
-         zBmw==
+        d=gmail.com; s=20251104; t=1790371170; x=1790975970; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1BSFDJmV96PMiREIfL8Vp0Pof+pF3vE7NpaMcF3TO54=;
+        b=BcgtoNnN7tyT5vXhQxH2W/svjj04rjfZBk106Yx5Ud7AdBiH36T4d3HMQw4OKcx8Sq
+         NSM1vLK6E71a3ci5ofu6g4WdMJ9lDPD/0Vcx/FyPu6F9VzovP6Lta6Wlt01yttgWz0W1
+         8Z3YgLtmzsDiboBvrDdfOWCFsKNWW2peKDw801gsQ4fYGmg1QBitC25naGpcGWZB424v
+         Hk44SSp0/6Ie3W/gSdfw1W9BxtikJ2//by1ti504vamhy+Imv72w+IeZgrh8gJHy3a+/
+         ReuZTohoTELW7MiJjEDd9lcTjXHtDCM80++FO+XxJ4oRlHFEYa/ejek8AkAeRZpBlYOg
+         fr6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790371000; x=1790975800;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0OpiJYgEy2fH0EKJHkY2bvSEZYmp9XcXhKKG0UR6cbc=;
-        b=c6f/qrbpTO3mRlbA+t/0m2d41gBMYuA5Uo8WS2HqGpvL3GdOEQLXrCouxEw9hpmC3L
-         0/my5iuRtEn8ZLRrDGFCAI04eANfiqCKiPKUs87eN49rFBYHpsQKsu1nefOa+WQO/dGN
-         GkzuESXwgqm8q2u8kuWWma0dtOlWpm5RSKugq/zkMt7noZQiVcKAjQXc+Ay6S4jY6HxT
-         bIUG7oRNwkvitj8qLbmKG7Wmpd7BabQivH4IFQWetfh2xtwalS2LVZGQShlHobrp5tiW
-         BjlEiD7Xfuc6/4g4ieStLlfPrkW3dYa2j45+4xsEuqJMDQc8QxqMU+2Uk2R6yTyuduoV
-         GDPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzANAk6Qf2AMS6TqBM0UdA9z/r/ujjidd96lkzXQC6LgSdf2Xj87m8gmPbv8U4VRXLRBupUqWrIUC/hPjE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7j6X4DrEbnZHvEQFcBlAzQrCfY68rncE0NCoEL0XIkAp8bgI1
-	nqEi+8NymO0n05/pUA8SZSc3xEj+bIAXAVz/MPcw/oe88fl6/TTrbije
-X-Gm-Gg: AYBFou2BUfAXjNE190/mxSH5glGHrPBR+B4xruTUzMzArmcbArvWuY1PsruFCOWKk5D
-	mn/Y+4R6HJnE7cBYAnAc2W2rs3YJfEtDUV4YyDXhpVpVE6spfpZr18wdA1emL/N6ar5lJ29JN7k
-	v/taD3potgQiIRAxXbtANVtpkKhI7xx15RVT/2rtoTMnlryh4XHBFU7kgnnQLSzzvYwZw1yRoRM
-	Z2+FvIDH0G/sltGpXzw3H9OHCL+XVl+OKzFFfbA3TiB17T6aF3h4XJQK7gaS8y4kREpDmqrDiac
-	zrCnev3GwxvKH0GosOteu3P1Zl1suXZ2gyv1x63TuAhaSIWSBGtGes7UTLS5NlHwxMuAs6QRFaA
-	Hye/wcT+d8mYq3/piHuPJ0yebO4XOwXXKZ8hyPV3GG4e+85zerqtI9s7I0rcmBnGuCHuprMNV/o
-	uC2E4qCiMWegW/3RuRP96q8rzBb7IHGf/TynnlJonplTNrh4+0iF9Fbo+/LMLYLxjNsLgdPMhqT
-	WFdCZvkYA==
-X-Received: by 2002:a05:6000:2489:b0:488:800b:11f3 with SMTP id ffacd0b85a97d-488800b1336mr6029083f8f.49.1790371000248;
-        Fri, 25 Sep 2026 14:16:40 -0700 (PDT)
-Received: from localhost.localdomain ([2a0a:ef40:1479:f801:b8e7:18fe:7039:e475])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a570sm9271781f8f.13.2026.09.25.14.16.39
+        d=1e100.net; s=20260707; t=1790371170; x=1790975970;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1BSFDJmV96PMiREIfL8Vp0Pof+pF3vE7NpaMcF3TO54=;
+        b=Rwr14wbfTax2Db15iNtNOdRjto2sn3vrgLImShuGjdrDBKpgIN5UcSQHGtlm1wVlGb
+         wmo6Se3N5rjxf0DECZcVri1+VlsgMNZIFHyh80qQVS0E2/4Bwg9vXHoEv5M6VgYUyj3M
+         gQK3x7ZLmgZzNbbjdgKNvOKTN8ybK/hNg3TAJcE597bsvijGyM1u1/0N2WMlDPN+eRzY
+         G6oUZvlhIYtaODcAvpoar7HuQRYbfyXscSMlWTDk1QPE5Xeh3eT/7hOW0ETyTVgaAc1b
+         AQ2YlxwWm7wYI2FwlgDRHQCrLJR/byk/3Jv7TXD8qhQQoABBWY67Wayz9IBm8Nzekdrv
+         ulTw==
+X-Forwarded-Encrypted: i=1; AKwUvBwrWs8+VYPXo56N2GeFLlrzWDw1cbwRNE8ZXI8d2UE0duLIsjbMHcYdUdy+dlGb6d+8Xt0sjWErRBgcLh4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhJFAE8sbB6tsEv647pfi9bX1K3zg21uIn1QBG3gExBHvuZtiG
+	e5VywHYt4UNyGh1Ius0BoXAHTzQFXeSJX6PaJGXcYGQtJrgolKzdpJvq
+X-Gm-Gg: AYBFou0wCgC8fAxBwVO3EaMEpSrv1yur+3mrmLp8NcMIYtYrtUyCGz1LP27bUhbyVjz
+	y/QJAC4o22CpwQI+IWfocVH6cYYbKN38WYnrBFLaYy4PopFzXIDgb4zPzXnbluCBkLilDvp67Ka
+	6AotziRg6sBb/r9M14O6OoD/uWomYUuSCbNDotqtNvE1W4HFJRlDTPq9GPig4RRZfo+rGsEYDs+
+	QLuit3aLO6oOsiBCWtK7SeE14g8i/KWpUboOdzyw5CoYp44YSo+WlnWlQWG6bK/aRgA3YPgZZfy
+	k3EW40q9maiPzcHtu8Sl3ZwAx3CpaaidAxZLwap5aptcl2ToWNmrYJYvgOJw1Hj49LitQ2B3xtj
+	CybdnvWXQbHvAQaz6T0tGxXsQyKC5zXqgwjyAsWMeWquR32sqntSrdtBWSoui2JeKi+DZ0nClHK
+	jXjg1u6/hL+v/Mc25SK1jUg6Zp1mQk/Wom0RL4YkC2sStpFWHBCqDJPBqBpMR6gdNnWmq5ar50M
+	bx1JQ1psxf9guymT0wxaqjJ91TPBFcDcUl9ZLo=
+X-Received: by 2002:a05:7300:dd48:b0:33b:eb33:9f70 with SMTP id 5a478bee46e88-34272a41d89mr1027757eec.37.1790371169410;
+        Fri, 25 Sep 2026 14:19:29 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:375:19cf:5fee:be32])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3416e4c2f50sm8029385eec.27.2026.09.25.14.19.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 14:16:39 -0700 (PDT)
-From: Mohamed Jouini <amad3v@gmail.com>
-To: Armin Wolf <W_Armin@gmx.de>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mohamed Jouini <amad3v@gmail.com>
-Subject: [PATCH 2/3] platform/x86: uniwill-laptop: Add platform profile support
-Date: Fri, 25 Sep 2026 22:16:34 +0100
-Message-ID: <20260925211635.1422516-3-amad3v@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260925211635.1422516-1-amad3v@gmail.com>
-References: <20260925211635.1422516-1-amad3v@gmail.com>
+        Fri, 25 Sep 2026 14:19:28 -0700 (PDT)
+Date: Fri, 25 Sep 2026 14:19:25 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <arbkvK54vT7SIyjV@google.com>
+References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
+ <20260826-bind_taint-v1-2-52b05f4a965c@linuxfoundation.org>
+ <apA8n524yIn-g6ep@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apA8n524yIn-g6ep@hovoldconsulting.com>
 
-The EC exposes the three firmware power modes (BIOS "office", "balance"
-and "turbo") in EC_ADDR_MANUAL_FAN_CTRL. The ACPI tables name BIT(4) TBME
-and BIT(7) UFME and only evaluate those two bits; writing the register
-makes the EC apply the whole mode: mode LED colour, NVIDIA Dynamic
-Boost/TPP limits (DBAP/ETPP) and the _Q88 mode-change notification.
+On Thu, Aug 27, 2026 at 03:33:19PM +0200, Johan Hovold wrote:
+> On Wed, Aug 26, 2026 at 11:19:33AM +0200, Greg Kroah-Hartman wrote:
+> > The ability to add and remove devices from a driver through the sysfs
+> > "bind" and "unbind" files was created all those decades ago as a way
+> > that kernel developers can iterate faster, and provide a debugging way
+> > for users to attempt to add a new device to a driver without having to
+> > rebuild their kernel.
+> > 
+> > This api over the years has been abused and recently come under a major
+> > fuzzing "attack" through tools like syzbot which decided that it would
+> > attempt to just randomly bind any driver to any type of device, causing
+> > loads of unneeded errors and pointless kernel patches to be generated by
+> > unsuspecting new developers.
+> > 
+> > Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
+> > will be set on the driver if the bind/unbind sysfs files are ever
+> > successfully written to.  This lets kernel developers "know" that a user
+> > is attempting to do something that is not normal, and as such, if the
+> > kernel breaks they get to keep the shiny pieces laying around on the
+> > floor.
+> > 
+> > Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
+> > as many times crashes/oops/warnings/failures happen within the callback,
+> > and the taint flag needs to be there to show what was being attempted.
+> > If it were to be set after the callback happens, the oops report would
+> > not properly reflect what foolishness was being attempted.
+> > 
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> 
+> This makes it clear that this is a development tool, and it is a good
+> compromise preferable to adding unnecessary complexity or suppressing
+> the attributes completely just to prevent root from shooting themselves
+> in the foot:
+> 
+> Reviewed-by: Johan Hovold <johan@kernel.org>
+> Tested-by: Johan Hovold <johan@kernel.org>
 
-Expose the modes as low-power/balanced/performance platform profiles on
-the PCSpecialist Recoil 16 AMD and handle the mode key: the EC only
-cycles the mode itself until the OS sets one, afterwards it just reports
-UNIWILL_OSD_PERFORMANCE_MODE_TOGGLE, so notify userspace if the EC
-already switched and cycle the profile otherwise.
+bind/unbind without overrides should not necessarily be treated as a
+development tool. For example with I2C devices you may want to unbind
+the functional driver, perform firmware update from userspace, and bind
+the device again. This will ensure that driver is not confused and at
+the same time you do not need to put into the kernel code that is
+dormant 99.9999 percent of the time.
 
-Signed-off-by: Mohamed Jouini <amad3v@gmail.com>
----
- drivers/platform/x86/uniwill/uniwill-acpi.c | 133 +++++++++++++++++++-
- 1 file changed, 132 insertions(+), 1 deletion(-)
+Thanks.
 
-diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
-index beba5a76a..0932e5937 100644
---- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-+++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-@@ -39,6 +39,7 @@
- #include <linux/mutex.h>
- #include <linux/notifier.h>
- #include <linux/platform_device.h>
-+#include <linux/platform_profile.h>
- #include <linux/pm.h>
- #include <linux/printk.h>
- #include <linux/regmap.h>
-@@ -184,6 +185,15 @@
- #define FAN_MODE_HIGH			BIT(5)
- #define FAN_MODE_BOOST			BIT(6)
- #define FAN_MODE_USER			BIT(7)
-+/*
-+ * Firmware power modes (BIOS "office/balance/turbo"). The ACPI tables name
-+ * BIT(4) TBME and BIT(7) UFME and only evaluate those two bits; the values
-+ * below are exactly what the EC itself stores when the mode button is pressed.
-+ */
-+#define PERF_MODE_MASK			(FAN_MODE_USER | FAN_MODE_HIGH | FAN_MODE_TURBO)
-+#define PERF_MODE_OFFICE		(FAN_MODE_USER | FAN_MODE_HIGH)
-+#define PERF_MODE_BALANCE		FAN_MODE_HIGH
-+#define PERF_MODE_TURBO			(FAN_MODE_HIGH | FAN_MODE_TURBO)
- 
- #define EC_ADDR_PWM_1			0x075B
- 
-@@ -369,6 +379,7 @@
- #define UNIWILL_FEATURE_KEYBOARD_BACKLIGHT	BIT(12)
- #define UNIWILL_FEATURE_AC_AUTO_BOOT		BIT(13)
- #define UNIWILL_FEATURE_USB_POWERSHARE		BIT(14)
-+#define UNIWILL_FEATURE_PERFORMANCE_MODES	BIT(15)
- 
- enum usb_c_power_priority_options {
- 	USB_C_POWER_PRIORITY_CHARGING = 0,
-@@ -418,6 +429,8 @@ struct uniwill_data {
- 	struct notifier_block nb;
- 	struct mutex usb_c_power_priority_lock; /* Protects dependent bit write and state safe */
- 	enum usb_c_power_priority_options last_usb_c_power_priority_option;
-+	struct device *ppdev;
-+	enum platform_profile_option last_profile;	/* last profile read or written */
- };
- 
- struct uniwill_battery_entry {
-@@ -602,6 +615,7 @@ static bool uniwill_writeable_reg(struct device *dev, unsigned int reg)
- 	case EC_ADDR_LIGHTBAR_AC_GREEN:
- 	case EC_ADDR_LIGHTBAR_AC_BLUE:
- 	case EC_ADDR_BIOS_OEM:
-+	case EC_ADDR_MANUAL_FAN_CTRL:
- 	case EC_ADDR_TRIGGER:
- 	case EC_ADDR_RGB_RED:
- 	case EC_ADDR_RGB_GREEN:
-@@ -643,6 +657,7 @@ static bool uniwill_readable_reg(struct device *dev, unsigned int reg)
- 	case EC_ADDR_LIGHTBAR_AC_GREEN:
- 	case EC_ADDR_LIGHTBAR_AC_BLUE:
- 	case EC_ADDR_BIOS_OEM:
-+	case EC_ADDR_MANUAL_FAN_CTRL:
- 	case EC_ADDR_PWM_1:
- 	case EC_ADDR_PWM_2:
- 	case EC_ADDR_SUPPORT_2:
-@@ -682,6 +697,7 @@ static bool uniwill_volatile_reg(struct device *dev, unsigned int reg)
- 	case EC_ADDR_SECOND_FAN_RPM_2:
- 	case EC_ADDR_BAT_ALERT:
- 	case EC_ADDR_BIOS_OEM:
-+	case EC_ADDR_MANUAL_FAN_CTRL:
- 	case EC_ADDR_PWM_1:
- 	case EC_ADDR_PWM_2:
- 	case EC_ADDR_SUPPORT_2:
-@@ -2168,6 +2184,110 @@ static int uniwill_battery_init(struct uniwill_data *data)
- 	return devm_battery_hook_register(data->dev, &data->hook);
- }
- 
-+static int uniwill_platform_profile_probe(void *drvdata, unsigned long *choices)
-+{
-+	set_bit(PLATFORM_PROFILE_LOW_POWER, choices);
-+	set_bit(PLATFORM_PROFILE_BALANCED, choices);
-+	set_bit(PLATFORM_PROFILE_PERFORMANCE, choices);
-+
-+	return 0;
-+}
-+
-+static int uniwill_platform_profile_get(struct device *dev, enum platform_profile_option *profile)
-+{
-+	struct uniwill_data *data = dev_get_drvdata(dev);
-+	unsigned int value;
-+	int ret;
-+
-+	ret = regmap_read(data->regmap, EC_ADDR_MANUAL_FAN_CTRL, &value);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Same decision as the firmware's PMSC method */
-+	switch (value & (FAN_MODE_USER | FAN_MODE_TURBO)) {
-+	case FAN_MODE_USER:
-+		*profile = PLATFORM_PROFILE_LOW_POWER;
-+		break;
-+	case FAN_MODE_TURBO:
-+		*profile = PLATFORM_PROFILE_PERFORMANCE;
-+		break;
-+	default:
-+		*profile = PLATFORM_PROFILE_BALANCED;
-+		break;
-+	}
-+
-+	WRITE_ONCE(data->last_profile, *profile);
-+
-+	return 0;
-+}
-+
-+static int uniwill_platform_profile_set(struct device *dev, enum platform_profile_option profile)
-+{
-+	struct uniwill_data *data = dev_get_drvdata(dev);
-+	unsigned int value;
-+	int ret;
-+
-+	switch (profile) {
-+	case PLATFORM_PROFILE_LOW_POWER:
-+		value = PERF_MODE_OFFICE;
-+		break;
-+	case PLATFORM_PROFILE_BALANCED:
-+		value = PERF_MODE_BALANCE;
-+		break;
-+	case PLATFORM_PROFILE_PERFORMANCE:
-+		value = PERF_MODE_TURBO;
-+		break;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+
-+	/* The EC applies the mode (LED, power limits, ACPI notifications) itself */
-+	ret = regmap_update_bits(data->regmap, EC_ADDR_MANUAL_FAN_CTRL, PERF_MODE_MASK, value);
-+	if (ret < 0)
-+		return ret;
-+
-+	WRITE_ONCE(data->last_profile, profile);
-+
-+	return 0;
-+}
-+
-+static const struct platform_profile_ops uniwill_platform_profile_ops = {
-+	.probe = uniwill_platform_profile_probe,
-+	.profile_get = uniwill_platform_profile_get,
-+	.profile_set = uniwill_platform_profile_set,
-+};
-+
-+static int uniwill_platform_profile_init(struct uniwill_data *data)
-+{
-+	if (!uniwill_device_supports(data, UNIWILL_FEATURE_PERFORMANCE_MODES))
-+		return 0;
-+
-+	data->ppdev = devm_platform_profile_register(data->dev, DRIVER_NAME, data,
-+						     &uniwill_platform_profile_ops);
-+	if (IS_ERR(data->ppdev))
-+		return PTR_ERR(data->ppdev);
-+
-+	return uniwill_platform_profile_get(data->ppdev, &data->last_profile);
-+}
-+
-+/*
-+ * The EC only cycles the mode on its own until the OS sets a mode once; after
-+ * that the button just reports UNIWILL_OSD_PERFORMANCE_MODE_TOGGLE. Handle
-+ * both cases: if the EC already switched, only notify userspace, otherwise
-+ * cycle the profile ourselves.
-+ */
-+static void uniwill_platform_profile_button(struct uniwill_data *data)
-+{
-+	enum platform_profile_option before = READ_ONCE(data->last_profile), now;
-+
-+	msleep(100);	/* give the EC time to apply its own switch, if any */
-+
-+	if (!uniwill_platform_profile_get(data->ppdev, &now) && now != before)
-+		platform_profile_notify(data->ppdev);
-+	else
-+		platform_profile_cycle();
-+}
-+
- static int uniwill_notifier_call(struct notifier_block *nb, unsigned long action, void *dummy)
- {
- 	struct uniwill_data *data = container_of(nb, struct uniwill_data, nb);
-@@ -2239,6 +2359,12 @@ static int uniwill_notifier_call(struct notifier_block *nb, unsigned long action
- 			return NOTIFY_DONE;
- 
- 		return notifier_from_errno(uniwill_notify_kbd_led(data, 4));
-+	case UNIWILL_OSD_PERFORMANCE_MODE_TOGGLE:
-+		if (uniwill_device_supports(data, UNIWILL_FEATURE_PERFORMANCE_MODES)) {
-+			uniwill_platform_profile_button(data);
-+			return NOTIFY_OK;
-+		}
-+		fallthrough;
- 	default:
- 		mutex_lock(&data->input_lock);
- 		sparse_keymap_report_event(data->input_device, action, 1, true);
-@@ -2375,6 +2501,10 @@ static int uniwill_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		return ret;
- 
-+	ret = uniwill_platform_profile_init(data);
-+	if (ret < 0)
-+		return ret;
-+
- 	return uniwill_input_init(data);
- }
- 
-@@ -2797,7 +2927,8 @@ static struct uniwill_device_descriptor pcs_recoil16_amd_descriptor __initdata =
- 		    UNIWILL_FEATURE_SECONDARY_FAN |
- 		    UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL |
- 		    UNIWILL_FEATURE_AC_AUTO_BOOT |
--		    UNIWILL_FEATURE_USB_POWERSHARE,
-+		    UNIWILL_FEATURE_USB_POWERSHARE |
-+		    UNIWILL_FEATURE_PERFORMANCE_MODES,
- };
- 
- static int phxtxx1_probe(struct uniwill_data *data)
 -- 
-2.55.0
-
+Dmitry
