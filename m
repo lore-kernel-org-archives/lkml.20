@@ -1,176 +1,136 @@
-Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF51456296;
-	Fri, 25 Sep 2026 21:23:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.155.198.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1560402B9E
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:23:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790371403; cv=none; b=OU0F1nu2RGk9AgiMkvOfAWIbGM6gEM8u+1VqEWPlOlL6HbtuZpzPWfbHtDWyg5vhLeeAU3AeY4r5qRlkqbj/HWPPYf5i0W56U5EIeVwprYRL29Uu8fuB3oFsSKm0ZAZZxGamUy0geaikgkm8JNOcIwOJsoeh7c50oVt5NKWCZtM=
+	t=1790371433; cv=none; b=X90w61d+tBMPv14I8xWATxufHrH1UbqMhu7mAwpAsQdvKHcCmV+V32kUKHMF8TJMZdQFsfE+TRy9SCdB1sz/oT3EzQMdLI241m9sbT3AvOG1xSHoh8JZUt1hsn7Fn2Aa87QmV9C4opLZzjHMLoODq0v+AnHkx4XrB8YyJfdDhP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790371403; c=relaxed/simple;
-	bh=HerTneftuhQfAknI9R2FicxbJNpDAGXWHHvZw49HstY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a5P1N3iRzb8VxuMQekfV0Rzd+0xutV4ZJi9dO9CqTMoJgkPxCYA+hpiE08kEIe6GIw8ADVfnCPGOq+bnxBg0f0GxpElcQFt9C/jZPbMl+aBahNhRBQnxNlh9GpU9qyRgVVv0w36g/3igCOza0/5e5hk8wY9UaOqJ1rbknT1O5y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=ZMfZCLmV; arc=none smtp.client-ip=35.155.198.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790371433; c=relaxed/simple;
+	bh=mq3RWoA/hcd32dCL//3OXdHccnRftC6Ctz2XilEVcCo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D9o8AJ4lS0Lpf8r+DGsjL3Ilrr4RFC8VHS3sVU2gIvAFQ7nmn4IMQthc/cBNxKORnfwLMKk5TIOcoF6sw6s8zfU3KDHjniV60rKpDG7K3yDvkSZLYCObn6kOjF06Dl4DpZUjbGkKML7bxmbFZtKDJZSqhL7joz9x0ABbiWU7i8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIR7bkoT; arc=none smtp.client-ip=74.125.228.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="ZMfZCLmV"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIR7bkoT"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc794a06e5fso425332a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:23:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790371401; x=1821907401;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=DMNrHieUH4/OcqJVLdfiVHAW2UU4cQkS2bASkWEaKxY=;
-  b=ZMfZCLmVKZFbthA0aR9kpOc6xCIq+0jpiRBLC8fVeuDsMzB9W1iyNPqD
-   cGfIZ/LqPldNczzz11PNY6pW7Wpf1Q0Pk0YCJDglNz1ZRy8t/HoIq2jMx
-   P4Gv9ff/1msCnGJJevOTnLJS5/+3m59d9pE+38xFxyHBD72iWS2iFCs85
-   maPI5L4UGYJVVrjdhKJxKp4ALowQaTwmwdl9m72ShxZ/t3W5L3qDxv5qf
-   OB7BmV7OUBcJOdAGoxRaDlvDkyQYqLskGBbH2fd1LWBTqq0kPWMxZE8LM
-   GGqBYVEU32VqB0TN7gMxguwWrdyu9zrM1ZWfOMYEOTWBT/f++nJezS1oR
-   Q==;
-X-CSE-ConnectionGUID: CY6CyhnDSwC+dDMmh9ZlrQ==
-X-CSE-MsgGUID: pfrxjD44RRigskAFze2eqw==
-X-IronPort-AV: E=Sophos;i="6.27,123,1787011200"; 
-   d="scan'208";a="29577426"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 21:23:21 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:18344]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.33.144:2525] with esmtp (Farcaster)
- id da323cf6-d9e1-457c-95b6-0d78905d856b; Fri, 25 Sep 2026 21:23:21 +0000 (UTC)
-X-Farcaster-Flow-ID: da323cf6-d9e1-457c-95b6-0d78905d856b
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 25 Sep 2026 21:23:20 +0000
-Received: from dev-dsk-wanjay-2c-d25651b4.us-west-2.amazon.com (172.19.198.4)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 25 Sep 2026 21:23:20 +0000
-From: Jay Wang <wanjay@amazon.com>
-To: Alan Maguire <alan.maguire@oracle.com>, <bpf@vger.kernel.org>, "Alexei
- Starovoitov" <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
-	"Andrii Nakryiko" <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
-	"Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-CC: Martin KaFai Lau <martin.lau@linux.dev>, Yonghong Song
-	<yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Nathan Chancellor
-	<nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	<linux-kbuild@vger.kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, "Petr
- Pavlu" <petr.pavlu@suse.com>, <linux-modules@vger.kernel.org>, Arnd Bergmann
-	<arnd@arndb.de>, <linux-kernel@vger.kernel.org>, Hazem Mohamed Abuelfotoh
-	<abuehaze@amazon.com>, Bjoern Doebel <doebel@amazon.de>,
-	<jay.wang.upstream@gmail.com>
-Subject: Re: [PATCH bpf-next 0/6] bpf: make the vmlinux BTF an on-demand loadable module (CONFIG_DEBUG_INFO_BTF=m) to save ~5.4 MB memory
-Date: Fri, 25 Sep 2026 21:23:19 +0000
-Message-ID: <20260925212319.25401-1-wanjay@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <9cf62f86-0b7d-4175-8334-74493ea3b04c@oracle.com>
-References: <9cf62f86-0b7d-4175-8334-74493ea3b04c@oracle.com>
+        d=gmail.com; s=20251104; t=1790371431; x=1790976231; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5oelsYzBnav4hrJavpxK0ZTVgzSWbj7lSOhSINx8zCc=;
+        b=EIR7bkoTQzM99n4jBSXUx6EWBeqX8kEMqLh3baDLwI3gmyv6Soy7T+zvQjAurh4Q80
+         5FqjDDTFQeBWGuy+lHfikc9Cr2PzJaL1E3BPZcC5577GJCLBjKdgNvYTxis7G8/+ZA8U
+         2z4M3yVRI1ZlnNydDA6u1dtLRfY2JPJtdu6204Rsb3gwKNus6MTRM+8e5GSDYu2cxaMN
+         KvsGjDLUztnBmlZdI0rB/v/QpLcqSVVDoZeOIUH2qleqjNNxNuwawgJdopkXX1g4eZB4
+         6zowUfD5SUePoOU6Vd9JsheWPL06G41WuoxoL9A42Tm2JruNCazUEAGgz2IX4FMsgLG8
+         zpCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790371431; x=1790976231;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5oelsYzBnav4hrJavpxK0ZTVgzSWbj7lSOhSINx8zCc=;
+        b=uRBfltwkjlayyT0mxChaQ60CxnjfNsv1i9oAip/4j7LOcqIkpQU4TGZaND1CtYiZUt
+         qO7QNw6ecGQXtVK5XEDlhjPxcMkpsfH4YkECvZe16MTWod97jj/UYnHIctdk9rwSQ1nV
+         D2JP7eVud79UuT2APeDdQ37rt3D8QNSbq61fkvQrrXqPqpl7JrEJ6E+mWgzl2wbsH8lA
+         o0d1j7VhogcL/mxo8/zhxyqc8cpXvRuUAVvY2Dui6JAU2lItxsuZNf9VVT0Lxt8YBAab
+         dYvZA5KW9cOUG1ZmzWGkrly+pRvWOGHn5zCX9RmXEyMxMeij2zlYT1MMX44WE/SkEywL
+         7glA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSrxUlFyolBMow++jg0KnYizs09YZ6ike/aQvMCfs7hOTgLyDpa7kvm4eNTksOaxn1YiXiq4lQYpPzq0w=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7wNT1uZbVsIum9RlsLLIk3m6Pc27j4Cme1nofTrRlJRapM7GY
+	MHK5NRF3YKLruEHYQh3ntqXBmNIVCJd4nFkAf3VDGcsVsG/gQ2/DLiwU
+X-Gm-Gg: AYBFou1NY1P/fdtXfz2xlRaD4Wy5+9d5kc1e/2596nyYtuYyzJ3yrayP/3KFPzchXIP
+	XAB8z3Cx1UiHSdFchwNSaNGuOmLlfvRgaq5DUM37sJ4p2inPiuX1uQr8X37H8AKCJRtNc7wgH/4
+	Ej7Faf1R8iai4vLURurVipUIALcQsHS64p1GTTHM8d+/7dbhaj23ZMEy2Ks1uQeLenzcZWQ2o54
+	1ehUVpLKW9HM+7JFNoZ1j4oSQ2E7QZW5A3ArvF6s29bQH9gzGH04/vFG61KrOp4UYuKnn8ogCEy
+	BZllmUEHv+gdqaxZvfx/IZXVIpwyoq62Oqo3KDoxjw8bkLBTkgqLCENEgu3laGBcCXLaLSmSAK2
+	/DJu+0juqHMqgOhLyP/HhTDynmmTEGDneBxaawOiu5MlUbNGSHcgNcXr1tDeok50uhYS2UcXtQd
+	2IdxIjYc/TGcajfLRn1mFY7p3djrMR6fc8c38oWavT5iXimfB9Rd+NXu0m56M8G9evdJNuz54J0
+	3vZP+ANPDId
+X-Received: by 2002:a05:6a20:d70b:b0:3dd:a196:69e2 with SMTP id adf61e73a8af0-3de26f2927emr3172381637.61.1790371430957;
+        Fri, 25 Sep 2026 14:23:50 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78796c314sm1850422a12.29.2026.09.25.14.23.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 14:23:50 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 25 Sep 2026 14:23:49 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Cc: david.nystrom@est.tech, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	ricardo.neri@intel.com
+Subject: Re: [PATCH 0/3] hwmon: (coretemp) Report unreliable temperature
+ readings
+Message-ID: <254a2bdb-c759-469d-a1bb-c10f476cebe0@roeck-us.net>
+References: <20260924-coretemp-temp-fault-v1-0-1884f0ff97d5@linux.intel.com>
+ <46f9f319-de71-412f-a424-6cb801478456@roeck-us.net>
+ <20260925182158.GA27122@ranerica-svr.sc.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D032UWB002.ant.amazon.com (10.13.139.190) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925182158.GA27122@ranerica-svr.sc.intel.com>
 
-Thanks for the review, Alan.  v2 is out and addresses these:
-https://lore.kernel.org/bpf/20260925211314.5118-1-wanjay@amazon.com/
+On Fri, Sep 25, 2026 at 11:21:58AM -0700, Ricardo Neri wrote:
+> On Thu, Sep 24, 2026 at 07:37:18PM -0700, Guenter Roeck wrote:
+> > On Thu, Sep 24, 2026 at 07:33:19PM -0700, Ricardo Neri wrote:
+> > > Hi,
+> > > 
+> > > Intel CPUs indicate in IA32_[PACKAGE]_THERM_STATUS whether the digital
+> > > thermal readout they expose is valid. coretemp deliberately ignores that
+> > > indication, for the reason given in commit bf6ea084ebb5 ("hwmon:
+> > > (coretemp) Do not return -EAGAIN for low temperatures"): some CPUs clear
+> > > it while the temperature is too low to be measured, and the value reported
+> > > in that state is more useful to userspace than an error would be.
+> > > 
+> > > The consequence is that userspace cannot distinguish a genuinely low
+> > > temperature from one the CPU could not measure. This series exposes the
+> > > indication through the standard hwmon temp%d_fault attribute, leaving
+> > > temp%d_input exactly as it is.
+> > > 
+> > > One user-visible effect is worth mentioning: sensors(1) prints FAULT in
+> > > place of the temperature when temp%d_fault reads 1. On a CPU that clears
+> > > the valid bit at low temperature, that core stops showing a number in the
+> > > default output, although sensors -u and -j still report it, as does
+> > > anything that reads temp%d_input from sysfs directly. A driver-custom
+> > > attribute name would avoid this, but would be invisible to generic tools.
+> > > Reporting the condition through the documented attribute looks like a
+> > > better option, but please say if you prefer otherwise.
+> > 
+> > I think it would be _much_ better to return -ENODATA for invalid readings.
+> > This isn't really a fault, after all. The sensor is not defective,
+> > it just can not provide valid data.
+> > 
+> > With -ENODATA the sensors command reports N/A for the temperature
+> > measurement, which I also think would be better than reporting FAULT.
+> 
+> Thank you for your feedback and for applying the other two patches!
+> 
+> Thank you for your feedback anf for applying the first two patches!
+> 
+> Userspace has seen a number in temp%d_input for over 12 years, and with
+> this change it would get an error on CPUs that clear the valid bit. I can
+> certainly implement returning -ENODATA; I just want to confirm you don't
+> see this as an issue for userspace.
+> 
 
-Answers inline.
+Userspace should be able to handle error returns. That is not an ABI change.
+Even if the fault attribute was implemented, trying to read the temperature
+should still return an error.
 
-> I have a question about the approach here; my experience with using sysfs
-> with a dummy placeholder file which triggered on-demand module load when
-> accessed was it didn't work with sysfs interfaces because the file size needed
-> to be refreshed, and the reader would usually error out since it saw an
-> empty file and gave up reading. I wound up having to switch to using
-> kernfs to update size attributes on open such that the caller would see the
-> size change synchronously once the load completed. See patch 15 in the above
-> series for the details.
->
-> It seems like you used a different approach here, and by storing the size
-> in the BTF metadata this problem was avoided. From the below it seems like
-> there are no first-caller issues from userspace (like if the first caller
-> does "bpftool btf dump file /sys/kernel/btf/vmlinux")?
+On the other side, claiming that the sensor is faulty is, in my opinion,
+just wrong. It is not faulty, it just does not return valid data.
 
-Right, that is the reason for .BTF.meta: the size is known at build time,
-so the file is created with its final size at boot and the load happens
-in read()/mmap().  No kernfs internals, no i_size update.
-
-I have now tested exactly that with the in-tree bpftool (libbpf 1.8) as
-the first user on a fresh boot, nothing else having touched the BTF:
-
-  bpftool btf dump file /sys/kernel/btf/vmlinux
-  bpftool btf list
-
-Both work and lsmod shows btf_vmlinux afterwards.  Same for libbpf-loaded
-programs as the first user: a global subprogram taking the context,
-bpf_snprintf_btf(), a CO-RE field read, and a kfunc of an out-of-tree
-module (below).
-
-> Another issue; during boot, request_module can call back out to modprobe
-> and depending on where you are in the boot process, the module may not be
-> available due to filesystem not mounted yet etc. Maybe this just means that
-> btf_vmlinux.ko needs to be in the initramfs image? If that's the case, I
-> would suggest highlighting that in the CONFIG_DEBUG_INFO_BTF Kconfig description,
-
-Yes.  If request_module() fails the caller gets NULL, i.e. behaves as on a
-kernel without BTF, and the next user retries; nothing is cached.  So a
-program that needs kernel types before the root fs is mounted fails
-unless btf_vmlinux.ko is in the initramfs.  I have added a paragraph
-along the lines you suggest to the Kconfig help in v2.
-
-> Another concern to balance; embedded folks were interested in vmlinux
-> BTF as a module to limit on-disk footprint rather than (or likely as
-> well as) runtime memory; [...] If I'm following, the final vmlinux image that winds
-> up on disk doesn't contain the BTF section, right? If so that's great
-> news for them.
-
-Right.  With =m v2 strips the BTF from vmlinux, so no boot image carries
-it; it only lives in btf_vmlinux.ko, which a system can also choose not
-to install.
-
-> And another thing I was wondering about - did you test with modules
-> containing a .BTF.base (built standalone via "make -C path2module")?
-
-Not in v1, thanks for asking.  Looking at that case showed a problem,
-fixed in v2: for a module with .BTF.base the raw .BTF is only valid
-against the distilled base and is rewritten in place when it is
-relocated, so it must not be served before that.  In v2 the sysfs file
-of such a module is still created at load time with its final size (the
-relocation only rewrites ids and string offsets), but its reader loads
-the vmlinux BTF and waits until this module's BTF is relocated and
-published before serving it; modules without .BTF.base, whose data is
-final, are served as before.
-
-Tested with an out-of-tree module that has a .BTF.base and registers a
-kfunc from its init, loaded before the vmlinux BTF: once the BTF is
-loaded it gets its id, relocated types and its kfunc, and a program
-calling that kfunc works.
-
-> What I meant by the hard part (aside from deferred handling which is hard
-> enough!) is that there is a conflict between the goal of saving memory and being
-> forced to allocate memory for module BTF for a deferred-load scheme like this.
-> [...]
-> CONFIG_DEBUG_INFO_BTF=y results in upfront allocation of memory for kernel and module BTF
-> CONFIG_DEBUG_INFO_BTF=m results in upfront allocation of memory for module BTF only
-
-Agreed, and v2 says so explicitly in the Kconfig help and the cover
-letter: the copy kept for a deferred module is the same copy
-btf_parse_module() makes with =y, so module BTF costs the same at the same
-time in both; the saving is the vmlinux BTF only.
-
-> It might be worth thinking about providing a means to control whether such
-> module allocations happen prior to vmlinux BTF loading for highly memory-constrained
-> systems. Anything delivering kfuncs etc should probably always allocate since it
-> constitutes core BPF infrastructure.
-
-Makes sense as a follow-up; I would rather not grow this series with it.
-The distinction you draw (keep it for modules that register kfuncs or
-struct_ops, make it optional otherwise) is what I would start from.
-
-Thanks,
-Jay
+Guenter
