@@ -1,133 +1,197 @@
-Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472CB3E3DA7
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:00:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790312451; cv=pass; b=Wacom5jduOBPUFN4RGkW9xaGyo2qdupKv7N1MuX6SdqDB1tmF7NxcIEZwG2lNBXKiA3r92vs+/eJZujLt9toLN+92AYWkN18eQMgZe7fCG/CjGoxaRr89gasVdJvd2kAJ4ZQLdUnQ9HKGLqpzj/5WdDQzYUWsIYc+asO8Tm//RY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790312451; c=relaxed/simple;
-	bh=n9aUztV7nibTo3d+DWhgc6O46VXgB8ine1jUf8ps2ok=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r7iZ80qWd2r1ypib8cKSCbTna4M3LChab+peEhk1JYXC/MO5DWLnd48CLRKiLrps74TxRP0rMz0crEKIqrlk0FvEOObdF3VjxKrDcdyfV4nmyXxIZgV/1sVWmg7tK8S/z7r/XdPyUMyinJwhuWPgYIfJeEebx3RyzQC39/aDcJo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TUoCzTVD; arc=pass smtp.client-ip=74.125.230.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F191DDA18
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790312815; cv=none; b=g3Rcvs3CKUFxIKpe2eB9QsGKfC+pkvkGwcLYj8askQGTYHDae4GHJLqpitIGKCXt9+iK08PSL7kMkMhRt2kNIyCahih5xCCD9QeKaPU3VNEDIMlqr8AbS+FemO4wkUg0Eta8Q7jIVoKJED95tp7BcQ+Yoey1e7ReLpVoU5Z7QQk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790312815; c=relaxed/simple;
+	bh=FgNvILV90xm1SMzdCLuDcjJ9uRlnlkG2a/778kvewAU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Oe+Tr5LZydyKPLWWC2j3fSJAFU93rtUl/zdoWvUtou1uCJ21ExvKvrWq+Ap8x5a7o+Q7EByd/hbMg2fPHAHWlHpDYNd+P2v7tQOOYSSbw+WxETC/+RzqLjTBWvUblBw/t++DgDnZeJFNiHV5od79l2/wt5bsUXDfhH1vl68opuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jfRHeiNo; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TUoCzTVD"
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a64e7f4892so724781fa.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:00:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790312448; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BoASzQVC71Ij/mTgspSntzvTHyJ98gxhoNDWqPAovi/iheZPzq4WOJPfgiZibSHGoI
-         QQF1Rio8mtCfFcXLx8X0/NCOJJ0ut13gr5eE+pDV8WWojNNzXi5NTt+y6xjq13PRQR/+
-         uCXTF4XWuv/4uXjc2RAGIUs7le4/PveZ+o6djaVFN4bBP4l92JPSaV+zMmwchxqhygBH
-         9IEIw11s7JGrCQdr9EsclU4ZsqADZQAwK9DfCboOJNdj/ZqQxKZLQ2srSyI1C3zvqqJQ
-         PoumtAUfdHNbI7u5mvjKOntVpRoz8R7cR4zftQhXkf1RKaKAsZG9boJKbx8QdDH3HPRu
-         qujA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=rm0EqLIUkFc/YQEYZghm/9aMXZ0pgY5F/cnsZASSdbc=;
-        fh=NiXNtV2IL243iMA8Rz5Zo6vU2QzR9kozrM48vDYClXo=;
-        b=JHf2AV76bfuilzG/Jurl9IdwGOzJrA7uSv6YGGtnvzRT6Enp+FPQgnP7aAfLk8nC11
-         WJhCIxesWaAcf19h0N9PrPe1PkA4HO1JT/DRBplJGw0F+BKQkT5SkEePa8sNpgMxrA0e
-         CxXOekq2ma466FXNJeXkNL/Be6Cvul5HTONbUbr3UoBDoHR0qrQ0vywQP0htVSNCfeWn
-         dwOr4befFEvwQXQrQSvMK/c1s75fPV8AB6kTkoRq8YqAtlZ2O4vXR5UX+U0OnUirdNTP
-         arg+nJhXFCGL8cVi6FXjAN0uDC+oghdlCs5STobeCpj3lDaiSKXs9rKzmcdEzZdg3OZ6
-         mW0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jfRHeiNo"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso6206225e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:06:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790312448; x=1790917248; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rm0EqLIUkFc/YQEYZghm/9aMXZ0pgY5F/cnsZASSdbc=;
-        b=TUoCzTVD50PP5/8F11YKNf7BsPN9TmouyAVSziUL0SYytQ1J8ayLdSmJrUCM6l9qkS
-         QGxrcm2ba62Nq9PW5qjrP5JWaje81gu1PODDjMlwcc8DfW26JEauzInBtwkCktxx2HMO
-         4DTj8NivbjI3qYiv+QbyM8rdQwVggc+SY+gVLEiTnJAanK32LqB2x8Q2hpPQuBctMOOW
-         ftqYeWNoVcRUUyurUwikPQXMsT15NG5ViF04LdaHwukqcvipP7s/3gBmyYkRPoo0olvc
-         RTHMx9CWb/LRCB/YipidEEXZogvZY163fOMTFEW5DLtjupQDLJBCCR5dIOnMHln1T4el
-         JgEw==
+        d=gmail.com; s=20251104; t=1790312812; x=1790917612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bTHdBxfhS/8AwdrGP71aETufCPYtjaKQTmoOMEZkDuQ=;
+        b=jfRHeiNoh7sNbXk9UmmecJwQyhc40M7Ke/ibgUD+EzQ2CTlAzg3tH13Alip7xpHo+v
+         9HFnzgFsWzkZwntGqEWSFfPDB68GmLC2sgCBp+13MjNJKxSNxFHOd6aYcDF0s9O8gs35
+         nLdWKkrflpeYBeR/xODptpYqwwTiSWAnD9YumRSfWT9o6+bVyttaKMGLhhJuDT1A0jur
+         PB3/aRjsxEdyBDA4Iw6cHSKc51S11vOXPq6G6rfQE3rRH+81xjJJvrq3DwwfSGXNt3ns
+         mz8wgPSCHC53n7sxdCHoSjrBrgPjsAi9CuOzb/8KvDX6l8hmmibk0eYXoKmm9+YU7gpk
+         uVYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790312448; x=1790917248;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rm0EqLIUkFc/YQEYZghm/9aMXZ0pgY5F/cnsZASSdbc=;
-        b=RACg2uYHi6qnmzmdhRHfePt0EpEOsbxQdEAk9a+KiAGp1CCR9W+iolMuU/qMcu+1Ot
-         3oqlxd6d/PtFdMSw4uwubc5FzRaB1B2RfG17usyANZF7vUXrLf69vJ88IkiSoibVywsJ
-         Aui423xGC0IC4dj79kfT2jyOU3gM2PJuoYE08bYwq8B3mOLUnH8fA//qSq2DdWkNbpyL
-         zHcwE9M4joRkaT3si+okMzdAjRbbKq2v5MV+BlipzjGbh9KK73ipVnwM89cJ8+qlQG1N
-         uGs448f3ugwRI+zN+Iysf2gAdl/E4ESGCtaHZJK83d6gPGwpQXavRxDQZj/gXJPFnfHu
-         ouhg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+J4tfeN7wrmHJPxErrdaSh/SfWVCOMdAjZ5xpscSBSdy31z9bdhN9aI7GCDAaHZXnDIVXgPlogiQwmTk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBae2nSHLmy/I9k/b0qPutMI8QIP8DcrDLwBbI7gF19jR8TaTq
-	7cMrrUbV0p71QKfczxk4R2FQrFYZbeFHY4y7+rcxow5sCr5Eyj0K69t6Rx+gPHhCrfN9YoHuTPf
-	3R4VIrWVP/w8ef5V88V7rgnY4uaIc70LifFR4piU=
-X-Gm-Gg: AYBFou2169koW2gGkiJqb4ESPFNbHWucQh8QGkOtufDqiLt1BIzV0hI/m/OmThA+lPj
-	K9s8nxqpuLrM+tOJy4AzRTKvay1Znnvoqno7N30taivYyHkpwaSmlySj/e/uD2GCJtor+OVXTQM
-	WjpFKY8Qnti/6MUdKNU5WI1op/Yvmfq/RonzvQnRYmJnxoDSP5dVDId2CH9XHr2L+gAtrEXk6n+
-	IcXYghoI72QWzT2JKDhsmdReV8+oZ591j3FGb+0XbN/4CDHT+rvPoqSCy/0gFHReOzF5jdh2Z8N
-	j8UHcDMsiXIQbi1iGQGlHbjJBuZuzW1TfT2yKRdbyQqxkFs6VwDfvX88i9R0AKBbu+kqNtupX1V
-	kzhy1ZQpg0apwfifHXQ==
-X-Received: by 2002:a05:651c:1442:b0:3a5:d8c5:dec3 with SMTP id
- 38308e7fff4ca-3a63bf30056mr9425791fa.4.1790312447882; Thu, 24 Sep 2026
- 22:00:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790312812; x=1790917612;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bTHdBxfhS/8AwdrGP71aETufCPYtjaKQTmoOMEZkDuQ=;
+        b=k1nVtfLxV0VvtbolZp2FPxxFp7QrAI/WatAlHosmCYjQCroq1E4iZcLx+rQpZSep3g
+         SONNizj3ODFcTnjmzvM9pKQVfnDJP29tyPEpsw64YF1WX92OXusGPalOKoRby7OQtof+
+         eenw0Kz4SOefzcjwxISohud6S0eGDZzRexK+usnv/jA2w+seFQv4NTqzKteo6TSYnZSe
+         HlYPMAsWZMXV74FaP303Qqo9JD0XKOkRynAt2tgvqb1TP+GpeuTGp12KzDK91m3rgJwh
+         r1rJdF+p52YTzWtguTuWo8dRkID4rQz2rbF9MGY1n5lHGsvPBtcIqCcEbdAX/7pZwHjd
+         cwtA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOoEZ3j6EVenzlMI0MXMmH/MK/auvQopf3ZqHxRWbGUKAAlvLDjeAsGB2HroizPr5E8WiazBPe/+cyKCg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k18Pqk02/015ATSsbjh/XEDrMvxvyPu+05ycz3GfnG7VlLGyhh
+	8Sq1El1z9A83qF1tlgwfRBu6Zxv/gDoqzmBZ9nMyoUPvSBA4P+jVCrdd
+X-Gm-Gg: AYBFou3v+Yb9lAuZw4JXlR/Z65jg6DgPxawRVtniYYPuY5gwTvh6cCmfvRBLVWr4tMr
+	beeqTicPqBFumGpUA9vlzj9Wn/KjhEQ0bUu830q649iL7ETbmWJHZhXM9Q59Sm0NgcJNKE6k9+A
+	5RL4WOiDMBeNkQwVnZi3Cl2po9CZ7UIUvxJy+dk/52f4yV4Cr/m+IDzGu8Gy8a1Yx3VcF4YmHZG
+	My31Gz1QqAxPd2HYkgLwo1yqY96zbvSoZhpdjc9Yz8N4EigrorZcLu/2hEmG5VWutUWRfcXgdVr
+	tcugpNrCFehgegSFaDHVu/7pROgpYu6mpJk4+GXvyujNyZvmHe1KhJyhfpVCGKnoM5RmnpcFtuh
+	GVFNfwfaeLHssRkDZv7xAVM8cmQT76svzom6wWGCNI+dOGcPy6RBBhpNA6Q2Jv3vy4El/7jjqN0
+	I7riw1FbjrhIjT4pUdXYp68o3oS5E2n0+E9X9BStPqMlMadOelcWiZOVCguYWgnq4V23CS4+qSR
+	9099hHYdrdBHcEu+heiGmnGTf+XJeH0vrqff3ZfEn+O5JsEeApWXxWiQVU6rSa7eV0xsLk=
+X-Received: by 2002:a05:600c:154c:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-49fe66cab86mr77104535e9.7.1790312811460;
+        Thu, 24 Sep 2026 22:06:51 -0700 (PDT)
+Received: from localhost ([188.234.148.119])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06bdef2sm29882305e9.11.2026.09.24.22.06.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 22:06:50 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Vishal Moola <vishal.moola@gmail.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	x86@kernel.org,
+	linux-mm@kvack.org,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v3] mm: don't schedule deferred kernel page table freeing while booting
+Date: Fri, 25 Sep 2026 10:06:47 +0500
+Message-ID: <20260925050647.86913-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923165447.619477-1-oss.patchbox@gmail.com>
- <20260923101026.000034ea@oss.qualcomm.com> <86jyoa4de3.wl-maz@kernel.org>
-In-Reply-To: <86jyoa4de3.wl-maz@kernel.org>
-From: Yuho Choi <oss.patchbox@gmail.com>
-Date: Fri, 25 Sep 2026 01:00:34 -0400
-X-Gm-Features: AclHuK_aa1lbVC07A0bMFtx-SCHDmF8FwruzF-cMfKgCuCV9kjuVsj4-WFomK0k
-Message-ID: <CAGG=RgARi_wVpUBRuGS8UkEbXim1gVLx8Xuskocc5QYL6+68iQ@mail.gmail.com>
-Subject: Re: [PATCH v1] irqchip/gic-v3-its: Drop ITS node reference on
- its_of_probe() errors
-To: Marc Zyngier <maz@kernel.org>
-Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, 24 Sept 2026 at 16:12, Marc Zyngier <maz@kernel.org> wrote:
->
-> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-> index e9807af235373..91e08b5229b1c 100644
-> --- a/drivers/irqchip/irq-gic-v3-its.c
-> +++ b/drivers/irqchip/irq-gic-v3-its.c
-> @@ -5561,7 +5561,6 @@ static void its_node_destroy(struct its_node *its)
->
->  static int __init its_of_probe(struct device_node *node)
->  {
-> -       struct device_node *np;
->         struct resource res;
->         int err;
->
-> @@ -5571,7 +5570,7 @@ static int __init its_of_probe(struct device_node *node)
->          * reset, don't even try to go any further, as this could
->          * result in something even worse.
->          */
-> -       for (np = of_find_matching_node(node, its_device_id); np;
-> +       for (struct device_node *np __free(device_node) = of_find_matching_node(node, its_device_id); np;
->              np = of_find_matching_node(np, its_device_id)) {
->                 if (!of_device_is_available(np) ||
->                     !of_property_read_bool(np, "msi-controller") ||
-> @@ -5583,7 +5582,7 @@ static int __init its_of_probe(struct device_node *node)
->                         return err;
->         }
->
-> -       for (np = of_find_matching_node(node, its_device_id); np;
-> +       for (struct device_node *np __free(device_node) = of_find_matching_node(node, its_device_id); np;
->              np = of_find_matching_node(np, its_device_id)) {
->                 struct its_node *its;
+Booting with a boot-time function tracer and a filter, for example
 
-I appreciate your time reviewing this.
-I'll send v2 based on your feedback.
+  ftrace=function ftrace_filter=pud_free_pmd_page
+
+panics on 7.3-rc4 as soon as the tracer starts:
+
+  [   23.531178] Starting tracer 'function'
+  [   23.675800] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000038: 0000 [#1] SMP KASAN NOPTI
+  [   23.819917] KASAN: null-ptr-deref in range [0x00000000000001c0-0x00000000000001c7]
+  [   23.964025] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.3.0-rc4-fe2ec83746e5-with-fixes-v2+ #195 PREEMPT(undef)
+  [   24.252248] RIP: 0010:__queue_work+0xab/0xf00
+  [   25.981629] Call Trace:
+  [   26.125727]  <TASK>
+  [   26.413912]  ? pagetable_free_kernel+0x20/0x120
+  [   26.990283]  queue_work_on+0x97/0xf0
+  [   27.134382]  __cpa_collapse_large_pages+0x501/0x6f0
+  [   27.566662]  cpa_flush+0x394/0x620
+  [   27.998953]  change_page_attr_set_clr+0x321/0x4a0
+  [   29.151729]  set_memory_rox+0xa2/0xf0
+  [   29.584018]  create_trampoline+0x431/0x6f0
+  ...
+  [   44.343347] Kernel panic - not syncing: Attempted to kill the idle task!
+
+The boot-time tracer is started from early_trace_init(), which runs
+before workqueue_init_early().  Making its trampoline read-only splits a
+large page, and CPA collapses it again right away.  The split table has
+been a kernel page table since commit 9e4a3ec3411b
+("x86/mm/pat: Allocate split page tables as kernel page tables"), so the
+collapse frees it through pagetable_free_kernel(), which queues work on
+system_percpu_wq - still NULL at that point.  That commit is correct in
+itself; it only lets CPA reach pagetable_free_kernel() before the
+workqueue that function relies on exists.
+
+Keep putting the table on the list, but don't schedule the work while
+the system is still booting.  A core_initcall schedules it once to free
+whatever was queued by then.
+
+Fixes: 9e4a3ec3411b ("x86/mm/pat: Allocate split page tables as kernel page tables")
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Link: https://lore.kernel.org/20260924064321.23787-1-mikhail.v.gavrilov@gmail.com
+---
+v3:
+ - Schedule the work once from a core_initcall to free whatever was
+   queued during boot (Lorenzo Stoakes, Dave Hansen, David Hildenbrand).
+   late_initcall would work just as well; workqueues exist from
+   workqueue_init() on.
+ - Keep the fix in pagetable_free_kernel() rather than skipping the
+   collapse during boot (Mike Rapoport): that would only avoid this
+   caller, and any other early free would still need a workqueue.
+v2: https://lore.kernel.org/20260924092307.22813-1-mikhail.v.gavrilov@gmail.com
+v1: https://lore.kernel.org/20260924064321.23787-1-mikhail.v.gavrilov@gmail.com
+
+Tested on a Ryzen 9 7950X with a Radeon RX 7900 XTX (lockdep, KASAN),
+7.3-rc4 plus unrelated local changes, by booting with
+
+  ftrace=function ftrace_filter=pud_free_pmd_page,pagetable_free_kernel,kernel_pgtable_work_func,kernel_pgtable_drain_early
+
+The boot that panicked without the fix completes, and the trace shows
+kernel_pgtable_drain_early() and then kernel_pgtable_work_func() before
+any other kernel page table is freed.
+
+ mm/pgtable-generic.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
+index b91b1a98029c..cd227fc05d2d 100644
+--- a/mm/pgtable-generic.c
++++ b/mm/pgtable-generic.c
+@@ -438,12 +438,30 @@ static void kernel_pgtable_work_func(struct work_struct *work)
+ 		__pagetable_free(pt);
+ }
+ 
++static void schedule_kernel_pgtable_free(void)
++{
++	schedule_work(&kernel_pgtable_work.work);
++}
++
+ void pagetable_free_kernel(struct ptdesc *pt)
+ {
+ 	spin_lock(&kernel_pgtable_work.lock);
+ 	list_add(&pt->pt_list, &kernel_pgtable_work.list);
+ 	spin_unlock(&kernel_pgtable_work.lock);
+ 
+-	schedule_work(&kernel_pgtable_work.work);
++	/*
++	 * The workqueue may not exist yet while the system is booting.
++	 * kernel_pgtable_drain_early() schedules the work once it does.
++	 */
++	if (system_state != SYSTEM_BOOTING)
++		schedule_kernel_pgtable_free();
++}
++
++static int __init kernel_pgtable_drain_early(void)
++{
++	/* Free the kernel page tables queued while booting. */
++	schedule_kernel_pgtable_free();
++	return 0;
+ }
++core_initcall(kernel_pgtable_drain_early);
+ #endif
+-- 
+2.55.0
+
