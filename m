@@ -1,42 +1,65 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06092D73B9;
-	Fri, 25 Sep 2026 05:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A273921E9;
+	Fri, 25 Sep 2026 05:26:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790313984; cv=none; b=g7gXsT6T1fg/1AnRR/h5+EWBA+Zd1qSsgTiAbkf6fQw4Gb5yyvlshuYkrqm+JRNz5bJFNUMT64Crsjvo8FYjPzhvtUidUJ4/PLlTWDy0FeAgw94OoZPBjcOladcjbh1QTyXSK6ag2kKm9K6sPDAkeD7UKIXst+wEA3yQXPSnv/A=
+	t=1790314015; cv=none; b=hVoFEM602zicwyO3pYcOhKsgTjA+KA1AF5WmT9XVEDdp0CyqB8aDfWb58t5Vng6FbA4hZcRtvYdQuTrFPrIQNHZUE0uQiV5exZHsCwQLOiCOImjCdXVBp0iGTmOyhJ7M40JKp4xhpbKMAwbjPKjxKzgjXpw3CzWL5/uSWaN1DuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790313984; c=relaxed/simple;
-	bh=MP46wPWD8j8ODihGnKM1w/cGQIi5qrnoZHvqcqT9wW4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eciH3GEtMbrRyFdeghy1WHGrHngQu7l6OtHGkFsp1mwEozaQXjF0xzfLqK53iwkEuw9SxoNQY2TD5xNJBDbQJKpocQLi5wpGfAGmsiMHO1mWf4/aENT8pX1CSlkIdqDV0Eoo6ry3ef8ZQik8d1NeJblm7jTytoqtVOSs8w1o7YY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AxlKoSsQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790314015; c=relaxed/simple;
+	bh=r1BQkXIkWbZ3bCnsg8ygvimx8DmAW7XJnXxTFcZjgFo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=q8+/QrzrOHIqjz+oXbSV6WTjEzVljPKn5CG7pIcITYun2C1DNEll6ZxLyVkN897w/ebqZvq1QquuWmqUNo2Eazc49fh6qZr+t2MWkpumB6PcWdEs9eXP5Zk0+smgQhIY1HUY5lpvd0sJ02vym2pS0RZsFdr9CaaOWZ99Z2IdAmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=CZS7uNtQ; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AxlKoSsQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46B411F00893;
-	Fri, 25 Sep 2026 05:26:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790313982;
-	bh=D2dP+9qLw/W2WhQJy/yudsqVi8Y99UTYvNb8hXeqw7U=;
-	h=From:To:Cc:Subject:Date;
-	b=AxlKoSsQ+X+IWAAa4D75kbeOrX8+iau0y7wzFeKMQGASc0fp1KXPPQsvkcIDU+dgf
-	 64ZhiZbyVD+4sqi3DoB8yCadosA+7LYpNUeuPUuh/lr53f04f5gdcW2qPNg4zyFsp6
-	 Vbx5rRlwDSRHk08tMQ8YPd2kOJU5D/GK8jHSyaPoF6CNcpcxxIh1M9VoFRNQPUAZcF
-	 u8fUQQ+fiEG+T/IfzlH7dYalTIlOSBiFH53arrrplsV9xrSHygl4kmPThZy0WJp9UV
-	 DOMUroT9r3o0VbVX+2xQBlelVk1wC9KKsmopFH/7jmSrz4mUwrIhMuXjM/JPtQhEE9
-	 SHQSB/aWEijwQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	linux-doc@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH] Documentation: libcrypto: Add additional testing information
-Date: Thu, 24 Sep 2026 22:25:02 -0700
-Message-ID: <20260925052502.188024-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="CZS7uNtQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1790313938;
+	bh=r1BQkXIkWbZ3bCnsg8ygvimx8DmAW7XJnXxTFcZjgFo=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=CZS7uNtQjx9YCtrenJBXYnomOTjDeO0tgHgphVauVfyAiU16UyfpTe58OsznrLu/Z
+	 3v8DjiX7RNGxWvstqpy62U65z675DuOshLzURufcFyxsSj/m1LAeSzXiOHHeQrnw4i
+	 hMcUoGr0Szf6wvF/vMJHIRpweax9aEBfnd7u50rY=
+X-QQ-mid: zesmtpgz3t1790313932t3d2c31a8
+X-QQ-Originating-IP: AQ9TsJFseA5fWONHRQxu3z2bCzD1e6Uq+YSaWr9BV0Y=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 25 Sep 2026 13:25:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 9256290536949376284
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 000/398] 6.18.54-rc1 review
+Date: Fri, 25 Sep 2026 13:25:27 +0800
+Message-Id: <20260925052527.1303068-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
+References: <20260923140643.441954610@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,53 +67,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: M+lvj7Iwo06Ng7krDuHUVW/eP8gIata0ljKqJQI5irBvoXNx00sBNdLF
+	F0LTB5nWMZeR8x8GVS51baaVDF2+PTKYuYTPe238r5eUzuz9ExGUp6SNBQWAUZSwKx5hN+V
+	o4f5OMaSiE6HnxczmdGaTUEjUrQyY9531pWbWiORr2SkQ00aJERroWNeSiFLs/2owFc5J5Q
+	r7l+lrefGX0Qi1ueLisF1E14VPhEyrPcH169S6zM5zgU8gnLa111kClyhdbIkguCbS3Jj4d
+	CXg8hRcMRjd6hdf1+4etFjJJiIYi4lqFtGUKJhMhjx1mcJTyAxoamNonMmg9feEZDKVJ1q/
+	px9NjpVQ5xXkpCIyf5r8yp99JljBNYeL/GHF6n9wrvTA6892XeWYdPhbtFEBra6Syvy5o3y
+	kR7IBpiQCrOhylY6tiN14qVESRdPPtc8MhQDJYUerA08uxBC6idJ0PogERps765Okzp4M7m
+	PoXGcjlOCXNfAj4vjZ3hG4dZGcBiB0UHIY3IbBBaIU+MLK4bHuETyxnAvfE3E4/qzB0DScv
+	udPKvfjS4sX0C5hbQjIni2e8DYoQpWZUJ/RBvvAxF5iKT5WK0WrQdFt7SiSZhDfgsrn/+ge
+	pFoiCPrUAVUTnqY1TU8wPDC+xtJRSAym/8O/143Z/6+LxWP3Zu3vEEthGvIokxqzgLAp98J
+	TFebX1+GPKeg14NhF8lO2ghWhkhhJKqLeAJkn/MVNj6GlsDUS3mno1RtfTrYDOYxQygNuLN
+	5rFVYqNvXt0C/k7h0ppgj/piFZ/jJhulnxKMgCvT/sZ6TFwqvST9XwBoifmZlt+ZMPraDBv
+	lB6ktgD2dwsEgeCI3ST4zDOGAKSx0878r0ONeC+UK62WxKX9AwluZ3NXM9SF87m/G4ous7e
+	FID+ncDKbHRyiEC+99goUuVXkQ9L59YrWiXr8aXTeEvPgqR105L+m/B+awQd8goJC4fvfnr
+	DlJELCrjWqTwMi4QNoyqy0ccP6coh0I8zX5AH8ZEOMib0ODnLUdPJiHVEa3Z5DrK5zzWNzI
+	BX3Cf08qVtpoG1mvU2cjkllALX+4qv0ee/9seixj9VsKKV7qtMQ7Pfn6CUKideagcCRnjTs
+	q5GKUpBfbyaSp9AHGJqIJiqSklA+TWI5HB8r5NHaQTzLH+iI/OtKdolPPpWH2ZbgDg/onAk
+	FxA6
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-Link to the KUnit documentation, mention the existence of the benchmarks
-and how to enable them, explicitly mention that the tests can be run on
-real hardware, and mention that it's often possible to clear CPU
-features via the kernel command line.
+Build tested in our x86 config successfully without error.
 
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-This patch is intended to be taken through libcrypto-next
-
- Documentation/crypto/libcrypto.rst | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/Documentation/crypto/libcrypto.rst b/Documentation/crypto/libcrypto.rst
-index e911e0521597..53037e62728e 100644
---- a/Documentation/crypto/libcrypto.rst
-+++ b/Documentation/crypto/libcrypto.rst
-@@ -127,6 +127,8 @@ The crypto library uses standard KUnit tests.  Like many of the kernel's other
- KUnit tests, they are included in the set of tests that is run by
- ``tools/testing/kunit/kunit.py run --alltests``.
- 
-+For more information about KUnit, see Documentation/dev-tools/kunit/start.rst.
-+
- A ``.kunitconfig`` file is also provided to run just the crypto library tests.
- For example, here's how to run them in user-mode Linux:
- 
-@@ -148,6 +150,17 @@ emulate the correct type of hardware for the code to be reached.
- Since correctness is essential in cryptographic code, new architecture-optimized
- code is accepted only if it can be tested in QEMU.
- 
-+Most of the crypto KUnit tests also include benchmarks.  To enable these, enable
-+``CONFIG_CRYPTO_LIB_BENCHMARK=y`` (in addition to the tests themselves).  The
-+benchmark results are printed to the kernel log when the test runs.
-+
-+Of course, the crypto KUnit tests can also be run on real hardware.  Note that
-+it is generally still possible to test and benchmark non-default code paths in
-+this case (for example, the software implementation of AES when the CPU has
-+hardware-accelerated AES), since on many architectures the kernel supports
-+disabling CPU features via the kernel command line.  For example, on x86,
-+the ``clearcpuid=aes`` kernel command line option disables AES acceleration.
-+
- Note: the crypto library also includes FIPS 140 self-tests.  These are
- lightweight, are designed specifically to meet FIPS 140 requirements, and exist
- *only* to meet those requirements.  Normal testing done by kernel developers and
-
-base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
--- 
-2.55.0
-
+Best Regards
+Wentao Guan
