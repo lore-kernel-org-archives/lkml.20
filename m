@@ -1,114 +1,109 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A013423E9E;
-	Fri, 25 Sep 2026 13:08:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7581DDF0;
+	Fri, 25 Sep 2026 13:09:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341700; cv=none; b=LP+Sr4hpnA38jukqvfPSOh3UG5be2Qng47UKcwYY4I/VAsIYlBn2rWicm6UB19wmsx4AZNmmVKwdPiPuHU1rlEDFmmKH/yBKQaAeNwNtnkLa1rnOx7ljLeSB7WS2E3mC4YtsCuiEk/Q3enF1JAgE+NJWNhnHzzl9HD4VzY0UpoY=
+	t=1790341745; cv=none; b=qxELOqeKvias8HrticSU+MHCdvxSBbx4eV8voIoCmdFp1EUljaYkTD89qe1FEQk4pJLZU39Xf0n4m3HdJFq+jR2/N6gygcSw+I7modM2TGanstxHBjijKgeYXyUPb4JG0252/rbmuS7Lea6vvvpXz5ebtSUd8vtV3rez6FFPD70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341700; c=relaxed/simple;
-	bh=OOHQmuyrL25kqkCZqwa8qh0JcuLmeA8y4zINbr00OqQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DzP6LPu12Hp3WfDAzztWPt/xhnKc/4/+bUCpDq7EWkfFTlZZNS3m+0JkIoa3TAfBWGWYt2rNY8DcY0mzbBJ1Y/GHcETwPHyv2qKKJiQgWXPjdR1sNpZE/+SEsfKfWQzjvIgdwie0oqGSYcmBqhBxi/hj6a/vWB/mhi3vR83Vsc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sfqUjwlf; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=eortJuak; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790341745; c=relaxed/simple;
+	bh=7NzpQMoLjBgi9FTHgnoDpAFQfJI+cQHIFUOOAKCjDN4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pl6DWsTShApEqk0p5D50yKFzNQQ+AND8bSqO8dgNMkInTgwsWgqGqNhQPWwNpNFTBdFi+hkCrskCOLMPWW166pY1cNp3jxzl2H5qPkNsG9LO2gPBMVSC2utD+cXQx+9MgoPv2DSkHfwJheCbojk7qlgNo49AcMFmYwelUhzMMnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZEhQN4GA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sfqUjwlf";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="eortJuak"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790341696;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rq8dz6RxaneKO4tjFDWwQjCHeL3xL6UCFoY4Jf8dOSM=;
-	b=sfqUjwlfUJX86woRUBAgZoqxPry0KcfURizFvLLSNRYT2azcKQR0Xyp69AooW6h8ABcd/0
-	LTXWSibbFpPyOltKfUXVnrlwzLvdhXEWSOgDB+jk64driOiMDrxKvJTgayakC8ys2XYj0S
-	GfMHJG94hRqnRPjTOxCINejAMSSTjDw4FFv3Z1Un8P/O2dYONaI8zuASEoAHBAgskOH9fs
-	FGRLnOpjbd7ZnzVCNXHreYhhHBdfDL50M+NUHD/BuPYEZeiHey37spS0dIatTFqUeGT0wg
-	8vBMueAPkaR4qmXUGfyLa8UQpm9r2cuE+Y8Rd4tlxrt0eF+u7cm008DUl0dcPA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790341696;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rq8dz6RxaneKO4tjFDWwQjCHeL3xL6UCFoY4Jf8dOSM=;
-	b=eortJuakmNBtIDdy4AVTgMl7go5uBY9Q7Dut1Snt+twqGLFzL191I/zIjfxGrIVulEMItb
-	NWBjd/zl8j2qFnAQ==
-To: Petr Mladek <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
- <rostedt@goodmis.org>, Marcos Paulo de Souza <mpdesouza@suse.com>, Samuel
- Thibault <samuel.thibault@ens-lyon.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Ilpo
- =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Hugo Villeneuve
- <hvilleneuve@dimonoff.com>, Fushuai Wang <wangfushuai@baidu.com>, Kees
- Cook <kees@kernel.org>, Stepan Ionichev <sozdayvek@gmail.com>,
- linux-serial@vger.kernel.org, Manuel Lauss <manuel.lauss@gmail.com>,
- linux-kernel@vger.kernel.org, Petr Mladek <pmladek@suse.com>
-Subject: Re: [PATCH 0/2] braille: nbcon: Allow using a serial driver
- converted to nbcon API as a Braille console
-In-Reply-To: <20260922072558.98854-1-pmladek@suse.com>
-References: <20260922072558.98854-1-pmladek@suse.com>
-Date: Fri, 25 Sep 2026 15:14:16 +0206
-Message-ID: <87ik3tiim7.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZEhQN4GA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A13D61F000FF;
+	Fri, 25 Sep 2026 13:09:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790341743;
+	bh=lnAneDTOhSK7ryzvQCKB6l+o67HIxRHTdOaZupVyATY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZEhQN4GAOPhASTFcl0yG0oHUXqD+yfoiSdvt6qFToohSp1gkqe+tnbg5iw2UDNT95
+	 ZcTR0q54BV1+jxFdsZZbUjWnn6U7ji9okb8mXoNvwK1G4FHK6hQ3k8TMhP4a7c1jhS
+	 T+e/RyqP6dtNMTzhASmm0jZBz9+BngBBa3qdzeQW5INRn1QDAfgFXHuI56ZuXWYFu+
+	 /3c3SUnBXjfc7jtPGEZJXVUDq+x5sgBZtJlkw0WCJy5ERckiqON21t+2sryUSijJ0Z
+	 b4xZyZ7B9Kx2+O9uc9/wK/umZA42u1V33/nhxuZzRCy0vTcIulghVKUP/wPvt0/OCJ
+	 j/UQ3LmDVli5Q==
+Date: Fri, 25 Sep 2026 14:08:58 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Hajime Tazaki <thehajime@gmail.com>
+Cc: akpm@linux-foundation.org, tasos.papagiannnis@gmail.com, 
+	linux-mm@kvack.org, liam@infradead.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/nommu: Reject wrapping ranges in access_remote_vm()
+Message-ID: <arZwZYUNmUUaoJmW@gremlin>
+References: <20260909064231.18693-1-tasos.papagiannnis@gmail.com>
+ <20260909001341.6a7c3556259f7cf9a79c1da7@linux-foundation.org>
+ <m2cxum423s.wl-thehajime@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <m2cxum423s.wl-thehajime@gmail.com>
 
-On 2026-09-22, Petr Mladek <pmladek@suse.com> wrote:
-> I have been working on v5 [1] of the patchset cleaning console registration
-> code and I found that the system did not boot when I selected a Braille
-> on the command line, for example:
+On Thu, Sep 10, 2026 at 05:11:03AM +0900, Hajime Tazaki wrote:
 >
->      console=brl,ttyS0,115200 console=tty0
+> Hello,
 >
-> Bisection went down to the commit d3539347022a ("serial: 8250: Switch to
-> nbcon console, take 2"). I found that the Braille console driver called
-> braille_co->write() internally where braille_co pointed to the uart
-> 8250 driver.
+> On Wed, 09 Sep 2026 16:13:41 +0900,
+> Andrew Morton wrote:
+> >
+> > On Wed,  9 Sep 2026 09:42:31 +0300 Anastasios Papagiannis <tasos.papagiannnis@gmail.com> wrote:
+> >
+> > > The NOMMU implementation of access_process_vm() rejects address ranges
+> > > whose end wraps around, but access_remote_vm() bypasses this check even
+> > > though both functions delegate to __access_remote_vm().
+> > >
+> > > Move the wraparound check into __access_remote_vm() so it applies to
+> > > both entry points.
+> >
+> > lgtm, thanks.
+> >
+> > > This is originally reported in [1].
+> > >
+> > > [1] https://lore.kernel.org/bpf/4ef240a5bea36ff84df9589671367832860795159386a4c8fba546a0fa8b786f@mail.kernel.org/
+> >
+> > Ah, bpfbot scored one.
+> >
+> > Sashiko might have found more issues in there:
+> > 	https://sashiko.dev/#/patchset/20260909064231.18693-1-tasos.papagiannnis@gmail.com
+> >
+> > I'll optimistically cc Hajime Tazaki, who has been doing some NOMMU
+> > work recently.
+>
+> I got a similar review (from Sashiko) that current use of
+> !vma->vm_file isn't appropriate and should use vma_set_anonymous().  IIUC
+> that case happens only (I may miss something) with /dev/zero (via
+> mmap_zero_prepare()).
 
-The Braille console blindly calling (struct console).write() is
-obviously bad. This needs to be fixed. And not just because of the
-8250. Other NBCON drivers already exist mainline and have this same
-issue.
+That's no longer an issue as MAP_PRIVATE-/dev/zero is truly anon now.
 
-> I added the support for the nbcon console API similar way as we did
-> for kdb [2].
+>
+> I also had a patch but am currently waiting for Lorenzo's input for
+> his work on /dev/zero, which mentioned in his reply.
 
-kdb does not need to care about latencies. The Braille consoles do. I
-will comment more on this in the related patch.
+Sorry, I just added a script to find call outs in neomutt :)
 
-> Note 1: I believe that we have a bug in the kdb patch because we call
->         con->write() atomic callback after entering the unsafe mode.
->         But we should do so in the default "safe" mode.
+As above.
 
-Why do you believe this? kdb operates within an unsafe section so that
-other CPUs cannot take ownership. (BTW: For kdb the other CPUs are
-supposed to be quiesced, so there should not be any ownership attempts
-anyway. The unsafe section is just an extra precaution.)
+>
+> https://lore.kernel.org/linux-mm/an8BlTgk7sc5vFJ1@lucifer/
+>
+> Thus 3 comments of Sashiko (all about vma->vm_file) can be addressed
+> in future, and are not needed an immediate fix.
 
-> Note 2: I am not completely sure about the locking. It might be better
->         to use NBCON_PRIO_PANIC in panic().
+You can use vma_is_anonymous() now.
 
-Why does it matter? printk() is not trying to do any Braille printing
-during panic, so it will not attempt to acquire the Braille console.
+>
+> I wish to ask this to Lorenzo too.
+>
+> -- Hajime
 
->       Also I thought about using con->write_thread(). But I think
-> 	that we have to use the atomic variant because the Braille
-> 	console can be called from printk() via the VT code, aka
-> 	graphical console.
-
-How can it be called from printk()? Even printk() writing to VT is only
-if it is registered as a console. Braille consoles are not registered.
-Please explain.
-
-Note that ->write_thread() is the only NBCON callback guaranteed to
-exist.
-
-John
+--
+Cheers, Lorenzo
