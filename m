@@ -1,194 +1,116 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+Received: from mta1.migadu.com (out-251.mta1.migadu.com [95.215.58.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D62393DCD
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:04:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790316293; cv=pass; b=D9MOPEFFlDapIqtZFmybRELdREKDWUa4MH89RMMITXW21lZ6M9PwU3XuMaKgWXG6YseUsSd5yxBOXBbM9XXztaBjBhPmo1c3S+5OW8IHkI1uTgwU7lQRvJGKwrKIb90segi0H0ZSnQ55KC4uoVLDy52jmVkm2aIN+CXeFUOGuEw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790316293; c=relaxed/simple;
-	bh=n0g7ltFuYfHeB3lT/oFe6WHRBYKRGW2vhL03GPn2aJA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tr+9TJjbovJPv1+o9zmXlwhsA+nbNPnr58VVbCyUbPWTBxMQ4yFzvvbWbnlmPtZQ9jgEO18IhFhP37o/DW2NEPT48jQKIKKEMzjbAQiAQnIEHKPKJqNjBm5LMJExLGRNH/eCIfxiXJ2NQnFZvndFk1S7Kz4yaVeYZulMoQxxoUk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EtN2XqN2; arc=pass smtp.client-ip=209.85.160.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07E5397920
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.251
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790316368; cv=none; b=qtHkxGo+OfOgoM3Djrl9w4UXFToPDpXrPvpITULixh9pi/Ptt+pMyOqxYdBQRqM5MdC8QHJa1pCkb6ZtyxRynL43rN9RWVsxAuYz0378jhjmVakctAyUAhmlrQCa+SZFFV31TRKs2g/d7SGSIsbTTE1lQCnWPTx6haRJD0uqeZ8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790316368; c=relaxed/simple;
+	bh=WktjZ/A+Gu/6kXoWbp9IAwlBC9X9a8yh4FUhdz7uXoU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VzVhxgjAZEbdBSGGxldanvlWx3wetiW4AaqeX43leAZigUn8uWtGO90lPDY+3WPaX9B7S0Sy9KS6HrLSF1C7bWEAfhDLbGb+q3YqS4fdi5kEji1BqY1H/sxg8T/U4ftjn0Vcsy6TRSiIql9TqIafn18G/4FYXDxcdiSmY3rfWAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Hm3/0zeX; arc=none smtp.client-ip=95.215.58.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EtN2XqN2"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-530e8c6fb80so121531cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:04:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790316290; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qCtonnJkDPyWa6WoVQtuCDJe7Yvsw6oG1p17adp+1pg9uVY9XwquVtJXDXtpVYfR9g
-         wsYlNkGH2xYlJsSDphmUcWsU9Fr99BKIhKVvgLflkwh7P8r/kKMKErxNS3ABxn7k+4vv
-         J1IMELXDp4H8X46ll7mcogMO5OiRBlRRulXmqL6IjTOTKjDwEz6KO+Nazm/feLdTMjFN
-         kZV2MVn1zPLXvOmqMgdcnWYC796B4NEVvtJ+IMmd+18Hb/RpMGcu96iBRlSbpRA8LVun
-         UW1vFh4qG81lRlHOU4SD0prcB+erddC0G3hHxeABgOfwKNS5xq70+xgxhO3xNMnJEB1B
-         m4MA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uFHv/NXcVHJN5o88N4eEkFmwnshWOqOMekRqytrwOao=;
-        fh=nwtuyXdc+fjRgL61GSqKQubAZkhykAGeYhxDoFdknJ0=;
-        b=nAVvCBm/V1WO4v9UdWO7bIixHr7sx83rhVYFWzeYE3rq6vy9Z0CY4sDVfvxEoBtQfE
-         QCcKkE1ab8IZt39sWwvylXOsCmvCaxdtwIerur/VfBYJ1t/zW8I87x/LSyNGOWlnHO/p
-         DmayjJjvpRGJu25UK7Y1cJ2h4fy788/dALbeTYi/Phr701IHU8s9X8pUvOIsg8gpyc8+
-         YF817O5N4IxQJuB0qYensSF8XGtcIrn4cIyQy2ZMt1uETeZUyXcNB5ggEeQeYm07AJ+C
-         G1R6Aeef07V+zSFE5aduk6WJkRECZAxHEIAHfvxEZmbu5yNDqKP0cXX18z4Ha6TN187H
-         HFAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790316290; x=1790921090; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uFHv/NXcVHJN5o88N4eEkFmwnshWOqOMekRqytrwOao=;
-        b=EtN2XqN2MlO0waffGopAx9mOE+lFQVZ1aHVYdOxsGeI8PKGrS0OhjipWKFbzmO34l7
-         OEsV8/IsOxcQ6LWni7uviclzclVq1/FXAZFzoKLx1OB6Gx4mdUFBffQEAKq9Jpy6D8V/
-         4COa40Sat3qreKEDLCMF8/vnfLkjMBPzJdjvaf+6n5EoG9nenf012kXdTG66HyW/YN3R
-         3JTw0wd0e0o3bBYtmbvNiA0u5ERDTNLWnEDZc8Z9QIwapACln2BH2k5DtBS5I31UprMR
-         uTw5/R9hNa/+awBDiFdO3qhFWzxtqKfnkbxPGglpDxIhcZNz7Ag7+PTUbGES37Lm6YpK
-         K4QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790316290; x=1790921090;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uFHv/NXcVHJN5o88N4eEkFmwnshWOqOMekRqytrwOao=;
-        b=waE+/UXcYauO+n1mMJkOdXb3equLAdm2/Mp+Om0UuH1GG6zYFRzRdGQiihfZKS3NRQ
-         3oBZtgfU8EQfC4BJukMpGJ1lBo5JQ20Iy+/Xi6HlyzYNtKk/7lCIRDgL7GVG4aWYtqxo
-         bQDyMKm9TBnVo2t5cQK7JOORZuZ1Z/sRKEgTY9dzQ54L4RQuQIFuntXSrz5kZR+T+IJs
-         Kw2Z/GL4pvvhF8K6fQqbex6WjKjdhEsMXJfIzhbaZ/+RXZ20zKBvwQoTkCJmAmIdgcGJ
-         89TbjNzorlnBXnLDGSYrlUPg3LnKlwf41uNBwpsdyvo4OmDM9dBplkKZ72tQF7N4FmU9
-         ZncQ==
-X-Forwarded-Encrypted: i=1; AKwUvByki2yOj84J/p8t7zc5+ahARDAfKvMaJPRzX8mMae/eDfTJqzRFPSNN7NwN5lw2H+nzui2l3y5K/TsmFqE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDPoihlMP9qOHmUIQNgIA5wKtJeRXUIGEcl3Gs6Xl/xz9dcsV5
-	Qf3wI7CdLUF5g5nFFxEtPuzyP2uFZATHg0P9u5amCnlO0+CH80/i+Cu3Qy0W/5Arv4pnUW5YD8v
-	xmv59cg/sfhtqUV86kv9lMGF+sWCV6impQwD9w3xc
-X-Gm-Gg: AYBFou2Ub6SadisphZL59foaGqYSnRzEDFAT+Tlx6TRF0LlpmzmGQ68Th6W0mEJBtEt
-	/au+yz60EAO/bttfYpeNeJzyIO6jF/v5eLGRnZ/ImSd1PO5jqdneekuIDxOdfScAPcmRCuVsm5C
-	zi2gHRoDC4VVbnUKVZ+Tu2dm+f9h47VQyGkDZYvL9QZyR1RdTABG0WOd+0Zzhlb5ZHOgx5/tcmQ
-	vak3KonvEVtNuomA9Fmv5E+Fjmpb0/V3+F+XcjZlE6I0NR+A/4YmWfgjED2rcZowpgAwQAm9jDC
-	k0v4g1QIz/Tkg/lNdmvSETqlLf9IzOxYflUzzsiTy0Nd8ISQD9a5TA==
-X-Received: by 2002:a05:622a:d3:b0:532:c8ca:5ae9 with SMTP id
- d75a77b69052e-5330e14c38bmr7040531cf.11.1790316289698; Thu, 24 Sep 2026
- 23:04:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Hm3/0zeX"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WktjZ/A+Gu/6kXoWbp9IAwlBC9X9a8yh4FUhdz7uXoU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790316363; v=1; x=1790921163;
+ b=Hm3/0zeXBGJEJmn23cyvGsluXz6XZJfyGeK8CuqLz3+hhn2DxAj9FCBMR8kMyNprlANRgyEC
+ 6YnnbSHCpcblBxTf0YoZEWFMpK55o137QoRlOsOogkirvrOtm5orgoOHf9rAW7LX9xqmn+7chpE
+ pd3yxjgmP63m75L08WCfp+wk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2b5ec772b54485e0;
+	Fri, 25 Sep 2026 06:06:02 +0000
+X-Mizu-Trace-ID: 2b5ec772b54485e0
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d675af17-6b59-44c1-b90f-8fb468cc1d63@linux.dev>
+Date: Fri, 25 Sep 2026 14:05:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790025465.git.abhishekbapat@google.com> <057359f7-0e8f-416b-8b5e-0b60c1c936e9@linux.dev>
-In-Reply-To: <057359f7-0e8f-416b-8b5e-0b60c1c936e9@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 24 Sep 2026 23:04:37 -0700
-X-Gm-Features: AclHuK_lwpEJbAhWtQShe8aDhh_guZmjVwfh6KH-R_FEbCl9ftq7SLG9YWrva9A
-Message-ID: <CAJuCfpGmChqsz5SMHaaTxJQLcj200USvxZ6SQ6vrAr6-M2Vg_Q@mail.gmail.com>
-Subject: Re: [PATCH 0/4] alloc_tag: Introduce selective tracing for MAP
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Abhishek Bapat <abhishekbapat@google.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-trace-kernel@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next] bpf: Roll back freplace link state when
+ bpf_arch_text_poke() fails
+To: chenyuan_fl@163.com, bpf@vger.kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, jolsa@kernel.org,
+ linux-kernel@vger.kernel.org, Yuan Chen <chenyuan@kylinos.cn>
+References: <4669addf.91e8.1a0d2da9b9c.Coremail.chenyuan_fl@163.com>
+ <20260925043500.28030-1-chenyuan_fl@163.com>
+Content-Language: en-US
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <20260925043500.28030-1-chenyuan_fl@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 2:52=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> Hi Abhishek
->
-> Thanks for your patch.
->
-> On 2026/9/22 05:26, Abhishek Bapat wrote:
-> > The existing memory allocation profiling (MAP) tool accurately maintain=
-s
-> > aggregate counters for overall memory accounting. However, relying
-> > purely on aggregated counters restrics the visibility needed for
-> > targeted debugging.
-> >
-> > This patch series integrates three new tracepoints (alloc_tag_hit,
-> > alloc_tag_mem_alloced and alloc_tag_mem_freed) directly into the
-> > alloc_hooks_tag fast path.
-> >
-> > Enabling trace events globally for all allocations introduces a severe
-> > baseline overhead. To limit the performance overhead, we let the admin
-> > select specific allocations to be traced.
-> >
-> > A new IOCTL is introduced to allow privileged users to determine which
-> > allocation tags need tracing enabled. The IOCTL utilizes the
-> > pre-existing filtering mechanism to specify the allocation tags to
-> > enable tracing on.
-> >
->
-> I think this cover=E2=80=91letter could go into more detail.
-> Also, the cover=E2=80=91letter doesn't include any how=E2=80=91to=E2=80=
-=91use.
->
-> Looking over this series, it seems you expect users to first call
-> ALLOCINFO_IOC_GET_AT to obtain a tag, then pass that tag into
-> ALLOCINFO_IOC_TOGGLE_TRACE.
->
-> This behaviour is not reflected in the existing cover=E2=80=91letter.
-> Before reading the code, I assumed I could just pass a module
-> name to trace all allocations from that module. After going
-> through the implementation, that turns out not to be the case.
->
-> Because patch 2 enforces a full mask requirement for the filter.
->
-> struct allocinfo_filter filter =3D {
->         .mask =3D ALLOCINFO_FILTER_MASK_MODNAME |
->                 ALLOCINFO_FILTER_MASK_FUNCTION |
->                 ALLOCINFO_FILTER_MASK_FILENAME |
->                 ALLOCINFO_FILTER_MASK_LINENO,
->         .fields =3D params.fields,
-> };
->
-> So to trace all allocations from an entire module, users have to combine
-> ALLOCINFO_IOC_GET_AT, ALLOCINFO_IOC_GET_NEXT and ALLOCINFO_IOC_TOGGLE_TRA=
-CE
-> together.
->
-> I have no strong objections if this is the intended design.
-> That said, we should settle on the expected usage model up=E2=80=91front.
+On 25/9/26 12:35, chenyuan_fl@163.com wrote:
+> From: Yuan Chen <chenyuan@kylinos.cn>
+> 
+> A freplace attach claims the target prog by bumping
+> tgt_prog->aux->freplace_link_cnt and setting tr->extension_prog.
+> bpf_arch_text_poke() then makes the extension take effect.  If the
+> poke fails, the claims are never released: the attach unwinds
+> through bpf_link_cleanup(), which clears link->prog, so
+> bpf_trampoline_unlink_prog() never runs.
+> 
+> Drop the link count under ext_mutex on the error path, and set
+> tr->extension_prog only after the poke succeeded.  The count is
+> still bumped before the poke: it blocks prog_array updates while
+> the entry is patched.
+> 
+> Fixes: d6083f040d5d ("bpf: Prevent tailcall infinite loop caused by freplace")
 
-Hmm, I don't see why we should limit how users filter tags for
-tracing. We should not enforce them to filter on all available
-attributes. I think it's easy to fix by adding the filter mask to
-allocinfo_toggle_traces.
+Your commit msg also says the issue about tr->extension_prog.
 
->
-> Having corresponding Documentation would also be quite helpful. That way =
-when others
-> ask how to work with this feature, we can point them to existing written =
-material.
->
-> https://elixir.bootlin.com/linux/v7.3-rc3/source/Documentation/mm/allocat=
-ion-profiling.rst
->
-> Thanks
-> Best Regards
-> Hao
->
-> > Abhishek Bapat (4):
-> >   alloc_tag: Add trace events for tracing allocations
-> >   alloc_tag: Introduce IOCTLs to toggle allocation tracepoints
-> >   alloc_tag: extend allocinfo_filter to support tracing queries
-> >   alloc_tag: add a test for trace state toggle and filtering
-> >
-> >  MAINTAINERS                                   |   1 +
-> >  include/linux/alloc_tag.h                     |  94 +++++++++---
-> >  include/linux/codetag.h                       |   5 +-
-> >  include/trace/events/alloc_tag.h              | 122 +++++++++++++++
-> >  include/uapi/linux/alloc_tag.h                |  17 ++-
-> >  mm/alloc_tag.c                                | 142 +++++++++++++++++-
-> >  .../alloc_tag/allocinfo_ioctl_test.c          | 111 +++++++++++++-
-> >  7 files changed, 462 insertions(+), 30 deletions(-)
-> >  create mode 100644 include/trace/events/alloc_tag.h
-> >
-> >
-> > base-commit: 8d61431ed2607386b427752505379536eb634ce8
+An extra Fixes tag for tr->extension_prog should be added.
+
+Fixes: be8704ff07d2 ("bpf: Introduce dynamic program extensions")
+
+The changes below lgtm:
+
+Acked-by: Leon Hwang <leon.hwang@linux.dev>
+
+Thanks,
+Leon
+
+> Suggested-by: Leon Hwang <leon.hwang@linux.dev>
+> Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
+> ---
+>  kernel/bpf/trampoline.c | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
+> index da85bd580ef0..bf4ab0ac264e 100644
+> --- a/kernel/bpf/trampoline.c
+> +++ b/kernel/bpf/trampoline.c
+> @@ -973,10 +973,17 @@ static int __bpf_trampoline_link_prog(struct bpf_tramp_node *node,
+>  		err = bpf_freplace_link_tgt_prog(tgt_prog);
+>  		if (err)
+>  			return err;
+> +		err = bpf_arch_text_poke(tr->func.addr, BPF_MOD_NOP,
+> +					 BPF_MOD_JUMP, NULL,
+> +					 node->link->prog->bpf_func);
+> +		if (err) {
+> +			/* Undo the claim from bpf_freplace_link_tgt_prog(). */
+> +			guard(mutex)(&tgt_prog->aux->ext_mutex);
+> +			tgt_prog->aux->freplace_link_cnt--;
+> +			return err;
+> +		}
+>  		tr->extension_prog = node->link->prog;
+> -		return bpf_arch_text_poke(tr->func.addr, BPF_MOD_NOP,
+> -					  BPF_MOD_JUMP, NULL,
+> -					  node->link->prog->bpf_func);
+> +		return 0;
+>  	}
+>  	err = bpf_trampoline_add_prog(tr, node, cnt);
+>  	if (err)
+
