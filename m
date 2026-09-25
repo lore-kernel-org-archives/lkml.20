@@ -1,165 +1,396 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93AF14A8B
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:30:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CD535CB87
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790307003; cv=none; b=Ax2jrD7KYpkm83D3HaiVcSqegu2jmqECgxLIKzSsf2uC/ZWk7hYEV7UnUAXZ5LFNjXWwASJIPxZ/bwVppvypyreDeIM9ooZyzwVMOsc01fInLACgBIME0CsiO3wYXGY4wohu7ym/Y6TK/0oBwtP8lHcufbBJLd5hFiwVFaB4ASU=
+	t=1790307026; cv=none; b=rC9GgX2BhT/T+LzwW39Q1HHM10cAHFAIDfccLo9IIy3hXmc5AaAXbU0jLzlXpCGBmWig6eWwYTtidr6pQDloQQOchyDuEM/QYH8wsYW/6rAiMCS7/mnvgGrcbpXAstSLBvmMFwXsKtWtbvHZCeRibVvUbhcIo7147mscuj1vCUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790307003; c=relaxed/simple;
-	bh=XsGb0667CGK/hO2jQo+Q5ReRgUhJncq+3Rut1CJPR7g=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=sYMYNxdAOgJhCcA/xi/OJBzyTAMElxvQMyL/zXCq3Td9Y34V0PhWONflO+Ruvnz5P5HY+Q2mFnSe41CWqlHxzv8S/mUBmopFB2Cf97iSAWIxQv6H/dSmvspfaY8SW3ruYfe5RrIwDJbWOt/+Cefk5FkrAhpHrFEJY5euMA+8sr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Edo+nD5i; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790307026; c=relaxed/simple;
+	bh=ivOFFdkTB6Ym1pL/aMVew2NF/YPxxP2wIZuNOXI+Mbo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FrL4r8gZB22F6pHmc3Jf7qk+YZ9YyHmnZk9Rh0tZim85wmJWEgKkWu1OunvKnmbjTEms3ykE/TjF5WDv+Wc8SuTJW9HeC2tVX20wQF97XeNPrKlARXdbpasv1tfFae43pNvNG6R4htxUOLo2CV4998LxHYAR2YZ8k6d3ij91orE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WwT55SbV; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Edo+nD5i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790307001; x=1821843001;
-  h=date:from:to:cc:subject:message-id;
-  bh=XsGb0667CGK/hO2jQo+Q5ReRgUhJncq+3Rut1CJPR7g=;
-  b=Edo+nD5i1EmfizCqPTWhAOCqZ0ZGwK72ReMiZ1+PzcG6ET30YT5zNZnb
-   1lt+h5dgGlAY8SqguV8nb03MlRr/CIFHQN69AmpL46t7rY4FRsHJHlFcs
-   ACQQ0tYi+4J5n4m23sD6GoMtOm3Q/9ElZNy7HQs7ToFrxjg3QAPr/LFA0
-   KICG5UaQuigrR9gRPZDeTxfGWoEdPfLkFUHG1zewuvVZOPeVI8kCKWNY9
-   r7Y10rTDEDeQCBUbvs4ukxBEw3WRiIzApK3tJxengRrINO9NwoX2nXUi9
-   1yxZOLnIxvEPL8s9MMUZmIh381oz1rd0abARmOTQhGuNMH5TUA3b43kDc
-   w==;
-X-CSE-ConnectionGUID: e18L1eTbSheWrUFU4H346g==
-X-CSE-MsgGUID: 4Ig4R+irQm2bjjg36GfTNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101618237"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="101618237"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 20:30:01 -0700
-X-CSE-ConnectionGUID: XuxTWQwqSs+CQCGAuq8fLQ==
-X-CSE-MsgGUID: 868AKIu/QjKjcFPZNz7mCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="272038635"
-Received: from igk-lkp-server01.igk.intel.com (HELO a88263cc608e) ([10.211.93.152])
-  by orviesa006.jf.intel.com with ESMTP; 24 Sep 2026 20:29:58 -0700
-Received: from kbuild by a88263cc608e with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x9wdH-000000000aE-3W1H;
-	Fri, 25 Sep 2026 03:29:55 +0000
-Date: Fri, 25 Sep 2026 05:29:28 +0200
-From: kernel test robot <lkp@intel.com>
-To: Roman Li <Roman.Li@amd.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: 
- drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c:1114
- dcn42_clk_mgr_construct() warn: inconsistent indenting
-Message-ID: <202609250538.vnefIvSp-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WwT55SbV"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb769ca02so5717141cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:30:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790307021; x=1790911821; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y1bT3lEzwlBoiYeaFeeWohd1A7XVi8JjrPv06TrtuZg=;
+        b=WwT55SbVU4ac/IjkAs+fEgFBpgOdMHqhVwH2AEvpu7Pp11I3QmaVE3/+025kk/PsEi
+         5GCyaHQ+MvUo1dBihoy212aMa3GiBMw5Xs9091dUYo5rgood+7ZE+XIyDJqQI7mZCYvM
+         7EFBe1FOVRyyQUrtDbMvF71IUQGXH0IetJ1DlYznkQTo5RK9vVVo73QUOwqIX2FjntaC
+         vQcA69MJmwHbQr7RF2gJLF43zuSCtfwrIWoLpsHZH1wQW1N48Ge/RqNsMnoc+A0TDa0h
+         rXYHaTx7OetRbmRtaZweNeK2N1vTcVjniFLqE0dSATVSIZmA/1miYUCzqkHz28oOZ5MY
+         DoBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790307021; x=1790911821;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y1bT3lEzwlBoiYeaFeeWohd1A7XVi8JjrPv06TrtuZg=;
+        b=bwfskQxyYmYYO2nbcLFi5pUj7A6A4Wk80zPFBgfSJCNv63hfykNGk6+v4wqyOJK0HL
+         jJ6ax/nOsrnkpfRJIpq9MFs6gljHU2cI/alTq/AtiwYNK9o5PQ98a15Q7M/KUlb+T10k
+         CRhWWDW9NOEh+65RZz+27Au/XeAM/r0dLSNEA3BkoOZxYY50Hx7A+GgZc3e16+D8v29z
+         JlNvURVFCdTpkfEKE01vX9aiZClxMdweUxgq4nny2OmqsGf4tZiNS5nikAGtm3t89L7P
+         M6AXnA5GqNPhkh3/4eYBOqvQlqVVbCl86RENb0dOhDR5hJRj8VdUE1GUMamz39ghn/qQ
+         DMVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxQGvY9CRmk/3bxeHY5KWEmxr3QU/ZRBPwDL1UJ1T31Ie3LL6XMnRmuXwBhLtZfbsFuLScd3pfa8rczy0Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRlDR7R6PR4lZEuiXJzs83ln31pyD4+xUFbx31sXrEVCUOn436
+	6FtsXu5Db8yDyuTlDP8RqNe8kCcUg2800VQR4NbNXoBLuiBNr0QfcqC/
+X-Gm-Gg: AYBFou16R9Tc5xjzvvzKgwQXBUlBD8pc9PTjlg4x3A+WpjmG7DQxnI3qj74LIzd9u6f
+	wI80rt/lu1JYepYn2wB0xQUCk9zAEvhmn9icg4c5xxa3VjFo/maENMuJW8rJ406gMt+41uc7kYx
+	P2K7C49wnLwmmIlqlnSRZo9wG4s3qXEPScSsMYfII/hBA/l5AkGxYDh3wGOsVjQ/WrLdler/Dhh
+	oAWnBx5g+BdFZreOljRRZrN+r2V+xdib1wbsDAtTOS5ZPm0AL83ktgLILXw39/0RaqfNYgGCk+z
+	Up5WJmsJyRJ+Oadu/MBvwrJ10XYSUcyLtCs8GNdKXVvfo4w064OiwuVcdQ6vDoWstA2XcrypuLO
+	hR9s+MNK4fpE2Fl3kIr1x6EqGdqs+OsiHiiqZCachfAnwmOcELNxSoYDx2Mlabg6NNNwjCH5LCH
+	/eu5WM4qxn7gu2YTLjoedwf0+iWuNOwQ3gawGTA5pWHbQ+DN9payNojhZL/kBGPCQVmtPTP/quL
+	27jOHqkZEkznvKiAHcxZnU0IxNwiHD8+mgG/97j0mEsrzuDx0gV96ID92bMbKQe
+X-Received: by 2002:a05:622a:1392:b0:532:9f90:3f70 with SMTP id d75a77b69052e-5330b5a56d7mr23799041cf.10.1790307020648;
+        Thu, 24 Sep 2026 20:30:20 -0700 (PDT)
+Received: from localhost.localdomain ([2600:4040:29f7:9600:b44c:c4c:9e3:10a8])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5330c0e16easm7031841cf.29.2026.09.24.20.30.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 24 Sep 2026 20:30:20 -0700 (PDT)
+From: Dillon Amburgey <dillona@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: airlied@redhat.com,
+	airlied@gmail.com,
+	kraxel@redhat.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	simona@ffwll.ch,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/qxl: size packed dumb heads from the plane source
+Date: Thu, 24 Sep 2026 23:30:11 -0400
+Message-ID: <20260925033011.12560-1-dillona@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260924025222.6077-1-dillona@gmail.com>
+References: <20260924025222.6077-1-dillona@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   165768bb70265b5c38cf0b73fafd75be235f8b14
-commit: 6b2dd7d37badd8bf076875397f9f39b494258ca7 drm/amd/display: Enable dcn42 DC
-date:   7 months ago
-config: i386-randconfig-r2201-20260923 (https://download.01.org/0day-ci/archive/20260925/202609250538.vnefIvSp-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-smatch: v0.5.0-9187-g5189e3fb
+QXL packs per-CRTC dumb buffers into a single primary surface.
+qxl_update_dumb_head() recorded each dumb BO allocation (bo->surf)
+instead of the plane source rectangle. Scanning 1280x800 from a
+2048x1024 dumb framebuffer beside a 1024x768 head therefore created
+a 3072x1024 primary and placed head 1 at +2048, rather than 2304x800
+with head 1 at +1280.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 6b2dd7d37bad ("drm/amd/display: Enable dcn42 DC")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609250538.vnefIvSp-lkp@intel.com/
+Use src_w/src_h when building the packed shadow, and copy only that
+source rectangle into it. Place that rectangle at the packed origin:
+crtc->x and crtc->y are the plane source position, so adding them to
+the packed offset publishes the head past the end of the primary.
+When the shadow is reallocated, copy the other active dumb heads from
+their current framebuffers. DRM_IOCTL_MODE_DIRTYFB intersects each
+clip with the plane source and uses that same origin, so a dirty
+update of one head is not painted at (0, 0).
 
-New smatch warnings:
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c:1114 dcn42_clk_mgr_construct() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:1060 dcn42_optimize_bandwidth() warn: inconsistent indenting
+Fixes: 90adda2ce898 ("drm/qxl: cover all crtcs in shadow bo.")
+Assisted-by: LLM sparse
+Signed-off-by: Dillon Amburgey <dillona@gmail.com>
+---
+Changes in v2:
+- Place each source rectangle at the packed origin. crtc->x and
+  crtc->y are the plane source position, so adding them published
+  head 1 at +2560 on a 2304-wide primary. A shadow primary now
+  reports dumb_heads[i].x and .y. A shared framebuffer with head 1
+  scanning at x=1280 now reports +1280.
+- A non-zero source y is no longer the destination y. The copy reads
+  at src_y and writes at dumb_heads[i].y. A 1280x800 source starting
+  at y=200 is drawn at the top of the primary.
+- Replacing the shadow recopies the other active dumb heads from
+  their current framebuffers. The failure was stale pixels, not a
+  cleared head: after recoloring head 0 and enabling head 1, head 0
+  kept the old color until this recopy.
+- DRM_IOCTL_MODE_DIRTYFB intersects the clip with the plane source
+  and uses that same origin. A dirty update of head 1 no longer
+  paints that buffer at (0, 0).
 
-Old smatch warnings:
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:279 dcn42_init_hw() error: we previously assumed 'dc->res_pool->funcs->update_bw_bounding_box' could be null (see line 274)
-drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:560 dcn42_program_rmcm_luts() warn: inconsistent indenting
+ drivers/gpu/drm/qxl/qxl_display.c | 132 ++++++++++++++++++++++++------
+ drivers/gpu/drm/qxl/qxl_draw.c    |   6 +-
+ drivers/gpu/drm/qxl/qxl_drv.h     |   3 +-
+ 3 files changed, 113 insertions(+), 28 deletions(-)
 
-vim +1114 drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
+diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
+index 0719fc6a52d5..d01504332bc8 100644
+--- a/drivers/gpu/drm/qxl/qxl_display.c
++++ b/drivers/gpu/drm/qxl/qxl_display.c
+@@ -348,8 +348,10 @@ static void qxl_crtc_update_monitors_config(struct drm_crtc *crtc,
+ 		head.y = crtc->y;
+ 		if (qdev->monitors_config->count < i + 1)
+ 			qdev->monitors_config->count = i + 1;
+-		if (qdev->primary_bo == qdev->dumb_shadow_bo)
+-			head.x += qdev->dumb_heads[i].x;
++		if (qdev->primary_bo == qdev->dumb_shadow_bo) {
++			head.x = qdev->dumb_heads[i].x;
++			head.y = qdev->dumb_heads[i].y;
++		}
+ 	} else if (i > 0) {
+ 		head.width = 0;
+ 		head.height = 0;
+@@ -458,8 +460,47 @@ static int qxl_framebuffer_surface_dirty(struct drm_framebuffer *fb,
+ 		inc = 2; /* skip source rects */
+ 	}
+ 
+-	qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
+-			  clips, num_clips, inc, 0);
++	if (qobj->shadow) {
++		struct drm_crtc *crtc;
++		unsigned int n;
++
++		drm_for_each_crtc(crtc, &qdev->ddev) {
++			struct drm_plane_state *st;
++			u32 sx, sy, sw, sh;
++
++			st = crtc->primary->state;
++			if (st->fb != fb ||
++			    !qdev->dumb_heads[crtc->index].width)
++				continue;
++			sx = st->src_x >> 16;
++			sy = st->src_y >> 16;
++			sw = st->src_w >> 16;
++			sh = st->src_h >> 16;
++			for (n = 0; n < num_clips; n++) {
++				struct drm_clip_rect *in = clips + n * inc;
++				struct drm_clip_rect c;
++				u32 x1 = max_t(u32, in->x1, sx);
++				u32 y1 = max_t(u32, in->y1, sy);
++				u32 x2 = min_t(u32, in->x2, sx + sw);
++				u32 y2 = min_t(u32, in->y2, sy + sh);
++
++				if (x1 >= x2 || y1 >= y2)
++					continue;
++				c.x1 = x1;
++				c.y1 = y1;
++				c.x2 = x2;
++				c.y2 = y2;
++				qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
++						  &c, 1, 1,
++						  qdev->dumb_heads[crtc->index].x - sx,
++						  (int)qdev->dumb_heads[crtc->index].y -
++						  (int)sy);
++			}
++		}
++	} else {
++		qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
++				  clips, num_clips, inc, 0, 0);
++	}
+ 
+ out_lock_end:
+ 	DRM_MODESET_LOCK_ALL_END(fb->dev, ctx, ret);
+@@ -662,6 +703,37 @@ static void qxl_free_cursor(struct qxl_bo *cursor_bo)
+ 	qxl_bo_unref(&cursor_bo);
+ }
+ 
++static void qxl_redraw_other_dumb_heads(struct qxl_device *qdev, int skip)
++{
++	struct drm_crtc *crtc;
++
++	drm_for_each_crtc(crtc, &qdev->ddev) {
++		struct drm_plane_state *st;
++		struct qxl_bo *other;
++		struct drm_clip_rect clip;
++		u32 sx, sy;
++
++		if (crtc->index == skip ||
++		    !qdev->dumb_heads[crtc->index].width)
++			continue;
++		st = crtc->primary->state;
++		if (!st->fb)
++			continue;
++		other = gem_to_qxl_bo(st->fb->obj[0]);
++		if (!other->is_dumb)
++			continue;
++		sx = st->src_x >> 16;
++		sy = st->src_y >> 16;
++		clip.x1 = sx;
++		clip.y1 = sy;
++		clip.x2 = sx + (st->src_w >> 16);
++		clip.y2 = sy + (st->src_h >> 16);
++		qxl_draw_dirty_fb(qdev, st->fb, other, 0, 0, &clip, 1, 1,
++				  qdev->dumb_heads[crtc->index].x - sx,
++				  (int)qdev->dumb_heads[crtc->index].y - (int)sy);
++	}
++}
++
+ static void qxl_primary_atomic_update(struct drm_plane *plane,
+ 				      struct drm_atomic_commit *state)
+ {
+@@ -670,13 +742,18 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
+ 	struct qxl_device *qdev = to_qxl(plane->dev);
+ 	struct qxl_bo *bo = gem_to_qxl_bo(new_state->fb->obj[0]);
+ 	struct qxl_bo *primary;
+-	struct drm_clip_rect norect = {
+-	    .x1 = 0,
+-	    .y1 = 0,
+-	    .x2 = new_state->fb->width,
+-	    .y2 = new_state->fb->height
+-	};
++	struct drm_clip_rect norect;
+ 	uint32_t dumb_shadow_offset = 0;
++	int y_off = 0;
++	u32 src_x = new_state->src_x >> 16;
++	u32 src_y = new_state->src_y >> 16;
++	u32 src_w = new_state->src_w >> 16;
++	u32 src_h = new_state->src_h >> 16;
++
++	norect.x1 = src_x;
++	norect.y1 = src_y;
++	norect.x2 = src_x + src_w;
++	norect.y2 = src_y + src_h;
+ 
+ 	primary = bo->shadow ? bo->shadow : bo;
+ 
+@@ -687,12 +764,19 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
+ 		qxl_primary_apply_cursor(qdev, plane->state);
+ 	}
+ 
+-	if (bo->is_dumb)
++	if (bo->is_dumb) {
+ 		dumb_shadow_offset =
+-			qdev->dumb_heads[new_state->crtc->index].x;
++			qdev->dumb_heads[new_state->crtc->index].x - src_x;
++		y_off = (int)qdev->dumb_heads[new_state->crtc->index].y -
++			(int)src_y;
++	}
+ 
+ 	qxl_draw_dirty_fb(qdev, new_state->fb, bo, 0, 0, &norect, 1, 1,
+-			  dumb_shadow_offset);
++			  dumb_shadow_offset, y_off);
++	if (qdev->dumb_shadow_needs_redraw) {
++		qdev->dumb_shadow_needs_redraw = false;
++		qxl_redraw_other_dumb_heads(qdev, new_state->crtc->index);
++	}
+ }
+ 
+ static void qxl_primary_atomic_disable(struct drm_plane *plane,
+@@ -764,18 +848,14 @@ static void qxl_cursor_atomic_disable(struct drm_plane *plane,
+ 	qcrtc->cursor_bo = NULL;
+ }
+ 
+-static void qxl_update_dumb_head(struct qxl_device *qdev,
+-				 int index, struct qxl_bo *bo)
++static void qxl_update_dumb_head(struct qxl_device *qdev, int index,
++				 struct qxl_bo *bo, uint32_t width,
++				 uint32_t height)
+ {
+-	uint32_t width, height;
+-
+ 	if (index >= qdev->monitors_config->max_allowed)
+ 		return;
+ 
+-	if (bo && bo->is_dumb) {
+-		width = bo->surf.width;
+-		height = bo->surf.height;
+-	} else {
++	if (!bo || !bo->is_dumb) {
+ 		width = 0;
+ 		height = 0;
+ 	}
+@@ -820,12 +900,11 @@ static void qxl_calc_dumb_shadow(struct qxl_device *qdev,
+ }
+ 
+ static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
+-			       int crtc_index)
++			       int crtc_index, uint32_t width, uint32_t height)
+ {
+ 	struct qxl_surface surf;
+ 
+-	qxl_update_dumb_head(qdev, crtc_index,
+-			     user_bo);
++	qxl_update_dumb_head(qdev, crtc_index, user_bo, width, height);
+ 	qxl_calc_dumb_shadow(qdev, &surf);
+ 	if (!qdev->dumb_shadow_bo ||
+ 	    qdev->dumb_shadow_bo->surf.width  != surf.width ||
+@@ -839,6 +918,7 @@ static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
+ 		qxl_bo_create(qdev, surf.height * surf.stride,
+ 			      true, true, QXL_GEM_DOMAIN_SURFACE, 0,
+ 			      &surf, &qdev->dumb_shadow_bo);
++		qdev->dumb_shadow_needs_redraw = true;
+ 	}
+ 	if (user_bo->shadow != qdev->dumb_shadow_bo) {
+ 		if (user_bo->shadow) {
+@@ -869,7 +949,9 @@ static int qxl_plane_prepare_fb(struct drm_plane *plane,
+ 
+ 	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
+ 	    user_bo->is_dumb) {
+-		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index);
++		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index,
++				   new_state->src_w >> 16,
++				   new_state->src_h >> 16);
+ 	}
+ 
+ 	if (plane->type == DRM_PLANE_TYPE_CURSOR &&
+diff --git a/drivers/gpu/drm/qxl/qxl_draw.c b/drivers/gpu/drm/qxl/qxl_draw.c
+index 3a3e127ce297..f99f4afa46d9 100644
+--- a/drivers/gpu/drm/qxl/qxl_draw.c
++++ b/drivers/gpu/drm/qxl/qxl_draw.c
+@@ -129,7 +129,7 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
+ 		       unsigned int flags, unsigned int color,
+ 		       struct drm_clip_rect *clips,
+ 		       unsigned int num_clips, int inc,
+-		       uint32_t dumb_shadow_offset)
++		       u32 dumb_shadow_offset, int y_off)
+ {
+ 	/*
+ 	 * TODO: if flags & DRM_MODE_FB_DIRTY_ANNOTATE_FILL then we should
+@@ -160,6 +160,8 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
+ 
+ 	clips->x1 += dumb_shadow_offset;
+ 	clips->x2 += dumb_shadow_offset;
++	clips->y1 += y_off;
++	clips->y2 += y_off;
+ 
+ 	left = clips->x1;
+ 	right = clips->x2;
+@@ -210,7 +212,7 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
+ 
+ 	ret = qxl_image_init(qdev, release, dimage, surface_base,
+ 			     left - dumb_shadow_offset,
+-			     top, width, height, depth, stride);
++			     top - y_off, width, height, depth, stride);
+ 	qxl_bo_vunmap_locked(bo);
+ 	if (ret)
+ 		goto out_release_backoff;
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.h b/drivers/gpu/drm/qxl/qxl_drv.h
+index cc02b5f10ad9..f7edb620d4d7 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.h
++++ b/drivers/gpu/drm/qxl/qxl_drv.h
+@@ -202,6 +202,7 @@ struct qxl_device {
+ 
+ 	struct qxl_bo *primary_bo;
+ 	struct qxl_bo *dumb_shadow_bo;
++	bool dumb_shadow_needs_redraw;
+ 	struct qxl_head *dumb_heads;
+ 
+ 	struct qxl_memslot main_slot;
+@@ -394,7 +395,7 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
+ 		       unsigned int flags, unsigned int color,
+ 		       struct drm_clip_rect *clips,
+ 		       unsigned int num_clips, int inc,
+-		       uint32_t dumb_shadow_offset);
++		       u32 dumb_shadow_offset, int y_off);
+ 
+ void qxl_release_free(struct qxl_device *qdev,
+ 		      struct qxl_release *release);
 
-bd096a56da7cad Roman Li 2026-02-02  1077  
-bd096a56da7cad Roman Li 2026-02-02  1078  void dcn42_clk_mgr_construct(
-bd096a56da7cad Roman Li 2026-02-02  1079  		struct dc_context *ctx,
-bd096a56da7cad Roman Li 2026-02-02  1080  		struct clk_mgr_dcn42 *clk_mgr,
-bd096a56da7cad Roman Li 2026-02-02  1081  		struct pp_smu_funcs *pp_smu,
-bd096a56da7cad Roman Li 2026-02-02  1082  		struct dccg *dccg)
-bd096a56da7cad Roman Li 2026-02-02  1083  {
-bd096a56da7cad Roman Li 2026-02-02  1084  	clk_mgr->base.base.ctx = ctx;
-bd096a56da7cad Roman Li 2026-02-02  1085  	clk_mgr->base.base.funcs = &dcn42_funcs;
-bd096a56da7cad Roman Li 2026-02-02  1086  	clk_mgr->base.regs = &clk_mgr_regs_dcn42;
-bd096a56da7cad Roman Li 2026-02-02  1087  	clk_mgr->base.clk_mgr_shift = &clk_mgr_shift_dcn42;
-bd096a56da7cad Roman Li 2026-02-02  1088  	clk_mgr->base.clk_mgr_mask = &clk_mgr_mask_dcn42;
-bd096a56da7cad Roman Li 2026-02-02  1089  
-bd096a56da7cad Roman Li 2026-02-02  1090  	clk_mgr->base.pp_smu = pp_smu;
-bd096a56da7cad Roman Li 2026-02-02  1091  
-bd096a56da7cad Roman Li 2026-02-02  1092  	clk_mgr->base.dccg = dccg;
-bd096a56da7cad Roman Li 2026-02-02  1093  	clk_mgr->base.dfs_bypass_disp_clk = 0;
-bd096a56da7cad Roman Li 2026-02-02  1094  
-bd096a56da7cad Roman Li 2026-02-02  1095  	clk_mgr->base.dprefclk_ss_percentage = 0;
-bd096a56da7cad Roman Li 2026-02-02  1096  	clk_mgr->base.dprefclk_ss_divider = 1000;
-bd096a56da7cad Roman Li 2026-02-02  1097  	clk_mgr->base.ss_on_dprefclk = false;
-bd096a56da7cad Roman Li 2026-02-02  1098  	clk_mgr->base.dfs_ref_freq_khz = 48000; /*sync with pmfw*/
-bd096a56da7cad Roman Li 2026-02-02  1099  
-bd096a56da7cad Roman Li 2026-02-02  1100  	clk_mgr->smu_wm_set.wm_set = (struct dcn42_watermarks *)dm_helpers_allocate_gpu_mem(
-bd096a56da7cad Roman Li 2026-02-02  1101  				clk_mgr->base.base.ctx,
-bd096a56da7cad Roman Li 2026-02-02  1102  				DC_MEM_ALLOC_TYPE_GART,
-bd096a56da7cad Roman Li 2026-02-02  1103  				sizeof(struct dcn42_watermarks),
-bd096a56da7cad Roman Li 2026-02-02  1104  				&clk_mgr->smu_wm_set.mc_address.quad_part);
-bd096a56da7cad Roman Li 2026-02-02  1105  
-bd096a56da7cad Roman Li 2026-02-02  1106  	ASSERT(clk_mgr->smu_wm_set.wm_set);
-bd096a56da7cad Roman Li 2026-02-02  1107  
-bd096a56da7cad Roman Li 2026-02-02  1108  	/* Changed from DCN3.2_clock_frequency doc to match
-bd096a56da7cad Roman Li 2026-02-02  1109  	 * dcn32_dump_clk_registers from 4 * dentist_vco_freq_khz /
-bd096a56da7cad Roman Li 2026-02-02  1110  	 * dprefclk DID divider
-bd096a56da7cad Roman Li 2026-02-02  1111  	 */
-bd096a56da7cad Roman Li 2026-02-02  1112  	clk_mgr->base.base.dprefclk_khz = 600000;
-bd096a56da7cad Roman Li 2026-02-02  1113  
-bd096a56da7cad Roman Li 2026-02-02 @1114  		clk_mgr->base.smu_present = false;
-bd096a56da7cad Roman Li 2026-02-02  1115  
-bd096a56da7cad Roman Li 2026-02-02  1116  		if (ctx->dc_bios->integrated_info) {
-bd096a56da7cad Roman Li 2026-02-02  1117  			clk_mgr->base.base.dentist_vco_freq_khz = ctx->dc_bios->integrated_info->dentist_vco_freq;
-bd096a56da7cad Roman Li 2026-02-02  1118  
-bd096a56da7cad Roman Li 2026-02-02  1119  			if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
-bd096a56da7cad Roman Li 2026-02-02  1120  				dcn42_bw_params.wm_table = lpddr5_wm_table;
-bd096a56da7cad Roman Li 2026-02-02  1121  			else
-bd096a56da7cad Roman Li 2026-02-02  1122  				dcn42_bw_params.wm_table = ddr5_wm_table;
-bd096a56da7cad Roman Li 2026-02-02  1123  			dcn42_bw_params.vram_type = ctx->dc_bios->integrated_info->memory_type;
-bd096a56da7cad Roman Li 2026-02-02  1124  			dcn42_bw_params.dram_channel_width_bytes = ctx->dc_bios->integrated_info->memory_type == 0x22 ? 8 : 4;
-bd096a56da7cad Roman Li 2026-02-02  1125  			dcn42_bw_params.num_channels = ctx->dc_bios->integrated_info->ma_channel_number ? ctx->dc_bios->integrated_info->ma_channel_number : 4;
-bd096a56da7cad Roman Li 2026-02-02  1126  		}
-bd096a56da7cad Roman Li 2026-02-02  1127  		/* in case we don't get a value from the BIOS, use default */
-bd096a56da7cad Roman Li 2026-02-02  1128  		if (clk_mgr->base.base.dentist_vco_freq_khz == 0)
-bd096a56da7cad Roman Li 2026-02-02  1129  			clk_mgr->base.base.dentist_vco_freq_khz = 3000000; /* 3000MHz */
-bd096a56da7cad Roman Li 2026-02-02  1130  
-bd096a56da7cad Roman Li 2026-02-02  1131  		/* Saved clocks configured at boot for debug purposes */
-bd096a56da7cad Roman Li 2026-02-02  1132  		dcn42_dump_clk_registers(&clk_mgr->base.base.boot_snapshot, clk_mgr);
-bd096a56da7cad Roman Li 2026-02-02  1133  
-bd096a56da7cad Roman Li 2026-02-02  1134  	if (clk_mgr->base.smu_present)
-bd096a56da7cad Roman Li 2026-02-02  1135  		clk_mgr->base.base.dprefclk_khz = dcn42_smu_get_dprefclk(&clk_mgr->base);
-bd096a56da7cad Roman Li 2026-02-02  1136  	clk_mgr->base.base.clks.ref_dtbclk_khz = 600000;
-bd096a56da7cad Roman Li 2026-02-02  1137  	dce_clock_read_ss_info(&clk_mgr->base);
-bd096a56da7cad Roman Li 2026-02-02  1138  	/*when clk src is from FCH, it could have ss, same clock src as DPREF clk*/
-bd096a56da7cad Roman Li 2026-02-02  1139  
-bd096a56da7cad Roman Li 2026-02-02  1140  	dcn42_read_ss_info_from_lut(&clk_mgr->base);
-bd096a56da7cad Roman Li 2026-02-02  1141  
-bd096a56da7cad Roman Li 2026-02-02  1142  	clk_mgr->base.base.bw_params = &dcn42_bw_params;
-bd096a56da7cad Roman Li 2026-02-02  1143  }
-bd096a56da7cad Roman Li 2026-02-02  1144  
+base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+-- 
+2.43.0
 
-:::::: The code at line 1114 was first introduced by commit
-:::::: bd096a56da7cad1c93c0138a64478b43f5a94736 drm/amd/display: Add dcn42 DC resources
-
-:::::: TO: Roman Li <Roman.Li@amd.com>
-:::::: CC: Alex Deucher <alexander.deucher@amd.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
