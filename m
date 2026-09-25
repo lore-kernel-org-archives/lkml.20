@@ -1,94 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393B04FB9C4;
-	Fri, 25 Sep 2026 22:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2B14CC631
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790376444; cv=none; b=D2h+k/o+TaV0GQo6JklkT21HsDTGpyAIgwo9AyymSdZr0fadQ5lhqSDRVYPGS4QhuPyt5S+wXWOV4xSumJgD2XJo2ljHFoJmD2sOo4a4R4NS1WAzTvjEN+Ipvz7A/54/5qdmsWabwISk4kjVuSHtrdOX3hoyw9A8wrmYAP0KCJM=
+	t=1790376507; cv=none; b=pIUyYvOUzRAYut7+3iQ7yeNGZAQArkHIQOKRcmiQ56VJZGjltTEV3HlTKotP8h9pM5RMsWCcHjaDF6xpY/IP+UhOYg1g2CbjBMbIYKaeHLD0BJBn3kQVkLEKbQSswkDGUogsKknM87ZAwOop9T8Wu68+67dVYHp/UkQGDF7+shA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790376444; c=relaxed/simple;
-	bh=Rgf8udR+rQjJzAqykPz3wFMIa3epGbIJWetZmofNUFU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gQ1V9JaEsW51lDZSFif8gwfZpb+EcRqTfMlJJUh5K1q9VXt08chimSGxUjI8FdhEgUzFsvBoUaOeWrQnlfYZYq/IvkvB6z8MAOaqNwTd8R+UsaeVvDN0fye32UcBrUHlUhzfQ37XeZ4oYDAZYo7YIb5z/c5NNl0/cfggnVNUqUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G+W0FEql; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790376507; c=relaxed/simple;
+	bh=jNk5t+un5bnjvH3s5WgAuUT8uY+MtqkDR0o9w3npnBk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a2e7cKEQVoWlOneovSQgcmN10nNN/gjifLH5Am70zYrboibF6yTWdgfSsQWnwHyS7PPPnI3VtvqSwBkIJm5YZCYLk+Vsev5iw6txV4gNyGBliKC0W1BdCjP0s/dw24a1tZz4kLhKZUc3qkCvO111Ncr6oECo51bh9q10K2H3Rmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NW/EDx7n; arc=none smtp.client-ip=74.125.231.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G+W0FEql"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8358C1F00893;
-	Fri, 25 Sep 2026 22:47:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790376441;
-	bh=WV+hFf4p0LF2j1rjEGjSxXXM4uBQ5tn19LUpagYhO8U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=G+W0FEqlsV5CI1tI6dz67kTLugYVNUu43SODlzX8KrmfdIKQxkwI0+q+4KdGy4ghN
-	 XOTvMe4oJNJjiMRC7ggVT5ZnpzUQyXgyH64N/TjXGPUCThL0YaMhfEiex2vmlLuV7g
-	 qd5e1eyksAQP4+1h403U1leMZvRpGxs42BKyPseZXgWr0IP53msb1eo2lRcI6IY+fo
-	 qHZXtaX6yVGtwCUQQcOUQcARBB52+k+vLV0XWS0/EpEcuIiFxGoWiGnUtKgTNecRuW
-	 ZW8IIahdMtH0acJqQD7vs7eS2ydgwIEJPeGmHvgDYB+PflXwo1mQI7s5Gp0cuS1Anr
-	 KJ6MqUoYej0kQ==
-Date: Fri, 25 Sep 2026 23:47:17 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Davidlohr Bueso <dave@stgolabs.net>
-Cc: Jiale Yao <yaojiale02@163.com>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Ira Weiny
- <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH] cxl/acpi: Check ACPI companion before use
-Message-ID: <20260925234718.37fdcc56@jic23-hlaptop>
-In-Reply-To: <20260924164247.rsb4h7qjx5bvrthg@offworld>
-References: <20260924125404.923551-1-yaojiale02@163.com>
-	<20260924164247.rsb4h7qjx5bvrthg@offworld>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NW/EDx7n"
+Received: by mail-oo2-f41.google.com with SMTP id 46e09a7af769-8177a7fc354so759863a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:48:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790376505; x=1790981305; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jNk5t+un5bnjvH3s5WgAuUT8uY+MtqkDR0o9w3npnBk=;
+        b=NW/EDx7npGA4lAIBnrRyNNM5RcBcnI0sr2fOlSEh/L1K6KMCIfMlIyAksSCndzqsSw
+         /dydlfVIAVHVJ/kYvkpHiiWfkvIA6ukyoNqgir5c4S91w/9L8uRKGk4RYnuTQGqynAW1
+         CCclBLPSC83Y2jV7XJUjff1KKmgrBk5QqPvhB5wJnntLcFQMd53hhiCJOTjCN9AcKKDQ
+         sF6tfiY2q7VdfY4zROi65S5+/UUCiqaI6JHPft4EdeFE4c479JT7E63duqoEaW0jMUce
+         sMFXtcbC2M/WwQgZf2FidTJxmZ5dTegDwWjJniLpHEKW+1SY2L+utVk78L0+E27xcI2S
+         Cblg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790376505; x=1790981305;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jNk5t+un5bnjvH3s5WgAuUT8uY+MtqkDR0o9w3npnBk=;
+        b=FMGaJQX2FdkKI5Cl4Kv/Q0jqMlcxdgqoEcoB+oeiaCXEp3MTdbD4p8Z0rD3LJsjp3Y
+         ftIeFpv8g1Bd66GjOirr8DKqaUkKdpWhUNvL/xF3+tMRF5FylZ5HdtSfd8OT9Y9Ty1pU
+         RhNoiKAt5LcxQDIV9ZqhHtMoBUfbjv70yVPePaHzppTNRai34grTvXnY96VjwWFIHU79
+         MZJmVraQlcpIJTGhjUZmn4D2GLfQk8aJBvYFU6T7kBDhTRJW3wAsggns54O+idSndBPP
+         cQQnTy+kaeDpB/W9wjJWTBY+89jlvOyRQDQ5gxXJZuAWjTkDgigTv+Ni3GQqmwNz/rLJ
+         3xvQ==
+X-Forwarded-Encrypted: i=1; AKwUvByR4mSOt57ImUxzrmLleYtGgx2Njjg75R7CA8yOUIQ30ZnHsa3WVa0+9vTvfpB94PxuGxtXLVEBJN/w3PM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdggvyPXBInfBFVKWBGjXn7fVwFuJ4nGzOtvLcY0QHb7mE+XdI
+	Nak8KXKdwhs1LG2FoNFPEvHRsIkKN0Sw50QiikyZh7fzaGESi24fYlLiN6oFhiAfzw==
+X-Gm-Gg: AYBFou1D/fBAoiVaF13bnYho6dDalgtcSgHmfCWYZ7M/lGLFN699i8PWQW1ZX1xeYkj
+	xiymYPkGrGVljST1NhUUQt1d55kMwQ55n6MMaWm4E8ZNWi0yJTjC4EtiRo2gr8gdVnEQTI1x3uP
+	xgN8lHk7HJDaN6rUf19eLvI8zctTpjfFwO7VY38mDTi7cJClm79UfEH9D+CWGn3pBTraP8ZwA4K
+	4c4n4iPaSpzblKmKbFfEvnq7Z6sJuZjA/Qdbmfv/mK+ZWCWNKjoU9c8P0fhHXBWgrv2PAuP9ZAz
+	OgJ0BXvaCqW757qjCc7ynENkCZKNXw6wusWx4tSSd67+vFxtJ4Ir5syhd/be5Ws/t5IJ7gPGHHx
+	X5ql5euHCPDYEWBVMR/ydxFHkgiFbRAQVAbZjc1aUlR3cWFPSj4SMONZGo5ZPrE4gKQN1BxfkaF
+	w6Umu/Hiqv1/q3T9Mi25s588eq0CKPx0QK2CbyiGV4x1OlGLTPivZ2OU8yF4PKw4Qk09XI0JpI/
+	QfKYknJSDm+a585K//dlOZ+YrZvgANnaIZYspp8lbnRuGQ=
+X-Received: by 2002:a05:6830:4425:b0:7f4:eb76:8820 with SMTP id 46e09a7af769-8178168df1dmr7919471a34.13.1790376504752;
+        Fri, 25 Sep 2026 15:48:24 -0700 (PDT)
+Received: from google.com (222.97.173.34.bc.googleusercontent.com. [34.173.97.222])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-819471d2bdbsm2561506a34.13.2026.09.25.15.48.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 15:48:24 -0700 (PDT)
+Date: Fri, 25 Sep 2026 22:48:22 +0000
+From: Neill Kapron <nkapron@google.com>
+To: RD Babiera <rdbabiera@google.com>
+Cc: vkoul@kernel.org, peter.griffin@linaro.org, andre.draszik@linaro.org,
+	tudor.ambarus@linaro.org, p.zabel@pengutronix.de,
+	neil.armstrong@linaro.org, badhri@google.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8] phy: Add USB3 PHY support to Google Tensor SoC USB
+ PHY driver
+Message-ID: <arb6Nn1Yy5_1u00w@google.com>
+References: <20260925222959.3607769-2-rdbabiera@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925222959.3607769-2-rdbabiera@google.com>
 
-On Thu, 24 Sep 2026 09:42:47 -0700
-Davidlohr Bueso <dave@stgolabs.net> wrote:
+Thanks for the clarification on v7!
 
-> On Thu, 24 Sep 2026, Jiale Yao wrote:
-> 
-> >Platform drivers can be forced to match devices outside their ID tables
-> >through driver_override.  cxl_acpi_probe() assumes that every bound device
-> >has an ACPI companion and dereferences adev->dev.bus without checking the
-> >result of ACPI_COMPANION().  Force-binding cxl_acpi to a platform device
-> >without a companion therefore causes a NULL pointer dereference.
-> >
-> >This was reproduced by setting the driver override for the pcspkr platform
-> >device to cxl_acpi and binding it through sysfs:
-> >
-> >  BUG: kernel NULL pointer dereference, address: 0000000000000280
-> >  #PF: supervisor read access in kernel mode
-> >  RIP: cxl_acpi_probe+0xf4/0x220
-> >  Call Trace:
-> >   platform_probe+0x4d/0x80
-> >   really_probe+0x106/0x370
-> >   device_driver_attach+0x4c/0xa0
-> >   bind_store+0xd0/0x100
-> >
-> >Commit 2b3a5dabe89e ("platform/surface: acpi-notify: Check ACPI
-> >companion before use") fixed the same force-binding issue in another
-> >platform driver.  Check the companion before setting up the CXL root and
-> >return -ENODEV when it is absent.
-> >
-> >Fixes: 7d4b5ca2e2cb ("cxl/acpi: Add downstream port data to cxl_port instances")
-> >Cc: stable@vger.kernel.org
-> >Signed-off-by: Jiale Yao <yaojiale02@163.com>  
-> 
-> With Dave's comment,
-> 
-> Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
-Andy Shevchenko was looking at ways to have drivers set a flag to 
-disable matches on driver_override. Not sure if that is still ongoing.
-
-+CC Andy
-
-Jonathan
-
+Reviewed-by: Neill Kapron <nkapron@google.com>
