@@ -1,33 +1,33 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51CDD39060A;
-	Fri, 25 Sep 2026 15:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64344C7532;
+	Fri, 25 Sep 2026 15:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349108; cv=none; b=lWzBjjYFhKrTUaU7fNODH8Lk+qpXN3wKTZDVo6D7TEM/FZCelTfFZUyIcLYoI2O535Wz75jKp7kGJ+Rdoft3XEGIwIE7nq70Zpn1Ci/MBxR3U0S/dDoSRS1is2QLfVUviHn4RkHR+azmx7zcQ6naf6oyz5kgeHtoxNQ+LyNOL0E=
+	t=1790349121; cv=none; b=DjdF9LBj6LYktbtUFTc/JfksvJdiZQB8uUVfTfJ9ikZ/FYliut1VKYipyEoyMWdspz2uCPSChwx7BxkFwG+r2Jg3dl2CVvHt65EP4vcAF0waWQgOVH7upkYk2SVH1nAGRgAmOF1nHPEbSEPNd6AAdJI2J5/HIUcarczFMCgXFEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349108; c=relaxed/simple;
-	bh=wPC5lNilhf3g0ykmlhDe9z3lcOVejBMEEngMil4nDQo=;
+	s=arc-20240116; t=1790349121; c=relaxed/simple;
+	bh=+0PSy4PHtUncQewfig+q5/PG8j/ig7upJPjO/VluALk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D5PaRuyrv8ERgIUFwuL03243AyLRXAnme4R5Dm8uD1+kriS1zn9khWisyTM5TLXw5uORzDX66KY995uhzcUw0wc5yaCqs5y8DoS0iXKh26UCxBNt0JVZbrVuXCtkjd2Thws17L7mk7IHj2T8L/vdaMiEJVSukLFC1MFkPkuZTRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jQXFy/Z+; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=Px9h1KeFNOMwz2jnAlcrrqlQYJ7XL+B/5OPd9nPkj8XGCYaSy8w9NzUMQWnNmM6EEf3/YYjqaYE16Vi/vYutjzBTaW7bQc5+8rIc5dpQxmWBNj8CuyVViFSAiYt6uX1X4oR9L5d8/MPOS5Dcas4XTue+zTbLovUKyowhVwddvmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NX9ti3nJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jQXFy/Z+"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 108581688;
-	Fri, 25 Sep 2026 08:11:31 -0700 (PDT)
-Received: from [10.57.10.17] (unknown [10.57.10.17])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5DAFF3F86F;
-	Fri, 25 Sep 2026 08:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790349094; bh=wPC5lNilhf3g0ykmlhDe9z3lcOVejBMEEngMil4nDQo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jQXFy/Z+hOKQzu4smPueogxcbPLKqe0jGtvG3FjpRmixbGar4J4NYMXhPcPqog6MN
-	 HqUWHnxdA4c+Za2T8HTRoyf8J3kkA2wTdECa34oWJL1t6xpZsznO0zJkB+9tFCcylg
-	 YDluTrvH3SJmD+BpUvnInL/ivQfaLlpO2Q65Iqtg=
-Message-ID: <0c959443-6d4f-4dba-957c-420cb128b7cc@arm.com>
-Date: Fri, 25 Sep 2026 16:11:29 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NX9ti3nJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984081F00893;
+	Fri, 25 Sep 2026 15:11:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790349113;
+	bh=9oyV3/opgKnk0vsSmQNyazfvKZeLqsNLIo/1NmZ4njw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NX9ti3nJBsQtENiL9OeDqza0q/MOGqRZXNkF3sQQdbEGnukG2eUMEQxJAGRpc288N
+	 KhDFpkR+TiRlRWQAe0G498XS5e94K0kqPhn0oZynB//eACzQhj/7Cr2ot2uAeBMxBx
+	 fPKVUTvVbW+1R5q7LcqYf4QPpTzOjdCE2Tg46a+W034JCFyLCNYt5PU43oVsPyzSZZ
+	 NKBy94VwZdf5SPXSAEp71CKkuaWDvn6ViwXDWPiQTViUzd51OCN7YJJ+IZJzzxmau0
+	 QAfwTN1xoFvqH7xgHuObhCYtZEOhNL/FC8y/viKCQqhq49Kv1vZW8OFUgLlV5LUVBi
+	 D+/w8B/RszbMg==
+Message-ID: <b2b6810c-597b-47ac-b73a-73c120d2a4c3@kernel.org>
+Date: Fri, 25 Sep 2026 17:11:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,167 +35,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 4/7] firmware: arm_rmm: Add support for SRO
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-5-suzuki.poulose@arm.com> <arZgDmHV8uK1kv8R@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <arZgDmHV8uK1kv8R@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: pmbus: isl68137: Add Renesas
+ RAA229639 and RAA229640
+To: Colin Huang <u8813345@gmail.com>, Guenter Roeck <linux@roeck-us.net>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Grant Peltier <grant.peltier.jg@renesas.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ colin.huang2@amd.com
+References: <20260921-add-raa229639-and-raa229640-v3-0-b104ee8a70b2@gmail.com>
+ <20260921-add-raa229639-and-raa229640-v3-1-b104ee8a70b2@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260921-add-raa229639-and-raa229640-v3-1-b104ee8a70b2@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25/09/2026 12:50, Catalin Marinas wrote:
-> On Thu, Sep 24, 2026 at 02:51:58PM +0100, Suzuki K Poulose wrote:
->> +static int rmi_sro_donate_contig(struct rmi_sro_state *sro,
->> +				 unsigned long sro_handle,
->> +				 unsigned long donatereq,
->> +				 struct arm_smccc_1_2_regs *out_regs,
->> +				 gfp_t gfp)
->> +{
->> +	unsigned long block_size_fld = RMI_DONATE_BLOCK_SIZE(donatereq);
->> +	unsigned long block_size = rmi_addr_block_size_to_bytes(block_size_fld);
->> +	unsigned long count = RMI_DONATE_COUNT(donatereq);
->> +	unsigned long state = RMI_DONATE_STATE(donatereq);
->> +	unsigned long size = block_size * count;
->> +	unsigned long addr_range;
->> +	unsigned long donated_granules;
->> +	unsigned long donated_size;
->> +	int ret;
->> +	void *virt;
->> +	phys_addr_t phys;
->> +
->> +	/*
->> +	 * The RMM specification requires contiguous allocations are always a
->> +	 * power of 2
->> +	 */
->> +	if (WARN_ON_ONCE(!is_power_of_2(size)))
->> +		return -EINVAL;
->> +
->> +	/* Reuse the cached address range if we have one */
->> +	for (int i = 0; i < sro->addr_count; i++) {
->> +		unsigned long entry = sro->addr_list[i];
->> +
->> +		if (RMI_ADDR_RANGE_BLOCK_SIZE(entry) == block_size_fld &&
->> +		    RMI_ADDR_RANGE_COUNT(entry) == count &&
->> +		    RMI_ADDR_RANGE_STATE(entry) == state &&
->> +		    IS_ALIGNED(RMI_ADDR_RANGE_ADDR(entry), size)) {
->> +			sro->addr_count--;
->> +			swap(sro->addr_list[sro->addr_count],
->> +			     sro->addr_list[i]);
->> +
->> +			goto mem_donate;
->> +		}
->> +	}
->> +
->> +	ret = rmi_sro_ensure_capacity(sro, 1);
->> +	if (ret)
->> +		return ret;
->> +
->> +	virt = alloc_pages_exact(size, gfp);
->> +	if (!virt)
->> +		return -ENOMEM;
->> +	phys = virt_to_phys(virt);
->> +
->> +	if (state == RMI_OP_MEM_DELEGATED) {
->> +		phys_addr_t delegated_phys;
->> +
->> +		if (rmi_delegate_range(phys, size, &delegated_phys)) {
->> +			if (!rmi_undelegate_range(phys, delegated_phys - phys))
->> +				free_pages_exact(virt, size);
->> +			return -ENXIO;
->> +		}
->> +	}
->> +
->> +	addr_range = phys & RMI_ADDR_RANGE_ADDR_MASK;
->> +	FIELD_MODIFY(RMI_ADDR_RANGE_BLOCK_SIZE_MASK, &addr_range, block_size_fld);
->> +	FIELD_MODIFY(RMI_ADDR_RANGE_COUNT_MASK, &addr_range, count);
+On 21/09/2026 09:16, Colin Huang wrote:
+> Add Device Tree compatible strings for Renesas RAA229639 and
+> RAA229640 PMBus devices.
 > 
-> Courtesy of an LLM - if we get a contiguous/4K pages request for 4MB
-> (1024 pages), the above 10-bit field becomes 0. Should we reject the
-> request or the updated spec will guarantee this won't happen?
+> They are compatible with existing 2-rail non-TC controllers
+> and use renesas,raa228244 as fallback compatible
+> 
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
 
-The spec is being updated to clamp the "maximum" count to match the
-granule size. (Also called out in the Cover letter as "Known Issues")
-This will be available with beta4 version of the spec.
 
-> 
-> Somewhat related, with RMI_BLOCK_L2 or higher and appropriate count we
-> can easily go over the MAX_PAGE_ORDER allocation and fail alloc_pages()
-> (the contig case). IIUC, the kernel can reject the donation but current
-> TF-RMM does not report RMI_OP_CAN_CANCEL (R_SZVNK says it can be
-> cancelled). It gets complicated if we want to support large contiguous
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Ack, I will get this fixed in the TF-RMM.
-
-> allocations here (e.g. alloc_contig_pages() can sleep). I'd rather just
-> cancel the request, not support such large sizes.
-> 
-> [...]
-> 
->> +static int rmi_sro_donate_noncontig(struct rmi_sro_state *sro,
->> +				    unsigned long sro_handle,
->> +				    unsigned long donatereq,
->> +				    struct arm_smccc_1_2_regs *out_regs,
->> +				    gfp_t gfp)
->> +{
->> +	unsigned long block_size_fld = RMI_DONATE_BLOCK_SIZE(donatereq);
->> +	unsigned long block_size = rmi_addr_block_size_to_bytes(block_size_fld);
->> +	unsigned long count = RMI_DONATE_COUNT(donatereq);
->> +	unsigned long state = RMI_DONATE_STATE(donatereq);
->> +	unsigned long found = 0;
->> +	unsigned long donated_granules;
->> +	unsigned long granules_per_block = block_size >> PAGE_SHIFT;
->> +	unsigned long consumed_blocks;
->> +	int addr_list_start = sro->addr_count;
->> +	int ret, i;
-> 
-> [...]
-> 
->> +	for (int i = 0, src = addr_list_start + consumed_blocks;
-> 
-> Nit: we have 'int ret, i' earlier already, so you can drop the 'int'
-> here.
-> 
-> [...]
-> 
->> +/*
->> + * rmi_sro_execute: Execute an RMI command that is Stateful but not memory
->> + * tranfserring. Takes regs, filled with the FIDs and the arguments in place.
->> + *
->> + * Returns :
->> + *  -ECANCELLED - If the operation had to be aborted and SRO was cancellable.
-> 
-> Nit: -ECANCELED.
-> 
-
-Ack
-
->> + *  Otherwise, returns the result of the RMI command.
->> + */
->> +long rmi_sro_execute(struct arm_smccc_1_2_regs *regs)
->> +{
->> +	bool cancelled = false;
->> +	unsigned long sro_handle = regs->a1;
->> +
->> +	rmi_smccc_invoke(regs);
->> +
->> +	sro_handle = regs->a1;
-> 
-> Nit: drop the first initialisation maybe?
-
-Of course, I will do that. Thanks for spotting.
-
-Suzuki
-
-> 
-
+Best regards,
+Krzysztof
