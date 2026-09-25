@@ -1,142 +1,229 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED734AF173;
-	Fri, 25 Sep 2026 14:35:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DFC4B148A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346951; cv=none; b=VLWfulM8P9gVLdySiGmg3lSqdumb0QjbBCBVnijygRpGS0/TVQQ3hQIiOYY5fIcyRkxWG2LQcAmvTU65wsvlXpzWEbmTFUPaTgLPu8FbidCYsP8XOBONXtjkwt5ppP2wSgNS9eUy/YtR7ApHRNCbeeHWS2Ok5fSgt7xBK2qMvek=
+	t=1790346965; cv=none; b=TNlz55+00kgBKFLQnrWzLvcdB57Hxw7QzPbGb45oOpipnRRD5YYYOJUuwlteiz8WKWv3Xz8taUl8PKhUEFg1PLZNYa1a/9F9lLkZGiNIbyYTr+Jb/bjRtLRb6fh/3GLfIy1f+z4kq98lu9Wj+wH+fmvJ+ROYU+LZCDwuDMRUlQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346951; c=relaxed/simple;
-	bh=yHlZ1EUgFp3f3yl/TRtS424OOtXdRMOYcISBfVBaLDI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gJ2APTCfMzSAAXXZZPF4jLWhEFrOsyzfjOj4yYghEe8UpEtA4adz0UCOXFCeHf9h926GwnqmI/rVcJAlPYIqCaN8KdH70gKOt+tfJE9ZBYOzAMZvuDSygc+33MW3c3VqALIkorOLWBOywf1RPZuRYJj0DXFFXzn3IjUUCyjkA7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=jS0qw6ME; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1790346965; c=relaxed/simple;
+	bh=8xtuhKp79V/n5NxU9SIYFiCtbNLPe2KlHrhp1HJoTHI=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=hcmjuoFBdI4vJyQqCl2EPv1STjuqDLUWoR6Y7Q+M0fwmZzesgFhNA+ifPu61H8fomw681DreASaSUFaeCsHCJF1lblNud/aZnp0znkazyv1UiK17GIa+Es0b4MN8bvOawaVo4xD/tT7pHNM72d/hOTg8i62MUuhya2zMORYpzHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=imdsvGZv; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="jS0qw6ME"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=MSoHIOJ6rvzFSfecsi2inhTSF41NREEAhtQztx+1lM4=; b=jS0qw6ME24TMzorHz6+HFxZd2E
-	g94xZpNqztxSM7qhOpm8pU3hvzCXrDAAfus5giu1Kx34B0eeLtwiO6dYGiiQQ8NDkca5vDzdBYqLI
-	vmruQYz9g8ZhgwBscMQpGIQmsREygnhUnh719NEywYnNGGwNoCS1VFtN8PQOl+edrYR8A3CVYm6L6
-	UYSKAVvZORim3W1jEWwaNaGopzSNAOUvcTjsfdHBROoYmwldHk6RCm8GDaQ0NV+YfdWZTGrh0lvDd
-	5VGi9wwSpAxW3Fhj+xoTnZBhlivy6u8ztAaHvvzvgbLP/YgWLEOZSNk37KYIPQGZucfPt379FlH5G
-	Gv0TkrJA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xA71J-005N46-0i;
-	Fri, 25 Sep 2026 14:35:26 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 25 Sep 2026 07:35:10 -0700
-Subject: [PATCH v2] ACPICA: Fix memory leak at acpi_ds_create_field()
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="imdsvGZv"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4aXv2102845;
+	Fri, 25 Sep 2026 14:35:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=wacdGz1FFx765iaQBSdnRp5+uhnO
+	eXue3p/ONbwCEaY=; b=imdsvGZvlt1jxejEvPQQ+ufykRlcPWqIDgTgWXhcufEv
+	m341Cf7s78erGqN8YFeoRVcO2aYkVlKL6y+MStSy5UnfGCaD9QeH5uUPRUCzKL7R
+	S3IaQP0N9/l0bh3m9H4UAbVODG4/J3fBU5T5Gzthp6UCl+SkpwUVwtQYz3Tswf9Y
+	ACJw16XKQtqqzKWnsbWy2po2Dv5JgN1miRN3TA7h6oycfMfqc2pGXWdrAQIs5rgw
+	Ip7+Ydym6j1gU91clysfF3lstnsCFaHJEd2jn5z0l9kCCTpxDkrm6//TpV2PB68I
+	hGkVP2KG2la6ab8Kxf77OOzQl/30fzgR/PBzd1MKmg==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskdvpjhq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 14:35:49 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68PA1cq93298414;
+	Fri, 25 Sep 2026 14:35:49 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb8k2se0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 14:35:49 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68PEZkOb60031348
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 25 Sep 2026 14:35:47 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id ACBB65805A;
+	Fri, 25 Sep 2026 14:35:46 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8CA5258056;
+	Fri, 25 Sep 2026 14:35:44 +0000 (GMT)
+Received: from [9.61.242.145] (unknown [9.61.242.145])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 25 Sep 2026 14:35:44 +0000 (GMT)
+Message-ID: <d4cccba9-ce5c-424b-864c-2248fb0d99e6@linux.ibm.com>
+Date: Fri, 25 Sep 2026 20:05:43 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-acpica-pcc-field-leak-v2-1-e37008e715af@debian.org>
-X-B4-Tracking: v=1; b=H4sIAJ2GtmoC/4XNTQqDMBBA4auEWTvFKIk2K+9RXORnokNFQ1KkR
- bx7qRfo9i2+d0ChzFTAiAMy7Vx4W8GIphLgZ7tOhBzACGjqRte9bNH6xN5i8h4j0xJwIfvEPup
- OR6Vkd3dQCUiZIr8v9zFWAmYury1/rs0uf/WfuEuU2AbtVazJKdUNgRzb9bblCcbzPL/9xi07u
- wAAAA==
-X-Change-ID: 20260813-acpica-pcc-field-leak-8f676f55179b
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Saket Dumbre <saket.dumbre@intel.com>, Len Brown <lenb@kernel.org>, 
- Sudeep Holla <sudeep.holla@kernel.org>, Bob Moore <robert.moore@intel.com>, 
- Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
- Pawel Chmielewski <pawel.chmielewski@intel.com>, 
- Erik Kaneda <erik.kaneda@intel.com>, Kyle Pelton <kyle.d.pelton@intel.com>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
- linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
- linux-kernel@vger.kernel.org, thepacketgeek@gmail.com, kernel-team@meta.com, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2256; i=leitao@debian.org;
- h=from:subject:message-id; bh=yHlZ1EUgFp3f3yl/TRtS424OOtXdRMOYcISBfVBaLDI=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqtoanJuJAgsa8tBq5G55PA0VKyCpTyymfhwzVy
- Ls7sIC2ZwWJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaraGpwAKCRA1o5Of/Hh3
- bTodD/9D45UTf99NRPB6oKj3d36ON+h4MqFPHv7nMUT1ZCXv/fuuJyhjmZB2BOVqsWXUFER63+U
- RguDiOj4hZq+tnLcTDUpwebWbWegjP0lbOWA0zuH6Y3phYV/+AGbAfO4I+lHPjHtpvSNHq4k765
- q87Ko3IBjbg4/qNPZ0zV11FDOvJxsyS5QmJ02xghLUrUDCza5SexGQPw1yRaRhz5tSR5wrwL40y
- 4yilrBceGe9pNmy7L2m02OY9cErPDC76uyPDv7B4eXI/AshgkQD2zWJe0qO8DCeSss+/SY+Ed1A
- 2rb16iXFGt5anp/G5euYowwrxg1bJgYENYzp0x1fOdxraqq6RXwGP6hCG2eeijDLLKEsSOSB3Ui
- nhhNnH+aZ30rKkRPI3ZYAkcDZB5vAuYpSAt+hx8hlE+Cap0OImK4DaPWeeR7z4RtMI46KS6o5s7
- uqmBzu0BQN0/+axAw1jVwjLsv5QZ3mUlt8J6l3zpRBM9/ZrEMr9FQ4rI4PHQJZhP2Kb4YeT2jju
- dG5ugrF0/qRP+30hx/BfbH0rl3OrCa1MfrDYJvdOct21/N52g9sstX0NfptQogCARVIeEWvVxzc
- nc1yq1gcxVPSP4tzJEeosAMYzolghDZN/NfOQ2pQhCy3QA/nrtcykCHxSfV9lPR7owE9gHEYUqt
- PvmTB4CJq1Kfk/g==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Ritesh Harjani <riteshh@linux.ibm.com>,
+        "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+        nandinih@linux.ibm.com
+Cc: LKML <linux-kernel@vger.kernel.org>,
+        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Subject: [BUG] powerpc: unrecoverable exception due to
+ arch_local_irq_restore() called in NMI context on Power11
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: di60XduoevU9mIEv7nilN36jqMGmllww
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1OCBTYWx0ZWRfXzcP/x3M5v3IP
+ uzpuTIRBHU3Abbsil8tYh4el26SvsxETLgfhMguJuRtSn2CVrAYwokTCOEACGCs36AdGf83jGqU
+ hmYOqaoXP1eL1f1AMpV8Ij4C+CMrsRw=
+X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab686c6 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=S-y81fhqRhZvH5zLhZwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: JpKBIopxW_M7YMfijINCTLsNgotVPFzW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1OCBTYWx0ZWRfXyyQs8MbWpIeV
+ ikHJNCHdsVHWz67Ba5P14DP4r5F85D0SffNp+8rdbeZm0j9GtvR0pGSiL3N31ZkiwNx7xRzn8UU
+ kjMcsHmBARwbT7L/51bhZzzzoyyyK+fpadYa2DPJLyfKNm65skK6B5UlokBP+HshLdUGklIoxH+
+ G7U4cOhRU2XMCJ6DZscXI+HIIS88cT+ZvM9JpGPLMziF2LtzWeA2LIvNDzcKZFaIolsJQJGDG8o
+ DNWtTx4QLRzOs1qfjHGaMRBNFfCfoFaHFOKoyOwAwg658O3i+nL11ne7K45dExnd+uF7WC+eHJX
+ 5otfRZNXg+VWHEFplzmTq9P7OxMLSzxvN1pW5qM1FArZuPJt7JlbI7cAzgiiko8voClJ1/yrtTY
+ fctAbYVWD7J3bMJtgB5iFnKLQ1g5jq3CR3hFrzEmo2o0sRKP+2fd0qKmILPr14WlXCKcIyxhwqH
+ yii4eUF3JcTbU348Wtg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609250058
 
-acpi_ds_create_field() allocates internal_pcc_buffer for operation
-regions in the PCC address space.
+Hello,
 
-The function runs once per field, so a second field on the
-same region overwrites the pointer and orphans the previous buffer.
+IBM CI has reported has reported an unrecoverable kernel exception on 
+Power11 pSeries
+systems triggered reliably by running a parallel kernel build.
 
-The matching ACPI_FREE() in acpi_ut_delete_internal_obj() only ever sees
-the last one.
 
-An arm64 platform whose SSDT declares regions with multiple fields each
-leaks two buffers at boot, as detected by kmemleak:
+Hardware
+--------
+IBM,9080-HEX Power11 (architected) 0x820200
+hv:phyp pSeries, FW1110.01 (NH1110_069)
+32 CPUs, 60GB RAM
 
-  unreferenced object 0xffff000051e65400 (size 192):
-    comm "swapper/0", pid 1, jiffies 4294668436
-    backtrace (crc 0):
-      __kmalloc_noprof
-      acpi_ds_create_field
-      acpi_ds_load2_end_op
-      acpi_ds_exec_end_op
-      acpi_ps_parse_loop
-      acpi_ps_parse_aml
-      acpi_ns_load_table
-      acpi_load_tables
-      acpi_init
+Kernel
+------
+powerpc/linux.git merge branch
+commit b0956825c (2026-09-21 "Automatic merge of 'fixes' into merge")
 
-Do not allocate a region if it was previously allocated before,
-preserving the current design, but, not leaking memory.
+Config
+------
+CONFIG_PPC_IRQ_SOFT_MASK_DEBUG=y
+CONFIG_PROVE_LOCKING=y
+CONFIG_LOCKDEP=y
+CONFIG_PPC_WATCHDOG=y
+PREEMPT_DYNAMIC (lazy mode)
 
-Fixes: aa6ec56b574d ("ACPICA: ACPI 6.3: add PCC operation region support for AML interpreter")
-Link: https://github.com/open-acpica/acpica/commit/c71849d476bb5f97ca1867849e893368e12a69e6
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
-Changes in v2:
-- Got the fix into ACPI CA first, and now respining this one with the
-  Link to ACPI CA change.
-- Link to v1: https://patch.msgid.link/20260813-acpica-pcc-field-leak-v1-1-3d6c5f0eb557@debian.org
----
- drivers/acpi/acpica/dsfield.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Reproducer
+----------
+   make clean && make -j$(nproc)
 
-diff --git a/drivers/acpi/acpica/dsfield.c b/drivers/acpi/acpica/dsfield.c
-index d7d56cc600d318..f7e503bf57c87c 100644
---- a/drivers/acpi/acpica/dsfield.c
-+++ b/drivers/acpi/acpica/dsfield.c
-@@ -522,7 +522,8 @@ acpi_ds_create_field(union acpi_parse_object *op,
- 	}
- 
- 	if (info.region_node->object->region.space_id ==
--	    ACPI_ADR_SPACE_PLATFORM_COMM) {
-+	    ACPI_ADR_SPACE_PLATFORM_COMM &&
-+	    !region_node->object->field.internal_pcc_buffer) {
- 		region_node->object->field.internal_pcc_buffer =
- 		    ACPI_ALLOCATE_ZEROED(info.region_node->object->region.
- 					 length);
+Triggers within ~120 seconds on a 32-CPU Power11 system.
 
----
-base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
-change-id: 20260813-acpica-pcc-field-leak-8f676f55179b
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+Symptoms
+--------
+First, two WARNINGs fire at irq_64.c:217/218:
+
+   [121.124041] WARNING: arch/powerpc/kernel/irq_64.c:217 at
+                arch_local_irq_restore+0x290/0x328, CPU#1: make/6861
+   [121.124113] LR [c0000000005036d8] trace_hardirqs_on_prepare+0x98/0x150
+   [121.124117] Call Trace:
+   [121.124120]  trace_hardirqs_on_prepare+0x98/0x150
+   [121.124123]  irqentry_nmi_exit+0x12c/0x168
+   [121.124128]  soft_nmi_interrupt+0x468/0x6c4
+   [121.124131]  soft_nmi_common+0x1b0/0x28c
+   [121.124134]  ---- interrupt: 900 at end_real_trampolines+0x0/0x1000
+
+   [121.124184] WARNING: arch/powerpc/kernel/irq_64.c:218 at
+                arch_local_irq_restore+0x2a0/0x328, CPU#1: make/6861
+
+Followed by an unrecoverable exception:
+
+[  202.258332] Oops: Exception in kernel mode, sig: 4 [#1]
+[  202.258527] LE PAGE_SIZE=4K MMU=Radix  SMP NR_CPUS=8192 NUMA pSeries
+[  202.258531] Modules linked in: nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 
+nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct 
+nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 bonding 
+tls ip_set nf_tables rfkill fsdev_dax kmem device_dax pseries_rng 
+vmx_crypto dax_pmem fuse ext4 crc16 mbcache jbd2 sd_mod nd_pmem papr_scm 
+sg libnvdimm ibmvscsi ibmveth scsi_transport_srp pseries_wdt
+[  202.258570] CPU: 2 UID: 0 PID: 1598 Comm: git-remote-http Kdump: 
+loaded Tainted: G        W           7.3.0-rc4+ #2 PREEMPT(lazy)
+[  202.258576] Tainted: [W]=WARN
+[  202.258578] Hardware name: IBM,9080-HEX Power11 (architected) 
+0x820200 0xf000007 of:IBM,FW1110.01 (NH1110_069) hv:phyp pSeries
+[  202.258582] NIP:  000000000003e178 LR: c00000000003e174 CTR: 
+0000000000000000
+[  202.258586] REGS: c000000effc17d60 TRAP: 0700   Tainted: G   W        
+     (7.3.0-rc4+)
+[  202.258590] MSR:  0000000000081000 <ME>  CR: 00000000 XER: e0017930
+[  202.258596] CFAR: c00000000000d158 IRQMASK: 0
+GPR00: c000000effc17930 0000000000000000 c000000002252580 c000000002252600
+GPR04: c000000effc179a0 c000000effc17a08 c000000effc179e0 0000000000000000
+GPR08: c00000000002c254 0000000000000000 0000000000000000 0000000000000000
+GPR12: 0000000000000000 c000000effffdf00 0000000000000000 0000000000000000
+GPR16: 0000000000000000 0000000000000000 0000000000000000 c000000002267878
+GPR20: c000000effc179e0 0000000000000000 0000000000000000 0000000000000001
+GPR24: 0000000000000800 0000000000000003 0000000000000000 c000000002259970
+GPR28: c000000effc17ba0 0000000000000009 c00000000003dc60 c000000002267878
+[  202.258637] NIP [000000000003e178] 0x3e178
+[  202.258642] LR [c00000000003e174] arch_local_irq_restore+0x2a4/0x328
+[  202.258649] Call Trace:
+[  202.258651] [c000000effc17b80] [c000000000023afc] 
+show_regs+0x5c/0x1d4 (unreliable)
+[  202.258658] [c000000effc17c30] [c00000000002d05c] __die+0x114/0x17c
+[  202.258663] [c000000effc17cc0] [c00000000002dd44] die+0x74/0xe4
+[  202.258669] [c000000effc17d00] [c000000000031dd0] 
+program_check_exception+0x3c/0xf0
+[  202.258675] [c000000effc17d30] [c000000000009b2c] 
+program_check_common_virt+0x3bc/0x3c0
+[  202.258680] ---- interrupt: 700 at 0x3e178
+[  202.258683] NIP:  000000000003e178 LR: c00000000003e174 CTR: 
+0000000000000000
+[  202.258687] REGS: c000000effc17d60 TRAP: 0700   Tainted: G   W        
+     (7.3.0-rc4+)
+[  202.258690] MSR:  0000000000081000 <ME>  CR: 00000000 XER: e0017930
+[  202.258695] CFAR: c00000000000d158 IRQMASK: 0
+GPR00: c000000effc17930 0000000000000000 c000000002252580 c000000002252600
+GPR04: c000000effc179a0 c000000effc17a08 c000000effc179e0 0000000000000000
+GPR08: c00000000002c254 0000000000000000 0000000000000000 0000000000000000
+GPR12: 0000000000000000 c000000effffdf00 0000000000000000 0000000000000000
+GPR16: 0000000000000000 0000000000000000 0000000000000000 c000000002267878
+GPR20: c000000effc179e0 0000000000000000 0000000000000000 0000000000000001
+GPR24: 0000000000000800 0000000000000003 0000000000000000 c000000002259970
+GPR28: c000000effc17ba0 0000000000000009 c00000000003dc60 c000000002267878
+[  202.258735] NIP [000000000003e178] 0x3e178
+[  202.258738] LR [c00000000003e174] arch_local_irq_restore+0x2a4/0x328
+[  202.258743] ---- interrupt: 700
+[  202.258745] Code: 892d0153 2c090000 4082fe30 992d0152 4bfffde0 
+60000000 0fe00000 4bfffda0 60000000 60000000 0fe00000 4bfffda0 
+<60000000> 60000000 0fe00000 4bfffd9c
+[  202.258760] ---[ end trace 0000000000000000 ]---
+
+
+If you happen to fix this, please add below tag.
+
+Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+
+
+Regards,
+
+Venkat.
+
 
