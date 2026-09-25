@@ -1,124 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD4D286425;
-	Fri, 25 Sep 2026 14:21:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337734A4832;
+	Fri, 25 Sep 2026 14:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346091; cv=none; b=eARtfe41+ZebuqQxfLXGhw1sKU2MjKlrRv4zstvlq4fCZT684szsCE0hSCZeedCqL4oa2cT1h1b634XitaE+KICV6Q7wZBYYNfqYY3FEjEN/AHfHAIGplQ8kvKeN983CSUNvsToIicHcSvEQPXQm2oYcgB116/SPriZqXE0+Vdw=
+	t=1790346113; cv=none; b=MlgBLzPHG0osmVlYkcdYSX38UjDGp5x5aq+sa99V2FMGCrjq95bos5fNP8Fss1XRBD2IhsW5GbHwZviBPzizf8vJttHgVYXHHIX/bWb+Q639gwILQwTPLh0gJmIi7ZfjTTawhnYgsJB9AoezZex9YBWW7dOhnMYxH3v9zvEFKgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346091; c=relaxed/simple;
-	bh=KMTJ11ykdnFGIB5IBKpgsNqnRmMbRb/OBM5OhUJ/bKE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kUXOWV2Y8+GtYLNRr4RJTLX97YfcXNzU4uAsNoqJTuTYPCzGIkJzNBHUVk2Ls8JyjZfh8tZV+fdvI++z3LBvWl3NDcNa3DZP4f6bk0L9ZiBdHtixVpG0r7msZJivh90XpHuYRRFPg353v4wIrY6q/HewTdk8nZ5fSVTuaqom4IM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbjpMN5X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790346113; c=relaxed/simple;
+	bh=znabeNVR3AGepeCsA1EnxA5x4xL1xP957GJyIN1seys=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Jh4saw5x14ucylBOZoO9fiAUpu6BrtsApykAJJkF8xdqdUBUkansnUZDC+O5lSV/YOpcWeydo6tpY9bU0Am2CqbV7gzKGUfXYgbQek5pFlvbSEE9JzvmkfuPsRpSQKZRegnVIBfeY4b8j6EbzQsen8y2GNQ5xOSwsSp/PSD4koI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RCOMbVpW; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbjpMN5X"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E393C1F000FF;
-	Fri, 25 Sep 2026 14:21:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790346088;
-	bh=lk9ExM5C04rCLZ8OJ128JihICZt0NCkl3prr+DKdW0s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WbjpMN5X6Iqa+zPlNs2dmeXG2IWucUCBCTCBdrscichJ9ebaQup2KIpM16uOus/RQ
-	 MOMiE+TuiYekYLZhyF5jEY7LZL4dekBcrb9dKXYXlBfSQztRZv0tSLrtBxSbtSHq/2
-	 nJp+tylThy1lfXNdCCNhyNSnabwg9dRY/hus9OYsUkUlqj5jufxviXrJ2dO//sVk/t
-	 bpCrLnapQbyeQk6NaoYsAoNNuxm/5dFnG2Z+JYpqgumT49N4FWQKGaKK0Nk3kR1mWb
-	 X941q2DbYZ7O+CQUaC0eRuAy+xnzeu9lK7+Dyu0qwmgYJcye077Vh3NoB9/NkdHnP1
-	 bEXSEOv+X63lg==
-Date: Fri, 25 Sep 2026 17:21:24 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Hui Peng <benquike@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RCOMbVpW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=bI
+	vTjCdR8QBh40bXwP6YddIJiZylzjt30RVaHWiRRic=; b=RCOMbVpWAOnHoMIElp
+	b7MsiAjWPdQCE8uBfHZdGyliK4jaWJsxImdMFHVpWql/K2f4K3UDFalIzyQhBL2p
+	/Wd8AF26E0iMheLbuP4DbQHT6OlANgpbO+54yLdxuQoWprXRaF9M9I95vZY0XSTK
+	3CUc3NLgTjKP/7MBknhagA0iY=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgA39tRcg7ZqXmxsBQ--.50533S2;
+	Fri, 25 Sep 2026 22:21:17 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Nilesh Javali <njavali@marvell.com>,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KEYS: reject descriptions exceeding U16_MAX in
- __key_create_or_update()
-Message-ID: <araDZNQvIkDvcmfJ@kernel.org>
-References: <20260919203511.2580732-1-benquike@gmail.com>
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] scsi: qla2xxx: Protect VPD aux image query with optrom mutex
+Date: Fri, 25 Sep 2026 22:21:15 +0800
+Message-Id: <20260925142115.2265572-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919203511.2580732-1-benquike@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgA39tRcg7ZqXmxsBQ--.50533S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFWfXFyfGrWxXw13Ar1xGrg_yoW8Ww15pa
+	4rKryakryrJrs7Xry8u3WxuFyYkFnrKFWUG3yrta4a93WkXF9I9rWUAr98uFn7C3s3Jr4v
+	vF4kXrZ5JayYyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_FApUUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8B1Aemq2g12EbQAA38
 
-On Sat, Sep 19, 2026 at 08:35:11PM +0000, Hui Peng wrote:
-> struct keyring_index_key stores the key description length in a 16-bit
-> field (u16 desc_len), and __key_link_begin() enforces
-> BUG_ON(index_key->desc_len == 0).
-> 
-> While add_key() bounds explicit userspace description strings to
-> KEY_MAX_DESC_SIZE (4096), when the userspace description is NULL or
-> empty __key_create_or_update() delegates description generation to
-> index_key.type->preparse(&prep) on the payload (up to 1 MiB). Key types
-> such as "asymmetric" (x509_key_preparse()) construct prep.description
-> from the certificate issuer, subject, and hex-encoded serial number,
-> which can exceed 65535 bytes.
-> 
-> __key_create_or_update() then assigns:
-> 
->         index_key.desc_len = strlen(index_key.description);
-> 
-> without checking whether the length fits in u16. When
-> strlen(index_key.description) is 65536 (0x10000), index_key.desc_len
-> truncates to 0 and immediately triggers BUG_ON(index_key->desc_len == 0)
-> in __key_link_begin(). Lengths above 65536 truncate modulo 65536,
-> corrupting keyring hash and comparison lengths.
-> 
-> Reject empty descriptions or descriptions longer than U16_MAX with
-> -EINVAL in __key_create_or_update() and key_alloc().
-> 
-> Fixes: 16feef434017 ("KEYS: Consolidate the concept of an 'index key' for key access")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+qla2x00_sysfs_read_vpd() calls qla28xx_get_aux_images() before taking
+optrom_mutex. That helper reads flash directly, so it can overlap with
+other flash operations that hold optrom_mutex. The resulting image
+selection can be based on corrupted auxiliary image status and cause the
+wrong VPD region to be read.
 
-Were you able to construct X.509 certificate that triggers the bug?
+Take optrom_mutex before querying the auxiliary images and keep it held
+until the selected VPD region has been read, matching the locking order
+used by qla2x00_sysfs_read_nvram().
 
-I do think range checks should exist and current implementation leaves
-staying within appropriate range somewhat open.
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/scsi/qla2xxx/qla_attr.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-> ---
-> diff --git a/security/keys/key.c b/security/keys/key.c
-> --- a/security/keys/key.c
-> +++ b/security/keys/key.c
-> @@ -245,6 +245,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
->  	}
->  
->  	desclen = strlen(desc);
-> +	if (desclen > U16_MAX)
-> +		goto error;
->  	quotalen = desclen + 1 + type->def_datalen;
->  
->  	/* get hold of the key tracking for this user */
-> @@ -820,6 +822,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
->  	const struct cred *cred = current_cred();
->  	struct key *keyring, *key = NULL;
->  	key_ref_t key_ref;
-> +	size_t desc_len;
->  	int ret;
->  	struct key_restriction *restrict_link = NULL;
->  
-> @@ -865,7 +868,11 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
->  		if (!index_key.description)
->  			goto error_free_prep;
->  	}
-> -	index_key.desc_len = strlen(index_key.description);
-> +	desc_len = strlen(index_key.description);
-> +	key_ref = ERR_PTR(-EINVAL);
+diff --git a/drivers/scsi/qla2xxx/qla_attr.c b/drivers/scsi/qla2xxx/qla_attr.c
+index a4ca22024ede..03feade738e2 100644
+--- a/drivers/scsi/qla2xxx/qla_attr.c
++++ b/drivers/scsi/qla2xxx/qla_attr.c
+@@ -560,6 +560,12 @@ qla2x00_sysfs_read_vpd(struct file *filp, struct kobject *kobj,
+ 
+ 	faddr = ha->flt_region_vpd << 2;
+ 
++	mutex_lock(&ha->optrom_mutex);
++	if (qla2x00_chip_is_down(vha)) {
++		mutex_unlock(&ha->optrom_mutex);
++		return -EAGAIN;
++	}
++
+ 	if (IS_QLA28XX(ha)) {
+ 		qla28xx_get_aux_images(vha, &active_regions);
+ 		if (active_regions.aux.vpd_nvram == QLA27XX_SECONDARY_IMAGE)
+@@ -571,12 +577,6 @@ qla2x00_sysfs_read_vpd(struct file *filp, struct kobject *kobj,
+ 		    "primary" : "secondary");
+ 	}
+ 
+-	mutex_lock(&ha->optrom_mutex);
+-	if (qla2x00_chip_is_down(vha)) {
+-		mutex_unlock(&ha->optrom_mutex);
+-		return -EAGAIN;
+-	}
+-
+ 	ha->isp_ops->read_optrom(vha, ha->vpd, faddr, ha->vpd_size);
+ 	mutex_unlock(&ha->optrom_mutex);
+ 
+-- 
+2.34.1
 
-Why key_ref is assigned here?
-
-> +	if (!desc_len || desc_len > U16_MAX)
-> +		goto error_free_prep;
-> +	index_key.desc_len = desc_len;
->  	key_set_index_key(&index_key);
->  
->  	ret = __key_link_lock(keyring, &index_key);
-> -- 
-> 2.43.0
-
-Br, Jarkko
