@@ -1,223 +1,222 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021108.outbound.protection.outlook.com [52.101.100.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570BD481255;
-	Fri, 25 Sep 2026 12:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8839449BD96
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:49:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790340585; cv=fail; b=FCm21roR0fFpWgGaMQJRzXW7jD45aVFwbed3NcC0LzYb0CMNPbZMY1lnh6U55r8yDhHVGlLEOY1llkMgNbxt56wZB34XlOdiCJ2peqaCkoy0ASMMFnU8P5/Oe7uw3ZW7Va8BSOhQ97dVo9pswFs99aeog13A21zRfRnl+Jpv6aU=
+	t=1790340587; cv=pass; b=iXxas5jOkT1jtmQ/rzqrvwKoJh3XFlXas1qoYKiz+OZUvg/Uye85K9q/G/T9WXK8kc4ROUcqIVcO4VRwt5p6+OlhroK5EabFQsvogvE8ysM872HvASldVf/h/dgC8aJ2zK9Hn0jCX4Ooroe47epZ/snXA0E7siVVPJ0lWz0ZeVM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790340585; c=relaxed/simple;
-	bh=mK4rMTsxuFPSiAQV1UQfOLbTHMlJVriPgUbMKXycS4U=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=DHPO++9/6ih2VzPH4f0JX5etccwe2AGdxO6B9H9rGk7rx47aKDvuFVFRUKvdRX09tRuviO/4C5jSaIdRODorY5cjyrb9VOD7fV5ilUE9FBewKVLoXk1N7NAdhZQnZtyOJXvFZN/IwRwGMP7CQS6TINryeXhrggpv18mGriTudaM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=bbXXto9i; arc=fail smtp.client-ip=52.101.100.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	s=arc-20240116; t=1790340587; c=relaxed/simple;
+	bh=2Gz2UeRKZ24g45wBnk1gIJDu8zb1+RkJBTqudMiS5n4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lFtLtuR2Hn7Fs9aZgW1zOL3QpzudEUdqEzCVngRHDlO+Vj4bVBo+lCRuj5/tLXxsNvVqiJqQYVrP0W7IiG8Kiu3znxzjJxaJUTnkOuJWygMNiNC+A+E3DwGRlnUR3nP7k/0lkIqm6vpf00K+IVCTcY2cbMe/tcdqpwo3yrbQUsE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JkY+frEa; arc=pass smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="bbXXto9i"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mo1aaSDdYTrroMSHTKf7CdFEaj13vRmtXQW9SNsjExjDrZ9N8ZZe4FJg+8xqAGBcVIDTxNdfmVEBUo5bcVg88d3iW3Y51fwwWDo/MRYChPkjaX2NxbdPksXcmO3Gf2E+XKQGpJGUXvewzY3LgYSMr8TuFQPwA9uMeJe++rb27pzhq5Fd4YkQgAwlwOGQsyigP0josdtFpC8FLHhQQFueCEcu7k2f60RD34mH3NsZF32b+a6vH/eiPgR33XZzqAxw+gCj31Wecjdnlj3hwG87FgHyBP1pBdIAabdaeN4Qtyrvu93od83puV4Cung+ALhqhqN29PbWNSBf7iv84L1UHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mK4rMTsxuFPSiAQV1UQfOLbTHMlJVriPgUbMKXycS4U=;
- b=wpq6koerMeWMEOqIUK6oeoTXfvasIlEAM14jf4BIQvpyAMUo7A789wj3Q0ygSRxBars+9XP6+OYvMwy4waNX037zcLTgYozRJjhwPCTPQaQUCpOQZdJFL9Fkn3gD0TG7abWI6dmmsqTx/CGTpVgG8eWkQQ+PGneHHkcLG7lcEz3LnnxXSHs7qXNQgQrA9RWUCt3BM3Y07VxKBcmf6Bw94WNlaCqd4TjSwZG1qzgtH64K7R/7ZUVE4QDui0fIHb7pWoTARXaEE33iEEiO2xc+cj9EtvY/Ugiwv+h5OthKXGA8so85gJ84Il/q3IHGAWAeY2q0Q2IkkH15tgjD1euuPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mK4rMTsxuFPSiAQV1UQfOLbTHMlJVriPgUbMKXycS4U=;
- b=bbXXto9igu2oI605Kiv7zOd4JGmGNaX9RsL26k83EGTil9uWkj1sOb61DaPnKk9LCy+jp4NsQMFVn+X2jdB9gu216A2Q47n2CsSTimkSWhdzLLfYe6ml8TfLX5pnxKtch1/iuhzi78SG02N1+aeUKlzaczX/vPVEnlMK3aS5YpY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LOCP265MB8568.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b6::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 12:49:39 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 12:49:39 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 25 Sep 2026 13:49:38 +0100
-Message-Id: <DLOERNFT9KH0.E6BYORP7OCZM@garyguo.net>
-Cc: =?utf-8?q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- <rust-for-linux@vger.kernel.org>, <linux-modules@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] rust: macros: allow non-ASCII characters in `authors`
-From: "Gary Guo" <gary@garyguo.net>
-To: "Petr Pavlu" <ppavlu@suse.cz>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20260917051147.98775-1-tweek@google.com>
- <DLHERMQ9DOIC.1TRR4M82WNLIZ@garyguo.net>
- <0ecdcba9-a0a5-456f-8d30-e2201828cd07@suse.cz>
-In-Reply-To: <0ecdcba9-a0a5-456f-8d30-e2201828cd07@suse.cz>
-X-ClientProxiedBy: LO6P123CA0003.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:338::8) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JkY+frEa"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6aae147ef9dso10465a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:49:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790340584; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N3xwUf4knqdwMigtuJhNwOqXs0V3Tj7IsXz2/0x8+ySpZOrBN1jEsNpSXptSJsBVNi
+         S0un5bMV+WUTt8b+e1hw5G37JaQ7CeUJHIGh2XC61flhEHUuC8oAuqQD+JZSNOlpDt1r
+         +IW+jScbAHjZRGNzqjK9h2Am+Aj5CoyE2Liqf9w2/uLWBOxRI6Wea2Ve2OL+074c5nFH
+         27ZF0tE1dVcMRrp74L90cJy/MqDdJEulys8YH4+kc0iA0wCELqPyAOFEB8MTljayZIJx
+         q7WzvqWkbNdsnXGQ3anL3kYjHdA/e2fA396WJ7ZlSkMMFcTcJczhdZ5Cw+HjgO39BH6B
+         ghJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JEaNxzWMP8zBe2t/2kfrudklKHVc3TEq0coVkXXGBbA=;
+        fh=lOTmmuSy3xF74N3AESeVo84mkBAMFOQzPpgApPL/te8=;
+        b=jOtuH+7LhzbN2MA3xGyIdWjqJoT+oUUTN3FITBz2BOAhkB2AgGk2SoVD6SJjVaS3rj
+         u2qJLgSbMRNW5Yz/EwfEreZ499MM86wwL6U/3OpyRms+g7ZAGp4Fui8htZdqtIrOu0bY
+         Hstwt2jMuMgyRQLzKTKdFQEXz22rVIs2LJZRDkBE+Dh/uA//MShAUJT6VSJKHsofrnd0
+         9C854TnOmP/e+/hy6va0hu7SmEa711mYJRdvCjHg1/t/AqZJ47cveB7bizlJDaVdbJNG
+         BfU2R09USixcqpNTvf1oQKAit7uzg2y9TqAM4YnhQBZWlSTfcMzYlyouapOF4ZfC3e//
+         XwCg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790340584; x=1790945384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JEaNxzWMP8zBe2t/2kfrudklKHVc3TEq0coVkXXGBbA=;
+        b=JkY+frEaxPzU0XEr0lRnayQhtQBSuDlM8DGj41U5TpW7yuFZzlsk2i/HqbzqBfiOGn
+         KMln75CN0/sEua7QefZwkZ7frBYu+eL3UBDJytmd4cvZXRQf/lRCGoO9Bjk6P5QN60EL
+         hNyVbC+sALgZzTeAhxbnDLGMDvFl/AH2DpiJZVjm5w2ch62bMeI5eLFykDb3bM3WgApM
+         d1mjY9DNhNPd6ggxESRj9Y1s4q06ralnXf5virLuaIUeKLLbKNKdPR2o2xs3Huf6mNHx
+         /b7Y4KHKCG+IVpytc9IpJIaVjd5WqyLT6TN/UMPgtNvw/fDqS93McfhMtEGqKNTe5dKj
+         cZ2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790340584; x=1790945384;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JEaNxzWMP8zBe2t/2kfrudklKHVc3TEq0coVkXXGBbA=;
+        b=lzDcGtb/OQtsbsYLfSiWgOsaORTvigRg41EhKxnJOBDxDoY8Hb1DfGPeTFz6ExA80C
+         E1N/kRfXimaD8m6DoksTgRlbsqQfzSbatD8LxSgqCZXZbo4DxqZsWguOZcOSw69OV104
+         le6YVJv0z8H1KnxjdPuAZ+yFQxlFTqLTZsFnCTDSqQypyWkagm0oCxXsAM5XcgCjHU9o
+         py6PuCRhyWZPQ0P+/1yWgXRUwxJRYOA4A3sC2CJeQTCdH08zqWVwy/dhSWbhoKzs8Nzl
+         a/eAtehOsZZICRpZlNfF8KX5WK22Rp8tX+3l4KqiHMTnf+LFAEC0g+JKQUDnJWuJsnkl
+         PXTA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9xJsHCNkz1ZuVN5+ad4Eks6N7d4NYWTP76UwLj1MRQvRNxX41BaXKlC1hBtx/z7FgalyhGgC6SJOLoX8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mW1ribg4S99Q8WDedNlgJ4LuJJcokxy8ojPaHvVdXXrQTamAt9
+	3C0t6PKVwOeVnPuLcSfB46hLfT+zxvPDnQmbR40YgQ7fTOmflWdT1NHP/aSCSs+rAqJ5ZhRv+Qa
+	n93q1uhTYiPB8u+RoOVv9tWZM9lp9s63LPzjYu7oBq9E+981KP4dA5gUY
+X-Gm-Gg: AYBFou2LWbB40YtaFWCCuHi+vuh2STxcf5dmMgt6T/f0t4m8M7tx11Q9xozJhsb0Juj
+	mQtqq0bn2FOhCtStu79Rjt+JY/ktpog5y24f/wPtxKF/ECP9M09MDvk3Yl4OnoaukL4XdyyoR2x
+	F4I1iqZRGpUZ/M7lfse8WAmmwL95Dnfb7VlhZ02YIU7B4mS1u0togvQSadzHcUn4PY9baw79fQ9
+	nmRPpNS/3E7FwQ4ge9HMecvG34WEEKhtSPt2NtAZMIADlLSqLd6uuCTW0zcjlOKlK9VwcL9K7Pk
+	/bevRIgQLsRg2hyzgMV/Wj6BHeaqMd31LnK5Eoho90sde3unAuEz2XFXt2tn6pi3MKRAN9idYWH
+	KUZeHncYn4ol5JY0=
+X-Received: by 2002:a05:6402:a50e:b0:6aa:128c:36ad with SMTP id
+ 4fb4d7f45d1cf-6aaf8475cd6mr3116a12.10.1790340583030; Fri, 25 Sep 2026
+ 05:49:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LOCP265MB8568:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25226d41-5fff-4abe-32cd-08df1b03762e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|376014|366016|1800799024|6133799003|10067099003|22082099003|56012099006|4143699003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	tZjv6h2jTGeXUGNBS/XRakPNKUn/ShrMwKEQWmZQ1effstBIs+zIW39LqtNIGMJJnkJTKDYZx9cm+iiG9P2LUQ1rV7u6Zl8QvwqTa2gDh+NlrEZuyN5JrC0MPX7a+ih1kkIA8GlLbjpcgrd22K3eMxEX2JBOxnAJvf9OYFnEICqFnc48x+2V1um6hI1LUz9VvYICA7Br1PLExOBF89tEVtWO9YjgNG89fTPV9dbEZuUFIPTojIF4NyuzBvNKpAr5G3k+2VCGF4AR/nx3Qhh6E9Er7ETHzlvRrL3SrYEb7IP9qG/z6kxMQlXnXy0/USieLoObjewH24WqKs00ns+27MNWADi/MzbSX/PyL+N5oVH6VFQCSN2MPLWmGuRPddRsJUZrXCCOIIt3rdv4gISRx2PJj9aA7zjodKO39oIuB00wovYviXwCUQUQCvy55+MAzSny780zm3WsoA3ZmNhKQ1cmveClkgR3xTFAo1RPyTzQoOeEKLnab6t/B0Aq2t0lISX0eclumjAf7T5NrW+GMsFTGbuFw9slywACyBULDnBYTXXfzjhXxF2yvjuIl9Byqp/tQ7JehdxHiUNGh6mE98xFdixiR3zSS1RZrnH8KIiyrsgWI9Yus7KM7jzdrNZddND7/qfr0DHdXkgVJvvIuMwtDYbfUzzJ5tQgm5Vux+U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(366016)(1800799024)(6133799003)(10067099003)(22082099003)(56012099006)(4143699003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Zm5BQTdXcmdWNVBnUTBkUzZSTXczNDF6M092NjBmV2VLWURLbmlER0E0Y3Fx?=
- =?utf-8?B?RXRpVFduMHZ1TDZWQ0Y4bXUvYWRxTE0rS0E5Ri9Ccjc2Z25JajlZRGVaRndz?=
- =?utf-8?B?QjhaL0xNOVVVMUJkb095RXl0TlhtK3R4ZllHWW1DWFJoU2FleHpJcE9xZGJ5?=
- =?utf-8?B?M0p0U1Vkd05jQUtDaFRPb2FRSVRNWDlyZUthWWNWTnZWMUh1NU1tRk9TUlhR?=
- =?utf-8?B?UXJ5VlNScmNSdlpTUDNJUDZtaTN1MjVFWndqaTFNTGh0T0h0amJXYk9JMnVm?=
- =?utf-8?B?UEM0WU51dk14Yk92UTBBZlJHMjRENDBkTDVWZFZ5N21YWGswSm95QWtkTEZQ?=
- =?utf-8?B?anM3YVVqbWNzbk9oaUpiSzdsU0txYkdEaGxGN29FRXFrN0x6YXhLc0x2dEJP?=
- =?utf-8?B?VlRVTHVwcFFRbmlyQzZ2ZFlVZm9MalcwMkxTTFZEUnBJZDhiZG0yM3Q0Qmta?=
- =?utf-8?B?bUNVakllNkxWR1hJTXBybTdFUUMwU2FyYUw5MWJ1Q296aVdCUHdyanJXMCs4?=
- =?utf-8?B?ZFRtWlN4UVBZUncrcTVUZTBDV1Q3Yk9mM2ErMUw4OTdjcmgvY2JjNC9veGlz?=
- =?utf-8?B?cmN4aUFObjNEc1FSWnF3SkJBSEdhcFEyVEZ1Q1dINjJENUxnWTJ2bVhxRGor?=
- =?utf-8?B?NUVldkdtUUg0OUVIUGFFZlcyN0dYT09aVGJ3MjhTU043ZncrdnhDSnY1QTNs?=
- =?utf-8?B?UXBTUE5PV3NLbUdzK1VWbmtsZ1JuV3doRDdPaDBSWUdUdWFlT25VNXZVcTNn?=
- =?utf-8?B?Y0FXT3JiUWlYSTRmZnliNTdjQXBUL01QMVN6RjNMOGtrZnpQZEtncHEzdUd5?=
- =?utf-8?B?NUYxTDloRzh2YzhHKzNubTExMlorZXQ2VGxrdlkxSWk4cEJNM203eE1kVTB0?=
- =?utf-8?B?cXJxMkV4Uk14cGZEK291bVU0QWZrcDlOeWhUZGl1OXpjK3BiWmtSQUVwS2lW?=
- =?utf-8?B?UjVaMG15TUd1cUo3QkxoVE5JUzBjaWxmY0MwZEJ0SFVOelJMUEtZYXBET0c5?=
- =?utf-8?B?VnZFcUFvYktSWXFLbWFiRVpTRzNHVlJpQUJMZ1F2aU1LcE12UUhXVE81aHRm?=
- =?utf-8?B?OGVXTzVyT3ZhWkxlWkpxczhOeGtDSURGVkpKT3NxOWZmNmRhWnpiM0YxSy9E?=
- =?utf-8?B?aENzRWNxS1FCRU16S3FPTzVvemkwNlNoTEtVSjFXc1hUQ3hBbVZFZ1h6V0E0?=
- =?utf-8?B?ZGE1NHZ3OFd4dnhZWDhOMXZZdUwyZlpBRDFJd3lLcmlPTlFwbmwxb255cmdE?=
- =?utf-8?B?dmozeUlwc1k5QllNYSszR0VhTVhiVkN1S2FLb3hjeElzbmtkK3czOTc3TGs1?=
- =?utf-8?B?MG53azZ1QmkzbERZVlFPNTRzTHdKWkRTejBVTGlPZGtYUE5jUENXbnNuQ1Ra?=
- =?utf-8?B?WG9KMi9Hdno0dnFLQmEvc1pSa1FIM1p0blNRQm9XZ1RTZzRTVE9CUmNnTjJj?=
- =?utf-8?B?MG1GWkFJREEzb0ZpMXAxRTNEZHNTQ2RFY1BJTlVWVnI5MHpJNndFUlBaRCtB?=
- =?utf-8?B?WXdnTUxHWnRPVHU4V1N3U3lPY3ZSOWExL05wVTFZc0VXaVdrTVdVeEtIVnZt?=
- =?utf-8?B?WjczeS9seTEzYncrSUhTUEV6WEM0M2dkTHVSUVFGUEhpVmljamd1WU93OGt6?=
- =?utf-8?B?eG1NcWlRUHBnbWV3MW5jVXE5SWo5WXJlYnJyb3ZNOWhFUERwb21Gek16RStB?=
- =?utf-8?B?VmxaeiswQkwzRThUNS93aCs4TWd2bzJLSGZQRXVQbUg5UURSSGRNSnFtVC9r?=
- =?utf-8?B?NkJJU1BvNUhJV2pCQmV4dVBaS3lyYlVYOHNrdTVwWVVXbVdMQi9zbitUVjda?=
- =?utf-8?B?K2tNdDlFN0t5T0NWRHB5aWFqVWt3VHdlVlNaSnNUZUtpZkxFZHFUNDFGK1FZ?=
- =?utf-8?B?eVE2QWlNUEFPcWNXYmFTN0VlVUxpeDA5ZUpReHRKcGUvMDVVRzR6T2FXem96?=
- =?utf-8?B?RnJOOUJ3RUQ1QVVhQjBLRE5qQU56Y2lYYnY2SnBEdFRyR3F3MkFhZFRYa3dK?=
- =?utf-8?B?KzB0VmtoRmc3blJnUXZ1cEtFOEtlVXRoOEczS2RteGhrZElPSkdESVdtK2FP?=
- =?utf-8?B?TDc2bXVZcGdJUWFuL1czeUJJd2ExSEl4RmwwMWVTYTJOMmxEdFRZMmQrYndN?=
- =?utf-8?B?b1BUR3J3U2lrUDRGQ2VPMWV2V25CRVliTDZ5T3U3bnlFY0x2U0lUZjh2N3Zh?=
- =?utf-8?B?M3dPUU5DUkhYaHhwV0ROUE5keVlET0dFRkszU05hMEs1T2NibkFLZmM3R0xY?=
- =?utf-8?B?Szhmd09TckJTZUZ1bnZpcWNPazEvdzYxYjFSRGNzZTZNdnNJUExMWmZrZXZn?=
- =?utf-8?B?QkJ2NWpTa0cwVEkxR0FLVHJQNktBcEI4aUkrdGg1RXFTWmtmakVKdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25226d41-5fff-4abe-32cd-08df1b03762e
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 12:49:39.2542
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WkBaH74rh9PP3Hnxa7dugA0VEKJ76FL2bZt5y8ttFyLPHw9SAFbiE7399eMREpJCwTjGiRDh6r9HaDW/tgipEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOCP265MB8568
+References: <20260922193356.542922-1-kaifengw@google.com> <179028939171.2160803.706522228583664641@kernel.org>
+In-Reply-To: <179028939171.2160803.706522228583664641@kernel.org>
+From: Mina Almasry <almasrymina@google.com>
+Date: Fri, 25 Sep 2026 05:49:31 -0700
+X-Gm-Features: AclHuK8EGd49bkj4acT1-UozI1H1RBoepM97mY3Mb4oTcfAxodBew5rvHOkNTmQ
+Message-ID: <CAHS8izP+ZdYM_rApxjDAhtb+jyAHLqTNKhj80p1YSNgTbBmuEA@mail.gmail.com>
+Subject: Re: [PATCH net-next] net: devmem: use page_pool_put_netmem_bulk
+To: netdev-bot+sashiko@kernel.org
+Cc: kaifengw@google.com, netdev@vger.kernel.org, edumazet@google.com, 
+	kuniyu@google.com, pabeni@redhat.com, willemb@google.com, davem@davemloft.net, 
+	kuba@kernel.org, horms@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri Sep 25, 2026 at 1:36 PM BST, Petr Pavlu wrote:
-> On 9/17/26 9:20 AM, Gary Guo wrote:
->> On Thu Sep 17, 2026 at 6:11 AM BST, =3D?UTF-8?q?Thi=3DC3=3DA9baud=3D20We=
-ksteen?=3D wrote:
->>> Module authors may have non-ASCII characters in their names. In C,
->>> `MODULE_AUTHOR` allows arbitrary string literals which are emitted as
->>> raw UTF-8 bytes into the `.modinfo` section, and multiple in-tree
->>> modules use non-ASCII author names.
->>>
->>> Originally, the single `author` field permitted arbitrary string litera=
-ls
->>> including non-ASCII characters. When support for multiple authors was
->>> introduced in commit 38559da6afb2 ("rust: module: introduce `authors`
->>> key"), it reused the `expect_string_array` helper that had originally b=
-een
->>> added for module aliases. Because that helper enforced an ASCII check,
->>> `authors` inadvertently became restricted to ASCII-only string literals=
-.
->>> Later, when the macro parsing was rewritten to use `syn` in commit
->>> c578ad703ae9 ("rust: macros: use `syn` to parse `module!` macro"), this
->>> restriction was carried over by using AsciiLitStr in `authors` type.
->>>
->>> Change the element type of `authors` in `ModuleInfo` from `AsciiLitStr`
->>> to `LitStr` so that UTF-8 author names are permitted.
->>>
->>> Fixes: 38559da6afb2 ("rust: module: introduce `authors` key")
->>> Signed-off-by: Thi=C3=A9baud Weksteen <tweek@google.com>
->>=20
->> Off topic, but I have a question for modules maintainers...
->>=20
->> Does the `authors` field still serve this purpose today?
->>=20
->> Almost always it is just the initial submitter, while the code has been =
-subject
->> to many changes (many of them tree wide too), and the maintainers could =
-have
->> changed as well.
->>=20
->> We have copyright comments on top of files, and git for checking the fil=
-e
->> history. What's the point of keeping his inside module metadata?
+On Thu, Sep 24, 2026 at 3:36=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
 >
-> MODULE_AUTHOR() was apparently added in 2.1.18 back in 1996 [1], with
-> a comment that it is for documentation purposes.
-
-I am pretty sure the kernel changed a lot since then :)
-
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 >
-> I don't have a full picture of how this modinfo field is currently used
-> by module authors, maintainers and users. I think it can be useful as
-> a record of all past and present primary authors of a specific module,
-
-Well, if they're actually updated... But as pointed out that this was usual=
-ly
-not the case.
-
-> and it has also value for external modules.
-
-The version field has value for external modules too, but that was recently
-removed. I don't think we should care about external modules too much.
-
-> Unlike copyright statements
-> and Git history, the information is directly visible to users through
-> the modinfo utility.
-
-Hmm, why does the user want to know who is the primary author of a module?
-Users shouldn't try to contact the authors anyway, they should find the cur=
-rent
-maintainers...
-
-Even if the field is perfectly up-to-date, a user running an older kernel s=
-hould
-still not use this field as they need to contact the current mainline maint=
-ainer
-if they have issues.
-
-I just find this info to be hardly useful at all.
-
-Best,
-Gary
-
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
 >
-> It is up to individual module maintainers whether they want to use this
-> field and maintain its information. The module loader doesn't enforce
-> its setting in any way.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
 >
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/mpe/linux-fullhistory=
-.git/commit/?id=3De69db0c2dafd9206cdc859b0361c6d4f07d77676
+> - [High] sock_devmem_dontneed() (net/core/sock.c) now releases the last
+>   page_pool reference of devmem net_iovs via=E2=80=A6
+>
+> --
+>
+> net: devmem: use page_pool_put_netmem_bulk
+>
+> This converts sock_devmem_dontneed() from a loop of napi_pp_put_page()
+> calls to a single page_pool_put_netmem_bulk() call per batch, so the
+> page_pool ring producer lock is taken once per batch instead of once per
+> netmem.
+>
+> > diff --git a/net/core/sock.c b/net/core/sock.c
+> > index 2948dffcc3e1b..a6b6d5b2051df 100644
+> > --- a/net/core/sock.c
+> > +++ b/net/core/sock.c
+>
+> [ ... ]
+>
+> > @@ -1123,8 +1124,7 @@ sock_devmem_dontneed(struct sock *sk, sockptr_t o=
+ptval, unsigned int optlen)
+> >                       netmems[netmem_num++] =3D netmem;
+> >                       if (netmem_num =3D=3D ARRAY_SIZE(netmems)) {
+> >                               xa_unlock_bh(&sk->sk_user_frags);
+> > -                             for (k =3D 0; k < netmem_num; k++)
+> > -                                     WARN_ON_ONCE(!napi_pp_put_page(ne=
+tmems[k]));
+> > +                             page_pool_put_netmem_bulk(netmems, ARRAY_=
+SIZE(netmems));
+>
+> [Severity: High]
+> Can this reintroduce the page_pool use-after-free that commit
+> 271683bb2cf32e ("page_pool: Fix use-after-free in
+> page_pool_recycle_in_ring") addressed, when CONFIG_PAGE_POOL_STATS=3Dy?
+>
+> The old path went through napi_pp_put_page() ->
+> page_pool_put_unrefed_netmem() -> page_pool_recycle_in_ring(), which
+> updates the stat while still holding the producer lock:
+>
+> net/core/page_pool.c:page_pool_recycle_in_ring() {
+>         in_softirq =3D page_pool_producer_lock(pool);
+>         ret =3D !__ptr_ring_produce(&pool->ring, (__force void *)netmem);
+>         if (ret)
+>                 recycle_stat_inc(pool, ring);
+>         page_pool_producer_unlock(pool, in_softirq);
+> }
+>
+> The bulk path touches the pool after the unlock:
+>
+> net/core/page_pool.c:page_pool_recycle_ring_bulk() {
+>         ...
+>         page_pool_producer_unlock(pool, in_softirq);
+>         recycle_stat_add(pool, ring, i);
+>
+> Once the netmems are published into pool->ring, does the setsockopt
+> thread still hold anything that keeps the pool alive?  The barrier in
+> page_pool_release() only covers work done inside the producer lock:
+>
+> net/core/page_pool.c:page_pool_release() {
+>         page_pool_scrub(pool);
+>         inflight =3D page_pool_inflight(pool, true);
+>         /* Acquire producer lock to make sure producers have exited. */
+>         in_softirq =3D page_pool_producer_lock(pool);
+>         page_pool_producer_unlock(pool, in_softirq);
+>         if (!inflight)
+>                 __page_pool_destroy(pool);
+> }
+>
+> so the sequence would be:
+>
+> CPU0 (setsockopt SO_DEVMEM_DONTNEED)
+>   page_pool_put_netmem_bulk()
+>     page_pool_recycle_ring_bulk()
+>       __ptr_ring_produce()          /* last inflight refs published */
+>       page_pool_producer_unlock()   /* spin_unlock_bh(): BH/preempt windo=
+w */
+>
+> CPU1 (page_pool_release_retry() worker after deferred destroy)
+>   page_pool_release()
+>     page_pool_scrub() -> page_pool_empty_ring() -> page_pool_return_netme=
+m()
+>     page_pool_inflight() =3D=3D 0
+>     producer lock taken/released uncontended
+>     __page_pool_destroy() -> page_pool_uninit()
+>       free_percpu(pool->recycle_stats); kfree(pool);
+>
+> CPU0
+>       recycle_stat_add(pool, ring, i);   /* this_cpu_add on freed memory =
+*/
+>
+> Since the release is driven here by returning the last outstanding user
+> tokens, would it be better to move recycle_stat_add(pool, ring, i) inside
+> the producer-lock section of page_pool_recycle_ring_bulk() (matching
+> page_pool_recycle_in_ring()) before converting sock_devmem_dontneed() to
+> the bulk helper?
+>
 
+Thank you my dear bot. This seems like a real issue, a latent bug in
+the *_bulk() put. Let me use my pet LLM to develop a fix for this,
+send to net, and then respin this.
 
+Lets hold onto this for now Kaifeng, and resubmit after my fix goes into ne=
+t.
+
+--=20
+Thanks,
+Mina
