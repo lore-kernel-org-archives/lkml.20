@@ -1,92 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6994A5C55;
-	Fri, 25 Sep 2026 16:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F61F4A5C55
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790353675; cv=none; b=kBP6uXwvL4u3W32IhTMpDJ3d1oovNSbAry5WDcEO0/x+LBVZwLyY23JlIfkRxKouVQW4aVo2/OPnynccmwwXmKyfxhyNgCnUCeZ3Z/cEvG/7/K5NaN6DAdfLaAJJQL9SMx8rmPpT/FnDTzbFoVWn5cNXKdIhJdACQJs67vkLCpc=
+	t=1790353684; cv=none; b=Ov6BEXW8fttZg8UeHeGj8bSk4YPkpmm/juddYQiF3ftzfIymPWui9OvPQt7C925cFVvijV+BzI1pTnDCN3VuhLd/vqwCJi06eJKoaZ2pIACQxQQExdYuvjQCYBFuWAfKjtXzbCojw/+jG4s+JTKcVRclaWnxjEkrusT7U12/V+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790353675; c=relaxed/simple;
-	bh=XLOrSjop6uWRxuJiz9XlFYNqV/APlTG5JH/U1RDvGyE=;
+	s=arc-20240116; t=1790353684; c=relaxed/simple;
+	bh=Zx04GRhESpJuwUwQXfmh4GagFMWyql4BZ0xKHRNyTGA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wzs13BHH8mB4C+n2A89i2tby3JlD20ZvivHpvZc5QQ433fDlDLnBgO/QPE9bTUZCQe+Tl2Wr4KXUwMZzUzxAsPoR2i7cBMUOcQRxpEFt56Oq8uDPtqedAS0p5qAQhj7kbnEphCiWwhId43JUXhM+SxedJQ3m2EGnXn12FE2OcsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V4W3X0BW; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ke8EZPHtz5rPfiOjrYyEPloJMsA65uNbRYIIJJhipppVuSSo5pdb98oKVBe2TGy2nEuchSZIxQ22cZY0y4ZoVQM8BkJzdRtANQRJeMpd8UJYHblnTKr75/NmWgDjk4vFhNdsEiquXlhSBsP+hMBhg+GMdP1b1sohEhxceXa4L3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bLgFEotP; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V4W3X0BW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D692A1F00899;
-	Fri, 25 Sep 2026 16:27:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790353674;
-	bh=XLOrSjop6uWRxuJiz9XlFYNqV/APlTG5JH/U1RDvGyE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V4W3X0BWSe8T1M+pHbGBwUn4bk0oc2ovvURRqWY+/KWJCuVqF4jjqbYcwaGQUgZuF
-	 KjdPiIPYmnH9R0oPn1p/mKY0wMH/jQYJ7RCy9I6NolVBSPv0sO63BNZM9nNMy9c1XS
-	 PJ7DL2FHGrw6Ygh2aPskZipdCM+U5ReZGgabkLhE8Enr85cw0l2q4iTkovRxwkbiPs
-	 Bph9jbtOg1rc1DO18M92KQyUaiQpZ3geWfXXu3XR7L3Kx7y21jy7igakqneC6sGb/1
-	 4UrjSbaMe3LRxvgeZCtPJvkYy2J4tWr1MPm2mkeO4/6luNoB4nHRwH27JAjn3X893T
-	 YuGSR9a+/oFYQ==
-Date: Fri, 25 Sep 2026 17:27:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Weidong Wang <wangweidong.a@awinic.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Val Packett <val@packett.cool>
-Subject: Re: [PATCH 5/6] ASoC: codecs: aw88166: remove async start
-Message-ID: <92582dd8-6a57-405a-9b54-fdeb7af38b1a@sirena.org.uk>
-References: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
- <20260925-aw88166-cleanup-v1-5-11f74cb5fe28@gmail.com>
- <4f0f49b9-c856-4aa6-b860-a81f018ad1da@sirena.org.uk>
- <CALHNRZ9xAk-eVPE2OX0AiHjRe5n6AzejZ_6peS+NJr=v2jwzDw@mail.gmail.com>
- <516d8954-c825-4208-ae9b-1b3aa768c8c2@sirena.org.uk>
- <CALHNRZ_Ljg2ahetObZGE5aj7kM+zgA798kG1_hbC28KHweiYzw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bLgFEotP"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd66bb4so536824a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:28:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790353682; x=1790958482; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Rcjiw7TZKxqjqC6qmegcZrxlF77WDCcypKbL5i6Weqk=;
+        b=bLgFEotPQaJQDLcG26mkDYsRyezk4a7D18Be51OK2rd8p6pgtyzAO6g5OcOBHmZ4LA
+         B91ZF41fjK+Pb0bNegb4F2d8trww0Sh0Ji2z4e9nNnBlyM2ffuoXpQ7b0EEaTngjyl6+
+         paNx20v27X6qtkeg7yJ7/sqMjIu6tCMa/ZjP07FE4MJpmTfHPZ0ylWQk1MoOA/i6CYGy
+         DoFDc2da6eykpCPMzQLM9rOBsy4bME7Bt29bchbCNcDdy+0E5bUma2HqHXbquKWaJhSi
+         GzA4Z8fU5hNMtsiFDBmUnB4XCGPhDvLcFCqpOINWH4z78naRWINxnHMFFNYt+6y6LayD
+         2vCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790353682; x=1790958482;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rcjiw7TZKxqjqC6qmegcZrxlF77WDCcypKbL5i6Weqk=;
+        b=aOjO1ArBOkay1jGgrqSmo/dxr1iu1610EXinwemuzHV/WopI1BX7hAGCRTV/T0vCgT
+         Gs9OhPpP/txw3GeoNOGqUv8PklsqavOb1u+wlBuBRNIt7JYDvW7fy1KBW5kliv6f3xD+
+         qh7kboTaH6P3gw3FFE586128w+UKJD9fuSDElNIoIEEiCf95TDUciHAtui/sDshfMao0
+         c81j04z0H+dX77dSCovPgqHGwvUIXNVKvno/IG2qXBXd58z5T5ks+cH+0NmwkxaqBV4N
+         XhS7nREXRxrxd7N92FDaRlWgSqTIKpDv/5WrGznkYCUztdX7NPLdsWkoZpgQICWNq36X
+         GDOQ==
+X-Forwarded-Encrypted: i=1; AKwUvByDvA4+cW4gPOBubbnpL5A2ZntYAraEfMu7uf3spCZddW5fjtWgBdp6sZJbYs6VPViXl8yMM3qIUgdFwt0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDirMMLWH3Yksa6X8+QvUFZshjDjsQsNUN668zouIVVh+FdSh5
+	kg+cpxUzyuXjQ73tDpzU2qEJout3M2GSRkfUeqcNlL8x7c2xPm3NRTbC
+X-Gm-Gg: AYBFou2mX/vFu0vk/GAuQFR8J0V0g/wamTU3U8DwdBu1o4C+wGdvRqswIf/7PBiQdNL
+	JjKGtT8pOSjiA9Ug3O6eNZ/DLAcWDjHbNqU4fTxkW1P9V/sfrKihKLOHSqr2ObCfv9uXCL+RFZW
+	MJ0leu3eufAQnxExpR2KQb9IIIU8w5hEAKZw2YNQODZ8T9d424EhmK4M1PylOLf/KlrQyrreEL4
+	TyX98VH0CSVB/h5+IL4O1v6fmfnSVsLs0rXpo4uSLBC6VB8MMCC5UTQIp6wHd3o20jTCvumZzk0
+	uAoacRUMU9wiyD666Y2w4neudNey14TGx9b/HqmPZBD/4Rj4UtdcgKvl2m5h+UtQCNOgLb99zFa
+	9f0ie2N+jPGg64cU23FrjhPZu/Q9T/px40blOY2S4c4Byu3AfVMw/dumDR3BQk1DdTdMhLx+pWY
+	nqwI7mZ15ubhHuzcjbrOogh2hjDX3HwNhtd69+AQyoXMXw8I08RHfWBIZOPioeuHjck56LltUyH
+	045960d+NC0
+X-Received: by 2002:a17:90a:1c89:b0:3a0:9dbd:431a with SMTP id 98e67ed59e1d1-3a09dbd4752mr3475490a91.10.1790353681688;
+        Fri, 25 Sep 2026 09:28:01 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5d0sm12819580a91.4.2026.09.25.09.28.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 09:28:01 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 25 Sep 2026 09:28:00 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Colin Huang <u8813345@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Grant Peltier <grant.peltier.jg@renesas.com>,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	colin.huang2@amd.com
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: pmbus: isl68137: Add Renesas
+ RAA229639 and RAA229640
+Message-ID: <fd18f46f-deec-42ee-9574-91c71cc4caa1@roeck-us.net>
+References: <20260921-add-raa229639-and-raa229640-v3-0-b104ee8a70b2@gmail.com>
+ <20260921-add-raa229639-and-raa229640-v3-1-b104ee8a70b2@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZMzF5Fkst+dpv3/Q"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CALHNRZ_Ljg2ahetObZGE5aj7kM+zgA798kG1_hbC28KHweiYzw@mail.gmail.com>
-X-Cookie: Love America -- or give it back.
+In-Reply-To: <20260921-add-raa229639-and-raa229640-v3-1-b104ee8a70b2@gmail.com>
 
+On Mon, Sep 21, 2026 at 03:16:35PM +0800, Colin Huang wrote:
+> Add Device Tree compatible strings for Renesas RAA229639 and
+> RAA229640 PMBus devices.
+> 
+> They are compatible with existing 2-rail non-TC controllers
+> and use renesas,raa228244 as fallback compatible
+> 
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
---ZMzF5Fkst+dpv3/Q
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied.
 
-On Fri, Sep 25, 2026 at 11:16:18AM -0500, Aaron Kling wrote:
-> On Fri, Sep 25, 2026 at 11:06=E2=80=AFAM Mark Brown <broonie@kernel.org> =
-wrote:
-
-> > Does the audio sound fine - are there glitches at the start of the
-> > stream?
-
-> No glitches that I've noticed so far. Can't say I've done a crazy wide
-> range of tests, but I've run through most of my normal use cases and
-> haven't heard anything unexpected.
-
-The change is probably fine then but explain this, ramps like that are
-almost always workarounds.
-
---ZMzF5Fkst+dpv3/Q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2oQQACgkQJNaLcl1U
-h9AU/Qf+PPIhB/ogTapYoGudx0dja/9CoVX9wVkzJmJIYs5YL/PLkhwD+7F0yLIW
-ybqLqpkx791M/ELJL6wZ4OHEaLWFRG68A6x0ZffHSUHCpX1pNwsSP9oPZCucMQFb
-ENtgioIE0dwXmThawiMp1/H33W30cdfYqBVUZWkwSzG53uuqxbYCzdYkYKIAXp4i
-JK+XtagnUEPiXRBJI314td0I4nqMvdouoIEKRkkgzSK6rbTxI3lyb7LTe2JO10oF
-HA9jcGa7u9C71yNMMcnTudF7TIEDcskTP+flD/MVLKUtKe+8NJ5zmFDnszXv1w6O
-QweZHPA4SCBlRQR8Mfdm95E4Qn+WKg==
-=uWXY
------END PGP SIGNATURE-----
-
---ZMzF5Fkst+dpv3/Q--
+Thanks,
+Guenter
