@@ -1,148 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AA138E12D;
-	Fri, 25 Sep 2026 11:02:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C545748CD56;
+	Fri, 25 Sep 2026 11:02:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790334128; cv=none; b=p2XgU9f3MDDkomrp1nPFzqTMgGV4f/HGwybpoBGRwkREOMDaM7MZpPjm7myyr55zyIw9HClk2+UGXDtn6qWb5wFAjTMXpRdV/s6dPIcOlo+KFUnUzYX/mfC3sRvm4F5+l9b2o4EJbOI7RwSVb5TREMHZMuiZfd4dCDkqBOVQURM=
+	t=1790334142; cv=none; b=h0R/NGkXzUZUA84sd5OzYqI2fySc7D7yzZDCCFVBJckB8fOMUsSmRsBXrWX0YshiBa/+WKzOy7PoFu37rFPQvHzmgJMdLF/9EbWHFalOa503RDG7a4Dprz0Xr3Gq6O/ZeOX6GwnHuAgCDEsu+MQAbrZ7UAgyIM6qDCL9BBCMSKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790334128; c=relaxed/simple;
-	bh=Vw4tIvUh9iCRgPumHdbxmQ3uFjAZKshFXT5h59HwEYw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ua3I4xIutsPtjVArlVy7V4tpW60RVvFizUWAN8Y4jgpY0J4f9Pa801fMXsA6uKAeneZWU1a3MX7RT+EzF0GVRA96U6bLhRx02A+tZ1ol/Xz1lbHhODPVuujrYf+ubpoAr97f3/ccI+5f+zmYW7lQ/CnnZmRy03RTpkwJbmTod4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cs8M+KUt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790334142; c=relaxed/simple;
+	bh=da6g01JLLJuYvc+Z5TDjyo2/9KuKxQvcQmESGkU8tcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=vDgElE9pceIT3UNIk9B2TOUx5gINIO4YO2gjQsNCvhcJoyghYQ4sin2xEGvtj8wQJlJ5xnLBkCLcEEaWeirwyE0yr2t3gjC8Tgyle7Qse4z0OBAptMSzuDov8E6PR7qnD5MJ/8vALy7nBtiAvCmR06qpdNnuP0X0u49N4xwQwtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SX8lNg+9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cs8M+KUt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE011F000FF;
-	Fri, 25 Sep 2026 11:01:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SX8lNg+9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACAA71F000FF;
+	Fri, 25 Sep 2026 11:02:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790334122;
-	bh=i2MF8G53+2TJNwdh6H/2D4TjPKTBJGXEPFShL5//B+M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Cs8M+KUt16tK/XUS4KBWNEBFZCG7qdya4X5Q0/m1DlAhuFxLfunQdq/oOm/3xLhmk
-	 g+mz7RXSaCtI6rsDcJwgvAYI3OjRMNkZK0LcUbazzucK5JBDOKf5kvtv/2ePJtWUdN
-	 ME7b6geBHQ5EcQiztnroB9GCESGBTwfj3BOFpkrCOl2QXW03KCgvW+wRt9Z6cGJwg/
-	 16Pn9i25K6bLCw+K0mlmbRqTKkBOUUALnFf6h+RtaMbve0sYiz7bKXvmaAm6kK77s4
-	 FXoRQNJDmxpHAXV4WVeHP31V50DVpThWrSf4TxjtqXa883PecK/QuYllTic1IK01px
-	 H5q+PVXIZC3Rw==
-Message-ID: <91d800d6-03f3-4068-8c12-618529a81528@kernel.org>
-Date: Fri, 25 Sep 2026 13:01:51 +0200
+	s=k20260515; t=1790334133;
+	bh=/NVqZhf6mCxo7NZ2EURWGfnN9Xg2ZWgxXDrMRFTZgDM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SX8lNg+9EnPqoAU3mIv/6cpW9nNjzLeafYugEHkyLIi80XzBNchirl2o40lAYHnlM
+	 ff6xn5D83qdykKMteEaauxEM8nuO42qXoadIQpGpFJLTry7nObx8QDEPiVlLf6gLMg
+	 6kYeva4gF7m049071JZsbIaBxZw1CrXWgf2h4YPaP8vhG7aIpKilcXHWs7tG2yc+19
+	 PaHySVN2b0GaoSorBs6RGh3Z7c2szqjgw7/flMlEeMW48gyv8tLLNX3YThalIkFGXR
+	 i2UbpN+rpm3C2OfOLgeNhxXPOrOldnAg9+Mw7r9PzgiCpXDdWwovUnCFvxxfTJvZBn
+	 K+9sPeLMdBtlQ==
+From: Christian Brauner <brauner@kernel.org>
+To: shuah@kernel.org,
+	Disha Goel <disgoel@linux.ibm.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	aleksa@amutable.com,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] selftests/filesystems/openat2: fix O_LARGEFILE definitions for non-arm64 architectures
+Date: Fri, 25 Sep 2026 13:02:07 +0200
+Message-ID: <20260925-entwurf-zierde-ohrfeigen-551cda0dfa2b@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917095707.16986-1-disgoel@linux.ibm.com>
+References: <20260917095707.16986-1-disgoel@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arch, mm: promote DEBUG_WX to CHECK_WX
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Albert Ou <aou@eecs.berkeley.edu>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Alexandre Ghiti <alex@ghiti.fr>,
- Borislav Petkov <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Mark Rutland <mark.rutland@arm.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Michal Hocko <mhocko@suse.com>, Nicholas Piggin <npiggin@gmail.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Ritesh Harjani <ritesh.list@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Shrikanth Hegde
- <sshegde@linux.ibm.com>, Suren Baghdasaryan <surenb@google.com>,
- Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>,
- Vasily Gorbik <gor@linux.ibm.com>, Vlastimil Babka <vbabka@kernel.org>,
- Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org
-References: <20260925-direct-map-verify-wx-v1-1-7fd2f7d6d23b@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260925-direct-map-verify-wx-v1-1-7fd2f7d6d23b@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1330; i=brauner@kernel.org; h=from:subject:message-id; bh=da6g01JLLJuYvc+Z5TDjyo2/9KuKxQvcQmESGkU8tcY=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtC9nAV+o950zMG+0lXTo5u4Lsd71Zq8he9+eT4or7J /Yc11gQ01HKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjARCWmGv2JmPiwWVX9sN9SK Lf6qPI/r7yR2naPLXjzhMTmwpyO65h7DX6HfGxVU9xkZ3Yp7NZv5iHqr8/+lN/h0d73gllugNOv tdUYA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On 9/25/26 11:53, Mike Rapoport (Microsoft) wrote:
-> Verification that the kernel does not have writable + executable
-> mappings is about detecting security risks rather than a pure debug
-> feature.
+On Thu, 17 Sep 2026 15:27:05 +0530, Disha Goel wrote:
+> The openat2_test.c code previously hardcoded O_LARGEFILE to 0x8000 on
+> all architectures other than arm64 (aarch64).
 > 
-> Major distribution configurations enable it in their kernels as well as
-> defconfigs of most architectures that have ARCH_HAS_DEBUG_WX.
+> However, on several architectures this value is different. For example,
+> on PowerPC (including ppc64le), O_LARGEFILE is defined as 0x10000,
+> whereas 0x8000 is actually O_NOFOLLOW.
 > 
-> Rename relevant generic configuration options to use CHECK_WX and move
-> their definitions from mm/Kconfig.debug to mm/Kconfig.
-> 
-> For arm that does not widely enable it, only rename its variants of the
-> config options.
-> 
-> Enabling CHECK_WX adds a few kilobytes to the kernel binary and while
-> the added size can be slightly reduced with churny updates of
-> architecture implementations of ptdump, the core functionality takes
-> most of the added size. It cannot be moved to .init.text because the
-> verification has to happen after init sections are freed.
-> 
-> With this, make generic CHECK_WX default to STRICT_KERNEL_RWX while
-> still leaving users targeting small kernels the possibility to opt-out.
-> 
-> Suggested-by: Dave Hansen <dave.hansen@linux.intel.com>
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> ---
+> [...]
 
-Makes sense to me
+Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.misc branch should appear in linux-next soon.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
--- 
-Cheers,
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-David
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.misc
+
+[1/2] selftests/filesystems/openat2: fix O_LARGEFILE definitions for non-arm64 architectures
+      https://git.kernel.org/vfs/vfs/c/caddcdb829b2
+[2/2] selftests/filesystems/openat2: make /tmp a mountpoint inside private namespace
+      https://git.kernel.org/vfs/vfs/c/26915b466490
