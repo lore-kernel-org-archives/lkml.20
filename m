@@ -1,99 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4683355057;
-	Fri, 25 Sep 2026 08:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D7C47887F;
+	Fri, 25 Sep 2026 08:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790326316; cv=none; b=l3kAav5DcH8EvbfWwdg7we4E0Z10Y9BSIWRR8oMENbEpZ0FaY7R0DZ5tQmlk4SxgH0zyZsmXrgObuLMG/QorOHZe8dFVj6122t3o2QA+5RwdWrs/bk2cYDOa6qdi6PTn1CWsYl5qTDi3mkQFdgfGsJAqjcwvAxqvunmUil0N9+U=
+	t=1790326324; cv=none; b=B+8o0jDFmFSGvnvGofiXaxy3D0BTK44unwbiQTMHlNi7JJ/dqJLjLKnF9JxiHzPQT6Y9vP6WobLtHFEJyM/tCEO0RoS1xP5E2RSv5vOqy5spwnjqif0fH9b1w7yaMriV0n3vud0u7GNrZuN7Px9sykdI2bXNX+MU6ioLwxdhR+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790326316; c=relaxed/simple;
-	bh=ODydsWC4nVQ8JKTBG7GCQrD8PhiBWa5QNpx0W+Vs8hk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jMnKVMJDCF+NbQG92d1OSVcvStR6H2UMVfqRAXsE88JtbQWVkaS6NDFGY9DLNKcbdooPKnK4tj59BwiWUlHW26w5DupBjzyfZTgOdROiLkbL9Obs1QbbOx6DnEuTSsHcOyWGaV+hQGcf9Tstca/CZhOfCmNWPpcFJdiRO34SvA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwQ5+zEr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790326324; c=relaxed/simple;
+	bh=0ww6mYNLdL0BcAvD2/pYjaJdM/Z/4qussweK6HJ34hA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UAoSYEzrIjCxx2zakTTUMiKhxxq1GjLt3AxX3+T1no/VKxZE4eiDjsqKyk1ofceZO7A6hcBt+s4vfKCb9F2NlY+xBqkXzGXaT+zHeeZl5jfdW9kMw4LfeLzgD9T2uhGNW1z7Jcq9LiYpzxJicFfEAsnHpVp6ivv0qDTt++zUVik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pQqjLsGz; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwQ5+zEr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507691F000FF;
-	Fri, 25 Sep 2026 08:51:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790326314;
-	bh=S3rbnL0mTjXgUEK5/Bs8TjZebjmAkHUgwjp+YFQ5wF8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NwQ5+zErr0eWfZ83cKssBNFBF9lNyuNXbkxYZzw+Ygnpp3iNHc26F7ogQgr/9Qx1b
-	 n8xQvXwdkE5hPJL27dROeQ0oDkgrFXCHzQT9ZkWqZCff+n2zTU743gNOI9RR8gOmUa
-	 QCsWVtTy/y1lmHedpO7xJpA/T+x0DgSp+e4I7tG7uirhV2Kpr5JPwtuIzPcvfGSTNW
-	 R5Rl63O7zHZbGYxIcvYUVcux840pW1V+3w+VdAoYPinPM4QAZsppT6/nbb271bUoRu
-	 qr7Eee0KEiLNoFrcisin1XR/oLcZTLvYRDPs/RQ1jpMPJNSdZuzL2kmJ9uOFji15TM
-	 kWMcobWgdQwdA==
-Date: Fri, 25 Sep 2026 09:51:41 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Randy Dunlap <rdunlap@infradead.org>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Janosch Frank <frankja@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, 
-	kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Sean Christopherson <seanjc@google.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Leo Soares Passos <Leo.Bras@arm.com>, 
-	Wei-Lin Chang <weilin.chang@arm.com>, linux-s390@vger.kernel.org
-Subject: Re: [PATCH v4 00/14] KVM: arm64: Add KVM_PRE_FAULT_MEMORY support
-Message-ID: <arY1uKfUBXRpauaN@gremlin>
-References: <20260923-kvm-arm-prefault-v4-0-d4b0b4dfa8c3@kernel.org>
- <86ik3u4asq.wl-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pQqjLsGz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790326317;
+	bh=0ww6mYNLdL0BcAvD2/pYjaJdM/Z/4qussweK6HJ34hA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=pQqjLsGzUjLdS4pEd6D+E96QGLgNTZZ4wLp6Dpxz3I45a+0elNWCyLSP32UfUz6SS
+	 BJEi2ZqBnEo7dqgvCmBlgMkGd5G1eHKofPRL+GlGqaQl3eBEu28TTdB/o6rgKj/KiD
+	 I8yesRrXAE9PIL1bY+o0/JiK42fa/NU0u5vLElfoR7YQrqUSa6cv1vObegB3YRyg3s
+	 QrJhfnS/aDpT9Rd2WvEbuqqRGe96EvL0KRogGVR00AuSNd5H4OEOqTQkk/WUo4aUwM
+	 Jd4KQEDb/Qjt+nBab9gJMzNmTxXLVsrP8vFwwzKovxh6FkgaHHsHtTPRT8qpovFPyO
+	 73kHFMWlD/qYg==
+Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: benjamin.gaignard)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 621FE17E09D6;
+	Fri, 25 Sep 2026 10:51:57 +0200 (CEST)
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+To: nicolas.dufresne@collabora.com,
+	benjamin.gaignard@collabora.com,
+	p.zabel@pengutronix.de,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	conor@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: [PATCH v4 0/3] media: verisilicon: remove unused variant and code clean up
+Date: Fri, 25 Sep 2026 10:51:49 +0200
+Message-ID: <20260925085152.41852-1-benjamin.gaignard@collabora.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86ik3u4asq.wl-maz@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 10:08:37PM +0100, Marc Zyngier wrote:
-> On Wed, 23 Sep 2026 16:15:43 +0100,
-> "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> >
-> > This series implements the KVM stage 2 page table pre-faulting feature for
-> > arm64.
->
-> [...]
->
-> > base-commit: 23ddf997ab16b5f4aa9f948f5a68f5b35e4e398f
->
-> In the future, please don't do this. I've just nuked this commit from
-> kvmarm/next as I rebuilt it, and using such a random commit is
-> counter-productive. Just stick to an -rc tag from Linus' tree, and
-> that's it. I'm perfectly happy to deal with the outcome (conflicts and
-> other funny things).
+"nxp,imx8mq-vpu" variant has been tagged as deprecated since 4 years
+now. This series remove it and make some context's fields useless so
+remove them too.
 
-Ack! No problem, will do.
+changes in v4:
+- rework commits messages
+- add r-b tag
 
-Do you prefer that people stick to the same -rc base from the start or OK to
-roll it over to latest Linus's tree?
+changes in v3:
+- remove more dead code
 
-Not that I imagine it makes any difference in most cases.
+changes in v2:
+- have a separate patch for documentation
+- fix dt-bindings
+- rebased on v7.3-rc1
 
->
-> Thanks,
->
-> 	M.
->
-> --
-> Without deviation from the norm, progress is not possible.
 
---
-Cheers, Lorenzo
+Benjamin Gaignard (3):
+  media: verisilicon: Remove deprecated variant
+  media: dt-bindings: media: nxp, imx8mq-vpu: Remove nxp,imx8mq-vpu
+  media: verisilicon: Remove useless internal fields
+
+ .../bindings/media/nxp,imx8mq-vpu.yaml        |  10 +-
+ drivers/media/platform/verisilicon/hantro.h   |   9 +-
+ .../media/platform/verisilicon/hantro_drv.c   |  30 +----
+ .../media/platform/verisilicon/imx8m_vpu_hw.c | 105 ------------------
+ 4 files changed, 11 insertions(+), 143 deletions(-)
+
+-- 
+2.53.0
+
