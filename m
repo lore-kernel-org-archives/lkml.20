@@ -1,80 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E21C4B7160;
-	Fri, 25 Sep 2026 14:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247FD49B454;
+	Fri, 25 Sep 2026 14:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348102; cv=none; b=J357cqH35LfGSBXPZsu/x6E6wEJLUaiD5dmIMUCSNRSGGyrg231GGRcm8MQG+SHkwTvZVp70qMJAQb8imwlLgfm2q+Qes6czt94oFWTM23DoHD+U5vZX8G9fZnSvYIi+zVbl2FFsMvQlszQzS6nEdFxzJlvVMeS53tDOiAUh2rQ=
+	t=1790348191; cv=none; b=d796NH3I/v3OnEWPBw1DPxPKeeWIotUiN4/EU5f4NqcRCC2Jq7I6Q8ZuD+c53sUHnFrPSA+Pf1kaGnUuomt99LbdQJ/W6kdPA064AJwV22QLygE3dmDJe7PxdJkurc7KpZRGuCjrfc6UWjq1Z+oirqCL6wsPQa/Spn3uySh1T/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348102; c=relaxed/simple;
-	bh=DSElJr8+eqnncUV1+QmO3mNU5DAG4Xkcag5Qg0INYEg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=bHGp5Sleg3Bii90/AP3ccMTePjjhBVFKeKgBJv/fa4nL20XBOaa8Vmk4ST47/1AUTw0PfY4eF5WS3sv7uH16Nz//C/1tAE+Qkw3eyrAmMPYtffW2De4Om7TjCvTX6I74MavB9lbid6mFZhPC8cbcGHHSLn6DgeVfYNpSzHCg6e4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOESLnPm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOESLnPm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEB201F000FF;
-	Fri, 25 Sep 2026 14:54:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790348095;
-	bh=JGrB5YYFveIwZSzWD+7LH6wodZl8bTW0nco8xHfgyM4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=QOESLnPmLuTQ7cdOc57AH46fsAY50EQ77MsLUxkgKnJyWYsA1CTQb9Ka6hBzSobn5
-	 +RaDOGcelCVIE/1lAOY5o5ufvWy34WDudrgeJ2vYlYXA2lQZy6bIlmo3QZc95wSLXH
-	 fX8sXQE7TKC2/uIfUVZVfjBUrEBjQ0Lz22Umc3gOxon2zWvqo32cXEQMHmboDdCMZV
-	 tuCoJGEmSXIB4VjGIqKZE2Gq2V48nGM5/ClqoTQXR/T7J8AYeWYi0tZaL4i/K9k4jE
-	 EEUwYF5Oq97Gux/BxaxFfDyeStYLsvSLwMSOuY7YfTQ+qHAskaWjd9UkWGi9b8sHMS
-	 qF74AV0fTDj3Q==
-From: Christian Brauner <brauner@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>, 
- Breno Leitao <leitao@debian.org>
-Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, kernel-team@meta.com
-In-Reply-To: <20260921-kdump_print-v1-1-e445fec3177c@debian.org>
-References: <20260921-kdump_print-v1-1-e445fec3177c@debian.org>
-Subject: Re: [PATCH] vmcore: report the release of the crashed kernel
-Message-Id: <20260925-wachen-handhaben-mixen-431c4a7a196d@brauner>
-Date: Fri, 25 Sep 2026 16:54:49 +0200
+	s=arc-20240116; t=1790348191; c=relaxed/simple;
+	bh=OD8IaHb1Os1/I0eMQ/TTV6buZJRhJ/ZWgz0ZxoW6/Ig=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hGquMCn4dKgwQ9ry+TmA3FLKaQdJCMtFlU48DOFvxsrKxM3h4NcKukWYbDg2iK7/HQC2uFlebudmDGzlseEqagNqNwtddhwsPaIF6qr+ibXGwbHYqUjeEnt2Rh77uuCIAQIF0nb3DquEfzTH6u+voC/9wv4g+/nzEVV/SxTp9vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
+	by APP-05 (Coremail) with SMTP id zQCowAAXhD5+i7Zqv8FECQ--.59835S2;
+	Fri, 25 Sep 2026 22:56:00 +0800 (CST)
+Message-ID: <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
+ disable clearing FB_EN
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 22:55:57 +0800
+In-Reply-To: <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+	 <20260918030125.315978-8-a0987203069@gmail.com>
+	 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+	 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
+	 <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
+	 <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=881; i=brauner@kernel.org;
- h=from:subject:message-id; bh=DSElJr8+eqnncUV1+QmO3mNU5DAG4Xkcag5Qg0INYEg=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRt67YSFX6fWhzrmPw15FtycOBPpVX/NJ+fmmj1Lfv8h
- c21tf0/O0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACYyW4Hhn0XeoosOFlcvc8wK
- uDpt765TJxlSDqzZ4R4+932ETy/n8bOMDHui05dZOTSU9mq6OkxNma7G4y6hKPVh4/zbXmlHahS
- OMQIA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+X-CM-TRANSID:zQCowAAXhD5+i7Zqv8FECQ--.59835S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFyfCFW8JFyDXFWkKw4fAFb_yoW8CFyxpa
+	97Ka90krs7Xr4Ik392kw48taySgrWrJ3yUJryrG34vk398tF1xJFyrKayfuFWxurs3Ww12
+	qF4qkr98CFWDuwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+	ZFpf9x07betCcUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Mon, 21 Sep 2026 03:45:42 -0700, Breno Leitao wrote:
-> vmcore: report the release of the crashed kernel
+=E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+>=20
+> Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
+=81=93:
+> > Maybe it's better to just make it the 2nd patch in this patchset,
+> > just
+> > after the binding change.
+> >=20
+> > Waiting for something into drm-misc-fixes again will need another
+> > fixes
+> > pull and another RC back merge, which can consume weeks and miss
+> > the
+> > current merging window.
+> >=20
+> > In addition, it's possible that `drm/verisilicon: introduce per-
+> > variant
+> > hardware ops table` also gets backported for a more clean primary
+> > plane
+> > atomic_update disabling fix.
+> Understood. I'll fold the FB_EN fix in as patch 2, right after the
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+Should I just apply this revision of patch with this reorder?
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Thanks,
+Icenowy
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
-
-[1/1] vmcore: report the release of the crashed kernel
-      https://git.kernel.org/vfs/vfs/c/9a82c64e133f
+> dt-bindings patch, targeting the current vs_primary_plane.c directly,
+> so the ops-table patch just carries the already-corrected code
+> forward
+> into vs_dc8200.c. Agreed that's faster than round-tripping.
+>=20
+> On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
+> still
+> has a real per-variant operation there (clearing FB_EN + commit),
+> while
+> DC8000 leaves it NULL and does nothing, so the suffix still reflects
+> an actual per-variant difference, not just structure introduced by
+> the
+> refactor.
+>=20
+> While testing the cursor plane, I found the same class of bug there:
+> the disable register write was being triggered from the plane's
+> atomic_update() invisible-branch using the old plane state to look up
+> the CRTC/output, which can be stale or NULL on a plane's very first
+> commit if it's already invisible then. I've fixed it locally by
+> having
+> atomic_update() derive the CRTC/output from the state it already
+> holds
+> before checking visibility, instead of falling through to the
+> old-state-based disable path. Just flagging it here for now -
+> vs_cursor_plane.c isn't touched by any of my patches.
+>=20
+> Thanks.
 
