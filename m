@@ -1,100 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6032D0614;
-	Fri, 25 Sep 2026 13:11:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63F7436361;
+	Fri, 25 Sep 2026 13:11:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341894; cv=none; b=graLcyI/yFb+82hyQJfA1ivBSZFJMwUAMp1Mg++2b9CoPs2WflSjhqx311NO/CdL/nlAmiS+YGGgwQgbvoEVzcHvCmUm/6ODUYxwnRbe7VSXnK/Ko8ye1iAd3V4LccBsClgGRQPuYXEzM2MTFbXIHuEgKpuQMjaNfEd+lRvE7dw=
+	t=1790341903; cv=none; b=tOmzvgnxQFWTGFT7uqUDu9wp44tNcLoenWQhu7/HyQ2K3/+6TYwRqkmD0E0JOQFWT31NfNI+m5b1leI2IqJPaw+jxlQ5TPCRkbnMGkrUy4AbNjcIQ4Wuax9pFOmcCcUCBLk2y4TDwYk4JB8qCl+uG5GoXP+n7Jh1JzQI3Zjy+7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341894; c=relaxed/simple;
-	bh=lENP5HJHbc5BO+LSkrByvrmIgcmTuetXKD8cwa1M4xM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eH+F+S2NofPM1M/g3VTEQADrb40FvpypEDbh2/lzu9Veg7PSPug35zijKd5E9CKQftILyxAEu/7ZUU70Feg0AaqUHdYc6YYcyKXsGTExrDKPKqal+fa3QVA0nofqKKKgqlZUHT+j1xTZnGrfKioC2PWJpcGgzeodoynjNsaCaVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aijZ4Y4m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790341903; c=relaxed/simple;
+	bh=Jkf+TSU2XpLI4RQYh+Udjtd55NnAoRLgTlj07ovHUoo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HoN7NOLQhhnZNqzzldnTBQVmqY/siYhqPGkvpmtRSK3+nz2MnvBP65H9JiPtjQOnhetWVatiGm6lBR7PXNUYdjrO37X1CHVzXVqB3on1Hqq2FI84yZHWeeAwb2XfZgq4fWlGkzET9cAdkmj6ov2qJFLd593YmKTmqxoVrDCWOWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H/YyIVpG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aijZ4Y4m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 223AD1F000FF;
-	Fri, 25 Sep 2026 13:11:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H/YyIVpG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0462D1F000FF;
+	Fri, 25 Sep 2026 13:11:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790341892;
-	bh=mZmEeamXZmvXJ+d85vwGRKU5//j/nVZOjtPaiXKvqVk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aijZ4Y4mz7oRNa5ot1avBchyGjwQmgnYDzZpQ+wo82SDEVzzsu6juMo+HTBHLzF/u
-	 +HDCEZYzQd596k5bPOtXZ7svJVWetvLfIrNGl8/it5/W3x4c/p59oKF1KPCo5lrboj
-	 Yc+qqxYxy1hh/nieuwVWIdOJzYseKxyUpuJiAegIGITq9tb5GRe//i7Bpf4HXfNSJk
-	 RAy9sOYyLSaXCOR7BMz8SHeKHxSDwU4ofNmUFBd85CVZ5Jwnm9Tx5BtO5LRKSEsxaw
-	 zodDqD0af1j0ro4HZRaEq/OvkFoGZz6GiFealWNpQ5Pn+QryVyr1Ey7j7XUiparQb7
-	 hooHRijnuZ2EA==
-Date: Fri, 25 Sep 2026 14:11:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: manual merge of the fs-next tree with the mm tree
-Message-ID: <f9ddfd24-ee1b-47d9-a906-299421247b1d@sirena.org.uk>
-References: <arUS5b85ed6L01qc@sirena.org.uk>
- <arZn0IB-L3hnNniw@cronus.toxiclabs.cc>
+	s=k20260515; t=1790341902;
+	bh=JEsJz2W2yJCordrhFoYq7RabW3fzUyCQ1caXjYkcWLw=;
+	h=From:To:Cc:Subject:Date;
+	b=H/YyIVpGbZ+G9I5RpHXu9fK8y1yyt3wVBZ0XFC+jkbvlVKl2bOgPiuJI4EC+z9JGE
+	 qpKFR1nhlmsYXoBTg8ixN3MQ2e1DmiqYmbTI6ruTctoqJVIrgr/8iAH7RJHjVZ6esJ
+	 QfuAQ6AxbSDlC1ChYysIN9CIPU8zids/LeGP5y19krphpFJFnAsv3JxMLgMNEGymNf
+	 8zqZBm219jf2nceFBIJj1hTYQpI1zkHQn96oWHS42ryQyezcCxPXUsr4p6SQig6Zv6
+	 MQWngW9Cyh2ntcbaCXx/9G9ik1GaQow5Caw9jIVuBPDqgrtaHD305CckysOLY02Jc4
+	 NICOXJ2tkuupg==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: amd: acp: add EFI dependency for selecting TAS2783
+Date: Fri, 25 Sep 2026 15:11:27 +0200
+Message-ID: <20260925131137.146638-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="du3HKe/A4rswovkP"
-Content-Disposition: inline
-In-Reply-To: <arZn0IB-L3hnNniw@cronus.toxiclabs.cc>
-X-Cookie: Love America -- or give it back.
+Content-Transfer-Encoding: 8bit
 
+From: Arnd Bergmann <arnd@arndb.de>
 
---du3HKe/A4rswovkP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The TAS2783 codec requires EFI support, so it cannot be selected
+unless that is also enabled:
 
-On Fri, Sep 25, 2026 at 02:26:25PM +0200, Carlos Maiolino wrote:
-> On Thu, Sep 24, 2026 at 01:09:09PM +0100, Mark Brown wrote:
+WARNING: unmet direct dependencies detected for SND_SOC_TAS2783_SDW
+  Depends on [n]: SOUND [=m] && SND [=m] && SND_SOC [=m] && SOUNDWIRE [=m] && SND_SOC_SDCA [=m] && EFI [=n]
+  Selected by [m]:
+  - SND_SOC_AMD_LEGACY_SDW_MACH [=m] && SOUND [=m] && SND [=m] && SND_SOC [=m] && SND_SOC_AMD_ACP_COMMON [=m] && X86 [=y] && PCI [=y] && ACPI [=y] && SOUNDWIRE [=m]
 
-> > I fixed it up (see below) and can carry the fix as necessary. This
-> > is now fixed as far as linux-next is concerned, but any non trivial
-> > conflicts should be mentioned to your upstream maintainer when your tree
-> > is submitted for merging.  You may also want to consider cooperating
-> > with the maintainer of the conflicting tree to minimise any particularly
-> > complex conflicts.
+Add this as a dependency for SND_SOC_AMD_LEGACY_SDW_MACH, assuming
+that this is only needed on modern x86 machines that require EFI
+support already. It would likely be possible to do something more
+complex to still allow SND_SOC_AMD_LEGACY_SDW_MACH to be used without
+TAS2783 when EFI is disabled, but I cannot see a usecase for that.
 
-> Do you mean non-trivial conflicts with linux-next? I always attempt a
+Fixes: 28114992dd2f ("ASoC: amd: acp: enable TAS2783 and add RT712-VB SoundWire machine")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/soc/amd/acp/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-With other trees in linux-next.
+diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
+index ed0f93a5a7e5..ab49712545b0 100644
+--- a/sound/soc/amd/acp/Kconfig
++++ b/sound/soc/amd/acp/Kconfig
+@@ -167,7 +167,7 @@ config SND_SOC_AMD_SOF_SDW_MACH
+ 
+ config SND_SOC_AMD_LEGACY_SDW_MACH
+ 	tristate "AMD Legacy(No DSP) Soundwire Machine Driver Support"
+-	depends on X86 && PCI && ACPI
++	depends on X86 && PCI && ACPI && EFI
+ 	depends on SOUNDWIRE
+ 	select SND_SOC_AMD_SDW_MACH_COMMON
+ 	select SND_SOC_SDW_UTILS
+-- 
+2.53.0
 
-> merge against Linus's tree before sending a pull-request to check and
-> annotate any possible conflict, but I have never done that for
-> linux-next. I can do that, no problems. Where should I send a
-> notification to? linux-next@vger?
-
-If there's anything interesting it can be helpful for me to get a heads
-up on the resolution but the main thing (and half the point of having
--next) is to coordinate with other trees that you're colliding with.
-You don't specifically need to check, I'll tell you if I notice
-something, but OTOH if you know your work is going to be colliding with
-someone else's it's good to coordinate.
-
---du3HKe/A4rswovkP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2cv8ACgkQJNaLcl1U
-h9BNfQf9G43wyLRFkV1jgA+zTZ44qdh30goMvaZgUO6SJYgSUz8maxv/dnXrVNIJ
-8RJi7f5yt/2+eUg11Ah1TR2LlUm0TlfVMQ4cNHAqvK+LnfzGXQvTeCw2cHqzbUiF
-dvzcv6+FWQdOyzZkk/3mSz5L83zrQz2ww7urIvT8bC7vnYPYM0I00Bol4qlpH3vv
-Uxqkkjn3BfVszB2SH+7PR6ztWHIuTsEHrVwRpBBzHToqYw3fOrgbMPG1joo1xwjP
-4S9AaGYqtzBx9H3oiuyClD3v7liSxutd+x3esphUqSyqgZelCM7VVCJNpgGxljul
-ZljNJS/qe40XufkdEUVpQx7mTbFrcQ==
-=SUn5
------END PGP SIGNATURE-----
-
---du3HKe/A4rswovkP--
