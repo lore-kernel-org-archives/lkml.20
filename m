@@ -1,761 +1,464 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361ED4FECFD
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:30:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790375404; cv=none; b=p7WVjN9y82opU+o8boddISumiQQRpc8k/DZZVFG5L0xiSzhhg8CKzoRTdrDjbCXjqCqRHftdOhGfTKeqdS9G8M/sdoUlv991C/rO1yfkSxfv37AKwVQ3kac5byRF7xgL6yuWFsarrXeRvysMO/4Ym0z4U+4Y+yGY7FRkwzQop64=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790375404; c=relaxed/simple;
-	bh=2TSFxxlj0HTqlt4SkRM3k7AnGgdDwXqiZZgXoQvcb6Y=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=i8+c1aYuD0x0op5NC5TmdOBtB27ER6xR4/sWpvzXv5Dw3JK3aBZlA0sEoyJSOhmFiM64Ibnfk7a9urO3VwoceCFnVeFQXltnXTPNQlW1krgEK0VztYvOdaP1tb8YHg/E7zsWX6fDaa0x4aHRhVb2g7q2MJXjVwMQhpOTtDFAJxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rdbabiera.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=I/7Treso; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rdbabiera.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C317D46D2B1
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.233
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790375524; cv=pass; b=hyoccXuigy34Ugxvz6twwg1Zbotg5SIytxDJmElBMDbfYwkc0HPV75QvZUpQB3zYBz1Ywf4YUo7Z+fcp4pMK5k9eQ8wm0JDdNaX3e/FNZh7nTKvSH6pzHmxF0TxxDVzpUyKyl5ktav9pwVQytLEPwleLEDdgS8TqPSVG/Rr1W+M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790375524; c=relaxed/simple;
+	bh=HTT1Bzp/CQH9oc22abnQLAfE/4mMGvQ8FI43GoGKVhg=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=kI6GggU20Sk8SSBfY/oNtHYxdWyJZT/ev/GHCw6HmTal8RwoaO0d4NGtev3wflVAd0NgOKizozp9K4smlwdwNHki2AmVfvhoZIN2Xwm9VJhC5emhcBNmhG7kVxEPI1felsqpJY45FcYwa8a/+OfL5YmK/pKBHnXI1Z05VMNb5Rk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XBY7byEQ; arc=pass smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="I/7Treso"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1b8088202so899915a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:30:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XBY7byEQ"
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93bfa7b2093so156939485a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:32:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790375519; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EEeIgkIb0z/moHngbuKED7uTW1jH+FO/R62rCwlSfAvCxEh4S/6eMyMw2KY1/sfvtl
+         qbLRH/ye9A5qybnY8Brjvk6UYbACZ5UjFEmcwAs8Jf1zXNJ5b6gbA81AhGUpsmE2/Ybn
+         4g54odYk0X1uILE6QZq3RoBtzEXozqVeCU/f+o4f+DX5snv9eET5SjpdcwgO11PlOZdE
+         6wTw+vd0LFdh7SVEpswEJgViOFJ1FnGLTNnOhG3eGCqS/ogCxxkYGc6EVvRy3v4WLCGu
+         e8voPF0WWFILCHDWiBHvg3ivgP2dbBkDtEBSX78GxcZi6Hq32YZoRc9AfYdBEEa44x47
+         orXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=V3vqli2ndsVk/LMBVY4+gekll1+ICzZ8NkL1lheTiPo=;
+        fh=yIsu0ior3H0ldFX1byHXwRFpttn7dwN92nz/xQJ67Ec=;
+        b=fXGGxhdOmLwzPWQpZs31Bi8Xv090XEvayv8mfJ0S4lWQa7JM3aJzl+utWgCoUgZRAU
+         zbcTcZBdVnkTHYeQDpKpeSDbpu37fqgQWxnGjXEiFrxaNSBEeB5VWqVffZtbzslV4MKS
+         aAwvmHqhBUqy1W0NaHCWo9QEx96sWheq1Y8VZbdY3vyjIeHJLWtjKmkxjdeMNZkLt5Cl
+         P8mlaUQHOzhahtI530JC7HqH2O4pxFZ0H4NBn4TEQPT1SVSezYjsgm5tSq0I61oWf+Dq
+         n29tAjgNl6cbxPPp5mhqyhc6DL/vIMaiSm1ybaPdIZyqc/QgCB+nN3qzOe/Eqo5dlp8L
+         YPTg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790375401; x=1790980201; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8tFKY6Yob+QjVQytevnYCBsJhzC2E9g9VMgzANdexgc=;
-        b=I/7Treso0v65MocyP/snyiK6+XcgXFgjy1ura8jmGsEnJRyAhLhS8K2FgXbmgSI7Hl
-         xSEebX2DS4HezBVxQ5OGQFXTcWNsKpI20NCvLNAOHFgaER1b/UVWyiVKiFt6KEOmS/3h
-         5y2puowtYzmoL/6JTSNoLL28GWyqXD53WxkVrpFdlvCY86tAhKO6f0U6y3yiwJIIQUHJ
-         8h+qmfCcTff7hdN5mlFv4Y1HOvL34wq39kaBBR0oeUtxEbbrfknUWlfALUmvqs3bb5zM
-         zNa+/hKZMuyXhUcu0a5FZQUAAx74thme7oT96Ctbq5jbPtrFpfXlsR3utcFCiKKDSdnx
-         TAwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790375401; x=1790980201;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790375519; x=1790980319; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8tFKY6Yob+QjVQytevnYCBsJhzC2E9g9VMgzANdexgc=;
-        b=APx7DzXgYO6YbudOqLvQdMBL3oeq8UwyRore5GadSyqRev1i5HytZcwSmvyaxEHh4o
-         W03+HvWrJwvdAwNTQ9099d9WYX0ESgyy5ZlXUeDg1NQbhtLNDndVPu89ScaeZkP8WLaK
-         EUNdZxu/aUlf32HrTr493QBZU6ADb0I634PO77T5vKZ7ov4FfPdG45twBbKUXIvNVhJB
-         C3jmoyF2Z2Tj2zB2hvUSTVZVC3kPtfVKe22XapEu651tf03AmZaZ0leBnUv1aBg6n6Hu
-         bEj+G4Kfn0gVhmyKjjXzXT9ebr6IwAMDYrporz6pt+f6R0nkQ1LcPFNKQBc9YZauiQbs
-         BZoA==
-X-Forwarded-Encrypted: i=1; AKwUvBzAt8n/ptEJscSpIjyTatLE9/+I/bXdpbd+OcEjwtoF2KrTcuU61v2BTDXMfVn2EqqahPqwJvvv9TxfV7s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXJBCoIBaKvDA4exvnvXlzQ3B43JZSTJ0AZl69aMKCe+ohaPBc
-	6f8KVgTCjBNTLarj73PEUKF/Hdhe4HpfxVRLiEVIrbbAY4N+xG6SzcJzHQm3ge+UF4GjI66J4kq
-	Zj1cLhj2elFAT/KdnFg==
-X-Received: from pfcs22.prod.google.com ([2002:a05:6a00:6fd6:b0:86b:aaf2:b133])
- (user=rdbabiera job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:6f12:b0:3dd:a196:3091 with SMTP id adf61e73a8af0-3de0e953993mr6555452637.65.1790375401176;
- Fri, 25 Sep 2026 15:30:01 -0700 (PDT)
-Date: Fri, 25 Sep 2026 22:30:00 +0000
+        bh=V3vqli2ndsVk/LMBVY4+gekll1+ICzZ8NkL1lheTiPo=;
+        b=XBY7byEQY9PW6Dwo3P5EusCIQULcOREYZ8p9KMqoKKAywf6X1ylLifMz6IH/lqpizD
+         kQlM5V6R79i4vZJMy8eMo3BvDoJ4MSc/5cDag6QRnTKmTp0Kq2vf7H3Q0DgOzNHKuUiF
+         gc6ze4QbHQ9xDsYGIIrqcWaKWYoRBgFGY4EvF4UHxWgT+KDdvf89wOoKUOwFlzuyKxY0
+         pupWFX2mDeVOZpJ+XjcDCIQ+NBIitEWolhDDwZgYpnSHKz0ev2p2IWS91lX2lxZdv8RP
+         yko6FpqteG9rYTSkRybSqG1vB+suAyPy8pED685QwsKrz43AQCAc9hdVLS6yvuFHGlu7
+         NxUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790375519; x=1790980319;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V3vqli2ndsVk/LMBVY4+gekll1+ICzZ8NkL1lheTiPo=;
+        b=MGC37WYTJxvDNoH0Ixjrp8qt0KsIlskG3oT6rlKJZVOmeOrE3/J4G2GTwzS1LFh8oA
+         fhMAz03XMckMDHS6N66xxALWrxnf683T5fBtUL3xrhYaoVJnqJ0w6Xb72Jj5OmzKYLBy
+         /GL8yk9jnm2p2q3aA2GZvfkFEN4+TXrj4UwleNz16ITz4ITnz18xGopIbk0gq5HLhQLb
+         OO/DYQhEkVw3dneEFy8BBLH4Z8myaNAe76aQloCIBt61fiNfEBXIHq7E847Ohbzv5MwZ
+         +KJaO0Z9qvbrDrEJylKVjvZ9TPoLcqiK38CZuKpyXtoQcjsd8rnBOGWaQDcqafgTWW4o
+         6Fxg==
+X-Forwarded-Encrypted: i=1; AKwUvBxelwV3hopj4ChCMAHqsTFxH9dHXiFFLTDchh8g9znfPXbkSzwY6sOG87RZhPEWNBItOL4SgakNq/0sAvk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVvJ71MSmmzaFdGCkOyVILUsvENuIx/jCUd58GTT+C0SJppAYG
+	+xLKOmvqPvRurmn5IOv5AT04tRdp8IgIIy0Pz8fWzLLDvNkf0lWfbOIhtZ6bQYnA8TjdvPjDPUZ
+	XU+ZB56IM09cIs3u+vnTpSm0UtW0vClLzdTCu
+X-Gm-Gg: AYBFou1AmnrTVAQF8CDTbr3Dif5fy6t34izVJqqmh+Kov6nNJiR5gfCib4xtaqbxzj8
+	0AqhslyvjGgVqKGook89EdCJZ1TRKHAYptfrpTTWmp/8F3K+9M9aCh0hU3Fxw+/V4GOFMulpfYq
+	haatI2Tdx2Ex6tBzFA4Ybq3T4/5P2e1i+dPGQvb+DpxXBdu2duXLPxNwGUDLQSIjpbWGDkppQwO
+	OihA1PdqZXRyoQL66uPMtzS4QkzvpDQa1GHVuzjxOXdbzs4DdS4o6g5rKUQBjroNzPpvs2YeiwF
+	CIPhHzjn4/3SlDI0YwapsFeHCWOZU/+Bzz24B+fJACgEO0E0oI+RpPpTBNUvZDCTLCpB6Jpj9fa
+	nTNEMc5e1t++Rn5i1ZUZc6HI96noX1isFHk33PkYjEpK97cSRQSY=
+X-Received: by 2002:a05:620a:17ab:b0:93b:ebd8:9147 with SMTP id
+ af79cd13be357-93c43c6a2e5mr670361385a.18.1790375518609; Fri, 25 Sep 2026
+ 15:31:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Developer-Key: i=rdbabiera@google.com; a=openpgp; fpr=0B74D21BCA57BD40083A73A0DB00FC8CD80B20A1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=22970; i=rdbabiera@google.com;
- h=from:subject; bh=2TSFxxlj0HTqlt4SkRM3k7AnGgdDwXqiZZgXoQvcb6Y=;
- b=owGbwMvMwCV2m+FPzw1uhYWMp9WSGLK2fX3OYLd5hWf5zoKU5Ah3wcqjfwW8os73nG0J7J+y1
- vqjq+7mjlIWBjEuBlkxRRbukkvSp8L3OnBYFS+AmcPKBDaEi1MAJrKghJHhhsqv8gtCun/dnzV0
- mt1+3TL/n/zXoD2ZhjsONn7dvrxwGcM/66UmH8wiM3pzN5jcPDw7lUv89JttP7bZG2xfevzAIt+ JjAA=
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260925222959.3607769-2-rdbabiera@google.com>
-Subject: [PATCH v8] phy: Add USB3 PHY support to Google Tensor SoC USB PHY driver
-From: RD Babiera <rdbabiera@google.com>
-To: vkoul@kernel.org, peter.griffin@linaro.org, andre.draszik@linaro.org, 
-	tudor.ambarus@linaro.org, p.zabel@pengutronix.de, neil.armstrong@linaro.org
-Cc: badhri@google.com, nkapron@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	rdbabiera@google.com
+MIME-Version: 1.0
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 26 Sep 2026 08:31:46 +1000
+X-Gm-Features: AclHuK_bGNRuLRk5uKXZri1-wOBwJzbT64I-eOof3Ma0y1UaO6cjSrpVM4lGbag
+Message-ID: <CAPM=9twjOfCE5-LzepSB58uaQtn4kS2yF2sOu52kiJp2xkJXkQ@mail.gmail.com>
+Subject: [git pull] drm fixes for 7.3-rc5
+To: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add USB3 PHY support for the Google Tensor G5 USB PHY driver.
-This patch adds functionality for the usb3_tca register, usb3 clock,
-and usb3 reset as defined in google,lga-usb-phy.yaml. Kconfig now lists
-USB SuperSpeed support.
+Hi Linus,
 
-Refactor the probe sequence to initialize the USB2 and USB3 PHYs, and then
-initialize clocks and resets for both PHYs afterwards.
+While most of this is AI inspired fixes for error handling paths,
+leaks and use after frees, there are some normal things. nouveau has
+probably the biggest changes with some fixes to stabilise runtime
+suspend/resume on 570 firmware which regressed after we moved from
+535, there are some fixes to stackframe issues seen with amdgpu, and
+otherwise the usual bunch of i915/xe/amdgpu fixes, and some virtio-gpu
+fixes.
 
-Refactor set_vbus_valid to reduce duplicated code.
+Hopefully it will start to quiten down a bit from here.
 
-Implement USB3 phy_ops for phy_init, phy_exit, and phy_power_on.
-combo_phy_state enum is added to track PHY bringup state across
-PHY API calls. google_usb_set_orientation can reprogram the TCA when the
-PHY is ready.
+Dave.
 
-google_usb_set_orientation now calls pm_runtime_get_if_active to
-guarantee register access. Setting orientation and pm_runtime management
-are now handled within phy_mutex.
+drm-fixes-2026-09-26:
+drm fixes for 7.3-rc5
 
-Signed-off-by: RD Babiera <rdbabiera@google.com>
----
-Changes since v1:
-* Removed mix of goto-based and scope-based cleanup from usb3 phy_init
-* Removed unused usb3_core resource from probe
-* Added combo_phy_state enum to interally track ComboPHY bringup state
-  to allow google_usb_set_orientation() to change TCA orientation.
-* Modify Kconfig documentation to reflect SuperSpeed support
+client:
+- fix restore of partially initialized client
 
-Changes since v2:
-* google_usb3_phy_init now sets USBDP_TOP_CFG_REG_PMGT_REF_CLK_REQ_N
-  to false if phy_init fails elsewhere.
-* google_usb3_phy_init errors are now handled via DEFINE_FREE structures.
-  This affects set_pmgt_ref_clk_req_n, clk_bulk_prepare_enable, and
-  reset_control_bulk_deassert.
-* google_usb2_phy_init also handles undoing clk_bulk_prepare_enable via
-  DEFINE_FREE structure.
-* google_usb3_phy_power_on allows program_tca_locked in the
-  COMBO_PHY_TCA_READY state. Waiting for PoR=>NC is only performed once.
-* Note: there are checkpatch errors for the DEFINE_FREE macros resulting
-  in "ERROR: trailing statements should be on next line". Other cases of
-  DEFINE_FREE where the line limit would otherwise exceed 100 columns
-  have the indentation done the same way.
+i915:
+- Fix incorrect RCU teardown order leading to endless loop
+- Fix DP MST TU and FEC handling for disconnected streams
+- Fix selective fetch disable, again
+- Fix export namespace for kunit helpers
+- Workaround eDP flicker on a specific laptop model
 
-Changes since v3:
-* set_pmgt_ref_clk_req_n(false) in google_usb3_phy_exit() comes after
-  reset assertion and clock disable to match phy_init() sequence.
-* program_tca_locked in usb3 power_on() now requires a valid orientation
-  to match google_usb_set_orientation requirements.
+xe:
+- CRI throttle reasons report
+- TLB invalidation at wedge
+- SVM eviction and VM close
+- Display corruption on LNL on Xen PV
+- W/a fix and addition
 
-Changes since v4:
-* google_usb_set_orientation sets gphy->orientation while holding
-  phy_mutex.
-* google_usb_set_orientation now holds a pm_runtime reference before
-  checking for suspend, and calls put_autosuspend prior to normal
-  exit.
+amdgpu:
+- Display ref count fix
+- Userq fixes
+- VCN 4, 5 reset fixes
+- Fixes for various error paths
+- Stack frame size fixes for various combinations of compilers and configs
 
-Changes since v5:
-* google_usb_set_orientation replaces pm_runtime_suspended check with
-  pm_runtime_get_if_active call.
+amdkfd:
+- Possible UAF fix
 
-Changes since v6:
-* google_usb_set_orientation uses pm_runtime_put() instead of
-  pm_runtime_put_autosuspend().
-* Added newline to all dev_* logs
-* xa_ack sw poll changed to 100ms, and xa_timeout_val is programmed
-  to match during usb3 phy init
-* google_usb3_phy_power_on returns -EINVAL when PHY is idle and
-  only performs PoR->NC wait in COMBO_PHY_INIT_DONE
+nouveau:
+- runtime suspend/resume fixes for newer firmware
+- rcu free the scheduler
+- fix VRAM pinning
+- fix double free
+- fix reference leaks
+- fix runtime PM leak
+- fix cursor list usage problems
+- fix HDMI config rejection without SCDC
 
-Changes since v7:
-* Explicitly include linux/iopoll.h and linux/pm_runtime.h.
-* Bump GPHY_TCA_TIMEOUT_US to 110ms so the 100ms hardware xa_timeout
-expires before the software poll.
-* Add blank lines flagged by checkpatch --strict.
-* Change pm_runtime_enable() to devm_pm_runtime_enable(), removing
-pm_runtime_disable() from driver remove() and fixing missing disable
-call from typec_switch_register() error path.
----
- drivers/phy/Kconfig          |   2 +-
- drivers/phy/phy-google-usb.c | 447 +++++++++++++++++++++++++++++++----
- 2 files changed, 404 insertions(+), 45 deletions(-)
+virtio:
+- fix a bunch of object/memory leaks in failure paths
+- add pixel blend mode property to cursor plane
+- revert prime buffers import
+- sync shmem backing on guest transfers
 
-diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-index 19f3b7d12b7d..d2d401129af7 100644
---- a/drivers/phy/Kconfig
-+++ b/drivers/phy/Kconfig
-@@ -100,7 +100,7 @@ config PHY_GOOGLE_USB
- 	  the G5 generation (Laguna). This driver provides the PHY interfaces
- 	  to interact with the SNPS eUSB2 and USB 3.2/DisplayPort Combo PHY,
- 	  both of which are integrated with the DWC3 USB DRD controller.
--	  This driver currently supports USB high-speed.
-+	  This driver currently supports USB high-speed and SuperSpeed.
- 
- config USB_LGM_PHY
- 	tristate "INTEL Lightning Mountain USB PHY Driver"
-diff --git a/drivers/phy/phy-google-usb.c b/drivers/phy/phy-google-usb.c
-index ab20bc20f19e..70d3a3833948 100644
---- a/drivers/phy/phy-google-usb.c
-+++ b/drivers/phy/phy-google-usb.c
-@@ -9,6 +9,7 @@
- #include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/io.h>
-+#include <linux/iopoll.h>
- #include <linux/kernel.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
-@@ -16,10 +17,12 @@
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- #include <linux/usb/typec_mux.h>
- 
-+/* USB_CFG_CSR */
- #define USBCS_USB2PHY_CFG19_OFFSET 0x0
- #define USBCS_USB2PHY_CFG19_PHY_CFG_PLL_FB_DIV GENMASK(19, 8)
- 
-@@ -28,11 +31,44 @@
- #define USBCS_USB2PHY_CFG21_REF_FREQ_SEL GENMASK(15, 13)
- #define USBCS_USB2PHY_CFG21_PHY_TX_DIG_BYPASS_SEL BIT(19)
- 
-+/* USBDP_TOP */
- #define USBCS_PHY_CFG1_OFFSET 0x28
-+#define USBCS_PHY_CFG1_PHY0_MPLLA_SSC_EN BIT(1)
-+#define USBCS_PHY_CFG1_PHY0_SRAM_BYPASS_MODE GENMASK(11, 10)
-+#define SRAM_BYPASS_MODE_BYPASS_FIRMWARE BIT(0)
-+#define SRAM_BYPASS_MODE_BYPASS_CONTEXT BIT(1)
- #define USBCS_PHY_CFG1_SYS_VBUSVALID BIT(17)
- 
-+#define USBDP_TOP_CFG_REG_OFFSET 0x44
-+#define USBDP_TOP_CFG_REG_PMGT_REF_CLK_REQ_N BIT(0)
-+
-+#define PHY_POWER_CONFIG_REG1_OFFSET 0x48
-+#define PHY_POWER_CONFIG_REG1_PG_MODE_EN BIT(1)
-+#define PHY_POWER_CONFIG_REG1_UPCS_PIPE_CONFIG GENMASK(31, 14)
-+#define UPCS_PIPE_CONFIG_ISO_CPM BIT(5)
-+#define UPCS_PIPE_CONFIG_PG_MODE_STATIC BIT(6)
-+#define UPCS_PIPE_CONFIG_LANE_RESET_NO_PG_EXIT BIT(9)
-+
-+/* USB3_TCA */
-+#define TCA_INTR_STS_OFFSET 0x8
-+#define TCA_INTR_STS_XA_ACT_EVT BIT(0)
-+#define TCA_TCPC_OFFSET 0x14
-+#define TCA_TCPC_MUX_CONTROL GENMASK(2, 0)
-+#define TCA_TCPC_MUX_CONTROL_USB_ONLY 0x1
-+#define TCA_TCPC_CONNECTOR_ORIENTATION BIT(3)
-+#define TCA_TCPC_VALID BIT(4)
-+#define TCA_CTRLSYNCMODE_CFG1_OFFSET 0x24
-+#define TCA_CTRLSYNCMODE_CFG1_XA_TIMEOUT_VAL GENMASK(19, 0)
-+#define TCA_CTRLSYNCMODE_CFG1_XA_TIMEOUT_VAL_100MS 0x1e85
-+#define TCA_PSTATE_0_OFFSET 0x50
-+#define TCA_PSTATE_0_UPCS_LANE0_PHYSTATUS BIT(8)
-+
-+#define GPHY_TCA_DELAY_US 10
-+#define GPHY_TCA_TIMEOUT_US 110000
-+
- enum google_usb_phy_id {
- 	GOOGLE_USB2_PHY,
-+	GOOGLE_USB3_PHY,
- 	GOOGLE_USB_PHY_NUM,
- };
- 
-@@ -46,53 +82,205 @@ struct google_usb_phy_instance {
- 	struct reset_control_bulk_data *rsts;
- };
- 
-+struct google_usb_phy_config {
-+	const char * const *clk_names;
-+	unsigned int num_clks;
-+	const char * const *rst_names;
-+	unsigned int num_rsts;
-+};
-+
-+static const char * const u2phy_clk_names[] = {
-+	"usb2",
-+	"usb2_apb",
-+};
-+
-+static const char * const u3phy_clk_names[] = {
-+	"usb3"
-+};
-+
-+static const char * const u2phy_rst_names[] = {
-+	"usb2",
-+	"usb2_apb",
-+};
-+
-+static const char * const u3phy_rst_names[] = {
-+	"usb3"
-+};
-+
-+static const struct google_usb_phy_config phy_configs[GOOGLE_USB_PHY_NUM] = {
-+	[GOOGLE_USB2_PHY] = {
-+		.clk_names = u2phy_clk_names,
-+		.num_clks = ARRAY_SIZE(u2phy_clk_names),
-+		.rst_names = u2phy_rst_names,
-+		.num_rsts = ARRAY_SIZE(u2phy_rst_names),
-+	},
-+	[GOOGLE_USB3_PHY] = {
-+		.clk_names = u3phy_clk_names,
-+		.num_clks = ARRAY_SIZE(u3phy_clk_names),
-+		.rst_names = u3phy_rst_names,
-+		.num_rsts = ARRAY_SIZE(u3phy_rst_names),
-+	},
-+};
-+
-+static inline void google_usb_phy_clk_disable(struct google_usb_phy_instance *inst)
-+{
-+	clk_bulk_disable_unprepare(inst->num_clks, inst->clks);
-+}
-+
-+DEFINE_FREE(inst_clk_disable, struct google_usb_phy_instance *,
-+	    if (_T) google_usb_phy_clk_disable(_T))
-+
-+static inline void google_usb_phy_rst_disable(struct google_usb_phy_instance *inst)
-+{
-+	reset_control_bulk_assert(inst->num_rsts, inst->rsts);
-+}
-+
-+DEFINE_FREE(inst_rst_disable, struct google_usb_phy_instance *,
-+	    if (_T) google_usb_phy_rst_disable(_T))
-+
-+/*
-+ * combo_phy_state
-+ *	COMBO_PHY_IDLE: The ComboPHY has been torn down and USB3 has not completed
-+ *			bringup
-+ *	COMBO_PHY_INIT_DONE: The ComboPHY bringup sequence is complete.
-+ *	COMBO_PHY_TCA_READY: The PoR => NC transition is complete, and the TCA can be
-+ *			     moved into USB.
-+ */
-+enum combo_phy_state {
-+	COMBO_PHY_IDLE,
-+	COMBO_PHY_INIT_DONE,
-+	COMBO_PHY_TCA_READY,
-+};
-+
- struct google_usb_phy {
- 	struct device *dev;
- 	struct regmap *usb_cfg_regmap;
- 	unsigned int usb2_cfg_offset;
- 	void __iomem *usbdp_top_base;
-+	void __iomem *usb3_tca_base;
- 	struct google_usb_phy_instance *insts;
- 	/*
- 	 * Protect phy registers from concurrent access, specifically via
--	 * google_usb_set_orientation callback.
-+	 * google_usb_set_orientation callback. phy_mutex also protects
-+	 * concurrent access to phy_state.
- 	 */
- 	struct mutex phy_mutex;
- 	struct typec_switch_dev *sw;
- 	enum typec_orientation orientation;
-+	enum combo_phy_state phy_state;
- };
- 
- static void set_vbus_valid(struct google_usb_phy *gphy)
- {
- 	u32 reg;
- 
--	if (gphy->orientation == TYPEC_ORIENTATION_NONE) {
--		reg = readl(gphy->usbdp_top_base + USBCS_PHY_CFG1_OFFSET);
-+	reg = readl(gphy->usbdp_top_base + USBCS_PHY_CFG1_OFFSET);
-+	if (gphy->orientation == TYPEC_ORIENTATION_NONE)
- 		reg &= ~USBCS_PHY_CFG1_SYS_VBUSVALID;
--		writel(reg, gphy->usbdp_top_base + USBCS_PHY_CFG1_OFFSET);
--	} else {
--		reg = readl(gphy->usbdp_top_base + USBCS_PHY_CFG1_OFFSET);
-+	else
- 		reg |= USBCS_PHY_CFG1_SYS_VBUSVALID;
--		writel(reg, gphy->usbdp_top_base + USBCS_PHY_CFG1_OFFSET);
--	}
-+	writel(reg, gphy->usbdp_top_base + USBCS_PHY_CFG1_OFFSET);
-+}
-+
-+static void set_sram_bypass(struct google_usb_phy *gphy, u32 bypass)
-+{
-+	u32 reg;
-+
-+	reg = readl(gphy->usbdp_top_base + USBCS_PHY_CFG1_OFFSET);
-+	reg &= ~USBCS_PHY_CFG1_PHY0_SRAM_BYPASS_MODE;
-+	reg |= FIELD_PREP(USBCS_PHY_CFG1_PHY0_SRAM_BYPASS_MODE, bypass);
-+	writel(reg, gphy->usbdp_top_base + USBCS_PHY_CFG1_OFFSET);
-+}
-+
-+static void set_pmgt_ref_clk_req_n(struct google_usb_phy *gphy, bool resume)
-+{
-+	u32 reg;
-+
-+	reg = readl(gphy->usbdp_top_base + USBDP_TOP_CFG_REG_OFFSET);
-+	if (resume)
-+		reg |= USBDP_TOP_CFG_REG_PMGT_REF_CLK_REQ_N;
-+	else
-+		reg &= ~USBDP_TOP_CFG_REG_PMGT_REF_CLK_REQ_N;
-+	writel(reg, gphy->usbdp_top_base + USBDP_TOP_CFG_REG_OFFSET);
-+}
-+
-+static inline void disable_pmgt_ref_clk_req_n(struct google_usb_phy *gphy)
-+{
-+	set_pmgt_ref_clk_req_n(gphy, false);
-+}
-+
-+DEFINE_FREE(pmgt_ref_clk_req_n, struct google_usb_phy *, if (_T) disable_pmgt_ref_clk_req_n(_T))
-+
-+static int wait_tca_xa_ack(struct google_usb_phy *gphy)
-+{
-+	int ret;
-+	u32 reg;
-+
-+	ret = readl_poll_timeout(gphy->usb3_tca_base + TCA_INTR_STS_OFFSET,
-+				 reg, !!(reg & TCA_INTR_STS_XA_ACT_EVT),
-+				 GPHY_TCA_DELAY_US, GPHY_TCA_TIMEOUT_US);
-+	if (ret)
-+		dev_err(gphy->dev, "tca xa_ack timeout, ret=%d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int program_tca_locked(struct google_usb_phy *gphy)
-+	   __must_hold(&gphy->phy_mutex)
-+{
-+	int ret;
-+	u32 reg;
-+
-+	reg = readl(gphy->usb3_tca_base + TCA_INTR_STS_OFFSET);
-+	writel(reg, gphy->usb3_tca_base + TCA_INTR_STS_OFFSET);
-+
-+	reg = readl(gphy->usb3_tca_base + TCA_TCPC_OFFSET);
-+	reg &= ~TCA_TCPC_MUX_CONTROL;
-+	reg |= FIELD_PREP(TCA_TCPC_MUX_CONTROL, TCA_TCPC_MUX_CONTROL_USB_ONLY);
-+	if (gphy->orientation == TYPEC_ORIENTATION_REVERSE)
-+		reg |= TCA_TCPC_CONNECTOR_ORIENTATION;
-+	else
-+		reg &= ~TCA_TCPC_CONNECTOR_ORIENTATION;
-+	reg |= TCA_TCPC_VALID;
-+	writel(reg, gphy->usb3_tca_base + TCA_TCPC_OFFSET);
-+
-+	ret = wait_tca_xa_ack(gphy);
-+	dev_dbg(gphy->dev, "TCA switch %s, mux %lu, orientation %s\n",
-+		ret ? "failed" : "success",
-+		FIELD_GET(TCA_TCPC_MUX_CONTROL, reg),
-+		FIELD_GET(TCA_TCPC_CONNECTOR_ORIENTATION, reg) ? "reverse" : "normal");
-+
-+	reg = readl(gphy->usb3_tca_base + TCA_INTR_STS_OFFSET);
-+	writel(reg, gphy->usb3_tca_base + TCA_INTR_STS_OFFSET);
-+
-+	return ret;
- }
- 
- static int google_usb_set_orientation(struct typec_switch_dev *sw,
- 				      enum typec_orientation orientation)
- {
- 	struct google_usb_phy *gphy = typec_switch_get_drvdata(sw);
-+	int ret = 0;
- 
- 	dev_dbg(gphy->dev, "set orientation %d\n", orientation);
- 
--	gphy->orientation = orientation;
-+	guard(mutex)(&gphy->phy_mutex);
- 
--	if (pm_runtime_suspended(gphy->dev))
--		return 0;
-+	gphy->orientation = orientation;
- 
--	guard(mutex)(&gphy->phy_mutex);
-+	if (IS_ENABLED(CONFIG_PM)) {
-+		if (pm_runtime_get_if_active(gphy->dev) <= 0)
-+			return 0;
-+	}
- 
- 	set_vbus_valid(gphy);
- 
--	return 0;
-+	if (gphy->phy_state == COMBO_PHY_TCA_READY && orientation != TYPEC_ORIENTATION_NONE)
-+		ret = program_tca_locked(gphy);
-+
-+	pm_runtime_put(gphy->dev);
-+
-+	return ret;
- }
- 
- static int google_usb2_phy_init(struct phy *_phy)
-@@ -122,17 +310,18 @@ static int google_usb2_phy_init(struct phy *_phy)
- 	ret = clk_bulk_prepare_enable(inst->num_clks, inst->clks);
- 	if (ret)
- 		return ret;
-+	struct google_usb_phy_instance *clk_dev __free(inst_clk_disable) = inst;
- 
- 	ret = reset_control_bulk_deassert(inst->num_rsts, inst->rsts);
--	if (ret) {
--		clk_bulk_disable_unprepare(inst->num_clks, inst->clks);
-+	if (ret)
- 		return ret;
--	}
- 
- 	regmap_read(gphy->usb_cfg_regmap, gphy->usb2_cfg_offset + USBCS_USB2PHY_CFG21_OFFSET, &reg);
- 	reg |= USBCS_USB2PHY_CFG21_PHY_ENABLE;
- 	regmap_write(gphy->usb_cfg_regmap, gphy->usb2_cfg_offset + USBCS_USB2PHY_CFG21_OFFSET, reg);
- 
-+	retain_and_null_ptr(clk_dev);
-+
- 	return 0;
- }
- 
-@@ -161,6 +350,128 @@ static const struct phy_ops google_usb2_phy_ops = {
- 	.exit		= google_usb2_phy_exit,
- };
- 
-+static int google_usb3_phy_init(struct phy *_phy)
-+{
-+	struct google_usb_phy_instance *inst = phy_get_drvdata(_phy);
-+	struct google_usb_phy *gphy = inst->parent;
-+	int ret = 0;
-+	u32 reg;
-+
-+	dev_dbg(gphy->dev, "initializing usb3 phy\n");
-+
-+	guard(mutex)(&gphy->phy_mutex);
-+
-+	if (gphy->phy_state != COMBO_PHY_IDLE) {
-+		dev_warn(gphy->dev, "usb3 phy init called when combo phy state is not idle\n");
-+		return 0;
-+	}
-+
-+	reg = readl(gphy->usb3_tca_base + TCA_CTRLSYNCMODE_CFG1_OFFSET);
-+	reg &= ~TCA_CTRLSYNCMODE_CFG1_XA_TIMEOUT_VAL;
-+	reg |= FIELD_PREP(TCA_CTRLSYNCMODE_CFG1_XA_TIMEOUT_VAL,
-+			  TCA_CTRLSYNCMODE_CFG1_XA_TIMEOUT_VAL_100MS);
-+	writel(reg, gphy->usb3_tca_base + TCA_CTRLSYNCMODE_CFG1_OFFSET);
-+
-+	reg = readl(gphy->usbdp_top_base + PHY_POWER_CONFIG_REG1_OFFSET);
-+	reg |= PHY_POWER_CONFIG_REG1_PG_MODE_EN;
-+	reg &= ~PHY_POWER_CONFIG_REG1_UPCS_PIPE_CONFIG;
-+	reg |= FIELD_PREP(PHY_POWER_CONFIG_REG1_UPCS_PIPE_CONFIG,
-+			  (UPCS_PIPE_CONFIG_ISO_CPM |
-+			   UPCS_PIPE_CONFIG_PG_MODE_STATIC |
-+			   UPCS_PIPE_CONFIG_LANE_RESET_NO_PG_EXIT));
-+	writel(reg, gphy->usbdp_top_base + PHY_POWER_CONFIG_REG1_OFFSET);
-+
-+	set_vbus_valid(gphy);
-+
-+	reg = readl(gphy->usbdp_top_base + USBCS_PHY_CFG1_OFFSET);
-+	reg |= USBCS_PHY_CFG1_PHY0_MPLLA_SSC_EN;
-+	writel(reg, gphy->usbdp_top_base + USBCS_PHY_CFG1_OFFSET);
-+
-+	set_sram_bypass(gphy, SRAM_BYPASS_MODE_BYPASS_FIRMWARE |
-+			SRAM_BYPASS_MODE_BYPASS_CONTEXT);
-+	set_pmgt_ref_clk_req_n(gphy, true);
-+	struct google_usb_phy *pmgt_ref_clk_req_dev __free(pmgt_ref_clk_req_n) = gphy;
-+
-+	ret = clk_bulk_prepare_enable(inst->num_clks, inst->clks);
-+	if (ret)
-+		return ret;
-+	struct google_usb_phy_instance *clk_dev __free(inst_clk_disable) = inst;
-+
-+	ret = reset_control_bulk_deassert(inst->num_rsts, inst->rsts);
-+	if (ret)
-+		return ret;
-+	struct google_usb_phy_instance *rst_dev __free(inst_rst_disable) = inst;
-+
-+	ret = readl_poll_timeout(gphy->usb3_tca_base + TCA_PSTATE_0_OFFSET,
-+				 reg, !(reg & TCA_PSTATE_0_UPCS_LANE0_PHYSTATUS),
-+				 GPHY_TCA_DELAY_US, GPHY_TCA_TIMEOUT_US);
-+	if (ret) {
-+		dev_err(gphy->dev, "wait for lane0 phystatus timed out\n");
-+		return ret;
-+	}
-+
-+	gphy->phy_state = COMBO_PHY_INIT_DONE;
-+
-+	retain_and_null_ptr(rst_dev);
-+	retain_and_null_ptr(clk_dev);
-+	retain_and_null_ptr(pmgt_ref_clk_req_dev);
-+
-+	return 0;
-+}
-+
-+static int google_usb3_phy_exit(struct phy *_phy)
-+{
-+	struct google_usb_phy_instance *inst = phy_get_drvdata(_phy);
-+	struct google_usb_phy *gphy = inst->parent;
-+
-+	dev_dbg(gphy->dev, "exiting usb3 phy\n");
-+
-+	guard(mutex)(&gphy->phy_mutex);
-+
-+	reset_control_bulk_assert(inst->num_rsts, inst->rsts);
-+	clk_bulk_disable_unprepare(inst->num_clks, inst->clks);
-+	set_pmgt_ref_clk_req_n(gphy, false);
-+
-+	gphy->phy_state = COMBO_PHY_IDLE;
-+
-+	return 0;
-+}
-+
-+static int google_usb3_phy_power_on(struct phy *_phy)
-+{
-+	struct google_usb_phy_instance *inst = phy_get_drvdata(_phy);
-+	struct google_usb_phy *gphy = inst->parent;
-+	int ret;
-+
-+	dev_dbg(gphy->dev, "power on usb3 phy\n");
-+
-+	guard(mutex)(&gphy->phy_mutex);
-+
-+	if (gphy->phy_state == COMBO_PHY_IDLE)
-+		return -EINVAL;
-+
-+	if (gphy->phy_state == COMBO_PHY_INIT_DONE) {
-+		/* Wait for PoR -> NC transitions*/
-+		ret = wait_tca_xa_ack(gphy);
-+		if (ret) {
-+			dev_err(gphy->dev, "PoR->NC transition timeout\n");
-+			return ret;
-+		}
-+		gphy->phy_state = COMBO_PHY_TCA_READY;
-+	}
-+
-+	if (gphy->orientation != TYPEC_ORIENTATION_NONE)
-+		return program_tca_locked(gphy);
-+
-+	return 0;
-+}
-+
-+static const struct phy_ops google_usb3_phy_ops = {
-+	.init		= google_usb3_phy_init,
-+	.exit		= google_usb3_phy_exit,
-+	.power_on	= google_usb3_phy_power_on,
-+};
-+
- static struct phy *google_usb_phy_xlate(struct device *dev,
- 					const struct of_phandle_args *args)
- {
-@@ -173,14 +484,61 @@ static struct phy *google_usb_phy_xlate(struct device *dev,
- 	return gphy->insts[args->args[0]].phy;
- }
- 
-+static int google_usb_phy_parse_clocks(struct google_usb_phy *gphy)
-+{
-+	struct device *dev = gphy->dev;
-+	int id, i, ret;
-+
-+	for (id = 0; id < GOOGLE_USB_PHY_NUM; id++) {
-+		const struct google_usb_phy_config *cfg = &phy_configs[id];
-+		struct google_usb_phy_instance *inst = &gphy->insts[id];
-+
-+		inst->num_clks = cfg->num_clks;
-+		inst->clks = devm_kcalloc(dev, inst->num_clks, sizeof(*inst->clks), GFP_KERNEL);
-+		if (!inst->clks)
-+			return -ENOMEM;
-+
-+		for (i = 0; i < inst->num_clks; i++)
-+			inst->clks[i].id = cfg->clk_names[i];
-+
-+		ret = devm_clk_bulk_get(dev, inst->num_clks, inst->clks);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to get phy%d clks\n", id);
-+	}
-+
-+	return 0;
-+}
-+
-+static int google_usb_phy_parse_resets(struct google_usb_phy *gphy)
-+{
-+	struct device *dev = gphy->dev;
-+	int id, i, ret;
-+
-+	for (id = 0; id < GOOGLE_USB_PHY_NUM; id++) {
-+		const struct google_usb_phy_config *cfg = &phy_configs[id];
-+		struct google_usb_phy_instance *inst = &gphy->insts[id];
-+
-+		inst->num_rsts = cfg->num_rsts;
-+		inst->rsts = devm_kcalloc(dev, inst->num_rsts, sizeof(*inst->rsts), GFP_KERNEL);
-+		if (!inst->rsts)
-+			return -ENOMEM;
-+
-+		for (i = 0; i < inst->num_rsts; i++)
-+			inst->rsts[i].id = cfg->rst_names[i];
-+		ret = devm_reset_control_bulk_get_exclusive(dev, inst->num_rsts, inst->rsts);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to get phy%d resets\n", id);
-+	}
-+
-+	return 0;
-+}
-+
- static int google_usb_phy_probe(struct platform_device *pdev)
- {
- 	struct typec_switch_desc sw_desc = { };
--	struct google_usb_phy_instance *inst;
- 	struct phy_provider *phy_provider;
- 	struct device *dev = &pdev->dev;
- 	struct google_usb_phy *gphy;
--	struct phy *phy;
- 	u32 args[1];
- 	int ret;
- 
-@@ -212,46 +570,48 @@ static int google_usb_phy_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(gphy->usbdp_top_base),
- 				    "invalid usbdp top\n");
- 
-+	gphy->usb3_tca_base = devm_platform_ioremap_resource_byname(pdev,
-+								    "usb3_tca");
-+	if (IS_ERR(gphy->usb3_tca_base))
-+		return dev_err_probe(dev, PTR_ERR(gphy->usb3_tca_base),
-+				    "invalid usb3 tca\n");
-+
- 	gphy->insts = devm_kcalloc(dev, GOOGLE_USB_PHY_NUM, sizeof(*gphy->insts), GFP_KERNEL);
- 	if (!gphy->insts)
- 		return -ENOMEM;
- 
--	inst = &gphy->insts[GOOGLE_USB2_PHY];
--	inst->parent = gphy;
--	inst->index = GOOGLE_USB2_PHY;
--	phy = devm_phy_create(dev, NULL, &google_usb2_phy_ops);
--	if (IS_ERR(phy))
--		return dev_err_probe(dev, PTR_ERR(phy),
-+	gphy->insts[GOOGLE_USB2_PHY].phy = devm_phy_create(dev, NULL, &google_usb2_phy_ops);
-+	gphy->insts[GOOGLE_USB2_PHY].index = GOOGLE_USB2_PHY;
-+	gphy->insts[GOOGLE_USB2_PHY].parent = gphy;
-+	if (IS_ERR(gphy->insts[GOOGLE_USB2_PHY].phy))
-+		return dev_err_probe(dev, PTR_ERR(gphy->insts[GOOGLE_USB2_PHY].phy),
- 				     "failed to create usb2 phy instance\n");
--	inst->phy = phy;
--	phy_set_drvdata(phy, inst);
-+	phy_set_drvdata(gphy->insts[GOOGLE_USB2_PHY].phy, &gphy->insts[GOOGLE_USB2_PHY]);
- 
--	inst->num_clks = 2;
--	inst->clks = devm_kcalloc(dev, inst->num_clks, sizeof(*inst->clks), GFP_KERNEL);
--	if (!inst->clks)
--		return -ENOMEM;
--	inst->clks[0].id = "usb2";
--	inst->clks[1].id = "usb2_apb";
--	ret = devm_clk_bulk_get(dev, inst->num_clks, inst->clks);
-+	gphy->insts[GOOGLE_USB3_PHY].phy = devm_phy_create(dev, NULL, &google_usb3_phy_ops);
-+	gphy->insts[GOOGLE_USB3_PHY].index = GOOGLE_USB3_PHY;
-+	gphy->insts[GOOGLE_USB3_PHY].parent = gphy;
-+	if (IS_ERR(gphy->insts[GOOGLE_USB3_PHY].phy))
-+		return dev_err_probe(dev, PTR_ERR(gphy->insts[GOOGLE_USB3_PHY].phy),
-+				     "failed to create usb3 phy instance\n");
-+	phy_set_drvdata(gphy->insts[GOOGLE_USB3_PHY].phy, &gphy->insts[GOOGLE_USB3_PHY]);
-+
-+	ret = google_usb_phy_parse_clocks(gphy);
- 	if (ret)
--		return dev_err_probe(dev, ret, "failed to get u2 phy clks\n");
-+		return ret;
- 
--	inst->num_rsts = 2;
--	inst->rsts = devm_kcalloc(dev, inst->num_rsts, sizeof(*inst->rsts), GFP_KERNEL);
--	if (!inst->rsts)
--		return -ENOMEM;
--	inst->rsts[0].id = "usb2";
--	inst->rsts[1].id = "usb2_apb";
--	ret = devm_reset_control_bulk_get_exclusive(dev, inst->num_rsts, inst->rsts);
-+	ret = google_usb_phy_parse_resets(gphy);
- 	if (ret)
--		return dev_err_probe(dev, ret, "failed to get u2 phy resets\n");
-+		return ret;
- 
- 	phy_provider = devm_of_phy_provider_register(dev, google_usb_phy_xlate);
- 	if (IS_ERR(phy_provider))
- 		return dev_err_probe(dev, PTR_ERR(phy_provider),
- 				     "failed to register phy provider\n");
- 
--	pm_runtime_enable(dev);
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
- 
- 	sw_desc.fwnode = dev_fwnode(dev);
- 	sw_desc.drvdata = gphy;
-@@ -271,7 +631,6 @@ static void google_usb_phy_remove(struct platform_device *pdev)
- 	struct google_usb_phy *gphy = dev_get_drvdata(&pdev->dev);
- 
- 	typec_switch_unregister(gphy->sw);
--	pm_runtime_disable(&pdev->dev);
- }
- 
- static const struct of_device_id google_usb_phy_of_match[] = {
+imagination:
+- propogate map failures properly
+- fix page count in map interface
+- clamp freelist reconstruction requests
 
-base-commit: c7f2322431cb6d108b18fb4154606b49e2bc50f7
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+ivpu:
+- use separate flag for job timeout
 
+bridge:
+- samsung-dsim: fix TE GPIO lifetime for host attach
+The following changes since commit 93f51579e7df248780214094418f205253383cc5=
+:
+
+  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-09-26
+
+for you to fetch changes up to a9ed3aa9b87ee41e8ab3ff471b1331c154767e45:
+
+  Merge tag 'drm-misc-fixes-2026-09-24' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
+(2026-09-26 07:58:24 +1000)
+
+----------------------------------------------------------------
+drm fixes for 7.3-rc5
+
+client:
+- fix restore of partially initialized client
+
+i915:
+- Fix incorrect RCU teardown order leading to endless loop
+- Fix DP MST TU and FEC handling for disconnected streams
+- Fix selective fetch disable, again
+- Fix export namespace for kunit helpers
+- Workaround eDP flicker on a specific laptop model
+
+xe:
+- CRI throttle reasons report
+- TLB invalidation at wedge
+- SVM eviction and VM close
+- Display corruption on LNL on Xen PV
+- W/a fix and addition
+
+amdgpu:
+- Display ref count fix
+- Userq fixes
+- VCN 4, 5 reset fixes
+- Fixes for various error paths
+- Stack frame size fixes for various combinations of compilers and configs
+
+amdkfd:
+- Possible UAF fix
+
+nouveau:
+- runtime suspend/resume fixes for newer firmware
+- rcu free the scheduler
+- fix VRAM pinning
+- fix double free
+- fix reference leaks
+- fix runtime PM leak
+- fix cursor list usage problems
+- fix HDMI config rejection without SCDC
+
+virtio:
+- fix a bunch of object/memory leaks in failure paths
+- add pixel blend mode property to cursor plane
+- revert prime buffers import
+- sync shmem backing on guest transfers
+
+imagination:
+- propogate map failures properly
+- fix page count in map interface
+- clamp freelist reconstruction requests
+
+ivpu:
+- use separate flag for job timeout
+
+bridge:
+- samsung-dsim: fix TE GPIO lifetime for host attach
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amd/display: Bump frame warning limit for all builds of dml
+
+Alex Hung (1):
+      drm/amd/display: Relax DML frame limit with UBSAN
+
+Ankit Nautiyal (1):
+      drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1
+
+Asad Kamal (1):
+      drm/amdkfd: fix use-after-free and multi-container gap in kfd_dev_map=
+ping
+
+Benjamin Leggett (1):
+      drm/virtio: sync shmem backing on guest-bound transfers
+
+Brajesh Gupta (2):
+      drm/imagination: Propagate map failures correctly from pvr_mmu_map_sg=
+l()
+      drm/imagination: Fix page count for page table for map() interface
+
+Christian K=C3=B6nig (1):
+      drm/i915: fix incorrect RCU teardown order
+
+Dan Carpenter (1):
+      drm/nouveau/clk: fix list cursor use after loop in nvkm_clk_ustate_up=
+date
+
+Dave Airlie (4):
+      Merge tag 'drm-intel-fixes-2026-09-24' of
+https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
+      Merge tag 'drm-xe-fixes-2026-09-24' of
+https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
+      Merge tag 'amd-drm-fixes-7.3-2026-09-24' of
+https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-fixes
+      Merge tag 'drm-misc-fixes-2026-09-24' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
+
+Dmitry Osipenko (1):
+      Revert "drm/virtio: Allow importing prime buffers when 3D is enabled"
+
+Francesco Magazzu (3):
+      drm/nouveau/clk: don't use the pstate cursor after the loop
+      drm/nouveau/device: don't use the pstate cursor after the loop
+      drm/nouveau/clk: don't clobber reclock status when restoring volt/fan
+
+Giuseppe Ranieri (1):
+      drm/nouveau/disp: don't reject HDMI config on cards without SCDC
+
+Guangshuo Li (1):
+      drm/nouveau: fix autosuspend cleanup during teardown
+
+Imre Deak (2):
+      drm/i915/dp_mst: Fix configuring FEC for a disconnected stream
+      drm/i915/dp_mst: Fix configuring TUs for a disconnected stream
+
+Ivan Lipski (1):
+      drm/amd/display: Bump frame warning limit for clang builds of dml
+
+Jakub Pawlak (1):
+      accel/ivpu: Use separate flag for job timeout
+
+Jani Nikula (1):
+      drm/i915/dp: use EXPORT_SYMBOL_IF_KUNIT() for kunit helpers
+
+Jonghyuk Kim(MalHyuk) (1):
+      drm/nouveau: RCU-free the scheduler-containing nouveau_sched
+
+Junrui Luo (5):
+      drm/nouveau/dmem: pin VRAM for the whole registered range
+      drm/virtio: fix object leak when drm_gem_handle_create() fails
+      drm/virtio: fix object leak in virtio_gpu_resource_create_ioctl()
+      drm/virtio: fix object leaks in virtio_gpu_resource_create_blob_ioctl=
+()
+      drm/virtio: release the GEM object on virtio_gpu_vram_create() errors
+
+Li Youhong (1):
+      drm/bridge: samsung-dsim: fix TE GPIO lifetime for host attach
+
+Lyude Paul (5):
+      drm/nouveau/gsp/r570: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
+      drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
+      drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
+      drm/nouveau/gsp/r570: Start saving comptag backing stores
+      drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
+
+Matthew Auld (1):
+      drm/xe/vm: nuke PTs only after unlinking contested VMAs
+
+Matthew Brost (1):
+      drm/xe: Keep walking on SVM eviction failure
+
+Nemesa Garg (1):
+      drm/i915/psr: Clear stale sel fetch enable bits on sel fetch disable
+
+Peiyang He (5):
+      drm/nouveau: fix double-free in nvif_vmm_dtor
+      drm/nouveau/uvmm: fix UAF in nouveau_uvmm_sm when BO is in TTM_PL_SYS=
+TEM
+      drm/nouveau: don't bump pin count on failed re-pin in
+nouveau_bo_pin_locked()
+      drm/virtio: fix memory leak of fence event on execbuffer failure
+      drm/virtio: fix NULL pointer dereference on fence allocation failure
+
+Pengpeng Hou (1):
+      drm/imagination: clamp freelist reconstruction requests
+
+Prike Liang (1):
+      drm/amdgpu: move userq fence wait out of signalling section
+
+Shixiong Ou (1):
+      drm/virtio: Add pixel blend mode property to cursor plane
+
+Shuicheng Lin (1):
+      drm/xe/tlb_inval: Treat wedged-device invalidations as complete
+
+Sk Anirban (1):
+      drm/xe/gt_throttle: Report power brake as a throttle reason on CRI
+
+Sunil Khatri (3):
+      drm/amdgpu/userq: fix double jiffies conversion in hang detect timeou=
+t
+      drm/amdgpu/vcn5.0.1: fix video_timeout unit mismatch in jpeg reset wa=
+it
+      drm/amdgpu/vcn4.0.3: fix video_timeout unit mismatch in jpeg reset wa=
+it
+
+Szymon Aceda=C5=84ski (1):
+      drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV
+
+Tangudu Tilak Tirumalesh (2):
+      drm/xe: harden adjust_idledly() against divide-by-zero and overflow
+      drm/xe: Add wa_14025941587 to xe2, xe3 and xe3p platforms
+
+Wentao Liang (8):
+      drm/nouveau: Fix bridge reference leak in nv1a_ram_new()
+      drm/nouveau: Fix gem reference leak in validate_init()
+      drm/nouveau: Fix runtime PM leak in nouveau_connector_detect()
+      drm/amd/display: Fix dc stream excess put in dm_update_crtc_state()
+      drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init()
+      drm/amdgpu: Fix acpi device leak in amdgpu_acpi_enumerate_xcc()
+      drm/amdgpu: Fix last_update fence leak in amdgpu_vm_init()
+      drm/amdgpu: Fix runtime PM leak in amdgpu_debugfs_test_ib_show()
+
+shechenglong (1):
+      drm/client: fix restore of partially initialized client
+
+ drivers/accel/ivpu/ivpu_drv.c                      |  3 +-
+ drivers/accel/ivpu/ivpu_drv.h                      |  2 +-
+ drivers/accel/ivpu/ivpu_job.c                      |  7 +-
+ drivers/accel/ivpu/ivpu_mmu.c                      |  1 -
+ drivers/accel/ivpu/ivpu_pm.c                       |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c           |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c |  3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          | 16 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h          |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c            |  3 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c            |  3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           | 71 ++++++++++++----
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  4 +-
+ drivers/gpu/drm/amd/display/dc/dml/Makefile        |  4 +-
+ drivers/gpu/drm/amd/display/dc/dml2_0/Makefile     |  4 +-
+ drivers/gpu/drm/bridge/samsung-dsim.c              |  2 +-
+ drivers/gpu/drm/clients/drm_fbdev_client.c         |  8 ++
+ drivers/gpu/drm/i915/display/intel_cursor.c        |  7 +-
+ drivers/gpu/drm/i915/display/intel_display_types.h |  2 +
+ drivers/gpu/drm/i915/display/intel_dp_link_caps.c  |  6 +-
+ .../gpu/drm/i915/display/intel_dp_link_training.c  |  4 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c        | 24 +++++-
+ drivers/gpu/drm/i915/display/intel_dp_mst.h        |  2 +
+ drivers/gpu/drm/i915/display/intel_link_bw.c       |  3 +-
+ drivers/gpu/drm/i915/display/intel_psr.c           | 15 ++++
+ drivers/gpu/drm/i915/display/intel_quirks.c        |  3 +
+ drivers/gpu/drm/i915/display/skl_universal_plane.c |  9 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.c         |  2 +-
+ drivers/gpu/drm/imagination/pvr_free_list.c        | 15 +++-
+ drivers/gpu/drm/imagination/pvr_mmu.c              | 19 +++--
+ drivers/gpu/drm/imagination/pvr_mmu.h              |  2 +-
+ drivers/gpu/drm/imagination/pvr_vm.c               |  4 +-
+ drivers/gpu/drm/nouveau/include/nvif/cl0080.h      | 10 +++
+ drivers/gpu/drm/nouveau/include/nvif/device.h      |  1 +
+ drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h  |  6 ++
+ drivers/gpu/drm/nouveau/nouveau_bo.c               |  3 +-
+ drivers/gpu/drm/nouveau/nouveau_connector.c        |  5 +-
+ drivers/gpu/drm/nouveau/nouveau_dmem.c             |  4 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c              | 18 +++-
+ drivers/gpu/drm/nouveau/nouveau_gem.c              |  2 +
+ drivers/gpu/drm/nouveau/nouveau_sched.c            |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_sched.h            |  1 +
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c             | 13 ++-
+ drivers/gpu/drm/nouveau/nvif/device.c              | 13 +++
+ drivers/gpu/drm/nouveau/nvif/vmm.c                 |  1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c  |  8 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/device/user.c  | 35 ++++++++
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c   |  3 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c     | 31 ++++---
+ drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramnv1a.c   |  2 +
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c     | 10 +++
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h     |  1 +
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  | 17 ++++
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h | 45 ++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 77 ++++++++++++++++-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c  | 36 ++++++++
+ .../nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h    | 29 +++++++
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h |  7 ++
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h    |  3 +
+ drivers/gpu/drm/virtio/virtgpu_drv.h               |  5 ++
+ drivers/gpu/drm/virtio/virtgpu_gem.c               |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c             | 49 ++++++++++-
+ drivers/gpu/drm/virtio/virtgpu_plane.c             | 13 +++
+ drivers/gpu/drm/virtio/virtgpu_prime.c             |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_submit.c            | 11 ++-
+ drivers/gpu/drm/virtio/virtgpu_vq.c                | 46 +++++++++++
+ drivers/gpu/drm/virtio/virtgpu_vram.c              | 17 ++--
+ drivers/gpu/drm/xe/regs/xe_gt_regs.h               |  1 +
+ drivers/gpu/drm/xe/xe_bo.c                         |  7 ++
+ drivers/gpu/drm/xe/xe_bo.h                         | 19 +++++
+ drivers/gpu/drm/xe/xe_gt_throttle.c                |  5 +-
+ drivers/gpu/drm/xe/xe_guc_ads.c                    |  2 +-
+ drivers/gpu/drm/xe/xe_hw_engine.c                  | 96 ++++++++++++++++++=
++---
+ drivers/gpu/drm/xe/xe_tlb_inval.c                  |  3 +-
+ drivers/gpu/drm/xe/xe_vm.c                         | 21 ++---
+ drivers/gpu/drm/xe/xe_wa_oob.rules                 |  2 +
+ 79 files changed, 810 insertions(+), 135 deletions(-)
