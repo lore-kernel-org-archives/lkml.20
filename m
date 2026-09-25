@@ -1,312 +1,250 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3F0414A0A
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:20:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367653; cv=pass; b=P3GNMMz2gamdTerpAUEQLpvLqLv51PeX21dvpFayFeGVd2H763zzHBjH91Jlbezs8mwZAqYAYoXxuiEGceJtp+ruKTOXlRk6y7RanDW3GCtvvKwOxwSpdCV31ZMPMWV4FZBPmYIbCLgHPw1R/9QSS0i7ZnqSGOex3fqKyAlKXEc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367653; c=relaxed/simple;
-	bh=ntdvCfc1Y5/sPC6UOT9tkk623bqjbzk7ppMuSWDFXEw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BHzE1uqKBLkFO9RzxrYsC4DizVa6NyjDDV3rcWlDGtbjRqCpDcY0hIurhUxrfA5Iwxqed9TDJwIQA9rUJjOA6/y1EthBvPTkZ4zQOpsgPKXmT+PhjnnyzjqSgnI6y28Pznr3IM+rpkDh8QWDSBfPyQXuBHmFHCN2VP6MWMlEwds=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=llNN9Wjz; arc=pass smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644BD40BCB8;
+	Fri, 25 Sep 2026 20:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790367661; cv=none; b=bxASarUXhVB2QHJ0IrRDWtR8kZQsLcDzIxpkgE5ScG5X7lHDagwFLqh9xWN+gpOiu3029NSXvV0JbLkoE2KZn5hilkPi7m8t4wwflLUP/4p1muZP0FC4qooC5rdt6HH7DZr/OVviogDFuxf6hEphZ3IgkrroG2h0L+D1oOKoBEQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790367661; c=relaxed/simple;
+	bh=tAQBxFgeNXRYWDnVw3qPWSdDudkU5b4E58qID2FP0sc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=r+/Aa+jpCJ4xs/Zzc9njZqAAZWDAH3Yi+jC/sK5xY/JF5vErb1ujf1+X6RLLbtRpr3OZMn71HV9NVxHbJSjC1zgl6QRoCdNpnViM2EaU/PUtY6H3LTcx+2+KJfigjLELXCoyVqubi6Er6OS+yg6nerPARG49NrQjUFs3u2jzEBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=rSfzWamQ; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="llNN9Wjz"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-533202fe429so64681cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:20:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790367650; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NDE5JRGS/11AuCz3WRgkJOB1SQfsjqM7RpGRslH+H2FR5r6BumNWgDVInxn7skKgXg
-         Cz/x8FYO+Z0iIYtR1Erhjlg8QcRmG98qw73du/TmTbzI7e1pSgJ+PIftjVr0V2P8o0AD
-         UnhnIeoeZsiwYLb1AuV1rQwUpstCMnBn8LtmfbRQXp7+0ksRRtxJ75MNpky0sQMTqvYN
-         V6TJqvFIJxkbPGCTjf5n/q89OPGAJvub5q2OfJV6xa8CphIGNMKruLercmAByBowFxT/
-         RsAEhIMIu85lspATK2VFGNCdB7k4jckXnY1fA6TJnRBZ3eRVDKlWHjwQY3fBpkRK5330
-         c8Vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9UAR/4keNWxLSi4t1vjjVFho1evIXjZioXSXvU/VZYg=;
-        fh=zIiJBPecAw1/EZvuDt1WfceOJh08rYYVgjEYx8LYfus=;
-        b=BorUcNH1J9yG1e0Gz9kSwkAdRPxLzOFJmbpyhIuPcH6qCjDIGDMqH8/xxfyKUtZU0s
-         vNgikB4GXsT8EHGIVnkP6fgEl+GUR+iwWXL9l0/oUyQaUKkxAlx3Ft9mIdV7dWUzXqPL
-         7F0aL8m5vYd9VggVQU74mcAV7YTL3n6DQcPPJjYa06RgEkfwa5LjLfw2ytVyD19+ZUcK
-         /F7i7G8neRKj6Tp8tpy8yIImtt8aHTkqtYFEsXIkalRWADy1P1zf+fLdB+GbM7HRtMQI
-         0KyziWUu89Uhi1On91j/zN0hRSCuuwu0mTfssH3ggpOpKfjitEkZBg5prUV9Nz/czoJc
-         8ViQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790367650; x=1790972450; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9UAR/4keNWxLSi4t1vjjVFho1evIXjZioXSXvU/VZYg=;
-        b=llNN9Wjzyrs21mqOvEQvZw/jXc7UkwFajPloxsArT9Lu6oU9efmtdCEo7vpu9obpld
-         y2pBFNyiH2oeUPG39eYYVJ+ep3OMw82qWUabPh6/4y5X+YEGIweVwmwTsue4Rrx37PgK
-         AOfP9sFYuVkKaHK3L+LTH5RjnI2Y3CzyMrmjtMvr5yephjrN4dsZboGwny/Qbnm7ahyU
-         /QiTRy7Hvx/30mTy+gc3BNGjm5mWfJRqNcwL0O2wRknvek3eRY0fmYZm5Zi6X0cbfyDv
-         8TWwb4ykh4euDeXqR5YuTp3Q58BVxdAij8C6/JibYEJwYbSLnJBbMuahGRTqgw34mgd+
-         ksSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790367650; x=1790972450;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9UAR/4keNWxLSi4t1vjjVFho1evIXjZioXSXvU/VZYg=;
-        b=NvxQokw43hVeCD8oWxj0q1zY9Y+CeoDE6FvtHbW6y3m4E6lJE/+3+jVPibXFkP84i2
-         +LBAaK4WJmidu1xavprAcBwHOqWLJwqM2RpKZvFxlPWS9WeJUCSuyjPci/TU+ZWjOe0Z
-         /syCwh7K5TdzC7SVbCObWk0nwY9Woahp/Gs706rABzaRzk13m4RHX6I79/5AG/Conp+j
-         kw3XZc35Z1bAXtSxbl068DbLouWw34VZjOdvvP43pUC1xwAIVBkR7OQm2O10cBts+LWN
-         Hlr5Bu/IhPLW+GslhIZqjQ0IpZpV4VZyjvYMuCm6CDXEzRAvZKZppV84riG7AwsCslj9
-         TSsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZasVaZxQ1Q2F5tCpJI5GQ7tU2KjUQsH/8YfMqdAJaq0ZyHGKDYgjPuh1GkxoA3Y43jOt/utLbWAeQZlE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kijbP0kn7GDm2edHtbMpiJjpNMy7xo959eF75kkkoEjBJl0/+S
-	hr7QQxoy5xsCjvQMeX+V9W+qywwIpebIVOmqunuscasPVIxG/Pg+r4OvOTheeix5i06NoRgltQc
-	Qbd0H9yQkpv4ZOGgSxau2pG0NjPRHMxB3eQuX31bC
-X-Gm-Gg: AYBFou2PqnORUZlk7oAwBXL62JJ9KMaxjgo4Ikg7JjAEhIxWepIZ1454EeAZ+CEjLZg
-	tmZqvQ9Ow+OtHSNQ1MWAKuTDVXKtSekuJf/E+cUbXYt44FGJQv1c0Is2xcLFr2T4bWFPVj0EAD+
-	VYoe7ZgR0uewqjniVYRZL7knhmyasQgLkCjTmdXTci+6OnidGAbuvmkdNHFSzC2Xa05fenyQpSt
-	G14wZODJohrnnqnh0/QLFOIGuTbHuONbpoSxP8eamK8AHwZpToXWvrzY+sCE9swl+T3n6buaN9T
-	zUIad+9smQxRqep2YKZWTb+8ow6KwC0T9DlBP/IYir8irOOXahLkSVi2kKtFnH5JVtC4JwFohH4
-	WXlHKNrJCgQ==
-X-Received: by 2002:a05:622a:304:b0:532:eff8:3491 with SMTP id
- d75a77b69052e-5332017dac0mr3342871cf.14.1790367649498; Fri, 25 Sep 2026
- 13:20:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="rSfzWamQ"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id C6B1B5340215;
+	Fri, 25 Sep 2026 22:20:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790367656;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=PgOgOgX/53l72xX/VCoPzjEGh8tHz10dY4VffJmYMnQ=;
+	b=rSfzWamQPk8r0LfhDfHY11UnKlZihsBnF7ExdfD+7jEEapvq3lZgcCaLZcSdCpR6JO5DwU
+	E4HgGUGOCGvi/1QBYn0JUkWIEVRCAcQkbnKy571y5aK1CowtpM1z6puja4rIqxiAMi/nve
+	LzVML0cPLkjTRTjgDAiOYAfzu4CrS+0=
+Message-ID: <b684b88b-55a6-41a9-a4da-3bca33550164@ixit.cz>
+Date: Fri, 25 Sep 2026 22:20:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-perf-symbol-memory-send-v3-0-3e4e234c363b@uber.com>
-In-Reply-To: <20260925-perf-symbol-memory-send-v3-0-3e4e234c363b@uber.com>
-From: Ian Rogers <irogers@google.com>
-Date: Fri, 25 Sep 2026 13:20:38 -0700
-X-Gm-Features: AclHuK__5EL3z5lGL9iU2gLgFQUrPkWD2Krp0skWq8IhbjJj5TJ3lxNdTCO7P3U
-Message-ID: <CAP-5=fWLp5c9HYZ6oTsfPhWprz3uMTT=mt3M-OVu8GEjzSpEww@mail.gmail.com>
-Subject: Re: [PATCH v3 0/6] perf script: Bounded and lazy symbol loading
-To: haghdoost@uber.com
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/4] Input: stmfts - wait for controller ready after
+ reset
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
+ <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz> <arbJrK9zfoO1dGzy@google.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <arbJrK9zfoO1dGzy@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 25, 2026 at 12:15=E2=80=AFPM Alireza Haghdoost via B4 Relay
-<devnull+haghdoost.uber.com@kernel.org> wrote:
->
-> perf script loads the entire ELF symbol table of every DSO that appears
-> in a sample, allocating each symbol into an rb-tree held until process
-> exit. Therefore, a large enough profile turns symbol loading into an
-> OOM kill. This does not scale to profiling a large cgroup with many large
-> binaries on a production system with limited free memory.
->
-> This series adds two independent, opt-in mechanisms, a leading
-> regression fix, and two preparatory patches:
->
->   [1/6] Fix a broken "#ifdef ELF_C_READ_MMAP" guard so perf actually
->         mmaps ELF files instead of malloc'ing section data. This is a
->         standalone regression fix for 22dd1ac91a77.
->
->   [2/6] Let a DSO read its data from one explicit file through the DSO
->         data cache. This fixes the split-debuginfo case where offsets fro=
-m
->         the debuginfo file would be applied to the runtime image.
->
->   [3/6] Factor duplicate-symbol selection so it works on symbol
->         attributes rather than struct symbol. No functional change.
->
->   [4/6] --max-symbol-bytes <size>: a byte budget on struct symbol
->         allocations (and the lazy index) enforced at the ELF symbol
->         loader, degrading to [unknown] with a warning past the cap.
->         An unbounded profile doesn't just risk OOM-killing itself. It
->         also forces memory pressure on the whole host, pushing the kernel
->         to reclaim from co-located latency-sensitive processes. Capping
->         it lets the user bound that footprint up front and choose the
->         trade-off explicitly.
->
->   [5/6] --lazy-load-symbols: build a compact per-DSO sorted index and
->         resolve only the sampled addresses, reading names through the DSO
->         data cache at lookup time. On the production fixture, peak RssAno=
-n
->         drops from 265 MiB to 39 MiB (6.8x) and wall time from 3.1 s to
->         1.85 s (1.7x). Memory optimizations usually cost time; this one
->         does not because lazy loading skips a lot of calloc and demangle
->         calls.
->
->   [6/6] Shell and unit tests for both options.
->
-> Lazy loading handles the common userspace ELF symtab/dynsym path. Eager
-> loading remains available for dense coverage and for PPC64 .opd and
-> .gnu_debugdata.
+On 25/09/2026 21:27, Dmitry Torokhov wrote:
+> Hi David,
+> 
+> On Mon, Sep 07, 2026 at 12:50:19PM +0200, David Heidelberg via B4 Relay wrote:
+>>   
+>> -static void stmfts_reset(struct stmfts_data *sdata)
+>> +static int stmfts_reset(struct stmfts_data *sdata)
+>>   {
+>>   	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+>>   	msleep(20);
+>>   
+>> +	reinit_completion(&sdata->cmd_done);
+>>   	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+>> -	msleep(50);
+>> +	enable_irq(sdata->client->irq);
+>> +
+>> +	if (!wait_for_completion_timeout(&sdata->cmd_done,
+>> +					 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS)))
+>> +		return -ETIMEDOUT;
+>> +
+>> +	return 0;
+>>   }
+>>   
+>>   static int stmfts_configure(struct stmfts_data *sdata)
+>>   {
+>>   	int err;
+>>   
+>>   	err = stmfts_command(sdata, STMFTS_SYSTEM_RESET);
+>>   	if (err)
+>> @@ -593,42 +602,47 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+>>   		return err;
+>>   
+>>   	/*
+>>   	 * The datasheet does not specify the power on time, but considering
+>>   	 * that the reset time is < 10ms, I sleep 20ms to be sure
+>>   	 */
+>>   	msleep(20);
+>>   
+>> -	if (sdata->reset_gpio)
+>> -		stmfts_reset(sdata);
+>> +	if (sdata->reset_gpio) {
+>> +		err = stmfts_reset(sdata);
+>> +		if (err) {
+>> +			dev_err(&sdata->client->dev,
+>> +				"controller not ready after reset: %d\n", err);
+>> +			goto err_disable_irq;
+>> +		}
+>> +	} else {
+>> +		enable_irq(sdata->client->irq);
+>> +		msleep(50);
+>> +	}
+>>   
+>>   	err = stmfts_read_system_info(sdata);
+>>   	if (err)
+>> -		goto err_disable_regulators;
+>> -
+>> -	enable_irq(sdata->client->irq);
+>> -
+>> -	msleep(50);
+>> +		goto err_disable_irq;
+> 
+> 
+> I think the logic is becoming quite convoluted here, and factored out
+> stmfts_reset() does not help. How about we make it look like this:
+> 
+> static int stmfts_power_on(struct stmfts_data *sdata)
+> {
+> 	int err;
+> 
+> 	if (sdata->reset_gpio) {
+> 		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+> 		/* a short delay before powering up */
+> 		usleep_range(1000, 1500);
+> 	}
+> 
+> 	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
+> 				    sdata->supplies);
+> 	if (err)
+> 		return err;
+> 
+> 	if (sdata->reset_gpio) {
+> 		reinit_completion(&sdata->cmd_done);
+> 
+> 		/*
+> 		 * The datasheet does not specify the power on time, but
+> 		 * considering that the reset time is < 10ms, sleep for 20ms
+> 		 * to be sure before releasing reset line.
+> 		 */
+> 		msleep(20);
+> 		gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+> 
+> 		enable_irq(sdata->client->irq);
+> 
+> 		if (!wait_for_completion_timeout(&sdata->cmd_done,
+> 						 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS))) {
+> 			dev_err(&sdata->client->dev, "controller not ready after reset");
+> 			err = -ETIMEDOUT;
+> 			goto err_disable_irq;
+> 		}
+> 	} else {
+> 		/*
+> 		 * We do not know the real controller state (was it powered
+> 		 * off or reset). Let's hope that this is enough time to
+> 		 * initialize.
+> 		 */
+> 		msleep(70);
+> 
+> 		enable_irq(sdata->client->irq);
+> 	}
+> 
+> 	err = sdata->ops->configure(sdata);
+> 	if (err)
+> 		goto err_disable_irq;
+> 
+> 	/*
+> 	 * At this point no one is using the touchscreen
+> 	 * and I don't really care about the return value
+> 	 */
+> 	(void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+> 
+> 	return 0;
+> 
+> err_disable_irq:
+> 	disable_irq(sdata->client->irq);
+> 
+> 	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies), sdata->supplies);
+> 	return err;
+> }
 
-So currently we have a symbol as:
-```
-/**
- * A symtab entry. When allocated this may be preceded by an annotation (se=
-e
- * symbol__annotation) and/or a browser_index (see symbol__browser_index).
- */
-struct symbol {
-        struct rb_node  rb_node;
-        /** Range of symbol [start, end). */
-        u64             start;
-        u64             end;
-        /** Length of the string name. */
-        u16             namelen;
-        _Atomic uint16_t flags;
-        /** Architecture specific. Unused except on PPC where it holds
-st_other. */
-        u8              arch_sym;
-        /** The name of length namelen associated with the symbol. */
-        char            name[];
-};
-```
-and the struct rb_node is a significant size cost:
-```
-struct rb_node {
-        unsigned long  __rb_parent_color;
-        struct rb_node *rb_right;
-        struct rb_node *rb_left;
-} __attribute__((aligned(sizeof(long))));
-```
+Thanks, it seems to be better (thou would be nicer if we didn't have two 
+branches, but... what we can do).
 
-A sorted array of symbols would only require 1 pointer per entry,
-saving 2 words. The array could reside in the "symbols" variable
-passed around something like this:
-```
-struct symbols {
-        struct rw_semaphore lock;
-        struct symbol **symbols;
-        unsigned int cnt;
-        unsigned int allocated;
-        bool sorted;
-};
-```
-This is basically what we do with struct dso and dsos. With a struct
-symbols we can add a lock and ensure operations are appropriately
-synchronized. On top of this we can build lazy symbol resolution. For
-the bounded memory size, I'd prefer something like a reference count
-in every symbol (which uses one word we previously saved). We can
-periodically scan the symbols array for symbols with a reference count
-of 1 and then lower that count, knowing it is safe to release the
-symbol's memory because no other thread is referencing it. This would
-avoid having symbols appear as "[unknown]". We should really have a
-similar scan of the dsos to free up their memory.
+I added you as Co-developed-by :)
 
-If we have a reference count then symbol__annotation and
-symbol__browser_index can reference a symbol rather than using
-container_of.
+David
 
-I think the patches 4 and 5 do the core work, but they introduce some
-warts that I wish didn't have to exist. How do you feel about
-reference counting? To avoid reference count leaks we adding a
-checking framework that is documented here:
-https://perfwiki.github.io/main/reference-count-checking/
+> 
+> 
+> Thanks.
+> 
 
-Thanks,
-Ian
-
-
-
-
-
-
-
-
-> Changes in v3:
->
-> - Rebase onto current perf-tools-next.
-> - Pick up Namhyung's Reviewed-by for patch 1.
-> - Split the exact-path DSO data support into its own patch (2/6), with a
->   DSO data test for reading and reopening through an explicit path.
-> - Move the duplicate-selection refactor into a preparatory patch (3/6)
->   and factor the whole lazy alias-group handling (traversal, demangling,
->   IFUNC propagation, compaction) into one helper.
-> - Keep struct symbol::namelen as u16. Charge symbol bytes from the stored
->   namelen on both allocation and free, and drop the 64 KiB-name test.
-> - Fix lazy-loading races reported by Sashiko: in lazy mode, address
->   lookups always take the DSO lock, and building the name-sorted array
->   materializes and frees the lazy index even when the budget truncates
->   it, so the name array is never invalidated. dso__reset_symbol_names()
->   is gone. Add a concurrent budget-truncation test.
-> - In lazy mode, when no PT_LOAD covers a symbol and its section is NOBITS
->   in the debuginfo file, adjust with the runtime section header as eager
->   loading does. Add a lazy/eager symbol parity test and a split-debuginfo
->   shell test that exercises this path.
-> - Keep each unit test with the code it needs (DSO data in 2/6, budget
->   reservation in 4/6); the other tests stay in 6/6.
->
-> Link: https://lore.kernel.org/all/20260919-perf-symbol-memory-send-v2-0-4=
-95b8f00ad7c@uber.com/
->
-> Changes in v2:
->
-> - Replace direct pread() name reads with the exact symbol source's DSO da=
-ta
->   cache, preserving split-debuginfo offsets and descriptor reopen behavio=
-r.
-> - Drop the byte-identical-output claim and retain eager loading for PPC64
->   .opd and .gnu_debugdata.
-> - Make the symbol budget atomic and strict, account complete name lengths=
-,
->   accept a bare 0 as unlimited, and keep partial zero-sized ranges from
->   covering omitted symbols.
-> - Align lazy lookup with eager duplicate and IFUNC selection, PLT clippin=
-g,
->   and name-sorted materialization.
-> - Move option documentation into the feature patches. Add unit and shell
->   coverage for cache reopen, truncated names, budget truncation, and skip
->   handling.
->
-> Link: https://lore.kernel.org/all/20260915-perf-symbol-memory-send-v1-0-1=
-d3360e21f07@uber.com/
-> ---
-> Alireza Haghdoost (6):
->       perf symbols: Fix broken ELF_C_READ_MMAP fallback guard
->       perf dso: Allow reading DSO data from an explicit file
->       perf symbols: Factor out duplicate symbol selection
->       perf script: Add --max-symbol-bytes to bound ELF symbol memory
->       perf script: Add --lazy-load-symbols for lazy symbol loading
->       perf test: Test lazy symbol loading and symbol memory limits
->
->  tools/perf/Documentation/perf-script.txt           |  26 +
->  tools/perf/arch/powerpc/util/sym-handling.c        |   6 +-
->  tools/perf/builtin-script.c                        |  44 ++
->  tools/perf/tests/Build                             |   1 +
->  tools/perf/tests/builtin-test.c                    |   1 +
->  tools/perf/tests/dso-data.c                        |  42 ++
->  .../tests/shell/lazy_load_symbols_split_debug.sh   | 113 ++++
->  tools/perf/tests/shell/script_lazy_load_symbols.sh | 278 ++++++++
->  .../tests/shell/script_lazy_load_symbols_skip.sh   |  26 +
->  tools/perf/tests/symbol-bytes.c                    | 599 +++++++++++++++=
-++
->  tools/perf/tests/tests.h                           |   1 +
->  tools/perf/util/dso.c                              |  60 +-
->  tools/perf/util/dso.h                              |  47 ++
->  tools/perf/util/map.c                              |  19 +-
->  tools/perf/util/symbol-elf.c                       | 728 +++++++++++++++=
-+++++-
->  tools/perf/util/symbol-minimal.c                   |  16 +
->  tools/perf/util/symbol.c                           | 143 +++-
->  tools/perf/util/symbol.h                           |  30 +-
->  tools/perf/util/symbol_conf.h                      |   2 +
->  19 files changed, 2133 insertions(+), 49 deletions(-)
-> ---
-> base-commit: edd8a9fe2eca009599e013a29c421c7a6b5ad1b9
-> change-id: 20260915-perf-symbol-memory-send-e7cfca1ac3d9
->
-> Best regards,
-> --
-> Alireza Haghdoost <haghdoost@uber.com>
->
->
