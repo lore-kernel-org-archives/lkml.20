@@ -1,198 +1,274 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8D24A386D
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:03:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE85B3F86E6
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790359392; cv=none; b=NdxUBJGsilZK4Arz9gW+JWTGdoAZO2AthlLX2PzJlKJ8ZbqwRGSWPya7nHQ58m/vQJQqmKpc8f857bNYkApYxz+qfECvns1ThW9PIEehaZb4XR1ip2lEwf9C+jwyh1ivjKwdXkmecwsRLKzdXCP7I5i5rWVIDmIqzPBS4nFbH9Y=
+	t=1790359420; cv=none; b=apZsz+HhzIoiwWEenpDU5eK58+U3PArQ/sU8ImlhQmVC7mP46ScdABHGojZnejzkD447dsIS1Kfrsq3Au4tgFkRRb6+szB6Q2fBNcXFkD5Rom5kMXZq4XjlRRXtZ5ilEf6pqfG4+EFnvVRZTBYI/fuNcAblKVnXUSR1L4DKHe14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790359392; c=relaxed/simple;
-	bh=Ju7zhvTIV+QCh40+nZMxiWd5uKzk+g1KU9BhArseauI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eP7rZPNIvkHJbxGEVPbt81c+jSvtGY4IoSJML1E7P/+Lk9m/ss0UI+cpwxGj7yDcGPCg277g2OBpS5D/QRo+BaVpocIktxvnJV4Lqb1SfrBlNoxGgQ5UNZjqWyFr6VytF0Juo3DTiazeo0TbaHi/78FIr02dj67vQGNIRC6Yk2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pw2hW6Kk; arc=none smtp.client-ip=74.125.225.99
+	s=arc-20240116; t=1790359420; c=relaxed/simple;
+	bh=9WMHF+OHSITVcxou8oXsCNs7bqvndQmUaAq4mexKulc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=odWgIOJPdUeWzk9Nz9CR0KSEo1FrVhpxhQW45jKY7BDg1C9OUF40IMyRs6oWrEQEOUVf7n1es+O/M70losZ4U+oiO7kql1/iIprDOZViBcU7nHZ80VOI5qqNKf/XPcXwGL6r8a9uXMhsxec8omGw827xKggZQO1X/0NeJgVb/TA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IYdRQgvf; arc=none smtp.client-ip=74.125.224.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pw2hW6Kk"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-486e1a044c5so956593f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:03:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IYdRQgvf"
+Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-67409747ac3so1075887d50.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:03:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790359388; x=1790964188; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aL9Wl8C0xRRNjJBTarQpi8R0Mck+qeYOMPSZBKJwmx0=;
-        b=Pw2hW6KkB6Wc459qoJzEC6z4sjiqgfdrCUXqVEOoPvkyww3+uz6v0Xz/PmmdMiMK8O
-         9ezq3WYhyK5yBW+aAi7r0rLWJF1RIJoOgAnFWmwxxOIme4l3lo0awQBo0TNOq58DYuFU
-         2uaM/lwDBVvcVBE+nB1mAGCZa716exkOF5jx2ljsfqmOhDrA6zKwtxCb6SgISRvckIy5
-         GjzC0BAxOT8GKZIOCvWo3LcrN+0zNuYBe/QQVwxzpNFx6dVe38Uah53kmGl0ZcIT/DUL
-         ML9U4kwiVj37G/xkoNdkAyKNjFyLtyKJXwl8a4MOqfunNXSOI+Wi/UPoR6l/qSeEjxqp
-         /g9g==
+        d=gmail.com; s=20251104; t=1790359417; x=1790964217; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jQMqDoXS5hmMS94pm40dP6RGo8yiKpCUOJDdJtjp2gs=;
+        b=IYdRQgvfuMeOmvrkILgOhtEo6bJ4/rNTSPyK2vFOFc+eWWD20PR/TxxHTIMAgFjqZ5
+         ZswjzX8qhzMQ9dqrYHN7aWth4+pVDOF0inBoV9wO5pXUsNph5NLHgW9MVVONT+PfMmVR
+         qP7AbGgH9kFISF/uqhCeicA9DSDBrkJZBztEZhoambxx5GMT8tPkPSli+AHJFgR5mh/n
+         rWHa7ys7w2biFz0DRcMahrpaJ6uUMCHJaKo68fmXy8nuA6/jBjawu/zESfEo8AznwC8Y
+         x94hCmJKvqhUQawNt8MHWKikOeGO6n9fa61x+LfMC4xoFiQ5G4Zirmy6agu/rJJLjTjA
+         cMOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790359388; x=1790964188;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aL9Wl8C0xRRNjJBTarQpi8R0Mck+qeYOMPSZBKJwmx0=;
-        b=ekfTeZu66KV6NkSUeuEn+mnpWhgELOUyItZxqKqXqL6oNFKGvsOs7mnY9cpu4bwojT
-         BSdvtrUj2wipOwWaLhDfIdQH10iRYyN4Wv+BdvL+pR4KvItJslwO1iXslt8ZXGk4adAg
-         0QHtyTp/rOw2QI7OjJDXMGrehgbgjv0GYiTqfRIkEKzQ08J/1xbPnN5txs9QY43rta8R
-         N+PFrkI6/3W/o2kPlGyKsT4a4inAhjQ8kOVDZmFFvSjL4jFlWdB6+P5bjxP1hSNDD1z9
-         LXlBdO1naFOXpdQ5Dwgjwb6l14Z+dhQG2K/97E9rR6o8nld0yzCP7qVsd68tYUwA/Vk+
-         nE0A==
-X-Forwarded-Encrypted: i=1; AKwUvBxCHUL2NsTqq6n9pv/Tc3DQlCTkxNgwZsQKMowkkT0+P6zU2Koo1v3SwmXAL6Qu8y2OCChuPbBAya5wAbA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1wAUClGGuryzIF4+lHHvDiZK0T7/N7nMtRn4WzP+SM0PKSJGp
-	r6f7RNKyyvETgavoIiDS2bLqHjIDeJZeXZJQ7w11A3gw1mNoy0Sv2Fzm
-X-Gm-Gg: AYBFou3ZebCmY1PGPNOE5P3HCHF2VrDRAdPSXdG14hqwam55VxmFDOsopLz70eATdkR
-	sD4bH4Ulrz3zQRuIhzo9sfacuNuNzswWvTOIgv43mYDqqNKeiFeleIHxhoGesqE4bKC1nI6xLiZ
-	L/w5Vghdi6W0bQXz4RHoxJqLmXeExVtAC4WMmLPMDE5KqOvXHTkaqxYkQwSx+HOUIo9xClhwOcL
-	lC6LECjmHlHZIC0QHxP6Rjzpv36HIvum9Ho7Q5pUDtPH16LW9Sud9UL0PSZTXxaZvW/AixOoSMP
-	dq9v0ZZ7RPQ9M8OYkLqYV0RsG6rXC/NJznlHiRYCcXRy8PMfUPTqklJ5Dfm8Q7KckfEmICkwuO5
-	kUqcV7ZVCHnS/ywZIbw90XitlvoZlgEWaxDdcvzgzo57j2McLZrI+3iaakfWlNHUqi001Z4uLnJ
-	7qxphHWxBA6D4lX2/NDO2qiY+9SjIol44OKpjgtEwpq3U9e4Ca9xrPRvQs8KjI7SIrtMo1smZAh
-	6dwVNi1FIsEVMX7goAW18sWEjSgB01AHsGwBP3g+gxzskPwt/ttF4zmEDgfYsHlsQeHDS1mx+mE
-	W+mNuKE8pwgoVA==
-X-Received: by 2002:a05:6000:41d9:b0:488:834a:cbb with SMTP id ffacd0b85a97d-488834a1dd1mr3121424f8f.2.1790359387972;
-        Fri, 25 Sep 2026 11:03:07 -0700 (PDT)
-Received: from shift.daheim (p200300d5ff3cee0050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff3c:ee00:50f4:96ff:fe46:beef])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a6450a3sm7929304f8f.25.2026.09.25.11.03.07
+        d=1e100.net; s=20260707; t=1790359417; x=1790964217;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jQMqDoXS5hmMS94pm40dP6RGo8yiKpCUOJDdJtjp2gs=;
+        b=Q2p56IoOERA37Wbrbl4IS2yIgl0ReKkfkZiOV9B5aQmdc0/lNHhrQGsjRiXfu+XXmy
+         7ye8dGW22Cz494do4ggcmAsip0h8/2p2I+Yrg1bMoAHwmomGZjQs1uY3iDlS85jpXHGs
+         p7aAzbhejdVl4FLVCfP7cqHc/sTv8xIF+dNyHysXuKQuHxZBwiSDgS5qfKJEcqJj71Nv
+         nIqRWijR9U8mp9cbGDwsMIp6lWoHfLYdxpSQZ89k4AcRxiQX+R8QCGzR2+5OscHue9MB
+         Nbjm9eVV4X45FnkROr7N4MGMPWo6gvuvPK/Sag16JSqT6b6x24FTn4EhtbvdzNxouZDM
+         zGnw==
+X-Forwarded-Encrypted: i=1; AKwUvBzbaGvqMiVMU5lyIWfFBx4OReJIBicXix1oyaq5oBJLNP9R/++uzMSoxFFYSh/VIs6O8LuFrsWxTOVx+G8=@vger.kernel.org
+X-Gm-Message-State: AFuF++myYE9cM585asXKq5JgpkV1zX4vBqB6mJNxK0Gfg5nRVNlzFXK+
+	qpJkzPKpu0gYZ+ulu+slZA6Ob158LrbtRa1413XkIex7XjQ3f2xBvhiy
+X-Gm-Gg: AYBFou1+xceemETES00PRYGc2p0SoNhyp/KFBY95usUlL71axtaSlzDBnmkh0oXYyUf
+	1GdosTwlgz3LiLNCC1LHZewv0FU5txQfD5yBfZu4lTT2bVgeHZzeL8NNK9ITX/7TSUc26p6IIhc
+	nZLaaxxb5U7AGY8+8eyR8jCzjN9jcv17d3bqWFddoR/ESv0h7byjdUwi143w6Zzzh76Ke7kLONh
+	PaqwzTJCoLgW8HcVmKJ1uZc3m1+6coc5H15xC9zSiKIfrnpBpPXvur7Wbt9V0sj3hFN71nr32uz
+	lGNcYd30s0CNy4SQRWn3na8A1kvVdkjg29W5vupcWAcm8X8fI9I4VSSG70uOZ0p2PzPJ1LsQqP9
+	jDZp+wfY/VJ17OND8OXFBANyTfcorf6yuqy08OgpV7bsxS2mMAvTn1yRLATJm/Nt4pgkFj/hCE4
+	0pXUG3y/T4qNahEqPWdRNNhgY/UMJ4c169E4zaaIiW+ri5YxX1KTj4w99TVGnJSNaOoE6C0CP7I
+	Ks=
+X-Received: by 2002:a05:690e:b4b:b0:672:a678:da59 with SMTP id 956f58d0204a3-6740c2a76c3mr1631246d50.108.1790359416590;
+        Fri, 25 Sep 2026 11:03:36 -0700 (PDT)
+Received: from suesslenovo ([71.132.185.69])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740efb13fasm1359157d50.18.2026.09.25.11.03.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:03:07 -0700 (PDT)
-Received: from localhost ([127.0.0.1])
-	by shift with esmtp (Exim 4.100.1)
-	(envelope-from <chunkeey@gmail.com>)
-	id 1xAAGI-00000000LZj-2fxl;
-	Fri, 25 Sep 2026 20:03:06 +0200
-Message-ID: <f28a5470-0d9e-4045-9c64-5614e0e88de2@gmail.com>
-Date: Fri, 25 Sep 2026 20:03:06 +0200
+        Fri, 25 Sep 2026 11:03:36 -0700 (PDT)
+Date: Fri, 25 Sep 2026 14:03:05 -0400
+From: Justin Suess <utilityemal77@gmail.com>
+To: Cai Xinchen <caixinchen1@huawei.com>
+Cc: mic@digikod.net, gnoack@google.com, paul@paul-moore.com, 
+	jmorris@namei.org, serge@hallyn.com, corbet@lwn.net, skhan@linuxfoundation.org, 
+	rdunlap@infradead.org, gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org, 
+	dlemoal@kernel.org, hch@lst.de, axboe@kernel.dk, viro@zeniv.linux.org.uk, 
+	brauner@kernel.org, jack@suse.cz, dhowells@redhat.com, code@tyhicks.com, 
+	linkinjeon@kernel.org, sj1557.seo@samsung.com, yuezhang.mo@sony.com, 
+	hirofumi@mail.parknet.co.jp, cel@kernel.org, jlayton@kernel.org, neil@brown.name, 
+	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com, miklos@szeredi.hu, 
+	amir73il@gmail.com, senozhatsky@chromium.org, chenxiaosong@chenxiaosong.com, 
+	zohar@linux.ibm.com, roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com, 
+	eric.snowberg@oracle.com, stephen.smalley.work@gmail.com, omosnacek@gmail.com, 
+	casey@schaufler-ca.com, nanx95726@gmail.com, djwong@kernel.org, daniel@iogearbox.net, 
+	linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	netfs@lists.linux.dev, ecryptfs@vger.kernel.org, exfat@lists.linux.dev, 
+	linux-nfs@vger.kernel.org, linux-unionfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+	linux-integrity@vger.kernel.org, selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	xiujianfeng@huawei.com, lujialin4@huawei.com
+Subject: Re: [PATCH RFC -next 00/12] landlock: Add READ_METADATA and
+ WRITE_METADATA access rights
+Message-ID: <araxO4ze0KZBz756@suesslenovo>
+References: <20260924104831.1081137-1-caixinchen1@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
-To: Ridham Khurana <khurana.ridham222@gmail.com>,
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
- Christian Lamparter <chunkeey@googlemail.com>,
- Alexander Sverdlin <alexander.sverdlin@gmail.com>,
- Nikita Shubin <nikita.shubin@maquefel.me>, Shuah Khan <shuah@kernel.org>,
- Jori Koolstra <jkoolstra@xs4all.nl>,
- Brigham Campbell <me@brighamcampbell.com>,
- linux-kernel-mentees@lists.linux.dev
-References: <20260924205326.1739229-1-khurana.ridham222@gmail.com>
-Content-Language: de-DE
-From: Christian Lamparter <chunkeey@gmail.com>
-In-Reply-To: <20260924205326.1739229-1-khurana.ridham222@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924104831.1081137-1-caixinchen1@huawei.com>
 
-Hi,
-
-On 9/24/26 10:53 PM, Ridham Khurana wrote:
-> temp1_input_show() drops the low bits of the temperature register by
-> dividing the raw value (raw / 32 on the LM70). These bits are not part
-> of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
-> return some of them as 1, and the TMP125 fills them with copies of the
-> temperature LSB. Division rounds toward zero, so a negative temperature
-> with any of these bits set is reported one LSB too high.
+On Thu, Sep 24, 2026 at 06:48:19PM +0800, Cai Xinchen wrote:
+> This series adds two new Landlock filesystem access rights,
+> LANDLOCK_ACCESS_FS_READ_METADATA and LANDLOCK_ACCESS_FS_WRITE_METADATA,
+> which control access to file and directory metadata such as inode
+> attributes (mode, ownership, timestamps), extended attributes and POSIX
+> ACLs.  It picks up the work from the "landlock: add chmod and chown
+> support" series [1] and follows the coarse-grained grouping discussed in
+> that thread [2]: instead of separate chmod/chown rights, metadata
+> operations are grouped into one read and one write right.
 > 
-> For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
-> driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
-> the driver reports as -24750.
+> Landlock evaluates access rights on a per-path basis, but the metadata
+> related LSM hooks (inode_getattr, inode_setattr, inode_setxattr,
+> inode_getxattr, inode_listxattr, inode_removexattr, inode_set_acl,
+> inode_get_acl, inode_remove_acl) only receive the dentry of the accessed
+> object.  Patches 1-7 therefore first pass struct path instead of dentry
+> through the metadata-related VFS helpers and LSM hooks.  This is a pure
+> refactoring with no behavior change, split so that every patch builds
+> and works on its own:
+>
+I like these patches, but is the ability to read metadata already
+sorta controlled by LANDLOCK_ACCESS_FS_READ_DIR on the parent
+directory?
+
+The one case I see this being different is:
+
+1. if you wanted to grant read access to the file, but not metadata
+read access, but I can't think of any usecase for being able to read
+the contents of a file, but not the metadata. (see below)
+
+2. If you had the absolute path already and didn't need READ_DIR.
+
+I see introducing this READ_METADATA as causing potential
+hard-to-diagnose issues.
+
+Say you handle READ_METADATA and READ_FILE, but only grant READ_FILE.
+
+The program can technically open the file with the READ_FILE permission,
+but it may error out because the stat() on it beforehand failed.
+It's pretty common for programs to do that kind of thing (stat before
+open), like for checking for config files (strace bash and you see it
+stat .profile, /etc/profile)
+
+There may be other bugs, because being able to set permissions to read
+a file *but not read it's metadata* isn't possible currently in posix
+acl and userspace may not work well if that assumption no longer holds.
+
+So maybe WRITE_METADATA is good enough?
+
+Interested in your thoughts,
+Justin
+>   1: notify_change() and its callers
+>   2: inode_setsecctx hook (must come before 3: the SELinux and Smack
+>      implementations call __vfs_setxattr_locked internally)
+>   3: xattr helpers, which also drops a redundant EVM xattr size sanity
+>      check whose vfs_getxattr() call only has a dentry and therefore
+>      cannot be migrated to the new path-based signature
+>   4: POSIX ACL helpers
+>   5: inode_setattr hook
+>   6: inode xattr hooks
+>   7: inode POSIX ACL hooks
 > 
-> Use an arithmetic right shift instead, which drops the low bits and
-> rounds down. tmp421 had a similar problem with negative values, fixed
-> by commit 724e8af85854 ("hwmon: (tmp421) fix rounding for negative
-> values").
-
-For the TMP125 yes:
-
-Reviewed-by: Christian Lamparter <chunkeey@gmail.com>
-
-
-> Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
-> Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
-> Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
-> Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
-> ----
-I wrote a little test program by hand (see below) and ran it on x64.
-No idea if different archs behave differently or if
-a clever unsafe math optimizing compiler flag will
-convert the  "/ 32" to a " >> 5" but I doubt that...
-
----
-tmp125: raw:7ec0 tmp125_proposed: -2500 tmp125_now: -2500
-tmp125: raw:7eff tmp125_proposed: -2250 tmp125_now: -2000  <--- loss of percision
-tmp125: raw:7f00 tmp125_proposed: -2000 tmp125_now: -2000
-tmp125: raw:7f3f tmp125_proposed: -1750 tmp125_now: -1500  <--- more
-tmp125: raw:7f40 tmp125_proposed: -1500 tmp125_now: -1500
-tmp125: raw:7f7f tmp125_proposed: -1250 tmp125_now: -1000  <--- and this
-tmp125: raw:7f80 tmp125_proposed: -1000 tmp125_now: -1000
-tmp125: raw:7fbf tmp125_proposed:  -750 tmp125_now:  -500  <--- also bad
-tmp125: raw:7fc0 tmp125_proposed:  -500 tmp125_now:  -500
-tmp125: raw:7fff tmp125_proposed:  -250 tmp125_now:     0  <--- ouch
-tmp125: raw:   0 tmp125_proposed:     0 tmp125_now:     0
-tmp125: raw:  3f tmp125_proposed:   250 tmp125_now:   250
-tmp125: raw:  40 tmp125_proposed:   500 tmp125_now:   500
-tmp125: raw:  7f tmp125_proposed:   750 tmp125_now:   750
-tmp125: raw:  80 tmp125_proposed:  1000 tmp125_now:  1000
-tmp125: raw:  bf tmp125_proposed:  1250 tmp125_now:  1250
-tmp125: raw:  c0 tmp125_proposed:  1500 tmp125_now:  1500
-tmp125: raw:  ff tmp125_proposed:  1750 tmp125_now:  1750
-tmp125: raw: 100 tmp125_proposed:  2000 tmp125_now:  2000
-tmp125: raw: 13f tmp125_proposed:  2250 tmp125_now:  2250
-tmp125: raw: 140 tmp125_proposed:  2500 tmp125_now:  2500
-
-(the positive values all look good.)
-
---- SNIP test.c program
-
-#just name the file test.c and run make test (in a directory without any other makefile)
-#include <stdio.h>
-#include <asm-generic/int-l64.h>
-
-static __s32 sign_extend32(__u32 value, int index)
-{
-         __u8 shift = 31 - index;
-         return (__s32)(value << shift) >> shift;
-}
-
-static int tmp125_now(__s16 raw)
-{
-         return (sign_extend32(raw, 14) / 32) * 250;
-
-}
-
-static int tmp125_proposed(__s16 raw)
-{
-         return (sign_extend32(raw, 14) >> 5) * 250;
-
-}
-
-int main(int argc, char **args)
-{
-         for (__s16 raw = -320; raw <= 320; raw+=32) {
-                 __s16 tmp=raw & 0x7fe0 | ((raw & 32) >> 1) | ((raw & 32) >> 2) | ((raw & 32) >> 3) | ((raw & 32) >> 4) | ((raw & 32) >> 5);
-                 printf("tmp125: raw:%4x tmp125_proposed:%6d tmp125_now:%6d\n", tmp, tmp125_proposed(tmp), tmp125_now(tmp));
-         }
-
-         return 0;
-}
-
---- SNAP
-
-FYI: TMP125 datasheet says:
-"The  Temperature  Register  of  the  TMP125  is  a  16-bit, read-only register that stores
-the output of the most recentconversion. However, temperature is represented by only10-bits,
-which are in signed two’s complement format. Thefirst bit of the Temperature Register, D15,
-is a leading zero. Bits D14 and [sic] D5 are used to indicate temperature. Bits D4 to D0
-are the same as D5 (see Table 1)."
-
-(They probably meant Bits D14 >>to<< D5 are used to indicate temperature).
+> Two deliberate scoping decisions for this refactor:
+> 
+> - The hooks consistently take struct path rather than struct file.  The
+>   VFS call sites involved (chmod(2), chown(2), utimensat(2), xattr(2)
+>   and ACL syscalls) operate on paths, and several of them (lstat(2),
+>   lchown(2), llistxattr(2), ...) have no struct file to begin with.
+> 
+> - struct inode_operations->setattr still receives (idmap, dentry, attr).
+>   Only the VFS boundary (notify_change()) and the LSM hook layer see the
+>   path, which keeps the refactor contained to fs/attr.c and the LSM
+>   infrastructure instead of touching every filesystem.
+> 
+> Patches 8-12 then implement the new rights, their tests, the sandboxer
+> sample and the documentation.  Semantics:
+> 
+> - READ_METADATA covers stat(2) and friends, getxattr(2) and friends,
+>   listxattr(2) and friends, and POSIX ACL reads.
+> - WRITE_METADATA covers chmod(2), chown(2), utimensat(2), setxattr(2),
+>   removexattr(2) and friends, and POSIX ACL set and remove.
+> - Only explicit metadata changes requested by user space are restricted.
+>   Implicit changes performed by the kernel (e.g. timestamp updates on
+>   write(2), size changes on truncate(2)) are not, and neither are
+>   chmod(2)/chown(2) calls that change nothing (e.g. chown(2) with
+>   (-1, -1), which never reaches the hook), matching the SELinux
+>   inode_setattr behavior.
+> - Kernel-internal accesses performed with override_creds() (e.g.
+>   overlayfs, cachefiles) and kernel threads without a Landlock domain
+>   (e.g. nfsd, ksmbd) are not restricted.
+> 
+> The Landlock ABI version is incremented from 11 to 12.
+> 
+> The series is based on linux-next commit 5c4d4169604b ("Add linux-next
+> specific files for 20260921").
+> 
+> Testing: each patch has been built for aarch64 (gcc, -Werror) and the
+> landlock selftests (445 tests, including the new ones) pass in QEMU on
+> aarch64; base_test reports ABI v12.
+> 
+> [1] https://lore.kernel.org/all/20220827111215.131442-1-xiujianfeng@huawei.com/
+> [2] https://lore.kernel.org/all/abc960a1-e66e-792e-6869-cfd201c29dbe@digikod.net/
+> 
+> Assisted-by: opencode: glm-5.3
+> 
+> Cai Xinchen (12):
+>   fs: pass struct path to notify_change()
+>   LSM: pass struct path to the inode_setsecctx hook
+>   fs: pass struct path to xattr helpers
+>   fs: pass struct path to POSIX ACL helpers
+>   LSM: pass struct path to the inode_setattr hook
+>   LSM: pass struct path to the inode xattr hooks
+>   LSM: pass struct path to the inode posix acl hooks
+>   landlock: Add READ_METADATA and WRITE_METADATA access rights
+>   landlock: Implement metadata access hooks
+>   selftests/landlock: Add tests for metadata access rights
+>   samples/landlock: Add metadata rights to sandboxer
+>   Documentation: Update landlock doc for metadata rights
+> 
+>  Documentation/userspace-api/landlock.rst     |  11 +-
+>  drivers/base/devtmpfs.c                      |   6 +-
+>  drivers/block/zloop.c                        |   4 +-
+>  fs/attr.c                                    |  20 +-
+>  fs/cachefiles/interface.c                    |   6 +-
+>  fs/cachefiles/xattr.c                        |  32 +-
+>  fs/coredump.c                                |   2 +-
+>  fs/ecryptfs/inode.c                          |  34 +-
+>  fs/exfat/file.c                              |   3 +-
+>  fs/fat/file.c                                |   3 +-
+>  fs/inode.c                                   |   7 +-
+>  fs/internal.h                                |  17 +-
+>  fs/namei.c                                   |   7 +-
+>  fs/nfsd/nfs4ctl.h                            |   4 +-
+>  fs/nfsd/nfs4state.c                          |  14 +-
+>  fs/nfsd/nfs4xdr.c                            |   2 +-
+>  fs/nfsd/state.h                              |   2 +-
+>  fs/nfsd/vfs.c                                |  73 +++--
+>  fs/open.c                                    |  18 +-
+>  fs/overlayfs/copy_up.c                       |   4 +-
+>  fs/overlayfs/inode.c                         |   4 +-
+>  fs/overlayfs/overlayfs.h                     |  39 ++-
+>  fs/overlayfs/xattrs.c                        |  13 +-
+>  fs/posix_acl.c                               |  46 +--
+>  fs/smb/server/smb2pdu.c                      |  77 ++---
+>  fs/smb/server/smb_common.c                   |   2 -
+>  fs/smb/server/smbacl.c                       |  21 +-
+>  fs/smb/server/tests/smbacl_kunit.c           |   6 +-
+>  fs/smb/server/vfs.c                          | 111 +++----
+>  fs/smb/server/vfs.h                          |  39 +--
+>  fs/smb/server/vfs_cache.c                    |   3 +-
+>  fs/utimes.c                                  |   3 +-
+>  fs/xattr.c                                   |  96 +++---
+>  include/linux/fs.h                           |   6 +-
+>  include/linux/landlock.h                     |   4 +-
+>  include/linux/lsm_hook_defs.h                |  29 +-
+>  include/linux/posix_acl.h                    |  21 +-
+>  include/linux/security.h                     |  65 ++--
+>  include/linux/xattr.h                        |  22 +-
+>  include/uapi/linux/landlock.h                |  26 +-
+>  samples/landlock/sandboxer.c                 |  17 +-
+>  security/commoncap.c                         |  22 +-
+>  security/integrity/evm/evm_crypto.c          |   8 +-
+>  security/integrity/evm/evm_main.c            |  36 ++-
+>  security/integrity/ima/ima_appraise.c        |  17 +-
+>  security/landlock/fs.c                       |  86 ++++++
+>  security/landlock/limits.h                   |   2 +-
+>  security/landlock/syscalls.c                 |   2 +-
+>  security/security.c                          |  99 +++---
+>  security/selinux/hooks.c                     |  49 +--
+>  security/smack/smack_lsm.c                   |  62 ++--
+>  tools/testing/selftests/landlock/base_test.c |   2 +-
+>  tools/testing/selftests/landlock/fs_test.c   | 309 ++++++++++++++++++-
+>  53 files changed, 999 insertions(+), 614 deletions(-)
+> 
+> -- 
+> 2.18.0.huawei.25
+> 
+> 
