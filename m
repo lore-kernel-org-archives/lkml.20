@@ -1,86 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B9448423C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:52:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830C148A8B7
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790329956; cv=none; b=jExP1KMzrER63iS/z+tYK5afMMAMOH9CsTlgt6+a2AHwuB1kbsDJqYpjqaFlnBiC5jFhRdTH7ondCvp/yc0DVfiE9ZSdU3vk+ZG9GlHX7uxoy1g6Wo3b/NNAx8bLvCYYB4bWwpCVZsltOr+f79OjI9FxfSB6ztAPywS1mB3siT8=
+	t=1790329958; cv=none; b=c2mZV0334khRaaA1apckq6H6EKYj+9YurIpe268pmA1ERsQy3XP6pSwi9RTmaunRDjja+c8ffuKZ7noZCnWKDg+cnFAUsa2C9Ash7R+JIcDEhnqhISqisyWUJha57ddNjjYn7gteaoXwktaWRpSY84ss0oN0fCYIymDbdhkLyXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790329956; c=relaxed/simple;
-	bh=vd129JXxstyyLLXo+yLc/lqQTH4ulYrTiulcSGsQgkA=;
+	s=arc-20240116; t=1790329958; c=relaxed/simple;
+	bh=OBWbX5q8G4ftRvCUoBiGFmo1UWikfGvQ+drEAi+3d3Q=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fZe1eIRZKHcmC72guBmiZNQBP3Z2zALlJa0HaKhOhD4r9dT+HUU5E0GJKucExjId7JGlpHrEHAJhHBbovpUo+AMekUWhOMqqx5QtFPpBeLd0fEqMueVSsqi/zxZp+r2hAadNmhOWg76Esef9e6HqV00tgYRQsKZgxYER7yHJsSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l1eHtvvv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dyr8lm9U; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=UexoeAfvMGL8HYtV/WXurdmeijjcgUXCHnno6YP2B3DIJPM8aqtNd/G9f+NWDsqJIsqrZaykzlJAOOBl2zreArrcDh1SgtzyMo0bIJ+goItEUjGUGKDbOS4rDo1dm7HwyRmFFIgevUNIMtxp7Y2EAUuIVUTZ4BqssH7lIyjY1EA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qy/zpnvY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=awPG17iz; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l1eHtvvv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dyr8lm9U"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P5J3Xi756774
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:52:31 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qy/zpnvY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="awPG17iz"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4Ydlp2911789
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:52:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NAoEZk1fZDAdmdVll2W8+LrBtf/dPScgRLhUH7IyTrE=; b=l1eHtvvv47iIeeba
-	NM3OrNpKgEYq5ivO4Nt2DJ/ZcysysQ7Mj2CihYTcYpJHpevK+GK9CE1IZrZxN25D
-	T4O/fCXs5138WSotO0aBwooUH1/os7KbiBtScHIKbn368eps5goQ5rZSjQpoJHC4
-	kFBuwTg2MAdIDItRzzKmWeR8VP9gAb+yomY/+79QmuTO2aBnkjdDGwYoqUF75eTy
-	xzeGk915rG6GSphRCT1HUWqY6S+bPfnHoncyzl2Cdjc+y/goMEFe5IbJcT/fHWOn
-	3GeQQYIVwDjBdfBe4zCWgf7wxszzmTQzBDAvfVPMYcbbrSedTgpMhLYlgIusbinC
-	TyZZGA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwjq08trp-1
+	NXE+LviryEgD4iVhgqQqrZYQU0oosFjjqD/wlupAlEI=; b=Qy/zpnvYeQ/YQHdk
+	bUSKgqK8PtgbuPwbTtJ4VqchOsWHZAoWVZbysJ5/nv5lSoMaWqmOa5ahSU1CcWsB
+	0AxjY+TQed3Y3T2Z3qvG7mtzCqstcc1bTsm9PpsEJ4YHB3pBZr91TGBY7uJ6olYp
+	SbkEz7HRhflwiYrLV3f81dsFU8EkPGZOIXGiWcUMC4Qmbbt6UcD3EaHlLKZbseiH
+	4PurZcSSQpspp+DVtbucYvARr+CRMRKEWnFX1a7eImVD33si2bRD1i1nQGqtfJYZ
+	+68kUQXa8H8R2zQYYtRnYfto4ej9MAwCe1eYKBhrRmhjfgplNbJFkfAAETr9cHFt
+	6kE6eA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwhm51147-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:52:31 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9143947f839so4065716d6.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:52:31 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:52:34 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939c30aa9a0so72533385a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:52:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790329951; x=1790934751; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790329953; x=1790934753; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NAoEZk1fZDAdmdVll2W8+LrBtf/dPScgRLhUH7IyTrE=;
-        b=Dyr8lm9UGvvGz+mPcBMq1bGRoBZ51eAN450o3jDjIUFZdRCIbmcDeON6zoj8X99jv4
-         SxyDCONzrTdaqM5S64qT6HSCcrJU22AH2sTeEL5x/vVJXHZPgaRttcPw8A8+aBecswJq
-         qKEWKeT/WwCs0f4KvPD9cShwpb8TXkjS+/Kbx9DkdaNZHtSEBUuBbH6yMFNRsOtFtu5L
-         FST3sbwZ7LD4tpU1CaRvSB+86INr7IcL2soxzT5UXG9LfpIUCH/4GPy6DI2sxfuv5+Nb
-         jcNkjkc/F8PWpibBPtaXBUWyFlv2XU/JYTvvpqwFczCMwppBLe/4Zjew+Gzq/0foWSW/
-         tuGA==
+        bh=NXE+LviryEgD4iVhgqQqrZYQU0oosFjjqD/wlupAlEI=;
+        b=awPG17iztLhmfG+OigZq0tJg3djX85b9HlqvgT+Afv7tGEhtl3BaZgsgzsYSs/sIfZ
+         6rq9p1Svwrb43DfwmmNi6p+q+nlP7Z3oIHLtaH8Zr4qCh4j0FhJeATlweDKRFTmVkR8r
+         PrrVH22VCfK/n7vnQZfE4IDRnG6p2OSPEgmqX03GMy6Qs30YQDZROCzd0/AwGFx3VaXN
+         V94G81f/ui38ngDsFuuajDzKvKdxJDElylD+MTXxq6OIy3IY24mWIkEQfqju6tmDfQm3
+         /cP4B6TXgKFMxlgul4KuxM8kPUrecEHbuLyf+j6Hasm/C8buIQmgZrBWZUBs+pE6jBHQ
+         zm8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790329951; x=1790934751;
+        d=1e100.net; s=20260707; t=1790329953; x=1790934753;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NAoEZk1fZDAdmdVll2W8+LrBtf/dPScgRLhUH7IyTrE=;
-        b=W/g0YABdoKMbPXxAQFNkhlkWl/aRvWdpJg67itp/IhCZmN3pKDIIFJxQ5h2E1NRXmW
-         3xBCiP9h55f3xBpWhmMKlJGW3OsyQ6eV1AQvh1P8a3sPyL5ptc/+vNppdtGPge5JqJQw
-         oUZqsVFCUeAez1x9wdDeqORJF9nupIruuCUtCpOGFLod82EwXkx4mINBlWTdrJNhW0Ay
-         PsYQ5WBJxE53Ex5wnu5XUDIJWz0pPcGHGhLshQ6zEISJwI8MUXjAV+loGt2Q24DbO6gH
-         tdmTnsGgoOUvx8n5hdUOnG6XXghg6mQWZAlgIX/sOn/CjTQXTJi1JAoWuO+MH3m/E++4
-         bSnQ==
-X-Gm-Message-State: AFuF++kwpoJVDKsixstFMFvNYmtxboUtEySdKp8ZA9+FMj4qNORpQ/gk
-	pLCxIn2Q5Ae/cEPeQAmh7UwX2KvK8spskEgl3Q+S9rLtSJgkQjROvP7kcojTEw2Kgp40Aa+jJqi
-	A2qmtuUp+BBRYZ51N88FtOmgdfjN7LVEAq5D3EbR9gUXj4xJmCUGR04R5hZtQTUjdx4I=
-X-Gm-Gg: AYBFou0vrsD5pjzNYw0XXdD09UCn2hFB5F923UTqKeMRXTawpQTiK/sXfIJ39qHpksB
-	ovME31RVb/t0k1vQLAm/7V3D8Kwe8vjhZMZmIeRsWo/urRj/+Cjf9tgt/LqB9A7k0KeGNOwgjev
-	Eru+YNGazi/TxEkwU8G11cdLX17BCjVC+NraJA2PgOLnaIITOTV1dEKXtaCpnU664lWn8+4KGZ+
-	4r6re6bcFpU9IZJNVN/9pshDlIJuxtUhmInoCbv3UQN3zAH//WFKN9jZJAMsZviEwqO3j8dpW3r
-	yyu/+MLadann8OR+8CenjXYPPWcttbp+GqXSrw1mKrr3mOCVPyK4wmx93OLwpLpAQW1rA0hQcOK
-	/XPwr88C6JqoYktfxxlrDML1Lhqg1
-X-Received: by 2002:a05:620a:46aa:b0:939:bd4e:b2fd with SMTP id af79cd13be357-93c43cd83ddmr320282685a.43.1790329950894;
-        Fri, 25 Sep 2026 02:52:30 -0700 (PDT)
-X-Received: by 2002:a05:620a:46aa:b0:939:bd4e:b2fd with SMTP id af79cd13be357-93c43cd83ddmr320280885a.43.1790329950391;
-        Fri, 25 Sep 2026 02:52:30 -0700 (PDT)
+        bh=NXE+LviryEgD4iVhgqQqrZYQU0oosFjjqD/wlupAlEI=;
+        b=s//jiYmLrNCAHInbamzQy0qKSuCgaYIA7hL/fId6b6WUGMWbUoI1e5LJ8UcJssrb9j
+         PiNnor3TnOKml5Q9qIN1PSWPixgaO7lRb6ty/g0PHvLjXcC88jDQl5OVq0gELQpz6JxZ
+         ckmlddrl84QuxRnG0AfI+SJ3fw/k7MFXvcateuZLjJVFd//RJwUaCDMULKpjxUD0r4x8
+         0X89VGEj14nVe0qLI+H/WRQXTVuTaqENMri1x3PUEGx22IEfGb93vJBE0xbg2iwhr+nm
+         o1/ZIosV1ugkVuC987hO5xrYGqyCMRfOEvGolEVXGyieAhlkX0C8z0N5vwvLCvZj5RTB
+         fr+g==
+X-Gm-Message-State: AFuF++khu02xv7caL2yYIVJyKcJaRiL3bqK40pFF4U9K2x9gPy26SnXv
+	TLnLdXLRNpVTZ3fxSmatc4ckc4FNDnczkwtf4aiSA7Wze7qiFVPGgP6I5LwvCKZKR404kX5N2q/
+	MVVMmE0A5OqdRVjnPDIZmOMjMkaGqbNJjEz/rihGka9rOqasco/yEz7rT1OhCpIa5f4jbSLLdZc
+	0=
+X-Gm-Gg: AYBFou2W08H5d3CDqZIwjTWXwsH0c2Kw/0UwyDYPbtK1LMXtWN3ne2EJyI1Y5AHXbP3
+	jOINvb4/l+zVONhDCQoSvlmkvWx0RjG5NelOhK1mGabLBUukQHQtTlZmiaMMbUyAAoS35d9xTuq
+	glxpHEt0ihXjxPFsMu9GODKW3FMdUy/OAZt+1qhxOCOrps1GOA4/i+0EvNz0ZO7rk+OrDHbkEje
+	Ru3mMlQaRUjkN3TigYjGriE4sljSoUwukfoTMAFqZL+z9dRDAX/gCPuZZhSvjuzXHHfOC3xznOg
+	8vZus6NUYGAP4oONR1lcH/Q1vZWPIU0Z8XoWhtQnjNy5FCmnLcWnfWlqI2w5NApAAJndK8laBuA
+	PqSdQU6oUe/RfdsFHrtcAUgc6UT9q
+X-Received: by 2002:a05:620a:700f:b0:939:15e:1a5 with SMTP id af79cd13be357-93c43cb66d2mr356161485a.35.1790329952933;
+        Fri, 25 Sep 2026 02:52:32 -0700 (PDT)
+X-Received: by 2002:a05:620a:700f:b0:939:15e:1a5 with SMTP id af79cd13be357-93c43cb66d2mr356158085a.35.1790329952364;
+        Fri, 25 Sep 2026 02:52:32 -0700 (PDT)
 Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:bde1:52f9:d7f0:c581])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06bdef2sm47282535e9.11.2026.09.25.02.52.28
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06bdef2sm47282535e9.11.2026.09.25.02.52.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 02:52:29 -0700 (PDT)
+        Fri, 25 Sep 2026 02:52:31 -0700 (PDT)
 From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 11:52:16 +0200
-Subject: [PATCH v6 1/2] nvmem: remove duplicated reference counting
+Date: Fri, 25 Sep 2026 11:52:17 +0200
+Subject: [PATCH v6 2/2] nvmem: protect nvmem_device::ops with SRCU
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,7 +90,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-nvmem-unbind-v6-1-9e3d02cf8964@oss.qualcomm.com>
+Message-Id: <20260925-nvmem-unbind-v6-2-9e3d02cf8964@oss.qualcomm.com>
 References: <20260925-nvmem-unbind-v6-0-9e3d02cf8964@oss.qualcomm.com>
 In-Reply-To: <20260925-nvmem-unbind-v6-0-9e3d02cf8964@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
@@ -98,239 +99,215 @@ To: Srinivas Kandagatla <srini@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, brgl@kernel.org,
         Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5618;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5454;
  i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=vd129JXxstyyLLXo+yLc/lqQTH4ulYrTiulcSGsQgkA=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqtkRYjT4DKnF72uvj19MeaCSEla8I0GMgqqFW+
- SG2XMVJumCJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarZEWAAKCRAFnS7L/zaE
- w9pwEACazNG2Y7nEDqlkAY3Ikb1v/HYWQ62Nz6qKH2HtZcYZKWZDXLuHZ8XzbcTbcHly5qj9cpq
- Ta/aPbIAlZRPKBeNYZwyLX2mS2Z0IRHcRAG+i7a/DfRrjtRL0Dim/4EnN3MYCQTw4/txJQWhQhs
- JShLm0q9wIAy621IBg8Url1slswQyKO6QhAYhuYvvjRj8EyOFDgBLlLDbJiwB+wgHbrnOxUrY4j
- yAak6Q9jHpYt/SGXM8ojUK9qPgdqDax93lDqkk02EJVPWRAaPbitHzdpacn/R9IWcno8drF1BLQ
- TMskLJs/R0FVRbxHW5FzZ/vTioESQDPyN7KtqoJFIs0nkGxweJLHDQ9g4iZrvkL08MZl+/JOvTt
- ZMJFZ4+KZjvd78LaMLohWpWa6iW3os5TsTIUPc7zAiSusEBoLg5nxOiHFYhQloc92X8iozaglt3
- xGyfMSbeAk518WMVcevldr9ik2r5BU6cNE6UyxmffDsHYzqROeI5a+3ySlwLG2ziNZfTKLO9Zxg
- AZJmWTfskv404tfQWshUeiVlaMuVaW+VTRyCTNgVSJxtPGQs4MrTh+Khe0VYXDP3Sy0HWLRm/aB
- 9z+q1qzcEoFJ80VY1zPQ2Ce9UN6ulYgznI9K1eebFayRlN80etb7a2FYU1hPcgkLdGwIHf+Pau/
- c/nUYaZF0qwsvgA==
+ bh=OBWbX5q8G4ftRvCUoBiGFmo1UWikfGvQ+drEAi+3d3Q=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqtkRZJrPvYmRlQLP/+mG9rCHBNA3soWl3xa0jx
+ BzG1fFN9eWJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarZEWQAKCRAFnS7L/zaE
+ wy6ID/9jkFbHlnFuJYlFybOeKpQS3ELJi6k3+SF62YgxGubFQ/9GNpiHSflhq0GaU7qNWQVSKeD
+ 5Ko69zbSJZLnLIkSrEwfzZiC5I7OB8EvH44FNwoUeW2uC0QE0gJ6UMwsYTzU44L0xxaCgP8fl36
+ ytbJVZBdTnQZiykP8f4ZgbwQ2Jo0xn9YI01Pj3L1EP+wFTHCtAbTwqHmq7sepa5N17Z1rVDRUen
+ tMcrU/Nu51CZF6xlT9evWXxgYieB0A1wckVqVw1bEda9AaiMn2Cu0c3Y6f0JIbOUZ7koHx+9HgG
+ EjhixEX+UQpsH7H8vt0F307thlmrny7Wq7ksP8IYduW1J1KKQ55SZkwr3w+FvNNHjp8TnKtHJNC
+ 2ImIpmwd2RPW7eV8TyuBSTIxXOEsWxAMMquCC+H7zx+jzMQs+vb8JGLnLzdyb8f8iwqOjdl4ysO
+ XoiGRs94GtpKqBdpLxT9DLRQau3yTWUwRRLEzHQQYfXZIKDhbHRtmvglagj1kVUAv5hju/KwqW4
+ 8JTeUrTcW1uiFRm0S6voctitKAbRzGdPkrEXdi9blQAnhVwfKm6f0SpOBraw6qUzpr4tfUp4NM0
+ DlX/S7j6Lblx8MYXR5KmHYdUYvd7vdvMH5ts+B22zOsjMD0xnqe7XvMdCerYGB04VcWsdaub3Ia
+ 0Z46zJZWl1r+Vfg==
 X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzOSBTYWx0ZWRfX5Z017K7pvJHv
- YYBCgbGWnz2No+l03TFPaezstNyOKsyX2ZBEMm37OlVJKSxLXc0E5Wo7SIkb6moA1pFbkcoba7A
- ziI5xwQR5hC3TZ2UvzbEkVv9lpyNGFY=
-X-Proofpoint-GUID: jO8ZpHZ3RBdIoYPGa-6bW3olPJC16ASN
-X-Proofpoint-ORIG-GUID: jO8ZpHZ3RBdIoYPGa-6bW3olPJC16ASN
-X-Authority-Analysis: v=2.4 cv=LNPz05W9 c=1 sm=1 tr=0 ts=6ab6445f cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: vyygIw_RbWUrfjK1XPoYO01zxKdRlED5
+X-Authority-Analysis: v=2.4 cv=QYnzLcbv c=1 sm=1 tr=0 ts=6ab64462 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=IOj402APi-VxR199s-4A:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzOSBTYWx0ZWRfXwo4vv26EhvNU
- d6B/N4uuugWuoRNhGmXZXc77Kcp1Yr4cL65ym60U/aDLtkSJlG3wUaU0ZJtRRoNbWij+Rcf/U4p
- F4IXkoTAqtGA84nnHRIZhZDRWLNz5/z96r7lrL1xKORQ9NQdtA97OwPkXPJ7hcAxsqcEmaaLzRB
- OnH05Yx7jW7phqkF5lyySItpvuOOb6UGCF+Si7/MLg1LOrlBw3a+qDs1Bm1UW3AVKK+e95J+vVA
- WIsJw4uEOMl3F5hrpuNMkVyEMYu2RJT3jkmMC0ndLZPYGtB5wG+SHRmbuT7WKFDj0djgz6s6xs1
- 0mUOLb9ObMzKYPTFu/pnGqtWFePbyqiQqgtoZ/s1mFIYDf4k21lXM+FGDWUDD90IUE45F3pGznc
- MOJrgDhumYccR7QAENti5nReXI4jiv5g3HcdQMCGrJEJCxR4glxiqC5NNOwiMuOlLiNiOjnDXPj
- IddLyqGgiV8PJRFPz5g==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=ydBWjX_Uc0Q5hLJtmLYA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzOSBTYWx0ZWRfX1uTy5oPC5C8B
+ Mq9E2VmvZa/K2R5hezTW6ZvvVm+JP0NQvScc/Sf8MY1HhUfUnCxXLx3xSik8Ng8u5e9NMp9YIE7
+ FVSLsBtXyWZTDrlqsan/ac1q/rICYrZmBm+8eCwzFw8rT78i3UIaeCQWFBx6b/F17MzZNCtrz8d
+ nEz+K9IuXWO0ZFc4u6zi/tHfPeof0Rg+420unBDqHrsQ3gDQwuiXC1LtoGxDkBtHKfbRrrVJ/ga
+ FhtMbeHX+jN/8mf7lDL6DKaSKmRQJupcaQ004k336MdO5dnCxK6ZdWW6DM6oYotPYX1uXbLtUiX
+ uPEf5TV5diFRPzIhWpLjMUs3qk15ZV2Lz4qfEc6+aPLgb8ncOitJa04vgfJqySXagbjV9sWUNbk
+ U13DV7W2dt7iCHbEbFbcx+UrekUKEYIOwCEI9HJH3tHxmqN2p8rN3jJ3ugZjeZfYz/BsuGh+YS3
+ VOm+Y862AFIJWp7DYvA==
+X-Proofpoint-ORIG-GUID: vyygIw_RbWUrfjK1XPoYO01zxKdRlED5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzOSBTYWx0ZWRfX11igMx3OJ34+
+ AKWMGaQKhXC4u39K+2lgrVO9CjEx38zzetVStpWSJnIGlZ5Vdl3/1sCXvaagsM2gqvFaTM4UcAy
+ b/CnzU1JhLsvKJNk3BHaRLfQYSr77uw=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
+ phishscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250039
 
-Commit c1de7f43bd84 ("nvmem: use kref") introduced reference counting
-with kref to an already reference counted nvmem_device structure. We
-only need one refcount so use the one provded by device's kobject and
-drop the kref field from struct nvmem_device.
+With the provider-owned data split out into a separate 'ops' structure,
+we can now protect it with SRCU.
+
+Protect all dereferences of nvmem->ops with an SRCU read lock.
+Synchronize SRCU in nvmem_unregister() after setting the implementation
+pointer to NULL. This has the effect of numbing down the device after
+nvmem_unregister() returns - it will no longer accept any consumer calls
+and return -ENODEV. The actual device will live on for as long as there
+are references to it but we will no longer reach into the consumer's
+memory which may be gone by this time.
+
+Nvmem cell entries are destroyed in .release() now as they may be still
+dereferenced via the nvmem_cell handles after nvmem_release(). The
+actual calls will still go through SRCU and fail with -ENODEV if the
+provider is gone.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- drivers/nvmem/core.c      | 80 ++++++++++++++++++++---------------------------
- drivers/nvmem/internals.h |  1 -
- 2 files changed, 34 insertions(+), 47 deletions(-)
+ drivers/nvmem/core.c      | 44 ++++++++++++++++++++++++++++++++++++++------
+ drivers/nvmem/internals.h |  4 +++-
+ 2 files changed, 41 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-index f3024e5a5c5ffae08d34c1155f7e2e31fa8a6fdb..2398d33bdd12eb7d6cac185a49fa6a79da13b1c5 100644
+index 2398d33bdd12eb7d6cac185a49fa6a79da13b1c5..7d4cce8e27424a032fff59a1189847adb1898168 100644
 --- a/drivers/nvmem/core.c
 +++ b/drivers/nvmem/core.c
-@@ -535,24 +535,6 @@ static void nvmem_sysfs_remove_compat(struct nvmem_device *nvmem)
- 
- #endif /* CONFIG_NVMEM_SYSFS */
- 
--static void nvmem_release(struct device *dev)
--{
--	struct nvmem_device *nvmem = to_nvmem_device(dev);
--
--	ida_free(&nvmem_ida, nvmem->id);
--	gpiod_put(nvmem->wp_gpio);
--	kfree(nvmem->ops);
--	kfree(nvmem);
--}
--
--static const struct device_type nvmem_provider_type = {
--	.release	= nvmem_release,
--};
--
--static const struct bus_type nvmem_bus_type = {
--	.name		= "nvmem",
--};
--
- static void nvmem_cell_entry_drop(struct nvmem_cell_entry *cell)
+@@ -57,7 +57,12 @@ static BLOCKING_NOTIFIER_HEAD(nvmem_notifier);
+ static int __nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
+ 			    void *val, size_t bytes)
  {
- 	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_REMOVE, cell);
-@@ -571,6 +553,25 @@ static void nvmem_device_remove_all_cells(const struct nvmem_device *nvmem)
- 		nvmem_cell_entry_drop(cell);
+-	struct nvmem_operations *ops = nvmem->ops;
++	struct nvmem_operations *ops;
++
++	guard(srcu)(&nvmem->srcu);
++	ops = srcu_dereference(nvmem->ops, &nvmem->srcu);
++	if (!ops)
++		return -ENODEV;
+ 
+ 	if (!ops->reg_read)
+ 		return -EOPNOTSUPP;
+@@ -68,9 +73,14 @@ static int __nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
+ static int __nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
+ 			     void *val, size_t bytes)
+ {
+-	struct nvmem_operations *ops = nvmem->ops;
++	struct nvmem_operations *ops;
+ 	int ret, wr_ok;
+ 
++	guard(srcu)(&nvmem->srcu);
++	ops = srcu_dereference(nvmem->ops, &nvmem->srcu);
++	if (!ops)
++		return -ENODEV;
++
+ 	if (!ops->reg_write)
+ 		return -EOPNOTSUPP;
+ 
+@@ -289,7 +299,7 @@ static ssize_t bin_attr_nvmem_write(struct file *filp, struct kobject *kobj,
+ 
+ static umode_t nvmem_bin_attr_get_umode(struct nvmem_device *nvmem)
+ {
+-	struct nvmem_operations *ops = nvmem->ops;
++	struct nvmem_operations *ops = rcu_dereference_raw(nvmem->ops);
+ 
+ 	umode_t mode = 0400;
+ 
+@@ -333,7 +343,7 @@ static umode_t nvmem_attr_is_visible(struct kobject *kobj,
+ {
+ 	struct device *dev = kobj_to_dev(kobj);
+ 	struct nvmem_device *nvmem = to_nvmem_device(dev);
+-	struct nvmem_operations *ops = nvmem->ops;
++	struct nvmem_operations *ops = rcu_dereference_raw(nvmem->ops);
+ 
+ 	/*
+ 	 * If the device has no .reg_write operation, do not allow
+@@ -560,7 +570,7 @@ static void nvmem_release(struct device *dev)
+ 	gpiod_put(nvmem->wp_gpio);
+ 	nvmem_device_remove_all_cells(nvmem);
+ 	ida_free(&nvmem_ida, nvmem->id);
+-	kfree(nvmem->ops);
++	cleanup_srcu_struct(&nvmem->srcu);
+ 	kfree(nvmem);
  }
  
-+static void nvmem_release(struct device *dev)
-+{
-+	struct nvmem_device *nvmem = to_nvmem_device(dev);
-+
-+	gpiod_put(nvmem->wp_gpio);
-+	nvmem_device_remove_all_cells(nvmem);
-+	ida_free(&nvmem_ida, nvmem->id);
-+	kfree(nvmem->ops);
-+	kfree(nvmem);
-+}
-+
-+static const struct device_type nvmem_provider_type = {
-+	.release	= nvmem_release,
-+};
-+
-+static const struct bus_type nvmem_bus_type = {
-+	.name		= "nvmem",
-+};
-+
- static void nvmem_cell_entry_add(struct nvmem_cell_entry *cell)
- {
- 	scoped_guard(mutex, &nvmem_mutex)
-@@ -918,6 +919,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 	nvmem->dev.type = &nvmem_provider_type;
+@@ -920,7 +930,20 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
  	nvmem->dev.bus = &nvmem_bus_type;
  	nvmem->dev.parent = config->dev;
-+	INIT_LIST_HEAD(&nvmem->cells);
- 	nvmem->ops = ops;
+ 	INIT_LIST_HEAD(&nvmem->cells);
+-	nvmem->ops = ops;
++
++	/*
++	 * Must happen before we assign the release() callback in
++	 * device_initialize().
++	 */
++	rval = init_srcu_struct(&nvmem->srcu);
++	if (rval) {
++		ida_free(&nvmem_ida, nvmem->id);
++		kfree(ops);
++		kfree(nvmem);
++		return ERR_PTR(rval);
++	}
++
++	rcu_assign_pointer(nvmem->ops, ops);
  
  	device_initialize(&nvmem->dev);
-@@ -931,8 +933,6 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 		goto err_put_device;
- 	}
  
--	kref_init(&nvmem->refcnt);
--	INIT_LIST_HEAD(&nvmem->cells);
- 	nvmem->fixup_dt_cell_info = config->fixup_dt_cell_info;
- 
- 	ops->reg_read = config->reg_read;
-@@ -993,20 +993,20 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 	if (config->cells) {
- 		rval = nvmem_add_cells(nvmem, config->cells, config->ncells);
- 		if (rval)
--			goto err_remove_cells;
-+			goto err_remove_compat;
- 	}
- 
- 	if (config->add_legacy_fixed_of_cells) {
- 		rval = nvmem_add_cells_from_legacy_of(nvmem);
- 		if (rval)
--			goto err_remove_cells;
-+			goto err_remove_compat;
- 	}
- 
- 	dev_dbg(&nvmem->dev, "Registering nvmem device %s\n", config->name);
- 
- 	rval = device_add(&nvmem->dev);
- 	if (rval)
--		goto err_remove_cells;
-+		goto err_remove_compat;
- 
- 	rval = nvmem_populate_layout(nvmem);
- 	if (rval)
-@@ -1032,8 +1032,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- #endif
- err_remove_dev:
- 	device_del(&nvmem->dev);
--err_remove_cells:
--	nvmem_device_remove_all_cells(nvmem);
-+err_remove_compat:
+@@ -1035,7 +1058,10 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
+ err_remove_compat:
  	nvmem_sysfs_remove_compat(nvmem);
  err_put_device:
++	ops = rcu_replace_pointer(nvmem->ops, NULL, true);
++	synchronize_srcu(&nvmem->srcu);
  	put_device(&nvmem->dev);
-@@ -1042,21 +1041,6 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- }
- EXPORT_SYMBOL_GPL(nvmem_register);
++	kfree(ops);
  
--static void nvmem_device_release(struct kref *kref)
--{
--	struct nvmem_device *nvmem;
--
--	nvmem = container_of(kref, struct nvmem_device, refcnt);
--
--	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_REMOVE, nvmem);
--
--	nvmem_sysfs_remove_compat(nvmem);
--
--	nvmem_device_remove_all_cells(nvmem);
--	nvmem_destroy_layout(nvmem);
--	device_unregister(&nvmem->dev);
--}
--
- /**
-  * nvmem_unregister() - Unregister previously registered nvmem device
-  *
-@@ -1064,8 +1048,15 @@ static void nvmem_device_release(struct kref *kref)
+ 	return ERR_PTR(rval);
+ }
+@@ -1048,13 +1074,19 @@ EXPORT_SYMBOL_GPL(nvmem_register);
   */
  void nvmem_unregister(struct nvmem_device *nvmem)
  {
--	if (nvmem)
--		kref_put(&nvmem->refcnt, nvmem_device_release);
-+	if (!nvmem)
-+		return;
++	struct nvmem_operations *ops;
 +
-+	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_REMOVE, nvmem);
+ 	if (!nvmem)
+ 		return;
+ 
+ 	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_REMOVE, nvmem);
+ 
++	ops = rcu_replace_pointer(nvmem->ops, NULL, true);
++	synchronize_srcu(&nvmem->srcu);
 +
-+	nvmem_sysfs_remove_compat(nvmem);
-+	nvmem_destroy_layout(nvmem);
-+
-+	device_unregister(&nvmem->dev);
+ 	nvmem_sysfs_remove_compat(nvmem);
+ 	nvmem_destroy_layout(nvmem);
++	kfree(ops);
+ 
+ 	device_unregister(&nvmem->dev);
  }
- EXPORT_SYMBOL_GPL(nvmem_unregister);
- 
-@@ -1126,8 +1117,6 @@ static struct nvmem_device *nvmem_device_match(void *data,
- 		return ERR_PTR(-EINVAL);
- 	}
- 
--	kref_get(&nvmem->refcnt);
--
- 	return nvmem;
- }
- 
-@@ -1243,9 +1232,8 @@ EXPORT_SYMBOL_GPL(devm_nvmem_device_put);
-  */
- void nvmem_device_put(struct nvmem_device *nvmem)
- {
--	put_device(&nvmem->dev);
- 	module_put(nvmem->owner);
--	kref_put(&nvmem->refcnt, nvmem_device_release);
-+	put_device(&nvmem->dev);
- }
- EXPORT_SYMBOL_GPL(nvmem_device_put);
- 
 diff --git a/drivers/nvmem/internals.h b/drivers/nvmem/internals.h
-index 4e610deeaa7b3ca41404d52b893b1d27b962e985..2c3645a2727270298139dd7b49b81fa0bda58ad5 100644
+index 2c3645a2727270298139dd7b49b81fa0bda58ad5..bc7a99f5aefbffced60d275bec888ac867fd9032 100644
 --- a/drivers/nvmem/internals.h
 +++ b/drivers/nvmem/internals.h
-@@ -19,7 +19,6 @@ struct nvmem_device {
+@@ -6,6 +6,7 @@
+ #include <linux/device.h>
+ #include <linux/nvmem-consumer.h>
+ #include <linux/nvmem-provider.h>
++#include <linux/srcu.h>
+ 
+ /* Hold pointers to callbacks owned by the nvmem provider module. */
+ struct nvmem_operations {
+@@ -16,6 +17,7 @@ struct nvmem_operations {
+ struct nvmem_device {
+ 	struct module		*owner;
+ 	struct device		dev;
++	struct srcu_struct	srcu;
  	int			stride;
  	int			word_size;
  	int			id;
--	struct kref		refcnt;
- 	size_t			size;
- 	bool			read_only;
- 	bool			root_only;
+@@ -33,7 +35,7 @@ struct nvmem_device {
+ 	unsigned int		nkeepout;
+ 	struct gpio_desc	*wp_gpio;
+ 	struct nvmem_layout	*layout;
+-	struct nvmem_operations	*ops;
++	struct nvmem_operations __rcu *ops;
+ 	void *priv;
+ 	bool			sysfs_cells_populated;
+ };
 
 -- 
 2.47.3
