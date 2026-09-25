@@ -1,75 +1,80 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99AD650AC33
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B21F503BCC
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790379660; cv=none; b=B9M7ZebOOTCupJSd+lhKzQ0LALigU6HF5BZ5GRtQaH68VU2lx03BpcrrkK6w3DjaLdJ1G8bH/y3YQLvaRYBThavYJOoxAS0H2uXLaKdFiTtnhPNToWIPaJbsqBeKIRMcs3pIES2A46P/2owkm2d85PlrW7iUCxzHbXwP/20Guek=
+	t=1790379666; cv=none; b=ANb50dzG64CgEhjgkIikdPiZEYfOBVWsuKeIniRP+V+IrIy+1fVUhErC7+aoML2PWakYkhJseYbzTafX79h/KDMaozTTOXe/4LSeF+1aZL629z0gglRPGrBW/Hve84+zEf56C8uCNDI3HOVPqEDgv9bzrgs1GVRIunrQp7/fvio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790379660; c=relaxed/simple;
-	bh=4tn+z6nsdXFypthL0a/NNtlTS+Y/MmhojwgHmh6trfM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=suJRJqJcXEYllkaMfabylJDJQVJ0ySOWPTPAJ9hHma1oT5S9B0nYFkjcftn8r4feU3mw6zpDQuGS3bDZkOBVZcLcinv7x3gHIN+YGmqqbm5acVIPvV37VkxbtPVO6a8/Kdzbvx2MItAdASrrEM2y+DNbpc4RLcIq+fovwfdZhH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mv7d5/vt; arc=none smtp.client-ip=74.125.227.139
+	s=arc-20240116; t=1790379666; c=relaxed/simple;
+	bh=15t9VWkP7QiHkzM8D4lmF0SEX3KKg3AbakmNUHKq74A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V/OXomgDjvrF+PoJmfvu2CUir84ndvrW4aXq4oDcTSddEgRP1HRU9eisWAjJLh9HS48wBADqVfjeD6OI8ERVPRFVYsOsyzgHrT8nQ74qWo/YyByLEdXI0j6EuOLCZ4OOsn1Hwi7H5KDZPsLu3sKqV9op2+EpC2ogPCVedvM3Me8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JBGfGGKb; arc=none smtp.client-ip=74.125.228.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mv7d5/vt"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-3989fdf58bcso116980a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:40:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JBGfGGKb"
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaf2dd01d2so102142a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:41:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790379655; x=1790984455; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y11ObLw8cL2ngxna/hD4dY/8DHB1v3g03JcfX3aXqN8=;
-        b=mv7d5/vtAYGZRxBxafWIrRThvKtuqChqdPRPlGJpKh6maFg+5y0ODcbk/NxrrC4kTp
-         5zbWrslTLN59mJ5jPqEysbB231QTXLR5DTfmHGXAoFMXIMqhBw9qR/ZcngT2H2CGQyWV
-         Nk/05CwxUOeiNc3HMApeloCLw+H6i33gkCBBFoiSl/vecSUbYFobN403TSqa8SAiALhN
-         rprCiXTZ+qZheybOis8datL/i9a4B5x1OROGi6GKtQfG+KA+lCZy9PW4FVw3ssUU9b5V
-         TCMOIv28SRuON97ZQkynaxKdi4d5uGP2jXI3aKKd+p+PbJ8Hmn7lfRVboex9ooPFGl/W
-         MYYw==
+        d=gmail.com; s=20251104; t=1790379663; x=1790984463; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sz8mUo105caQZQgw5WFP5RDz3VaEzvcLBK6zhPp5/Yg=;
+        b=JBGfGGKb/KMjYGQeVBbQV9/dsPBE4lVKl7SCGCmf25j10Di+pjZToC0dp5ULHZvDMU
+         AEaUvS1pPDyFNL/gLeIlJ/HV/iCrnYYU4Gu50fxNTaaNS1W4zTmrinFL+0BuLbp+RrVZ
+         f7ONrUpWjazzo/XNnJW5d9bdJXl/V1eRa+1Eh/PnxblIv+HJRPVYWEhZkpi4DJGCe7Hh
+         //H9DS5ldoZOeWoN210FSKIufTsvuMWleGC6OM8MfycwcPb1LCjGEJqinhJE6QJ7P//A
+         6Kw3ItU1Dq4Z8T9Zm57sJRc6tpUVDOSFsA/EtpsIZT2YLwdApWtalm2Z9mGbBgsRlxI7
+         yYkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790379655; x=1790984455;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y11ObLw8cL2ngxna/hD4dY/8DHB1v3g03JcfX3aXqN8=;
-        b=j2WntMpXcsVU8XHVhz+Bs/LBaKviE9Hqa9al31Dj6Fo6Y5kbnghyyqcqt+GcNCdU+p
-         rLvx/DmUm0kcVh/L4ELzY/HoDNOO82AOCnlQJb+0q4Ve1nv0wtKhrSJoRDm4VodJa2Ws
-         qXnq6Qukl+yHyMqLdCKMPTrDgO2+AdfPO2Ge25Yjg7rQKarjHf8Ezd1Jiz3nfBJg8f/b
-         E5ydvO+/3PZtc9sqVziNyBgreexvrfPT6k/Ca9ZBPD5k0vo/2WJviy/zzC265rgS+f8O
-         qocESNBka8n/JD56dshmNyVViZ5d2KTIb7Zpr9KjB/sD0fI+pJmxGlPmps01ZtMcPr4i
-         /Pjw==
-X-Forwarded-Encrypted: i=1; AKwUvBybEyBhqdmlq+DU5TBWgX6yHGT1AYNjXp06hCbxYL0keCmY9QPdCRAi0UJTp6qK336nNPALqcj1hu0UuHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBfrvLpl+tpAW5z4vp6u3+6ZCN/+OFVWb0fNBWPWYgomB0/MZQ
-	JUvLoRnTAR/iwi6QmNcw+YLdMC8UYvrNJxuW3lpWFTxARDNOFTdegkZv
-X-Gm-Gg: AYBFou0Gr1EsEBeT9i2WOoaO3/QjViZ0tn3hHCTiF83e7iNNhqlOVQBVgNpbGz1Mewp
-	ZgAGqeB9zwaXuXSoU3iyt7rW2CIzeJFSmjchsx7aHwxxHvvsqcIaoiA+mResgZN2WmxYN6EL8bZ
-	dGb0FXJbN67vkBaPbEhKXXFqFzokRSJ9S/ihEcY2uGREY/kv5V253UChmL5MNNUPcvmH43jzspg
-	/dCiKOMgmjnquJOkhQ+fZRjqee5WTGD3j0uqIb7PHILyMJU0Y4DqN4Dh5fVVYK6AHugkgnUvFGs
-	+NRIX7M45iywVmsCxVQ7/K70eUDFiTpY4Gae6xeQRgJU5ibxg6EkTYT7+c9oWcQXoTXMR+QIMPs
-	q4tFE210r6BRupOw8Flv9gnSAJHN/f5MAJxfNo91EXhKtneTQPJaIEY6YjizNhHkkpRaTkVsas9
-	nypdzbHbVS8ga3j2GS6eA7lbkQ42cMbnhjfn6/xCDHjCt4Ngc3aR8hoDdaLB5ZWEi+NiERISZcC
-	ORVQtrdDIuVVYduP37jig==
-X-Received: by 2002:a17:90b:2809:b0:39e:4c7e:bc3 with SMTP id 98e67ed59e1d1-3a0986a46b9mr4536489a91.17.1790379654850;
-        Fri, 25 Sep 2026 16:40:54 -0700 (PDT)
-Received: from pandar.dancher.net ([2409:8a28:881:a300:decd:fb28:f50d:71a1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b94936ddsm6706966a91.7.2026.09.25.16.40.52
+        d=1e100.net; s=20260707; t=1790379663; x=1790984463;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sz8mUo105caQZQgw5WFP5RDz3VaEzvcLBK6zhPp5/Yg=;
+        b=xtpIlEwSc0We80eNdWziSN3We4zvNHrmGBZEL+yjf7nCqeinQq1tA2Fs5hpJ3ypV7X
+         GVW2qW1GK7MqbgwRQJV1dpotwBOET/PEY0kzElIgcKrxXJ3iJfC5fN7GAUIRx7YWcBwa
+         awGpgE3l5AslUq6/yBJGTEsf1U2kvlyMeMvXcI9JF0tcAAq6aOH4L3Yjd8jKAEo/X+vg
+         Og+T9a+U5axcIygJBsJUfKQMGOK0BoAiiX/tnhNGwKqv22ImzmArikQxxedTkr+WYmQu
+         wxsNtG7CXvQmsn5jG0mkDyMYJgKPYMGLj1vBBROPktHkozWaXO0RMpw9ifyEbxU5JRzv
+         n3Mg==
+X-Forwarded-Encrypted: i=1; AKwUvBwFyIACcrt7j810/KRDih0nJmRHXB2hO5lm0CMl4Lq36eoC79W88rcFEGxU0omRgYmjzdpRLs8gFPhuAKc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNUFqqyKeQderq4emBPvQyQti65dz/wcLNaick2hFuEplFHx0c
+	eT03z/DgWyW3PjGGz7h81ggRIhyc+NOrLDpO4AWGaxd5x0oXT2X+GY3q
+X-Gm-Gg: AYBFou0c0ceRTbU7RQvZFhuR4+SAG8dpGDZBmii8ct7ynPr0aA5tNqqg7AZtdICAxno
+	xUX6WhqB8d5nTgpOkxhjHgmEAdbICtRLbEPx0sEnEdP1VfJAraMcQTvtNK3DoSxF1wNIuL0dCnl
+	eVrQDrgkz2qGUa3DoMf+LvXClCeSY232KnawEWn2zqsGb3pyPGcAMJ4l7P9y+/GJ/47ZoyzP6dv
+	gqWQL4ZNp7Of8efkbF35SVCRB5SbJbKxc5dirQ6oghEoEROuCqP7XB8p/ysR6qSlI0P6UCoF9sm
+	ifl+pmR9Nst1Qkkyzc7qfZCTbiRhy+D0/w3e0tW1vbbDaghuhScoFu9CFdhcYgj9byAgU3CfD4g
+	ZxYWQ4o5QCVw4KJFZUIMRMGp3uLcyQKil9A53oYJk59Digy0u2icp4e3A75h3noPGgpfNXtr2Cp
+	heN/2UqoL32hZVLC5oUxY4rMJ9joZ/HEErqCWVyKxaXewi7BPxbTntp8PYiKe6M/ggLF1MH8K9J
+	iEpyZdjYV4qXCoiW23G
+X-Received: by 2002:a17:906:eecb:b0:c2a:f931:3fbb with SMTP id a640c23a62f3a-c2af93145b5mr213354366b.2.1790379663132;
+        Fri, 25 Sep 2026 16:41:03 -0700 (PDT)
+Received: from Nuel20.localdomain ([105.118.3.229])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757b50fsm178813366b.32.2026.09.25.16.41.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 16:40:54 -0700 (PDT)
-From: Cai Yu <caiyu7372@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
+        Fri, 25 Sep 2026 16:41:02 -0700 (PDT)
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+To: peterz@infradead.org,
+	elver@google.com,
+	bvanassche@acm.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 4/4] Bluetooth: hci_intel: download the CcP firmware at 921.6 kbaud
-Date: Sat, 26 Sep 2026 07:40:43 +0800
-Message-ID: <20260925234043.707679-5-caiyu7372@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260925234043.707679-1-caiyu7372@gmail.com>
-References: <20260925234043.707679-1-caiyu7372@gmail.com>
+Cc: corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	mchehab@kernel.org,
+	aleksandr.loktionov@intel.com,
+	kees@kernel.org,
+	emmaonana18@gmail.com,
+	tudor.ambarus@linaro.org
+Subject: [PATCH] docs: kdoc: parse context_lock_struct() as struct declaration
+Date: Sat, 26 Sep 2026 00:40:54 +0100
+Message-ID: <20260925234054.128477-1-emmaonana18@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,92 +83,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The CcP bootloader stops acknowledging firmware fragments when the image
-is transferred at the operating speed of the driver (3 Mbaud): on a
-ThinkPad X1 Fold Gen1 the 801 KB image aborts with a "command 0xfc09 tx
-timeout" after ~4 s at 2 and at 3 Mbaud (3 Mbaud completed only 3 out of
-11 boots), while 921.6 kbaud completed on every boot in 12.5 s (115.2
-kbaud needs 83 s).
+kernel-doc fails to parse struct declarations wrapped in
+context_lock_struct(), e.g. struct debugfs_cancellation:
 
-This is not a baudrate mismatch: the host divisor is exact for all of
-these rates (verified through the clock framework and the dw8250 divisor
-helpers) and short commands are answered correctly at 2 and 3 Mbaud - the
-link loses a frame on long transfers.
+  include/linux/debugfs.h:245 ... error: Cannot parse struct or union!
 
-Switch to 921.6 kbaud for the download and restore init_speed before the
-firmware is started, which is where the operational firmware expects to
-be: this controller does not follow a vendor speed change once its
-firmware is running.
+Add a struct transform that expands context_lock_struct() to a plain
+struct declaration, and apply the struct transforms to the whole
+declaration before split_struct_proto(), matching what dump_var() and
+dump_function() already do for their prototypes. The member-only
+transform in dump_struct() is then redundant.
 
-Speed measurements for the same controller and image:
- 115200 -> 83 s   230400 -> 43 s   921600 -> 12.5 s (5/5)
- 2000000 -> aborts immediately   3000000 -> 3/11
+Add a regression test for the debugfs_cancellation declaration.
 
-Signed-off-by: Cai Yu <caiyu7372@gmail.com>
+Fixes: 6e530e2e3119 ("debugfs: Make debugfs_cancellation a context lock struct")
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
 ---
- drivers/bluetooth/hci_intel.c | 31 ++++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
+ tools/lib/python/kdoc/kdoc_parser.py  | 11 +++++++----
+ tools/lib/python/kdoc/xforms_lists.py |  1 +
+ tools/unittests/test_kdoc_parser.py   | 26 ++++++++++++++++++++++++++
+ 3 files changed, 34 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/bluetooth/hci_intel.c b/drivers/bluetooth/hci_intel.c
-index 5926d1f..41f8e1a 100644
---- a/drivers/bluetooth/hci_intel.c
-+++ b/drivers/bluetooth/hci_intel.c
-@@ -36,6 +36,11 @@
- #define STATE_SUSPENDED		7
- #define STATE_LPM_TRANSACTION	8
- 
-+/* The CcP bootloader cannot transfer the firmware image at the rates the
-+ * driver uses for the operating mode: see the comment in intel_setup().
-+ */
-+#define INTEL_CCP_DOWNLOAD_SPEED	921600
+diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
+index d9ad1ddc87dd..80d4245acd17 100644
+--- a/tools/lib/python/kdoc/kdoc_parser.py
++++ b/tools/lib/python/kdoc/kdoc_parser.py
+@@ -831,6 +831,13 @@ class KernelDoc:
+         #
+         source = source
+         proto = trim_private_members(proto)
 +
- #define HCI_LPM_WAKE_PKT 0xf0
- #define HCI_LPM_PKT 0xf1
- #define HCI_LPM_MAX_SIZE 10
-@@ -539,6 +544,7 @@ static int intel_setup(struct hci_uart *hu)
- 	ktime_t calltime, delta, rettime;
- 	unsigned long long duration;
- 	unsigned int init_speed, oper_speed;
-+	bool download_speed_change = false;
- 	int speed_change = 0;
- 	int err;
++        #
++        # Expand macro-based declarations, like context_lock_struct(),
++        # into a plain struct/union declaration before splitting it,
++        # as dump_var() and dump_function() already do.
++        #
++        proto = self.xforms.apply("struct", proto)
+         struct_parts = self.split_struct_proto(proto)
+         if not struct_parts:
+             self.emit_msg(ln, f"{proto} error: Cannot parse struct or union!")
+@@ -841,10 +848,6 @@ class KernelDoc:
+             self.emit_msg(ln, f"expecting prototype for {decl_type} {self.entry.identifier}. "
+                           f"Prototype was for {decl_type} {declaration_name} instead")
+             return
+-        #
+-        # Go through the list of members applying all of our transformations.
+-        #
+-        members = self.xforms.apply("struct", members)
  
-@@ -652,6 +658,29 @@ static int intel_setup(struct hci_uart *hu)
- 		return -ENODEV;
- 	}
+         #
+         # Deal with embedded struct and union members, and drop enums entirely.
+diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+index e3dda2fe8a53..9f2c750a811b 100644
+--- a/tools/lib/python/kdoc/xforms_lists.py
++++ b/tools/lib/python/kdoc/xforms_lists.py
+@@ -62,6 +62,7 @@ class CTransforms:
+         (CMatch("struct_group_attr"), r"struct { \3+ };"),
+         (CMatch("struct_group_tagged"), r"struct { \3+ };"),
+         (CMatch("__struct_group"), r"struct { \4+ };"),
++        (CMatch("context_lock_struct"), r"struct \1"),
+     ]
  
-+	/* The controller starts in bootloader mode and does not keep its
-+	 * firmware across a power cycle, so the image has to be downloaded on
-+	 * every boot.  This bootloader stops acknowledging firmware fragments
-+	 * when the transfer runs at the operating speed of the driver: on the
-+	 * ThinkPad X1 Fold Gen1 the 801 KB image aborts with a "command 0xfc09
-+	 * tx timeout" after ~4 s at 2 and at 3 Mbaud (3 Mbaud completed only 3
-+	 * out of 11 boots), while 921.6 kbaud completed on every boot in 12.5 s
-+	 * and 115.2 kbaud needs 83 s.  Short commands at the same speeds are
-+	 * answered correctly, so this is not a baudrate mismatch - the link
-+	 * loses a frame on long transfers.
-+	 *
-+	 * Use 921.6 kbaud for the download and restore init_speed before the
-+	 * firmware is started: this controller does not follow a vendor speed
-+	 * change once its firmware is running.
-+	 */
-+	if (hu->serdev && ver.hw_variant == 0x14) {
-+		err = intel_set_baudrate(hu, INTEL_CCP_DOWNLOAD_SPEED);
-+		if (err)
-+			return err;
+     #: Transforms for function prototypes.
+diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
+index c4a76ed13dbc..4baa78ca02b3 100755
+--- a/tools/unittests/test_kdoc_parser.py
++++ b/tools/unittests/test_kdoc_parser.py
+@@ -418,6 +418,32 @@ class TestSelfValidate(GenerateKdocItem):
+         """
+         self.run_test(self.SOURCE, [self.DEFAULT.copy()], self.EXPORTS)
+ 
++class TestContextLockStruct(GenerateKdocItem):
++    def test_context_lock_struct_declaration(self):
++        source = """
++            /**
++             * struct debugfs_cancellation - cancellation data
++             * @list: internal, for keeping track
++             * @cancel: callback to call
++             * @cancel_data: extra data for the callback to call
++             */
++            context_lock_struct(debugfs_cancellation) {
++                struct list_head list;
++                void (*cancel)(struct dentry *, void *);
++                void *cancel_data;
++            };
++        """
 +
-+		download_speed_change = true;
-+	}
++        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
++        patcher = patch('builtins.open', new_callable=mock_open,
++                        read_data=dedent(source))
++        with patcher:
++            _, entries = kernel_doc.parse_kdoc()
 +
- 	/* Read the secure boot parameters to identify the operating
- 	 * details of the bootloader.
- 	 */
-@@ -807,7 +836,7 @@ done:
- 		return err;
- 
- 	/* We need to restore the default speed before Intel reset */
--	if (speed_change) {
-+	if (speed_change || download_speed_change) {
- 		err = intel_set_baudrate(hu, init_speed);
- 		if (err)
- 			return err;
++        self.assertEqual(len(entries), 1)
++        self.assertEqual(entries[0].name, "debugfs_cancellation")
++        self.assertEqual(entries[0].warnings, [])
++
+ #
+ # Class and logic to create dynamic tests from YAML
+ #
+-- 
+2.43.0
+
