@@ -1,130 +1,129 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B4D48D896;
-	Fri, 25 Sep 2026 10:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F5E485505
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331536; cv=none; b=uMZtx/dye9neAhUH9kRg2u5C8A7UIKKWO3SYvFeF4bw4AeGeQLqCklFgw3J+6eV4NiZW1YivCnIyHT62oLtGNu8z9L9dxHkk7EfyTlOImVtrCQ5uXrO8GyR6HeKonG53GOkMt3fCU69JoH3CyCu9dCs7g926cb0qa/EGmESjF+E=
+	t=1790331552; cv=none; b=pD2i95hINKX06v+afiL1E6WfstU58wU1HU8HJTiDyz8p59hWURv7bjWUYYUb8cvmpySl3/CRN+rmx2q8nM2aGJ8MAtS70nSH1SqS6MaUH5zMrz4doIoBR8SGUg8IKnlesxUDTysXYEsmEGiCXwS4B7QobqPVrTHgBtkaZXokQjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331536; c=relaxed/simple;
-	bh=S/utM3sdImddBhCWP9nOtG9Myaz0h7gbm/vUzk5NP0Y=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=fK2SuKxSkWy626iPOMx/KLOC//6TpR7vrCx/K5tKMbMYlVx5YcbFxbHasFkyizL1MTs+zLNUw2uTwsYZ2Jw7S3/lo9Upr+Pic6ZDw6/0wv8zYBGO039pUKbw+ZovsuBZ6fEVbSCGRxbmilRrRdNT3wLSiGmitiBc4luXD1XEeDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KGze+7yT; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790331552; c=relaxed/simple;
+	bh=Vy0BEaJXI/sgJiHnpzCCPocdjuq8/DGs5MXWEPWVMLo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IcnvypGjiU0nNalqhxlGu61/eK2MZoJhWP4bNE6vhf1aRRSUdjrswH6sWRLf//Ujb0jTH5MheYTyzrGu+0Tu0ISJJVXf3SHmHubi4at2UN1CLjW7WLZdFWj+M3X5nC38wFXNvvCADWL4xGw6yMnuBV26JuUdnbDN4t+OysFN7RU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l+ChUMlF; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KGze+7yT"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 0F07EC211D7;
-	Fri, 25 Sep 2026 10:19:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C7F26073B;
-	Fri, 25 Sep 2026 10:18:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 312DC1032950D;
-	Fri, 25 Sep 2026 12:18:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790331530; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=mApBpQp0os5vr24PicEoNzJZQZry7H/S7laJ5tY3XaU=;
-	b=KGze+7yTzC2ZY6N6yVIJmusuIUu9hSelV4KsMoKlaBqEOlEOreXhY2p7qEN1BkL8VHpo5L
-	o1HLNKcMUT+4pHbbpdDlUsZpLZp91+Xxdb77RZHBwwoLmL1OA7Oyw+ATkmPVBBsuRfwXWa
-	/0eMo98+rjfyTMsCRZT+JbeuDwvAbqgOzECFNND5GEt5dwNOUDi+i1TUKgnknt02vuXVh+
-	fFnwhZn7cOOuFHy7c0tKcoSVyuRrEoR7YJlEWHgm30n1YB8wlCUdmBSCtCGtdGAJ/uPFex
-	MFCav7TCGV/ullelpzYMZMn9939pRMMtKSV/eIBs3g6oAd6X62UO5mF90xzNgw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
- <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
-  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
- <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
- <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
- Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
-  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  devicetree@vger.kernel.org,  Jacky Huang
- <ychuang570808@gmail.com>,  stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] clk: nuvoton: ma35d1: Add missing WDT/WWDT
- parent clocks
-In-Reply-To: <20260924-bald-awesome-griffin-7d1d5b@quoll> (Krzysztof
-	Kozlowski's message of "Thu, 24 Sep 2026 15:25:16 +0200")
-References: <20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com>
-	<20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
-	<20260924-bald-awesome-griffin-7d1d5b@quoll>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 25 Sep 2026 12:18:43 +0200
-Message-ID: <87jyo9ljlo.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+ChUMlF"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48881a62e09so163962f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:19:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790331547; x=1790936347; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uzt8qnaNUNgPrBzOLY5U/g5H8B5eMSOss0W//LWBCGk=;
+        b=l+ChUMlF+DbiAK5Nl2eXQbTxXMNm1SZwCWM5/eF/ZoKOoE4qM/S2J6gCDKmOuMesF4
+         W2W0HcTpXxq+t2aJ3a0wRVA11VTmh573Nvv6rmL2XHHTaEAQJeQqy93WrzBGtSacWxbj
+         nm7lylCNFEW81fAfI1Q5lGtPX9+Shbh2ZQFELkvvwRUOJ2yLv5x3VF/gIgmFf048yyov
+         5NjVMuP1pOSbm7HqPJNDp0qPWClTWOKA/iTu/hlFlJhBUAW9X1NWmKqC/4X4nTUl39WR
+         r04fKu+Z80ReW6SS7zNZZ0FDP6rHFgrcdzpzM1IwoxID7i7L9ECvzUb6msU72KcxMBTF
+         5XRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790331547; x=1790936347;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uzt8qnaNUNgPrBzOLY5U/g5H8B5eMSOss0W//LWBCGk=;
+        b=AbN5q9hK5QEwZowSdUtEAaIEnF8zSffLG9EesLL/uXw71YYeQKwNul7ITe8WqNZ6jU
+         WrncvtwnwzX7xJtwJE855uRSc2epePBD2YfV0AJqVNVTzF9qp+qNNWgAHLEN5p6CvzE5
+         Spp1V4vY3w9rT/IrmUDtjwWHRIBUQ5vJLoS182GgyMhxdczsu7zSYE/rSkG73VeTv7Cl
+         iHAtPyYOK8MzNmjIpRiHINakSAr4M1e18q81hgxIrfnxNSe6fIEfgvrootuYxI3hRZ/V
+         /0VJk+EAaJS+U51/BsznhM0jagtAK6veci+zdxGiZ6s2kMdmqw6YUOF2zaFu0J1/3JqJ
+         MMkA==
+X-Forwarded-Encrypted: i=1; AKwUvBymMGBU1AXNXf6cIgJiH/gYPgTnRUaAzEv5Ufrcupq1KfcpwIhVOmFE5sDcvU7FzpA1VfJ4PVs4zmn4jl8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyPQrsZW27pD3Xdfqll+rFALmw00K6gF30t1YAhWQgtgcvT9nu
+	uMgkKE4eCCd+FotgdfO/abBUN8kTN7SIPeiX+V8cVjbrjrHl4/HzXrxx
+X-Gm-Gg: AYBFou1ABh6JHcQq1klerxDo8G7wy1WuHGulJvbMMEyt0LnGv45Fng/bTvj/si97dJ4
+	RbY8pWB0UZKz0t2b25wlXa9V1baSKDptoV7czNDV3NDxAC5CQ5ZrppWRRjtZjSa0yi2e8/HtUCf
+	YYSFR0wFagmHzRcPBmNul8Kv1B3bLi74JQ9gPfwIq6Zd3UwCauHa6soHDIGFeTglYDW3iAMOpTS
+	0FGZBxBTduxRDY2vf7mFfL741Xs9SeAg1y+64XlRwhF4tj0LBxI+yZg1yiriQNYDusaChbQk/UB
+	al8CXRvqCq3cu9mWo/ePv5qJIdwul/8p9rQ9imqM6tdbL/Wwkc9iiOMoHkx+WZpy4UkGDqsRfZ3
+	4SX+rztemTKDT0/QsCoJjr7BD3aqdedcUkqo6GAj1WE0HQMfkjYEs2uCh4+r9DSVBbIcqlmxuep
+	E479oItfMR8GJix5w4e3PIgHr412T7LP69qXbCau8+lwq2UxKtwkkxcmbfyAr48qB2QaEAZued6
+	oL9YGAtD6kcW8zwfRIR2Q==
+X-Received: by 2002:a05:600c:3b84:b0:49f:f099:6f98 with SMTP id 5b1f17b1804b1-49ff09970dcmr34896555e9.20.1790331546908;
+        Fri, 25 Sep 2026 03:19:06 -0700 (PDT)
+Received: from foxbook (bez152.neoplus.adsl.tpnet.pl. [83.28.37.152])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff044406dsm56519475e9.1.2026.09.25.03.19.05
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Fri, 25 Sep 2026 03:19:06 -0700 (PDT)
+Date: Fri, 25 Sep 2026 12:19:02 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Kean Ren <rh_king@163.com>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Mathias Nyman <mathias.nyman@intel.com>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Alan Stern
+ <stern@rowland.harvard.edu>, Griffin Kroah-Hartman <griffin@kroah.com>,
+ Kuen-Han Tsai <khtsai@google.com>, Kees Cook <kees@kernel.org>, Nikhil
+ Solanke <nikhilsolanke5@gmail.com>, Thorsten Blum <blum@kernel.org>
+Subject: Re: [PATCH 1/2] usb: core: hub: recognise two-lane SuperSpeed
+ sublinks as Gen 1x2
+Message-ID: <20260925121902.3d75df9b.michal.pecio@gmail.com>
+In-Reply-To: <arSByjrfc4e9fUr1@vbox>
+References: <20260920025308.2358862-1-rh_king@163.com>
+	<20260920025308.2358862-2-rh_king@163.com>
+	<arSByjrfc4e9fUr1@vbox>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello Krzysztof,
+On Thu, 24 Sep 2026 02:06:12 +0000, Thinh Nguyen wrote:
+> On Sun, Sep 20, 2026, Kean Ren wrote:
+> > get_port_ssp_rate() rejects every matching sublink speed attribute
+> > whose link protocol (LP) is not SuperSpeedPlus by jumping to the
+> > "unknown" exit before it looks at the number of active lanes.
+> > 
+> > USB 3.2 Gen 1x2 runs two SuperSpeed (Gen 1) lanes, so the matching  
+> 
+> Gen 1x2 is SuperSpeed Plus and should use LP = SSP
+> 
+> > sublink entry advertises LP = SuperSpeed while two lanes are in use.
+> > The current code therefore returns USB_SSP_GEN_UNKNOWN for such a
+> > link and the USB core falls back to USB_SPEED_SUPER, reporting 5000
+> > Mbps.
+> > 
+> > Handle the two-lane cases before rejecting non-SuperSpeedPlus
+> > entries: 
+> >   >= 10 Gbps per lane and 2 lanes -> USB_SSP_GEN_2x2
+> >   >=  5 Gbps per lane and 2 lanes -> USB_SSP_GEN_1x2  
+> > 
+> > so that a genuine Gen 1x2 link is reported as 10000 Mbps instead of
+> > 5000 Mbps.
 
->> Reported-by: Jacky Huang <ychuang570808@gmail.com>
->> Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc=
-48795a@gmail.com/
->> Suggested-by: Jacky Huang <ychuang570808@gmail.com>
->> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock co=
-ntroller")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
->> ---
->>  drivers/clk/nuvoton/clk-ma35d1.c               | 2 ++
->>  include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 4 +++-
->
-> Please do not combine patches.
+Was it tested with a genuine Gen 1x2 device? On which hub?
 
-I thought splitting these changes would not make sense in this (=3D a fix)
-case, but fine.
+> > 
+> > Signed-off-by: Kean Ren <rh_king@163.com>  
+> 
+> 
+> Gen 1x2 is a SuperSpeed Plus mode and should advertise LP =
+> USB_SSP_SUBLINK_SPEED_LP_SSP. A controller reporting Gen 1x2 with LP =
+> SuperSpeed is violating the expected encoding.
 
-[...]
+This deals with the bmSublinkSpeedAttr array of hub BOS descriptor.
+For host controller root hubs it's generated by xhci-hub.c.
 
->> @@ -248,6 +248,8 @@
->>  #define ADC_GATE	233
->>  #define EADC_DIV	234
->>  #define EADC_GATE	235
->> -#define	CLK_MAX_IDX	236
->> +#define PCLK3_DIV4096	236
->> +#define PCLK4_DIV4096	237
->> +#define	CLK_MAX_IDX	238
->
-> This cannot be updated. If it has to, then not a binding and should be
-> first dropped from the bindings like we did for most of the platforms
-> having similar issue.
+And I think that the code which generates it already tries to avoid
+setting SS (non-P) in multi-lane speeds, so what triggers this bug?
 
-When you say "This cannot be updated", do we agree that you mean
-"CLK_MAX_IDX cannot be updated"?
-
-I'm not sure I fully understand the reasoning behind, because the whole
-point of defining this CLK_MAX_IDX value is to let drivers know the
-number of clocks, so it must obviously follow the updates in this
-file. I cannot just drop it, the driver does not work without it. If we
-enlarge that number, what is the problem as long as we keep the other
-numbers identical?
-
-Maybe one way to fix that mess is to:
-1- Add the 2 new values (238 and 239) + a new define:
-   NUVOTON_MA35D1_MAX_IDX 240
-   238 would then have two definitions for a short period of time.
-2- Replace CLK_MAX_IDX by NUVOTON_MA35D1_MAX_IDX in the driver
-3- Drop CLK_MAX_IDX in the bindings.
-or
-3bis- Keep CLK_MAX_IDX in the bindings, but add a comment stating that
-      it is a stale definition in step 2. This solution looks horrible
-      :-)
-
-Let me know what is the best way forward here, the goal being to merge
-the big fix that I do care about (currently PATCH 2/3). Fixing the
-missing watchdog clock definition has been asked by Jacky in v1, but I
-will drop this part and keep v1 if it turns out to be too much churn.
-
-Thanks,
-Miqu=C3=A8l
+Regards,
+Michal
