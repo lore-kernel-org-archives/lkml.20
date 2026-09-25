@@ -1,36 +1,33 @@
-Received: from mta0.migadu.com (out-154.mta0.migadu.com [91.218.175.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CE1481233
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:38:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.154
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59C383AFD07;
+	Fri, 25 Sep 2026 09:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790329084; cv=none; b=GG4cGjyJ1qkQBYBgL56mQkrDa7V5ffQum+swu/ngQ/3qzJk+taeTxp9H1fLzyZXL4aJ4Hqmk3QFFPRJq8GaxjBy5TEp70YDtuJX1+hKQ7dqyXIgnBtnMfrHwK9dPxjx241EZWqdBKZXUvGQfM5PqesxC/j7xMRxYvnldOQ34GS8=
+	t=1790329222; cv=none; b=MeXcA6RSGl0DASXFtPt0vZhEKnwR4w5UgAbK3gZJ7QZ+MXj1bGj3quqDjpnquyRb698B4A4EduIq7SavyTw++Rvkq7k5noRXbboyNuIjHeJqow5ZRBpTNSvea0kun2wN5bVpU51dv1DRK3OAx71YDCoP0EFncGujQvtfV7+1P5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790329084; c=relaxed/simple;
-	bh=GVuf0RwGAnGw1eOY1Wiz9rpD1Ddtfsnx5TiLkQhY7AI=;
+	s=arc-20240116; t=1790329222; c=relaxed/simple;
+	bh=way/k1DfToRH5wnKsA1X/p9sWr09PaQ/1o8euvyoZ6c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X5LBrEBr0LwUyU1n0l3i7yAiq6eJtThpF3tMmapkw7c9Gd93BwVgNEtf2K+O+jQdiqqTL78Ci+2JKJmNy9f4zcHLhZ1JeRkEAZ+HIP2Tc98simXGZk9FbKp72cZzXAJ/tNQdgwuPoBLiW/xd/IMPFWKHF3DAY2n7fJp4k7DJZUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IS4Tg+L0; arc=none smtp.client-ip=91.218.175.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=LB9CMoh3J3q3ZseQMSqT3I9c32NO2ImGjQN6tfNb5v8hKCCJhBTC5lv7kFF9bb53daLiKslajdG/HNtHzSytECQnnvgvM7oxvt4/6jssRZSGv0a8zq72QqJ/oBTfDke+ar+9eiEOxQfa4m8haP7NJZ4ONT2vFblq+M4vWU8UdJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oaD0O+9s; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IS4Tg+L0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GVuf0RwGAnGw1eOY1Wiz9rpD1Ddtfsnx5TiLkQhY7AI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790329079; v=1; x=1790933879;
- b=IS4Tg+L0Kzl7QHAiWW4oxb1DHTs04Bp7GVr2vta6iZPcQ4c8LNPlje+dDUHyb+Ol+wnwOAug
- 3p11Z2VaYMKQKaFEHCThYsGNrP1HgA0JOLjWmfYwIeDeTNcnZxcGQWJXSMbd33WkRYjYhLR2/1S
- WyxHpZWeMnTAi6ZAxqIhwrqE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c7f8fb00bf703aa8;
-	Fri, 25 Sep 2026 09:37:59 +0000
-X-Mizu-Trace-ID: c7f8fb00bf703aa8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <840c4c37-99a5-44dd-8b33-67057ee23731@linux.dev>
-Date: Fri, 25 Sep 2026 10:37:55 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oaD0O+9s"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52FF91688;
+	Fri, 25 Sep 2026 02:40:16 -0700 (PDT)
+Received: from [10.57.50.51] (unknown [10.57.50.51])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C476E3F86C;
+	Fri, 25 Sep 2026 02:40:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790329219; bh=way/k1DfToRH5wnKsA1X/p9sWr09PaQ/1o8euvyoZ6c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=oaD0O+9sCcRPh9yBiSXVPhRMluEXfEtIDLDXiRrWza+n7vLPwj72dCAAcC5scpm2X
+	 hXT4r3xL2DEW2clAuLDwoEf1xYTEy+uRQPM19qc9cDPCITDyjGC35Jwwye9kc53XQZ
+	 cf/Fk5UmPQy0nnFCUEHESb9uY977hnZj5/1bX54o=
+Message-ID: <213bc2ba-2ee4-4a89-9054-3bd953546789@arm.com>
+Date: Fri, 25 Sep 2026 10:40:15 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,121 +35,364 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] rhashtable: specialize default comparison for constant
- parameters
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Andrew Morton <akpm@linux-foundation.org>, justinstitt@google.com,
- linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, morbo@google.com, nathan@kernel.org,
- ndesaulniers@google.com, Thomas Graf <tgraf@suug.ch>,
- nickolay.lysenko@gmail.com, peterz@infradead.org, rostedt@goodmis.org,
- sched-ext@lists.linux.dev, tj@kernel.org, yatsenko@meta.com
-References: <20260924184733.2317353-1-usama.arif@linux.dev>
- <arW6ibT1RkVCqTdT@gondor.apana.org.au>
+Subject: Re: [PATCH v3 1/3] ACPI: CPPC: Refactor boost ratio handling
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ =?UTF-8?Q?Rafael_J_=2E_Wysocki_=E2=8F=8E?= <rafael@kernel.org>
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, K Prateek Nayak <kprateek.nayak@amd.com>,
+ x86@kernel.org, Mario Limonciello <mario.limonciello@amd.com>
+References: <20260924160052.2858456-1-superm1@kernel.org>
+ <20260924160052.2858456-2-superm1@kernel.org>
 Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <arW6ibT1RkVCqTdT@gondor.apana.org.au>
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20260924160052.2858456-2-superm1@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On 25/09/2026 01:04, Herbert Xu wrote:
-> On Thu, Sep 24, 2026 at 11:47:33AM -0700, Usama Arif wrote:
->> The inline lookup and insert helpers receive the rhashtable parameters by
->> value. With a static const parameter block, key_offset and key_len are
->> compile-time constants at the call site.
->>
->> The default comparison throws that information away by reading both fields
->> back from ht->p. Fixed-size keys consequently load the parameters and call
->> bcmp() for every object in the bucket, even when the compiler could use
->> scalar comparisons instead.
->>
->> The commit "sched_ext: Specialize the DSQ hashtable compare" [1] resulted
->> in a 2.9x faster DSQ lookup after replacing this path for its u64 key
->> with a scalar comparison. Doing that through obj_cmpfn requires every
->> fixed-key user to provide its own callback.
->>
->> Pass the call-site parameters to rhashtable_compare(), as
->> rht_key_get_hash() already does. Use them when key_len is a compile-time
->> constant. Retain the ht->p path for dynamic parameter blocks. A constant
->> zero key_len continues to take the runtime length from ht->p.key_len.
->>
->> This specializes the default comparison for all fixed-size users. With
->> Clang 22 on x86-64, bcmp() disappears from sched_ext, mac80211, NFSd,
->> TIPC, NFQUEUE, VFS superblock, pidfs, SysV IPC and hardware-breakpoint
->> table paths. The affected build_policy.o, sta_info.o and nfsd filecache.o
->> text shrinks by 512, 400 and 352 bytes respectively. Four- and eight-byte
->> keys become direct scalar comparisons; six-byte MAC addresses become a
->> four-byte and a two-byte comparison.
->>
->> Measure the VFS case with ustat() on a mounted ramfs. This exercises
->> user_get_super() and its super_dev lookup. Across ten interleaved baseline
->> and patched VM boot pairs, with five 3 million call samples per boot, the
->> average per-boot median latency drops from 477.2 to 462.6 ns per call, or
->> 3.0%. All ten pairs improved.
->>
->> No functional change intended.
->>
->> [1] https://lore.kernel.org/all/20260921171928.1639407-1-usama.arif@linux.dev/
->>
->> Suggested-by: Mykola Lysenko <nickolay.lysenko@gmail.com>
->> Signed-off-by: Usama Arif <usama.arif@linux.dev>
->> ---
->>  include/linux/rhashtable.h | 20 +++++++++++++++-----
->>  lib/rhashtable.c           |  5 +++--
->>  2 files changed, 18 insertions(+), 7 deletions(-)
+On 9/24/26 17:00, Mario Limonciello (AMD) wrote:
+> From: Mario Limonciello <mario.limonciello@amd.com>
 > 
-> Nice work, I'm glad that someone is looking at the assembly :)
-
-Hi Herbert,
-
-Thanks!
-
+> Rename amd_get_boost_ratio_numerator() to amd_get_effective_highest_perf()
+> to better reflect that it returns the effective highest performance value
+> for a CPU, accounting for preferred cores and heterogeneous topologies.
 > 
->> diff --git a/include/linux/rhashtable.h b/include/linux/rhashtable.h
->> index 57a2a29bef0e8..c9872965b753c 100644
->> --- a/include/linux/rhashtable.h
->> +++ b/include/linux/rhashtable.h
->> @@ -598,13 +598,23 @@ static inline void rht_assign_unlock(struct bucket_table *tbl,
->>  	for (pos = list; pos && rht_entry(tpos, pos, member);		\
->>  	     pos = rcu_dereference_all(pos->next))
->>  
->> -static inline int rhashtable_compare(struct rhashtable_compare_arg *arg,
->> -				     const void *obj)
->> +/*
->> + * Use constant params from inlined callers to specialize memcmp(). If params
->> + * isn't constant, it must be equal to ht->p.
->> + */
->> +static __always_inline int rhashtable_compare(struct rhashtable_compare_arg *arg,
->> +					      const void *obj,
->> +					      const struct rhashtable_params params)
->>  {
->>  	struct rhashtable *ht = arg->ht;
->>  	const char *ptr = obj;
->>  
->> -	return memcmp(ptr + ht->p.key_offset, arg->key, ht->p.key_len);
->> +	if (!__builtin_constant_p(params.key_len))
->> +		return memcmp(ptr + ht->p.key_offset, arg->key,
->> +			      ht->p.key_len);
->> +
->> +	return memcmp(ptr + params.key_offset, arg->key,
->> +		      params.key_len ? : ht->p.key_len);
+> Add a new helper amd_get_boost_ratio() for doing both for boost
+> ratio calculations and update callers to use it.
 > 
-> If there is no obj_cmpfn then there is no obj_hashfn.  If there
-> is no obj_hashfn then params.key_len must be non-zero.  So this
-> could become unconditional, perhaps with a comment.
+> This refactoring is needed because on some AMD systems (Zen6+),
+> the boost ratio should be calculated from frequency values rather than
+> performance values.
 
-That holds for the params given to rhashtable_init(), but not for the
-params passed to the fast-path helpers. The BPF resizable hashmap
-passes a constant template with no key_len and no obj_cmpfn
-(rhtab_params in kernel/bpf/hashtab.c), and sets key_len only in the
-copy it gives to rhashtable_init(). Without the "?: ht->p.key_len",
-its lookups would memcmp() zero bytes and return the first object in
-the bucket. rht_key_get_hash() has the same fallback for this user,
-see c9429bf56405a. (I added Mykyta the author of that patch in CC.)
+I think I see why you chose to implement it this way (the x86 APERF / MPERF)
+issue, but I'd still prefer it to be spelled out here why this is necessary.
 
 
 > 
-> Thanks,
+> The frequency values will eventually come from the BIOS, but for now
+> use some hardcoded values for Zen6 platforms.
+> 
+> Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  arch/x86/kernel/acpi/cppc.c    | 166 ++++++++++++++++++++++-----------
+>  drivers/cpufreq/acpi-cpufreq.c |   5 +-
+>  drivers/cpufreq/amd-pstate.c   |  14 ++-
+>  include/acpi/cppc_acpi.h       |  14 ++-
+>  4 files changed, 134 insertions(+), 65 deletions(-)
+> 
+> diff --git a/arch/x86/kernel/acpi/cppc.c b/arch/x86/kernel/acpi/cppc.c
+> index d2185b7a20306..1c6bf56c3215b 100644
+> --- a/arch/x86/kernel/acpi/cppc.c
+> +++ b/arch/x86/kernel/acpi/cppc.c
+> @@ -11,6 +11,7 @@
+>  #include <asm/msr.h>
+>  #include <asm/processor.h>
+>  #include <asm/topology.h>
+> +#include <asm/cpu_device_id.h>
+>  
+>  #define CPPC_HIGHEST_PERF_PERFORMANCE	196
+>  #define CPPC_HIGHEST_PERF_PREFCORE	166
+> @@ -95,31 +96,18 @@ int cpc_write_ffh(int cpunum, struct cpc_reg *reg, u64 val)
+>  
+>  static void amd_set_max_freq_ratio(void)
+>  {
+> -	struct cppc_perf_caps perf_caps;
+> -	u64 numerator, nominal_perf;
+> +	u64 numerator, denominator;
+>  	u64 perf_ratio;
+>  	int rc;
+>  
+> -	rc = cppc_get_perf_caps(0, &perf_caps);
+> -	if (rc) {
+> -		pr_debug("Could not retrieve perf counters (%d)\n", rc);
+> -		return;
+> -	}
+> -
+> -	rc = amd_get_boost_ratio_numerator(0, &numerator);
+> +	rc = amd_get_boost_ratio(0, &numerator, &denominator);
+>  	if (rc) {
+> -		pr_debug("Could not retrieve highest performance (%d)\n", rc);
+> -		return;
+> -	}
+> -	nominal_perf = perf_caps.nominal_perf;
+> -
+> -	if (!nominal_perf) {
+> -		pr_debug("Could not retrieve nominal performance\n");
+> +		pr_debug("Could not retrieve boost ratio (%d)\n", rc);
+>  		return;
+>  	}
+>  
+>  	/* midpoint between max_boost and max_P */
+> -	perf_ratio = (div_u64(numerator * SCHED_CAPACITY_SCALE, nominal_perf) + SCHED_CAPACITY_SCALE) >> 1;
+> +	perf_ratio = (div_u64(numerator * SCHED_CAPACITY_SCALE, denominator) + SCHED_CAPACITY_SCALE) >> 1;
+>  
+>  	freq_invariance_set_perf_ratio(perf_ratio, false);
+>  }
+> @@ -239,35 +227,30 @@ int amd_detect_prefcore(bool *detected)
+>  EXPORT_SYMBOL_GPL(amd_detect_prefcore);
+>  
+>  /**
+> - * amd_get_boost_ratio_numerator: Get the numerator to use for boost ratio calculation
+> - * @cpu: CPU to get numerator for.
+> - * @numerator: Output variable for numerator.
+> - *
+> - * Determine the numerator to use for calculating the boost ratio on
+> - * a CPU. On systems that support preferred cores, this will be a hardcoded
+> - * value. On other systems this will the highest performance register value.
+> + * amd_get_effective_highest_perf: Get the effective highest performance value
+> + * @cpu: CPU to get highest performance for.
+>   *
+> - * If booting the system with amd-pstate enabled but preferred cores disabled then
+> - * the correct boost numerator will be returned to match hardware capabilities
+> - * even if the preferred cores scheduling hints are not enabled.
+> + * Get the effective highest performance value for a CPU, accounting for
+> + * preferred cores and heterogeneous topologies. On systems with preferred
+> + * cores, this may be a hardcoded value. On heterogeneous systems, this
+> + * may be a per-CPU value. On other systems, this is the shared highest
+> + * performance value.
+>   *
+> - * Return: 0 for success, negative error code otherwise.
+> + * Return: Effective highest performance value, or negative error code.
+>   */
+> -int amd_get_boost_ratio_numerator(unsigned int cpu, u64 *numerator)
+> +int amd_get_effective_highest_perf(unsigned int cpu)
+>  {
+>  	bool prefcore;
+>  	int ret;
+>  	u32 tmp;
+>  
+>  	ret = amd_detect_prefcore(&prefcore);
+> -	if (ret)
+> +	if (ret < 0)
+>  		return ret;
+>  
+>  	/* without preferred cores, return the highest perf register value */
+> -	if (!prefcore) {
+> -		*numerator = boost_numerator;
+> -		return 0;
+> -	}
+> +	if (!prefcore)
+> +		return boost_numerator;
+>  
+>  	/*
+>  	 * For AMD CPUs with Family ID 19H and Model ID range 0x70 to 0x7f,
+> @@ -277,8 +260,7 @@ int amd_get_boost_ratio_numerator(unsigned int cpu, u64 *numerator)
+>  	if (cpu_feature_enabled(X86_FEATURE_ZEN4)) {
+>  		switch (boot_cpu_data.x86_model) {
+>  		case 0x70 ... 0x7f:
+> -			*numerator = CPPC_HIGHEST_PERF_PERFORMANCE;
+> -			return 0;
+> +			return CPPC_HIGHEST_PERF_PERFORMANCE;
+>  		default:
+>  			break;
+>  		}
+> @@ -286,28 +268,100 @@ int amd_get_boost_ratio_numerator(unsigned int cpu, u64 *numerator)
+>  
+>  	/* detect if running on heterogeneous design */
+>  	if (cpu_feature_enabled(X86_FEATURE_AMD_HTR_CORES)) {
+> -		switch (cpu_data(cpu).topo.cpu_type) {
+> -		case TOPO_CPU_TYPE_UNKNOWN:
+> -		case TOPO_CPU_TYPE_ANY:
+> -			pr_warn("Undefined core type found for cpu %d\n", cpu);
+> -			break;
+> -		case TOPO_CPU_TYPE_PERFORMANCE:
+> -			/* use the max scale for performance cores */
+> -			*numerator = CPPC_HIGHEST_PERF_PERFORMANCE;
+> -			return 0;
+> -		case TOPO_CPU_TYPE_LOW_POWER:
+> -		case TOPO_CPU_TYPE_EFFICIENCY:
+> -			/* use the highest perf value for efficiency and low-power cores */
+> -			ret = amd_get_highest_perf(cpu, &tmp);
+> -			if (ret)
+> -				return ret;
+> -			*numerator = tmp;
+> -			return 0;
+> -		}
+> +		if (cpu_feature_enabled(X86_FEATURE_ZEN5) &&
+> +		    cpu_data(cpu).topo.cpu_type == TOPO_CPU_TYPE_PERFORMANCE)
+> +			return CPPC_HIGHEST_PERF_PERFORMANCE;
+> +
+> +		/* Zen 5 efficiency, and Zen 6+ */
+> +		ret = amd_get_highest_perf(cpu, &tmp);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		return tmp;
+> +	}
+> +
+> +	return CPPC_HIGHEST_PERF_PREFCORE;
+> +}
+> +EXPORT_SYMBOL_GPL(amd_get_effective_highest_perf);
+> +
+> +struct amd_max_freq {
+> +	u32 performance;
+> +	u32 efficiency;
+> +	u32 low_power;
+> +};
+> +
+> +static const struct amd_max_freq max_freq_zen6_client = {
+> +	.performance = 5025,
+> +	.efficiency = 3524,
+> +	.low_power = 2399,
+> +};
+> +
+> +int amd_get_max_frequency(unsigned int cpu)
+> +{
+> +	enum x86_topology_cpu_type type = cpu_data(cpu).topo.cpu_type;
+> +	const struct amd_max_freq *max_freq = NULL;
+> +
+> +	if (cpu_feature_enabled(X86_FEATURE_ZEN6) &&
+> +	    cpu_feature_enabled(X86_FEATURE_AMD_HTR_CORES))
+> +		max_freq = &max_freq_zen6_client;
+> +
+> +	if (!max_freq)
+> +		return 0;
+> +
+> +	switch (type) {
+> +	case TOPO_CPU_TYPE_PERFORMANCE:
+> +		return max_freq->performance;
+> +	case TOPO_CPU_TYPE_EFFICIENCY:
+> +		return max_freq->efficiency;
+> +	case TOPO_CPU_TYPE_LOW_POWER:
+> +		return max_freq->low_power;
+> +	default:
+> +		break;
+>  	}
+>  
+> -	*numerator = CPPC_HIGHEST_PERF_PREFCORE;
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(amd_get_max_frequency);
+> +
+> +/**
+> + * amd_get_boost_ratio: Get numerator and denominator for boost ratio
+> + * @cpu: CPU to get the boost ratio for.
+> + * @numerator: Output variable for numerator.
+> + * @denominator: Output variable for denominator.
+> + *
+> + * Get the numerator and denominator for calculating the boost ratio.
+> + *
+> + * Return: 0 for success, negative error code otherwise.
+> + */
+> +int amd_get_boost_ratio(unsigned int cpu, u64 *numerator, u64 *denominator)
+> +{
+> +	struct cppc_perf_caps perf_caps;
+> +	int max_frequency;
+> +	int ret;
+> +
+> +	ret = cppc_get_perf_caps(cpu, &perf_caps);
+> +	if (ret)
+> +		return ret;
+> +
+> +	max_frequency = amd_get_max_frequency(cpu);
+> +	/* Use frequency values if available */
+> +	if (max_frequency && perf_caps.nominal_freq) {
+> +		*numerator = max_frequency;
+> +		*denominator = perf_caps.nominal_freq;
+> +		return 0;
+> +	}
+> +
+> +	/* Fall back to performance values */
+> +	ret = amd_get_effective_highest_perf(cpu);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	*numerator = ret;
+> +
+> +	*denominator = perf_caps.nominal_perf;
+> +	if (!*denominator)
+> +		return -EINVAL;
+>  
+>  	return 0;
+>  }
+> -EXPORT_SYMBOL_GPL(amd_get_boost_ratio_numerator);
+> +EXPORT_SYMBOL_GPL(amd_get_boost_ratio);
+> diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufreq.c
+> index 10ea6035f4ad6..523ee1a06ef8a 100644
+> --- a/drivers/cpufreq/acpi-cpufreq.c
+> +++ b/drivers/cpufreq/acpi-cpufreq.c
+> @@ -640,12 +640,13 @@ static u64 get_max_boost_ratio(unsigned int cpu, u64 *nominal_freq)
+>  	}
+>  
+>  	if (boot_cpu_data.x86_vendor == X86_VENDOR_AMD) {
+> -		ret = amd_get_boost_ratio_numerator(cpu, &highest_perf);
+> -		if (ret) {
+> +		ret = amd_get_effective_highest_perf(cpu);
+> +		if (ret < 0) {
+>  			pr_debug("CPU%d: Unable to get boost ratio numerator (%d)\n",
+>  				 cpu, ret);
+>  			return 0;
+>  		}
+> +		highest_perf = ret;
+>  	} else {
+>  		highest_perf = perf_caps.highest_perf;
+>  	}
+> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+> index fbccbe86c94d0..496e0342c1c90 100644
+> --- a/drivers/cpufreq/amd-pstate.c
+> +++ b/drivers/cpufreq/amd-pstate.c
+> @@ -555,11 +555,13 @@ static int msr_init_perf(struct amd_cpudata *cpudata)
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = amd_get_boost_ratio_numerator(cpudata->cpu, &numerator);
+> -	if (ret)
+> +	ret = amd_get_effective_highest_perf(cpudata->cpu);
+> +	if (ret < 0)
+>  		return ret;
+>  
+> -	ret = rdmsrq_on_cpu(cpudata->cpu, MSR_AMD_CPPC_REQ, &cppc_req);
+> +	numerator = ret;
+> +
+> +	ret = rdmsrq_safe_on_cpu(cpudata->cpu, MSR_AMD_CPPC_REQ, &cppc_req);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -590,10 +592,12 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = amd_get_boost_ratio_numerator(cpudata->cpu, &numerator);
+> -	if (ret)
+> +	ret = amd_get_effective_highest_perf(cpudata->cpu);
+> +	if (ret < 0)
+>  		return ret;
+>  
+> +	numerator = ret;
+> +
+>  	perf.highest_perf = numerator;
+>  	perf.max_limit_perf = numerator;
+>  	perf.min_limit_perf = cppc_perf.lowest_perf;
+> diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
+> index 3f0005abac648..5bcdb0e553b96 100644
+> --- a/include/acpi/cppc_acpi.h
+> +++ b/include/acpi/cppc_acpi.h
+> @@ -202,7 +202,9 @@ extern int cppc_set_auto_sel(int cpu, bool enable);
+>  extern int cppc_get_perf_limited(int cpu, u64 *perf_limited);
+>  extern int cppc_set_perf_limited(int cpu, u64 bits_to_clear);
+>  extern int amd_get_highest_perf(unsigned int cpu, u32 *highest_perf);
+> -extern int amd_get_boost_ratio_numerator(unsigned int cpu, u64 *numerator);
+> +extern int amd_get_effective_highest_perf(unsigned int cpu);
+> +extern int amd_get_max_frequency(unsigned int cpu);
+> +extern int amd_get_boost_ratio(unsigned int cpu, u64 *numerator, u64 *denominator);
+>  extern int amd_detect_prefcore(bool *detected);
+>  #else /* !CONFIG_ACPI_CPPC_LIB */
+>  static inline int cppc_get_desired_perf(int cpunum, u64 *desired_perf)
+> @@ -321,7 +323,15 @@ static inline int amd_get_highest_perf(unsigned int cpu, u32 *highest_perf)
+>  {
+>  	return -ENODEV;
+>  }
+> -static inline int amd_get_boost_ratio_numerator(unsigned int cpu, u64 *numerator)
+> +static inline int amd_get_effective_highest_perf(unsigned int cpu)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +static inline int amd_get_max_frequency(unsigned int cpu)
+> +{
+> +	return 0;
+> +}
+> +static inline int amd_get_boost_ratio(unsigned int cpu, u64 *numerator, u64 *denominator)
+>  {
+>  	return -EOPNOTSUPP;
+>  }
 
