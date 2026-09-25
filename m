@@ -1,104 +1,149 @@
-Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3167B23EA8B;
-	Fri, 25 Sep 2026 21:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203D43EB810;
+	Fri, 25 Sep 2026 21:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790372959; cv=none; b=u0SKDfj+LNr3atNVR8qFmU4WPL/bMnTKQoBZY1HBD1Ewq+Tgn16lnUhmk+2IyTxsJagm1oxduU3YiO6I7IQtbf6E5FhTYMifm+ComQJeYTXUdM3U1u+630JCDI0n6FKVvZIUbvIFD91vSDCZYxkNLShMn1OrAa3TiD/oKJ+dNmA=
+	t=1790373043; cv=none; b=VTL9/StyOlHLXCiYugKdCRqQ+JZh928dHsdaUNvQH1k9UZD47pcsSsi+TYCVfsSL7iQ7Yuj2Wu9BxKyoXtTv+afTpIx+rL2h3oz4eFw7wSDKvFeV6A751KJWLEpBmUCUu78478Bc4RWn6cRIYZFkmZC/siKnH5EyxL1xY+duNV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790372959; c=relaxed/simple;
-	bh=hhlZW+W++wgzRjYmodjImsJDLmiKfpaNnmOaq4Wn2zA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kWvy+eJhWdiHGNvslYaHwroOK2OpdFi17zeGN3UGB2ef8dLvZD/u7juQCXTHKkmiVG4ee2a6bdR0qkyLXkkDwPhRerqCsVO7kyUv1VmiVHCZHfI9r6MH7dU6Q4B15mYdek0ZFxoF/QpjlC5FdbTJAaCy6OdKvhksFt9zFQXSxmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=uD6eiqSc; arc=none smtp.client-ip=193.104.135.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
+	s=arc-20240116; t=1790373043; c=relaxed/simple;
+	bh=Tv1GknzOiavhEAL+qwhtHJzVBDxy3FdtVb2HrHRPXpk=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Z/TlVe/fWeMwd2QbSwhZy4WHdS8mhNA/jWTIpZe6GovxVC8hvo2osJPr/VzIAmIKbVSi3adDtKIeGRBxh3ARnrivKorUwWNDQV6us5or6XkC6YLYHIhUgJ318TwTB3Jiljj8OqXRbtV3Ft/aYSOLsOBIJvOOHS7jxTEwWyVODO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=JJL1E4UH; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="uD6eiqSc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
-	s=202008; t=1790372389;
-	bh=hhlZW+W++wgzRjYmodjImsJDLmiKfpaNnmOaq4Wn2zA=;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="JJL1E4UH"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6031EBE;
+	Fri, 25 Sep 2026 23:48:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790372930;
+	bh=Tv1GknzOiavhEAL+qwhtHJzVBDxy3FdtVb2HrHRPXpk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=uD6eiqSc+7X30jyY/aMbVa7qf3N8Co2sYrtiAJYNDoDMmkveem7UxQIFuQrcEkDXC
-	 XetmpALiVV813ZjbjBATpJrxRB6n/S0IslRoZGXCSWBYJ7JUuilTOYXKOQ2DytFkjI
-	 6B2j+lKFljuHdKU/d4pEEp9RkMUsUvJjmdL9wJg6xu986gN9KgAE4vp0S1aeNK9Jmb
-	 7HfMUvvkNaDh934MeedKfgzfJxa6D5yhGycsvsoRUMtr6bbBWMzA2YUQuYyGQFOf7e
-	 j79VhfE2chUo99208NiS0yq1bsgX+/YUlMzXQlyavAXqv2xWSFDVvhg6VyztUOzhpN
-	 Be75LVFHLG9jw==
-Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
-	by mail1.fiberby.net (Postfix) with ESMTPSA id A6CF560075;
-	Fri, 25 Sep 2026 21:39:48 +0000 (UTC)
-Received: by x201s (Postfix, from userid 1000)
-	id 40623201C29; Fri, 25 Sep 2026 21:39:21 +0000 (UTC)
-From: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>
-To: netdev@vger.kernel.org
-Cc: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Danielle Ratson <danieller@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Joe Damato <joe@dama.to>,
-	Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-Subject: [PATCH net-next v2 7/9] netlink: specs: nl80211: fix naming of enum members
-Date: Fri, 25 Sep 2026 21:39:10 +0000
-Message-ID: <20260925213918.204767-8-ast@fiberby.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260925213918.204767-1-ast@fiberby.net>
-References: <20260925213918.204767-1-ast@fiberby.net>
+	b=JJL1E4UHXlyRcybG3UO9G/5N58HHVUFRGd+D8wJnyk5XQjdPVFRnWfdE1NfuOlOF8
+	 AFJirjZCk5kOPEqBq7OYhMoVLUsfE5ePZB8h4434kchxzR/2RS42WUaKr2454NO5Dr
+	 vJLkLeTKnkFBpWPnAshh3SF0SQHAQ/l+BiFubdxE=
+Message-ID: <4bedfdf97c0bdcf3ad00020eee7a1eb1@killaraus.ideasonboard.com>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guo Zihao <guozh23@xiaopeng.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Liu Weibin <liuwb@xiaopeng.com>
+Subject: Re: [PATCH v2] media: i2c: thp7312: bound the focus lookup against
+ the table size
+Date: Sat, 26 Sep 2026 00:50:24 +0300
+In-Reply-To: <20260922075246.1319707-1-guozh23@xiaopeng.com>
+References:  <20260922075246.1319707-1-guozh23@xiaopeng.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Use the correct naming for enum members:
+Hello,
 
-- In feature-flags, it's NL80211_FEATURE_ND_RANDOM_MAC_ADDR,
-  so "nd-random-mac-addr", not "no-random-mac-addr".
+This is an automated reply.
 
-- In commands, it's NL80211_CMD_UNEXPECTED_4ADDR_FRAME,
-  so "unexpected-4addr-frame", not "unexpected-4-addr-frame".
+You have sent a patch that appears to have been generated by an LLM. The
+commit message and/or code show little to no real understanding of the
+changes being proposed.
 
-CC: Joe Damato <joe@dama.to>
-CC: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-Reviewed-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Asbjørn Sloth Tønnesen <ast@fiberby.net>
----
-Note for Sashiko/Clashiko: Targeting net-next, so no "Fixes" tag.
+Such patches require a large amount of work to review. They rely on the
+maintainer to propose - and often even implement - a proper design. The
+probability that the author will learn from the experience to improve
+their future contributions is close to zero.
 
- Documentation/netlink/specs/nl80211.yaml | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+As a result, to make good use of maintainer time and keep the kernel
+development process sustainable, your patch has been rejected.
 
-diff --git a/Documentation/netlink/specs/nl80211.yaml b/Documentation/netlink/specs/nl80211.yaml
-index d9fdd66b497e..efc783fb8fdf 100644
---- a/Documentation/netlink/specs/nl80211.yaml
-+++ b/Documentation/netlink/specs/nl80211.yaml
-@@ -97,7 +97,7 @@ definitions:
-       - unexpected-frame
-       - probe-client
-       - register-beacons
--      - unexpected-4-addr-frame
-+      - unexpected-4addr-frame
-       - set-noack-map
-       - ch-switch-notify
-       - start-p2p-device
-@@ -202,7 +202,7 @@ definitions:
-       - tdls-channel-switch
-       - scan-random-mac-addr
-       - sched-scan-random-mac-addr
--      - no-random-mac-addr
-+      - nd-random-mac-addr
-   -
-     name: channel-type
-     type: enum
--- 
-2.55.0
+If you believe the change you proposed is important, take time to study
+the problem, learn, and develop a solution without AI assistance.
+Answering this e-mail or generating a new version of the patch by
+feeding this reply to an LLM will only result in your e-mails being
+ignored.
 
+Please note that if your patch attempted to address an important
+problem, maintainers or other contributors can submit and merge a
+similar or entirely different fix without crediting you.
+
+Your contributions to the Linux kernel will be welcome if you genuinely
+desire to invest your time and learn.
+
+Thank you,
+
+Laurent's mail bot
+
+On Tue, 22 Sep 2026 15:52:46 +0800, Guo Zihao <guozh23@xiaopeng.com> wrote:
+> thp7312_set_focus() indexes thp7312_focus_values[] with the value of the
+> V4L2_CID_FOCUS_ABSOLUTE control:
+>=20
+>         if (thp7312->focus_absolute->is_new) {
+>                 unsigned int value;
+>=20
+>                 value =3D thp7312_focus_values[thp7312->focus_absolute->val=
+];
+>=20
+> The control is registered with the table size as its maximum:
+>=20
+>         v4l2_ctrl_new_std(hdl, &thp7312_ctrl_ops,
+>                           V4L2_CID_FOCUS_ABSOLUTE,
+>                           0, ARRAY_SIZE(thp7312_focus_values),
+>                           1, 0);
+>=20
+> The table has 19 entries, so the valid indices are 0 to 18, but the
+> maximum passed to the control is 19. The control framework does not
+> reject the bound itself for an integer control: std_validate_elem() only
+> rounds the value into [minimum, maximum] through ROUND_TO_RANGE() and
+> returns 0, whereas a menu control returns -ERANGE for a value outside the
+> range. So a value of 19 is accepted and the lookup reads one entry past
+> the end of the array. That value is then written to the sensor through
+> cci_write(THP7312_REG_MANUAL_FOCUS_POSITION).
+>=20
+> Reject a value that is not a valid index before the lookup. The control
+> range is the safer place for the bound, but leaving the lookup guarded
+> keeps the table and its only user consistent with each other; narrowing
+> the control is a follow-up that does not affect this fix.
+>=20
+> No Fixes tag. The table, its registration and the lookup all come from
+> the initial driver import, 7a52ab415b43 ("media: i2c: Add driver for
+> THine THP7312"), and have not been touched since.
+>=20
+> Reviewed-by: Liu Weibin <liuwb@xiaopeng.com>
+> Assisted-by: LLM
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+> ---
+> v2: add the THP7312 maintainers to the recipients, and say that the value
+>     read out of range is written to the sensor.
+>=20
+>     The previous version said the read was of a value next to the table
+>     and left it at that. The read result goes into cci_write() for
+>     THP7312_REG_MANUAL_FOCUS_POSITION, so the description now follows the
+>     value to where it is used.
+>=20
+>     Add the Assisted-by tag.
+> ---
+>  drivers/media/i2c/thp7312.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/media/i2c/thp7312.c b/drivers/media/i2c/thp7312.c
+> index 775cfba18..20698b7a1 100644
+> --- a/drivers/media/i2c/thp7312.c
+> +++ b/drivers/media/i2c/thp7312.c
+> @@ -931,6 +931,11 @@ static int thp7312_set_focus(struct thp7312_device *th=
+p7312)
+>  	if (thp7312->focus_absolute->is_new) {
+>  		unsigned int value;
+> =20
+> +		if (thp7312->focus_absolute->val < 0 ||
+> +		    thp7312->focus_absolute->val >=3D
+> +		    ARRAY_SIZE(thp7312_focus_values))
+> +			return -EINVAL;
+> +
+>  		value =3D thp7312_focus_values[thp7312->focus_absolute->val];
+> =20
+>  		ret =3D cci_write(thp7312->regmap,
