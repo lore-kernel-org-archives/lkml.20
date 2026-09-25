@@ -1,39 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24F14D0A1C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F180E4D37DA
 	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350404; cv=none; b=lLi3I0Ej0j6baZ6+YOG+LIojp4QPr7rQsM10nJoSonCKGdSAqMs/1r2ZCKGxNeE58lvuQKKlsCPqxhXvqvvnvSbF+eyGPS0CHmXGJJYW/9E0X796ctKdGsOhclZ5bnoezqIF24IxT2fHtO2C49sl+wy+0oT1EkNaXp1B43tZlW4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790350404; cv=pass; b=KdY+o74rXUem9rUljDSAQD8/RPTsF0swEWg+5otUpSUUC/j5L26hUz3nmMxtBVxUTnG4/Htnyah06lNzR9qW27cTb3UDmP8AHWsWK2AXWyYm6rJNuhmAG40rUKyoji2DI6uRh97bQwNiFQSKpmk9TNzGOEEFkzDinXq/RvfjfxE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790350404; c=relaxed/simple;
-	bh=jbNVAk+OkDb7djIuHrzYgHW689hWDBX8CwCo7YvnX/o=;
+	bh=BTBoKRsKkhaIY8JcZ9+wHBG7cBrTi6LEsy1fpIQp3fI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=g0t+ebEy6+eze8+vNkivjEcVfKpD/5KZ2GZ9m7RX3YpGOw8799hoAjtvpvC85V7t70dmY1rP1ArBaf9xSxGAECJe/XT9BjL30xkE+fo7ah3PequGQPQwkv8OecNZYdigtgifxLyCH8A7nkWpJnaSIA5B6jBnLH4cfeu6h+RU47g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QJEOptSo; arc=none smtp.client-ip=100.103.45.18
+	 To:Content-Type; b=N4oedeqTFH+OwFtFecD+mJalclelnEGsOHKjqzmz2cHqxtiXAOmSvp4lKwQRHmJWRlNQDdCsFpzws+/FRPi9Ff8kod0H1nP7O8DQLvrHcDTG7UO4XCpS6e8Tcs/oxA3sj8fv8zYLez5guKQCCb4AIeF3myYV7AfwVTPSrOCYg80=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lGd4lK+4; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QJEOptSo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52D721F000FF
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:33:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790350402;
-	bh=46Ao4VjYR8dIxW1+9XEQXLH/O/o/q50obgWXmJ78FCM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QJEOptSoTA53O7Vlu0uIrHHjF0vHyi+PX3kGmaQv0Q7SfbS5tJ9xauoPuV7+fVvkg
-	 cAlP9MFfbCZxUxj+PggCqKIRQPcdOSgGWfG3s42R9xp4QJjaGJq1mtPC3r9VXc741k
-	 O3Pu9HvSmkiFueUO+wHFXRLg0QBclbmb67iWeWuGQhrUHy5k72d+POaqMJvQK3rX7Q
-	 /1X1dyyELzx4Y6pRPLM0FOJizBQiUuvqobhqlSwp3UKR5dbKyFzYPiu382ZI0k3dGN
-	 cUGMbKA5z6EtonXI+qJAyl2BEPbqKLOudqj/ciDxMuI4xTGEJg2go2Lw9c6FRhFmn/
-	 bDb1VV/q7t10A==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5d0ad9b89so8435961fa.2
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lGd4lK+4"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53113d72966so257341cf.1
         for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:33:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw7kblD5sqvqSXivyo7+yJsdrUMg3UU0LIlrLixLr4Y0I9iMRFJ9f7ayopsxMg0vMHvEFd7g2MgfbweFZc=@vger.kernel.org
-X-Gm-Message-State: AFuF++khyiiLP0nSMsxAq0EqawLqf0vzX+QYsgyBs0oCOBAScUAaOAQI
-	ACtKoJMCh0YT3XaiTCM6apEJnQKd0J00HNz4Dlcs0AqRevC8lHutbSsm/uWRqQgqQ/yCQEBbH+K
-	0rLbFWtazCU+TPW3IZ46mzvrdA2lmelU=
-X-Received: by 2002:a2e:be11:0:b0:3a3:2ff2:f818 with SMTP id
- 38308e7fff4ca-3a63c30cc59mr17816311fa.13.1790350400829; Fri, 25 Sep 2026
+ARC-Seal: i=1; a=rsa-sha256; t=1790350401; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YuY8XXYovjTr2znWlHPOV4qpmm+mp2aoTvJkmcqFXWyXq0a0zURVE3mfJ3HOYyVh/G
+         gsNye1z0yxK5f5KlFkubSLNcgJe+rie30mYFD+dQzcFTRwSviFgG+Cnd8bzJKhj9+xcE
+         wKoYTtGVNEVW8WyZ38CyvazBvRAg/g9SISJ4ctEAIlMK665GkyqN/HZtJoVAmK9b12GR
+         wLh8Mt/yYDJrkAMIEDO5ZY49DSqzX/ogBm0z7HOaB+SS3Uka32cfWccD2EljG4M5eH4z
+         tQ3L9M7QvBhCswwZ8y/nidSln2HumasZrijLlwVP8LomBoyhGm4lWBfC+i4rAU6SOk86
+         jM1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WspHH2q7IdJFzP5Ho9Zej6L2+bb6vQF0pB8bvL5RAhc=;
+        fh=5D4TFoPmoLn+DI4Z76npnNuu7sKkIg75tSmZlXRW4HY=;
+        b=i2rCplU3BKiaCCfxMCa8oRU/S0+GScEhjUmzrhVfT/rNoUT/ggAwtP10sQOcf8fbwe
+         7R05MchoU1j0E1tzXYDp/W/aQV4QaBz3biYOLfSsUF6775h//HMm+bT9ZWg0nbedX6SV
+         PaOPa4u6dmepqK3ELNVDGGbhjxY95u+GcjiFwPKKaZmMY2X8argmkhWttPF57UMChgf7
+         vJ+oKQDmcN+r6Eh6sQ+cwKlzPasjQwm0b+YzatmwCnbjhJnX/bu3a+I0lVqd8o5Ta7Ig
+         97RgkuSht3cibJfv8lXsSza01qVjlUylF+TT73WH/QAYEvcbPRSPy5P2zbWBnZjMVV0C
+         u/XQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790350401; x=1790955201; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WspHH2q7IdJFzP5Ho9Zej6L2+bb6vQF0pB8bvL5RAhc=;
+        b=lGd4lK+4BX/8Yrv+Y7eiHIFRENOEpbaL+HKEKgp0EU+yA2D8leochMbqvEwoere5AA
+         Wv5NEKhwgzcaG0x7mWIaWZY4b3LKMxWQOdtGXTs+iLBiOXRJtYxObQ9LEVyaRR7U+gYB
+         laRj8fxpY20QLVCo8m4hc2Q1hR5MgKCKNU1Swgzv9uGs/064GNXwtAdwoDWNv1F/jFI9
+         bXiHW1WFxzoRcjJq+YWdeuJ1kQZ5q1TibJ7LY3Sfq9NaFEiNO7jR0sCTu8CuMZuf/ldU
+         P4N/8i7oOn6NUcfhUnTop344v1F0WSIrUo2DFojX5Il2ACHDs7VpEaFWjOzGQETa2f4/
+         KmRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790350401; x=1790955201;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WspHH2q7IdJFzP5Ho9Zej6L2+bb6vQF0pB8bvL5RAhc=;
+        b=Vb0eh57fNgSnWwkQ4+m8eVHmTY8D9mEgjexH+s+dRdL5anHVwtinl2IqRNxMW/kO5J
+         rNa322kBKMJgcRtHHH8yNvhoEseIHIHQEbahhayPi2vkgu73VLgmiFRTpcrXelScG/wc
+         8lMJBDRiZm/QrZb5ii4CgNgg1lCu21xF+aJG3NtY+Vt/6KdsKYpmFfZhdPY9BMHmrf2S
+         +k9yG6T5hKnZN4eNGyJvX3sXOTQiuY0H6+qCdwyBQJrdhc8xgKgNy3UwNYEb53scHoUH
+         VOAmj9rfIRrzLjBD5aFO3L6TqPcQBUvn/oScQKG/dwsEukWUMzJHuTp0mBXoFecYlPWi
+         +qQQ==
+X-Forwarded-Encrypted: i=1; AKwUvByMtCWyEchO3Gd13E15j1J5/clJ83S4vVm1OHWBKpLiJJdC3dv9lX7h/BaxxkL7+R5tjArTWvgHx3OwSK0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lr4GUBQQdJEASNUgh4Jmh0xXFRYnZr1zUTw2pTvOI0OxH0rZAL
+	dF6M0M1KFdG+E3ZDdyKKJmdwpwOdOTXfCUcGu2EmsLmXJomdwmnHG696n9pvIdunw6IoW22y7sa
+	Alrzt/1Qm/+XLuFgMYURpiG2Od06nf77yXOvFRONS
+X-Gm-Gg: AYBFou1T0poGN8pqR2RqW4AaswSIdi4C0Toygq6gkAFtBiwA/UzBaFPSGE9F3Pd8NTf
+	lSCsmFLrt2eYdXVIZuqshAjIl9J8sCFEWruP8cMbQkHMeeMMNepXMkQ7y/+AogJTriq4zgfeHOO
+	dA6maeVwXHlo3BoJ8J+2+MGghfdE3rtO66TK8faX3qx2A8fqJBsR1y5d5ygF57XOJX/DaggZn0G
+	AdVoVwCfEKSVhtnQV8KHrHiCpdNwuxHQk1hO244tkRRuo3lbmi8cDQTAoux5lkgIOPBNEGQA7BM
+	SBzd8y19vp32jAJhl5LmCn96ogCy+ZHdMQwgvHob3/QFPmXBISkr6o+rlRPZciNmYJ61tPsnakZ
+	t+oUJg2/E6Q==
+X-Received: by 2002:a05:622a:11c4:b0:532:9003:35b1 with SMTP id
+ d75a77b69052e-5331a787127mr4656621cf.2.1790350400731; Fri, 25 Sep 2026
  08:33:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -41,55 +82,61 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <12985239.O9o76ZdvQC@rafael.j.wysocki> <DLOD6E6L35CN.KDDA9DEG9WP0@kernel.org>
-In-Reply-To: <DLOD6E6L35CN.KDDA9DEG9WP0@kernel.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 25 Sep 2026 17:31:43 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iVCs8qtfHcT9ZMEVSzjPVQqaLPpP3HXuFVWUy72nPwXQ@mail.gmail.com>
-X-Gm-Features: AclHuK_BTeX0TEHJmDgkOdFgecHf8SrpoMQgEO6UlwU0dLvUHLE7J3ttsfhnS-o
-Message-ID: <CAJZ5v0iVCs8qtfHcT9ZMEVSzjPVQqaLPpP3HXuFVWUy72nPwXQ@mail.gmail.com>
-Subject: Re: [PATCH v3] driver core/ACPI: Introduce companion_bus_register()
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Linux Driver Core Development <driver-core@lists.linux.dev>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, Michael Kelley <mhklinux@outlook.com>, 
-	Hyper-V List <linux-hyperv@vger.kernel.org>
+References: <20260917061312.820074-1-irogers@google.com>
+In-Reply-To: <20260917061312.820074-1-irogers@google.com>
+From: Ian Rogers <irogers@google.com>
+Date: Fri, 25 Sep 2026 08:33:08 -0700
+X-Gm-Features: AclHuK9bHrGPf8FuyoHNYaQY6jmF3U-YBLL6uatLtXIzCa91FydxfPvQBlHCV1k
+Message-ID: <CAP-5=fW36Momg+N_P4vU08Pd_t+8PGK_-KfEn9HZjLPM4UO8nA@mail.gmail.com>
+Subject: Re: [PATCH v1] perf test: stat metrics cgroup strip possible slash
+ from cgroup name
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 1:34=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
+On Wed, Sep 16, 2026 at 11:13=E2=80=AFPM Ian Rogers <irogers@google.com> wr=
+ote:
 >
-> On Fri Sep 25, 2026 at 11:23 AM CEST, Rafael J. Wysocki wrote:
-> > From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> >
-> > The ACPI bus type does not allow drivers to be matched to devices, so
-> > the sysfs attributes related to drivers created for it are useless and
-> > their existence is confusing.
-> >
-> > Moreover, it is better to prevent drivers from being registered and
-> > looked up for a bus like that.
-> >
-> > To allow skipping the creation of those sysfs attributes and preventing
-> > driver registration and lookup for the ACPI bus type, introduce a
-> > "companion" bus type concept and add a special registration function
-> > for registering "companion" bus types, companion_bus_register().
-> >
-> > The "drivers" directory under the ACPI bus type is still needed because
-> > there are versions of systemd that depend on it [1].
+> The grep to match cgroup name in metric output assumes no leading / on
+> the cgroup name, however, cgroups in /proc/self/cgroup may have a
+> leading /. Strip the / if it exists to avoid failures to match the
+> cgroup name in the perf stat output.
 >
-> Maybe we should also add a brief note above kset_create_and_add("drivers"=
-, ...)
-> why we retain the directory even if !use_drivers.
+> Signed-off-by: Ian Rogers <irogers@google.com>
 
-Yeah, won't hurt.  I'll add one, or somebody will try to "fix" it in the fu=
-ture.
+Ping.
 
-> > Link: https://lore.kernel.org/linux-acpi/SN6PR02MB41575266A4580339E186E=
-5D9D4812@SN6PR02MB4157.namprd02.prod.outlook.com/ [1]
-> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Thanks,
+Ian
+
+> ---
+>  tools/perf/tests/shell/stat_metrics_cgrp.sh | 7 +++++++
+>  1 file changed, 7 insertions(+)
 >
-> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
-
-Thanks!
+> diff --git a/tools/perf/tests/shell/stat_metrics_cgrp.sh b/tools/perf/tes=
+ts/shell/stat_metrics_cgrp.sh
+> index d4226ee0ae98..0728f48f21fa 100755
+> --- a/tools/perf/tests/shell/stat_metrics_cgrp.sh
+> +++ b/tools/perf/tests/shell/stat_metrics_cgrp.sh
+> @@ -86,6 +86,13 @@ check_metric_reported()
+>
+>         for cgrp in "${cgrps[@]}"; do
+>                 # Find metric lines for this cgroup
+> +               case "$cgrp" in
+> +                       /)  # The root cgroup, leave unchanged.
+> +                         ;;
+> +                       /*) # Strip any starting slashes.
+> +                         cgrp=3D"${cgrp#/}"
+> +                         ;;
+> +               esac
+>                 # We use exact cgroup match with surrounding commas
+>                 local cgrp_lines
+>                 cgrp_lines=3D$(echo "${output}" | grep -F ",${cgrp}," | g=
+rep "insn_per_cycle" || true)
+> --
+> 2.55.0.1082.g2b9226bbc0-goog
+>
