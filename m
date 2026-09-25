@@ -1,155 +1,315 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6737496D49
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF9A486408;
+	Fri, 25 Sep 2026 13:17:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.66.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342234; cv=none; b=ZLlpoDlBkTmZkL95qCHe8+kmc2WP5EQIuddhMfxWaw95IKi/Br7QVV5y46ANSMldGDHRE2geDDwcXNjUJ+CrmcOOD1PdQU1UHAK7TaKjfFzkCwgwyWRDR0zCBa6AZntCRuMap64vbfClz3dosBZW3WIqxDnmK90foTdZsZmvWmo=
+	t=1790342235; cv=none; b=rPkmXELjudI02uwFSgdWuwG0Kp38KqLHb9RNUXkc+T9S7LJlaI4zpa5pdYUP4xiAbjVSc5NgD6BBEIOoZSPQbaQpkJ2NJjBlI5rxaK26XXzArrB6nlqWvv44JzuWUCztcCvHfyYqcSR8FaskCgzCMALOigW6vMKKuRAfwLiURXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342234; c=relaxed/simple;
-	bh=zDaaCC/jLOIWcnflHQlHeEjB6WL5lOGO6nUa7LjxF7Q=;
+	s=arc-20240116; t=1790342235; c=relaxed/simple;
+	bh=PraEMBeYHzwBtevYXhd6+xSGYfKbug2HtVBz83AI5NU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O8sg6OLfZAg4k5A3MrJNB2cqKBbq+fI+7gIQWoycJRSUiiULSePn5LyhdtBf+tnkmoNAzMw8nqDbzqPFUyjYL8TQNicLwwUHf9OpGmo2Ao9iIMOFPIQBfGfmYGDXKiFOVWxn0ibfAl6vLmzRyZh3DJXBfWcVLGHK3sR7+aE5SAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PC94QTS8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EkghJ1rg; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=hwiAjYUZzGNVExYPe0UA90vQTpHXaAufOmcqsCGxrllTaiLeMLCYxpBLBUn2dfJa35ps3JuRyiEmht1npGlYABDnARqPGjDKKGnfBEtc1Vx8HxbpCfujhVJtwETF4Lx90goJWnB+x3MSDa/o8B3hFsnJ8KgCovB1lrzd/V0zOvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com; spf=unknown smtp.mailfrom=hallyn.com; dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b=bkvhaH2g; arc=none smtp.client-ip=178.63.66.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=tempfail smtp.mailfrom=hallyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PC94QTS8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EkghJ1rg"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P5J33M756734
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:16:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=YgTkQRn9Jl78hxcy8EjhxfN7
-	hIYcFJc0FMzXtgfR1Ok=; b=PC94QTS8MLGJJcGpAeJDGmSZ7L38HLKgyvREdhLy
-	K0jDy8DigbalKUVUPNmoeg7DDFpxsrvRCZeNMLOE9+wlatE5JccvdRNsXPrILZmp
-	8uhuV4wP5Zj5aM7rkLOqIsUWzZT6VVu+SRriDw/P4bCnsHuzWh1iSH1jylgpXU0h
-	xR05qnFnPuVi+6SWgaYVONwDDmroSchzyLZNehQZeFU4Q2UCjqqALq3pVYSSjYAv
-	StH89nFhEtW9DqLS/HJRSG28r342YFTp+wBuR9jApkxrIt45FhamFkNCiJfz7amA
-	xVW/IHrNVzHKF6HEe7p63qD6LRBrOv6acwR2REeiJ5v0qA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwjq09eyk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:16:58 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-791463ed29dso740494137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:16:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790342218; x=1790947018; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YgTkQRn9Jl78hxcy8EjhxfN7hIYcFJc0FMzXtgfR1Ok=;
-        b=EkghJ1rgi+hcCeQrbA59uF4aqucRTRoWhcEw+qdUOt/g7ZY3xbPfdI4xmLTkxEFzkG
-         7bDk9ZHzEJqzdaUc0FZ1xff1PWFir1hwJ87BPpv/kI6EBcRgItreF6cdoOia+fECwxzC
-         7QjLgA7QRP54ioywiE9k96V52zpMTOxH0oyeXwmDqs9E1YnVV/jNCFv+4ImarYHDEnsT
-         M9+dPhEZiMKhmv77mHgqppQZQMpDNln1dOvpIwTaU4jcA7O6J3t4rwhqdXGXwiwfQTbu
-         yV9QvMuPiveOOlE6mwNwQkKAMjocA6OktKx0o1mn5UQtIvRH+xu/Pb+s13FleIqWPFtE
-         vSNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790342218; x=1790947018;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YgTkQRn9Jl78hxcy8EjhxfN7hIYcFJc0FMzXtgfR1Ok=;
-        b=VaUVPijG3RdbI6YyH6YyAmhO1zqNbnxxwah1aPUUdIzeGvbWj9Q36ugFNowQ8isnc1
-         0qM+ZLoj5krrNx73Y9L/C7Ic9Uj1UFEK5gWZzFDcuYKbCxWjiVDAbJbRMxKpC8hjRMUA
-         rxnz2GQt2zYMAaolD6gCRyLL51+GwatJHohXy1MsL0JDn6rTS84MS+0NBskT4i9Co02y
-         TUVZ2Wba2VRmHEK1oFeQr+42svU4EFMX+uJ8e+YiJZY1OClQnAqm8Flxj1dFkY6c4JaP
-         ZKLdyVyLapUxoR1NwrMbXoVGCX/8MT1jUm3W0Gi71xwTVucUyG9HeE/K9qlnwSMd9RPn
-         +aDw==
-X-Forwarded-Encrypted: i=1; AKwUvBx7DDB2tE4JGiljDIU0vtgXIPVASI+lucAgatlwK7HhoucegB94TO/t+dCqGdMHnTktfSevvsa/9NXpLgw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuBGM3x/OhtuYeDjXeQWOdd/9mgN84wM7R8vmiw7dZOaNxx3Sn
-	onMu3wvvQ5v0D0TjQK/22KMqvXlKSgNiJEpRZ3pFKeVKcCgDEjNRXQJjIU2QEMsQS/CEeFUbazR
-	uosPUYZtvb/G1WYjdKJGdUqUBvhEyc8NWsRlU8YR/vM3x2MWpdC3hMVKQV5rmC36GDdg=
-X-Gm-Gg: AYBFou34fVyXgPeq58rWMrmL4fPIMZTJV0p53p2pYflLaqCkXhy1U8BMAEuWOFKEcth
-	LBtlvcuwBChsiTlWGL/KqAfIK4phBogEFlgbqG8NvIn3V5M6e6UafCnB4AkhPO5cC1vzHUc5/B0
-	gNp231FWduM2qzhLX8Z5sD/wLlGDzJ+yKLaLKu17XJGEP3rwtkXQ/QI7SyDktRltgMvFd7QzX1J
-	CChUdjtHqUxlXp6Ygk4cIay+z0LTWRfJhCoTTYtjJ7ARqcpMEfnVpm44xTMtUL8RIeoCdIm/RDt
-	qnL6dziagfOxPFjUNFuEMAfCX/N2A/oajy1HAcmP6MKByBTROQfaOYuAkn55LShlHWUWEiWpGeZ
-	TXMY/tFkbze4Qd8KSt9Twdij+pugNRrJac9N2cFgB8A4TN6fi1q8cqOuKbqzW0ptSXcZTy/A8Fy
-	X40sQtJcN54nVz
-X-Received: by 2002:a05:6102:8092:b0:7a1:3d97:fa91 with SMTP id ada2fe7eead31-7af1b96bb69mr2644363137.4.1790342218115;
-        Fri, 25 Sep 2026 06:16:58 -0700 (PDT)
-X-Received: by 2002:a05:6102:8092:b0:7a1:3d97:fa91 with SMTP id ada2fe7eead31-7af1b96bb69mr2644341137.4.1790342217568;
-        Fri, 25 Sep 2026 06:16:57 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8e6af1318sm546173e87.35.2026.09.25.06.16.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 06:16:56 -0700 (PDT)
-Date: Fri, 25 Sep 2026 16:16:54 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Oleg Keri <okerixx@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dp: don't report link training success after a
- reinit
-Message-ID: <abnzr3ksgpndanmbra57px2daapzztxuqnar6jfvdhmgf5ff6s@jrvxv3gnz7o3>
-References: <20260925125314.16563-1-okerixx@gmail.com>
+	dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b="bkvhaH2g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
+	t=1790342221; bh=PraEMBeYHzwBtevYXhd6+xSGYfKbug2HtVBz83AI5NU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bkvhaH2gApqNJslCd+Cf4aVV38GRS+F0/3r21c2+mvlgG7RO6QLEnctvc5g70wXsI
+	 Zjv3B1Xn2dt9kaxG2Vt+xPy5AXKjraO5hhb7iZUJrvv9e6opdyUsAN7wacQkEpk6E8
+	 5kawk2O2ONyRNJGDvV/ct1aEAIJWtH7e0mfV/yk+KI96e+8fxhrJNkNqzy4Fv6tMRS
+	 o3auJguqZG/fEkNKpN7AekdCqoE+u5rP+1VhQUR7H31kujEyhIFPhbcOrPii+5lfOH
+	 HPXdFNufkv3oDPPQz4eB0xo7xFexMPzcQc7pgLpqI/Tpamdrxw8fjfX+e66JSxXHnc
+	 PJ+Pj2Fhl+2mQ==
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+	id 3FFDB277; Fri, 25 Sep 2026 08:17:01 -0500 (CDT)
+Date: Fri, 25 Sep 2026 08:17:01 -0500
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: "Andrew G. Morgan" <morgan@kernel.org>, paul@paul-moore.com,
+	jmorris@namei.org, pjw@kernel.org, tglx@kernel.org,
+	peterz@infradead.org, debug@rivosinc.com, broonie@kernel.org,
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
+Subject: Re: [RFC PATCH] security: Allow dropping bounding set process-wide
+Message-ID: <arZ0TfXSLjmDtyRy@hallyn.com>
+References: <20260922095816.1191799-1-ruanjinjie@huawei.com>
+ <arK0cT7CGb3Khy69@hallyn.com>
+ <7f0c935f-2c3f-4511-924f-822c3acf93da@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260925125314.16563-1-okerixx@gmail.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1MiBTYWx0ZWRfX3nI/og6VtTFS
- HBRQ4vq9ZjSHJVP0pOzkRE+e2MlAE+Gf9p2RxAj9Ed2LJGBGNW0w3jvz2XmSPU7W7NfHxA9+/tH
- n8+oQz6MJeFwgvVjkEhJJ1O6r30aQCs=
-X-Proofpoint-GUID: FPa0q6w4-_-FLpfr5gx_u7tmXgmXh_hx
-X-Proofpoint-ORIG-GUID: FPa0q6w4-_-FLpfr5gx_u7tmXgmXh_hx
-X-Authority-Analysis: v=2.4 cv=LNPz05W9 c=1 sm=1 tr=0 ts=6ab6744a cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=m9j_GCGoi3mryc8sS7EA:9 a=CjuIK1q_8ugA:10 a=ZXulRonScM0A:10
- a=zZCYzV9kfG8A:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1MiBTYWx0ZWRfX47nR1LN4HPht
- F4MEQkvHrRpRQLZilC5mLyNtmk4KZtee3y5xY64bN/SNbL7StSSEhc+GWno4fz34FDGrHkbLCDd
- VmvVlkR7W0Py00uT1toYWvsgvkMRpGE6UmvuX13iy2lv6/M3Pwirl6+DKsjcwza2iWN26JkB1TX
- b1PMstp3GxOdqEcXjfME9huTs5eEKggeppexHA7ZYjUCs+InaQWqNSFx1Ez9L0m6I62okuJCpUU
- SHAY9LKp9V3sOCC8kE+Fpm+lwh2afKNe9za2oAzpP9cSuaP8LJ5hGD/xGb099TiwTpYYI5XjxqC
- 0ZFDM9joMRay/4WF8/pQgVLEYqCoo7SyOF+yNMhoTuCw5yDFd+8CuAwJmuNfjJw+uOzgCy0mMuj
- d+smBD5YrfB7TZ/ZYFDvE0YQ7BzSKaVdJAPY480lP2MQTpFpZGXbdyKlEqVGdILu/sWA9jJpTz5
- msXSvcRxisyfjnjT06A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250052
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7f0c935f-2c3f-4511-924f-822c3acf93da@huawei.com>
 
-On Fri, Sep 25, 2026 at 02:53:14PM +0200, Oleg Keri wrote:
-> When every training attempt fails, the retry loop in
-> msm_dp_ctrl_on_link() ends on a successful
-> msm_dp_ctrl_reinitialize_mainlink(), leaving rc at 0. The caller then
-> enables the stream on an untrained link and the display stays dark.
+On Thu, Sep 24, 2026 at 04:05:59PM +0800, Jinjie Ruan wrote:
 > 
-> The retry counter only reaches zero in that case, so treat it as a
-> training failure.
 > 
-> Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
-> Signed-off-by: Oleg Keri <okerixx@gmail.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 3 +++
->  1 file changed, 3 insertions(+)
+> 在 2026/9/23 1:01, Serge E. Hallyn 写道:
+> > On Tue, Sep 22, 2026 at 05:58:16PM +0800, Jinjie Ruan wrote:
+> >> The capability bounding set is per-thread: PR_CAPBSET_DROP only affects
+> >> the calling thread, since its bounding set lives in the per-task struct
+> >> cred.  User space that wants to drop capabilities for a whole process
+> >> must therefore invoke PR_CAPBSET_DROP once per capability per thread,
+> >> which on a many-threaded process is expensive, and from a Go runtime
+> >> requires stopping the world and signalling every thread.
+> >>
+> >> Add PR_CAPBSET_DROP_MASK, an opt-in prctl that removes a set of
+> >> capabilities, given as a 64-bit mask in arg2 (low 32 bits) and arg3
+> >> (high 32 bits), from the bounding set of every thread of the calling
+> >> thread group in a single call.
+> >>
+> >> The calling thread drops the capabilities synchronously, last; every
+> >> sibling that still holds any of them is asked to drop them through a
+> >> task_work item, so that it applies the drop in its own context.  This
+> >> avoids racing with a sibling's concurrent credential updates such as
+> >> setuid() or capset().  The call does not wait for the siblings: a
+> >> sibling may be parked in a wait that is not woken by TIF_NOTIFY_SIGNAL
+> >> (e.g. futex), so waiting could block for an unbounded time.  This is
+> >> still safe, because TIF_NOTIFY_SIGNAL is handled on the way out to user
+> >> mode, so a sibling applies the drop before executing any further
+> >> userspace code.  It does not synchronize against a sibling that is
+> >> concurrently creating threads, so callers must keep the thread group
+> >> quiescent while dropping.
+> >>
+> >> Measured with gVisor's "bounding set trimmed" boot phase on an arm64 KVM
+> >> guest (medians over repeated boots):
+> >>   - 8 vCPUs:  ~1.6ms  -> ~0.10ms
+> >>   - 32 vCPUs: ~3.5ms  -> ~0.11ms
+> >>   - 64 vCPUs: ~10.1ms -> ~0.1-0.6ms
+> >>   - cost goes from O(capabilities * threads) stop-the-world prctls to a
+> >>     single thread-group walk.
+> > 
+> > That is impressive, but please do detail the specific use case where
+> > you need to drop from the bounding set after the go scheduler has started.
+> > I can imagine some cases where you need to do some early setup and then
+> > want to drop privileges, but you could also do that by re-exec'ing, so
+> > I'd like to hear specifics.
 > 
+> Hi Serge,
+> 
+> Thanks for the review.
+> 
+> The use case is gVisor's sentry: a long-lived, pure-Go process that
+> starts a sandbox per container/pod. The final capability set depends on
+> the spec, the platform (ptrace requires CAP_SYS_PTRACE),
+> directfs/networking, and the capabilities granted to the runtime's user
+> namespace.
+> 
+> It is therefore only known after the runtime and gVisor's own threads
+> are already up — the trim happens multi-threaded. We do have a re-exec
+> path, but it re-loads a ~100 MB binary and re-runs Go init, so we only
+> take it when forced.
+> 
+> > 
+> > This makes me nervous, reminding me of the 'sendmail capabilities bug'.
+> > If some program specifically locks down one thread, I could imagine the
+> > locked down thread forcing wrong behavior from the privileged threads
+> > by calling this.
+> 
+> Fair concern. This new prcoess-wide drop is also a drop — it only
+> removes capabilities from all threads, and requires CAP_SETPCAP. But it
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Good point, CAP_SETPCAP requirement might mitigate my concern.  I'll look
+at this a bit more, thanks.
 
-
--- 
-With best wishes
-Dmitry
+> must actually reach every thread, so the thread-creation race still
+> needs to be addressed.
+> 
+> > 
+> >>
+> >> Cc: Serge Hallyn <serge@hallyn.com>
+> >> Cc: Paul Moore <paul@paul-moore.com>
+> >> Cc: James Morris <jmorris@namei.org>
+> >> Cc: Paul Walmsley <pjw@kernel.org>
+> >> Cc: Thomas Gleixner <tglx@kernel.org>
+> >> Cc: Zong Li <zong.li@sifive.com>
+> >> Cc: Deepak Gupta <debug@rivosinc.com>
+> >> Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>
+> >> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> >> ---
+> >>  include/uapi/linux/prctl.h |   1 +
+> >>  security/commoncap.c       | 129 +++++++++++++++++++++++++++++++++++++
+> >>  2 files changed, 130 insertions(+)
+> >>
+> >> diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
+> >> index b6ec6f693719..750a7824d3bc 100644
+> >> --- a/include/uapi/linux/prctl.h
+> >> +++ b/include/uapi/linux/prctl.h
+> >> @@ -70,6 +70,7 @@
+> >>  /* Get/set the capability bounding set (as per security/commoncap.c) */
+> >>  #define PR_CAPBSET_READ 23
+> >>  #define PR_CAPBSET_DROP 24
+> >> +#define PR_CAPBSET_DROP_MASK 83
+> >>  
+> >>  /* Get/set the process' ability to use the timestamp counter instruction */
+> >>  #define PR_GET_TSC 25
+> >> diff --git a/security/commoncap.c b/security/commoncap.c
+> >> index 3399535808fe..ae7ce50a8151 100644
+> >> --- a/security/commoncap.c
+> >> +++ b/security/commoncap.c
+> >> @@ -19,7 +19,14 @@
+> >>  #include <linux/hugetlb.h>
+> >>  #include <linux/mount.h>
+> >>  #include <linux/sched.h>
+> >> +#include <linux/cred.h>
+> >> +#include <linux/rcupdate.h>
+> >> +#include <linux/sched/signal.h>
+> >> +#include <linux/sched/task.h>
+> >> +#include <linux/slab.h>
+> >> +#include <linux/task_work.h>
+> >>  #include <linux/prctl.h>
+> >> +#include <linux/printk.h>
+> >>  #include <linux/securebits.h>
+> >>  #include <linux/user_namespace.h>
+> >>  #include <linux/binfmts.h>
+> >> @@ -1283,6 +1290,123 @@ static int cap_prctl_drop(unsigned long cap)
+> >>  	return commit_creds(new);
+> >>  }
+> >>  
+> >> +/*
+> >> + * Structure used to queue process-wide bounding set drops via task_work.
+> >> + */
+> >> +struct cap_bset_drop_work {
+> >> +	struct callback_head work;
+> >> +	struct task_struct *task;
+> >> +	kernel_cap_t mask;
+> >> +	struct cap_bset_drop_work *next;
+> >> +};
+> >> +
+> >> +static void cap_bset_drop_work_fn(struct callback_head *work)
+> >> +{
+> >> +	struct cap_bset_drop_work *w = container_of(work, struct cap_bset_drop_work, work);
+> >> +	struct cred *new = prepare_creds();
+> >> +
+> >> +	if (!new) {
+> >> +		/* Out of memory: bounding set drop failed silently for this thread. */
+> >> +		pr_warn_ratelimited("capability bounding set drop failed for pid %d (%s)\n",
+> >> +				    task_pid_nr(current), current->comm);
+> >> +		goto out;
+> >> +	}
+> >> +
+> >> +	new->cap_bset = cap_drop(new->cap_bset, w->mask);
+> >> +	commit_creds(new);
+> >> +
+> >> +out:
+> >> +	put_task_struct(w->task);
+> >> +	kfree(w);
+> >> +}
+> >> +
+> >> +/*
+> >> + * cap_bset_drop_process - Drop capabilities from all threads in the group.
+> >> + * @mask: Mask of capabilities to drop from the bounding set.
+> >> + *
+> >> + * Drops @mask from the calling thread synchronously, and queues a task_work
+> >> + * item for each sibling thread to safely apply the drop in its own context.
+> >> + *
+> >> + * The caller must hold CAP_SETPCAP. Thread group must be quiescent to avoid
+> >> + * racing with concurrent thread creation.
+> >> + *
+> >> + * Returns 0 on success, or -ENOMEM if allocations fail (all-or-nothing).
+> >> + */
+> >> +static int cap_bset_drop_process(kernel_cap_t mask)
+> >> +{
+> >> +	struct cap_bset_drop_work *list = NULL, *w, *next;
+> >> +	struct task_struct *thread;
+> >> +	struct cred *new = NULL;
+> >> +	int ret = 0;
+> >> +
+> >> +	rcu_read_lock();
+> >> +	for_each_thread(current, thread) {
+> >> +		const struct cred *cred;
+> >> +
+> >> +		if (thread == current || (thread->flags & PF_EXITING))
+> >> +			continue;
+> >> +
+> >> +		cred = __task_cred(thread);
+> >> +		if (cap_isclear(cap_intersect(cred->cap_bset, mask)))
+> >> +			continue;
+> >> +
+> >> +		w = kmalloc_obj(*w, GFP_ATOMIC);
+> >> +		if (!w) {
+> >> +			ret = -ENOMEM;
+> >> +			break;
+> >> +		}
+> >> +
+> >> +		w->task = get_task_struct(thread);
+> >> +		w->mask = mask;
+> >> +		w->next = list;
+> >> +		list = w;
+> >> +	}
+> >> +	rcu_read_unlock();
+> >> +
+> >> +	if (!ret) {
+> >> +		new = prepare_creds();
+> >> +		if (!new)
+> >> +			ret = -ENOMEM;
+> >> +	}
+> >> +
+> >> +	if (ret) {
+> >> +		while (list) {
+> >> +			next = list->next;
+> >> +			put_task_struct(list->task);
+> >> +			kfree(list);
+> >> +			list = next;
+> >> +		}
+> >> +		return ret;
+> >> +	}
+> >> +
+> >> +	for (w = list; w; w = next) {
+> >> +		next = w->next;
+> >> +		init_task_work(&w->work, cap_bset_drop_work_fn);
+> >> +		if (task_work_add(w->task, &w->work, TWA_SIGNAL)) {
+> >> +			put_task_struct(w->task);
+> >> +			kfree(w);
+> >> +		}
+> >> +	}
+> >> +
+> >> +	new->cap_bset = cap_drop(new->cap_bset, mask);
+> >> +	commit_creds(new);
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +
+> >> +static int cap_prctl_drop_mask(unsigned long low, unsigned long high)
+> >> +{
+> >> +	kernel_cap_t mask = mk_kernel_cap((u32)low, (u32)high);
+> >> +
+> >> +	if (cap_isclear(mask))
+> >> +		return 0;
+> >> +
+> >> +	if (!ns_capable(current_user_ns(), CAP_SETPCAP))
+> >> +		return -EPERM;
+> >> +
+> >> +	return cap_bset_drop_process(mask);
+> >> +}
+> >> +
+> >>  /**
+> >>   * cap_task_prctl - Implement process control functions for this security module
+> >>   * @option: The process control function requested
+> >> @@ -1313,6 +1437,11 @@ int cap_task_prctl(int option, unsigned long arg2, unsigned long arg3,
+> >>  	case PR_CAPBSET_DROP:
+> >>  		return cap_prctl_drop(arg2);
+> >>  
+> >> +	case PR_CAPBSET_DROP_MASK:
+> >> +		if (arg4 || arg5)
+> >> +			return -EINVAL;
+> >> +		return cap_prctl_drop_mask(arg2, arg3);
+> >> +
+> >>  	/*
+> >>  	 * The next four prctl's remain to assist with transitioning a
+> >>  	 * system from legacy UID=0 based privilege (when filesystem
+> >> -- 
+> >> 2.34.1
+> 
+> -- 
+> Best regards,
+> Jinjie
