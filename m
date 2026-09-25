@@ -1,89 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63F7436361;
-	Fri, 25 Sep 2026 13:11:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031382D0614;
+	Fri, 25 Sep 2026 13:11:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341903; cv=none; b=tOmzvgnxQFWTGFT7uqUDu9wp44tNcLoenWQhu7/HyQ2K3/+6TYwRqkmD0E0JOQFWT31NfNI+m5b1leI2IqJPaw+jxlQ5TPCRkbnMGkrUy4AbNjcIQ4Wuax9pFOmcCcUCBLk2y4TDwYk4JB8qCl+uG5GoXP+n7Jh1JzQI3Zjy+7U=
+	t=1790341917; cv=none; b=YvSxknSxTOQDAXdU1mnZUTiKKpvZ6q0cG8zxF9bHmCAGYplJkPiWX3fxfozloSKWflp7dU4VxNALeLc//j704vqzvOd4K/mCmj4HeH9M/1ffaXqVYVBgnVm8RQJVuK3AyRSQoz8qZSqsBjHdRmI1tODBNsoc/lw3gnjhdi7PywA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341903; c=relaxed/simple;
-	bh=Jkf+TSU2XpLI4RQYh+Udjtd55NnAoRLgTlj07ovHUoo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HoN7NOLQhhnZNqzzldnTBQVmqY/siYhqPGkvpmtRSK3+nz2MnvBP65H9JiPtjQOnhetWVatiGm6lBR7PXNUYdjrO37X1CHVzXVqB3on1Hqq2FI84yZHWeeAwb2XfZgq4fWlGkzET9cAdkmj6ov2qJFLd593YmKTmqxoVrDCWOWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H/YyIVpG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790341917; c=relaxed/simple;
+	bh=3xXjeIfjE5olobpqirdvRMSssU0F48J7ka5QFnuJLXA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gYBlKFzkYdssCSrOdwit0FeF2FkOA7xms/A7lbfFdJdJuePQOzTEDbOp//GkhWST1/1yQ3NOVaOT4q4ROytilThvdY4YMXd9S6nAdhiY7BA0yqlDso++AttsLcigxzsXjO3yjQlE9p8qHddAndeVr8PynI4QL4cMC0Y8NZ9rffk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jhIs8z9T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H/YyIVpG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0462D1F000FF;
-	Fri, 25 Sep 2026 13:11:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jhIs8z9T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209541F000FF;
+	Fri, 25 Sep 2026 13:11:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790341902;
-	bh=JEsJz2W2yJCordrhFoYq7RabW3fzUyCQ1caXjYkcWLw=;
-	h=From:To:Cc:Subject:Date;
-	b=H/YyIVpGbZ+G9I5RpHXu9fK8y1yyt3wVBZ0XFC+jkbvlVKl2bOgPiuJI4EC+z9JGE
-	 qpKFR1nhlmsYXoBTg8ixN3MQ2e1DmiqYmbTI6ruTctoqJVIrgr/8iAH7RJHjVZ6esJ
-	 QfuAQ6AxbSDlC1ChYysIN9CIPU8zids/LeGP5y19krphpFJFnAsv3JxMLgMNEGymNf
-	 8zqZBm219jf2nceFBIJj1hTYQpI1zkHQn96oWHS42ryQyezcCxPXUsr4p6SQig6Zv6
-	 MQWngW9Cyh2ntcbaCXx/9G9ik1GaQow5Caw9jIVuBPDqgrtaHD305CckysOLY02Jc4
-	 NICOXJ2tkuupg==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Syed Saba Kareem <Syed.SabaKareem@amd.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: amd: acp: add EFI dependency for selecting TAS2783
-Date: Fri, 25 Sep 2026 15:11:27 +0200
-Message-ID: <20260925131137.146638-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1790341915;
+	bh=3BadcMjEWTl7+F9Vd64VknDaQ8Xv+MroGU1H4zhUT8c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jhIs8z9TnapSKgJr2h1dtTLLU7L5tm54MP5DkCIxqsOakzYV/O3ABrtN+pOJhH6rO
+	 puSh3L8YWbBSKvu69H+MiBKUTdDHHHmdq9Khg39qEKnz7fYnpveSA4kgIPyaNiR0Xb
+	 O3UnMF+D0WBRNhQ/+4lsGDGAr/J1La6QHUtE5Hk0hiclxD5LKB9VGOONl0qHu9wkL6
+	 T+c29EFWvbYB6FNFsTKC9oCbyLoK0d9Qf+S3IOyene9OFpB2TdPC41gczrTqIvnUcY
+	 BzWJ1eDA+Yx0OydM+nZQaTFqU+/D/iTurrzrUGDmmqewHuZ64phTiAMd4wFHXWfnSk
+	 JUpkU4wKvxH0Q==
+Date: Fri, 25 Sep 2026 15:11:53 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 04/14] perf: fix typos in comments
+Message-ID: <arZzGXKtmgZLomli@x2>
+References: <20260907065421.11739-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260907065421.11739-1-hemanth.selam@gmail.com>
 
-From: Arnd Bergmann <arnd@arndb.de>
+On Mon, Sep 07, 2026 at 12:24:21PM +0530, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
 
-The TAS2783 codec requires EFI support, so it cannot be selected
-unless that is also enabled:
+Thanks, applied to perf-tools-next, for v7.4.
 
-WARNING: unmet direct dependencies detected for SND_SOC_TAS2783_SDW
-  Depends on [n]: SOUND [=m] && SND [=m] && SND_SOC [=m] && SOUNDWIRE [=m] && SND_SOC_SDCA [=m] && EFI [=n]
-  Selected by [m]:
-  - SND_SOC_AMD_LEGACY_SDW_MACH [=m] && SOUND [=m] && SND [=m] && SND_SOC [=m] && SND_SOC_AMD_ACP_COMMON [=m] && X86 [=y] && PCI [=y] && ACPI [=y] && SOUNDWIRE [=m]
-
-Add this as a dependency for SND_SOC_AMD_LEGACY_SDW_MACH, assuming
-that this is only needed on modern x86 machines that require EFI
-support already. It would likely be possible to do something more
-complex to still allow SND_SOC_AMD_LEGACY_SDW_MACH to be used without
-TAS2783 when EFI is disabled, but I cannot see a usecase for that.
-
-Fixes: 28114992dd2f ("ASoC: amd: acp: enable TAS2783 and add RT712-VB SoundWire machine")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- sound/soc/amd/acp/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
-index ed0f93a5a7e5..ab49712545b0 100644
---- a/sound/soc/amd/acp/Kconfig
-+++ b/sound/soc/amd/acp/Kconfig
-@@ -167,7 +167,7 @@ config SND_SOC_AMD_SOF_SDW_MACH
+- Arnaldo
  
- config SND_SOC_AMD_LEGACY_SDW_MACH
- 	tristate "AMD Legacy(No DSP) Soundwire Machine Driver Support"
--	depends on X86 && PCI && ACPI
-+	depends on X86 && PCI && ACPI && EFI
- 	depends on SOUNDWIRE
- 	select SND_SOC_AMD_SDW_MACH_COMMON
- 	select SND_SOC_SDW_UTILS
--- 
-2.53.0
-
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+>  tools/perf/builtin-trace.c                      | 2 +-
+>  tools/perf/trace/beauty/include/uapi/linux/fs.h | 2 +-
+>  tools/perf/trace/beauty/syscalltbl.sh           | 2 +-
+>  tools/perf/ui/hist.c                            | 2 +-
+>  tools/perf/util/annotate.h                      | 2 +-
+>  5 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+> index c3c7f1f85c53..de86901b178b 100644
+> --- a/tools/perf/builtin-trace.c
+> +++ b/tools/perf/builtin-trace.c
+> @@ -104,7 +104,7 @@
+>  /*
+>   * strtoul: Go from a string to a value, i.e. for msr: MSR_FS_BASE to 0xc0000100
+>   *
+> - * We have to explicitely mark the direction of the flow of data, if from the
+> + * We have to explicitly mark the direction of the flow of data, if from the
+>   * kernel to user space or the other way around, since the BPF collector we
+>   * have so far copies only from user to kernel space, mark the arguments that
+>   * go that direction, so that we don´t end up collecting the previous contents
+> diff --git a/tools/perf/trace/beauty/include/uapi/linux/fs.h b/tools/perf/trace/beauty/include/uapi/linux/fs.h
+> index bd87262f2e34..ee2203d60643 100644
+> --- a/tools/perf/trace/beauty/include/uapi/linux/fs.h
+> +++ b/tools/perf/trace/beauty/include/uapi/linux/fs.h
+> @@ -88,7 +88,7 @@ struct fstrim_range {
+>   * We include a length field because some filesystems (vfat) have an identifier
+>   * that we do want to expose as a UUID, but doesn't have the standard length.
+>   *
+> - * We use a fixed size buffer beacuse this interface will, by fiat, never
+> + * We use a fixed size buffer because this interface will, by fiat, never
+>   * support "UUIDs" longer than 16 bytes; we don't want to force all downstream
+>   * users to have to deal with that.
+>   */
+> diff --git a/tools/perf/trace/beauty/syscalltbl.sh b/tools/perf/trace/beauty/syscalltbl.sh
+> index 1199618dc178..e70a8c79e019 100755
+> --- a/tools/perf/trace/beauty/syscalltbl.sh
+> +++ b/tools/perf/trace/beauty/syscalltbl.sh
+> @@ -55,7 +55,7 @@ build_tables() {
+>  
+>  	echo "static const uint16_t syscall_sorted_names_${e_machine}[] = {" >> "$outfile"
+>  
+> -	# When sorting by name, add a suffix of 0s upto 20 characters so that
+> +	# When sorting by name, add a suffix of 0s up to 20 characters so that
+>  	# system calls that differ with a numerical suffix don't sort before
+>  	# those without. This default behavior of sort differs from that of
+>  	# strcmp used at runtime. Use sed to strip the trailing 0s suffix
+> diff --git a/tools/perf/ui/hist.c b/tools/perf/ui/hist.c
+> index e58327595d37..dcc535cc991c 100644
+> --- a/tools/perf/ui/hist.c
+> +++ b/tools/perf/ui/hist.c
+> @@ -431,7 +431,7 @@ static int hpp__header_mem_stat_fn(struct perf_hpp_fmt *fmt, struct perf_hpp *hp
+>  		int left, right;
+>  
+>  		len = 0;
+> -		/* update fmt->len for acutally used columns only */
+> +		/* update fmt->len for actually used columns only */
+>  		for (int i = 0; i < MEM_STAT_LEN; i++) {
+>  			if (hists->mem_stat_total[mem_stat_idx].entries[i])
+>  				len += MEM_STAT_PRINT_LEN;
+> diff --git a/tools/perf/util/annotate.h b/tools/perf/util/annotate.h
+> index fa08d09b80f7..c2a0a5cc4af9 100644
+> --- a/tools/perf/util/annotate.h
+> +++ b/tools/perf/util/annotate.h
+> @@ -275,7 +275,7 @@ struct cyc_hist {
+>  /**
+>   * struct annotated_source - symbols with hits have this attached as in annotation
+>   *
+> - * @source: List head for annotated_line (embeded in disasm_line).
+> + * @source: List head for annotated_line (embedded in disasm_line).
+>   * @histograms: Array of symbol histograms per event to maintain the total number
+>   * 		of samples and period.
+>   * @nr_histograms: This may not be the same as evsel->evlist->core.nr_entries if
