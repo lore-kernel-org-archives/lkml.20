@@ -1,199 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8515D346ACD;
-	Fri, 25 Sep 2026 02:04:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5EE1DD9AC;
+	Fri, 25 Sep 2026 02:06:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790301868; cv=none; b=WBASlSaoC2gIbuwutQlRUVH3/BiylOTMsOs9rLwz1CcXbe2gquBOZDbZ8b4jwTI8m4D/G4hj20sBv0DqQyxY/33riVcUnZXJHMW34wKppW+JXvKLdD3VP/q8nqrBpIltYCFi/esOD/BlhXSiB93rA6K+wDWWOhGvEGWrijl5JaA=
+	t=1790302007; cv=none; b=HWgGE4xtf80En75Zk2XewmsqllzwYDSq7gdh5DwWS6S21Ddj+qwWMNO8vyjgwqYHeTsTmgxKzYAo9/aHSH/Y0lS9BZB5GqzZ31F2S1WYvzPFOy1baOide1b7gttsKrehDAwG6hN3gzHV9tzYWOpESAQ40ZUAVabrlLw/aTrMz8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790301868; c=relaxed/simple;
-	bh=1myobDPbsNnaPTnzEFMQg0wBxNrb5WoIHLoU5/hskqw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ih7tJYIF+aMe8O5jDwrS4gXo4wqLOYwqWdzlsc9BuUldanAs/UYgjYrN5TyCAYq8OJzmE8mnK9vVsZlpAWUNJR8AkkN5Hjry2r1WizmVr+blpYCzvAw6FU2guHf1SDaYRNVyIYUn5Y8BsrAu+fY+TtZK+nqhpXTvCkOljH0UeGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2NEdn/i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790302007; c=relaxed/simple;
+	bh=Rj8y3NCRMx8S+UueQvwjOWziMwJcD0xSl7wjJrxIUYM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qu2p5/1178jo365qnrcJVOXcHWGrljvk1BoNVi9WBA4NtGGnxUwxRZ4bVOCOipmPQPPmIig0Ta8TFjGFsUwI9hzXuQEQ8ojlwdm5XRomyQM/WGZNLAbs3VamwdzLsZs/LatKUdXmQNvigrDHOlwZtcykteu4JYXy8BeUubc4358=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SlGqJ06E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2NEdn/i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 023251F000FF;
-	Fri, 25 Sep 2026 02:04:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SlGqJ06E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722021F00893;
+	Fri, 25 Sep 2026 02:06:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790301867;
-	bh=wW+BAwJ115lKHzkVtPbY39q6Ec1PWGoy4bXyW9Rh36w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=l2NEdn/itUJq0FGNeF5uTNNnMipfapi/n0/cIzcMO2/QL7kfGl5mr8CgVIwt4HYNO
-	 yYBp1rK+QC96FAOk8ikA72BuUpmQDK1m+/5D1h8JxNMoEXa64LJInizG6u+VRtWzVQ
-	 rZevZghLIcG7SdhnJGBEau8QBUiLJGxreBNJMC9m8r14HO7N6vIVr/St7LvcVOyl4W
-	 WF4I7eTSocT8Ar+A0ZhM9Q3SXS4yU4X4oR2LPaSvYNBYjSqdIc9h84XJjVV3/QYjwK
-	 RJB0pCKDcDVnXyjjfEaPAdc8WjyptHgmWEWLOzaxVfuikqRV/4fcumjvmp1lDXaD5s
-	 LhywfjFOkn7MQ==
-Date: Fri, 25 Sep 2026 03:04:23 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Lee
- Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>, Luca Leonardo
- Scorcia <l.scorcia@gmail.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v3 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
- driver
-Message-ID: <20260925030423.18d48456@jic23-hlaptop>
-In-Reply-To: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-2-c00edacbee64@gmail.com>
-References: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com>
-	<20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-2-c00edacbee64@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1790302005;
+	bh=QAcfoC5vPRTcoy7KnzAM1JpySkhErexEmjBytmg+P9I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SlGqJ06EnMHa07zJKLq9aivwch5dOeYnXEkvPNjIScF1Ps1YsBuO3VnwbCRnmKALT
+	 zMmi51eaVknddfqT9ktq/vf8tWVgZOzvecFKLCpUtWXOGpKPhexFoq55x91DclR83r
+	 9QqXdOiiaryHQ0OcnyE2/80y39u35tuR9Qgyg7266QiM6i8AI8bv6rZORaYzKgVjjR
+	 Gzb7AMSf7OMBj3SM1AXFNSpFjWvMTPoI4WE8GfHsjoU3Ej/dzg8IgeYx+lvhMJ4Z6M
+	 L2V/P8tH7PtNPmDY0WynbousuI8FsW1XsDKX0/RV2Fnh9OPQwbEntiRoW8eXaZTJef
+	 uaAZd+y+CNteA==
+Date: Thu, 24 Sep 2026 21:06:43 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, devicetree@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: arm: cci: Allow syscon fallback
+Message-ID: <179030200273.2924748.18078290960566396129.robh@kernel.org>
+References: <20260921232827.3138193-1-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921232827.3138193-1-robh@kernel.org>
 
-On Sun, 20 Sep 2026 00:31:52 -0500
-Ryan Brue <ryanbrue.dev@gmail.com> wrote:
 
-> The mt6397 AUXADC is a 10-bit ADC behind the SoC's PMIC wrapper. On boards
-> built around this PMIC it is the only way to read the battery: the SoC's
-> AUXADC is wired to board thermistors and the charger ICs these boards use
-> have no ADC of their own.
-> 
-> Add a driver exposing the battery voltage and battery temperature
-> channels. Only those two are described, so a channel ID in the device tree
-> indexes the driver's channel array rather than the PMIC's channel number,
-> as mt6323-auxadc does. The ready bit lives in a channel's raw result
-> register, but the value comes from the chip's factory-calibrated copy.
-> 
-> The battery voltage is measured through ISENSE, because a board with a
-> switching charger in the power path leaves BATSNS on the charger's system
-> rail instead of on the pack. The thermistor only reads correctly with the
-> PMIC's battery-detect bias and input buffer enabled, which take 20 ms to
-> settle. Both are switched back off afterwards.
-> 
-> Reads average sixteen conversions in software; the chip's sample
-> accumulator makes no measurable difference at any setting, so it is left
-> at one sample per conversion.
+On Mon, 21 Sep 2026 18:28:26 -0500, Rob Herring (Arm) wrote:
+> Allow ARM CCI-400 slave interface nodes to use a syscon fallback
+> compatible. The MT7622 DTS uses the fallback on cci_control2 while
+> keeping arm,cci-400-ctrl-if as the primary compatible.
 > 
 > Assisted-by: LLM
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  Documentation/devicetree/bindings/arm/arm,cci-400.yaml | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 > 
-Hi Ryan,
 
-A few things related to code flow and readability inline.
+Applied, thanks!
 
-> diff --git a/drivers/iio/adc/mt6397-auxadc.c b/drivers/iio/adc/mt6397-auxadc.c
-> new file mode 100644
-> index 000000000000..d860cd3a8922
-> --- /dev/null
-> +++ b/drivers/iio/adc/mt6397-auxadc.c
-
-
-> +static int mt6397_auxadc_isense_enable(struct mt6397_auxadc *adc)
-> +{
-> +	struct regmap *map = adc->regmap;
-> +	int ret;
-> +
-> +	/*
-> +	 * Two of the five independent input enables, not a select field:
-> +	 * BATSNS is cleared first so that the two inputs are never enabled
-> +	 * onto the battery channel at the same time.
-
-I'm not following this comment. Perhaps consider a rewrite?
-
-> +	 */
-> +	ret = regmap_clear_bits(map, MT6397_CHR_CON16, MT6397_CHR_CON16_ADCIN_VBAT_EN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_set_bits(map, MT6397_CHR_CON16, MT6397_CHR_CON16_ADCIN_VSEN_EN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_set_bits(map, MT6397_AUXADC_CON14,
-> +			       MT6397_AUXADC_CON14_CH0_NORM_SEL |
-> +			       MT6397_AUXADC_CON14_CH0_LBAT_SEL);
-> +}
-
-
-> +static int mt6397_auxadc_read_channel(struct iio_dev *indio_dev,
-> +				      const struct iio_chan_spec *chan,
-> +				      int *val)
-> +{
-> +	struct mt6397_auxadc *adc = iio_priv(indio_dev);
-> +	bool isense = chan->channel == MT6397_AUXADC_ISENSE;
-> +	int ret, stop_err, release_err;
-> +
-> +	guard(mutex)(&adc->lock);
-Go back to conventional mutex_lock() / mutex_unlock() or wrap
-everything under the guard so you can avoid mixing goto and 
-guards() (see cleanup.h docs for some of the reason why).
-
-One option would be to just move them up in to the switch statement
-from which this is called with scope carefully defined there.
-It's not ideal but having a wrapper for just taking a lock
-isn't pretty either and you need to do one or the other if you
-don't want to fallback to non guard() approaches.
-
-> +
-> +	if (isense) {
-> +		ret = mt6397_auxadc_isense_enable(adc);
-> +		if (!ret)
-> +			fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
-
-Keep to errors out of line 
-		if (ret)
-			goto err_stop;
-
-		fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
-
-> +	} else {
-> +		ret = mt6397_auxadc_battemp_bias_on(adc);
-> +		if (!ret)
-> +			fsleep(MT6397_AUXADC_BATTEMP_SETTLE_US);
-> +	}
-> +
-> +	if (!ret)
-
-With changes above you won't get here with ret not 0 so this can go.
-
-> +		ret = mt6397_auxadc_read_burst(adc, chan, val);
-> +
-> +	/*
-> +	 * The teardown is unconditional: once any part of the setup has been
-> +	 * written it has to run, even if the setup itself failed part-way.
-> +	 * Lowering START also leaves the converter unarmed between reads.
-> +	 * A caller has nothing to do with a teardown error, so it is logged
-> +	 * rather than returned.
-> +	 */
-> +	stop_err = regmap_clear_bits(adc->regmap, MT6397_AUXADC_CON1,
-> +				     MT6397_AUXADC_CON1_START);
-> +
-> +	if (isense)
-> +		release_err = mt6397_auxadc_isense_disable(adc);
-> +	else
-> +		release_err = mt6397_auxadc_battemp_bias_off(adc);
-> +
-> +	if (stop_err || release_err)
-> +		dev_err(&indio_dev->dev, "failed to release channel %d\n",
-> +			chan->channel);
-
-I would make a little helper for the stuff that has to run.
-So everything from the comment onwards. Then
-
-	return mt6397_read_channel_tear_down();
-
-err_stop:
-	mt6397_read_channel_tear_down();
-
-	return ret;
-(with locks if you don't move those up into a wrapper.
-
-> +
-> +	return ret;
-> +}
