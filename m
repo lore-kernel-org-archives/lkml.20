@@ -1,62 +1,64 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-ej2-f37.google.com (mail-ej2-f37.google.com [74.125.228.165])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CEF472076
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A41841754
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.165
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790323388; cv=none; b=Zgvtf1fJT3JWQy3x8pVWMCMLAbA8UbKnpcokgRlyqrl8XIhd3RXmX8vLpiZbl1t2zBBIx+PYpJr5wyli+vggBLnQX5ddjlo7pl8t286p/DRdDTBlFkon3n1RiPEK5TQd7M7mP0Qh5TZnKkOfRDVw+kH13+5o5NIT+stLAMaJWdk=
+	t=1790323389; cv=none; b=tIG1QuZWVB1Mli99A8pzC+x4LxM5MiQ/MLfAQf4RHn1kd3NiDAMaZIhwTGvWKrylb3lHpmWuOIyZZcqXX3+rBsPNalZ4XpLn34LnBjAerB9zZ/V4GmTa+IJgYcn6DVCixHP8P1P66byI/hhTxLmtIJOzYK2X+wOFReqaWOCm8OM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790323388; c=relaxed/simple;
-	bh=8IF6z+YkTpvsCKmT/hFF80C11KUezqy6SDi0dife2Cg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FbZ5AdEd9TGvPBjU7zgQ+9wC1gI5uM+j8rEZ3DzfL1Bl2+O8hnVrMkGhg9vztUevIoZvwZ6fO0JrTIQp/+6so7J4sEX5ZF+htespne5+0AfFLeGinb/0nMDd2VeH9WYLcxZIQVz6wr3v/edRqyVKSL1k0y4GuAsPsOFukbMKYtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=G+WmFf8k; arc=none smtp.client-ip=74.125.228.171
+	s=arc-20240116; t=1790323389; c=relaxed/simple;
+	bh=g6JdTsSRR9F/kd9vFTjm8aBON937+a9RhH+W6bL44Rk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IZ/9au2sUvJegf8Ykv4mdCvQIeKfMS+FnHliMuoMQk+IWH/oVYFw1KtIgtEvnZEoF4OaxAJzEIm9OgpT9Xgf+PTj5Zc48CzsF0LgvQrOHs732FIbp4gQLgh3ZytDfCkwbo/fA69A8c8rh5iyOQQ4oL5/DFJJ36njIv9ZREmWQqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=pY0BEZZi; arc=none smtp.client-ip=74.125.228.165
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=wermuth.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="G+WmFf8k"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a8b9acbc6so93432666b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:03:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="pY0BEZZi"
+Received: by mail-ej2-f37.google.com with SMTP id a640c23a62f3a-c294af0caa8so79162766b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:03:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790323384; x=1790928184; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KR0mL9J3pFxTuxFhHbavstVLXuIlIRgXe/fcgJ1tOjw=;
-        b=G+WmFf8kDdp4s7SBZ4deWR1hqIED5qjg5vCU5pvMtsoYOOVFncIsrWpqIlER+KHXLu
-         nSp1JfHLzbwcqDKP8atHAA0gxDY7MGFx5t93v4fJgz9F2tGKntqbkp7kFNT9cE9cdA7v
-         bjlPvUSsRP95xISgoXenHWayr4rPGDhsP9YW9hNn58swGQ+aeuHxWVqm7pKRtaVtfm8+
-         O44ZI9XbwnKtoB8xxylZZ1UTVIiUMPQqmOSLgeaaf6JpWxm/HIEvqVsivYq0uxOYKKSg
-         E23t9rQYtD9EEXf+DkSzmWDav77Tt2s3mDZ7GR/WQy0midE998x3oZmmfkePPlN6l2Qc
-         QyUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790323384; x=1790928184;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790323385; x=1790928185; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KR0mL9J3pFxTuxFhHbavstVLXuIlIRgXe/fcgJ1tOjw=;
-        b=FfjJ+X+ruXBcgAyUCc6xr1Hd9/BbkXYEahyKMsCgifsM122OJK9LCKjDOWwT/CUBOw
-         pEcUuZSp2Hh/m7ZoFvSzkelkUHl1bhHHtnRAVCAD/VA2xcdpVWkm9AEClLNSONz/gyTQ
-         cXZr5cWbrat8/2d1CW4q+QE8/VXkZh7iXyyPuxMesImwAeiavIcDPTdcQ1LVuqMlKAUw
-         xopHKjOsZ2OpClMj4izieDJg5lWkC9SHMJv8RfGfhTvOyAXHJW7XGQ8Ueyn62tfn4X0o
-         jeZAHp/dSI8ahik+MQXUU+FLYrhgX5k96hslvFZTVN6U9sbbkxPhrDDRL1GxK4B2CoSy
-         uSAA==
-X-Forwarded-Encrypted: i=1; AKwUvByUg5YYDfgvdEeoz3PT16DzfDhz3AlLyXQYu3DbaQCWbxa84uSqs9P+/5RnT3qO/RJ+WsCm78lIYhNMSV4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lE+FLSH3FIasRBGVQLqOdVH89YC8h8c0RDWWWUkHOcpPOnNBgQ
-	l727fDBDclds0JaqdQdKSsAFOHAE5FnMkVZeDtQXWI08dXYioK1M+/M/g+6mf17Jw7c=
-X-Gm-Gg: AYBFou1C061YifTSPRZe0333+46JyE91VKaYb76+gJRkfPjhHurc3PNQAOEUbVcxaEJ
-	vgjxCk37SktwKuOJi4q4XABlaKH4xXawd7t74bmnykmgqop+8CtYvsP9cL5trD/+5E5UH9fA91i
-	TOk/xGbj+kpQBxohYY+FzEFxeUYJqMaD4eAWh+p8/Q104yvKtlYor+cbfwgyW6AEv2eCadAlQdU
-	xiB0in421QeDpATAU11f56stn7+VKulV7RhNXzcmEUvXS5kHwV4mVKrKsQU7olrzLzgvanlE4Ld
-	52TSy0YdcOUCXneaBnbDyrKEjmzoJg7Zp6ryeyHhQv2eRxjpQnniAmRMQMw5ALHhfAWhQIoA7al
-	79FS5rQBabx+Y0oshr06MwOSUiWVAhd2yuq+yHvrrSw+0zCSUBTHin2xIVtzI4LuD/yrC308apA
-	yevegbEXYg5eZ+fr3jcETw0/fqOBZJO5eUb5t1ut+0gE68Ye71DjpE/SqowowFgOlPVN2211+iU
-	fvf8IZEv4dIETI3GLX0UzIyfah/a7DhFkOnv5DmywmfG46qWW+uOm7AZQ==
-X-Received: by 2002:a17:907:6c17:b0:c29:f5d5:5a9d with SMTP id a640c23a62f3a-c2ac246608emr448681066b.39.1790323383296;
-        Fri, 25 Sep 2026 01:03:03 -0700 (PDT)
+        bh=qpzCtQ/x5w6zYJCz6BFrhS+ES9WYNEAKtYj1bG27RGA=;
+        b=pY0BEZZiLMl+sONhTFyM396kNLS40oLdIfZ14xZMX8jmgJnUpJPM5rVlV2nRFB0wA+
+         sAscSExjGw8vD/2UiXuhEsLy96bxmn0z79wKY+HiDhV0U3fSDG+M/EW+ixRQw5Zh9Mp2
+         uhSUkvDPHvMNvJ+BrWjvIwAcygDAuF4KwpHMwc9d7L5pZTSHzvPN4ql08WIrn5YkiOA+
+         eSlWwYtnuggm2XL9LTXO5kr/QZe8QRXOTEZPTt7m5lh6SBalOrdSpb/wUMRgI+LSzKzq
+         p1qEoX4YmXaLbNBY82A/iGxxbScl7NcchpkI0p6oaWvvHbojijbzukZxREyORL1bkkMs
+         TOOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790323385; x=1790928185;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qpzCtQ/x5w6zYJCz6BFrhS+ES9WYNEAKtYj1bG27RGA=;
+        b=yEJkn7heJhyx61WiizwoSTeXbowCGdYrQTYsoByLw3yJTfb61qceDmex/ciEnb6W/Q
+         Ymf9g+fQ2kumXr34OhOiD6DenXvNFa02KyI4Zz6zvUQuXHU+ZW46sFE2NYlWg/nn9Ddf
+         +tIK3EsqG4GEXz9FFTBR0Y00xSk0oAkdzdCAGxck4tMeg3FznnCjroFz/MK37DuCML3d
+         jeLcVwe15TpPbYbH/A707vT48QTX1x61EPNaKm0f0uYWCwAAOIrF5dFgB6GbKzgjIOBK
+         in+5A5Rre6Wv5OUOyq37rzoZhTZfKcYveXXhRHq5h72IOAh7946De2rZdIe7wGrlfCG6
+         srUA==
+X-Forwarded-Encrypted: i=1; AKwUvBxI8fHIzTxbcIX9AfVVN9FCNH64Z+EdeSZUM1W5gMewMtT0PsXvUIAiU5Fkt7qCUJq8WPI7beMD0ukfAHM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mB/SWK8zMAnDM9CWuEttsKp8AjtCPzuUT332Ynhi5rdQg8OYmc
+	VQpbAcljVu04Q5EhEicPhyX5JZdi4xr5hnGD6a+XpJwrlrCQayDdyHyceUlpEgJ7NHk=
+X-Gm-Gg: AYBFou2IrCtpaIxGmzBQCtTKshPWi5Yxe+RkmZWsu3znKZufMa2EduwsSy1atq4Y0f+
+	aMJxZpezU/AgcgKewYf17eivTGDRbNIYxXzZuM31PLpAATa7WQTL8aTzTg++MpHyB30e28FAGof
+	xQjnisjdfYZvbatAGZZaRnTnY6KWz293Mkp4LBBjmkPdtj+2SCCGwS17fvy+JgLuWl0VWj9bpqL
+	fR+m8XIH0PF0TtPcucWIzKEgUHn6CIcVGghVLAw56XL8lmqat6cG2zotj1GO23473Zzk7XHBL94
+	PDnmiN2DDhD/Yil2aIp2ZUG75dYOL4tAJbRZklyFWwdJm7ibfJQRUBiNLkJBnly+5CNLqell39p
+	YdEEDDPQgqs7kt8EHjAqheku48n9YYdZDyQQ1u8/B/lKh8H2gD0ulRgR5qA1BXndp0os2CEDDgm
+	SAr2dCNOIw6t8rEbNIsx52UuLhVZDJK3A+1n6MVBpjY7On0tMS1TLqpU1alKhvdIJgMRj/u/5qb
+	vubYjVIIIu/BKXHzGK8DReF/Sp9Q8hugbSioaWAg22Br8k=
+X-Received: by 2002:a17:907:97cd:b0:c25:5d2:acf0 with SMTP id a640c23a62f3a-c2ac241f82emr459322566b.8.1790323384750;
+        Fri, 25 Sep 2026 01:03:04 -0700 (PDT)
 Received: from janlin-02.home.wermuth.pl (109-206-198-27.host.skynet.net.pl. [109.206.198.27])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757b9c1sm76976966b.33.2026.09.25.01.03.02
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757b9c1sm76976966b.33.2026.09.25.01.03.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 01:03:02 -0700 (PDT)
+        Fri, 25 Sep 2026 01:03:04 -0700 (PDT)
 From: Adam Wermuth <adam@wermuth.pl>
 To: Heiko Stuebner <heiko@sntech.de>
 Cc: Jonas Karlman <jonas@kwiboo.se>,
@@ -68,10 +70,12 @@ Cc: Jonas Karlman <jonas@kwiboo.se>,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Adam Wermuth <adam@wermuth.pl>
-Subject: [PATCH v2 0/2] arm64: dts: rockchip: Add PWM fan and WWAN overlay for Radxa ROCK 3B 
-Date: Fri, 25 Sep 2026 10:02:56 +0200
-Message-ID: <20260925080258.46489-1-adam@wermuth.pl>
+Subject: [PATCH v2 1/2] arm64: dts: rockchip: Add PWM fan to Radxa ROCK 3B
+Date: Fri, 25 Sep 2026 10:02:57 +0200
+Message-ID: <20260925080258.46489-2-adam@wermuth.pl>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260925080258.46489-1-adam@wermuth.pl>
+References: <20260925080258.46489-1-adam@wermuth.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,40 +84,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Radxa ROCK 3B has a 2-pin fan header and an M.2 B-key slot
-intended for 4G/5G modules, neither of which is currently described
-in the mainline device tree.
+The ROCK 3B has a 2-pin fan header powered from vcc5v0_sys and
+switched by a MOSFET driven from PWM8 (pwm8m0 pins). Enable the PWM
+controller, describe the fan as a pwm-fan cooling device and add
+active trip points to the CPU thermal zone:
 
-Patch 1 adds the PWM fan and ties it to the CPU thermal zone. Patch 2
-adds a device tree overlay for the B-key slot, enabling the USB 2.0
-host controller serving the slot as well as its power, RESET# and
-W_DISABLE1# controls.
+ - 50 C: fan at 25%
+ - 60 C: fan at 50-75%
+ - 70 C: fan at 100%
 
-Pin assignments were checked against the ROCK 3B V1.51 schematic.
-Tested on a ROCK 3B with a SIMCom SIM7600G-H module and a 5V fan,
-running Linux 6.12 (OpenWrt) with the same changes applied.
+each with 5 C hysteresis. The existing passive and critical trip
+points are left unchanged.
 
-Changes in v2:
-- Move the USB host1 enablement and the WWAN slot handling into a new
-  rk3568-rock-3b-wwan.dtso overlay, as the slot is not always
-  populated (Jonas)
-- Drop phy-supply from usb2phy1_host, as the M.2 slot has no VBUS
-- Put the fan patch first, as it no longer depends on the others
+Signed-off-by: Adam Wermuth <adam@wermuth.pl>
+---
+ .../boot/dts/rockchip/rk3568-rock-3b.dts      | 51 +++++++++++++++++++
+ 1 file changed, 51 insertions(+)
 
-v1: https://lore.kernel.org/linux-rockchip/20260924071445.441822-1-adam@wermuth.pl/
-
-Adam Wermuth (2):
-  arm64: dts: rockchip: Add PWM fan to Radxa ROCK 3B
-  arm64: dts: rockchip: Add WWAN overlay for Radxa ROCK 3B
-
- arch/arm64/boot/dts/rockchip/Makefile         |  5 ++
- .../dts/rockchip/rk3568-rock-3b-wwan.dtso     | 65 +++++++++++++++++++
- .../boot/dts/rockchip/rk3568-rock-3b.dts      | 51 +++++++++++++++
- 3 files changed, 121 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3568-rock-3b-wwan.dtso
-
-
-base-commit: 23d8f49fcae5d72b77744c7f349c12462c3bb748
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+index 149a5306bb03..b9f09087b176 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+@@ -24,6 +24,14 @@ chosen {
+ 		stdout-path = "serial2:1500000n8";
+ 	};
+ 
++	fan: fan {
++		compatible = "pwm-fan";
++		cooling-levels = <0 64 128 192 255>;
++		fan-supply = <&vcc5v0_sys>;
++		pwms = <&pwm8 0 10000 0>;
++		#cooling-cells = <2>;
++	};
++
+ 	hdmi-con {
+ 		compatible = "hdmi-connector";
+ 		type = "a";
+@@ -186,6 +194,45 @@ &cpu3 {
+ 	cpu-supply = <&vdd_cpu>;
+ };
+ 
++&cpu_thermal {
++	trips {
++		cpu_fan0: cpu-fan0 {
++			hysteresis = <5000>;
++			temperature = <50000>;
++			type = "active";
++		};
++
++		cpu_fan1: cpu-fan1 {
++			hysteresis = <5000>;
++			temperature = <60000>;
++			type = "active";
++		};
++
++		cpu_fan2: cpu-fan2 {
++			hysteresis = <5000>;
++			temperature = <70000>;
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map1 {
++			trip = <&cpu_fan0>;
++			cooling-device = <&fan THERMAL_NO_LIMIT 1>;
++		};
++
++		map2 {
++			trip = <&cpu_fan1>;
++			cooling-device = <&fan 2 3>;
++		};
++
++		map3 {
++			trip = <&cpu_fan2>;
++			cooling-device = <&fan 4 THERMAL_NO_LIMIT>;
++		};
++	};
++};
++
+ &gmac0 {
+ 	assigned-clocks = <&cru SCLK_GMAC0_RX_TX>, <&cru SCLK_GMAC0>;
+ 	assigned-clock-parents = <&cru SCLK_GMAC0_RGMII_SPEED>, <&cru CLK_MAC0_2TOP>;
+@@ -670,6 +717,10 @@ &pmu_io_domains {
+ 	status = "okay";
+ };
+ 
++&pwm8 {
++	status = "okay";
++};
++
+ &saradc {
+ 	vref-supply = <&vcca_1v8>;
+ 	status = "okay";
 -- 
 2.43.0
 
