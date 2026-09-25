@@ -1,47 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4830F4D09FA;
-	Fri, 25 Sep 2026 16:45:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F2A39D6CC;
+	Fri, 25 Sep 2026 16:47:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354748; cv=none; b=ZbFg1s+0EB3ariU6G2QUJh6BXAkXPHdwytD6inTW7duFAO8vme7ExtJdh/E7VHQs9jqpYn+okalhG5V124U/8myTd5ORfuWnIFhaZp2HNzUp4IaprW31X29w15+4dL0cgnb865HmDAWfY9HgHLrxD4XQ1YvfLBl69N7l8IMAItQ=
+	t=1790354832; cv=none; b=QdtRikwT9jiPiYkaVw+jJ0LceGV8QieWEo75QALOY+2uWUn8G6N6D1pJoaat/iHKOl85A0o6vOCQkxRQ7EL3T0W7DJecKNJSZhD7aXCovDfkwVMVxypzpYhJTg8O2L6S049muLq78UiaNb9EK8AB4nB5aCIJrjsxB3CuotsOXe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354748; c=relaxed/simple;
-	bh=pTeDDUYpVGe7M/61OjeKHsRil0i2u7a0iXfAqfC2qDw=;
+	s=arc-20240116; t=1790354832; c=relaxed/simple;
+	bh=BFwaPQ0vmivMWjHiTk6TX8qDEMgeoCIyEQOaOqBkFh4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mGR25AfmNE7ldpPM93X8w3ohspJU9W1rStEwbDBvbwTwBJ+v/13Sfj/D4tEhmOzRDiGZz1HKEX8pjwb4cMM1OJTkx06Sc9QZHoBxrJvv/6Scfpr3w1USOltC4jQMZvrMWLF6a5D0PeA7L/yCFs3AFyrkdQ89//mk142NQa6+i6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PTVAVS87; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=di0d7k8KS1zLx5FoWuZh0zpGh54tSPyCERDy2ZeiOFUglT3eHxZ3MHbWBkfwlx5BnjQJ2q9HJi6pgP6mplPuK31AfZmHsDtCaSG3d4Ek0iH14E7z93Goq7tV9rxE00vEoVWQAq82+OysFv5qNn7ZWfY85IUi2J6h3WSziWwyfPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J3j4SUCF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PTVAVS87"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B8B1F000FF;
-	Fri, 25 Sep 2026 16:45:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J3j4SUCF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB86A1F000FF;
+	Fri, 25 Sep 2026 16:46:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790354737;
-	bh=pTeDDUYpVGe7M/61OjeKHsRil0i2u7a0iXfAqfC2qDw=;
+	s=k20260515; t=1790354819;
+	bh=HVzA8zpGb8erHOnd1U1VdxUvMQSCdU4iWTsvvyaSMg0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PTVAVS87PFDNYO1ihtNP9LhEW+E5VsAWvO15oeNSOqN8zMkavdxNPpTI8Ak5R8kUZ
-	 LXuYJ9KTf2lrQExbq4AGaniedsqj2Up1kF88ad57rB0LGsemzEr4g6/djkPkRovKNQ
-	 h99cueIy/iKxxNBICwLYivMbsjaxlbVz8ify8P4w2beydZopnDF4uAmrWC/FTPWnSL
-	 iAcdBDUXOucYC0+AmkXIb0U7nim12ZYm7MCBmwiOUHA6OO5GPjioLrtoFTci7f60T6
-	 I8P/rW4M485REn5bzDMZGyrUccfRDkmRqf0f6FBgl7jRa0QhdRcZ3QF58H/pPtBDa6
-	 oqD77b+8s2mAw==
-Date: Fri, 25 Sep 2026 17:45:32 +0100
+	b=J3j4SUCF3yr+vzf/Y4dNmYQl8PahFapSIfFNeAEnlWvgPuz3qqbkii3coPZ2M+qqz
+	 QIS9BTZ0B51FQK1FV8Hw9ruedD0KrdU4cHV9MyxNTPkL36xVZ2VkuQKIf17OLTePPU
+	 CQf+w8WszeRNuXG5ENZK5CB/bf+iC20bcc5iE9b9vs8y2yon5PtFfwaA5Pudr8HSHY
+	 s1b6SXULa/9jmzIYH7kwsY8GuH14Xu+wslEDdy/oJBg3SlZtlvdGvKm0ahXeiNvxk8
+	 KJtBGM87o3Eb3c0bGVAGRAOg3LvfY+M5MnW47CItcLA722/O8mxVnR1sWn1eKNHP7I
+	 fmPlw2qkp3y/A==
+Date: Fri, 25 Sep 2026 17:46:52 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Cc: nicolas.dufresne@collabora.com, p.zabel@pengutronix.de,
-	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com,
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: Re: [PATCH v4 2/3] media: dt-bindings: media: nxp, imx8mq-vpu:
- Remove nxp,imx8mq-vpu
-Message-ID: <20260925-bacon-uncured-cc89ab761efa@spud>
-References: <20260925085152.41852-1-benjamin.gaignard@collabora.com>
- <20260925085152.41852-3-benjamin.gaignard@collabora.com>
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
+	u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+	Ritwick.Sharma@arm.com, intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: i2c: dw: Add ti,tda54-i2c compatible
+Message-ID: <20260925-confront-award-35b6d0183a16@spud>
+References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
+ <20260925-tda54-upstream-i2c-v3-1-544d74e992ff@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,26 +55,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gH3REXVqU2jdjW7C"
+	protocol="application/pgp-signature"; boundary="sCGF9TGR9Si6lSV1"
 Content-Disposition: inline
-In-Reply-To: <20260925085152.41852-3-benjamin.gaignard@collabora.com>
+In-Reply-To: <20260925-tda54-upstream-i2c-v3-1-544d74e992ff@ti.com>
 
---gH3REXVqU2jdjW7C
+--sCGF9TGR9Si6lSV1
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+On Fri, Sep 25, 2026 at 12:26:28PM +0530, Aniket Limaye wrote:
+> Add the "ti,tda54-i2c" compatible for Synopsys Advanced I2C Controller
+> (DWC_i2c) present on TDA54 SoC. Compared to the existing
+> "snps,designware-i2c" (DW_apb_i2c), it broadly differs in its register
+> offsets and some bit fields, requiring changes to interrupt handling,
+> timing handling, etc.
+>=20
+> Unlike DW_apb_i2c, this IP has no COMP_PARAM_1 register to autodetect
+> the FIFO depth from, so add snps,tx-fifo-depth and
+> snps,rx-fifo-depth as required properties.
+>=20
+> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+>=20
+> ---
+>=20
+> Changes in v2:
+> - Rename snps,dwc-i2c to ti,tda54-i2c
+> - Link to v1: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-1-=
+b0b9f77be18b@ti.com/
+> ---
+>  .../bindings/i2c/snps,designware-i2c.yaml          | 33 ++++++++++++++++=
+++++++
+>  1 file changed, 33 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/i2c/snps,designware-i2c.ya=
+ml b/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
+> index 467bdcbb8538..80a9376d6de7 100644
+> --- a/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
+> @@ -21,12 +21,23 @@ allOf:
+>        properties:
+>          reg:
+>            maxItems: 1
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ti,tda54-i2c
+> +    then:
+> +      required:
+> +        - snps,tx-fifo-depth
+> +        - snps,rx-fifo-depth
+> =20
+>  properties:
+>    compatible:
+>      oneOf:
+>        - description: Generic Synopsys DesignWare I2C controller
+>          const: snps,designware-i2c
+> +      - description: TI TDA54 SoC I2C controller (Synopsys DWC_i2c IP)
+> +        const: ti,tda54-i2c
+>        - description: Renesas RZ/N1D I2C controller
+>          items:
+>            - const: renesas,r9a06g032-i2c  # RZ/N1D
+> @@ -121,6 +132,18 @@ properties:
+>        low period of SCL line.
+>      type: boolean
+> =20
+> +  snps,tx-fifo-depth:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      The depth of the hardware TX FIFO. Required on the ti,tda54-i2c
+> +      variant, where fifo depth cannot be autodetected.
 
---gH3REXVqU2jdjW7C
+Why is the compatible not sufficient to get this information from?
+Does it vary across controllers on the same device?
+
+> +
+> +  snps,rx-fifo-depth:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      The depth of the hardware RX FIFO. Required on the ti,tda54-i2c
+> +      variant, where fifo depth cannot be autodetected.
+> +
+>  unevaluatedProperties: false
+> =20
+>  required:
+> @@ -172,4 +195,14 @@ examples:
+>        interrupts =3D <8>;
+>        clocks =3D <&ahb_clk>;
+>      };
+> +  - |
+> +    i2c@53b00000 {
+> +      compatible =3D "ti,tda54-i2c";
+> +      reg =3D <0x53b00000 0x1000>;
+> +      interrupts =3D <166>;
+> +      clocks =3D <&sysclk>;
+> +      clock-frequency =3D <100000>;
+> +      snps,tx-fifo-depth =3D <32>;
+> +      snps,rx-fifo-depth =3D <32>;
+> +    };
+>  ...
+>=20
+> --=20
+> 2.53.0
+>=20
+
+--sCGF9TGR9Si6lSV1
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaralLAAKCRB4tDGHoIJi
-0plnAP9LM8rGrHulmmHoWd/deDQf6tr9Q5c0S3hW774fYhioYAEArVyQqqAcGZiu
-1nqADdmsPGJOoGQ990oWI81L6sOoqgo=
-=EY5o
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaralfAAKCRB4tDGHoIJi
+0njqAP9fyVsdwViQaN/hsNZgjikNfcCErYU2efO/qx/w7M1u6gEAwUMNgzwWB9jR
+JlQcMI+eKtzBEMignrKl9xZWQUEibgI=
+=SVzn
 -----END PGP SIGNATURE-----
 
---gH3REXVqU2jdjW7C--
+--sCGF9TGR9Si6lSV1--
