@@ -1,157 +1,117 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8963536655C;
-	Fri, 25 Sep 2026 21:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3EA8449ED7
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790371642; cv=none; b=ifKvuUC2QczlQCv/RujwXk6qzMgKMyd6h1MXwGZeSVLjdGBZGFueJndcaE8KUk8xU4UPc9OzoOuh7NJ97gAwpZ9uYZhKgAWGwwtb2EKwrFkmyGBkBlfalWpCXUIz2B6ODkbkRsttuCiXBrJTo93N+IDYAH1ZRVZx4euEMItKw38=
+	t=1790371692; cv=none; b=rJtt3TK9GQt/Vz5sl7HsvnlYz40ixzU9UKwklb6juFh4OjtmTXGs17PYmts9sxca+/JIRX3fEC2rLxQ1bN0P3+0d83dwioqJHv7OljeiQr7Dw5prhJcFJTliHMv8oe8AZbWUBJpGO3hT2yLK3+VgIQqCRxEQ29NzhB2KyzSSLiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790371642; c=relaxed/simple;
-	bh=hOAuYgE31oa5MlQggeC7RP4ISyMcHrmvGlKLBuIxi84=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=PQHXaRmtW6GV4httLrsMAQmqWYPHkInwUkW5rkNa7JiWyewC564gA6yHH9SLco4zDF+/sL3ejQh+w01A0kK2Cgx85lz3BdirPYEdNbWc5twOqp+h/hGaK/0aHuW6V08mrLxZopjGhJv1V/ZApQiVdF8WrV7E2ClAz4Wvqwa2qf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=q5pcUiQt; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790371692; c=relaxed/simple;
+	bh=aRNAktut3RhsP3MYWFeTSASKdMb7z7iK/vCtms7DqpM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ar8uNXMWfccgLBtnz2I+Wh+utIgR9H4hKYHH/8wlF1hs3vIKmcpwQzNIJuvqrkp4KII82m+/hKxGGPr6AemudK1j++4m4K4L1hX5LIPVr4FLARkxY7w5dSd0uDb2wgcIIeqFqR9ZFNrdPQPjWHhCbhD3OEqhO9+fJOxxsjsGtoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=W+EDTtgl; arc=none smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="q5pcUiQt"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260925212716euoutp01b383dcf07bf8160d2a3a69967b8bc633~YrYRx8Ka90791007910euoutp01E;
-	Fri, 25 Sep 2026 21:27:16 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260925212716euoutp01b383dcf07bf8160d2a3a69967b8bc633~YrYRx8Ka90791007910euoutp01E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790371636;
-	bh=NsFrcStNS+TX7bCXsmgniOEglOFn1G3AomEV8/XqEv8=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=q5pcUiQtDlMr1uaRyXlmJt7ZsCDzRcfzR5pcT1Yf1GTjSjYFFWiFj00hyPBN9yLXz
-	 k8+kWYGtr2NpC0w5KCvzEBcv7TVwkprzIGWiaPS19V3x9Qb1O0ppehmCMlpPnVJfFs
-	 ATB0NEVBbVWKsf67GBBo3EbW4lOwtT7SEykBpmw4=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260925212715eucas1p285f7c5d39c92c121008275ccebab4ec2~YrYQoaKyD2482224822eucas1p2E;
-	Fri, 25 Sep 2026 21:27:15 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260925212713eusmtip176927563c0f94e00bf31fa297fa80ca0~YrYO_Esaa1753917539eusmtip1D;
-	Fri, 25 Sep 2026 21:27:13 +0000 (GMT)
-Message-ID: <b5548b50-20d4-4b5d-b38d-5069c2b03f38@samsung.com>
-Date: Fri, 25 Sep 2026 23:27:13 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="W+EDTtgl"
+Received: by mail-oo2-f39.google.com with SMTP id 46e09a7af769-7f4f0d298caso849685a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:28:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790371689; x=1790976489; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tzP3eGfEK+PbR1jRk5YUENfrQ+xDVsw5caOf2XKwdAE=;
+        b=W+EDTtgl4eBMibqlM+/7KqF6+uPMRAGVnSBtA4qydttU+OCzE7cqsTzV9b8S9yUKQg
+         q8UfATwcOd5QbcwYHuVoaUCGUi5pl2xEp4lck6fznweD7EL9XcCCOa7FzyT8Q3NYXRME
+         cNKu5ElHNS3pjXcxMTyXoYQiGaqWY/pFH0H+ldCKAGfOzAUvBWpzQBhqqbg7r8eIhM3/
+         DfAqdpR4LED0cq9wSUB4H7E4L9mzgTDTWZpKrYpcYI5hiQ6rD/3y9pOBFpcTQ7aOIl3R
+         Pxp+eZCvm1Oz3jg5qc24A1mtqOKLm0CIfqWO2E/8KY2JLr/ijoCFj8Nyn+QH8B5dmvMb
+         UDew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790371689; x=1790976489;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tzP3eGfEK+PbR1jRk5YUENfrQ+xDVsw5caOf2XKwdAE=;
+        b=x//veLZjbxGS16/TPHp36JVXxppVy5RIYUnB0TO5XlFLZof90UKfJyLqF+Om7Xbdy4
+         CUQdKcSU2xS7boi0LRat1S0yUId5/y7jkEokd2hxPvIgLz/kpFNybTjyLvg0Vur3ksSE
+         IrvAMVtCJIANlCjilAy35ygPBWRl99OgRDZmoOcXOBy7/YFOPcgBNhaTBBe/XTvatnHe
+         fsbwXdlNCvCd5GiOuK5dijlxnh7ls9l1IFgI7kbPokoL/oKaHTvsvKLvg1gTKtN63te3
+         OiVRs2JlfHXRve+CEfvuZdpclVNjSFuu8oj6JeDcFoi1rk1JbhgogLxQb/3hwlMGwOCJ
+         bEQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxvQPHRI0QeyZpBWLmO2LEB5B3prnRM22rdSbc+bwrUqdGUSwq4HATfgtdZCuuNtZcQ3JGTrqYk1x4upIM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLxMM1SjvkNS51od8KJZGqxljHVW9iwHvHtsahNRL8DGfaLIfP
+	i/8vGFul4Nvx5ryAtWcVvHPM0+HRfxrVZMgzG0GDyAGd2Kk7Fp5RLVGqmCvpHnLNeUk=
+X-Gm-Gg: AYBFou2oES0xrQ9IaHvXY1FvMRZUBFsw7wlgZ5gj2uQuNWDqn21GzCbB4tweGkBJxHi
+	I0ouNM0d3TfL2ZQcqYWoe5zj3nMu7/1KUWFNT/3d1kOH8XZqeM4wPFSreLnxAKvcNJ+BQ0ABXm9
+	ZhzuLkfi2+rb8v/NLSXP0ZMrUOQ8zTPeF8GkShGNw7IqT0Hwdi5q+HbuN+cmCRyz2tIoUToMnKn
+	j4auFFVWLbKQUHwaLw5BHEAHRuEegC1220I56U5N+eLi5lVFFjBanj3SSPcWhPkJ7ZJev1SZ3Al
+	t+KKLpWnyk4TKOQBlQb3gUK9YXmV+lm7nonnDTAK1TRXR3UC0TJGp4c0Z1i/hnTYxCiuKQ4r0cV
+	2fvNSxIcIANZHHgAspdDa5lNLGClxoME6CctSEQLOdRZSAyNTnBbkax+byy8oF+lmGr0pk93Cu+
+	FVfzH2pH5kjGDogj0QLmIUyz3XcjN2D0LqxSuLyvrKQzdsQJ+R+tHbSsQsJsvLCby0tUQ457qz2
+	/c6Fx9k1wqSrbE=
+X-Received: by 2002:a05:6830:83ad:b0:809:5916:fcc3 with SMTP id 46e09a7af769-8178298b7a8mr7998024a34.17.1790371688735;
+        Fri, 25 Sep 2026 14:28:08 -0700 (PDT)
+Received: from [127.0.1.1] ([2600:8803:e7e4:500:7a0e:55f3:1b40:7bc6])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-818e98b16d4sm3568385a34.26.2026.09.25.14.28.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 14:28:08 -0700 (PDT)
+From: "David Lechner (TI)" <dlechner@baylibre.com>
+Subject: [PATCH 0/2] iio: adc: ti-ads112c14: minor fixes
+Date: Fri, 25 Sep 2026 16:27:42 -0500
+Message-Id: <20260925-iio-adc-ti-ads112c14-fix-settlingtime-sign-v1-0-1fd53e7242e8@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-To: Krzysztof Kozlowski <krzk@kernel.org>, Joshua Peisach
-	<jpeisach@ubuntu.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	=?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260925212715eucas1p285f7c5d39c92c121008275ccebab4ec2
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
-	<20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
-	<20260917-mutant-chamois-of-competence-46ca77@quoll>
-	<DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
-	<20260918-futuristic-mindful-waxbill-21fa2d@quoll>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNywrCMBBFf6XM2oEmxkf9FXERk2m8oqlkogil/
+ 27U1eXA5ZyZVApE6dDNVOQFxZQbmFVH4eJzEkZsTLa3236wGwYm9jFwRRs1xgbjeMSbVWq9Iae
+ Ku7AiZfZ7Wbtx2LloHTXho0g7/mLH05/1eb5KqN8CLcsH8I3vxo4AAAA=
+X-Change-ID: 20260925-iio-adc-ti-ads112c14-fix-settlingtime-sign-a8e34f974d24
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ "David Lechner (TI)" <dlechner@baylibre.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=764; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=aRNAktut3RhsP3MYWFeTSASKdMb7z7iK/vCtms7DqpM=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqtudSVZtTAnctlwaud/NmFZ7dV77U+wKK0czpn
+ krgXdQzG1WJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCarbnUgAKCRDCzCAB/wGP
+ wH1aB/9uPTJaTovdHPkdebFWKPqDBHH40NP/dfv7rl1/doSpBfHsqSTF2dlk1hdUl1LL5zZtz2i
+ UYEVR54xm+c/5rVSdT3XwOIsR75hLnssEdMaAqHy4kmRF//1A2tUDPzurad0co9gp2CmNPuvhS8
+ wmBqkYsWa2+0aJ3RW5VVze6pn86a7S8byXMFlwWCwhfBuWKb3Md0do52Hp/2tpFB2Hkp98vRQsK
+ OxoR+QAj1heicayz/YwbDE/kfkPVQOmNkehYMy+osiC3T2uewE2T2CP/bxQdJQr0X6thy0LZ5F7
+ 7zgPKh4O7dceP/hHj3rnbXYMYvnJHDxvF0F7+NyYNbdwCy2g
+X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
+ fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
+Jonathan picked up the filter series for TI ADS112C14 already, but there
+were a few minor things Sashiko found that seemed worth fixing.
 
+https://lore.kernel.org/linux-iio/20260913211128.25734544@jic23-hlaptop/
 
-On 9/18/26 08:16, Krzysztof Kozlowski wrote:
-> On Thu, Sep 17, 2026 at 08:34:18PM -0400, Joshua Peisach wrote:
->> On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
->>> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
->>>> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
->>>>
->>>> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
->>>> functions as both a PHY provider for the controller and as a clock
->>>> provider for the variable pixel clock (hdmi_pclk), which it generates
->>>> from its refoclk.
->>>>
->>>> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
->>>
->>> While I appreciate other people looking at this, I don't think review
->>> here applies. It was a blanket tag, given to the entire series, with
->>> exception that it is from newbie, thus I want to ask: was this binding
->>> REALLY reviewed by Joshua?
->>>
->>> Are the rest of the patches actually reviewed or just "looks good to
->>> me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
->>> of doing review.
->>>
->>>
->> I commented on v3 saying that I would test if I could. I don't just
-> 
-> Testing has nothing to do with reviewing.
-> 
->> throw "Reviewed-by" on everything I look at.
->>
->> If anything, I've been trying to be more honest in reviews, and only
->> review ones that I actually care about[1].
-> 
-> You gave blanket tag for entire series, so I do not get this argument.
-> 
->>
->> If reviewing patches isn't a good way for newbies to start getting
->> familiar with the kernel code (especially a NEW driver), then I don't
->> know what is.
-> 
-> Writing code and receiving review is something for newbies to start
-> with. If you do not know kernel code or bindings, why do you think
-> your review is applicable? If I try to review design of a post-tension
-> concrete bridge, I would probably learn something. Would my
-> review apply? No.
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
+Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+---
+David Lechner (TI) (2):
+      iio: adc: ti-ads112c14: fix negative settlingtime check
+      iio: adc: ti-ads112c14: fix settlingtime creep on write back
 
-Well I do feel like this is at least partially my fault. I took the
-Reviewed-by on the cover letter and automatically applied it using b4
-without asking Joshua any more clarifying questions.
-
-In v5 I will drop it from the binding patches and keep it on the driver
-patches.
-
-Joshua - please feel free to continue reviewing and testing this
-patchset. Your help is very welcome.
+ drivers/iio/adc/ti-ads112c14.c | 30 ++++++++++++------------------
+ 1 file changed, 12 insertions(+), 18 deletions(-)
+---
+base-commit: d8c0f48f0b1583308a98401c0c7b1a65d1d43a6c
+change-id: 20260925-iio-adc-ti-ads112c14-fix-settlingtime-sign-a8e34f974d24
 
 Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+--  
+David Lechner (TI) <dlechner@baylibre.com>
+
