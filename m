@@ -1,121 +1,270 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E704F7975
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:13:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE134F797B;
+	Fri, 25 Sep 2026 21:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.162.73.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790370817; cv=none; b=UJmb1yyb/Fqw+XrcGmLwty7D4nw0nW2VDN6XSvwVCq4eaA+0edJfx+T/SJ4BfwppW/YuLKr5o5q9hxmoQMCDGmfYiImks391gKJS2EHiH5NMMmZLwMEhjTEC81hIRiqtEmfjRwCHntoLuR+L7f/giyBT5tal/lcrPMdMEyDlxeo=
+	t=1790370820; cv=none; b=aRmjE7UfWeO/nEJKDlhx3EZipWw46ldV0LbSbf8TnLiPobKHRbmfNnmdDwQEoNdn1Q17MrgPvI32ysj6727iAEmnhHUgw22oHT9IMJvpbQLCcUEF/jImwmeoLEHizjApSLGsdLq0zGxcfHctboratc0NmTPDK8XOYJwdSidgrdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790370817; c=relaxed/simple;
-	bh=l2U8nzCNNQ/nwq4FEs6iLspFROyaC5q68fQmREhjkjI=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=Hij1bmhyyTMOJl94bqSqZyI3gJd2QERMM4CjGXahfM469F9RgJwo/O0CkDMmUVDNBFjFtNuWORs/1UDJKz59u7OFIhhoXhzexetMTEJVkPbCtATHE+BHeOiQZbY/hYTbxHpy3yeaRCfYTn9pBFu3xNykRF/TjbYbH+dBQ0KTWug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cisRoBq6; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790370820; c=relaxed/simple;
+	bh=ry4jQGL2wKU9mNSo2ehUuXrA6vdswJ5kRMdi0BaXGPY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HrBXIXFk/b8yb99ffKJ/AMUxzDcFlpVpXix9MjkOqbCWuxkJ1XCcYq1Sxt9NmMkh43L9FV3kWEoP/ihk1U+vIZtifcodYk+hrco6dzTD9cpi2MNm39n+QDyYiupcoCm4fwQBFiAYby08b4Hog/FNLgozVTzeFwgu9wyvwsSwn60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=RoSn4eL0; arc=none smtp.client-ip=35.162.73.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cisRoBq6"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a7e4be64bfso9763427b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:13:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="RoSn4eL0"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790370814; x=1790975614; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kE6Ci4ey9edySdwisM07uhodEQlZii4EnlJAnWzc9lU=;
-        b=cisRoBq6/2Mq0XJdC1G9mBuK3ldnHNb9jKiaWs+33Rc9Ql4AWqtx8FuaMW4DlLSGKn
-         aNzRW3Xr4Nb8tqUVTXnM29fbRf8rJhalyTQFeKez/3pF7KcvrqDZZ81KO07NatMbCHkm
-         EeFPv3cZhomWMAftMZKLlhqGRuFKwPJdCTFWycrSnHHoPbyb0y6ug1YqTFWpEDKaaxji
-         OIV/gPPS62wKm5YMYAdAEifz54ulE0iXwi7cfD1OzGQ8GhC0NWZT7U5wyHWs3CFc3SVw
-         xu+EClqcAwz4x2xM247cg35WNjGDaj+q9D1CnllGILL//ReivfxRRk1EZjoPzyDRyYU9
-         tWWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790370814; x=1790975614;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kE6Ci4ey9edySdwisM07uhodEQlZii4EnlJAnWzc9lU=;
-        b=M299h/VMgpMxVGBYmNxJRKRSDwtv0mM5gl4GrKCzANvlkS0jq88LKNOZ7YB0sah9mn
-         i/1v4CFSBYRHVLaS9CiwdqNBFsQvt0axecvhfc8By2tEzlnN+HoEzDPst/HfLjBAEYO3
-         6guMsMDEKo+s5+PKFQqGXF5dKjU5sJk+YH4d9PV9GnZyeV+9a21epxyFa4Ixb+uglLEd
-         8UgGyXvFOT/IRlHwk/DXFqNeWLMp8RbionkfFlqE/Em5ZtL5dgGMPLG/h9eXH+FpOn9T
-         alJmfAYJxF1WoYjthMLO2XzEu6PSNZ+Uks34JHh+uPferGerCm8LyhM8hCpL01dyAU8t
-         n3+Q==
-X-Gm-Message-State: AFuF++nCrNdLAKcaE/KS6zKIyaQadHgjnOcW/PUMs9QHtSOYlJHsTZ0e
-	MxnS/JwG+d+eYETadmzR7yo2Fs5R4ahQHMM4SSMSmC6zcR0QbdxCjEtd
-X-Gm-Gg: AYBFou2PPhB0yr5mEA2wtNmgwGilk3ZMVdUbd/uageetmaoKlI9tqkmRtNzbTaJoKR9
-	UvAtloKCJ1fI+bTz1wkxowau+SYNp1cWWI/1X1Y0rHdyE1XMuFXjv+Rx8B63i+Q44Zg+4qgWH0x
-	8khTgNKCO8Fes/itsoqs1UGI93XVPmGVotmGLwz4iOuWpDO5e3fKmz2vpaRN5Ugo8EY2yIzZave
-	C0j+LNBmikOAmB0+yiKsepgjDSx1V6JtTXwe+sGz74E+hu6nvuaTYqTBXPHzh9Ng3oGpL4SpqPB
-	w26bTOyqAqf+1MBSKsFFIHLlwe5WbL3FEvdmOtAb8JhZvZcdqVoAAKdUtfTogLDTie1i/n8pHGd
-	HgO2GQSL7z86BjdYolooE337EZihwbwe5yozX4Njg6L5AtMt8f41n6t2kcitEp6/hjVrGSBcCNN
-	PCwMKLn/58fFPgHIKFOkIDELNZ8ObFjp94Csd2r9rHxdqfarva19iTP485bB7OwgTiSrhOpLnPr
-	xUhpREdD0lR/PUbMCCvRNTKSugK64NOcXyTYzXq7R1U1tHZU0EKBOKNFZPbZxDh
-X-Received: by 2002:a05:690c:19:b0:8a5:1570:a298 with SMTP id 00721157ae682-8a64ded27c7mr30052657b3.50.1790370814571;
-        Fri, 25 Sep 2026 14:13:34 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860fe88d6sm13938657b3.31.2026.09.25.14.13.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 14:13:33 -0700 (PDT)
-Date: Fri, 25 Sep 2026 17:13:33 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Zihan Xi <zihanx@nebusec.ai>, 
- netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, 
- davem@davemloft.net, 
- edumazet@google.com, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- dsahern@kernel.org, 
- idosch@nvidia.com, 
- kuniyu@google.com, 
- willemb@google.com, 
- kees@kernel.org, 
- richardbgobert@gmail.com, 
- zihanx@nebusec.ai, 
- stable@vger.kernel.org, 
- Vega <vega@nebusec.ai>, 
- Luxing Yin <root@tr0jan.top>
-Message-ID: <willemdebruijn.kernel.21eac4268187e@gmail.com>
-In-Reply-To: <20260924051521.32568-2-zihanx@nebusec.ai>
-References: <20260924051521.32568-1-zihanx@nebusec.ai>
- <20260924051521.32568-2-zihanx@nebusec.ai>
-Subject: Re: [PATCH net v6 1/1] net: gso: limit recursive IP-in-IP
- segmentation
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790370819; x=1821906819;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=/T3L6Erhez9jj6KkQNlY833QrYTQpIlvZMQo38B3kLc=;
+  b=RoSn4eL0X4DPFFAHnDHVo8mG/SYHSEWqLxW+zjefaE/C2XVnH2Vcuuxa
+   PBFmTk/NRfQ9i3ahVHEVEEwoD/BJ7TTrRUNlhHBXVaay44tonD5dTPhsm
+   s00gBUxgCoFtCLe/E3idpGmkTcXq3W+EMN3fZeEvgHp820iNPY6M8aR3X
+   Ouj1Tln5PI4XT7fvaO6hAstbn8vAxI5wKH8zCkfBB2Ysf9jnTfRbU0DlA
+   WSTRlBMiH99aWwbaSFstXKswzZmyfipmqzbMeHcC06w4Mkjz70i6u+mF1
+   XfEoX4z1PUGxV8bZEbmebjUzm0V2rScUhqs/rz1U5Dijb6+wPLBCIRo0G
+   A==;
+X-CSE-ConnectionGUID: lq3As6iLR4CyvutEULhJCw==
+X-CSE-MsgGUID: SfiDbo1DRDKm/7PJe+IV+A==
+X-IronPort-AV: E=Sophos;i="6.27,123,1787011200"; 
+   d="scan'208";a="29476676"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 21:13:38 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:9736]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.186:2525] with esmtp (Farcaster)
+ id 0a745717-2a84-4d2e-b938-6dc87fe51e6c; Fri, 25 Sep 2026 21:13:38 +0000 (UTC)
+X-Farcaster-Flow-ID: 0a745717-2a84-4d2e-b938-6dc87fe51e6c
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Fri, 25 Sep 2026 21:13:38 +0000
+Received: from dev-dsk-wanjay-2c-d25651b4.us-west-2.amazon.com (172.19.198.4)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Fri, 25 Sep 2026 21:13:37 +0000
+From: Jay Wang <wanjay@amazon.com>
+To: <bpf@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+	"Eduard Zingerman" <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi
+	<memxor@gmail.com>
+CC: Alan Maguire <alan.maguire@oracle.com>, Martin KaFai Lau
+	<martin.lau@linux.dev>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
+	<jolsa@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier
+	<nsc@kernel.org>, <linux-kbuild@vger.kernel.org>, Luis Chamberlain
+	<mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+	<linux-modules@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	<linux-kernel@vger.kernel.org>, Hazem Mohamed Abuelfotoh
+	<abuehaze@amazon.com>, Bjoern Doebel <doebel@amazon.de>, Martin Pohlack
+	<mpohlack@amazon.de>, <jay.wang.upstream@gmail.com>
+Subject: [PATCH bpf-next v2 1/9] bpf: pass the vmlinux BTF to btf_parse_module() and let it adopt the data
+Date: Fri, 25 Sep 2026 21:13:06 +0000
+Message-ID: <20260925211314.5118-2-wanjay@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260925211314.5118-1-wanjay@amazon.com>
+References: <20260925211314.5118-1-wanjay@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D033UWA003.ant.amazon.com (10.13.139.42) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Zihan Xi wrote:
-> IP-in-IP GSO can re-enter inet_gso_segment() or ipv6_gso_segment()
-> for each nested IP header. encap_level tracks header bytes, not callback
-> depth, so a deep chain can exhaust the kernel stack. Making
-> inet_gso_segment() stackable introduced unbounded IPv4 nesting; IPIP
-> GSO/TSO later made the path reachable. The IPv6 stackable path was
-> introduced separately and uses the same guard.
-> 
-> Count IPv4 and IPv6 GSO handler entries in skb_gso_cb, initialized once
-> per top-level GSO operation and preserved across GRE/UDP context changes.
-> Use the existing IP_TUNNEL_RECURSION_LIMIT for both handlers. The first
-> five entries pass, and the sixth returns -EINVAL before dispatching
-> another GSO callback.
-> 
-> Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
-> Cc: stable@vger.kernel.org
-> Reported-by: Vega <vega@nebusec.ai>
-> Closes: https://lore.kernel.org/all/cover.1790157745.git.zihanx@nebusec.ai/
-> Assisted-by: LLM
-> Co-developed-by: Luxing Yin <root@tr0jan.top>
-> Signed-off-by: Luxing Yin <root@tr0jan.top>
-> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Make btf_parse_module() take the vmlinux BTF as an argument instead of
+fetching it with bpf_get_btf_vmlinux(), and add a data_owned flag: when
+set, the passed .BTF data is an already kvmalloc()ed copy that the new
+btf takes ownership of on success (on failure the caller keeps it).
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+Factor the sysfs file creation out of the module notifier into
+btf_module_sysfs_add() and the teardown into btf_module_free(), and set
+btf_mod->module right after the allocation rather than under the mutex.
+
+No functional change.  This prepares for CONFIG_DEBUG_INFO_BTF=m, where a
+module can be loaded before the vmlinux BTF is available: its .BTF is
+then copied and exposed in sysfs first and parsed later, at which point
+the parser must take the copy as is so that the sysfs file keeps
+pointing at valid data.
+
+Signed-off-by: Jay Wang <wanjay@amazon.com>
+---
+ kernel/bpf/btf.c | 105 +++++++++++++++++++++++++++++------------------
+ 1 file changed, 64 insertions(+), 41 deletions(-)
+
+diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+index 4a1fa4fbdf4e..a6634237dc89 100644
+--- a/kernel/bpf/btf.c
++++ b/kernel/bpf/btf.c
+@@ -6516,16 +6516,20 @@ __u32 btf_relocate_id(const struct btf *btf, __u32 id)
+ 
+ #ifdef CONFIG_DEBUG_INFO_BTF_MODULES
+ 
+-static struct btf *btf_parse_module(const char *module_name, const void *data,
+-				    unsigned int data_size, void *base_data,
+-				    unsigned int base_data_size)
++/*
++ * Parse split module BTF against @vmlinux_btf.  @data is the module's .BTF
++ * section; if @data_owned, it is an already kvmalloc()ed copy that the new
++ * btf takes ownership of on success (on failure the caller keeps it).
++ */
++static struct btf *btf_parse_module(const char *module_name, struct btf *vmlinux_btf,
++				    void *data, unsigned int data_size, bool data_owned,
++				    void *base_data, unsigned int base_data_size)
+ {
+-	struct btf *btf = NULL, *vmlinux_btf, *base_btf = NULL;
++	struct btf *btf = NULL, *base_btf = NULL;
+ 	struct btf_verifier_env *env = NULL;
+ 	struct bpf_verifier_log *log;
+ 	int err = 0;
+ 
+-	vmlinux_btf = bpf_get_btf_vmlinux();
+ 	if (IS_ERR(vmlinux_btf))
+ 		return vmlinux_btf;
+ 	if (!vmlinux_btf)
+@@ -6562,7 +6566,10 @@ static struct btf *btf_parse_module(const char *module_name, const void *data,
+ 	btf->named_start_id = 0;
+ 	strscpy(btf->name, module_name);
+ 
+-	btf->data = kvmemdup(data, data_size, GFP_KERNEL | __GFP_NOWARN);
++	if (data_owned)
++		btf->data = data;
++	else
++		btf->data = kvmemdup(data, data_size, GFP_KERNEL | __GFP_NOWARN);
+ 	if (!btf->data) {
+ 		err = -ENOMEM;
+ 		goto errout;
+@@ -6605,7 +6612,8 @@ static struct btf *btf_parse_module(const char *module_name, const void *data,
+ 	if (!IS_ERR(base_btf) && base_btf != vmlinux_btf)
+ 		btf_free(base_btf);
+ 	if (btf) {
+-		kvfree(btf->data);
++		if (!data_owned)
++			kvfree(btf->data);
+ 		kvfree(btf->types);
+ 		kfree(btf);
+ 	}
+@@ -8610,6 +8618,48 @@ static DEFINE_MUTEX(btf_module_mutex);
+ 
+ static void purge_cand_cache(struct btf *btf);
+ 
++static int btf_module_sysfs_add(struct btf_module *btf_mod, const char *name,
++				void *data, size_t data_size)
++{
++	struct bin_attribute *attr;
++	int err;
++
++	if (!IS_ENABLED(CONFIG_SYSFS))
++		return 0;
++
++	attr = kzalloc_obj(*attr);
++	if (!attr)
++		return -ENOMEM;
++
++	sysfs_bin_attr_init(attr);
++	attr->attr.name = name;
++	attr->attr.mode = 0444;
++	attr->size = data_size;
++	attr->private = data;
++	attr->read = sysfs_bin_attr_simple_read;
++
++	err = sysfs_create_bin_file(btf_kobj, attr);
++	if (err) {
++		pr_warn("failed to register module [%s] BTF in sysfs: %d\n",
++			name, err);
++		kfree(attr);
++		return err;
++	}
++
++	btf_mod->sysfs_attr = attr;
++	return 0;
++}
++
++static void btf_module_free(struct btf_module *btf_mod)
++{
++	if (btf_mod->sysfs_attr)
++		sysfs_remove_bin_file(btf_kobj, btf_mod->sysfs_attr);
++	purge_cand_cache(btf_mod->btf);
++	btf_put(btf_mod->btf);
++	kfree(btf_mod->sysfs_attr);
++	kfree(btf_mod);
++}
++
+ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
+ 			     void *module)
+ {
+@@ -8630,7 +8680,10 @@ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
+ 			err = -ENOMEM;
+ 			goto out;
+ 		}
+-		btf = btf_parse_module(mod->name, mod->btf_data, mod->btf_data_size,
++		btf_mod->module = module;
++
++		btf = btf_parse_module(mod->name, bpf_get_btf_vmlinux(),
++				       mod->btf_data, mod->btf_data_size, false,
+ 				       mod->btf_base_data, mod->btf_base_data_size);
+ 		if (IS_ERR(btf)) {
+ 			kfree(btf_mod);
+@@ -8652,37 +8705,12 @@ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
+ 
+ 		purge_cand_cache(NULL);
+ 		mutex_lock(&btf_module_mutex);
+-		btf_mod->module = module;
+ 		btf_mod->btf = btf;
+ 		list_add(&btf_mod->list, &btf_modules);
+ 		mutex_unlock(&btf_module_mutex);
+ 
+-		if (IS_ENABLED(CONFIG_SYSFS)) {
+-			struct bin_attribute *attr;
+-
+-			attr = kzalloc_obj(*attr);
+-			if (!attr)
+-				goto out;
+-
+-			sysfs_bin_attr_init(attr);
+-			attr->attr.name = btf->name;
+-			attr->attr.mode = 0444;
+-			attr->size = btf->data_size;
+-			attr->private = btf->data;
+-			attr->read = sysfs_bin_attr_simple_read;
+-
+-			err = sysfs_create_bin_file(btf_kobj, attr);
+-			if (err) {
+-				pr_warn("failed to register module [%s] BTF in sysfs: %d\n",
+-					mod->name, err);
+-				kfree(attr);
+-				err = 0;
+-				goto out;
+-			}
+-
+-			btf_mod->sysfs_attr = attr;
+-		}
+-
++		/* not fatal, the module BTF is usable without the sysfs file */
++		btf_module_sysfs_add(btf_mod, btf->name, btf->data, btf->data_size);
+ 		break;
+ 	case MODULE_STATE_LIVE:
+ 		mutex_lock(&btf_module_mutex);
+@@ -8709,12 +8737,7 @@ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
+ 			 */
+ 			btf_free_id(btf_mod->btf);
+ 			list_del(&btf_mod->list);
+-			if (btf_mod->sysfs_attr)
+-				sysfs_remove_bin_file(btf_kobj, btf_mod->sysfs_attr);
+-			purge_cand_cache(btf_mod->btf);
+-			btf_put(btf_mod->btf);
+-			kfree(btf_mod->sysfs_attr);
+-			kfree(btf_mod);
++			btf_module_free(btf_mod);
+ 			break;
+ 		}
+ 		mutex_unlock(&btf_module_mutex);
+-- 
+2.47.3
+
