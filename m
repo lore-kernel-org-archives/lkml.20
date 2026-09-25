@@ -1,190 +1,251 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A30426429;
-	Fri, 25 Sep 2026 12:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8DC471D0B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790340841; cv=none; b=bB0Xa8RV979Jr8fd8bR1zReZR8csjy8CKG/jf4hygwuQshZ1dVa31MPvAZiDvopoRC7REZ1tznrdrtnxReRFAiT362gBIye55teyO24EvnOwCbQim8dR2n2RzcAbEbEdGcSihwpLK8tHxTxYrtLsBqRLtJaZ5N3CKUjtJSoi8qg=
+	t=1790340860; cv=none; b=DfyYHOeg+QcEBRcQWctY5bKWAzINAklendmzaURjCMai850le2YdOK+Ou0f4fukDgWUmeOD71L9KLAqaUjGwXbLzKVvbhCI+YTK68FXdBfJ+qJ8pJu+jZGN2Q9Zov6rdQ60r8BmFLmqC8ieSAVFfictbHVvrhdEzdEO77dRZCOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790340841; c=relaxed/simple;
-	bh=7QFQaHhQHwO4JjYiWqEtP4ey1qTU6R5eBhvbiXj4+cY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rYJ36uChpReu8WM9LYZzEpcrz4MwVQz0zNj/NPEcNEy1tXh/ts5OtmadMPODkkuhmWyQAbiyC5FnNfMW2wZA0yPmCDJEwcriue7zBUH6pTOm3faLDkq1NWZhSgePqaDMvUBXBfLvX6HWdXqdUa0y0ezQ+XKoflPGEDWzgbV1bgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AqEFl0nT; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790340860; c=relaxed/simple;
+	bh=CdPpVt3jhTVkM0bzeDaDuajKfQ5z2AW/BLT4e8Y0CzI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rg5AmU+/VJeu/65W1l1qYH6LYnGeUtNNPN1BmrsXtuoyAxPgxaJaSoksc6I7qtHRZjglPI3wVltJ8eqGQWrwXEz95bEaE25ekxf1sXV6mTihIip5YB6+yVu1Nci33d5Hky7DHdJxZSTZHDLGiBWWzI7ueXb6q349eFFedQNpRO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=izmCRHTG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ifg64bMv; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AqEFl0nT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790340840; x=1821876840;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=7QFQaHhQHwO4JjYiWqEtP4ey1qTU6R5eBhvbiXj4+cY=;
-  b=AqEFl0nTf32VjvPU6jGRFSlvBIgrQGvmVfLO1HCoIcV9kckNsxmvRs3X
-   gsBU4fYXWvd3tEH5Tl8pp3968xIedbbzTlp6YmW3Ch/eNMoNzgI36Pskk
-   kbsQUxqR2z72gK20NsvV76Fr8vuLw+wfYhRAyUnv+m/tOq45baOGmYymE
-   ck04wuPTY20nbSWFbIzyVwM9qUo1iEE559il91j2Krf8MjfS5E6nrRteD
-   eQfyNTm1xmIACdT4Yz6oQ+ww5XieAGDOwhnWPY5Lolqv/pT9MrmEML+8r
-   I4dayewAmpt95ArEbx4V5fdmnxPqb5nRm55xq6hf25rx1jgoB+OGtzDgr
-   g==;
-X-CSE-ConnectionGUID: bxmujoH/Qh+c5jGkSPHo2A==
-X-CSE-MsgGUID: nGEZis6PS0O/WXasbxs6Qw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="102486238"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="102486238"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 05:53:59 -0700
-X-CSE-ConnectionGUID: 4PIYZybqQxehFdbSfdSDZw==
-X-CSE-MsgGUID: bpl31Ej6T1GrkfDHe8iYYw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="274497205"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 05:53:54 -0700
-Date: Fri, 25 Sep 2026 15:53:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Aniket Limaye <a-limaye@ti.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
-	u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
-	Ritwick.Sharma@arm.com, intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
-Message-ID: <arZu33UFU2b7kVRR@ashevche-desk.local>
-References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
- <arZB2s3HOBgSRuE4@ashevche-desk.local>
- <e0f113ea-92cc-4e82-85ae-f61814c230c7@ti.com>
- <arZIqk6wgV_LF0rg@ashevche-desk.local>
- <386f23e4-d573-45f7-9e2f-fe47015a4761@ti.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="izmCRHTG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ifg64bMv"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PCrBCO208408
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:54:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	tS7aD0v0oP7zIS58pNV4/khTyKAVVNAy4M4J2kIEBbo=; b=izmCRHTGtblcKxjS
+	md6gN1qvEAI1vayaSIvug+//PSzlC6FCs++LfhC51DU/9qRYIwBTRqPRNhsUVt8I
+	6sBmjLnkhsYCyWVVChyYnsnglyg+HunoOhly/o2bPYUdqLe3a3O7Yq3L4ySYCVDE
+	FoNDy1g3x8f7TdOohqDI7EmgEIHcaojbXpSzKF4JcD1Luh91fAtwa2Ic+W2cI084
+	SFXIFL4Ljd6AnK5H68dpekoXwiqfeZfSiOrANqYSaF/H33JfygeoyoPRguLekPNJ
+	E/roQ/IgWTGAr6yStIh1FeD8FlJcNeNhirIIxxGvtsBANjrLTZZGYUCqROFavXrt
+	gw358g==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw898uhfc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:54:17 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a0b6ef90fdso891076a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:54:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790340857; x=1790945657; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tS7aD0v0oP7zIS58pNV4/khTyKAVVNAy4M4J2kIEBbo=;
+        b=ifg64bMvbp0qA++xtfBkNRTNBSrpMrPue4o7TvKqq1OkTaCvyAYvwgxJQbl8Wdvp4i
+         hoHwTeHF6LgCJ11/L92IiARRQFp0EWgsErd6CuG3pXPsnpSEksT+zVwLO+PbqK9Nmssd
+         nxcHiHRXCMbzqVaQXtcLvbn1uX9I3Hd9RtlxvN+YG8NQD6Aq11ziqX0iVnkQyEw2atH+
+         xOt3hZm+06dWS2ah1cwflLUf+D9VDqOKeNpSJWX5adHxfK5yThbYOMsDZD2P7uzhizk7
+         V5OK0mAkVytWhMOowalGcibfRxJy6nisEY5UpK3Dk9NGPIMvV2rM2qq9im8kAlVLn9Kp
+         1tIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790340857; x=1790945657;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tS7aD0v0oP7zIS58pNV4/khTyKAVVNAy4M4J2kIEBbo=;
+        b=eFYU9EmUYPoPPDIW0yh6d5McpjseZKVv7Yqwlr0QD95JAC8HBogDsLGH6ufM01Chjq
+         W6N63X6OdBf0F7i+Guj7JMVRigMU1WRd6SIFV4K/06EQuESOqeW87ddJ1g2nSuzbY3PO
+         VucFC5XRKCAzxkqiOrLAnC9aECjC7ZCNFNEXuVXqm3Kf+2tKqhNSGxBoTB7V+fzGnDlj
+         WfbteTiN7+xlyLlCHSS9EraAmBCso3EhtU3233EY6XhbXk466mrh4oFRJvd5THewJ216
+         at9mSyuNM3/hN+sv35zj9LzZpLZ6dEowtNiMjCPl+qfIMJHzBcKQwFJtnxk5qxWbRtMC
+         N4bg==
+X-Forwarded-Encrypted: i=1; AKwUvBzOa4EYGv4fX8L/rXD109RWsF2KxC4BbsEyL530ZEbzCnqpPJQCXqLHyb+1xh4iIuGmIphQbaqiSNlsSu0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGw82CiINBGahcLykfczyMngwei1Qpvi3yDbWDJXQ41WKJKLOT
+	f4Znm8fV4qT8iON9RnEmPVjx+qzud1fhpeTEJ4JvofNltUbKkufkYMhn9UoyPeMjaQvIBk7RXHB
+	k7Zhiug3FBWzKbQUjiJz+ZgWVgxOvtEo3IiiIFMIdpRrRsHHN3AnPtjJH5gJG6zKIuqw=
+X-Gm-Gg: AYBFou155mfjyAHB0wt/Zc/ETZzPUdIECqPcZURWudEjFWfEzcN4Cpctz1G0kboA1n8
+	uVd+E7MTCkWTAraSWe4+viSSPSuRkZuRvlTpNaH3sgiarXl1fzLapC/FHWNN8HAW/hWl1KWIi33
+	WjRxC0fwzsC5roUKioIMVrjHlw0E/I9QVZVsKTFTmhcuaAW9U3+QkLrpVO00Le1MrE5v0sVZDgS
+	6ZvbErM7e/IQNJpUQcVkpARpfcQHXT/syXZ00gitu5BX5Od31pW6Lys6EkIXVSl8rRQBYqGFW0L
+	QT1vOWLMyby2W02MX/Y/uHgdhQYXRzxRpCBtoEbAhk+Spp5N7slmCX7z0JmMsQp0sNjn/qHKX2+
+	01KP0IHkB8hUmx67fkky75OJqE5NRmvxHxA==
+X-Received: by 2002:a17:90b:1c82:b0:3a0:7d97:37c1 with SMTP id 98e67ed59e1d1-3a098aaba1dmr5199236a91.59.1790340856658;
+        Fri, 25 Sep 2026 05:54:16 -0700 (PDT)
+X-Received: by 2002:a17:90b:1c82:b0:3a0:7d97:37c1 with SMTP id 98e67ed59e1d1-3a098aaba1dmr5199199a91.59.1790340855905;
+        Fri, 25 Sep 2026 05:54:15 -0700 (PDT)
+Received: from [192.168.0.172] ([183.83.137.191])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0cd1c4ec9sm839778a91.16.2026.09.25.05.54.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 05:54:15 -0700 (PDT)
+Message-ID: <14797f32-9355-4b81-b805-af4d8d8ef5f3@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 18:24:08 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 02/19] media: iris: Add Gen2 firmware autodetect and
+ fallback
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+References: <20260731-iris-ar50lt-v9-0-d71a782001c0@oss.qualcomm.com>
+ <20260731-iris-ar50lt-v9-2-d71a782001c0@oss.qualcomm.com>
+ <bbf66d18-0587-41d1-a902-32686f66fa76@linaro.org>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <bbf66d18-0587-41d1-a902-32686f66fa76@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <386f23e4-d573-45f7-9e2f-fe47015a4761@ti.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1MSBTYWx0ZWRfX5yDQogInp8eK
+ tiGJ98Bx8vWz6qt71abYXQ5APjRXeCjh1Pp56pummxb4iohox6HW+dyc4rvTr4L8kohx/YxJ/rc
+ SUzgnN1xdKYqV/WoHHlKpqpFRuKpZWlUZDNlKIVbEAT7CH7O/OVLmtMx8ERX89hciIgHjbADJqU
+ VauT7trBLDoto/8xHeLb4+3Su9wGmiJNuJTPDLbv35IxmXN7qdg/TxvdAnmLK+LKAmIXa/M5ZzZ
+ Zfd2kQhcVSdU7jwwCmOxRtYgsysfKvdfdH0SpU4ZffQLf0I65/H+ZUZrKuFdKA09w/DQObjyIzr
+ 9gjMV3pXYWw9gJRFmVxeF9Osfr3iilMa7RFO5ftfKSuuKTdONNiM4b0/EzDLaiH8qLwQuAhbTfW
+ aO9flzBrySzMbTiIhjBzaOo+8J+F0/mvooMfmdippePR5czw6K3c89bcYSXI8jmumARN5Y0B1Zp
+ eB38rTHCcdSMvWcltAg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1MSBTYWx0ZWRfX7ezZ3ARtoBCG
+ uYxarTzTGq8q4TZdRvd2znH1SQP3GsyHOs1+S5ES1KS7Zd7M1W6jyrQRrgXCMaVFJOh1Y7ok8yb
+ E7gtYn1FkN3rY9JUNSYxZawp6leiB8I=
+X-Proofpoint-GUID: Z8lgCjCJoEvnEJx1zCQpeM9l9vq5f4N8
+X-Proofpoint-ORIG-GUID: Z8lgCjCJoEvnEJx1zCQpeM9l9vq5f4N8
+X-Authority-Analysis: v=2.4 cv=EJWTQFZC c=1 sm=1 tr=0 ts=6ab66ef9 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=iB3hNsdZaZMRGRx/E791SA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=ZVrMA9eccY_vmvRiiCEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 suspectscore=0 impostorscore=0 bulkscore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609250051
 
-On Fri, Sep 25, 2026 at 04:46:39PM +0530, Aniket Limaye wrote:
-> On 25/09/26 15:40, Andy Shevchenko wrote:
-> > On Fri, Sep 25, 2026 at 03:29:27PM +0530, Aniket Limaye wrote:
-> > > On 25/09/26 15:11, Andy Shevchenko wrote:
-> > > > On Fri, Sep 25, 2026 at 12:26:27PM +0530, Aniket Limaye wrote:
 
-...
 
-> > > > Still doesn't look good. The current register layout may be left as is. What
-> > > > you need is translate it in the respective regmap callbacks in case we are
-> > > > enumerated on the different IP. Also possible to have a different regmap
-> > > > config for the different HW where you translate them only in one place.
-> > > Is it confusing to keep using existing offsets in regmap_read/write() call
-> > > sites for TDA54, and let the regmap silently handle the translation?
-> > > 
-> > > Given that we do *not* have any new registers in use on the tda54 version
-> > > that were not there in the original one, I guess it works... will send a v4
-> > > as per your suggestion.
-> > Depends on the mapping. Your series also forgot to provide the differences
-> > Check this as an example: e539f435cb9c ("spi: dw: Add support for DesignWare DWC_ssi").
-> > 
-> Ahh sorry about that, will remember to add a clean mapping in cover letter
-> of next version.
+On 9/24/2026 6:06 PM, Bryan O'Donoghue wrote:
+> On 31/07/2026 00:48, Dmitry Baryshkov wrote:
+>> +
+>> +/*
+>> + * Detect the firmware generation and publish the descriptor. Run 
+>> only after
+>> + * qcom_mdt_load() has succeeded, so the driver commits to a HFI 
+>> generation
+>> + * only for a firmware image that has actually been loaded.
+>> + *
+>> + * The generation is detected from the loaded image (@data / @size 
+>> point at the
+>> + * reserved memory region populated by qcom_mdt_load()) rather than 
+>> from the
+>> + * request_firmware() blob: for a split .mdt the latter holds only 
+>> the ELF
+>> + * headers, while QC_IMAGE_VERSION_STRING lives in the .bNN data 
+>> segments.
+>> + *
+>> + * The descriptor and firmware data are published exactly once, 
+>> before any
+>> + * session exists, so the lockless readers in the ioctl paths never 
+>> observe a
+>> + * reassignment. Later bring-ups reuse the already published descriptor.
+>> + */
+>> +static void iris_detect_firmware(struct iris_core *core, const char 
+>> *fw_name,
+>> +Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  const u8 *data, size_t size,
+>> +Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  const struct iris_firmware_desc *desc)
+>> +{
+>> +Â Â Â  if (core->iris_firmware_desc)
+>> +Â Â Â Â Â Â Â  return;
+>> +
+>> +Â Â Â  /*
+>> +Â Â Â Â  * With a DT firmware-name override on a dual-generation platform 
+>> the
+>> +Â Â Â Â  * image on disk decides the generation, so inspect it and switch 
+>> to the
+>> +Â Â Â Â  * Gen1 descriptor when a Gen1 image was loaded.
+>> +Â Â Â Â  */
+>> +Â Â Â  if (desc == core->iris_platform_data->firmware_desc_gen2 &&
+>> +Â Â Â Â Â Â Â  core->iris_platform_data->firmware_desc_gen1 &&
+>> +Â Â Â Â Â Â Â  of_property_present(dev_of_node(core->dev), "firmware-name") &&
+>> +Â Â Â Â Â Â Â  !iris_detect_gen2_from_fwdata(data, size)) {
+>> +Â Â Â Â Â Â Â  dev_info(core->dev, "Gen1 FW detected in %s\n", fw_name);
+>> +Â Â Â Â Â Â Â  desc = core->iris_platform_data->firmware_desc_gen1;
+>> +Â Â Â  }
+>> +
+>> +Â Â Â  /* Publish iris_firmware_data first, then iris_firmware_desc (the 
+>> guard). */
+>> +Â Â Â  core->iris_firmware_data = desc->firmware_data;
+>> +Â Â Â  core->iris_firmware_desc = desc;
+>> +}
+>> +
 > 
-> For now here are the structural differences:
+> In function â€˜iris_detect_firmwareâ€™,
+>  Â Â Â  inlined from â€˜iris_load_fw_to_memoryâ€™ at drivers/media/platform/ 
+> qcom/iris/iris_firmware.c:216:3:
+> drivers/media/platform/qcom/iris/iris_firmware.c:161:12: warning: â€˜descâ€™ 
+> may be used uninitialized [-Wmaybe-uninitialized]
+>  Â  161 |Â Â Â Â Â Â Â Â  if (desc == core->iris_platform_data- 
+>  >firmware_desc_gen2 &&
+>  Â Â Â Â Â  |Â Â Â Â Â Â Â Â Â Â Â  ^
+> drivers/media/platform/qcom/iris/iris_firmware.c: In function 
+> â€˜iris_load_fw_to_memoryâ€™:
+> drivers/media/platform/qcom/iris/iris_firmware.c:176:42: note: â€˜descâ€™ 
+> was declared here
+>  Â  176 |Â Â Â Â Â Â Â Â  const struct iris_firmware_desc *desc;
+>  Â Â Â Â Â  |Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  ^~~~
+> In function â€˜iris_detect_firmwareâ€™,
+>  Â Â Â  inlined from â€˜iris_load_fw_to_memoryâ€™ at drivers/media/platform/ 
+> qcom/iris/iris_firmware.c:216:3:
+> drivers/media/platform/qcom/iris/iris_firmware.c:170:40: warning: â€˜descâ€™ 
+> may be used uninitialized [-Wmaybe-uninitialized]
+>  Â  170 |Â Â Â Â Â Â Â Â  core->iris_firmware_data = desc->firmware_data;
+>  Â Â Â Â Â  |Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  ~~~~^~~~~~~~~~~~~~~
+> drivers/media/platform/qcom/iris/iris_firmware.c: In function 
+> â€˜iris_load_fw_to_memoryâ€™:
+> drivers/media/platform/qcom/iris/iris_firmware.c:176:42: note: â€˜descâ€™ 
+> was declared here
+>  Â  176 |Â Â Â Â Â Â Â Â  const struct iris_firmware_desc *desc;
+>  Â Â Â Â Â  |Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  ^~~~
+> . "$TS_DIR"/lib/common-end.sh
+> #!/bin/sh
+> # Copyright 2024 Google LLC
 > 
-> 1.  Reg offsets  Existing        New TDA54
+> Proposed fix
 > 
->     [DW_IC_CON]                     0x00           0x2c
->     [DW_IC_TAR]                     0x04            0x30
->     [DW_IC_SAR]                     0x08            0x34
->     [DW_IC_DATA_CMD]                0x10            0x80
->     [DW_IC_SS_SCL_HCNT]             0x14            0x4c
->     [DW_IC_SS_SCL_LCNT]             0x18            0x50
->     [DW_IC_FS_SCL_HCNT]             0x1c            0x4c  /* same as SS */
->     [DW_IC_FS_SCL_LCNT]             0x20            0x50  /* same as SS */
->     [DW_IC_HS_SCL_HCNT]             0x24         0x54
->     [DW_IC_HS_SCL_LCNT]             0x28            0x58
->     [DW_IC_INTR_STAT]               0x2c            0xc0
->     [DW_IC_INTR_MASK]               0x30            0xc4
->     [DW_IC_RAW_INTR_STAT]           0x34            0xc8
->     [DW_IC_RX_TL]                   0x38            0x84
->     [DW_IC_TX_TL]                   0x3c            0x88
->     [DW_IC_CLR_INTR]                0x40            0xcc
->     [DW_IC_CLR_RX_UNDER]            0x44            NA
->     [DW_IC_CLR_RX_OVER]             0x48            NA
->     [DW_IC_CLR_TX_OVER]             0x4c            NA
->     [DW_IC_CLR_RD_REQ]              0x50            NA
->     [DW_IC_CLR_TX_ABRT]             0x54            NA
->     [DW_IC_CLR_RX_DONE]             0x58            NA
->     [DW_IC_CLR_ACTIVITY]            0x5c            NA
->     [DW_IC_CLR_STOP_DET]            0x60            NA
->     [DW_IC_CLR_START_DET]           0x64            NA
->     [DW_IC_CLR_GEN_CALL]            0x68            NA
->     [DW_IC_ENABLE]                  0x6c            0x04
->     [DW_IC_STATUS]                  0x70            0xd8
->     [DW_IC_TXFLR]                   0x74            0xdc
->     [DW_IC_RXFLR]                   0x78            0xe0
->     [DW_IC_SDA_HOLD]                0x7c            0x5c
->     [DW_IC_TX_ABRT_SOURCE]          0x80            0xd4
->     [DW_IC_ENABLE_STATUS]           0x9c            0xd0
->     [DW_IC_CLR_RESTART_DET]         0xa8            NA
->     [DW_IC_SMBUS_INTR_STAT]         0xc8            NA
->     [DW_IC_SMBUS_INTR_MASK]         0xcc            NA
->     [DW_IC_CLR_SMBUS_INTR]          0xd4            NA
->     [DW_IC_COMP_PARAM_1]            0xf4            NA
->     [DW_IC_COMP_VERSION]            0xf8            0x100
->     [DW_IC_COMP_TYPE]               0xfc            0x104
+> â•°â”€$ git diff
+> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/ 
+> media/platform/qcom/iris/iris_firmware.c
+> index dfc4c184646c6..39558a300d38c 100644
+> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+> @@ -153,6 +153,9 @@ static void iris_detect_firmware(struct iris_core 
+> *core, const char *fw_name,
+>  Â Â Â Â Â Â Â if (core->iris_firmware_desc)
+>  Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â return;
 > 
-> 2. DW_IC_CON bitfields:
-> 
->     DW_IC_CON_MASTER BIT(0)                  BIT(0)
->     DW_IC_CON_SPEED_STD                 (1 << 1)       (1 << 4)
->     DW_IC_CON_SPEED_FAST                (2 << 1)       (2 << 4)
->     DW_IC_CON_SPEED_HIGH                (3 << 1)       (3 << 4)
->     DW_IC_CON_SPEED_MASK                GENMASK(2, 1)  GENMASK(5, 4)
->     DW_IC_CON_10BITADDR_SLAVE           BIT(3) BIT(8)
->     DW_IC_CON_10BITADDR_MASTER          BIT(4) BIT(9)
->     DW_IC_CON_RESTART_EN                BIT(5) NA
->     DW_IC_CON_SLAVE_DISABLE             BIT(6) NA
->     DW_IC_CON_STOP_DET_IFADDRESSED      BIT(7) BIT(10)
->     DW_IC_CON_TX_EMPTY_CTRL             BIT(8) BIT(11)
->     DW_IC_CON_RX_FIFO_FULL_HLD_CTRL     BIT(9) BIT(12)
->     DW_IC_CON_BUS_CLEAR_CTRL            BIT(11)  BIT(14)
+> +Â Â Â Â Â  if (!desc)
+> +Â Â Â Â Â Â Â Â Â Â Â Â Â  return;
+> +
 
-Thanks for providing this mapping!
-
-> 3. To clear INTR,  Read DW_IC_CLR_* reg    Write bit to DW_IC_CLR_INTR
-> 
-> As you can see, it's an entirely different mapping, which is why I had 2
-> independent enum -> reg offset maps instead of offset -> offset translation.
-> Similarly, selecting a CON register bitfield layout too.
-> 
-> Let me know what you would prefer based on this...
-
-This clears a bit the whole picture and what I would like to say is that better
-to have the separate driver for it. On top of completely reworked RTL I believe
-you won't need tons of hacks and workarounds that are applied during all these
-years against the old IP.
-
-TL;DR: Make a new clean and simple driver, which is hack-less and done properly
-(using the all modern APIs and frameworks in the kernel).
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
