@@ -1,167 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE7918D62A;
-	Fri, 25 Sep 2026 04:12:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A616378828
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790309548; cv=none; b=KYN3oYcpAmkW/cdzBZMXvOdC4fAp7Fw7E63tt1tu00tFHFECAoWyoJxDRfgdSdZii+jX2b+jKVAuJm27OEkWIfQsAoqYis0wdTu+wUbmvg3HA96nyh2krAvWT46Zv4WoHRWYMAGgNNytOo1Wc5bzX/T1QFh/VoD4sQmFuKUwEmQ=
+	t=1790309566; cv=none; b=Iao7Kqv9FHLQEugQZy6t7G7uNp22szk/yvKMN/jJ7z8aCCjiW4bcVBs1HkxN2xvumLRtfcDcr64o7SVC1hokNGGPTlj13Vg9jxvtVceqp8dlz+Hlnr4zJGQTaXsIfberakCUDNqif7AI/uOE+dRw9LTMTqyhjzWRMNLtrXDwsBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790309548; c=relaxed/simple;
-	bh=7Hd/HJOnE1lkqzWzjHH4KY/FoP+pKmZw1/RDov5kYJ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=L2j5lXyxEwkCu7/usZDivTZCwYOI8SlGpjU4xiae6UjS2UWGm6nSU1tQXaBg998qh8dpWMsG4qaq+2ZakKn5e4EjAQpMwwsi0qHHroGtJwBmXJEPBjLr0nzOMR6b3pyALr1vmubG/JuYG71hYAytknr8RFQ8EaQoFGHub3NR1ZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F4KSGo+M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790309566; c=relaxed/simple;
+	bh=fsGAtT13nBoh2p5VgiySeOwGY+0SCDfVVoO5fWNZ1Mc=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
+	 References:MIME-Version; b=cYx8saXm0jZ+VUWo2pmgEGHm+PEcOVbrUIYPUUpv9J4STUz5SLGdxVVTAIkCHfyMp01c3rPBJ6HKn/M5K7wMRw3lvgqczuitkMfvpWd+xsdwkAKAS1Ylp1SbP6yoWiubGpQ8KyuT0M46C5tF/bkahsUXpPAp2pKWvlA0xDnITfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=efeN0d99; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F4KSGo+M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97AEC1F000FF;
-	Fri, 25 Sep 2026 04:12:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790309547;
-	bh=Z9UBOKN6yLgeTYW8qbnwcVSEUt3kZ2lhNT94i8veq18=;
-	h=From:To:Cc:Subject:Date;
-	b=F4KSGo+Mjb+H9dL7xPAj1BJXUGpZPTbXckmH7nKkn6gPZqMB9oGRLDlhnPKTeyDyt
-	 g1tcxU3J5kB1h+FFYeWOco4MIQxHLm0VHs9MdrrJFFPH47v4/EwCDGhfazOtD8ShDW
-	 KrjRJD+06ZeOL1sdwet5ZKb0W2U8y4LK4zXsrcm9r7qtGPVkeIFWa1kc1m+j/O6mq3
-	 gmOzblMQQ4yVZI/0KNwxZCi7yRH0S9ugxjmtibYxgASnkf4qiNHBq2VHgIaLdIfak/
-	 cf370sngqEeRaX8UY3YElpfHcltLjdyXxNksHLEYYz80weYLqlSAwEOgAdXBGdD/aS
-	 jI6qH+jxARVsA==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH] tracing/probes: Clarify btf_find_struct_member() container parameter and add kernel-doc
-Date: Fri, 25 Sep 2026 13:12:23 +0900
-Message-ID: <179030954365.77418.17193777972248047975.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="efeN0d99"
+Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc4c3304833so144863a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:12:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790309565; x=1790914365; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U4MGTQQsIFwRWN5LVLl2bLnymyqR90tzlWdPdS9c0zU=;
+        b=efeN0d99G7U5taPU3XZ87mUu3XE/4vHapP4Z68Jj0UaoC+0/eiGIfLox7TzkgzC/R6
+         +B1gFL7L55sGNWTuinWv9mKRm+Kj0TWD98XYO+S5Xr2JRmxDCjG4ofxIbK4/zwpPXneV
+         NycNOvqzxNgwW3OwkDnic8thioeLczr1Mu26ZKr3RxAohhYYlzVRQJBVcnxDHkM0ZgSf
+         GOCwG0hIi0QASpLKin6ADawoBu63v6lxVdb+WHngV1iwxPPZ/6IrTztzW4aawFKT+c5r
+         w56xTexYYx8Sqzs4M7Pfmf3ssoua3JDnL/a5kESygfEGmltl1K8PVSJ1TIV+z1EFYSuC
+         IraQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790309565; x=1790914365;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U4MGTQQsIFwRWN5LVLl2bLnymyqR90tzlWdPdS9c0zU=;
+        b=D+mp7lcxLpRKiRle+n8fLWE9ZRnHwU55moQz1yooEtNbmF7wPJ6u6l0IqMPeYznSgy
+         rtJqwhGG0PPYG4OGA/i/QumaN66Cpf5Bo4ar6B8xZOIPmZjK7jLGo7I+fIZIJoaMG4yU
+         c/TvmWzA5ftplTh3I3ArSqJXwnEVdUfa4plH/pCuJGiTmuzwBaqQnZJPphyj4XaT1Gnh
+         o9XYRU/1K0sluwWDlC8OGW752K4ikin9ToUGUV4V2LkBTOG32ltrr+tIdk+NNv0LO+RF
+         zpQzCp2tgJ3/eaXHXtOp5Hk/ZSZOGuxtsSCTaIT1RvoH6W3U6CitSd/gpJVxugZq7uy3
+         K/iA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTXmA/oh4Ia1ulOImd6vAj75thCr2fq1ivef1JHGns5foJEpQUDqIA3SNUKVg80vWDzeC1suu8IzFVm0c=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9wok8OqRNBZJJoJgagc1P+rxZaVOGvYiShFHCQ9d7FH0sSKAt
+	vkgSDKUacx0NpQbNQR59ZE62DWU/Wzb8vzEOV3RGy/b4Lc4q0ymAfPja
+X-Gm-Gg: AYBFou3TH1N6ajaqWePdYQ0X1KE3F0VsYHkbly6S/Tb/V2n29qWgnZEbYkb+eI3fMxq
+	nCKbJcG/K+hC70j51GTxFsBQC5IYwg9YtJmv0q0AQzht5HJgET9M7CNPUoUTPZls9NGuJmouhjR
+	epkj7mv/I+PVg7OaS8M6+TBv9YlnliiWUAE6zPJhYo3AA7TLWGXCjpw+W4o5X9Z7fGqajmRswsf
+	gdg8pG1mZ762joUNhDiTdVP3tHf1Z7Tio6GUikGNXOgi53p90PC9AQLbMZhhBf2M/Y1Obc8/HJi
+	+5JEghEVfdBpqAJJhjy8p4J7e8yE6uKU2WincXwZiD2quFPMHWRni8SvKD9BjmnwCF+TyRej70o
+	ywrAHXdnqeeS459vxBz8yInK2XKfQ5TwbFmP/JJovgGyo6CN8qohWDRdMACllOHrQvkfMVrV1QQ
+	MrRUT8a0Ui+WddhOPdaxo+BCmqzcE4OKqTVQvGkjOs1qEUr2cVWuo8L4eLsMqZPIl+nSmKra+Bs
+	x1c7RgKxtw/iquj3gCDDPydDvzsX4T4Bfdtfhg8x6VMI9qk04Og5D+JL0/c/QaiN/mivKPHBK8P
+	weXt
+X-Received: by 2002:a17:90b:1a8a:b0:3a0:c22d:fbe8 with SMTP id 98e67ed59e1d1-3a0c22e01a7mr228479a91.38.1790309564539;
+        Thu, 24 Sep 2026 21:12:44 -0700 (PDT)
+Received: from localhost ([153.61.198.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b998e2bdsm1908663a91.13.2026.09.24.21.12.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 21:12:43 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 25 Sep 2026 04:12:43 +0000
+Message-Id: <DLO3RV3IQUOV.21BNLF4QS9T4W@gmail.com>
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>
+Cc: "Vlastimil Babka" <vbabka@kernel.org>, "Harry Yoo" <harry@kernel.org>,
+ "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Hao Li" <hao.li@linux.dev>, "Suren
+ Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>,
+ "Brendan Jackman" <jackmanb@google.com>, "Amery Hung"
+ <ameryhung@gmail.com>, "Swaraj Gaikwad" <swarajgaikwad1925@gmail.com>,
+ "Clark Williams" <clrkwllms@kernel.org>, "Steven Rostedt"
+ <rostedt@goodmis.org>, <linux-mm@kvack.org>, <bpf@vger.kernel.org>,
+ <linux-rt-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH] mm: restrict can_spin_trylock() to preemptible
+ context on PREEMPT_RT
+In-Reply-To: <arIY0wMQjCCsqidI@gmail.com>
+References: <20260919171443.90512-1-kmehltretter@gmail.com> <DLJHZEZMLW0F.27OPPS218CX9Q@gmail.com> <arIY0wMQjCCsqidI@gmail.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Tue, Sep 22, 2026 at 08:04 AM Karl Mehltretter <kmehltretter@gmail.com> wrote:
+> a) Change MM so _nolock() allocation remains safe and can still succeed
+>    while pi_lock or an rq lock is held. Existing BPF behavior would
+>    remain unchanged. Is this feasible, or would it require substantial
+>    allocator changes?
 
-btf_find_struct_member() returns the containing structure or union type
-(which can be an inner anonymous struct/union rather than the outer
-passed type) via its last parameter. However, the parameter was named
-@member_type, which easily confuses readers and static analyzers into
-thinking it returns the member field's own datatype.
+I don't think it's feasible. On RT the sheaves lock, n->list_lock and
+zone->lock are all rtmutex based. When trylock succeeded and a waiter
+showed up rt_spin_unlock() has to wake it.
 
-Rename @member_type to @container_type in the prototype, definition,
-and callers to make the relationship explicit. Also convert the comment
-above btf_find_struct_member() to standard kernel-doc format, documenting
-all parameters and return values.
+> b) Restore BPF local storage's dedicated allocator, and document, with
+>    debug checks if possible, that _nolock() must not be used in those
+>    scheduler-lock contexts.
 
-Assisted-by: LLM
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- kernel/trace/trace_btf.c   |   34 ++++++++++++++++++++++++----------
- kernel/trace/trace_btf.h   |    2 +-
- kernel/trace/trace_probe.c |    6 +++---
- 3 files changed, 28 insertions(+), 14 deletions(-)
+No. Local storage is not the only one. bpf_arena_alloc_pages(),
+bpf_stream_vprintk(), bpf_task_work_schedule_*() call kmalloc_nolock()
+as well and the same sched_waking prog can call them.
+bpf_mem_alloc was removed from local storage, because it wastes memory
+on preallocation. Same answer for d).
 
-diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
-index ee7a04886bf6..a534907336ff 100644
---- a/kernel/trace/trace_btf.c
-+++ b/kernel/trace/trace_btf.c
-@@ -59,19 +59,33 @@ struct btf_anon_stack {
- 	u32 offset;
- };
- 
--/*
-- * Find a member of data structure/union by name and return it.
-- * Return NULL if not found, or ERR_PTR(-EINVAL) if parameter is invalid.
-- * If the member is a member of an anonymous union/structure, the bit offset
-- * of that anonymous union/structure is stored into @anon_offset.
-- * If @member_type is non-NULL, the actual containing structure/union type
-- * of the found member is stored into @member_type.
-+/**
-+ * btf_find_struct_member() - Find a member of data structure/union by name
-+ * @btf: Pointer to BTF object.
-+ * @type: Pointer to the struct/union BTF type to search within.
-+ * @member_name: Name of the member to find.
-+ * @anon_offset: Pointer to store bit offset of enclosing anonymous union/struct.
-+ * @container_type: Pointer to store the actual containing struct/union type.
-+ *
-+ * Find a member of data structure/union by name, traversing into anonymous
-+ * unions and structures if necessary.
-+ *
-+ * If the member is inside an anonymous union/structure, the bit offset
-+ * of that anonymous union/structure from @type is stored into @anon_offset.
-+ * If @container_type is non-NULL, the actual struct/union BTF type that
-+ * directly contains the found member is stored into @container_type.
-+ *
-+ * Return:
-+ * * Pointer to &struct btf_member on success.
-+ * * %NULL if the member was not found.
-+ * * %ERR_PTR(-EINVAL) if @type is not a struct/union.
-+ * * %ERR_PTR(-ENOMEM) if memory allocation failed.
-  */
- const struct btf_member *btf_find_struct_member(struct btf *btf,
- 						const struct btf_type *type,
- 						const char *member_name,
- 						u32 *anon_offset,
--						const struct btf_type **member_type)
-+						const struct btf_type **container_type)
- {
- 	struct btf_anon_stack *anon_stack;
- 	const struct btf_member *member;
-@@ -103,8 +117,8 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
- 			if (name && !strcmp(member_name, name)) {
- 				if (anon_offset)
- 					*anon_offset = cur_offset;
--				if (member_type)
--					*member_type = type;
-+				if (container_type)
-+					*container_type = type;
- 				goto out;
- 			}
- 		}
-diff --git a/kernel/trace/trace_btf.h b/kernel/trace/trace_btf.h
-index 4bd26bceae23..68f1d61fefb0 100644
---- a/kernel/trace/trace_btf.h
-+++ b/kernel/trace/trace_btf.h
-@@ -9,4 +9,4 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
- 						const struct btf_type *type,
- 						const char *member_name,
- 						u32 *anon_offset,
--						const struct btf_type **member_type);
-+						const struct btf_type **container_type);
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index 804442b2f7d2..17899ab15171 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -625,7 +625,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
- {
- 	const struct btf_type *type = *ptype;
- 	const struct btf_member *field;
--	const struct btf_type *mtype;
-+	const struct btf_type *container_type;
- 	struct btf *btf = ctx_btf(ctx);
- 	char *fieldname = *pfieldname;
- 	int bitoffs = 0;
-@@ -641,7 +641,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
- 
- 		anon_offs = 0;
- 		field = btf_find_struct_member(btf, type, fieldname,
--						&anon_offs, &mtype);
-+						&anon_offs, &container_type);
- 		if (IS_ERR(field)) {
- 			trace_probe_log_err(ctx->offset, BAD_BTF_TID);
- 			return PTR_ERR(field);
-@@ -654,7 +654,7 @@ static int get_bitoffset_of_field(char **pfieldname, const struct btf_type **pty
- 		bitoffs += anon_offs;
- 
- 		/* Accumulate the bit-offsets of the dot-connected fields */
--		if (btf_type_kflag(mtype)) {
-+		if (btf_type_kflag(container_type)) {
- 			bitoffs += BTF_MEMBER_BIT_OFFSET(field->offset);
- 			ctx->last_bitsize = BTF_MEMBER_BITFIELD_SIZE(field->offset);
- 		} else {
+> c) Have MM detect those contexts and return NULL. This prevents the
+>    deadlock while preserving ordinary raw-lock callers such as arena,
+>    but task-storage creation from scheduler tracepoints then fails
+>    deterministically.
 
+This one.
+bpf_task_storage_get() with F_CREATE can return NULL and the progs
+have to check for it anyway.
+
+> Are these the right alternatives? In particular, what behavior is
+> intended from the _nolock() API in these scheduler-lock contexts?
+
+It can be called from any context and it can return NULL.
+That's what it does from NMI and hardirq on RT already.
