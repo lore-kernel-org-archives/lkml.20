@@ -1,449 +1,584 @@
-Received: from mail-dl2-f32.google.com (mail-dl2-f32.google.com [74.125.229.160])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8E33955EA
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.160
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F86C401486;
+	Fri, 25 Sep 2026 19:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790366037; cv=none; b=J1BxVFtXQPtF3klfh+voG8ThU1FsdjR3SxR/rfrjPOThXiI7k/FxnJtEJ0pZgppfeo/Be5/kt2/GZG2Ec0lhQ1iuiAgYKDN6RrPFNFGuLqAdtO4SEd3ihvHAGH6INw+WnWjd50syY3ZPwBvBvsNRt/m7ufB8EKr6iRKMNNzxbgg=
+	t=1790366116; cv=none; b=RhCEwtmzx4PhaGX4hvfoPQR7doGdhWkH7PLxVkNflTVZruIA7MZSPLlixvzsilfH/tebWBddW22vNXcv6RoJLbObi8+/ym1TiZNuXCTudMc502vwmXy0pa5ubZR6lQC+PPJvqqXvBfG2kXQfzVqXuebyTeSLhgJf3RA+eiWA5Xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790366037; c=relaxed/simple;
-	bh=AQOacmGVZlv0a3CnWNzchghN2+mMizlL0IbVxE305+A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z2c9gzb6pLxWBXRYhd5DpqrX9rzFK3G8FnvieKs8X62Dhe3dnRHlaUzlKeuyx6CkjQNuD5Sy6KZ0YVFgwSkJyYRkUdzmrHqw2+7kKZn3b0JIv+/2MEEtSKHV4pn7ECFN3VqT/XY+kgzWmo/BXUc1sxkYMsARLK5rvbEKA9xzWbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=PVWKIZQ1; arc=none smtp.client-ip=74.125.229.160
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790366116; c=relaxed/simple;
+	bh=wgFKVtm9pbcMkBiNHpyc2egdsH5xDxsVwro0uYC/0jo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=BbBPgHSK5MHWKSoynYJ+n5CkxbyRULW5xxJtrvmRcr8azW8AVN8o84VNuUEb8f+uiyXa9U8GvW8g1dfhbBtbz77/C6WXuLP4qFOGEdBEgTI8xbytuekGpHOkSfbNqiMxVLeG9HRT4CazWCpv9aWzmXDhoG2iYdXuMPbcEcXv1jA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9DZKCQG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="PVWKIZQ1"
-Received: by mail-dl2-f32.google.com with SMTP id a92af1059eb24-1437b77c274so651639c88.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:53:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790366033; x=1790970833; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kK2zFCKpEmcSkmOrv9Iwn4hJtAiNMgCm+Ug0Ll+qJCo=;
-        b=PVWKIZQ1c0QDMAxC/wrIc/EQMNCsdjrkV6b+AvnVvWpKMOk5UO/DKvVrHjsT2/TlQC
-         e4N8DsVnEFYoZOj6mU43C56oq4dVISRBMsJ6DShtIdrUh4U6PyFYwKTtjm9he0X8o11n
-         916qJRuOVF/5Bp1618bcV87rX32/Avg9jgMoTItVwa6JFHBAd5pbkt7aCEIpOTSNsOTQ
-         VW+EB8M4fTjK+XZWMjZfUd1sgrDDnGGI+/XhRMNiLN4GchZ28bm9aZ0IDqJJ5G/W6o1K
-         hgBQEIFg1HZPiM/5eiPCkAOFMy/hcM2SNqb8SdaqCn+UA6GuQvKCTgcpw0cL4q5DeqbA
-         uA9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790366033; x=1790970833;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kK2zFCKpEmcSkmOrv9Iwn4hJtAiNMgCm+Ug0Ll+qJCo=;
-        b=wUHgyxxGf8zS4szmmn0dpyL2yN3beSao76E4/iSMw74R3WwqQdSaWf2UUfA0A+z9wq
-         62Zwl7vYrRgkl+nf/tan5yR+XXhNPqJczvAl/GWtFYJUjxUHjSfbEafT6hYaqdgmh+ij
-         lf7ysafTDTzmbfYjiouS6lDnmD6r9vPRZyxBrMnVB5F2dkaAY7EIA28Mu08jDuhCXGe1
-         5ya8u8arzCx2LehOy436X50p3wrnV8dx/1ajeGvY3FZSQ43ruK/GCDqsDW93RaU0GBo1
-         q2fiujS9YIfeWouoLw3IvEGwmSLZ1jJxwC3wpVdq7B4SL3k8x106BN0sGHUy40jzqcf9
-         JXaw==
-X-Forwarded-Encrypted: i=1; AKwUvBwxeUtC0pZdEJImrVadrvR492AwIrHy3il+5Ctle56qNjHdLzdgGfxF5KYuiqNtF/KIb8LfNFTS1GKVAbs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l04uZo7yDHZ7i3fccxtOU6ZoVFyuXPzbMjjw0aGgZj3DysOdhQ
-	ldBxmIJsxez2hSS5erqCkq2XKFHDyjfiYgFWP/NH+KTornF3Km4E8/u7lN9RBWh2sSc=
-X-Gm-Gg: AYBFou2Ph1H/i0ZcJmR2EbRaltuhGdXdXTlBMAqzTnvFjaalxoIdfnnVXgz9YAjAQbb
-	w9IlECYa2tVflrUxE/JGMBvg7yr0IaGComCypFEVm4kt0zP03r28jmJ9Xq4fUUOUx9lctPo/mdv
-	Iruv9aYsFms5auQgpiODEK++FOL/saCyw4OGrNiwtaeHBEDWibhCvNAMVcY+TF95fcbNlvb5CIl
-	66zV5mlH2oDrlI96g1+APmfo99vWfNZgQ3QFinruxOthMEvDRpeVnM53oGq3uZZbk4VsEeJHRoT
-	Yf1eXcVE9BU1KMN0N4KIAoQoWb21OucRuQkBCCtK43/DcO09NnQ93Acrx3FhK4LdG+byf7SAqiV
-	nA1zOk5EEEZ+vRzucGGv0XEUINqNecOQDh7Gv2WLTvtC5Pj+zp4+b46bbi2gzFqbi5tqaW21aJN
-	wgWe0iR0hMkAg51rgeOYMwz60uwilGrN/nI6k0D7qk1w6hQ5TLw+BxsxTHxcrO/ZUbKVqgguaeu
-	BNHhUd7L0RHVA1CsyeU1XlPGca+ClMxORmgK6qxoK40fBAzOBlLFC9jKkL1mUumG2it+w2QTMDN
-	VtwJ
-X-Received: by 2002:a05:7300:1c1e:b0:33e:5e42:942a with SMTP id 5a478bee46e88-3427324b07cmr1008761eec.22.1790366033294;
-        Fri, 25 Sep 2026 12:53:53 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:c85b:dba:2dee:3972])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3413fc2413dsm7683403eec.0.2026.09.25.12.53.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 25 Sep 2026 12:53:52 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Boris Burkov <boris@bur.io>,
-	Filipe Manana <fdmanana@suse.com>,
-	Chris Mason <clm@fb.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	David Sterba <dsterba@suse.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.1.y] btrfs: insert tree mod log move in push_node_left
-Date: Fri, 25 Sep 2026 15:53:48 -0400
-Message-ID: <20260925195350.31328-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9DZKCQG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94D051F000FF;
+	Fri, 25 Sep 2026 19:55:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790366113;
+	bh=fYifTTOjiAKpRZf2M2nvGPJaS459PSjWGKHJ1yfGHl8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=Y9DZKCQGPjamvyQjPVw29xwZRJydj2xdiwCxpYH1qW/tVbk3KY8J4xaLF/CMhH3hH
+	 dOP9arW8PU4zfvCiCwyCy4RzXt+vtmuC9NhDqkjLxc+iRtlF4Ay3GxmO21KVN1KApB
+	 mSo4giwnqlSAIaR1CEyij6dlNsbuUmZWds6o0JqQKtgymEpdaqvwsKk9EE+4D81BsX
+	 Fx9rHoDz2Sl/vKYEYxHccAjGUtHW4TFesIIiVoviMVGVmF4TKaEM+cQE++IiiUc27C
+	 ogfJ9/WFEm2nqMl/zv1I+7uNVzk/TR46t1NwpI99QGYQEUTlMYucIm2vppdZRPZ7Vl
+	 kyvqCm+UDbFMA==
+Date: Fri, 25 Sep 2026 14:55:12 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	Adithya Jayachandran <ajayachandra@nvidia.com>,
+	Alexander Graf <graf@amazon.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Josh Hilke <jrhilke@google.com>,
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
+	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH v9 01/13] PCI: liveupdate: Set up FLB handler for the PCI
+ core
+Message-ID: <20260925195512.GA2081095@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918200640.887030-2-dmatlack@google.com>
 
-From: Boris Burkov <boris@bur.io>
+On Fri, Sep 18, 2026 at 08:06:27PM +0000, David Matlack wrote:
+> Set up a File-Lifecycle-Bound (FLB) handler so that the PCI core can
+> preserve its own state across a Live Update kexec.
+> 
+> Preserving a PCI device across kexec requires preserving two independent
+> sets of state:
+> 
+>  - Driver state, e.g. everything vfio-pci needs so that userspace can
+>    keep using the device in the new kernel. The driver preserves this
+>    itself and the PCI core is not involved.
+> 
+>  - PCI core state, e.g. which devices are preserved, so that the new
+>    kernel knows not to disturb them while they are still running and
+>    doing DMA. That is what this commit adds, serialized into struct
+>    pci_ser.
 
-[ Upstream commit 5cead5422a0e3d13b0bcee986c0f5c4ebb94100b ]
+Thanks for this, it's an important key to my understanding.
 
-There is a fairly unlikely race condition in tree mod log rewind that
-can result in a kernel panic which has the following trace:
+> Userspace, not the kernel, decides which devices are preserved, and it
+> does so through the Live Update Orchestrator's (LUO) support for file
+> preservation: a driver exposes a file that represents a single PCI
+> device, and userspace preserves that device with
+> ioctl(LIVEUPDATE_SESSION_PRESERVE_FD) on that file. Binding preservation
+> to a file gives it proper lifecycle management, e.g. the preservation is
+> undone if userspace cancels it or goes away. How a driver exposes that
+> file is up to the driver and invisible to the PCI core (vfio-pci variant
+> drivers, the first intended use-case, use their per-device cdev).
+> 
+> LUO only knows that a file was preserved; it does not know that it
+> represents a PCI device, or which one. Bridging that gap, drivers
+> register their liveupdate_file_handler with the PCI core:
+> 
+>   pci_liveupdate_register_flb(driver_file_handler);
+>   pci_liveupdate_unregister_flb(driver_file_handler);
+> 
+> LUO then refcounts the PCI core's FLB against the files preserved by
+> that handler, and that refcount drives the lifetime of struct pci_ser:
+> 
+>  - On the first preserved file, luo_flb_file_preserve_one() calls
+>    pci_flb_preserve(), which allocates struct pci_ser and preserves it
+>    with KHO.
+> 
+>  - On the last unpreserved file (i.e. preservation cancelled),
+>    liveupdate_flb_put_outgoing() calls pci_flb_unpreserve(), which
+>    unpreserves and frees struct pci_ser.
+> 
+>  - In the next kernel, pci_flb_retrieve() hands the PCI core the struct
+>    pci_ser built by the previous kernel, whenever the PCI core asks for
+>    it (e.g. during enumeration), and pci_flb_finish() frees it once the
+>    PCI core is done with it.
+> 
+> So the flow for preserving a device, once a driver has registered, looks
+> like this:
+> 
+>   ioctl(LIVEUPDATE_SESSION_PRESERVE_FD)
+>     luo_session_preserve_fd()
+>       luo_preserve_file()
+>         luo_flb_file_preserve()
+>           luo_flb_file_preserve_one()  # only on the first preserved file
+>             pci_flb_preserve()         # alloc + KHO-preserve pci_ser
+>         fh->ops->preserve()            # driver callback, e.g. vfio-pci
+> 
+> Note that struct pci_ser is deliberately not allocated when a driver
+> calls pci_liveupdate_register_flb(). A driver can be loaded for the
+> lifetime of the machine without ever preserving a device, and there is
+> no reason to allocate memory and hand it to the next kernel in that
+> case. Letting LUO own the lifetime also means the PCI core does not have
+> to duplicate LUO's refcounting and unwind logic for preservation
+> failures, session aborts and fd close, and the incoming side
+> (retrieve/finish) comes from the same object rather than requiring a
+> separate KHO FDT entry owned by the PCI core.
+> 
+> Note: This commit only allocates struct pci_ser and preserves it across
+> Live Update. A subsequent commit adds pci_liveupdate_preserve(), the API
+> drivers call from their fh->ops->preserve() callback to tell the PCI
+> core exactly which devices are being preserved.
+> 
+> Note: There is no reason to check for kho_is_enabled() since it can be
+> assumed to return true. If KHO was not enabled then Live Update would
+> not be enabled and these routines would never run.
+> 
+> Reviewed-by: Pranjal Shrivastava <praan@google.com>
+> Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
+> Signed-off-by: David Matlack <dmatlack@google.com>
 
-  [530.569] BTRFS critical (device sda3): unable to find logical 0 length 4096
-  [530.585] BTRFS critical (device sda3): unable to find logical 0 length 4096
-  [530.602] BUG: kernel NULL pointer dereference, address: 0000000000000002
-  [530.618] #PF: supervisor read access in kernel mode
-  [530.629] #PF: error_code(0x0000) - not-present page
-  [530.641] PGD 0 P4D 0
-  [530.647] Oops: 0000 [#1] SMP
-  [530.654] CPU: 30 PID: 398973 Comm: below Kdump: loaded Tainted: G S         O  K   5.12.0-0_fbk13_clang_7455_gb24de3bdb045 #1
-  [530.680] Hardware name: Quanta Mono Lake-M.2 SATA 1HY9U9Z001G/Mono Lake-M.2 SATA, BIOS F20_3A15 08/16/2017
-  [530.703] RIP: 0010:__btrfs_map_block+0xaa/0xd00
-  [530.755] RSP: 0018:ffffc9002c2f7600 EFLAGS: 00010246
-  [530.767] RAX: ffffffffffffffea RBX: ffff888292e41000 RCX: f2702d8b8be15100
-  [530.784] RDX: ffff88885fda6fb8 RSI: ffff88885fd973c8 RDI: ffff88885fd973c8
-  [530.800] RBP: ffff888292e410d0 R08: ffffffff82fd7fd0 R09: 00000000fffeffff
-  [530.816] R10: ffffffff82e57fd0 R11: ffffffff82e57d70 R12: 0000000000000000
-  [530.832] R13: 0000000000001000 R14: 0000000000001000 R15: ffffc9002c2f76f0
-  [530.848] FS:  00007f38d64af000(0000) GS:ffff88885fd80000(0000) knlGS:0000000000000000
-  [530.866] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-  [530.880] CR2: 0000000000000002 CR3: 00000002b6770004 CR4: 00000000003706e0
-  [530.896] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-  [530.912] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-  [530.928] Call Trace:
-  [530.934]  ? btrfs_printk+0x13b/0x18c
-  [530.943]  ? btrfs_bio_counter_inc_blocked+0x3d/0x130
-  [530.955]  btrfs_map_bio+0x75/0x330
-  [530.963]  ? kmem_cache_alloc+0x12a/0x2d0
-  [530.973]  ? btrfs_submit_metadata_bio+0x63/0x100
-  [530.984]  btrfs_submit_metadata_bio+0xa4/0x100
-  [530.995]  submit_extent_page+0x30f/0x360
-  [531.004]  read_extent_buffer_pages+0x49e/0x6d0
-  [531.015]  ? submit_extent_page+0x360/0x360
-  [531.025]  btree_read_extent_buffer_pages+0x5f/0x150
-  [531.037]  read_tree_block+0x37/0x60
-  [531.046]  read_block_for_search+0x18b/0x410
-  [531.056]  btrfs_search_old_slot+0x198/0x2f0
-  [531.066]  resolve_indirect_ref+0xfe/0x6f0
-  [531.076]  ? ulist_alloc+0x31/0x60
-  [531.084]  ? kmem_cache_alloc_trace+0x12e/0x2b0
-  [531.095]  find_parent_nodes+0x720/0x1830
-  [531.105]  ? ulist_alloc+0x10/0x60
-  [531.113]  iterate_extent_inodes+0xea/0x370
-  [531.123]  ? btrfs_previous_extent_item+0x8f/0x110
-  [531.134]  ? btrfs_search_path_in_tree+0x240/0x240
-  [531.146]  iterate_inodes_from_logical+0x98/0xd0
-  [531.157]  ? btrfs_search_path_in_tree+0x240/0x240
-  [531.168]  btrfs_ioctl_logical_to_ino+0xd9/0x180
-  [531.179]  btrfs_ioctl+0xe2/0x2eb0
+Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
 
-This occurs when logical inode resolution takes a tree mod log sequence
-number, and then while backref walking hits a rewind on a busy node
-which has the following sequence of tree mod log operations (numbers
-filled in from a specific example, but they are somewhat arbitrary)
-
-  REMOVE_WHILE_FREEING slot 532
-  REMOVE_WHILE_FREEING slot 531
-  REMOVE_WHILE_FREEING slot 530
-  ...
-  REMOVE_WHILE_FREEING slot 0
-  REMOVE slot 455
-  REMOVE slot 454
-  REMOVE slot 453
-  ...
-  REMOVE slot 0
-  ADD slot 455
-  ADD slot 454
-  ADD slot 453
-  ...
-  ADD slot 0
-  MOVE src slot 0 -> dst slot 456 nritems 533
-  REMOVE slot 455
-  REMOVE slot 454
-  REMOVE slot 453
-  ...
-  REMOVE slot 0
-
-When this sequence gets applied via btrfs_tree_mod_log_rewind, it
-allocates a fresh rewind eb, and first inserts the correct key info for
-the 533 elements, then overwrites the first 456 of them, then decrements
-the count by 456 via the add ops, then rewinds the move by doing a
-memmove from 456:988->0:532. We have never written anything past 532, so
-that memmove writes garbage into the 0:532 range. In practice, this
-results in a lot of fully 0 keys. The rewind then puts valid keys into
-slots 0:455 with the last removes, but 456:532 are still invalid.
-
-When search_old_slot uses this eb, if it uses one of those invalid
-slots, it can then read the extent buffer and issue a bio for offset 0
-which ultimately panics looking up extent mappings.
-
-This bad tree mod log sequence gets generated when the node balancing
-code happens to do a balance_node_right followed by a push_node_left
-while logging in the tree mod log. Illustrated for ebs L and R (left and
-right):
-
-	L                 R
-  start:
-  [XXX|YYY|...]      [ZZZ|...|...]
-  balance_node_right:
-  [XXX|YYY|...]      [...|ZZZ|...] move Z to make room for Y
-  [XXX|...|...]      [YYY|ZZZ|...] copy Y from L to R
-  push_node_left:
-  [XXX|YYY|...]      [...|ZZZ|...] copy Y from R to L
-  [XXX|YYY|...]      [ZZZ|...|...] move Z into emptied space (NOT LOGGED!)
-
-This is because balance_node_right logs a move, but push_node_left
-explicitly doesn't. That is because logging the move would remove the
-overwritten src < dst range in the right eb, which was already logged
-when we called btrfs_tree_mod_log_eb_copy. The correct sequence would
-include a move from 456:988 to 0:532 after remove 0:455 and before
-removing 0:532. Reversing that sequence would entail creating keys for
-0:532, then moving those keys out to 456:988, then creating more keys
-for 0:455.
-
-i.e.,
-
-  REMOVE_WHILE_FREEING slot 532
-  REMOVE_WHILE_FREEING slot 531
-  REMOVE_WHILE_FREEING slot 530
-  ...
-  REMOVE_WHILE_FREEING slot 0
-  MOVE src slot 456 -> dst slot 0 nritems 533
-  REMOVE slot 455
-  REMOVE slot 454
-  REMOVE slot 453
-  ...
-  REMOVE slot 0
-  ADD slot 455
-  ADD slot 454
-  ADD slot 453
-  ...
-  ADD slot 0
-  MOVE src slot 0 -> dst slot 456 nritems 533
-  REMOVE slot 455
-  REMOVE slot 454
-  REMOVE slot 453
-  ...
-  REMOVE slot 0
-
-Fix this to log the move but avoid the double remove by putting all the
-logging logic in btrfs_tree_mod_log_eb_copy which has enough information
-to detect these cases and properly log moves, removes, and adds. Leave
-btrfs_tree_mod_log_insert_move to handle insert_ptr and delete_ptr's
-tree mod logging.
-
-(Un)fortunately, this is quite difficult to reproduce, and I was only
-able to reproduce it by adding sleeps in btrfs_search_old_slot that
-would encourage more log rewinding during ino_to_logical ioctls. I was
-able to hit the warning in the previous patch in the series without the
-fix quite quickly, but not after this patch.
-
-CC: stable@vger.kernel.org # 5.15+
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: Boris Burkov <boris@bur.io>
-Signed-off-by: David Sterba <dsterba@suse.com>
-
-[ Backport to 6.1.y: retain the older btrfs_node_key_ptr_offset() call
-  signature and pass GFP_NOFS to alloc_tree_mod_elem(). The tree-mod-log
-  ordering change is otherwise identical to upstream. ]
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and Btrfs maintainers,
-
-This is the 6.1.y backport of the fix for CVE-2023-53538. Linux 6.1
-still has the affected tree-mod-log rewind behavior, while the same fix
-shipped in 6.4.4 as commit 11f14402fe34. The upstream commit was also
-marked for stable kernels starting with 5.15.
-
-The fix is already present in every newer supported stable tree (6.6.y,
-6.12.y, 6.18.y, and 7.2.y), satisfying the newer-trees requirement. For
-context, it is still absent from 5.15.y and 5.10.y; this submission only
-asks for 6.1.y.
-
-The only adjustments are for two older 6.1 APIs, as described above.
-The move-record allocation and insertion order are unchanged from
-upstream.
-
-This is larger than the nominal stable patch-size guideline. The fix
-remains atomic because 6.4.4 carried it as one patch, and splitting out
-the allocation helper would create a behaviorless preparatory commit.
-
-Could you please queue it for 6.1.y?
-
-This was built on v6.1.188 using x86_64 allmodconfig and
-CONFIG_WERROR=y. It produced no compiler warnings or errors in the
-touched code.
-
-CVE: CVE-2023-53538
-
-AI assistance: An LLM helped identify, adapt, and validate this backport.
-
-Thanks,
-Artem Dinaburg
-
- fs/btrfs/ctree.c        | 10 +++---
- fs/btrfs/tree-mod-log.c | 73 ++++++++++++++++++++++++++++++++++++-----
- 2 files changed, 70 insertions(+), 13 deletions(-)
-
-diff --git a/fs/btrfs/ctree.c b/fs/btrfs/ctree.c
-index 9620bf289f78a0..36f54f0f21d832 100644
---- a/fs/btrfs/ctree.c
-+++ b/fs/btrfs/ctree.c
-@@ -2653,8 +2653,8 @@ static int push_node_left(struct btrfs_trans_handle *trans,
- 
- 	if (push_items < src_nritems) {
- 		/*
--		 * Don't call btrfs_tree_mod_log_insert_move() here, key removal
--		 * was already fully logged by btrfs_tree_mod_log_eb_copy() above.
-+		 * btrfs_tree_mod_log_eb_copy handles logging the move, so we
-+		 * don't need to do an explicit tree mod log operation for it.
- 		 */
- 		memmove_extent_buffer(src, btrfs_node_key_ptr_offset(0),
- 				      btrfs_node_key_ptr_offset(push_items),
-@@ -2715,8 +2715,10 @@ static int balance_node_right(struct btrfs_trans_handle *trans,
- 		btrfs_abort_transaction(trans, ret);
- 		return ret;
- 	}
--	ret = btrfs_tree_mod_log_insert_move(dst, push_items, 0, dst_nritems);
--	BUG_ON(ret < 0);
-+	/*
-+	 * btrfs_tree_mod_log_eb_copy handles logging the move, so we don't
-+	 * need to do an explicit tree mod log operation for it.
-+	 */
- 	memmove_extent_buffer(dst, btrfs_node_key_ptr_offset(push_items),
- 				      btrfs_node_key_ptr_offset(0),
- 				      (dst_nritems) *
-diff --git a/fs/btrfs/tree-mod-log.c b/fs/btrfs/tree-mod-log.c
-index 8a3a14686d3e7e..2c190dcff51619 100644
---- a/fs/btrfs/tree-mod-log.c
-+++ b/fs/btrfs/tree-mod-log.c
-@@ -245,6 +245,26 @@ int btrfs_tree_mod_log_insert_key(struct extent_buffer *eb, int slot,
- 	return ret;
- }
- 
-+static struct tree_mod_elem *tree_mod_log_alloc_move(struct extent_buffer *eb,
-+						     int dst_slot, int src_slot,
-+						     int nr_items)
-+{
-+	struct tree_mod_elem *tm;
-+
-+	tm = kzalloc(sizeof(*tm), GFP_NOFS);
-+	if (!tm)
-+		return ERR_PTR(-ENOMEM);
-+
-+	tm->logical = eb->start;
-+	tm->slot = src_slot;
-+	tm->move.dst_slot = dst_slot;
-+	tm->move.nr_items = nr_items;
-+	tm->op = BTRFS_MOD_LOG_MOVE_KEYS;
-+	RB_CLEAR_NODE(&tm->node);
-+
-+	return tm;
-+}
-+
- int btrfs_tree_mod_log_insert_move(struct extent_buffer *eb,
- 				   int dst_slot, int src_slot,
- 				   int nr_items)
-@@ -262,18 +282,13 @@ int btrfs_tree_mod_log_insert_move(struct extent_buffer *eb,
- 	if (!tm_list)
- 		return -ENOMEM;
- 
--	tm = kzalloc(sizeof(*tm), GFP_NOFS);
--	if (!tm) {
--		ret = -ENOMEM;
-+	tm = tree_mod_log_alloc_move(eb, dst_slot, src_slot, nr_items);
-+	if (IS_ERR(tm)) {
-+		ret = PTR_ERR(tm);
-+		tm = NULL;
- 		goto free_tms;
- 	}
- 
--	tm->logical = eb->start;
--	tm->slot = src_slot;
--	tm->move.dst_slot = dst_slot;
--	tm->move.nr_items = nr_items;
--	tm->op = BTRFS_MOD_LOG_MOVE_KEYS;
--
- 	for (i = 0; i + dst_slot < src_slot && i < nr_items; i++) {
- 		tm_list[i] = alloc_tree_mod_elem(eb, i + dst_slot,
- 				BTRFS_MOD_LOG_KEY_REMOVE_WHILE_MOVING, GFP_NOFS);
-@@ -486,6 +501,10 @@ int btrfs_tree_mod_log_eb_copy(struct extent_buffer *dst,
- 	struct tree_mod_elem **tm_list_add, **tm_list_rem;
- 	int i;
- 	bool locked = false;
-+	struct tree_mod_elem *dst_move_tm = NULL;
-+	struct tree_mod_elem *src_move_tm = NULL;
-+	u32 dst_move_nr_items = btrfs_header_nritems(dst) - dst_offset;
-+	u32 src_move_nr_items = btrfs_header_nritems(src) - (src_offset + nr_items);
- 
- 	if (!tree_mod_need_log(fs_info, NULL))
- 		return 0;
-@@ -498,6 +517,26 @@ int btrfs_tree_mod_log_eb_copy(struct extent_buffer *dst,
- 	if (!tm_list)
- 		return -ENOMEM;
- 
-+	if (dst_move_nr_items) {
-+		dst_move_tm = tree_mod_log_alloc_move(dst, dst_offset + nr_items,
-+						      dst_offset, dst_move_nr_items);
-+		if (IS_ERR(dst_move_tm)) {
-+			ret = PTR_ERR(dst_move_tm);
-+			dst_move_tm = NULL;
-+			goto free_tms;
-+		}
-+	}
-+	if (src_move_nr_items) {
-+		src_move_tm = tree_mod_log_alloc_move(src, src_offset,
-+						      src_offset + nr_items,
-+						      src_move_nr_items);
-+		if (IS_ERR(src_move_tm)) {
-+			ret = PTR_ERR(src_move_tm);
-+			src_move_tm = NULL;
-+			goto free_tms;
-+		}
-+	}
-+
- 	tm_list_add = tm_list;
- 	tm_list_rem = tm_list + nr_items;
- 	for (i = 0; i < nr_items; i++) {
-@@ -520,6 +559,11 @@ int btrfs_tree_mod_log_eb_copy(struct extent_buffer *dst,
- 		goto free_tms;
- 	locked = true;
- 
-+	if (dst_move_tm) {
-+		ret = tree_mod_log_insert(fs_info, dst_move_tm);
-+		if (ret)
-+			goto free_tms;
-+	}
- 	for (i = 0; i < nr_items; i++) {
- 		ret = tree_mod_log_insert(fs_info, tm_list_rem[i]);
- 		if (ret)
-@@ -528,6 +572,11 @@ int btrfs_tree_mod_log_eb_copy(struct extent_buffer *dst,
- 		if (ret)
- 			goto free_tms;
- 	}
-+	if (src_move_tm) {
-+		ret = tree_mod_log_insert(fs_info, src_move_tm);
-+		if (ret)
-+			goto free_tms;
-+	}
- 
- 	write_unlock(&fs_info->tree_mod_log_lock);
- 	kfree(tm_list);
-@@ -535,6 +584,12 @@ int btrfs_tree_mod_log_eb_copy(struct extent_buffer *dst,
- 	return 0;
- 
- free_tms:
-+	if (dst_move_tm && !RB_EMPTY_NODE(&dst_move_tm->node))
-+		rb_erase(&dst_move_tm->node, &fs_info->tree_mod_log);
-+	kfree(dst_move_tm);
-+	if (src_move_tm && !RB_EMPTY_NODE(&src_move_tm->node))
-+		rb_erase(&src_move_tm->node, &fs_info->tree_mod_log);
-+	kfree(src_move_tm);
- 	for (i = 0; i < nr_items * 2; i++) {
- 		if (tm_list[i] && !RB_EMPTY_NODE(&tm_list[i]->node))
- 			rb_erase(&tm_list[i]->node, &fs_info->tree_mod_log);
-
-base-commit: 1a8763b93150b2c8f3992c27a5ce7857fee4ab0f
--- 
-2.39.5
+> ---
+>  Documentation/core-api/liveupdate.rst |   4 +
+>  MAINTAINERS                           |  13 ++
+>  drivers/pci/Kconfig                   |  15 ++
+>  drivers/pci/Makefile                  |   1 +
+>  drivers/pci/liveupdate.c              | 206 ++++++++++++++++++++++++++
+>  include/linux/kho/abi/pci.h           |  65 ++++++++
+>  include/linux/pci.h                   |   1 +
+>  include/linux/pci_liveupdate.h        |  30 ++++
+>  8 files changed, 335 insertions(+)
+>  create mode 100644 drivers/pci/liveupdate.c
+>  create mode 100644 include/linux/kho/abi/pci.h
+>  create mode 100644 include/linux/pci_liveupdate.h
+> 
+> diff --git a/Documentation/core-api/liveupdate.rst b/Documentation/core-api/liveupdate.rst
+> index 5a292d0f3706..b3c689e633c1 100644
+> --- a/Documentation/core-api/liveupdate.rst
+> +++ b/Documentation/core-api/liveupdate.rst
+> @@ -1,5 +1,7 @@
+>  .. SPDX-License-Identifier: GPL-2.0
+>  
+> +.. _luo:
+> +
+>  ========================
+>  Live Update Orchestrator
+>  ========================
+> @@ -18,6 +20,8 @@ LUO Preserving File Descriptors
+>  .. kernel-doc:: kernel/liveupdate/luo_file.c
+>     :doc: LUO File Descriptors
+>  
+> +.. _flb:
+> +
+>  LUO File Lifecycle Bound Global Data
+>  ====================================
+>  .. kernel-doc:: kernel/liveupdate/luo_flb.c
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d00c..bb9ef5460b5c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -21046,6 +21046,19 @@ L:	linux-pci@vger.kernel.org
+>  S:	Supported
+>  F:	Documentation/PCI/pci-error-recovery.rst
+>  
+> +PCI LIVE UPDATE
+> +M:	David Matlack <dmatlack@google.com>
+> +R:	Pasha Tatashin <pasha.tatashin@soleen.com>
+> +R:	Mike Rapoport <rppt@kernel.org>
+> +R:	Pratyush Yadav <pratyush@kernel.org>
+> +L:	kexec@lists.infradead.org
+> +L:	linux-pci@vger.kernel.org
+> +S:	Maintained
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git
+> +F:	drivers/pci/liveupdate.c
+> +F:	include/linux/kho/abi/pci.h
+> +F:	include/linux/pci_liveupdate.h
+> +
+>  PCI MSI DRIVER FOR ALTERA MSI IP
+>  L:	linux-pci@vger.kernel.org
+>  S:	Orphan
+> diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+> index 0c7408509ba2..3781e2b5f095 100644
+> --- a/drivers/pci/Kconfig
+> +++ b/drivers/pci/Kconfig
+> @@ -271,6 +271,21 @@ config VGA_ARB_MAX_GPUS
+>  	  Reserves space in the kernel to maintain resource locking for
+>  	  multiple GPUS.  The overhead for each GPU is very small.
+>  
+> +config PCI_LIVEUPDATE
+> +	bool "PCI Live Update Support"
+> +	depends on PCI && LIVEUPDATE
+> +	help
+> +	  Enable PCI core support for preserving PCI devices across Live
+> +	  Update. This, in combination with support in a device's driver,
+> +	  enables PCI devices to run and perform memory transactions
+> +	  uninterrupted during a kexec for Live Update.
+> +
+> +	  This option should only be enabled by users who plan to use Live
+> +	  Update for kernel upgrades and require preserving PCI devices during
+> +	  those upgrades.
+> +
+> +	  If unsure, say N.
+> +
+>  source "drivers/pci/hotplug/Kconfig"
+>  source "drivers/pci/controller/Kconfig"
+>  source "drivers/pci/endpoint/Kconfig"
+> diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
+> index 41ebc3b9a518..e8d003cb6757 100644
+> --- a/drivers/pci/Makefile
+> +++ b/drivers/pci/Makefile
+> @@ -16,6 +16,7 @@ obj-$(CONFIG_PROC_FS)		+= proc.o
+>  obj-$(CONFIG_SYSFS)		+= pci-sysfs.o slot.o
+>  obj-$(CONFIG_ACPI)		+= pci-acpi.o
+>  obj-$(CONFIG_GENERIC_PCI_IOMAP) += iomap.o
+> +obj-$(CONFIG_PCI_LIVEUPDATE)	+= liveupdate.o
+>  endif
+>  
+>  obj-$(CONFIG_OF)		+= of.o
+> diff --git a/drivers/pci/liveupdate.c b/drivers/pci/liveupdate.c
+> new file mode 100644
+> index 000000000000..66dbee0bd3cf
+> --- /dev/null
+> +++ b/drivers/pci/liveupdate.c
+> @@ -0,0 +1,206 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +/*
+> + * Copyright (c) 2026, Google LLC.
+> + * David Matlack <dmatlack@google.com>
+> + */
+> +
+> +/**
+> + * DOC: PCI Live Update
+> + *
+> + * The PCI subsystem participates in the Live Update process to enable drivers
+> + * to preserve their PCI devices across kexec.
+> + *
+> + * Preserving a device requires preserving two independent sets of state: the
+> + * driver's own state, which the driver preserves with no involvement from the
+> + * PCI core, and the PCI core's state about the device, which the next kernel
+> + * needs so that enumeration does not disturb a device that is still running.
+> + * This file implements the latter.
+> + *
+> + * :ref:`FLB <flb>` Data
+> + * =====================
+> + *
+> + * Userspace decides which devices are preserved, using :ref:`LUO <luo>` file
+> + * preservation: a driver exposes a file that represents a single PCI device,
+> + * and userspace preserves the device with
+> + * ``ioctl(LIVEUPDATE_SESSION_PRESERVE_FD)`` on that file. Binding preservation
+> + * to a file gives it proper lifecycle management, e.g. the preservation is
+> + * undone if userspace cancels it or goes away. How a driver exposes that file
+> + * is up to the driver and invisible to the PCI core (vfio-pci variant drivers,
+> + * the first intended use-case, use their per-device cdev).
+> + *
+> + * LUO only knows that a file was preserved; it does not know that the file
+> + * represents a PCI device. Drivers therefore register their
+> + * struct liveupdate_file_handler with the PCI core:
+> + *
+> + *  * ``pci_liveupdate_register_flb(driver_file_handler)``
+> + *  * ``pci_liveupdate_unregister_flb(driver_file_handler)``
+> + *
+> + * LUO then refcounts the PCI core's FLB against the files preserved by that
+> + * handler, and that refcount drives the lifetime of struct pci_ser:
+> + * pci_flb_preserve() allocates and preserves it when the first file is
+> + * preserved, and pci_flb_unpreserve() frees it when the last file is
+> + * unpreserved. In the next kernel, pci_flb_retrieve() hands the PCI core the
+> + * struct pci_ser built by the previous kernel, whenever the PCI core asks for
+> + * it (e.g. during enumeration), and pci_flb_finish() frees it once the PCI
+> + * core is done with it.
+> + *
+> + * Call Flow
+> + * ---------
+> + *
+> + * ::
+> + *
+> + *   # Driver initialization
+> + *   pci_liveupdate_register_flb(fh)
+> + *
+> + *   # Userspace: ioctl(LIVEUPDATE_SESSION_PRESERVE_FD, devfd)
+> + *   luo_preserve_file()
+> + *     luo_flb_file_preserve()
+> + *       luo_flb_file_preserve_one()      # first preserved file only
+> + *         pci_flb_preserve()             # alloc and preserve struct pci_ser
+> + *     fh->ops->preserve()                # driver callback
+> + *
+> + *   # Userspace: preservation cancelled or session torn down
+> + *   luo_file_unpreserve_files()
+> + *     luo_flb_file_unpreserve()
+> + *       liveupdate_flb_put_outgoing()    # last unpreserved file only
+> + *         pci_flb_unpreserve()           # free struct pci_ser
+> + *
+> + *   # ---------------- kexec ----------------
+> + *
+> + *   # New kernel: the PCI core asks for the previous kernel's state
+> + *   liveupdate_flb_get_incoming()
+> + *     luo_flb_retrieve_one()             # first request only
+> + *       pci_flb_retrieve()               # previous kernel's struct pci_ser
+> + *
+> + *   # Userspace: ioctl(LIVEUPDATE_SESSION_FINISH)
+> + *   luo_file_finish_one()
+> + *     fh->ops->finish()                  # driver callback
+> + *     luo_flb_file_finish()
+> + *       liveupdate_flb_put_incoming()    # last incoming file only
+> + *         pci_flb_finish()               # free struct pci_ser
+> + */
+> +
+> +#define pr_fmt(fmt) "PCI: liveupdate: " fmt
+> +
+> +#include <linux/io.h>
+> +#include <linux/kexec_handover.h>
+> +#include <linux/kho/abi/pci.h>
+> +#include <linux/kho_block.h>
+> +#include <linux/liveupdate.h>
+> +#include <linux/mm.h>
+> +#include <linux/mutex.h>
+> +#include <linux/pci.h>
+> +#include <linux/slab.h>
+> +
+> +/**
+> + * struct pci_flb_outgoing - Outgoing PCI FLB object
+> + * @ser: Pointer to the preserved struct pci_ser.
+> + * @block_set: The KHO block set holding the outgoing devices.
+> + *
+> + * This structure holds the runtime state for the outgoing PCI Live Update
+> + * state. It wraps the serialized pci_ser and the block_set used to manage
+> + * the serialized entries.
+> + */
+> +struct pci_flb_outgoing {
+> +	struct pci_ser *ser;
+> +	struct kho_block_set block_set;
+> +};
+> +
+> +static int pci_flb_preserve(struct liveupdate_flb_op_args *args)
+> +{
+> +	struct pci_flb_outgoing *outgoing __free(kfree) = NULL;
+> +	struct pci_ser *ser;
+> +
+> +	outgoing = kzalloc_obj(*outgoing);
+> +	if (!outgoing)
+> +		return -ENOMEM;
+> +
+> +	ser = kho_alloc_preserve(sizeof(*ser));
+> +	if (IS_ERR(ser))
+> +		return PTR_ERR(ser);
+> +
+> +	ser->version = PCI_LUO_FLB_VERSION;
+> +	ser->nr_devices = 0;
+> +	ser->devices = 0;
+> +
+> +	outgoing->ser = ser;
+> +	kho_block_set_init(&outgoing->block_set, sizeof(struct pci_dev_ser));
+> +
+> +	args->obj = no_free_ptr(outgoing);
+> +	args->data = virt_to_phys(ser);
+> +	pr_debug("Preserved struct pci_ser (0x%llx)\n", args->data);
+> +	return 0;
+> +}
+> +
+> +static void pci_flb_unpreserve(struct liveupdate_flb_op_args *args)
+> +{
+> +	struct pci_flb_outgoing *outgoing = args->obj;
+> +
+> +	pr_debug("Unpreserving struct pci_ser (0x%llx)\n", args->data);
+> +
+> +	WARN_ON(outgoing->ser->nr_devices);
+> +	kho_block_set_destroy(&outgoing->block_set);
+> +	kho_unpreserve_free(outgoing->ser);
+> +	kfree(outgoing);
+> +}
+> +
+> +static int pci_flb_retrieve(struct liveupdate_flb_op_args *args)
+> +{
+> +	pr_debug("Retrieving struct pci_ser (0x%llx)\n", args->data);
+> +	args->obj = phys_to_virt(args->data);
+> +	return 0;
+> +}
+> +
+> +static void pci_flb_finish(struct liveupdate_flb_op_args *args)
+> +{
+> +	pr_debug("Finished struct pci_ser (0x%llx)\n", args->data);
+> +	kho_restore_free(args->obj);
+> +}
+> +
+> +static struct liveupdate_flb_ops pci_liveupdate_flb_ops = {
+> +	.preserve = pci_flb_preserve,
+> +	.unpreserve = pci_flb_unpreserve,
+> +	.retrieve = pci_flb_retrieve,
+> +	.finish = pci_flb_finish,
+> +	.owner = THIS_MODULE,
+> +};
+> +
+> +static struct liveupdate_flb pci_liveupdate_flb = {
+> +	.ops = &pci_liveupdate_flb_ops,
+> +	.compatible = PCI_LUO_FLB_COMPATIBLE,
+> +};
+> +
+> +/**
+> + * pci_liveupdate_register_flb() - Register a file handler with the PCI core
+> + * @fh: The file handler to register.
+> + *
+> + * Drivers that support preserving PCI devices across Live Update must call
+> + * pci_liveupdate_register_flb() to register their
+> + * struct liveupdate_file_handler with the PCI core, typically at module init,
+> + * and always before any file managed by @fh can be preserved.
+> + *
+> + * Registering links the PCI core's FLB to @fh, so that LUO allocates the PCI
+> + * core's outgoing struct pci_ser (via pci_flb_preserve()) when the first file
+> + * managed by any registered handler is preserved, and frees it (via
+> + * pci_flb_unpreserve()) when the last such file is unpreserved.
+> + *
+> + * Return: 0 on success, <0 on failure.
+> + */
+> +int pci_liveupdate_register_flb(struct liveupdate_file_handler *fh)
+> +{
+> +	pr_debug("Registering file handler \"%s\"\n", fh->compatible);
+> +	return liveupdate_register_flb(fh, &pci_liveupdate_flb);
+> +}
+> +EXPORT_SYMBOL_GPL(pci_liveupdate_register_flb);
+> +
+> +/**
+> + * pci_liveupdate_unregister_flb() - Unregister a file handler with the PCI core
+> + * @fh: The file handler to unregister.
+> + */
+> +void pci_liveupdate_unregister_flb(struct liveupdate_file_handler *fh)
+> +{
+> +	pr_debug("Unregistering file handler \"%s\"\n", fh->compatible);
+> +	liveupdate_unregister_flb(fh, &pci_liveupdate_flb);
+> +}
+> +EXPORT_SYMBOL_GPL(pci_liveupdate_unregister_flb);
+> diff --git a/include/linux/kho/abi/pci.h b/include/linux/kho/abi/pci.h
+> new file mode 100644
+> index 000000000000..4096e3cd3324
+> --- /dev/null
+> +++ b/include/linux/kho/abi/pci.h
+> @@ -0,0 +1,65 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +/*
+> + * Copyright (c) 2026, Google LLC.
+> + * David Matlack <dmatlack@google.com>
+> + */
+> +
+> +#ifndef _LINUX_KHO_ABI_PCI_H
+> +#define _LINUX_KHO_ABI_PCI_H
+> +
+> +#include <linux/bug.h>
+> +#include <linux/compiler.h>
+> +#include <linux/types.h>
+> +
+> +/**
+> + * DOC: PCI File-Lifecycle Bound (FLB) Live Update ABI
+> + *
+> + * This header defines the ABI for preserving core PCI state across kexec using
+> + * Live Update File-Lifecycle Bound (FLB) data.
+> + *
+> + * This interface is a contract. Any modification to any of the serialization
+> + * structs defined here constitutes a breaking change. Such changes require
+> + * incrementing the version number in the PCI_LUO_FLB_VERSION number.
+> + */
+> +
+> +#define PCI_LUO_FLB_COMPATIBLE "pci"
+> +#define PCI_LUO_FLB_VERSION 1
+> +
+> +/**
+> + * struct pci_dev_ser - Serialized state about a single PCI device.
+> + *
+> + * @domain: The device's PCI domain number (segment).
+> + * @bdf: The device's PCI bus, device, and function number.
+> + * @refcount: Reference count used by the PCI core to keep track of whether it
+> + *            is done using a device's struct pci_dev_ser. The value of the
+> + *            refcount is equal to 1 when the struct pci_dev_ser is in use, and
+> + *            0 otherwise.
+> + */
+> +struct pci_dev_ser {
+> +	u32 domain;
+> +	u16 bdf;
+> +	u16 refcount;
+> +} __packed;
+> +
+> +/**
+> + * struct pci_ser - PCI Subsystem Live Update State
+> + *
+> + * This struct tracks state about all devices that are being preserved across
+> + * a Live Update for the next kernel. It contains only state owned by the PCI
+> + * core; the state a driver needs to resume its device is preserved separately
+> + * by that driver.
+> + *
+> + * @version: The version of the "pci" FLB struct. This field must never be
+> + *           deleted, moved, or resized, as the kernel depends on always being
+> + *           able to check the struct pci_ser version number.
+> + * @nr_devices: The number of devices that were preserved.
+> + * @devices: Physical address of the first KHO block containing pci_dev_ser.
+> + */
+> +struct pci_ser {
+> +	u32 version;
+> +	u32 nr_devices;
+> +	u64 devices;
+> +} __packed;
+> +
+> +#endif /* _LINUX_KHO_ABI_PCI_H */
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index d31a8d107b1e..95b723aecb08 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -43,6 +43,7 @@
+>  #include <uapi/linux/pci.h>
+>  
+>  #include <linux/pci_ids.h>
+> +#include <linux/pci_liveupdate.h>
+>  
+>  #define PCI_STATUS_ERROR_BITS (PCI_STATUS_DETECTED_PARITY  | \
+>  			       PCI_STATUS_SIG_SYSTEM_ERROR | \
+> diff --git a/include/linux/pci_liveupdate.h b/include/linux/pci_liveupdate.h
+> new file mode 100644
+> index 000000000000..8ec98beefcb4
+> --- /dev/null
+> +++ b/include/linux/pci_liveupdate.h
+> @@ -0,0 +1,30 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * PCI Live Update support (Public/Driver API)
+> + *
+> + * Copyright (c) 2026, Google LLC.
+> + * David Matlack <dmatlack@google.com>
+> + */
+> +#ifndef LINUX_PCI_LIVEUPDATE_H
+> +#define LINUX_PCI_LIVEUPDATE_H
+> +
+> +#include <linux/liveupdate.h>
+> +#include <linux/types.h>
+> +
+> +struct pci_dev;
+> +
+> +#ifdef CONFIG_PCI_LIVEUPDATE
+> +int pci_liveupdate_register_flb(struct liveupdate_file_handler *fh);
+> +void pci_liveupdate_unregister_flb(struct liveupdate_file_handler *fh);
+> +#else
+> +static inline int pci_liveupdate_register_flb(struct liveupdate_file_handler *fh)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +
+> +static inline void pci_liveupdate_unregister_flb(struct liveupdate_file_handler *fh)
+> +{
+> +}
+> +#endif
+> +
+> +#endif /* LINUX_PCI_LIVEUPDATE_H */
+> -- 
+> 2.55.0.1082.g2b9226bbc0-goog
+> 
