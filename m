@@ -1,50 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5C84D9F75;
-	Fri, 25 Sep 2026 18:23:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2463CB2FA;
+	Fri, 25 Sep 2026 18:23:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360622; cv=none; b=K77/asWSjcdDOvGIux3xbl50xlMk+OyOftipp7UxtzdsQ8MUgpV1NLFUG2/utePIMTZxn61zg16k4rAcZNMvSweZ4WN4P4HgLBs+XVKpZ7lQsciaeJ5ISvFbUdeXzU3ihFbqvWFMQD6CBCH/OG6YiOl41HaV1u+K/k8IcFnxO0s=
+	t=1790360632; cv=none; b=V+ZLNFnucK/md9zqo/oASMkOCFodu6IMlSk2qYLQsrSstPR5Ktn22OnyqegilGX8cBwrCTnjP5MCeAOR/T8F0bKwpOrDtu6cXHeQ5cxUWRfgLGeXWq09sDAj0GoRb2/9uqMfipUiR/Wab+8vI2lbZXHIiMhMh57zO0Ch+SKlElo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360622; c=relaxed/simple;
-	bh=h1WnzZmi3pyewV9/vCrQ0MdXk6vxiZtPSBs0IU8k0EM=;
+	s=arc-20240116; t=1790360632; c=relaxed/simple;
+	bh=H2E+YAazXimyK9ibWbNnbq9MRsByRukyClerxEgaxTU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Ay1eK+gPp9jEaymdpY2qLuzxy+WocAzzVemeI/GkrG5j2lKLOhUIEeKZ/zxV8jN/iDamrAMUyffs5WxyBE1UBYPcEiJQ23KBWVpawz8MbrJdmaQkYuoks3ZlDiKJJ1Hve7aCRhSRlQ+eaJBivSt9QTCK1JUJzQVMzcuDLLRPD6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mA37eq20; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VtgGx8kcI3wA7GJ6q+4/bRM98SKn3MmTyMt5afwuG3Dz5jTkhxx4AI5k66+mDcmFmXNoiN3tIMyqdJAotnrUWIuQS6JBGUdOgzausnogdhjQJSYjrl/XZ6ugO2XsHXhkuNDp2Zu59NuQl8YjQ4PFQF0xEGjkN2724sW0K5i9WIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=djWD8tsa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mA37eq20"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34D471F000FF;
-	Fri, 25 Sep 2026 18:23:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="djWD8tsa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E37F1F000FF;
+	Fri, 25 Sep 2026 18:23:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790360621;
-	bh=YXD/bcemTBzmK3LtpaIyAjbwDuPz3nvXg3CfboN6GTQ=;
+	s=k20260515; t=1790360630;
+	bh=F8lzlAMzxSK1W51YWyM1G6tp1kskzFxGEYhXxBt5ciI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=mA37eq20O1YEAWpJjBKxtTbXtkkBgoE50aP2A7xAjpu91C4KOyM1M1JBylcPUnKx5
-	 D+eVBUF8lbR2+gzSgKo0eDOoL04OpJo5IbV+25xBrnuV8rrWg0O1142R4l9JzfcWnc
-	 Tu2iQDPrnXMXjHHPma0v1l+74kudxCo2EIWgFLeAgyB96g08YMmKkVp3tPOG7Fix9t
-	 9DzrcjPPc6j7bBtBaj3ItZr2ki2w8NkjetA8MqvXntUtWFRB4HvIN6ZIpkdG8/jps8
-	 pYKeNO07vEf/ia9AU7HRHwnu4ot0ng1p45icNpd1vAEPNmkJp5cRgVqzHbVv0lJMpM
-	 5w8zisdxczKCQ==
+	b=djWD8tsapMQ6w95RpDmt5dd6nTawfpBIer/u2hXRgW8ey1N8a5zjpBQ8LNBZr/J6d
+	 onBlPtMw6YmdfxMLp3PebcddqRbSfIHCWXBQOrKlAZDICUxTdCsCbIAXhEXSxl+eHK
+	 s7SKO44aWgaNyB0l+Zjdu8eN3I18zaqVRBaTsOVTXgOLgDNczt1kiTksJEKmpgT0TE
+	 VOqgABJogEa/85QrOQFs4pXmSeDU6gh/IfuUrHV39DSps6Tdx01WympQDGwC5L0glT
+	 R4XloIONvdeds8Exw0ZZl3DEnMRIiAZX6Kim2bGf7AZKL2iNYTCqLfy7bnX469y6ou
+	 wEewbDctTUZow==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
  Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- David Rhodes <drhodes@opensource.cirrus.com>, 
- Conor Dooley <conor+dt@kernel.org>, David Heidelberg <david@ixit.cz>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- Charles Keepax <ckeepax@opensource.cirrus.com>
-In-Reply-To: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
-References: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
-Subject: Re: (subset) [PATCH v4 0/8] Speakers for Pixel 3 / 3 XL
-Message-Id: <179033512686.204944.16990313455275309471.b4-ty@b4>
-Date: Fri, 25 Sep 2026 12:18:46 +0100
+ Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>, 
+ Arnd Bergmann <arnd@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, 
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
+ Randy Dunlap <rdunlap@infradead.org>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260925131137.146638-1-arnd@kernel.org>
+References: <20260925131137.146638-1-arnd@kernel.org>
+Subject: Re: [PATCH] ASoC: amd: acp: add EFI dependency for selecting
+ TAS2783
+Message-Id: <179034759252.204944.10852197030838990199.b4-ty@b4>
+Date: Fri, 25 Sep 2026 15:46:32 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,34 +50,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2152; i=broonie@kernel.org;
- h=from:subject:message-id; bh=h1WnzZmi3pyewV9/vCrQ0MdXk6vxiZtPSBs0IU8k0EM=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtrwmZJjTUy9mi4xOWCYdUDcLFZ0FI7ejsKp1d
- XYSpKhfHomJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCara8JgAKCRAk1otyXVSH
- 0EJXCACHAXZzQJLSmm2F8tvsa9eZCAbaljZmp6TzvJQYT84xmk5ldGmiVssXgmZF0bkU/SlWArG
- TKl3kdVHID43faOm04jIZVT17+2Ii7iE71xRC/1KnmeFwhNcJLUObD9oj3Ot/2zcCQLeGM7T++c
- Xql7S5zUnX+piEmUgnpqlav/Zlc//xuJd0pOiPluLkUpER4FCgRrpzHTI4XybLb1KckELoPY32+
- u96ViCIbhTcqg1jo1MWm1dY6S0YMwmIDb7gaag9nAfgXUNf5bQM726v45xB4bvioi3LlG89PZSM
- EgXbRZwkYq8rf3JdG9vZ2kKqDmE8QP20SCiuA+Xlzo1t3ff+
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1131; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=H2E+YAazXimyK9ibWbNnbq9MRsByRukyClerxEgaxTU=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtrwyiQF3WAjDatD1kdIBoFVWwsXEPMosRuqbr
+ mWp/U1RxY2JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCara8MgAKCRAk1otyXVSH
+ 0DF1B/sHQRMdb8besb09GqRJJgNXcOMZGXZsDKdonr8/uvbrhu/h3xjh1A4Ih6Lv44+Jp+rfKtM
+ d/Bum1KPECon4tyx9Cwu8ruosb0Y00s95HiG8tPe4UzsZo2S5QJXHB0UW5TfCYQjpRVWb6r1TbG
+ 1Q3XkQSAQUU/R+jQO7zrfds5euvjdrqH6VzXtMOJ6vn4O6OESPL0iguxGDgq9uym2KhoqWPA6Hk
+ rL4Hhr/1I4HiQnNkRyx6Bsb3SwRZKXT1JtE4Yq9JdNHMiM7FkspufqIDFEfktCEL8nstK1CZvKw
+ BDddmC5gdyHDKUzqbAEn6FWog5vj0o+HYFOqEqbcQ+bMwVmb
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 24 Sep 2026 15:24:05 +0200, David Heidelberg wrote:
-> Speakers for Pixel 3 / 3 XL
-> 
-> This series address:
-> 
-> 0. demistify the hex to BIT() macro and add left/right rx spk
-> 1. most likely wrongly set DSP_B in sdm845.c
->    my guess this is because TDM was never used in the mainline with
->    sdm845
-> 2. applying correct mask to left/right speaker for the TDM in sdm845.c,
->    so both speakers can work simultaneusly
-> 3. setting sysclk at startups, which some codecs need (such as cs35l36)
-> 4. setting proper tdm slot in the cs35l36 driver
-> 5. device-tree wiring for Pixel 3 / 3 XL
-> 
-> [...]
+On Fri, 25 Sep 2026 15:11:27 +0200, Arnd Bergmann wrote:
+> ASoC: amd: acp: add EFI dependency for selecting TAS2783
 
 Applied to
 
@@ -89,16 +71,8 @@ Applied to
 
 Thanks!
 
-[1/8] ASoC: qcom: sdm845: Demystify TDM masks a bit
-      https://git.kernel.org/broonie/sound/c/090991b292c6
-[2/8] ASoC: qcom: sdm845: use DSP_A format for TDM codec DAIs
-      https://git.kernel.org/broonie/sound/c/ed41c80271e6
-[3/8] ASoC: qcom: sdm845: Use per-speaker RX masks for TDM slot assignment
-      https://git.kernel.org/broonie/sound/c/84c3a8e05ce8
-[4/8] ASoC: qcom: sdm845: Set codec dai and component sysclk during startup
-      https://git.kernel.org/broonie/sound/c/5e9f324509a7
-[5/8] ASoC: cs35l36: Implement set_tdm_slot to program RX and TX slots
-      https://git.kernel.org/broonie/sound/c/f390794e6354
+[1/1] ASoC: amd: acp: add EFI dependency for selecting TAS2783
+      https://git.kernel.org/broonie/sound/c/4d2b92b82ee8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
