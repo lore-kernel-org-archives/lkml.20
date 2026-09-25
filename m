@@ -1,135 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B587E4E1C87;
-	Fri, 25 Sep 2026 19:38:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6824E1C87
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365089; cv=none; b=EgSzsLUVwf1JvCpPGLdmCc/pNKdjGU0im7yItIogmnE+gQZLyubssVXuYNrbMEbpfHh1gGX1OyqRfLe0u40YEi3mx4o5wqFCdIDRUVPScC011c4p4qpmpTTPR7RTP6dvLmsTZ7o8s5n6O6Znw/iJhPmd56603CRTsLQjDolFELs=
+	t=1790365131; cv=none; b=QvO7NZCn7vWIO7FlkKB33ARXGoizTxH4rug127T8+orOesKAX+s3ydDkzTW59lYlHNsFJOwR+aA2GzUF3TMWKol5yvrTtsbR2tdkTk5m/nDnLQPhp/zObxm3EMZQTNgZPd+4oW025fY2/VUhyVtD/sVZpOIi58dF7S74xT3Vr6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365089; c=relaxed/simple;
-	bh=dstBTE3lWCMn9EudZcftluRV7vRDMp0MnFzhpgOlsz0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=koiWIMG3NVDl/+d/3lPd8SDGZZo21Zssq4Tj5SKazV4zBoOdqgjF1u9+Z4mLxjr/RkMVJW9M1lpzQ2x+MwEpaD+Hf4C1WWs6YchmiYmfnqcnC0C0BfD1jbqZBSfQ1mUg0lXvAyJUvwTUKqbonYX+cVswYAoJNC2Eb81h1kc8E6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DxbIi28P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790365131; c=relaxed/simple;
+	bh=4ANHKnRqtCKPjwILV72OTxZrPCO5cIUXS9e531EzIu8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G0BQdyif7S2WtdmxDaPNDz9teX+ENchqJ1I6yHDy+IGnzYqkMY+DHKu3nj15DjvExhW4GwIEoa8g0MS9Sgf2zZP+iPQekNl/g/VzxuqB4QwcOruwYb1GHDFU9i4l3gl2j1z9OuXfSG2UzqAB3v9XyPxNvAXwkektuzTfJ40apoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=VkAqExSG; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DxbIi28P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70F401F000FF;
-	Fri, 25 Sep 2026 19:38:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790365088;
-	bh=0LEsbhIDjBe66cbu0GZSdPhdvVGyJ9cnICBeyy6iWkk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DxbIi28P95AzIzpsaRJqifwhTdKpAAPYMwT4+wQMpyTkmjQuoUxKrj2UjvZ1CzDD5
-	 2dz5GyyZf+UVrlZzUi7246Dh6pWzJ9W7Wngn2hPuK1aiFavZpjeydxRVuDNMIUxFq7
-	 X17bAkTBN1fMC2PylaMk7Rvp4/A6m8r52ETGTJMC4t6XJXPofRdG3WdbI8bKjXZK7g
-	 G1JU9ZU6xnROvYjqRsDVA3WL2Wh4bkp3mkF7Lz4mpmR+9iPkg7uMvQ8cnOVC11EsoI
-	 5m7BmFWf1IT7ed9EuauM/1lhewkRONS0osKU8zKGAvl585hEth7Rs4equHnAMtEzz1
-	 wUQlc7U9HlCJQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] kbuild: Move gen_init_cpio and gen_initramfs.sh
- to scripts/
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shuah Khan" <skhan@linuxfoundation.org>, "Jonathan Corbet" <corbet@lwn.net>, "Pasha
- Tatashin" <pasha.tatashin@soleen.com>, "Mike Rapoport" <rppt@kernel.org>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Alexander Graf" <graf@amazon.com>, "Nicolas
- Schier" <nsc@kernel.org>, =?utf-8?b?VGhvbWFzIFdlacOfc2NodWg=?= <linux@weissschuh.net>, "Maximilian
- Huber" <maximilian.huber@tngtech.com>, "Nathan Chancellor" <nathan@kernel.org>, "Willy
- Tarreau" <w@1wt.eu>, "Randy Dunlap" <rdunlap@infradead.org>, "Luis
- Augenstein" <luis.augenstein@tngtech.com>
-Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-doc@vger.kernel.org, linux-mm@kvack.org, "Askar
- Safin" <safinaskar@gmail.com>, linux-kbuild@vger.kernel.org,
- =?utf-8?b?VGhvbWFzIFdlacOfc2NodWg=?= <thomas.weissschuh@linutronix.de>
-In-Reply-To: <20260925-move-gen_init_cpio-to-scripts-v3-2-99c493f76722@kernel.org>
-References: <20260925-move-gen_init_cpio-to-scripts-v3-0-99c493f76722@kernel.org>
- <20260925-move-gen_init_cpio-to-scripts-v3-2-99c493f76722@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 19:38:07 +0000
-Message-Id: <20260925193807.70F401F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="VkAqExSG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=+2/3P/ncvXaLVl7KGX2gZTIQey7db7s4qj3v0yId24U=; b=VkAqExSGdwwYS7RFpcA/cRi79R
+	YQbWo+0cBIgoiUR8+9o9npEctmtZ+cJGQ2l7QoLyaT02A2YSOFp+Hf9biGjOq3iLYzj3n4Met/nzV
+	a+kEr/qfNIHmc72spr+IxYDzThNc0UGlnlUSBOEOr7uusw3JbAHrQFT7Vm2Tjp/mQflS1ajaS/pwO
+	cFbP/7sGaz4mxkzT2eEcBEfMTEgG9ZJxIAn5NyJ1GNucqrR6nNR4iMM7YWlF1XeHkRnRZ7MPo8wVT
+	p8T9wPZk0+9/sWmZQkE4Jm0C8PV5KZ9xxoYYv+cOJMU2nyT548trWbYvRPGSWgFCPVzJXxaHloAt5
+	4racxzMQ==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xABkU-000000099jO-08nr;
+	Fri, 25 Sep 2026 19:38:22 +0000
+Date: Fri, 25 Sep 2026 20:38:21 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+Cc: akpm@linux-foundation.org, andrew+netdev@lunn.ch, apopple@nvidia.com,
+	artem.kuzin@huawei.com, baolin.wang@linux.alibaba.com,
+	david@kernel.org, Liam.Howlett@oracle.com, edumazet@google.com,
+	harry.yoo@oracle.com, hramamurthy@google.com, ivgorbunov@me.com,
+	joshwash@google.com, kirill@shutemov.name,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	lorenzo.stoakes@oracle.com, mhocko@suse.com, muchun.song@linux.dev,
+	pfalcato@suse.de, rppt@kernel.org, surenb@google.com,
+	torvalds@linuxfoundation.org, vbabka@suse.cz, yuzhao@google.com,
+	ziy@nvidia.com
+Subject: Re: [PATCH v6 3/3] mm: implement page refcount locking via dedicated
+ bit
+Message-ID: <arbNrVX20f2WDJjO@casper.infradead.org>
+References: <cover.1789239015.git.ilya.gladyshev@linux.dev>
+ <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] selftests/liveupdate: vmtest.sh mkinitrd fails due to missing ge=
-n_init_cpio
-- [Low] kbuild: stale comment in gen_initramfs.sh assumes old usr/ location
---
+On Sat, Sep 12, 2026 at 10:50:10PM +0300, Ilya Gladyshev wrote:
+> This patch reallocates the refcount value range:
+> 
+> (1) refcount < 0 means dead refcount (uninit / frozen)
+> (2) refcount = 0 allowed only as a temporary state (see below)
+> (3) refcount > 0 is a regular reference count
+> 
+> In other words, refcount is now split into "dead bit" and a 31-bit
+> counter.
 
-commit 97c7fb8e47f1b247f157846cfecd29ff5f239ed1
-Author: Nicolas Schier <nsc@kernel.org>
+It seems to me that refcount overflow is now a problem.
 
-kbuild: Move gen_init_cpio and gen_initramfs.sh to scripts/
+We can deliberately increase the refcount on a page by stuffing it into
+a pipe.  Over and over again.  See merge commit 6b3a70773630 and the four
+commits on that branch: f958d7b528b1 88b1a17dfc3e 8fde12ca79af 15fab63e1e57
 
-gen_init_cpio and gen_initramfs.sh are part of kbuild and required for
-all kernel builds w/ CONFIG_BLK_DEV_INITRD.  Move both to scripts/ to be
-more clear about their importance.
+Unfortunately, I think the discussion that led to those commits was
+conducted off-list because security.  I wish we had a way to declassify
+thse emails after the fact.
 
-Link: https://lore.kernel.org/all/aSdrCFkUQup3qb-q@derry.ads.avm.de/
+> +/* Most significant bit in page refcount */
+> +#define PAGEREF_FROZEN_BIT BIT(31)
+> +
+> +/* Page reference counter can be in 3 logical states,
+> + * which are described below with their value representation
+> + *        state              |         value
+> + * (1)  safe with  owners    |   1...INT_MAX
+> + * (2)  safe with no owners  |         0
+> + * (3)  frozen               |  INT_MIN....-1
 
-> diff --git a/tools/testing/selftests/kho/vmtest.sh b/tools/testing/selfte=
-sts/kho/vmtest.sh
-> index 0014bd76e88de..1e86ffcc3a79e 100755
-> --- a/tools/testing/selftests/kho/vmtest.sh
-> +++ b/tools/testing/selftests/kho/vmtest.sh
-> @@ -100,7 +100,7 @@ file /init $tmp_dir/init 0755 0 0
->  file /kernel $kernel 0644 0 0
->  EOF
-> =20
-> -	"$build_dir/usr/gen_init_cpio" "$tmp_dir/cpio_list" > "$initrd"
-> +	"$build_dir/scripts/gen_init_cpio" "$tmp_dir/cpio_list" > "$initrd"
->  }
+I think we need four states.  The first two are the same.
 
-[Severity: Medium]
-The path for the kho selftest was updated, but it looks like=20
-tools/testing/selftests/liveupdate/vmtest.sh also still calls the old path.
+(3) frozen: 			0xc000'0000 - 0xffff'ffff
+(4) temporarily overflown:	0x8000'0000 - 0xbfff'ffff
 
-For example, in its mkinitrd():
+(we don't really need that much space for temporary overflow; we could
+have something like 0x8100'0000 as the boundary if that works out better)
 
-	# Generate inner_initrd.cpio
-	"$build_dir/usr/gen_init_cpio" "$workspace_dir/cpio_list_inner" > "$worksp=
-ace_dir/inner_initrd.cpio"
+>  static inline bool __page_count_is_frozen(int count)
+>  {
+> -	return count == 0;
+> +	return count & PAGEREF_FROZEN_BIT;
 
-and again later in the same function:
+This probably becomes '(unsigned)count >> 30 == 3'.  If we choose a
+different boundary then something like (unsigned)count >> 24 >= 0x81.
 
-	# Generate the final initrd
-	"$build_dir/usr/gen_init_cpio" "$workspace_dir/cpio_list" > "$initrd"
+>  static inline int page_ref_count(const struct page *page)
+>  {
+> -	return atomic_read(&page->_refcount);
+> +	int val = atomic_read(&page->_refcount);
+> +
+> +	if (unlikely(val & PAGEREF_FROZEN_BIT))
+> +		return 0;
 
-Since this patch ensures the old artifact is removed via
-scripts/remove-stale-files, will the liveupdate selftest unconditionally
-fail because it cannot find gen_init_cpio?=20
+... use __page_count_is_frozen() here?
 
-Should liveupdate/vmtest.sh be updated to use scripts/gen_init_cpio as well?
+and you need to adjust folio_ref_zero_or_close_to_overflow().
+try_get_page() can stay as it is.
 
-> diff --git a/usr/gen_initramfs.sh b/scripts/gen_initramfs.sh
-> similarity index 99%
-> rename from usr/gen_initramfs.sh
-> rename to scripts/gen_initramfs.sh
-> index 7eba2fddf0ef2..27ac1fd48001a 100755
-> --- a/usr/gen_initramfs.sh
-> +++ b/scripts/gen_initramfs.sh
-> @@ -247,4 +247,4 @@ done
-> =20
->  # If output_file is set we will generate cpio archive
->  # we are careful to delete tmp files
-> -usr/gen_init_cpio $output $timestamp $cpio_list
-> +scripts/gen_init_cpio $output $timestamp $cpio_list
-
-[Severity: Low]
-Is the script header comment now out of date?
-
-At the top of the renamed scripts/gen_initramfs.sh it still states:
-
-# Generate a cpio packed initramfs. It uses gen_init_cpio to generate
-# the cpio archive.
-# This script assumes that gen_init_cpio is located in usr/ directory
-
-Should this comment be updated to reflect the new scripts/ location?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-move-gen_i=
-nit_cpio-to-scripts-v3-1-99c493f76722@kernel.org?part=3D2
+(Thanks to Pedro for asking me annoying questions about mapcount
+overflow which prompted me to look at this again)
