@@ -1,137 +1,191 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A564D9F9D
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20584DA548
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351866; cv=none; b=dxPDrzkoJu86SwTDVIthCHA1cRUAJAh9pVfORdqunaUnu4s8zlC+dmCw3P8qo3/kD9i0P2Obea8S2P5s8vTZ4tk9NBgg5X8894gvTxX+ePZCbqeFi4puvhRx+so3WN2p+uvlNv0ly8t6MBZQNryBbQqPgX6XEjSkg4xQjNNMI2g=
+	t=1790351884; cv=none; b=DcnTfvu/i27LwfrR1skADgX3w0/uKTjihnQU6ZzpdtuFHIhPx8Cexwt4FnkLUpSBwz81LnG7ONXMHpqUGTug5QhPeUjW76INvhwKS5l6jNNK+lsiWKOE6bieD0LnUoodR4WfWt0jyoG5wD+VpKJAXawYS6u9vxEObBj5APd3KjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351866; c=relaxed/simple;
-	bh=EDelbTNsLGwr16sy1/ve2CrvpZJX80YUMKX0NU3F20E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BTOMZzi7maC6++bnklZzSmt2YlmDdeRhw+FompfYApuoNHh52mi+AmOry+37fvpi8UMpVAi9P0b1iF6b75w2d4Q50hh08i87FSRVn0Bx5dU78+l6HsaBSV4GzsNBb/t9xUa7HgyUJNOcWtzNrcK7hFaPQg7Ie1+PUY28azlWdw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N4L2y4Tc; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790351884; c=relaxed/simple;
+	bh=6/aq0wXwPIukqmyIpiHgBaMAEwS3rqhWHEw9Ijrs0kA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uxUbieO87BUEA41w2ObmoYa9tRhN0cY8uoTyZ3uJnx0l7T5Cvy82Rbv/KtlKV+xmNxn8qq7//tI0RhBixZ7u1wNRlceP+38/97sqnEitJxPA3R+YYMbaN4QiDX53bxa2PHirY5eTOT9TPjUPOOwf7xDfXRyFeUEFXdXihzPPRmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o8AcaWl3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AfUUM5oa; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N4L2y4Tc"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so603843f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:57:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o8AcaWl3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AfUUM5oa"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PFHZNv2554013
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:57:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=EBl2dFsWiMsFSqUAN5NQylf+8ZNg8zQAaPd
+	vj+WmO8o=; b=o8AcaWl3pzLm7MttTikh/ZzAMiyEqPkxid/F2lrgp/UB/VlvgSU
+	LfEQW+w+JPZ6ufnUF6kbgpilPCbo8SGf6zf/4VN4jV6HYSTdHbDjzIt5tcOkou/n
+	5z0aqkPkcHX2XuGrHSxzm2/dUpDduAet6l7J1aIYdU7kzbKuKYT2sMa9aAsKsqWa
+	/9ZqppQitZ4ALWqInj/J9j3lIRpr1HP/vl4rUzOWwyf1AYkB8mhd4qxOqHakYv3N
+	Ilon22rLMfQM8JUO1SzsSEvaicmV8JOLgGmeIcE/gC+tNJcwZsAbH/lLXJBlI6ST
+	ZOsRheDYR7yKt7UFMw4ty3uhPa7ukGPUjAA==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwufk056w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:57:55 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a59faf521so942271b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:57:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790351861; x=1790956661; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JDj9ZLoDuXLeZ+ESPsWzwz0ze3YEaXzdQ65mT9PQEa0=;
-        b=N4L2y4Tc+Rv4L5beR6/DjOIpQjyNUB42kUhmYgxT7UjCasPYhBBZ9TTq4WyWvQeew3
-         /Cb+2TG8pD5H86aD5x9AlYeBTCtuZWEUO88A2qPBtTj0S5NDdHUEIaKt5Xj5oohJ4fQR
-         r1Fu7QypSFS5H+gdP24Qf81wLA4rDLce6AdenH9cp3ouEFFbgbmFoxdwE2zLjJHTdQD4
-         9wfgR8f9iIhbUU3LRESyu94+B9XTKhvp8u6UgGPLThtYWtHqsyAL85Ht2HxJsLUXupdZ
-         SURUz46RxmfAROl3PXcPRtE/4PFdmQwbqsCC2aiGj9x6C245yHcWzZFMIDddaDhMxb0b
-         h8zg==
+        d=oss.qualcomm.com; s=google; t=1790351875; x=1790956675; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EBl2dFsWiMsFSqUAN5NQylf+8ZNg8zQAaPdvj+WmO8o=;
+        b=AfUUM5oaFNZEkxJ2iLCsP32iY90zDDQw9OYdPABe9lhtfHzEOA3Ro9SjuWT/srLUGb
+         xWi1sLyIE3NCNfp9bxXOQh9jASAHM4zvk8ysDkWAxe7bePXthAcKYIgrowK/wAI8M6eu
+         o+EsIXvNnkXQ4A5oZ3PnlZlvMKKUMkebQ0kSr8Fa+/84EYfKuaPMlqPoM6xyucYm0Tk7
+         /res64zv9GF6b+mKpl4GsBr8nWoZIpfGinsTIzO/Qio2SAUAwsFKnr/qvzgYNeXEBy33
+         FN3hXccLzVtttwd9D+Ifu6spD3jq6NmAuTBSQEVbToOcy4GLMFpUC7bqFXx1sqjuyO9N
+         iGtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790351861; x=1790956661;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JDj9ZLoDuXLeZ+ESPsWzwz0ze3YEaXzdQ65mT9PQEa0=;
-        b=R/Od0HR0LFcqu5kPoKCYjqhbh4E3Y0Ne5FKTfKzkM7hzPIMX8x/ZTPwG2VefzFF3Cl
-         U0c/GnJbr1CppKSnSmDtCXZsuZOBE09qm04LoHCO0cD+4Ym3kWaTXIvEi/A0rq1jJHwC
-         qcBIh/0qpDUMi+NUheYA1YpDu7aY2wcCvD4vUjFCV0WT0WMB0qYYnhaCxCOJR/fzMJwi
-         WBcZRnPNz7wMNzE+bC29jfrcmaMUg7E4CeQWTnx3hwN+Xg0RpUCihwHpIYKb4r7/RazA
-         SYnH5fvkeHa4u+ZcrO/3XAr9NrVr8vHlyD6VhxTyWXy/n0TxTHa5+285K/ttN478QLd+
-         lhUA==
-X-Forwarded-Encrypted: i=1; AKwUvBwmpsToKjFIULVZ6oeUvlquwuwa0dq0qoqlqwD3fUUVIJaBtOFqAKjoaLHN/uAmIDob3/HBxOLfvcUHv38=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/6+iUhNhWnM/sgE868LZMJaZuVdoEJ/fE7Pu6MOLFwkrq2RZh
-	fwhEpoo0pIKjfb0FCctmBPiNx6eaPnnSeb8VhCV+EWP8oKKl977duG1J
-X-Gm-Gg: AYBFou1cN7Z66vR3VWXaiBXQrv6qg4AlmLM4Q4MYmIgNjCmOhoxrhmxay6Bm8GPFzsg
-	Y34EkxVRLMb67o7vHcJp4r/RQwShLZfqoAVAeZtSuBUd1SXKjj2hiLSVx7FeRDcF1Eh1An6e/8t
-	NrL9CqqK4AizDbEI4bw3Q+xsFT+Kt4go/70t/DkWhQgXR3frR4rJu1+SpzPJq9F8LOPQcT24S+8
-	DSmuTmbTsgz7G4ALF46dfkAQrkj+n527z3HKrdrtV2iTVbP9vTz8rEfwGoE1fWndxBUe3Vs2OpN
-	vkYyfsDJd7IfH58mkjjXZoFchnj3TorqucYnIcLSF/72DofVZhbV5Mqmu1iTXPY4aV9X10W/W9n
-	hnikMTez2VJACm4CIHq98DfyA7B6yc5Dx0wgLdmZvD10v8FOE7NnDNUr9G7yRaiocL6W6D28F7T
-	NU136KXD7SSL9vXbLbFDR2cTSmePvGeSYX5WvSEOdlhoPKw0nXQHe3LNa8M5HS7Pn3Zw4cM17jr
-	c4DrUVRqfJg6HxlTdLZ8Y2kQ/Rv+XHPGd4OzR38dY8Wx7XRty3OWYDXvdvMX1I+9HTRpIRcrsjW
-	vZVsN1AIsdx5HpmTEwnbUoGBTqYO
-X-Received: by 2002:a05:6000:2509:b0:487:27f6:a4d7 with SMTP id ffacd0b85a97d-488716b0361mr12527019f8f.39.1790351861320;
-        Fri, 25 Sep 2026 08:57:41 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a3627a8sm8964225f8f.23.2026.09.25.08.57.39
+        d=1e100.net; s=20260707; t=1790351875; x=1790956675;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EBl2dFsWiMsFSqUAN5NQylf+8ZNg8zQAaPdvj+WmO8o=;
+        b=th0uYhehLhpFcLXAJllm2aqfGLyj4agyjMW5tvxGPe+VfZlYzL0Llfg214n0VJGb+r
+         VVjGUDHu80HJhWFmVEdxyWfRbS0FnoFIuSSh3VHu0i9wix5V/doLmZzQy9s4VqI6IEIQ
+         mhwjC/Fgg6AUeUbShrP13MDL1RzeTTT3skhngSo9dQLMVYaBnI5/sMfmfVJbv6jIaQ38
+         5i29bd0jwVxoPJJuCNQr2WkzSOlJ69l68SVGY5daNAbS3AkyNpawVkplUCHFG26buYic
+         +jA4XtMIdj7yWm91jTWw+22d7DRqFEFYW9vHb3skpgih4JtIPNq1uEmLHTbWbevsG9fM
+         EC8g==
+X-Forwarded-Encrypted: i=1; AKwUvBx0TY+RDv4spo85xaI5e9KToL1iptodUiGln1c66YPefczQIR8RdBytKBSA5ZZM4kfNOTVAcVZqSn/oK30=@vger.kernel.org
+X-Gm-Message-State: AFuF++kctJ0PdLNYd6uzf/jQvn43WxIxE+Nd98d8FvqUaCCkFaeinOUt
+	xeQ8fj0MeVmbpzEaWkBBtd+VhTqeSk2/eJirv8nnJJvX/KuvKFjxnBEco/X9iyjXHIB2CgWdo4F
+	hybxIgrcu2Qi93V8VI23a+TZ5onQGnrIK67g2ED5DT2COoApu7zNCpzpYYmvX6DjlzLM=
+X-Gm-Gg: AYBFou3xu+eIIf49kIlMLGEWq1e2tOgcBTV+VSQKpFJFRvfGmjp9pU3Z4YyNqLBXn3A
+	CNiIjefv77Gakjw+woS1T/KUURljfr1fqxcBsBl80H/oLOJBLeBkiOfNggmbg8j7Ji8OyfCJDxj
+	jZz0X6+rCgk1e8/1IRg9nBkGjg7z9zWtIP9OT3cUWiXcN8+KUgaPKbfV4OraT8lUQb27Sh6/heg
+	Lwzk3zVLby8Q5RugqioIDPBK+2AT7zNuWUMDWVc3qXnCf1MURYJGdQWevKDHJsz1+74qzaQM4bL
+	Okf+Z5gWRNKADOVkfIvj9jpvSBulce8/Y81CNqabynaDga+cMDcAiTtSEY7XZJDxn4JXUD1P0/N
+	X3vpbJ7CkC4NVcYqKG+kmO2SK43A=
+X-Received: by 2002:a05:6a00:2d96:b0:880:d0d9:fece with SMTP id d2e1a72fcca58-880d0da1e8fmr852060b3a.36.1790351874775;
+        Fri, 25 Sep 2026 08:57:54 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2d96:b0:880:d0d9:fece with SMTP id d2e1a72fcca58-880d0da1e8fmr852010b3a.36.1790351874126;
+        Fri, 25 Sep 2026 08:57:54 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87ff354d854sm1361299b3a.2.2026.09.25.08.57.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 08:57:40 -0700 (PDT)
-Date: Fri, 25 Sep 2026 17:57:38 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Joseph Guo <qijian.guo@nxp.com>, Josua Mayer <josua@solid-run.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
-Subject: Re: [PATCH v1 04/11] ARM: dts: imx6ul: Add Variscite audio codec
- files
-Message-ID: <araZ8pJGmDVXMjvE@Lord-Beerus.station>
-References: <cover.1790344389.git.stefano.r@variscite.com>
- <ef56f98137eb9d1e0af3aa1b801186d829dba521.1790344389.git.stefano.r@variscite.com>
- <araMJFirhP86Dcb6@SMW015318>
+        Fri, 25 Sep 2026 08:57:53 -0700 (PDT)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Sumit Garg <sumit.garg@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+        Simona Vetter <simona@ffwll.ch>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-media@vger.kernel.org, netdev@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-remoteproc@vger.kernel.org,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH 0/8] Migrate PAS clients to qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
+Date: Fri, 25 Sep 2026 21:27:29 +0530
+Message-ID: <20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <araMJFirhP86Dcb6@SMW015318>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: -q-hyZX4wfhry_fX4QEY6b5bPm7BsUYU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2MyBTYWx0ZWRfXx5coGbTn6de8
+ 5T2sFnupjnJV+DDsUZod1HM/eOxPyzbHB7DiMti1I5/ZFhsJ9YaGKdHbYScNqnCTCpQCQD2jb55
+ OG9X6pizLl17o93CBTm0Zl4caaYUMjM=
+X-Proofpoint-ORIG-GUID: -q-hyZX4wfhry_fX4QEY6b5bPm7BsUYU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2MyBTYWx0ZWRfX84b319mnSeax
+ lkJXJWlmcOOhWG1L8yjbLSHSiIBLwj1kaGfV5DIH6ZmXROyIV5j797zFy7zhCyR9fa59ngY5WiR
+ BYNavk3KoABa3GiYoMm7EmBm30bQnDg4RO1rCZY35G6Z1ScF/Pmd/AmODnwzB3b6NPYo+rbsf3I
+ 1rRchuvIxpL+xxcah1jVFPvJLtLqV6w+MBUaOGFEddB6vmL6ktB28MHEgIDjXMh6HBNCW3F+pzs
+ MV7c7e4ziDtcgPBOVkX4pgmAHsLoiqYnLyPIq82mDH7XmiotXIB7QNGTT0EQrLThDyOEkatftsD
+ lPCi/gkWiO3m08H4atQHpOVPx8BJ47TjmNKpxwDcotvtZOweGrgPiptT27TNEd5rot5J+ypC2KD
+ rhHloE9lcOMW6V/He2BTstivH4X8Yp/PVdgsM3Acl9tJx0EIjxSHwdJP5KlVNChNob6EE/ZYGJ9
+ NFIGSBTzlUv/nRkAVvQ==
+X-Authority-Analysis: v=2.4 cv=B+wsQ+tM c=1 sm=1 tr=0 ts=6ab69a03 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=zG7KPAmT95cOeVn0dqYA:9
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 bulkscore=0 spamscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609250063
 
-On Fri, Sep 25, 2026 at 09:58:44AM -0500, Frank Li wrote:
-> On Fri, Sep 25, 2026 at 04:02:21PM +0200, Stefano Radaelli wrote:
-> > From: Stefano Radaelli <stefano.r@variscite.com>
-> >
-> > Add separate DTSI files for the WM8904 and WM8731 audio options on
-> > VAR-SOM-6UL and DART-6UL modules.
-> >
-> > Put each codec node, the SAI2 setup and its pinctrl in the selected
-> > audio DTSI. This makes the WM8904 option explicit instead of placing
-> > it in the shared module base.
-> >
-> > Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
-> > ---
-> >  .../imx/imx6ul-imx6ull-var-dart-wm8731.dtsi   | 71 +++++++++++++++
-> >  .../imx/imx6ul-imx6ull-var-dart-wm8904.dtsi   | 88 +++++++++++++++++++
-> >  .../imx/imx6ul-imx6ull-var-som-wm8731.dtsi    | 71 +++++++++++++++
-> >  .../imx/imx6ul-imx6ull-var-som-wm8904.dtsi    | 85 ++++++++++++++++++
-> 
-> what's difference between imx6ul-imx6ull-var-som-wm8904.dtsi and
-> imx6ul-imx6ull-var-dart-wm8904.dtsi?
-> 
-> Frank
-> 
-Hi Frank!
-Thank you for taking the time to review this huge patch.
+In preparation to remove qcom_mdt_load() and qcom_pas_auth_and_reset()
+public function, migrate every user to the new PAS context-aware API
+qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset().
 
-The difference is in simple-audio-card,routing:
-on DART-6UL, the microphone jack is routed to IN2L, IN2R and MICBIAS;
-those routes are absent on VAR-SOM-6UL.
+This series migrates every remaining caller of the deprecated APIs
+(qcom_wcnss, adreno zap shader, iris, venus, IPA, ath12k) and then
+removes qcom_mdt_load() and qcom_pas_auth_and_reset() entirely.
 
-Best Regards,
-Stefano
+This series is based on top of although no dependency as such.
+  firmware: qcom: pas: Make MDT buffer retention explicit
+
+
+Mukesh Ojha (8):
+  remoteproc: qcom_wcnss: migrate to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  drm/msm/adreno: migrate zap shader loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  media: iris: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  media: venus: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  net: ipa: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  wifi: ath12k: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  soc: qcom: mdt_loader: remove qcom_mdt_load()
+  firmware: qcom: pas: remove qcom_pas_auth_and_reset()
+
+ drivers/firmware/qcom/qcom_pas.c              | 16 -----
+ drivers/firmware/qcom/qcom_pas.h              |  3 -
+ drivers/firmware/qcom/qcom_pas_tee.c          |  6 --
+ drivers/firmware/qcom/qcom_scm.c              |  7 +--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       | 21 +++----
+ drivers/media/platform/qcom/iris/iris_core.h  |  2 +
+ .../media/platform/qcom/iris/iris_firmware.c  | 20 +++----
+ drivers/media/platform/qcom/venus/core.h      |  2 +
+ drivers/media/platform/qcom/venus/firmware.c  | 29 ++++-----
+ drivers/net/ipa/ipa_main.c                    | 24 ++++----
+ drivers/net/wireless/ath/ath12k/ahb.c         | 31 +++++++---
+ drivers/remoteproc/qcom_wcnss.c               | 12 ++--
+ drivers/soc/qcom/mdt_loader.c                 | 59 ++++++-------------
+ include/linux/firmware/qcom/qcom_pas.h        |  1 -
+ include/linux/soc/qcom/mdt_loader.h           | 12 ----
+ 15 files changed, 96 insertions(+), 149 deletions(-)
+
+-- 
+2.55.0
+
