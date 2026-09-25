@@ -1,80 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30A343DEC1;
-	Fri, 25 Sep 2026 14:21:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD4D286425;
+	Fri, 25 Sep 2026 14:21:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346064; cv=none; b=jDlzimXob8OUgYD1xUB+YqUpPrUSrsT0v+9+61f1MiutxvIFwWlVONCj3ZQ0s/fQ1bI+ZFLq5YQYDSLxKki14J+H5UUsqh/BBoJDgUtPv6odc7Wlktn1pCTxyadwCkaZpgySKi+pbMugJJd2BN7puGrQ6oFiyKFeGSx6Mx72k80=
+	t=1790346091; cv=none; b=eARtfe41+ZebuqQxfLXGhw1sKU2MjKlrRv4zstvlq4fCZT684szsCE0hSCZeedCqL4oa2cT1h1b634XitaE+KICV6Q7wZBYYNfqYY3FEjEN/AHfHAIGplQ8kvKeN983CSUNvsToIicHcSvEQPXQm2oYcgB116/SPriZqXE0+Vdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346064; c=relaxed/simple;
-	bh=ipYU8e78ByEhWH/1W0gJkLC172mJp5qZEgqiCFKsZYs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Q3gN49eEQ7/GQj0II9pfS7yqIX3Q/FcZWvOWYMdzEvM8dJ9dzUYfTfMNABsO8H2YQThUMK0dklUEAzSVYpZcZuqVS27Yba63Ir/4eke//h3qR7aaAWeEAclWtfSdKgYsU8DqVSpRfPLWepjxI3Hau5uO0Zsi36uNUq21aWVMwbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZhfTnzgC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790346091; c=relaxed/simple;
+	bh=KMTJ11ykdnFGIB5IBKpgsNqnRmMbRb/OBM5OhUJ/bKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kUXOWV2Y8+GtYLNRr4RJTLX97YfcXNzU4uAsNoqJTuTYPCzGIkJzNBHUVk2Ls8JyjZfh8tZV+fdvI++z3LBvWl3NDcNa3DZP4f6bk0L9ZiBdHtixVpG0r7msZJivh90XpHuYRRFPg353v4wIrY6q/HewTdk8nZ5fSVTuaqom4IM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbjpMN5X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZhfTnzgC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093321F000FF;
-	Fri, 25 Sep 2026 14:20:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbjpMN5X"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E393C1F000FF;
+	Fri, 25 Sep 2026 14:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790346062;
-	bh=Y8bbhgovMLJiV2/8MU9E7yMpXiD1DeJOffuWDMO7waQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ZhfTnzgCuikPATdpnPcvJA7soMR0WYKkzTl0ydiV3QCy4RjCJIXMnlFYPl1xSnLpt
-	 fN+/mBRdZI0neUlyQ6PD6eTRjNRgqH3xGz+9MvzcqejpS7zHUQ6VXOK95XjzZwaDU2
-	 qwz6vip15hKyRFBj1BBz5laA7BojNd/IhjPBBHzhHdv8IenXO6A7W6PuDrGHcINDiJ
-	 9kOaHB4fnQtULK5K+FboODTSrHuhVdvFxRK+CnVZjA9VwMLQA0/8NW2TNAmHJUZ8+a
-	 dUf2YRRogQh95q4eqPn+dKUF38/d4xlgrvFv5Jbw2y5996Nu4423RX2Wb1Wi0XcJjA
-	 pOIBwR39jNACA==
-From: Christian Brauner <brauner@kernel.org>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Jan Kara <jack@suse.cz>, Jonathan Corbet <corbet@lwn.net>, 
- Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
- linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260912073250.51074-1-kmehltretter@gmail.com>
-References: <20260912073250.51074-1-kmehltretter@gmail.com>
-Subject: Re: [PATCH] docs/vfs: Fix the struct file_system_type copy
-Message-Id: <20260925-sachlage-reinigen-auffressen-5bdd926d423f@brauner>
-Date: Fri, 25 Sep 2026 16:20:56 +0200
+	s=k20260515; t=1790346088;
+	bh=lk9ExM5C04rCLZ8OJ128JihICZt0NCkl3prr+DKdW0s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WbjpMN5X6Iqa+zPlNs2dmeXG2IWucUCBCTCBdrscichJ9ebaQup2KIpM16uOus/RQ
+	 MOMiE+TuiYekYLZhyF5jEY7LZL4dekBcrb9dKXYXlBfSQztRZv0tSLrtBxSbtSHq/2
+	 nJp+tylThy1lfXNdCCNhyNSnabwg9dRY/hus9OYsUkUlqj5jufxviXrJ2dO//sVk/t
+	 bpCrLnapQbyeQk6NaoYsAoNNuxm/5dFnG2Z+JYpqgumT49N4FWQKGaKK0Nk3kR1mWb
+	 X941q2DbYZ7O+CQUaC0eRuAy+xnzeu9lK7+Dyu0qwmgYJcye077Vh3NoB9/NkdHnP1
+	 bEXSEOv+X63lg==
+Date: Fri, 25 Sep 2026 17:21:24 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Hui Peng <benquike@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KEYS: reject descriptions exceeding U16_MAX in
+ __key_create_or_update()
+Message-ID: <araDZNQvIkDvcmfJ@kernel.org>
+References: <20260919203511.2580732-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=881; i=brauner@kernel.org;
- h=from:subject:message-id; bh=ipYU8e78ByEhWH/1W0gJkLC172mJp5qZEgqiCFKsZYs=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRta/ZsXHOgtqwiafmuG4dq4uOblJfNvfK24cgpncW8N
- 5OMzsg96ihlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiIxSGG/6GCrQcmrpxXLJMv
- ItXJ8MeNXTSGU0lhgo7JUd5X77eEdTAyvLBbW/Dm+sZDnVo93x6s2u98fZLMvItN6zU3BeyViOi
- IZAQA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919203511.2580732-1-benquike@gmail.com>
 
-On Sat, 12 Sep 2026 09:32:50 +0200, Karl Mehltretter wrote:
-> docs/vfs: Fix the struct file_system_type copy
+On Sat, Sep 19, 2026 at 08:35:11PM +0000, Hui Peng wrote:
+> struct keyring_index_key stores the key description length in a 16-bit
+> field (u16 desc_len), and __key_link_begin() enforces
+> BUG_ON(index_key->desc_len == 0).
+> 
+> While add_key() bounds explicit userspace description strings to
+> KEY_MAX_DESC_SIZE (4096), when the userspace description is NULL or
+> empty __key_create_or_update() delegates description generation to
+> index_key.type->preparse(&prep) on the payload (up to 1 MiB). Key types
+> such as "asymmetric" (x509_key_preparse()) construct prep.description
+> from the certificate issuer, subject, and hex-encoded serial number,
+> which can exceed 65535 bytes.
+> 
+> __key_create_or_update() then assigns:
+> 
+>         index_key.desc_len = strlen(index_key.description);
+> 
+> without checking whether the length fits in u16. When
+> strlen(index_key.description) is 65536 (0x10000), index_key.desc_len
+> truncates to 0 and immediately triggers BUG_ON(index_key->desc_len == 0)
+> in __key_link_begin(). Lengths above 65536 truncate modulo 65536,
+> corrupting keyring hash and comparison lengths.
+> 
+> Reject empty descriptions or descriptions longer than U16_MAX with
+> -EINVAL in __key_create_or_update() and key_alloc().
+> 
+> Fixes: 16feef434017 ("KEYS: Consolidate the concept of an 'index key' for key access")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+Were you able to construct X.509 certificate that triggers the bug?
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+I do think range checks should exist and current implementation leaves
+staying within appropriate range somewhat open.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+> ---
+> diff --git a/security/keys/key.c b/security/keys/key.c
+> --- a/security/keys/key.c
+> +++ b/security/keys/key.c
+> @@ -245,6 +245,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+>  	}
+>  
+>  	desclen = strlen(desc);
+> +	if (desclen > U16_MAX)
+> +		goto error;
+>  	quotalen = desclen + 1 + type->def_datalen;
+>  
+>  	/* get hold of the key tracking for this user */
+> @@ -820,6 +822,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+>  	const struct cred *cred = current_cred();
+>  	struct key *keyring, *key = NULL;
+>  	key_ref_t key_ref;
+> +	size_t desc_len;
+>  	int ret;
+>  	struct key_restriction *restrict_link = NULL;
+>  
+> @@ -865,7 +868,11 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+>  		if (!index_key.description)
+>  			goto error_free_prep;
+>  	}
+> -	index_key.desc_len = strlen(index_key.description);
+> +	desc_len = strlen(index_key.description);
+> +	key_ref = ERR_PTR(-EINVAL);
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+Why key_ref is assigned here?
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
+> +	if (!desc_len || desc_len > U16_MAX)
+> +		goto error_free_prep;
+> +	index_key.desc_len = desc_len;
+>  	key_set_index_key(&index_key);
+>  
+>  	ret = __key_link_lock(keyring, &index_key);
+> -- 
+> 2.43.0
 
-[1/1] docs/vfs: Fix the struct file_system_type copy
-      https://git.kernel.org/vfs/vfs/c/392f5390d5d8
-
+Br, Jarkko
