@@ -1,81 +1,72 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DAD47143D
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:03:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D073C1094
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790323389; cv=none; b=u3rDo0GUOLWW2qcLjwN8Pv6sD7wI2ydzoo39r6+xAj/tcI/mTVRA7GH8hDeVlzrxBx4Ze1lbfVEu44gdHiTbem5Qc7h43kXdDgPx+mlNp6HBLV/gr+lp2BaC084R+zQ7IR5w3dpu0hXsBXmDeWA2ik7Faax4aMiPIQEXmmsgdqc=
+	t=1790323562; cv=none; b=PMWA04WatjeOY+qx4bnZ9StrcKhFO7vosPJ2tVTxeYxNDc6v4YIUGGw0aVAeEz9p2/CZH+NB3ot195udFwzLa1rsyni8JCY/7JigHrDFoysblA0Eo2VM4k/ZLn7gFKOVhpx+kdLQUNFzabX2Xcc3MHaMRMinh6LCIJCpgg3TYgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790323389; c=relaxed/simple;
-	bh=qKZo5yQyb0YP2yGgvVyQGZG4AiJC+P6OblCY5kxQjgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vh5WGzhepE+0xwP3uQHYK4GyK1XO22+TJVJUJlsFPtp8EY6/vQDt4+M6LvSLi34+fHyWbTg/eizVmQbVwQffFa+oUI3DU7vIv3W+fRYXLbyxd4EVJOi3pd8qhelSThDk9mV26nqaqsZhEKufsNR9UsGob9Z9ExM6t/7t2Rd++xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=LV8vBRWN; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=wermuth.pl
+	s=arc-20240116; t=1790323562; c=relaxed/simple;
+	bh=gdmQpihoyQcuoWFdoC0anc0GvxaES+Hgxm9kPd2m3Xo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CjUAGjGyMmZOT+T/kA2GSvymiM4z35PaYa6VnlgWBQCG7JUxco+ALUxN0AuwGT3OxDLIzhVARs4hiDHeMAexKR84wDSWVUryTQbRXI4yIC+hznWP4WraiylXiqgPie1gclJu5xUQeaQ322BNe32kgdxDZGx+37RFsQ+V8rvsC/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sKYmlBw5; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="LV8vBRWN"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7dbfso68861666b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:03:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sKYmlBw5"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0af40d240so347391a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:06:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790323386; x=1790928186; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U46+/TQQC41hUZlX1Jqyf2quyZyNvdapr8jATlMb4/s=;
-        b=LV8vBRWNyw4R7cKqXHB5GT0Hk6r59eq6iyZQrGKLDOs/jsrgwM8o76AgYWrJvdfnfA
-         5gRDOatsFWqnT3YaT5E62JU4d45aq9fBSdueCCkk/4SQWEGNw6XF2134B9xNDU6pKnqv
-         9pFJRbr2w+TkJLNF5aimra1tC6WeKOqu8vvRc+5HJ0bttfeLqkHSTes/9fSBWBuPUo6N
-         81jlKG34zqrZBHk/Dpz4QSInP9c5kCzQVeemsHqatR2fgRV28VApuXNAm6zDVjrF/4mj
-         aDHgwfjtatCBGKCVsVHlpN9JHkc0RcQJksbQznqmszUjrMMEY7uEjqr8q9nJ2s0xJdIZ
-         naLw==
+        d=gmail.com; s=20251104; t=1790323561; x=1790928361; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YnaaXthyPwcI3fGykM5beILFyTVEfvHP2y22x1uXtRw=;
+        b=sKYmlBw54IeB6J5TfxJukYoAMHgSX90p3+r71cC7dSYZksWJxACcwRdW9HwYKZ9z/P
+         FTjiLUcGRmku+YG+nSNlBgdeb4TNtBP5N4NnUpPWWIvf1UM3HkCQUc6k/6pIBPpEWlsO
+         1DQED1NvXzOuoEmgSffemobS4tqTUjlkk9QcsJsARtal8ZyAAtL+o7jsoics5gQWBMS3
+         H2urErNbIfMeo2sua2KIjUSv+GxWodpGOe30nPFo9fCh/Qx2/YJpdQ4/EbJfbwx9/CAB
+         +SZ5ZgU+2aLhNx8BAnranW1ekpYDrw4OcGHo1/Afu+F8jV288rStEE5TJivSEI/ORQjB
+         ldRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790323386; x=1790928186;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U46+/TQQC41hUZlX1Jqyf2quyZyNvdapr8jATlMb4/s=;
-        b=YdEEQvBcE5NYF4ehF8wg33cMnG4S41W1lPrkFgwVioJrYdsFto0RWuxjWzTCqFNAyR
-         nzW1jfJvAljRRNF2+FhXAkqgNzdv0MuW12ohwgazfiCsEYQsdGGoh6atWfTh0Qu7e6wa
-         KvPlYjkhv+CwhqVvxbJ36OldGZVqIrKo2B7x+QuN6BlFOclXObQcmI9siI+SLQyYkLOD
-         quqimaUwer4r9ZqEIg1s9hE2ttr3NNUrr+t6ZYKIj2bqIm3CndbbKEuqe8Y1Y6/yc8n0
-         cN9KmYwG0VjMJk8X78/ErKf+u64c1YQjHAGnsIqLYKO+C2vUgBJwNLJObGVyJo/WgsnF
-         jqpw==
-X-Forwarded-Encrypted: i=1; AKwUvBwK5NWvOpJe6pKmnX73ztoo/ZuJFrESM+SaUeiZsJz5CwmYlFzcGSXZ1Un3EFFpWNpi+oct9PnMwErgVDc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4gBVx+rg1JyMyIMm3Gohbq3QcE4DAw2UeEYpZsw4rB4kgXrAQ
-	Q1QJKnUtUQoE/Lso9F9KKxismLd2IX0+uwZC3kocmmdOwWioU8noYFM3qGaej4LltEU=
-X-Gm-Gg: AYBFou0sl3LCjS1Q2Afj7TkunQmVrTDWqtpvy5iLV3yGEnddUYEq+0UuCmpkvAj9sea
-	4GM5dOSOb3aliSJb2xqbxJRcjafL3l2aAVYnMB8M272T96NfU7uulajK2btKsYhm2MMnZFOg4fj
-	+vepCHQZj0hnpucNVz6x+kyn3DxjAzy7WW+HOZwJrLsi+e1Kp3Ul/7q5JWyTwBwN+MQZA2aWVwB
-	gx5m/AWIsPADZdHkTZ1+dMYSxCpFaZBULB+FS3D12ctly5LGLOgKq1fzqDZ4C766blj7CVSKJDX
-	h8STf3qtCVVa/tpNWYylpN629TtT6W7PhsrIPGlh799ghgdBdpTVdzH9RICWljyd5lHufOnIZDE
-	H7JJ55kMjFKBL7GfbMiyiPK3biUrBi65c6hvlO2rV9D1fBUr8W4DJoLsFr7Gfo4zR7O4mkoMxTD
-	m5gfxBFYGqvsRXmUUHJr6rNWRpHbeRJ9OdavA54Hk46treVLFJ8mMgC+TIT4v17a0Lu8q71WO1g
-	uBoTbokMgPL6IJ4vs0KvFeoIgkv8QdcHoeieduozszft+o=
-X-Received: by 2002:a17:907:c08c:b0:c29:3aef:f2e2 with SMTP id a640c23a62f3a-c2ac25f2abemr418331766b.40.1790323386232;
-        Fri, 25 Sep 2026 01:03:06 -0700 (PDT)
-Received: from janlin-02.home.wermuth.pl (109-206-198-27.host.skynet.net.pl. [109.206.198.27])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757b9c1sm76976966b.33.2026.09.25.01.03.05
+        d=1e100.net; s=20260707; t=1790323561; x=1790928361;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YnaaXthyPwcI3fGykM5beILFyTVEfvHP2y22x1uXtRw=;
+        b=qL1rSFSfCP5KGon/nsiCJXw/NgLWZInzo8+j1cDmvZ/ZmoN5TMPySY65VZUuX0iwHa
+         k7NRG8D7EHgunERbGSr6caXRcZTD7nkDDF0Jvhbah6bXTAdrj+GFPDGvn3RcMvgENV4s
+         GA18liQXg1FTLKJ6FX5LqWKgdOwpF4ma45VUEbBHSn6mO377nYGvaUB/Zng5vE8oYvu3
+         dXTdvPKQ820XPtbhtjnWfNRqwlv/KzIbIQd13SDZa5s2/lNrhfOxMhTwepqRoIAdDnIk
+         mnWIdbo9z1gofaT7R8UmuUaJZInGfkxssu2KFY02u4gh6e//t21mj9PQzgQGdbQ4nqgL
+         90/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxUfuTavPh0rWS28MPMZivTOhk54PKZtdmEO96R8GapReffxNWjbayOCAfO5LyhBrYDWG87wkMrOK8mDb4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYUBavRXUAUx12sgrCEOsjf7Vbxv1mZly2EXWdkWOxamu3ysoA
+	UPtJCipJm6J1oxS2Gl1BOhVBWIAvXndZdWzB/3SCbHWvjZhQh7VIfOQY
+X-Gm-Gg: AYBFou2PnST+UvjvIMhlSOGJrT2DHhErxHFO1yoIoWd+pgWKszTg6OllZJJF7Z8RL7p
+	wII15K/Kng1nXkh0CEJBDN8wsyxZNd9pvV3aBH/J0uvqSKTXNp/qes2fDNKOVkY/l9B2kHEjcVC
+	+ubYXOhzYGLkH039nvZMIQqt4WtpozF4665OJGGApXdJ35rBbW6hBx+vL6oHyU317ep8pyPNR0X
+	BTiK3IrFzLaeylysaoWTuiyIU9E7WLLH48/J8x3+FLcYV8EaL2Z1FDEAuywiwC1bKldDgDSKEkz
+	GGtvbpc83yAe5tBN5tnseir6ABn9WrXvMxOR2pYp3BYlgtzyYsIQAdTHVbYUu7ghoHIQzIYpyKf
+	m6fdymGc8wEMfG6CTJFLt4NckDbtoY7sx4XMadMBwneXUyx1QrnhExtOMK81TYps7KeSjhBAv/8
+	z+MiwCJNMUblkIA7VTJKk1GU5uQAyhzByqAf1eww4O6azDksAHJTozERV9e2sUtbP2Kw1espOQf
+	lx/DP/HQoqpVguZsrprMQ==
+X-Received: by 2002:a17:90a:bc9:b0:3a0:a515:c477 with SMTP id 98e67ed59e1d1-3a0a515c8a1mr2115793a91.16.1790323560568;
+        Fri, 25 Sep 2026 01:06:00 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09766210bsm9123588a91.8.2026.09.25.01.05.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 01:03:05 -0700 (PDT)
-From: Adam Wermuth <adam@wermuth.pl>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Jonas Karlman <jonas@kwiboo.se>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Adam Wermuth <adam@wermuth.pl>
-Subject: [PATCH v2 2/2] arm64: dts: rockchip: Add WWAN overlay for Radxa ROCK 3B
-Date: Fri, 25 Sep 2026 10:02:58 +0200
-Message-ID: <20260925080258.46489-3-adam@wermuth.pl>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260925080258.46489-1-adam@wermuth.pl>
-References: <20260925080258.46489-1-adam@wermuth.pl>
+        Fri, 25 Sep 2026 01:05:59 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Howells <dhowells@redhat.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	keyrings@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] assoc_array: discard shortcut when collapsing a leaf-only node
+Date: Fri, 25 Sep 2026 17:05:48 +0900
+Message-ID: <20260925080548.2505640-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,121 +75,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The M.2 B-key slot on the ROCK 3B is intended for 4G/5G modules and
-is not always populated. Add a device tree overlay which enables the
-slot when a module is fitted:
+assoc_array_delete() can collapse a subtree into a node that contains only
+leaves while retaining the shortcut that led to it.  If that node later
+fills, all_leaves_cluster_together replaces it with another shortcut.  The
+first shortcut then points directly to the second one.
 
- - The USB 2.0 data lines of the slot are routed to USB2_HOST3, served
-   by usb_host1_ehci/ohci through the host port of usb2phy1. The slot
-   has no VBUS, so no supply is attached to the PHY port.
- - GPIO0_C6 (4G_PWREN_H) enables the 3.3V supply of the slot, which is
-   generated from vcc5v0_sys by a dedicated buck converter.
- - GPIO0_D6 (4G_RESET) drives RESET# and GPIO1_B0 (4G_DISABLE) drives
-   W_DISABLE1# of the slot. Both are hogged in their inactive state.
+assoc_array_apply_edit() publishes this topology and propagates branch
+counts from the new child node.  It skips the inner shortcut, encounters
+the outer shortcut where it requires a node and triggers the BUG_ON().
 
-Tested with a SIMCom SIM7600G-H module.
+Linux v7.2 and v6.12.105 are affected.  The same root remains at the
+base-commit below and in every supported stable branch checked down to
+5.10.  It requires CONFIG_KEYS, but no capability, user namespace or race.
+A UID/GID 1000 process produced:
 
-Signed-off-by: Adam Wermuth <adam@wermuth.pl>
+  CONTROL_BEGIN mode=exact uid=1000 gid=1000
+  CONTROL_CapEff: 0000000000000000
+  kernel BUG at lib/assoc_array.c:1388!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  CPU: 0 UID: 1000 PID: 154 Comm: exploit
+  RIP: assoc_array_apply_edit+0x4aa/0x690
+  Call Trace:
+   __key_link
+   __key_instantiate_and_link
+   __key_create_or_update
+   __do_sys_add_key
+  Kernel panic - not syncing: Fatal exception
+
+When deletion produces a leaf-only node, bypass its preceding shortcut as
+garbage collection already does.  Retire the shortcut and old node together
+after an RCU grace period; reused leaves keep their references and the
+deleted leaf is still freed separately.
+
+The exact trigger reached the BUG in 3/3 unmodified v7.2 KASAN boots and
+completed cleanly in 3/3 fixed boots.  Fixed v6.12.105 also passed 3/3.  A
+source reproducer is available privately on request.
+
+Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/Makefile         |  5 ++
- .../dts/rockchip/rk3568-rock-3b-wwan.dtso     | 65 +++++++++++++++++++
- 2 files changed, 70 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3568-rock-3b-wwan.dtso
+ lib/assoc_array.c | 36 ++++++++++++++++++++++--------------
+ 1 file changed, 22 insertions(+), 14 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index b677914cd3f1..8a1f24ccaa32 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -165,6 +165,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-radxa-e25.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-roc-pc.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-rock-3a.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-rock-3b.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-rock-3b-wwan.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-wolfvision-pf5.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-wolfvision-pf5-display-vz.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-wolfvision-pf5-io-expander.dtbo
-@@ -300,6 +301,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-qnap-ts433-pcb-12-10.dtb
- rk3568-qnap-ts433-pcb-12-10-dtbs := rk3568-qnap-ts433.dtb \
- 	rk3568-qnap-ts433-pcb-12-10.dtbo
+diff --git a/lib/assoc_array.c b/lib/assoc_array.c
+index b6c9723e12ced..841dfe07dc962 100644
+--- a/lib/assoc_array.c
++++ b/lib/assoc_array.c
+@@ -1210,8 +1210,22 @@ found_leaf:
+ 				goto enomem;
+ 			edit->new_meta[0] = assoc_array_node_to_ptr(new_n0);
  
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-rock-3b-wwan.dtb
-+rk3568-rock-3b-wwan-dtbs := rk3568-rock-3b.dtb \
-+	rk3568-rock-3b-wwan.dtbo
+-			new_n0->back_pointer = node->back_pointer;
+-			new_n0->parent_slot = node->parent_slot;
++			/* A shortcut above a leaf-only node is redundant.  Drop it as
++			 * GC does so that a later split can't create two shortcuts in a row.
++			 */
++			ptr = node->back_pointer;
++			if (assoc_array_ptr_is_shortcut(ptr)) {
++				struct assoc_array_shortcut *s =
++					assoc_array_ptr_to_shortcut(ptr);
 +
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-wolfvision-pf5-vz-2-uhd.dtb
- rk3568-wolfvision-pf5-vz-2-uhd-dtbs := rk3568-wolfvision-pf5.dtb \
- 	rk3568-wolfvision-pf5-display-vz.dtbo \
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b-wwan.dtso b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b-wwan.dtso
-new file mode 100644
-index 000000000000..73a19408d61c
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b-wwan.dtso
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Device tree overlay for a WWAN module in the M.2 B-key slot
-+ * of the Radxa ROCK 3B.
-+ */
++				new_n0->back_pointer = s->back_pointer;
++				new_n0->parent_slot = s->parent_slot;
++				edit->excised_subtree = ptr;
++			} else {
++				new_n0->back_pointer = ptr;
++				new_n0->parent_slot = node->parent_slot;
++				edit->excised_subtree = assoc_array_node_to_ptr(node);
++			}
+ 			new_n0->nr_leaves_on_branch = node->nr_leaves_on_branch;
+ 			edit->adjust_count_on = new_n0;
+ 
+@@ -1225,21 +1239,15 @@ found_leaf:
+ 			pr_devel("collapsed %d,%lu\n", collapse.slot, new_n0->nr_leaves_on_branch);
+ 			BUG_ON(collapse.slot != new_n0->nr_leaves_on_branch - 1);
+ 
+-			if (!node->back_pointer) {
++			if (!new_n0->back_pointer) {
+ 				edit->set[1].ptr = &array->root;
+-			} else if (assoc_array_ptr_is_leaf(node->back_pointer)) {
+-				BUG();
+-			} else if (assoc_array_ptr_is_node(node->back_pointer)) {
+-				struct assoc_array_node *p =
+-					assoc_array_ptr_to_node(node->back_pointer);
+-				edit->set[1].ptr = &p->slots[node->parent_slot];
+-			} else if (assoc_array_ptr_is_shortcut(node->back_pointer)) {
+-				struct assoc_array_shortcut *s =
+-					assoc_array_ptr_to_shortcut(node->back_pointer);
+-				edit->set[1].ptr = &s->next_node;
++			} else {
++				struct assoc_array_node *p;
 +
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/rockchip.h>
-+
-+&{/} {
-+	vcc3v3_wwan: regulator-3v3-vcc-wwan {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpios = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&wwan_pwren_h>;
-+		regulator-name = "vcc3v3_wwan";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+};
-+
-+&gpio0 {
-+	wwan-reset-hog {
-+		gpio-hog;
-+		gpios = <RK_PD6 GPIO_ACTIVE_LOW>;
-+		output-low;
-+		line-name = "wwan-reset";
-+	};
-+};
-+
-+&gpio1 {
-+	wwan-disable-hog {
-+		gpio-hog;
-+		gpios = <RK_PB0 GPIO_ACTIVE_LOW>;
-+		output-low;
-+		line-name = "wwan-w-disable";
-+	};
-+};
-+
-+&pinctrl {
-+	wwan {
-+		wwan_pwren_h: wwan-pwren-h {
-+			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&usb_host1_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host1_ohci {
-+	status = "okay";
-+};
-+
-+&usb2phy1_host {
-+	status = "okay";
-+};
++				p = assoc_array_ptr_to_node(new_n0->back_pointer);
++				edit->set[1].ptr = &p->slots[new_n0->parent_slot];
+ 			}
+ 			edit->set[1].to = assoc_array_node_to_ptr(new_n0);
+-			edit->excised_subtree = assoc_array_node_to_ptr(node);
+ 		}
+ 	}
+ 
+
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
 -- 
-2.43.0
+2.55.0
 
