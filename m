@@ -1,92 +1,103 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACF3479886
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:05:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E73948125E;
+	Fri, 25 Sep 2026 10:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790330743; cv=none; b=CQyLebae79r/z5LegKMkQvtjJAu9P0YOTlqJ10c0kWOqnHD0r9fpux18b0ao8i3zbb4lH4nASWSG6xLxBP+pj0pWmNaqzp7zz3i/3xIVzfIcwljSlUPE+ZbXX2MzZzVa2GLw41mWhpywpiERKd/Dg15mj84jeXG6JTBD36WZnFQ=
+	t=1790330776; cv=none; b=paQ8kHjxSG0Xco9tAFcbEdd7qYmjy7oVmQy7q6igC2lkWHZADfivnjF1LZEahkrdvcQ2cw/UmNC94RYBvX0pPuT2LE3uMY7HL+70LDGUKu/lwC1dxIMU7L2qevWe2XToZd6Cy+B+tJKhrHXDlh4f5KoFpzYvvveoip49xXDHa18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790330743; c=relaxed/simple;
-	bh=kHiFnIShVA5kgaDpjdYsraZHo/iluVkAxGrZZSK0TRk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZpVF33phMH21FNqfBmYyC9p9i9TWp0aNSEMVtWFMs9cbK/WxC/1iDVKyjkDB8smROGuMBQ7dvRxNrNDEW4FOA0JVLQS6+Q5XCxybgfcNklXQvhbnYW5b6A7SXSFcmF0TeiK196NojXDRLCGfbGo1KGhmOpRXXFRwnvYlfLVCyG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=oSxOyZVA; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1790330776; c=relaxed/simple;
+	bh=O29JxlP7H3AHO7oC6sS4ggkHIQdHda2i0tIQ6RtdsqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MQbwXmRkb9ncHwMt9NhgVfPa9VQOG6KElDrqFk+ZZaxadLOLdlVh0jew47uAg+iCVWK6EJhOr1ciHPvEPF59cS+PKdxyl8UQNFwFBkA6CvENYFAXWzqMUQy+RUOP68ujMmurdZXB7n7IGJw/yB5Imw1teTU+97mrSJR89eNDfL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kOBcu3Rs; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="oSxOyZVA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=+IHZSw9GJGB4eonCXrhw37O9NY3F+yFCYGgrvXozfn0=; b=oSxOyZVAfzfCvVHrO96XNALA3I
-	IQmJ5DPlNDl5i1Hg8AO/fggbE38K+a5bAxmXB9m7l8CFneL13xsZLLnswFnYbjO405d27PTzdwFQE
-	fy1nGXS9a78PjrlcscVyVibt9pKVFrEysZiHF9X6K/gI/PuKw2ClCORrt5Ox0sb6ktocrNL58sj/m
-	SxBrMhnreAnaVbpmGSE0ZLSqx0Zfj+2WJAMDfj/vWE6Z/ST5NyChhH5Uhn42g5XkbnpixjBZCJ45+
-	ZR6Fd9v/8OLS6YmFo51R6BdgzVslrNUmxx7c6uUEnqZbCP7hqeHHhBKRv7yf0sp1blQ5RQPGCIdWv
-	UcI7FWpg==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xA2oB-0075ei-Ut; Fri, 25 Sep 2026 12:05:35 +0200
-Message-ID: <90abbe7f-9f58-4fd6-9aae-13acb26b171b@igalia.com>
-Date: Fri, 25 Sep 2026 11:05:34 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kOBcu3Rs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790330775; x=1821866775;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=O29JxlP7H3AHO7oC6sS4ggkHIQdHda2i0tIQ6RtdsqU=;
+  b=kOBcu3RsSvBPpQTuMri3UMKThJCFh+GaaMpRRGFIxU8Woy6Rebuw+8aN
+   Kvnf1mrO3lbiH8pSd1TEeXY+2ua6+/zE+O7liN8LJ/Kn3dZF9Sj3tgpKd
+   yG9sxtgNtH37zIyILO5jrdZEh3oSEq9K+SQFpBQws2b4hf18iY5cXACnP
+   iq1azcgsOTt6HZcMEnP2xKxM/24jNT9C8b9h3fQ+jWAkZ8LrVPIha6iRo
+   p/n/lvnk1a5fe67HgJZN3QsftYG8qw6j3b4mvbPJRbQUMQcNy1FRIzxG+
+   ybIXcJrDWTeuLxX+GhOJ2V3Stj5H0KSK/bHb0FyoW5wR4aFc/2D8qtVB5
+   w==;
+X-CSE-ConnectionGUID: 8FUMETemREWIjub/nnvksg==
+X-CSE-MsgGUID: mMETd6xSTh6YJOm6Dti4xw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101287806"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="101287806"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:06:15 -0700
+X-CSE-ConnectionGUID: E8ziHc+2SiaXStz2awS3mw==
+X-CSE-MsgGUID: 1vRteQK8QTC3c4GFY/TKBA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="274389613"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:06:12 -0700
+Date: Fri, 25 Sep 2026 13:06:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Manos Pitsidianakis <manos@pitsidianak.is>,
+	David Laight <david.laight.linux@gmail.com>,
+	Jonathan McDowell <noodles@meta.com>,
+	Lianjie Wang <karin0.zst@gmail.com>,
+	"Thomas Richard (TI)" <thomas.richard@bootlin.com>,
+	PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwrng: core - reject unknown RNG names
+Message-ID: <arZHkd8efyV0IFYQ@ashevche-desk.local>
+References: <20260924212114.120633-2-blum@kernel.org>
+ <arZGQxGEP-i9fLiJ@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/8] drm/amd/display: remove redundant cast on
- amdgpu_dc_reg_template printk
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, aurabindo.pillai@amd.com,
- christian.koenig@amd.com, David.Francis@amd.com, harry.wentland@amd.com,
- simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- linux-kernel@vger.kernel.org
-References: <20260924211410.867686-1-mwen@igalia.com>
- <20260924211410.867686-7-mwen@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260924211410.867686-7-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arZGQxGEP-i9fLiJ@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-On 24/09/2026 22:10, Melissa Wen wrote:
-> Commit 0cf5eb76e2b4 ("drm/amd/display: Add tracing to dc") prints and
-> casts uint32_t fields in amdgpu_dc_reg_template to unsigned long
-> unnecessarily. Just print those fields with %08x and remove the
-> redundant cast.
+On Fri, Sep 25, 2026 at 01:00:39PM +0300, Andy Shevchenko wrote:
+> On Thu, Sep 24, 2026 at 11:21:13PM +0200, Thorsten Blum wrote:
+> > In rng_current_store(), err is 0 after successfully locking rng_mutex,
+> > and if the requested RNG name cannot be found, the function reports
+> > success even though the current RNG was not changed.
+> > 
+> > Set err = -ENODEV before searching the RNG list to reject unknown names.
 > 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
+> Yeah, from the
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> index 26c85d95bcc0..7de4fe355c5d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
-> @@ -57,9 +57,8 @@ DECLARE_EVENT_CLASS(amdgpu_dc_reg_template,
->   				   *count = *count + 1;
->   		    ),
->   
-> -		    TP_printk("reg=0x%08lx, value=0x%08lx",
-> -			      (unsigned long)__entry->reg,
-> -			      (unsigned long)__entry->value)
-> +		    TP_printk("reg=0x%08x, value=0x%08x",
-> +			      __entry->reg, __entry->value)
->   );
->   
->   DEFINE_EVENT(amdgpu_dc_reg_template, amdgpu_dc_rreg,
+> > Fixes: 142a27f0a731 ("hwrng: core - Reset user selected rng by writing "" to rng_current")
+> 
+> it looks like it was the intention, but the mutex_lock_interruptible() rewrites
+> an error code. That's a good example on why I often tell people to decouple
+> assignment from the definition and the very same issue might happen and would be
+> hard to debug later on. Surprisingly this happened in the same patch...
+> 
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Also
 
-Regards,
+Fixes: cb028f1662a9 ("hwrng: core - remove redundant initialization of variable err")
 
-Tvrtko
+as that one removed the indeed redundant assignment, but forget to fix the issue.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
