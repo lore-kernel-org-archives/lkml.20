@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1C52C027C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A33D48C3E5;
 	Fri, 25 Sep 2026 13:43:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343824; cv=none; b=K4Z9wyP8rGjVWtYARMuRCbjvTnRa2HsLY/kBXdTLuUIljClyZ3rHdoyrZykf53Ri2CZWNwB+8tJw9D75pRiDYFt2Az/7DBQmjQiS2abC3i1qGAQ5C84RB5q3WnfqLTjpbgZMjE0C23pzqhBoBoOqlcSDXLJHP2tcAIT0XzpjUiY=
+	t=1790343824; cv=none; b=qFEu2uAXKEyr7QCkn9D0lbPoxUKYtV1hLwT2d8GCCQ+op08VkNmoGRcmtvEPG7xizdNeIGspO6ItRVKYGoL04VfRk5btYBk93MgPaGuMib+sdA96fsHU7SLZTFijYeHu4CYqfI4I1lP/4vJhN9Gb5SboJyvsQB/OmPivKFh9fKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790343824; c=relaxed/simple;
-	bh=5hnr3fAyqdNNH4Z/RHXKEByNtheCTZZ0q+ta1pJAZc4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XcyKjT9uP5H6k3acXFLls4u9oKbIJIYAjf1dZbSZ26NBqd0HaaKkEj58phfwgNkdr4by24g73rtRixaOqHbeLC5lNJO907ffLyl046UqVWcS1sM7vDc7r0WI007wPZvpDa0MjvWN163wa5cdaogFvri/TIZJST5iT6peFsa8xss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jHPe0auN; arc=none smtp.client-ip=10.30.226.201
+	bh=lTx1f7dQ9UW6Pu0scxy3eU35tnquTIdut/HPXxDGK/U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=j8kaLMUHOF+w0xZifFJeSRfWikF7Fuu9LnqpP89omzxvyOccPIAACsWKN97+1rCZOvQnMlq8OFVDr//4hxx7wz02m90qIL0aOgyF+snHuwqbnty6MFSeCwarSZQwqwFyMjdiJ8Xe47ztH/6n6sXFSBj/eEfEAknSstcPOSTjQos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f7761zbP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jHPe0auN"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 06650C2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f7761zbP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2EAFEC2BCFA;
 	Fri, 25 Sep 2026 13:43:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790343824;
-	bh=5hnr3fAyqdNNH4Z/RHXKEByNtheCTZZ0q+ta1pJAZc4=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=jHPe0auNcE+XIs/bjAxL7fK/gGigpjb/UmQpCcU/vpD0awhpEV68amv3QDs2pJZO4
-	 0M0y4tIyAlloWvJf0Il8sH8dW5yHHou+7OZDFr/cVyqjvbecys3vvgNIiCZfNvdPux
-	 b5khnOnJIFclMwHZ1eMyETF12POP+wTc8wz7muLfJ1AwYTirKCXBsy0gRlWhqMfzij
-	 RBt1Q01W7FcAd9q3lcClwmnhohtaslk89QKjrHx5IblCEC2jcKPHieNAzLXK+mKTt9
-	 1V8KPhDsZJYye2uleL0c0oqiKX5hoBzwsG3tgMfTz9vg1LwGVzOiVuW+5EI+xHU/x4
-	 +Z5rFiW8n96Tg==
+	bh=lTx1f7dQ9UW6Pu0scxy3eU35tnquTIdut/HPXxDGK/U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=f7761zbPpIuTPQj6h+VK45uMLWz+gmSzTd2wMEd/qZH4hNas+fiklie6qXM7KoHZ+
+	 MwoCQ6M+dcqPuGK2GvGsBubEtNRb30qwys8tDaHcJBbPHfjz0g/ZI5b06+kP13/4Kh
+	 20qHonW9Hdd/Fexa/m0WHupw8EtFBdxSvDnLXzbtZiHNtl5kvJPuUovr0Mpqgsr+Wj
+	 +9f9iN0SGfM0Zn16lbUR1VllVeWybi5H/kq9yIETbNHuquMGnH25BiyrGy0001Vzrh
+	 VIWimxXfBkW/bDgQ/KZvcmJ4eTpO8OpI4iF/+tUhzB15JJNsnDOvHAo3rUVEFeGv4o
+	 cWFswHYtz/Mkw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5C94C98321;
-	Fri, 25 Sep 2026 13:43:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08284C9830D;
+	Fri, 25 Sep 2026 13:43:44 +0000 (UTC)
 From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Subject: [PATCH 00/13] wifi: brcmfmac: Add BCM4388 support
-Date: Fri, 25 Sep 2026 23:43:35 +1000
-Message-Id: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
+Date: Fri, 25 Sep 2026 23:43:37 +1000
+Subject: [PATCH 02/13] wifi: brcmfmac: Match complete firmware capability
+ names
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,10 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSw7CMAwA0atUXmNRUhIFrlKxyMdQS8SguEClq
- ncnsHyLmRWUKpPCuVuh0puVH9Jw2HWQpiA3Qs7NYHrj+pOxGGsqx8F71FcsPKNN0eeBXHbBQqu
- ela68/I/jpTkGpRYFSdPv8+FKd1JFoWXel8AC2/YFSIfTIIYAAAA=
-X-Change-ID: 20260925-brcm4388-submit-5cb8d3e6d6a5
+Message-Id: <20260925-brcm4388-submit-v1-2-b5cbc2cde2fb@gmail.com>
+References: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
+In-Reply-To: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
 To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
  Pieter-Paul Giesberts <pieterpg@broadcom.com>, 
  "Franky Lin (Zhenhui)" <frankyl@broadcom.com>, 
@@ -56,12 +56,12 @@ Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
  Hante Meuleman <meuleman@broadcom.com>, linux-hardening@vger.kernel.org, 
  Michael Reeves <michael.reeves077@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790343821; l=3446;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790343821; l=2691;
  i=michael.reeves077@gmail.com; s=fedora-20260918;
  h=from:subject:message-id;
- bh=5hnr3fAyqdNNH4Z/RHXKEByNtheCTZZ0q+ta1pJAZc4=;
- b=2zb9vdF2U2FJDxFeenmSGQAJOSIzHQXiK9t30lcN+L0v6QhVIQgtkg/RsJbZaTxd71l0QYYey
- HZ5HraR1EVYAaQ5L1OGgep2DC+ENDJ2b9Vbhh0AKYyNALZBZZrGOt0r
+ bh=ojaYvXnNYenVOK36eQmvCXQ5ydFrksNHV7R9HDG7B0Q=;
+ b=9FD4dwS6T4jrXBt5RpuCtKAEU2ez77wgnSNVXr/7nn33KNrnBNQZrCCQuyRNbXKbGiOh9UWsK
+ orYkFDfXn1mBH1C1qJak2a522yrhAL6RV6C0QAFFhl5GbZ1I81wPnuy
 X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
  pk=VJ0TvyQ9TvfzYZa908YSE9kpkjFLLD5luv0bERu+boc=
 X-Endpoint-Received: by B4 Relay for
@@ -69,79 +69,77 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
 Reply-To: michael.reeves077@gmail.com
 
-The Broadcom BCM4388 chipset requires new PCIe initialization and
-firmware interfaces. Add support for these interfaces to brcmfmac to
-enable basic station operation.
+From: Michael Reeves <michael.reeves077@gmail.com>
 
-This series adds:
-- Signed firmware loading and mailbox transport
-- Fixes for chip identification and firmware capability matching
-- Versioned scan and join requests, and extended PMK payloads
-- Updated event mask handling
+BCM4388 firmware advertises "hp2p" without advertising "p2p". Substring
+matching incorrectly treats "hp2p" as P2P support, causing userspace to
+attempt Wi-Fi Direct interface creation that the firmware rejects.
 
-These changes include work by Hector Martin and Daniel Berlin from Asahi
-Linux, refactored where needed for upstream inclusion.
+Match complete whitespace-separated capability names instead. Remove the
+trailing-space workarounds for SAE and FBT and reserve a terminating
+byte outside the firmware response buffer.
 
-The series provides basic station support only. 6 GHz support is planned
-for a follow-up patchset after this lands. The driver retains legacy
-interfaces for older firmware.
-
-Tested on an Apple M3 MacBook Air (J613):
-- Device boot and network scanning
-- 5 GHz WPA2-PSK association and DHCP
-- Bidirectional TCP traffic
-
-Testing required separate Apple PCIe and devicetree patches, as well as
-Janne Grunau's port-authorization fix [1].
-
-[1] https://lore.kernel.org/linux-wireless/20260915-brcmfmac-4way-handshake-offload-authenticated-event-v2-1-fbb9cc7ac177@jannau.net/
-
+Fixes: ec64241c9fd2 ("brcmfmac: obtain feature info using 'cap' firmware command")
+Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
 ---
-Daniel Berlin (1):
-      wifi: brcmfmac: Support versioned scan parameter layouts
+ .../wireless/broadcom/brcm80211/brcmfmac/feature.c   | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-Hector Martin (6):
-      wifi: brcmfmac: Support newer PCIe core startup and interrupts
-      wifi: brcmfmac: Negotiate PCIe mailbox transport with firmware
-      wifi: brcmfmac: Load signed PCIe firmware images
-      wifi: brcmfmac: Accept newer BSS information versions
-      wifi: brcmfmac: Support versioned join requests
-      wifi: brcmfmac: Add BCM4388 support
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
+index cc19e5e7eb..a3c221117d 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
+@@ -42,10 +42,10 @@ static const struct brcmf_feat_fwcap brcmf_fwcap_map[] = {
+ 	{ BRCMF_FEAT_MONITOR_FLAG, "rtap" },
+ 	{ BRCMF_FEAT_MONITOR_FMT_RADIOTAP, "rtap" },
+ 	{ BRCMF_FEAT_DOT11H, "802.11h" },
+-	{ BRCMF_FEAT_SAE, "sae " },
++	{ BRCMF_FEAT_SAE, "sae" },
+ 	{ BRCMF_FEAT_FWAUTH, "idauth" },
+ 	{ BRCMF_FEAT_SAE_EXT, "sae_ext" },
+-	{ BRCMF_FEAT_FBT, "fbt " },
++	{ BRCMF_FEAT_FBT, "fbt" },
+ 	{ BRCMF_FEAT_OKC, "okc" },
+ };
+ 
+@@ -230,11 +230,12 @@ static void brcmf_feat_iovar_data_set(struct brcmf_if *ifp,
+ static void brcmf_feat_firmware_capabilities(struct brcmf_if *ifp)
+ {
+ 	struct brcmf_pub *drvr = ifp->drvr;
+-	char caps[MAX_CAPS_BUFFER_SIZE];
++	char caps[MAX_CAPS_BUFFER_SIZE + 1] = {};
++	char *cap, *next = caps;
+ 	enum brcmf_feat_id id;
+ 	int i, err;
+ 
+-	err = brcmf_fil_iovar_data_get(ifp, "cap", caps, sizeof(caps));
++	err = brcmf_fil_iovar_data_get(ifp, "cap", caps, sizeof(caps) - 1);
+ 	if (err) {
+ 		bphy_err(drvr, "could not get firmware cap (%d)\n", err);
+ 		return;
+@@ -242,12 +243,17 @@ static void brcmf_feat_firmware_capabilities(struct brcmf_if *ifp)
+ 
+ 	brcmf_dbg(INFO, "[ %s]\n", caps);
+ 
+-	for (i = 0; i < ARRAY_SIZE(brcmf_fwcap_map); i++) {
+-		if (strnstr(caps, brcmf_fwcap_map[i].fwcap_id, sizeof(caps))) {
++	while ((cap = strsep(&next, " \t\r\n")) != NULL) {
++		if (!*cap)
++			continue;
++
++		for (i = 0; i < ARRAY_SIZE(brcmf_fwcap_map); i++) {
++			if (strcmp(cap, brcmf_fwcap_map[i].fwcap_id))
++				continue;
+ 			id = brcmf_fwcap_map[i].feature;
+ 			brcmf_dbg(INFO, "enabling feature: %s\n",
+ 				  brcmf_feat_names[id]);
+-			ifp->drvr->feat_flags |= BIT(id);
++			drvr->feat_flags |= BIT(id);
+ 		}
+ 	}
+ }
 
-Michael Reeves (6):
-      wifi: brcmfmac: pcie: Report the detected chip ID to the bus
-      wifi: brcmfmac: Match complete firmware capability names
-      wifi: brcmfmac: Fall back to RSSI-only default join preferences
-      wifi: brcmfmac: Use event_msgs_ext for event masks
-      wifi: brcmfmac: Handle larger firmware band lists
-      wifi: brcmfmac: Handle extended PMK command payloads
-
- .../wireless/broadcom/brcm80211/brcmfmac/Makefile  |   1 +
- .../net/wireless/broadcom/brcm80211/brcmfmac/bus.h |   9 +
- .../broadcom/brcm80211/brcmfmac/cfg80211.c         | 368 +++++++-------
- .../wireless/broadcom/brcm80211/brcmfmac/chip.c    |  36 +-
- .../wireless/broadcom/brcm80211/brcmfmac/common.c  |  27 +-
- .../wireless/broadcom/brcm80211/brcmfmac/core.c    |   5 +-
- .../wireless/broadcom/brcm80211/brcmfmac/core.h    |  18 +
- .../wireless/broadcom/brcm80211/brcmfmac/feature.c | 124 ++++-
- .../wireless/broadcom/brcm80211/brcmfmac/feature.h |   2 +
- .../wireless/broadcom/brcm80211/brcmfmac/fweh.c    | 130 ++++-
- .../wireless/broadcom/brcm80211/brcmfmac/fweh.h    |   1 +
- .../broadcom/brcm80211/brcmfmac/fwil_types.h       | 141 +++++-
- .../wireless/broadcom/brcm80211/brcmfmac/msgbuf.c  |  65 ++-
- .../wireless/broadcom/brcm80211/brcmfmac/msgbuf.h  |   9 +-
- .../wireless/broadcom/brcm80211/brcmfmac/pcie.c    | 560 +++++++++++++++++----
- .../broadcom/brcm80211/brcmfmac/scan_param.c       | 416 +++++++++++++++
- .../broadcom/brcm80211/brcmfmac/scan_param.h       |  13 +
- .../broadcom/brcm80211/include/brcm_hw_ids.h       |   2 +
- .../broadcom/brcm80211/include/chipcommon.h        |   5 +
- 19 files changed, 1593 insertions(+), 339 deletions(-)
----
-base-commit: 42a9fb3382fc2573e92f41d203b095d9a372cfc9
-change-id: 20260925-brcm4388-submit-5cb8d3e6d6a5
-
-Best regards,
 -- 
-Michael Reeves <michael.reeves077@gmail.com>
+2.55.0
 
 
