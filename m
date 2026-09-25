@@ -1,180 +1,240 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f31.google.com (mail-dy2-f31.google.com [74.125.229.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96ADC3B52F4;
-	Fri, 25 Sep 2026 21:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A74489FBC
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790370350; cv=none; b=GBskewaWfTjDecoHB2+GpAeBV0LqDKed/qF8/jrA5z4sGq5iDvnWLPhwdr2Tpp2j5Bf4+HsZSo8dZP1jriBtnCL9TRXZHcVR5L9tg2wow/c4mn+IXtABVlaKvF0KpcvWjz2RWBKKxGT86tqCbGzWXWL902Cjm3HSVIASVcRCqUc=
+	t=1790370505; cv=none; b=I8BCL6tPzXLSuvRBx+nBV9Bljoh2o2xMuSakf7zmSBYznn0HhHbo+IrS3JGDkFHi27JjmPMrl8yxc7t2SbSxnKa75Uo+VSh0ZLux0GvFZWFI73phwuUP6fC3VyyuMJlXdR7+U3KuUL1f7R7Qs6PBHHlN1463qHSIiOja6ERqikI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790370350; c=relaxed/simple;
-	bh=b2qb3/m17D3IRapINEcz5X+cf1puUkUajkGVTpn8xNc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=trQHJmJ8jpU2Emnr72NUws/mAkgBiG4s16pSt7xXdevwNa6detSJIymfQdpalyINb4+J83e4+k9OoyZ+ly1BUrdlKNjXK6OppOb0BBszKyIYKerM4nZRDJRUWW7IhtzpjtNbSpqeObYvvcQFxtMssp5ePDY2q/yqzRu+UHbvfY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=CVZtL4P0; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790370505; c=relaxed/simple;
+	bh=9QaiYlBuXc1tYQG6YWv2nojPQWZKKzakrlIJ7L0LeZE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=AIiYqBLOPD/YbJqFs1TlQNQUAplH21Vtb+aZebLT6GP88fLGomiJuL7wFdGZJh5oFxHGCXCKIRb+p4BkSWtRd3Ag7VCSxn8PZrsKJnbtTJaFoTbxRI9XrdkPQCTepT4eF5jGtQSvK/arZLFgISD8fbTCKIwxDm/QoMl9TkGMzio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=multikernel.io; spf=pass smtp.mailfrom=multikernel.io; dkim=pass (2048-bit key) header.d=multikernel-io.20251104.gappssmtp.com header.i=@multikernel-io.20251104.gappssmtp.com header.b=aqQy9ixl; arc=none smtp.client-ip=74.125.229.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=multikernel.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=multikernel.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="CVZtL4P0"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260925210544euoutp0243b789d72a0438105cf8c503582698ec~YrFfDN8xy1957819578euoutp02g;
-	Fri, 25 Sep 2026 21:05:44 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260925210544euoutp0243b789d72a0438105cf8c503582698ec~YrFfDN8xy1957819578euoutp02g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790370344;
-	bh=qk8Ge4T09jwT9y52eGQdabyjZGZHTm4rz1alzvhqzEo=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=CVZtL4P01wXy1+ugGq9YEKbXZtnS2m47LDVMgeukd6k9aRE2PKTyTewEyd+xd1xUz
-	 8XKsChiKzsHX6DVkdi2FeObuR4HvgrN2iAyS5sv8IPM1Qj2rOSydSod94INXrs4zeX
-	 5ElvIi0+nZqcmJqlTKr1DtZBGumK+I3xrSlCxzds=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260925210543eucas1p2a1839e7e4c6489c00394e4e8a41e38dd~YrFdyTFmE0692106921eucas1p2t;
-	Fri, 25 Sep 2026 21:05:43 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260925210541eusmtip20e82e1fc97240a09f0da0d95e25d9799~YrFcD3k-g2562925629eusmtip2U;
-	Fri, 25 Sep 2026 21:05:41 +0000 (GMT)
-Message-ID: <1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
-Date: Fri, 25 Sep 2026 23:05:41 +0200
+	dkim=pass (2048-bit key) header.d=multikernel-io.20251104.gappssmtp.com header.i=@multikernel-io.20251104.gappssmtp.com header.b="aqQy9ixl"
+Received: by mail-dy2-f31.google.com with SMTP id 5a478bee46e88-33c11ef641aso1570818eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:08:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=multikernel-io.20251104.gappssmtp.com; s=20251104; t=1790370503; x=1790975303; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c0kxLCnHZXyfU0+PE9w7BNJCXXrR+/ygAn+oGlqVmlM=;
+        b=aqQy9ixl1XPB/Jt6+TMBrncjryXGgsXsLrA9K6dbPSexVbbJN8ym+UNeCSxQx0kpRG
+         34FLuEBvv8MVAonY2dfknwvl4wQNH8hvXX3Dy/+u0BXLR+wWu+ozJAiuZB8egDI83zPh
+         O9e762ZcugvsZcxM+fbrme8F8iDQ0IsdbvJFU6DnMyuU0TvlzPFMlCj1K6QPBi7UVfeW
+         flv2hsdJ0Q8Ey+9kZ5muQbJpyithf2RDZsbSknX9wPveNOCZcYdUDramuXMQhopS0SIV
+         uQEG7TZRzcCWQKwEQFQqjSBX819dr4BjqGkFtoIRZi9fBUsxvWlYv4G5JGERotz1Xj3O
+         Effg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790370503; x=1790975303;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c0kxLCnHZXyfU0+PE9w7BNJCXXrR+/ygAn+oGlqVmlM=;
+        b=vqTh2nqe7nXwBLKYcUEXzjUj2LifgG4kDIlxmNc2jeFOtYkNxvScIxxfF0KnSrJEDl
+         tF4IDgf7nFwjWV++EiNGj2KfnQC5o46uN7Vb57VdjGH3b5GyHszagOe4nHNNQn+esNFy
+         izr8zquwhP6eZU5Jq4fqscTByxIm6YotD/2FUsOoNVx2/qsIWxfjSMmk5EXuA2VpkrGY
+         x4e1ULxJ2iPOk0l/kGG/3UtFNCtjDo4JzjQy6ZaMhE3nyo9au4EsIwWh+XwO0wUp4Gdv
+         YbDXZfpxfzIDhRZ8ItdszdOxqoO1Oepm3GlMm43FPrseF+Yg0Tn8i8TiFIk4HGbUsA8h
+         XiNQ==
+X-Gm-Message-State: AFuF++lwf1FAbcY436ZDPqGXYLZ+nqn1m7pWDc9SkjS7GgRn1JboQip7
+	Ba8DyiAZKJ3mQQNCXrwyuFVSjRkEZpcFUvr+l+y33nqfFU48iEgRaYXc1Txr5bWfUkRclZ6eoi4
+	Sd9sL
+X-Gm-Gg: AYBFou0MFO6SoQ4qeUA4u2VSD6s5UCLhfhLdcHXY8WF3L2SWM5sIENf8h8b/lyfhAoP
+	qF/G40kfejmL1fbidxX1H1XsKoyzKJF+XWpW1EzvdzZM15fsl5naG0lk6/POn6PAe7WTbWwRMYj
+	S+xwEs/80KDSV4Uy7nPuXQdNOtmGTLDndTYj3sUm0suY3JGWJDnf0g7gdIfwzqL0QTx5gmL0Vsa
+	bujE3e+VGhBpks3Q5cc1XqbyDLQJtMjBMuUQ/I7mgA8ibM6Y3wPIrtWXm2PUx3QfdKga+gjOALc
+	SlUq+zFFN0N4ogsVxMxW9a8qM0/tKJueJy+tamiqXd9eK8/b2jdVPz1qIBbc+IMXsLPrr4WBKzt
+	ItBiv2+8cjkeIpMajmgn017qhkT2uadFNbyfqt1sy2p0ZwBYPHI+GD9614rOVg12zT3Xdk0p9Na
+	QhoUL1X/w3d4IxlKRYFILJPdXAZTjl6qmqwLZMDuXiB3bQ81YKzM+GnRm0jmu2aEuJ0OychVPoA
+	FM2fpL0tjtGEAwzLQjdDZckCUxwMMcNIw==
+X-Received: by 2002:a05:7300:d204:b0:33b:f8f9:c8e8 with SMTP id 5a478bee46e88-3426feb9da1mr1274105eec.1.1790370502465;
+        Fri, 25 Sep 2026 14:08:22 -0700 (PDT)
+Received: from localhost ([2601:647:4002:e210:1413:a644:998f:5f98])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757f31sm13228766eec.14.2026.09.25.14.08.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 14:08:21 -0700 (PDT)
+Date: Fri, 25 Sep 2026 14:08:20 -0700
+From: Cong Wang <cwang@multikernel.io>
+To: linux-kernel@vger.kernel.org
+Cc: multikernel@lists.linux.dev
+Subject: [ANNOUNCE] mklinux v7.0-mk3 and kerf 0.3.0
+Message-ID: <arbixIv7xC4CbFx_@pop-os.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <20260917-mutant-chamois-of-competence-46ca77@quoll>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260925210543eucas1p2a1839e7e4c6489c00394e4e8a41e38dd
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
-	<20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
-	<20260917-mutant-chamois-of-competence-46ca77@quoll>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi all,
+
+I am pleased to announce the third mklinux release, v7.0-mk3, together
+with kerf 0.3.0, the user-space tool that manages it. The two are
+released as a pair: v7.0-mk3 changes the device tree ABI between the
+kernel and user space, so it needs kerf 0.3.0, and kerf 0.3.0 expects
+a v7.0-mk3 kernel.
+
+mklinux v7.0-mk3 is 58 patches on top of v7.0-mk2 (46 files changed,
+3747 insertions, 1959 deletions).
+
+The headline of this release is that a spawn kernel now boots from its
+device tree, and PCI devices are identified by address and named
+through standard /aliases, so the name you give a device when pooling
+it is the name every later step uses.
 
 
+Device tree
+-----------
 
-On 9/17/26 08:51, Krzysztof Kozlowski wrote:
-> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
->> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
->>
->> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
->> functions as both a PHY provider for the controller and as a clock
->> provider for the variable pixel clock (hdmi_pclk), which it generates
->> from its refoclk.
->>
->> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> 
-> While I appreciate other people looking at this, I don't think review
-> here applies. It was a blanket tag, given to the entire series, with
-> exception that it is from newbie, thus I want to ask: was this binding
-> REALLY reviewed by Joshua?
-> 
-> Are the rest of the patches actually reviewed or just "looks good to
-> me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
-> of doing review.
-> 
-> 
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         | 49 ++++++++++++++++++++++
->>  1 file changed, 49 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml b/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..f838fcc238ec7db0a8e794234bdceec36cb6d9e7
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
->> @@ -0,0 +1,49 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: https://protect2.fireeye.com/v1/url?k=1b336029-7ab87530-1b32eb66-74fe485cbfec-59631fa23f87244c&q=1&e=7e2eb06f-7b14-4bec-84e5-b60bb954d80a&u=http%3A%2F%2Fdevicetree.org%2Fschemas%2Fphy%2Fstarfive%2Cjh7110-inno-hdmi-phy.yaml%23
->> +$schema: https://protect2.fireeye.com/v1/url?k=46734e4d-27f85b54-4672c502-74fe485cbfec-9b6e35999c41723e&q=1&e=7e2eb06f-7b14-4bec-84e5-b60bb954d80a&u=http%3A%2F%2Fdevicetree.org%2Fmeta-schemas%2Fcore.yaml%23
->> +
->> +title: StarFive JH7110 Innosilicon INNO HDMI PHY
->> +
->> +maintainers:
->> +  - Michal Wilczynski <m.wilczynski@samsung.com>
->> +
->> +description:
->> +  The PHY portion of the StarFive JH7110 INNO HDMI IP.
->> +
->> +properties:
->> +  compatible:
->> +    const: starfive,jh7110-inno-hdmi-phy
->> +
->> +  clocks:
->> +    maxItems: 1
->> +    description: Reference oscillator.
-> 
-> This barely counts as a resource, so usual question: no resources here?
-> no MMIO? Even the user of this phy is the block itself.
-> 
-> This makes me wonder if this should be a device node in the first place
-> (instead folded into the parent).
+ - A spawn boots from its device tree. The boot manifest is the
+   instance tree itself, with a /chosen node for the boot handoff, and
+   the OF core owns it.
 
-The PHY has no reg because the reg is shared with the controller and
-owned by the parent - patch 9 lets the bridge take its regmap from
-there.
+ - PCI devices are described under their host bridge in the devicetree
+   PCI bus binding, identified by PCI address and named through
+   /aliases. Host bridge nodes carry the ECAM window, so any PCI domain
+   and extended config space are reachable.
 
-The user of the PHY is not only the block itself. It is the pixel clock
-provider for the whole display subsystem, voutcrg takes hdmitx0_pixelclk
-as the parent of its DC8200 pixel MUXes, and while HDMI output is active
-it is the only intended source for that clock. The parent has to be
-assigned explicitly so the general PLL does not end up driving the pixel
-clock, and so a DSI user does not reach the HDMI PHY clock generator.
+ - A spawn creates its PCI root buses from those nodes, never probes
+   for PCI topology, gates device probing on the tree rather than a
+   private list, and keeps the tree as its record of PCI ownership.
 
-So it has to be its own node. The HDMI block has two independent
-functions with different clock inputs and one of them feeds back into
-the SoC clock tree. The PHY generates hdmitx0_pixelclk which voutcrg
-consumes the controller consumes pclk/mclk/bclk from voutcrg. Folded
-into one node that node is both a provider to and a consumer of
-voutcrg which is a cycle in the hardware description, not just in Linux.
+ - Network devices are named from their alias, including virtio and
+   USB netdevs, whose PCI function is found above them.
 
-> 
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
+ - The device-names list and the baseline snapshot it resolved against
+   are gone; devices are handed to an instance by PCI address. An
+   instance is named by the standard model property instead of its
+   root node name.
 
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+ - New of_alias_from_node() helper in the OF core, and new
+   Documentation/multikernel/device-tree.rst describing the trees.
+
+
+Takeover
+--------
+
+ - A backup kernel can fence its parent with reboot(mk_id 0). This NMIs
+   every CPU the backup does not own, confirms each one by its presence
+   in the park loop, and wakes the fenced CPUs from the adopted host
+   wake slot.
+
+ - The host tree can come from user space through instance-create and
+   is emitted under the spawn's /chosen, so a backup enumerates every
+   CPU in the machine. A spawn created without one gets a tree the
+   kernel computes, so existing loaders keep working.
+
+ - CPU registers are saved on the way down for a backup that will take
+   a core.
+
+ - An overlay is now taken in one write, and the boot manifest grows
+   to 256 KB. Both were needed for instance-create to work on a 48-CPU
+   host with 267 PCI functions.
+
+
+Pool and instances
+------------------
+
+ - Pool state (CPU set, memory chunks, park area and its lock) is
+   gathered in struct mk_pool. root_instance becomes mk_self, and a
+   kernel's own park context is computed rather than stored.
+
+ - Instance records are built through one alloc/publish/free path.
+   Boot-restored instances show up in kernfs, the parent record is
+   named "host" and marked active, and the doorbell CPU is separated
+   from CPU ownership.
+
+ - CPUs surrendered to another kernel rest in the new CPUHP_DEPARTED
+   hotplug state.
+
+ - The manifest's pool-cpus list is sorted, so a spawn's CPU numbering
+   no longer depends on host history.
+
+
+Spawn lifecycle
+---------------
+
+ - A spawn without a ring can be force halted, and the force halt is
+   taken from the unknown-NMI chain. The NMI watchdog is back on in
+   spawn kernels.
+
+ - The spawn console registers before smp_init(), so an early panic
+   reaches the host.
+
+ - Spawn kernels inherit the host's timer calibration.
+
+
+vsock
+-----
+
+ - mk_transport answers unmatched packets with a reset, which doubles
+   as a liveness probe for the peer kernel.
+
+ - Its stream_allow callback now matches the core signature.
+
+
+Build
+-----
+
+ - CONFIG_MULTIKERNEL=n on x86 and CONFIG_KEXEC_FILE=n build again.
+
+ - MULTIKERNEL depends on the memory APIs the core needs.
+
+ - x86 details moved out of the generic core ahead of a second
+   architecture.
+
+
+kerf 0.3.0
+----------
+
+kerf follows the kernel's new device model:
+
+ - Pool devices are keyed by PCI address and named through /aliases.
+   An NVMe keeps its controller name, a network device keeps its
+   interface name, and "=alias" overrides either. Pooling a partition
+   pools the whole controller.
+
+ - kerf create, kerf update and the validator accept an alias, a PCI
+   address or a node name. kerf create hands devices over by PCI
+   address against the live pool, so devices pooled after the first
+   kerf init work.
+
+ - kerf update can take devices back again, and "none" takes them all.
+
+ - kerf init resolves a block device to its own PCI function rather
+   than a bridge above it, and can be re-run with the same --devices
+   when devices are already pooled or lent to instances.
+
+ - The parser reads PCI devices from under their host bridge and takes
+   the instance name from the model property.
+
+ - kerf kill points at --force when a graceful halt times out.
+
+
+Getting it
+----------
+
+Kernel:
+
+  https://github.com/multikernel/linux.git  tag v7.0-mk3
+  https://github.com/multikernel/linux/tree/v7.0-mk3
+
+kerf:
+
+  pip install kerf-multikernel==0.3.0
+  https://github.com/multikernel/kerf/releases/tag/v0.3.0
+
+Previous release: v7.0-mk2 with kerf 0.2.0.
+
+Feedback, bug reports and testing on more hardware are very welcome.
+
+Thanks,
+Cong Wang
