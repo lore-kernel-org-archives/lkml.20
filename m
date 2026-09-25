@@ -1,127 +1,83 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5780390229;
-	Fri, 25 Sep 2026 15:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A0E391E54;
+	Fri, 25 Sep 2026 15:04:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348645; cv=none; b=F00AitawtWfNeEDAlhKHpssRSea3CPpxC8yLxAhdyWK5dT7X1N9dL47oPMLmL931X67zyswwDhlJVfhcl7fLZBQumtZ3RL9A/OS7x6aSqrtyNxbqRPajHXuHZtsx5XYKpEieTkI2PtOwVbEmxpnadfiWjMQnF63xvrzrCDhPle8=
+	t=1790348656; cv=none; b=KliyyRa325yFFEpAwGPllOaho9tYRwBmuEHAIELaienpvS6QLlr3odjPznFiIPt4xRdOuSOaKSkUKWHgb9IsUkiDunM9sCIVY1tn9mDfjZ2QVxQSznAbdKSONR02nuRK1wVgzAAGDXfztMuAij1jcNMV8P2GeuMX6KwO8OoQlnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348645; c=relaxed/simple;
-	bh=A2ca8hhJ3c3TUBOVJLC0jSWH0/+c5/DntHE0VkHi394=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=PzuJcxT5rkrHxC5pebDUf8qoeMyZiVp/vyAua6mjQnrk6jpCyYfwEjlYVdnixngfLvfqkz8ujKJ8PHKjKJbS2Q1qgP0UUUykFG2o1/94bQ7HL2c+kBp2FvCtPahxYCSw3MhBsj4hrJ245YZLP4tUpCFce/8pTNA4KlCbDmlK/lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=UypUqYzo; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=1zOOcG6l; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790348656; c=relaxed/simple;
+	bh=NFO2IrDj51OkYh6rZEo9PN1EJTr9OcjgBR74qqKvmZQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mI1YbS4sGqmFny9WEUXBBSouyJyMkMNuIDAh2mCCO4GqXUKLbbRy3QZZoU0J2Z7wDat1bcCDNlci0rgKv2Wsr20joXcpN1916Ec4o5t6OubhkMmaUuha7P6UBir8hw5SQw8VC/vqvlgF6UWHYlLk49HZFPjUjCKNuv+51LSjj+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kVPJUkGT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="UypUqYzo";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="1zOOcG6l"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790348623; bh=28hak4JVg+NtSoE4hvMIcoT
-	U7Adk0ZOltVaduHjHhZo=; b=UypUqYzo3zwd89hp8SgCcTiIEzaNkkAlxdYF/OueYDOcFrTDX5
-	rQ6izSlmP3TaaUoR5U/KcV8Psnw3ZDPB+tBJwvXDoe9f76adOhfeWW9p0M4EGGa0h2SYnhwEpLO
-	CQKR1eDNnILXy8tPuBpBPIHbwJRxWohZSEuYiUgBhGyhLfGm4io0HUt4jWjlCi+kr3d2sivaoOG
-	A+ZVEAeVSBHV1FYUaJym3zx5M2xvq9rnMaHQXtHcdG0B7qqOR9xMfBPqMSWVwHDp+8AJUxa2Jd8
-	oWj16H2ygAGXi7ZxVK7qv9lCsb0X9nzE5l9bjMMee7xTjccjrhAjkV+1+pG5XnEgmzA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790348623; bh=28hak4JVg+NtSoE4hvMIcoT
-	U7Adk0ZOltVaduHjHhZo=; b=1zOOcG6lB3PyDqbBNyPFF3ezZwPfevd0Dn7awim7P1xarX4Lg9
-	yPlkQSyZuLBJT2//fJWOQgMmFaUgQmlsq/Bg==;
-Date: Fri, 25 Sep 2026 16:03:44 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Joel Granados <joel.granados@kernel.org>
-CC: Zhan Xusheng <zhanxusheng1024@gmail.com>,
- Zhan Xusheng <zhanxusheng@xiaomi.com>, Kees Cook <kees@kernel.org>,
- Shuah Khan <shuah@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_2/2=5D_selftests=3A_sysctl=3A_Che?=
- =?US-ASCII?Q?ck_the_sign_of_a_negative_jiffies_read?=
-In-Reply-To: <4wuqtjbpekdnpf6gn7pjc32bed2ln44unp2dd2zatiju4zeq5e@efqhttn3pfyc>
-References: <20260923144940.3712965-1-zhanxusheng@xiaomi.com> <20260923144940.3712965-3-zhanxusheng@xiaomi.com> <6DBE514E-E307-4E8E-999B-1B5592CE9AC5@mainlining.org> <4wuqtjbpekdnpf6gn7pjc32bed2ln44unp2dd2zatiju4zeq5e@efqhttn3pfyc>
-Message-ID: <E0D7623B-F209-42AA-BED8-39755CE4BCF5@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kVPJUkGT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E1531F000FF;
+	Fri, 25 Sep 2026 15:04:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790348644;
+	bh=l2SDWCsHYFrvIREGP6cx9hyzH4stUb0S6c0BY2sWpDU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kVPJUkGTlWahtyA1YCJ26vKU1mSrF4CSF/uN3ZhqdW+7tU0OR27sSsLW06T1px1Ws
+	 zEnrQWYpR1X4Ty1zGp3+NlKSCQfBEHhOtpW2/LmNSbklUNsvQ4dwQS3jRSO7zUkr8Y
+	 A3Sx0Sza7k9boZJOvF3zFe3oYydDlU7LLSwp37mJ6xjGtTU1L2MnxVnUY2FDMeWnic
+	 IlRiAUpjlrcLRhkoJ2FsqP8/pgHDAaTliPTbSVfhXGeoKEhfYKGj6QmHlgWE2AuNZs
+	 wpHwwxaWP2/u0IoDsLuqFkSzYD3d2wzmSbMbILcaqq0LDb1kXnz1rr0t7pZlMyhjug
+	 LW6P6Ucdnej2Q==
+Date: Fri, 25 Sep 2026 17:03:58 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kefeng Wang <wangkefeng.wang@huawei.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: manual merge of the fs-next tree with the mm tree
+Message-ID: <araNBVKW6MXR97P1@cronus.toxiclabs.cc>
+References: <arUS5b85ed6L01qc@sirena.org.uk>
+ <arZn0IB-L3hnNniw@cronus.toxiclabs.cc>
+ <f9ddfd24-ee1b-47d9-a906-299421247b1d@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f9ddfd24-ee1b-47d9-a906-299421247b1d@sirena.org.uk>
 
-On 25 September 2026 12:45:27 BST, Joel Granados <joel.granados@kernel.org>
-wrote:
->On Wed, Sep 23, 2026 at 04:53:54PM +0100, Bradley Morgan wrote:
->> On 23 September 2026 15:49:37 BST, Zhan Xusheng
-><zhanxusheng1024@gmail.com>
->> wrote:
->> >proc_int_k2u_conv_kop() returns the sign through *negp and the
->magnitude
->> >through *u_ptr.  For a negative value it used to convert the
->> >sign-extended int and negate afterwards, so the magnitude came back as
->a
->> >wrapped 64-bit number.  Nothing noticed, because no test wrote a
->> >negative value to a jiffies sysctl.
->> >
->> >Write one to each of the three int converters and require the value to
->> >read back unchanged.  Each value is chosen to convert exactly at every
->> >CONFIG_HZ, so the test does not depend on it:
->> >
->> >	converter		write	jiffies stored	reads back
->> >	jiffies			-1	-HZ		-1
->> >	ms_jiffies		-1000	-HZ		-1000
->> >	userhz_jiffies		-100	-HZ		-100
->> >
->> >On a kernel without the fix, at CONFIG_HZ=250:
->> >
->> >  # int_jiffies: got '-18372957097414713411', want '-1'
->> >  # int_ms_jiffies: got '-18446744069414585320', want '-1000'
->> >  # int_userhz_jiffies: got '-18446742229035144346', want '-100'
->> >  not ok 1 test_int_jiffies_negative
->> >
->> >(paths shortened; the runner prints them under
->> >/proc/sys/debug/test_sysctl)
->> >
->> >Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
->> >---
->> > tools/testing/selftests/sysctl/sysctl.sh | 23 +++++++++++++++++++++++
->> > 1 file changed, 23 insertions(+)
->> >
->> >diff --git a/tools/testing/selftests/sysctl/sysctl.sh
->b/tools/testing/selftests/sysctl/sysctl.sh
->> >index ceb5cfa0cfd4..ad1ee0fccd7c 100755
->> >--- a/tools/testing/selftests/sysctl/sysctl.sh
->> >+++ b/tools/testing/selftests/sysctl/sysctl.sh
->> >@@ -328,6 +328,29 @@ test_int_plain()
->> > 	assert_int_range "$t" "$baseline" || RET=$KSFT_FAIL
->> > }
->> > 
->> >+# The jiffies converters report the sign separately from the
->magnitude, so a
->> >+# negative value must survive the round trip through the converter. 
->Each
->> >+# value below is chosen to convert exactly at every CONFIG_HZ.
->> 
->> I have a feeling this could be decreased, but I don't care.
->
->If you don't care, don't comment.
->> 
+On Fri, Sep 25, 2026 at 02:11:28PM +0100, Mark Brown wrote:
+> On Fri, Sep 25, 2026 at 02:26:25PM +0200, Carlos Maiolino wrote:
+> > On Thu, Sep 24, 2026 at 01:09:09PM +0100, Mark Brown wrote:
+> 
+> > > I fixed it up (see below) and can carry the fix as necessary. This
+> > > is now fixed as far as linux-next is concerned, but any non trivial
+> > > conflicts should be mentioned to your upstream maintainer when your tree
+> > > is submitted for merging.  You may also want to consider cooperating
+> > > with the maintainer of the conflicting tree to minimise any particularly
+> > > complex conflicts.
+> 
+> > Do you mean non-trivial conflicts with linux-next? I always attempt a
+> 
+> With other trees in linux-next.
+> 
+> > merge against Linus's tree before sending a pull-request to check and
+> > annotate any possible conflict, but I have never done that for
+> > linux-next. I can do that, no problems. Where should I send a
+> > notification to? linux-next@vger?
+> 
+> If there's anything interesting it can be helpful for me to get a heads
+> up on the resolution but the main thing (and half the point of having
+> -next) is to coordinate with other trees that you're colliding with.
+> You don't specifically need to check, I'll tell you if I notice
+> something, but OTOH if you know your work is going to be colliding with
+> someone else's it's good to coordinate.
 
-its because I think it could, but it isn't a complete patch breaker.
-
->> Reviewed-by: Bradley Morgan <brads@mainlining.org>
->> 
->> 
->> Tested on PowerPC: 
->> 
->> Tested-by: Bradley Morgan <brads@mainlining.org> # POWER10
->
->Please don't suffix anything after the tag as b4 picks it up.
->
->Best
->
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Ok, that sounds fair Mark. I honestly didn't expect this patch to
+collide with Andrew's tree. The submitter sent both of them initially,
+Andrew picked one, and I asked the submitter to send the second one
+individually for me to pick up. But I didn't expect it to cause a
+collision. Next time it happens I'll try to keep an eye on the ending
+result.
