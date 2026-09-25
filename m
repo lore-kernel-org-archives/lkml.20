@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0225D4A4F07;
-	Fri, 25 Sep 2026 13:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC284A4406;
+	Fri, 25 Sep 2026 13:43:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343825; cv=none; b=UVmB4iCKI0oIVpEJMOAuP/MtM86XOpUaiCM1CrEjC5qJ/TV9KCoMpcFpxcV52SLeAFdiDY+Yfbcmz4ccQDWm2wD/DeUYodoyr5Ho9O1qstqe1bzAJtqYNJpccO8yTIPpwpDh7MiUNd7UxHDrqhV3wVbuyLvGK4uTrQb7XcOqBrU=
+	t=1790343824; cv=none; b=HXYVaV7vndwp4onmt/0YSUzwRPRH2TvZ1UzL1jSZhicXP32U3Hh4ON5S1sfCP1oJ/SKbARdu/Yb4UxRH7zlgbm/EGE9w4q4SuHsO6QAqB6vtaGhY2fzZkaBW3sRxKT4DA/AGd9GacT8aLTvRU/OLFjs1OrU1PkWc9E+U8wS0Ap8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343825; c=relaxed/simple;
-	bh=XUfWG6ZEVNOAcs2F7WJeeqcucohTKZc1NRmPGlDmISA=;
+	s=arc-20240116; t=1790343824; c=relaxed/simple;
+	bh=2IZcOIMYvjMVyFcdg0P5nb7s41zU8OLy93/0VhzVXkI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PrUJxOX6krXybEdiZ6tJ2+rVFZybj2q68Vzs++t0vZ6pJDb9y08xWM0/W8ZL/XEgdpdU6D3Ab/p/rAwklMOa7bZVujaDz5tacCYTfZPt6B6izUc9jVUw6KUShyXSrznPwz2/wBJr2k2uI/dbxPsLWXFxwYpryNG4YqrmL8UHChg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Agdg9gor; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=rCdwuAEMXlSoJ8muKfJU4m2/53jC1+CwFatVLlMoOVWVN/swWY1IAV2/iqJDDamW0w/1vJ2SU5yBJELJNNDRzn3CRtiEAFEcIU3THaJpugCpmEDFUZMUMwon8RGiByDo30EYEu6oa5ck2FSvM01O6UF8kbLgcYjc77H4eqKFhfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DzgRcekj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Agdg9gor"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DB96BC4AF09;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DzgRcekj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 82A65C2BCFC;
 	Fri, 25 Sep 2026 13:43:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790343824;
-	bh=XUfWG6ZEVNOAcs2F7WJeeqcucohTKZc1NRmPGlDmISA=;
+	bh=2IZcOIMYvjMVyFcdg0P5nb7s41zU8OLy93/0VhzVXkI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Agdg9gorO4qluVfaugqDT9b1XLTeHhG+XCHuzb1pQyzkLyp+yiEX5Mfn1emLnl75Y
-	 FcaVvB9vLeTV09wGLJDwMBZXxAfVUi0/RsQu349Rrl/8uP7TdK9Avw6pW8padeXJlH
-	 /lyxlX1m5ZPOOmk4vVRTod6P87K2w+eeSwFkqv4UiD0YBAfRtKBID13WrAa1rOzRQv
-	 epMLu3PdNjTPO0i987CpL9boO1Di2Ks95aql3ZeeP9bbltrFVeEh0y+Sp6Na71AV3f
-	 LGmjY5irKCiqLfYLCiNR/d2EQgHiiKskZBFnC97i3Xlu9JJkU6h/+zEDP4RRu2xd1D
-	 MDUzLMRjCS7xA==
+	b=DzgRcekjltzCDnMOhElwmLvlzHUjTTEk9Cp1gb56mTWiniZEXnTXFHqm+bIrtqq3j
+	 OoRpjWNaK6d8ba78+K+hux0pijPn6XFJj/dV5Apn7aq3QB1r13kQGhXbcUulG++esn
+	 KBNiwJVeuTiJxpe5AyucOps+oxC58yk19/XA8zTyA0ROrMqlSUp5HZuYsy7pBguB0+
+	 UnejBbo6ZIMewleoKJSMOPtXfQcwwoIIv5wgYazzuAjfomnYPIcnX0lo3ZuZKGaf0W
+	 kbdBLaJ8ueE39kxW2eoVKpPZ3FpkoIyWLStCOW6/HqeN2WORD8AwykOXzDKQxudq9V
+	 lvkSGkAhLqemQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C6C2EC98321;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71449C98321;
 	Fri, 25 Sep 2026 13:43:44 +0000 (UTC)
 From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Fri, 25 Sep 2026 23:43:46 +1000
-Subject: [PATCH 11/13] wifi: brcmfmac: Support versioned join requests
+Date: Fri, 25 Sep 2026 23:43:42 +1000
+Subject: [PATCH 07/13] wifi: brcmfmac: Use event_msgs_ext for event masks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-brcm4388-submit-v1-11-b5cbc2cde2fb@gmail.com>
+Message-Id: <20260925-brcm4388-submit-v1-7-b5cbc2cde2fb@gmail.com>
 References: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
 In-Reply-To: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
 To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
@@ -55,12 +55,12 @@ Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
  Hante Meuleman <meuleman@broadcom.com>, linux-hardening@vger.kernel.org, 
  Michael Reeves <michael.reeves077@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790343821; l=8739;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790343821; l=13074;
  i=michael.reeves077@gmail.com; s=fedora-20260918;
  h=from:subject:message-id;
- bh=H6797bY15elnibBmCMfbZQ0bGQ2izjOuvFhiXJumwdk=;
- b=aa8235GZxSH6+3DblDqDiEtA4DMuDOLiGStlCsNCzIMGBZXcajwnX2Cl5vzXq8aGlSpDfcLHQ
- swv1HZZ3OoeD+unQ/uoiFyUq5lSkZCWaUlshUHDCYxM6BzYrlCjpDY9
+ bh=FRG6tUUizYoumB0K87m2z0Yh8XdJwwc0mIsYEg2R708=;
+ b=/jqkdO9EsyE3WGCOaeXPoK3R4L1emZkd3S+BkqTywohjCNDimMV7i/1MWmJGkyK61hecZZM0J
+ rIn1E/6f3NoDUANeEIgxtkmwx/K4JRlwDUmdKz6nLy7E1mZp4cI1Z1z
 X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
  pk=VJ0TvyQ9TvfzYZa908YSE9kpkjFLLD5luv0bERu+boc=
 X-Endpoint-Received: by B4 Relay for
@@ -68,246 +68,388 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
 Reply-To: michael.reeves077@gmail.com
 
-From: Hector Martin <marcan@marcan.st>
+From: Michael Reeves <michael.reeves077@gmail.com>
 
-Newer firmware uses version 1 join and association structures with
-explicit version headers.
+BCM4388 firmware rejects the legacy event_msgs query during preinit but
+supports the structured event_msgs_ext command.
 
-Query join_ver and build version 1 requests when required. Retain legacy
-layouts for older firmware and fall back to BRCMF_C_SET_SSID when the
-join iovar returns -EBADE. Use the selected association layout for IBSS
-joins too. Report unsupported join versions rather than guessing their
-request layout.
+Probe event_msgs_ext during feature detection and initialize the event
+mask after feature flags are set. Use the extended command when
+supported and retain the legacy path otherwise.
 
+Co-developed-by: Hector Martin <marcan@marcan.st>
 Signed-off-by: Hector Martin <marcan@marcan.st>
-Signed-off-by: Daniel Berlin <dberlin@dberlin.org>
-Co-developed-by: Michael Reeves <michael.reeves077@gmail.com>
 Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
 ---
- .../broadcom/brcm80211/brcmfmac/cfg80211.c         | 73 +++++++++++++++++++---
- .../wireless/broadcom/brcm80211/brcmfmac/core.h    |  1 +
- .../wireless/broadcom/brcm80211/brcmfmac/feature.c | 19 ++++++
- .../broadcom/brcm80211/brcmfmac/fwil_types.h       | 29 +++++++++
- 4 files changed, 113 insertions(+), 9 deletions(-)
+ .../wireless/broadcom/brcm80211/brcmfmac/common.c  |  23 ----
+ .../wireless/broadcom/brcm80211/brcmfmac/core.c    |   5 +-
+ .../wireless/broadcom/brcm80211/brcmfmac/feature.c |  39 +++++++
+ .../wireless/broadcom/brcm80211/brcmfmac/feature.h |   2 +
+ .../wireless/broadcom/brcm80211/brcmfmac/fweh.c    | 130 ++++++++++++++++++++-
+ .../wireless/broadcom/brcm80211/brcmfmac/fweh.h    |   1 +
+ .../broadcom/brcm80211/brcmfmac/fwil_types.h       |  26 +++++
+ 7 files changed, 199 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 2ce7041be6..2a742ae8cc 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -1653,6 +1653,36 @@ static void brcmf_link_down(struct brcmf_cfg80211_vif *vif, u16 reason,
- 	brcmf_dbg(TRACE, "Exit\n");
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/common.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/common.c
+index 2a37b42ca9..93458c2fbc 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/common.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/common.c
+@@ -269,7 +269,6 @@ static int brcmf_c_process_cal_blob(struct brcmf_if *ifp)
+ int brcmf_c_preinit_dcmds(struct brcmf_if *ifp)
+ {
+ 	struct brcmf_pub *drvr = ifp->drvr;
+-	struct brcmf_fweh_info *fweh = drvr->fweh;
+ 	u8 buf[BRCMF_DCMD_SMLEN];
+ 	struct brcmf_bus *bus;
+ 	struct brcmf_rev_info_le revinfo;
+@@ -415,27 +414,6 @@ int brcmf_c_preinit_dcmds(struct brcmf_if *ifp)
+ 
+ 	brcmf_c_set_joinpref_default(ifp);
+ 
+-	/* Setup event_msgs, enable E_IF */
+-	err = brcmf_fil_iovar_data_get(ifp, "event_msgs", fweh->event_mask,
+-				       fweh->event_mask_len);
+-	if (err) {
+-		bphy_err(drvr, "Get event_msgs error (%d)\n", err);
+-		goto done;
+-	}
+-	/*
+-	 * BRCMF_E_IF can safely be used to set the appropriate bit
+-	 * in the event_mask as the firmware event code is guaranteed
+-	 * to match the value of BRCMF_E_IF because it is old cruft
+-	 * that all vendors have.
+-	 */
+-	setbit(fweh->event_mask, BRCMF_E_IF);
+-	err = brcmf_fil_iovar_data_set(ifp, "event_msgs", fweh->event_mask,
+-				       fweh->event_mask_len);
+-	if (err) {
+-		bphy_err(drvr, "Set event_msgs error (%d)\n", err);
+-		goto done;
+-	}
+-
+ 	/* Setup default scan channel time */
+ 	err = brcmf_fil_cmd_int_set(ifp, BRCMF_C_SET_SCAN_CHANNEL_TIME,
+ 				    BRCMF_DEFAULT_SCAN_CHANNEL_TIME);
+@@ -637,4 +615,3 @@ static void __exit brcmfmac_module_exit(void)
+ 
+ module_init(brcmfmac_module_init);
+ module_exit(brcmfmac_module_exit);
+-
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+index d2ae679856..bb9a0aeb06 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+@@ -1260,6 +1260,10 @@ static int brcmf_bus_started(struct brcmf_pub *drvr, struct cfg80211_ops *ops)
+ 
+ 	brcmf_feat_attach(drvr);
+ 
++	ret = brcmf_fweh_init_events(ifp);
++	if (ret < 0)
++		goto fail;
++
+ 	ret = brcmf_proto_init_done(drvr);
+ 	if (ret < 0)
+ 		goto fail;
+@@ -1613,4 +1617,3 @@ void __exit brcmf_core_exit(void)
+ 	brcmf_usb_exit();
+ 	brcmf_pcie_exit();
+ }
+-
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
+index a3c221117d..d289451644 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/netdevice.h>
+ #include <linux/module.h>
++#include <linux/slab.h>
+ 
+ #include <brcm_hw_ids.h>
+ #include <brcmu_wifi.h>
+@@ -226,6 +227,43 @@ static void brcmf_feat_iovar_data_set(struct brcmf_if *ifp,
+ 	ifp->fwil_fwerr = false;
  }
  
-+static int brcmf_set_ssid(struct brcmf_if *ifp,
-+			  const struct brcmf_join_params *legacy, size_t legacy_size)
++static void brcmf_feat_event_msgs_ext(struct brcmf_if *ifp)
 +{
-+	struct brcmf_join_params_v1_le *params;
-+	u32 count = le32_to_cpu(legacy->params_le.chanspec_num);
++	struct brcmf_pub *drvr = ifp->drvr;
++	struct brcmf_fweh_info *fweh = drvr->fweh;
++	struct brcmf_eventmsgs_ext_le *eventmsgs;
 +	size_t size;
 +	int err;
 +
-+	if (!ifp->drvr->join_version)
-+		return brcmf_fil_cmd_data_set(ifp, BRCMF_C_SET_SSID,
-+					     (void *)legacy, legacy_size);
-+	if (ifp->drvr->join_version != 1)
-+		return -EOPNOTSUPP;
++	if (!fweh || fweh->event_mask_len > 0xff)
++		return;
 +
-+	size = struct_size(params, assoc_le.chanspec_list, count);
-+	params = kzalloc(size, GFP_KERNEL);
-+	if (!params)
-+		return -ENOMEM;
++	size = struct_size(eventmsgs, mask, fweh->event_mask_len);
++	eventmsgs = kzalloc(size, GFP_KERNEL);
++	if (!eventmsgs)
++		return;
 +
-+	params->ssid_le = legacy->ssid_le;
-+	params->assoc_le.version = cpu_to_le16(1);
-+	ether_addr_copy(params->assoc_le.bssid, legacy->params_le.bssid);
-+	params->assoc_le.chanspec_num = legacy->params_le.chanspec_num;
-+	memcpy(params->assoc_le.chanspec_list, legacy->params_le.chanspec_list,
-+	       count * sizeof(__le16));
-+	err = brcmf_fil_cmd_data_set(ifp, BRCMF_C_SET_SSID, params, size);
-+	kfree(params);
-+	return err;
++	eventmsgs->version = EVENTMSGS_VER;
++	eventmsgs->command = EVENTMSGS_NONE;
++	eventmsgs->len = fweh->event_mask_len;
++	eventmsgs->maxgetsize = fweh->event_mask_len;
++
++	ifp->fwil_fwerr = true;
++	err = brcmf_fil_iovar_data_get(ifp, "event_msgs_ext", eventmsgs, size);
++	ifp->fwil_fwerr = false;
++
++	if (!err) {
++		brcmf_dbg(INFO, "enabling feature: %s\n",
++			  brcmf_feat_names[BRCMF_FEAT_EVENT_MSGS_EXT]);
++		drvr->feat_flags |= BIT(BRCMF_FEAT_EVENT_MSGS_EXT);
++	} else {
++		brcmf_dbg(TRACE, "%s feature check failed: %d\n",
++			  brcmf_feat_names[BRCMF_FEAT_EVENT_MSGS_EXT], err);
++	}
++
++	kfree(eventmsgs);
 +}
 +
- static s32
- brcmf_cfg80211_join_ibss(struct wiphy *wiphy, struct net_device *ndev,
- 		      struct cfg80211_ibss_params *params)
-@@ -1791,8 +1821,7 @@ brcmf_cfg80211_join_ibss(struct wiphy *wiphy, struct net_device *ndev,
- 	cfg->ibss_starter = false;
- 
- 
--	err = brcmf_fil_cmd_data_set(ifp, BRCMF_C_SET_SSID,
--				     &join_params, join_params_size);
-+	err = brcmf_set_ssid(ifp, &join_params, join_params_size);
- 	if (err) {
- 		bphy_err(drvr, "WLC_SET_SSID failed (%d)\n", err);
- 		goto done;
-@@ -2281,6 +2310,30 @@ static void brcmf_set_join_pref(struct brcmf_if *ifp,
- 		bphy_err(drvr, "Set join_pref error (%d)\n", err);
- }
- 
-+static int brcmf_join_v1(struct brcmf_if *ifp,
-+			 const struct brcmf_ext_join_params_le *legacy)
-+{
-+	struct brcmf_ext_join_params_v1_le *params;
-+	u32 count = le32_to_cpu(legacy->assoc_le.chanspec_num);
-+	size_t size = struct_size(params, assoc_le.chanspec_list, count);
-+	int err;
-+
-+	params = kzalloc(size, GFP_KERNEL);
-+	if (!params)
-+		return -ENOMEM;
-+	params->version = cpu_to_le16(1);
-+	params->ssid_le = legacy->ssid_le;
-+	params->scan_le = legacy->scan_le;
-+	params->assoc_le.version = cpu_to_le16(1);
-+	ether_addr_copy(params->assoc_le.bssid, legacy->assoc_le.bssid);
-+	params->assoc_le.chanspec_num = legacy->assoc_le.chanspec_num;
-+	memcpy(params->assoc_le.chanspec_list, legacy->assoc_le.chanspec_list,
-+	       count * sizeof(__le16));
-+	err = brcmf_fil_bsscfg_data_set(ifp, "join", params, size);
-+	kfree(params);
-+	return err;
-+}
-+
- static s32
- brcmf_cfg80211_connect(struct wiphy *wiphy, struct net_device *ndev,
- 		       struct cfg80211_connect_params *sme)
-@@ -2302,6 +2355,8 @@ brcmf_cfg80211_connect(struct wiphy *wiphy, struct net_device *ndev,
- 	u32 ssid_len;
- 
- 	brcmf_dbg(TRACE, "Enter\n");
-+	if (drvr->join_version > 1)
-+		return -EOPNOTSUPP;
- 	if (!check_vif_up(ifp->vif))
- 		return -EIO;
- 
-@@ -2492,14 +2547,15 @@ brcmf_cfg80211_connect(struct wiphy *wiphy, struct net_device *ndev,
- 
- 	brcmf_set_join_pref(ifp, &sme->bss_select);
- 
--	err  = brcmf_fil_bsscfg_data_set(ifp, "join", ext_join_params,
--					 join_params_size);
-+	if (ifp->drvr->join_version == 1)
-+		err = brcmf_join_v1(ifp, ext_join_params);
-+	else
-+		err = brcmf_fil_bsscfg_data_set(ifp, "join", ext_join_params,
-+						join_params_size);
- 	kfree(ext_join_params);
--	if (!err)
--		/* This is it. join command worked, we are done */
-+	if (err != -EBADE)
- 		goto done;
- 
--	/* join command failed, fallback to set ssid */
- 	memset(&join_params, 0, sizeof(join_params));
- 	join_params_size = sizeof(join_params.ssid_le);
- 
-@@ -2516,8 +2572,7 @@ brcmf_cfg80211_connect(struct wiphy *wiphy, struct net_device *ndev,
- 		join_params.params_le.chanspec_num = cpu_to_le32(1);
- 		join_params_size += sizeof(join_params.params_le);
- 	}
--	err = brcmf_fil_cmd_data_set(ifp, BRCMF_C_SET_SSID,
--				     &join_params, join_params_size);
-+	err = brcmf_set_ssid(ifp, &join_params, join_params_size);
- 	if (err)
- 		bphy_err(drvr, "BRCMF_C_SET_SSID failed (%d)\n", err);
- 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h
-index fe909f7add..320473970d 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h
-@@ -162,6 +162,7 @@ struct brcmf_pub {
- 	const struct brcmf_fwvid_ops *vops;
- 	void *vdata;
- 	struct scan_param_struct_handler scan_param_handler;
-+	u16 join_version;
- };
- 
- /* forward declarations */
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
-index 44c0082e21..27fa3a7941 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
-@@ -160,6 +160,10 @@ static void brcmf_feat_wlc_version_overrides(struct brcmf_pub *drv)
- 
- 	brcmf_dbg(INFO, "WLC version: %d.%d\n", major, minor);
- 
-+	if (major >= 17 || (major == 16 && minor >= 1) ||
-+	    (major == 14 && (minor == 2 || minor == 4)))
-+		drv->join_version = 1;
-+
- 	for (i = 0; i < ARRAY_SIZE(brcmf_feat_wlcfeat_map); i++) {
- 		e = &brcmf_feat_wlcfeat_map[i];
- 		if (major > e->min_ver_major ||
-@@ -297,6 +301,20 @@ static void brcmf_feat_firmware_capabilities(struct brcmf_if *ifp)
- 	}
- }
- 
-+static void brcmf_feat_join_params(struct brcmf_if *ifp)
-+{
-+	struct brcmf_join_version_le version = {};
-+	int err;
-+
-+	err = brcmf_fil_iovar_data_get(ifp, "join_ver", &version,
-+				       sizeof(version));
-+	if (!err)
-+		ifp->drvr->join_version = le16_to_cpu(version.major);
-+	if (ifp->drvr->join_version > 1)
-+		bphy_err(ifp->drvr, "unsupported join params v%u\n",
-+			 ifp->drvr->join_version);
-+}
-+
- static void brcmf_feat_scan_params(struct brcmf_if *ifp)
+ #define MAX_CAPS_BUFFER_SIZE	768
+ static void brcmf_feat_firmware_capabilities(struct brcmf_if *ifp)
  {
- 	struct brcmf_pub *drvr = ifp->drvr;
-@@ -430,6 +448,7 @@ void brcmf_feat_attach(struct brcmf_pub *drvr)
- 	brcmf_feat_event_msgs_ext(ifp);
+@@ -348,6 +386,7 @@ void brcmf_feat_attach(struct brcmf_pub *drvr)
+ 
+ 	brcmf_feat_iovar_int_get(ifp, BRCMF_FEAT_FWSUP, "sup_wpa");
+ 	brcmf_feat_iovar_int_get(ifp, BRCMF_FEAT_SCAN_V2, "scan_ver");
++	brcmf_feat_event_msgs_ext(ifp);
  
  	brcmf_feat_wlc_version_overrides(drvr);
-+	brcmf_feat_join_params(ifp);
  	brcmf_feat_firmware_overrides(drvr);
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.h
+index 8165a286b6..45a05642bb 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.h
+@@ -31,6 +31,7 @@
+  * FWAUTH: Firmware authenticator
+  * DUMP_OBSS: Firmware has capable to dump obss info to support ACS
+  * SCAN_V2: Version 2 scan params
++ * EVENT_MSGS_EXT: Firmware supports event_msgs_ext for event masks
+  * SAE_EXT: SAE authentication handled by user-space supplicant
+  */
+ #define BRCMF_FEAT_LIST \
+@@ -59,6 +60,7 @@
+ 	BRCMF_FEAT_DEF(SCAN_V2) \
+ 	BRCMF_FEAT_DEF(PMKID_V2) \
+ 	BRCMF_FEAT_DEF(PMKID_V3) \
++	BRCMF_FEAT_DEF(EVENT_MSGS_EXT) \
+ 	BRCMF_FEAT_DEF(SAE_EXT) \
+ 	BRCMF_FEAT_DEF(FBT) \
+ 	BRCMF_FEAT_DEF(OKC)
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.c
+index 1cff4ba769..034f90ad6c 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.c
+@@ -12,7 +12,9 @@
+ #include "debug.h"
+ #include "tracepoint.h"
+ #include "fweh.h"
++#include "feature.h"
+ #include "fwil.h"
++#include "fwil_types.h"
+ #include "proto.h"
+ #include "bus.h"
+ #include "fwvid.h"
+@@ -430,6 +432,128 @@ void brcmf_fweh_unregister(struct brcmf_pub *drvr,
+ 	drvr->fweh->evt_handler[evt_handler_idx] = NULL;
+ }
  
- 	brcmf_fwvid_feat_attach(ifp);
++static bool brcmf_fweh_use_event_msgs_ext(struct brcmf_if *ifp)
++{
++	return brcmf_feat_is_enabled(ifp, BRCMF_FEAT_EVENT_MSGS_EXT);
++}
++
++static const char *brcmf_fweh_event_mask_iovar(struct brcmf_if *ifp)
++{
++	return brcmf_fweh_use_event_msgs_ext(ifp) ? "event_msgs_ext" :
++						    "event_msgs";
++}
++
++static int brcmf_fweh_get_event_mask(struct brcmf_if *ifp)
++{
++	struct brcmf_pub *drvr = ifp->drvr;
++	struct brcmf_fweh_info *fweh = drvr->fweh;
++	struct brcmf_eventmsgs_ext_le *eventmsgs;
++	size_t size;
++	u8 fw_len;
++	int err;
++
++	memset(fweh->event_mask, 0, fweh->event_mask_len);
++
++	if (!brcmf_fweh_use_event_msgs_ext(ifp))
++		return brcmf_fil_iovar_data_get(ifp, "event_msgs",
++						fweh->event_mask,
++						fweh->event_mask_len);
++
++	if (fweh->event_mask_len > 0xff)
++		return -E2BIG;
++
++	size = struct_size(eventmsgs, mask, fweh->event_mask_len);
++	eventmsgs = kzalloc(size, GFP_KERNEL);
++	if (!eventmsgs)
++		return -ENOMEM;
++
++	eventmsgs->version = EVENTMSGS_VER;
++	eventmsgs->command = EVENTMSGS_NONE;
++	eventmsgs->len = fweh->event_mask_len;
++	eventmsgs->maxgetsize = fweh->event_mask_len;
++
++	err = brcmf_fil_iovar_data_get(ifp, "event_msgs_ext", eventmsgs, size);
++	if (!err) {
++		fw_len = eventmsgs->len;
++		memcpy(fweh->event_mask, eventmsgs->mask,
++		       min_t(u8, fw_len, fweh->event_mask_len));
++		if (fw_len != fweh->event_mask_len)
++			brcmf_dbg(EVENT, "event_msgs_ext returned mask len=%u, driver len=%u\n",
++				  fw_len, fweh->event_mask_len);
++	}
++
++	kfree(eventmsgs);
++	return err;
++}
++
++static int brcmf_fweh_set_event_mask(struct brcmf_if *ifp)
++{
++	struct brcmf_pub *drvr = ifp->drvr;
++	struct brcmf_fweh_info *fweh = drvr->fweh;
++	struct brcmf_eventmsgs_ext_le *eventmsgs;
++	size_t size;
++	int err;
++
++	if (!brcmf_fweh_use_event_msgs_ext(ifp))
++		return brcmf_fil_iovar_data_set(ifp, "event_msgs",
++						fweh->event_mask,
++						fweh->event_mask_len);
++
++	if (fweh->event_mask_len > 0xff)
++		return -E2BIG;
++
++	size = struct_size(eventmsgs, mask, fweh->event_mask_len);
++	eventmsgs = kzalloc(size, GFP_KERNEL);
++	if (!eventmsgs)
++		return -ENOMEM;
++
++	eventmsgs->version = EVENTMSGS_VER;
++	eventmsgs->command = EVENTMSGS_SET_MASK;
++	eventmsgs->len = fweh->event_mask_len;
++	memcpy(eventmsgs->mask, fweh->event_mask, fweh->event_mask_len);
++
++	err = brcmf_fil_iovar_data_set(ifp, "event_msgs_ext", eventmsgs, size);
++
++	kfree(eventmsgs);
++	return err;
++}
++
++/**
++ * brcmf_fweh_init_events() - initialize firmware event mask.
++ *
++ * @ifp: primary interface object.
++ */
++int brcmf_fweh_init_events(struct brcmf_if *ifp)
++{
++	struct brcmf_pub *drvr = ifp->drvr;
++	struct brcmf_fweh_info *fweh = drvr->fweh;
++	const char *iovar = brcmf_fweh_event_mask_iovar(ifp);
++	int err;
++
++	brcmf_dbg(EVENT, "using %s for firmware event masks (len=%u)\n", iovar,
++		  fweh->event_mask_len);
++
++	err = brcmf_fweh_get_event_mask(ifp);
++	if (err) {
++		bphy_err(drvr, "Get %s error (%d)\n", iovar, err);
++		return err;
++	}
++
++	/*
++	 * BRCMF_E_IF can safely be used to set the appropriate bit in the
++	 * event mask as the firmware event code is guaranteed to match the
++	 * value of BRCMF_E_IF because it is old cruft that all vendors have.
++	 */
++	brcmf_dbg(EVENT, "enable event IF\n");
++	setbit(fweh->event_mask, BRCMF_E_IF);
++
++	err = brcmf_fweh_set_event_mask(ifp);
++	if (err)
++		bphy_err(drvr, "Set %s error (%d)\n", iovar, err);
++
++	return err;
++}
++
+ /**
+  * brcmf_fweh_activate_events() - enables firmware events registered.
+  *
+@@ -439,6 +563,7 @@ int brcmf_fweh_activate_events(struct brcmf_if *ifp)
+ {
+ 	struct brcmf_fweh_info *fweh = ifp->drvr->fweh;
+ 	enum brcmf_fweh_event_code code;
++	const char *iovar = brcmf_fweh_event_mask_iovar(ifp);
+ 	int i, err;
+ 
+ 	memset(fweh->event_mask, 0, fweh->event_mask_len);
+@@ -459,10 +584,9 @@ int brcmf_fweh_activate_events(struct brcmf_if *ifp)
+ 	if (!brcmf_fwvid_activate_events(ifp))
+ 		return 0;
+ 
+-	err = brcmf_fil_iovar_data_set(ifp, "event_msgs", fweh->event_mask,
+-				       fweh->event_mask_len);
++	err = brcmf_fweh_set_event_mask(ifp);
+ 	if (err)
+-		bphy_err(fweh->drvr, "Set event_msgs error (%d)\n", err);
++		bphy_err(fweh->drvr, "Set %s error (%d)\n", iovar, err);
+ 	return err;
+ }
+ 
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.h
+index e327dd58d2..53c4b58e63 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fweh.h
+@@ -356,6 +356,7 @@ int brcmf_fweh_register(struct brcmf_pub *drvr, enum brcmf_fweh_event_code code,
+ 				       void *data));
+ void brcmf_fweh_unregister(struct brcmf_pub *drvr,
+ 			   enum brcmf_fweh_event_code code);
++int brcmf_fweh_init_events(struct brcmf_if *ifp);
+ int brcmf_fweh_activate_events(struct brcmf_if *ifp);
+ void brcmf_fweh_process_event(struct brcmf_pub *drvr,
+ 			      struct brcmf_event *event_packet,
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h
-index dbba883bba..917966ad70 100644
+index e74a23e118..d591f17960 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwil_types.h
-@@ -584,6 +584,35 @@ struct brcmf_ext_join_params_le {
- 	struct brcmf_assoc_params_le assoc_le;
- };
+@@ -1236,4 +1236,30 @@ struct brcmf_mkeep_alive_pkt_le {
+ 	u8   data[];
+ } __packed;
  
-+struct brcmf_assoc_params_v1_le {
-+	__le16 version;
-+	__le16 flags;
-+	u8 bssid[ETH_ALEN];
-+	__le16 bssid_cnt;
-+	__le32 chanspec_num;
-+	__le16 chanspec_list[];
++enum event_msgs_ext_command {
++	EVENTMSGS_NONE		= 0,
++	EVENTMSGS_SET_BIT	= 1,
++	EVENTMSGS_RESET_BIT	= 2,
++	EVENTMSGS_SET_MASK	= 3,
 +};
 +
-+struct brcmf_join_params_v1_le {
-+	struct brcmf_ssid_le ssid_le;
-+	struct brcmf_assoc_params_v1_le assoc_le;
++#define EVENTMSGS_VER		1
++
++/**
++ * struct brcmf_eventmsgs_ext_le - event_msgs_ext iovar data
++ *
++ * @version: structure version.
++ * @command: requested operation.
++ * @len: mask size for set, actual firmware mask size for get.
++ * @maxgetsize: maximum mask size that may be returned by firmware.
++ * @mask: event mask.
++ */
++struct brcmf_eventmsgs_ext_le {
++	u8 version;
++	u8 command;
++	u8 len;
++	u8 maxgetsize;
++	u8 mask[] __counted_by(len);
 +};
 +
-+struct brcmf_join_version_le {
-+	__le16 version;
-+	__le16 length;
-+	__le16 major;
-+	u8 pad[2];
-+};
-+
-+struct brcmf_ext_join_params_v1_le {
-+	__le16 version;
-+	__le16 pad;
-+	struct brcmf_ssid_le ssid_le;
-+	struct brcmf_join_scan_params_le scan_le;
-+	struct brcmf_assoc_params_v1_le assoc_le;
-+};
-+
- struct brcmf_wsec_key {
- 	u32 index;		/* key index */
- 	u32 len;		/* key length */
+ #endif /* FWIL_TYPES_H_ */
 
 -- 
 2.55.0
