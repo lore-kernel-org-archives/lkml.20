@@ -1,126 +1,163 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE04936DA1A;
-	Fri, 25 Sep 2026 15:45:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9D138AC68;
+	Fri, 25 Sep 2026 15:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351158; cv=none; b=AC5FSTtgkELd0PZdPwD8gZNYKiwu4yQob7DWp5R8HhNTAzx1N1imLJcovOUK2tvpoivKtxj/RdSWrCq1EDfbfaYSVrX2Rq7UyHvBfgjrY8Hy1PmcXsKdq60hnimKIq04GykLH0V+P/kTKDgy9Xutd+vrJXj5peNJee6OMASL8lo=
+	t=1790351169; cv=none; b=D8V2W5rNZt5dMoYlM+H63/NksWzbjkFeUEBwLVZMACwdb6jG2IXq9G7ipXnyZ6aosjkgUM8uYF0LnoohBAhiknPs66cBymVSSKJkZieSmS7yimj7Nw7DNWs4fbqKXbmfTrK/pvhJpQi3aoas0Xwl0tszGb4w1aVHvqqe2THFrUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351158; c=relaxed/simple;
-	bh=K3bjdFYcfad2nFRfPY3Jg7b1aHiF3P7SNg113OptxqU=;
+	s=arc-20240116; t=1790351169; c=relaxed/simple;
+	bh=yYhF0T0r2ejlFAcIDQOqW/jCyY0rZUE+7Keg1M1WgAQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aT4AcOxtTA8JtoxOPYq0axu2/iNMAi7cZrhYIFuwsORGITvzMhKUtrmVoFMAVRKxaXVnIhZ9yPRfK0JX8wXwBtjuJDTxcpEaRYKy1DZauMubs7dotHSBO7TAy1VtCDC+TqTBV+4DD/QF+4CHW8CVgjMV0sw5hDwJ4mojlfWhBCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Ao2r0nz+; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=sJ63YnGEPJOUc6SxtuwcaChhsUAABl2PRMWJkQG+uYlp7l3NvMNkWDsqkBPSksta5VnoLuIXJIUnyZn9lCeO0fTKlXGEAHKOsXmZZgvy59X0y6uYXketg9fRzh6Lv5Y7uXyJbK9f7a7P8FEvCL2tF9VDDWVwxbmWjNyFI5A+8BQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PwMaMO+Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Ao2r0nz+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=PqXWbcNl+6FM3P1VEZ3iGff49q9FfaKNbR1+IWpSZts=; b=Ao2r0nz+hqO2tNwaYqwNl9Q1iH
-	My4C0ts3tyIpZO4kBQl9elEsMstronbAH6BEFR6XJnAsir0zHDqRfaH51I7JdKrhIQ1nn+ydTlDXx
-	m3J78WEA6DorlQOl0D2KiL9nT4DUfHI8OgEc5JvzNfcSUVtJMqQxIeIBykcNIb2it10Xa620q000Q
-	yn5mhk399tET3nKM3ttk4P667SfTc/DcCDO5lyA2ot6ORtGr8uIYYH0FvFs1jTsPu18th3VocYaaQ
-	IDnw8WulC7g2e0kIEOw9zHgBwIiBXy3Sl/kvKGlPcLLBdwc+yU53+t+VCDOa5MSVMNVPj1OtzoN9V
-	OeXysxgw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xA87K-000000089cr-01bs;
-	Fri, 25 Sep 2026 15:45:42 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id E6E2E300754; Fri, 25 Sep 2026 17:45:40 +0200 (CEST)
-Date: Fri, 25 Sep 2026 17:45:40 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, yury.norov@gmail.com,
-	kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
-	meted@linux.ibm.com, ynorov@nvidia.com, tglx@kernel.org,
-	gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
-	vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
-	dietmar.eggemann@arm.com, maddy@linux.ibm.com, srikar@linux.ibm.com,
-	hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
-	frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
-	christian.loehle@arm.com, tj@kernel.org,
-	tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
-	rdunlap@infradead.org, kernellwp@gmail.com,
-	linux-doc@vger.kernel.org, jgross@suse.com,
-	virtualization@lists.linux.dev, sunlightlinux@gmail.com
-Subject: Re: [PATCH v13 09/13] sched/debug: Add migration stats due to non
- preferred CPUs
-Message-ID: <20260925154540.GO2009045@noisy.programming.kicks-ass.net>
-References: <20260909135617.871006-1-sshegde@linux.ibm.com>
- <20260909135617.871006-10-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PwMaMO+Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83DF11F000FF;
+	Fri, 25 Sep 2026 15:46:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790351167;
+	bh=f2EOEeTaYY/03hTFnzqTJySuidDAmR79fMzTSBUU+GA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PwMaMO+Zw2A33zQHJyJASlVaM+/HexwofPzX0Dah3j2jLoSISP03rj10KjCP4LQ/D
+	 Q2D81EQnr12zAmIPWWtSr8VRgnJGWqeNr+FTg1HZVYcRuHzfD49DdQX3ivVs7htncN
+	 lLFWQKU6yAbx0eoq3DBc44Ywjn7PU12/fz8nw+jL6v5eUVMd51OjtgrISRPdEMVQyd
+	 wCfAplFxiOCDtsLFONDSmnGe/i8zaAOVDV2kjVL7Nkc7bmCf0dpPQiWo2NecTRLkQX
+	 qjjoOpoPnNAusyB+NeNAYTP2+2bZHWMuGyhqIEnxEXfbwodZqBAt2cjP+qVFunPFaD
+	 Rf+Ut5Dyrk6gg==
+Date: Fri, 25 Sep 2026 08:46:05 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Subject: Re: [PATCH v5 0/6] perf annotate-data: Fix hangs on broken debug
+ info, AMD mem record
+Message-ID: <araXPQChZ9HHNFzY@z2>
+References: <20260925150657.1826942-1-acme@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260909135617.871006-10-sshegde@linux.ibm.com>
+In-Reply-To: <20260925150657.1826942-1-acme@kernel.org>
 
-On Wed, Sep 09, 2026 at 07:26:13PM +0530, Shrikanth Hegde wrote:
-> Add a new stat,
-> - nr_migrations_cpu_non_preferred: number of migrations happened since
->   a CPU was marked as non preferred due to high steal time.
+On Fri, Sep 25, 2026 at 05:06:51PM +0200, Arnaldo Carvalho de Melo wrote:
+> Hi,
 > 
-> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> ---
->  include/linux/sched.h | 1 +
->  kernel/sched/core.c   | 9 +++++++--
->  kernel/sched/debug.c  | 1 +
->  3 files changed, 9 insertions(+), 2 deletions(-)
+> This originated in another patch series, 'perf tools: Annotate fixes,
+> stdio progress indication, debuginfo-client in more places', and is
+> being split off so that these fixes can be reviewed right away; the
+> debuginfod download feature work from it will come later, separately,
+> based on this series.
 > 
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index d7cc77181ef9..48639b0c75d0 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -554,6 +554,7 @@ struct sched_statistics {
->  	u64				nr_failed_migrations_running;
->  	u64				nr_failed_migrations_hot;
->  	u64				nr_forced_migrations;
-> +	u64				nr_migrations_cpu_non_preferred;
->  
->  	u64				nr_wakeups;
->  	u64				nr_wakeups_sync;
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 458b8c6fd9af..fb8404bd47e2 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -11239,8 +11239,13 @@ static int sched_non_preferred_cpu_push_stop(void *arg)
->  	context_unsafe_alias(rq);
->  
->  	if (task_rq(p) == rq && task_on_rq_queued(p) &&
-> -	    !is_migration_disabled(p))
-> -		rq = __migrate_task(rq, &rf, p, cpu);
-> +	    !is_migration_disabled(p)) {
-> +		struct rq *dest_rq = __migrate_task(rq, &rf, p, cpu);
-> +
-> +		if (rq != dest_rq)
-> +			schedstat_inc(p->stats.nr_migrations_cpu_non_preferred);
-> +		rq = dest_rq;
-> +	}
->  
->  	rq_unlock(rq, &rf);
->  	raw_spin_unlock_irq(&p->pi_lock);
-> diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-> index fda10b3fa249..e6a3b516c703 100644
-> --- a/kernel/sched/debug.c
-> +++ b/kernel/sched/debug.c
-> @@ -1440,6 +1440,7 @@ void proc_sched_show_task(struct task_struct *p, struct pid_namespace *ns,
->  		P_SCHEDSTAT(nr_failed_migrations_running);
->  		P_SCHEDSTAT(nr_failed_migrations_hot);
->  		P_SCHEDSTAT(nr_forced_migrations);
-> +		P_SCHEDSTAT(nr_migrations_cpu_non_preferred);
->  		P_SCHEDSTAT(nr_wakeups);
->  		P_SCHEDSTAT(nr_wakeups_sync);
->  		P_SCHEDSTAT(nr_wakeups_migrate);
+>   - 'perf report -s type' spins forever on the dwz compressed debug info of
+>     zlib-ng (libz.so.1): die_collect_vars() saves a type DIE offset that is
+>     relative to the file the DIE lives in, the dwz alt file for types shared
+>     by several CUs, and resolving it in the main file parses whatever is at
+>     that offset, here a typedef whose DW_AT_type refers to itself, making the
+>     typedef/qualifier chase spin (patch 3), with the chases bounded so that
+>     other kinds of broken debug info don't hang perf either (patches 1, 2
+>     and 4);
+> 
+>   - 'perf mem record' requests PERF_SAMPLE_CPU (patch 5) and uses the IBS
+>     swfilt filter when the kernel exposes it (patch 6), with the tables
+>     carrying the term kept in the arch/x86 code, where the knowledge that
+>     IBS needs it stays, as Ravi Bangoria suggested reviewing Namhyung
+>     Kim's v6 review remark on this patch
+>     (<4349c387-5b8a-4e8d-932a-5175a7598e1e@amd.com>, replying to
+>     <aqsRVABj23jaaiSq@google.com>).
+> 
+> About PATCH 5, answering Namhyung Kim's v6 review question
+> (<aqsPKGVUkWk6wvYA@google.com>) about the --sample-cpu default: the
+> data source field is about the memory hierarchy level of the access,
+> it has no record of which CPU issued it, and while the TID is in
+> every sample and in the CTF stream, a thread time-sliced on one CPU
+> or moved between SMT siblings is not told apart by it from cross-core
+> contention, so it is the CPU id that keys it, and it is what the
+> false-sharing detector in pahole needs.  The TID is recorded as well.
+> 
+> Requires elfutils 0.160 for dwarf_cu_getdwarf(), so the libdw feature test
+> probes for it and Makefile.config says 0.160: older versions now disable
+> dwarf support with that message instead of failing to link.
 
-Should we not also bump the schedstat version? I forgot the rules, but
-you do change the output. And did we ever merge that perf schedstat
-thing, then that probably needs 'fixing' for the new format too.
+I have a nitpick on the patch 4, but otherwise looks good to me.
+
+Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+
+Thanks,
+Namhyung
+
+> 
+> Best regards,
+> 
+> - Arnaldo
+> 
+> What changed from v4:
+> 
+> - Added Ravi Bangoria's Reviewed-by (<76ef085b-e8e3-41a5-b029-2cd0489aa430@amd.com>),
+>   given together with his rationale for keeping the IBS swfilt selection
+>   explicit: 'perf record' fails rather than transparently retrying with
+>   /swfilt=1/, so that the user is aware software filtering is being used
+>   and that it is not overhead free.
+> - Trimmed the comment on the AMD mem event tables in
+>   tools/perf/arch/x86/util/mem-events.c per that review, dropping its
+>   last sentence about how 'perf record' handles exclude bits on open
+>   failure; the code is unchanged.
+> - Patch 4: reworded the comment on the truncated flag; the JSON exporter
+>   that reads it is added in a later series.
+> - Patch 6: dropped a leftover no-op hunk from tools/perf/util/mem-events.c;
+>   the swfilt selection is all in the arch/x86 code.
+>   Command to see this delta: git diff eb568956a7129c91..HEAD
+> 
+> What changed from v3:
+> 
+> - Dropped patch 5/7, "perf annotate-data: Show the sample count in the
+>   data-type browser": it is already in perf-tools-next as commit
+>   9db4e9d6cc7c, so the series is now 6 patches and the subject no longer
+>   mentions it.
+> - Rebased onto current perf-tools-next (base-commit below; v3 was based on
+>   29f320d221c1), patch 4 adapted to the upstream __add_member_cb() cleanup
+>   that dropped the member_type local, no behavior change.
+> 
+> What changed from v2:
+> 
+> Only aggregate (struct/union) members are marked as truncated when the
+> MAX_MEMBER_DEPTH limit is reached in the member nesting recursion (patch
+> 4), addressing a sashiko [Medium] review finding
+> (<20260921165704.38DBD1F000FF@smtp.kernel.org>): the v2 check was made
+> before looking at the member's type, so a primitive field that merely
+> landed on the limit, e.g. an int in a struct nested 31 deep, was marked
+> as truncated and logged even though it has no children to expand.  The
+> limit still bounds the recursion, as only aggregates are expanded.
+> 
+> What changed from v1:
+> 
+> Bump MAX_MEMBER_DEPTH from 8 to 32, addressing a review comment from Namhyung.
+> 
+>  tools/build/feature/test-libdw.c           |  10 ++-
+>  tools/perf/Documentation/perf-mem.txt      |   4 +
+>  tools/perf/Makefile.config                 |   2 +-
+>  tools/perf/arch/x86/util/mem-events.c      |  17 ++++
+>  tools/perf/arch/x86/util/mem-events.h      |   2 +
+>  tools/perf/arch/x86/util/pmu.c             |  10 ++-
+>  tools/perf/builtin-mem.c                   |   7 +-
+>  tools/perf/tests/shell/test_data_symbol.sh |   6 +-
+>  tools/perf/util/annotate-data.c            |  41 +++++++--
+>  tools/perf/util/annotate-data.h            |   3 +
+>  tools/perf/util/dwarf-aux.c                | 140 ++++++++++++++++++++++++-----
+>  tools/perf/util/dwarf-aux.h                |  13 +++
+>  12 files changed, 217 insertions(+), 38 deletions(-)
+> 
+> v4-head: eb568956a7129c91a8c0ccebb5979440a046c7ef
+> v3-head: e2504280f5c4086e9851a758ed1bae8df7ef269e
+> base-commit: edd8a9fe2eca009599e013a29c421c7a6b5ad1b9
+> --
