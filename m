@@ -1,92 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7799850AC35;
-	Fri, 25 Sep 2026 23:13:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409AE503BE9
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790377998; cv=none; b=ew+v2qw1cFsK0kyCqF4dBfbAPHSPR8oa2NZQHLS/4TT1kfAtaZXG/YTm7EZYDJE9qvIww8J2zr4tx7rkupV3MT021L+JQvnqSpWa/QcCoSXBlBKS75oQfPd7A8eXtWHvp7bFScPPT/VLvMVxFPWkNyR6h6DmKe3iFK+G2jXZKwo=
+	t=1790378016; cv=none; b=dGMCsHxBjncJ7eWh6qrj/jUGBMBhBn7I3aCGqhU1kYOdZlj15YXY8VYkJ2I/3G6zkti4aRQo4BxrdpWF0ABdpRs5w3GnaIdZqIqaLZBKL6f2Dwh8PjRTgRJOiofcDBnIWHzTAS9cBbEYynHbhfe4TyiNbuN1BLEHdExQkxYTa+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790377998; c=relaxed/simple;
-	bh=e1j5V/L0VzspKNk78JWsm8355AhsJzdZja1i2Yc21cM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lZxyQqj+H2GGOTDdW3gy4SQ/XISCjoj8yKXTgDmiYWZnjBDuD9spmU4OJ72BSi23tn5XZ1U4InCKyzJYtAaPzlXddnkwYq1FoEW5OfV9rqym1RRBeusaknjsrOD9NJWEUU36XJCW+/DZ7ORRA1s6Ekkm3DYuC2vvkEG6mrpI04I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QanQH2jI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790378016; c=relaxed/simple;
+	bh=IHzywUCHO0ob7Ukns7yJ4Z4Dhpta9lJ6UZN308yPmHg=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=HdK3NkGIAnhTxm/gaSBLs8RsNfCdq544Cs7l23fm4I1OCg51c85CWUXkOsDcpzTWAIMkEsL61aNekoh4+iaT+Lhq/XqoTkF1zoBPBh0+l9hyHX9uLeLX3E6XNSA+cMICXWen6SYMUWs7eRAr3bWd57aEyfMLUQmz9Hf8Nf5RAXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=UDj2z3dT; arc=none smtp.client-ip=195.121.94.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QanQH2jI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11D4D1F000FF;
-	Fri, 25 Sep 2026 23:13:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790377995;
-	bh=4zdOp4OInhQs1N3FTnInrZQD8rBPlTXBdjpw6h1ZL/c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QanQH2jICPlqPLsXjriL30mgkc+t/HLU0FDAcsKhv8A2cyVXjF0UjtKLT8gjwKjlK
-	 r5OF3xA/kA8PiTKAZwefA7GSmOzTJOxmMn66F2EayD6f+dnJRVrXNqXAZpTTLfRvMg
-	 UvlnCF3+fRVCRUpBCHDDTBWzXjh+yOey61zjZzFOmhEqQ8xdxPjI2Lenr1Zxa2VMuN
-	 Z+SOMaemdK1J/WL5UzMbw7NgD6lwW08zTaTu7BdyWUjsFe/0b07hg5QcOr2ImSUihy
-	 t+TxrnNbn4nG2J/Vx1nTA7OpF5dlbUpVjljJfoNXWBvk96lQuKWm3yOGEW81tWTzvj
-	 dZ/gTr5T/uGew==
-Date: Sat, 26 Sep 2026 00:13:11 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel" <joro@8bytes.org>, Bjorn Helgaas <bhelgaas@google.com>,
- "Jason Gunthorpe" <jgg@nvidia.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pranjal Shrivastava
- <praan@google.com>, Mostafa Saleh <smostafa@google.com>, Lu Baolu
- <baolu.lu@linux.intel.com>, Kevin Tian <kevin.tian@intel.com>,
- <linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <linux-acpi@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <linux-cxl@vger.kernel.org>,
- <vsethi@nvidia.com>, Shuai Xue <xueshuai@linux.alibaba.com>
-Subject: Re: [PATCH v6 02/17] PCI/CXL: Probe the underlying bus reset in
- cxl_reset_bus_function()
-Message-ID: <20260926001311.7c4be583@jic23-hlaptop>
-In-Reply-To: <a05695c1dcb0682425bad7b8387cd24ad71e2d9d.1790188510.git.nicolinc@nvidia.com>
-References: <cover.1790188510.git.nicolinc@nvidia.com>
-	<a05695c1dcb0682425bad7b8387cd24ad71e2d9d.1790188510.git.nicolinc@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="UDj2z3dT"
+X-KPN-MessageId: b6dc0517-b936-11f1-a5a2-005056994fde
+Received: from mta.kpnmail.nl (unknown [10.31.161.188])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id b6dc0517-b936-11f1-a5a2-005056994fde;
+	Sat, 26 Sep 2026 01:13:27 +0200 (CEST)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.189])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id b6dae0c2-b936-11f1-ac15-00505699693e;
+	Sat, 26 Sep 2026 01:13:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=b4cs3pQWmtJ0lv6ft+kCFdHthnWoZIwih0aFunzSbp0=;
+	b=UDj2z3dT9YyLqqT965II8uA1WUpa00eNKfdgxg4RULFKHmF4wxFDYpRFP/0TxruULf9fKQjk1WlMo
+	 xjM8ioKATExzV7Qr+oBJ/OFrJbZeCegFoT0Po+x+OsS97t+6v/gZNuyvYMIXjHxAdUxqdpQ3iN76uE
+	 1z5BE+GKqXLjzRguCqGZgHv7dnKgtqqGi8SsQ/3mHOqwnDdtFZRYY8AFtoUQ2/jaDUwIloiPbEqM7s
+	 O+kdhxaxfj5uf7YpCdUDwXnF5t/j+6ECgxOLESWVb+phstU99rCWLdt8uOueKkWLFAjRJQf3D58j1W
+	 wHgQupPJkMQN+QWRulvhkMuMIi//PdQ==
+X-KPN-MID: 33|SnyEX77jiPo3jdzb0R8r1R4CQ8JqpRuWlRDUnh63a/HJWF00fWLcSK/zdAGd0MN
+ VFiGaGMS6ibYIOxFBjH3J6xn3VTkckWo05VaeAOHaRh8=
+X-CMASSUN: 33|brvZ+V5WyKLsR+PX1wwd5weRmkU1MJ71tO/8scHW4cUUZX7DkFfyj6ejpFsmIRP
+ C2Hsy8XO/II4/ptvnuuM47Q==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh07 (cpxoxapps-mh07.personalcloud.so.kpn.org [10.128.135.213])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id b6d4addd-b936-11f1-8edd-00505699eff2;
+	Sat, 26 Sep 2026 01:13:27 +0200 (CEST)
+Date: Sat, 26 Sep 2026 01:13:27 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Christian Brauner <brauner@kernel.org>, NeilBrown <neil@brown.name>
+Cc: Jeff Layton <jlayton@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+	Aleksa Sarai <aleksa@amutable.com>,
+	Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <1131164231.213466.1790378007193@kpc.webmail.kpnmail.nl>
+In-Reply-To: <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
+References: <20260913185016.523376-1-jkoolstra@xs4all.nl>
+ <20260913185016.523376-8-jkoolstra@xs4all.nl>
+ <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
+Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-
-On Wed, 23 Sep 2026 13:11:21 -0700
-Nicolin Chen <nicolinc@nvidia.com> wrote:
-
-> cxl_reset_bus_function() reports "supported" to a probe after checking only
-> that the upstream bridge carries a CXL port DVSEC. The underlying bus reset
-> can still be unavailable, e.g. on a bus shared with other devices, so both
-> the reset_methods[] array and the reset_method sysfs node end up listing a
-> "cxl_bus" that is guaranteed to fail with -ENOTTY when it is attempted.
-> 
-> Probe the underlying pci_dev_reset_slot_function() and then, if it is not
-> applicable, pci_parent_bus_reset(). These are the same two checks that the
-> actual reset runs, so a shared-bus CXL device no longer advertises a method
-> that can never succeed.
-> 
-> Probing via pci_reset_bus_function() would not work: its cxl_sbr_masked()
-> check rejects every CXL port with a masked SBR, while the do-reset path in
-> this function unmasks the SBR before resetting. Such a port would wrongly
-> probe as unsupported.
-> 
-> Move the port control register read above the probe branch as well, so that
-> probe runs the same checks. That read asserts no reset, and a failure means
-> the device cannot be reset this way, which is a probe-time answer.
-> 
-> Also pass an explicit PCI_RESET_DO_RESET at the do-reset call site, since
-> probe is always false at that point.
-> 
-> Fixes: 53c49b6e6dd2e ("PCI/CXL: Add 'cxl_bus' reset method for devices below CXL Ports")
-> Assisted-by: LLM
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
-Nice clear explanation and it looks like the code does what that says,
-so I'm fine with this.
-
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+X-Priority: 3
+Importance: Normal
 
 
+> Op 18-09-2026 04:17 EDT schreef Christian Brauner <brauner@kernel.org>:
+> 
+> 
+> > @@ -4582,12 +4646,25 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+> >  		goto out_dput;
+> >  	}
+> >  
+> > -	if (!dir_inode->i_op->create) {
+> > +	/* mimic operation missing errnos of vfs_mkdir/vfs_create */
+> > +	if (create_dir && !dir_inode->i_op->mkdir) {
+> > +		error = -EPERM;
+> > +		goto out_dput;
+> > +	}
+> > +	if (!create_dir && !dir_inode->i_op->create) {
+> >  		error = -EACCES;
+> >  		goto out_dput;
+> >  	}
+> >  
+> > -	error = vfs_create_no_perm(idmap, dentry, mode, &delegated_inode);
+> > +	if (create_dir) {
+> > +		struct dentry *res = vfs_mkdir_no_perm(idmap, dir_inode, dentry, mode,
+> > +						       &delegated_inode);
+> 
+> So, I think this is broken. Whatever vfs_mkdir_no_perm() returns is
+> passed to do_open(). Kernfs makes that buggy.
+> 
+> cgroup, cgroup2, and resctrl are all implemented on top of kernfs. And
+> kernfs ->mkdir:: iop never instantiates the dentry.
+> 
+> So that means e.g.,
+> 
+> openat(cgroup_dir, "subdir", O_CREAT|O_DIRECTORY) creates a cgroup
+> and then fails with ENOTDIR.
+> 
+> So the negative dentry gets handed out and now userspace holds an fd
+> with that negative dentry. So say userspace does fchown() to 1000 and
+> then fchmod() with the sticky bit and then you get a NULL deref. I have
+> reproduced this.
+> 
+
+Damn, nice catch. None of the LLMs caught this, only our flesh and blood
+maintainer ;) I must admit I didn't consider a ->mkdir that left the dentry
+negative.
+
+I haven't looked into kernfs yet, but does it make sense you can set the
+sticky bit there? Not that it is a viable solution to just mask that out,
+as anyone would expect positive dentry at the time of do_open(). Curiously,
+with a very quick glance, it does seem that only may_create_in_sticky() relies
+on the inode being available.
+
+Thanks for looking into this, Christian. See you at Plumbers, I guess?
+
+Best wishes,
+Jori.
