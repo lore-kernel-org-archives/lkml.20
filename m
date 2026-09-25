@@ -1,84 +1,97 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08044ACC7F;
-	Fri, 25 Sep 2026 14:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931A64A3407
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346572; cv=none; b=iHfWaDeVbAD0TvipyXToJvWQGL1D/4yGNGU6jQFGcZSZgkt5+lHY7KIWuoRpzFy1x0EJYw+4sIseBfPuwXXoZl0alOtwQ7SJxV5flrfwVjuzqjCOs1t+PDk1X9Xv09MxNN1AQ98QT56c2qv06RPaoV01QgpJzpfS/S8ECaZf8AY=
+	t=1790346589; cv=none; b=WAKvYoOWaRckn2Vb6So6Yb7hGbCSjpS5LsVcrnstTDrQ5yqYBLrE7crjGsSn3/MfFei17CrpvpxFBbj/dD5T2K6qnVmeffVF/RLvW3W1wnNd942wXkvwnuYrWC6Cm0Wp3YoSEyXVr3ADYIGSf8LknSewEleE7SZnA+maVtQ3vtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346572; c=relaxed/simple;
-	bh=VeSs5cmiAUtV0NkQNYKeRFCl4UH0bE+Kf9EsIFOxtFw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=oCD72LzP+apPSsCsdaShhOikTxSZWSQevz3a4rGq6BaqN5RkvA3HssYCdRkfPNj116SK8bWiP/j6m/VgW7956d5vZU1RVmwG5NoJSOVs5tRq9s6Jlpz+qtkE7y1VMOcSi730LJvTuT3K41C6MKJ/cX+2xMlITrtl9GNSkUndUpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ruNyRvz6; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790346589; c=relaxed/simple;
+	bh=PWZvnkYk4j5lxDWm8Nz3civdTN+Qjc+xt8P1Jw8bG4s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qb9akHGqaaDMeDUbzU0ZtQRVkM92fsyIn8WQnDTfd/xKs8HIRXyk04Z2sPO77ze3rM1XQsHj9t54pENXC4V9MNbwQtXeRhcSrLFX3R46Xc+7YYv41WY4AOzyL57Bayiav0CoEP9HMgZK2nOEZyL2BfE3faq25TSVTA+adfrQ23Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IyU7+kv9; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ruNyRvz6"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id F1F654E41078;
-	Fri, 25 Sep 2026 14:29:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C6C0E6073B;
-	Fri, 25 Sep 2026 14:29:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 45606102F08C8;
-	Fri, 25 Sep 2026 16:29:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790346567; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=/zsMfQoDD/lZKMF7U8S8qDEqm4yspSHi8mABifI/pZQ=;
-	b=ruNyRvz6YmK91zDExwSnTvG8CpzsmG+ZpSG7XVnGQsEhFUCY4hhwUxqnS51FBAXtHUFqjc
-	MLfb2mNczQkcenegsVz8TtCBw+nnjBebUh3UuZ7xAP9h7yk3KB3WtIOAKYJU9XBOlTV4Ev
-	EwI86UxVBNb6FI5WZF3IubsyhR/zO6CRXpf8MVZtZx4Rx1WsEcRcraRQ/4KCEzEd/ZywFe
-	wqyrq9vUZc7AJjcJdnsJtsyN3X/sk4By5LvxToKk5e6lLIhaNWWQB6HueNm/yMniNLyEwD
-	4OgIZAOm8REOREHK7uSMJgdO69te7tgR0rv1yfepecECFDjzZudaJluA/Jycqw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>, 
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: kernel-janitors@vger.kernel.org, error27@gmail.com, 
- stable@vger.kernel.org
-In-Reply-To: <20260925125546.1020149-1-harshit.m.mogalapalli@oracle.com>
-References: <20260925125546.1020149-1-harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 1/2] mtd: virt-concat: unlink concat node before
- freeing it
-Message-Id: <179034656614.1166139.3939385190248779696.b4-ty@bootlin.com>
-Date: Fri, 25 Sep 2026 16:29:26 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IyU7+kv9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790346587;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=p0801dME+Nec+aIbveYMnaYOUO+rYxmuXL3X0xbe0kQ=;
+	b=IyU7+kv9fBsrqSjOqAwiEYmJlqFpyUI5A2eGAJR4WQpC9FlDs5Bix8gKPZF6ncS3GbiELQ
+	H02LWXEVzAorBROI8Jt9PXbaxp4uPwti6VqeQ96pQOeNBCsiTvU0hD05h804HUVZ7E2wGw
+	0YDMwtF5qgLFzpcA4CJqR7gJ1qRcNZM=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-694-ATmn_pKBPUKIv2Xa5K1VnA-1; Fri,
+ 25 Sep 2026 10:29:43 -0400
+X-MC-Unique: ATmn_pKBPUKIv2Xa5K1VnA-1
+X-Mimecast-MFC-AGG-ID: ATmn_pKBPUKIv2Xa5K1VnA_1790346581
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 974CD1953979;
+	Fri, 25 Sep 2026 14:29:41 +0000 (UTC)
+Received: from jtaubepe-thinkpadx1carbongen12.ibmlowe.csb (unknown [10.22.88.172])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3B371418;
+	Fri, 25 Sep 2026 14:29:39 +0000 (UTC)
+From: Jesse Taube <jtaubepe@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	John Meneghini <jmeneghi@redhat.com>,
+	Chris Leech <cleech@redhat.com>,
+	Saurav Kashyap <skashyap@marvell.com>,
+	Javed Hasan <jhasan@marvell.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Nimal Prabudoss I <nprabudo@redhat.com>,
+	Jesse Taube <jtaubepe@redhat.com>
+Subject: [PATCH] scsi: bnx2fc: Drop unesseary call to skb_transport_header
+Date: Fri, 25 Sep 2026 10:29:37 -0400
+Message-ID: <20260925142937.2051868-1-jtaubepe@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Fri, 25 Sep 2026 05:55:44 -0700, Harshit Mogalapalli wrote:
-> mtd_virt_concat_create_item() links each new mtd_virt_concat_node to
-> concat_node_list. mtd_virt_concat_destroy() later frees the node after
-> destroying its concatenated MTD device, but fails to unlink it. A later
-> list traversal dereferences the freed node, causing a use-after-free.
-> 
-> Remove the node from concat_node_list before freeing it.
-> 
-> [...]
+The result of `skb_transport_header` was unused, previously it had no
+side effects.
+commit 66e4c8d95008 ("net: warn if transport header was not set")
+Added a check to prevent accesses to an uninitialized transport header
+under a CONFIG_DEBUG_NET environment. Sence `skb_transport_header` was
+called with an uninitialized transport header, it triggered a warning
+case and a subsequent system panic.
 
-Applied to mtd/next, thanks!
+Remove the unesseary call to `skb_transport_header` eliminating the
+warning assertion and prevent the subsequent system panic.
 
-[1/2] mtd: virt-concat: unlink concat node before freeing it
-      commit: 532caaa2f445b22b74b88b4023a810426772db54
-[2/2] mtd: virt-concat: unlink discarded items before freeing
-      commit: 112a666bd82e96e4a01e0cd8a0fb9c88dd0bce38
+Signed-off-by: Jesse Taube <jtaubepe@redhat.com>
+---
+ drivers/scsi/bnx2fc/bnx2fc_fcoe.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Patche(s) should be available on mtd/linux.git and will be
-part of the next PR (provided that no robot complains by then).
-
-Kind regards,
-Miquèl
+diff --git a/drivers/scsi/bnx2fc/bnx2fc_fcoe.c b/drivers/scsi/bnx2fc/bnx2fc_fcoe.c
+index c95b084cad69..3bff781d0531 100644
+--- a/drivers/scsi/bnx2fc/bnx2fc_fcoe.c
++++ b/drivers/scsi/bnx2fc/bnx2fc_fcoe.c
+@@ -533,7 +533,6 @@ static void bnx2fc_recv_frame(struct sk_buff *skb)
+ 
+ 	/* Pull the header */
+ 	hp = (struct fcoe_hdr *) skb_network_header(skb);
+-	fh = (struct fc_frame_header *) skb_transport_header(skb);
+ 	skb_pull(skb, sizeof(struct fcoe_hdr));
+ 	fr_len = skb->len - sizeof(struct fcoe_crc_eof);
+ 
+-- 
+2.55.0
 
