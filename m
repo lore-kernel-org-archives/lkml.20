@@ -1,114 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E053A7593;
-	Fri, 25 Sep 2026 21:39:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112823A7593;
+	Fri, 25 Sep 2026 21:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790372370; cv=none; b=p14oiv40vGTADF2MCDf89gemNgQRRjexRh5nYMev36Mcujtbh/Cctsv5QUzncftpagW5IhWbkAEJ/QHAFQqh2z+txDW3i3kcP3VjR968BuTZRNmlryBp6/I9g6QopWd+cuDQ7+JZhlb9pRMarCP1XTiQQx1bKeMCN+geYETiM2M=
+	t=1790372406; cv=none; b=qITc5uftbo7d4LD4AtAf3xCnwcclgVao60ls9q57ZXhmzBM9Y4YRuYJvFO7+1uGfeQLvEdYAmL32ToekbWsFZVqXdO/ZaErN69XhRaLmpIAtBMrHUzKozRmMidaG98YOIh3SD6LxRNYTAVkgyAxVRhHN+3hpZyhyU+LTMhdEfis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790372370; c=relaxed/simple;
-	bh=3BiBwcUDkbh+FbP7ofxpEUfVhiDKAwkXAcXzUYOr06U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GL4R13lzTgNPhZoc8xSXmQeNJ4NZlY4wnmx33j3/VC5PQevoPchBY1KMbXjj+N7qUqTn8bVtnv24b6fuT396aiGktZP9Eli5I9gFw8omTFc1ZT7+sIfKlYyRkEDNT5+5rWPaCt4MkUqwXin6KHn/Etw8EGVS8SrVsp8QKIIHJFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uq3jK6lz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790372406; c=relaxed/simple;
+	bh=NiX6OLnRfjUoUlt1PhUW0YyDLITiDqIiUNVm9KX+CBg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lsPu+ickTQUbJGM/hz9eveHcilwXJ5Qlb4UaHOiHDrHuyH7Ku/7Ta+yf6m9KlXW7/UTODrcJrNAhjkDinZNKgegiEM5pJDZcbCnTC29+4cv/GKWeqOwy4+cAblstRZA92SM+vXAULLAVj5+4duFlHMRHwQeTwNlllBhJNfXGIbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=R2ptl+YY; arc=none smtp.client-ip=193.104.135.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uq3jK6lz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55CA41F000FF;
-	Fri, 25 Sep 2026 21:39:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790372368;
-	bh=qGAVtFU1ZWDmCtLaT+G7B5o5ljsTh3nqCzq4ca6rlME=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uq3jK6lzFPBk2mUB+21kzIEJ3e7xo6lES0MeUECU8KDNeBmretRa77Q3OlwhtoQmE
-	 JG8Dx0lTEjtjm2k8juBgSTzHaF2rroNVk1zww7OONmnk0v+x0FA56wC0MjZCrNSV/e
-	 H2pVr0Zo24UJv/vG9L8beZRRHMlmE7YAN/RF7/BIf3sCxDQZGCKJr+E+v3UjzyyNbI
-	 MirHao5U2KikMGzvv4h38MAzkcRcWP7PU8EZ2aiQo71N4cAbsRUfMEcbTXCJ/xYXPz
-	 HyiCZr2awcrNsxXI7Kdq8YVAeSXWzjieQzGLgVnG89GGjnkOohpJbH4QMHQxQzDjRf
-	 Ccal7IQ4ASL7g==
-Date: Fri, 25 Sep 2026 14:39:26 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Minchan Kim <minchan@kernel.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>,
-	Nick Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>,
-	Chao Yu <chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Phillip Lougher <phillip@squashfs.org.uk>,
-	Sungguk <sungguk.na@samsung.com>,
-	Jaehoon Chung <jh80.chung@samsung.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	linux-erofs@lists.ozlabs.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-crypto@vger.kernel.org
-Subject: Re: [PATCH RFC 9/9] MAINTAINERS: add an entry for the LZ4
- compression library
-Message-ID: <20260925213926.GA1903@quark>
-References: <20260925-lz4-vendor-upstream-v1-0-1c7ffbe21c4b@samsung.com>
- <CGME20260925113507eucas1p2ddb94f2077b679426aa86dd1d492eaf3@eucas1p2.samsung.com>
- <20260925-lz4-vendor-upstream-v1-9-1c7ffbe21c4b@samsung.com>
+	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="R2ptl+YY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
+	s=202008; t=1790372395;
+	bh=NiX6OLnRfjUoUlt1PhUW0YyDLITiDqIiUNVm9KX+CBg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=R2ptl+YY1a0+ffQNbXRITflJ9gowJJvX7+f1Jm9bxAxMGvk7KL0E6Z/jZ+ffuUteh
+	 fOzEXOKbCiSfQf/MUZIj4YUvxRghObqqSaIqfwNJ5l3dDiWWaRWi3v67QYZHlXOrs7
+	 xRdEt7YmsdjoLCFtqmAY4FO04tHWdvOkCBPbLBQMGPGUflpnE0fngTOXvgQ6Uyv31b
+	 q0TRNn050Bl2quO691xKKax3KMhH9ySXJqV4nSaaDzmvcu/dgNv6xIsJ/yWdgJEjCB
+	 UAxadm45UWdjPnQ/1n4ltq+uPR1TRHjzVDDAEWuZ8TfUorD+QfFlir3tdZHItMAL9O
+	 0WGOwqkpVaZoA==
+Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
+	by mail1.fiberby.net (Postfix) with ESMTPSA id 59A8660112;
+	Fri, 25 Sep 2026 21:39:49 +0000 (UTC)
+Received: by x201s (Postfix, from userid 1000)
+	id ECFA4201085; Fri, 25 Sep 2026 21:39:20 +0000 (UTC)
+From: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>
+To: netdev@vger.kernel.org
+Cc: =?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Danielle Ratson <danieller@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Moshe Shemesh <moshe@nvidia.com>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/9] netlink: specs: enum alignment fixes
+Date: Fri, 25 Sep 2026 21:39:03 +0000
+Message-ID: <20260925213918.204767-1-ast@fiberby.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-lz4-vendor-upstream-v1-9-1c7ffbe21c4b@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 01:27:39PM +0200, Michal Wilczynski wrote:
-> lib/lz4/ has never had one: get_maintainer.pl returns only the LKML
-> fallback for every file in it, including include/linux/lz4.h, which eight
-> subsystems build against.
-> 
-> This matters more now than it did. With the previous patches lib/lz4 is
-> vendored upstream sources, and someone has to bump them to new upstream
-> releases and decide what the kernel-side glue may do. I am willing to do
-> that, so add myself as its maintainer.
-> 
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
->  MAINTAINERS | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index cc3cae2e378b34aeb705cef654c720ca9f2ba223..989e1b5fab21432dd7042d1e60c4bbad85beb925 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -15606,6 +15606,12 @@ S:	Supported
->  F:	drivers/net/pcs/pcs-lynx.c
->  F:	include/linux/pcs-lynx.h
->  
-> +LZ4 COMPRESSION LIBRARY
-> +M:	Michal Wilczynski <m.wilczynski@samsung.com>
-> +S:	Maintained
-> +F:	include/linux/lz4.h
-> +F:	lib/lz4/
-> +
+This series fixes misalignment issues in YNL-defined enums or flags.
 
-Should this entry cover lib/decompress_unlz4.c and
-include/linux/decompress/unlz4.h as well?
+Changes:
+v2: (got delayed due to conference activities)
+ - Add Reviewed-by's (thanks Jakub, Moshe, Kory and Toke)
+ - Patch 1: Add "fixes" in prose, as Clashiko guessed wrong.
+ - Patch 2: Mention renaming ect{0,1}-pkts in commit message (Clashiko).
+ - Drop old patch 4.
+ - Patch 4 (was patch 5): Remove redundant enum-as-flags (thanks Moshe).
+v1: https://lore.kernel.org/20260911214148.1184806-1-ast@fiberby.net
 
-- Eric
+While this is not a direct continuation, the rt-link changes was
+previously posted as part of another RFC:
+https://lore.kernel.org/20260910221733.1021864-1-ast@fiberby.net
+
+Asbjørn Sloth Tønnesen (9):
+  netlink: specs: rt-link: re-align IPv4 devconf
+  netlink: specs: rt-link: re-align ifla-inet6-stats
+  netlink: specs: rt-link: fix ifinfo-flags names
+  netlink: specs: devlink: fix resource-scope type
+  netlink: specs: ethtool: re-align c33-pse-ext-state
+  netlink: specs: ethtool: re-align module-fw-flash-status
+  netlink: specs: nl80211: fix naming of enum members
+  netlink: specs: tc: fix typo in cls-flags
+  netlink: specs: fix incorrect name-prefixes
+
+ Documentation/netlink/specs/devlink.yaml |  3 +--
+ Documentation/netlink/specs/ethtool.yaml |  4 ++-
+ Documentation/netlink/specs/nl80211.yaml |  4 +--
+ Documentation/netlink/specs/rt-link.yaml | 33 +++++++++++++-----------
+ Documentation/netlink/specs/tc.yaml      |  2 +-
+ 5 files changed, 25 insertions(+), 21 deletions(-)
+
+
+base-commit: 42a9fb3382fc2573e92f41d203b095d9a372cfc9
+-- 
+2.55.0
+
