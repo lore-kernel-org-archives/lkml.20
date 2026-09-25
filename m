@@ -1,52 +1,56 @@
-Received: from mta1.migadu.com (out-204.mta1.migadu.com [95.215.58.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D76C40B11F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3EB391845;
+	Fri, 25 Sep 2026 08:39:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790325542; cv=none; b=OXQituayVUVupgtzZEB4kIQIHBMkz+sMFf0u5HnIm8D+GZYowpFl5F9pkXHg+jYyKXcOQFnUYkL9Su8E6Bl3wmKXe87Oe/vW5USJ+wqC6uAeaYXf6KVMsuAIn8qa42XNxAJBHHbj1Olz9c+YdP2GlfnoxhP8meH4dSJ/GeE6gew=
+	t=1790325579; cv=none; b=DBVHOse5cgvr6cZplt4+FqkK0ZEZvb/KWUS4u6TOQzJE1HODl/lfqX01dtLr4souLjiP2+iQYUFYwmhGpjTv6EbfmcNDK3rhBBIKCd5cJtNlDmWWJYZTZU6r+TJb6eNxgtA62Ic9DuyuLm0oEVvzwDmrYy+N5mlcro4s37TGVY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790325542; c=relaxed/simple;
-	bh=T10y4ASlATCQTgkrEor1JdynVWZNOpt5kzchNql5gDE=;
+	s=arc-20240116; t=1790325579; c=relaxed/simple;
+	bh=2bV/6e/zD+/zSR/D0Yr5ooqOrIdjNNV3DzaBWajLvUc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tamC/hsv//SPXz1jVntSlbYOWkPt8rzogLChJqOv4Z0okeCv5EwujMHmvwHXTaERBE5pFg7WtcnTqHGELN4EsH+v+BW45GyacSP6/99K0yC+kdmA9fuygFzHLE4MQi37DFUKa/G5EnPEb1UDp1oweYUi24cBAwBOkXtGL7F16Xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=E7ciUoFx; arc=none smtp.client-ip=95.215.58.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=NGuRFOoxRBQ2D/S22wfmI6mSSRohNS6YuVVcTjVlb2m+T+oSOhRrIcRQyihgY0Nf9jIPsNx2Yp/IgnAl8IOAw4HAlkOk1lLeZbd4CDfzCL/sPHEGxE9n0PKa/g4slc6WHIn98GjkTbdTOd+NjJZqrkCDb/aEZctXp7lpKT5Uy7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nQCyeCGv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="E7ciUoFx"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=T10y4ASlATCQTgkrEor1JdynVWZNOpt5kzchNql5gDE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790325537; v=1; x=1790930337;
- b=E7ciUoFxZ/QNFnfQa+NUjtVPPFFXIgb5+pbf0txtkTTjAFFitlvJhh7yJfxVM+aevIkR0P4p
- Toif0YauK6OJZKb7jPqqdQ/5bELzxGLVPPu7DtKguTta3+OnNTLZwSCkKFjTeVb872afnsuakMh
- ju5C69Ov22ckcRdwpxfgS7ig=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 399a8e667ef4d0d5;
-	Fri, 25 Sep 2026 08:38:56 +0000
-X-Mizu-Trace-ID: 399a8e667ef4d0d5
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 25 Sep 2026 16:38:45 +0800
-From: Hao Li <hao.li@linux.dev>
-To: Kees Cook <kees@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	Pedro Falcato <pfalcato@suse.de>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	linux-hardening@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jason Xing <kerneljasonxing@gmail.com>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, Willem de Bruijn <willemb@google.com>, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v4 1/7] mm/slab: Mark the kmem_buckets_create() context
- as a Context: section
-Message-ID: <arYy9z0_ehaVd7Iu@fedora>
-References: <20260921075811.too.775-kees@kernel.org>
- <20260921075820.1718334-1-kees@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nQCyeCGv"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id AAC261F000FF;
+	Fri, 25 Sep 2026 08:39:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790325578;
+	bh=I21Y0zUxOqibpDhaQPCMpK8pLAjRT5+UlLhgvlp695U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nQCyeCGvMCdv+YYwH0LCsQ5KneRjMND2h9b5QnylcqFyvRS2neveSn9WQRDyDQQCM
+	 Xldvqml5GKwOFcMg3I8smcHRBSmwaLJfO38RSFTmxxKco8mKA8EbEzhEzsVHUjxOJ0
+	 Z9R3gsqAhlPO+KH2ODgcwXibY98xP2zZX4kgoNuicqW4xRDk/VSIm6d6XTr/81Ecy9
+	 0/nRCMsEd4aDpINKgR8VutD+Hp04JK6bpJgTUOkq2xWRbMWTet573H/F/8htfwGvtz
+	 HjBIUByVIXg7h23nQktDinStpwnTL2dJ22uUEwmYP15q1H8KHoQcvT0+yzQTif36XN
+	 4A1cnE6eQjiSA==
+Date: Fri, 25 Sep 2026 11:39:28 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Andrew Halaney <andrew@amutable.com>
+Cc: David Howells <dhowells@redhat.com>, Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, bpf@vger.kernel.org,
+	fsverity@lists.linux.dev, linux-doc@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
+Message-ID: <arYzQN1ViuiCBemo@kernel.org>
+References: <aqyiCavj3xeNqyAo@kernel.org>
+ <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com>
+ <20260914-ajhalaney-dmverity-key-identifier-v1-1-01922dc1366a@amutable.com>
+ <715249.1789718726@warthog.procyon.org.uk>
+ <aq2VxlttdlTNlHo6@toolbx>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,19 +59,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260921075820.1718334-1-kees@kernel.org>
+In-Reply-To: <aq2VxlttdlTNlHo6@toolbx>
 
-On Mon, Sep 21, 2026 at 12:58:12AM -0700, Kees Cook wrote:
-> kmem_buckets_create() had the same sentence about calling context as
-> kmem_cache_create(), but lacked the "Context:" prefix, so kernel-doc
-> rendered in the body instead of as a "context" section.
+On Fri, Sep 18, 2026 at 02:59:49PM -0500, Andrew Halaney wrote:
+> On Fri, Sep 18, 2026 at 09:05:26AM +0100, David Howells wrote:
+> > Jarkko Sakkinen <jarkko@kernel.org> wrote:
+> > 
+> > > This is great for discussion but what we want for the commit message
+> > > is just motivation and resolution.
+> > 
+> > Actually, I think it's useful that Andrew wrote up the issues in the commit
+> > message - and I think it shows part of the motivation.  The 'writing a fake
+> > /proc/keys line in the description' is something I hadn't considered.
 > 
-> Give it the missing prefix. Additionally fix the "a interrupt" typo
-> __kmem_cache_create_args() had.
+> I'll defer to what you all want in the message here, I found it valuable
+> but I trend on the side of overly verbose admittedly!
 > 
-> Fixes: b32801d1255be ("mm/slab: Introduce kmem_buckets_create() and family")
-> Assisted-by: LLM
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
+> > 
+> > > I don't think we need all this just to say that /proc/keys in a racy
+> > > query mechanism for production, which is an issue for dm-verity, given
+> > > that nothing else is available.
+> > 
+> > I think at some point, we will need a system call to search all for all
+> > accessible keys matching certain criteria by actually walking the key
+> > database.  The problem there is that there may be multiple hits, so we may
+> > need something like:
+> > 
+> > 	int count = find_key(key_serial_t start_id,
+> > 			     const char *type, const char *desc_prefix,
+> > 			     key_serial_t *results, size_t results_size,
+> > 			     unsigned int flags);
+> > 
+> > Allowing you to do:
+> > 
+> > 	key_serial_t dm_key;
+> > 	int n = find_key(0, "keyring", ".dm_verity", &dm_key, 1,
+> > 			 FIND_KEY_EXACT_DESC);
+> > 
+> > This wouldn't be as fast as a direct lookup since it would have to walk the
+> > key tree, doing name comparisons and perm checks on each key of the type.
+> > 
+> > > And secondly special keys are meant for implicit keyrings so isn't
+> > > that all there's to it?
+> > 
+> > I have no particular objection to setting aside a block of negative key IDs
+> > for special keyrings that need to be accessed a lot - though I would make
+> > common reg/unreg functions that take the ID to be registered and, say, set the
+> > block at -257..-512.  Moving the BFP keyring to -257 and DM to -258.
+> 
+> To be clear are you suggesting I do that for v2 here? Happy to make the
+> change and add some reuse to the registration functions, etc. I'm
+> guessing its fine to change the bpf id since its still only in -next?
+> 
+> The only awkward bit with making that more generic is that dm-verity
+> isn't __ro_after_init since its coming from a module possibly, and
+> because of the module usage I also protected it with a spinlock in case
+> someone's accessing it while you unload the module. Could just use one
+> spinlock for the whole generic array, and drop the __ro_after_init I
+> suppose.
+> 
+> Let me know if I'm not following properly!
 
-Reviewed-by: Hao Li <hao.li@linux.dev>
+I just read David's response and I think he made fair arguments,
+and patches look fine to me.
+
+David, did you have anything? I could pick these.
+
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+
+> 
+> Thanks,
+> Andrew
+
+
+Br, Jarkko
