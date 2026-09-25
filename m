@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E673449B24;
-	Fri, 25 Sep 2026 07:29:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E80D4334D9
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790321363; cv=none; b=nzsWs/bfivOSaGbc7txOA4AXi4nx4SwntACjyiU6PeFlpR6SOVE9OMHWw63N20dNhg2zp/tL65hIBjCgafYm/52EYRD9bpH4pK9tY8zBsMsZ/JKzAoFofE9NIFOdieRUni+p8ju+UHrLEqL4K8h/SLbu/kyCnxG0fdoEd96NvIo=
+	t=1790321389; cv=none; b=a4ya2b4qYRZrYnjO8M9ezEV8pr8cUEkHGcE9f12aO+sQ/qIaXyI+qeX6OTGPIsnI+/tF2QOx3KLVuJnY3Pj5G0WYW5RWV+X2J9jz9JHKK6uaL91Axf3it+3vOksp9p8XDKn0RY4GzIfxFrLGrnfUftCivVVGdLqiE5sbPt+U4f8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790321363; c=relaxed/simple;
-	bh=Jy0t0oie/GWyBaf/N3g2nOLwsuUuXeJQOCiKnvp+SD0=;
+	s=arc-20240116; t=1790321389; c=relaxed/simple;
+	bh=GMiJh2UG6AMSuxrA3H4/wECw/7Wwgc3zktcKuZ5cXJo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dilue/3dh7MZOm62H7Cf908UitY7MHUUpfWIQoJcvnF3clvxeaq/wM1LidQlb3yAA0TD50OObXuxOeaHZgZAUU3ShwZHubQYSKTsO9+78hFjPThaC9ngcntzDTrmiHM2XUjnkkluOzsjSnoBhkIrU5UAzKKRA8yKmhQppR9xl2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPsZEIc/; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=lyTn85T6ggUZ9i8k9gRoPAs2qBa/3kOo21RV7v5Zfxh8oQI+Pf5PrGDKo9vg7baf7C9pHFFRFKkbQgb6N27bW2QoU16f/+AdZd0zy/bGkk/jNbqK90y+JSJZkI99RZceQuqsvx16f3K0r88/oFcFMCKw352wl3Zvm/d5Aj20NGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E/WLg1I8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPsZEIc/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30DE71F000FF;
-	Fri, 25 Sep 2026 07:29:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E/WLg1I8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842F61F000FF;
+	Fri, 25 Sep 2026 07:29:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790321362;
-	bh=Mfnb3GXAJ6qEATTIM7j+kMnju+C9c/oq/1MBEZFo2sk=;
+	s=k20260515; t=1790321387;
+	bh=xiWuf6oQq5A3UnEp7xw9abCzGYw3bR/Kaz85Vp+8SQY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TPsZEIc/WsipxGDE8RhpcTcM1O2qXwgqnk+1A1yxgE0s67tJ2P0+FzqsPD5j/ra8N
-	 3IC54JRZw5rnypO/kwU2ObM8PWWqJ7ENRm1hUrNo5hKBX5/nf++KIQPKKmhfUB9vcy
-	 VWZy5xWZ8BMPsmBycV8uzg2vT+k4tTAzRjnUmas9eIsRaxdC9ajviKZ3X7nnghOGE1
-	 zYJ9D3pUxZPwORZDZOoxo9kJzt6hmhcpxd8fKJCRRsdtjKmeX70z2pdMoXJHcqDEWN
-	 QLp7HIA1+Z0ZIQ90pHRtsdxQN37aVNzYYd43+8HqfkVpxsMRrCxKhXysQoJV99TxVI
-	 8sjVtYyX7LgXg==
-Message-ID: <c2f8eb01-7a10-4ccb-92f1-eece29c06cd4@kernel.org>
-Date: Fri, 25 Sep 2026 09:29:16 +0200
+	b=E/WLg1I8kZxdzTichv89Q6WWA5WbAA+LPKZuEGnIhEHOk9NIj5mTvV7YT/kPg4aj4
+	 ypDFrALDRoYeEW5vamsU5O7k4mCpvBWKxS18afwKyU0l4+l0XRpXRxciAVh8EW4Zfh
+	 jezfOXtfdmAQsJ7wI5LRHoL+u0Uqevrrp69vwe9C9dPgLv2our6wdElGYBOHqPRQqJ
+	 lgR8Sh9YqbgWmcUeKPlCeL/w5/EQBkdixmVP2aVo12u2zX/F6M6G0bywlHVZ/fkQDB
+	 iUuyQt9c8wh3cK02TsP+UAaIEeknIploh4NvqSutvCtlqAEFfr/d/wNRS/HO9SXoPe
+	 bdpRBtc6UE96w==
+Message-ID: <95e91b4a-ca16-49a3-9a1a-5b38afa6f08d@kernel.org>
+Date: Fri, 25 Sep 2026 09:29:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,105 +35,147 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] mm: restrict can_spin_trylock() to preemptible
- context on PREEMPT_RT
+Subject: Re: [PATCH] drivers/char/mem: mmap readonly MAP_SHARED-/dev/zero
+ correctly
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Lance Yang <lance.yang@linux.dev>,
+ syzbot+c181d3198e98f8aef8b9@syzkaller.appspotmail.com
+References: <20260924-fix-dev-zero-readonly-shared-v1-1-153c2111e323@kernel.org>
+ <9efc7bc1-8d9d-49ac-b856-003e81558411@kernel.org>
+ <20260924195826.70a87d6fb78d754bc73892cd@linux-foundation.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Harry Yoo <harry@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Amery Hung <ameryhung@gmail.com>,
- Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- linux-mm@kvack.org, bpf@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260919171443.90512-1-kmehltretter@gmail.com>
- <DLJHZEZMLW0F.27OPPS218CX9Q@gmail.com> <arIY0wMQjCCsqidI@gmail.com>
- <DLO3RV3IQUOV.21BNLF4QS9T4W@gmail.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <DLO3RV3IQUOV.21BNLF4QS9T4W@gmail.com>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260924195826.70a87d6fb78d754bc73892cd@linux-foundation.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/25/26 06:12, Alexei Starovoitov wrote:
-> On Tue, Sep 22, 2026 at 08:04 AM Karl Mehltretter <kmehltretter@gmail.com> wrote:
->> a) Change MM so _nolock() allocation remains safe and can still succeed
->>    while pi_lock or an rq lock is held. Existing BPF behavior would
->>    remain unchanged. Is this feasible, or would it require substantial
->>    allocator changes?
+On 9/25/26 04:58, Andrew Morton wrote:
+> On Thu, 24 Sep 2026 17:37:29 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 > 
-> I don't think it's feasible. On RT the sheaves lock, n->list_lock and
-> zone->lock are all rtmutex based. When trylock succeeded and a waiter
-> showed up rt_spin_unlock() has to wake it.
+>> On 9/24/26 16:48, Lorenzo Stoakes (ARM) wrote:
+>>> Rather surprisingly, opening /dev/zero read-only then mmap()'ing it
+>>> MAP_SHARED gets you true anonymous memory (albeit in a VMA with
+>>> non-NULL vma->vm_file).
+>>>
+>>
+>> ...
+>>
+>>> --- a/drivers/char/mem.c
+>>> +++ b/drivers/char/mem.c
+>>> @@ -503,7 +503,7 @@ static int mmap_zero_prepare(struct vm_area_desc *desc)
+>>>  #ifndef CONFIG_MMU
+>>>  	return -ENOSYS;
+>>>  #endif
+>>> -	if (vma_desc_test(desc, VMA_SHARED_BIT))
+>>> +	if (vma_desc_test(desc, VMA_MAYSHARE_BIT))
+>>>  		return shmem_zero_setup_desc(desc);
+>>>  
+>>
+>> So instead of shared zeropages we'd now get zero-filled shmem pages.
 > 
->> b) Restore BPF local storage's dedicated allocator, and document, with
->>    debug checks if possible, that _nolock() must not be used in those
->>    scheduler-lock contexts.
-> 
-> No. Local storage is not the only one. bpf_arena_alloc_pages(),
-> bpf_stream_vprintk(), bpf_task_work_schedule_*() call kmalloc_nolock()
-> as well and the same sched_waking prog can call them.
-> bpf_mem_alloc was removed from local storage, because it wastes memory
-> on preallocation. Same answer for d).
-> 
->> c) Have MM detect those contexts and return NULL. This prevents the
->>    deadlock while preserving ordinary raw-lock callers such as arena,
->>    but task-storage creation from scheduler tracepoints then fails
->>    deterministically.
-> 
-> This one.
+> "zeropage".  Singular.  Used to be!
 
-Yeah, but how exactly to do that detection :)
+Hey, leave that German native speaker alone! :P
 
-> bpf_task_storage_get() with F_CREATE can return NULL and the progs
-> have to check for it anyway.
+Yes, you'd get the shared zeropage multiple times. (some architectures like
+s390x do have multiple ones .... likely you could even get the huge zero folio here)
 
-e) Introduce raw_local_trylock_t...
+... unless the MM has the shared zeropage disabled, and fallback to anonymous
+memory:
 
->> Are these the right alternatives? In particular, what behavior is
->> intended from the _nolock() API in these scheduler-lock contexts?
+-> mm_forbids_zeropage()
+
+... we end up using THPs and the huge zero folio is disallowed, so we fallback
+to a anonymous THPs
+
+-> transparent_hugepage_use_zero_page()
+
 > 
-> It can be called from any context and it can return NULL.
-> That's what it does from NMI and hardirq on RT already.
+> The accounting differences, possible changes in reclaim, memcg
+> charging, maybe swap behavior.  Switching to a different fault handler.
+> It's hard to foresee all the effects of this.
+> 
+>> The alternative would be to just convert it to a proper read-only COW mapping in
+>> mmap code:
+>> * Not clearing VM_MAYWRITE, but keeping VM_WRITE clear
+>> * Clearing VMA_SHARED and VMA_MAYSHARE
+>>
+>> Sure, someone could then mprotect(PROT_WRITE that thing) or
+>> FOLL_FORCE|FOLL_WRITE to get anonymous memory. Just raising that as an alternative.
+> 
+> I dunno, the whole thing feels imprudent.  To alter such longstanding
+> core(ish) behavior.  And why?  Because a shiny new assertion said "hey,
+> that isn't quite right".  Wouldn't it be better to squish the warning
+> somehow and to set about this change in a very careful way?
 
+We really shouldn't allow anonymous pages in non-cow mappings.
+
+We can
+
+a) Disallow allocating an anon_vma and fail gracefully. So only a shared
+   zeropage could ever get mapped there. Might break the s390x
+   mm_forbids_zeropage(). But given that's only used in hypervisors like QEMU,
+   unlikely.
+
+b) Do what Lorenzo proposes. This will allocate real memory. Someone decided to
+   use MAP_SHARED, for unknown reasons, so I'd assume it's unlikely that
+   something breaks, but you have a point.
+
+c) Convert them to proper COW mappings. After all, having the file read-only is
+   absolutely irrelevant, because we will never ever use that file. It's
+   anonymous memory.
+
+-- 
+Cheers,
+
+David
