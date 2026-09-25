@@ -1,65 +1,63 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A804C8FE5
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E8E3F7AAB
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349309; cv=none; b=RUGvgiqDCXh1SetyUxAeMCPUf7d3Knu7gwZ0hDmjwbkVd7SUrQWOTP58Uin8uVQAhGm+TT8pFKKElhX+TYWrX95C1HQTacG4CikWhJHyhxT+wY0g/yHYF0ARsMUBSp9IGyUYu009huaTDe3BuvgNxOBCEn1aq9q9PQy2TFbXMks=
+	t=1790349312; cv=none; b=o1w8U2z59xh2c6YTqcClsKoiNASrCEZ+ITWSCJxFZgh9BcyXmzMMdIWSr99SCWPPe+xgf2nsCJT/M+zkxyodPtwjznlveS10mebd9FbqwzHTnMMB5+GugU3LJcBFbjRfpCbNw5GDSHYKvsobChCGtDjJJoxgNp8qUE8/rkuEwyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349309; c=relaxed/simple;
-	bh=c8exgZhRSt1K9Xf24aLucJv/jHBFcEoxLoxElZuV0CA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fQ9BA+XE86rKmzIyk9G/vvLgQXKKqbSV51eZiE9TRLXwFXhErUD+XFK+spLnALY0fItuJxaYzNWKyD4si3uYSTVRRjL5ImVGGouYpa67BMAt/Qibx9FlUB+QL/GMczyp2Jq/1EkBo/ZeIvHvlAvY/w/iaL+xIoOTcLXSI4+2u/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1BNY1nn; arc=none smtp.client-ip=74.125.227.170
+	s=arc-20240116; t=1790349312; c=relaxed/simple;
+	bh=j9pkTlsGHeFmY/FKyad5xTTYddWdSW44ocQ4QLMrD+E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RkzBTSEwffg8ULAVzCHY7NKdQ6IqHnwFq8Awhe6CDEHpD+uIgUbBD0hwpmgPRmHiTP00Q8f1AlkzCLRguieBUfFGN6YvfoLFWWXtyrK56y8whZ+8bYypajPE6AoW2qZXXEjjxo7ZTXg4LIBD4aWocpGMGY7/kyRe6PfsS7Kj0K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hMFrBTqK; arc=none smtp.client-ip=209.85.215.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1BNY1nn"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-398cb5615deso835797a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:15:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hMFrBTqK"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so838636a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:14:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790349298; x=1790954098; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B/+1mK2LTj63lAp9a9sBW+bMXSaZjbdP0wXTk6wt0C0=;
-        b=K1BNY1nnnotVmMJFSnB93TlwlOquaInQY88AMov2CtswOd72N1VcYitVPze+N26WV6
-         VHdhknGx/K6b6JClS/5rG0+rQ8J/MVcSRhGMJzALObDEjCJA8LRtbddN1YxfbN4qoeBW
-         aviKMFbVrDQfNLw4usl4kBA8xlkBXHDTOha1wEJ40H26np3AiGaaAq4uWZLZ9Ht10gfM
-         mLIipXyIQQWcoBU4RbVqwdgBxLC4J7ASzQDG32UfxzPDaiksD3f5/xbPT3Sc7HhkiytC
-         91qQNA26ZjwO5ccwmfxshftU7zfDHvWchQbqdjt0n8w9gY/ETJw2gSK+ifSVo9DlnAqT
-         +e6Q==
+        d=gmail.com; s=20251104; t=1790349296; x=1790954096; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mA/UazuvMtTONcduZgB5UUPaN9FLii3dQaGfMpKTCJc=;
+        b=hMFrBTqK/fVfpFRVrnzHCygrVdIFQdjr5+BuRH8rwvTpPV219efTiJTnB+/MJA/Itk
+         BEcFYWBY3nsQHwhHwzYuwm8x2dF0vE+HiorqxUi1NQKeOY6ZvYdgocBXND0UeLvQUUFv
+         I+qnonsiYWHX4cMeH1wJiwyZIvyaSO/szKruMlSruFfi9fYLJYYYCgjM1EvD9neiMEYF
+         EG/Rea89zLBcPSVPLojAJq2/6Z+XjcCuN7YoLOjfsoDYR1PebLV1/TlQzC8EU6fTH47u
+         RW1V9Wh0mIPiBLStT/65R1L9XwR6qZL3I++4aR7M718+qLR6tfVg08Hvx+Lb8VB73I2L
+         pn2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790349298; x=1790954098;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B/+1mK2LTj63lAp9a9sBW+bMXSaZjbdP0wXTk6wt0C0=;
-        b=KGP0pq/c472/Rdev04B5fOQWbBfG7bHN4EV4RMnrRMaEGFakEmKR4ahxUelHGPHVsA
-         Se1NJhRvhIMvRvKEcaHmOb0KlVDdztg4HXcIc4oR7GCDgYH4wVdD4tmiA3Iv4nkt6CHT
-         P9+I4AOiTxx9wrPTWpsJ/UJxUIQR61G+738GIgjVATGQCTrYWmIhvlS8PYBzEQ7NHc+a
-         tWU9Zb21IaaWWfw9Y7hvzm9Fb+j72epl0UfzrUloFNn/jAvku4bkaU9xSvDvH3GPmaQr
-         aavqOqduebSbt1Vrbm4YU/oe34PVLorjySe1XRZZ302Jr6ykWY6P94hOyBapD9/xrqmA
-         Z+vg==
-X-Forwarded-Encrypted: i=1; AKwUvBxnjh4JVtqPx8O9adCIu+RIjVyxbXGjV8VfBiBr6VuRnZ4OP3sUEeVgyZ3F7Fvw6LSpqtmd9OEkNjDvzZ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mn6CUQnI75EGHqIQ6ly23pG9z4WWrIV8qcqM/0cWDDJ8krp6C3
-	d1Bonux2jm2SvhTuLV6FLLWMWF6QA92cU+DC3QMsnRplnUk+rsmCpqsL
-X-Gm-Gg: AYBFou3BHMh29jmc+GV6Pr4ZbzAyUmZ5H/SpCUviVZHRWYbFA7gV385cRHb5rbw/fBI
-	bYlULznwUxCrW2tuFNoJSG8kaSJlXpoL9IrwE3li5ouB/WiVHVTvRPf73tsXyA3a6vKtf8Oyboy
-	GIjv12TXRHTUGJuk5cGfkWE+aJCQx72cAQc++KMCbO6f944bpSuSDHhV4LrbSbFUjaCgAm+PWZ1
-	VuB8TPfHyF2XW6vW96eECo5ELEkXsK11fKG2FXn6nzcKqzqb38HNS5+73Ir4kowg46COJ1S8Eg3
-	ABIhtFxOOX2RazQ/Gew/pcDgtwi50KwWvdS0rFVjRYgSJdwUEKEb+tZceGpfIPYbccrDvn/94gM
-	FkhE706TKI4E207k9aMhJYUoQvGQEdMBEH5+O+IiCGu+CaSwJkwf9KhW992A0vEUL4TgT1ASeLl
-	c2bvY1mhD7zAoW8AIrTSfQWtIKepLXjYZ10H5Qw31yoxwmutvxfa2qI2jseWCDFKUjiYHPlTNPg
-	CtWxOgUqrDhdbXulLU1t4pLF6Ghrsu93XsM/VXT1W3FppC3zLUXPDxokNxniQ0VEcYxvbloqH3x
-	76a9IB/r2Pc75Mc008Vk3law/CmER5+HU4ZbQG0aVhuUY9WmEA6MzSFa4mSS
-X-Received: by 2002:a17:90b:2751:b0:39e:5c8a:33b0 with SMTP id 98e67ed59e1d1-3a098fe8b26mr4789508a91.33.1790349298062;
-        Fri, 25 Sep 2026 08:14:58 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790349296; x=1790954096;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mA/UazuvMtTONcduZgB5UUPaN9FLii3dQaGfMpKTCJc=;
+        b=UXL+O0g214JXc4Af90jDnzP9yRPMskZWCpdYKmTx3ZuWt4HqztGdK7ARekbPVb1Aj1
+         sBhyN9wk+Ip02bacrzKYHppZxVY6r9+tTmUGHdOhd1O7od8aPDnN8w3ddUEvxL4pG7SO
+         WPevC2JtUw6q6unACdK3mSzXcgF/mD20gXwM8z4alO1nDOVm+HsuByLIqbm1pHCQoWIJ
+         M6+8VaZamskhfGNHNU+gFmhml0QyImMvlyQjVXW9gKEHgOQUZ8bf34cAfSKR5wDYSZih
+         tBTjKGR8pF6Uv9AAP02tkuXQU4feNUYwi+QJNLqrDhajQNQw5+Cayqw8jpk4mOUfz0vn
+         /8jA==
+X-Forwarded-Encrypted: i=1; AKwUvBx4gUk92GSPmy9pmeXUZ8of8OsCWUl05OIR6zVhiz9BgR0sRglqM1NsuYkeF/jSFg1rPuFZBkJlF9KKCho=@vger.kernel.org
+X-Gm-Message-State: AFuF++kk1awMCRltpk5HwTt6AiSMJXJYDcEVALhepiCLJLtuKonYEyr8
+	Fps4Oq5jRnfJPT4Z40LBbSMSL3JA0uh2+/r2gwTLhMcF8L2+lD6Xf1Y/
+X-Gm-Gg: AYBFou0CpAtk1MIPGfpEtjAKICR4g/DqVFSqto1XOjE65nsybI4zjz0YX+GZ7w2S9mm
+	3QhIKjvT9safIQycVxRpbYgZxPhXu+wiPAd9TmwJr6d6/MVj8XzsR2uoEeYACC0ihbT0uA2ekg1
+	vuraO7DsDai/r8GjjsDy5oxz475Oa1CIHoTtj1Cd5lOd5Fl92u+kDH1AuiEldU8a4GPM3o8pMGy
+	LuP38M2ExozrFCBsGClX5QNPr8t9bsotxSjcC8ZBNR9D1xoOUXl60Z23/zevBtVfeAIaVzN6oJI
+	RedNY1LoGeI+pyrXDtgioICElb+uw721dQnT+S1Tx9Hzuo7c+6hpTQLn7dsaGZfOcHtFN+QWbRz
+	MNp1AZkPUXj6zmX1HidMBo+tpOTHwn1zXWLlt6hIP8gzZp0fb4GUuxMldWLe4II7BZZqekdQEWm
+	4NA/YrY1fu2hojBVNz6txTiJ497l4abCR8kCI0aA3pMr3O0ziJClAWn5+kJAGwxcyWKmzMdgJoM
+	7WTUyVt9Sjzd6xnRDmRhXY7K9dmc5ho5WDyXeccEJno1rdjlZtG2dzPwJra/bVmg7rrAJ4D6o9t
+	w0QXpIVAJGZsgwHbKwaHJ35UHwRmhBaYpA4tKtCFMlda9icYXaSWJNG30iI=
+X-Received: by 2002:a05:6a20:3d8b:b0:3db:280:b0f with SMTP id adf61e73a8af0-3de0e77e076mr4399351637.14.1790349295598;
+        Fri, 25 Sep 2026 08:14:55 -0700 (PDT)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78794f224sm1503252a12.25.2026.09.25.08.14.55
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78794f224sm1503252a12.25.2026.09.25.08.14.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 08:14:57 -0700 (PDT)
+        Fri, 25 Sep 2026 08:14:55 -0700 (PDT)
 From: Matthias Goergens <matthias.goergens@gmail.com>
 To: brauner@kernel.org
 Cc: viro@zeniv.linux.org.uk,
@@ -69,12 +67,10 @@ Cc: viro@zeniv.linux.org.uk,
 	al@alarsen.net,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] qnx6: use the active superblock after choosing superblock #2
-Date: Fri, 25 Sep 2026 23:14:48 +0800
-Message-ID: <20260925151449.1517608-2-matthias.goergens@gmail.com>
+Subject: [PATCH 0/2] qnx6: stale superblock #1 use and undefined shifts
+Date: Fri, 25 Sep 2026 23:14:47 +0800
+Message-ID: <20260925151449.1517608-1-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260925151449.1517608-1-matthias.goergens@gmail.com>
-References: <20260925151449.1517608-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,41 +79,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When superblock #2 has the higher serial number, qnx6_fill_super()
-makes it active in sbi->sb and sbi->sb_buf and releases bh1, but keeps
-using sb1, which points into bh1's data, for the Inode and Longfile
-level checks and for the root nodes passed to qnx6_private_inode().
+These two fixes came up while testing Hui Peng's qnx6 series.  Both bugs
+date back to the initial qnx6 commit.  The patches apply on top of
+Hui's v2 [1]; its 3/6 changes the context of 1/2 here.  His v3 [2]
+does not apply to mainline, and I have replied to it separately.
 
-The mount therefore reads the inode and long filename trees of the older
-superblock #1, through a buffer_head it no longer holds, while the rest
-of its superblock metadata comes from #2.  On an image whose two
-superblocks point at different inode trees, the mount lists the files of
-the older tree.  brelse() only drops the reference and the buffer stays
-cached, so KASAN reports nothing and the mount does not crash.
+1/2: when superblock #2 is the newer one, qnx6_fill_super() still
+takes the inode and long filename trees from superblock #1, after
+releasing its buffer.
 
-Point sb1 at superblock #2 once it has been chosen, so that all later
-uses see the active superblock.  bh2 remains held through sbi->sb_buf.
+2/2: qnx6_block_map() shifts a 32-bit block number by 32 or more bits
+for depth-5 trees with 512 byte blocks and for depth-4 and depth-5
+trees with 4K blocks, all of which the driver accepts.
 
-Fixes: 5d026c724220 ("fs: initial qnx6fs addition")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
- fs/qnx6/inode.c | 2 ++
- 1 file changed, 2 insertions(+)
+Tested on mainline 40288c9206c1 plus Hui's v2 1-6, in a KASAN and
+UBSAN kernel under qemu with generated images:
 
-diff --git a/fs/qnx6/inode.c b/fs/qnx6/inode.c
-index 916de1e3ccc4..0dfe8a3dab83 100644
---- a/fs/qnx6/inode.c
-+++ b/fs/qnx6/inode.c
-@@ -407,6 +407,8 @@ static int qnx6_fill_super(struct super_block *s, struct fs_context *fc)
- 		sbi->sb = (struct qnx6_super_block *)bh2->b_data;
- 		brelse(bh1);
- 		bh1 = NULL;
-+		/* the checks and root nodes below must come from #2 too */
-+		sb1 = sb2;
- 		pr_info("superblock #2 active\n");
- 	}
- mmi_success:
+- An image whose newer superblock #2 points at a different inode tree
+  lists that tree's file with 1/2 and the older tree's file without.
+
+- Files in depth-5 (512 byte blocks) and depth-4 and depth-5 (4K
+  blocks) trees read back with the contents they were generated with,
+  with 2/2.
+  Without it they read back with the wrong contents, and UBSAN reports
+  shift-out-of-bounds.
+
+- Six valid images (512 byte and 4K blocks, either superblock active,
+  normal and MMI layouts), a depth-4 tree with 512 byte blocks and a
+  depth-3 tree with 4K blocks read back identically with and without
+  both patches.
+
+[1] https://lore.kernel.org/all/20260921042511.1473629-1-benquike@gmail.com/
+[2] https://lore.kernel.org/all/20260924073920.2782917-1-benquike@gmail.com/
+
+Matthias Goergens (2):
+  qnx6: use the active superblock after choosing superblock #2
+  qnx6: avoid undefined shifts in qnx6_block_map()
+
+ fs/qnx6/inode.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
 
 base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
 prerequisite-patch-id: 46f959e08f10dc22aa50f0dcf3b666bc797e16fb
