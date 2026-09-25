@@ -1,239 +1,330 @@
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6528234DCCD;
-	Fri, 25 Sep 2026 09:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790327355; cv=fail; b=d7yvY66W8Le5RhKQevCrbysJysWHFtKCbax+xk8AVm1ZJ7iL0uqIrrM81IcOXusTY3OdbBas+R2QNaqXEd9pL/oqyU4mrscPZMxoFPb3Bfxp0FAVFR+ay/qOZhO11v1CjLIKCvpOyihkVHszr2qOsZdjplG0Opyh3B+d9zmjAvk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790327355; c=relaxed/simple;
-	bh=h9P2qbdSG8IYIEC5hd5nlvcLcz+ijzw4aFcmIIB7smQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HDNEUBxqMyZgC+SKjtdQ4ABEsib4y02WUURWGjzHQ45hqvQhC61CbfT6Z33lI9BOZCwctxtdwZbtwyBpU2+hPWajsb2JB9gSCkTFck4pi1urjwqzbLZtCjH1Yq1J/BKaH5byuTR8cVYwZWyMF0hvgW/uBJDw2fGZzwv8F1hLe78=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=ab7tT5Ji; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=Nql7pbKq; arc=fail smtp.client-ip=67.231.152.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE4647126F
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:09:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790327392; cv=none; b=GjiZol81dn1m8veVH/XPOpUp0W1Fuoqq9hiqGz1Uj09l+BlMfLShWIlImeHhZDJDBah3k6gdHrqm4GYK2w0Vl9mGsQSrqLD3R7gl4vYIxXxaojCzzvdmzRqD7G+t1Ha2DjMLCzVW6IgpYdmjGMg6mFBBhE9WXzJ5s+W3BbJSZ9Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790327392; c=relaxed/simple;
+	bh=ziqkExW6zk46iaOzNCUmkUDQrko4rpiJdrRTpSfwp/A=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=czejsb9TpizlTIyc+NoyslqzGCxUXZ267F37x1CtYfgJuxXiG+uig4Uui2D2fzdTKoB5okOjp1KlXzR/fTHECAmaUgPoP6IKnCwWER8+a+b9333LjkZsSxWqj9xK/DLqtAb6WzAquUtU9U7UqQIJjuhkfO8cifpl0Bltuy7E35k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QHM1hN0v; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="ab7tT5Ji";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="Nql7pbKq"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P7nlq92207596;
-	Fri, 25 Sep 2026 04:08:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=NxMGOFsPIz5eZTvKZC
-	oC4gcTW+M8tNT+45+0DnIZkmc=; b=ab7tT5JiKAGqx9qjuHHeolrnNgYnRRE3ul
-	sPCVB+nnHHotQ6PIOXyNxmu2/TtdnbdJvlgeUGTtM73aUdTTlh9W1/m3zWrpHiy0
-	136cm0wn+4f1YSM9rJNZxhO/kGJE24jsQZY4nvbwrgzRmQ4jB8tsLBGIXaXOSqsV
-	4uLn67LfDk9coaLmRRId5nljDN56ezkbjYtR9urAegaw0q2ou1MIWdQXhCOf4CbH
-	AK18inkcqOh06bAhhBtLmImd6rpflRPBgs/uyq+ZZvBrqfcXlHQ45Jzgyrx2c2hQ
-	+RUiaQ271/ymYi5Ilz2TjDu6gpd54bSpdlhdVVeyehB0qetnEIZg==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11023108.outbound.protection.outlook.com [40.93.196.108])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4gw698h0s2-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 04:08:50 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WBejMexnHiupgIVF4WBEmVrKMhFODKzPOtupDBIAs5njSjzzCH5lzXKEIfQ3qj27D6HyYGp4cjgjcV/8z6eBB+O6K388nF8EPQt7F0a9LCyS2mmNYvQZEaLylRn97dRCr0zEth2y7+ADoenel5kz4U9rESkiLKMxs+qzkU/YJOVMLVIidFdVM4/n5ryw3Xn1ZpZtHrrPlBf/uDgu9iEuODti9C/ReNlG7HG/1+R5tXRmsG3/JvQ/TKZK2SnWK+oCHGzoRjbGfO9GKY1g9v2G42xPlFG1QVlHKYMdMwH3138NSFkGA4cpD1MXi5xU6BHETbbJ+a8jJPrexpeOuAWtig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NxMGOFsPIz5eZTvKZCoC4gcTW+M8tNT+45+0DnIZkmc=;
- b=yRcUoGJNVxpg+LKTktTHmYA4E8Jpy7xF6Zu4Gtxa/JGKumyhpL0vKJTzjB+1c4HCp8DG0/czIF7O+LO/1T0CQPoNoc/elSvApJ65zpGcRBQJ/tHYw2mCFoFD11rXuTznQYGAA5xO+eT2uUsyZP/StLL4YKXnVPDG5vVxzX0EvpO8weaCzONX0jxrDnGwko5lpQLASDyXKn41NUDidb3hrUBXe3enhKk6mykYLyEuDu443VbQYQnRRXa+FwMRnzLgaQN7pFk1UhhCnWf71jd83Lu9qSnFoh7MR/0Mz2D1M1LzItunCBcgr1iEr5WueQ6MzI2492+/pDnuxnJPvRTzFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QHM1hN0v"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351832so349303f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:09:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NxMGOFsPIz5eZTvKZCoC4gcTW+M8tNT+45+0DnIZkmc=;
- b=Nql7pbKqODwTQEOkaV4c+kNQYyDWo7KWFqVlcpWU7IdZAwPTe0WR+A40sCuHlJMrun9W9o2u7zJGGgmIUXDD/8caT7z29FRExVpJChuJNX8MjvOOsPm91Z84XcZUCCUuZwUpPOJUGjlU+Tir0BTaqko7F3iln2/swzkOpJnNJtQ=
-Received: from BN9PR03CA0971.namprd03.prod.outlook.com (2603:10b6:408:109::16)
- by DM3PPF636AABA4F.namprd19.prod.outlook.com (2603:10b6:f:fc00::72e) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 09:08:45 +0000
-Received: from BN3PEPF00022BC4.namprd05.prod.outlook.com
- (2603:10b6:408:109:cafe::18) by BN9PR03CA0971.outlook.office365.com
- (2603:10b6:408:109::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
- 25 Sep 2026 09:08:45 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BN3PEPF00022BC4.mail.protection.outlook.com (10.167.248.216) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
- via Frontend Transport; Fri, 25 Sep 2026 09:08:44 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 5B4DB406540;
-	Fri, 25 Sep 2026 09:08:43 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 218F1820247;
-	Fri, 25 Sep 2026 09:08:43 +0000 (UTC)
-Date: Fri, 25 Sep 2026 10:08:41 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: mhun512@gmail.com
-Cc: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
-        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        ae878000@gmail.com
-Subject: Re: [PATCH v3] ASoC: wm8962: Stop IRQ from requeuing mic_work on
- remove
-Message-ID: <arY6GbRBjKxJDKVn@opensource.cirrus.com>
-References: <CAGEsz8G_s8_HRnHH8s+NvXWXV8Uz2xRDY+He9M57v_fW4H42VA@mail.gmail.com>
+        d=gmail.com; s=20251104; t=1790327388; x=1790932188; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Vlqi5ipL/fx0oBY6ltjeY+Xbl5LvlZhr3/dMDAYIk50=;
+        b=QHM1hN0vkv3//x9TAYi5Sylv9z4jFpYf4E3tPlTQyckr/bSTM3MjF5tGnYqE8Zl7FR
+         y7SZEbHfGFzqPhOZUe5Dxw0vj3V3PIAb2C2pjfNypmL7lLaa4WUZRcXQbejfjfiIU+9X
+         7i54epfbO51eSrZp+yFoMxfHpAvoD8fQ8OkONgkXZofmz9O4tZA+DPpprliPWIiRizpu
+         xV7sQ/vR+BZz8BrzmZ4HyZ+AWaaErKs6Z+ASofeBZf42eoHSxcT9QIaTlFaQy/ycRFcS
+         56+vyWBLqKB/i119JzZBpwnNHrqS5Sg+PXsPa0mWmeVCzjnVLYLaBB+BtncCY7sEFh2E
+         zc3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790327388; x=1790932188;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vlqi5ipL/fx0oBY6ltjeY+Xbl5LvlZhr3/dMDAYIk50=;
+        b=k5d+obx8CHohtHzqlxnxYViUi26giwQqf60MgdwkkL2teKUKFr3c+OEuBo3muKOjpX
+         wMfC/b1Mn0PbnYiC3xQ0scPWhruTGLNo3zY+82S57qwEXAFa67pfFqle3bjsBmRfyS0f
+         KFS3M1DoRjAZdB4fqubQgttgN1kPj7IHZBU2suf0yPk9OYo+6I4k0xlSNFu3xRvdpnfY
+         EH3FTj1ksCGp5a2ca0n3qfKqfnnM1e/ddGJR1em4jI3mhLvVpbaKeSheQlB8mIg+u4jf
+         ZwT/zjqJi96fcge/rXvhMHxP8AKgwaRLYqFGZ8BGbG5k9TdbBe2Kw+FLjaBDpmkCKOWn
+         rrNg==
+X-Forwarded-Encrypted: i=1; AKwUvBzpoWC9a2ZDsj/B1xloQr7XRsS76SBS03wjweAnTM5hi2sNypGPqT37jo7vxocaipvScIz9wgqPkJyWu+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSE3O+GVlUQ6aTtT5FIeP9v8kmXNGeDROr3olQTvSKLMX+BKZK
+	zyGyZHHcteTACbvHvhGVMdvKcWNK3MWXWImUa/6NXNQHSpZu2oRWoKo3
+X-Gm-Gg: AYBFou0X+9rXc0SBuB6zS1gFLCCCTIj/6aNZCYP9HJzQiJppFiGHoLDM/G4AX1cPyKG
+	ts/xPFoy7Cly1mQ1MmDkA9kC97ImFcPmjnwwW+pmhtd5MzFFGmqcp4+NCsxwt/lK6ukGcIR95iZ
+	irmkC5RdjwYhqrxEzN6YrjsufB/XFHhFsmTmRBwn8wiv5MAQ4qqS8KY4Wf3VjUTa+pu7krDcQ5Y
+	p5VWgPVEVnkg00xQJGKkjVPxwhf5xdHrMt2P7F9RywTngyTKlS8T6f+2gy7pJkdRMJ7Hi2u6COM
+	jyGmtumdjRnSGIcX/77kHALr0IH6nG/iGl4j8RTgYY7v56nQA3hPPFyLJjKZf4U4n4BteE0Hui7
+	C6KxXoPFP7LVtPUOx6vVWaTLL6VFgiGwpQ7Dg61YSTTIe2H8aqE83YAINk7D+Dx5m5q59wMnEGk
+	HnokUd5xc87nJsSzZL+aLDsS+A458q4PJJPgMR5TZbqxIXMXre190gV02dySSWLX0zKifqyZy43
+	VRM8a1ZYgzb4dFYsoE3+u8u83FhqhOXWZ4=
+X-Received: by 2002:a5d:64e9:0:b0:487:1575:ebef with SMTP id ffacd0b85a97d-4887176868bmr9522369f8f.47.1790327387384;
+        Fri, 25 Sep 2026 02:09:47 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a35fb05sm6089428f8f.20.2026.09.25.02.09.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 02:09:47 -0700 (PDT)
+Date: Fri, 25 Sep 2026 10:09:45 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: <gao.rui@zte.com.cn>
+Cc: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
+ <alex@ghiti.fr>, <jiangfeng@kylinos.cn>, <linux-riscv@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <jmontleo@redhat.com>
+Subject: Re: [PATCH v2] riscv: fix strnlen() overflow in Zbb implementation
+Message-ID: <20260925100945.2df80cd4@pumpkin>
+In-Reply-To: <20260924105708488K1vV5J_xi9COWY7TvJawc@zte.com.cn>
+References: <20260924105708488K1vV5J_xi9COWY7TvJawc@zte.com.cn>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAGEsz8G_s8_HRnHH8s+NvXWXV8Uz2xRDY+He9M57v_fW4H42VA@mail.gmail.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC4:EE_|DM3PPF636AABA4F:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15b3942b-888e-49ff-e73b-08df1ae499f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|23010399003|376014|82310400026|36860700016|10067099003|22082099003|56012099006|11063799006|16102099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	bLy5UCWjGn0Vuk1daKtnul/T1TQSfUTX+NXoKtPe2NdlaBjckwkTmCBbRxifxHYa1EVEmMU0LDHA54Q694cqYXjHvoaApBsZeTY93vU9n5YjmPys33erpeLRiUo6WcFu/MGRGmAneuSpthECjq4uuA+UQMHjRIgs2Rp50AXUEZYjeOG97epjhwqLeHEBOXDt5wCtw18GPeTEaAPfJG4JSBNmWF6gMzSBlacegR225DkDPZr+j5P6HUHqLMnQso8alPeVqFqLVwU5KGhMQ6ER0yPzIOXDtWoqipL245eVkuzVrdWmf7D7mLgCp2aP7oniecDNlPgl9s+mqg/BmeWupMpG4B+gG+2jhPruGiU+ASc2sCv3mFzYwjefPfDuF9A73BJw9kQRu15zLmlCNxAWm4xHay4ued2Y78VCMUKpnmyRez6aTB5ZIXk0t7qoRoq396bV6IZEV1/u1UcVHmcl/2+DGMSCNSHBytThkMOZgo6hLKJN0rCrx2l41imqSdAv+4snckaHL3Y+NiiwCrinYC8AzrEEP/5wgW/K+UJKGzfZ5hkwPadqjS3VK2c8CG8G9n4+N9nAEQqH/ZfqjrPAlyp/l3uDGBkAXJggFIBN/p3dfeAgUFg4uVNTZ75K5w28V28Pyv1QWebCQPQkHJpffhXaA+GeWeCp75gqsqkQAT/CnKGBxmLyBHtfBLwiIPCy2lqwcX/q5x47gno7C05yRw==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(23010399003)(376014)(82310400026)(36860700016)(10067099003)(22082099003)(56012099006)(11063799006)(16102099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	qAdEcwds88N9C68YqAwdVghFwPdxGeDxdR8hhOGwDmNkuXzgsEkfKaZW49qJcDk8pEuwbk7eTVaDQwZqbOLhWy9E9DAAlmfmvc4NisHgk/1+/VkYA1GgHLieXVagX881AkNmG9tySmvIynL24yWNJy4nh5d74lUy/13sduITTVz2JrLIasWErn0yRgKMxpjK207uRwuKzWqDTL9wugfYheN3T7Zy2liC29rV3sskEK3R+sg4etHtyTwl+qDNB755KhrtDBBqNR3HGOeNmW2hjltrR+tyGYg+UoQPrpseyw3lLykFELDrHiIh9xN2sCW0T3JDTdg+LNZMLQqUjRv3RaMtnS/KHLzdjQkF1wKLAR2dBk5OAbQdWQckIvzQFJWctnp2bNLdT+pyTZFlPwD4gHspdxqWXvPEGpBS9D7p4uTLphH7BJwZ+PEBTHwyqeUk
-X-Exchange-RoutingPolicyChecked:
-	f8c2Eh/kep7wANP4Op+nUrtv2TQrOBxO95MAJrzISAO+ZPuUGcyK8F7cW5QZSTs0pvl2KssEpk5Fz7vEMSagA68UzkMLUZBLc/Sdh5xZW+S2ePATZL2eNuXXUeCNixe0NTB5VSALqxQoC860bWpsiaUid+QCdf0pyd9Ky9AEVMU0S3icv4Gnigemn8cMaVW2lTSXlMV/rB6cHR/Q7sMFTkc+5ssOmsAmbeLg20g/vXcdr4aSUMXUh0lgjm06pXip2/VgzVXxusxgbslfIpRpoxzE/AsSuedaeAznOsaSAWdQXjzqRH5xNRzfc68K8/50i73j0YlaD/Nozu5BKSISaA==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 09:08:44.5320
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15b3942b-888e-49ff-e73b-08df1ae499f0
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN3PEPF00022BC4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF636AABA4F
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzNiBTYWx0ZWRfX0qKXlPNhnPRP
- mQz2X7PsmhuL6Sfvx4MP8EWI45GsF8nrtuM32SwV0S6hdnCgT7ITnIMbRstkgG9u3zc+gsO49F+
- UzW1p6jleUdgal9875ok2NvibHLk3DUwgTx37VIFvKL/qpKEzxSRebO4hj79gPXK0W+w4JsNOtA
- kyXN38X4FzU6uIp3pDa1fNnmRzOdfqW1FtZtYazw8opUNBQrUUakYo6BgdDwPBUktEDfI3bx4ux
- tW9LUnATYvc0WgsNRINNfVRJm96NA/aqe5r8wFy5BX6Yga6eV2r5eBStS1NedA1uen46Rc+CX7Q
- 1h96e4krOK9Rs5dKz00uej8QICXX2ueQm8py2Dhr1ubyRYOfHOfFMn8jdYPPw+tcpwqskyPS/Ab
- DHrZaTSnCvk332UTvqER/PRDngrTN2e1YNspdTwdij6uvfbkZGgqRpnL3hwA7X7JttDqyf+XP/j
- 1anFsjfiGdYC0dtZ7Bw==
-X-Proofpoint-GUID: eb1CHC1OKcjUwn-_BVM0HWspmsxbk9HN
-X-Authority-Analysis: v=2.4 cv=Zu94uN7G c=1 sm=1 tr=0 ts=6ab63a22 cx=c_pps
- a=5+C5dWQ2lNXIGJ5Pv9T82A==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=pGLkceISAAAA:8 a=a0J8J_ENjLl8oPq8yEYA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzNiBTYWx0ZWRfX1My8f/zIZiG3
- 75JtUpQ9TFILv1h1Fu+hN/OsAqV7b2bt7xHzEyYkHm5qGX3VW8T3CqyU6nibE4jBmEq6+tCkz4K
- kjXbEwnnNtA0uOyg9F6SNw/76UTdr/0=
-X-Proofpoint-ORIG-GUID: eb1CHC1OKcjUwn-_BVM0HWspmsxbk9HN
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 03:05:41PM -0700, mhun512@gmail.com wrote:
-> diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-> index 8a9598161b35..7b09de65a009 100644
-> --- a/sound/soc/codecs/wm8962.c
-> +++ b/sound/soc/codecs/wm8962.c
-> @@ -3230,21 +3230,22 @@ int wm8962_mic_detect(struct snd_soc_component
-> *component, struct snd_soc_jack *
->  {
->  	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
->  	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
-> -	int irq_mask, enable;
-> -
-> -	wm8962->jack = jack;
-> -	if (jack) {
-> -		irq_mask = 0;
-> -		enable = WM8962_MICDET_ENA;
-> -	} else {
-> -		irq_mask = WM8962_MICD_EINT | WM8962_MICSCD_EINT;
-> -		enable = 0;
-> -	}
-> +	int mic_irq_mask = WM8962_MICD_EINT | WM8962_MICSCD_EINT;
+On Thu, 24 Sep 2026 10:57:08 +0800 (CST)
+<gao.rui@zte.com.cn> wrote:
+
+> The RISC-V Zbb optimized strnlen() implementation can return incorrect
+> results when very large count values are supplied.
 > 
-> +	/* Mask microphone events, then drain the IRQ and work before
-> changing the jack. */
-
-Your email client appears to be corrupting the patch here, this
-won't apply.
-
->  	snd_soc_component_update_bits(component, WM8962_INTERRUPT_STATUS_2_MASK,
-> -			    WM8962_MICD_EINT | WM8962_MICSCD_EINT, irq_mask);
-> +				    mic_irq_mask, mic_irq_mask);
->  	snd_soc_component_update_bits(component, WM8962_ADDITIONAL_CONTROL_4,
-> -			    WM8962_MICDET_ENA, enable);
-> +				    WM8962_MICDET_ENA, jack ? WM8962_MICDET_ENA : 0);
-
-I would be tempted to just always disable here.
-
-> +	if (wm8962->irq)
-> +		synchronize_irq(wm8962->irq);
-> +	cancel_delayed_work_sync(&wm8962->mic_work);
+> The previous implementation calculates an end address based on the
+> input pointer and count. When count is close to SIZE_MAX, the address
+> calculation may overflow, resulting in incorrect termination checks and
+> wrong return values.
+> 
+> This issue was observed while running device-mapper tests:
+> 
+> dmsetup create testname9 --table "0 8 zero"
+> cat /sys/block/dm-*/dm/name
+> dmsetup remove testname9
+> 
+> Rework the Zbb implementation to use a decrementing word counter. 
+> This removes the dependency on end-address calculations,
+> avoids overflow entirely, and simplifies the word scanning loop.
+> 
+> Performance was evaluated with string_bench_strnlen:
+> 
+> New Implementation Previous Implementation
+> 
+> len=0 : 70 ns/call 70 ns/call
+> len=1 : 81 ns/call 81 ns/call
+> len=7 : 81 ns/call 81 ns/call
+> len=8 : 81 ns/call 81 ns/call
+> len=16 : 97 ns/call 90 ns/call
+> len=31 : 119 ns/call 113 ns/call
+> len=64 : 174 ns/call 162 ns/call
+> len=127 : 264 ns/call 258 ns/call
+> len=512 : 801 ns/call 824 ns/call
+> len=1024 : 1578 ns/call 1550 ns/call
+> len=3173 : 4541 ns/call 4703 ns/call
+> len=4096 : 5984 ns/call 5982 ns/call
+> 
+> Results show comparable performance to the previous implementation
+> while fixing the overflow issue.
+> 
+> Fixes: 5ba15d419fab ("riscv: lib: add strnlen() implementation")
+> Signed-off-by: Gao Rui <gao.rui@zte.com.cn>
+> 
+> ---
+> v2:
+> - Rework the Zbb implementation to eliminate end-address overflow
+> instead of falling back to the generic path.
+> - Use a decrementing word counter for word scanning.
+> - Replace numeric labels with descriptive local labels.
+> - Add comments describing the loop structure.
+> - Run KUnit string tests successfully.
+> - Add string_bench_strnlen benchmark results.
+> ---
+>  arch/riscv/lib/strnlen.S | 111 +++++++++++++++++----------------------
+>  1 file changed, 48 insertions(+), 63 deletions(-)
+> 
+> diff --git a/arch/riscv/lib/strnlen.S b/arch/riscv/lib/strnlen.S
+> index a8911605c248..0d074e45363c 100644
+> --- a/arch/riscv/lib/strnlen.S
+> +++ b/arch/riscv/lib/strnlen.S
+> @@ -67,102 +67,87 @@ strnlen_zbb:
+>  	 *   a1 - Max length of string
+>  	 *
+>  	 * Clobbers
+> -	 *   t0, t1, t2, t3, t4
+> +	 *   t0, t1, t2, t3, t4, t5, t6
+>  	 */
+> 
+>  	/* If maxlen is 0, return 0. */
+> -	beqz	a1, 3f
+> +	beqz	a1, .Lmaxlen
+> 
+> -	/* Number of irrelevant bytes in the first word. */
+> -	andi	t2, a0, SZREG-1
+> +	/* Save original pointer: final length = (current - orig) + offset. */
+> +	mv	t2, a0
 > +
-> +	wm8962->jack = jack;
-> +	if (jack)
-> +		snd_soc_component_update_bits(component,
-> +					      WM8962_INTERRUPT_STATUS_2_MASK,
-> +					      mic_irq_mask, 0);
+> +	/* Bytes preceding the string in the first word. */
+> +	andi	t6, a0, SZREG-1
 
-And then enable here, if needed. The current patch changes from
-enabling after the IRQ is unmasked to enabling whilst it is
-masked. Since neither of us have hardware its probably better not
-to change that sequencing.
+This patch is made larger by pointless changes to the temporary
+registers and numeric labels.
 
 > 
->  	/* Send an initial empty report */
->  	snd_soc_jack_report(wm8962->jack, 0,
-> @@ -3592,9 +3593,7 @@ static int wm8962_probe(struct snd_soc_component
-> *component)
+>  	/* Align pointer. */
+>  	andi	t0, a0, -SZREG
 > 
->  static void wm8962_remove(struct snd_soc_component *component)
->  {
-> -	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
+> -	li	t3, SZREG
+> -	sub	t3, t3, t2
+> -	slli	t2, t2, 3
 > -
-> -	cancel_delayed_work_sync(&wm8962->mic_work);
-> +	wm8962_mic_detect(component, NULL);
+> -	/*
+> -	 * Aligned boundary.  Use the address of the last valid byte
+> -	 * (s + count - 1) to avoid loading a word past the count
+> -	 * boundary in the loop below.  count == 0 is handled above.
+> -	 */
+> -	add	t4, a0, a1
+> -	addi	t4, t4, -1
+> -	andi	t4, t4, -SZREG
+> +	li	t5, SZREG
+> +	sub	t5, t5, t6
+> +	slli	t6, t6, 3
 > 
->  	wm8962_free_gpio(component);
->  	wm8962_free_beep(component);
-> diff --git a/sound/soc/tegra/tegra_wm8962.c b/sound/soc/tegra/tegra_wm8962.c
-> index 31f9d9181595..a79d464b6a80 100644
-> --- a/sound/soc/tegra/tegra_wm8962.c
-> +++ b/sound/soc/tegra/tegra_wm8962.c
-> @@ -97,18 +97,6 @@ static int tegra_wm8962_init(struct snd_soc_pcm_runtime *rtd)
->  	return 0;
->  }
+> -	/* Get the first word.  */
+> +	/* Load and mask the first word. */
+>  	REG_L	t1, 0(t0)
+> -
+> -	/*
+> -	 * Shift away the partial data we loaded to remove the irrelevant bytes
+> -	 * preceding the string with the effect of adding NUL bytes at the
+> -	 * end of the string's first word.
+> -	 */
+
+Why have you deleted that comment?
+
+> -	SHIFT	t1, t1, t2
+> -
+> -	/* Convert non-NUL into 0xff and NUL into 0x00. */
+> +	SHIFT	t1, t1, t6
+>  	orc.b	t1, t1
+> -
+> -	/* Convert non-NUL into 0x00 and NUL into 0xff. */
+>  	not	t1, t1
+> -
+> -	/*
+> -	 * Search for the first set bit (corresponding to a NUL byte in the
+> -	 * original chunk).
+> -	 */
+>  	CZ	t1, t1
 > 
-> -static int tegra_wm8962_remove(struct snd_soc_card *card)
-> -{
-> -	struct snd_soc_dai_link *link = &card->dai_link[0];
-> -	struct snd_soc_pcm_runtime *rtd = snd_soc_get_pcm_runtime(card, link);
-> -	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
-> -	struct snd_soc_component *component = codec_dai->component;
+> -	/*
+> -	 * The first chunk is special: compare against the number
+> -	 * of valid bytes in this chunk.
+> -	 */
+> +	/* NUL offset inside the first (shifted) word. */
+>  	srli	a0, t1, 3
 > -
-> -	wm8962_mic_detect(component, NULL);
+> -	/* Limit the result by maxlen. */
+>  	minu	a0, a0, a1
+> 
+> -	bgtu	t3, a0, 2f
+> +	/* If the NUL lies inside the valid bytes of this first chunk, done. */
+> +	bgtu	t5, a0, .Ldone
+> +
+> +	/*
+> +	 * Remaining bytes = a1 - t5 (never underflows here).
+> +	 * Word count = ceil(remaining / SZREG) without addi-wrap hazard.
+> +	 */
+> +	sub	t4, a1, t5
+> +	beqz	t4, .Lmaxlen
+> 
+> -	/* All remaining bytes are in the first word, no loop needed. */
+> -	bgeu	t0, t4, 2f
+> +#if defined(CONFIG_64BIT)
+> +	srli	t1, t4, 3
+> +	andi	t4, t4, 7
+> +#else
+> +	srli	t1, t4, 2
+> +	andi	t4, t4, 3
+> +#endif
+> +	beqz	t4, 1f
+> +	addi	t1, t1, 1
+
+I'm sure you've got a cmpeq instruction that will generate a 0/1 and
+remove the branch.
+
+> +1:
+> +	mv	t4, t1
+
+Or just calculate as: count = (remaining - 1)/SZREG + 1;
+
+OTOH I think you can use:
+	unsigned remaining = len;
+	do {
+		...
+	} while ((remaining -= SZ) < len);
+For 'normal' lengths the loop will terminate when remaining wraps.
+If len is ~0 the condition is always true. 
+
+> 
+> -	/* Prepare for the word comparison loop. */
+> -	addi	t2, t0, SZREG
+>  	li	t3, -1
+> 
+>  	/*
+> -	 * Our critical loop is 4 instructions and processes data in
+> -	 * 4 byte or 8 byte chunks.
+> +	 * Critical loop: exactly one backward branch.
+> +	 * addi t4 is hoisted before orc.b to hide in the load-use latency.
+
+That all depends on the implementation of the cpu.
+A multi-issue cpu is likely to perform the two adds in the same clock
+(and also in the same clock as the memory read instruction).
+A cpu that supports speculative execution will hide the load delay.
+So the comment isn't really accurate at all.
+
+Having said that, there are loops that x86 cpu execute faster if
+arranged to only have one register incremented/decremented in the loop.
+So there might be benefits in the alternative patch.
+
+David
+
+>  	 */
+>  	.p2align 3
+> -1:
+> +2:
+>  	REG_L	t1, SZREG(t0)
+>  	addi	t0, t0, SZREG
+> +	addi	t4, t4, -1
+>  	orc.b	t1, t1
+> -	bgeu	t0, t4, 4f
+> -	beq	t1, t3, 1b
+> -4:
+> +	bne	t1, t3, .Lfound
+> +	bnez	t4, 2b
+> +
+> +.Lmaxlen:
+> +	mv	a0, a1
+> +.Ldone:
+> +	ret
+> +
+> +.Lfound:
+>  	not	t1, t1
+>  	CZ	t1, t1
+>  	srli	t1, t1, 3
+> 
+> -	/* Get number of processed bytes. */
+> -	sub	t2, t0, t2
 > -
-> -	return 0;
-> -}
+> -	/* Add number of characters in the first word.  */
+> -	add	a0, a0, t2
+> -
+> -	/* Add number of characters in the last word.  */
+> +	/* Length = bytes already passed + offset in final word. */
+> +	sub	a0, t0, t2
+>  	add	a0, a0, t1
+> -
+> -	/* Ensure the final result does not exceed maxlen. */
+>  	minu	a0, a0, a1
+> -2:
+> -	ret
+> -3:
+> -	mv	a0, a1
+>  	ret
+> 
+>  .option pop
 
-I don't think you should remove this. It is possible to remove
-the machine driver but not the codec driver, and in that case you
-still want the mic_detect disabled.
-
-Thanks,
-Charles
