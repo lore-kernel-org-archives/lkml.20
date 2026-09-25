@@ -1,261 +1,449 @@
-Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020072.outbound.protection.outlook.com [52.101.191.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f32.google.com (mail-dl2-f32.google.com [74.125.229.160])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38FC39CCF6;
-	Fri, 25 Sep 2026 19:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.191.72
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365972; cv=fail; b=An1q8mntMEL2fmCeQ3sBmYtiuBSfBcHt2GPKgJ2xhwsOeYhBjrq+6286QHVnWKTjBX8h6afYsPhyrmUfURMxnM+s5hLaHmGobxtEN7pB6Xv+DGmrgwpNF3YiV+pr0YWCL6E5iDsDjM5jb6Gw49NfhtQkaGjFk+dv+4KWYAglGQU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365972; c=relaxed/simple;
-	bh=+/JRn4fVgoT37j1b4BlMHKR3KBVoqQ3qjWOaXPUY8+s=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Ay+VfgtpFyOjPYBIt01Zu60czO6ly7JUJEyswFfsbHnNbY6XctHSYvzhfVVTzhKgStUjweuXrjYQp3WBSX62yOe+zHQ2Gnc8Klhwpz3CBUo5DBZfgNjDKjNgthTP+IVBmcOmHHc+xYMrT1G9eUn2wLGDtt1fsTPYbH11VQtv440=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=dG64psaJ; arc=fail smtp.client-ip=52.101.191.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8E33955EA
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.160
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790366037; cv=none; b=J1BxVFtXQPtF3klfh+voG8ThU1FsdjR3SxR/rfrjPOThXiI7k/FxnJtEJ0pZgppfeo/Be5/kt2/GZG2Ec0lhQ1iuiAgYKDN6RrPFNFGuLqAdtO4SEd3ihvHAGH6INw+WnWjd50syY3ZPwBvBvsNRt/m7ufB8EKr6iRKMNNzxbgg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790366037; c=relaxed/simple;
+	bh=AQOacmGVZlv0a3CnWNzchghN2+mMizlL0IbVxE305+A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z2c9gzb6pLxWBXRYhd5DpqrX9rzFK3G8FnvieKs8X62Dhe3dnRHlaUzlKeuyx6CkjQNuD5Sy6KZ0YVFgwSkJyYRkUdzmrHqw2+7kKZn3b0JIv+/2MEEtSKHV4pn7ECFN3VqT/XY+kgzWmo/BXUc1sxkYMsARLK5rvbEKA9xzWbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=PVWKIZQ1; arc=none smtp.client-ip=74.125.229.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="dG64psaJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IFQBC2dIfwi5o8+5RLPh6MPQ6GuVWedXWgNBEfQNutPf4Z9RGnVEynQlsWbSYWfDTwK2Yz44GklaS6ypuunwSpKvCpP1w/ws04Kb+rvLeDJ8awm2U9DjEpRzZmyI6PmTjCQiKYr6FG2a0Kpn9olB9/Kv/fu/kz8zzL07Vz/syNt3ZiIblVCLy7NnGL3FGYTWwe5YVgTKR8eEl9V9lPvhL9+Q+gzNCQWPYVbb809xyTYuAJp0TsslAQxrbKjzAItnORaN3kzG3zLS119xYHGXQOR6Tg9V39CwMqaIWygzZz+kcDQnkYehPFuL5YZtwWcVWw9ikRG8RBo7X0scpWF0NA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Dn55tYjYon8Wzuo5tAwZpR7qarmGgh+YwLU+M8hXRtU=;
- b=Cr+MKBcYFdqkIe/+hKNomOVy31wqUISs8jV77NlX1ASI0fYJOlTdtbghebkl1gaPdhC9qLK38SM65BDWOSzQtf/CDR6vgrq7Z68TGdULypWm26bdXQY90Sycly09wutxWf4paCtTf8/bv4fW/jm672gs3tTb7NltRrri1AC110vpI5BlTIFYKxWr8sGrYsMfhPqXs+OBlZVmJn98QIvudbleJ6bYh0JXqqx04yXvMNuWcZriLw17dqKwNWE9CSzclzbCZhqR6O8v0ezjcDvruQeJkOg/cQV4tAbwlS0+x44xKtC6rDrwwWUSAcXZ8Xln/Bshn9AB8l9QaWqHISBtdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dn55tYjYon8Wzuo5tAwZpR7qarmGgh+YwLU+M8hXRtU=;
- b=dG64psaJ0eZjgYDl4loZ5M3syWCUYnTX1dDqwj0gwC+jdBni59WIoYMyRYpG5ExMiYcNyWCePd0GL60Ige7yysIpKNYwoZME0d7//CNVunkgq+BseUrzawI+ZS55AWpVViOSjpHu1MCDgSgjZn0SsVREHAThVXmVEdL3094wT0Ggx4hv/ox0cue/HdL+w4l/cAi2E7in/z60Gjtvr0V8zRoVUTSUHPpZFUzm6EhK2+wd9AFCChYvm2nCKpxD2JF6c+akQdsE9HG6Xt4blZzi2uRzjCZez40RD34k6zDkfc+If/FVuSHKn1bC03mny6jhE5RbVrZsVNnTeG1wvdjm8A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YT5PR01MB436122.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1b::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 19:52:47 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 19:52:47 +0000
-Message-ID: <0836f8af-30cf-43d6-8e1d-7886a5de9bc9@efficios.com>
-Date: Fri, 25 Sep 2026 15:52:45 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hazptr: Fix two-phase hazptr_synchronize race with detach
-To: "Paul E . McKenney" <paulmck@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Boqun Feng <boqun@kernel.org>,
- Bradley Morgan <brads@mainlining.org>, Gary Guo <gary@garyguo.net>,
- rcu@vger.kernel.org, lkmm@lists.linux.dev
-References: <20260925194952.4704-1-mathieu.desnoyers@efficios.com>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <20260925194952.4704-1-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0080.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:84::20) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="PVWKIZQ1"
+Received: by mail-dl2-f32.google.com with SMTP id a92af1059eb24-1437b77c274so651639c88.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:53:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790366033; x=1790970833; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kK2zFCKpEmcSkmOrv9Iwn4hJtAiNMgCm+Ug0Ll+qJCo=;
+        b=PVWKIZQ1c0QDMAxC/wrIc/EQMNCsdjrkV6b+AvnVvWpKMOk5UO/DKvVrHjsT2/TlQC
+         e4N8DsVnEFYoZOj6mU43C56oq4dVISRBMsJ6DShtIdrUh4U6PyFYwKTtjm9he0X8o11n
+         916qJRuOVF/5Bp1618bcV87rX32/Avg9jgMoTItVwa6JFHBAd5pbkt7aCEIpOTSNsOTQ
+         VW+EB8M4fTjK+XZWMjZfUd1sgrDDnGGI+/XhRMNiLN4GchZ28bm9aZ0IDqJJ5G/W6o1K
+         hgBQEIFg1HZPiM/5eiPCkAOFMy/hcM2SNqb8SdaqCn+UA6GuQvKCTgcpw0cL4q5DeqbA
+         uA9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790366033; x=1790970833;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kK2zFCKpEmcSkmOrv9Iwn4hJtAiNMgCm+Ug0Ll+qJCo=;
+        b=wUHgyxxGf8zS4szmmn0dpyL2yN3beSao76E4/iSMw74R3WwqQdSaWf2UUfA0A+z9wq
+         62Zwl7vYrRgkl+nf/tan5yR+XXhNPqJczvAl/GWtFYJUjxUHjSfbEafT6hYaqdgmh+ij
+         lf7ysafTDTzmbfYjiouS6lDnmD6r9vPRZyxBrMnVB5F2dkaAY7EIA28Mu08jDuhCXGe1
+         5ya8u8arzCx2LehOy436X50p3wrnV8dx/1ajeGvY3FZSQ43ruK/GCDqsDW93RaU0GBo1
+         q2fiujS9YIfeWouoLw3IvEGwmSLZ1jJxwC3wpVdq7B4SL3k8x106BN0sGHUy40jzqcf9
+         JXaw==
+X-Forwarded-Encrypted: i=1; AKwUvBwxeUtC0pZdEJImrVadrvR492AwIrHy3il+5Ctle56qNjHdLzdgGfxF5KYuiqNtF/KIb8LfNFTS1GKVAbs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l04uZo7yDHZ7i3fccxtOU6ZoVFyuXPzbMjjw0aGgZj3DysOdhQ
+	ldBxmIJsxez2hSS5erqCkq2XKFHDyjfiYgFWP/NH+KTornF3Km4E8/u7lN9RBWh2sSc=
+X-Gm-Gg: AYBFou2Ph1H/i0ZcJmR2EbRaltuhGdXdXTlBMAqzTnvFjaalxoIdfnnVXgz9YAjAQbb
+	w9IlECYa2tVflrUxE/JGMBvg7yr0IaGComCypFEVm4kt0zP03r28jmJ9Xq4fUUOUx9lctPo/mdv
+	Iruv9aYsFms5auQgpiODEK++FOL/saCyw4OGrNiwtaeHBEDWibhCvNAMVcY+TF95fcbNlvb5CIl
+	66zV5mlH2oDrlI96g1+APmfo99vWfNZgQ3QFinruxOthMEvDRpeVnM53oGq3uZZbk4VsEeJHRoT
+	Yf1eXcVE9BU1KMN0N4KIAoQoWb21OucRuQkBCCtK43/DcO09NnQ93Acrx3FhK4LdG+byf7SAqiV
+	nA1zOk5EEEZ+vRzucGGv0XEUINqNecOQDh7Gv2WLTvtC5Pj+zp4+b46bbi2gzFqbi5tqaW21aJN
+	wgWe0iR0hMkAg51rgeOYMwz60uwilGrN/nI6k0D7qk1w6hQ5TLw+BxsxTHxcrO/ZUbKVqgguaeu
+	BNHhUd7L0RHVA1CsyeU1XlPGca+ClMxORmgK6qxoK40fBAzOBlLFC9jKkL1mUumG2it+w2QTMDN
+	VtwJ
+X-Received: by 2002:a05:7300:1c1e:b0:33e:5e42:942a with SMTP id 5a478bee46e88-3427324b07cmr1008761eec.22.1790366033294;
+        Fri, 25 Sep 2026 12:53:53 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:c85b:dba:2dee:3972])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3413fc2413dsm7683403eec.0.2026.09.25.12.53.52
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 25 Sep 2026 12:53:52 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Boris Burkov <boris@bur.io>,
+	Filipe Manana <fdmanana@suse.com>,
+	Chris Mason <clm@fb.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	David Sterba <dsterba@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.1.y] btrfs: insert tree mod log move in push_node_left
+Date: Fri, 25 Sep 2026 15:53:48 -0400
+Message-ID: <20260925195350.31328-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT5PR01MB436122:EE_
-X-MS-Office365-Filtering-Correlation-Id: e04225f3-ca63-4b94-ad75-08df1b3e928c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|22082099003|18002099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	6meW0ZJQ60OBpyZzWbEpl5cLtxQj6AeAR7xIOG5xza6Fz5YfaE3hQg7eD8Vzh32wHksOBqhO7z9AuKQUjBapUidEfUScO4Afs+yhhSOMPPkeAcNaQluL29K6l7QWX8AZpQoNo4rqKZQa3LsrNXloXMJThzCL/v/CkW07a60bcfOYyPIl1ioAKQP/nJ2XoB8Aqzc7rKUYYDoxl5q4uOPu03WLlOB82NT5+VaIaI0s6aRuPr5R0mhueMKcrplCg31Js3eukcXwMM6bujrQT6h+RreJUtjRB7faXQWz3IcY3QabOlIU4OqNWPEThqWrIABH5/KP/KP+DW56bJirVIT3dvY4snBZdX10+z2NgV6sqBG5+Vz0Rk62mBwdHtrELANYrms+13e9VZJTUJx138nufY7MCndmeC3LNI4RoI+Nxx4YoOqz7mGgeEIIgT4hspk4eZ8Z2Xr32NVYQAOnPJiGp9wMljPUTOSxa9dwgP7Gvpns39w5QK9mMeT6lANstTyTnjoxddyqSZEd/fHN5whEyoZrP+6b634FJ3JDLhO2GcBr19lRS2S8Cxaq8M2f05btmY2L5NuA14raQRZEuu/CfepZcfhBsou1Pe3Wl4hDdFo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c0NLZXlZcUdmVGEzUnhGWi9JYkdCY3lwc29RZmN5MXFPL2t4TE9uMkZHSUZM?=
- =?utf-8?B?TnQza1JqR3dXRXluUFFUcG0zM1ZWbk9zemhhcUxBZGlaaUJyeFQrRGtBY0pC?=
- =?utf-8?B?S2tPKy96VVptUksyTW55cHJWUXpwNXRWRHFmMjFVaVNNNjJGT3hxdXQ4ZW1m?=
- =?utf-8?B?K3UwOXZDRndRUDlZYUNWV1diM0hmYnhjZnZPbzBNY3dkQWdEQmhEbWg3czRj?=
- =?utf-8?B?N2pPY29MeE95Sjhmc2szZTlZNkRqQSs5dHpPVkE5azI2SU95MzFDaDZTMU5W?=
- =?utf-8?B?SGV0a1U0cmdkSFFXbDdwa1ZTYlM1MXJTaEtPNnJjUlVzeXZiRmNoN21KOGVQ?=
- =?utf-8?B?WGVERGl2QUxqWkZ4WU1rdG9YTEYvYUJ6YUVLYlFMaSsvYkxhNkVFR1ZHREQ1?=
- =?utf-8?B?aFJnTFhwTmtqV3M1RmF1aGdaZVZrQ2pGQlVZaWFCbEdQaHlRanZSeHZuNERj?=
- =?utf-8?B?QW5qT3NNR2RDcm01NDB4WVI5MlRuN0RtT3FkU2c1RkpSN3R3azQrTTZnWmR1?=
- =?utf-8?B?VGFaTHgvU0Z2MUpQQzNyOUs2bTd6Y0h0eUJybTdaQWw1OVJUTGNuelljUjF2?=
- =?utf-8?B?RUVOUUE4aGNXUW5MUE8vc1VZMEJucml4UzYzSkZlemJOYU1YMWI3UHJHVDNB?=
- =?utf-8?B?d2NSVjZKemtQc2F2Zkg3RmNpd1VxQWRHWjNacDJuL3VrY0lsWTJTTmNyOVF0?=
- =?utf-8?B?TmcyOW1GMTN0TmE2TG8yUUZVTkpvVVhYQUszTHpLQmVYVHg3cmlCTVZHLzBT?=
- =?utf-8?B?bmFhcENmNU9PMXhyMVlOaHBRYkNRYkZzNm9OMG1nU2ExcGxhVUkzNC9aUmJN?=
- =?utf-8?B?eUxkaG1hTXpOei9XaWFZQkRUWUdBelN6ZkphSjQxeGNDZzFaRTRnU0JIMG5G?=
- =?utf-8?B?cXNuQ05NZzc5S0VDSXJ1ZEZmcENsQmlQZHNNdm5qSlRwT0ZySURncWppZkx4?=
- =?utf-8?B?VTNKamRyMGFxbDdWZU9ycitPWURWTklsc2o5ODNTTy9lZXpGd1hKUDZCY2Vp?=
- =?utf-8?B?V1JsR1pucW1ibUdOTExSaFVTT2c3QjkveXVXSDJsYi9tWExMTXV3SVNiMGg3?=
- =?utf-8?B?WTUwOHQ3dUMwQitWQldFWVAyOFhkWVFxdExPbTZDYUYrOTBnVU9HWHRaMDdo?=
- =?utf-8?B?aDVTS3FBZFQyRDBsQnVuOHdkYWE0elhHK2tmVWNBV0ZPTEpZZ0tVL2JKa1RO?=
- =?utf-8?B?eHNCdVRmMVVmVWhlNW5wQ2tpMFpoRU1uTld2Wlc4eFlSRmpTWjZKbjQ4OGQ0?=
- =?utf-8?B?MUhBYkJ4L1lmbFpwMkQzREZtMmo1c01PejFGVzYwS21NQ1EvSE5jaDQ0VU56?=
- =?utf-8?B?bjJubEJrbzhDZmtEVVhrRXR5enYzZC8zenlMeWNucGU3cStjVlFkd1A1dXow?=
- =?utf-8?B?YUZiZ3RML21YNnBmRkdUNlR1K01yZ0k3Z3Rqam8rVkdJNWVoUU5rUXlMdk9m?=
- =?utf-8?B?KzNialgwOHovZG5UQm5OQ1RERUhlUEJsakIzQzlWNlc4R2ZCMURndlFVeG4r?=
- =?utf-8?B?TDBrSDNEZ1BWc0x5OC80M0ZVeUNWUEpxUjJyMm9tbXdOeUEyZzVRVlYrTkVm?=
- =?utf-8?B?VmtsS0JmMDljOXdTaXRBYjQrU1o3TFdSNHQyeWs5UDZWenpqczROM2xyUE1K?=
- =?utf-8?B?Rm5Kb3ZVWHk4OXBGVkFuTWJRN2VSeStpWG9nR3RVaEpWZmpWdHFNMGxQb0ZS?=
- =?utf-8?B?dTVycmlNc3FJaEtZaXovbm5oNEdjbDdMRG0rM1RwSFoydi9xUTE5Sk1uZ2pY?=
- =?utf-8?B?aEZWczlOVElVNm1ZNjlwZk4vL2tUREFGNlNXL3cxdzZPYmNnQkFBY1pRMnRn?=
- =?utf-8?B?V2Q3YXpxVG1JQloyOHhXZWN6eEhsbzc0S3BVMThOTFNBbUdLU1M0Z21TdEdz?=
- =?utf-8?B?NUxSR2grR0Q4OSthNkNlMjNKT2xhbWZUckFrOGIwNTUyMGxOL01pZ2Fjb1Fj?=
- =?utf-8?B?NVFncnhLNk8vdHVkK1pyMG9JbkxsWkR3SVRocDF0UlFxbVMvdlhKdUF5bEZt?=
- =?utf-8?B?LzBDanowUVNhZW14RFVQSnVmeDVya01CTU92UFZpV0lPTnNJeFFDYlZZZWJE?=
- =?utf-8?B?bTVFakNQdUp3L2JDV0ptTjlONS9EbjI2cGdKaTdJUWNwZ3cyYUl6K3MxNk01?=
- =?utf-8?B?L2ZSL2laWmc0aDJKa2lBODNmWXZOZjcxSGNidTl3UDNxUVZxMVhUcnJwMDhR?=
- =?utf-8?B?L2UxT2h5WU9lQndrdlZjM2V4WFp1V1REcDBhNmx5YkxPODR4VHRaZHdpL3pi?=
- =?utf-8?B?ZEN4OVl1RGx1NmJRWHpiZjhKTjMvUldPV1JFdnNKanB2emFmazlhU3pzU1lq?=
- =?utf-8?B?NFNiRXlndHdVUnByQnVyNHJKM0tCMjJJdlBrek0rR2I4cXhtaG9GWW55M3RR?=
- =?utf-8?Q?9qQeIeZlCKLwKoN8=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e04225f3-ca63-4b94-ad75-08df1b3e928c
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 19:52:47.1606
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rtf5TKgGxMy/1/ZZl0+2oFLZzQeF1TqrZY97EzhcFI1g3ASkdoSBFxkAHNs0TqauUswdfCTVhYHLEmrDEi+J2vZyMK/ut5yNnBICr6Gkbkc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT5PR01MB436122
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-25 15:49, Mathieu Desnoyers wrote:
-> Boqun Feng pointed out that a detach happening concurrently with
-> hazptr_synchronize can miss a slot. Indeed, scanning the per-CPU
-> slots needs to be done *before* scanning the overflow lists. Fix the
-> implementation accordingly.
-> 
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+From: Boris Burkov <boris@bur.io>
 
-Self-NACK. I did not migrate the detach code to move it to the new
-hazptr_overflow_list_phase. Sorry about the noise. I'll prepare an
-updated version.
+[ Upstream commit 5cead5422a0e3d13b0bcee986c0f5c4ebb94100b ]
+
+There is a fairly unlikely race condition in tree mod log rewind that
+can result in a kernel panic which has the following trace:
+
+  [530.569] BTRFS critical (device sda3): unable to find logical 0 length 4096
+  [530.585] BTRFS critical (device sda3): unable to find logical 0 length 4096
+  [530.602] BUG: kernel NULL pointer dereference, address: 0000000000000002
+  [530.618] #PF: supervisor read access in kernel mode
+  [530.629] #PF: error_code(0x0000) - not-present page
+  [530.641] PGD 0 P4D 0
+  [530.647] Oops: 0000 [#1] SMP
+  [530.654] CPU: 30 PID: 398973 Comm: below Kdump: loaded Tainted: G S         O  K   5.12.0-0_fbk13_clang_7455_gb24de3bdb045 #1
+  [530.680] Hardware name: Quanta Mono Lake-M.2 SATA 1HY9U9Z001G/Mono Lake-M.2 SATA, BIOS F20_3A15 08/16/2017
+  [530.703] RIP: 0010:__btrfs_map_block+0xaa/0xd00
+  [530.755] RSP: 0018:ffffc9002c2f7600 EFLAGS: 00010246
+  [530.767] RAX: ffffffffffffffea RBX: ffff888292e41000 RCX: f2702d8b8be15100
+  [530.784] RDX: ffff88885fda6fb8 RSI: ffff88885fd973c8 RDI: ffff88885fd973c8
+  [530.800] RBP: ffff888292e410d0 R08: ffffffff82fd7fd0 R09: 00000000fffeffff
+  [530.816] R10: ffffffff82e57fd0 R11: ffffffff82e57d70 R12: 0000000000000000
+  [530.832] R13: 0000000000001000 R14: 0000000000001000 R15: ffffc9002c2f76f0
+  [530.848] FS:  00007f38d64af000(0000) GS:ffff88885fd80000(0000) knlGS:0000000000000000
+  [530.866] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  [530.880] CR2: 0000000000000002 CR3: 00000002b6770004 CR4: 00000000003706e0
+  [530.896] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+  [530.912] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+  [530.928] Call Trace:
+  [530.934]  ? btrfs_printk+0x13b/0x18c
+  [530.943]  ? btrfs_bio_counter_inc_blocked+0x3d/0x130
+  [530.955]  btrfs_map_bio+0x75/0x330
+  [530.963]  ? kmem_cache_alloc+0x12a/0x2d0
+  [530.973]  ? btrfs_submit_metadata_bio+0x63/0x100
+  [530.984]  btrfs_submit_metadata_bio+0xa4/0x100
+  [530.995]  submit_extent_page+0x30f/0x360
+  [531.004]  read_extent_buffer_pages+0x49e/0x6d0
+  [531.015]  ? submit_extent_page+0x360/0x360
+  [531.025]  btree_read_extent_buffer_pages+0x5f/0x150
+  [531.037]  read_tree_block+0x37/0x60
+  [531.046]  read_block_for_search+0x18b/0x410
+  [531.056]  btrfs_search_old_slot+0x198/0x2f0
+  [531.066]  resolve_indirect_ref+0xfe/0x6f0
+  [531.076]  ? ulist_alloc+0x31/0x60
+  [531.084]  ? kmem_cache_alloc_trace+0x12e/0x2b0
+  [531.095]  find_parent_nodes+0x720/0x1830
+  [531.105]  ? ulist_alloc+0x10/0x60
+  [531.113]  iterate_extent_inodes+0xea/0x370
+  [531.123]  ? btrfs_previous_extent_item+0x8f/0x110
+  [531.134]  ? btrfs_search_path_in_tree+0x240/0x240
+  [531.146]  iterate_inodes_from_logical+0x98/0xd0
+  [531.157]  ? btrfs_search_path_in_tree+0x240/0x240
+  [531.168]  btrfs_ioctl_logical_to_ino+0xd9/0x180
+  [531.179]  btrfs_ioctl+0xe2/0x2eb0
+
+This occurs when logical inode resolution takes a tree mod log sequence
+number, and then while backref walking hits a rewind on a busy node
+which has the following sequence of tree mod log operations (numbers
+filled in from a specific example, but they are somewhat arbitrary)
+
+  REMOVE_WHILE_FREEING slot 532
+  REMOVE_WHILE_FREEING slot 531
+  REMOVE_WHILE_FREEING slot 530
+  ...
+  REMOVE_WHILE_FREEING slot 0
+  REMOVE slot 455
+  REMOVE slot 454
+  REMOVE slot 453
+  ...
+  REMOVE slot 0
+  ADD slot 455
+  ADD slot 454
+  ADD slot 453
+  ...
+  ADD slot 0
+  MOVE src slot 0 -> dst slot 456 nritems 533
+  REMOVE slot 455
+  REMOVE slot 454
+  REMOVE slot 453
+  ...
+  REMOVE slot 0
+
+When this sequence gets applied via btrfs_tree_mod_log_rewind, it
+allocates a fresh rewind eb, and first inserts the correct key info for
+the 533 elements, then overwrites the first 456 of them, then decrements
+the count by 456 via the add ops, then rewinds the move by doing a
+memmove from 456:988->0:532. We have never written anything past 532, so
+that memmove writes garbage into the 0:532 range. In practice, this
+results in a lot of fully 0 keys. The rewind then puts valid keys into
+slots 0:455 with the last removes, but 456:532 are still invalid.
+
+When search_old_slot uses this eb, if it uses one of those invalid
+slots, it can then read the extent buffer and issue a bio for offset 0
+which ultimately panics looking up extent mappings.
+
+This bad tree mod log sequence gets generated when the node balancing
+code happens to do a balance_node_right followed by a push_node_left
+while logging in the tree mod log. Illustrated for ebs L and R (left and
+right):
+
+	L                 R
+  start:
+  [XXX|YYY|...]      [ZZZ|...|...]
+  balance_node_right:
+  [XXX|YYY|...]      [...|ZZZ|...] move Z to make room for Y
+  [XXX|...|...]      [YYY|ZZZ|...] copy Y from L to R
+  push_node_left:
+  [XXX|YYY|...]      [...|ZZZ|...] copy Y from R to L
+  [XXX|YYY|...]      [ZZZ|...|...] move Z into emptied space (NOT LOGGED!)
+
+This is because balance_node_right logs a move, but push_node_left
+explicitly doesn't. That is because logging the move would remove the
+overwritten src < dst range in the right eb, which was already logged
+when we called btrfs_tree_mod_log_eb_copy. The correct sequence would
+include a move from 456:988 to 0:532 after remove 0:455 and before
+removing 0:532. Reversing that sequence would entail creating keys for
+0:532, then moving those keys out to 456:988, then creating more keys
+for 0:455.
+
+i.e.,
+
+  REMOVE_WHILE_FREEING slot 532
+  REMOVE_WHILE_FREEING slot 531
+  REMOVE_WHILE_FREEING slot 530
+  ...
+  REMOVE_WHILE_FREEING slot 0
+  MOVE src slot 456 -> dst slot 0 nritems 533
+  REMOVE slot 455
+  REMOVE slot 454
+  REMOVE slot 453
+  ...
+  REMOVE slot 0
+  ADD slot 455
+  ADD slot 454
+  ADD slot 453
+  ...
+  ADD slot 0
+  MOVE src slot 0 -> dst slot 456 nritems 533
+  REMOVE slot 455
+  REMOVE slot 454
+  REMOVE slot 453
+  ...
+  REMOVE slot 0
+
+Fix this to log the move but avoid the double remove by putting all the
+logging logic in btrfs_tree_mod_log_eb_copy which has enough information
+to detect these cases and properly log moves, removes, and adds. Leave
+btrfs_tree_mod_log_insert_move to handle insert_ptr and delete_ptr's
+tree mod logging.
+
+(Un)fortunately, this is quite difficult to reproduce, and I was only
+able to reproduce it by adding sleeps in btrfs_search_old_slot that
+would encourage more log rewinding during ino_to_logical ioctls. I was
+able to hit the warning in the previous patch in the series without the
+fix quite quickly, but not after this patch.
+
+CC: stable@vger.kernel.org # 5.15+
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Boris Burkov <boris@bur.io>
+Signed-off-by: David Sterba <dsterba@suse.com>
+
+[ Backport to 6.1.y: retain the older btrfs_node_key_ptr_offset() call
+  signature and pass GFP_NOFS to alloc_tree_mod_elem(). The tree-mod-log
+  ordering change is otherwise identical to upstream. ]
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and Btrfs maintainers,
+
+This is the 6.1.y backport of the fix for CVE-2023-53538. Linux 6.1
+still has the affected tree-mod-log rewind behavior, while the same fix
+shipped in 6.4.4 as commit 11f14402fe34. The upstream commit was also
+marked for stable kernels starting with 5.15.
+
+The fix is already present in every newer supported stable tree (6.6.y,
+6.12.y, 6.18.y, and 7.2.y), satisfying the newer-trees requirement. For
+context, it is still absent from 5.15.y and 5.10.y; this submission only
+asks for 6.1.y.
+
+The only adjustments are for two older 6.1 APIs, as described above.
+The move-record allocation and insertion order are unchanged from
+upstream.
+
+This is larger than the nominal stable patch-size guideline. The fix
+remains atomic because 6.4.4 carried it as one patch, and splitting out
+the allocation helper would create a behaviorless preparatory commit.
+
+Could you please queue it for 6.1.y?
+
+This was built on v6.1.188 using x86_64 allmodconfig and
+CONFIG_WERROR=y. It produced no compiler warnings or errors in the
+touched code.
+
+CVE: CVE-2023-53538
+
+AI assistance: An LLM helped identify, adapt, and validate this backport.
 
 Thanks,
+Artem Dinaburg
 
-Mathieu
+ fs/btrfs/ctree.c        | 10 +++---
+ fs/btrfs/tree-mod-log.c | 73 ++++++++++++++++++++++++++++++++++++-----
+ 2 files changed, 70 insertions(+), 13 deletions(-)
 
+diff --git a/fs/btrfs/ctree.c b/fs/btrfs/ctree.c
+index 9620bf289f78a0..36f54f0f21d832 100644
+--- a/fs/btrfs/ctree.c
++++ b/fs/btrfs/ctree.c
+@@ -2653,8 +2653,8 @@ static int push_node_left(struct btrfs_trans_handle *trans,
+ 
+ 	if (push_items < src_nritems) {
+ 		/*
+-		 * Don't call btrfs_tree_mod_log_insert_move() here, key removal
+-		 * was already fully logged by btrfs_tree_mod_log_eb_copy() above.
++		 * btrfs_tree_mod_log_eb_copy handles logging the move, so we
++		 * don't need to do an explicit tree mod log operation for it.
+ 		 */
+ 		memmove_extent_buffer(src, btrfs_node_key_ptr_offset(0),
+ 				      btrfs_node_key_ptr_offset(push_items),
+@@ -2715,8 +2715,10 @@ static int balance_node_right(struct btrfs_trans_handle *trans,
+ 		btrfs_abort_transaction(trans, ret);
+ 		return ret;
+ 	}
+-	ret = btrfs_tree_mod_log_insert_move(dst, push_items, 0, dst_nritems);
+-	BUG_ON(ret < 0);
++	/*
++	 * btrfs_tree_mod_log_eb_copy handles logging the move, so we don't
++	 * need to do an explicit tree mod log operation for it.
++	 */
+ 	memmove_extent_buffer(dst, btrfs_node_key_ptr_offset(push_items),
+ 				      btrfs_node_key_ptr_offset(0),
+ 				      (dst_nritems) *
+diff --git a/fs/btrfs/tree-mod-log.c b/fs/btrfs/tree-mod-log.c
+index 8a3a14686d3e7e..2c190dcff51619 100644
+--- a/fs/btrfs/tree-mod-log.c
++++ b/fs/btrfs/tree-mod-log.c
+@@ -245,6 +245,26 @@ int btrfs_tree_mod_log_insert_key(struct extent_buffer *eb, int slot,
+ 	return ret;
+ }
+ 
++static struct tree_mod_elem *tree_mod_log_alloc_move(struct extent_buffer *eb,
++						     int dst_slot, int src_slot,
++						     int nr_items)
++{
++	struct tree_mod_elem *tm;
++
++	tm = kzalloc(sizeof(*tm), GFP_NOFS);
++	if (!tm)
++		return ERR_PTR(-ENOMEM);
++
++	tm->logical = eb->start;
++	tm->slot = src_slot;
++	tm->move.dst_slot = dst_slot;
++	tm->move.nr_items = nr_items;
++	tm->op = BTRFS_MOD_LOG_MOVE_KEYS;
++	RB_CLEAR_NODE(&tm->node);
++
++	return tm;
++}
++
+ int btrfs_tree_mod_log_insert_move(struct extent_buffer *eb,
+ 				   int dst_slot, int src_slot,
+ 				   int nr_items)
+@@ -262,18 +282,13 @@ int btrfs_tree_mod_log_insert_move(struct extent_buffer *eb,
+ 	if (!tm_list)
+ 		return -ENOMEM;
+ 
+-	tm = kzalloc(sizeof(*tm), GFP_NOFS);
+-	if (!tm) {
+-		ret = -ENOMEM;
++	tm = tree_mod_log_alloc_move(eb, dst_slot, src_slot, nr_items);
++	if (IS_ERR(tm)) {
++		ret = PTR_ERR(tm);
++		tm = NULL;
+ 		goto free_tms;
+ 	}
+ 
+-	tm->logical = eb->start;
+-	tm->slot = src_slot;
+-	tm->move.dst_slot = dst_slot;
+-	tm->move.nr_items = nr_items;
+-	tm->op = BTRFS_MOD_LOG_MOVE_KEYS;
+-
+ 	for (i = 0; i + dst_slot < src_slot && i < nr_items; i++) {
+ 		tm_list[i] = alloc_tree_mod_elem(eb, i + dst_slot,
+ 				BTRFS_MOD_LOG_KEY_REMOVE_WHILE_MOVING, GFP_NOFS);
+@@ -486,6 +501,10 @@ int btrfs_tree_mod_log_eb_copy(struct extent_buffer *dst,
+ 	struct tree_mod_elem **tm_list_add, **tm_list_rem;
+ 	int i;
+ 	bool locked = false;
++	struct tree_mod_elem *dst_move_tm = NULL;
++	struct tree_mod_elem *src_move_tm = NULL;
++	u32 dst_move_nr_items = btrfs_header_nritems(dst) - dst_offset;
++	u32 src_move_nr_items = btrfs_header_nritems(src) - (src_offset + nr_items);
+ 
+ 	if (!tree_mod_need_log(fs_info, NULL))
+ 		return 0;
+@@ -498,6 +517,26 @@ int btrfs_tree_mod_log_eb_copy(struct extent_buffer *dst,
+ 	if (!tm_list)
+ 		return -ENOMEM;
+ 
++	if (dst_move_nr_items) {
++		dst_move_tm = tree_mod_log_alloc_move(dst, dst_offset + nr_items,
++						      dst_offset, dst_move_nr_items);
++		if (IS_ERR(dst_move_tm)) {
++			ret = PTR_ERR(dst_move_tm);
++			dst_move_tm = NULL;
++			goto free_tms;
++		}
++	}
++	if (src_move_nr_items) {
++		src_move_tm = tree_mod_log_alloc_move(src, src_offset,
++						      src_offset + nr_items,
++						      src_move_nr_items);
++		if (IS_ERR(src_move_tm)) {
++			ret = PTR_ERR(src_move_tm);
++			src_move_tm = NULL;
++			goto free_tms;
++		}
++	}
++
+ 	tm_list_add = tm_list;
+ 	tm_list_rem = tm_list + nr_items;
+ 	for (i = 0; i < nr_items; i++) {
+@@ -520,6 +559,11 @@ int btrfs_tree_mod_log_eb_copy(struct extent_buffer *dst,
+ 		goto free_tms;
+ 	locked = true;
+ 
++	if (dst_move_tm) {
++		ret = tree_mod_log_insert(fs_info, dst_move_tm);
++		if (ret)
++			goto free_tms;
++	}
+ 	for (i = 0; i < nr_items; i++) {
+ 		ret = tree_mod_log_insert(fs_info, tm_list_rem[i]);
+ 		if (ret)
+@@ -528,6 +572,11 @@ int btrfs_tree_mod_log_eb_copy(struct extent_buffer *dst,
+ 		if (ret)
+ 			goto free_tms;
+ 	}
++	if (src_move_tm) {
++		ret = tree_mod_log_insert(fs_info, src_move_tm);
++		if (ret)
++			goto free_tms;
++	}
+ 
+ 	write_unlock(&fs_info->tree_mod_log_lock);
+ 	kfree(tm_list);
+@@ -535,6 +584,12 @@ int btrfs_tree_mod_log_eb_copy(struct extent_buffer *dst,
+ 	return 0;
+ 
+ free_tms:
++	if (dst_move_tm && !RB_EMPTY_NODE(&dst_move_tm->node))
++		rb_erase(&dst_move_tm->node, &fs_info->tree_mod_log);
++	kfree(dst_move_tm);
++	if (src_move_tm && !RB_EMPTY_NODE(&src_move_tm->node))
++		rb_erase(&src_move_tm->node, &fs_info->tree_mod_log);
++	kfree(src_move_tm);
+ 	for (i = 0; i < nr_items * 2; i++) {
+ 		if (tm_list[i] && !RB_EMPTY_NODE(&tm_list[i]->node))
+ 			rb_erase(&tm_list[i]->node, &fs_info->tree_mod_log);
 
-> Reported-by: Boqun Feng <boqun@kernel.org>
-> Cc: Paul E. McKenney <paulmck@kernel.org>
-> Cc: Boqun Feng <boqun@kernel.org>
-> Cc: Bradley Morgan <brads@mainlining.org>
-> Cc: Gary Guo <gary@garyguo.net>
-> Cc: <rcu@vger.kernel.org>
-> Cc: <lkmm@lists.linux.dev>
-> ---
->   kernel/hazptr.c | 43 ++++++++++++++++++++++++++++++++++++-------
->   1 file changed, 36 insertions(+), 7 deletions(-)
-> 
-> diff --git a/kernel/hazptr.c b/kernel/hazptr.c
-> index d3d1050d92cf..ccc19843edbd 100644
-> --- a/kernel/hazptr.c
-> +++ b/kernel/hazptr.c
-> @@ -24,6 +24,9 @@ static DEFINE_MUTEX(hazptr_wildcard_lock);	/* Protect the wildcard flip. */
->   void *hazptr_wildcard = (void *) 1UL;
->   EXPORT_SYMBOL_GPL(hazptr_wildcard);
->   
-> +/* The current overflow list phase. */
-> +static unsigned int hazptr_overflow_list_phase;
-> +
->   struct hazptr_overflow_list {
->   	raw_spinlock_t lock;		/* Lock protecting overflow list and list generation. */
->   	struct hlist_head head;		/* Overflow list head. */
-> @@ -53,6 +56,12 @@ void *flip_wildcard(void *wildcard)
->   	return ((unsigned long) wildcard == 1UL) ? (void *) 2UL : (void *) 1UL;
->   }
->   
-> +static
-> +unsigned int flip_list_phase(unsigned int phase)
-> +{
-> +	return 1 - phase;
-> +}
-> +
->   static
->   bool is_wildcard(void *addr)
->   {
-> @@ -178,15 +187,12 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
->   }
->   
->   static
-> -void hazptr_scan_period(void *addr, void *scan_wildcard)
-> +void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
->   {
-> -	unsigned int scan_idx = (unsigned long) scan_wildcard - 1;
->   	int cpu;
->   
->   	/* Scan all CPUs slots. */
->   	for_each_possible_cpu(cpu) {
-> -		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
-> -
->   		/*
->   		 * Scan CPU slots.
->   		 * Forward progress against recurring wildcards is guaranteed
-> @@ -199,6 +205,17 @@ void hazptr_scan_period(void *addr, void *scan_wildcard)
->   		 * to acquire that same hazard pointer value.
->   		 */
->   		hazptr_synchronize_cpu_slots(cpu, addr, scan_wildcard);
-> +	}
-> +}
-> +
-> +static
-> +void hazptr_scan_overflow_list_period(void *addr, unsigned int scan_idx)
-> +{
-> +	int cpu;
-> +
-> +	/* Scan all CPUs overflow lists. */
-> +	for_each_possible_cpu(cpu) {
-> +		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
->   
->   		/*
->   		 * Scan backup slots in percpu overflow lists.
-> @@ -218,6 +235,7 @@ void hazptr_scan_period(void *addr, void *scan_wildcard)
->    */
->   void hazptr_synchronize(void *addr)
->   {
-> +	unsigned int scan_list_phase;
->   	void *scan_wildcard;
->   
->   	/*
-> @@ -236,10 +254,21 @@ void hazptr_synchronize(void *addr)
->   	smp_mb();
->   
->   	guard(mutex)(&hazptr_wildcard_lock);
-> +
-> +	/* Scan per-CPU slots. */
->   	scan_wildcard = flip_wildcard(hazptr_wildcard);
-> -	hazptr_scan_period(addr, scan_wildcard);
-> -	WRITE_ONCE(hazptr_wildcard, scan_wildcard);	/* Flip the current wildcard. */
-> -	hazptr_scan_period(addr, flip_wildcard(scan_wildcard));
-> +	hazptr_scan_cpu_slots_period(addr, scan_wildcard);
-> +	WRITE_ONCE(hazptr_wildcard, scan_wildcard);			/* Flip the current wildcard. */
-> +	hazptr_scan_cpu_slots_period(addr, flip_wildcard(scan_wildcard));
-> +
-> +	/*
-> +	 * Scan overflow lists *after* scanning per-CPU slots. See
-> +	 * hazptr_promote_to_backup_slot() for scan ordering requirement.
-> +	 */
-> +	scan_list_phase = flip_list_phase(hazptr_overflow_list_phase);
-> +	hazptr_scan_overflow_list_period(addr, scan_list_phase);
-> +	WRITE_ONCE(hazptr_overflow_list_phase, scan_list_phase);	/* Flip the current list phase. */
-> +	hazptr_scan_overflow_list_period(addr, flip_list_phase(scan_list_phase));
->   }
->   EXPORT_SYMBOL_GPL(hazptr_synchronize);
->   
-
-
+base-commit: 1a8763b93150b2c8f3992c27a5ce7857fee4ab0f
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+2.39.5
