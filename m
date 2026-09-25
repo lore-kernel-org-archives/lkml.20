@@ -1,109 +1,114 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE5048F852
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C232848EBE4
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331812; cv=none; b=XrliZKZTioPxCGElEXqHdsUJCNwEgb2WHZ4mSaz5Xgn1MlGO5+zBy8dTcukIupBfk46YFN1RKa1VbsugW1HMiLZevDgPN0QXM3FisrIl2PI94jJy69fGj3REN5V8dkAf1R2GDjI63XKshGXtMs4GZVVO4g0wUAbxb8RkIy8/GCA=
+	t=1790331816; cv=none; b=A+9Z77XBrR9oYLpMhoq6VLNX0WMA4OV8EGOW6jl/bJ+SXqvgagHiLv/jVvQdY+/XAgwSBkLkbAetzdzFMNVj0RctXWDZBKpyTF2YeDJNDn9zGmIBLlTMnbNLzCM/4EZlKPgzu38mhJCwbjL3EN7P/MAkWk/3oPJyDYmqAmKLrL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331812; c=relaxed/simple;
-	bh=MBRyibfvDf/Py7MpP73OQiUn2PZ8UHR5370Z0nD0sTI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tYb+lRgdP+TsfzZJj0WZeFCMojcpQBzo4CD/GcEW79/1zG/mDhpzpXHw8ABg16jidPQtajodLnQIUDks1Bo0H5RRwn+m3+kXEyJKxGzwSCzx2o2vOiM8nxF9y/+QF5lQNmwrU/K6/cAO+1Tuc7Q/Vn50b62A6A/ozUEiJCpY2Mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k2r3XmLO; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790331816; c=relaxed/simple;
+	bh=W3ofDq4a6rYUY4Czd8wCezviz7X0eedZ6demP0APXwg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ZYjZ8W2lnLyNn/EZJ2wZ9YF6Jt+/8SqeG2z1OvDb1TuGJ+XBcfVhwGiwYwlC3DVOsmhGCZ5ZsliDTc3SDlQHg8L5mvFxcQdntdjx6VEAKdc9EHwqG5NMLSKtjbXztD5cbABjhDy15LDlFRpfp/0znpm84hJWYYSIkuGhSCj/39M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=XXkwearN; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k2r3XmLO"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3115c4451c8so598439eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:23:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790331810; x=1790936610; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2rf8mqYluqsuf+/zf3poc+EXWv6a5aUIZ3aQ4ijS49M=;
-        b=k2r3XmLOM181vK026K5oNTmOk3H1Az8SxcLJ2WHfaNQ/H1aO+EDn53KVvIo46Uof7j
-         Yzq1pnX2BHn0wmichVJVRf8rfyHN5Ln3N8oSa5/fiRdmoeX5vGOvii/MZ5V7U92a8ph/
-         geUZHMe0sSVpbiyWu2Q4iApBRAWiN+ihJBXQ8ErSJUCr81VFuxxjmeHmgEt/o0dB5knT
-         rCfjsuNCPUQcyn30gj70bJ5EeZuQPbGu7PAaTAqwh5HHDwyfomi5lz6wi7mbsW0CkQQj
-         wC5OcFTRjjNGo/6riDKDf3gAAKx9bTQVuqPo7AwhQPaRNNNAqbmGM+IWLGaET4qx88a+
-         nPAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790331810; x=1790936610;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2rf8mqYluqsuf+/zf3poc+EXWv6a5aUIZ3aQ4ijS49M=;
-        b=pHUvh4PKSUKqwwrBWTCj5hWzJsweY6bPsvxFqp4K/B7rcBATsr4jdPYIGXnlZBAuCC
-         iqUTKxYBoebT4CDMFw8j7IPzK/S32X6uBhY+hPVek8N1EBISNY0aDzzglLrx5K/Yy8ba
-         C2BU1rLotzstFC8/BPSeFHoDJuvGCcb3R3VZ6vq2y+d7GGHwQFWtVwZausH1wl/P5iqY
-         3ifnZLuR78PjVRuPiWAMK8iHrRrdoGrRfOW9HgYiZ+o+P8JJB/7/JTFC8zWqU2ca7iOB
-         uGuw0Hhi2rbFMyeGfQ8NygpCtw1W1t3KAdmzK4TKCRULjvbh6IYPYTtoBxnPDV6Wnqic
-         42Pg==
-X-Forwarded-Encrypted: i=1; AKwUvByn3KdE8j3j5W9hqJDRRRbL9UafWykK1REAvUmApRiPRkinZvTA1rGnWkYiAcvqPb+9drjCppUBLQHy8Cs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lesIcaZUuvzSuBJow/7bZ/W2pNSc48ZCG5A1nY3wg9FFFetOpK
-	ZX8Grc8VjcDzd4DTojhFmaSbkRDbF23xCTwO/XBPFuB+QJTFJBJy9QaA
-X-Gm-Gg: AYBFou33VwYYXbWUl53ro2xX/kfXbXj9l2PNIspqW3jVX6lookWtxCxUbOmkljV+Snd
-	1xMRJcZFN76+PBi+zN4HtFJvRn1Zb5RINQzmN6e3aFz2ZvdzY38rWqlwP44dDnTRefquzBLQRhc
-	FEYHe+7QOlHEfZX8mvkAqFxPSsiu1fYFLME8JeNOejf9DeB+xSPlDEtMZpF6KJL8ZSRVGvBK5uA
-	/5OdyFo1RMOCckXQWgCV4tdoOD++SPifw1gqo6T5oUIxhcSyLARmI/niZBOEu7TjsDpZSsZW3ha
-	ECGq7/tmHBHKVR05QOfYb3nrmWqi0TMAvg/C4vDd2SSx9VnWK7Dj1I+t4kgj9lRkM/lbGB3O57x
-	+f10WX2mB8znGRQxGU9WoxYzXk3GLXPn9CYCh78Dvw6289XagxrWre69AunHyLvzaMo41I6uLzn
-	VZsoKMHeuoE4DtSp/eL/tpoO6XkW5uU6uklWZv29KhxwnhWNJTP2YkUhBoj6M5Nn0zDKv2mBq5g
-	fyJcpY7XkaRbjs+eOZHiTcM68RmqOMWZF78lm4Lz+8NTyd8FUFAvVjEaShIvs0cNvNLYRaNbRu2
-	H3camesI8KTTCw4bDqw+x4Gd8DZGIi/cM1sB6e73pcNWQETvoQSwiz5tbGzzwnykqAhYS27EeA=
-	=
-X-Received: by 2002:a05:7300:b094:b0:33f:ddda:6076 with SMTP id 5a478bee46e88-3416630800amr1737855eec.6.1790331809483;
-        Fri, 25 Sep 2026 03:23:29 -0700 (PDT)
-Received: from FT6N242TWK ([223.181.117.176])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341463ec3ecsm5927610eec.31.2026.09.25.03.23.27
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 25 Sep 2026 03:23:29 -0700 (PDT)
-From: shashank <jain.sm@gmail.com>
-To: Yury Norov <yury.norov@gmail.com>
-Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6/6] bitmap: test bitmap_parselist() with a group size close to UINT_MAX
-Date: Fri, 25 Sep 2026 15:53:07 +0530
-Message-ID: <20260925102307.49513-7-jain.sm@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260925102307.49513-1-jain.sm@gmail.com>
-References: <20260925102307.49513-1-jain.sm@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="XXkwearN"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0B6DC1A1022;
+	Fri, 25 Sep 2026 10:23:32 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CE92C6073B;
+	Fri, 25 Sep 2026 10:23:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0AC4B1032959D;
+	Fri, 25 Sep 2026 12:23:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790331810; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3szgY9zm9EvPd+IGHLd9mHO0PhxaT/u5j83BrGfC9yY=;
+	b=XXkwearNrO2Owi+No8Tkk9ZXP4+olA6HVlP1/rb1tHjpkYrQ1/5BiHvnB+0CPIHRG+jC/A
+	lgYLxJycCtmWfqCGYflng9l+RIv5XfeuZoXcD/+PSKU0/YeS7gXiB/r+nh0D9k0YOxsF7H
+	218DJz2HgLAjCJXBx77gf0i+VvaqXjX8fwmETvMb0SYJYGpBuu/IgJOqg5gUZgfsye4c2E
+	++enOXuvW8m5c/0aicGbSJqncQoInSu6Xu+f54BTxOkP5uWQ0HJ6P1D51IASgRjvXvZWx4
+	MNnRUaE21cw88nGzD44wFF7QNXQLBsYTmSkLq2oLx+2lBcjQUfISPLUYJGKWWA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>
+Cc: Mark Brown <broonie@kernel.org>,  Fei Xie <fei.xie@horizon.auto>,
+  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Parshuram
+ Thombare <pthombar@cadence.com>,  linux-spi@vger.kernel.org,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 2/4] spi: cadence-xspi: add ACMD support for SPI NAND
+In-Reply-To: <arZHjbzUEFhydnHt@nsa> ("Nuno =?utf-8?Q?S=C3=A1=22's?= message
+ of "Fri, 25 Sep 2026
+	11:14:01 +0100")
+References: <20260921093701.1341766-1-fei.xie@horizon.auto>
+	<20260921093701.1341766-3-fei.xie@horizon.auto>
+	<arFEjzkHGMbecWWV@sirena.co.uk>
+	<20260923061211.1608907-1-fei.xie@horizon.auto>
+	<67f4e1a4-fc0e-4b2b-b41e-8dbb33227302@sirena.org.uk>
+	<87pky1ll4g.fsf@bootlin.com> <arZHjbzUEFhydnHt@nsa>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Fri, 25 Sep 2026 12:23:21 +0200
+Message-ID: <87ecehljdy.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add bitmap_parselist() cases where the group size makes start +
-group_len overflow an unsigned int.  Before "bitmap: bitmap_parselist():
-don't wrap around on a huge group size" the region walk wrapped around
-and also set bit 0.
+Hello,
 
-Assisted-by: LLM
-Signed-off-by: shashank <jain.sm@gmail.com>
----
- lib/test_bitmap.c | 2 ++
- 1 file changed, 2 insertions(+)
+>> > I think that makes sense, that mirrors some ideas people have had for
+>> > optimising SPI mesages in general - submit the sequence to the driver =
+to
+>> > see if it can do it in one, falling back to just running individual
+>> > operations if that doesn't work.  See spi_optimize_message().
+>>=20
+>> The spi-mem operation-sequence interface seems very complex to handle
+>> correctly IMHO. I fear such a solution would also require major rewrites
+>> of the core. It is always hard to make fit hardware in code bases not
+>> thought for them. Most of the time being spent in I/Os and wait states,
+>> I am wondering how much would be saved by packing the commands. Do you
+>> have benchmarks?
+>
+> You can see my replies for a more verbose thing, but the TLDR for me was
+> that the gains in performance did not really payed off (vs the
+> complexity we would be adding).
 
-diff --git a/lib/test_bitmap.c b/lib/test_bitmap.c
-index f316a82840f5..ba09d057f47f 100644
---- a/lib/test_bitmap.c
-+++ b/lib/test_bitmap.c
-@@ -502,6 +502,8 @@ static const struct test_bitmap_parselist parselist_tests[] __initconst = {
- 	{0, "0-N:1/3,1-N:1/3,2-N:1/3",		&exp1[8 * step], 32, 0},
- 	{0, "0-31:1/3,1-31:1/3,2-31:1/3",	&exp1[8 * step], 32, 0},
- 	{0, "1-10:8/12,8-31:24/29,0-31:0/3",	&exp1[9 * step], 32, 0},
-+	{0, "1-1:1/4294967295",			&exp1[1 * step], 32, 0},
-+	{0, "15-15:1/4294967281",		&exp1[13 * step], 32, 0},
- 
- 	{0,	  "all",		&exp1[8 * step], 32, 0},
- 	{0,	  "0, 1, all,  ",	&exp1[8 * step], 32, 0},
--- 
-2.43.0
+That's precisely what I was expecting.
 
+> The real gains
+> for me came by using the nand continuous mode so that using ACMD (and
+> DMA) so that we can actually ready chunks > page size. Of course this wor=
+ks
+> for nand chips supporting cont mode (which hopefully newer ones all do).
+
+I am very happy to see this feature being used! It already caused quite
+a bit of churn in the core :-)
+
+> As for PROGRAM and ERASE commands I really did not saw any added
+> value.
+
+Yes, most of the time is spent in the wait_ready, which is not getting
+faster with hardware automation.
+
+> So below is my version of this:
+>
+> https://github.com/analogdevicesinc/linux/pull/3478/changes/477e609550854=
+6552071b825a66522cf697c27c2
+>
+> I pretty much treat NOR and NAND the same thing. Only when you want to
+> do thing like having the controller sending commands itself (or walking
+> pages), then knowing about the chip geometry becomes necessary.
+
+Thanks,
+Miqu=C3=A8l
