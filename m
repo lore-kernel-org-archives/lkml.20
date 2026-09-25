@@ -1,378 +1,339 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7165E4E1C7F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790373426; cv=pass; b=a5m79L+wzJp7JzCU42XOdqPi7jLZDzcRSkBhCXw6V6ci8pW+zlF/Zq3XIFajBbcHLMENszr9XrB6SnYGCnQwbHwaSIhTOuPLSyh0BRp4CQyQZXFrQ6kyM4UbmpeuL4jD2IqLQtkYgrfl70Is0j2lAAb1lbO2uLTzUOs6o/GE1cE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790373426; c=relaxed/simple;
-	bh=sT1cVOZBgte+RWfHpkgLNQUb8YZ5m6M5cASJpAKBiQ8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bYuHOyrpNQOzrgLD08W4g3c+zxGburYoh2A716do5uOveUkfWkhMBC0j1ix6eD3WzvrJtQq0QEzfG+CoVu3ohyrktEdxgiKNDHojW8neSbkdhY5QADlbBwdyv+ueBlnIYlM+df+lwsez+bWpVp6m/IrlaruvFU3EM8Fa+eUlXAU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=J9bhDr8V; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C9E54655;
+	Fri, 25 Sep 2026 21:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790373549; cv=none; b=eWHH4R9RA0ewKHyljLFZ+Jx1wm+WzHwiEBP8pZHwyn3MVX79tIwWz/4FmIOOAFDNFxTc5RpF4NZHYnr5LAaEa7Fb6L37QCx19Aif7NuqPAH/Gw++kg1N7quhkdqNTMLMfekmz+TrLexBEEJszCT+m7YzJ+ZQ33aeECc1wexA60U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790373549; c=relaxed/simple;
+	bh=O2PjDXtqiaTWYMzT996YbRkQjmlGFfte71y4gQ7jhi0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U+3VUN5WKin9ywn5uOYt41jVcl3Hs4KZd+xkZMcw3wOpxj2V3CwlzEJyoEGl2rTMg4ibw8jfsTD3YHpGFXDs1SbAoZ73K6xXPf1xmJIhceYjr5X4O5xKV8KqT0/F/uTO2/nwcEiihxDECCc8lqD2vBiKh64g2F4liCg7SAVWzOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gwZbf6kT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="J9bhDr8V"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c3so1079343f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:57:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790373419; cv=none;
-        d=google.com; s=arc-20260327;
-        b=tBDr8fWsF522l+CH4EHGNZXwMhgB85a0fzn75cX0rEtioK8vZh+r57Dn2OgFw/X3O0
-         lwQ5+OccoQlXKXUOV3a7s/RKEFNQmBjDW6cQBa4oywq9bjyzxcyiTUUUEynvZCW36NDx
-         8EwzfHviQZvNa5qZBbQR+BDt/Lg9SOCnQxLB/NbJo9atdauWvDs2WCE3BrxThzXxmCgV
-         AQpOnhJQ/4dOwwjd9T6pAiFmiVpw4YVFw2xtffYCtm5K4Y55AcC2WUTbf2PYnO9LEz1F
-         N/NV8qfBOQrIDsMKHJtf+vjpgyU6oB3TdRcsz8Jz5PPZIddUdRRiXw8nzT/hlJo398fD
-         Nyzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=G6NlhQyLBvAL6TKdL1Aq5LRNoXywD8yKGimzHFh9xgc=;
-        fh=hQuVlyrEAmasEbt25nD+zRVxbUDET9A/qyYeB2rtAIk=;
-        b=cuQ6XuYorqEjkTIyeVz+kl8exTBTl6ucjPrzgcwZWmTvRGdm1U/+J8Zutf7ho2i5eu
-         bD+scO7xh8ARlklZc4ojEc2AXDJfgU/n2hNKHS/uHgakmLyHZTC09shAz03MMB+1tbD5
-         vHub303ivPpIdSAbDVGAwo6zYBQdiUyEKyeGtMqVTJkIP0kDbtwB2NXyqfI3FGN7j0Me
-         Cw0OB7My3sMwKF6u7RNKUSKGmiYPqmtQspSRWTZ1QIqRlj/h4C14yObqcdQ/xOi9E0OU
-         1NE1WekbikooNIgdRvsyt4YY9Ygjru+c+mXeZLb3nWBdUJvd7rXv02bWe0lXrH1lsT6Y
-         bXjQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790373419; x=1790978219; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=G6NlhQyLBvAL6TKdL1Aq5LRNoXywD8yKGimzHFh9xgc=;
-        b=J9bhDr8VeFttFl0eoDZwdI3tTKRasmKP/ASrTmjNEWiG/xrNHiyZSMUBBCj4l0/Q8O
-         Sf0Dnh9bhd6ExrwHzKEKLcKjwbeOp6hzFKPw1L7+sIxIHTCjAB7vys/zj6BC+1zbwOKr
-         2c8KcYA5kRWgi7K7JlthT4/OXzYHoVkS3cPc+48hPZJaP9dN8BdYSOGSLXCsMEQPaL/t
-         7bxdIBRrBBY9llL70mlCKkQ6YKJsr11uXKsO2g9ksFyhxZ/xtJoXcED/GxRcIoTY9Bou
-         AaSCw+vvDtRnZ1oapBmE8w1cFYkRu00KWFm6PWGQBU4aHwhD8p423vyr8P/mA8v/WV6d
-         Aiow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790373419; x=1790978219;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G6NlhQyLBvAL6TKdL1Aq5LRNoXywD8yKGimzHFh9xgc=;
-        b=g6hV6dU5WXt/IZ2kRZBvSG2NWsoKxO6JpghU3O4ROl4EyehQEb0zZwCJi4/cLB8Nu9
-         OtUdUP0sYLvoceM2ygsxKfMQN/1MNOCR5ZdwRIwuMtG4kuur9Xvc3SXRiSzhJLTHkEO3
-         r/gPiNSnGg0qFhsLuW2TCCqrAlEqFTfw1qhw1tSlVxqVmAkyt9hBj5a9tZ2/XWCLDEQA
-         lj2qBFLGjeLoe/dOjbuYtGxQVCWdHZVOVxIv8IYmAyKHppYpriAvb8X8VUla9swGDqZc
-         0q/FIx72Q1JKeatPwJSL9jgouObA71ITlKayN9OHKdC6zW7sOUCc4qAqBSYyL0EMPRmL
-         YqTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwv6yUBoyUo+y3vqPNWPgJ3xAk/iZa/3/uXIlXTbbn26H52gFOspF6MdY5+xi0P85+0E7XJ3tZPCzZvZmY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSFEOWiGJXnCmPflZJTUk79MWDiHpht7PyUpNngw+hYDA2ONHp
-	/3MYNgbzBNwgE3Uh6LVWQxq3H7iq0QGgQZ/ooP98xSvaSZMVABPNq3DheGk8NUizZHX02m1d6kr
-	CCdZZjMtXYMDPO7CCgCIIWFTQ7GKpf3DnLUVr4XP0
-X-Gm-Gg: AYBFou2UECw4DX44o+YKRcpy7dxWbVM0UtwjVhIxS/6fdnTK7Wiva6YzwUKBE0za/Q0
-	sE1nydKGCEefVCSo+N4Ozv5z6GHfi/NrQ2XyFsucUYDysukX1Uj5rG1AR43ukufUEqrbZ6v8M0A
-	m3xkt5kYtuGlJeJHvktlS6rYigJv+YHuL9/nFxWF6PcKEEF3fy6A7xJ8Bn+ryNR0QJCCAXS2Z00
-	qizp6MC/cgaoLitllujk32nvRmD3iMGHYEyGgd6BYwpklxCiBe9PXQJZo5J1tz3RTElIWLDM3JD
-	3QBgCrg18CE7AUjKeivuwqAWGzowtySsA1SW+S1h4n17xpmtDUNfXxUskJNdl/OWMlptxZQT91m
-	QBWKIffa16UUz13ULQtEmlY0CeKS/LP+phe+4Khnf5aJzWkH4utXhyySeLIHstJjqhcxyNpIfd7
-	YbWQW3
-X-Received: by 2002:a05:6000:288b:b0:485:1bcc:67f8 with SMTP id
- ffacd0b85a97d-4887171d8demr12695578f8f.13.1790373417936; Fri, 25 Sep 2026
- 14:56:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gwZbf6kT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6835D1F000FF;
+	Fri, 25 Sep 2026 21:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790373547;
+	bh=6Wc1UgfqhVnODzAM+xm4tpzG/z1zMVgbpnNsAsUH1kc=;
+	h=From:To:Cc:Subject:Date;
+	b=gwZbf6kTzZrLp71O/wRNQJlAzaYy9bWgd+weKz77/sgJKneDgti+LMY7rUF62rYIC
+	 4KQxbAQvG0r0CiY6kS/nkf3cKwHCzOOomIezTvdrO+7f5Hv1Ype3MegjnooRWFQYK6
+	 /nfQaQn44xoSYXIbr2DKRAqIzOp+vYdo6sQaI7fI68q/vqJi+p+MxhZWPf93XtaRlP
+	 pbCyhjqfLn2Fyb3HWaHWkXrBq75VuCglZvPhUWypjvSRf337wwE1z6ZKY2nqKPfesm
+	 qEvnzm7g0uk3PZKbxvcDpP/KMtTLdewJtSbZsZ8hpl9fxjV9rViRUKL5N6mwCaZ+PT
+	 uJ20bLoWuBqmQ==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] dt-bindings: net: Convert HiSilicon hns-dsaf to DT schema
+Date: Fri, 25 Sep 2026 16:58:47 -0500
+Message-ID: <20260925215848.2949157-2-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
- <CAKwvOdmuvn0LZkYEsH84hnOGTYhTtzuWs3wMARtWdTeL6dD9sA@mail.gmail.com>
-In-Reply-To: <CAKwvOdmuvn0LZkYEsH84hnOGTYhTtzuWs3wMARtWdTeL6dD9sA@mail.gmail.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Fri, 25 Sep 2026 14:56:46 -0700
-X-Gm-Features: AclHuK8SDWvgFgIHW9y7_70sxeUurbOgosEQfmvpDPf9DmnqXM-fPyBkhdpsidg
-Message-ID: <CAKwvOdnxKVpn=nAFaqP+9PTx4PqgHsUVWv6e60Pcr29W_eZrpQ@mail.gmail.com>
-Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
- reserved in __cvdso_getrandom_data()
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, "Theodore Ts'o" <tytso@mit.edu>, 
-	"Jason A. Donenfeld" <Jason@zx2c4.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
-	WANG Xuerui <kernel@xen0n.name>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
-	llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 2:53=E2=80=AFPM Nick Desaulniers
-<ndesaulniers@google.com> wrote:
->
-> On Fri, Sep 25, 2026 at 2:46=E2=80=AFPM Nathan Chancellor <nathan@kernel.=
-org> wrote:
-> >
-> > After a recent change in LLVM [1], builds with the random vDSO
-> > implementation, such as PowerPC and RISC-V, fail when checking the vDSO=
-:
-> >
-> >   arch/powerpc/kernel/vdso/vdso32.so.dbg: dynamic relocations are not s=
-upported
-> >   arch/riscv/kernel/vdso/vdso.so.dbg: dynamic relocations are not suppo=
-rted
-> >
-> > memset() is now generated when zeroing params->reserved for some builds
-> > because LLVM has an optimization (now run in more instances) that can
-> > recognize at compile time when it is assigning a static value to a
-> > contiguous area of memory and turn that into a call to memset(). Both
-> > clang and GCC assume memset() is always available [2].
-> >
-> > clang provides a builtin, __builtin_memset_inline [3][4], that can be
-> > used to ensure an external function call is not generated when zeroing
-> > this memory. Use it when it is available.
-> >
-> > While GCC has no issues with the current code, it has generated memset(=
-)
-> > before, as seen in commit b7bad082e113 ("random: vDSO: avoid call to ou=
-t
-> > of line memset()"). GCC 14 provides '-finline-stringops=3Dmemset' [5][6=
-]
-> > with a similar guarantee to the clang builtin, so use it and
-> > __builtin_memset() when available.
-> >
-> > If no option is available, provide a simple memset_inline() like the on=
-e
-> > from lib/string.c to avoid adding an ugly ifdef.
-> >
-> > Link: https://github.com/llvm/llvm-project/commit/90cebef1411617fc3eedd=
-359bdf00cb44b1c2439 [1]
-> > Link: https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/Standards.html#inde=
-x-ffreestanding [2]
-> > Link: https://github.com/llvm/llvm-project/commit/38637ee477541370a90b3=
-7f149069d8e5c0c2efd [3]
-> > Link: https://clang.llvm.org/docs/LanguageExtensions.html#guaranteed-in=
-lined-memset [4]
-> > Link: https://gcc.gnu.org/git/?p=3Dgcc.git;a=3Dcommit;h=3D1ff6d9f7428b0=
-668cd8ab0b3e3ab94f1d733124d [5]
-> > Link: https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-fi=
-nline-stringops [6]
-> > Suggested-by: "Jason A. Donenfeld" <Jason@zx2c4.com>
-> > Suggested-by: Nick Desaulniers <ndesaulniers@google.com>
-> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> > ---
-> > Changes in v2:
-> > - Switch approach entirely (Jason, Nick)
-> >   - clang: use __builtin_memset_inline() to avoid external call
-> >   - GCC 14+: use __builtin_memset + -finline-stringops=3Dmemset (hence =
-the
-> >     massive CC list increase)
-> >   - GCC < 14: no issues currently but avoid ifdef with simple memset
-> >     implementation
-> > - Link to v1: https://patch.msgid.link/20260916-vdso-getrandom-avoid-me=
-mset-llvm-24-v1-1-80a92f2e225a@kernel.org
-> > ---
-> >  arch/arm64/kernel/vdso/Makefile     |  2 +-
-> >  arch/loongarch/vdso/Makefile        |  1 +
-> >  arch/powerpc/kernel/vdso/Makefile   |  1 +
-> >  arch/riscv/kernel/vdso/Makefile     |  1 +
-> >  arch/s390/kernel/vdso/Makefile      |  1 +
-> >  arch/x86/entry/vdso/vdso64/Makefile |  2 +-
-> >  init/Kconfig                        |  7 +++++++
-> >  lib/vdso/getrandom.c                | 19 +++++++++++++++++--
-> >  8 files changed, 30 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/arch/arm64/kernel/vdso/Makefile b/arch/arm64/kernel/vdso/M=
-akefile
-> > index 7dec05dd33b7..f6619e1cb2ce 100644
-> > --- a/arch/arm64/kernel/vdso/Makefile
-> > +++ b/arch/arm64/kernel/vdso/Makefile
-> > @@ -41,7 +41,7 @@ CC_FLAGS_REMOVE_VDSO :=3D $(CC_FLAGS_FTRACE) -Os $(CC=
-_FLAGS_SCS) \
-> >                         $(CC_FLAGS_LTO) $(CC_FLAGS_CFI) \
-> >                         -Wmissing-prototypes -Wmissing-declarations
-> >
-> > -CC_FLAGS_ADD_VDSO :=3D -O2 -mcmodel=3Dtiny -fasynchronous-unwind-table=
-s
-> > +CC_FLAGS_ADD_VDSO :=3D -O2 -mcmodel=3Dtiny -fasynchronous-unwind-table=
-s $(CONFIG_CC_OPT_INLINE_MEMSET)
-> >
-> >  CFLAGS_REMOVE_vgettimeofday.o =3D $(CC_FLAGS_REMOVE_VDSO)
-> >  CFLAGS_REMOVE_vgetrandom.o =3D $(CC_FLAGS_REMOVE_VDSO)
-> > diff --git a/arch/loongarch/vdso/Makefile b/arch/loongarch/vdso/Makefil=
-e
-> > index 9c9181bb4071..0b84892d084b 100644
-> > --- a/arch/loongarch/vdso/Makefile
-> > +++ b/arch/loongarch/vdso/Makefile
-> > @@ -16,6 +16,7 @@ ccflags-vdso :=3D \
-> >         $(filter -m64,$(KBUILD_CFLAGS)) \
-> >         $(filter -march=3D%,$(KBUILD_CFLAGS)) \
-> >         $(filter -m%-float,$(KBUILD_CFLAGS)) \
-> > +       $(CONFIG_CC_OPT_INLINE_MEMSET) \
-> >         $(CLANG_FLAGS) \
-> >         -D__VDSO__
-> >
-> > diff --git a/arch/powerpc/kernel/vdso/Makefile b/arch/powerpc/kernel/vd=
-so/Makefile
-> > index 368759f81708..0d1a49529885 100644
-> > --- a/arch/powerpc/kernel/vdso/Makefile
-> > +++ b/arch/powerpc/kernel/vdso/Makefile
-> > @@ -43,6 +43,7 @@ ccflags-y :=3D -fno-common -fno-builtin -DBUILD_VDSO
-> >  ccflags-y +=3D $(DISABLE_LATENT_ENTROPY_PLUGIN)
-> >  ccflags-y +=3D $(call cc-option, -fno-stack-protector)
-> >  ccflags-y +=3D -DDISABLE_BRANCH_PROFILING
-> > +ccflags-y +=3D $(CONFIG_CC_OPT_INLINE_MEMSET)
-> >  ccflags-y +=3D -ffreestanding -fasynchronous-unwind-tables
-> >  ccflags-remove-y :=3D $(CC_FLAGS_FTRACE)
-> >  ldflags-y :=3D -Wl,--hash-style=3Dboth -nostdlib -shared -z noexecstac=
-k $(CLANG_FLAGS)
-> > diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/M=
-akefile
-> > index 8dbf2532a573..c023046a3fd7 100644
-> > --- a/arch/riscv/kernel/vdso/Makefile
-> > +++ b/arch/riscv/kernel/vdso/Makefile
-> > @@ -36,6 +36,7 @@ endif
-> >  ccflags-y :=3D -fno-stack-protector
-> >  ccflags-y +=3D -DDISABLE_BRANCH_PROFILING
-> >  ccflags-y +=3D -fno-builtin
-> > +ccflags-y +=3D $(CONFIG_CC_OPT_INLINE_MEMSET)
-> >  ccflags-y +=3D $(KBUILD_BASE_ISA)$(CFI_MARCH)
-> >  ccflags-y +=3D $(CFI_FULL)
-> >  asflags-y +=3D $(KBUILD_BASE_ISA)$(CFI_MARCH)
-> > diff --git a/arch/s390/kernel/vdso/Makefile b/arch/s390/kernel/vdso/Mak=
-efile
-> > index 35c834b895ec..54bcf2984ca1 100644
-> > --- a/arch/s390/kernel/vdso/Makefile
-> > +++ b/arch/s390/kernel/vdso/Makefile
-> > @@ -29,6 +29,7 @@ KBUILD_CFLAGS_VDSO :=3D $(filter-out -munaligned-symb=
-ols,$(KBUILD_CFLAGS_VDSO))
-> >  KBUILD_CFLAGS_VDSO :=3D $(filter-out -fno-asynchronous-unwind-tables,$=
-(KBUILD_CFLAGS_VDSO))
-> >  KBUILD_CFLAGS_VDSO +=3D -fPIC -fno-common -fno-builtin -fasynchronous-=
-unwind-tables
-> >  KBUILD_CFLAGS_VDSO +=3D -fno-stack-protector $(DISABLE_KSTACK_ERASE)
-> > +KBUILD_CFLAGS_VDSO +=3D $(CONFIG_CC_OPT_INLINE_MEMSET)
-> >  ldflags-y :=3D -shared -soname=3Dlinux-vdso.so.1 \
-> >              --hash-style=3Dboth --build-id=3Dsha1 \
-> >              $(call ld-option, --eh-frame-hdr) -T
-> > diff --git a/arch/x86/entry/vdso/vdso64/Makefile b/arch/x86/entry/vdso/=
-vdso64/Makefile
-> > index 7c0790065b5e..c2353a065279 100644
-> > --- a/arch/x86/entry/vdso/vdso64/Makefile
-> > +++ b/arch/x86/entry/vdso/vdso64/Makefile
-> > @@ -14,7 +14,7 @@ vobjs-$(CONFIG_X86_SGX)                       +=3D vs=
-gx.o
-> >  vobjs-$(CONFIG_FUTEX_ROBUST_UNLOCK)    +=3D vfutex.o
-> >
-> >  # Compilation flags
-> > -flags-y                                :=3D -DBUILD_VDSO64 -m64 -mcmod=
-el=3Dsmall
-> > +flags-y                                :=3D -DBUILD_VDSO64 -m64 -mcmod=
-el=3Dsmall $(CONFIG_CC_OPT_INLINE_MEMSET)
-> >
-> >  # The location of this include matters!
-> >  include $(src)/../common/Makefile.include
-> > diff --git a/init/Kconfig b/init/Kconfig
-> > index 8583d9f06c52..ff3f8475dd2f 100644
-> > --- a/init/Kconfig
-> > +++ b/init/Kconfig
-> > @@ -173,6 +173,13 @@ config CC_HAS_ALLOC_TOKEN
-> >  config CC_HAS_MULTIDIMENSIONAL_NONSTRING
-> >         def_bool $(success,echo 'char tag[][4] __attribute__((__nonstri=
-ng__)) =3D { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
-> >
-> > +config CC_HAS_OPT_INLINE_MEMSET
-> > +       def_bool $(cc-option,-finline-stringops=3Dmemset)
-> > +
-> > +config CC_OPT_INLINE_MEMSET
-> > +       string
-> > +       default "-finline-stringops=3Dmemset" if CC_HAS_OPT_INLINE_MEMS=
-ET
-> > +
-> >  config LD_CAN_USE_KEEP_IN_OVERLAY
-> >         # ld.lld prior to 21.0.0 did not support KEEP within an overlay=
- description
-> >         # https://github.com/llvm/llvm-project/pull/130661
-> > diff --git a/lib/vdso/getrandom.c b/lib/vdso/getrandom.c
-> > index 2851afa9154f..f5cad5641985 100644
-> > --- a/lib/vdso/getrandom.c
-> > +++ b/lib/vdso/getrandom.c
-> > @@ -29,6 +29,22 @@
-> >         }                                                              =
-         \
-> >  } while (0)
-> >
-> > +#if __has_builtin(__builtin_memset_inline)
-> > +#define memset_inline(dst, value, size) __builtin_memset_inline(dst, v=
-alue, size)
-> > +#elif IS_ENABLED(CONFIG_CC_HAS_OPT_INLINE_MEMSET)
-> > +#define memset_inline(dst, value, size) __builtin_memset(dst, value, s=
-ize)
-> > +#else
-> > +static inline void *memset_inline(void *dst, int value, size_t size)
-> > +{
-> > +       char *d =3D dst;
-> > +
-> > +       while (size--)
-> > +               *d++ =3D value;
-> > +
-> > +       return d;
-> > +}
-> > +#endif
->
-> Does this work?
-> https://godbolt.org/z/Tx6EaGMfb
+Convert the HiSilicon hns-dsaf binding to DT schema format.
 
-Hmmm...possibly.
-https://godbolt.org/z/ec9rzd9Yf
-I don't get it...
+Drop 'phy-handle' at top level as there are no users. Add undocumented
+'media-type' property.
 
->
-> (Sorry, I _should_ have replied to Jason on V1. I'm not ignoring him,
-> just way behind on my code reviews. Sorry!)
->
-> > +
-> >  static void memcpy_and_zero_src(void *dst, void *src, size_t len)
-> >  {
-> >         if (IS_ENABLED(CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS)) {
-> > @@ -83,8 +99,7 @@ __cvdso_getrandom_data(const struct vdso_rng_data *rn=
-g_info, void *buffer, size_
-> >                 params->size_of_opaque_state =3D sizeof(*state);
-> >                 params->mmap_prot =3D PROT_READ | PROT_WRITE;
-> >                 params->mmap_flags =3D MAP_DROPPABLE | MAP_ANONYMOUS;
-> > -               for (size_t i =3D 0; i < ARRAY_SIZE(params->reserved); =
-++i)
-> > -                       params->reserved[i] =3D 0;
-> > +               memset_inline(params->reserved, 0, sizeof(params->reser=
-ved));
-> >                 return 0;
-> >         }
-> >
-> >
-> > ---
-> > base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> > change-id: 20260916-vdso-getrandom-avoid-memset-llvm-24-74d45fa6031e
-> >
-> > Best regards,
-> > --
-> > Cheers,
-> > Nathan
-> >
->
->
-> --
-> Thanks,
-> ~Nick Desaulniers
+Assisted-by: LLM
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../bindings/net/hisilicon,hns-dsaf-v1.yaml   | 168 ++++++++++++++++++
+ .../bindings/net/hisilicon-hns-dsaf.txt       |  90 ----------
+ 2 files changed, 168 insertions(+), 90 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+ delete mode 100644 Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
 
+diff --git a/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+new file mode 100644
+index 000000000000..4edc6cafcbed
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+@@ -0,0 +1,168 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2025 Hisilicon Ltd.
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/hisilicon,hns-dsaf-v1.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Hisilicon DSA Fabric device controller
++
++maintainers:
++  - Jian Shen <shenjian15@huawei.com>
++  - Jijie Shao <shaojijie@huawei.com>
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - hisilicon,hns-dsaf-v1
++          - hisilicon,hns-dsaf-v2
++
++  reg:
++    minItems: 1
++    items:
++      - description:
++          external interface control register base and size (optional, only
++          used when subctrl-syscon does not exist)
++      - description:
++          SerDes base register and size (optional, only used when serdes-syscon
++          in port node does not exist)
++      - description:
++          PPE register base and size
++      - description:
++          DSA Fabric base register and size (not required for single-port mode)
++
++  reg-names:
++    minItems: 1
++    items:
++      - const: ppe-base
++      - const: dsaf-base
++
++  interrupts:
++    minItems: 1
++    maxItems: 409
++
++  dma-coherent: true
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  mode:
++    description: DSA Fabric mode string
++    $ref: /schemas/types.yaml#/definitions/string
++    enum:
++      - 2port-64vf
++      - 6port-16rss
++      - 6port-16vf
++      - single-port
++
++  subctrl-syscon:
++    description: syscon handle for external interface control register
++    $ref: /schemas/types.yaml#/definitions/phandle
++
++  reset-field-offset:
++    description: offset of reset field in the control register
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  buf-size:
++    description: RX buffer size (bytes)
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  desc-num:
++    description: number of descriptors in TX and RX queue
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++patternProperties:
++  "^port@[0-5]$":
++    description: DSA Fabric port node
++    $ref: ethernet-switch-port.yaml#
++    additionalProperties: false
++
++    properties:
++      reg:
++        maximum: 5
++
++      phy-handle: true
++
++      serdes-syscon:
++        description: syscon handle for SerDes register
++        $ref: /schemas/types.yaml#/definitions/phandle
++
++      cpld-syscon:
++        description: syscon handle plus register offset for CPLD register
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        items:
++          - items:
++              - description: CPLD phandle
++              - description: offset
++
++      port-rst-offset:
++        description: reset field offset for this port
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      port-mode-offset:
++        description: port mode field offset for this port
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      mc-mac-mask:
++        description: multicast MAC address mask
++        $ref: /schemas/types.yaml#/definitions/uint8-array
++        maxItems: 6
++
++      media-type:
++        $ref: /schemas/types.yaml#/definitions/string
++        enum:
++          - copper
++          - fiber
++
++    required:
++      - reg
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - mode
++
++additionalProperties: false
++
++examples:
++  - |
++    dsa@c7000000 {
++        compatible = "hisilicon,hns-dsaf-v1";
++        #address-cells = <1>;
++        #size-cells = <0>;
++        mode = "6port-16rss";
++        reg = <0x0 0xc5000000 0x0 0x890000
++               0x0 0xc7000000 0x0 0x60000>;
++        reg-names = "ppe-base", "dsaf-base";
++        subctrl-syscon = <&subctrl>;
++        reset-field-offset = <0>;
++        interrupts = <131 4>, <132 4>, <133 4>, <134 4>,
++                     <135 4>, <136 4>, <137 4>, <138 4>,
++                     <139 4>, <140 4>, <141 4>, <142 4>,
++                     <143 4>, <144 4>, <145 4>, <146 4>,
++                     <147 4>, <148 4>, <384 1>, <385 1>,
++                     <386 1>, <387 1>, <388 1>, <389 1>,
++                     <390 1>, <391 1>;
++        buf-size = <4096>;
++        desc-num = <1024>;
++        dma-coherent;
++
++        port@0 {
++            reg = <0>;
++            phy-handle = <&phy0>;
++            serdes-syscon = <&serdes>;
++            mc-mac-mask = [ff f0 00 00 00 00];
++        };
++
++        port@1 {
++            reg = <1>;
++            serdes-syscon = <&serdes>;
++            mc-mac-mask = [ff f0 00 00 00 00];
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt b/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+deleted file mode 100644
+index 8ee4b1cedae8..000000000000
+--- a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
++++ /dev/null
+@@ -1,90 +0,0 @@
+-Hisilicon DSA Fabric device controller
+-
+-Required properties:
+-- compatible: should be "hisilicon,hns-dsaf-v1" or "hisilicon,hns-dsaf-v2".
+-  "hisilicon,hns-dsaf-v1" is for hip05.
+-  "hisilicon,hns-dsaf-v2" is for Hi1610 and Hi1612.
+-- mode: dsa fabric mode string. only support one of dsaf modes like these:
+-		"2port-64vf",
+-		"6port-16rss",
+-		"6port-16vf",
+-		"single-port".
+-- interrupts: should contain the DSA Fabric and rcb interrupt.
+-- reg: specifies base physical address(es) and size of the device registers.
+-  The first region is external interface control register base and size(optional,
+-  only used when subctrl-syscon does not exist). It is recommended using
+-  subctrl-syscon rather than this address.
+-  The second region is SerDes base register and size(optional, only used when
+-  serdes-syscon in port node does not exist). It is recommended using
+-  serdes-syscon rather than this address.
+-  The third region is the PPE register base and size.
+-  The fourth region is dsa fabric base register and size. It is not required for
+-  single-port mode.
+-- reg-names: may be ppe-base and(or) dsaf-base. It is used to find the
+-  corresponding reg's index.
+-
+-- phy-handle: phy handle of physical port, 0 if not any phy device. It is optional
+-  attribute. If port node exists, phy-handle in each port node will be used.
+-  see ethernet.txt [1].
+-- subctrl-syscon: is syscon handle for external interface control register.
+-- reset-field-offset: is offset of reset field. Its value depends on the hardware
+-  user manual.
+-- buf-size: rx buffer size, should be 16-1024.
+-- desc-num: number of description in TX and RX queue, should be 512, 1024, 2048 or 4096.
+-
+-- port: subnodes of dsaf. A dsaf node may contain several port nodes(Depending
+-  on mode of dsaf). Port node contain some attributes listed below:
+-- reg: is physical port index in one dsaf.
+-- phy-handle: phy handle of physical port. It is not required if there isn't
+-  phy device. see ethernet.txt [1].
+-- serdes-syscon: is syscon handle for SerDes register.
+-- cpld-syscon: is syscon handle + register offset pair for cpld register. It is
+-  not required if there isn't cpld device.
+-- port-rst-offset: is offset of reset field for each port in dsaf. Its value
+-  depends on the hardware user manual.
+-- port-mode-offset: is offset of port mode field for each port in dsaf. Its
+-  value depends on the hardware user manual.
+-- mc-mac-mask: mask of multicast address, determines bit in multicast address
+-  to set:
+-  1 stands for this bit will be precisely matched, TCAM will check this bit of
+-    MAC address.
+-  0 stands for this bit will be fuzzy matched, TCAM won't care about this bit
+-    of MAC address.
+-
+-[1] Documentation/devicetree/bindings/net/phy.txt
+-
+-Example:
+-
+-dsaf0: dsa@c7000000 {
+-	compatible = "hisilicon,hns-dsaf-v1";
+-	mode = "6port-16rss";
+-	interrupt-parent = <&mbigen_dsa>;
+-	reg = <0x0 0xc5000000 0x0 0x890000
+-	       0x0 0xc7000000 0x0 0x60000>;
+-	reg-names = "ppe-base", "dsaf-base";
+-	subctrl-syscon = <&subctrl>;
+-	reset-field-offset = 0;
+-	interrupts = <131 4>,<132 4>, <133 4>,<134 4>,
+-		     <135 4>,<136 4>, <137 4>,<138 4>,
+-		     <139 4>,<140 4>, <141 4>,<142 4>,
+-		     <143 4>,<144 4>, <145 4>,<146 4>,
+-		     <147 4>,<148 4>, <384 1>,<385 1>,
+-		     <386 1>,<387 1>, <388 1>,<389 1>,
+-		     <390 1>,<391 1>,
+-	buf-size = <4096>;
+-	desc-num = <1024>;
+-	dma-coherent;
+-
+-	port@0 {
+-		reg = 0;
+-		phy-handle = <&phy0>;
+-		serdes-syscon = <&serdes>;
+-		mc-mac-mask = [ff f0 00 00 00 00];
+-	};
+-
+-	port@1 {
+-                reg = 1;
+-                serdes-syscon = <&serdes>;
+-		mc-mac-mask = [ff f0 00 00 00 00];
+-        };
+-};
+-- 
+2.53.0
 
-
---=20
-Thanks,
-~Nick Desaulniers
