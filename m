@@ -1,114 +1,124 @@
-Received: from mail-qk2-f3.google.com (mail-qk2-f3.google.com [74.125.230.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7D831B114
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C9A3EC687;
+	Fri, 25 Sep 2026 20:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367327; cv=none; b=I0vQRvwRJmL/lgbS03c8eqV9vLzf4vnOvQ9e4gpN+pgyvklz3LJPK7nUkC+L8mdHAX5vjWxC2c6+rxCOoQIXqVd7zzm056I8OzOK/Be9c/eZCU1d9utlLL8jmZ2ci5Q1ViwWBWB2BUxt8w1zXRUux6vTM4YkbakRHujtXXhAWZM=
+	t=1790367330; cv=none; b=WUleexwlxtAd6veCTeXy5ifYLfDIWCNuwC77i40xsUHBo59XFDpiRAOGggmcSMoN/R9KCKtXsCxwWeQbU/OQST3wtValfsJyxKADnoF4ODBUy7HcHiQnmkW4+RQuyb3z0kdskPZz/Amu2L3wMPweWEziO+6P7TSM2NRYTvSMDag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367327; c=relaxed/simple;
-	bh=ALYl12gLhsiNhtcMZjfd5rX30wOKdu7pyFoh6zjE+UE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IDnUajmY1gvhc9VQulNX9zQId8BZsG+aHm1ICjKZ5AulYea3W937CGAGpI5DWiKqp61ZWQFH5jeVmL2kwJD2eEzy4LT3XNwXOg/N+fZDKkRdgZ9h52F8nHiIZzytvOKqhZthfXx2r+bHXx6AwryqlO8uMyHzDT1HYDM4ubxMJqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bD6rFeMT; arc=none smtp.client-ip=74.125.230.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790367330; c=relaxed/simple;
+	bh=bIDBNIy/5chIx5nRU9KfYKK/L5HEQOu4SsTuxvrJXaI=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=TpTo4uxI8w/xlkki0UZ41U2eLP8+4F4DtJ5LF9VIVGl0G7DT6te22BxkzGHdwuZ34Ani9arF0M3cMrG+M4vGtmVaw81poUOxVyHuB7fSfA3QQzo3Ac5MkobYgEbuEHhoH+NdtFjSt5JCktmaPJoowgZRbyC8efXZ+r+Ld8rTmJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=RK/5IDo9; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bD6rFeMT"
-Received: by mail-qk2-f3.google.com with SMTP id d75a77b69052e-53321db7e06so392001cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:15:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790367324; x=1790972124; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i787Azbb9NshFsfx+SOyDOlWdaaHwqbmq28lZ4vZiLQ=;
-        b=bD6rFeMTOm7H4g7X1sZak6NTwW8tqUTxU/WOtLdLTSKdJqdC/aWkoSDLunFHn50OKf
-         Uc4IyTsfWqqcpco3d5spxsxLvZ1lxq5/zdbML160gYnFyBGxxzBFOPkVu9zVydygsAT6
-         TabkvsYqTBS8dOLj/lUnsOazcVl493isQbDx+P1n95LcleFOAm7ZE/4k096Q39LmKSQH
-         wgrj4upj6xeWYS3X2NGfnN6SFxxEbd2l5qm7nttUyyvMtY5u1SMOG0966hgwiDp4dCYl
-         O+p7p3PIzE2hN7/5HVt4mqZc1lxqwjUXOdEh1fxWp/Y2YzRwdDWhDi/yfh73bMWfiLFc
-         bQpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790367324; x=1790972124;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i787Azbb9NshFsfx+SOyDOlWdaaHwqbmq28lZ4vZiLQ=;
-        b=GJKd4syGmSeDtFBL38rtfQjR0Dl6PVNYCoHlfulPnXo3gIqEp51I7H4JTYwoB11Xt9
-         GIXJOa2XIofi4spBss/GLXIL7QcUMEq0pzF1RCQeYxDcEPFuafZOGkcMMT8+zaydnLN4
-         NgRsCPBmZtuBvtxC0EArfDuyCKZrSNsvsQ6g1TkUe80x8g4rYzFLb5VLJWxok000JOrk
-         s2l9bSchoH7sJyvaG0elRSQdytX8X/huJ2LTIvmszQXWrzvs+Dayy8n5Xllr9RctCEU7
-         45qqWHPdBoAnOazFU7WSFYVrAl3icEdWrQbgElOwxSe8c7NBUQOGszN6jYDY2ylNeFub
-         Ko5w==
-X-Forwarded-Encrypted: i=1; AKwUvBw0vhtyl+P0ASr39OQAu4pPl8vi5jRQRbzM7EdORunwy9My3/3iOtjZVpzLeGXdRgs2K8MH2epgBH55Mlg=@vger.kernel.org
-X-Gm-Message-State: AFuF++meZEZaPCL8EY7ITIBIsEkJX7eeqbq7/yQqLoVtVA+7dfeQRG8n
-	HtrSl/Ecphqb1ZteBi1xtYmqQApuoI5gm8nlUqnaNvp8K5gU9muLp4hY
-X-Gm-Gg: AYBFou3bnFGFHHkomNRgIqUN5/9j2uEzGCpWw2IiALzRnAEwSnQw/3t75LA4uGDxkb/
-	W0WJ3cv4/X0G2KYIjEe/LEakzdOKmUqtEuIdcnqRcmR6MMVZfo1Nz/Or/IuEeZFXZkgMkWks4U+
-	K00/MqrPp1A98ggwlo4P4ePSjmiR23aZmaGAPv1s36t4MpDN7ehGgmeDAaBoy1et5Dw2WjcCObh
-	7cvumtELNu/Ahc+rOYd5mWtP5k9iFQUoY0+K1E/OsgZXXngQqG70NQq9o8QShSRVIKiC800/0xm
-	10GFozW7MuzaUc6TttJeRYldhsPSYQMK0suq4joLAoMTWKJzQSiKlX5YMDkmGcNWxHFx6SnuHB1
-	z455NKkonqv+xS1vdSkcy79xFwWG/WqsFMlBpIQAu/JtOxnBmTow4ZCGjQdylNQ7EVqBQEwtmTW
-	Rd2VyMX1yQ+Okbx9wyMW7Pc0sb6eVJczBXqrhpZakl14RcZxWr9GqxnOX6K6BYW6U5fRx1nfUbz
-	sw=
-X-Received: by 2002:a05:622a:156:b0:532:9eb6:8498 with SMTP id d75a77b69052e-5330b5f1b5dmr63949371cf.22.1790367324268;
-        Fri, 25 Sep 2026 13:15:24 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:4e::])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322132ef3sm1163031cf.10.2026.09.25.13.15.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 13:15:23 -0700 (PDT)
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	hawk@kernel.org,
-	ilias.apalodimas@linaro.org,
-	sdf@fomichev.me,
-	bobbyeshleman@meta.com,
-	almasrymina@google.com,
-	kaiyuanz@google.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 0/3] net: consolidate devmem net_iov freelist and DMA handling
-Date: Fri, 25 Sep 2026 13:15:19 -0700
-Message-ID: <20260925201522.254717-1-sdf@fomichev.me>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="RK/5IDo9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:Subject:Cc:To:From:
+	Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=xzy9TlQ6M5+iVJFbg6+raosjbZr1YWi/iBB3SrVcAiY=; b=RK/5IDo9v906muKxgLa+sKbB2p
+	cPgGoalikBfujg+pXAJCr0Hy6NtdfTP5pzrLuN3y4SqicHcyyOefVkuVWjHTdobXBArMC/C1pmVUu
+	tQ52rGlCAJSuVvQMYWRgnkKOt/ERmjn6E2zoxnsrvGV0JaYEvMD1l0hgbbvDZORFU5GfOzYgzgaCN
+	23Dl+e02LjJ0De0sEyqhVFBOCAxQ+jziV7al4+aqaesgVyOrz0vRxHwsFXYXPwUQKCFYEAM9JoIJ2
+	Miv3+3iUZyTSaiKXfhTi2WpcmmTeS49n6yBdmf3x27O10dq7COy2Q1wdcNFjF50KlpDTBvqYC7l0e
+	UwwwtMmA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1xACKJ-00000002IDW-1ljq;
+	Fri, 25 Sep 2026 17:15:23 -0300
+Message-ID: <b3008a6b831ccdad2e1f403795a2d568@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-cifs@vger.kernel.org
+Subject: [GIT PULL] smb client fixes for 7.3-rc5
+Date: Fri, 25 Sep 2026 17:15:23 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Follow up on the recently merged devmem gen_pool removal by consolidating
-devmem's net_iov freelist and DMA-address handling.
+Linus,
 
-- move devmem freelist to index-based approach with push/pop helpers
-- switch devmem to public memory-provider helpers and reject DMA
-  addresses that cannot be represented
-- decode stored DMA addresses for TX on 32-bit systems with 64-bit
-  dma_addr_t
+Please consider pulling these smb client fixes for v7.3-rc5.  They
+address leaked server handles and dropped errors in the SMB2 compound
+create path, out-of-bounds reads when parsing create contexts from a
+malicious server, a double credit decrement found by syzbot and a
+minor POSIX specification reference update.  Most fixes are for
+stable.
 
-v2:
-- drop io_uring conversion (Pavel)
+Thanks,
+Paulo
 
-Stanislav Fomichev (3):
-  net: netmem: move to index based freelist
-  net: devmem: use memory provider helpers for net_iovs
-  net: devmem: decode DMA addresses for TX
+----------------------------------------------------------------
+The following changes since commit 17e7b8eacf4cac800a4fc89a28729df72a2dabda:
 
- include/linux/skbuff.h          |  7 ++-
- include/net/netmem.h            | 27 +++++++++++
- include/net/page_pool/helpers.h | 10 +---
- net/core/devmem.c               | 81 ++++++++++++++++++++-------------
- net/core/devmem.h               |  4 +-
- net/core/page_pool_priv.h       | 14 +-----
- 6 files changed, 87 insertions(+), 56 deletions(-)
+  Merge tag 'cifs-fixes-7.3-rc4' of https://git.manguebit.org/linux (2026-09-18 13:44:59 -0700)
 
--- 
-2.53.0-Meta
+are available in the Git repository at:
 
+  https://git.manguebit.org/linux.git tags/cifs-fixes-7.3-rc5
+
+for you to fetch changes up to e66cf1625ec4a3fe68346119f371def713fd0a4d:
+
+  smb: client: use finish_no_open() for non-regular inodes (2026-09-24 10:50:39 -0300)
+
+----------------------------------------------------------------
+smb client fixes for v7.3-rc5
+
+ - Fix leaked server handles and dropped errors in the SMB2 compound
+   create path: a parsing error reported as success, an earlier CREATE
+   left open when a later command fails, the cached directory open
+   losing the FID needed for cleanup, and SMB2_open() not closing the
+   handle after a create-context parse failure
+
+ - Fix out-of-bounds reads when parsing create contexts from a
+   malicious server: bound each context by its Next field, parse the
+   lease and QFid contexts from their declared offsets and validate
+   the POSIX create context length
+
+ - Fix a double credit decrement, and its warning, when a compound
+   send fails and triggers a reconnect; found by syzbot
+
+ - Fix a dentry and server handle leak in cifs_atomic_open() when an
+   O_CREAT open resolves to a symlink or other non-regular inode
+
+ - Use GFP_KERNEL in the DFS get_targets() path
+
+ - Minor update to the POSIX extension specification references
+
+----------------------------------------------------------------
+Adarsh Das (1):
+      smb: client: delete compound mids on send failure before unlock
+
+Fredric Cover (1):
+      smb: client: use GFP_KERNEL in get_targets()
+
+Namjae Jeon (1):
+      smb: client: use finish_no_open() for non-regular inodes
+
+ZhangGuoDong (1):
+      smb: client: update POSIX extension specification references
+
+Zihan Xi (6):
+      smb: client: fix create context out-of-bounds reads
+      smb: client: validate POSIX create context length
+      smb: client: close handle after create-context parsing failure
+      smb: client: clean up failed cached directory opens
+      smb: client: close completed creates on compound wait errors
+      smb: client: preserve create-context parsing errors
+
+ fs/smb/client/cached_dir.c | 32 ++++++++++++++-------
+ fs/smb/client/dfs_cache.c  |  4 +--
+ fs/smb/client/dir.c        | 52 ++++++++++++++++++++++++---------
+ fs/smb/client/smb2inode.c  |  6 ++--
+ fs/smb/client/smb2misc.c   |  9 ++++--
+ fs/smb/client/smb2ops.c    | 28 ++++++++++++------
+ fs/smb/client/smb2pdu.c    | 54 +++++++++++++++++++++++++++--------
+ fs/smb/client/smb2pdu.h    | 10 +++++--
+ fs/smb/client/transport.c  | 71 +++++++++++++++++++++++++++++++++++++---------
+ 9 files changed, 200 insertions(+), 66 deletions(-)
