@@ -1,109 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3684A3B9937;
-	Fri, 25 Sep 2026 16:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C9F3BE162
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:59:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790355466; cv=none; b=pyMfP9lVcnmYz2vyxJvIttDUUjDbhQnLxA6rJW87iPniF2wnvCCYw6OC6EG9HvjjNLsp/4FGm6MBD/lCngcazVZnEzb7V+UjW8QUui1aAuNYm8zXRQcIHeBDyRLY7Zl3eJQbT1Zqo9xEARZiVROUPqvAtDteS48Qd+tOmkjdZOc=
+	t=1790355593; cv=none; b=F0Hp942bZfMwr/Isa3fAxlDvOzNSlAJqfmitMVnDuHtqyFmng3LQj/hclVsJnL1lIvr/FTIQHYDBs5pXisCFbsHNkeFd8cOOhAjzsAZWNzaRLNmL9+fjzdwx54nBJU+Z3OGJKYK5uXGfnp16ZCtVeqkMsDYnbhbKG1soVhJAus8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790355466; c=relaxed/simple;
-	bh=8Z9jQC7c9SbujGPqpgreY5GWmzvf1NnsyeKaLPGSss8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I75fikIvazo/p38ArTCPp4A4/ORFwb+o1bvOH36IWLaNyn04ziMUAbj7j+y0GYuR9SDKir1R8P472YDN9Yn8b/m6CnQGg7obya0D8PX8SwLghGTVwvP/XYt9/izQgQH5fzoMg5xmK1xUtw993hEKqfUMRqwlkGVJ0ixtVk+B0KE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ouDwAx21; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790355593; c=relaxed/simple;
+	bh=JKIIgqWX5qxVPEB4mEVEZFgtVqMQiJqYfzepK6S4EQ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pxOyP+SuoG1KohgYofAqnXgRvsgNq/6BGWPgIxaXG+c0EeIYq5e7aY07bzBkgcdMdEtLxyyRm2wLlwJFu7X+4gTpYts2O0pG+UT+tOKtK5dNBKLY7YkVTidJpWGnsOjh4CmQ2Itq88JehIv+LkaMr3BvNkVMVKy7v1RA1riVskQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DAxk+aq9; arc=none smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ouDwAx21"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EA401F000FF;
-	Fri, 25 Sep 2026 16:57:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790355456;
-	bh=YeSPjrYOhleyKBr6GOceUk+K4eAhVh006L6OWdIYess=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ouDwAx21oV+FOcNd4ThT90yV4SfLGFI/YL6KOaHLl8YPUd/oOaK2Au1xRW2/N4Rz5
-	 v7B1bUrwz44SgaEgBgWk9vvBq+GixJlOiPfBgD9KBgSOo4hJwUlw0u2CWHlGZW5SUR
-	 IQe/CEM9CN53Fs5dvSejF2tR2J1+fo5WhsQf6YntkAmMjPOXxAQaUQFlydXg8APSK4
-	 gJcySXOj/f/fkpqxcEpHRosYnOlODVlSBjLx4YBew44b3A5jYW/4wcguQOZMOOkH/a
-	 Pf/sFDD5DcD8vNJQOL3Y/pXVAHcsBaYqmQhQ3Za7Q+EQkb/zSFKadmXWleCc1RoRQV
-	 x0kfbcOpkyI5A==
-Date: Fri, 25 Sep 2026 17:57:32 +0100
-From: Simon Horman <horms@kernel.org>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Doug Berger <opendmb@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Justin Chen <justin.chen@broadcom.com>, kmehltretter@gmail.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: bcmgenet: allocate RX buffers as page fragments
-Message-ID: <20260925165732.GR13925@horms.kernel.org>
-References: <20260924101922.2675127-1-nb@tipi-net.de>
- <20260925134714.GM13925@horms.kernel.org>
- <890feb51a8204e6e9f486bcee8e4f819@tipi-net.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DAxk+aq9"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6aae37d33cbso1364851a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:59:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790355583; x=1790960383; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P2oQDwCwCo1gfWj8hUM2bE3rJ8xWs7DjrsEeE/nug/Y=;
+        b=DAxk+aq9gNh+zgdqvHMHQK97bBvWGt3VW49kSKKlx6tgLsYY9jx3Rgj5wDkUaebdN2
+         fL32I+X4TiZupDVB1MQS6GZntx+AXzJ5enVU4O7Ub6/0OtUktCQf8Acajs4qxq39tEOY
+         joWmL54sLd1GqvwNcIlx8m5CWWZCyoac6pmSLTluWIXggINPOoO6xJK6GmEAe+guQ5Wm
+         4Kxj8nLzsRpw+nPfm7+ovF6b+F7K9B7R0Urj1HtvwFLFSgnbwtpOEbAdNNHw9ez83xGi
+         ftcK2i6Bw0REnibEGKmGAfGYdX2PVDis1CfwMzlSZ/f0uTLDpoVBhHN8xZlD/nLqDr6h
+         71gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790355583; x=1790960383;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P2oQDwCwCo1gfWj8hUM2bE3rJ8xWs7DjrsEeE/nug/Y=;
+        b=fwn4lOsi2ciJ6X3Yvg5WVkfNoDyBhczA8l6fhyZEzMwQIw95mb3kixF9PfAadzP36b
+         guCZXwRWkGZQbneP+bzS6+7aaNb0EZGBN8rwCJXowkqXXhQGli/dibtsMxT1OE6ZxOrb
+         Z893Z3gQEqgwfa08x2BJ8DOA62TJbBZZf6FIOdc6IxLRQgTR7hu1c4aDppjV+TerE67X
+         QMsDVY2eDOHdOovGQ7sn5rwck53Ivs/xje+O9zVC8+80xpjSdGJUtVHTodybn5PvvBTS
+         6m32T1pDGr2GnBBbTtCKWYxeLmNvarpWpGu36O6p3l8eHwEwDJjUUJbWFXvBR3GzAnD9
+         Y7mA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1IgJ36lkkvyjeb+Tf9oce36Ab1iQEIU0WbJAXTUe6RHPqR47LdYMCTExYd2JYMzTOtCIQpX4de2IXK+4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpcyJsCZqZjDNM9Db2PCsQl3GXOptWrns3MxMT5jFU5GKop74Y
+	Ci0j+cZPx5/bH55ozSVG/pw6QGLcp2CsdNr0ce/F/OfUGhyM6/kAXlL2
+X-Gm-Gg: AYBFou2b2sbxNMc2Dx75eUPHkT0UERRzq7I5PXOex9ejOVMWZLsHOmDZNUXzjWk4tkx
+	ZiAJpqT/PK3xmXr43l5W+WXSVxtL3KAt6i7RqBgw1fluSxq40rQ9tV4I7ZFXwKlh10KQQYO4moG
+	pOznLGxXfdffnhF2AROBSm8a3EbHKoaefK305NqBgo83hFbX8FAOHhi5xBGsW6kuLsMz+QROKlf
+	YdbNdi6OpRKYKbpr43oWQK/R4rZBVE9YBU+061ylU4AfmCBKjMR7G/r87d4ldVbS8Ea6bfNPLXC
+	zxuYO/l1BS2NrCF5C9jbUhiGYWmbbXDdTQGGxXKjWVi4wtULh/A1vlsE+Tv23hagsnys6lNSdKa
+	nPvzSZ7JGLcA0GQf2hrD4NqbFDSAVq7jXkzwDBS/sCWZdYAsKF8XTAVph5kTLZKSjskElRUEohn
+	ODAjwvhANq+qEJztnLHSG8ewS41PORGjCwgP17IRf5DsQFIgWlkDIRAL066Ugjek+LDzm9ic23z
+	ltbJXRdEii0gN910L1RzYsYcmz5yrsnzprwQ94HHZ4W0FyIJF7BwOdn/EfgQUw7
+X-Received: by 2002:a05:6402:12d0:b0:6aa:ab94:4a36 with SMTP id 4fb4d7f45d1cf-6aac8f1b94fmr4157302a12.8.1790355582773;
+        Fri, 25 Sep 2026 09:59:42 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-79-29-83-136.business.telecomitalia.it. [79.29.83.136])
+        by smtp.googlemail.com with ESMTPSA id 4fb4d7f45d1cf-6aae5cb9b0asm1321152a12.9.2026.09.25.09.59.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 09:59:37 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: kernel test robot <lkp@intel.com>
+Subject: [PATCH] ASoC: airoha: Fix sparse warning for AN7581 AFE PCM
+Date: Fri, 25 Sep 2026 18:59:17 +0200
+Message-ID: <20260925165919.5407-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <890feb51a8204e6e9f486bcee8e4f819@tipi-net.de>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 03:59:57PM +0200, Nicolai Buchwitz wrote:
-> Hi Simon
-> 
-> On 25.9.2026 15:47, Simon Horman wrote:
-> > On Thu, Sep 24, 2026 at 12:19:21PM +0200, Nicolai Buchwitz wrote:
-> > > Since the page_pool conversion every RX buffer is a whole page and the
-> > > skb truesize is the page, although the hardware writes at most 2 KiB
-> > > of
-> > > it. On 64 KiB pages a packet therefore counts 65792 bytes against the
-> > > socket buffer where it used to count 2752. As a result a UDP socket
-> > > with the default buffer starts to drop after three packets, and the RX
-> > > rings pin 16 MiB for 512 KiB of buffers.
-> > > 
-> > > Fix this and allocate the buffers as page fragments, so the truesize
-> > > is
-> > > what a packet occupies. 4 KiB pages stay one buffer per page.
-> > > 
-> > > Sync each buffer in the refill path, as page_pool can only sync a
-> > > whole
-> > > page on recycle. On 4 KiB pages that is twice what the hardware wrote.
-> > > 
-> > > Fixes: 7bc054c2d4ed ("net: bcmgenet: convert RX path to page_pool")
-> > > Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-> > > Closes: https://lore.kernel.org/all/20260924065839.56793-1-kmehltretter@gmail.com/
-> > > Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
-> > 
-> > ...
-> > 
-> > > @@ -2254,11 +2257,12 @@ static int bcmgenet_rx_refill(struct
-> > > bcmgenet_rx_ring *ring,
-> > >  			      struct enet_cb *cb)
-> > >  {
-> > >  	struct bcmgenet_priv *priv = ring->priv;
-> > > +	unsigned int size = GENET_RX_BUF_SIZE;
-> > > +	unsigned int offset;
-> > >  	dma_addr_t mapping;
-> > >  	struct page *page;
-> > > 
-> > > -	page = page_pool_alloc_pages(ring->page_pool,
-> > > -				     GFP_ATOMIC);
-> > > +	page = page_pool_dev_alloc(ring->page_pool, &offset, &size);
-> > 
-> > I think it is not so important either way, but I'm wondering
-> > if you considered using page_pool_alloc_frag() here.
-> 
-> Yes, I did, but page_pool_alloc() seemed a better fit as it hands back
-> the usable size in *size. Also it falls back to a whole page above half a
-> page and avoids an underestimate at the end of a page.
+Fix sparse warning reported by kernel bot:
 
-Thanks for the clarification.
-All looks good to me.
+sparse warnings: (new ones prefixed by >>)
+>> sound/soc/mediatek/an7581/an7581-afe-pcm.c:144:30: sparse: sparse: symbol 'an7581_afe_fe_ops' was not declared. Should it be static?
+>> sound/soc/mediatek/an7581/an7581-afe-pcm.c:419:14: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected void *base @@     got void [noderef] __iomem * @@
+   sound/soc/mediatek/an7581/an7581-afe-pcm.c:419:14: sparse:     expected void *base
+   sound/soc/mediatek/an7581/an7581-afe-pcm.c:419:14: sparse:     got void [noderef] __iomem *
+>> sound/soc/mediatek/an7581/an7581-afe-pcm.c:439:42: sparse: sparse: incorrect type in argument 3 (different address spaces) @@     expected void [noderef] __iomem *regs @@     got void *base @@
+   sound/soc/mediatek/an7581/an7581-afe-pcm.c:439:42: sparse:     expected void [noderef] __iomem *regs
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Make an7581_afe_fe_ops static and add __iomem for the base from
+devm_platform_ioremap_resource.
+
+Fixes: 4974ffa0d6c2 ("ASoC: airoha: Add AFE driver for Airoha AN7581")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202609242059.t4FlJzOz-lkp@intel.com/
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ sound/soc/mediatek/an7581/an7581-afe-pcm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/mediatek/an7581/an7581-afe-pcm.c b/sound/soc/mediatek/an7581/an7581-afe-pcm.c
+index a1d742362538..d47edb630452 100644
+--- a/sound/soc/mediatek/an7581/an7581-afe-pcm.c
++++ b/sound/soc/mediatek/an7581/an7581-afe-pcm.c
+@@ -141,7 +141,7 @@ static int an7581_afe_fe_startup(struct snd_pcm_substream *substream, struct snd
+ 	return ret;
+ }
+ 
+-const struct snd_soc_dai_ops an7581_afe_fe_ops = {
++static const struct snd_soc_dai_ops an7581_afe_fe_ops = {
+ 	.startup	= an7581_afe_fe_startup,
+ 	.shutdown	= mtk_afe_fe_shutdown,
+ 	.hw_params	= mtk_afe_fe_hw_params,
+@@ -375,7 +375,7 @@ static int an7581_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	struct reset_control *reset;
+ 	struct mtk_base_afe *afe;
+ 	int i, irq_id, ret;
+-	void *base;
++	void __iomem *base;
+ 
+ 	afe = devm_kzalloc(dev, sizeof(*afe), GFP_KERNEL);
+ 	if (!afe)
+-- 
+2.55.0
 
