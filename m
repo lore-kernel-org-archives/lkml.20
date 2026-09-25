@@ -1,80 +1,99 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679CE400DFC
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2B23E3C5F;
+	Fri, 25 Sep 2026 10:58:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790333877; cv=none; b=gRAR/QndOQIvDTWcpGFN4iTe9Qr6FxS1MrNDrb8UxSDr3P9bp0n6DO0GQt+ZCX7HZ4EqmkICZmmJkmUKMus15epYTNRiS5rknyv7A8CjWNyAHjWpJ+IwcB1mV44Hhahnhm9F0lEBIqmiEj5EgtqE2aZjTww80JtloiQWbyUjd/M=
+	t=1790333883; cv=none; b=XaZpu6NZNN63YRiLXmHURPm8du16pHazQ6PWCAJq/3TDKKK2jqhw3cVEKmgFgBYszQUFOvAjY/fXoahwhSoTvSQL6z1hRl8LOfhiWaYimS2qLXWVQq3ti+e3sZf8ECVtlRkGK8wQbShO/hQmIsx4TS7I+0TSUzZY8UetIw75aJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790333877; c=relaxed/simple;
-	bh=XZxo+WADsr42hu/WwcEvLMNMXV8qU7PpguPLDEp9b50=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bQv6a/1cZHgVeMwYl782WDcBc/fquIc0RTzuGnG3SyDrnAecc6IQ32tp00tFluqFTVP71C0eQ1yD5xf1PabXEdU+KncDzhJ+PODpH7W/k6yVO18XXYXE5+ue+mR6MI5K/SWWpadNinJ2/4lxD6LmWVPC1yWdrwfaVh6ySfMEjto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=VzyewI3y; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1790333883; c=relaxed/simple;
+	bh=EsXuJvrag4cCZG26K0M6VMGyD+DGrBG97o19/JayE/Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=pnZSTU+x/pQ2LASk/ZOgaOxei/gYr57pQLqNZZ6N1G17fl0Q5wuM0T6rwSZjPbQF9mVDK+bcjJWcLFfanZ+YonUGqUW1a15X7Z8UYiK34Mffvo7xIyAXwQkh0EVwF2KhQM1DxmgZpSnGAJBOZAwG5PT9Z0IrBu9acQ1njAa9fPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=JFAez4TZ; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="VzyewI3y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=anZU
-	1KfXBrg0LBONVfZO0pF5ldmszDBWgaPcW+jObfg=; b=VzyewI3yGO86fam5WTld
-	zvvz7ZZwnlYyWWaEVbLJY0SXay3FtSQG0IXNkSishLxmBPdBnZxcjwmIqHxGA3H5
-	qpXD/AqBCejFa2WMaKB6chS5k2bGIAAADbdKXrQdFp3IRQnghM5qlxb43sHfU767
-	QywHCw+cmThFPTcAWqyoxlAZO0Pj4VXCxJdo8hTan5crYNkNweu3zE9oIgbWC+TA
-	kb6FO//YmBehA2iNiswLAWa/OKB+R5gfXrR8frTNOhqbBUy8iDTgxWTDqKOY+bpH
-	E2XpS10vdMoyhpOO6GdfJOA4MYh0YowWFxMt+/NaN8CPPVv0DCLzgkE8N02/I6FM
-	gw==
-Received: (qmail 1529304 invoked from network); 25 Sep 2026 12:57:42 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Sep 2026 12:57:42 +0200
-X-UD-Smtp-Session: l3s3148p1@r6HilUxcJoIujnvn
-Date: Fri, 25 Sep 2026 12:57:42 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Sam Agazaryan <samagazaryan@google.com>, linux-i3c@lists.infradead.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
-	Vitor Soares <vitor.soares@toradex.com>,
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
-Message-ID: <arZTphXbVF5wagy2@shikoro>
-References: <20260921230603.2518652-1-samagazaryan@google.com>
- <arY6DfVf_9tZ_TCu@black.igk.intel.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="JFAez4TZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790333882; x=1821869882;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=EsXuJvrag4cCZG26K0M6VMGyD+DGrBG97o19/JayE/Q=;
+  b=JFAez4TZBbKFvtofkZqotBA9xoKE+ujKqDKeYlPfkOkB/J2R7ig+EQxR
+   25ZP9la0fHo/yVcCbr9frbYlxPGx2ctKqoQ7/SFeawGp8t0CFoXBJ6cyk
+   Fd5pa5l+1aNQbUcvKjGhKUfpP4mph+S+Y03N2H4baT3AKZE57PrR7XsEH
+   kZXrS0m9+2akOApP9JbFqNS6g/Jwa3cV2suJ/8iyNnlLRK3PvL7tB8UWE
+   Xu+ZkevQ3wfUUMbeF4+wDGfZhv0lHupTD+YVaeYLuZQD4VvE+11w2sjo+
+   WkJCn2kpk8W2fkryRWshbSW1veql75iw4+ZppMT192ec72vhixYkpNypU
+   Q==;
+X-CSE-ConnectionGUID: cv1aykm7QqicWM6ReoVZkQ==
+X-CSE-MsgGUID: YqmcZRtlSMyLZbYhcI80Rg==
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="64445385"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 25 Sep 2026 03:58:01 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 25 Sep 2026 03:58:00 -0700
+Received: from [10.40.24.197] (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Fri, 25 Sep 2026 03:57:57 -0700
+Message-ID: <599985f5-219c-4158-b547-5b9c01ade449@microchip.com>
+Date: Fri, 25 Sep 2026 16:27:55 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arY6DfVf_9tZ_TCu@black.igk.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 0/4] net: microchip_t1s: fix collision
+ detection on PLCA status change
+To: Jakub Kicinski <kuba@kernel.org>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<pabeni@redhat.com>, <hkallweit1@gmail.com>, <linux@armlinux.org.uk>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<UNGLinuxDriver@microchip.com>
+References: <20260918143302.76909-1-parthiban.veerasooran@microchip.com>
+ <20260924083355.5e839290@kernel.org>
+Content-Language: en-US
+From: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+In-Reply-To: <20260924083355.5e839290@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Andy,
+Hi Jakub,
 
-> And you need to gather the opinion of Wolfram as well.
+On 24/09/26 9:03 pm, Jakub Kicinski wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+> 
+> On Fri, 18 Sep 2026 20:02:58 +0530 Parthiban Veerasooran wrote:
+>> In a 10BASE-T1S multidrop network, the PHY autonomously transitions
+>> between PLCA mode and CSMA/CD mode based on BEACON availability. The
+>> existing collision detection logic only adjusted on explicit ethtool
+>> PLCA changes, leaving it in the wrong state across these autonomous
+>> transitions.
+> 
+> I'm going to assume at least one of the High or Medium severity
+> findings is correct, please respond to the AI feedback in timely
+> fashion, even if it's just to agree / tell us that v4 is coming.
 
-Dunno if I can help here. When it comes to driver development, a dev
-interface is surely useful but can stay in some debug corner. However,
-cover letter says:
+Apologies for the delay. I had a quick look through the AI review 
+feedback across all the patches, and it appears that some of the 
+findings are valid and need to be addressed.
 
->> Userspace access to I3C targets is needed for devices that do not have a
->> kernel driver bound to them, such as targets in ROM/bootloader recovery
->> mode (e.g., OCP Secure Firmware Recovery v1.1 and Caliptra Silicon Root of
->> Trust recovery flows), as well as hardware bring-up and diagnostics.
+I am currently going through each comment and working on the necessary 
+fixes. I will address all the valid review comments in v4 and submit the 
+updated version as soon as possible.
 
-I don't know anything about these recovery mechanisms and their needs. I
-might have time to look into I3C things after all the conferences in
-Prague, but no promises...
+Thank you for your patience.
 
-Happy hacking,
-
-   Wolfram
+Best regards,
+Parthiban V> --
+> pw-bot: cr
 
