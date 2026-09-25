@@ -1,225 +1,86 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D2C4756B4
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FDE4854F4;
+	Fri, 25 Sep 2026 14:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790345418; cv=none; b=QE3C6JLUvwWuHPj4FchczZsMeXSC9BgPmu5JGhWn9FZejikefMU+6qvx3kp/RZQlPzald69gRcRJtgsa1Jk7sREpp9LmfII2exVvBh/YNYGyXFfQXIFynUe2FLLBm3+EH2985ZuIj295HSkirvH/UqqUu7iGPrQWu2YntFS2ILg=
+	t=1790345429; cv=none; b=VuyuAZHB93sLy/zsfDZHF3rF2owd2B54GhpK5dasdOpO+9Ot6zBCB0fwhSv20nI8MzMHTj9Rixafpk6nwSlinYiCy0yXFlGTD99DJ6I1+8+AEPDxlGTDJwbGqo1dNUhMgpUwjjvJ1pz0OzCKiGNi15JU55duXnDs2uvBrqpVzIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790345418; c=relaxed/simple;
-	bh=BS8deKBe8YylbXCiat/0G6yEZV3rWMqa9pDpmgUJ+6s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F/buVErKmM6SO0RVjNFl5F8/j2Un5dEcwE1v6icf3Gibj4yfhZZwSmlsce9mgSN7041IRcldtLmwz5Vhw2pnUjU784ZMCi42+wAa9MrbPsX8+A99cvc0sVvgCah/JJOlyK+Gz6dWq2QkEIi7TtkOWRlOTULJKDgr3bhdS7ISKl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=IuPkftOV; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790345429; c=relaxed/simple;
+	bh=IAek5QNNG48VEIRnYPgZiQ9h5BIXUIkQlgLx1MXYb9c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FGYmnu5MxZr2/wksPQx2b9SADhKJwk3mZtbgE4l25q2xjayI2S1dvHjir00rl+Y3K3U49V5h9t9BLBk77+S2rbjUfNM4R7Ns+HiZFJuwYbRLwmRnlIKzADI83tXj6fR1A5O1pYgwybfk3jU0G5leh3O8+e/EM+gHwLjSeV04ffQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=a3Wzkj7N; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="IuPkftOV"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so823958f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:10:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790345415; x=1790950215; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5EozD17rD10z9YERFiVN6ETD514MdqE8+77HcfpzGcs=;
-        b=IuPkftOVLungDwHy63VfdOl/+QgRNiZJBAT0QJjK9vv9xcle2AZeE0glQHkd7/u+fd
-         gBPGZ/4otVBG6KicOGJVcYgozqmd8rn+Le72ZKo4khW6Tp7P6CATbJ3hCgBRXmsVt7YX
-         9UNmmo335e1vm13xnDRgeEOhLPYPMR4mj2ilG2lhmKpm+E9RuCNwM+xU2NFhRM9KnPbU
-         CtMM1ZUrIvYaOfyJg0Yd+7829TDc9IqMc5cr8tN+PtMRb1ScbZgd1qG0Vl1ssjlZ639M
-         ry2hbjRvXsYbwQFO4lPShAD42BEI/HA79qiIF6WApZ2cVYyIkqdrwKjeDkas/ZuAnAhv
-         so3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790345415; x=1790950215;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5EozD17rD10z9YERFiVN6ETD514MdqE8+77HcfpzGcs=;
-        b=bZ1+bkIUxqluFT1oQwkxsD72bZJnLH2cXfkxDS+mgw/EvxsPOgLdOdtTV1i3N9aEP2
-         OTUT+r5miYuOzHJ16lZnF5Mo1qvA9wdlc8qf6Nrul5tPIIQGed9v+6Rew7UuYWswmanb
-         4IkgDQVAG94uCJ9Rb9Xc4vtrNJcqL8/CCS/k3Rc0ANHTEeT5dYw6SyhmOYosi3GnZKPa
-         eZw2eTXvq/kBKPPUFP1ig1UBP0rVOGUwdt3djjJC6VWKfQW6Lf1bf+G1phMPeenKXgjI
-         4GSXvGxBH1nGmTOBPOmu4nFVwYpfCr/k/wYqMfpv1EswlJMljJQo7HGLm1i8rVXA4zYZ
-         szlw==
-X-Forwarded-Encrypted: i=1; AKwUvBy5Ms/SPQqjuJGD1KKffrID2HjdK7LG2eQB9s7oL5Dyd/u6K3vI0ZZCLNSiINw5EgkURbwEqXf1LrPtyPM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nu4A8HG+dhy9dG4ddsBwEWv3cePf5Ss/fUl29HdKoJxON8jaal
-	zIjzOLGkZfXfJHmRDIgpAoRkxuxQiCt3+0B2SZ0UoQjDV5/doE6XIOqQ/H3hyuJVfkQ=
-X-Gm-Gg: AYBFou3C4d4XoF4fzPTizBZkZZiFsi9BExYJkRoZLsB24HjnCU/yb1gDYrY96Uig03I
-	Qeph9+ddeuzErN1MdpF+aGkYKOZ+vpGATi/j9mvA5WrZ/v0ipsZCrvXK8mmb+CU5EJ1wp9TNsCR
-	FqfS9DAFgHqHN/XaBjPtZm/fAfr3p6yADhUcDhPLo5r+Mpu1q9ixtHVcjiKL6l8K6erDX1PSJHx
-	7Dulk8MXCf2SqP3ZRkp7uvYleM1dui6eA/64gaPYbvi0Z7oTdkj0UhSir6hdJgBy64nBYqp+2bu
-	vuDebzTIa3VLzyAgj0u64la3Z1d/M0c/eikOFsrUqyvoVBLqkrKNaUsI92ifj5MBtuvo8SooUUL
-	chDsqOb5a5pPvFZd6ZMF+TbSBus9lFSD7r2w/TFpgs6wK5NiETbzDJh7ozy/sLKsTdpPMvWNK7x
-	x2xKz6xj4RT26GP4kR3hTmikfLspZdvZUc1jbCsdGmDlJ1jun6zivepfUPwv2MdEUpxxUbfzOr
-X-Received: by 2002:a05:6000:2486:b0:487:27f9:829 with SMTP id ffacd0b85a97d-488716f6ec2mr11119206f8f.30.1790345414609;
-        Fri, 25 Sep 2026 07:10:14 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a746c57sm6908032f8f.35.2026.09.25.07.10.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 07:10:14 -0700 (PDT)
-Date: Fri, 25 Sep 2026 16:10:06 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Fushuai Wang <wangfushuai@baidu.com>, Kees Cook <kees@kernel.org>,
-	Stepan Ionichev <sozdayvek@gmail.com>, linux-serial@vger.kernel.org,
-	Manuel Lauss <manuel.lauss@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] braille: nbcon: Allow using a serial driver
- converted to nbcon API as a Braille console
-Message-ID: <araAvkIB5XatHPNk@pathway.suse.cz>
-References: <20260922072558.98854-1-pmladek@suse.com>
- <87ik3tiim7.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="a3Wzkj7N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=KX
+	uDrmnU1MCQSKZ5fs/tsSrPstiX4bm0nvq6uTSPhu0=; b=a3Wzkj7NC7vd2oOmhE
+	9wd9GseZqlm+SpTBi2jZ97Qk8qwE3igJj62uSRX99fEi2t7kil3qTq4S76D8Mk1c
+	PrRdDMQgFPCTCdmLNi6d7Qly1t+QM+SzbG4H4bF5GxusLsr299IEuAUeKgNLDtbp
+	xZo1EYUJ5RtMXO9VhegPQ4Af4=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgBHeMKqgLZq8bfxBA--.29463S2;
+	Fri, 25 Sep 2026 22:09:48 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] iio: accel: kxcjk-1013: reject duplicate event disable
+Date: Fri, 25 Sep 2026 22:09:43 +0800
+Message-Id: <20260925140945.2254656-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ik3tiim7.fsf@jogness.linutronix.de>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgBHeMKqgLZq8bfxBA--.29463S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7JF1DKF4ftry7uF13GF15urg_yoWkCrg_uw
+	18Zr9rWF9xCr48Ww45urs3Xry8Ka4kXFn09Fs2yr4akrW7Jas3Kw4kArZ8AwsrWw47t3Wk
+	JF48Xw1fXF13GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRM7KsUUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8AyTzWq2gKxYwQAA3L
 
-On Fri 2026-09-25 15:14:16, John Ogness wrote:
-> On 2026-09-22, Petr Mladek <pmladek@suse.com> wrote:
-> > I have been working on v5 [1] of the patchset cleaning console registration
-> > code and I found that the system did not boot when I selected a Braille
-> > on the command line, for example:
-> >
-> >      console=brl,ttyS0,115200 console=tty0
-> >
-> > Bisection went down to the commit d3539347022a ("serial: 8250: Switch to
-> > nbcon console, take 2"). I found that the Braille console driver called
-> > braille_co->write() internally where braille_co pointed to the uart
-> > 8250 driver.
-> 
-> The Braille console blindly calling (struct console).write() is
-> obviously bad. This needs to be fixed. And not just because of the
-> 8250. Other NBCON drivers already exist mainline and have this same
-> issue.
-> 
-> > I added the support for the nbcon console API similar way as we did
-> > for kdb [2].
-> 
-> kdb does not need to care about latencies. The Braille consoles do. I
-> will comment more on this in the related patch.
-> 
-> > Note 1: I believe that we have a bug in the kdb patch because we call
-> >         con->write() atomic callback after entering the unsafe mode.
-> >         But we should do so in the default "safe" mode.
-> 
-> Why do you believe this? kdb operates within an unsafe section so that
-> other CPUs cannot take ownership. (BTW: For kdb the other CPUs are
-> supposed to be quiesced, so there should not be any ownership attempts
-> anyway. The unsafe section is just an extra precaution.)
+The IIO core does not filter duplicate writes to the event enable
+attribute. kxcjk1013_write_event_config() already ignores repeated
+enable requests, but a repeated disable request still calls
+kxcjk1013_set_power_state(data, false), dropping a runtime PM reference
+that was not acquired for this request. This can underflow the runtime
+PM usage count and trigger a "Runtime PM usage count underflow" warning.
 
-It is safe from the kdb context POV. But it is not right from the API
-POV. The API does not suport nested unsafe section, so the following
-happens:
+Return early when the requested state already matches ev_enable_state.
 
-  kdb_msg_write()
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/iio/accel/kxcjk-1013.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-	nbcon_kdb_try_acquire(c, &wctxt);
-	// on success: nbcon acquired, entered unsafe context
-	c->write_atomic(c, &wctxt);
+diff --git a/drivers/iio/accel/kxcjk-1013.c b/drivers/iio/accel/kxcjk-1013.c
+index 166fb786425f..8994c9e8e048 100644
+--- a/drivers/iio/accel/kxcjk-1013.c
++++ b/drivers/iio/accel/kxcjk-1013.c
+@@ -1030,7 +1030,7 @@ static int kxcjk1013_write_event_config(struct iio_dev *indio_dev,
+ 	struct kxcjk1013_data *data = iio_priv(indio_dev);
+ 	int ret;
+ 
+-	if (state && data->ev_enable_state)
++	if (state == data->ev_enable_state)
+ 		return 0;
+ 
+ 	mutex_lock(&data->mutex);
+-- 
+2.34.1
 
-		serial8250_console_write()
-			nbcon_enter_unsafe()
-			// nested unsafe context
-			nbcon_exit_unsafe(wctxt);
-			// the nbcon context is marked as safe
-			return;
-
-	// the nbcon context is marked as save even though
-	// kdb_msg_write() did not call nbcon_exit_unsafe()
-	// which might lead to bugs
-
-As you say, it is not a real problem here in the kdb code
-because other CPUs are stopped. But it is an error prone pattern.
-IMHO, we have already talked about adding warnings to catch nested
-nbcon_enter_unsafe()/nbcon_exit_unsafe() calls.
-
-
-> > Note 2: I am not completely sure about the locking. It might be better
-> >         to use NBCON_PRIO_PANIC in panic().
-> 
-> Why does it matter? printk() is not trying to do any Braille printing
-> during panic, so it will not attempt to acquire the Braille console.
-
-The Braille console show exactly what the graphical console show.
-It shows printk() messages when ttyX is registered as a console.
-
-> >       Also I thought about using con->write_thread(). But I think
-> > 	that we have to use the atomic variant because the Braille
-> > 	console can be called from printk() via the VT code, aka
-> > 	graphical console.
-> 
-> How can it be called from printk()? Even printk() writing to VT is only
-> if it is registered as a console. Braille consoles are not registered.
-> Please explain.
-
-I have added WARN_ON() into braille_write() and got this:
-
-[    0.069344] WARNING: drivers/accessibility/braille/braille_console.c:115 at braille_write+0x231/0x300, CPU#0: swapper/0/0
-[    0.069352] Modules linked in:
-[    0.069355] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5-default+ #139 PREEMPT(full)  db5f4527e6a3b5c4863452c3023f648284afb38d
-[    0.069358] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-2-g4f253b9b-prebuilt.qemu.org 04/01/2014
-[    0.069359] RIP: 0010:braille_write+0x231/0x300
-[    0.069362] Code: 71 02 41 83 c8 40 44 88 06 48 8d 56 02 c6 46 01 02 41 f6 42 49 01 0f 84 98 00 00 00 49 83 ba 80 00 00 00 00 0f 84 b0 00 00 00 <0f> 0b 48 8d 74 24 5a 48 8d 7c 24 08 29 f2
- e8 2c d2 08 ff 48 8b 3d
-[    0.069363] RSP: 0000:ffffffffaf603b78 EFLAGS: 00010086
-[    0.069365] RAX: ffffffffb15c2e70 RBX: ffffffffb15c2e20 RCX: ffffffffaf603bfb
-[    0.069366] RDX: ffffffffaf603bfe RSI: ffffffffaf603bfc RDI: 0000000000000020
-[    0.069367] RBP: 00000000ffffffff R08: 0000000000000045 R09: ffffffffb15c2e70
-[    0.069367] R10: ffffffffaf9f5a20 R11: 0000000000000000 R12: 0000000000000000
-[    0.069368] R13: 0000000000000003 R14: ffffffffaf603ce8 R15: ffffffffafa33930
-[    0.069371] FS:  0000000000000000(0000) GS:ffff8d04287a1000(0000) knlGS:0000000000000000
-[    0.069372] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    0.069373] CR2: ffff8d03fffff000 CR3: 000000000b656000 CR4: 00000000000100b0
-[    0.069376] Call Trace:
-[    0.069377]  <TASK>
-[    0.069378]  ? check_prev_add+0xf2/0xe40
-[    0.069392]  ? lock_acquire.part.0+0xc5/0x230
-[    0.069394]  ? atomic_notifier_call_chain+0x2a/0x110
-[    0.069398]  vt_notifier_call+0x183/0x380
-[    0.069402]  ? rcu_is_watching+0x11/0x50
-[    0.069405]  ? __pfx_vt_notifier_call+0x10/0x10
-[    0.069406]  notifier_call_chain+0x5d/0x170
-[    0.069413]  atomic_notifier_call_chain+0x5f/0x110
-[    0.069417]  vt_console_print+0x22e/0x4c0
-[    0.069424]  ? console_emit_next_record+0x23a/0x2c0
-[    0.069428]  console_emit_next_record+0x264/0x2c0
-[    0.069430]  ? console_emit_next_record+0x23a/0x2c0
-[    0.069439]  console_flush_one_record+0x210/0x340
-[    0.069446]  console_unlock+0x6f/0x130
-[    0.069447]  ? vprintk_emit+0x187/0x250
-[    0.069451]  vprintk_emit+0x1fe/0x250
-[    0.069457]  _printk+0x5b/0x80
-[    0.069463]  ? __pfx_univ8250_console_init+0x10/0x10
-[    0.069470]  lockdep_init+0x10/0xc0
-[    0.069474]  start_kernel+0x5f2/0x720
-[    0.069481]  x86_64_start_reservations+0x24/0x30
-[    0.069484]  x86_64_start_kernel+0xd5/0xe0
-[    0.069487]  common_startup_64+0x13e/0x151
-[    0.069501]  </TASK>
-[    0.069502] irq event stamp: 324
-[    0.069502] hardirqs last  enabled at (323): [<ffffffffad43d623>] __down_trylock_console_sem+0x93/0xa0
-[    0.069506] hardirqs last disabled at (324): [<ffffffffad44072e>] console_emit_next_record+0x21e/0x2c0
-[    0.069507] softirqs last  enabled at (0): [<0000000000000000>] 0x0
-[    0.069510] softirqs last disabled at (0): [<0000000000000000>] 0x0
-[    0.069511] ---[ end trace 0000000000000000 ]---
-
-This shows that braille_write() is called form printk() even when
-braille_co is not in console_list. It is called via vt_console_print()
-because the graphical console driver (ttyX) is registered.
-
-Best Regards,
-Petr
