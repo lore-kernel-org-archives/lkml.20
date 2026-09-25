@@ -1,101 +1,118 @@
-Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747474D0CF1
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:13:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E363381EAE;
+	Fri, 25 Sep 2026 18:14:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360016; cv=none; b=e/pse2G3Jo/3Wgb23LvovLJib1KX2hFX+P9iwCQulhJubdkWx7XxnkymexA2pUV+YojdNMQDqjUBXZMpAWyyinB0/kn+rIRWjGPnEbnV/zfj5qfKmn3+6efDz+5LFxRii7eEmbo9ZG+09Mo03EZqNL79r6t8+ggyLR7Q5piBZSQ=
+	t=1790360093; cv=none; b=iUs0Q3eAZWeSXodxhGmSRyMQvNjU/BN7kw8+W2y+caFGUF8KKbeCRSoYBJ6nZZMHEwV9d1O7fHuhV9+c+i4okzISbNlbO46J5O6WPadfK5iUS4tPc41rqP5sVRtFUddD0+Jcm/wQzMdnVpa68FfO4fv7bFScUoxKkEW9i3rzM4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360016; c=relaxed/simple;
-	bh=m7cyx8ZFMDDwydxGqFeynq7iB3D+yw4T82PlEIczfTQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ATLR5/hq8Q+a8ixtNZbY9Qw5kQjRoFjHn7ay6p9WHPDDZaEYUdANlTkDFhbU4mvCp4OFZqwKi/bsXCoXuU7NEDb45BUSFO2eYuxf7R6wOsCC+dGHnhybdBDKjQZI4Vane3YBIf0JkueK7Z2m+tUOOlAWcSG8/sCSg/wARqnLFGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=jUgYvHah; arc=none smtp.client-ip=74.125.230.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	s=arc-20240116; t=1790360093; c=relaxed/simple;
+	bh=T0/iP3TWRGPOF5W1Py9MRbbF5/cQPhBlndMNBbqX+Z4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ptGZcKW7CtpzmwsycYVv3fyp2KAXxWF8+pXcKYDaIb6DZZU2Nj9Yl7n80d4PdrHoZGlfSCMend8hZSK8v3PLQmRXlZ9mdChprUUlpNn0aARoMrRf8m1uOJLS6bKDTYiZDmIdnWWnA1voz3CwWWGWao9PqNMlCgMmKusmkeYkvFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=D3cz1gvz; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="jUgYvHah"
-Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-91439d36903so5222076d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:13:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790360013; x=1790964813; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m7cyx8ZFMDDwydxGqFeynq7iB3D+yw4T82PlEIczfTQ=;
-        b=jUgYvHahIGtLjFSWGaODdXohLdw7g544iNlxxuLC/HWV+0AnhtplD9xON60klLVHd8
-         RUkKXcp/ZBrIBNSRa05aqMfkzhPT/RovLtKRy1t+kvNQOigG+Wboq/hQliV0heKb+nzg
-         KhsoHsapwVE6llOKCG4xvtqe46dohfMbTprU9893lBhABvBphuHZtyfAwd6P+v81Q/5W
-         xpseYIcf51sEmOy4o2x470L6AhB0aVMU8KD5hnzawpeYRPgjjS9iPNlTqtXqMpwbhyFF
-         0YgH7XY0dp+NP4Uf+5DRPOy5udy0toPbzbpwTKmCMejvBqzffHpkgEpphfeByrIvHzNM
-         ZAdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790360013; x=1790964813;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m7cyx8ZFMDDwydxGqFeynq7iB3D+yw4T82PlEIczfTQ=;
-        b=mdFO2D/cdD39/btDseLORQf8VkTbiAcxnPyItqlUAhfGZdiXme7kKcU8nDZ9K1cGLO
-         ABLAq9hx1OVj5Xetzaw7dfvznGqJe1N3wcLV5YlKvC7pVIB1Y6PQ1NM7X5lEziL2sWvU
-         +7+rYQQT+kOA1+h2knj3Wfi7dwIleZE6EJdFpP8OcPdqSys+HsdJw/+YgqA7LHAzbhA0
-         tpFEogwTWb/pkA0Kz+1JPd10hBh0VydLUKz7go68r25mKpMJCOulbtYKjCRsUZpzKZu+
-         FkT2+j4IC8ihdCacZXdZ2yFPmSJk4xqtxK/YXw0ziE1rozGhvPdLFx6MXpkLHCvIsdn/
-         lujw==
-X-Forwarded-Encrypted: i=1; AKwUvBxgu5qz7/a2tWti1ROtswT1Guf2nQxnINY72OhHTYKse3m7QHGcbpAXpSsM3osczGU1sx/DvDSBFN7BORo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWH5Hr4B+M0hB52hBSLcJsCW0l0cYjk2ypF9F8Jt5UbQ3c2yPm
-	EZJ5LU8iFsxcRcKbx8ariBbmsaoLHG6caytLLnlFS79wW7NNrSOQXaGcPJpNiYMl+Xc=
-X-Gm-Gg: AYBFou2yknTkwuShutLrAhLBeNI6cHPweBbRiOvUITP+kAIGzTGm62vnW46PeRRXX69
-	fN5ImSiRBpS6rN4rmTh0q/0qnxUqhDs2eMTpftixkvNiuBIC0ENIRloh2M/Oxl5xx0rLtEqFdO8
-	t7PArnKBxo2tLHUtbKnBgzlCtp9++swsoDUXiVdmEpGCy185m0ypf32/8VEmbrbLNRu6ZVTgnYM
-	dgc50/Pmozo/gLNba776xlW11ygJFk2Awl3hDemkp+Aigb5HYYg7pkotYMhojYbP+U53uPeQkfv
-	vD7dW/hMfAB74IYm8VqayarpW/ZRpV3VlY1D5nN4uaZNB+KxZv2G/OIhDjBM3IQ47vBKYKrCcGz
-	GQ10Y2EDJowHNL91/B1olxnjM2j5/gytdi//TTuzF2Xh97PuJYOkRpE+k/B0o3eqDWf3rmguUc2
-	eTcyQcE3ncY1ie6C8Fm3RBnD2Mapfm1+4CsXhr2XEw7eOPTZo=
-X-Received: by 2002:a05:6214:212c:b0:914:433a:59ac with SMTP id 6a1803df08f44-914433a5edcmr9586606d6.38.1790360013409;
-        Fri, 25 Sep 2026 11:13:33 -0700 (PDT)
-Received: from armok ([2605:a601:a61d:7a00::2])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430dacc41sm22471816d6.14.2026.09.25.11.13.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:13:33 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v7 04/12] arm64: dts: qcom: x1e80100: Add CAMSS block definition
-Date: Fri, 25 Sep 2026 14:13:30 -0400
-Message-ID: <20260925181330.22794-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917-x1e-camss-csi2-phy-dtsi-v7-4-1a63eb35838b@linaro.org>
-References: <20260917-x1e-camss-csi2-phy-dtsi-v7-4-1a63eb35838b@linaro.org>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="D3cz1gvz"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0B79D40E021A;
+	Fri, 25 Sep 2026 18:14:49 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id A1AWTmgNOlZH; Fri, 25 Sep 2026 18:14:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790360078; bh=+Kox2StShoiNqUGjWBpeA9X7rNDIsJprYnDSz9puryg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=D3cz1gvzoqdlwhvGioVwydFmxD1foOUexm0+rGfadvUh4sBRmCNeCv94RCeVo+FNI
+	 ihgRMcdwJ2zyT9kCGkk9pTPAP23UEUPkbLcPS9KBLalV8SvjNlcRgYAixZ2r2HuG3Y
+	 krJNJ9vbEpD/OQnOtzY/CiUoTh3Lwh4PSccc9kV898XX7xgD6tTZD+zpuwx8M7XZu/
+	 izJZ4PFLpZATpqRGCYQM+VF/7kQsKsq1tW5HeTKv2j3SiDG6ZWkIF2bjX6i460wmZp
+	 FBcuInXKZhCpVBdz/upQWQcraezetDjk74hl7keiTIZFcNNgRrSqN+4T4qDRMOc62Y
+	 4x2qIUhHlwwPxZBWFx4tLwFoZBIOp8I+LCwdG/YSrBjE2QxMXxK89Okz0TEeMnu6Bz
+	 U++U+q2fdEcixgQyPBf59WckKeaGzCX+9tgQlj7SjfLU8+aMk8ELAZDhJEN+Pu0J9+
+	 HK2JkQ8M431P3ul/XyuY1cLK70EMkFrzTKAisW8FvSjxPbIOy+WJK0ZNo9Wn/lMGcL
+	 fX8KX3D3JHEwy8AurIJkdubt/zTnQIcrEnlt4V8o4mIoFQzdj8KfxS/fwkfRKljWpA
+	 KJZ8kEWT4WW+sHrVksnmnBS8wGrGC8gnU4PHpAflu1rFxJ2GX7NpWKvp5nNJO0FrpJ
+	 1qGqq6QdCr6cHy+EDLiPs0+w=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EC58B40E00E7;
+	Fri, 25 Sep 2026 18:14:32 +0000 (UTC)
+Date: Fri, 25 Sep 2026 11:14:29 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Vishal Badole <Vishal.Badole@amd.com>
+Cc: yazen.ghannam@amd.com, tony.luck@intel.com, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] EDAC/amd64: Mask UMC chip select to the four
+ implemented selects
+Message-ID: <20260925181429.GBara6BXp_J2rnvoOp@fat_crate.local>
+References: <20260925172639.97063-1-Vishal.Badole@amd.com>
+ <20260925172639.97063-3-Vishal.Badole@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260925172639.97063-3-Vishal.Badole@amd.com>
 
-On Thu, 17 Sep 2026 14:20:29 +0100, Bryan O'Donoghue wrote:
-> Add dtsi to describe the x1e80100 CAMSS block
+On Fri, Sep 25, 2026 at 10:56:39PM +0530, Vishal Badole wrote:
+> umc_get_err_info() masks the Chip Select from MCA_SYND with 0x7, a
+> leftover from Zen 1 where the architecture reserved space for up to
+> eight chip selects. Only four have ever been implemented, and newer
+> products document this as MCA_SYND_UMC[1:0] = Chip Select.
+> 
+> Since only four csrows are allocated, a syndrome with bit 2 set decodes
+> to an out-of-range csrow and trips:
+> 
+>   EDAC MC0: INTERNAL ERROR: csrow value is out of range (5 >= 4)
+> 
+> Mask with 0x3 to match the four implemented chip selects.
+> 
+> Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
+> Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
+> ---
+>  drivers/edac/amd64_edac.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+> index cab696be4f07..b69c3f51dd37 100644
+> --- a/drivers/edac/amd64_edac.c
+> +++ b/drivers/edac/amd64_edac.c
+> @@ -2802,7 +2802,7 @@ static inline void decode_bus_error(int node_id, struct mce *m)
+>  static void umc_get_err_info(struct mce *m, struct err_info *err)
+>  {
+>  	err->channel = (m->ipid & GENMASK(31, 0)) >> 20;
+> -	err->csrow = m->synd & 0x7;
+> +	err->csrow = m->synd & 0x3;
+>  }
+>  
+>  static void decode_umc_error(int node_id, struct mce *m)
+> -- 
 
-Tested on a Dell XPS 13 9345, with the board DT for it [1] on CSIPHY4,
-two lanes, and the PHY API series v20 and CSI2 PHY driver v18, on
-7.2.6: the OV02C10 streams at 30 fps through libcamera's software ISP
-and into a browser.
+Is this ever going to change?
 
-[1] https://lore.kernel.org/all/20260925181024.20352-1-lnicoara@thinkoid.org/
+Do we need to track this in the per-model struct, i.e., what your patch 1 is
+touching?
 
-Tested-by: Liviu Nicoara <lnicoara@thinkoid.org> # Dell XPS 13 9345
+Is this a fix that needs to go to stable? If so, Fixes: tag and CC:stable.
+
+If so, patches going to stable go first and need to be minimal for ease of
+backporting.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
