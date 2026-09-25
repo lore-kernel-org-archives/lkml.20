@@ -1,178 +1,114 @@
-Received: from mta0.migadu.com (out-204.mta0.migadu.com [91.218.175.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D4A48125E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D01414DFA
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790330638; cv=none; b=hgx25RIylFoef2T7n/Dkei0cjRNaLHt3EkzbAZHDRHepOZhZH8q99vJMhr/xkQCv28kpsKJAZHUfMm4wc68XkTUzZt6KiuPx6pYIuOCFGVDxe5zIop+UEOxUVVRw256C+17mAcAbt8H5b25uHu+R7WHR4tSlDaRypUYnTBNkACI=
+	t=1790330648; cv=none; b=jTpv/a3LlLZxywk2GqYqkau0IXe3K9XiSDNKm8ta8/IFwkSbZzo/BXrkFW/Y3kYpHgHZLmfHjKU4zzGfkQSDegkYZefW3wBXzLdOS+L+kmK3yyr4xYgIkpcdIOqpleVAgXIuQzqpgCr9wYPEYfRemV/H3F2y/WPiNi7Nva53KBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790330638; c=relaxed/simple;
-	bh=dfiJmNLHMOX3zU/mwkfT6hvb6DEunLZtzXh9pWRH0u8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XzTVNDOXPYP2OMxujGgmufOe5V0YuPQ4wj2y88tw+4+RJN9+Du85E4+4wdkg9kdq26uSjIP13ZY4IL7WvhNgUL3oPzQTsJa/QXvy0wJRlaRTYlN+Wz1eqS5Kh6pX51eLid8RzWgT/+tSY/oUES9PX5TKqqAyXVxfGcnTsMImSiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DOjEINj8; arc=none smtp.client-ip=91.218.175.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790330648; c=relaxed/simple;
+	bh=xOZUh8eRCVSUq5buZM1a8NS+QkPrbldJDuQpj3i9V/M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cLRnhxixoVinAoKvqPTN8ecNRs9SzDmF5V9AeBt5bMist2ExSapkuuQZoM6vZG/O0Yy/JtFcBvaBUjgVb5ol6vKIco6O+zu0hvyH//QQCMFmjwnvO2FiLrkarQKdYHZkRq86NY4NNTqKd9kMe1xG1YAmx1OOl2n2oLjCen4xnDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=n/5SAIYp; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DOjEINj8"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dfiJmNLHMOX3zU/mwkfT6hvb6DEunLZtzXh9pWRH0u8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790330634; v=1; x=1790935434;
- b=DOjEINj8C2Vv3HClVWhdd2rMXUOc9m63oIhAszv8XN1V5hEYWAUXCbnMWW8qVzxc5O7Iblic
- QSCFgOvmDjZ28otVcXhjmpplNu8m76tFHJ2uWMa4whUVNjdzuiruaXrd2a/bip6CM5/wgkHkAQH
- LKdtRpZkYXxRxfDGNkQFIWmU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6c555714e503276f;
-	Fri, 25 Sep 2026 10:03:54 +0000
-X-Mizu-Trace-ID: 6c555714e503276f
-X-Migadu-Flow: FLOW_OUT
-From: "Florent Revest (Anthropic)" <florent.revest@linux.dev>
-To: bpf@vger.kernel.org,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>
-Cc: "Florent Revest (Anthropic)" <florent.revest@linux.dev>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	KP Singh <kpsingh@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Junseo Lim <zirajs7@gmail.com>,
-	Sechang Lim <rhkrqnwk98@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Xu Kuohai <xukuohai@huaweicloud.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Naveen N Rao <naveen@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	Pu Lehui <pulehui@huawei.com>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Hengqi Chen <hengqi.chen@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf v4 1/3] bpf: Wait for an RCU tasks grace period before freeing trampoline progs
-Date: Fri, 25 Sep 2026 10:03:30 +0000
-Message-ID: <20260925100342.481242-2-florent.revest@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260925100342.481242-1-florent.revest@linux.dev>
-References: <20260925100342.481242-1-florent.revest@linux.dev>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="n/5SAIYp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=M9TE5rTGnhIZ7qdQJFga3tFEl5iQvSEQZerS3YSmH9M=; b=n/5SAIYpdWANYIH5d+yNiQFRV9
+	lp8P8unQeNQBsHmdR7YnMCc4/ejEX/jSooA7VXX4qeY0FmNYbIhz9l8lUIWaGtu36wBBQyLNrAate
+	jNzyqHWLVHDFOh6idb4teSqvfH0IvlJhrc1b69vTGZXhXb8lDG3B7jqA29rGhykeOsjj7OJdvCvSu
+	3t7vvGdLJ0Z7SI+xSTrgF0tgRgvadv/xOEKpJ/yTS+kd4y1Z8ihjWUHWOp88N7/soql/4XfMGozqX
+	Q+Jn41uDI2eCKisrOAJQoJOoIvLSITaNjb3NCajf8MI3MrFg8HkntSuGo0Ar+HQL8Iju4eq0SuLld
+	n0hmH4Pg==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xA2md-0075bp-39; Fri, 25 Sep 2026 12:03:58 +0200
+Message-ID: <cdef6f02-6361-49ce-a1e8-ab50d83bb81d@igalia.com>
+Date: Fri, 25 Sep 2026 11:03:57 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/8] drm/amd/display: use right type for
+ amdgpu_dc_performance event entries
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, aurabindo.pillai@amd.com,
+ christian.koenig@amd.com, David.Francis@amd.com, harry.wentland@amd.com,
+ simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ linux-kernel@vger.kernel.org
+References: <20260924211410.867686-1-mwen@igalia.com>
+ <20260924211410.867686-6-mwen@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260924211410.867686-6-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When a prog is detached from a trampoline, it is freed after an RCU
-grace period, or an RCU tasks trace one if it is sleepable. This covers
-the tasks that are running the prog, since the prog's enter helper takes
-the matching read lock before the prog is called. On a preemptible
-kernel, it doesn't cover a task that was preempted in the trampoline
-just before the enter helper. That task holds no lock yet, and it calls
-the prog after it was freed:
 
-  BUG: KASAN: vmalloc-out-of-bounds in __bpf_prog_enter_recur+0x3a5/0x3f0
-  Read of size 8 at addr ffffc90000055040 by task candidate/110
-  CPU: 1 UID: 0 PID: 110 Comm: candidate Not tainted 7.3.0-rc2-00014-g15071f2a1263-dirty #2 PREEMPT(full)
-  Call Trace:
-   <TASK>
-   __bpf_prog_enter_recur+0x3a5/0x3f0
-   bpf_trampoline_6442509193+0x37/0xf1
-   __x64_sys_futex+0x9/0x410
-   do_syscall_64+0xb0/0x530
-   ...
+On 24/09/2026 22:10, Melissa Wen wrote:
+> Some amdgpu_dc_performance trace event params are passed as unsigned
+> long but stored as uint32_t, cutting them off on 64-bit. Use the right
+> type on entry fields and on printk use unsigned format accordingly.
+> 
+> Fixes: 0cf5eb76e2b4 ("drm/amd/display: Add tracing to dc")
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 17 +++++++----------
+>   1 file changed, 7 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> index c59ba41a9721..26c85d95bcc0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> @@ -76,10 +76,10 @@ TRACE_EVENT(amdgpu_dc_performance,
+>   		const char *func, unsigned int line),
+>   	TP_ARGS(read_count, write_count, last_read, last_write, func, line),
+>   	TP_STRUCT__entry(
+> -			__field(uint32_t, reads)
+> -			__field(uint32_t, writes)
+> -			__field(uint32_t, read_delta)
+> -			__field(uint32_t, write_delta)
+> +			__field(unsigned long, reads)
+> +			__field(unsigned long, writes)
+> +			__field(unsigned long, read_delta)
+> +			__field(unsigned long, write_delta)
+>   			__string(func, func)
+>   			__field(uint32_t, line)
+>   			),
+> @@ -93,12 +93,9 @@ TRACE_EVENT(amdgpu_dc_performance,
+>   			*last_read = read_count;
+>   			*last_write = write_count;
+>   			),
+> -	TP_printk("%s:%d reads=%08ld (%08ld total), writes=%08ld (%08ld total)",
+> -			__get_str(func), __entry->line,
+> -			(unsigned long)__entry->read_delta,
+> -			(unsigned long)__entry->reads,
+> -			(unsigned long)__entry->write_delta,
+> -			(unsigned long)__entry->writes)
+> +	TP_printk("%s:%u reads=%08lu (%08lu total), writes=%08lu (%08lu total)",
+> +		  __get_str(func), __entry->line, __entry->read_delta,
+> +		  __entry->reads, __entry->write_delta, __entry->writes)
+>   );
+>   
+>   TRACE_EVENT(amdgpu_dm_connector_atomic_check,
 
-Wait for an RCU tasks grace period before the existing one when freeing
-a prog that was linked to a trampoline. An RCU tasks grace period only
-ends once the tasks that were preempted have run again, and
-bpf_tramp_image_put() already relies on it to free the image. It doesn't
-wait for tasks that sleep in the trampoline, the next commit takes care
-of those.
+8 character width might be insufficient now. I have no idea if it can 
+happen in practice, probably not?
 
-Only progs that were linked to a trampoline can be called this way, so
-bpf_trampoline_add_prog() marks them and other progs are still freed as
-before.
+Do fields in struct dc_perf_trace need to be 64-bit wide is a related 
+question?
 
-Fixes: e21aa341785c ("bpf: Fix fexit trampoline.")
-Reported-by: Junseo Lim <zirajs7@gmail.com>
-Closes: https://lore.kernel.org/bpf/aqdrwVpanH3WGurX@omen-arch/
-Assisted-by: Claude:unspecified
-Signed-off-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
----
- include/linux/bpf.h     |  1 +
- kernel/bpf/syscall.c    | 19 ++++++++++++++++++-
- kernel/bpf/trampoline.c |  1 +
- 3 files changed, 20 insertions(+), 1 deletion(-)
+Regards,
 
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index 1d2676782d70..d4f732996b47 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -1770,6 +1770,7 @@ struct bpf_prog_aux {
- 	bool offload_requested; /* Program is bound and offloaded to the netdev. */
- 	bool attach_btf_trace; /* true if attaching to BTF-enabled raw tp */
- 	bool attach_tracing_prog; /* true if tracing another tracing program */
-+	bool tramp_linked; /* true if it was ever called from a trampoline */
- 	bool func_proto_unreliable;
- 	bool tail_call_reachable;
- 	bool xdp_has_frags;
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index 244a939b9d2d..96217b99399d 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -2448,6 +2448,21 @@ static void __bpf_prog_put_rcu(struct rcu_head *rcu)
- 	bpf_prog_free(aux->prog);
- }
- 
-+/*
-+ * Progs called from a trampoline can also be reached by a task that was
-+ * preempted in the trampoline before the prog's enter helper took its RCU
-+ * read lock, wait for those first.
-+ */
-+static void __bpf_prog_put_rcu_tasks(struct rcu_head *rcu)
-+{
-+	struct bpf_prog *prog = container_of(rcu, struct bpf_prog_aux, rcu)->prog;
-+
-+	if (prog->sleepable)
-+		call_rcu_tasks_trace(rcu, __bpf_prog_put_rcu);
-+	else
-+		call_rcu(rcu, __bpf_prog_put_rcu);
-+}
-+
- static void __bpf_prog_put_noref(struct bpf_prog *prog, bool deferred)
- {
- 	bpf_prog_kallsyms_del_all(prog);
-@@ -2461,7 +2476,9 @@ static void __bpf_prog_put_noref(struct bpf_prog *prog, bool deferred)
- 		btf_put(prog->aux->attach_btf);
- 
- 	if (deferred) {
--		if (prog->sleepable)
-+		if (IS_ENABLED(CONFIG_TASKS_RCU) && prog->aux->tramp_linked)
-+			call_rcu_tasks(&prog->aux->rcu, __bpf_prog_put_rcu_tasks);
-+		else if (prog->sleepable)
- 			call_rcu_tasks_trace(&prog->aux->rcu, __bpf_prog_put_rcu);
- 		else
- 			call_rcu(&prog->aux->rcu, __bpf_prog_put_rcu);
-diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
-index 90b70ea0d370..9d69c066a817 100644
---- a/kernel/bpf/trampoline.c
-+++ b/kernel/bpf/trampoline.c
-@@ -907,6 +907,7 @@ static int bpf_trampoline_add_prog(struct bpf_trampoline *tr,
- 	}
- 
- 	hlist_add_head(&node->tramp_hlist, prog_list);
-+	node->link->prog->aux->tramp_linked = true;
- 	if (kind == BPF_TRAMP_FSESSION) {
- 		tr->progs_cnt[BPF_TRAMP_FENTRY]++;
- 		fexit = fsession_exit(node);
--- 
-2.55.0
+Tvrtko
 
