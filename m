@@ -1,81 +1,78 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A9474C10C6;
-	Fri, 25 Sep 2026 15:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342134A21;
+	Fri, 25 Sep 2026 15:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349836; cv=none; b=RE7GQ9RHb336jwKDwygxDTySJ9X6CMb50rKYHpRTdbmwO7zGAey8XN+Ye1AtWQhgvNrB987PiQznbNH2M3+cCfz0qe8O7k2VXDmPHK4Dpbap60xt0j+58BKSwwK8aKtw3oeHLyixbtEtLJxdDwXi3NhELak/wb8zz2lvyZEAfAY=
+	t=1790349878; cv=none; b=Z33gH9AVvJNwasjTUVHRNDBdupbJivUDLX2fKFiuruBwXyLAi2Npc6rvXQYDx7wpmjez4Kq//cQCPAUjB5ItBRdkkfx/5IN0in+uxSGU8VMm6w0PdW3XRXBYP47MXPJX9Q1dW/c8vvEU8QQwsLFCUiKjt/x7JW9PW4h4fC2209I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349836; c=relaxed/simple;
-	bh=//y9dPhjHq/ujPCrO92ZhJvyqsgBfC/qyzgIoS31GyY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gPxJbC2eBJ8XRDvctvFs1/by0qIJSICk21/6m08IUjg8It4sP6WTv/U9ZuPVojPRSGCsx3ilUM9I3CZRwD4/z/lmmS3HA7Fu46KuLl0L6lST8lyRHlTMeeIAKSL42Hb5wkrH0hky90EWOX6IJ3hrpyLlEsF/Fhf6G6zSZXRM8vA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hiPkvze6; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790349878; c=relaxed/simple;
+	bh=SKuQ0cWB9eqwbxsQY7UShY9sEYurh6dzKKrnTLL7ZrE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=iScrzpxg5VshK95AwQgr4cUe91Hs6o4KPwX9vIuShYoKNV3Sptd/7935QfEEwSJ2R4cLX7CYMHXW3Hd1lcN5i1U4ngbCVnsklx1T7iSk7MPofT/c0cDInPU1YVLm+9IkbgcpKJwWvYU7ES0JIPOWZKwGgVTCaW4+R4chNPKYtDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SpVjwt1B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hiPkvze6"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E24B1688;
-	Fri, 25 Sep 2026 08:23:51 -0700 (PDT)
-Received: from [10.57.10.17] (unknown [10.57.10.17])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 863F73F882;
-	Fri, 25 Sep 2026 08:23:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790349834; bh=//y9dPhjHq/ujPCrO92ZhJvyqsgBfC/qyzgIoS31GyY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hiPkvze6xWnuXgjf7isAW+6ZYs+8hiozwT76bIXaPIMZqQDQFSopSgQ6Ul8qjMvDN
-	 1dn7ziLWqkMm5w1VMB5N5WKNtRd5RVjl7Wmcv+VRFKuQCVGYi7yYBkALg4o1GccVnq
-	 VNXBzkBnu5Ats955xS9i5iq3lPWyOYFAmdJTS9MI=
-Message-ID: <f7662116-ef8e-4f97-90a4-07173236617b@arm.com>
-Date: Fri, 25 Sep 2026 16:23:49 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SpVjwt1B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 188001F000FF;
+	Fri, 25 Sep 2026 15:24:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790349876;
+	bh=f919PmY4NUyCdox7ic7E4A6qYrpfApExvayBnK3Nzr8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SpVjwt1B18yugnaDWx7JQ6dDsSLVCkm072FvGuxpBbqPpwuVfDxouXtUTJo58ub/9
+	 A9SemIlOXEFPU3jEH2L/owkM5NbtgMGou5aeFUUOSOWc+HTP4o1B0i7SXcLQ18CHF3
+	 Crwx2Ojsrce62UrNgsou7H0VShGsp2ft3LZQL905WaZcMJk3CwOyU/W3v2gTn8hgFc
+	 7l6wcA59TU72q2fE6sT2VsWf9k/DS/Em0IIMrLLlP6XGAXf8pg6lKxUCGMuQkH09OL
+	 rCwM1HR+tOqXI0lMMuIkRhSBjj2B+LC45oRNIxil5zRVe8Jp7HrI59Qp6nF8R3HVUY
+	 BbmDXpnXhjl3A==
+From: Christian Brauner <brauner@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Xin Yin <yinxin.x@bytedance.com>
+Cc: Tejun Heo <tj@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260924065443.1650126-1-yinxin.x@bytedance.com>
+References: <20260924065443.1650126-1-yinxin.x@bytedance.com>
+Subject: Re: [PATCH v2] writeback: size foreign flushes by target wb dirty
+ pages
+Message-Id: <20260925-dastehen-abgewandelt-narren-3f22e2c163c2@brauner>
+Date: Fri, 25 Sep 2026 17:24:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 2/7] firmware: arm_rmm: Check for RMI support at init
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-3-suzuki.poulose@arm.com> <arZQCiF3iqp9eCsy@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <arZQCiF3iqp9eCsy@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=892; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=SKuQ0cWB9eqwbxsQY7UShY9sEYurh6dzKKrnTLL7ZrE=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtm2S45d2aafduCiQGuzGtemV5dNu7SVWpHHlTy28Zf
+ Yp10JDZ1FHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjAR7XxGhrufzlafNPXkdJ3z
+ STrPQXtxa7NTxnS5kHWhHBlyr69vO8vw3+kNp5cnw/0UARmzQ+bSJuecO/U43wgk2m2ac+WCTt0
+ JLgA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On 25/09/2026 11:42, Catalin Marinas wrote:
-> On Thu, Sep 24, 2026 at 02:51:56PM +0100, Suzuki K Poulose wrote:
->> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
->> index 32102c3912fa7..e8b29983b0021 100644
->> --- a/arch/arm64/kernel/cpufeature.c
->> +++ b/arch/arm64/kernel/cpufeature.c
->> @@ -293,6 +293,7 @@ static const struct arm64_ftr_bits ftr_id_aa64isar3[] = {
->>   static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
->>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV3_SHIFT, 4, 0),
->>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV2_SHIFT, 4, 0),
->> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_RME_SHIFT, 4, 0),
-> 
-> I think we end up exposing this to (any) guest unless we mask it out in
-> sanitise_id_aa64dfr0_el1(). Do the guests care about the RME version? I
+On Thu, 24 Sep 2026 14:54:43 +0800, Xin Yin wrote:
+> writeback: size foreign flushes by target wb dirty pages
 
-Valid point. I personally don't think this matters. The FEAT_RME alone
-is not useful or harmful. I could mask it in KVM as a safe bet.
+Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.misc branch should appear in linux-next soon.
 
-Cheers
-Suzuki
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-> don't think they should, especially the non-realm ones. For nested it's
-> masked away already (limit_nv_id_reg()).
-> 
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.misc
+
+[1/1] writeback: size foreign flushes by target wb dirty pages
+      https://git.kernel.org/vfs/vfs/c/168a8c13159c
 
