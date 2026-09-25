@@ -1,104 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2837739CCEA
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F6844A401;
+	Fri, 25 Sep 2026 07:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322650; cv=none; b=kOhJPdcz2jVZzYUoXIjrRS42cYrAAQmGMFmz6cPRygfSaI8e2wCQ4A/zEilIdwzuN4gnkPNLpohG1H71JhaVKBXGfvAIgFa2CMzVUiTR/mDSRul2wULJO8HRNXqCZy5onYD9qmf4SN6MsHGXKHtWyyZuZg6Q6KnF3eXM5bKGyIM=
+	t=1790322712; cv=none; b=R1i4EXVkfQHgfZW+9YwVd561Ej556FH0m9vEW+RnH05+z6ZqDfCmH7q+GtpY1RUXaGwWO1UsNebJ+1IxYlNxK/zGPu24yVSIFJ59fWvRgXxbeVCHufUViIbxmnKEdzbKhHtX+wNo4p/BqIyNlib8QslAVwxYf30x3wFZZiUSssM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322650; c=relaxed/simple;
-	bh=etvYMdjIKmKo0vypJIIrSrdY9PtMT/S+xJavh4Imy7c=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=pIbxrNBPriio6iwNbqnW/7ZTFj4JtWQAVRcDsDtyrLW4wQV+u+1EN/JXe2U5I9wLXZDE397DKrxpwF6E/X3LxKhPr8OA1VoAZnblnZ+7snRoLQiyEWaMvy1qOnFnarRx4ENgY22ZKmmlMi/hCL9ZH7yrHcRIbNrxwG3uUsJGmw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CN3d9N80; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790322712; c=relaxed/simple;
+	bh=H4dOP6z8cvSIvC6o3SOjbFDKrFPVd6jypn23lrkidZw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AoyGX6giUDwMzLDcNo2ZLirs3kWWlsUPnUtGw+DAoAr+3Tu0Nf/NHaUhkrJuWGk+PB39nVms3MOBeGyftfv8sybE1MWVe3I2vK0b/WNjAofPtIvPV3DGvShR226d+Ng2qa6KEyIYher4uCWmzsueEuk6KNgEZwJIp0MSLXgwHlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=kGwG7lj1; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CN3d9N80"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C52911F00893
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790322649;
-	bh=t2Dx/d45eW/YSr1SSo2BR+xcaKZ/ss9Th88yiSDyPFU=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=CN3d9N8015i+DdLjif2urqc4z8yblX07qO7q5cIwjy4GWuX7dRab49Xelylr9j1xJ
-	 ru/l+ayN21db+dp9EG1AoaCtYLytJFWjnfJ95MFemVE9PA8fSLyRFWejwuK/PlTHfA
-	 YMDn5dAvV8UAPOZQQ9mto7xXLDn1N2M04qpSSPTgMW4VvfwofbEi+z0+2PE5NUNxk8
-	 4Nw/ZX8hdI/356I+fnxTRGM9roCMfxAL7vaZ8Cp94LvgS9PbboqWHrUIImfTS9JDiJ
-	 brcLEbnN4iWAxyIYAMQOM/mt4WiYY4pNheYXb5YaOKb9LXwErvCpcCbezbvu07FZzt
-	 FKpDBhfYzBxgA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 33C8B1980062;
-	Fri, 25 Sep 2026 03:50:47 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 25 Sep 2026 03:50:47 -0400
-X-ME-Sender: <xms:1Se2akdImMzz2JmVrIhbv1x22F7ZoWPiNQ6vcYqsEjbqabYYlK673g>
-    <xme:1Se2ahBkyfwgo2J_1iO2UKnwMHBdfKrx45kK2MRW2F_W9CkgrbO9GRmgt6zl6LCST
-    4iby97QxQBi7v1riqW8MlAcMTnWxmChCatU8eF2RQE42bdkNspEpCG1mw>
-X-ME-Proxy-Cause: dmFkZTEauvpc3Xgpv/TCnf4kDS4S+hfiJ+BbESf1ZndveM7HOh1njdCDrq7KMMr/U8bq6C
-    PNJb9YEQJDxJFvIJ0vji9MPQpdxZ3pmpmbyXady5AXyjkwjy0GXCKYeYLToKgN0Mm+gvtD
-    /lYmVPNRmdVrhNEI12bxPQH5PNLolit6ZujMY8uiFYo+DDDODouf1aVtkFqocomJph1j9k
-    hYJVeUouoCED9AxZc5c1G48vLSMp4ajZq+oH83mNyLo/2ZSnKpRBwjzS/QwIA5VE3g+boz
-    EnBF6MMECdCx2lhgunHdF9dcqKuEqGyYngxrGd79tvQu332KMczwJChtSqM3dXM5vNWfJz
-    OiFAhlRyRqLG3cWQix+J+jGj8GLtlvaxG2ep4gUkaleyMqBRisMFdwP6SmJnkU9TlCfxTO
-    rDPnFzza298B7dEv5qgsYnXNp1Y7e1OcgY2mtyY09tO7hNQfkt+qlN43VEcTIzYUbamfRj
-    lA9rrMymYfWD/DT3+bmZyFZoCs02elMBhC8tLilZdBZCKB18DrHiUhigxkShP3c/HIk5GQ
-    7Jay04oLQRmrM4+NdsuHtIimeHH4ifB1Owjjupt+FkqKwgx27T9EUxKakd6v2glNUJ1it8
-    KnZCV1PlRtkf88Z1y9uVvEMyNxkofMGIw3LP+XkFLIWrGFx/4QcxW6wAas0g
-X-ME-Proxy: <xmx:1ye2apYqRCA-pIqtGEedGRLjVBPWLPezoqzNPdDD2nVYCT8hZ7V7cA>
-    <xmx:1ye2aoBBa8Wz_ss1yRsnI3HRLdqgMMydyDjEBmkmCga2gSuFuuzKTA>
-    <xmx:1ye2apne7FtJshXZtRddHabf8RLAKWqseGhhSsGB4tZU-EFiIS4_uQ>
-    <xmx:1ye2ahz7cGrtsGAdC9_Q4QR3kPHqMbIXSwNg5upLcSRKYsk6-XuvWw>
-    <xmx:1ye2arQwbw6lsVPnogS4FIZLhavD0F4IDrnaEH7xqjSKYgTXz3pmFoHG>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 97C63F80080; Fri, 25 Sep 2026 03:50:45 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="kGwG7lj1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=4xIvUf6Fn/gIIXV95CPOPd+qR13P+eKRk/BuK/+dOvA=; b=kGwG7lj13TocCCszVJUFUR24jL
+	4N3LeGxfCiBpknmVmHegSveO0il1OABq7CWfIEAyIkgUqKYsM3iosgH8kwBTl5v8IpCzbXTn8QuJP
+	5p9fiS3MkussRwk90e+rq0DzlThIa11gHD6HuWbuvaF6aHj5Z35neCKB7Zs4v5Cv7hQVFw4xuCSgC
+	3mzjiiuqyNtojrrsvf5Nse5fIsGO2RC1BuT+1cVTge2Oy16yXi1feMDKDCW2E8JcJrsBh8Y8zWr4v
+	Btu3Jv58zxeLaWXuVwf7rSWKeEOd2yDP0H75muq2KabwuHa/blsWm6YcUESikQFobdUcSF29A57ZR
+	h3Rv3fHg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1xA0iW-0000000GiAO-273E;
+	Fri, 25 Sep 2026 07:51:36 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 1049030070F; Fri, 25 Sep 2026 09:51:35 +0200 (CEST)
+Date: Fri, 25 Sep 2026 09:51:34 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, yury.norov@gmail.com,
+	kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
+	meted@linux.ibm.com, ynorov@nvidia.com, tglx@kernel.org,
+	gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
+	vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
+	dietmar.eggemann@arm.com, maddy@linux.ibm.com, srikar@linux.ibm.com,
+	hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
+	frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
+	christian.loehle@arm.com, tj@kernel.org,
+	tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
+	rdunlap@infradead.org, kernellwp@gmail.com,
+	linux-doc@vger.kernel.org, jgross@suse.com,
+	virtualization@lists.linux.dev, sunlightlinux@gmail.com
+Subject: Re: [PATCH v13 09/13] sched/debug: Add migration stats due to non
+ preferred CPUs
+Message-ID: <20260925075134.GH4121339@noisy.programming.kicks-ass.net>
+References: <20260909135617.871006-1-sshegde@linux.ibm.com>
+ <20260909135617.871006-10-sshegde@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 25 Sep 2026 09:50:25 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Rick Edgecombe" <rick.p.edgecombe@intel.com>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Cc: "linux-efi@vger.kernel.org" <linux-efi@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Yan Y Zhao" <yan.y.zhao@intel.com>, "x86@kernel.org" <x86@kernel.org>,
- "Borislav Petkov" <bp@alien8.de>
-Message-Id: <aa7a1571-f91f-42ca-aa12-3122f453cad0@app.fastmail.com>
-In-Reply-To: <fe5b400e19742ae3666cd7b3e4bd22164024293f.camel@intel.com>
-References: <20260914183745.37538-5-ardb@kernel.org>
- <af17c380c43912ce34c228e328b3937343ce2019.camel@intel.com>
- <aqvrUeIfpE4D-Ol0@thinkstation>
- <27b267cdaed0c46146de4af2db8362b61e0b08a3.camel@intel.com>
- <aqyd+rhamNei92Nz@yzhao56-desk.sh.intel.com>
- <aqzMGEVpDRPUyPUA@yzhao56-desk.sh.intel.com> <aq0VWfqv2_SgOvV9@thinkstation>
- <b9ff9e11-d7da-4e34-9744-e3adcc786276@app.fastmail.com>
- <arUNjv0rSaAM2xmk@thinkstation>
- <fe5b400e19742ae3666cd7b3e4bd22164024293f.camel@intel.com>
-Subject: Re: [PATCH 0/3] Move memory acceptance x86 arch code into EFI stub
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909135617.871006-10-sshegde@linux.ibm.com>
 
+On Wed, Sep 09, 2026 at 07:26:13PM +0530, Shrikanth Hegde wrote:
+> Add a new stat,
+> - nr_migrations_cpu_non_preferred: number of migrations happened since
+>   a CPU was marked as non preferred due to high steal time.
 
+My reading of the below code ends up with something like:
 
-On Fri, 25 Sep 2026, at 01:30, Edgecombe, Rick P wrote:
-> On Thu, 2026-09-24 at 12:46 +0100, Kiryl Shutsemau wrote:
->> > Is there any way we could make some progress here?
->> > 
->> > Ultimately, the thing I am after is to get rid of the call from the
->> > decompressor to EFI stub's snprintf(), which I want to remove. For
->> > the time being, I am more than happy leaving the memory acceptance where
->> > it is, and just dropping the call to snprintf().
->> 
->> Please go ahead with the move. Rick's questions are about what
->> tdx_accept_memory() should return, not about where the caller lives,
->> and can be sorted out separately.
->
-> Yep. I tried to do a quick smoke test and got a similar build error as Boris. I
-> guess you will send a new revision?
->
+ - nr_migrations_cpu_non_preferred: number of push migrations while the
+   CPU is non-preferred.
 
-Yes, thanks for testing.
+Hmm?
+
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> ---
+>  include/linux/sched.h | 1 +
+>  kernel/sched/core.c   | 9 +++++++--
+>  kernel/sched/debug.c  | 1 +
+>  3 files changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/sched.h b/include/linux/sched.h
+> index d7cc77181ef9..48639b0c75d0 100644
+> --- a/include/linux/sched.h
+> +++ b/include/linux/sched.h
+> @@ -554,6 +554,7 @@ struct sched_statistics {
+>  	u64				nr_failed_migrations_running;
+>  	u64				nr_failed_migrations_hot;
+>  	u64				nr_forced_migrations;
+> +	u64				nr_migrations_cpu_non_preferred;
+>  
+>  	u64				nr_wakeups;
+>  	u64				nr_wakeups_sync;
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 458b8c6fd9af..fb8404bd47e2 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -11239,8 +11239,13 @@ static int sched_non_preferred_cpu_push_stop(void *arg)
+>  	context_unsafe_alias(rq);
+>  
+>  	if (task_rq(p) == rq && task_on_rq_queued(p) &&
+> -	    !is_migration_disabled(p))
+> -		rq = __migrate_task(rq, &rf, p, cpu);
+> +	    !is_migration_disabled(p)) {
+> +		struct rq *dest_rq = __migrate_task(rq, &rf, p, cpu);
+> +
+> +		if (rq != dest_rq)
+> +			schedstat_inc(p->stats.nr_migrations_cpu_non_preferred);
+> +		rq = dest_rq;
+> +	}
+>  
+>  	rq_unlock(rq, &rf);
+>  	raw_spin_unlock_irq(&p->pi_lock);
+> diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+> index fda10b3fa249..e6a3b516c703 100644
+> --- a/kernel/sched/debug.c
+> +++ b/kernel/sched/debug.c
+> @@ -1440,6 +1440,7 @@ void proc_sched_show_task(struct task_struct *p, struct pid_namespace *ns,
+>  		P_SCHEDSTAT(nr_failed_migrations_running);
+>  		P_SCHEDSTAT(nr_failed_migrations_hot);
+>  		P_SCHEDSTAT(nr_forced_migrations);
+> +		P_SCHEDSTAT(nr_migrations_cpu_non_preferred);
+>  		P_SCHEDSTAT(nr_wakeups);
+>  		P_SCHEDSTAT(nr_wakeups_sync);
+>  		P_SCHEDSTAT(nr_wakeups_migrate);
+> -- 
+> 2.52.0
+> 
