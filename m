@@ -1,107 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F63F36E489;
-	Fri, 25 Sep 2026 09:05:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A18836E489;
+	Fri, 25 Sep 2026 09:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790327106; cv=none; b=Kf50F55D+akTwjDAlBFJasIZRHFybGQzxwtK6SWlRF0NGkU0kx0j7wuxsMrkuJEKFYr90eGuFQJrS/TxtxRzDo0nsOO8wC9gPa6LB52vP64fD36dhhO1fSKBOf6clrOCpPpgKDO6UdgY3skwW6phBegZAOsVzRYQ94n/vQhKfcc=
+	t=1790327133; cv=none; b=tfrl8EBHezjU9lkCYBa4c29IpG6PRC0/CS8E9vqrpU7aLP9+s1rfQDMARnAoB+gwvyp8ocB5reVlGrHzjvpwOVZJgxarHaH/IHTpT+unVtFbTCHIoDiPEL/6dGH7nxu+wqf2NszR96o0585Rpv/PLgaXrcO59HntGdg+R2dQU34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790327106; c=relaxed/simple;
-	bh=c6llWUny0E66kPyHL/7p+1jeHNfgYEjMQRzHkRwU/gU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fqIh75WBLDZmvLC8/mj9uPRpf2YtF9t4c463aeiG+eXOs0I7PNREjPj35u4qZbtBp8xP2QQMRHUpkGPSNWxc8PuolppHHe2Uy6XoFutjftlztLFxwLXR0aDpkeVWAwjMz5vrRhNOlQrH3CK0msHn3xUwafbl+rsCqoNc9HVKVX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZddo08k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790327133; c=relaxed/simple;
+	bh=oqdY50+Ua1sm0dA0riA3XKlPkPf5jSVWn6/Ar3bjEu0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=pk2UIvNyGBxBYT57oq9VvOIChhh1mNW446JDx1UncyVkjAEGr0B39v/j6rZRLXRoAxQeUUsWvHpkg5R3xxj3wW7TgVMF+I70fGEanCdVtQkvwpisYzGasL7cf5zs0UwBZk/CWWY8JF0IzpMb3PtTEbJq582oi3Xksx+16Lek93g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=iYRuMxE0; arc=none smtp.client-ip=188.68.63.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZddo08k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 503711F000FF;
-	Fri, 25 Sep 2026 09:05:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790327105;
-	bh=4Ka6LcgqGURGXrWdrDOmkfnOgfMTXwW+K1BRk0D+ckA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mZddo08kjQ+SgHLQAxgFdL1h1WEoLYF7zKL0jS2/STRNoUxVXwfQ2NvvNMlKRKh2k
-	 6zlWGwSRhfS1e7m3sm4mqXOjkdr1UPr9WXi1l3sCNgYq0XoKPaEgzZbHNi5iP1bgeM
-	 d0edYwKQwj8FetdYpxNWBE5zdJcqG/k0p9EH4mFn0/kyrDFPrASLSt/EaZe7QomXNi
-	 /98E8GqMn8EvPfzPpmdf3vrMjD/lTgrEuwyBvLcTEFryWfLhdE2ehIz535Aw2x8xs7
-	 x1ZMN08u1RXxCovC414aGazppMXTZFxAToMvTwiKIC8cL5n8X5Z9sB0DRtTa+zL9kr
-	 AJybpvZA1UTaA==
-Date: Fri, 25 Sep 2026 11:05:00 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Matthias Goergens <matthias.goergens@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Theodore Ts'o <tytso@mit.edu>,
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] MAINTAINERS: document the branch in git T: entries
-Message-ID: <arY5PNvhEdyx1W4u@ryzen>
-References: <64b0be79c535bb9545f9f81a5044146a8726c761.1790220653.git.matthias.goergens@gmail.com>
- <2c05bf39-7e04-4cc7-9926-3cbf673865b5@kernel.org>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="iYRuMxE0"
+Received: from mors-relay8203.netcup.net (localhost [127.0.0.1])
+	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hrlCh6fxjz8lHj;
+	Fri, 25 Sep 2026 09:05:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1790327120;
+	bh=oqdY50+Ua1sm0dA0riA3XKlPkPf5jSVWn6/Ar3bjEu0=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=iYRuMxE0dV3cH+aUbVbxRfHsi0LAhWaU2Dj04PEF6IxobPWJO4tyfDOXPdj1liJMf
+	 ZDkYbgmB8/bKO+g31oTJ3QkPJE83vQcu4ogJTcxTHai9dQbov5XWk6W7ifUHODIivW
+	 WgQGZtHBhR3cG/cGPv2X0Z1ljahgNKggLH+hAJp3t/DzB8q6nAYnd4Q+yrGsMaHHrs
+	 vZoo4YrSEr9ln1WmboqBh1H2lKl8RAq+xjjsoZFN3bYq0UDjHC2QOdzGegap8o4M4M
+	 Nv/6Qll3nfqHd8jZRE3UB+Symmw2GoU8dj64HTb8Y75FW/aMm+rPwsqQwfaqUnY8xd
+	 NG4q0MfRwEp6g==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hrlCh5xndz8lDL;
+	Fri, 25 Sep 2026 09:05:20 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.898
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hrlCd4gTDz8tfB;
+	Fri, 25 Sep 2026 11:05:17 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id DCA7A5F8CC;
+	Fri, 25 Sep 2026 11:05:16 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <4f28488c-ff9e-46db-aa2a-687213c129d6@leemhuis.info>
+Date: Fri, 25 Sep 2026 11:05:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2c05bf39-7e04-4cc7-9926-3cbf673865b5@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] RTL8761BU 0bda:a728: removing BROKEN_EXT_SCAN fixes
+ 0x200c timeout
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+To: Andy Tsvetinskiy <andrew.tsvetinskiy@gmail.com>
+Cc: regressions@lists.linux.dev, linux-bluetooth@vger.kernel.org,
+ Kamil Serwus <kserwus@gmail.com>, Junjie Cao <junjie.cao@intel.com>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Marcel Holtmann <marcel@holtmann.org>, LKML <linux-kernel@vger.kernel.org>,
+ Alexej Sidorenko <alexej@sidorenko.cz>
+References: 
+ <CAE4bxw+ofDFVx0aTHqCrzns9oP1CRQDm_wzeyHPeMBYOhSpcuA@mail.gmail.com>
+ <f322a3b2-71eb-45e7-aeaf-18ad87f938ce@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <f322a3b2-71eb-45e7-aeaf-18ad87f938ce@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179032711737.4193479.59443090121703576@mxe9fb.netcup.net>
+X-NC-CID: VoNGq77+MfkMVWhdao7Mfl8yZM1MwjyjeQ/z56srSUi0NsajOO4=
 
-Hello Matthias,
+On 9/18/26 15:37, Thorsten Leemhuis wrote:
+> Lo!
+> On 9/18/26 11:21, Andy Tsvetinskiy wrote:
+>>
+>>    This report concerns USB ID 0bda:a728, not 0bda:8771.
+>>
+>>    I have a Realtek RTL8761BUV USB Bluetooth adapter:
+>>
+>>    - USB ID: 0bda:a728
+>>    - Product: Bluetooth 5.4 Radio
+>>    - Firmware: rtl_bt/rtl8761bu_fw.bin
+>>    - Firmware version: 0xdfc6d922
+>>    - Running kernel: 6.18.51-1-lts
+>>    - Distribution: Arch Linux
+>>
+>>    With the stock btusb driver, Bluetooth repeatedly failed with:
+>>
+>>        Bluetooth: hci0: command 0x200c tx timeout
+>>        Bluetooth: hci0: Opcode 0x200c failed: -110
+>>        Bluetooth: hci0: Unable to disable scanning: -110
+>>        Bluetooth: hci0: Resetting usb device.
+>>        usb 1-2.2: reset full-speed USB device
+>>        Bluetooth: hci0: unexpected event for opcode 0x200c
+> 
+> Thx for the report. Just replying to bring a few people into the loop
+> that can help handling this: the Blutooth maintainers and developers
+> which were involved in ca0583c2466174 ("Bluetooth: btusb: limit RTL8761B
+> BROKEN_EXT_SCAN quirk to 0bda:a728") [v7.3-rc1] and 5ead2063611ae5
+> ("Bluetooth: btrtl: fix RTL8761B/BU broken LE extended scan")
+> [v7.2-rc1]. Ciao, Thorsten
 
-On Thu, Sep 24, 2026 at 10:22:32AM +0200, Krzysztof Kozlowski wrote:
-> > @@ -30,6 +30,8 @@ Descriptions of section entries and preferred order
-> >         See Documentation/maintainer/maintainer-entry-profile.rst for details.
-> >  	T: *SCM* tree type and location.
-> >  	   Type is one of: git, hg, quilt, stgit, topgit
-> > +	   A git entry may name a branch after the URL; name one when
-> > +	   development does not happen on the repository's HEAD.
+Hmm, seems nobody cares, so we need to go the next step: can you please
+test if latest mainline (7.3-rc4 or later) is affected to rule out that
+it's something specific to the stable series in question?
 
-I like the idea of what you are working on.
+Ciao, Thorsten
+>>    The firmware was loaded successfully:
+>>
+>>        Bluetooth: hci0: RTL: loading rtl_bt/rtl8761bu_fw.bin
+>>        Bluetooth: hci0: RTL: loading rtl_bt/rtl8761bu_config.bin
+>>        Bluetooth: hci0: RTL: fw version 0xdfc6d922
+>>
+>>    The USB autosuspend setting was not the cause:
+>>
+>>        /sys/bus/usb/devices/1-2.2/power/autosuspend: -1
+>>
+>>    The current upstream fix ca0583c24661
+>>    ("Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN quirk to 0bda:a728")
+>>    is already present in my kernel. It sets BTUSB_BROKEN_EXT_SCAN for 0bda:a728.
+>>
+>>    I tested the opposite change locally in drivers/bluetooth/btusb.c:
+>>
+>>        - { USB_DEVICE(0x0bda, 0xa728), .driver_info = BTUSB_REALTEK |
+>>        -                    BTUSB_BROKEN_EXT_SCAN },
+>>        + { USB_DEVICE(0x0bda, 0xa728), .driver_info = BTUSB_REALTEK },
+>>
+>>    After rebuilding and reloading the btusb module:
+>>
+>>        systemctl stop bluetooth
+>>        modprobe -r btusb
+>>        modprobe btusb
+>>        systemctl start bluetooth
+>>
+>>    Bluetooth scanning worked normally. A 20-second scan completed with:
+>>
+>>        Discovery started
+>>        Discovering: yes
+>>
+>>    After loading the patched module, no new occurrences of the
+>> following messages appeared:
+>>
+>>        Opcode 0x200c failed: -110
+>>        Opcode 0x2042 failed
+>>        command tx timeout
+>>        Unable to disable scanning
+>>        Resetting usb device
+>>
+>>    The patched driver is currently loaded and Bluetooth remains operational.
+>>
+>>    This suggests that different RTL8761BUV devices or firmware
+>> revisions using USB ID 0bda:a728 may require different scan quirks. On
+>> my device, keeping BTUSB_BROKEN_EXT_SCAN causes the legacy 0x200c
+>> command to
+>>  time out, while removing the quirk fixes the issue.
+>>
+>>    Relevant upstream reports:
+>>
+>>    https://linux-regtracking.leemhuis.info/regzbot/regression/lore/20260822141115.58815-1-kserwus@gmail.com/
+>>
+>>    https://bugzilla.redhat.com/show_bug.cgi?id=2521504
+>>
+>>    https://lkml.iu.edu/2608.2/12212.html
+>>
+>>    Please let me know if more logs, a full patch, or additional
+>> testing is needed.
+>>
+> 
 
-But one thing crossed my mind.
-
-If we look in:
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/Next/Trees
-
-You will see that for most trees, e.g. ext4.git, the same tree is specified
-twice:
-https://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4.git#fixes
-https://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4.git#dev
-
-That is because the most logical thing is to use the same tree, but obviously
-you need different branches, if it is new development or a fix.
-
-
-memblock even specify multiple entries in MAINTAINERS:
-https://github.com/torvalds/linux/blob/v7.3-rc4/MAINTAINERS#L17035-L17036
-
-memblock seems to be unique here though, and I don't like the idea of having
-multiple T: entries for each branch in the same tree.
-
-Possibly we could allow multiple branches to be specified after the tree,
-but I'm not sure if that is a good idea.
-
-A fix is usually merged within a week, so a developer should not really
-need to think about "fixes" branch. They should just base it on latest
-SHA1 in Linus's tree.
-
-
-> What contributors need is the branch feeding next, because this is the
-> base for them.
-
-I think you are right.
-
-Possibly the documentation should be updated to differentiate the "strictly
-a fix / regression in recent release" case versus "new development" case...
-but such documentation is hard to write in a generic way. (Not all fixes
-might be so important that they deserve to be queued for -fixes.)
-
-But we should probably try to add something to submitting-patches doc which
-makes this distinction a bit clearer for a beginner.
-
-
-Kind regards,
-Niklas
