@@ -1,185 +1,153 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C8E472777
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E89F47D454
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790326027; cv=none; b=XlISTMMildZh2hsgHG1uVjm0mEp4gJyGjhoKxtuM3f/kf5lLR7xDFUIknGqoPyMQShb9kugy2dx12GHrzeLmHy4RMg/SpPTy1M0gA/dnWsptDqZBj/PeYZMXrzieJ2+lysAt36/rbvEI8fHvdKQIsnPn674o4R3QX4a8nUlf3Xc=
+	t=1790326039; cv=none; b=nQH/SwA2W20zGhbWbCsnsCDLaXMz71PFMWDzfsQF0SptrecnqFDN6Ksz9E8+zS1rU9LwImHguCJyfEg8NGn7404qyLmA6JVGiLD5Em51R9/+F4DQhJ+oTw1bTSG3ui5GB1jeIpcklFR9A350Nx6BHB9LU83fRhzbidWYr+Lcdk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790326027; c=relaxed/simple;
-	bh=qZl1Q5bwQ58gN3uKiNg4+tTdTPKtZZZ4CCEo6LH3/Bk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gDLMsBpgHn6vsSv0czr7SD0FY5kM4PD50INGKvv1eD0ra/TezOP1MqtsLMvi4b3C0VfMcE7kcSwA03Cykz3i3tfK9IRDH9A27RAi0EMGHb6s9Pw7gQDuow35JO4WJ89j9uTtNRWcYBUXOGilvn85+6ghsux3UPWP0dO6rnF3DG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FaEl7h57; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XYQtZV0Y; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790326039; c=relaxed/simple;
+	bh=0p5VzAzONoUlEanrq/TY2yIq2cftImJsp5mS7iKC50U=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=MxHFJw3/aaOYsFQUq8fcsw3tUdhaDZWNxjIKK76ZzPA1lOeltYfHeBu6MiXqcZhglgpmQ/yJLJ1XuDfXdJ077aHPiWYPJDuUO+op4Q0D1rYeqOpYbzWv6IdEKAW3JbJrmY60I+OZmYYBKqKyk8FZM8P4sG+gFlTz3Hmg+ZL62nA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=M+Rkw3j3; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FaEl7h57";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XYQtZV0Y"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YqxH1194213
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:46:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=DP27l+sS5LI
-	NTYJODTJG92GSpYoj0hoQF9DkzSOwtAo=; b=FaEl7h57P63nm3L1ZHNi49+sycY
-	tGd28w+8kMZQzDj6Qhcu5B6GP+ppY9sdPLfR8bheQY5jp0OBv1mL+iTqu3Q7Ople
-	zThS6PUX6HXE8lAXNRif0re+QGHIWscMMTXR0i3YRtRpGPkl1ZDBjNC/Zb+sV4AW
-	qSMRvh8TCjWgHR6WLPXl8AA4tknDs0wTtqGVmn7dvB1iIBIBoKV5DQhu4TcMGXja
-	OEPU+d1xJWHFTupDOU6g1buNMYmX8/uzfj6H3zQhEzx84EDFcyLpszqFb1YzBx3Y
-	Dq59IWFUg6EuR8FTzA6+BcxW9RjEDuiiO6Yenc6fdROkCj/PO6mkFxjQvbA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw874jq36-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:46:54 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9390a2c895bso186893485a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:46:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="M+Rkw3j3"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d097b4939so3848665e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:47:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790326013; x=1790930813; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1790326025; x=1790930825; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DP27l+sS5LINTYJODTJG92GSpYoj0hoQF9DkzSOwtAo=;
-        b=XYQtZV0YrxuFd0AhrmwAoBb6CZZaTOTywS5W2DnX40nrFmKIzueNlyspYs48SO/9L9
-         Yd3v2tcVUw/mDIgiU1Il4oELJbAvsBA4LkOqs56cxr9EqACKykbfUBUsxVxhFBEWq1zN
-         WhVRG7F7DLShhLaQIWGhwse6xTRu9Vm8HPg/Eq2FSU6EkPVWgawpvV4ecRYxsMgFOtWE
-         A65cS2PoPBfX2tMdOjIXjXdN0OMvVTi4IcTgUB949lwZo3YSwx9EvcY8U7Vz19EOoImI
-         kVFFtd65nn4xgm1MY2LzYszIw/QR4patRScC9IH5VPJlSQe48exo4CDMSlCOX/PQeF8F
-         sHrw==
+        bh=ybGJMieDnUAKotpO3xSLkaT24MxuG36dkIyHYhn06KA=;
+        b=M+Rkw3j3Gn6YJYaB6oQWHOe4TAEzuan7cFrL1GzCzFYpacBS1VH6Yos/qwFGE75E8m
+         CXh7XE+0jP85zExkkpS0JHYLAi8Q6Wy3WZTOd8gM+YZ+2pFQIu/Rm5RMS2sEirt6D35Q
+         TC5YNq2tQ5/ourX+fbJVt/8r5uQpMwpKDdL1FTrqGpx3iyOyaY0tIDSFXbnTlaZW6Or1
+         eyN3Uiavz3hLV7e0cN9ofvsv+LTwaTiw/47VBHj+tNtpVC976uQt7TcBun/Jk+8AmT0Q
+         sDTMyQ3kvK0kbUio1kcJPoBFfoZ7hSTuTn2mbgauHjjO3fCaXY86A+oakfpxk4BDuupA
+         2s0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790326013; x=1790930813;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DP27l+sS5LINTYJODTJG92GSpYoj0hoQF9DkzSOwtAo=;
-        b=EZXddSQJmqnmtlMsFK0YP/Zb5cVF35mOuzSjxV0RwJaLoNIBCR2pgdw52maAtIWKDB
-         sqqyIRwRpCvJgHQ6NBdvSbORZkHwJOFJXkITKs5ECRzOb3tI47wTfEqG3pSQuHeW323g
-         FG2q6McxYsEo0nNviAkrBV0hGkyuaB6w9srtE6axRcYzCLODYGyy+ZdvhsoBrjX3Ttlm
-         77/dEbnobMpMDS1EQR8TDhgJXBZgMEPSQcREG0sXAJXZzMrHqc8GhHlDt2yJY6C9Qh4n
-         Q0U9FYUPWHqu+dKqKSwswsMjoRN0ZSTuktCJEO61JjpoW54hSsgaTmpRKvZ+c10f2VOv
-         PJlw==
-X-Forwarded-Encrypted: i=1; AKwUvBy2AkoCruyT2S7WXMJjAwTfMdlIektPt2hRJjt+ou6pNu4T0zK5iwzieMY2C4mi1jRTRrfHwWSS/UBTvpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQBWvcIlYtv0+bMkl1b2x59y40mCtb45fwxlbQlUXcl5gGdkhr
-	8BI7JIoAWnpfMYReCqZDM5qhh8oHgMp9AB+sbTsbhCNa+Teqmyn0l/bFFCY8kE7Lg6q2HIo1Ye0
-	dAooE2SfFG3XoSK3OaYbsRy11bfDpVULjfzFYdidLdj2r4Mqige41A8K/8C3aGH4cjeA=
-X-Gm-Gg: AYBFou2vD9zyEjnMnJgJYkQyA36pstdXbGs9EN/XkNMuhO2mqnL5Qtnr6YBAvWVvEvl
-	n259KJAhUiDcGLx1MqA7SZ3h2H8Z9EybjYxwLmX5tyscWiOhfRt7LIaD/4eLAj2hANHVERGQu4I
-	mwizOLe1GgWPQ3i6Lr1XJKZ/lC9rDrf6dC+68vz0Ngo2/U5K07g+TtWDgz16LWpXROZVAVpDiwN
-	KfkwMTV52BRUgcRF6dRxfKrVE1GLvz9lsxxOPmVGmkDjacPwHLGnib68vwKHFe/E2vLC+bZ3ifk
-	g/lRQFm+GIuyo+D0pMo12I9aZk0RQt0ijQIHkZtduS8kOcFdBXnUtWnLwYhQKUt5JI6SNNt6VsL
-	Je2tRe/54z0XE
-X-Received: by 2002:a05:620a:2843:b0:93b:d79f:d944 with SMTP id af79cd13be357-93c43e8a580mr309131385a.57.1790326013222;
-        Fri, 25 Sep 2026 01:46:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:2843:b0:93b:d79f:d944 with SMTP id af79cd13be357-93c43e8a580mr309129285a.57.1790326012853;
-        Fri, 25 Sep 2026 01:46:52 -0700 (PDT)
-Received: from debian ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a64f9bcsm5281953f8f.32.2026.09.25.01.46.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 01:46:52 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH v2 4/4] clk: qcom: Add lpass clock controller driver for Glymur
-Date: Fri, 25 Sep 2026 09:46:35 +0100
-Message-ID: <20260925084635.112399-5-srinivas.kandagatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260925084635.112399-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260925084635.112399-1-srinivas.kandagatla@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1790326025; x=1790930825;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ybGJMieDnUAKotpO3xSLkaT24MxuG36dkIyHYhn06KA=;
+        b=QBhenZuiqSCF82tKoaViVAyHDPK/4HAF9HnuDqNtMWwlpSIXvhGlPrSGHrvGus1Z9G
+         DeWy/edcFD247+6NBy1iWWXEGS1aeNieNEfZ+y2WDwYTJG02E7R8vI7koRhWw9RfI9JE
+         OasmV1i6ACSbGSJ/Kwphtnn6ggYop8r/jP/6emT9G0f+dRSqbVZcFugrVkAd8YvcYtV9
+         9tk3rA+wNKi+o8ONGLq7l7h4WWVgYUGtTKbiDkJ6P4vP88AW1+JQ0qIovZdppqoYskbO
+         Uro5myKKTogncD/PGuyz4c2flWSrvxUKAPHghJBERbtIb942xluyGmP9oSMTLm2ybpmB
+         wcFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwGIJz++hVk74CJZIsurtVsQshrtfspxGiE4b0KidwsYW6ck3TnMqGmGyIWo4JWHTyYFkqVC6RQcb7G60g=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/S6hURzWxoIiTRvtYcY+yo4ll5u8ZvneSKg0WWvvZ4znfFSAD
+	WLALU4DuFfPVxEX+qot4zMgYzYX7T9Ltl3MkU+UkdHYeLGMckfzpuYrrmxQtNNSyTO4=
+X-Gm-Gg: AYBFou0u8QW8UMHuD62LSXVkg808dD1SWezaiw93v9hfFiCtqScYXU9lLhNttRoxnJm
+	Ackc945uPuacq4JbNrHBGk8xaaJjtU2YsoNGqx6gg87FznV8LwgQOLoe98iduSzWnX2fABQE+o3
+	Jz+shgcqhUns3vsR/vNlnQR4JSlN+gwee2oi6p0wv04BwTUJwU7ETwlVUlLVOpkO1yJuNKbYI6M
+	Aw923hqdih3yyr+VooukARnZNc5hmDzviQTE02oEMLMjT6f+Xa9bm9+AqsAsUWKfXoNMuqbpaIP
+	bwy9pnBE1jKqI7jLodRDT7n1BnuUyro2PZYnF7BbeEe4wLxtgUI6Zl1teES3IqVDEpsg22y0XA2
+	lee8DgPvPeMhXRJyGXn3Syfgk52h5myh2UjrIZL4LuHZpdvy9lU1ro8gbogxmANRCvHj5bK5OZR
+	TOOzM3F2EclKe/H5BBPnDkvuhtnqiT0346fINez0A46IKz/7F8Lo3kYPOlLV2DKA0msnEWM0Uav
+	J/zRMoXnZnd73COaqeVrg+735Ex5dprJDNQocWWyOgMHo2yCDRt61k=
+X-Received: by 2002:a05:600c:4689:b0:49f:bc8a:b103 with SMTP id 5b1f17b1804b1-49fe66841f8mr87493745e9.0.1790326024865;
+        Fri, 25 Sep 2026 01:47:04 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:3151:fc9b:d41c:770b? ([2a01:e0a:106d:1080:3151:fc9b:d41c:770b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff04440e2sm41053585e9.0.2026.09.25.01.47.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 01:47:04 -0700 (PDT)
+Message-ID: <6399bb18-f463-4d6c-80e1-0efca5e7768d@linaro.org>
+Date: Fri, 25 Sep 2026 10:47:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: F_w34P2XhGvUbrWuCPK6f7KogyjOvpDh
-X-Authority-Analysis: v=2.4 cv=MI71C8Zl c=1 sm=1 tr=0 ts=6ab634fe cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=9d4qlcpUcIswrQQTxZ8A:9 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzNCBTYWx0ZWRfX8gihlWo3JYTB
- nqy+5Q9DcOySQ7Ss6qdY5EpdGxhq1SClRp3hYoQDH+HqBxDn75j61hvXVKDll3OE5JAUYfKwi7V
- dyM9FgvZSeIG0b2G6svD0kSePmbfWTY4QQeRqakKQNLNJvXWxh9Z61raFzQS+k4Bx8Bd9F254tG
- HLoVQJXhNcHVjZcf4QxR7GMg3dZrkmYCF1VL231Tr5DbEnPOYY4g6Ulao8y69AsfeyPVejMEc7h
- Ab9rA6PoMGHT2PamqXm6Bkm60Vm5jZt+GCTAhPijM4HVtDSjGqVuq2iz2hIqQTkF5R4HH+kUCTS
- Eb0jY0ay/2RtpbfzRR7x7wfz4CCzGbyACtk4Hf2bqwrv51xGasTIZObNI8gS4zo/toinzeEJFSB
- t+CuLykLAP2mBEngjCQtGRSVRNPzTPnBh90tBE7WLZRLScHHivKYtUeVYcImyKndGu+e/XT+Yx1
- Shyih4DcG2E252ZOZag==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzNCBTYWx0ZWRfXyU6RRjlSCzLW
- +enIiAUn2fKyQ2P5+TFzK8DXfQzf/JEjpITJ7Kp9eC5MRu0Be3s+9CaXEE2B5rLgRek4pDZOT0Q
- DmttxZ6xzaRgG1pwa1ER8Nx39Xmy8es=
-X-Proofpoint-GUID: F_w34P2XhGvUbrWuCPK6f7KogyjOvpDh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 clxscore=1015 spamscore=0 priorityscore=1501
- impostorscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250034
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v5 3/3] MAINTAINERS: Add myself and Ryan Brue as
+ maintainers of NT51021 panel driver
+To: Nickolay Goppen <setotau@mainlining.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>,
+ Alexey Minnekhanov <alexeymin@minlexx.ru>,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20260924-qcom-novatek-nt51021-panels-v5-0-f5eaf5685c9c@mainlining.org>
+ <20260924-qcom-novatek-nt51021-panels-v5-3-f5eaf5685c9c@mainlining.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260924-qcom-novatek-nt51021-panels-v5-3-f5eaf5685c9c@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add support for the lpass clock controller found on Glymur based devices.
-This would allow lpass peripheral loader drivers to control the clocks and
-bring the subsystems out of reset.
+On 9/24/26 17:08, Nickolay Goppen wrote:
+> Add a maintainer entry for the new NT51021 panel driver
+> 
+> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+> ---
+>   MAINTAINERS | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7291238bc09f..743c785b4558 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8354,6 +8354,13 @@ S:	Maintained
+>   F:	Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+>   F:	drivers/gpu/drm/panel/panel-novatek-nt37801.c
+>   
+> +DRM DRIVER FOR NOVATEK NT51021 PANELS
+> +M:	Ryan Brue <ryanbrue.dev@gmail.com>
+> +M:	Nickolay Goppen <setotau@mainlining.org>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+> +F:	drivers/gpu/drm/panel/panel-novatek-nt51021.c
+> +
+>   DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS
+>   M:	Lyude Paul <lyude@redhat.com>
+>   M:	Danilo Krummrich <dakr@kernel.org>
+> 
 
-Currently this patch only supports resets as the Q6DSP is in control of
-LPASS IP which manages most of the clocks via Q6PRM service on GPR rpmsg
-channel.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
- drivers/clk/qcom/lpasscc-glymur.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/drivers/clk/qcom/lpasscc-glymur.c b/drivers/clk/qcom/lpasscc-glymur.c
-index 356625dce99e..eda13686850c 100644
---- a/drivers/clk/qcom/lpasscc-glymur.c
-+++ b/drivers/clk/qcom/lpasscc-glymur.c
-@@ -37,10 +37,31 @@ static const struct qcom_cc_desc lpass_audiocc_glymur_reset_desc = {
- 	.num_resets = ARRAY_SIZE(lpass_audiocc_glymur_resets),
- };
- 
-+static const struct qcom_reset_map lpasscc_glymur_resets[] = {
-+	[LPASS_AUDIO_SWR_TX_CGCR] = { 0xa028, 1 },
-+};
-+
-+static const struct regmap_config lpasscc_glymur_regmap_config = {
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+	.name = "lpass-tcsr",
-+	.max_register = 0x12000,
-+};
-+
-+static const struct qcom_cc_desc lpasscc_glymur_reset_desc = {
-+	.config = &lpasscc_glymur_regmap_config,
-+	.resets = lpasscc_glymur_resets,
-+	.num_resets = ARRAY_SIZE(lpasscc_glymur_resets),
-+};
-+
- static const struct of_device_id lpasscc_glymur_match_table[] = {
- 	{
- 		.compatible = "qcom,glymur-lpassaudiocc",
- 		.data = &lpass_audiocc_glymur_reset_desc,
-+	}, {
-+		.compatible = "qcom,glymur-lpasscc",
-+		.data = &lpasscc_glymur_reset_desc,
- 	},
- 	{ }
- };
--- 
-2.53.0
-
+Thanks,
+Neil
