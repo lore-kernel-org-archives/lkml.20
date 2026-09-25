@@ -1,86 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C864E80D2;
-	Fri, 25 Sep 2026 19:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47314E8DFB
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365363; cv=none; b=VM2ldgTXI+G01DKcWK6TSBu1Jd/5wnX71//Udx7UYW1GZeZM4cYKHwZiIU1Q6rBBtXYtRjZ/O/qJiVOTX6HzhNPfda7r+6Io5M7+IBuJZPFbN7L8Rzerd7jzkG5jWhYIz9AL5M8zF4bhrYXa2EIwVYg2AEEEWl15o91+uQPz6vM=
+	t=1790365363; cv=none; b=TLby3Wpsa0lUIF3YlGL6H1YIVUxK/xwoUi3pPuZDX68F+6ZC7Tms5gANNpKC8kqtgsHqBrLV3v1kfPyXgQA/oeZuZKaeovLIoG+pq+C6uyb27JHaBgSiavV+wn9sw1X0gIB8QqLeD9xaWce2M8ONoO5YEuOWLR+F2AY3c+8U3qY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790365363; c=relaxed/simple;
-	bh=aMNWTWyCqUsOG4orvXSkh6kcO43dY8xamvLY6SlMSqI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M49BeitjYXAteAvczAli7MMehxH/tn0T7o08L7cylR5hbKjnwl14rJkKUVATHQJSt2zvrffpjdITfHsO7lMIWKEiSMGdST0SxBEK+b0/odkSatWJ1/tGdC4zKbIIVceDpOmFxGmiQZLSz7vbfTmXsUPHOb0n1K4ymFu4RWg7rcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/8huc7l; arc=none smtp.client-ip=100.103.45.18
+	bh=1VWZYciLHbgddZTdHE/3XXjdoTgU8Dsut3G+9HXnAdM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fm3gZrQITIqjd/rDbBoIrskKz2JBapRTqGXE16t6FA+TazDDgvo6E/dvnwDLKkmeaGRIcJfESNBvCRiu1yT5gr+9RFTAg2TXEYdK1BO4pKONOEeX1IJCzWpb6ZsJd5m7lbf01td2o1X65/Q871eH2KXiNb5sosMvOpEEfd5la0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a2AJXEJs; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/8huc7l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6063A1F000FF;
-	Fri, 25 Sep 2026 19:42:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790365358;
-	bh=aMNWTWyCqUsOG4orvXSkh6kcO43dY8xamvLY6SlMSqI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B/8huc7lVai+g37VoD897gWW6n7zUWJIrF/g478Lqoqss0UMsjQ+ljSqgoCTaNcaJ
-	 d48fZqp/wcrzoQB04i7zGsRRJV63M9+P3IWL3ZzpsW0aWz9Hp3SE3yBlyBpgbnJh2a
-	 aAkHmDIuShZGMWFCxNaxarm4h6zPPfXAqmLbd+0ILF3PrMJrUgV051omcUSeWREIGR
-	 7vRDPIB2YYgttssXvWe13/8npFrqKx9HbSN4VfXc+2gvnvn4eeftxXZ0/EkYOvPU5a
-	 E2FYZJVL1UQnBh1MX8RzQj+bFI3xQKn3tMYg7eM8Bgme0zsEadW8dZbKSRa7caiOX/
-	 Bvwwd43ywlc+A==
-Date: Fri, 25 Sep 2026 20:42:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Lucas Costa <2000.costalucas@gmail.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-spi@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] spi: bcm2835: fix device_node reference leak in
- bcm2835_spi_setup()
-Message-ID: <ce711fbc-71a1-460f-bde7-9e2cefd96db4@sirena.org.uk>
-References: <20260923184450.135601-1-2000.costalucas@gmail.com>
- <20260925193008.127314-1-2000.costalucas@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a2AJXEJs"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so6497575e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:42:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790365358; x=1790970158; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y01LBiaH2IwpyL6MELf0OxRYiwawGfhA1ZMvZPY+wcQ=;
+        b=a2AJXEJsI5MILmvdYBs0fj6UFC46kJXV8LAU7KYp8UAJvwTwshqbr9I9roNEcrLpiH
+         WwYVxH1K9eu66s7kq5DcfrU2LkVZsR9fuCOQGAgDS3YZ7Kc0Dek6gfvN8mBA9Fn4A0CE
+         SjkyIpqIY3cgTXcJ6oNQLLhP3DQaDLT2UVP7llRM4MqaNkKBhJvVGbN9jg+VDHdR3Kfu
+         FsX3U8MvkO1m9vMp8Pvjisw1bqSpHuUzWfqG7JcpXvp0rNWmhg3bVrnFtUOTFOdPhv4G
+         WtOIuLYL0EHEiGWOwwbTTvVkYRQmV67H7I/C6ttwbpaaLeyLiAUGMu/1//7322e9a77P
+         SgPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790365358; x=1790970158;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y01LBiaH2IwpyL6MELf0OxRYiwawGfhA1ZMvZPY+wcQ=;
+        b=QOW6XGuuUEZkhlKpLGX1SSEPJ/XRx4Vmw1VWdOBxnlTavBhaESoUxhtKM9ECO31RFi
+         1ZK6qUcmF5hWAtZAfouzzszrBTvjVbXyqRHktE09f9HCcRtwgTnwnp0CGPuFQvrk+2lV
+         jdaQsM+cGmQE1AC78WAYPNAbeGrznxGszZIeut+aAqmEyBYBam+K1KbPGYt1T0bJHLyK
+         aEn6mvmUH+nh9w/ydjWnFOHztolyVcoWPs0+UOq0E4c7YzbTLUH9cyLrmNbLGXHQmcxd
+         +mhc5CuqcosGjLT2KSJ5iwCqMQcRD1ueFiZX18k+B6RLev6ArmOD2iKnINZPNtG8q/o3
+         oWkw==
+X-Forwarded-Encrypted: i=1; AKwUvBwWpVf2wLwv88MpRS4+5t7strdu8QAL6bk8svaKGBPPKSTpiUaCj2a07j9H65l4IoY86UVfRAeXazTWGCw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwV1AbpsaChKoKkN8WzWPIMhRGrhJEEhMMY7tOA4IB4zwBqeRm
+	B8YkR0GU8JFBJBl+HNHHajG0bwMKmhwkie4Kj0raDCVBhXCHJKtkFcHX
+X-Gm-Gg: AYBFou27uia8iLo3QtN+kkC02DOdSrGFLWyZkzlVuS/5+0XK+uf+UthWDRvHQwUSaMD
+	iSpYmIQURPzqY3FTryxo7wMgBVBq6uj88uXElQt1kRLMoWDnrk0naZnGUZUi7vlw4EbcgTl6Bh0
+	sB41aHG715n6M46El0/pjdno2FGdbG/vUefol1xJNzZKpRb8851GI8CKaU/30kwc7JqcNcgt5K7
+	mGjOffYIKAOuJG7DFyND9b3fUXSVYE0pDF3QdC8z9argOsB56/rpVsSsAdQxZam/yYYmpHl2dkU
+	JsWFCKR0Sx8O8YzeDm00TvfBx1p9lyGEo4lLhdA9JsHWQYrJ54F1X8KrxZ8Of9kVNErwkQjHpTS
+	Ol4ilGvevDtRF9scHRHkZ+PBmiXjlTrxqpYFiAG8hrP3xBrTa1QunuL0uTDG4dSqu54qxx88CpJ
+	y4TfO3//F5Anl71hArToww57kNJcz8ureK4SSjKcFlTsuMsI7pgi2zHWjKpu0L9rRY4hFIUMUIo
+	rkh5g6KqDV44PuQgUfzq+sh6wmNqVjNAiPJ2b2lRnE/IA8rvUxZaA==
+X-Received: by 2002:a05:600c:1548:b0:49d:257c:a735 with SMTP id 5b1f17b1804b1-49fe66f164bmr120031085e9.11.1790365357978;
+        Fri, 25 Sep 2026 12:42:37 -0700 (PDT)
+Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5de187asm168549765e9.7.2026.09.25.12.42.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 12:42:37 -0700 (PDT)
+From: German Pablo Lindo <germanpapulindez@gmail.com>
+To: lsa.uz@pm.me
+Cc: bard.liao@intel.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	pierre-louis.bossart@linux.dev,
+	vkoul@kernel.org,
+	yung-chuan.liao@linux.intel.com,
+	zlzzm2014@outlook.com
+Subject: Test for [PATCH v4] soundwire: dmi-quirks: drop the ghost RT1320 on the Surface Pro 11 (Intel)
+Date: Fri, 25 Sep 2026 21:42:36 +0200
+Message-ID: <20260925194236.9651-1-germanpapulindez@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260913210849.6446-1-lsa.uz@pm.me>
+References: <20260913210849.6446-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/SVPUL7HbZZHdKNN"
-Content-Disposition: inline
-In-Reply-To: <20260925193008.127314-1-2000.costalucas@gmail.com>
-X-Cookie: Love America -- or give it back.
+Content-Transfer-Encoding: 8bit
 
+The Surface Pro 11 with intel lunar lake series suffers form audio problems caused by ghost peripherals, using this patch solves the problem and makes usable not only the speakers, but also the microphone.
 
---/SVPUL7HbZZHdKNN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The cuality is not the same as in windows, but is good enough for casual use
 
-On Fri, Sep 25, 2026 at 04:30:08PM -0300, Lucas Costa wrote:
-> of_find_compatible_node() returns a device_node with its reference count
-> incremented, but bcm2835_spi_setup() only uses the return value to test
-> for a matching node in the loop and never releases it.
+The Patch seems it has gotten stuck/forgotten, hope this test brings back on track the patch
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
-
---/SVPUL7HbZZHdKNN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2zqkACgkQJNaLcl1U
-h9CRqwf+Ik/gAzOMcIALAuD9d3R0DPLClvHRDU3PpVBp13v3tTe9cBHSY1Xm9It2
-weYQOM7tmlg9uWyXweim8tkdgUGWnfn5IoPHFk8uBCIxuJUmd3maBfkOAaVe17Bi
-2QRsjVNvKL4c7S7YBmmPWLI0ojlxgQaL/Rh05I4T78VGlz1zTDsWiDDLtx6BimsE
-hziLeR53ycJqjI+PsDSkcbEwx0uAipzmDhs+klidb6mGuV9KRsnFlnr3DkOSheqV
-pSWU6uNS5C13gCzgsklJDctcRyLJZCg3osEQhNVLH+XbasmzsbyckYhqVsDTvr7k
-+/FKmYJ+J+FaazSQSwJjlf3CFXUOrg==
-=hogG
------END PGP SIGNATURE-----
-
---/SVPUL7HbZZHdKNN--
+   Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
