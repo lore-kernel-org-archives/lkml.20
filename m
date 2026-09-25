@@ -1,214 +1,180 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E1F126C02
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:07:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1411C184524
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790294838; cv=none; b=Ep2MMxWJKOH8R5YEPcExnga/kKdkzOLuzsEt1pU3iR1nM2KRdNJZci4GImXrKNF3iqR0aFnzra4s/rjz2OExNDzs1Q33RH/Lg3gX3ko8IMuuuDlkDrPEFPt2yraDDJJw0TDmxFpWFjeZd3SdDtEHA+r0Nn+p4f2/GiOl0jExMYM=
+	t=1790294867; cv=none; b=PT0ScmLhLu4GMz+apKjqE8OmHiOz+rsxeZQMbYrUhmzbG/mwPpkABOfic0UbofzRcf7VwViX+7DZ75rvp0/uRWgUhZezMbVR3X49pimjagsDNVqqDKTt4CZumXHMe+saMZeYexKE/FlCOglE7PjVBmgm375tvTtFKKgS72C8vC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790294838; c=relaxed/simple;
-	bh=X2A7vWIe9NKoDbQqXhFCtPDCxQ7TbNrxQywYCAF2WFE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PNY/7Xkf9eiuV1BQmJM9sJ0HK9PyvfANT++DuPssvMcFNNApO1hf9zeQB0QoyOTOjxlMS7345oxb1kpK6egWmRekGl8r/Z0TLvX50EFPAJF0hDoJTluURUfj0kmo7bmg2C8jNjKJYiA/vcsOydphZ596DSQedq0LObXHkbFl+8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=wqM7LCrh; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790294867; c=relaxed/simple;
+	bh=MfzCj5n/qzaDRiZjBdIWIPdLsqB/Z8mKb7SNpeiywnE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ACQRfGahsH92fruQyQsMfRqD5zVoNq0aG4szz3sm3OCAMOdrvDHeFHEQpx7gRo0c54Y8aF1TSmPG8odlzMcM/NI2t4MHW99WRON7wU9G5RKcxhz9iUl/b8seKCgppiF1OI+204u8BAPpR1TIUU4sB5TmZZVxtgFchR6Ase0T7qA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=F3awLiiB; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=uCnwzKKz; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="wqM7LCrh"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab22370so421066d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:07:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F3awLiiB";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="uCnwzKKz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790294865;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QtjK9f50/jK8SHecvHOqY5pCCQhpN2otdhXEwvLzMjs=;
+	b=F3awLiiBniggHGjUD8BAJfzOzOFE9VrPiYefLhSvcIuJ5/TMVOWNqTfsueWn1c3PqhQ8oa
+	3B3rdmOMeMonmuVcvPHG9hf+67XUp/DAr/f58F7s+2tHnrlCovmGH6hCNDXW47zBcUWmJY
+	SOEjdJ6UqEFUlU+C5zalai+n5LPreqA=
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-7-o1_IXe0HN7itOMjtxu7D_Q-1; Thu, 24 Sep 2026 20:07:43 -0400
+X-MC-Unique: o1_IXe0HN7itOMjtxu7D_Q-1
+X-Mimecast-MFC-AGG-ID: o1_IXe0HN7itOMjtxu7D_Q_1790294863
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so712771a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:07:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790294836; x=1790899636; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=87Bkgcph1yYiWXFlcH1IznzX3nitWH9GjUlv4RNMedQ=;
-        b=wqM7LCrhM5d5CtnWjcn8a1Q+EbWqfdMLYPnK5LRPFt4RTXfGh14qLeNMp/RJ02Y2Na
-         JgK9kwdtoh109C2HDannokTlVB+JYz/ogkZFGdO0obNr4oBBUz/MfVOeuM/Zit1rk0Ed
-         c3Q1wao5zmEXF+tB5V7HaLKC61oFQ6Ot236sn47P3LxWonVkzl5nUaNzdkVD1CUdibwx
-         RnGyD6nL6ybVVq+cWxBNF9zOpseLnGPYGYgO4jbij4xIRYPR6N+UpJK4ibXvc2TuVdTL
-         Ld5rR8F1tSJpEiyjLZDPvg0gNNW6i+eK4dftdye7UWQ0W9nlFPjVneGtqC3o7CPFfM4f
-         DQUQ==
+        d=redhat.com; s=google; t=1790294863; x=1790899663; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QtjK9f50/jK8SHecvHOqY5pCCQhpN2otdhXEwvLzMjs=;
+        b=uCnwzKKzMCBHXiiBLLNX+yNnO6gvlgiCuzc5hGYC2dwS8jhXCyIUlPrmDUYd7U6KyS
+         Q/pF5Esuj2Ki3A/n+J75Yj5XRsXh6O3ybe0K+GLzr/5QxCbFYJjnsWT8RUv/le32NDR/
+         f0WqB5dTBYGEybDrDexQTvdvDJvL+hX3/ls/+dh6ygSuOud2ca+/Qvc8c0fRDRptX/jw
+         zpUfPkI5W9NglK15L1VWZEVZ38s9uQmmocXZm6+1iEN7Rgfm1mRDNQd6yLoTmh1p4lB4
+         tNc3m6mGx2cXMlfL4lRMSVZNVlXRkOuM6J9z6UizPU147+JVtnOR6EZpJpCnlWeyRb9k
+         rb3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790294836; x=1790899636;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=87Bkgcph1yYiWXFlcH1IznzX3nitWH9GjUlv4RNMedQ=;
-        b=HBW86pnyrck7QMVlaVzyfhARu32cVa/n2Zo9uarDnYQvDE94d/89ocBsU7DTXxzyGR
-         cAHdErm5B4hfp0UWvgpGKkotbh9wFzUwhAh8e8SrrBve7PCcIAow2ZxLAloVwio0tn4M
-         my4eU+8JYTvQJp+g5CqDlQ88YSNrVrWdcbr3FgNVobO5rRHEcQww/8BknnqgfmFPahGC
-         BY+vBacrMxNECq2OlIVrlLh2WnMuweyizyALFFo323IcPci3XpOZCNk12NVUj6WFyAuG
-         5YzwGBoj0RdVou/9Qd+RtLv7Mxg41WJdlc1hmPgGOoyQ9AspXL8mw6/Q1a5WiGS2rJaA
-         clpw==
-X-Forwarded-Encrypted: i=1; AKwUvBxuPvF5wI109wsPYhDxk65R9Df08BdLGVd7f/1oMCbgc/SQg6B1MqPpiKb6rJKvOJaCggqt47gMbu8OFi4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSnVjONpEIvbyaIFws8RKTcGC5Ydv0oLEYEOkgHRHouAU2AdH8
-	3A4+iPbwynsWG5vyK/r+9D1079d638iCiqz+YVMgl4YJCYEFQ6skwqmGXzT6A8rxDqE=
-X-Gm-Gg: AYBFou3WOG0dLhRJZGjR6jqImtWlT7OwSq4dCw+g+3g6QGVEou5BW/Yhea88hPaXgzF
-	Hbh1CuZo0joS5JajTyJ0+YZbWLDVDygOJs08FLWZ62OKEQEdGt2eS1B7gZ7zBwtyMq9nBnbF5Uw
-	Xdz1PfFA7WrtC1vh5KIO47vRGufeVI8ujn+e1qSRDx5xcV/643YYWoHuTmYjNhdjLEJxCUXdP5d
-	jTD6vcSmq3Fc2E/PiI/KQ/qXLMzIY6g2lW4bNCu6+UbKnxDJ2LMCnHcpuRRyVT/RbtewKW771k4
-	qpj1ByZmaB/oi1N5hH09f3lEYVt6wL9b8hE2/lOF51cLEyDTZGK9bi195Bsb0F2Eiwna1fyndM4
-	Lf0oqKmH06TW815FW65DZBrWhaF8fWXJmWOQkftIs4Eol9CuyqdRT8RHIZzlVwscjNCicy/3S5N
-	eV9jBvVgBV8CuijhKQYilFBBWq8iA4WKyQyQ2eZQOfkGnvdATES3Sad0nVqyvJ/4divkHNh6beB
-	24kpK9vGQZntJY/xeU8NVZjLl3AYdrVorGgtd1BEkwL0sGKWfh23rSEf1YGqU4kXrxwkIlFWodb
-	NJEb1W1p3VdEhteTiLpPFHfWXDfOITPIg4nRqfp4zpbyd4rSvIipapQSo4q4YEk14Q==
-X-Received: by 2002:a53:e701:0:b0:66e:5604:ecd3 with SMTP id 956f58d0204a3-672ed2648edmr1416902d50.37.1790294836010;
-        Thu, 24 Sep 2026 17:07:16 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:4935:3bd4:e0b7:fd95? ([2600:1700:6476:1430:4935:3bd4:e0b7:fd95])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740ef701f3sm260485d50.14.2026.09.24.17.07.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 17:07:15 -0700 (PDT)
-Message-ID: <1056cf9f4393443de00137bc8937922d6ab40202.camel@dubeyko.com>
-Subject: Re: [PATCH v4 6/7] hfsplus: introduce iomap-based file_operations
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	vdubeyko@coreweave.com, willy@infradead.org, brauner@kernel.org,
- djwong@kernel.org
-Date: Thu, 24 Sep 2026 17:07:11 -0700
-In-Reply-To: <20260918133935.GF18107@lst.de>
-References: <20260914233941.2966421-1-slava@dubeyko.com>
-	 <20260914233941.2966421-7-slava@dubeyko.com>
-	 <20260918133935.GF18107@lst.de>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        d=1e100.net; s=20260707; t=1790294863; x=1790899663;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QtjK9f50/jK8SHecvHOqY5pCCQhpN2otdhXEwvLzMjs=;
+        b=q4fi9IOhoCxj4CXE6gJMEpH/htjzPJEGLIasJX2V0fgC7CD+fI1zI1mzYvvxPF8mgA
+         8+hKSXfuG0rSypLC2PyGl6i0YUTQ/wXqeev41bIVopGyPRCwC2oAY9IzK1vMyYP6+757
+         cmSZwNARurzbHcudwWiCGw+aI5PwVNHfnmsurlkxufOtXQtsyqc/rmMO7ODDiJJbLVct
+         8KDTIJEH7s1xzg/CE57n/RS5d4fJsZTlwLVIQC51HV+uN9GfFO0EPv5gk+wqo2beKw2L
+         4I38UsVwxqV0ciaa4DY+8B8L99sO12CNSiWxoFyQ3aGQ7LzJ70axguz8SLR1M8ri5Bi5
+         lrJA==
+X-Forwarded-Encrypted: i=1; AKwUvBye/cFfXBacfHEZ1ubmWT1AUqgje9gVrY/LzQ9EjoAuBcdpNwhptyjELlqVrHv0S/WNBs3TQ4TEuDp25WI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kE/sWFEy6L6xE0VrvDdesn7GhH8EWNzBfcv/QUaCzte7RSD1lh
+	innRdg1hErhjGyQh4RRDb729QroauJuu4wRhZPYXXHJ8jrKioHR9iRXs7Xtxbgbot4YJQGuAblb
+	icqOkMb8wJ7DuNpdfBVjhE/y2faGva5Oh00bnZkI1R/aT97cHphUvnhVkIo6nFw8K+Q==
+X-Gm-Gg: AYBFou3slNcxxGq9FSVWHDLPCQDcCwTIOTjHNOZU0f+OLNXFZA2wDBwRQUHVzHw05cQ
+	l/j05PvRvNAIc/lGnNqSsKF9BD04t6oUEBLErGcukntKMVEB8ZotQbZiDvA1iccaQJ+gNAvkTDr
+	XGUoOOgQDpfV16W3FX3ypSY6D28Ewc6X0TC/K6FN2SAwQbAucxlFJ9Dp3tfjZqfvrT5Uji84IjP
+	PmOo09l3Bsji/07nl+xLRq53xSqPH2zxbSq/npNbc3vUXIudiFkpPwGf+v04G151uu8UGogd6bH
+	bU6MrAEvM+q30Hat2LTqLJ9/VMwCoWYmO0ksyD6CMnOgi92do/Vkj8JLzM11ael5ou4pWborSnx
+	AMC1k4zBBJ4bN+icKx7pd1+RaxcJ7j3/4vMSKefY16Q==
+X-Received: by 2002:a17:90b:49:b0:3a0:9ed5:5420 with SMTP id 98e67ed59e1d1-3a0bb6139bdmr380670a91.44.1790294862485;
+        Thu, 24 Sep 2026 17:07:42 -0700 (PDT)
+X-Received: by 2002:a17:90b:49:b0:3a0:9ed5:5420 with SMTP id 98e67ed59e1d1-3a0bb6139bdmr380627a91.44.1790294861906;
+        Thu, 24 Sep 2026 17:07:41 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9355e49sm997611a91.4.2026.09.24.17.07.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 17:07:41 -0700 (PDT)
+Message-ID: <a3984ac2-ca04-4e46-87e9-6277491acf7c@redhat.com>
+Date: Fri, 25 Sep 2026 10:07:34 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 6/7] firmware: arm_rmm: Ensure the RMM has GPT entries
+ for memory
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-7-suzuki.poulose@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20260924135201.850038-7-suzuki.poulose@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2026-09-18 at 15:39 +0200, Christoph Hellwig wrote:
-> On Mon, Sep 14, 2026 at 04:39:40PM -0700, Viacheslav Dubeyko wrote:
-> > This patch
->=20
-> Patch descriptions are not supposed to start with "this patch".
-> By the time this fets into git, it isn't a patch any more :)
+On 9/24/26 11:52 PM, Suzuki K Poulose wrote:
+> From: Steven Price <steven.price@arm.com>
+> 
+> The RMM maintains the state of all the granules in the system to make
+> sure that the host is abiding by the rules. This state can be maintained
+> at different granularity, per page (TRACKING_FINE) or per region
+> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
+> underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region,
+> all pages in the region must be of the same state, this implies we need to
+> have "fine" tracking for DRAM, so that we can delegate individual pages.
+> 
+> For now we only support a statically carved out memory for tracking
+> granules for the "fine" regions. This can be extended in the future to
+> allow modifying the tracking granularity and remove the need for a
+> static allocation by the firmware.
+> 
+> Similarly, the firmware may create L0 GPT entries describing the total
+> address space. But if we change the "PAS" (Physical Address Space) of a
+> granule, then the firmware may need to create L1 tables to track the PAS
+> at a finer granularity. Linux therefore checks if the platform firmware
+> manages the PAR region. i.e., the firmware is in charge of managing the
+> L1 GPTs (creation and the required memory for the GPT tables - via static
+> carveouts) without host intervention. Support for dynamic GPT creation by
+> the host will be added later.
+> 
+> If the firmware requires us to manage the tracking or GPT memory,
+> deactivate the RMM and reclaim any memory donated at RMM activation.
+> 
+> Apply the same checks when hotplugged memory is brought online.
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> [ Switch to RMI_GPT_L1_INFO for checking GPTs and deactivate RMM ]
+> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+>   Changes since v19:
+>       * Avoid mixing gotos with __free cleanups for arm64_init_rmi()
+>   Changes since v18:
+>       * Handle buggy RMM to make forward progress for RMI_GPT_INFO and
+>         RMI_GRANULE_TRACKING_GET
+>       * Make sure the memory ranges are not inverted and reject such ranges.
+>       * Move granule_tracking_get/gpt_info wrappers closer to the callers
+>         Drop "inline", let the compiler do its job
+>   Changes since v17:
+>       * Move wrappers that may not be used elsewhere, out of arm-rmi-cmds.h
+>   Changes since v16:
+>       * Check fine tracking and create L1 GPTs for hotplug-added memory.
+>       * Clarify the L1 GPT setup and move the explanatory comment.
+>       * Switch to using RMI_GPT_INFO command for checking the GPTs.
+>       * Deactivate the RMM and reclaim the memory if we can't proceed.
+>   Changes since v15:
+>       * Skip firmware-reserved NOMAP memory in rmi_init_metadata()
+>       * Handle negative error codes from wrappers.
+>   Changes since v14:
+>       * Move the implementation into drivers/firmware/arm_rmm.
+>   Changes since v13:
+>       * Moved out of KVM
+> ---
+>   drivers/firmware/arm_rmm/rmi.c | 218 ++++++++++++++++++++++++++++++++-
+>   include/linux/arm-rmi-cmds.h   |   2 +
+>   2 files changed, 219 insertions(+), 1 deletion(-)
+> 
 
-It depends on how we can defines a patch. From my point of view, patch
-is a piece of code that can be applied on some state of git tree. But
-even if this piece of code was adopted and applied into the git tree,
-then it could be extracted as patch again. So, it exists as patch
-forever in the git tree because it is incremental change of the tree.
+With Jonathan's comments addressed:
 
->=20
-> > @@ -55,7 +58,6 @@ int hfsplus_file_fsync(struct file *file, loff_t
-> > start, loff_t end,
-> > =C2=A0	error =3D file_write_and_wait_range(file, start, end);
-> > =C2=A0	if (error)
-> > =C2=A0		return error;
-> > -	inode_lock(inode);
-> > =C2=A0
-> > =C2=A0	/*
-> > =C2=A0	 * Sync inode metadata into the catalog and extent trees.
-> > @@ -114,15 +116,184 @@ int hfsplus_file_fsync(struct file *file,
-> > loff_t start, loff_t end,
-> > =C2=A0	if (!test_bit(HFSPLUS_SB_NOBARRIER, &sbi->flags))
-> > =C2=A0		blkdev_issue_flush(inode->i_sb->s_bdev);
-> > =C2=A0
-> > +	return error;
-> > +}
->=20
-> Changing fsync locking feels like something that should move
-> into a well-documented prep patch.
-
-Yeah, as I remember, it was a fix of some issue. So, yes, it is
-possible to have it as a patch. I need simply to remember what this fix
-was about. :)
-
->=20
-> > +/*
-> > + * hfsplus_fallback_buffered_write() - fall back to buffered I/O
-> > for the
->=20
-> Pointless function name in the comment.
->=20
-> > + * tail of a write that iomap_dio_rw() could not perform directly
-> > + * (unaligned tail, or no blocks could be mapped without
-> > allocation
-> > + * outside the direct path).
-> > + */
-> > +static ssize_t hfsplus_fallback_buffered_write(struct kiocb *iocb,
-> > +						struct iov_iter
-> > *from)
-> > +{
->=20
-> Can this use direct_write_fallback()?
-
-Yes, I think it makes sense.
-
->=20
-> > +	struct hfsplus_sb_info *sbi =3D HFSPLUS_SB(inode->i_sb);
-> > +	loff_t total_capacity;
-> > +	ssize_t ret;
-> > +	int err;
-> > +
-> > +	inode_lock(inode);
-> > +
-> > +	ret =3D generic_write_checks(iocb, iter);
-> > +	if (ret <=3D 0)
-> > +		goto unlock;
-> > +
-> > +	total_capacity =3D (loff_t)sbi->total_blocks << sbi-
-> > >alloc_blksz_shift;
-> > +	if (iocb->ki_pos >=3D total_capacity) {
->=20
-> This is weird.=C2=A0 The total capacity should not matter for a write.
-
-Yes, I see your point. And I think you are right here. I am trying to
-remember what was the point of this check. If I am not wrong it is the
-artifact of some bug fix. I need to remove this code and double check
-what will happen. Potentially, it could be obsolete code artifact.
+Reviewed-by: Gavin Shan <gshan@redhat.com>
 
 Thanks,
-Slava.
+Gavin
+
