@@ -1,135 +1,463 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC65849E15A
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B526457E65;
+	Fri, 25 Sep 2026 13:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342557; cv=none; b=Io7an+KXDgASLpk9fYeBQzvYRItd+0X0iVZ4DMPQ6iNnY2CvkJy+lKMLe8Rma5gYTKgMC71eXbTqjEtwSPHmJON2ajkdne5WqFNKRJnqKU5Ou5H1rCNOJaODp9o1ztuFrGX1Uy10bh4pc5SKXZ9HENGX4VD7JOwRQvslmjO2y5o=
+	t=1790342618; cv=none; b=hZbRL7YITVlZ1ez2a2ddnJWG/syAPaBkViv4ChypDadDezdFsmZBvnbbJaHFmHzBOxXBy50fYRhSCQ3AiXPbEJOQj0xXk+MKfcnn1vM9tNUSi24LrkpJlIWKMxr2Kb5mBxnKYpVs+JtK6WHF6/jWAmeYwUnY2qAofXNCxl1nml8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342557; c=relaxed/simple;
-	bh=So4HqoV2MG2xCPJ5gN1Wxr8DZySiB1afqTP57oJbzjc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KQ8K7hQi5UKChCSFJ0U8KPYXZZLmNiJXSESegMnNB9t7diCSrqYE2xDRrDpL1xf2LjlefTi9PQHWu2FFmGpmCOzveJCuWVJDuZbNNsYeJCNR0qg8S9clUWIIo6p9hcOmphwfrYV8T1eaPeY+zuVzWLDhl+vwQMRqMwkrOw5CPPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fOKfPt2k; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ETeWurBZ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790342618; c=relaxed/simple;
+	bh=BtDmNEwLCfFj9gD6VDBPoAmHi0eedXx8OV/jUoCaR/A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=C3WjkdnrRqkraOdtzyNpgVNoh6N2Gs9qOi5boSoGsZj1J/BK8DreNTa8DQHqGo+9lCElUZnojeakBbWoGBDyjH4EE78U/F9ph1F46LIuvrYzYyTSAnaGJSmAtJDjMjLsMlny4BI9/lyHCCcSLgTenqp1O6e2BRakJAXrM4W9wW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=LczXoN6b; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fOKfPt2k";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ETeWurBZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790342544;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Mfp85Na3VIvxFepbe+2FVNLR998tfGijRwpOnXjXS0E=;
-	b=fOKfPt2k/qkngRrNihgEPzV+PiFb3us9Y3/uhFjMZ1TdRd3BmG+M0oag/GpTFq7R6JyCkM
-	nY45gWV1lPCbKIBOvDkm2/XSodcCTqlJLPz4K7ZHGOcU2wezsvP/3R90SlndcwzSHfwzSH
-	tWy7KSCpXER0hwV0VpWlVtHWNBbQw6c=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-392-4XD3q6lRM-y0GKBbykvOng-1; Fri, 25 Sep 2026 09:22:22 -0400
-X-MC-Unique: 4XD3q6lRM-y0GKBbykvOng-1
-X-Mimecast-MFC-AGG-ID: 4XD3q6lRM-y0GKBbykvOng_1790342541
-Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-5b8ceea282dso516320e87.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:22:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790342541; x=1790947341; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mfp85Na3VIvxFepbe+2FVNLR998tfGijRwpOnXjXS0E=;
-        b=ETeWurBZeSxeh/QLNF6eZgWw7Z7+55Sez7WSqWKBEEufKKdYiUJT+K2hQfZfe5QFia
-         3qRyiYClAAigt5MWp3ImLESHxcphs39gVI5lzAsmGOX4CHfhTwQX8bGwIuJbKyJOEJf7
-         13PccDndJhCJd/j905d9lk0SGVdTJnb8BokBNKTu33K2ISKERAR63kFQdnNrqJy/O2Mb
-         uBomt/sPdl2/s/182Y5bD0ZhuG5+hNpK671Oy4/F2I5+rbhNfCptTmecPOCmAvMmF0b/
-         1gKOGtZjNAb5/7+T8I4hlqlxHdGHHQ3Y6NzON8Z/ElEdE+amr3o0TgeQo8UvLjAQdPAm
-         ccMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790342541; x=1790947341;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mfp85Na3VIvxFepbe+2FVNLR998tfGijRwpOnXjXS0E=;
-        b=U6ipvYeC5zPpZv/NYNkIeL9h3+AQvYWj6QspBif3viB1xbd/qc3bPUjG/w5AR1cZfu
-         m2XvW7M3Ivdp5M+/MURqxAJRGM9ASzVgX2iaEbhD8VWiTsUWXywy0zKf41FyKaz+bRYs
-         Wh3RusG2pqkkL1DNISR392/Fufi/njHE5rxv6AnwHQrp9+ZSuxCKIPMioCdLiyYDhJOY
-         kUuW2j1jkn+iFqcu720NMowwUvt9EzjsFhvDoOP6BEFpuVfVUvbGBL6FcCT2DracQ6mU
-         /86+biRbRQLZVxujDoQOCU01Wi+P6/OR+uT1wkPxHkhYwkL+o1xcOTXKpPt4GWv9Q8gu
-         /3Tw==
-X-Forwarded-Encrypted: i=1; AKwUvBwqt/8zu9KikPgvbzDTXtrTdZ6kgYAnnY23PM/zPWZ7gHM0b1XsStRKYHX6g5SMJpFxfjXTyosfL8OygpI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfHQFAN6S/+eQMvdYoHtsV/t9iFOP8UnEYpjeTCwYr6G+YWAYU
-	J8V8nXvflIIyKg/4sHcpjRqNvFJoS2ttV7AmpAYvUh7hXbLnOhd9gCOTfzhVluiPoFxGhghBvZH
-	TC9GMaYLo45XLUHDYPvYIdy1fBS+ZzvZ55J3M2oCMV0JqR1+FD4a6+FQLatIqCFeP
-X-Gm-Gg: AYBFou1xX6MtKJF0nQ1A3uab9MDttn25oQc+jHHV1zJYrIYrvrvXe4/nH5IZdloAv4C
-	0tTZR14eIKcvGY6m0HwZVGk3uax1fTtPyK6U6uA7hCW5JjAiWYNIsJHJAIKs2Qietyqoj6dR3yF
-	9CUypRXVa2KKFtmGLA6tKrqzw0KMhBhvZ4xJu5hmNiCV1Ti4U8qeezgPS9rzt2wo3+LTTQsbCCx
-	DfgzpaphHW8wlgv5AGGvY8xDncZup2HQDBvyGYDH7Qkk3RQWd5+GK9Ed5GMOs04qK/8EZp4M5MU
-	eg421LO+dhuvUwvhc8k11OdBXrDguvYehFFjD9SNdPAiq73+TQbYDKQrxsFvbsHNmag9vC3K2aW
-	khkvcC/6WF+qI/gk0TJdhbKNngwa5cK4=
-X-Received: by 2002:a05:6512:3e10:b0:5b1:121e:56c2 with SMTP id 2adb3069b0e04-5b8e6b36729mr733464e87.0.1790342541352;
-        Fri, 25 Sep 2026 06:22:21 -0700 (PDT)
-X-Received: by 2002:a05:6512:3e10:b0:5b1:121e:56c2 with SMTP id 2adb3069b0e04-5b8e6b36729mr733437e87.0.1790342540724;
-        Fri, 25 Sep 2026 06:22:20 -0700 (PDT)
-Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a64c2ea5d2sm5510451fa.18.2026.09.25.06.22.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 06:22:18 -0700 (PDT)
-Message-ID: <f7cc0ac3-729e-435e-9062-3317d0a6517b@redhat.com>
-Date: Fri, 25 Sep 2026 16:22:17 +0300
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="LczXoN6b"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=SYXSsDr2pytmIgSk00q64SoOTV0ycNRJ2vdVO4dTNrQ=; b=LczXoN6b5WsdV+TfDN1AgEfBMn
+	mhebMHfrK9d1NsgaB4E6jVaK5/JNaxk4o0NmrhanRrsQXdmeQgY1WrQ0hSXqVg7ijCr/20mqm5c6u
+	I7x9XWreJdnFTFOEZRJw5PY4MhdyKjexUF+hZJ8/h9NBfHEzXhM+AOLB8K2auotCSaq5JzzXqEFtr
+	Z6gNlLBKm1fGZNIlQTztL9rDTBjIMFADJW+zZpbNoQh5MKvErjUtRmzoxcOxMospqtVp704oe9dnT
+	nT5f6/GmSTjtmK2SOuceoMb9PFk/uEp5NjohkqoEr8Z9es2Mgo9FkFfRFw3pWPKK8QmhQ6J8wh9b8
+	sgLD/leg==;
+Received: from [151.115.150.205] (port=33326 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xA5tg-000000021XC-1qWD;
+	Fri, 25 Sep 2026 15:23:27 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Lukas Wunner <lukas@wunner.de>,
+	Ignat Korchagin <ignat@linux.win>,
+	Stefan Berger <stefanb@linux.ibm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH] crypto: ecc - Handle exceptional points in Shamir multiplication
+Date: Fri, 25 Sep 2026 13:22:24 +0000
+Message-ID: <20260925132223.706291-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 00/11] migrate on fault for device pages
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Christoph Hellwig <hch@infradead.org>, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
- Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-References: <20260924065313.899730-1-mpenttil@redhat.com>
- <arY5zKsLuf7f_EYw@infradead.org>
- <65c5c412-56a7-46a9-b22b-22077a8e9727@redhat.com>
- <20260925124737.GL9354@nvidia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <20260925124737.GL9354@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
+Shamir multiplication mishandles equal points, opposite points and the
+point at infinity. This rejects valid ECDSA signatures and can accept
+invalid digest/signature tuples when the public key is G or -G. The
+kernel incorrectly rejects 16 valid signatures from Wycheproof.
 
-On 9/25/26 15:47, Jason Gunthorpe wrote:
-> On Fri, Sep 25, 2026 at 01:23:52PM +0300, Mika Penttilä wrote:
->> On 9/25/26 12:07, Christoph Hellwig wrote:
->>> Who is going to use this? The series seems to lack an actual user
->>> for it. 
->> Two users: For one, existing migrate_vma_setup() callers, unchanged.
->> The series reworks migrate_vma_setup() to collect via
->> hmm_range_fault() internally (it sets HMM_PFN_REQ_MIGRATE and calls
->> migrate_hmm_range_setup(), mm/migrate_device.c). So every in-tree
->> migrate_vma consumer — nouveau, amdgpu/amdkfd, drm/xe via
->> drm_pagemap, lib/test_hmm — runs on the new path. 
-> So split the series so you don't add unused interfaces for now? Jason
+Handle doubling, cancellation and the point at infinity in precomputation
+and accumulation. Add regression tests for P-256 ECDSA and 256/512-bit
+EC-RDSA. The vectors are Wycheproof P1363 secp256r1/SHA-256 cases 60 and
+210 converted to X9.62, two constructed ECDSA signatures for Q = +/-G
+with k = 2, and six constructed EC-RDSA signatures for Q = G, -G and -2G.
 
-I think we get the other for "free", migrate_vma_setup() ->
-hmm_range_fault() is the now used. But if wanted you can drive the
-migration initially from  hmm_range_fault()  also from fault handler. If
-don't want that then it's removing 
-EXPORT_SYMBOL(migrate_hmm_range_setup);
+Fixes: 0d7a78643f69 ("crypto: ecrdsa - add EC-RDSA (GOST 34.10) algorithm")
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ crypto/ecc.c     |  33 +++++-
+ crypto/testmgr.h | 280 ++++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 310 insertions(+), 3 deletions(-)
 
---Mika
+diff --git a/crypto/ecc.c b/crypto/ecc.c
+index 3250a464b852..c7366eb7ce1f 100644
+--- a/crypto/ecc.c
++++ b/crypto/ecc.c
+@@ -1423,9 +1423,22 @@ static void ecc_point_add(const struct ecc_point *result,
+ 	vli_set(result->x, q->x, ndigits);
+ 	vli_set(result->y, q->y, ndigits);
+ 	vli_mod_sub(z, result->x, p->x, curve->p, ndigits);
++	if (vli_is_zero(z, ndigits)) {
++		if (vli_cmp(p->y, q->y, ndigits)) {
++			/* P + (-P) is the point at infinity. */
++			vli_clear(result->x, ndigits);
++			vli_clear(result->y, ndigits);
++			return;
++		}
++		/* The co-Z addition formula does not handle P == Q. */
++		z[0] = 1;
++		ecc_point_double_jacobian(result->x, result->y, z, curve);
++		goto out;
++	}
+ 	vli_set(px, p->x, ndigits);
+ 	vli_set(py, p->y, ndigits);
+ 	xycz_add(px, py, result->x, result->y, curve);
++out:
+ 	vli_mod_inv(z, z, curve->p, ndigits);
+ 	apply_z(result->x, result->y, z, curve);
+ }
+@@ -1465,22 +1478,38 @@ void ecc_point_mult_shamir(const struct ecc_point *result,
+ 	vli_set(rx, point->x, ndigits);
+ 	vli_set(ry, point->y, ndigits);
+ 	vli_clear(z + 1, ndigits - 1);
+-	z[0] = 1;
++	z[0] = !ecc_point_is_zero(point);
+ 
+ 	for (--i; i >= 0; i--) {
+ 		ecc_point_double_jacobian(rx, ry, z, curve);
+ 		idx = !!vli_test_bit(u1, i);
+ 		idx |= (!!vli_test_bit(u2, i)) << 1;
+ 		point = points[idx];
+-		if (point) {
++		if (point && !ecc_point_is_zero(point)) {
+ 			u64 tx[ECC_MAX_DIGITS];
+ 			u64 ty[ECC_MAX_DIGITS];
+ 			u64 tz[ECC_MAX_DIGITS];
+ 
++			if (vli_is_zero(z, ndigits)) {
++				/* Adding to infinity starts a new accumulator. */
++				vli_set(rx, point->x, ndigits);
++				vli_set(ry, point->y, ndigits);
++				z[0] = 1;
++				continue;
++			}
+ 			vli_set(tx, point->x, ndigits);
+ 			vli_set(ty, point->y, ndigits);
+ 			apply_z(tx, ty, z, curve);
+ 			vli_mod_sub(tz, rx, tx, curve->p, ndigits);
++			if (vli_is_zero(tz, ndigits)) {
++				if (!vli_cmp(ry, ty, ndigits))
++					ecc_point_double_jacobian(rx, ry, z,
++								  curve);
++				else
++					/* Adding opposite points yields infinity. */
++					vli_clear(z, ndigits);
++				continue;
++			}
+ 			xycz_add(tx, ty, rx, ry, curve);
+ 			vli_mod_mult_fast(z, z, tz, curve);
+ 		}
+diff --git a/crypto/testmgr.h b/crypto/testmgr.h
+index c4a15e714ecd..045a3e46fb09 100644
+--- a/crypto/testmgr.h
++++ b/crypto/testmgr.h
+@@ -1443,6 +1443,94 @@ static const struct sig_testvec x962_ecdsa_nist_p192_tv_template[] = {
+ };
+ 
+ static const struct sig_testvec x962_ecdsa_nist_p256_tv_template[] = {
++	/* Wycheproof secp256r1/SHA-256 tcId 60. */
++	{
++	.key =
++	"\x04\x29\x27\xb1\x05\x12\xba\xe3\xed\xdc\xfe\x46\x78\x28\x12\x8b"
++	"\xad\x29\x03\x26\x99\x19\xf7\x08\x60\x69\xc8\xc4\xdf\x6c\x73\x28"
++	"\x38\xc7\x78\x79\x64\xea\xac\x00\xe5\x92\x1f\xb1\x49\x8a\x60\xf4"
++	"\x60\x67\x66\xb3\xd9\x68\x50\x01\x55\x8d\x1a\x97\x4e\x73\x41\x51"
++	"\x3e",
++	.key_len = 65,
++	.m =
++	"\x70\x23\x9d\xd8\x77\xf7\xc9\x44\xc4\x22\xf4\x4d\xea\x4e\xd1\xa5"
++	"\x2f\x26\x27\x41\x6f\xaf\x2f\x07\x2f\xa5\x0c\x77\x2e\xd6\xf8\x07",
++	.m_size = 32,
++	.c =
++	"\x30\x44\x02\x20\x64\xa1\xaa\xb5\x00\x0d\x0e\x80\x4f\x3e\x2f\xc0"
++	"\x2b\xde\xe9\xbe\x8f\xf3\x12\x33\x4e\x2b\xa1\x6d\x11\x54\x7c\x97"
++	"\x71\x1c\x89\x8e\x02\x20\x6a\xf0\x15\x97\x1c\xc3\x0b\xe6\xd1\xa2"
++	"\x06\xd4\xe0\x13\xe0\x99\x77\x72\xa2\xf9\x1d\x73\x28\x6f\xfd\x68"
++	"\x3b\x9b\xb2\xcf\x4f\x1b",
++	.c_size = 70,
++	.public_key_vec = true,
++	},
++	/* Wycheproof secp256r1/SHA-256 tcId 210. */
++	{
++	.key =
++	"\x04\xc6\xa7\x71\x52\x70\x24\x22\x77\x92\x17\x0a\x6f\x8e\xee\x73"
++	"\x5b\xf3\x2b\x7f\x98\xaf\x66\x9e\xad\x29\x98\x02\xe3\x2d\x7c\x31"
++	"\x07\xbc\x3b\x4b\x5e\x65\xab\x88\x7b\xbd\x34\x35\x72\xb3\xe5\x61"
++	"\x92\x61\xfe\x3a\x07\x3e\x2f\xfd\x78\x41\x2f\x72\x68\x67\xdb\x58"
++	"\x9e",
++	.key_len = 65,
++	.m =
++	"\xbb\x5a\x52\xf4\x2f\x9c\x92\x61\xed\x43\x61\xf5\x94\x22\xa1\xe3"
++	"\x00\x36\xe7\xc3\x2b\x27\x0c\x88\x07\xa4\x19\xfe\xca\x60\x50\x23",
++	.m_size = 32,
++	.c =
++	"\x30\x45\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
++	"\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
++	"\x47\x66\x99\x78\x02\x21\x00\xb6\xdb\x6d\xb6\x24\x92\x49\x25\x49"
++	"\x24\x92\x49\x24\x92\x49\x24\x62\x5b\xd7\xa0\x9b\xec\x4c\xa8\x1b"
++	"\xcd\xd9\xf8\xfd\x6b\x63\xcc",
++	.c_size = 71,
++	.public_key_vec = true,
++	},
++	/* Q = G, d = 1, k = 2. */
++	{
++	.key =
++	"\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
++	"\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
++	"\x96\x4f\xe3\x42\xe2\xfe\x1a\x7f\x9b\x8e\xe7\xeb\x4a\x7c\x0f\x9e"
++	"\x16\x2b\xce\x33\x57\x6b\x31\x5e\xce\xcb\xb6\x40\x68\x37\xbf\x51"
++	"\xf5",
++	.key_len = 65,
++	.m =
++	"\x35\x9d\x17\x29\xb9\x1a\x52\xe9\x8b\xb5\x95\xc3\x86\x28\x3c\x10"
++	"\x30\x44\x95\x1a\xa1\x08\x20\xf0\xa0\x22\xc4\x18\xc2\x71\xa0\xcc",
++	.m_size = 32,
++	.c =
++	"\x30\x44\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
++	"\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
++	"\x47\x66\x99\x78\x02\x20\x59\x47\xc9\x21\x23\x0e\xd1\x34\x0b\x03"
++	"\xe6\xe3\x45\x6e\xab\x69\xf8\x66\xff\x7e\x8c\x7d\x1e\x13\x23\x17"
++	"\x06\x8a\x84\xec\x1d\x22",
++	.c_size = 70,
++	.public_key_vec = true,
++	},
++	/* Q = -G, d = n - 1, k = 2. */
++	{
++	.key =
++	"\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
++	"\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
++	"\x96\xb0\x1c\xbd\x1c\x01\xe5\x80\x65\x71\x18\x14\xb5\x83\xf0\x61"
++	"\xe9\xd4\x31\xcc\xa9\x94\xce\xa1\x31\x34\x49\xbf\x97\xc8\x40\xae"
++	"\x0a",
++	.key_len = 65,
++	.m =
++	"\x35\x9d\x17\x29\xb9\x1a\x52\xe9\x8b\xb5\x95\xc3\x86\x28\x3c\x10"
++	"\x30\x44\x95\x1a\xa1\x08\x20\xf0\xa0\x22\xc4\x18\xc2\x71\xa0\xcc",
++	.m_size = 32,
++	.c =
++	"\x30\x45\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
++	"\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
++	"\x47\x66\x99\x78\x02\x21\x00\xdc\x55\x4e\x07\x96\x0b\x81\xb6\x80"
++	"\xb1\xae\xe0\x40\xb9\x90\xa5\xf4\xc4\x90\x49\xbb\xa2\xa1\x62\x70"
++	"\xc5\x88\x51\x39\xe8\xa8\xfb",
++	.c_size = 71,
++	.public_key_vec = true,
++	},
+ 	{
+ 	.key = /* secp256r1(sha1) */
+ 	"\x04\xb9\x7b\xbb\xd7\x17\x64\xd2\x7e\xfc\x81\x5d\x87\x06\x83\x41"
+@@ -1827,7 +1915,8 @@ static const struct sig_testvec p1363_ecdsa_nist_p256_tv_template[] = {
+ };
+ 
+ /*
+- * EC-RDSA test vectors are generated by gost-engine.
++ * EC-RDSA test vectors generated by gost-engine, followed by constructed
++ * exceptional-point regression vectors.
+  */
+ static const struct sig_testvec ecrdsa_tv_template[] = {
+ 	{
+@@ -1973,6 +2062,195 @@ static const struct sig_testvec ecrdsa_tv_template[] = {
+ 	.m_size = 64,
+ 	.public_key_vec = true,
+ 	},
++	/*
++	 * Constructed EC-RDSA exceptional-point vectors.
++	 * With Q = dG, choose k = z1 + d*z2 (mod n), r = x(kG) mod n,
++	 * e = -r/z2 (mod n), and s = r*d + k*e (mod n).
++	 * The input digest is e, encoded little-endian.
++	 */
++	/* cp256a: Q=G, z1 = 3, z2 = 1. */
++	{
++	.key =
++	"\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
++	"\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
++	"\x91\x8d",
++	.key_len = 66,
++	.params = /* OID_gostCPSignA */
++	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
++	"\x07\x01\x01\x02\x02",
++	.param_len = 21,
++	.c =
++	"\x1a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x49"
++	"\x32\x67\xe0\x26\x16\xfd\xb7\xaf\xa4\xd7\x3e\x61\xd4\xf9\x7b\x94"
++	"\xf7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7"
++	"\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe4\xb7",
++	.c_size = 64,
++	.m =
++	"\xdc\xd3\xfd\x46\xcb\x14\x9d\xe1\x8f\x92\x54\xb2\x0c\xa0\x22\x66"
++	"\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x08",
++	.m_size = 32,
++	.algo = OID_gost2012PKey256,
++	.public_key_vec = true,
++	},
++	/* cp256a: Q=-G, z1 = 7, z2 = 6. */
++	{
++	.key =
++	"\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x83\xdf\x60\x61\x63\x36\x53\xdd\x4e\x1c\xdc\x20\xd2\xb0"
++	"\xd6\xca\x89\xd4\xc0\xba\xa5\xaf\x20\xd8\x25\x63\x67\x1f\x8e\x1b"
++	"\x6e\x72",
++	.key_len = 66,
++	.params = /* OID_gostCPSignA */
++	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
++	"\x07\x01\x01\x02\x02",
++	.param_len = 21,
++	.c =
++	"\x2a\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa"
++	"\x92\x10\x2d\x68\x19\x8f\x22\xd5\x60\xeb\x59\xd6\xf3\xe5\x9e\xc2"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
++	.c_size = 64,
++	.m =
++	"\xc3\x9e\xe5\xf3\xd6\x59\xeb\x60\xd5\x22\x8f\x19\x68\x2d\x10\x92"
++	"\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\x2a",
++	.m_size = 32,
++	.algo = OID_gost2012PKey256,
++	.public_key_vec = true,
++	},
++	/* cp256a: Q=-2G, z1 = 5, z2 = 2. */
++	{
++	.key =
++	"\x04\x40\x95\xfd\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
++	"\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
++	"\x91\x8d",
++	.key_len = 66,
++	.params = /* OID_gostCPSignA */
++	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
++	"\x07\x01\x01\x02\x02",
++	.param_len = 21,
++	.c =
++	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xb6\x30\x88\x38\x4c\xad\x68\x80\x22\xc2\x0d\x84\xdb\xb0\xdc\x47"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
++	.c_size = 64,
++	.m =
++	"\x49\xdc\xb0\xdb\x84\x0d\xc2\x22\x80\x68\xad\x4c\x38\x88\x30\xb6"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
++	.m_size = 32,
++	.algo = OID_gost2012PKey256,
++	.public_key_vec = true,
++	},
++	/* tc512a: Q=G, z1 = 3, z2 = 1. */
++	{
++	.key =
++	"\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\xa4\xf2\x15\x52\xcb\x89\xa5\x89\xb8\xf5\x35\xc2\x5f"
++	"\xfe\x28\x80\xe9\x41\x3a\x0e\xa5\xe6\x75\x3d\xe9\x36\xd0\x4f\xbe"
++	"\x26\x16\xdf\x21\xa9\xef\xcb\xfd\x64\x80\x77\xc1\xab\xf1\xac\x93"
++	"\x1c\x5e\xce\xe6\x50\x54\xe2\x16\x88\x1b\xa6\xe3\x6a\x83\x7a\xe8"
++	"\xcf\x03\x75",
++	.key_len = 131,
++	.params = /* OID_gostTC26Sign512A */
++	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
++	.param_len = 13,
++	.c =
++	"\xd8\xc0\xd7\xe3\xfb\xa6\xca\xff\x6a\xd1\xb4\xb4\x82\x1d\x15\x6f"
++	"\xa7\xc7\xbd\x63\x95\xb8\x29\x0d\xd4\xfa\xb1\x1c\x36\xbd\x32\x8d"
++	"\x1a\xba\xf1\x2e\xbc\x7b\xf2\x02\x96\xf8\xef\x2a\x5e\x72\x64\x86"
++	"\x67\x62\xfb\x62\x8e\x83\x53\x63\xb7\xe6\x78\x3c\x42\xd7\x0d\x1d"
++	"\xb7\xbf\xb8\x09\x56\xc8\x67\x00\x31\xba\x19\x19\x29\xf6\x4e\x30"
++	"\x1d\x68\x16\x34\x23\x6d\x47\xa6\x0e\x57\x1a\x4b\xed\xc0\xef\x25"
++	"\x74\x52\xef\x78\xb5\xb9\x8d\xbb\x3d\x9f\x31\x29\xd9\x34\x94\x33"
++	"\xce\x2a\x3a\x35\xcb\x51\x9c\x91\xe2\xd6\x33\xd7\xb3\x73\xae\x16",
++	.c_size = 128,
++	.m =
++	"\x5f\x04\x9d\x6b\x69\x7d\xf7\xe7\xcb\x1b\x81\x2f\x76\xfe\x20\xcd"
++	"\x2c\xcc\xd0\x74\x63\xfa\x52\x32\x56\xfb\xd3\x3e\xba\xa5\x93\xb3"
++	"\xd9\x10\x3f\x12\xb4\xe5\xa8\xf1\x59\xb8\x92\xdc\xcb\xe9\x97\xe2"
++	"\xcf\xb1\x09\xd6\xe6\xe6\x45\xce\xff\x98\x37\xa9\xf6\x47\x40\x48",
++	.m_size = 64,
++	.algo = OID_gost2012PKey512,
++	.public_key_vec = true,
++	},
++	/* tc512a: Q=-G, z1 = 7, z2 = 6. */
++	{
++	.key =
++	"\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x23\x0b\xea\xad\x34\x76\x5a\x76\x47\x0a\xca\x3d\xa0"
++	"\x01\xd7\x7f\x16\xbe\xc5\xf1\x5a\x19\x8a\xc2\x16\xc9\x2f\xb0\x41"
++	"\xd9\xe9\x20\xde\x56\x10\x34\x02\x9b\x7f\x88\x3e\x54\x0e\x53\x6c"
++	"\xe3\xa1\x31\x19\xaf\xab\x1d\xe9\x77\xe4\x59\x1c\x95\x7c\x85\x17"
++	"\x30\xfc\x8a",
++	.key_len = 131,
++	.params = /* OID_gostTC26Sign512A */
++	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
++	.param_len = 13,
++	.c =
++	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
++	"\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x37"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
++	.c_size = 128,
++	.m =
++	"\x3a\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
++	"\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
++	.m_size = 64,
++	.algo = OID_gost2012PKey512,
++	.public_key_vec = true,
++	},
++	/* tc512a: Q=-2G, z1 = 5, z2 = 2. */
++	{
++	.key =
++	"\x04\x81\x80\x7c\x13\xea\xd2\xd9\xaf\x82\xb9\x1f\xb2\xfd\xe1\x8d"
++	"\xf4\x5b\x37\xe4\xf2\x04\x6a\x2a\x1d\x15\x16\x95\x2a\x5d\x40\xcd"
++	"\xbb\x34\x44\x2f\x2b\x13\x0a\x47\xb0\xf6\xe5\xa5\x58\x3a\xf4\x54"
++	"\x09\xb0\x1d\xf5\x5c\xf1\xbf\x9d\x86\xa5\x97\xab\x96\x29\x62\xfc"
++	"\xdc\x89\x3b\x76\x3d\x50\x6e\x8a\xcf\x02\x4c\x74\x0e\x6e\xe0\x1f"
++	"\x28\xab\x27\x9b\x20\x02\xc8\xc4\x12\xcb\x8a\xe3\xa4\x27\xce\x39"
++	"\x62\xdf\x35\x6d\xc1\x65\x7f\x7b\x48\x90\x11\x8f\x19\x7c\x1e\x67"
++	"\x91\x97\xeb\x90\x85\x25\xfc\x86\xb3\x88\x6e\x5c\x57\x1f\x1d\x1d"
++	"\x3b\xec\x37",
++	.key_len = 131,
++	.params = /* OID_gostTC26Sign512A */
++	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
++	.param_len = 13,
++	.c =
++	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
++	"\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x33"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
++	.c_size = 128,
++	.m =
++	"\x39\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
++	"\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
++	.m_size = 64,
++	.algo = OID_gost2012PKey512,
++	.public_key_vec = true,
++	},
+ };
+ 
+ /*
 
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
+-- 
+2.47.3
 
