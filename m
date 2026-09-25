@@ -1,96 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA3D4E2F32;
-	Fri, 25 Sep 2026 19:37:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B587E4E1C87;
+	Fri, 25 Sep 2026 19:38:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365024; cv=none; b=k2ZaptYuUjpgG24m3/TQ0p2Lum8wSwz7nbAvr2XWnkPu+aT3wblhffJ3GogqT82A9ujgkhA62bzo8vTy8fGiDcnxgDUlXXGD4rrTAw4iJD5iNh+eTC5tiJsWXIb0yCMfjFqvtQJma2/eLmiqwdkXxID+fl6L8nw2kqJ97QCW9hM=
+	t=1790365089; cv=none; b=EgSzsLUVwf1JvCpPGLdmCc/pNKdjGU0im7yItIogmnE+gQZLyubssVXuYNrbMEbpfHh1gGX1OyqRfLe0u40YEi3mx4o5wqFCdIDRUVPScC011c4p4qpmpTTPR7RTP6dvLmsTZ7o8s5n6O6Znw/iJhPmd56603CRTsLQjDolFELs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365024; c=relaxed/simple;
-	bh=a6YgVydek5Dn4F4OIbLH+qRAsZ/TMVHeaHC37xBA/Nk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FDSgQ7FNnQR9w6xIMAHrktmHdc6iBolSL8NFkdxwrEZxZMxygwKiYCgQOv20Xm54OybFnHBdJY3kvruZQtgoiLYddvNBysrJzJHcQbGRZKzwLziiFKhLmqWrt4F/V6PvPXy92O5DC//T+eajCvuwVRPquq1g6XdOdrgct/exOp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dv7Paa+e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790365089; c=relaxed/simple;
+	bh=dstBTE3lWCMn9EudZcftluRV7vRDMp0MnFzhpgOlsz0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=koiWIMG3NVDl/+d/3lPd8SDGZZo21Zssq4Tj5SKazV4zBoOdqgjF1u9+Z4mLxjr/RkMVJW9M1lpzQ2x+MwEpaD+Hf4C1WWs6YchmiYmfnqcnC0C0BfD1jbqZBSfQ1mUg0lXvAyJUvwTUKqbonYX+cVswYAoJNC2Eb81h1kc8E6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DxbIi28P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dv7Paa+e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FE2D1F000FF;
-	Fri, 25 Sep 2026 19:37:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DxbIi28P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70F401F000FF;
+	Fri, 25 Sep 2026 19:38:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790365023;
-	bh=ZswR5UWkm1BCz5yg/l3wO12v6Cnrj2+kj6gXYAI0W58=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Dv7Paa+eIvVZGik3JSlnNwxiRxyacR5S5JuDFMqN6Wgc0C/mJfvmzYBgK5pn5Jv8H
-	 GIF5tGv0XB8dymG4tiNLS0XOuJFkWeSCFcc01zcZkKe9+mgs96zSymDrwO+wkDokw0
-	 UmQ2eFcFGCksIhLyVIcm+8xZO5ckaE4kU8XNqU+hUka5ICBHUYOvbb3tlRTi5TWpKn
-	 9iodHSkXWjleXHoUfybbB6zEWmhkNT7zXvtCP8u5n48JeN3pHbmuOCnzs6fYBL3GD2
-	 8Es+Bhu73aHnbn/ZppLo9ocdwCoWTeFQCyChsAPzZ2ek4eGosclQunZY7cS/xmxfSD
-	 gacSkmEM7FPjw==
-Date: Fri, 25 Sep 2026 20:36:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@redhat.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	Intel Graphics <intel-gfx@lists.freedesktop.org>,
-	DRI <dri-devel@lists.freedesktop.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <47218081-0338-4a3d-bca3-8b0b5a3bda14@sirena.org.uk>
-References: <arPTRF4qS6o1Q3vD@sirena.co.uk>
- <CADnq5_NUH1MBU15Vs287by4P37YV+6F1Q3J1e4Q4KuOvPwK9Fw@mail.gmail.com>
- <arPhsTaiqXPgCqAU@sirena.co.uk>
- <CADnq5_OJ=kP+0=iXbpcjsWbTx8=sNfov0wLSW53qLcFU0fmVVg@mail.gmail.com>
- <4ddbd29e-3524-4f4c-b6d7-1e2e677641b5@sirena.org.uk>
- <CADnq5_OPPnSs9Bv8LxRp104Cejf3H3JFkBE4XSfiTYgkdmjbHg@mail.gmail.com>
- <2eaa0128-4cda-4f26-b9de-311add98a1fa@sirena.org.uk>
- <CADnq5_M0uB6uRvQh3jEZGVEFqmU0wp_w=wmsipXqz=Nq5QZwhg@mail.gmail.com>
+	s=k20260515; t=1790365088;
+	bh=0LEsbhIDjBe66cbu0GZSdPhdvVGyJ9cnICBeyy6iWkk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DxbIi28P95AzIzpsaRJqifwhTdKpAAPYMwT4+wQMpyTkmjQuoUxKrj2UjvZ1CzDD5
+	 2dz5GyyZf+UVrlZzUi7246Dh6pWzJ9W7Wngn2hPuK1aiFavZpjeydxRVuDNMIUxFq7
+	 X17bAkTBN1fMC2PylaMk7Rvp4/A6m8r52ETGTJMC4t6XJXPofRdG3WdbI8bKjXZK7g
+	 G1JU9ZU6xnROvYjqRsDVA3WL2Wh4bkp3mkF7Lz4mpmR+9iPkg7uMvQ8cnOVC11EsoI
+	 5m7BmFWf1IT7ed9EuauM/1lhewkRONS0osKU8zKGAvl585hEth7Rs4equHnAMtEzz1
+	 wUQlc7U9HlCJQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] kbuild: Move gen_init_cpio and gen_initramfs.sh
+ to scripts/
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shuah Khan" <skhan@linuxfoundation.org>, "Jonathan Corbet" <corbet@lwn.net>, "Pasha
+ Tatashin" <pasha.tatashin@soleen.com>, "Mike Rapoport" <rppt@kernel.org>, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Alexander Graf" <graf@amazon.com>, "Nicolas
+ Schier" <nsc@kernel.org>, =?utf-8?b?VGhvbWFzIFdlacOfc2NodWg=?= <linux@weissschuh.net>, "Maximilian
+ Huber" <maximilian.huber@tngtech.com>, "Nathan Chancellor" <nathan@kernel.org>, "Willy
+ Tarreau" <w@1wt.eu>, "Randy Dunlap" <rdunlap@infradead.org>, "Luis
+ Augenstein" <luis.augenstein@tngtech.com>
+Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-doc@vger.kernel.org, linux-mm@kvack.org, "Askar
+ Safin" <safinaskar@gmail.com>, linux-kbuild@vger.kernel.org,
+ =?utf-8?b?VGhvbWFzIFdlacOfc2NodWg=?= <thomas.weissschuh@linutronix.de>
+In-Reply-To: <20260925-move-gen_init_cpio-to-scripts-v3-2-99c493f76722@kernel.org>
+References: <20260925-move-gen_init_cpio-to-scripts-v3-0-99c493f76722@kernel.org>
+ <20260925-move-gen_init_cpio-to-scripts-v3-2-99c493f76722@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 25 Sep 2026 19:38:07 +0000
+Message-Id: <20260925193807.70F401F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="s1+vNEBEsb7MYG6e"
-Content-Disposition: inline
-In-Reply-To: <CADnq5_M0uB6uRvQh3jEZGVEFqmU0wp_w=wmsipXqz=Nq5QZwhg@mail.gmail.com>
-X-Cookie: Love America -- or give it back.
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] selftests/liveupdate: vmtest.sh mkinitrd fails due to missing ge=
+n_init_cpio
+- [Low] kbuild: stale comment in gen_initramfs.sh assumes old usr/ location
+--
 
---s1+vNEBEsb7MYG6e
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit 97c7fb8e47f1b247f157846cfecd29ff5f239ed1
+Author: Nicolas Schier <nsc@kernel.org>
 
-On Fri, Sep 25, 2026 at 03:21:43PM -0400, Alex Deucher wrote:
-> On Fri, Sep 25, 2026 at 1:03=E2=80=AFPM Mark Brown <broonie@kernel.org> w=
-rote:
+kbuild: Move gen_init_cpio and gen_initramfs.sh to scripts/
 
-> > It seems everything built fine today, I'll try dropping the workaround
-> > commits for Monday.  The drm and drm-misc trees are still failing due to
-> > the original issue.  Thanks for getting things sorted.
+gen_init_cpio and gen_initramfs.sh are part of kbuild and required for
+all kernel builds w/ CONFIG_BLK_DEV_INITRD.  Move both to scripts/ to be
+more clear about their importance.
 
-> Thanks.  I've sent Dave and Simona a PR with the fixes so as soon as
-> that gets merged into drm-next, this should be resolved.
+Link: https://lore.kernel.org/all/aSdrCFkUQup3qb-q@derry.ads.avm.de/
 
-Great.  Someone will still need to prod the drm-misc people once the
-merge is taken I guess?
+> diff --git a/tools/testing/selftests/kho/vmtest.sh b/tools/testing/selfte=
+sts/kho/vmtest.sh
+> index 0014bd76e88de..1e86ffcc3a79e 100755
+> --- a/tools/testing/selftests/kho/vmtest.sh
+> +++ b/tools/testing/selftests/kho/vmtest.sh
+> @@ -100,7 +100,7 @@ file /init $tmp_dir/init 0755 0 0
+>  file /kernel $kernel 0644 0 0
+>  EOF
+> =20
+> -	"$build_dir/usr/gen_init_cpio" "$tmp_dir/cpio_list" > "$initrd"
+> +	"$build_dir/scripts/gen_init_cpio" "$tmp_dir/cpio_list" > "$initrd"
+>  }
 
---s1+vNEBEsb7MYG6e
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: Medium]
+The path for the kho selftest was updated, but it looks like=20
+tools/testing/selftests/liveupdate/vmtest.sh also still calls the old path.
 
------BEGIN PGP SIGNATURE-----
+For example, in its mkinitrd():
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2zVkACgkQJNaLcl1U
-h9A2gQf/XCnaD5SCzCDZRF1Y6n8QkFfln/MHlX4+hqg+C2pMWneYdac3rAWXJKHN
-Irn0VtA7Z0xViKwudX7huCBrQhNm/9U1pucqXXkVSd4gUhbjGeH6mqCViU2QIm+J
-PjW3N816n+Yi5hZR0kuJZ77HLhYVZcI4hTXCYhbWueVVKb+AKx9kwjWFCVhH+5vU
-JDZfnBoaapsSCbPogFUWybCd1WNRJJzBu8s1gF57QK+NBb7rVG07DUGDxF+zFbNq
-6djRO01iXENsTSRuRsH7mMsqLL1JKQrdIGPAIy2mXEL0qFdPDhvYPEkqHedn5lci
-DOlXIiYukKASSAKuy0cE8p6lxxm3rg==
-=4JH7
------END PGP SIGNATURE-----
+	# Generate inner_initrd.cpio
+	"$build_dir/usr/gen_init_cpio" "$workspace_dir/cpio_list_inner" > "$worksp=
+ace_dir/inner_initrd.cpio"
 
---s1+vNEBEsb7MYG6e--
+and again later in the same function:
+
+	# Generate the final initrd
+	"$build_dir/usr/gen_init_cpio" "$workspace_dir/cpio_list" > "$initrd"
+
+Since this patch ensures the old artifact is removed via
+scripts/remove-stale-files, will the liveupdate selftest unconditionally
+fail because it cannot find gen_init_cpio?=20
+
+Should liveupdate/vmtest.sh be updated to use scripts/gen_init_cpio as well?
+
+> diff --git a/usr/gen_initramfs.sh b/scripts/gen_initramfs.sh
+> similarity index 99%
+> rename from usr/gen_initramfs.sh
+> rename to scripts/gen_initramfs.sh
+> index 7eba2fddf0ef2..27ac1fd48001a 100755
+> --- a/usr/gen_initramfs.sh
+> +++ b/scripts/gen_initramfs.sh
+> @@ -247,4 +247,4 @@ done
+> =20
+>  # If output_file is set we will generate cpio archive
+>  # we are careful to delete tmp files
+> -usr/gen_init_cpio $output $timestamp $cpio_list
+> +scripts/gen_init_cpio $output $timestamp $cpio_list
+
+[Severity: Low]
+Is the script header comment now out of date?
+
+At the top of the renamed scripts/gen_initramfs.sh it still states:
+
+# Generate a cpio packed initramfs. It uses gen_init_cpio to generate
+# the cpio archive.
+# This script assumes that gen_init_cpio is located in usr/ directory
+
+Should this comment be updated to reflect the new scripts/ location?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-move-gen_i=
+nit_cpio-to-scripts-v3-1-99c493f76722@kernel.org?part=3D2
