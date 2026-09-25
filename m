@@ -1,123 +1,473 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42384C9E18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411414D9F94
 	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352722; cv=none; b=B6j2mXa2Ce9yZPxtO1Hpjr/9FwaRYvWgHw68BQAlPl101LRtSNXZtqlxQEQ8H8oKFQV5ros8qQdDPc4gx/PMaYwOHhKDZwp/Z9vy/h1evwSOcils6ko1s7ESBKD6jB+osOVEdVqvBMqCXkwj8QUv6h+8iCWJggR/bwejL/vHhf4=
+	t=1790352722; cv=none; b=RHP/9bbcF3ExHZV2F9oriiwKxcMqcyIgpOf4zCutZArXz57RcImFZln3UreJJbGu8HJzff+zQLQFAb7soxITytv8lag3jyFQDWgHxfozIuuxTovKx1TBzs8yWWkJQJ9rnISdYkBdo+XAlp74OsUiBPAteN67n4rgTyhdrx06k4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790352722; c=relaxed/simple;
-	bh=wz4bT1GonheGCmKoZsL/+QlgDflUo0GVx6Z0t97lEHg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rg5WzIGkIOtoi4gZHeqr0mzwdouNFn6yNYkl18F4VLWsW7dPcsjP9YjEmG0JkkYRsmssjg2v5Z85qXlaMn+8UROOW2dvq3pZyIupKP551Wp12ZTTgUqe1MQQIxy5SBbi5SOKHa7CMEzjHhQ0mMFbBdQ+6PHIo2Oj8feW+3BG6A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aNduvPy8; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=BpEQji9jR4mgu2ZnPWYlQIYoeXbmuBYgLQUpGfoTXa0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CeE5S6wkx2eJFfR/blOjIwl45j0lx2NMALq71vpByC6uZWkPhfpNrAXnaz0QvdWPx9s7h5ByMVQqvSpLmwxbV2IBIqn+7pqn2a5ZqNij1I8lOHux8tr3YXkS71GmuA2A7OuMmz5ftwirE4Z4/qy0MHJuLerQA2UKHc62Q9XHJZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=jBco6D7f; arc=none smtp.client-ip=74.125.224.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aNduvPy8"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so8022395e9.0
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="jBco6D7f"
+Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-6740dd8b4b0so901818d50.2
         for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:11:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790352718; x=1790957518; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sP0+/Epjm1Zv/XcAoYjyuNOC0ozQ/xub9MNxjeAUspA=;
-        b=aNduvPy8qLjqis0X46QxscsX18R5ZcI44Iie82gth2ogkt4YYGOy+/+9k0gr56BspX
-         EfJ04AvQpX3j0HvB7lQ4g0baz9887jPzVDwWKGduItMmbEwuoRWaExF341LV5OCEIXcv
-         7uhfOdwVzpmzJq5djuXcAVEm0AKOSQIaTDjjOQhQRFpF61DjNr2i/2Tb+2bAyongWg89
-         pibcWXqG9dNXPJoRTpxjMiVroeo6QSUD6z8fXSHPe84DdWDv7GLuaMK3oGBgKEhcYvLz
-         RmpkmzrqCo/1RWGOkQwqxq7gsBye7+oZETEbtF5OauUuEaXT0JqcjcfxNg6LkAbCE8Va
-         Qr1g==
+        d=gourry.net; s=google; t=1790352719; x=1790957519; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j9nOJpfojSiNlh1Tat5QQ66I1mxc2XU83wW7ASM+ClE=;
+        b=jBco6D7f8s7t8FfIHOX9mWMWK+cgoKohiW65Jajh6yxaR+9exV8LjGyIYHLgU22GWD
+         McCvtZ0MEpZYF4ZT8whxdRveiaHuxF/lZm+HcrWtqntwIaLg4tzGfG3uyT1bGhPPFqvf
+         GJjwtxqMNS5pqfCO+3LB5yYFeahT4zg5dKF8naPncqeXmT+0+TKFHfBH+qKIQ42RL63U
+         EhWSQuarh+LWD082WqGHFyZkqhajl4o1uo+09R2kPY/yvyWqv5ASJL8AsPvt+3r2Q2Pl
+         Np/D+xTZ9Vzg5CPggoysGi8WKQZzmfe9XChbBIVY5iqopyajP+tHY1F8S3eHhipJoxBJ
+         zDpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790352718; x=1790957518;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sP0+/Epjm1Zv/XcAoYjyuNOC0ozQ/xub9MNxjeAUspA=;
-        b=m9wQHbex5Ywe8AjIujxVRBq/TXfNVU5hsX658zjC7v+p9EhV7b8AEMOZ1H4Ud9tV6x
-         MjuRwMxHtiuTObwheDjjUd1QSCiKyvqO9nGpRqBA+C/Phh9aCzqrRC0AzYXJ3+w/owLH
-         Si3g3UZ4y79JMfRmqXijoiHOH9/aaBQtw9pLi6V78dOhlbKhl7n51Fmd2XIUlY1Ijjiz
-         C5jtxt2vh2nOjKsSpJLsQVPxeOsTE0+o457l2W9m0guw0b8Lp/64sm/Ru1+WywGicdbk
-         Y64QfHO12BFDVYupAvqpeEsSxk5wCk9JZGRjbY85nCeMIKeNSznkPjDiZD+rqEkbFcn3
-         cubA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDw2SUulCgoW9IIwGikMMz2Xqgufxp1frOTrZfIj0LmjDLnthOHEKN+LswC9Vgv/re2lLjNbg7FWuIXqY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/4jQZ8Sr44rQJVwoH61D+elMoe5NwcsC+Wvym8lhWvKb61zrN
-	eSeMjhQaJwpxrhRKuPremAEuE7Or1zqQYI49lQ/TNPNaTYWkOIJSrj1x
-X-Gm-Gg: AYBFou3+e0e55QOV0hjaBB1FTtxJJAmgFOWOIlYabKAxakEjVIo1D/qktB2aDHgPSo9
-	vQT2lOfFrFrRXz07yegmsMPzSuOdqMqNWguuxjZXFhJ/fgnNpbhcAxhehV/D5UUIuuBnKjRWGhK
-	W238rRkG05IFQhWFWlSYBuo83nsJDAlji9kXqbFzWRolA8EnIfiYO5paMY+kXqxRWiYWnrO9rPm
-	OvO4vOciA1SLh84IA/81CF9wF0HnV6zEfcRx016zY9mNPuP9IhdWbVFtdylCNX4YpPNEUUq+3vQ
-	2KAf99wLhC8PqC41boaDr52gYXmfDXFSghLSOkNG7bDEdGmZRox0W0UzbdzWUB7TxjO9qMAoXA9
-	/s4oX6fGtWSEMDOe+ClZp+fq/fySD/0Edd7ICX9IEgjF5geWCtE/yF/7thRvgWPeEBAkGawPY/L
-	aqva7Q9caNk0bfeb7FNd3iP2cEMRUaNblPi/ebB9DSFnSeKxJkzAFZCGPwW4Z+11FeqktP0luGG
-	96B+g/s+WdiSrKIRhQZE8rjxGLW6lMJuuZkaoEuJlEz
-X-Received: by 2002:a05:600c:3b9c:b0:49c:fed6:cd3f with SMTP id 5b1f17b1804b1-49fe66dfdf8mr136621715e9.23.1790352717800;
-        Fri, 25 Sep 2026 09:11:57 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.116.68])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff0658747sm81238665e9.1.2026.09.25.09.11.56
+        d=1e100.net; s=20260707; t=1790352719; x=1790957519;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=j9nOJpfojSiNlh1Tat5QQ66I1mxc2XU83wW7ASM+ClE=;
+        b=WeY8BjV+oIZel8CtRi5ZRAkDOkINHG/Pu+E1OFl0nkWX3wiCOst8wQ7Ss27FQ5kMYH
+         jrjKNXdP5hPMDq2KfVx6JJw3wf7S+UOIUNpicyOgnjrGRIl+U8JPGCB9VkG2cLp/Z+KT
+         yheTK7OsmxWvkE2rmiDcKVO523IM2y+oYAuLcXGK+4I1kdtO8fg3cWhE92YQapRqMSTl
+         +lBjcOLd76dShBFTMEbbslbBoYJnUv38NQXDD8uHQvPTyDzH1iLm4+hqf/jP4eCadypC
+         eyVqP0k4eeygqYhF+oTQSW7egxbAvx4nv+1/8+wAQFN0GWQB+Ik9LHf7PfRh+cd+M3BW
+         sIhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw+ogWfuIRAtq5DNvI+afE2uXgiRkH0lEIsPL217k6uVdfzans+SigT4L8f1VwZRrBcqmdXEmUmu4NFLzI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4WD51kWZJIwnBqHiNKKMPf3Nfe5nMeoa5AQnC8DTotm6qnu8a
+	TdQBX9hED0XaOqR5v7L31rExixA5B+EMbpo2RZ2KVHwQcXOarsswfHUIBgfdjcy+kcA=
+X-Gm-Gg: AYBFou0H6lXFIFp/Zi8Jbv7DtaAC0kFMZdO+DpFtWtXRRoAiqbu8meXBR0sUu0zNQf1
+	flATjaTao08nAOXaJiUHXMxVZQXhotjk0sK1J0IDyjbqvH4ujpF0KdOL50kGLht9zPzvLs5CKbD
+	NPWUmmfS8Ehz9nfBMDXElZQBSTu7u/ivnPZj74J2a9awYIrzaMqsSnFQgmKB7XchppMPcY2WPtc
+	9dqykeeBp16ooJWNxle6g7dK5p1iB/HOQ5j22j0h/I569nc5de/iR2xxZ/jB9OTKKefkvOHNuHz
+	DrqwSfzRGeA+MFjzp/PG3rlA283Yykdr0PmrKpGb3C6d/qjZ8KcFVyzez2magLaBC/K/n+Av8lu
+	8qvMlFxrlzFknqHI4sQznhWA5P6tdwytx6GrzaZ/Vzetq8+B2mH9DeA+PeGji7k78qWb6kEpsQZ
+	IMtlW95BXHLaPq8ajz8IR+rgLGs56qe7vNokGI4p9Io8KcvXI2/ZteFg93fNLNXsAbUPCTceJ2M
+	IiDF2GAc/NEt0eGSv7CS7b3ugSwoUAsmm6zjhYo5poNPCLU1lTcT50=
+X-Received: by 2002:a53:ac99:0:b0:674:a9c:a34a with SMTP id 956f58d0204a3-6740a9ca3b9mr1852794d50.24.1790352718799;
+        Fri, 25 Sep 2026 09:11:58 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430da86f7sm20100716d6.9.2026.09.25.09.11.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 09:11:57 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Yishai Hadas <yishaih@nvidia.com>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 0/4] iommufd: Keep IOMMU_HWPT_GET_DIRTY_BITMAP within the user bitmap
-Date: Fri, 25 Sep 2026 18:11:36 +0200
-Message-ID: <20260925161142.189813-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Fri, 25 Sep 2026 09:11:58 -0700 (PDT)
+Date: Fri, 25 Sep 2026 12:11:55 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Rik van Riel <riel@surriel.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <araKDOz5bce52oyg@gourry-fedora-PF4VCD3F>
+References: <aqjcFb6MFNiA6n4V@fedora>
+ <aqjpYHbZ14A8xRtK@fedora>
+ <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
+ <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+ <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+ <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+ <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
+ <arUcil9kxUPiymXI@KASONG-MC4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <arUcil9kxUPiymXI@KASONG-MC4>
 
-IOMMU_HWPT_GET_DIRTY_BITMAP can set bits past the end of the bitmap the
-caller passed in. Two cases, both fixed here.
+On Fri, Sep 25, 2026 at 09:15:17PM +0800, Kairui Song wrote:
+> 
 
-iova_bitmap_set() does not clip the range it records to the bitmap. When
-a query ends inside a dirty huge IOPTE, the generic page table code
-records the whole entry and the bits past the end of the user bitmap are
-set, up to the end of the last pinned page. The helper is shared with
-VFIO DMA logging, so the clip covers both users. Patch 1 fixes it and
-patch 2 tests it.
+First, thank you for the very nice email, this provides a lot of
+missing context to the discussion and clarifies the issue.
 
-iommufd_check_iova_range() subtracts one from the length before checking
-it, so iova = 0 with length = 0 is accepted and reaches
-iova_bitmap_alloc() with length - 1 == SIZE_MAX, a range the clip in
-patch 1 cannot bound. Patch 3 rejects a zero length and patch 4 tests
-it.
+I really appreciate you taking the time to spell it out.
 
-Tested on x86-64 under virtme-ng with CONFIG_IOMMUFD_TEST=y and
-hugepages=128. Without the fixes the new tests fail: the overrun test
-finds 56 bytes set past an 8-byte bitmap, and the zero-length query
-returns success. With the series the iommufd_dirty_tracking fixture
-passes, the overrun test skipping on the variants without huge IOPTEs.
+I've given it a read thrice over to make sure i haven't missed,
+so please don't take my trimming for skipping something, if you feel
+I missed something important let me know.
 
-Andrea Parri (4):
-  iommufd/iova_bitmap: Clip recorded ranges to the bitmap
-  iommufd/selftest: Test dirty bitmap recording past the query
-  iommufd: Reject a zero-length dirty bitmap request
-  iommufd/selftest: Test a zero-length dirty bitmap request
+> 
+> First a little bit off topic, I'll be really happy if we can make
+> both compressed memory and swap as separate counters (I even once
+> tried to implement a zpool accounting to account compressed memory
+> in some unified way, but, well, zpool got killed before I post
+> that :P), or at least a way to do that, e.g. something like nokmem.
+> Due to our real usage:
+> 
 
- drivers/iommu/iommufd/io_pagetable.c    |  3 ++
- drivers/iommu/iommufd/iova_bitmap.c     | 27 ++++++++++
- tools/testing/selftests/iommu/iommufd.c | 68 +++++++++++++++++++++++++
- 3 files changed, 98 insertions(+)
+I think we all want the same thing, just in mildly different shapes.
+I really see this breaking into two core issues:
 
+1) memory.swap is overloaded, and we disagree on its semantics
 
-base-commit: 54dadb030c7e2350957855d3995de05ae02c2e66
--- 
-2.53.0
+   I think there is a strong use case for both detaching zswap/swap
+   and for retaining swap as a logical limit.  You lay it out fairly
+   well here that you are replacing a memsw SLO mechanism with the
+   counters available in memcg, and I think we need to give this
+   consideration as something more than simply luck.
 
+2) something has to pay the price of virtualization - period.
+
+   No matter how we cut this issue, something in the stack is going
+   to implement a method of virtualizing a swap entry.  Whether that's
+   a virtualization layer that virtualizes every backend, or some kind
+   of franken-swap device that lets a non-physical swap backend look
+   like a physical swap back end without charging physical swap.
+
+   If the history of virtualization has taught us anything it's that
+   the overhead of a virtualization layer is *almost* never so extreme
+   that it isn't worth the utility of the layer
+   ( unless you virtualize the wrong things :] )
+
+I also think these problems are mildly orthogonal.
+
+We can solve the memory.swap problem without having to solve the
+virtualization problem at the same time.
+
+The virtualization issue is much more compositionally complex - we
+need to account not only for ordering (tiers, priorities, etc), but
+also writeback mechanics and migrations.
+
+Quoting roman:
+
+ > I don't think it's reasonable to add a new interface, but having a
+ > patch/config option or even a mount option which changes the semantics
+ > of memory.swap.max to the v1-like behavior should be ok.
+
+It seems we're having the same discussion.  We have users who want
+them decoupled, and users who want them tied together. I think boot
+or build option that switches this behavior is the worst of both
+worlds when the counters compose cleanly:
+
+   memory.max = max physical ram you can use
+   zswap.max  = max physical ram zswap can use
+   pswap.max  = max physical storage swap can use
+   swap.max   = max logical swap storage a container can use
+
+> But with compression as a fixed part in memory.current, first the
+> compression rate is totally uncontrollable, both the user and us
+> will be fully *unaware* of how much memory they can *actually* use,
+> that makes the planning really awkward. memory.max stops being the
+> bound of what we planned or sold, anything compressed lets the raw
+> footprint go past it by however much the compression ratio happens
+> to give, so what we oversold is bounded by the workload's data and
+> not by anything we configure. We can substract the zswap reading
+> though with adaption, however it's hard to change the performance,
+> OOM behavior or reclaim behavior:
+> 
+
+I do in fact this is solved by splitting the counters.
+
+Consider:
+
+  memory.max = 8GB
+  zswap.max  = 2GB
+  pswap.max  = 0
+  swap.max   = 2GB
+
+This looks silly on its face - but it's not. This says limit total
+swappable capacity to 25% of ram, and you can only offload 25% of
+your total logical memory sapce - i don't care how much it compresses.
+
+You could offload 2GB of anon at whatever compression ratio you get
+and fill the dead space with page cache.  There's utility.
+
+  memory.max = 8GB
+  zswap.max  = 2GB
+  pswap.max  = 0
+  swap.max   = 4GB
+
+Limit overall compression ratio to 2:1 and 25% of memory size.  If you
+happen to compress more, you can eat some page cache, but you're never
+getting more than 4GB of anon swapped.
+
+  memory.max = 8GB
+  zswap.max  = 2GB
+  pswap.max  = 0
+  swap.max   = 8GB
+
+Limit compression ratio to 4:1 and 25% of memory size.  Same as above,
+you can fill the slack space with page cache.
+
+  memory.max = 8GB
+  zswap.max  = 0
+  pswap.max  = 4GB
+  swap.max   = 4GB
+
+Limit logical and physical swap to 4GB
+
+  memory.max = 8GB
+  zswap.max  = 2GB
+  pswap.max  = 4GB
+  swap.max   = 8GB
+
+Limit zswap to 25% of memory - maximum of 4:1 compression ratio
+if you don't hit that ratio use up to 4GB of physical swap.
+if compression hits 2:1 and you can use all of your physical swap.
+but you cannot swap out more than 8GB of logical memory
+
+  memory.max = 8GB
+  zswap.max  = 4GB
+  pswap.max  = 2GB
+  swap.max   = 8GB
+
+Limit zswap to 50% of memory, and a 2:1 compression ratio overall, but
+if you don't hit that ratio use up to 2GB of physical swap.
+
+In all of these scenarios swap.max is exact same counter it has been for
+you, and what we get out of this is:
+
+  memory.max = 8GB
+  zswap.max  = 2GB
+  pswap.max  = 8GB
+  swap.max   = max
+
+I don't care how much you compress, you're limited to 2GB of ram, have
+at it - and feel free to use another 8GB of storage. If your PSI gets
+too high we'll do you a favor and OOM kill you so you don't spin
+endlessly churning your swap.
+
+  memory.max = 8GB
+  zswap.max  = 2GB
+  pswap.max  = 0
+  swap.max   = max
+
+Only zswap up to 25% of your memory, i don't care how much to squeeze.
+
+I struggle to think of a scenario that cannot be described
+compositionally this way - and that is without adding any kind of
+"tier" logic.
+
+This does come with the fight of asking, again, to add another counter
+set rather than simply making do with what is available.
+
+> In many cases we just want a best effort compression to make space
+> for low priority tasks, and do not want ordinary containers to use
+> compression at the cost of lose of performance. While still has
+> a fixed limit as usual. So simply disable memory compression is also
+> not the plan, we do need compression to make place for other
+> applications, we just don't want their real raw usage to exceed
+> memory.max, and we can dynamically adjust memory.swap.max to
+> control the oversold part, compression or physical.
+> 
+
+I believe this all just works, though you may need to adjust more than
+just swap.max depending on what piece is oversold.  If you tick down
+zswap.max - we would expect that to get written back to pswap.  So you
+get to reduce your memory consumption at the cost of physcal disk.
+
+I could see the process being
+
+  ++pswap.max
+  --zswap.max
+
+Until your zswap.current:memory.current ratio is inline with what you
+want, without having to change swap.max at all.  swap.max still acts
+as your memory leak guard.
+
+Although if you do this, you run the risk of mass compression-ratio loss
+and a very fast oom if you don't ++pswap enough.
+
+> And if the memory compression is really fully transparent (not
+> doable by software), yeah, that's great as there is nothing to do
+> with reclaim.  But, for now, we have to go through page fault / folio
+> allocation / map it again.
+
+Transparent compression creates a completely different accounting
+problem.  You lose ALL ability to see the per-page and per-memcg
+compression ratio, and as a result you can have 1 container jam
+300 billion zero pages into 1 page, and another container spew
+/dev/random to its memory - the result is the 300-billion zero-page
+consumer is the one that will get killed for over-consumption.
+
+Unless hardware provides a way to attach a token to a particular page
+(either by out of band reporting or some architecture extension that
+reports this as it is written), this problem won't get solved.
+
+Until then, don't count on having anything more than a logical-view
+of offloaded compressed ram consumption.
+
+(this one of a few reasons it should not be serviced by the swap
+ subsystem, but I digress).
+
+> So For example, if we already have
+> memory.max == memory.current or under high pressure, then now
+> doing any read from the compressed part would need to some
+> require further eviction first to make place for the decompressed
+> new data, this is not like any kind of "real" memory, something
+> feels not right here.
+>
+
+This is in fact how numa balancing works on tiered systems.  You eat a
+fault to migrate a page to the socket, and with tiered counters you are
+required to drive reclaim to get that promotion. (Presently this isn't
+true of global pressure, migrations will happily fail).
+
+In practice, we find this is acceptable but could be better if we
+allowed the promotions to occur asynchronously outside the fault path,
+but this has other trade offs (loss of locality information).
+
+Anyway, this is exactly like real memory, just a bit more stringent
+(a "Swap migration" cannot be allowed to fail, while a promotion can).
+
+I have also experimented with this particular issue in compressed-ram
+forcing promote-on-write instead of letting the hardware-compressed
+memory be written to uncontended (which is a RAS nightmare).
+
+In practice, if you are decent about proactively reclaiming your
+workloads, or if fairness is enforced across workloads, this kind of
+issue is not as big an issue as it looks. Fault time can be minimized.
+
+Some partially simulated data:
+
+                      Cost of a page fault
+backend                   p50       p90       p99	max
+disk swap-in (NVMe)       59 탎     70 탎    145 탎     1.63 ms
+swap-cache hit          1.13 탎   1.15 탎   1.25 탎     79.9 탎
+zswap-in (zstd)           26 탎     31 탎     44 탎     0.27 ms
+cram write-fault        2.10 탎   2.24 탎   2.43 탎       70 탎
+  (promotion)
+cram read               0.13 탎   0.14 탎   0.14 탎     14.7 탎
+  (read-in-place)
+
+Done with an uncompressed CXL memory expander as a CRAM tier marked
+read-only so anonymous memory is forced to COW. There are some truly
+wild outliars on some faults, but it's a long long tail.
+
+You can expect read latencies to be some single-digit multiplicative,
+and as a result the write-fault will follow, but i expect it to be
+well well under a zswap-fault (no software compression, it's just a
+migration).
+
+> Another thing is that I think we has been assuming that physical
+> swap is slower than compressed memory, which is not always true either.
+> They all need to be read through page fault, the page fault could
+> be the real blocker here rather than IO or de-compression.
+> 
+
+Generally I disagree but the data above shows you are technically
+correct for extreme outliars (zswap-in max vs disk swap-in p50).
+
+But I can understand why the point here is that you might want to limit
+the total amount of swappable memory, regardless of where it ends up.
+
+The real issue is when your hot (or warm) memory exceeds your real
+memory limit - at which point you start entering a churn cycle where
+every swap-in swaps out a hot page.
+
+That shows up as stalls and PSI pretty quickly and can be dealt with
+by monitoring - but I can see the desire to just have them OOM.
+
+> I also want to separate two things that I think got bundled together
+> here: not requiring a physical slot behind a compressed entry, and not
+> charging the raw size to the swap counter. The first one is great, yeah,
+> and it's exactly the part we want, it's what makes compression usable
+> without provisioning disk.
+
+agree
+
+> The second one is a policy change,
+
+Disagree.
+
+If zswap does not charge a physical slot, then it is correct to stop
+charging the counter based on the historic definition - it just was
+lucky happenstance that the swap counter and logical accounting matched
+up until now.
+
+That said, I think there's a strong argument that breaking that coupling
+may in fact break users - but the answer may not be to do nothing, but
+to simply give physical swap its own counter and begrudingly change the
+contract.
+
+I can hear Johannes rolling his eyes at me from 3 states away :]
+
+> maybe it's not needed for the first stage, charging a cgroup for the
+> memories it has offloaded doesn't require any slot to exist behind them.
+> If someone wants to run memory compression with no disk at all,
+> memory.swap.max defaults to max, so that still works fine, right?
+>
+
+It becomes confusing, because we also want to use the swap counter to
+control physical consumption.  To run with only zswap w/ swap.max you
+must have no physical disk limit.
+
+It is the exact opposite issue of yours.
+
+> And I'm not asking the compression layer to have an opinion on how
+> much compression or ratio is too much, just think we need a sane limit
+> for container schedulers to sets on top of it.
+>
+
+I don't think it's unreasonable.  This just seems like a distraction if
+we can come to a conclusion where both scenarios can be composed.
+
+> memory.max: control the raw usage of application.
+> memory.swap.current/max: controls the offloaded size/limit of a application.
+> With (memory.max + memory.swap.max) <= planned usage (and this is memsw).
+> 
+> We can keep the compressed part in memory.current of course, as already
+> did in upstream with ZSWAP, and things can be further adapted, we
+> still have:
+> 
+> memory.max: control the real usage of application.
+> memory.swap.current/max: controls the offloaded size/limit of a application.
+> With (memory.max - <compress memory> + memory.swap.max) <= planned usage.
+> 
+
+This makes me wonder whether a pswap counter functionally deprecates
+zram, since the hard memory consumption limit becomes composable
+(putting aside the implementation details).
+
+i.e. is there a zram scenario which cannot be composed with something
+like zswap/pswap/swap
+
+> Just for reference. Maybe a seperate counter, tiering, is a better idea
+> than changing the swap counter?
+
+I would push back on tiering - this seems like more complexity than the
+requirement warrants.  We may find memory-backed and storage-backed swap
+want different solutions in the "tiering" worlds.
+
+e.g. it may never make sense to give zswap/zram/xswap a lower priority
+than a physical swap layer, and you may never really want to compose
+them with one another, so why does it need to be considered?
+
+I think if we can break this into two discrete issues (charging and
+virtualization) then we get form from function, rather than inventing
+hacky half-solutions because they're either incremental or provide
+convenient "turn_me=off" toggles.
+
+~Gregory
