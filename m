@@ -1,101 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD1536A35C;
-	Fri, 25 Sep 2026 10:16:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8450F485CD7
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:17:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331395; cv=none; b=GXNOevl7iiXL9ufrqpSS0mlazRpKMTf20hKQIoLckQ4Pxmj7pAsTrf9RU7IV7g7qsQJcdw+X4igfH7DOZDWqIrngTQr4uaEYx59mqr9CxQTIKNzeWqGe2BFkrR4AMWRzpSOaTXqPcOMs2gGKk6TA6Rnf1Byb4YySGzM5OdnS+aE=
+	t=1790331472; cv=none; b=Jvpcxur9PaLvEi4VgpBKJxEybYzQeqe50gV2YSuHcuxMJt0z35sL/Z0PuXB/raGGcn+giiRuZYUeHCFSH6P8qWI37Y2JrS5He77Mlmc/y+D4UtgISBJzY+1DbX2eYCIt7ixV99aHEq6KXvoNxfXhpqD5Vn2cmvd/WZmQTlu3Zy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331395; c=relaxed/simple;
-	bh=6sQjTl0h2YynQNsljBKq/SldxiED4mREqj3QZmkKDNA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s/20aHkUrlRK87D2WC5/btqZ280K9LxKitBnyYWEBtEDW9W7jwlLYVUTxg08tvf0Zh8NzAbfUKjrlRkOKv6ZrtBPSeNcVrKqoFbo6vGduz8BMRvQTQiQoHIf764nnMQjqG9n171UMJJufKDyK80E3EfXgO7pVlrfnvRdn7NfEzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZSV2KrV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790331472; c=relaxed/simple;
+	bh=C6swt6bVQ0eb5KCRSHrGsuVXyCG5xKdVVhPawtAmbPg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cAZdWkDgx5W+nsCyevpctS71B9gW1xxrJxKBNSWyRQu09CkOinefKNAS0QBZKDUPLgfyKY6WqlBmjMF+GcZ2rSncmkoDwhkwPMuK4Yq1lmTVE21mC4utH0JHEEnXV8jdsqf+5I72a9pnB05cZ5qTNTW2BavJxzaGyrk1ExipxtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=OKO3x2oK; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZSV2KrV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2723F1F000FF;
-	Fri, 25 Sep 2026 10:16:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790331394;
-	bh=Htdeexyfqui6yBn8pJU/UKqiEIPQ6aeL2MArnxM27yU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WZSV2KrVGl3YQXdwQ0GOKP/uUWoB1odeW567eyoQ63pSoEH/KVP8CBuLOD4iLmkhj
-	 vHko5XlwfS3mq1Jo5Il+ItolyLS0HPXeQvBXkt8yXolnC9jqWJlojS6fdCZV5ivxqs
-	 3uo1KsaEN/fX7vUnVwrO0XmKQ4OwXwof9KzO2fC544tG63jk+3TYYEd6XeWYHTw+hE
-	 MeINCKoErVD7xtiMarBSJl3jxUosmP6a/5cUQjCurirMhBEuWPtvEvpZDC/DozU4/6
-	 S6B4gtTwIBS8AkyaNQEMvW/YVdXnk2eeO9ZF58oXdaKNc6Tgt4MzbrM3+8o4uBE6xw
-	 jl/UPPQL/c55w==
-Date: Fri, 25 Sep 2026 12:16:26 +0200
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH RFC 03/11] driver core: platform: Add static ACPI nodes
- IRQ retrieval/mapping code
-Message-ID: <arZJ-jqd1hXqVYgz@red-moon>
-References: <20260925-acpi-static-table-irq-probe-defer-v1-0-2c62125d0085@kernel.org>
- <20260925-acpi-static-table-irq-probe-defer-v1-3-2c62125d0085@kernel.org>
- <arZEx0113s0bbkXJ@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="OKO3x2oK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=OuvoNyS5AdXMnTVM7eQzGj6wt4EqiQ3I0jumuNv3mFg=; b=OKO3x2oKVpmp4ViPjVrmtoWMjr
+	j/vwECpNDSNTh2nDiw4bM8rBhpQbWirgEsIRJksbYHUSHuyRkx/GcR4u4cvTRSqzZfXlct8Gcz783
+	R3Ps7WQRVBldoh7YRlXVK9KsQAQBQvUO8NfnxLcIyPJZ+DILQtqRRsHnFs+3jg3Axbk5mKwL8d+3o
+	jX8P66/v4i0Tm8MqRsMkPJe3TI6ZKnqi5CTPqK4z/PvHcu768ZrvhanGaYrLB4G8TvfmppFPrecOv
+	QPgppudC/kfeAUICTYQS7IC42wozr0wI6bUAeeX6wcUsQj/9NzbOLCpGlC/oYNRuvFkmFdN5cw4rd
+	44I6mrLw==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xA2zv-0075wY-7l; Fri, 25 Sep 2026 12:17:43 +0200
+Message-ID: <725c0068-1185-4623-81ad-d2428db31682@igalia.com>
+Date: Fri, 25 Sep 2026 11:17:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arZEx0113s0bbkXJ@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/8] drm/amd/display: copy function name into dcn_fpu
+ trace event
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, aurabindo.pillai@amd.com,
+ christian.koenig@amd.com, David.Francis@amd.com, harry.wentland@amd.com,
+ simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ linux-kernel@vger.kernel.org
+References: <20260924211410.867686-1-mwen@igalia.com>
+ <20260924211410.867686-8-mwen@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260924211410.867686-8-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 25, 2026 at 12:54:15PM +0300, Andy Shevchenko wrote:
-> On Fri, Sep 25, 2026 at 09:48:02AM +0200, Lorenzo Pieralisi wrote:
-> > ACPI static fwnodes types are not contemplated in the current
-> > 
-> > platform_get_irq_affinity()
-> > 
-> > implementation that is there to retrieve and map IRQs for a device.
-> > 
-> > Add fwnode_irq_get() to platform_get_irq_affinity() for static ACPI fwnodes
-> > to overcome this shortcoming, enabling IRQ retrieval and mapping for the
-> > ACPI static fwnode type.
-> > 
-> > Signed-off-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> > Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> > Cc: Danilo Krummrich <dakr@kernel.org>
-> > ---
-> 
-> Same about the Cc list...
-> 
-> ...
-> 
-> > +	if (is_acpi_static_node(fwnode)) {
-> > +		ret = fwnode_irq_get(fwnode, num);
-> > +		if (ret > 0 || ret == -EPROBE_DEFER)
-> > +			goto out;
-> > +	}
-> 
-> This even doesn't sound right. If you know this is an ACPI-only feature what
-> the fwnode has all to do with it? Call the respective ACPI-oriented function.
 
-Yes, you are right, it is a last minute change since I noticed that just
-calling fwnode_irq_get() without guards would catch previous failures so
-it makes sense to do it on specific fwnode type (with is_acpi_static_node()
-exported also for !CONFIG_ACPI).
+On 24/09/2026 22:10, Melissa Wen wrote:
+> Userspace trace tools that use libtraceevent to read binary buffer only
+> see a kernel address when printing const char *. Use string macros in
+> dcn_fpu to copy the function name into the trace event.
+> 
+> Fixes: 96ee63730fa3 ("drm/amd/display: Add control mechanism for FPU")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> index 7de4fe355c5d..b2f38654e489 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> @@ -637,20 +637,20 @@ TRACE_EVENT(dcn_fpu,
+>   
+>   	    TP_STRUCT__entry(
+>   			     __field(bool, begin)
+> -			     __field(const char *, function)
+> +			     __string(function, function)
+>   			     __field(int, line)
+>   			     __field(int, recursion_depth)
+>   	    ),
+>   	    TP_fast_assign(
+>   			   __entry->begin = begin;
+> -			   __entry->function = function;
+> +			   __assign_str(function);
+>   			   __entry->line = line;
+>   			   __entry->recursion_depth = recursion_depth;
+>   	    ),
+>   	    TP_printk("%s: recursion_depth: %d: %s()+%d:",
+>   		      __entry->begin ? "begin" : "end",
+>   		      __entry->recursion_depth,
+> -		      __entry->function,
+> +		      __get_str(function),
+>   		      __entry->line
+>   	    )
+>   );
 
-Thanks,
-Lorenzo
+The approach taken by TRACE_DCN_FPU is a bit over the top. Macro calling 
+a function, calling a macro, calling a function.
+
+Tracepoints are supposed to be ABI (said Linus, for better or worse) and 
+tying kernel function names to ABI is a bad idea. Even line numbers. All 
+very questionable IMO.
+
+But as your patch fixes an obvious fail:
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Regards,
+
+Tvrtko
+
+
+
