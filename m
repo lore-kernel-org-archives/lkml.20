@@ -1,342 +1,143 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C273F3B71C3
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2323E4AB3BA;
+	Fri, 25 Sep 2026 14:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346608; cv=none; b=ar+mIZTqeSJ2HoqNqSusdkxvkqF7AIHor1jbfGSeHurlKuNV137yotWQdVTbcmDL7/0yb/qINIfTs5eSBTRgWHwGw9IuV9MAwBQHk/bomfkudv7W2LxGI+KZoBc/W+1JmJoVxDEAFTr0mrO1xxeNogJ6RUmB5d9aEdR8vaT2obc=
+	t=1790346649; cv=none; b=mks9kwVL8nmtDNRY/VKgwJGJkt45mYEhz/GkXBxOf/Qx4/17Zr3TAeqoMn1DpzBbHylDaPXi+Ko4O+1C5tmguQ4puROtmaIw0o3wJHZ9VdzJlkaOKiRGFuJVH8WTncTHEXyqPcCbz2HijnE3XdLonnlYp/fp4OtqjWB3ORceUJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346608; c=relaxed/simple;
-	bh=BJVlgCrm0FJbjWPTBC7tuPlO9hzvNlLeRCqPGWlsHUw=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qMbTvpEtRMHT9kWoftcwPqvVv0ZszfUiut4LWljh0Vz7XWFLYUq2pyO3/1kA2kpRmIoTihWkYO9o3xZScIpG5wV/1vHvuTR8ZqMYJtjfdbh9VnHIJjyhpzNewJOX0i2iQI1X/hB8ZKRN/eJVEHTkR9ufM+vp1zwbPLKzF6GuHCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=XtEMn3MN; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	s=arc-20240116; t=1790346649; c=relaxed/simple;
+	bh=6Wf6jHCTwL2K2cIr6roRfegbj1Hd6Da0VdPpPXfyWuM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GlpojiohAF7eiMs2xjbN5y0FL3pNgZ9o5P+gd3zL1s+d/z7TjEPtWf0LO7aqN/2HuXOctWUCocpYwJoGYgwDEePCDoZR0MFffo63NVLa3Rp5xpZH1KS10BiWBk8s+6mglfar+P45qlHE9NSGHm7Uoi48eezw/UMpp22iYbmfnAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=QW1ATyam; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="XtEMn3MN"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a860e5505aso8438957b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:30:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1790346605; x=1790951405; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZxNgNSJX4HyjFFXMdv8+7KY9lC6WrSxA50f2U6JT134=;
-        b=XtEMn3MNgAl5nkW8M/SELYs9iM9+Vc5siCkwXLpYpChvMOg33gal9BQLW3+flA2IWb
-         64J1iRo1GUWlppNtf6L1uUPkp8NVO1a6sPJvqKws9DGk/f96VxHGJmcJigpZyxUyz9Aj
-         innSNVuSTGmXNzj69Jd/bMJp8V4/y+Pi2AnIaAD80TR8oIjOaBn12sR2nLHvt+/z1uyS
-         JJR4caBovkz9YwVaQLVCuUJ9rht9gQBUI2TNQS+C5si10wzjsacFQ+zWDm4aRRxBDtpF
-         eElOGqUC7k0waCIxeVxng+BMwvhGPljNgN2jeVl5ancwdKrVYTDQoXuDNJMSdZ4gWE1x
-         2JAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790346605; x=1790951405;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZxNgNSJX4HyjFFXMdv8+7KY9lC6WrSxA50f2U6JT134=;
-        b=V02cQOkkcoodgptJvSpEXv9zqIN3vMK17VfXPSHzdPOVnmuKGXWoW9sDrOHVMl1sWZ
-         Vz8TnSqPgFhNILUM0jguyZaoEBclG95yXa8qokgGxwwIrnrbttJvetNeS/EI/W9QJABl
-         jFzZgzdsIsSv27JD9RWbafkQMukInFphy+PX1bJTPcJKZ5K+m5txMBvZnzhsDH+PuOic
-         hboUhIcQS3YIwekBIEQnOcucNfjxGvIcbGG9t+SwGRyNyMZcpetzvyXm19nBKCHOkjJa
-         DfzNOKG6w5EJm5HQ/jxTz+JS7qkVcsTZlRVMr6cc82g1td7FhtlCV0ZEWIHofcmXo10+
-         qRMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwFn+aKqBoLp6Pel4WONMaa13UdonoeF4qA2s6qmXRj2FWB5bzn82X4raNdT9JyJC2klIuiMl+RZDZLSvY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9psnmRYPNcrzivTyFrzxQkBCBklTxBLsaVVj8B0FPJZ7okl9+
-	jeTXZcDXa7ihP6rV2FukcfkOX/82S2SZjKy/BYDANLBBeNzWZiVH5EPux6+C3S8sChw=
-X-Gm-Gg: AYBFou0ifZLPJN9B/UkSoaxWd+s9M5bw0+3o6KjwtzEyB8/MGootlRkp35j7ZL+Yntr
-	BVJIQ0OdUd/vLGsTQ+cfIMSOnocLA/cg3bTZz53OnGQTpYy+PxRqJ5lf24O1QaRsVBm4dn38yxb
-	6GSZB9kg3A+zS7Y1n8A/Po0QxVT/cnzJI9FW6HJJU8UpBRzupBjJsIqB9eWIV2oJ2Y2y5mnnlLP
-	QcrZ0Cw7GiyPH3tR2UCbrHyIBVZFz8DEMVkW8KOGFAgpaLfBrPwvhO/7ZhiUx2km3+GFuxhOncO
-	FFiwKl33dVaZENMCqzZbFyVIwvgVLTXKzI7aEqQHbT9SMCLBoEim7xp+ziEekiwowDn9ZBxwx4k
-	1xQi44JmzTaU2KBsFOSv2Snr4ZXcM7rmGuf6+z72/ZhRKlXiDbwUG2PkK/XmshbUzvNQHEkXbq4
-	oagf9EkGu0VjSoUk0Sbe9c05lMpae9kG3KmeYXtYA2Kj1nDWLGVOgQf4Gbb5zTVtrrXpvUk8164
-	tn3VhxWCcHiTXvOhAD6umKuXF+wbHUm2EVXXzUdgAYN5cqSNWjf641oysIQLMrYmYAXXhYWQhyU
-	xHo6gjDfkz6VSHrEg40=
-X-Received: by 2002:a05:690c:c4e5:b0:8a8:675b:2bc0 with SMTP id 00721157ae682-8a8675b2e50mr10279907b3.35.1790346605434;
-        Fri, 25 Sep 2026 07:30:05 -0700 (PDT)
-Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a86102bbafsm8810897b3.39.2026.09.25.07.30.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 07:30:04 -0700 (PDT)
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Alexander Graf <graf@amazon.com>,
-	"Andersen, Tycho" <Tycho.Andersen@amd.com>,
-	Anthony Yznaga <anthony.yznaga@oracle.com>,
-	Baolu Lu <baolu.lu@linux.intel.com>,
-	David Hildenbrand <david@kernel.org>,
-	David Matlack <dmatlack@google.com>,
-	"Heyne, Maximillian" <mheyne@amazon.de>,
-	James Gowans <jgowans@amazon.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Praveen Kumar <kpraveen.lkml@gmail.com>,
-	Vipin Sharma <vipinsh@google.com>,
-	Vishal Annapurve <vannapurve@google.com>,
-	"Woodhouse, David" <dwmw@amazon.co.uk>,
-	Luca Boccassi <luca.boccassi@gmail.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Jork Loeser <jloeser@linux.microsoft.com>,
-	Chenghao Duan <duanchenghao@kylinos.cn>,
-	Zhu Yanjun <yanjun.zhu@linux.dev>,
-	Sourabh Jain <sourabhjain@linux.ibm.com>,
-	linux-mm@kvack.org,
-	kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [Hypervisor Live Update] Notes from September 21, 2026
-Date: Fri, 25 Sep 2026 10:29:43 -0400
-Message-ID: <20260925143000.2729890-1-pasha.tatashin@soleen.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="QW1ATyam"
+Received: from [IPV6:2001:1aef:17c:c89a:bc5a:ffa6:6d36:3fe4] (2001-1aef-17c-c89a-bc5a-ffa6-6d36-3fe4.ip6.tmcz.cz [IPv6:2001:1aef:17c:c89a:bc5a:ffa6:6d36:3fe4])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 5F0A95340216;
+	Fri, 25 Sep 2026 16:30:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790346638;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1I7TVVSAL3yzjHMt4Xk4O9F3G9eiWVAIMs9JyVDBNaU=;
+	b=QW1ATyamLhSpEB1XayiWfW2qLEV2nWM5s430ovQ6kqmy23RtMN4h5DSf8vuri6Q/GA1njr
+	bCIKn7jTsPkEmWvSd+zZ1kAVjUTrtzAc+BRcqHQMwkasoGvufHrOzLQzKSGl+6UqH6u+Sw
+	nJ+7JThly1SGOywhEaqbY5+HhIiKAT8=
+Message-ID: <75e9fa56-7cf8-46ec-83ca-100170e83f2a@ixit.cz>
+Date: Fri, 25 Sep 2026 16:30:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 7/8] slimbus: qcom-ngd-ctrl: Remove data channels on
+ stream disable
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ David Rhodes <drhodes@opensource.cirrus.com>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
+ <20260924-pixel3-audio-v4-7-85b5d133aa5e@ixit.cz>
+ <781fc756-bde6-4d83-a09c-19d4fd70e588@kernel.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <781fc756-bde6-4d83-a09c-19d4fd70e588@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi everybody,
+On 25/09/2026 10:09, Srinivas Kandagatla wrote:
+> On 9/24/26 2:24 PM, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> qcom_slim_ngd_xfer_msg() silently returns success for every core
+>> reconfiguration message, so the generic channel removal done by
+>> slim_stream_disable() never reaches the ADSP SLIMbus master. The
+>> master therefore keeps the channels of a closed stream. When the next
+>> stream defines the same channel numbers again, the WCD9340 capture
+>> completes without any error but records only zeros; removing the
+>> channels explicitly when the stream is disabled makes it work again.
+>>
+>> Implement the disable_stream controller op with the sequence the
+>> downstream NGD driver sends for channel removal, CHAN_CTRL(REMOVE)
+>> listing the stream's channels followed by RECONFIG_NOW. Like
+>> downstream, treat -EREMOTEIO from the removal as success: it means the
+>> controller is being restarted and the channels are gone anyway.
+>>
+>> Based on work done by Casey Tunturi.
+>>
+>> Assisted-by: Claude:claude-fable-5-1
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+> 
+> there is an identical patch on the list,
+> https://lore.kernel.org/linux-arm-msm/247e4ce7-1ba2-43b8-8a11-ec70f99a4fc1@linaro.org/T/#m3b50aa43a6493f8d3b607b1607b37bf14b199f69
+> 
+...and I see you just merged resent v3 today :)
 
-Here are the notes from our Hypervisor Live Update call held on September 21.
-These notes are intended to bring those who could not attend up to speed
-and to keep the momentum going between meetings.
+I'll drop this patch from the series then.
 
------>o-----
-LPC 2026 Microconference & BoF Planning
-
-* Topic Adjustment (tmpfs vs. PCIe): Because the PCIe Live Update series is
-  converging on the mailing list and close to landing, David Matlack and
-  Pasha agreed to repurpose David's LPC microconference slot to discuss
-  tmpfs file preservation, which requires broader architectural alignment.
-  David will still prepare PCIe roadmap slides for anyone interested.
-
-* Versioning & Compatibility BoF: Resolving cross-subsystem versioning and
-  backward compatibility remains the top priority for LPC. Since a 15–20
-  minute microconference slot will not be sufficient to settle all details,
-  Pratyush Yadav will schedule a follow-up Live Update BoF session after
-  Logan's talk (targeting Day 3, as Day 2 is fully booked with the KVM and
-  Live Update tracks).
-
-* Single Combined Overflow Session: To avoid splitting attendees across
-  multiple rooms and times, the group will hold a single Live Update BoF
-  focused primarily on versioning and compatibility, using any remaining
-  time as overflow for tmpfs file preservation discussions.
-
------>o-----
-PCIe Persistence
-
-* PCI v9 Status: Bjorn Helgaas finished reviewing v8, and David Matlack
-  posted v9 addressing all feedback. All major design questions raised on
-  v8 have been resolved.
-
-* Remaining Reviews: Three patches in v9 still need Reviewed-by tags:
-  - Patches 6 and 9 were simplified based on Bjorn's feedback, so prior
-    Reviewed-by tags were dropped; previous reviewers are asked to take
-    another look.
-  - Patch 8 is a new patch added per Bjorn's feedback to save and restore
-    PCIe ACS controls.
-
-* Landing Timeline: Pasha will wait a few days for Bjorn's final review
-  tags before applying v9 to liveupdate/next, aiming to land the series
-  within the next 1–2 weeks (ideally next week prior to 7.3-rc6) for
-  Linux 7.4.
-
------>o-----
-VFIO Persistence
-
-* Status & Device Reset Discussion: Vipin Sharma is currently on parental
-  leave (attending LPC and returning in October). Samiullah Khawaja noted
-  that during end-to-end testing with IOMMU Phase 2, the current VFIO
-  series resets the device during shutdown/freeze, whereas the PCI core
-  does not.
-
-* End-to-End Preservation: David Matlack clarified that the current VFIO
-  series provides the mechanics for preserving the device file descriptor
-  but does not yet preserve enough internal VFIO driver state to skip the
-  reset. Avoiding the device reset to demonstrate continuous end-to-end
-  DMA across kexec aligns with Alex Williamson's feedback and will be
-  addressed in the next revision when Vipin returns.
-
------>o-----
-IOMMU Persistence & LUO Core
-
-* IOMMU v5 Status: Samiullah Khawaja posted v5 of the IOMMU persistence
-  series addressing review feedback and corner cases. Baolu Lu raised a
-  concern regarding keeping ATS state synchronized between the old and new
-  kernels; because addressing this requires additional PCI core changes and
-  complex IOMMU handling, it has been deferred to a follow-up series to
-  keep v5's scope manageable.
-
-* Phase 2 (Device Retrieval): Samiullah pushed an updated Phase 2 branch to
-  GitHub reworking device retrieval, keeping it on GitHub for testing
-  before posting an upstream RFC.
-
-* LUO Documentation: Samiullah submitted a separate patch updating the
-  in-tree LUO documentation, which Mike Rapoport has merged into the
-  liveupdate tree.
-
------>o-----
-tmpfs File Preservation
-
-* Retrieve-into-FD Proposal: David Matlack presented his RFC series for
-  preserving tmpfs files across kexec. During preserve, the kernel accepts
-  a tmpfs FD and preserves only its underlying file contents (folios,
-  seals, etc., reusing the shmem/memfd mechanics) without filesystem
-  metadata (mounts, permissions, UID/GID, or timestamps). After kexec,
-  userspace recreates its tmpfs mounts and empty files with desired
-  permissions, then passes the newly opened tmpfs FD to LUO to backfill
-  the preserved contents into it.
-
-* Dependencies & Post-Preserve Updates: David noted that keeping
-  preservation within a tmpfs file allows dependent subsystems (such as
-  IOMMUFD mappings backed by tmpfs) to be preserved naturally. Pratyush
-  added that converting files via splice breaks the live-update contract
-  for post-preserve memory modifications (and future support for growing
-  or shrinking files after preserve), as userspace would have to manually
-  resynchronize changes.
-
-* Design Options for LPC Discussion: The group identified four approaches
-  to evaluate at LPC:
-  1. No tmpfs support: Require userspace to migrate to memfd directly.
-  2. Retrieve into an existing FD (David's proposal): Minimal code and UAPI
-     footprint; Samiullah noted that backfilling state into a userspace-
-     opened FD could also help non-anonymous files with specific paths or
-     permissions (e.g., VFIO cdevs). However, Pasha raised concerns about
-     breaking LUO's resource/session ownership model and cross-mount
-     accounting, and Pratyush questioned whether the new UAPI is
-     sufficiently generic.
-  3. Mount + Selective File Preservation (Pratyush's proposal): Preserve a
-     tmpfs mount FD (metadata only) and selective regular files within it
-     using LUO's internal dependency tracking and relative paths. This
-     avoids new ioctls and keeps resource creation in the kernel, though
-     David questioned whether kernel mount management is necessary when
-     userspace already manages mounts pre- and post-kexec.
-  4. Zero-copy splice between tmpfs and memfd: Uses existing UAPI without
-     expanding LUO's scope, though limited to isolated files without
-     kernel dependencies or post-preserve modifications.
-
------>o-----
-KHO & Scratch Memory
-
-* Mainline & Rename Status: Pratyush Yadav reported that KHO extended
-  scratch memory has been merged into mainline for Linux 7.3. He will post
-  the follow-up series renaming "scratch memory" to "boot memory" (bootmem)
-  after fixing minor typos reported by Sashiko.
-
-* KHO XArray: The basic XArray data structure is implemented; wiring it
-  into memfd and testing will resume after LPC preparations.
-
-* Re-evaluating Pre-Reserved Scratch Memory: Pratyush, Samiullah, and Tarun
-  Sahu discussed whether pre-reserved CMA-backed scratch memory can be
-  eliminated in favor of relying entirely on dynamic extended scratch
-  memory (potentially with a tiny early-boot bootstrap region). Pre-reserved
-  scratch memory has caused recurring issues across architectures (PowerPC,
-  LoongArch), NUMA accounting, and CMA compaction regressions. Guaranteeing
-  reliability against memory fragmentation remains an open challenge;
-  Samiullah documented the initial ideas for further discussion at LPC.
-
------>o-----
-PowerPC & LoongArch KHO Support
-
-* PowerPC NUMA Accounting Fix & v1: Sourabh Jain reported productive
-  feedback on the PowerPC KHO RFC series. While testing with CONFIG_NUMA,
-  he discovered a bug where global scratch size calculation inadvertently
-  includes per-node reservations when the node ID is -1.
-
-* Next Steps: Pratyush and Pasha recommended landing PowerPC KHO support
-  using the current scratch model rather than blocking on long-term scratch
-  redesigns. Sourabh is preparing a separate fix for the global vs. per-NUMA
-  accounting bug and will follow up with v1 of the PowerPC KHO series.
-  Pratyush will review the latest PowerPC and LoongArch patches on the list.
-
------>o-----
-Orphaned VMs
-
-* 47-Patch RFC Series Posted: Pasha posted the Orphaned Virtual Machines
-  RFC series to the mailing list:
-
-  https://lore.kernel.org/all/20260920193650.3373435-1-pasha.tatashin@soleen.com
-
-  (The first 40 patches are on the list; patches 41–47 will follow once the
-  24-hour mail server recipient limit resets.)
-
-* Modular Architecture & Workstreams: The RFC provides a complete end-to-end
-  implementation with regression tests, structured into layered components
-  that can be developed and reviewed as independent workstreams:
-  1. KHO/LUO: In-kernel vCPU FD and VM FD preservation (building on
-     guest_memfd preservation).
-  2. Physical CPU Preservation (cpu_preserve): Preserves physical CPUs
-     across kexec so they appear offline to the host (also usable
-     standalone to speed up host reboot by skipping SMP bringup).
-  3. On-Core Scheduler (oncore): Schedules contexts onto preserved CPUs.
-  4. KVM & Kernel Caretaker: Lightweight execution context across Intel
-     VMX, AMD SVM, and ARM64 handling ~12 essential VM exit types during
-     host reboot, with potential application to syscall-free userspace
-     processes (e.g., network accelerators).
-
-* Live Bare-Metal LLM Demo: Pasha demonstrated a live kexec reboot on a
-  13th-gen Intel server (20 CPUs, 32 GB RAM) running an Orphaned VM
-  executing a Llama LLM text-generation workload:
-  - The guest generated ~48–56 tokens/sec prior to update, streaming output
-    to a pre-faulted guest physical memory buffer monitored by the host
-    (with all guest memory and EPT page tables pre-faulted).
-  - Suspending the VM onto 4 preserved physical CPUs (leaving 16 online
-    host CPUs) instantaneously transitioned the guest to the caretaker at
-    ~22 tokens/sec.
-  - Across the host kexec reboot, the VM continued generating tokens
-    without interruption (advancing from ~3,000 to ~4,000 tokens during
-    reboot) and seamlessly resumed full 20-CPU execution in the new kernel.
-  - Pasha also demonstrated scaling to a single P-core vs. E-core and
-    inspecting caretaker VM exit and stall counters via debugfs.
-
------>o-----
-Action Items & Next Steps
-
-Pasha:
-* Send the remaining 7 patches (41–47) of the Orphaned VMs RFC series.
-* Apply PCI v9 to liveupdate/next once Bjorn's remaining tags arrive.
-* Include caretaker debugfs VM exit counters in the LPC live demo.
-* Share access to the meeting recordings folder with Sourabh Jain.
-
-David M:
-* Prepare LPC slides for the tmpfs file preservation discussion (plus
-  reference slides for the PCIe roadmap).
-* Follow up on reviews for patches 6, 8, and 9 in PCI v9.
-
-Pratyush:
-* Schedule the LPC Live Update BoF session (versioning/compatibility and
-  tmpfs overflow) after Logan's talk.
-* Post the KHO scratch-to-bootmem rename series.
-* Review the PowerPC and LoongArch KHO series and prepare Orphaned VM
-  profiling material for LPC.
-
-Samiullah:
-* Share the design doc on dynamic/no-pre-reserved scratch memory with
-  Pasha and the group.
-* Continue gathering reviews on IOMMU v5 and testing Phase 2 retrieval.
-
-Sourabh:
-* Post the fix for KHO global vs. per-NUMA scratch memory accounting.
-* Submit v1 of the PowerPC KHO support series.
-
-The Group:
-* Review patches 6, 8, and 9 of David Matlack's PCI v9 series.
-* Review the Orphaned VMs RFC series ahead of LPC 2026.
-
------>o-----
-
-Please note that there will be NO meeting on October 5 due to the Linux
-Plumbers Conference (LPC 2026). The next meeting will be on Monday,
-October 19 at 8am PDT (UTC-7), everybody is welcome!
-
-Join Here: https://meet.google.com/rjn-dmzu-hgq
-
-Please let me know if you'd like to propose additional topics for
-discussion, thank you!
-
-Best regards,
-Pasha
+Thank you
+David
