@@ -1,179 +1,115 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D551282F1F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054ADDF72;
+	Fri, 25 Sep 2026 01:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790298801; cv=none; b=ahycoKAG4cDBtJiYvKiNVrnU2HVfiTa5BjDU3SiTgHNir4d/n1bkZ9xY+uocId2jzmaoEFJn4sik0+mT7e5delHQ+qncWM4lCaNXY3C6KptOKcYxGvFD6uiBFeGFwTp3r1BoM8Ct79lB9ToXZ7STErIT0LFfwx7JjdyUcmMP3DE=
+	t=1790298967; cv=none; b=NuL3p8ZuO2I9bVUpFhc5u/8OyY43WN51V3OM1NNn4ee9j8hNSdLQ78HKv8zX/9SBLvHqYPGaRtC75pwzrsuYkog/ZcOidEKq1Q5L6pqMCnK2eYpFIHNgXzDuRHKChk1glXfFksniRkJ97setQewqmOXsueCqGLQyoipfUdVlUKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790298801; c=relaxed/simple;
-	bh=olGKtxlwn+yhg4dpPmL5Bvr0U6JSMPIbqlhgOBWdrKk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=fvnf8nEoVc6gQALeD2Kp4lWjS4ipvCwRltE96bti+IMLO9mXm7qirKudWFwW/Gci1GRZ8Inb7cnGVTmAv272crv7SOUGwxfQD6XtWORxITseRUEDtUAu2sc/G2kGiG96f37Y+UwOj1Lqk/VBvc01KhmfDDzhBmgk97hAGy2llWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FL5rq+BK; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
+	s=arc-20240116; t=1790298967; c=relaxed/simple;
+	bh=6YJfF9vd+e/pP9rJpOLnapREzWNZdTk0hFkM9a4rgQM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Iw1mcQej3/zTWTqLba+xjY9UEOSCPHc6nPhtAMBbf2QcZKxxFMepfH9dAYTCN8iio7ne7pjar8/TvlUrFVOywHJ06ur4gRtBOd+AnMi2juWVNnQtxpKl+VB9+I48x6CmxGM4LoMuaKr/bwrWr0OKAW4T2D+u/bf6hUFbHz+vZ8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=DTAILMlz; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FL5rq+BK"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4e496e5c3so194268a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:13:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790298795; x=1790903595; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wql0u/3ksmOdy8r//TkBURdk2dF75TPdcHGkWL4FBiE=;
-        b=FL5rq+BKIJ12jQxMdnXEYvt+aYfpDrrWk5iuLmXjJc48QL40a+8rglj7chzlShdGs7
-         PKWPkE3DcSrc/YjzUZ9YXNPShZQIVy362bRLR8IXUneqr/LnTt2Bi0OnW7jDzkM++VIt
-         fSLgjTV6COmguGHbzNNHbI9g2k1zS9hbWJ47cL8T6owX00XweapiY8ikq0jHyksxYSsT
-         C9WsK1ne9RqqEaUVvVhdiXdkT6OOvFDeHoYHgAk7oh2m6Bbe2c6YjZT7DFrh9rjEXNCm
-         n56G29/tCIju8BEbJwyCErXNKvTkuaVBtZjwLleTJxuM3GwRROAaCcduq5KrAbmVekF1
-         riBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790298795; x=1790903595;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wql0u/3ksmOdy8r//TkBURdk2dF75TPdcHGkWL4FBiE=;
-        b=mcigQUCFsY8rXtWZNELcgAKOLtO76q8Wf8Ms9wM9OVto8XqgqgB+vjuBG/mqW/FmMI
-         ztabwMuMla5XMN4CPTC/gWK203AgLVi1Wcf0h4hCINCMWJ6w884YvegisVhIwk1js09r
-         u5OP4Gijt6Jb77aI6OZYZK7AHq2JOq318yW9gVhEU3Jk2xODfe8/IMPyP/EMTykbsYLX
-         L8qHSvQoDVxyG0j+1a1sgiF7h5pLibGatSZ1JLYe68Ou59XLC/BC1Dai+RnrtH2WWD4D
-         UGoU9v4rpsaHA8J4bhM6wLVC0mxSL8Eb0bt4O0zN61KmarvdbLsU5wQ+h01yjxQdzsEi
-         uYEw==
-X-Forwarded-Encrypted: i=1; AKwUvBzHl/4zK03cdylZ0rQITsrYhLHxuS4M7/BZBtgRDegHecqDEFtZnfrDyu5nOFkWInvbxftFQYOAkKlIfas=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwhMLIQJhkiAyfwL40VxiGwum75/wiZcCYAW2sVd8omBrOUskr
-	M/POsZLbrDQnvFTWlyhAu214bHA01cnRijXK3uKCXn/d+ojIFvMY9zXK/mus/W4yvjQXD4r4Utv
-	VOoNBkzdjhc7HdA==
-X-Received: from pgbbf22.prod.google.com ([2002:a65:6d16:0:b0:cc7:620f:a25f])
- (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:7485:b0:3dd:a195:fa1b with SMTP id adf61e73a8af0-3de0e9a0863mr3871178637.64.1790298794332;
- Thu, 24 Sep 2026 18:13:14 -0700 (PDT)
-Date: Fri, 25 Sep 2026 01:13:07 +0000
-In-Reply-To: <20260925011308.3381953-1-skhawaja@google.com>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="DTAILMlz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=6YJfF9vd+e/pP9rJpOLnapREzWNZdTk0hFkM9a4rgQM=; b=DTAILM
+	lz8JIy/3yZnOI9JunsSP2WWo/0fMdkdkqHNnZimRq1ZuzL99+5n3zCuRv7dDZYbThznXtJZ+FEgxk
+	a37BntDlK6EKm/Fy7s1zN/A8QHV6Yd1qAo3wBWo/XL6s+P0luxTaFavSdW1hygyhp6I0qJU7L0A/t
+	OU+EHx4bBD2VvHXm12CQQw7T9PLoEePGpDEeo4iZhjBcnqW9ddI0dce23c1fKoCIvNzzogIjL26f3
+	K4Jar5iaXv+LdJli31C1ODL6hcCpP+/sLR64dbpq3mqjEh2Ig4j48vWIotoyrLgoLWHitsGn1g6/v
+	ShMIKf+Yy7BnWuba8arT+jjmluWg==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x9uWO-000000056sQ-1PxF;
+	Fri, 25 Sep 2026 01:14:40 +0000
+Message-ID: <12541da81f59db27af46096db8da5d425135a162.camel@surriel.com>
+Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device
+ infrastructure
+From: Rik van Riel <riel@surriel.com>
+To: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>
+Cc: akpm@linux-foundation.org, kasong@tencent.com, hannes@cmpxchg.org, 
+	mhocko@kernel.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
+	yosry@kernel.org, david@kernel.org, muchun.song@linux.dev, 
+	shikemeng@huaweicloud.com, baoquan.he@linux.dev, baohua@kernel.org, 
+	youngjun.park@lge.com, chengming.zhou@linux.dev, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	qi.zheng@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, gourry@gourry.net, haowenchao22@gmail.com,
+ corbet@lwn.net, 	hughd@google.com, baolin.wang@linux.alibaba.com,
+ tj@kernel.org, mkoutny@suse.com, 	skhan@linuxfoundation.org,
+ kunwu.chan@linux.dev, kernel-team@meta.com, 	linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	cgroups@vger.kernel.org
+Date: Thu, 24 Sep 2026 21:14:37 -0400
+In-Reply-To: <CACePvbVQsHXt4=+qfKz-KTar9CG+3OiAfLd1EZgnRE-1gyoKOQ@mail.gmail.com>
+References: <20260918180241.3424851-1-nphamcs@gmail.com>
+	 <20260918180241.3424851-2-nphamcs@gmail.com>
+	 <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
+	 <CAKEwX=OP3Gb9sVOvch+p4j7quzgy-rUY=UTZau5ztMj7heJJoA@mail.gmail.com>
+	 <CACePvbVQsHXt4=+qfKz-KTar9CG+3OiAfLd1EZgnRE-1gyoKOQ@mail.gmail.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260925011308.3381953-1-skhawaja@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260925011308.3381953-4-skhawaja@google.com>
-Subject: [RFC PATCH 3/3] iommu/arm-smmu-v3: Add support for hitless replace of
- S1 domains
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Samiullah Khawaja <skhawaja@google.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Lu Baolu <baolu.lu@linux.intel.com>, Pranjal Shrivastava <praan@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-S1 domains are programmed by CD entries in the CD table. During a new
-domain attach these are updated using write_cd_entry. Since ASID and
-TTB0 are in different 64-bit words, the write_cd_entry considers it a
-non-hitless update and sets V=0. This means such an update is disruptive
-and would generate translation faults if there are ongoing DMAs.
+On Thu, 2026-09-24 at 14:43 -1000, Chris Li wrote:
+> On Thu, Sep 24, 2026 at 6:20=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wro=
+te:
+> >=20
+>=20
+> > It is needed because vswap *is* a special device, with its own
+> > requirements. If you don't special case-it, you'd get undesirable
+> > behaviors.
+>=20
+> Ack, that is why I am against making it a special device. That is the
+> whole idea behind xswap. It is just normal swap device implemented
+> via
+> swap_ops just like ext4 is a file system implemnet on top of VFS.
 
-Replace the CD entries by using an unused temporary ASID in following
-sequence to allow hitless replacement of CD entry,
+The filesystem layer is relatively clean because
+it has a VFS.
 
-- Update the CD entry with temporary ASID.
-- Update the CD entry with the target TTB0.
-- Update the CD entry with the target ASID.
+Are you saying it is time we have a similar
+abstraction layer on the swap side?
 
-Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 66 ++++++++++++++++++++-
- 1 file changed, 64 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 5732f3ba0122..59f4b8cf89f6 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -1641,6 +1641,68 @@ void arm_smmu_write_cd_entry(struct arm_smmu_master *master, int ssid,
- 	arm_smmu_write_entry(&cd_writer.writer, cdptr->data, target->data);
- }
- 
-+/* Invalidate every stage-1 TLB entry tagged with @asid. */
-+static void arm_smmu_tlb_inv_asid(struct arm_smmu_device *smmu, u16 asid)
-+{
-+	enum arm_smmu_cmdq_opcode op = (smmu->features & ARM_SMMU_FEAT_E2H) ?
-+					       CMDQ_OP_TLBI_EL2_ASID :
-+					       CMDQ_OP_TLBI_NH_ASID;
-+
-+	arm_smmu_cmdq_issue_cmd_with_sync(smmu,
-+					  arm_smmu_make_cmd_tlbi(op, asid, 0));
-+}
-+
-+static void arm_smmu_cd_set_asid(struct arm_smmu_cd *cd, u16 asid)
-+{
-+	cd->data[0] &= ~cpu_to_le64(CTXDESC_CD_0_ASID);
-+	cd->data[0] |= cpu_to_le64(FIELD_PREP(CTXDESC_CD_0_ASID, asid));
-+}
-+
-+static void arm_smmu_replace_cd_entry(struct arm_smmu_master *master, int ssid,
-+				      struct arm_smmu_cd *cdptr,
-+				      const struct arm_smmu_cd *target)
-+{
-+	struct arm_smmu_device *smmu = master->smmu;
-+	struct arm_smmu_cd stage;
-+	u32 tmp_asid;
-+
-+	lockdep_assert_held(&arm_smmu_asid_lock);
-+
-+	/*
-+	 * Nothing is translating through an invalid CD, and an update that
-+	 * invalidates one cannot be made hitless anyway.
-+	 */
-+	if (!(cdptr->data[0] & cpu_to_le64(CTXDESC_CD_0_V)) ||
-+	    !(target->data[0] & cpu_to_le64(CTXDESC_CD_0_V)))
-+		goto write_directly;
-+
-+	if (xa_alloc(&arm_smmu_asid_xa, &tmp_asid, XA_ZERO_ENTRY,
-+		     XA_LIMIT(1, (1 << smmu->asid_bits) - 1), GFP_KERNEL))
-+		goto write_directly;
-+
-+	/* Copy the existing cd entry and update only the ASID. */
-+	stage = *cdptr;
-+	arm_smmu_cd_set_asid(&stage, tmp_asid);
-+	arm_smmu_write_cd_entry(master, ssid, cdptr, &stage);
-+
-+	/* Copy the target cd entry and update ASID to the temporary ASID. */
-+	stage = *target;
-+	arm_smmu_cd_set_asid(&stage, tmp_asid);
-+	arm_smmu_write_cd_entry(master, ssid, cdptr, &stage);
-+
-+	arm_smmu_tlb_inv_asid(smmu, tmp_asid);
-+
-+	/* Update to the target cd entry as it should be hitless now. */
-+	arm_smmu_write_cd_entry(master, ssid, cdptr, target);
-+
-+	arm_smmu_tlb_inv_asid(smmu, tmp_asid);
-+	xa_erase(&arm_smmu_asid_xa, tmp_asid);
-+	return;
-+
-+write_directly:
-+	arm_smmu_write_cd_entry(master, ssid, cdptr, target);
-+}
-+
- void arm_smmu_make_s1_cd(struct arm_smmu_cd *target,
- 			 struct arm_smmu_master *master,
- 			 struct arm_smmu_domain *smmu_domain)
-@@ -3664,8 +3726,8 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev,
- 		struct arm_smmu_cd target_cd;
- 
- 		arm_smmu_make_s1_cd(&target_cd, master, smmu_domain);
--		arm_smmu_write_cd_entry(master, IOMMU_NO_PASID, cdptr,
--					&target_cd);
-+		arm_smmu_replace_cd_entry(master, IOMMU_NO_PASID, cdptr,
-+					  &target_cd);
- 		arm_smmu_make_cdtable_ste(&target, master, state.ats_enabled,
- 					  STRTAB_STE_1_S1DSS_SSID0);
- 		arm_smmu_install_ste_for_dev(master, &target);
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+--=20
+All Rights Reversed.
