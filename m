@@ -1,108 +1,176 @@
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED68D4854FC
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2E348125E;
+	Fri, 25 Sep 2026 09:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790328912; cv=none; b=ffWFJZGPoQyO7zPLgfEMfusoWHNy7sFcBz31id4I7sPjIMv0l2g033XIkyCir1u5psXkKYX1Fcg0jJiqZixBROR95ZaX0WcmllrYUtsRwNMUwoFfzWOUdzkGFK6QU5l8X/YQdFm4m/i67IF0A3pgT2QuRGv0nZzj/yfbQhyi1cU=
+	t=1790328934; cv=none; b=Uu1YR+BFm8ZOD/A6dgFneKISB6G5iib+gTI72T6s4WVuzmHAxYfGh74owrh+JZzQFjaEotjMxk+5gqpfPQUbjb/evfOcxZZ6ulH03H/Xd1ODhcIUAv51FZdVC/p6mutHxDSrA2BypgpmCrYPVC4tWdy+SagbAvzoeVxcvyxzVFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790328912; c=relaxed/simple;
-	bh=zL6QUn1TpvWtmYgwxcSIkriDKPEG/scU+3oxMlrKFZE=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=J+sGsPV3nGXkKdXM5dxqo61hu4GJqCLZQsvXwqA2tXsNx1Ce1UtRlwUXJKOr/nvap/o1XRapgF/cmRWPzUZA0uBsXd0L4FXi36bwWe6woPB67J1OrsWvPxY6sW/uqEeVlAb/QVjA33PiwoANSfqSHO8KlqjAs2R50fyUKBrs2hQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=SF9qMH9I; arc=none smtp.client-ip=185.70.43.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1790328934; c=relaxed/simple;
+	bh=k6uDKPPe1ermrsLZjx3IZyd4bJERPiX+St53e6BiYx4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P+Ca7dfSss73i2hXsns0CBNdu5jtxvgnxq+tVrY+JIHu7txq5mvy2zPBB02Fr/7XTzNpRwF7cp4/kUJuKanjlWzNs+ebjNCtt+E/NanKU0toYa+IHq8VrgnfjMX0tCC3GqDRtG/KN35xg91fNsIqPphQiWs0MHu4O2cC2VwnvlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzZxhyhs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="SF9qMH9I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1790326509; x=1790585709;
-	bh=zkohvUbYW8D1KYV9baP5FqoHLALhVh3cVlMGQa+d5Hw=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=SF9qMH9I82BQQ4bubbNt4y7V1oCvLulO2dx1qcoWcLRhVxeSNtW2CPxT4y/VZVbhg
-	 CmyEgABO5bYHHB38MpGVKDXLoK++o19for5m3lKUgx8enCqp6LwipmbTVz4m44N/D9
-	 LAdog5N38pa0qCHIf129o7rrsdONFqPjXzEFUSkaEP1Sm36HWq4rXtRcODwcDYgdLm
-	 Qao+nJrBQx4jjCgVnCxQw2kv3lqAZgnF/IAYyHyv1Z6R7C47wPw9DbBzsgrhDnBYlS
-	 pcO/f46yrU83MUvfX3vZXxX9l5AnuOdV+J8dqdWc2P4aF0wzF/tlmRVByn1vtdiYB/
-	 XqOqJkWqrKeXw==
-Date: Fri, 25 Sep 2026 08:55:04 +0000
-To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Carlos Llamas <cmllamas@google.com>, Matthew Maurer <mmaurer@google.com>, Andrew Lunn <andrew@lunn.ch>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Sagar Taunk <sagartaunk@proton.me>
-Cc: Sagar Taunk <sagartaunk@proton.me>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH net v6] rust: net: netlink: validate attribute length before casting to `c_int`
-Message-ID: <20260925085449.22553-1-sagartaunk@proton.me>
-Feedback-ID: 130121444:user:proton
-X-Pm-Message-ID: c5cf01b9f15066f4acb72ad7d1d2fa3474d02485
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzZxhyhs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DC6D1F000FF;
+	Fri, 25 Sep 2026 09:35:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790328932;
+	bh=uLG5lXHaGba/dPImy7unpJ5IThclo3TEAxLWPTrsKfU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bzZxhyhsPfPrL97TbhC325gHjRpuHNOnRAtDnIf7+He5gMfkm4PSOaeLWWHbi8c+l
+	 6gLN53Uwdjt1XIK0OfcSHtcQmumMJlRTA69LriLBQLJ0wlctJVs9Bq/WbFIYgezX2S
+	 o7HKidp4dQ3owP9NtNKbVP6jhZCshUTUiQ66DK4nhMPv/dIHOX+rBfreTpiYW/Trbr
+	 lwzJ176A2TJiIAwDANzHglZssZ2IwPz45AtPMn/Payp0HQBUyL8MtoMoRwY1oA7vIH
+	 So1mhkj16h3+GX9qr62k4qaQbTa37MdNPZHhAdlXJfG4rCoV0gvFtIiYsigAgrqycF
+	 Yh3V65CGNEVUA==
+Date: Fri, 25 Sep 2026 10:35:02 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Doug Gilbert <dgilbert@interlog.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+	Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, linux-sound@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 24/40] mm/mlock: eliminate weird VMA_IO_BIT abuse and
+ simplify
+Message-ID: <arZAC3fyGMDnxiFX@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-24-4583d8a23bca@kernel.org>
+ <93672B94-BB0C-4713-8F8A-3619D81DB7BB@nvidia.com>
+ <arT3K71l86fUVldk@gremlin>
+ <CBD619D6-8717-4C81-B5EA-D1D0771BDA3A@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CBD619D6-8717-4C81-B5EA-D1D0771BDA3A@nvidia.com>
 
-`put()` trusted an unchecked `as` cast from `usize` to `c_int`.
-When the length exceeds `i32::MAX` that cast wraps around to a
-negative value.
+On Thu, Sep 24, 2026 at 11:50:14AM -0400, Zi Yan wrote:
+> On 24 Sep 2026, at 6:21, Lorenzo Stoakes (ARM) wrote:
 
-This ultimately resulted in a kernel panic when the reinterpreted
-value via `__nla_reserve()` and `skb_put()` became enormous.
+> >>> diff --git a/mm/folio.c b/mm/folio.c
+> >>> index 47a437e0f7fd..35e242b48870 100644
+> >>> --- a/mm/folio.c
+> >>> +++ b/mm/folio.c
+> >>> @@ -505,7 +505,7 @@ void folio_add_lru_vma(struct folio *folio, struct vm_area_struct *vma)
+> >>>  {
+> >>>  	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+> >>>
+> >>> -	if (unlikely((vma->vm_flags & (VM_LOCKED | VM_SPECIAL)) == VM_LOCKED))
+> >>> +	if (vma_test(vma, VMA_LOCKED_BIT))
+> >>
+> >> I think it is worth documenting VMA_LOCKONFAULT_BIT alone means mlock in
+> >> progress, like you did in munlock_vma_folio(). Just to keep the protocol
+> >> explicit for all the readers.
+> >
+> > Well I'm not sure it's necessary here honestly, because this never checked
+> > VMA_LOCKED_MASK anyway, and VMA_LOCKONFAULT_BIT never made a difference.
+> >
+> > So the meaning of VMA_LOCKED_BIT here is strictly 'is it locked' and it's
+> > correctly handled.
+> >
+> > And I fear that it becomes whack-a-mole - the neat thing about this change is
+> > that you no longer have to special case the stupid VM_SPECIAL thing, and can in
+> > fact do the 'normal' thing of _just checking_ VMA_LOCKED_BIT :)
+> >
+> > So I think it's better not to.
+>
+> Your reasoning makes sense to me.
 
-Validate payload and header both fit together in a `u16`, rejecting
-any payload that wouldn't leave room for `NLA_HDRLEN`.
+Thanks :)
 
-Fixes: 5eaa5fbb6e6c ("rust: netlink: add raw netlink abstraction")
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Reviewed-by: Carlos Llamas <cmllamas@google.com>
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
----
-changes since v5:=20
-Rebased on net/main
+> >> Why I am commenting in the middle of the series? Because I am taking
+> >> a quiz given by LLM based on this series to get myself enough background
+> >> knowledge to review this series. This mlock part came up at part E
+> >> and I only have part F left before I can do the full review. :)
+> >
+> > Thanks! :) I really appreciate you taking the time to look at this! Sorry it's
+> > so large.
+>
+> Sure. It is great learning material for me. Thank you for the patches.
 
- rust/kernel/net/netlink.rs | 9 +++++++++
- 1 file changed, 9 insertions(+)
+No worries, and sorry for the size of this change...! :)
 
-diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
-index 22ef3dde36fa..2f8733a694a9 100644
---- a/rust/kernel/net/netlink.rs
-+++ b/rust/kernel/net/netlink.rs
-@@ -11,6 +11,7 @@
- use kernel::{
-     alloc::{self, AllocError},
-     error::to_result,
-+    num::casts::u16_as_usize,
-     prelude::*,
-     transmute::AsBytes,
-     types::Opaque,
-@@ -86,9 +87,17 @@ fn put<T>(&mut self, attrtype: c_int, value: &T) -> Resu=
-lt
-     where
-         T: ?Sized + AsBytes,
-     {
-+        // `nla_len` is a 16-bit field that encodes the total attribute le=
-ngth
-+        // (header + payload). Subtracting the header size from `u16::MAX`=
- gives
-+        // the largest payload that still fits within that field.
-+        const MAX_PAYLOAD_LEN: usize =3D u16_as_usize(u16::MAX) - size_of:=
-:<bindings::nlattr>();
-+
-         let skb =3D self.skb.skb.as_ptr();
-         let len =3D size_of_val(value);
-         let ptr =3D core::ptr::from_ref(value).cast::<c_void>();
-+        if len > MAX_PAYLOAD_LEN {
-+            return Err(EMSGSIZE);
-+        }
-         // SAFETY: `skb` is valid by `NetlinkSkBuff` type invariants, and =
-the provided value is
-         // readable and initialized for its `size_of` bytes.
-         to_result(unsafe { bindings::nla_put(skb, attrtype, len as c_int, =
-ptr) })
---=20
-2.55.0
+>
+> >
+> > I held this series back from last cycle to help with review load, then spent
+> > some time fixing various AI-discovered things, and all the patches are necessary
+> > (well for the most part) to get where the series needs to go.
+> >
+> > I think the change is worth it though!
+>
+> Of course, great to see hacky code being removed by this series.
+>
+> For this patch, feel free to add
+>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
 
+Thanks :)
 
+>
+>
+>
+> Best Regards,
+> Yan, Zi
+
+--
+Cheers, Lorenzo
