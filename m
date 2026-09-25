@@ -1,151 +1,145 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B0304E2F3B;
-	Fri, 25 Sep 2026 16:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFFF4EA368;
+	Fri, 25 Sep 2026 16:42:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354580; cv=none; b=sVOaGcddTWsUCkpJppSmLOeJ/+K84/19+tNAqo5GOR+yQsSdP8/ClOqjts/yaTfEmFNwUSCCHi1YDycLQfjujcydtYGdXRZydMFSQ0BSpMpZAHw4EJOS96m1esfQQoP4qfV4npUqTDylpNs2Tok+/exT4mTKPQBjJFl9trkyKC8=
+	t=1790354593; cv=none; b=jutzZN+3xbwZtK2ZsC7nqWdNJRU+re7Mgjp+7thkpKDX8OpovGxxvKcrXZ8eqzfgWJaQTzhk/DQyfYXUsOB6FBR/odDu3JWWmaNV309ceL1lrSs4rGJO3PzXkOXygLvm3n6sJzXet32G/OQzwZk2OoWTUuXtS3yicTRiClcbGcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354580; c=relaxed/simple;
-	bh=O5sbNKI/8hIC1rgKBOybPs1hHlK7ry3JZUBZbb/JU/g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dB0x20UACCiT5hE676GMuZJ0tUkMilj6+mxYAGjjKXymYpML3kR4RIQxx2e26IQgQJ32V5OSsUF/Bfl8M6tdW1NqacSALXgIYqIjUaltWD+kE6VRp35GvI11rptzoDoI3uCn6de70OHkTCQmLi4Vc/tz9GQMcXlcdglafcglDZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hVf2XdSc; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790354593; c=relaxed/simple;
+	bh=P3w6KMXjzLlN6nAljQD/5grUF93zr/UQ9AJoIQbvkpw=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=M1SuUK1zkn+K5WCptRsFEkBjjX4pYOAKUvYDhY+In8PFCw9ySt7B0Eu5r2qqzkG9DIjGODkZnjO5Xypwdmsr11lFDTxya3p+8EGPopbgO1M3EU00N+Q1yk5kSv/AIcbjQYuTgNytIJ62eKPWPwBV8oW9AL6HbEoMLzwve5DYCT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QFGDgU7I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hVf2XdSc"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5F19A169C;
-	Fri, 25 Sep 2026 09:42:36 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0B87E3F86F;
-	Fri, 25 Sep 2026 09:42:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790354559; bh=O5sbNKI/8hIC1rgKBOybPs1hHlK7ry3JZUBZbb/JU/g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hVf2XdScH/58yUk45BIMnxm19IlI7CCdS1+PH4A3lE0oPIlF/VnruTYA9tdwfB++q
-	 tPALc4GdmxDZeRm3O69AumG5nuzFw10fti+WPdDM8P/WWPcR06/EG2TuL4kXguw8FS
-	 tOxXhZwLUBa3ggNoDVUh/E34iEH5FW3oavECMG3c=
-Date: Fri, 25 Sep 2026 17:42:34 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v19 5/7] firmware: arm_rmm: Activate the RMM
-Message-ID: <araketG70TIKeNuf@arm.com>
-References: <20260924135201.850038-1-suzuki.poulose@arm.com>
- <20260924135201.850038-6-suzuki.poulose@arm.com>
- <arZmXFw5Jw2IbAmA@arm.com>
- <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QFGDgU7I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72A31F000FF;
+	Fri, 25 Sep 2026 16:42:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790354563;
+	bh=Td8d4StGwfViCnmZPo1eb0gqFXmqlEDNpKnck2rJhM8=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=QFGDgU7IKMnHqdexzNTe0J9OMuvOr7gXytEcQR5jvi5F+E0moIp5uwXVWFrhZuqpA
+	 tQu5zKqPQ9sXNki6y5QXUPclXS4I3jt7QDVjiHziQVh3nobUMaghdYb1NKjVzxUY7r
+	 n56U64tB+OEzMGbGsUmxUP942DJzYitlSB1QzhJCXFLqFzmG/lzBlaFiUSah6kXWdO
+	 upVPFVojzMDT+AjxE0J0H3K2Xqmt3k6nh0zQ9QoHLQ7DP1qdVJALDFCOAP2mzP3pJq
+	 WRORlXemmQjOHARWBTZL+V4DEUHmKzM+6FaHadtiraYtOD4vhhLs+Jz3Z9h3vT21da
+	 MZTP+y+tCnVMA==
+Content-Type: multipart/mixed; boundary="===============6809303146770183891=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
+Message-Id: <6a6f53bff017aa1e0c758a1a87da09ae0165d5523b13e65dc944e3494377e3fd@mail.kernel.org>
+In-Reply-To: <20260925154029.3673513-2-eva.kurchatova@virtuozzo.com>
+References: <20260925154029.3673513-2-eva.kurchatova@virtuozzo.com>
+Subject: Re: [PATCH bpf-next v2 1/1] selftests: bpf: size the map in test_lru_sanity3 to whole refills
+From: bot+bpf-ci@kernel.org
+To: eva.kurchatova@virtuozzo.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,willemb@google.com
+Cc: linux-kernel@vger.kernel.org,eva.kurchatova@virtuozzo.com,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri, 25 Sep 2026 16:42:42 +0000 (UTC)
 
-On Fri, Sep 25, 2026 at 04:02:24PM +0100, Suzuki K Poulose wrote:
-> On 25/09/2026 13:17, Catalin Marinas wrote:
-> > On Thu, Sep 24, 2026 at 02:51:59PM +0100, Suzuki K Poulose wrote:
-> > > From: Steven Price <steven.price@arm.com>
-> > > 
-> > > Activate the RMM after the basic configuration. This is a memory
-> > > transferring stateful operation.
-> > > 
-> > > Reviewed-by: Gavin Shan <gshan@redhat.com>
-> > > Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > > Signed-off-by: Steven Price <steven.price@arm.com>
-> > > Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> > > ---
-> > > Changes since v17:
-> > >   * Inline RMM_ACTIVATE command and remove the definitions from arm-rmi-cmds.h
-> > >   * Use scope-based cleanup to free sro object
-> > > Changes since v16:
-> > >   * Split into a new patch
-> > > ---
-> > >   drivers/firmware/arm_rmm/rmi.c | 13 ++++++++++++-
-> > >   1 file changed, 12 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> > > index 035f21d3f26b6..0859f256e192b 100644
-> > > --- a/drivers/firmware/arm_rmm/rmi.c
-> > > +++ b/drivers/firmware/arm_rmm/rmi.c
-> > > @@ -834,7 +834,18 @@ static int __init arm64_init_rmi(void)
-> > >   	if (ret)
-> > >   		return ret;
-> > > -	return 0;
-> > > +	/* Activate the RMM */
-> > > +	struct rmi_sro_state *sro __free(kfree) = kmalloc_obj(*sro);
-> > > +	if (!sro)
-> > > +		return -ENOMEM;
-> > > +
-> > > +	ret = rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_ACTIVATE);
-> > > +	if (ret) {
-> > > +		pr_err("RMM activate failed (%d)\n", ret);
-> > > +		ret = ret < 0 ? ret : -ENXIO;
-> > > +	}
-> > > +
-> > > +	return ret;
-> > 
-> > It was raised earlier this year [1] but I'm not sure it concluded. How
-> > do we handle kexec and kdump? I think RMI_RMM_DEACTIVATE only succeeds
-> > if nothing is delegated, so it would need all realms torn down first. If
-> > that's not feasible, we could at least block (non-crash) kexec like pKVM
-> > does.
-> 
-> You are right, we can't DEACTIVATE until all granules have been
-> "undelegated" back. Not just the Realms, but also the GPTs/Tracking
-> Metadata etc would need to be reclaimed (when we get to support
-> dynamic GPT/Tracking metadata). For now, we should block the kexec.
+--===============6809303146770183891==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Looking more into this (and the memory hotplug story), I find it strange
-that simply having RME and a valid RMM imposes all these restrictions
-even if we never run or intend to run a realm. How common will
-RME-capable systems with RMM firmware be that are not used for CoCo? Or
-do we expect only CoCo systems to have capable/configured firmware (RME
-may be present in silicon anyway)?
+> selftests: bpf: size the map in test_lru_sanity3 to whole refills
+>
+> test_lru_sanity3 fills a map of tgt_free * 2 elements, and then reads
+> back all but the last few. Whether that passes depends on the cpu
+> count alone; on a machine with six it does not:
+>
+>   test_lru_sanity3 (map_type:9 map_flags:0x0): test_lru_map.c:463:
+>   test_lru_sanity3: Assertion `!bpf_map_lookup_elem_with_ref_bit(
+>   lru_map_fd, key, value)' failed.
+>
+> The kernel hands elements out in refills of lru->target_free, which is
+> clamp((size / nr_cpus) / 2, 1, LOCAL_FREE_TARGET), that is 128 / nr_cpus
+> rounded down. A refill the global free list cannot satisfy in full
+> calls __bpf_lru_list_shrink() for the remainder, and that evicts live
+> elements. Filling the map therefore evicts nothing only when computed
+> 128 / nr_cpus is a power of two. Any other nr_cpus variation fails.
+>
+> batch_size is already __tgt_size(tgt_free), the refill size of a map
+> is __map_size(batch_size) elements, so size the map that way and the
+> fill consumes whole refills. Start the keys of the last insert at
+> map_size + 1, just past the new size.
+>
+> Above 128 cpus __tgt_size(tgt_free) is 0 and there is no size to build
+> on. Skip the test there.
 
-Ideally we'd defer the RMM configuration and activation (and the
-tracking/GPT checks) until we first attempt to start a realm, keeping
-only the RMI_VERSION/FEATURES probing at boot. Not sure how feasible
-this is (memory is more fragmented by then for any contiguous donation).
-If we manage it, kexec and memory hotplug just work on hosts that never
-start a realm.
+The changelog states the skip triggers "Above 128 cpus", but the code
+skips from 65 CPUs up. main() passes tgt_free = LOCAL_FREE_TARGET (128),
+and __tgt_size() computes:
 
-The next best thing for kexec is to tear down the realms, undelegate
-the granules and deactivate the RMM before invoking kexec (with kdump
-that's harder as we likely no longer have a controlled shutdown).
+    batch_size = (128 / nr_cpus) / 2 = floor(64 / nr_cpus)
 
-Similarly with memory hotplug, allow it if we haven't started any realms
-and refuse realm creation afterwards if untracked memory was onlined.
-Also, if the memory is onlined to ZONE_MOVABLE, neither guest_memfd nor
-the kernel allocations we delegate come from there, so we could allow
-it even with realms running.
+which is 0 for any nr_cpus >= 65 (since 128 / 65 = 1, and 1 / 2 = 0).
+The new `if (!batch_size)` check fires on 65..128 CPU machines, not only
+"above 128 cpus".
 
-> > Kdump gets even more interesting if it starts accessing delegated pages
-> > and getting GPF.
-> > 
-> > [1] https://lore.kernel.org/r/CABpDEukEO4Y_fg8fv5Nr1_Pw_qOK=2UmioXk=WyPEzoEprPcGA@mail.gmail.com
-> 
-> Kdump may be a bit more easier, as the kdump kernel is supposed to use
-> the "reserved" region and vmcore access could handle the GPF and
-> provide "0"s to the reader ? May be this is one case where the
-> host needs to be able to handle GPFs.
+The sentence "batch_size is already __tgt_size(tgt_free), the refill
+size of a map is __map_size(batch_size) elements" is also hard to parse.
+The refill size is batch_size (not tgt_free); the map is sized to make
+the kernel's target_free equal batch_size.
 
-Yes, I think so. I now realised that metadata delegation to the RMM
-doesn't come from guest_memfd, so that's another case not helped by the
-old series to unmap guest_memfd from the linear map. I'll reply to the
-GPF thread.
+Could the last paragraph say "Above 64 cpus", and could the sentence be
+reworded to clarify that batch_size becomes the refill size after the
+map is resized?
 
--- 
-Catalin
+> diff --git a/tools/testing/selftests/bpf/test_lru_map.c b/tools/testing/selftests/bpf/test_lru_map.c
+> index 0921939532c6..84e9a930471a 100644
+> --- a/tools/testing/selftests/bpf/test_lru_map.c
+> +++ b/tools/testing/selftests/bpf/test_lru_map.c
+> @@ -441,8 +441,15 @@ static void test_lru_sanity3(int map_type, int map_flags, unsigned int tgt_free)
+>  	assert(sched_next_online(0, &next_cpu) != -1);
+>
+>  	batch_size = __tgt_size(tgt_free);
+> +	if (!batch_size) {
+> +		/* More cpus than this tgt_free gives a refill for */
+> +		printf("Skip\n");
+> +		return;
+> +	}
+
+A subsystem pattern flags this as potentially concerning: the new skip
+reports with printf("Skip\n") and then returns, so the binary exits 0
+and CI counts it as a pass. The selftests guide asks for skip results to
+go through kselftest.h (ksft_test_result_skip() with a reason string),
+and says skip messages should always include a reason.
+
+test_lru_map.c is a legacy binary that never includes kselftest.h, and
+converting just this line would be inconsistent with the existing
+printf("Pass\n") pattern used elsewhere in the file. The concern is
+narrow: could the message at least say why the test was skipped, for
+example printf("Skip: nr_cpus %d > %u\n", nr_cpus, tgt_free / 2)?
+
+> +
+> +	/* A partial refill shrinks the LRU and evicts live elements */
+> +	map_size = __map_size(batch_size);
+>
+> -	map_size = tgt_free * 2;
+>  	lru_map_fd = create_map(map_type, map_flags, map_size);
+
+[ ... ]
+
+> @@ -466,7 +473,7 @@ static void test_lru_sanity3(int map_type, int map_flags, unsigned int tgt_free)
+>  	}
+>
+>  	/* Insert new batch_size: replaces the non-referenced elements */
+> -	key = 2 * tgt_free + 1;
+> +	key = 1 + map_size;
+>  	end_key = key + batch_size;
+>  	for (; key < end_key; key++) {
+>  		assert(!bpf_map_update_elem(lru_map_fd, &key, value,
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36157128898
+--===============6809303146770183891==--
