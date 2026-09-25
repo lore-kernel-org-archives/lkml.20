@@ -1,396 +1,268 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010047.outbound.protection.outlook.com [40.93.198.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CD535CB87
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:30:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790307026; cv=none; b=rC9GgX2BhT/T+LzwW39Q1HHM10cAHFAIDfccLo9IIy3hXmc5AaAXbU0jLzlXpCGBmWig6eWwYTtidr6pQDloQQOchyDuEM/QYH8wsYW/6rAiMCS7/mnvgGrcbpXAstSLBvmMFwXsKtWtbvHZCeRibVvUbhcIo7147mscuj1vCUs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790307026; c=relaxed/simple;
-	bh=ivOFFdkTB6Ym1pL/aMVew2NF/YPxxP2wIZuNOXI+Mbo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FrL4r8gZB22F6pHmc3Jf7qk+YZ9YyHmnZk9Rh0tZim85wmJWEgKkWu1OunvKnmbjTEms3ykE/TjF5WDv+Wc8SuTJW9HeC2tVX20wQF97XeNPrKlARXdbpasv1tfFae43pNvNG6R4htxUOLo2CV4998LxHYAR2YZ8k6d3ij91orE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WwT55SbV; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A2F175A5;
+	Fri, 25 Sep 2026 03:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790308219; cv=fail; b=pmTdRt9Z1p1CCRo7hGm9TGdMczTt20kUWjvz/h2hxzCXzwPEIxjkaiTPxX3IRR/uMCf14h2U1dQKO65h/6NieLmovwwOtWUysL07MABhGTs9XBfRKVrHFqKjUKt/IFA1nuIyoi0oSjMaGZ2cVaTKCLujcr9pDXu6S1KLs+uR4so=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790308219; c=relaxed/simple;
+	bh=0rIKLBRSuwOpz3DqxeubtsEvyKyHmTqzgxiXxtKTx0U=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 Content-Type:MIME-Version; b=AICsmDpI1mtkPrNY5as3S4PoTScOa2V7OYS7fc/y8hTu+m1PwdbmxRFATF3GERW2Ucb/oZn+//U3ERbPTFHVa4d2R8YI37AdmjqP4oJA8UyaupSkJpeDiFbfIdCFe+Qj+zqQXqcZts9FxzlX5c6XH1qi0ij6hF71T5+CG8LkrIU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lnCbgU6q; arc=fail smtp.client-ip=40.93.198.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WwT55SbV"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb769ca02so5717141cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 20:30:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790307021; x=1790911821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y1bT3lEzwlBoiYeaFeeWohd1A7XVi8JjrPv06TrtuZg=;
-        b=WwT55SbVU4ac/IjkAs+fEgFBpgOdMHqhVwH2AEvpu7Pp11I3QmaVE3/+025kk/PsEi
-         5GCyaHQ+MvUo1dBihoy212aMa3GiBMw5Xs9091dUYo5rgood+7ZE+XIyDJqQI7mZCYvM
-         7EFBe1FOVRyyQUrtDbMvF71IUQGXH0IetJ1DlYznkQTo5RK9vVVo73QUOwqIX2FjntaC
-         vQcA69MJmwHbQr7RF2gJLF43zuSCtfwrIWoLpsHZH1wQW1N48Ge/RqNsMnoc+A0TDa0h
-         rXYHaTx7OetRbmRtaZweNeK2N1vTcVjniFLqE0dSATVSIZmA/1miYUCzqkHz28oOZ5MY
-         DoBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790307021; x=1790911821;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y1bT3lEzwlBoiYeaFeeWohd1A7XVi8JjrPv06TrtuZg=;
-        b=bwfskQxyYmYYO2nbcLFi5pUj7A6A4Wk80zPFBgfSJCNv63hfykNGk6+v4wqyOJK0HL
-         jJ6ax/nOsrnkpfRJIpq9MFs6gljHU2cI/alTq/AtiwYNK9o5PQ98a15Q7M/KUlb+T10k
-         CRhWWDW9NOEh+65RZz+27Au/XeAM/r0dLSNEA3BkoOZxYY50Hx7A+GgZc3e16+D8v29z
-         JlNvURVFCdTpkfEKE01vX9aiZClxMdweUxgq4nny2OmqsGf4tZiNS5nikAGtm3t89L7P
-         M6AXnA5GqNPhkh3/4eYBOqvQlqVVbCl86RENb0dOhDR5hJRj8VdUE1GUMamz39ghn/qQ
-         DMVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxQGvY9CRmk/3bxeHY5KWEmxr3QU/ZRBPwDL1UJ1T31Ie3LL6XMnRmuXwBhLtZfbsFuLScd3pfa8rczy0Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRlDR7R6PR4lZEuiXJzs83ln31pyD4+xUFbx31sXrEVCUOn436
-	6FtsXu5Db8yDyuTlDP8RqNe8kCcUg2800VQR4NbNXoBLuiBNr0QfcqC/
-X-Gm-Gg: AYBFou16R9Tc5xjzvvzKgwQXBUlBD8pc9PTjlg4x3A+WpjmG7DQxnI3qj74LIzd9u6f
-	wI80rt/lu1JYepYn2wB0xQUCk9zAEvhmn9icg4c5xxa3VjFo/maENMuJW8rJ406gMt+41uc7kYx
-	P2K7C49wnLwmmIlqlnSRZo9wG4s3qXEPScSsMYfII/hBA/l5AkGxYDh3wGOsVjQ/WrLdler/Dhh
-	oAWnBx5g+BdFZreOljRRZrN+r2V+xdib1wbsDAtTOS5ZPm0AL83ktgLILXw39/0RaqfNYgGCk+z
-	Up5WJmsJyRJ+Oadu/MBvwrJ10XYSUcyLtCs8GNdKXVvfo4w064OiwuVcdQ6vDoWstA2XcrypuLO
-	hR9s+MNK4fpE2Fl3kIr1x6EqGdqs+OsiHiiqZCachfAnwmOcELNxSoYDx2Mlabg6NNNwjCH5LCH
-	/eu5WM4qxn7gu2YTLjoedwf0+iWuNOwQ3gawGTA5pWHbQ+DN9payNojhZL/kBGPCQVmtPTP/quL
-	27jOHqkZEkznvKiAHcxZnU0IxNwiHD8+mgG/97j0mEsrzuDx0gV96ID92bMbKQe
-X-Received: by 2002:a05:622a:1392:b0:532:9f90:3f70 with SMTP id d75a77b69052e-5330b5a56d7mr23799041cf.10.1790307020648;
-        Thu, 24 Sep 2026 20:30:20 -0700 (PDT)
-Received: from localhost.localdomain ([2600:4040:29f7:9600:b44c:c4c:9e3:10a8])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5330c0e16easm7031841cf.29.2026.09.24.20.30.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 24 Sep 2026 20:30:20 -0700 (PDT)
-From: Dillon Amburgey <dillona@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: airlied@redhat.com,
-	airlied@gmail.com,
-	kraxel@redhat.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	simona@ffwll.ch,
-	virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/qxl: size packed dumb heads from the plane source
-Date: Thu, 24 Sep 2026 23:30:11 -0400
-Message-ID: <20260925033011.12560-1-dillona@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260924025222.6077-1-dillona@gmail.com>
-References: <20260924025222.6077-1-dillona@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lnCbgU6q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C4lGgf3ageA9LZWjNWW/djHDWUJUso6sv9M6OraKDeTkEtpPGkYGf0JpnKUBYUXKbLOr5i9w4+INVQoLhZ5aP9mZdlz6s1HgNOzxdF/cG+6W3+prnEDBeQSBdAUvUGsVeD+F5CwUgOCM9h+AlpEBnb7BgBLIN2xOh2WV1MXCWKR5DB82JK5FrwDgQFI9rr1baz0xSZN2MurhoeiNCm8uXKvgwdsdOto5xze/jifWYnnU2UdrVBGsn42InWuTXsnpro8yvIhfGPGrmhE93+lYEJIjCeeQ6QC+WD/T/nPg6WKm1RriOOXNzcxeYkv30iKhw408IXBDNT6fEuP1LOCK+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=woQhDygZRnqq3mpxfJFy5+nbkVh9qMmLeuJAjO8IX98=;
+ b=HeKQM7PTFQRQwx3zjLHbodK1RB6khH1lc7XNw7qPS/k3Cdpk7J0KdiaKZNPrDRAct9m3lBHm5r56vPLA6/vesZtayqx5wQgFKgO9w1Yc2fy1rDowa9DiA7tRXCnvHEI4GzTqDA3+/IPiu2Xh3QUvDjahvgaQg/q6K4Q5iwXtKuiiWtnCIUBplIe7TgobV2c+dCtxFfQRWw5+5AgqXpV9ja1xVC4F7JDlNxezcvE5whjzH0jimlj3hctvGhAQnMaPS0P6X4pPHt98h21NFG9XwnSPddhxT62ct4WX8F5BTbdyaElrQoGkej522HZ4GkssPTIBOcgT2EP3sstDjTRLLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=woQhDygZRnqq3mpxfJFy5+nbkVh9qMmLeuJAjO8IX98=;
+ b=lnCbgU6qjjCj0vJCWh3Y5ztq8hpFkcwAmvqnRzcSFH5tUqt/jZEQgmAITlQWA8IiGnWuQNUIFZ6MvVJFzG20NVWLG+zSykczknHGXU99Y+kSegZTKzfG1lfU9edj5/80W7VJsnD4x/eHjzakgDGpXCUvLDak0UU1wp7CIJ2+U8PzN8SyVigNXL0Q0TY9aWhoYrIoQsjX33Q7RpGuuX2IJjQhHq9GvVOb6Sv+HILLFByVv7BojwcMTbWgaGpE07AG0aYIEHnAALqrHpS1YJATLHXrg4k8Un+uXAnVOiIt5sAkGPEtaTqmxBRKt/a0IEsdviUwP9VKfm3Exrfvtz446w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB4914.namprd12.prod.outlook.com (2603:10b6:208:1c4::16)
+ by MW6PR12MB8914.namprd12.prod.outlook.com (2603:10b6:303:244::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 03:49:01 +0000
+Received: from BL0PR12MB4914.namprd12.prod.outlook.com
+ ([fe80::4921:cbe6:78cd:b445]) by BL0PR12MB4914.namprd12.prod.outlook.com
+ ([fe80::4921:cbe6:78cd:b445%4]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 03:49:00 +0000
+Date: Thu, 24 Sep 2026 22:48:54 -0500 (CDT)
+From: Vidith Madhu <vmadhu@nvidia.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
+    Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>, 
+    Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+    Maxime Ripard <mripard@kernel.org>, 
+    Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+    Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+    Andrzej Hajda <andrzej.hajda@intel.com>, 
+    Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+    Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+    Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+    Sandy Huang <hjc@rock-chips.com>, 
+    =?ISO-8859-15?Q?Heiko_St=FCbner?= <heiko@sntech.de>, 
+    Andy Yan <andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+    linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+    linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+    kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
+    wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH RFC 06/25] drm/connector: hdmi: Add VTEM EMP generation
+In-Reply-To: <20260921-vrr-limiter-uapi-v1-6-2fcd7d011646@collabora.com>
+Message-ID: <a5bc012a-9b9e-eb2b-d67e-a91f2d93d6bf@nvidia.com>
+References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com> <20260921-vrr-limiter-uapi-v1-6-2fcd7d011646@collabora.com>
+Content-Type: text/plain; charset=US-ASCII
+X-ClientProxiedBy: BY3PR10CA0019.namprd10.prod.outlook.com
+ (2603:10b6:a03:255::24) To BL0PR12MB4914.namprd12.prod.outlook.com
+ (2603:10b6:208:1c4::16)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB4914:EE_|MW6PR12MB8914:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67861e9f-92d2-469b-2665-08df1ab7eeae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|5023799004|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	DMlCuIILU5gYnDdrtKowYbX/GuxYTpkF7s8/NhC8ux5XSrPBXR0rj9ujRqlbHWcerv0vNOGMP0e6lNU008iA7flXQJACjsytOC4vmpc48rZZp3Ub+yVvu9Jc7dwHsYiUNyR70Cy4ary2+6yeorxx7UyUxG+I587AINYhb7Z/lra53Tv9DmSiULDu3SV8mBUMCBzJ7D49aT37SGB+BUhBibKBn9MiAMl55xUt/0fCrcYobAUQOUFohuR+P4KXedzFdWi7GLf0qD7pcHhzl7930Fd+8b3M3Eu9NtP/JUbkZkiln1HhzxU9+gtXSwU44uIk3wnvFeNOIO9yxG63bn6Ja73+99uhUx4jZzy2jLaqXgTsJi/z8SHoeel2+29uwmfq9oLuctao9B7EWV6WEuFsFpNqpacWY8EMGIj+6vZZHqAhb2XIq/YLCqP7tpRkC7zH2ZPMIdFyB0v6GK4xXAYGra4nLW34O4xczp/H2/2uK0K4w+3hHMjCw25F6U7vc7xE/Os8A48iqWUw1LJYJDGLm/xqr5bl0X6FOPRIrLyKQg+tPxaO3CjJvKTDDXLkHBviMnYKwrjNJGXmKrieTyO/RtwN+EL8bttxdoPLtlV91IPY3vDYFw3AvRTnV28dd/GEvkMzhp1uvIVzMt14mz4ZES2loSkd+23HFsh8Nv17Z5w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB4914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(5023799004)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ukvNWoKZ7SVC4UaMRGrm1lEcoWiR47fYeG1nes2FpXbfI79jWdA/jadOQQ9w?=
+ =?us-ascii?Q?bkYz5HTe15U83l9pHBozOoHXNEu+oGUPx2s/LcGn3Z7a/rphVshWeMneecu4?=
+ =?us-ascii?Q?vw+cMdFsP1rrK6o0tv8QWBRideKIupHOWxX36mZWdqgPEpmthAoE7ZfZPfMf?=
+ =?us-ascii?Q?RHJgqSL/XflqbgpbJacb3zgRFOXIfNXqzez2xyWSml0LeKMzO8dfVws760bO?=
+ =?us-ascii?Q?lb9qaxT9Duvk1I3Kk+y/Gwnur4t1ltbzEpTDUSqNtYX+NXyW98BROlRbGLd0?=
+ =?us-ascii?Q?zrzQXXzanfK5HDFpzy5wNPMH8gfutm0Jb2hmWvi752NEJ+6Ar5Moc3pOHyRk?=
+ =?us-ascii?Q?wgjYoNm/3Ru4aEhdbxCIUtL1eNGq+oPQ3i/3ZJz93oO4bTAtxziknB27AI4B?=
+ =?us-ascii?Q?kO5nmBXYrqNTxXBNg3JMGMrf04xNNAfKqK5We3pRTCEHOC7dF8pi/0N3qvxJ?=
+ =?us-ascii?Q?HHLlQi8M6iKzbG5zf6x6KYlF7KwNuyidsj1Th3o1vDGnql9PY3O5BhHef5UD?=
+ =?us-ascii?Q?oYnCwxOdL1DHZrKNw2GHaEB/2EeZWjgstsL3GMaymDT8IDNbChLEpOd6i0kv?=
+ =?us-ascii?Q?qBM5pfIX9RPyfh7fY1pg38IYemfcJ23ig+UFO3s/m+Z5M1A/nKvB8hdu6NOP?=
+ =?us-ascii?Q?XZB8XfbFEq14/bOo1fQufhuF7NX/GxSDdPEGkcHgUgLrwilTEluEXoCMJLSL?=
+ =?us-ascii?Q?kzxw5eOtqj63fM30lua/gJRKCVZbpcCeX+te6bCeocmJ4ZOZ8qcc5yA2r46o?=
+ =?us-ascii?Q?M2xxKZSiLXWcTzULS4INo6zhCTeRnTtAnEAtK1I8rCyNp+RrLD8EPFSECqY/?=
+ =?us-ascii?Q?35AuOQ8V7Okf1q+zuVZ+iZtyLm/yatT3+ymzcw/7ymgAITEx8uCxkV1e5A22?=
+ =?us-ascii?Q?oZtHYX9oy2vB/UWRviVV9LpAEMaUyheLftA8qOpTdIqbbr/7z1X8Nhpd01Tp?=
+ =?us-ascii?Q?JDWFjuYHJsAKXBF61htu07GNi23gDNJPkS5etPFZDG4SpqXH1zLZnbAbccIt?=
+ =?us-ascii?Q?aGZBvoJltA/d0VBIghxCPR1M+HwhTeAf6sZF9K3Fz+ymQA8wpo5r1yr4oB4s?=
+ =?us-ascii?Q?dpBNEYyYBox01hRrdFAFGaqkBEkmxXgstL1qbtxojP8Iyv8BiKtEdAXaBV7W?=
+ =?us-ascii?Q?ParJAr5DffGlic1cU1T8/8e0vYTQMMWBbY6GkHnrlrKsTlsUAkiQWS/WPLZ6?=
+ =?us-ascii?Q?0i1/d3ee73r/y9nrFien1oWZVjnzxDomuEfE10qoNZEmqHqCM7XnpHLatifX?=
+ =?us-ascii?Q?q02msrPQAu9cD6FTKbJQVia4WhM8ZhqypFfvUXkICmgWErmFYfIbH3zmEyYI?=
+ =?us-ascii?Q?X7sceAN78Bo6mmEfryvVK+brL7YjpL9a5EFVLsuot8zlivQp6JwQqReakjrj?=
+ =?us-ascii?Q?ioYkwforOocrX54WFMVgoZExYChifC4MAtBWwNTjNq2jYLhzK8zWxFm0FZRg?=
+ =?us-ascii?Q?L+zc3iam/pxiZsHGVHP1sF7DOHP8zGYBxLqPyxuac3WRzYBs46ztXzTI7hw5?=
+ =?us-ascii?Q?l5VSU4b/GJiFlMgilwFDh0xu/ssOwcVH1DJ+/RaBtiYpPa5h7Z9OFcZwMimx?=
+ =?us-ascii?Q?Q3i8t3W5uFjZq00GqTto7vdELRHvc3yunYlpUVws9h2AF2YeXAhQfAAoiPur?=
+ =?us-ascii?Q?RUHhZaV3JMdxzywxUiJ03lHLdvvAg9QiqXNGSI3JkKE0Px6ZkYSNwhkxnMrv?=
+ =?us-ascii?Q?r1G4t6Z9lQppM0gY25Yb5TYvLC4U35gY0GMWJkisPelz88aq?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67861e9f-92d2-469b-2665-08df1ab7eeae
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 03:49:00.7899
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QNW36uIioo2K14jlnH5gBoROKzB9D/cKslDb7g5PnJvvFmIYAHvuYzI6yhyN1opsEyan557a8vcrLkvIwawzjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8914
 
-QXL packs per-CRTC dumb buffers into a single primary surface.
-qxl_update_dumb_head() recorded each dumb BO allocation (bo->surf)
-instead of the plane source rectangle. Scanning 1280x800 from a
-2048x1024 dumb framebuffer beside a 1024x768 head therefore created
-a 3072x1024 primary and placed head 1 at +2048, rather than 2304x800
-with head 1 at +1280.
 
-Use src_w/src_h when building the packed shadow, and copy only that
-source rectangle into it. Place that rectangle at the packed origin:
-crtc->x and crtc->y are the plane source position, so adding them to
-the packed offset publishes the head past the end of the primary.
-When the shadow is reallocated, copy the other active dumb heads from
-their current framebuffers. DRM_IOCTL_MODE_DIRTYFB intersects each
-clip with the plane source and uses that same origin, so a dirty
-update of one head is not painted at (0, 0).
 
-Fixes: 90adda2ce898 ("drm/qxl: cover all crtcs in shadow bo.")
-Assisted-by: LLM sparse
-Signed-off-by: Dillon Amburgey <dillona@gmail.com>
----
-Changes in v2:
-- Place each source rectangle at the packed origin. crtc->x and
-  crtc->y are the plane source position, so adding them published
-  head 1 at +2560 on a 2304-wide primary. A shadow primary now
-  reports dumb_heads[i].x and .y. A shared framebuffer with head 1
-  scanning at x=1280 now reports +1280.
-- A non-zero source y is no longer the destination y. The copy reads
-  at src_y and writes at dumb_heads[i].y. A 1280x800 source starting
-  at y=200 is drawn at the top of the primary.
-- Replacing the shadow recopies the other active dumb heads from
-  their current framebuffers. The failure was stale pixels, not a
-  cleared head: after recoloring head 0 and enabling head 1, head 0
-  kept the old color until this recopy.
-- DRM_IOCTL_MODE_DIRTYFB intersects the clip with the plane source
-  and uses that same origin. A dirty update of head 1 no longer
-  paints that buffer at (0, 0).
+On Mon, 21 Sep 2026, Nicolas Frattaroli wrote:
 
- drivers/gpu/drm/qxl/qxl_display.c | 132 ++++++++++++++++++++++++------
- drivers/gpu/drm/qxl/qxl_draw.c    |   6 +-
- drivers/gpu/drm/qxl/qxl_drv.h     |   3 +-
- 3 files changed, 113 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 0719fc6a52d5..d01504332bc8 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -348,8 +348,10 @@ static void qxl_crtc_update_monitors_config(struct drm_crtc *crtc,
- 		head.y = crtc->y;
- 		if (qdev->monitors_config->count < i + 1)
- 			qdev->monitors_config->count = i + 1;
--		if (qdev->primary_bo == qdev->dumb_shadow_bo)
--			head.x += qdev->dumb_heads[i].x;
-+		if (qdev->primary_bo == qdev->dumb_shadow_bo) {
-+			head.x = qdev->dumb_heads[i].x;
-+			head.y = qdev->dumb_heads[i].y;
-+		}
- 	} else if (i > 0) {
- 		head.width = 0;
- 		head.height = 0;
-@@ -458,8 +460,47 @@ static int qxl_framebuffer_surface_dirty(struct drm_framebuffer *fb,
- 		inc = 2; /* skip source rects */
- 	}
- 
--	qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
--			  clips, num_clips, inc, 0);
-+	if (qobj->shadow) {
-+		struct drm_crtc *crtc;
-+		unsigned int n;
-+
-+		drm_for_each_crtc(crtc, &qdev->ddev) {
-+			struct drm_plane_state *st;
-+			u32 sx, sy, sw, sh;
-+
-+			st = crtc->primary->state;
-+			if (st->fb != fb ||
-+			    !qdev->dumb_heads[crtc->index].width)
-+				continue;
-+			sx = st->src_x >> 16;
-+			sy = st->src_y >> 16;
-+			sw = st->src_w >> 16;
-+			sh = st->src_h >> 16;
-+			for (n = 0; n < num_clips; n++) {
-+				struct drm_clip_rect *in = clips + n * inc;
-+				struct drm_clip_rect c;
-+				u32 x1 = max_t(u32, in->x1, sx);
-+				u32 y1 = max_t(u32, in->y1, sy);
-+				u32 x2 = min_t(u32, in->x2, sx + sw);
-+				u32 y2 = min_t(u32, in->y2, sy + sh);
-+
-+				if (x1 >= x2 || y1 >= y2)
-+					continue;
-+				c.x1 = x1;
-+				c.y1 = y1;
-+				c.x2 = x2;
-+				c.y2 = y2;
-+				qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
-+						  &c, 1, 1,
-+						  qdev->dumb_heads[crtc->index].x - sx,
-+						  (int)qdev->dumb_heads[crtc->index].y -
-+						  (int)sy);
-+			}
-+		}
-+	} else {
-+		qxl_draw_dirty_fb(qdev, fb, qobj, flags, color,
-+				  clips, num_clips, inc, 0, 0);
-+	}
- 
- out_lock_end:
- 	DRM_MODESET_LOCK_ALL_END(fb->dev, ctx, ret);
-@@ -662,6 +703,37 @@ static void qxl_free_cursor(struct qxl_bo *cursor_bo)
- 	qxl_bo_unref(&cursor_bo);
- }
- 
-+static void qxl_redraw_other_dumb_heads(struct qxl_device *qdev, int skip)
-+{
-+	struct drm_crtc *crtc;
-+
-+	drm_for_each_crtc(crtc, &qdev->ddev) {
-+		struct drm_plane_state *st;
-+		struct qxl_bo *other;
-+		struct drm_clip_rect clip;
-+		u32 sx, sy;
-+
-+		if (crtc->index == skip ||
-+		    !qdev->dumb_heads[crtc->index].width)
-+			continue;
-+		st = crtc->primary->state;
-+		if (!st->fb)
-+			continue;
-+		other = gem_to_qxl_bo(st->fb->obj[0]);
-+		if (!other->is_dumb)
-+			continue;
-+		sx = st->src_x >> 16;
-+		sy = st->src_y >> 16;
-+		clip.x1 = sx;
-+		clip.y1 = sy;
-+		clip.x2 = sx + (st->src_w >> 16);
-+		clip.y2 = sy + (st->src_h >> 16);
-+		qxl_draw_dirty_fb(qdev, st->fb, other, 0, 0, &clip, 1, 1,
-+				  qdev->dumb_heads[crtc->index].x - sx,
-+				  (int)qdev->dumb_heads[crtc->index].y - (int)sy);
-+	}
-+}
-+
- static void qxl_primary_atomic_update(struct drm_plane *plane,
- 				      struct drm_atomic_commit *state)
- {
-@@ -670,13 +742,18 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
- 	struct qxl_device *qdev = to_qxl(plane->dev);
- 	struct qxl_bo *bo = gem_to_qxl_bo(new_state->fb->obj[0]);
- 	struct qxl_bo *primary;
--	struct drm_clip_rect norect = {
--	    .x1 = 0,
--	    .y1 = 0,
--	    .x2 = new_state->fb->width,
--	    .y2 = new_state->fb->height
--	};
-+	struct drm_clip_rect norect;
- 	uint32_t dumb_shadow_offset = 0;
-+	int y_off = 0;
-+	u32 src_x = new_state->src_x >> 16;
-+	u32 src_y = new_state->src_y >> 16;
-+	u32 src_w = new_state->src_w >> 16;
-+	u32 src_h = new_state->src_h >> 16;
-+
-+	norect.x1 = src_x;
-+	norect.y1 = src_y;
-+	norect.x2 = src_x + src_w;
-+	norect.y2 = src_y + src_h;
- 
- 	primary = bo->shadow ? bo->shadow : bo;
- 
-@@ -687,12 +764,19 @@ static void qxl_primary_atomic_update(struct drm_plane *plane,
- 		qxl_primary_apply_cursor(qdev, plane->state);
- 	}
- 
--	if (bo->is_dumb)
-+	if (bo->is_dumb) {
- 		dumb_shadow_offset =
--			qdev->dumb_heads[new_state->crtc->index].x;
-+			qdev->dumb_heads[new_state->crtc->index].x - src_x;
-+		y_off = (int)qdev->dumb_heads[new_state->crtc->index].y -
-+			(int)src_y;
-+	}
- 
- 	qxl_draw_dirty_fb(qdev, new_state->fb, bo, 0, 0, &norect, 1, 1,
--			  dumb_shadow_offset);
-+			  dumb_shadow_offset, y_off);
-+	if (qdev->dumb_shadow_needs_redraw) {
-+		qdev->dumb_shadow_needs_redraw = false;
-+		qxl_redraw_other_dumb_heads(qdev, new_state->crtc->index);
-+	}
- }
- 
- static void qxl_primary_atomic_disable(struct drm_plane *plane,
-@@ -764,18 +848,14 @@ static void qxl_cursor_atomic_disable(struct drm_plane *plane,
- 	qcrtc->cursor_bo = NULL;
- }
- 
--static void qxl_update_dumb_head(struct qxl_device *qdev,
--				 int index, struct qxl_bo *bo)
-+static void qxl_update_dumb_head(struct qxl_device *qdev, int index,
-+				 struct qxl_bo *bo, uint32_t width,
-+				 uint32_t height)
- {
--	uint32_t width, height;
--
- 	if (index >= qdev->monitors_config->max_allowed)
- 		return;
- 
--	if (bo && bo->is_dumb) {
--		width = bo->surf.width;
--		height = bo->surf.height;
--	} else {
-+	if (!bo || !bo->is_dumb) {
- 		width = 0;
- 		height = 0;
- 	}
-@@ -820,12 +900,11 @@ static void qxl_calc_dumb_shadow(struct qxl_device *qdev,
- }
- 
- static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
--			       int crtc_index)
-+			       int crtc_index, uint32_t width, uint32_t height)
- {
- 	struct qxl_surface surf;
- 
--	qxl_update_dumb_head(qdev, crtc_index,
--			     user_bo);
-+	qxl_update_dumb_head(qdev, crtc_index, user_bo, width, height);
- 	qxl_calc_dumb_shadow(qdev, &surf);
- 	if (!qdev->dumb_shadow_bo ||
- 	    qdev->dumb_shadow_bo->surf.width  != surf.width ||
-@@ -839,6 +918,7 @@ static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
- 		qxl_bo_create(qdev, surf.height * surf.stride,
- 			      true, true, QXL_GEM_DOMAIN_SURFACE, 0,
- 			      &surf, &qdev->dumb_shadow_bo);
-+		qdev->dumb_shadow_needs_redraw = true;
- 	}
- 	if (user_bo->shadow != qdev->dumb_shadow_bo) {
- 		if (user_bo->shadow) {
-@@ -869,7 +949,9 @@ static int qxl_plane_prepare_fb(struct drm_plane *plane,
- 
- 	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
- 	    user_bo->is_dumb) {
--		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index);
-+		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index,
-+				   new_state->src_w >> 16,
-+				   new_state->src_h >> 16);
- 	}
- 
- 	if (plane->type == DRM_PLANE_TYPE_CURSOR &&
-diff --git a/drivers/gpu/drm/qxl/qxl_draw.c b/drivers/gpu/drm/qxl/qxl_draw.c
-index 3a3e127ce297..f99f4afa46d9 100644
---- a/drivers/gpu/drm/qxl/qxl_draw.c
-+++ b/drivers/gpu/drm/qxl/qxl_draw.c
-@@ -129,7 +129,7 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
- 		       unsigned int flags, unsigned int color,
- 		       struct drm_clip_rect *clips,
- 		       unsigned int num_clips, int inc,
--		       uint32_t dumb_shadow_offset)
-+		       u32 dumb_shadow_offset, int y_off)
- {
- 	/*
- 	 * TODO: if flags & DRM_MODE_FB_DIRTY_ANNOTATE_FILL then we should
-@@ -160,6 +160,8 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
- 
- 	clips->x1 += dumb_shadow_offset;
- 	clips->x2 += dumb_shadow_offset;
-+	clips->y1 += y_off;
-+	clips->y2 += y_off;
- 
- 	left = clips->x1;
- 	right = clips->x2;
-@@ -210,7 +212,7 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
- 
- 	ret = qxl_image_init(qdev, release, dimage, surface_base,
- 			     left - dumb_shadow_offset,
--			     top, width, height, depth, stride);
-+			     top - y_off, width, height, depth, stride);
- 	qxl_bo_vunmap_locked(bo);
- 	if (ret)
- 		goto out_release_backoff;
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.h b/drivers/gpu/drm/qxl/qxl_drv.h
-index cc02b5f10ad9..f7edb620d4d7 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.h
-+++ b/drivers/gpu/drm/qxl/qxl_drv.h
-@@ -202,6 +202,7 @@ struct qxl_device {
- 
- 	struct qxl_bo *primary_bo;
- 	struct qxl_bo *dumb_shadow_bo;
-+	bool dumb_shadow_needs_redraw;
- 	struct qxl_head *dumb_heads;
- 
- 	struct qxl_memslot main_slot;
-@@ -394,7 +395,7 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
- 		       unsigned int flags, unsigned int color,
- 		       struct drm_clip_rect *clips,
- 		       unsigned int num_clips, int inc,
--		       uint32_t dumb_shadow_offset);
-+		       u32 dumb_shadow_offset, int y_off);
- 
- void qxl_release_free(struct qxl_device *qdev,
- 		      struct qxl_release *release);
-
-base-commit: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
--- 
-2.43.0
-
+> From: Derek Foreman <derek.foreman@collabora.com>
+> 
+> Add VTEM EMP generation to enable variable refresh rate signalling over
+> HDMI.
+> 
+> These infoframes are only generated if the sink supports VRR.
+> 
+> Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 60 +++++++++++++++++++++++++
+>  include/drm/drm_connector.h                     |  5 +++
+>  2 files changed, 65 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> index d55548399687..33d0c9491643 100644
+> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> @@ -853,6 +853,56 @@ static int hdmi_generate_hdmi_vendor_infoframe(const struct drm_connector *conne
+>  	return 0;
+>  }
+>  
+> +static int hdmi_generate_emp_infoframe_vtem(const struct drm_connector *connector,
+> +					    struct drm_connector_state *conn_state)
+> +{
+> +	const struct drm_display_info *info = &connector->display_info;
+> +	const struct drm_crtc_state *crtc_state =
+> +		drm_atomic_get_crtc_state(conn_state->state, conn_state->crtc);
+> +	struct drm_connector_hdmi_infoframe *infoframe =
+> +		&conn_state->hdmi.infoframes.vtem;
+> +	struct hdmi_emp_infoframe_vtem *vtem =
+> +		&infoframe->data.vtem;
+> +	const struct drm_crtc_vrr_state *vrr = &crtc_state->vrr_state;
+> +	int vfront;
+> +
+> +	infoframe->set = false;
+> +
+> +	if (!connector->hdmi.funcs->vtem.write_infoframe)
+> +		return 0;
+> +
+> +	if (!info->hdmi.vrr_capable)
+> +		return 0;
+> +
+> +	hdmi_emp_infoframe_vtem_init(vtem);
+> +	if (!crtc_state->vrr_enabled || vrr->vic) {
+> +		vtem->base_refresh_rate = 0;
+> +		vtem->base_vfront = 0;
+It shouldn't hurt to always populate base_refresh_rate and base_vfront, 
+might be cleaner to skip this check.
+> +	} else {
+> +		vtem->base_refresh_rate = drm_mode_vrefresh(&crtc_state->mode);
+> +		vfront = crtc_state->adjusted_mode.crtc_vsync_start -
+> +			 crtc_state->adjusted_mode.crtc_vdisplay;
+> +		if (vfront > U8_MAX || vfront < 0)
+> +			return -EINVAL;
+> +
+> +		vtem->base_vfront = vfront;
+> +	}
+> +	vtem->fva_factor_m1 = 0;
+> +	infoframe->set = true;
+> +
+> +	if (!crtc_state->vrr_enabled) {
+I don't think we should use the vrr_enabled CRTC property to determine 
+VRR_EN in the VTEM EMP. Transitioning the VRR mode sink-side typically causes
+blanking, and it was discussed in patch [03/25] that drivers should be 
+free to handle vrr_enabled changes as a seamless switch since it only 
+concerns source-side VRR state (this is how the NVIDIA driver handles it).
+Maybe it would make sense to extend the qms_enabled connector property 
+introduced in this patchset to an enum of {Off, Gaming, QMS}? This would allow
+a standard path to control the VRR state on the sink, separately from
+vrr_enabled. 
+> +		vtem->m_const = false;
+> +		vtem->game_vrr_en = false;
+> +		return 0;
+> +	}
+> +
+> +	vtem->game_vrr_en = true;
+> +
+> +	vtem->m_const = !vrr->dynamic;
+> +
+> +	return 0;
+> +}
+> +
+>  static int
+>  hdmi_generate_infoframes(const struct drm_connector *connector,
+>  			 struct drm_connector_state *conn_state)
+> @@ -884,6 +934,10 @@ hdmi_generate_infoframes(const struct drm_connector *connector,
+>  	if (ret)
+>  		return ret;
+>  
+> +	ret = hdmi_generate_emp_infoframe_vtem(connector, conn_state);
+> +	if (ret)
+> +		return ret;
+> +
+>  	return 0;
+>  }
+>  
+> @@ -1494,6 +1548,12 @@ int drm_atomic_helper_connector_hdmi_update_infoframes(struct drm_connector *con
+>  			goto out;
+>  	}
+>  
+> +	if (info->hdmi.vrr_capable)
+> +		ret = write_or_clear_infoframe(connector,
+> +					&funcs->vtem, "VTEM",
+> +					&old_conn_state->hdmi.infoframes.vtem,
+> +					&new_conn_state->hdmi.infoframes.vtem);
+> +
+>  out:
+>  	mutex_unlock(&connector->hdmi.infoframes.lock);
+>  	return ret;
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index e561a444515f..6e431eb81705 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -1180,6 +1180,11 @@ struct drm_connector_hdmi_state {
+>  		 * matching our state.
+>  		 */
+>  		struct drm_connector_hdmi_infoframe hdmi;
+> +
+> +		/**
+> +		 * @vtem: VTEM EMP infoframes structure matching our state.
+> +		 */
+> +		struct drm_connector_hdmi_infoframe vtem;
+>  	} infoframes;
+>  
+>  	/**
+> 
+> -- 
+> 2.55.0
+> 
+> 
