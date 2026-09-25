@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABB34FC8C9;
-	Fri, 25 Sep 2026 21:22:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAFD4FC8C5;
+	Fri, 25 Sep 2026 21:22:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790371343; cv=none; b=gWcPSHCEUCCTgnqnub4l92X6qCzPdb3f/Wsjgds9EJNLvLRj7xMaBac8ylZpRmlVoJSexKXXLY4gzQ76vc7vtLSHU+z8Jr/rNnoC42c3fT1gOwJnT0pv7sXp3ca1v3y1mpq3xZaO9P3ZAeWzu8gZStZOO43baSCHBiHwE+4SRPs=
+	t=1790371343; cv=none; b=IbcISqcAsZoRvP6sELhKYuZZ5igyfwzUHdZeuVnjwp3YYfNTMGX4GGzeZ4HtBJrWQve585kTYn3TYHtvisB95KY1/y5ngZeY7/u1G6b2xuLTeseTClbW/2O8dD8isoPKY2XWmsuNJNot4fT7PXY+UIAIJhI6NBc0zD97kdafFxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790371343; c=relaxed/simple;
-	bh=GoyLU2U3ppXbJU9VRV2KKSjfBJtgMQqJ586u/SdHnow=;
+	bh=ONoNtmJiIBVmdYvigtOlZwFCLGUN8EHYDzwyaXRm1j0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=N+sS3DMMCBidmIGSMvDCmHHLptdwReTbnqA95zWZRtnB9MFXSiYAPYObUFZkHbN/ziqpJLVEHHy7qMUNtdJDyJR/ae01Y9YQvUBqCzHKbUtNcRITKSmdEH+a43QNZ5/ytRX5KU5EKncgx0CzxcDeJplrAj/A67MR5JH8y7MUdYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6Tt6HN6; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=nMogGTZCmkbcJ/vn/3ZubR81O1fx8xxujfELUOGid885BEfpdfqc0rFUHW68ZbuUVwx8yk+NNTqrNjjNMc4f+e35W6jN+3rNrSoCxrTSpAu/Q0wjDhulykDXQcH7n2zHg591rFIXSRJT7241niPbiDy09SUJv+LF9W/rzY8/U7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMEHAV3B; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6Tt6HN6"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AE091C2BCF5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMEHAV3B"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BC9F1C2BD04;
 	Fri, 25 Sep 2026 21:22:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790371342;
-	bh=GoyLU2U3ppXbJU9VRV2KKSjfBJtgMQqJ586u/SdHnow=;
+	bh=ONoNtmJiIBVmdYvigtOlZwFCLGUN8EHYDzwyaXRm1j0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=E6Tt6HN6dDVsoSQ9s7/R/C5uG/20efuDuoui5xfBmxKuopsKOVMSW7o3Ea0GnFS8d
-	 nrHGiplAi1QJXgizemJPopFXCSunX9eLLks43SWZE3vRTlFisTFroOVRCdeups6YAe
-	 psFQscgHyCv2cgs2VdZsCF6buhzmuLabB5BZHxlj9TOsQ6Z7VI1OX2jQmn79cs0uGZ
-	 nh7HJwRLNENR+7L98lhnts1SJNC9hrAXTT9WUdq/BaGgxxg9zVrAyKz6dVbRWOl8ZV
-	 NBZ3sKBWQ582ZApTvxm7h4gmQ4OmI00T3zXUN6EcOCfkhAZS20egjx9dndVcLvkiXi
-	 HQESCYtEuJMXg==
+	b=EMEHAV3BEj/A2XGWNm8xZj+jjbAuIstQ0yed9mD/Al1zZcE/csx9mj/XWrbmQthy6
+	 QznCgeOAa0FZwB6wT+dHB1MennOHqknFx44hBdIBYFzBJXH2i2jtF/Y5MJtqh7OHVI
+	 ttHry1uQ+Fgqee2yR+ctqXetb5zBQnOOX0kfJzJv3ujAA3/k6gu4coXCnanDy8VDf/
+	 0k9chKywIp9j/v4IjjRQvHRy9x4dkmnl0pgmy6POZdQ42wD5nvUthxuUT5v3t6WXky
+	 Dqi/BTYhEQOeiLMZzf9i6BfuDOVmCCars1eXrWoSPm+8a9+Cy6H664kyL6VUavp1kb
+	 5x7h5ITTvv/XQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DC45C9830E;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E3C9C9832E;
 	Fri, 25 Sep 2026 21:22:22 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Fri, 25 Sep 2026 23:22:20 +0200
-Subject: [PATCH v8 2/5] dt-bindings: input: touchscreen: st,stmfts: Improve
- example
+Date: Fri, 25 Sep 2026 23:22:21 +0200
+Subject: [PATCH v8 3/5] dt-bindings: input: touchscreen: st,stmfts:
+ Introduce STM FTS5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-stmfts5-v8-2-0fcf49e2c85f@ixit.cz>
+Message-Id: <20260925-stmfts5-v8-3-0fcf49e2c85f@ixit.cz>
 References: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
 In-Reply-To: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
@@ -58,21 +58,21 @@ Cc: Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1432; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2063; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=8hrNriBZ9r5NUpjg2ye3gjvx8mrHqp+97D+QCG0V3A8=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtuYMItkEShhRrfUYkEQkLKY95RkKZ9aBK821r
- KzsaRioKoeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarbmDAAKCRBgAj/E00kg
- cgUwD/0fup7gi4EPXq8XUj2gTbqngr8fFCroIEUBSk69EYJYBEP3euvVnv7BWAb1FueivXZz8Qy
- VcRY+on9bUdVD28j9oP8q3bYjsQwtlI4CkBJYYPxRqT0kdkLWlfyWWWqFR6d6IcB2kdzeuuGnYd
- zTsdPPhrNH2D61G35Z5ajlLItQ1asun/oSGNOZNlMdFwSD7JGxidOVWh19i3Bgx6/8vyWpZO3s2
- OmESlUJIexP0O4l19baYbTmUb08kbQONDEvDJBPBz74fcb/aPG0uOhzpczCT3r65QLUkCxncM2a
- xYMYoqHN61vTJrWl8W4hCFswqPPG3Yf7VNDoXL3AHpjqDpNo40DdHY+YbdcFkUWHKJhNTzgegiB
- ftN0w+ZnWgZZsiRqyUmK6hMRkKyKRU1ifRGU10K4rjq3kby5BXjtyGPKf3CrEz8BlKgx29ZaOz8
- hoPrmMzkk/dxle3kgDwwlAP1dEzVhe5va21gj2EX1UIVWUcyu0mz2nboz4sx+9NtG94PRav5btm
- XgNlDQjkoGyBLkQTMUUVw+7EkTAJiW7FcmXyyhgAUeaaMUI90AY3d+lKYsRfNyuGST3cdWXxqtA
- q9TAzHZVMhNhKIa7qJai5FkT9o9H8FJ0BWN2TpK0syQqrWLorz8sg0HdydidnDnbG/tB349J6/b
- zgKF1caJjGptipw==
+ bh=vbynNCWfAo0HQ+BS1gbKGd/f9mQ/YKgvFg8G/NvxKsg=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtuYM07qIN5wZpC1R+DMIeJx5PEEPnjxk5Rjy2
+ wZCQqg459OJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarbmDAAKCRBgAj/E00kg
+ clNwD/9Lg7M9OCARmi4aw5U9dpXlYVqUYvudwR3TMnYeqDScSaOHLsGU+lwTYIWX6wH74/XBWKd
+ FCknE6jXY/3B+FiZw6W+I37Jiodjcjur0NyfBXxsxonYFqIw+OLEvFQVlFbOrV87bVkSAL2rgk5
+ 47yu8PsjW1gEKEN2tD8TidDhaoR1yCyQDgzNuu9/lm+XcquvxZLVyCMpC6m9No0KmLyFt7bGVV0
+ K9O15atUUdD/zS5SfgV/FjceTGs3tUl7lokiwmbMSWubQpiFfVd0Z+iIRpm1YNGS/UQv9IN6Cps
+ ETw4xVODF5tAOFErJt2dxCId4lphugOnp2e9TJqabWjooxUC4MhP1UFSDBrIN73tpVCeG07/4eS
+ 9jqaqZrkjqiAJ3pnL+oPex4mjkok/jiKF8BBpKjuWqVx63fuXzMhozRIzaCn4CBB2kgk3BTyyFS
+ 0Q9uUxfmA+fu283l73DEUyycoJIY6rnpfab6ENUKcIMPvbvcXPFoySgzzoAjQwsEniaGSvIHDnz
+ PJJejbnz4+4Vf57aV/cmCu93HbvGv9TAt0RXzNjq4cdyjGBkfxqIkYM9A3WT6vS2k7r7GZu061d
+ On8XhHD8OCISpH8IkQDcd55CyR4SFbrasDUwTOddPXeNHBdGh6Ldlktl0D8X+V+gwsYa7Fi/bnL
+ AKBl/iXIlCFpTeQ==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -81,43 +81,86 @@ Reply-To: david@ixit.cz
 
 From: David Heidelberg <david@ixit.cz>
 
-The touchscreen-size-{x,y} is exact number, the -1 deduction is done on
-driver side.
-
-Example now use interrupts-extended and size obviously not deducted by
-one.
+Introduce more recent STM FTS5 touchscreen support.
 
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ .../bindings/input/touchscreen/st,stmfts.yaml      | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
-index 64c4f24ea3dd0..6eb1ad6582d82 100644
+index 6eb1ad6582d82..3de4bc5cd3f78 100644
 --- a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
 +++ b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
-@@ -59,18 +59,17 @@ examples:
+@@ -9,22 +9,21 @@ title: ST-Microelectronics FingerTip touchscreen controller
+ maintainers:
+   - Krzysztof Kozlowski <krzk@kernel.org>
+ 
+ description:
+   The ST-Microelectronics FingerTip device provides a basic touchscreen
+   functionality. Along with it the user can enable the touchkey which can work
+   as a basic HOME and BACK key for phones.
+ 
+-allOf:
+-  - $ref: touchscreen.yaml#
+-
+ properties:
+   compatible:
+-    const: st,stmfts
++    enum:
++      - st,stmfts
++      - st,stmfts5
+ 
+   reg:
+     maxItems: 1
+ 
+   avdd-supply:
+     description: Analogic power supply
+ 
+   interrupts:
+@@ -35,27 +34,42 @@ properties:
+ 
+   touch-key-connected:
+     type: boolean
+     description: The touchkey feature is connected
+ 
+   vdd-supply:
+     description: Power supply
+ 
++  mode-switch-gpios:
++    description: Optional switch between touchscreen SLPI and AP mode.
++    maxItems: 1
++
+   reset-gpios:
+     description: Reset GPIO (active-low)
+     maxItems: 1
+ 
+ required:
+   - compatible
+   - reg
+   - avdd-supply
+   - interrupts
+   - vdd-supply
+ 
++allOf:
++  - $ref: touchscreen.yaml#
++  - if:
++      not:
++        properties:
++          compatible:
++            const: st,stmfts5
++    then:
++      properties:
++        mode-switch-gpios: false
++
+ unevaluatedProperties: false
+ 
+ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/irq.h>
  
      i2c {
          #address-cells = <1>;
-         #size-cells = <0>;
- 
-         touchscreen@49 {
-             compatible = "st,stmfts";
-             reg = <0x49>;
--            interrupt-parent = <&gpa1>;
--            interrupts = <1 IRQ_TYPE_LEVEL_LOW>;
--            touchscreen-size-x = <1599>;
--            touchscreen-size-y = <2559>;
-+            interrupts-extended = <&gpa1 1 IRQ_TYPE_LEVEL_LOW>;
-+            touchscreen-size-x = <1600>;
-+            touchscreen-size-y = <2560>;
-             touch-key-connected;
-             avdd-supply = <&ldo30_reg>;
-             vdd-supply = <&ldo31_reg>;
-             ledvdd-supply = <&ldo33_reg>;
-         };
-     };
 
 -- 
 2.55.0
