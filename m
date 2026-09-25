@@ -1,228 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F411BC08F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D991BC08F
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790297051; cv=none; b=WCY/SteVnXgF86EV98tpMzZKOqHrCX5sSRpAeg73r3qukO/At/vzD5Shzpvrej9MCxgOEp4NhM9EtZqzctwT+pPIu/9LNfERVs1ZI4qeZZz1HCkeQ4V3wwefY4O1Y9MRLMAHwrgZMztGlmA0XSVsMXUbrVIVIPwIviiWMv1jObw=
+	t=1790297083; cv=none; b=drXZ8lVlawuqH3LYjWrnb5Ix02JFrUATOV3ZgbY5Ng3VQAMQd6fQjqjqt1B9gp79XUvGJF43jutaOpCYfHZiCG4byNYEM4eGILaZcV09kNbOF2UUfL/1CnqWDCKr+ceUeCC0ghCY7zCofKV0+UParKO856At8hRWUmmbcPbj3FY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790297051; c=relaxed/simple;
-	bh=iTp7mHFpYtjPJ0TFHzNBVGHwA7eK5o58yIHHx9Ka7V0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HKL+Sw2KJdw7HRdErhfoRk5NvnIyjKNT9R3flHbSe3djsSg2t5oZi/WxMBi3YoJdpMoONRUu5qXDThDq8DpBkkqOuvNPHUxXQ4MI2X6lnSdn7F0s4S4aH7V4o991X/Cs3a338VafIjzsYGoVyZdE6qIQ3p4LYCvLz6IHPLi2jRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YYI9kiAb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790297083; c=relaxed/simple;
+	bh=J7nKxvs0IQXlg+eWwadPTdRLgHfgBzLr6YZNgM27FGg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HU/JD+3n74ake/jzKUvFeJu45Pq8tJzPUFOP0644KOm5LedqhU7tk5EajZ85szzUOleW6c4WfFpDQ4Ri9MdZVVKmltuQ241c8O5fhPFeElIY/uWVl57HO48xgImug7lAvwBVzwU4WxlQD262CYE0XVGpdHJjfWo/HMlNduSxy/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VcGlkIuD; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YYI9kiAb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39D061F0089C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:44:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790297050;
-	bh=7CueezjDbKGuBoVz0Yahi05qKiOZJU4eRx078XbgJlA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YYI9kiAbgX1TdDDAgkEuTAlJ0KkFp2+uT33t80rtu9RyLC5Hpa+cT70M7QH/STGJy
-	 GtljrnarEHB5Xu4ajcF+/FpnXGlmLXBtjMOb18yXRgaUhSE3l/d4jcqByEvokX9q2x
-	 4w72CE7EtH9tbtbyjg3tA/KbT76ApiW/3uSk8LVyD4M7qlcK6pFDdyJd0FTXg4UMJA
-	 S93Z618G2yRMrr5zbRV3b7u6v51Q80yCLRwbRceYbRlRJa4EsV2O9ycmvvipDAXblS
-	 QJwDkYqSq5zoTGyvQ0Brl6UeI9UUszo1U1HuyHWDxo+Ujp8us7rs7L4hkelY6huZzK
-	 C1EVsXcStG5tQ==
-Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-89666ee9b3bso3288157b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:44:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx+pdBuZoVmWIIXDb8cQ0LBipodK2fJA8rL0grqfU7e9SyY8hmxX/DISij6ToYb5lX4sPjwH/LA/IWVyKs=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8lFsL/6VvD/tNEjsGo2CoYZrIwmmKH2hhu4hRfv9aVZjmsfeg
-	ZIkDDPWQNIoRxcnkVdZom/QalSjBnMPPbyuDyxueNkRB7DsL4L7nFhedmTnCyEf9gx2Y5tns+gt
-	eN+0TihIOuA5zdO1EYoyauVCGuKHG3uavzHxpfPKPrw==
-X-Received: by 2002:a05:690e:14c3:b0:672:f5f5:49e5 with SMTP id
- 956f58d0204a3-672f5f549fdmr2112852d50.58.1790297049175; Thu, 24 Sep 2026
- 17:44:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VcGlkIuD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790297080; x=1821833080;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=J7nKxvs0IQXlg+eWwadPTdRLgHfgBzLr6YZNgM27FGg=;
+  b=VcGlkIuDw5HPBQYuis6vgwicfwAgoclCqibtytzFyshzVTBarP8MHbuq
+   y9N7lgkt4iMn0CR7qJb48N/mtPUrfz4uzWBMd+eKE/k+6aK5LZtZoQfL3
+   M7I9D5yltlQCWPs20uWzVb64/s+jmHgv2gttDSgON3qhymIDLjLrVuu9c
+   zwXWl2utCdcCs4i14ZED5nCVOoxQQjPFqvEbhOLkbyWrsvDjWLmGicnJU
+   mwq+OS/AM+UiMsmrg8t+PtBnT8V53UNpP14+w+wbq3HcHopUg9tWjt9KM
+   x2nIJs8WvlFRQO0zbdZlstxaQ+Ce//UPLEafMww7aQdd+VNbgFLX9UKo2
+   Q==;
+X-CSE-ConnectionGUID: KZj0okQNQ02Dc4rzUG/usw==
+X-CSE-MsgGUID: aofaLeiZQfyGFQqlv/9w+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90125648"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="90125648"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 17:44:40 -0700
+X-CSE-ConnectionGUID: SuihzEVcSeu2xymF81S0qw==
+X-CSE-MsgGUID: OxNJOxWqSlCu/Aw0V+xloQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="277576827"
+Received: from sohilmeh.sc.intel.com ([172.25.103.65])
+  by orviesa004.jf.intel.com with ESMTP; 24 Sep 2026 17:44:39 -0700
+From: Sohil Mehta <sohil.mehta@intel.com>
+To: Dave Hansen <dave.hansen@linux.intel.com>,
+	Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Dave Hansen <dave.hansen@intel.com>,
+	Nikolay Borisov <nik.borisov@suse.com>,
+	Tony Luck <tony.luck@intel.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Sohil Mehta <sohil.mehta@intel.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] x86/microcode/intel: Refresh old_microcode defines with the May 2026 release
+Date: Thu, 24 Sep 2026 17:42:34 -0700
+Message-ID: <20260925004234.2634052-1-sohil.mehta@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918180241.3424851-1-nphamcs@gmail.com> <20260918180241.3424851-2-nphamcs@gmail.com>
- <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com> <CAKEwX=OP3Gb9sVOvch+p4j7quzgy-rUY=UTZau5ztMj7heJJoA@mail.gmail.com>
-In-Reply-To: <CAKEwX=OP3Gb9sVOvch+p4j7quzgy-rUY=UTZau5ztMj7heJJoA@mail.gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Thu, 24 Sep 2026 14:43:57 -1000
-X-Gmail-Original-Message-ID: <CACePvbVQsHXt4=+qfKz-KTar9CG+3OiAfLd1EZgnRE-1gyoKOQ@mail.gmail.com>
-X-Gm-Features: AclHuK8hG4dvBqcdqpHs3htOH0tZw8UjHorplhBJiHcYxmcYx2dg2FX15nlFTP4
-Message-ID: <CACePvbVQsHXt4=+qfKz-KTar9CG+3OiAfLd1EZgnRE-1gyoKOQ@mail.gmail.com>
-Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: akpm@linux-foundation.org, kasong@tencent.com, hannes@cmpxchg.org, 
-	mhocko@kernel.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
-	yosry@kernel.org, david@kernel.org, muchun.song@linux.dev, 
-	shikemeng@huaweicloud.com, baoquan.he@linux.dev, baohua@kernel.org, 
-	youngjun.park@lge.com, chengming.zhou@linux.dev, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	qi.zheng@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, riel@surriel.com, gourry@gourry.net, 
-	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
-	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
-	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	cgroups@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 6:20=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
-:
->
-> On Wed, Sep 23, 2026 at 2:18=E2=80=AFAM Chris Li <chrisl@kernel.org> wrot=
-e:
-> >
-> >
-> > There are too many swap_is_vswap() in this series. It fragments the
-> > code path, making things harder to reason about. Esepcially around
-> > locks. I count 22 in this patch alone.
-> >
-> > I consider this the biggest drawback of this series. This
-> > fragmentation of the code path.
->
-> This will mirror my response at [1], but I'm responding here for the
-> record and for your convenience.
+Update the minimum expected revisions of Intel microcode based on the
+microcode-20260512 (May 2026) release.
 
-Thank you. Really appriciate that.
+Note, the three new entries are for INTEL_PANTHERLAKE_L models.
 
-> It is needed because vswap *is* a special device, with its own
-> requirements. If you don't special case-it, you'd get undesirable
-> behaviors.
+Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+---
+ .../kernel/cpu/microcode/intel-ucode-defs.h   | 91 ++++++++++---------
+ 1 file changed, 47 insertions(+), 44 deletions(-)
 
-Ack, that is why I am against making it a special device. That is the
-whole idea behind xswap. It is just normal swap device implemented via
-swap_ops just like ext4 is a file system implemnet on top of VFS.
+diff --git a/arch/x86/kernel/cpu/microcode/intel-ucode-defs.h b/arch/x86/kernel/cpu/microcode/intel-ucode-defs.h
+index af8b1d8b26f6..7f463c85c5f8 100644
+--- a/arch/x86/kernel/cpu/microcode/intel-ucode-defs.h
++++ b/arch/x86/kernel/cpu/microcode/intel-ucode-defs.h
+@@ -136,35 +136,35 @@
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x5f, .steppings = 0x0002, .platform_mask = 0x01, .driver_data = 0x3e },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x66, .steppings = 0x0008, .platform_mask = 0x80, .driver_data = 0x2a },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x6a, .steppings = 0x0020, .platform_mask = 0x87, .driver_data = 0xc0002f0 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x6a, .steppings = 0x0040, .platform_mask = 0x87, .driver_data = 0xd000410 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x6c, .steppings = 0x0002, .platform_mask = 0x10, .driver_data = 0x10002e0 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x6a, .steppings = 0x0040, .platform_mask = 0x87, .driver_data = 0xd000421 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x6c, .steppings = 0x0002, .platform_mask = 0x10, .driver_data = 0x10002f1 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x7a, .steppings = 0x0002, .platform_mask = 0x01, .driver_data = 0x42 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x7a, .steppings = 0x0100, .platform_mask = 0x01, .driver_data = 0x26 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x7e, .steppings = 0x0020, .platform_mask = 0x80, .driver_data = 0xca },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x7e, .steppings = 0x0020, .platform_mask = 0x80, .driver_data = 0xcc },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8a, .steppings = 0x0002, .platform_mask = 0x10, .driver_data = 0x33 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8c, .steppings = 0x0002, .platform_mask = 0x80, .driver_data = 0xbc },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8c, .steppings = 0x0004, .platform_mask = 0xc2, .driver_data = 0x3c },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8d, .steppings = 0x0002, .platform_mask = 0xc2, .driver_data = 0x56 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8c, .steppings = 0x0002, .platform_mask = 0x80, .driver_data = 0xbe },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8c, .steppings = 0x0004, .platform_mask = 0xc2, .driver_data = 0x3e },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8d, .steppings = 0x0002, .platform_mask = 0xc2, .driver_data = 0x58 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8e, .steppings = 0x0200, .platform_mask = 0x10, .driver_data = 0xf6 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8e, .steppings = 0x0200, .platform_mask = 0xc0, .driver_data = 0xf6 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8e, .steppings = 0x0400, .platform_mask = 0xc0, .driver_data = 0xf6 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8e, .steppings = 0x0800, .platform_mask = 0xd0, .driver_data = 0xf6 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8e, .steppings = 0x1000, .platform_mask = 0x94, .driver_data = 0x100 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0010, .platform_mask = 0x10, .driver_data = 0x2c000410 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0010, .platform_mask = 0x87, .driver_data = 0x2b000650 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0020, .platform_mask = 0x10, .driver_data = 0x2c000410 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0020, .platform_mask = 0x87, .driver_data = 0x2b000650 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0040, .platform_mask = 0x10, .driver_data = 0x2c000410 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0040, .platform_mask = 0x87, .driver_data = 0x2b000650 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0080, .platform_mask = 0x87, .driver_data = 0x2b000650 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0100, .platform_mask = 0x10, .driver_data = 0x2c000410 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0100, .platform_mask = 0x87, .driver_data = 0x2b000650 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0010, .platform_mask = 0x10, .driver_data = 0x2c000421 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0010, .platform_mask = 0x87, .driver_data = 0x2b000670 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0020, .platform_mask = 0x10, .driver_data = 0x2c000421 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0020, .platform_mask = 0x87, .driver_data = 0x2b000670 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0040, .platform_mask = 0x10, .driver_data = 0x2c000421 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0040, .platform_mask = 0x87, .driver_data = 0x2b000670 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0080, .platform_mask = 0x87, .driver_data = 0x2b000670 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0100, .platform_mask = 0x10, .driver_data = 0x2c000421 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x8f, .steppings = 0x0100, .platform_mask = 0x87, .driver_data = 0x2b000670 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x96, .steppings = 0x0002, .platform_mask = 0x01, .driver_data = 0x1a },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x97, .steppings = 0x0004, .platform_mask = 0x07, .driver_data = 0x3d },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x97, .steppings = 0x0020, .platform_mask = 0x07, .driver_data = 0x3d },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x9a, .steppings = 0x0008, .platform_mask = 0x80, .driver_data = 0x43a },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x9a, .steppings = 0x0010, .platform_mask = 0x40, .driver_data = 0xb },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x9a, .steppings = 0x0010, .platform_mask = 0x80, .driver_data = 0x43a },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x97, .steppings = 0x0004, .platform_mask = 0x07, .driver_data = 0x3e },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x97, .steppings = 0x0020, .platform_mask = 0x07, .driver_data = 0x3e },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x9a, .steppings = 0x0008, .platform_mask = 0x80, .driver_data = 0x43b },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x9a, .steppings = 0x0010, .platform_mask = 0x40, .driver_data = 0xc },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x9a, .steppings = 0x0010, .platform_mask = 0x80, .driver_data = 0x43b },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x9c, .steppings = 0x0001, .platform_mask = 0x01, .driver_data = 0x24000026 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x9e, .steppings = 0x0200, .platform_mask = 0x2a, .driver_data = 0xf8 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0x9e, .steppings = 0x0400, .platform_mask = 0x22, .driver_data = 0xfa },
+@@ -176,30 +176,33 @@
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xa5, .steppings = 0x0020, .platform_mask = 0x22, .driver_data = 0x100 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xa6, .steppings = 0x0001, .platform_mask = 0x80, .driver_data = 0x102 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xa6, .steppings = 0x0002, .platform_mask = 0x80, .driver_data = 0x100 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xa7, .steppings = 0x0002, .platform_mask = 0x02, .driver_data = 0x64 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xaa, .steppings = 0x0010, .platform_mask = 0xe6, .driver_data = 0x25 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xad, .steppings = 0x0002, .platform_mask = 0x20, .driver_data = 0xa000124 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xad, .steppings = 0x0002, .platform_mask = 0x95, .driver_data = 0x10003f0 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xae, .steppings = 0x0002, .platform_mask = 0x97, .driver_data = 0x1000273 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xaf, .steppings = 0x0008, .platform_mask = 0x01, .driver_data = 0x3000382 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xb5, .steppings = 0x0001, .platform_mask = 0x80, .driver_data = 0xa },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xb7, .steppings = 0x0002, .platform_mask = 0x32, .driver_data = 0x132 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xb7, .steppings = 0x0010, .platform_mask = 0x32, .driver_data = 0x132 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xba, .steppings = 0x0004, .platform_mask = 0xe0, .driver_data = 0x6133 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xba, .steppings = 0x0008, .platform_mask = 0xe0, .driver_data = 0x6133 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xba, .steppings = 0x0100, .platform_mask = 0xe0, .driver_data = 0x6133 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbd, .steppings = 0x0002, .platform_mask = 0x80, .driver_data = 0x125 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbe, .steppings = 0x0001, .platform_mask = 0x19, .driver_data = 0x1e },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbf, .steppings = 0x0004, .platform_mask = 0x07, .driver_data = 0x3d },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbf, .steppings = 0x0020, .platform_mask = 0x07, .driver_data = 0x3d },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbf, .steppings = 0x0040, .platform_mask = 0x07, .driver_data = 0x3d },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbf, .steppings = 0x0080, .platform_mask = 0x07, .driver_data = 0x3d },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xc5, .steppings = 0x0004, .platform_mask = 0x82, .driver_data = 0x11a },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xc6, .steppings = 0x0004, .platform_mask = 0x82, .driver_data = 0x11a },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xc6, .steppings = 0x0010, .platform_mask = 0x82, .driver_data = 0x11a },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xca, .steppings = 0x0004, .platform_mask = 0x82, .driver_data = 0x11a },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xcf, .steppings = 0x0002, .platform_mask = 0x87, .driver_data = 0x210002c0 },
+-{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xcf, .steppings = 0x0004, .platform_mask = 0x87, .driver_data = 0x210002c0 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xa7, .steppings = 0x0002, .platform_mask = 0x02, .driver_data = 0x65 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xaa, .steppings = 0x0010, .platform_mask = 0xe6, .driver_data = 0x28 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xad, .steppings = 0x0002, .platform_mask = 0x20, .driver_data = 0xa000142 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xad, .steppings = 0x0002, .platform_mask = 0x95, .driver_data = 0x1000423 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xae, .steppings = 0x0002, .platform_mask = 0x97, .driver_data = 0x1000307 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xaf, .steppings = 0x0008, .platform_mask = 0x01, .driver_data = 0x30003a3 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xb5, .steppings = 0x0001, .platform_mask = 0x80, .driver_data = 0xd },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xb7, .steppings = 0x0002, .platform_mask = 0x32, .driver_data = 0x133 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xb7, .steppings = 0x0010, .platform_mask = 0x32, .driver_data = 0x133 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xba, .steppings = 0x0004, .platform_mask = 0xe0, .driver_data = 0x6134 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xba, .steppings = 0x0008, .platform_mask = 0xe0, .driver_data = 0x6134 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xba, .steppings = 0x0100, .platform_mask = 0xe0, .driver_data = 0x6134 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbd, .steppings = 0x0002, .platform_mask = 0x80, .driver_data = 0x126 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbe, .steppings = 0x0001, .platform_mask = 0x19, .driver_data = 0x21 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbf, .steppings = 0x0004, .platform_mask = 0x07, .driver_data = 0x3e },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbf, .steppings = 0x0020, .platform_mask = 0x07, .driver_data = 0x3e },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbf, .steppings = 0x0040, .platform_mask = 0x07, .driver_data = 0x3e },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xbf, .steppings = 0x0080, .platform_mask = 0x07, .driver_data = 0x3e },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xc5, .steppings = 0x0004, .platform_mask = 0x82, .driver_data = 0x121 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xc6, .steppings = 0x0004, .platform_mask = 0x82, .driver_data = 0x121 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xc6, .steppings = 0x0010, .platform_mask = 0x82, .driver_data = 0x121 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xca, .steppings = 0x0004, .platform_mask = 0x82, .driver_data = 0x121 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xcc, .steppings = 0x0002, .platform_mask = 0x90, .driver_data = 0x11b },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xcc, .steppings = 0x0004, .platform_mask = 0x90, .driver_data = 0x11b },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xcc, .steppings = 0x0008, .platform_mask = 0x90, .driver_data = 0x11b },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xcf, .steppings = 0x0002, .platform_mask = 0x87, .driver_data = 0x210002e0 },
++{ .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0x6, .model = 0xcf, .steppings = 0x0004, .platform_mask = 0x87, .driver_data = 0x210002e0 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0xf, .model = 0x00, .steppings = 0x0080, .platform_mask = 0x01, .driver_data = 0x12 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0xf, .model = 0x00, .steppings = 0x0080, .platform_mask = 0x02, .driver_data = 0x8 },
+ { .flags = X86_CPU_ID_FLAG_ENTRY_VALID, .vendor = X86_VENDOR_INTEL, .family = 0xf, .model = 0x00, .steppings = 0x0400, .platform_mask = 0x01, .driver_data = 0x13 },
+-- 
+2.43.0
 
-> Let's take Baoquan's patch series as an example.  It treats the xswap
-> device as just another swap device, without any special consideration
-> for it. Which creates several problem:
-
-That is a careful design choice. Keep in mind that design choice
-usually has pros and cons.
-
-I will follow your feedback here.
-
-> 1. At allocation time, cgroups that disable zswap might get an xswap
-> slot, because you don't do any check that the device you allocating
-> the swap slots for is xswap. At swap_writeout() time, it is *stuck* -
-> we already do the unmapping step, so we cannot reclaim the page.
->
-> Ironically a physical swapfile backend could have bailed us out here,
-> but it's not in that patch series yet :)
-
-I am not sure I follow. Are you referring to the uncompressible pages
-that xswap would have to reject?
-
-One way to address that is for xswap to just bite the bullet and store
-the uncompressible pages within xswap. That way it will stay out of
-the reclaim LRU. Zswap also stores some uncompressible pages. The last
-time I checked, it was unfortunately not able to serve my case but
-perfect for yours.
-
-> Vswap both has swapfile backend, AND allows you to bypass it if the
-> cgroup disables zswap. Both involves a bit of swap_is_vswap() check,
-> but I think it's worth it :)
-
-If xswap needs the lower tier it can allocate for one. I don't think
-xswap should need to have swap_is_xswap() there. Also xswap does not
-have all the baggage of zswap.writeback enable interface.
-
-
->
-> 2. Per-CPU allocation caching: since all devices share the same cache,
-> xswap will invalidate the caching of other devices, and vice versa. It
-> would be fine if the these devices are interchangeable, but as noted
-> above, it's not, especially without physical swapfile as the backend
-> option. So you're forced to taken the slow path more often.
-
-This will be addressed by the swap tiers series if it is not delayed.
-This should be addressed in the core swap layer not vswap. Kairui also
-has some ideas to improve that. Yes, it is a problem area, but it is
-not specific to xswap. We are well aware of it and have plans to
-improve it.
-
->
-> Vswap gets around this by adding its own per-cpu allocation caching,
->
-> So by being too lazy and not carefully distinguish the swap devices,
-> not only does xswap not work for the writeback use case, it cannot
-> even work in deployments where some workloads (cgroup) select zswap,
-> whereas others select disk swap. It can only work if you intend to
-> have a single class of device - either virtual/xswap or disk swap -
-> but not both.
-
-Baoquan's writeback series is out. It is by no means perfect. But it
-is much closer to what I have in mind. That is a much better base to
-work on.
->
-> Maybe instead of just grepping for swap_is_vswap() and throw your hand
-> at the complexity, read the code and try to understand why it's
-> necessary first, then propose simplifications if you have good ideas
-> in minds.
-
-Yes, I already read your code I decide that most of the
-swap_is_vswap() should not be needed if taking a proper swap_ops
-approach. I wanted to offer you the chance to work closely with me to
-achieve that, but you did not follow that suggestion.
-
-Quote from my old email:
-https://lore.kernel.org/all/CACePvbX+3tO91BmRwaLqf3Xia32GCemt3W8tayErG81BYL=
-grzA@mail.gmail.com/
-
-"I am happy to spend some time working with you to discuss the generic
-adopted version of vswap, if you are open to it. Or if you don't want
-to waste time on it. I can have someone else or myself come up with
-the generic adopted version of vswap for you to review, which I prefer
-less."
-
-Anyway, Baoquan's xswap writeback patch series is out. I suggest
-following and improving that series instead.
-
-> > This is questionable. A vswap device does not go through swap on.
-> >
-> > This changes the behavior where swap devices always go through swap on/=
-off.
-> >
-> > I wish the swap device went through swap on to be able to start swappin=
-g.
-> >
-
->
-> What usecase would necessitate the need for swapon/swapoff interface?
-> Other than just trying to shoehorn it to an existing interface?
-
-I like universal interfaces. Your vswap will break the /etc/fstab. The
-current suggestion for xswap using sysfs will break that as well.
-I would like to keep the /etc/fstab interface working, including
-support for UUIDs for swap devices, etc.
-I am very concerned that vswap will start kicking in without me
-explicitly enabling it. That changes the previous user-visible
-behavior. It breaks my mental model. Please take this feedback
-seriously.
-
-It is a different design philosophy to adopt a swap device to
-implement VFS-like file systems for swap, making them swap file
-systems.
-Just like all file systems have a superblock so you can probe what
-file system it is. You don't get a special sysfs interface for each
-different file system to create them.
-This aligns neatly with swap ops and makes room for future
-flash-friendly swap file systems for example.
-
-> I've expressed why I dislike the interface in [1]. Other than the
-> sizing aspect, which we are already discussing in another thread,
-> priority also makes zero sense. You are literally exposing an
-> interface with only one correct answer - what's the point?
->
-> Justify your interface choice with real userspace use case, not just by
-> conforming to the status quo.
-
-That is why I feel your patch series are really unclean. I dislike
-special cases, I try to avoid them as much as possible.
-
-Chris
-
->
-> [1]: https://lore.kernel.org/all/CAKEwX=3DPEEkYiNRaVhCuM4E6mxB9huPKfkDa4m=
-62VMTzedg1oYw@mail.gmail.com/
