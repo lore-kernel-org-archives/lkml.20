@@ -1,138 +1,103 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5402F4A4EE7;
-	Fri, 25 Sep 2026 15:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0EB44BE42A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:10:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348987; cv=none; b=rxgM+cpBPrXZShUcZmU1h9hf6KELaTuvA5Kkas8gAxptverU2s1HbBkmwQOfDJsjyf+KqD3dWm4U3wtP0VNmaEDs1/0eqo/QFlFg/k2C1ban7QLEbVEhP3EYX03HZxS9bin6VbCnLsv0eBXUFGC9BWP8E2CqbCNmrTnH9E57rKY=
+	t=1790349012; cv=none; b=UnZv/zJ0iebf9CP3oJzI34n3t4ceA4iDhW2on/61n1jDyJ4BnWdIy8iN6c8uVFt8yC0ZvxkShdpaGDyy4aqbw4j1cfWtPOqKzfX5+zGTLsazK1DIWgnqmStkdJjYL/jKfIuSAb6On9mCQhFN476NXQG+PqiiBW0kpT+zV1cj8YE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348987; c=relaxed/simple;
-	bh=VW/XrB+qV68/FcIQ5eMC74++xgOoT9nZOvKItukui0g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZclRZGW7eYpacRvk7SCO6s+th6G4Wil9RTKuNT4XqweN6B+ibi/cSf1G2YLlRydq1bwivzKFMTxjMqtpbx2Opmym6kmNZMuupGsSDjBVgOyTtZJ/qm1Gi+D7LBamVGfC7JRgRiOUevGhoJKSd0Zm1RGaZFzDos4djK4zPUcABHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=hobvotZH; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1790349012; c=relaxed/simple;
+	bh=9cCuvtffogqWFceb2/RPE6mHCW/Fr+oXKNH0JoB26i0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=g5qu3EXfxuHCbxC/vs0SRwWX9NiFdBkQJSeu14IaToBJ6g2XhG7wTTUyC6RngTPRgjNvoq69sdV7/QBR/PX13UP6g8yvasMCwA4U54ki01Pny/IGbTU7uSKrwLWageXXQE7OzA63bnCjpy6B/0FJSNWmeuK3vKQxD3kQRJ8FVBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kXxPJgF2; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="hobvotZH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=8ZsRdp36EZWb0DJkYc8BpcrrbAf/mTTeVBAJoAH0lws=; b=hobvotZHAGf8k17uWJCa0M633j
-	Xgu23JcquGP8lXWipCmZh/G5kobCcsQQgbPcHmuGoMq96+PQL+Jad5Ov52BpZ7TFaGP0d0jOSmGWj
-	6kiqbW57/z7+9gDCZlJxAb5O4dOE/JVX2ZKWKt8xx3MWpWEum2UudXPmjoR32fXhHqY5ifLUsQOTb
-	sUBNeBh8euK5zvvxWA405zJ5cIHTdHnqODY/WrLKnjJnYtN9o3DyO6Kav1EFwCUs9a2/93UMT5QLu
-	6tIiG1WpkOTSbEA+Gd7Nk9H0+EuCUZuNf3rAtEHNd2MvyT9Tj6pmN4LpdWSlSaaJkQ+67idAKuFMp
-	dpCZQ1NQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xA7Y7-005OBd-3C;
-	Fri, 25 Sep 2026 15:09:20 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 25 Sep 2026 08:09:11 -0700
-Subject: [PATCH] ACPI: APEI: accumulate the queued flag across error
- sections
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kXxPJgF2"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d822dso7551205e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:09:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790348995; x=1790953795; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9cCuvtffogqWFceb2/RPE6mHCW/Fr+oXKNH0JoB26i0=;
+        b=kXxPJgF293I1qtxYBpYK0LbrWdgWSRe7gaHTDTM6drj0pJFl27bBTOKf9RX480FUMN
+         Uedrbt0Xp+ihyvyL8ijeWGgzeQHfYKzH7GwapRVGebx2HR5rdm2lBk73hr/iTBqB61PE
+         fKVmMBeQqDZrX44hoy+xwm7fVM/445m3YNghiBG6vWQEMugVgrYI+E1f3zmxB+Oaigh0
+         JLFtqPxsw3uLXpl+i3xJdmdimsQFjBG9I0AnVL8Ng5aSb7QFNRP6pYt4jaa/liOs+tgg
+         tH/ICu8aDdcmOFlAD8fQ12Iv17nBC0O3zWPK4uqTLPe3Xe2PxXfCJA4uV/HbuKKduTIA
+         RvdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790348995; x=1790953795;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9cCuvtffogqWFceb2/RPE6mHCW/Fr+oXKNH0JoB26i0=;
+        b=ij+oKHUSr+i9+mIY51bz+OOi56xVmZgReDaIxFn34E3F3z9rZx3vlEvqTjpfdvCkbh
+         cuBxjA+pmiv1yq0qJrssmYD/InFKV9CEcxvRcWRLGtjX9zcl3O+3bYepiB7YbQ4hOrYK
+         iU+XngqcoFA46SnAuU1AJy04MQ+iT/4hDvnaxQSoUqNGeaiSRt9I+lW/mjOcognC9fAf
+         LplnQwA/pNAwg0hzcWNTscMcdNnbU1Kg7GbzlIkeLrng0AO9P0Qfj+8PelKNJYitVFw6
+         iap0W9cVvxVhshkbBwQW4SCzcBMOPqLNQP/MTPb1xKphzB8Ah0wdrBnKk319gmBJcvhU
+         3XGg==
+X-Forwarded-Encrypted: i=1; AKwUvBzruxM/ZrFHGqy4KQRpwJ8vt5AF/3wEbTtcf1sbmyBYvUD/7azRqwYDP/JbjaxLNbcWEBl4k5Os4YLvvtU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjgxHy06kfCHyKxJHdGMAXGHso0tvfdGTGgs+jTnDJSTcSkj1O
+	U0LypKg0j0lhMj06UGXsd5IeRj9iRcjp5nxT18Cnnsb5HydNz95ToRw33FiwUv0=
+X-Gm-Gg: AYBFou3w6SR5zM0QOp4NXN0muTrZMWHwahOZr1KEv5KmsdB34piF2XL+Oy70victJBr
+	MboM/a6bjqQTscB3d8bBrzun2yAy+J91YJVe/mqloAMNcFlJ+uWbaM9YBkJKdEGrOO1ZQZMw9k9
+	Yc4uwIYnbyuQuPppaNlD2pGsmU/vcNGvs2idOJXVeEqxcngkdE21hhRN6xYfnCjzAObmrm+BA8O
+	eh6JANc6HIKqxVQ6HSJF2UP34bqF+cAX4k7gjcAqOUegzS2HsABFRfDY87fFizSsGFo4bBx19F5
+	LXYjqIOGzV70qT84qlcmmEsp7d8/MtnMsdbgSRokRyneiSlF0WWs2RydCJ8V+RKHNklg8jiozAO
+	5P3Wd/G6Pa+7eq8S0pqzE5bWnwpmUmcRHNgBu3P1oJj+0H1p1g4Xi3VRefm214ADpnJ5e1rrX1x
+	e2CF786RyAYhrIAaPUD6qVe0bmfZ7j/I/U41yi+XLZsO3xXUAEEdOyEODo2XztDyISbLfOPu6/T
+	4P4We4wPioVGXuoLEUoYfmUncK2RIkS4+wSOEHGEHA69+Mvg2ZnoGXCcw==
+X-Received: by 2002:a05:600c:8718:b0:49c:fa21:1c84 with SMTP id 5b1f17b1804b1-49fe7bba7e7mr98053885e9.25.1790348995166;
+        Fri, 25 Sep 2026 08:09:55 -0700 (PDT)
+Received: from localhost.localdomain ([31.223.3.6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30c43asm8393125f8f.3.2026.09.25.08.09.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 08:09:54 -0700 (PDT)
+From: "=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?=" <habilerenturker@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
+To: Markus.Elfring@web.de
+Cc: x86@kernel.org,
+	bp@alien8.de,
+	daniel@quora.org,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	mingo@redhat.com,
+	jwiesner@suse.de,
+	kees@kernel.org,
+	tglx@kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] x86/hpet: Use common error handling code in hpet_create_irq_domain()
+Date: Fri, 25 Sep 2026 18:09:48 +0300
+Message-ID: <20260925150949.4500-1-habilerenturker@hotmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <5c9b0231-5100-4668-a33e-ccb330d30c65@web.de>
+References: <5c9b0231-5100-4668-a33e-ccb330d30c65@web.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org>
-X-B4-Tracking: v=1; b=H4sIAJaOtmoC/yXMQQ6CMBBG4auQWTsJlEDEqxgXZfoDYxS1Q4kJ4
- e5WXX6L9zYyRIXRqdgoYlXTx5xRHQqSyc8jWEM2udK1ZecaHicYvxISAnuRdE83v4CbrpKjl7q
- vXaAcPyMGff/G58vflvorZPneaN8/uRej5noAAAA=
-X-Change-ID: 20260925-ghes-queued-accumulate-591c8ac3b32d
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
- Hanjun Guo <guohanjun@huawei.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Shuai Xue <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>, 
- James Morse <james.morse@arm.com>, Xiaofei Tan <tanxiaofei@huawei.com>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, kernel-team@meta.com, stable@vger.kernel.org, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2558; i=leitao@debian.org;
- h=from:subject:message-id; bh=VW/XrB+qV68/FcIQ5eMC74++xgOoT9nZOvKItukui0g=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqto6cfmYO00v2L5iB3D85pOjejWCOxbWqEF6kF
- qwUy4rKhbuJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaraOnAAKCRA1o5Of/Hh3
- bWocEACQACuoZbczHAR3Rz/S8hB7WnO0Vizvw1vb4qil7D1UuTHVGfBa5Yq/CEMt0OpJ/5hTy8D
- wkUu/gKIGVue2gswaJh5dy1CkheOC0xhz1sWpOaBV7ppyuIJ794lQEBhfyknXQslfc5FwHdEGVV
- ssJHzJANQ0WPGcvnJYgm9p+oK46hGKpURxGvDDRET0+YJuqa9simwd0l3IHB5jgILRn7OC6F3PP
- 0NTjURh1DrHb02TzaoCFNc9obI1TavcnYT6VY9NFBWFVsTKB5sRxbACa74lwHKh9eyeGOP7VaDZ
- 2R/B/WJI6ztT4r+OUBKcc0TeTO0MaAtLFgcJRlH0SG1uKrNx4S5YqM/4WGEdsu91HTVXBIKL0YJ
- jBiHe5BJRu0rT3+6gVO0Maax1MVE4FHFvcIU+8ZE9y9zc7fMZ0W4Gnd4XEbQK4SlQABU6qJndEl
- 6/ytsZNye/i3lNsWC7OrGYguBBqlt0DxKL1W6+vOZhm4PFlGKeZlTLbBu79BeAfoPcY5ebJ674t
- nHVRmSgk+4LVl6GM6YtyxKsN1jyYc1kAnE0vMyEDV04Wq8U6UmBHoMyYTnRKEuzUddfKZJLGb78
- j5I9HMLf221Of0Rp/rI+40pxpvJDkxoDiwcYY/txMHa1Dys3Sbi8moPMPz2K/rwQ6Lx/HCBee5l
- AuiUvgm0Z2A0+2w==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-ghes_do_proc() walks every error section of a CPER record, and
-ghes_handle_arm_hw_error() walks every error-info entry of an ARM
-processor section.  Both assign to "queued" instead of OR-ing into it,
-so only the last iteration counts: a later section or entry that queues
-no memory-failure work clears the flag an earlier one set.
+Hi Markus,
 
-Instead of reassigning the variable at every time, just do an `OR`, so,
-if there was a single match, it will return "queued" as set.
+Thanks for the patch.
 
-The comment above the check says "If no memory failure
-work is queued", which is the semantics this patch implements. I.e, only
-SIGBUS if there are queue was not handled at all. If we want to SIGBUS
-if any event was not handled/queued at all, we will need something more
-sophisticated.
+While consolidating the error paths using gotos can sometimes provide better simplicity and readability in codes, the implicit fall-through from `free_fwnode` label straight into `free_info` feels a bit error-prone for future maintenance.
 
-Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
-Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- drivers/acpi/apei/ghes.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+If someone later modifies the code and uses these labels, it could lead to unintended side effects or a double-free error. Although the syntax of the original code blocks involves repetition, it is readable and safe.
 
-diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-index fe10ab0e02f68..ec2d5ca51db02 100644
---- a/drivers/acpi/apei/ghes.c
-+++ b/drivers/acpi/apei/ghes.c
-@@ -603,7 +603,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
- 		 * and don't filter out 'corrected' error here.
- 		 */
- 		if (is_cache && has_pa) {
--			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
-+			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
- 			p += err_info->length;
- 			continue;
- 		}
-@@ -951,11 +951,11 @@ static void ghes_do_proc(struct ghes *ghes,
- 			atomic_notifier_call_chain(&ghes_report_chain, sev, mem_err);
- 
- 			arch_apei_report_mem_error(sev, mem_err);
--			queued = ghes_handle_memory_failure(gdata, sev, sync);
-+			queued |= ghes_handle_memory_failure(gdata, sev, sync);
- 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
- 			ghes_handle_aer(gdata);
- 		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
--			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
-+			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
- 		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
- 			struct cxl_cper_sec_prot_err *prot_err = acpi_hest_get_payload(gdata);
- 
+Personally, I believe the original code is cleaner and less risky to maintain in the long run.
 
----
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-change-id: 20260925-ghes-queued-accumulate-591c8ac3b32d
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+Sincerely,
+Habil Eren Türker <habilerenturker@hotmail.com>
