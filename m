@@ -1,76 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14ED3806B4;
-	Fri, 25 Sep 2026 15:23:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A9474C10C6;
+	Fri, 25 Sep 2026 15:23:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349799; cv=none; b=TuE8xYUSrD53PaxV4x2o5skS3lylSuW7c0Kdyu2jaBb+BRSaauh0H5wUdorc4bqEIviIrTms6dv2Qij3Hg7lksBaEtjDiYEg+XyFsHoOHgZOMkC9+k6IEglUxavut4zusIdEsuhk2E8Pj5k8FEi6PI2FpdHfVkBuICVSYrkbURU=
+	t=1790349836; cv=none; b=RE7GQ9RHb336jwKDwygxDTySJ9X6CMb50rKYHpRTdbmwO7zGAey8XN+Ye1AtWQhgvNrB987PiQznbNH2M3+cCfz0qe8O7k2VXDmPHK4Dpbap60xt0j+58BKSwwK8aKtw3oeHLyixbtEtLJxdDwXi3NhELak/wb8zz2lvyZEAfAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349799; c=relaxed/simple;
-	bh=ReN7FsgkHBI9g2zt6Ovr+zXCaoMegpmQ13vEQe++uNg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dbXqgVr+iETquu7VpmLNap2Dd+ccfKB4gxAE6Ou3/0whPdJFYs1RbwWgsqKXHO9ALvr46GPsadHIlIHHPrFw6zeXBtxAGiDkN1zlzgBwfVZbj3/tiTq/gVaXify04MbSWfFnnw98iM43tX11eW8xSOFwDvpbxaCPLmZA/MqLxNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BxJ7jdQG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790349836; c=relaxed/simple;
+	bh=//y9dPhjHq/ujPCrO92ZhJvyqsgBfC/qyzgIoS31GyY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gPxJbC2eBJ8XRDvctvFs1/by0qIJSICk21/6m08IUjg8It4sP6WTv/U9ZuPVojPRSGCsx3ilUM9I3CZRwD4/z/lmmS3HA7Fu46KuLl0L6lST8lyRHlTMeeIAKSL42Hb5wkrH0hky90EWOX6IJ3hrpyLlEsF/Fhf6G6zSZXRM8vA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hiPkvze6; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BxJ7jdQG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F15BC1F000FF;
-	Fri, 25 Sep 2026 15:23:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790349798;
-	bh=kANBcDB93ekcXy8yI3BeOtertVshNaMZPmStPqf4cgI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BxJ7jdQGXHEFCGpvRSvy6X4RbrF+w+/idYZYlZDWY3IkIj+8XU7+vaMNIs6u85Sqk
-	 FApFK4LsozIcAJ+tR/cRE6YJIq1uhICKpnGhkPjS8IVw29P1NzYdQ8whr7zYFMT0ks
-	 sDaEG3lTrtpiwXBQQfvDX3NOyUYF4K4mHR8ETlR1nubSnb3o9mcxYr9nNeWLJOIr8O
-	 mh4ebSKnw4Eo2ucS4LcTM24aVBwJ1ckFYsZHpccQ6ldklagEpzPEcN30pLYIcfm9mq
-	 VUaJkLylpyv4P+Cpk55tUgdqHoPOn29LhpZN4rlMFBrvyWroSqh/gXNFhCqwq/CVKD
-	 lCKuI3wxtk15g==
-Date: Fri, 25 Sep 2026 17:23:02 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	shengchao.guo@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v4 5/6] phy: qcom: qmp-pcie: Refactor common multiphy
- handling
-Message-ID: <kcatb2mcwqb64lk5afcq7dfn5mxmzd4d4ertblsryjilv373hb@ivbibuq7byma>
-References: <20260921-nord-v4-0-ed05c6e09240@oss.qualcomm.com>
- <20260921-nord-v4-5-ed05c6e09240@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hiPkvze6"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E24B1688;
+	Fri, 25 Sep 2026 08:23:51 -0700 (PDT)
+Received: from [10.57.10.17] (unknown [10.57.10.17])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 863F73F882;
+	Fri, 25 Sep 2026 08:23:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790349834; bh=//y9dPhjHq/ujPCrO92ZhJvyqsgBfC/qyzgIoS31GyY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=hiPkvze6xWnuXgjf7isAW+6ZYs+8hiozwT76bIXaPIMZqQDQFSopSgQ6Ul8qjMvDN
+	 1dn7ziLWqkMm5w1VMB5N5WKNtRd5RVjl7Wmcv+VRFKuQCVGYi7yYBkALg4o1GccVnq
+	 VNXBzkBnu5Ats955xS9i5iq3lPWyOYFAmdJTS9MI=
+Message-ID: <f7662116-ef8e-4f97-90a4-07173236617b@arm.com>
+Date: Fri, 25 Sep 2026 16:23:49 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260921-nord-v4-5-ed05c6e09240@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 2/7] firmware: arm_rmm: Check for RMI support at init
+Content-Language: en-GB
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-3-suzuki.poulose@arm.com> <arZQCiF3iqp9eCsy@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <arZQCiF3iqp9eCsy@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 21, 2026 at 11:07:13AM +0530, Krishna Chaitanya Chundru wrote:
-> Reuse the existing port resource arrays for Glymur register regions,
-> power domains, and NOCSR resets instead of maintaining duplicate
-> Glymur-specific lists.
+On 25/09/2026 11:42, Catalin Marinas wrote:
+> On Thu, Sep 24, 2026 at 02:51:56PM +0100, Suzuki K Poulose wrote:
+>> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+>> index 32102c3912fa7..e8b29983b0021 100644
+>> --- a/arch/arm64/kernel/cpufeature.c
+>> +++ b/arch/arm64/kernel/cpufeature.c
+>> @@ -293,6 +293,7 @@ static const struct arm64_ftr_bits ftr_id_aa64isar3[] = {
+>>   static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
+>>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV3_SHIFT, 4, 0),
+>>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV2_SHIFT, 4, 0),
+>> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_RME_SHIFT, 4, 0),
 > 
-> Attach each PHY instance's power domains to the device created for that
-> PHY. This ensures that the associated GDSCs are managed with the
-> lifetime of the individual PHY device rather than the parent multiphy
-> platform device.
+> I think we end up exposing this to (any) guest unless we mask it out in
+> sanitise_id_aa64dfr0_el1(). Do the guests care about the RME version? I
+
+Valid point. I personally don't think this matters. The FEAT_RME alone
+is not useful or harmful. I could mask it in KVM as a safe bet.
+
+Cheers
+Suzuki
+
+> don't think they should, especially the non-realm ones. For nested it's
+> masked away already (limit_nv_id_reg()).
 > 
-> Validate the clock-output-names property before using its count for
-> allocation, and use a generic module description.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
