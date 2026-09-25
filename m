@@ -1,100 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DCC48EBE4
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C932448EBE4
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331836; cv=none; b=Vzn9uWTWYqnsW+sOIBLmzZ/Gqz5XeA/BZlCL1wo2Hcmcj+5oukGxRLto7YOPvPgKwKqsVkqKjlGNxnEg3D5siXZrhojc5J7Lm2irmM92Qi4UGygUQoV+Hhh2I491fiX6xebAB67F1dyVmmqx3qqwZZpq29N+/jid/nBc6dfJEIA=
+	t=1790331840; cv=none; b=P8hf8v0sbQX3g0HXsdZUw+PTm6SSyrG2Wu4+eoHJMohq3Oz0BjZwvRZPtT1LfFMpxCtl24tRyWePsfcGZELvHmh21L/eVa04S43NfhhGjyieEG6cnt8qGfv+pTJsD/HCXIXqBTobqZZhCtlPKFjCarp12HrgeLV9+aZe9ZYCfQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331836; c=relaxed/simple;
-	bh=mYL9jrgJntw1uTiYaPA8rqvX87CeWqWEkuqVf/MuJ2g=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FPm9gvozS9j5rxGPuN1SAwryFe25pfyH4ACBc/ZEC5tdIZl0i4FLXGro2ylyskTxXfT2oysy+fV6qiD+WGy/ZS17zWmzymNvsrI2ixWV6PxAh8AWwr2dIXae2uPecpAIzuDZSDDg2Pd7J8BJ3owbq9GZL6JQM+7neZbQOX2WM4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=etoZZUM/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790331840; c=relaxed/simple;
+	bh=nqSQfDrdpDYW051eAGtg8LkmO5WsRJfyGEnYEAE/NaQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DRY8D86OFRSB/NppdTLvm2RcDrRqvpQEB3gLDDRMgbeykNLOQ/chEfpvqTNWO1oPqdP5JA52c46P5jeY3QlLgUZMrkQEQ1Fpz+97ix2+a4ycwyshOo01prGo6lmLNx/Cc4r48pr16JNI6NFqVAO82Xon/FNZ+wtlBBHhh3/j/GY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fObPrYxJ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=WDK/CQ4f; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="etoZZUM/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8683D1F00898
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790331834;
-	bh=FrSot8x4QotVXyr/g8ObBtebHxyiGnkrZvpM0ljF0Ck=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=etoZZUM/NgHwmbaHw3aPr9aWHpvzxSV97euUHRnfIkrx3p3CLqPDXapEvOXa4AX6P
-	 LSwNJP3X7AtDXWF9rR9Qfpm2zVy667449sNqvvjTf+1nJ+EKE0uCAwUQLRAVkvlSzG
-	 z41Nb2e50Dx12AtQ6youHq63D9+T4owvjPFWdjS2d4HrVvCo7RiVseH89T3HgloyZN
-	 PnxcnGw11lri29v6WvkBLn0itTrIEMW6sJWtHJZgbtO61aOKGN0YkFWW6+YlWm/e1u
-	 rRztVFbmp31aCdBFrJWIrJGHY18QvhEdUev2O3r4QZOdo0IYMeGRgbx1DFZVBvieAl
-	 5NkvTKsLdHusQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8ea203e5bso237304e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:23:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwHM0ba/o7brilzbau+LTy/VNrjWEJQ5aYgFy5iKxVXB9nKGRN52kWnExNV7OhyEXV0LaThyMMjQNYi0Xs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l96He+Fb6FA017lID0DtcwZEtoC9M9x2M2EAyyxIQBY5C8Wm8S
-	MEFaQwoGGKm4Ui7woJDvVZCqpaEAml+SF0BMusxQtohGf3tZvjPiZLSfWfDllPFE4sp7o/wmDrN
-	bPhW74eDUWJ2rdC4vYX9RWtWFripnxSpZQY0BGXwN2g==
-X-Received: by 2002:a05:6512:318e:b0:5b6:1a7c:fd99 with SMTP id
- 2adb3069b0e04-5b8df0e5636mr1998168e87.63.1790331833253; Fri, 25 Sep 2026
- 03:23:53 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 25 Sep 2026 10:23:52 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 25 Sep 2026 10:23:52 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <arZJDjT42V1X0I8m@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fObPrYxJ";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="WDK/CQ4f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790331837;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nqSQfDrdpDYW051eAGtg8LkmO5WsRJfyGEnYEAE/NaQ=;
+	b=fObPrYxJ+0WIQLTXTaX/fg0HO5AlpBJJ2bsjD4a1KlQhmqaQn3V11dZDY4od1NiQVnTpZ2
+	X2zzKP2beBnt/+ei4136WJcV0EC63mzlcEeirKQPUvJAtcAMoI7vjSBN1n31gPNzsY76Pa
+	gbjY0plYyXnUTFHOSGKNN8Or2HvKUII=
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-119-zkRdT5J7PNWF6Mhok5PnKA-1; Fri, 25 Sep 2026 06:23:56 -0400
+X-MC-Unique: zkRdT5J7PNWF6Mhok5PnKA-1
+X-Mimecast-MFC-AGG-ID: zkRdT5J7PNWF6Mhok5PnKA_1790331835
+Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3a3546bd99fso3348871fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:23:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790331835; x=1790936635; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nqSQfDrdpDYW051eAGtg8LkmO5WsRJfyGEnYEAE/NaQ=;
+        b=WDK/CQ4fMKAn7KNY/84dYWbGaffTaYn5FwhlHUWK5Tcx10h2SbwVIr5NWYlAWFEBhH
+         Zhb8x9Ry0a3xyZZQIaTRcZ0MAh7VnZHUrspP2kxJ1om4scvD3LU4MMUKSBK0+zbIJKzc
+         p+2LmCK0MyBpEbNsg6qYS85tZ5SJGI18l/gYBLAmc6cmZNUMvE0BBA+Nt1VH03ihz9L2
+         rXo4hY9Yyqc/olj8YG0i4v6uWefyqB+LrXU2y3IMmkXvz8tjdjxdYtg1/PFInXzA1j2F
+         Xcg1tbbpQzuWvYc+xmYIJqDoWxBVy1Yuh7j8JSlXUJeeE89uks4UFyjPH0oAIE/nwLen
+         Rzog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790331835; x=1790936635;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nqSQfDrdpDYW051eAGtg8LkmO5WsRJfyGEnYEAE/NaQ=;
+        b=tR+/P637NNffd3IXQ9hVOBYFd61w/3KxZiTQ+FLK6zb3+PKO43w1+RPgKg2nmFND4y
+         PkHBziCgQI8XRzDod2XRhPn9vXJkX8tdpFmewuIeLLzgn43ldnIAbZIEX82aXyDQX+hK
+         AQncvPbRn7tNqSp2ASTLdl61jJCZ9wDqk08+BLlekaKzNd0kVrwV0IP8ipgyg8qbb4xQ
+         BklUhpniCg0U/JE17SE1LphKjBv22FywJwygcgGZZEJvLDkfqzYgSnA14srgy5u0x9VN
+         QBFTkbh5zv1GmJnAGxTLtIzggKHh+sYGLVduZFOV8o1XwdH6SLgWvY7WKCbOUWL/4UJZ
+         t7pA==
+X-Forwarded-Encrypted: i=1; AKwUvByzTNYPzkqwFiheC9rCRnFgSE6vmGXbQgR89r2p6yaxDHKzPRoh/rqwpgiaV3GIJGprfONAg+mpAz5p1ZU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kx1NczSflOd4ETkdqVTTHkY7h5xDWb1WUMFPoacgzygYh+Mkvw
+	NDQvN2DBQ3W2yymPfX70q0fvmlX1lMi6eZP4oFSP/6DoLqCvDlASZrSbuuRGBo6xiEITPpGELOx
+	p7XRGQvD0pLjuEOzHbvx8Abw8s41B9vKt6FdbxFvSIWRfoBP3QNVKwNkAktWvQVOA
+X-Gm-Gg: AYBFou0pBW+5srnnuanGqKqKyu8/roGF3g0r52wBQJgfwz+MDY3JVIA0bO0IVVgIXkd
+	rYzZG/+Wf5psaQZ4rj847V68XnW08JDw4iopXRjOzg8uDQVX/TzpvbqdyGiftuJaCEPfd6ohYqm
+	U2VqlUs48YjgJ72Qf/b6RYXYdleVYg6cs/oQfUVZk8bufX14ad2tW+NFI1TQPLQfsxEUMSzq4Xo
+	zlpxtjGT16dl1vWGU0t40qjgen6RFRPmsTcGOj7kyh+O1Pf+s1feogO3Fv9rRq9KEM057/AlEL5
+	q2hZFX45nLyV9tBAo/e2mNNavzG58SWwvYOQItVDBVgzJVBx9OnW8lzpGNS3O8D4LBqC2sem27x
+	jVh+nQ+9jNqKU5hiCrhOG0Zfj7uF6zh4=
+X-Received: by 2002:a05:651c:b0a:b0:3a5:dfd3:41b6 with SMTP id 38308e7fff4ca-3a63bdbaf2amr14482411fa.0.1790331834954;
+        Fri, 25 Sep 2026 03:23:54 -0700 (PDT)
+X-Received: by 2002:a05:651c:b0a:b0:3a5:dfd3:41b6 with SMTP id 38308e7fff4ca-3a63bdbaf2amr14482331fa.0.1790331834509;
+        Fri, 25 Sep 2026 03:23:54 -0700 (PDT)
+Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a64c2ea5d2sm4507651fa.18.2026.09.25.03.23.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 03:23:53 -0700 (PDT)
+Message-ID: <65c5c412-56a7-46a9-b22b-22077a8e9727@redhat.com>
+Date: Fri, 25 Sep 2026 13:23:52 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924083512.461838-1-peng.fan@oss.nxp.com> <179032407610.10527.4008737984510756760.b4-ty@oss.qualcomm.com>
- <CAHp75VdBbr5TgEXrJ6XDQiPvsGfhyKQmVL+zUQ3mNS=GiWw1RQ@mail.gmail.com>
- <CAMRc=MfdAU0fvYa-XzGvdeMPsAG7z+QeMP7zywNaRW-emRJjRw@mail.gmail.com> <arZJDjT42V1X0I8m@ashevche-desk.local>
-Date: Fri, 25 Sep 2026 10:23:52 +0000
-X-Gmail-Original-Message-ID: <CAMRc=MdZ7n5061rwA6mo0_xTn++63HZ_JjwxTaC_qMWvTZT-fw@mail.gmail.com>
-X-Gm-Features: AclHuK8BLJv0Nmfuu1qClpQlZ68hH-_lPmNJq0HkRLGew1Aay6jSE9B3O9rM94M
-Message-ID: <CAMRc=MdZ7n5061rwA6mo0_xTn++63HZ_JjwxTaC_qMWvTZT-fw@mail.gmail.com>
-Subject: Re: [PATCH] gpio: wcove: use regmap_assign_bits() for conditional set/clear
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, Andy Shevchenko <andy@kernel.org>, 
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
-	Linus Walleij <linusw@kernel.org>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, linux-kernel@vger.kernel.org, 
-	Peng Fan <peng.fan@nxp.com>, linux-gpio@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 00/11] migrate on fault for device pages
+To: Christoph Hellwig <hch@infradead.org>
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+References: <20260924065313.899730-1-mpenttil@redhat.com>
+ <arY5zKsLuf7f_EYw@infradead.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+In-Reply-To: <arY5zKsLuf7f_EYw@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 25 Sep 2026 12:12:30 +0200, Andy Shevchenko
-<andriy.shevchenko@intel.com> said:
-> On Fri, Sep 25, 2026 at 09:54:42AM +0000, Bartosz Golaszewski wrote:
->> On Fri, 25 Sep 2026 10:27:55 +0200, Andy Shevchenko
->> <andy.shevchenko@gmail.com> said:
->> > On Fri, Sep 25, 2026 at 11:14=E2=80=AFAM Bartosz Golaszewski
->> > <bartosz.golaszewski@oss.qualcomm.com> wrote:
->> >> On Thu, 24 Sep 2026 16:35:11 +0800, Peng Fan (OSS) wrote:
->> >> > Replace if/else block using regmap_set_bits()/regmap_clear_bits() w=
-ith
->> >> > the simpler regmap_assign_bits() call.
->> >>
->> >> Applied, thanks!
->> >>
->> >> [1/1] gpio: wcove: use regmap_assign_bits() for conditional set/clear
->> >>       https://git.kernel.org/brgl/c/428cb7603f95d0ee6fad06cbf56321b1b=
-deaaa85
->> >
->> > Are you going to handle all the Intel GPIO drivers that have a
->> > MAINTAINERS record?
->>
->> Sorry, backing it up. We really need to organize GPIO drivers by vendor.=
-..
->
-> Do you want me to start intel subfolder?
->
 
-I already did[1]!
+On 9/25/26 12:07, Christoph Hellwig wrote:
+> Who is going to use this? The series seems to lack an actual user for it.
 
-Bart
+Two users:
 
-[1] https://lore.kernel.org/all/20260925-gpio-organize-by-vendor-v1-1-8feef=
-d60581b@oss.qualcomm.com/
+For one, existing migrate_vma_setup() callers, unchanged. The series
+reworks migrate_vma_setup() to collect via hmm_range_fault() internally
+(it sets HMM_PFN_REQ_MIGRATE and calls migrate_hmm_range_setup(),
+mm/migrate_device.c). So every in-tree migrate_vma consumer — nouveau,
+amdgpu/amdkfd, drm/xe via drm_pagemap, lib/test_hmm — runs on the new path.
+
+Second, the point is to fault-in and migrate in a single page-table walk
+instead of the 2–3 walks drivers do today . It can be driven by
+hmm_range_fault() directly instead of ping-ponging between hmm fault and
+migrate_vma interfaces, and lib/test_hmm exercises it. migrate.vma is
+also populated now for free on fault path. These are aimed at SVM like
+migrate-on-fault, and is motivated by Alistair Popple's experiments
+with  current interfaces, where the redundant-walk overhead showed up
+clearly in perf traces. The unified page table walker also avoids some
+limitations in current collecting interfaces that can crash when raced
+with unmap.
+
+So this is a building block for migrate-on-fault but delivers immediate
+in-tree effects by unifying, refactoring and more robust collecting.
+
+--Mika
+
+
