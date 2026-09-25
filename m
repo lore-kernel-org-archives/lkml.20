@@ -1,261 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C223A1B5;
-	Fri, 25 Sep 2026 01:09:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8476030DD10
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790298555; cv=none; b=jHk3Igxa7xW9UQNonFKxUQ08EOvgVeRNn2WCbrR4nnAF3xsMwz3PtefBvZEFbCr5UJFLnn5VLvwVSmYRiD/fu3rC6qDkcUh58d15LBmDJbRJSS4lFf6MhThQ/tdo+XLWTNyMIPF8n94/XI7ly9eJ19AR559ExsQQ4AnMZA9X5Yg=
+	t=1790298797; cv=none; b=O7QCjmAwhVLkNIBxTo26AQ2zTYXv3OYz4BxqEIkgE1QfiIDD7XTeJIOlUWYKIo5aMEgiXp8F3/YKGFUXyMOMQLQI4nmcFfVl2leBM+nfrabE+x+MMynDsIeYna59dRROrETF7UG5INqxJH5eb5LzdSMerYTyBDd/eKBTkHrh8sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790298555; c=relaxed/simple;
-	bh=qB6fHJOTfA6PQMD74N16cYuSENurpQNubc9j37qBuJE=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=svOJCUJhhXtYuF8qaZeAH0+0AG3/okrfYhiny54tjg3V8jRzwxKJGE1QgVsOtgmDNktcCuKEBs5YoFO3utPevlAGOTVDBrlnlhQ99h8NnP5SS89D9wK3vY4vSyLZ+/dbbWfxHJtksWYXEMdjYtgRrdJSGLy8vU0T+FJztLPphVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AATyQ69w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790298797; c=relaxed/simple;
+	bh=ydHVmHAKNkaOnIlJSUsYXWaXXQdhyvqp4w2fbF0dsdM=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=hoObThNJ0F55E+zgKZ4IcQ7oXdBGH78kdC1gbREJxsHzR7p0oYiqQUhv15JMuLOBbqrO6BzeWn6mJ5kBfwIVtrhPrMKVlc+9pka6p/4UP+t861Ra2PzeXGbWznpy8cKRhiP7FjtlBl5buVqStstwpLtN1H+k0AQdmoZ0u3JYL8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fjWvWHt3; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AATyQ69w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CD311F000FF;
-	Fri, 25 Sep 2026 01:09:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790298553;
-	bh=9Ij28vRxIvZHuJPgdpGDxrNhsIui5GPI4jf+cAlvS9c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AATyQ69wrNPgSQE/U7XdC3b/4eROqQpEMX+SLjdrvUhI6oPUszCGEmKzMweLjzGyZ
-	 ergSo9z8dg3k65hHMU7WntNe9Br2/gteQWxT81qyoDeNL9g326150pP6n5cylyFXHf
-	 wPGsupgbr0zGFONz9Q+JD8WMkWBqS+91e9fjUaSPagkoSlXui6hQphAaIxS/D1ivoh
-	 ymlwhn9jNc1U5Sr++q6dfFmg7og/gmXH7llH0b7PMKQBByTSXcrzW8omnQAIcqM/ni
-	 TPQn4HJ0UVXU7ifVcs6c5OUUuQLM7iNCLbKBI9fjYe41S3MtCcPVPPH4EDIadDaT4R
-	 Mhnb2eeYTKs9g==
-Date: Fri, 25 Sep 2026 10:09:08 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Xiang Gao <gxxa03070307@gmail.com>, Steven Rostedt
- <rostedt@goodmis.org>, Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Mathieu
- Desnoyers <mathieu.desnoyers@efficios.com>, Lorenzo Stoakes
- <ljs@kernel.org>, gao xu <gaoxu2@honor.com>, yinchuang1@xiaomi.com,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, Xiang Gao
- <gaoxiang17@xiaomi.com>
-Subject: Re: [PATCH v4 1/2] tracing: add ring-buffer memory usage statistics
- in tracefs
-Message-Id: <20260925100908.66c46353e5a2abeb73b1e15a@kernel.org>
-In-Reply-To: <arTlRPvmR54Fa71o@google.com>
-References: <20260916063322.472172-1-gaoxiang17@xiaomi.com>
-	<20260921113047.1152602-1-gaoxiang17@xiaomi.com>
-	<20260921113047.1152602-2-gaoxiang17@xiaomi.com>
-	<arJNSjKsJ3bK40dH@google.com>
-	<20260924102755.02084435309be26f664e3333@kernel.org>
-	<arTlRPvmR54Fa71o@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fjWvWHt3"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc52c77089bso382138a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:13:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790298792; x=1790903592; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tsGiZAY40ILBDkcC5GrUE+7G9t9ArWuC4UK+LzuL0LU=;
+        b=fjWvWHt3qBy1p/+Ew9JbG6AekfXL7HR08r1eejEhZ6wF9+Gll5vfCBrFvzlx1afte3
+         NcwYzn7BhkPNF7M4plnsqC2MMuucwVuyv7lAtuNN4u4QvIpx7qhEYV37kJCEQqmB9uHi
+         GHzQuopkQO5Fib0HbkFpghekRj3/szOmj8zjJpfL/bq3xp+nZxUOV95GUBmblpaSAlfU
+         hDQ2VF1XLJi5iSSjVZX2Edq+WnQg0F3mg9HudKPe2vvO5jcf00FLE/exIhU6vNtZLQaJ
+         wXJOcHklb5sTAGFGZW+HKxisNUTMRdUhlICDdfxSBfqrQLhmbbiisfS1UqKzte4XuC7V
+         2/iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790298792; x=1790903592;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tsGiZAY40ILBDkcC5GrUE+7G9t9ArWuC4UK+LzuL0LU=;
+        b=albgzyHRgNIWgLF83cVNDf02HHBgCZCfGA8REUk+amVHrAXTA3Ma6jyMtYimknbo2k
+         oHS1ldVhl8IEcumLjyzT7tMYArRiSsu8liN+TAIweGOB8BMC/ELdhnSpjGSyB8biLG0S
+         vX6i6cyGpcT8KkYLzRZ7tLLnFg/o7eFgY4MaAqtcwPj1dFWUNta56s2ou3LZf2+NKij7
+         4dgJpEUhQUa6qPobpLe2tg86CZo8yMZhm4nSqDUdpGpRoxojG4FVGsxXc4CS1fj9mDiH
+         SpEtkDQJkKH1dVRMKYb1QFYb7XCL9bVUE3L7JU0gcf92XV+iPrLtn/yVuIw9fb35zOCl
+         edCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwI0oKW4oPst5Uop4xAT8A/X+qXkIwCeqOo7xQa824hlR20+x5xhZVDFDws1VinIrJLQcJxo8XvDHmTCVA=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/Wjo8IhxS5xDvBw/FWevijPncrlan9CadPMKFx8scDst9u4Jw
+	J7RV42aZD+FSmw9uRWxwpgIRsHl4cLvRuUWOTRqr3gPdkh02MQDg3296rgT8CeySucDU+YvazbL
+	NvxayhxcyGFB9cQ==
+X-Received: from pgbfq7.prod.google.com ([2002:a05:6a02:2987:b0:cc4:b1e4:46a3])
+ (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a20:4329:b0:3d2:5eb3:596 with SMTP id adf61e73a8af0-3de0e73d6cfmr3866075637.16.1790298791917;
+ Thu, 24 Sep 2026 18:13:11 -0700 (PDT)
+Date: Fri, 25 Sep 2026 01:13:04 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260925011308.3381953-1-skhawaja@google.com>
+Subject: [RFC PATCH 0/3] iommu/arm-smmu-v3: Add support for hitless replace of
+ CD entries
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Samiullah Khawaja <skhawaja@google.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Lu Baolu <baolu.lu@linux.intel.com>, Pranjal Shrivastava <praan@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 24 Sep 2026 09:54:28 +0100
-Vincent Donnefort <vdonnefort@google.com> wrote:
+This patch series adds support for replacing IOMMU domains with S1 page
+tables hitlessly, that is without disrupting the ongoing DMAs. This is
+one of the dependencies of the Liveupdate IOMMU support for Arm SMMUv3.
 
-> On Thu, Sep 24, 2026 at 10:27:55AM +0900, Masami Hiramatsu wrote:
-> > On Tue, 22 Sep 2026 10:41:30 +0100
-> > Vincent Donnefort <vdonnefort@google.com> wrote:
-> > 
-> > > On Mon, Sep 21, 2026 at 07:30:45PM +0800, Xiang Gao wrote:
-> > > > Report the memory consumed by the tracing ring buffers, rather than the
-> > > > usable data capacity exposed by buffer_size_kb. Android low-memory
-> > > > diagnostics need this to attribute the memory used by tracing when
-> > > > calculating lost RAM.
-> > > > 
-> > > > The buffers can be spread across the global trace array, dynamically
-> > > > created instances, and snapshot buffers. Userspace currently has to
-> > > > discover and sum every instance, and snapshot memory is not exposed by
-> > > > the per-instance totals.
-> > > > 
-> > > > Add a trace_stats directory with memory_usage_kb reporting:
-> > > > 
-> > > >   buffers:
-> > > >   snapshot_buffers:
-> > > > 
-> > > > covering the global trace array, all instances, and the bootstrapping
-> > > > temp_buffer across all CPUs.
-> > > > 
-> > > > The values account for the full pages backing the data sub-buffers and
-> > > > reader page, plus the cached read page and mmap metadata page when
-> > > > present. Slab-allocated ring-buffer metadata is not included, as it is
-> > > > already reported through Slab and would be double-counted when
-> > > > subtracting tracing memory from lost RAM. Remote buffers, whose pages
-> > > > are externally owned, report zero.
-> > > 
-> > > For the next version, it is good practice to __not__ in-reply-to with previous
-> > > version.
-> > > 
-> > 
-> > Indeed. This is hard to find which is the latest version.
-> > 
-> > > > 
-> > > > Signed-off-by: Xiang Gao <gaoxiang17@xiaomi.com>
-> > > > ---
-> > > >  Documentation/trace/ftrace.rst | 12 +++++
-> > > >  include/linux/ring_buffer.h    |  1 +
-> > > >  kernel/trace/ring_buffer.c     | 41 +++++++++++++++
-> > > >  kernel/trace/trace.c           | 95 ++++++++++++++++++++++++++++++++++
-> > > >  4 files changed, 149 insertions(+)
-> > > > 
-> > > > diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-> > > > index 7261f25f8b4b..99ddfe26b7cd 100644
-> > > > --- a/Documentation/trace/ftrace.rst
-> > > > +++ b/Documentation/trace/ftrace.rst
-> > > > @@ -218,6 +218,18 @@ of ftrace. Here is a list of some of the key files:
-> > > >  
-> > > >  	This displays the total combined size of all the trace buffers.
-> > > >  
-> > > > +  trace_stats/memory_usage_kb:
-> > > > +
-> > > > +	This reports the memory consumed by the ring buffers, as opposed to
-> > > > +	the usable data capacity shown by buffer_size_kb. The value covers the
-> > > > +	main and snapshot buffers of the global trace array and all tracing
-> > > > +	instances. It does not include slab-allocated ring-buffer metadata.
-> > > > +
-> > > > +	Output::
-> > > > +
-> > > > +	    buffers: ...
-> > > > +	    snapshot_buffers: ...
-> > > > +
-> > > >    buffer_subbuf_size_kb:
-> > > >  
-> > > >  	This sets or displays the sub buffer size. The ring buffer is broken up
-> > > > diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
-> > > > index eac3e9080c3c..96b99e6757d4 100644
-> > > > --- a/include/linux/ring_buffer.h
-> > > > +++ b/include/linux/ring_buffer.h
-> > > > @@ -167,6 +167,7 @@ int ring_buffer_iter_empty(struct ring_buffer_iter *iter);
-> > > >  bool ring_buffer_iter_dropped(struct ring_buffer_iter *iter);
-> > > >  
-> > > >  unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu);
-> > > > +unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu);
-> > > >  unsigned long ring_buffer_max_event_size(struct trace_buffer *buffer);
-> > > >  
-> > > >  void ring_buffer_reset_cpu(struct trace_buffer *buffer, int cpu);
-> > > > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> > > > index 04bb94c29f58..efb88bf8970c 100644
-> > > > --- a/kernel/trace/ring_buffer.c
-> > > > +++ b/kernel/trace/ring_buffer.c
-> > > > @@ -6559,6 +6559,47 @@ unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu)
-> > > >  }
-> > > >  EXPORT_SYMBOL_GPL(ring_buffer_size);
-> > > >  
-> > > > +/**
-> > > > + * ring_buffer_memory_size - return the memory used by the buffer (in bytes)
-> > > > + * @buffer: The ring buffer.
-> > > > + * @cpu: The CPU to get ring buffer memory from.
-> > > > + *
-> > > > + * Returns the page-allocator memory consumed by @cpu, including the data
-> > > > + * sub-buffers, the reader page, the cached read page, and the mmap
-> > > > + * metadata page. Unlike ring_buffer_size(), which reports the usable data
-> > > > + * capacity, this accounts for the full pages allocated to the buffer.
-> > > > + * Remote buffers do not own page-allocator memory and report zero.
-> > > > + */
-> > > > +unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu)
-> > > > +{
-> > > > +	struct ring_buffer_per_cpu *cpu_buffer;
-> > > > +	unsigned long subbuf_size;
-> > > > +	unsigned long size;
-> > > > +
-> > > > +	if (!cpumask_test_cpu(cpu, buffer->cpumask))
-> > > > +		return 0;
-> > > > +
-> > > > +	/* Remote buffers use externally owned memory. */
-> > > > +	if (buffer->remote)
-> > > > +		return 0;
-> > 
-> > For the persistent ring buffer, you also need to check `buffer->range_addr_start`.
-> > That is a reserved memory, which is outside of page allocator.
-> > 
-> > > 
-> > > This is a generic interface. If you want to call this function on a remote
-> > > buffer, you should be able to.
-> > 
-> > But as the comment said, this function returns the size of page-allocator
-> > memory. Is remote ring buffer allocated from host?
-> 
-> It is down to the trace_remote implementer where the memory comes from, but
-> right now, all remote ring buffer are allocated from the buddy allocator.
+S1 domains are programmed by CD entries in the CD table. During a new
+domain attach these are updated using arm_smmu_write_cd_entry(). Since
+ASID and TTB0 are in different 64-bit words, arm_smmu_write_cd_entry()
+considers it a non-hitless update and sets V=0. This means such an
+update is disruptive and would generate translation faults if there are
+ongoing DMAs.
 
-Ah, I got it, its size should be reported via ring_buffer_memory_size().
-Hmm, maybe we should add a callback for each trace instance so that it
-can return the actual size and the attribute (host memory, guest memory,
-reserved memory, or device memory (e.g. GPU memory?))
+Replace the CD entries by using an unused temporary ASID in the
+following sequence to allow hitless replacement of CD entry,
 
-> 
-> Although, even coming from a carveout, the low-level function should probably
-> return something in any case, as it has all the informations it needs and to
-> stay as generic as possible.
-> 
-> Then, the caller (trace_stat) should know if the information is relevant or not,
-> or where to account for it. (probably with TRACE_ARRAY_FL_ flags ?). trace_stat
-> shouldn't report only what's relevant for Android. It can however split the
-> report between persistent ring-buffers and the others.
+- Update the CD entry with temporary ASID.
+- Update the CD entry with the target TTB0.
+- Invalidate the temporary ASID.
+- Update the CD entry with target ASID.
+- Invalidate and release the temporary ASID.
 
-Yeah, this should return the attribute flag with the memory size.
+The series adds a vfio selftest that triggers a continuous DMA and does
+the hwpt replace while the DMA is ongoing. Since domain replacement is a
+race with the translation requests, the test does it multiple times to
+capture the small window where IOMMU faults can occur.
 
-> 
-> Overall, we could have
-> 
-> cat trace_mem
-> 
->   main:
->   instances:
->   snapshots:
->   persistents: 
->   remotes:
-> 
->   total_system:
->   total_carveout:
-> 
-> Which I believe would be a more accurate picture: First the memory sorted by
-> "type" of buffers and then by "type of memory".
+Without this change we can observe the SMMU faults in the kernel logs
+and with it the SMMU faults do not occur.
 
-Agreed.
+This is only tested on qemu with the emulated SMMUv3 and an out of tree
+NVMe vfio selftest driver, not on real hardware. Following are not
+covered and can be done later,
 
-> 
->  
-> > 
-> > > 
-> > > Moreover, remote buffer in-production current use is for Android... So not only
-> > > ring_buffer_memory_size() should support them, but they should probably be
-> > > actively reported somewhere...
-> > 
-> > Maybe we should have different size accounting interface for remote buffer
-> > and persistent buffer.
-> 
-> For the remote, it should probably sit in trace_remote.c, which can call
-> ring_buffer_memory_size(). trace_stat can then query the memory size from
-> trace_remote.
+- S2 domains have the same problem, S2VMID is in STE qword 2 and S2TTB is
+  in qword 3. These need the same handling with a temporary VMID.
+- ATS is not tested, the test environment runs with pci=noats.
 
-I think the copy of the persistent ring buffer (backup instance) could be
-implemented as remote, but the persistent ring buffer itself is not remote
-because it is writable. (copy ring buffer is actually like remote, it is
-read only, and it should be auto unloaded.)
+Testing:
 
-Thank you,
+Without Fix:
 
-> 
-> And actually I have a pending series where I keep the list of trace_remote [1]
-> which would be a prerequisite.
-> 
-> [1] https://lore.kernel.org/all/20260817135517.3919534-2-vdonnefort@google.com/
-> 
-> > 
-> > Thanks,
-> > 
-> > -- 
-> > Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> -- 
-> Vincent
+  TAP version 13
+  1..2
+  # Starting 2 tests from 2 test cases.
+  #  RUN           vfio_iommufd_replace_hwpt_test.domain_replace.memcpy ...
+  [   33.267749] vfio-pci 0000:00:0a.0: enabling device (0000 -> 0002)
+  [   33.270709] vfio-pci 0000:00:0a.0: resetting
+  [   33.385682] vfio-pci 0000:00:0a.0: reset done
+  [   37.128021] arm-smmu-v3 9050000.smmuv3: event 0x0a received:
+  [   37.131885] arm-smmu-v3 9050000.smmuv3:      0x000000500000000a
+  [   37.134585] arm-smmu-v3 9050000.smmuv3:      0x0000000000000000
+  [   37.136961] arm-smmu-v3 9050000.smmuv3:      0x0000000000000000
+  [   37.139631] arm-smmu-v3 9050000.smmuv3:      0x0000000000000000
+  [   37.142188] arm-smmu-v3 9050000.smmuv3: event: C_BAD_CD client: 0000:00:0a.0 sid: 0x50 ssid: 0x0
+
+  ...
+  ...
+
+With Fix:
+
+  TAP version 13
+  1..2
+  # Starting 2 tests from 2 test cases.
+  #  RUN           vfio_iommufd_replace_hwpt_test.domain_replace.memcpy ...
+  [   33.418253] vfio-pci 0000:00:0a.0: enabling device (0000 -> 0002)
+  [   33.421218] vfio-pci 0000:00:0a.0: resetting
+  [   33.539750] vfio-pci 0000:00:0a.0: reset done
+  #            OK  vfio_iommufd_replace_hwpt_test.domain_replace.memcpy
+  ok 1 vfio_iommufd_replace_hwpt_test.domain_replace.memcpy
+  #  RUN           vfio_iommufd_replace_hwpt_test.noreplace.memcpy ...
+  [   88.416453] vfio-pci 0000:00:0a.0: resetting
+  [   88.531989] vfio-pci 0000:00:0a.0: reset done
+  #            OK  vfio_iommufd_replace_hwpt_test.noreplace.memcpy
+  ok 2 vfio_iommufd_replace_hwpt_test.noreplace.memcpy
+
+Looking forward to your feedback on this.
+
+Dependencies:
+The patch series includes a patch from the vfio selftest multi iommu
+series as it is required for the hwpt_replace vfio selftest. It is part
+of this series since the original code doesn't apply cleanly on the
+base.
+https://lore.kernel.org/all/20260505221518.619123-1-skhawaja@google.com/
+
+Related Work:
+Liveupdate IOMMU patch series:
+https://lore.kernel.org/all/20260921004834.2601285-1-skhawaja@google.com/
+Liveupdate IOMMU feature patchset breakdown:
+https://docs.google.com/document/d/1enDn-uPE9U77U-xHEnzn6HHGKiePSAtMIP8EDU3NO0M
+
+Samiullah Khawaja (3):
+  vfio: selftests: Add support of creating iommus from iommufd
+  vfio: selftests: Add iommufd hwpt replace test
+  iommu/arm-smmu-v3: Add support for hitless replace of S1 domains
+
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   |  66 ++++++-
+ tools/testing/selftests/vfio/Makefile         |   1 +
+ .../vfio/lib/include/libvfio/iommu.h          |   2 +
+ .../lib/include/libvfio/vfio_pci_device.h     |   2 +
+ tools/testing/selftests/vfio/lib/iommu.c      |  60 +++++-
+ .../selftests/vfio/lib/vfio_pci_device.c      |  25 ++-
+ .../vfio/vfio_iommufd_hwpt_replace_test.c     | 171 ++++++++++++++++++
+ 7 files changed, 316 insertions(+), 11 deletions(-)
+ create mode 100644 tools/testing/selftests/vfio/vfio_iommufd_hwpt_replace_test.c
 
 
+base-commit: 3d7783543c2646af69ad65825e810060494bea21
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.56.0.rc1.315.gc6ed9934b7-goog
+
