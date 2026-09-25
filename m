@@ -1,73 +1,77 @@
-Received: from mail-dy2-f35.google.com (mail-dy2-f35.google.com [74.125.229.35])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4023C48FF69
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A0348FF80
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331822; cv=none; b=nLZw+QTsgtpMlJjGd+0IjKb0z8KcSfBgw9DJJ033vGhPOXOXkO3BzN9hRxyzeSPhC09+yU4RV62vmsUKKx0xwMa1a/9z+Vp9rlfaU+tRcH8Q1tAhaU4NcrabXSkq9yLWSFR/Wzt1xZGrfMzZFxw3ZBjIwPcPIDPnIo8M/tA/13Q=
+	t=1790331825; cv=none; b=RGRwZp8dyfrlcx1mpbe76NSr0DS/9WblC96l6gj+9saBirP9j7eDxRpAu5HcwvPaVBO1tvlvv/LhBV73pebflnpwEGumOjYHDdlbXH/6p2tDldaXOmLzlnFTXm8laZXzsGP+ZsGyFq1Ru5BH28gcK5FlBzIHPauha3fBKrWHAK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331822; c=relaxed/simple;
-	bh=pvnBo0BTjzgEz5yxhZt9kr22DruVbgYxPEJ7jyn0UUQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Almfmr+Q117nf5A2/rNRVzA3msJY3h+cLXNtlrPJZ6gpV6N/3cvx9eZrbMfiQ7JMkePpgl6jN7s4dpdbyNFeBWdT1wQIc+qB5caLbD37ckmEVGroXBkB+5NxBOM8yzNZE4wcvqAnNINZmln21gB3WYwYAdSEKdBQjQLTdRUyIoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=baFRAsBg; arc=none smtp.client-ip=74.125.229.35
+	s=arc-20240116; t=1790331825; c=relaxed/simple;
+	bh=bJ9mjgvgy63CVURyEBxilwBv4lxmciIUAtuW7RsI48g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gybn7q+ntJay5Y84UHji89gmjfb2UzFDnrwTAyCcLqAODZfb8wQFsvvfh/vqoLV/SAUbFFGpY1tn9BryVYN/4IxiknNM7IMyhim+Z+i5Xu2Huunl2hRXMO4Jrumj893p7ZM2ItbiB+UHw1+c94+ExlmmMtu6dCA/ln/WDguK3Dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jTk41lRE; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="baFRAsBg"
-Received: by mail-dy2-f35.google.com with SMTP id 5a478bee46e88-3381a6a05c9so388725eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:23:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jTk41lRE"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-340f56c44b0so291814eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:23:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790331820; x=1790936620; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MFw8u/VdnLoQh1l7Rz3Xhcg3E9/nfHoTOlWcqQk/LkI=;
-        b=baFRAsBgYyCC2Q0Xvz11I45AxpvH+GM6XhrZ7x1atZez21qjUNF7hNV/lqmt+a/+Am
-         h9BmpGIAM4C4/b8xBtUpxqUyGIKc0xSgOfi23jrO2R9/8vzmGjm+SLha/7TCD6HOPHZ+
-         Vt9k8CzqotZIT7BPxF8WBhGn6t5oxwnRQGUcQOuJTz2UPHehnb33MzwI/AURTv+T2PuA
-         4zMX6IU9yWNG5kZOhWYd6RKz1cRT6RwSmdrPnCC2EC/E0W5hvtg2sGgTGA1SQdgndJWv
-         KiWoklqEoH5yfZ4v2JCYT+gZ2H1MI2f9NkqZgqHI2MbZLOtGpRmIOSBe7z9SPP6JSkeg
-         EoRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790331820; x=1790936620;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790331823; x=1790936623; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MFw8u/VdnLoQh1l7Rz3Xhcg3E9/nfHoTOlWcqQk/LkI=;
-        b=PluE5IgUAZGlNmAbwXlZk649diPnoYPEu11NFRZnwwMhWM2Yu9LLjmaINP5p9PrFDr
-         8QZX6uBB98N7C+x301tyWk81yewrHVvKOaB4TmW3asf5MYdUueZAffV51h+pRLnZXW2v
-         kJ+xKOMZ//qKvtSMkEOMcOjNwvJc9kykCC9UodgLSN57uTPIyVHOwP7YTzNK6oJ+rYWA
-         EYCp3F8ZFiIcGeJ6TVuZABhXbJ+znWAKG4O484TLrjsz/O9c4bYlZN3fVvn604mEjCV8
-         6NJVnECJR9CF+EconCGGU7+YI9/oCljv6biwc22wYyc+WtVeOnWEbEdaeIp7RICRpE3Z
-         lkag==
-X-Forwarded-Encrypted: i=1; AKwUvByh0gysxxtKvRgttGJdWrCsNkehn78KT1JETOgFB57Qen8d13VHjm1DT3TX4Vu+pmoyb34kGt6OI88OueA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lEfelZL/5dWZvck3Swfg99YuAsZyN/msc4gTIvBRdpUB2mv7I8
-	tUyh02SWPM9mV8JfqZMuzzy/3b05IGZgmmFLmDvewNMqJhd5UWZHHIhT
-X-Gm-Gg: AYBFou2/43RF2Aq8GnJc4fknBvLk4ZU4EMhnfjviW/9zcxEeMZtVF4Eb9tXp42ztNWn
-	Q7wSaD9ixXW2BM6ke024709+uMkhWbVHsdtHEt0DQxhh55S8VQ/8SYDJOgeSM6QR46/JGIQ+hVB
-	CnjAG+sYRE/10Odh1EyR3pprccNCKBsSVAXriogLBviNDJz2ufImDl4W81Ih+YGEcRRvxRU51mR
-	vgx0R063jniRnO0NSML6Al6q+2JvHlbZJ9UpCgTQTZdD+5gGLFCbXWcMlkE5o2r8inQeAFfV9mO
-	0hQiAwAROD1eFbBvGEiaEN0Pak8Dzj+TSoEC2xaC7My3/glm9R6UZRytHbtx+W8xfvulImkpYWf
-	FlWrKSAzt9rxkfKmK/Evg5FAlC6ak5pNrwy3XFqEa0fUtluu7e6uSVLkCg9/eVqElw7gs4k6GeW
-	EeI3knxSbIxK4XyYcMJoVwncN/GtukIi+yesbcrxvRBD0I6Lr1TLuw3EG5AB97U7NOJKZ9Inaxs
-	nVFba3kf5BWakezkewavKk56All8Rm9dtrOkszcpUWgHro09If3BiIYFx2czu463czqHeDXMHlm
-	RMyU7c9LhUMwqxqE+5Rk2Xo+NQpRTdEwALMHNmQL+xbWZis9+P6FsZldZ54o9SPwXD+Yh0JVmw=
+        bh=AUqXXsS1oTWUMaZa0d9vSWNRltf7D2wfMl4AyP+vB8Y=;
+        b=jTk41lREEfv1McUlRb/aPTr/CxsvJPHe+wcGp3eyDch21V8XySRpoLwzU7V6z7fuKS
+         ubWuq+dO8VtX/zyfFtxH9VIkkYSr6ky8E2aNHVs2onAOPI3xsno2V7KJ15agOG94MjJk
+         zsxWPevo2ka9RbclioibFvOfXzsyeKTo1+/8UuT1R3Wf7g+L0N10oYrchzu+J+xT98MY
+         Lg7Hg2Q0DG6Ks3ys8pS5sPLHQ7viCk0FEFRO/60AoRmm9FWTl8DlhhPSzFBy7tsVf/C0
+         N9h81adcrn1Npgjydo2XwJClrAnNlhz8v4desjhZ6HtOdlC7sCTrpUcvsF2fiqlVTcoB
+         +I2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790331823; x=1790936623;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AUqXXsS1oTWUMaZa0d9vSWNRltf7D2wfMl4AyP+vB8Y=;
+        b=IuuMODSx48htCOJgtGGpuj9plSGL8N/olwd7hvfDb+6K2S1mUCSOIhifKlPcdxbRxq
+         4UCsq4hg+hna6Xdts4WLvfV5ZQ5ZPwW9WvKo9XbP0iPBDUICtPYlcrxAPQplJV7XLCY0
+         enHFO/mzugSP3Hs6QtJ9fuNFg5aE2SvLZI1wLfQpRcNJzzKBB2KQKnA1KRgUqtiSf65z
+         txQ85QKYptRin5GyUByeXbTfXGOCqlmaahSzQR4Q4WQZmN3g/MBR1VTSWKD3UxuG05Vv
+         5b7ZMw62sKBqEQCmCvYcnT1zG9Npj1omrt54R7AlzY+dGVgRQsdpu1pwq3rO8M1aN1TE
+         zASQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxuBCwFQXSJcvAaK382HfMx/81oF1OPXtdHul0g63lrQNciBq9jPj1qScgXlwi6xGeVzv/G+nz0uWorQiw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzpPxchGX66RenpO/w+UtAA/gW/iTpiOK599/Dtc68bFKJqyw/
+	26o+zSBTEKgSc0wzaQV7XqFkDWDhksOpquGqupk5BwqyLEe4fcFVeEYn
+X-Gm-Gg: AYBFou1Ry86+87tV11dKDCNK3Y+9ytuzj3XucptLifEgHwqPZBRSka9lfUWK4wylPAa
+	eVlCjlqEPtLxqSKerKlkj2RUj1PONzQyqBSLh4dE754AiYbBLjS3BdPX4N7Go6CARtKPpzYgU0E
+	8kcfMJ6hX6gvEEauIbluIrQoVmXXGJxtAoodT8scTz6yBpScMsPhCCR4u3BUqVARBFlXP8p2tIZ
+	VfXWHmWN4L3xrPkXIyPp+b5tttPBxWDng+9B0GWtNv9bA5ktinlvtBgtGtZxRTcPjIZTRaY5yam
+	2svblqQwBUwuz8R36z8rZ3UsM5ogfVmS+i9coE/ckngZPobxtXshNr5VOrYKVUW5tp+VnCWrytp
+	bF9babYfrNWrrLszbtkvyXvnvyLtEO/y4bXkfT6jV4/iX9tKVQTSAtjIXDlUUDxeHYLQMsAqBe0
+	3pvyeON9pT2cUYPvtTuvGv9BV8PDtFEomPHpu7ENwGSkP0jvlKepBhT3yNBWbnmjWEjOUXEbF9z
+	I9kNdeON6ampKbib3lmBHCfC54CeKedAnKUcfxz8wBUUMUgVrfwFk4kd+GHOZSkb3LKQi/x943D
+	rlN/nVEVTch/1mLFa1QWsS/W2Yow1DuorRn6XT+eSsGmZ1w8XV9mMPzghkIgYr0XQLyAK3pfzw=
 	=
-X-Received: by 2002:a05:7300:fd16:b0:340:ef5d:3517 with SMTP id 5a478bee46e88-340ef5d3737mr4599341eec.15.1790331820032;
-        Fri, 25 Sep 2026 03:23:40 -0700 (PDT)
+X-Received: by 2002:a05:7301:7bc9:b0:33b:e77f:8a3c with SMTP id 5a478bee46e88-34000d3600amr5598603eec.33.1790331822682;
+        Fri, 25 Sep 2026 03:23:42 -0700 (PDT)
 Received: from FT6N242TWK ([223.181.117.176])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144173a2asm5787949eec.6.2026.09.25.03.23.37
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144173a2asm5787949eec.6.2026.09.25.03.23.40
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 25 Sep 2026 03:23:39 -0700 (PDT)
+        Fri, 25 Sep 2026 03:23:42 -0700 (PDT)
 From: shashank <jain.sm@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Alex Elder <elder@kernel.org>,
 	David Gow <david@davidgow.net>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] lib: parser: reject out-of-range values in match_number()
-Date: Fri, 25 Sep 2026 15:53:33 +0530
-Message-ID: <20260925102334.49693-1-jain.sm@gmail.com>
+Subject: [PATCH 2/2] lib/tests: add KUnit test for parser number helpers
+Date: Fri, 25 Sep 2026 15:53:34 +0530
+Message-ID: <20260925102334.49693-2-jain.sm@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260925102334.49693-1-jain.sm@gmail.com>
+References: <20260925102334.49693-1-jain.sm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,112 +80,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-match_int(), match_octal() and match_hex() store the result in an int
-and return -EINVAL or -ERANGE on failure.  match_number() checks the
-range by parsing into a long with simple_strtol() and comparing against
-INT_MIN/INT_MAX, a check added by commit 77dd3b0bd17a ("lib/parser.c:
-avoid overflow in match_number()").  That does not catch every
-out-of-range input:
+Add a small KUnit suite for match_int(), match_octal() and match_hex(),
+covering values at and just beyond the int range, values that overflow
+64 bits, and a match_token() round trip with an out-of-range argument.
 
- - simple_strtoull() saturates to ULLONG_MAX on overflow and
-   simple_strtol() simply converts its result to long, so any value of
-   at least 2^64 - 2^31, and anything that overflows 64 bits, ends up
-   inside the int range.  On 64-bit, match_int() returns 0 and sets
-   the result to -1 for "18446744073709551615" or
-   "99999999999999999999", match_hex() does the same for
-   "ffffffffffffffff", and "-18446744073709551615" gives 1.
-
- - On 32-bit, long has the same width as int, so the range check can
-   never fail: "2147483648" gives INT_MIN and "4294967295" gives -1.
-
-On 64-bit, values from INT_MAX + 1 up to 2^64 - 2^31 - 1 are already
-rejected, so for those this only makes 32-bit kernels behave like
-64-bit ones.  Two callers store the result in a u32 and so accepted
-such values on 32-bit only: the legacy NFSv4 idmapper upcall
-(fs/nfs/nfs4idmap.c), which falls back to a numeric id when the lookup
-fails, and rd_pages= in drivers/target/target_core_rd.c, which also
-ignores match_int()'s return value.
-
-These helpers parse mount options and similar user-supplied strings,
-so an out-of-range number is silently accepted as a different value
-instead of being rejected.
-
-Parse the number the same way simple_strtol() does, using the same
-kstrtox helpers, but keep the unsigned magnitude and the overflow
-indication, and check the magnitude against the int range.  The
-accepted syntax, including what counts as "no number" (-EINVAL), is
-unchanged.  kstrtoint() is not used because it rejects trailing
-characters ("12abc" gives 12 today) and differs in the handling of a
-lone "-" or "0x".
-
-Fixes: 77dd3b0bd17a ("lib/parser.c: avoid overflow in match_number()")
 Assisted-by: LLM
 Signed-off-by: shashank <jain.sm@gmail.com>
 ---
- lib/parser.c | 39 +++++++++++++++++++++++++++------------
- 1 file changed, 27 insertions(+), 12 deletions(-)
+ lib/Kconfig.debug        |  12 ++++
+ lib/tests/Makefile       |   1 +
+ lib/tests/parser_kunit.c | 131 +++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 144 insertions(+)
+ create mode 100644 lib/tests/parser_kunit.c
 
-diff --git a/lib/parser.c b/lib/parser.c
-index 62da0ac0d438..30fdaefe4957 100644
---- a/lib/parser.c
-+++ b/lib/parser.c
-@@ -11,6 +11,8 @@
- #include <linux/slab.h>
- #include <linux/string.h>
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 134b15a44625..905ccec61868 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2918,6 +2918,18 @@ config CMDLINE_KUNIT_TEST
  
-+#include "kstrtox.h"
-+
- /*
-  * max size needed by different bases to express U64
-  * HEX: "0xFFFFFFFFFFFFFFFF" --> 18
-@@ -137,22 +139,35 @@ EXPORT_SYMBOL(match_token);
-  */
- static int match_number(substring_t *s, int *result, int base)
- {
--	char *endp;
- 	char buf[NUMBER_BUF_LEN];
--	int ret;
--	long val;
-+	unsigned long long val;
-+	unsigned int radix = base;
-+	const char *cp = buf;
-+	bool negative;
-+	unsigned int rv;
+ 	  If unsure, say N.
  
- 	if (match_strlcpy(buf, s, NUMBER_BUF_LEN) >= NUMBER_BUF_LEN)
- 		return -ERANGE;
--	ret = 0;
--	val = simple_strtol(buf, &endp, base);
--	if (endp == buf)
--		ret = -EINVAL;
--	else if (val < (long)INT_MIN || val > (long)INT_MAX)
--		ret = -ERANGE;
--	else
--		*result = (int) val;
--	return ret;
++config PARSER_KUNIT_TEST
++	tristate "KUnit test for parser number helpers" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++	help
++	  This builds the unit test for the number parsing helpers in
++	  lib/parser.c (match_int(), match_octal(), match_hex()).
++	  For more information on KUnit and unit tests in general please refer
++	  to the KUnit documentation in Documentation/dev-tools/kunit/.
 +
-+	/*
-+	 * Parse like simple_strtol() does, but keep the magnitude and the
-+	 * overflow indication instead of truncating to a long, so that
-+	 * values outside the range of an int can be rejected.
-+	 */
-+	negative = *cp == '-';
-+	if (negative)
-+		cp++;
-+	cp = _parse_integer_fixup_radix(cp, &radix);
-+	rv = _parse_integer(cp, radix, &val);
-+	if (cp + (rv & ~KSTRTOX_OVERFLOW) == buf)
-+		return -EINVAL;
++	  If unsure, say N.
 +
-+	if (rv & KSTRTOX_OVERFLOW ||
-+	    val > (negative ? (unsigned long long)INT_MAX + 1 : INT_MAX))
-+		return -ERANGE;
+ config BASE64_KUNIT
+ 	tristate "KUnit test for base64 decoding and encoding" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT
+diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+index 3cac3b63a752..cbabf4939ce8 100644
+--- a/lib/tests/Makefile
++++ b/lib/tests/Makefile
+@@ -41,6 +41,7 @@ obj-$(CONFIG_MEMCPY_KUNIT_TEST) += memcpy_kunit.o
+ obj-$(CONFIG_MIN_HEAP_KUNIT_TEST) += min_heap_kunit.o
+ CFLAGS_overflow_kunit.o = $(call cc-disable-warning, tautological-constant-out-of-range-compare)
+ obj-$(CONFIG_OVERFLOW_KUNIT_TEST) += overflow_kunit.o
++obj-$(CONFIG_PARSER_KUNIT_TEST) += parser_kunit.o
+ obj-$(CONFIG_PRANDOM_KUNIT_TEST) += random32_kunit.o
+ obj-$(CONFIG_PRINTF_KUNIT_TEST) += printf_kunit.o
+ obj-$(CONFIG_RANDSTRUCT_KUNIT_TEST) += randstruct_kunit.o
+diff --git a/lib/tests/parser_kunit.c b/lib/tests/parser_kunit.c
+new file mode 100644
+index 000000000000..b92476cf711f
+--- /dev/null
++++ b/lib/tests/parser_kunit.c
+@@ -0,0 +1,131 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * KUnit tests for the number helpers in lib/parser.c
++ */
 +
-+	*result = negative ? -(long long)val : (long long)val;
-+	return 0;
- }
- 
- /**
++#include <kunit/test.h>
++#include <linux/limits.h>
++#include <linux/parser.h>
++#include <linux/string.h>
++
++struct parser_number_case {
++	const char *in;
++	int ret;
++	int val;
++};
++
++typedef int (*match_fn_t)(substring_t *s, int *result);
++
++static void parser_check(struct kunit *test, match_fn_t fn, const char *name,
++			 const struct parser_number_case *c, size_t n)
++{
++	size_t i;
++
++	for (i = 0; i < n; i++) {
++		char buf[64];
++		substring_t s;
++		int val = 0x5a5a5a5a;
++		int ret;
++
++		strscpy(buf, c[i].in, sizeof(buf));
++		s.from = buf;
++		s.to = buf + strlen(buf);
++
++		ret = fn(&s, &val);
++		KUNIT_EXPECT_EQ_MSG(test, ret, c[i].ret, "%s(\"%s\")",
++				    name, c[i].in);
++		if (!c[i].ret)
++			KUNIT_EXPECT_EQ_MSG(test, val, c[i].val, "%s(\"%s\")",
++					    name, c[i].in);
++	}
++}
++
++static const struct parser_number_case match_int_cases[] = {
++	{ "0",				0,		0 },
++	{ "42",				0,		42 },
++	{ "-42",			0,		-42 },
++	{ "0x10",			0,		16 },
++	{ "010",			0,		8 },
++	{ "2147483647",			0,		INT_MAX },
++	{ "-2147483648",		0,		INT_MIN },
++	{ "2147483648",			-ERANGE,	0 },
++	{ "-2147483649",		-ERANGE,	0 },
++	{ "4294967295",			-ERANGE,	0 },
++	{ "9223372036854775808",	-ERANGE,	0 },
++	{ "18446744073709551615",	-ERANGE,	0 },
++	{ "-18446744073709551615",	-ERANGE,	0 },
++	{ "99999999999999999999",	-ERANGE,	0 },
++	{ "0xffffffffffffffff",		-ERANGE,	0 },
++	{ "abc",			-EINVAL,	0 },
++};
++
++static const struct parser_number_case match_octal_cases[] = {
++	{ "755",			0,		0755 },
++	{ "17777777777",		0,		INT_MAX },
++	{ "20000000000",		-ERANGE,	0 },
++	{ "1777777777777777777777",	-ERANGE,	0 },
++	{ "8",				-EINVAL,	0 },
++};
++
++static const struct parser_number_case match_hex_cases[] = {
++	{ "ff",				0,		0xff },
++	{ "7fffffff",			0,		INT_MAX },
++	{ "80000000",			-ERANGE,	0 },
++	{ "ffffffffffffffff",		-ERANGE,	0 },
++	{ "10000000000000000",		-ERANGE,	0 },
++	{ "g",				-EINVAL,	0 },
++};
++
++static void parser_test_match_int(struct kunit *test)
++{
++	parser_check(test, match_int, "match_int", match_int_cases,
++		     ARRAY_SIZE(match_int_cases));
++}
++
++static void parser_test_match_octal(struct kunit *test)
++{
++	parser_check(test, match_octal, "match_octal", match_octal_cases,
++		     ARRAY_SIZE(match_octal_cases));
++}
++
++static void parser_test_match_hex(struct kunit *test)
++{
++	parser_check(test, match_hex, "match_hex", match_hex_cases,
++		     ARRAY_SIZE(match_hex_cases));
++}
++
++enum { PARSER_TEST_OPT_SIZE, PARSER_TEST_OPT_ERR };
++
++static const match_table_t parser_test_tokens = {
++	{ PARSER_TEST_OPT_SIZE, "size=%d" },
++	{ PARSER_TEST_OPT_ERR, NULL },
++};
++
++static void parser_test_match_token_int(struct kunit *test)
++{
++	char opt[] = "size=18446744073709551615";
++	substring_t args[MAX_OPT_ARGS];
++	int val = 0;
++
++	KUNIT_ASSERT_EQ(test, match_token(opt, parser_test_tokens, args),
++			PARSER_TEST_OPT_SIZE);
++	KUNIT_EXPECT_EQ(test, match_int(&args[0], &val), -ERANGE);
++}
++
++static struct kunit_case parser_test_cases[] = {
++	KUNIT_CASE(parser_test_match_int),
++	KUNIT_CASE(parser_test_match_octal),
++	KUNIT_CASE(parser_test_match_hex),
++	KUNIT_CASE(parser_test_match_token_int),
++	{}
++};
++
++static struct kunit_suite parser_test_suite = {
++	.name = "parser",
++	.test_cases = parser_test_cases,
++};
++
++kunit_test_suite(parser_test_suite);
++
++MODULE_DESCRIPTION("KUnit tests for lib/parser.c number helpers");
++MODULE_LICENSE("GPL");
 -- 
 2.43.0
 
