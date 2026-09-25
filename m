@@ -1,100 +1,206 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DBD483804;
-	Fri, 25 Sep 2026 13:51:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58B24A3F27;
+	Fri, 25 Sep 2026 13:52:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790344307; cv=none; b=YLVsim8Vc5V0DdxBm9OwNzsD9JBE2e3nu0Cm89dme3+nMJrVwR/zZEisTzJ+iR22eqvki7OslVMngn1PifKo7mf4wI1FygDfP1ny3JOxN6UO2bC1oZLQXiSNwwyb/T0sqnzNGyeyiOErTD88DnXsj0piS8wrZU4bX5gm+Thr4Yk=
+	t=1790344343; cv=none; b=tEmwhi5hITcFiHx2/dDvS6o3ald3CZYqzV8wNrCtffuseEJW2lKiOOdz3J/XVzW4jorKbc6c5QK35biOKucZNAQd4mcgOXoNYW9dWbYI3hs9s3dJ8KWiBaylhYdpWaK/Cv6YSJhCXBo1AMBMFhcCGGBrKmNbuV/3z8Ez9K5x9j4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790344307; c=relaxed/simple;
-	bh=MVPDMkTEBaH2xLmbzLMGIuTZSwftq6ZqRfGcqKqi1Ag=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JiXzHhYulS5LGZNxkIB8hCsbQJAmUtzFqM/Cs9TIGmw3RJ2hPgE1wpJcYkh/LnZ/yz+CLGCPxxNsdKPW4F/BMBqih3MzzWzPFZ6E+AXMZa0tgEsPXOfGUKxL9YDbVxHTzjF6m+NlgQ+OOp/e2ABkAgt1zO0bsu7meCtTHD2hWkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ECs9OXEs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790344343; c=relaxed/simple;
+	bh=h0WaYjbg/NaNZS/l93bZkoCIwxchNnfYxixDNS3R3rY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YXOtqXfMCuFr75OeH1IHKissjJQf3+E1Y8A3tYKqXobCH5/We03j1qbU1fJbOv+H9EUmuPs00rcSPnTuRBwwJSonkUGPhVYNGKSYu0dYyxHm0dkRpjfiUPHaSC5Xal3G4xqrUkUSvm/SHHz1Rm/Gt1eXtuac4dA20dab4Q5vO8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ilQGJYza; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ECs9OXEs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865121F000FF;
-	Fri, 25 Sep 2026 13:51:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ilQGJYza"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7661F000FF;
+	Fri, 25 Sep 2026 13:52:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790344306;
-	bh=G7HDmJbPCJLehqABPQ2p7b1+tW8heMz7xkz3xsol4UA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ECs9OXEs4ADwfd6PfMpy+N5eymGTOzI18voDDtavYc+tjyAS0aw/W0kkCYC3RlJAd
-	 rhK5EEv1e6LrXNywCXPoAdX7qJ0k0YWUIwtAKa5wgap9l00sKHtCBua7EaFQ06bgPf
-	 W5r3dvelZpbfK7EeuhUIeaG2heRf8EzzMaQ+BcRYGz/g/r3C+ZKpPqUVHQK6dt+EqT
-	 sktvuGF3WMNZ4v0rCI/ULMS7z49z0phtyjUMWKQAb1evHhlOTEfALpX+8+WuVU9Nkh
-	 Pkt8XaLtBz92L2uA5IA/Nyz0IYfad5PFeT0bx95Y2Y39ZzWn3r+Z+rYeCJxsWcSi0C
-	 4n8AJuGmiHLNg==
-Date: Fri, 25 Sep 2026 15:51:42 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>, 
-	miklos@szeredi.hu, linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] ovl: disable nfs_export for same-sb lower layers
- with different idmaps
-Message-ID: <20260925-server-hager-riskieren-06116eded213@brauner>
-References: <20260920203239.2876221-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <20260920203239.2876221-3-Jeremy.Jean@oss.cyber.gouv.fr>
- <CAOQ4uxhyc5x3LDzbJtRhQJ+JNQ-hES2k45jcxeGsfEWPB24TKA@mail.gmail.com>
+	s=k20260515; t=1790344342;
+	bh=XmAUpyL8zz8kuHDd9d/+aHBvbVJnej1uVNgN9e4kMlo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ilQGJYzajpyZtBUZTmma8ZmROziK6Vc+sTs+GD9T4zqOtjyQrvRfMmLU9gAKDL+9m
+	 i73nkcUxQwSXDGGKZnjOG19jTt+Ia3X7ZjfqLqZ3DjkZ1gtI0Jdf7Y2Ptvx6zRFRup
+	 Vksp1LtnhVhP2OQWgKecFZL3QjELnFn/CjEPD0gnIrUlwzuzSLX61pWhQytXmZaO79
+	 6/9923oFniELnNu42ghxbkL8+5emfr9SyOo5NBj9s3kHl1U3r+XL8xZpHdzrrLqqvo
+	 CPyF0qznquzJN1ZoEmGhTdycBXD8S5YjG8OtcCJQk3FWJ8IifQ/S9by4MrHssS7KBM
+	 4bgFFxv285K0w==
+Subject: Re: [PATCH net v3] net: axienet: bound TX completion cleanup by the
+ NAPI budget
+From: netdev-bot+sashiko@kernel.org
+To: maimon.sagi@gmail.com
+Cc: netdev@vger.kernel.org, radhey.shyam.pandey@amd.com, michal.simek@amd.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robert.hancock@calian.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 13:52:21 +0000
+Message-ID: <179034434119.2160803.4103857237545092058@kernel.org>
+In-Reply-To: <20260924135052.185129-1-maimon.sagi@gmail.com>
+References: <20260924135052.185129-1-maimon.sagi@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOQ4uxhyc5x3LDzbJtRhQJ+JNQ-hES2k45jcxeGsfEWPB24TKA@mail.gmail.com>
 
-On Mon, Sep 21, 2026 at 10:10:28AM +0200, Amir Goldstein wrote:
-> On Sun, Sep 20, 2026 at 10:33 PM Jérémy Jean
-> <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
-> >
-> > Overlay file handles identify a backing filesystem, but not the lower
-> > mount used to decode it. If lower layers share a superblock and use
-> > different idmaps, a file handle can decode through the wrong layer and
-> > initialize the overlay inode with the wrong owner.
-> >
-> > Track the first lower idmap seen for each ovl_sb and disable nfs_export
-> > when another lower layer on the same backing superblock uses a different
-> > idmap. Keep index enabled: copy up starts from the overlay dentry selected
-> > by lookup and does not need to decode a lower file handle through another
-> > layer.
-> >
-> > Fixes: bc70682a497c ("ovl: support idmapped layers")
-> > Assisted-by: Codex:gpt-5
-> > Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> > ---
-> >  fs/overlayfs/ovl_entry.h |  2 ++
-> >  fs/overlayfs/super.c     | 28 +++++++++++++++++++++++++++-
-> >  2 files changed, 29 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/fs/overlayfs/ovl_entry.h b/fs/overlayfs/ovl_entry.h
-> > index 80cad4ea96a3..2a6e12a0d4dd 100644
-> > --- a/fs/overlayfs/ovl_entry.h
-> > +++ b/fs/overlayfs/ovl_entry.h
-> > @@ -24,6 +24,8 @@ struct ovl_config {
-> >  struct ovl_sb {
-> >         struct super_block *sb;
-> >         dev_t pseudo_dev;
-> > +       /* Idmap of the first lower layer on this fs */
-> > +       struct mnt_idmap *lower_idmap;
-> >         /* Unusable (conflicting) uuid */
-> >         bool bad_uuid;
-> >         /* Used as a lower layer (but maybe also as upper) */
-> > diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-> > index bd0a3f9039d2..8e78da420b75 100644
-> > --- a/fs/overlayfs/super.c
-> > +++ b/fs/overlayfs/super.c
-> > @@ -944,6 +944,24 @@ static bool ovl_lower_uuid_ok(struct ovl_fs *ofs, const uuid_t *uuid)
-> >         return true;
-> >  }
-> >
-> > +/*
-> > + * Lower file handles identify a lower fs, but not the mount whose idmap was
-> > + * used to decode them.  Remember the first lower idmap seen for each fs so
-> > + * decodable export handles can be disabled if another one appears.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-I find this behavior counterintuitive. Shouldn't we just fail the mount then?
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The new budget break in axienet_free_tx_chain() (line 801)
+  leaves completed descriptors in lp->tx_bd_v.
+- [Low] Wrong Fixes: tag.
+- [Low] The kernel-doc for axienet_tx_poll() no longer matches its
+  behaviour.
+
+--
+
+net: axienet: bound TX completion cleanup by the NAPI budget
+
+This patch stops the TX completion loop in axienet_free_tx_chain() once
+the NAPI budget has been used up. The check is skipped on the force path.
+A budget of 0 is treated as no limit, and axienet_tx_poll() now returns
+0 for a budget of 0, so the netpoll WARN_ONCE() in poll_one_napi() is not
+triggered.
+
+> Fixes: 9e2bc267e780 ("net: axienet: Use NAPI for TX completion path")
+
+[Severity: Low]
+Is this the right commit for the Fixes: tag?
+
+In 9e2bc267e780, axienet_tx_poll() passed budget as nr_bds, and the
+helper returned i, the number of descriptors walked:
+
+    axienet_free_tx_chain(lp, lp->tx_bd_ci, budget, false, &size, budget)
+
+That return value is bounded by budget. With a netpoll budget of 0 the
+loop runs zero times, so poll_one_napi() could not warn either.
+
+The call that passes lp->tx_bd_num and returns a packet count comes from
+5a6caa2cfabb ("net: xilinx: axienet: Fix packet counting"). git blame on
+the baseline points there:
+
+    packets = axienet_free_tx_chain(lp, lp->tx_bd_ci, lp->tx_bd_num, false,
+                                    &size, budget);
+
+Should the tag be the following instead?
+
+    Fixes: 5a6caa2cfabb ("net: xilinx: axienet: Fix packet counting")
+
+The sentence "which the unbounded loop could already do before this
+change" also describes the loop added by 5a6caa2cfabb.
+
+> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> index 782f903d318f3..7fd77f8cb57c6 100644
+> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+
+[ ... ]
+
+> @@ -788,6 +792,16 @@ static int axienet_free_tx_chain(struct axienet_local *lp, u32 first_bd,
+>  	dma_addr_t phys;
+>  
+>  	for (i = 0; i < nr_bds; i++) {
+> +		/* A NAPI poll must not return more than its budget.  Stop on a
+> +		 * packet boundary once it is spent - cur_p->skb is only set on
+> +		 * a packet's last descriptor, so no packet is left half-freed.
+> +		 * A zero budget means no limit: netpoll polls with a budget of
+> +		 * 0 to reclaim the TX path, so the ring must still be drained;
+> +		 * axienet_tx_poll() reports no work to it.
+> +		 */
+> +		if (!force && budget && packets >= budget)
+> +			break;
+
+[Severity: Medium]
+Can this break leak the TX skbs and DMA mappings still in the ring when
+the interface is brought down?
+
+Completed descriptors left behind after the break still have cur_p->skb
+set and a live dma_map_single() mapping. The commit message relies on
+NAPI rescheduling the poll to reclaim them. That does not happen while
+napi_disable() is pending.
+
+axienet_stop() calls napi_disable(&lp->napi_tx) while TX DMA is still
+running. If the TX poll finds more than budget completions, it returns
+budget, and __napi_poll() takes this branch:
+
+net/core/dev.c:__napi_poll() {
+    ...
+	if (unlikely(napi_disable_pending(n))) {
+		napi_complete(n);
+		return work;
+	}
+    ...
+}
+
+Nothing polls again after that, and axienet_stop() continues:
+
+axienet_stop()
+  napi_disable(&lp->napi_tx)
+  axienet_dma_stop(lp)
+  free_irq(lp->tx_irq, ndev)
+  axienet_dma_bd_release(ndev)
+    dma_free_coherent(lp->dev,
+                      sizeof(*lp->tx_bd_v) * lp->tx_bd_num,
+                      lp->tx_bd_v, lp->tx_bd_p)
+
+axienet_dma_bd_release() does not unmap the TX buffers or free
+tx_bd_v[i].skb. The only TX ring skb cleanup loop is in
+axienet_dma_err_handler(), and the normal stop path does not run it. The
+remaining skbs are never freed. Their sk_wmem_alloc charge is never
+released, and their streaming DMA mappings are leaked.
+
+Before this patch, a poll running during napi_disable() drained every
+descriptor completed by then. ndo_stop already had no TX reclaim for
+descriptors still in flight, so that gap predates this patch. The budget
+break adds a new way to hit it.
+
+Would it work to drain the ring without the budget bound and clamp only
+the return value? Another option is to reclaim all TX descriptors in
+axienet_stop() or axienet_dma_bd_release().
+
+[ ... ]
+
+> @@ -1027,7 +1041,11 @@ static int axienet_tx_poll(struct napi_struct *napi, int budget)
+>  		axienet_dma_out32(lp, XAXIDMA_TX_CR_OFFSET, lp->tx_dma_cr);
+>  		spin_unlock_irq(&lp->tx_cr_lock);
+>  	}
+> -	return packets;
+> +
+> +	/* netpoll polls with a budget of 0 to reclaim the TX path and expects
+> +	 * no work to be reported; see poll_one_napi().
+> +	 */
+> +	return budget ? packets : 0;
+>  }
+
+[Severity: Low]
+Should the kernel-doc above axienet_tx_poll() be updated too? It still
+says:
+
+ * @budget:	Max number of TX packets to process.
+ *
+ * Return: Number of TX packets processed.
+
+With this patch a budget of 0 means no limit. For that case the function
+returns 0 even after it has reclaimed packets and passed them to
+netdev_completed_queue() and the u64 stats.
+
+The new @budget text for axienet_free_tx_chain() also contradicts itself.
+It first says 0 is used "when not called from NAPI poll", then says
+"netpoll polls with it". The netpoll call is a NAPI ->poll() call, since
+poll_one_napi() calls napi->poll(napi, 0).
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924135052.185129-1-maimon.sagi%40gmail.com
