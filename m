@@ -1,144 +1,168 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C4F201278
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:23:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF66C36E47A;
+	Fri, 25 Sep 2026 07:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790321035; cv=none; b=KsBlKMXeSbE2VtjJPtT2Lc3rXmJIoe6rC81Mu3pZ/wUMpmfcclqyKaa4uiqgvkobMKTDZiyQ/Ko3I/jVY+xAN4OcVo8vaJ/61sognxPp3SDsh7mXG6u3PL+LdgLsHsSRYqOK0SuYDbAPnCnZ6AxGCE7N99/mAKr6nX9nCfqANio=
+	t=1790321096; cv=none; b=lYAG+T/4oWFVAzkeKMTjqhbEACqj2EBKK+K3C18MXoVFWQFqdbx+ZFf7n6Bseis3mPOi/Vv+eMV7xfmVuDE3PsN4+slfQWtngEOUrGNojtrLsN1h7433zT5uH8AiqowBE+jj1XDSCB6gfFx5Yws7UiQZ/7bbTAAECpfIuctJyPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790321035; c=relaxed/simple;
-	bh=IRyzIC8VRC/jjqvZPY07sbaPLOM0r7aLFQkJo7n68u8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Oz0NuAZdE5QPJd87p2jZKxp10dB2cMCC+aBOsyKQU5ONfGL+xWfhPCk/2Zz2PIjKnBaQ9EbpFQN+3wuyQaedPCbopxZTH9JtcvcfMvOcRVaqEbwFr0O78K1wBEyarZdr6fBdixxxtSf23jnJQfpHvrQvm4+3rsPSnQCU19rA61I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=knN1U0/X; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790321096; c=relaxed/simple;
+	bh=0VOHKEzRhehp0zEUuwNIJeuPoAxqqEaHLkE7NqM9JZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MBtA4To/zX8ka0loPp6jwLLoGmreo/vMAMoceQpCc+6NahJrr/kfPztDLdMR7fWRLiLOYtUeirWx/lilsvhMIi0cgyXlDEF16NoZxVBCFYeup/I9QQ0a5C2kuEzExvgJ4Lq1ehmIueXcsfKDOvzM6mI83OZ8/4MBpPHgdQUZux0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T51PMqdt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="knN1U0/X"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04edb5so977341c88.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:23:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790321033; x=1790925833; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zSELEHI//YEAphEyKZ5VJ4gtHaeIaGb6UIVWXzz2yZI=;
-        b=knN1U0/XqZLtS091uV9wJCLY4auo02vPT+fL4UUNO8Y9PMfBJcze/keAlS56FhWAW2
-         /pKDY9FV6+muJv+e69oMw+AvfH7p88eIztswARitnwTjhvNgFLgSV3dOeqLaOgB4AQvL
-         1SkbJqoOhL/El/2kx2JxYtWVb6Y84uUQHV8MRnTkFTi2mohpVm+dnJQ02dM+erY+dy98
-         G3G2yDXEJmRSTUyR0g5Ru/9tk6URpLB1Ia2fr0XWodG/8/nwx8pVeoy9t1N/4tqkOe62
-         hj7lZkN1xTHIWgU9+rHq7N/EFR84jqIOLqIGciXbfvo1+mqkwHKSyQ2vTdB2ULF9lnYV
-         LQ2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790321033; x=1790925833;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zSELEHI//YEAphEyKZ5VJ4gtHaeIaGb6UIVWXzz2yZI=;
-        b=CSsBv+cl95K9R5v/T3t6pe8FiylSOlwZHszxjoUlkg9cQyf2aqUkcrhv4S618CVMrA
-         rnTv8jm/y7e4rt73pMXep2WFJhpy1fyuxqp1UgSwP6RzAAktDnLdl5bcNC0vZw8RXp4d
-         NsncdaZKewNElsBoUqCILMj+oybVRkflwvf09fgLdftGaeXcH58KbDzM+TEU3kyg/qMb
-         15zouJBsaSM0LUj75p+TrP6gnc2YbRNFT7LDsvNYD/NxU6ZeTCZ+GsiEFCy/sxQFRGQR
-         vIiqzcWoGMYzoS+57CChCPzyyRrl4MAr4g2cHhvnbZl5mV9B/fcAO3Qc7O69lkncllDs
-         uWDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzgCO/4q6E/d3YKod6mqzxcBkrHh2x6BhF+ribN3QeeSs23lXvT0HoF+7gQAsOm/Rf5VawlOq/QefRAdsc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+OIKvjNjnCFmGHfjfp905FHzSBdSxpN2sVaMwKccUykDorpk3
-	Q4MQojxNc5qy3C5R+N7q5QJq8Sr0bFBTcHlhiFsJnGBkKRKjOeXqJ6vX
-X-Gm-Gg: AYBFou0yhAxEnudgpsO41gtXvD648j2e+eOO3XZRWp3CzzFf18rR/95tpFJRE7RnS9X
-	yO3ixcyuwmtTsswBJLDm7izcpUgoAtfyILh0NgQxhxP4cl8BZrlnuy3hvyiolj6kXRz5MuJpZv8
-	u+vBRTgF6QgEehs5APdxIUzyuioVnvvJKxhIYDuMU83SS8N8WHFYFsrnUE3bT5Z2IAtirq4SLxg
-	+BNBjISjYPrgvntgq3MzFpdehWhjti20f233DvZv7mbo3wKU6qVxk8cz8BtalicpPn7sg3jv4Xz
-	Qv1LdY7zIJPH8mPx+N04IY2f8Q7uLzR5IoStE/bwZP/FgyDoKMZ9wzQOn51C5dl5jM8PFnp5A6K
-	2zFOdei3PiVBPhql6hXUAV3ZO0IN1BvvSoH0P1PyO0M2df8kXIUQoN1kof1m2R/xiWRTibUBVUA
-	eRmm4gSxVhNNinavxHOiMM6eJ0IOaHlYCLArHABAm1nvhjeSr1Gvjx316fkRbGPnhwkgt9iMcaa
-	CCSz0iTnZXRn5h4
-X-Received: by 2002:a05:701b:4243:20b0:13f:c85d:17bb with SMTP id a92af1059eb24-14503f8500dmr4207164c88.1.1790321032704;
-        Fri, 25 Sep 2026 00:23:52 -0700 (PDT)
-Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145aa0cb6b9sm3656437c88.1.2026.09.25.00.23.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 00:23:52 -0700 (PDT)
-From: Cong Nguyen <congnt264@gmail.com>
-To: Jacky Huang <ychuang3@nuvoton.com>
-Cc: Shan-Chun Hung <schung@nuvoton.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] rtc: ma35d1: fix unchecked IRQ error and IRQ-before-rtcdev ordering
-Date: Fri, 25 Sep 2026 14:23:45 +0700
-Message-Id: <20260925072345.2632042-1-congnt264@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T51PMqdt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E27C41F000FF;
+	Fri, 25 Sep 2026 07:24:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790321094;
+	bh=LXRP/1wipC9J8UX4qDqGkgwn+tmzgWEzq4b5o6Ax+9I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T51PMqdtftu+im81DJxP4CPkokLbkFS53m9mcYvmL3K+t5ROMTQfep6P85iiVzFTP
+	 Tv5Gk1D9fgKhMg0irB7CeOYqC6CbbMKLhDpoWtPTfbdhKClF/ZEMZp5xbUTZwucyov
+	 LHIvzNBAwCCv8DA5u8bsMxabWRLCRLmDyWZ5VZej+6kJJiNSWcnVTZ6DuAjvwSV+cy
+	 85gyATs9AMckS1R/ZsJqY7aLzbNXWAFc7zf8E6/lZGQ2/AJWAjpVfSV+TXA27bcJCw
+	 ImxTZG6nmhATEQkHCStlEFASUI92lCS/ERcrJu4JiZZXDCzpccuFNZCXtN+DRCSfIA
+	 KQbcugiYY/WGg==
+Date: Fri, 25 Sep 2026 08:24:47 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Vishal Moola <vishal.moola@gmail.com>, 
+	Ingo Molnar <mingo@kernel.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
+	Jason Gunthorpe <jgg@nvidia.com>, Steven Rostedt <rostedt@goodmis.org>, x86@kernel.org, 
+	linux-mm@kvack.org, regressions@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm: don't schedule deferred kernel page table freeing
+ while booting
+Message-ID: <arYhsEGuCVatW7ZY@gremlin>
+References: <20260925050647.86913-1-mikhail.v.gavrilov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925050647.86913-1-mikhail.v.gavrilov@gmail.com>
 
-platform_get_irq()'s return goes straight into devm_request_irq()'s
-unsigned int param unchecked -- a negative -EPROBE_DEFER becomes a
-huge positive number, so probe fails outright instead of deferring.
+On Fri, Sep 25, 2026 at 10:06:47AM +0500, Mikhail Gavrilov wrote:
+> Booting with a boot-time function tracer and a filter, for example
+>
+>   ftrace=function ftrace_filter=pud_free_pmd_page
+>
+> panics on 7.3-rc4 as soon as the tracer starts:
+>
+>   [   23.531178] Starting tracer 'function'
+>   [   23.675800] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000038: 0000 [#1] SMP KASAN NOPTI
+>   [   23.819917] KASAN: null-ptr-deref in range [0x00000000000001c0-0x00000000000001c7]
+>   [   23.964025] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.3.0-rc4-fe2ec83746e5-with-fixes-v2+ #195 PREEMPT(undef)
+>   [   24.252248] RIP: 0010:__queue_work+0xab/0xf00
+>   [   25.981629] Call Trace:
+>   [   26.125727]  <TASK>
+>   [   26.413912]  ? pagetable_free_kernel+0x20/0x120
+>   [   26.990283]  queue_work_on+0x97/0xf0
+>   [   27.134382]  __cpa_collapse_large_pages+0x501/0x6f0
+>   [   27.566662]  cpa_flush+0x394/0x620
+>   [   27.998953]  change_page_attr_set_clr+0x321/0x4a0
+>   [   29.151729]  set_memory_rox+0xa2/0xf0
+>   [   29.584018]  create_trampoline+0x431/0x6f0
+>   ...
+>   [   44.343347] Kernel panic - not syncing: Attempted to kill the idle task!
+>
+> The boot-time tracer is started from early_trace_init(), which runs
+> before workqueue_init_early().  Making its trampoline read-only splits a
+> large page, and CPA collapses it again right away.  The split table has
+> been a kernel page table since commit 9e4a3ec3411b
+> ("x86/mm/pat: Allocate split page tables as kernel page tables"), so the
+> collapse frees it through pagetable_free_kernel(), which queues work on
+> system_percpu_wq - still NULL at that point.  That commit is correct in
+> itself; it only lets CPA reach pagetable_free_kernel() before the
+> workqueue that function relies on exists.
+>
+> Keep putting the table on the list, but don't schedule the work while
+> the system is still booting.  A core_initcall schedules it once to free
+> whatever was queued by then.
+>
+> Fixes: 9e4a3ec3411b ("x86/mm/pat: Allocate split page tables as kernel page tables")
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 
-The IRQ is also requested before rtc->rtcdev is allocated. devm
-teardown is LIFO, so unbind or a later probe failure frees rtcdev
-before the IRQ, and an alarm firing in that window has
-ma35d1_rtc_interrupt() touch freed memory.
+LGTM so:
 
-Check irq_num for a negative return, and move the IRQ request to
-right after devm_rtc_allocate_device() (its irqwork is already
-initialized there) and before devm_rtc_register_device(), so unbind
-unregisters the device before the IRQ is freed, not after.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Fixes: dc0684adf3b6 ("rtc: Add driver for Nuvoton ma35d1 rtc controller")
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/20260918161925.2639130-1-congnt264@gmail.com
-Assisted-by: LLM
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
----
-Changes in v2:
-- Sashiko found 2 issues on v1: dev_err_probe() on the irq_num check
-  duplicated platform_get_irq()'s own internal error log, dropped;
-  and requesting the IRQ right before devm_rtc_register_device() still
-  left a window on unbind where the device is unregistered from
-  userspace after the IRQ is already freed. Moved the request earlier,
-  right after devm_rtc_allocate_device() (its irqwork is already
-  initialized there), so unbind unregisters the device before freeing
-  the IRQ, not after.
+> Link: https://lore.kernel.org/20260924064321.23787-1-mikhail.v.gavrilov@gmail.com
+> ---
+> v3:
+>  - Schedule the work once from a core_initcall to free whatever was
+>    queued during boot (Lorenzo Stoakes, Dave Hansen, David Hildenbrand).
+>    late_initcall would work just as well; workqueues exist from
+>    workqueue_init() on.
+>  - Keep the fix in pagetable_free_kernel() rather than skipping the
+>    collapse during boot (Mike Rapoport): that would only avoid this
+>    caller, and any other early free would still need a workqueue.
+> v2: https://lore.kernel.org/20260924092307.22813-1-mikhail.v.gavrilov@gmail.com
+> v1: https://lore.kernel.org/20260924064321.23787-1-mikhail.v.gavrilov@gmail.com
+>
+> Tested on a Ryzen 9 7950X with a Radeon RX 7900 XTX (lockdep, KASAN),
+> 7.3-rc4 plus unrelated local changes, by booting with
+>
+>   ftrace=function ftrace_filter=pud_free_pmd_page,pagetable_free_kernel,kernel_pgtable_work_func,kernel_pgtable_drain_early
+>
+> The boot that panicked without the fix completes, and the trace shows
+> kernel_pgtable_drain_early() and then kernel_pgtable_work_func() before
+> any other kernel page table is freed.
+>
+>  mm/pgtable-generic.c | 20 +++++++++++++++++++-
+>  1 file changed, 19 insertions(+), 1 deletion(-)
+>
+> diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
+> index b91b1a98029c..cd227fc05d2d 100644
+> --- a/mm/pgtable-generic.c
+> +++ b/mm/pgtable-generic.c
+> @@ -438,12 +438,30 @@ static void kernel_pgtable_work_func(struct work_struct *work)
+>  		__pagetable_free(pt);
+>  }
+>
+> +static void schedule_kernel_pgtable_free(void)
+> +{
+> +	schedule_work(&kernel_pgtable_work.work);
+> +}
+> +
+>  void pagetable_free_kernel(struct ptdesc *pt)
+>  {
+>  	spin_lock(&kernel_pgtable_work.lock);
+>  	list_add(&pt->pt_list, &kernel_pgtable_work.list);
+>  	spin_unlock(&kernel_pgtable_work.lock);
+>
+> -	schedule_work(&kernel_pgtable_work.work);
+> +	/*
+> +	 * The workqueue may not exist yet while the system is booting.
+> +	 * kernel_pgtable_drain_early() schedules the work once it does.
+> +	 */
+> +	if (system_state != SYSTEM_BOOTING)
+> +		schedule_kernel_pgtable_free();
+> +}
+> +
+> +static int __init kernel_pgtable_drain_early(void)
+> +{
+> +	/* Free the kernel page tables queued while booting. */
+> +	schedule_kernel_pgtable_free();
+> +	return 0;
+>  }
+> +core_initcall(kernel_pgtable_drain_early);
+>  #endif
+> --
+> 2.55.0
+>
 
- drivers/rtc/rtc-ma35d1.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/rtc/rtc-ma35d1.c b/drivers/rtc/rtc-ma35d1.c
-index cfcfc28060f6..ae68e5c89e15 100644
---- a/drivers/rtc/rtc-ma35d1.c
-+++ b/drivers/rtc/rtc-ma35d1.c
-@@ -236,11 +236,8 @@ static int ma35d1_rtc_probe(struct platform_device *pdev)
- 	}
- 
- 	rtc->irq_num = platform_get_irq(pdev, 0);
--
--	ret = devm_request_irq(&pdev->dev, rtc->irq_num, ma35d1_rtc_interrupt,
--			       IRQF_NO_SUSPEND, "ma35d1rtc", rtc);
--	if (ret)
--		return dev_err_probe(&pdev->dev, ret, "Failed to request rtc irq\n");
-+	if (rtc->irq_num < 0)
-+		return rtc->irq_num;
- 
- 	platform_set_drvdata(pdev, rtc);
- 
-@@ -254,6 +251,11 @@ static int ma35d1_rtc_probe(struct platform_device *pdev)
- 	rtc->rtcdev->range_min = RTC_TIMESTAMP_BEGIN_2000;
- 	rtc->rtcdev->range_max = RTC_TIMESTAMP_END_2099;
- 
-+	ret = devm_request_irq(&pdev->dev, rtc->irq_num, ma35d1_rtc_interrupt,
-+			       IRQF_NO_SUSPEND, "ma35d1rtc", rtc);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "Failed to request rtc irq\n");
-+
- 	ret = devm_rtc_register_device(rtc->rtcdev);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret, "Failed to register rtc device\n");
--- 
-2.25.1
-
+--
+Cheers, Lorenzo
