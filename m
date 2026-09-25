@@ -1,153 +1,207 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706E249C4BC
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:24:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360695; cv=pass; b=DPGW2W82Y+xy63CFglACohDakyPXLstQ7EU9fSznZt9CoCSMxX6VFpbHLmOC6D6zqB6JwfnikbuFrdnHZlAz2C6H085Ln0nRzkdkvZz4W5Q3YM4vAZKGLwACatmRtcw55/NVI7hp1vdnigIuyj1i4SbVmH1Qjd4jE+Wcm6XzHe8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360695; c=relaxed/simple;
-	bh=VuPCu0NVXXA8ZEi+lRFtiBIDXTK3MN9d4YX7eIhKxYs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LcQRrSH7gZ9dUkntUta+JNR+Ps1P9iasYeqMJkhiRF6oKqgKrEgOMAgfOxGt/GIr5893qgCruMzRRrAq8DfFJwZ2FZK/+7ct6tFlC9DqYrz+d9vaIVw7lIgLbnOx44AMdBPTj/2q7QMrvzXfez2NhYEeY2+WLOLIhzPKTyeH1IE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BYcfj/x/; arc=pass smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EB13FFAA4
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790360696; cv=none; b=cbccIJ17lFYUFrO1YiPt0goYgTjE/FY81bcYsAEVBBzBTSlMiZVM3NEOP6w5cjfYGKIktdy45lY5PLsMklrGiLUUcdOtgDUCJFNxEsZqyxA6BHy9GW4sMyfTmix7SwUBVH62SC5BTBW/NAdllcbvcKryNzBvy7L664FFCYyeT3M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790360696; c=relaxed/simple;
+	bh=eGGtJucMub/H5IDPYhp85xFBOadbNNPXVb/tk0RokT4=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a2J2zeRXHsHlvBhJa56IKJ3ugk5LZeY7sdKx73URazUeEax1SwSgHChsQinIqJDuVFzwAbiwj7wlBVaC9qQd9B4Io0Pi1Hj1ShsrVQVr4fBSMiL0CsEY+Yk6Mh1dUdfheNyP9vFYwCy4I2iOkIpnQbBYKn4XtWWS2GbSa61lunQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SHx6nf/j; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BYcfj/x/"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843796e373so736768f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:24:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790360691; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nJEsk0zwaVPaBG3HqYdXwR9FP+obgktGJZ67ZorZpjNUP8fFBbD3utYnz1zSWxAzgn
-         QSTKdNGmNnfeaZgwFHUmguFNKcvV0MEogCtfA0fXSbUoIzpHVH4JaNv3ovdSFkn8Vf+a
-         5dRjzIMQJeZe4fmkiM+BRaTEbL1iMKiWWd8HUtg8MSds3dEKEZKw0ogWhNncmb0PkNR6
-         wmh6r7kiHXwDAItwrrnYX39hwQBdLRYwyC8XDzzlBMmSpFPUrKbS4DxETVM+BgcL0OgC
-         PSeugsdNOd5mN1MFT9/EamZSeYv6CutkNR57V9HorI4cQgX6GUYFL3tmtGUk2aLuDQFU
-         d3Ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VuPCu0NVXXA8ZEi+lRFtiBIDXTK3MN9d4YX7eIhKxYs=;
-        fh=0KsO5qc8RLvPn7bM4gER6z8W/4iiS2MGB6ndrKamrNg=;
-        b=SHTJunNzAiLYa/wthly4UDwRDgwDN+TbwzPFYxL+T7LbnJXBbhHXEoHByxiiiRWvP9
-         Gws5IdfLT9mjzdA5VQSWkUqvd1tvs60U2NmQcjLDB7v/He4AN138v0tbAPNoccdWAu7O
-         uiD+GEypvuSe5wJlvBiFoDNcF5Uy0+2NfNfaOjAzHXdLM/9InNFVnQ2WQPRlwmGqQREU
-         d1+QqLm9UAxSGxuoLBSbLtklIH5ces7KdGcklB6Jv13NXiMYc41L755DbvKEzxBb87nO
-         NYQ8I/AiKn7XvpBIwkU6R1jZ/Vc9W40J3xOeE24ZMKNDPljJuPhHyqnJ8gu4kSwy42tb
-         dp+A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SHx6nf/j"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so4393925e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:24:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790360691; x=1790965491; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VuPCu0NVXXA8ZEi+lRFtiBIDXTK3MN9d4YX7eIhKxYs=;
-        b=BYcfj/x/NapnAY/+LR28yha0Sf87wS3pFS9r13vmJvPjlUkjkXyzUnpTMT36w9tN2M
-         Rmb9aW59fXrBMdce3MClCt6GQMAzGmWz4HiVAqL6gv+aEXEpys3NYQkPLAS27lzg7Ung
-         ecqv2pCQMV+vosgKuiZexW6w9fbjKJAU7f2Zfx30/OOnxdxywddrzyQiZv/3cb2pN7Qy
-         vED0PbDLmsInI0rSNIBVQQiUkxWJl+w+vqOn12zxNRuw2dZB9i5nYynbLJ+/IdQlqfjo
-         17zL6wvPCyXpcW+8DJDkSnBdT9wWtMVW/2c183YKDv4DdNRbpw0tx/UKLqJwmx1l0nx3
-         7+Jg==
+        d=gmail.com; s=20251104; t=1790360692; x=1790965492; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sGFrWQujhzJh9uPF6notnBiKMTrdwWirz/MP50Av2KE=;
+        b=SHx6nf/jKVF/rh3Bhkgmi9Yy9tZsndxQ1iVeVwOqVulKh8ryPGsjBw3IGpEIk29FnS
+         m+3FtUzyNanqBrRm0CfOkKBfSsHnTHGtqH1wAVj06JttA0yhLhCdinMKElTRNXnnG9vo
+         VdMH6CzjiNbHWT1rxYcPNN0VYFdk+mNGgEI0OAUn6XHvjVBrWIeqkNMykjdOgng0WFr3
+         X+pJLfu1iKW0a53PZV8WYbrChofrU5TB9W2YuTt8USgsVgaaeE3bGDCUW874oTBP2mdn
+         4TX8u0kIv4QnOQOFM4xRQ/m3J0dLbVjfhI7xYTJLVsibuzjfSr+QiEA2PFj0zqni3w4F
+         26Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790360691; x=1790965491;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VuPCu0NVXXA8ZEi+lRFtiBIDXTK3MN9d4YX7eIhKxYs=;
-        b=Z3EjUOdCjQdimaCe6EZUdy7Uv+T+sBP3zUASd/VGXbcaVrBvOfL7/PvnuNGl5nzv7o
-         ljmEAYVRPDNMlHEZZd9/sYBnPWrP71/DNKlnHtXqZTn/OyN/L9VK8Rl4gjPykPXkKtsz
-         mfL6DYKyBtXxP9AWky/wlNw16/xy14GlmLrHm9XyLu1ynXQfyn8NYiUICHRE2j9Es/+I
-         QiVgTTQOuvVAe+Vu6lAdD/1H34TkJB3wKDzfozcwC7hQbCk+8eoPbJV7StP+jrCicxB5
-         IphJ+F7D+TCATo/O9oCl/apgC3bhav5ZccwrD9C7o8xX/yyjoFRlQXoTLPcCDt1b3/Ap
-         Zhdw==
-X-Forwarded-Encrypted: i=1; AKwUvBwd5qh04OEsXvuGX99ITPRxEhr2yRv1TdjO/qX5ovr6ABmfN/33JFcmp88CBOIKKeH+Gt3eP7ywxLDPQoY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+GJI2Jk2KdMdMixTMR3HA10n0+Gxxu9t22w+FkarlLUMbFwPO
-	cKmEQqmXL1Qg2tvoousqYuk6YiV1C4aVIFasZaTFKfbRXeDSb1mz6rZB8ZznoSx3aHLEJD7irG7
-	I4ZoarCLBfu2kx+mAZ/9xrMHXWbOZwUk=
-X-Gm-Gg: AYBFou1ugOqdKb90pp77h6JT/6USqjZcuxKAh6D7QdKBAWs+Pdta7F/wamSbPEUXTwd
-	NQ6wFfgXYzxd+G1fdi8OIT1Ux8aCe4TxefYdXmu5Sbk/paCSLPtkb5pb5I2wj/sA0sXH3BTfBDa
-	KUVuDToTwfUzdePH8f0otW16tq7Ph5jKg/35lLDvVQIsc1dZZurxoTR7xjc44PzyymsfGRSjmZp
-	c25AU7qhIjLvFk6XHhB8wUUi6M/i7D04rhTYK6qTBhE6En2OgLkgLGPoPGGW+8VerA2z0bCj3n2
-	Gd86qpxF6IqTgLBlNYS0hHv0UriAnIZlhivfb7+g8/3btIZuXkRYWiFpE/WD/d1H921hcXWMF3r
-	4g1GIBI0MASU=
-X-Received: by 2002:a05:6000:40da:b0:486:f907:ebec with SMTP id
- ffacd0b85a97d-488716f419cmr13910053f8f.31.1790360691287; Fri, 25 Sep 2026
- 11:24:51 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790360692; x=1790965492;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=sGFrWQujhzJh9uPF6notnBiKMTrdwWirz/MP50Av2KE=;
+        b=hkW6YnBo8IMcxGST0DeCpvkt+bVBbvkcnaQgfORJ062wBY+tT85dcUioHJ8BtJRZOt
+         SonwFIEHAvHcVpuyUaXwEU8w6h5uB8bln8iTEqB3UuJha/XAzl3PdSmuPI51Fyb3chVV
+         T4/cFR2VdbAhU1JOoRxeaMutGpeO88uJHiHGG6TwTHdFAw2QtgoKD4j86p803VODs6f/
+         Czr0mEgNMQ4tMjcezBKfN7hl1hEEg+q1k7y1m/KvAdG0XnCKvU+yhR2qX7O3lq7sG6Hy
+         7yhz7Q3JBugfXqo+2/DjN7OiEAQSR5+3WwnlbL3PtrEYo4or1ftMj0flN4ymIEONSkMX
+         KO3g==
+X-Forwarded-Encrypted: i=1; AKwUvBwlQ/JJqwDD/sf8hVZWws+NIiMFIOwZQiMwdvlEJVE0s/pNET8oJf+f3PUSbp0JyjcEXd30bqLXBrCqSxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzhOGkyKu2jdkE0+tvdWJbjcnv1sRGOcY54DeD4khrOR3lYkQo
+	1SLMdaEtN6jqYPpill0Dz1g+YOeeNR53AO2sAhQmtl9yVDbJMNxDNmRv
+X-Gm-Gg: AYBFou3z9zO5Td3Hc1L+KOZ0llrn4BLdsbuRjhtp8KVqZvQ3Inpy5w2D7Qgfpzd5r/6
+	FSVpPNGe6lDaHmoHyLTB5Sqxn9LxOGBC79HQBrZciW0gNUMRXnd3lWZW5D3iavVrG+eekl6YXV7
+	jCM0+N4WXfdADRhsuCK0tdvJCRvNWrVDcMuXF+G4UBkP/6Npk3BNperoAqtA0LrLI0ELNWJcEsq
+	SbGTRqYY/O9TPWZEADfxEW7XexRzt0tJSfM1qfjxChUP+PgStnxO59zKs/22+QUuIMKpteDxbv0
+	8dxJmvSby0ZSVDXcfkplS/wfYnbChSHw0Y2lSBM/uso453SW1ndJOmp2weRdq4QmJrW/OeWUj4q
+	B4HKw6m8BQYIoKUy8ZGwHceIju0nt0iuFpmCP7dDQg+7lj2zJqLxMz2nv2MZptEENBu08mNBMjM
+	dteroud8g/c9hNY+nH8rGt4sdQ/xMR1Lkhk+ItiPS0/hKrmq9CPdbd/kD4OTq7d8zXoAzSAveSU
+	SfRjW5il9GqTgKdTePe4ymrksOU09dvlOECXydpcmhERVH+KjZPULTnqweD1gk5Hw==
+X-Received: by 2002:a05:600c:630f:b0:49f:d69a:1a04 with SMTP id 5b1f17b1804b1-49fe6704682mr112960035e9.16.1790360691982;
+        Fri, 25 Sep 2026 11:24:51 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-79-29-83-136.business.telecomitalia.it. [79.29.83.136])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fe5dfa6a7sm266231245e9.12.2026.09.25.11.24.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 11:24:51 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Simon Horman <horms@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	netdev@vger.kernel.org,
+	mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v23 1/9] dt-bindings: net: dsa: Document support for Airoha AN8855 DSA Switch
+Date: Fri, 25 Sep 2026 20:24:23 +0200
+Message-ID: <20260925182435.21207-2-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260925182435.21207-1-ansuelsmth@gmail.com>
+References: <20260925182435.21207-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918180241.3424851-1-nphamcs@gmail.com> <20260918180241.3424851-2-nphamcs@gmail.com>
- <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
- <7571f005bca65aa4ad5e7ec89e62801ad058b689.camel@surriel.com> <CACePvbV-tazW=LmsbUtAhHzR2d6JwFT5R1jYZ9_NTp1hxXH=bw@mail.gmail.com>
-In-Reply-To: <CACePvbV-tazW=LmsbUtAhHzR2d6JwFT5R1jYZ9_NTp1hxXH=bw@mail.gmail.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Fri, 25 Sep 2026 11:24:39 -0700
-X-Gm-Features: AclHuK-nk61jbPKSQK9eOD-whCQNgC46gTK8mZrS59_h9wP0CK07WrJWS_RDZQc
-Message-ID: <CAKEwX=NbD12FfApEb9g+3Gt_-Rmof0tovYZsxPPyk5TCbFq=Lw@mail.gmail.com>
-Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
-To: Chris Li <chrisl@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>, akpm@linux-foundation.org, kasong@tencent.com, 
-	hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
-	shakeel.butt@linux.dev, yosry@kernel.org, david@kernel.org, 
-	muchun.song@linux.dev, shikemeng@huaweicloud.com, baoquan.he@linux.dev, 
-	baohua@kernel.org, youngjun.park@lge.com, chengming.zhou@linux.dev, 
-	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
-	surenb@google.com, qi.zheng@linux.dev, axelrasmussen@google.com, 
-	yuanchu@google.com, weixugc@google.com, gourry@gourry.net, 
-	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
-	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
-	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	cgroups@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 6:17=E2=80=AFPM Chris Li <chrisl@kernel.org> wrote:
->
-> On Thu, Sep 24, 2026 at 8:13=E2=80=AFAM Rik van Riel <riel@surriel.com> w=
-rote:
->
-> Yes, but it will pay the price for going through the unnecessary
-> redirection layer always. It incurs performance and meta data
-> overhead. That was one of my previous objections to the earlier vswap
-> version. Sorry I enjoy micro optimization too much, that is both my
-> strength and weakness.
->
-> >
-> > When everything in vswap, we don't need to test for it.
-> >
-> I've been there and done that, the result was pretty bad in those
-> earlier series.
->
-> > Handling the details of what's behind the vswap would
-> > be handled one layer down.
-> >
-> > Chris, do you think that would be cleaner?
->
-> If it can wrap below the swap_ops, it is just priviate inernal dedail
-> of implementing its own indirections. That would be much cleaner. That
-> is what I am trying to pitch to Nhat in prevoius email but does not
-> have following actions.
+Document support for Airoha AN8855 5-port Gigabit Switch.
 
-Registering vswap's operation as into swap_ops isn't too hard. I
-frankly don't see much wins to it for vswap itself, but it's not hard
-to do if you like it.
+It does expose the 5 Internal PHYs on the MDIO bus and each port
+can access the Switch register space by configuring the PHY page.
 
-What I'm disagreeing is treating it as "just another swap device". The
-implementation shares a lot of swap device's machinery, so I have
-don't mind adopting it, but you can't treat it like a normal swap
-device, and expose it to userspace like one. You get issues with
-allocations internally, and externally you give userspace a vector to
-misconfigure with device priority.
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../net/dsa/airoha,an8855-switch.yaml         | 86 +++++++++++++++++++
+ 1 file changed, 86 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/dsa/airoha,an8855-switch.yaml
 
-That's why I've been insisting on what's the use case that motivates
-these aspects of the interface that you're interested in. A pretty
-design is not a real usecase, especially one that creates problems
-with userspace misconfigurations.
+diff --git a/Documentation/devicetree/bindings/net/dsa/airoha,an8855-switch.yaml b/Documentation/devicetree/bindings/net/dsa/airoha,an8855-switch.yaml
+new file mode 100644
+index 000000000000..5ad9b9e13983
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/dsa/airoha,an8855-switch.yaml
+@@ -0,0 +1,86 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/dsa/airoha,an8855-switch.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha AN8855 Gigabit Switch
++
++maintainers:
++  - Christian Marangi <ansuelsmth@gmail.com>
++
++description: >
++  Airoha AN8855 is a 5-port Gigabit Switch.
++
++  It does expose the 5 Internal PHYs on the MDIO bus and each port
++  can access the Switch register space by configuring the PHY page.
++
++$ref: dsa.yaml#/$defs/ethernet-ports
++
++properties:
++  compatible:
++    const: airoha,an8855-switch
++
++required:
++  - compatible
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    ethernet-switch {
++        compatible = "airoha,an8855-switch";
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                label = "lan1";
++                phy-mode = "internal";
++                phy-handle = <&internal_phy1>;
++            };
++
++            port@1 {
++                reg = <1>;
++                label = "lan2";
++                phy-mode = "internal";
++                phy-handle = <&internal_phy2>;
++            };
++
++            port@2 {
++                reg = <2>;
++                label = "lan3";
++                phy-mode = "internal";
++                phy-handle = <&internal_phy3>;
++            };
++
++            port@3 {
++                reg = <3>;
++                label = "lan4";
++                phy-mode = "internal";
++                phy-handle = <&internal_phy4>;
++            };
++
++            port@4 {
++                reg = <4>;
++                label = "wan";
++                phy-mode = "internal";
++                phy-handle = <&internal_phy5>;
++            };
++
++            port@5 {
++                reg = <5>;
++                label = "cpu";
++                ethernet = <&gmac0>;
++                phy-mode = "2500base-x";
++
++                fixed-link {
++                    speed = <2500>;
++                    full-duplex;
++                    pause;
++                };
++            };
++        };
++    };
+-- 
+2.55.0
+
