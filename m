@@ -1,243 +1,107 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1674D598E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351576; cv=pass; b=Te4dzC4ZLZlem9k0Bjz1bf68GblazTOW+6OOXAAcoYSzTo62uK2X2q36jmmiwUUTd83yozSPLtHvS6ITFot8xYP1s8dFvSBnRZTwBFH3mscCGnhtsFp/NQfz4IBHtzbM1QfhIAVlWRMSY2j2vfXe3fksLsRDQBc+H6G0rttx6Ck=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351576; c=relaxed/simple;
-	bh=AWFiB9V++G9Q22T75aL/cEXhoU4UPD1FL5xpucU1Mrw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hKEfls/rKeRID3+5Us4fdfDESXlj9k7A9PtCkQy1JTEAhQQosVez7RClFcj++o7BsKIpCIKlbaxtP19J+wGqD5dXIwlI9+KLe9A1pbS6VKV4Aw9qRjbHqlQIN8IMpPlXbVtiI/GU4hdfodXtoDLNnE6WRrh7OBpmufMpzOJ08+I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=cUZHEBgS; arc=pass smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="cUZHEBgS"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887d06c669so759029f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:52:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790351568; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cs8Nx/brQUNAnDahG6ZTPeZpXozGX3wQjJSsnbS8Fm1gQDf3Ve6QtT/nhUefQMfMpW
-         fZaSqBYIKoAUhcxyuzAveFpbt78iavXliEcJggFjTU61drrX0G3MJAYe26yS/4V7v2ig
-         fv9/5PsUAuD9he5Pevanh//+0zd3nH3OSsYK7/yUfHWc9MthCI+CfENjRuSlgAw/HNW2
-         AR6gLUYz6UTg9v9+CJFNNEZMXYYMhXZ+dOt8lgV8r/MZvfSjExAtXz+u7gA4oV+jVc76
-         RUx76GQPyb2S6CkTR0v1hHeGJyzqjXBonjYtEXXBT0o8H9cxwvVXy4AAg72viYrdSF7X
-         9WCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=utwZNZ9pY4Xx5gq59KUjA7owWSl05dTqrvQ9otynvfA=;
-        fh=L2qrFwXTpG6QHd5gabc3quJuxBGzfkK6/QiJKa2DnVM=;
-        b=gMQ4on8ZdosEwDhyD0+BUxA+ckzsfid/VCq5ph5BnNCqO0Uqf1CxpFL1n0zjHG2hXG
-         kHLJu0FJqojLmyfpj4cXd8hnOaJ8C79R20igfPYz9XqsPJeR9ouIgt2cOzhTKY0nNYLO
-         nZXVj2N3xkzpWANX745UZbjd5fB5PIqssAYEO4+nJneWRZIdtfuvZLGCpni4DLDyGA91
-         e0PR8NRQgRjbqDh/8jtnoq4OkCME2CDOl+E9l8DKcxaRZXFKk9er/DF0iQa/P3X7K8bs
-         yhyg7yHCAkFq+uSMGYR7qwR9Knee28oGHzkImdgqow7+VPuzTamqCToHVlZ+vBBAUQ+e
-         9/Mw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1790351568; x=1790956368; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=utwZNZ9pY4Xx5gq59KUjA7owWSl05dTqrvQ9otynvfA=;
-        b=cUZHEBgSoxzRyOLauLlptBiqz56Usp1pPF/v8Ljlo401sYt72n4Hofz7DOHWAZbxtP
-         QI2B+n3mb8moUAn++DJYPWZJ9xge8o9WBjbMyvfvFDmCt+eUlyaldENyfqk1zXaUPK7x
-         +b1yj/qVkCG8Dql1pGv8Ek06hnmarMhx697ziNVyyo6xhWM2ctDDee9m9i19EGAi/Ss+
-         Mu7sSqujI0uLZdRoPsrSIRbcVzQuvuROUIyN+YohL8n9nQBArDjYJpYVsCGGGfuJQ+WH
-         H8yLEhW9GGRvRBxPLgxryyHLpchBY/80r4V1M542qSN1wZ/eOLnCxgFDDAX2RoyAOTnY
-         tmcA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5CA4C9DFA
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790351585; cv=none; b=crraVROEXlXTwxYaTjks8SNIu1Uimn2ClN386Qk1znPr9xWlal8BLl5Kr1+iNppu+F0DCuJQiBVzJeFCj/PPPQ9shCr2zKL/abAI2vYFaraoDUnmrHy5ByVjn0K9yMY5TgC/YP9tu5DHSxdTRst6guTLC+yVxt5opzE4jkYPL7A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790351585; c=relaxed/simple;
+	bh=kWp6u3eDu8CMfV3Gkh2auIB/Pv3KZjoJAEz3jYIh6n4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=KtrlAINgAR7lpqkYe7jvPMlC++prBf94c2xbHZv/FtDjw3TGQSsuG6g0gSr9avRpWco/vbnNP0JDUem3byarPKMgd7sMBL65kbDP3j1OYDfuscXAfwATaBayh0He9TJ/mPGkA2sm4H9Vm3zrogNxcz41gi5c0JEtbHslIQ6z7g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4db3db8687fso1690455b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:53:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790351568; x=1790956368;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=utwZNZ9pY4Xx5gq59KUjA7owWSl05dTqrvQ9otynvfA=;
-        b=NT5ppcNsES5yGawF4nRguQmxyBig3cCL/30l1KTxxHmyYcgzVI6MFQ+KFDU0yX6zJI
-         A5cmSgntYvDw2ws1F6G5BrI+2+70yqElThg5h7NrXFHY/hyBeJhntS2Le9aO9OCvtt2Q
-         9Y4NpG2HyKxfmobM8p0KUlBv7swdwEIdfYV3KsMRTULCiz2gLWOKvQhUrGIq1tz97/2Z
-         CpW1DJvbsrfL5boD34rMk+nNrpCkG5wCWTtvAH8+y9lZ/V/cx0LPeoj+JbbVTazBedlZ
-         dea+uOWcE13fq1woPyGoPPKjR+3DKsvsQJf2WopYKFF7pnUmZFWrp+dr+df1vkUDeTAX
-         +v7g==
-X-Forwarded-Encrypted: i=1; AKwUvByEeln0mpj6R4HpYeJvqglvOTlPVnC+4DvGucRmG8siFCTCXjoTjbm61DkTSKOxrUpzzpP+RjcMSsCxBNg=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0gA5s2yxdUyHIIrLMwql0kyOfx7j516JXVvudZ6CJ8mPrj0At
-	eANV9kN+XtsRxb5TTQ2RC5ajINYTz53PtLL2IH848yfu8dOXZ8Jm52MLZqAxK4IFbDMk1/HLq0Q
-	XPnBykXgY9BKBl86oMfgR0L6MEdXNkXG7TpG8wEiJ6w==
-X-Gm-Gg: AYBFou2rocURr3fb9G76kZ8BW8De+tw7SHR2gmXuxGAMJhAF6Gvh/DgwXYXp2Z/PvT3
-	8/OGtb1veH95syQDOouOP/UqbT35PVLUXoHeNeeJvzidbm8i8PbUt3dXzn0wQU//gUR1SElI0IU
-	XK92rrqEtChApZHIL7/9TyprZkYQ2xyTaeC62aeDHlX3Lub/BSMz8SQuLsYrIYIy94H8qn0kYTa
-	ifFkUwgi59PsmAV41/dXKKg3+IxslVygTEXbepCJn8NQGu5ULfatcHkFwLbg1AdoRV+uPWSVcPP
-	ZYInL1aIUfxdGb/rGsh1i3qv3ZHi6ePC+O7HyakS5oUj8MzW8Ws9juuQA5BcfTgRlXzIS9WITIu
-	8vUzpG5WLoFkA2xlTN7JfbmNlCRzyemDq8eXuuJQtIlzuO7w9jCdDV8hCQ0tUCm7SWgnNRDtU+A
-	2NO1uPeqZEEw==
-X-Received: by 2002:a05:6000:4b09:b0:488:6072:c0bc with SMTP id
- ffacd0b85a97d-48872a5d9a7mr10536030f8f.4.1790351568022; Fri, 25 Sep 2026
- 08:52:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790351582; x=1790956382;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XgubwZoDwjfMZxz2biWtWQULahdH1VadZ96shGtXC4g=;
+        b=A/VXteEHNBfgxf0AD8bgQOpdjP/RoSsX+Sma5siq3wVIt6V8k7Rk30bafc0mEcGsbz
+         sUiybheYrvRZOwYrApMTOuxbrBFPku2+0KsW5gi7QuMUigzcjfxjacqDnFZG4JM/OClc
+         JFXMN4A15ctP37YKj9IH4qF7hmHKP1PyyhykiWM2vdB6QuOiSMdt6eUWCqN3aKntK4Yw
+         G541SBmr6tX6urnuJQcoX7AXBXhd/J2ocTLGv3OhkO5h6MouopOEtJybs3Qt4ZjpBvoP
+         trxz9pWVMZmegXBGLDHuslVXT0nJ67kMVBS/nRrIY0AzVzBWoYmvY95DAiTHJX+ul7Y0
+         QJww==
+X-Forwarded-Encrypted: i=1; AKwUvBzax+yLv/68vbso3U5n/yeTjduvr98YnK+CUiVni8404Aje3F3NLjxdZOBGNwqWo67KsEHR7vuTO4Z12Gw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngcTXfpzxsgGb9ZL5p9Vwb8c+rG4XfxMcAE1Jedf6zo0LEU5Sm
+	T5bpnGW2pZ+22x2IT6GO4ET3YnAXIqIgec044qoknf3nXokKxqGHVWAHUmMpu9XXYuyZFCr605l
+	oeY0dpTkkfhkcrlNlfg7kwP/4sWrOd4k6+gntWa5+6Qe3L8pjHahyCrRA3ZU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925151659.419512-1-andrew.jones@oss.qualcomm.com> <20260925151659.419512-12-andrew.jones@oss.qualcomm.com>
-In-Reply-To: <20260925151659.419512-12-andrew.jones@oss.qualcomm.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Fri, 25 Sep 2026 21:22:37 +0530
-X-Gm-Features: AclHuK8pWQixNwcDzjZHyMQnruKEEP2VO1eZ6phkF3nVvr6l2DhyRC2oXU3yBTo
-Message-ID: <CAAhSdy1a-poX0KKrHThmOzvSnLQVwDQdY_Anz3=zjSYOcboPJg@mail.gmail.com>
-Subject: Re: [PATCH v6 11/16] irqchip/riscv-imsic: Support IOMMU MSI address lists
-To: Andrew Jones <andrew.jones@oss.qualcomm.com>
-Cc: linux-riscv@lists.infradead.org, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev, tjeznach@rivosinc.com, 
-	jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org, will@kernel.org, 
-	robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com, tglx@kernel.org, 
-	kevin.tian@intel.com, fangyu.yu@linux.alibaba.com
+X-Received: by 2002:a05:6808:1984:b0:4d6:90f3:74a3 with SMTP id
+ 5614622812f47-4d72e664a0bmr8186492b6e.46.1790351582038; Fri, 25 Sep 2026
+ 08:53:02 -0700 (PDT)
+Date: Fri, 25 Sep 2026 08:53:01 -0700
+In-Reply-To: <20260926.003610.1086231564499039984.konishi.ryusuke@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab698dd.80e1c6cc.1e8e5f.0039.GAE@google.com>
+Subject: Re: [syzbot] [nilfs?] WARNING in nilfs_rename (2)
+From: syzbot <syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com>
+To: konishi.ryusuke@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 8:47=E2=80=AFPM Andrew Jones
-<andrew.jones@oss.qualcomm.com> wrote:
->
-> RISC-V IOMMU host interrupt remapping maps every possible host IMSIC
-> target into one contiguous IOVA range. MSI message composition therefore
-> needs each target's position within that range.
->
-> Prepare the complete IMSIC address list while allocating an IRQ. The
-> list is guaranteed to exist after IMSIC state initialization. The IOMMU
-> backend maps the pages and caches the contiguous base IOVA in the MSI
-> descriptor when translation is needed.
->
-> When the descriptor has an IOMMU MSI mapping, use the selected logical
-> CPU directly as the page index within the IOVA range. Use the same path
-> for initial composition and affinity updates. A zero iommu_msi_shift
-> means no MSI address translation is required, so keep physical messages.
->
-> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-> Tested-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+Hello,
 
-LGMT.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+WARNING in nilfs_rename
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
-Acked-by: Anup Patel <anup@brainfault.org>
+------------[ cut here ]------------
+inode->i_nlink == 0
+WARNING: fs/inode.c:408 at drop_nlink+0xc5/0x110 fs/inode.c:408, CPU#0: syz.0.17/5904
+Modules linked in:
+CPU: 0 UID: 0 PID: 5904 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:drop_nlink+0xc5/0x110 fs/inode.c:408
+Code: a8 07 00 00 be 08 00 00 00 e8 47 6b e4 ff f0 48 ff 83 a8 07 00 00 5b 41 5c 41 5e 41 5f 5d c3 cc cc cc cc cc e8 3c 13 73 ff 90 <0f> 0b 90 eb 81 44 89 f1 80 e1 07 80 c1 03 38 c1 0f 8c 5b ff ff ff
+RSP: 0018:ffffc900051679f0 EFLAGS: 00010293
+RAX: ffffffff825406c4 RBX: ffff888042e04d70 RCX: ffff888000ae0000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: ffffffff9055877f R09: 1ffffffff20ab0ef
+R10: dffffc0000000000 R11: fffffbfff20ab0f0 R12: 1ffff110085c09b7
+R13: ffff888042e05990 R14: ffff888042e04db8 R15: dffffc0000000000
+FS:  00007f1c7f8f66c0(0000) GS:ffff88808c5a0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f80b5775a10 CR3: 0000000033897000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ nilfs_rename+0x4b0/0x8a0 fs/nilfs2/namei.c:418
+ vfs_rename+0xbd9/0xef0 fs/namei.c:6208
+ filename_renameat2+0x533/0x9a0 fs/namei.c:6326
+ __do_sys_renameat2 fs/namei.c:6355 [inline]
+ __se_sys_renameat2+0x5a/0x2c0 fs/namei.c:6350
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x155/0x510 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f1c7e99aeb9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f1c7f8f6028 EFLAGS: 00000246 ORIG_RAX: 000000000000013c
+RAX: ffffffffffffffda RBX: 00007f1c7ec16180 RCX: 00007f1c7e99aeb9
+RDX: 0000000000000006 RSI: 00002000000000c0 RDI: 0000000000000007
+RBP: 00007f1c7ea08c1f R08: 0000000000000000 R09: 0000000000000000
+R10: 0000200000000100 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f1c7ec16218 R14: 00007f1c7ec16180 R15: 00007ffc83c7ff08
+ </TASK>
 
-Thanks,
-Anup
 
-> ---
->  drivers/irqchip/Kconfig                    |  1 +
->  drivers/irqchip/irq-riscv-imsic-platform.c | 24 +++++++++++++++++++---
->  2 files changed, 22 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-> index 20b77fbc51ee..a038e1121be3 100644
-> --- a/drivers/irqchip/Kconfig
-> +++ b/drivers/irqchip/Kconfig
-> @@ -651,6 +651,7 @@ config RISCV_IMSIC
->         select IRQ_DOMAIN_HIERARCHY
->         select GENERIC_IRQ_MATRIX_ALLOCATOR
->         select GENERIC_MSI_IRQ
-> +       select IRQ_MSI_IOMMU
->         select IRQ_MSI_LIB
->
->  config RISCV_RPMI_SYSMSI
-> diff --git a/drivers/irqchip/irq-riscv-imsic-platform.c b/drivers/irqchip=
-/irq-riscv-imsic-platform.c
-> index 643c8e459611..ddb2bb570cdc 100644
-> --- a/drivers/irqchip/irq-riscv-imsic-platform.c
-> +++ b/drivers/irqchip/irq-riscv-imsic-platform.c
-> @@ -10,6 +10,7 @@
->  #include <linux/cpu.h>
->  #include <linux/interrupt.h>
->  #include <linux/io.h>
-> +#include <linux/iommu.h>
->  #include <linux/irq.h>
->  #include <linux/irqchip.h>
->  #include <linux/irqdomain.h>
-> @@ -69,8 +70,10 @@ static void imsic_irq_ack(struct irq_data *d)
->         irq_move_irq(d);
->  }
->
-> -static void imsic_irq_compose_vector_msg(struct imsic_vector *vec, struc=
-t msi_msg *msg)
-> +static void imsic_irq_compose_vector_msg(struct irq_data *d, struct imsi=
-c_vector *vec,
-> +                                        struct msi_msg *msg)
->  {
-> +       struct msi_desc *desc =3D irq_data_get_msi_desc(d);
->         phys_addr_t msi_addr;
->
->         if (WARN_ON(!vec))
-> @@ -79,6 +82,12 @@ static void imsic_irq_compose_vector_msg(struct imsic_=
-vector *vec, struct msi_ms
->         if (WARN_ON(!imsic_cpu_page_phys(vec->cpu, 0, &msi_addr)))
->                 return;
->
-> +       /* A zero shift means no IOMMU MSI mapping is needed. */
-> +       if (desc->iommu_msi_shift) {
-> +               msi_addr =3D (desc->iommu_msi_iova << desc->iommu_msi_shi=
-ft) +
-> +                          vec->cpu * IMSIC_MMIO_PAGE_SZ;
-> +       }
-> +
->         msg->address_hi =3D upper_32_bits(msi_addr);
->         msg->address_lo =3D lower_32_bits(msi_addr);
->         msg->data =3D vec->local_id;
-> @@ -86,7 +95,7 @@ static void imsic_irq_compose_vector_msg(struct imsic_v=
-ector *vec, struct msi_ms
->
->  static void imsic_irq_compose_msg(struct irq_data *d, struct msi_msg *ms=
-g)
->  {
-> -       imsic_irq_compose_vector_msg(irq_data_get_irq_chip_data(d), msg);
-> +       imsic_irq_compose_vector_msg(d, irq_data_get_irq_chip_data(d), ms=
-g);
->  }
->
->  #ifdef CONFIG_SMP
-> @@ -94,7 +103,7 @@ static void imsic_msi_update_msg(struct irq_data *d, s=
-truct imsic_vector *vec)
->  {
->         struct msi_msg msg =3D { };
->
-> -       imsic_irq_compose_vector_msg(vec, &msg);
-> +       imsic_irq_compose_vector_msg(d, vec, &msg);
->         irq_data_get_irq_chip(d)->irq_write_msi_msg(d, &msg);
->  }
->
-> @@ -225,7 +234,9 @@ static struct irq_chip imsic_irq_base_chip =3D {
->  static int imsic_irq_domain_alloc(struct irq_domain *domain, unsigned in=
-t virq,
->                                   unsigned int nr_irqs, void *args)
->  {
-> +       msi_alloc_info_t *info =3D args;
->         struct imsic_vector *vec;
-> +       int ret;
->
->         /* Multi-MSI is not supported yet. */
->         if (nr_irqs > 1)
-> @@ -235,6 +246,13 @@ static int imsic_irq_domain_alloc(struct irq_domain =
-*domain, unsigned int virq,
->         if (!vec)
->                 return -ENOSPC;
->
-> +       ret =3D iommu_dma_prepare_msi_list(info->desc, imsic->msi_pa_list=
-,
-> +                                        num_possible_cpus(), IMSIC_MMIO_=
-PAGE_SZ);
-> +       if (ret) {
-> +               imsic_vector_free(vec);
-> +               return ret;
-> +       }
-> +
->         irq_domain_set_info(domain, virq, virq, &imsic_irq_base_chip, vec=
-,
->                             handle_edge_irq, NULL, NULL);
->         irq_set_noprobe(virq);
-> --
-> 2.43.0
->
+Tested on:
+
+commit:         89a31299 Merge tag 'cifs-fixes-7.3-rc2' of https://git..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=16c0fc5e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=db6ce8c8614a5a8f
+dashboard link: https://syzkaller.appspot.com/bug?extid=f6c7e1f1809f235eeb90
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=139f7c5e580000
+
