@@ -1,149 +1,467 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203D43EB810;
-	Fri, 25 Sep 2026 21:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6F746E000
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790373043; cv=none; b=VTL9/StyOlHLXCiYugKdCRqQ+JZh928dHsdaUNvQH1k9UZD47pcsSsi+TYCVfsSL7iQ7Yuj2Wu9BxKyoXtTv+afTpIx+rL2h3oz4eFw7wSDKvFeV6A751KJWLEpBmUCUu78478Bc4RWn6cRIYZFkmZC/siKnH5EyxL1xY+duNV0=
+	t=1790373063; cv=none; b=W8sGIfRbVyX7DeQ1jYxyMbqX9biCqa0gZItbnrvtVOyW6TwiElN7uzG4/Z6Li2hAtv43RViCGlkZGzV2LFMs6RIsXg+RkhlhHMwgRyJ6/WXqXXxeiK3M769Ib/S600AJzsuSa6Eec66XeJ9b3UkebX93+4idrjLGmiYBBPNFjn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790373043; c=relaxed/simple;
-	bh=Tv1GknzOiavhEAL+qwhtHJzVBDxy3FdtVb2HrHRPXpk=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Z/TlVe/fWeMwd2QbSwhZy4WHdS8mhNA/jWTIpZe6GovxVC8hvo2osJPr/VzIAmIKbVSi3adDtKIeGRBxh3ARnrivKorUwWNDQV6us5or6XkC6YLYHIhUgJ318TwTB3Jiljj8OqXRbtV3Ft/aYSOLsOBIJvOOHS7jxTEwWyVODO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=JJL1E4UH; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790373063; c=relaxed/simple;
+	bh=AuPpavUxIfLC0oJdMOsE/vhiB3CqJSq/0j9oWa4KPAo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=X6pkkCpe/XABz4Sl5e8JjalZd7Mv3GJJxUHQVxAZPYwQkCpOPdJ056+/NBHgwfApyx/QWrksFHI8+aT9kDjt47E4lRvhiftkAAnzAIClHYmwrT+tNjOZDuzlQBRJuvZfwQkRgSGUogPqHgxvLvyuJM7LXrIXCLqO8FHzk8n7WBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=bsXcrTqY; arc=none smtp.client-ip=74.125.231.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="JJL1E4UH"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6031EBE;
-	Fri, 25 Sep 2026 23:48:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790372930;
-	bh=Tv1GknzOiavhEAL+qwhtHJzVBDxy3FdtVb2HrHRPXpk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=JJL1E4UHXlyRcybG3UO9G/5N58HHVUFRGd+D8wJnyk5XQjdPVFRnWfdE1NfuOlOF8
-	 AFJirjZCk5kOPEqBq7OYhMoVLUsfE5ePZB8h4434kchxzR/2RS42WUaKr2454NO5Dr
-	 vJLkLeTKnkFBpWPnAshh3SF0SQHAQ/l+BiFubdxE=
-Message-ID: <4bedfdf97c0bdcf3ad00020eee7a1eb1@killaraus.ideasonboard.com>
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Guo Zihao <guozh23@xiaopeng.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, Liu Weibin <liuwb@xiaopeng.com>
-Subject: Re: [PATCH v2] media: i2c: thp7312: bound the focus lookup against
- the table size
-Date: Sat, 26 Sep 2026 00:50:24 +0300
-In-Reply-To: <20260922075246.1319707-1-guozh23@xiaopeng.com>
-References:  <20260922075246.1319707-1-guozh23@xiaopeng.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="bsXcrTqY"
+Received: by mail-oo2-f43.google.com with SMTP id 006d021491bc7-6b1ae7166edso1017825eaf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:50:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790373058; x=1790977858; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2xavothqOwHeZB4bh98N0n0uYgOhBW9jj9OLVcedt+M=;
+        b=bsXcrTqYUWEEuwpjn60DE7YJax4xMowJm7pq3D3yeO931SSTqUgdp3I+ehu1ev4ftW
+         Byo28IHfe9j+05i/sqtRIci4y+46dZvU+Jya7KT9nYjStBv3yU1a31Wr4f8Lk4me728R
+         IU2nXywQRdjRjMtx/t/ureUUEpJ1gVbb9om15RERjznmWzPBlp8naRMjin0fLhyQ8Ljy
+         XwBK/ivXRXzxVxFJ0D3/oUpab0Y8oHktKG2IMFH+G9xy3HzJpEsGjtUZ5WpDdhNhIK8N
+         uwcqsgDxLwvnsxptlQcJRxbHoIQ2z4Zzc8W0lo9rLCefS8v+XtanoJK2LULPN5JooNUj
+         kmGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790373058; x=1790977858;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=2xavothqOwHeZB4bh98N0n0uYgOhBW9jj9OLVcedt+M=;
+        b=z3c/+RvrPW6L1+Kh7H1nA+GAv6TfcZHte7azaggMCNgZsy4VgzlsmqvTAub2T3OUQk
+         qJz27Cx+HX6Nsd0WshpenVXp/R75zLqALktZ4+vZufhtUYCjhujt5BKqJlFG3sMaJdwI
+         ZCYgZD+hZMq1Y0lbP8rGJ6pVQUTbvHfHhf7tLHr+xIZN86QFP789EULPol3IGECOMHHS
+         3O8noB1IU6BIHJsxPUhkor9DCBO8NuSCJxqDP6v9Q+7RCG0gWfsrIbr08344NlIJftdP
+         ICHuhYrGzCQ9s+rQl9SDIG0/OtyUGrS8WIgfzh6fVqdxUnaTeiDB6EZSHbuANgGw7Ni4
+         g/lw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLC4tJGo4/IepGXRjV1tuM/aThA1tmxVXX87QPckZYjWFZfdutititirG7vp+oO/BIa0t5Xr5NmeYeo3U=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4NS93y31pXejDsXmhgy7NlMsAg+/iUceP7wDwudbiLcfAnD4R
+	ask3rRkGChGAX6D8mBL/lI+4pOCgDDFO+NwvIraAwwU/UxjYblmVKBj0bIymPtfVuhWu7FLsl/Z
+	nRuzI
+X-Gm-Gg: AYBFou0yPo1nqonqMz7d9/fli8bqcB0vmCJJ4KI5u4WpFM6VBtA1YR6jFlf8vn/wuF5
+	GvPMY2/q/hZFOeTZGf2+41+MY/S/Ue2/QYb7Hu5iIrePCNS5MX6m2IWEJlUUwa65yOBqGT2Lt+4
+	iUCpL07ganKA3RM5U7c5jACyzbIC8Ajn58DM54B2Ww+x5EJHrUvzKHKl74ewNEaX8iGLnXFjYfR
+	WUHDR2ONusugU0TYpVLMNpqWCs+qCorYkdGPbmCn3kr5ewsCgOfBuUqxXQCC9FDYjvguMVK/i/+
+	m966uX7HW+9hOk3oMM5MnKIOEKwvOToKgN45L+sRvorOiAHL1DFz1JULRY+2asFujNQAWeB51Gi
+	RkjwLraDH563sWr2yyF8MlAC1Gne97AA7O26zdOXkGgwvsBUCdETS1/sNK0kxAb4pfLG0vbh2Lb
+	O7mGCdKpxgy3Oga6PbYyOe7X92/CIftqu0FJ/GzfH01DxAF0N+c88Hi0WV4dSzbs518GSm4PMHP
+	44yEyFR1ujt/g==
+X-Received: by 2002:a05:6820:4df2:b0:6b7:46fc:1c7 with SMTP id 006d021491bc7-6d43fe723e1mr7445449eaf.38.1790373058085;
+        Fri, 25 Sep 2026 14:50:58 -0700 (PDT)
+Received: from [127.0.1.1] ([2600:8803:e7e4:500:7a0e:55f3:1b40:7bc6])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-818e97ab6a7sm3877556a34.22.2026.09.25.14.50.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 14:50:57 -0700 (PDT)
+From: "David Lechner (TI)" <dlechner@baylibre.com>
+Date: Fri, 25 Sep 2026 16:50:47 -0500
+Subject: [PATCH] iio: adc: ti-ads112c14: add gpio support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-iio-adc-ti-ads112c14-gpio-v1-1-2a2b218ebf3a@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDQAxFryJZNzAZpopepXThxFTjQmViS0G8e
+ 9N29Xkf3jvApKgYdNUBRV5qui4OdKmAp34ZBXVwhhhiHdp4RdUV+4FxVx8jikwJx81fapucEzc
+ hEYH7W5GHvn/t2/3P9syz8P4Nwnl+AEZ1zYh9AAAA
+X-Change-ID: 20260925-iio-adc-ti-ads112c14-gpio-197bb4c70411
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Chris Hall <c-hall@ti.com>, 
+ Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>, 
+ "David Lechner (TI)" <dlechner@baylibre.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13375;
+ i=dlechner@baylibre.com; h=from:subject:message-id;
+ bh=AuPpavUxIfLC0oJdMOsE/vhiB3CqJSq/0j9oWa4KPAo=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqtuy5dlDf7qBQGwrEIRh6Vfp8T4koO/RYSyrM2
+ UocPWHwJRWJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCarbsuQAKCRDCzCAB/wGP
+ wH5HB/4udUFwlmxc40xMlILg0coaXwFGTwCEBPFtoetjeFO/iBUTHdFArYuS3XoZ/+zwx5Gr0NU
+ o5NRKlWAWQSTQOpZORHgONvYHnu6yEng3CrC3yGzyWzb04tY2ZaKixU5r0xSRyfVmd7pkcY+2eM
+ 8dcoaiKFZOWUF7g3eqveqVyveT7nF6Q5U+KmTm4RXt3N450gJxdrbBic/eJN5eWTNCa6iwQwlH8
+ QawXaeNAEdVuV+4smg3cYmvW86+pI2JXPCDThPaYJ+HfSfFLxCpDRakvKriZHHsG+/ZoSS/ZIFa
+ IDVvCGBOWfnEAlK3huLo9wZoOn04YSrj9LyKkiMXIF5uXuZb
+X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
+ fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-Hello,
+Add support for using the AIN4/GPIO0 to AIN7/GPIO3 pins as GPIOs when
+the gpio-controller property is present.
 
-This is an automated reply.
+Pins that are already used for something else according to the
+devicetree are excluded from the valid GPIO mask. This includes analog
+inputs and excitation current outputs used by channels, REFP/REFN when
+an external reference is used, the /FAULT and /DRDY interrupts and the
+external clock input.
 
-You have sent a patch that appears to have been generated by an LLM. The
-commit message and/or code show little to no real understanding of the
-changes being proposed.
+The per-pin register field macros are replaced with parameterized ones
+so that they can be used with the GPIO offset.
 
-Such patches require a large amount of work to review. They rely on the
-maintainer to propose - and often even implement - a proper design. The
-probability that the author will learn from the experience to improve
-their future contributions is close to zero.
+Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+---
+ drivers/iio/adc/ti-ads112c14.c | 198 +++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 180 insertions(+), 18 deletions(-)
 
-As a result, to make good use of maintainer time and keep the kernel
-development process sustainable, your patch has been rejected.
+diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
+index 3c877126b0be..1c0519716faa 100644
+--- a/drivers/iio/adc/ti-ads112c14.c
++++ b/drivers/iio/adc/ti-ads112c14.c
+@@ -17,6 +17,7 @@
+ #include <linux/delay.h>
+ #include <linux/dev_printk.h>
+ #include <linux/device/devres.h>
++#include <linux/gpio/driver.h>
+ #include <linux/i2c.h>
+ #include <linux/iio/buffer.h>
+ #include <linux/iio/iio.h>
+@@ -63,10 +64,7 @@
+ 
+ #define ADS112C14_REG_STATUS_LSB			0x03
+ #define   ADS112C14_STATUS_LSB_CONV_COUNT		GENMASK(7, 4)
+-#define   ADS112C14_STATUS_LSB_GPIO3_DAT_IN		BIT(3)
+-#define   ADS112C14_STATUS_LSB_GPIO2_DAT_IN		BIT(2)
+-#define   ADS112C14_STATUS_LSB_GPIO1_DAT_IN		BIT(1)
+-#define   ADS112C14_STATUS_LSB_GPIO0_DAT_IN		BIT(0)
++#define   ADS112C14_STATUS_LSB_GPIO_DAT_IN(n)		BIT(n)
+ 
+ #define ADS112C14_REG_CONVERSION_CTRL			0x04
+ #define   ADS112C14_CONVERSION_CTRL_RESET		GENMASK(7, 2)
+@@ -133,10 +131,7 @@
+ #define   ADS112C14_DIGITAL_CFG_CODING			BIT(1)
+ 
+ #define ADS112C14_REG_GPIO_CFG				0x0B
+-#define   ADS112C14_GPIO_CFG_GPIO3_CFG			GENMASK(7, 6)
+-#define   ADS112C14_GPIO_CFG_GPIO2_CFG			GENMASK(5, 4)
+-#define   ADS112C14_GPIO_CFG_GPIO1_CFG			GENMASK(3, 2)
+-#define   ADS112C14_GPIO_CFG_GPIO0_CFG			GENMASK(1, 0)
++#define   ADS112C14_GPIO_CFG_GPIO_CFG(n)		(GENMASK(1, 0) << (2 * (n)))
+ #define     ADS112C14_GPIO_CFG_GPIO_CFG_DISABLED	  0
+ #define     ADS112C14_GPIO_CFG_GPIO_CFG_INPUT		  1
+ #define     ADS112C14_GPIO_CFG_GPIO_CFG_OUTPUT_PUSH_PULL  2
+@@ -147,10 +142,7 @@
+ #define     ADS112C14_GPIO_DATA_OUTPUT_GPIO3_SRC_DAT_OUT  0
+ #define     ADS112C14_GPIO_DATA_OUTPUT_GPIO3_SRC_DRDY	  1
+ #define   ADS112C14_GPIO_DATA_OUTPUT_GPIO2_SRC		BIT(6)
+-#define   ADS112C14_GPIO_DATA_OUTPUT_GPIO3_DAT_OUT	BIT(3)
+-#define   ADS112C14_GPIO_DATA_OUTPUT_GPIO2_DAT_OUT	BIT(2)
+-#define   ADS112C14_GPIO_DATA_OUTPUT_GPIO1_DAT_OUT	BIT(1)
+-#define   ADS112C14_GPIO_DATA_OUTPUT_GPIO0_DAT_OUT	BIT(0)
++#define   ADS112C14_GPIO_DATA_OUTPUT_GPIO_DAT_OUT(n)	BIT(n)
+ 
+ #define ADS112C14_REG_IDAC_MAG_CFG			0x0D
+ #define   ADS112C14_IDAC_MAG_CFG_I2MAG			GENMASK(7, 4)
+@@ -166,6 +158,8 @@
+ #define ADS112C14_INT_REF0_mV				1250
+ #define ADS112C14_INT_REF1_mV				2500
+ 
++#define ADS112C14_NUM_GPIO				4
++
+ enum {
+ 	ADS112C14_VREF_SOURCE_INTERNAL_2_5V,
+ 	ADS112C14_VREF_SOURCE_INTERNAL_1_25V,
+@@ -366,6 +360,9 @@ struct ads112c14_channel_state {
+ struct ads112c14_data {
+ 	const struct ads112c14_chip_info *chip_info;
+ 	struct regmap *regmap;
++	struct gpio_chip gc;
++	const char *gpio_names[ADS112C14_NUM_GPIO];
++	DECLARE_BITMAP(gpio_reserved_mask, ADS112C14_NUM_GPIO);
+ 	struct iio_trigger *drdy_trig;
+ 	/* Synchronizes access to register value fields. */
+ 	struct mutex lock;
+@@ -393,6 +390,135 @@ struct ads112c14_data {
+ 						 ARRAY_SIZE(ads112c14_sys_mon_channels));
+ };
+ 
++static void ads112c14_reserve_gpio_for_ain(unsigned long *gpio_reserved_mask,
++					   u32 ain)
++{
++	if (ain >= 4 && ain <= 7)
++		set_bit(ain - 4, gpio_reserved_mask);
++}
++
++static int ads112c14_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
++{
++	struct iio_dev *indio_dev = gpiochip_get_data(gc);
++	struct ads112c14_data *data = iio_priv(indio_dev);
++	unsigned int reg_val;
++	int ret;
++
++	ret = regmap_read(data->regmap, ADS112C14_REG_GPIO_CFG, &reg_val);
++	if (ret)
++		return ret;
++
++	switch (field_get(ADS112C14_GPIO_CFG_GPIO_CFG(offset), reg_val)) {
++	case ADS112C14_GPIO_CFG_GPIO_CFG_INPUT:
++		return GPIO_LINE_DIRECTION_IN;
++	case ADS112C14_GPIO_CFG_GPIO_CFG_OUTPUT_PUSH_PULL:
++	case ADS112C14_GPIO_CFG_GPIO_CFG_OUTPUT_OPEN_DRAIN:
++		return GPIO_LINE_DIRECTION_OUT;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int ads112c14_gpio_direction_input(struct gpio_chip *gc,
++					  unsigned int offset)
++{
++	struct iio_dev *indio_dev = gpiochip_get_data(gc);
++	struct ads112c14_data *data = iio_priv(indio_dev);
++
++	return regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
++				  ADS112C14_GPIO_CFG_GPIO_CFG(offset),
++				  field_prep(ADS112C14_GPIO_CFG_GPIO_CFG(offset),
++					     ADS112C14_GPIO_CFG_GPIO_CFG_INPUT));
++}
++
++static int ads112c14_gpio_direction_output(struct gpio_chip *gc,
++					   unsigned int offset, int value)
++{
++	struct iio_dev *indio_dev = gpiochip_get_data(gc);
++	struct ads112c14_data *data = iio_priv(indio_dev);
++	int ret;
++
++	ret = regmap_assign_bits(data->regmap, ADS112C14_REG_GPIO_DATA_OUTPUT,
++				 ADS112C14_GPIO_DATA_OUTPUT_GPIO_DAT_OUT(offset),
++				 value);
++	if (ret)
++		return ret;
++
++	return regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
++				  ADS112C14_GPIO_CFG_GPIO_CFG(offset),
++				  field_prep(ADS112C14_GPIO_CFG_GPIO_CFG(offset),
++					     ADS112C14_GPIO_CFG_GPIO_CFG_OUTPUT_PUSH_PULL));
++}
++
++static int ads112c14_gpio_get(struct gpio_chip *gc, unsigned int offset)
++{
++	struct iio_dev *indio_dev = gpiochip_get_data(gc);
++	struct ads112c14_data *data = iio_priv(indio_dev);
++	unsigned int reg_val;
++	int ret;
++
++	ret = regmap_read(data->regmap, ADS112C14_REG_STATUS_LSB, &reg_val);
++	if (ret)
++		return ret;
++
++	return field_get(ADS112C14_STATUS_LSB_GPIO_DAT_IN(offset), reg_val);
++}
++
++static int ads112c14_gpio_set(struct gpio_chip *gc, unsigned int offset,
++			      int value)
++{
++	struct iio_dev *indio_dev = gpiochip_get_data(gc);
++	struct ads112c14_data *data = iio_priv(indio_dev);
++
++	return regmap_assign_bits(data->regmap, ADS112C14_REG_GPIO_DATA_OUTPUT,
++				  ADS112C14_GPIO_DATA_OUTPUT_GPIO_DAT_OUT(offset),
++				  value);
++}
++
++static int ads112c14_gpio_init_valid_mask(struct gpio_chip *gc,
++					  unsigned long *valid_mask,
++					  unsigned int ngpios)
++{
++	struct iio_dev *indio_dev = gpiochip_get_data(gc);
++	struct ads112c14_data *data = iio_priv(indio_dev);
++
++	bitmap_fill(valid_mask, ngpios);
++	bitmap_andnot(valid_mask, valid_mask, data->gpio_reserved_mask, ngpios);
++
++	return 0;
++}
++
++static int ads112c14_gpio_init(struct iio_dev *indio_dev)
++{
++	struct ads112c14_data *data = iio_priv(indio_dev);
++	struct device *dev = indio_dev->dev.parent;
++
++	for (unsigned int i = 0; i < ADS112C14_NUM_GPIO; i++) {
++		data->gpio_names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s:GPIO%u",
++						     dev_name(&indio_dev->dev), i);
++		if (!data->gpio_names[i])
++			return -ENOMEM;
++	}
++
++	data->gc = (struct gpio_chip) {
++		.owner = THIS_MODULE,
++		.label = dev_name(dev),
++		.parent = dev,
++		.base = -1,
++		.ngpio = ADS112C14_NUM_GPIO,
++		.names = data->gpio_names,
++		.can_sleep = true,
++		.init_valid_mask = ads112c14_gpio_init_valid_mask,
++		.get_direction = ads112c14_gpio_get_direction,
++		.direction_input = ads112c14_gpio_direction_input,
++		.direction_output = ads112c14_gpio_direction_output,
++		.get = ads112c14_gpio_get,
++		.set = ads112c14_gpio_set,
++	};
++
++	return devm_gpiochip_add_data(dev, &data->gc, indio_dev);
++}
++
+ static irqreturn_t ads112c14_drdy_irq_handler(int irq, void *private)
+ {
+ 	struct iio_dev *indio_dev = private;
+@@ -1913,7 +2039,8 @@ static int ads112c14_populate_idac_mag(u32 current_nA, u8 *idac_mag)
+ }
+ 
+ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+-				    bool *need_avdd_ref, bool *need_ext_ref)
++				    bool *need_avdd_ref, bool *need_ext_ref,
++				    unsigned long *gpio_reserved_mask)
+ {
+ 	struct ads112c14_data *data = iio_priv(indio_dev);
+ 	struct device *dev = indio_dev->dev.parent;
+@@ -1981,6 +2108,8 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+ 			 * for single-ended channels when taking measurements.
+ 			 */
+ 			spec->channel2 = ADS112C14_MUX_CFG_AIN_GND;
++
++			ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[0]);
+ 		} else if (fwnode_property_present(child, "diff-channels")) {
+ 			ret = fwnode_property_read_u32_array(child, "diff-channels",
+ 							     pair, ARRAY_SIZE(pair));
+@@ -1995,6 +2124,9 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+ 			spec->differential = 1;
+ 			spec->channel = pair[0];
+ 			spec->channel2 = pair[1];
++
++			ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[0]);
++			ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[1]);
+ 		} else {
+ 			return dev_err_probe(dev, -EINVAL,
+ 					     "channel node missing channel type property\n");
+@@ -2026,6 +2158,10 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+ 			measurement->idac1_mux = pair[0];
+ 			measurement->idac2_mux = measurement->iadc_count > 1 ? pair[1] : 0;
+ 
++			ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[0]);
++			if (measurement->iadc_count > 1)
++				ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[1]);
++
+ 			ret = fwnode_property_read_u32_array(child, "excitation-current-nanoamp",
+ 							     pair, measurement->iadc_count);
+ 			if (ret)
+@@ -2332,6 +2468,7 @@ static void ads112c14_populate_tables(struct ads112c14_data *data)
+ 
+ static int ads112c14_probe(struct i2c_client *client)
+ {
++	DECLARE_BITMAP(gpio_reserved_mask, ADS112C14_NUM_GPIO);
+ 	struct device *dev = &client->dev;
+ 	const struct ads112c14_chip_info *info;
+ 	struct iio_dev *indio_dev;
+@@ -2353,6 +2490,7 @@ static int ads112c14_probe(struct i2c_client *client)
+ 
+ 	data = iio_priv(indio_dev);
+ 	data->chip_info = info;
++	bitmap_zero(gpio_reserved_mask, ADS112C14_NUM_GPIO);
+ 
+ 	ret = devm_mutex_init(dev, &data->lock);
+ 	if (ret)
+@@ -2366,7 +2504,8 @@ static int ads112c14_probe(struct i2c_client *client)
+ 					     "failed to read ti,refp-refn-resistor-ohms property\n");
+ 	}
+ 
+-	ret = ads112c14_parse_channels(indio_dev, &need_avdd_ref, &need_ext_ref);
++	ret = ads112c14_parse_channels(indio_dev, &need_avdd_ref, &need_ext_ref,
++				       gpio_reserved_mask);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2429,6 +2568,10 @@ static int ads112c14_probe(struct i2c_client *client)
+ 		return dev_err_probe(dev, -EINVAL,
+ 				     "external reference measurements require either refp-supply or ti,refp-refn-resistor-ohms property\n");
+ 
++	/* REFP and REFN share pins with GPIO0 and GPIO1. */
++	if (data->ext_ref_uV || data->ext_ref_ohms)
++		bitmap_set(gpio_reserved_mask, 0, 2);
++
+ 	clk = devm_clk_get_optional_enabled(dev, NULL);
+ 	if (IS_ERR(clk))
+ 		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clk\n");
+@@ -2505,12 +2648,19 @@ static int ads112c14_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
++	/* FAULT shares a pin with GPIO2. */
++	if (fwnode_property_match_string(dev_fwnode(dev), "interrupt-names", "fault") >= 0)
++		set_bit(2, gpio_reserved_mask);
++
+ 	if (fwnode_property_match_string(dev_fwnode(dev), "interrupt-names", "drdy") >= 0) {
+ 		data->drdy_irq = fwnode_irq_get_byname(dev_fwnode(dev), "drdy");
+ 		if (data->drdy_irq < 0)
+ 			return dev_err_probe(dev, data->drdy_irq,
+ 					     "failed to get drdy interrupt\n");
+ 
++		/* DRDY shares a pin with GPIO3. */
++		set_bit(3, gpio_reserved_mask);
++
+ 		if (clk)
+ 			return dev_err_probe(dev, -EINVAL,
+ 					     "cannot use both DRDY and CLK - they share the same pin\n");
+@@ -2520,8 +2670,8 @@ static int ads112c14_probe(struct i2c_client *client)
+ 		 * order to support open drain option here.
+ 		 */
+ 		ret = regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
+-					 ADS112C14_GPIO_CFG_GPIO3_CFG,
+-					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO3_CFG,
++					 ADS112C14_GPIO_CFG_GPIO_CFG(3),
++					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO_CFG(3),
+ 						    ADS112C14_GPIO_CFG_GPIO_CFG_OUTPUT_PUSH_PULL));
+ 		if (ret)
+ 			return ret;
+@@ -2555,9 +2705,12 @@ static int ads112c14_probe(struct i2c_client *client)
+ 	}
+ 
+ 	if (clk) {
++		/* CLK shares a pin with GPIO3. */
++		set_bit(3, gpio_reserved_mask);
++
+ 		ret = regmap_update_bits(data->regmap, ADS112C14_REG_GPIO_CFG,
+-					 ADS112C14_GPIO_CFG_GPIO3_CFG,
+-					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO3_CFG,
++					 ADS112C14_GPIO_CFG_GPIO_CFG(3),
++					 FIELD_PREP(ADS112C14_GPIO_CFG_GPIO_CFG(3),
+ 						    ADS112C14_GPIO_CFG_GPIO_CFG_INPUT));
+ 		if (ret)
+ 			return ret;
+@@ -2583,6 +2736,15 @@ static int ads112c14_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
++	if (device_property_read_bool(dev, "gpio-controller")) {
++		bitmap_copy(data->gpio_reserved_mask, gpio_reserved_mask,
++			    ADS112C14_NUM_GPIO);
++
++		ret = ads112c14_gpio_init(indio_dev);
++		if (ret)
++			return ret;
++	}
++
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
+ 
 
-If you believe the change you proposed is important, take time to study
-the problem, learn, and develop a solution without AI assistance.
-Answering this e-mail or generating a new version of the patch by
-feeding this reply to an LLM will only result in your e-mails being
-ignored.
+---
+base-commit: d8c0f48f0b1583308a98401c0c7b1a65d1d43a6c
+change-id: 20260925-iio-adc-ti-ads112c14-gpio-197bb4c70411
 
-Please note that if your patch attempted to address an important
-problem, maintainers or other contributors can submit and merge a
-similar or entirely different fix without crediting you.
+Best regards,
+--  
+David Lechner (TI) <dlechner@baylibre.com>
 
-Your contributions to the Linux kernel will be welcome if you genuinely
-desire to invest your time and learn.
-
-Thank you,
-
-Laurent's mail bot
-
-On Tue, 22 Sep 2026 15:52:46 +0800, Guo Zihao <guozh23@xiaopeng.com> wrote:
-> thp7312_set_focus() indexes thp7312_focus_values[] with the value of the
-> V4L2_CID_FOCUS_ABSOLUTE control:
->=20
->         if (thp7312->focus_absolute->is_new) {
->                 unsigned int value;
->=20
->                 value =3D thp7312_focus_values[thp7312->focus_absolute->val=
-];
->=20
-> The control is registered with the table size as its maximum:
->=20
->         v4l2_ctrl_new_std(hdl, &thp7312_ctrl_ops,
->                           V4L2_CID_FOCUS_ABSOLUTE,
->                           0, ARRAY_SIZE(thp7312_focus_values),
->                           1, 0);
->=20
-> The table has 19 entries, so the valid indices are 0 to 18, but the
-> maximum passed to the control is 19. The control framework does not
-> reject the bound itself for an integer control: std_validate_elem() only
-> rounds the value into [minimum, maximum] through ROUND_TO_RANGE() and
-> returns 0, whereas a menu control returns -ERANGE for a value outside the
-> range. So a value of 19 is accepted and the lookup reads one entry past
-> the end of the array. That value is then written to the sensor through
-> cci_write(THP7312_REG_MANUAL_FOCUS_POSITION).
->=20
-> Reject a value that is not a valid index before the lookup. The control
-> range is the safer place for the bound, but leaving the lookup guarded
-> keeps the table and its only user consistent with each other; narrowing
-> the control is a follow-up that does not affect this fix.
->=20
-> No Fixes tag. The table, its registration and the lookup all come from
-> the initial driver import, 7a52ab415b43 ("media: i2c: Add driver for
-> THine THP7312"), and have not been touched since.
->=20
-> Reviewed-by: Liu Weibin <liuwb@xiaopeng.com>
-> Assisted-by: LLM
-> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
-> ---
-> v2: add the THP7312 maintainers to the recipients, and say that the value
->     read out of range is written to the sensor.
->=20
->     The previous version said the read was of a value next to the table
->     and left it at that. The read result goes into cci_write() for
->     THP7312_REG_MANUAL_FOCUS_POSITION, so the description now follows the
->     value to where it is used.
->=20
->     Add the Assisted-by tag.
-> ---
->  drivers/media/i2c/thp7312.c | 5 +++++
->  1 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/media/i2c/thp7312.c b/drivers/media/i2c/thp7312.c
-> index 775cfba18..20698b7a1 100644
-> --- a/drivers/media/i2c/thp7312.c
-> +++ b/drivers/media/i2c/thp7312.c
-> @@ -931,6 +931,11 @@ static int thp7312_set_focus(struct thp7312_device *th=
-p7312)
->  	if (thp7312->focus_absolute->is_new) {
->  		unsigned int value;
-> =20
-> +		if (thp7312->focus_absolute->val < 0 ||
-> +		    thp7312->focus_absolute->val >=3D
-> +		    ARRAY_SIZE(thp7312_focus_values))
-> +			return -EINVAL;
-> +
->  		value =3D thp7312_focus_values[thp7312->focus_absolute->val];
-> =20
->  		ret =3D cci_write(thp7312->regmap,
