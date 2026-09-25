@@ -1,120 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E7B3F5BFD;
-	Fri, 25 Sep 2026 10:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF056495AE4;
+	Fri, 25 Sep 2026 10:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790332313; cv=none; b=X+elx7QLggPM11PAW76LWfBJfricocC6l9dX4bGc6MoNuRNzKMM2+NvS8gitGs/9Nye4I1vOTqFrCtyWfd9kqyx4PfDsLp9xi93JYO62vekpi5h1E1T8kWiEQgzQaSGqrAxrv6rXAU8ps3m2zkC2WgPqWcE6JJ64V1PebmIlim8=
+	t=1790332549; cv=none; b=cwlN7zcSCEBIBjSA/ao8zUABVKeqrozvbbPaOuEkF9yf8wCCzfS3gGgcJ0vMdzUqHZOyLK1dxXDk+ozc6A/RICIbMemzhWxtNZJyQk0ZiQjkvDe2DA4WN3OVEBJmac0B0xTaL6NEuUWUxJjrCJxA515+BlgKzIR1eKAyccTG+SY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790332313; c=relaxed/simple;
-	bh=A3iiIxFr/AWrVtDAz6oFNjqJfl045U2hhYWWA0kwB8o=;
+	s=arc-20240116; t=1790332549; c=relaxed/simple;
+	bh=wQqmt2NWHj1mgubyNVguKY/67LUBnd0DTi3PNonAcPU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LDVf1StEBiubutHH3Hu+x2Nk7X1vhYbVH2iwkdHCav0jz8TMIMJk4XCsEI6/s/z06XsHGYfTnfbv7zuS2F50BDZg/7N0Rn+bhBSw+wlg4dO8ZLDGr+7E1o8cx5iPtusTymxN0ZuM3kbR8H7IMsxV+9wsCkiNXMYhN2nyOqxgOJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KFh05/CW; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=KLMeCbYS3SuvOHPlTw98DtlLQrs2G/D0rE+fwQsjeV381vTrtYHkvQvTULQJoVHlVqFB7Mv0LFan4dnvPfO9SW88gs2FPFs+vriHomaSsllYTIwOI1QZuvhtmCTNfoQzMWzUnsNTXYzT7NYC6Mjev6e32edbEIKIZPoCUzSxo9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CYhr6Xe7; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KFh05/CW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE031F000FF;
-	Fri, 25 Sep 2026 10:31:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790332312;
-	bh=9qa1eqfWkeyPHZy7/1Nc4UwLf1SaoqrDP6nwckO+zKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KFh05/CWgMWzK+m571PEsHrByqXxLm0wv44ws+S+yI4Jkx5GRkYOj7b1lYgGNeP8O
-	 NCdFsM2EIcxZg/XCU060FBJEL8VJheWkOD6sIl5rW2LDYViIYFGcszvcf2qsJSnmcb
-	 Jj8WMh7r/T3flKZENqYOaCiwtl+z7ofVBz00I74WPi0llt+j0Y1ieVljIPOBIAKVxu
-	 vb+s9Bg2pqpJJctMh46kB+234Mbn9x7ZhIF3S+Et4XtN4UA43KypThjawU0wBJlLY4
-	 /U5j+IIB6MXyNecyOSs2+SmLda8pEuIczb+OvcUjuNFL8zqmQ6qvwJWzpcC3prO+q3
-	 +I7Bj5fJ5haZg==
-Date: Fri, 25 Sep 2026 12:31:49 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ravi Bangoria <ravi.bangoria@amd.com>
-Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: Re: [PATCH v4 6/6] perf mem record: Use the IBS swfilt filter when
- available
-Message-ID: <arZNlT3kb8Gg8kVo@x2>
-References: <20260924212809.1733663-1-acme@kernel.org>
- <20260924212809.1733663-7-acme@kernel.org>
- <76ef085b-e8e3-41a5-b029-2cd0489aa430@amd.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CYhr6Xe7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790332547; x=1821868547;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=wQqmt2NWHj1mgubyNVguKY/67LUBnd0DTi3PNonAcPU=;
+  b=CYhr6Xe7f66lZzO3cOGXI18vW6840z4FhxxPmQeUpS26juTjOeyIDTZr
+   3uX1DjWYYAHxl98V23WpXfRKjatjZXXk5TFANVPqBeCNabAoYJTgZA+wF
+   aTOkGxcxxPx/wgnxsy5HXTN/lNJJ1V1MwExdV9q42z9aI8NVckIS8aNA2
+   eNwcDUvlwKkwt2Y6Dry/49hs1SiMbUAhnrLr84ZpVmP/QsmQSpfLwdlWn
+   JO9Fgy9CblfrK/4lUVvsIRJCQ+TwPE6h+urD6cQYRdxaoA2nZO0yxxYWA
+   EXwI6Zh5ESf0KildsJTIOK4brNMB+AW/Z/MczOqc/28fc71vIyxnWwDSi
+   A==;
+X-CSE-ConnectionGUID: iG8KllMgTz2xDstMJ+PUtA==
+X-CSE-MsgGUID: erTjxSLYSVyc/MQwLfShfg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93835012"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="93835012"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:35:47 -0700
+X-CSE-ConnectionGUID: uNXAvX86Q3iNNlCxgwrtKw==
+X-CSE-MsgGUID: 5vekCPdMQk2Jcqa9XUgEMA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="272431679"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:35:44 -0700
+Date: Fri, 25 Sep 2026 13:35:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Linus Walleij <linusw@kernel.org>,
+	"Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
+	linux-gpio@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH] gpio: wcove: use regmap_assign_bits() for conditional
+ set/clear
+Message-ID: <arZOfm4_ePPn6QU0@ashevche-desk.local>
+References: <20260924083512.461838-1-peng.fan@oss.nxp.com>
+ <179032407610.10527.4008737984510756760.b4-ty@oss.qualcomm.com>
+ <CAHp75VdBbr5TgEXrJ6XDQiPvsGfhyKQmVL+zUQ3mNS=GiWw1RQ@mail.gmail.com>
+ <CAMRc=MfdAU0fvYa-XzGvdeMPsAG7z+QeMP7zywNaRW-emRJjRw@mail.gmail.com>
+ <arZJDjT42V1X0I8m@ashevche-desk.local>
+ <CAMRc=MdZ7n5061rwA6mo0_xTn++63HZ_JjwxTaC_qMWvTZT-fw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <76ef085b-e8e3-41a5-b029-2cd0489aa430@amd.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMRc=MdZ7n5061rwA6mo0_xTn++63HZ_JjwxTaC_qMWvTZT-fw@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Sep 25, 2026 at 09:32:42AM +0530, Ravi Bangoria wrote:
-> Hi Arnaldo,
+On Fri, Sep 25, 2026 at 10:23:52AM +0000, Bartosz Golaszewski wrote:
+> On Fri, 25 Sep 2026 12:12:30 +0200, Andy Shevchenko
+> <andriy.shevchenko@intel.com> said:
+> > On Fri, Sep 25, 2026 at 09:54:42AM +0000, Bartosz Golaszewski wrote:
+> >> On Fri, 25 Sep 2026 10:27:55 +0200, Andy Shevchenko
+> >> <andy.shevchenko@gmail.com> said:
+> >> > On Fri, Sep 25, 2026 at 11:14 AM Bartosz Golaszewski
+> >> > <bartosz.golaszewski@oss.qualcomm.com> wrote:
+> >> >> On Thu, 24 Sep 2026 16:35:11 +0800, Peng Fan (OSS) wrote:
+> >> >> > Replace if/else block using regmap_set_bits()/regmap_clear_bits() with
+> >> >> > the simpler regmap_assign_bits() call.
+> >> >>
+> >> >> Applied, thanks!
+> >> >>
+> >> >> [1/1] gpio: wcove: use regmap_assign_bits() for conditional set/clear
+> >> >>       https://git.kernel.org/brgl/c/428cb7603f95d0ee6fad06cbf56321b1bdeaaa85
+> >> >
+> >> > Are you going to handle all the Intel GPIO drivers that have a
+> >> > MAINTAINERS record?
+> >>
+> >> Sorry, backing it up. We really need to organize GPIO drivers by vendor...
+> >
+> > Do you want me to start intel subfolder?
+> >
 > 
-> > IBS events with exclude_{user,kernel} bits, as used for per-thread
-> > recording when kernel samples are not allowed, are rejected on hardware
-> > without the privilege filter, so per-thread 'perf mem record' fails on
-> > AMD:
-> > 
-> >   $ perf mem record -o /dev/null -- true
-> >   Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
-> > 
-> > Kernel v6.14 added swfilt, a software privilege filter exposed as the
-> > 'swfilt' format term, making those events usable per-thread.  Give the
-> > ibs_op memory events extra tables with the term, selected in
-> > perf_pmu__arch_init() when the PMU exposes it, keeping the names that
-> > need system wide mode otherwise; the knowledge that IBS needs this
-> > stays in the arch code.
-> > 
-> > Suggested-by: Namhyung Kim <namhyung@kernel.org>
-> > Suggested-by: Ravi Bangoria <ravi.bangoria@amd.com>
-> > Assisted-by: LLM
-> > Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+> I already did[1]!
 > 
-> Reviewed-by: Ravi Bangoria <ravi.bangoria@amd.com>
+> Bart
 > 
-> > + * ... Keep it even when
-> > + * the event has no exclude bits yet, 'perf record' adds them on the
-> > + * first open failure and retries with the same name.
-> 
-> Currently, 'perf record' fails rather than silently retrying with
-> /swfilt=1/. The reason to not transparently add /swfilt=1/ is to
-> make the user aware that software filtering is being used, and it
-> is not overhead free.
+> [1] https://lore.kernel.org/all/20260925-gpio-organize-by-vendor-v1-1-8feefd60581b@oss.qualcomm.com/
 
-Made it more concise:
+Sorry, but I have my own approach which I prefer over yours. I will share patches soon.
 
-+/*
-+ * IBS events with exclude_{user,kernel} bits are rejected on hardware
-+ * without the privilege filter unless swfilt is used: the extra tables
-+ * carry the term, selected when the PMU exposes it.
-+ */
- struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX] = {
-        E(NULL,         NULL,           NULL,   false,  0),
-        E(NULL,         NULL,           NULL,   false,  0),
-        E("mem-ldst",   "%s//",         NULL,   false,  0),
- };
 
-+struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX] = {
-+       E(NULL,         NULL,           NULL,   false,  0),
-+       E(NULL,         NULL,           NULL,   false,  0),
-+       E("mem-ldst",   "%s/swfilt=1/", NULL,   false,  0),
-+};
-+
- struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX] = {
-        E(NULL,         NULL,           NULL,   false,  0),
-        E(NULL,         NULL,           NULL,   false,  0),
-        E("mem-ldst",   "%s/ldlat=%u/", NULL,   true,   0),
- };
-+
-+struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX] = {
-+       E(NULL,         NULL,                   NULL,   false,  0),
-+       E(NULL,         NULL,                   NULL,   false,  0),
-+       E("mem-ldst",   "%s/ldlat=%u,swfilt=1/",        NULL,   true,   0),
-+};o
-- Arnaldo
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
