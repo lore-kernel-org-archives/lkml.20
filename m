@@ -1,103 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391FF4908A7;
-	Fri, 25 Sep 2026 12:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1CD4825C1
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790339424; cv=none; b=HFxrOCpemBg6uRLGwgpGypXpVmZJRWikUu9zDtEPj5boLynRam+TUZ+osHxR8P1sM/vK21KcuyU+ebCwS4+69nVseRbJArgCa0qclpNmhnhqmPgOiGSyS5dlwN4FgQFhRrS2MaUiizmq6fslP5C+/JRz5faGw+sGV+Rh4lkRY7E=
+	t=1790339435; cv=none; b=fIKGlIItwMf7nr4DH6iJcrnQOnjIdu0yHIr0KDPb7JbOdjClrRznQa0y00eKtti9hS+Kd3DUBwwblsOB5QC8LaT2QA4/Gle2UFnIgL2S5cTlvRDhEH9y/3vnOArT2bIBAMtym+S0ydbhoNwbIC0PEi5tLgn6zwMExdSBoD56GyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790339424; c=relaxed/simple;
-	bh=fp1uhQ/h6oTzerH42grRNe6hGWnXk5DjXQNeLzmskQY=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=Jj1qDryPHfiwJJSUvQVWpv7ebaVcsi9tKShrN34WDP3ldBxQWbuloki3XnSh42QqW1uR85XzEhhVF6FOZxdNwQJMcfxFgkCEUlhDeX0ca00zmlau9X8VqEKK8nAheCvOwV6YtquMU7pnYLG5u8rkX25ORRZBvV6mkRFUkbXIm9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ezensvnA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790339435; c=relaxed/simple;
+	bh=LUoDULbeAmVFn8GVNo7EZKcLNyZ0ZR0Y9ydjWuh5Sm8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gSaFqLTFCnHdwM+PRfsabre4czENFKt8ctiLxHWLCCqLjclnr+u0ixUj/VAwptVZabCAhSnOlycjDCPImNZbnmvOIjqxbGsD30iS9iWlScq3nzUpN0vFXdejXGHoTZkDPFPePvAfqPU9SKKqKmHGIIUn5gQvoovY2kXGBsfOWK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=jvD9WR10; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ezensvnA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B491F000FF;
-	Fri, 25 Sep 2026 12:30:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790339422;
-	bh=fp1uhQ/h6oTzerH42grRNe6hGWnXk5DjXQNeLzmskQY=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=ezensvnA7m8JCdNb7qfa93sdRrP+DjUCv4c/7mG1xWtgnCsPDpx8gwfkhGXvVr8rU
-	 lQV/mld9G+fA/ECncNbqhcpKRRkReIwN8zg58bHcL2g++r9uHWvuKJvgUaOdS7Z11k
-	 RSS6UOEA4M80SmFDRep19Dht/dUeRKOIPLeu1bfn1ANY90V+hFZNRhf0hyWVduScuq
-	 P93Ys2X6IfnEmELvbTOOBaDSfYSFDtmkJCh4df+FrcMFlUtZhn5Gs5Wzfd8IYInwrs
-	 ylXMDMK9LeOVoUfJFE/wlgUD/qFu+VNfunpg0W8oyjHubIhi1ELL+nRdeIrgSCoQvv
-	 LV0NVx4gJr+1w==
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="jvD9WR10"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=4rHU
+	MvsohuKMD7j/vbMX/ACnA/Knzn/24tCErnfx2D8=; b=jvD9WR10Do6hn8YQrGRl
+	UZ8GiWJvMx7vkNRIG5vilrAcKBpNK91TSOZw8d2oJ2wLr6EVuzokavDCakQLU1EX
+	XvtkdyjHe4exDdTfnaLsv6xIVZa7/eae6x70LaIk6V+vcJpdICNVIBke+FKVgqwI
+	UTSf40XWi2vcOtlsApPEMJWn4gVTNAQ4ZZQdA2WFVci3dn6U3YEIzz7eYjAnXlxY
+	CVOIIAe2pHwWdkxVweiaZ53/1RzEFRHizQCfEc0jwMu9GbWYgzx7OiovcAbAMoZ5
+	ADIy4NgJ825M6otG/D63jnaOsdijg6k0XAbQGK70VisFOf/XXHFTQSUr3ZjGYnWQ
+	lw==
+Received: (qmail 1557948 invoked from network); 25 Sep 2026 14:30:31 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Sep 2026 14:30:31 +0200
+X-UD-Smtp-Session: l3s3148p1@41/N4U1cPs8ujnvn
+Date: Fri, 25 Sep 2026 14:30:30 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence DDR
+ EDAC binding
+Message-ID: <arZpZolRwdU8zh6O@shikoro>
+References: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
+ <20260924-paul-v7-3-rc1-edac-v3-1-bd8054a5b180@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 25 Sep 2026 14:30:17 +0200
-Message-Id: <DLOECU7X3MTR.31Z6N1I0WB0MJ@kernel.org>
-Subject: Re: [PATCH] rust: DmaFence: Add better warning through Device
- reference
-Cc: "Philipp Stanner" <phasta@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260925081958.3048112-2-phasta@kernel.org>
- <DLOBPY6OBEOG.2Y4I4LRA276WU@garyguo.net>
-In-Reply-To: <DLOBPY6OBEOG.2Y4I4LRA276WU@garyguo.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-paul-v7-3-rc1-edac-v3-1-bd8054a5b180@bootlin.com>
 
-On Fri Sep 25, 2026 at 12:26 PM CEST, Gary Guo wrote:
-> On Fri Sep 25, 2026 at 9:19 AM BST, Philipp Stanner wrote:
->> Replace the warning print with a dev_warn!(). To do so, have the
->> FenceContext carry a reference to a Device, protected by the already
->> present lifetime.
->
-> Add a lifetime just to do this a print doesn't sound ideal. You could use
-> `ARef<Device>` instead?
+On Thu, Sep 24, 2026 at 04:12:47PM +0200, Paul Louvel wrote:
+> Add the Cadence EDAC DT binding.
+> 
+> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 
-Yes, that's what I recommend in general.
+So, my DT check runs have passed.
 
-Another thing to consider for the DMA fence context specifically, there's t=
-wo
-kinds of users. The absolute majority are drivers; there are very few non-d=
-river
-ones (e.g. drm_crtc), which will remain to be C code for at least quite a w=
-hile.
+But one thing came to my attention just now which needs fixing:
 
-I think it wouldn't be unreasonable to keep the API driver centric, and in =
-this
-case it also wouldn't be unreasonable to add the lifetime, as the T will mo=
-st
-likely carry it anyway, and even if not it wouldn't make sense for the fenc=
-e
-context to outlive driver unbind.
+> +    items:
+> +      - const: renesas,r9a06g032-ddr-edac # RZ/N1D
+> +      - const: renesas,rzn1-ddr-edac      # RZ/N1
 
-That said, we can also use WARN_ON() instead, which avoids the device depen=
-dency
-to begin with and still provides enough information to find the "offender".
+We don't need a family compatible. Only N1D has a DDR controller.
 
-But as I mentioned previously, I don't consider this that bad of a conditio=
-n in
-the first place. Signaling with ECANCELED on drop() seems perfectly reasona=
-ble:
+This needs also updates in the example below and in patch 3. With this
+fixed:
 
-When a driver does a teardown of the channel (or more generically the execu=
-tion
-context) it will follow the RAII pattern, so it will be very natural to jus=
-t
-drop the Jobqueue, which will drop all jobs and hence all DriverFence objec=
-ts.
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-IOW, driver will likely invent a new type that does the same thing on drop,=
- just
-without the warning. :)
