@@ -1,130 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635C63D6CB4;
-	Fri, 25 Sep 2026 20:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAA53939B1
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790368075; cv=none; b=NuT9VpHgwlNkCYV+pVFlrJwMrte3dWxZGK+rqZd1PbqAmVAGLTuPzBfOsaKw3TuBOOuFWZMWnqLmzmyOS4PFhRH0jDFqf5m9hzD3yxGXQQ/5PW3LK/Mi1IuMj47clgROFVfSWIJoGOYvQAJxs0Vg4uvLPQQVekRE72Cqy0bYs78=
+	t=1790368116; cv=none; b=pcqAottBGqmL6PfBvkBe3Mcn6TXekbHBLa/ETE68f1c13aK3nifwC0eEllqIvESRKDqIcdm2/NgrpmTItOLFrY0HPvIvF3DyrG5dis9o1RIqJhRYj6JkCQSvPMpz05MlK0O+BD20DUYRf6vjXzej9dlrvzOVeEsLbpjXi2L0vRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790368075; c=relaxed/simple;
-	bh=mY7nsB09y931pprZ/+lN0ketHmOAKHl/pWuUPgNz+hU=;
+	s=arc-20240116; t=1790368116; c=relaxed/simple;
+	bh=OISNyxqYsyIJjvZpwj+5Ey+JOQREWF6pIQkZttrSuig=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VWkf4QJcHFm5N9W/qOwFuJWw7FoKttBRygdvMHn7RKdhLimzn4dP0Ee0U9nwvsbCxFDG37cmgePNHYQBG9aFGyz/psWG1zOYg3PzqTKGFm/XPlkKizfR1p3h+dePS14IvQV16ev0PiVtbUSnZmgBcFGUxHo8wTR6zv+SyLRsOXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZik6+/1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=O4m5Am8LfcxmOcwCZLzteDC9ScYmCGXw/GcwqI0MTEuUGFGzwRef5IIfGluLZFcb2GucIqFtiYwzR7bRo2nkklaXqGfXNYnpUMQMIkvSJKezVgu60FwR0GzG6jOZIL9OI8OwTTSDNDUPXHgGCk2vxI0eor8MAirJWKWZ2LHXb0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=hG3VJJAs; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZik6+/1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 642B21F000FF;
-	Fri, 25 Sep 2026 20:27:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790368074;
-	bh=I5RqeR1sxkZyEYFyn07bPDEJbXbIhE5mqXirIcZRBWI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mZik6+/17U2ygSn7UEgfp5cZIPbUoH9S90bq8wTc/i2Oyqc2hIJVPoJNMiU5BmjJq
-	 nlkl2+Kw+6dBdvjoxQlomY953+sq8N9l2TyVm93yxU4DEM+2Ar2klbpLhRorQ5yyIW
-	 lhtdkobfgJI2QzeFygV7FuciZZ/+2hhTNoDjYYoiDB+I02biw5UyDVM8YAO/nr/Ifj
-	 bGQRpFQA3OD1YyNcWa44YsaryxfgRyabUYnw0BzVUeYI5bON4EU1IYkKtGIMiAr6wf
-	 N3CAm9rJyIss4qqnQ//w1QLagAXtXdIR7lfvJ+3jLTgFpNaHHVkqjFQavtudb1xjZ4
-	 yJV1JgcBxKJbg==
-Date: Fri, 25 Sep 2026 15:27:49 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Monish Chunara <monish.chunara@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Kernel Team <kernel@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, linux-mmc@vger.kernel.org, 
-	Nitin Rawat <nitin.rawat@oss.qualcomm.com>, Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>, 
-	Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: Shikra SD Card support
-Message-ID: <arbZCZduUH78aBnS@zenbook>
-References: <20260911093932.2376058-1-monish.chunara@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="hG3VJJAs"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso9357455e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:28:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790368112; x=1790972912; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MPkKdQ6kZcjzNVQGvFMHY0E0nhE5dpwirKpR+Cx91W8=;
+        b=hG3VJJAsJ30UNP8lJTNh6xEDuDRn1fzq/5fQKkwFX/dWFaIbQq6nC3lEJXuSBQCkBn
+         Leer7XCbz963/pqJ0flZNHYImaTE6gDFwJC2D2QLm4TEbXxKAzZwbnQTtY8zh4HI4fIq
+         704EI3MqGWU1ynBiENE9SSv/Mr5/3GALQsdNyR96Ayp9WgMehdeEmYMWD0O9H6UHUGWL
+         /L3yc8msyPn4rNT5Fu/eoJSA27970PgKv4BA1Z5pJDDTG+av1XaIkbsx5rRjPh+JKDXY
+         D3F2KPox9JFNgBO4Y0uT9MmM+q8OASopkK6vajZLMNyKP17zlOSYkUAVUbztkVUONkw/
+         WYNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790368112; x=1790972912;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MPkKdQ6kZcjzNVQGvFMHY0E0nhE5dpwirKpR+Cx91W8=;
+        b=mq6MmZVKkrANvDfhO5jtW4FQ4ZrHkyYMkvR0sSlpp8kC597jSGS+iZHhXRQCKKzZZA
+         HgkFMaQ6pRBsfdxLg7jzoPON+qz3w1m6JuJxTv0KcxxG8aHhElOpLS02Li+9qEods7ya
+         U+c1evsap3jytcX7utGXpbNUYGbK+gQ8I2ZhPtMaC24V7w3Adf9yFSRB0dH7nqpTEF1m
+         Iqgz+TpEFpkDbLeHoRJLkdIsQNnCg3QRuyQ+mQ4lctY+ZyzzMSgSrecn1+mbcNkJxanQ
+         qFxmK093O0DF5tQSNS6uWh8NgjddICKB/nt7KQ7swbMzYmOHC1/OL+/WqdnKMRiQgtd5
+         JeRw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqa9CZsWv7hgV65YEoc+kpkjwVTU8+fKcWk56XXOoqsWob8aZnmAl0knX53544EpOv/8ZEBCsPpzD7zD0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJBCNx6pJ1RW7fymuIgbkZx+x/1ggGnY+Opx5JSSapaC2/9Kff
+	sq6z1sWfSE7GTGKVjuXSBA2jnvl8Fe8OjqcDTlmuqg4q9AZHIYLrH0PW3Mt3DaaNbBw=
+X-Gm-Gg: AYBFou0LQB6M2bgED8BeQCblFpaGmSGu2+oUG9u7zoVnqhzfcNoWSzSohdOp+tD0oQr
+	sXE+EePPJ3zON06LgxgErWXpSOFnoXgxlDV5muLOWUwpOSS3ERgCL93QONgV7CporqhZgSIHrIE
+	R0OL5O3H9Wdf/pdfsHFaprio15joCI4Y3z6mGP+orpeAjkJYjF9v9jdgqVe9xKbp3//RQ6O23Pr
+	fRRdyCLjAgJmkDGcGz6xP7lTaUZQwAiClDAHEniqZZK/PARXQuzjBkY8R/3HOtScABj5IC7sEjS
+	V1KWEvhXubG6mCuQ4bsCIY0P/cXx2f+TkXm5x9KRAw2d6kMRuI5l/GEcIJnUyxo64jPmqqRkY5v
+	wwM9gyPz/f1QX6yBrPGq2bXCoJWOU7w2XCBQhGUd5Et99Rxp0lfSntvyDAiLo/IEKhv/4inSPOa
+	lMVDQ7BadRCHwMO8EcIwQKF3m12knTM5bocf96zHIzDUNK0EavIHGNlwlj6W14t3BGDn4bm9u4X
+	dU=
+X-Received: by 2002:a05:600c:310b:b0:49d:34:420d with SMTP id 5b1f17b1804b1-49fe66f3e61mr119387075e9.20.1790368112077;
+        Fri, 25 Sep 2026 13:28:32 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fe5ce4941sm172649185e9.6.2026.09.25.13.28.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 13:28:31 -0700 (PDT)
+Date: Fri, 25 Sep 2026 22:28:29 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Johan Hovold <johan@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>, 
+	Bradley Morgan <brads@mainlining.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Armin Wolf <W_Armin@gmx.de>, linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH] Add TAINT_DRIVER_OVERRIDE for usage of driver_override
+Message-ID: <arbYJUnMkb8Mqbam@monoceros>
+References: <20260925182041.1025371-2-u.kleine-koenig@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hfoj37cw2gi5ppmu"
 Content-Disposition: inline
-In-Reply-To: <20260911093932.2376058-1-monish.chunara@oss.qualcomm.com>
-
-On Fri, Sep 11, 2026 at 03:09:30PM +0530, Monish Chunara wrote:
-> This is v5 of the Shikra SD Card support series.
-> 
-> This series adds SD card support for the Shikra platform.
-> 
-> The first patch adds the SDHC2 controller node and the necessary pinctrl
-> configurations to the base Shikra SoC dtsi. The second patch enables
-> this support on the Shikra EVK (CQS, CQM, and IQS variants) by defining
-> the regulator supplies and the card detection GPIO.
-> 
-> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
-
-I don't understand how you managed to send patch 1 alone and then 2 and
-3 in a series...
-
-Please stop doing your own thing and adopt b4!
+In-Reply-To: <20260925182041.1025371-2-u.kleine-koenig@baylibre.com>
 
 
-I'll put these 3 patches in the recyle bin for now, please rebase,
-retest and resubmit.
+--hfoj37cw2gi5ppmu
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] Add TAINT_DRIVER_OVERRIDE for usage of driver_override
+MIME-Version: 1.0
 
-Regards,
-Bjorn
+Hello David,
 
-> 
-> Changes in v5:
-> - Rebased on top of latest linux-next
-> - Fix interrupts-cells to 4 for sdhc_2 (sashiko-bot)
-> - Moved gpio include directive into shikra-evk.dtsi (sashiko-bot)
-> - Link to v4: https://lore.kernel.org/all/20260804122054.3462145-1-monish.chunara@oss.qualcomm.com/
-> 
-> Changes in v4:
-> - Rebase on latest code base
-> - Collect Reviewed-by tags (Konrad)
-> - Drop the dependency link - since all base changes are merged
-> - Link to v3: https://lore.kernel.org/all/20260702073354.3641966-1-monish.chunara@oss.qualcomm.com/
-> 
-> Changes in v3:
-> - Padded the address part of the reg property in the sdhc_2 node to
->   8 hex digits with leading zeroes for consistency with other nodes
->   in the file
-> - Moved the common sdhc_2 properties to shikra-evk DT file
-> - Link to v2: https://lore.kernel.org/all/20260630165700.1886608-1-monish.chunara@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Rectify the alignment for clocks and interconnect properties for SD
->   card
-> - Link to v1: https://lore.kernel.org/all/20260604122045.494712-1-monish.chunara@oss.qualcomm.com
-> 
-> Testing:
-> - Validated on Shikra EVK variants.
-> 
-> Monish Chunara (2):
->   arm64: dts: qcom: Add SD Card support for Shikra SoC
->   arm64: dts: qcom: Enable SD card for Shikra EVK
-> 
->  arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts |  9 ++
->  arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts |  9 ++
->  arch/arm64/boot/dts/qcom/shikra-evk.dtsi    | 11 +++
->  arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts |  9 ++
->  arch/arm64/boot/dts/qcom/shikra.dtsi        | 97 +++++++++++++++++++++
->  5 files changed, 135 insertions(+)
-> 
-> --
-> 2.34.1
-> 
-> --- b4-submit-tracking ---
-> {
->   "series": {
->     "revision": 5,
->     "change-id": "20260911-shikra-sd-card-61d428639de0",
->     "prefixes": [],
->     "from-thread": "20260804122054.3462145-1-monish.chunara@oss.qualcomm.com"
->   }
-> }
-> -- 
-> 2.34.1
-> 
+On Fri, Sep 25, 2026 at 08:20:40PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> Commit fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when
+> userspace manually messes with devices and drivers") introduced a taint
+> for usage of bind/unbind sysfs files that manually trigger driver probe
+> and remove respectively.
+>=20
+> For drivers that do their resource management correctly (which is also
+> needed for module unloading) bind and unbind for matching devices are
+> not critical operations. The thing that makes bind and unbind unsafe is
+> that drivers can be forced on devices that originally don't match using
+> driver_override. The result is that e.g. of_device_get_match_data()
+> returns NULL despite all .of_match_table entries having a non-NULL
+> .driver_data member which yields a NULL pointer exception for several
+> drivers. And given that after setting a driver_override a manual bind is
+> only one way a driver can be bound to an unexpected device, a separate
+> taint for such an override is justified.
+>=20
+> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
+
+Sashiko found an issue in the oneline shell script, I fixed that in a
+separate commit because it wasn't introduced in my patch.
+
+Also I violated my own rule not to send patches directly before calling
+it a day and so missed to squash in the build fix that Sashiko also
+found =F0=9F=A4=A6.
+
+I wait a bit before sending a v2, but if you want to take a glimpse
+already on the changes I did, look at
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git driver_=
+override-taint
+
+Best regards
+Uwe
+
+--hfoj37cw2gi5ppmu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq22WsACgkQj4D7WH0S
+/k5wzwf/e+nKnBHFLEFkk8qt+OAiFap0dlTSMlJIBcnEpsrNDid/nI94lQcq4oyj
+ow4CxnbcvYgscNLOSwlp6XaZDAcH+N0m/0E9fQSznntmfxsavFPBfFKeH7shsZUl
+j2h7EDIaeVeYlTJE8wnTFqikllHmPKDly6zSCpa5vBcescFkj1XM6bsTTLawx/gU
+g+waIeksx5QOyDFRbGmFZUa3wIhy+atcDO7Zn2nzh6dTkJve7XEsZ81+L2t48Dqw
+TjrzRUXsAdR/R3YBn7//ejzDmLmJONXcLvdi91fgDpmDOsxlR2byDQyBba9Z5kiJ
+GIkxzJVpscvwynkkeVZdv+EtSgGJ8w==
+=PGxC
+-----END PGP SIGNATURE-----
+
+--hfoj37cw2gi5ppmu--
