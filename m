@@ -1,119 +1,106 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C8D395AE9
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA453AE707;
+	Fri, 25 Sep 2026 16:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354913; cv=none; b=cSuHFHTDSupAb4fY91eOsDMh7B5281ficKPQxm/IerFc56VAvF4Hc4zMgaCRskssoE+CHiLEVcS/1ZGUGD4hrZSj5M1cZCgDpvb8DeBscIQc+Y0+HH94eLUJeznWgWue9obpvoOF1zQrwqZxQ7aaBerAL6Gq1vZScEz1pCMrK5M=
+	t=1790354910; cv=none; b=A1E1YltgFQtZCTWa+WuOrXdKJuQzkeOeUbNAvxnJ+Y0yU7N8PVae34hiCgCCd+qb8IU2tbn7z7UKljaNdLblzUSMTp/DrFWABs9+P0PJGHsKoYmBfwQVmpblNRVD1E2n8O/iAyGO8N5egqLiiPdjCcqUsAPBXfvyfsJ5+r5QnXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354913; c=relaxed/simple;
-	bh=ANiyNAzq9EBMHsGO45jafQjAapsSSbkejyGpl0OH5LE=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=rtS4AmkuOdoO5aDDsqhJrbHB4dGaDZKhgo5m6BBCGPw57EmAHLf1QFvAYPhrjYeukAqFl6PvSjOdJsC9RDjr8MUHLHDLVKhZ0LvdveqjH6tLLqDUCr776n+Wd1oqJ6WfujDncn8TxWGEnncsBHJlmo1F8lPssN06nGK5bQLNFE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DtE/20y8; arc=none smtp.client-ip=209.85.128.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	s=arc-20240116; t=1790354910; c=relaxed/simple;
+	bh=e4bNro2X21tF+YZ1/Bwbzw8T1iQC6aqrOuNMIg8HB/s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kVcsR9Rk0ZhjMSKmAltg7MwzliyMv9i+CbVM1k/6HC/A0F7VsYKIESvVtnwaiUaChffR0JooohAb6xJ6+wvLdH1PNpva2Aa+BkkWpgQ2BSOInu/q399be0OYnOqjiS/SvMNvjiRCaUXI52POA9xXtcH1zspBlEV9zHJ0VE7YGRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=X7vs4Ffl; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DtE/20y8"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49ccfad90f1so9770585e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:48:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790354893; x=1790959693; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=F4SmAOu4LRaXeJAwbnJSCkU55b6d+NP4hrpFwQbS6QI=;
-        b=DtE/20y8m5vw0NcLP0mNHB9FraAcCgPVXx18THIi9mXi1TeOLSZHTDHHIsyIgtXhPW
-         /kdCxvJDJRwwCv4R2+r3NWD2W374rUv1jQoJQDK6xwA8qOCtRL40L1hkqizHu5q3tvCd
-         oawoy5HMyPa3S+1zofK2o9qq08nT84jjUYPG6DSbxmx6VouLsBaBAtv8SLgb8maz8C1E
-         20EHuXH0N+UOi2epiOkAqSP08fZ4hIMRYT4kcKQceYaRdLgglMJVwt90iP48L4P6r2Fn
-         CeG3Un0LeQS6b4RMMxZL5RB2WUZdPT3kyo//UvdOkKJOP8UuKbpBBY/Ckzwkr/jYNpd6
-         30OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790354893; x=1790959693;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F4SmAOu4LRaXeJAwbnJSCkU55b6d+NP4hrpFwQbS6QI=;
-        b=ea12DVTriRBtgjSR+NYR5WwGQ8Iz8OC9PLf5TMY098Q2lmnD7buuwLOw55PJDsV+Oa
-         NCTVLuvswuI3djSgflGSQfFz9n6cgrQGPQ2iNllCKqoTVzrIB8j1U3V8lAq1wYmdo2TU
-         q+dua9nlAKAbm0TmOkfMzSY2VrKXMLIF7/qXjCN1VfheXCTuEhVBaOUDdtFZLI56zz/0
-         i2leDliE2xDoLu3iNqJO7fP4E8TEhPKT0rhHYBC5N0Oh3xzJjZhl0N+o3/VumglHNyep
-         fxevNe2hrH/diUPBHPZysCj//TnFjH1plxgG1ExOfYGkgDEwOXln0sKhzWj/iS7DyoYa
-         uDvQ==
-X-Gm-Message-State: AFuF++njakKhiX+6YvLX23qxIhrlPQUEuaaMeZTLeCAFXVGh/Ox5sNMs
-	/slkuvnW+4HiPPgri8AjnMYNnANIXYgjaZsSliqoJ6Adh2lSKmKsxu+2Pr4ORMCfWox7e/j1KQ=
-	=
-X-Received: from wmpl26.prod.google.com ([2002:a05:600c:89a:b0:49f:e58b:90d5])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:4e8b:b0:49c:fc6c:be06
- with SMTP id 5b1f17b1804b1-49ff06eeb73mr50524815e9.29.1790354893192; Fri, 25
- Sep 2026 09:48:13 -0700 (PDT)
-Date: Fri, 25 Sep 2026 18:47:53 +0200
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="X7vs4Ffl"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 1BDD840E015D;
+	Fri, 25 Sep 2026 16:48:18 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id pTpcwLsaCmSk; Fri, 25 Sep 2026 16:48:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790354888; bh=yV5eIZXRVx/VnMpigs9MBnv0ybrd5AqZPTL7Q5MFX2U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=X7vs4FflKGPKZRodhKoU7LLoOQvO+6/Ou4pCRmKVK3dv85bhLQe03Fajt1qX2GjFA
+	 ZjvsKllDT73HGncSmZEcT1aDol7fkeLUgvmmR54V5+J5ExzdraIPJl2QTLkX8xSpNC
+	 YtZanZXV4q0UXfW2WnWH8srD0h3YOduqCq1RKarcSmqBkruPSHLawHphi+h2J8pCpw
+	 EXFXFBEvWnjiuMaGEBeRXiuo0cembBzmpKltZk3ykoGteDZLOnxBGEMKSlNdX5387o
+	 WfGKEbNGIkgjfeog8Ztm37eu6NFLLsVObNP8QpSZuO+fguQA+DnyWjG6lGL5yvwFYH
+	 +CB1UPkO+LC8/kNcUFBgT+TpUDB4DPdj0afh7NCIfozvJkMtfkEGT8czRSeeFSpK9G
+	 R5MvrubhCUUC4pArOe7iSVuGoqrLAn+BVSuSIra89ez3yXtryiMIESuEsoNYSJlM62
+	 jRAUKA4OhG59pUMA2Ch5GJx2xC0swKzattiQjkYdUFX28yvDeAkuxcCiCiVAdswYmO
+	 5/mH15VVCcGKKsL29VvKbhW8t0eZVcq20Pweu7y8BQWPeSTCTxcA2R+OzsGtEMDwdq
+	 wAwAKGXgnGAYjBmCwmz5JwboV3P+ovEAk27XvXeyehkRs3dPzVmRmbgvm+id2kQJTg
+	 tHxMCcneEdZdaOn4iGbZQjTU=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 78B2240E00E7;
+	Fri, 25 Sep 2026 16:47:51 +0000 (UTC)
+Date: Fri, 25 Sep 2026 09:47:48 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Kim Phillips <kim.phillips@amd.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+	linux-coco@lists.linux.dev, kvm@vger.kernel.org,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Nikunj A Dadhania <nikunj@amd.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Michael Roth <michael.roth@amd.com>,
+	Naveen Rao <naveen.rao@amd.com>,
+	David Kaplan <david.kaplan@amd.com>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Nathan Fontenot <nathan.fontenot@amd.com>
+Subject: Re: [PATCH v5 1/8] x86/bugs: Allow forcing Automatic IBRS with SNP
+ active using spectre_v2=eibrs
+Message-ID: <20260925164748.GAaraltFwtJs59WAsj@fat_crate.local>
+References: <20260826223510.3669875-1-kim.phillips@amd.com>
+ <20260826223510.3669875-2-kim.phillips@amd.com>
+ <20260903040330.GNapjxkgMd2Ey38egR@fat_crate.local>
+ <01b57e61-df45-44a6-848b-c19eae226ad0@amd.com>
+ <20260924014517.GEarSArVM12m_ZshhA@fat_crate.local>
+ <67fb182c-4baa-4b3e-b59c-64cec20839c2@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260925164801.4047844-4-ardb+git@google.com>
-Subject: [PATCH v2 0/2] PCI: Allow non-prefetchable BARs in prefetchable windows
-From: Ard Biesheuvel <ardb+git@google.com>
-To: 0001-PCI-Tolerate-non-prefetchable-64-bit-BARs-in-prefetc.patch@google.com
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, 
-	"=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <67fb182c-4baa-4b3e-b59c-64cec20839c2@amd.com>
 
-From: Ard Biesheuvel <ardb@kernel.org>
+On Thu, Sep 24, 2026 at 01:45:52PM -0500, Kim Phillips wrote:
+> For a guest-dominated host that trade plausibly goes the other way, and only
+> the admin knows their deployment.
 
-The non-prefetchable window of a PCI-to-PCI bridge can only decode
-32-bit addresses, and so even 64-bit non-prefetchable BARs of devices
-below a bridge compete for the scarce MMIO space below 4 GB.
+Just holding down the current arguments here *without* AI:
 
-The PCIe spec notes that marking such a BAR prefetchable still permits
-correct operation as long as the entire path from the host to the device
-is PCIe (PCIe r7.0, sec 7.5.1.2.1). The same applies when the OS places
-a non-prefetchable BAR in a prefetchable bridge window, and so this
-series permits that unless there is a bridge on the path to the root bus
-that is not a PCIe Root Port or Switch Port, allowing 64-bit
-non-prefetchable BARs to be placed above 4 GB.
+We have had an internal discussion in the past about this already. It can
+potentially cause performance disadvantages in certain scenarios.
 
-How a host bridge treats the windows that firmware describes as
-prefetchable is platform specific, however, and so this is only done if
-the host bridge has no prefetchable windows at all, in which case all
-prefetchable bridge windows are carved out of non-prefetchable host
-bridge windows. This also means that devices on a root bus are never
-affected.
+If this is ever going to go anywhere, I would like to see:
 
-Patch #1 is a preparatory refactor of pci_bus_alloc_resource() with no
-functional change, and patch #2 implements the relaxation.
+- a proper use case which people are *actually* asking for
 
-The series is based on pci/for-linus, as patch #2 touches the same
-lines in pci_do_resource_release_and_resize() as commit d58384c22739
-("PCI: Fix BAR resize for devices on a root bus") queued there for
-v7.3.
+- have it properly documented in Documentation/admin-guide/hw-vuln/ along with
+  the potential impact so that people can make an *informed* decision whether
+  they really want it
 
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: "Ilpo J=C3=A4rvinen" <ilpo.jarvinen@linux.intel.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Link: https://lore.kernel.org/linux-pci/20260910143440.3865663-2-ardb+git@g=
-oogle.com/
+Thx.
 
-Ard Biesheuvel (2):
-  PCI: Add __pci_bus_alloc_resource() to allocate with explicit flags
-  PCI: Allow non-prefetchable BARs in prefetchable windows
+-- 
+Regards/Gruss,
+    Boris.
 
- drivers/pci/bus.c       |  70 ++++++++++++++++--------
- drivers/pci/pci.c       | 115 +++++++++++++++++++++++++++++++++++++++-
- drivers/pci/pci.h       |  11 +++-
- drivers/pci/setup-bus.c |  58 +++++++++++++-------
- drivers/pci/setup-res.c |  29 ++++++----
- 5 files changed, 228 insertions(+), 55 deletions(-)
-
-
-base-commit: 9a8daf68b9b30c536b0991d9f098ed0db80abc1c
---=20
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+https://people.kernel.org/tglx/notes-about-netiquette
