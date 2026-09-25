@@ -1,85 +1,82 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f25.google.com (mail-dy2-f25.google.com [74.125.229.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775003BED2D;
-	Fri, 25 Sep 2026 19:26:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364411; cv=pass; b=aOZG/RtSxg99e8yW+FhJ7KLM3m3NQM3MK/KtTh2XVGaPJMMQuUbuMHewLZZzKSFSbebwWiTbKwltNjuM0TYTcpkz/e7bnteTcODDlQ0NsdTkW8PEOQNPV/shqFUSQz7EkR3KjeOYcjl2N5pBzim/EE7vAwZH8TQVpZAyAQzBEFk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364411; c=relaxed/simple;
-	bh=xgwXF789iMFU1tHJBCYfohzF1FMXCUeFcBdG42GdAwI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B4B448384
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:27:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790364464; cv=none; b=nfCpmQXqXxhy3tlK3c1QzqEyaIe1NBrw8mkJTLmwPT0cmXnMRwwtxOPj5b/3C8n5F6EgzujEqlwn00IBvZrdBhMDcaXV4ZANw5Edn5wc+mCBfDjG10EnsrFC4c3s3jGF48xQumuJKxlzSH6BgKOYf8wWpcKklS8CYJOHJw+07fk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790364464; c=relaxed/simple;
+	bh=6SU9XvusmasAr35BYeFHgnzOH+gX4OvUuLSAZmMQ2ho=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q3fJcvi7Ow7928OdpIKEG3baVo1LvDaMBB12laL92bop+oMdtHw/g5KjdHwSHZWRPj+hKjyIqOVc1JK7IF9m4ZD5DKmagYHmMoBjP3IaGuQEhdr6yPIsRfa4dY3ciwRnpTXmHiMoVF+6iKItYCX/cwpt52rPpWWVNXk71WxQ238=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=2LEng0gb; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=TYJhyBN1; arc=pass smtp.client-ip=185.56.87.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=BVNsSCL6j/VC73Wzt/CwnbfHTtFCGb+ycjLLMyn3RTZYOcmq9OjcHRE8VrTM0HqdFfrZ2QpnZhtOo2uk8H3mHeymHoNcsKHuqFqkfvgcAWOSd5tZvb7tUOZFNEw3BXR3QwZl84oWQlJkOjBa1zaARwW0A6gHsrjxRdTT5CKWrk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xv6dVm3M; arc=none smtp.client-ip=74.125.229.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="2LEng0gb";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="TYJhyBN1"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-2q7f.prod.antispam.mailspamprotection.com; s=arckey; t=1790364409;
-	 b=aVzn60tlrD5vs7gbcx+m4ZdzfUaQpZyAftHtZd3bSwgEjVrut1lZ3uO8NSq1/+fyBcrgm1iA3S
-	  Z3d1663uhK7YGTzXagp1WVYIRqRmaCoNBxGzDsHru8C//19oehDh3binvWtejrKMxERZ4CsRh8
-	  tiCWVbxdfnCTsk6MfVFlSM3HigVAXcbjaHhu4dvSTcY1trCJNf3skbMNNLE591bwjObssZUyJF
-	  El7l/347JvdMER04wTqE/fUnoASEV/MGPsyYi202NAht/7JUax5RS0Qh+6Ce1fBdQfjF6JISv4
-	  oYokRrIKh0ThPp/vrxynLCpcPSkrkqOWhW71h5L+3ZDrXg==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-2q7f.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-2q7f.prod.antispam.mailspamprotection.com; s=arckey; t=1790364409;
-	bh=xgwXF789iMFU1tHJBCYfohzF1FMXCUeFcBdG42GdAwI=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=yOMOUZHSpH1E+i2R5bkK/lw93R1cuiitgAIygll4meeMHX8LBq9oqb6ljzOv9JZcDR4miQ58vH
-	  m+N3Zn+wEZX98V6Rz8d+rYvJxaa0TTRhdm4fwhESnozH31aXv9wjIFPhSMkytDno5UuT/9KbXb
-	  hs86lrY161A409muhfJYcZBPN9mZmMcdeUuS+hoJf7mwrWpt5BQ0ANwWQmLwIPDqrJWrfK2R6W
-	  pn1r5bWSLq6LvtAbOOovdOeino//hRGI9BwPxpehIsKqBMOuroVyznAcbilR8S/tAQ0Hxgz44P
-	  lBN+gB4jxryKx2mHkbnceGM5ENLgeDzxOQQ/oCrFFHjhfg==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=pe3VO7IOUXW8W+2mymQNpuRLjGNQ7piBXOGa6ZWGAGA=; b=2LEng0gb+r1XlJ4s46SYtuAnk0
-	+hM+rAsIa2c48CkDmoeeThoOoIb4g7tUjrwDiGDT5ugMdETMeT29eWU9l8tlU1LYUfeR9wJFs7ZLD
-	GcfHkG7L5Oh/8Kk5fLb+hzWuSXenLtTG0a6p/clIo0GKe8xwtmvQ/TF/fG/lDg1dODVk=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-2q7f.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xABZA-00000006fTs-15dS;
-	Fri, 25 Sep 2026 19:26:41 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=pe3VO7IOUXW8W+2mymQNpuRLjGNQ7piBXOGa6ZWGAGA=; b=TYJhyBN1lLzM3j+8pakSQMWVuQ
-	t9mPBySmzyc3WNNnz8yxKZciuJ4xoz92WA8IDQ9Cf+qyAtkbvu2kdW9CFkJo1rvQUlA6QAnv+Os09
-	A/+p5mE4ALa7sex5tsF+sHPQqVKAeFRcuB359Jqm8Xwur31oJ9WFh59QQVbTtu6FCDtM=;
-Received: from [79.45.60.29] (port=62628 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xABYu-000000007dA-1S38;
-	Fri, 25 Sep 2026 19:26:24 +0000
-Date: Fri, 25 Sep 2026 21:26:22 +0200
-From: Francesco Valla <francesco@valla.it>
-To: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	linux-arm-kernel@lists.infradead.org, linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, virtualization@lists.linux.dev, imx@lists.linux.dev, 
-	iommu@lists.linux.dev
-Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
- multiple vdevs
-Message-ID: <arbILwxDF9lZZtd7@bywater>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
- <3065678.e9J7NaK4W3@steina-w>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xv6dVm3M"
+Received: by mail-dy2-f25.google.com with SMTP id 5a478bee46e88-328664e061cso1345374eec.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:27:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790364462; x=1790969262; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RWDSKWZuEkPlk2u1p84ALBilVUhoSm1EjrDy3t/LqSE=;
+        b=Xv6dVm3M9sree4WnoqgszAszL6cjx9VZVK8h2qE8l4YBo7bfBOi17WM0NCuy9lB+N9
+         Ew+rC11bB1Mj8hPezFuX9HLdQt5N7uTCybS7eFTsrJiwdJVvHjsglG9/rO2itkuEaGRv
+         in351Yt4wQEb354KFefOAJRlSg7ROYWoD4guWvS4I9lRs8338YxyWLyRkhaJdQcaP5k6
+         cusGF1n32FDdSsq168qLJpcp6z89Ka/U5ctkVkaQ0LTUKMyWmBALqmIy6ViXQsE5pWmn
+         DypVsistOIlds4DJiiw9wgYGcnMxgBm6IWxNTFOrE0J0MX3HsY2EYJucubpm+WrMIs2t
+         Ri3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790364462; x=1790969262;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RWDSKWZuEkPlk2u1p84ALBilVUhoSm1EjrDy3t/LqSE=;
+        b=MrNA6CAZ6lf85HMf6Cl9nqySb9MpIh7LJefJF6nlYJbBGpPpnT1UsS9L+59cUvQ2wn
+         tveOjzHZLDvEpalIal1nxtjxDxcAt+PTHkT5zKtb+zSloWEw6K9dNll5HvxuscVP4wvZ
+         NffFUQP2zIfOckaMRlMViOzqufoKOfduHGGIml4knMRlhb0lugFZ5ObsCy6g18lIL52P
+         dnvsqRqpCEW0PohvW4lttAdSs7Lz6O0AsNX6Bw9m53OhHGtci5MwjUM24uINd17+9ih6
+         d1FQOLfH3XTdtc3Wkqk/MaBZcNV2VVcVt94MpPNcDR1idQzwKY3rXJUTfDBhb3eUWzT0
+         akQA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXy/FxJNSk8t43ukJ37jc+VgEGuj19snIZPOy5GrBUHquoO3K4Xt+2LpIkr0QF4tvkdytkMnIR0smgaaQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAEKm+aUe3N1o2g9H2jrVhv9/tmpeekiaa00a1E8tDoFBCozD2
+	E8gOdnI/FhUshqbuM2AwTEhtG+Kr2RmEA5xQSUDJqgXAftkF5/0H1tt8
+X-Gm-Gg: AYBFou2TVxJ0cIbWftgWG6HPnpSTTp3JOSPsWZuRa0FCcNUueq5DJlVnkMPkNfvF45u
+	uA2lJLqd5NBdaKRB1xAGUyagxXc0lCLWXQQcsXr8zIERec0gCeV3usoUINdyI8XChj0cbpyG9rs
+	O2k/iY9M2kPIRFsLEXnVfiENCIXy+ELJ4kA6Dp5dVDIYdnFYQJoHg4nkWplRnr7DPOqiB0aJTO7
+	N6V3E83cFmJMHPdB0k4tqkg8toM8MicyTursb83PNX//GnvFJcpZOOCcOi4EvF0lDYpX12PI7g+
+	4gcI6ubtyIl3VjzGhwPbCqQ6PoJ948xR1CQeW6NW/JUEWDeySz4qJKj3GB4t5k0qEErIsyxVSEP
+	hL39mz7pCPxWpgz3da8Vg6Fgg2+wD97Sx4MsXaGRMPrk6NYBOOncLo+dJyblJ+XPg1OKrvKEf5j
+	E5CF+EcFNfpPCLt0iwMENRLELb4nnB2i3sL/thaXq9xOrW9X900MgQhajyt7IjsIbbv4DFikWV2
+	QTEC5Xfp1cDx+L0Fjea3VoHBkGcspL1GjG+H7o=
+X-Received: by 2002:a05:7300:ae23:b0:342:890a:40a8 with SMTP id 5a478bee46e88-342890a4389mr792661eec.30.1790364461569;
+        Fri, 25 Sep 2026 12:27:41 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:375:19cf:5fee:be32])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341460f5166sm7801383eec.29.2026.09.25.12.27.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 12:27:40 -0700 (PDT)
+Date: Fri, 25 Sep 2026 12:27:37 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: david@ixit.cz
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Henrik Rydberg <rydberg@bitmath.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Petr Hodina <petr.hodina@protonmail.com>, 
+	linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	phone-devel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v7 1/4] Input: stmfts - wait for controller ready after
+ reset
+Message-ID: <arbJrK9zfoO1dGzy@google.com>
+References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
+ <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,66 +85,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3065678.e9J7NaK4W3@steina-w>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 1c9dc338d8a14fb2ac9e92178055ff3e
-X-AntiAbuse: ID - 1c9dc338d8a14fb2ac9e92178055ff3e
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xABZA-00000006fTs-15dS-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-2q7f.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+In-Reply-To: <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz>
 
-Hi Alexander,
+Hi David,
 
-On Fri, Sep 25, 2026 at 10:39:46AM +0200, Alexander Stein wrote:
-> Am Mittwoch, 16. September 2026, 23:10:57 CEST schrieb Francesco Valla:
-> > Add rings for multiple vdevs, as well as the required virtio nodes for
-> > I2C, SPI and GPIO functionalities. On top of that, add example
-> > peripherals using all of them.
-> > 
-> > NOTE: this is a Proof-Of-Concept, not meant to be integrated!
-> > 
-> > Signed-off-by: Francesco Valla <francesco@valla.it>
-> 
-> Just a general question, unrelated to virtio, but related to AMP: How do you
-> manage the clocks, so that Linux doesn't disable clocks needed by the
-> Cortex-M?
-> 
-> Best regards
-> Alexander
->
+On Mon, Sep 07, 2026 at 12:50:19PM +0200, David Heidelberg via B4 Relay wrote:
+>  
+> -static void stmfts_reset(struct stmfts_data *sdata)
+> +static int stmfts_reset(struct stmfts_data *sdata)
+>  {
+>  	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+>  	msleep(20);
+>  
+> +	reinit_completion(&sdata->cmd_done);
+>  	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+> -	msleep(50);
+> +	enable_irq(sdata->client->irq);
+> +
+> +	if (!wait_for_completion_timeout(&sdata->cmd_done,
+> +					 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS)))
+> +		return -ETIMEDOUT;
+> +
+> +	return 0;
+>  }
+>  
+>  static int stmfts_configure(struct stmfts_data *sdata)
+>  {
+>  	int err;
+>  
+>  	err = stmfts_command(sdata, STMFTS_SYSTEM_RESET);
+>  	if (err)
+> @@ -593,42 +602,47 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+>  		return err;
+>  
+>  	/*
+>  	 * The datasheet does not specify the power on time, but considering
+>  	 * that the reset time is < 10ms, I sleep 20ms to be sure
+>  	 */
+>  	msleep(20);
+>  
+> -	if (sdata->reset_gpio)
+> -		stmfts_reset(sdata);
+> +	if (sdata->reset_gpio) {
+> +		err = stmfts_reset(sdata);
+> +		if (err) {
+> +			dev_err(&sdata->client->dev,
+> +				"controller not ready after reset: %d\n", err);
+> +			goto err_disable_irq;
+> +		}
+> +	} else {
+> +		enable_irq(sdata->client->irq);
+> +		msleep(50);
+> +	}
+>  
+>  	err = stmfts_read_system_info(sdata);
+>  	if (err)
+> -		goto err_disable_regulators;
+> -
+> -	enable_irq(sdata->client->irq);
+> -
+> -	msleep(50);
+> +		goto err_disable_irq;
 
-Clock management for remote processors on i.MX93 (and other i.MX parts)
-is... not really a management, AFAICT. If you want to use a remote
-processor, the mcore_booted argument shall be specified in the kernel
-cmdline; this forces the clock management driver to leave root clock
-gates enabled for *everything*, leaving the possibility for the remote
-processor to use anything it needs.
 
-While out of scope for the current patchset, some work in this field
-certainly is on my (long) TODO list.
+I think the logic is becoming quite convoluted here, and factored out
+stmfts_reset() does not help. How about we make it look like this:
 
-Current implementation can be seen in [1] and [2].
+static int stmfts_power_on(struct stmfts_data *sdata)
+{
+	int err;
+
+	if (sdata->reset_gpio) {
+		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+		/* a short delay before powering up */
+		usleep_range(1000, 1500);
+	}
+
+	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
+				    sdata->supplies);
+	if (err)
+		return err;
+
+	if (sdata->reset_gpio) {
+		reinit_completion(&sdata->cmd_done);
+
+		/*
+		 * The datasheet does not specify the power on time, but
+		 * considering that the reset time is < 10ms, sleep for 20ms
+		 * to be sure before releasing reset line.
+		 */
+		msleep(20);
+		gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+
+		enable_irq(sdata->client->irq);
+
+		if (!wait_for_completion_timeout(&sdata->cmd_done,
+						 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS))) {
+			dev_err(&sdata->client->dev, "controller not ready after reset");
+			err = -ETIMEDOUT;
+			goto err_disable_irq;
+		}
+	} else {
+		/*
+		 * We do not know the real controller state (was it powered
+		 * off or reset). Let's hope that this is enough time to
+		 * initialize.
+		 */
+		msleep(70);
+
+		enable_irq(sdata->client->irq);
+	}
+
+	err = sdata->ops->configure(sdata);
+	if (err)
+		goto err_disable_irq;
+
+	/*
+	 * At this point no one is using the touchscreen
+	 * and I don't really care about the return value
+	 */
+	(void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+
+	return 0;
+
+err_disable_irq:
+	disable_irq(sdata->client->irq);
+
+	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies), sdata->supplies);
+	return err;
+}
 
 
-Regards,
-Francesco
+Thanks.
 
-
-[1] https://elixir.bootlin.com/linux/v7.2.7/source/drivers/clk/imx/clk-imx93.c
-[2] https://elixir.bootlin.com/linux/v7.2.7/source/drivers/clk/imx/clk-composite-93.c#L83
-
+-- 
+Dmitry
