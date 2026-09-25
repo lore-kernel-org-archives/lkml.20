@@ -1,131 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA4B4B1CE7;
-	Fri, 25 Sep 2026 14:42:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC244B1CFE
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:43:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790347377; cv=none; b=Y+kXeq6Vy7nUzvlkL5rw/FcqdKnAXaQonELXDGMFQ7adGN12xFeT1lkwjnpyuS8c+GnM7hg8Ja7/JUumfd0OYna44uxnSFpO2N1PqBJSwWjbV1xeYeJoTrngafazpZwwfUBsGf7+RqlR7BA+KW0tBPlZd5EVEkXcthF5Z9ccYpE=
+	t=1790347419; cv=none; b=UTo6a64uH2BcXdSUK7BO4XZg3a77Gw/vzNwmVUhDc707dMgFyxFfbSZHrh6sV0XT2dVgk2Pwykr35/hjXk+BgNPoWwyorjAuN3XzU1FqMmvSlebHkJoTU7FHIqBG8qIphbK6DApXGxGN5pX9VqH5Nk3W8p7CAglOGxnG7vqN4rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790347377; c=relaxed/simple;
-	bh=qXDFdfbLPdju22SNkq8jMdXp89yToNzi8U8KDgQjDYQ=;
+	s=arc-20240116; t=1790347419; c=relaxed/simple;
+	bh=KofIWNtmb1qqto6MD7r3iF7UB8pI1v98Fhmikrkkvg0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fNLAiyX3anELOeiOQxWm4diovq7hoHeifHmwFbzvkyxwjUZgZVCpR/hz0u9qIDZpvgl0jcIrYMBECmlS10aj1bsandYY+X/GlDdjV62BKAu20FlOIvycriEoJyYs6OO4Qe7L18hLXqXV+cjqVcJt1PXdnyixF/ybAwuYf1V4CY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fTvnBFyr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JL5G9fyGXobrvyS+WAF/08uOOLpHAPr8mK/KtUfYO13Vhqq1HlalngbrFidKi7IUAVvfoTedOSt42NFcb1pGKShyfrhgKy9RF1avAKZ7c9VO1DX8SbJMOPzil6e48tWwZJD+QlEldk6K4dcKIwaXSqyT86b6LWFS/LRYfs3AXSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O/U0ajwL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fTvnBFyr"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 592AC1F00893;
-	Fri, 25 Sep 2026 14:42:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O/U0ajwL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F2B1F000FF;
+	Fri, 25 Sep 2026 14:43:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790347361;
-	bh=XpmntfHqapA5n2tDlDs8XMOp6Qt664pexsdC2Qv/1oI=;
+	s=k20260515; t=1790347409;
+	bh=KofIWNtmb1qqto6MD7r3iF7UB8pI1v98Fhmikrkkvg0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fTvnBFyrEfWRRNXGqoUypjwJFRlfuNU+bap7NotSUdjfejcnPM0+BrzKIfByinkTM
-	 csPrsKtZtdQ+y09cVjzxZ/7sL43YhdTjmViSk2q2MLJE5XwxDokXTxTJNBMWOzcXkf
-	 4Fxib3yk/VsL0eHJ+7yybdWxyh4aAab4Db+iFB3piHGP1IsGDmZkc/wvIfG1dkkX1p
-	 WlSkqNFiRBM69dznDH01cmcsv3suMzUiuxMuhy2Xx5wX8edgwLS/j1NwI2tLZiFsMs
-	 72i2aBkrvvb9BvuPXpbvEqfjvZm2aaC7HwqIbDzadO8mz0IItMsFVgOWocmFrQ3IYP
-	 e2BTiO0iLet/g==
-Date: Fri, 25 Sep 2026 17:42:38 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Delton Ding <dsh0416@gmail.com>
-Cc: f13208471983@163.com, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tpm: crb: handle ACPI NVS memory region overlap
-Message-ID: <araIXvVos0eH2pMs@kernel.org>
-References: <CA+mXNo2bBZg69RkKYauV_+K5zp=1kuHm1xLPwD6_ihZ_MzL0SQ@mail.gmail.com>
- <araEOkjz1f_vnl3A@kernel.org>
+	b=O/U0ajwLlpZ/h1E1akRYotuBuQaJkoDl0ELsOkYJCq5emoBn+vIEY7I6WD6BT7NVV
+	 sUgL3HcblTcP8ht/VRQCE7MFxy7V3MBGqyF2L9XCDxkqUt46gD7hAeuBvq943pVNIq
+	 10Wxt5CXV3cnf3tsS4gm0lACbps7dtVJiB20W/7zGhFFpsqiD0IKVYuAZGHCzv2dgP
+	 9Q2cmtjfjdCFgl/es6OG0uB6KDjYRGJsZFKMmBU9hyfvLhejkR1Wg/SsjtSFuIiB7n
+	 ACaEvwMsItmrNgqgCHDZQNXVQzMW+/0fhs8zJjnajV0KFYYkyLUoOvmhXzB9B8HaMN
+	 yq2+Hrgr9O5Sg==
+Date: Fri, 25 Sep 2026 15:43:24 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com
+Subject: Re: [PATCH v3 4/5] riscv: introduce RISCV_ISA_SV48 and RISCV_ISA_SV57
+Message-ID: <20260925-stuffing-lunar-5a44380ebaf1@spud>
+References: <20260909150158.9313-1-jszhang@kernel.org>
+ <20260909150158.9313-5-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CtrRTUfPvVMhZ05e"
+Content-Disposition: inline
+In-Reply-To: <20260909150158.9313-5-jszhang@kernel.org>
+
+--CtrRTUfPvVMhZ05e
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <araEOkjz1f_vnl3A@kernel.org>
 
-On Fri, Sep 25, 2026 at 05:25:02PM +0300, Jarkko Sakkinen wrote:
-> On Sun, Sep 20, 2026 at 02:33:12PM +0800, Delton Ding wrote:
-> > Hi Jarkko and MicroFish,
-> > 
-> > I'm following up on this discussion:
-> > https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg2652132.html
-> > 
-> > I would like to add a Fujitsu/Intel platform with what appears to be a
-> > related NVS resource reservation failure. I have not tested the proposed
-> > patch; this is an additional hardware report.
-> > 
-> > Hardware and software:
-> > 
-> >   System: FUJITSU FMVU14003
-> >   Board: FJNB2B5
-> >   CPU: Intel Core i5-7300U (family 6, model 142, stepping 9)
-> >   BIOS: Version 1.33, 11/25/2025
-> >   OS: NixOS 26.05
-> >   Running kernel: 7.2.5 (NixOS build)
-> >   /proc/sys/kernel/tainted: 0
-> > 
-> > On this machine, the TPM2 table specifies StartMethod 2 (ACPI Start).
-> > The control area, rather than the MMIO range reported by _CRS, lies
-> > inside ACPI NVS:
-> > 
-> >   TPM2 table (length 52, revision 3, checksum valid):
-> >     ControlAddress: 0x000000008ff6e000
-> >     StartMethod:    2
-> > 
-> >   Relevant /proc/iomem entries:
-> >     8d77f000-8ff7efff : ACPI Non-volatile Storage
-> >     fed40000-fed44fff : MSFT0101:00
-> > 
-> >   The TPM SSDT declares _CRS with base 0xfed40000 and length 0x5000.
-> >   It also contains:
-> > 
-> >     OperationRegion (TPMR, SystemMemory, 0xFED40000, 0x5000)
-> >     OperationRegion (TNVS, SystemMemory, 0x8FF6F000, 0x27)
-> >     OperationRegion (CONA, SystemMemory, 0x8FF6E000, 0x30)
-> > 
-> > The kernel reports:
-> > 
-> >   tpm_crb_acpi MSFT0101:00: error -EBUSY: can't request region for
-> > resource [mem 0x8ff6e000-0x8ff6e02f]
-> >   tpm_crb_acpi MSFT0101:00: probe with driver tpm_crb_acpi failed with error -16
-> >   ima: No TPM chip found, activating TPM-bypass!
-> > 
-> > Neither /dev/tpm0 nor /dev/tpmrm0 exists, and both /sys/class/tpm and
-> > /sys/class/tpmrm are empty. The ACPI device has status 15 and an existing
-> > platform physical_node, so platform device creation itself succeeded.
-> > 
-> > Based on the ACPI tables and source inspection, this appears to reach the
-> > iores == NULL path in crb_map_res() when crb_map_io() first maps the
-> > 48-byte control area. That area lies outside _CRS but within the NVS
-> > reservation. This is an inference from the tables and error range;
-> > I have not instrumented the driver to trace the call path.
-> > 
-> > Earlier boot logs show the same error and address on BIOS 1.10, 1.30
-> > with kernel 7.2.6. I do not have a known-good Linux kernel on this machine,
-> > so I am not reporting this as a confirmed regression. The TPM works in
-> > Windows on the same machine; its TPM firmware has also been updated.
-> > The vendor of the TPM is infineon, but the exact TPM firmware revision
-> > has not been collected here.
-> > 
-> > The missing devices cause systemd 260.2 to wait 90 seconds in the initrd
-> > and another 90 seconds after switching to the real root. We have prepared
-> > systemd.tpm2_wait=0 as a local workaround for the boot delay; it does not
-> > restore the TPM device.
-> > 
-> > Does this look like another instance of the NVS mapping issue, and is
-> > there a preferred revised patch or targeted diagnostic for this ACPI
-> > StartMethod 2 layout? I can provide the raw TPM2 table and TPM SSDT,
-> > including its disassembly, if useful.
-> > 
-> > Best Regards,
-> > Delton Ding
-> 
-> Yes it does.
-> 
-> I need to revisit this properly. Thanks for reminding.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-I gave updated feedback.
+--CtrRTUfPvVMhZ05e
+Content-Type: application/pgp-signature; name=signature.asc
 
-Br, Jarkko
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaraIjAAKCRB4tDGHoIJi
+0kZXAQCdCUMwLH3cbqAlvwFTrxqdTCWLDqfHAlQdXZaU/uiqlwEAle9ieF89bnnI
+R4C1qhlh+i9RWd5TzD2+WmJQ99vfngs=
+=uahc
+-----END PGP SIGNATURE-----
+
+--CtrRTUfPvVMhZ05e--
