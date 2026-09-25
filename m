@@ -1,159 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DF13FFAA4;
-	Fri, 25 Sep 2026 18:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DEA3416843
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360454; cv=none; b=Wko5YrAISOlNTsbubL00TtWL0XyKIql7fLJhOCTrra7oDOhcDyU5mjZW3ZjQZEfrkFYJkKXW0tJoeYYreycNKDUPtLhQO+QYJaB1BhR1hb4ikcGE4/s3PrkseVvtKaUv4RMSYCD7XuqzDj8pe0xYdiEs/FzYfi03FP4GGGh3ou8=
+	t=1790360457; cv=none; b=guV3pwr3Iy0dMUWxkvJBjFnzatadMndiemVO9R/y6tYWfFa9toPQfSe8GgvU4icck9+DCEUhHNCoXhPzKzaMagf5EV5UmB+fWTn+u41dk/6nYvbDSrUr53aX8Ai7yQrzif5Vr4tkDgWfo6aHNdo/aL5VyBk3a/fzcWji9kxr4n8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360454; c=relaxed/simple;
-	bh=e59QF1/gJAzfBLahIlarB/qRJvoLqmihh+ZQ0pZr9c8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mBvikgiXaHiJ3srb/NGYXErbGhxODFJ5aYzkP5gN3aLKK65dlK1uQcEs8jcsonqWbNZmUDMeMSjvSxGP1P0SXM8I4bjc7ZBxTkiDbPW49E0TdlEqPGsq9Yc7wH77EuqH8U5utRWcCiT8Fq+5sb7YFbMeEwLcn/t0azFgftTp4zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P8FVwLxh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790360457; c=relaxed/simple;
+	bh=ZdDl2k6VSNRAjMa5sv67qNx0uk5Bqx9XHKnqQE++CRc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=USbMaUjlAuw+1u/Qb1yyG8M3cB9QqG9ZlioqxjWsnECNEN3txgCDi3r9cxU0om6KEU77Mwr3pSDXCAvnLGTSDQRO5buUcf7aeewXlWQATzS1ySvaC0C+UZGlgCtddoT2/mH3ycqbP4tpzW+KgvsyTLlzxZ1x6MfFOHSTrgATJ5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WLXuwkeW; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P8FVwLxh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7B51F000FF;
-	Fri, 25 Sep 2026 18:20:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790360452;
-	bh=XEVZQpWQ1S8SUFjagVACI8LuHkxv6HV9CkdMaoCHFak=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P8FVwLxhelz5DhaP9jRK/vtAAw1AbNE5cuh+MhpMM7Eq0pypGgR6WZV2ixPgcynoM
-	 YBtWVOWZVab0U73ghJ79Y558VJpkcPP5U2EogTneu4uRHfWSLV05YHnCcr270OT6Rb
-	 rN+iV30P625vWLODI6PsrDxSp1Jm3yH2Zi0PkitQuRu6LGbAVf59Zq6jDGJD4fJXEc
-	 YAJzc8g+5qkbjZOjo34WhknKsMKB4QZx1OrU/ALMPBe5sQJbzcZuBJ1kHhZO1DcPLN
-	 hHa23govUbNGT8+iTzTQ8w+OnSQbNHEBCe86/vpKrIpipjft0JWxuo4Xwv8uy6ke/p
-	 uU5/L8Ob2mVFw==
-Date: Fri, 25 Sep 2026 13:20:49 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: Fix USB interrupts in Glymur DT
-Message-ID: <ara7cNuOCghH2p9m@zenbook>
-References: <20260803-glymur-dt-usb-fixes-v1-1-0f5f52853102@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WLXuwkeW"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48877902c99so1016357f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:20:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790360453; x=1790965253; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HbJed3QIlE5is+wfCiIzfB4icHHTL/FXBZcCdh6MKMc=;
+        b=WLXuwkeW4W8i+u6relJA23AO2ZTEsUeV8Podz5ne6NUwy3CvGclMY3iJ1KLe8FUW2n
+         uL/2sAH5e6lV5W5Zz0xrFpnQH/WinwdC+h+cQtsnKjcevP/VovuI1tlONLwPeiHPkGm4
+         MB9DiLMzopZTLxDxtf+4OVgnN7ILKNIcLnwSWqVZCSEcVO0YMQ9yhrHJNj3u72KEkbW9
+         6gK/4dyWiqDPs+RurAzISqYYWAs1WMCPK295lpqUT42nIPDa6HamtQ0/NMr1qwfQkV8+
+         Q4K0KJ+VUdqtUlMsRhHNquPId6B87c6IFSvgQP1Y1pMLUDd7KZCAgDfy+qtBMNf/t2EZ
+         2esA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790360453; x=1790965253;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HbJed3QIlE5is+wfCiIzfB4icHHTL/FXBZcCdh6MKMc=;
+        b=Ki5RdqUZoxIko+097Y+RJU8Rts70BGk8sbIYp94Uxas4wkJOFYz7nEoNHm9ZG+8OWY
+         MMauGmQC06RliBF5jJrNar4/ch+7+Tx55SZn8+dcjQY1EDxBsxg4KkqqawYwVQGnoajA
+         KVufj81at5IKLM42voNSTjolFJGoq2pWIMGijAlZ3hgx6Hm5dXZwQLvPZOYtEUoTzTgI
+         vWt/IPLBscXOl1gOXVrr1JSk+6tFhF3Hkn6znGJUxasql3dmi5xeR9PkBw2y2s+mEW5N
+         zIoud1/IWl/XbVSlwooprLr5kbCCVDQU79FJV5DzRNsFp7MCNpPrZrPJCDo/53svBIX9
+         g4Zw==
+X-Forwarded-Encrypted: i=1; AKwUvBwjgavOcA6l10DruyZRa2ADAQw1N9+rssuZJD/qH7MQbt13tv2bTOncNK5VuqVgCyS80yiKS6Nyf9QUSfA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCETi432+xfmREYJHVNuWeoobAiSMnk2huD4ixZEx/LSjQEa2g
+	FGlyEdLm6I1Ckqi3L0+QKcK5FGMvJ+MVUdyW3oKKw0Nd8VITM4GikZ6NuF1fYtGcwm4=
+X-Gm-Gg: AYBFou23ipg+iVIHoTAVVZP0SJRSZLxRobcPx1v5Zb/HGonbOiwlgWSzzo39bTb7HHP
+	47D9eK2fibmJxsFI7dJ4VH7ikMmCuzVehjIGoa+LB/CJLf5uzmvsutpnuLse39U9dM7fTSqallg
+	I+BamViGC1Q31JTV2CKQ/N0M0D8NNYKBtaiwh+YU2A7vvbdoGEZeVcK6JpEPWhFiHk3wWs1RrPb
+	BiowuO5NPkfTrYpZ8Tx8G6uCNdkP42k4BtmOMysGu+ryNZmg9SjGUQ1K1gQcEt/0p8+EjvAnDa3
+	xRlEphsYIty07p4brxl42BmhhPiz5sQJWiJSg3CM1GaNNDrTY3pXTAhEPSEVdOvRS/gREDohHfN
+	zU6QuxawER3dkDA9Y2gOiaHnoBVPMfjbbsF8RC2n70XaJOmjb3SzGK+YJfv4jNxca9Tw9T+FvOx
+	6TixKJDdmH9qZNWH000cZd4ahAmgEne0BYo5OQRSokFdXBC7kaQSW9DdCZJUV26O3wS3NiLlBaj
+	EfComq9RbTGAOrSoYmOnI973qw2d6XTXQJgM+9/SalzWYFj7V3Dg8ZGZ1bO5A==
+X-Received: by 2002:a5d:6f05:0:b0:487:8c7:a275 with SMTP id ffacd0b85a97d-4887166bba6mr12471077f8f.0.1790360453543;
+        Fri, 25 Sep 2026 11:20:53 -0700 (PDT)
+Received: from localhost (p200300f65f19a904b61bffe3a87d7bb6.dip0.t-ipconnect.de. [2003:f6:5f19:a904:b61b:ffe3:a87d:7bb6])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4887a2acb4dsm8909485f8f.0.2026.09.25.11.20.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 11:20:53 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Johan Hovold <johan@kernel.org>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Armin Wolf <W_Armin@gmx.de>,
+	linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH] Add TAINT_DRIVER_OVERRIDE for usage of driver_override
+Date: Fri, 25 Sep 2026 20:20:40 +0200
+Message-ID: <20260925182041.1025371-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260803-glymur-dt-usb-fixes-v1-1-0f5f52853102@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6316; i=u.kleine-koenig@baylibre.com; h=from:subject; bh=ZdDl2k6VSNRAjMa5sv67qNx0uk5Bqx9XHKnqQE++CRc=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqtrt5auzK2O3znYA5mSO75OtU4S4MLYgfvL8SR fExzta4CP+JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCara7eQAKCRCPgPtYfRL+ TgXBB/4ipbjI6msdOdOEh0N1yvy5qoA1pPLxBUK+WO0FZ4y07WBzGVebN2SFV1WLEuqGhxOGPiA lRoDLT1Y0fv+jICbdribCbx1WDBpkM4Z9ZGpQTpiohUhE/OZG2pFnTRlQWJTGm6C8nFA/2aMC24 WPAmCCkkonSxzTWTWFa8t3Z8pIsyMBv9ZzUL6e2izfQQ+GscGlpdFWHVQqiHrLSCsirRPFXFO8e YBpOgaKJg48nUyjb5K/Tv4JGgyE+jvLtmCRqBP2cs3ebSzP1an54iIN3ttm5LgFetJ2pOpQ4znH F2erxa9l5WWsxpsou0IytKTz1nTp4w5rW38OCCdm/N633Aj5
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 03, 2026 at 09:56:03AM +0530, Krishna Kurapati wrote:
-> In Glymur, DRD capable USB Nodes are missing the HS Phy IRQ. Also, fix the
-> pwr_event and hs_phy interrupt numbers in Multiport coontroller node.
-> 
-> While at it, the dp and dm interrupt numbers have been swapped on HS only
-> usb controller. Fix them up.
-> 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> ---
-> This series has only been compile tested.
-> 
-> Binding depedency:
-> https://lore.kernel.org/all/20260803-glymur-usb-binding-fixes-v1-1-9ce334777387@oss.qualcomm.com/
+Commit fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when
+userspace manually messes with devices and drivers") introduced a taint
+for usage of bind/unbind sysfs files that manually trigger driver probe
+and remove respectively.
 
-Please resend when this binding has landed.
+For drivers that do their resource management correctly (which is also
+needed for module unloading) bind and unbind for matching devices are
+not critical operations. The thing that makes bind and unbind unsafe is
+that drivers can be forced on devices that originally don't match using
+driver_override. The result is that e.g. of_device_get_match_data()
+returns NULL despite all .of_match_table entries having a non-NULL
+.driver_data member which yields a NULL pointer exception for several
+drivers. And given that after setting a driver_override a manual bind is
+only one way a driver can be bound to an unexpected device, a separate
+taint for such an override is justified.
 
-Regards,
-Bjorn
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+---
+Hello,
 
-> ---
->  arch/arm64/boot/dts/qcom/glymur.dtsi | 22 ++++++++++++++--------
->  1 file changed, 14 insertions(+), 8 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> index f04058d2e089..7a71297db481 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> @@ -4574,11 +4574,13 @@ usb_0: usb@a600000 {
->  
->  			interrupts-extended = <&intc GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 371 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 368 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 90 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 60 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 17 IRQ_TYPE_EDGE_BOTH>;
->  			interrupt-names = "dwc_usb3",
->  					  "pwr_event",
-> +					  "hs_phy_irq",
->  					  "dp_hs_phy_irq",
->  					  "dm_hs_phy_irq",
->  					  "ss_phy_irq";
-> @@ -4649,11 +4651,13 @@ usb_1: usb@a800000 {
->  
->  			interrupts-extended = <&intc GIC_SPI 875 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 369 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 878 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 88 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 87 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 76 IRQ_TYPE_EDGE_BOTH>;
->  			interrupt-names = "dwc_usb3",
->  					  "pwr_event",
-> +					  "hs_phy_irq",
->  					  "dp_hs_phy_irq",
->  					  "dm_hs_phy_irq",
->  					  "ss_phy_irq";
-> @@ -4725,11 +4729,13 @@ usb_2: usb@a000000 {
->  
->  			interrupts-extended = <&intc GIC_SPI 871 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 370 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 877 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 89 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 81 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 75 IRQ_TYPE_EDGE_BOTH>;
->  			interrupt-names = "dwc_usb3",
->  					  "pwr_event",
-> +					  "hs_phy_irq",
->  					  "dp_hs_phy_irq",
->  					  "dm_hs_phy_irq",
->  					  "ss_phy_irq";
-> @@ -4805,14 +4811,14 @@ usb_hs: usb@a200000 {
->  
->  			interrupts-extended = <&intc GIC_SPI 240 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 246 IRQ_TYPE_LEVEL_HIGH>,
-> -					      <&pdc 92 IRQ_TYPE_EDGE_BOTH>,
-> +					      <&intc GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 57 IRQ_TYPE_EDGE_BOTH>,
-> -					      <&intc GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH>;
-> +					      <&pdc 92 IRQ_TYPE_EDGE_BOTH>;
->  			interrupt-names = "dwc_usb3",
->  					  "pwr_event",
-> +					  "hs_phy_irq",
->  					  "dp_hs_phy_irq",
-> -					  "dm_hs_phy_irq",
-> -					  "hs_phy_irq";
-> +					  "dm_hs_phy_irq";
->  
->  			resets = <&gcc GCC_USB20_PRIM_BCR>;
->  
-> @@ -4870,10 +4876,10 @@ usb_mp: usb@a400000 {
->  				      "noc_aggr_south";
->  
->  			interrupts-extended = <&intc GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
-> -					      <&intc GIC_SPI 345 IRQ_TYPE_LEVEL_HIGH>,
-> -					      <&intc GIC_SPI 346 IRQ_TYPE_LEVEL_HIGH>,
-> -					      <&intc GIC_SPI 162 IRQ_TYPE_LEVEL_HIGH>,
-> -					      <&intc GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 313 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 12 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 11 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 14 IRQ_TYPE_LEVEL_HIGH>,
-> 
-> ---
-> base-commit: 1e88112e60de707020f3def45af81f9a0180ee82
-> change-id: 20260803-glymur-dt-usb-fixes-62f314d3f3a9
-> 
-> Best regards,
-> --  
-> Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> 
+I first considered to just set TAINT_FORCED_BIND when driver_override is
+written to. But IMHO it's very useful to differentiate for reported bugs
+if bind/unbind was used in combination with driver_override or not.
+
+Also if only bind/unbind was used and driver_override not, a resulting
+problem is worth fixing (opposed to what is considered for
+bind+driver_override).
+
+IMHO it would also be fine to drop TAINT_FORCED_BIND, but let time prove
+how many reports we get with TAINT_FORCED_BIND but without
+TAINT_DRIVER_OVERRIDE.
+
+Best regards
+Uwe
+
+ Documentation/admin-guide/tainted-kernels.rst | 6 +++++-
+ drivers/base/bus.c                            | 1 +
+ include/linux/panic.h                         | 3 ++-
+ include/trace/events/module.h                 | 3 ++-
+ kernel/panic.c                                | 3 ++-
+ tools/debugging/kernel-chktaint               | 8 ++++++++
+ 6 files changed, 20 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentation/admin-guide/tainted-kernels.rst
+index abbf5e3dd749..75750a9533e9 100644
+--- a/Documentation/admin-guide/tainted-kernels.rst
++++ b/Documentation/admin-guide/tainted-kernels.rst
+@@ -74,7 +74,7 @@ a particular type of taint. It's best to leave that to the aforementioned
+ script, but if you need something quick you can use this shell command to check
+ which bits are set::
+ 
+-	$ for i in $(seq 20); do echo $(($i-1)) $(($(cat /proc/sys/kernel/tainted)>>($i-1)&1));done
++	$ for i in $(seq 21); do echo $(($i-1)) $(($(cat /proc/sys/kernel/tainted)>>($i-1)&1));done
+ 
+ Table for decoding tainted state
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@@ -103,6 +103,7 @@ Bit  Log  Number   Reason that got the kernel tainted
+  18  _/N   262144  an in-kernel test has been run
+  19  _/J   524288  userspace used a mutating debug operation in fwctl
+  20  _/Y  1048576  device was manually bound or unbound from a driver
++ 21  _/Z  2097152  a driver was forced on a non-matching device
+ ===  ===  =======  ========================================================
+ 
+ Note: The character ``_`` is representing a blank in this table to make reading
+@@ -193,3 +194,6 @@ More detailed explanation for tainting
+ 
+  20) ``Y`` If userspace wrote to the `bind` or `unbind` sysfs files and
+      successfully bound or removed a device from a driver.
++
++ 21) ``Z`` If userspace wrote to a `driver_override` sysfs file opening the gate
++     for unexpected driver binding.
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index c51ad96d4de4..6e91210aab45 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -513,6 +513,7 @@ static ssize_t driver_override_store(struct device *dev,
+ {
+ 	int ret;
+ 
++	add_taint_module(drv->owner, TAINT_DRIVER_OVERRIDE, LOCKDEP_STILL_OK);
+ 	ret = __device_set_driver_override(dev, buf, count);
+ 	if (ret)
+ 		return ret;
+diff --git a/include/linux/panic.h b/include/linux/panic.h
+index 23976b1dfdb6..e6e24d8afcf7 100644
+--- a/include/linux/panic.h
++++ b/include/linux/panic.h
+@@ -90,7 +90,8 @@ static inline void set_arch_panic_timeout(int timeout, int arch_default_timeout)
+ #define TAINT_TEST			18
+ #define TAINT_FWCTL			19
+ #define TAINT_FORCED_BIND		20
+-#define TAINT_FLAGS_COUNT		21
++#define TAINT_DRIVER_OVERRIDE		21
++#define TAINT_FLAGS_COUNT		22
+ #define TAINT_FLAGS_MAX			((1UL << TAINT_FLAGS_COUNT) - 1)
+ 
+ struct taint_flag {
+diff --git a/include/trace/events/module.h b/include/trace/events/module.h
+index 19df3e39bba4..c7cdb1f53bc6 100644
+--- a/include/trace/events/module.h
++++ b/include/trace/events/module.h
+@@ -27,7 +27,8 @@ struct module;
+ 	{ (1UL << TAINT_FORCED_MODULE),		"F" },		\
+ 	{ (1UL << TAINT_CRAP),			"C" },		\
+ 	{ (1UL << TAINT_UNSIGNED_MODULE),	"E" },		\
+-	{ (1UL << TAINT_FORCED_BIND),		"Y" })
++	{ (1UL << TAINT_FORCED_BIND),		"Y" },		\
++	{ (1UL << TAINT_DRIVER_OVERRIDE),	"Z" })
+ 
+ TRACE_EVENT(module_load,
+ 
+diff --git a/kernel/panic.c b/kernel/panic.c
+index b824b68fcb08..f5476a61f6f3 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -826,6 +826,7 @@ const struct taint_flag taint_flags[TAINT_FLAGS_COUNT] = {
+ 	TAINT_FLAG(TEST,			'N', ' '),
+ 	TAINT_FLAG(FWCTL,			'J', ' '),
+ 	TAINT_FLAG(FORCED_BIND,			'Y', ' '),
++	TAINT_FLAG(DRIVER_OVERRIDE,		'Z', ' '),
+ };
+ 
+ #undef TAINT_FLAG
+@@ -862,7 +863,7 @@ static void print_tainted_seq(struct seq_buf *s, bool verbose)
+  * exact size is allocated dynamically; the initial buffer remains
+  * as a fallback if allocation fails.
+  *
+- * The verbose taint string currently requires up to 344 characters.
++ * The verbose taint string currently requires up to 364 characters.
+  */
+ #define INIT_TAINT_BUF_MAX 370
+ 
+diff --git a/tools/debugging/kernel-chktaint b/tools/debugging/kernel-chktaint
+index d8628be37214..14d8febd6b16 100755
+--- a/tools/debugging/kernel-chktaint
++++ b/tools/debugging/kernel-chktaint
+@@ -219,6 +219,14 @@ else
+ 	addout "Y"
+ 	echo " * device was manually bound or unbound from a driver (#20)"
+ fi
++
++T=`expr $T / 2`
++if [ `expr $T % 2` -eq 0 ]; then
++	addout " "
++else
++	addout "Z"
++	echo " * a driver was forced on a non-matching device (#21)"
++fi
+ echo "Raw taint value as int/string: $taint/'$out'"
+ 
+ # report on any tainted loadable modules
+-- 
+2.56.0.rc1
+
