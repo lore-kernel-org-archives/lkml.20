@@ -1,83 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623893BD635;
-	Fri, 25 Sep 2026 15:30:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC00375F6C;
+	Fri, 25 Sep 2026 15:32:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350250; cv=none; b=FH0Bw2LR+SEd6iTeG2ToaWbOpdCbH/Y4xZPLwapiTQVVN7Rq/aJBkhg1Vr5SzYe1IJrFABdAFOw5Q9NqSi5cQetRFv1mXscW+8WXCrgaAd7owt20U7V+iLXMOUNGLxZBWZaCmfRIUBlFtmtada78KMhhstj4iLTLZlzBUU+fleQ=
+	t=1790350351; cv=none; b=HSf28iStAmA8YNK6IBi1h6y+qxv7wrPTfMcysgUiVGZLm78kuJULXF9l1n1cxbzlB9kDnK+EdfiKV3l2dINtf6SorpXzQu4rS/0EKAyddFyvGOxC330mCqIOAKSQm8agdugEzNF2qYDRnkB3OFUPAmZO2B9UutTspqssWkEY7gM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790350250; c=relaxed/simple;
-	bh=dY/RqwsLlvaqaqIVDLHTNvPGIdn2+AbvEIcmdODh7WQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=OEIgOLRk4PIEFig/B0qsC8TXO8Ht1HGokC7+SKv6I831aj5bmtQCsJ/A+0UvNm6rLU+5LkS3o9AYA9cquC5vqL1Qbu9UZs/8wPxeJW3YTKrSmdz4u28CS98nBlMI2xZSp7Hn59LEfDSzx/gzTtGkx9kXTkp0RUWLwWGHfJ1lq+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocKGoS7N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790350351; c=relaxed/simple;
+	bh=NvVGQLydZ3ADiGNqxqvzSYEQ8qjxDbS7YuE+omZBxGI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A6t4w+tmxduGZJmRbDrxXB7WDqZEZfsufCiEY8xqFJ1QmhsQ0stSI5TDYu5McFNi6Lf4p6AuATKNYhA7rWXH97e7salphB7gyV5n//zVTwELl/tc+DvgT2Wiwd1uz0f8zz0dJ0cZuJK4VseaTB1X78ZTWC2d5ZMUu662gC7Xkkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RcW4JHkV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocKGoS7N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382B91F000FF;
-	Fri, 25 Sep 2026 15:30:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RcW4JHkV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8795E1F00893;
+	Fri, 25 Sep 2026 15:32:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790350249;
-	bh=CR/C+cs2zl5Jt3ClpZFmEiihTiP2YZT1I9/49Mhx+qY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ocKGoS7N+MWhkj7FfSY5L+lMrSHb/K3Dj/KT/kMDgP8edyH/RZFFyMCQPI8SyU81d
-	 zysagF130aWIY2lRIa6ESs5WEAFnKMY6TRp3ejHTEfXyjqWoZxUvKsKsXba6IsZCdd
-	 4gWNFRJis4RNv5mY40KCiRK4DYtaLCMyiLgyaRAwbxheJM6bkVAiSHU4rTIGUaAqz5
-	 /JoeUxW6oiS15vhUBpFlYYY6kdaHaEZJAdBZ/53iF7pKSgBZyGubc3rJ8+5iGfymc5
-	 AR420lNZaiFRqHNnoMlfj+AaX+BSWoRj5yf2SnBUidcaIS6JdRlsL12pLaDmycq9EL
-	 9gTjCXYQlhl6Q==
-From: Christian Brauner <brauner@kernel.org>
-To: David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>
-Cc: netfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Erhard Furtner <erhard_f@mailbox.org>, stable@vger.kernel.org
-In-Reply-To: <20260923063759.34667-1-hao.ge@linux.dev>
-References: <20260923063759.34667-1-hao.ge@linux.dev>
-Subject: Re: [PATCH v2] netfs: Fix missing alloc tagging of direct mempool
- allocations
-Message-Id: <20260925-murrt-kolibri-skeptiker-f6aed7d7a0ae@brauner>
-Date: Fri, 25 Sep 2026 17:30:41 +0200
+	s=k20260515; t=1790350349;
+	bh=ahXr8iYLMCrTGMdibdd3fWSZuNO3BxDrBHng23DkL6Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RcW4JHkVjo86U9vcg6YxHgnyKvA+NAtGNMzXx2kZwZhT61+dzlihBa2BiiYS4tflT
+	 hfNoJMdMs463BtFOro0ZYKY+ZnrCRINmyRBShwFGHpb84CD0+oMBy/PAS7aIDXlfWs
+	 qS8+uTLup22Z+Rs+L+id+G7BXnxrHMLxOAUbbn5A0EKLxHq+v14hkNvw9Eoj0PNR8S
+	 tyG8aBVJO7XlE0yHzx7aCGcsAKGGudickvxZBTFGEb7VkNkupmk8180XvPlEkqt5RW
+	 zBuiv+NGQ0L1brDt8F/zhWX3t11eXCXOxJoeXNRtfP3wqlf9lWSDJkiDxijAk8KH8h
+	 3LjZQnRkM28KQ==
+Date: Fri, 25 Sep 2026 17:32:13 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH 3/6] phy: qcom: qmp-pcie: Add endpoint PHY configuration
+ for QCS8300
+Message-ID: <tdzyms6ci25zh2sxthg3khyqjvqpsnhpciqmjmbsj5hnzc35er@5fjuieis44ca>
+References: <20260921-monaco_ep-v1-0-63c5282fb0db@oss.qualcomm.com>
+ <20260921-monaco_ep-v1-3-63c5282fb0db@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=894; i=brauner@kernel.org;
- h=from:subject:message-id; bh=dY/RqwsLlvaqaqIVDLHTNvPGIdn2+AbvEIcmdODh7WQ=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtm7y4WeNQcEONvYaLTtbNKCFp54SO4N+/7+mwMUmHl
- kjad3J3lLIwiHExyIopsji0m4TLLeep2GyUqQEzh5UJZAgDF6cATORKKiPDQtPLsv9C9F7adosb
- LdgYr3o1+Yd69EFPjsCz4pxfpc9tYvgfpFl3uVS4RqDgUSMXf7d/h+I25YCvfz9wyq75IffvcRo
- PAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260921-monaco_ep-v1-3-63c5282fb0db@oss.qualcomm.com>
 
-On Wed, 23 Sep 2026 14:37:59 +0800, Hao Ge wrote:
-> netfs: Fix missing alloc tagging of direct mempool allocations
+On Mon, Sep 21, 2026 at 04:28:14PM +0530, Krishna Chaitanya Chundru wrote:
+> Monaco supports PCIe Endpoint mode on both PCIe controllers. Reuse
+> the existing SA8775P Endpoint PHY programming for the 16 GT/s x2 PHY and
+> add a new 16 GT/s x4 Endpoint PHY configuration with the required RX
+> tuning parameters.
+> 
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+This sounds like the PHY init sequence only works for Endpoint mode. But the
+sequence looks to be common for both RC and EP, even though it is only tested
+with EP mode.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+> This allows both Monaco PCIe controllers to operate reliably in
+> Endpoint mode.
+> 
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+- Mani
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] netfs: Fix missing alloc tagging of direct mempool allocations
-      https://git.kernel.org/vfs/vfs/c/b78b728e21c3
-
+-- 
+மணிவண்ணன் சதாசிவம்
