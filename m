@@ -1,134 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2504B3A1A55
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790366452; cv=none; b=R+kLzh5++7KCxB4lbDEI5DuW5AoagkQBd7Yt2HWCRc/ppsp4A0FQFxmbiSCoiLHAVbBHZeMWXMOzQlV+55BCeWVuToAwN18rbkBFImSUCfGZVxoxSAYhRsthvnq1g4a/LK94gApq1DoxQ1RlwGm5joCDF1nzOPnorF6r5BANspQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790366452; c=relaxed/simple;
-	bh=TuA8mJp6WIiFejbqcxOx8qfFnbYu+NcKFML1Bnvjv1E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=okeuUcULCb36raI6/b6ggmim/jAQvFBf2YzYXq9bVEZGQU6yZp/TCax+n3ABEOnZjhMTz9Fw+VmrokMErZt/ZqLCRIcat8pL+9cEb8yD7s2uBcdv+AHRPyuw9arMAHyULcjuTtb4HKoAdGvWei4IGo9cdweKLnnHlatqlmpvcHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aInWkDLv; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aInWkDLv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60141F0089D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF9233936C
 	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:00:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790366450;
-	bh=mdthU5pFhoPpRCYtUZtakptdc+N2Ccs26ug23E7MbGo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aInWkDLvDoq/R50BzyZ7sMOtrOyu94SkBZ+GJcyGiOXXLvPFZFdSlwrgcEn68PcZx
-	 tM8Paq6eg3VOs1NrgGOPLDC3fYlbUi68WxVa4f38yTuLJN0hQ7sMu/mtunTIHj16Sd
-	 UNdQBxKdCSnKEJhTgWWJLmHseaT++Fd7kecoRwbsPavz373PN7L5VN5eMhToZ0ugd7
-	 nHPsXk8SqOrbwuhVBcHXncCVwSMXW5y/5QA4PTIRZ6n3LhHpkNoJxJBncoxHlzjpd2
-	 SwjqZPQ834k2FMRMm5ms8l9ItBP4u8m9VLeGXIsHHfwyiTC8YyiUnmg4kTTDa7+Qfd
-	 z3PpnTltvvhsw==
-Received: by mail-lr2-f28.google.com with SMTP id 38308e7fff4ca-3a659495608so2262401fa.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:00:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzDcwJbKvRhNsrfCvspmgFhHgMYp7lzq1pmYk1t0NHIbY0/2TIauZ2L3usbbfTRNJiqR8mfp0WPxBPh3sY=@vger.kernel.org
-X-Gm-Message-State: AFuF++myW5tqL1oW6kXWNrCaQPGPXXCwK6+YLUtRoY2Wt1JAb187KzwG
-	bRBTvd78erkXylg8sf784wBwl/4oi4E2eUOfzQZLlCz5xflsWJYa/RWI0HHcBDlaFfW1JdbolCN
-	RzLww3TpNFgyMnvMR/auZZ8B2IC/L3fc=
-X-Received: by 2002:a2e:be1e:0:b0:3a5:ba1e:8b08 with SMTP id
- 38308e7fff4ca-3a63dd61a6emr15047821fa.3.1790366449302; Fri, 25 Sep 2026
- 13:00:49 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.125.188.123
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790366453; cv=pass; b=nhTHv2K0DDzX8hJ1crKfg5O9vyFWR5VY7BwDX/Auf+BFaBzvNucoRrJzTE2aokWnYvHkX4IIvpVU/FP91muFJn+yu8LBJnDm9BSZWWskZQNzSbojriNwaJOcJUXyq19RNqGuLTskIc3iE2emncykXFAC9AjBZTpZke067NBitAs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790366453; c=relaxed/simple;
+	bh=4FQImKMswil5Yf4qU3iL4HP635uKtAuGj+q4LcLbdU8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nd6PK08G0M1Xj97mnlazcY8BfREBFv9aBMPDSkWyxlLLH9TyGiw2zd/MFrMjmYH7DAPjYYiqnXDU1sZ/QcO3epLgRrs1P75GX+0ROYJHLy443WybB6gpNJyEjBDpnrh2M64QcN3CIycZvFGI4/1Vo/+loE0aCCnSp4RKsFzVOSA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=ASggcdiF; arc=pass smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="ASggcdiF"
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id A6A283F289
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:00:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1790366443;
+	bh=wG/i9tiTp8ePesopRc3qMjTf5qhlfbVXuwOQ1MTUCQ0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type;
+	b=ASggcdiFfS70gaeC/3v2waOXAOULhbL4KLEY8m+KX7faUgunvnCQfOpJ8fgg9JKCv
+	 oFS7SQ2/Z/biB6PDPslnRniAcdAX4G1ZpbTFEKfS4F7vhy6Zszeu+2ni8PQeSvKps7
+	 OZjgaxnn3u1IFf6T38QCq9xkvywsQUz/E1BsL4Q5YLRWCtoPVVgPQoLwePErkQA3sK
+	 RPODYvweQDkXBr0hC9Fye6Ivmpvl5AGDTG55SjlGP0khnlYeGvg51byih0Dv2lmZL9
+	 XLqPNPDn+o9uw7Itb4M17TNiGyPKHAI/8T7vkDY+ptvHFszHKJrRqACZOWTBWHoctf
+	 7PFvITiiHdhBQ9CeYEiMP+GttIfX8GmKZq6P/OXEIQ+6a60UQ6jKvP1iJxKaKRIcBl
+	 qlBH9xDpd1PjWpDi8NQfAW9npwITC8kDD+TVorcAbgCBvQ8eaUPCjg6TSCAp1oA05v
+	 BfjqUHnpcdVC5uYkwIpcaSCLC2d6Fpd5tD5CWHdZyupiJuSVdo9SuuBCJdJTjzodUj
+	 yFtbRiFvEp51sVdGkICrS/31Aj56xw19kfhRL0Yh29pL75IInPeZr4AAB61XeLyuE7
+	 pdVD7msH19/o8yakJ1munNwu73SX6YJHsiEZ5rsAAMkUjFbRzXRVxSV9RRr9pfAZni
+	 BAmuv5E8oz7lBrisCDCo1oOc=
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67415fd800fso1034468d50.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:00:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790366442; cv=none;
+        d=google.com; s=arc-20260327;
+        b=A7eJGAwNrxI4xEJ//UBCJQcwSB/Pf1oNhSy1ILIQoa8gxTJ2ZoM2xml75SKDCi760i
+         Sx4Fl+uRdSUAIHgtWrJLtoCc+L6qtP2gPgfX25+uQ4zk8N6yLtwa0odE86RrTBR77ucG
+         bXixjlpHTfYECia2yAS0ct7cjxT1AqE/T/9tKpOCfhKjJYxQGlAlcivXl2K8jaZBc3Gf
+         CkfdznMFkbiK7CrV2m1gcOYO6ax0uzcQZvAfN4/NkmA6Xoc5q5IzlMeQKOYcnO4MXmDu
+         71XtPC2kE734//s/jPLzfe+uRcoo9FCaxSX8JnjJ1SqVbxE5lGqa7aSiHPrE1vMamLpo
+         L0Dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version;
+        bh=wG/i9tiTp8ePesopRc3qMjTf5qhlfbVXuwOQ1MTUCQ0=;
+        fh=atmOkczZp+mahHwtTIa4YIYT/nU1bH06pTONpzf0apI=;
+        b=o2Na64y7PQAH6xpTtznM/KhWhGYMd2atvvfImmBJLUd9LwMILraMv9MqRmoLlUfe1I
+         /r/QtWyN/EkmtiVbXzmAHZyo0S9YPAg0MAiqH42I/79i3EqJXWzQOkf+5B+0oWZO7lrg
+         umlkhyZthcqjI1hHXh5Dw2h5OjOPf/rdacvC+Z1Erwm19Gftf8C5fhU1jJO1oNxYrqfV
+         f/3ITN4vJsU4kYrknDFT6KMOM+vrPCtgFUhG7F50swX7bADRac9eBu3llAflslnTjAiV
+         SJzMge/7LspcDXsweuwmNroiAxlEvHYfJegD/GcSVWxDCOSdLhBygU1clJhRv26FQZWf
+         rAjA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790366442; x=1790971242;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wG/i9tiTp8ePesopRc3qMjTf5qhlfbVXuwOQ1MTUCQ0=;
+        b=wpSkMnylk4k9e5Iq3SZ0zsh/H40JNgXDxKPYxfh9/wmVOyztkYsz8TzuhMLG05wN43
+         HI1ol/qf6N4OHB0+axzrtcvX0RKKTP0pvhKjjKkIS0yZLL9tM06U8WTco45DeDbxMr7H
+         0hQurwdNHPRnVYrPpqr0Jl/VfBugSnK/+P+w05sCPxWzz7YpChnWzSFTdNNt1m/T97Mc
+         U2TJEF9lrql8veco+107ZhjsHdnUNV2/xb9LaXUBUxBe/XmU0rZ1hKRf14Z4BhnMb3Qp
+         oHBlHWl3X7+FArOntKTt/p8JaWJ11UF3pVt4RgVG7sGUTLeWArqiYZX2dzFksteQ3kOq
+         fS7g==
+X-Forwarded-Encrypted: i=1; AKwUvBweafzNnpr+tvlpsCe+4gVW+qkputK1aTwoxZgHsfqh0DazkbTKlUDnHudI9nQtotzNCpfFJTttFHnDW74=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9L5phXCQj64/fUTag5ZbQMIxl2ihHmjXDa8Kc/6wJ0hjbYky2
+	8jErDCq8nOFadkPXZ8Jf4l+3AqmqGI8EXL9eVSKluoiC4e/mxw8foT/fVa0zsLwNaaf7BB5GrJW
+	s4U91rZ2lnHkR8LM2hT/B1BUatA14154wCNjFzvxJ4PPFcD6UKAhCA5vGBj0etUJ5RgGeRQnKsF
+	W4uXBXbsB5nLOmWigyLkQ04oeQBKo29rtUzZoullgx/JuovWTobFHx70s+
+X-Gm-Gg: AYBFou2qec2rc7QJXfkh3xnLCEbmFzzZjpt+5zzqbjNZu+VxX19EUohseEmSJUU6xDu
+	wYDLM202YXiJr0VwbA+U6d2pBOFtbcKLCxm/CS8Wlg7sa6IesvctBbsRpaZTWcJ1CzqYfO5ro6h
+	NXwTFVKr5T45+fweA/klZfqLZr0tkAhyOAc95R1GdBLMgG8CiIa31JFjMZayCuDQl+jZywP926U
+	4bUeckcZRQiesmRPUyWz1RE9UgCakHXH39comF61sQ=
+X-Received: by 2002:a05:690e:1349:b0:674:1e39:446 with SMTP id 956f58d0204a3-6741e390a77mr479899d50.39.1790366442333;
+        Fri, 25 Sep 2026 13:00:42 -0700 (PDT)
+X-Received: by 2002:a05:690e:1349:b0:674:1e39:446 with SMTP id
+ 956f58d0204a3-6741e390a77mr479884d50.39.1790366441838; Fri, 25 Sep 2026
+ 13:00:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921143644.69381-2-blum@kernel.org>
-In-Reply-To: <20260921143644.69381-2-blum@kernel.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 25 Sep 2026 21:59:11 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hdPbFXYa9KRfFskgt5kjQCZL1abbuxHCaPLozn0-Gh1A@mail.gmail.com>
-X-Gm-Features: AclHuK8bo65Dg1I1tpo0GAtZ0VUZYaam0tmEl15Y2Ce1LxoPxHCrH1jXO9rxCmM
-Message-ID: <CAJZ5v0hdPbFXYa9KRfFskgt5kjQCZL1abbuxHCaPLozn0-Gh1A@mail.gmail.com>
-Subject: Re: [PATCH] thermal: intel: int340x: soc_slider: Simplify slider_def_*_set()
-To: Thorsten Blum <blum@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20260925193842.1208132-3-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20260925193842.1208132-3-Jeremy.Jean@oss.cyber.gouv.fr>
+From: Ryan Lee <ryan.lee@canonical.com>
+Date: Fri, 25 Sep 2026 13:00:29 -0700
+X-Gm-Features: AclHuK_mOIA3FwKExSadHRMkzyxNL4pwM7I_MYyeQT-_8dlrK5CScnNC01wdXIw
+Message-ID: <CAKCV-6u01ARuWLn3snV6fo=k-3LOVNdEkMux3NQmcj4X+vYprQ@mail.gmail.com>
+Subject: Re: [PATCH] apparmor: check connect permission for SCTP
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: John Johansen <john.johansen@canonical.com>, 
+	Georgia Garcia <georgia.garcia@canonical.com>, apparmor@lists.ubuntu.com, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 4:39=E2=80=AFPM Thorsten Blum <blum@kernel.org> wro=
-te:
+On Fri, Sep 25, 2026 at 12:40=E2=80=AFPM J=C3=A9r=C3=A9my Jean
+<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
 >
-> Return errors directly to simplify slider_def_balance_set() and
-> slider_def_offset_set().
+> SCTP can start an association through sendmsg() or CONNECTX. These paths
+> call the SCTP-specific sctp_bind_connect hook instead of the normal socke=
+t
+> connect hook, but AppArmor does not register it. As a result, a profile c=
+an
+> deny connect and allow send or setopt, yet a task can still create an SCT=
+P
+> association.
 >
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> Register the SCTP hook. Ask for connect permission when SENDMSG_CONNECT
+> or CONNECTX creates an association.
+>
+> Fixes: 56974a6fcfef ("apparmor: add base infastructure for socket mediati=
+on")
+> Assisted-by: LLM
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 > ---
->  .../processor_thermal_soc_slider.c            | 28 ++++++++++---------
->  1 file changed, 15 insertions(+), 13 deletions(-)
+>  security/apparmor/lsm.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 >
-> diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_soc_=
-slider.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_soc_slid=
-er.c
-> index 91f291627132..e161b95828e8 100644
-> --- a/drivers/thermal/intel/int340x_thermal/processor_thermal_soc_slider.=
-c
-> +++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_soc_slider.=
-c
-> @@ -66,15 +66,16 @@ static int slider_def_balance_set(const char *arg, co=
-nst struct kernel_param *kp
->         guard(mutex)(&slider_param_lock);
->
->         ret =3D kstrtou8(arg, 16, &slider_val);
-> -       if (!ret) {
-> -               if (slider_val <=3D slider_values[SOC_POWER_SLIDER_PERFOR=
-MANCE] ||
-> -                   slider_val >=3D slider_values[SOC_POWER_SLIDER_POWERS=
-AVE])
-> -                       return -EINVAL;
-> +       if (ret)
-> +               return ret;
->
-> -               slider_balanced_param =3D slider_val;
-> -       }
-> +       if (slider_val <=3D slider_values[SOC_POWER_SLIDER_PERFORMANCE] |=
-|
-> +           slider_val >=3D slider_values[SOC_POWER_SLIDER_POWERSAVE])
-> +               return -EINVAL;
->
-> -       return ret;
-> +       slider_balanced_param =3D slider_val;
-> +
-> +       return 0;
+> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+> index d502ad0ac26f..dba078c73abc 100644
+> --- a/security/apparmor/lsm.c
+> +++ b/security/apparmor/lsm.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/mount.h>
+>  #include <linux/namei.h>
+>  #include <linux/ptrace.h>
+> +#include <linux/sctp.h>
+>  #include <linux/ctype.h>
+>  #include <linux/sysctl.h>
+>  #include <linux/sysfs.h>
+> @@ -1405,6 +1406,18 @@ static int apparmor_socket_connect(struct socket *=
+sock,
+>         return aa_sk_perm(OP_CONNECT, AA_MAY_CONNECT, sock->sk);
 >  }
 >
->  static int slider_def_balance_get(char *buf, const struct kernel_param *=
-kp)
-> @@ -101,14 +102,15 @@ static int slider_def_offset_set(const char *arg, c=
-onst struct kernel_param *kp)
->         guard(mutex)(&slider_param_lock);
->
->         ret =3D kstrtou8(arg, 16, &offset);
-> -       if (!ret) {
-> -               if (offset > SOC_SLIDER_VALUE_MAXIMUM)
-> -                       return -EINVAL;
-> +       if (ret)
-> +               return ret;
->
-> -               slider_offset =3D offset;
-> -       }
-> +       if (offset > SOC_SLIDER_VALUE_MAXIMUM)
-> +               return -EINVAL;
->
-> -       return ret;
-> +       slider_offset =3D offset;
+> +static int apparmor_sctp_bind_connect(struct sock *sk, int optname,
+> +                                     struct sockaddr *address, int addrl=
+en)
+> +{
+> +       switch (optname) {
+> +       case SCTP_SOCKOPT_CONNECTX:
+> +       case SCTP_SENDMSG_CONNECT:
+> +               return aa_sk_perm(OP_CONNECT, AA_MAY_CONNECT, sk);
+> +       }
 > +
 > +       return 0;
->  }
+> +}
+> +
+>  static int apparmor_socket_listen(struct socket *sock, int backlog)
+>  {
+>         AA_BUG(!sock);
+> @@ -1823,6 +1836,7 @@ static struct security_hook_list apparmor_hooks[] _=
+_ro_after_init =3D {
+>         LSM_HOOK_INIT(socket_getsockopt, apparmor_socket_getsockopt),
+>         LSM_HOOK_INIT(socket_setsockopt, apparmor_socket_setsockopt),
+>         LSM_HOOK_INIT(socket_shutdown, apparmor_socket_shutdown),
+> +       LSM_HOOK_INIT(sctp_bind_connect, apparmor_sctp_bind_connect),
+>  #ifdef CONFIG_NETWORK_SECMARK
+>         LSM_HOOK_INIT(socket_sock_rcv_skb, apparmor_socket_sock_rcv_skb),
+>  #endif
+> --
+> 2.47.3
 >
->  static int slider_def_offset_get(char *buf, const struct kernel_param *k=
-p)
+>
 
-Applied as 7.4 material, thanks!
+Could you also add a regression test to the upstream userspace repo
+(https://gitlab.com/apparmor/apparmor, tests/regression/apparmor) to
+exercise mediation of SCTP connections?
