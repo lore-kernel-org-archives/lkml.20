@@ -1,67 +1,66 @@
 Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0629730EF86
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:35:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7AAF30BB8A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:35:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790296532; cv=none; b=M2uviYxl5PUqEpxM7r5bYsgILjBc6ueA46WS4mmWHblK1+Tx8BnQKz/JAcJhlWpAhBZqTydNBKgYIe0oX9d7m9DUMe6KGgt60RZ78bTStLHmUFapbjPGJJgXOUIbnHC9auPGOyUGLO1HHDGNwdGqQop0e7qNQ02h0Wwxrx2KtzI=
+	t=1790296537; cv=none; b=T1cTc01gC9eYY6uCSU9LufMYWadQSOJYzGaJSXS9YQYqSxjtm9UHb8ZlYp7KhQYRgcQEVH+K2Gn19u1eJFDHAz//anJvgSugEFtmiwUNqhPiUqdoAMOcv3T0ocvfr+N8bJoHi5zCsLogv5wGbrxotR30zuymy4QFamzLg386Xss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790296532; c=relaxed/simple;
-	bh=rX7r1Gv+Zqy2XDYDnOJyXdXHXL+ZIMwfriPPPV5kVeg=;
+	s=arc-20240116; t=1790296537; c=relaxed/simple;
+	bh=JLREV+8jTK9SZ0OiGjrpJVQPy0C9Bb/geA6QzFNVlok=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MpnQqrJCOOYPWcC5LB/n2ZWvrjKTEnKKT5cAGqEDzUS0GYBuleOIAcZsSyHGBqd7z0fCdWNXlWorSjZ28jYzBHPWzGrDbdhil9NitxEl+1mR0WsCaeH+e8vfccCKjAi71YWmXnFZT/cqnDy/YVkwcuiKsgfER9x6YG9j4wVDFLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QuFNl8NF; arc=none smtp.client-ip=74.125.231.169
+	 In-Reply-To:To:Cc; b=dOQzxltJkCTRwvmUbbbYhh8r2imYOkqPWkgG2z6Qi1kP0u0M09piAmUzNjDZsBANEs2/WmQJG5llQGs7mQ1vF1BPhEJ9oG3w2+3MBvEjYKKWRiZd5zUn81ILVuw3lNXiUjLwcBM3KRjdW3O9JMnuFYz/0fljr1FoM0sjaxlG6bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hxMUizTG; arc=none smtp.client-ip=74.125.231.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QuFNl8NF"
-Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6beed321ad9so324615eaf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:35:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hxMUizTG"
+Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6d33d80855eso277239eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:35:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790296529; x=1790901329; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790296534; x=1790901334; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FEVXgXSiMb0G3V8IOr/2pxYlQu8bVHCYpeXjjxcarkY=;
-        b=QuFNl8NFbug8EqMz2ctuRxXgBjK8CljVYUl4iygbavh/ecLNUZMjbcWLiIg2DM5Sr8
-         yWMC6XzMEEG1A4mv/PGnvmGXEdGGNk0Y/b8fL7Nl24tNxJFBl5QWKNt1s/etLSgi2Hbc
-         sO+REmFO519LFYqpM8Q6VMa7j3qZSh1QiGEsQweLGFUubJL6VEp8drECGu3QpOVnrQqV
-         rkQtnmnsEtA8ZWMzQSSDdtO0lbDBbGrofHCcoa+4LxToI/whZX1x+bCxNhncb8qAxAU4
-         PX1fZiu7KMowQwEOMkVPQRfPdyjXh7vj+RaQqI2stibr/KBsRJeqFaQfUsEph91az87x
-         t4vQ==
+        bh=CP0iNzv3n/vDsQDDI+VKrwNL7s5RWy3LXnanNrQWAnU=;
+        b=hxMUizTGvbbjJKhz+oFv23ihBxvAE6yPmHR6sr+TCbZRVdigZ+YNkZRvx8Lp6oIEtq
+         SeLqYBfBjCx+XX9uJYnTsrzCHnbT0JdVfMnm6Uq7c6QEXj+V02NDhbrRwOOIY8+g/Qdt
+         2ieAFogA+ggty9jpd3rwuCxVQTCSvrPhS79JTI7Rb4hTALgz2gsWTCW/Knv5abhYZqTY
+         QO7tr9DQYXjvfuKu8RVnUw/wgLJeg3wmtzmI9Pdk/CEmgFtFo+RZd9Kbd2vlj2Lg7zyJ
+         S9RF5n+pLjkh44EBp+K1OZ46HtiUzw1pXHF1GL3hJDT0kiGqGK8+/UYO9DT+8olHRbAT
+         nBUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790296529; x=1790901329;
+        d=1e100.net; s=20260707; t=1790296534; x=1790901334;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FEVXgXSiMb0G3V8IOr/2pxYlQu8bVHCYpeXjjxcarkY=;
-        b=y/JmdVzrdJ3eXR086fguWscDLju3lWIfwOFocUG1lmtPWZIlh2yGNcol6HENZSFOoA
-         7t8RQbGg3nM8XiNhNkswZzpQqCS2/tiEMzbu0UtwFMng2W0zjvQbN5sjd6TRu3lxBLbB
-         AbXFUpD3GQrzBK/+qhkuiBZ2v/g+HgoWbJhARh9Zysfxwq5q+TKxSiqFNzmQxdbi3c1d
-         7oaOZb9yyDu04f3iM6KvUSUxtmDx1w/lM5wjx08foMlE6aAxKPmk8YTZfee4cnhbwkEg
-         j+0YaMQ/GjACSj/dThlPQ/hUPPvIgESZNTmzaSQmruER33U33tw76tlyIHNp+rMJ1/VN
-         RAcw==
-X-Gm-Message-State: AFuF++lENVKsUyuJPLfcY6ZuZhKM78Nef/x1MT9GwuORBsFJmX6QcykW
-	0x57sy09PA/5P3z/piVGjX3AKUSQzO42Uh70mDbm4QCLBJj+I3xhbAxV
-X-Gm-Gg: AYBFou3+FaelKpAtJ8KjFoTVeO4/CPjhqrILtVTIexX6xe87qusA5Lc3PmQeye6ppYP
-	thR292mTSSJEOeTCCHPj5bvnbcpBJeB5b3ftknyKs8bG8+wcEWhZEo92uiGF+PgkSNzSCuAb1ay
-	kSzPx83bG0rYPQRt2Gq8xD631lE6Drluk0bDO3zHbg7uYu9hx9U/45sPyGyKanxPH8nKk/mOjY4
-	gRvtjO92Pv8PQhx3Zndq8CUdHYn8ou+ljtzl7MEEtTvcat1JCm2qPuZ0PY6dQP2Z7ZS201kkfU8
-	QoaawSZsgt1/cBWcEmi/FnLgKexm9yti5HN4NF4iUqVnzRUw17DHqFY+D4JOKfoiii8dzKA5NH0
-	enw52972TJTcVhAe13klHPIBIlVU60Hsk80x2+obN7sKhnPDgg8RRCfjdX7L4dZ9JPhprAvd0Z2
-	3+4LG3q7uXwCDcN19EnyW9Co+Zm6Jah5r2EjTf/kXPMxx2jCu64DHjEAA2+FPEASV5XjY=
-X-Received: by 2002:a05:6820:16a5:b0:6bd:af9e:a7f8 with SMTP id 006d021491bc7-6d43e31f96fmr4050443eaf.10.1790296528569;
-        Thu, 24 Sep 2026 17:35:28 -0700 (PDT)
-Received: from localhost ([2a03:2880:30ff:9::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-493356565b6sm901416fac.9.2026.09.24.17.35.27
+        bh=CP0iNzv3n/vDsQDDI+VKrwNL7s5RWy3LXnanNrQWAnU=;
+        b=q8ebhG6kcqkc9qAZXj0FEOCgO9wzudmxcHMMsgY51IrB9QayB+4REnqRHF3xYow3PC
+         0K+ZcPVRgjGfYg9nzmyIEAKk28k/4VvNfrEIV2loOnpXwQIX72kSDlDpqafaesxKaGFV
+         KYCpVjH0F6TkwgijX8uvF9CArzaPUIPa0v45ogu7/Q+q4VaV/UimHyfie4BcJxR9vzRB
+         VE9cGXs7LKNFwfpsY/Pwig9NaaGzxd6Nj04ZMgZ/rzWYr+SKTyVEZpXem203SjQO+SAG
+         UKRpK4ACJE17EUKiGZU6cz5CGCO2Jhh6WAq91Frp6dt3lZaOfJYbMdEm2Jr67uqptRyO
+         3U2Q==
+X-Gm-Message-State: AFuF++l3F/w9HO+yf8+biOVvTFsTAIWezR3JgWy2OU6Je4SDerQMfKW1
+	q2/ehkMoRa+CEVC8/toU/FuL+I/MjPLxm5bTx8k2xlHEqrk4r6VxVd3t
+X-Gm-Gg: AYBFou0vx+pOX2my5t+TjVJkzO8S+EHYAe5fLwt3c6K7wuakTOByjwL0KMPmWJSYKvV
+	FrfOjS1uZ14KHqGgKiA2EUj7zSTxwzISq5d0cnBMGt33JcDIL4EEWl+xoxh7WKvO4t+qgodFcH5
+	6Z3kqzFAWI36MOU+B6yLmVx1c/RAGK6CU2jkjN88KMBdb4W382bRotYZWKhZL0926tC4XrIGwoB
+	aMW/zAWOJViEviSt4+DFJkWPNKaS8ylm3fNrcpBJkeDaZYBt5N/RXFhGgBfO3hkvvIeK9zQdjiQ
+	Y5mF/eBzbUdN2DWHb3YnvX09+xWLw5qDBTK1TFbXG2fOyv1zIMPZByXL79QH68rjhbtlsbQjQ2P
+	UwmMCi5xLlaxV3tGDMXvUNha+4f1OYUlQSIRwjq56YKLsrPsYcR3rEtniiTXefU/M6ef4wv3lov
+	usCqdFh2aZ6ia+2TmP9ac8Gl5yls0SMtD2Cc9sn1hL+UhiotmECQ6ZG7l2BcPOrGdvy/Rg
+X-Received: by 2002:a05:6820:4d09:b0:6c9:80d8:a201 with SMTP id 006d021491bc7-6d4415b3f19mr4270125eaf.62.1790296534500;
+        Thu, 24 Sep 2026 17:35:34 -0700 (PDT)
+Received: from localhost ([2a03:2880:30ff:40::])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d583542ffcsm1219347eaf.14.2026.09.24.17.35.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 17:35:27 -0700 (PDT)
+        Thu, 24 Sep 2026 17:35:33 -0700 (PDT)
 From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Thu, 24 Sep 2026 17:35:14 -0700
-Subject: [PATCH net-next v2 1/8] eth: mpnic: add scaffolding for Meta
- Platforms NIC
+Date: Thu, 24 Sep 2026 17:35:16 -0700
+Subject: [PATCH net-next v2 3/8] eth: mpnic: allocate MSI-X vectors
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +69,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-linux-mpnic-v2-1-4badc9b58b9e@gmail.com>
+Message-Id: <20260924-linux-mpnic-v2-3-4badc9b58b9e@gmail.com>
 References: <20260924-linux-mpnic-v2-0-4badc9b58b9e@gmail.com>
 In-Reply-To: <20260924-linux-mpnic-v2-0-4badc9b58b9e@gmail.com>
 To: Alexander Duyck <alexanderduyck@fb.com>, 
@@ -88,318 +87,176 @@ Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
  bpf@vger.kernel.org
 X-Mailer: b4 0.13.0
 
-MPNIC is the next network interface controller designed by Meta. Create
-a bare PCI driver for it. Subsequent changes will flesh it out.
-
-Registers live in BAR0 and are addressed as an array of 32 bit words,
-which is why the CSR indices are a quarter of the byte offset. Most of
-the register file is only accessible as 64 bit, so that is the only
-accessor added here.
-
-If a read returns all ones, a second read to an unused register with
-reset value 0 is performed to determine if the device is gone. If the
-device is gone, the mapped BAR0 pointer is cleared, so no further
-accesses reach the bus.
-
-For now, if mpnic_mmio_err() clears mpd->uc_addr0, nothing will
-reassign it. The user will have to unbind and rebind the driver. Future
-series will reset uc_addr0 from pci error handlers.
-
-In addition to being used as a 0 value reference CSR, MPNIC_BDQ_SPARE is
-also used to perform write flushes, because it can be read without
-producing side effects.
+Request one vector for FW generated interrupts and then one vector per
+CPU to use for the completion queues. Nothing requests a handler yet,
+that comes with the NAPI vectors.
 
 Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
 ---
-Note: not including an mpnic.rst at this point by design. That will be
-introduced when the driver actually exposes user-visible statistics or
-configuration options.
----
- drivers/net/ethernet/meta/Kconfig           |  12 +++
- drivers/net/ethernet/meta/Makefile          |   1 +
- drivers/net/ethernet/meta/mpnic/Makefile    |  12 +++
- drivers/net/ethernet/meta/mpnic/mpnic.h     |  40 ++++++++
- drivers/net/ethernet/meta/mpnic/mpnic_csr.h |  24 +++++
- drivers/net/ethernet/meta/mpnic/mpnic_pci.c | 147 ++++++++++++++++++++++++++++
- 6 files changed, 236 insertions(+)
+ drivers/net/ethernet/meta/mpnic/Makefile    |  1 +
+ drivers/net/ethernet/meta/mpnic/mpnic.h     | 15 +++++++
+ drivers/net/ethernet/meta/mpnic/mpnic_irq.c | 64 +++++++++++++++++++++++++++++
+ drivers/net/ethernet/meta/mpnic/mpnic_pci.c |  9 +++-
+ 4 files changed, 88 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/meta/Kconfig b/drivers/net/ethernet/meta/Kconfig
-index ca5c7ac2a5bc..f940048a5e37 100644
---- a/drivers/net/ethernet/meta/Kconfig
-+++ b/drivers/net/ethernet/meta/Kconfig
-@@ -35,4 +35,16 @@ config FBNIC
- 	  To compile this driver as a module, choose M here. The module
- 	  will be called fbnic.  MSI-X interrupt support is required.
- 
-+config MPNIC
-+	tristate "Meta Platforms Network Interface Controller"
-+	depends on 64BIT || COMPILE_TEST
-+	depends on !S390
-+	depends on PCI_MSI
-+	help
-+	  This driver supports the Meta Platforms Network Interface
-+	  Controller.
-+
-+	  To compile this driver as a module, choose M here. The module
-+	  will be called mpnic.
-+
- endif # NET_VENDOR_META
-diff --git a/drivers/net/ethernet/meta/Makefile b/drivers/net/ethernet/meta/Makefile
-index 88804f3de963..633973419c21 100644
---- a/drivers/net/ethernet/meta/Makefile
-+++ b/drivers/net/ethernet/meta/Makefile
-@@ -4,3 +4,4 @@
- #
- 
- obj-$(CONFIG_FBNIC) += fbnic/
-+obj-$(CONFIG_MPNIC) += mpnic/
 diff --git a/drivers/net/ethernet/meta/mpnic/Makefile b/drivers/net/ethernet/meta/mpnic/Makefile
-new file mode 100644
-index 000000000000..2588f1f1f1d5
---- /dev/null
+index 9dcaa1c72605..3aa7c6a5ab5e 100644
+--- a/drivers/net/ethernet/meta/mpnic/Makefile
 +++ b/drivers/net/ethernet/meta/mpnic/Makefile
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0
-+# Copyright (c) Meta Platforms, Inc. and affiliates.
-+
-+#
-+# Makefile for the Meta(R) Platforms Network Interface Controller
-+#
-+
-+obj-$(CONFIG_MPNIC) += mpnic.o
-+
-+mpnic-y := \
-+	mpnic_pci.o \
-+# End of mpnic-y
+@@ -9,5 +9,6 @@ obj-$(CONFIG_MPNIC) += mpnic.o
+ 
+ mpnic-y := \
+ 	mpnic_init.o \
++	mpnic_irq.o \
+ 	mpnic_pci.o \
+ # End of mpnic-y
 diff --git a/drivers/net/ethernet/meta/mpnic/mpnic.h b/drivers/net/ethernet/meta/mpnic/mpnic.h
-new file mode 100644
-index 000000000000..6b8bee93033a
---- /dev/null
+index 67d48b7ce315..628fd48c997d 100644
+--- a/drivers/net/ethernet/meta/mpnic/mpnic.h
 +++ b/drivers/net/ethernet/meta/mpnic/mpnic.h
-@@ -0,0 +1,40 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
-+
-+#ifndef _MPNIC_H_
-+#define _MPNIC_H_
-+
-+#include <linux/io-64-nonatomic-lo-hi.h>
-+#include <linux/types.h>
-+
-+#include "mpnic_csr.h"
-+
-+#define MPNIC_DRV_NAME		"mpnic"
-+
-+struct mpnic_dev {
-+	struct device *dev;
-+
-+	u32 __iomem *uc_addr0;
+@@ -4,6 +4,7 @@
+ #ifndef _MPNIC_H_
+ #define _MPNIC_H_
+ 
++#include <linux/interrupt.h>
+ #include <linux/io-64-nonatomic-lo-hi.h>
+ #include <linux/types.h>
+ 
+@@ -14,11 +15,19 @@
+ #define MPNIC_MAX_TXQS		1024u
+ #define MPNIC_MAX_RXQS		1024u
+ 
++/* misc IRQ entries are allocated before the completion queue IRQs */
++enum {
++	MPNIC_FW_MSIX_ENTRY,
++	MPNIC_NON_NAPI_VECTORS
 +};
 +
-+u64 mpnic_rd64(struct mpnic_dev *mpd, u32 reg);
+ struct mpnic_dev {
+ 	struct device *dev;
+ 
+ 	u32 __iomem *uc_addr0;
+ 
++	u16 num_irqs;
 +
-+static inline void mpnic_wr64(struct mpnic_dev *mpd, u32 reg, u64 val)
-+{
-+	u32 __iomem *csr = READ_ONCE(mpd->uc_addr0);
+ 	u32 mps;
+ 	u32 readrq;
+ 	u8 relaxed_ord;
+@@ -28,6 +37,12 @@ u64 mpnic_rd64(struct mpnic_dev *mpd, u32 reg);
+ 
+ int mpnic_dev_init(struct mpnic_dev *mpd);
+ 
++int mpnic_request_irq(struct mpnic_dev *mpd, int nr, irq_handler_t handler,
++		      unsigned long flags, const char *name, void *data);
++void mpnic_free_irq(struct mpnic_dev *mpd, int nr, void *data);
++void mpnic_free_irqs(struct mpnic_dev *mpd);
++int mpnic_alloc_irqs(struct mpnic_dev *mpd);
 +
-+	if (csr)
-+		writeq(val, csr + reg);
-+}
-+
-+static inline void mpnic_wrfl(struct mpnic_dev *mpd)
-+{
-+	mpnic_rd64(mpd, MPNIC_BDQ_SPARE);
-+}
-+
-+static inline bool mpnic_present(struct mpnic_dev *mpd)
-+{
-+	return !!READ_ONCE(mpd->uc_addr0);
-+}
-+
-+#endif /* _MPNIC_H_ */
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_csr.h b/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
+ static inline void mpnic_wr64(struct mpnic_dev *mpd, u32 reg, u64 val)
+ {
+ 	u32 __iomem *csr = READ_ONCE(mpd->uc_addr0);
+diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_irq.c b/drivers/net/ethernet/meta/mpnic/mpnic_irq.c
 new file mode 100644
-index 000000000000..473a2e9f5a09
+index 000000000000..bcc33655cbbe
 --- /dev/null
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
-@@ -0,0 +1,24 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
-+
-+#ifndef _MPNIC_CSR_H_
-+#define _MPNIC_CSR_H_
-+
-+#include <linux/bits.h>
-+
-+#define CSR_BIT(nr)		BIT_ULL(nr)
-+#define CSR_GENMASK(h, l)	GENMASK_ULL(h, l)
-+
-+/* Register Definitions
-+ *
-+ * The register file is addressed as an array of le32, so the byte address of
-+ * a register is 4 times the index below. Each register is listed with its
-+ * name, index and byte address.
-+ *
-+ *	Name				Index			Address
-+ *****************************************************************************/
-+
-+/* NIC_CORE_RBP_HP_GLBL */
-+#define MPNIC_BDQ_SPARE			0x42013e		/* 0x10804f8 */
-+
-+#endif /* _MPNIC_CSR_H_ */
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
-new file mode 100644
-index 000000000000..96393e781241
---- /dev/null
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
-@@ -0,0 +1,147 @@
++++ b/drivers/net/ethernet/meta/mpnic/mpnic_irq.c
+@@ -0,0 +1,64 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/* Copyright (c) Meta Platforms, Inc. and affiliates. */
 +
-+#include <linux/dma-mapping.h>
-+#include <linux/err.h>
-+#include <linux/module.h>
++#include <linux/cpumask.h>
++#include <linux/interrupt.h>
++#include <linux/minmax.h>
 +#include <linux/pci.h>
-+#include <linux/slab.h>
-+#include <linux/types.h>
 +
 +#include "mpnic.h"
 +
-+#define PCI_DEVICE_ID_META_MPNIC	0x0014
-+
-+static void mpnic_mmio_err(struct mpnic_dev *mpd, u32 reg)
++int mpnic_request_irq(struct mpnic_dev *mpd, int nr, irq_handler_t handler,
++		      unsigned long flags, const char *name, void *data)
 +{
-+	/* Hardware is giving us all 1's reads, assume it is gone */
-+	WRITE_ONCE(mpd->uc_addr0, NULL);
++	struct pci_dev *pdev = to_pci_dev(mpd->dev);
++	int irq = pci_irq_vector(pdev, nr);
 +
-+	dev_err(mpd->dev,
-+		"Failed read (idx 0x%x AKA addr 0x%x), disabled CSR access, awaiting reset\n",
-+		reg, reg << 2);
++	if (irq < 0)
++		return irq;
++
++	return request_irq(irq, handler, flags, name, data);
 +}
 +
-+u64 mpnic_rd64(struct mpnic_dev *mpd, u32 reg)
++void mpnic_free_irq(struct mpnic_dev *mpd, int nr, void *data)
 +{
-+	u32 __iomem *csr = READ_ONCE(mpd->uc_addr0);
-+	u64 value;
++	struct pci_dev *pdev = to_pci_dev(mpd->dev);
++	int irq = pci_irq_vector(pdev, nr);
 +
-+	if (!csr)
-+		return ~0ULL;
++	if (irq < 0)
++		return;
 +
-+	value = readq(csr + reg);
-+
-+	/* If any bits are 0 value should be valid */
-+	if (~value)
-+		return value;
-+
-+	/* All ones can be a valid value, so confirm against a register
-+	 * which never reads that way on a live device.
-+	 */
-+	if (reg != MPNIC_BDQ_SPARE && ~readq(csr + MPNIC_BDQ_SPARE))
-+		return value;
-+
-+	mpnic_mmio_err(mpd, reg);
-+
-+	return ~0ULL;
++	free_irq(irq, data);
 +}
 +
-+static struct mpnic_dev *mpnic_alloc(struct pci_dev *pdev)
++void mpnic_free_irqs(struct mpnic_dev *mpd)
 +{
-+	struct mpnic_dev *mpd;
++	struct pci_dev *pdev = to_pci_dev(mpd->dev);
 +
-+	mpd = kzalloc_obj(*mpd);
-+	if (!mpd)
-+		return NULL;
-+
-+	pci_set_drvdata(pdev, mpd);
-+	mpd->dev = &pdev->dev;
-+
-+	return mpd;
++	mpd->num_irqs = 0;
++	pci_free_irq_vectors(pdev);
 +}
 +
-+/**
-+ * mpnic_probe - Device initialization routine
-+ * @pdev: PCI device information struct
-+ * @ent: entry in mpnic_pci_tbl
-+ *
-+ * Return: 0 on success, negative on failure
-+ **/
-+static int mpnic_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
++int mpnic_alloc_irqs(struct mpnic_dev *mpd)
 +{
-+	void __iomem *uc_addr0;
-+	struct mpnic_dev *mpd;
-+	int err;
++	unsigned int wanted_irqs = MPNIC_NON_NAPI_VECTORS;
++	struct pci_dev *pdev = to_pci_dev(mpd->dev);
++	int num_irqs;
 +
-+	if (pdev->error_state != pci_channel_io_normal) {
-+		dev_err(&pdev->dev,
-+			"PCI device still in an error state. Unable to load...\n");
-+		return -EIO;
++	wanted_irqs += min_t(unsigned int, num_online_cpus(), MPNIC_MAX_RXQS);
++	num_irqs = pci_alloc_irq_vectors(pdev, MPNIC_NON_NAPI_VECTORS + 1,
++					 wanted_irqs, PCI_IRQ_MSIX);
++	if (num_irqs < 0) {
++		dev_err(mpd->dev, "Failed to allocate MSI-X entries: %d\n",
++			num_irqs);
++		return num_irqs;
 +	}
 +
-+	err = pcim_enable_device(pdev);
-+	if (err) {
-+		dev_err(&pdev->dev, "PCI enable device failed: %d\n", err);
-+		return err;
-+	}
++	if (num_irqs < wanted_irqs)
++		dev_warn(mpd->dev, "Allocated %d IRQs, expected %u\n",
++			 num_irqs, wanted_irqs);
 +
-+	err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(46));
-+	if (err) {
-+		dev_err(&pdev->dev, "DMA configuration failed: %d\n", err);
-+		return err;
-+	}
-+
-+	mpd = mpnic_alloc(pdev);
-+	if (!mpd)
-+		return -ENOMEM;
-+
-+	uc_addr0 = pcim_iomap_region(pdev, 0, MPNIC_DRV_NAME);
-+	if (IS_ERR(uc_addr0)) {
-+		err = PTR_ERR(uc_addr0);
-+		dev_err(&pdev->dev, "Mapping the register file failed: %d\n",
-+			err);
-+		goto err_free_mpd;
-+	}
-+	mpd->uc_addr0 = uc_addr0;
-+
-+	pci_set_master(pdev);
-+	pci_save_state(pdev);
++	mpd->num_irqs = num_irqs;
 +
 +	return 0;
-+
-+err_free_mpd:
-+	kfree(mpd);
-+
-+	return err;
 +}
+diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
+index 68a64377e6c5..127b71b44b0f 100644
+--- a/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
++++ b/drivers/net/ethernet/meta/mpnic/mpnic_pci.c
+@@ -112,12 +112,18 @@ static int mpnic_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	pci_set_master(pdev);
+ 	pci_save_state(pdev);
+ 
+-	err = mpnic_dev_init(mpd);
++	err = mpnic_alloc_irqs(mpd);
+ 	if (err)
+ 		goto err_free_mpd;
+ 
++	err = mpnic_dev_init(mpd);
++	if (err)
++		goto err_free_irqs;
 +
-+/**
-+ * mpnic_remove - Device removal routine
-+ * @pdev: PCI device information struct
-+ **/
-+static void mpnic_remove(struct pci_dev *pdev)
-+{
-+	struct mpnic_dev *mpd = pci_get_drvdata(pdev);
-+
-+	kfree(mpd);
-+}
-+
-+static const struct pci_device_id mpnic_pci_tbl[] = {
-+	{ PCI_VDEVICE(META, PCI_DEVICE_ID_META_MPNIC) },
-+	/* required last entry */
-+	{}
-+};
-+MODULE_DEVICE_TABLE(pci, mpnic_pci_tbl);
-+
-+static struct pci_driver mpnic_driver = {
-+	.name		= MPNIC_DRV_NAME,
-+	.id_table	= mpnic_pci_tbl,
-+	.probe		= mpnic_probe,
-+	.remove		= mpnic_remove,
-+};
-+
-+module_pci_driver(mpnic_driver);
-+
-+MODULE_DESCRIPTION("Meta Platforms Network Interface Controller");
-+MODULE_LICENSE("GPL");
+ 	return 0;
+ 
++err_free_irqs:
++	mpnic_free_irqs(mpd);
+ err_free_mpd:
+ 	kfree(mpd);
+ 
+@@ -132,6 +138,7 @@ static void mpnic_remove(struct pci_dev *pdev)
+ {
+ 	struct mpnic_dev *mpd = pci_get_drvdata(pdev);
+ 
++	mpnic_free_irqs(mpd);
+ 	kfree(mpd);
+ }
+ 
 
 -- 
 2.52.0
