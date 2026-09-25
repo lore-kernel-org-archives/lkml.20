@@ -1,146 +1,87 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010052.outbound.protection.outlook.com [52.101.56.52])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28645388E6B
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:34:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790361262; cv=fail; b=HtkHAcjWFc5KpQVZv6xR5ogFucWLF3WXl8XDUNJNmVW0jg8Ep/jcNYuWWP+7+7pT7Zg+AVicIIE8NtChy6vhAmWee3lYZgbnLUuq6DKWRscg+FZU3/6xpLDDuE1m2p7Udnu+9LV1d7h1cGyYFme6rxCGvED/g7yeICrqlaFYL0Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790361262; c=relaxed/simple;
-	bh=oQlNKiIA/QGnNQHiyco9fD2o+8SSYSgPQgg/Beusa54=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=jV1kOqQD6rf7a9u/ZIQeRPZKKTk1H+wR2h4QbTIZPySKPcjg6av1mlGqqf/Mk0OxVmOQzqfIb2fzq8GGtdLY4lWif8yHPOtYk0fKBW+1AhIYOyRsX0sX9YcGl1LH1PrtwpXOm8eU6GtSl4qT+iozeP1YM2Cy+ENkS+gIB3If7lg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WTGzciwx; arc=fail smtp.client-ip=52.101.56.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6635A4C2247;
+	Fri, 25 Sep 2026 18:35:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790361344; cv=none; b=Ts677swbDGskNQNhlhjH1AJtQ7EYWAcOlu30rN945tv4gcNk9k2ugLQKa8Gug/L8jwGspJCzHUkPK4oXY0A51un77ekwdB4j/StcG58VgPrv71n9N7SPFydfnjZyvRdqMzcXrFVzacsxLXEK4NwbafiFnRzX0Enfk0+yXcgu6Bw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790361344; c=relaxed/simple;
+	bh=5//qeJRlR5L1QB7AZLTAGKfl+QUlSUBTV9GJuc9mSD0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RNrSvAAMWlj/Xf80Wspv5meg8zpmLRPlgHdKiguUAYHeG2S4CPFxsXImRN1XzB0WWtoxvrWx0ICxh12br+ukV+NjmNVEyGOb6pG/lhtlN3eNWr1A/yAgB4w02ctrBkj8rkpG3vIod4go5V93OM8BsxTl5yD6dhTfQX8lWW+u9bU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1HiwhVK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WTGzciwx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I6ZbuMa5Blrnd+uZ3U/uYipwMdwoA4YAZuuuiyoF5pEtS0V3JWespI9Dr5jlW5xjxK94yFSpqVlZDESoD7F8V489PtXO47VZYdXwLHMduwVir+CpPULA0+GnPo7PTEa9kfLHZIsdFi39k6zbBCcp/CbKfFUPiMLAV4RmViebg6Q3LDdlBBEcF9hNhIXW7zEjvanZyh/vJA8nCYPE1C2PpJvsBfEJul0fJCk2LmhwN2leZpCtOVTg37H+kp/vM+j1+7aZ07hmR/1N+aaO6UYeYaH5g7gYExqeq3RuFQPawX9uI9nC/Pv5M6hzl8s8VGfzxEli1BpgMPcWKljdM8Euaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q0ejlw8sVY+S3Im4bVAWiELxOU7IhoE3iDJWgUY9MwI=;
- b=NxRaaN53EmYKmAXhGsSByTaRFxe60KHjPcRezlnKqwPc8w7cCwFsLW4FpiKxY6HezLRxwgj/3t4B8B1Z1nJIzzeBS2awxR0CgSStVzPgSzj7+ITVGqjU8w8nf9bjqHGgCJqjnBTufdhNZTSL7//KOo+WNJjLWhnKriFo0I9c4E+5suAkzubBUQ4BIoaxCNZJmasWb63xI/kZY4SXdkJa3xvsyZZ6QevV3vek+Q2TQdu9Dw1cZD3AnTBzGk73+nkY385jT3VYzQHaUwXJBHpx0wjVUZOnkCF/11GW1HXFyhkZHWT3Y1YrAob0WCfUPffk/VzgiNY26WcMO2H5MMYF3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q0ejlw8sVY+S3Im4bVAWiELxOU7IhoE3iDJWgUY9MwI=;
- b=WTGzciwxE+67FOhq01fdPFEQ2ZWKB3173lSGo3eRy5yHcMKzTh78XrBsa7pwqiq5HZgEmn3lR3Ufy4NSPDHxFdXbqat+txLZMiFCb1z+5m1pxlPAlbnnebwFn59T6EZXf3v8L3OC5gqZqk2X/HxZXPpCfleUG3xm5y7gEHzpcXA=
-Received: from PH8PR02CA0039.namprd02.prod.outlook.com (2603:10b6:510:2da::26)
- by DS4PR12MB9794.namprd12.prod.outlook.com (2603:10b6:8:2a7::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 18:34:13 +0000
-Received: from SJ5PEPF00000203.namprd05.prod.outlook.com
- (2603:10b6:510:2da:cafe::89) by PH8PR02CA0039.outlook.office365.com
- (2603:10b6:510:2da::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.19 via Frontend Transport; Fri,
- 25 Sep 2026 18:34:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF00000203.mail.protection.outlook.com (10.167.244.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 18:34:13 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 13:34:12 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 13:34:12 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 25 Sep 2026 13:34:11 -0500
-Message-ID: <d99bb6ed-7cff-6f8a-d5b2-23069fe0fcfc@amd.com>
-Date: Fri, 25 Sep 2026 11:34:11 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1HiwhVK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2612C1F000FF;
+	Fri, 25 Sep 2026 18:35:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790361341;
+	bh=xO6DE9xLjP0kOOZvDx8qDH+TNCJxsbMKTP+fZBrymsY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q1HiwhVKRV3Az48TU9Hs6z53Sca3xHB6fdWyK7IvWG2SL0pkfl6816GJFoNKs9NJ8
+	 NaL1iPsw43dS2uZCw2c26psQd9C995K4Xf84RPaHAunPr7yBhhYCMmnvLUbg3aslOK
+	 BpYIXqUCWrGFb0tkM0izq1qMEt5vdk1Tc7MsjUXN1f3Pb5KK2sTqg/qT4JlbYCdTog
+	 bOpfG/yUm6ekYWL6kSItXBBmA8uj9caQVGrFxVmX262Xm1gDPBJIOLjH0nr9ikdfTy
+	 7umBKY0IjXgEZ2d/XriMiYwTIQLfmR4i1TKQ91Dlp63fYOZgOxQRqEtvKyW0xFlT2h
+	 hwHhqs3SQw0Sw==
+Date: Fri, 25 Sep 2026 20:35:36 +0200
+From: Ingo Molnar <mingo@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: linux-tip-commits@vger.kernel.org,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org
+Subject: Re: [tip: sched/core] sched: Clarify WF_SYNC wakeup semantics
+Message-ID: <ara--PcvTbdm1zbs@gmail.com>
+References: <20260922-sched-wf-sync-doc-v3-1-23ebe9e27bef@gentwo.org>
+ <179033364193.2819794.10008973300214008226.tip-bot2@tip-bot2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 1/2] accel/amdxdna: Replace create_singlethread_workqueue
- with alloc_ordered_workqueue
-Content-Language: en-US
-To: George Karagounis <taterraster@gmail.com>, Min Ma <mamin506@gmail.com>,
-	Oded Gabbay <ogabbay@kernel.org>
-CC: Koby Elbaz <koby.elbaz@intel.com>, Konstantin Sinyuk
-	<konstantin.sinyuk@intel.com>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, <mail@taterr.org>
-References: <20260925124804.58808-1-mail@taterr.org>
- <20260925124804.58808-2-mail@taterr.org>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260925124804.58808-2-mail@taterr.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000203:EE_|DS4PR12MB9794:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a5004eb-c344-4d08-43ef-08df1b3398d5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	cA7IIzbPTP0oUtSx5sdbj6rxnszI4lkMospauKP2pj5vnE2k7NY+4QGzQ9BG1lgSluIFhypOhfbqFtwIwU2TQuzx7Mk5Mat9T1q9w1oZcXGxyFW/Zga9bTa/8ugFz1iFb3X00ZxSalj5nZttlvBC/sKPuLT1dnuMUVVmA9+trX81Rm1HWZ5GAc9FHC3XDKMftGQ+ZzNhT0a71O8hDtd/J7q07iE34gv70zHedMj7d9KM21bQy/hXoTZsFXdSqxfLS+PUpVRUdCCWvKEr0GoAdsskHJiWxcrwREmdOejwB6lIBfHtfF/hKs8llcoPBa8xMRtVQjEcXgiKsQx8PbwXgAhHvJuwQC2NuoyTh8pWmu1Fik4EZ3t/cKUdEY6RUU3pVRzKD81vQQzi2jTBcHwRKtc7OCpNPY9olDKiNyUjq43UcNFu5f8lSOP9LdPPSHDSHhERsA7sc7qUAuJifKMUQ+gJf3dxJqwE0YnEWY2QEuAgxt3tvGVRXtix8hl+Of07/SFDX4LdgVJqSd0nbLJN23vQWMF2CfQ8MSOsk+9hDrmCKHbHF2P3aOTP6YBX7J4eo2GPPNO4waSW4POZFCOxkNWIgUJQwmJPk+6smqRPcG7x5ZloPlPoZifuGSIC7SA/ULayYk9FBaDSVd6KDnj0coOyOth8vsbCTHnUM33EGXyuDQHYxMNHmiq+N9FGFBr0KDpYLNVVaXO0hTmdQ0CUPQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Mr8NRc++B1FfVb5I9PdL05YI4Sao3wSL/a3ClLW9ZIHSyw3tQzJe8NsAePhXRdR5ppDBnNTVoUzsmnGzjdqvyRxRQ7iQ58db1uTGCIFUzJoxsq4fczxoB/Im8l1KhcuvWwFKg41dqPoKcQ5WBMwR1F378IYWKlxkbT3JcqUY90ejvHn+rh+PEOB+vjuMR7oezB7P6k0VSJjoGCV+ZyKixVwuQFx0a99e+lh9xjhVDCues6qBQJxKPV5eZ3K3lnvDCTIL866e6J96PgwSuD5E6vaJ/k4mLRIi6fTiFwqAQIN50dtYiY0kasMHMo9J8xEq0lkmPpSjZc0o/Cic3ywWAqdOpgMcoI5Ezr7ySyF2gBaMTOqc2o56Y9nr42pQAHVm7nluoJlF8gBE01jvrZLBN4QBjeUpJ1gnofOXeTkzrDy19lE4WX3KvElq2gv3a/3N
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 18:34:13.0275
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a5004eb-c344-4d08-43ef-08df1b3398d5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000203.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9794
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179033364193.2819794.10008973300214008226.tip-bot2@tip-bot2>
 
 
-On 9/25/26 05:48, George Karagounis wrote:
-> create_singlethread_workqueue() is deprecated. Replace it with
->
-> alloc_ordered_workqueue() to use the shared system workqueue
->
-> infrastructure more efficiently.
->
-> WQ_MEM_RECLAIM is added to ensure the mailbox can process
->
-> interrupts under memory pressure.
->
-> Signed-off-by: George Karagounis <mail@taterr.org>
-> ---
->   drivers/accel/amdxdna/amdxdna_mailbox.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
-> index cc8865f4e79c..05c3786de135 100644
-> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
-> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
-> @@ -481,7 +481,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
->   		return NULL;
->   
->   	INIT_WORK(&mb_chann->rx_work, mailbox_rx_worker);
-> -	mb_chann->work_q = create_singlethread_workqueue(MAILBOX_NAME);
-> +	mb_chann->work_q = alloc_ordered_workqueue(MAILBOX_NAME, WQ_MEM_RECLAIM);
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   	if (!mb_chann->work_q) {
->   		MB_ERR(mb_chann, "Create workqueue failed");
->   		goto free_chann;
+* tip-bot2 for Shubhang Kaushik (Ampere) <tip-bot2@linutronix.de> wrote:
+
+> The following commit has been merged into the sched/core branch of tip:
+> 
+> Commit-ID:     e4c353c3933968fe8efecb269fdbe3baa1d1ddd0
+> Gitweb:        https://git.kernel.org/tip/e4c353c3933968fe8efecb269fdbe3baa1d1ddd0
+> Author:        Shubhang Kaushik (Ampere) <sh@gentwo.org>
+> AuthorDate:    Tue, 22 Sep 2026 14:57:05 -07:00
+> Committer:     Peter Zijlstra <peterz@infradead.org>
+> CommitterDate: Fri, 25 Sep 2026 12:45:59 +02:00
+> 
+> sched: Clarify WF_SYNC wakeup semantics
+> 
+> The synchronous waitqueue wakeup comments currently state that a
+> synchronous wakee will not be migrated to another CPU. This is not
+> guaranteed by the scheduler wakeup path.
+> 
+> WF_SYNC is an advisory hint that the caller expects the waker to
+> schedule away soon. Scheduler classes may use it for placement or
+> preemption, but callers must not rely on it to prevent migration,
+> preserve CPU locality, or make the wakee run next.
+> 
+> Keep this contract next to the flag definition, remove the stale
+> waitqueue wording, and make the locked helper refer to the unlocked
+> variant.
+> 
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> Link: https://patch.msgid.link/20260922-sched-wf-sync-doc-v3-1-23ebe9e27bef@gentwo.org
+
+JFYI, I've added Shubhang's SOB which is missing from the commit:
+
+    Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+
+Which I suppose got lost in some patch application mishap,
+because it's present in the original.
+
+Thanks,
+
+	Ingo
