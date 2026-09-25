@@ -1,163 +1,265 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A9A3B71DA
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:59:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790359200; cv=none; b=TlHJQ+/eZndcJtSS+kbIuXvv8K+Oqyb0f7ffa530uRC1WYtacryOlBJb7VIHUR0qUnWj1Ud/ljCvFt1HO+02f4QVWU4jzTWh8TAZsNFFILKiAjAYhFo/24wJsrU767FOB8kwYu4TWVOVBMcvjkNHKE9DJd+6su8IIHxRkht4zjc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790359200; c=relaxed/simple;
-	bh=g4BFvBfsn4oEjBKgRF001VzU3DsgniL/WavFRiTrhQM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H7PYK+9J87BxJXRKJoF0yVrFgjQXMW4rQw6ZGZfxcFmog+YG8mzzxSMlhl4rUW8o0KA4sk70DGvHwDBzR4ogL0aWu324gpjvSMD7H7umujnhUpvgos2VQnnj54CkUOJOKA438ZXRuK+vqBTlfF9iKDIu9NWy/3mJObY+zVvUOBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=otD1Cntx; arc=none smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD59381EAE
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:02:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790359352; cv=fail; b=Y3Z+IhGvW84/Ey0AmSzNBalYLn2LIrafYSy/iztTnNV/InCfvB3vuroHw6ciPB0PCRwWJMNj+E9/r01Emq+vVASrKiUMlOinzzVhk7RM74GNp+JKzT89tXjy/mqCDdtD3ura3WesXgwqv7m+n1S6HVeYpi6PKOWpqq2qE/qiXiI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790359352; c=relaxed/simple;
+	bh=Kg63syz9Imalfvky1oCkjtb/Bw/mJKBcbv4v5nKBET0=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=KnnCjouOGriMDO1eh1TBgHn02OXiR6sQk2bvQ4PbFBAJLkETXHPO+xxSmkcS07Xz3YH7uBQrdIJEqV/yBj7KQfiMYdlbNAxDpUoZ+Icw1/3jx72hc2VMPdmgPGWqOObcKYaIq9MX28RJ1WD1qsWr8inRuHOfRmVjbgcn55h6tp8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N0EIKPa/; arc=fail smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="otD1Cntx"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a59bc470d6so10660031fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:59:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790359197; x=1790963997; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wexv0ThwJ2Po0yZ00a92cUQBj5VSlQRd+AC/rWaDMjs=;
-        b=otD1CntxYHHYhZzjZSImDa3Y4B8b0bxmOyMqIHYy0sjvX6HEetx8c67VaPkkP3Re0l
-         oc5RuJhvyu6aPqG8bpUXicmRZ4v2xUOam3/yWgA5+FXhN+lWxoxvz0jNPhEm+k8zQSiZ
-         xqGoKYu6+ZzxsEwU9UjKtyZ5cbpv1CZQ8jW+avu3G1EmifKRbXscWhyLo1W2YgILhdTt
-         L3jyAisgVQYZf8kLiy2cLT8DJ1VcAWr667Xac3kl7a6sftG9hfcHHcM9HD87x+BLQ06H
-         N0QCAhh+GzCbIqrhHbOn+amz41Ke/dkf32RE1wb0N9MWjhFaCgFnAStjQEMHIPjlgLwe
-         8JNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790359197; x=1790963997;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Wexv0ThwJ2Po0yZ00a92cUQBj5VSlQRd+AC/rWaDMjs=;
-        b=DH9JnSO3x+0OcjtQ+e0n+JIObq/l5Zn+UWl1NKDVhn/k8zTyTFgbRWWV4+skwEb3FB
-         FO66vgHcpeR+os0BnWd71lOUvJ6WWeruNB15knppSq15qPDWfyDYEO2FhatZ4OxLtC5F
-         hXX+a2odEE68RJLUdiWyMg0xSCmtNTMRm4ohFM5BT5QdkRFmfIK6kYQgMBZEJlpevNF2
-         y4OGwkX5mmMuqCHgmNJtpJCm8AzIqtcssaetzWFQeEvOfGvk986RK24zo15xuT2tLJkv
-         gm1A+Rw/UBepM9w7JmHqfDOJ8HgvWEH6KKpxitVOCfS9TzUMC++2vCCDwJGt2EKG/SFf
-         cM+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwc8hORGSvz+V9xRK/oKHgREf1g9pO6w0EZaEGKIwt27vAnM62jfWpo/yuWZg5qyIGTKCPO06K4/UA6cOw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkD7WT0xj2KCnfT6q9N9ht3/DVlcRb47v5CEIxS/YyL5s5ytgj
-	jWN63tUy/1jGqgBpfnULUN4lxqNnoWKAoDgULVn1aQ6RB3NwlQxbL65R
-X-Gm-Gg: AYBFou0u1XGI56Bp3KwYYVp9RZzeopKbMeCF6M8STJCx63JehIxLv0VRuyN7dKGSIuF
-	B6Z0P9J6uDlws+WA3cwjUxDeFfFdN6hWWDI3OcYjGqwR3YZGN0AJQxSeuBVAk+DxKW7o9AAuQ8e
-	r38AJWn2HhtAyqx4jfRrMI8pisB/SG6kTiw7aJjXYJMjFb0P+AjQf1T11SRE8oTB/be+v7nJqy1
-	mZT+tXLRNcLJJlQDNmGF3EvaPBWI5vP071cKUy64hHPviR9DhaquU9lak+43N8qyLGV7NQjbA4x
-	4+kmeNqkHxLheV7MWDVDSfTytGpg5k4kwDTwloqdTVPY+I3++NneKV9CMT2PDtASpzXNbMtqkrK
-	PhPSYo7P22EWmCiIkvfsHcO4RL2Pl4a9bj6FeARefeMG8C4Dcq2cKrltTFBrD/CgrIi/f98ll4W
-	z+0LLoRIkfQq0kkh6ZClSW4cfPdtUlp76/f//FS56jg+rROH3y8DcCUrpMKHfjy1e7wXOGfM7ev
-	CH2pV01Th589KY+ZWxWDL8D2gFRqiAFkP31GLtMsmFE/39R9C+93iVVjXRAtzPhmb8O/Q==
-X-Received: by 2002:a05:651c:198d:b0:39c:624d:82b9 with SMTP id 38308e7fff4ca-3a63c06c278mr14724591fa.4.1790359196582;
-        Fri, 25 Sep 2026 10:59:56 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a64c2f167asm7361481fa.20.2026.09.25.10.59.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 10:59:56 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: jic23@kernel.org
-Cc: Andy Shevchenko <andy@kernel.org>,
-	Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v7 09/10] iio: pressure: dps310: implement .hwfifo_flush_to_buffer()
-Date: Fri, 25 Sep 2026 20:58:16 +0300
-Message-ID: <20260925175816.75842-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922005347.069c490e@jic23-hlaptop>
-References: <20260918122517.377565-1-zoone.rupert@gmail.com> <20260918122517.377565-10-zoone.rupert@gmail.com> <178992913316.706584.1446996024286841775.b4-review@b4> <20260921183106.231972-1-zoone.rupert@gmail.com> <20260922005347.069c490e@jic23-hlaptop>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N0EIKPa/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790359351; x=1821895351;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=Kg63syz9Imalfvky1oCkjtb/Bw/mJKBcbv4v5nKBET0=;
+  b=N0EIKPa/deQ07OhxABFMUGEyMTtMq5NPiX4jiY8TBvWsY2CN0zo8r/CO
+   vTmUoyGx+YqMv3pvbNVgHPCwtuvw1ZYdLHH3S2DH0Gs7/w1VJ+lEGUvia
+   VCzvjBxJiDKxk9BSQ3CGpGXfYDZGCqYdxmS9md1cLk6SU1x2Z7bXBGiIo
+   Dfztj7XkjQExUCJpsN1GtrWqII1D27AxwDqVvMODteu3GaQNiKEpQRFTs
+   +5amanO9HWfkUOacf1C45xJePwmdLob9OG9xi3QYhHGvIVxEQfdqiKthj
+   OWnpdn8Y6oikbkc+4w2njF5so1Bri8K51b7gFNtGaatDKZeZ7JUEKsDF1
+   w==;
+X-CSE-ConnectionGUID: OC/+RVC4RoWWERzqhf3Nyg==
+X-CSE-MsgGUID: c+8NkXoVRXOGxWGI2Fyr9g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="78710950"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="78710950"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 11:02:30 -0700
+X-CSE-ConnectionGUID: qu1uBk1ATPKv2QABzOYw+g==
+X-CSE-MsgGUID: h5mJ8QfFSrGRS/1pUfgRvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="282473043"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 11:02:30 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 25 Sep 2026 11:02:29 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 25 Sep 2026 11:02:29 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.44) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 25 Sep 2026 11:02:28 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k+9rq2Nw2nO/crpqHyX8BBRBnVho0o6SGvH2JJUDNcBJecXL6wyhh+G/287mqeJPP1JeoohJnueeAvlwtTJTYm/Io49WcJ7Rx6sl9xyun4zUtxBUusij/F/HZir+tqDA/muiPr40V4ZGc7iA0WLX8DKrm9GQamulDglS/YikiqZXkSQhMk+M5MAlzNoqzHJCF27/iorDB5utBxJJll5kqASPwmMCupZC9CUt+7bvtDns7iB875+/7v7epXe0H2IxnTY8wtmmKGRoOzQWe+oIRXNUTJKgOcY5c/VM3uQ5mdPsEMIUDjiga9pEXxtTA/CrJuz0YG13D8+Q/kbG9gODCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kF0d8rGhTQCY9Ys2T5XTB/yixNVaWe3OYNWcKigpVsk=;
+ b=ldfxABeZBFEx+0YL6fJLJUcGZ87IF66miPp2LLQnQnl+XWGyYfeKkhRD9LMjtAdIRkABIF2q60tzImhmsVtRFEMgH/TWVRLPBZ30+uurcZ4n3qs5vgJu4Qnd0TwVyHRI2WQWuJpLtCao/N048hy9c9oMJ0lWM/q4HclK8xVfAgg2m37mR21n30EFy+55RjVc1jPu4JIbY2e8VFXeFRQkh1v6FM5b5UEmSUD1LA8W/sjrII+csykIBx3oe1HHghQ8xJeF9o7K3ghfNBzj8O/VRwnZNm2eQYc7TCPmc+fJG5xaKQX1FkAnGzXA9Q5+LhbmXIfshF0giGZZHgs6GRitEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
+ by PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Fri, 25 Sep
+ 2026 18:02:26 +0000
+Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
+ ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
+ ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 18:02:26 +0000
+Date: Fri, 25 Sep 2026 11:02:24 -0700
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Reinette Chatre <reinette.chatre@intel.com>
+CC: Fenghua Yu <fenghuay@nvidia.com>, Maciej Wieczor-Retman
+	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
+	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
+ Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, Chen Yu
+	<yu.c.chen@intel.com>, David E Box <david.e.box@intel.com>, <x86@kernel.org>,
+	Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+Subject: Re: [PATCH v12 15/25] x86,fs/resctrl: Handle systems where AET is
+ the only resource
+Message-ID: <ara3MJ50n2y63dYm@agluck-desk3>
+References: <20260916231320.14502-1-tony.luck@intel.com>
+ <20260916231320.14502-16-tony.luck@intel.com>
+ <39582d24-0fc1-4d5e-bc05-01c2f29ddfb1@intel.com>
+ <arW6xlQWVWkixiWe@agluck-desk3>
+ <110d2c7f-8354-4d25-aff8-cd5ceb46334b@intel.com>
+ <araYQUCPvnBH_Qlj@agluck-desk3>
+ <dc052810-8e63-4bf0-8056-59ce869b3d52@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <dc052810-8e63-4bf0-8056-59ce869b3d52@intel.com>
+X-ClientProxiedBy: SJ2P221CA0011.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5db::7) To SJ1PR11MB6083.namprd11.prod.outlook.com
+ (2603:10b6:a03:48a::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6083:EE_|PH7PR11MB6771:EE_
+X-MS-Office365-Filtering-Correlation-Id: d81dcc47-1b8c-4271-2c6a-08df1b2f27f7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|10067099003|56012099006|11063799006|4143699003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: TGdPnYw0rGze6FRVmTVuoyjnjlMK5cSsJTTbzbAJY0sB+iSKxmjFMZ8c3imH9drL6NKYP3dqOpeiNn+MNq+cQ7QZvProX8v1RfixIQe+glua2w/eejMFW/5X3zsS3/9pXlArdhUbUPoJbhctJzDQAQ/u13LWLRD+5ckhOk0SrOTM9XUcrD+ykkyKzvnPDqkmLv3f6BUAZh7+3qMrZ+azMnIYw4Sp6aX7WHquivgG2ZC92jDIayhbV2vZwsRrmhn22JqaNo/FCufbOuE1l0dlLOehZ8ELpfYcPry3If5CCuhmv6y61h8iRBkOeR9GWoqWa3YLa8d3StApF3QXL5pcUEZnhCFboRcswwheUcy/gf+uW/kLknKTkNj5iab3X9T6vMrO2M/hYWQKe87s4pCr9g0+ooXmK1cJZIOTGavCXEmm+SpN3jxSQstH346QBX1pBjFRtHWfsp4OtsQBwf0nJZoPXiojadSPW4OladewfzWzItGZl72MxAWO2WqVXlWwxn67IyqFpqzxz170W6nb7aV3FWXUTq/6zJ7rM6HChhIiMPOsPGLdGr+b2MNp2rLI1uA63AjMMMrhldD1+BbrH1uhv9/wZA1H+iJ5ze1PoXgEWAcToARXQeUVwbVQ6dyf
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?/SFz2ysrv68+2dfvAvdnnzvyuedVV/Kc7QwXirFmA5E5mGQ9SFT4ZHTzV0?=
+ =?iso-8859-1?Q?w4+Sp6DC/SIyZ6RNgJqsfDLttKnImTrklzPJt+uIXluP4H3rXyZT7poQFY?=
+ =?iso-8859-1?Q?/o1XhUpLCvOumPTdCWlbOkic87p9PRqnHxludpLtkb2fnuFWVywRigGSon?=
+ =?iso-8859-1?Q?qMzORc6Tvuhq045s6ZHrYghv/GgYVKl1/Q+QHdNH1Slia8nD/2RuzH+VqJ?=
+ =?iso-8859-1?Q?03Jc4MnTN1zfLvoCgxGG2NL7OcEcExEoktU+LSUViajzcJgokfxzKr+PA4?=
+ =?iso-8859-1?Q?kryPA7AMdXYN9rt3M7ezu4YnXqirHByanxAN9Xv6eX4wV/b5bGzakXuBJa?=
+ =?iso-8859-1?Q?uu7AICBNpzvLPZJcmtMgQ5YokBcjhMf+IAnrMa8NdkYRTB4zbGNfTaW7e/?=
+ =?iso-8859-1?Q?3xRFdkyLqfy0CMWllTGmYgjA3iiHmhJi97xEIvWXe84sL0h6hzzL0amRxE?=
+ =?iso-8859-1?Q?eDceT9k6y0aE3KyAsdUZ3uESBVLMby6n9JVV83z83H6hYS/KWNbdBPykuG?=
+ =?iso-8859-1?Q?gtiVMQRiihLkfYJOwT0Bknr1fHybEMyB53y7JGsFeicIaj+aDKGU4QoDoR?=
+ =?iso-8859-1?Q?gXob4d1A3CDVr+i1bZqU8ixgOHqXrCd4W4pVRJL+ubsCMQiqoNwrd0mb6n?=
+ =?iso-8859-1?Q?MDUb6C7poivWt+aJMJrta5EpoxavhYvPZUnt/rogiDoaJm7+byRhEWHfHq?=
+ =?iso-8859-1?Q?hLW5uYiYVq7YWRVuxub/qJJIrU5o+KCzKsLU9ftThj6faLVnzsJkD34XJP?=
+ =?iso-8859-1?Q?Uy8zucyJzx8S103P0V0zdsvytbRwu0E4bSYt5K5gOLUxRT2RP2vZIraFek?=
+ =?iso-8859-1?Q?mI70Z0wHRHmQ7bhBot9astTiZ5+cbqZrhH//8ptPi44LfQwyv4C4m9T8Wp?=
+ =?iso-8859-1?Q?alVs5F4gpCWHA40XAZ8TUArDXnj7Dv3pWSa270Obmi96CH5Fjvx7ezTu6j?=
+ =?iso-8859-1?Q?6luvHIuOSvTp78DIREb8XqUpDKG6JyhANenBB0c4O66VR6r2vmYuTpOu2l?=
+ =?iso-8859-1?Q?ELbiSjWjpFzhNn9NseyEuoeMn8IuLA95VbMZE9R6FUOwJIlchQMe5LQSfW?=
+ =?iso-8859-1?Q?ZHYklHmBerPEecvW1cvAwGctg5nfTikrr0JWxWu5+6NqSu+MafSYuU7/ma?=
+ =?iso-8859-1?Q?ssLP7H1zP8SiD5X/4Qa7uBnUQf2EGmhOtIYg7ditWk9wn+92kypsEL1/xk?=
+ =?iso-8859-1?Q?J76ux0f/wNoxD4YRR+HzcxFEF4r4xzaRF+14mwdC5lcJhX8RaRPD+Gs+Xs?=
+ =?iso-8859-1?Q?YLyoKiJplRYddDwbpzOhczNpJaj9q9AuwnQEXl5aJPXfaThmIhF5aVuEGM?=
+ =?iso-8859-1?Q?akl2d0qYTb++I1xS6f7eJ71WQphZU0iNBjltcKkhQ9jP+VIbWnjTOBGJd5?=
+ =?iso-8859-1?Q?lFQ4IDBhGfteYHtupDEj6MvUw05SRLz6gE5OfDWj8OUWd2cx66qwXlJYl0?=
+ =?iso-8859-1?Q?05MC6L6xFWZ86/FrOZRtY9yfFlEQU9s+avqRkOYlYUnovXsJvlCf2fn+Y+?=
+ =?iso-8859-1?Q?/95MC+nJJivtHCPm1ayqpROM9rvP2CQ3/aBRPzIpNX+snsrfVHneGwQAcT?=
+ =?iso-8859-1?Q?lkKUEIo5ntKk1Qp+aKjiJaHa8XBpnjZLeFMNP0OEpKrn7rWLnVVjESH39h?=
+ =?iso-8859-1?Q?DB8IW2Z7ac2lxdJQnF2GLS7dTwnxUkf82dEPIKAQ38FSAVMSnGFy/YYXp2?=
+ =?iso-8859-1?Q?fZU9IMOmyXqdLdoS04dCJ6eYRF/RhIYDVSitnJlA454HJ+P+qM/DDHYixH?=
+ =?iso-8859-1?Q?a5WMjD1+VvA+1F3LLrtJ5s9eZhvSHK+gphnzgc5G+Bh2E8sTTdB9AN5n4Q?=
+ =?iso-8859-1?Q?nu4vWdyu1A=3D=3D?=
+X-Exchange-RoutingPolicyChecked: 2+XH02hiJKGmKfXPX6jPIMnM/dLqp5UA8XHOR+Yok3rbm9PkyUBBZjmBkOl1XNDC3z3OBXedf/VXj0GN41fEhulqmUJc8pXJNBPYGhiia3VTMrBxHJFQeNnIFOrjiRFRZpD2XBh5l6ujpOAxmWr6ECj3jnZi5OSVfyA5YGXhuxNpzDehENhQ9Em4Mn6FBifeyb0yu2c6uGOttHkAGxuKa293GhBkIMztUGFFQ3tA4rkv/cVKjdb0Y5kTzrZcijIpwc+s9nOv6XUpeSyNgMDXHxai4jzsGqcIiogZykusmAm6Um6DUJ3OmhK1hDWIut+STPAkkycZ6Nk7PH1O89AKUw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d81dcc47-1b8c-4271-2c6a-08df1b2f27f7
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 18:02:25.9528
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 34gXxGMzTv+0OlpLcJ58hIY5PXLlNExM12vI1WEL5zGyxGioJKVsg4/0AbOCKaKQSUsSHCvDQkvaL74MPSxzgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6771
+X-OriginatorOrg: intel.com
 
-On Tue, 22 Sep 2026 00:53:47 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+Hi Reinette,
 
-> Adding the guard is fine - we kicked that back a while ago simply
-> due to lack of users. Is there a path to annotating the non
-> ACQUIRE.. functions to expose the right information to clang?
+On Fri, Sep 25, 2026 at 09:39:13AM -0700, Reinette Chatre wrote:
+> Hi Tony,
+> 
+> On 9/25/26 8:50 AM, Luck, Tony wrote:
+> > On Fri, Sep 25, 2026 at 07:37:20AM -0700, Reinette Chatre wrote:
+> >> Hi Tony,
+> >>
+> >> On 9/24/26 5:06 PM, Luck, Tony wrote:
+> >>> On Thu, Sep 24, 2026 at 01:41:48PM -0700, Reinette Chatre wrote:
+> >>>> On 9/16/26 4:13 PM, Tony Luck wrote:
+> >>
+> >>>>> @@ -1001,27 +1001,29 @@ static __init bool get_rdt_mon_resources(void)
+> >>>>>  
+> >>>>>  	/* Any of the L3 monitoring features? */
+> >>>>>  	if (!cpu_feature_enabled(X86_FEATURE_CQM_LLC))
+> >>>>> -		return false;
+> >>>>> +		goto skip_l3_feature_checks;
+> >>>>
+> >>>> This goto looks unnecessary. Why not just "return true"? Even so, this 
+> >>>> also changes behavior from the previous version in a way that is not clear
+> >>>> to me. I was expecting this to consider the number of RMIDs supported by the system,
+> >>>> now that this function added:
+> >>>>
+> >>>> 	pqr_assoc_num_rmid = cpuid_ebx(0xf) + 1;
+> >>>>
+> >>>> Should this be:
+> >>>>
+> >>>> 	if (!cpu_feature_enabled(X86_FEATURE_CQM_LLC))
+> >>>> 		return pqr_assoc_num_rmid > 1;
+> >>>>
+> >>>> Although ... looking at this closer it does look strange for pqr_assoc_num_rmid
+> >>>> to be 1, thus reflecting that the system supports one RMID, when zero may be more
+> >>>> accurate?
+> >>>
+> >>> If X86_FEATURE_CQM_LLC is set, then monitoring is supported and the system
+> >>> must support at least one RMID. I don't see a need to insist on more than one
+> >>> RMID as a precondition for using resctrl. It wouldn't be super interesting
+> >>
+> >> My suggestion was not to use "more than one RMID as a precondition". By copying the
+> >> relevant code not shown in the hunk
+> >>
+> >> 	pqr_assoc_num_rmid = cpuid_ebx(0xf) + 1;
+> >>
+> >> I aimed to highlight that if the system returns zero then pqr_assoc_num_rmid
+> >> will contain 1. The "pqr_assoc_num_rmid > 1" is thus not a check for "more
+> >> than one RMID" but instead a check that the system did not return zero.
+> > 
+> > Architecturally the cpuid_ebx(0xf) can legally return 0 meaning that the
+> > system supports one RMID. Here's the description from SDM Volume 1 Table
+> > 21-38 "Leaf 0FH.00H Intel® Resource Director Technology (Intel® RDT) Monitoring":
+> > 
+> > 	Register	Field Name	Description
+> > 	EBX[31:0]	MAX_RMID	Maximum range (zero-based) of RMID within
+> > 					this physical processor of all types.
+> > 
+> > This code path is only executed if the test for X86_FEATURE_CQM
+> > succeeded. That should guarantee that leaf 0xF exists[1]. There's
+> > no way for leaf 0xF to indicate zero RMIDs because the MAX_RMID
+> > field gives a zero-based result.
+> > 
+> > So a test for "pqr_assoc_num_rmid > 1" really is checking that two or
+> > more RMIDs are supported.
+> > 
+> > If you want resctrl to refuse to support a crazy system with only one
+> > RMID, then the check should as soon as pqr_assoc_num_rmid is set:
+> > 
+> > 	pqr_assoc_num_rmid = cpuid_ebx(0xf) + 1;
+> > 
+> > 	/* Systems with only one RMID can't usefully support resctrl */
+> > 	if (pqr_assoc_num_rmid == 1)
+> > 		return false;
+> 
+> Up to you. I already highlighted in
+> 
+> 	https://lore.kernel.org/lkml/39582d24-0fc1-4d5e-bc05-01c2f29ddfb1@intel.com/
+> 
+> that my goal is simply to align this version to the previous 
+> 
+> 	https://lore.kernel.org/lkml/20260831174421.13921-14-tony.luck@intel.com/
+> 
+> that used 
+> 
+> 	return resctrl_arch_system_max_rmid_idx() > 0
+> 
+> to determine if AET can supported.
+> 
+> Ignoring this simple question in
+> 
+> 	https://lore.kernel.org/lkml/arW6xlQWVWkixiWe@agluck-desk3/
+> 
+> you instead use the SDM to argue against me for some reason.
 
-Yes, with the change below. dps310 then builds clean using
-iio_device_try_claim_buffer_mode() and iio_device_release_buffer_mode(),
-and clang warns on a missing or unbalanced release.
+My apologies. I should have included in the version change log from v11
+to v12 that I replaced "resctrl_arch_system_max_rmid_idx() > 0" because
+it is the wrong thing to do.
 
-context_lock_struct() is needed because clang rejects the existing
-__acquires(indio_dev) on a type that is not a lock. The header
-suppression list hides that today.
+I'll try to be more complete in the change logs.
 
-diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
---- a/drivers/iio/industrialio-core.c
-+++ b/drivers/iio/industrialio-core.c
-@@ -2252,6 +2252,7 @@ EXPORT_SYMBOL_GPL(__devm_iio_device_register);
-  * iio_device_try_claim_buffer_mode() pairs or related helpers instead.
-  */
- void __iio_dev_mode_lock(struct iio_dev *indio_dev)
-+	__no_context_analysis
- {
- 	mutex_lock(&to_iio_dev_opaque(indio_dev)->mlock);
- }
-@@ -2262,6 +2263,7 @@ EXPORT_SYMBOL_GPL(__iio_dev_mode_lock);
-  * @indio_dev: the iio_dev associated with the device
-  */
- void __iio_dev_mode_unlock(struct iio_dev *indio_dev)
-+	__no_context_analysis
- {
- 	mutex_unlock(&to_iio_dev_opaque(indio_dev)->mlock);
- }
-diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
---- a/include/linux/iio/iio.h
-+++ b/include/linux/iio/iio.h
-@@ -610,6 +610,8 @@ struct iio_buffer_setup_ops {
- 				   const unsigned long *scan_mask);
- };
- 
-+context_lock_struct(iio_dev);
-+
- /**
-  * struct iio_dev - industrial I/O device
-  * @modes:		[DRIVER] bitmask listing all the operating modes
-@@ -726,6 +728,7 @@ void __iio_dev_mode_unlock(struct iio_dev *indio_dev) __releases(indio_dev);
-  * Returns: true on success, false on failure.
-  */
- static inline bool iio_device_claim_direct(struct iio_dev *indio_dev)
-+	__cond_acquires(true, indio_dev)
- {
- 	__iio_dev_mode_lock(indio_dev);
- 
-@@ -760,6 +763,7 @@ static inline bool iio_device_claim_direct(struct iio_dev *indio_dev)
-  * Returns: true on success, false on failure.
-  */
- static inline bool iio_device_try_claim_buffer_mode(struct iio_dev *indio_dev)
-+	__cond_acquires(true, indio_dev)
- {
- 	__iio_dev_mode_lock(indio_dev);
- 
-
-> I did similar for sparse and at least the direct_mode claims
-> a while back. This might be a case of it just gets too complex
-> though and the compiler fails to figure out what is wrong.
-
-It holds up. drivers/iio (allmodconfig) with the analysis on for every
-file goes from 254 warnings to 11, and none of the 11 are the mode lock.
-
-If that works for you, v9 starts with this as a core patch and dps310
-uses the named claim instead of a new guard.
-
-Rupesh
+-Tony
