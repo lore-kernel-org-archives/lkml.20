@@ -1,129 +1,148 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F5E485505
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F5A1C862D
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331552; cv=none; b=pD2i95hINKX06v+afiL1E6WfstU58wU1HU8HJTiDyz8p59hWURv7bjWUYYUb8cvmpySl3/CRN+rmx2q8nM2aGJ8MAtS70nSH1SqS6MaUH5zMrz4doIoBR8SGUg8IKnlesxUDTysXYEsmEGiCXwS4B7QobqPVrTHgBtkaZXokQjg=
+	t=1790331581; cv=none; b=BDXnUImnjU3Lv1qCzksWdUqDxl8670ggnGVAJFMmXxsBYQYVYIpR8jINdGaIsp+jR18r+GRZWucejhqe0kuN4T2k3kBWThnOJGRbHzRLUAg9KkAJSgvlYsoDnXxdrY5ijRB+UGac6rTpl3oD3r62jQ1CpesMYEEfLFxPSbep5b4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331552; c=relaxed/simple;
-	bh=Vy0BEaJXI/sgJiHnpzCCPocdjuq8/DGs5MXWEPWVMLo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IcnvypGjiU0nNalqhxlGu61/eK2MZoJhWP4bNE6vhf1aRRSUdjrswH6sWRLf//Ujb0jTH5MheYTyzrGu+0Tu0ISJJVXf3SHmHubi4at2UN1CLjW7WLZdFWj+M3X5nC38wFXNvvCADWL4xGw6yMnuBV26JuUdnbDN4t+OysFN7RU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l+ChUMlF; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790331581; c=relaxed/simple;
+	bh=kuiriOcwrhUBkH+cFmNQEkfBDUUYBrctQFAqrwLNkHo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tXcodSVh0ZZ6EErtnf5TmSsH2rJc8eI8ZmmFGmV+IpFB1vsUvbKx2kUTnxk3Ai0HL2XJ8Agy6zbGeiJ4GKgXs71X8WMFUYoWW8xjYYBfuxxvMH7j9yqIY8ybvAodeyrycNoV6iqjZDNjaRMLQ9d5kRGGHWIFj0HywegU1dIGbMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hjm9Cc0k; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GMP+L0xW; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+ChUMlF"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48881a62e09so163962f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:19:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hjm9Cc0k";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GMP+L0xW"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YpQf208828
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:19:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iJosBlRsssotpYc76/kVdKbiIQG2FpE3LuJTADYjC68=; b=hjm9Cc0kwqVAAJaN
+	byxMTIXx8CjId+Th/N6Jj8le7ClwnLsiFbz4PvDp5UJbOz6toe+q40WkShgffNwA
+	GEPgdVK2lisIxS+alfZm3xb57By8QmZpxIild5HuWVc9pEVxncz2e4ZFkIFbXpBs
+	gzDjZClF7t0IKXHTaHZxizpVW+IhgPzGUw/8UHNxt5q6aB5W9tP+dnTQyoO1O5V5
+	2pnhR2NH9FHnHi5z4C/E6XFmFwOEiDbMG3YuIRWk6WJ+TqYYPOVoDhAmWmYerzpm
+	K0GcMFGuKDbUIWKGla75UTYOV1IbPXpaCsS/0TXYkrELP0exuc8sZsjVFCSiavYH
+	EoYcJw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw898u2nc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:19:37 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-939fc317691so20319485a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:19:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790331547; x=1790936347; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uzt8qnaNUNgPrBzOLY5U/g5H8B5eMSOss0W//LWBCGk=;
-        b=l+ChUMlF+DbiAK5Nl2eXQbTxXMNm1SZwCWM5/eF/ZoKOoE4qM/S2J6gCDKmOuMesF4
-         W2W0HcTpXxq+t2aJ3a0wRVA11VTmh573Nvv6rmL2XHHTaEAQJeQqy93WrzBGtSacWxbj
-         nm7lylCNFEW81fAfI1Q5lGtPX9+Shbh2ZQFELkvvwRUOJ2yLv5x3VF/gIgmFf048yyov
-         5NjVMuP1pOSbm7HqPJNDp0qPWClTWOKA/iTu/hlFlJhBUAW9X1NWmKqC/4X4nTUl39WR
-         r04fKu+Z80ReW6SS7zNZZ0FDP6rHFgrcdzpzM1IwoxID7i7L9ECvzUb6msU72KcxMBTF
-         5XRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790331547; x=1790936347;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790331577; x=1790936377; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uzt8qnaNUNgPrBzOLY5U/g5H8B5eMSOss0W//LWBCGk=;
-        b=AbN5q9hK5QEwZowSdUtEAaIEnF8zSffLG9EesLL/uXw71YYeQKwNul7ITe8WqNZ6jU
-         WrncvtwnwzX7xJtwJE855uRSc2epePBD2YfV0AJqVNVTzF9qp+qNNWgAHLEN5p6CvzE5
-         Spp1V4vY3w9rT/IrmUDtjwWHRIBUQ5vJLoS182GgyMhxdczsu7zSYE/rSkG73VeTv7Cl
-         iHAtPyYOK8MzNmjIpRiHINakSAr4M1e18q81hgxIrfnxNSe6fIEfgvrootuYxI3hRZ/V
-         /0VJk+EAaJS+U51/BsznhM0jagtAK6veci+zdxGiZ6s2kMdmqw6YUOF2zaFu0J1/3JqJ
-         MMkA==
-X-Forwarded-Encrypted: i=1; AKwUvBymMGBU1AXNXf6cIgJiH/gYPgTnRUaAzEv5Ufrcupq1KfcpwIhVOmFE5sDcvU7FzpA1VfJ4PVs4zmn4jl8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyPQrsZW27pD3Xdfqll+rFALmw00K6gF30t1YAhWQgtgcvT9nu
-	uMgkKE4eCCd+FotgdfO/abBUN8kTN7SIPeiX+V8cVjbrjrHl4/HzXrxx
-X-Gm-Gg: AYBFou1ABh6JHcQq1klerxDo8G7wy1WuHGulJvbMMEyt0LnGv45Fng/bTvj/si97dJ4
-	RbY8pWB0UZKz0t2b25wlXa9V1baSKDptoV7czNDV3NDxAC5CQ5ZrppWRRjtZjSa0yi2e8/HtUCf
-	YYSFR0wFagmHzRcPBmNul8Kv1B3bLi74JQ9gPfwIq6Zd3UwCauHa6soHDIGFeTglYDW3iAMOpTS
-	0FGZBxBTduxRDY2vf7mFfL741Xs9SeAg1y+64XlRwhF4tj0LBxI+yZg1yiriQNYDusaChbQk/UB
-	al8CXRvqCq3cu9mWo/ePv5qJIdwul/8p9rQ9imqM6tdbL/Wwkc9iiOMoHkx+WZpy4UkGDqsRfZ3
-	4SX+rztemTKDT0/QsCoJjr7BD3aqdedcUkqo6GAj1WE0HQMfkjYEs2uCh4+r9DSVBbIcqlmxuep
-	E479oItfMR8GJix5w4e3PIgHr412T7LP69qXbCau8+lwq2UxKtwkkxcmbfyAr48qB2QaEAZued6
-	oL9YGAtD6kcW8zwfRIR2Q==
-X-Received: by 2002:a05:600c:3b84:b0:49f:f099:6f98 with SMTP id 5b1f17b1804b1-49ff09970dcmr34896555e9.20.1790331546908;
-        Fri, 25 Sep 2026 03:19:06 -0700 (PDT)
-Received: from foxbook (bez152.neoplus.adsl.tpnet.pl. [83.28.37.152])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff044406dsm56519475e9.1.2026.09.25.03.19.05
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Fri, 25 Sep 2026 03:19:06 -0700 (PDT)
-Date: Fri, 25 Sep 2026 12:19:02 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Kean Ren <rh_king@163.com>
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Mathias Nyman <mathias.nyman@intel.com>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Alan Stern
- <stern@rowland.harvard.edu>, Griffin Kroah-Hartman <griffin@kroah.com>,
- Kuen-Han Tsai <khtsai@google.com>, Kees Cook <kees@kernel.org>, Nikhil
- Solanke <nikhilsolanke5@gmail.com>, Thorsten Blum <blum@kernel.org>
-Subject: Re: [PATCH 1/2] usb: core: hub: recognise two-lane SuperSpeed
- sublinks as Gen 1x2
-Message-ID: <20260925121902.3d75df9b.michal.pecio@gmail.com>
-In-Reply-To: <arSByjrfc4e9fUr1@vbox>
-References: <20260920025308.2358862-1-rh_king@163.com>
-	<20260920025308.2358862-2-rh_king@163.com>
-	<arSByjrfc4e9fUr1@vbox>
+        bh=iJosBlRsssotpYc76/kVdKbiIQG2FpE3LuJTADYjC68=;
+        b=GMP+L0xW1+U3dWs/2A+u+9GeO3Oa9YRR5YqjGaO17naTbyXuJUeagqoYhdXNlII2yr
+         Pv4TwykFrvwYJIixPyghWWx3R33Q34Omo03zkyD3swtLOwPlU033TdHo7QBc/yapv840
+         utlObM6+2VlU7pPTuvB1kM7QgCPAM2GFE6IvHVEQtA9kzdkX+myTVe/I0SdCmNZRG6YL
+         dNOpUiNxUiBPgEXSy3g5mS5X8Rvt51pdxVgYKHY6nr7ckaFZg/rtIgfqEIZBxuJIMrqW
+         +fy8p9rtY2VsAyt0oFQ3fIXQtQDBK3JjpyjUUOb5f/F7C9qSJ3+cchRdezKZqGW0xu3x
+         E8sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790331577; x=1790936377;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iJosBlRsssotpYc76/kVdKbiIQG2FpE3LuJTADYjC68=;
+        b=kzGHM3JEWie1rsVR28WLLTNm0a3euDHI1Gpf88HBXVUg/W5kbiB3Zkbp7uNn2/xka5
+         wMmt1DxrM37YHpVBT1M0uXWRo9Ukp6IrtSzc2rmCVQ5Tf6XMqqs+/IMDDulq2QRAInvQ
+         6sc5jcmN5BqpWgALVgTJoGTYijaWcaLstLk5gpqrxhhyeA5pcUkuMTl40GJrqpXiLYyz
+         dx3zKCYF+EVlq+hekH0nVBb+c/OflEKTP28h0PdGrpLhkXrK7wod68X7/e2ubqTMxMMD
+         O1yTztV9kpotBp6Q5np3DlDpObKfCH5QxdT5F6s2wvE7D4EcHd5FKLPvDWwAgE+sZ+LM
+         20Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBxboq+IcVJ/ImbRVz/CSX/Rti2WwweceiKP+2NOYBIAJOxAs9PPO7gVnyT+9ruyVx43zPHSqgIQ4WAkWBk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUtXS0oeQFea+v3yq0mJDPXtfteUayxxhG/KzzH1rdIFoSbGLX
+	PQrEZjGWrLr4QiYcby9zvtaltJq6WBvBcu7ketaPf28qK1WYDWpWRgpLiDXYp4L0aD/VqeIrVLf
+	U5dYGAV2hBfXiI+e9/kr+JOfTGRx3QTW4pL4X+ni74SKrROXzREqoo78GLxOXLCRZTHg=
+X-Gm-Gg: AYBFou3CexZ26+ypOVcE9YgszCbrBkYEb0x5tz45JaX7trdYa41MDtIeWcZWhVTAnrD
+	ipilRSojjg/jo0oBUZxDEOk/sLltOC3yWAfUSG0PZIT/0kuT5Kh4/ry6LFl0bGh/XfgYnfAnjj3
+	A07L1cG5wfHF0/3BJEvTPdz4B0vrDPCpFv9ZRem3i4GmSd1OpkKkw+Pyh5pCbym2OAu9BZKKMwi
+	D/oEaxSBMKAoxdxzJ+F66gX6bxLwQ/pn47QjaLCnB3BF7RzfxBzI6H4tg59pbtkr+Y/eO+GJ8IG
+	auEXbfAovduvvEuRvsu2RqTpBbQIMbbVBVFB/PqSdvT23lo9A+nTpiRseQoav0RoRqs4QodLKHQ
+	m6xhbV02yllzShEuRvk3AUg==
+X-Received: by 2002:a05:620a:1a15:b0:939:9205:4d78 with SMTP id af79cd13be357-93c43d40617mr340523385a.3.1790331576893;
+        Fri, 25 Sep 2026 03:19:36 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a15:b0:939:9205:4d78 with SMTP id af79cd13be357-93c43d40617mr340520085a.3.1790331576328;
+        Fri, 25 Sep 2026 03:19:36 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae74815easm93578766b.23.2026.09.25.03.19.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 03:19:35 -0700 (PDT)
+Message-ID: <d7db3b98-a44a-4e63-8ca7-c9fbfac70f28@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 12:19:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: hawi: Enable SoCCP by default
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260925101309.3826038-1-mukesh.ojha@oss.qualcomm.com>
+ <20260925101309.3826038-3-mukesh.ojha@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260925101309.3826038-3-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA0MSBTYWx0ZWRfX5rkT1daQ5py7
+ AfXfbRf8t1PBWNDrTKeZ+2LJXpNb+9TwFkCpw6tne/begrHWaKOkYVr193HfeZ4FuZYZ+NAU2dD
+ O6SykX4/h6EpkPZ5FZTJ9HuJf2eLmjw+dz9nCq2veNkIbarPArk0d7ThYyk4f2UZiVnZ3x/8MLE
+ +lkBpv7sVqJ9qjFMDqQmvmbKSL+NOaGtq/gUZDv5e+5h62G45kRFalCBoIpakKToH7iDlDARjKY
+ ydNULvK07T7NZywxKm95h3tnXNtf2gLu9uBskjf5b69WQpFtEDu+7oOfpAeQHZt/iIJbcxrb5DN
+ sACBvt1uhHMZQpQM4H+mZqwC4NCSpYXVirw8D1T7K78FfNfDfYqX1gplz8V951Ie1AP1uAB/vXI
+ GeVZJKby7BFa0aEAxRfANKdfSytR6Kb9CI5TUqbB6znecr0Jy99McH46EhJk866ekqZd9lQzvtg
+ QAQXS4QvKqvkVoDJo4w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA0MSBTYWx0ZWRfX969GcRScsIYO
+ V5Ia+rDlTTWv/F1kOqKXgb715iYNlbVkimGxw1Vr6xgEJbeVC8tnhJbIsah7Esf9Fcp2WYryYrv
+ U8Ph6YF/W0M0dxYHGbBLXO9KPm+pdK4=
+X-Proofpoint-GUID: lD3vTYqhYlDQpGn0WQHX--X0zm9OHIPg
+X-Proofpoint-ORIG-GUID: lD3vTYqhYlDQpGn0WQHX--X0zm9OHIPg
+X-Authority-Analysis: v=2.4 cv=EJWTQFZC c=1 sm=1 tr=0 ts=6ab64ab9 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=Efl7ekKAViBeap_CtEcA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 suspectscore=0 impostorscore=0 bulkscore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609250041
 
-On Thu, 24 Sep 2026 02:06:12 +0000, Thinh Nguyen wrote:
-> On Sun, Sep 20, 2026, Kean Ren wrote:
-> > get_port_ssp_rate() rejects every matching sublink speed attribute
-> > whose link protocol (LP) is not SuperSpeedPlus by jumping to the
-> > "unknown" exit before it looks at the number of active lanes.
-> > 
-> > USB 3.2 Gen 1x2 runs two SuperSpeed (Gen 1) lanes, so the matching  
+On 9/25/26 12:13 PM, Mukesh Ojha wrote:
+> SoCCP remoteproc is marked disabled in the hawi dtsi and enabled in
+> hawi-mtp.dts, but that is not the right approach, as it should be enabled
+> by default. For Hawi, like a few other targets such as Kaanapali and
+> Glymur, SoCCP boots up in early stages of the boot chain before the OS
+> takes over. So, it is default on.
 > 
-> Gen 1x2 is SuperSpeed Plus and should use LP = SSP
-> 
-> > sublink entry advertises LP = SuperSpeed while two lanes are in use.
-> > The current code therefore returns USB_SSP_GEN_UNKNOWN for such a
-> > link and the USB core falls back to USB_SPEED_SUPER, reporting 5000
-> > Mbps.
-> > 
-> > Handle the two-lane cases before rejecting non-SuperSpeedPlus
-> > entries: 
-> >   >= 10 Gbps per lane and 2 lanes -> USB_SSP_GEN_2x2
-> >   >=  5 Gbps per lane and 2 lanes -> USB_SSP_GEN_1x2  
-> > 
-> > so that a genuine Gen 1x2 link is reported as 10000 Mbps instead of
-> > 5000 Mbps.
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
 
-Was it tested with a genuine Gen 1x2 device? On which hub?
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> > 
-> > Signed-off-by: Kean Ren <rh_king@163.com>  
-> 
-> 
-> Gen 1x2 is a SuperSpeed Plus mode and should advertise LP =
-> USB_SSP_SUBLINK_SPEED_LP_SSP. A controller reporting Gen 1x2 with LP =
-> SuperSpeed is violating the expected encoding.
-
-This deals with the bmSublinkSpeedAttr array of hub BOS descriptor.
-For host controller root hubs it's generated by xhci-hub.c.
-
-And I think that the code which generates it already tries to avoid
-setting SS (non-P) in multi-lane speeds, so what triggers this bug?
-
-Regards,
-Michal
+Konrad
