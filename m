@@ -1,241 +1,128 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DEA3416843
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EBC313547
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:23:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360457; cv=none; b=guV3pwr3Iy0dMUWxkvJBjFnzatadMndiemVO9R/y6tYWfFa9toPQfSe8GgvU4icck9+DCEUhHNCoXhPzKzaMagf5EV5UmB+fWTn+u41dk/6nYvbDSrUr53aX8Ai7yQrzif5Vr4tkDgWfo6aHNdo/aL5VyBk3a/fzcWji9kxr4n8=
+	t=1790360614; cv=none; b=rNnB+ZDQPHV90aPZSIhs8JUCxiuHghWXWrlLeW+dAgBIj5Nf1hGcKr1Ev2b8YUina0YhSpEPSSA7xmsWOYKB6DNTMI55rLqDk4ykfmva6uvUMkbVHt41HrfVLnEKdI3gD6tjrx5/Gr8B98yheenwgm13lWeX1UpIDyceAa9ZVkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360457; c=relaxed/simple;
-	bh=ZdDl2k6VSNRAjMa5sv67qNx0uk5Bqx9XHKnqQE++CRc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=USbMaUjlAuw+1u/Qb1yyG8M3cB9QqG9ZlioqxjWsnECNEN3txgCDi3r9cxU0om6KEU77Mwr3pSDXCAvnLGTSDQRO5buUcf7aeewXlWQATzS1ySvaC0C+UZGlgCtddoT2/mH3ycqbP4tpzW+KgvsyTLlzxZ1x6MfFOHSTrgATJ5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WLXuwkeW; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790360614; c=relaxed/simple;
+	bh=w9X6rrNNFvLIgiXrQ7cjPr8/9UJtbJNK/UogagEMFu8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nedLtoEUCRNIlEef6n2C8SAXZsNTMa4eOLNoXBH4Ho8wWZZIESpuzklCzbCTNHp5fnCO4iZp0KCm90gmXFgkJEUWQ8ioFnUlJrhJVC4+D9IOc6dZwtTLYD9JFczD7Uq28mW8PybZO5pm+65gcWn9Bbpmcru4FJV8YzevSA6e5b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be; spf=none smtp.mailfrom=inspiral.be; dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b=i+SPBDG/; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=inspiral.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WLXuwkeW"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48877902c99so1016357f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:20:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b="i+SPBDG/"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912df756so9626035e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:23:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790360453; x=1790965253; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HbJed3QIlE5is+wfCiIzfB4icHHTL/FXBZcCdh6MKMc=;
-        b=WLXuwkeW4W8i+u6relJA23AO2ZTEsUeV8Podz5ne6NUwy3CvGclMY3iJ1KLe8FUW2n
-         uL/2sAH5e6lV5W5Zz0xrFpnQH/WinwdC+h+cQtsnKjcevP/VovuI1tlONLwPeiHPkGm4
-         MB9DiLMzopZTLxDxtf+4OVgnN7ILKNIcLnwSWqVZCSEcVO0YMQ9yhrHJNj3u72KEkbW9
-         6gK/4dyWiqDPs+RurAzISqYYWAs1WMCPK295lpqUT42nIPDa6HamtQ0/NMr1qwfQkV8+
-         Q4K0KJ+VUdqtUlMsRhHNquPId6B87c6IFSvgQP1Y1pMLUDd7KZCAgDfy+qtBMNf/t2EZ
-         2esA==
+        d=inspiral-be.20251104.gappssmtp.com; s=20251104; t=1790360611; x=1790965411; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j8TY93nxAT2n3faiya/ujXtTbbKatodwcH5jnqQyGyg=;
+        b=i+SPBDG/v8Tt9pvhGTU01N0D+g+aMDPz3cZoaP7g7jGY7n8AfLOPPE7Ym8C0oEqF6s
+         z65dWtw34anhAlAyu/biM4idNDZsuVG31aJRZMFK9cfTS5OnXnnngoYz0t98QpiXLe27
+         2i3cEcQ+ifB+acd5SYHJI3OtfyYESQgP/L9yl48fV2c+Y2gCFdjITb6Q3DSk2fuwy4GB
+         /mEcJKN0U+5PcxYcGlR5YX6Tx+gak/52LehPHAfa6kiOOECs3l2xgFPQXms15FrgQL8d
+         0SBenaARrbVaHp/dcry4F5pLwzhYA1MerBTIn/vj8af2hxUuAAhKvBSAFRDWykoVcpYi
+         Corw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790360453; x=1790965253;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HbJed3QIlE5is+wfCiIzfB4icHHTL/FXBZcCdh6MKMc=;
-        b=Ki5RdqUZoxIko+097Y+RJU8Rts70BGk8sbIYp94Uxas4wkJOFYz7nEoNHm9ZG+8OWY
-         MMauGmQC06RliBF5jJrNar4/ch+7+Tx55SZn8+dcjQY1EDxBsxg4KkqqawYwVQGnoajA
-         KVufj81at5IKLM42voNSTjolFJGoq2pWIMGijAlZ3hgx6Hm5dXZwQLvPZOYtEUoTzTgI
-         vWt/IPLBscXOl1gOXVrr1JSk+6tFhF3Hkn6znGJUxasql3dmi5xeR9PkBw2y2s+mEW5N
-         zIoud1/IWl/XbVSlwooprLr5kbCCVDQU79FJV5DzRNsFp7MCNpPrZrPJCDo/53svBIX9
-         g4Zw==
-X-Forwarded-Encrypted: i=1; AKwUvBwjgavOcA6l10DruyZRa2ADAQw1N9+rssuZJD/qH7MQbt13tv2bTOncNK5VuqVgCyS80yiKS6Nyf9QUSfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCETi432+xfmREYJHVNuWeoobAiSMnk2huD4ixZEx/LSjQEa2g
-	FGlyEdLm6I1Ckqi3L0+QKcK5FGMvJ+MVUdyW3oKKw0Nd8VITM4GikZ6NuF1fYtGcwm4=
-X-Gm-Gg: AYBFou23ipg+iVIHoTAVVZP0SJRSZLxRobcPx1v5Zb/HGonbOiwlgWSzzo39bTb7HHP
-	47D9eK2fibmJxsFI7dJ4VH7ikMmCuzVehjIGoa+LB/CJLf5uzmvsutpnuLse39U9dM7fTSqallg
-	I+BamViGC1Q31JTV2CKQ/N0M0D8NNYKBtaiwh+YU2A7vvbdoGEZeVcK6JpEPWhFiHk3wWs1RrPb
-	BiowuO5NPkfTrYpZ8Tx8G6uCNdkP42k4BtmOMysGu+ryNZmg9SjGUQ1K1gQcEt/0p8+EjvAnDa3
-	xRlEphsYIty07p4brxl42BmhhPiz5sQJWiJSg3CM1GaNNDrTY3pXTAhEPSEVdOvRS/gREDohHfN
-	zU6QuxawER3dkDA9Y2gOiaHnoBVPMfjbbsF8RC2n70XaJOmjb3SzGK+YJfv4jNxca9Tw9T+FvOx
-	6TixKJDdmH9qZNWH000cZd4ahAmgEne0BYo5OQRSokFdXBC7kaQSW9DdCZJUV26O3wS3NiLlBaj
-	EfComq9RbTGAOrSoYmOnI973qw2d6XTXQJgM+9/SalzWYFj7V3Dg8ZGZ1bO5A==
-X-Received: by 2002:a5d:6f05:0:b0:487:8c7:a275 with SMTP id ffacd0b85a97d-4887166bba6mr12471077f8f.0.1790360453543;
-        Fri, 25 Sep 2026 11:20:53 -0700 (PDT)
-Received: from localhost (p200300f65f19a904b61bffe3a87d7bb6.dip0.t-ipconnect.de. [2003:f6:5f19:a904:b61b:ffe3:a87d:7bb6])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4887a2acb4dsm8909485f8f.0.2026.09.25.11.20.52
+        d=1e100.net; s=20260707; t=1790360611; x=1790965411;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j8TY93nxAT2n3faiya/ujXtTbbKatodwcH5jnqQyGyg=;
+        b=CRdYtaWy4x40xYDP7JRsjUO0BdB01S/CSuFEMagdz8RH98+6j21tbkRkPLoHo2t7Iz
+         yFQPs1FqXPIpmUrtkOTijpPUpAyl5iaM+9F6Fspa/k5lQYJfrjVWXBqUXsbFwI1Mxlv0
+         j2rxCkFh/7Ex1loZxOMeSVA051ZQ42dshHSVEsJiOZq/64HX3hkzVFs8y3S8nzxuYQQB
+         WpIwDG/dzVf7L/oUC6OxhQeUgU2dokzbG1kQrQ5ow25VIgF3deVt65U7YPLTj44XO4WD
+         4/x9UTzjOeKA7dMXTRpHdBN3BJHRoU0rq543tDaL63qH/qh9IRlRrXmWNzIIh0oG3LIy
+         rMHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBygcrLbI+GRiIbqfmQWaeOupIXjuZseP9qVQfWBB7Ab0AGGRdmbQalLMQJRFzZ3E4Tovas5dtCQ463Ar40=@vger.kernel.org
+X-Gm-Message-State: AFuF++mD831YouUzMKDdI/BIo6BBtRbJSSlfmFrA6rp1WSRxBdSjc9SB
+	Fa/eB9PxnMGQOUzXHc3ZFW4AA4UwxeM9tgYqY0PN+7LwIg/LSUp6yFebxoqoBQxhsRQ=
+X-Gm-Gg: AYBFou2kKAafxh3s+CDayCVdZOzBdYWirpBYktkApBlEM8ziPDI40lseaB4Ft6C7tbD
+	fEuC8bIs02r49vTFRba8h8QOoPFrlHN8TbW+1+zSDDMZZYy67F3RbjL36LZaZDTAF9v/K5rAXC6
+	Yd+etyyOi8QaYGFFN5mRgOrjbpmRPj+voRrCJnF6YP4UnN8lK3SqsPwz8RY1bbvYRUz4WWPTFMn
+	VL1pgpWT+BcDaAknLHqLrxfnzAn4G8RNjvaWEPmUNC8Y7ZWycK/8FzV0l3515OYlKoh4hxPYvsz
+	axJRHRa4uQ62wKLdBTVUMU+a/smKKWSTG1nxnZ2/fJn2Jmg8fKw6cNXoTp2x/dIk+0isRKu8PD6
+	k/6I9G3Yh812/aYLHWimuqdprxrfGESKjDdkEu6m429dLq1ZMqIr73xc/eWEOByRF2EQ8mRJkVb
+	D8FpwUv6hehcLX53TYSTmgbQ+GjuAA+v3lmRozEbtV5JF/YTkZn86ztitWJkPOyITeN77mlP4qF
+	cOt47S0w/zllq8pMJ5gWowiZxOJGHPmbORa7Fu/vGnvxsS/
+X-Received: by 2002:a05:600c:4689:b0:499:be2d:c290 with SMTP id 5b1f17b1804b1-49fe66b4001mr115747665e9.9.1790360611169;
+        Fri, 25 Sep 2026 11:23:31 -0700 (PDT)
+Received: from vger.localdomain (178-119-186-126.access.telenet.be. [178.119.186.126])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe667ae2fsm165253895e9.13.2026.09.25.11.23.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:20:53 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Johan Hovold <johan@kernel.org>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Armin Wolf <W_Armin@gmx.de>,
+        Fri, 25 Sep 2026 11:23:30 -0700 (PDT)
+From: Tom Verdonck <tom.verdonck@inspiral.be>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH] Add TAINT_DRIVER_OVERRIDE for usage of driver_override
-Date: Fri, 25 Sep 2026 20:20:40 +0200
-Message-ID: <20260925182041.1025371-2-u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
+	Tom Verdonck <tom.verdonck@inspiral.be>
+Subject: [PATCH 0/3] hwmon: fix jiffies wraparound in one-shot ready checks
+Date: Fri, 25 Sep 2026 20:23:21 +0200
+Message-ID: <cover.1790358356.git.tom.verdonck@inspiral.be>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6316; i=u.kleine-koenig@baylibre.com; h=from:subject; bh=ZdDl2k6VSNRAjMa5sv67qNx0uk5Bqx9XHKnqQE++CRc=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqtrt5auzK2O3znYA5mSO75OtU4S4MLYgfvL8SR fExzta4CP+JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCara7eQAKCRCPgPtYfRL+ TgXBB/4ipbjI6msdOdOEh0N1yvy5qoA1pPLxBUK+WO0FZ4y07WBzGVebN2SFV1WLEuqGhxOGPiA lRoDLT1Y0fv+jICbdribCbx1WDBpkM4Z9ZGpQTpiohUhE/OZG2pFnTRlQWJTGm6C8nFA/2aMC24 WPAmCCkkonSxzTWTWFa8t3Z8pIsyMBv9ZzUL6e2izfQQ+GscGlpdFWHVQqiHrLSCsirRPFXFO8e YBpOgaKJg48nUyjb5K/Tv4JGgyE+jvLtmCRqBP2cs3ebSzP1an54iIN3ttm5LgFetJ2pOpQ4znH F2erxa9l5WWsxpsou0IytKTz1nTp4w5rW38OCCdm/N633Aj5
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
-Commit fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when
-userspace manually messes with devices and drivers") introduced a taint
-for usage of bind/unbind sysfs files that manually trigger driver probe
-and remove respectively.
+Several hwmon drivers store a one-shot jiffies deadline that is set once
+and never refreshed, then compare it against the current time with
+time_before() on every access. time_before() only interprets the signed
+difference of two jiffies values correctly while they are within
+LONG_MAX jiffies of each other. Because the deadline is frozen while
+jiffies keeps advancing, the difference eventually flips sign: after
+2^31 jiffies (~248.5 days of uptime on a 32-bit HZ=100 kernel) the check
+inverts and stays wrong for the next ~248.5 days.
 
-For drivers that do their resource management correctly (which is also
-needed for module unloading) bind and unbind for matching devices are
-not critical operations. The thing that makes bind and unbind unsafe is
-that drivers can be forced on devices that originally don't match using
-driver_override. The result is that e.g. of_device_get_match_data()
-returns NULL despite all .of_match_table entries having a non-NULL
-.driver_data member which yields a NULL pointer exception for several
-drivers. And given that after setting a driver_override a manual bind is
-only one way a driver can be bound to an unexpected device, a separate
-taint for such an override is justified.
+The consequences differ per driver:
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
----
-Hello,
+  - tmp102, tmp108: every temperature read then returns -EAGAIN without
+    ever touching the sensor, until the machine is rebooted. This has
+    been observed in the field on 32-bit systems that had been up for
+    ~248 days.
+  - sht4x: the read path instead concludes the heater is still active
+    and calls msleep() with a bogus, huge delta, blocking the read for a
+    very long time.
 
-I first considered to just set TAINT_FORCED_BIND when driver_override is
-written to. But IMHO it's very useful to differentiate for reported bugs
-if bind/unbind was used in combination with driver_override or not.
+Each is fixed the same minimal way: store the deadline in a u64 jiffies
+value and compare it with get_jiffies_64()/time_before64(), which does
+not wrap in any realistic uptime. No functional change on the hot path
+other than removing the false-positive after the wrap point.
 
-Also if only bind/unbind was used and driver_override not, a resulting
-problem is worth fixing (opposed to what is considered for
-bind+driver_override).
+The other hwmon time_before(jiffies, ...) users I looked at are not
+affected: they either re-stamp last_updated on every update (the usual
+cache pattern, e.g. tmp421, tmp464, tc654, g762, ibmpex, w83792d) or use
+a freshly computed local timeout (pmbus/ltc2978), so their two operands
+never drift apart.
 
-IMHO it would also be fine to drop TAINT_FORCED_BIND, but let time prove
-how many reports we get with TAINT_FORCED_BIND but without
-TAINT_DRIVER_OVERRIDE.
+The failure itself takes ~248 days of uptime to reproduce and follows
+directly from the time_before() semantics; it was traced from a field
+report of a 32-bit board stuck returning -EAGAIN after ~248 days.
 
-Best regards
-Uwe
+Build-tested on x86-64 and cross-compiled for 32-bit ARM (Cortex-A7,
+arm-linux-gnueabi) with make W=1; all three objects build cleanly with
+no new warnings. 32-bit ARM is the configuration in which the bug
+actually manifests.
 
- Documentation/admin-guide/tainted-kernels.rst | 6 +++++-
- drivers/base/bus.c                            | 1 +
- include/linux/panic.h                         | 3 ++-
- include/trace/events/module.h                 | 3 ++-
- kernel/panic.c                                | 3 ++-
- tools/debugging/kernel-chktaint               | 8 ++++++++
- 6 files changed, 20 insertions(+), 4 deletions(-)
+Tom Verdonck (3):
+  hwmon: (tmp102) Fix jiffies wraparound in conversion-ready check
+  hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check
+  hwmon: (sht4x) Fix jiffies wraparound in heater-ready check
 
-diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentation/admin-guide/tainted-kernels.rst
-index abbf5e3dd749..75750a9533e9 100644
---- a/Documentation/admin-guide/tainted-kernels.rst
-+++ b/Documentation/admin-guide/tainted-kernels.rst
-@@ -74,7 +74,7 @@ a particular type of taint. It's best to leave that to the aforementioned
- script, but if you need something quick you can use this shell command to check
- which bits are set::
- 
--	$ for i in $(seq 20); do echo $(($i-1)) $(($(cat /proc/sys/kernel/tainted)>>($i-1)&1));done
-+	$ for i in $(seq 21); do echo $(($i-1)) $(($(cat /proc/sys/kernel/tainted)>>($i-1)&1));done
- 
- Table for decoding tainted state
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@@ -103,6 +103,7 @@ Bit  Log  Number   Reason that got the kernel tainted
-  18  _/N   262144  an in-kernel test has been run
-  19  _/J   524288  userspace used a mutating debug operation in fwctl
-  20  _/Y  1048576  device was manually bound or unbound from a driver
-+ 21  _/Z  2097152  a driver was forced on a non-matching device
- ===  ===  =======  ========================================================
- 
- Note: The character ``_`` is representing a blank in this table to make reading
-@@ -193,3 +194,6 @@ More detailed explanation for tainting
- 
-  20) ``Y`` If userspace wrote to the `bind` or `unbind` sysfs files and
-      successfully bound or removed a device from a driver.
-+
-+ 21) ``Z`` If userspace wrote to a `driver_override` sysfs file opening the gate
-+     for unexpected driver binding.
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index c51ad96d4de4..6e91210aab45 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -513,6 +513,7 @@ static ssize_t driver_override_store(struct device *dev,
- {
- 	int ret;
- 
-+	add_taint_module(drv->owner, TAINT_DRIVER_OVERRIDE, LOCKDEP_STILL_OK);
- 	ret = __device_set_driver_override(dev, buf, count);
- 	if (ret)
- 		return ret;
-diff --git a/include/linux/panic.h b/include/linux/panic.h
-index 23976b1dfdb6..e6e24d8afcf7 100644
---- a/include/linux/panic.h
-+++ b/include/linux/panic.h
-@@ -90,7 +90,8 @@ static inline void set_arch_panic_timeout(int timeout, int arch_default_timeout)
- #define TAINT_TEST			18
- #define TAINT_FWCTL			19
- #define TAINT_FORCED_BIND		20
--#define TAINT_FLAGS_COUNT		21
-+#define TAINT_DRIVER_OVERRIDE		21
-+#define TAINT_FLAGS_COUNT		22
- #define TAINT_FLAGS_MAX			((1UL << TAINT_FLAGS_COUNT) - 1)
- 
- struct taint_flag {
-diff --git a/include/trace/events/module.h b/include/trace/events/module.h
-index 19df3e39bba4..c7cdb1f53bc6 100644
---- a/include/trace/events/module.h
-+++ b/include/trace/events/module.h
-@@ -27,7 +27,8 @@ struct module;
- 	{ (1UL << TAINT_FORCED_MODULE),		"F" },		\
- 	{ (1UL << TAINT_CRAP),			"C" },		\
- 	{ (1UL << TAINT_UNSIGNED_MODULE),	"E" },		\
--	{ (1UL << TAINT_FORCED_BIND),		"Y" })
-+	{ (1UL << TAINT_FORCED_BIND),		"Y" },		\
-+	{ (1UL << TAINT_DRIVER_OVERRIDE),	"Z" })
- 
- TRACE_EVENT(module_load,
- 
-diff --git a/kernel/panic.c b/kernel/panic.c
-index b824b68fcb08..f5476a61f6f3 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -826,6 +826,7 @@ const struct taint_flag taint_flags[TAINT_FLAGS_COUNT] = {
- 	TAINT_FLAG(TEST,			'N', ' '),
- 	TAINT_FLAG(FWCTL,			'J', ' '),
- 	TAINT_FLAG(FORCED_BIND,			'Y', ' '),
-+	TAINT_FLAG(DRIVER_OVERRIDE,		'Z', ' '),
- };
- 
- #undef TAINT_FLAG
-@@ -862,7 +863,7 @@ static void print_tainted_seq(struct seq_buf *s, bool verbose)
-  * exact size is allocated dynamically; the initial buffer remains
-  * as a fallback if allocation fails.
-  *
-- * The verbose taint string currently requires up to 344 characters.
-+ * The verbose taint string currently requires up to 364 characters.
-  */
- #define INIT_TAINT_BUF_MAX 370
- 
-diff --git a/tools/debugging/kernel-chktaint b/tools/debugging/kernel-chktaint
-index d8628be37214..14d8febd6b16 100755
---- a/tools/debugging/kernel-chktaint
-+++ b/tools/debugging/kernel-chktaint
-@@ -219,6 +219,14 @@ else
- 	addout "Y"
- 	echo " * device was manually bound or unbound from a driver (#20)"
- fi
-+
-+T=`expr $T / 2`
-+if [ `expr $T % 2` -eq 0 ]; then
-+	addout " "
-+else
-+	addout "Z"
-+	echo " * a driver was forced on a non-matching device (#21)"
-+fi
- echo "Raw taint value as int/string: $taint/'$out'"
- 
- # report on any tainted loadable modules
+ drivers/hwmon/sht4x.c  | 18 +++++++++---------
+ drivers/hwmon/tmp102.c |  8 ++++----
+ drivers/hwmon/tmp108.c |  8 ++++----
+ 3 files changed, 17 insertions(+), 17 deletions(-)
+
 -- 
-2.56.0.rc1
+2.53.0
 
