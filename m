@@ -1,89 +1,118 @@
-Received: from mta1.migadu.com (out-90.mta1.migadu.com [95.215.58.90])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811BA375F83
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:44:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.90
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053FD397920
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790318653; cv=none; b=WgTJcRiBPrNu7MPtZls7zo+Jdikn8UxcRKCFgE8lVjVQRBV+YRvoUzj7NKzAa/kcN4dXnraqmUk8sAQ6hwkpCExX/zG62+yqEWmX9iUfLUQSOvIejn67nzsGnNIduxvUnmkkkITByNy7gJZSPZCKsvPB/G+WfLKzCphKz1kUSnY=
+	t=1790318663; cv=none; b=btFHBgZmUhb5hfWNf8WEcpylgimZ3qM5MucoBiyWX/w7onVTr0Y+mvZc1nOpQcluK06wT9Rmxv7Gc6vTyjvX2hQFdgOd1CHg0G326pWloSwdF5LJg5VQYl0v+gwqnWVIdp0PXiBJ4uzoNU3YhRqn7JtkO7ioAzAzyoRhAZaGMc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790318653; c=relaxed/simple;
-	bh=ZDL1HfNVxbiMqbti4og9R59qDW9u+w06j5ax8qGIoTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l74PcqgdERlEmNVX/8IpVcO87Tx109QjlWaDIUphL8FqTjUvUBKDktOcHcMLWdJSIJShBSATgebEZWCXEiSvezqGRieJGNOMo5YjEPwA3PiojMxNoNYbUvScxHx9CJEQwZEahuLXmTDeucrdlS535dEqVCHKuAppVXys7e9y1as=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JQJ6UFgX; arc=none smtp.client-ip=95.215.58.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790318663; c=relaxed/simple;
+	bh=03IrB9vAF/bkxYF/q/kywUS8ATF2rd0t56Gfd6VXeNs=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=tvuMwCUQwvJdTE/j7VPfeHH1QJ0oJs3VXE70yhNViVhpC7vTdur4SChtEtP3/mhyKQF+zC2V00BA7TeCfruSWyfocTDizAO5KY+jAu4B+FlBIlGTjNIKCCAtdyq3QLf8nJMY1BBuqVasqiWZw5G2X3bhyUfH8QfwaggKnTys8r4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Nu0oj7Ul; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BgM0Gyvv; arc=none smtp.client-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JQJ6UFgX"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZDL1HfNVxbiMqbti4og9R59qDW9u+w06j5ax8qGIoTM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790318648; v=1; x=1790923448;
- b=JQJ6UFgXoyKpBSbSkUciVKQLZm3rV3z2lGYCkmknd+Mlfo/TYsPlCZHeCO4kkm3N4A/Q/oZn
- daF2UME8Ah0CtwvJuqnEBHBTtDNIX7lDnBqgE3uwrFwJBOO09wyl9MlW2Cnl1T4f5JRRlb9QIHX
- m5mSaOtH+N/Ofql5VFem3Rrs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f84654a804b26889;
-	Fri, 25 Sep 2026 06:44:07 +0000
-X-Mizu-Trace-ID: f84654a804b26889
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 25 Sep 2026 08:43:53 +0200
-From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Carlos Maiolino <cem@kernel.org>, "Darrick J . Wong" <djwong@kernel.org>, 
-	Joanne Koong <joannelkoong@gmail.com>, Brian Foster <bfoster@redhat.com>, 
-	Christoph Hellwig <hch@infradead.org>, Damien Le Moal <dlemoal@kernel.org>, 
-	Hannes Reinecke <hare@suse.de>, Daniel Gomez <da.gomez@samsung.com>, 
-	Pankaj Raghav <p.raghav@samsung.com>, Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] iomap: don't lose a failed direct I/O bio's error
- when zeroing the tail
-Message-ID: <arYXUaQCgdch5P4s@quentin>
-References: <20260924091203.198225-1-parri.andrea@gmail.com>
- <20260924091203.198225-5-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Nu0oj7Ul";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BgM0Gyvv"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 33DC71400150;
+	Fri, 25 Sep 2026 02:44:20 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 25 Sep 2026 02:44:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790318659;
+	 x=1790405059; bh=NaZmI7t4xspdCcSwZ61TEkj8dOh5uZ/p24PV+ZMnDZw=; b=
+	Nu0oj7UlIMonbzdFuiOnXEWPF2hJYzyzOAljnTNeALWZYE+crT5NlZVumdUphWuo
+	RZfkszIAbYJ63RItV/vEeOiQ74DLVVtT9yETf+2AJF3Il3Eex3n0xgcWnaeuY6cY
+	6wAQ652I4qv5mzSSgasKwoKYU+wCzLh52vxBQtMU0A1NGLzTkU08uoOOv1YJHDNS
+	ckaCEp+UHTtrcaBH6hQjxny3jF7C9TpRGj0uTrpkGWUCUr66kKW6kP3H8y7Ud+l1
+	gwVry7mP+a34dtogloyKtXCbn8Yshbn9oEBHJaRjbb4wzCv636+Ld2fSI4+wZHCL
+	bp3lDOJZ7vw0Y/KnzuS3FQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790318659; x=
+	1790405059; bh=NaZmI7t4xspdCcSwZ61TEkj8dOh5uZ/p24PV+ZMnDZw=; b=B
+	gM0Gyvv3PiGDCIXQOHuxl6hJHi3qhgh7HkwPgl/OcTXEjOB3+UqitNM84mISi+iz
+	+ycfiYljhdmWBwO0wKZRXBfXuBfOqTioznIm+HWkfsKX23zU2Sb00pQljzDUbuIr
+	HkCvLt+gVhdFM5OfjBUcWNpyOT7+RVLygdng5266IoTu+8jNHrxCxDIzdsBEBvPw
+	++iA2YoJUtZuy7QvTTU1Uv+PgEFSueGgJvqQzKnpBprx9voPJ3rNvJQFKBk96l2m
+	O0NqblZtGOUxFcZGNEIVKtIRSuIVTPDsCyZDqC1Ue/3ZAE0DCEy27p98K+Oq1l3t
+	kwmxWfaZ1uuOee0Vrj96Q==
+X-ME-Sender: <xms:Phi2apPO9ujYSIDasbhJpnMTzke4qSpbwvrwzhlkXuIAI7-cnSWZfw>
+    <xme:Phi2amzawLOHn6D_TcxFB_sryNZBvDNGlXG3Mk5xGBUhjGYtjqB5YZpcBGi2Vvxu4
+    LO4jainLSHlBfr9xfRwMoKueRag02HeC2zWkT5k5Me375Lln4hJE4Xm>
+X-ME-Proxy-Cause: dmFkZTFwSDqkQ+iCgv9bfoZ7OnGDv2/E32uPE8Fd0Y8/G3hqdMfXKGBRJsqwYtMQUVYQrL
+    6rBdD5WBkmP95rwBjb56UCQmEFVpH1MQeNf2EH79A9tcFirxDEH49FPSDtgesI6qTlZLhS
+    FyGt8jwZs6/BRCK8WQBtj8/8wSniM5z0sAeYIZUw6RfTL0VgIo3U3fygtLYZE95pxCSHFZ
+    WepR8wEVKtPNAYRuRFUV+Y6YLWfdH1/Sqbu3qA9d12FobAwCl+aIFvcISyJveD7NAd69ne
+    nat+mzAMqvQmRT39Um5yv7DBEV4FS8+RYnZbN6r0+WRL47rc70az+oyh1zU2Ychr2GGWJK
+    u2fZydkW07nhk+soJMbSuvqR99kgSdHxX+7M/qJVrV5nxIlqC/RPoPvuKCMjyhYck5Mn+f
+    AdFbaAQW7BZ/q/bJBeQ9EqwX0ccvLKpZIf0UH39rOJ8ygTbhJoyyJz7XCaowgaxqDiq2/t
+    d7BY1jleB6/ow+3+ojRHL8gX24SKUACYZjIQrd7G0Brdt9XWe0nPXJMcfi9IIQWoiFdlP5
+    UsrXZxRyK7FVGTK3USyOhdqLn7j9uBACH1EQaZAZnz0Wxhmaz8p7Rx9+/rfD741yv1TZ5H
+    xDqojH1YmlZuRqBLUIoKWOM7MzgbFiWpplx5yWj8NVeSv+K0ybsfoQUp/sgQ
+X-ME-Proxy: <xmx:QBi2aks9cVmtVVgDWOpZQLMYJnnq0WiDCmfwfRCxnKtd462F6IWytw>
+    <xmx:QBi2akh84Y1eWIqTMNJITEkMXmXRjN7zw_8ZM-RSgwQZXQSLDngT3Q>
+    <xmx:QBi2aqZyKF1u83uvY6x5VtDegQdByG0waYvUbau_-OqIjkhMPjJFWg>
+    <xmx:QBi2ajZsRH8i_I6LnZImUEKiEH8hyvZa7XSe454pHywC3zynHKSWFA>
+    <xmx:Qxi2aoPDxdGsEJ87ytSqbbO4qDTPCBr6tYWu0Df0M_3PB94lWMJwcP_a>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 7288232A0087; Fri, 25 Sep 2026 02:44:14 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924091203.198225-5-parri.andrea@gmail.com>
+X-ThreadId: Am_z2EeL-WEB
+Date: Fri, 25 Sep 2026 08:43:54 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Dan Carpenter" <error27@gmail.com>, oe-kbuild@lists.linux.dev
+Cc: "kernel test robot" <lkp@intel.com>, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, "Juergen Gross" <jgross@suse.com>,
+ xen-devel@lists.xenproject.org,
+ "Stefano Stabellini" <sstabellini@kernel.org>,
+ "Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>
+Message-Id: <94cbe491-1b32-47ec-a9b5-bed69bc4d52c@app.fastmail.com>
+In-Reply-To: <202609241805.VsLzGPLn-lkp@intel.com>
+References: <202609241805.VsLzGPLn-lkp@intel.com>
+Subject: Re: drivers/xen/gntdev.c:817 gntdev_get_page() warn: mask and shift to zero:
+ expr='(addr & ~(~((1 << 12) - 1))) >> 12'
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 11:11:54AM +0200, Andrea Parri wrote:
-> iomap_dio_bio_iter() falls through to the sub-block tail zeroing when
-> the data bio submission fails, so that the rest of the block is still
-> zeroed and stale data is not exposed.  The zeroing result was assigned
-> to ret, which overwrote the submission error with the successful
-> zeroing result (zero) and the failed write was reported as success.
-> 
-> iomap_dio_zero() can only return an error from a can't-happen
-> WARN_ON_ONCE() (nr_vecs exceeding BIO_MAX_VECS, which the existing
-> comment there says "shall never be reached" for any in-tree
-> filesystem), so it isn't a real runtime failure worth reporting to
-> userspace, let alone one worth losing the actual submission error for.
+On Thu, Sep 24, 2026, at 21:39, Dan Carpenter wrote:
 
-I initially did not have a return value for this function but later I
-had to add it based on comments. But I missed the return value being
-overwritten.
+>    489                          return -EFAULT;
+>    490                  break;
+>    491          case 2:
+>    492                  if (copy_from_user(&m, udata, sizeof(struct 
+> privcmd_mmapbatch_v2)))
+>    493                          return -EFAULT;
+>    494                  /* Returns per-frame error code in m.err. */
+>    495                  if (!access_ok(m.err, m.num * (sizeof(*m.err))))
+>                                               ^^^^^^^^^^^^^^^^^^^^^^^
+> These integer overflow bugs are from 2012, but I guess your patch 
+> exposed
+> the arm32 build to the zero day bot.  The bugs only affect 32bit 
+> systems.
 
-> Make iomap_dio_zero() return void and drop the error handling at both
-> call sites instead of threading the result through a separate
-> variable.
-> 
-> Fixes: 10553a91652d ("iomap: fix iomap_dio_zero() for fs bs > system page size")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> ---
+Right, the randconfig came up with an ARMv6 Xen build, which was not
+possible before my patch. I'm sure this was reported for other configs
+before and just showed up as introduced by my patch here.
 
-Looks good except the comment from Christoph regarding the reformatting.
+This is clearly a bug but it does look harmless to me, as it only
+results in the userspace corrupting itself when passing invalid
+data.
 
-Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
-
---
-Pankaj
+      Arnd
