@@ -1,100 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B79C14ABE
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:20:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426C222126C;
+	Fri, 25 Sep 2026 01:22:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790299221; cv=none; b=IUvvg/j2t0akANhHwM+IztWzMVgL1hDeC6iKFDI022u4AJVSIFnfrXThS4m90HaFkh4iMaPJL2+Eg2zUajrJ10ltEBUgPG2lxVEBYqpRH1jAy1+WipfzNt/mK7w8tnOjfXcXDxj4uKwe3AfZJbTq3M08VwQcRbiU2ZIqWmqtqNY=
+	t=1790299341; cv=none; b=ju9itEfzu6NC9mT428AebjlB4NTEDSvNrxCQXu4+KPBmHUMEW+J22z3sY8hLUNP+eX3OSGYfgDgnUvv40pLPIqpl3PD4by0QslMw8W0qpnjTSfSl47duczglgig8G7SqyfXZYqrlvhTahd8RBQ7U1gm3eWiDcUaMLzn4XPGuLow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790299221; c=relaxed/simple;
-	bh=MXTKsI2Rsvq9x6jxxmZAAixjI3Oi6YwBiX+NqIKH+Ic=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o64Wz+b/M4wvjxrdism4RPrP8gQh3m+JJdJ3T6gfH9SiiWtdgTVvaGMIkd5/rAMalny/Gglz3pcH9mHq8+MDiL1Nd2YHKtnAFNSKimjNrTpbvg1sq8tilMshu9pqZ05YxvjxuqmvZhcHtdYhsQvqArvFDCO8PH42LPKoJs4qfTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cm52eBOE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790299341; c=relaxed/simple;
+	bh=IHOG16fhnpeS2lbMtLrMD9Kcx6EOoKekV4HrKJuApSQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Xtb/frxobldgwRTMaCNYwCtdHqZwZOarKn2muIKpW9LjW7pQGHo+sj6YzO1WkdXrp5LJDT36zdWkdCUpuTYjOeoKRwBKY1X84NyjwVGIS2MLjXBWumPCtqY6cdLQYWMX4Wu0qk9l3zn4eDPqSVIub7m0FZGEwEAdeqSwpZPFziI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P9PY1Qfp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cm52eBOE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0EB81F0089E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:20:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P9PY1Qfp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1197C1F000FF;
+	Fri, 25 Sep 2026 01:22:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790299219;
-	bh=MXTKsI2Rsvq9x6jxxmZAAixjI3Oi6YwBiX+NqIKH+Ic=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cm52eBOEOJyH7FvFAuC+pcmxCDoa5HbOoVxLQYrg/lSVdMMvHPGEmpg3ysTiKhuAn
-	 zcOKVc2kQyEQ+i5wXn/NbKzSPTkIhl1V7yJKi1kXsnttWQ9mw0RyKgr/ga2s/43R8q
-	 cT9IYsS59y9b6pSWqOKy6dFKZhB2ilO/kj9aBY578FnxaWRwEcl/yRbl6jVsohfuyE
-	 1d524GBrPFZ1pgSgjmuQdoepwcaMAUvzYuODLSz54RoagXXFAJFv9ekniaYYZ5sYUo
-	 k/jwBUQwZ0bXXKUA99VtKfoDou9RCOzK0HZXLCUuj+tvvETvq4ynIAPWG+ySqtN3mJ
-	 90oWGINpNMqCQ==
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aa8d882so607796d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 18:20:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzCeOxLsqWzyyru6+EUuBpyBHsFpqOd0MCmZe2ak6heRcjTQNVuqaUf4nQ5jQnLx0bU7FyptYdR/5wr27E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkTUjZaxzl9GshmGbcTEHzGXfFLfVAhzr0ZBbpdwR0yTRuTKbF
-	k4wejab0L33jRc6kbUoFVcaJrmEs9HFV0zokcnAcgcED9e9zFurYAFeJu3wL85Dg6RFe9nOiO81
-	L4oPQFnsLtQMd18W3il3rECoBxaF1TmO2DX+W9OJABQ==
-X-Received: by 2002:a05:690e:1243:b0:672:a52c:daf9 with SMTP id
- 956f58d0204a3-672ed5799f7mr2394820d50.108.1790299218900; Thu, 24 Sep 2026
- 18:20:18 -0700 (PDT)
+	s=k20260515; t=1790299339;
+	bh=ZjNiNhTLnTtx74UjD4snFKIjvztkIw+w9+n/Iof6W6k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=P9PY1Qfp1Nos6m4zLJl1lF/xYaRR5gAPZ0LPl2cMoeU04tL0Gwte3z0EMSgrwvhGk
+	 2aHS2iPAKjSz0Nho5osceBpZ8VK1HsnxOP72b2hREiqkrTzWhs7fEIJAZPTAqSi2wi
+	 l+4W+aB7JkouI2/9mEzN5uP10H5n1/XegdKnl6BIXe5FsZj7GHIyKyaL7yHEv/QzdI
+	 Er+Qd0NMhQ1fycBxdRZGZIMbaxKiQn6TzCvX+ad4IlIP6JcxysdZzQqX+E2Y900bZO
+	 exF4/gQ0dox5rKa4vX32Gdxnu50PIoc+n/1n/oky2cxUEXlFCIJWlmd4+ob2F2tt04
+	 VTsz/9VaonV6g==
+Subject: Re: [PATCH net v10 3/4] net: phy: take the interrupt back from the
+ bus on detach
+From: netdev-bot+sashiko@kernel.org
+To: f@lex.la
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, andrew+netdev@lunn.ch,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ olteanv@gmail.com, Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
+ steve.glendinning@shawell.net, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 01:22:18 +0000
+Message-ID: <179029933858.2160803.12630945851451903090@kernel.org>
+In-Reply-To: <20260922131955.4175785-4-f@lex.la>
+References: <20260922131955.4175785-4-f@lex.la>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918180241.3424851-1-nphamcs@gmail.com> <20260918180241.3424851-2-nphamcs@gmail.com>
- <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
- <CAKEwX=OP3Gb9sVOvch+p4j7quzgy-rUY=UTZau5ztMj7heJJoA@mail.gmail.com>
- <CACePvbVQsHXt4=+qfKz-KTar9CG+3OiAfLd1EZgnRE-1gyoKOQ@mail.gmail.com> <12541da81f59db27af46096db8da5d425135a162.camel@surriel.com>
-In-Reply-To: <12541da81f59db27af46096db8da5d425135a162.camel@surriel.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Thu, 24 Sep 2026 15:20:08 -1000
-X-Gmail-Original-Message-ID: <CACePvbWMd+SVgriqB=ZU=kmAL80kc+iJ5x4TMc3=gn7py4Ly7g@mail.gmail.com>
-X-Gm-Features: AclHuK9gGTk5UE8ppsRyrlKYwHfPhyGpjyyw313XzdHKkR1g0LFZou0vHIdSdx8
-Message-ID: <CACePvbWMd+SVgriqB=ZU=kmAL80kc+iJ5x4TMc3=gn7py4Ly7g@mail.gmail.com>
-Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
-To: Rik van Riel <riel@surriel.com>
-Cc: Nhat Pham <nphamcs@gmail.com>, akpm@linux-foundation.org, kasong@tencent.com, 
-	hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
-	shakeel.butt@linux.dev, yosry@kernel.org, david@kernel.org, 
-	muchun.song@linux.dev, shikemeng@huaweicloud.com, baoquan.he@linux.dev, 
-	baohua@kernel.org, youngjun.park@lge.com, chengming.zhou@linux.dev, 
-	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
-	surenb@google.com, qi.zheng@linux.dev, axelrasmussen@google.com, 
-	yuanchu@google.com, weixugc@google.com, gourry@gourry.net, 
-	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
-	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
-	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	cgroups@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 24, 2026 at 3:15=E2=80=AFPM Rik van Riel <riel@surriel.com> wro=
-te:
->
-> On Thu, 2026-09-24 at 14:43 -1000, Chris Li wrote:
-> > On Thu, Sep 24, 2026 at 6:20=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> w=
-rote:
-> > >
-> >
-> > > It is needed because vswap *is* a special device, with its own
-> > > requirements. If you don't special case-it, you'd get undesirable
-> > > behaviors.
-> >
-> > Ack, that is why I am against making it a special device. That is the
-> > whole idea behind xswap. It is just normal swap device implemented
-> > via
-> > swap_ops just like ext4 is a file system implemnet on top of VFS.
->
-> The filesystem layer is relatively clean because
-> it has a VFS.
->
-> Are you saying it is time we have a similar
-> abstraction layer on the swap side?
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Yes, you understand me well. The swap side VFS already started as
-swap_ops. I give a LSF/MM talk on it as well. It is already cleaning
-up some ZRAM special cases in the block layer. That is what xswap is
-building on top of.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Chris
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The restore added to phy_detach()
+  (drivers/net/phy/phy_device.c:1967-1971) is keyed on…
+- [Low] Concern as filed: the new store in phy_detach()
+  (phy_device.c:1967-1971) is gated only by phydev->is_genphy_driven…
+
+--
+
+net: phy: take the interrupt back from the bus on detach
+
+phy_probe() overwrites phydev->irq with PHY_POLL when the bound driver has
+no interrupt support, and nothing restored it, so a PHY that first gets the
+generic driver keeps polling after its real driver binds. The patch restores
+phydev->irq from mdiobus->irq[] in phy_detach(), before
+device_release_driver(), gated on phydev->is_genphy_driven.
+
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 94b2e85e00a37..a9c71a2861186 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -1965,6 +1965,8 @@ void phy_detach(struct phy_device *phydev)
+>  	 * real driver could be loaded
+>  	 */
+>  	if (phydev->is_genphy_driven) {
+> +		/* The release below lets phy_probe() write this field. */
+> +		phydev->irq = phydev->mdio.bus->irq[phydev->mdio.addr];
+
+[Severity: Medium]
+Is the restore complete if it is placed here rather than next to the write
+it undoes?
+
+The store being undone is in phy_probe() and does not look at
+is_genphy_driven at all:
+
+drivers/net/phy/phy_device.c:phy_probe() {
+	/* Disable the interrupt if the PHY doesn't support it
+	 * but the interrupt is still a valid one
+	 */
+	if (!phy_drv_supports_irq(phydrv) && phy_interrupt_is_valid(phydev))
+		phydev->irq = PHY_POLL;
+	...
+}
+
+So it runs for whatever driver the driver core binds, including a real PHY
+driver without interrupt support. The matching unbind goes
+device_release_driver() -> phy_remove(), and phy_remove() contains no
+phydev->irq write:
+
+drivers/net/phy/phy_device.c:phy_remove() {
+	...
+	if (phydev->drv && phydev->drv->remove)
+		phydev->drv->remove(phydev);
+
+	/* Assert the reset signal */
+	phy_device_reset(phydev, 1);
+
+	phydev->drv = NULL;
+
+	return 0;
+}
+
+Two paths then still end with PHY_POLL and no restore site:
+
+- genphy_driver is registered without suppress_bind_attrs, so a bind through
+  /sys/bus/mdio_bus/drivers/Generic PHY/bind leaves is_genphy_driven at 0,
+  and the unbind reaches phy_remove() only;
+- rmmod of an interrupt-less PHY driver, after which a later driver that does
+  support interrupts inherits PHY_POLL while mdiobus->irq[addr] still holds
+  the number.
+
+Would saving the pre-substitution value in phy_probe() and restoring it in
+phy_remove() cover those as well as the path this patch covers?
+
+For the record, the sibling gap on the error_module_put label in
+phy_attach_direct() is closed by the later patch in this series, "net: phy:
+restore the interrupt when the generic bind cycle fails", which adds the same
+store there. The phy_remove() and sysfs-unbind paths above are still
+uncovered at the end of the series.
+
+[Severity: Low]
+Can is_genphy_driven be stale at this point?
+
+There are only three writes of that flag, one set in phy_attach_direct() and
+two clears, one on the error_module_put label and the one added just below
+this store. phy_remove() does not clear it. After a sysfs unbind of "Generic
+PHY" on an attached phydev the flag stays 1 while phydev->mdio.dev.driver is
+NULL, so a subsequent bind of a real driver followed by phy_detach() takes
+this branch and writes mdiobus->irq[addr] over the PHY_POLL that phy_probe()
+wrote on purpose for a driver without interrupt support.
+
+The effect looks limited: both phy_request_interrupt() call sites,
+phy_connect_direct() and phylink_bringup_phy(), run right after
+phy_attach_direct(), which re-applies the same substitution against the
+driver bound at that moment:
+
+drivers/net/phy/phy_device.c:phy_attach_direct() {
+	...
+	if (!phy_drv_supports_irq(phydev->drv) && phy_interrupt_is_valid(phydev))
+		phydev->irq = PHY_POLL;
+	...
+}
+
+so the wrong value only lives in the detached window. Would it still be
+worth clearing is_genphy_driven from phy_remove() so the flag tracks the
+binding it names?
+
+The commit message says of the placement before device_release_driver():
+
+    That is ordering, not exclusion: nothing on this side holds the device
+    lock.
+
+With a stale flag, is phy_probe() on another CPU also a writer of this field
+before device_release_driver() is reached, rather than only after it?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922131955.4175785-1-f%40lex.la
