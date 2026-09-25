@@ -1,176 +1,300 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB08C36655C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632253EC2FF
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367906; cv=none; b=cgw8o3nB4V1o5cy1j3Qw42GpqrI+FIvGyjILudgIa+O7MC/TUQK7LdC8H2YCvzyT++Eg316LVYFlfsVCB2S07uoQ0+HfERcPMhSBzdBbsUAHv9BbPq+oERfUQ3EGD1hF80Jx4WwxluLQ29GaXyX2E99gg2zjbipfyR2ZDpkt76Y=
+	t=1790367922; cv=none; b=ATceSRyPdwkWX04e61pp1OkKHwuDRgeongc59k0vXcMgIgeBjGcJgc+FvukHKbTrs4Rgcn2pQWsYcPH6R9/8Wy3tjZkuPSoKpXMJeDcoFCi28LmSYGcrJ6wYF/OMHPFGJveFQ+8bSf77JkQ0NFdMEMOcUiY5IoOpgUOz6DOuDIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367906; c=relaxed/simple;
-	bh=ONfzlMwZUmt9iQP0GdhJWz6HRCumIiMG2gc58uPgNpM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sJyqYK7KLpjdgOIifjp5U/0+UjAh09+MfaoUjG/Rk7e8hDQ8vsIUEedK5QZzci6/rsXEh9F0oi8YRigcFgQwOqoxJs9ivCrzu1Q/SDAV3pTIJn04LQ/idK2O8cic+QVEBzfAUNwS7TB59SEW2Wypy5z+O5tHHGpPJfEsWiDdJnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGn3yQGo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790367922; c=relaxed/simple;
+	bh=g0hVY7HOFVV23IEgOnRtUk6IT6oLr3dTzb/jFdwAcuk=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=TmKbkJ1ELvi3NXdI54FXpsjpkGvYtxzfTG+pcbM5izNjrWlpmVGHR72dH5s5iFHQIFINH9av1Yqp6ROYxk3ynOpi0YwFbgVSs1m9msdFH1ZvyIVWgXHYDrenIQ4eeST2vJf9IJpIyUVPmtynqARw5KTurOedVpErVl6eaElD5RA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R540Njkg; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGn3yQGo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77F141F0089C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:25:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790367903;
-	bh=WNQees8/ehGot81631VV5fQVbOPJSRm59MHRcSjht10=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jGn3yQGookNeaQk/WwM3h8B906jLy4vTACkjht1SDqGucEZ9thWqH7V92mT+lsTP6
-	 zHE0Ds5BpIqcfevi7utJZifH8N483Xj80nyzIOhOwwwwjWAeoCLbX20hFFxN37h+Ja
-	 qqIdh6kQ0sTBREyfvNINbQGViPL44H5GUuXxjVHaBc6Eh1LVdQXcuMasbqKMsURgTc
-	 LRPAx2NkvzFRS72WJ3FubNCldpt7kIheGJSp0J3l0z7ju377cn0P9iPYUvriSpW23F
-	 6rzleVti+v8AptG2Q6DyRdK2v2aRSp+gflygpQ+VzN2OSxLKhCxiUM4InQmqdCNGAZ
-	 ScAibf+CxO+dw==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d47b5987so1239200e87.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:25:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwz8IdFECvJpSIfUSQOHoTmjZxkd8Es8ZqIrSkIiLuneyBpDCAMva2poE6MRLghDF0lQ8TvHkfVZVMhcSM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwh7Cq7S8e6qNkpxVMZWYWXU/mJEcgW/WI3RjzuWemUT1BhOAh
-	hlDr3Pfl9glZjV1NsRfj4iDxuMDfAxCYnN9vY5M9eHpB648H9CI7yc/91X9Hh6lxI9OqPlQD0y/
-	cuQkwuu9teNWhuh0iWKIAqqF7uYqwwx4=
-X-Received: by 2002:a05:6512:b1a:b0:5b8:ed7d:8b42 with SMTP id
- 2adb3069b0e04-5b8ed7d8bc7mr577236e87.39.1790367901803; Fri, 25 Sep 2026
- 13:25:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R540Njkg"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so14246005e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:25:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790367918; x=1790972718; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+EhjDRqgMFuOqk3fKJz4pK2LGkkC9j6uC32F2tKgXCY=;
+        b=R540NjkgeNbkpc9c9U4kPjyO3+/PUKQdesIjGrJj+jQ+h/sLZTiVvokQyZwq7cxBXl
+         11XoYlhUoPLE8OUBUnzujCnDIblYzhePct3DC5LrroBGOFkmAm4fpBPIAjmEEmsJCzmi
+         1uqLFbYroUJ7NX7ngJC2nwdZ1fQDszXq9vfv7K/IfZslNTYTpRIQpF+b+b+qBBeI4D9c
+         pi0lPE3Xbc8D8RH86ZUrt71x3hK/GtghCRdBUMzXP08oEBZLX0Z5vYNez+Nrjm7X8/Hq
+         ljYYibjezmxEJ/U9KLCXOWC0FX0tGJWPRHxZhlVYXPbs/av0nNe0B9Khiqgtqrfy38/D
+         +nhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790367918; x=1790972718;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+EhjDRqgMFuOqk3fKJz4pK2LGkkC9j6uC32F2tKgXCY=;
+        b=sux+XsbqmYUlPAKi1PSk3fB5xf/yDvEMqsTz3VUr6htaVIioRE0KqzGFNtOrXqop6S
+         4jOs10LdHKMe+lo+gBPe9WtuT9mnWn8+6eZWz86pKfqqNyW//dtIZEWJKX/e93kl5JPq
+         +XT4URPeuQi3JqT/nX8+VRKXDHrvuEIzTW9OI68kgH/PYC5vDawBha0XQKPTYY1+rBAA
+         V5hKl68NaQz9vIxf1++fA/vZqKnFPnuyFLdGVLMbYfz3hoN4baEqyU/KVEh7V4sQppM5
+         BMpnl8efkS4Q0DRmJWVVS36CMIDqtb7641Q18wyms0Lu8kHZ2JDPrJWdEst7YkPv5IKn
+         wwog==
+X-Forwarded-Encrypted: i=1; AKwUvBxA6O8iHLFyaTTDmDpW6OdsQcRUzczX6DeSrSi7T7f3E8jsO1Vz4on0E/jEQujfa7Z3SBrBrzrD/TNm9pc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaJrPwKxQg6R/IXPEaA8d8KOomrg6f4M7hUOGmRd9oP/2FV1Gc
+	TWSeHlvbvIZiVr8sHNFmPJDv0xB5aFLg1Tf7SCX57dEmsvPUQRwAgCGw
+X-Gm-Gg: AYBFou1H6UOuZR58Q5gMKDPLZcyNah0j2ZZYYSENv7nUTMMch8Q1ds5ikHUoZSDCK1K
+	YIVmCbQbs52Y3GgAeHMtkT5r5JXw1FXPufaaBwAuIRzUf6jEh2TiEktlzIM6OGVgJWqS9FW9CoJ
+	BQVoQa4qP7hYgVrbigYCN+XZsRcVcT6oSWaD4nHhNaXHnVKbUgerJNPH9OHv1Z+UPjxKRo6RSiq
+	aSf0KswiLJFyyKZ9hmFlz/Idd2l5m8i7FLXvd/2eeXYJwMkskY6m0Fa1N7Wwf3XZ6tMloA4sSvH
+	ac35I6cBIKGilyD4seBOB5wsyJiCDsD6otG5KjUyDWw5eAkPuYBhq+q1qEmwgcN5rL9hF2+iNy5
+	D82cpcaHLP2DNuy4Tm8fAriDsK6J0X8Al0MRk3VD9R5LNJYrp6xFR7jw9SQ6LbOvl5t0MlAp+No
+	Qd5WieffZWpHYX4ouxlr8iLIb+NF1vcRP+iGIfNfqwmxTCupTxKStaRA+zTLzT+ouengsVMPbmV
+	hiK08eZwc/bNhaCCdfrKwDUK9Z5lQ==
+X-Received: by 2002:a05:600c:4745:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-49fe66abd7fmr126919825e9.1.1790367918415;
+        Fri, 25 Sep 2026 13:25:18 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([2a02:b027:8010:c8cb:8c00:ceff:fe09:4e05])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef6186a6sm73781625e9.4.2026.09.25.13.25.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 13:25:17 -0700 (PDT)
+Date: Fri, 25 Sep 2026 22:25:13 +0200
+From: Denis Benato <benato.denis96@gmail.com>
+To: Bartu Alev <bartualev@gmail.com>, linux-kernel@vger.kernel.org
+CC: platform-driver-x86@vger.kernel.org, Hans de Goede <hansg@kernel.org>,
+ =?ISO-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Luke D . Jones" <luke@ljones.dev>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v1=5D_platform/x86=3A_asus-wmi=3A?=
+ =?US-ASCII?Q?_add_TUF_keyboard_RGB_readback_support?=
+User-Agent: Thunderbird for Android
+In-Reply-To: <20260925200744.129714-1-bartualev@gmail.com>
+References: <20260925200744.129714-1-bartualev@gmail.com>
+Message-ID: <27BF6C3B-C341-4122-B1E9-F540345C29F6@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922124121.3426219-1-zhenglifeng1@huawei.com>
-In-Reply-To: <20260922124121.3426219-1-zhenglifeng1@huawei.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 25 Sep 2026 22:23:24 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jko6SjZ2642DryhSMZyPgatvG442m7y1E8J7TcxvtOKA@mail.gmail.com>
-X-Gm-Features: AclHuK9frkW9y83b_87zzoPb_5_iwomW9wqA2MKboLGqOzwuRlqnR5CdgiySfqg
-Message-ID: <CAJZ5v0jko6SjZ2642DryhSMZyPgatvG442m7y1E8J7TcxvtOKA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/8] ACPI: CPPC: Resource Priority Register support and
- sysfs interface
-To: Lifeng Zheng <zhenglifeng1@huawei.com>, Christian Loehle <christian.loehle@arm.com>
-Cc: viresh.kumar@linaro.org, ionela.voinescu@arm.com, zhanjie9@hisilicon.com, 
-	pierre.gondois@arm.com, sumitg@nvidia.com, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, linuxarm@huawei.com, 
-	yubowen8@huawei.com, zhangpengjie2@huawei.com, wangzhi12@huawei.com, 
-	linhongye@h-partners.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-+Christian
+Il 25 settembre 2026 22:07:44 CEST, Bartu Alev <bartualev@gmail=2Ecom> ha s=
+critto:
+>TUF Gaming laptops support setting keyboard RGB lighting modes and
+>power states via kbd_rgb_mode and kbd_rgb_state, but both attributes
+>are currently write-only (DEVICE_ATTR_WO)=2E Consequently, userspace
+>utilities have no way to query the active hardware configuration=2E
+>
+>Add readback support by querying the TUF status device ID 0x0010005B
+>through the WMI DSTS method=2E On supported platforms, this evaluates the
+>ACPI DSDT method EC0=2EKBLS(), which returns a 16-byte status buffer
+>containing the active lighting mode, RGB color channels, effect speed,
+>and power-state bitmask=2E
+>
+>Introduce kbd_rgb_read_status() to retrieve and validate the KBLS
+>buffer=2E Convert kbd_rgb_mode and kbd_rgb_state to DEVICE_ATTR_RW=2E Map=
+ the
+>hardware speed codes (0xe1, 0xeb, 0xf5) to their sysfs indices (0, 1, 2)=
+=2E
+>Since the status buffer reports the active state rather than an action
+>command, emit a synthetic leading '1' to maintain format symmetry with
+>the input format expected by userspace=2E
+>
 
-Christian, can you have a look at this, please?
+1 or 0 is for immediate vs save to flash=2E=2E=2E Which one of the two is =
+the reported one?
 
-On Tue, Sep 22, 2026 at 2:43=E2=80=AFPM Lifeng Zheng <zhenglifeng1@huawei.c=
-om> wrote:
+>Additionally, relabel the fourth field in kbd_rgb_state_index from
+>"keyboard" to "shutdown"=2E When the interface was originally introduced,
+>the purpose of BIT(7) was unknown and noted as having no effect=2E In
+>hardware, this bit gates whether the keyboard LED remains powered during
+>the ACPI S5 sequence=2E Relabeling it accurately reflects its
+>actual hardware behavior=2E
 >
-> This series implements support for the CPPC v4 Resource Priority Register
-> mechanism defined in ACPI 6.6, Section 8.4.6.1.2.7, and exposes it to
-> userspace via sysfs.
+
+Good finding=2E
+
+This however goes in its own=2Epatch with an appropriate Fixes tag=2E
+
+
+>Assisted-by: GLM-5=2E3
+>Signed-off-by: Bartu Alev <bartualev@gmail=2Ecom>
+>---
+>- Tested on ASUS TUF Gaming A15 (FA507NV) running Linux 7=2E2=2E6
 >
-> Resource Priority allows OSPM to control the relative priority among
-> processors for shared resources. OSPM can utilize these sysfs interfaces
-> to configure resource priorities, allowing resources to be preferentially
-> allocated to more important tasks.
+> drivers/platform/x86/asus-wmi=2Ec            | 87 ++++++++++++++++++++--
+> include/linux/platform_data/x86/asus-wmi=2Eh |  3 +
+> 2 files changed, 84 insertions(+), 6 deletions(-)
 >
-> The controlled resource types include processor boost, throttle, L2 cache=
-,
-> L3 cache, and memory bandwidth.  Each Resource Priority group consists of=
-:
->
->   - CONTROLLED_RESOURCES: which resource types the group affects
->   - ENABLE_VALUE / ENABLE_REGISTER: enable/disable the group
->   - PRIORITY_COUNT / PRIORITY_REGISTER: read/write the priority level
->
-> The patch series is organized in three parts:
->
->   - patches 1-4 extend the CPPC data structures and _CPC parser to handle
->     Package-type entries and parse Resource Priority sub-packages into
->     structured descriptors.
->
->   - patches 5-7 refactor existing register I/O helpers to support direct
->     register access and add accessor functions for Resource Priority
->     attributes (enable, priority count, priority value).
->
->   - patch 8 creates a "resource_priority" sysfs hierarchy under each
->     cpufreq policy to expose the Resource Priority attributes to userspac=
-e.
->
-> Changelog:
-> v4:
->  - Patch 7: Set *num_resources to 0 when controlled resources number
->    invalid in cppc_get_resource_priority_resources(), therefore, the call=
-er
->    will not read the unassigned `resources` pointer.
->  - Patch 8: Remove kfree() from the error path of
->    cppc_create_res_prio_sysfs() because cppc_res_prio_release() will do i=
-t.
->
-> v3:
->  - Patch 2: Add the (i - 2) =3D=3D RESOURCE_PRIORITY condition back to en=
-sure
->    the new code behaves the same as the original.
->  - Patch 4: Assign -ENODATA to ret when an unexpected ACPI_TYPE_PACKAGE
->    appears.
->  - Patch 5: Initialize the `optional` field of the remaining cpc_regs to
->    true so that they are treated as unsupported.
->  - Patch 8: Call cppc_cpufreq_cpu_fie_exit() and set perf to lowest_perf
->    when cppc_create_res_prio_sysfs() fails. Call kobject_put() and kfree(=
-)
->    when kobject_init_and_add() fails in cppc_create_res_prio_sysfs().
->  - Link: https://lore.kernel.org/all/20260812015217.74598-1-zhenglifeng1@=
-huawei.com/
->
-> v2:
->  - Patch 1: Revert changes to the CPC_SUPPORTED() macro.
->  - Link: https://lore.kernel.org/all/20260804085042.4118193-1-zhenglifeng=
-1@huawei.com/
->
-> v1:
->  - Link: https://lore.kernel.org/all/20260717024502.3520445-1-zhenglifeng=
-1@huawei.com/
->
-> ---
->
-> RFC: sysfs placement
->
-> The sysfs interface is currently placed under /sys/devices/system/cpu/cpu=
-freq/
-> (i.e. the cpufreq policy directory). I am unsure whether this is the best
-> location and would appreciate reviewer feedback.
->
-> The concern is that Resource Priority covers resource types beyond CPU
-> frequency control:
->
->   - PROCESSOR_BOOST, PROCESSOR_THROTTLE -- clearly CPU-frequency related
->   - L2_CACHE, L3_CACHE -- cache partitioning, not frequency
->   - MEMORY_BANDWIDTH -- memory QoS, not frequency
->
-> Placing the attributes under cpufreq makes sense for boost/throttle but
-> feels semantically wrong for cache and memory bandwidth resources.
->
-> I would appreciate feedback on whether cpufreq is the right home for
-> this interface, or whether a different location would be more appropriate=
-.
->
-> Lifeng Zheng (8):
->   ACPI: CPPC: Prepare cpc_register_resource for Package-type entries
->   ACPI: CPPC: Refactor element parsing into parse_cpc_element()
->   ACPI: CPPC: Refactor resource cleanup into free_reg_resource()
->   ACPI: CPPC: Parse Resource Priority Register entries from _CPC package
->   ACPI: CPPC: Store optional flag in cpc_register_resource
->   ACPI: CPPC: Factor out cpc_read_reg() and cpc_write_reg()
->   ACPI: CPPC: Add Resource Priority accessors
->   cpufreq: cppc: Expose Resource Priority attributes via sysfs
->
->  drivers/acpi/cppc_acpi.c       | 719 +++++++++++++++++++++++++++------
->  drivers/cpufreq/cppc_cpufreq.c | 281 ++++++++++++-
->  include/acpi/cppc_acpi.h       |  60 +++
->  3 files changed, 930 insertions(+), 130 deletions(-)
->
-> --
-> 2.33.0
->
->
+>diff --git a/drivers/platform/x86/asus-wmi=2Ec b/drivers/platform/x86/asu=
+s-wmi=2Ec
+>index a65090429ca7=2E=2E36eff5adac52 100644
+>--- a/drivers/platform/x86/asus-wmi=2Ec
+>+++ b/drivers/platform/x86/asus-wmi=2Ec
+>@@ -1046,7 +1046,58 @@ static ssize_t gpu_mux_mode_store(struct device *d=
+ev,
+> static DEVICE_ATTR_RW(gpu_mux_mode);
+> #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
+>=20
+>+static int kbd_rgb_read_status(u8 data[16])
+>+{
+>+	int err;
+>+
+>+	err =3D asus_wmi_evaluate_method_buf(ASUS_WMI_METHODID_DSTS,
+>+					   ASUS_WMI_DEVID_TUF_RGB_STATUS,
+>+					   0, data, 16);
+>+
+>+	if (err)
+>+		return err < 0 ? err : -ENODEV;
+>+
+>+	/* DUBF[0] is a constant 1 set by the AML: anything else is not KBLS */
+>+	if (data[0] !=3D 1)
+>+		return -ENODEV;
+>+
+>+	return 0;
+>+}
+>+
+> /* TUF Laptop Keyboard RGB Modes ***************************************=
+*******/
+>+static ssize_t kbd_rgb_mode_show(struct device *dev,
+>+				 struct device_attribute *attr,
+>+				 char *buf)
+>+{
+>+	u8 data[16] =3D {};
+>+	u32 speed;
+>+	int err;
+>+
+>+	err =3D kbd_rgb_read_status(data);
+>+	if (err)
+>+		return err;
+>+
+>+	/* Map hardware speed codes back to sysfs index:
+>+	 * 0xe1 -> 0 (slow), 0xeb -> 1 (normal), 0xf5 -> 2 (fast)
+>+	 */
+>+	switch (data[5]) {
+>+	case 0xe1:
+>+		speed =3D 0;
+>+		break;
+>+	case 0xeb:
+>+		speed =3D 1;
+>+		break;
+>+	case 0xf5:
+>+		speed =3D 2;
+>+		break;
+>+	default:
+>+		speed =3D 1;
+>+		break;
+>+	}
+>+
+>+	return sysfs_emit(buf, "1 %d %d %d %d %d\n",
+>+			  data[1], data[2], data[3], data[4], speed);
+>+}
+> static ssize_t kbd_rgb_mode_store(struct device *dev,
+> 				 struct device_attribute *attr,
+> 				 const char *buf, size_t count)
+>@@ -1099,7 +1150,7 @@ static ssize_t kbd_rgb_mode_store(struct device *de=
+v,
+>=20
+> 	return count;
+> }
+>-static DEVICE_ATTR_WO(kbd_rgb_mode);
+>+static DEVICE_ATTR_RW(kbd_rgb_mode);
+>=20
+> static DEVICE_STRING_ATTR_RO(kbd_rgb_mode_index, 0444,
+> 			     "cmd mode red green blue speed");
+>@@ -1115,14 +1166,38 @@ static const struct attribute_group kbd_rgb_mode_=
+group =3D {
+> };
+>=20
+> /* TUF Laptop Keyboard RGB State ***************************************=
+*******/
+>+static ssize_t kbd_rgb_state_show(struct device *dev,
+>+				  struct device_attribute *attr,
+>+				  char *buf)
+>+{
+>+	u8 data[16] =3D {};
+>+	u8 flags;
+>+	int err;
+>+
+>+	err =3D kbd_rgb_read_status(data);
+>+	if (err)
+>+		return err;
+>+
+>+	/*
+>+	 * data[6] power-state bitmask:
+>+	 * BIT(1) boot, BIT(3) awake, BIT(5) sleep, BIT(7) shutdown
+>+	 */
+>+	flags =3D data[6];
+>+
+>+	return sysfs_emit(buf, "1 %d %d %d %d\n",
+>+			  !!(flags & BIT(1)),
+>+			  !!(flags & BIT(3)),
+>+			  !!(flags & BIT(5)),
+>+			  !!(flags & BIT(7)));
+>+}
+> static ssize_t kbd_rgb_state_store(struct device *dev,
+> 				 struct device_attribute *attr,
+> 				 const char *buf, size_t count)
+> {
+>-	u32 flags, cmd, boot, awake, sleep, keyboard;
+>+	u32 flags, cmd, boot, awake, sleep, shutdown;
+> 	int err;
+>=20
+>-	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &keyboar=
+d) !=3D 5)
+>+	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &shutdow=
+n) !=3D 5)
+> 		return -EINVAL;
+>=20
+> 	if (cmd)
+>@@ -1135,7 +1210,7 @@ static ssize_t kbd_rgb_state_store(struct device *d=
+ev,
+> 		flags |=3D BIT(3);
+> 	if (sleep)
+> 		flags |=3D BIT(5);
+>-	if (keyboard)
+>+	if (shutdown)
+> 		flags |=3D BIT(7);
+>=20
+> 	/* 0xbd is the required default arg0 for the method=2E Nothing happens =
+otherwise */
+>@@ -1146,10 +1221,10 @@ static ssize_t kbd_rgb_state_store(struct device =
+*dev,
+>=20
+> 	return count;
+> }
+>-static DEVICE_ATTR_WO(kbd_rgb_state);
+>+static DEVICE_ATTR_RW(kbd_rgb_state);
+>=20
+> static DEVICE_STRING_ATTR_RO(kbd_rgb_state_index, 0444,
+>-			     "cmd boot awake sleep keyboard");
+>+			     "cmd boot awake sleep shutdown");
+>=20
+> static struct attribute *kbd_rgb_state_attrs[] =3D {
+> 	&dev_attr_kbd_rgb_state=2Eattr,
+>diff --git a/include/linux/platform_data/x86/asus-wmi=2Eh b/include/linux=
+/platform_data/x86/asus-wmi=2Eh
+>index b5ed8c83ace1=2E=2Ea6eb8f8cf159 100644
+>--- a/include/linux/platform_data/x86/asus-wmi=2Eh
+>+++ b/include/linux/platform_data/x86/asus-wmi=2Eh
+>@@ -161,6 +161,9 @@
+> /* TUF laptop RGB power/state */
+> #define ASUS_WMI_DEVID_TUF_RGB_STATE	0x00100057
+>=20
+>+/* TUF laptop RGB keyboard status */
+>+#define ASUS_WMI_DEVID_TUF_RGB_STATUS	0x0010005B
+
+State versus status=2E=2E=2E Uhm=2E=2E=2E
+
+>+
+> /* Bootup sound control */
+> #define ASUS_WMI_DEVID_BOOT_SOUND	0x00130022
+>=20
+
+Hi,
+
+Thanks for this!
