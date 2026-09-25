@@ -1,274 +1,304 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE85B3F86E6
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790359420; cv=none; b=apZsz+HhzIoiwWEenpDU5eK58+U3PArQ/sU8ImlhQmVC7mP46ScdABHGojZnejzkD447dsIS1Kfrsq3Au4tgFkRRb6+szB6Q2fBNcXFkD5Rom5kMXZq4XjlRRXtZ5ilEf6pqfG4+EFnvVRZTBYI/fuNcAblKVnXUSR1L4DKHe14=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790359420; c=relaxed/simple;
-	bh=9WMHF+OHSITVcxou8oXsCNs7bqvndQmUaAq4mexKulc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=odWgIOJPdUeWzk9Nz9CR0KSEo1FrVhpxhQW45jKY7BDg1C9OUF40IMyRs6oWrEQEOUVf7n1es+O/M70losZ4U+oiO7kql1/iIprDOZViBcU7nHZ80VOI5qqNKf/XPcXwGL6r8a9uXMhsxec8omGw827xKggZQO1X/0NeJgVb/TA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IYdRQgvf; arc=none smtp.client-ip=74.125.224.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90DE3C198A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:04:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790359485; cv=pass; b=I4w8B+1Z8lqeGI2DqEl6y7dSlSc7pDqU9Trp6OgSXt1JyN3hhOAFFdP4K9XW/3ecVPd1xZ54A/TqbOnEDVfcdZ4yHp8gKLqdYQCXknPK0Z3LTMSBR46QUUjWT//Gvua7Lry7Hoz+Yw3ncV4ZccrtxxdBxeDp9c2ux3YA17qWMJA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790359485; c=relaxed/simple;
+	bh=QEH8L5cDVVxNiTq6xVhREUG3v4qVPQmEXXMWF/9zco8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oulKMhzEFciKeeJtJ+Y63Ztpusas6j9cfj37NNLpMbV9vhouybdz9R7FY+X40f71+WNomJd887Rgsqhyghn/AdearkIh8M5plByUzx6S9dyODmUHBP9Kl+AO7ZVvEuys904BALT+lwFNs71cxvgGfhpryxOrXUtzqH20f80rPDE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MPkuGcz0; arc=pass smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IYdRQgvf"
-Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-67409747ac3so1075887d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:03:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MPkuGcz0"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dc83so955284f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:04:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790359482; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E3vRDMbt5oYdLtE2jtZXFeAOESBh8OISA2AP2kdNoa7qW9Xhm/NWFea1/HiQ96VMy9
+         ghDeu6JIIWEWNoPrn+02na9tqwBiOL3IKCr6juSWeR+Q61lLMwvQFbGwRbH46qc/+mf0
+         H5GVZpt+UM4gjiNwpl6FuL0LCGuPvn7HxEBUyVFlNpl9PgNEsyyFOpexXnUdE1RIj61t
+         8XlmeIzfLhLmVpdT0mezXujlzfGE20WMkTgeVa8U4a8bOXSDpKBAtjcACcl36catK3T0
+         SyKHQNGCe5sBgimZ1aGzUrxUYM261MfQWsJNU3Qxq031sW9OMMmrJAiOiz0BeVMGu92F
+         taPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vBI+n6R1FCbaNpcY2beRWPIJrzbCO758rgC3BSuPO/g=;
+        fh=oMXlED/bUmf08PWolAhkF6vikmELtdCleyYT5FnrisQ=;
+        b=Yscvho38cpKeaR3pmZoPmb92CIQbxWsxOXYB2tKTgVuuxvIHOYX2tMe0JnqpF4N1oI
+         fwVSe0aAovFqVglBSmio3a5S8WaVKAC8yW/toV3+w7bk5isJee/+m8R9ASy7hTrgUVSC
+         FmLsUP5263UjnpsMiMEGX9sD5NxCj7iQDsYAON9foLHSV8KctQ2d5PciJRmkI425ohks
+         h4ToT9H/zt+nGMq4rzMCLGgWAj6mfvdKh6pQv3Q+AYKkm77UklUbxVoeSP7vsF9CrMLd
+         i2y3KAp273us6bZ1eKQ3QF0309GAZP/5unhP47OQVoVaWRGCTkIel8ElVal0B3zp2HcW
+         OIRg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790359417; x=1790964217; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790359482; x=1790964282; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jQMqDoXS5hmMS94pm40dP6RGo8yiKpCUOJDdJtjp2gs=;
-        b=IYdRQgvfuMeOmvrkILgOhtEo6bJ4/rNTSPyK2vFOFc+eWWD20PR/TxxHTIMAgFjqZ5
-         ZswjzX8qhzMQ9dqrYHN7aWth4+pVDOF0inBoV9wO5pXUsNph5NLHgW9MVVONT+PfMmVR
-         qP7AbGgH9kFISF/uqhCeicA9DSDBrkJZBztEZhoambxx5GMT8tPkPSli+AHJFgR5mh/n
-         rWHa7ys7w2biFz0DRcMahrpaJ6uUMCHJaKo68fmXy8nuA6/jBjawu/zESfEo8AznwC8Y
-         x94hCmJKvqhUQawNt8MHWKikOeGO6n9fa61x+LfMC4xoFiQ5G4Zirmy6agu/rJJLjTjA
-         cMOg==
+        bh=vBI+n6R1FCbaNpcY2beRWPIJrzbCO758rgC3BSuPO/g=;
+        b=MPkuGcz0vLDQc2fb6kFEdZF9hKQ173BCZpK7mgdUD5eloYUxfn4x3O8v1Xz71sqFy3
+         pvulI2vzB57DaN43okv/1HzCeVRC5xq4Jp2Fc6BkqkHKt5dVIyt/8akpDmBDvbwq2K7j
+         IOBb3s7aHYI6pWt6Pv4UlwAYgPnmSz7Zm+VXp+BSK9G8aKyL5wnT2KgKbmgsXfKnP402
+         koWgmc284r6Vx719JWO+mUkHAIlq/PGdowxYFcDc5PGq6w6WsUmH1HlCIlFn7DS3XnYq
+         /uLfJugGMp+1jCMM7/tirzzFmi/Nc3N1A6anuAXXFt9swRUn1pZFHpkMjjAjN6NfkHkg
+         96Pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790359417; x=1790964217;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790359482; x=1790964282;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jQMqDoXS5hmMS94pm40dP6RGo8yiKpCUOJDdJtjp2gs=;
-        b=Q2p56IoOERA37Wbrbl4IS2yIgl0ReKkfkZiOV9B5aQmdc0/lNHhrQGsjRiXfu+XXmy
-         7ye8dGW22Cz494do4ggcmAsip0h8/2p2I+Yrg1bMoAHwmomGZjQs1uY3iDlS85jpXHGs
-         p7aAzbhejdVl4FLVCfP7cqHc/sTv8xIF+dNyHysXuKQuHxZBwiSDgS5qfKJEcqJj71Nv
-         nIqRWijR9U8mp9cbGDwsMIp6lWoHfLYdxpSQZ89k4AcRxiQX+R8QCGzR2+5OscHue9MB
-         Nbjm9eVV4X45FnkROr7N4MGMPWo6gvuvPK/Sag16JSqT6b6x24FTn4EhtbvdzNxouZDM
-         zGnw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbaGvqMiVMU5lyIWfFBx4OReJIBicXix1oyaq5oBJLNP9R/++uzMSoxFFYSh/VIs6O8LuFrsWxTOVx+G8=@vger.kernel.org
-X-Gm-Message-State: AFuF++myYE9cM585asXKq5JgpkV1zX4vBqB6mJNxK0Gfg5nRVNlzFXK+
-	qpJkzPKpu0gYZ+ulu+slZA6Ob158LrbtRa1413XkIex7XjQ3f2xBvhiy
-X-Gm-Gg: AYBFou1+xceemETES00PRYGc2p0SoNhyp/KFBY95usUlL71axtaSlzDBnmkh0oXYyUf
-	1GdosTwlgz3LiLNCC1LHZewv0FU5txQfD5yBfZu4lTT2bVgeHZzeL8NNK9ITX/7TSUc26p6IIhc
-	nZLaaxxb5U7AGY8+8eyR8jCzjN9jcv17d3bqWFddoR/ESv0h7byjdUwi143w6Zzzh76Ke7kLONh
-	PaqwzTJCoLgW8HcVmKJ1uZc3m1+6coc5H15xC9zSiKIfrnpBpPXvur7Wbt9V0sj3hFN71nr32uz
-	lGNcYd30s0CNy4SQRWn3na8A1kvVdkjg29W5vupcWAcm8X8fI9I4VSSG70uOZ0p2PzPJ1LsQqP9
-	jDZp+wfY/VJ17OND8OXFBANyTfcorf6yuqy08OgpV7bsxS2mMAvTn1yRLATJm/Nt4pgkFj/hCE4
-	0pXUG3y/T4qNahEqPWdRNNhgY/UMJ4c169E4zaaIiW+ri5YxX1KTj4w99TVGnJSNaOoE6C0CP7I
-	Ks=
-X-Received: by 2002:a05:690e:b4b:b0:672:a678:da59 with SMTP id 956f58d0204a3-6740c2a76c3mr1631246d50.108.1790359416590;
-        Fri, 25 Sep 2026 11:03:36 -0700 (PDT)
-Received: from suesslenovo ([71.132.185.69])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740efb13fasm1359157d50.18.2026.09.25.11.03.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:03:36 -0700 (PDT)
-Date: Fri, 25 Sep 2026 14:03:05 -0400
-From: Justin Suess <utilityemal77@gmail.com>
-To: Cai Xinchen <caixinchen1@huawei.com>
-Cc: mic@digikod.net, gnoack@google.com, paul@paul-moore.com, 
-	jmorris@namei.org, serge@hallyn.com, corbet@lwn.net, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org, gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org, 
-	dlemoal@kernel.org, hch@lst.de, axboe@kernel.dk, viro@zeniv.linux.org.uk, 
-	brauner@kernel.org, jack@suse.cz, dhowells@redhat.com, code@tyhicks.com, 
-	linkinjeon@kernel.org, sj1557.seo@samsung.com, yuezhang.mo@sony.com, 
-	hirofumi@mail.parknet.co.jp, cel@kernel.org, jlayton@kernel.org, neil@brown.name, 
-	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com, miklos@szeredi.hu, 
-	amir73il@gmail.com, senozhatsky@chromium.org, chenxiaosong@chenxiaosong.com, 
-	zohar@linux.ibm.com, roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com, 
-	eric.snowberg@oracle.com, stephen.smalley.work@gmail.com, omosnacek@gmail.com, 
-	casey@schaufler-ca.com, nanx95726@gmail.com, djwong@kernel.org, daniel@iogearbox.net, 
-	linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	netfs@lists.linux.dev, ecryptfs@vger.kernel.org, exfat@lists.linux.dev, 
-	linux-nfs@vger.kernel.org, linux-unionfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
-	linux-integrity@vger.kernel.org, selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	xiujianfeng@huawei.com, lujialin4@huawei.com
-Subject: Re: [PATCH RFC -next 00/12] landlock: Add READ_METADATA and
- WRITE_METADATA access rights
-Message-ID: <araxO4ze0KZBz756@suesslenovo>
-References: <20260924104831.1081137-1-caixinchen1@huawei.com>
+        bh=vBI+n6R1FCbaNpcY2beRWPIJrzbCO758rgC3BSuPO/g=;
+        b=2rPDPIlAVzZ8T6mHiV5SpLG+yN/87jvZslhoa6NUJVs9GfmJ0kzAFyTEU4sfJtcDOQ
+         ElVOGVnGMM7l4d/i4BlET3Hk0Q09k2BoWaenocTqvtWMvvWgfL/HV9fLUmG5TOF2gows
+         6GwV9C7+JSJxkyxrm824M4kxXENl7uFNo+m0IGhwWey/U+yhEDBN5ZMRGkUUaKEfcx0r
+         90YsDn5lGLWJX/NZQAe6ouSTJTH0rXetcoADiWtq5qZXE2VfYf3VifylwVgRLyNuG8GL
+         KHH5YzVUABQPPQeHfAQJq6ZCt27MfFOgx29dHbVa8pzjwkcOszocfqls8+Ni3TMs1w7w
+         vwcg==
+X-Forwarded-Encrypted: i=1; AKwUvBw75waXE0LBcIti4oZg6LSC0x/y7RxVnSsUVWSThufFp2pYYPbBtB5Afh4msfKIVCyCpE6hRp2++Vqj0rM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgzCJHXc4PBFMcEzCGAL8dUQs6rroeANLdAnFUGOINi1pBCckC
+	v1yMbnJxsLLQylIvhRaCBJSr4Mj7DnRp5MX6ssKs9NkbEcZ4qxJ1LpyGJvEy984LcAMM1AnOOuF
+	ZDq6k419OO5nh3+80YHQkzFRWaK4Nn98=
+X-Gm-Gg: AYBFou25rmZfrdzzQy6YRKT9JTbPPDR6WYcMAAlffSXdtL9TUrTmR1ZHPnBHPs1mZx5
+	jQKdkjNJMM9Sv5WX9cHOtTzB8HDFcL+eMtYQl2T0igT3aIIVAcPWCbaiJhdUqb9Isea+DmjqdQg
+	rcoZ6dU2FyqRz+8Z4DF91BUSb4AUC1TzNo5uSGFHCGppB8FgmoQnBDLGRiIM97WSGQ114AV2Ffx
+	pt5sMe4WE0ZuzK3RWWpc2Ft4vnfRxj8ph5Krd5/D9wwX394QxrWGanCyWlXuJyhMjhZciFhl3ja
+	g1MBYPe8qx7cfuInibyp6TaNoh51eNIImelboQ4y64dRDgafTPXH/q6B5o9qq9VjYF3IELEwz97
+	3gKd+Dh4Gvg==
+X-Received: by 2002:adf:e188:0:b0:486:f980:2361 with SMTP id
+ ffacd0b85a97d-48872ac750cmr11089879f8f.45.1790359481944; Fri, 25 Sep 2026
+ 11:04:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924104831.1081137-1-caixinchen1@huawei.com>
+References: <20260918180241.3424851-1-nphamcs@gmail.com> <20260918180241.3424851-2-nphamcs@gmail.com>
+ <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
+ <CAKEwX=OP3Gb9sVOvch+p4j7quzgy-rUY=UTZau5ztMj7heJJoA@mail.gmail.com> <CACePvbVQsHXt4=+qfKz-KTar9CG+3OiAfLd1EZgnRE-1gyoKOQ@mail.gmail.com>
+In-Reply-To: <CACePvbVQsHXt4=+qfKz-KTar9CG+3OiAfLd1EZgnRE-1gyoKOQ@mail.gmail.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Fri, 25 Sep 2026 11:04:30 -0700
+X-Gm-Features: AclHuK9M6sByraBalcuxusp1b55zwq77trojcuE4-O8KiH1MjzZCIBnwjTVVWQA
+Message-ID: <CAKEwX=M8pJUYhmADfvdk+09O53EROyDRC+_b05vtimQE5VN=qQ@mail.gmail.com>
+Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
+To: Chris Li <chrisl@kernel.org>
+Cc: akpm@linux-foundation.org, kasong@tencent.com, hannes@cmpxchg.org, 
+	mhocko@kernel.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
+	yosry@kernel.org, david@kernel.org, muchun.song@linux.dev, 
+	shikemeng@huaweicloud.com, baoquan.he@linux.dev, baohua@kernel.org, 
+	youngjun.park@lge.com, chengming.zhou@linux.dev, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	qi.zheng@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, riel@surriel.com, gourry@gourry.net, 
+	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
+	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
+	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	cgroups@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 24, 2026 at 06:48:19PM +0800, Cai Xinchen wrote:
-> This series adds two new Landlock filesystem access rights,
-> LANDLOCK_ACCESS_FS_READ_METADATA and LANDLOCK_ACCESS_FS_WRITE_METADATA,
-> which control access to file and directory metadata such as inode
-> attributes (mode, ownership, timestamps), extended attributes and POSIX
-> ACLs.  It picks up the work from the "landlock: add chmod and chown
-> support" series [1] and follows the coarse-grained grouping discussed in
-> that thread [2]: instead of separate chmod/chown rights, metadata
-> operations are grouped into one read and one write right.
-> 
-> Landlock evaluates access rights on a per-path basis, but the metadata
-> related LSM hooks (inode_getattr, inode_setattr, inode_setxattr,
-> inode_getxattr, inode_listxattr, inode_removexattr, inode_set_acl,
-> inode_get_acl, inode_remove_acl) only receive the dentry of the accessed
-> object.  Patches 1-7 therefore first pass struct path instead of dentry
-> through the metadata-related VFS helpers and LSM hooks.  This is a pure
-> refactoring with no behavior change, split so that every patch builds
-> and works on its own:
+On Thu, Sep 24, 2026 at 5:44=E2=80=AFPM Chris Li <chrisl@kernel.org> wrote:
 >
-I like these patches, but is the ability to read metadata already
-sorta controlled by LANDLOCK_ACCESS_FS_READ_DIR on the parent
-directory?
+> On Thu, Sep 24, 2026 at 6:20=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wro=
+te:
+> >
+> > On Wed, Sep 23, 2026 at 2:18=E2=80=AFAM Chris Li <chrisl@kernel.org> wr=
+ote:
+> > >
+> > >
+> > > There are too many swap_is_vswap() in this series. It fragments the
+> > > code path, making things harder to reason about. Esepcially around
+> > > locks. I count 22 in this patch alone.
+> > >
+> > > I consider this the biggest drawback of this series. This
+> > > fragmentation of the code path.
+> >
+> > This will mirror my response at [1], but I'm responding here for the
+> > record and for your convenience.
+>
+> Thank you. Really appriciate that.
+>
+> > It is needed because vswap *is* a special device, with its own
+> > requirements. If you don't special case-it, you'd get undesirable
+> > behaviors.
+>
+> Ack, that is why I am against making it a special device. That is the
+> whole idea behind xswap. It is just normal swap device implemented via
+> swap_ops just like ext4 is a file system implemnet on top of VFS.
+>
+> > Let's take Baoquan's patch series as an example.  It treats the xswap
+> > device as just another swap device, without any special consideration
+> > for it. Which creates several problem:
+>
+> That is a careful design choice. Keep in mind that design choice
+> usually has pros and cons.
+>
+> I will follow your feedback here.
+>
+> > 1. At allocation time, cgroups that disable zswap might get an xswap
+> > slot, because you don't do any check that the device you allocating
+> > the swap slots for is xswap. At swap_writeout() time, it is *stuck* -
+> > we already do the unmapping step, so we cannot reclaim the page.
+> >
+> > Ironically a physical swapfile backend could have bailed us out here,
+> > but it's not in that patch series yet :)
+>
+> I am not sure I follow. Are you referring to the uncompressible pages
+> that xswap would have to reject?
+>
+> One way to address that is for xswap to just bite the bullet and store
+> the uncompressible pages within xswap. That way it will stay out of
+> the reclaim LRU. Zswap also stores some uncompressible pages. The last
+> time I checked, it was unfortunately not able to serve my case but
+> perfect for yours.
 
-The one case I see this being different is:
+Not even that. Say you have two kind of workloads in the same host:
+workload enables disk swap but disable zswap (zswap.max =3D 0), and
+workload that wants zswap. Let's even ignore writeback for now.
 
-1. if you wanted to grant read access to the file, but not metadata
-read access, but I can't think of any usecase for being able to read
-the contents of a file, but not the metadata. (see below)
+You add 2 "swap devices" to the system: xswap and NVME swapfile.
 
-2. If you had the absolute path already and didn't need READ_DIR.
+At swap allocation time, xswap patch series does not check carefully
+which swap device is being used, so you might get an xswap slot for
+the cgroup that disables zswap. You're stuck at swap_writeout() time.
+You can't undo it anymore, and you don't even support the physical
+swapfile backend to fallback.
 
-I see introducing this READ_METADATA as causing potential
-hard-to-diagnose issues.
 
-Say you handle READ_METADATA and READ_FILE, but only grant READ_FILE.
+>
+> > Vswap both has swapfile backend, AND allows you to bypass it if the
+> > cgroup disables zswap. Both involves a bit of swap_is_vswap() check,
+> > but I think it's worth it :)
+>
+> If xswap needs the lower tier it can allocate for one. I don't think
+> xswap should need to have swap_is_xswap() there. Also xswap does not
+> have all the baggage of zswap.writeback enable interface.
 
-The program can technically open the file with the READ_FILE permission,
-but it may error out because the stat() on it beforehand failed.
-It's pretty common for programs to do that kind of thing (stat before
-open), like for checking for config files (strace bash and you see it
-stat .profile, /etc/profile)
+But that's my point. As of now, it does not. Unless you merge the
+other RFC series, which brings it to roughly the same size as what I'm
+doing here.
 
-There may be other bugs, because being able to set permissions to read
-a file *but not read it's metadata* isn't possible currently in posix
-acl and userspace may not work well if that assumption no longer holds.
+>
+>
+> >
+> > 2. Per-CPU allocation caching: since all devices share the same cache,
+> > xswap will invalidate the caching of other devices, and vice versa. It
+> > would be fine if the these devices are interchangeable, but as noted
+> > above, it's not, especially without physical swapfile as the backend
+> > option. So you're forced to taken the slow path more often.
+>
+> This will be addressed by the swap tiers series if it is not delayed.
+> This should be addressed in the core swap layer not vswap. Kairui also
+> has some ideas to improve that. Yes, it is a problem area, but it is
+> not specific to xswap. We are well aware of it and have plans to
+> improve it.
 
-So maybe WRITE_METADATA is good enough?
 
-Interested in your thoughts,
-Justin
->   1: notify_change() and its callers
->   2: inode_setsecctx hook (must come before 3: the SELinux and Smack
->      implementations call __vfs_setxattr_locked internally)
->   3: xattr helpers, which also drops a redundant EVM xattr size sanity
->      check whose vfs_getxattr() call only has a dentry and therefore
->      cannot be migrated to the new path-based signature
->   4: POSIX ACL helpers
->   5: inode_setattr hook
->   6: inode xattr hooks
->   7: inode POSIX ACL hooks
-> 
-> Two deliberate scoping decisions for this refactor:
-> 
-> - The hooks consistently take struct path rather than struct file.  The
->   VFS call sites involved (chmod(2), chown(2), utimensat(2), xattr(2)
->   and ACL syscalls) operate on paths, and several of them (lstat(2),
->   lchown(2), llistxattr(2), ...) have no struct file to begin with.
-> 
-> - struct inode_operations->setattr still receives (idmap, dentry, attr).
->   Only the VFS boundary (notify_change()) and the LSM hook layer see the
->   path, which keeps the refactor contained to fs/attr.c and the LSM
->   infrastructure instead of touching every filesystem.
-> 
-> Patches 8-12 then implement the new rights, their tests, the sandboxer
-> sample and the documentation.  Semantics:
-> 
-> - READ_METADATA covers stat(2) and friends, getxattr(2) and friends,
->   listxattr(2) and friends, and POSIX ACL reads.
-> - WRITE_METADATA covers chmod(2), chown(2), utimensat(2), setxattr(2),
->   removexattr(2) and friends, and POSIX ACL set and remove.
-> - Only explicit metadata changes requested by user space are restricted.
->   Implicit changes performed by the kernel (e.g. timestamp updates on
->   write(2), size changes on truncate(2)) are not, and neither are
->   chmod(2)/chown(2) calls that change nothing (e.g. chown(2) with
->   (-1, -1), which never reaches the hook), matching the SELinux
->   inode_setattr behavior.
-> - Kernel-internal accesses performed with override_creds() (e.g.
->   overlayfs, cachefiles) and kernel threads without a Landlock domain
->   (e.g. nfsd, ksmbd) are not restricted.
-> 
-> The Landlock ABI version is incremented from 11 to 12.
-> 
-> The series is based on linux-next commit 5c4d4169604b ("Add linux-next
-> specific files for 20260921").
-> 
-> Testing: each patch has been built for aarch64 (gcc, -Werror) and the
-> landlock selftests (445 tests, including the new ones) pass in QEMU on
-> aarch64; base_test reports ABI v12.
-> 
-> [1] https://lore.kernel.org/all/20220827111215.131442-1-xiujianfeng@huawei.com/
-> [2] https://lore.kernel.org/all/abc960a1-e66e-792e-6869-cfd201c29dbe@digikod.net/
-> 
-> Assisted-by: opencode: glm-5.3
-> 
-> Cai Xinchen (12):
->   fs: pass struct path to notify_change()
->   LSM: pass struct path to the inode_setsecctx hook
->   fs: pass struct path to xattr helpers
->   fs: pass struct path to POSIX ACL helpers
->   LSM: pass struct path to the inode_setattr hook
->   LSM: pass struct path to the inode xattr hooks
->   LSM: pass struct path to the inode posix acl hooks
->   landlock: Add READ_METADATA and WRITE_METADATA access rights
->   landlock: Implement metadata access hooks
->   selftests/landlock: Add tests for metadata access rights
->   samples/landlock: Add metadata rights to sandboxer
->   Documentation: Update landlock doc for metadata rights
-> 
->  Documentation/userspace-api/landlock.rst     |  11 +-
->  drivers/base/devtmpfs.c                      |   6 +-
->  drivers/block/zloop.c                        |   4 +-
->  fs/attr.c                                    |  20 +-
->  fs/cachefiles/interface.c                    |   6 +-
->  fs/cachefiles/xattr.c                        |  32 +-
->  fs/coredump.c                                |   2 +-
->  fs/ecryptfs/inode.c                          |  34 +-
->  fs/exfat/file.c                              |   3 +-
->  fs/fat/file.c                                |   3 +-
->  fs/inode.c                                   |   7 +-
->  fs/internal.h                                |  17 +-
->  fs/namei.c                                   |   7 +-
->  fs/nfsd/nfs4ctl.h                            |   4 +-
->  fs/nfsd/nfs4state.c                          |  14 +-
->  fs/nfsd/nfs4xdr.c                            |   2 +-
->  fs/nfsd/state.h                              |   2 +-
->  fs/nfsd/vfs.c                                |  73 +++--
->  fs/open.c                                    |  18 +-
->  fs/overlayfs/copy_up.c                       |   4 +-
->  fs/overlayfs/inode.c                         |   4 +-
->  fs/overlayfs/overlayfs.h                     |  39 ++-
->  fs/overlayfs/xattrs.c                        |  13 +-
->  fs/posix_acl.c                               |  46 +--
->  fs/smb/server/smb2pdu.c                      |  77 ++---
->  fs/smb/server/smb_common.c                   |   2 -
->  fs/smb/server/smbacl.c                       |  21 +-
->  fs/smb/server/tests/smbacl_kunit.c           |   6 +-
->  fs/smb/server/vfs.c                          | 111 +++----
->  fs/smb/server/vfs.h                          |  39 +--
->  fs/smb/server/vfs_cache.c                    |   3 +-
->  fs/utimes.c                                  |   3 +-
->  fs/xattr.c                                   |  96 +++---
->  include/linux/fs.h                           |   6 +-
->  include/linux/landlock.h                     |   4 +-
->  include/linux/lsm_hook_defs.h                |  29 +-
->  include/linux/posix_acl.h                    |  21 +-
->  include/linux/security.h                     |  65 ++--
->  include/linux/xattr.h                        |  22 +-
->  include/uapi/linux/landlock.h                |  26 +-
->  samples/landlock/sandboxer.c                 |  17 +-
->  security/commoncap.c                         |  22 +-
->  security/integrity/evm/evm_crypto.c          |   8 +-
->  security/integrity/evm/evm_main.c            |  36 ++-
->  security/integrity/ima/ima_appraise.c        |  17 +-
->  security/landlock/fs.c                       |  86 ++++++
->  security/landlock/limits.h                   |   2 +-
->  security/landlock/syscalls.c                 |   2 +-
->  security/security.c                          |  99 +++---
->  security/selinux/hooks.c                     |  49 +--
->  security/smack/smack_lsm.c                   |  62 ++--
->  tools/testing/selftests/landlock/base_test.c |   2 +-
->  tools/testing/selftests/landlock/fs_test.c   | 309 ++++++++++++++++++-
->  53 files changed, 999 insertions(+), 614 deletions(-)
-> 
-> -- 
-> 2.18.0.huawei.25
-> 
-> 
+Which is 2 massive patch series away. Also, I don't know how close we
+are to reaching a consensus on swap.tier. I defer that to memcg
+maintainers.
+
+>
+> >
+> > Vswap gets around this by adding its own per-cpu allocation caching,
+> >
+> > So by being too lazy and not carefully distinguish the swap devices,
+> > not only does xswap not work for the writeback use case, it cannot
+> > even work in deployments where some workloads (cgroup) select zswap,
+> > whereas others select disk swap. It can only work if you intend to
+> > have a single class of device - either virtual/xswap or disk swap -
+> > but not both.
+>
+> Baoquan's writeback series is out. It is by no means perfect. But it
+> is much closer to what I have in mind. That is a much better base to
+> work on.
+
+It's *literally* the same design as me, from a metadata design. The
+only difference is:
+
+1. It moves the metadata from a new dynamic cluster struct and shoves
+it into the existing physical struct.
+
+Like, you can check patch 11 of this series. It's practically the same
+thing, with the only difference being ou
+
+> >
+> > Maybe instead of just grepping for swap_is_vswap() and throw your hand
+> > at the complexity, read the code and try to understand why it's
+> > necessary first, then propose simplifications if you have good ideas
+> > in minds.
+>
+> Yes, I already read your code I decide that most of the
+> swap_is_vswap() should not be needed if taking a proper swap_ops
+> approach. I wanted to offer you the chance to work closely with me to
+> achieve that, but you did not follow that suggestion.
+>
+> Quote from my old email:
+> https://lore.kernel.org/all/CACePvbX+3tO91BmRwaLqf3Xia32GCemt3W8tayErG81B=
+YLgrzA@mail.gmail.com/
+>
+> "I am happy to spend some time working with you to discuss the generic
+> adopted version of vswap, if you are open to it. Or if you don't want
+> to waste time on it. I can have someone else or myself come up with
+> the generic adopted version of vswap for you to review, which I prefer
+> less."
+>
+> Anyway, Baoquan's xswap writeback patch series is out. I suggest
+> following and improving that series instead.
+>
+> > > This is questionable. A vswap device does not go through swap on.
+> > >
+> > > This changes the behavior where swap devices always go through swap o=
+n/off.
+> > >
+> > > I wish the swap device went through swap on to be able to start swapp=
+ing.
+> > >
+>
+> >
+> > What usecase would necessitate the need for swapon/swapoff interface?
+> > Other than just trying to shoehorn it to an existing interface?
+>
+> I like universal interfaces. Your vswap will break the /etc/fstab. The
+> current suggestion for xswap using sysfs will break that as well.
+> I would like to keep the /etc/fstab interface working, including
+> support for UUIDs for swap devices, etc.
+
+"Universal interfaces" is not a use case. None of the thing you list
+out here is a use case. It's an interface, but you have not
+constructed a single use case to justify all of that.
+
+> I am very concerned that vswap will start kicking in without me
+> explicitly enabling it. That changes the previous user-visible
+> behavior. It breaks my mental model. Please take this feedback
+> seriously.
+
+I mean, there's a knob for it. How can it start kicking in without
+your enablement?
+
+
+>
+> > I've expressed why I dislike the interface in [1]. Other than the
+> > sizing aspect, which we are already discussing in another thread,
+> > priority also makes zero sense. You are literally exposing an
+> > interface with only one correct answer - what's the point?
+> >
+> > Justify your interface choice with real userspace use case, not just by
+> > conforming to the status quo.
+>
+> That is why I feel your patch series are really unclean. I dislike
+> special cases, I try to avoid them as much as possible.
+
+Again, your disliking something is not a use case.
