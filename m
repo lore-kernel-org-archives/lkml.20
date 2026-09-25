@@ -1,81 +1,81 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FFB4C33CF
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:17:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B4B4C6EFC
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:17:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349444; cv=none; b=BbEvrj6IQiY1PwnBzybDJiuLHoIfnousG/l5NlQFwLf4zNVzhm6HE7u/DXeNXwnVN5uQJV3m60pxeYTinYjy08/yVEBUFCullAxnfaa6I8ohYtZPByv34JVHkWem2rtqduJzy5UXqFOlEwgXnuVm+QOhO4ozZBfsP4cil4z4Wgw=
+	t=1790349446; cv=none; b=QWd6CJegOXtq2gXM2owOQ+amWNyNZRlCzypRF6tkEs+wyCAybpz5ZZhEI/FHsztitmUaHeTZQs5KUBdz7sDkYmyuH0mjm4MCbR53zchJCfVia/ulFLSxdNWzo/bK87LfQy1HErxkt3c3w8dTN0w2/t45k2s2On8PgFTZQkrOqFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349444; c=relaxed/simple;
-	bh=SDUoeqvSzajvY32roYbZab9LFoIzSx5uPJqmyVedHHg=;
+	s=arc-20240116; t=1790349446; c=relaxed/simple;
+	bh=KxurCe6pgQSQsY1f+dOhy3ExgK0ecAyXvRk9c+RKIfo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kFlZXX4Z9RRZiI/u/sMX3afK2glANmbbFSDiXTyIdDBDL8JE55MjnKOTTXwPRgHl4pW0+5HVZD5INlMB8U3IPLP2S4c/izCrz533N/5MBSvEg3sStXGgnYhRUWeHp0LiDUz6gD6UA1efng5+wn85cwUcgdVaCG+SSx2F+CxxTHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VQ1Wo9Oc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JjJwybmi; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=HUIJw54Ripi+2f83bKkEs5jh1PH8OpUXW+A9WTVNNW9d5XBU5r299A015gMQI+iOsguu17R61caepM/KJCs7GoRgaOOAKgqDo/PD0KDp+dvITvPd9gQE8t13sSlHiY6CIXQAGBWFQ4xXHf+sn9RaIbJ/yDAuZGDpmWO1jUam8ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KcFLfWbn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G7Dr7TSH; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VQ1Wo9Oc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JjJwybmi"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PDOK851055735
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:17:10 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KcFLfWbn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G7Dr7TSH"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PD3UeT3532398
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:17:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=2Di7hXjezOC
-	UALhcHgOGZSJbeZgIexdT/Z/W7mUl2YU=; b=VQ1Wo9OccKIVhqnOLCsJBz+TotK
-	euZTwoFXCT+u8zdZvYN3t+mydoYsS5493vDLf4CROr/rCLtV/dmxw5bh40D4btyQ
-	sEw8zVtraIU3nXKdeojYwkAWJ3oTQRbp3Zus3dk+/PqNsanf4DQi4zgtvHH/iRPc
-	vrsGByVGc7cSt9SgbK0cQtCnxno09ziPqWYC/RuC1PSmN1LNC3ikLe/bP3ocbc4G
-	DVx296DJvkoXyPPOAHe+JATV6S1m66adQ+j6m++vzq3qlOY2ZlwYa3d8RKKRrMs6
-	D3zVYR/r7JGxgiokIHHoHNwxsk4VSpXoLTXt30qFEiuQ5WM4fv7BYvMgXMA==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwce7b0ep-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=t1fCrnwj5QJ
+	BWHsPw8FOuYqTuNXRMPlCtQWMjUzAOhM=; b=KcFLfWbnuA8QS9fwkAXrWsLhWHA
+	8L11ss1tOZwqZoDQEkdlUaMj6ILXLvFhiMGGcfJcH6TCZ39qwC15MDV+IXpuKU0V
+	AT6hPYLpK4ns1Bp/glA60FWSE734uatcUGc6OBmqb50icAAUGJGbn8BOc0f/EB87
+	hGNkqDg5/mlblrpz0RKV09Y4PoUpwWkS6McAysrsqMt8ibuawQWSEfz/78Z/QOBE
+	rMCNU4vQwu2wI9SyJt/YgP+huQOY38diVJpuOXDYIDkkhE0bORxHukeBeocmTOi0
+	L4SRZAShrO9B9nvApSUvj5DyLvoN45VZ11ZX4bOyDv5VavXUFOXsbR3r6tQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw94kbs3k-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:17:09 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7a5ed2517b7so217666137.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:17:09 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:17:17 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-790de8f0cecso224984137.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:17:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790349429; x=1790954229; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790349436; x=1790954236; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2Di7hXjezOCUALhcHgOGZSJbeZgIexdT/Z/W7mUl2YU=;
-        b=JjJwybmi2uxeINOVYUXrK0Sbr9dkF5cXJIxCm07AMTq/fniAmuwBpF/RSpH73PN7WT
-         M9Gq3OIPat28aGC4VyWcQbOrLYEAR+eZ9G/OPOXKqqlIx7n91AgXOqO8UZMczOniK+pz
-         7jfirIt9F5CVM4pj3VnFB1i4lendNW6aExMqoSoruS1Ve4zJXbhaBFx9TDlsGWZF9GcB
-         t8m/Y+1E7ZskZq5oWFvAHv0dPOzYL1k5MaRMAML2ZkZGPgHogZQo+AlauASRivKu33sz
-         RHH/OUAUhZRAa9ilTxMVitygnx8vOB+rmjc+jBly2OwsrhzC6MRjgwpSFheb3Ct3bKMI
-         MKFQ==
+        bh=t1fCrnwj5QJBWHsPw8FOuYqTuNXRMPlCtQWMjUzAOhM=;
+        b=G7Dr7TSHx6Gz5jxo3P+Ctcz/mF9C7CYkd/f/2FyHDMx8/JlLbeZkzmScBDYjZikOUX
+         L6BUmXSnEUkIqPj/QSDkE1hQzt7+JSdOwWM7TZOTLzttaTwbExV/2NzXIRfygtoN40z9
+         5C8VfIr5v4BiShoqznqxj2f3pWBdEVFMGipSL6omHaICEcRq2er/cdvyLOdnunhqwE8T
+         uOcO57JpfeNnItOu4ERAG1NAac1zNuAOZQysTc+JtwYUeOdJc6EkklcytHpzOkAbYcER
+         xps9fnghM7VJuQ+lmBdwIcjhPKXj82ZC3ACRB2hAMegDw1Zin/aKe0rL8kmtM6jaN31v
+         YnjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790349429; x=1790954229;
+        d=1e100.net; s=20260707; t=1790349436; x=1790954236;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2Di7hXjezOCUALhcHgOGZSJbeZgIexdT/Z/W7mUl2YU=;
-        b=i+SoQo0iv6B/5/12idVl1khO0C4iHVJeruFozr8NMPQywTEaGgIddUEoc4wIBRnS7F
-         EXKyvjIvJ77Cf5jIIsVYclxBLxF5+wcvT6zUw6+rhTgx9Vwyvbn+Fe1IbpzSPXZMsDmQ
-         RdMuu+6auU0ItIPcgyfDTvCe6SsetCsTDUL+nRog9pA540M8LBsFu6ofILSyDPHY1Asf
-         +WoFUpnS/iWrSjINGJaC66voET/l4/J/fTCmeRIZJI1gxlqM1SfS6fjp9FaqQhTVlWBH
-         0nyR/744IK9sX7KBs2+oE0jlU5bABh9USC3fSpMfJNnPZxek08/3CXJq7dlLK/fMcNNM
-         0wRw==
-X-Gm-Message-State: AFuF++n8mZKVaCpq/p9jYbqRNuxtDj4v346wBiRyu8gDzSNvpVVv5Y1Q
-	M10Nfyx2qtHzZRJ3GyegJhHHWfoEzMaEfiZrdo05st2DO4K12ZDan4iYvhltL/OKUABJy4/EjPA
-	FVxfEsFRQraXuJvtLhGX8kec6IndeJhqfKKIYisITXI5GI0kgm3YLcVPWOCeN1lYv29w=
-X-Gm-Gg: AYBFou2NqnpfZFK/FDDP0RDFsR5fqCSzOiwGMO34O965WUOosiu2xUIDT9qR4bFYH4W
-	xT4Lgrels5715R0yXegGb831kSlQG7XKihjVlhyByRUl2Yrjx6EvFAe2I7rYKuHefZbLMZmG9fM
-	iBNYgIQKSEkFJvYx3i/FrU+xp+rBNmRMfZDG9znvEfJ/sJUTrOIZaiCyMHLKWiL/kTsZOQPDKyN
-	/LR3NofbStBpHGWrG3M+BDSej0Lb0m6t3if3tPR69io0MXBf7tKGEfILc7pmNKG1ziJ09/U2JHR
-	HFhWV0v9YpRr6Oq13Gmae+cv7zJbR1McX4guKV7K0beuuHT+5i/ZjArZBuiekpB2q5wIiMkVngd
-	UT/GPSH6tFGG0QchJ0wxlpBwF0u8Bo05pGh+V44UxxtfimSDa
-X-Received: by 2002:a05:6102:f95:b0:7a7:198a:c2c6 with SMTP id ada2fe7eead31-7b1d76ab79bmr910410137.36.1790349428621;
-        Fri, 25 Sep 2026 08:17:08 -0700 (PDT)
-X-Received: by 2002:a05:6102:f95:b0:7a7:198a:c2c6 with SMTP id ada2fe7eead31-7b1d76ab79bmr910381137.36.1790349428007;
-        Fri, 25 Sep 2026 08:17:08 -0700 (PDT)
+        bh=t1fCrnwj5QJBWHsPw8FOuYqTuNXRMPlCtQWMjUzAOhM=;
+        b=u7SzMAjWtrrx/X2JD1Jydm4RL6I8TaZcQm6aVK6Ydmo0kLD9SYVrobA2yTzDxfFkZN
+         8wvVcnNM43V7ekhpMFvb2ySMXmji0HaDkCeVNs6aQPRGh/ltQCI8p8vsPgt3xBajQ65L
+         dBuI0aZCAKdRb2iyhro+pdOXWsVLbuu7WIxMrbKSM1OK5LzbnzqfmhY+J1KJCbtSu7Q5
+         V4bQOtMsL+LNZD1TmdfQ8Hs6touJHon1Vu0+h2Dm34+HN/7HEop6QZOuiWWr1rQQkz7Q
+         bTzGGvpa3kijx3f4JYUZ7XY8D9LfULMI31W/MlSDgSAJZmszqpqGlxWJqVdGkrmUKtrt
+         VsYA==
+X-Gm-Message-State: AFuF++kYFv7PAA8ZX6dTvfkCcJlsemFw1lHkogLyC9Z2X321nbXe/DhK
+	TKSEDZt8ojTBAhluykkjAyaQKh80SFApnMAHT2yxNSfqpIeZZ7N/0PWvuEFdlPmlE3OgdrG4qGE
+	zjFwGiQxmw3qLAj71BKb/wJg8JWUkv3lb+8h7c9/THW8ve3H030yQDy/v9ni/p9N+GsM=
+X-Gm-Gg: AYBFou0FzueOT1reOP9aC8YfZDdln1i75Fu4af0gXhy98ZZDAs5xG9e6OaViw9Sgnmg
+	RNWbc2iABYi1exPIUnU91LZsVOogezkcXqqX+GfcWaqeGaCC29fPslILeVqbOYMgyC9avrpI0wS
+	dNCdfOqzdE3IodU64zVfnA62AzcbkN7x4WISMgMW6McLI3t+ruRhvuGazbIKcMIjyJDE4TFfldU
+	9aNXD7GMwllSNDewGoGhVQlX06HNe1QddG7W7lZKepZxkdcsjx1QO4wBuJS72q4z37Q5QkkGD1m
+	/zwXQUkGJz1KWgOgw4Q4TiYN5RVi6kVrw93uUCi1WPhhhqlal7kgk1XHukavim+sTS+JIB0VLHY
+	PeaB8J+W/9czfov4Q4wRpCvHMZikbwtEVkTvqdw==
+X-Received: by 2002:a05:6102:2910:b0:7b3:21da:d255 with SMTP id ada2fe7eead31-7b321dad719mr335052137.32.1790349435932;
+        Fri, 25 Sep 2026 08:17:15 -0700 (PDT)
+X-Received: by 2002:a05:6102:2910:b0:7b3:21da:d255 with SMTP id ada2fe7eead31-7b321dad719mr335034137.32.1790349435442;
+        Fri, 25 Sep 2026 08:17:15 -0700 (PDT)
 Received: from localhost (ip-86-49-245-11.bb.vodafone.cz. [86.49.245.11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a74538asm7857424f8f.34.2026.09.25.08.17.07
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5de187asm153857745e9.7.2026.09.25.08.17.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 08:17:07 -0700 (PDT)
+        Fri, 25 Sep 2026 08:17:14 -0700 (PDT)
 From: Andrew Jones <andrew.jones@oss.qualcomm.com>
 To: linux-riscv@lists.infradead.org, iommu@lists.linux.dev
 Cc: linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
@@ -83,9 +83,9 @@ Cc: linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
         will@kernel.org, robin.murphy@arm.com, pjw@kernel.org,
         palmer@dabbelt.com, anup@brainfault.org, tglx@kernel.org,
         kevin.tian@intel.com, fangyu.yu@linux.alibaba.com
-Subject: [PATCH v6 03/16] iommufd: Split software MSI map lookup and allocation
-Date: Fri, 25 Sep 2026 17:16:46 +0200
-Message-ID: <20260925151659.419512-4-andrew.jones@oss.qualcomm.com>
+Subject: [PATCH v6 07/16] iommufd: Prepare software MSI installation for address lists
+Date: Fri, 25 Sep 2026 17:16:50 +0200
+Message-ID: <20260925151659.419512-8-andrew.jones@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260925151659.419512-1-andrew.jones@oss.qualcomm.com>
 References: <20260925151659.419512-1-andrew.jones@oss.qualcomm.com>
@@ -96,90 +96,206 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: vmOabCRjHyOO8wLmiRY7ykPw5LQl_nF-
-X-Proofpoint-ORIG-GUID: vmOabCRjHyOO8wLmiRY7ykPw5LQl_nF-
-X-Authority-Analysis: v=2.4 cv=NJFAaE6g c=1 sm=1 tr=0 ts=6ab69075 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
+X-Authority-Analysis: v=2.4 cv=aaj0Dhot c=1 sm=1 tr=0 ts=6ab6907d cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=SRrdq9N9AAAA:8 a=_mR3RRazA89hjPCjrIEA:9 a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2MCBTYWx0ZWRfXzDUovD8cvueL
- du9FXCJUJS+vKdhf2t8YKSOsCV4NcBG51A3r2UWwJBGBCRx/cKeQFoYchzK2KP0S78WH+YbXtil
- E6HnesKo2yQrrehdbWigAhSy6MSG4itO73HG3ULwAx5J8mdGXvpqsCHwple1BzvuI2xsNkm06mV
- wTsKrRO1UENO7QDNzrjpAr2eoMWquwBsMIQvSxoVdzab18D4kVZmEJtzlIIUD3VLUsXEwGvknVN
- jxShFynoyxtuCRxXgwhFnz1Crv1/JH8jOR0o/LhlahB+XabQtbS1JryNzCWBhLOtACgCvg5t1Ed
- qKWcU7hjKXLDQm3dIfD55vGGWB32n9l2EQIgKVRyLN87zmA3ydHeYimUgPG2LUfP5ygr0ZJdq7+
- 9Bh8jSsqhw0em6jx2WrZsv4bJcx2JM/4LQ322n01yr16YnbhIFERpxDzvmPZrIjvIzgjLe3BhJz
- tmed5/uOh4JPlpCUrOQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2MCBTYWx0ZWRfX0PHb5VdBa4qV
- /Y2Achd7PE2082CSRxNUuOR5lBRj5zw4/XvCumKfBWsTW4A+VeXKMP+mFyZUfjzePfk8hfhpn+w
- Bhs7dBmo494EqOMg5Hu/WVZAe7h1JDo=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=SRrdq9N9AAAA:8 a=fyE6B5mSzfnmm1qxREQA:9 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-GUID: levnzbuOAlKcweU1rwl5qzS2nauacyO1
+X-Proofpoint-ORIG-GUID: levnzbuOAlKcweU1rwl5qzS2nauacyO1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2MCBTYWx0ZWRfXz3/ZPDxVbBWu
+ idUDPLIijbNNaUobfkg6ltXtcUUm93UERYUMXKK4woHyrIWmpf/ZWKnG8ML9/ZgwMRFoDNZVJNm
+ eABfmfdc+6203iBcWUY8M2vZH82I4Lky0QpTOel+n00xx4X7Ycrn6bMQObd50fghtp4IvgbBYR2
+ 1tBjjXk1MfyKn9c7vIvHvnSdhgEknfKNUHRLeOoCvho9HPRrs/9hySIjLHqzwP9fcQq6w/Qb0CV
+ MXdeHX2KUJgl40ug76/nYa4JVL8tzYokZLt1KwLsoME31n4e5UzIOLmIjGHIuZReuopq6JXZjp0
+ H45klmFpeFxGyRh5BBlzwUocvxwxIoaoab5dJCkKRS7VYOuG2sQJW+o7Rti6OuB+Podn0zEEaIj
+ Di4ofWGdjVWw4mA6J4C1TMWBIeW2wXu0AAl1VULgoGLt/E6XvK8/fb+VLHWJj5dFHGojjmw410D
+ o5F82uKob/evWKusc5A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2MCBTYWx0ZWRfX5xSR4Nh5nkcP
+ CRXpx/ewmPSxXx63XavIQ1jfgXh+9j5vq2lLHTUo785PdemiijVBm/ca9KySYTlJOHAkWqueRDV
+ xsaxEe0hIHyOQchP2Fn7UAwEVSyXYxo=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 priorityscore=1501 bulkscore=0 spamscore=0
- phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ clxscore=1015 phishscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250060
 
-Separate lookup of an existing software MSI mapping from allocation of a
-new mapping. This prepares the code for allocating multiple mappings for
-an MSI physical address list.
+Teach the software MSI path to install every mapping in an address list
+before publishing newly allocated maps. Mark the complete list as
+required by the group and roll back mappings installed by a failed
+operation.
+
+Keep iommufd_sw_msi() as a one-address wrapper so existing callers
+retain their current behavior.
 
 Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
 Tested-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 ---
- drivers/iommu/iommufd/driver.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+ drivers/iommu/iommufd/driver.c | 101 +++++++++++++++++++++++----------
+ 1 file changed, 72 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/iommu/iommufd/driver.c b/drivers/iommu/iommufd/driver.c
-index ea705e416139..501f1e1f2797 100644
+index 3aff04d9dd04..f4e812e43822 100644
 --- a/drivers/iommu/iommufd/driver.c
 +++ b/drivers/iommu/iommufd/driver.c
-@@ -189,6 +189,23 @@ iommufd_sw_msi_get_map(struct iommufd_ctx *ictx, phys_addr_t msi_addr,
- 		       phys_addr_t sw_msi_start)
+@@ -340,14 +340,14 @@ static int iommufd_sw_msi_install_one(struct iommufd_ctx *ictx,
+ 	return 0;
+ }
+ 
+-int iommufd_sw_msi_install(struct iommufd_ctx *ictx,
+-			   struct iommufd_hwpt_paging *hwpt_paging,
+-			   struct iommufd_sw_msi_map *base_map)
++static int __iommufd_sw_msi_install_range(struct iommufd_ctx *ictx,
++					  struct iommufd_hwpt_paging *hwpt_paging,
++					  struct list_head *msi_maps,
++					  const struct iommufd_sw_msi_map *base_map,
++					  unsigned int nr_addrs)
  {
- 	struct iommufd_sw_msi_map *cur;
+ 	struct iommufd_sw_msi_map *msi_map;
+-	struct list_head *msi_maps = &ictx->sw_msi_list;
+ 	unsigned long *newly_mapped;
+-	unsigned int nr_addrs = base_map->range_size ? base_map->range_size / PAGE_SIZE : 1;
+ 	unsigned int nr_found = 0;
+ 	unsigned int index;
+ 	int rc = 0;
+@@ -392,16 +392,36 @@ int iommufd_sw_msi_install(struct iommufd_ctx *ictx,
+ 	bitmap_free(newly_mapped);
+ 	return rc;
+ }
 +
-+	lockdep_assert_held(&ictx->sw_msi_lock);
++int iommufd_sw_msi_install(struct iommufd_ctx *ictx,
++			   struct iommufd_hwpt_paging *hwpt_paging,
++			   struct iommufd_sw_msi_map *base_map)
++{
++	unsigned int nr_addrs = base_map->range_size ? base_map->range_size / PAGE_SIZE : 1;
 +
-+	list_for_each_entry(cur, &ictx->sw_msi_list, sw_msi_item) {
-+		if (cur->sw_msi_start != sw_msi_start)
++	return __iommufd_sw_msi_install_range(ictx, hwpt_paging, &ictx->sw_msi_list, base_map,
++					      nr_addrs);
++}
+ EXPORT_SYMBOL_NS_GPL(iommufd_sw_msi_install, "IOMMUFD_INTERNAL");
+ 
+-/*
+- * Called by the irq code if the platform translates the MSI address through the
+- * IOMMU. msi_addr is the physical address of the MSI page. iommufd will
+- * allocate a fd global iova for the physical page that is the same on all
+- * domains and devices.
+- */
+-int iommufd_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
+-		   phys_addr_t msi_addr)
++static void iommufd_sw_msi_set_required(struct iommufd_group *igroup,
++					struct list_head *msi_maps,
++					const struct iommufd_sw_msi_map *base_map,
++					unsigned int nr_addrs)
++{
++	struct iommufd_sw_msi_map *msi_map;
++	unsigned int index;
++
++	list_for_each_entry(msi_map, msi_maps, sw_msi_item) {
++		if (!iommufd_sw_msi_range_index(msi_map, base_map, nr_addrs, &index))
 +			continue;
-+		if (cur->msi_addr == msi_addr)
-+			return cur;
++		__set_bit(msi_map->id, igroup->required_sw_msi.bitmap);
 +	}
-+	return NULL;
 +}
 +
-+static struct iommufd_sw_msi_map *
-+iommufd_sw_msi_alloc_map(struct iommufd_ctx *ictx, phys_addr_t msi_addr,
-+			 phys_addr_t sw_msi_start)
-+{
-+	struct iommufd_sw_msi_map *cur;
- 	unsigned int max_pgoff = 0;
++static int iommufd_sw_msi_list(struct iommu_domain *domain, struct msi_desc *desc,
++			       const phys_addr_t *phys_addrs, unsigned int nr_addrs,
++			       size_t granule)
+ {
+ 	struct device *dev = msi_desc_to_dev(desc);
+ 	struct iommufd_hwpt_paging *hwpt_paging;
+@@ -410,10 +430,19 @@ int iommufd_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
+ 	struct iommufd_sw_msi_map *msi_map;
+ 	struct iommufd_ctx *ictx;
+ 	LIST_HEAD(new_msi_maps);
++	struct list_head *msi_maps;
+ 	unsigned long iova;
+-	phys_addr_t phys_addr;
++	unsigned int i;
+ 	int rc;
  
- 	lockdep_assert_held(&ictx->sw_msi_lock);
-@@ -199,8 +216,6 @@ iommufd_sw_msi_get_map(struct iommufd_ctx *ictx, phys_addr_t msi_addr,
- 		if (cur->pgoff == UINT_MAX)
- 			return ERR_PTR(-EOVERFLOW);
- 		max_pgoff = max(max_pgoff, cur->pgoff + 1);
--		if (cur->msi_addr == msi_addr)
--			return cur;
++	if (granule != PAGE_SIZE)
++		return -EOPNOTSUPP;
++	if (!nr_addrs || nr_addrs > SIZE_MAX / PAGE_SIZE)
++		return -EINVAL;
++	for (i = 0; i < nr_addrs; i++)
++		if (!IS_ALIGNED(phys_addrs[i], PAGE_SIZE))
++			return -EINVAL;
++
+ 	/*
+ 	 * It is safe to call iommu_attach_handle_get() here because the iommu
+ 	 * core code invokes this under the group mutex which also prevents any
+@@ -434,33 +463,33 @@ int iommufd_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
+ 
+ 	ictx = handle->idev->ictx;
+ 	guard(mutex)(&ictx->sw_msi_lock);
+-	/*
+-	 * The input msi_addr is the exact byte offset of the MSI doorbell, we
+-	 * assume the caller has checked that it is contained with a MMIO region
+-	 * that is secure to map at PAGE_SIZE.
+-	 */
+-	phys_addr = msi_addr & PAGE_MASK;
+-	msi_map = iommufd_sw_msi_get_map(ictx, &phys_addr, 1, &handle->idev->igroup->sw_msi_range);
+-	if (!msi_map)
+-		msi_map = iommufd_sw_msi_alloc_map(ictx, &phys_addr, 1,
++	msi_map = iommufd_sw_msi_get_map(ictx, phys_addrs, nr_addrs,
++					 &handle->idev->igroup->sw_msi_range);
++	if (msi_map) {
++		msi_maps = &ictx->sw_msi_list;
++	} else {
++		msi_map = iommufd_sw_msi_alloc_map(ictx, phys_addrs, nr_addrs,
+ 						   &handle->idev->igroup->sw_msi_range,
+ 						   &new_msi_maps);
+-	if (IS_ERR(msi_map))
+-		return PTR_ERR(msi_map);
++		if (IS_ERR(msi_map))
++			return PTR_ERR(msi_map);
++		msi_maps = &new_msi_maps;
++	}
+ 
+ 	rc = iommufd_sw_msi_maps_ensure(&handle->idev->igroup->required_sw_msi,
+-					msi_map->id);
++					msi_map->id + nr_addrs - 1);
+ 	if (rc)
+ 		goto err_free;
+ 
+-	rc = iommufd_sw_msi_install(ictx, hwpt_paging, msi_map);
++	rc = __iommufd_sw_msi_install_range(ictx, hwpt_paging, msi_maps, msi_map, nr_addrs);
+ 	if (rc)
+ 		goto err_free;
+-	__set_bit(msi_map->id, handle->idev->igroup->required_sw_msi.bitmap);
++
++	iommufd_sw_msi_set_required(handle->idev->igroup, msi_maps, msi_map, nr_addrs);
+ 
+ 	if (!list_empty(&new_msi_maps)) {
+ 		list_splice_tail_init(&new_msi_maps, &ictx->sw_msi_list);
+-		ictx->sw_msi_id++;
++		ictx->sw_msi_id += nr_addrs;
  	}
  
- 	if (ictx->sw_msi_id > IOMMUFD_SW_MSI_MAX_ID ||
-@@ -293,6 +308,10 @@ int iommufd_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
- 	msi_map = iommufd_sw_msi_get_map(handle->idev->ictx,
- 					 msi_addr & PAGE_MASK,
- 					 handle->idev->igroup->sw_msi_start);
-+	if (!msi_map)
-+		msi_map = iommufd_sw_msi_alloc_map(handle->idev->ictx,
-+						   msi_addr & PAGE_MASK,
-+						   handle->idev->igroup->sw_msi_start);
- 	if (IS_ERR(msi_map))
- 		return PTR_ERR(msi_map);
+ 	iova = msi_map->sw_msi_start + msi_map->pgoff * PAGE_SIZE;
+@@ -475,6 +504,20 @@ int iommufd_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
+ 	}
+ 	return rc;
+ }
++
++/*
++ * Called by the irq code if the platform translates the MSI address through the
++ * IOMMU. msi_addr is the physical address of the MSI page. iommufd will
++ * allocate a fd global iova for the physical page that is the same on all
++ * domains and devices.
++ */
++int iommufd_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
++		   phys_addr_t msi_addr)
++{
++	phys_addr_t phys_addr = msi_addr & PAGE_MASK;
++
++	return iommufd_sw_msi_list(domain, desc, &phys_addr, 1, PAGE_SIZE);
++}
+ EXPORT_SYMBOL_NS_GPL(iommufd_sw_msi, "IOMMUFD");
+ #endif
  
 -- 
 2.43.0
