@@ -1,127 +1,107 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6246C4FECFD;
-	Fri, 25 Sep 2026 22:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE8A3F8EB7;
+	Fri, 25 Sep 2026 22:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790375651; cv=none; b=fCyIbXWV+0t18Cj4ixsg3z5L8AD93PC+tw0UA9XpHwT0f3LbO6I2TsUGom9QlZFmdrBUOpXaC/ltdDtQGxeT1nPOz5G9AxI1z6O8M0yAu2RsMAUup9kARBUZbFzkXTywOBqwpyHwy0whus0L0KIJyNlkVgrQK1qAdoXTNCCxMPY=
+	t=1790375662; cv=none; b=bZo0tFI6U8K2NyqICSXIUSzWYi2VzyDP/gnCJqttZBeOwlMmc94I0SdCRdUKGaq6Ksu9+PJBrwFfDAqgkqLooNFVxKe9YSRt5igK0/zTzSv5O1aTRKZkeV3EFRug6qwWeoewZqK+Ya8wrfBOJI9PMPgTNxrQkY59Ios0LcX8bWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790375651; c=relaxed/simple;
-	bh=sdj4njEDSoSp/umSPZjViadBoej1J72Eti9zbsLYbYM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=a1SzVReY5m/U6OqaZxKY3E844etmFqzoPI6U/gVJgrEoNiJtqntYuQE30bxtRVXpvbsrPZ85aFZWretOiGK5JGrfSJs9tU3VSZEnoiVmhDxJwfx1cZte+7MgT4yg5hp34ralzF+7dVeW00KS9wENQ7MG8rjHDv3iMEXRfSKhVLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EVURONZn; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790375662; c=relaxed/simple;
+	bh=tX1ZUsz/e3rGKGnfkJVQfG1XgBOccNslQa8RBduFZ2A=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=U3i01fPN+0ekbjRf4f2cCjDFRCprpk+yCexEE8YSFLGYp9bRlx5yPaqdmcbaHbJ0lHfFpU6oawwUDF6BDd2qorzIYENh7qwJUPb9y4FUBGB3HeNn8q2qWP2JG8avGhElSznVo5rkkIz23sCB+5loDtTeFsZMV6IYjGsRxC/IFCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S07rFfqi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EVURONZn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790375649; x=1821911649;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=sdj4njEDSoSp/umSPZjViadBoej1J72Eti9zbsLYbYM=;
-  b=EVURONZn27giBEW8VtWQ2zkLUAcv2ZgTeSVm5yQLSflyz83PonAZGGKE
-   Yv60foXdxkFKaotkP8E9HB2aNA1eSTWue3ZHlpZ8ctPcHBWDiJpx7embl
-   NNHVrhMrvFo4XGgQLKdRkt27TnbKhkM13CBNB8TMkq9sL/7/Vq156WSjb
-   d5QZ87Q3dr0Y/BZ9ARnvVkxR3PVIkFAxHkLfKk7AijnHGlmzSMijaWSK9
-   0hb020ewe7SiZ2elnyfmpfNFtcppedOGWdfcsF8/ugW6s/l1xNO2Niw3e
-   Ft3ssOjMNkFQotlBKsFbzTPNFHAfkVNF5e82QihTJhftah8cqBj6fZ1NI
-   Q==;
-X-CSE-ConnectionGUID: 1/zJm56qRPK9CAb30bV1oQ==
-X-CSE-MsgGUID: OCX/Tc41RyKR/T5ZMhyIiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="90071996"
-X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
-   d="scan'208";a="90071996"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 15:34:09 -0700
-X-CSE-ConnectionGUID: lV4oakUWTie2Hg9p5M/RGQ==
-X-CSE-MsgGUID: OhHepA3TQfu6hp/9eMkcOA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
-   d="scan'208";a="273053432"
-Received: from gklab-003-001.igk.intel.com ([10.91.173.48])
-  by fmviesa006.fm.intel.com with ESMTP; 25 Sep 2026 15:34:06 -0700
-From: Grzegorz Nitka <grzegorz.nitka@intel.com>
-To: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	richardcochran@gmail.com,
-	andrew+netdev@lunn.ch,
-	przemyslaw.kitszel@intel.com,
-	anthony.l.nguyen@intel.com,
-	arkadiusz.kubalewski@intel.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	Grzegorz Nitka <grzegorz.nitka@intel.com>,
-	Sergey Temerkhanov <sergey.temerkhanov@intel.com>,
-	Milena Olech <milena.olech@intel.com>
-Subject: [PATCH iwl-net 2/2] ice: remove redundant cross-timestamp PTP command
-Date: Sat, 26 Sep 2026 00:28:24 +0200
-Message-Id: <20260925222824.270640-3-grzegorz.nitka@intel.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20260925222824.270640-1-grzegorz.nitka@intel.com>
-References: <20260925222824.270640-1-grzegorz.nitka@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S07rFfqi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8531F000FF;
+	Fri, 25 Sep 2026 22:34:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790375661;
+	bh=aITeuYia8itF4SMTQUZnXmogWzeqC/Cn61W96CfNPLs=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=S07rFfqi+H+8UNNSCOjpX0krnknUgrcRQGjE4D1LGyV1XWXKQjDQwe+MY2KN+cfUw
+	 ZRwvDbwvE8lSobwoDwRWk6XB2q9S/9LbXaDhf+lccJp2Tzt0UGD+gaxEWKl2uh8RqA
+	 NlcmJT0p8g4+g7ZICepgQ4zrm2cKRMo/Yxw4mHmR6mPB4Cc76ZzDGqZXiQKYFUpI/g
+	 NAJS8iQQTCoqban+Wrur77C0vShFn/29hG4C/TF1QLlK7OL9PAby9HiT+aePd95k2R
+	 xkD4Yz/mDHGwFPQtTTcTykgdmj/CoQqIYHRoJ5OhXyon3PYvNCPOc+ZhrdWdXRvCuZ
+	 a2h+jpvhv1xqA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] clang-tools: Import os for broken pipe handling
+From: Nathan Chancellor <nathan@kernel.org>
+To: houtinghang <ue081723@gmail.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+In-Reply-To: <179017337986.52388.7943687183785012868@gmail.com>
+References: <179017337986.52388.7943687183785012868@gmail.com>
+Date: Fri, 25 Sep 2026 23:34:15 +0100
+Message-Id: <179037565553.3985470.12035061965740287126.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2132; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=tX1ZUsz/e3rGKGnfkJVQfG1XgBOccNslQa8RBduFZ2A=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFnbvj0vfRZrfvFE58VpKz/OOVEm92/xwUWmZW9mbv1Tv
+ it94dfuHR2lLAxiXAyyYoos1Y9VjxsazjnLeOPUJJg5rEwgQxi4OAVgIodlGP7HSLx/37XY5/q1
+ Ywd0Xugxvri0rW/y/BMrOQ7JCT4OXLfNiuE3q6q0cJbuHcODM9/XBf8KZK78kPaBk9d+6cPvR5b
+ PlNrGCwA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-The cross-timestamp capture path programs GLTSYN_CMD with READ_TIME before
-starting the ART/device capture and clears it with NOP afterwards.
+On 2026-09-23 22:22 +0800, houtinghang wrote:
+> The BrokenPipeError handler in run-clang-tools.py calls os.open() and
+> os.dup2() without importing os. When the analysis pool raises this
+> exception, the handler raises NameError instead of redirecting stdout
+> and exiting with status 1.
+> 
+> Import os and add a regression test that injects BrokenPipeError from
+> Pool.map(), then checks the redirection and exit status.
+> 
+> Fixes: 87c7ee67deb7 ("scripts: handle BrokenPipeError for python scripts")
+> Assisted-by: LLM
+> Signed-off-by: houtinghang <ue081723@gmail.com>
+> ---
+> Testing: python scripts/clang-tools/run-clang-tools_test.py -v
+> The test fails before the import with NameError and passes after it.
+> Tested with Python 3.13 on Windows using exception injection; no complete
+> kernel build or real clang-tidy pipeline test was performed.
+> 
+> AI disclosure: Codex found the missing import, wrote the fix and test,
+> ran the test, reviewed the diff, and drafted this message in response to
+> a request to find, fix, review and submit a Linux kernel bug.
+> 
+>  scripts/clang-tools/run-clang-tools.py      |  1 +
+>  scripts/clang-tools/run-clang-tools_test.py | 41 +++++++++++++++++++++
+>  2 files changed, 42 insertions(+)
+>  create mode 100644 scripts/clang-tools/run-clang-tools_test.py
+> 
+> diff --git a/scripts/clang-tools/run-clang-tools.py b/scripts/clang-tools/run-clang-tools.py
+> index e78be82..79d58b3 100755
+> --- a/scripts/clang-tools/run-clang-tools.py
+> +++ b/scripts/clang-tools/run-clang-tools.py
+> @@ -12,6 +12,7 @@ compile_commands.json.
+>  import argparse
+>  import json
+>  import multiprocessing
+> +import os
+>  import subprocess
+>  import sys
+>  
+> diff --git a/scripts/clang-tools/run-clang-tools_test.py b/scripts/clang-tools/run-clang-tools_test.py
 
-It was assumed that this change was needed for E823 devices, which
-turned out to be not true. The hardware supported by this driver
-does not require it.
+The change to run-clang-tools.py is obviously correct but I am not sure
+this test really adds much other than noise. Please drop it and resend
+with an adjusted commit message. Additionally, please adjust your name
+in the signoff to be a "known identity" per the Documentation.
 
-Since GLTSYN_CMD is shared with other PTP operations, touching it here
-only adds a potential race source.
-Remove the redundant source command programming instead of adding another
-guard around it.
-
-Testing hints:
-Verify crosstimestamp path, for example with phc2sys tool, on
-E822/E823/E825/E830 devices. Please note that the phc2sys tool performs
-cross-timestamping by default when supported by the hardware. This can
-be observed when the reported delay is 0, indicating that the system
-time and PHC time were latched simultaneously.
-
-Fixes: 88c360e49f51 ("ice: Support cross-timestamping for E823 devices")
-Signed-off-by: Grzegorz Nitka <grzegorz.nitka@intel.com>
-Reviewed-by: Sergey Temerkhanov <sergey.temerkhanov@intel.com>
-Reviewed-by: Milena Olech <milena.olech@intel.com>
----
- drivers/net/ethernet/intel/ice/ice_ptp.c | 6 ------
- 1 file changed, 6 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/ice/ice_ptp.c b/drivers/net/ethernet/intel/ice/ice_ptp.c
-index fd97190a89a9..23c0a45050d7 100644
---- a/drivers/net/ethernet/intel/ice/ice_ptp.c
-+++ b/drivers/net/ethernet/intel/ice/ice_ptp.c
-@@ -2229,9 +2229,6 @@ static int ice_capture_crosststamp(ktime_t *device,
- 	/* Snapshot system time for historic interpolation */
- 	ktime_get_snapshot_id(ctx->snapshot_clock_id, &ctx->snapshot);
- 
--	/* Program cmd to master timer */
--	ice_ptp_src_cmd(hw, ICE_PTP_READ_TIME);
--
- 	/* Start the ART and device clock sync sequence */
- 	ctl = rd32(hw, cfg->ctl_reg);
- 	ctl |= cfg->ctl_active;
-@@ -2258,9 +2255,6 @@ static int ice_capture_crosststamp(ktime_t *device,
- 	*device = ns_to_ktime(ts);
- 
- err_timeout:
--	/* Clear the master timer */
--	ice_ptp_src_cmd(hw, ICE_PTP_NOP);
--
- 	/* Release HW lock */
- 	lock = rd32(hw, cfg->lock_reg);
- 	lock &= ~cfg->lock_busy;
 -- 
-2.39.3
+Cheers,
+Nathan
 
