@@ -1,104 +1,112 @@
-Received: from mta0.migadu.com (out-139.mta0.migadu.com [91.218.175.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE154119F7
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:47:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.139
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790362033; cv=none; b=m/EFWEIq90n5kRPMEZUzW9/RGww3XdIBixnhqr//9/S7/sBPMhLhw3tTLhuUVeN0dZ3j/VbdU6zppWp8HXZn69Phpb/nQRRm9j6gOlQvR7OzJND6IS4wKcDuZ0WuSR8hvq2AgVLpUsKGbDbCdB/b2hxmTKiIOrKSUvi+FwU5eDc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790362033; c=relaxed/simple;
-	bh=ZDB7Cv/GoRAaoC2nMm2ohyzn0qw/lGYfH7aEvgoflCA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nbWzGhXkMXo7hn3ZS4fwSGK+WiUEboXuYF9Pbo8kwAlq0erIUsLHI2EMD9WUg+gdfbheDS10Jz02m7bnD1kfEqQEU7gyW7z2GWPcGLrHqpvfGnq3d9REy327frATaab9TZDhWgCQpiiLx7TPQELINtqcWhTSIm4Fbz6ANElAOQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F0qMOSRQ; arc=none smtp.client-ip=91.218.175.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD96C44065A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790362037; cv=pass; b=EnwvaJY/VtdI+9BgQT1rpFnpX6YNI6vw2KpHoqqQXcYvSbNeDFxAUIOtqdisrpHIYeq5SGYGSXH438FEr3NKmCGZwx4cB7YKDWEmzXFJc7WsfRmrMaE0Cys5cjH3MUKx5V3f/QHlwdcMQ0mMrxpXK/SCLYVFNEKAHUu6IHbgT/8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790362037; c=relaxed/simple;
+	bh=ylClgdA4qjN8YjgAXTrojrPeuTeRxcjN/yXHiltT8+A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GWvZ67FiPGSD6IoWN3L8UzCIC1iCgnp79DOVav2xgpQGOs5CsIHezfsSDPT2ZV/5V4qJ6yW/RvBbF4RoEDnsHQCoAeItU9EeTTVBLk87HIwvJqfGOAK72K+LpAbEaZAAXay8/5T3HJI8lwbljG7WSgSHy+nTNRIqGqDAVPjd5ts=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=HMMIiT+K; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F0qMOSRQ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZDB7Cv/GoRAaoC2nMm2ohyzn0qw/lGYfH7aEvgoflCA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790362028; v=1; x=1790966828;
- b=F0qMOSRQ6JdStYwkIiLROThp5fhWQvDBe4b4+Ss5aOXnkYoUS+EptNCziAOUr88AjVPfSCn+
- XXt64a96e436lPhdtAfUhahXy0Pc33Gw4EH9BGe9dnb42OkDIfBBDHHKRXNY5soNMjgcA29M5ov
- OmtVCYoUKRoUjPceKbIEYC94=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 58196d26f865613b;
-	Fri, 25 Sep 2026 18:47:07 +0000
-X-Mizu-Trace-ID: 58196d26f865613b
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 25 Sep 2026 11:47:02 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Kairui Song <ryncsn@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel team <kernel-team@meta.com>, 
-	Linux Memory Management List <linux-mm@kvack.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arbA6J7n999U7v0L@linux.dev>
-References: <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
- <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora>
- <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <arKRdaNEaKvFOtMg@linux.dev>
- <CACePvbX7aM45SE9H0hg1_uXBt1i4W7Pgk+d33Z2sG5bj8cHudA@mail.gmail.com>
- <arKerXANxjILrKNs@MiWiFi-R3L-srv>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="HMMIiT+K"
+ARC-Seal: i=1; a=rsa-sha256; t=1790362008; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=IHBN+csVUTg+279zawL3cDeSj3I+h42I8zWI9kaGITyxdWn4+cv1rTSQbVbluH61s1MFC6NdkIjhydjkJs3plN3O357J3vooVKP2YpA7nLLMLcHMb0COkAndsW0hO7Z8gZF2r+ZnNUIxhLYsrH0tZK+SGiSPugTBRrCbHFiJ/ns=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790362008; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=rne2vTyla1RUI4gVDThBMRFsSeWjoijKTX5hYO0ZMA0=; 
+	b=AfgsyxHVwiQc0jlp5sarzRtiMBTck5vruXW8BLi+Tlt4B1LUy638nLH9w2SLWkCZrgiNoSZpeX04BrtctjFsfI2H549C1i6g3wCKuF2FB424X5kKiu8/sHRJwgf+6nyUhEQBZjZlSELZDccy0fe/jEg21Kwgt73+WBeU3Oe7JdU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790362008;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=rne2vTyla1RUI4gVDThBMRFsSeWjoijKTX5hYO0ZMA0=;
+	b=HMMIiT+KAeVfd7YnNqQC+6YvzJYbNvd5JYO9aCA+JN6v0UFwZX4R+5efmMLwP3gG
+	QipkuJFqFmrljhcYnTano1mIDldr2gjaP9pXRmcdBBq2+ZwDZwaNoyr764z4a9kOR2F
+	apcMuUQfXB8H5736eYq6l8rnuYgvlXurFB6kEs1Q=
+Received: by smtp.zohomail.com with SMTPS id 1790362006274552.8530406652147;
+	Fri, 25 Sep 2026 11:46:46 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Fri, 25 Sep 2026 19:45:34 +0100
+Subject: [PATCH v11 13/15] drm/panfrost: Avoid cache flush after perfcnt
+ sample in fully coherent systems
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <arKerXANxjILrKNs@MiWiFi-R3L-srv>
+Message-Id: <20260925-claude-fixes-v11-13-0dbf5a58e7ce@collabora.com>
+References: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
+In-Reply-To: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1088;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=ylClgdA4qjN8YjgAXTrojrPeuTeRxcjN/yXHiltT8+A=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqtsFEAvavFHQhpg2ui1rPxkirqK1B1MSHIvD+Y
+ QpvGaqA2NKJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCarbBRAAKCRAOJn5M7lND
+ PeJzC/4+J5fRPwiul01r9JmRKJ5FWp+l0n9rLaXujhXp1BGHlcJdhPh2gXBXY9qZ10TlQbnCJN4
+ wctGmkmzvZZr7Q8uVOLbsPFTVWah81LA2auQN4NP4xM2muAl5SNp3vJYDvZQruoi/9Xy8290rTz
+ 6Hc/KK3udAv5IWp+EOoeeZqLWHJQmKZEyPbior738UcqY79l+xwsjmsBhBYmJm5vB3p8JHyWeAs
+ nbLAMtI/dcxdp8lO8y1sTRbU1AYIh2e5ZU04XEI4xG07ZJOQEjUxNNfb4JaKweDLsikKVpB1vyp
+ LPe3wYI27TCplW2o7kKi8p5EDM3qx3Xsh1t5e3VC3GcpH72ekUUFnVJrqGo3oqPMVOi36C2tM2n
+ fDIPPyWWCR7yugcxnpShE6WRj5IRI8a5zOGh6uNUpGkCKT9qfF45F9D+VpVUaIYGg9XVJ3bYOda
+ eE5AUaX9W/7nYzXx64s/vm8H2R5LbCu1IPs7f8C8RiC1wK0GR8CXItHQV1WRdY4U7wlmo=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-On Tue, Sep 22, 2026 at 11:28:45PM +0800, Baoquan He wrote:
-> On 09/22/26 at 04:56am, Chris Li wrote:
-> > On Tue, Sep 22, 2026 at 4:43 AM Shakeel Butt <shakeel.butt@linux.dev> wrote:
-> > >
-> > > People can speak for themselves and suggest other time slots. You do not speak
-> > > for anyone but yourself here. At this point this is derailing the conversation.
-> > >
-> > 
-> > I am expressing my opinion, freedom of speech. As you can see in the
-> > previous discussion, Baoquan wasn't able to join that time slot. He is
-> > a major shareholder in XSwap. I worry that alignment vswap vs xswap
-> > without Baoquan is ineffective. That is my opinion.
-> 
-> Thanks Chris. I know you are trying to involve more people to join and
-> talk, and I appreciate it.
-> 
-> About the meeting time. I am in UTC+8. If the meeting is before 23:00
-> my time, I can join. If it is later than that, it is too late for me,                                 
-> and I can only discuss in the mailing list.                                                           
->                                                                                                       
-> But I am fine if other people meet without me. Please do not block the                                
-> meeting because of me.                                                                                
+If the GPU and CPU are fully coherent, then there's no need to flush the
+GPU caches after a perfcnt sample is made available.
 
-Hi Baoquan, don't worry, I will make sure that you are present in the
-conversation. There isn't much time left before LPC and many people are
-travelling next week, so we may have to schedule one after the LPC. 
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+index ffc77121070e..b3f71d7fd82a 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
++++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+@@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
+ 
+ void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
+ {
+-	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
++	if (pfdev->features.selected_coherency != COHERENCY_ACE)
++		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
++	else
++		complete(&pfdev->perfcnt->dump_comp);
+ }
+ 
+ static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
+
+-- 
+2.55.0
 
