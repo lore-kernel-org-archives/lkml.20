@@ -1,48 +1,47 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647494AA56F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517B74AA035;
+	Fri, 25 Sep 2026 14:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346526; cv=none; b=tuIaAMZlYVWYv0KbSqLxRl28fZ4gUdIGzcy+q9hPz22RKUHRJMYmWxcl4pFK0EYb9gDwGQqpbQtnHWVBGekRrqXQdq6kHc/mPXmPlxYdX7L6h+6BvDOjU1bEB5ZSAsz4rdaHThqvNhW5a3UeOahN/zoKWYPA4amQwuNesq/P3Hs=
+	t=1790346529; cv=none; b=M2npRkmEqQC9Z/VjzwCsRPfsKLTM6psNoK6cQrD76muqQ4zq4pwyqhL4xU3U3/CwMm7LOZxrdMyjlaZoMC/fExGhjV3BeRxOR1UC6MaFocn1bDTtiTrEQ7UWuLArCxS1eJjAWQfdvX96JfQZ5V399jMNH1ZBVoyscA4aBK/I388=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346526; c=relaxed/simple;
-	bh=gWIy/GKYamxBRZMtbB4L9YLBIMD6QZ+VFmFOXRRnRp8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=SDR6AKEl6XQ212V7VlrELxRCqHsHpHl2MdAAUA+Pd3mzjy+ECDYNEeFPxJdC0emUdmC/B3VCrPg96okT794ccNp5auJK0W+UaztQllN+bOGcR/vxLjuprmTu1IntM1hVc4gKb1zlOreoJrotWX1OCR7tlBekm+9gvcXq5Gojj2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WpQTn2YY; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790346529; c=relaxed/simple;
+	bh=eZMWyVHwLBeSyGNnK0wQpUPRVoQzN/GYHffzAoKLUMs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TTQTNUQ/M4NeRJJIpjh2RrqNir9JmMuxFSdSRCHSkp0M7r/MvkFWv8PZu23EBTltnhviW9REuu2Tzgx4NOUBSNQVLZtxixG1gfQSEeuxkW34ywog30oLAjPvTBx8bD+dDei3V5GPIUKW9VFTvL/EySJ/Clo51KA5iqHdqlf4iMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k4SZ6VKa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WpQTn2YY"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DE48A4E41072
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:28:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B32626073B;
-	Fri, 25 Sep 2026 14:28:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 47BDD102F08C8;
-	Fri, 25 Sep 2026 16:28:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790346516; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=hdiolBELxxmfQcAOx1kY9blRizk6Tupmf6uYv16AY2k=;
-	b=WpQTn2YYnnlD5rAc/GZvgLWk49wfhzgSKEzildbpZ+icfaFjwzlmffcdSH+jCkC7d+iEig
-	nvdU7UhNexQII16n5SRP8aQ+Ef+9F6GDHjfyhwAWpqVulBx4WpRI3dbDejoAwNvIFBOKZM
-	GAmKZr88w9w+aFrxu/9ZqpuaFube701pvm25ldgiTkgCvNbHjlR09+G2fMBcKjVODJx4ka
-	7k8rVCvIMMogxZHeWs5ybpATDajl9lXZ5wQwG5Y2czls56I4YJnJ2ffjmZqlN3/putUP7s
-	cv84ildMyiCMD+ESd9eHq/vbxRCjUHa2mmodQOtQWRnC3flct56kPbKm38NLRA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: richard@nod.at, vigneshr@ti.com, Orgad Shaneh <orgads@gmail.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916162731.307959-1-orgads@gmail.com>
-References: <20260915075028.21658-1-orgads@gmail.com>
- <20260916162731.307959-1-orgads@gmail.com>
-Subject: Re: [PATCH v3] mtd: cfi_cmdset_0002: cap the write-buffer chunk at
- 256 bytes on an x8 device
-Message-Id: <179034651513.1166139.14108595219932825310.b4-ty@bootlin.com>
-Date: Fri, 25 Sep 2026 16:28:35 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k4SZ6VKa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59AF1F000FF;
+	Fri, 25 Sep 2026 14:28:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790346528;
+	bh=mJ1PqPWR+7cctR+RTsFiK9AOdycX/ohQg6/y/QX5A38=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=k4SZ6VKaR4o4uxHyz9qhBkbw0DOb2bVAmlnQ4sn2znbbdhPZS/TZWPkyEgsBkqyYh
+	 W/RWyoVWc0dTJfinOvm42cTwbgB0vjG6A2KaYifPHsd0R20NyiM9ITTQ8njoxsgMAI
+	 CSlAd0Bncq+sU55o2KA/DQ7DC0noaEdXNTcFuRg3sx99rlmCO7rtJ2wWngVcZpcoNy
+	 Vi10vghAAKYDSUHctqu8I4libuVInSCdaozYMscrEZARrWFM0Z/+3yYq1mjGyzzCL0
+	 nEazbkZ6X/A+8VdxGqEu/X0N5mV/N9wOx2/PKhb7/bu/dB4ZOq8peoCHv8psWMRiEI
+	 Qg5rHmprsNIsA==
+From: Christian Brauner <brauner@kernel.org>
+To: NeilBrown <neilb@ownmail.net>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	Jeff Layton <jlayton@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/7] VFS: prepare for changes to directory locking
+Date: Fri, 25 Sep 2026 16:28:33 +0200
+Message-ID: <20260925-einbehalten-kurort-parken-fea6829fafb5@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260904215142.1060510-1-neilb@ownmail.net>
+References: <20260904215142.1060510-1-neilb@ownmail.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,32 +49,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1773; i=brauner@kernel.org; h=from:subject:message-id; bh=eZMWyVHwLBeSyGNnK0wQpUPRVoQzN/GYHffzAoKLUMs=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRta5VqPvLl3aXUmdePXjq1b+OKbPGDF+YcjX13Jed5r 6z7tv8ySh2lLAxiXAyyYoosDu0m4XLLeSo2G2VqwMxhZQIZwsDFKQATYdZh+O/xbFZrnKrGkauC gQps0uIP+u/OXyAvXRlw/azT8WR5ld8M/5MW1rWb2jRud/1lpBsX77b+UpbT9uXe/bt7Og5em/w tgAsA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 16 Sep 2026 16:27:31 +0000, Orgad Shaneh wrote:
-> The Write to Buffer command takes the number of words to program minus
-> one, and do_write_buffer() sends that count as a single bus word:
+On Sat, 05 Sep 2026 07:48:09 +1000, NeilBrown wrote:
+> The only change in this v4 over v3 are to replace lock_sync with an
+> acquire/release pair which builds correctly when lockdep isn't enabled,
+> to add the 7th patch which I previously mentioned, and to include
+> linux-kernel so that sashiko gets to see the series.
 > 
-> 	map_write(map, CMD(words - 1), cmd_adr);
-> 
-> CMD() replicates the value into every device lane, so each device reads
-> the count off its own data lines - eight of them on an x8 part. A count
-> that does not fit in eight bits is truncated there, which limits one
-> Write to Buffer to 256 words on an x8 device, however large a buffer the
-> chip advertises in its CFI query.
+> Previous intro:
 > 
 > [...]
 
-Applied to mtd/next, thanks!
+Applied to the vfs-7.4.lookup branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.lookup branch should appear in linux-next soon.
 
-[1/1] mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256 bytes on an x8 device
-      commit: cfc5ebc9540e29f8f96db88bbfa261139e5afedb
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Patche(s) should be available on mtd/linux.git and will be
-part of the next PR (provided that no robot complains by then).
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Kind regards,
-Miquèl
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.lookup
+
+[1/7] VFS: fix various typos in documentation for start_creating start_removing etc
+      https://git.kernel.org/vfs/vfs/c/f8550827bf3d
+[2/7] VFS: enhance d_splice_alias() to handle hashed dentries
+      https://git.kernel.org/vfs/vfs/c/f1ac607f786f
+[3/7] VFS: introduce d_alloc_trylock()
+      https://git.kernel.org/vfs/vfs/c/17c7d109d8c9
+[4/7] VFS: add d_duplicate()
+      https://git.kernel.org/vfs/vfs/c/33d76519f0cc
+[5/7] VFS: Add LOOKUP_SHARED flag.
+      https://git.kernel.org/vfs/vfs/c/cc47a1ba1983
+[6/7] VFS: add lockdep monitoring of DCACHE_PAR_LOOKUP lock.
+      https://git.kernel.org/vfs/vfs/c/59492f9991dc
+[7/7] VFS: reserve a d_flags bit for fs-specific usage
+      https://git.kernel.org/vfs/vfs/c/fd96e30426ff
