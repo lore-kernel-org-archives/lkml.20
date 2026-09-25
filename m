@@ -1,132 +1,79 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F6844A401;
-	Fri, 25 Sep 2026 07:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047AB470440
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:51:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322712; cv=none; b=R1i4EXVkfQHgfZW+9YwVd561Ej556FH0m9vEW+RnH05+z6ZqDfCmH7q+GtpY1RUXaGwWO1UsNebJ+1IxYlNxK/zGPu24yVSIFJ59fWvRgXxbeVCHufUViIbxmnKEdzbKhHtX+wNo4p/BqIyNlib8QslAVwxYf30x3wFZZiUSssM=
+	t=1790322712; cv=none; b=ErKvHZ8pw6ruhLZRJ1ORATL0DlW/5eKwEVDR2W6qGdBvo5Z8DbKOxsl8+uVM65mvprDRO+MdzXGk9rD8gkwHz5ENQYJbW+GsWvnJmP/UphnsapXBzBzqnK1slikNK6jmMNYOvgqM6/GDMyFdxrBn4884c7H8sQOxzkVDn/ui6hE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790322712; c=relaxed/simple;
-	bh=H4dOP6z8cvSIvC6o3SOjbFDKrFPVd6jypn23lrkidZw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AoyGX6giUDwMzLDcNo2ZLirs3kWWlsUPnUtGw+DAoAr+3Tu0Nf/NHaUhkrJuWGk+PB39nVms3MOBeGyftfv8sybE1MWVe3I2vK0b/WNjAofPtIvPV3DGvShR226d+Ng2qa6KEyIYher4uCWmzsueEuk6KNgEZwJIp0MSLXgwHlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=kGwG7lj1; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	bh=GjpeIY/pG0iyYr5NWnH1XKSCrH0YfSl/S1f/surn4EU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MUXTC/EPrgHTfM4LIrTNZjPOSnJgAIH+3cjWihs590TJK9fkbvVgFCgbOekNdPuejrJSzfuRjY0K/j1WzZy8VZdzoNOdXXM8OToaW94+t4hvfWNDLzmf3QBNHum1G/P4rDSeooOqReypw35Abs9ueu0qqEo1H3gc9kJYCenPQZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=vZCG5JLk; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="kGwG7lj1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=4xIvUf6Fn/gIIXV95CPOPd+qR13P+eKRk/BuK/+dOvA=; b=kGwG7lj13TocCCszVJUFUR24jL
-	4N3LeGxfCiBpknmVmHegSveO0il1OABq7CWfIEAyIkgUqKYsM3iosgH8kwBTl5v8IpCzbXTn8QuJP
-	5p9fiS3MkussRwk90e+rq0DzlThIa11gHD6HuWbuvaF6aHj5Z35neCKB7Zs4v5Cv7hQVFw4xuCSgC
-	3mzjiiuqyNtojrrsvf5Nse5fIsGO2RC1BuT+1cVTge2Oy16yXi1feMDKDCW2E8JcJrsBh8Y8zWr4v
-	Btu3Jv58zxeLaWXuVwf7rSWKeEOd2yDP0H75muq2KabwuHa/blsWm6YcUESikQFobdUcSF29A57ZR
-	h3Rv3fHg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1xA0iW-0000000GiAO-273E;
-	Fri, 25 Sep 2026 07:51:36 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 1049030070F; Fri, 25 Sep 2026 09:51:35 +0200 (CEST)
-Date: Fri, 25 Sep 2026 09:51:34 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, yury.norov@gmail.com,
-	kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
-	meted@linux.ibm.com, ynorov@nvidia.com, tglx@kernel.org,
-	gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
-	vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
-	dietmar.eggemann@arm.com, maddy@linux.ibm.com, srikar@linux.ibm.com,
-	hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
-	frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
-	christian.loehle@arm.com, tj@kernel.org,
-	tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
-	rdunlap@infradead.org, kernellwp@gmail.com,
-	linux-doc@vger.kernel.org, jgross@suse.com,
-	virtualization@lists.linux.dev, sunlightlinux@gmail.com
-Subject: Re: [PATCH v13 09/13] sched/debug: Add migration stats due to non
- preferred CPUs
-Message-ID: <20260925075134.GH4121339@noisy.programming.kicks-ass.net>
-References: <20260909135617.871006-1-sshegde@linux.ibm.com>
- <20260909135617.871006-10-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="vZCG5JLk"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hrjZn74kzzMlM9;
+	Fri, 25 Sep 2026 09:51:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790322706; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GjpeIY/pG0iyYr5NWnH1XKSCrH0YfSl/S1f/surn4EU=;
+	b=vZCG5JLkHEX1PNzOIaK9ft628SrijD+0AzYbRyqzLc7b3Mf+xCGIAGZ1yrtNgDoOmO1ZT5
+	7eu0qA8UbgNYLqqVgVRV6Ph5BAhxKsaoWZBESI1G9y0jYfxKRKB1+Dsg23Vr8HxVcjCkFm
+	/Zh3LEv2POQdRb/EiaC8Y22gLoj6OhzDIky6TljqWe5UMU0Azuf32KT40mP2SijPqPvY5W
+	OY988CYe4+ZfnM8HostD7qPD0KivcSjHLPZI9bWtSa+aOoujej6oWmy1aQd6/bWXvQ0cwM
+	26xcj37OcwWb8/iHoKeUxAJxyqvsm3kD4t6lIs29NeRBVSF3eRhyeVT7q+KH9Q==
+Message-ID: <c74e694483833b6eb1fa56228e67a9fdf9f1ab6c.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Remove forgotten header
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Marco Pagani <marco.pagani@linux.dev>, Philipp Stanner
+ <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Matthew
+ Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+	 <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Date: Fri, 25 Sep 2026 09:51:42 +0200
+In-Reply-To: <50b4b64d-7948-418b-9f3e-9d841fc426a3@linux.dev>
+References: <20260625104903.1713213-2-phasta@kernel.org>
+	 <50b4b64d-7948-418b-9f3e-9d841fc426a3@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909135617.871006-10-sshegde@linux.ibm.com>
+X-MBO-RS-ID: a77a23f4c045a7a67a9
+X-MBO-RS-META: cnzc14fysmehxmxbtp16dpdx4p7htn9t
 
-On Wed, Sep 09, 2026 at 07:26:13PM +0530, Shrikanth Hegde wrote:
-> Add a new stat,
-> - nr_migrations_cpu_non_preferred: number of migrations happened since
->   a CPU was marked as non preferred due to high steal time.
+On Thu, 2026-09-24 at 12:08 +0200, Marco Pagani wrote:
+>=20
+>=20
+> On 25/06/2026 12:49, Philipp Stanner wrote:
+> > sched_main.c still contains the spsc queue header, which is not needed
+> > anymore in that file.
+> >=20
+> > Remove the surplus header import.
+> >=20
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+>=20
+> Reviewed-by: Marco Pagani <marco.pagani@linux.dev>
 
-My reading of the below code ends up with something like:
+Thx Marco. Pushed it now
 
- - nr_migrations_cpu_non_preferred: number of push migrations while the
-   CPU is non-preferred.
-
-Hmm?
-
-> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> ---
->  include/linux/sched.h | 1 +
->  kernel/sched/core.c   | 9 +++++++--
->  kernel/sched/debug.c  | 1 +
->  3 files changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index d7cc77181ef9..48639b0c75d0 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -554,6 +554,7 @@ struct sched_statistics {
->  	u64				nr_failed_migrations_running;
->  	u64				nr_failed_migrations_hot;
->  	u64				nr_forced_migrations;
-> +	u64				nr_migrations_cpu_non_preferred;
->  
->  	u64				nr_wakeups;
->  	u64				nr_wakeups_sync;
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 458b8c6fd9af..fb8404bd47e2 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -11239,8 +11239,13 @@ static int sched_non_preferred_cpu_push_stop(void *arg)
->  	context_unsafe_alias(rq);
->  
->  	if (task_rq(p) == rq && task_on_rq_queued(p) &&
-> -	    !is_migration_disabled(p))
-> -		rq = __migrate_task(rq, &rf, p, cpu);
-> +	    !is_migration_disabled(p)) {
-> +		struct rq *dest_rq = __migrate_task(rq, &rf, p, cpu);
-> +
-> +		if (rq != dest_rq)
-> +			schedstat_inc(p->stats.nr_migrations_cpu_non_preferred);
-> +		rq = dest_rq;
-> +	}
->  
->  	rq_unlock(rq, &rf);
->  	raw_spin_unlock_irq(&p->pi_lock);
-> diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-> index fda10b3fa249..e6a3b516c703 100644
-> --- a/kernel/sched/debug.c
-> +++ b/kernel/sched/debug.c
-> @@ -1440,6 +1440,7 @@ void proc_sched_show_task(struct task_struct *p, struct pid_namespace *ns,
->  		P_SCHEDSTAT(nr_failed_migrations_running);
->  		P_SCHEDSTAT(nr_failed_migrations_hot);
->  		P_SCHEDSTAT(nr_forced_migrations);
-> +		P_SCHEDSTAT(nr_migrations_cpu_non_preferred);
->  		P_SCHEDSTAT(nr_wakeups);
->  		P_SCHEDSTAT(nr_wakeups_sync);
->  		P_SCHEDSTAT(nr_wakeups_migrate);
-> -- 
-> 2.52.0
-> 
+P.
