@@ -1,199 +1,222 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazolkn19012084.outbound.protection.outlook.com [52.103.20.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF01363C59;
-	Fri, 25 Sep 2026 02:18:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.84
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790302723; cv=fail; b=C8NTFasN8PzF36bSxCcFbNl15bPgelrRSP16l5hXGvJLpOLVWhWCd+g0bxkATq5oy6ALURzSZO7nEi9rSZTscYf6s44hik06E22gg3QJMRwrKXzimxK63JtNGZLd62UlDIy3euzCnzZkaen+3XI4WrNRgNUuJlMH2FtkTv1+DQo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790302723; c=relaxed/simple;
-	bh=eWGlgmf9u64lYL/pVxyPeBVk/E8UKArwH39ghtFt+GI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=fmYPAJvUmDXstncK+3Yy+Nfikh3LADMNGtsZQjL9LOXb3kDdJLzywHk+n55oaISUq68FCP7y0frlPs1MUBnRMY/PafhQ4ES5HPUfMZaPf7dslDmnuRtZ4ix0dVU22Gaez4prE9EUiQSV8plxTpFTelCybHhAPmWVX5q9qcqgduE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=ZjS8jE2F; arc=fail smtp.client-ip=52.103.20.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A78B26AC3
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790302773; cv=none; b=r9xmhvyMY9eb34oXOZBUExudDitQWZ6xrObLh6VDfLwgmqvhgJ5dhpnNbx2KzW2aWZa6a7ftuD0y2+JzBy1N7gr1e5aV8lmQBqdvnxfUXJcsz4SuHzvmpPQyl/sWUTfvo7Wavipg46X5/1P2M+LEFDekh+fhGKNpMTZ05QdruhU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790302773; c=relaxed/simple;
+	bh=BVsR/Le3p7XUjNMygmMfdzWGgyiUfG/up2i4TgQQr+E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=COkUEm48RxzXABnxOK9cHzyPQFPrUhup36JWXs0T7+ACHRwXhBl5LSpwGk7ETOB9SpQquQQQv7pLuYYZ3++wC8EpjV9oOSfMRPH8R6Oj0nqbZGb/LZ9U0o4drVwGuvd3cPNdHe3QdLOwDsANf1TjarsGTxPPj898a37ttANHKdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CzndHdM5; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="ZjS8jE2F"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AP7O+SE6AqMRV8eeZczV7fERr4R5932emfpWVL9zcqZgqbfdsFrZYtJFRHjc+jaawZ6oNVDeaQoJMkWrJMTi4KcPBtqH9g/5qdd+hstd/rDyIWTP/V9eHM8kruEHDA9aqW11dosVVg5hFnS1u2yOrRbZFjow9/wzQ0FxqMeYXd9aoXNEI3XppSq3Vp65w37ymGJgBa8Gi5vbZxeR0F3xM8MAFThXwv0YcS3+OuoqWnPCTd1LWwQrqFX+YQCUJ6EmsZYiq7/kcSWczetGKbS48kyIPTY+tvPOwUxpk8+qAsn47aO8ruRAv/3E66Cxz9vqse4kbJ1r55Llja7QCnj16w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eWGlgmf9u64lYL/pVxyPeBVk/E8UKArwH39ghtFt+GI=;
- b=mMbqCcB+yOqXNp8TTqzgy9/E3Ofsf28Dp0gEorqiKkelcG3qt0HJHZvFnlhK4xWhIfFCKmmpLpXCqibQpwd8/Zl9Qh5yf0jfWVvUYMHuAshSCqAts0r9adb0MmEaS/s0YvBn/WQCe5U/pl/4KNI+fHZ2mIoOTNx7jnx/whZWt23W3/b6f4p/hrBLjabqXWeMIEhLfqj4zSigx4QoCH1xw6ANERjIAbO8hGEv7h2F44qZ7ZpstJw6dsZ4R0R9D/Z9du3OOXATaV9REJpbwTHN2WhugTm2ZgNQdO95E2FTRWE6x46Ge84ZuWLHbkbJAArO+9KGEUMN3fKUwmbc1yIarw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eWGlgmf9u64lYL/pVxyPeBVk/E8UKArwH39ghtFt+GI=;
- b=ZjS8jE2FJiL2Ixa9SxVGB8uEnimWZ6cRhz9cCoNAYZZan6THRTMwVKjIhnkpvtu93qjPpcQrwobk8+UbS1xUQAAE2ZNhN/mrSgeSuJpKKawva6RcCs7U5T2Y5Iqj2891P8ePpUK4AxD1J3kAUBH0uyZipgQa/u2gAJFWz9Wy8Qa98E4bqgQOKbV6mFvEILqvQyzfvWulOS8kKRuVwUK18i/oOnW9yepnNI7QhcfQ8sM6jomUcMIjj/HM9mlY7VR6PimXomi/KXyO/LPPVrh2AHYhPA5B9/zvOPQC1t7Ydh1RbNXw+IgW38VseIhnGHBvS8GZ0btQ9cghdz1RM0OYgA==
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by CH0PR02MB8274.namprd02.prod.outlook.com (2603:10b6:610:f8::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 02:18:36 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6%5]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 02:18:35 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: "wei.liu@kernel.org" <wei.liu@kernel.org>, Linux on Hyper-V List
-	<linux-hyperv@vger.kernel.org>
-CC: "mukeshrathor@linux.microsoft.com" <mukeshrathor@linux.microsoft.com>,
-	"anirudh@anirudhrb.com" <anirudh@anirudhrb.com>,
-	"schakrabarti@linux.microsoft.com" <schakrabarti@linux.microsoft.com>, Mukesh
- R <mrathor@linux.microsoft.com>, Asher Kariv <askariv@microsoft.com>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, =?utf-8?B?S3J6eXN6dG9mIFdpbGN6ecWEc2tp?=
-	<kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Rob
- Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, "open
- list:PCI NATIVE HOST BRIDGE AND ENDPOINT DRIVERS"
-	<linux-pci@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2] PCI: hv: hardwire PCI_INTERRUPT_PIN to 0
-Thread-Topic: [PATCH v2] PCI: hv: hardwire PCI_INTERRUPT_PIN to 0
-Thread-Index: AQLQ5+BUZyN5gfzLrIKvTOztWR1Vz7T3U1qw
-Date: Fri, 25 Sep 2026 02:18:35 +0000
-Message-ID:
- <SN6PR02MB4157B715ACD99BB579C1BCECD4802@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20260913232255.2801797-1-wei.liu@kernel.org>
-In-Reply-To: <20260913232255.2801797-1-wei.liu@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|CH0PR02MB8274:EE_
-x-ms-office365-filtering-correlation-id: 8420b464-856c-4686-830e-08df1aab4de4
-x-ms-exchange-slblob-mailprops:
- V85gaVfRD4/uZtbPKQiHMaRLDxOOyjp2oa3viOffULAchnn/eUdUP0i9JB0utYzCh9owM9vvNgiv7HJBgD5dWytsaTFCuANei5KD8HrQELwzVhL9y6XaL1rh5VwU4umtZlXpyzLb/25/VcBkCN5n4BgNUirIg653FznKYiVn+rPJqpz+sF5lg0kz5tpSA+AehhZzLsKBBqw/8XNLWQH1BH2zXSeQKgVgj7X7C0gFIzIN8xazSLAtYryrPMg1k5HRf8fjaBYqAydnNwe+2ugE24j5+JXhV+3Izj/azzQn+NVC1gRMk9XSL+9dtm5PLl4BQyBywgYH5mjvkCmjf4qpNHowCPmYYglBTUXqQRK4kCgOCqv1Hrwojlbl/9Js1YATYBaDx0I6HxLtMMMotOf2tm3XDbgXDx8S8S7S6yFqmTPBoBx9rntfG0DVmLLA7DIDASsSXjRfQrAInwZBGfRavUdvvUNzDufwENymPBhdBpqUDd3r1j+o96Uzg7/COs3Fwhhs88nk5FdVjN4vNPZM3+a5/Qfw8dFBVaUbuOusThOqT6KnscOAkQ06ZQDUdSLP0Bd8fHqK9jHTEUxVU7rGjS/OSnlBPCF010xEeLl4ZRi3W9IwwZX7AH5/xTCZfFY+mXNMfo7H/dsv4WGVOebDDg6i1lbNJWjPeW/vTe0fyHihk2C7DCwvzfsIvFdxImVtCkR/IZS7w21a5ekNnlAd9Vp3QljyzdR/p8hlFow0usd0Iwsv916qvmyJsmEaXxyQ/XbiIRoKUTu0wexkdJkwoXmgG44jNukEtAxq72HzZal4poWO43cDbtG2EOyCZIYsue4QJL2Ny4rZkKPpEiRJ1Q==
-x-microsoft-antispam:
- BCL:0;ARA:14566002|15080799012|37011999003|24021099003|25010399006|55001999006|4140399003|8062599012|31061999003|51005399006|8060799015|19110799012|13091999003|40105399003|2607281247196008|1602099012|10035399007|102099032|3412199025|4302099013|440099028;
-x-microsoft-antispam-message-info:
- =?utf-8?B?SnZDdFg5RDZzbitFcXJCd0lud0hnczFuQWZ6eW5RMUszUmRCVERmNWhXZkow?=
- =?utf-8?B?Q1RHaVlDdGovaUpFekRVbjFrWTR4QVF3alBteGt6ZXo3TS9sTjVBazYxZGEv?=
- =?utf-8?B?OFhpZnVyQ0tPZm1IVGV6SkRHUUt0WFZTV3VOQ2xSTDh2R3EyV21mbTUxQ2dO?=
- =?utf-8?B?cHZYamtXQS84RFpUNHhkcE5KS1N2ZlRtK3FGajBZOHlhY2dnT2s2ZkRiSDdD?=
- =?utf-8?B?VC9kOWNSbEJtaWlGU3RnY2dkdXFUQ0FaSE9MMGRZQUtQaGdTc2QzSzBSU3M4?=
- =?utf-8?B?S0NsR0tEdExrUW1GbkJOSnRZSFQrMW1qa2ZlRk8rK0dYekp2UHFhS2RZZVpS?=
- =?utf-8?B?RFVZVk1hcmVzSGM3ZDdaUG5ESVU4M2E5WGZvdktOeCtmNzBCQXl3ZG9oTmp1?=
- =?utf-8?B?NjJkQjBkbXg3d3VMdkhTd2VSOTJ1TWx1SzFnT3JQL2ZzV1B0MWRMNlp5NHM5?=
- =?utf-8?B?cmxBNWEwQjIzRi9HMXB1am1iN29Nc3lxOTVZU1ArN04wU3NVc3crRkttWEZt?=
- =?utf-8?B?R0lxRkR3YkhvQStRUlk2SWFmenVVdnQxR3RGNTVEckJIM2FqUjl4c1JtRjRH?=
- =?utf-8?B?NHUyRFNwa2JUUEJSd09GOUU1MUU0c1VtZG5rSVBsMGFmdE4yd2ZHZUtwWGVN?=
- =?utf-8?B?L2taK1hidXp5dGpJSWFOQ2hDS3l4ZGJFYUw2Q3oyRVp5RzV2dlluZXc4WUlw?=
- =?utf-8?B?Z0hlU2NmeEYydnliREQxUG5zK1BOZ0xveHQxb3dha0J5RWRWeGllZ0thOWxv?=
- =?utf-8?B?bXFKNkI1citwR0tpUUs3RngvSCs4TEtoWmpKdSt6TlRoTVVQdVA1ZyswamF2?=
- =?utf-8?B?R2dWcXdIZm1iclRxWGZOdzNtT2N4TE0vdXl1NGZjenJqY2loZzFRWkxNaFJH?=
- =?utf-8?B?dUJqTU1Kd2tERko2Q0ZSMkJzVXdxRWl0MXV1WllKVHpFZXZNeStmVDlxdGhj?=
- =?utf-8?B?ZTdPV3dNeTIwOVN6dkR0dzN0WXFaKzNnRHFWWlFOVEdGYWJWY2l6bDdDQnNR?=
- =?utf-8?B?dloxMnBINDFCaTA3WkMvNkViZzFwejJSUjRNc3RTWmpCOFduRVM2Q3ZNRjZC?=
- =?utf-8?B?WnZZRXlYczlKZVBlL3crb084NVdobC9vcGF3V3MySnM5REJFUS96dFl6RkhS?=
- =?utf-8?B?R2N6SGFMKzRwZC90NlhSL3VGeFc4ZkJLOWMzS013bTNIaks3Wk01VE5wTHJs?=
- =?utf-8?B?b25aRFlZUDJDdjVZNUVrTjBCbUcyRnVGVW5KcyswWVN0SnMzOXpGVmVCQ2d4?=
- =?utf-8?B?ZitETDA1WHYxL09Wc3NtWTNkSlIzWHRid08rM0RsWjhVK01BMGJVdDU1SzVq?=
- =?utf-8?B?RmN1NzZkdE44RUxkRTRNeW14bUg2ZTRZZzVtOTR5S3FVdFJMWXdmbjBQS1Fa?=
- =?utf-8?B?QVdNTDArdW1SdTNkbVlFMmlJenZ3UG9GelRMazM4U0cxZm02QURpU2pQejZm?=
- =?utf-8?B?cXlKc3h2alJLNGlvUzEwNThlYU4zb0ZhcWYySGxRPT0=?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?QTI4UFlwNHMrM3NLNm9nVThFbGpBd2NGWktZUUIrd1hGdHl6MkpQc3hJNC9Z?=
- =?utf-8?B?bUdDRWdRZ1FEVG1lNE9CYVZkdDcyblhKeDg0UlRJcWJoM1AweEt5N0swR21G?=
- =?utf-8?B?c1ZyM3NrSDFpWGYwKzR3b0tHQzNUbXZOcSsvdlVyMW4wNC85bWxXVEx5UmtD?=
- =?utf-8?B?bUU3Z0ViZWdraGRPUUczTDJEeUZqeDVhTHRaVGduRTJiZDlpU1Z4QUxjNFNt?=
- =?utf-8?B?QjM5VEw4T3ZDREFrejQ4U0p5NmhLSjcySnRQNzFLYlJ1WHZvdW1BZitqUis0?=
- =?utf-8?B?WC8xZlFueDF1aFBZUFlyUVhXeW5BcjhZVWo4VDlJZEtvekJqd1ptVHFERC9R?=
- =?utf-8?B?YTl5QTgxVVBodS9odkszMW55dkE5a2NVbzRZeUdmYXY3T2ljMWczVWhCQWN6?=
- =?utf-8?B?Qy9tUjFPZllEVjhYUTk2bzBPSFFYSjd4VVFTbHZhOEVIZkNrNkN2K2I3bThr?=
- =?utf-8?B?ckNsdkpWVTB5V1lwM3dZcFQwUGRZVEU2aXJwWUI2TFdqSll2QlJuZE9jVXpI?=
- =?utf-8?B?cmZycWNUOXNMWXJoem1zUWJnSnhnUUVCSy9rdUF4Q1dpVW8xZHNmQUo3V1dk?=
- =?utf-8?B?SWhwZVF2T1BiQUVqNEF3dVE2UUN5VnlJSFo1Mm5RYkIwbEhCQ0wxcWwwYVF6?=
- =?utf-8?B?MUpoVzlqbkpSSXNzaDZIUnZ1eXhHc2ZvMmk3VWVybmpvYkpnUGpaMWphTkc4?=
- =?utf-8?B?b0QrdkMxZXkxTlRFblNnUFBFR1hhTmwranhmaEF2aytyaUNFaXB4NFFpU1dL?=
- =?utf-8?B?b3lmVHoyZFNYOG1rb1NwbnI1U0xxUnRpd1I1ckJOSGZyaHlhZmFjRTdBZlA5?=
- =?utf-8?B?TUc2VkVDTk01ZFlyaU1EYmZaTitmZmh6MzVGVDA1d0FIaEx0clo3VVNkbVFO?=
- =?utf-8?B?Q0ozMHM0cFpuWlNIaGNoanU4d1dhUUNTTmdLNGtUWGRvWjErZWtZKzVXOUd1?=
- =?utf-8?B?bHFxS0Y4elJnYzI3QWNZVDY1MWw2UFN1a2VTMGloMEY3MmxlTGpDRzgyM2N5?=
- =?utf-8?B?VDJoOXFkU3dVNnRkRGgvd0tXazZmRVo2NzFpVWQ2cUp5Z0RpLzNuWDdyU2pY?=
- =?utf-8?B?N0Q1QWdtMFNZSnk3VjROYjM3VUI0blNTWjNVeC9NeEx4dXNLejl4VGw5czAr?=
- =?utf-8?B?bDF1RkRENVhIbmVyaTMwV3F4eWZRQWswZ1dVVFpyN0NsNWtmYzVJU1BaSFht?=
- =?utf-8?B?TTZDcGlLcWpKdlF3QXBmSU9ZTG9Sd0NabEtNV25oY05wMlc5QjI3VVpzSnRL?=
- =?utf-8?B?NHVkZlNKenJ2QWdxY2R0M3JGV2Q5K3VVR1lHTThGNncwVUMycnpCZmZBOVor?=
- =?utf-8?B?ZEY1QUg5Q1FvMkZsSldsVW5YeWZvcE4rS04vZGQxYi9vckFZcFVtbG5JNUhY?=
- =?utf-8?B?ZVAzUUJmd1FLZWcrUXZVQVpINUxremlndGNINlN6UDdrYm16dUt4M1czK25o?=
- =?utf-8?B?cXNrS1NuVWF4cC81Q2hVbEFyZmJYQnUwRWx0V3ljNlhiVVBpc3pHbXl0ZmhL?=
- =?utf-8?B?ZW4ralA0M0FRSHd4RmJoV1gySDJYM2VzaFg1ZEp1eWZFdUJ3YXFHajRzaUNE?=
- =?utf-8?B?aWhvWkZ4SU9LUDBJN0ZHVWViVEtuVFZiQ1BlckFXSXgzYklkQjBJSnNZUVVZ?=
- =?utf-8?B?TjVkY1QvS0VjS0F1ZkVHb29mVktsMXNlN21FSEUxWk83T1RYTVdLWFZ2M2VC?=
- =?utf-8?B?M0k1NE1nNEpCbkhaY0N0TmI3eTNac3pKbDIzRHZIZ1VIaEc4aXZxQ28welkv?=
- =?utf-8?B?N01HbVFISFNxMm5NdmZYcmxGMUxyZU9hU1VGNnR6cE9hRDZjQkYvOVVJMTdj?=
- =?utf-8?Q?N/GGOMp88/XZrzzEuB/ASYdcVDkLQTVQwJLyI=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CzndHdM5"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-78564319a92so156018137.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:19:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790302771; x=1790907571; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XpC/TNEC6wqnmlf8h6VzeWNUpPK2sqaQuYRZKFpNrJk=;
+        b=CzndHdM5lnVDTQyTyfgznkYwJvCOLOXkOAcw1vVq5nDHWzvgtnmR/2uWA6yxl2bOEl
+         zD01oO8Ku51pHVYxPipeeRB5PE4HbL7j4tFy2aa7wXJe5jbMNz4s7jc4Lg7MO5Dc+2Yv
+         lG0/4opN56aYYoXxsFPVtmirw7v/wBStwkxhT38/zBWhMWGG3ycjYfG8wmwxSUvLPgZ4
+         alMpCI30fXn5ksuo1x9QJi5y3tjsGOsQwvmQFAvToF8X9gr7uAwbHpAHHMzvf4hAOcME
+         JWEOTUhwIPivtSnbNLq1XSQTUKyGrnL16L17uhQkDvRvTPDu4Zj+Sc0vUBvso05+JoTH
+         edhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790302771; x=1790907571;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XpC/TNEC6wqnmlf8h6VzeWNUpPK2sqaQuYRZKFpNrJk=;
+        b=EIrP7SgvEUjx57FL8W6u/dCgC+eUD9ozEBb3qig56Jo/Im/i4SAOTWGS1cllYwaiGm
+         mYGpBLX3ZDV1mXRnGN9wsbv/W2cpUX+rPLMInuzdzf2VvujkDXuowXscbxSsBdUceB+5
+         OlfMoRAT+aFH4Nhb9odDcHeAQqeDKKI2DWe6LsnmZjYXx0dlR7atcXblVQdTBywD89yI
+         q3l5ryCzrW5WXM51l3SUJaZDohFNXUEPFDK7CNDNXcV7rwE9qISZH1NDNonHp7SX0C70
+         L72z4jGo0NrZhd+luBFMKCoHM+Eh1+jdO7B2KxR+AQCUoUB6ihStaYPz6/sDoUuadGe9
+         22Xg==
+X-Forwarded-Encrypted: i=1; AKwUvByN8P9gZRGTsRSY25xKvaimUaamV0Tgp/ZtrjnCNio7VMw/2KbGU6IB+LJ+tDJygK1IebdrFctI8Mf55bg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgmTn7K0lTEeGINevvPhubjrmZ9PTzoCEhH0GGw/K4aDR0YZ8D
+	sDuNA5mBktD69u0FUc6ko0KEhZTK8Ua4Kb+TyBMZSPcdg2S6jNLYDvE4RMzNlE8r
+X-Gm-Gg: AYBFou0OfN6SyosfvglUVPiv9zKcu6Nw24wXSnwEy4DxRAY6QaJhClId/YmRB2YvGwb
+	q7ZVChkzg++2algxVHZdtoSY2xqDjPkAPFmLRB/Z2b477ZERDFgpOHMud1KhFzf6VxYRtYn6Tyy
+	AxA+1BdBjyrsUVOK/Q2gd4WVZymcF4aeD/KawlFRwc/dglhFqZwMge3lkUX+jFNztICsnEMmUAo
+	hfLVPIH6QBSRD6WTmXGOhX1IErJ4VchKCGP1ZsGSYVgTxjvCREZIJoYpUN7iiy1mC+XKxsqwM5H
+	WYR2zTjNzHBuKQ3vSUJU0ITketnS25nEzHW1XkNg7nKy/SvplLqSIA8dWc6yw6Wd0d+JvBThwfg
+	G1lRQKiAt0Pw+SK1Xgv4+TlgcXM/JY6chRhbSt0O0DgV84Aj2q7qf9d6e0y2BAQobeXtEhXUlq/
+	p57ultONC+5EdUFlnxZWV4PhvPVLTvFN4AEGM8KD2jJyBz9KLWad4TR8kAp7c0+2n3wxfNP7Fy0
+	F/tMrSrdL4Xe/JKjtbSS3MasvmSWn1ILBbqdHSI8qRVs7cqGxyvMmT4COkjYqe6sF6+FsnqMg==
+X-Received: by 2002:a05:6102:358d:b0:7a1:f7d2:e843 with SMTP id ada2fe7eead31-7af1e9f2334mr1643487137.19.1790302770980;
+        Thu, 24 Sep 2026 19:19:30 -0700 (PDT)
+Received: from alsa-dev.int.suenodeluz.com.do ([74.244.193.53])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b0d01e6f6fsm1427497137.2.2026.09.24.19.19.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 19:19:30 -0700 (PDT)
+From: Frank van de Pol <fvdpol@gmail.com>
+To: tiwai@suse.de,
+	perex@perex.cz
+Cc: corbet@lwn.net,
+	khan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	fvdpol@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/1] ALSA: usb: Add support for Reloop Jockey 3 DJ controllers
+Date: Thu, 24 Sep 2026 22:19:13 -0400
+Message-ID: <20260925021915.78909-1-fvdpol@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8420b464-856c-4686-830e-08df1aab4de4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2026 02:18:35.8021
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR02MB8274
+Content-Transfer-Encoding: 8bit
 
-RnJvbTogd2VpLmxpdUBrZXJuZWwub3JnIDx3ZWkubGl1QGtlcm5lbC5vcmc+IFNlbnQ6IFN1bmRh
-eSwgU2VwdGVtYmVyIDEzLCAyMDI2IDQ6MjMgUE0NCj4gDQoNCkluIHRoZSBwYXRjaCBTdWJqZWN0
-LCBjYXBpdGFsaXplICJIYXJkd2lyZSIgZm9yIGhpc3RvcmljYWwgY29uc2lzdGVuY3kuIFNlZSBb
-MV0uDQoNCj4gSHlwZXItViBEaXNjcmV0ZSBEZXZpY2UgQXNzaWdubWVudCAoRERBKSBkb2VzIG5v
-dCBzdXBwb3J0IGxlZ2FjeSAoSU5UWCkNCj4gaW50ZXJydXB0cy4gV2hlbiBQQ0lfSU5URVJSVVBU
-X1BJTiBpcyByZWFkLCB0aGUgcGNpLWh5cGVydiBjb250cm9sbGVyLA0KPiB3aGljaCBjYXB0dXJl
-cyBjb25maWd1cmF0aW9uIHNwYWNlIGFjY2Vzc2VzLCByZXR1cm5zIDAgdG8gdGhlIGNhbGxlci4N
-Cj4gDQo+IEhvd2V2ZXIsIHRoZSBjdXJyZW50IGNvZGUgb25seSBjYXB0dXJlcyA4Yml0IHJlYWQg
-YWNjZXNzLCB0aHVzIDE2Yml0LzMyYml0DQo+IGFyZSBtaXNzZWQsIGZvcndhcmRlZCB0byB0aGUg
-aG9zdC9IVywgYW5kIG1heSB5aWVsZCBhIG5vbiB6ZXJvIHZhbHVlLg0KPiANCj4gVGhpcyBmaXgg
-YWRkcmVzc2VzIHRoaXMgaXNzdWUsIGFuZCBtYWtlcyBzdXJlIHRoYXQgUENJX0lOVEVSUlVQVF9Q
-SU4gaXMNCj4gaGFyZHdpcmVkIHRvIDAsIHdoaWxlIHRoZSBvdGhlciBieXRlcywgYXJlIHRob3Nl
-IHJldHVybmVkIGJ5IHRoZSBob3N0L0hXLg0KDQpJdCB0b29rIG1lIGEgYml0IHRvIGZpZ3VyZSBv
-dXQgd2hhdCB0aGUgYWJvdmUgdHdvIHBhcmFncmFwaHMgbWVhbi4gRm9yDQptb3JlIHByZWNpc2lv
-biwgaG93IGFib3V0Og0KDQpUaGUgY3VycmVudCBjb2RlIHJlY29nbml6ZXMgUENJX0lOVEVSUlVQ
-VF9QSU4gcmVhZHMgYW5kIGZvcmNlcyBhIHplcm8NCnZhbHVlLCBidXQgb25seSBmb3IgOCBiaXQg
-cmVhZHMuIElmIGEgMTYgb3IgMzIgYml0IHJlYWQgb3ZlcmxhcHMgdGhlIGZpZWxkLCBpdA0KbWF5
-IGJlIHJldHVybmVkIGFzIGEgbm9uLXplcm8gdmFsdWUuIEZpeCB0aGlzIGJ5IHJlY29nbml6aW5n
-IHN1Y2ggb3ZlcmxhcCwNCmFuZCBmb3JjaW5nIHRoZSBQQ0lfSU5URVJSVVBUX1BJTiBieXRlIHRv
-IHplcm8gd2hpbGUgcmV0YWluaW5nIHRoZQ0KYWRqYWNlbnQgYnl0ZXMgcmV0dXJuZWQgYnkgdGhl
-IGhvc3QvSFcuDQoNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFzaGVyIEthcml2IDxhc2thcml2QG1p
-Y3Jvc29mdC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IE11a2VzaCBSIDxtcmF0aG9yQGxpbnV4Lm1p
-Y3Jvc29mdC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IFdlaSBMaXUgPHdlaS5saXVAa2VybmVsLm9y
-Zz4NCj4gLS0tDQo+IEkgZm91bmQgdGhpcyBpbiBvdXIgaW50ZXJuYWwgdHJlZSwgbWFzc2FnZWQg
-dGhlIGNvZGUgYW5kIGNvbW1pdCBtZXNzYWdlLA0KPiBhbmQgcG9zdGVkIGl0Lg0KPiANCj4gdjI6
-IGZpeCBhIGNvbXBpbGF0aW9uIGVycm9yDQo+IC0tLQ0KPiAgZHJpdmVycy9wY2kvY29udHJvbGxl
-ci9wY2ktaHlwZXJ2LmMgfCAxMCArKysrKysrKysrDQo+ICAxIGZpbGUgY2hhbmdlZCwgMTAgaW5z
-ZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvcGNpL2NvbnRyb2xsZXIvcGNp
-LWh5cGVydi5jIGIvZHJpdmVycy9wY2kvY29udHJvbGxlci9wY2ktaHlwZXJ2LmMNCj4gaW5kZXgg
-ODk4MTZhMmJkN2NkLi5iYjRlNmNhNGFjMWMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvcGNpL2Nv
-bnRyb2xsZXIvcGNpLWh5cGVydi5jDQo+ICsrKyBiL2RyaXZlcnMvcGNpL2NvbnRyb2xsZXIvcGNp
-LWh5cGVydi5jDQo+IEBAIC0xMjQwLDYgKzEyNDAsMTYgQEAgc3RhdGljIHZvaWQgX2h2X3BjaWZy
-b250X3JlYWRfY29uZmlnKHN0cnVjdCBodl9wY2lfZGV2ICpocGRldiwgaW50IHdoZXJlLA0KPiAg
-CQkJbWIoKTsNCj4gIAkJfQ0KPiAgCQlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZoYnVzLT5jb25m
-aWdfbG9jaywgZmxhZ3MpOw0KPiArDQo+ICsJCS8qDQo+ICsJCSAqIE1ha2Ugc3VyZSBQQ0lfSU5U
-RVJSVVBUX1BJTiBpcyBoYXJkLXdpcmVkIHRvIDAsIHNpbmNlIGl0DQo+ICsJCSAqIG1heSBiZSBy
-ZWFkIHVzaW5nIGEgMzJiaXQgcmVhZCwgd2hpY2ggaXMgc2tpcHBlZCBieSB0aGUNCg0KIm1heSBi
-ZSBpbmNsdWRlZCBpbiBhIDE2IGJpdCBvciAzMiBiaXQgcmVhZCwgd2hpY2ggaXMgc2tpcHBlZCBi
-eSB0aGUiDQoNCj4gKwkJICogYWJvdmUgZW11bGF0aW9uLg0KPiArCQkgKi8NCj4gKwkJaWYgKHdo
-ZXJlIDw9IFBDSV9JTlRFUlJVUFRfUElOICYmDQo+ICsJCSAgICBQQ0lfSU5URVJSVVBUX1BJTiA8
-ICh3aGVyZSArIHNpemUpKQ0KPiArCQkJKigoY2hhciAqKXZhbCArIFBDSV9JTlRFUlJVUFRfUElO
-IC0gd2hlcmUpID0gMDsNCj4gKw0KDQpEb2VzIHRoaXMgc2FtZSBoYW5kbGluZyBuZWVkIHRvIGJl
-IGFwcGxpZWQgdG8gUENJX0lOVEVSUlVQVF9MSU5FPw0KDQo+ICAJfSBlbHNlIHsNCj4gIAkJZGV2
-X2VycihkZXYsICJBdHRlbXB0IHRvIHJlYWQgYmV5b25kIGEgZnVuY3Rpb24ncyBjb25maWcgc3Bh
-Y2UuXG4iKTsNCj4gIAl9DQoNCk1pY2hhZWwNCg0KWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3Jn
-L2xpbnV4LWh5cGVydi8yMDI0MDcwMTE3MjA1My5HQTEwMTAwQGJoZWxnYWFzLw0KDQo=
+Hi Takashi, Jaroslav, and the ALSA community,
+
+Apologies for the long gap since v3. This is not simply v3 with the review
+comments addressed -- I went back to the reverse engineering, and a fair
+amount of what came out of it changed the driver structurally.
+
+The patch has grown accordingly: v3 was 8 files and 1613 insertions, this is
+17 and 7326.  Most of that is not new logic: of the roughly 5700 added
+lines, about 2100 are comments, 1660 are KUnit tests and generated test
+vectors for the codec, 249 are the new jockey3.rst documentation, and only
+about 1300 are executable code.  The rest is blank lines and Kconfig
+plumbing.
+
+The relatively large number of comments comes from the deliberate decision
+to include what I learned from the protocol analysis with the relevant
+section of code.  The parts that most need explaining (the bit-plane wire
+format, device initialization, why the URBs run for the device's whole
+lifetime, the locking order etc.) cannot be verified by reading the code
+alone.  ploytec_codec.c is over half comment for that reason: the DOC: block
+deriving the format from the board's I2S and DMA geometry is effectively the
+specification the optimized variants implement.
+
+Previous version:
+v3: https://lore.kernel.org/all/20260622011131.1748298-1-fvdpol@gmail.com/
+
+Changes v3 -> v4:
+
+ - Reworked the locking architecture around an explicit hierarchy: a
+   process-context rate_mutex outermost, then IRQ-safe leaf spinlocks for
+   playback, capture and MIDI that are never nested in one another.
+   Documented in jockey3.c.
+
+ - Fixed the capture stall after a sample-rate change, eliminating the USB
+   device reset that recovery used to require.  The reset rate per rate
+   change went from 19.3% to zero, with a 98k clean streak on arm64 and 61k
+   on x86_64.
+
+ - Rewrote the bit-plane codec: a portable reference implementation plus
+   32-bit and 64-bit SWAR variants selected at compile time, called through a
+   batch API at the driver's real batch sizes. Against the same machine's
+   reference build, the optimized path measures 11.0x encode / 7.8x decode on
+   x86_64 and 6.9x / 6.1x on arm64. KUnit tests validate all variants against
+   an independently derived model of the wire format.
+
+ - Added URB coalescing.  The driver used to submit one 512-byte packet per
+   URB, fixing the completion rate at 9923/s at 44.1 kHz and 21600/s at 96
+   kHz for as long as the device was plugged in, used or not.  N packets per
+   URB (N a power of two, 1 to 8) are now chosen per PCM open from the
+   requested period size.
+
+ - Fixed a cold-boot initialization race. Straight after power-on the device
+   accepts the entire init sequence, reports success on every transfer, takes
+   playback samples, but its audio engine never starts. Bisected over 100
+   cold boots to between 144 and 156 ms after enumeration; the driver now
+   waits 250 ms before its first control transfer, close to the 297-308 ms
+   the Windows driver waits.
+
+ - Added a URB liveness watchdog. Every error path hangs off a URB
+   completion, so a device that stops completing URBs produces no error, no
+   xrun and no log line. A work item now reports either direction silent for
+   20 ms and enters the recovery ladder on a stall onset.
+
+ - Hardened handling of an unresponsive device: an EP0 error-class predicate
+   aborts the handshake before usb_set_interface() is reached, since the USB
+   core disables an interface's endpoints as its first action and does not
+   re-enable them on the failure return.
+
+ - Added Documentation/sound/cards/jockey3.rst
+
+ - Addressed the v3 review comments.
+
+
+Testing:
+
+Validated with an automated hardware-in-the-loop framework written for the
+purpose: probe and unbind endurance, PCM cycling, every rate in both
+directions, period and buffer boundary matrices, duplex, xrun injection,
+rate-change soaks, suspend/resume, USB disconnects via hub port power
+switching, and cold-boot cycling through a network-controlled mains switch. 
+Some of the figures above come from runs of tens of thousands of iterations.
+
+Exercised on real hardware on x86_64, i386, arm64 (Raspberry Pi 4) and
+armv6/armhf (Raspberry Pi 1B -- functional but tight at 88.2/96 kHz), with
+x86_64 and arm64 also run under a KASAN + lockdep debug kernel.  The codec
+KUnit suite additionally tested under UML and QEMU on i386, arm, arm64,
+riscv and s390 (test big/little endianness).
+
+
+Two things I would rather state than have found:
+
+ - The mitigation stack around the rate-change stall is now practically
+   dormant since the rate-change improvement.  I kept it as cheap insurance;
+   happy to remove it.
+
+ - The 250 ms settling delay in jockey3_initialize() runs on the
+   USB hub thread.  I can move initialization off the probe path if you
+   prefer, though that introduces complexity to avoid races.
+
+
+I look forward to your review/feedback.
+
+Best regards,
+Frank
+
+Frank van de Pol (1):
+  ALSA: usb: Add support for Reloop Jockey 3 DJ controllers
+
+ Documentation/sound/cards/index.rst           |    1 +
+ Documentation/sound/cards/jockey3.rst         |  249 +
+ MAINTAINERS                                   |    8 +
+ sound/usb/Kconfig                             |    1 +
+ sound/usb/Makefile                            |    1 +
+ sound/usb/jockey3/.kunitconfig                |   13 +
+ sound/usb/jockey3/Kconfig                     |   60 +
+ sound/usb/jockey3/Makefile                    |    7 +
+ sound/usb/jockey3/jockey3.c                   | 4060 +++++++++++++++++
+ sound/usb/jockey3/ploytec_codec.c             |  656 +++
+ sound/usb/jockey3/ploytec_codec.h             |   44 +
+ sound/usb/jockey3/ploytec_codec_kunit.c       |  871 ++++
+ .../usb/jockey3/ploytec_codec_test_vectors.h  |  793 ++++
+ sound/usb/jockey3/ploytec_midi.c              |   83 +
+ sound/usb/jockey3/ploytec_midi.h              |   36 +
+ sound/usb/jockey3/ploytec_proto.c             |  365 ++
+ sound/usb/jockey3/ploytec_proto.h             |   78 +
+ 17 files changed, 7326 insertions(+)
+ create mode 100644 Documentation/sound/cards/jockey3.rst
+ create mode 100644 sound/usb/jockey3/.kunitconfig
+ create mode 100644 sound/usb/jockey3/Kconfig
+ create mode 100644 sound/usb/jockey3/Makefile
+ create mode 100644 sound/usb/jockey3/jockey3.c
+ create mode 100644 sound/usb/jockey3/ploytec_codec.c
+ create mode 100644 sound/usb/jockey3/ploytec_codec.h
+ create mode 100644 sound/usb/jockey3/ploytec_codec_kunit.c
+ create mode 100644 sound/usb/jockey3/ploytec_codec_test_vectors.h
+ create mode 100644 sound/usb/jockey3/ploytec_midi.c
+ create mode 100644 sound/usb/jockey3/ploytec_midi.h
+ create mode 100644 sound/usb/jockey3/ploytec_proto.c
+ create mode 100644 sound/usb/jockey3/ploytec_proto.h
+
+-- 
+2.47.3
+
