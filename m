@@ -1,137 +1,133 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63C4F3DA5A0;
-	Fri, 25 Sep 2026 17:07:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0CE3DCD95
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790356042; cv=none; b=eN6nXegVgduuBsTlG+RGwfQsjY0jUJaBWkkwXkPM5dtnJuyDmNPYYxnn/ymx0ewFCKG5Ru//5XjRseQLX7hAWBOtwPg3vIZ6sawbzgpcgiV5FJHEVtrJn17H1bZZbegCPwKjR1Texr5ULNYwMblLvm0bggruieDXIVAe9yNKRkU=
+	t=1790356052; cv=none; b=e48vZ7Ra/YBmWkhDX035wBx3JRx1hiVbn9BvhcjVwnrtgdG/eKMPbR+KYV7x1gnVmGlX9AMydCQIebJhDMAKv/kxH9KwMuFSMwVKkStmTGzGrVIG4+jYsEFpDcX7AhDDER7RBLZ7n0Ys3p9rK5y359gHpfx7UOyGWlha1g4Dqrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790356042; c=relaxed/simple;
-	bh=ixzfrU8lMEsDTomOcbMGSENbu/A9XPEY12QX9G9g3I0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZG6tP3YKyW+5eFgQ3Zq3kn6MydLdz7rC0SPFoAqOdu0igZAf261F+gyOAwJPs/Q+4iMBhgd0raI36e/NB0wDfgs8qe1DTSTTv/CBY0Rk4AzuxpShMAIPbNrY04938huOdPSCqTCaRjYrdlmSRC3vWOu7HFiKmrn1hBZi7LpElks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EHpt1dnk; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790356052; c=relaxed/simple;
+	bh=3POjkudjwJ6EJxTxrfVNUQfMbWObNEMuI07xROIvu0E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OIdjXCFfRWuiFv1unEgvDaMMK6GEPZCffzIayrV7mQEgSXdzJOwvnx0Eb+R2utauN/xc+sIViEMQ8dRMbZM6fUqrYOv+aBhjlgH5+Z+B5JWKLgMIT7aUKESXCmgCiPRWskyaSzbTY7rvBuXI9xkMSp3tBEwJ+PpYxVJEGVSA4FA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ls12/Usw; arc=none smtp.client-ip=74.125.228.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EHpt1dnk"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B9EF169C;
-	Fri, 25 Sep 2026 10:07:11 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6F93D3F86F;
-	Fri, 25 Sep 2026 10:07:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790356034; bh=ixzfrU8lMEsDTomOcbMGSENbu/A9XPEY12QX9G9g3I0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EHpt1dnkgmEtCXRicfI03eywssdpZdbGJitm2LyU3/txbYynDGJW9GXrNQawbZEyw
-	 3QDLIL1w9E0vjFWl3xfYaRKn3caSX1J1hyvAayOZ7OCj9NKUhHV57vPR+0QirXYeeJ
-	 MOzJAeppFl24SLREnFIB5jWlehs2ggbnYJhv2Z8s=
-Date: Fri, 25 Sep 2026 18:07:08 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Will Deacon <will@kernel.org>, kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev, maz@kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
-	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
-	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
-Message-ID: <araqPCdcSnqZqPWz@arm.com>
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
- <arK3tsTV6EDhI-nt@willie-the-truck>
- <arOyp8WUrYBAjrGH@arm.com>
- <arP0IF0MjFUv36AP@willie-the-truck>
- <49dcab27-1d03-4df2-b7cb-4df4eda6d909@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ls12/Usw"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc79223bcfbso467087a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:07:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790356037; x=1790960837; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jU0uuuuRr+p5OKNIYAUGPnmlCF9GOux6FtDbWrmbBmY=;
+        b=ls12/UswfmD2c8TY3P+N3aZZ1F73eYVSjDZwmKy7n6iORAnUk8PG8zUtJ2YyxUZNj8
+         lcMI6hcTMH5X6etUWqlx1FkET6L4FsYMgo15eQpdbX4yyeTmG9NNnd9mrQEm8Z0SpQuc
+         kQRUQPVBGEO4mBCyuSR7cH7ilV/j9NNTdYBSrB5yjmH4rHy2qx1IaqbrMYb+DKzs96YI
+         mHra2QeI0TGQzulnT2pUO/OVcCGzybgNvDcfwHJnspnaDE2Vbfk/e/45KNZjnT6PV53x
+         WP1QbkdYEiLoO3w4yzQVdf88I9w7BlkONi6TVrBhwMiR39r/GCT6c7v760g9RdIzVOO3
+         mZLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790356037; x=1790960837;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jU0uuuuRr+p5OKNIYAUGPnmlCF9GOux6FtDbWrmbBmY=;
+        b=1FRpapJ1tX77XxNWhSZ1eOT6KiAJAFynq4C6P4F3O77WGUbY+Y8KYERjVztAYaAkkR
+         xzeuyd7hhwMUM6XJop1UkAIa/GNLs1CeKTYomX2/e9RndZ4igkGqqBk2GYxxMI2Udi6g
+         bEE/DgBDVQtvAJFZaYfjHjobZ0MfiUFfZzsAvQgQDAPYhDPX8QRCLao9lB6TpJnKAZAJ
+         kiDr4UlzB3XSe66icuHqMMWmGYMHy8U/lIldo+twirbc6AuVQv0RIsMXOFKttX6klwoK
+         vb6NUWLz6zANd0nC83FIdoMGpWR83PiP04WQtsxO+ImsLV7TPgtRrxGmuGwetR7NRccD
+         yM7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw3qUxdjx/VCWTwYgAZP23tOipJYiX7CcKFYMImN7zC4AYw33teHhYhv0jC7stniDI9gw8b97JDbGHXTWk=@vger.kernel.org
+X-Gm-Message-State: AFuF++n5iraOv41Grl8CpfzmbkfHHNjtKDpH/UIkQQZuGOxNbOhSV2Jg
+	SEWDmbkJ0bZVFZhWzSKw6O5uxZj/VKmV0aiRyx4tFa8uN4q6ZEdEVthQMG42vw==
+X-Gm-Gg: AYBFou0wqzCwzniZo13ix1UA82b68ngHmh99Yz0/s4Kp6hklucxfdOXqDEs4M98d+Dy
+	XiFTgnlB2Tv5am92+OJA3wBwrJSz9qTLJQ3+cocibpirzUi0+iwMSKvsFXIvtI5Xfq4yDarigZI
+	RtRSalsfh8G9SKDsu18GpTCJRug7c4t6QCzlPDu4Er2/IJCpFhDcSRCACUeSkzgZP7UXNZ9Y0nU
+	zeXfzvCuforHcsM/J0l5kwzCZBf0S9ryM5uke9K5i9xtbZID7BYZowIkNDm+BMig7361JGDMXCH
+	YvSzS+3m3soi7iSuZqn6mUxBE3ONbyQ0Lg/yvcL6Wt/ZCRsG7NeXkZnk+Ska/mHDNYiN83XWNLW
+	OnmIvyteRBidUfhqY3RmKbvrSdDE03Wxo0/it6BwK4lhR0PX1n4hUWvY2R09fMnAJ3ClNoIDBZB
+	8uJ7YXbowpeKDlqEH959jCsDPoMvmkLbLHV2Od9LawGz2OGe/pqkib0nPDJCybAMzuxN58KZTRY
+	rJOEnlk5Ta3mk40wRb5NSreks8=
+X-Received: by 2002:a05:6a21:e93:b0:3dd:a196:53a4 with SMTP id adf61e73a8af0-3de0e97b9camr6669562637.70.1790356037407;
+        Fri, 25 Sep 2026 10:07:17 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:6850:49fe:a642:bbf3])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8811c94d5d1sm285987b3a.21.2026.09.25.10.07.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 10:07:16 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] media: redrat3: unregister the rc device when probe fails
+Date: Sat, 26 Sep 2026 00:07:11 +0700
+Message-ID: <20260925170711.22447-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <49dcab27-1d03-4df2-b7cb-4df4eda6d909@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 05:04:06PM +0100, Suzuki K Poulose wrote:
-> On 23/09/2026 16:45, Will Deacon wrote:
-> > On Wed, Sep 23, 2026 at 12:06:15PM +0100, Catalin Marinas wrote:
-> > > On Tue, Sep 22, 2026 at 06:15:34PM +0100, Will Deacon wrote:
-> > > > On Sun, Sep 13, 2026 at 08:04:58AM +0100, Suzuki K Poulose wrote:
-> > > > > From: Steven Price <steven.price@arm.com>
-> > > > > 
-> > > > > If the host attempts to access granules that have been delegated for use
-> > > > > in a realm these accesses will be caught and will trigger a Granule
-> > > > > Protection Fault (GPF).
-> > > > > 
-> > > > > A fault during a page walk signals a bug in the kernel and is handled by
-> > > > > oopsing the kernel. A non-page walk fault could be caused by user space
-> > > > > having access to a page which has been delegated to the kernel and will
-> > > > > trigger a SIGBUS to allow debugging why user space is trying to access a
-> > > > > delegated page.
-> > > > > 
-> > > > > There is work in progress to unmap the guest_memfd backed private pages from the
-> > > > > linear map. Until we get that support, we could get spurious GPFs from within
-> > > > > the kernel, e.g., load_unaligned_zeropad(). So, try to fix them up for now.
-> > > > > 
-> > > > > Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> > > > > Reviewed-by: Gavin Shan <gshan@redhat.com>
-> > > > > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> > > > > Signed-off-by: Steven Price <steven.price@arm.com>
-> > > > > Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> > > > > ---
-> > > > > Changes since v17:
-> > > > >   * Pass untagged address to die_kernel_fault() - Sashiko
-> > > > >   * Explicitly check !user_mode() for fixups - Catalin
-> > > > >   * Switch to BUS_OBJERR for si_code from SI_KERNEL - Catalin
-> > > > >   * Clarify the commit description about the upcoming work on
-> > > > >     unmapping guest_memfd backed pages from linear map
-> > > > > Changes since v16:
-> > > > >   * Update the commit description to indicate why we try to fixup GPFs
-> > > > > Changes since v10:
-> > > > >   * Don't call arm64_notify_die() in do_gpf() but simply return 1.
-> > > > > Changes since v2:
-> > > > >   * Include missing "Granule Protection Fault at level -1"
-> > > > > ---
-> > > > >   arch/arm64/mm/fault.c | 30 ++++++++++++++++++++++++------
-> > > > >   1 file changed, 24 insertions(+), 6 deletions(-)
-> > > > 
-> > > > I still don't think we should do this, given that the plan is to unmap
-> > > > the memory from the linear map. If this thing fires, it's a kernel bug
-> > > > and it should be fatal.
-> > > 
-> > > If the linear unmapping gets merged first, I agree, no need to handle
-> > > these faults. I haven't followed that series, so no idea where it is at.
-> 
-> There doesn't seem to be much progress on that series. Brendan
-> volunteered to resurrect the series, taking over from Nikita [0].
-> But looks like Brendan is not working on this anymore. Will see
-> if someone is really planning to look at it.
-> 
-> [0] https://lore.kernel.org/all/DJJ35VLH2PE5.DFD8OYXEOH97@linux.dev
+redrat3_dev_probe() registers the rc device, whose input device points
+its name and phys at strings embedded in struct redrat3_dev, and only
+then calls redrat3_enable_detector(). If that fails, the error path
+frees rr3 but leaves the rc device registered and leaks it. Reading its
+"uevent" attribute afterwards dereferences the freed name/phys:
 
-I just realised that this only solves part of the problem. Normal kernel
-allocations are delegated RMM metadata and they'll also trigger GPF
-faults. Kdump is another point raised here:
+  BUG: KASAN: slab-use-after-free in string+0x4a9/0x4f0
+  Read of size 1 at addr ffff8880272bf758 by task repro/4968
+   add_uevent_var+0x183/0x3a0
+   input_dev_uevent+0x162/0x900
+   dev_uevent+0x2f1/0x870
+   uevent_show+0x1ca/0x3a0
+   ...
 
-https://lore.kernel.org/all/a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com/
+Unregister and free the rc device on that path, mirroring
+redrat3_dev_disconnect(): stop the URBs first, since their handlers use
+the rc device, and only then unregister it.
 
-I think rmi_delegate_range() covers the non-kdump cases, both for
-metadata and realm memory, we could unmap the linear map there (map it
-back in rmi_undelegate_range()).
+Reproduced with a raw-gadget RedRat3 that reports detector status 0.
 
-For kdump, we have /proc/vmcore that may be mmap'ed or read() syscalls.
-I think Alper proposed an idea to use copy_from_kernel_nofault() (with
-exception recovery in do_gpf()) but we'd still need to block
-mmap_vmcore() or somehow handle SIGBUS in makedumpfile unless it does
-this already.
+Fixes: 2154be651b90 ("[media] redrat3: new rc-core IR transceiver device driver")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+2a123f6269da57ffefaa@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=2a123f6269da57ffefaa
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ drivers/media/rc/redrat3.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-So, I think we should revisit the GPF handling. If we manage to unmap
-all delegated pages, we could limit the exception handling to
-is_kdump_kernel(). Otherwise we keep the exception handling as proposed
-earlier, maybe with some warnings like EL0 access.
-
+diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
+index 3f828a564e19..e9dd563e9cb3 100644
+--- a/drivers/media/rc/redrat3.c
++++ b/drivers/media/rc/redrat3.c
+@@ -1111,13 +1111,19 @@ static int redrat3_dev_probe(struct usb_interface *intf,
+ 	/* might be all we need to do? */
+ 	retval = redrat3_enable_detector(rr3);
+ 	if (retval < 0)
+-		goto led_free;
++		goto rc_unreg;
+ 
+ 	/* we can register the device now, as it is ready */
+ 	usb_set_intfdata(intf, rr3);
+ 
+ 	return 0;
+ 
++rc_unreg:
++	/* URB handlers use rc */
++	usb_kill_urb(rr3->narrow_urb);
++	usb_kill_urb(rr3->wide_urb);
++	rc_unregister_device(rr3->rc);
++	rc_free_device(rr3->rc);
+ led_free:
+ 	led_classdev_unregister(&rr3->led);
+ redrat_free:
 -- 
-Catalin
+2.43.0
+
