@@ -1,37 +1,35 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8943D46DFE4;
-	Fri, 25 Sep 2026 07:47:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011CD396565;
+	Fri, 25 Sep 2026 07:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322451; cv=none; b=KEi2zZcxdcQeuTiSJYXxQgypM86/Q860D4aCV8Tb8zcOAT23OCnMzAryoURpDueKQShnalYj0jVtH40gxn/PTA3tPAhXulrIWpEGLFHU2v094NQDwLeWtdfHzazuwlhwrq367iyAF/+uUe19CoRDErwKlAoH/q6DlvKI4BOyr3U=
+	t=1790322496; cv=none; b=lawZxCXYgzKmrlzD5Avhq3NUMtuE3czn87AdPQt8OPFORIQN37++vVT8ABvBC2rB8On6cYifT9BTPfnz7HFMHbQnWXOqHw37guMnjSnyx+hZh9uoLrTjurRnaI6thVfqSy9sNSNGPYL/e6k8JgPI9UK1BsvgT9ddEs25LIXevnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322451; c=relaxed/simple;
-	bh=W2itv7N4NoMQMITjE1kOWQG7W+R7zBTS2xGT8cxHds4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Lh8GWItOT1S1Hy+pa9XyLL9p+izS3+Rh2R/QhyHhNU9cOra5L+Z/WGvOZWR2wgLB/RLsz62ASoommCCH0/E19kKvI6ucbJMy6yV0wq4SZ2jC5pu8IX7+YTvk+6UxnK5PmqYrC0EK9u79HQ/pf/iTayKrPO4sHdWyLh8xklO9+og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OsUokemx; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790322496; c=relaxed/simple;
+	bh=SCHiXFdq6KEtcx5hSoM38EazV3GUoVg4pkxUdXCDRts=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=r+xi4h/u97WGbd4nB5ls8iCJ29qpekCHMfQW/6yo0Xn2fCuo4L4Zdo0S+TtUjDF7oD1yWjxME2mjPoZWH8kkUd1U99fzqKzpgaFdo8vThN6chJK6lEwHutl06mj7mDS8jEEfPz1a4wtAPCGzkKFCuwLoSBxdMSLNVK8lrJ6tMDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k6/gWjyJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OsUokemx"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 328A2C2BD04;
-	Fri, 25 Sep 2026 07:47:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790322451;
-	bh=W2itv7N4NoMQMITjE1kOWQG7W+R7zBTS2xGT8cxHds4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=OsUokemxhIuBYoLs0hIaDAIw7s+hegkolqbQrwNGt+VZWdrvR1PDhn4AspmXeuRMW
-	 R2IQeaAEHIrtgRj3ScNMCTMf3cD4bdaQi52wBFy54wUMxmpgftH2mq4M1nN7U/wc0v
-	 vEKQZn99iEP9RlfO3mwmUw7fS+/9R+LMKiQhUVB5uJkGAtFOzV190STVCioKnpZY7O
-	 aphnVUOLRbRR77I+Be+WQtFPpkvz6Tt1m0VgOS+9ajdugQ+MxiHunyitLwlUxIawAA
-	 9PvnxMeAlMYPLcohnmEnKcwFLBzm0j6fMjMesg5IP5KiZEAXEW4r8h0exLD84CN2On
-	 NacF7JUg8BHcw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 20AC1C9832A;
-	Fri, 25 Sep 2026 07:47:31 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Fri, 25 Sep 2026 02:47:34 -0500
-Subject: [PATCH 6/6] ASoC: codecs: aw88166: make volume control usable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k6/gWjyJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E95351F000FF;
+	Fri, 25 Sep 2026 07:48:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790322494;
+	bh=vl10PLh4YCEMYuVn95R7Yn6YMorNMjxNfr83ppRhiKY=;
+	h=From:Subject:Date:To:Cc;
+	b=k6/gWjyJcALTAmN4nMuUepNHeDDwULRUDA7JG5mVJrUzIBomVL4dMkXoQqY9hMBH+
+	 13vj0OjjmjLLxNos+PE5p+3Jjjg1ZzA/DCiqJAth0qwBeXI/SQ55d0xTajkQp5/AEg
+	 3dI+eqw4s8qRmX/ByVv7nWRqI+8gXf+rQm9uY7/Koyt4WmQmoqYLX7Yvf0gpgaWa1g
+	 dLJAROnU8ss5A9qcfc9vMFohI6cexXCZAwl/6/d1A2KhvQqFlFN8Ol3eqJ/6dt3hWS
+	 sTqXYc14jNrBl7OraYO5YvKDhOqfnlA/uI2B3QFS+vOR+e3pwwQe3olwQw3ZASMlh2
+	 A/PeO26kjMW3Q==
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Subject: [PATCH RFC 00/11] ACPI: ARM64: Implement IRQ mapping probe
+ deferral for static table devices
+Date: Fri, 25 Sep 2026 09:47:59 +0200
+Message-Id: <20260925-acpi-static-table-irq-probe-defer-v1-0-2c62125d0085@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,191 +38,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-aw88166-cleanup-v1-6-11f74cb5fe28@gmail.com>
-References: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
-In-Reply-To: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Weidong Wang <wangweidong.a@awinic.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Val Packett <val@packett.cool>, Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790322449; l=6241;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=hlFleUeou8JhECaow+haiTbL5j1iHTRlPX7dYMh42WA=;
- b=8ei86rGmq+NZcEtDxPG8PHDuKVhtWPjchY7VYOZCzjJhD47hY3R5WFh2pvF/6jeoxT45d1lso
- +6pKmnCIcGGB1HBZEOyROlRvEMB2ordB1euWsSYnMLtxz5Ko+9wh1ev
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQrCMBBFr1Jm7UCNkhK3ggdwK11kkqmOSBsnq
+ Qildzfq8j0+7y+QWYUzHJoFlF+SZRorbDcNhJsfr4wSK4NpjW2d2aMPSTAXXyRg8fSoA31i0ok
+ YIw+saB25zlLszC5C7STlQd6/jwucT0fo/zLPdOdQvnVY1w/uzzKeigAAAA==
+X-Change-ID: 20260924-acpi-static-table-irq-probe-defer-69b976bd723d
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Hanjun Guo <guohanjun@huawei.com>, 
+ Sudeep Holla <sudeep.holla@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Robin Murphy <robin.murphy@arm.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, driver-core@lists.linux.dev, 
+ linux-watchdog@vger.kernel.org, Lorenzo Pieralisi <lpieralisi@kernel.org>
+X-Mailer: b4 0.15.2
 
-From: Aaron Kling <webgeek1234@gmail.com>
+On ACPI ARM64 some platform devices (ie SMMUs, MPAM, MMIO MEM timer) are
+created when the respective static ACPI table (GTDT, IORT, MPAM) entries
+are parsed and the platform device resources, inclusive of their 
+IRQ number are stashed in the platform device resources to be used by
+device drivers at probe time to retrieve the resource values.
 
-- Invert the value to match userspace expectations (in the hardware,
-  positive numbers represent negative dB attenuation)
-- Provide TLV metadata for the dB scale (and divide the raw values by 2
-  as the excessive precision used by HW is not representable in TLV)
-- Do not unnecessarily reset the volume while switching profiles
-- Simplify aw88166_dev_set_volume using regmap_update_bits
-- Do not add the initial volume from the profile to the requested volume
-  as that would throw off the dB mapping (if a lower max limit is
-  desired, it can be set in the UCM profile in userspace)
+For IRQs, this works well as long as interrupt controller drivers
+managing IRQs for those devices are probed before the code creating
+the  IRQ mapping out of static table GSI numbers is run, in that the
+interrupt controller drivers create the IRQ domain that allow the actual
+IRQ mappings.
 
-With this change, it's actually possible to use this hardware volume
-control as PlaybackVolume in an ALSA UCM profile.
+So far, that's always been the case on ACPI ARM64 systems given that
+IRQs were routed to the GICv<5 interrupt controllers (wired and MSI)
+and those controllers drivers probe earlier than any code creating
+GSI mappings out of static ACPI table entries.
 
-Fixes: 94e412c28e61 ("ASoC: codecs: Add aw88166 amplifier driver")
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+With the advent of GICv5 - wired IRQs (former GICv3 SPIs) can be routed
+to a GICv5 IWB; the IWB is modelled as a device and its IRQ domain
+is created when the IWB driver probes - that might be later than
+the device drivers for platform devices created out of static ACPI tables
+probe, resulting in failures to map the IRQs because the IRQ domain is not
+registered yet so the IRQ mapping cannot be resolved.
+
+This RFC series aims at solving this issue and should be used as
+a starting point to build a solution and hopefully get some feedback.
+
+PATCH 4 is a fixlet, I included with the series since I noticed
+while updating the arch MEM MMIO timer driver.
+
+Herein below, some technical details behind the patchset decisions
+and questions to be addressed.
+
+================
+Misc design info
+================
+
+The main idea behind the patchset is relying on software nodes
+properties to allow static tables parsing code to stash GSI number,
+trigger and polarity (and possibly its "name") into the device
+secondary firmware node so that the device drivers can retrieve
+their values in a uniform manner when the device drivers probe,
+the same way it is done on OF.
+
+I converted IORT table platform devices to provide an example of
+what it looks like and check whether that's the right direction of travel.
+
+The secondary software node are linked to the primary ACPI static fwnode
+that are already created for IORT platform devices.
+
+A question I have about this approach is that resources for a given
+device are stored in separate data, struct resource for MMIO address
+space and secondary fwnode for IRQ properties.
+
+I am not sure either that using software node properties for this
+purpose is the right approach.
+
+At least, by creating "standard" properties we can make the parsing
+uniform, instead of relying on a per driver platform data to stash
+GSI information as it is done for the arch MMIO mem timer.
+
+I decided to handle the arch MMIO timer conversion differently as
+a point solution. Converting the arch MMIO timer to software nodes
+would require creating an ACPI static fwnode per-frame and would
+complicate things for not much. Instead, I just stash the GSI
+number and properties in static data per frame (that exists already,
+struct arch_timer_mem_frame) at GTDT parse time that can be
+used by the driver later to map the GSI when the MMIO timer driver
+probes.
+
+acpi_register_gsi() was augmented to return -EPROBE_DEFER to handle
+a missing IRQ domain and therefore enabling probe deferral.
+
+The fwnode API was augmented as well so that device drivers can actually
+retrieve IRQ numbers using standard platform device APIs:
+
+platform_get_irq*()
+
+when the fwnode itself is an ACPI static fwnode value.
+
+I tested this on a GICv5 FVP model by re-routing MMIO timer, SBSA watchdog
+and SMMUv3 IRQs to an IWB and checking that IRQ mappings and probe deferral
+work.
+
+Feedback more than welcome.
+
+Signed-off-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
 ---
- sound/soc/codecs/aw88166.c | 47 ++++++++++++++++++++++------------------------
- sound/soc/codecs/aw88166.h | 15 ++++++++++++++-
- 2 files changed, 36 insertions(+), 26 deletions(-)
+Lorenzo Pieralisi (11):
+      ACPI: irq: Return -EPROBE_DEFER on missing IRQ domain
+      ACPI: Introduce irq_get() for static fwnodes
+      driver core: platform: Add static ACPI nodes IRQ retrieval/mapping code
+      clocksource/drivers/arm_arch_timer_mmio: Dispose IRQ mappings on probe failure
+      clocksource/drivers/arm_arch_timer_mmio: Implement arch mem timer deferred probe
+      ACPI: GTDT: Convert SBSA watchdog to IRQ properties
+      ACPI/IORT: Convert IORT devices to IRQs software-node properties
+      watchdog: sbsa: Handle IRQ probe deferral
+      iommu/arm-smmu: Add arm-smmu IRQ mapping -EPROBE_DEFER handling
+      iommu/arm-smmu-v3: Add IRQ mapping -EPROBE_DEFER handling
+      perf/arm-smmu-v3-pmu: Add IRQ mapping -EPROBE_DEFER handling
 
-diff --git a/sound/soc/codecs/aw88166.c b/sound/soc/codecs/aw88166.c
-index 6b98864de81a9..3e87be33f4908 100644
---- a/sound/soc/codecs/aw88166.c
-+++ b/sound/soc/codecs/aw88166.c
-@@ -17,6 +17,7 @@
- #include <linux/regmap.h>
- #include <sound/soc.h>
- #include <sound/pcm_params.h>
-+#include <sound/tlv.h>
- #include "aw88166.h"
- #include "aw88395/aw88395_device.h"
- 
-@@ -645,26 +646,12 @@ static int aw_dev_dsp_check(struct aw_device *aw_dev)
- 	return ret;
- }
- 
--static int aw_dev_set_volume(struct aw_device *aw_dev, unsigned int value)
-+static void aw_dev_set_volume(struct aw_device *aw_dev, unsigned int value)
- {
--	struct aw_volume_desc *vol_desc = &aw_dev->volume_desc;
--	unsigned int reg_value;
--	u16 real_value;
--	int ret;
--
--	real_value = min((value + vol_desc->init_volume), (unsigned int)AW88166_MUTE_VOL);
--
--	ret = regmap_read(aw_dev->regmap, AW88166_SYSCTRL2_REG, &reg_value);
--	if (ret)
--		return ret;
--
--	dev_dbg(aw_dev->dev, "value 0x%x , reg:0x%x", value, real_value);
-+	unsigned int volume = min(value, (unsigned int)AW88166_MUTE_VOL);
- 
--	real_value = (real_value << AW88166_VOL_START_BIT) | (reg_value & AW88166_VOL_MASK);
--
--	ret = regmap_write(aw_dev->regmap, AW88166_SYSCTRL2_REG, real_value);
--
--	return ret;
-+	regmap_update_bits(aw_dev->regmap, AW88166_SYSCTRL2_REG,
-+		~AW88166_VOL_MASK, DB_TO_REG_VAL(volume));
- }
- 
- static void aw88166_dev_mute(struct aw_device *aw_dev, bool is_mute)
-@@ -1548,7 +1535,8 @@ static int aw88166_volume_get(struct snd_kcontrol *kcontrol,
- 	struct aw88166 *aw88166 = snd_soc_component_get_drvdata(codec);
- 	struct aw_volume_desc *vol_desc = &aw88166->aw_pa->volume_desc;
- 
--	ucontrol->value.integer.value[0] = vol_desc->ctl_volume;
-+	ucontrol->value.integer.value[0] =
-+		(AW88166_MUTE_VOL - vol_desc->ctl_volume) / 2;
- 
- 	return 0;
- }
-@@ -1561,12 +1549,13 @@ static int aw88166_volume_set(struct snd_kcontrol *kcontrol,
- 	struct aw_volume_desc *vol_desc = &aw88166->aw_pa->volume_desc;
- 	struct soc_mixer_control *mc =
- 		(struct soc_mixer_control *)kcontrol->private_value;
--	int value;
-+	int value = ucontrol->value.integer.value[0];
- 
--	value = ucontrol->value.integer.value[0];
- 	if (value < mc->min || value > mc->max)
- 		return -EINVAL;
- 
-+	value = AW88166_MUTE_VOL - (value * 2);
-+
- 	if (vol_desc->ctl_volume != value) {
- 		vol_desc->ctl_volume = value;
- 		aw_dev_set_volume(aw88166->aw_pa, vol_desc->ctl_volume);
-@@ -1691,10 +1680,18 @@ static int aw88166_request_firmware_file(struct aw88166 *aw88166)
- 	return ret;
- }
- 
-+/*
-+ * The field contains 4 bits in units of 6dB + 6 bits in units of 0.125dB
-+ * which is too precise for TLV (!) so we have to multiply the scale by 2.
-+ *
-+ * The range is clamped at -90dB to prevent overflowing the 4-bit part.
-+ */
-+static const DECLARE_TLV_DB_SCALE(volume_tlv, -9000, 25, 0);
-+
- static const struct snd_kcontrol_new aw88166_controls[] = {
--	SOC_SINGLE_EXT("PCM Playback Volume", AW88166_SYSCTRL2_REG,
--		6, AW88166_MUTE_VOL, 0, aw88166_volume_get,
--		aw88166_volume_set),
-+	SOC_SINGLE_EXT_TLV("PCM Playback Volume", AW88166_SYSCTRL2_REG,
-+		6, AW88166_CTL_MAX_VOL, 1,
-+		aw88166_volume_get, aw88166_volume_set, volume_tlv),
- 	SOC_SINGLE_EXT("Calib", 0, 0, AW88166_CALI_RE_MAX, 0,
- 		aw88166_re_get, aw88166_re_set),
- 	AW88166_PROFILE_EXT("AW88166 Profile Set", aw88166_profile_info,
-@@ -1812,7 +1809,7 @@ static int aw88166_init(struct aw88166 *aw88166, struct i2c_client *i2c, struct
- 	aw_dev->channel = AW88166_DEV_DEFAULT_CH;
- 	aw_dev->fw_status = AW88166_DEV_FW_FAILED;
- 
--	aw_dev->volume_desc.ctl_volume = AW88166_VOL_DEFAULT_VALUE;
-+	aw_dev->volume_desc.ctl_volume = AW88166_CTL_DEFAULT_VOL;
- 
- 	aw88166_parse_channel_dt(aw88166);
- 
-diff --git a/sound/soc/codecs/aw88166.h b/sound/soc/codecs/aw88166.h
-index b8dbfe0f307c4..c0303340812cf 100644
---- a/sound/soc/codecs/aw88166.h
-+++ b/sound/soc/codecs/aw88166.h
-@@ -112,6 +112,9 @@
- #define AW88166_REG_MAX		(0x7E)
- #define AW88166_MUTE_VOL		(1023)
- 
-+#define AW88166_VOL_6DB_START		(6)
-+
-+
- #define AW88166_DSP_CFG_ADDR		(0x9B00)
- #define AW88166_DSP_REG_CFG_ADPZ_RA	(0x9B68)
- #define AW88166_DSP_FW_ADDR		(0x8980)
-@@ -590,7 +593,8 @@
- #define AW88166_CALI_RE_MAX			(15000)
- #define AW88166_CALI_RE_MIN			(4000)
- #define AW88166_VOLUME_STEP_DB			(64)
--#define AW88166_VOL_DEFAULT_VALUE		(0)
-+#define AW88166_CTL_MAX_VOL			(AW88166_MUTE_VOL / 2)
-+#define AW88166_CTL_DEFAULT_VOL			(AW88166_CTL_MAX_VOL / 2)
- #define AW88166_DSP_RE_TO_SHOW_RE(re, shift)	(((re) * (1000)) >> (shift))
- #define AW88166_SHOW_RE_TO_DSP_RE(re, shift)	(((re) << shift) / (1000))
- 
-@@ -619,6 +623,15 @@
- 			SNDRV_PCM_FMTBIT_S24_LE | \
- 			SNDRV_PCM_FMTBIT_S32_LE)
- 
-+#define AW88166_REG_TO_DB		(0x3f)
-+
-+#define REG_VAL_TO_DB(value)		((((value) >> AW88166_VOL_6DB_START) * \
-+					AW88166_VOLUME_STEP_DB) + \
-+					((value) & AW88166_REG_TO_DB))
-+#define DB_TO_REG_VAL(value)		((((value) / AW88166_VOLUME_STEP_DB) << \
-+					AW88166_VOL_6DB_START) + \
-+					((value) % AW88166_VOLUME_STEP_DB))
-+
- #define AW88166_PROFILE_EXT(xname, profile_info, profile_get, profile_set) \
- { \
- 	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, \
+ drivers/acpi/arm64/gtdt.c                   |  90 ++++++----
+ drivers/acpi/arm64/iort.c                   | 250 ++++++++++++++++------------
+ drivers/acpi/irq.c                          |   6 +
+ drivers/acpi/property.c                     |  69 +++++++-
+ drivers/base/platform.c                     |   6 +
+ drivers/clocksource/arm_arch_timer_mmio.c   | 123 ++++++++++++++
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c |   8 +
+ drivers/iommu/arm/arm-smmu/arm-smmu.c       |   6 +-
+ drivers/perf/arm_smmuv3_pmu.c               |   3 +
+ drivers/watchdog/sbsa_gwdt.c                |   2 +
+ include/clocksource/arm_arch_timer.h        |   4 +
+ include/linux/acpi.h                        |   4 +
+ 12 files changed, 426 insertions(+), 145 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260924-acpi-static-table-irq-probe-defer-69b976bd723d
 
--- 
-2.54.0
-
+Best regards,
+--  
+Lorenzo Pieralisi <lpieralisi@kernel.org>
 
