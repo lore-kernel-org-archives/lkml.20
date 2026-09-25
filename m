@@ -1,223 +1,119 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9DF381B1A
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351036; cv=none; b=WRErB+ksYozCTaMo/HdF0BrXh3Sz6RWsgFYwOwWv0mULz7gMmW9n7tcaFXJA2UgVT4LrwB8HWBVajVVMIsVHGNWimhJ2W2Ace7wNt5ustgNgPKuCj+7gbH+q5pGBlkTaq0WxSEeS7ywvaIZo029+V1tswabZdJfnvGghcb+Fy+Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351036; c=relaxed/simple;
-	bh=H2iITbwWRbTLpKTvGDc+MIwhRaw7cQEDthahspq/mAI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oVnSlQjsd3MEhRG4NDBUSlxSTNHwsOjopM9HLQEfQzDLvLq3SgFPOh6LdhoB994ElkDAwRKx8vy/WsQnNcYrctWX0fLdVY2cHcqdhY3yj7xoDOTSbO9OC+eOGeQr7Ojy+UtW2mxed99dFZMAFQ6Ut6YruomFG8DH34B7PDJiX3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UrTBj5DO; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XJ2ng/tm; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Eu6JG8yN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FIV7hAVN; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA8B4C33D4
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790351105; cv=pass; b=M4jLLHKtESA9tKFRZ/7xAma+ApLYp52QHnlNfduMJs4akvHgRbsdwQ6tgsIu/4k9aphGiNv0MWjA5CoQuTWEWnLume/oCPBoHVFWnQwPWjkatFtlE02MIBIaHF5rVaTQ0qqipzgQ5+FNgReI9IAanC01pSTHXIcAIR0rGOpjzok=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790351105; c=relaxed/simple;
+	bh=KP5GM+LEET3IMtjIAemSJlxHU9mKTZc47mbuQjRzhBE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UZWI0w2d5NpeSK4J52comr5e4b9J4/u28u4898kVaQd9WMPAjWYKBBfgG7Zuu2hVYnPBZdJQANTaAivN5XcAGJ5w+jD8lddmu5FyHJclY6jgm+CcGi4Z6eV0GFu8qvRa3OZV8Eq3LZoBZkhZQrehhMniF8kjgqx20OeF6tng9qs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VWnT8QEP; arc=pass smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UrTBj5DO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XJ2ng/tm";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Eu6JG8yN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FIV7hAVN"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8A3331F7D3;
-	Fri, 25 Sep 2026 15:43:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790351028; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IxoD1TfpMnlHhB4OJ4JkkWL7Kpm3ztSu4F+OAJdGJJQ=;
-	b=UrTBj5DOaKy8ZYe3EDblH3vg+C+j6dbaamPZjXrvv7zSBNriO+URS81wolaSKxr2jBFiRE
-	Xevrszki8ag3T6W8ZtAcvx4XrGbblo3RaaBu+Jq6KHPi7DEm+j6EmF5nWQuwhv95dgYjYt
-	UoMkiHRQr/mSmDCZtZz/6EHBwt1GzAs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790351028;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IxoD1TfpMnlHhB4OJ4JkkWL7Kpm3ztSu4F+OAJdGJJQ=;
-	b=XJ2ng/tmOeARv54gnA9sJCwwXh3G2isJ8zW/6O/Tw1/BQdw7/H8caS5bR5dRApuElNwgXC
-	IA0JipJvgLx3StDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790351024; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IxoD1TfpMnlHhB4OJ4JkkWL7Kpm3ztSu4F+OAJdGJJQ=;
-	b=Eu6JG8yNIU0VVstgCa5gl74tXGp8A6ZXjvuBUo7OKEBPKPS4/A5IsA9PDysWuKIVi6hr6R
-	q/GwscQnab/osjlQxT9ZiELHA78pCLQ0T1rCIOoXjVXixvGgTWogiR3rCrcYs/cMWIJ9I+
-	Cm0IpEtImDZ+X/ZBkOx2vmKPihH5IV0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790351024;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IxoD1TfpMnlHhB4OJ4JkkWL7Kpm3ztSu4F+OAJdGJJQ=;
-	b=FIV7hAVNvn72bus5pVlQGvbAWf/OYQVEN83+kSYzU/y19plCj+QKR4Kj7QZgZkzdpXMqs1
-	Dz+R+0gJ4WDaiAAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7156813274;
-	Fri, 25 Sep 2026 15:43:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Aq7GD6+WtmrAPwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 25 Sep 2026 15:43:43 +0000
-Date: Fri, 25 Sep 2026 16:43:37 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Pan Deng <pan.deng@intel.com>, akpm@linux-foundation.org, 
-	liam@infradead.org, vbabka@kernel.org, jannh@google.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Tianyou Li <tianyou.li@intel.com>, 
-	Wangyang Guo <wangyang.guo@intel.com>, Zhiguo Zhou <zhiguo.zhou@intel.com>, 
-	Tim Chen <tim.c.chen@linux.intel.com>
-Subject: Re: [PATCH] mm/vma: avoid redundant file rmap tree re-insert on
- new_below=0 split
-Message-ID: <araVBBBVY-jafePL@pedro-suse.tail5790ac.ts.net>
-References: <20260924054301.2330822-1-pan.deng@intel.com>
- <araI4WsI0XMXOR10@gremlin>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VWnT8QEP"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8eb15037aso245420e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:45:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790351101; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IaQv6jLAIeUiHaNBTPW8H54IbddZSizVx4Notb05rdEii5tVFOlFATGEQhRBgh3om2
+         KuJb1rkmC7dWLJwItdIujskKjqVTWdnjT2qAsbf6Xo2vnl91kvQDhkc2D6U0FMh9GthK
+         89GpHyt5NHp+VcBFRE+VJKzE433Yi0xI5dbJEJAXHBQZorWvpdsK7ak5IFmigXwjIeEg
+         +16hKuN3lQOuZ4grcFTIpW1IGzEl7CtIht9lGYW/Xp4p62Vvzjwbnt1B7jHVKlUHF9vG
+         QU6xHw+sulac6szbHhNEI3kynGZGJ6GTQhEg1DDvrWLcE85BouGyt9Cdf2A/LYClELzF
+         8Iyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KP5GM+LEET3IMtjIAemSJlxHU9mKTZc47mbuQjRzhBE=;
+        fh=HlHYl4RKajTiWIMTmoGwQ6l3rr2979c7PUPvJzaT5VA=;
+        b=YcpMR/gegcNgXhtgL6u2ZAoWkhkaN4Jo85A9pQ2pDNEO0kLn/3s/82bWiLwZZnwSic
+         WppKFAEkoX3TPALStR68DiMCudmSLq6O3LaBeWlxfLcSHNGmyWqzvdgWEZ5EUfutQwXy
+         8rgU2T/imbREpmTNWx8qA5HWDodvQBUWSz50G5FTax6lpyxuAfJcv8a8EZ3TBISZPO+f
+         FVFrE5l9EotqgFZqFZcJ7nlSQU4e6+RU04R/q7+o04V0gt58IEmMIVso5okqQJR8FUIK
+         MDWvVpUF6Qk6+2eiF0UFx4VdmLXbp3tSRBmzfVVwhKK6nxkdrpaWHyZDYpgGSRxa8W+x
+         u5DQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790351101; x=1790955901; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KP5GM+LEET3IMtjIAemSJlxHU9mKTZc47mbuQjRzhBE=;
+        b=VWnT8QEPp1GVE7wlYyyRYUXwlWdhqaWYOY7yREjTdwdS1ajtf65fdQPiwqpXB6mBrJ
+         TqIgIo0BViW2SeuBJndRrQbmCwUMbPzdqcs7J7JA+tcNbq28mANOQoQD0OsJc93EsYfc
+         Ryd+dPKQOezNiWgjModL850oSgwQJUo+1bNiaE9XD51B/gTZ8sR0Ers+Z28amgqdoh9F
+         8GkzrNkK97H3hgZLssU+tGn2LnOrlrvyXFKDgwixmIYlbnOlzOTpiYe7UgVo3PUKaa2X
+         HSE9lwek+cDOYm5yuN3bumGzkbIUlj89e/cbM0aQ5p/+Y8m9x4l/5I5RiarJ770nzxW9
+         /sUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790351101; x=1790955901;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KP5GM+LEET3IMtjIAemSJlxHU9mKTZc47mbuQjRzhBE=;
+        b=AxyML3Ih0pcUo4WQdAdcFadEPuITjBVuuddM0Ith4v3fal6w9IMbLuXgSSP6JTFkB0
+         neTmtG/YgWLw7xL9UAj4n3+TSF45kxrWS9jVlUifqtdUssIRrqFtMKkYnBUGmp48FTLT
+         XRJNrLfDJpqO8yjdXzqLAVbWJsxLlJVd4fX91wKdvIwrZ0sI7NBdFSx2mK+WQefnr3ZE
+         WscuylQeV2So5Gx3QVOEYKWGb5gPvKIu8JjxlUpOqxIKpCH9EtRbx9rza8Ck0H+n48nX
+         Fesxtk4vLgc0ns3oJ0aZ0Nv8crvWK56ZS32baK4vsTcfJ7JKi4xekxmiaR4jYf7GH8dY
+         zKoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzdelntIT+yUQGY2NPrnQBYGmU7LKT8Eb3PCidCpDvbuZlFQfWnUXiza2qBQRJpIQ1VEpqw4y62PRIovEU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpS8hQbmDP4l8NPR746yx8ihCZY/zinFZ38Yl0KqdrsK4Lqo1Q
+	Pzatrvz/DHCkS7EsxSaLKDsmfNtio5FVa/UKUSX+GsBbaAMxsh3gtoGUszRD54i9jsnocIot/yP
+	Kp26751PAVtPVx8WguI0IhgW2dXAAFTI=
+X-Gm-Gg: AYBFou1nB4VQ2xU7FsSubVLwZBOVR2VUOe2fSYDRzdzUAV5HXdYu3YzaKwgvEmgcN3S
+	TCggKwxGgNNqUn4K63vEEGjBPvUllPZGJlb+mVutFuYko2tEkJ/Efdr4bJ1QPBYdn3TaVmwikLF
+	kLRiZPtHfJDWnYLAvQL6xZV9v/vVhU3upt2pr05kAnrbrbYUaY4wZyPdgSXirCfcaVQEfzJbFaf
+	7wpnBw2L94N4C+76J2ndcpbDrfISlyoFleVHDG/foWSZkWbVl+1l1N5Ijvoix/44bZPc1qo3hZd
+	jAWdE2ZIDgY6J3r0NQjW9eM6hQQVXroH/zkQs7taHWHmEBUvH1hDhJSk8xBs1Qbb61w3p4a1hzg
+	CcfQxAulGqxc2XxKl7BjI0AGriAvypceiLph5zkzd3pnD
+X-Received: by 2002:a05:6512:378e:10b0:5b8:de9f:85bc with SMTP id
+ 2adb3069b0e04-5b8df0a5e33mr1493051e87.9.1790351100604; Fri, 25 Sep 2026
+ 08:45:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <araI4WsI0XMXOR10@gremlin>
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,intel.com:email]
-X-Spam-Flag: NO
+References: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
+ <20260925-aw88166-cleanup-v1-5-11f74cb5fe28@gmail.com> <4f0f49b9-c856-4aa6-b860-a81f018ad1da@sirena.org.uk>
+In-Reply-To: <4f0f49b9-c856-4aa6-b860-a81f018ad1da@sirena.org.uk>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Fri, 25 Sep 2026 10:44:46 -0500
+X-Gm-Features: AclHuK-5n-rkchM_xV5oHlhGXrOaf5sD-uI5jyQ_MtR8PlMTXUbFhv2e7KwRPTE
+Message-ID: <CALHNRZ9xAk-eVPE2OX0AiHjRe5n6AzejZ_6peS+NJr=v2jwzDw@mail.gmail.com>
+Subject: Re: [PATCH 5/6] ASoC: codecs: aw88166: remove async start
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Weidong Wang <wangweidong.a@awinic.com>, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Val Packett <val@packett.cool>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 04:27:44PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > This change skips the re-insert for that case.  vma_prepare() no longer
-> > removes vp->vma from the tree; instead vma_complete() detects that case and
-> > only recomputes shared.rb_subtree_last up the ancestor chain.  Everything
-> > else keeps the remove + re-insert path.
-> 
-> This could really do with a diagram and a simple explanation.
-> 
-> In general you should rewrite the entire commit message yourself and not
-> use the LLM output at all.
-
-+1 on this. Even with the Assisted-by, this needs to be understandable by
-hoomans.
-
-> 
+On Fri, Sep 25, 2026 at 9:13=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> On Fri, Sep 25, 2026 at 02:47:33AM -0500, Aaron Kling via B4 Relay wrote:
+> > From: Aaron Kling <webgeek1234@gmail.com>
 > >
-> > The case is detected by comparing vma_start_pgoff(vp->insert) against
-> > vma_start_pgoff(vp->vma): only a new_below=0 split leaves the former
-> > greater.  __split_vma() adjusts pgoff via vma_add_pgoff(new,
-> > linear_page_delta(vma, addr)), and linear_page_delta() is
-> > (addr - vm_start) >> PAGE_SHIFT with addr strictly inside the VMA, so the
-> > delta is at least one page and the new VMA's pgoff is strictly greater.
-> > For new_below=1 the two are initially equal and vp->vma's pgoff then
-> > increases, so the comparison is false both before and after the caller's
-> > endpoint updates, and the original path is taken.
-> 
-> This is useless description of the code in English, it's not telling me
-> anything useful at all. Human beings don't have a large 'stack' with which
-> to hold things in our minds.
-> 
-> Write with humans in mind please :)
-> 
-> >
-> > Inferring the case this way keeps the change small: struct vma_prepare
-> > gains no field and no caller changes.
-> 
-> I don't understand what inferring the case means? I think this can be
-> dropped.
-> 
-> >
-> > Moving the remove() out of vma_prepare() leaves vp->vma in the tree with a
-> > possibly stale sort key across the caller's endpoint updates, so
-> 
-> I mean what?
-> 
-> What does a 'possibly stale sort key' mean? And what does 'across the
-> caller's endpoint updates' mean? Which caller? What's an endpoint? What
-> updates?
-> 
-> > vma_complete() re-keys it *before* inserting vp->adj_next: otherwise that
-> > key-driven descent could place adj_next in the wrong subtree.
-> 
-> Re-keys what? WHat does re-key mean?
-> 
-> What you're saying here really makes me nervous. You're changing a very
-> sensitive part of the kernel and talking about intentionally leaving stale
-> state around.
-> 
-> This patch cannot possibly be considered for upstream until I fully
-> understand exactly what this means and that you understand what you're
-> doing.
-> 
-> >
-> > Measured on v7.3-rc4, on a 2-socket 192C/384T system running UnixBench
-> > execl (384 concurrent execve of the same binary), dropping the redundant
-> > remove + re-insert yields ~14% higher throughput by shortening the
-> > i_mmap_rwsem write-side critical section during the file VMA splits that
-> > execve performs on the shared libraries.
+> > Codec drivers are not supposed to do anything like this. The result was
+> > that the first second or so of playback was essentially inaudible, and
+> > very short alert sounds could be missed entirely. Let's not do this.
+>
+> Again, are you sure this isn't a workaround for terrible hardware?
 
-For what it's worth, I'm vaguely accepting of a similar change, but this needs
-to be _really_ well commented out, and ideally in file rmap code, _not_
-spaghetti'd in VMAs. The interval tree is complicated and some bits are not
-very intuitive. This needs to be robust. Not LLM'd into existence.
+It's possible, I suppose. But this is copied from the already accepted
+aw88261 series. And it has real effects on my devices. On an AYN Thor
+without these changes, if I start a video, it will play for 1-2
+seconds without audio, then I'll start hearing audio. With this
+change, audio and video start at the same time.
 
-This also reminds me that I should reboot the sharded file rmap effort...
-
-> 
-> This is really unconvincing I'm sorry. Real numbers please with statistical
-> evidence to back them.
-> 
-> Additionally I notice you have not made one comment referring to locking
-> anywhere.
-> 
-> This part of the kernel has VERY subtle and sensitive locking
-> requirements. I am not convinced you understand this, either.
-> 
-> >
-> > Signed-off-by: Pan Deng <pan.deng@intel.com>
-> 
-> This patch feels like a hack. You are creating a whole new set of very
-> fragile assumptions that have to be maintained throughout.
-> 
-> Again as above, a member of the core team should take this over.
-> 
-> > Reviewed-by: Tianyou Li <tianyou.li@intel.com>
-> > Reviewed-by: Wangyang Guo <wangyang.guo@intel.com>
-> > Reviewed-by: Zhiguo Zhou <zhiguo.zhou@intel.com>
-> > Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
-> 
-> Please don't do this.
-> 
-> Upstream is not interested in private reviews. Review tags upstream are
-> based on review done in _public_.
-
-Yeah, this too. It's just noise.
-
--- 
-Pedro
+Aaron
