@@ -1,84 +1,115 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A6E313E2C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79D2423E9E;
+	Fri, 25 Sep 2026 13:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343194; cv=none; b=cOVquweKA8BOKauL1N0bb/EXx6Op5IEOq+mkkLQt7fVdzRxn1JajzOcUCQeaf15aykMkmB2QuPgZg4v5GIBKfEPzSZa+1eBzZGSJi2f8nTZ2vHr9LscsrG04+9o0cy+i5+leNLNybldr/c47068vs0OR4atfuknQ1cnKbZfGC6o=
+	t=1790343284; cv=none; b=Sl55cVy29bIu21UXPa6pqdTE4aZqQEiNY7JhuklbB0uSXXGQlpRnD6OkVKk1ykpHt2OdlI3xAaIK/950XaIPbQOzwVNXjkAn0Vr73U1PgupAVuKIAvNr5xTJ/ASo3RHfSFhA3AVZ9M144HdnY3ZBFpSmrWyQDKU95REO/ZiJZwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343194; c=relaxed/simple;
-	bh=PjaiRlRH2Y8JceVC6/lC0OMOb3aYV85nZn1Sazlgkr4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=sXB9iC8kvHSlGMrPfJC5do3NZfwiNa5uuzBwP1NCRku0xuj5x+umptWdxDkWIL1rewhWvHtz0ElIL0AhA2wqZWVA0CPvwXbpLFrbmuJ0RSLmyj1cJvelGckkpmJK/8tud5kp8j4LdYaUh1zQoVV4e/rDRv6Zmr2tvoN6qzVfH6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=k7XLJijc; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790343284; c=relaxed/simple;
+	bh=0vielYZed4HV7XfW82om9xTVqeGDlpkgGTZ1SIoqWNo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KXYIGAJ2As4r+Sy0FKXts9/yfrUcUR9Mw6vb0GdUQxZO0U8SFT7+dVOEVN4Gf4Qxzs3YBwOHdq126a8EWkZ0eJD2T6wT1D/FtewF6fPU7k+Ru4eIP0SycuHiuctgWiw45Yw/961XL7r1wvz6agfeGgYRQakFvg4BQ9H9Ge2X71Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=I4Yw7KLX; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="k7XLJijc"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 7C96C1A1006;
-	Fri, 25 Sep 2026 13:33:09 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4DE676073B;
-	Fri, 25 Sep 2026 13:33:09 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F2B4710328CD2;
-	Fri, 25 Sep 2026 15:33:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790343186; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=PjaiRlRH2Y8JceVC6/lC0OMOb3aYV85nZn1Sazlgkr4=;
-	b=k7XLJijcDLcyf8iPSjDSE9Nl+hRkjAjW2cYnzlOLOe3dt3jd6pWxPhUBVjdBxX88tG88hB
-	LFWHTah3TtleKhGCnr8fTAhuxhEcdH2As+QmVNZ6mW8FFIQsPDHqGqtwQnNv3PDmcJGRI6
-	7ZsI9qpukupNrIMCasNUsyJLm8P/8kMvr0kUUaxyTstzH6RASMIA5bNO10EPg2rM5WlP3Q
-	Q1F7WxqRx4MNWN+4MHfjSbPSWrED6qkvRH1f6kmSIH/Im3/ax5kx/viCh6U75FwfLP3GxE
-	WLq+Rq0lNN/xAT3tAySBTqxtP1vhx7voFW4s8S6wgTo8T9l1E+Vg4bHP6V7o9A==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Rosen Penev <rosenp@gmail.com>,  Thomas Gleixner
- <tglx@kernel.org>,  Sean MacLennan <smaclennan@pikatech.com>,  David
- Woodhouse <David.Woodhouse@intel.com>,  linux-mtd@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH] mtd: rawnand: ndfc: fix I/O mapping leak on remove
-In-Reply-To: <20260915164204.2492099-1-lgs201920130244@gmail.com> (Guangshuo
-	Li's message of "Wed, 16 Sep 2026 00:42:04 +0800")
-References: <20260915164204.2492099-1-lgs201920130244@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 25 Sep 2026 15:33:02 +0200
-Message-ID: <87qzih4fsh.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="I4Yw7KLX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=MIME-Version:Message-ID:Date:Subject:From:
+	Content-Type; bh=682gjvnHozUTQ/G+7ht1Fk/nN9QjqnhUXggkVz8k2/g=; b=I4Yw7KLX+JIR
+	9XiEqgZ6EHl+v6tAAviFE0n2F3p65dcGLP6Ptz0K0kg+BfqEZGQUoYzkIlA4CetaXm+Li/yqIRwfB
+	q62iyyp1OF/ahPrCqAx9YIFT/LJzoHAXPuEuBBd4dNd/KLWX5RInKbTT7drcz2CpwblBfJtF7YrtK
+	26+pkSITaWRYLgkqetyB4TZngfrSPTKvgiH8b2qp9GBO5Qe8gFW1C8K+o/CR3OAfwSy1alMlFTphv
+	GEHMUNpsWk2EeBjQJM/nyDuhlg4nTMIYQkxhPd5t05RMMaLb9aVHBDBVu+d6pADWxMU/71kV0X58Q
+	Fhd1c3w/hpbvoAB47v0FcA==;
+Received: from ch-vpn.virtuozzo.com ([130.117.225.6] helo=LekKit-T14)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <eva.kurchatova@virtuozzo.com>)
+	id 1xA61W-008SRE-1i;
+	Fri, 25 Sep 2026 15:34:34 +0200
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+To: Shuah Khan <shuah@kernel.org>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>
+Cc: linux-kernel@vger.kernel.org,
+	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
+	linux-kselftest@vger.kernel.org,
+	linux-security-module@vger.kernel.org
+Subject: [PATCH] selftests: binderfs: skip the stress test without binderfs
+Date: Fri, 25 Sep 2026 16:34:07 +0300
+Message-ID: <20260925133435.3635453-1-eva.kurchatova@virtuozzo.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 16/09/2026 at 00:42:04 +08, Guangshuo Li <lgs201920130244@gmail.com> wro=
-te:
+binderfs_stress mounts binderfs and asserts on the first mount, so on
+a kernel without CONFIG_ANDROID_BINDERFS the case fails rather than
+reporting that the filesystem is not there.
 
-> ndfc_probe() maps the controller registers with of_iomap(), but the
-> remove path does not call the matching iounmap() before the driver is
-> removed.
->
-> If ndfc_chip_init() fails, the probe error path correctly unmaps
-> ndfc->ndfcbase. However, after a successful probe, the mapping remains
-> active for the lifetime of the device and ndfc_remove() never releases
-> it, leaking the I/O mapping on driver unbind.
->
-> Call iounmap() in ndfc_remove() after the NAND device cleanup to release
-> the controller register mapping.
->
-> This issue was found by manual code inspection.
->
-> Fixes: a808ad3b0d28 ("[MTD] [NAND] ndfc driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Ask /proc/filesystems whether the kernel has it, the way
+supports_filesystem() in the landlock tests and check_resctrlfs_support()
+in the resctrl ones already do, and skip when it does not.
 
-No longer applies after Rosen Penev's patch, can you please rebase on top?
+Probing with a mount instead would not work here: the test is meant to
+run unprivileged, and path_mount() rejects an unprivileged caller in
+may_mount() before do_new_mount() ever looks the filesystem type up, so
+the probe would see EPERM whether binderfs is there or not. The child
+would then still reach the real mount inside its userns and fail.
 
-Thanks,
-Miqu=C3=A8l
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+---
+ .../filesystems/binderfs/binderfs_test.c      | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/tools/testing/selftests/filesystems/binderfs/binderfs_test.c b/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
+index a1a79a6fef17..70f0391136c4 100644
+--- a/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
++++ b/tools/testing/selftests/filesystems/binderfs/binderfs_test.c
+@@ -36,6 +36,28 @@
+ 		fd = -EBADF;        \
+ 	}
+ 
++static bool binderfs_supported(void)
++{
++	char line[128];
++	bool ret = false;
++	FILE *f;
++
++	f = fopen("/proc/filesystems", "r");
++	if (!f)
++		return true;	/* Cannot tell, let the test run and report. */
++
++	while (fgets(line, sizeof(line), f)) {
++		/* binderfs has no backing device, hence the "nodev" prefix. */
++		if (!strcmp(line, "nodev\tbinder\n")) {
++			ret = true;
++			break;
++		}
++	}
++
++	fclose(f);
++	return ret;
++}
++
+ static void change_mountns(struct __test_metadata *_metadata)
+ {
+ 	int ret;
+@@ -388,6 +410,9 @@ TEST(binderfs_stress)
+ 	char binderfs_mntpt[] = P_tmpdir "/binderfs_XXXXXX",
+ 		device_path[sizeof(P_tmpdir "/binderfs_XXXXXX/") + BINDERFS_MAX_NAME];
+ 
++	if (!binderfs_supported())
++		SKIP(return, "The Android binderfs filesystem is not available");
++
+ 	ret = socketpair(PF_LOCAL, SOCK_STREAM | SOCK_CLOEXEC, 0, syncfds);
+ 	ASSERT_EQ(ret, 0) {
+ 		TH_LOG("%s - Failed to create socket pair", strerror(errno));
+-- 
+2.55.0
+
