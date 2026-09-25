@@ -1,162 +1,220 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FFB4D9F78
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02784DE706
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:42:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790361731; cv=pass; b=lmhRiFdXRyQQm1CuEk3wAU4NMihr5Oz1HT3ItczlbOFClveJBt1A25vSZqXkMUUfp26/6F4NIDbnAM4Rb1XOJVCCe7SqYZWeEPS6fObgKNBPpw3gzQv7CgdI6m+9JM74hbqnAwZwMWTgWq9lw/LUVfR0gyhCnz8SaIT+SYGpiLo=
+	t=1790361738; cv=pass; b=blxJfpU6kxhwayfeR/G2DTQDc43TfME7r+8qGyUIjUhK8sXmVd3DKhSokCYBPOTk8xOGZNUI/xW/jDqL+AvGjK4ZjxnmvZOAMAeiWC1HHQXBSFCtrZw6jsot14HWqBFsnrygdH0Mk+ILsnD9mF7rtnk6s+T1tGTb+LzCFkTb+yU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790361731; c=relaxed/simple;
-	bh=EG2PHgTixg9rBHSr4w1yLq7tvCjPCFuWWWvAJw5rlQc=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GIqmM2n+Z+eovUP6exLg3Or+U4263r1SndiC39tRwJ1qwItuL0bo7Lxx5Nq2HGxU1zHTVr2JYM9nq1f/X8n48PYLRo90lNqntpjYS2eLYDfOKkRAoHGN1TS00PW94lI0VxPCV2ZZbu7lhiYJ6tTR0AO1D2vGGfm+eePs4UVlvyU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hc3ck6Ur; arc=pass smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790361738; c=relaxed/simple;
+	bh=qe35OzbfSn5jxEUxVU2cmzIGiFHK7xWuk7f7gKumZ4k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=db8uZ7w6RdiGOoWCrlBASoZ3akldLptCllYNHWiEGMyCTADgVY9oLcM9vngdTHMBTo8LVcZJFqzWeSrZJLDW/VaS+0pUSmg19KZXjYV7Gkr0Nnf81QbBXvprsMQXDAEKM5sWA2OOJi6EuXnMId/FiDHmrGmaTF6yCs37LMdLRAM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aSlUeud9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MLqMAtOF; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hc3ck6Ur"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af7721e4aso86252866b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:42:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790361728; cv=none;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aSlUeud9";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MLqMAtOF"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PG3lQt801351
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:42:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	m3xDk7u5dmLP2jxW/XWS3M+3d/I4qMp3Fvvf2xNBdKY=; b=aSlUeud9MMrnTvaE
+	fBNW17DTlK1pd3VcwQpUk4ojbblR/A1hMmRDFhOv4r5cy3OVu8i2q6RmCi/4vkuZ
+	vUfJnemh4SMXjd7YTf5sbLQCTkc017+cBse1LMO1nsJkHCEWniirrH+WKHG39Sy8
+	my8Qbas7L+ScsIZTV2pNDMGhJ3LWocXSDZvk5Td6QyumagYlnF3T/M65woH/CUay
+	IGqzzkIMWOsK+Mg9kxItyfWdlSbMOxtpgASz+AMsYETe9UpdCinK6WF8DBzpNC6p
+	SaGtAz+max3hYXt17goBn1g67FdMVjHnVQNwOXVfg+HpnIOlmupIwqr2msOh/dir
+	1yJ5vg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwv57gnbx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:42:15 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a1de6d5c3so272319185a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:42:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790361734; cv=none;
         d=google.com; s=arc-20260327;
-        b=TPhisVUqrIavqAWA7OhxP3xafdwzS6iJ4YnpoXYMlJrqBcIxC//Chp2Cwfq2VaJRmA
-         g1XqWME7+HCxagoULJ9fPOn48XzAGaTNzsPfjzBofsVHopT5h+SqNcznRPnRs8ZiVTGn
-         sx53qhw/LHZKx0f7kmDE9PL6xvurSk5XD1L/4pocHuuKZIOmO5tAMEqzFOYdpDzZzMrN
-         d/3HizNee5x4W/1TVTMIL2LxjFj3NikeawSKiTjaht4y0GMOUiQ0QpZ0mSV5kfwHbggl
-         DSRojlLKYpM9rtHBQwPDvfib6aPvbnU8GXFcgFvpCiMNEM6irPgz8Q+GX4gs6ZAy3rnB
-         WIsQ==
+        b=JNQH0SWyWs6hzERvCgsDjPu+EdDImNAXFDvnxKDfgpSfB9FWtjfI3ssPyi5e3ME9Wr
+         UChYi4DSvPDN4ItErRIw+ZDH1vkoHek6y15S9emrZkwTeSN8zb6Hu5QvMaNQoRnPx/Fk
+         ke+9X1agZvORWhZPjF80JYTaifeJCOJL2HY02NjHvFDh7OC1BMELUIYRWEsruU8ov70C
+         /hozcqdk4HePitKoo9qj3axrqPT9aWLoAtHuehGvrQ2ebltoIaRCHhhpURdqbjk9lNWz
+         C8KlIq5JKwLXctQC4dFkU1lHPNIb4CS57NZNO40EBtHGkDx+OeoDrJ1SsLxeJwXuJhwk
+         tp7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=iH33DlG7lPeRyDNU7/KmTL8YXtHt+KDjYSFCKP0/eps=;
-        fh=0vPSAe3m4s7Yh8LwyJb0aXik8DASS6I25cW32PLZN+I=;
-        b=UCOIsRej0aklx+sKtOET7PxfDjJsgmcX8giRTYF3EFFkYm4MV42987nmivQyBHAEJa
-         S4GqiO/p81fjjmhLTLs7TItg4Y88zc4r4BuSo/eTSsPKkX3VVhb78HcGlavChf1TKbY/
-         hVX8Arc5tqGqFhKtPkbSVfAX2hgq2LUO09eBNUb2eIstgnDmEa9uX7U8gwOo9y5VxR5e
-         Vh9vQMKU+DNw57ai1s40xz+ehyhjBrAp6QHLXDkkYU2D5Tk2/GcrTAd+WJUmsjpf88t4
-         2tbBhkR+PxwHqMWT2FvltV4CPq/QPHsebgsK9G7bFlC/1HW5EuTpKejrA9zYuSsMUG8O
-         KTiw==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=m3xDk7u5dmLP2jxW/XWS3M+3d/I4qMp3Fvvf2xNBdKY=;
+        fh=sjwP/y04x81ghV6WFn5BXBSHoNkNwgPki6fskdpA018=;
+        b=g4jwK4z6+dMShiWMf5zVofi7dnyHEDa5kfquWV/KGRIVlDk4w7p0w/lfLTK1qXmphu
+         /u9a8eAoOIGxpS+uoDKTwPNiHVMTmXqHl9GC2ftbpWRXgpYyVI8BGOdXk+Ds+4Gkqmlj
+         PDH72k2HHBTukSycxUKEcEUKmzRrMmVOizfSSdMEb+gdBsiySe0KBQsfut84i78d/ou2
+         33L/ivqQWcJ8rZBdBmM4RsfwrB5oAy16+F5ZW8NtKgBxJnL/9SOunnsqyxv2FSgkKoBz
+         2jBOcBhkhkwjG82AILkDTxY5iakZCiGs8Gsz2sMdfX4hf/dqR2+XtpqrRpfxlTNz1ddY
+         lU2g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790361728; x=1790966528; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=iH33DlG7lPeRyDNU7/KmTL8YXtHt+KDjYSFCKP0/eps=;
-        b=Hc3ck6UrOQDwxnK63GsfDThgGWBOpQd13H9nIYM+xizWrGjXwpIcJxg5DdJy/sPd80
-         cwgzlsSbt0sFvuZu3W1EuRslN9S497d4E/pcYfB8xkS5kn0hgfdzrcmM/dHUaFb7PtgF
-         GtBMtxi6zPDZbjknWJYdwEpACj2EsQYUJwcrjMbzPSmntWYwi9FkDT2xDnx6Y+5ihTO7
-         B7Q1y4ZvMksps/7T9gdRKciyGQOSsXxrVSullgeU/EVyK/3Rtv9VPRqYu5zStJNclXmH
-         Wx1lKKmJT77owEBdXgbr4QrbZbfvco51Z4QQUOmGyxR2ejj59HP5sWJgb0yJ4Ii3f2je
-         IL5g==
+        d=oss.qualcomm.com; s=google; t=1790361734; x=1790966534; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=m3xDk7u5dmLP2jxW/XWS3M+3d/I4qMp3Fvvf2xNBdKY=;
+        b=MLqMAtOFgcfL9/esEM7x6BGxofK86YIE1Fei2550rmKgF1kyAQlJ7ay4c9AMp95V5F
+         9yVqR3MeECJxN/rljFLWY8Y8cH/y9dErI1SDMfWjRP2T6c286srna7fLafAgf12jJNhb
+         C3dUd0We4dWIfe51+7rlrCq4o4SInafcewYvXgEfvqw032ew14t/HA12/kHlUjnorEzT
+         Xk4FEBXlguoF/nQB8KmmRq+ZkQq01LvbBb3469/GB1/ktBO+P5lX7PuPxO2z8L7DaBId
+         ZzYTL9r+nufOK+2xNUxp1fhF8PNMKIoObRgTMhZiPFhlIeXx0EXSKM6iKcZYxwBqOAmy
+         v8fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790361728; x=1790966528;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iH33DlG7lPeRyDNU7/KmTL8YXtHt+KDjYSFCKP0/eps=;
-        b=sY2hdMjoa9Qc+b7aT7RTg/NhNTfT/YY5DKP6PORKHYUGxxl0s4utwZMh7yVeoaIwGc
-         sX3gUz68/b6uzO+APUMBy4mrDyZz8FVGK0/vSnTGMNfLPHMw1I6i5igoauAnHeRRNrMP
-         m2YBUTm3shDet2uauAnPJsO12DRzQ093VbrkD+/pib846VVL9MCxzvRfT+ZAbE3pow44
-         RLDvUisbOAvBEJaw0YtzE5vxzNXxbmDLZWB3On+gweIl+brzCrarn3J2lKc8/Ck8NOqt
-         tXt0ldJxqJ1KkWAWgXei8mTvlcMB+mT2u6E90F3QSAbqI2j0DqBMkfoNDKMISwaYh3eI
-         7u/w==
-X-Forwarded-Encrypted: i=1; AKwUvBwDzf9CaDMOC5ocdvJcOvat2sTDtHslsCpMejkME7UMvY1TBjCpIOB6noWYu3jxt+IywW/x4fis1iXFHxo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m++kC69Suij3+4HUNCVPH6pP24l/OghO7Y4y/ZWg/uCSch6hzN
-	T43oYm8XrOtdEYzKmfu1zFDy5vizIYjDVWbzMIgqfNJ5O8IOcSdF1rLDVe2EFrl0c3ZOFVEvEuE
-	+Vsd4Nyp2+blY42/9UyauXi9NGi+H39s3
-X-Gm-Gg: AYBFou340vi/M2QQAJe5yoWIyI8keBxRlfe2ItWaI0hVDVOvDI4Z5Srn4WAGlYhjuDD
-	iHbP0O+x27AlfUieo/Lk5z4lWY69MS3kEAyWXR6WR+uxAeftDtR/1zQRmV/97A3d7N2pqd218wl
-	MSYjB1L0tfFEWRxaPcfKCW+XnjCbPfEYK1AWNdde/vqakqEvA7M4Z0kZCdNL28z6N3jhJ9lROUG
-	RY/4U6frjnA4hG02dvXOkPJGLSzGUrHfF0M42PAWPHwazIr5JCohtvAkdgNxPXvMZF/GCmd9z14
-	dNY8RNis+C5tdsbTq5nJTtK2dtHy0wmVKpgSnhihz2BAHQeQbAtHGQQHPGlQdOxLD4gFV8h/V/S
-	FBQZ9BBD+6qX1faLfcRyNJ2C4IMg1/LSeTwr50gHBSR126xZQn865O6KI23PxM41/+86wukX5wV
-	w=
-X-Received: by 2002:a17:907:e918:b0:c2a:9e6a:3b4e with SMTP id
- a640c23a62f3a-c2ac228e60cmr610461666b.0.1790361728266; Fri, 25 Sep 2026
- 11:42:08 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 13:42:07 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 13:41:49 -0500
+        d=1e100.net; s=20260707; t=1790361734; x=1790966534;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m3xDk7u5dmLP2jxW/XWS3M+3d/I4qMp3Fvvf2xNBdKY=;
+        b=SMvsWOcMthedBKfwu43toyVtLz/nEQIVHjLxnyktx9xPRtsmMso4cyCbtitJzAJiT7
+         xMmHyblHQY3spmL0NaDHrjiP1vOpBXNWq9BZVe9qBxH5q0B2tMOhPo6LOs8Kw4HeKxbc
+         fkMCWHolIZFN9xKMtLqwM4IVS1vWPADAO0Cz//+tYBGzl/Dsy/aB2LTjYcBYukaathjB
+         XCBs4jVxoF/N+CUI3MRnilTsFwf5/GsgKVDOuzoaEFlUAg0BTTZ5RQUli5n8EPPE34jp
+         ux/z27vTLw6AixJxFyVO/YBWUAnfLUXaa87FB5d8DsqMoilG0G7OI9YB3h/FgR7zQlWO
+         b6mQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzWJyTpHK2RK6CN7ji7Sq9nDMb4WdFqhGWWhRKLUAgMtLSUoqE+JncEfQaPrrEWkNIBe7nEZFgoSgGiQro=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwE4lcjxFAiHmKlb6PHNMvf00NCPAjumXn4LT937D0NMGhTvUD
+	9LYZ+yN0E8uJlbEjBIp+gsnayKC4O/K5MJMzwZq0tFzyFi4Pz06b+4WvYBkK33mJS1UbZw1UIZs
+	c2meKbddqaPawx76Su7vULy4BALL711Yr6dXLIKtUOs4VnHrXnwwhoF0VE9cyoih7/4V/m2gYHA
+	UgU6U76yutF/fqTde4iXn281/b4S6u/RkQ08kQU3lkPg==
+X-Gm-Gg: AYBFou0zurU2qZ7drIXZruDybz+Lc8gZEP8EUzcNg4aZFBagk+EpjxnhQxtuvJr5fPx
+	b7xgl7Uis9MbenEMIeGOu8Z/ZdzpZ2d6lQ+kxkXcP/ryt4hyxh+Jw8wgp742QHlRCWRxVkGuaII
+	/P1pwrd3kJXim2Yu48jVPhCusf6mJ4sorCQmC2OtFLOS8en6Awgq5yjfC/z/8JrhG+wG2426+r7
+	4iwnycniH5SkBbzVgyYG3XkuY5zg3FoS0k52cnN3f48SdCcizz64QtSHjx846tAQtyjamZ65TUW
+	+pUGBQ9ygWnS5j80ikjzohlYVqaN
+X-Received: by 2002:a05:620a:2614:b0:93c:e83:6ba4 with SMTP id af79cd13be357-93c43cfd3cdmr614935085a.25.1790361733984;
+        Fri, 25 Sep 2026 11:42:13 -0700 (PDT)
+X-Received: by 2002:a05:620a:2614:b0:93c:e83:6ba4 with SMTP id
+ af79cd13be357-93c43cfd3cdmr614930485a.25.1790361733529; Fri, 25 Sep 2026
+ 11:42:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Fri, 25 Sep 2026 13:41:44 -0500
-In-Reply-To: <CAGEsz8Hurq=5MJXLD5uA-+uPJdMp55auATafawac1_3mpv65PA@mail.gmail.com>
-References: <CAGEsz8Hurq=5MJXLD5uA-+uPJdMp55auATafawac1_3mpv65PA@mail.gmail.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Fri, 25 Sep 2026 13:42:07 -0500
-X-Gm-Features: AclHuK-11njtSOspeCyZG4OM6KWbRhEYVXC0k2M43DNY4OjfE88LmT1g-L_uDk0
-Message-ID: <CAGEsz8H4wT2Cswcr3g+5KJJDek0GACj1-gbFAC_NunHV+d78JA@mail.gmail.com>
-Subject: [PATCH v3 2/2] media: amphion: prevent unbind while video instances
- are open
-To: Ming Qian <ming.qian@nxp.com>, Ming Qian <ming.qian@oss.nxp.com>, 
-	Zhou Peng <eagle.zhou@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Myeonghun Pak <mhun512@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Ijae Kim <ae878000@gmail.com>
+References: <20260806-block-as-nvmem-v10-0-be598b2a5606@oss.qualcomm.com>
+ <178998281449.889291.7893229102394463283.b4-ty@kernel.org>
+ <CAFEp6-2P14MdYJGuH6ygRL4ZKtLnJEj=PVMx2p+b9L1RuiX1dg@mail.gmail.com> <f8815dd7-1e31-4567-8f12-1b2b1dd451f7@oss.qualcomm.com>
+In-Reply-To: <f8815dd7-1e31-4567-8f12-1b2b1dd451f7@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 20:42:01 +0200
+X-Gm-Features: AclHuK9eWyYSXO1LoWJtwtSLZuLm-A6-I11eiFIWKFJB95hJR5ZP3c6jJQ_Yo60
+Message-ID: <CAFEp6-074kS9GO2TFcR69fMjuu7Y2Os68CzWs-KUfmZDYaPZ-g@mail.gmail.com>
+Subject: Re: (subset) [PATCH v10 00/10] Support for block device NVMEM providers
+To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Cc: Jens Axboe <axboe@kernel.dk>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Ulf Hansson <ulfh@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Christian Marangi <ansuelsmth@gmail.com>, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-block@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+        linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
+        daniel@makrotopia.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Christoph Hellwig <hch@lst.de>,
+        Piotr Kwapulinski <piotr.kwapulinski@intel.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA3NCBTYWx0ZWRfX2UvHwAGwArIs
+ DiHMO7JVIVgHNNNXWVkmfqgWisdE/W/Ous5cciBHxROmQipnDCUXri3SFqC+KjMC21lHQ/Cc07I
+ y3QXQQstINRrpip7EG5LSuCnyf3o/c1Aj/QdNJGa7Kad0/ZxYHQr37C8t1pHziW1UOSsQlyETlw
+ 02dTfsImBFDEbnu9FThMbUUGGca2nVnGznF2GIKQ9DYJC/2u5TsS5+WUWHCD+SBP9hbBhk/1v2E
+ nGN0ubI4Y3VijOyoFTHy6WNal0siq+LFe/Tc6/JjR9zO8ypQnkzbRe+KXlusSsfXvlc3PnV2X9U
+ WXQ6SsRv3BeNKOTZVuUaYz/A7IDyA5bTLyzVBT5IwRO3Es8fkwY1cC+jSq5jcwmTh+LBgyXhEId
+ Zj8JGYK7mZxFs1jVlM0+Kq0mqK1HAT6B8/iw4YUnES/D+zI+OqukY2FIDrY8h5AJw45fWfUaM79
+ 2C0I2xHbXpFHEoEXrOQ==
+X-Proofpoint-GUID: h4N2U4ulTrwSfZb5br7ty6oECHtziYh3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA3NCBTYWx0ZWRfX1uF2J63BElWH
+ 1GO7Ul2RadxxCVcTZKYTHz4gMooBjviZVIbyr41m8O45muxuNVUzQN1Yk79cM+A9thT++jVWKwJ
+ ZuR1roP58btFV9Xatb0JAiparJqevWs=
+X-Authority-Analysis: v=2.4 cv=S4dMU4sP c=1 sm=1 tr=0 ts=6ab6c087 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=8pm97rweiJCjLsilNG8A:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: h4N2U4ulTrwSfZb5br7ty6oECHtziYh3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250074
 
-An open video instance holds a plain pointer to its devm-allocated core.
-Unbinding the core or its parent through sysfs can release that memory
-while the instance remains open. A later ioctl or close then uses the
-stale pointer.
+Hi Jeff,
 
-The video file operations pin the module, but sysfs unbind bypasses that
-protection. Suppress manual bind and unbind for both platform drivers,
-and warn if core removal ever encounters a live instance.
+On Fri, Sep 25, 2026 at 4:10=E2=80=AFPM Jeff Johnson
+<jeff.johnson@oss.qualcomm.com> wrote:
+>
+> On 9/25/2026 6:38 AM, Loic Poulain wrote:
+> > Hi Jens, Luiz,
+> >
+> > On Mon, Sep 21, 2026 at 11:27=E2=80=AFAM Srinivas Kandagatla <srini@ker=
+nel.org> wrote:
+> >>
+> >>
+> >> On Thu, 06 Aug 2026 16:38:33 +0200, Loic Poulain wrote:
+> >>> On embedded devices, it is common for factory provisioning to store
+> >>> device-specific information, such as Ethernet or WiFi MAC addresses,
+> >>> in a dedicated area of an eMMC partition. This avoids the need for
+> >>> and additional EEPROM/OTP and leverages the persistence of eMMC.
+> >>>
+> >>> One example is the Arduino UNO-Q, where the WiFi MAC address and the
+> >>> Bluetooth Device address are stored in the eMMC Boot1 partition.
+> >>>
+> >>> [...]
+> >>
+> >> Applied, thanks!
+> >>
+> >> [04/10] nvmem: layouts: Support fixed-layout as the nvmem device node =
+itself
+> >>         commit: 9c6cab93dcd47c3075d896c777567b9d8f813d18
+> >
+> > If you're happy with the current state, would you mind picking up the
+> > block-related and Bluetooth-related patches in the respective trees?
+> > They are independent.
+> Should I take the following, or someone else?
+> [PATCH v10 02/10] dt-bindings: net: wireless: qcom,ath10k: Document NVMEM=
+ cells
 
-Fixes: 9f599f351e86 ("media: amphion: add vpu core driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/media/platform/amphion/vpu_core.c | 3 +++
- drivers/media/platform/amphion/vpu_drv.c  | 1 +
- 2 files changed, 4 insertions(+)
+Yes, it would be great if you could take it. It=E2=80=99s mainly about addi=
+ng
+the possibility to source a few device-specific values, such as the
+MAC address and calibration data, from the NVMEM area, regardless of
+the backend, so no dependencies. Moreover, the ath10k driver already
+supports those NVMEM cells.
 
-diff --git a/drivers/media/platform/amphion/vpu_core.c
-b/drivers/media/platform/amphion/vpu_core.c
-index a0c58ec97a42..2e8e08e05de7 100644
---- a/drivers/media/platform/amphion/vpu_core.c
-+++ b/drivers/media/platform/amphion/vpu_core.c
-@@ -696,6 +696,8 @@ static void vpu_core_remove(struct platform_device *pdev)
- 	struct vpu_core *core = platform_get_drvdata(pdev);
- 	int ret;
-
-+	WARN_ON(!list_empty(&core->instances));
-+
- 	vpu_core_remove_dbgfs_file(core);
- 	ret = pm_runtime_resume_and_get(dev);
- 	WARN_ON(ret < 0);
-@@ -846,6 +848,7 @@ static struct platform_driver amphion_vpu_core_driver = {
- 	.remove = vpu_core_remove,
- 	.driver = {
- 		.name = "amphion-vpu-core",
-+		.suppress_bind_attrs = true,
- 		.of_match_table = vpu_core_dt_match,
- 		.pm = &vpu_core_pm_ops,
- 	},
-diff --git a/drivers/media/platform/amphion/vpu_drv.c
-b/drivers/media/platform/amphion/vpu_drv.c
-index 2cca61f41bea..9c6f32c5eae9 100644
---- a/drivers/media/platform/amphion/vpu_drv.c
-+++ b/drivers/media/platform/amphion/vpu_drv.c
-@@ -205,6 +205,7 @@ static struct platform_driver amphion_vpu_driver = {
- 	.remove = vpu_remove,
- 	.driver = {
- 		.name = "amphion-vpu",
-+		.suppress_bind_attrs = true,
- 		.of_match_table = vpu_dt_match,
- 	},
- };
--- 
-2.53.0
+Thanks,
+Loic
