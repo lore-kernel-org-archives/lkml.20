@@ -1,343 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9186935F602;
-	Fri, 25 Sep 2026 12:14:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31FAA40910F
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:14:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790338477; cv=none; b=tTWZiQyTq05sQCGnlDpmP3hvZ05XEb71yANkG6gF2J9xtFMObsGfBfOR7O+0GiArGYWtQNy9kXwIbyok3zoLfTDxvg5V7CwGuYJEWqx+Hz+bM7+zgWd/mFzhxHi3wU32oLwByvufGOrwwWyxOxtw+q6BDxpV+9IwtPO3Gj63BRw=
+	t=1790338489; cv=none; b=Z2Y/ChBGNjLibJaDVeP1c6TM/3McOsIgDZPIa/2umTxGK5N70r2wRokVD6o96saPNoL8NAAnq4kqyl+go0MF4MX4zB+I7f9a/dO3kWc1RB69keabhch45oXHhyy/v1QIGfZPYnC1JlVlLH0k42/U2BGERZrLHAiIzkGQ0aLLu/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790338477; c=relaxed/simple;
-	bh=ddS6EtYbyPBCw7wCkDFEw/NfPASSKbIXnb55T4G1WpE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=GzVXOl3B4kiM4cQ8j2YG9fYBAs0B+OUUrpSUkFeeIwvdJf/PL3lXPmr4aABTs3wDFNVMBtDrEX6sC+nIu+/+DliJJzRySW52CMeV/KROCVP1rimJOI7f0zZ8XI+EXfeBDdiru4mEe/v+ptHvrks06AnpyoEhPM5kYpHIQRTo3KU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gc2YFf6P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790338489; c=relaxed/simple;
+	bh=N+lMSqrne8YcHlQdG7dHU4OhnhlOtuA99v4OizC6/1o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QcoVVUGBAzaYNTsaLbOgkKuLMhuwZdSS2Wdd2pu3or+2Z5adjdi4nBxD59BKsDwjOXTuDuthe8DWCwUb4ik9IbBgxUNkIVfN/xjGuwd2+eIKJfYWqvdCRQEhkaskhSlI/rMu5RO9/UyucQHsW6joKxHr+WtxhnxkzpE25jtUDs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=khH8loOa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PgkqRsPl; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gc2YFf6P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34CD31F00898;
-	Fri, 25 Sep 2026 12:14:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790338475;
-	bh=IahDHAQF7RfDObHvj4rGyzlzFJnRRjAI2g4CtB30gI8=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=Gc2YFf6Pi1Dsz+74QHVbGsexpdMLXU5cA/TvsZSl1qz+7aMvvHXyKHQg9g/frshPj
-	 h+jj3T+gfLtKeFwBuIUhzR1FOI/M4Mp9glhQMm5FbrnS07ZsvghXHj8Rka7V8TxU40
-	 wSc1IDzayQnvSyGQnuzbSjeaOFwWIME378Cy//pzFfBuzN6KJfA0FnlVRPSi2wxE/P
-	 4rtu7aIZrN+h5pHASY5d6pxq6fX/eY8yIKv/be98igaUswsPNlmYRdzLg35ppsNUEu
-	 xFwMSevW1tf31nXTRMFiOLyj0zS/dtqTFIFGjtnXYhFLlRJ7cdjEtch8e3r1vewqxJ
-	 WDidVIJYlAX+g==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id BB207198004A;
-	Fri, 25 Sep 2026 08:14:32 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 25 Sep 2026 08:14:32 -0400
-X-ME-Sender: <xms:pWW2aiCQzrBzkt2I7YVYwfxzTu27KAFzbeoda4dI8ym42QkilmmGMQ>
-    <xme:pWW2anXxflYzxFcLQnHvOTUB_7KpUo4wvXBQfUs_mWX94ZAvwxVDWwefIzYN3iGQ5
-    nYF84e-ysaJEDYAHsMDYrlI_A9ThwO6aHyL8tw4QjbO0JyJ7ZQ7q-1e>
-X-ME-Proxy-Cause: dmFkZTFyygE7+hGtxC3ACXIARRMAb82zW5/8US7NbRjR/GomXcS8O1Ux0Gwn/xb9W9m7/Q
-    OXwu2dd9yjEim1CR7HvhgbiA33/QjThBcCjOsTPuRrkUZS0bX0MrCxcOeQZE0m1aWO7kaO
-    nZghqBxbcz43d4Avb3MhHyv8dmhsJ7vbjyp1G8IeDufmvq7izZZjgdNo8EhBCoJBdpR9fN
-    TrIU5SL6dXqm/Kg4HdDVsHSxrzSbvD4tRbiZ7c3n/9KC54Of3d+b0BzhMtuvMwympAazWZ
-    3SRR3cujbyLS9C3sAiGWsf8xbajY7huETyk2MjUNQbq9x9KIhH7hCSXoS0WhqPDW0GdAWO
-    YMjVlbEbMcb5F8fcD6lirA522ehVkoIiD+XZGQUqZbPA2B9/kx7w7QUa+ZZO1jb9T3Kj8E
-    h9/CD9UEf38mSNIuv2bcmtIle2kjClef3kn+gqZ2zYalrIWIelOb/aB6hGqtoaHxpR237j
-    LCZksX930kQsHKPya8gYUp9dO2qwF2v5FuDKNkIiQbQlKSBv8bvEX27wQPN2veX9aroeLo
-    6VUWUPVmXqqrXN/soDb3rCOYwsqpqxsmuNxRxNM/OarWszLmmL8to9lYPBb0kIhX3neNBl
-    Lde+Gt0TAKwLGLoWs27QqeZXDSGa7Hiz0g2plMuNnn5SIb1fkysowVvAcnmw
-X-ME-Proxy: <xmx:qGW2aqLSiJtuF5utrYHWMPeES7R2HnnQ7K6pFgT-w69WSYW438zLww>
-    <xmx:qGW2at_anXx3QJyqcd26y0j7a5UmzHeP75EnikyzfM0sX1PEy0Q-TQ>
-    <xmx:qGW2ahKv1SQnFn7HXRm6CYY4EiicjZ3k1_jTeP_L5WHgIZffCJHRJg>
-    <xmx:qGW2asG7CD_096kscy5mhIm77L1DUuFY7UlrnxHv84qVHB7T0MV40Q>
-    <xmx:qGW2alzK_Vbdx4GEcGozso-Fxu4A3PcC9bo17SlmoHpVKwVAo2xk1VsT>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id B0BDBF80086; Fri, 25 Sep 2026 08:14:29 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="khH8loOa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PgkqRsPl"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YqmT1056150
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:14:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KzG6uuL68Zj8ROKNtvSAaqvO5/7l2+ckCdOn5Shxuuc=; b=khH8loOadnvvsfi2
+	FtgV12L38IpsV6WZ2PYqQj2dlzO1c0W6P/CP0y1Ahdaj2Fx3J7j0KeAY76X/o+KB
+	Cedaj/LihCHcugMEusgBYGq/q94XGynNUPx8RP0mpCGHee2hubmTzC6PeOn6DgsM
+	7/0dFRNkr+mCnHgBtMa49OExPFOp3imWAdQrgxfVk0Mww3Tmy8PTETnF8lHRViki
+	pXIszoU05W9H/2b+jq6IWZHTiQb+iKWd6S/Zw5lR8eI9m5kQjKO0uFJWe9pfY19C
+	BgrNWwlmBzF15TmZFEUP4qRU9tOP1IIqS2pbLodcHJ2gXZIybtKZvHOw6TLYPekT
+	w1N8Rw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwce7aax1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:14:47 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-914324f9c0aso1824986d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:14:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790338486; x=1790943286; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KzG6uuL68Zj8ROKNtvSAaqvO5/7l2+ckCdOn5Shxuuc=;
+        b=PgkqRsPlPysKp917jN9qzEVlDfQa4Su07e+kycmWgLeg7twli/6Sa0gdKWMqD7PK1d
+         deNeeiD2Tkvaiov+sRQ3OY9UcE/t4O20tGE/rHnGvfTCoFXz2Vc3OQ1tbHwX/3/Yt46p
+         ZJ5Id0efKAx8JpDuoey7LugO3RQg9P3/3gBZZWtHgJJ0lTaG+xal6Dg6WRstvg5YLXiM
+         7Yfy+qSDkTDV7lZ6Xv/y2koH23V27t5PxoNgfYlkwXLGBAa7THL83coOGZr1m3HKjU8m
+         9GiP25fTQB1tV+xMwQtgQKdntXYdXETozeUv+kmKm6larlc4c781dPO1+gorc2TiS46S
+         pCUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790338486; x=1790943286;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KzG6uuL68Zj8ROKNtvSAaqvO5/7l2+ckCdOn5Shxuuc=;
+        b=uD3GEQmr9Fr9MHzKyiSdvamVh1/mWzSLdAdccw7toLhnIgXtn6fpjOzxvLz/60yDT8
+         ICj22FoBPyAU14/Lty6su6MPBexvl9OAeFD1f02ls5CvV7mKfuPGmqYuOknF/940ptRP
+         Cm27OkeIqpT3n+WU40V+dcVhTZDwis5a11gHrxYWuM4oBGEn/9ZMntOoqIrXL+FnUUil
+         G+mppNzcjM53ipfGH4d/XscmcQ4CF6V66dGE+cEpmzxbwwFyoCN8r7h2xHeM1/DSr+Oi
+         v/4ukFW7/o8AC9jK5W3LaPM3Ox9bFGmRXjmqMn3AfCBACqB06L5yRWr4bWrsOVEXP4lP
+         LkFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwiWR8R0AI3G4yVE3WZVC93lhdQhUq/3aLPq3V5lMYJIMW8AzakO5ovcNiiLRG7Gju4GkqT7p3BGyOurps=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1j19pusMDFmcnQYdF4vko5mrIn/5/UtXBHi03up5KCEF4Mqen
+	rdPxRHVM1j3BRUOId5Zsq95j/0mSB51UbjVGfCiwKHktIE46EVROdEQyDEpAsmlHPkIOajEIK/w
+	eEuZkzB9ALrVd59S6vWIVTe0204jZ96u4fVjFesk6nvNp6hsUgav5jelHPjRsqoI0mYw=
+X-Gm-Gg: AYBFou1TrS1158ftCV80Xggcl/WTtbe06Jqy91le/OJkKl1LUy0GK9BmYLEeHN+O0C2
+	759FpiWAz4hbjHLmdrazz7L4RLcmSIBhQ+4SWUw+NAw0gamJvpOS4BolX1gUPfpbauIelssDDcn
+	IvjZvE0F2v7d8EZfwBnQFWLCTNW6FcWnwbr0sCLWaMucy0+jb3ac4My1FFoyJd47RKRv4nBZ/7c
+	KsftQm84G/YdhyidoM4JW/uNnHJIZX6KIBs4bAX2UmDjRF+K0TcMW9FRBy1SC3vn0wfzXPzp9In
+	5aDg/SGMRgSx0zN12bUc5xnJ0f9E6gsC2AChWBrGfiDdYFqL13G5lRknFucbUSUCUn9Jf6wwkOr
+	EK5LFRQW8QtB2JIs3dg5r7g==
+X-Received: by 2002:a05:6214:5408:b0:912:311:12b6 with SMTP id 6a1803df08f44-9142f8bf1eemr38107896d6.3.1790338486475;
+        Fri, 25 Sep 2026 05:14:46 -0700 (PDT)
+X-Received: by 2002:a05:6214:5408:b0:912:311:12b6 with SMTP id 6a1803df08f44-9142f8bf1eemr38107296d6.3.1790338485959;
+        Fri, 25 Sep 2026 05:14:45 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aae5cb9b0asm957336a12.9.2026.09.25.05.14.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 05:14:45 -0700 (PDT)
+Message-ID: <ba1c6614-5dac-410d-9889-9c6720ad1e0a@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 14:14:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 25 Sep 2026 14:14:09 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Prashant Singh" <singhpra@juniper.net>, "Jeremy Kerr" <jk@ozlabs.org>
-Cc: "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>,
- "Clark Williams" <clrkwllms@kernel.org>,
- "Steven Rostedt" <rostedt@goodmis.org>, "Jonathan Corbet" <corbet@lwn.net>,
- "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>,
- "Luis Claudio R. Goncalves" <lgoncalv@redhat.com>,
- "Steve McIntyre" <93sam@debian.org>, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-rt-devel@lists.linux.dev
-Message-Id: <17ae71e4-c044-4354-938e-3e8021615e6d@app.fastmail.com>
-In-Reply-To: <20260925113145.7396-1-singhpra@juniper.net>
-References: <20260925113145.7396-1-singhpra@juniper.net>
-Subject: Re: [PATCH v3] efivarfs: add nostatfs mount option to skip QueryVariableInfo()
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: nord: Add LLCC node
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+References: <20260922091735.491481-1-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260922091735.491481-1-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Hs6AeicBiZ0zcFN1LIWF3HURE4s1RpPS
+X-Proofpoint-ORIG-GUID: Hs6AeicBiZ0zcFN1LIWF3HURE4s1RpPS
+X-Authority-Analysis: v=2.4 cv=NJFAaE6g c=1 sm=1 tr=0 ts=6ab665b7 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=zdnQAcmOsowbSLqG7IQA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA0OCBTYWx0ZWRfX3/lsxu5Ll1r3
+ pgLHzzfNiISX69YoftcC/oLLfbRNxi5DPb3wG/GP3ozK8CiWspjC2/p09S1IUSnz1moDoZXDZVf
+ 3czkc6QYs4LeTReod1pZWW2ADc3Q0ws4PeVQFC+1bForjTSXC1cjm2TRGqYU1pfJ7GvCWOrGJ9O
+ C/07UUfR2E9nJ7TEtk0tS3GyrQblb+adplsiNlEug5cFrLiK13dQodzuMghb02IJoCes/7Vdh+c
+ 64SMIzsNWJ7zEra+ebr4wDd8ot5vMZUB2LaqvItcB2B1dxajwumvEwlyjjX1EK72Jy8pZ99OVYa
+ 92hzPsEV61Gk2P9EJerRhgbXPosM9akQBWheyFWNaZXDWrmYchkDaTrwQ/BL7k4nHtnVOqf7TZa
+ InhcWAx7lMsK6oA4eA9YMmtc6eHgKZXn3zN9sVggoTayH+HN2H2bz7KC4dQsEqdSyta59MKr3S2
+ mGr+vZ877GmWPAJ0ZUA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA0OCBTYWx0ZWRfXwiAw6zFYPaQq
+ 1mlyGVTK39/p0Lxb9v8MQyFKRAoo4/cQtisjcT2cL+OmNZ4kA0z+FfY071Appm/sSsvaRRZUHDr
+ VtNgVkMiYQ2jOqOwRDU+stj2Y1h7nks=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 priorityscore=1501 bulkscore=0 spamscore=0
+ phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250048
 
-Hello Prashant,
-
-Thanks for respinning this.
-
-On Fri, 25 Sep 2026, at 13:31, Prashant Singh wrote:
-> QueryVariableInfo() is an EFI runtime service that, on some firmware,
-> takes tens of milliseconds and runs with preemption disabled, stalling
-> the CPU that services it. efivarfs_statfs() calls it (rate-limited since
-> commit b2326338dc68 ("efivarfs: Rate limit statfs() handler")) to report
-> the variable-store used/available capacity, so any statfs(2) -- e.g.
-> every "df" -- can inject that stall into unrelated latency-sensitive
-> workloads on the same CPU.
->
-> Add a negatable "nostatfs" mount option: with nostatfs, statfs(2) skips
-> QueryVariableInfo() and reports zero used/available; with statfs it
-> reports the capacity as before. It defaults to nostatfs on
-> CONFIG_PREEMPT_RT so real-time kernels do not take the stall out of the
-> box, but statfs can be passed there to force reporting back on -- e.g.
-> for tools such as fwupd that need the efivars free space to update Secure
-> Boot key databases.
->
-> The option can also be toggled on a live mount via remount, so reporting
-> can be enabled only for the duration of a firmware update without
-> unmounting the boot-time efivarfs mount:
->
->   mount -o remount,statfs   /sys/firmware/efi/efivars   # reporting on
->   mount -o remount,nostatfs /sys/firmware/efi/efivars   # reporting off
->
-> Tested on an Intel Xeon E5-2628L v4, 6.12 kernel, via
-> "strace -T -e trace=statfs df" on the efivarfs mount.
->
-> Cost of the firmware call (CONFIG_PREEMPT_RT not set, so reporting is
-> enabled by default). Default mount calls QueryVariableInfo() and returns
-> the real store capacity, ~66-129 ms per call:
->
->   statfs("/sys/firmware/efi/efivars", {f_type=EFIVARFS_MAGIC,
->       f_bsize=1, f_blocks=90024, f_bfree=33387, f_bavail=28267, ...})
->       = 0 <0.129124>
->
-> With -o nostatfs the firmware call is skipped, capacity reported as
-> zero, ~11 us per call:
->
->   statfs("/sys/firmware/efi/efivars", {f_type=EFIVARFS_MAGIC,
->       f_bsize=1, f_blocks=0, f_bfree=0, f_bavail=0, ...}) = 0 <0.000011>
->
-> PREEMPT_RT default and live remount toggle (CONFIG_PREEMPT_RT=y). The
-> boot-time mount defaults to nostatfs (mount shows nostatfs); no firmware
-> call, capacity zero:
->
->   statfs(... f_blocks=0, f_bfree=0, f_bavail=0, ...) = 0 <0.000018>
->
-> Enabling reporting in place with "mount -o remount,statfs" (mount now
-> shows statfs) takes the ~70 ms firmware call and returns the real
-> capacity, without unmounting:
->
->   statfs(... f_blocks=90024, f_bfree=30315, f_bavail=25195, ...)
->       = 0 <0.070293>
->
-> Disabling it again with "mount -o remount,nostatfs" returns to the fast,
-> zero-capacity path:
->
->   statfs(... f_blocks=0, f_bfree=0, f_bavail=0, ...) = 0 <0.000014>
->
-> An unrelated remount that does not respecify the option preserves it: a
-> "mount -o remount,rw" after "remount,statfs" leaves the mount showing
-> statfs.
->
-> Suggested-by: Ard Biesheuvel <ardb@kernel.org>
-> Suggested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> Signed-off-by: Prashant Singh <singhpra@juniper.net>
+On 9/22/26 11:17 AM, Shawn Guo wrote:
+> From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> 
+> Add the system cache controller. All sixteen banks are listed, four per
+> DDR slice at 0x100000 strides from slice + 0x800000, followed by the
+> global broadcast OR/AND regions, which the driver expects at the reg
+> indices right after the last bank.
+> 
+> No ECC interrupt is described, as the Nord interrupt map does not expose
+> one for the LLCC. The driver treats it as optional.
+> 
+> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > ---
-> Changes since v2:
-> - Make the flag negatable (fsparam_flag_no): "statfs" forces reporting
->   back on, "nostatfs" skips QueryVariableInfo(). Default stays nostatfs
->   on PREEMPT_RT. This lets fwupd get the efivars free space it needs for
->   Secure Boot key (KEK/DB/DBX) updates on an RT kernel by mounting with
->   -o statfs (Luis Claudio R. Goncalves, Steve McIntyre).
-> - Support toggling the option on a live mount via remount, so reporting
->   can be enabled just for a firmware update without unmounting efivarfs
->   (Sebastian Andrzej Siewior). Options not respecified on remount are
->   preserved.
-> - Read/write nostatfs with READ_ONCE()/WRITE_ONCE(): statfs() reads it
->   without s_umount while remount can update it.
 
-Why? There is no memory ordering or tearing issue here, but only a
-fundamental race where a remount and a statfs() might occur at the
-same time.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> - Add PREEMPT_RT + remount test data to the commit message.
->
-> Changes since v1:
-> - Replace the sysctl with a mount option named "nostatfs", per review
->   (Ard Biesheuvel).
->
-> v1: https://lore.kernel.org/all/20260917071600.5587-1-singhpra@juniper.net/
-> v2: https://lore.kernel.org/all/20260919044124.8268-1-singhpra@juniper.net/
->
->  Documentation/filesystems/efivarfs.rst | 16 +++++++++
->  fs/efivarfs/internal.h                 |  1 +
->  fs/efivarfs/super.c                    | 46 +++++++++++++++++++++++---
->  3 files changed, 58 insertions(+), 5 deletions(-)
->
-> diff --git a/Documentation/filesystems/efivarfs.rst 
-> b/Documentation/filesystems/efivarfs.rst
-> index f646c3f0980f..cd81ee84115b 100644
-> --- a/Documentation/filesystems/efivarfs.rst
-> +++ b/Documentation/filesystems/efivarfs.rst
-> @@ -37,6 +37,22 @@ accidentally.
->            |4_bytes_of_attributes + efivar_data|
->            +-----------------------------------+
-> 
-> +Mount options
-> +=============
-> +
-> +statfs / nostatfs
-> +      Control whether ``statfs(2)`` reports the variable-store used/available
-> +      capacity. Obtaining it requires the ``QueryVariableInfo()`` EFI runtime
-> +      service, which on some firmware takes tens of milliseconds and runs with
-> +      preemption disabled, stalling the calling CPU. With ``nostatfs`` the call
-> +      is skipped and ``statfs(2)`` reports zero. The default is to report,
-> +      except on ``CONFIG_PREEMPT_RT`` where it defaults to ``nostatfs``; pass
-> +      ``statfs`` there to force reporting back on (e.g. for tools such as fwupd
-> +      that need the free space for firmware updates). The option can also be
-> +      flipped on a live mount with ``mount -o remount,statfs`` /
-> +      ``mount -o remount,nostatfs``, so reporting can be enabled only for the
-> +      duration of a firmware update without unmounting efivarfs.
-> +
->  *See also:*
-> 
->  - Documentation/admin-guide/acpi/ssdt-overlays.rst
-> diff --git a/fs/efivarfs/internal.h b/fs/efivarfs/internal.h
-> index f913b6824289..0cb053884b4b 100644
-> --- a/fs/efivarfs/internal.h
-> +++ b/fs/efivarfs/internal.h
-> @@ -11,6 +11,7 @@
->  struct efivarfs_mount_opts {
->  	kuid_t uid;
->  	kgid_t gid;
-> +	bool nostatfs;		/* skip QueryVariableInfo() in statfs() */
->  };
-> 
->  struct efivarfs_fs_info {
-> diff --git a/fs/efivarfs/super.c b/fs/efivarfs/super.c
-> index 8d33f11db2a1..d2e1f31a72d1 100644
-> --- a/fs/efivarfs/super.c
-> +++ b/fs/efivarfs/super.c
-> @@ -74,6 +74,15 @@ static int efivarfs_show_options(struct seq_file *m, 
-> struct dentry *root)
->  	if (!gid_eq(opts->gid, GLOBAL_ROOT_GID))
->  		seq_printf(m, ",gid=%u",
->  				from_kgid_munged(&init_user_ns, opts->gid));
-> +	/*
-> +	 * Always show nostatfs (it makes statfs() report zero capacity, which
-> +	 * is otherwise surprising); only show statfs where it is not the
-> +	 * default, i.e. on PREEMPT_RT.
-> +	 */
-> +	if (opts->nostatfs)
-> +		seq_puts(m, ",nostatfs");
-> +	else if (IS_ENABLED(CONFIG_PREEMPT_RT))
-> +		seq_puts(m, ",statfs");
-
-Please drop this else branch - it should be sufficient for the 'nostatfs'
-to disappear from the mount options to understand what is going on.
-
->  	return 0;
->  }
-> 
-> @@ -82,13 +91,19 @@ static int efivarfs_statfs(struct dentry *dentry, 
-> struct kstatfs *buf)
->  	const u32 attr = EFI_VARIABLE_NON_VOLATILE |
->  			 EFI_VARIABLE_BOOTSERVICE_ACCESS |
->  			 EFI_VARIABLE_RUNTIME_ACCESS;
-> +	struct efivarfs_fs_info *sfi = dentry->d_sb->s_fs_info;
->  	u64 storage_space, remaining_space, max_variable_size;
->  	u64 id = huge_encode_dev(dentry->d_sb->s_dev);
->  	efi_status_t status;
-> 
-> -	/* Some UEFI firmware does not implement QueryVariableInfo() */
-> +	/*
-> +	 * Some UEFI firmware does not implement QueryVariableInfo(); the
-> +	 * nostatfs mount option also disables this (preempt-disabled,
-> +	 * potentially slow) call entirely, reporting zero used/available.
-> +	 */
->  	storage_space = remaining_space = 0;
-> -	if (efi_rt_services_supported(EFI_RT_SUPPORTED_QUERY_VARIABLE_INFO)) {
-> +	if (!READ_ONCE(sfi->mount_opts.nostatfs) &&
-> +	    efi_rt_services_supported(EFI_RT_SUPPORTED_QUERY_VARIABLE_INFO)) {
->  		static DEFINE_RATELIMIT_STATE(_rs, 2 * HZ, 5);
->  		static u64 storage, remaining;
->  		static DEFINE_SPINLOCK(lock);
-> @@ -323,12 +338,13 @@ static int efivarfs_callback(efi_char16_t 
-> *name16, efi_guid_t vendor,
->  }
-> 
->  enum {
-> -	Opt_uid, Opt_gid,
-> +	Opt_uid, Opt_gid, Opt_statfs,
->  };
-> 
->  static const struct fs_parameter_spec efivarfs_parameters[] = {
->  	fsparam_uid("uid", Opt_uid),
->  	fsparam_gid("gid", Opt_gid),
-> +	fsparam_flag_no("statfs", Opt_statfs),
->  	{},
->  };
-> 
-> @@ -350,6 +366,9 @@ static int efivarfs_parse_param(struct fs_context 
-> *fc, struct fs_parameter *para
->  	case Opt_gid:
->  		opts->gid = result.gid;
->  		break;
-> +	case Opt_statfs:
-> +		opts->nostatfs = result.negated;
-> +		break;
->  	default:
->  		return -EINVAL;
->  	}
-> @@ -402,11 +421,17 @@ static int efivarfs_get_tree(struct fs_context 
-> *fc)
-> 
->  static int efivarfs_reconfigure(struct fs_context *fc)
->  {
-> +	struct efivarfs_fs_info *sfi = fc->root->d_sb->s_fs_info;
-> +	struct efivarfs_fs_info *new_sfi = fc->s_fs_info;
-> +
->  	if (!efivar_supports_writes() && !(fc->sb_flags & SB_RDONLY)) {
->  		pr_err("Firmware does not support SetVariableRT. Can not remount with rw\n");
->  		return -EINVAL;
->  	}
-> 
-> +	/* statfs() reads nostatfs locklessly (no s_umount); pair with WRITE_ONCE. */
-> +	WRITE_ONCE(sfi->mount_opts.nostatfs, new_sfi->mount_opts.nostatfs);
-> +
->  	return 0;
->  }
-> 
-> @@ -524,8 +549,19 @@ static int efivarfs_init_fs_context(struct fs_context *fc)
->  	if (!sfi)
->  		return -ENOMEM;
-> 
-> -	sfi->mount_opts.uid = GLOBAL_ROOT_UID;
-> -	sfi->mount_opts.gid = GLOBAL_ROOT_GID;
-> +	if (fc->purpose == FS_CONTEXT_FOR_RECONFIGURE) {
-> +		/* Preserve options not respecified on remount. */
-> +		struct efivarfs_fs_info *old = fc->root->d_sb->s_fs_info;
-> +
-> +		sfi->mount_opts.uid = old->mount_opts.uid;
-> +		sfi->mount_opts.gid = old->mount_opts.gid;
-> +		sfi->mount_opts.nostatfs = READ_ONCE(old->mount_opts.nostatfs);
-> +	} else {
-> +		sfi->mount_opts.uid = GLOBAL_ROOT_UID;
-> +		sfi->mount_opts.gid = GLOBAL_ROOT_GID;
-> +		/* QueryVariableInfo() stalls the CPU; default nostatfs on PREEMPT_RT. */
-> +		sfi->mount_opts.nostatfs = IS_ENABLED(CONFIG_PREEMPT_RT);
-> +	}
-> 
-
-Why do we need this? Does remount otherwise forget its options? Does this
-mean that before this patch, remounting with only a different guid would
-reset the uid specified at mount time to the default? If so, please fix
-that in a separate (preceding) patch.
-
- 
+Konrad
