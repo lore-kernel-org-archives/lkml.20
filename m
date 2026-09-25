@@ -1,145 +1,219 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70BBF47F2ED;
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45313E51DE;
 	Fri, 25 Sep 2026 10:55:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790333729; cv=none; b=VUFN1167UITzHDwIFqh2FvnH6wIoPI+J2Jw+UmymZ5elZAcLguqhETZqpDj9rT1vUUp4wQw7apH0YSQ5h803sDdm0zs9qsVFANmDrob/zCaMGmu0wtvU5cCE4kX5/k/Zch0irhoE0IED1mY18Esi58CjMC+3rFFSc5xLCJIsFnU=
+	t=1790333729; cv=none; b=DX02jrbdD4UrpzvzH4ZcSfdc4S4s4zK4omf9sLw26H7+aA6WvVeZyoF9J1RUOLxiL3MuJycosmrMjIFZ5grs1FEp5bdgAMAjedZw/71LgjcIYoJ5+qD8BiQkffQJTWHN6IclcSe1xX8IWTHxUkFhhl2l1k6oHcRhCTB8OqjNi50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790333729; c=relaxed/simple;
-	bh=YxCqPPfU4FQGEeCj9SaF4yu2dTKU6srsQ9ZCzJ3MIjM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HXNLrhGnK9oGPlllO24sImJTrmW0SoVowXI2qAFExei/KMgkCw/8v3UURHp5awJShTSE/vKP3a/CS+0MC4hkCyg7pla8SkUBkSXAnqHOnyNSlpuzCcZvcdAoZ/mLgs0RigGn8eWRxAKw/OVvrZ06Iql5ejdi1uBtgKnH1lAF2hQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=TBY94IAU; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	bh=90oCiblxcmMKki320b5oH8g1qw2hyPccBSLwPjfnkIw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rFeDrPFBGybRew0xJYUROnmwCATsN7VX5q/4HCybOJeWUPQrCUbbdt0NFBqyJp9xNmXyK+t2D0h6itytaCcnjZc5noPRLrQvO54yoijkh2JV5UnwWDt9G8UyuBv9KqGcm9v0ifJKYaWRhU69QD/gW12tXNyNR3SQXE+rmyrCcHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=konjO3sD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="TBY94IAU"
-Received: by linux.microsoft.com (Postfix, from userid 1127)
-	id DE03E20B7167; Fri, 25 Sep 2026 03:54:34 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DE03E20B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790333674;
-	bh=TvEPGOfbgk6GAAitdg40W0kx1ikkHQeD6VX4NT0U9cQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TBY94IAUfCDpClpxzxKhpb9QROdJLRr+DhKGenzz7MpzJd3UNj7yHGq0yh0QHAeC4
-	 E6koLuWaEpulGcS0dREtqRbv1hfMmh2IYVGiOCYQQ6Mys2zmwWB3yPg4LkTsZejpqi
-	 nK1SJU30/cFmjJKSVsaqLq92BY7Cuw/Jf/8920II=
-Date: Fri, 25 Sep 2026 03:54:34 -0700
-From: Saurabh Singh Sengar <ssengar@linux.microsoft.com>
-To: Shradha Gupta <shradhagupta@linux.microsoft.com>
-Cc: "K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Michael Kelley <mikelley@microsoft.com>,
-	linux-hyperv@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, namjain@linux.microsoft.com
-Subject: Re: [PATCH v2] arm64: hyperv: run VMBus kexec handler via syscore
- shutdown
-Message-ID: <arZS6km9V29CnYw9@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20260907092544.230338-1-shradhagupta@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="konjO3sD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3820D1F000FF;
+	Fri, 25 Sep 2026 10:55:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790333722;
+	bh=ATppPA08cbrd3rkkrcMCwx3kOQ21INX+r6Ut92RHrGc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=konjO3sD23vveaJBinGM0SJByCg78KytyAQj8Pht9Dv5oz1t2mIBzNIe/XRlEdNJX
+	 XnpYp27AgOerWofLyjYuQe4vlt30/DNLVeUbBBdPvonILl3DS1TXLEzSRF4EbYgTFS
+	 mauWH0jz4ZCRYic2poGKUz4ee2pfoawHcb/fOhaunODCqLpsf9fbmfGTMa3MG1YlJV
+	 Cm5/yDYv/IWyPnQ5MPTBmWji5IYL783VGrNjFn3Hb5FT/BVw0zf0xLxYVsWmKKJOWD
+	 U23iyusaUTu7lwNj+0RdCqBlMpkDq370R2ueOlaYwhirmA41+ru+ohVYwOhqf0paF1
+	 cWczDrPzDVMjw==
+Message-ID: <ad99014e-3714-45a5-ad23-aa7fe72745cb@kernel.org>
+Date: Fri, 25 Sep 2026 12:55:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907092544.230338-1-shradhagupta@linux.microsoft.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/7] sched/numa: scan PID-inactive VMAs for promotion
+To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
+ kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
+ apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, hannes@cmpxchg.org,
+ shy828301@gmail.com, raghavendra.kt@amd.com, stable@vger.kernel.org
+References: <20260922182928.2199090-1-gourry@gourry.net>
+ <20260922182928.2199090-6-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260922182928.2199090-6-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 07, 2026 at 02:25:42AM -0700, Shradha Gupta wrote:
-> On ARM64, machine_shutdown() does not provide a platform hook between
-> device_shutdown() and smp_shutdown_nonboot_cpus(), unlike x86's
-> machine_ops.shutdown. This prevents the Hyper-V VMBus kexec handler
-> from running at the correct point during kexec shutdown, causing
-> kexec reboot to fail on ARM64 Hyper-V guests.
+On 9/22/26 20:29, Gregory Price wrote:
+> From: "Gregory Price (Meta)" <gourry@gourry.net>
 > 
-> Use syscore_ops.shutdown instead: syscore_shutdown() runs in the same
-> window (after device_shutdown(), before CPUs are taken offline) where
-> VMBus UNLOAD and cpuhp_remove_state() must execute.
+> Commit fc137c0ddab2 ("sched/numa: enhance vma scanning logic") skips
+> VMAs without recent PID activity. Since only NUMA hint faults record
+> that activity, the filter can suppress the fault needed to promote hot
+> slow-tier memory.
 > 
-> Provide ARM64-specific overrides of hv_setup_kexec_handler() and
-> hv_remove_kexec_handler() that register/unregister a syscore_ops
-> shutdown callback, replacing the __weak no-op stubs in hv_common.c.
-> On x86, the existing machine_ops.shutdown mechanism is unchanged.
+> Let memory tiering bypass the PID scan filter. In combined mode, use the
+> placement decision to restrict top-tier sampling to VMAs that need it,
+> while inactive VMAs still receive promotion-only scans.
 > 
-> Fixes: 9d7cf2c96758 ("Drivers: hv: Add arch independent default functions for some Hyper-V handlers")
-> Link: https://lore.kernel.org/all/20260814093133.3191250-1-shradhagupta@linux.microsoft.com/
-> Suggested-by: Catalin Marinas <catalin.marinas@arm.com>
-> Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
-> Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
+> Track the last completed placement scan separately from scans of any
+> kind. Promotion-only scans still update prev_scan_seq, but do not
+> advance the placement-starvation horizon.
+> 
+> On a host with 768 GB of DRAM and 256 GB of CXL memory, one large shmem
+> VMA consumed most scanning activity, while 2,537 other VMAs covering
+> 84 GB were skipped as inactive. One stand-out result: a hot 20 GB hash
+> table ended up trapped entirely on CXL and drove CXL bandwidth
+> utilization beyond sustainable levels - resulting in a large regression.
+> 
+> With this series, the hot hash table ends up split evenly between DRAM
+> and CXL, tier residency tracked runtime load, and CXL bandwidth
+> utilization drops from 45GB/s (maxed) to 5-10GB/s, while DRAM bandwidth
+> utilization increases from ~200GB/s to 250GB/s+, resulting in major
+> throughput improvements for the database workload.
+> 
+> Fixes: fc137c0ddab2 ("sched/numa: enhance vma scanning logic")
+> Cc: stable@vger.kernel.org
+> Assisted-by: OpenAI:gpt-5
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 > ---
->  Changes in V2
->  * Use syscore_ops.shutdown instead of a bare function pointer hook in
->    machine_shutdown(), per Catalin's suggestion.
-> ---
->  arch/arm64/hyperv/mshyperv.c | 40 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 40 insertions(+)
+>  include/linux/mm_types.h |  7 +++++++
+>  kernel/sched/fair.c      | 26 +++++++++++++++++++++-----
+>  2 files changed, 28 insertions(+), 5 deletions(-)
 > 
-> diff --git a/arch/arm64/hyperv/mshyperv.c b/arch/arm64/hyperv/mshyperv.c
-> index 4fdc26ade1d7..e608e546a395 100644
-> --- a/arch/arm64/hyperv/mshyperv.c
-> +++ b/arch/arm64/hyperv/mshyperv.c
-> @@ -15,10 +15,50 @@
->  #include <linux/errno.h>
->  #include <linux/version.h>
->  #include <linux/cpuhotplug.h>
-> +#include <linux/kexec.h>
-> +#include <linux/syscore_ops.h>
->  #include <asm/mshyperv.h>
+> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> index fd35db969bc94..dcca3ead9db59 100644
+> --- a/include/linux/mm_types.h
+> +++ b/include/linux/mm_types.h
+> @@ -804,6 +804,13 @@ struct vma_numab_state {
+>  	 */
+>  	int prev_scan_seq;
 >  
->  static bool hyperv_initialized;
+> +	/*
+> +	 * MM scan sequence ID when the VMA was last scanned for placement.
+> +	 * The starvation horizon in vma_needs_placement_scan() counts against
+> +	 * this, so promotion-only scans cannot postpone placement indefinitely.
+> +	 */
+> +	int prev_placement_scan_seq;
+> +
+>  	/* Preserve placement-scan eligibility during an in-progress scan. */
+>  	bool placement_scan;
+>  };
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index a2849e72c4e26..412c72084a63d 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4097,7 +4097,7 @@ static bool vma_needs_placement_scan(struct mm_struct *mm,
+>  	 * threads can help scan this vma, force a vma scan.
+>  	 */
+>  	if (READ_ONCE(mm->numa_scan_seq) >
+> -	   (vma->numab_state->prev_scan_seq + get_nr_threads(current)))
+> +	   (vma->numab_state->prev_placement_scan_seq + get_nr_threads(current)))
+>  		return true;
 >  
-> +/*
-> + * Kexec handler registered by VMBus.
-> + *
-> + * On ARM64, machine_shutdown() does not provide a platform hook between
-> + * device_shutdown() and smp_shutdown_nonboot_cpus(), unlike the
-> + * machine_ops.shutdown mechanism used on x86.  Use a syscore_ops shutdown
-> + * callback instead: syscore_shutdown() runs after device_shutdown() and
-> + * before CPUs are taken offline, which is the same window VMBus needs to
-> + * run its UNLOAD message and cpuhp_remove_state() during kexec.
-> + */
-> +static void (*hv_kexec_handler_fn)(void);
-> +
-> +static void hv_kexec_syscore_shutdown(void *data)
-> +{
-> +	if (kexec_in_progress && hv_kexec_handler_fn)
-> +		hv_kexec_handler_fn();
-> +}
-> +
-> +static const struct syscore_ops hv_kexec_syscore_ops = {
-> +	.shutdown	= hv_kexec_syscore_shutdown,
-> +};
-> +
-> +static struct syscore hv_kexec_syscore = {
-> +	.ops		= &hv_kexec_syscore_ops,
-> +};
-> +
-> +void hv_setup_kexec_handler(void (*handler)(void))
-> +{
-> +	hv_kexec_handler_fn = handler;
-> +	register_syscore(&hv_kexec_syscore);
-> +}
-> +
-> +void hv_remove_kexec_handler(void)
-> +{
-> +	unregister_syscore(&hv_kexec_syscore);
-> +	hv_kexec_handler_fn = NULL;
-> +}
-> +
->  int hv_get_hypervisor_version(union hv_hypervisor_version_info *info)
->  {
->  	hv_get_vpreg_128(HV_REGISTER_HYPERVISOR_VERSION,
-> -- 
-> 2.43.0
->
+>  	return false;
+> @@ -4267,7 +4267,8 @@ static void task_numa_work(struct callback_head *work)
+>  			 * to prevent VMAs being skipped prematurely on the
+>  			 * first scan:
+>  			 */
+> -			 vma->numab_state->prev_scan_seq = mm->numa_scan_seq - 1;
+> +			vma->numab_state->prev_scan_seq = mm->numa_scan_seq - 1;
+> +			vma->numab_state->prev_placement_scan_seq = mm->numa_scan_seq - 1;
+>  		}
+>  
+>  		/*
+> @@ -4300,10 +4301,13 @@ static void task_numa_work(struct callback_head *work)
+>  		 * Do not scan the VMA if a task has not accessed it, unless no other
+>  		 * VMA candidate exists. If a scan is already in-progress, finish it,
+>  		 * but track continuation separately from starting a new one.
+> +		 *
+> +		 * The PID filter must not gate promotion. Allow PID-inactive VMAs
+> +		 * to proceed when memory tiering is enabled.
+>  		 */
+>  		placement_due = vma_needs_placement_scan(mm, vma);
+>  		scan_started = mm->numa_scan_offset > vma->vm_start;
+> -		pid_scan_allowed = vma_pids_forced || placement_due;
+> +		pid_scan_allowed = tiering || vma_pids_forced || placement_due;
+>  
+>  		if (!pid_scan_allowed) {
+>  			if (scan_started) {
+> @@ -4315,10 +4319,16 @@ static void task_numa_work(struct callback_head *work)
+>  			}
+>  		}
+>  
+> -		/* Keep scan policy stable while processing a VMA in chunks.*/
+> +		/*
+> +		 * Keep scan policy stable while processing a VMA in chunks.
+> +		 * A fault in one chunk can make a VMA placement-eligible. Keep a
+> +		 * promotion-only decision sticky for the rest of a partial scan.
+> +		 */
+>  		placement_scan &= numab_mode & NUMA_BALANCING_NORMAL;
+>  		if (scan_started)
+>  			placement_scan &= vma->numab_state->placement_scan;
+> +		else if (tiering)
+> +			placement_scan &= placement_due;
 
-LGTM. This patch is important for Hyper-V kexec support.
-As discussed in the RFC, the approach used here is also in agreement
-with the ARM maintainer.
+Same comment. Apart from that LGTM.
 
-Reviewed-by: Saurabh Sengar <ssengar@linux.microsoft.com>
+-- 
+Cheers,
+
+David
