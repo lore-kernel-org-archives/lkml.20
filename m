@@ -1,48 +1,47 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6574BEE43;
-	Fri, 25 Sep 2026 15:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2FB4C14F0;
+	Fri, 25 Sep 2026 15:07:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348830; cv=none; b=RpEN0tkKPIywzESDuuNSFkvGCkBOuzWTU5+ZE2zFdipHqC2votcCk1n5PQRmgYKuZ1vnuhONW9Z1c6PsFPjUoQZ5zue00hJ3jmQ4FiIIUD9z5JJrIvDy2HB5yKmdyc4YLztSLAJ1oyNZmsNmuqDt+A4ksNcZhoPsBACv8ELEiTg=
+	t=1790348841; cv=none; b=uEBaweYIEAiYjaHICUkvIKwAICeQC96YNr+kyJM9fo5nBgR/XmwgzXREE5VbwJ0crKQOA2gJe/1CaiIKPuk0+H40gfB6SoNt5WAZQTZXqtKlautd5BiRUweEutKr4QHYuKavAAd+HA4qM594bsYJU/lxHbmzWeh8QFVNzlyxydU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348830; c=relaxed/simple;
-	bh=Hv3bmdzUw4/r+8TfNCdYJTMFiuJJMIfp4mRcW+Xsda4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PfkLdnTVOe5TdC400wknZRQSp09ajszifzO5judIyvaES4O049Hmc3OESbvARjXUviZh7YaXrVMnXZM5YWQz7CiXxsoI77QMc6ALruGt6elnKySryd35dGgrZtZDWDp6do8NhTJikZtpFVx3mQwsKqjWm+IxfsRiDnzmiybHpQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AqGpoukT; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790348841; c=relaxed/simple;
+	bh=MfrI+godD+3+OeIU4goPbhVnat/EBsRHrdxSkw0nrR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CRm1ymrWYWQUh8KRa0encbL0YXQZsIwLxm8fNxXdfHidgXzr6XIhLaoZ9P7BLuYyiZnrd4J/4zysiWCT1HMG5+mN1LQf6ygIqcmq2Hw4s5swaNsQmca2xiKRY72Uv3F43n6Br6w/hwRKLbTYaajJY6/lsewlMFw2gYV13KaYp0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PPJxqQoq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AqGpoukT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=vh
-	1u+AU53kKhXv1QZx33pP/jyG36QNPJdJIMmE/yVT8=; b=AqGpoukTycE0gDo13C
-	C1yIOckO1Fgo7eCRuOYHL8uBoQ+sB4Y1cEBkFlu7tGsSScMbSLnvn34Fzs3fMl4Y
-	KzINBKbwaB3BIjsj68Qr2Ichz2Yjco2d7TVaWFpFUbuCu51p2v1ruaUcJxxjzkqC
-	VFIdoRPj7tNVPaSMg8jM9GMMg=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3J8zYjbZq2yQpAw--.5414S2;
-	Fri, 25 Sep 2026 23:06:01 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Johan Hovold <johan@kernel.org>,
-	Markus Theil <markus.theil@tu-ilmenau.de>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PPJxqQoq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D83231F000FF;
+	Fri, 25 Sep 2026 15:07:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790348823;
+	bh=sV6J+8TN5XSMOwp05rkcvvqV0rYL8F+QY3ZFuHhXK9E=;
+	h=From:To:Cc:Subject:Date;
+	b=PPJxqQoq3xIQWaGNV53iOGtrUFeHMHnaMokVrXmCTY/htlG3binWqs73q/9quwTk1
+	 RMh98jW2Z4DpLfK/eOhVec32iopu8UrP8RZP3112Wu9AYhX2bUNi/fVnL9FzmJYsEr
+	 cwEMfSWKsc+Pc85dvU2SNOfem02W4cuJEDWO6vP6RO8p2aQBKJsK+ohy25m9Ryfan0
+	 LKI7FPWRE8U/KcKD22HMR1ZJTih82qaOd6WkpufsQGdPY3uhqB+euJJyd6pbpV3xXh
+	 FGlX9iBzVh/OKcgn7nkZ1kghOJMJZV/HGMfTqOH4AzeED8+YTktNBCpUfh8mIXEVJa
+	 6VIe0wga1cStA==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 0/2] wifi: mt76: fix USB copy source overreads
-Date: Fri, 25 Sep 2026 23:05:53 +0800
-Message-Id: <20260925150556.2304003-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Subject: [PATCH v5 0/6] perf annotate-data: Fix hangs on broken debug info, AMD mem record
+Date: Fri, 25 Sep 2026 17:06:51 +0200
+Message-ID: <20260925150657.1826942-1-acme@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,38 +49,106 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3J8zYjbZq2yQpAw--.5414S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Jw15GFWUWF17uFyfCryrtFb_yoWkZrb_XF
-	Wv9a4ft3W8JFZxtayakrWUAFW3Cayv9ryxCa4vqrWSq3y7tF1Uur1vvrn5Zw4Ika1Fkrsr
-	Gr9rXw1Iv3sYgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUU0eH3UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BnhHGq2jdknpwAA3c
 
-The USB copy helpers round up the caller's length to four bytes and
-then use the rounded length as the bound for memcpy() from the source
-buffer. If the caller supplies a length that is not a multiple of four,
-the final transfer reads one to three bytes past the source buffer.
-The beacon write path can pass such an unaligned length.
+Hi,
 
-The MMIO copy helpers already handle their unaligned tail through a
-four-byte bounce buffer. Apply the same principle to the USB helpers:
-keep the original length as the source-copy bound and zero the unused
-bytes in the transmit buffer so that the register access width remains
-four-byte aligned.
+This originated in another patch series, 'perf tools: Annotate fixes,
+stdio progress indication, debuginfo-client in more places', and is
+being split off so that these fixes can be reviewed right away; the
+debuginfod download feature work from it will come later, separately,
+based on this series.
 
-The two patches are independent and both apply to the same baseline:
+  - 'perf report -s type' spins forever on the dwz compressed debug info of
+    zlib-ng (libz.so.1): die_collect_vars() saves a type DIE offset that is
+    relative to the file the DIE lives in, the dwz alt file for types shared
+    by several CUs, and resolving it in the main file parses whatever is at
+    that offset, here a typedef whose DW_AT_type refers to itself, making the
+    typedef/qualifier chase spin (patch 3), with the chases bounded so that
+    other kinds of broken debug info don't hang perf either (patches 1, 2
+    and 4);
 
-  wifi: mt76: usb: fix source overread in mt76u_copy
-  wifi: mt76: mt7615: usb: fix source overread in mt7663u_copy
+  - 'perf mem record' requests PERF_SAMPLE_CPU (patch 5) and uses the IBS
+    swfilt filter when the kernel exposes it (patch 6), with the tables
+    carrying the term kept in the arch/x86 code, where the knowledge that
+    IBS needs it stays, as Ravi Bangoria suggested reviewing Namhyung
+    Kim's v6 review remark on this patch
+    (<4349c387-5b8a-4e8d-932a-5175a7598e1e@amd.com>, replying to
+    <aqsRVABj23jaaiSq@google.com>).
 
-Jiale Yao (2):
-  wifi: mt76: usb: fix source overread in mt76u_copy
-  wifi: mt76: mt7615: usb: fix source overread in mt7663u_copy
+About PATCH 5, answering Namhyung Kim's v6 review question
+(<aqsPKGVUkWk6wvYA@google.com>) about the --sample-cpu default: the
+data source field is about the memory hierarchy level of the access,
+it has no record of which CPU issued it, and while the TID is in
+every sample and in the CTF stream, a thread time-sliced on one CPU
+or moved between SMT siblings is not told apart by it from cross-core
+contention, so it is the CPU id that keys it, and it is what the
+false-sharing detector in pahole needs.  The TID is recorded as well.
 
- drivers/net/wireless/mediatek/mt76/mt7615/usb.c | 17 ++++++++++++-----
- drivers/net/wireless/mediatek/mt76/usb.c        | 16 +++++++++++-----
- 2 files changed, 23 insertions(+), 10 deletions(-)
+Requires elfutils 0.160 for dwarf_cu_getdwarf(), so the libdw feature test
+probes for it and Makefile.config says 0.160: older versions now disable
+dwarf support with that message instead of failing to link.
 
--- 
-2.34.1
+Best regards,
 
+- Arnaldo
+
+What changed from v4:
+
+- Added Ravi Bangoria's Reviewed-by (<76ef085b-e8e3-41a5-b029-2cd0489aa430@amd.com>),
+  given together with his rationale for keeping the IBS swfilt selection
+  explicit: 'perf record' fails rather than transparently retrying with
+  /swfilt=1/, so that the user is aware software filtering is being used
+  and that it is not overhead free.
+- Trimmed the comment on the AMD mem event tables in
+  tools/perf/arch/x86/util/mem-events.c per that review, dropping its
+  last sentence about how 'perf record' handles exclude bits on open
+  failure; the code is unchanged.
+- Patch 4: reworded the comment on the truncated flag; the JSON exporter
+  that reads it is added in a later series.
+- Patch 6: dropped a leftover no-op hunk from tools/perf/util/mem-events.c;
+  the swfilt selection is all in the arch/x86 code.
+  Command to see this delta: git diff eb568956a7129c91..HEAD
+
+What changed from v3:
+
+- Dropped patch 5/7, "perf annotate-data: Show the sample count in the
+  data-type browser": it is already in perf-tools-next as commit
+  9db4e9d6cc7c, so the series is now 6 patches and the subject no longer
+  mentions it.
+- Rebased onto current perf-tools-next (base-commit below; v3 was based on
+  29f320d221c1), patch 4 adapted to the upstream __add_member_cb() cleanup
+  that dropped the member_type local, no behavior change.
+
+What changed from v2:
+
+Only aggregate (struct/union) members are marked as truncated when the
+MAX_MEMBER_DEPTH limit is reached in the member nesting recursion (patch
+4), addressing a sashiko [Medium] review finding
+(<20260921165704.38DBD1F000FF@smtp.kernel.org>): the v2 check was made
+before looking at the member's type, so a primitive field that merely
+landed on the limit, e.g. an int in a struct nested 31 deep, was marked
+as truncated and logged even though it has no children to expand.  The
+limit still bounds the recursion, as only aggregates are expanded.
+
+What changed from v1:
+
+Bump MAX_MEMBER_DEPTH from 8 to 32, addressing a review comment from Namhyung.
+
+ tools/build/feature/test-libdw.c           |  10 ++-
+ tools/perf/Documentation/perf-mem.txt      |   4 +
+ tools/perf/Makefile.config                 |   2 +-
+ tools/perf/arch/x86/util/mem-events.c      |  17 ++++
+ tools/perf/arch/x86/util/mem-events.h      |   2 +
+ tools/perf/arch/x86/util/pmu.c             |  10 ++-
+ tools/perf/builtin-mem.c                   |   7 +-
+ tools/perf/tests/shell/test_data_symbol.sh |   6 +-
+ tools/perf/util/annotate-data.c            |  41 +++++++--
+ tools/perf/util/annotate-data.h            |   3 +
+ tools/perf/util/dwarf-aux.c                | 140 ++++++++++++++++++++++++-----
+ tools/perf/util/dwarf-aux.h                |  13 +++
+ 12 files changed, 217 insertions(+), 38 deletions(-)
+
+v4-head: eb568956a7129c91a8c0ccebb5979440a046c7ef
+v3-head: e2504280f5c4086e9851a758ed1bae8df7ef269e
+base-commit: edd8a9fe2eca009599e013a29c421c7a6b5ad1b9
+--
