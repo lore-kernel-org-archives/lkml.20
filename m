@@ -1,97 +1,90 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66986478E3E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0B932D0EE;
+	Fri, 25 Sep 2026 12:36:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790339620; cv=none; b=HBtW54p6yh9UsfmUaIctZS819JdK/b2+yXdipAIp9Zm12DnuAFNpsfJ7Z+C0A01w8Irk1XCiCgQ9j/tnrKKOH97qL55gUSXJDQedAZ4J5KES7nS9wZ86m6GR1p8eCHrJd49dMR61XPgOt43PyP+MLODex6Dj+0m5M4wEwRnQ/EY=
+	t=1790339782; cv=none; b=F5wsvXp/omOnySkaZZ0r1REiZ4kGLlnZ0GlLBcXDRKpMLeMlM2/52d574ORjOUO0qlcSVKWbgAOnzz6p8eI1cxTaSkJnrTY39q5N+YKvqXLJaymPU25SE3+AwSxZeKdkr1PGbXhXuWRy9+ApuAuuQEJ1LE+titVeFzgYiO/LKP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790339620; c=relaxed/simple;
-	bh=WN3pSoYU9cdvre0ABEdZ7GvzLTz1/2Lz1LP6gItmKp8=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=WYSI9n0PNLI9LnXIChlVIvJB2SsfzEa1Hnuoclu0OnC2sA49cwC7Z3eqW8JftfChDgBfEFdfUVRpxcQX9oe+rrBQxCzRKmtTpTp/ZLCjCKOaWiIqYH1gOlaF/lLSgQJi9EIeCF4q6/iZ8H7NMTNiGghnjCUnu7hXRZC3VROpwE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b5bfffcc2dso969040b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:33:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790339618; x=1790944418;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CTvJAREw4fBrRmC0o4M4TAzqWax/qhWP2VADM3U9C68=;
-        b=oaSEV5Fe23305D1sbB4nDhuV4dxvn8W4aY8147apYxxvQ+HCa/9y+vrHplnrdIQYqx
-         ql0t1//k9Pn+Cp/E05EWj4HfAAFShyp0z00QvuuN1imHvN26Qc+aBP76KrQAEY91bDvh
-         aNISUiOW7iRhytqD0eoMmorweKav1THxfK1ZdZgCBNegxwb/qOMVwgnKpPqjokLwwjvd
-         gYqyKBBm4NrsDuy3Xz+8xgBDBlRABMNN5JVnNjU+rVGTOrpwzbqBo4+wn5jxYLC2QyOG
-         PAphWPjSajeK4m5YlrosamqvZGE3fsvuZCoS35Od2HcWz/WMrpnX0bR/7cP47KbxIpAS
-         tIoA==
-X-Gm-Message-State: AFuF++mCRsBhhwQ0P0wn1DhfGruUVpmnWDed+zp1w8IUYLiyzpRLQbag
-	upSu3nVNMgz9oBIutQJbYNMYDdSbyX9cDhkwYrUE/9UdalpIwRB+IeELocTUXgNJNNvZifmnpIf
-	g5UQYwR4A8afS94pD0lSAt1sPp4RYtih1S2UIkizJZuum3Nq0djVky9Vqavs=
+	s=arc-20240116; t=1790339782; c=relaxed/simple;
+	bh=rpQFIIFkv9fk4XIyvpy8zsWnjPeYC0WS8JZuxINRqHg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=h7akeUpqXPQrSktuXejBc0635AmIZTlzbSxstxlxTP7uxxIQz9Km1mCHqN3VKNH1JBDBesjUykvKdg4BEF6vS+G2O5fF8Y6mOQkyYZ3KaxxPz/36NyQQuOdiImKDa9gxIpxoELzkONofM/MdepOqUyIXAnKr/Ysifg9kLAByWNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XHDOAbOm; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XHDOAbOm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=67
+	meGW5j/G0D+oDnqFcGKDrhbn8L41CakbHBABXFtL4=; b=XHDOAbOmvi66YtMvs3
+	dTr5j5QEBxELn4tCmx+LdC8ChjF2rdjBA8dcpv/al+0p2kO+MPvy3cRXWnYU3ffA
+	pbQBwhQOVeR8xcSlisEauBTdbLSOLuwAiX553on/l1VclOwjlH2m6AJrh/a1Do94
+	pMU7PBKAyBLaDJ2Djor8ggaXc=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD333ylarZqSbc3Aw--.20723S2;
+	Fri, 25 Sep 2026 20:35:50 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Moritz Fischer <mdf@kernel.org>,
+	Xu Yilun <yilun.xu@intel.com>,
+	Tom Rix <trix@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	linux-fpga@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fpga: altera-ps-spi: reject devices without match data
+Date: Fri, 25 Sep 2026 20:35:15 +0800
+Message-Id: <20260925123515.2081743-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:124e:b0:4d6:9133:cfea with SMTP id
- 5614622812f47-4d72d15df51mr4330904b6e.47.1790339618397; Fri, 25 Sep 2026
- 05:33:38 -0700 (PDT)
-Date: Fri, 25 Sep 2026 05:33:38 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab66a22.80e1c6cc.1e8e5f.0032.GAE@google.com>
-Subject: [syzbot] Monthly net report (Sep 2026)
-From: syzbot <syzbot+list9d8ba8e7238408167f9d@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD333ylarZqSbc3Aw--.20723S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tw15uF13try3XFWDWrWUtwb_yoW8GF1rpF
+	WUWa4UCryDXFsxKrsrCry0vF90kan3t3yF93Wakwna93s5CFyrZrW8K3sYqwn2yFZ5JF1x
+	tFW5Xw1ag3W0yw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEqg47UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgYMRmq2aqZR7wAA3s
 
-Hello net maintainers/developers,
+SPI driver_override allows a device to bind to this driver without
+matching either the OF or SPI device ID table. In that case,
+spi_get_device_match_data() returns NULL.
 
-This is a 31-day syzbot report for the net subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/net
+The probe stores the result in conf->data and registers the FPGA
+manager. A later programming request dereferences conf->data in
+altera_ps_write_init() to obtain the device timing values, causing a
+NULL pointer dereference.
 
-During the period, 7 new issues were detected and 15 were fixed.
-In total, 56 issues are still open and 1793 have already been fixed.
-There are also 30 low-priority issues.
+Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
+data") fixed the same driver_override issue in another SPI driver.
+Reject devices without match data before registering the manager.
 
-Some of the still happening issues:
-
-Ref  Crashes Repro Title
-<1>  816     Yes   INFO: task hung in tun_chr_close (5)
-                   https://syzkaller.appspot.com/bug?extid=b0ae8f1abf7d891e0426
-<2>  641     Yes   WARNING in inet_sock_destruct (6)
-                   https://syzkaller.appspot.com/bug?extid=5b3b7e51dda1be027b7a
-<3>  509     No    possible deadlock in __ipv6_dev_mc_inc
-                   https://syzkaller.appspot.com/bug?extid=afbcf622635e98bf40d2
-<4>  500     Yes   INFO: task hung in nsim_destroy (4)
-                   https://syzkaller.appspot.com/bug?extid=8141dcbd23a8f857798a
-<5>  126     No    INFO: task hung in rxrpc_destroy_all_calls (4)
-                   https://syzkaller.appspot.com/bug?extid=1c21ab751f6531a595d6
-<6>  43      Yes   UBSAN: array-index-out-of-bounds in llc_conn_state_process (2)
-                   https://syzkaller.appspot.com/bug?extid=628f93722c08dc5aabe0
-<7>  2574    Yes   INFO: task hung in addrconf_dad_work (5)
-                   https://syzkaller.appspot.com/bug?extid=82ccd564344eeaa5427d
-<8>  1209    Yes   INFO: task hung in switchdev_deferred_process_work (3)
-                   https://syzkaller.appspot.com/bug?extid=d6bbe0f5705cb8a5aa2b
-<9>  676     Yes   INFO: rcu detected stall in tc_modify_qdisc
-                   https://syzkaller.appspot.com/bug?extid=9f78d5c664a8c33f4cce
-<10> 252     Yes   INFO: rcu detected stall in rtnl_newlink (5)
-                   https://syzkaller.appspot.com/bug?extid=2e90866706ad999df132
-
+Fixes: 3b08f52c2561 ("fpga: altera-ps-spi: Use spi_get_device_match_data()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/fpga/altera-ps-spi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+diff --git a/drivers/fpga/altera-ps-spi.c b/drivers/fpga/altera-ps-spi.c
+index d0ec3539b31f..69fcefce462c 100644
+--- a/drivers/fpga/altera-ps-spi.c
++++ b/drivers/fpga/altera-ps-spi.c
+@@ -240,6 +240,9 @@ static int altera_ps_probe(struct spi_device *spi)
+ 		return -ENOMEM;
+ 
+ 	conf->data = spi_get_device_match_data(spi);
++	if (!conf->data)
++		return -ENODATA;
++
+ 	conf->spi = spi;
+ 	conf->config = devm_gpiod_get(&spi->dev, "nconfig", GPIOD_OUT_LOW);
+ 	if (IS_ERR(conf->config)) {
+-- 
+2.34.1
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
