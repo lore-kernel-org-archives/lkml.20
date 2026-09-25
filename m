@@ -1,142 +1,135 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A2B45D5FC
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:21:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367665; cv=none; b=n0rsJwj95vFse2h3F6AhOwaah/Ie+SnbLsQPUIK7Lq9OlUOuM2EFx7XEu76bd4fSGH8URYd18P4RGDoTeJnkLCi49KbwRwfNUjleRVfqcSxvAXVzsxDodefzDDzNq8uIwwjD00MseaUc6p5/u76MZ6dVgiAzKOh+egvoHDzOjDw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367665; c=relaxed/simple;
-	bh=aQdcMnaGRWrcT2d6YZ42NdwPibTOqQqRSFGnSDUxUa0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YmbaqDmCN59ODsKX493uW6xgQrQqjqIMx+E1XmqwqyHBUCVgA32w4Sg21GkKh/JAahohpjPdb+tXBTxGWExJKX/1BKeli0rJy/JgvKQwOAgAJ65zz9XK1N3B9PgUhIFBAx9qqlwHUYi9gD7NKDoJIYWjRKNiAwvyr69Wm5Gwg/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AZfvwi9M; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3C74C7532
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790367722; cv=pass; b=SfeKmBU0+2Gz6idBc03XIFHjrYBQu+aFVmq8Rj9aflsf5Hx6G3Eqtzd9PuNYHjoKl0CwZLg4bqis4Z7YWrQxxDRAOdYyQUIom4j1+4Gi52O39xfvrfBRf5zRDEqtoHVoocuqerC4FhitDm6Bth09cBtVcbOh3/2e5E2maLPRNxw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790367722; c=relaxed/simple;
+	bh=sOt1Bryk+Oxa7Fxrt6mMhlSIFpbqXbl83ndSRGg9HlM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VtCLl2QPyNuQ0o9uwDZmWig5iNrjxIFx6BvizTv2XM8ihVVKddiz2x+/OG2IvdsF7/sS5bj6aWLp2dZ9CQvYSeo3bkZOIcZAx+q0zJ/Icjkcmc/jviW4rJElK1QVQJRMxvhua9Wol+DA4RMyrIz5lXvEBx5QjPFYwQsRVJXOJS8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mK/sgXo6; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AZfvwi9M"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so814260a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:21:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mK/sgXo6"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-52faa58bff5so73891cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:22:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790367720; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cvPnuU1FJkyi2ys5FyfDy4uyF4oA0GdgkSpKLcxkyCAouS8jxZVHYv2Z2FprFAM9LD
+         25NiKXvyoO1K7CKNcjmnkGZD8O9VEHpn8zWL2mN9E6oFJLudjS9RtrLkgKcKIJhPzuWZ
+         nuTTZXtT1KozljDGCmGRV7MB0b4rs9akhmJM3GoSIG0xeDaglXSFvfl2Pfc/cxrTcEIP
+         oWvBIxu4VXtHUlABsJJ3OONE1PJ2j4NjRpFY25Wbk/SfbRSBXuysGl3hZceO0EKd6/zp
+         dccELSCsd+eHGicLdjeERjkkiFJp+l8qjt1/TfwEjv+eiEpC0MmmTvrGEapQdQjunVFI
+         2Kdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=X0gi+G5GK2ryrXr3Dgeum1cineZZb5AvOJsf1d2sjyI=;
+        fh=cvbGjEQZJNjQinZ2qRVWf5koH6Hn6iKAZ3SX+5JTrVE=;
+        b=mHpfQriPg+Z2gm6r2mokd9Ds4T8YfFYB0FbuHlV4tgMimGthYcvfrUlO18XJcW/RuU
+         0Na2zHQPw+4KemufRQYDRpvU+ItR1FyzslkO0wroMCeewaZHLGFHRkdjohy1hn4xB+jK
+         yV5tLupDyt+5HNxHaRgX9ZY7XPO8cDdOn75ifpIflVRVxqGM/wevPcx9rK10is+Rhxnm
+         0uAOM7H5+o7CecHbZZUi8v/u8Pv0OD7LiD7C5IcsVFCF8U9YRrEYWlFtWKxPn+OcZR2H
+         dxto6et9zeDBYs+SBwNDfwJpvlY2yNpXflxSbBpNpt+me6+5esD/gfaGIMaSt4a22IIA
+         kxJA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790367663; x=1790972463; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1790367720; x=1790972520; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=xWHZht3/sG7ZvX5La1aBebgJu63RUAKhR/+jLnkgrMk=;
-        b=AZfvwi9M+WMp11YAT6155HO1GrvbdzC1CKj+dEnJN5iex4MvSpu30MiNq5bcb0X4Zv
-         ojBdMZ+R+5SimlQsM66D/ihwWT6OgGpGwKkprX6pA49ZjR84c8Iq10035mDELRyEP+7W
-         YAn3BSoGAOwcSXtc+c66XkNVsexbqhaKFM8s7TNrJvk421FMIzcTU0UGd0Woai16F522
-         KOP2FZnNkTU+QzVMserVL/rk8rBa2MmpZugvT+XZWtSwivrSsjHczmWs63pHIJuR3++1
-         kduU+XrOgqIyWjp7jHXJlovGXQvcZ96t93Vqx9o8uUPjhDgW7c0VWnTBvhfbMUkybmQY
-         0jRQ==
+        bh=X0gi+G5GK2ryrXr3Dgeum1cineZZb5AvOJsf1d2sjyI=;
+        b=mK/sgXo6SlZjzoJ1dHR5FgiJcFt47jOQUTR2uslH/t1W7/NLTR0JA2X/YCTgnLDFdO
+         HDfDxPOpe2YMJuiSGzX6MEMaSr+pM8pLFEBkWveB/okQDYyTR1bvy64mJioE/lwJh3f7
+         3lxJW6UhwvkyHeMPBZIO5cQltQY9UCaJ2/hM9mVqMN8YBr0a3luVTrMJGfU2SoSwbmxd
+         In+mKy5hNpNFfCgXgkHIATtOTwt2n0AKsv4kEumRVZYNTxjNT+jvsZ2fZMEDb2CHt+bv
+         nJSgsuctH61y18UHXutk+bcvsqYply1nsNn5QgAbScD8l1hSVRVXzd8YS34kZ2XP3rmb
+         95yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790367663; x=1790972463;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790367720; x=1790972520;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xWHZht3/sG7ZvX5La1aBebgJu63RUAKhR/+jLnkgrMk=;
-        b=qNlQ3NkSvwyiVzPL7vyVaXhpwAFcEuO01lsupIWG8QsCLXyeEyKxUzUOhuIsgH7Ki/
-         6OuvSVoSr+zLAIrZQWLLhKN9B4aB6Zr+CNlpTWGtJKcX4xNRa7ydPVJ7D0DIMol6Bn2/
-         alMB+91DsFLA4mEBpBQIO5iV6T0Jb/FhNApnQ6P74W2xH2PWkF8mapyz3G7dJXubtxM9
-         R6mjSiU5lxoflOSZQ2/1RU5HG4DFvlfhANxtXLZec8IlOfUKSwgiDFn4wS2GUj8ntVxA
-         hKmYyfZED0/p0aK9BZo/n7t5wqFKnr/OYBkgeHMpsZBNT7oSukX70AQFYQD7lv+Mssk8
-         Lnww==
-X-Forwarded-Encrypted: i=1; AKwUvByQpjm1tbbWPKPF4YIGuWpuOEvap41XQNWMbJrE7HAc3j23A68vhjDeJG56y9fD61sLO3CIdjhNdstIJoI=@vger.kernel.org
-X-Gm-Message-State: AFuF++md5Z+Dmo8Fco7AkjgdoWuzDN0kJX2NMQ6DLa75Jnc7ai3eCYPV
-	0UhWaY4xu7QgXYG+EoCDVk8Sew9Ca2q/1XjrJged04uaoNRBKnIw5WGJ
-X-Gm-Gg: AYBFou1UG7VT35OSqCy8y/63uqrlA/GwZXbf96lLqOAX76GoyeTbO8tmMbMZgZtyLJo
-	OpeBfmNONNKLPaKzZP8W12mZZ4atzeeH+g+2ME64IBR5Jnog+vtdbxW8a96UjURRiiZqZ2JeAj9
-	0xzzH/5SLXQAv34LmHNAh0yjbEQn5TYkOun0DRn5EDnZbyWKcgXQ3Eiwm5P4smAiABSHMKExI9O
-	+pd7rxIJaq4WXFBFzBAwLJ53DAbtpSpl8rkDP+U8JQyQCz/OrTVnh8+r2H0EIHKUobUZAIB5t3G
-	XmI2k9085Cp7Dfuga1hvNWwzB8EN6aprPWnl7Z53ZvGmeHVxn13omzUQznfpTuyr+LUE5AglI4D
-	psuLp3NewJv7HeZW0QDlohMaP2h0NdtuMlwWgWpdhQM3gYuj03BwTUQqwUjx0TML1KORTg7K1R8
-	FLQZOY0oA+03ifrPRckvs+AMe2+W9ASycRJ52aa1nhnL4cr/VNF+i+H0zNapXVyjv6of5W6RaLI
-	5Pi6uE5iY30lzkQTDLhK/M0UQl3EvvMLIi7VkoG8A4gsMXqNw==
-X-Received: by 2002:a17:90b:518c:b0:3a0:dbfd:1a1f with SMTP id 98e67ed59e1d1-3a0dbfd269bmr214015a91.25.1790367663092;
-        Fri, 25 Sep 2026 13:21:03 -0700 (PDT)
-Received: from KASONG-MC4 ([1.203.116.237])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99917besm5937983a91.14.2026.09.25.13.20.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 13:21:02 -0700 (PDT)
-Date: Sat, 26 Sep 2026 04:20:51 +0800
-From: Kairui Song <ryncsn@gmail.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Rik van Riel <riel@surriel.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Gregory Price <gourry@gourry.net>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arbUA-XwLBsty34_@KASONG-MC4>
-References: <aqjpYHbZ14A8xRtK@fedora>
- <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
- <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
- <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
- <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
- <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
- <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
- <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
- <arUcil9kxUPiymXI@KASONG-MC4>
- <arbGo3QTYlUD5cVW@linux.dev>
+        bh=X0gi+G5GK2ryrXr3Dgeum1cineZZb5AvOJsf1d2sjyI=;
+        b=VbRwYUMSad+Ke3/YlKVjhr5a+r0awWlONgVl7b96Q0y+ABPiYlKyzbTOeuskjI14UX
+         T7fRiT84VX3Jc/S/Ou5Mzs6PmTxXfkvkCwRbQu33wejvyJObn6znAnQvNudLKyPbcTBF
+         6PJnco+0zvbq0u7PzzOwG0PlUaiY9WENhxzAo+2QshysLEJluQeuo7RaDz18aUz21NU0
+         SDReeDfoVRHdyUEljzHO7YfrgnIXuaP4noQL+VFM9fQ5lDPj6CaFp85E6bi0fQNjhKkE
+         qCfx/NAAVTx25JSe2DfZegmGwje9fdm9rrKENlfJ+Y2Lb72kfalMqQQw2haWyzf7QiIy
+         Mxnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxYkHagtnnqZ2gWpKueW3X4l252gUvwM61Vu0kbVh8rwD4sFtzocca0WFGjK8qH6evETXRm6f5PA+cszrs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/u9mj5+fqXzJL3ZAb+9pdHFpmseKZl7qW8C6UlMvGcEjMWQhZ
+	BHCwnmU40GuNYZbpm1a2Ob+b8NSDey3SrvYM8+4xY5qCLIyLZoMVtyYhTSB4c9SGKbuy95Irj1F
+	PqikJNQARx0mtjiJnMW5YxfGjWwslAph1rriEPLur
+X-Gm-Gg: AYBFou3XC+hqMHjg71LzNuXs4pzPLKWFAQhmBTZlE06CWq/1sLLElVMwSc2mqHohn9l
+	ftnoNKr6xRD992YIGq+ufjfF/q+8JMjekdBACgvAoxRNi8hqEi+RHyLYGNLYLnpSQizlNY+yCLg
+	ijy+KXS2JGLTJLuxmXa1quLLRhL2+gsXqwXlM4rvJsMYXh6+v/6/6m6+8APx8141nuKc6znmRXq
+	s3qjbmBiKxpW4U0WNj1mnDj2aEW/AM8iolSFrTCClU3IRgsbBW1OLgvzvjdBbd4G0nLSFz1/sPL
+	89o0U1c+AaeyCrBkVI1GRScDkJoEUptRRTap2q5bCkodX/quDObYplJb/JtQmTgA4QxCU7rVxho
+	6n5IVfBo0nHQhIpzY+IZF
+X-Received: by 2002:a05:622a:1a8f:b0:532:c8ca:5ae9 with SMTP id
+ d75a77b69052e-533226f9f89mr660001cf.11.1790367719382; Fri, 25 Sep 2026
+ 13:21:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arbGo3QTYlUD5cVW@linux.dev>
+References: <20260925-perf-symbol-memory-send-v3-0-3e4e234c363b@uber.com>
+ <20260925-perf-symbol-memory-send-v3-3-3e4e234c363b@uber.com>
+ <CAP-5=fUumhE1-DT3a-EBYQADy6Az=nViGmz==n1ocqXiXAEQjg@mail.gmail.com> <CA+w=M=RJYSCuk1SoU+OR53Odf6OyKMsjDMUAtaxSmD_4Zyq7oQ@mail.gmail.com>
+In-Reply-To: <CA+w=M=RJYSCuk1SoU+OR53Odf6OyKMsjDMUAtaxSmD_4Zyq7oQ@mail.gmail.com>
+From: Ian Rogers <irogers@google.com>
+Date: Fri, 25 Sep 2026 13:21:47 -0700
+X-Gm-Features: AclHuK_Ev_ywUg_xKDVZaUqkULrA-zicLebaCnXdtLmoik360d-0oCFEYOm-qog
+Message-ID: <CAP-5=fUm_MYpz+K9qc9T-=Xy2FT2=FRgWpkmQaZvqrO1tuVYsw@mail.gmail.com>
+Subject: Re: [PATCH v3 3/6] perf symbols: Factor out duplicate symbol selection
+To: Alireza Haghdoost <haghdoost@uber.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 12:36:46PM +0800, Shakeel Butt wrote:
-> On Fri, Sep 25, 2026 at 09:15:17PM +0800, Kairui Song wrote:
-> [...]
-> 
-> Thanks Kairui for very clear description of what you want and looking for.
-> After reading your email, I think you want memsw support in v2. Currently you
-> somehow are implementing memsw using memory.current and memory.swap.current.
-> (I am assuming you need to subtract swapcache to avoid double counting.)
-> To conclude, you want to use vswap (the aim is it to default) but you still want
-> your way to implementing memsw keep working.
-> 
-> Please correct me if I missed something.
-> 
-> I am wondering if you really want memsw, why not propose memsw. Someone from
-> tencent proposed memsw [1] previously, so why not continue that effort? I am
-> pretty sure folks from Google (people who actually work on prodkernel there)
-> will be happy to collaborate with you on that.
+On Fri, Sep 25, 2026 at 12:55=E2=80=AFPM Alireza Haghdoost <haghdoost@uber.=
+com> wrote:
+>
+> > > -int arch__choose_best_symbol(struct symbol *syma, struct symbol *sym=
+b);
+> > > +int arch__choose_best_symbol(const struct symbol_candidate *a,
+> > > +                            const struct symbol_candidate *b);
+> >
+> > Given you can change this function definition and only change 1 C
+> > file, is there any reason not to make the function static in symbol.c
+> > and move the struct symbol_candidate definition also to symbol.c?
+> >
+>
+> Thanks for the review. Patch 5 calls symbol__choose_best() from
+> symbol-elf.c: the lazy index resolves same-address duplicates from its
+> index entries, not from struct symbols, and uses the same policy as
+> the eager loader. That's why patch 3 makes it non-static.
+>
+> struct symbol_candidate has to stay in symbol.h as well, because
+> arch__choose_best_symbol() takes it and powerpc overrides that weak
+> function in arch/powerpc/util/sym-handling.c.
+>
+> I can say this in the patch 3 commit message in v4.
 
-Hi Shakeel,
+Thanks, I saw this when I got to the later patches, sorry for the noise.
 
-Right, I believe it is still being proposes as you can see there are some
-previous progress, year that work need updated, let me try to do something
-about it.
+Ian
 
-> 
-> [1] https://lore.kernel.org/20250319064148.774406-1-jingxiangzeng.cas@gmail.com/
-> 
-> Setting aside the memsw conversation, I think we should go back to the actual
-> vswap conversation and list down what we agree on and where we still need
-> discussion and decision. (I will take a stab at it and start a separate thread
-> but still on this email and will use AI for the summary.)
-
-Right, the things here is that I think it's not hard to see that
-memory.current / memory.swap and memsw (if in V2) is tangled with each
-other so I'm hope we won't create blocker for the future.
+> Thanks,
+> Alireza
