@@ -1,111 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7086D4A262F;
-	Fri, 25 Sep 2026 17:15:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80024361970
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:18:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790356549; cv=none; b=Avg14MqP+T6z6I1phrPCrAtVMxZDfPHcIfD6XopE+car+F1G2VaLcR5zcf2h2YWnTO8AwRQiRoNSLgFJgN0VubdhpPs3obDb+P3NvjoUC8KrDaDMTzpTXOaPvOrZt5vV1XxRS5yMKurcMoVckDSJbhmsDJBzz/DZP3MFzwGSDVk=
+	t=1790356713; cv=none; b=CahXwY8qSbfHYsCWtMhcNgPRJWb2fpoPWoPsbOpSLcAFZyy5R18NS4gyqxHlKTGJZjlu/T+LU07z6/vf8qTn0FxypwsZ5rsSAqHo7Q5mDx08cV2tPiV9q0KprN/er2+5eSGOuxn3S6PMlw8/DsddXTFyPqAJjxAdlPBQgsIAIn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790356549; c=relaxed/simple;
-	bh=DMgd1xAHI93Ch7Hm492FDFDKqVrLtXpdOnlurPA70eM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=noS4AD+MhXLgQHZ/gfGkh4C+nWZfl9TSEiNW/rzFhgsS3zEFHpE4DPClx68EpDiw5QXKDKhouvtKKJBIOk/S7vjXZyB9DB+wSO33MbYdQYoAU+LGIiQ0ounBYlehEno6z9TFp9WQ13o3/5EE37eocOhcGSeQl0DGeuRM6kHdLuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mqc5Y7d8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790356713; c=relaxed/simple;
+	bh=ckr26Yw3wApR+lSdfbW/93b4yjmA7Lo5mPynSlL6p4c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hDCTLohscjvYE9KKKWm8h3HNv2N71o0U9ZNKOpToNDxIr35hcjuXRwtVRqpylPIfHEJ5Ra29pYqox7WakrjjNhrp+o5d6VZuYWmRdigqJ9uMOs34SqKIz5HBLvJEkwN1xE8pJYurv0W1fDhemi5u5bslsK7hJ16F0g6V8rMcozY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NG9G4QWb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mqc5Y7d8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB9841F00893;
-	Fri, 25 Sep 2026 17:15:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NG9G4QWb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA511F00899
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:18:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790356540;
-	bh=8wrQukkbLvvWOUtbkwn8ZxkTSNRmKfGQ5MVi7iQyHbo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mqc5Y7d8JpciDSrcjetG2MsERuGJmWf9V2sE8IQ5qoBatO3pnNgtR3u9vhEAWwLeJ
-	 nWyIO6pNuDAHm/Z7iKXO+93/G7c444ZH9LE4CM3vX+fVhuSTOUuizOstlCJZYAArbE
-	 6n8E0w7tP5cQbawz0Q8nhNVVr5FfOzyENFqUoEBs8M+2fALSmSj9BhdmIy2b9dYQzk
-	 kTFJ6qRZj/VMSFygB7WrvWmZ+cD+ElKSQZMiBmdIAm4nrgUAPmlrRa1eO0wyhMHFYf
-	 8NVOMiZDeCgpsQA8CNZvjAtMH3+nYOM8YSfjhdmCsdDOkbSBWph78Kop3rcFAVmnkO
-	 yxXngypmG1whQ==
-Date: Fri, 25 Sep 2026 18:15:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Joshua Yeong <joshua.yeong@starfivetech.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"rahul@summations.net" <rahul@summations.net>,
-	"anup@brainfault.org" <anup@brainfault.org>,
-	"lftan.linux@gmail.com" <lftan.linux@gmail.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"pjw@kernel.org" <pjw@kernel.org>,
-	"palmer@dabbelt.com" <palmer@dabbelt.com>,
-	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>,
-	"alex@ghiti.fr" <alex@ghiti.fr>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 1/3] dt-bindings: regulator: Add RPMI voltage service
- bindings
-Message-ID: <a5d0d4df-7e8e-4f12-b011-e41b66efd8a7@sirena.org.uk>
-References: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
- <20260923070014.1340761-2-joshua.yeong@starfivetech.com>
- <9c0ae39b-d214-40f5-b010-cdea14ccc774@kernel.org>
- <c2c57bf0-e610-4353-93a4-84edfd08e767@sirena.org.uk>
- <SH0PR01MB08411AA7F403A71D2D7470A6F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
- <0db3ed29-8bb8-4dc3-a4cb-cc5b9bf2e893@kernel.org>
- <SH0PR01MB0841C933DE1E00C4012BDF53F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
- <ed0c4c67-6933-455a-937d-f5888d124538@kernel.org>
+	s=k20260515; t=1790356681;
+	bh=Q+tqMDUbKQR8LyFFw6M+hDO4cRFA42XhLm/V//0Hxk4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NG9G4QWb7YfdbwEELALMeh8yvVPlh7jqMwk8nvEKPErDk/YkczwRfKVF5S8KOE0GO
+	 9UtMkBAxwUc2qu5TMa1OMqCgfgHhZQBf0ojJFxj/JqhZLgRrfOZz0fLW0qKGur4fie
+	 Zr99TqPld5dREWrUvVFHkHHz8FX4yZBFEe6DIFWV3ur9yPx3EeEbY+iPJIfPFbmmII
+	 YV8JgLcsCr/w8ksl6VlnI/Zxl9gsH3kHOqFVnbeYQmfEjfpa/7PqsPpl9Lyg9vwZ+p
+	 cLUx0VP5NxQRMdxPA5J9/rq/RyAVNBwwGCEyyTt3BTcAKLNtyvrKgEXfKrVsWws24/
+	 IaejLgTYDbQzA==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5d0ad9b89so9373501fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:18:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzIqsw0q43DO6IUu0mMrTYcjKNygW8LtknroO9tZlo9xiD2tBNOG1X7bUyKCAz/Z1nGypdgF4wPeIshGj8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrzq7MqUatdTZrtagHIh58sFqbfe3eJmkeqOJ8uZyA1905t8Qt
+	6SFF7+Dqg1O9ZoYgIYS2RZmXri7c5bzSBwcd30dEtkqbHVNWLfU+4KoJYti56fEx4cVMHX+Db4P
+	TNfMMDFuUe3XdbwQRWDY/WsAfC+7a/cM=
+X-Received: by 2002:a05:651c:a205:20b0:3a3:74b9:8a7f with SMTP id
+ 38308e7fff4ca-3a649494426mr7927261fa.24.1790356680089; Fri, 25 Sep 2026
+ 10:18:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DWHGYh3WZIaCg574"
-Content-Disposition: inline
-In-Reply-To: <ed0c4c67-6933-455a-937d-f5888d124538@kernel.org>
-X-Cookie: Love America -- or give it back.
+References: <20260907064725.10686-1-hemanth.selam@gmail.com> <20260907064725.10686-3-hemanth.selam@gmail.com>
+In-Reply-To: <20260907064725.10686-3-hemanth.selam@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 25 Sep 2026 19:16:22 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0izZ8BvBDbfku5T0AuCYG3tJ1BsbtJ3ApaU+LqQVrQSiA@mail.gmail.com>
+X-Gm-Features: AclHuK_D9Ujhsp9E9IzjgDza-mJM-p_UUW53v5ggM2n-Qw6qQxtAAmsBKUtfAUM
+Message-ID: <CAJZ5v0izZ8BvBDbfku5T0AuCYG3tJ1BsbtJ3ApaU+LqQVrQSiA@mail.gmail.com>
+Subject: Re: [PATCH 2/5] thermal: fix typos in comments
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>, 
+	Christian Loehle <christian.loehle@arm.com>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-pm@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-omap@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-acpi@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Sep 7, 2026 at 8:47=E2=80=AFAM Hemanth Selam <hemanth.selam@gmail.c=
+om> wrote:
+>
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+>  drivers/thermal/thermal_core.c              |  2 +-
+>  drivers/thermal/thermal_of.c                |  4 ++--
+>  drivers/thermal/ti-soc-thermal/ti-bandgap.c | 12 ++++++------
+>  include/uapi/linux/thermal.h                |  8 ++++----
+>  4 files changed, 13 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/thermal/thermal_core.c b/drivers/thermal/thermal_cor=
+e.c
+> index 82e2f0d8a26d..5db52de33398 100644
+> --- a/drivers/thermal/thermal_core.c
+> +++ b/drivers/thermal/thermal_core.c
+> @@ -1662,7 +1662,7 @@ EXPORT_SYMBOL_GPL(thermal_zone_device_unregister);
+>   *
+>   * Return: On success returns a reference to an unique thermal zone with
+>   * matching name equals to @name, an ERR_PTR otherwise (-EINVAL for inva=
+lid
+> - * paramenters, -ENODEV for not found and -EEXIST for multiple matches).
+> + * parameters, -ENODEV for not found and -EEXIST for multiple matches).
+>   */
+>  struct thermal_zone_device *thermal_zone_get_zone_by_name(const char *na=
+me)
+>  {
+> diff --git a/drivers/thermal/thermal_of.c b/drivers/thermal/thermal_of.c
+> index 0217a49b08ae..f6566b5b916c 100644
+> --- a/drivers/thermal/thermal_of.c
+> +++ b/drivers/thermal/thermal_of.c
+> @@ -349,10 +349,10 @@ static bool thermal_of_should_bind(struct thermal_z=
+one_device *tz,
+>  }
+>
+>  /**
+> - * thermal_of_zone_unregister - Cleanup the specific allocated ressource=
+s
+> + * thermal_of_zone_unregister - Cleanup the specific allocated resources
+>   *
+>   * This function disables the thermal zone and frees the different
+> - * ressources allocated specific to the thermal OF.
+> + * resources allocated specific to the thermal OF.
+>   *
+>   * @tz: a pointer to the thermal zone structure
+>   */
+> diff --git a/drivers/thermal/ti-soc-thermal/ti-bandgap.c b/drivers/therma=
+l/ti-soc-thermal/ti-bandgap.c
+> index ba43399d0b38..5c028d25a565 100644
+> --- a/drivers/thermal/ti-soc-thermal/ti-bandgap.c
+> +++ b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
+> @@ -332,7 +332,7 @@ static inline int ti_bandgap_validate(struct ti_bandg=
+ap *bgp, int id)
+>   * ti_bandgap_read_counter() - read the sensor counter
+>   * @bgp: pointer to bandgap instance
+>   * @id: sensor id
+> - * @interval: resulting update interval in miliseconds
+> + * @interval: resulting update interval in milliseconds
+>   */
+>  static void ti_bandgap_read_counter(struct ti_bandgap *bgp, int id,
+>                                     int *interval)
+> @@ -352,7 +352,7 @@ static void ti_bandgap_read_counter(struct ti_bandgap=
+ *bgp, int id,
+>   * ti_bandgap_read_counter_delay() - read the sensor counter delay
+>   * @bgp: pointer to bandgap instance
+>   * @id: sensor id
+> - * @interval: resulting update interval in miliseconds
+> + * @interval: resulting update interval in milliseconds
+>   */
+>  static void ti_bandgap_read_counter_delay(struct ti_bandgap *bgp, int id=
+,
+>                                           int *interval)
+> @@ -394,7 +394,7 @@ static void ti_bandgap_read_counter_delay(struct ti_b=
+andgap *bgp, int id,
+>   * ti_bandgap_read_update_interval() - read the sensor update interval
+>   * @bgp: pointer to bandgap instance
+>   * @id: sensor id
+> - * @interval: resulting update interval in miliseconds
+> + * @interval: resulting update interval in milliseconds
+>   *
+>   * Return: 0 on success or the proper error code
+>   */
+> @@ -427,7 +427,7 @@ int ti_bandgap_read_update_interval(struct ti_bandgap=
+ *bgp, int id,
+>   * ti_bandgap_write_counter_delay() - set the counter_delay
+>   * @bgp: pointer to bandgap instance
+>   * @id: sensor id
+> - * @interval: desired update interval in miliseconds
+> + * @interval: desired update interval in milliseconds
+>   *
+>   * Return: 0 on success or the proper error code
+>   */
+> @@ -471,7 +471,7 @@ static int ti_bandgap_write_counter_delay(struct ti_b=
+andgap *bgp, int id,
+>   * ti_bandgap_write_counter() - set the bandgap sensor counter
+>   * @bgp: pointer to bandgap instance
+>   * @id: sensor id
+> - * @interval: desired update interval in miliseconds
+> + * @interval: desired update interval in milliseconds
+>   */
+>  static void ti_bandgap_write_counter(struct ti_bandgap *bgp, int id,
+>                                      u32 interval)
+> @@ -486,7 +486,7 @@ static void ti_bandgap_write_counter(struct ti_bandga=
+p *bgp, int id,
+>   * ti_bandgap_write_update_interval() - set the update interval
+>   * @bgp: pointer to bandgap instance
+>   * @id: sensor id
+> - * @interval: desired update interval in miliseconds
+> + * @interval: desired update interval in milliseconds
+>   *
+>   * Return: 0 on success or the proper error code
+>   */
+> diff --git a/include/uapi/linux/thermal.h b/include/uapi/linux/thermal.h
+> index 46a2633d33aa..36f3da2d6a7c 100644
+> --- a/include/uapi/linux/thermal.h
+> +++ b/include/uapi/linux/thermal.h
+> @@ -81,11 +81,11 @@ enum thermal_genl_event {
+>         THERMAL_GENL_EVENT_CDEV_STATE_UPDATE,   /* Cdev state updated */
+>         THERMAL_GENL_EVENT_TZ_GOV_CHANGE,       /* Governor policy change=
+d  */
+>         THERMAL_GENL_EVENT_CPU_CAPABILITY_CHANGE,       /* CPU capability=
+ changed */
+> -       THERMAL_GENL_EVENT_THRESHOLD_ADD,       /* A thresold has been ad=
+ded */
+> -       THERMAL_GENL_EVENT_THRESHOLD_DELETE,    /* A thresold has been de=
+leted */
+> +       THERMAL_GENL_EVENT_THRESHOLD_ADD,       /* A threshold has been a=
+dded */
+> +       THERMAL_GENL_EVENT_THRESHOLD_DELETE,    /* A threshold has been d=
+eleted */
+>         THERMAL_GENL_EVENT_THRESHOLD_FLUSH,     /* All thresolds have bee=
+n deleted */
+> -       THERMAL_GENL_EVENT_THRESHOLD_UP,        /* A thresold has been cr=
+ossed the way up */
+> -       THERMAL_GENL_EVENT_THRESHOLD_DOWN,      /* A thresold has been cr=
+ossed the way down */
+> +       THERMAL_GENL_EVENT_THRESHOLD_UP,        /* A threshold has been c=
+rossed the way up */
+> +       THERMAL_GENL_EVENT_THRESHOLD_DOWN,      /* A threshold has been c=
+rossed the way down */
+>         __THERMAL_GENL_EVENT_MAX,
+>  };
+>  #define THERMAL_GENL_EVENT_MAX (__THERMAL_GENL_EVENT_MAX - 1)
+> --
 
---DWHGYh3WZIaCg574
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Fri, Sep 25, 2026 at 05:18:08PM +0200, Krzysztof Kozlowski wrote:
-> On 25/09/2026 09:14, Joshua Yeong wrote:
-
-> > While the above method works but I'm trying to get the entire simplify to the following.
-
-> > user-app-b {
-> > 	compatible = "...";
-> > 	voltage-domains = <&rpmi-voltage 0x01>;
-
-> I see. Why power domains do not fit here?
-
-The spec seems to map very clearly onto voltage regulators, it describes
-voltages in mV:
-
-  https://github.com/riscv-non-isa/riscv-rpmi/blob/main/src/srvgrp-voltage.adoc
-
-I really don't see any problem describing this as regulators, it seems
-to fulfil exactly the same role as SCMI regulators, supporting things
-like SD slots where the OS genuinely needs to control voltages on a
-mostly system power controller system.
-
---DWHGYh3WZIaCg574
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2rDYACgkQJNaLcl1U
-h9CdSwgAgMFKO17AuqQP+TIfWFVvmgx8SAxLdZAciDJp7vUz0+KV+gs7mIAFG/bW
-TF5hZ6o+AxJDaoZJB0MNnKwD1icT7bYsDNgD8ofXBZvUnfAQxttR3SiVsb1Uhw7I
-BPsnwGkDGg0ma9wokkrd+M3ah3d5i0Doooq05z1mgEeiQOre89STDUd7zB0riO/8
-/fa+MTIH8U3+pA2o4MtzgxaEkklWCthmRxSoNknvv6rFPGk7vWm+CNfA5SZaAuXS
-k0bpugjYmOHrmrCTvbogP5pMPtmhqYkYAIGtpZBY1FEBjJKO5y97nHiByWEQHVpU
-WK4Eq5kaV8sgtElCA0/E0bn5rRGa2w==
-=kWHX
------END PGP SIGNATURE-----
-
---DWHGYh3WZIaCg574--
+Applied as 7.4 material, thanks!
