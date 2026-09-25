@@ -1,55 +1,55 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 079AF4DE734
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB2F4E06D2
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790353504; cv=none; b=C3igVrWa20hBC9TdYw+5MAgwtrO8cYeqaPP10wlRhGZzuJ9YFZrPa/JULLJ4mVvkXrgiMlxBLAhrOC6fpVW5YbAF08LbJQ1Rn19k5gF6hred7CRw179rT95c+cUb0XrbkiQe1C3dW2Qvvz8pszxM0LEEyktlxN+drFDjQPzZNP8=
+	t=1790353506; cv=none; b=rZzxpyE5EfmIF7fF/jc+Zl0yVI3a51zNCVkCHG6JaXLFXDUY0/Z5OYIAQXngnSoq8sNR9JLOGLxm82iIR3jNDIKDYvWEA6BzSK4gMfl0DvDXUYZhySpvGUphQESjgul2wVx97c/MlGqPcoItXABq4YU4jmzx3zjnIFAR4JVnSxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790353504; c=relaxed/simple;
-	bh=mj3SdbpcuVXLFrrUIf3KbnkVRVxd21IkNwP+DxYDJxk=;
+	s=arc-20240116; t=1790353506; c=relaxed/simple;
+	bh=D0xYUozz0eKaRjqfdaOEvfYWvBHmjoShCH+XjEeHxWg=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=BmXkkJVYoP/xweue1kFoNOnAUAPuw9Oj5T+zKiEBt0wn4uQdv9y6mfiJzEPR5BrgSCzEK1+eqMSquW7eptCLNHbh+2/oOMcKLfxw8Mn4akA/a+gayj2Iah9PYeMqBfwBJpwh9ca+8ww8bKsPYIjDULfNfUDjLUsUGn0T4PNwaSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bx3qqZ/4; arc=none smtp.client-ip=209.85.167.198
+	 To:Cc:Content-Type; b=WDK45297OsPwXBGtBuwoDmgNmvB77NtopR6TCCakOYi4gqkr2pft1Zl022qQaAmchhki3/eM6AowZLcE5V3HwKaYxg06fR7+27028jGOH8HLq5Xfb2RTtdkJQHhTLaEHFbveu+XcCxFSXwKqtyiJZMyWhrVLEwH2bgMZWBb0A3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TlrsXBd1; arc=none smtp.client-ip=209.85.167.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bx3qqZ/4"
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4db3db8687fso1738402b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:25:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TlrsXBd1"
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b2f2b8d88fso1916359b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:25:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790353502; x=1790958302; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790353503; x=1790958303; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MtHl8hYmoYmzTRn6TIDSWRUdJUOUFOpNuKrI1Eig3qY=;
-        b=Bx3qqZ/47IFKv3L2QVACeChkZsdOKB/aI94jqPJ+FA3rsfAYZT+VaRSEeDdPu3Wudb
-         IEgLCmTXqZgQr/VAOCxVF6Ax45eXYHu1ZgVot7riUxac+FV7VZ7MLxw3Q43cq4x/wdEk
-         zf85OtspQJmOY+hUQ8VPginqS0b1JszJ0cdRRmhEKPpGYZ8yL4kq43oc/ww8AdeVkLUK
-         nvHNgWaby+v53P8LwgdmZaqi6a7D47KuCSKQ184EBKZ2RVp4bPpJ4H3uPtZQh0I+P7/h
-         wRagTWaySh/Ee+YLgyH//dtAYhm7QFzDoQv2GKmTTNS0YBW2RM12JNgc65/FcdIVPswj
-         ycpg==
+        bh=wVFocSfR4Lgc319cRBvL1V/1tH2jGEIsWXRjOMDStP4=;
+        b=TlrsXBd1o8+h/Ywxy9hNUMsULlISTcb2ORpRSSGlgw5VgHiPIe94FK45yMkdP7K2Mn
+         1uuY6rFJUKlLQePNBaCnbzUU6Q8A0SUuPbtnAtMivEiCMwgMS9fXxhSGakug2E6Dq+/p
+         99RSABP/UgCcu0ScVPezUV7MdsEqaBRuyi179ffd9RJsw0fLu3/hhwqLx/pNpSxCFAHK
+         3z77NFtjchZYEPYTOjT9apSt2GFmsaBAhzCt+/IKBeJkCRcXe/OChJZve4ES9CWWA76H
+         DtZoBTC87wgL+V1J2dIXpLNXtTwRIs3dr2cvwyTfNUIMN1cGiW8Kq+U8ZW1q62fWiN3S
+         2fzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790353502; x=1790958302;
+        d=1e100.net; s=20260707; t=1790353503; x=1790958303;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MtHl8hYmoYmzTRn6TIDSWRUdJUOUFOpNuKrI1Eig3qY=;
-        b=R6E1M4GZB3tweL2LFnI1nxovqB5fkiMgYMHJYcJYOqqbZ3eXSIsq8vHrs/LI5PSdZL
-         lrMytvQuWTo/H7oRSxJgimhWOxaJTDVu0m4C2Qx/5NEDRY7bqJqh50xVaY3ZEdv4zc52
-         YIe3I+fRRzEyUyOQY6v+optq2Ybv8VAGj7fd0EWQhiCK8jOkK5kzsAmvTlSh2GHmzUwQ
-         6GMIzTnrKhbZKZ8X7P4ZQzRcqUbXnuxdd4O42gmv5d7GqgS7lV5WEPlxxgiOw8wlBwVb
-         AziJYLfEPWRFFGsAWfY0bh/flYeM3zzwIvtJJNVEgYNHWhFcZoANbCz7wFMP2mrn+IKQ
-         NxEA==
-X-Gm-Message-State: AFuF++nCk8x0kJxFWn7J0Ic+mt/jMnr+xu5jSEuCvMRjv3DhiuFVqEJc
-	pW7/oWWe+PGqzJVpvXSoGD/hy3wM6/yhWp8qrkNVlwdwoiplPmDpBmvW8jKbiKlJoUbpSiCX+ae
-	qn2tesA==
-X-Received: from iobms17.prod.google.com ([2002:a05:6602:a891:b0:9c4:b4f6:5f87])
- (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:19a8:b0:4c3:ebb:63d6
- with SMTP id 5614622812f47-4d72e06f3d0mr7450761b6e.39.1790353501307; Fri, 25
- Sep 2026 09:25:01 -0700 (PDT)
-Date: Fri, 25 Sep 2026 16:24:50 +0000
+        bh=wVFocSfR4Lgc319cRBvL1V/1tH2jGEIsWXRjOMDStP4=;
+        b=zi3WGBVCACElG5mnBr0Qa0vGNVO99CxdqvmFRznrp3eZsVsFtVh38l0klbnH8FKQDP
+         tfQ06riRNVmnxi4qBWr9Oc3+nl0EVdKDsXXDcIKtWRZzF9iwRlsnlM1Yvq/phqLn7r3j
+         JqlPyX81a7ZAwrUwAjSiWwD9RY8bMyUAiL8pDySyf93dHqlcquW+KvMYFJfRiDMnN7Bc
+         jfuNJSxusPuv8BtcIRF2hKQ6w+ouKUD9QdWUBydHaiSdMQ7MYTBcsHm9DLXYbb8yiwzo
+         5segIOWwwMJEFE7NJq0evE4T4vTLy8egMmjTvmdruGZrasqdE1v+owWJsLYJukerXmR8
+         brXg==
+X-Gm-Message-State: AFuF++mloCAquc7zc4TXkCrU1foJJgLfaoCXhYp9K9pgwQgTRpnP9t8s
+	y6qcb6g17DVwkTC4EdTWmqPsE9raJdFBhNHV1Zc7GooScPKeXT8XJp+wHPsQaeVCHzHbzP6mSjR
+	9Gmte+g==
+X-Received: from ioed30.prod.google.com ([2002:a05:6602:281e:b0:9c0:11e6:874e])
+ (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:3a09:b0:4cb:818f:d572
+ with SMTP id 5614622812f47-4d72962202dmr7031617b6e.26.1790353502872; Fri, 25
+ Sep 2026 09:25:02 -0700 (PDT)
+Date: Fri, 25 Sep 2026 16:24:51 +0000
 In-Reply-To: <20260925162454.1403405-1-avagin@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,8 +59,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260925162454.1403405-1-avagin@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260925162454.1403405-5-avagin@google.com>
-Subject: [PATCH 4/7] x86/fpu: Document reasoning of FX-only fallback
+Message-ID: <20260925162454.1403405-6-avagin@google.com>
+Subject: [PATCH 5/7] x86/fpu: Fix potential underflow in xstate_calculate_size()
 From: Andrei Vagin <avagin@google.com>
 To: Borislav Petkov <bp@alien8.de>, "Chang S. Bae" <chang.seok.bae@intel.com>
 Cc: linux-kernel@vger.kernel.org, criu@lists.linux.dev, 
@@ -70,45 +70,49 @@ Cc: linux-kernel@vger.kernel.org, criu@lists.linux.dev,
 	"H. Peter Anvin" <hpa@zytor.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add a comment to check_xstate_in_sigframe() to explain the reasoning behind
-falling back to the FX-only state when signal frame metadata is
-inconsistent.
+xstate_calculate_size() calculates the size required for a given set of
+xfeatures. It determines the topmost feature by finding the most
+significant bit in xfeatures using fls64(xfeatures) - 1.
 
-The fallback is intended to preserve backward compatibility with legacy
-user-space processes that are not aware of XSAVE states and might only
-fill or copy the legacy FP state.
+If xfeatures is 0, fls64(0) returns 0, and topmost becomes -1.
+Previously, topmost was unsigned int, so -1 underflowed to UINT_MAX.
+This caused the subsequent check `topmost <= XFEATURE_SSE` to fail, and
+the code proceeded to access xstate arrays using topmost (UINT_MAX) as
+an index, leading to an out-of-bounds access.
 
-However, this fallback should be avoided whenever possible. If a process
-was actively using extended features, falling back to the FX-only state
-silently resets those extended registers to their initial state, which
-can lead to silent user-space state corruption.
+Fix this by checking if xfeatures only contains legacy features (FP/SSE)
+or is empty (!(xfeatures & ~XFEATURE_MASK_FPSSE)) before calculating
+topmost.
 
+Fixes: d6d6d50f1e80 ("x86/fpu/xstate: Consolidate size calculations")
 Reviewed-by: Alexander Mikhalitsyn <alexander@mihalicyn.com>
 Reviewed-by: Chang S. Bae <chang.seok.bae@intel.com>
 Signed-off-by: Andrei Vagin <avagin@google.com>
 ---
- arch/x86/kernel/fpu/signal.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/x86/kernel/fpu/xstate.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/kernel/fpu/signal.c b/arch/x86/kernel/fpu/signal.c
-index b9dcd0cd0e41..d56819fe491e 100644
---- a/arch/x86/kernel/fpu/signal.c
-+++ b/arch/x86/kernel/fpu/signal.c
-@@ -54,6 +54,14 @@ static inline bool check_xstate_in_sigframe(struct fxregs_state __user *buf_fx,
- 	if (likely(magic2 == FP_XSTATE_MAGIC2))
- 		return true;
- err_setfx:
-+	/*
-+	 * The fallback to FX-only state is used to preserve backward
-+	 * compatibility with user-space processes that are not aware of xsave
-+	 * states.
-+	 *
-+	 * In all other cases, returning false (to trigger SIGSEGV) is
-+	 * preferred to avoid silent user-space state corruption.
-+	 */
- 	trace_x86_fpu_xstate_check_failed(x86_task_fpu(current));
+diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
+index 97cfd4fb6cc0..efa7879d2f97 100644
+--- a/arch/x86/kernel/fpu/xstate.c
++++ b/arch/x86/kernel/fpu/xstate.c
+@@ -589,12 +589,13 @@ static bool __init check_xstate_against_struct(int nr)
  
- 	/* Set the parameters for fx only state */
+ static unsigned int xstate_calculate_size(u64 xfeatures, bool compacted)
+ {
+-	unsigned int topmost = fls64(xfeatures) -  1;
+-	unsigned int offset, i;
++	unsigned int topmost, offset, i;
+ 
+-	if (topmost <= XFEATURE_SSE)
++	if (!(xfeatures & ~XFEATURE_MASK_FPSSE))
+ 		return sizeof(struct xregs_state);
+ 
++	topmost = fls64(xfeatures) -  1;
++
+ 	if (compacted) {
+ 		offset = xfeature_get_offset(xfeatures, topmost);
+ 	} else {
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
