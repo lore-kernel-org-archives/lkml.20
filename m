@@ -1,195 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D91374A02;
-	Fri, 25 Sep 2026 15:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B9824C2268
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:08:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348862; cv=none; b=MAA1yCVRZREqfPZ32ngXT7LkuTU4rf1aCKBv8VKBYhdugrrnX55P7t8AIGepdTdt2tOdGJFR5mSjJ3Im4/HvmwBdNmBmaAJO8uNteZEkfSsY13sbKgVR/MLjc8x4ojpCzF0GEgIGdwTmvFclZYXLk25SnV2tGMouF9SC2hHUzeg=
+	t=1790348885; cv=none; b=WZncVwBAyCyfwj/gUaIcJIj6vqukB1sqENw3eVTIdiVmcnQIeJ+qX7uCzyBIKuP9c3AbQtov8U9CXyjjKxRcS7pn6qYRyyQn1H+EN3Xo0jp5xe1Z6wto/Hx1N376qx+8TwDeJEpzE2WOwC5/Dj8SyzzBBrFMAA11T2W+63X5weo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348862; c=relaxed/simple;
-	bh=LkEtbYJaEvW0XceZoWZMJJZWhcG3dn4T/JaJ/uLBtL0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ffkvi/fzqTD5fKGfunUcxeRB70oFnM1S5tjNIkjFFid9CwvJfxe533LNY5bdk2+7CLA00hUOiy06yEQ9Izb4wiWAVZnKF7V3ajrvSLaRyfqgCe8DEsAmblvxywTOcxiKqpn+nTAkakjh45ByGZtuE8Wf8MRL+tGKhN9bVbFhJ9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T3vEHGq3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790348885; c=relaxed/simple;
+	bh=17w7sG3Y8RnfHFiCgVIzL/ZpIEzpLF1DetFSqGv7/D0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O6iPVfnMgKUUDfD1+BzQZ4RA8CaW5cvcSDOL2CKEE8zoCbqZlKoiwVrC0R43OzQ9QIXLWs24sryczQkr8NI1+jUd7on6F7/CkxRenZCkGBqBofchUy7q+wyJlMCdKLhGwN4KIUNDegrbUrGVxNn+WsdzXl9CUYavvKj1YLeU2Ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=emuBr6vc; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=VRUoevFX; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T3vEHGq3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 348241F0089C;
-	Fri, 25 Sep 2026 15:07:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790348839;
-	bh=LYRXnBy5R79klFjQqhjR3l/VAzBjwRPSY2E0k6Vbx8g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T3vEHGq3sT46QpD7ws1UUHyz0w6969bSi8PhEVisG6ZiK96QBa1IhzQtpV0ddRZxq
-	 /ZO0ZjIxlhv57cjD2gSMXnCsMloFD9Jb6eBi5ypQWw1hi96GQXSyQLXjxYdFE8ctqd
-	 GXKI6oYLXK0SZ+E6Bpn78xPPtkD3yAmh+euIovov22nsepV6t92AJU/faWKX9RifLq
-	 xokCLGMAxyg1U6EOXnDxGoHPmjIsLmr3DoFSwruBGgrzjtc9za3xbTLt09CyxyMIiJ
-	 SDT4JrVkwEmHVaaafUo3pjNQ7l4tDXU9KdIZLEd1UMlWlqOLs7lEOKjO93p7Z2g8fP
-	 aPikk+ps8PRdA==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>
-Subject: [PATCH 6/6] perf mem record: Use the IBS swfilt filter when available
-Date: Fri, 25 Sep 2026 17:06:57 +0200
-Message-ID: <20260925150657.1826942-7-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260925150657.1826942-1-acme@kernel.org>
-References: <20260925150657.1826942-1-acme@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="emuBr6vc";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="VRUoevFX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790348878;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UDT5tJHTpdldUwLBk2S2uZT/CFN7pHQ1hhyTmuldAjE=;
+	b=emuBr6vcg1OY3FFwIjJxZuauBnUAWdwRBsM3uFF2l5Uwpm/P3vlMR3fTqPGn2bBrJn6yYZ
+	CunAqidI069/rsuZkhQi8GdSuFXcEMN6VFw0fIqpDZG5eM5DulCUz7VgYjp0uPV+I1IPAd
+	64t+Z41l7l13mbfiHyvH3pvnN3m1Vgc=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-575-mj1jQqDxNh6PVFusNLOxZw-1; Fri, 25 Sep 2026 11:07:56 -0400
+X-MC-Unique: mj1jQqDxNh6PVFusNLOxZw-1
+X-Mimecast-MFC-AGG-ID: mj1jQqDxNh6PVFusNLOxZw_1790348875
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4843e59c32dso743720f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:07:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790348875; x=1790953675; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UDT5tJHTpdldUwLBk2S2uZT/CFN7pHQ1hhyTmuldAjE=;
+        b=VRUoevFXpwigm1PyGIxw/PM7gRz1Wi1K5rEewrY8Lher3e22Yys86/UVyN5KvjSzWv
+         1pXbUZwxANhNAlPcGDPM9gEVpEBN3U+NetgN4tFa3jLlMl62NPUno0Coz3ll6wPXPBHG
+         JO3P11SDD96MN6siagBiECLpTIzxEBGYXDZv4oSsUU9ktFQMwJaSQGtRz6t+Zy4yi6R/
+         qSIrBafUmYZRjMAMOjf6fULPkgR66mAbfWg8k+fKYG/eQiNriz5OB/9jLe3pw2onoxHL
+         ALUJ7aq1Gtl/sVdfdyRR2fcdlVYTbz6pIYEmlW35W3L17/Fuvr4vgHn8cJJjXriJV17J
+         pPeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790348875; x=1790953675;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UDT5tJHTpdldUwLBk2S2uZT/CFN7pHQ1hhyTmuldAjE=;
+        b=MZZ3KXTGbxc4ccpn/yirOEy+OXjMl0NdZCB9yJ2M2CFjPXNuTUnQwDe73ItcZsakLH
+         2e0AUz7l7C9V2gdWXfhTvCTQ4nAGNBVhK0JfcwpyIU+aORiHJLbcb0Wh8vl0LKLHCzVH
+         DVpjHPhMoWE7bfrYhTH39qwba9UC2UGXFM5AcxlyCx9LdylMnwjEl0VeMwuaZCjRCGiz
+         fMTybT5en0cz1xz36pnafyjRcrADcmI8fa0jK8lmjetRQGaNw0Wwm6eVTC0wFi/Nekw+
+         +5ttpamt6uH8GYHv2QoIxFcPMjoIR0MC35efK/RgpKiTFiEc3aVBWDNOBTlDXcmp4/Om
+         mQOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwdIUw4ywS+MseOZ9CD6oQ/1PAZ0JHsPzDmD+ioILa0Y5VCgkKhDifwve6cpHy3/h9fvrmHksys33SADOg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCWDlZ1/AqXZcO5NxGaaGDAw5YIPnWaTmfeiD8/b/4YT3w6Qnr
+	jbAKZ/4weLqMBou10K/9LZ/uS4MEXKsK0jTH/lhCNja9X893xUF7csvTt0lvnHvH2xL5grXRvWe
+	/GfuZEzq7ftC1U7NWa+aIQxmQHOeZQXW/kM+7cgXLTGFqAjG41qQ5HYysnF39LsdI2w==
+X-Gm-Gg: AYBFou1fz5acuaeazpF+6Wrd6KF5tDjC98Bvg6CRUAen9a4uSgvrLxqrNW3PSHoOZ0V
+	9PQXe/r5SLRLGUj03rRjuhy60rCuSsfMUH6Y5Fs7ASGSZfRRP3Q9nWMuABjdvO1gh6G0vEpBCZV
+	65RkBm9WrXA8ai5HtcXw4cMtcrQF3PpZLnwpw7Wtq1j8+xCGN3aTuIvu4E2d3cVSfRNyvYM5WrM
+	+x8vrPCTdKfSyGu25Pfpc6C62LD9GZd3WDWLG+3Png9tbDrYP/wvQFAfahCvJx8IHNGv1zkv4Cm
+	sTi2SPhRcTYzZXP7XHD3gmdzUCKo6ThQ2rw0s6pFMNwfXYT3eYSg7yUwpOVMgfXUkXwrR0C+3sE
+	1uEgiA9YWU3z9uzN+IWzIvLwYN58n
+X-Received: by 2002:a05:6000:2893:b0:487:10a9:57cb with SMTP id ffacd0b85a97d-488719756c5mr9921141f8f.49.1790348875166;
+        Fri, 25 Sep 2026 08:07:55 -0700 (PDT)
+X-Received: by 2002:a05:6000:2893:b0:487:10a9:57cb with SMTP id ffacd0b85a97d-488719756c5mr9921100f8f.49.1790348874777;
+        Fri, 25 Sep 2026 08:07:54 -0700 (PDT)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([176.206.14.6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a744fb5sm7133085f8f.33.2026.09.25.08.07.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 08:07:53 -0700 (PDT)
+Date: Fri, 25 Sep 2026 17:07:51 +0200
+From: Juri Lelli <juri.lelli@redhat.com>
+To: "Ionut Nechita (Wind River)" <ionut.nechita@windriver.com>
+Cc: mingo@redhat.com, peterz@infradead.org, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	arighi@nvidia.com, frederic@kernel.org,
+	linux-kernel@vger.kernel.org, dhaufe@simplextrading.com,
+	create0818@163.com, frn1furkan10@gmail.com
+Subject: Re: [PATCH v2] sched/deadline: Make dl-server nohz full aware
+Message-ID: <araOR8aTAU_R5lwQ@jlelli-thinkpadt14gen4.remote.csb>
+References: <20260513-upstream-fix-dlserver-nohzfull-b4-v2-1-d3e9cbe5c845@redhat.com>
+ <20260924170402.521623-1-ionut.nechita@windriver.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924170402.521623-1-ionut.nechita@windriver.com>
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+Hi Ionut,
 
-IBS events with exclude_{user,kernel} bits, as used for per-thread
-recording when kernel samples are not allowed, are rejected on hardware
-without the privilege filter, so per-thread 'perf mem record' fails on
-AMD:
+On 24/09/26 20:02, Ionut Nechita (Wind River) wrote:
+> Hi Juri,
+> 
+> I have been chasing timer noise on isolated nohz_full cores for an RT
+> product and ended up on this patch. It does restore the CFS bandwidth
+> guarantee, but on the isolated core itself it trades the dl-server's
+> timers for a full CONFIG_HZ tick, which for us is the more expensive of
+> the two.
+> 
+> Below are measurements from two machines, a variant that keeps the core
+> tickless, and a hazard in the dl_servers_stop_all() call sites that an
+> equivalent change of mine ran into. The variant is not a replacement for
+> your patch as it stands, since it does not address the housekeeping
+> wakeups you are fixing, so this is more a "can we get both?" than a
+> counter-proposal.
 
-  $ perf mem record -o /dev/null -- true
-  Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
+Thanks for the detailed analysis!
 
-Kernel v6.14 added swfilt, a software privilege filter exposed as the
-'swfilt' format term, making those events usable per-thread.  Give the
-ibs_op memory events extra tables with the term, selected in
-perf_pmu__arch_init() when the PMU exposes it, keeping the names that
-need system wide mode otherwise; the knowledge that IBS needs this
-stays in the arch code.
+I believe my v2 was never picked up, so I'm happy for you to send a v3
+modified with your approach. Keeping the tick stopped during the
+server's throttled window sounds reasonable to me. Having a proper
+single patch will make it easier to evaluate. Please do include the
+ext_server handling as well so we have the complete picture.
 
-Suggested-by: Namhyung Kim <namhyung@kernel.org>
-Suggested-by: Ravi Bangoria <ravi.bangoria@amd.com>
-Reviewed-by: Ravi Bangoria <ravi.bangoria@amd.com>
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/perf/arch/x86/util/mem-events.c      | 17 +++++++++++++++++
- tools/perf/arch/x86/util/mem-events.h      |  2 ++
- tools/perf/arch/x86/util/pmu.c             | 10 ++++++++--
- tools/perf/tests/shell/test_data_symbol.sh |  6 ++++--
- 4 files changed, 31 insertions(+), 4 deletions(-)
+...
 
-diff --git a/tools/perf/arch/x86/util/mem-events.c b/tools/perf/arch/x86/util/mem-events.c
-index b38f519020ff8c6f..8b46c8a1ce4520d0 100644
---- a/tools/perf/arch/x86/util/mem-events.c
-+++ b/tools/perf/arch/x86/util/mem-events.c
-@@ -21,14 +21,31 @@ struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,			NULL,				NULL,		false,	0),
- };
- 
-+/*
-+ * IBS events with exclude_{user,kernel} bits are rejected on hardware
-+ * without the privilege filter unless swfilt is used: the extra tables
-+ * carry the term, selected when the PMU exposes it.
-+ */
- struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E("mem-ldst",	"%s//",		NULL,	false,	0),
- };
- 
-+struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX] = {
-+	E(NULL,		NULL,		NULL,	false,	0),
-+	E(NULL,		NULL,		NULL,	false,	0),
-+	E("mem-ldst",	"%s/swfilt=1/",	NULL,	false,	0),
-+};
-+
- struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E("mem-ldst",	"%s/ldlat=%u/",	NULL,	true,	0),
- };
-+
-+struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX] = {
-+	E(NULL,		NULL,			NULL,	false,	0),
-+	E(NULL,		NULL,			NULL,	false,	0),
-+	E("mem-ldst",	"%s/ldlat=%u,swfilt=1/",	NULL,	true,	0),
-+};
-diff --git a/tools/perf/arch/x86/util/mem-events.h b/tools/perf/arch/x86/util/mem-events.h
-index 11e09a256f5bb084..f707de38037017c1 100644
---- a/tools/perf/arch/x86/util/mem-events.h
-+++ b/tools/perf/arch/x86/util/mem-events.h
-@@ -6,6 +6,8 @@ extern struct perf_mem_event perf_mem_events_intel[PERF_MEM_EVENTS__MAX];
- extern struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX];
- 
- extern struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX];
-+extern struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX];
- extern struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX];
-+extern struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX];
- 
- #endif /* _X86_MEM_EVENTS_H */
-diff --git a/tools/perf/arch/x86/util/pmu.c b/tools/perf/arch/x86/util/pmu.c
-index 2c24ef3140da5e9b..fd4491fda117e51a 100644
---- a/tools/perf/arch/x86/util/pmu.c
-+++ b/tools/perf/arch/x86/util/pmu.c
-@@ -333,6 +333,7 @@ static void uncore_cha_imc_adjust_cpumask_for_snc(struct perf_pmu *pmu, bool cha
- void perf_pmu__arch_init(struct perf_pmu *pmu)
- {
- 	struct perf_pmu_caps *ldlat_cap;
-+	bool swfilt_format;
- 
- 	if (!strcmp(pmu->name, INTEL_PT_PMU_NAME)) {
- 		pmu->auxtrace = true;
-@@ -348,7 +349,10 @@ void perf_pmu__arch_init(struct perf_pmu *pmu)
- 		if (strcmp(pmu->name, "ibs_op"))
- 			return;
- 
--		pmu->mem_events = perf_mem_events_amd;
-+		swfilt_format = perf_pmu__has_format(pmu, "swfilt");
-+		pmu->mem_events = swfilt_format ?
-+				  perf_mem_events_amd_swfilt :
-+				  perf_mem_events_amd;
- 
- 		if (!perf_pmu__caps_parse(pmu))
- 			return;
-@@ -358,7 +362,9 @@ void perf_pmu__arch_init(struct perf_pmu *pmu)
- 			return;
- 
- 		perf_mem_events__loads_ldlat = 0;
--		pmu->mem_events = perf_mem_events_amd_ldlat;
-+		pmu->mem_events = swfilt_format ?
-+				  perf_mem_events_amd_ldlat_swfilt :
-+				  perf_mem_events_amd_ldlat;
- 	} else {
- 		if (pmu->is_core) {
- 			if (perf_pmu__have_event(pmu, "mem-loads-aux"))
-diff --git a/tools/perf/tests/shell/test_data_symbol.sh b/tools/perf/tests/shell/test_data_symbol.sh
-index d61b5659a46d9a77..52c837fddb639595 100755
---- a/tools/perf/tests/shell/test_data_symbol.sh
-+++ b/tools/perf/tests/shell/test_data_symbol.sh
-@@ -65,15 +65,17 @@ if (($is_amd >= 1)); then
- 	# --ldlat on AMD:
- 	# o Zen4 and earlier uarch does not support ldlat
- 	# o Even on supported platforms, it's disabled (--ldlat=0) by default.
-+	# o Kernels with the swfilt term add it even when ldlat is not
-+	#   supported, so only check ldlat when the term is present.
- 	ldlat=${BASH_REMATCH[1]}
--	if [[ -n $ldlat ]]; then
-+	if [[ $ldlat == *ldlat=* ]]; then
- 		if ! [[ "$ldlat" =~ ldlat=0 ]]; then
- 			echo "ERROR: ldlat not initialized to 0?"
- 			exit 1
- 		fi
- 
- 		mem_events="$(perf mem record -v --ldlat=150 -e list 2>&1)"
--		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150/.*available ]]; then
-+		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150[,/].*available ]]; then
- 			echo "ERROR: --ldlat not honored?"
- 			exit 1
- 		fi
--- 
-2.53.0
+> A separate observation
+> ======================
+> 
+> Independently of either patch, the CFS wakeup pattern changed between
+> v6.12 and v6.18. With the same workload, v6.12 serves the periodic CFS
+> task every ~50ms (199 wakeups in 10s), while both v6.18 variants on that
+> machine serve it once per server period (10 wakeups in 10s, ~1s worst
+> case). The bandwidth is the same, but it arrives in one burst per period
+> instead of being spread out. For an isolated core running a periodic
+> housekeeping task next to an RT application, that is a user-visible
+> change. Is the deferred activation expected to behave this way, or is it
+> worth looking at separately?
+
+I think what you see is the deferred server model at work. The server
+now defers activation until zero-laxity. The dl-server is primarily a
+safety net to prevent complete CFS starvation under RT, not a latency
+guarantee, so the bandwidth being correct (5%) is what matters and how
+it's distributed within the period is a secondary concern. That said, if
+I understand your example correctly, that periodic housekeeping CFS task
+you have on the same isolated core of the RT application is relying on
+dl-server to be able to run? It doesn't seem a safe approach to me, the
+RT application should better ensure to sleep at times leaving space for
+CFS housekeeping task to execute w/o activating the dl-server?
+
+Best,
+Juri
 
