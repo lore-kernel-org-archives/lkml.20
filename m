@@ -1,378 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6D24D7D3E;
-	Fri, 25 Sep 2026 16:07:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC964D9F9D
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:08:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352433; cv=none; b=ReXhwUUr1tnpyHKjy1mZoioyuE05D7AYtkL0c30ORIKoFiXkW4hfpOlO+6aBQWQ+WTnEDlh4ohQFnnnBW3VXix1B7R3nps1ZTmfDXhzwsePFefSUdzDqagsm35j+oAPmR21SB2E0JJGQjJkQmH7BkTRkfkuiikRLL2qwoL8rOM8=
+	t=1790352542; cv=none; b=SE3l9jp6fIV/UURmGnYhCcXFawBdaULCUGxIN9XY+Gh7MIWUcbP6Xn0oY8vNhgHL/mKeELk5r0Qq24yKinggL9eystQOiv9uqCQVW1wGxr4BO/qYS7pezK3upUHcmEARMO0qimnNMqCsLN/SB6/Hp55Weu/azNkQQg6TldqRz3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790352433; c=relaxed/simple;
-	bh=g4ngd6C6RtHyur4LIUvkWNEU5lurEuvyP6L9WTF3REo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E58zQtni2b0u9rz7CuE5aUmxssyEHb7Zr3ig68zuOezrUiPz4dtfYD3mWHbknrPTQBZTCONDFbQB5ovb6TLuaC6aMHW7dKnNjiZNC5ORyu6eDP3ZpOL5cAtCaPrtA0FAwb85bOgvxSPnG3DU1TdxZ7f+r6PBTIIpyv69W1eZNRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3eiDW0Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790352542; c=relaxed/simple;
+	bh=6pqGnRaZ+P7rXv9Vn4J+DG7duRZL0nDrzMPegML9o70=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b7WI3HZz1p6Ioeb9cpGN2txaLBpu43tzU8B/fhrQO3gRJXP7pPZZ9wtDMKKj8TZaLsp9H3nuOwkGGM4T8BWmgIp/zcc9xLcz+HSIwoaaCXF6k2NA3SPPzpLxLTM1cmdNQpdPKSAqiRZG0IDah//9KDy+Cdc1pFTlMKur+bmh4hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YvpQ59Sw; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3eiDW0Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92DCF1F000FF;
-	Fri, 25 Sep 2026 16:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790352429;
-	bh=efZvcB3jZhEX2otBxZiQBTWXnyQXQfwadz7bVw2Pw3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W3eiDW0QY0cX0F1B8fIAXmLfmyqPJ9WXknsJmcdbqLnFwkbMm/pVkz+NzTZYXUBw1
-	 lWVUrU6qynjiaF/oOKuAtDMAEQexdPWGWC0GlDGic9/M/pd5UM3P8VDL+0EuLe/20Z
-	 T6u/+r9sMaopoVvyrABCjykVRKVS5u5XUG+MR+9UhfUNForEPLfwf6IA23ZrHQtkLp
-	 pqcjRoXrIOaefScmAznbuMSwALdlz8dqYYtUId17E7yKBZehTIZIBjNfEEeyaYGL7Z
-	 aYuGH1GGQbJn3PWAK27cFmyDhsyInJTEZvxfsAxNJaz085qldRf0XwzW1LrQPfAMZr
-	 2m6KXt8CfzMxA==
-Date: Fri, 25 Sep 2026 17:07:05 +0100
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: dong100@mucse.com, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	vadim.fedorenko@linux.dev, u.kleine-koenig@baylibre.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	yaojun@mucse.com
-Subject: Re: [PATCH net-next v13 2/5] net: rnpgbe: Add basic TX packet
- transmission support
-Message-ID: <20260925160705.GQ13925@horms.kernel.org>
-References: <5CF5340DA3D4CE3C+20260920092622.345496-1-dong100@mucse.com>
- <178998604523.2160803.309404195274642417@kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YvpQ59Sw"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a8038a9f10so1503912a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:08:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790352530; x=1790957330; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KoDkbvYtl5NWQD48z6cPIbsNVAJholwk5esvSBBhG3w=;
+        b=YvpQ59SwZCWaTT2v7eOp26enQ+iDA+vlDoYd12OKjV6p1P8rIwEOgL5xcJ2NMTitgq
+         qkuuFXbcwASljTdSKFmfGqwYm0UJFUTiTq+gUHt3xEx1q0dUrBuihN1y6Q5W+5fV0HkP
+         qTOnYrxiaFPXqkLg8MdjTkJ8YTFmbBZ27bQ8I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790352530; x=1790957330;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KoDkbvYtl5NWQD48z6cPIbsNVAJholwk5esvSBBhG3w=;
+        b=bHtMUpArr+U/Ef9OmCuJU3VYb7pNpfCfF8b6l9uMoEKY4q3/EoeEFK/m0hL6XttlyL
+         o+XuZf9EL6ws51crOIWEm1v8GgImC6x4e2oB6psFZs9iyBQIYOHL5aklBs2LZ+Yoh0c7
+         f2+8dytv8HhrjhDBkgewthTwlCkr8mfAngSUyP91PRWSjxuenomJ31qUM3QNw5QoeeLh
+         ovcbhX7GXafvrcLaxrIbvWBJFH4OQSMFB5xJaG6FC2SoiPHWPuVLW8//yxoyZ0mFhSM4
+         KK5qUwyLFScvAfjPehURcKe94lUAHaNLUE5GA7HaA4X+arngGZK+mS85uDjKo9WwM+UU
+         o5zA==
+X-Forwarded-Encrypted: i=1; AKwUvBwNSQPwWedEy/DUvbCpxkMMfdQPX3PRRAWaEdpi9Q8Mbv6tJF4KemMTYyQmOk6y9dWeeLFBP0UinWmJt2o=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksgt8hIlwR2BWqRshEymQpu3AD3Uu3C2QaBjrsGJjGb3pp0kt8
+	KRM6rP1jZUB5FLzRivTgPe8vurOeQfNo2Y4YBMkyyzYgfndKwD8GYRTQKRg/bd8G6PNjz6OqT3b
+	Ahv0=
+X-Gm-Gg: AYBFou37R74UhRudtwC7DFezGfmfRgLcuic1uHQ918d7AzB0J+s5m2XkUa6AFEke6dL
+	BlZrcCRMTCnkUzHZ1zOY0furGevpJVhQv5OSMfhXBUj481ostafRFYaJAjKsq9aAaedPawgmZNv
+	6xtVnDLvQFjSoIeQsWNe2u9TBYaX5wEiTWB+cyY+qqmJ6v0VbCQRE+G0wYsAkVP2a4nymhGZkPH
+	9QXkzQgQCdACP2/2bB6cry588ALmxWhyP0uirnKB/UmQXnavtHLAP/6w8M6RnJ3FaA+RCXvRoWe
+	G2WAY/sZuE9buRa6wGeGQMI5cNkMpLRNFpeMzr3hRpkYnS8PI9pVM5sRA+E9qKafIJl09dizPsM
+	Zx8WLoFDo3vAdP7W0ZXoNHns4XMdKl7uMMGCxf91K8vz0nBgfhskuLyasgJcZ1vowJC9q5ls42j
+	5v+tAWnMzN6a4RHWD8MjV8Nu8Jj2HD8QUgiooGNbEH7lKio4iGqVJPBlrsrDcG1jXU0EtZ6hazj
+	z9czd4EBlgr8gEwZ8t73rV0TKT5xPOMvC9SoFc=
+X-Received: by 2002:a05:6402:27d1:b0:6aa:4d8d:a0a8 with SMTP id 4fb4d7f45d1cf-6aac90c277cmr5607080a12.27.1790352529721;
+        Fri, 25 Sep 2026 09:08:49 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com. [74.125.225.141])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aae5dd7dc5sm1206127a12.21.2026.09.25.09.08.48
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 09:08:48 -0700 (PDT)
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so10899165e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:08:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxq1RC+sQGKbRCvi+qugDRW/L+6bWvl9Km79aV42wuvXF+oQp21arQoLrzzN4zlFUHmnqV2hhXS1agwOeE=@vger.kernel.org
+X-Received: by 2002:a05:600c:1553:b0:49e:74b6:740f with SMTP id
+ 5b1f17b1804b1-49fe66f3ca9mr104941595e9.17.1790352527270; Fri, 25 Sep 2026
+ 09:08:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <178998604523.2160803.309404195274642417@kernel.org>
+References: <20260925132558.27518-1-okerixx@gmail.com>
+In-Reply-To: <20260925132558.27518-1-okerixx@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 25 Sep 2026 09:08:35 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UohyFHM3r4i6NoDbzVFpY9xZzg_=FvGFhBgScaCUwH2w@mail.gmail.com>
+X-Gm-Features: AclHuK8278QfBh3T6IMehOEBNqzClwWRdpWLhQ6oHH2oGgXY2sg0_eqpoHwxnrs
+Message-ID: <CAD=FV=UohyFHM3r4i6NoDbzVFpY9xZzg_=FvGFhBgScaCUwH2w@mail.gmail.com>
+Subject: Re: [PATCH] drm/dp: don't mark the AUX backlight enabled when
+ enabling failed
+To: Oleg Keri <okerixx@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 10:20:45AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 2 · Low: 3
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+Hi,
 
-Hi Dong,
+On Fri, Sep 25, 2026 at 6:26=E2=80=AFAM Oleg Keri <okerixx@gmail.com> wrote=
+:
+>
+> If drm_edp_backlight_enable() fails, dp_aux_backlight_update_status()
+> still marks the backlight as enabled. From then on every brightness
+> change only updates the level and the enable is never retried, so the
+> panel stays dark until something blanks and unblanks the backlight.
+>
+> I hit this after resume on a Samsung ATNA OLED panel, where the first
+> AUX write can fail while the panel is still waking up.
+>
+> Return the error instead, so the next update tries to enable again.
+>
+> Fixes: 10f7b40e4f30 ("drm/panel: add basic DP AUX backlight support")
+> Signed-off-by: Oleg Keri <okerixx@gmail.com>
+> ---
+>  drivers/gpu/drm/display/drm_dp_helper.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
+splay/drm_dp_helper.c
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -4634,7 +4634,9 @@ static int dp_aux_backlight_update_status(struct ba=
+cklight_device *bd)
+>
+>         if (!backlight_is_blank(bd)) {
+>                 if (!bl->enabled) {
+> -                       drm_edp_backlight_enable(bl->aux, &bl->info, brig=
+htness);
+> +                       ret =3D drm_edp_backlight_enable(bl->aux, &bl->in=
+fo, brightness);
+> +                       if (ret)
+> +                               return ret;
+>                         bl->enabled =3D true;
+>                         return 0;
 
-There is an expectation that the patch author responds to these
-AI-generated reviews as described above.
+The above looks like a good fix. Thanks for catching and sending a patch.
 
-In order to move things along I'll provide some feedback on this one
-(but not the other's for this patchset).
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-> - [Medium] rnpgbe_probe() replaces the previously error-checked
->   `dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(56))` (which aborted…
-> - [Medium] In this patch ndo_start_xmit becomes reachable before the TX
->   ring software resources exist: rnpgbe_add_adapter() calls…
-> - [Low] In drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.h,
->   RESV_DESC_NEEDED is documented as "2 desc gap to keep tail from…
-> - [Low] Two headers touched by the patch are not self-contained.
-> - [Low] The patch builds an RCU protocol for the
->   mucse->tx_ring[]/rx_ring[] slots (adds `struct rcu_head rcu` to struct…
-> 
-> --
-> 
-> net: rnpgbe: Add basic TX packet transmission support
-> 
-> This adds the TX path for rnpgbe: the TX descriptor layout and buffer
-> management, rnpgbe_xmit_frame_ring(), TX ring setup/teardown, TX completion
-> handling in rnpgbe_clean_tx_irq(), and per-ring TX stats reported through
-> ndo_get_stats64(). It also switches the DMA mask setup to
-> dma_set_mask_and_coherent() and enables NETIF_F_SG/NETIF_F_HIGHDMA.
-> 
-> A few questions below.
-> 
-> > diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
-> > index 40e41521a279..864cbf0caf44 100644
-> > --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
-> > +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
-> 
-> [ ... ]
-> 
-> > @@ -69,31 +135,37 @@ struct mucse_q_vector {
-> >  	int hw_vector;
-> >  	struct mucse_ring_container rx, tx;
-> >  	struct napi_struct napi;
-> > +	struct rcu_head rcu;
-> >  	char name[IFNAMSIZ + 18];
-> >  	/* for dynamic allocation of rings associated with this q_vector */
-> >  	struct mucse_ring ring[] ____cacheline_internodealigned_in_smp;
-> >  };
-> >
-> > -struct mucse_stats {
-> > -	u64 tx_dropped;
-> > -};
-> > -
-> >  #define MAX_Q_VECTORS 8
-> >
-> > +#define M_DEFAULT_TXD     512
-> > +#define M_DEFAULT_TX_WORK 256
-> > +
-> > +enum mucse_state_t {
-> > +	__MUCSE_AXI_FAULT,
-> > +};
-> > +
-> >  struct mucse {
-> >  	struct net_device *netdev;
-> >  	struct pci_dev *pdev;
-> >  	struct mucse_hw hw;
-> > -	struct mucse_stats stats;
-> >  	struct mucse_ring *tx_ring[RNPGBE_MAX_QUEUES]
-> >  		____cacheline_aligned_in_smp;
-> >  	struct mucse_ring *rx_ring[RNPGBE_MAX_QUEUES]
-> >  		____cacheline_aligned_in_smp;
-> 
-> [Severity: Low]
-> The patch introduces an RCU protocol for these slots: struct mucse_q_vector
-> gains an rcu_head, rnpgbe_free_q_vector() switches from kfree() to
-> kfree_rcu(), and rnpgbe_get_stats64() reads the slots under
-> rcu_read_lock(). Should the arrays carry __rcu and should the publish and
-> consume sides use rcu_assign_pointer()/rcu_dereference() rather than
-> WRITE_ONCE()/READ_ONCE()?
-> 
-> In rnpgbe_alloc_q_vector() the store is:
-> 
-> 	ring->pfvfnum = hw->pfvfnum;
-> 	u64_stats_init(&ring->syncp);
-> 	WRITE_ONCE(mucse->tx_ring[ring->queue_index], ring);
-> 
-> WRITE_ONCE() carries no release semantics, so the pointer store is not
-> ordered against the preceding ring->dev/ring->count/ring->netdev stores or
-> u64_stats_init(&ring->syncp), and rnpgbe_get_stats64() reads the slot with a
-> plain READ_ONCE().
-> 
-> Today this looks unreachable: rnpgbe_alloc_q_vector() runs from
-> rnpgbe_init_interrupt_scheme() before register_netdev(), and
-> rnpgbe_free_q_vector() runs either on the probe error path or after
-> unregister_netdev(), so no ndo_get_stats64 caller can race. Would it be
-> worth completing the idiom now, before any runtime queue reconfiguration or
-> reset path is added, and so sparse/RCU checkers can validate it?
+Unless there is a reason not to, I'll try to apply this to
+drm-misc-fixes next week.
 
-I did not dig deeply, but it I think it would be best if this was addressed
-as part of this patch-set.
+That being said, why exactly is the first AUX command failing? That
+seems fishy and warrants separate investigation. The panel should be
+fully powered up and communicating by the time we get here and I
+believe there are already retries in place for the AUX commands.
 
-> [ ... ]
-> 
-> > diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h
-> > index 0dce78e4a91b..6dc29ebe6fa7 100644
-> > --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h
-> > +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h
-> > @@ -7,13 +7,20 @@
-> > +#define RNPGBE_DMA_STATUS              0x0008
-> > +#define TX_AXI_RW_EN                   0xc
-> > +/* DMA_STATUS_REG[23:20]: tx_wr, tx_rd, rx_wr, rx_rd done status. */
-> > +#define RNPGBE_DMA_TX_STATUS           GENMASK_U32(23, 22)
-> 
-> [Severity: Low]
-> This isn't a bug, but rnpgbe_hw.h has no #include lines at all while now
-> using GENMASK_U32() (and BIT() already). It builds only because the .c files
-> happen to pull in the right headers first. Would adding
-> #include <linux/bits.h> here make sense? The driver's other GENMASK_U32
-> users, rnpgbe_mbx.c and rnpgbe_mbx_fw.c, do include <linux/bitfield.h>.
+I'll also note that I considered whether we should also error-check
+the drm_edp_backlight_disable(). I think the answer there is "no". In
+general errors in "disable" and "free" are hard to handle sensibly,
+and hopefully the panel will be powered off shortly after the
+backlight goes off anyway.
 
-This also looks like it should be addressed.
 
-> 
-> > diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
-> > index 9196fa130ca9..af5cef987051 100644
-> > --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
-> > +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
-> 
-> [ ... ]
-> 
-> > +static int rnpgbe_tx_map(struct mucse_ring *tx_ring,
-> > +			 struct mucse_tx_buffer *first, u32 mac_ip_len,
-> > +			 u32 tx_flags)
-> > +{
-> 
-> [ ... ]
-> 
-> > +	if (size) {
-> > +		dma = dma_map_single(tx_ring->dev, skb->data, size,
-> > +				     DMA_TO_DEVICE);
-> > +		first->mapped_as_page = false;
-> 
-> [ ... ]
-> 
-> > +	/* write last descriptor with RS and EOP bits */
-> > +	tx_desc->vlan_cmd_bsz = build_ctob(tx_flags | M_TXD_CMD_EOP |
-> > +					   M_TXD_CMD_RS,
-> > +					   mac_ip_len, size);
-> 
-> [Severity: Low]
-> This isn't a bug, but rnpgbe_tx_map() only ever writes data descriptors
-> (pkt_addr plus build_ctob()), with tx_flags hardcoded to 0 and mac_ip_len
-> fixed at M_DEFAULT_MAC_IP_LEN, so the "1 desc for context descriptor"
-> comment on RESV_DESC_NEEDED in rnpgbe_lib.h describes a descriptor class the
-> code never emits. Should the comment be trimmed to the two-descriptor gap
-> until the offload code that needs the context descriptor lands?
-
-I think that as long as the descriptors are used in this patch-set the
-current code seems fine. But I'd lean towards trimming things if that
-is not the case.
-
-> 
-> [ ... ]
-> 
-> > +netdev_tx_t rnpgbe_xmit_frame_ring(struct sk_buff *skb,
-> > +				   struct mucse_ring *tx_ring)
-> > +{
-> 
-> [ ... ]
-> 
-> > +	/* record the location of the first descriptor for this packet */
-> > +	first = &tx_ring->tx_buffer_info[tx_ring->next_to_use];
-> > +	first->skb = skb;
-> 
-> [Severity: Medium]
-> Can this dereference a NULL tx_buffer_info during the first ifup?
-> 
-> At this patch rnpgbe_add_adapter() calls register_netdev() without
-> netif_carrier_off() or netif_tx_stop_all_queues(), and __dev_open() sets
-> __LINK_STATE_START before calling ndo_open, so all three conditions checked
-> by __dev_direct_xmit() are satisfied while rnpgbe_open() is still running:
-> 
-> 	netif_running() && netif_carrier_ok() &&
-> 	!netif_xmit_frozen_or_drv_stopped()
-> 
-> An AF_PACKET socket with PACKET_QDISC_BYPASS can then enter
-> rnpgbe_xmit_frame() -> rnpgbe_xmit_frame_ring() in the window inside
-> rnpgbe_open():
-> 
-> 	err = netif_set_real_num_queues(netdev, mucse->num_tx_queues,
-> 					mucse->num_rx_queues);
-> 	if (err)
-> 		goto err_free_irqs;
-> 
-> 	err = rnpgbe_setup_all_tx_resources(mucse);
-> 
-> where tx_buffer_info is still NULL, and a slightly later landing reaches
-> writel(i, tx_ring->tail) in rnpgbe_tx_map() with tail still NULL.
-> 
-> The window is closed later in the series by "net: rnpgbe: Add link status
-> handling support", which adds netif_carrier_off() before register_netdev()
-> and at the top of rnpgbe_open(). Would it make sense to fold that
-> netif_carrier_off() into this patch so it stands on its own?
-
-I think it would be best to address this problem in this patch.
-
-> 
-> [ ... ]
-> 
-> > diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.h b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.h
-> > index d38c08df6b7c..1fe290ed224d 100644
-> > --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.h
-> > +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.h
-> 
-> [ ... ]
-> 
-> > +#define M_MAX_TXD_PWR             12
-> > +#define M_MAX_DATA_PER_TXD        (0x1 << M_MAX_TXD_PWR)
-> > +#define TXD_USE_COUNT(S)          DIV_ROUND_UP((S), M_MAX_DATA_PER_TXD)
-> > +#define DESC_NEEDED               (MAX_SKB_FRAGS + 4)
-> > +/* 2 desc gap to keep tail from touching head */
-> > +/* 1 desc for context descriptor */
-> > +#define RESV_DESC_NEEDED          3
-> 
-> [Severity: Low]
-> Same self-containment question as for rnpgbe_hw.h: rnpgbe_lib.h has no
-> #include lines, yet now uses MAX_SKB_FRAGS and DIV_ROUND_UP here, and
-> netdev_tx_t, struct sk_buff, struct net_device and struct rtnl_link_stats64
-> in the prototypes below. Should it include <linux/skbuff.h> and
-> <linux/netdevice.h> so it does not depend on include order in the .c files?
-> 
-> > @@ -31,4 +53,12 @@ void rnpgbe_free_irq(struct mucse *mucse);
-> > +netdev_tx_t rnpgbe_xmit_frame_ring(struct sk_buff *skb,
-> > +				   struct mucse_ring *tx_ring);
-> > +void rnpgbe_get_stats64(struct net_device *netdev,
-> > +			struct rtnl_link_stats64 *stats);
-> >  #endif
-> 
-> > diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-> > index debed2f3fe64..cdda5f3d09b2 100644
-> > --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-> > +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
-> 
-> [ ... ]
-> 
-> > @@ -206,6 +247,13 @@ static int rnpgbe_add_adapter(struct pci_dev *pdev,
-> >  		goto err_clear_interrupt;
-> >  	}
-> >
-> > +	netdev->features |= NETIF_F_SG;
-> > +	netdev->hw_features |= NETIF_F_SG;
-> > +	if (dma_get_mask(&pdev->dev) > DMA_BIT_MASK(32)) {
-> > +		netdev->features |= NETIF_F_HIGHDMA;
-> > +		netdev->hw_features |= NETIF_F_HIGHDMA;
-> > +	}
-> > +
-> >  	err = register_netdev(netdev);
-> >  	if (err)
-> >  		goto err_remove_mbx;
-> 
-> > @@ -248,12 +296,7 @@ static int rnpgbe_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-> >  	if (err)
-> >  		return err;
-> >
-> > -	err = dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(56));
-> > -	if (err) {
-> > -		dev_err(&pdev->dev,
-> > -			"No usable DMA configuration, aborting %d\n", err);
-> > -		goto err_disable_dev;
-> > -	}
-> > +	dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(56));
-> 
-> [Severity: Medium]
-> Should the return value of dma_set_mask_and_coherent() still be checked
-> here? The previous code aborted probe and printed "No usable DMA
-> configuration, aborting", and dma_set_mask_and_coherent() is a plain static
-> inline int with no __must_check, so a failure is now completely silent.
-> 
-> If dma_supported() rejects a 56-bit mask, neither the streaming nor the
-> coherent mask is changed, the device keeps the PCI core's 32-bit default,
-> and probe continues through pci_request_mem_regions() to register_netdev().
-> 
-> The dma_get_mask() test above keeps highmem frags away by not setting
-> NETIF_F_HIGHDMA, but it does not cover the linear-data mapping in
-> rnpgbe_tx_map():
-> 
-> 	dma = dma_map_single(tx_ring->dev, skb->data, size,
-> 			     DMA_TO_DEVICE);
-> 	...
-> 	if (dma_mapping_error(tx_ring->dev, dma))
-> 		goto err_unmap;
-> 
-> nor the descriptor allocation in rnpgbe_setup_tx_resources():
-> 
-> 	tx_ring->desc = dma_alloc_coherent(dev, tx_ring->size, &tx_ring->dma,
-> 					   GFP_KERNEL);
-> 
-> So every frame whose linear data sits above 4GB would be dropped with only
-> the private per-ring dropped counter moving and no kernel message.
-> 
-> The commit message says only:
-> 
->   "Configure streaming and coherent DMA masks for the hardware's 56-bit
->   DMA addressing capability."
-> 
-> Could it also state that a DMA configuration failure is now non-fatal and
-> unreported, or could the check and the error path be restored?
-> 
-> The call is still unchecked at the end of the series, so no later patch
-> covers this.
-
-I wonder if this is a side-effect of the development of this patch-set.
-It does look like a regression that should be addressed in this patch.
-
--- 
-pw-bot: changes-requested
+-Doug
