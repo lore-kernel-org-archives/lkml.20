@@ -1,42 +1,41 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DFC36074F;
-	Fri, 25 Sep 2026 14:44:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A3F4AF67B;
+	Fri, 25 Sep 2026 14:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790347494; cv=none; b=fPBQQtmd1jXpZQnFMlpPt0+oYr4R7lShpitL9sJZKQmEQa1cNhKLr1DqsIR2kz5Fz7t8Tay/blpPORqlEtVAieVUOCgPHnBhUtfffTDn4bk/Iq4SdqK/590D9N9DCGcQPd4d2QfuLjNS8RWf5j+0R0PRn6WOjdhfZWIAVQLg2us=
+	t=1790347506; cv=none; b=I/NG2YT44LaQid65/Qh22HooZ8qqNe3u6J8lY+4vuRqlUHF9oWKxgin2zDhecWrW06fJp5IKI31x2XIip99/TKSW7z9vwMwZkTTfieahqkwwgxV0AcRp0DDycyFBctD/hRYlEGOHCOUP8y7jimrl38JajPZ+AEq3cj/yTtkitnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790347494; c=relaxed/simple;
-	bh=StPgB+My1OQ46FWMvus4kzwtATn/TK0NXZnXKwLzw7M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=lYGFSRf/QfABv4M1N2kB2hQ5cQp571QO5TAcLrUmIsoZ+I92qhc4zkOlo+WC148bsWDDGK3a3X840dIU00NTXd1sDG62n0dQd4QjDPF8f56RoAev8g0QbKS2ijtMMVY+iCXVWpeeddIkKx5jIDJdVNxBzNqXW+0ADMtAPs4hXFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EHL+fmAz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790347506; c=relaxed/simple;
+	bh=lkgB2v4jBGJOOVsy1xE77xifWe3MhYmf77JlSgRKGmU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TfDVzkvrW5GeHyjMf1Ba4OCAEXXgTgUjgd1hHGtsB4+99sOgWm9l9CCnbCFGtY6JMundqkgceYAFt3nwWMOdyhLtQrDNAeCQ4ESVmtmnNnonSAD8zrtIz2jclVhkaaoYZ+NtJ6GXEijf+9Zg4OJ2j/5Dx6Ha1GP/KlhUd+7PGwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AYBtgiBq; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHL+fmAz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89771F000FF;
-	Fri, 25 Sep 2026 14:44:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790347490;
-	bh=RKe/Yts2FNdE3d486qCBER5F42PYotV+U0PNBCFOC+w=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=EHL+fmAzl52Ct4tCCsYHxoWHGv3XZl7j8+YhPYevy9yXoKazbZsjiyFdL29TkD4SG
-	 wy1ITsAcMLSn+Khz/hS9RobPWxFqzkqo8fOkxocZIGWJXwNM9l46qy88WzTQpYH+r3
-	 E2+BJXJC1MGP4EEr5HNTBp16vVteAuK6slYHAGkDXPVpRdLiO06ji2IxgXj9fEHs/y
-	 xRUDfRzNDufoIuHUkMuL1UbQhjpzxeGB1abIHWrzgIzMvCsMsI8HivcyVty2bIOnrh
-	 9PHfFF8rJEtPt3jMR3uIwFdvl+mzH8cvOVrtG7p1xJRuHm8R65q89dIqH3v+F50th2
-	 odG1WfYR5uZww==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Breno Leitao <leitao@debian.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel-team@meta.com, mjguzik@gmail.com, oleg@redhat.com
-In-Reply-To: <20260916-pipe-resize-poll-key-v1-1-0f8f04f7dd5e@debian.org>
-References: <20260916-pipe-resize-poll-key-v1-1-0f8f04f7dd5e@debian.org>
-Subject: Re: [PATCH] pipe: pass a poll key when waking writers after a
- resize
-Message-Id: <20260925-gepocht-notation-zwitschern-95e9f3e54443@brauner>
-Date: Fri, 25 Sep 2026 16:44:44 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AYBtgiBq"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A112B4E41075;
+	Fri, 25 Sep 2026 14:44:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6C19E6073B;
+	Fri, 25 Sep 2026 14:44:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A12C102F08C8;
+	Fri, 25 Sep 2026 16:44:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790347492; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=CqhBrtc24xeYe5rtT3XAuCH/QzXbGSjDLxpVbh3Y7Ow=;
+	b=AYBtgiBq9Yk+NgcPBNMvFv3rq0t5CpY+KQYMtAFcoGdj0Qsz7PwHJvcgSeyu8eP/NnZDjC
+	wjKFDBqzICOnMn7XQJbqFCdhKnwI1wu2B2qgr7mtCGsENv/jux9LOG86I/0yWmjCjHaJ9X
+	JjOnhAoQWQjfvxXaeAK6G1QA8RomnIDraWdJLNaJ00mFVFXMcHF1vJVKVJRd47i1uku5t/
+	9y7HSvZLl29MWqqw9yEEJheJg/Ppsedefq3Q+LWSeEEQAZ77NKVSRiKPWw9yNZyY13K5dV
+	nci1AhNmJEPFoFflfSsvxWDWkUs+lkmFuPNFi9LD56AlVUMK09P455d4EkKU/A==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v3 0/6] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+Date: Fri, 25 Sep 2026 16:44:19 +0200
+Message-Id: <20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,34 +44,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=897; i=brauner@kernel.org;
- h=from:subject:message-id; bh=StPgB+My1OQ46FWMvus4kzwtATn/TK0NXZnXKwLzw7M=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRt67iXWTvZbYtwQHNRRb3+5EyvrWU3l/eznzs8W+zS0
- 39tFWnmHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABP5lcrwT6dPrXiiZwdDrAtP
- Sfem7YzrNx/ZvmbFr7zw3wySUipvuxkZPge8j96r2HDohuFWxaaVR04ky0mJK5zWDlbdbej2UiG
- NHwA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NQQ6CMBCF4auQrh3TaUMBV97DuChlkEagpMVGQ
+ 7i7hY1xY1z+L5lvFhbIWwrslC3MU7TBujGFPGTMdHq8EdgmNRNcKF6ihIl8cDBomTcIjynMnvQ
+ Apr+Dyo02rUFdqpql+8lTa5+7fbmm7myYnX/tryJu6z9qRECgoqScFBaC9Ll2bu7teDRuYJsbx
+ ceqBP6yBHAQvGobKXRZc/5trev6BpLERBEQAQAA
+X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Jacky Huang <ychuang570808@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 16 Sep 2026 08:57:14 -0700, Breno Leitao wrote:
-> pipe: pass a poll key when waking writers after a resize
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but at this stage it does not work with the current
+clock driver.
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+The clock controller registers its muxes with .fw_name parent data,
+which requires every internal clock name to be declared in the DT. As
+the DT does not declare them, all parent lookups fail: muxes end up
+registered as root clocks and most peripherals read a zero rate.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+This conversion exposed an issue with the WDT/WWDT parents which were
+actually missing in the clock driver. I am not using these clocks myself
+but it is worth fixing.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v3:
+- Drop the number of clocks from the binding, set it in the driver only
+- Split the binding/driver patches completely
+- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+Changes in v2:
+- New patch 1/3: register the missing WDT/WWDT parent clocks
+- New patch 3/3: harden the code
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
+---
+Miquel Raynal (6):
+      clk: nuvoton: ma35d1: Keep the clock count in the driver
+      dt-bindings: clock: ma35d1: Drop CLK_MAX_IDX define
+      dt-bindings: clock: ma35d1: Add missing WDT/WWDT parent clocks
+      clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks
+      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
 
-[1/1] pipe: pass a poll key when waking writers after a resize
-      https://git.kernel.org/vfs/vfs/c/b76721a82cbe
+ drivers/clk/nuvoton/clk-ma35d1-divider.c       |   3 +
+ drivers/clk/nuvoton/clk-ma35d1-pll.c           |   3 +
+ drivers/clk/nuvoton/clk-ma35d1.c               | 642 ++++++++-----------------
+ include/dt-bindings/clock/nuvoton,ma35d1-clk.h |   3 +-
+ 4 files changed, 199 insertions(+), 452 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
 
