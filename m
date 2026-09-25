@@ -1,112 +1,105 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430B32AD3C;
-	Fri, 25 Sep 2026 17:55:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FC53C988D;
+	Fri, 25 Sep 2026 17:57:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790358941; cv=none; b=M63SCsFcrYqggqY7J1oX/HKzkdBxFOc7r7GsKr/tgevYN8M0oXAs4VvQyLNJRUD6zjcphN3ANlJqXAeCQaTqdE/XXFGjM9Dg0sISGQ0fIpLxOnYTh46EXPbOrsw8QEv4MHJTYmj6bpl7PAhgBJ+i464JXA4n24kLBHjK64Bc1pU=
+	t=1790359055; cv=none; b=V+p8MIiRQztRjHZewCIAdnHi30WwDcI/YmzJkhDtbkQFQt0o4sJcYZWKSpdmHFN0MSjdImdkKMDVONaHzLCW8ozbJF38BaQPwhd088121cpUKVQUznS6rdbhNERqagC9eCurRkOmE+DOd8pRrugeO94W8VEV/PitqzRt11rlyms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790358941; c=relaxed/simple;
-	bh=/ckPthY3D710YICNP66mAF/TjGyxqnB9tLxG6LfmOgI=;
+	s=arc-20240116; t=1790359055; c=relaxed/simple;
+	bh=PHxCuEeF4HHaxhjxw6i/PZUo0/JK1gx/Z7MoOSiiyQQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CTcg96N3nBMM8RNwF4KCARAqbzMD3iUNJdLiKRgX24iLd25J88HecINiZ0/mCtbIo+NmvS5dWDlfmqBOh/UcSWGAgJVRYc2G+wjANWI9PzRnr4EMStRlV4Q4+OL4EErEA9nuepNX7ORcFYpcZQFj1Mi4Zw3wzHPBQ5y/NZ4313Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VjOr/5A0; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 In-Reply-To:Content-Type; b=CY2x4bUdGFjcQ2o/mboYJq4thC45CWKp76VswY4/+5kEh7WgnAfqUMFMmkyFcSS7D1n4PvTpq7V+xr/w+T71Z8xacr87zN1P3ZvjFbOpMGlsb8JdSzA/vRLd0cupBr1Zq1mL2GBSpFBi4mrTIdiviOkPqOYH4xoXsZZlgcshVjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=RN8h2xi9; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VjOr/5A0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790358935; x=1821894935;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=/ckPthY3D710YICNP66mAF/TjGyxqnB9tLxG6LfmOgI=;
-  b=VjOr/5A0k51KzR/VikoGBWlqcEPjn8BhMRPGyLgXgARnyrX3U+weq9Mz
-   u+NalzPzWrRtAE54fsAXDxZh7uGIL1KIgb9CwEqLKRk0tnL1EjyB04+ca
-   9H/+sPTBsEasHdeiIcWlvuWzImwB26haynGsTSZeE2cM8yBlJLqVoMJxP
-   GRplq/ni+7wf1aUlPCS03jagc5LI7YWHJBiq4T7HNgtlcor0iIg5Ev9PY
-   xpSCs3LG1VZbi9QIOPL2yjPdEhpQx+DrZvEgXowiC1ubkKifsGktqDeq0
-   XUrMFz3VYuBXMc/K/hUAPnElGPcbqHi08soTFLIiVp9jqas1rzaEoWDED
-   A==;
-X-CSE-ConnectionGUID: JU9q+UN9Sce2E29S9ln2BA==
-X-CSE-MsgGUID: GccIgqhZRBmWcGloumktbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="91252821"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="91252821"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 10:55:33 -0700
-X-CSE-ConnectionGUID: o+IQYnsPS9aEv6WtrlveSQ==
-X-CSE-MsgGUID: MhXlTkTvRcyiVE2TosJI7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="303901988"
-Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 10:55:33 -0700
-Message-ID: <5ff2f36f-12c7-464e-a9f5-89e1819c66c9@linux.intel.com>
-Date: Fri, 25 Sep 2026 10:55:33 -0700
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="RN8h2xi9"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id DA2AF1A1022;
+	Fri, 25 Sep 2026 17:57:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A3A266073B;
+	Fri, 25 Sep 2026 17:57:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 24CFC102F1E35;
+	Fri, 25 Sep 2026 19:57:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790359045; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=T8jXapbk2liRqW3NjH6Ovlrn1tf36ydrI5huGY01104=;
+	b=RN8h2xi99PBulxUYPNzsT1yIuwSGdn6TaVPiO6KGaPsOAwiC5q1KAtMMPMnOQRl3fcfTbO
+	5FOAB+L9bYqRP2zaf1A2YFh0133NEfj6sMe7ahHIhRRssZ+JYDPHtM59rSNPjOma313R6V
+	j4CGgopYeh290VzmPUuOq/rWiabOtiNbZPeXofhkbwYlSE6fvQCcPZghvXhyab7lFhhz1i
+	kIVjG3hlzrtax3Ba3StcuiiuQ2cSoLW58Z3GOFZ3r/ok/tcK0YRvFu59X6tX4LHNRsUqx9
+	C0oN8duUFz3YqkqvhOMFMPFgIy4WwsNGcbkrx1/sd+WfTzljdZgiWQNScwZN2Q==
+Message-ID: <7782c263-503d-485b-9029-de611536abd6@bootlin.com>
+Date: Fri, 25 Sep 2026 19:57:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 18/19] platform/x86/intel/tpmi: Declare the loop
- counters in their loops
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- David E Box <david.e.box@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260924182342.212709-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20260924182342.212709-19-sathyanarayanan.kuppuswamy@linux.intel.com>
- <arWTaYKQzTpRaR1D@ashevche-desk.local>
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net v3 1/2] net: ethtool: reject an out of range hwtstamp
+ provider index
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260925135237.3432266-1-nb@tipi-net.de>
+ <20260925135237.3432266-2-nb@tipi-net.de>
+ <0ddf8280-0a66-4dbf-9195-1b90e97015c5@bootlin.com>
+ <5ff0fa6eee1605e546d433c7944fa769@tipi-net.de>
+From: Kory Maincent <kory.maincent@bootlin.com>
 Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <arWTaYKQzTpRaR1D@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <5ff0fa6eee1605e546d433c7944fa769@tipi-net.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
 
-On 9/24/2026 2:17 PM, Andy Shevchenko wrote:
-> On Thu, Sep 24, 2026 at 11:23:40AM -0700, Kuppuswamy Sathyanarayanan wrote:
->> Declare the loop counters in the for statements that use them, so that
->> they are scoped to their loops.
+
+On 9/25/26 16:07, Nicolai Buchwitz wrote:
+> Hi Kory
+> 
+> On 25.9.2026 15:55, Kory Maincent wrote:
+> 
+>> [...]
+> 
+>>>   static const struct nla_policy
+>>>   ethnl_ts_hwtst_prov_policy[ETHTOOL_A_TS_HWTSTAMP_PROVIDER_MAX + 1] = {
+>>> -    [ETHTOOL_A_TS_HWTSTAMP_PROVIDER_INDEX] = { .type = NLA_U32 },
+>>> +    [ETHTOOL_A_TS_HWTSTAMP_PROVIDER_INDEX] =
+>>> +        NLA_POLICY_FULL_RANGE(NLA_U32, &ethnl_ts_prov_index_range),
+>>>       [ETHTOOL_A_TS_HWTSTAMP_PROVIDER_QUALIFIER] =
+>>>           NLA_POLICY_MAX(NLA_U32, HWTSTAMP_PROVIDER_QUALIFIER_CNT - 1)
+>>>   };
 >>
->> In tpmi_create_device() this also replaces the tmp cursor, which moved
->> in step with the counter, with res[i].
->>
->> No functional change intended.
+>> I think you can simply do this:
+>> [ETHTOOL_A_TS_HWTSTAMP_PROVIDER_INDEX] =
+>>     NLA_POLICY_MAX(NLA_U32, INT_MAX),
 > 
-> ...
+> That was my initial thought, but unfortunately it doesn't work. struct 
+> nla_policy's
+> .max is s16 and INT_MAX is truncated to -1. It ends up as U64_MAX in the 
+> range check
+> and in the end nothing gets rejected.
 > 
->> -	for (i = 0, tmp = res; i < pfs->pfs_header.num_entries; i++, tmp++) {
->> +	for (int i = 0; i < pfs->pfs_header.num_entries; i++) {
->>  		u64 entry_size_bytes = pfs->pfs_header.entry_size * sizeof(u32);
->>  
->> -		tmp->start = pfs->vsec_offset + entry_size_bytes * i;
->> -		tmp->end = tmp->start + entry_size_bytes - 1;
->> -		tmp->flags = IORESOURCE_MEM;
->> +		res[i].start = pfs->vsec_offset + entry_size_bytes * i;
->> +		res[i].end = res[i].start + entry_size_bytes - 1;
->> +		res[i].flags = IORESOURCE_MEM;
-> 
-> This should really use DEFINE_RES_MEM() instead.
-> 
->>  	}
-> 
-> ...
-> 
-> The rest is fine. So, make a prerequisite patch and rebase this one on top.
+>      include/vdso/limits.h:8:25: warning: overflow in conversion from 'int'
+>      to 'short int' changes value from '2147483647' to '-1' [-Woverflow]
 
-Sure. will do it in v3.
+Indeed.
+Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
 
-> 
+Thank you!
 
 -- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
