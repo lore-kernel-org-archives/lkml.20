@@ -1,76 +1,105 @@
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9EEF4D9573
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:28:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F904D2EF6;
+	Fri, 25 Sep 2026 15:28:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350097; cv=none; b=mkqb5ZYicm2QVGYTtMRR+VaeeOI821jB8EY4TZqObBg4LbsDg2N7UKdEkN57MhPZNsCf3LF/7tnGeqbulaHK0kgzaCjjdWc84gMHMcnPw5QU751jEeO5Fa+QxW83YNmhXM8uyvZiiIBk9XagD5zqR+DqufHwMnzbcMgDdFuixzM=
+	t=1790350127; cv=none; b=SRVLu9ciVrd64rqm2vAWGm2muar9FmcvDSWkYkwtuSvsnRvphOHtGQWJTlHtIcu2m+LIdKuWLnoNktBww7kSXvXHhSprQjDS9u1xcjOsMWBNACQw/i2+monTp65Z3Zcr/8TChvkA2ljaw4tGzZebo0kuvq5uZbTyi3vQ8w4g7xQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790350097; c=relaxed/simple;
-	bh=Qo2beQvFfxBbgKN5SMwchG3/5ceFDT59HuBaxJSdgsM=;
-	h=MIME-Version:Message-ID:Date:Subject:From:To:Content-Type; b=E33TrKSB5qPG2qYHx1cS9MnUgpzOcizGObrOEUk8rrTnWKGMBS+PS3GuMANIXkU4VWIstFxSFytz3EdXtBlk7oLPUn5dtxgMZIfqpr/pk032UtKen1u6RFNQrAcKdjuIXPAhvv12SB8cTXw5XUH6o/yiJ9LX+1orESbgG2Y0kpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c9b4i0V+; arc=none smtp.client-ip=209.85.128.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790350127; c=relaxed/simple;
+	bh=9MWlM5r1pVdYDoOWFTC7iaAE1HEVPoZwtYDCTmoo8ng=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=o9dw1dlixOuOsHdc48idPiQHgKwKefpLJx2/sygpD0cSNIyl13Ky7ETPaf27BLPH1ZKIG+0dXEU7xhxEVAL+2LTiTixWaoZr/mbMVWdums7CToDVRIMq1jdwm5q2YKLSAmKjVRUqGhtvW03/98JNR5jxBiMK2k08k9ccSvgOqDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VdUTcKNV; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c9b4i0V+"
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-892af0d1bcbso18418377b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:28:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790350094; x=1790954894; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:from:subject:date
-         :message-id:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qo2beQvFfxBbgKN5SMwchG3/5ceFDT59HuBaxJSdgsM=;
-        b=c9b4i0V+LW5Zem0V3rEGkRrHKERUiUw+izgK2qDdu8/jGZ+lpk9Bssngh1YRivn9NN
-         HPtwJXwEraB5n7OWg2BQ58Ruox2RQHM3hZXc4aqu4XEe23J2BIXR8JFCJ5mH4MFev2vN
-         wrxNSIkW9B+Tx0v8T4w7HD7mXtwpEkH74zFflS+r6MsHPDrVqIfr6mXEGigA+LvfsqZw
-         JZISBSLaK6oSe/tgweq5+QRt4om9wVKAcs7wx/uGsSXlRDjKEZXpumInWqplPqsYifpi
-         KlRU3aU/yNEdPgKUDFGAkDJCEMauEMbvIlmtASDaJLig4uQptH/6Bx+k+kN39BrOYOcX
-         HzYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790350094; x=1790954894;
-        h=content-transfer-encoding:content-type:to:from:subject:date
-         :message-id:mime-version:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qo2beQvFfxBbgKN5SMwchG3/5ceFDT59HuBaxJSdgsM=;
-        b=0AYkYi8kIah9vbB6gF0vzhIT6J/JIblsXC6W/CdhgdK1t+Ol/hPHpeVBLFPIym6y4s
-         1Y+POX3qSiXoP01+h0NP0VYXG6KAPfxTRr/rUmBqD/FRiyIl4jq0mR72QBU3sQsEpOEA
-         nx43EOPEn/s9Uwz/hbMjDLvTTE1nCQX0+V1NsKiMcmDyguGCYQ3ZQDU0o3Q6QeuoRQLk
-         /SwR4x+6x67BJmg5Xmvd5wvfx1t3mcKsfipelt7foZk3C11wXQFWxV6uFdk1On6l1cio
-         Ly17yCw/9lUDDKSwOr2UM05F10cRmmIZVeMqYvaiWX5FwqSAC03Ip0ovGPvUltat3z4L
-         mBXw==
-X-Gm-Message-State: AFuF++k7eRQzZ9jEW6x2UjG9xQWs9pWJYNp1lVxPt3nksRTDnEI96+Qc
-	kB+qwUHnnQmEhbBhhkLUw7XFKXhTR5hy9hmrc6ClDJxTZ+F6HTbOYrK0ab1cvi4W6k1Q9jQ/GXb
-	IxDq7Hg==
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VdUTcKNV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=HX
+	/yjkeGZhu54QuTdGe2SqLBuSkENDQfw+HyBnEMbZk=; b=VdUTcKNV8FUaX58nhD
+	Etv3gN4SrbpUREKihrQWUTnmp8uEH3CwRDAArfGxvtvb1LCojDR30KT1QTC0rJWq
+	3Pe4vAgDO0pcBLGEMqAfvM1hpMdALgZJrmK7WrX2QxawOp5+WKk/FexDPS709IEG
+	RHIGjN9rt0BjmWCFh6TGBsOjg=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3H5cAk7Zq7VoPAw--.4331S2;
+	Fri, 25 Sep 2026 23:28:01 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] wifi: mt76: mt76x02: validate RX padding before use
+Date: Fri, 25 Sep 2026 23:27:54 +0800
+Message-Id: <20260925152754.2323624-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6214:3c8c:b0:912:517b:40fb with SMTP id
- 6a1803df08f44-914324c9b57mr40085146d6.45.1790349215287; Fri, 25 Sep 2026
- 08:13:35 -0700 (PDT)
-Message-ID: <autogen-java-6c185b61-9ba8-4b33-8502-b4453d1f13a8@google.com>
-Date: Fri, 25 Sep 2026 15:13:35 +0000
-Subject: Boost your online reputation with real 5-star reviews
-From: mackeljohan@gmail.com
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H5cAk7Zq7VoPAw--.4331S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WF17Gw47Gw1UJF1xZFWUArb_yoW8AFy8pF
+	W5K342vr45Gr48uw18Aa1kCFWrGw1fKFy5KFySg3WrZa40krn8JFyF9FyFvryFyFsYk3WS
+	kF1qvanxGFyDu3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRCJPAUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgEtZ2q2kwHW6gAA33
 
-SGksDQoNCldvdWxkIHlvdSBsaWtlIHRvIHN0cmVuZ3RoZW4geW91ciBvbmxpbmUgcmVwdXRhdGlv
-biB3aXRoIGF1dGhlbnRpYywgIA0KcG9zaXRpdmUgcmV2aWV3cyBmcm9tIHJlYWwgdXNlcnM/IE91
-ciB0ZWFtIGhlbHBzIGJ1c2luZXNzZXMgbGlrZSB5b3VycyBnYWluICANCnZlcmlmaWVkIDUtc3Rh
-ciByZXZpZXdzIHRoYXQgYXBwZWFyIG5hdHVyYWwgYW5kIGNyZWRpYmxlIG9uIG1ham9yIHBsYXRm
-b3Jtcy4NCg0KV2UgY292ZXIgYSB3aWRlIHJhbmdlIG9mIHJldmlldyBzaXRlcyBzdWNoIGFzIFRy
-dXN0cGlsb3QsIFJldmlld3MuaW8sICANClByb3ZlbkV4cGVydCwgVHJ1c3RJbmRleCwgYW5kIG1h
-bnkgb3RoZXJzLiBFdmVyeSByZXZpZXcgaXMgcG9zdGVkIGJ5IGEgcmVhbCAgDQpwZXJzb24gd2l0
-aCBhbiBhY3RpdmUgcHJvZmlsZSwgZW5zdXJpbmcgZ2VudWluZSB2aXNpYmlsaXR5IGFuZCB0cnVz
-dC4NCg0KSWYgeW914oCZcmUgaW50ZXJlc3RlZCBpbiBpbXByb3ZpbmcgeW91ciBwcm9maWxlIHJh
-dGluZyBhbmQgYXR0cmFjdGluZyBtb3JlICANCmN1c3RvbWVycywganVzdCByZXBseSB0byB0aGlz
-IGVtYWlsIGFuZCB3ZeKAmWxsIHByb3ZpZGUgZnVsbCBkZXRhaWxzLg0KDQpCZXN0IHJlZ2FyZHMs
-DQpSZXZpZXcgUHJvdmlkZXJzDQoNClRvIHN0b3AgcmVjZWl2aW5nIGZ1dHVyZSBlbWFpbHMsIHNp
-bXBseSByZXBseSB3aXRoICJObyBtb3JlIGVtYWlsLiINCg==
+The RX descriptor provides L2 and PN padding lengths that are used to
+locate the CCMP IV and determine how many bytes to remove from the packet.
+These lengths are not checked against the received skb length before the
+IV is read or mt76x02_remove_hdr_pad() is called.
+
+Reject frames whose IV does not fit within the skb or whose header padding
+would extend past the end of the skb.
+
+Fixes: 30ce7f4456ae ("mt76: validate rx CCMP PN")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/net/wireless/mediatek/mt76/mt76x02_mac.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c b/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
+index 21f8b1e64101..73a42cc4edae 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
+@@ -809,9 +809,13 @@ int mt76x02_mac_process_rx(struct mt76x02_dev *dev, struct sk_buff *skb,
+ 	len = FIELD_GET(MT_RXWI_CTL_MPDU_LEN, ctl);
+ 	pn_len = FIELD_GET(MT_RXINFO_PN_LEN, rxinfo);
+ 	if (pn_len) {
+-		int offset = ieee80211_get_hdrlen_from_skb(skb) + pad_len;
+-		u8 *data = skb->data + offset;
++		unsigned int offset = ieee80211_get_hdrlen_from_skb(skb) + pad_len;
++		u8 *data;
+ 
++		if (offset + 8 > skb->len)
++			return -EINVAL;
++
++		data = skb->data + offset;
+ 		status->iv[0] = data[7];
+ 		status->iv[1] = data[6];
+ 		status->iv[2] = data[5];
+@@ -831,6 +835,9 @@ int mt76x02_mac_process_rx(struct mt76x02_dev *dev, struct sk_buff *skb,
+ 		}
+ 	}
+ 
++	if (pad_len + ieee80211_get_hdrlen_from_skb(skb) > skb->len)
++		return -EINVAL;
++
+ 	mt76x02_remove_hdr_pad(skb, pad_len);
+ 
+ 	if ((rxinfo & MT_RXINFO_BA) && !(rxinfo & MT_RXINFO_NULL))
+-- 
+2.34.1
+
