@@ -1,157 +1,138 @@
-Received: from mail-oo2-f38.google.com (mail-oo2-f38.google.com [74.125.231.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BFC4C2240
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.166
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348947; cv=pass; b=M8TI4aVe4b5+2Z7DU0P+zO3R/1erErxj6WGuMehIfYatB6jVbYLwhi/j2A/OS/wc2gKFgSh8Tumm+iH7Ozr4ukSS4u5McDyCa306N+NmdC51GM8SVBy+j9SGcVL+umEi8ky5qj8s7QRQfzb1LMpo81VWATcBP6nEthHzmdMi1ZU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348947; c=relaxed/simple;
-	bh=vyFX1j7DijCsAY/7MwwO4APwu9RE+BzPBT/c1Ev0muQ=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ESPcy5tb4FhDRNcO9/xD3OGoRHwGh6+02YnB8E1JNMLCy566SYxe5SXqNs/7uNYx3NC87MR30cEvgwNa1LUZyf01vDBvtaO2L6vtXgYv7352Wc4fEVOpdAwJ6HSuLCsxhbqhyUp4Ts4YnBMyfKpbD5FxN4rRNIIPX5NFlWzjfWQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qg0czSA4; arc=pass smtp.client-ip=74.125.231.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5402F4A4EE7;
+	Fri, 25 Sep 2026 15:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790348987; cv=none; b=rxgM+cpBPrXZShUcZmU1h9hf6KELaTuvA5Kkas8gAxptverU2s1HbBkmwQOfDJsjyf+KqD3dWm4U3wtP0VNmaEDs1/0eqo/QFlFg/k2C1ban7QLEbVEhP3EYX03HZxS9bin6VbCnLsv0eBXUFGC9BWP8E2CqbCNmrTnH9E57rKY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790348987; c=relaxed/simple;
+	bh=VW/XrB+qV68/FcIQ5eMC74++xgOoT9nZOvKItukui0g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZclRZGW7eYpacRvk7SCO6s+th6G4Wil9RTKuNT4XqweN6B+ibi/cSf1G2YLlRydq1bwivzKFMTxjMqtpbx2Opmym6kmNZMuupGsSDjBVgOyTtZJ/qm1Gi+D7LBamVGfC7JRgRiOUevGhoJKSd0Zm1RGaZFzDos4djK4zPUcABHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=hobvotZH; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qg0czSA4"
-Received: by mail-oo2-f38.google.com with SMTP id 46e09a7af769-7f4f0c89e34so636583a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:08:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790348924; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f4oxQhzPMUXUwBX5qgccnv3y9NNXfv26BmrZ3FsZ7tei3t2OBWemvmQZKOdi2JrJmg
-         qcRDxqLU9l3c/9ZbH0ZXb1GREYqQGunDtsjEZuG0/Dd7oMth9D5wJHl1oiZBm1t3yZBS
-         a3GHDj6oQcEE5TEowFV3XZGAgmGC6EY3/yoIcwyT9Jvd9gM98RADr0VV1ilwV3Zrztoo
-         Yg4SGgeKVI65rlOiKPMSZWloDkszprTGLriDdQY6cLtt7AnUGxvtsm3ORroa2GwUp4g9
-         VEh3UyP7VdBEOkKT1ojiP9B5t17C3judaB9xx9uN6eZEMQo4wVPY6gaA0HC3UJiq1JoD
-         7zFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=prht4RxpGxyY8/QaNwQuwo5UuI4a9fItRhn2JZ3BbMM=;
-        fh=O4uSfM7CnmWxwczuURrBaNcLm67NNAlcaOy7x+3Mm9I=;
-        b=CLvZcrbX5zjrADi2rt293UbUOiAP/rKHhZxv+z8KfIKgc6FzYhgy6/xK94K5T2YE57
-         KEoIpOFvZ3gGafEwxXjJJ9dhVUEpgMYyqtaf70/kXou/h3UbGR5aD7uyhjOJ3TS9ZUUe
-         el8i8WhNvus9qqRkqxRdOX6MNzovhatwCbJAD9IM9y0RZHMTo3PPPiNnGlAtGtsEHl8y
-         GEJOhkQZHkU2VUV5NeJd7D4kYyoTd/uOSkgcpMVKXCje98M1IFed1uxAR7DnTFrB69U2
-         W6op4p1dCLpDZbC+SSbnCigzqI0Bt/4hHW0dYtWWdl34Zi67mbTTNeuJNQtYaISiMk43
-         QoZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790348924; x=1790953724; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=prht4RxpGxyY8/QaNwQuwo5UuI4a9fItRhn2JZ3BbMM=;
-        b=Qg0czSA4qQVCK8LYsSi33+ottUBTR+ngsyyjD7hs5GP6jAeSQKvHzpgXoYpn9k65ma
-         WFeqxqcafTRVWLd6Y4ybFeRM7bxsr4E8NazixiR1YFcTU0u6MVXmamw+npufv7n/VMhN
-         PWbv3Cc6pFJ1UN8WQFva5wKrKVpyTdU1VHJjcAtdq9/ponunasIzxGcdg5pXZLL1oNeX
-         gC036mSyGdSwQA2pjSLcL1jmyZ4YtDRaSqzZvqFXgLWOfBUOUJrJcqNlbxy5JbAgSaz2
-         /PIS3uJVFPqzp9DZNzS5fB9a8K649yiiGqFvQV0U8X4dVHzvWor6h1tskTe4Nu2djKaz
-         yarg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790348924; x=1790953724;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=prht4RxpGxyY8/QaNwQuwo5UuI4a9fItRhn2JZ3BbMM=;
-        b=MOvQr0d955Rc2v8ufsmdYgKaAihSuqpV6Ar3mh8S0Indf2AaMVLXAvWEfgJ7qmD2Go
-         48pcbtO8hpt28E8HcrfFyb69hQiA15tODKA5Z8snKC+ixlux0SReOLHLq5uTlxXl7E6d
-         WCoq2fS4UK+iBweVcLh7O7toJFdnTuGechqNZ4aO4p8tJz2WTqdJ9bjYVFoIHOI13M3j
-         bb5GLzXapxtAt+yney/Rh8UvOK/JwjywA2q58daqoNmz9E/W9r/k51B5omPzDtR+SowP
-         VX0/L4CJD/zgkqZV8FVMhWlo1c4MVpxrnrw2uhrcd/oO8cCPHpQKcLW2BfERLEPDGxGe
-         gs9A==
-X-Forwarded-Encrypted: i=1; AKwUvBx/UQqKQFcY6okAVR13T4rayM1p9As7boRcWRv2jw30/3qknBXD49rJRehSe7W9mOoCvWdYE+VRxu38oaI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXtCD82HnoVO+6J+s+QE61k8qzwnmM00cZCGZ59GTwTtheEymE
-	awYiAByX//4mvHYrLZiPiX185JhnxZ6ZTrAbqMaA7WCsHVJYxC1E/Q4NKR8UytC6PdZOGu6vs7Y
-	IN2uxua/yCYW4laSHFwly2xEGiRURGIs=
-X-Gm-Gg: AYBFou0bK6RWYIZqItK4yRDtAvxQRk8mNVLDG2uujidY3O5ggHJnan67bgQbGKIGlxa
-	Gtd6cBWQWz4zTQuBJHlvpGjI+a8jEvmbERDz1K7h0frxko/v6+zptTnHm7L1OkJWWHJmckMRPXE
-	xQ8iMWTDU3aEir0eFAHt6BB7m0lgr6JnhKe5vyl2HtTjUw+5dHGXiYkCPAJJ6eKXpzinyO/NHxC
-	93tQEs4Yss0yYm13A2NqxuA7TrAsW7XqVrRqT247jxVNylt5FZ7DFQ4vfVabjiUseNVxpFtniAV
-	KF/4TBu/itR2O3FOZ26uyXbfSedEJN9ybNHBEwcXsqBLeKJLv2id08DqWRy/9SAnonWhJhsQ8/v
-	BGuhvdrBRa+GukFIWR8Ll734U+YAKLCHd9w==
-X-Received: by 2002:a05:6830:620e:b0:7f4:bae7:b00d with SMTP id
- 46e09a7af769-8177dac244amr8034887a34.0.1790348923768; Fri, 25 Sep 2026
- 08:08:43 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 08:08:42 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 08:08:42 -0700
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="hobvotZH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=8ZsRdp36EZWb0DJkYc8BpcrrbAf/mTTeVBAJoAH0lws=; b=hobvotZHAGf8k17uWJCa0M633j
+	Xgu23JcquGP8lXWipCmZh/G5kobCcsQQgbPcHmuGoMq96+PQL+Jad5Ov52BpZ7TFaGP0d0jOSmGWj
+	6kiqbW57/z7+9gDCZlJxAb5O4dOE/JVX2ZKWKt8xx3MWpWEum2UudXPmjoR32fXhHqY5ifLUsQOTb
+	sUBNeBh8euK5zvvxWA405zJ5cIHTdHnqODY/WrLKnjJnYtN9o3DyO6Kav1EFwCUs9a2/93UMT5QLu
+	6tIiG1WpkOTSbEA+Gd7Nk9H0+EuCUZuNf3rAtEHNd2MvyT9Tj6pmN4LpdWSlSaaJkQ+67idAKuFMp
+	dpCZQ1NQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xA7Y7-005OBd-3C;
+	Fri, 25 Sep 2026 15:09:20 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 25 Sep 2026 08:09:11 -0700
+Subject: [PATCH] ACPI: APEI: accumulate the queued flag across error
+ sections
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <SJ2PR11MB842437F022D1F62A2A527297FF802@SJ2PR11MB8424.namprd11.prod.outlook.com>
-References: <20260925003030.1077471-1-mauriziocasciano7@gmail.com>
- <20260925003030.1077471-3-mauriziocasciano7@gmail.com> <SJ2PR11MB842437F022D1F62A2A527297FF802@SJ2PR11MB8424.namprd11.prod.outlook.com>
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Date: Fri, 25 Sep 2026 08:08:42 -0700
-X-Gm-Features: AclHuK9PJSU9kqM48lGRC5SrS8qiO6GBOeVe8qPls3Qsq3dJ2is1CRYMGDcmEyk
-Message-ID: <CAO7O_xg2qGhetLSuks52oVvcH=bruC5Nr5LQz2uAscBHQxPNNQ@mail.gmail.com>
-Subject: Re: [PATCH v8 2/2] ASoC: Intel: cht: Add Yoga Book RT5677 machine entry
-To: bard.liao@intel.com, broonie@kernel.org, linux-sound@vger.kernel.org
-Cc: cezary.rojewski@intel.com, liam.r.girdwood@linux.intel.com, 
-	peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com, 
-	kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.dev, perex@perex.cz, 
-	tiwai@suse.com, jekhor@gmail.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org>
+X-B4-Tracking: v=1; b=H4sIAJaOtmoC/yXMQQ6CMBBG4auQWTsJlEDEqxgXZfoDYxS1Q4kJ4
+ e5WXX6L9zYyRIXRqdgoYlXTx5xRHQqSyc8jWEM2udK1ZecaHicYvxISAnuRdE83v4CbrpKjl7q
+ vXaAcPyMGff/G58vflvorZPneaN8/uRej5noAAAA=
+X-Change-ID: 20260925-ghes-queued-accumulate-591c8ac3b32d
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
+ Hanjun Guo <guohanjun@huawei.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Shuai Xue <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>, 
+ James Morse <james.morse@arm.com>, Xiaofei Tan <tanxiaofei@huawei.com>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, kernel-team@meta.com, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2558; i=leitao@debian.org;
+ h=from:subject:message-id; bh=VW/XrB+qV68/FcIQ5eMC74++xgOoT9nZOvKItukui0g=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqto6cfmYO00v2L5iB3D85pOjejWCOxbWqEF6kF
+ qwUy4rKhbuJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaraOnAAKCRA1o5Of/Hh3
+ bWocEACQACuoZbczHAR3Rz/S8hB7WnO0Vizvw1vb4qil7D1UuTHVGfBa5Yq/CEMt0OpJ/5hTy8D
+ wkUu/gKIGVue2gswaJh5dy1CkheOC0xhz1sWpOaBV7ppyuIJ794lQEBhfyknXQslfc5FwHdEGVV
+ ssJHzJANQ0WPGcvnJYgm9p+oK46hGKpURxGvDDRET0+YJuqa9simwd0l3IHB5jgILRn7OC6F3PP
+ 0NTjURh1DrHb02TzaoCFNc9obI1TavcnYT6VY9NFBWFVsTKB5sRxbACa74lwHKh9eyeGOP7VaDZ
+ 2R/B/WJI6ztT4r+OUBKcc0TeTO0MaAtLFgcJRlH0SG1uKrNx4S5YqM/4WGEdsu91HTVXBIKL0YJ
+ jBiHe5BJRu0rT3+6gVO0Maax1MVE4FHFvcIU+8ZE9y9zc7fMZ0W4Gnd4XEbQK4SlQABU6qJndEl
+ 6/ytsZNye/i3lNsWC7OrGYguBBqlt0DxKL1W6+vOZhm4PFlGKeZlTLbBu79BeAfoPcY5ebJ674t
+ nHVRmSgk+4LVl6GM6YtyxKsN1jyYc1kAnE0vMyEDV04Wq8U6UmBHoMyYTnRKEuzUddfKZJLGb78
+ j5I9HMLf221Of0Rp/rI+40pxpvJDkxoDiwcYY/txMHa1Dys3Sbi8moPMPz2K/rwQ6Lx/HCBee5l
+ AuiUvgm0Z2A0+2w==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-Hi Bard,
+ghes_do_proc() walks every error section of a CPER record, and
+ghes_handle_arm_hw_error() walks every error-info entry of an ARM
+processor section.  Both assign to "queued" instead of OR-ing into it,
+so only the last iteration counts: a later section or entry that queues
+no memory-failure work clears the flag an earlier one set.
 
-The SOF topology PR was opened earlier here:
+Instead of reassigning the variable at every time, just do an `OR`, so,
+if there was a single match, it will return "queued" as set.
 
-https://github.com/thesofproject/sof/pull/11129
+The comment above the check says "If no memory failure
+work is queued", which is the semantics this patch implements. I.e, only
+SIGBUS if there are queue was not handled at all. If we want to SIGBUS
+if any event was not handled/queued at all, we will need something more
+sophisticated.
 
-It is assigned to the v2.15 milestone. I have now updated it for the
-pending review comments, rebased it onto stable-v2.15, and resolved
-the reported conflicts. GitHub currently reports it cleanly mergeable;
-a fresh maintainer review and the external-contributor CI
-authorization remain pending.
+Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
+Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ drivers/acpi/apei/ghes.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-With Best Regards,
-Maurizio Casciano
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index fe10ab0e02f68..ec2d5ca51db02 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -603,7 +603,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
+ 		 * and don't filter out 'corrected' error here.
+ 		 */
+ 		if (is_cache && has_pa) {
+-			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
++			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
+ 			p += err_info->length;
+ 			continue;
+ 		}
+@@ -951,11 +951,11 @@ static void ghes_do_proc(struct ghes *ghes,
+ 			atomic_notifier_call_chain(&ghes_report_chain, sev, mem_err);
+ 
+ 			arch_apei_report_mem_error(sev, mem_err);
+-			queued = ghes_handle_memory_failure(gdata, sev, sync);
++			queued |= ghes_handle_memory_failure(gdata, sev, sync);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+ 			ghes_handle_aer(gdata);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
+-			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
++			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
+ 			struct cxl_cper_sec_prot_err *prot_err = acpi_hest_get_payload(gdata);
+ 
 
-On Fri, 25 Sep 2026 14:05:57 +0000, "Liao, Bard" <bard.liao@intel.com> wrote:
-> > -----Original Message-----
-> > From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-> > Sent: Friday, September 25, 2026 8:31 AM
-> > To: Mark Brown <broonie@kernel.org>; linux-sound@vger.kernel.org
-> > Cc: Rojewski, Cezary <cezary.rojewski@intel.com>; Liam Girdwood
-> > <liam.r.girdwood@linux.intel.com>; Peter Ujfalusi
-> > <peter.ujfalusi@linux.intel.com>; Yung-Chuan Liao <yung-
-> > chuan.liao@linux.intel.com>; Kai Vehmanen <kai.vehmanen@linux.intel.com>;
-> > Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>; Jaroslav Kysela
-> > <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>; Yauhen Kharuzhy
-> > <jekhor@gmail.com>; linux-kernel@vger.kernel.org; Maurizio Casciano
-> > <mauriziocasciano7@gmail.com>
-> > Subject: [PATCH v8 2/2] ASoC: Intel: cht: Add Yoga Book RT5677 machine entry
-> >
-> > The Yoga Book YB1-X91F/L exposes its RT5677 codec as ACPI device
-> > 10EC5677. Add a Cherry Trail machine-table entry that supplies the legacy
-> > SST firmware and board names and the SOF topology name.
-> >
-> > The Intel DSP configuration selects one firmware path at probe time. SST
-> > loads intel/fw_sst_22a8.bin and uses the cht_rt5677 board name; SOF loads
-> > sof-cht-rt5677.tplg through the standard firmware search path. The same
-> > kernel and machine entry were boot-tested with both paths on a YB1-X91L.
-> >
-> > The SOF topology sources are maintained and distributed separately by the
-> > SOF project.
->
-> Please submit the topology PR on https://github.com/thesofproject/sof,
-> too. Otherwise, there will be no topology available for the SOF.
->
-> >
-> > Assisted-by: LLM
-> > Co-developed-by: Yauhen Kharuzhy <jekhor@gmail.com>
-> > Signed-off-by: Yauhen Kharuzhy <jekhor@gmail.com>
-> > Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-> > ---
-> >  sound/soc/intel/common/soc-acpi-intel-cht-match.c | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> >
+---
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+change-id: 20260925-ghes-queued-accumulate-591c8ac3b32d
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
+
