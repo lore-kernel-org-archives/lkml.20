@@ -1,148 +1,131 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB5F2673AA;
-	Fri, 25 Sep 2026 09:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17D93E7BD5;
+	Fri, 25 Sep 2026 09:03:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790327012; cv=none; b=a69MZovcMGpN0pdVEdo4M/kIMexvwvYaa+FbeSPvIpIgM8K+9mMTOQdgmQ3Pk6LXORt8cVpvEtBsznlQTLbHoEd/th4fupABuqw4c1STaeNsrRTMiLKXwWdDfBSNWPiAddZfOObrhBshFfZPYHHdPpe9mKw2wiPwMahCZqtqCVo=
+	t=1790327028; cv=none; b=WVvY+n1M9hCbiPJt2w6DIuWpCM6heisk0mt06L8S29/AWmceLljUNWN3U2tciX6nU/+CDYSkn02RZ2HNS+s8ooI5+94/6uuNiiD2DJtx1ruud/q8wkXBVMxQWkpI1mWCrQkBtrR0OqE5Lpl7o4JkbYpYW+3DowSJYY7HqlxHm+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790327012; c=relaxed/simple;
-	bh=P8Aw7juCe2KgMXuQOGximN8nLdja9ugNEdFO7iGcWE0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ouvmWVHR2GtV0ZtbzzNKCHenHr79kJ6uMlJZG8kVJOHn0bQ+eQOF7q+uEoyMp0Vq5XgiLWgAatyrh0g5LSdPlnX1UGQUbKhedoscPGncKtDodLArN1NBWTI5AzltD5o1bjUcD2lFfyJyDYVkf0MOT8Mq+qGjYiYCWcORE4ifQqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B3UmHtlo; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790327028; c=relaxed/simple;
+	bh=Sm6FqFncUDz95hOd50JBEkdhUffm/WSki014Zf+IacY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iHHQN1v8b7wBZcS9v4+Pj7zH/Xq+DaRDzYGgUVrDVghDoKhkreYTiiO8WiLl3+Dd2n5kiSNIRoSc8BqgJhl8BpNxXSjXGztpz2O51lrqNwYFT9X7SUbEdMA8s0MCoHP1wo2lyl0xpmhXdDx9bxQbKr5KrNYWGyqAaMK5z4tw9fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESKGCPaP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B3UmHtlo"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 7BFD6C211CD;
-	Fri, 25 Sep 2026 09:04:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 99CCC6073B;
-	Fri, 25 Sep 2026 09:03:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5B81710329511;
-	Fri, 25 Sep 2026 11:03:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790327007; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=JibZyF/fRehCmboIlM1nNTSQL8f2hKg+pMPROPG2JqE=;
-	b=B3UmHtloWnC+aqmT68I/YIcaq9mGTY44TckiIBeAzpU0V/KrKwlUtbv/t06oxoSW+tAuKK
-	UsiKwh/QN3Vu0br6+Hrq6x0g6QHbmN6BayD9VENobEv9L/jac6QSelzWeK7BVU0FeRkh1r
-	tbO1kCdgFL2miiY23/08iB3nHfE4UTRPYErUBJxGLLkkgoxt9TcqlCwvyhod4s30mt5RRn
-	XCsFJB2dDDk3+8kz4Sppqt5mcbY9phFtFKmVRGX115f5Er+EVG8HKfYMYgoSbrh609NnFq
-	UvafxmgZLJDFdUYgEpjNofvycv4o6kljIcqJfTb9NECa/CIMRyhSDYCRrbg/Cg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Adi Prasan <itsadi2409@gmail.com>
-Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,
-  linux-wpan@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  syzbot+adb0bf16414b8bb2d799@syzkaller.appspotmail.com
-Subject: Re: [PATCH] mac802154: synchronize pending transmissions before
- stopping the hardware
-In-Reply-To: <20260920170655.608419-1-itsadi2409@gmail.com> (Adi Prasan's
-	message of "Sun, 20 Sep 2026 17:06:55 +0000")
-References: <20260920170655.608419-1-itsadi2409@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 25 Sep 2026 11:03:24 +0200
-Message-ID: <87ik3tn1nn.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESKGCPaP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123791F000FF;
+	Fri, 25 Sep 2026 09:03:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790327026;
+	bh=p7nQkGAeAHXx64BF+olhlvPb5+TD8S7nvGhg+ZY8C6I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ESKGCPaPSXDljbMLRbupThYpmLNIhWLjFhNjpePeM7MuHr/9qYqLgSCQiU3bMPtYl
+	 3Qn3JVJ9Zo/IW4tedOyDKqecT+CTOClxVkyBLKRZX6b/38ZVhLVn1f4IbyaDcz6GO1
+	 0LvYN2qSxt41gZMgPOMR6h1CV+6MfR3IhO4Dmia9S0koIU2mVNBdUavkCJCibXg/Dg
+	 oIophFNbbV4eWyrIVzxli9UeodM/IhQvGvnURMx2Vjt347mtXV7o3X7sffx8Sip8o6
+	 qSCUNd/557rFK7u8ZdnPaixulua+kU6CfM9ENdtCYYKGXD5Fz7xNhyVy3jvnddyTe7
+	 HL9ROdb38tzhA==
+Date: Fri, 25 Sep 2026 11:03:31 +0200
+From: Joel Granados <joel.granados@kernel.org>
+To: Yibo Tan <lhfff@tju.edu.cn>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Kees Cook <kees@kernel.org>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Eric Sandeen <sandeen@sandeen.net>, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v1] test_sysctl: unregister tables before freeing bitmap
+Message-ID: <azzmtohujpmkhyjdvehtq2oxtxfhyn2rwitrxtheglrh5lpata@maoxao2seo4m>
+References: <20260919185110.2243068-1-lhfff@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="b7k23m5y4f7w7a5r"
+Content-Disposition: inline
+In-Reply-To: <20260919185110.2243068-1-lhfff@tju.edu.cn>
+
+
+--b7k23m5y4f7w7a5r
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Adi,
+On Sun, Sep 20, 2026 at 02:51:10AM +0800, Yibo Tan wrote:
+> The table registered for bitmap_0001 retains a pointer to
+> test_data.bitmap_0001. unregister_sysctl_table() prevents new handlers
+> from starting and waits for active handlers to finish.
+>=20
+> test_sysctl_exit() currently frees the bitmap before unregistering the
+> table. A concurrent read during module removal can therefore enter
+> proc_do_large_bitmap() while the bitmap is freed. KASAN reports a
+> slab-use-after-free in _find_next_bit().
+>=20
+> Unregister all tables before freeing the bitmap so the unregister rundown
+> provides the required lifetime boundary.
+>=20
+> The unmodified module reproduced the use-after-free in three KASAN runs.
+> With this change, three runs each completed 100 load, read and unload race
+> rounds without a kernel diagnostic.
+>=20
+> Fixes: 2ea622b887e7 ("tools/testing/selftests/sysctl/sysctl.sh: add proc_=
+do_large_bitmap() test case")
+> Assisted-by: Codex:GPT-5
 
-On 20/09/2026 at 17:06:55 GMT, Adi Prasan <itsadi2409@gmail.com> wrote:
+I'll change this to Assisted-by: LLM like it says in Documentation/process/=
+coding-assistants.rst
 
-> From: Adi <itsadi2409@gmail.com>
->
-> syzbot reports a WARN_ON(current_phy->suspended) splat in
-> mac80211_hwsim's mac802154 counterpart, hwsim_hw_xmit():
->
->   WARNING: CPU: 0 PID: 6038 at drivers/net/ieee802154/mac802154_hwsim.c:2=
-66
->   hwsim_hw_xmit+0xcbf/0x1540
->   Call Trace:
->    drv_xmit_async
->    ieee802154_tx
->    ieee802154_subif_start_xmit
->    __netdev_start_xmit
->    ...
->    packet_sendmsg
->
-> mac802154_slave_close() only calls netif_stop_queue() on the closing
-> netdev before tearing the hardware down via ieee802154_stop_device(),
-> which calls straight into drv_stop(). netif_stop_queue() merely marks
-> the queue as stopped; it does not wait for a transmission that a
-> different CPU already passed the "is the queue stopped" check for and
-> is currently executing inside ndo_start_xmit(). That thread can still
-> be inside drv_xmit_async() -> hwsim_hw_xmit() by the time drv_stop()
-> runs and marks the phy suspended, which trips the WARN_ON() (and, on
-> real hardware, could still start a transmission after ->stop() has
-> torn down the transceiver).
->
-> ieee802154_suspend() already knows about this and synchronizes with
-> any in-flight transmission via ieee802154_sync_and_hold_queue() plus
-> synchronize_net() before calling ieee802154_stop_device(), releasing
-> the queue again afterwards. mac802154_slave_close() is missing the
-> same synchronization when the last open interface on a phy is closed.
->
-> Do the same hold/sync/release dance in mac802154_slave_close() so
-> drv_stop() cannot race with a transmission that is already in flight.
->
-> Reported-by: syzbot+adb0bf16414b8bb2d799@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Dadb0bf16414b8bb2d799
-> Signed-off-by: Adi <itsadi2409@gmail.com>
-
-We need your real identify.
-
+> Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
 > ---
->  net/mac802154/iface.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
-> index 31353795fa24..e29f225c0dd1 100644
-> --- a/net/mac802154/iface.c
-> +++ b/net/mac802154/iface.c
-> @@ -313,8 +313,19 @@ static int mac802154_slave_close(struct net_device *=
-dev)
->=20=20
->  	clear_bit(SDATA_STATE_RUNNING, &sdata->state);
->=20=20
-> -	if (!local->open_count)
-> +	if (!local->open_count) {
-> +		/* Ensure any asynchronous transmission already accepted by
-> +		 * the driver (i.e. past the netif_stop_queue() above) has
-> +		 * fully completed before calling into ->stop(). Otherwise
-> +		 * drv_xmit_async() can race with drv_stop(), which some
-> +		 * drivers (e.g. mac802154_hwsim) do not expect.
-
-hwsim is for testing purposes, not sure this is a real use case.
-
-> This mirrors
-> +		 * the synchronization already done in ieee802154_suspend().
-> +		 */
-
-This message is 100% AI generated and can be dropped, unless there is a
-real info carried, but I don't see it.
-
-Yet, if we can get rid of these by just fixing max802154_hwsim, please
-do it.
-
-> +		ieee802154_sync_and_hold_queue(local);
-> +		synchronize_net();
->  		ieee802154_stop_device(local);
-> +		ieee802154_release_queue(local);
-> +	}
->=20=20
->  	return 0;
+>  lib/test_sysctl.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/lib/test_sysctl.c b/lib/test_sysctl.c
+> index 909cfcf76dbfc..dd795979558a2 100644
+> --- a/lib/test_sysctl.c
+> +++ b/lib/test_sysctl.c
+> @@ -321,11 +321,11 @@ module_init(test_sysctl_init);
+> =20
+>  static void __exit test_sysctl_exit(void)
+>  {
+> -	kfree(test_data.bitmap_0001);
+>  	for (int i =3D 0; i < TEST_H_SIZE; i++) {
+>  		if (ctl_headers[i])
+>  			unregister_sysctl_table(ctl_headers[i]);
+>  	}
+> +	kfree(test_data.bitmap_0001);
 >  }
+> =20
+>  module_exit(test_sysctl_exit);
+>=20
+> base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
 
-Thanks,
-Miqu=C3=A8l
+I'll leave the Fixes tag but will add this to sysctl-next as opposed to
+pushing it through as a fix for 7.3. Lets avoid making noise just for
+the testing module.
+
+Thx for the fix
+
+Best
+
+
+--b7k23m5y4f7w7a5r
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmq2ONsACgkQupfNUreW
+QU/EHAv/cVW2QqHpeM19JThDEhrhbov44nVl1L0mxZITeCg+kxaChujxImv5eAg5
+1bEGVWJHa/d6YyG6Ovtqs1biUDZt2JTlCnN0AhsG5clcWd/P9RMxK4pp5L99UyNt
+M8W/YANaz/A/kjlKxU12YegIvD1f+ZDgE8v3JkdmTj8WeR97we9mN8y4Z+p5WO9v
+UtiMS0qZcLDa7aYuZsK/1jNvCbWaSmRaLrzmyUNLi9LuN1vnrOGB72o+wrUMxZqF
+mBbGzWwp3qOJvfvzsMjNRBn1m2PXh+KtOMnmZNuj/zg1uhN+yHQajHjjmZ/ZKN6y
+CaBi3AHr31Wz4PS6OFmNk/xbj8OVD/qF7cAvl3Ktm6TZIRwoQhkIFMBPkUZi0LUU
+rBmrqRLDsKN0l5DAudcEuPDleGIxhzEaZJVqbDIzSWwxPhvFIzBlxm9E9Exhs/48
+lsPbjoejX5rJlf2J7G8Jw6KPg6HLxUAEfmTitu14jdYo1vBeDZ//0uQIeBRZHQW9
+6HC93ZI/
+=MWAC
+-----END PGP SIGNATURE-----
+
+--b7k23m5y4f7w7a5r--
