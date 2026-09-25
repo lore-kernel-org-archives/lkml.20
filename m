@@ -1,51 +1,87 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3876F4F30E3;
-	Fri, 25 Sep 2026 20:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993003B19DE;
+	Fri, 25 Sep 2026 21:00:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790369731; cv=none; b=F5ZDSNHTJ4XrKYYl2fqVT/lfwHndgX7iwHiYsvtOb5D97A6bo5HLSZ1AIbcugcEP0+WSzWEg8KCc4BAOfET94USGZMNv4IVz7uRhvsowiaUTlnofsJLHrBE/Z7orAMHLwbcUgk0SLtO4Jy6oXPVfFA4Gd0ZBlxS7+Vw8ndIVJFw=
+	t=1790370054; cv=none; b=mQCeiUPsdgqRajccPpXN86BzX0zGPMPGqAj8ZrGjXHboFtWEOnjhnsHR5MZUM2F1Y9LvhuruAW5h5jz9meo3nNTieCdwFtmkJkCIe77XdGZ1HjeF/PQSeZV+gJCdBJ3IFz4pZo3tk7EBh9jP73PIKbhG4iMRYUv0dPtoeDshdYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790369731; c=relaxed/simple;
-	bh=oFtS72/2r+V/cbE3jqXoH0hs5S7CWd1R6CFgYwJPcM4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t+9i626U99xOUB2qU5fwOBv+4DJ4Pt4N09uVIP4Rr9F6sWLCbh+4JtBiwDWQhamLrcLbobC1xoY6wPkgq2bKi0QoOshjwZM3VIT6XUS0nlr40IFqfjEfaVvvisHqhKswBLuqyy2SB32UlPW3A2rYOwW4P97QBrmHIzhTglxO8bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=MH0kjnrD; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1790370054; c=relaxed/simple;
+	bh=6Bt13QyTayBMqWKb9nSCzKJRcO2MPtsNV9qv4F9THgg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tjNdhUHUH4s9DJR5pWFydA1nhbIR2XBzs83p0MNxuBpULnilJ/fCZaQ+OG2ifqdQVsOybn9HfaHviAtggMooJWpRsKvItVkqYxGH+w6Hxdit1dGRkq6q3c5bbctzr4QXFwcylU5L+nwnzkQXs2JVVxlC2FiVVap7V4riYjxdglk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=serhei.io; spf=pass smtp.mailfrom=serhei.io; dkim=pass (2048-bit key) header.d=serhei.io header.i=@serhei.io header.b=T3IBdPOO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mRytaF6P; arc=none smtp.client-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=serhei.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=serhei.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="MH0kjnrD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=P4SfM0J+AFamH6peJlRr9KeQjbqE2JrOJ9NkO0X38n8=; b=MH0kjnrD38pYgtUOeB2HKbCsE5
-	D9SeBLdKUPyNZu4BhsSzTiVTVXb7zGo3oKi6hwj34bWp9PLVbPXh7jF4+YIW4l+LSfbimgygwh8Rn
-	BndfRr5HoeuBzNUH8gXF9+coKK3VPVHZNQvQnKSnoggXxrdwlfjqQJcMgRbom559UCSui7o+Pj9ZZ
-	TFWmMJJ0qlVg632jjZKpYS1EbDCyXMud205wsiq8Ifk6qzYPqPeGrw1SxJFUP98/3vET4AP9ZxXqN
-	uTAgiMZgoGe4QChkj7CQO3YUVeUkfgKG+75HDwISnZgk3GGCvtQ6KRmciT5uvSeqRuNEzCFsi2n2n
-	f1M9CyRQ==;
-Received: from [151.115.150.205] (port=51460 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xACx7-0000000Bapv-209B;
-	Fri, 25 Sep 2026 22:55:28 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: John Johansen <john.johansen@canonical.com>,
-	Georgia Garcia <georgia.garcia@canonical.com>
-Cc: apparmor@lists.ubuntu.com,
-	linux-security-module@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=serhei.io header.i=@serhei.io header.b="T3IBdPOO";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mRytaF6P"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfout.phl.internal (Postfix) with ESMTP id 7DC78EC01D8;
+	Fri, 25 Sep 2026 17:00:51 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-08.internal (MEProxy); Fri, 25 Sep 2026 17:00:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=serhei.io; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1790370051; x=1790456451; bh=GI
+	ebuVtnDClQY4/EWsG9mpy5eNxIVOZQFxC7BYCDWFA=; b=T3IBdPOOC/Af3/Xksx
+	b04mj19/gnShFs+Wb/E0QK/3KMxPbeh7lsXUh+L5Sfqq3sdqX46MebJkkVP4icsR
+	rUU0PvfuAcL2VDXiKYRPqGzsP1H2GFnm0DZ2UIjZRYMTfs5bi3HWjSbYa8Aq6BkM
+	HcWrEP2z0TlKJvMlzVh5vdUlDC4PCYc5JH79EHLegcc9EfQtH9HzNP8twz+rh9jX
+	23YRmpLdGoXHjEjNwuiV7pwDhGD6nFJY3VbUrH+/Kf/+1KT9WNyzEBRt3K3mHG3V
+	sMrqD1Ha9p2lLE96ci9lJY0ngX3rr8xyR347d1XmM8FVh7G4ubQ9nod6v6jIGfkl
+	ZKEg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1790370051; x=1790456451; bh=GIebuVtnDClQY4/EWsG9mpy5eNxI
+	VOZQFxC7BYCDWFA=; b=mRytaF6P08yT4fBjQ+0aHIlaS87pBKudHj7Fe1ZetE4b
+	wgJHR1ImBxdpTwEFEz0aCeRnD04jdmKSxEO6hwQ0cSOnGVULZmpcPYF9RmAm8feb
+	mQ1iah37a28DlTHeshTh+wY8yCHOz5/arunCWP1wB3PEOgCiupq6LtCrU/O5q117
+	YKfkfROA3K/GehArceKDwxrbUbwiwv0izLnkvSc0cKzdcudOFbxmEvaoVJGc7Ve2
+	AuLT/ko6KIMniDbMPtvjHjhwxZKOA/KLBuPxnWW5XWKi4GLLopL1/W7KutWPQb9P
+	RRbA+S1p8wyjC3Km4KHX8LWHo4s+8yBDfc10h43oJA==
+X-ME-Sender: <xms:AuG2arcb2vmC5k-tkjve-zWAy81ZvZGxdrTY5umPubAfRmWBqVHYzw>
+    <xme:AuG2ave88PcWgt72DrctzNrdcg7jjS54OkuTuNpcjsO8FuadN2CRuWHcyrqX5ZqSf
+    afOzVDXHoyisM-7gfM8Lh4I97f84iTVTFs7HQHWDHWESHMK3CyI>
+X-ME-Received: <xmr:AuG2at2iSDjpXwSbkiC1jGrINwD8AYchwJOWixN7DSYY1kJQJyw6P6DKq-eenYOAOb2Rdjwaa00X-yWL>
+X-ME-Proxy-Cause: dmFkZTF9KlVdyhqm9yVBqrZ3N25dN0XPofRirTNJbw6uAXVSxd0KSfU5or0QuJVSyn+CRu
+    STQIH0ieKtgV/LyTY0ruj+6jZ+byHS40DW3jn+VjRjcWDEaWRDDsqDgHMspGuenofS2Ii6
+    oHAW6ue9BE2IPXEsxVwu3WtpGEtTVT+KSUQ3m5RCugDLHr2kE62jGJfC+MD2VcH3y8HPeH
+    9q470m1dxBgBTkTLc5xMNyJumkPLhPVrm7ds9M1TLLq/yu+CFEt4EAacg39JKdaIgd244T
+    uSxwu9sX4PzEU65wj3WNtPaVOI0uH/1LqcEq0+K+F5Vlnk6raoDRgWuFxwdjTwe3k4/xfD
+    0pX7qzb6gOpmRj7mpOeeaZGIXrnk8CNisVBL72ve5zS6wG+M14v7scGAw9pnVV7I4tmirq
+    NiFswADw97vANcknNasHgtKCwxaTRbQV/JytSpf2hTdmRXmGUj06vhvESQ0OUfhdrr7/Wx
+    zslOoIkrLUzhXJR/+Sm3XURXSM1dbF7cM+JXoUsJJeheTkCS3F+J+8shH63vC9W5aIJxLd
+    Ngez4xnV6PGS3nXU/fUQxl73SljgfhTtCnKkcouaXSuKWWEPM/PDjfh2npHSwkJKWkYllG
+    y+uo4dphQJfM9I7wDTPwx31P2eeK3M+Sw7sjh5X+B7I5BPouV/Vs51D/wTkA
+X-ME-Proxy: <xmx:AuG2av-44PlObKoxSSE3Jfc8yJhdTdjmzi2jIwfQdZJkn3RicwxWxA>
+    <xmx:AuG2aq75wsfyKISeXlf7JzSbrPollc9l7O8fMgSd0b2767S9zIHN2w>
+    <xmx:AuG2avsN8AePfpFn8ZbpOiarp693wd_B01-mPWoJ1IObM2t03oqcag>
+    <xmx:AuG2ak2vemNtAEv8ZRjh2SnbpUtLT35OfqlrFMkflcQeT4uP62eRJg>
+    <xmx:A-G2asnC-Vx1SOFSXhu6QcLiV3yRDRo_zEprzkCrduy85lqj1iWS0unV>
+Feedback-ID: i572946fc:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 25 Sep 2026 17:00:48 -0400 (EDT)
+From: Serhei Makarov <serhei@serhei.io>
+To: acme@kernel.org,
+	irogers@google.com,
+	namhyung@kernel.org,
+	james.clark@linaro.org
+Cc: jolsa@kernel.org,
+	adrian.hunter@intel.com,
+	peterz@infradead.org,
+	mingo@kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Subject: [PATCH v2 2/2] tests: add SCTP connect mediation regression test
-Date: Fri, 25 Sep 2026 20:54:50 +0000
-Message-ID: <20260925205447.1244190-6-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260925205447.1244190-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20260925205447.1244190-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	linux-perf-users@vger.kernel.org,
+	Serhei Makarov <serhei@serhei.io>
+Subject: [RFC PATCH 1/2] perf inject: Support piped data with --convert-callchain
+Date: Fri, 25 Sep 2026 17:00:29 -0400
+Message-ID: <20260925210030.1957778-1-serhei@serhei.io>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,234 +90,187 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-Exercise SCTP connect(), sendto(), sendmsg() and all three CONNECTX
-interfaces over IPv4 and IPv6. Check that connections succeed when
-allowed and return EACCES when connect permission is omitted or denied.
+When profiling applications without framepointers or non-framepointer
+distros, it's helpful to pipe stack sample data directly to perf
+inject --convert-callchain, e.g.:
 
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+perf record -F 999 --call-graph dwarf -o - -- myapp \
+  | perf inject --convert-callchain -i - -o perf.data
+
+This piped setup doesn't store stack samples on disk, removing a major
+performance bottleneck for DWARF stack unwinding as noted in [1].
+
+To support piped output, write a modified copy of the event attributes
+in perf_event__repipe_attr. This gets around the inability to modify
+event attribute records in-place after they are written to the pipe.
+
+To support piped input, perform a more-exact sample size calculation
+to perf_event__convert_sample_callchain.
+
+[1]: https://rwmj.wordpress.com/2023/02/14/frame-pointers-vs-dwarf-my-verdict/
+> The first most obvious thing is that even with the smallest stack
+> data collection, DWARF’s perf.data is over 10 times larger, and it
+> balloons even larger once you start to collect more reasonable stack
+> sizes. For a single minute of data collection, collecting 10s of
+> gigabytes of data is not very practical even on high end machines, and
+> continuous performance analysis would be impossible at these data
+> rates.
+
+Signed-off-by: Serhei Makarov <serhei@serhei.io>
 ---
- tests/regression/apparmor/Makefile         |   2 +
- tests/regression/apparmor/net_inet_sctp.c  | 115 +++++++++++++++++++++
- tests/regression/apparmor/net_inet_sctp.sh |  56 ++++++++++
- 3 files changed, 173 insertions(+)
- create mode 100644 tests/regression/apparmor/net_inet_sctp.c
- create mode 100755 tests/regression/apparmor/net_inet_sctp.sh
+ tools/perf/builtin-inject.c | 88 ++++++++++++++++++++++++++-----------
+ 1 file changed, 63 insertions(+), 25 deletions(-)
 
-diff --git a/tests/regression/apparmor/Makefile b/tests/regression/apparmor/Makefile
-index 18e408f5cd88..c90865f94fe7 100644
---- a/tests/regression/apparmor/Makefile
-+++ b/tests/regression/apparmor/Makefile
-@@ -150,6 +150,7 @@ SRC=access.c \
-     mount.c \
-     named_pipe.c \
-     net_inet_rcv.c \
-+    net_inet_sctp.c \
-     net_inet_snd.c \
-     net_inet_tcp_fastopen.c \
-     net_raw.c \
-@@ -326,6 +327,7 @@ TESTS=aa_exec \
-       namespaces \
-       net_iface \
-       net_inet \
-+      net_inet_sctp \
-       net_inet_tcp_fastopen \
-       net_raw \
-       overlayfs_kernel \
-diff --git a/tests/regression/apparmor/net_inet_sctp.c b/tests/regression/apparmor/net_inet_sctp.c
-new file mode 100644
-index 000000000000..3e6cf4067527
---- /dev/null
-+++ b/tests/regression/apparmor/net_inet_sctp.c
-@@ -0,0 +1,115 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/* Copyright (C) 2026 Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr> */
+diff --git a/tools/perf/builtin-inject.c b/tools/perf/builtin-inject.c
+index f174bc69cec4..29b22b52a631 100644
+--- a/tools/perf/builtin-inject.c
++++ b/tools/perf/builtin-inject.c
+@@ -219,6 +219,7 @@ static int perf_event__repipe_attr(const struct perf_tool *tool,
+ 				   union perf_event *event,
+ 				   struct evlist **pevlist)
+ {
++	union perf_event *event2;
+ 	struct perf_inject *inject = container_of(tool, struct perf_inject,
+ 						  tool);
+ 	int ret;
+@@ -231,7 +232,28 @@ static int perf_event__repipe_attr(const struct perf_tool *tool,
+ 	if (!inject->output.is_pipe)
+ 		return 0;
+ 
+-	return perf_event__repipe_synth(tool, event);
++	/* We can repipe the original event in most cases: */
++	event2 = event;
 +
-+#include <errno.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <netinet/in.h>
-+#include <sys/socket.h>
-+#include <sys/uio.h>
-+#include <linux/sctp.h>
++	if (inject->convert_callchain) {
++		/* Copy event to repipe with corrected final attributes,
++		   without confusing downstream users of pevlist: */
++		event2 = (void *)inject->event_copy;
++		if (event2 == NULL) {
++			inject->event_copy = malloc(PERF_SAMPLE_MAX_SIZE);
++			if (!inject->event_copy)
++				return -ENOMEM;
++			event2 = (void *)inject->event_copy;
++		}
++		memcpy(event2, event, event->header.size);
 +
-+static void check(int ok, const char *operation)
-+{
-+	if (!ok) {
-+		printf("FAIL: %s (errno %d)\n", operation, errno);
-+		exit(1); /* Setup errors must not satisfy an expected EACCES. */
++		event2->attr.attr.sample_type &= ~(PERF_SAMPLE_REGS_USER | PERF_SAMPLE_STACK_USER);
++		event2->attr.attr.sample_regs_user = 0;
++		event2->attr.attr.sample_stack_user = 0;
++		event2->attr.attr.exclude_callchain_user = 0;
 +	}
++
++	return perf_event__repipe_synth(tool, event2);
+ }
+ 
+ static int perf_event__repipe_event_update(const struct perf_tool *tool,
+@@ -384,6 +406,18 @@ static int perf_event__repipe_sample(const struct perf_tool *tool,
+ 	return perf_event__repipe_synth(tool, event);
+ }
+ 
++static bool evsel__has_dwarf_callchain(struct evsel *evsel)
++{
++	struct perf_event_attr *attr = &evsel->core.attr;
++	const u64 dwarf_callchain_flags =
++		PERF_SAMPLE_STACK_USER | PERF_SAMPLE_REGS_USER | PERF_SAMPLE_CALLCHAIN;
++
++	if (!attr->exclude_callchain_user)
++		return false;
++
++	return (attr->sample_type & dwarf_callchain_flags) == dwarf_callchain_flags;
 +}
 +
-+int main(int argc, char *argv[])
-+{
-+	struct sockaddr_in in = {
-+		.sin_family = AF_INET, .sin_addr.s_addr = htonl(INADDR_LOOPBACK),
-+	};
-+	struct sockaddr_in6 in6 = {
-+		.sin6_family = AF_INET6, .sin6_addr = IN6ADDR_LOOPBACK_INIT,
-+	};
-+	struct sockaddr *addr;
-+	socklen_t addrlen;
-+	const char *mode;
-+	int family, client, listener;
-+	ssize_t ret;
-+	char payload = 'x', buffer[2];
+ static int perf_event__convert_sample_callchain(const struct perf_tool *tool,
+ 						union perf_event *event,
+ 						struct perf_sample *sample,
+@@ -391,15 +425,21 @@ static int perf_event__convert_sample_callchain(const struct perf_tool *tool,
+ 						struct machine *machine)
+ {
+ 	struct perf_inject *inject = container_of(tool, struct perf_inject, tool);
+-	struct callchain_cursor *cursor = get_tls_callchain_cursor();
++	struct callchain_cursor *cursor;
+ 	union perf_event *event_copy = (void *)inject->event_copy;
+ 	struct callchain_cursor_node *node;
+ 	struct thread *thread;
+ 	u64 sample_type = evsel->core.attr.sample_type;
+ 	u32 sample_size = event->header.size;
++	u64 prev_callchain_nr;
+ 	u64 i, k;
+ 	int ret;
+ 
++	if (!evsel__has_dwarf_callchain(evsel))
++		return perf_event__repipe(tool, event, sample, machine);
++	cursor = get_tls_callchain_cursor();
++	prev_callchain_nr = sample->callchain->nr;
 +
-+	check(argc == 3, "usage: net_inet_sctp inet|inet6 MODE");
-+	check(!strcmp(argv[1], "inet") || !strcmp(argv[1], "inet6"), "family");
-+	mode = argv[2];
-+	family = strcmp(argv[1], "inet") == 0 ? AF_INET : AF_INET6;
-+	alarm(15);
-+
-+	client = socket(family, SOCK_SEQPACKET, IPPROTO_SCTP);
-+	if (client == -1 && !strcmp(mode, "probe") &&
-+	    (errno == EPROTONOSUPPORT || errno == ESOCKTNOSUPPORT ||
-+	     errno == EAFNOSUPPORT))
-+		return 77;
-+	check(client >= 0, "client socket");
-+	if (!strcmp(mode, "probe")) {
-+		close(client);
-+		return 0;
+ 	if (event_copy == NULL) {
+ 		inject->event_copy = malloc(PERF_SAMPLE_MAX_SIZE);
+ 		if (!inject->event_copy)
+@@ -455,8 +495,18 @@ static int perf_event__convert_sample_callchain(const struct perf_tool *tool,
+ 	memcpy(event_copy, event, sizeof(event->header));
+ 
+ 	/* adjust sample size for stack and regs */
+-	sample_size -= sample->user_stack.size;
+-	sample_size -= (hweight64(evsel->core.attr.sample_regs_user) + 1) * sizeof(u64);
++	{
++		/* need to get stack size from the raw event */
++		const u64 *raw_stack = (const u64 *)((void *)event + sample->user_stack.offset);
++		u64 raw_alloc = raw_stack[0];
++		sample_size -= sizeof(u64);
++		if (raw_alloc)
++			sample_size -= raw_alloc + sizeof(u64);
 +	}
-+
-+	/* Let the kernel choose a free loopback port for each test. */
-+	addr = family == AF_INET ? (struct sockaddr *)&in : (struct sockaddr *)&in6;
-+	addrlen = family == AF_INET ? sizeof(in) : sizeof(in6);
-+	listener = socket(family, SOCK_SEQPACKET, IPPROTO_SCTP);
-+	check(listener >= 0, "listener socket");
-+	check(bind(listener, addr, addrlen) == 0, "bind");
-+	check(getsockname(listener, addr, &addrlen) == 0, "getsockname");
-+	check(listen(listener, 1) == 0, "listen");
-+
-+	if (!strcmp(mode, "connect")) {
-+		ret = connect(client, addr, addrlen);
-+	} else if (!strcmp(mode, "sendto")) {
-+		ret = sendto(client, &payload, 1, MSG_NOSIGNAL,
-+			     addr, addrlen);
-+	} else if (!strcmp(mode, "sendmsg")) {
-+		struct iovec iov = { .iov_base = &payload, .iov_len = 1 };
-+		struct msghdr msg = {
-+			.msg_name = addr,
-+			.msg_namelen = addrlen,
-+			.msg_iov = &iov,
-+			.msg_iovlen = 1,
-+		};
-+
-+		ret = sendmsg(client, &msg, MSG_NOSIGNAL);
-+	} else if (!strcmp(mode, "connectx3")) {
-+		struct sctp_getaddrs_old args = {
-+			/* This ABI takes the address length in bytes. */
-+			.addr_num = addrlen,
-+			.addrs = addr,
-+		};
-+		socklen_t optlen = sizeof(args);
-+
-+		ret = getsockopt(client, IPPROTO_SCTP, SCTP_SOCKOPT_CONNECTX3,
-+				 &args, &optlen);
-+	} else if (!strcmp(mode, "connectx_old") || !strcmp(mode, "connectx")) {
-+		int opt = !strcmp(mode, "connectx_old") ?
-+			SCTP_SOCKOPT_CONNECTX_OLD : SCTP_SOCKOPT_CONNECTX;
-+
-+		/* CONNECTX can return a positive association ID on success. */
-+		ret = setsockopt(client, IPPROTO_SCTP, opt, addr, addrlen);
-+	} else {
-+		printf("FAIL: unknown operation %s\n", mode);
-+		return 1;
-+	}
-+
-+	if (ret == -1) {
-+		int error = errno;
-+
-+		printf("FAIL: %s: %s\n", mode, strerror(error));
-+		return error; /* Checked by runchecktest_errno. */
-+	}
-+	if (strcmp(mode, "sendto") && strcmp(mode, "sendmsg"))
-+		ret = sendto(client, &payload, 1, MSG_NOSIGNAL, addr, addrlen);
-+	check(ret == 1, "send payload");
-+	check(recv(listener, buffer, sizeof(buffer), 0) == 1 &&
-+	      buffer[0] == payload, "receive payload");
-+
-+	close(client);
-+	close(listener);
-+	printf("PASS\n");
-+	return 0;
-+}
-diff --git a/tests/regression/apparmor/net_inet_sctp.sh b/tests/regression/apparmor/net_inet_sctp.sh
-new file mode 100755
-index 000000000000..e3c81e2ee814
---- /dev/null
-+++ b/tests/regression/apparmor/net_inet_sctp.sh
-@@ -0,0 +1,56 @@
-+#! /bin/bash
-+# SPDX-License-Identifier: GPL-2.0-only
-+# Copyright (C) 2026 Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-+
-+#=NAME net_inet_sctp
-+#=DESCRIPTION
-+# SCTP association creation must require connect permission, including
-+# implicit connections through sendto/sendmsg and the CONNECTX socket options.
-+#=END
-+
-+bin=$(cd "$(dirname "$0")" && pwd)
-+. "$bin/prologue.inc"
-+
-+requires_any_of_kernel_features network/af_mask network_v8/af_mask network_v9/af_mask
-+# Probe the same ABI that genprofile selects with "abi <kernel>".
-+requires_parser_support --policy-features=/sys/kernel/security/apparmor/features \
-+	--warn=rule-downgraded --Werror=rule-downgraded \
-+	--warn=rule-not-enforced --Werror=rule-not-enforced -- \
-+	"network (create,bind,listen,send,receive,setopt,getopt,getattr) inet seqpacket," \
-+	"deny network connect inet seqpacket,"
-+
-+run_modes()
-+{
-+	local description=$1 expected=$2 error=$3 mode
-+
-+	for mode in connect sendto sendmsg connectx_old connectx connectx3; do
-+		runchecktest_errno "$error" "SCTP $family $mode ($description)" \
-+			"$expected" "$family" "$mode"
-+	done
-+}
-+
-+for family in inet inet6; do
-+	# Probe without a profile so policy denials cannot cause a skip.
-+	probe_rc=0
-+	"$test" "$family" probe || probe_rc=$?
-+	if [ "$probe_rc" -eq 77 ]; then
-+		echo "    SCTP $family not available. Skipping tests ..."
-+		continue
-+	fi
-+	[ "$probe_rc" -eq 0 ] || fatalerror "SCTP $family probe failed"
-+
-+	run_modes unconfined pass 0
-+
-+	genprofile "network;$family;seqpacket"
-+	run_modes "connect allowed" pass 0
-+
-+	# Grant all the other permissions used by the client and listener.
-+	genprofile "network;(create,bind,listen,send,receive,setopt,getopt,getattr);$family;seqpacket"
-+	run_modes "connect omitted" fail EACCES
-+
-+	genprofile "network;$family;seqpacket" \
-+		"qual=deny:network;connect;$family;seqpacket"
-+	run_modes "connect denied" fail EACCES
-+
-+	removeprofile
-+done
++	sample_size -= sizeof(u64); /* abi */
++	if (sample->user_regs && sample->user_regs->abi)
++		sample_size -= hweight64(evsel->core.attr.sample_regs_user) * sizeof(u64);
++	sample_size -= (prev_callchain_nr + 1) * sizeof(u64);
+ 	sample_size += (sample->callchain->nr + 1) * sizeof(u64);
+ 	event_copy->header.size = sample_size;
+ 
+@@ -2482,18 +2532,6 @@ static int __cmd_inject(struct perf_inject *inject)
+ 	return ret;
+ }
+ 
+-static bool evsel__has_dwarf_callchain(struct evsel *evsel)
+-{
+-	struct perf_event_attr *attr = &evsel->core.attr;
+-	const u64 dwarf_callchain_flags =
+-		PERF_SAMPLE_STACK_USER | PERF_SAMPLE_REGS_USER | PERF_SAMPLE_CALLCHAIN;
+-
+-	if (!attr->exclude_callchain_user)
+-		return false;
+-
+-	return (attr->sample_type & dwarf_callchain_flags) == dwarf_callchain_flags;
+-}
+-
+ int cmd_inject(int argc, const char **argv)
+ {
+ 	struct perf_inject inject = {
+@@ -2746,15 +2784,15 @@ int cmd_inject(int argc, const char **argv)
+ 	if (inject.convert_callchain) {
+ 		struct evsel *evsel;
+ 
+-		if (inject.output.is_pipe || inject.session->data->is_pipe) {
+-			pr_err("--convert-callchain cannot work with pipe\n");
+-			goto out_delete;
+-		}
+-
+-		evlist__for_each_entry(inject.session->evlist, evsel) {
+-			if (!evsel__has_dwarf_callchain(evsel) && !evsel__is_dummy_event(evsel)) {
+-				pr_err("--convert-callchain requires DWARF call graph.\n");
+-				goto out_delete;
++		/* For on-disk data, check evlist up-front.
++		   For piped data, evlist is not available yet;
++		   check in perf_event__convert_sample_callchain. */
++		if (!inject.session->data->is_pipe) {
++			evlist__for_each_entry(inject.session->evlist, evsel) {
++				if (!evsel__has_dwarf_callchain(evsel) && !evsel__is_dummy_event(evsel)) {
++					pr_err("--convert-callchain requires DWARF call graph.\n");
++					goto out_delete;
++				}
+ 			}
+ 		}
+ 
 -- 
-2.47.3
+2.55.0
 
