@@ -1,131 +1,109 @@
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+Received: from mta0.migadu.com (out-238.mta0.migadu.com [91.218.175.238])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0662C49EC78
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:42:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2CC4B129D
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.238
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790347357; cv=none; b=DJymXWxXNSheqpJeHvoK81b79LlZsA+0ottIXnRLjZPsLofGMl58hXrFt/2nKYDOMUrH0aBcZz9/U5Xu9oi3ETGLyuZMVomNk8qshnhUDUvOS525EutaDgPN99JqL5Kp41gdMj0tWmJG0r1UWe7ra8NZVWlmt+Y6zPXWcD7wOOY=
+	t=1790347367; cv=none; b=BaWzB8rkwXjDWauS9aKxtXNsad3pBpSKSz9MT+VJaQqcn4Yz/eYKejgMOy/9KCSqyGzrurIt4GIcoH8foTqKR/zuJTrPE6MKAo+G/5RcEBP3jU+p+7v2jWsWwjnYBXh6FMTZuENAcUfnBJt5wZ99wk9kbS0K1NKAs88YWueOwqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790347357; c=relaxed/simple;
-	bh=mJKMhoCyAtR0UxOKPvYGtqYhysF33pibPFssqwuToEc=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=L3bTlS/juhjc+pfhA48yGyfMTp2YgMDeTSCxMPEc4Id4wV/DmUbCh2dmMfAcVpx82BiFhOrdwGBcgWRC3zlawE0v5E6hFQpbXjou7rby87CCRqzRLpt1u7eljN7//99GVWsti9z8N3NMrs7yfsWyr46JzS4UcwjXGJLLVnx/Z6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-466d41a1d9aso1182556fac.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:42:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790347350; x=1790952150;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3plWnNTkUlR3THa6vSylFRM5p3cT0mVJsll5kMqLqrM=;
-        b=K8vSwX9qn/pYvqPSDOmcLxi9lFpDq7MmBfshDgYYM9sO0zEqgwtn6tpCsWHL/TL1Q8
-         FvG7mTkcyubNG7Td+nGz3r2Pk36D5KQQr8nakG5Zo2b4nMM1MPepx5jEWpWMmEx+pkVS
-         gSatHBDM6sG+hMR6bZiwgA8qr0zOxgvG3C4vn3TmTyViUdpoY7pj1HAj/HIZv8tYxQgr
-         IzQitOf3w6u5JUKoroTZLvbM+e0lp2thrE2PJh9HxDWYOKrsOU8hRUl5gWTiLVEU1+Aq
-         rfV0DP84sXis1usLkhRCA3HiymRQ8un3g/ToLPOv5QWxnaBJjxNMyvI1Kwl3084Zwq74
-         WajQ==
-X-Gm-Message-State: AFuF++mH94iba3t/2P2m0WHj3yOmJNIvC7VgtUIuXS0qknAMZ2CGxvFw
-	kyZPxKAttlsvwhlt/sya6OLPC1auIRElWcq/JTfrraFsFM3KBmElp1cXGipxl17WcLpQhQQbDZj
-	kvzivhwGf2Uz/RzYaXov+20HpDRWaLuRQN0h0wLO7pI3lhe6rZ1D0Cu6Wtqw=
+	s=arc-20240116; t=1790347367; c=relaxed/simple;
+	bh=FhIw8yCAByP67BC4dQbuhW0LENXAGhz9fIxT0E/EZUI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gDfm1oTTFYJNdDU2yHrRRkF9/mb6B5GiwsrAX6PZD1luf2/tCyyTK1FOcJQH8UuyrhC8Pn9Gp7/S/b98oLDJ7ZF3L24x0sAEEcMlP6s+07wmqs2JG2c6GCiXecqqvHl5ozQDDx9CcLj4YlFshwmHjmDqb/8R65Tc2osPnmpkgmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oJwx0RO+; arc=none smtp.client-ip=91.218.175.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oJwx0RO+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FhIw8yCAByP67BC4dQbuhW0LENXAGhz9fIxT0E/EZUI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790347354; v=1; x=1790952154;
+ b=oJwx0RO+oisJVzYAp4vLU556FfBSbJVoo4LYiF/o1hZQ9u+fMbGZ8aG7A4TFtHzllCJ/uNSY
+ W3c9WdBlNkJDYCfuurYj0lFNJyaw9nnnFUtYYrHa6S+SY81i75P5QAdpaKxNmbu+MvRniTimpsa
+ 0FjruOqLVHCUYheRFMPiq/bU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ff28ac3c2d76e92a;
+	Fri, 25 Sep 2026 14:42:34 +0000
+X-Mizu-Trace-ID: ff28ac3c2d76e92a
+X-Migadu-Flow: FLOW_OUT
+From: Denis Benato <denis.benato@linux.dev>
+To: platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Hans de Goede" <hansg@kernel.org>,
+	"Corentin Chary" <corentin.chary@gmail.com>,
+	"Luke Jones" <luke@ljones.dev>,
+	"busybox11" <busybox11th@gmail.com>,
+	"Denis Benato" <benato.denis96@gmail.com>,
+	Denis Benato <denis.benato@linux.dev>
+Subject: [PATCH v3 3/4] platform/x86: asus-armoury: add dGPU disable fallback DEVID for ProArt H7606 series
+Date: Fri, 25 Sep 2026 14:42:27 +0000
+Message-ID: <20260925144229.3693-4-denis.benato@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260925144229.3693-1-denis.benato@linux.dev>
+References: <20260925144229.3693-1-denis.benato@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1817:b0:4d6:92b3:c1b6 with SMTP id
- 5614622812f47-4d73124cec1mr7631579b6e.57.1790347350434; Fri, 25 Sep 2026
- 07:42:30 -0700 (PDT)
-Date: Fri, 25 Sep 2026 07:42:30 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab68856.80e1c6cc.1e8e5f.0037.GAE@google.com>
-Subject: [syzbot] KCSAN: data-race in __se_sys_inotify_add_watch / fsnotify_handle_inode_event
-From: syzbot <syzbot+181b8b439f5207144b16@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Newer ASUS ProArt laptops (e.g. H7606 series) implement dGPU power
+control on WMI DEVID 0x00090120 instead of the usual 0x00090020.
+The default DEVID returns 0xFFFFFFE2 on these models, so the
+dgpu_disable firmware attribute is never created and the dGPU cannot
+be re-enabled from Linux at all.
 
-syzbot found the following issue on:
+Add a fallback probe for device ID 0x00090120 following the same
+approach as the gpu_mux_dev_id probe.
 
-HEAD commit:    f49a343b305c Merge tag 'pinctrl-v7.3-2' of git://git.kerne..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1244d205580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ea1e6d8de13bab08
-dashboard link: https://syzkaller.appspot.com/bug?extid=181b8b439f5207144b16
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10737c5e580000
+Details for 0x00090120 (confirmed on H7606W using direct WMNB calls
+and inspecting the DSDT DEVS handler):
+  - Reading DSTS returns 0x00010001 when the dGPU is off (CUMA=1),
+	or 0x00010000 when it's on.
+  - Writing DEVS: 0 enables the dGPU (calls PG00._ON() + Notifies
+	PEGP, Device Check), and 1 disables or ejects it.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+181b8b439f5207144b16@syzkaller.appspotmail.com
+This behavior matches the dgpu_disable attribute (1 = disabled).
 
-==================================================================
-BUG: KCSAN: data-race in __se_sys_inotify_add_watch / fsnotify_handle_inode_event
-
-write to 0xffff88811afe9be0 of 4 bytes by task 3651 on cpu 0:
- inotify_update_existing_watch fs/notify/inotify/inotify_user.c:558 [inline]
- inotify_update_watch fs/notify/inotify/inotify_user.c:632 [inline]
- __do_sys_inotify_add_watch fs/notify/inotify/inotify_user.c:769 [inline]
- __se_sys_inotify_add_watch+0x2ea/0x720 fs/notify/inotify/inotify_user.c:717
- __x64_sys_inotify_add_watch+0x43/0x50 fs/notify/inotify/inotify_user.c:717
- x64_sys_call+0xa19/0x2550 arch/x86/include/generated/asm/syscalls_64.h:255
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-read to 0xffff88811afe9be0 of 4 bytes by task 3653 on cpu 1:
- fsnotify_handle_inode_event+0x18a/0x230 fs/notify/fsnotify.c:272
- fsnotify_handle_event fs/notify/fsnotify.c:330 [inline]
- send_to_group fs/notify/fsnotify.c:378 [inline]
- fsnotify+0x16ae/0x1860 fs/notify/fsnotify.c:597
- __fsnotify_parent+0x2f8/0x3a0 fs/notify/fsnotify.c:241
- fsnotify_parent include/linux/fsnotify.h:96 [inline]
- fsnotify_path include/linux/fsnotify.h:113 [inline]
- fsnotify_file include/linux/fsnotify.h:127 [inline]
- fsnotify_close include/linux/fsnotify.h:461 [inline]
- __fput+0x1e2/0x630 fs/file_table.c:498
- fput_close_sync+0xad/0x190 fs/file_table.c:617
- __do_sys_close fs/open.c:1560 [inline]
- __se_sys_close fs/open.c:1545 [inline]
- __x64_sys_close+0x55/0xf0 fs/open.c:1545
- x64_sys_call+0x812/0x2550 arch/x86/include/generated/asm/syscalls_64.h:4
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-value changed: 0x00002018 -> 0x00000000
-
-Reported by Kernel Concurrency Sanitizer on:
-CPU: 1 UID: 0 PID: 3653 Comm: syz-executor126 Not tainted syzkaller #0 PREEMPT(lazy) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-==================================================================
-
-
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/platform/x86/asus-armoury.c        | 2 ++
+ include/linux/platform_data/x86/asus-wmi.h | 3 +++
+ 2 files changed, 5 insertions(+)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
+index 7812e93734b8..7c54f616d701 100644
+--- a/drivers/platform/x86/asus-armoury.c
++++ b/drivers/platform/x86/asus-armoury.c
+@@ -950,6 +950,8 @@ static int asus_fw_attr_add(void)
+ 	asus_armoury.dgpu_disable_dev_id = 0;
+ 	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU))
+ 		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_DGPU;
++	else if (armoury_has_devstate(ASUS_WMI_DEVID_GPU_MODE))
++		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_GPU_MODE;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(armoury_attr_groups); i++) {
+ 		err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
+diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
+index be4d2873ffc9..4ea1ccc1d0ee 100644
+--- a/include/linux/platform_data/x86/asus-wmi.h
++++ b/include/linux/platform_data/x86/asus-wmi.h
+@@ -139,6 +139,9 @@
+ /* dgpu on/off */
+ #define ASUS_WMI_DEVID_DGPU		0x00090020
+ 
++/* dgpu on/off - alternative to ASUS_WMI_DEVID_DGPU */
++#define ASUS_WMI_DEVID_GPU_MODE		0x00090120
++
+ #define ASUS_WMI_DEVID_APU_MEM		0x000600C1
+ 
+ #define ASUS_WMI_DEVID_DGPU_POWER_STATE	0x00120097
+-- 
+2.47.3
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
