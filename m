@@ -1,98 +1,158 @@
-Received: from mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3B73EAC8F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:50:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C4D47C10B;
+	Fri, 25 Sep 2026 08:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790326226; cv=none; b=otz+M5iXN7bJxalIgpNJkIlSWFCvPsLZBsEhr/8VIXJuNNPItk/c1L5xHPd2xWKbk9tQkTISc76LWHs6bJhN0sLFSYixY2Xg8+DCj/kHsNW2WYHOW2PszI81QBnWFjhOb5KFzp7qpZdOcVFgrPIP4mhkseGfQWFA9AYOdPmHpRk=
+	t=1790326226; cv=none; b=lJzfbvdVW+b0XiIMiJJrwdABlAw4brQo8g5BxGOt9VPv6jeNPirreqmj8yaS3gEeXXCJ2nPRh93onzfMS28+ghb+A7qKnbRcmT6oHpOhbNltUPHOymcJcOzALbzuPmsVwvwpO5Z5ECQQD+Bfw5nyUV1WShT+2awnVGSnuMyqQq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790326226; c=relaxed/simple;
-	bh=Gcr8hLNdqy1k42dqWVISdXk8rlCA5k+esFk5lI0c9bw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VAalOVLlMicX77LC1v3tySFL0IfQyZGc+2pMOpFjK5FMmLtM1R6vkDk9MWJK6dcHum/SY51j+3lB26+rP/BZUiFWevBV54eD9Qd9aTRoBrw8WxXe40iwZLKFQgCCwbFswkIoIpAFgRRTSro7H3aw2F+YAEPWXh1yQp3O54S1bzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NU/j46GE; arc=none smtp.client-ip=91.218.175.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=ZrqQea9QfkZIfeOp+G1ykf1/KoVZrNbjpHZRRBgZypo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MKs1mSXa6Aj0vhbQcbYSLD4CRmliHuNxMh1aFx2t0r69K2l1RWoiArlV/k8XR3JOdBqtScRPUr60BXzK0wFSEu/OaUZjGQd6gnVS3ZaQ9KLaAHyk6vsLSZLYQ3m9GNT+a31mLTOv1BYfW7myjFLXduJh5xR8vNI7/rqEatkaRdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Bmprr1Yw; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NU/j46GE"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Gcr8hLNdqy1k42dqWVISdXk8rlCA5k+esFk5lI0c9bw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790326216; v=1; x=1790931016;
- b=NU/j46GENzhmQ4fg3qB4ky9J1Pgi8mIvC0P1eQL7NnTUxMuy1ZZF/RCgdWLfTigoD/Z8ivs0
- LvRJ1Yr+EIBTiP6bWpSpj3El7SL17WOSASUu7NC7S9Fmlbivj0oN0RCTrkwSPeKbMzzf/sZrREb
- PSpXjh/i2LXvL7zW3e3I0MUU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ff18a72ce455d391;
-	Fri, 25 Sep 2026 08:50:14 +0000
-X-Mizu-Trace-ID: ff18a72ce455d391
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>,
-	James Morse <james.morse@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/3] irqchip/gic-v3-its: Don't free the tables of an enabled ITS
-Date: Fri, 25 Sep 2026 09:49:59 +0100
-Message-Id: <20260925085000.753400-3-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260925085000.753400-1-fuad.tabba@linux.dev>
-References: <20260925085000.753400-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Bmprr1Yw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790326222; x=1821862222;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZrqQea9QfkZIfeOp+G1ykf1/KoVZrNbjpHZRRBgZypo=;
+  b=Bmprr1YwnQZRRgwpJpURgtrJQJ8jTJe6L0UDKEn6ztUnGh62jMYyirph
+   /c5L44pg1L62zjNf5m+VbiJgPDTbW6u90D4cVFdtZdVm6PiVsNQyUx46N
+   aRG4UbLENbkzFe73VgovtN/yLJFoKbiiUokfAdIdOhlP+SIcJgJDhENxS
+   ifDBc80VLZMvzVlwuBk2L5vGyJX3UuFYxZJzy7FLHumgikYqcREhHtapB
+   qbDwJrX9n0fGKIecoTbzaW7324zD8bFuIQgS3wfNvkOBtBQkQGWLEv4Vf
+   PXdrLot3sPBsdckFm6ujNuXfV/R9PS5+tl9kN2nKjccwPxa9deWsQvRtZ
+   w==;
+X-CSE-ConnectionGUID: zy88QQKYQema1TACp1DC9A==
+X-CSE-MsgGUID: LwLGJ/ePQ/eQEUtOwO42nQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="107490046"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="107490046"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 01:50:19 -0700
+X-CSE-ConnectionGUID: +tmOa1deSK6kvpaIvTS51Q==
+X-CSE-MsgGUID: Eip1mKhXQWyde3+uEpgK1A==
+X-ExtLoop1: 1
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.84])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 01:50:16 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 29189121BA5;
+	Fri, 25 Sep 2026 11:50:16 +0300 (EEST)
+Date: Fri, 25 Sep 2026 11:50:16 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Ruslan Koreev <koreev.r@gmail.com>
+Cc: benjamin.mugnier@foss.st.com, sylvain.petinot@foss.st.com,
+	dan.scally@ideasonboard.com, mchehab@kernel.org, hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com, gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Peter Marshall <pm@petermarshall.ca>
+Subject: Re: [PATCH 3/4] media: i2c: vd55g1: Add ACPI support for the Lenovo
+ TBE20A1 HID
+Message-ID: <arY1yBWSAD-6IkQD@kekkonen.localdomain>
+References: <20260924171820.1179823-1-koreev.r@gmail.com>
+ <20260924171820.1179823-4-koreev.r@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924171820.1179823-4-koreev.r@gmail.com>
 
-its_probe_one() enables the ITS before its_init_domain(), the last step
-that can fail, and the unwind from there frees the tables and the
-command queue without disabling it. The kernel comes up with an enabled
-ITS pointing at freed pages.
+Hi Ruslan,
 
-Enable the ITS last. Nothing reaches the new domain before then: this
-runs from init_IRQ(), and the ITS joins its_nodes only after the enable.
+Thanks for the set.
 
-Fixes: 4c21f3c26ecc2 ("irqchip: GICv3: ITS: DT probing and initialization")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- drivers/irqchip/irq-gic-v3-its.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+On Thu, Sep 24, 2026 at 08:18:19PM +0300, Ruslan Koreev wrote:
+> The IR camera of the Lenovo ThinkPad X1 Carbon Gen 14 is an ST VD55G1
+> enumerated by ACPI as TBE20A1, connected to the Intel IPU7 with one
+> CSI-2 lane and powered through an INT3472 discrete device. Match the
+> HID and take the sensor version from the match data, as for OF. Only
+> the analog supply is switchable on this platform; vcore and vddio are
+> always on and fall back to dummy regulators.
+> 
+> On these platforms the CSI-2 endpoint is a software node that
+> ipu-bridge attaches to the sensor device when the IPU driver probes,
+> which can happen after the sensor driver has been bound. Defer probing
+> instead of failing when there is no endpoint yet, as the other sensor
+> drivers used with the IPU bridge do and as v4l2_fwnode_endpoint_parse()
+> itself does for a missing endpoint.
+> 
+> Tested on a ThinkPad X1 Carbon Gen 14 (Core Ultra X7 358H, IPU7),
+> streaming 804x704 through libcamera.
 
-diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-index 58e52095e6ea8..a5690721f0feb 100644
---- a/drivers/irqchip/irq-gic-v3-its.c
-+++ b/drivers/irqchip/irq-gic-v3-its.c
-@@ -5332,16 +5332,18 @@ static int __init its_probe_one(struct its_node *its)
- 	}
- 
- 	gits_write_cwriter(0, its->base + GITS_CWRITER);
-+
-+	err = its_init_domain(its);
-+	if (err)
-+		goto out_free_collection;
-+
-+	/* Enable last: the unwind frees memory an enabled ITS may access */
- 	ctlr = readl_relaxed(its->base + GITS_CTLR);
- 	ctlr |= GITS_CTLR_ENABLE;
- 	if (is_v4(its))
- 		ctlr |= GITS_CTLR_ImDe;
- 	writel_relaxed(ctlr, its->base + GITS_CTLR);
- 
--	err = its_init_domain(its);
--	if (err)
--		goto out_free_collection;
--
- 	raw_spin_lock(&its_lock);
- 	list_add(&its->entry, &its_nodes);
- 	raw_spin_unlock(&its_lock);
+Please describe here what the patch does; most of the above goes to the
+cover letter.
+
+I'd split the endpoint handling changes into a separate patch, too.
+
+> 
+> Signed-off-by: Ruslan Koreev <koreev.r@gmail.com>
+> ---
+>  drivers/media/i2c/vd55g1.c | 15 +++++++++++----
+>  1 file changed, 11 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+> index 6f458f611..64889c35d 100644
+> --- a/drivers/media/i2c/vd55g1.c
+> +++ b/drivers/media/i2c/vd55g1.c
+> @@ -1903,10 +1903,9 @@ static int vd55g1_parse_dt(struct vd55g1 *sensor)
+>  
+>  	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(sensor->dev),
+>  						   0, 0, 0);
+> -	if (!endpoint) {
+> -		dev_err(sensor->dev, "Endpoint node not found\n");
+> -		return -EINVAL;
+> -	}
+> +	if (!endpoint)
+> +		return dev_err_probe(sensor->dev, -EPROBE_DEFER,
+> +				     "waiting for fwnode graph endpoint\n");
+
+I'd drop the check here and return v4l2_fwnode_endpoint_alloc_parse()'s
+return value in vd55g1_check_csi_conf(). Then -EPROBE_DEFER is returned
+when appropriate.
+
+>  
+>  	ret = vd55g1_check_csi_conf(sensor, endpoint);
+>  	fwnode_handle_put(endpoint);
+> @@ -2084,6 +2083,13 @@ static const struct of_device_id vd55g1_dt_ids[] = {
+>  };
+>  MODULE_DEVICE_TABLE(of, vd55g1_dt_ids);
+>  
+> +static const struct acpi_device_id vd55g1_acpi_ids[] = {
+> +	/* Lenovo ThinkPad X1 Carbon Gen 14 IR camera, Intel IPU7 */
+
+No need for such a comment here, I think it's enough it's documented in the
+IPU bridge.
+
+> +	{ "TBE20A1", (kernel_ulong_t)&vd55g1_versions[0] },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(acpi, vd55g1_acpi_ids);
+> +
+>  static const struct dev_pm_ops vd55g1_pm_ops = {
+>  	SET_RUNTIME_PM_OPS(vd55g1_power_off, vd55g1_power_on, NULL)
+>  };
+> @@ -2092,6 +2098,7 @@ static struct i2c_driver vd55g1_i2c_driver = {
+>  	.driver = {
+>  		.name  = "vd55g1",
+>  		.of_match_table = vd55g1_dt_ids,
+> +		.acpi_match_table = vd55g1_acpi_ids,
+>  		.pm = &vd55g1_pm_ops,
+>  	},
+>  	.probe = vd55g1_probe,
+
 -- 
-2.39.5
+Kind regrds,
 
+Sakari Ailus
