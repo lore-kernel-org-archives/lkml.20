@@ -1,416 +1,236 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012071.outbound.protection.outlook.com [52.101.43.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADA649BD8B;
-	Fri, 25 Sep 2026 11:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790336570; cv=none; b=Vpw14cPk0dvZrtxqL3T6Ml6fXZVpOcRtutUFz4TJgpsylKn/uIclJcxnu1JiGwQsshCheFlfQFl634Ja8C9gty/PXSCrcPMvEuort7rG1QH2S86kevhZmESbcP71pE7zv0In+XK6TPtFPQ0tvuzSewG5xtdfoxOwH+SOvMWyHzM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790336570; c=relaxed/simple;
-	bh=QMG1pgBDsv0Gpu5j+ef9da6C6vIIRaNkGg2UJFAea9k=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=od7vg+AtQE6Yu5I+dUhCg3pwrVsy/+ngENs4HVGNUOCUX7bYHQwJ3vuJXjOmTYw8mK3pPfyhZPqzZilqxMN1/SgB69MTt0yC8GOWVZoZwymZRjfYejL7QlpwhmEbR1AtH5rDYEmaTdwXrPtBjn2SmBjNDlLrVHwFlZgGy8GofsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eVYcb01+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C4049C4DA;
+	Fri, 25 Sep 2026 11:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790336575; cv=fail; b=qLhUAzaIEoWfIHLfwyRUrx5zNKSlJ+kMX6ThjhXV3VHfz3gNhABR+vRrzkZZMzx4QRVwSQMT1n8BlBWpXg0lQkDBPnznHk83IOu3DM3uN7+5G8aC1+t8Av9XxCJGzG3fGkYqSnx18RNm1Y9U//MQ4CRLkimSiw/092/bflvRDmc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790336575; c=relaxed/simple;
+	bh=UEmLzR22JygE142fC4Y8wGExT/0oqmcgTa1S3IMBtUs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y1oYygIfh0u+KkXIAwyQi2pFhyNdEozKXEa9cu3wBcRrRqAMRExy0lkppoqOjO0rn2IGfgI8A+fWeg/TuIplbksCfDYXrCM5kqQIoVhTXf9bCEDovMxcDmy/SPxdE/z1zl5R76HWPgpAMvYLKA4/4ty/ZmULlJ0plc5talfB/uU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=TEem7zpl; arc=fail smtp.client-ip=52.101.43.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eVYcb01+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48181F000FF;
-	Fri, 25 Sep 2026 11:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790336568;
-	bh=ytWdxFwe/4edYt3NGYP9LBKHLPhDgSO5r+cvEq/HqIQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=eVYcb01+BlgVKA39o/uFuKw7TT4IDwudTVcBzacamCZT2VsquwG/tD5XiLsDddknO
-	 VADN2FfXlp/FDM68OOS4b4LIgUXhKlM6tI4kpsxhjUz7K2hZV+uSqV1XdAIHfNMlZf
-	 jf/EPm1IzlNjgGsWamfZZEurS2GSyUoXEACRNBnYwirf+/1rq3VarcNwOGCggJkTxq
-	 HDzTjFbr5SzAIgzw7Pu3hQ/9Y1qbV3EHk6/D9NhWHa4POtvanwUwIHv1vpfZ04yhza
-	 qj+f3S9GYk3fq/KR3VhjGRBffV1A+ZebdueDlPtkPfE1b+faUWImBTbOk4aafpNVP0
-	 pwM+T1XKBJAzQ==
-Subject: Re: [PATCH net v2] net: stmmac: propagate PTP addend and system time
- programming errors
-From: netdev-bot+sashiko@kernel.org
-To: lorenzo.bianconi@oss.qualcomm.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- richardcochran@gmail.com, Jose.Abreu@synopsys.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 25 Sep 2026 11:42:47 +0000
-Message-ID: <179033656748.2160803.6725984933967085758@kernel.org>
-In-Reply-To:
- <20260924-stmmac-ptp-added-systime-error-v2-1-beb2a6b5f866@oss.qualcomm.com>
-References:
- <20260924-stmmac-ptp-added-systime-error-v2-1-beb2a6b5f866@oss.qualcomm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="TEem7zpl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KUfhbX6oS70mHuyinf+efd5gzc4vZX5IhXOdiVRUD6Vh/79fXsoKLIMs5tDxNilkM04wyflbuUdIf2bmS9pJ4YSymTGLzCWmNEywHczJglOUwTDH0tPdoBIHj9A3oOCYQuJ+IC8pppcZoQvPduScwdymAjyrUvLxjzOv/xm5Rbc7utwEFZk97Wo9jVS1aWoSdBGDV8Rfpyqt74fDEFhTfbgL/UKgHYwxtRgGi0uXaYhh0VQMVLYQbWmPnC6wwBMlODrt4eQciVc6qrY9Cja6HE9E4JxEDnXi9yg3wLjkYCBQ2fu+2C48NpnlTmB3ZolYUhCGKZpoisnewsaUt/EcGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0NPWIPxE8xVoa0EuHRJjXsi9MhDdwsxuJp24sLXyUkY=;
+ b=ZiJHuuLRepUQKDjbf58Ve59YL0DIG9mRx4+XakR7CRwvX4RjPwBjZnFjwsi1GiuXUqT7/hx9vNqmU5oIzM1AJx93CeettthH0Z45Ifn3+0OdpBlFq8sKGvfDWxIlwIEZlRqhi7DuLye985wRkx1jdcbTZsNI2xXFgNZ5n7L2+qHJqmF/WQTNEw4qPuD5Ffd5Oa4Vrgcwgsgpg1NhysWG4uLLbbTr7ghIMp/Rc4ItLtgJVOrje3hJ+582/egdkHb9No/vyTnyQxzQ2YYv1fU7bPTLVuK7hOCmFsrFebtUkGvD1H6L2tD803GQ1UKGBBA4XciG/Jfwd15xqUxqMAPfmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0NPWIPxE8xVoa0EuHRJjXsi9MhDdwsxuJp24sLXyUkY=;
+ b=TEem7zplxMua/ljhDloImpHghEmwEgfBglGlm7yrgNqbwYcllwOEPn9I11Gb70QF7RfkX/kTac+/qXq/kZhQxxaiaLmGeTqFZqW09lD2iBCco1eqJy1Ur45Ig+ivieK6y+2DH+XzgAzPusUZjL1/PZ2ZlbSzjXZiCbhjes8pyI8=
+Received: from SJ0PR05CA0191.namprd05.prod.outlook.com (2603:10b6:a03:330::16)
+ by DS0PR12MB8365.namprd12.prod.outlook.com (2603:10b6:8:f8::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 11:42:50 +0000
+Received: from SJ1PEPF000023D0.namprd02.prod.outlook.com
+ (2603:10b6:a03:330:cafe::24) by SJ0PR05CA0191.outlook.office365.com
+ (2603:10b6:a03:330::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.7 via Frontend Transport; Fri, 25
+ Sep 2026 11:42:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000023D0.mail.protection.outlook.com (10.167.244.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 11:42:50 +0000
+Received: from purico-abeahost.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
+ 2026 06:42:44 -0500
+From: Shivansh Dhiman <shivansh.dhiman@amd.com>
+To: <seanjc@google.com>, <pbonzini@redhat.com>,
+	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>
+CC: <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
+	<xin@zytor.com>, <andrew.cooper3@citrix.com>, <sohil.mehta@intel.com>,
+	<dwmw@amazon.co.uk>, <yosry@kernel.org>, <nikunj.dadhania@amd.com>,
+	<santosh.shukla@amd.com>, <shivansh.dhiman@amd.com>
+Subject: [PATCH v3 1/9] KVM: SVM: Initialize FRED VMCB fields
+Date: Fri, 25 Sep 2026 11:40:09 +0000
+Message-ID: <20260925114017.2208531-2-shivansh.dhiman@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260925114017.2208531-1-shivansh.dhiman@amd.com>
+References: <20260925114017.2208531-1-shivansh.dhiman@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 (1) · Medium: 4 (1) · Low: 2
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix stops at returning an error.
-- [Medium] The patch is titled 'propagate PTP addend and system time
-  programming errors', but the PHC callbacks that call the same hooks…
-- [Medium] The new failure paths leave timestamping enabled with stale
-  state.
-- [Medium] The patch reorders stmmac_dl_ts_coarse_set() so that
-  priv->systime_flags is copied into a local variable at entry, all…
-- [Medium] stmmac_restore_subsecond_increment() calls
-  stmmac_config_addend() unconditionally and ignores its result,…
-- [Low] stmmac_dl_ts_coarse_set() can now return -EINVAL (sub-second
-  increment computed as 0) or -ETIMEDOUT (TSADDREG poll timeout in…
-- [Low] The new rollback in stmmac_update_subsecond_increment() (line
-  658) passes priv->default_addend to…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the devlink
-  'phc_coarse_adj' param (priv->tsfupdt_coarse) is not honoured when…
-- [Medium] This problem wasn't introduced by this patch, but
-  stmmac_update_subsecond_increment() and the new…
-
---
-
-net: stmmac: propagate PTP addend and system time programming errors
-
-This patch makes stmmac_update_subsecond_increment(),
-stmmac_init_tstamp_counter() and stmmac_dl_ts_coarse_set() return the
-errors from addend and system time programming instead of always
-returning success. It also adds stmmac_restore_subsecond_increment() to
-roll back the PTP configuration when programming fails.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 1fb5f804ea234..fae2a90283ce4 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -601,31 +601,63 @@ static void stmmac_get_rx_hwtstamp(struct stmmac_priv *priv, struct dma_desc *p,
->  	}
->  }
->  
-> -static void stmmac_update_subsecond_increment(struct stmmac_priv *priv)
-> +static void stmmac_restore_subsecond_increment(struct stmmac_priv *priv,
-> +					       u32 default_addend,
-> +					       u32 systime_flags)
->  {
->  	bool xmac = dwmac_is_xmac(priv->plat->core_type);
->  	u32 sec_inc = 0;
-> +
-> +	stmmac_config_addend(priv, priv->ptpaddr, default_addend);
-> +	stmmac_config_hw_tstamping(priv, priv->ptpaddr, systime_flags);
-> +	stmmac_config_sub_second_increment(priv, priv->ptpaddr,
-> +					   priv->plat->clk_ptp_rate,
-> +					   xmac, &sec_inc);
-> +	priv->default_addend = default_addend;
-> +	priv->sub_second_inc = sec_inc;
-> +}
-
-[Severity: Medium]
-Is it safe to call stmmac_config_addend() again here and ignore its
-result?
-
-When this rollback runs because config_addend() has just timed out in
-stmmac_update_subsecond_increment(), PTP_TCR_TSADDREG may still be set.
-One way to get there is a PTP ref clock domain that is not running,
-since stmmac_setup_ptp() only warns when clk_prepare_enable() fails.
-config_addend() then overwrites PTP_TAR and sets TSADDREG again while
-the previous update is still pending:
-
-stmmac_hwtstamp.c:config_addend() {
-	writel(addend, ioaddr + PTP_TAR);
-	/* issue command to update the addend value */
-	value = readl(ioaddr + PTP_TCR);
-	value |= PTP_TCR_TSADDREG;
-	writel(value, ioaddr + PTP_TCR);
-	...
-}
-
-The DWMAC programming model expects this bit to read 0 before it is set
-again. The call also adds a second 100 ms readl_poll_timeout_atomic()
-busy-wait, so the failing devlink path spins for about 200 ms.
-
-If the pending update latches later, TAR could end up holding the old
-value (or 0 on the first open after probe) rather than the one just
-computed.
-
-On the TSINIT timeout path in stmmac_init_tstamp_counter(), the TCR
-read-modify-write in config_addend() also writes the still-pending
-TSINIT bit back as 1, so the pending system time load is not cancelled.
-
-In every case, the helper then sets priv->default_addend and
-priv->sub_second_inc as if the old configuration had been restored in
-hardware.
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but
-stmmac_update_subsecond_increment() and this new helper program
-PTP_TCR, PTP_SSIR and PTP_TAR, and update priv->default_addend and
-priv->sub_second_inc, without holding priv->ptp_lock. Both run from the
-devlink set path while the PHC is registered.
-
-The PHC callbacks use that lock around the same registers:
-
-stmmac_ptp.c:stmmac_adjust_freq() {
-	...
-	write_lock_irqsave(&priv->ptp_lock, flags);
-	stmmac_config_addend(priv, priv->ptpaddr, addend);
-	write_unlock_irqrestore(&priv->ptp_lock, flags);
-	...
-}
-
-stmmac_enable() also reads priv->sub_second_inc and
-priv->systime_flags under ptp_lock for PEROUT.
-
-Could a concurrent adjfine and phc_coarse_adj devlink set lose a TCR
-mode change, or program a TAR derived from a stale default_addend? This
-error path adds one more unlocked config_addend() plus
-config_hw_tstamping() sequence.
-
-> +
-> +static int stmmac_update_subsecond_increment(struct stmmac_priv *priv,
-> +					     u32 systime_flags)
-> +{
-
-[ ... ]
-
-> +	ret = stmmac_config_addend(priv, priv->ptpaddr, val);
-> +	if (ret)
-> +		goto error;
-> +
-> +	priv->sub_second_inc = sec_inc;
-> +	priv->default_addend = val;
-> +
-> +	return 0;
-> +error:
-> +	/* Restore previous configuration */
-> +	stmmac_restore_subsecond_increment(priv, priv->default_addend,
-> +					   priv->systime_flags);
-
-[Severity: Low]
-Is priv->default_addend really the previous configuration here?
-stmmac_adjust_freq() programs an adjusted addend into PTP_TAR but does
-not update default_addend:
-
-	addend = adjust_by_scaled_ppm(priv->default_addend, scaled_ppm);
-
-If a phc_coarse_adj devlink set fails (for example with sec_inc == 0),
-the rollback writes the nominal addend into PTP_TAR. That drops the
-frequency correction the servo had applied, so a failed operation still
-changes the PHC frequency, which the "Restore previous configuration"
-comment doesn't reflect.
-
-> +	return ret;
->  }
->  
->  /**
-> @@ -864,25 +896,37 @@ static int stmmac_hwtstamp_get(struct net_device *dev,
->  static int stmmac_init_tstamp_counter(struct stmmac_priv *priv,
->  				      u32 systime_flags)
->  {
-
-[ ... ]
-
->  	/* lower 32 bits of tv_sec are safe until y2106 */
-> -	stmmac_init_systime(priv, priv->ptpaddr, (u32)now.tv_sec, now.tv_nsec);
-> +	ret = stmmac_init_systime(priv, priv->ptpaddr, (u32)now.tv_sec,
-> +				  now.tv_nsec);
-> +	if (ret)
-> +		goto error;
-
-[Severity: Medium]
-The subject says addend and system time programming errors are now
-propagated, but the PHC callbacks that call the same hooks still drop
-the result:
-
-stmmac_ptp.c:stmmac_set_time() {
-	...
-	write_lock_irqsave(&priv->ptp_lock, flags);
-	stmmac_init_systime(priv, priv->ptpaddr, ts->tv_sec, ts->tv_nsec);
-	write_unlock_irqrestore(&priv->ptp_lock, flags);
-
-	return 0;
-}
-
-stmmac_adjust_freq() also ignores the return of stmmac_config_addend()
-and returns 0.
-
-When the TSINIT or TSADDREG poll times out, clock_settime() or
-clock_adjtime() from ptp4l or phc2sys still reports success. Should
-settime64 and adjfine return the error too, since the ptp_clock_info
-callbacks are allowed to fail?
-
-> +
-> +	priv->systime_flags = systime_flags;
-
-[Severity: High]
-This is a pre-existing issue, but this path is being reworked here:
-stmmac_init_timestamping() always sets PTP_TCR_TSCFUPDT and ignores
-priv->tsfupdt_coarse:
-
-	ret = stmmac_init_tstamp_counter(priv, STMMAC_HWTS_ACTIVE |
-					       PTP_TCR_TSCFUPDT);
-
-Suppose phc_coarse_adj is set to true and then the interface goes down
-and up (or through suspend/resume). config_sub_second_increment() then
-programs the fine mode SSINC (2e9 / clk_ptp_rate) and the ~2^31 addend.
-priv->tsfupdt_coarse stays true, so stmmac_dl_ts_coarse_get() still
-reports coarse mode.
-
-The next SIOCSHWTSTAMP clears TSCFUPDT in stmmac_hwtstamp_set():
-
-	priv->systime_flags = STMMAC_HWTS_ACTIVE;
-	if (!priv->tsfupdt_coarse)
-		priv->systime_flags |= PTP_TCR_TSCFUPDT;
-
-It then only calls stmmac_config_hw_tstamping(), and SSIR and TAR are
-not reprogrammed.
-
-Does that leave the hardware in coarse mode, adding twice the clock
-period on every cycle, so the PHC runs about twice as fast?
-
->  
->  	return 0;
-> +error:
-> +	/* Restore previous configuration */
-> +	stmmac_restore_subsecond_increment(priv, default_addend,
-> +					   priv->systime_flags);
-> +
-> +	return ret;
->  }
-
-[Severity: Medium]
-Can this failure path leave timestamping enabled with stale state?
-
-stmmac_hwtstamp_set() sets priv->hwts_rx_en, priv->hwts_tx_en,
-priv->tstamp_config and a priv->systime_flags value that includes TSENA
-and the RX filter bits. None of these is cleared on close or suspend.
-
-On a later open or resume, if stmmac_init_tstamp_counter() fails, this
-rollback writes the old priv->systime_flags, filter bits included, back
-into PTP_TCR. The rollback in stmmac_update_subsecond_increment() does
-the same. stmmac_init_timestamping() then returns early:
-
-	if (ret) {
-		netdev_warn(priv->dev, "PTP init failed\n");
-		return ret;
-	}
-
-and never reaches:
-
-	memset(&priv->tstamp_config, 0, sizeof(priv->tstamp_config));
-	priv->hwts_tx_en = 0;
-	priv->hwts_rx_en = 0;
-
-TX timestamp requests and RX timestamp delivery in
-stmmac_get_rx_hwtstamp() would then keep running on a counter whose
-init just failed, and stmmac_hwtstamp_get() reports the stale config.
-
-Before this patch, these paths always reached the reset, and TCR was
-left at STMMAC_HWTS_ACTIVE | PTP_TCR_TSCFUPDT with no filters.
-
-[Severity: High]
-The error now reaches stmmac_init_timestamping(), but do any callers
-act on it?
-
-stmmac_resume() ignores the result:
-
-	stmmac_init_timestamping(priv);
-
-	stmmac_init_coalesce(priv);
-
-After the MAC reset in stmmac_hw_setup(), a TSADDREG or TSINIT timeout
-here leaves the PHC registered at open still in place. gettime64,
-adjfine, settime64 and tc_taprio_configure(), which calls gettime64 for
-the EST base time, keep using a counter that was never re-initialized.
-
-On open, stmmac_setup_ptp() only skips registration:
-
-	if (stmmac_init_timestamping(priv) == 0)
-		stmmac_ptp_register(priv);
-
-The interface still comes up. stmmac_hwtstamp_set() only checks the
-timestamp capability bits and netif_running(), so SIOCSHWTSTAMP can
-still turn on packet timestamping with the uninitialized counter and
-return 0.
-
-The commit message describes the problem as the driver that "keeps
-operating as if timestamping were up" and names TAPRIO/EST. On the
-resume path, the only visible change seems to be the "PTP init failed"
-warning. Isn't that still the situation this patch is meant to fix?
-
->  
->  /**
-> @@ -7693,18 +7737,23 @@ static int stmmac_dl_ts_coarse_set(struct devlink *dl, u32 id,
->  {
->  	struct stmmac_devlink_priv *dl_priv = devlink_priv(dl);
->  	struct stmmac_priv *priv = dl_priv->stmmac_priv;
-> +	u32 systime_flags = priv->systime_flags;
-> +	int ret;
-
-[ ... ]
-
-> -	stmmac_update_subsecond_increment(priv);
-> +	ret = stmmac_update_subsecond_increment(priv, systime_flags);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Low]
-This now returns -EINVAL or -ETIMEDOUT to devlink without filling in
-the extack it receives. Would an NL_SET_ERR_MSG_MOD() help user space
-understand why setting phc_coarse_adj failed?
-
-> +
-> +	priv->tsfupdt_coarse = ctx->val.vbool;
-> +	priv->systime_flags = systime_flags;
-
-[Severity: Medium]
-Does moving these assignments after the hardware programming widen a
-race with stmmac_hwtstamp_set()? The devlink set callback runs under
-the devlink instance lock and stmmac_hwtstamp_set() runs under RTNL, so
-the two paths share no lock.
-
-CPU0 (devlink, vbool = true)
-stmmac_dl_ts_coarse_set()
-  systime_flags = priv->systime_flags, TSCFUPDT cleared
-  stmmac_update_subsecond_increment()
-    writes TCR in coarse mode and the coarse SSIR
-    config_addend() polls TSADDREG for up to 100 ms
-
-CPU1 (SIOCSHWTSTAMP)
-stmmac_hwtstamp_set()
-  reads priv->tsfupdt_coarse == false
-  priv->systime_flags = ACTIVE | TSCFUPDT | filters
-  writes TCR back to fine mode
-
-CPU0
-  priv->tsfupdt_coarse = true
-  priv->systime_flags = stale copy, no TSCFUPDT and no filters
-
-The hardware ends up in fine mode with the coarse SSIR and addend, so
-the PHC runs at the wrong rate. priv->systime_flags then matches neither
-the hardware nor the hwtstamp request, and it is used later by flex PPS
-in stmmac_enable() and by the new restore paths.
-
-The old code set tsfupdt_coarse before the MMIO programming, so the
-window was only a few instructions. Here it covers the whole
-programming sequence, including the poll.
-
->  
->  	return 0;
->  }
-
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D0:EE_|DS0PR12MB8365:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad7d0646-c77b-4ab4-1ef2-08df1afa20b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|7416014|23010399003|10067099003|56012099006|6133799003|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	mLVqVx/yUMk1xhGf0rXBmEl1IXiwfwcqD7MOpewhK3hiJcE8Hrw9RctCrEY4aZ4AToRFzyKFeKBYsV9QWmhF+kIWj9hYwbTJA6+T4yYLAFRkhYcYmFLfJ81fpnFNblnwSW6Q3DxEI1CY1A5guimn7PaKWiyElZYKxg3bii39SwGRgroEffhDZZRkaC8ClUy4yzAvGp2nqcRvLzxsa6Q1HciT5DbfX2zO9XLe23ktt215c8rso4KaZAZqjxWnTN0bmWCR0aenwuheyYnIB8vtTjwH/O/a7KTEto3WwslQxktTytIxEHPFt7iGkBjUZFfG7xhn/auoxW3lDE4Y7Gyutd8yDP0cDhfmcBhbgJaR8b3kVzsnG7LPVNKIJ72/DRyShJmmzEGKQW3aAACXjkVci5E9Mt2p/xQoBK+C4Wm4CrLewTldnp5GA3Mbw8ddO54UeK0fMRt9HU0tZw82IVjEmbZr5tgrlAHRXH31psl2Yx5y9TDkAs9fFQmpOY6oHzTPpkbFfkLycpXw8y1wom5hmYj0z5/fi4rIluG9NCiji51kpf7rtTX1VH6q5LmVFZdDf0nEy28kzd+oRKPKgWBJZisP28IwTCASu/DpioLqJBuz7CpPzFqBLpKWxftTyYy9UA8v0CFlyzfV2K7yTRymA9UBv/aBWDboGiRYMGrqOtvGOFCxw23r1UaZd64jj79tMViyzha0nvPj5ZPAbIC+xw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(7416014)(23010399003)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	f8gOc4yWXRgKwssHR1ZQKEIE1FI48WEQX9jRFvLtFPl5IQrWP+ofAetEwPOB3hT+nqGmNJQbnsfTZ03lrIbbWvBpsETWj9hoFlcGSKXMs/cVtfTW65UlX1C/P2FhXszYKDl5ngOXPpcFikjsQKjmubUz1KntLlNfrrPQ0/TP40onCP2jmDgBI3Q2PV2MmUj3s5y7XSjGMXIKoADu4UOB3cXZG7q4F4TrtWznavA14GrfbJm5+H4B9QBuoYD8q1IzUPjOuOzD5aEVH2YOSGONVj43W76NdozxoXULT1uyspOZf3EAicZ2AdVxeLxlWKxWktTH5bQtyWeWQU1bMfPaFvT0O4XgS+1zrzVL356g/G2GtvwryyOPdyorr/SOYfAZT3po2xSM8ieBPPQT8nxzEca7TMAwTlfIQ7wAr7z/e8qATyDOlK3Nq5rkGYoXpXin
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 11:42:50.1439
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad7d0646-c77b-4ab4-1ef2-08df1afa20b4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023D0.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8365
+
+The AMD FRED (Flexible Return and Event Delivery) feature introduces
+several new fields to the VMCB save area. These fields include
+FRED-specific stack pointers (fred_rsp[1-3], fred_ssp[1-3]), stack level
+tracking (fred_stklvls), and configuration (fred_config), and the
+control-area fields exit_int_data and event_inj_data. Note that
+fred_rsp0 is only saved/restored for SEV-ES guests.
+
+All FRED MSRs are zeroed on RESET. Reproduce the HW behavior here to
+ensure that vCPU starts with a valid FRED state. Also update the size
+of save areas of VMCB.
+
+Co-developed-by: Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>
+Signed-off-by: Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>
+Signed-off-by: Shivansh Dhiman <shivansh.dhiman@amd.com>
+Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
+---
+
+Changes in v3:
+* Update the fields and offsets of FRED MSRs according to the latest APM.
+* Dropped fred_rsp0 from vmcb_save_area. Hardware doesn't save/restore
+  it for non-SEV-ES guests. Move its handling to patch 3.
+* Updated the commit message.
+
+Changes in v2:
+* Modified the zeroing of FRED MSRs from INIT to RESET and updated the commit
+  message (Sean Christopherson).
+
+---
+ arch/x86/include/asm/svm.h | 31 ++++++++++++++++++++++++++++---
+ arch/x86/kvm/svm/svm.c     | 11 +++++++++++
+ 2 files changed, 39 insertions(+), 3 deletions(-)
+
+diff --git a/arch/x86/include/asm/svm.h b/arch/x86/include/asm/svm.h
+index aa63431ba92c..0570581e251a 100644
+--- a/arch/x86/include/asm/svm.h
++++ b/arch/x86/include/asm/svm.h
+@@ -165,7 +165,10 @@ struct __attribute__ ((__packed__)) vmcb_control_area {
+ 	u8 reserved_9[22];
+ 	u64 allowed_sev_features;	/* Offset 0x138 */
+ 	u64 guest_sev_features;		/* Offset 0x140 */
+-	u8 reserved_10[664];
++	u8 reserved_10[40];
++	u64 exit_int_data;		/* Offset 0x170 */
++	u64 event_inj_data;
++	u8 reserved_11[608];
+ 	/*
+ 	 * Offset 0x3e0, 32 bytes reserved
+ 	 * for use by hypervisor/software.
+@@ -370,6 +373,15 @@ struct vmcb_save_area {
+ 	u64 last_excp_to;
+ 	u8 reserved_0x298[72];
+ 	u64 spec_ctrl;		/* Guest version of SPEC_CTRL at 0x2E0 */
++	u8 reserved_0x2e8[1496];
++	u64 fred_rsp1;
++	u64 fred_rsp2;
++	u64 fred_rsp3;
++	u64 fred_stklvls;
++	u64 fred_ssp1;
++	u64 fred_ssp2;
++	u64 fred_ssp3;
++	u64 fred_config;
+ } __packed;
+ 
+ /* Save area definition for SEV-ES and SEV-SNP guests */
+@@ -482,6 +494,18 @@ struct sev_es_save_area {
+ 	u8 fpreg_x87[80];
+ 	u8 fpreg_xmm[256];
+ 	u8 fpreg_ymm[256];
++	u8 reserved_0x670[568];
++	u64 guest_exit_int_data;
++	u64 guest_event_inj_data;
++	u64 fred_rsp0;
++	u64 fred_rsp1;
++	u64 fred_rsp2;
++	u64 fred_rsp3;
++	u64 fred_stklvls;
++	u64 fred_ssp1;
++	u64 fred_ssp2;
++	u64 fred_ssp3;
++	u64 fred_config;
+ } __packed;
+ 
+ struct ghcb_save_area {
+@@ -552,9 +576,9 @@ struct vmcb {
+ 	};
+ } __packed;
+ 
+-#define EXPECTED_VMCB_SAVE_AREA_SIZE		744
++#define EXPECTED_VMCB_SAVE_AREA_SIZE		2304
+ #define EXPECTED_GHCB_SAVE_AREA_SIZE		1032
+-#define EXPECTED_SEV_ES_SAVE_AREA_SIZE		1648
++#define EXPECTED_SEV_ES_SAVE_AREA_SIZE		2304
+ #define EXPECTED_VMCB_CONTROL_AREA_SIZE		1024
+ #define EXPECTED_GHCB_SIZE			PAGE_SIZE
+ 
+@@ -578,6 +602,7 @@ static inline void __unused_size_checks(void)
+ 	BUILD_BUG_RESERVED_OFFSET(vmcb_save_area, 0x180);
+ 	BUILD_BUG_RESERVED_OFFSET(vmcb_save_area, 0x248);
+ 	BUILD_BUG_RESERVED_OFFSET(vmcb_save_area, 0x298);
++	BUILD_BUG_RESERVED_OFFSET(vmcb_save_area, 0x2e8);
+ 
+ 	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0xc8);
+ 	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0xcc);
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index dd19c7b4e904..6d55b0a576d9 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -1217,6 +1217,17 @@ static void init_vmcb(struct kvm_vcpu *vcpu, bool init_event)
+ 	save->idtr.base = 0;
+ 	save->idtr.limit = 0xffff;
+ 
++	if (!init_event) {
++		save->fred_rsp1 = 0;
++		save->fred_rsp2 = 0;
++		save->fred_rsp3 = 0;
++		save->fred_stklvls = 0;
++		save->fred_ssp1 = 0;
++		save->fred_ssp2 = 0;
++		save->fred_ssp3 = 0;
++		save->fred_config = 0;
++	}
++
+ 	init_sys_seg(&save->ldtr, SEG_TYPE_LDT);
+ 	init_sys_seg(&save->tr, SEG_TYPE_BUSY_TSS16);
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924-stmmac-ptp-added-systime-error-v2-1-beb2a6b5f866%40oss.qualcomm.com
+2.43.0
+
