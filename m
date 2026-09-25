@@ -1,208 +1,187 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010018.outbound.protection.outlook.com [52.101.56.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E803B27E8;
-	Fri, 25 Sep 2026 20:51:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790369505; cv=fail; b=UA6MF6uULAS82Rw52yWd/M0HrqVuvbFO+GbHLSkokD+7/0beV+YUQVo9iIBfEm1m7HyuTpvPX+0RIoDzLPIxyhi+paXPdbLEn8UQ1Co4dpRZsy0UYA3FYMt9lky8zB1INeAaBQghhjf2s3AqFXBP2leeN4jE/u16I+G+MDOGCC4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790369505; c=relaxed/simple;
-	bh=Cq8yt8s/tTprMYtxWe399admSt/QaPAS/Ey7rajEkcY=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=T0MZGuhK7WCyYC1c/GmAhySrq1EvoNhaV9AQJg2OTigWX31V78oVuVvOCapkYYCtrxk/w86YqBJ/NaVtxbj9evUCCzwoSKXKTi+Iw3uoHrzvIj95JFHNDs4mbv6C26ssUsTxjCWOe2CI5mKVpjXrAn8+bqit/C/MRszERaYePjU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nqHNu22c; arc=fail smtp.client-ip=52.101.56.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687454F55C5
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790369508; cv=none; b=miWcjZT/3yRVFDDn7ltjwzOIc+jiuv815HnRQmuEU/fO3vRXX3qxNfXYybkEPqHaJKBRq/usTd2evnL6AxcB4SBvCNp+7aLlp00/l/FvTk/pYdmQGZ9PmVPL8g2YOtdppho1wK++Mo2kPviv/edlmfVQjy5AHCeRlTKE3VSPVLo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790369508; c=relaxed/simple;
+	bh=ts9DOEaWf1lBa+eQI547Ro/oe0Z02nVSejCO7cX47qg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=m5i3y9CiHuGr8IvxvWh+jyMlhj2XDRSLbJgtNhXkypelv/sV86eTWv21qJyTiUBtLAEZK4w10CCHNL5m11+4Fn1KSB1pi1QaiXcKQsn3sJYBg0hOwm6ftWSGdOgeqUXA7wMZuS/yQPYILzZTplOwqqN5wNurroXEMu4IOJaRMuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RdcZgjxJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Wx/g4gqY; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nqHNu22c"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pG7IFANSz5GCHvI+YqTfbOSPhlIloOAym3Xc9dZahvFKx/ycgmWt5nEB0Y6T1krf9haD/K5j5m5Aholi+trqnTqBSbVfywHBiryGQM1s+Opz6G/2jg64vajqR1UaUQ1tO+efhSwlNsDFr78EC/pFsB3yI30m5l58bAmHglcuNPlFlyiPaobKX/vwWnvd5ebQwb127k1dJAGX+nndIZxbyIc1du5yndEnh1tfwfFKC6ivs1Ztn0frpiTXdVf1Qitmxs4/eDlIybwBtD+G6ymNNdOvF+y8j/Z9yT7wzRc9FXNbXVJNTTNY7Qy80JKX7fWPf7DbAL0KxJOF5XRXINlZRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tvsCrAu5ayMDUpGwaP/lU1BHN2vk059qtfdL4sWdx4Q=;
- b=k7kUN2QTbBAuJLUSItbocKbY9/ORhUxPjDhx+9+zhujmhNA8WlPeCCCe9BZX1gyvBmf1LkBOoy1Ah9oZlWTA5KSZqqcsMW1sNZ1OVZiH7M6Vh8I/7Gycb/sEKU519PxuF5ASWktbZOInmeZH7c84ikbPsGbgnct+nvxu98hdTmRaXUP5pvI7Arr08zpPy1x/Tj/hmV2xGaJ/H9jjkZ60vov+4/mfYFagTmkcusqCJID9JRke+DWHNX+lQtJMTpD763pDvKWZDd7E7P5upkCcFwvTy7/UT3iVZ1bYvxy0WPr0fe/+pNp4jLxFXvNXKlrOC/o6RyuuPeWyjbJeFeKyNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tvsCrAu5ayMDUpGwaP/lU1BHN2vk059qtfdL4sWdx4Q=;
- b=nqHNu22cc6ELeLWPDo9qQqrRdXvtsSOnIoiX+8OiITxaTUjN7bca2uRiA/EtWShYsdHHBVkJN0qErJ46uyFYDTgkCVFk0QST+9AkT+iQtoaqEw7AgLrbFTtxIh/UlArH5wtLqELLMsM/oVq2gZGjzHWGl7nGD5ABwbdsk7+R3t2CiPRqq7f/7OeahjoK7Rd9R644mHaRvxKJaOp0DnmdKlcIA20zw0UnLRK90go+uf14hUK7rSoX2WwDfcnkEsW7neqRfns+Vvkh9vDhg3pQP+vTRzjmzQ1/8OgWfjcLDPmV0Qvnylgg8SGHP8ZuajvGVC026hvnqUixPeKSl2BGUw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9411.namprd12.prod.outlook.com (2603:10b6:408:215::20)
- by PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 20:51:39 +0000
-Received: from LV3PR12MB9411.namprd12.prod.outlook.com
- ([fe80::98b7:86de:b69:2a15]) by LV3PR12MB9411.namprd12.prod.outlook.com
- ([fe80::98b7:86de:b69:2a15%5]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 20:51:39 +0000
-From: Alex Williamson <alex.williamson@nvidia.com>
-To: Alex Williamson <alex@shazbot.org>,
-	kvm <kvm@vger.kernel.org>
-Cc: Alex Williamson <alex.williamson@nvidia.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Yi Liu <yi.l.liu@intel.com>,
-	David Matlack <dmatlack@google.com>
-Subject: [PATCH v3] vfio: selftests: Verify a failed second open preserves the vf_token
-Date: Fri, 25 Sep 2026 14:51:32 -0600
-Message-ID: <20260925205134.3505611-1-alex.williamson@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: IA1P220CA0012.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:461::16) To LV3PR12MB9411.namprd12.prod.outlook.com
- (2603:10b6:408:215::20)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RdcZgjxJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Wx/g4gqY"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PIo3iQ1165671
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:51:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=pEVAjbFWnMm/lUi5VG3+Ez
+	bqFp3o1qRYwGZDsG3MLYo=; b=RdcZgjxJ9JSf1+Ey1elKEXGW4DC+8xleOCd6+m
+	s8H56mFZhPaZl+QzJOVKD6Nj/nPnm7kavhuPvKe6Rd09gpl4qKO6/8pliN0YG2aq
+	NUyduOpIjVz6UKBgMTGlmZwN6Pmc9qGInQTZVB+aCxLuVkWPL+etQyQlPFkh20hQ
+	DPv+Iah+7YB3P33O1aGgn9AXiIzHQN7OwamTkQDhkdbqHjqVDEphDjWKGoUkFBeL
+	2Yjj5/nznXIAn6isgx87DsH0MJLjY/mo8C8iy3AfZDjEykMkfT4EBqmRT52NWyoh
+	abpd7cTknCLnyn4Mxxu/2Y2JgoQgo9XZqeGJIYzR4LEOmgyg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwjq3b6j8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:51:45 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-342138eeff2so2489059eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:51:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790369504; x=1790974304; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pEVAjbFWnMm/lUi5VG3+EzbqFp3o1qRYwGZDsG3MLYo=;
+        b=Wx/g4gqYRPigiEJJxUOtcJxoBTJH/b1upSFJyyDO82kQmBP0734R8jtt83mLt+I/sf
+         MiTlr122rTPOPk1o8455OfLD2oAG0HfQS82snpgj/kZ3DO4Xd6EaCmud92Dv5+egH4DU
+         FOI2k165Bj9HHht75wJvOIBgqzi7up+j6cDU/Cj4UPQ1VV5qVpIdwAgzLf9A2u9J//J5
+         CQc1kHvr5cupZIrJsf5QkuMGYmINxkD+gTpM4Ii5XV3ZWJ1k3oY2xpSV1Uvz4tN1wZ+P
+         XooruyLykW+kPFPQcyevQ/vdQ6akPSLd5V3h8SR34n8emm/NtmEsjjaqZw4eBnyiCT3Y
+         E+oA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790369504; x=1790974304;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pEVAjbFWnMm/lUi5VG3+EzbqFp3o1qRYwGZDsG3MLYo=;
+        b=2rBr1nNR4VjLdHv4pKqx89CYwt5HFLJ8pc3pnQGcMtWfFxSlejaXniMlmB/rGXH8eN
+         +Pvk3xkL7jzGfmBVZHm53G4zsHssu+fDWjQDXeWfbk6DXxfIXMTOBuRybOYJuvqw9E4j
+         Rw4vj9uI6qz0Vi6Z2ifHEDlEYBHwbQjBqDnO6irjVOAxdmiY3YYusZxgITtGj9jk22Nx
+         x5dh47uqpRxY+E4KMi0oIBZyUJOaxY+F8gGP4XGKx5gFUbgzC2/ciIMuSr+pRxXMQaAh
+         2taWU2hWxrXnWR2R+c6QgPRoVxSSIoPH8q2VRwUp5sIzhTNOh0R9w9us/rm7JSwRCCob
+         tqVA==
+X-Forwarded-Encrypted: i=1; AKwUvByQ4R95KsF13xKq6DdF2Salv/5rsMsrDV3GFEBUmZjTJg5kvpgiOtzz/GnCNemPm7AJl4pb8xTSLLUM8Wo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXjfXJ/2DeUSDVT9IWF8unY8oGebMncAX19yBN0PWt9kxf+Msp
+	xqeoSP6IQgiB6A+y5+muHj6yDBrGGXw1Vc2eKRu/DNlxt8VFkGNpVedJT0i7DeHKqbTDSBmxpke
+	ohm2nBUee5AcmZlFoR6c/hBXQsprDw9OGyekwpBqo4/P3dGQax+s4EKDVChaj9DquhJJ9Im2YGt
+	s=
+X-Gm-Gg: AYBFou3e3oTC8dx64ootQIPTKs75Zgkv+HBCL2cPzQ0VN80PGVVxgg1gnN0uOqMR26i
+	arsuaZgzkQoort0OXpym+UzVYBsLSbDWgy2eVEvSwxBB/S2bKB8YolTvvpvfJI5r1AgwMJXUA0+
+	q7YkUGCo3v4XeXH8Yzc4qanse3y/pUlySE97YbLCsas1WX+iBcLTHylb1toMqADre9YaS8V8Z1L
+	cPxhJJb6OfGCSi+hTIBUPFtrWx2jgEz82meR8Ta4ot3wm6EbNqOwId1WlZ7+CjhEl1HkJ7hatN3
+	94Ms5oOezYdms4DYtmHUqNe1NkL7b60Ki/nCncIVpnv8241o8AsnG1ZRR+0x1r0BfjtwHHjkUbJ
+	EJp6ZvLmpShnKkc0tuVRV2IKaaF7/Mp0W
+X-Received: by 2002:a05:7300:d204:b0:33b:f8f9:c8e8 with SMTP id 5a478bee46e88-3426feb9da1mr1237301eec.1.1790369503935;
+        Fri, 25 Sep 2026 13:51:43 -0700 (PDT)
+X-Received: by 2002:a05:7300:d204:b0:33b:f8f9:c8e8 with SMTP id 5a478bee46e88-3426feb9da1mr1237274eec.1.1790369503231;
+        Fri, 25 Sep 2026 13:51:43 -0700 (PDT)
+Received: from hu-ptalari-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757f31sm13085734eec.14.2026.09.25.13.51.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 13:51:42 -0700 (PDT)
+From: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Subject: [PATCH v3 0/2] dmaengine: qcom: gpi: Add trace event support
+Date: Sat, 26 Sep 2026 02:21:34 +0530
+Message-Id: <20260926-add-trace-support-gpio-v3-0-8572bf7456b2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9411:EE_|PH7PR12MB7820:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1fdc3731-99bf-41c1-0975-08df1b46cbf6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|10067099003|3023799007|11063799006|56012099006|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	4MjsvYDK6blRafV7ZukChUkzjWHQrUlsicqQKMR7Ojaqetya6A0yaULBjDmeXkh2BO091AD5UlhDIO3oaSJpdWktVnQgdttFSKCdG/R7fp6ND3r7QIWjkobupSs2be6BOl1VATN1z+WD48i08OoXb95KMW6/DMKowF9rKdUuwAej2lUUYo8aOAiCBVhuL2o1sLAp9psNEzT5ANHQ+QhxAw16b/GrE9bqLYzxKJFYF45jkkUv0ojCuUpBFkIngeBPEWOUh/IIyBc6Tzf18mdLro4gmMk67Y7+y2zkTs0gp/uA4W2cpqfyILqK2lVe1T5DztqpXWYZY+rBgbpvD9ItfxLsaYrhFpaXCA5wDaIzkplMRLGDW42wSVpYUXQYXBcLus09EU+26PKPTJojlpkXRMxTtjA7IqPM9X9wy4/TbWU5DMcbnMVNhyFbR0XFHvYULXp24wCUHMudCV8g3wMXtc9B5mCCcfI5TxydpPo/6dFkvMvld2MKtIm+cOHZ7Lj0ge7MpuQaLtgwiLOCWQXMuH0LJjOSmsxXU7EnygErpYB0WP6DiQ/cYmbJuQ0JgB9KhuTZ9bISlY5a3hHJzTeqtVpPigtkF5k0leRjIGAgk2W4ui3gvumdu3GiahxY9NATa8K8bU1osllbyPV5lc0Gb90eAG0hmHkoENMhOWuvksI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9411.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(3023799007)(11063799006)(56012099006)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?XQqFAMLplUQS3jdAtmDzSfRPgiSy8i81uT1cFAhNlBb06OLO/QADnAbdMBFE?=
- =?us-ascii?Q?AL+VDalCheZeiYhEpBH9ca/wTxyGRgYxi8u0NEXBfzkQXZ8iW454JcmLs1QI?=
- =?us-ascii?Q?xnYgDT5QuofmspyqQ07ulFnq9fbFPkvF+rl5BGkBmxYqHNodkIzZ2PsDuIMH?=
- =?us-ascii?Q?ruPOGh+zvQFmDzbf0YEoMnpEY0ah4bTSrYBxJRu6DlnhTs4sg52mjFPvSLNv?=
- =?us-ascii?Q?+Mz6lnetNWc1G+l27gx4YcpWfiat51sZmatxIvaTsjX4dFolJNgK9TKnotqj?=
- =?us-ascii?Q?IVTpo1z57ZiATAp5EjKpWhwihyzib46RlSD2KbFhA87LcLx0fOKWdki7L0xk?=
- =?us-ascii?Q?S47VX08U3W51zArkTGJSYL/aaERmbjdfBSNT22BMHs6jM2UmV96trpZzKXre?=
- =?us-ascii?Q?A3ai23jes7OJZP643PPcVWZ3GAsHqivmTEqwNhxcUnryiL4rw5ZMYUKRh2xY?=
- =?us-ascii?Q?tje5xueXT8kukgpOVEwxV8asAyyAgEEGC5gge1/k1TLiraMF1jF7AJSjViuP?=
- =?us-ascii?Q?iQCJ2ynt2YPN4ucR87+RQkHssoSBtkLdBewpE4Z6I3Q2oWmX9sK8fMnS88NS?=
- =?us-ascii?Q?Y7svMNyPjb4hNLJDmJQOHY6Ok1jcYWzR7F8aJLMnFQXMLgi/HZIsjuZno+FA?=
- =?us-ascii?Q?2zQL/srDt8wMuJ4WIacHcFfRvNvqYvaV0wfKan84QIbcNU0e+2v6M7LG5o7x?=
- =?us-ascii?Q?KRjmkP7jfv0mBbwlOOUo2x4LKC7fYnd5kJDKJwqSZgwAOnWgfCBF/qp1glzp?=
- =?us-ascii?Q?9wyTaa6cQ4yZH4onqsaJfYjO6/Y+OaiUtMSVoumgTFzIXn8zP0Lj/jtWapDZ?=
- =?us-ascii?Q?ELggxt++6YZDMDueHtdwRkIS+JcZZzlfi3XT2o2UaDlEdvTewQd+5/MMWes6?=
- =?us-ascii?Q?qMeqeGI56fd6NiPVE/RghVXzKzNRRwD02qIqsniderTSdiJDAtyj72z01M3B?=
- =?us-ascii?Q?Y5GrIOv80PyhXfsGWzaJ+rMlYM/l2V/UKTGXFs+mAQG+V/0OBwwgQov9qK1V?=
- =?us-ascii?Q?3hmIjeGs8AOCcmfUWKbgILKYLYhHPxx0CPK1hFetcqkOHh44+qTOq0rYrywH?=
- =?us-ascii?Q?XGxHtMgCmg+6p9i6NWjB8XOd3dlx9m3qgZHs69YW71k1HPoEkOlMBjgitdEN?=
- =?us-ascii?Q?Ysi8MxdXcCsurFaWzyGcUwlyy26ZsnbjA8hKSkIN5pXxCQBNoBsMqUS1A9tp?=
- =?us-ascii?Q?73TUcgc9wbReaN1XTnTZ2jdJLVSIrOUGEroZZNWwXU0k/KNZgKFyg9m4Qf7V?=
- =?us-ascii?Q?f7+LVQJN4CCfHDOHjxTkN+6BT0BAo3u2WIOTJGVdxNm5Due2FGxGW23+KHPT?=
- =?us-ascii?Q?bO28rCyOcXuTqFYiFt1dZVt3KtNd3NVejE2J4379FFAoR6kMOKf8G7impic3?=
- =?us-ascii?Q?p2j8qXDh8pEhUDF1R+SfkzATiR8V+MHYcuItjkiKMsKX7Stk03klV/kdPg6v?=
- =?us-ascii?Q?B53li4rwPmPTDohpuOCCW5u7xGvAtoOhkVjjv56krmdZduSU4s1jhHwc+Xg4?=
- =?us-ascii?Q?zzRRb+1tqwVPaUWVcdanitdVb7lwvBWbI/WWReQJyPOhGv5eaPHlQpzfo1hz?=
- =?us-ascii?Q?diuaiRX4rXOPLfhaOshmdBgkcekqJzjAq5gYlBmDvTpo21GTVvMnWWH7hyei?=
- =?us-ascii?Q?tQROhGsmPFMPQlyPK6of1EwzMSJ7mI3ljh3X/NMY1O0bxVcgcmDGTvnhm00P?=
- =?us-ascii?Q?EcO77cUO3dwwDcoi3OdgK328VXhn1uowVkeXKelatRkwHejMiF/9DBMPPoF9?=
- =?us-ascii?Q?gnWQbMgqqw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1fdc3731-99bf-41c1-0975-08df1b46cbf6
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9411.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 20:51:39.6045
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0jyNp9kSRtH6K8RPdZsoa6C2NP59dlJI0J3avgkDKtK2i8pK38MbOwLZiGfV388pdGmOCQQSnE8Lm8QSGWgIYg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7820
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANbetmoC/4WNyw6CMBBFf4V0bUkfKNSV/2FctLRAjdDagUZD+
+ HcLLtxozCST3OTec2YEJlgD6JjNKJhowbohBb7LUN3JoTXY6pQRI+xAKk6x1BqPQdYGw+S9CyN
+ uvXVYCKP2hS5YyQRKYx9MYx8b+Hx5Z5jU1dTjSlsbnYXRhedmjnTt/ZVEigkuFWk0SacVPzmA/
+ D7JW+36Pk8Pra7IPjRBxE8aSzRCm4qWXChVVV9oy7K8AE/PSo4jAQAA
+X-Change-ID: 20260831-add-trace-support-gpio-99eb54d42729
+To: konrad.dybcio@oss.qualcomm.com, Steven Rostedt <rostedt@goodmis.org>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
+Cc: chandana.chiluveru@oss.qualcomm.com, mukesh.savaliya@oss.qualcomm.com,
+        linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+        Praveen Talari <praveen.talari@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790369498; l=1972;
+ i=praveen.talari@oss.qualcomm.com; s=20251114; h=from:subject:message-id;
+ bh=ts9DOEaWf1lBa+eQI547Ro/oe0Z02nVSejCO7cX47qg=;
+ b=emdfuG2GAP2OB7/X4F59dGDE24GgzSnqsrAyM30SzdpZprd0kVmSz1qSgnQNvJIR72EjhD8NX
+ MCyVhecKWc0Ai6HGkTJkvh/OA+ZZzWvsRBcN+hjzDBpp6azgPzxTFUr
+X-Developer-Key: i=praveen.talari@oss.qualcomm.com; a=ed25519;
+ pk=NGK/88fjyHXgfhIKwag7+uIytOmyOypvZ/hDFaYPEss=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA4MyBTYWx0ZWRfX3A+tkKRR5Hoq
+ RW9+8uYgJKKiHaFR2yD77H+0Eh+iKVLD62PHaTk7FcvKuZEOmKcIm35W5QpUJQaALST0NR44kxM
+ SDcyvOo4204va6Xsk9zRo8oYOay9WDc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA4MyBTYWx0ZWRfX+gZfr6+AC5L3
+ d2zozrzurIxohheFiTii8DdWMC3QNXhM4s9bafwGCIKhn5O0K3g3EBWvhSWe52TBeyPRUvavZMh
+ 0OfmJK7e7mcQvScZIKiDpZ+t2aceEyRQtpv57CjvCSqMBcPAN5GU/UulhWCRMol7EnTVNH64pVI
+ QrDm8YGavrQnFy17wtjf8YCdfmMIvAGit3Qj0W+Qc7AA7uGa7LgamyTKgBIyDXej80xlapgUHJR
+ DE7pvJZ9qCgS5YjsYnrZF9D1dF/mob+DPqDZrUVEYrJVMsY/flPF/zNX/XpJwzneykV/OTRTf9Z
+ w6w5GKE4el4cnViomRWGyJbA/9GwsVlE7aIBrBEdkxpqpQwKukGMPy/CO0xxriMpswyXoigMlBS
+ JYsxHFT9cyP8dJCXkZNtUVb0+in2C9IPS86IpnvqRqYQlnq/wpuEfIAjl1l2mqsvuGhp8cuRhyC
+ MyCqWbxICOOALNyuwhQ==
+X-Authority-Analysis: v=2.4 cv=VuO2kO2n c=1 sm=1 tr=0 ts=6ab6dee1 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=n0A2qb7kpkoggacqyAEA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: qR0BtzCPLX27II9hUXkmC98m59vfmf-h
+X-Proofpoint-ORIG-GUID: qR0BtzCPLX27II9hUXkmC98m59vfmf-h
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609250083
 
-The cdev path enforces a single open per device and rejects a second
-bind of an already open device.  That rejection must happen before the
-bind can mutate state shared across opens, notably the PF vf_token, so
-that a bind which cannot complete leaves the current opener's state
-untouched.  Before the fix in commit 258ba46543ab ("vfio: Reject a
-second cdev open before mutating shared device state"), the second bind
-mutated the vf_token and only then failed with -EINVAL.  It is now
-rejected early with -EBUSY.
+This series adds tracepoint support to the Qualcomm GPI DMA engine
+driver, giving structured runtime visibility into GPI DMA behavior
+without requiring invasive debug patches.
 
-Add a regression test that binds a PF with one token, attempts a second
-bind of the same PF with a different token, then initializes a VF with
-the original token.  The VF init succeeds only if the rejected second
-bind left the PF vf_token intact; a regression that clobbered it to the
-second token would make the VF init fail.  The -EBUSY errno is checked
-with EXPECT_EQ() so the clobber assertion still runs if the rejection
-returns a different error.
+Patch 1 adds the qcom_gpi trace events header (private to the driver,
+in drivers/dma/qcom/gpi_trace.h) and wires the tracepoints into the
+driver alongside the existing dev_dbg() calls.
 
-This hazard is specific to the cdev/iommufd single-open path, so the
-test runs only in iommufd mode.
+Patch 2 converts the remaining dev_dbg() call sites in the driver to
+use the new tracepoints instead.
 
-Suggested-by: David Matlack <dmatlack@google.com>
-Assisted-by: LLM
-Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
+Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
 ---
+Changes in v3:
+- Move the qcom_gpi trace events header from
+  include/trace/events/qcom_gpi.h into drivers/dma/qcom/gpi_trace.h,
+  since it has no users outside the GPI DMA driver, and squash it
+  into the tracepoint-wiring patch.
+- Drop the redundant per-function breakdown paragraph from the
+  dev_dbg()-to-tracepoint conversion patch; the first paragraph
+  already describes the change.
+- Link to v2: https://patch.msgid.link/20260909-add-trace-support-gpio-v2-0-01f81739bb88@oss.qualcomm.com
 
-v3 following v2 from [1], incorporating David's suggestions to combine
-the tests using EXPECT_EQ() rather than ASSERT_EQ() so that we still
-test both aspects without duplicating code.  -EINVAL reference moved to
-commit log.  Remaining patches from [1] applied to vfio next branch.
+Changes in v2:
+- Reorder TP_STRUCT__entry() fields in gpi_ev_process, gpi_alloc_ring,
+  and gpi_ring_info to avoid holes: 8/16-bit fields moved to the end,
+  and 64-bit/size_t fields moved before the __string() field (treating
+  __string() as 4 bytes of metadata). (Steven Rostedt)
+- Link to v1: https://patch.msgid.link/20260831-add-trace-support-gpio-v1-0-7b0fd0d0ddb3@oss.qualcomm.com
 
-[1] https://lore.kernel.org/all/20260911170429.1642480-3-alex.williamson@nvidia.com/
+---
+Praveen Talari (2):
+      dmaengine: qcom: gpi: Add trace event support
+      dmaengine: qcom: gpi: Convert dev_dbg() calls to tracepoints
 
- .../selftests/vfio/vfio_pci_sriov_uapi_test.c | 35 +++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ drivers/dma/qcom/gpi.c       |  69 ++++------
+ drivers/dma/qcom/gpi_trace.h | 317 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 344 insertions(+), 42 deletions(-)
+---
+base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
+change-id: 20260831-add-trace-support-gpio-99eb54d42729
 
-diff --git a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-index 19d657d00b75..87f42aae340c 100644
---- a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-+++ b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-@@ -157,6 +157,41 @@ TEST_F(vfio_pci_sriov_uapi_test, override_token)
- 	ASSERT_COND_VF_CREATION(ret);
- }
- 
-+TEST(failed_second_open_does_not_clobber_token)
-+{
-+	struct vfio_pci_device *pf = NULL, *pf_second_fd = NULL, *vf = NULL;
-+	struct iommu *iommu;
-+	int ret;
-+
-+	iommu = iommu_init("iommufd");
-+
-+	/* Create and bind PF using UUID_1 */
-+	ret = device_init(pf_bdf, iommu, UUID_1, &pf);
-+	ASSERT_EQ(ret, 0);
-+
-+	/*
-+	 * Attempt to open the same PF again and bind it with a *different*
-+	 * token (UUID_2).  This must fail with -EBUSY because the cdev path
-+	 * only supports a single open per device.  Enforce it with EXPECT_EQ()
-+	 * so the clobber assertion below still runs if the errno differs.
-+	 */
-+	ret = device_init(pf_bdf, iommu, UUID_2, &pf_second_fd);
-+	EXPECT_EQ(ret, -EBUSY);
-+
-+	/*
-+	 * Attempt to initialize a VF using the original PF token (UUID_1).
-+	 * If the failed open above clobbered the PF's token (i.e. updated it to
-+	 * UUID_2), this VF initialization will fail.
-+	 */
-+	ret = device_init(vf_bdf, iommu, UUID_1, &vf);
-+	ASSERT_EQ(ret, 0);
-+
-+	device_cleanup(vf);
-+	device_cleanup(pf_second_fd);
-+	device_cleanup(pf);
-+	iommu_cleanup(iommu);
-+}
-+
- static void vf_teardown(void)
- {
- 	/*
-
-base-commit: bc78c90728cd74d1c7335fef786fa51968bdebad
--- 
-2.53.0
+Best regards,
+--  
+Praveen Talari <praveen.talari@oss.qualcomm.com>
 
