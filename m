@@ -1,137 +1,112 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711374DD3B5
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790353522; cv=pass; b=noslaG3m5l83Re3+xtiTzuWLrBB/00MrRNiZehPQVeg2MJOBrWkq1YvcvzFvUdd9mj6sJS5Aq749svy7fsExIjnK7N25A3GtRsPGYNHzXYYtp50iVxvnBc3k1Y8h9rYnd9f3+M1/X5OrflMxui88s6u7PvhgBHTx/H8Gx/G0pLU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790353522; c=relaxed/simple;
-	bh=8zm7M4OxoFSvQ+TgH5PpjZhe1RxAkkquoTyQXaliDfY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1D84DAF84
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790353554; cv=none; b=QTPBXzr1kdGF/jiOqiNvTcE2AxD4gOVZcXuBbO6EjzjQNHjz/59aiZ1Q7wwA7K6y051WJotPX55SIhVI7bm9nKG9YqC7HlbTh9wERKmtoqnZGlbA4p8qRPs7sgPYuAMQ+MUd3j1o0geQzj0gptTcRhRbC7up8O40/Eh/iKv8XZY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790353554; c=relaxed/simple;
+	bh=6fYDLPuw7TdEq9beCl8lZHCEAKip/STw7RgtlWkrkg8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jx4Us41s5ONFxDzNysc5mY81muTw0g4xclxTOmOxrvLOkONjr2tlfSX7TCEVIWOdnMATPJSmvc7+wIcMktDTxe5nyO+NQuyxeY15B+ep0OC5gEf4LBpdbaPqlOhY+is4gR3WRF6IQJQNab1tbS1r497j+p8kNbU6O3QZPe6VNe0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HeWQ8mVY; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=bWBUSf+RynqF/li/F5GcpFQ/7pagPQU/B7+WUyAm8Vd8OVW43UJUqirUwTQ35/nWOO4dwExNLI0xCYJSRx18oB13dWjhDqScQIQ0QtpKChpm+M3zxASY/3Wecx2sQpgOD/V9GUjN/JTj/m0kgtWfO3QohYlSv71XRgQDYtYAy/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SkZTyo4x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HeWQ8mVY"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a49c068e85so7765511fa.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:25:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790353518; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sibB29Wlknvra8KrgNg2RDXk1c5ukj5709c7c4cBmkr5SHrxZxPt90Z4no1lAzVrHs
-         fuD8Foi4EGm2CgQaHwdHXLazMxT9BN7EZ1dN0N/cMbsXhfT7m2Eok5uSE6nsDXdBT1aW
-         ZUOR3f83h2mpwXa8E+fxtCitubIZmLoLYtvyLP4oynNCQXxdy2JRsWYhe1KmpVMEZFen
-         kdWrMTHIP1luAhnxyW5H9YDVPRCtVZXzENl30xYXbojjV2TmJ9aul8VRE/MRk5E5Ply/
-         P+Vzxd9PLDOuiZSHFI/9fb1gQ9sBCSsjEZq5F5bwizZdVFKdQYOOVsgHqhpQ8zXLU1HB
-         KRtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iLeLfpbYpsHoDt+ljmKBY+6pn+0K/uh1JAal5HfsYCY=;
-        fh=ddafWakDZX3zg85JmGPe2qkmzlkw9II+Ew5I1JoB+Zc=;
-        b=YTQRZamRRtofxyVjUUajyKjudaRErGjUrhrLAxtJE0Ke65R4TiV8cCDTA+CcDKRWjv
-         8KTV4qplgtzWDQyqRawX+TtUhGR4H5V962/Tx7YeAbLGjRsvN3pOsJMqt6dCYAH7KZIM
-         n6hfNcr2pt9JqhmT+HRWJKLo93qQJPauEgUt8QE9I9E1sF9K3V0YZ+YxFjO8zXP2U+qp
-         lHjs2eDgvriGl+dwDfF51+fdK2S2EOIe23kovqIb+MWCaXgdklnF6decJGsZQCKDQxUq
-         se4xWLE4+Z/Ef1QzzpimOdowQXEPPn0ckumeizIhpge/6++/vhsmxmm6Y0PbgHg3upwT
-         QmSg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790353518; x=1790958318; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iLeLfpbYpsHoDt+ljmKBY+6pn+0K/uh1JAal5HfsYCY=;
-        b=HeWQ8mVY1pQirJU9xHFq4lCkQi1F7yZ6JBXYKyWRvFkCn1eylZNitxk2Mo/CNLt3hX
-         ziSRkNV6ffihFnkYD2Xcgr9O2EpMTL2d99kJyq5hSGxiapuS2ewnqiOI+qXdXIYc7tFF
-         6Fo+zMm08FXTqXEvxbqNxPnvQjiFT1PJjsOGmipZwHLPwbi8h+CEMCNhcfxtDvWSKuTr
-         Bq1DGVh8xRW29FaR43WVmKyTBX05UHCUwru4CpxLPRqBGNOFlci8XfjjRJIFEpeRXNZU
-         J8ZxjS6+sCO4EA7zZvHbZDQACugAh81WPByRmGWQIXc7DrAPbUD/WtCVHI7YCOVppxP1
-         VZqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790353518; x=1790958318;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iLeLfpbYpsHoDt+ljmKBY+6pn+0K/uh1JAal5HfsYCY=;
-        b=SNznjT8v6DYBVRHNlpjBH4KllF/VfwNzzSWAnwKIBmL6xIxeVIaarL1f2RSmbZytkS
-         W1wTlWJZww4Mwy8j5LNwpNMYmkkqIg0pMqYXGoTFvtKQg460shJcsy25/tgYTwhJbzm1
-         EOGbB/8bANu3Oo4BQ54mAEAqSCX/bpiHwSOMgTt3JWmlORCm5Hp+Sb4qtevoArxCn/Vw
-         RWrorTjnvlMN1KXdTX2Lq4b525SUJ73Djz17tCf4+DGFmoQi9LOtzSjfQldDJ63ukX6G
-         9jmcGcNrvppeqVX2Hb+/yuhpoZ/kpPsN1WT1p78MIGRnMLxKsI2ofYBUWxZCBSHo0pth
-         l3Zw==
-X-Forwarded-Encrypted: i=1; AKwUvBwClIqrAjRhh9fX9d4JS5RotiTVcRfA3O9lvfyEj9CDsIaiH1HcgxsVU8wGFtsHhBSEF/zFEf21tZ4sOys=@vger.kernel.org
-X-Gm-Message-State: AFuF++keSJ0qzPOXz0kV/b4QgNYD3vVE+uLzKQw2cC72Ybs17h/RJhoj
-	pkBjzgNWfmYxAlZyNFFrcxxue6lfLg3Mnqo33QWfGZc0X0kHOh0/t1rBq8axH+WWs1o5gBbiXBz
-	wtt+7+oUx36/tS1OQxADNTPgK2AGy6Ss=
-X-Gm-Gg: AYBFou0nQb2E05QkAJsfora5RUYV2BfYIxBcjvdLNjRI3q5NFfgggJiZAgIMG7fAG0B
-	8K0b713DL3I676CiA9+SBrVEx4aySAZBA8zOZ9a9dN+6qPEkSWvmqaOeJxbLI1Xb+s7Tq9YW6zb
-	ZnpZWYD05KBGydj3/dRmWxKBHfz+eiWVmEXWRSQ7F1vAD+aBktvMKFoLwJjp+0gdKg3Hyy9zM6+
-	lufrmsB5mVWG/rffX7l0EyrDds8lWJrk9UIzwKTZXe5sza4Jo2cgBtRlBfJ/BUID8gs4NQ3g4qY
-	vDOQkW+vGhgOeeBp/urfA0zF4Mhbk+OzngKSe6qECUrw3QfQwz3RyBgavfdiKmp5sai3HExu5ns
-	ITO9sWVM+B+la3yOW39e9moIQLkFqSmb6ExO1d2Vt+Kg=
-X-Received: by 2002:a2e:bc1e:0:b0:3a5:b187:c7a1 with SMTP id
- 38308e7fff4ca-3a63bf4fb7cmr16159921fa.9.1790353518313; Fri, 25 Sep 2026
- 09:25:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SkZTyo4x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5C41F0089C
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790353552;
+	bh=6fYDLPuw7TdEq9beCl8lZHCEAKip/STw7RgtlWkrkg8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SkZTyo4xxfFfIHkKIcVzKt/r6NVyGCRHYPlxBuj/CfdOc5/UiPnHhsNeysafJ83uT
+	 PrsApt20TbtzJyRpj/ArQV+ysPRtw70TjqJbVdGUsvZcqDtlWD9Kq6uCr9e2hR5TcQ
+	 WqHkFq31PmtukKbdE6y/W8GS9/XSR4o73yuajz9jGmCx6GdhINz2kzewMKYZle40Rz
+	 Jc4eglh/tm38aa+rDhaE+rYk23PpYcf8o3TBVaTamJ/idDzDGvcrFiD2suq/GxYFWK
+	 zgFkLbpLOozrM5LhUI306UQ1mmZ30ZjqiBsz8Sk4d6Pq2YHLUgL3h7x5LiWU8/PFE8
+	 PJ7V94nNq5nFA==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8e6ec4d9bso757115e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:25:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx0aGdlvfV6y+ChQ0GlxkCJsIi4yfLRjo33OWhnla0jDABcvpkYJH4DTdFCCrbvIQoBW+C0omMY7FAjkEE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMTV4QFeW1QUUQGmCz9lmze5ReQYDh+5EVAco3EkIsCrYpKisH
+	kNcQkzhbJORcPfQwS+m/U9KwHhPG+Q/6ZkYS7RZRjs3+NmmtuQxsoMqOGpyQzh9aaZ6+HHjKyDu
+	P5TRnn1MK1849DWEgPgF33yBjoV5DiM4=
+X-Received: by 2002:a05:6512:1344:b0:5b6:1a7c:59db with SMTP id
+ 2adb3069b0e04-5b8df0d22f7mr2083445e87.53.1790353550897; Fri, 25 Sep 2026
+ 09:25:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
- <20260925-aw88166-cleanup-v1-6-11f74cb5fe28@gmail.com> <721467a7-6b7e-4234-8321-660eb43f1f9c@sirena.org.uk>
- <CALHNRZ-ofi9J6SZpKih5pogtH4aL_HDy3WmUQJ=w_nVd=YskTw@mail.gmail.com> <d11d2b20-74ec-408c-bd06-765ccdea1504@sirena.org.uk>
-In-Reply-To: <d11d2b20-74ec-408c-bd06-765ccdea1504@sirena.org.uk>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Fri, 25 Sep 2026 11:25:06 -0500
-X-Gm-Features: AclHuK8p1YRovjIsB1rIwKZPdfnnCz8fE1woFYGlsyQTwiHN-svfCGDW5y0jElY
-Message-ID: <CALHNRZ_GTEsbAr6Byo_DtHG2VMqS+daJMM4=a+icbnu=h1Bj-w@mail.gmail.com>
-Subject: Re: [PATCH 6/6] ASoC: codecs: aw88166: make volume control usable
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Weidong Wang <wangweidong.a@awinic.com>, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Val Packett <val@packett.cool>
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-12-83afb4f1a707@bootlin.com>
+ <arInho2bsfJiCgjV@houat> <DLNCQEG62F5N.O98WAO4U2FJO@bootlin.com>
+ <CAD++jLkk-a0MrQUiaDD8OoDDoYVwBwSjFTj5ZBy=Xo7MS4+01g@mail.gmail.com> <arTlpd-KAsVpj3UH@houat>
+In-Reply-To: <arTlpd-KAsVpj3UH@houat>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 25 Sep 2026 18:25:35 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmktDoqn2EbXsNnyGRudo-q2NCxUf+9ZjeU+WrY4CBMWw@mail.gmail.com>
+X-Gm-Features: AclHuK_fq2ZWJ1A-qMmc6hpV7kHeTfdnkXq9HUzMYWRHIkAmDRIf8rPpfyjUW1o
+Message-ID: <CAD++jLmktDoqn2EbXsNnyGRudo-q2NCxUf+9ZjeU+WrY4CBMWw@mail.gmail.com>
+Subject: Re: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+	Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+	Paul Kocialkowski <paulk@sys-base.io>, Inki Dae <inki.dae@samsung.com>, 
+	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Sean Paul <sean@poorly.run>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Albert Esteve <aesteve@redhat.com>, 
+	Anusha Srivatsa <asrivats@redhat.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+	asahi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+	freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 11:18=E2=80=AFAM Mark Brown <broonie@kernel.org> wr=
-ote:
->
-> On Fri, Sep 25, 2026 at 11:05:42AM -0500, Aaron Kling wrote:
-> > On Fri, Sep 25, 2026 at 9:18=E2=80=AFAM Mark Brown <broonie@kernel.org>=
+On Thu, Sep 24, 2026 at 10:57=E2=80=AFAM Maxime Ripard <mripard@kernel.org>=
  wrote:
-> > > On Fri, Sep 25, 2026 at 02:47:34AM -0500, Aaron Kling via B4 Relay wr=
-ote:
->
-> > > > - Invert the value to match userspace expectations (in the hardware=
-,
-> > > >   positive numbers represent negative dB attenuation)
->
-> > > That's a very bad compatibility break, if anyone has a profile saved
-> > > they might get excessively loud volume from their existing configurat=
-ion
-> > > which could be distressing.  It might be better to rename the control=
-.
->
-> > Mmm. At the risk of sounding like a broken record, is this any
-> > different from the accepted aw88261 change? I wouldn't be specifically
-> > opposed to a new control as my use case, Android, is very tightly
-> > controlled and I can just update the audio config I ship. But more
-> > standard Linux use cases that rely on a standardize control name would
-> > be stuck with a non-standard inverted control forever.
->
-> Why would renaming the control do that?
+> On Thu, Sep 24, 2026 at 09:51:53AM +0200, Linus Walleij wrote:
 
-I might be misunderstanding something, but I thought there were
-standardized names, like this "PCM Playback Volume" that tools and os
-handling expect and will use if found. Which would cause a second
-control with a different name to not get used. Is there something I'm
-missing to where a new control would get used without manual
-intervention?
+> > > Linus, unless you have more info I'm going to apply the patch as
+> > > is. Removing this special case would be welcome as a later patch.
+> >
+> > I'd say go ahead as-is.
+>
+> I'm fine with that, but I really want this removed at some point.
 
-Aaron
+If Luca wanna fix this up (drop this path) that's fine by me,
+else send a patch immediately after this is applied and I'll
+ACK it.
+
+> > I do have the idea to code up and submit the AV8100 encoder
+> > and I have the hardware to test it, but every other user should
+> > be using panels directly, and I would be the only non-panel
+> > user so I can deal with it when it comes up.
+>
+> It won't change a thing. All existing "panel" users will be bridge users
+> after this patch is merged. So whether you want to enable a bridge or
+> not shouldn't matter, the only thing that does is whether the existing
+> users would still work.
+
+I know, all it does is create a snag that I would run into myself.
+
+But it's not gonna be a problem for anyone else, that's all I meant.
+
+Yours,
+Linus Walleij
