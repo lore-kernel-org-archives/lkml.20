@@ -1,97 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39A231355C;
-	Fri, 25 Sep 2026 01:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71A5F1C28E;
+	Fri, 25 Sep 2026 01:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790301119; cv=none; b=O2mbWNnqzX9NKHfYTSq80cchx6Lx5JNeZsYp8bg3QB11/cEsarGLyfmfLKe2T0/COXi6jqkerA0pHICTxB53XTphW/n4kaPDA6ZjIjUZqb4L6PL8TkzaDfqstvhoZvT478qnqRxYflHmKHYHipkmuxlvJwwvAimrKKy0fIuHhK0=
+	t=1790301194; cv=none; b=A4EFCkRZd1v3nB8c22M3sy9aWWxpyDwDZe9cjtqD1LSJLxhnIJ881NhDv5mjEtRuEjLInuqOCEfdq4DgXK1YfCgSru9w9Tzc0FrRiRQ1AGjP05UpLD7TrxxwYWHnMnFNJ4xnCX0gM/td8sOlG0SGc/qGuwmXcZcOD46VHSpGqgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790301119; c=relaxed/simple;
-	bh=CC4xt5GiBlwbRUw7wQ9WjWfl5sgxtf7DH1Tkfa5r5As=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F41jwl57ukFreLrJ7FYIUvgxCgb6iAsd52Zf17N7lLIajJhcYURb8i9UvweF0PTLHxpxmwBAEHSeYmhM32c7pI2NRozyie5lkU8Bm/GhgEkg1T/9ZqAZfOuM7pv9dXjkDiysDaM8xAdBnBM/vHWRjSpo4Z1zPJ1EvjgcJd54pes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHq4/t+B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790301194; c=relaxed/simple;
+	bh=YbP9veqAGPQV0A9tHwhK7hbHLARLTMv35+KZa84WjIY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J6JcHVnVhe29fIVXnbhT6f17+x/zkEh+p0/ifIBIStumRCM3+50sayg3p6HY4g6DGsG/f9G1p+CwummmWH6mKb2Pi9iSDAjQUqeeQEyLthqC4s+9cXEvEHg8b0Mr8h7XTpzGg3y+UyrAg6tFw0+aAS9vJKJR34Xj0q2nPZBGW8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Gywd1wS4; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHq4/t+B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF9A1F000FF;
-	Fri, 25 Sep 2026 01:51:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790301118;
-	bh=M4vMavJkMrkIoZqEbnmJ3voS7dppi1avHmqq3XLmlYY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WHq4/t+BWQ9jjmrpPNpTa/o6N6oWQUuGzaUN5DfW5QM4p0lTvnh7B2ZxXRxMYH4st
-	 CUn5Qt9zCNacx8dFaxpN760fjp4iuu1or9H47RB/9LarBkAkrO8WGj2Ld8NyJRDOUj
-	 QXHoCZeJPotdlFK8wsUZiHxPZR9glG/XZxgZpIuFIX8+KluKC+8ITfWvDfjXfy0vo6
-	 HQ3wWGjiwzWECzirMXcXLjo3rl8oL2MyeuTXhFwtG5nrjvVzbPL8qwfwCEcO+mkr57
-	 VTSkmUKGukpjGiLrsnT9KKx+ecD3lab30+bDBNALn+IFt8VzDSljP1zM0z4k8euLxF
-	 XE1xjFiZXTwwA==
-Date: Fri, 25 Sep 2026 02:51:54 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Pengpeng Hou <hppiscas@163.com>
-Cc: petre.rodan@subdimension.ro, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- tiberiu.a.breana@intel.com, andriy.shevchenko@intel.com
-Subject: Re: [PATCH v2] iio: accel: bma220: publish the SPI driver ACPI
- alias
-Message-ID: <20260925025154.3a477b43@jic23-hlaptop>
-In-Reply-To: <20260920033358.12345-1-hppiscas@163.com>
-References: <20260920033358.12345-1-hppiscas@163.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Gywd1wS4"
+Received: from mac.lan (unknown [4.194.122.170])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 86BF620B7167;
+	Thu, 24 Sep 2026 18:52:10 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 86BF620B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790301143;
+	bh=WjVR2YR+EpxqRtke2XnuOUpQtN11VbZdN/DOg2qh+sk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Gywd1wS4vhQ/pIWDj4fpAl0HTPCgy1XcAQUZJNzq0vMXZkYq98bnXNnf9xkyLbN1p
+	 XYIWy6ngdNfMgvTKX4KsD5fwsYlCxoWUs/d+JPeTJ2uoGtArFyrZI4KQeoJ4+aFwlw
+	 4eFUqtulAtKhSELZPDnBmpKNAqf435WwM5NiLSPY=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: Chuck Lever <cel@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>
+Cc: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	Francis Perron <francis@akrites.dev>,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com,
+	Cen Zhang <cenzhang@linux.microsoft.com>
+Subject: [PATCH] sunrpc: reject AUTH_TLS on backchannel to prevent NULL-deref in svcauth_tls_accept
+Date: Thu, 24 Sep 2026 21:52:51 -0400
+Message-ID: <20260925015251.21168-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, 20 Sep 2026 11:33:58 +0800
-Pengpeng Hou <hppiscas@163.com> wrote:
+svcauth_tls_accept() dereferences rqstp->rq_xprt unconditionally when
+it tests xprt->xpt_ops->xpo_handshake, but on the NFSv4.1 backchannel
+path (svc_process_bc), rq_xprt is NULL because no server-side transport
+exists. A malicious NFS server can send AUTH_TLS (flavor 7) on the
+backchannel to trigger a NULL pointer dereference in the client kernel.
 
-> The SPI driver advertises an ACPI match for BMA0220 but does not export
-> that table. A modular build therefore lacks the ACPI alias used to load
-> the driver when the device is enumerated through ACPI.
-> 
-> Export the ACPI table. Move the existing SPI export next to its SPI ID
-> table so each export is adjacent to the table it describes.
-> 
-> The issue was found by our static-analysis tool.
-> 
-> Fixes: bf2a5600a3eb ("iio: accel: Add support for Bosch BMA220")
-> Assisted-by: gpt 5
-Updated to LLM and patch applied.
+  general protection fault, probably for non-canonical address
+   0xdffffc0000000001
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:svcauth_tls_accept+0x258/0x820
+  svc_authenticate+0x2ab/0x3e0
+  svc_process_common+0x8ff/0x1cf0
+  svc_process_bc+0x5a8/0xbb0
+  nfs4_callback_svc+0xcf/0x170
 
-> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
-> ---
-> Changes since v1:
-> https://lore.kernel.org/all/20260905133901.66016-1-hppiscas@163.com/
-> Place the SPI export immediately after the SPI table as Jonathan and
-> Andy requested; use the full author name.
-> 
->  drivers/iio/accel/bma220_spi.c |    3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iio/accel/bma220_spi.c b/drivers/iio/accel/bma220_spi.c
-> index d6c1087cc3c0..d7a95289df48 100644
-> --- a/drivers/iio/accel/bma220_spi.c
-> +++ b/drivers/iio/accel/bma220_spi.c
-> @@ -28,12 +28,13 @@ static const struct spi_device_id bma220_spi_id[] = {
->  	{ .name = "bma220" },
->  	{ }
->  };
-> +MODULE_DEVICE_TABLE(spi, bma220_spi_id);
->  
->  static const struct acpi_device_id bma220_acpi_id[] = {
->  	{ "BMA0220", 0 },
->  	{ }
->  };
-> -MODULE_DEVICE_TABLE(spi, bma220_spi_id);
-> +MODULE_DEVICE_TABLE(acpi, bma220_acpi_id);
->  
->  static const struct of_device_id bma220_of_spi_match[] = {
->  	{ .compatible = "bosch,bma220" },
-> 
-> base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
+Reject AUTH_TLS early when rq_xprt is NULL, since TLS transport
+upgrade is meaningless on the backchannel which has no svc_xprt.
 
+Fixes: 74aaf96feaca ("SUNRPC: Teach server to recognize RPC_AUTH_TLS")
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Reviewed-by: Francis Perron <francis@akrites.dev>
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+---
+ net/sunrpc/svcauth_unix.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/net/sunrpc/svcauth_unix.c b/net/sunrpc/svcauth_unix.c
+index 31a1bc60a5f6..42149139e58d 100644
+--- a/net/sunrpc/svcauth_unix.c
++++ b/net/sunrpc/svcauth_unix.c
+@@ -1129,6 +1129,12 @@ svcauth_tls_accept(struct svc_rqst *rqstp)
+ 		return SVC_DENIED;
+ 	}
+ 
++	/* AUTH_TLS is not valid on backchannel (rq_xprt is NULL) */
++	if (!xprt) {
++		rqstp->rq_auth_stat = rpc_autherr_badcred;
++		return SVC_DENIED;
++	}
++
+ 	/* Signal that mapping to nobody uid/gid is required */
+ 	cred->cr_uid = INVALID_UID;
+ 	cred->cr_gid = INVALID_GID;
+
+-- 
+2.55.0
