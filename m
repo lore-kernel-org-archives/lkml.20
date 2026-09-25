@@ -1,196 +1,121 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E750F1DA0E1;
-	Fri, 25 Sep 2026 00:14:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790295256; cv=none; b=ka/Cxo5B0o2yy5IcHXQBn9sEaeICs2w/gxKqQSjI/00fUBycMVgVTSd7wbQh3dOSxGedw8m+rXapI3nyeKrywg39UIcZcbt2WloeGkc/lcx1x2+L8sW7ZBxaIM9JubFxBSL2xDPKy/ckSXGKqcbC5FAUCz7ocFQ4h0iysWbRHcE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790295256; c=relaxed/simple;
-	bh=jp6nqdE7QvGN4xwgnk39K2MvUBZJYTBZhJs+ybChk6c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=morFUjzSee92c7hVYy99R07ODlrA8odbcQjQkrqivOoxPCQYP6lejDnU0/h19FUD+AE4RrKWo6pFHcrzi6pJ1os+4YfUBm52DKesa0Ja1OGkkr4KdIZkZVWmDINjZNZTPXRdFP4t8V4OpSPqATB+fOJEsEzJxu6UJlI1pjTLGXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=MM3tH2eD; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3D8EEC0
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:16:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790295376; cv=pass; b=nk+iI9gz3wZgVcR6u89Z5hlGwKLna6NokW/iOu27SGbHfm/DwHqGQmZ2jQl1UJO6REq9IdAEFoFt3k+5wcQ/rTw3C9629y/c82wKI72w9szmNizu8FIurxCRKWLv+zNeU3d7RzZgFibYcouWAatzNDPUva+N31chhejqkfx9hBc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790295376; c=relaxed/simple;
+	bh=J6NsS0YBb21hzvOhePaLlNVQz4MY3ClTamAaPzj0JeU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KPoaQXFrigold5EbKcoC72NNvQ/+2TVsHUbImypm1zW3rdJZ42bFZH9Lnktb+A7kIxPmWB/5kHBbTl+BXgC/q9lHpAzXSU925sLmOVnG8GI790wZIHjDgpvNnsRKoQ/sCyuTYi2x1sjQoTFglTsdkkzNJUNCcjYPOtrxoXRfRHY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bshadow.us; spf=pass smtp.mailfrom=bshadow.us; dkim=pass (2048-bit key) header.d=bshadow-us.20251104.gappssmtp.com header.i=@bshadow-us.20251104.gappssmtp.com header.b=QdepNmep; arc=pass smtp.client-ip=74.125.224.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bshadow.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bshadow.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="MM3tH2eD"
-Received: from [192.168.0.88] (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 531DE20B7167;
-	Thu, 24 Sep 2026 17:13:24 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 531DE20B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790295205;
-	bh=/A8ze1IR0XgVzAUkWiSQ9oPFysWsnH8Xbk6S7e2PMHA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MM3tH2eD9cqWsXiQWSQMFKupIv8icq0PO4O8qrwA38SHn9cvi95PyLmdbG7ZbAkR1
-	 cW3NoaAjA1JgB9GiV2wN+FzqRDvNUiBUIwmCF0ujs7L0qaDvZ8iMlX+n+2T3wImter
-	 pgOPA3YArpKLtJi9WIbLLsRXUvdEm+HjTE1IKWKk=
-Message-ID: <329027b5-3110-8362-ccee-080c14ed9b3e@linux.microsoft.com>
-Date: Thu, 24 Sep 2026 17:14:12 -0700
+	dkim=pass (2048-bit key) header.d=bshadow-us.20251104.gappssmtp.com header.i=@bshadow-us.20251104.gappssmtp.com header.b="QdepNmep"
+Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8a7af43a358so3903287b3.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:16:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790295374; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ij1e8nGcEa1PGlvYDffRzHjW5MIYxu5Mr06jMqBBkTmUdJGqJ6R6evMgnhI05/FjSh
+         aPXUyiJdDYey8ij+U3uu/CDOE+wFBMq2ikRJzltnUehmbQ6dZUhMjf9RykrpOyyb5EeP
+         jZUUiXUME6LEUhXm56p+2FM4Ud/u/k51UjQ6EkUu/EvOej3blOOJ6GakX33K/Oj9RSHF
+         IQa1UQ12Em5q25v2Qr+D8catx8YSUE2kpixV94uMRgx42nQo/ufBQZ8mTWpPtetKksRT
+         ubxSp+XjtPs8pINOxSG7R6soxAIOZA+WLqClCqlde+kRpBEM9wQpsjMH7NsYiamsg7II
+         Q65Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=J6NsS0YBb21hzvOhePaLlNVQz4MY3ClTamAaPzj0JeU=;
+        fh=e7Xvu2uuA0ESv8IJ89+182wem8LiJ9qZR31vEYukFa0=;
+        b=nllDurPzyPFgZoodFupMlWFag5bMd1sllwJ1L1HTTyOku9R/+jJQheTuY+qQVYxKBn
+         i0uwECuC1QVerYPY+XJdryBsKXNi9fBMCaiBbtdFl+D+cDy51xAuGTn9HgphweeFjJvN
+         xNt1HK8axgQP7fTFxFXSEvrVt4ISWQT2BG2qUOuxE6970P67ObnlDrB7zbp675Dxo1zo
+         fqFvlrLrCjf/v3ftBQa6tr6CEbU97dSxlr9zw12McTDAszsPsPrRWQMrY4GiSbdF6awR
+         siphGKa5Qo1KeLx8z6aVlHBp/iDXxFeXqKqOVL3K2rnsTJBST9kXrMgV1+j3pXhTrr5L
+         8o+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bshadow-us.20251104.gappssmtp.com; s=20251104; t=1790295374; x=1790900174; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J6NsS0YBb21hzvOhePaLlNVQz4MY3ClTamAaPzj0JeU=;
+        b=QdepNmepi39O8OE6WlLItAiDrPGD1RzRvO/KZGWcEXwPv7s1Hn0HCOv7q5ff7VynVz
+         RZjmQiskYYtlcyndqnrmRxxXQSvOcJW4doM5XSwGTa2Tgpl6JBbZD0osf14ABOniv6cg
+         077+pS4+KSWEHzxXKxl4C8z4ITkte3hV6nG6CoV7CyAOgus68GKCx0ZLPbr9oonM9t7H
+         /ulQPGqfaxRolSqqAulrUy9sW7HJLC+oQg2sBhxHBPSD3VA2rTkM2W/RX6k5Jvm+6IMk
+         K6mnRQQn6tOnilCg1Yanf/IvxOiaV9uMaT1XtgLvVXM2Pg4D2FokJfnux89PMWJ3nefQ
+         ZVUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790295374; x=1790900174;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=J6NsS0YBb21hzvOhePaLlNVQz4MY3ClTamAaPzj0JeU=;
+        b=cPRKAknIC1b0SnF4+G/YuW3o9EKeWESPxmcpndYlxxcisxqzEr0P+L6Ct7j1DWtf1z
+         EtvQ4xmGEnq/rC2ANUrmFT9cO8FepGLEe/776l/2KFf3W6eBYroyMgS+e2bM+Qi7Sris
+         d4R/2Wkaj7mzXv6cXGU3KbwHpbfZ8CqBiLiAJ7DWwXUSRWW3lH+AIxHMzAf8bz3YiPHn
+         voFLLXzSOLPH70K4Y2/vp1Bcilcrw2wasY+khM0ed2Fs9ZlPQfq1QW/BBOr0cbHgS//M
+         wPVk2XsNgvFiqERA7Ha64tW/8MnswQ/4J7SY5IxO9kOknfZU6Jr6cKrrnAVfdhJbvFu8
+         A3PA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8nLtowGUU7imqSm60WTniVyO+Y/TYrNZw4tgXs4aL8FVCtOhYwC/E8GSsMTDdCDyysCKUfS3/engK7Lk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGMNTPoQFcZLSsIY4kuP143Gw5XrV+P9zlN6DhMNM4yOjBT/cI
+	w7OdwTI3BbV6wirOZpAgsqAUPTivflPp8MU41So3q7L+UaAUE+DV1kDGsrOeXEl54ubc/ZHtdj+
+	++sFZzrCDSBEM0vcxMgpQb/jbr3nYZiq17riiqqU1Gw==
+X-Gm-Gg: AYBFou0mUXOJ9SjtXA2s4bOzqFdT1pZH98dEcu90i4/kdENE2NwRWBhat14/hrj1ZCJ
+	NJrae/5AmzeM1dsMU5SBPLmGNOmKdl2y+lNvxwmDn/lroe8AeECGE3kOyvXSWCp1jlNmz/1rM2Z
+	xRFAqzK64MP269kL9wGpGsr6J9+pH34d2Cj8bycGG24WUAbIJmWCMQXOM31+mEogw267l+G/RF9
+	DKHQQiuGcIx6K23l8XJ0Cv4So64VOzBWmW+/qIuBtidS55ClXdr4YLfDNLek+5RFYI4i/bm0RPE
+	1qZVlPkLEEgY7uPTVLA5z3A9rQOdYsYjadZgLo9/GN4lbGXIPP5TcDnIXu8Z+jS9xJJDjg3aSOZ
+	rGfgDMuYc8+Sxzw==
+X-Received: by 2002:a05:690c:e28b:10b0:89a:63da:cbec with SMTP id
+ 00721157ae682-8a64ad4af48mr20301267b3.50.1790295374720; Thu, 24 Sep 2026
+ 17:16:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH V1 3/3] x86/hyperv: Implement root VM IOMMU kernel only
- driver
-Content-Language: en-US
-To: =?UTF-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
-Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, linux-arch@vger.kernel.org, jgg@nvidia.com,
- jacob.pan@linux.microsoft.com, kys@microsoft.com, haiyangz@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- will@kernel.org, robin.murphy@arm.com, arnd@arndb.de
-References: <20260924020221.128762-1-mrathor@linux.microsoft.com>
- <20260924020221.128762-4-mrathor@linux.microsoft.com>
- <arUkaFhYGxaYwL0L@8bytes.org>
-From: Mukesh R <mrathor@linux.microsoft.com>
-In-Reply-To: <arUkaFhYGxaYwL0L@8bytes.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260924235937.148475-1-rosenp@gmail.com>
+In-Reply-To: <20260924235937.148475-1-rosenp@gmail.com>
+From: Robert Lovrinovic <r@bshadow.us>
+Date: Fri, 25 Sep 2026 02:15:37 +0200
+X-Gm-Features: AclHuK8-qQgfbz72-uMb5J0boueQc0SUvZRZGAtgZFpSELI8D9RLgL0irK2iMco
+Message-ID: <CA+39HW2_=z1jggfourLfE8XmXGQx8LV233QO=m0y4Fw2774Z3A@mail.gmail.com>
+Subject: Re: [PATCHv2] crypto: cesa: complete pending requests on device remove
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-crypto@vger.kernel.org, Srujana Challa <schalla@marvell.com>, 
+	Bharat Bhushan <bbhushan2@marvell.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/24/26 06:35, J?rg R?del wrote:
-> On Wed, Sep 23, 2026 at 07:02:21PM -0700, Mukesh R wrote:
->> +static int hv_iommu_map_pages(struct iommu_domain *immdom, ulong iova,
->> +			      phys_addr_t paddr, size_t pgsize, size_t pgcount,
->> +			      int prot, gfp_t gfp, size_t *mapped)
->> +{
->> +	u32 map_flags;
->> +	int ret;
->> +	u64 status = 0;
->> +	ulong npages, sav_iova = iova, done = 0;
->> +	struct hv_domain *hvdom = to_hv_domain(immdom);
->> +	phys_addr_t sav_paddr = paddr;
->> +	size_t done_size, size = pgsize * pgcount;
->> +
->> +	map_flags = HV_MAP_GPA_READABLE;	/* required */
->> +	map_flags |= prot & IOMMU_WRITE ? HV_MAP_GPA_WRITABLE : 0;
->> +
->> +	npages = size >> HV_HYP_PAGE_SHIFT;
->> +	while (done < npages) {
->> +		ulong completed, remain = npages - done;
->> +
->> +		remain = min(remain, HV_MAP_DEVICE_GPA_BATCH_SIZE);
->> +
->> +		status = hv_iommu_map_pgs(hvdom, iova, paddr, remain,
->> +					  map_flags);
->> +
->> +		completed = hv_repcomp(status);
->> +		done = done + completed;
->> +		iova = iova + (completed << HV_HYP_PAGE_SHIFT);
->> +		paddr = paddr + (completed << HV_HYP_PAGE_SHIFT);
->> +
->> +		if (hv_result_needs_memory(status)) {
->> +			ret = hv_call_deposit_pages(NUMA_NO_NODE,
->> +						    hv_current_partition_id,
->> +						    256);
-> 
-> hv_call_deposit_pages() can sleep and must not be called when gfp == GFP_ATOMIC.
+There still appears to be a race between stopping the engine and
+setting engine->aborted. An IRQ thread already in flight may call
+mv_cesa_rearm_engine() after the CMD idle check but before aborted is
+set, and ctx->ops->step() may restart the hardware. We can then
+synchronize the IRQ and free request/DMA objects while the engine is
+running.
 
-yes, indeed, i missed it.  will address it...
+I think engine->aborted needs to be set before the final engine stop,
+so that once we have observed the engine idle, no software path can
+restart it.
 
+engine->aborted currently only prevents mv_cesa_rearm_engine() from
+dequeuing a new request; it does not prevent mv_cesa_queue_req() from
+enqueueing one. A submitter racing after the removal drain can
+therefore leave a request permanently queued. Please check aborted
+under engine->lock in mv_cesa_queue_req() before calling
+crypto_enqueue_request() mv_cesa_tdma_chain(), and return an
+appropriate teardown error.
 
->> +			if (ret)
->> +				break;
->> +			continue;
->> +		}
->> +		if (!hv_result_success(status))
->> +			break;
->> +	}
->> +
->> +	done_size = done << HV_HYP_PAGE_SHIFT;
->> +
->> +	if (mapped)
->> +		*mapped = done_size;
->> +
->> +	if (done_size == 0)
->> +		return hv_result_to_errno(status);
->> +
->> +	ret = hv_iommu_add_tree_mapping(hvdom, sav_iova, sav_paddr, done_size,
->> +					map_flags);
->> +	if (ret) {
->> +		size = hv_iommu_hyp_unmap_pages(immdom, sav_iova, done_size);
->> +		if (size != done_size)
->> +			WARN(1, "Failed to unmap exact sizes(%lx/%lx)\n",
->> +			     done_size, size);
->> +		if (mapped)
->> +			*mapped = done_size - size;
->> +
->> +		return ret;
->> +	}
-> 
-> A general question: Why is the tree mapping added after the hypervisor mappings
-> are established. It seems easier and more robust the other way around.  Same on
-> the unmap path which should use strictly the reverse order.
-> 
-> With this order, if adding a tree entry fails and the unmap only partially
-> succeeds, it ends up with a partial mapping which can not be unmapped anymore
-> because there is no tree entry.
-
-well, it was before in V0, but sashiko/copilot/claude/.. you name it
-all bots jumped on me that it would cause tree to go out of sync if map
-fails to map everything, since removal from tree then will remove the
-entire node in the cleanup path, thus leaving mappings in the hyp that
-are not in the tree. In this case above, we only add to the tree whatever
-succeeded. Problem at high level is, any of the two can fail, and undoing
-could also fail, sorta chicken and egg issue.. We discussed internally
-and thought adding WARN() would allow one to catch and maybe panic in
-those cases. I also noticed that other drivers also have similar issues
-and viommu_map_pages() just ignores if viommu_del_mappings() fails, and
-fails the callback.  We fail the callback here also. My V0 did same as
-viommu_map_pages(), difference being, in our case, a hypercall can
-fail with partially done list.
-
-So, I'm at a bit of loss. I could go back to V0 which did what what you
-suggested above, but it can also leave stale mappings when map hypercall
-succeeds partially and we delete the entire tree node in cleanup (but
-we could add to the tree back whatever succeeded, but that could fail
-also, but then we could unmap whatever was mapped, but that could fail
-also.. see :)...).
-
-Open to any other suggestions you might have also.
-
-
->> +static int __init hv_iommu_init(void)
->> +{
->> +	int rc;
->> +	struct iommu_device *iommup = &hv_virt_iommu;
->> +	struct hv_output_get_iommu_capabilities caps;
->> +
->> +	if (!hv_is_hyperv_initialized())
->> +		return -ENODEV;
->> +
->> +	rc = hv_iommu_get_caps(&caps);
->> +	if (rc)
->> +		return rc;
->> +
-> 
-> The capabilities returned need more checking. I think at least it needs a check
-> for HV_IOMMU_CAP_PRESENT and that PAGE_SIZE is set in the pgsize_bitmap.
-
-In general this caps hypercall is not available to root partitions,
-our only agreement is for hyp to provide max_iova_width. But, we check
-HV_DEVICE_DOMAIN_AVAILABLE in hv_iommu_detect() which sorta supersedes
-HV_IOMMU_CAP_PRESENT. As for page size, hyp owns the iommu and can chose
-the page size, meaning it can automatically use larger page size when
-possible. But the hypercall HVCALL_MAP_DEVICE_GPA_PAGES will only take
-4k pfns as input, hence:
-
-#define HV_IOMMU_PGSIZES SZ_4K        /* for now, to be enhanced */
-
->> +	hv_iommu_max_iova = ((ulong)1 << caps.max_iova_width) - 1; >
-> This is undefined behavior if caps.max_iova_width == 64. Better use
-DMA_BIT_MASK().
-
-Ok, I can change it back to DMA_BIT_MASK. (I removed after comment
-on V0 that this is not dma address).
-
-Thanks a lot for the review.
-
--Mukesh
-
-
+The stop timeout also looks unsafe as written. If the timeout expires,
+teardown still proceeds to the callbacks and cleanup, which may free
+DMA-visible objects while the engine is still active. The timeout
+needs an explicit failure path or hardware reset rather than simply
+continuing teardown.
