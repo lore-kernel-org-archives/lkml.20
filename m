@@ -1,97 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8CB411A17
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051C03F44FB;
+	Fri, 25 Sep 2026 17:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790356904; cv=none; b=AlLx+8ekrYGo8m0tcEVHjAI5kWYcbQGUwGpAz2B/FrlTZmG8MphgMF+TVqsOQ59fc+Gs/DI4tZyHNZcHlbT3kDB8l5Z6pmsgAdvCh5VFyJSzJP63pCmXaKj9JHYdJpwE/5dTDDdvDpKfomXUiM+sQeJEZJorEY1YlqE3vig40aM=
+	t=1790356922; cv=none; b=QgfBsG3t4N7Szd6yVPfF5SJUqN6MiyeFyyRm96VVCtvxxRtOvupg5FFPBU5V7vYcVijgpNMo3mVxGPbR0i/XEJ/D+95hMuPrtW8snJTBniEy8S+ArJJjxbBTn9g8oHI0hpbsTJ0DCmiWf9wfw+ME5hQsq6WL0SUVeFuCYiYoIdI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790356904; c=relaxed/simple;
-	bh=wUgsMiUfEK9Zu8BnQEf2g3A9P5+KDk4ZVGI5Lvg371E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h1aFukCGe9rYbPTncQ0er5r11zOxcSHfLCaZdUOt/1QUlVh/PZgOPa+N+5s20MhMTfiBj5KZNkkH+Hv5TOGtKiGWW8QjzXTHO8T9ENojXmyNmZrNmm20BKtF2gxPKyhsjzuLFKGhxezmAYDQSjX7RjmIagqPQBON+FQEG62ETfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PiDFcMex; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790356922; c=relaxed/simple;
+	bh=xb1vQYsbfVcJiuLlcnMnP0BgQS87PDLHTwEVGJsEmis=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IcDjjnxrqBF+dp/b4Q2gj8H3kZK4adrWf/vG+Xh/kIomTjrlcSEmtboAte6FhSJxUlh/6e6CRg7lS6cto7uK9S4DMdeDSm08ORng6Fh0ITNZwmJRo+RjV8r7OLEPwgdGiCnY6IU6ijm/DQad1Rg1rmYHd5FxWmmrhD+DSQEqAvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=XUKSdv7w; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PiDFcMex"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2C8E1F0089F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790356888;
-	bh=XNmbr204Up7Ok7eGekStfLMb4Fdr9YmxqwJjaeRLmCE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PiDFcMexyMbCKloouvLH8Am+6+ow9b1XZ5UIbYgVrG+L11D9wRXlvEG8H8yng3+ua
-	 GWkPZxa6YjvQy7KQ/4LrErDm2SKFGaquVXbsdDB2CPMwzrXwz2vlv2Wu0BjZNxmTo/
-	 DttkYT6I1L7Tm9xirVO4vcDYZ2JMqSIkqf49FY+QnFdLenCVzqPeML0M6YskslCeQW
-	 +LdikbC3uVuy5RL06sQadqsEu7LbbC4usCHoDlR9wS2bavdgfMlhTK1NC7PueN5PgA
-	 QiGN64zH5ikJQ02El2TsDS+SrihBFPVBDeRlVm7/UhB3goEDsKWyuCL6WwbTCpgmD4
-	 1xZaFcw72GuWQ==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a659495608so1182121fa.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:21:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxY+8uI/dVRxk/nIbBHSJKD6K3Nw8sTsGX3Kx6RBYICkAm48+krGL6mS6+52fQEo2olnfBJ/MNIJTvOLzs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4lwqPnz5a5JGWDaJeNwULDFQECWU7aEIeLCmo0gqdqyoSpPrH
-	5ninSKYYX6Pup4X3LWZlLKXM/79beTfH67cVayZurDgTZLphTHg1FDkBGU2JtBiNrSn6ZDyyoCu
-	0AFcD+45SQjcxgVFWbXB+f2jQdehA9VY=
-X-Received: by 2002:a05:651c:b0f:b0:3a3:749e:319e with SMTP id
- 38308e7fff4ca-3a63de17ef3mr12978521fa.18.1790356887308; Fri, 25 Sep 2026
- 10:21:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="XUKSdv7w"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hryDc0jLZzMl31;
+	Fri, 25 Sep 2026 19:21:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790356912; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xb1vQYsbfVcJiuLlcnMnP0BgQS87PDLHTwEVGJsEmis=;
+	b=XUKSdv7wDvfAMRjCSmpiqwAoJpEn6K4Dph8KYF7GVQGhaAXkq4s2bmVBZ9KF/wy2e1uOK7
+	FQradnqGjjyEtknwtYEc/OmPqkGi9HvX8gHZOfmnCmba6aa+ar1TlyRS0ppia+T+YNtWld
+	NwN5H8J2/UdFAnGHJ+9tapQZZ1U1dT2MAVC8+3M8EJXRkJjT6l8YT0KsL/CR1y5WBdxvI+
+	usxUVdyi9DFK2gTCF0SdDZSWWIRsDA472CmRIqcmVm1wNVBEu20z3fSjIfWQjiqRcijDlQ
+	H6LhIx1qjmPVqxz9uyhMEENr8Nvw0HcZSPyjRGLAyH5V2EgBwHyK1YHnp8E0Ww==
+Message-ID: <ab1241777ac432666bb1564d875211bf142a6398.camel@mailbox.org>
+Subject: Re: [PATCH] rust: DmaFence: Add better warning through Device
+ reference
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: phasta@kernel.org, Gary Guo <gary@garyguo.net>, Alice Ryhl	
+ <aliceryhl@google.com>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Miguel Ojeda
+ <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Daniel Almeida	
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
+ <work@onurozkan.dev>, 	linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 19:21:45 +0200
+In-Reply-To: <DLOILT0V4HCX.31L2PE7YIAKY3@kernel.org>
+References: <20260925081958.3048112-2-phasta@kernel.org>
+	 <DLOBPY6OBEOG.2Y4I4LRA276WU@garyguo.net>
+	 <DLOECU7X3MTR.31Z6N1I0WB0MJ@kernel.org>
+	 <f0248d1529378ab8be957009a93a0a73ee74bafb.camel@mailbox.org>
+	 <DLOILT0V4HCX.31L2PE7YIAKY3@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907064725.10686-1-hemanth.selam@gmail.com> <20260907064725.10686-6-hemanth.selam@gmail.com>
-In-Reply-To: <20260907064725.10686-6-hemanth.selam@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 25 Sep 2026 19:19:50 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gWh-owRUPvVFMakkvinrbquHsNDeTHFnxFsOXrbuUgjw@mail.gmail.com>
-X-Gm-Features: AclHuK_ILwQGXShVI2J1hXJ11N9GyjGLgux8oszAP0m9LZ9ydGAWPgmg0ZIJt0M
-Message-ID: <CAJZ5v0gWh-owRUPvVFMakkvinrbquHsNDeTHFnxFsOXrbuUgjw@mail.gmail.com>
-Subject: Re: [PATCH 5/5] ACPI: NUMA: fix typo in log message
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>, 
-	Christian Loehle <christian.loehle@arm.com>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, linux-pm@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-omap@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-acpi@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MBO-RS-ID: ee29a2c5e2aeb6681a5
+X-MBO-RS-META: yqp1koqfqjg36e8eizcijcdqkxoh8iyw
 
-On Mon, Sep 7, 2026 at 8:48=E2=80=AFAM Hemanth Selam <hemanth.selam@gmail.c=
-om> wrote:
->
-> Correct the misspelling in a message the user sees, reported by
-> scripts/checkpatch.pl using the list in scripts/spelling.txt.
->
-> Only the message text changes, no code changes.
->
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  drivers/acpi/numa/srat.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/acpi/numa/srat.c b/drivers/acpi/numa/srat.c
-> index 5c407dc6401e..f5616830f5a9 100644
-> --- a/drivers/acpi/numa/srat.c
-> +++ b/drivers/acpi/numa/srat.c
-> @@ -111,7 +111,7 @@ int __init fix_pxm_node_maps(int max_nid)
->                         for (j =3D 0; j <=3D max_nid; j++) {
->                                 if ((emu_nid_to_phys[j] =3D=3D i) &&
->                                     WARN(node_to_pxm_map_copy[j] !=3D PXM=
-_INVAL,
-> -                                        "Node %d is already binded to PX=
-M %d\n",
-> +                                        "Node %d is already bound to PXM=
- %d\n",
->                                          j, node_to_pxm_map_copy[j]))
->                                         return -1;
->                                 if (emu_nid_to_phys[j] =3D=3D i) {
-> --
+On Fri, 2026-09-25 at 17:50 +0200, Danilo Krummrich wrote:
+> On Fri Sep 25, 2026 at 3:08 PM CEST, Philipp Stanner wrote:
+> > The driver can avoid dropping half-forgotten stuff by calling
+> > jobqueue.complete_all_jobs(ECANCELED) immediately before dropping,
+> > which allows us for having the warning without false-positives.
+>=20
+> This would just move it up a layer from inventing a new type around Drive=
+rFence
+> to invent a new type around Jobqueue which does that instead.
+>=20
+> But the Jobqueue won't have any procedural teardown, it has to teardown s=
+tuff in
+> drop() anyway, which includes dropping jobs already.
+>=20
+> What I'm saying is that there's not much value in DriverFence::drop() hav=
+ing
+> this warning in the first place, which then either the driver or the jobq=
+ueue
+> has to work around on teardown.
 
-Applied as 7.4 material, thanks!
+I guess we agree that it would be a horrible bug if there's still a
+command buffer running on the GPU that can access memory which might
+have been freed once the associated fence signaled.
+
+So I suppose what you are saying is more: there is not much value in
+the case of *JobQueue*, basically because all the jobs live inside of
+it anyways.
+
+So I suppose we agree that a warning is fine. It won't fire in JQ
+anyways, but might benefit others.
+
+
+P.
