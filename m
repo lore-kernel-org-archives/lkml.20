@@ -1,69 +1,141 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085AF3672A8;
-	Fri, 25 Sep 2026 23:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F008A369D5C
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790379132; cv=none; b=XyR9WaZivmjTK/1JkfUF6kRM10wRb2VSP8UWRloBNqr3I6h2UxNJCZZT4+9QAiM+sawqIFWVAX+AxfB/iDnz1j1SJ/7jepv75aLkQaM+JZKo7zJZJmxhRCFSRs1gIgWOo+6vqaBLq55UYxkS5MqTxgCigBvIc+XHlXFUduMPNx0=
+	t=1790379205; cv=none; b=ZmeMbvXzknS890JaKLE6FhVhm7K/00v/zIvDKKAaNR7Gwr26j9grMn78bMGjfDuxWzG4NFuKC2qe5xqAN8HRfTitIJ0tAJb0sdRRnohaI5V3hIuFWyBdc5V+z9/zD8wsNNraspOTzYCjlhTv6o0U/DJ+e6ULsHJn8OeRL5n0Og0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790379132; c=relaxed/simple;
-	bh=aO9rVdUf6S7DpG35lHyxcThT3OLUrsjzpMEu5YQiIEk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZmFisZ711FQY1jW5TE/RBgZakXG4untQONXVbitFY3dvWCoib6650A4/2PKI5QqHn4q8QpQ8YzvzGfrGWjDIA0vi/KrByJfwBWgYziUPj7PP/fSIzj4UfgN11f9P/GKlyCDLV6F7WUVLL+tdNVY+88kKRdGjVCx3B6ADS4aVBWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MTkq5B+o; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790379205; c=relaxed/simple;
+	bh=mcYrt5VznRv8xtuGmmz9RZEWNXtS2yxga0xjjsgK9vQ=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=uxywCTSUB5KvECsEMQq9fVge1MtTriYuDoWwcKXRrnBoruRFLP/G/sxr0hNYoODSDg/p7MbGqNlFdd11o/x5OlVA/ke8qIZA3C11aAHpwwzMxSo9Psf53IUmwknHRsFSiYHpN7ODBbEWMvmChMIHz0OwLM0PE7Olw+rz8V78dMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rMM/BXio; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MTkq5B+o"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=l/NBHFaoiuJNGXiZ+cdtccDptKGDkX5wQYf8DMsB90g=; b=MTkq5B+oy7iwfCGgmhIs7ky7TW
-	j3g4NHhdmbh1tu5yySzLsywogvSIYLDW4jJEx1vm6nNq8JrFZZbcRXrQ16lfUwjFd/DtBDt5Hu6qt
-	J3n4TcVp+EKbTE7sY33XnXc8UtnxcqZ+KXUv+Hm+iZHUA9JQwuzuoSTJYr65XU/m0WdA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xAFOd-007KHM-73; Sat, 26 Sep 2026 01:32:03 +0200
-Date: Sat, 26 Sep 2026 01:32:03 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v3 7/8] net: dsa: soce: Add VLAN offload support
-Message-ID: <0b2a2e55-7a3f-44d8-9a91-f48547a5794d@lunn.ch>
-References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
- <20260923-devel-vstrassheim-soce-dsa-ml-v3-7-ddebafcb9ba7@linutronix.de>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rMM/BXio"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6f80c76e6so10760385ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:33:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790379203; x=1790984003; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T4sLdZTMrez8W3xJ+o5SfezWJjq5FwH6Cki+1HKf74k=;
+        b=rMM/BXioOnsMK33TlBbDO+tKNTx8/P2ckEk1Tv84HSBlzJ7Usyn57bQDllc7WeK4dj
+         A8h5zLTwfxXxuqK3+T10hhJbHJn60YIg8zQ6yQ+fBypxR3byBVhhdtrbNJx4LV/kLB1n
+         Q0yrlU9Lz4Ac+pDc6IbQZ/Sz407cY26XgR1Klh2JpzIoolfkJuI0MmhgjdqchpfuE8Hl
+         ayl2p99a2P5sjOsz8Y4fTE1dfbJ0plWPBwWBUPBj5GnYWTjKavDThu4ascgUpAo/XL+3
+         9GdKIrpL3twJeORpn/EFmFSimg/YlF4aj6+XGXNbaUxr8xbQIE7OJYVzl2KteasKr9Ea
+         ZRBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790379203; x=1790984003;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=T4sLdZTMrez8W3xJ+o5SfezWJjq5FwH6Cki+1HKf74k=;
+        b=JmqVwvvFcYlMMwqzfAN5BAhkwLqbBjLG0+WgT6+DUHNUg1zCXcORIFcxteWadOo15U
+         sLvZ71UioIR5iBXbEzksDLGNNkAvSLHQsZaf5HL0Xmf+X5QMpRjZONgqysoizMWhAOFE
+         X8erfnbkxVR2y0AdvCQKYmmcaMETfpeSEecYMhxRGUwfzC7A2OUM9BxCk1D/88Os5+i2
+         XMvOZsP5StR1iLEoJ7Xs6xkZkPtzGfEXnBTWeI7Fk6aC1NN36nEcl+9av8QEsSbb+j03
+         4I+t5m5l10bAQsK9w6uUBjCsVyCZLxDUktaJTu89h/tf/0mM+9gOoKJkMMzZz6kXooPz
+         YBEA==
+X-Forwarded-Encrypted: i=1; AKwUvBwK80UxTINpgdLl4Ii4GOp/i7EmjH2odhxNtUORKjdAv+FBnUNsuD7mT+vtEsORD5XtMqCZtg4cPA0/J74=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkdNfnLChUBvp/m1foX5xljF2jBXkQpODvWgwicHgvzGIsW/mF
+	5ETWU/gSV4U21LdXSdKAdhdqTmUi8RHXy11TrnEP+Yc4We4/6nJ1LpvdZ6kugs9nRmVJE92Q4CW
+	kFyQGjg==
+X-Received: from ploc16.prod.google.com ([2002:a17:902:8490:b0:2df:a4d3:2d98])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:8d0:b0:2dd:c100:7cb8
+ with SMTP id d9443c01a7336-2df7dc55ffemr64340045ad.52.1790379202896; Fri, 25
+ Sep 2026 16:33:22 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Fri, 25 Sep 2026 16:33:21 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-7-ddebafcb9ba7@linutronix.de>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260925233321.2381319-1-seanjc@google.com>
+Subject: [GIT PULL] KVM: Fixes for 7.3-rcN
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sean Christopherson <seanjc@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-> The port and VID selectors are shared by all VLAN operations, so
-> serialize selector and data register sequences with a dedicated mutex.
-> Track member and untagged masks in software and restore the shadow state
-> if programming fails.
+Please pull a variety of fixes.  Nothing is super urgent, but all of these can
+be fatal to the host and/or guest (except for the selftest change, which fixes
+a regression that was introduced in 7.3).
 
-Looking at other features of the switch, how many different mutex are
-going to be needed? Is it better to have a single mutex which protects
-everything?
+The following changes since commit d599822bdb66aeec5ec76297b0fc6efaaeefe07c:
 
-	Andrew
+  Merge tag 'kvm-s390-master-7.3-1' of https://git.kernel.org/pub/scm/linux/kernel/git/kvms390/linux into HEAD (2026-09-04 17:34:28 +0200)
+
+are available in the Git repository at:
+
+  https://github.com/kvm-x86/linux.git tags/kvm-x86-fixes-7.3-rc5
+
+for you to fetch changes up to 119e9db233ad0f4cbd4cfb9f9385a7bca378b37d:
+
+  KVM: Don't pre-reserve xarray entries when storing empty/NULL attributes (2026-09-22 08:36:16 -0700)
+
+----------------------------------------------------------------
+KVM fixes for 7.3-rcN
+
+ - Fix a brown paper bag bug where KVM would incorrectly treat Intel PMU MSRs
+   as valid on AMD.
+
+ - Fix a regression in the hardware disable selftest where it checked the wrong
+   macro when detecting glibc support (breaks at least musl).
+
+ - Never clear KVM_REQ_VM_DEAD so that dead VMs stay dead, which is especially
+   important for KVM_BUG_ON() flows, which often guard more dangerous bugs.
+
+ - Re-pend GET_NESTED_STATE_PAGES if getting the pages fails, to fix a bug
+   where KVM would let userspace run a broken setup with stale vmcs12 pages.
+
+ - Fix a class of bugs where KVM would fail to fill kvm_run exit fields if
+   getting nested pages failed.
+
+ - Treat reserved entries in the memory attributes xarray as "no attributes",
+   to fix false positives when checking for mixed attributes.
+
+ - Fix memcg accounting for the memory attributes xarray (the xarray library
+   subtly requires the xarray to be configured for accounting upfront; the gfp
+   flags taken at runtime are used only rarely).
+
+ - Don't pre-reserve xarray entries when storing empty attributes, as storing
+   NULL must not require memory allocation (KVM and other subsystems heavily
+   rely on this behavior).
+
+----------------------------------------------------------------
+David Ballesteros (1):
+      KVM: Ensure memory attributes xarray nodes are accounted to the caller's memcg
+
+Jim Mattson (1):
+      KVM: x86/pmu: Move Intel PMU global MSRs to intel_is_valid_msr()
+
+Sean Christopherson (4):
+      KVM: selftests: Use __GLIBC__, not _GNU_SOURCE, to detect actual glibc
+      KVM: Never clear KVM_REQ_VM_DEAD from a vCPU's requests
+      KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails
+      KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages() error paths
+
+Zeng Chi (2):
+      KVM: Don't treat reserved xarray entries as having memory attributes
+      KVM: Don't pre-reserve xarray entries when storing empty/NULL attributes
+
+ arch/arm64/kvm/arm.c                               |  2 +-
+ arch/x86/kvm/mmu/mmu.c                             |  2 +-
+ arch/x86/kvm/pmu.c                                 |  8 -----
+ arch/x86/kvm/svm/nested.c                          |  7 +----
+ arch/x86/kvm/vmx/nested.c                          | 15 ++++------
+ arch/x86/kvm/vmx/pmu_intel.c                       |  3 ++
+ arch/x86/kvm/vmx/tdx.c                             |  2 +-
+ arch/x86/kvm/x86.c                                 |  6 +++-
+ include/linux/kvm_host.h                           |  9 ++++--
+ .../testing/selftests/kvm/hardware_disable_test.c  |  6 ++--
+ virt/kvm/kvm_main.c                                | 35 ++++++++++++++++++----
+ 11 files changed, 56 insertions(+), 39 deletions(-)
