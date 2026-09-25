@@ -1,48 +1,50 @@
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B4A371D1F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:29:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD374ADD96
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:29:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346567; cv=none; b=n/B631Ot6h9h5Qx/axnR5ajfDP8a4cYOdlgkMoOBPnZjp95Ck8XfoIdULx7se8PvUeZD4pUjJLFesinqUYSyDJ5J2T/MPGH5Fgv9F7ZI0mYgNmG/C234rx1LQsaj7TTSqRvtY56aoBWCQ4YllNEmyoyTp2AU3e+5aqXfPkYHYvU=
+	t=1790346569; cv=none; b=r5R0/Q1CkKMioJ5Q0X9RmpIIgYL32cVhfwYjrodUAvpasAu3vHcnXZKCK/Os3eeXtC8wW7YoYXOKkY1QTBfMjvpmMNyiARIKh3DPG+TwZRiCblEe3dRJBUt7cJbB+QtZFd0eMzGoFBOOcv8vgxRL/UAyViVl/QmXRcQ4yqWDa9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346567; c=relaxed/simple;
-	bh=Ne8FJ2CatbJH/dyIAgBMDDx3/PJJFm2/X+ZxgZdhnvg=;
+	s=arc-20240116; t=1790346569; c=relaxed/simple;
+	bh=QVPgqdb1/rRh8OEZEKYmCblwkRb1tPDTx2dPxbP5cgk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=SZkDGN9PCfwo+c8h+k3X7N7jeKcSE2zrrNCMGkBJo7rzGknLtLX03omADC+FFYBTxPA7LkUqf5WcowqeZkQR+wDEC0izD6TSmDXqz1SZf0jo0ThmRdMuAmQHJ4oJbteGLo7T3DmKnXkV3hgKovNrUVaczsjWNvCPGZaFL0DQxv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ha7iA+5F; arc=none smtp.client-ip=185.171.202.116
+	 MIME-Version:Content-Type; b=n0aGUvRbY4ncEgS4J6lazjAlU3TS16yjnHfKFcFc0k6IJU4997Vf3sLihZpYkfBIeHBjtYJ+H5yQfXg+cYoZqBjxGYOgFzhuAj9FOjOcNHz4XxYINEcZXnkTig9JdYfQtLioyMW9EiF8eAOU/oT5pktxUk8s3/v9SwHq47f3RhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VKUmlsyK; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ha7iA+5F"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="VKUmlsyK"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 3388EC653FA;
-	Fri, 25 Sep 2026 14:30:12 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 8B0A7C653FB;
+	Fri, 25 Sep 2026 14:30:14 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4ED656073B;
-	Fri, 25 Sep 2026 14:29:24 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 03A47102F1E10;
-	Fri, 25 Sep 2026 16:29:21 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A0A586073B;
+	Fri, 25 Sep 2026 14:29:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5793D102F19F8;
+	Fri, 25 Sep 2026 16:29:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790346563; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790346566; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=IBVKpGo9SdYMDRKnYktj3GgwhPWfwfIQopIZhYXTq0s=;
-	b=ha7iA+5FB5czU/gl00bimvtAFfEzrKpIeSIDT8GGcAMZ2Pwpp5C3Loxf4YOpQgauA0Ayf+
-	cp5YugBOr2B9uI30L+QhCbQ0TtUoVWMSZmJpIYryj6NaVo5bBKnXuOdnFjDEcTWwyqtwwn
-	bEC46Iz6E5e13Ig5lAUZZnsc2kLDGCCfrdGjVeUA0Aw9LW2sH81GoiMIpkrNNm913Gr+CB
-	FaKWRw8iyg9TGky6ys6JH09ZT6rv66Uhy7UUXYCu6Q/zd6Hl39PUbt3pUiq3y8MjFFF5fs
-	cjaD+0+B4tZVxKRQn0Aql0UZaq9XUcqnEHOsjCK4/5Ux11dxYxNiaiZ5odKrgw==
+	bh=5YQghMkQxKVMxZ3HXy4f6WO6qALFgb2czJJHSaPe1cw=;
+	b=VKUmlsyKXhsNGflv+JcrbtODY5kyVbE0oBnq666f8Ek13qonjW71+8EW8rmx26seoqAzUe
+	PXxWdjtZLCNmCrIaJjuDClfEYb1R7LQ5bMVypmYnEUobW+B0D+qjn8BTcrEZ0X+fvugR46
+	M0qFVxPylFXekugeywTaSSIN7TA9UFwPlXgAFDyeUq/7eJkFiojLmUzUtJHgwUmuKjphHU
+	dRoubdI8mNt6/o+yKHc1gCKYvu4TIRU4Bg3WXqbhBKZwIgRqJrteI9lfz12aRoPp5t7Qai
+	AAbpnBhAxeKicDQt314EuVzMCQ0rEDi1OfcEZCUBLoPBQBX/apDf9F2uHaj6ag==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: linux-mtd@lists.infradead.org, Stephen Bancroft <stevereaver@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org
-In-Reply-To: <20260923092626.873202-1-stevereaver@gmail.com>
-References: <20260921021459.283023-1-stevereaver@gmail.com>
- <20260923092626.873202-1-stevereaver@gmail.com>
-Subject: Re: [PATCH v4] mtd: maps: add INT0800 firmware-flash map driver
-Message-Id: <179034656183.1166139.3557202983918719250.b4-ty@bootlin.com>
-Date: Fri, 25 Sep 2026 16:29:21 +0200
+To: Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Cc: kernel-janitors@vger.kernel.org, error27@gmail.com, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+In-Reply-To: <20260924211412.896753-1-harshit.m.mogalapalli@oracle.com>
+References: <20260924211412.896753-1-harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH] mtd: concat: use container_of_const() in CONCAT()
+Message-Id: <179034656384.1166139.12762954308681250790.b4-ty@bootlin.com>
+Date: Fri, 25 Sep 2026 16:29:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,23 +56,20 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 23 Sep 2026 19:26:24 +1000, Stephen Bancroft wrote:
-> Add a read-only mapping driver that binds the ACPI INT0800 "Intel
-> 82802 firmware hub" device and exposes the system firmware flash as an
-> MTD ROM device.
+On Thu, 24 Sep 2026 14:14:11 -0700, Harshit Mogalapalli wrote:
+> CONCAT() currently recovers the enclosing struct mtd_concat by casting
+> its embedded struct mtd_info pointer. This assumes mtd remains the first
+> member of the structure.
 > 
-> On x86 machines the boot flash is decoded into the physical address
-> space below 4 GB, so a plain ioremap() of the declared resource window
-> is sufficient for reads - no SPI or LPC controller access is needed.
-> The window may be larger than the real flash; undecoded holes read as
-> 0xff.
+> Use container_of_const() with the named member to make the relationship
+> explicit and preserve any const qualifier.
 > 
 > [...]
 
 Applied to mtd/next, thanks!
 
-[1/1] mtd: maps: add INT0800 firmware-flash map driver
-      commit: c4f64a86a28d218f3b16cd7b18691993aa60db60
+[1/1] mtd: concat: use container_of_const() in CONCAT()
+      commit: 2e566a6830b82d95837c4d669c63a0c1abf766a9
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
