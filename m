@@ -1,356 +1,158 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 563F04734CD;
-	Fri, 25 Sep 2026 11:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6803E51DE
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790335536; cv=none; b=ai2V8TGqEFUICRQLpmKeheKjvBuATul3XVjTBHqBQVOgBEhDAc1m3RzolnTXHkCmkWVrWImY3AsVpM7PFEA539bErwmmcH/WLjRXkmxwRZPHQNu0e6t2FgraIQ53yHudeHe/SaWN7+An7rkz5CBwXLtyntRUR4hoGyK0z88cdA4=
+	t=1790335748; cv=none; b=Nr3nKEFAeWQ70ZPjT4MZati9CfhJyB/cXBtXMW8T6FlvyHTWfCbbKw22rGxRtxwivQ7A1JHjv0Yk8Yhu10KCMltppx6JM60Vk9fHT9LVX1SnC6bM4nfnv5jj49v2Vo81SEB64D2002ZFCn2l2aMJ1NSXO0SGrXcsRiKFa3Bi7qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790335536; c=relaxed/simple;
-	bh=DtpgFzbiicIBa5lc9a3teHQLwnL49AY46x8s3sg6f9s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QcM9jrwwvr6gl1XyPWLohKP/+ikCz07hYkAon5XNf70+Xzt9gT+P30Ar/4XuFOPhzcXsXeComRbLEUuUEeMuPVYUX/sgKaq4S4W/OsRrvRB1i03Wshu8oDcKLplY2u5o4ORMKxWgdWaz5lRhWxqOglxreLXVEZ0lv89yP6S3w1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=M75n+DeM; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790335748; c=relaxed/simple;
+	bh=vtFHEfwG8rqRvpTaGWmRjsAFTF1IORf7A7Dx8YJnPMs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZxLczd5Bf7ZCCH4HRiWcCGT3u8LYq5u4Woy8/e27OGkJ3mtOPpghv7DRKbJMTbx8IZMXaTEY11SwaE2JZ57XYuDaMtHYlkjujgfWrxIDo1QJ0nutkS5vM1tMlsHDdoV4heBW1iJB//Wn5PmCmPQQwSZxoEl94lKqsIqgc/ErJ5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzTVOIUE; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="M75n+DeM"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2F0ED1570;
-	Fri, 25 Sep 2026 04:25:30 -0700 (PDT)
-Received: from [10.164.19.30] (unknown [10.164.19.30])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DE1423F86F;
-	Fri, 25 Sep 2026 04:25:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790335533; bh=DtpgFzbiicIBa5lc9a3teHQLwnL49AY46x8s3sg6f9s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=M75n+DeMbR3GinBqgOLAmSRcCHqIAzDJwDTbf1TPp7TdURRt68PhgnqVjp48x8fX2
-	 NAPjj/odOxS0flbdyPzm5oOfbagJ6v6LYiGkabFZ8GggGz9dpNVhjCpAeeW/DPkC4w
-	 jmNZIhzSkVXvp7ZWU+UYqM8Hj0yOb2M+eUJ4T4rQ=
-Message-ID: <f61fa70f-882a-4787-918e-4b6959062c9c@arm.com>
-Date: Fri, 25 Sep 2026 16:55:23 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzTVOIUE"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so3994125e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:29:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790335745; x=1790940545; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+voox/U6tCkxGYTDLWhRDj4A0ThgP+32hpU9k9pFGLo=;
+        b=dzTVOIUER8bZogRROOXBtWh4hUQdfATpI7Lots9/9Ty01QLo96cAqaV7x3ii5QjGu1
+         v1Meg4gISNL5ZZeO9CnlJC69oGa4XxPgYseGeS24dtFqdFEaYANFa+yH06l8GL2F6upV
+         n3bHpPBVgjYk5y12UICuCxK3f1iktSjq7W6Dze5ILvxkWtmDKhDAKd6Wt9L1AlyS6SdU
+         To9tSCxf8LwT0rCdwCkWkNAM8Rl1asAAY5ymCUhiUg4V/jWJoyeT5w3TQpL6hc7zPGX2
+         3kxAoHdkm8DoUQK+2lYfyVYzyarAZzxjZelHfwGvASCmVvOvM3upF0lxBBq3+uTDzcAD
+         UNNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790335745; x=1790940545;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+voox/U6tCkxGYTDLWhRDj4A0ThgP+32hpU9k9pFGLo=;
+        b=Rw8wEF34w1KtyFvBY3+NbYX88Hx6m//Objy78mkjdtiyraVuuHIYkbdNrGCc9+kpOL
+         L0EuIm5gDqg6jZlra8jtXyMsCGGq5z+oZiWy0fN2fXtmtmznQhUQTudOq5DnKftis4XA
+         tfiX64j7uNX2s+wBbFvn1m9TkZlQva6X1mR2apb/D7p1aCKgsuD2zLV6HsN4l/5DY0j7
+         y/SjOC/dM+vEKssKYr7vrI9f/UoZCsLiV3IzmuSuUyrGYT/Npgr3s5iKRsPmFv2AhjCi
+         3EFv8E16ZnqSPRhNsPRTeGZislB1aK+p9nmAxcDXFfbtprfWXbO4MymIZC86BPahO+bZ
+         UWkA==
+X-Forwarded-Encrypted: i=1; AKwUvByrPQZny8sZsM4oC5rU7U285IsYAqMcYCy+5KuR6EN4Mv2bYVWyVTTaohGU4VJmskAmciw7BCpdva3uTr0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9f6H+a7FUiDnaHdBfsYRWhd++hk0QM2kfci+A2JR2ZD6yU6sK
+	WwRMxIn5vRsyvC4MUJ5CwR3hmUdaChLRXoOfOLLXvWb34YunUpdmlN2S
+X-Gm-Gg: AYBFou3hYFz4l0fyITgJ5hDGwiPA2Br+DkxP0LEIaR05IdJ6jDhpkpoBf96MiJoT5/s
+	kS5qSA4Rg8ojxJQ/PC6Lhs3kyrTmD5ljVAVYd4TwHRoE+aOGTmhaOVpB7Y5ju9SP/wcwbVzL8B3
+	kPpjpEew07GlPgjo6/Bpy5WU2TypVHcgZOsGnFldowUBnxTHCeiKBZbUQBAqAwz+9y8EmVVRsDE
+	LGtbFoeg53o/EmGpcekQW2FQdlGHTNxvjFyGu2uUD8fg4I6z4mUBgWelSSQKrinmEcujmBPIXxM
+	to+e1ePTEnxRQOlBBQqhX6WDZ58wtmiulTYMHeNKMqKsoeT9TYlQLnIAhj0VU8r0v8KGPaUb2Pq
+	koC+mSxCl14BgkTYa/e2O8FEswlcFHSMWTIOdm4g1k7Vj3ae2mB/YoJC9uWhpNax6Q6SFvxdJGz
+	7iobUb8NJAE0EW1haI79j/2tOWuC5mRkxi/5ZtXolTKb1/ObwdC9vK71Qade4hq2PK4HmiSozx2
+	8FZRejHsYfWtA95dVUq65cCqL0zeeXmhRxk8+P6lGho+9njNTPgFdu4eI+jGtJrBj2wBu3oBJ7c
+	piEN1bYMIoJDFFQNVz3iCjHD+Qlav/yR43eXLWtasxC+YBO4f4VsMi065X3Df1GcaQ==
+X-Received: by 2002:a05:600c:3b01:b0:49f:ce79:7a8d with SMTP id 5b1f17b1804b1-49fe670b3e3mr96282485e9.17.1790335744644;
+        Fri, 25 Sep 2026 04:29:04 -0700 (PDT)
+Received: from AHERLNXVDANI01.tail39a996.ts.net ([193.8.40.126])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff044406dsm61608925e9.1.2026.09.25.04.29.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 04:29:04 -0700 (PDT)
+From: =?UTF-8?q?Daniel=20Via=C3=B1o?= <danividanivi@gmail.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Cc: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Daniel=20Via=C3=B1o?= <danividanivi@gmail.com>
+Subject: [PATCH net] igc: Disable PCIe L1.2 substate on I225-LMvP and I226-LMvP devices
+Date: Fri, 25 Sep 2026 13:28:50 +0200
+Message-ID: <20260925112850.189302-1-danividanivi@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 8/9] mm/rmap: batch unmap anonymous swap-backed large
- folios
-To: Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- hughd@google.com, chrisl@kernel.org, kasong@tencent.com,
- davem@davemloft.net, andreas@gaisler.com, riel@surriel.com,
- liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- lance.yang@linux.dev, baolin.wang@linux.alibaba.com,
- shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev,
- youngjun.park@lge.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, pfalcato@suse.de,
- jgg@ziepe.ca, thuth@redhat.com, sparclinux@vger.kernel.org,
- ryan.roberts@arm.com, anshuman.khandual@arm.com
-References: <20260924131106.1730494-1-dev.jain@arm.com>
- <20260924131106.1730494-9-dev.jain@arm.com>
- <CAGsJ_4xhGwxQCH4sG4=dyomRkN_PGHeW7e0uz1MsQHFW-Gs6VA@mail.gmail.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <CAGsJ_4xhGwxQCH4sG4=dyomRkN_PGHeW7e0uz1MsQHFW-Gs6VA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Commit 0325143b59c6 ("igc: disable L1.2 PCI-E link substate to avoid
+performance issue") disabled the L1.2 substate on I226 controllers due
+to hardware exit latency limitations. However, IGC_DEV_ID_I226_LMVP
+(0x5503) was omitted from igc_is_device_id_i226(), and IGC_DEV_ID_I225_LMVP
+(0x5502) exhibits the same L1.2 exit latency constraints.
 
+On systems where I225-LMvP is connected behind Thunderbolt/USB4 bridges
+(such as the HP Thunderbolt Dock G4), negotiating L1.2 triggers severe
+BadDLLP packet framing errors, link timeouts, and system hangs during
+shutdown. An earlier attempt ("igc: Mask replay rollover/timeout errors
+in I225_LMVP") proposed masking AER reporting. However, as Bjorn
+Helgaas noted in review of that patch, simply masking errors is
+undesirable and fixing the root cause is preferable; disabling L1.2
+prevents the link from entering the unstable substate entirely.
 
-On 25/09/26 11:45 am, Barry Song wrote:
-> On Thu, Sep 24, 2026 at 9:12 PM Dev Jain <dev.jain@arm.com> wrote:
->>
->> Enable batch clearing of PTEs and batch swap setting of PTEs for anon
->> swap-backed folio unmapping.
->>
->> Processing all PTEs of a large folio in one go helps us batch across
->> atomics (add_mm_counter() etc), barriers in __folio_try_share_anon_rmap(),
->> and repeated calls to page_vma_mapped_walk(). In general, batching helps
->> execute similar code together, making the path more memory and CPU
->> friendly.
->>
->> On arm64-contpte, batching also helps avoid redundant ptep_get() calls
->> and TLB flushes while breaking the contpte mapping.
->>
->> The handling of anon-exclusivity is very similar to commit cac1db8c3aad
->> ("mm: optimize mprotect() by PTE batching"). Since
->> folio_unmap_pte_batch() does not look at the bits of the underlying page,
->> process sub-batches of PTEs pointing to pages with the same exclusivity
->> state, and batch set only those PTEs to swap PTEs in one go.
->>
->> Disable batching for sparc (because of arch_unmap_one), we will batch this
->> later.
->>
->> Rmap accounting and reference accounting must happen when anon folio unmap
->> succeeds. If a large folio is only partially batched or a later sub-batch
->> fails, account only the pages that were actually unmapped. Put that
->> accounting in __ttu_anon_swapbacked_folio() itself instead of using goto
->> jumps at the try_to_unmap_one() callsite.
->>
->> Similarly, do the finish_folio_unmap_batch() in ttu_anon_folio() itself for the
->> non-swapbacked lazyfree case.
->>
->> If the batch length is less than the number of pages in the folio, skip
->> over this batch. page_vma_mapped_walk() handles this: check_pte() returns
->> true only if any of [pvmw->pfn, pvmw->pfn + nr_pages) is mapped by the
->> PTE. Swap PTEs have no underlying PFN, so check_pte() returns false until
->> the walk reaches the next present PTE to unmap.
->>
->> Remove the finish_unmap label since no goto callers are left now.
->>
->> Signed-off-by: Dev Jain <dev.jain@arm.com>
->> ---
->>  mm/rmap.c | 109 +++++++++++++++++++++++++++++++++++++++---------------
->>  1 file changed, 80 insertions(+), 29 deletions(-)
->>
->> diff --git a/mm/rmap.c b/mm/rmap.c
->> index fa9fc8374fc26..cdda9efd80bc3 100644
->> --- a/mm/rmap.c
->> +++ b/mm/rmap.c
->> @@ -1966,12 +1966,13 @@ static inline unsigned int folio_unmap_pte_batch(struct folio *folio,
->>         end_addr = pmd_addr_end(addr, vma->vm_end);
->>         max_nr = (end_addr - addr) >> PAGE_SHIFT;
->>
->> -       /* We only support lazyfree or file folios batching for now ... */
->> -       if (folio_test_anon(folio) && folio_test_swapbacked(folio))
->> +       if (pte_unused(pte))
->>                 return 1;
->>
->> -       if (pte_unused(pte))
->> +#ifdef __HAVE_ARCH_UNMAP_ONE
->> +       if (folio_test_anon(folio) && folio_test_swapbacked(folio))
->>                 return 1;
->> +#endif
->>
->>         /*
->>          * If unmap fails, we need to restore the ptes. To avoid accidentally
->> @@ -2141,16 +2142,25 @@ static pte_t swp_pte_prepare(swp_entry_t entry, pte_t old_pte,
->>         return swp_pte;
->>  }
->>
->> -static bool ttu_anon_swapbacked_folio(struct vm_area_struct *vma,
->> +static void finish_folio_unmap_batch(struct vm_area_struct *vma,
->> +               struct folio *folio, struct page *page, unsigned long nr_pages)
->> +{
->> +       folio_remove_rmap_ptes(folio, page, nr_pages, vma);
->> +       if (vma->vm_flags & VM_LOCKED)
->> +               mlock_drain_local();
->> +       folio_put_refs(folio, nr_pages);
->> +}
->> +
->> +static bool __ttu_anon_swapbacked_folio(struct vm_area_struct *vma,
->>                 struct folio *folio, struct page *page, unsigned long address,
->> -               pte_t *ptep, pte_t pteval)
->> +               pte_t *ptep, pte_t pteval, unsigned long nr_pages,
->> +               bool anon_exclusive)
->>  {
->> -       const bool anon_exclusive = folio_test_anon(folio) &&
->> -                                   PageAnonExclusive(page);
->>         swp_entry_t entry = folio_page_swap_entry(folio, page);
->>         struct mm_struct *mm = vma->vm_mm;
->> +       pte_t swp_pte;
->>
->> -       if (folio_dup_swap_pages(folio, page, 1) < 0)
->> +       if (folio_dup_swap_pages(folio, page, nr_pages) < 0)
->>                 return false;
->>
->>         /*
->> @@ -2159,21 +2169,57 @@ static bool ttu_anon_swapbacked_folio(struct vm_area_struct *vma,
->>          * so we'll not check/care.
->>          */
->>         if (arch_unmap_one(mm, vma, address, pteval) < 0) {
->> -               folio_put_swap_pages(folio, page, 1);
->> +               VM_WARN_ON(nr_pages != 1);
->> +               folio_put_swap_pages(folio, page, nr_pages);
->>                 return false;
->>         }
->>
->>         /* See folio_try_share_anon_rmap(): clear PTE first. */
->> -       if (anon_exclusive && folio_try_share_anon_rmap_pte(folio, page)) {
->> -               folio_put_swap_pages(folio, page, 1);
->> +       if (anon_exclusive &&
->> +           folio_try_share_anon_rmap_ptes(folio, page, nr_pages)) {
->> +               folio_put_swap_pages(folio, page, nr_pages);
->>                 return false;
->>         }
->>
->>         mm_prepare_for_swap_entries(mm);
->> -       dec_mm_counter(mm, MM_ANONPAGES);
->> -       inc_mm_counter(mm, MM_SWAPENTS);
->> -       set_pte_at(mm, address, ptep,
->> -                  swp_pte_prepare(entry, pteval, anon_exclusive));
->> +       add_mm_counter(mm, MM_ANONPAGES, -nr_pages);
->> +       add_mm_counter(mm, MM_SWAPENTS, nr_pages);
->> +       swp_pte = swp_pte_prepare(entry, pteval, anon_exclusive);
->> +       set_softleaf_ptes(mm, address, ptep, swp_pte, nr_pages);
->> +       finish_folio_unmap_batch(vma, folio, page, nr_pages);
->> +       return true;
->> +}
->> +
->> +static bool ttu_anon_swapbacked_folio(struct vm_area_struct *vma,
->> +               struct folio *folio, struct page *first_page,
->> +               unsigned long address, pte_t *ptep, pte_t pteval,
->> +               unsigned long nr_pages)
->> +{
->> +       unsigned long batch_idx = 0;
->> +
->> +       while (nr_pages) {
->> +               bool anon_exclusive = PageAnonExclusive(first_page + batch_idx);
->> +               unsigned long len = page_anon_exclusive_batch(batch_idx,
->> +                               nr_pages, first_page, anon_exclusive);
->> +
->> +               if (!__ttu_anon_swapbacked_folio(vma, folio,
->> +                               first_page + batch_idx, address, ptep, pteval,
->> +                               len, anon_exclusive)) {
->> +                       /* Restore the remaining PTEs that were cleared. */
->> +                       set_ptes(vma->vm_mm, address, ptep, pteval, nr_pages);
->> +                       return false;
->> +               }
->> +
->> +               nr_pages -= len;
->> +               if (!nr_pages)
->> +                       break;
->> +
->> +               pteval = pte_advance_pfn(pteval, len);
->> +               address += len * PAGE_SIZE;
->> +               batch_idx += len;
->> +               ptep += len;
->> +       }
->> +
->>         return true;
->>  }
->>
->> @@ -2186,15 +2232,22 @@ static bool ttu_anon_folio(struct vm_area_struct *vma, struct folio *folio,
->>          * See handle_pte_fault() ...
->>          */
->>         if (WARN_ON_ONCE(folio_test_swapbacked(folio) !=
->> -                        folio_test_swapcache(folio)))
->> +                        folio_test_swapcache(folio))) {
->> +               set_ptes(vma->vm_mm, address, ptep, pteval, nr_pages);
->>                 return false;
->> +       }
->>
->> -       if (!folio_test_swapbacked(folio))
->> -               return ttu_anon_lazyfree_folio(vma, folio, nr_pages);
->> +       if (!folio_test_swapbacked(folio)) {
->> +               if (!ttu_anon_lazyfree_folio(vma, folio, nr_pages)) {
->> +                       set_ptes(vma->vm_mm, address, ptep, pteval, nr_pages);
->> +                       return false;
->> +               }
->> +               finish_folio_unmap_batch(vma, folio, page, nr_pages);
->> +               return true;
->> +       }
-> 
-> Hi Dev,
-> 
-> if we look at the whole `ttu_anon_folio()` code:
-> 
-> static bool ttu_anon_folio(struct vm_area_struct *vma, struct folio *folio,
->                 struct page *page, unsigned long address, pte_t *ptep,
->                 pte_t pteval, unsigned long nr_pages)
-> {
->         /*
->          * Store the swap location in the pte.
->          * See handle_pte_fault() ...
->          */
->         if (WARN_ON_ONCE(folio_test_swapbacked(folio) !=
->                          folio_test_swapcache(folio))) {
->                 set_ptes(vma->vm_mm, address, ptep, pteval, nr_pages);
->                 return false;
->         }
-> 
->         if (!folio_test_swapbacked(folio)) {
->                 if (!ttu_anon_lazyfree_folio(vma, folio, nr_pages)) {
->                         set_ptes(vma->vm_mm, address, ptep, pteval, nr_pages);
->                         return false;
->                 }
->                 finish_folio_unmap_batch(vma, folio, page, nr_pages);
->                 return true;
->         }
-> 
->         return ttu_anon_swapbacked_folio(vma, folio, page, address, ptep,
->                                          pteval, nr_pages);
-> }
-> 
-> The comment "Store the swap location in the pte" is really out of
-> place. Since we are already here, can we move it to the right place?
+Include IGC_DEV_ID_I226_LMVP in igc_is_device_id_i226() and disable the
+L1.2 substate for I225-LMvP across probe, resume, and error recovery to
+ensure link stability without masking AER errors.
 
-I am not sure what is the "right place" you are referring to : ) More
-than that, this comments feels very out of date - it is well-know that
-the "swap location" is stored in the pte.
+Fixes: 0325143b59c6 ("igc: disable L1.2 PCI-E link substate to avoid performance issue")
+Link: https://lore.kernel.org/lkml/eb5a9805-3e53-ec22-696e-21c6b8cf0bfc@molgen.mpg.de/T/
+Signed-off-by: Daniel Viaño <danividanivi@gmail.com>
+---
+ drivers/net/ethernet/intel/igc/igc_base.c | 1 +
+ drivers/net/ethernet/intel/igc/igc_main.c | 8 ++++----
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-In fact, this comment starts on top of the wrong block, which is a
-debug assertion for "when we are here, swapbacked if and only if swapcache".
-So I'd rather just remove it.
-
-> 
->>
->> -       /* nr_pages > 1 not supported yet */
->>         return ttu_anon_swapbacked_folio(vma, folio, page, address, ptep,
->> -                                        pteval);
->> +                                        pteval, nr_pages);
->>  }
->>
->>  /*
->> @@ -2374,13 +2427,14 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
->>                          */
->>                         dec_mm_counter(mm, mm_counter(folio));
->>                 } else if (folio_test_anon(folio)) {
->> +                       /* finish_folio_unmap_batch handled internally */
-> 
-> 
-> let me paste the final code here:
-> 
->                 } else if (folio_test_anon(folio)) {
->                         /* finish_folio_unmap_batch handled internally */
->                         if (!ttu_anon_folio(vma, folio, page, address,
->                                             pvmw.pte, pteval, nr_pages))
->                                 goto walk_abort;
-> 
->                         if (nr_pages == folio_nr_pages(folio))
->                                 goto walk_done;
->                         continue;
->                 } else {
->                         ...
->                 }
-> 
->                 finish_folio_unmap_batch(vma, folio, page, nr_pages);
-> 
->                 /*
->                  * If we are sure that we batched the entire folio and cleared
->                  * all PTEs, we can just optimize and stop right here.
->                  */
->                 if (nr_pages == folio_nr_pages(folio))
->                         goto walk_done;
->                 continue;
-> 
-> I am really struggling to read the code here. For anon folios, we
-> handle `finish_folio_unmap_batch()` internally, while for other folios
-> we still do it outside. This feels a bit inconsistent.
-> 
-> Also, we are duplicating the code below twice:
-> 
->                 if (nr_pages == folio_nr_pages(folio))
->                         goto walk_done;
-> 
-> Can't we just do `finish_folio_unmap_batch()` like the other cases?
-
-The core problem is that we may succeed on a partial range.
-
-ttu_anon_swapbacked_folio can succeed on x < nr_pages. So for x, we
-should call finish_folio_unmap_batch. Either we do it my way, or,
-ttu_anon_folio returns the number of pages successfully unmapped = x,
-and then even in case of "failure" (we should now jump to
-walk_abort since we failed to unmap 'nr_pages - x' pages) we call
-finish_folio_unmap_batch for x pages.
-
-IMHO that is uglier. I wanted to avoid this label jumping. I would
-be interested in hearing a better alternate : )
-> 
-> That would also avoid the duplication.
-> 
-> Best Regards
-> Barry
+diff --git a/drivers/net/ethernet/intel/igc/igc_base.c b/drivers/net/ethernet/intel/igc/igc_base.c
+index ab9120a3127f..6865fef4049f 100644
+--- a/drivers/net/ethernet/intel/igc/igc_base.c
++++ b/drivers/net/ethernet/intel/igc/igc_base.c
+@@ -447,6 +447,7 @@ bool igc_is_device_id_i226(struct igc_hw *hw)
+ 	case IGC_DEV_ID_I226_V:
+ 	case IGC_DEV_ID_I226_K:
+ 	case IGC_DEV_ID_I226_IT:
++	case IGC_DEV_ID_I226_LMVP:
+ 		return true;
+ 	default:
+ 		return false;
+diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
+index 1fb5f3cbe93c..6c4e04661068 100644
+--- a/drivers/net/ethernet/intel/igc/igc_main.c
++++ b/drivers/net/ethernet/intel/igc/igc_main.c
+@@ -7172,8 +7172,8 @@ static int igc_probe(struct pci_dev *pdev,
+ 	hw->subsystem_vendor_id = pdev->subsystem_vendor;
+ 	hw->subsystem_device_id = pdev->subsystem_device;
+ 
+-	/* Disable ASPM L1.2 on I226 devices to avoid packet loss */
+-	if (igc_is_device_id_i226(hw))
++	/* Disable ASPM L1.2 on I226 and I225-LMvP devices to avoid packet loss */
++	if (igc_is_device_id_i226(hw) || hw->device_id == IGC_DEV_ID_I225_LMVP)
+ 		pci_disable_link_state(pdev, PCIE_LINK_STATE_L1_2);
+ 
+ 	err = pci_save_state(pdev);
+@@ -7559,7 +7559,7 @@ static int __igc_resume(struct device *dev, bool rpm)
+ 	pci_enable_wake(pdev, PCI_D3hot, 0);
+ 	pci_enable_wake(pdev, PCI_D3cold, 0);
+ 
+-	if (igc_is_device_id_i226(hw))
++	if (igc_is_device_id_i226(hw) || hw->device_id == IGC_DEV_ID_I225_LMVP)
+ 		pci_disable_link_state(pdev, PCIE_LINK_STATE_L1_2);
+ 
+ 	if (igc_init_interrupt_scheme(adapter, true)) {
+@@ -7688,7 +7688,7 @@ static pci_ers_result_t igc_io_slot_reset(struct pci_dev *pdev)
+ 		pci_enable_wake(pdev, PCI_D3hot, 0);
+ 		pci_enable_wake(pdev, PCI_D3cold, 0);
+ 
+-		if (igc_is_device_id_i226(hw))
++		if (igc_is_device_id_i226(hw) || hw->device_id == IGC_DEV_ID_I225_LMVP)
+ 			pci_disable_link_state_locked(pdev, PCIE_LINK_STATE_L1_2);
+ 
+ 		/* In case of PCI error, adapter loses its HW address
+-- 
+2.53.0
 
