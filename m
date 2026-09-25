@@ -1,100 +1,80 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEA54908A7;
-	Fri, 25 Sep 2026 14:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30A343DEC1;
+	Fri, 25 Sep 2026 14:21:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346047; cv=none; b=pwoxL8PkqmnO+NZgx7XBGhfeCgF9jsw1jaPfZmx8ojnDrrkt011DSfZ9ct+rZ88GlXNpJD/5xEeeoHUsDY5C157J9JBIdNBp1QuGGwdnOqGE8RM1a6gwYSYMDZ4M+rhB/tVCde8a0MLUT+sDbU0CjWNFWznW60pUnMJv9vwwaMs=
+	t=1790346064; cv=none; b=jDlzimXob8OUgYD1xUB+YqUpPrUSrsT0v+9+61f1MiutxvIFwWlVONCj3ZQ0s/fQ1bI+ZFLq5YQYDSLxKki14J+H5UUsqh/BBoJDgUtPv6odc7Wlktn1pCTxyadwCkaZpgySKi+pbMugJJd2BN7puGrQ6oFiyKFeGSx6Mx72k80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346047; c=relaxed/simple;
-	bh=pewVATMvxz/0zBB01FspS2JmEEjcCbKPPr8kOnzaOIw=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=aInn7tOPnSDu/RxQKVNXx0elsBCEfcihy7b0fJUQjhyVSQ/faRCqzGOzPmv22fJOFw3W84A3ACv6I5dzLp7GlKJYV0ATCsBiVdq+v9xviBB+KRVqpPMd3mGtD255BXSG3JGzdcO9D1Pcun9/P+0XcDpfdfl1bTzM4wvAS1td65g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=08RUWRXH; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1790346064; c=relaxed/simple;
+	bh=ipYU8e78ByEhWH/1W0gJkLC172mJp5qZEgqiCFKsZYs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Q3gN49eEQ7/GQj0II9pfS7yqIX3Q/FcZWvOWYMdzEvM8dJ9dzUYfTfMNABsO8H2YQThUMK0dklUEAzSVYpZcZuqVS27Yba63Ir/4eke//h3qR7aaAWeEAclWtfSdKgYsU8DqVSpRfPLWepjxI3Hau5uO0Zsi36uNUq21aWVMwbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZhfTnzgC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="08RUWRXH"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 320AEA4AA0;
-	Fri, 25 Sep 2026 16:20:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790346043; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=xHNc+9RxFcyweFVUILwsomUzPT50njlhC3Ylpa7bSF4=;
-	b=08RUWRXHrNrL6HpPGmFAtE3fg9wPszBuZh0Ywcga9MxXPB2HrkZ8La6YKfPd2AAKJV8Efa
-	a5xt09enksAbajA/e3ge5cnzxX8+7j0BRDe71zR3SFqWwkPBZgJpFBr9fmJkDtbrwmdT30
-	PzWtQZpN5BOatjI7XIcUDQWkPNAIN55DfYFzC32Wmk+mxxtPqGiZy63JuU9R8uXRjxJhBH
-	6Obxu54CRzHgmMC19MEFoBdjsEtGN4rJ2gWKDRaa8WvruQvwlisxdalo6JFWk3BHvW/0oB
-	Gd91NKng4Y3Jo8po0j7zX3sD5RUWeE5k/1yDkV8bbpMpJO0TAXs9Zf9R8BnSQA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZhfTnzgC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093321F000FF;
+	Fri, 25 Sep 2026 14:20:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790346062;
+	bh=Y8bbhgovMLJiV2/8MU9E7yMpXiD1DeJOffuWDMO7waQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ZhfTnzgCuikPATdpnPcvJA7soMR0WYKkzTl0ydiV3QCy4RjCJIXMnlFYPl1xSnLpt
+	 fN+/mBRdZI0neUlyQ6PD6eTRjNRgqH3xGz+9MvzcqejpS7zHUQ6VXOK95XjzZwaDU2
+	 qwz6vip15hKyRFBj1BBz5laA7BojNd/IhjPBBHzhHdv8IenXO6A7W6PuDrGHcINDiJ
+	 9kOaHB4fnQtULK5K+FboODTSrHuhVdvFxRK+CnVZjA9VwMLQA0/8NW2TNAmHJUZ8+a
+	 dUf2YRRogQh95q4eqPn+dKUF38/d4xlgrvFv5Jbw2y5996Nu4423RX2Wb1Wi0XcJjA
+	 pOIBwR39jNACA==
+From: Christian Brauner <brauner@kernel.org>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Jan Kara <jack@suse.cz>, Jonathan Corbet <corbet@lwn.net>, 
+ Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260912073250.51074-1-kmehltretter@gmail.com>
+References: <20260912073250.51074-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH] docs/vfs: Fix the struct file_system_type copy
+Message-Id: <20260925-sachlage-reinigen-auffressen-5bdd926d423f@brauner>
+Date: Fri, 25 Sep 2026 16:20:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 25 Sep 2026 16:20:40 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Sean Anderson <sean.anderson@linux.dev>, Antoine Tenart
- <atenart@kernel.org>, Eric Dumazet <edumazet@kernel.org>, Nicolas Ferre
- <nicolas.ferre@microchip.com>, Russell King <linux@armlinux.org.uk>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Vladimir Kondratiev
- <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
- <gregory.clement@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Maxime Chevallier
- <maxime.chevallier@bootlin.com>, stable@vger.kernel.org
-Subject: Re: [PATCH net v2 2/3] net: macb: propagate RX ring refill errors
-In-Reply-To: <20260925-macb-close-v2-2-360efa565914@bootlin.com>
-References: <20260925-macb-close-v2-0-360efa565914@bootlin.com>
- <20260925-macb-close-v2-2-360efa565914@bootlin.com>
-Message-ID: <6d02388cd50d823b913d59ee890cc707@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=881; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=ipYU8e78ByEhWH/1W0gJkLC172mJp5qZEgqiCFKsZYs=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRta/ZsXHOgtqwiafmuG4dq4uOblJfNvfK24cgpncW8N
+ 5OMzsg96ihlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiIxSGG/6GCrQcmrpxXLJMv
+ ItXJ8MeNXTSGU0lhgo7JUd5X77eEdTAyvLBbW/Dm+sZDnVo93x6s2u98fZLMvItN6zU3BeyViOi
+ IZAQA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On 25.9.2026 15:59, Théo Lebrun wrote:
-> gem_rx_refill() is responsible for Rx SKB allocation, including at 
-> open,
-> but its prototype indicates a void return value.
-> 
-> Therefore we change the code to propagate allocation and DMA mapping
-> errors back up the stack, making sure the open fails if no descriptors
-> were allocated. Change all those to return errno-style ints:
->  - gem_rx_refill()
->  - its parent gem_init_rx_ring()
->  - its grand-parent gem_init_rings()
->  - the macbgem_ops.mog_init_rings function pointer
->  - its grand-uncle macb_init_rings()
-> 
-> We tolerate some allocation failures: we accept running with the rx 
-> ring
-> only partially filled with successful descriptors. It is important we
-> refuse the zero-valid-descriptor case: nothing would ever trigger a
-> refill, which only happens once a frame has been received.
-> 
-> Theoretical bugfix, never encountered in practice. To reproduce,
-> introduce memory pressure (less than 512 SKBs of free memory) and open
-> the interface. I expect the last queue to be unusable because it has
-> zero usable rx buffers.
-> 
-> Note that other callers of refill (resume, HRESP error task, NAPI)
-> cannot do anything useful with that error and keep their best-effort
-> refill, hoping it will improve.
-> 
-> Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-> ---
+On Sat, 12 Sep 2026 09:32:50 +0200, Karl Mehltretter wrote:
+> docs/vfs: Fix the struct file_system_type copy
 
-> [...]
+Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.misc branch should appear in linux-next soon.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Thanks,
-Nicolai
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.misc
+
+[1/1] docs/vfs: Fix the struct file_system_type copy
+      https://git.kernel.org/vfs/vfs/c/392f5390d5d8
+
