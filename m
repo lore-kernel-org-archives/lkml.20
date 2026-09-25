@@ -1,179 +1,104 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE0B453A54;
-	Fri, 25 Sep 2026 07:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2837739CCEA
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322608; cv=none; b=nluegcE9Z5/1zwnvY7hAeShpqcOFyCLDr0oX97UKEyVcrzEJ3pvuXR16HO3TFucdSqEL+pUe3DMHzNhiLmVfI6xEmKdUytUvOT3PtQvqB/r4ULmAzvXoZzFROSSSf+BbEYI45PO2UzGrYgvzf93Alg09YVVgW7BZPF1cW0mPizM=
+	t=1790322650; cv=none; b=kOhJPdcz2jVZzYUoXIjrRS42cYrAAQmGMFmz6cPRygfSaI8e2wCQ4A/zEilIdwzuN4gnkPNLpohG1H71JhaVKBXGfvAIgFa2CMzVUiTR/mDSRul2wULJO8HRNXqCZy5onYD9qmf4SN6MsHGXKHtWyyZuZg6Q6KnF3eXM5bKGyIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322608; c=relaxed/simple;
-	bh=jzKi0jRt9cauVGk6fvzC3PhVlMI87uyvXvGpAVe7xhQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OFmsTriz3dU08PYoquGB5e0nI3Fm+hhIoKq/NsWXvkVE2my0ReiNefjS9np2FC9zyhiLFnVusHsFFwi1qaIE5tYdHGEZgJxFzH9VOHzre70dy3mKcs8jT51qU1kqYuKJGD1PPkFQKEmJ1tTnSKm3sPPLakUfy9n8D0L5k9kqKOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Ood8IM7h; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790322650; c=relaxed/simple;
+	bh=etvYMdjIKmKo0vypJIIrSrdY9PtMT/S+xJavh4Imy7c=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=pIbxrNBPriio6iwNbqnW/7ZTFj4JtWQAVRcDsDtyrLW4wQV+u+1EN/JXe2U5I9wLXZDE397DKrxpwF6E/X3LxKhPr8OA1VoAZnblnZ+7snRoLQiyEWaMvy1qOnFnarRx4ENgY22ZKmmlMi/hCL9ZH7yrHcRIbNrxwG3uUsJGmw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CN3d9N80; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Ood8IM7h"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=SI/MwWqv4yxwHThYUWRmZ7a1tSIE2B84HOyuWakguyc=; b=Ood8IM7h5ph/AwvDMkaS9J34EC
-	+PxRHmWDSZbE5uy/Sn4DCRnJKLphzFrUXG5/iktrtgYq3ZavQ20IOKosd5LoLLcGGb31eZkv3+rbH
-	oWpSo9k16qh59gj70Jc4PO1Np6Fy4LXY8v7v4g2CN1A/LTuEy4pV3in7K1lW+6dp50S0fqYxKA9RJ
-	vQzip1t3QdOVFl6XairtlvX+1UNc+R13eXC2t6igAwNEsTerFuZxr0vfTsiSNak1QSQ5cf0yJ5LLG
-	VnZfJZM0pGiWVhn1Z1F2QJ4WSlVF+RgFJ92SYEy/rzLn0BRmu5HbZLFtLOsu3t0OIIMnX44MKrRS/
-	W8+th5eA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1xA0gs-0000000Gi6A-3pkQ;
-	Fri, 25 Sep 2026 07:49:55 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 7115530070F; Fri, 25 Sep 2026 09:49:53 +0200 (CEST)
-Date: Fri, 25 Sep 2026 09:49:53 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, yury.norov@gmail.com,
-	kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
-	meted@linux.ibm.com, ynorov@nvidia.com, tglx@kernel.org,
-	gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
-	vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
-	dietmar.eggemann@arm.com, maddy@linux.ibm.com, srikar@linux.ibm.com,
-	hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
-	frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
-	christian.loehle@arm.com, tj@kernel.org,
-	tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
-	rdunlap@infradead.org, kernellwp@gmail.com,
-	linux-doc@vger.kernel.org, jgross@suse.com,
-	virtualization@lists.linux.dev, sunlightlinux@gmail.com
-Subject: Re: [PATCH v13 08/13] sched/core: Push current task from non
- preferred CPU
-Message-ID: <20260925074953.GG4121339@noisy.programming.kicks-ass.net>
-References: <20260909135617.871006-1-sshegde@linux.ibm.com>
- <20260909135617.871006-9-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CN3d9N80"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C52911F00893
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:50:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790322649;
+	bh=t2Dx/d45eW/YSr1SSo2BR+xcaKZ/ss9Th88yiSDyPFU=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=CN3d9N8015i+DdLjif2urqc4z8yblX07qO7q5cIwjy4GWuX7dRab49Xelylr9j1xJ
+	 ru/l+ayN21db+dp9EG1AoaCtYLytJFWjnfJ95MFemVE9PA8fSLyRFWejwuK/PlTHfA
+	 YMDn5dAvV8UAPOZQQ9mto7xXLDn1N2M04qpSSPTgMW4VvfwofbEi+z0+2PE5NUNxk8
+	 4Nw/ZX8hdI/356I+fnxTRGM9roCMfxAL7vaZ8Cp94LvgS9PbboqWHrUIImfTS9JDiJ
+	 brcLEbnN4iWAxyIYAMQOM/mt4WiYY4pNheYXb5YaOKb9LXwErvCpcCbezbvu07FZzt
+	 FKpDBhfYzBxgA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 33C8B1980062;
+	Fri, 25 Sep 2026 03:50:47 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Fri, 25 Sep 2026 03:50:47 -0400
+X-ME-Sender: <xms:1Se2akdImMzz2JmVrIhbv1x22F7ZoWPiNQ6vcYqsEjbqabYYlK673g>
+    <xme:1Se2ahBkyfwgo2J_1iO2UKnwMHBdfKrx45kK2MRW2F_W9CkgrbO9GRmgt6zl6LCST
+    4iby97QxQBi7v1riqW8MlAcMTnWxmChCatU8eF2RQE42bdkNspEpCG1mw>
+X-ME-Proxy-Cause: dmFkZTEauvpc3Xgpv/TCnf4kDS4S+hfiJ+BbESf1ZndveM7HOh1njdCDrq7KMMr/U8bq6C
+    PNJb9YEQJDxJFvIJ0vji9MPQpdxZ3pmpmbyXady5AXyjkwjy0GXCKYeYLToKgN0Mm+gvtD
+    /lYmVPNRmdVrhNEI12bxPQH5PNLolit6ZujMY8uiFYo+DDDODouf1aVtkFqocomJph1j9k
+    hYJVeUouoCED9AxZc5c1G48vLSMp4ajZq+oH83mNyLo/2ZSnKpRBwjzS/QwIA5VE3g+boz
+    EnBF6MMECdCx2lhgunHdF9dcqKuEqGyYngxrGd79tvQu332KMczwJChtSqM3dXM5vNWfJz
+    OiFAhlRyRqLG3cWQix+J+jGj8GLtlvaxG2ep4gUkaleyMqBRisMFdwP6SmJnkU9TlCfxTO
+    rDPnFzza298B7dEv5qgsYnXNp1Y7e1OcgY2mtyY09tO7hNQfkt+qlN43VEcTIzYUbamfRj
+    lA9rrMymYfWD/DT3+bmZyFZoCs02elMBhC8tLilZdBZCKB18DrHiUhigxkShP3c/HIk5GQ
+    7Jay04oLQRmrM4+NdsuHtIimeHH4ifB1Owjjupt+FkqKwgx27T9EUxKakd6v2glNUJ1it8
+    KnZCV1PlRtkf88Z1y9uVvEMyNxkofMGIw3LP+XkFLIWrGFx/4QcxW6wAas0g
+X-ME-Proxy: <xmx:1ye2apYqRCA-pIqtGEedGRLjVBPWLPezoqzNPdDD2nVYCT8hZ7V7cA>
+    <xmx:1ye2aoBBa8Wz_ss1yRsnI3HRLdqgMMydyDjEBmkmCga2gSuFuuzKTA>
+    <xmx:1ye2apne7FtJshXZtRddHabf8RLAKWqseGhhSsGB4tZU-EFiIS4_uQ>
+    <xmx:1ye2ahz7cGrtsGAdC9_Q4QR3kPHqMbIXSwNg5upLcSRKYsk6-XuvWw>
+    <xmx:1ye2arQwbw6lsVPnogS4FIZLhavD0F4IDrnaEH7xqjSKYgTXz3pmFoHG>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 97C63F80080; Fri, 25 Sep 2026 03:50:45 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909135617.871006-9-sshegde@linux.ibm.com>
-
-On Wed, Sep 09, 2026 at 07:26:12PM +0530, Shrikanth Hegde wrote:
-> Actively push out the current running task on a non-preferred CPU. Since
-> the task is currently running, a stopper thread must be queued to push the
-> task out. However, if the task is pinned only to non-preferred CPUs,
-> it will continue running there. This helps to maintain userspace
-> affinities, unlike CPU hotplug or isolated cpusets.
-> 
-> Though the code is similar to __balance_push_cpu_stop and quite close to
-> push_cpu_stop, it is kept separate as it provides a cleaner
-> implementation specifically for CONFIG_PREFERRED_CPU.
-
-I would have preferred the code looking more like
-__balance_push_cpu_stop(). Now you're written more or less the same, but
-visually different for no reason. This makes comparing them unnecessarily
-hard.
-
-> Add the npc_push_work_pending flag to protect the work buffer.
-
-I can't help but read NPC as Non-Playing-Character. Too much RPGs, and
-that ain't Rocket Propelled Grenades. TLA are such fun :-)
+Date: Fri, 25 Sep 2026 09:50:25 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Rick Edgecombe" <rick.p.edgecombe@intel.com>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: "linux-efi@vger.kernel.org" <linux-efi@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Yan Y Zhao" <yan.y.zhao@intel.com>, "x86@kernel.org" <x86@kernel.org>,
+ "Borislav Petkov" <bp@alien8.de>
+Message-Id: <aa7a1571-f91f-42ca-aa12-3122f453cad0@app.fastmail.com>
+In-Reply-To: <fe5b400e19742ae3666cd7b3e4bd22164024293f.camel@intel.com>
+References: <20260914183745.37538-5-ardb@kernel.org>
+ <af17c380c43912ce34c228e328b3937343ce2019.camel@intel.com>
+ <aqvrUeIfpE4D-Ol0@thinkstation>
+ <27b267cdaed0c46146de4af2db8362b61e0b08a3.camel@intel.com>
+ <aqyd+rhamNei92Nz@yzhao56-desk.sh.intel.com>
+ <aqzMGEVpDRPUyPUA@yzhao56-desk.sh.intel.com> <aq0VWfqv2_SgOvV9@thinkstation>
+ <b9ff9e11-d7da-4e34-9744-e3adcc786276@app.fastmail.com>
+ <arUNjv0rSaAM2xmk@thinkstation>
+ <fe5b400e19742ae3666cd7b3e4bd22164024293f.camel@intel.com>
+Subject: Re: [PATCH 0/3] Move memory acceptance x86 arch code into EFI stub
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
 
-> +#ifdef CONFIG_PREFERRED_CPU
-> +static DEFINE_PER_CPU(struct cpu_stop_work, npc_push_task_work);
-> +
-> +static int sched_non_preferred_cpu_push_stop(void *arg)
-> +{
-> +	struct task_struct *p = arg;
-> +	struct rq *rq = this_rq();
-> +	struct rq_flags rf;
-> +	int cpu;
-> +
-> +	if (cpu_preferred(rq->cpu)) {
-> +		scoped_guard(rq_lock_irqsave, rq)
-> +			rq->npc_push_work_pending = false;
-> +		put_task_struct(p);
-> +		return 0;
-> +	}
-> +
-> +	raw_spin_lock_irq(&p->pi_lock);
-> +
-> +	/*
-> +	 * select_fallback_rq() may acquire the rq lock in case of fallback.
-> +	 * So call it before grabbing rq lock. If the task migrates to
-> +	 * another CPU before the rq lock is acquired, subsequent validation
-> +	 * of task's current rq will help to safely bail out.
-> +	 */
-> +	cpu = select_fallback_rq(rq->cpu, p);
-> +	rq_lock(rq, &rf);
-> +	rq->npc_push_work_pending = false;
-> +	update_rq_clock(rq);
-> +
-> +	context_unsafe_alias(rq);
-> +
-> +	if (task_rq(p) == rq && task_on_rq_queued(p) &&
-> +	    !is_migration_disabled(p))
-> +		rq = __migrate_task(rq, &rf, p, cpu);
-> +
-> +	rq_unlock(rq, &rf);
-> +	raw_spin_unlock_irq(&p->pi_lock);
-> +	put_task_struct(p);
-> +
-> +	return 0;
-> +}
 
-Anyway, I ended up with:
+On Fri, 25 Sep 2026, at 01:30, Edgecombe, Rick P wrote:
+> On Thu, 2026-09-24 at 12:46 +0100, Kiryl Shutsemau wrote:
+>> > Is there any way we could make some progress here?
+>> > 
+>> > Ultimately, the thing I am after is to get rid of the call from the
+>> > decompressor to EFI stub's snprintf(), which I want to remove. For
+>> > the time being, I am more than happy leaving the memory acceptance where
+>> > it is, and just dropping the call to snprintf().
+>> 
+>> Please go ahead with the move. Rick's questions are about what
+>> tdx_accept_memory() should return, not about where the caller lives,
+>> and can be sorted out separately.
+>
+> Yep. I tried to do a quick smoke test and got a similar build error as Boris. I
+> guess you will send a new revision?
+>
 
-  static int sched_non_preferred_cpu_push_stop(void *arg)
-  {
-	  struct task_struct *p = arg;
-	  struct rq *rq = this_rq();
-	  struct rq_flags rf;
-	  int cpu;
-
-	  if (cpu_preferred(rq->cpu)) {
-		  scoped_guard (rq_lock_irqsave, rq)
-			  rq->npc_push_work_pending = false;
-		  put_task_struct(p);
-		  return 0;
-	  }
-
-	  scoped_guard (raw_spinlock_irq, &p->pi_lock) {
-		  /*
-		   * select_fallback_rq() may acquire the rq lock in case of
-		   * fallback. So call it before grabbing rq lock. If the task
-		   * migrates to another CPU before the rq lock is acquired,
-		   * subsequent validation of task's current rq will help to
-		   * safely bail out.
-		   */
-		  cpu = select_fallback_rq(rq->cpu, p);
-
-		  rq_lock(rq, &rf);
-		  rq->npc_push_work_pending = false;
-		  update_rq_clock(rq);
-
-		  context_unsafe_alias(rq);
-
-		  if (task_rq(p) == rq && task_on_rq_queued(p) &&
-		      !is_migration_disabled(p))
-			  rq = __migrate_task(rq, &rf, p, cpu);
-		  rq_unlock(rq, &rf);
-	  }
-
-	  put_task_struct(p);
-
-	  return 0;
-  }
-
-And note how you have an extra !is_migration_disabled() vs
-__balance_push_cpu_stop(). Either yours is superfluous or
-__balance_push_cpu_stop() should have one. Which is it?
-
-
+Yes, thanks for testing.
