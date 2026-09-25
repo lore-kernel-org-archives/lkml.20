@@ -1,163 +1,235 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7D8353A90;
-	Fri, 25 Sep 2026 14:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C244AA58B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:03:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790345023; cv=none; b=vELEmCuUpc3W7lOfaYu1s0TceQVtdrbudJWM6otK3NnIs4U37uF61+lwqq6dCieKSaUxcGiw9y8+z9XdjbDoFCVLrLIveIVnSHNlrh8ye7U2mC0yo8U3aZKfGMUC5ujjdztWWhBVRYYzwTluxcZdXNTozwLlMQlBOF9o3bfr7t8=
+	t=1790345029; cv=none; b=t2fUE83A/saZClwDVJoOeqCfnyW4btLO0zo0Sueyzmk42w0Yy0/ArNEi5Z1+3J75krztrythPSv3YmZJxfBBC9nW8TVBJHXbfWhU9ZItatjMbiW1orvPAXJH+VuKmFCI8vwZmbLuxZB0Ryl7/PY947F1iUx23Rd+STqs1cEaUg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790345023; c=relaxed/simple;
-	bh=WzqSw9TPi1uq7hvWinX527KKvJhojSFLzb5QPhZFD/U=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AES9ObOeLk8soNMh7q4Q7oNkxtmhx0QHiTPWBqSaymhmkqhX/zwBxKxaJS22EOpFGINsC99WhSWkWG9V4njl/MABQL2+wPYQ59w83zbM21RYXxP7GzAEVRr69Ghpw9giUUnbjBtObiJCJ3Reb4AjjdH1r8PXGlVFfvC6sJacOIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
-	by APP-01 (Coremail) with SMTP id qwCowAA3D_P+frZqWmXzCA--.32169S2;
-	Fri, 25 Sep 2026 22:02:41 +0800 (CST)
-Message-ID: <2a3e3ce8d62805394ef41a2e9f84a5051af30ac2.camel@iscas.ac.cn>
-Subject: Re: [PATCH v3 13/19] clk: starfive: jh7110-vout: Allow pixel clock
- rate propagation
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Jerome Brunet <jbrunet@baylibre.com>, Michal Wilczynski	
- <m.wilczynski@samsung.com>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Andrzej Hajda	 <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, David Airlie	 <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko
- Stuebner <heiko@sntech.de>,  Conor Dooley <conor@kernel.org>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
- Belhachemi <db@domibel.de>,  Brian Masney <bmasney+clk@redhat.com>, Jerome
- Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
- Szyprowski	 <m.szyprowski@samsung.com>, Maud Spierings
- <maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>
-Date: Fri, 25 Sep 2026 22:02:38 +0800
-In-Reply-To: <1j5wzt8plp.fsf@starbuckisacylon.baylibre.com>
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
-	 <CGME20260904132733eucas1p1a6529cb2ea97bc75c9cd190d1ba901c0@eucas1p1.samsung.com>
-	 <20260904-jh7110-clean-send-v3-13-484f9ae72715@samsung.com>
-	 <1j5wzt8plp.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1790345029; c=relaxed/simple;
+	bh=HRSfvabNiucZeklsxwJ53/66sDBOCW9Yt/3lAFnkhLg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=B3LSJviVPcoU/8E5624n3HfzaQTp1mi0GIrhnZx8jYUx07w4y9N5+gmvSoCnQ3J5R5Y8i7ASbuqYCcIqbCVyjdakGCxh4lCWsFJZzDFnyuR3nQ1n4SrxqpESt9O9/7G5anT1Q2lx0IWkqhmE8DXapePhwyu28I8W+CyaE9cBr6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qhlApKHr; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qhlApKHr"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-486e1a044c5so753048f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:03:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790345024; x=1790949824; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qzFEC3aTbGnpQkHithoqa18oO/Ij/6Vz720R55NWgd4=;
+        b=qhlApKHrvjRFH8Egd6S9Jkn4rqGzAezFq1Uq8Nf+ot+yRgL2hzCKRbIcMEp77q10PZ
+         7KWLUbldM6Mj3O5K2jvCelUDQU6o5Pe8pMcVmGkS3dm0EdIX0AZh8INpI/g8XJzMOvUp
+         kfvAmMW0fBi4jxH2dLjLZHn4tFoRpiZ9Vc6K8T+l8cAlh8Fbt4zi+RX7D2FqN6mro2EI
+         ctz8uOxZr9jYY7u6olOPOWPfWguBuw68XrA/6uvI9/srJTx37pMlcS4eN0E8T0YVbmFc
+         e0pnsUaAaMEjhHgCRwG9N/P98CFrdFqPkRo4l+BthNVPT+LW/Y5CIQWE6u8FjEWpW9Ip
+         GnQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790345024; x=1790949824;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qzFEC3aTbGnpQkHithoqa18oO/Ij/6Vz720R55NWgd4=;
+        b=ST+uVvJ9tb6GLQafOHEPrJIgo/7A0V/VdItutWmMIRNAPMdfv/yiaPEXNh9CV1Cs/i
+         YXeqxJlgdJFM9PTf+cIBFblntctEaXfOinicHR8ytSsm4y9EzlTjVg9Q4qJ+1S0k+E7X
+         H1ljJaWsw3aIiyvlQdDIPnNE3eJ0w29sc08sqlGlMsRKwsdIm+mZfmkKGZhwm6ZkGhK+
+         gUnE/FYzsyBEii2aW+4jRyBQIIbDAv0QRR+pF7+0jmhSOFRDxRilxYP1Bb9pfoMjzweA
+         52pdXnhWsv4TnuKkyvLY5JRgUtR/E0MjuL8nnVXVPb8WQ39Os+TKAsNrqKHMYp5awhWF
+         GWIA==
+X-Forwarded-Encrypted: i=1; AKwUvBxGQCOWb1jiwejqJSQP+ZsPRwPObfBhPibdywAwWq0m/veAd8WBJ7hBUlTXWXkOHYPdqujYxTu5qGPknR4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsK9yJFM6GHLz7thaiK7CVTPfqcgO0Hku6zmRoijeQ3mZIkoGB
+	KKHuerNy2s53xWw+zvelnVzYvVEWfW4j/3p3qS+kxtNAjkFfiWhfPDgO
+X-Gm-Gg: AYBFou3C6coa/G0HcB0NJK45L4nDICi/fqJNNLc0AU55xI9Biozv5m70F8p/SB3CQ6h
+	S1r/ohSSB99rgedAuiNaeaSEGsHoPdyoUOBorDEFiy3WmBSwZAb8bl7XO2UHhPN+g6Xp5kU3IWt
+	5b/a8D1bPE9VLoGxKNOIVjCnM2ofMsuOIiHefGulxIArccM6NHFLDCbRZvtqlLn4IO2mw79Cmmf
+	q77SQWgNLRqQuMA0fD2W59fJrAauOxXhu4tr0PxOVaReamjWpYvRLA0bedsf2fhVWYKDKPNAwKW
+	08g1+M4XIABEixHYyzjd+qNOVDOrlRfK9yPBNsMMeZqR4XViUaFvVzr0bcY3J1JXj6wk6FXrUMJ
+	aCSqmog+Z0GNv9YOvteatHFw45lertByyQMjKYTfdVwPYr3jGXM21fl9p8KliW5ZMcVwDeLvRQB
+	tI+oSLbNsYUEIJdzD4aYh7xMAv2Iwp2zmxOb128iiM3T0o51Dr5yDiVPEhKxvijyfiQbVe/gZ1V
+	dpID0fXwact2L094LgyGCm7cyIgoIVaiUJNyur+Ow22EuvKCEZKMGmf0zL3nQZtopnodmU7qtJD
+	Q1fQi4ncEwP/RdHXuHrtxg==
+X-Received: by 2002:a05:6000:4201:b0:488:8411:1d08 with SMTP id ffacd0b85a97d-48884111e4bmr551965f8f.48.1790345023466;
+        Fri, 25 Sep 2026 07:03:43 -0700 (PDT)
+Received: from Lord-Beerus.station ([31.27.155.43])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a355c65sm7522431f8f.19.2026.09.25.07.03.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 07:03:42 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Joseph Guo <qijian.guo@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Stefan Eichenberger <eichest@gmail.com>,
+	netdev@vger.kernel.org
+Subject: [PATCH v1 11/11] ARM: dts: imx6ul: Enable Variscite i.MX6UL board DTBs
+Date: Fri, 25 Sep 2026 16:02:28 +0200
+Message-ID: <3fc9181ea762490c53451b366e3723d61d46a56e.1790344389.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790344389.git.stefano.r@variscite.com>
+References: <cover.1790344389.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowAA3D_P+frZqWmXzCA--.32169S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZFW5WrW3Kr47uw4UtFWrZrb_yoW5Aw4rpr
-	s7Ca4rJFs0qF48Za4xX3WYqFW5Aan2ya45tFn7ZF10vr45Ka1UWw1vkF9xWF97XrZ7Cw13
-	Wr4v9F4fuF4DXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_Wrv_ZF1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
-	UI43ZEXa7IUnPl1DUUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 14:47 +0200=EF=BC=8CJerome Brunet=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On ven. 04 sept. 2026 at 15:27, Michal Wilczynski
-> <m.wilczynski@samsung.com> wrote:
->=20
-> > The dc8200_pix0 and dc8200_pix1 MUXes feed the display controller,
-> > and
-> > the rate they carry is ultimately produced by the HDMI PHY, which
-> > registers hdmitx0_pixelclk as a clock provider.
-> >=20
-> > Add CLK_SET_RATE_PARENT to both MUXes so a rate requested on them
-> > reaches that parent, instead of being clamped to whatever rate the
-> > parent already happens to run at.
-> >=20
-> > Co-developed-by: Dominique Belhachemi <db@domibel.de>
-> > Signed-off-by: Dominique Belhachemi <db@domibel.de>
-> > Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> > ---
-> > =C2=A0drivers/clk/starfive/clk-starfive-jh7110-vout.c | 6 ++++--
-> > =C2=A01 file changed, 4 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/clk/starfive/clk-starfive-jh7110-vout.c
-> > b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
-> > index
-> > bad20d5d794a72f071b4d547b7304786a8ba9afa..aeba42cd3c44ba205ced52b18
-> > 26d2d2de82ad78f 100644
-> > --- a/drivers/clk/starfive/clk-starfive-jh7110-vout.c
-> > +++ b/drivers/clk/starfive/clk-starfive-jh7110-vout.c
-> > @@ -40,10 +40,12 @@ static const struct jh71x0_clk_data
-> > jh7110_voutclk_data[] =3D {
-> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_AXI, "dc8200_axi", 0,
-> > JH7110_VOUTCLK_VOUT_TOP_AXI),
-> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_CORE, "dc8200_core", 0,
-> > JH7110_VOUTCLK_VOUT_TOP_AXI),
-> > =C2=A0	JH71X0_GATE(JH7110_VOUTCLK_DC8200_AHB, "dc8200_ahb", 0,
-> > JH7110_VOUTCLK_VOUT_TOP_AHB),
-> > -	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX0, "dc8200_pix0", 0,
-> > 2,
-> > +	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX0, "dc8200_pix0",
-> > +		=C2=A0=C2=A0=C2=A0 CLK_SET_RATE_PARENT |
-> > CLK_SET_RATE_NO_REPARENT, 2,
->=20
-> I see that you've added CLK_SET_RATE_NO_REPARENT following a previous
-> sashiko advice.
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-I think the problem is that the Innosilicon HDMI PHY is designed to be
-solely the pixel clock provider when HDMI output is enabled, so manual
-clock parent assginment is required when using HDMI to prevent the
-general PLL from driving the pixel clock, and for DSI to prevent
-abusing the HDMI PHY clock generator.
+Add Makefile targets for the VAR-SOM-6UL and DART-6UL board variants
+based on i.MX6UL, i.MX6ULL and i.MX6ULZ.
 
-Thanks,
-Icenowy
+Keep the existing Concerto DTB targets enabled alongside the new
+carrier, storage, wireless and audio combinations.
 
->=20
-> Note that saying it will 'hijack' the parent without it is kind of
-> strong. It is fine to let a mux reparent while setting a rate, as
-> long
-> as you understand the possible consequences for the rest of the tree.
->=20
-> Regardless
->=20
-> Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
->=20
-> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_DC8200_PIX,
-> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_HDMITX0_PIXELCLK),
-> > -	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX1, "dc8200_pix1", 0,
-> > 2,
-> > +	JH71X0_GMUX(JH7110_VOUTCLK_DC8200_PIX1, "dc8200_pix1",
-> > +		=C2=A0=C2=A0=C2=A0 CLK_SET_RATE_PARENT |
-> > CLK_SET_RATE_NO_REPARENT, 2,
-> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_DC8200_PIX,
-> > =C2=A0		=C2=A0=C2=A0=C2=A0 JH7110_VOUTCLK_HDMITX0_PIXELCLK),
-> > =C2=A0	/* LCD */
-> >=20
-> > --=20
-> > 2.34.1
-> >=20
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
+ arch/arm/boot/dts/nxp/imx/Makefile | 92 +++++++++++++++++++++++++++++-
+ 1 file changed, 91 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index c5caca92ea10..cdca939b10a9 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -377,6 +377,36 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
+ 	imx6ul-tx6ul-mainboard.dtb \
+ 	imx6ul-var-som-concerto.dtb \
+ 	imx6ul-var-som-concerto-full.dtb \
++	imx6ul-var-dart-emmc-sd-card-wm8731-6ulcustomboard.dtb \
++	imx6ul-var-dart-emmc-sd-card-6ulcustomboard.dtb \
++	imx6ul-var-dart-emmc-wifi-brcm-wm8731-6ulcustomboard.dtb \
++	imx6ul-var-dart-emmc-wifi-brcm-6ulcustomboard.dtb \
++	imx6ul-var-dart-emmc-wifi-iw61x-6ulcustomboard.dtb \
++	imx6ul-var-dart-nand-sd-card-wm8731-6ulcustomboard.dtb \
++	imx6ul-var-dart-nand-sd-card-6ulcustomboard.dtb \
++	imx6ul-var-dart-nand-wifi-brcm-wm8731-6ulcustomboard.dtb \
++	imx6ul-var-dart-nand-wifi-brcm-6ulcustomboard.dtb \
++	imx6ul-var-dart-nand-wifi-iw61x-6ulcustomboard.dtb \
++	imx6ul-var-som-emmc-sd-card-wm8731-concerto-board.dtb \
++	imx6ul-var-som-emmc-sd-card-concerto-board.dtb \
++	imx6ul-var-som-emmc-wifi-brcm-wm8731-concerto-board.dtb \
++	imx6ul-var-som-emmc-wifi-brcm-concerto-board.dtb \
++	imx6ul-var-som-emmc-wifi-iw61x-concerto-board.dtb \
++	imx6ul-var-som-nand-sd-card-wm8731-concerto-board.dtb \
++	imx6ul-var-som-nand-sd-card-concerto-board.dtb \
++	imx6ul-var-som-nand-wifi-brcm-wm8731-concerto-board.dtb \
++	imx6ul-var-som-nand-wifi-brcm-concerto-board.dtb \
++	imx6ul-var-som-nand-wifi-iw61x-concerto-board.dtb \
++	imx6ul-var-som-emmc-sd-card-wm8731-symphony-board.dtb \
++	imx6ul-var-som-emmc-sd-card-symphony-board.dtb \
++	imx6ul-var-som-emmc-wifi-brcm-wm8731-symphony-board.dtb \
++	imx6ul-var-som-emmc-wifi-brcm-symphony-board.dtb \
++	imx6ul-var-som-emmc-wifi-iw61x-symphony-board.dtb \
++	imx6ul-var-som-nand-sd-card-wm8731-symphony-board.dtb \
++	imx6ul-var-som-nand-sd-card-symphony-board.dtb \
++	imx6ul-var-som-nand-wifi-brcm-wm8731-symphony-board.dtb \
++	imx6ul-var-som-nand-wifi-brcm-symphony-board.dtb \
++	imx6ul-var-som-nand-wifi-iw61x-symphony-board.dtb \
+ 	imx6ull-14x14-evk.dtb \
+ 	imx6ull-colibri-aster.dtb \
+ 	imx6ull-colibri-emmc-aster.dtb \
+@@ -417,8 +447,68 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
+ 	imx6ull-uti260b.dtb \
+ 	imx6ull-var-som-concerto.dtb \
+ 	imx6ull-var-som-concerto-full.dtb \
++	imx6ull-var-dart-emmc-sd-card-wm8731-6ulcustomboard.dtb \
++	imx6ull-var-dart-emmc-sd-card-6ulcustomboard.dtb \
++	imx6ull-var-dart-emmc-wifi-brcm-wm8731-6ulcustomboard.dtb \
++	imx6ull-var-dart-emmc-wifi-brcm-6ulcustomboard.dtb \
++	imx6ull-var-dart-emmc-wifi-iw61x-6ulcustomboard.dtb \
++	imx6ull-var-dart-nand-sd-card-wm8731-6ulcustomboard.dtb \
++	imx6ull-var-dart-nand-sd-card-6ulcustomboard.dtb \
++	imx6ull-var-dart-nand-wifi-brcm-wm8731-6ulcustomboard.dtb \
++	imx6ull-var-dart-nand-wifi-brcm-6ulcustomboard.dtb \
++	imx6ull-var-dart-nand-wifi-iw61x-6ulcustomboard.dtb \
++	imx6ull-var-som-emmc-sd-card-wm8731-concerto-board.dtb \
++	imx6ull-var-som-emmc-sd-card-concerto-board.dtb \
++	imx6ull-var-som-emmc-wifi-brcm-wm8731-concerto-board.dtb \
++	imx6ull-var-som-emmc-wifi-brcm-concerto-board.dtb \
++	imx6ull-var-som-emmc-wifi-iw61x-concerto-board.dtb \
++	imx6ull-var-som-nand-sd-card-wm8731-concerto-board.dtb \
++	imx6ull-var-som-nand-sd-card-concerto-board.dtb \
++	imx6ull-var-som-nand-wifi-brcm-wm8731-concerto-board.dtb \
++	imx6ull-var-som-nand-wifi-brcm-concerto-board.dtb \
++	imx6ull-var-som-nand-wifi-iw61x-concerto-board.dtb \
++	imx6ull-var-som-emmc-sd-card-wm8731-symphony-board.dtb \
++	imx6ull-var-som-emmc-sd-card-symphony-board.dtb \
++	imx6ull-var-som-emmc-wifi-brcm-wm8731-symphony-board.dtb \
++	imx6ull-var-som-emmc-wifi-brcm-symphony-board.dtb \
++	imx6ull-var-som-emmc-wifi-iw61x-symphony-board.dtb \
++	imx6ull-var-som-nand-sd-card-wm8731-symphony-board.dtb \
++	imx6ull-var-som-nand-sd-card-symphony-board.dtb \
++	imx6ull-var-som-nand-wifi-brcm-wm8731-symphony-board.dtb \
++	imx6ull-var-som-nand-wifi-brcm-symphony-board.dtb \
++	imx6ull-var-som-nand-wifi-iw61x-symphony-board.dtb \
+ 	imx6ulz-14x14-evk.dtb \
+-	imx6ulz-bsh-smm-m2.dtb
++	imx6ulz-bsh-smm-m2.dtb \
++	imx6ulz-var-dart-emmc-sd-card-wm8731-6ulcustomboard.dtb \
++	imx6ulz-var-dart-emmc-sd-card-6ulcustomboard.dtb \
++	imx6ulz-var-dart-emmc-wifi-brcm-wm8731-6ulcustomboard.dtb \
++	imx6ulz-var-dart-emmc-wifi-brcm-6ulcustomboard.dtb \
++	imx6ulz-var-dart-emmc-wifi-iw61x-6ulcustomboard.dtb \
++	imx6ulz-var-dart-nand-sd-card-wm8731-6ulcustomboard.dtb \
++	imx6ulz-var-dart-nand-sd-card-6ulcustomboard.dtb \
++	imx6ulz-var-dart-nand-wifi-brcm-wm8731-6ulcustomboard.dtb \
++	imx6ulz-var-dart-nand-wifi-brcm-6ulcustomboard.dtb \
++	imx6ulz-var-dart-nand-wifi-iw61x-6ulcustomboard.dtb \
++	imx6ulz-var-som-emmc-sd-card-wm8731-concerto-board.dtb \
++	imx6ulz-var-som-emmc-sd-card-concerto-board.dtb \
++	imx6ulz-var-som-emmc-wifi-brcm-wm8731-concerto-board.dtb \
++	imx6ulz-var-som-emmc-wifi-brcm-concerto-board.dtb \
++	imx6ulz-var-som-emmc-wifi-iw61x-concerto-board.dtb \
++	imx6ulz-var-som-nand-sd-card-wm8731-concerto-board.dtb \
++	imx6ulz-var-som-nand-sd-card-concerto-board.dtb \
++	imx6ulz-var-som-nand-wifi-brcm-wm8731-concerto-board.dtb \
++	imx6ulz-var-som-nand-wifi-brcm-concerto-board.dtb \
++	imx6ulz-var-som-nand-wifi-iw61x-concerto-board.dtb \
++	imx6ulz-var-som-emmc-sd-card-wm8731-symphony-board.dtb \
++	imx6ulz-var-som-emmc-sd-card-symphony-board.dtb \
++	imx6ulz-var-som-emmc-wifi-brcm-wm8731-symphony-board.dtb \
++	imx6ulz-var-som-emmc-wifi-brcm-symphony-board.dtb \
++	imx6ulz-var-som-emmc-wifi-iw61x-symphony-board.dtb \
++	imx6ulz-var-som-nand-sd-card-wm8731-symphony-board.dtb \
++	imx6ulz-var-som-nand-sd-card-symphony-board.dtb \
++	imx6ulz-var-som-nand-wifi-brcm-wm8731-symphony-board.dtb \
++	imx6ulz-var-som-nand-wifi-brcm-symphony-board.dtb \
++	imx6ulz-var-som-nand-wifi-iw61x-symphony-board.dtb
+ 
+ imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel-dtbs := \
+ 	imx7d-colibri-emmc-aster.dtb \
+-- 
+2.47.3
 
