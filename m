@@ -1,170 +1,130 @@
-Received: from mail-pz2-f30.google.com (mail-pz2-f30.google.com [74.125.228.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AA043F8C9
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635C63D6CB4;
+	Fri, 25 Sep 2026 20:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367986; cv=none; b=tHeTZ4pkDoyB517gpYtmh/yudVRCmiol4hFEDslUoO3MAkf/bHMHrMct8dzSJehSm+IeyhIjc5W/s09nR2ZpxXdFGm9h9zy8KtkececLm7PjDGvg+HdLUPLK8615Tdp4AyK3z7M/wCFJnNI5VvG8oTvd/TrdFGjA/fxkWQukOLQ=
+	t=1790368075; cv=none; b=NuT9VpHgwlNkCYV+pVFlrJwMrte3dWxZGK+rqZd1PbqAmVAGLTuPzBfOsaKw3TuBOOuFWZMWnqLmzmyOS4PFhRH0jDFqf5m9hzD3yxGXQQ/5PW3LK/Mi1IuMj47clgROFVfSWIJoGOYvQAJxs0Vg4uvLPQQVekRE72Cqy0bYs78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367986; c=relaxed/simple;
-	bh=pLWvLgyzJJJqRJXGy0wrLLfUtbLFMrmx5MOMy9q32N4=;
+	s=arc-20240116; t=1790368075; c=relaxed/simple;
+	bh=mY7nsB09y931pprZ/+lN0ketHmOAKHl/pWuUPgNz+hU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lL4w6ZLwWjgafQ7k2bIIG1aD7GsZTZSV/LuC4uNMvTDj8DzpNPAsPhUpv1xk7mI88RA5IkdH2/uJUImgPQ+aGxfBf5n4PrqQ8HlB55q5sspbva1GxQaqKL4a0ukbUeXKj18/h+OfRDNNMZ5D1baat0nxnQzZ/YKhs7Pkhp6AWZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hszJJ5AC; arc=none smtp.client-ip=74.125.228.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=VWkf4QJcHFm5N9W/qOwFuJWw7FoKttBRygdvMHn7RKdhLimzn4dP0Ee0U9nwvsbCxFDG37cmgePNHYQBG9aFGyz/psWG1zOYg3PzqTKGFm/XPlkKizfR1p3h+dePS14IvQV16ev0PiVtbUSnZmgBcFGUxHo8wTR6zv+SyLRsOXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZik6+/1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hszJJ5AC"
-Received: by mail-pz2-f30.google.com with SMTP id d2e1a72fcca58-880fcd3790bso322047b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:26:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790367984; x=1790972784; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UTHOStho6nRPPrwayEo907rSZvPmwPMNwiUqVSkI8tY=;
-        b=hszJJ5AC0xMm4DeciTdFlWq8eiJQ5yzUvUjWhxjHdgE8ja242jDd51bxHtAtBUN5+c
-         WVPx0AzpuHYnfkh3ZTECMPcigZsWaUtuH4YozTcrjMPlzncr35PxpmmCv5pVe8c628uJ
-         97Gq1Du8f8rf7SzixP7z9bU2JsavCU34KNycpVMKHRxvkydMpFqHpBuEgBxAKOFopXI5
-         6g1n1qL/BkcNhxiq/YlB9axR05c8rdEPbU1Rf2o+fEGdflxO4ptA0EuD+OpDh91AeCg/
-         7z4+LRPv85EULwAOar7yl3oDtYgd/9FlhaD12VsWzUE959BavgF6s3IMFznofKShx71j
-         TxoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790367984; x=1790972784;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UTHOStho6nRPPrwayEo907rSZvPmwPMNwiUqVSkI8tY=;
-        b=B1lN0QzncZiAWmqQuY2Hi5VtMiIzBNIFsEYUvYcXu6ns/CXV1ygM+6eiXW2ArIZVC8
-         kEijn94SLp4Fmx6HDWtsWJHIkrtHCtpUhnLcaXBdpQQbcNhjN2B/Z5nVpxaAZdUjrolL
-         F3F5HfXVromX+NtBdLvxEkkRXRAXPc77RNvM6huXdpfbMqtb5gCqU2BN+ysQv7GDZy6+
-         i0a1drDNqNKdSQLCvAMfs8MVkUo2GX2pZlsylM7DpM0VAAVcX0JIkS9+rPBQb4hm13fg
-         wnR9qQnQOzy7ujcnOR7yo1EbTenv+JaUWQj/Sepa0UiSv3ayGYUU4hbcPuV1+xgwvcu9
-         Jeog==
-X-Forwarded-Encrypted: i=1; AKwUvBzmGb/fr52VY7PUvi8DQIOsqNTDLtNfrzJS633mhayvF4zCEofE+1bXdda7NbLcw6zxDlBh6JaPfzufTck=@vger.kernel.org
-X-Gm-Message-State: AFuF++kX2mVJwhaq4uw9naN+aHOqBI3kx6qzZ8n4NtD22G0M0RqYqUCr
-	jQZ9yZkHQx1Ufoie6ZtuutNns6SAxqPpa/WuWrgG2Ch0uL6YWM4zm5Nk
-X-Gm-Gg: AYBFou1J7IMTInok0ArN0VlTDY/kTswuEO6AwphuJU68v2DG7hRXqPeGTYNcLdDh9wz
-	HA1Tr9HCK6QCQRNKGcvpFkbhMrTp8jn7K7GLay9TNqk+dUWdwom9c4NaT4dfI6btGJAwiPl2jeQ
-	uemvi3ZGgngA4WlRyuXXfBq5/GRo5OEARVN0kShe5jnG0W6/stIlv3/GyNjQ31j5UK4THDf/S20
-	iE0Z8DPm6Wy3Sp2Wvfq/rkQr59vg/TGIjncMOE6vHzOdNfUXrjofJ3LeLaVzrMWdgX1Lr2C/u0U
-	b9yL+B4oHuuR6u1cCn+x2/p/e3PKHu0pIayzYk1WREdx8DBDmhMFhL22SIg8QdSScf0MRB0wsH9
-	QrVLk06saWY/K82Byir1BBIvAjuIp60splHCEI/8qDwCok/5ObEf8HMLWay8WKUZtoww5ZFmfQA
-	pNruACGpur3rEXZZ+QkyqjIpCHWY4y01s4cU6tuRYxqLukfe27rWUtd2V4uGT1HPLbnR6aNCZJ5
-	PWJoUTvUGfSHyKliFAYlYKtCFMegrBPzMft05M=
-X-Received: by 2002:a05:6a21:8286:b0:3dd:a006:7b32 with SMTP id adf61e73a8af0-3de0e8943e1mr7946963637.49.1790367983822;
-        Fri, 25 Sep 2026 13:26:23 -0700 (PDT)
-Received: from KASONG-MC4 ([1.203.116.237])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc790c80e62sm1265849a12.28.2026.09.25.13.26.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 13:26:23 -0700 (PDT)
-Date: Sat, 26 Sep 2026 04:26:13 +0800
-From: Kairui Song <ryncsn@gmail.com>
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Chris Li <chrisl@kernel.org>, Rik van Riel <riel@surriel.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Gregory Price <gourry@gourry.net>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arbTTKE6nYWlNCLd@KASONG-MC4>
-References: <aqjpYHbZ14A8xRtK@fedora>
- <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
- <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
- <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
- <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
- <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
- <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
- <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
- <arUcil9kxUPiymXI@KASONG-MC4>
- <CAKEwX=PXRB35bUL1=O4Bgx9A7aD4izZZ3dcEcCuMBBhBrMv7fg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZik6+/1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 642B21F000FF;
+	Fri, 25 Sep 2026 20:27:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790368074;
+	bh=I5RqeR1sxkZyEYFyn07bPDEJbXbIhE5mqXirIcZRBWI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mZik6+/17U2ygSn7UEgfp5cZIPbUoH9S90bq8wTc/i2Oyqc2hIJVPoJNMiU5BmjJq
+	 nlkl2+Kw+6dBdvjoxQlomY953+sq8N9l2TyVm93yxU4DEM+2Ar2klbpLhRorQ5yyIW
+	 lhtdkobfgJI2QzeFygV7FuciZZ/+2hhTNoDjYYoiDB+I02biw5UyDVM8YAO/nr/Ifj
+	 bGQRpFQA3OD1YyNcWa44YsaryxfgRyabUYnw0BzVUeYI5bON4EU1IYkKtGIMiAr6wf
+	 N3CAm9rJyIss4qqnQ//w1QLagAXtXdIR7lfvJ+3jLTgFpNaHHVkqjFQavtudb1xjZ4
+	 yJV1JgcBxKJbg==
+Date: Fri, 25 Sep 2026 15:27:49 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Monish Chunara <monish.chunara@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Kernel Team <kernel@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, linux-mmc@vger.kernel.org, 
+	Nitin Rawat <nitin.rawat@oss.qualcomm.com>, Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>, 
+	Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: Shikra SD Card support
+Message-ID: <arbZCZduUH78aBnS@zenbook>
+References: <20260911093932.2376058-1-monish.chunara@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKEwX=PXRB35bUL1=O4Bgx9A7aD4izZZ3dcEcCuMBBhBrMv7fg@mail.gmail.com>
+In-Reply-To: <20260911093932.2376058-1-monish.chunara@oss.qualcomm.com>
 
-On Fri, Sep 25, 2026 at 09:54:25AM +0800, Nhat Pham wrote:
-> On Fri, Sep 25, 2026 at 6:15 AM Kairui Song <ryncsn@gmail.com> wrote:
-> >
-> > On Tue, Sep 22, 2026 at 09:44:37PM +0100, Chris Li wrote:
-> > > It seems you are talking about a different topic: the vswap charging issue.
-> > > There is a golden rule that we should follow: don't break existing
-> > > users. At least with the same persistence, this rule should apply
-> > > universally.
-> > > In the swap tiers discussion, the UAPI was such a big deal that we
-> > > couldn't implement new UAPI. On the other hand here we argue for
-> > > liberally changing user-space visible behavior.
-> > >
-> > > BTW, I already shared that changing swap counter charging will break
-> > > our and others' existing deployments.
-> >
-> > Hi all
+On Fri, Sep 11, 2026 at 03:09:30PM +0530, Monish Chunara wrote:
+> This is v5 of the Shikra SD Card support series.
 > 
-> Hi Kairui,
+> This series adds SD card support for the Shikra platform.
 > 
-> Thank you for your thoughtful response! Lots of food for thought for me :)
-
-Hi Nhat, thanks for the reply!
-
-> >
-> > Just for reference. Maybe a seperate counter, tiering, is a better idea
-> > than changing the swap counter?
+> The first patch adds the SDHC2 controller node and the necessary pinctrl
+> configurations to the base Shikra SoC dtsi. The second patch enables
+> this support on the Shikra EVK (CQS, CQM, and IQS variants) by defining
+> the regulator supplies and the card detection GPIO.
 > 
-> I think memory.swap.* is never meant to be used as the "offloaded
-> footprint". It is incidentally correct, because of architectural
-> limitations: zswap/swap cache/zero page usage leads to real
-> consumption of real resources (physical swapfile).
+> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
 
-It's not that "incidentally" I think? TGhe defination from the function
-level seems pretty clear, folio_alloc_swap -> charge. A logical
-limitation.
+I don't understand how you managed to send patch 1 alone and then 2 and
+3 in a series...
+
+Please stop doing your own thing and adopt b4!
+
+
+I'll put these 3 patches in the recyle bin for now, please rebase,
+retest and resubmit.
+
+Regards,
+Bjorn
 
 > 
-> But I understand your concerns regarding the missing observability of
-> the "logical" footprint (i.e the "offloaded size"), and how that would
-> hamper legitimate use cases.
+> Changes in v5:
+> - Rebased on top of latest linux-next
+> - Fix interrupts-cells to 4 for sdhc_2 (sashiko-bot)
+> - Moved gpio include directive into shikra-evk.dtsi (sashiko-bot)
+> - Link to v4: https://lore.kernel.org/all/20260804122054.3462145-1-monish.chunara@oss.qualcomm.com/
 > 
-> How about a vswap counter that tracks the vswap usage? That would
-> provide the "logical" view. Userspace can then monitor and act based
-> on it.
+> Changes in v4:
+> - Rebase on latest code base
+> - Collect Reviewed-by tags (Konrad)
+> - Drop the dependency link - since all base changes are merged
+> - Link to v3: https://lore.kernel.org/all/20260702073354.3641966-1-monish.chunara@oss.qualcomm.com/
 > 
-> I think that should cover both of the situations that you (and
-> Johannes in [1]) pointed out:
+> Changes in v3:
+> - Padded the address part of the reg property in the sdhc_2 node to
+>   8 hex digits with leading zeroes for consistency with other nodes
+>   in the file
+> - Moved the common sdhc_2 properties to shikra-evk DT file
+> - Link to v2: https://lore.kernel.org/all/20260630165700.1886608-1-monish.chunara@oss.qualcomm.com
 > 
-> (1): With memory.current and this vswap counter, you can kill any
-> workloads that violate the level of overcommitting that you set out.
+> Changes in v2:
+> - Rectify the alignment for clocks and interconnect properties for SD
+>   card
+> - Link to v1: https://lore.kernel.org/all/20260604122045.494712-1-monish.chunara@oss.qualcomm.com
 > 
-> (2): For us, we can use memory.swap.* counter to provide isolation to
-> the physical swap space, which is a real, static resource that can be
-> hogged.
+> Testing:
+> - Validated on Shikra EVK variants.
 > 
-> There will unfortunately be changes in userspace programs/scripts that
-> is required. It's unavoidable. We're adding a new behavior. It's the
-
-Right, but usually I think adding new things are generically considered
-better than breaking existing things, unless the existing things are
-either just metric, or really broken. But memory.swap seems has a pretty
-clean definition and implementation, and usage?
+> Monish Chunara (2):
+>   arm64: dts: qcom: Add SD Card support for Shikra SoC
+>   arm64: dts: qcom: Enable SD card for Shikra EVK
+> 
+>  arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts |  9 ++
+>  arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts |  9 ++
+>  arch/arm64/boot/dts/qcom/shikra-evk.dtsi    | 11 +++
+>  arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts |  9 ++
+>  arch/arm64/boot/dts/qcom/shikra.dtsi        | 97 +++++++++++++++++++++
+>  5 files changed, 135 insertions(+)
+> 
+> --
+> 2.34.1
+> 
+> --- b4-submit-tracking ---
+> {
+>   "series": {
+>     "revision": 5,
+>     "change-id": "20260911-shikra-sd-card-61d428639de0",
+>     "prefixes": [],
+>     "from-thread": "20260804122054.3462145-1-monish.chunara@oss.qualcomm.com"
+>   }
+> }
+> -- 
+> 2.34.1
+> 
