@@ -1,200 +1,708 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010021.outbound.protection.outlook.com [52.101.61.21])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D431485CEF;
-	Fri, 25 Sep 2026 12:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790339976; cv=fail; b=cWIRR+vFzYWatlr8G+4rkC0NXKQYFhQLgpAA/Wld5hTMIX2TqxbxDiEGxdDZb49gxgMOdIH/6aGtByLu5iuuu/sEHzqn0H1/rMtPsuXZ//5hi7PiUpMV7LgoXTl1gExhQVzG+Q1cPPQsEmGsw1+AhGBMVtEqT7cP4NElb4pWIxY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790339976; c=relaxed/simple;
-	bh=irKTtVotnEek/whP9S1Kf1h/bYI8DQmO9mxMvZjsCTg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=N7cuUet8wA5YEHwDSYjcjO+GCpbIF/EYrlsWX5yiCFNalJfamw5ehrT9Pb2jLcl7CSCpV7Up/9CRxQT2sGzwzet0G2BQ7/QQ6prZ/c0KLR54IwsO0saCYx+COuVFxUkgeCBsCo0qZNur5FePz/0Hqw2vjOq/drB+g3jIupfwua0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=j0TKsIx4; arc=fail smtp.client-ip=52.101.61.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2639B41CB31;
+	Fri, 25 Sep 2026 12:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790340020; cv=none; b=DzIvPZmiRX4b9nr2w/OqUBBki3jC7cUVR0ZmT39Ta7x9KSMJom2f2VqDfmolZJ3gJlmNw3MbE7ff2YKenwQRp6YmnBvFLSRHCu6u9jfefx/qO6ZK4H8elHtOhFzXukCAGRudt1Xhm/spK/0pH48ps11BfFEsx2uiSU95lo9FJyE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790340020; c=relaxed/simple;
+	bh=t5TgdFp9JDZClhDnQvACZ0OjWdO7aaMGNvF4oE0OZ04=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nvDbd+zbtrRT8w54+ciZdwji7metEMxoxqWQkek/PM5g87nBy4Hc34DC2MHOnZX0+wN5pW8F17N4TIPfMIivptBJLO45HDGiV7nCBwWJRluygFNEFHj+JWfqKqT/oH1pkTzZvzlbpI1XXXvab0F5FG9tPbuM0czMDhMtExBQ3Bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hx+5LL7y; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="j0TKsIx4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BR1USVs3PfLKZQIAjFx9yCkXnVrZmoS+ZJX6V5bZbKZfJs81oEomAAQ+tQEuxf7RJa2UlGL+YnYq0PvzC1YmY+mtXec/HCmY4oiCQ0tF1hLUa7Sat/L3A0DJXwWVxXmIhDanEBxeATzXqFLXgyOpIaUoph0zx4TmfK+EBAeRhp0of+y6+MErbPU5nI/QNIFHJic9YZ9/YpFxKnE4ndVJFUNKVTHaIta4EbceGlr4sFx1L3zRnMApFpReR6uD6jbqlGI4Ia/AEU5+SWlXPJsEUnVv8UnRupS2LgBdqxvuKtHrncLpFfsfA+6f5P+AGTUpY58Ug7nVkVeoscNLzvKv0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WECXalOCr/3D99hnQPBOZswAipMaQ4Z+5Yt15h3qSMg=;
- b=Z0D4oo826wENm9nLtJWhhgSVH89ZzskOQTjQUNPfOo+sPbjnBV9Ol3/KrMNlyM55NzGDfNI4rnQjyMP+xEvtRciFm+PxkWFGoZ3XXghCCaUhAwk5GMmJVefLPBnidAJduT7dgwzK8tjhkG317qZF3GsLTlIf3c51UzJEt8Uy+N/sjc2NthUucAssbhRzDoo0u1D3uob5v+0lc5L+wZQk9RhukyBHoPd4LxpTayCsTWxTWNciCcfhmNT561WPaQYJTi5UEEBv6hsG+YWgdN0B2+LBY3W9YTrw7gTL2VRaBEBLm2Mt/r/JaxpNeHkZTtWAE5qzjmy8Ggm5HfQGTw+P2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WECXalOCr/3D99hnQPBOZswAipMaQ4Z+5Yt15h3qSMg=;
- b=j0TKsIx4lpbNczTkuMkLCTiQOcc3V3PsfwXQQoUKPN1PgQIpFxJgdjYiXmGr6dVH/2FuRrXqmrlQQJn5xMertrrpFF4ngn85yEXRcKpQV0g0XQiotDzfuWfnxpF+BUulr76EF+NUIYU1AfBC5ALdZ2AfKUKBsYSek54i7m7Nhp8NP1QuAp12aIa/Ff3dyUvYT59+CQifBRloC9RD4ProuAm25noVncg9pk1qaHMrMsYAaEkxadu0jJyJf8dLFy8N9uo5m2VsPvjxWCCXcTx6hKeWcf3/f+AUFum4kj0oRd+807B5b5qGLu8wvOHd+QTSx5TG2XfGy+leLQq69VTzgQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LY0PR12MB325698.namprd12.prod.outlook.com
- (2603:10b6:408:3bb::14) by MN2PR12MB4173.namprd12.prod.outlook.com
- (2603:10b6:208:1d8::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 12:39:19 +0000
-Received: from LY0PR12MB325698.namprd12.prod.outlook.com
- ([fe80::b65f:1548:5b35:e2b5]) by LY0PR12MB325698.namprd12.prod.outlook.com
- ([fe80::b65f:1548:5b35:e2b5%5]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 12:39:19 +0000
-Date: Fri, 25 Sep 2026 09:39:18 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [RFC PATCH v6 08/11] iommufd: Add vIOMMU provider support
-Message-ID: <20260925123918.GI9354@nvidia.com>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <20260917140159.1163281-9-aneesh.kumar@kernel.org>
- <179027891417.104879.5995584402952067518.b4-review@b4>
- <yq5acxu1kgmo.fsf@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5acxu1kgmo.fsf@kernel.org>
-X-ClientProxiedBy: BN0PR04CA0116.namprd04.prod.outlook.com
- (2603:10b6:408:ec::31) To LY0PR12MB325698.namprd12.prod.outlook.com
- (2603:10b6:408:3bb::14)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hx+5LL7y"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5DC0B4E41072;
+	Fri, 25 Sep 2026 12:40:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 28BC06073B;
+	Fri, 25 Sep 2026 12:40:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9B9D710328315;
+	Fri, 25 Sep 2026 14:40:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790340012; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3TWz9gl3JLtVFYqm9nsB58GTbreELFhICXRV8Ta5Ues=;
+	b=hx+5LL7yy18/GBwko5aTJI11rgKLBH0xPOwGvcxNsPn0exP8+PN0b4h5/YNvQRyTJmn40I
+	/n+uqJO3gvGycXqrZv9ht4MvcITLwvSik1TAnyUOU7nmtR7HHL0T1it34+9Hci7mcXMt/h
+	i6jzkQB3HMKoEUgikl7r4t+7U3+Pjrjx8ApFH/O1WNUOBvOhPyMc7BgSuNUdxJaUmFux53
+	2vNtR36zzGt4Q5a+1n9qFxqe2eHczWrftkpkrr+Lofweq2xF40Y7E4DrgoU+UvYoG9ZpVg
+	XgV9gBNftddqWgd+lHRrCOQbf9ZWXtjzAdaxZdGb/hfbaP4Z9x+u4fID5Knk8w==
+Date: Fri, 25 Sep 2026 14:40:03 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 14/15] libfdt: Handle unknown tags on dtb
+ modifications
+Message-ID: <20260925144003.61f72c0e@bootlin.com>
+In-Reply-To: <arDJSBEh9Duus0kz@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-15-herve.codina@bootlin.com>
+	<arDJSBEh9Duus0kz@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LY0PR12MB325698:EE_|MN2PR12MB4173:EE_
-X-MS-Office365-Filtering-Correlation-Id: fabc8cee-1fe7-4475-f47d-08df1b020490
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|56012099006|11063799006|4143699003|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	2JB+Fk7Q9CJZGz+ztJWGStVuDuFhUn5Gv1+3hZl+mkB8ZSBMAHK4rMBNk9Qn5y41E9O8MPdRjqmaZktJBG92ABgmonIlH+1qzJNUvt8kxhIZ6g1Mu95xY+JbBEO4bCFkvLd7uD0tcL964q+XlLt9S9wGMhDgQFpJI7AZ+DIzZBOuDrbYxcVgcjJ7+FROInWdqm1rzo59KyN3NLmaBTqt+zLNB7ohpmSOXkLYTh9LlJuLsESm7vTCSpdGWwXTtSALPwfg3OhBdHpUTYbZeOK6dhgrZx2iuAtRDsQANd8p644kPWRgYR5D6Zfwk3MO1PzvArMJWO4Xd3BSIL1zCrB3ovCZcgE5IqAAhzkEJFJjMApa5Cu+6lRAXO27OZ/327yZCHKZxBKrB4cLhjKRZX9Wzmtp4qXzFomHT47uMMpTiFMVNFE//Ibvs/8QlarBUAtqE5oSfERZB8YQtTcCmTXovwk5rhDdOLgAaUCQ7U3sZLadYF0AJ79uqm64syC4PlbYyc/oEud1s4O6oZNOcTnkzra2dTsKI7N8E3Wfw1RMu3WsqNlDALsV9/y+nKLZRii3ceSD+EV3hzmyRYDLqmOwcsmpT/n1h2FwD4E2OAr7H/Eo1e4x+4m1QOwZulxX8ePRPXhZu5qh9vZ2zYRXMeKG3HnTEaTFaTBYvP1IyLGyNg0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB325698.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YOw+3xoriHu2V8Y+bxh7L5BVXohPOTkX/76wR4kv9XrlMZu1/UUL8wVnM0fO?=
- =?us-ascii?Q?AsOzWkG56RdfvMv6sE40CAqr5+asv/mtYaRWt15vxUEgirMwBsv51APz0C84?=
- =?us-ascii?Q?uvTtI4fDRCL9wh8UbVOETa7sg6ro0EeA0aBlCuzCYMhUmQUaoJX9CwhkZ58a?=
- =?us-ascii?Q?jbm0eU8OCXtl+zlKeANR6czAc/5dm0ybiCkhfmY+NTAV8YiuCmk4ujwbw7kl?=
- =?us-ascii?Q?7Thl1G+cxIErY7Qg2pXGhWBq75FoXGkdGe0XizwbbGFPFiCGufsAsUaZWW7M?=
- =?us-ascii?Q?eB/gMNeGUfBvTkNpL+ZClar8p6X1usCISKEYGiV/hLBtlkYkccCIXXGrZFYJ?=
- =?us-ascii?Q?GKM5oUfzhbJ33Ybd/YyIZZlsE0TlA2EmjKzXZgPVS/j5AnB0s3dVYEclGc0k?=
- =?us-ascii?Q?WfBjnoJw2Gvdvk/sYLJQ6kaGgJKMg6zLJY0HKnRngPqjDYmwPGy3bGBqGsmj?=
- =?us-ascii?Q?bkDSi2Idi0cFYYQwfYz7c6wneDfjpQ2m2GqMgQmlEqRqBRlQNkYfMRIrax5x?=
- =?us-ascii?Q?7GSiFpHNKGP9IfOlruM2oJpeq+dnD906XDfxrKXPbdKfH+5umoJBruO7TWEh?=
- =?us-ascii?Q?heHnLgAe3e9KOUpUM7aiEJDnCYpVOcYvRqI9VDGXgCW3ihuvTt7Hjlf3NdbS?=
- =?us-ascii?Q?aWwtrRjbBm4elGabndirtWuRiBacRwM50aoIUE+Usc3hvatqsA7Dvyr9fkPY?=
- =?us-ascii?Q?ZhuhV9Czi1nrnMwnCYN2vjZkCaHELYZHaALsaL4sET13TpWaYkMvQHrCVztP?=
- =?us-ascii?Q?jvH9vJCLFI4w7zWJOm3itBKBwcg8uujzhcGt03cG4xLHxOmid3CcPvBxue3b?=
- =?us-ascii?Q?wxUDeBMKyTXoMIW7NCIE91FBTVnsV+y/t3iBGOdSrw6/sRu00O7sr2ci5VW5?=
- =?us-ascii?Q?wFEV52oaOfLxNEuJU//CD7H2hB8tqya+Ggwx5Gch2U15OBcYvMSvaTzcas4G?=
- =?us-ascii?Q?Cx4C4iRhudEu66oSB8wvL+LHUWwYEJ2r7cfvCgAdZlkZYJfaq9YxSfAJWGYO?=
- =?us-ascii?Q?EtLnPnbssSagEXVv5SG9kzbXMJNEIfAg6X+lwXRp1tUbza28DKO5kaeH0wdo?=
- =?us-ascii?Q?BcfwuGQUljBqbKWcezSf95ckd/Sz3GfoqfkTnEy0E41Qi/oDYHe+i6nmT6ue?=
- =?us-ascii?Q?E+J5xP7DMK9x764gMFEWJun4r4N4CQKrmvLD0SLhNykx72DUYhxAyk4LHqAk?=
- =?us-ascii?Q?xBA3ZTuZc4D03UQ9MY3w2BUSdPImipFWKN3VPrconkbuHvdyJnZJDJXzW7j6?=
- =?us-ascii?Q?pJ2FtbrC+xoiNqLZgp0IGWjmgoHmYCI8vU/QlmqQSZWuFouDBgwH1xCK2+Al?=
- =?us-ascii?Q?hePP2A4iQaAi4AfE/6JeykT5dWZEvgfzW3oj8I7KZxrNmZkYrQY6LB/nRTlD?=
- =?us-ascii?Q?9LxtNdJOJWUKrDTodLyVlmxEhEb5PhtREjmnEiCTokUvf93dLZhX0yzweur1?=
- =?us-ascii?Q?ebGJCgSZLAkSknGHBdPO2HfILvSRXVZNJH7U7L0Gs4HF0Esa4a6Kc9o6BxbU?=
- =?us-ascii?Q?tEuQxlG3pW0QKuBHNO38/6G7hPJmmhSBU0t/pxX0Z/fd3WuYjbBTmj9ED9aS?=
- =?us-ascii?Q?/d63YVKgEu2hoQ3Ij4EUE3+1U3N41a/jvxTvUllp476aGZSp2+WfQkmT6gvF?=
- =?us-ascii?Q?LM/GyVy2IyNGfpmeVeiqoDdmWIuS0MChovtO8jwdx6enS8MP8ozQqMTK94VN?=
- =?us-ascii?Q?W2ZDNM4qhgS+hvxQ057MxOOJ9VT+mIvIpk8/y4F6FenwD61n?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fabc8cee-1fe7-4475-f47d-08df1b020490
-X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB325698.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 12:39:19.1302
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gdi/+cpTNLrJNK9KzmEnfx7Xj+UXxxeycUzjm/Z3H4DnwTiGnh5IdPQZRrV13OGF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4173
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Sep 25, 2026 at 11:38:15AM +0530, Aneesh Kumar K.V wrote:
-> Jason Gunthorpe <jgg@nvidia.com> writes:
+On Mon, 21 Sep 2026 16:06:13 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+> On Wed, Aug 26, 2026 at 10:31:45AM +0200, Herve Codina wrote:
+> > The structured tag value definition introduced recently gives the
+> > ability to ignore unknown tags without any error.
+> > 
+> > When the dtb is modified those unknown tags have to be taken into
+> > account.
+> > 
+> > First, depending on the unknown tag location, the item associated with
+> > the tag is identified:
+> >   - An unknown tag located just after a FDT_BEGIN_NODE is related to the
+> >     node.
+> > 
+> >   - An unknown tag located just after a FDT_PROP is related to the
+> >     property.
+> > 
+> >   - An unknown tag out of any node (i.e located before the first
+> >     FDT_BEGIN_NODE or after the last FDT_END_NODE) is a global tag
+> >     related to the dtb itself.  
 > 
-> >> vIOMMU creation currently dispatches directly through the physical IOMMU
-> >> driver. Some vIOMMU types need an implementation supplied by another
-> >> subsystem, together with private data whose lifetime extends across all
-> >> vIOMMUs using that implementation.
-> >> 
-> >> Introduce a vIOMMU provider that associates implementation operations,
-> >> their module owner and private data. Allow one external provider to
-> >> register for each non-default vIOMMU type.
-> >
-> > This seems much more extensive than I imagined when I proposed this.
-> >
-> > I imagined you'd just have iommufd see there is a TSM attached the pci
-> > device with a function call, and check if that TSM handled the
-> > requested iommu ID.
-> >
-> > No need for a registration system because we already know the only
-> > possible TSM driver that can handle it,
-> >
+> Since we rely on those constraings here, it seems like those should
+> probably be written into the structured tag specs / description.
+> Which to my mind strengthens the case for explicitly calling them
+> "metadata tags".
+
+Yes this need to be documented somewhere but where?
+In the end it should be present in the Devicetree Specification.
+
+Related to the term "metadata" I am not sure that all future tags will be
+"metadata" tags. Especially global tags (out of any nodes). At this point
+we have "skippable" tags without any more knowledge.
+
+But anyway, I will use the term "metadata".
+
 > 
-> Agreed, there will be only one vIOMMU provider. But, without a
-> registration mechanism, what would the module dependency look like?
+> > Then, if we are allowed to write a dtb containing unknown tags, the
+> > following rules are used:
+> >   - When a property is modified, tags related to this property are
+> >     removed and the dtb version is downgraded.  
 > 
-> I currently have the TSM driver depending on IOMMUFD. Therefore, the TSM
-> driver needs to tell iommufd which vIOMMU type it provides and register
-> the corresponding provider. IOMMUFD does not call into TSM directly.
+> Hmm.  This seems weird to me, but maybe that's because we haven't
+> pinned down in specs / docs what the interaction is between new
+> skippable tags and the overall version.
+> 
+> My assumption had been that tags - even structured tags - newer than
+> vNNN must not appear in a dtb with version == NNN (but they can appear
+> in a dtb with last_compat_version < NNN).
+> 
+> With that model, this seems kind of backwards - downgrading the
+> version would require removing newer tags throughout the tree, rather
+> than removing some tags causing the version to be downgraded.
 
-Just put the two new ops in:
 
-struct pci_tsm_ops {
-	size_t (*viommu_get_size)(struct device *dev, enum iommu_viommu_type type);
-	int (*viommu_init)(struct iommufd_viommu *viommu, struct device *dev,
-		    struct iommu_domain *parent,
-		    const struct iommu_user_data *user_data);
-}
+The discussion which led to this mechanism is available at [1].
 
-And bounce them with a static inline
+If all tags are removed, there is no way to forward a dtb with unknown tags
+from a bootloader point of view (support for Vnnn in bootloader) to a Linux
+Kernel having support for newer dtb version.
 
-static inline
-ssize_t pci_tsm_viommu_get_size(struct device *dev, enum iommu_viommu_type type)
-{
-	const struct pci_tsm_ops *ops;
-	struct pci_dev *pdev;
+[1] https://lore.kernel.org/all/CAL_JsqLRrbZje_gGZPBDni6StFa+6rdiECtk49on8VfkP7CDvw@mail.gmail.com/
 
-	if (!dev_is_pci(dev))
-		return -EINVAL;
 
-	pdev = to_pci_dev(dev);
-	if (!pdev->tsm)
-		return -ENODEV;
+> 
+> >   - When a property is removed, tags related to this property are
+> >     obviously removed. The dtb version is kept unchanged.
+> > 
+> >   - When a property or a node is added, obviously no unknown tags are
+> >     added and the dtb version is kept unchanged.  
+> 
+> This seems weird to me in combination with the behaviour on
+> modification.  The previous one makes more sense to me in the context
+> of an alternative model: newer versions might *require* certain
+> metadata tags are present.  But in that case this part doesn't work.
 
-	ops = to_pci_tsm_ops(pdev->tsm);
-	if (!ops->viommu_get_size)
-		return 0;
-	return ops->viommu_get_size(dev, type);
-}
+Suppose a tag defined at Vnnn. An older libfdt can add a property to a node
+but cannot add the tag defined at Vnnn. Indeed this tag is unknown.
 
-No module dependency.
+At a given version, libfdt cannot add unknown tags and so as unknown tags
+are not involved when a property is added, there is no need to dowgrade the
+version.
 
-The iommufd side is simple, it just calls this before calling the
-iommu driver. First one to return a size wins and creates the viommu.
+> 
+> >   - When a node is removed, tags related to this node are obviously
+> >     removed. The dtb version is kept unchanged.
+> > 
+> >   - Adding, removing or modifying a property is not considered as a node
+> >     modification and so, those operations have no impacts on unknown
+> >     tags related to the node. Those node related tags are kept unchanged.  
+> 
+> That.. certainly constrains what it's possible to put in skippable
+> tags, in a way that we'd have to document, though it's not especially
+> easy to do so.
 
-We'd want to have a reasonable lifetime model where the the pdev->tsm
-is guarenteed stable while a driver is bound.
+Yes, and that's why the FDT_BEGIN_NODE_REF tag defined by the support for addon
+cannot be skipped. If this tag is skipped by older libfdt weird behavior will
+happen. The old libfdt will think that the root node is a subnode of an orphan
+node.
 
-Jason
+top level dtb:
+  FDT_BEGIN_NODE_REF <--- Skip by old libfdt
+    FDT_BEGIN_NODE <---- Root node identified by old libfdt
+
+To avoid that FDT_BEGIN_NODE_REF cannot be skipped and so old libfdt will
+report an error: Unknown tag which cannot be skipped.
+
+> 
+> >   - The only modification considered as a node modification is setting
+> >     its name. We consider that this operation has no impact on tags
+> >     related to the node. Here also, those node related tags and the
+> >     dtb version are kept unchanged.
+> > 
+> >   - Global (dtb related) unknown tags are kept unchanged regardless the
+> >     modification done.
+> > 
+> > Implement those rules when a dtb is modified.
+> > 
+> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> > ---
+> >  libfdt/fdt_rw.c                               | 129 +++++++++++++++++-
+> >  libfdt/fdt_wip.c                              |  28 +++-
+> >  libfdt/libfdt_internal.h                      |   3 +
+> >  tests/run_tests.sh                            |  78 +++++++++++
+> >  ...own_tags_can_skip.fdtput.test.dtb.0.expect |  31 +++++
+> >  ...own_tags_can_skip.fdtput.test.dtb.1.expect |  35 +++++
+> >  ...own_tags_can_skip.fdtput.test.dtb.2.expect |  33 +++++
+> >  ...own_tags_can_skip.fdtput.test.dtb.3.expect |  35 +++++
+> >  ...own_tags_can_skip.fdtput.test.dtb.4.expect |  34 +++++
+> >  ...own_tags_can_skip.fdtput.test.dtb.5.expect |  32 +++++
+> >  ...own_tags_can_skip.fdtput.test.dtb.6.expect |  27 ++++
+> >  ...nknown_tags_can_skip.wip.test.dtb.0.expect |  31 +++++
+> >  ...nknown_tags_can_skip.wip.test.dtb.1.expect |  35 +++++
+> >  ...nknown_tags_can_skip.wip.test.dtb.2.expect |  37 +++++
+> >  ...nknown_tags_can_skip.wip.test.dtb.3.expect |  38 ++++++
+> >  15 files changed, 603 insertions(+), 3 deletions(-)
+> >  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.0.expect
+> >  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.1.expect
+> >  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.2.expect
+> >  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.3.expect
+> >  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.4.expect
+> >  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.5.expect
+> >  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.6.expect
+> >  create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.0.expect
+> >  create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.1.expect
+> >  create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.2.expect
+> >  create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.3.expect
+> > 
+> > diff --git a/libfdt/fdt_rw.c b/libfdt/fdt_rw.c
+> > index ceef49b8..87776609 100644
+> > --- a/libfdt/fdt_rw.c
+> > +++ b/libfdt/fdt_rw.c
+> > @@ -197,10 +197,69 @@ int fdt_del_mem_rsv(void *fdt, int n)
+> >  	return fdt_splice_mem_rsv_(fdt, re, 1, 0);
+> >  }
+> >  
+> > +static void fdt_nopify_area(void *fdt, int start_offset, int next_offset)  
+> 
+> This should be written in terms of fdt_nop_region_() from fdt_wip.c
+> (or else the other way around).  It should also probably live in
+> fdt_wip.c.
+> 
+> > +{
+> > +	int count = (next_offset - start_offset) / sizeof(fdt32_t);
+> > +	fdt32_t fdt32_nop = cpu_to_fdt32(FDT_NOP);
+> > +	fdt32_t *ptr;
+> > +
+> > +	ptr = fdt_offset_ptr_w_(fdt, start_offset);
+> > +	while (count--)
+> > +		*(ptr++) = fdt32_nop;
+> > +};
+> > +
+> > +int fdt_prop_remove_unknown_tags(void *fdt, bool force_inplace,
+> > +				 int prop_offset, bool downgrade_version)
+> > +{
+> > +	int nextoffset, offset;
+> > +	bool is_unknown;
+> > +	uint32_t tag;
+> > +
+> > +	/*
+> > +	 * Only inplace using nopify is supported even if we could use an other
+> > +	 * method involving splices if force_inplace is set to false.  
+> 
+> This comment is fairly hard to understand without reading a lot of the
+> rest of the patch first.  It's also really not ideal - when we're in
+> the fdt_rw context, we want to be able to really truly remove the
+> stale tags, not just NOP them.
+
+Well nopifying them is not optimized in the fdt_rw context but it is not
+incorrect.
+
+Well if nopifying them in the fdt_rw context is a no go, I will add more
+complexity in the next iteration to really remove them instead of just
+nopifying them. Let me know what do you prefer.
+
+> 
+> 
+> 
+> 
+> > +	 */
+> > +
+> > +	tag = fdt_next_tag(fdt, prop_offset, &nextoffset);
+> > +	if (tag == FDT_END)
+> > +		return nextoffset;
+> > +  
+> 
+> Should this error out if tag != FDT_PROP?
+
+prop_offset points to a FDT_PROP. Already ckecked.
+
+The check here is done to be sure that nextoffset if set to the next offset
+and not to a error code. Indeed, we use nextoffset as the next offset in the
+following loop. 
+
+> 
+> > +	/*
+> > +	 * Look at all tags related to the current property. I.e. tags after the
+> > +	 * current property and before either the next property, a sub-node  or
+> > +	 * the end of current node
+> > +	 */
+> > +	do {
+> > +		offset = nextoffset;
+> > +		tag = fdt_next_tag_(fdt, offset, &nextoffset, &is_unknown);
+> > +		if (tag == FDT_END)
+> > +			return nextoffset;
+> > +
+> > +		/*
+> > +		 * Unknown tags are returned as NOP. Force FDT_NOP to be really
+> > +		 * present in the area to remove the unknown tag and its related
+> > +		 * data. Also, as a tag is removed, downgrade the dtb version
+> > +		 * if asked for.
+> > +		 */
+> > +		if (tag == FDT_NOP) {  
+> 
+> It seems to me this would be more natural using fdt_next_tag_all() (or
+> whatever it ends up being called) and handling the nopping in the
+> 'default' case.
+
+This doesn't work in current implementation. All unknown tags are returned as
+FDT_NOP tags. That's fdt_next_tag_() is used. It allows to know if the returned
+FDT_NOP tag is a real FDT_NOP or an unknown tag translated to FDT_NOP.
+
+This is the only use case where we really have to handle unknown tags. We need
+to remove them and so not skipping them.
+
+Of course, you asked to change the fdt_next_tag() behavior to have it returned
+all tags (known and unknown skippable ones) and so this part of code will be
+updated accordingly.
+
+> 
+> > +			if (is_unknown) {
+> > +				if (downgrade_version)
+> > +					fdt_downgrade_version(fdt);
+> > +				fdt_nopify_area(fdt, offset, nextoffset);
+> > +			}
+> > +		}
+> > +
+> > +	} while ((tag != FDT_PROP) && (tag != FDT_BEGIN_NODE) &&
+> > +		 (tag != FDT_END_NODE));
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static int fdt_resize_property_(void *fdt, int nodeoffset,
+> >  				const char *name, int namelen,
+> >  				int len, struct fdt_property **prop)
+> >  {
+> > +	int prop_offset;
+> >  	int oldlen;
+> >  	int err;
+> >  
+> > @@ -209,6 +268,15 @@ static int fdt_resize_property_(void *fdt, int nodeoffset,
+> >  	if (!*prop)
+> >  		return oldlen;
+> >  
+> > +	/*
+> > +	 * The property is resized. Remove possible unknown tags related to the
+> > +	 * property downgrading the dtb version.
+> > +	 */
+> > +	prop_offset = fdt_ptr_offset_(fdt, *prop);
+> > +	err = fdt_prop_remove_unknown_tags(fdt, false, prop_offset, true);
+> > +	if (err)
+> > +		return err;
+> > +
+> >  	if ((err = fdt_splice_struct_(fdt, (*prop)->data, FDT_TAGALIGN(oldlen),
+> >  				      FDT_TAGALIGN(len))))
+> >  		return err;
+> > @@ -217,6 +285,29 @@ static int fdt_resize_property_(void *fdt, int nodeoffset,
+> >  	return 0;
+> >  }
+> >  
+> > +static int fdt_node_skip_unknown_tags(void *fdt, int next)  
+> 
+> Is 'next' the offset of a node?  If so it should probably have a more
+> suggestive name.
+
+No, next is the offset of the first tag available after a FDT_BEGIN_NODE.
+
+Should I rename to 'node_next' ?
+
+> 
+> > +{
+> > +	int nextoffset = next;
+> > +	int offset;
+> > +	uint32_t tag;
+> > +
+> > +	/*
+> > +	 * Skip all tags related to the current node. I.e. tags after the
+> > +	 * current node and before either the next property, a sub-node or the
+> > +	 * end of current node.
+> > +	 */
+> > +	do {
+> > +		offset = nextoffset;
+> > +		tag = fdt_next_tag(fdt, offset, &nextoffset);
+> > +		if (tag == FDT_END)
+> > +			return nextoffset;
+> > +
+> > +	} while ((tag != FDT_PROP) && (tag != FDT_BEGIN_NODE) &&
+> > +		 (tag != FDT_END_NODE));
+> > +
+> > +	return offset;
+> > +}
+> > +
+> >  static int fdt_add_property_(void *fdt, int nodeoffset, const char *name,
+> >  			     int namelen, int len, struct fdt_property **prop)
+> >  {
+> > @@ -235,6 +326,15 @@ static int fdt_add_property_(void *fdt, int nodeoffset, const char *name,
+> >  	if ((nextoffset = fdt_check_node_offset_(fdt, nodeoffset)) < 0)
+> >  		return nextoffset;
+> >  
+> > +	/*
+> > +	 * nextoffset it at the first tag after the node.
+> > +	 * Skip possible unknown tags related to the node in order to add the
+> > +	 * property after those tags.
+> > +	 */
+> > +	nextoffset = fdt_node_skip_unknown_tags(fdt, nextoffset);
+> > +	if (nextoffset < 0)
+> > +		return nextoffset;
+> > +
+> >  	namestroff = fdt_find_add_string_(fdt, name, namelen, &allocated);
+> >  	if (namestroff < 0)
+> >  		return namestroff;
+> > @@ -333,11 +433,22 @@ int fdt_appendprop(void *fdt, int nodeoffset, const char *name,
+> >  {
+> >  	struct fdt_property *prop;
+> >  	int err, oldlen, newlen;
+> > +	int prop_offset;
+> >  
+> >  	FDT_RW_PROBE(fdt);
+> >  
+> >  	prop = fdt_get_property_w(fdt, nodeoffset, name, &oldlen);
+> >  	if (prop) {
+> > +		/*
+> > +		 * The property is going to be modified. Remove possible unknown
+> > +		 * tags related to this property downgrading the dtb version.
+> > +		 */
+> > +		prop_offset = fdt_ptr_offset_(fdt, prop);
+> > +		err = fdt_prop_remove_unknown_tags(fdt, false, prop_offset,
+> > +						   true);
+> > +		if (err)
+> > +			return err;  
+> 
+> Just NOPing the unknown tags isn't ideal here.  This function can
+> already insert/remove stuff from the structure block, so removing the
+> tags entirely would be preferable.
+
+I can add the complexity needed to fully remove those tags.
+IHMO it could be added later as an optimisation.
+
+> 
+> >  		newlen = len + oldlen;
+> >  		err = fdt_splice_struct_(fdt, prop->data,
+> >  					 FDT_TAGALIGN(oldlen),  
+> 
+> > @@ -360,6 +471,8 @@ int fdt_delprop(void *fdt, int nodeoffset, const char *name)
+> >  {
+> >  	struct fdt_property *prop;
+> >  	int len, proplen;
+> > +	int prop_offset;
+> > +	int err;
+> >  
+> >  	FDT_RW_PROBE(fdt);
+> >  
+> > @@ -367,6 +480,15 @@ int fdt_delprop(void *fdt, int nodeoffset, const char *name)
+> >  	if (!prop)
+> >  		return len;
+> >  
+> > +	/*
+> > +	 * The property is going to be removed. Remove also possible unknown
+> > +	 * tags related to this property. Keep the dtb version unchanged.
+> > +	 */
+> > +	prop_offset = fdt_ptr_offset_(fdt, prop);
+> > +	err = fdt_prop_remove_unknown_tags(fdt, false, prop_offset, false);
+> > +	if (err)
+> > +		return err;  
+> 
+> Here, only NOPing the tags is worse, since delprop is expected to
+> entirely remove the property without leaving NOPs.
+> 
+> Also.. just NOPing unknown tags isn't correct either.  The property is
+> being removed, so *all* the associated skippable tags should be
+> removed as well (ideally with a single fdt_splice_struct_()).
+
+Skippable tags are remove. They don't exist anymore in the resulting DT.
+
+You have FDT_NOP tags. No issue with that.
+
+It is not optimized but it is correct.
+
+Here again, I can fully remove them.
+
+> 
+> > +
+> >  	proplen = sizeof(*prop) + FDT_TAGALIGN(len);
+> >  	return fdt_splice_struct_(fdt, prop, proplen, 0);
+> >  }
+> > @@ -395,7 +517,12 @@ int fdt_add_subnode_namelen(void *fdt, int parentoffset,
+> >  	else if (offset != -FDT_ERR_NOTFOUND)
+> >  		return offset;
+> >  
+> > -	/* Try to place the new node after the parent's properties */
+> > +	/*
+> > +	 * Try to place the new node after the parent's properties and unknown
+> > +	 * tags related to those properties.
+> > +	 * Unknown tags are reported as FDT_NOP tags by fdt_next_tag.
+> > +	 * Skipping FDT_NOP tags will correctly skip unknown tags.  
+> 
+> True, but I think it would be clearer and more robust to explicitly
+> look for an FDT_BEGIN_NODE or FDT_END_NODE tag instead.
+
+Ok, will have look in that direction.
+
+> 
+> > +	 */
+> >  	tag = fdt_next_tag(fdt, parentoffset, &nextoffset);
+> >  	/* the fdt_subnode_offset_namelen() should ensure this never hits */
+> >  	if (!can_assume(LIBFDT_FLAWLESS) && (tag != FDT_BEGIN_NODE))
+> > diff --git a/libfdt/fdt_wip.c b/libfdt/fdt_wip.c
+> > index c2d7566a..7ca3ffbc 100644
+> > --- a/libfdt/fdt_wip.c
+> > +++ b/libfdt/fdt_wip.c
+> > @@ -15,17 +15,30 @@ int fdt_setprop_inplace_namelen_partial(void *fdt, int nodeoffset,
+> >  					uint32_t idx, const void *val,
+> >  					int len)
+> >  {
+> > +	int prop_offset;
+> >  	void *propval;
+> >  	int proplen;
+> > +	int err;
+> >  
+> > -	propval = fdt_getprop_namelen_w(fdt, nodeoffset, name, namelen,
+> > -					&proplen);
+> > +	prop_offset = fdt_getprop_offset_namelen(fdt, nodeoffset, name, namelen);
+> > +	if (prop_offset < 0)
+> > +		return prop_offset;
+> > +
+> > +	propval = fdt_getprop_by_offset_w(fdt, prop_offset, NULL, &proplen);
+> >  	if (!propval)
+> >  		return proplen;
+> >  
+> >  	if ((unsigned)proplen < (len + idx))
+> >  		return -FDT_ERR_NOSPACE;
+> >  
+> > +	/*
+> > +	 * Remove unknown tags related to the property downgrading the dtb
+> > +	 * version.
+> > +	 */
+> > +	err = fdt_prop_remove_unknown_tags(fdt, true, prop_offset, true);  
+> 
+> Functions in fdt_wip.c should not depend on functions in fdw_rw.c.
+> Part of the reason for organising things this way is so that a client
+> only uses write-in-place functions, the linker will omit the more
+> complex full read-write code (even if an old or limited linker that
+> doesn't do e.g. function sections).  fdt_rw.c by contrast _is_
+> permitted to rely on fdt_wip.c
+
+Makes sense.
+
+I will take this relationship into account in the next iteration.
+
+> 
+> > +	if (err)
+> > +		return err;
+> > +
+> >  	memcpy((char *)propval + idx, val, len);
+> >  	return 0;
+> >  }
+> > @@ -59,12 +72,23 @@ static void fdt_nop_region_(void *start, int len)
+> >  int fdt_nop_property(void *fdt, int nodeoffset, const char *name)
+> >  {
+> >  	struct fdt_property *prop;
+> > +	int prop_offset;
+> >  	int len;
+> > +	int err;
+> >  
+> >  	prop = fdt_get_property_w(fdt, nodeoffset, name, &len);
+> >  	if (!prop)
+> >  		return len;
+> >  
+> > +	/*
+> > +	 * The property is going to be removed (nopified). Remove unknown tags
+> > +	 * related to this property. Keep the dtb version unchanged.
+> > +	 */
+> > +	prop_offset = fdt_ptr_offset_(fdt, prop);
+> > +	err = fdt_prop_remove_unknown_tags(fdt, true, prop_offset, false);
+> > +	if (err)
+> > +		return err;  
+> 
+> Similar to fdt_delprop() this needs to NOP *all* the properties
+> associated with the property we're killing, not just the unknown ones
+> (again, ideally with a single fdt_nop_region_()).
+
+I don't follow you.
+
+Only unknown tags need to be removed for the moment.
+What other tags do you want to remove?
+
+
+> 
+> >  	fdt_nop_region_(prop, len + sizeof(*prop));
+> >  
+> >  	return 0;
+> > diff --git a/libfdt/libfdt_internal.h b/libfdt/libfdt_internal.h
+> > index e3923629..ce128fda 100644
+> > --- a/libfdt/libfdt_internal.h
+> > +++ b/libfdt/libfdt_internal.h
+> > @@ -26,6 +26,9 @@ uint32_t fdt_next_tag_(const void *fdt, int startoffset, int *nextoffset,
+> >  int fdt_check_node_offset_(const void *fdt, int offset);
+> >  int fdt_check_prop_offset_(const void *fdt, int offset);
+> >  
+> > +int fdt_prop_remove_unknown_tags(void *fdt, bool force_inplace,
+> > +				 int prop_offset, bool downgrade_version);
+> > +
+> >  int fdt_getprop_offset_namelen(const void *fdt, int nodeoffset,
+> >  			       const char *name, int namelen);
+> >  static inline int fdt_getprop_offset(const void *fdt, int nodeoffset,
+> > diff --git a/tests/run_tests.sh b/tests/run_tests.sh
+> > index 419a24d8..980ed6a0 100755
+> > --- a/tests/run_tests.sh
+> > +++ b/tests/run_tests.sh
+> > @@ -586,6 +586,34 @@ libfdt_tests () {
+> >  		unknown_tags_no_skip.dtb; do
+> >  	run_test check_full -n $bad
+> >      done
+> > +
+> > +    # Check inplace modification with "unknown" tags that can be skipped
+> > +    dtb=unknown_tags_can_skip.wip.test.dtb
+> > +    cp unknown_tags_can_skip.dtb $dtb
+> > +    base_run_test wrap_fdtdump $dtb $dtb.0.out
+> > +    # Remove unneeded header fields (keep those related to versions)
+> > +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.0.out
+> > +    base_run_test check_diff $dtb.0.out "$SRCDIR/$dtb.0.expect"  
+> 
+> As noted earlier in the series, tests of binary-level behaviour
+> shouldn't depend on specific source formatting.  The use of wip_func
+> to essentially do some of the test steps in shell seems clumsy to me -
+> I think this would be nicer as explicit tests written in C which
+> directly look at the binary dtb contents.
+
+I don't like that.
+
+We need to check all the output dtb to be sure that everything is correct and
+avoid missing something.
+
+Here with unknown tag handling and with future metadata tags, we have to observe
+those tags in the binary blob.
+
+If fdtdump is an issue, I will write fdtanalyze which dump a dtb blob in an other
+human readable format. We need to see all tags, and they raw data values an hex.
+
+When I wrote the code, I did some mistake and using only binary files is really
+not easy to debug stuff. When a given test is broken by some modification, we need
+to have an easy way to see the root cause.
+
+> 
+> > +    run_test wip_func $dtb set_prop / prop-str 0 "vwxy"
+> > +    base_run_test wrap_fdtdump $dtb $dtb.1.out
+> > +    # Remove unneeded header fields (keep those related to versions)
+> > +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.1.out
+> > +    base_run_test check_diff $dtb.1.out "$SRCDIR/$dtb.1.expect"
+> > +
+> > +    cp unknown_tags_can_skip.dtb $dtb
+> > +    run_test wip_func $dtb nop_prop /subnode2 prop-int1
+> > +    base_run_test wrap_fdtdump $dtb $dtb.2.out
+> > +    # Remove unneeded header fields (keep those related to versions)
+> > +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.2.out
+> > +    base_run_test check_diff $dtb.2.out "$SRCDIR/$dtb.2.expect"
+> > +
+> > +    cp unknown_tags_can_skip.dtb $dtb
+> > +    run_test wip_func $dtb nop_node /subnode2/subsubnode
+> > +    base_run_test wrap_fdtdump $dtb $dtb.3.out
+> > +    # Remove unneeded header fields (keep those related to versions)
+> > +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.3.out
+> > +    base_run_test check_diff $dtb.3.out "$SRCDIR/$dtb.3.expect"
+> >  }
+> >  
+> >  dtc_tests () {
+> > @@ -1045,6 +1073,56 @@ fdtput_tests () {
+> >      run_wrap_error_test $DTPUT $dtb -d /chosen   non-existent-prop
+> >  
+> >      # TODO: Add tests for verbose mode?
+> > +
+> > +    # Modify a dtb containing some "unknown" tags that can be skipped
+> > +    dtb=unknown_tags_can_skip.fdtput.test.dtb
+> > +    cp unknown_tags_can_skip.dtb $dtb
+> > +    base_run_test wrap_fdtdump $dtb $dtb.0.out
+> > +    # Remove unneeded header fields (keep those related to versions)
+> > +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.0.out
+> > +    base_run_test check_diff $dtb.0.out "$SRCDIR/$dtb.0.expect"
+> > +    run_fdtput_test "vwxyz" $dtb / prop-str -ts "vwxyz"
+> > +    base_run_test wrap_fdtdump $dtb $dtb.1.out
+> > +    # Remove unneeded header fields (keep those related to versions)
+> > +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.1.out
+> > +    base_run_test check_diff $dtb.1.out "$SRCDIR/$dtb.1.expect"  
+> 
+> Doing these as fdtput tests again seems kind of clumsy, unless the
+> point is explicitly to check the fdtput utility's behaviour.  The core
+> library functionality should be tested directly without introducing
+> extra layers.
+
+Need to check the whole resulting binary skippable tags removed, version
+downgrade. We need to check that the whole binary is still correct.
+
+'hexdump $dtb' could be used but having an array of hex value without any
+other formatting related to dtb defined format will be ugly.
+
+Here also fdtanalyzer could output hex values with some formating based on
+dtb format definition. For instance:
+  (0x1-FDT_BEGIN_NODE): "my_node"
+    (0x3-FDT_PROP): ...
+    (0x3-FDT_PROP): ...
+  (0x2-FDT_END_NODE)
+  ...
+  (0x9-FDT_END)
+
+Maybe offset (absolute and/or based on the beginning of the structure block)
+could also be interesting in this kind of dumps.
+
+
+Best regards,
+Hervé
