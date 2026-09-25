@@ -1,188 +1,91 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E82B471259
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:01:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E0B429036;
+	Fri, 25 Sep 2026 08:01:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790323306; cv=none; b=qvf/HAVh84PysWpiKqoTezZv2DMerehpDuCHjgt2om72zXLj/UNWVPt41gX4U5pQ8+K+X1t53ANdicrawa5ZBwpM280MwIQnBiguGLPoUL8NXvR4pjJtIN+CPNSvz/ExUdB2ymbn9YjLxoV642Y6wAwtdJxx7bPNgEOBh+H5/7w=
+	t=1790323323; cv=none; b=jAvR+rdC+W1tz1wJ6kfiUQId6l+ME52bx3ryF8YeMyQZslpI8k40qvQ6NVJqbVGjVgix23CBdl2ChBBv7lLPlnUMyrjv4FF80bWnS5LXqnlsgrT+qV+4IpGz7i8QWasgTxtvfI8BPuYC0xpY0Sy8CgryzVYLWq7e/vlYkce1dkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790323306; c=relaxed/simple;
-	bh=l+UTWai1dYY/ZEpL8dyIn91Ds9SFYRgRbj357nizg5w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Er2+jKRzebyx98/QVjX/cHs76zNASG7ROZKQkT4xG8Xcg+TqK0Xzuw+2UMYo9NZqD8PnzyySfxUId728wR9qBD+kS3QbroGkr9JYRpf8k3RpCAMWzj0VyNf0ISwlHmx0VLInCyhjqFx8gQaO7kapi+GWc06gILRn81rxNFppvpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=getfieldwork.ai; spf=pass smtp.mailfrom=getfieldwork.ai; dkim=pass (2048-bit key) header.d=getfieldwork.ai header.i=@getfieldwork.ai header.b=SfnZpKPx; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=getfieldwork.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=getfieldwork.ai
+	s=arc-20240116; t=1790323323; c=relaxed/simple;
+	bh=FllVzV6RRWtfHUru72xNUN7jzr+OR7lC6u8440TkWAM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JU08YrdWBCuC+pQZEYFs1I1zMXfzKn56TxzKrn4qtj2pavf0joKS7YZ9fY/yLNQbEWvBDgQTACTut0gZM6+o1sUky+EsQR/NfkvLY7LFwfJVA1CZFPHz1IxaBdz/B40sjm49JRiwmg9Sra3qGhZ14qM6E3NolmfDdx6/RefYffE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TArSRYjz; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=getfieldwork.ai header.i=@getfieldwork.ai header.b="SfnZpKPx"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so1988595e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:01:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=getfieldwork.ai; s=google; t=1790323302; x=1790928102; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iOlBBpGD3Y0REYiLwhaWxhjVYik9/CfvZxRnEgnvMuo=;
-        b=SfnZpKPxH/1sIJJghdHLrkm9E4gsgIwoDFvpeoY3D3aA104rsFsjMwhf9B2yRsrHOe
-         INS0I6cwCiHHWB/FtQiUUsYz1kFYmiSO3Vnp2jQSj/vIOhtXF3GAJI4o0tWFuZ4m+ZBj
-         tER57+9E+V69pL9x4/sl9QlgQZ146NW2dhvSoQnKG3pp2M0UDYGGme/zuMFqB0+t4rf6
-         1KTVlRdXOo57zJiiXK97SVSv8XKNPPO4V1lFgVcXRmob17l8UODItBLMP6SIp/CuEFsh
-         dESFvYORiA5QEBRujGgUsUBO1JfLbM1ro/bTZzKQqatMoZKfwWVpwN77O7AMPNgNp7aJ
-         j86Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790323302; x=1790928102;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iOlBBpGD3Y0REYiLwhaWxhjVYik9/CfvZxRnEgnvMuo=;
-        b=KdJAxtiwU9euq88BMaE1a7Z1eLTPx3+wKl3T5oVaoTDpXtF6aia/XERr/2sneD5eDU
-         Jfe9iwJMLJUZaZDcrFmEkc+9m+zTDEDKkfWdjNbUbheFjA4pQEP9LhpngFTw5kCmpDgl
-         afOETcwVURVZM5K3ruWLm3bfuiCFcDKH12/YFXy1c1mhf0T585+ZeuxfC8Qmg+iB8pmK
-         zwx03V1DndpkzOZEPZ2BrIm0KlOhTGBjYk++z8C0UzJpqKTu3nNPgboLNm7326CZ+cF8
-         bOuBpUGyZH79SbyAFwjpu10ooaCqbWmKrYDrmIYe3SFxYMeJuVEq7knsidyEz+0tshqU
-         t6kg==
-X-Forwarded-Encrypted: i=1; AKwUvBxA7AJbPjFQuJKEN9RzpiwFj1ngC3IAW/tW63MuTCt466GQzRgSURbVgIMxuf+HKUXkLkL0Vm2sWTZkuPM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIr9H4BQyiiUYzlZela9f9TdZY7zikvtcAJf4yP+wQ8W9AOele
-	P7gI0cTAclJyc7+mYuZ+RXllTNuPCKovpL9G90W/2SEfpp2OspZqxTGH4WMveTjSVSYz
-X-Gm-Gg: AYBFou0DQLZEQ++RJD/Lxw2B7g+e7yQPwOK7i5m9MwdW61zMDyW58n7gTeY2yIzHCcl
-	9tmO9g7B1GGD/V9BN794X1cZVO28aEIzfcob8Rk9ojK4lxVr5hZoBY4Dpf1HvvWIsF3JsRupoju
-	Ll7A93gUWQ1xZP+IIcuEbCrWTkHfJPdmE2bjYSX0v32sqZbnbOhA4dHbwykpD2ODV66a+lm5MrG
-	GyQlPRv8K93AOZ6zk+K3v1tP2GimrRTANmamHecrThByhES7b6bDQ6LZ5fswAnsL8hTak+0SCCO
-	kZALYboONFLjgq4nLTMs4JCGflnWJ/XSMtD7xI33qSLbzdMWg7mh8XB4rwANTP9hL0CDTe0MRps
-	AGPfYIK4rOJyp3IEgGHg/29nsoGfqqDSBZ+BCBamnB3qIUgbAf/TUZWWWIqYwnSjPNPpeG1G0rD
-	OichNCMz/tUyGmqOT3oamu76Vj+VomhrkINw/3SJPILG0+8ACVTvIWY79iXAhr6FUOgm2xcQdEH
-	Rpc9Oy3IWlZJXNdzz1UfWIrRSqIJaQarTN7XGuR/KD6ozqDBKCZ/RfeMaRYLK22h6D/RuRMmIA8
-	Tiwv+MFSV/YloGXtIHX3OSk3mU9CDNDj+qVM/PGhgQqyPz5kLqSKA5R9NKQ=
-X-Received: by 2002:a05:600c:6986:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-49fe66d05d7mr77962585e9.8.1790323301545;
-        Fri, 25 Sep 2026 01:01:41 -0700 (PDT)
-Received: from NicksFWMBP.taile41d51.ts.net ([2a00:23c8:b064:8301:e401:b461:4e5:786c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff43ad975sm21662945e9.13.2026.09.25.01.01.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 25 Sep 2026 01:01:41 -0700 (PDT)
-From: Nick Rogers <nick@getfieldwork.ai>
-To: Brian Daniels <briandaniels@google.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	adelva@google.com,
-	aesteve@redhat.com,
-	changyeon@google.com,
-	daniel.almeida@collabora.com,
-	eperezma@redhat.com,
-	Alexandre Courbot <gnurou@gmail.com>,
-	gurchetansingh@google.com,
-	Hans Verkuil <hverkuil@xs4all.nl>,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mst@redhat.com,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	virtualization@lists.linux.dev,
-	xuanzhuo@linux.alibaba.com,
-	dbassey@redhat.com,
-	laurent.pinchart@ideasonboard.com
-Subject: [PATCH] media: virtio: clear the size of legacy controls built on the stack
-Date: Fri, 25 Sep 2026 09:01:40 +0100
-Message-ID: <20260925080140.44696-1-nick@getfieldwork.ai>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260923162928.73497-1-nick@getfieldwork.ai>
-References: <20260923162928.73497-1-nick@getfieldwork.ai>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TArSRYjz"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A52441A1019;
+	Fri, 25 Sep 2026 08:01:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 71ADA6073B;
+	Fri, 25 Sep 2026 08:01:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A50B31032958A;
+	Fri, 25 Sep 2026 10:01:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790323312; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=kzBndwiBxN+4U8zl++0XCjr0MB23RZ/rwExmVNCnUlM=;
+	b=TArSRYjz2y+GqhSbsERc0wwPYG8kFPKULpwEFTe72enkSlJ+xa6Wc6MEhoCNdyys8zfYhx
+	B14qNwc7FkrJyf1dGoJRCBmwyI+It6f1VojokVl7HT+tbLgdViAhBLI+eQY8oslk5GP1fs
+	YzArF+xuTkqV/ogTIYoeHf6q7bJQygNpDDI/ebLhLRKAx3qZ5i5XrJUhOZyy0LXRQF4NaR
+	Kr/FlpaqvFjj6LwDSeRvmHwjmFtresHHq9bbUGjb003ksj3E1Ydy3m/4t3jEx1tw7hTpfX
+	404zGR67zdJb0OX/bdmGBgcjBEjrRG+kg+tHrDDdpcUnYKe67XKYL9YF2TuOug==
+From: "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
+Subject: [PATCH 6.12.y 0/2] netfilter: nf_tables: join hook list via
+ splice_list_rcu() in commit phase
+Date: Fri, 25 Sep 2026 10:01:42 +0200
+Message-Id: <20260925-cve-2026-52988-6-12-v1-0-d14d787d2cb5@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3ZJu0rD+irGg5RF1wOaFomG8
+ O4WPX6TzL8gazLNOFYLks6W7TEW+F2FeLuMVyXri8GOgxNuKM5KG6hhaVsK5Jl83x32g4g6FZT
+ nM+lg71/1hFB7rj84//f86u4apy2Jdf0CS8ueEH8AAAA=
+X-Change-ID: 20260925-cve-2026-52988-6-12-1db43f99e0e9
+To: stable@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joel@joelfernandes.org>, 
+ Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Jozsef Kadlecsik <kadlec@netfilter.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: thomas.petazzoni@bootlin.com, rcu@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ coreteam@netfilter.org, netdev@vger.kernel.org, 
+ "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>, 
+ Sasha Levin <sashal@kernel.org>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-A driver without a control handler receives VIDIOC_G_CTRL and
-VIDIOC_S_CTRL from the V4L2 core as a single extended control that the
-core builds on its own stack, with the control's size left
-uninitialized. virtio_media_send_ext_controls_ioctl() takes a nonzero
-size as a payload to copy from userspace, so these ioctls fail with
--EINVAL whenever the stack is dirty. GStreamer's V4L2 encoders set their
-profile with VIDIOC_S_CTRL and cannot negotiate, and v4l2-ctl cannot
-read the MIN_BUFFERS controls.
+I backported an additional patch, which adds list_splice_rcu(), which is
+required.
 
-Legacy controls carry a 32-bit value and never a payload, and an array
-that comes from userspace is copied into an allocation, never onto the
-stack. Clear the size of each control when the array is on the stack.
-
-The core is being fixed to zero the structure [1]; this keeps the driver
-working on kernels without that fix.
-
-[1] https://lore.kernel.org/all/20260923160936.33445-1-nick@getfieldwork.ai/
-
-Assisted-by: LLM
-Signed-off-by: Nick Rogers <nick@getfieldwork.ai>
+Signed-off-by: Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
 ---
-This applies on top of the virtio-media v9 series and turns point 3 of
-my review above into a patch. Build-tested on media.git next with v9
-applied (arm64, W=1, no new warnings).
+Pablo Neira Ayuso (2):
+      rculist: add list_splice_rcu() for private lists
+      netfilter: nf_tables: join hook list via splice_list_rcu() in commit phase
 
- drivers/media/virtio/virtio_media_ioctls.c | 25 ++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ include/linux/rculist.h       | 29 +++++++++++++++++++++++++++++
+ net/netfilter/nf_tables_api.c |  8 ++++----
+ 2 files changed, 33 insertions(+), 4 deletions(-)
+---
+base-commit: e2acc2211022246c77740d5df08265cc27eedcc5
+change-id: 20260925-cve-2026-52988-6-12-1db43f99e0e9
 
-diff --git a/drivers/media/virtio/virtio_media_ioctls.c b/drivers/media/virtio/virtio_media_ioctls.c
-index f0b82b5ec..19abcf95e 100644
---- a/drivers/media/virtio/virtio_media_ioctls.c
-+++ b/drivers/media/virtio/virtio_media_ioctls.c
-@@ -6,6 +6,7 @@
-  * Copyright (c) 2024-2026 Google LLC.
-  */
- 
-+#include <linux/sched/task_stack.h>
- #include <linux/mutex.h>
- #include <linux/videodev2.h>
- #include <linux/virtio_config.h>
-@@ -576,11 +577,31 @@ static int virtio_media_querycap(struct file *file, void *fh,
-  * Extended control ioctls are handled mostly identically.
-  */
- 
-+/*
-+ * VIDIOC_G_CTRL and VIDIOC_S_CTRL reach a driver without a control handler
-+ * as one extended control the V4L2 core builds on its own stack, with its
-+ * size left uninitialized. They carry a 32-bit value and never a payload,
-+ * so a size there is stack garbage, which would be sent as a user pointer
-+ * to copy and fail the ioctl. An array from userspace is never on the
-+ * stack: the core copies it into an allocation.
-+ */
-+static void virtio_media_legacy_ctrl(struct v4l2_ext_controls *ctrls)
-+{
-+	u32 i;
-+
-+	if (!ctrls->count || !object_is_on_stack(ctrls->controls))
-+		return;
-+	for (i = 0; i < ctrls->count; i++)
-+		ctrls->controls[i].size = 0;
-+}
-+
- static int virtio_media_g_ext_ctrls(struct file *file, void *fh,
- 				    struct v4l2_ext_controls *ctrls)
- {
- 	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
- 
-+	virtio_media_legacy_ctrl(ctrls);
-+
- 	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_G_EXT_CTRLS,
- 						    ctrls);
- }
-@@ -590,6 +611,8 @@ static int virtio_media_s_ext_ctrls(struct file *file, void *fh,
- {
- 	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
- 
-+	virtio_media_legacy_ctrl(ctrls);
-+
- 	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_S_EXT_CTRLS,
- 						    ctrls);
- }
-@@ -599,6 +622,8 @@ static int virtio_media_try_ext_ctrls(struct file *file, void *fh,
- {
- 	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
- 
-+	virtio_media_legacy_ctrl(ctrls);
-+
- 	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_TRY_EXT_CTRLS,
- 						    ctrls);
- }
--- 
-2.54.0 (Apple Git-157)
+Best regards,
+--  
+Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
 
