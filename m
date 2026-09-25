@@ -1,128 +1,125 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DE03DAAC5
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45F64756CA;
+	Fri, 25 Sep 2026 11:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790334726; cv=none; b=J/Am4+YPwAxvBPFly2BUTDT+yWPbUT4Pie6cHhN7C5b3wBRfI/aaW0ogOKWWvYqn0oue73WZzNx3A07AkcTIrXRUR3yf445Ju9uQUVtpnq28uaV120KuHx6tW1yMn5USR7Pd4kFbqEW2fK68V4uI4F1NFvq8iXXpFBQyUDGY5+M=
+	t=1790334735; cv=none; b=hsPBj9/gBDIFLDRKCn9p6Qvex9/6V5pOHet8NphCnvdnkjxaP+P6/9XSN4xziGNLpljH4xkalM/vT9HLnW8PbYeBLVaVjNMo0uk4Q8Slwq4VslEKGIPVuYEZGp+b44pFKhIF6sbzO8/WOEnrR4rMn8dV7WSYbuqDy02HxnDQgWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790334726; c=relaxed/simple;
-	bh=GuW7eXEh2gVczNln7jtlJt8uCjI8l0C1PzUKgYCAbxY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F9n8rhx2BwAz6gqRe8AdqmJsX5uaLeQt08XyBbtBaDqp3b2Szsd+BGKW5st69Kp/dfFps7fASGD9B6bAQx0y6OKFQTzbYdeyUosJ7qcBp6jE/7LhRotAKLviTyyC9GKJxXGXVAoKPE5+cxDpLRggVg0xrCCJShpdOfEGnn8OnVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YmX9Rq0s; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790334735; c=relaxed/simple;
+	bh=vFJelAs6RkUEfep9+zWnllKBieB5TLqkKRYzQduYJEE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nMeXJ5xZRpdLKv2EfgfMfDCdQietRB72IAeIhCbI0QpmAG+POKgm68v8bV7yB37itW/nLmlwZZyMjaaIQYGwhrtCAoUylA0ch4xOkr2runPtqw46qpR30+SpU1pHrcuIfGQf2xaLpIumq6qVUxe66NRNNFaDvd2REoMGbKbKNdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcO56N5b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YmX9Rq0s"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso10019305e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:12:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790334723; x=1790939523; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QUYgotJhZ6LNOKd9OKnwgJyVznPrlzbQCA8QrOOaWH4=;
-        b=YmX9Rq0sXPA2AUzkrD21A/2+kmiQUlAynaMsf08bZzRFzX1Bp+FV4Fs9H7rdvhqbE5
-         LinO2fYd+h1FbNWPb0R0Yn9rztwgKcd9EST3I+XWfJjn+Kw7MNQj2Jv2VxbJmgPLWd1H
-         5+lgwA+7wKlEi3mVK9+LkKEUzLDR6pfywrnZGYYSEdqwz4R/qMMpE1GANHsg1WrRGZA/
-         fpbsNIzC/7m4/CgqWVqZdR/5YLx98R9LNZnEh0uQqpElEGR/lEstMmPH5WmBHbC20nlj
-         ETlbOBZYWuM1kLnAyvwEkLUU8u7eJqitNz15nwIBet8/NlnnUjx5kmmoNJsLiJTn/roO
-         kD1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790334723; x=1790939523;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QUYgotJhZ6LNOKd9OKnwgJyVznPrlzbQCA8QrOOaWH4=;
-        b=e5OcRCPIuYWxmmt9c2//lUiXtH3YIhhAFJp5cp6w3TcfDNkhbJejo25gp0jpAW/Pk8
-         PozgtrwzKjlCIvdqBli6G81YdDnX7b9ldfyx02EvTYCvp3uz/bxs5TSpUr1gcTGmhhs1
-         2ju8Zr+Z8bxvxWX9UBdD/cqESP4PsMeh91UuM3Zlj5Ij+ZDzRKkFa+nLUNaIS2NT1rXV
-         wV8llWu48TmQyClE2rQSZVVvfkk8o0Nf4mfF8CxNNQAjdzAqv8+Q9JtSUzUuyx2WKfHp
-         BsnJyZRzJGDnNLZe7rtkopcw/EWTq0D3AMWjYUUeXkxqALgA6jqzcwmDDMO/9rfutJXh
-         6IPg==
-X-Forwarded-Encrypted: i=1; AKwUvByy8BQ6n2b3aimlkvWFHYp3gGvDYaI4J4oPKSmGr/bOf9GnT7RLaxNJX82vcAhmfGPkLxvuzH2rC0KtNkY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFY03/FeojV6kD8cO5F81nRKksL8YM5BD5Q2i9xpwxhJYCe9dv
-	INK6XilQVbAYSz+ZPKWtXJA+/3mipenmcB644jJfjtDWwu4tJ9i7rZ6V
-X-Gm-Gg: AYBFou3tenj7BMFEF9ARQtRbyyBsjP88e/8X5jUttt56VqBjKM1LXAZgE0yCVOH+jZF
-	WkH5PFoPN0V0/RcQ2Kf4Md6BaBqgxm6Ym1vLJxskeWObZAGiSKv06V3afMNPaUh/fE7U7815lYo
-	65WZ55oKhrXhjOFkEnGUfQzywyuJrIo9LYr29HeS6G18LAW5ynezfXN78ILyc1z3g/wrdeXDams
-	KMXKH2vQo+0t6MUg9A86dAnL5ytjnJc84u7bZRuogrpQnNxnoqqLL314oP7dQNqb9IP1BZfOm4I
-	zSQzoiLV9bOysTFWleGl9lvnz15gGXbRoICmzOQ5DEOgaQ2wleBlOgQ22jEWTIgVRQ+n7S2/fIz
-	de+xBnmTQuaO5sqXH/jONNfVPgcpwHEbKbwEo13bH+JT6SlrRfCbkARUPMbOQb+EMokGEKFbv4r
-	BxLCDAYREaeMskeSY5rsXgzCdwjMfPTz29OMbGd3UIBwO39ujH8Gsuz4R7GdlDJ6Tp2c9siMdHv
-	RM2b47IObu/kQapsQWE6hFNpAI732J0RMGHfmMltkgu75BxN+nYd7feIp0pznhs6iCY7dX9Q6qC
-	PbVfpg2x9dMlGEVF/zqHxu77mabTJ/aBJoRrM2kfeGuT//9Y
-X-Received: by 2002:a05:600c:6207:b0:49f:bd3c:bc20 with SMTP id 5b1f17b1804b1-49fe66ff476mr101883265e9.27.1790334722519;
-        Fri, 25 Sep 2026 04:12:02 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff0658747sm58978745e9.1.2026.09.25.04.12.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 04:12:01 -0700 (PDT)
-Message-ID: <b00ad4a2-d317-4d75-95b1-7d2195c069a9@gmail.com>
-Date: Fri, 25 Sep 2026 12:11:56 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcO56N5b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344C11F000FF;
+	Fri, 25 Sep 2026 11:12:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790334733;
+	bh=DVcGk6Bv8eEUx8YBEhCPRwunKrlLmLX0y57ylhq+Cto=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GcO56N5bseTnNXnPRNim1C1+X8eRermJlD+TDKsl9PysJJxF3m09Xc3P3VutN5eZe
+	 KD3ebOJW9z9r084X/HyDgIe1UGL0AtYuxS3nJ1c2NuPjwRihpTwFz1Al3gaZV//Znm
+	 +caMxpEAs0vBPlezd/ILP68kFBvtYshYb00BAOUMBogaouVg6HJorxGKEocAdthx4f
+	 H6ZjslK51cjG6NeoD6hNwl1j1vJW87VlG/2xfsHS00kzIKFcF27xUDs4GwT2UZe8lm
+	 fIWOmW0hUYfbI6MBRz6MbZDXD4NtLa6KCq4zatK58SDxbFcy0Eo7e4E0B+/DZlqSmb
+	 y0MwfghmiV9zw==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>
+Cc: Jinchao Wang <wangjinchao600@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	x86@kernel.org
+Subject: [PATCH v18 05/11] x86: hw_breakpoint: Add a kconfig to clarify when a breakpoint fires
+Date: Fri, 25 Sep 2026 20:12:02 +0900
+Message-ID: <179033472218.136630.15739551619595017677.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179033464327.136630.864883694296882051.stgit@devnote2>
+References: <179033464327.136630.864883694296882051.stgit@devnote2>
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/3] net: netmem: add net_iov_area freelist
- helpers
-To: Mina Almasry <almasrymina@google.com>
-Cc: Stanislav Fomichev <sdf.kernel@gmail.com>, netdev@vger.kernel.org,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, hawk@kernel.org,
- ilias.apalodimas@linaro.org, axboe@kernel.dk, sdf@fomichev.me,
- bobbyeshleman@meta.com, kaiyuanz@google.com, linux-kernel@vger.kernel.org,
- io-uring@vger.kernel.org
-References: <20260922204348.717198-1-sdf@fomichev.me>
- <20260922204348.717198-2-sdf@fomichev.me>
- <CAHS8izPwLBCJXM_0Df8P6S-FVwAq+TaRKn3uTh1h=33Ffj8VmQ@mail.gmail.com>
- <f566591a-cef3-459f-a39e-86addb0c5d7e@gmail.com>
- <CAHS8izOwo2NZGaxtxaMcjDu1APY7ERLjsHN4B_Oucqs4jZafqw@mail.gmail.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <CAHS8izOwo2NZGaxtxaMcjDu1APY7ERLjsHN4B_Oucqs4jZafqw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On 9/24/26 17:46, Mina Almasry wrote:
-> On Thu, Sep 24, 2026 at 8:41 AM Pavel Begunkov <asml.silence@gmail.com> wrote:
->>
->> On 9/24/26 16:02, Mina Almasry wrote:
->>> On Tue, Sep 22, 2026 at 1:43 PM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
->>>>
->>>> io_uring zero-copy receive and devmem both maintain a bounded LIFO for
->>>> net_iovs in a contiguous area. Store the freelist in struct net_iov_area
->>>> and provide common push and pop helpers.
->>>>
->>>> Leave synchronization to area owners. Keep devmem's area adjacent to its
->>>
->>> This could be a follow up change, but I think synchronization should
->>> be provided by the netmem/niov infra, rather than the area owners. TBH
->>> the infra providing an unsynchronized data structure and letting the
->>> area owner use it and shoot themselves in the foot feels error prone.
->>> For now we could use a comment.
->>
->> I don't think we want it. The duplication is minor, but I'm not set
->> on the per area index array approach, and it'd make changing it
->> more difficult.
->>
-> 
-> What is 'it'? I'm guessing you don't want the freelist array put in
-> the net_iov_area at all then? Because even that change will make
-> replacing the freelist array hard to swap? Or are you objecting to
-> just letting the netmem functions do the locking
-I meant this consolidation / patch. Yes, it adds more friction
-but I don't see much benefit. And I can guess why Stan didn't
-include locking, zcrx takes it for additional sync and keeps
-one lock for all areas.
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
--- 
-Pavel Begunkov
+Add CONFIG_HAVE_POST_BREAKPOINT_HOOK which indicates the hw_breakpoint
+on that architecture fires after the target memory has been modified.
+This is currently x86 only behavior.
+
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Jinchao Wang <wangjinchao600@gmail.com>
+---
+ Changes in v11:
+  - Move select to alphabetically sorted place.
+---
+ arch/Kconfig         |   10 ++++++++++
+ arch/x86/Kconfig     |    1 +
+ kernel/trace/Kconfig |    1 +
+ 3 files changed, 12 insertions(+)
+
+diff --git a/arch/Kconfig b/arch/Kconfig
+index d021bc31ef14..5292bd05d5d4 100644
+--- a/arch/Kconfig
++++ b/arch/Kconfig
+@@ -474,6 +474,16 @@ config HAVE_MIXED_BREAKPOINTS_REGS
+ 	  Select this option if your arch implements breakpoints under the
+ 	  latter fashion.
+ 
++config HAVE_POST_BREAKPOINT_HOOK
++	bool
++	depends on HAVE_HW_BREAKPOINT
++	help
++	  Depending on the arch implementation of hardware breakpoints,
++	  some of them provide breakpoint hook after the target memory
++	  is modified.
++	  Select this option if your arch implements breakpoints overflow
++	  handler hooks after the target memory is modified.
++
+ config HAVE_MODIFY_LOCAL_HW_BREAKPOINT_ADDR
+ 	bool
+ 	depends on HAVE_HW_BREAKPOINT
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 38e29e465022..e4eaf0b607d3 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -289,6 +289,7 @@ config X86
+ 	select MMU_GATHER_RCU_TABLE_FREE
+ 	select MMU_GATHER_MERGE_VMAS
+ 	select HAVE_POSIX_CPU_TIMERS_TASK_WORK
++	select HAVE_POST_BREAKPOINT_HOOK
+ 	select HAVE_REGS_AND_STACK_ACCESS_API
+ 	select HAVE_RELIABLE_STACKTRACE		if UNWINDER_ORC || STACK_VALIDATION
+ 	select HAVE_FUNCTION_ARG_ACCESS_API
+diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
+index b58c2565024f..d9b6fa5c35d9 100644
+--- a/kernel/trace/Kconfig
++++ b/kernel/trace/Kconfig
+@@ -866,6 +866,7 @@ config WPROBE_EVENTS
+ 	bool "Enable wprobe-based dynamic events"
+ 	depends on TRACING
+ 	depends on HAVE_HW_BREAKPOINT
++	depends on HAVE_POST_BREAKPOINT_HOOK
+ 	select PROBE_EVENTS
+ 	select DYNAMIC_EVENTS
+ 	help
 
