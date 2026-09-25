@@ -1,149 +1,187 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f35.google.com (mail-dy2-f35.google.com [74.125.229.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0529D48FF81
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4023C48FF69
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331816; cv=none; b=e22P9yC1p2DJ5dFcjTL8MyndAqVY/ZCik0Ze1hBoOY0AKUrhgbNM6xHsPCClWoZ6hGGPQMJun8kHfmapZ1aO+Ef+dveVjLBobku+zgr2Q1FxcghfJJuBME3ewpSo8YXHmYawI52Qky/JjcUfX44hm5wmqHU19a2FR5c4+l4FhWs=
+	t=1790331822; cv=none; b=nLZw+QTsgtpMlJjGd+0IjKb0z8KcSfBgw9DJJ033vGhPOXOXkO3BzN9hRxyzeSPhC09+yU4RV62vmsUKKx0xwMa1a/9z+Vp9rlfaU+tRcH8Q1tAhaU4NcrabXSkq9yLWSFR/Wzt1xZGrfMzZFxw3ZBjIwPcPIDPnIo8M/tA/13Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331816; c=relaxed/simple;
-	bh=zkw9Oy7OVJ3/+Ko/xqQatvs6D7hDS7htSf/ch08AmTQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DAlUPyIv5Ene7UoL2zS5POpQcAA7kkqmvraBqWfhhmN2Nay1agEKiwUL7TArWXxiUIM5jn3fQGviItzk2/LGEY3q0fPaDHS5tAxLiahN8rZZwYXZ4eG6SHAcZGn42zvE1enQHtqRz4RRZptcctwEnbTbU8NUUys86Be5RkFDljA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bUdAgpas; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YvX/0/1n; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790331822; c=relaxed/simple;
+	bh=pvnBo0BTjzgEz5yxhZt9kr22DruVbgYxPEJ7jyn0UUQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Almfmr+Q117nf5A2/rNRVzA3msJY3h+cLXNtlrPJZ6gpV6N/3cvx9eZrbMfiQ7JMkePpgl6jN7s4dpdbyNFeBWdT1wQIc+qB5caLbD37ckmEVGroXBkB+5NxBOM8yzNZE4wcvqAnNINZmln21gB3WYwYAdSEKdBQjQLTdRUyIoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=baFRAsBg; arc=none smtp.client-ip=74.125.229.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bUdAgpas";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YvX/0/1n"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YXcH208403
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HRIuXhUt+6lCT0sXfT+fb9ye3Qdl9AA2OjOOHlqa1BI=; b=bUdAgpasPYQZvDcu
-	ZCHKa0MXc28TOOGVymqJ29bxKleFzaiQ81G0vxCFlC4/8CLQ5c+6AgwJ0CGVFV0v
-	cPLA0N4TQb9MqADLQiPgBpEPL4wJtHx09xI1CCTtwPgM13INaernryPLDUD9x8zS
-	CPz33lBdkH4YeFI5FQ65tTdRnKpJFKxB5FRxR92mMj2BRRvRD/Z22nfUhnMr7PqO
-	1T3zqc6clGRDciSeAj4i0HnJdVzacy/4lDTuCTDz8KX/g3MfRprl0J/sPaPJ9zYj
-	Gu0MVjoiYVeCk9aQhcfGUPvCv3PY/KXmoKWKCIyosD6UaxLXF8msa4XKVGY4wEif
-	wYGzUw==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw898u346-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:34 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-914324f9c0aso1617106d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:23:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="baFRAsBg"
+Received: by mail-dy2-f35.google.com with SMTP id 5a478bee46e88-3381a6a05c9so388725eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:23:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790331813; x=1790936613; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HRIuXhUt+6lCT0sXfT+fb9ye3Qdl9AA2OjOOHlqa1BI=;
-        b=YvX/0/1n8O/TjIghI23eUo6jP7zGxyHydJUdH1wb7/zT5Sj+cBNBQUBldS+I8HF8FT
-         mMzK6MsCr13WqcQP76u72vdTqVGh5FZmxJG5TdGEG3c14GnOIRBbqDiHPIPnEKG+rahw
-         HuRH14qVEGHC4VUvS08L+y7oWc9sImrbil8h5tX23aWp7cQ02zywo8g9YPQmXe4yrHab
-         mU777+1Q/MkVLOu5538r3geWgZ+m0AlX1a048oDNrF8j+H8D9xhOyG5lsgXHnf7BYFkT
-         alqERz87c60ph3Nt+j7OyXPZPtMBMgKTI7SoOf4y4uDvMdqfxA9b12A0C/cp01WpVO90
-         /ZVQ==
+        d=gmail.com; s=20251104; t=1790331820; x=1790936620; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MFw8u/VdnLoQh1l7Rz3Xhcg3E9/nfHoTOlWcqQk/LkI=;
+        b=baFRAsBgYyCC2Q0Xvz11I45AxpvH+GM6XhrZ7x1atZez21qjUNF7hNV/lqmt+a/+Am
+         h9BmpGIAM4C4/b8xBtUpxqUyGIKc0xSgOfi23jrO2R9/8vzmGjm+SLha/7TCD6HOPHZ+
+         Vt9k8CzqotZIT7BPxF8WBhGn6t5oxwnRQGUcQOuJTz2UPHehnb33MzwI/AURTv+T2PuA
+         4zMX6IU9yWNG5kZOhWYd6RKz1cRT6RwSmdrPnCC2EC/E0W5hvtg2sGgTGA1SQdgndJWv
+         KiWoklqEoH5yfZ4v2JCYT+gZ2H1MI2f9NkqZgqHI2MbZLOtGpRmIOSBe7z9SPP6JSkeg
+         EoRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790331813; x=1790936613;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790331820; x=1790936620;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HRIuXhUt+6lCT0sXfT+fb9ye3Qdl9AA2OjOOHlqa1BI=;
-        b=M0rpFnbxvZZ+6OUE3lt2X77bsN+x95JIsc6LrNL0hYi0mCd7El/JafQpGD5bGvE25x
-         3hEP9x1OFret3xTipvQ1NyE1PQHwY30gwC7/6eyX/K3TD1AWEZS8+XJAhii7CICbCNpL
-         mZDg3mpw9eN1JyLmgsAT4vIEbZZ/MPyi9iR2w0feOVzJuV7OZ7LuDT5TZH9WSX2XdinG
-         cAp54m2hgWjbi4RXwheFW2X2xTyOs8dpd0HSmu2SSjh+DTfxlptYCKI4tgRoxiT+v+Jm
-         nxe34hvJ7EANufMjx+4/RN+7eeybnfTNk+9CjE2xXvNyGpL1REDRs5O3O1dkPRhJpoqy
-         2F+A==
-X-Forwarded-Encrypted: i=1; AKwUvBxETm09BMu5bPjrdAkShvk0VncgsTmmx+42b5vzcsBCnlTQ4smKKiulzoQnpkTWeaFl+Xc3ftgH+L5TeXU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbQBJdQgbaztjJPTurHRcqfaPvFNrgQWjSZV+ZCWe+pPpOD+NA
-	UcsoZ5h376fnc5FFKxl6vPYA9DwkrxSAL6mQsIx1MVTpAFcUcQAOTtscFFzHnhgm8Vvo6VuEQvq
-	0r32Ri3xcAns8CkoXFK4W/o5Kv2xggE2Twl4fkqBjXpKJ1R4VCEY/40JJgSrKElgesqc=
-X-Gm-Gg: AYBFou1AuWJvyDhmR05lAa5uSrifeoldegeepNXJFfu9mjf+AbzaplryML/ezsWSUkc
-	ahVQWcRueCGIW17QqEdPVPzwlWoTSqznioOwRAXO2gL0zTczSi92/35V+O7RNxWH6FJLFQjGBzD
-	LgrZI9UAuyvKQvy4LLZahvaxbVCOGrP7BXvko/eDQCinEcXILg7LWRttKjDSwOpk8Wt+7dxhOJo
-	VYoQYXJGL7T61wgqhVX07hrfLyzW0kxTt+73qtFSsQKs6gvMh9Ttn7RbpcgSLdjVO9UnlxX+0s0
-	CYnUySvzwfG/86diHadeOkdf2J+sJzuL4JgyvjT2d49EncyJEXI3Y0yikBP0F0dOzV8EubG0jUs
-	3hTULzt3seYrElqp5Qiph6Q==
-X-Received: by 2002:a05:6214:5199:b0:912:6000:e8da with SMTP id 6a1803df08f44-9142f6ac41fmr31577926d6.2.1790331812998;
-        Fri, 25 Sep 2026 03:23:32 -0700 (PDT)
-X-Received: by 2002:a05:6214:5199:b0:912:6000:e8da with SMTP id 6a1803df08f44-9142f6ac41fmr31577576d6.2.1790331812553;
-        Fri, 25 Sep 2026 03:23:32 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aae5e09985sm852677a12.28.2026.09.25.03.23.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 03:23:31 -0700 (PDT)
-Message-ID: <86891d60-4a30-4b01-a025-14afd40fb9d8@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 12:23:29 +0200
+        bh=MFw8u/VdnLoQh1l7Rz3Xhcg3E9/nfHoTOlWcqQk/LkI=;
+        b=PluE5IgUAZGlNmAbwXlZk649diPnoYPEu11NFRZnwwMhWM2Yu9LLjmaINP5p9PrFDr
+         8QZX6uBB98N7C+x301tyWk81yewrHVvKOaB4TmW3asf5MYdUueZAffV51h+pRLnZXW2v
+         kJ+xKOMZ//qKvtSMkEOMcOjNwvJc9kykCC9UodgLSN57uTPIyVHOwP7YTzNK6oJ+rYWA
+         EYCp3F8ZFiIcGeJ6TVuZABhXbJ+znWAKG4O484TLrjsz/O9c4bYlZN3fVvn604mEjCV8
+         6NJVnECJR9CF+EconCGGU7+YI9/oCljv6biwc22wYyc+WtVeOnWEbEdaeIp7RICRpE3Z
+         lkag==
+X-Forwarded-Encrypted: i=1; AKwUvByh0gysxxtKvRgttGJdWrCsNkehn78KT1JETOgFB57Qen8d13VHjm1DT3TX4Vu+pmoyb34kGt6OI88OueA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEfelZL/5dWZvck3Swfg99YuAsZyN/msc4gTIvBRdpUB2mv7I8
+	tUyh02SWPM9mV8JfqZMuzzy/3b05IGZgmmFLmDvewNMqJhd5UWZHHIhT
+X-Gm-Gg: AYBFou2/43RF2Aq8GnJc4fknBvLk4ZU4EMhnfjviW/9zcxEeMZtVF4Eb9tXp42ztNWn
+	Q7wSaD9ixXW2BM6ke024709+uMkhWbVHsdtHEt0DQxhh55S8VQ/8SYDJOgeSM6QR46/JGIQ+hVB
+	CnjAG+sYRE/10Odh1EyR3pprccNCKBsSVAXriogLBviNDJz2ufImDl4W81Ih+YGEcRRvxRU51mR
+	vgx0R063jniRnO0NSML6Al6q+2JvHlbZJ9UpCgTQTZdD+5gGLFCbXWcMlkE5o2r8inQeAFfV9mO
+	0hQiAwAROD1eFbBvGEiaEN0Pak8Dzj+TSoEC2xaC7My3/glm9R6UZRytHbtx+W8xfvulImkpYWf
+	FlWrKSAzt9rxkfKmK/Evg5FAlC6ak5pNrwy3XFqEa0fUtluu7e6uSVLkCg9/eVqElw7gs4k6GeW
+	EeI3knxSbIxK4XyYcMJoVwncN/GtukIi+yesbcrxvRBD0I6Lr1TLuw3EG5AB97U7NOJKZ9Inaxs
+	nVFba3kf5BWakezkewavKk56All8Rm9dtrOkszcpUWgHro09If3BiIYFx2czu463czqHeDXMHlm
+	RMyU7c9LhUMwqxqE+5Rk2Xo+NQpRTdEwALMHNmQL+xbWZis9+P6FsZldZ54o9SPwXD+Yh0JVmw=
+	=
+X-Received: by 2002:a05:7300:fd16:b0:340:ef5d:3517 with SMTP id 5a478bee46e88-340ef5d3737mr4599341eec.15.1790331820032;
+        Fri, 25 Sep 2026 03:23:40 -0700 (PDT)
+Received: from FT6N242TWK ([223.181.117.176])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144173a2asm5787949eec.6.2026.09.25.03.23.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 25 Sep 2026 03:23:39 -0700 (PDT)
+From: shashank <jain.sm@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Alex Elder <elder@kernel.org>,
+	David Gow <david@davidgow.net>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] lib: parser: reject out-of-range values in match_number()
+Date: Fri, 25 Sep 2026 15:53:33 +0530
+Message-ID: <20260925102334.49693-1-jain.sm@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: hawi: Fix PCIe IOMMU maps
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260925101309.3826038-1-mukesh.ojha@oss.qualcomm.com>
- <20260925101309.3826038-2-mukesh.ojha@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260925101309.3826038-2-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA0MSBTYWx0ZWRfX6PmdG1CwI1Tt
- y5puh3uaqB7kmx90Sq2aF8BNUGxMcxC3S4srhi0cImBSgo058/OMFlAnrp2VulbCYLO+XgulMO2
- +0kHjosI+1mk8PPAjpuhSDc0woGA63byE8DZTKQPt96M4lYvHslsAIuXuK5d3ozUCUSIdVnpnLH
- Y1AQ9KAFnmPAYPGawP+WT08MkA4i7K0iR6CYISZOaWlWtaKGPN43KX2DG/dXGOaLoedFgQjy2Ey
- rgzHB3KhhKPeKS5SPBkszc5qHe2qDeQ7gtRj1YgZ3DCwAPCpd/kDvGH3myrv+vzd5QmBFmVS7eA
- N12GBC3EXF/AR89OzcKgdomYagrgvWvdg5hK7hHdu7ZaMXPUZPngbULzm87SfPjw738AaavMHsi
- Wvl+o+UGyRLbwSas4H3GewvIksSoSLx6ODtgBw1hVdhxfP8pwQ1nrHd6hG9mrTXwcLDVk1I48eX
- /sEMktRuauCUnE9f+jw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA0MSBTYWx0ZWRfX5hoCdt2PW4Xx
- g+dga7FZPFApnD5siWJV3kJoJydmlOSD/b8TqFB/DH6579q6+U4d5Ob2SPmKrPDXKfGGaF1Y4bl
- uBTCzYLqVCus0tzn06T4Ap+sw0OWSIc=
-X-Proofpoint-GUID: KL0ot8i2z7o_ZIppRIwjBgC5j3vMwlHX
-X-Proofpoint-ORIG-GUID: KL0ot8i2z7o_ZIppRIwjBgC5j3vMwlHX
-X-Authority-Analysis: v=2.4 cv=EJWTQFZC c=1 sm=1 tr=0 ts=6ab64ba6 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=3CKlJ7abimYK_f3-Io8A:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 suspectscore=0 impostorscore=0 bulkscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609250041
+Content-Transfer-Encoding: 8bit
 
-On 9/25/26 12:13 PM, Mukesh Ojha wrote:
-> apps_smmu defines #iommu-cells = <2>, requiring five cells per
-> iommu-map tuple: rid-base, phandle, sid-base, sid-mask, and length.
-> The pcie0 and pcie1 nodes specify only four cells and were omitting
-> the mask field.
-> 
-> Add the missing 0x0 mask cell to both tuples in each PCIe node.
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
+match_int(), match_octal() and match_hex() store the result in an int
+and return -EINVAL or -ERANGE on failure.  match_number() checks the
+range by parsing into a long with simple_strtol() and comparing against
+INT_MIN/INT_MAX, a check added by commit 77dd3b0bd17a ("lib/parser.c:
+avoid overflow in match_number()").  That does not catch every
+out-of-range input:
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ - simple_strtoull() saturates to ULLONG_MAX on overflow and
+   simple_strtol() simply converts its result to long, so any value of
+   at least 2^64 - 2^31, and anything that overflows 64 bits, ends up
+   inside the int range.  On 64-bit, match_int() returns 0 and sets
+   the result to -1 for "18446744073709551615" or
+   "99999999999999999999", match_hex() does the same for
+   "ffffffffffffffff", and "-18446744073709551615" gives 1.
 
-Konrad
+ - On 32-bit, long has the same width as int, so the range check can
+   never fail: "2147483648" gives INT_MIN and "4294967295" gives -1.
+
+On 64-bit, values from INT_MAX + 1 up to 2^64 - 2^31 - 1 are already
+rejected, so for those this only makes 32-bit kernels behave like
+64-bit ones.  Two callers store the result in a u32 and so accepted
+such values on 32-bit only: the legacy NFSv4 idmapper upcall
+(fs/nfs/nfs4idmap.c), which falls back to a numeric id when the lookup
+fails, and rd_pages= in drivers/target/target_core_rd.c, which also
+ignores match_int()'s return value.
+
+These helpers parse mount options and similar user-supplied strings,
+so an out-of-range number is silently accepted as a different value
+instead of being rejected.
+
+Parse the number the same way simple_strtol() does, using the same
+kstrtox helpers, but keep the unsigned magnitude and the overflow
+indication, and check the magnitude against the int range.  The
+accepted syntax, including what counts as "no number" (-EINVAL), is
+unchanged.  kstrtoint() is not used because it rejects trailing
+characters ("12abc" gives 12 today) and differs in the handling of a
+lone "-" or "0x".
+
+Fixes: 77dd3b0bd17a ("lib/parser.c: avoid overflow in match_number()")
+Assisted-by: LLM
+Signed-off-by: shashank <jain.sm@gmail.com>
+---
+ lib/parser.c | 39 +++++++++++++++++++++++++++------------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
+
+diff --git a/lib/parser.c b/lib/parser.c
+index 62da0ac0d438..30fdaefe4957 100644
+--- a/lib/parser.c
++++ b/lib/parser.c
+@@ -11,6 +11,8 @@
+ #include <linux/slab.h>
+ #include <linux/string.h>
+ 
++#include "kstrtox.h"
++
+ /*
+  * max size needed by different bases to express U64
+  * HEX: "0xFFFFFFFFFFFFFFFF" --> 18
+@@ -137,22 +139,35 @@ EXPORT_SYMBOL(match_token);
+  */
+ static int match_number(substring_t *s, int *result, int base)
+ {
+-	char *endp;
+ 	char buf[NUMBER_BUF_LEN];
+-	int ret;
+-	long val;
++	unsigned long long val;
++	unsigned int radix = base;
++	const char *cp = buf;
++	bool negative;
++	unsigned int rv;
+ 
+ 	if (match_strlcpy(buf, s, NUMBER_BUF_LEN) >= NUMBER_BUF_LEN)
+ 		return -ERANGE;
+-	ret = 0;
+-	val = simple_strtol(buf, &endp, base);
+-	if (endp == buf)
+-		ret = -EINVAL;
+-	else if (val < (long)INT_MIN || val > (long)INT_MAX)
+-		ret = -ERANGE;
+-	else
+-		*result = (int) val;
+-	return ret;
++
++	/*
++	 * Parse like simple_strtol() does, but keep the magnitude and the
++	 * overflow indication instead of truncating to a long, so that
++	 * values outside the range of an int can be rejected.
++	 */
++	negative = *cp == '-';
++	if (negative)
++		cp++;
++	cp = _parse_integer_fixup_radix(cp, &radix);
++	rv = _parse_integer(cp, radix, &val);
++	if (cp + (rv & ~KSTRTOX_OVERFLOW) == buf)
++		return -EINVAL;
++
++	if (rv & KSTRTOX_OVERFLOW ||
++	    val > (negative ? (unsigned long long)INT_MAX + 1 : INT_MAX))
++		return -ERANGE;
++
++	*result = negative ? -(long long)val : (long long)val;
++	return 0;
+ }
+ 
+ /**
+-- 
+2.43.0
+
