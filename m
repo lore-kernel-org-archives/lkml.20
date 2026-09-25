@@ -1,117 +1,105 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B754D0CC7;
-	Fri, 25 Sep 2026 16:33:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31AB436A01A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354020; cv=none; b=R/ZQgQLQ7sHKdn6S0wN4elntX43F92PMiyU+oJR8E7DZ6kO9wRCOMOASgjOJ3dHhgWXnlS/p//I3xZB2rzDmczJmosJek26ymYEwPhWKP+PdPzPdELQ22LI6c8+2PgYh9iUko0Io2AtAJod8nh/owANcBqK+FkS3KcK+tHwXfsE=
+	t=1790354048; cv=none; b=r5FCB+S/JNj/o6RON2b2Ajh4U02BjF3KHB0cU09kv9solZieQoWWvhnfLAbriNEioPeWHfG154XPNMu6xlbo816ewjVZWBhdIGtAXjEXDcMNlRhrOZHGQJ3fZ3xh+cHKnuKrAegMx5HCzTsORkO3HiT4LAB2j5qyR/TwCW2Qzd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354020; c=relaxed/simple;
-	bh=foA8UbomajTa22DkRxj3005Wjy2ttgaDybzSQGdZd1s=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=eg/HOH+T6PNj8sfflTOFpmwXTRRuisydjdIO5PVgWUyonM9YmYcwnPvEbLaSdzDXLK4w7GI5uJMD6tn0cvwaF8aNRxczJqKBSNDGsdx9dYnsDAV19fkIiU9MpZwN5W1nfbN98SNlhvgpJ50pVGbHhlVZnR73ejbAzgt95mQfETQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=UVIlKBXc; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790354048; c=relaxed/simple;
+	bh=z1MMBW/k+eb49Qcp/2rEAdku+hrMenCSSpsg1SGiR6E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=elVDdf2uLbuJ97YIvCd3Cg7CJDtnK1uoqy+hYqHdve6i8bYxawFBJO39P1ZBUS/+b6bbSshrZqKfTBkeqlO/PvQ2IM/GRtZKCcidipF9cxWrpZGj+5PImZNgBAdT0aoRtf2MtrvyvzqFQOS6uc9Db8DjT91Rz3Z5b5KBvkoQY8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UAfsBFPJ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="UVIlKBXc"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 501C94E4106E;
-	Fri, 25 Sep 2026 16:33:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EE3D46073B;
-	Fri, 25 Sep 2026 16:33:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A19C0102F1E2A;
-	Fri, 25 Sep 2026 18:33:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790354012; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=foA8UbomajTa22DkRxj3005Wjy2ttgaDybzSQGdZd1s=;
-	b=UVIlKBXcttrLLrKy6BGsauS7t/MyVySVo242G5oaPV7ZhSacbtUL9/V/bjZW7WNZtfq1nR
-	+p0xFsBSa6zjnsGOeaC4k55ZqS4p+L8CxFJ1kj9MDub7xt9b3MNbX/WBAAq8ZeIMvJrNJN
-	SfRoXd/ROpQ7w178tshiDhesA0DA7g37XVn2x5dwzGwQywmZcqUx40vWCBnfSSsYwE+JWR
-	RXubplVcLtikf8ywNM5oq/ITzF96yQOLn6ut5IGpZZm8xsnwWbfhqacoN8hxaeuPcZ74XL
-	FwQynJsoxdHzXMb8CFGKszltbAs2WVNKelNcVq7xoiwSgsz1TAy9wZGUtAtoEQ==
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UAfsBFPJ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C1EA169C;
+	Fri, 25 Sep 2026 09:34:01 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 135E43F86F;
+	Fri, 25 Sep 2026 09:34:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790354044; bh=z1MMBW/k+eb49Qcp/2rEAdku+hrMenCSSpsg1SGiR6E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UAfsBFPJw7gPQ3SEOl4sjuq+C4NIG+QvCaZyg5xh4qIysSIbcRSEWQXPZRw7Fochj
+	 QgIzag8v8ZZWI5/+gZdT244vkTar1eEHFB7IiJDATTpjYHuxBDiRhIAozS9FgV9+vC
+	 DxiQY9F6qIxqeuSBpJwiOlUSIdCnvf77/QH7Af/Q=
+Date: Fri, 25 Sep 2026 17:33:47 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Quentin Perret <qperret@google.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	Fuad Tabba <tabba@google.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/4] KVM: arm64: Don't WARN on an unsupported TLBI OS
+ from vEL1
+Message-ID: <qn2q3e3hagurkljew23gnpbf5xg5dwagzzujw4z5c7vutyic3x@fvhragb3jlz6>
+References: <20260925090619.852995-1-fuad.tabba@linux.dev>
+ <20260925090619.852995-2-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 25 Sep 2026 18:33:15 +0200
-Message-Id: <DLOJIV124RG7.27SOPEOHBTA7W@bootlin.com>
-Subject: Re: [PATCH v3 12/19] drm/mcde: dsi: don't create a panel_bridge
-Cc: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Jessica Zhang" <jesszhan0024@gmail.com>, "Laurentiu
- Palcu" <laurentiu.palcu@oss.nxp.com>, "Lucas Stach"
- <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
- <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Paul
- Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>,
- "Inki Dae" <inki.dae@samsung.com>, "Jagan Teki"
- <jagan@amarulasolutions.com>, "Marek Szyprowski"
- <m.szyprowski@samsung.com>, "Sean Paul" <sean@poorly.run>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>, "Albert Esteve" <aesteve@redhat.com>,
- "Anusha Srivatsa" <asrivats@redhat.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
- "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <linux-mips@vger.kernel.org>,
- <linux-rockchip@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <asahi@lists.linux.dev>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>
-To: "Linus Walleij" <linusw@kernel.org>, "Maxime Ripard"
- <mripard@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
- <20260916-drm-bridge-every-panel-v3-12-83afb4f1a707@bootlin.com>
- <arInho2bsfJiCgjV@houat> <DLNCQEG62F5N.O98WAO4U2FJO@bootlin.com>
- <CAD++jLkk-a0MrQUiaDD8OoDDoYVwBwSjFTj5ZBy=Xo7MS4+01g@mail.gmail.com>
- <arTlpd-KAsVpj3UH@houat>
- <CAD++jLmktDoqn2EbXsNnyGRudo-q2NCxUf+9ZjeU+WrY4CBMWw@mail.gmail.com>
-In-Reply-To: <CAD++jLmktDoqn2EbXsNnyGRudo-q2NCxUf+9ZjeU+WrY4CBMWw@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925090619.852995-2-fuad.tabba@linux.dev>
 
-Hello Linus,
+On Fri, Sep 25, 2026 at 10:06:16AM +0100, Fuad Tabba wrote:
+> A VMM can trigger the WARN_ON(!vcpu_is_el2()) in handle_tlbi_el1() on a
+> CPU with FEAT_EVT2 and FEAT_TLBIOS but no FEAT_FGT, by setting
+> ID_AA64ISAR0_EL1.TLB to NI and having the guest execute TLBI VMALLE1OS.
+> 
+> Without FGT, HCR_EL2.TTLBOS traps the instruction. KVM records no FGT
+> trap information on such a host, so triage_sysreg_trap() doesn't UNDEF
+> it. The instruction reaches handle_tlbi_el1(), which warns before
+> checking whether the guest supports it.
+> 
+> Check support before the warning.
+> 
+> Fixes: 0cb8aae226768 ("KVM: arm64: nv: Add handling of outer-shareable TLBI operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-On Fri Sep 25, 2026 at 6:25 PM CEST, Linus Walleij wrote:
-> On Thu, Sep 24, 2026 at 10:57=E2=80=AFAM Maxime Ripard <mripard@kernel.or=
-g> wrote:
->> On Thu, Sep 24, 2026 at 09:51:53AM +0200, Linus Walleij wrote:
->
->> > > Linus, unless you have more info I'm going to apply the patch as
->> > > is. Removing this special case would be welcome as a later patch.
->> >
->> > I'd say go ahead as-is.
->>
->> I'm fine with that, but I really want this removed at some point.
->
-> If Luca wanna fix this up (drop this path) that's fine by me,
-> else send a patch immediately after this is applied and I'll
-> ACK it.
+Looks correct to me:
 
-To avoid postponing this series I plan to apply as is on Monday. I can send
-another patch later to remove the !panel case.
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
 
-Thanks for the feedback!
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> ---
+>  arch/arm64/kvm/sys_regs.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+> index 44aae52c473d7..0ce29ce678b08 100644
+> --- a/arch/arm64/kvm/sys_regs.c
+> +++ b/arch/arm64/kvm/sys_regs.c
+> @@ -4257,6 +4257,10 @@ static bool handle_tlbi_el1(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+>  {
+>  	u32 sys_encoding = sys_insn(p->Op0, p->Op1, p->CRn, p->CRm, p->Op2);
+>  
+> +	/* Without FGT, HCR_EL2.TTLBOS also traps a hidden TLBI OS from vEL1 */
+> +	if (!kvm_supported_tlbi_s1e1_op(vcpu, sys_encoding))
+> +		return undef_access(vcpu, p, r);
+> +
+>  	/*
+>  	 * If we're here, this is because we've trapped on a EL1 TLBI
+>  	 * instruction that affects the EL1 translation regime while
+> @@ -4279,9 +4283,6 @@ static bool handle_tlbi_el1(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+>  
+>  	WARN_ON(!vcpu_is_el2(vcpu));
+>  
+> -	if (!kvm_supported_tlbi_s1e1_op(vcpu, sys_encoding))
+> -		return undef_access(vcpu, p, r);
+> -
+>  	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu)) {
+>  		kvm_handle_s1e2_tlbi(vcpu, sys_encoding, p->regval);
+>  		return true;
+> -- 
+> 2.39.5
+> 
