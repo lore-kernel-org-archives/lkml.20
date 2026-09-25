@@ -1,145 +1,171 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAA53939B1
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0383C3F6B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790368116; cv=none; b=pcqAottBGqmL6PfBvkBe3Mcn6TXekbHBLa/ETE68f1c13aK3nifwC0eEllqIvESRKDqIcdm2/NgrpmTItOLFrY0HPvIvF3DyrG5dis9o1RIqJhRYj6JkCQSvPMpz05MlK0O+BD20DUYRf6vjXzej9dlrvzOVeEsLbpjXi2L0vRM=
+	t=1790368137; cv=none; b=NkkbiqFD3qq/7b8ONN/pLaerQqQbRm8LovXJkx1DO0gmft/vbvw77slTzk72vWCOkb6H5pLocWvw9pZBSJMKIOWFLY0XRTRCmSgtS13gPdyPlzpd8OnShs7AAp9McJGteutLHrJWzluvivyhQnoKMyq3857jrqQRYN3apuRzDFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790368116; c=relaxed/simple;
-	bh=OISNyxqYsyIJjvZpwj+5Ey+JOQREWF6pIQkZttrSuig=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O4m5Am8LfcxmOcwCZLzteDC9ScYmCGXw/GcwqI0MTEuUGFGzwRef5IIfGluLZFcb2GucIqFtiYwzR7bRo2nkklaXqGfXNYnpUMQMIkvSJKezVgu60FwR0GzG6jOZIL9OI8OwTTSDNDUPXHgGCk2vxI0eor8MAirJWKWZ2LHXb0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=hG3VJJAs; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790368137; c=relaxed/simple;
+	bh=5fShnnoriXDSFjno6iUPpU5yLB7IRZwuhDOkWk3b+s0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MkyJ1hGFwNvggBxgxhSgCCxskLkTM3LMo6ijUMaBweg18hmVl87L3ikinv6HH9iDFSRUDRPrWp9u+/6o8u3wOHAGuy5qoVmb5wkBQwXdt4MuVoHnHZBMobfJk2j8XGEECYxxvmVM0z/XjOYE2hsFCzTC1Z4JgLfhwo+mG/NFYwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SByuu/Xl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yz5Adm8a; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="hG3VJJAs"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso9357455e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:28:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SByuu/Xl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yz5Adm8a"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PIoJEP1375424
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:28:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	oSB1zv8lUGPCqbfvSMMMcjcivsocAtHZ2FPmhXQguZ8=; b=SByuu/XlXUq4LIC0
+	kpbi3Xls2siw8g50yiMRNoAcQtdLo10qPuFYYPNkQc9jb5N1E16Ck7mN3+QIE2CM
+	gDWvR+XxL9JlmuJ+I2HSWDXfIwWIPj/2snxyCS/CMhuMNXwrM94ZK2sH1g4KKRPn
+	X44pubMD8YWL7Ucy4gzzxKwbVlKWefn9bQtZ1Z0frnVgAZ1UV63bia/A+y5f4wT4
+	JQqd2J2hVDmNOqwGjIpDm5EzgUzv56yuYBZ4xvvsqFJVEl31MyXH0o6GynlSy5MG
+	SPmoEHijcWrj13J7mVc3IWUhIW64xTg8Urb2aeSldJFjN9unQ3TtxIOnHaXzqx99
+	shbYXA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwr5e9ycu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:28:55 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a0c7126e7so224853685a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:28:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790368112; x=1790972912; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MPkKdQ6kZcjzNVQGvFMHY0E0nhE5dpwirKpR+Cx91W8=;
-        b=hG3VJJAsJ30UNP8lJTNh6xEDuDRn1fzq/5fQKkwFX/dWFaIbQq6nC3lEJXuSBQCkBn
-         Leer7XCbz963/pqJ0flZNHYImaTE6gDFwJC2D2QLm4TEbXxKAzZwbnQTtY8zh4HI4fIq
-         704EI3MqGWU1ynBiENE9SSv/Mr5/3GALQsdNyR96Ayp9WgMehdeEmYMWD0O9H6UHUGWL
-         /L3yc8msyPn4rNT5Fu/eoJSA27970PgKv4BA1Z5pJDDTG+av1XaIkbsx5rRjPh+JKDXY
-         D3F2KPox9JFNgBO4Y0uT9MmM+q8OASopkK6vajZLMNyKP17zlOSYkUAVUbztkVUONkw/
-         WYNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790368112; x=1790972912;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790368134; x=1790972934; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MPkKdQ6kZcjzNVQGvFMHY0E0nhE5dpwirKpR+Cx91W8=;
-        b=mq6MmZVKkrANvDfhO5jtW4FQ4ZrHkyYMkvR0sSlpp8kC597jSGS+iZHhXRQCKKzZZA
-         HgkFMaQ6pRBsfdxLg7jzoPON+qz3w1m6JuJxTv0KcxxG8aHhElOpLS02Li+9qEods7ya
-         U+c1evsap3jytcX7utGXpbNUYGbK+gQ8I2ZhPtMaC24V7w3Adf9yFSRB0dH7nqpTEF1m
-         Iqgz+TpEFpkDbLeHoRJLkdIsQNnCg3QRuyQ+mQ4lctY+ZyzzMSgSrecn1+mbcNkJxanQ
-         qFxmK093O0DF5tQSNS6uWh8NgjddICKB/nt7KQ7swbMzYmOHC1/OL+/WqdnKMRiQgtd5
-         JeRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxqa9CZsWv7hgV65YEoc+kpkjwVTU8+fKcWk56XXOoqsWob8aZnmAl0knX53544EpOv/8ZEBCsPpzD7zD0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJBCNx6pJ1RW7fymuIgbkZx+x/1ggGnY+Opx5JSSapaC2/9Kff
-	sq6z1sWfSE7GTGKVjuXSBA2jnvl8Fe8OjqcDTlmuqg4q9AZHIYLrH0PW3Mt3DaaNbBw=
-X-Gm-Gg: AYBFou0LQB6M2bgED8BeQCblFpaGmSGu2+oUG9u7zoVnqhzfcNoWSzSohdOp+tD0oQr
-	sXE+EePPJ3zON06LgxgErWXpSOFnoXgxlDV5muLOWUwpOSS3ERgCL93QONgV7CporqhZgSIHrIE
-	R0OL5O3H9Wdf/pdfsHFaprio15joCI4Y3z6mGP+orpeAjkJYjF9v9jdgqVe9xKbp3//RQ6O23Pr
-	fRRdyCLjAgJmkDGcGz6xP7lTaUZQwAiClDAHEniqZZK/PARXQuzjBkY8R/3HOtScABj5IC7sEjS
-	V1KWEvhXubG6mCuQ4bsCIY0P/cXx2f+TkXm5x9KRAw2d6kMRuI5l/GEcIJnUyxo64jPmqqRkY5v
-	wwM9gyPz/f1QX6yBrPGq2bXCoJWOU7w2XCBQhGUd5Et99Rxp0lfSntvyDAiLo/IEKhv/4inSPOa
-	lMVDQ7BadRCHwMO8EcIwQKF3m12knTM5bocf96zHIzDUNK0EavIHGNlwlj6W14t3BGDn4bm9u4X
-	dU=
-X-Received: by 2002:a05:600c:310b:b0:49d:34:420d with SMTP id 5b1f17b1804b1-49fe66f3e61mr119387075e9.20.1790368112077;
-        Fri, 25 Sep 2026 13:28:32 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fe5ce4941sm172649185e9.6.2026.09.25.13.28.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 13:28:31 -0700 (PDT)
-Date: Fri, 25 Sep 2026 22:28:29 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Johan Hovold <johan@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>, 
-	Bradley Morgan <brads@mainlining.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Armin Wolf <W_Armin@gmx.de>, linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH] Add TAINT_DRIVER_OVERRIDE for usage of driver_override
-Message-ID: <arbYJUnMkb8Mqbam@monoceros>
-References: <20260925182041.1025371-2-u.kleine-koenig@baylibre.com>
+        bh=oSB1zv8lUGPCqbfvSMMMcjcivsocAtHZ2FPmhXQguZ8=;
+        b=Yz5Adm8aG5P0Z8SDxt6n8hVAlboW3LONN4nxbFZxQikMf7a+LHZE2orW/JNWinLSne
+         KGiD9PRS4+7h/K6Hoxa9uE3dLo21v7JKby08uoIqV4F+ZpKdytiZF33fjsHOd3IvwASI
+         Hidn9WciWBls2WOLOU8Ch1lz3qivcb8Rd/P2RDwhv+hDPBYnYIKgoJ2O6DsGGzfhGxJb
+         dUup8mk+ALZ1ObluoGoes/1M89Iziyfvgu4etyooYJgZFE9k1cfn6GPBIW2jktExviml
+         WDxLHrGbLbdoiJRTrVnecBxFJD8jieeBidNSuqoIb5/+WxUG3qhMnBNPDaUKsGwCwYVn
+         24RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790368134; x=1790972934;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oSB1zv8lUGPCqbfvSMMMcjcivsocAtHZ2FPmhXQguZ8=;
+        b=NMUscGKDyCx3ujlUoFuZsKtM93NCJxmUZR1PTVOOH9Pz2gGa8QLyudkLGWcorp2UNA
+         zpM1qYumMScMPojDRvSg+Uty9EYdQl16Dfe8bzNWesZAwRP+YE0jA9+uFQfT77uSzr3I
+         ElZLn2Nm6e4x1xULmh0TxBAxR++vUeEETx6klAwXA2IoHs5egMg5v638DYuvLnr6xKKi
+         LLy0SMBZ2KBZ7fwSRs5CrJRgialUs8fCAc+5arTU7CyQrKjGl9bsEPOsyLPu/qnvWMIC
+         w9/nbrST3uJ4UgPUF5ynEFkWnrfsMHCY4iyyMmK9pMTs0bFxmlNQ9zwHXHLaObKAQ80e
+         ucGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwN0imOqiUF4H0+xtrQAzGB28pdkpXbLabqtkrTqn6GpyDaOWtBrw0SGpclQMLJ7g2kSCm6FGS/fbCHfVQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnn/oXXLNtXMtqCkrBTuat8BbNj0ySEQ7st1V0J/chRZW2psEm
+	mPlN9ggR5zTENnFuadR1eC0y+xnSLbMjfg9NfHE0nVHkuJ9LbCX7hzSKqjA+Q1yiIno9NzZOFbv
+	8hzk3gf4ZVjv6kBQ06ijNe3+Wqjsy3WmSzGhMdJ4CqXuSKFwi1B60IzMtdzP0B6IEe08=
+X-Gm-Gg: AYBFou1oDA0zpjuGLp1WgM62WIpZd9ZWqflDcx+3PvG9Qm9Z7+xdayqQPBiFjV7srLS
+	bANqmuKvk8VWIrL5lcDGjgWxKS92L75YhY2xsuLX6ugIinWC941gzDg8oX83ElSA9c3vo2DzZge
+	rctZX27yJJLYXrJHnx2G7IL5lTKV9ZKzUErJHN0e6YhR8ybNT9VL8NJr4qo2NeuA+rBybO73+4b
+	5Y8RvdY8hOSLrCO5GLW/nteqgAa4RUd+i/Banx2WOA/N1TYxIccb+JI7GHseq22v+RVbJ8KFN7e
+	x7Lhq+JVAawBEsFkjAT5arTY+9ghqK361Q2yPiVFfoNTbn5yWuFDX+Q+xCm7uqXXk/g99TBQC/a
+	XYFEWvNx5TP3GxLK9V7YotHORyA==
+X-Received: by 2002:a05:620a:4692:b0:939:c1d4:e2e1 with SMTP id af79cd13be357-93c43be3c72mr685814685a.25.1790368134215;
+        Fri, 25 Sep 2026 13:28:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:4692:b0:939:c1d4:e2e1 with SMTP id af79cd13be357-93c43be3c72mr685809385a.25.1790368133755;
+        Fri, 25 Sep 2026 13:28:53 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fe5dfa6a7sm275845885e9.12.2026.09.25.13.28.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 13:28:53 -0700 (PDT)
+Message-ID: <43a45cca-e214-4f0b-a026-14da8b33b3f8@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 21:28:51 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hfoj37cw2gi5ppmu"
-Content-Disposition: inline
-In-Reply-To: <20260925182041.1025371-2-u.kleine-koenig@baylibre.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 7/7] ASoC: codecs: add Qualcomm Tambora (WCD9378) SDCA
+ codec
+To: Mark Brown <broonie@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Charles Keepax <ckeepax@opensource.cirrus.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        patches@opensource.cirrus.com
+References: <20260925161049.758913-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260925161049.758913-8-srinivas.kandagatla@oss.qualcomm.com>
+ <e3797f4f-2e46-46ff-99ff-6ba9324bb427@sirena.org.uk>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <e3797f4f-2e46-46ff-99ff-6ba9324bb427@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA4MSBTYWx0ZWRfXzG6ybRABg5UE
+ ibXYrvlc3/2axee16/xZjSHJ26W1kQtLcORcvvYlotdANJjDsZATJ/dlAkNRk9zOtMSLDXVRlQN
+ lPGu6nLdiNGbJCeED2xkKHk2iKeZwpc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA4MSBTYWx0ZWRfX+oH/CgXXgXdH
+ T69eQJkxDAw7YSB8o8NRujHuPAVyx3iwhtpunkXRI6NHvwuvXLn9D9/r3c8tymGbKYA4xwyQm5L
+ 4Z82/N/DMkOp68bwBRkUmzId4oogVgf8hbBE9hoD3Zf/sC+/KSQe6N5/Iar5YIW0LFn4ZPA1HOv
+ VMCkrHS/6d+nghdM53qDCsxsid6JE/o6Y+ii+kd6BP+MLMx58BH6mlqxPtcPxa6hqaQEhoohfZX
+ 1DuLYPVN2UtE6vnic4uNhZktmvQtU5jVe2gtmWxPevH1dH2U6lC3sXEc9Rd1g14Uw2mrqFxZNsx
+ AehfyaE8tMk/vWNMlzX08cQP8Nwy2lU4txiGxmpZHCukSIiHLDLxbbHy6QRyVcnO7yfDbNk583w
+ ZvjdDStFKidDub1rXG3+WUHd8h97w4813JM87o/IQUAD/awZ5sRDUP0IhKHucz9LufJZm8K6gdJ
+ qB11hr2RnaQZdSnlwbg==
+X-Proofpoint-GUID: t7FQM1KyV6B_44gs4GlYJUo1q0XGmrB5
+X-Proofpoint-ORIG-GUID: t7FQM1KyV6B_44gs4GlYJUo1q0XGmrB5
+X-Authority-Analysis: v=2.4 cv=Hf2B3SE8 c=1 sm=1 tr=0 ts=6ab6d987 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=naP4cl9ZAa0KIA1VvjkA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ impostorscore=0 priorityscore=1501 malwarescore=0 phishscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250081
 
+On 9/25/26 6:31 PM, Mark Brown wrote:
+> On Fri, Sep 25, 2026 at 05:10:48PM +0100, Srinivas Kandagatla wrote:
+>> Add support for the Qualcomm Tambora (WCD9378) headset codec in SDCA
+>> mode over SoundWire.  On ARM/DT platforms without ACPI/DisCo firmware
+>> the SDCA topology and SoundWire port properties are supplied as static
+>> data through the codec driver.
+> 
+>> +static struct sdca_control entity_fu6_controls[] = {
+>> +	{ .sel = SDCA_CTL_FU_MUTE, .mode = SDCA_ACCESS_MODE_DUAL,
+>> +	  .layers = SDCA_ACCESS_LAYER_USER, .cn_list = 0x6, .nbits = 1,
+>> +	  .type = SDCA_CTL_DATATYPE_ONEBIT,
+>> +	  .interrupt_position = SDCA_NO_INTERRUPT,
+>> +	  .has_reset = true, .reset = 1,
+>> +	  .label = SDCA_CTL_MUTE_NAME },
+>> +	{ .sel = SDCA_CTL_FU_CHANNEL_VOLUME, .mode = SDCA_ACCESS_MODE_DUAL,
+>> +	  .layers = SDCA_ACCESS_LAYER_USER, .cn_list = 0x6, .nbits = 16,
+>> +	  .type = SDCA_CTL_DATATYPE_Q7P8DB,
+>> +	  .range = { .cols = SDCA_VOLUME_LINEAR_NCOLS, .rows = 1,
+>> +		     .data = range_fu6_vol_data },
+>> +	  .interrupt_position = SDCA_NO_INTERRUPT,
+>> +	  .label = SDCA_CTL_CHANNEL_VOLUME_NAME },
+>> +};
+> 
+> Why do only these have nbits and type?
+These are the the controls exposed to user as mute and Volume.
+Looks like asoc_sdca.c does not use type and derive nbits, it directly
+uses control->nbits. We can add the conversion in framework, if that is
+something preferable.
 
---hfoj37cw2gi5ppmu
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] Add TAINT_DRIVER_OVERRIDE for usage of driver_override
-MIME-Version: 1.0
+--srini
 
-Hello David,
-
-On Fri, Sep 25, 2026 at 08:20:40PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> Commit fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when
-> userspace manually messes with devices and drivers") introduced a taint
-> for usage of bind/unbind sysfs files that manually trigger driver probe
-> and remove respectively.
->=20
-> For drivers that do their resource management correctly (which is also
-> needed for module unloading) bind and unbind for matching devices are
-> not critical operations. The thing that makes bind and unbind unsafe is
-> that drivers can be forced on devices that originally don't match using
-> driver_override. The result is that e.g. of_device_get_match_data()
-> returns NULL despite all .of_match_table entries having a non-NULL
-> .driver_data member which yields a NULL pointer exception for several
-> drivers. And given that after setting a driver_override a manual bind is
-> only one way a driver can be bound to an unexpected device, a separate
-> taint for such an override is justified.
->=20
-> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
-
-Sashiko found an issue in the oneline shell script, I fixed that in a
-separate commit because it wasn't introduced in my patch.
-
-Also I violated my own rule not to send patches directly before calling
-it a day and so missed to squash in the build fix that Sashiko also
-found =F0=9F=A4=A6.
-
-I wait a bit before sending a v2, but if you want to take a glimpse
-already on the changes I did, look at
-
-	https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git driver_=
-override-taint
-
-Best regards
-Uwe
-
---hfoj37cw2gi5ppmu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq22WsACgkQj4D7WH0S
-/k5wzwf/e+nKnBHFLEFkk8qt+OAiFap0dlTSMlJIBcnEpsrNDid/nI94lQcq4oyj
-ow4CxnbcvYgscNLOSwlp6XaZDAcH+N0m/0E9fQSznntmfxsavFPBfFKeH7shsZUl
-j2h7EDIaeVeYlTJE8wnTFqikllHmPKDly6zSCpa5vBcescFkj1XM6bsTTLawx/gU
-g+waIeksx5QOyDFRbGmFZUa3wIhy+atcDO7Zn2nzh6dTkJve7XEsZ81+L2t48Dqw
-TjrzRUXsAdR/R3YBn7//ejzDmLmJONXcLvdi91fgDpmDOsxlR2byDQyBba9Z5kiJ
-GIkxzJVpscvwynkkeVZdv+EtSgGJ8w==
-=PGxC
------END PGP SIGNATURE-----
-
---hfoj37cw2gi5ppmu--
