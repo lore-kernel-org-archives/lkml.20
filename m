@@ -1,496 +1,225 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0273C45FFCF
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D2C4756B4
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790345413; cv=none; b=sZynabSrVJwlkyOfhNyYcK2ptu89ANv2p+LIwfC/HogHOelhSNjR+J0LazkqvlW2xSFpBzFyFDuTCs38e8nAkk+8WqqhN8xJLZcPosw2qQUlSH4KfKQtdf31gPMo82IdYZ1O+LZgE2uMYDnk8cOFDQ7QSbQ76rieG49PmQnbBK4=
+	t=1790345418; cv=none; b=QE3C6JLUvwWuHPj4FchczZsMeXSC9BgPmu5JGhWn9FZejikefMU+6qvx3kp/RZQlPzald69gRcRJtgsa1Jk7sREpp9LmfII2exVvBh/YNYGyXFfQXIFynUe2FLLBm3+EH2985ZuIj295HSkirvH/UqqUu7iGPrQWu2YntFS2ILg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790345413; c=relaxed/simple;
-	bh=MaqbqWc2/dFkqoXAaoGX/GjWl4wzzfu9GUD+ZiHRzEc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u0lNMhiXB0qmHt8qmuYncvB1Tv1gqiJ4bG4JgWoxxscSDQ8QNHUPuIb/DaFraCKunJJ4NF/MeAMCbbDbKvYFF6506Qa6IXX/YYIgJ+n5tIklv7RbZgL3KEg0NOPsXu4k1rkLIuDvibzVIWBpYnv4Y8VPai2W2RBmg7iHR13xab8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kcW744Pl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BW4fZdsD; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790345418; c=relaxed/simple;
+	bh=BS8deKBe8YylbXCiat/0G6yEZV3rWMqa9pDpmgUJ+6s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F/buVErKmM6SO0RVjNFl5F8/j2Un5dEcwE1v6icf3Gibj4yfhZZwSmlsce9mgSN7041IRcldtLmwz5Vhw2pnUjU784ZMCi42+wAa9MrbPsX8+A99cvc0sVvgCah/JJOlyK+Gz6dWq2QkEIi7TtkOWRlOTULJKDgr3bhdS7ISKl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=IuPkftOV; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kcW744Pl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BW4fZdsD"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PD4I5L2911318
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:10:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	H/EQVVKLz9a3Hib3j2NdYC7VuMgC/jlWCcU786W+/ts=; b=kcW744PldxktVsEr
-	tWdN352+Mos0thb7P7hASOQNLDOmni5xagL4mDoMlY7N/J8Ax2TqM6O23tIuzF2L
-	DFR7t1l6YXkeE+If6dhXErKFXbpuLl97NeA8XxbTe05oKZx8mesPj9qOnhCKWADp
-	RNwFX8QRsY7YrfeGdb0oS1uVu7skN0Zmnr2Qnd6NITXejrJaYRYlasHAV4uPJpd6
-	1NYdoFlPlJL5YdC+KNdrrj+jYA6SCqimI4GEMVRXMsSXwkm/ViAw6j69vgIRtZD+
-	WsnGh4Mp+WkPqu3ob9Ejyg8ACLTNcJ5nkt7aXObzoDyqQkEHEXpp5VuKmPWl0W2o
-	4CsunQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwhm51u5m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:10:11 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39533bb224cso1371637a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:10:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="IuPkftOV"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so823958f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:10:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790345410; x=1790950210; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H/EQVVKLz9a3Hib3j2NdYC7VuMgC/jlWCcU786W+/ts=;
-        b=BW4fZdsDFPEFTbgomRsk/AQF4h7rTpdXyBqXl4lbNGYl0HXoqSUn9N16yHMQsizQEK
-         3JhGLzrOFsDaSmMEHyBzFjYLhpR0pgiDLm2loWGix7XOvWudcN9k3hC/1uSliVTVW0zC
-         UxFhiXzJKZRUEuQz7Eumql0r7K9sXcLIhgjW0+VMYZ/Ni4M2pUIrmF+gw2TUtDKDO8p/
-         kxAZkzB37np/pg0t4RvSt8wHVZ26ZKeiMYFGW1Ibd5jWIYlYrW6ifcSZJCUZNE7Q2BXn
-         Qgp5LW6eAOMePxHQTg69H05xWTSnA7fyPSYsblB+Ys9WAynDNRyh7tdKr0noQQtGhHr3
-         mMJQ==
+        d=suse.com; s=google; t=1790345415; x=1790950215; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5EozD17rD10z9YERFiVN6ETD514MdqE8+77HcfpzGcs=;
+        b=IuPkftOVLungDwHy63VfdOl/+QgRNiZJBAT0QJjK9vv9xcle2AZeE0glQHkd7/u+fd
+         gBPGZ/4otVBG6KicOGJVcYgozqmd8rn+Le72ZKo4khW6Tp7P6CATbJ3hCgBRXmsVt7YX
+         9UNmmo335e1vm13xnDRgeEOhLPYPMR4mj2ilG2lhmKpm+E9RuCNwM+xU2NFhRM9KnPbU
+         CtMM1ZUrIvYaOfyJg0Yd+7829TDc9IqMc5cr8tN+PtMRb1ScbZgd1qG0Vl1ssjlZ639M
+         ry2hbjRvXsYbwQFO4lPShAD42BEI/HA79qiIF6WApZ2cVYyIkqdrwKjeDkas/ZuAnAhv
+         so3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790345410; x=1790950210;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H/EQVVKLz9a3Hib3j2NdYC7VuMgC/jlWCcU786W+/ts=;
-        b=mdhomokJF75owi9wQTz1zeLuHDxeOrnOdTz3PbH/Bhl+VVggoO7OK6L3zQn4BJy+AX
-         ECtv7uauvaGl8VGx8UWGAu8s6Ydt8eJiIkfXxN4RjJqJz9syTCGJ34Cj9JENT8H/BbBy
-         ndFHM2tfhiPsVNLKhN1eeWY5ln5hkytufPNcrop+EieJOjY14e2MMORkG9FUlutzj3Rp
-         iHkwT7euq4l8wRCvhNxl2xZcgCR9pomaNpqlvXPWkq4Z8LK/w+j04ypGv1vac932PFVD
-         XCH1UqGetn9rq8G1waT4b/5BaQ/J4ZuQntuvh8UXPo0USWpOeQ0RN99qCdM3UYJ2yzkv
-         4D1g==
-X-Forwarded-Encrypted: i=1; AKwUvBzK9XWDPziimNU6ADCq41eVzvAZWrjmSpZ8xc7IcdkfQ/lJAv/cGIBLuUIg4oOSUvj6wvQFI8dP4tZGuNM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIB7Bx9GsekWx5tl13/AGk3GKcpUX5PT8p5K/3fV7MU5l4WI/6
-	QS5kYZKgRSXab3kuETLuWxB/h+Jbvb+xpMc+DmElc/0JYgBwSfunLGBulj7a1ib55QgnJimpc3V
-	uzi5FSAGidCwWILpYeY+kNItk0CL++ocF/A7w/0cxtvipElosyS/tPgppuhWuP83YeV0=
-X-Gm-Gg: AYBFou1lSVZjKWp3M0EUTdYz2BDbexQfl+/c5XLgVR6S8eBAarlaYw6tmWGZP3WK04T
-	b5oAHuVUTgT9l2MR7zms4vGPasO0Jyc74gqYhhtKiP/BCzGyRPiuy/2FXXP50q25EcAdV/RByP9
-	WwKzXXMijM0tn86MQhqecc41smZE+go+zL5qN+8BlDnFs8oDheq55hlAcYunCYS7qYfI3fzXoXU
-	B3NU2DJNIfUeBAxPw108wOoOOTi+MBKm5yUzO4oDWDQ/MOIWzEnUZdXmcn4NHQphyB3ch+RFA0B
-	L52x5CySFd6FLvi7Fet5r7YPFOwOcD/47UpU/s4CQSOa4V2uBp2jtEXWjK80jAzkLAam4Y15Wzt
-	rcb6n72jqQWxnVUwpp76zyBpJ4seWcKA=
-X-Received: by 2002:a17:90b:224e:b0:3a0:cbe2:9e0c with SMTP id 98e67ed59e1d1-3a0cbe2a16cmr701476a91.63.1790345410285;
-        Fri, 25 Sep 2026 07:10:10 -0700 (PDT)
-X-Received: by 2002:a17:90b:224e:b0:3a0:cbe2:9e0c with SMTP id 98e67ed59e1d1-3a0cbe2a16cmr701438a91.63.1790345409560;
-        Fri, 25 Sep 2026 07:10:09 -0700 (PDT)
-Received: from [192.168.0.3] ([49.204.107.168])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8ce3f12sm1664008a91.2.2026.09.25.07.10.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 07:10:08 -0700 (PDT)
-Message-ID: <4ec85347-1d84-421b-9a49-1d2fc21a2e36@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 19:40:01 +0530
+        d=1e100.net; s=20260707; t=1790345415; x=1790950215;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5EozD17rD10z9YERFiVN6ETD514MdqE8+77HcfpzGcs=;
+        b=bZ1+bkIUxqluFT1oQwkxsD72bZJnLH2cXfkxDS+mgw/EvxsPOgLdOdtTV1i3N9aEP2
+         OTUT+r5miYuOzHJ16lZnF5Mo1qvA9wdlc8qf6Nrul5tPIIQGed9v+6Rew7UuYWswmanb
+         4IkgDQVAG94uCJ9Rb9Xc4vtrNJcqL8/CCS/k3Rc0ANHTEeT5dYw6SyhmOYosi3GnZKPa
+         eZw2eTXvq/kBKPPUFP1ig1UBP0rVOGUwdt3djjJC6VWKfQW6Lf1bf+G1phMPeenKXgjI
+         4GSXvGxBH1nGmTOBPOmu4nFVwYpfCr/k/wYqMfpv1EswlJMljJQo7HGLm1i8rVXA4zYZ
+         szlw==
+X-Forwarded-Encrypted: i=1; AKwUvBy5Ms/SPQqjuJGD1KKffrID2HjdK7LG2eQB9s7oL5Dyd/u6K3vI0ZZCLNSiINw5EgkURbwEqXf1LrPtyPM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nu4A8HG+dhy9dG4ddsBwEWv3cePf5Ss/fUl29HdKoJxON8jaal
+	zIjzOLGkZfXfJHmRDIgpAoRkxuxQiCt3+0B2SZ0UoQjDV5/doE6XIOqQ/H3hyuJVfkQ=
+X-Gm-Gg: AYBFou3C4d4XoF4fzPTizBZkZZiFsi9BExYJkRoZLsB24HjnCU/yb1gDYrY96Uig03I
+	Qeph9+ddeuzErN1MdpF+aGkYKOZ+vpGATi/j9mvA5WrZ/v0ipsZCrvXK8mmb+CU5EJ1wp9TNsCR
+	FqfS9DAFgHqHN/XaBjPtZm/fAfr3p6yADhUcDhPLo5r+Mpu1q9ixtHVcjiKL6l8K6erDX1PSJHx
+	7Dulk8MXCf2SqP3ZRkp7uvYleM1dui6eA/64gaPYbvi0Z7oTdkj0UhSir6hdJgBy64nBYqp+2bu
+	vuDebzTIa3VLzyAgj0u64la3Z1d/M0c/eikOFsrUqyvoVBLqkrKNaUsI92ifj5MBtuvo8SooUUL
+	chDsqOb5a5pPvFZd6ZMF+TbSBus9lFSD7r2w/TFpgs6wK5NiETbzDJh7ozy/sLKsTdpPMvWNK7x
+	x2xKz6xj4RT26GP4kR3hTmikfLspZdvZUc1jbCsdGmDlJ1jun6zivepfUPwv2MdEUpxxUbfzOr
+X-Received: by 2002:a05:6000:2486:b0:487:27f9:829 with SMTP id ffacd0b85a97d-488716f6ec2mr11119206f8f.30.1790345414609;
+        Fri, 25 Sep 2026 07:10:14 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a746c57sm6908032f8f.35.2026.09.25.07.10.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 07:10:14 -0700 (PDT)
+Date: Fri, 25 Sep 2026 16:10:06 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Fushuai Wang <wangfushuai@baidu.com>, Kees Cook <kees@kernel.org>,
+	Stepan Ionichev <sozdayvek@gmail.com>, linux-serial@vger.kernel.org,
+	Manuel Lauss <manuel.lauss@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] braille: nbcon: Allow using a serial driver
+ converted to nbcon API as a Braille console
+Message-ID: <araAvkIB5XatHPNk@pathway.suse.cz>
+References: <20260922072558.98854-1-pmladek@suse.com>
+ <87ik3tiim7.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dmaengine: qcom: gpi: trace: Add trace events
- header for Qualcomm GPI DMA
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: konrad.dybcio@oss.qualcomm.com, Steven Rostedt <rostedt@goodmis.org>,
-        Masami Hiramatsu <mhiramat@kernel.org>,
-        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        chandana.chiluveru@oss.qualcomm.com, mukesh.savaliya@oss.qualcomm.com,
-        linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org
-References: <20260909-add-trace-support-gpio-v2-0-01f81739bb88@oss.qualcomm.com>
- <20260909-add-trace-support-gpio-v2-1-01f81739bb88@oss.qualcomm.com>
- <aqHH8rliEDTmrW9P@SMW015318>
-Content-Language: en-US
-From: Praveen Talari <praveen.talari@oss.qualcomm.com>
-In-Reply-To: <aqHH8rliEDTmrW9P@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: lbeaIsEnNRgo9lu1RHvx0kMxFQj69eSM
-X-Authority-Analysis: v=2.4 cv=QYnzLcbv c=1 sm=1 tr=0 ts=6ab680c3 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=LbQqD9KVPf5lhnc1gAYl9w==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=9voflSBtY7004n_qTS8A:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1NiBTYWx0ZWRfX+wNZFosbSj94
- OjZp3Yzylvy4RZBnAvAWKqLlc/45bVtNvgIE4WDNg973JY0iFGYKeoIpEbFGHoHQ0D52/dV/AU6
- e4abHskfGKhAihtXp6FpbBaGtWHszfLruphbQKsqz6T9OtngprY3K4rrX18YwC77xCzUZ9vNh7I
- 4t+K300eJm01KxhqBwkGAfZ3AHedeCsyga84IbBulj6GnF4AkKL9Qttqa4nt8jP+dqtZ9QDVnP5
- +FP9pCbTg748+WfIoFOjtmRQfeGC4V5CSx+n9aFCJA4pngS8Sm/XBApA5GZjOqHNzEbycIquntn
- cCXBhwe3lCDM4ILh/7YxCVPB/mVjW9Ycs5E7Lv5NxULMA5gMGpxC5LcEpTB+cHsS8X9QhIgyGRP
- vAGP31J5gNz0o0PpPoAZctKcnJJPa80lBDXEgPBXkx7REI1yd9ynpWjaALX7o9+qzwTLSeWsbYB
- faXJZmJCKKmRCQxma2A==
-X-Proofpoint-ORIG-GUID: lbeaIsEnNRgo9lu1RHvx0kMxFQj69eSM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1NiBTYWx0ZWRfXxR+rd3bsArD7
- f4oAwyIPMOrpv9IOkHwv/z5v55MS4ZOuu+wMCD0FXXQ1obSBXyyM7lInYmFGy1xM2UdIAAW1/Rd
- t2BuP1TteeQiLsdITctHdO9nfWO5n88=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250056
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87ik3tiim7.fsf@jogness.linutronix.de>
 
-HI Frank LI,
+On Fri 2026-09-25 15:14:16, John Ogness wrote:
+> On 2026-09-22, Petr Mladek <pmladek@suse.com> wrote:
+> > I have been working on v5 [1] of the patchset cleaning console registration
+> > code and I found that the system did not boot when I selected a Braille
+> > on the command line, for example:
+> >
+> >      console=brl,ttyS0,115200 console=tty0
+> >
+> > Bisection went down to the commit d3539347022a ("serial: 8250: Switch to
+> > nbcon console, take 2"). I found that the Braille console driver called
+> > braille_co->write() internally where braille_co pointed to the uart
+> > 8250 driver.
+> 
+> The Braille console blindly calling (struct console).write() is
+> obviously bad. This needs to be fixed. And not just because of the
+> 8250. Other NBCON drivers already exist mainline and have this same
+> issue.
+> 
+> > I added the support for the nbcon console API similar way as we did
+> > for kdb [2].
+> 
+> kdb does not need to care about latencies. The Braille consoles do. I
+> will comment more on this in the related patch.
+> 
+> > Note 1: I believe that we have a bug in the kdb patch because we call
+> >         con->write() atomic callback after entering the unsafe mode.
+> >         But we should do so in the default "safe" mode.
+> 
+> Why do you believe this? kdb operates within an unsafe section so that
+> other CPUs cannot take ownership. (BTW: For kdb the other CPUs are
+> supposed to be quiesced, so there should not be any ownership attempts
+> anyway. The unsafe section is just an extra precaution.)
 
-Thank you for review.
+It is safe from the kdb context POV. But it is not right from the API
+POV. The API does not suport nested unsafe section, so the following
+happens:
 
-On 10-09-2026 02:26, Frank Li wrote:
-> On Wed, Sep 09, 2026 at 10:39:41AM +0530, Praveen Talari wrote:
->> Add a tracepoint header for the Qualcomm GPI DMA engine driver.
->>
->> The events defined here cover channel/event command dispatch, IRQ
->> type handling, channel/event control state transitions, error IRQ
->> status, completion event processing (including the no-pending-
->> descriptor and transfer result paths), per-event processing in the
->> event ring, ring allocation/programming details, already-in-state
->> checks for pause/resume, and TRE queuing and contents. Together they
->> give full runtime visibility into GPI DMA behavior in place of the
->> driver's former dev_dbg() based debug logging.
->>
->> Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
->> ---
->>   include/trace/events/qcom_gpi.h | 313 ++++++++++++++++++++++++++++++++++++++++
-> Any user use it outside drivers/dma? if no, move it in drivers/dma
->
-> and please squash to patch 2, with user together.
+  kdb_msg_write()
 
-Sure, will review and update in next patch-set.
+	nbcon_kdb_try_acquire(c, &wctxt);
+	// on success: nbcon acquired, entered unsafe context
+	c->write_atomic(c, &wctxt);
+
+		serial8250_console_write()
+			nbcon_enter_unsafe()
+			// nested unsafe context
+			nbcon_exit_unsafe(wctxt);
+			// the nbcon context is marked as safe
+			return;
+
+	// the nbcon context is marked as save even though
+	// kdb_msg_write() did not call nbcon_exit_unsafe()
+	// which might lead to bugs
+
+As you say, it is not a real problem here in the kdb code
+because other CPUs are stopped. But it is an error prone pattern.
+IMHO, we have already talked about adding warnings to catch nested
+nbcon_enter_unsafe()/nbcon_exit_unsafe() calls.
 
 
-Thanks,
+> > Note 2: I am not completely sure about the locking. It might be better
+> >         to use NBCON_PRIO_PANIC in panic().
+> 
+> Why does it matter? printk() is not trying to do any Braille printing
+> during panic, so it will not attempt to acquire the Braille console.
 
-Praveen Talari
+The Braille console show exactly what the graphical console show.
+It shows printk() messages when ttyX is registered as a console.
 
->
-> Frank
->
->>   1 file changed, 313 insertions(+)
->>
->> diff --git a/include/trace/events/qcom_gpi.h b/include/trace/events/qcom_gpi.h
->> new file mode 100644
->> index 000000000000..241d76855ac8
->> --- /dev/null
->> +++ b/include/trace/events/qcom_gpi.h
->> @@ -0,0 +1,313 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +#undef TRACE_SYSTEM
->> +#define TRACE_SYSTEM qcom_gpi
->> +
->> +#if !defined(_TRACE_QCOM_GPI_H) || defined(TRACE_HEADER_MULTI_READ)
->> +#define _TRACE_QCOM_GPI_H
->> +
->> +#include <linux/tracepoint.h>
->> +
->> +TRACE_EVENT(gpi_send_cmd,
->> +	    TP_PROTO(struct device *dev, u32 chid, u32 cmd, const char *cmd_str),
->> +	    TP_ARGS(dev, chid, cmd, cmd_str),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __string(cmd_str, cmd_str)
->> +			     __field(u32, chid)
->> +			     __field(u32, cmd)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __assign_str(cmd_str);
->> +			   __entry->chid = chid;
->> +			   __entry->cmd = cmd;
->> +	    ),
->> +
->> +	    TP_printk("%s: chid=%u cmd=%s(%u)",
->> +		      __get_str(name), __entry->chid, __get_str(cmd_str),
->> +		      __entry->cmd)
->> +);
->> +
->> +TRACE_EVENT(gpi_irq_status,
->> +	    TP_PROTO(struct device *dev, u32 gpii_id, u32 irq_type),
->> +	    TP_ARGS(dev, gpii_id, irq_type),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, gpii_id)
->> +			     __field(u32, irq_type)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->gpii_id = gpii_id;
->> +			   __entry->irq_type = irq_type;
->> +	    ),
->> +
->> +	    TP_printk("%s: gpii=%u irq_type=0x%08x",
->> +		      __get_str(name), __entry->gpii_id, __entry->irq_type)
->> +);
->> +
->> +TRACE_EVENT(gpi_ch_ctrl_irq,
->> +	    TP_PROTO(struct device *dev, u32 chid, u32 ch_state),
->> +	    TP_ARGS(dev, chid, ch_state),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, chid)
->> +			     __field(u32, ch_state)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->chid = chid;
->> +			   __entry->ch_state = ch_state;
->> +	    ),
->> +
->> +	    TP_printk("%s: chid=%u ch_state=%u",
->> +		      __get_str(name), __entry->chid, __entry->ch_state)
->> +);
->> +
->> +TRACE_EVENT(gpi_ev_process,
->> +	    TP_PROTO(struct device *dev, u32 chid, u32 ev_type, u8 code,
->> +		     u16 status, u32 length),
->> +	    TP_ARGS(dev, chid, ev_type, code, status, length),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, chid)
->> +			     __field(u32, ev_type)
->> +			     __field(u32, length)
->> +			     __field(u16, status)
->> +			     __field(u8, code)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->chid = chid;
->> +			   __entry->ev_type = ev_type;
->> +			   __entry->code = code;
->> +			   __entry->status = status;
->> +			   __entry->length = length;
->> +	    ),
->> +
->> +	    TP_printk("%s: chid=%u ev_type=0x%02x code=%u status=%u length=%u",
->> +		      __get_str(name), __entry->chid, __entry->ev_type,
->> +		      __entry->code, __entry->status, __entry->length)
->> +);
->> +
->> +TRACE_EVENT(gpi_queue_xfer,
->> +	    TP_PROTO(struct device *dev, u32 chid, u32 num_tre),
->> +	    TP_ARGS(dev, chid, num_tre),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, chid)
->> +			     __field(u32, num_tre)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->chid = chid;
->> +			   __entry->num_tre = num_tre;
->> +	    ),
->> +
->> +	    TP_printk("%s: chid=%u num_tre=%u",
->> +		      __get_str(name), __entry->chid, __entry->num_tre)
->> +);
->> +
->> +TRACE_EVENT(gpi_gen_err_irq,
->> +	    TP_PROTO(struct device *dev, u32 gpii_id, u32 irq_stts),
->> +	    TP_ARGS(dev, gpii_id, irq_stts),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, gpii_id)
->> +			     __field(u32, irq_stts)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->gpii_id = gpii_id;
->> +			   __entry->irq_stts = irq_stts;
->> +	    ),
->> +
->> +	    TP_printk("%s: gpii=%u irq_stts=0x%08x",
->> +		      __get_str(name), __entry->gpii_id, __entry->irq_stts)
->> +);
->> +
->> +TRACE_EVENT(gpi_ev_ctrl_irq,
->> +	    TP_PROTO(struct device *dev, u32 gpii_id, u32 ev_ch_irq, u32 ev_state),
->> +	    TP_ARGS(dev, gpii_id, ev_ch_irq, ev_state),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, gpii_id)
->> +			     __field(u32, ev_ch_irq)
->> +			     __field(u32, ev_state)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->gpii_id = gpii_id;
->> +			   __entry->ev_ch_irq = ev_ch_irq;
->> +			   __entry->ev_state = ev_state;
->> +	    ),
->> +
->> +	    TP_printk("%s: gpii=%u ev_ch_irq=0x%08x ev_state=%u",
->> +		      __get_str(name), __entry->gpii_id, __entry->ev_ch_irq,
->> +		      __entry->ev_state)
->> +);
->> +
->> +TRACE_EVENT(gpi_ev_no_desc,
->> +	    TP_PROTO(struct device *dev, u32 chid, const u32 *ev_dword,
->> +		     const u32 *tre_dword),
->> +	    TP_ARGS(dev, chid, ev_dword, tre_dword),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, chid)
->> +			     __array(u32, ev_dword, 4)
->> +			     __array(u32, tre_dword, 4)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->chid = chid;
->> +			   memcpy(__entry->ev_dword, ev_dword, sizeof(__entry->ev_dword));
->> +			   memcpy(__entry->tre_dword, tre_dword, sizeof(__entry->tre_dword));
->> +	    ),
->> +
->> +	    TP_printk("%s: chid=%u event=%08x:%08x:%08x:%08x pending_tre=%08x:%08x:%08x:%08x",
->> +		      __get_str(name), __entry->chid,
->> +		      __entry->ev_dword[0], __entry->ev_dword[1],
->> +		      __entry->ev_dword[2], __entry->ev_dword[3],
->> +		      __entry->tre_dword[0], __entry->tre_dword[1],
->> +		      __entry->tre_dword[2], __entry->tre_dword[3])
->> +);
->> +
->> +TRACE_EVENT(gpi_xfer_result,
->> +	    TP_PROTO(struct device *dev, u32 chid, int result, u32 residue),
->> +	    TP_ARGS(dev, chid, result, residue),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, chid)
->> +			     __field(int, result)
->> +			     __field(u32, residue)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->chid = chid;
->> +			   __entry->result = result;
->> +			   __entry->residue = residue;
->> +	    ),
->> +
->> +	    TP_printk("%s: chid=%u result=%d residue=%u",
->> +		      __get_str(name), __entry->chid, __entry->result,
->> +		      __entry->residue)
->> +);
->> +
->> +TRACE_EVENT(gpi_process_event,
->> +	    TP_PROTO(struct device *dev, u32 chid, u32 type, const u32 *dword),
->> +	    TP_ARGS(dev, chid, type, dword),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, chid)
->> +			     __field(u32, type)
->> +			     __array(u32, dword, 4)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->chid = chid;
->> +			   __entry->type = type;
->> +			   memcpy(__entry->dword, dword, sizeof(__entry->dword));
->> +	    ),
->> +
->> +	    TP_printk("%s: chid=%u type=0x%02x %08x:%08x:%08x:%08x",
->> +		      __get_str(name), __entry->chid, __entry->type,
->> +		      __entry->dword[0], __entry->dword[1],
->> +		      __entry->dword[2], __entry->dword[3])
->> +);
->> +
->> +TRACE_EVENT(gpi_alloc_ring,
->> +	    TP_PROTO(struct device *dev, u32 elements, u32 el_size,
->> +		     u32 req_len, u64 len, size_t alloc_size),
->> +	    TP_ARGS(dev, elements, el_size, req_len, len, alloc_size),
->> +
->> +	    TP_STRUCT__entry(__field(u64, len)
->> +			     __field(size_t, alloc_size)
->> +			     __string(name, dev_name(dev))
->> +			     __field(u32, elements)
->> +			     __field(u32, el_size)
->> +			     __field(u32, req_len)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->elements = elements;
->> +			   __entry->el_size = el_size;
->> +			   __entry->req_len = req_len;
->> +			   __entry->len = len;
->> +			   __entry->alloc_size = alloc_size;
->> +	    ),
->> +
->> +	    TP_printk("%s: elements=%u el_size=%u req_len=%u len=%llu alloc_size=%zu",
->> +		      __get_str(name), __entry->elements, __entry->el_size,
->> +		      __entry->req_len, __entry->len, __entry->alloc_size)
->> +);
->> +
->> +TRACE_EVENT(gpi_ring_info,
->> +	    TP_PROTO(struct device *dev, dma_addr_t dma_handle, phys_addr_t phys_addr,
->> +		     u32 len, u32 el_size, u32 elements),
->> +	    TP_ARGS(dev, dma_handle, phys_addr, len, el_size, elements),
->> +
->> +	    TP_STRUCT__entry(__field(u64, dma_handle)
->> +			     __field(u64, phys_addr)
->> +			     __string(name, dev_name(dev))
->> +			     __field(u32, len)
->> +			     __field(u32, el_size)
->> +			     __field(u32, elements)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->dma_handle = dma_handle;
->> +			   __entry->phys_addr = phys_addr;
->> +			   __entry->len = len;
->> +			   __entry->el_size = el_size;
->> +			   __entry->elements = elements;
->> +	    ),
->> +
->> +	    TP_printk("%s: dma_handle=%llx phys_addr=%llx len=%u el_size=%u elements=%u",
->> +		      __get_str(name), __entry->dma_handle, __entry->phys_addr,
->> +		      __entry->len, __entry->el_size, __entry->elements)
->> +);
->> +
->> +TRACE_EVENT(gpi_already_state,
->> +	    TP_PROTO(struct device *dev, u32 gpii_id, u32 pm_state),
->> +	    TP_ARGS(dev, gpii_id, pm_state),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, gpii_id)
->> +			     __field(u32, pm_state)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->gpii_id = gpii_id;
->> +			   __entry->pm_state = pm_state;
->> +	    ),
->> +
->> +	    TP_printk("%s: gpii=%u already in pm_state=%u",
->> +		      __get_str(name), __entry->gpii_id, __entry->pm_state)
->> +);
->> +
->> +TRACE_EVENT(gpi_tre,
->> +	    TP_PROTO(struct device *dev, u32 chid, u32 idx, const u32 *dword),
->> +	    TP_ARGS(dev, chid, idx, dword),
->> +
->> +	    TP_STRUCT__entry(__string(name, dev_name(dev))
->> +			     __field(u32, chid)
->> +			     __field(u32, idx)
->> +			     __array(u32, dword, 4)
->> +	    ),
->> +
->> +	    TP_fast_assign(__assign_str(name);
->> +			   __entry->chid = chid;
->> +			   __entry->idx = idx;
->> +			   memcpy(__entry->dword, dword, sizeof(__entry->dword));
->> +	    ),
->> +
->> +	    TP_printk("%s: chid=%u tre[%u]=%08x:%08x:%08x:%08x",
->> +		      __get_str(name), __entry->chid, __entry->idx,
->> +		      __entry->dword[0], __entry->dword[1],
->> +		      __entry->dword[2], __entry->dword[3])
->> +);
->> +
->> +#endif /* _TRACE_QCOM_GPI_H */
->> +
->> +/* This part must be outside protection */
->> +#include <trace/define_trace.h>
->>
->> --
->> 2.34.1
->>
+> >       Also I thought about using con->write_thread(). But I think
+> > 	that we have to use the atomic variant because the Braille
+> > 	console can be called from printk() via the VT code, aka
+> > 	graphical console.
+> 
+> How can it be called from printk()? Even printk() writing to VT is only
+> if it is registered as a console. Braille consoles are not registered.
+> Please explain.
+
+I have added WARN_ON() into braille_write() and got this:
+
+[    0.069344] WARNING: drivers/accessibility/braille/braille_console.c:115 at braille_write+0x231/0x300, CPU#0: swapper/0/0
+[    0.069352] Modules linked in:
+[    0.069355] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5-default+ #139 PREEMPT(full)  db5f4527e6a3b5c4863452c3023f648284afb38d
+[    0.069358] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-2-g4f253b9b-prebuilt.qemu.org 04/01/2014
+[    0.069359] RIP: 0010:braille_write+0x231/0x300
+[    0.069362] Code: 71 02 41 83 c8 40 44 88 06 48 8d 56 02 c6 46 01 02 41 f6 42 49 01 0f 84 98 00 00 00 49 83 ba 80 00 00 00 00 0f 84 b0 00 00 00 <0f> 0b 48 8d 74 24 5a 48 8d 7c 24 08 29 f2
+ e8 2c d2 08 ff 48 8b 3d
+[    0.069363] RSP: 0000:ffffffffaf603b78 EFLAGS: 00010086
+[    0.069365] RAX: ffffffffb15c2e70 RBX: ffffffffb15c2e20 RCX: ffffffffaf603bfb
+[    0.069366] RDX: ffffffffaf603bfe RSI: ffffffffaf603bfc RDI: 0000000000000020
+[    0.069367] RBP: 00000000ffffffff R08: 0000000000000045 R09: ffffffffb15c2e70
+[    0.069367] R10: ffffffffaf9f5a20 R11: 0000000000000000 R12: 0000000000000000
+[    0.069368] R13: 0000000000000003 R14: ffffffffaf603ce8 R15: ffffffffafa33930
+[    0.069371] FS:  0000000000000000(0000) GS:ffff8d04287a1000(0000) knlGS:0000000000000000
+[    0.069372] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    0.069373] CR2: ffff8d03fffff000 CR3: 000000000b656000 CR4: 00000000000100b0
+[    0.069376] Call Trace:
+[    0.069377]  <TASK>
+[    0.069378]  ? check_prev_add+0xf2/0xe40
+[    0.069392]  ? lock_acquire.part.0+0xc5/0x230
+[    0.069394]  ? atomic_notifier_call_chain+0x2a/0x110
+[    0.069398]  vt_notifier_call+0x183/0x380
+[    0.069402]  ? rcu_is_watching+0x11/0x50
+[    0.069405]  ? __pfx_vt_notifier_call+0x10/0x10
+[    0.069406]  notifier_call_chain+0x5d/0x170
+[    0.069413]  atomic_notifier_call_chain+0x5f/0x110
+[    0.069417]  vt_console_print+0x22e/0x4c0
+[    0.069424]  ? console_emit_next_record+0x23a/0x2c0
+[    0.069428]  console_emit_next_record+0x264/0x2c0
+[    0.069430]  ? console_emit_next_record+0x23a/0x2c0
+[    0.069439]  console_flush_one_record+0x210/0x340
+[    0.069446]  console_unlock+0x6f/0x130
+[    0.069447]  ? vprintk_emit+0x187/0x250
+[    0.069451]  vprintk_emit+0x1fe/0x250
+[    0.069457]  _printk+0x5b/0x80
+[    0.069463]  ? __pfx_univ8250_console_init+0x10/0x10
+[    0.069470]  lockdep_init+0x10/0xc0
+[    0.069474]  start_kernel+0x5f2/0x720
+[    0.069481]  x86_64_start_reservations+0x24/0x30
+[    0.069484]  x86_64_start_kernel+0xd5/0xe0
+[    0.069487]  common_startup_64+0x13e/0x151
+[    0.069501]  </TASK>
+[    0.069502] irq event stamp: 324
+[    0.069502] hardirqs last  enabled at (323): [<ffffffffad43d623>] __down_trylock_console_sem+0x93/0xa0
+[    0.069506] hardirqs last disabled at (324): [<ffffffffad44072e>] console_emit_next_record+0x21e/0x2c0
+[    0.069507] softirqs last  enabled at (0): [<0000000000000000>] 0x0
+[    0.069510] softirqs last disabled at (0): [<0000000000000000>] 0x0
+[    0.069511] ---[ end trace 0000000000000000 ]---
+
+This shows that braille_write() is called form printk() even when
+braille_co is not in console_list. It is called via vt_console_print()
+because the graphical console driver (ttyX) is registered.
+
+Best Regards,
+Petr
