@@ -1,118 +1,81 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745CE46F4BD;
-	Fri, 25 Sep 2026 13:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC41149DB8D;
+	Fri, 25 Sep 2026 13:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341612; cv=none; b=U+bgZknTvwzq4vpYcT1Kg/wBDTVW2l1VHmSkJHDksZkSbNwX8I5IaCU9LrAxJP3b4UNxTqU3doV9bvo0k2BrBiB2hZp5R5HGZtnHd/dhLCDfp8nnPgKkKfFuVF9fSUrKSFVrltIsUnaWDM6kPSsUol4rsfnq5AW7C8ubsq1BvdY=
+	t=1790341616; cv=none; b=CDINq4hKg2JHh8fSs7D+Y2F/xLdN+EujqvEmv+SanxOruZHT9bTjVDdH5x/q96EPJJVgNDgTbVyYofyyxBsZz1+FzENcHZi+6cNiMDfAFAHrcclwXFOmGeCOIfIqo78xx+m3lAQQoNPpsfyPQtf6aj4o7nbKoZH4kfXDaDsXsQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341612; c=relaxed/simple;
-	bh=5LiU7u1Sd8vqr5RRPtFupIejm8J7rPUf9Xtw/ZZXIiA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tG7mvvV86VFf6DveAPTA/QJ9y//6zQ3fXM1SIgTLzn9iJUirE0sRAnsgA4E6/rtJOEF2JI9XCDENsGKdywTg3sDUH7oz6xFih6FbkIiLKviO6p6lJEDDzuYv+3R2nehiAzZ5d0KGD8ClaW9v/8z0U+qtw4wVr9yra7U6ox8X3vA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=P6sPMLxJ; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1790341616; c=relaxed/simple;
+	bh=oIr3KPdMNnlz8FeLHazRsNWMMFqBw0VgTMa0PhL8Cuk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b0AXBW4Q88rSsCcCPbEO6FW1tvcyJe5rZjESpRTeW0VsDnwBZ3ezqIKII4N+0jTHeN3TH+4TOujDVa4A/pjekp/xvizXi2Y6e0+mSlxkPbtEl10j4BHqNmmnD6Ph43FG2+EHKzwlRCbG/d+6uOR73px4EYit/pRka/SdStIlvF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RPGETY43; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="P6sPMLxJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790341610; x=1821877610;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5LiU7u1Sd8vqr5RRPtFupIejm8J7rPUf9Xtw/ZZXIiA=;
-  b=P6sPMLxJ1iDDQks46WQX4Ee0nsTRGWGW5CN/npI0i+mLG9vvGSu6Kumm
-   WsREuH3tuJFWAm/L2st8YO895mKDWstLp7s3Qm8hPbILuCt4K8THQzaRl
-   LbzOR/TwuOk+/Kr5Oakt2LLOw6BcA1wqiRpdqPeLAbq9MEV8PNsLVcpo/
-   pNSfY7xoQkuOBuQhLYsOxpK/282ZAJ30Vpp4WI0XshsKOtxuYDrmxiJMi
-   y0G99mUp6wb9+w9WYg/5+TeFFXk0BtMl5OLY4sboix1B9UoDZCoxxrguj
-   kLeOPsNZwIuLiwx5GXa1BS5zuvXbE9taJ58egdZICrmlR3MbxdOzpTi9Z
-   w==;
-X-CSE-ConnectionGUID: 0oTG/wW9SWmgreduiR0bWg==
-X-CSE-MsgGUID: U+rPuNpRSV2rV5jNhfO0Yg==
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="295561569"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 06:06:44 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Fri, 25 Sep 2026 06:06:43 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Fri, 25 Sep 2026 06:06:41 -0700
-Date: Fri, 25 Sep 2026 15:06:41 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-CC: Steen Hegelund <Steen.Hegelund@microchip.com>,
-	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	<linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <kernel-janitors@vger.kernel.org>,
-	<error27@gmail.com>
-Subject: Re: [PATCH] net: microchip: vcap: stop scanning after deleting key
- field
-Message-ID: <20260925130641.awviajhuq6mcb22w@DEN-DL-M70577.microsemi.net>
-References: <20260925063937.963430-1-harshit.m.mogalapalli@oracle.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RPGETY43"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCEF21F000FF;
+	Fri, 25 Sep 2026 13:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790341614;
+	bh=UuEiudtFZaUQYnaNOodb7Jda4VXpTSORWOacwuLmv9c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RPGETY43Wv0o24mgk7BFYpS4/dkBeuuAOHUSOIZS8msT/25ShDQWTroQFvXSkJOqh
+	 X3wmrl8b6D5wFsl98tFQQdp34Bfjcr4cANlm9RTs/yPFs04Dzvx6XLm1kJ2sPP4hbj
+	 NuIRdj46A74AcKwu29EKpUaO+sNvKJAWfqhCTB7dqoOU7AlzcySD4VJw7GpZPDRzwK
+	 9q3gA3M9rKvMF0TwHtbOm8IFWJawtoMyPNPfM0qpJhdVj8u6SV8Lxmdm2ENOtaOiu1
+	 tt8+1VO2coXM2nDLAKJGqsC2Ntz4dYuR0Twza0pcgXk8tenhhB1qQ8ONYncW6YtxUq
+	 TtZ3RcmngvtJQ==
+Date: Fri, 25 Sep 2026 15:06:51 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Colin Huang <u8813345@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Grant Peltier <grant.peltier.jg@renesas.com>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, colin.huang2@amd.com
+Subject: Re: [PATCH v3 2/2] hwmon: (pmbus/isl68137): Add Renesas RAA229639
+ and RAA229640
+Message-ID: <20260925-hysterical-otter-of-courage-bc6ab0@quoll>
+References: <20260921-add-raa229639-and-raa229640-v3-0-b104ee8a70b2@gmail.com>
+ <20260921-add-raa229639-and-raa229640-v3-2-b104ee8a70b2@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260925063937.963430-1-harshit.m.mogalapalli@oracle.com>
+In-Reply-To: <20260921-add-raa229639-and-raa229640-v3-2-b104ee8a70b2@gmail.com>
 
-> The only call outside the KUnit tests is in
-> sparx5_tc_add_rule_copy(), which passes a fixed key list with no
-> duplicate entries. Therefore, the potential double-free is not
-> currently reachable in tree.
-
-Agree. Not reachable today.
-
+On Mon, Sep 21, 2026 at 03:16:36PM +0800, Colin Huang wrote:
+> Add support for the Renesas RAA229639 and RAA229640 PMBus
+> voltage regulator devices.
 > 
-> However, vcap_filter_rule_keys() is exported and does not require its
-> key list entries to be unique. If a future or external caller supplies
-> the same key at another position that the inner loop visits, it calls
-> list_del() and kfree() a second time on the freed field, leading to a
-> potential double-free.
+> Both devices are supported by the existing raa_dmpvr2_2rail_nontc
+> driver variant, so no functional changes are required beyond
+> adding the corresponding device IDs and OF match entries.
 > 
-
-Also agree.
-
-> Break the inner loop after removing a matching field. The outer safe
-> list traversal continues to process the remaining rule fields.
-> 
-> Fixes: 465a38a269e9 ("net: microchip: sparx5: Support for copying and modifying rules in the API")
-> Reported-by: Dan Carpenter <error27@gmail.com>
-> Closes: https://lore.kernel.org/all/ahs-lCAXXikkaHky@stanley.mountain/
-> Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
 > ---
->  drivers/net/ethernet/microchip/vcap/vcap_api.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/hwmon/pmbus/isl68137.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> diff --git a/drivers/net/ethernet/microchip/vcap/vcap_api.c b/drivers/net/ethernet/microchip/vcap/vcap_api.c
-> index 788c0728d763..0f8d98f2094d 100644
-> --- a/drivers/net/ethernet/microchip/vcap/vcap_api.c
-> +++ b/drivers/net/ethernet/microchip/vcap/vcap_api.c
-> @@ -3527,8 +3527,8 @@ int vcap_filter_rule_keys(struct vcap_rule *rule,
->                                 if (key == keylist[idx]) {
->                                         list_del(&ckf->ctrl.list);
->                                         kfree(ckf);
-> -                                       idx++;
->                                         err = 0;
-> +                                       break;
->                                 }
->                 }
->         }
-> --
-> 2.52.0
-> 
+> diff --git a/drivers/hwmon/pmbus/isl68137.c b/drivers/hwmon/pmbus/isl68137.c
+> index 2f7f825bfb69..15b4e3f15f11 100644
+> --- a/drivers/hwmon/pmbus/isl68137.c
+> +++ b/drivers/hwmon/pmbus/isl68137.c
+> @@ -456,6 +456,8 @@ static const struct i2c_device_id raa_dmpvr_id[] = {
+>  	{ .name = "raa229004", .driver_data = raa_dmpvr2_2rail },
+>  	{ .name = "raa229141", .driver_data = raa_dmpvr2_2rail_pmbus },
+>  	{ .name = "raa229621", .driver_data = raa_dmpvr2_2rail },
+> +	{ .name = "raa229639", .driver_data = raa_dmpvr2_2rail_nontc },
+> +	{ .name = "raa229640", .driver_data = raa_dmpvr2_2rail_nontc },
 
-Patch is missing the target tree (net), the fix LGTM.
+The entire point of fallback is to avoid this change. Why do you need
+this?
 
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+Best regards,
+Krzysztof
+
