@@ -1,346 +1,335 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7070B42E408;
-	Fri, 25 Sep 2026 10:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F95C41DDF2;
+	Fri, 25 Sep 2026 10:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790333317; cv=none; b=OCAKWVw/sCtLVskV+ifol08P+rDRgmN/xvVanRcY/6kTpRvjvoh9CkzkeDU3JDenLh82H7jiR7iP8hKl3VTkj7CJ2GgK4aMtxX9XMLxWCC8VvHxypfmtisDH6hS6KGlGNSOCZD6JKx4yZJUhUaYr99v0XjI9jCMKhPgtbHBoGRE=
+	t=1790333334; cv=none; b=qnS+cM44/ktA0p7sgJQsW8qz/CWby3qTXy2DGgaPE7A3O165WRejGEwHvynFTC/Xw1YgJS0X467tnh5iJiwgQvuUaHbsY/oCaV9+7ofkApGZXKgI9/ulKt4qjeZazVwhCGBKKqi0boMxbqeoihN/A4l07kV9l7DeI9dYss79Blw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790333317; c=relaxed/simple;
-	bh=BfoJjpwX8aie25AWeGAD3njgcSpy984yr1WWCtqmY/A=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=l3vlOLZmvHP7Hw9y8y4eXgUvpUTq1tvpQhyB4Df+qwjymQs4zYum2Q0nyWnuClcuEq8zirlje+hjJWmBo9BRLZErCYHOKV104vzeLvOQMB20YsBG/K++GaNLwflLqveogY8dK15su6egnDwV1rlgQumEZvqTOxSuRSC4og8c/lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rSZY0H1A; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=w8xGqeG4; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790333334; c=relaxed/simple;
+	bh=aVIqsYEDzwPPEQ2lCTsRL+AAkmv2iHaXQCgyjyXNB78=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SLqN0fMYGwRPyPnQ1y9mxo5EJkC+zt6V0yEikfVxwbnuCbDMFu+Z/tV/GfmvcxpQt+wJaDBHbHhZ0ahRNhfAd+f6Tze03bOznPrJBzZNwRkf99kqWbzZ32bQJ1gfSF93vw8n4Ro9va5WjgG46nK3ynW8T67raFXJlurWMeMRC2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YJeinSQC; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rSZY0H1A";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="w8xGqeG4"
-Date: Fri, 25 Sep 2026 10:48:24 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790333305;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D9BGTarbLaa+7/X7cyKCHcxI7jLjS7hd+tEFaaUxWis=;
-	b=rSZY0H1AmIMe/dRerui7Najn26WqiB7RSw4Fu9xoOoEjsO9DGTbSHs2KWPNDwYg+iK6kc4
-	ytfGlD4XMbwKLoUOcqfOP4rh+P076h7He0JbMhP8few5PuIFnmgOmGzUeLVi3NUiRG9qeb
-	FDGuTdeHcFOs3qiZbO+O99NyoVFDMMooFYk1Ja9R/HfHoDp3PTlPLS8SVTcmcQRR/vbBR8
-	oq9W8bpaARRr8nSAVh8ySK+CD8DcCpKd8QFrydhJc8aHrP7igHSI1QsCOhkodyyd/+cvvw
-	SP7t1I4b2KVE6LH7XIXOZkSCuiRl1TXIvfSL2DAuPVttA/Ew6DneDcF1fbU3UQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790333305;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D9BGTarbLaa+7/X7cyKCHcxI7jLjS7hd+tEFaaUxWis=;
-	b=w8xGqeG4alxOt48Dj3bumMM8tTyg+EhpOm/fTt5S2sLRU/25Z/jjum0dkkxioLrN+2qY09
-	sqTM/KFFAMp6BoDw==
-From: "tip-bot2 for Sean Christopherson" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/core] perf/x86: KVM: Have perf define a dedicated struct
- for getting guest PEBS data
-Cc: Sean Christopherson <seanjc@google.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Jim Mattson <jmattson@google.com>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260921191418.950933-7-seanjc@google.com>
-References: <20260921191418.950933-7-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YJeinSQC"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AEF981A1022;
+	Fri, 25 Sep 2026 10:48:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 808E16073B;
+	Fri, 25 Sep 2026 10:48:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 35080103295BB;
+	Fri, 25 Sep 2026 12:48:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790333318; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=UmUwaUSO2i4fducsoEGi64giRyEaAPB1eU/lhpOclA8=;
+	b=YJeinSQCCOzu7yJtl2bXo/Lf4n4b1pwbe8oQySOJlf+/3sTrMkSbc/sCg77vt9s0zsRvns
+	onzdDcQsminznylp5KISGqd/bLS2Nj1svcHORXwbUrqAiQd6CPzRte/4mlyF6G3WhlUm06
+	J/QrnmiVSuaAQjWbnBWK1AV4XpU0qrAL5ZeXrP334ZTYKHqMTe/wARHzyfRIbbcNdIekn1
+	nZzQ09KXfk2ehUaOmAGhpRHkT0YnY23kDBUDFPIB1Q4qqmfTkCdk9C1NCpY6b5FGW+G5hr
+	8LXcH3ORbkm/cU6BTKi8pfE39EI31o/c2tRd1WlCWFrJk2i/KNcRYaSjGoMOzQ==
+Date: Fri, 25 Sep 2026 12:48:31 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
+Message-ID: <20260925124831.75789c4d@bootlin.com>
+In-Reply-To: <arSdrp6WtJfdiAne@gractus.seuss>
+References: <aqJ5OhJcv4k-ZAj8@gractus.seuss>
+ <20260911091653.37b22b0f@bootlin.com>
+ <aqS6HmkaVYbrePtN@gractus.seuss>
+ <20260914121937.5b7fa2bb@bootlin.com>
+ <aqonNkbVqW9tf6Bg@gractus.seuss>
+ <20260917090450.770c107a@bootlin.com>
+ <aqzA11pFzN_3_Nhf@gractus.seuss>
+ <20260918101617.46b3477e@bootlin.com>
+ <aq4N5zbuCVZ4e6-C@gractus.seuss>
+ <20260922084154.576a42d0@bootlin.com>
+ <arSdrp6WtJfdiAne@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179033330414.2819794.5313001985712809252.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The following commit has been merged into the perf/core branch of tip:
+Hi David,
 
-Commit-ID:     a634e4536ec22a17e2391fd5ed38c06ad99cbf99
-Gitweb:        https://git.kernel.org/tip/a634e4536ec22a17e2391fd5ed38c06ad99=
-cbf99
-Author:        Sean Christopherson <seanjc@google.com>
-AuthorDate:    Mon, 21 Sep 2026 12:14:14 -07:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Fri, 25 Sep 2026 12:45:53 +02:00
+On Thu, 24 Sep 2026 13:49:55 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-perf/x86: KVM: Have perf define a dedicated struct for getting guest PEBS data
+> On Tue, Sep 22, 2026 at 08:41:54AM +0200, Herve Codina wrote:
+> > On Sat, 19 Sep 2026 14:22:09 +1000
+> > David Gibson <david@gibson.dropbear.id.au> wrote:
+> >   
+> > > On Fri, Sep 18, 2026 at 10:16:17AM +0200, Herve Codina wrote:  
+> > > > Hi David,
+> > > > 
+> > > > On Fri, 18 Sep 2026 14:41:11 +1000
+> > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > >     
+> > > > > On Thu, Sep 17, 2026 at 09:04:50AM +0200, Herve Codina wrote:    
+> > > > > > Hi David,
+> > > > > > 
+> > > > > > On Wed, 16 Sep 2026 15:21:15 +1000
+> > > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > > > >       
+> > > > > > > On Mon, Sep 14, 2026 at 12:19:37PM +0200, Herve Codina wrote:      
+> > > > > > > > Hi David,
+> > > > > > > > 
+> > > > > > > > On Sat, 12 Sep 2026 12:34:24 +1000
+> > > > > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > > > > > > 
+> > > > > > > > ...
+> > > > > > > >         
+> > > > > > > > > > Do you mean that we should avoid the DATA_LEN_ENCODING and always have the
+> > > > > > > > > > 32-bit value right after the tag to give the size for all "skippable" tags?          
+> > > > > > > > > 
+> > > > > > > > > Yes.
+> > > > > > > > >         
+> > > > > > > > 
+> > > > > > > > I did a test using a dts file available in kernel sources. I used (arbitrary
+> > > > > > > > choice) juno.dts [0].
+> > > > > > > > 
+> > > > > > > > Without any new tags, the size of the compiled dtb is 27067 bytes.
+> > > > > > > > 
+> > > > > > > > With new metadata tags identifying phandles in properties (FDT_PROPDATA_PHANDLE),
+> > > > > > > > the size of the dtb becomes 29027 bytes and so 29027 - 27067 = 1960 bytes for
+> > > > > > > > those FDT_PROPDATA_PHANDLE tags (+7.2%).
+> > > > > > > > 
+> > > > > > > > The tags used are composed of:
+> > > > > > > > 32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit for data
+> > > > > > > > 32-bit: offset in the property where a phandle is present.
+> > > > > > > > 
+> > > > > > > > Removing the '1 x 32-bit' information from the tag value and adding a 32-bit
+> > > > > > > > 'length' in all cases will lead 3 x 32-bit values for a FDT_PROPDATA_PHANDLE
+> > > > > > > > tag (tag + length + offset) instead of the 2 x 32-bit (tag + offset).
+> > > > > > > > 
+> > > > > > > > Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_PHANDLE will need
+> > > > > > > > 1960 * 3 / 2 = 2640 bytes (+9.7%). This leads to around +2.5% of the whole
+> > > > > > > > dtb just to have the 32-bit for length. This +2.5% can be easily avoided.
+> > > > > > > > 
+> > > > > > > > Also, I will not be surprised to see more tags in the future adding some more
+> > > > > > > > metadata information and so increasing dtb sizes.
+> > > > > > > > 
+> > > > > > > > Quite often you have mentioned memory constraints system where libfdt should
+> > > > > > > > be as small as possible. On those system, the dtb itself is embedded in the
+> > > > > > > > binary close to libfdt. The size of dtb should be taken into account.        
+> > > > > > > 
+> > > > > > > Yeah, those proportions are high enough that I think it's worth it.
+> > > > > > >       
+> > > > > > > > If the SAFE_SKIP bit is removed, I even plan to use this now free bit in the
+> > > > > > > > length encoding part:
+> > > > > > > >   0b000: No data
+> > > > > > > >   0b001: 1 fdt32
+> > > > > > > >   0b010: 2 fdt32
+> > > > > > > >   ...
+> > > > > > > >   0b110: 6 fdt32
+> > > > > > > >   0b111: On additional fdt32 to encode the length of data.
+> > > > > > > > 
+> > > > > > > > IHMO, length encoding bits in tag value definition should be kept and used
+> > > > > > > > for all tags where the length is fixed and can be encoded using
+> > > > > > > > these bits.        
+> > > > > > > 
+> > > > > > > Well, I'm convinced we want some sort of compact encoding of the
+> > > > > > > length, but I think we can do better than the current proposal.  It
+> > > > > > > seems implausible to me that we'll need 2^29 different metadata tags,
+> > > > > > > so I think we can spend some more of the tag bits on the length.  How about:
+> > > > > > > 
+> > > > > > >    0x80000000		structured tag bit
+> > > > > > >    0x7fff0000		tag type
+> > > > > > >    0x0000ffff		tag length
+> > > > > > > 
+> > > > > > > So we have up to 2^15 (32k) different structured tags each with a
+> > > > > > > length of [0..65534] bytes (length==65535 reserved for those that need
+> > > > > > > a full 32-bit length word).
+> > > > > > > 
+> > > > > > > I believe that will avoid the extra length word for everything you
+> > > > > > > have currently drafted.
+> > > > > > >       
+> > > > > > 
+> > > > > > Yes, this will avoid the extra length field. The drawback is the that the
+> > > > > > tag value is no more a well fixed value. Each time we have to check the tag
+> > > > > > value we have to filter out the tag length.
+> > > > > > 
+> > > > > > For instance:
+> > > > > > - FDT_PROPDATA_PHANDLE
+> > > > > >   fixed data size 4 bytes for offset
+> > > > > >   tag value: 0x80010004
+> > > > > > 
+> > > > > > - FDT_PROPDATA_PHANDLE_REF
+> > > > > >   data: 4 bytes for offset + N bytes for a string
+> > > > > >   tag value 0x8002ssss with ssss for the size
+> > > > > > 
+> > > > > > This will lead to code like this:
+> > > > > >   tag = fdt_next_tag();
+> > > > > >   if (tag == FDT_PROPDATA_PHANDLE)
+> > > > > >     /* Do something */
+> > > > > >      
+> > > > > >   if (TAG_GET_ID(tag) == FDT_PROPDATA_PHANDLE_REF)
+> > > > > >     /* Do something */      
+> > > > > 
+> > > > > True.  But.. a similar problem kind of exists with the original
+> > > > > proposed encoding too: we *expect* a tag with fixed 4-byte contents to
+> > > > > use the "1 cell" flags, but we need to consider the case of encoding
+> > > > > it as VARLEN with a length field of 4.  We could choose to make that
+> > > > > forbidden, but we'd still need to consider who's responsible for
+> > > > > enforcing that.
+> > > > > 
+> > > > > Similarly, if a variable length metadata tag happens to have length 4
+> > > > > or 8 in a particular place, is it valid to encode it with the 1-cell
+> > > > > or 2-cell flag?    
+> > > > 
+> > > > My position was: if we expect a tag with "1-cell" flag, using varlen
+> > > > field encoding is considered as an other tag and so either an error
+> > > > or a skippable unknown tag.    
+> > > 
+> > > So essentially tags of different (fixed) length live in different
+> > > namespaces.  Ok, that makes good sense to me, but wasn't initially
+> > > obvious to me.  So, I think we need to spell this out a bit better.
+> > >   
+> > > > The same apply for varlen defined tag. Even if the data is, let's
+> > > > say 8 bytes, the tag cannot be moved to a "2-cells" tag.
+> > > > 
+> > > > The kind of data length encoding (1-cell, 2-cells, varlength) is done
+> > > > when the tag is defined and cannot be changed.
+> > > > 
+> > > > Who is responsible for enforcing that ?
+> > > > I would say the documentation of the tag should clearly set the data
+> > > > encoding used for the tag and the documentation of the "skippable"
+> > > > format should say that data encoding is fixed for a given tag. It is
+> > > > set when the tag is defined and any changes at runtime should be
+> > > > considered as a different tag.
+> > > > 
+> > > > Of course we can introduce dynamic length encoding to set the data length
+> > > > encoding in the tag according to the exact data length found at runtime.
+> > > >     
+> > > > > As a variant on my proposal, I'd also be fine with dividing the
+> > > > > structed tags into several classes with bits indicating which is
+> > > > > which.  Either:
+> > > > > 
+> > > > >  * "short" vs "long": "short" always has the length within the tag
+> > > > >    word (and so cannot exceed 64k, or however many bits we set aside)
+> > > > >    whereas long always has a length word
+> > > > >  * "fixed" vs "variable", fixed length tag types always have the same
+> > > > >    length, so the length can be considered part of the tag.  Variable
+> > > > >    would have a length word.    
+> > > > 
+> > > > Well, only strings, or more generally arrays, need a varlen. For those
+> > > > item, I would use the varlen word and so "long" in your definition.
+> > > > 
+> > > > For all others where the sizeof(data) is well known when the tag is
+> > > > defined, I would use "fixed" and "long" only if sizeof(data) cannot
+> > > > be encoded by "fixed" (lengh > limit of dedicated bits).    
+> > > 
+> > > Right, now understanding your thoughts on the originally proposed
+> > > encoding, the "fixed" versus "variable" distinction makes more sense I
+> > > think.  I do see the advantage of never having a variable length
+> > > encoded within the tag word.
+> > >   
+> > > > Without any additional bits for any category, all of these fit with the
+> > > > following length encoding:
+> > > >   000...00: No data
+> > > >   000...01: 1 x 32-bit
+> > > >   111...10: N x 32-bit
+> > > >   111...11: varlen word    
+> > > 
+> > > Right, so revising my suggestions in light of a better understanding
+> > > of what you had in mind originally, it comes down to:
+> > > 
+> > >  * I think adding more bits to the size field would be worthwhile to
+> > >    allow a wider variety of future fixed length metadata tags.  
+> > 
+> > Right, I have planned to add one more bit compared to the original proposal.
+> > This leads to 3 bits and so 0 to 6 32-bit data words (0b111 means varlen word).
+> > 
+> > Do you think we should add one more bits?  
+> 
+> I don't think we particularly need them for the tag type, so yes, I
+> think that would be worthwhile.
+> 
+> > >  * Originally I was thinking that having a length in bytes rather than
+> > >    just a length in 32-bit words would be worth it.  But thinking
+> > >    further, there's probably no benefit.  The length rounded up to
+> > >    32-bit words is all we need for skipping over it when unknown.
+> > >    Even if we want a fixed length tag with, say, 3 bytes of data, we
+> > >    can pad that out to a 1-word tag with a reserved byte.  
+> > 
+> > The varlen word could be kept in bytes.  
+> 
+> The varlen word _must_ be kept in bytes.
+> 
+> > > Ok, so more length bits and better documentation of the fixed
+> > > vs. variable distinction are the only remaming suggestions.  
+> 
 
-Have perf define a struct for getting guest PEBS data from KVM instead of
-poking into the kvm_pmu structure.  Passing in an entire "struct kvm_pmu"
-_as an opaque pointer_ to get at four fields is silly, especially since
-one of the fields exists purely to convey information to perf, i.e. isn't
-used by KVM.
+So the name "structured" tag will be replace my "skippable" tag. I don't
+want to use "metadata" because we don't know if future tags will be only
+metadata tags or something else that shouldn't be qualified by "metadata".
 
-Perf should also own its APIs, i.e. define what fields/data it needs, not
-rely on KVM to throw fields into data structures that effectively hold
-KVM-internal state.
+Skippable tag format:
+  - bit 31: set to 1
+      Indentify a skippable tag.
+  - bits 30..24: Data length encoding
+      Encode the length of data attached to the tag.
+      0b0000000: No data
+      0b0000001: 1 32-bit word
+      0b0000010: 2 x 32-bits words
+      0b0000011: 3 x 32-bits words
+      ...
+      0b1111101: 125 x 32-bits words
+      0b1111110: 126 x 32-bits words
+      0b1111111: varlen encoding. The length of data is encode by an 32-bit
+                 word available right after the tag. This word gives the
+                 length of data in bytes.
 
-Opportunistically rephrase the comment about cross-mapped counters to
-explain *why* PEBS needs to be disabled.
+  - bits 23..0: Tag identifier
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Reviewed-by: Jim Mattson <jmattson@google.com>
-Link: https://patch.msgid.link/20260921191418.950933-7-seanjc@google.com
----
- arch/x86/events/core.c            |  5 +++--
- arch/x86/events/intel/core.c      | 16 ++++++++--------
- arch/x86/events/perf_event.h      |  3 ++-
- arch/x86/include/asm/kvm_host.h   |  9 ---------
- arch/x86/include/asm/perf_event.h | 12 ++++++++++--
- arch/x86/kvm/vmx/pmu_intel.c      | 17 ++++++++++++++---
- arch/x86/kvm/vmx/vmx.c            | 11 ++++++++---
- arch/x86/kvm/vmx/vmx.h            |  2 +-
- 8 files changed, 46 insertions(+), 29 deletions(-)
+The full tag value are used to identify a tag. Two skippable tags with the
+same tag identifier field but with different data lengh encoding should be
+considered as two different tags.
 
-diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
-index ef9b8df..9b1a903 100644
---- a/arch/x86/events/core.c
-+++ b/arch/x86/events/core.c
-@@ -862,9 +862,10 @@ void x86_pmu_disable_all(void)
- 	}
- }
-=20
--struct perf_guest_switch_msr *perf_guest_get_msrs(int *nr, void *data)
-+struct perf_guest_switch_msr *perf_guest_get_msrs(int *nr,
-+						  struct x86_guest_pebs *guest_pebs)
- {
--	return static_call(x86_pmu_guest_get_msrs)(nr, data);
-+	return static_call(x86_pmu_guest_get_msrs)(nr, guest_pebs);
- }
- EXPORT_SYMBOL_FOR_KVM(perf_guest_get_msrs);
-=20
-diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-index 0765187..87274b3 100644
---- a/arch/x86/events/intel/core.c
-+++ b/arch/x86/events/intel/core.c
-@@ -14,7 +14,6 @@
- #include <linux/slab.h>
- #include <linux/export.h>
- #include <linux/nmi.h>
--#include <linux/kvm_host.h>
-=20
- #include <asm/cpufeature.h>
- #include <asm/cpuid/api.h>
-@@ -5328,11 +5327,11 @@ static int intel_pmu_hw_config(struct perf_event *eve=
-nt)
-  * when it uses {RD,WR}MSR, which should be handled by the KVM context,
-  * specifically in the intel_pmu_{get,set}_msr().
-  */
--static struct perf_guest_switch_msr *intel_guest_get_msrs(int *nr, void *dat=
-a)
-+static struct perf_guest_switch_msr *intel_guest_get_msrs(int *nr,
-+							  struct x86_guest_pebs *guest_pebs)
- {
- 	struct cpu_hw_events *cpuc =3D this_cpu_ptr(&cpu_hw_events);
- 	struct perf_guest_switch_msr *arr =3D cpuc->guest_switch_msrs;
--	struct kvm_pmu *kvm_pmu =3D (struct kvm_pmu *)data;
- 	u64 intel_ctrl =3D hybrid(cpuc->pmu, intel_ctrl);
- 	u64 pebs_mask =3D cpuc->pebs_enabled & x86_pmu.pebs_capable;
- 	u64 guest_pebs_mask;
-@@ -5386,7 +5385,7 @@ static struct perf_guest_switch_msr *intel_guest_get_ms=
-rs(int *nr, void *data)
- 	 * the guest wants to use for PEBS, (c) are not excluded from counting
- 	 * in the guest, and (d) _are_ excluded from counting in the host.
- 	 */
--	guest_pebs_mask =3D pebs_mask & intel_ctrl & kvm_pmu->pebs_enable &
-+	guest_pebs_mask =3D pebs_mask & intel_ctrl & guest_pebs->enable &
- 			  ~cpuc->intel_ctrl_exclude_guest_mask &
- 			  cpuc->intel_ctrl_exclude_host_mask;
-=20
-@@ -5396,7 +5395,7 @@ static struct perf_guest_switch_msr *intel_guest_get_ms=
-rs(int *nr, void *data)
- 	 * PERF_GLOBAL_STATUS, i.e. the guest will see overflow status for the
- 	 * wrong counter(s).
- 	 */
--	guest_pebs_mask &=3D ~kvm_pmu->host_cross_mapped_mask;
-+	guest_pebs_mask &=3D ~guest_pebs->cross_mapped_mask;
-=20
- 	/*
- 	 * FIXME: Allow guest and host usage of PEBS events to co-exist instead
-@@ -5415,14 +5414,14 @@ static struct perf_guest_switch_msr *intel_guest_get_=
-msrs(int *nr, void *data)
- 	arr[(*nr)++] =3D (struct perf_guest_switch_msr){
- 		.msr =3D MSR_IA32_DS_AREA,
- 		.host =3D (unsigned long)cpuc->ds,
--		.guest =3D guest_pebs_mask ? kvm_pmu->ds_area : (unsigned long)cpuc->ds,
-+		.guest =3D guest_pebs_mask ? guest_pebs->ds_area : (unsigned long)cpuc->ds,
- 	};
-=20
- 	if (x86_pmu.intel_cap.pebs_baseline) {
- 		arr[(*nr)++] =3D (struct perf_guest_switch_msr){
- 			.msr =3D MSR_PEBS_DATA_CFG,
- 			.host =3D cpuc->active_pebs_data_cfg,
--			.guest =3D guest_pebs_mask ? kvm_pmu->pebs_data_cfg :
-+			.guest =3D guest_pebs_mask ? guest_pebs->data_cfg :
- 						   cpuc->active_pebs_data_cfg,
- 		};
- 	}
-@@ -5438,7 +5437,8 @@ static struct perf_guest_switch_msr *intel_guest_get_ms=
-rs(int *nr, void *data)
- 	return arr;
- }
-=20
--static struct perf_guest_switch_msr *core_guest_get_msrs(int *nr, void *data)
-+static struct perf_guest_switch_msr *core_guest_get_msrs(int *nr,
-+							 struct x86_guest_pebs *guest_pebs)
- {
- 	struct cpu_hw_events *cpuc =3D this_cpu_ptr(&cpu_hw_events);
- 	struct perf_guest_switch_msr *arr =3D cpuc->guest_switch_msrs;
-diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
-index 7c3a84e..e274802 100644
---- a/arch/x86/events/perf_event.h
-+++ b/arch/x86/events/perf_event.h
-@@ -1226,7 +1226,8 @@ struct x86_pmu {
- 	/*
- 	 * Intel host/guest support (KVM)
- 	 */
--	struct perf_guest_switch_msr *(*guest_get_msrs)(int *nr, void *data);
-+	struct perf_guest_switch_msr *(*guest_get_msrs)(int *nr,
-+							struct x86_guest_pebs *guest_pebs);
-=20
- 	/*
- 	 * Check period value for PERF_EVENT_IOC_PERIOD ioctl.
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 683bb8b..5e8aecf 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -609,15 +609,6 @@ struct kvm_pmu {
- 	u64 pebs_data_cfg_rsvd;
-=20
- 	/*
--	 * If a guest counter is cross-mapped to host counter with different
--	 * index, its PEBS capability will be temporarily disabled.
--	 *
--	 * The user should make sure that this mask is updated
--	 * after disabling interrupts and before perf_guest_get_msrs();
--	 */
--	u64 host_cross_mapped_mask;
--
--	/*
- 	 * The gate to release perf_events not marked in
- 	 * pmc_in_use only once in a vcpu time slice.
- 	 */
-diff --git a/arch/x86/include/asm/perf_event.h b/arch/x86/include/asm/perf_ev=
-ent.h
-index 12f7db8..27f9c5b 100644
---- a/arch/x86/include/asm/perf_event.h
-+++ b/arch/x86/include/asm/perf_event.h
-@@ -819,11 +819,19 @@ extern void perf_load_guest_lvtpc(u32 guest_lvtpc);
- extern void perf_put_guest_lvtpc(void);
- #endif
-=20
-+struct x86_guest_pebs {
-+	u64	enable;
-+	u64	ds_area;
-+	u64	data_cfg;
-+	u64	cross_mapped_mask;
-+};
- #if defined(CONFIG_PERF_EVENTS) && defined(CONFIG_CPU_SUP_INTEL)
--extern struct perf_guest_switch_msr *perf_guest_get_msrs(int *nr, void *data=
-);
-+extern struct perf_guest_switch_msr *perf_guest_get_msrs(int *nr,
-+							 struct x86_guest_pebs *guest_pebs);
- extern void x86_perf_get_lbr(struct x86_pmu_lbr *lbr);
- #else
--struct perf_guest_switch_msr *perf_guest_get_msrs(int *nr, void *data);
-+struct perf_guest_switch_msr *perf_guest_get_msrs(int *nr,
-+						  struct x86_guest_pebs *guest_pebs);
- static inline void x86_perf_get_lbr(struct x86_pmu_lbr *lbr)
- {
- 	memset(lbr, 0, sizeof(*lbr));
-diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index bfa8612..a21e146 100644
---- a/arch/x86/kvm/vmx/pmu_intel.c
-+++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -747,11 +747,21 @@ static void intel_pmu_cleanup(struct kvm_vcpu *vcpu)
- 		intel_pmu_release_guest_lbr_event(vcpu);
- }
-=20
--void intel_pmu_cross_mapped_check(struct kvm_pmu *pmu)
-+u64 intel_pmu_get_cross_mapped_mask(struct kvm_pmu *pmu)
- {
--	struct kvm_pmc *pmc =3D NULL;
-+	u64 host_cross_mapped_mask;
-+	struct kvm_pmc *pmc;
- 	int bit, hw_idx;
-=20
-+	/*
-+	 * Provide a mask of counters that are cross-mapped between the guest
-+	 * and the host, i.e. where a guest PMC is mapped to a host PMC with a
-+	 * different index.  PEBS records hold a PERF_GLOBAL_STATUS snapshot,
-+	 * and so PEBS-enabled counters need to hold the correct index so as
-+	 * not to confuse the guest.
-+	 */
-+	host_cross_mapped_mask =3D 0;
-+
- 	kvm_for_each_pmc(pmu, pmc, bit, (unsigned long *)&pmu->global_ctrl) {
- 		if (!pmc_is_locally_enabled(pmc) ||
- 		    !pmc_is_globally_enabled(pmc) || !pmc->perf_event)
-@@ -763,8 +773,9 @@ void intel_pmu_cross_mapped_check(struct kvm_pmu *pmu)
- 		 */
- 		hw_idx =3D pmc->perf_event->hw.idx;
- 		if (hw_idx !=3D pmc->idx && hw_idx > -1)
--			pmu->host_cross_mapped_mask |=3D BIT_ULL(hw_idx);
-+			host_cross_mapped_mask |=3D BIT_ULL(hw_idx);
- 	}
-+	return host_cross_mapped_mask;
- }
-=20
- static bool intel_pmu_is_mediated_pmu_supported(struct x86_pmu_capability *h=
-ost_pmu)
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 612ab07..b097db2 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -7363,12 +7363,17 @@ static void atomic_switch_perf_msrs(struct vcpu_vmx *=
-vmx)
- 	if (kvm_vcpu_has_mediated_pmu(&vmx->vcpu))
- 		return;
-=20
--	pmu->host_cross_mapped_mask =3D 0;
-+	struct x86_guest_pebs guest_pebs =3D {
-+		.enable =3D pmu->pebs_enable,
-+		.ds_area =3D pmu->ds_area,
-+		.data_cfg =3D pmu->pebs_data_cfg,
-+	};
-+
- 	if (pmu->pebs_enable & pmu->global_ctrl)
--		intel_pmu_cross_mapped_check(pmu);
-+		guest_pebs.cross_mapped_mask =3D intel_pmu_get_cross_mapped_mask(pmu);
-=20
- 	/* Note, nr_msrs may be garbage if perf_guest_get_msrs() returns NULL. */
--	msrs =3D perf_guest_get_msrs(&nr_msrs, (void *)pmu);
-+	msrs =3D perf_guest_get_msrs(&nr_msrs, &guest_pebs);
- 	if (!msrs)
- 		return;
-=20
-diff --git a/arch/x86/kvm/vmx/vmx.h b/arch/x86/kvm/vmx/vmx.h
-index dc8517f..5c4e2cf 100644
---- a/arch/x86/kvm/vmx/vmx.h
-+++ b/arch/x86/kvm/vmx/vmx.h
-@@ -664,7 +664,7 @@ static __always_inline struct vcpu_vmx *to_vmx(struct kvm=
-_vcpu *vcpu)
- 	return container_of(vcpu, struct vcpu_vmx, vcpu);
- }
-=20
--void intel_pmu_cross_mapped_check(struct kvm_pmu *pmu);
-+u64 intel_pmu_get_cross_mapped_mask(struct kvm_pmu *pmu);
- int intel_pmu_create_guest_lbr_event(struct kvm_vcpu *vcpu);
- void vmx_passthrough_lbr_msrs(struct kvm_vcpu *vcpu);
-=20
+The exact tag value is completely known when the new tag is defined and its
+data length encoding must not be determine at runtime when the exact length
+of data is known.
+
+Any tags where the length of the data is not known when the tag is defined
+(i.e. sizeof(data) cannot be determined when the tag is defined) must use the
+varlen encoding value (0b1111111). Tags with strings or arrays where the number
+of items in the array can vary should use the varlen encoding.
+
+Also for tags where the length of data is greater than 126 x 32-bits words
+(maximum value without using varlen encoding), the varlen encoding must be used
+even if the length of data is known when the tag is defined.
+
+Tags reserved for tests purpose:
+  Any tags with the tag identifier set to 0xffffff are reserved for test
+  purpose. When a parser find this kind of tag, it must ignore the tag (skip
+  it). A generator must never use this kind of tags, except, of course, if
+  the generator is used to generate a dtb for test purpose.
+
+
+What is you opinion about this description?
+Do you agree on the description? If so I will implement it on next iteration.
+
+Best regards,
+Hervé
