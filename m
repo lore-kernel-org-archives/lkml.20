@@ -1,63 +1,43 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C4D48BD35;
-	Fri, 25 Sep 2026 10:00:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F44489FA4;
+	Fri, 25 Sep 2026 10:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790330443; cv=none; b=Du0QLgm+DdhX5HLQqqUOwj+9Iixy+pbO5yBLs0skIUTT6/TqibUQa4EvdegVzEBbfuyWbtFa24CnBs8wlixMeBRgr3xH9JpNbwZSQqSEwgfWHHUBRTbYl551e9eOglUpCjljEoAHDY/O9dYbp/S97QcXaXMScgROjHDMsgQqdG8=
+	t=1790330452; cv=none; b=MW3YTffx7PGKGJNrhnV6zMDSBpzykDuT8qzuovmfsUA/qmbixscy+JonaceK78giDwGUm9bEWizPsJ31RnRqjGLqF44jJ3p57BWCpQhVhwMH/L5KizYCXzaAyrqfH4B6QEMsxupC9ehnscSUJD7DWWOsO4E5/J3VFpUkehgsvZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790330443; c=relaxed/simple;
-	bh=WExlPcgeo/X9vKd4sIoM6fXef/myb6ofHGuT1oKyCDo=;
+	s=arc-20240116; t=1790330452; c=relaxed/simple;
+	bh=wiQuVEoBIaZ8IE6Cbv6FzXa8XQ+QrHXi2uEhpHQjf2w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZLOLRAD5k9r52L23FnJp0rUan5qJPx6h8uTGpzzqC3Ar/t29LgdlEv71gkNSqXFVHvmXx1f8TvMBECYR7o4UbUk+yfeYC8c4TySGZ8y/d3hKN+fKcPf4+FpKBz2IyuEuCGD5ScalBPz50XjLv/nScAwhYeZ5rxZy06apeaFyLM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qs4YcDK9; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=G8NvnLJ73wAPS3wtFM7tquaFLgJA64YBGr6CTK0gRpWHOxO9ytfPF7vAIe0bEIMsxEzUKspnzy8Hl82mxwDo16NiRCliYDedrpEoevsBvUV6l6j5fCunYJ554kNzS0up3EUWquEUNTAU1w0B260WAz8aUs/96aNaUqH+syRK1sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otlwK+XF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qs4YcDK9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790330440; x=1821866440;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WExlPcgeo/X9vKd4sIoM6fXef/myb6ofHGuT1oKyCDo=;
-  b=Qs4YcDK9Ebhd0qXCkn9uy+VCX6kcgECJB0nBbFulVGP7fJdbHWVlM8PA
-   NeFsFtNy1jssyT2WaIr3z1i8ROqR2odjDbGI5SwA1fMlMdMVJjocnEa6V
-   307HeR8IPC7lLr+WksOtm5d++FIO7MVxxhL3SMVb15N+iSR+33tHouS5w
-   nrVGTJDFvurVLb02quNoEcIG/z7DiVQP5vLH93r64jnH1jzmxJQ+ogeFJ
-   olvPA0M0tlU2qW5x1o6A7XfeE13qC4zZJxExbfZYlbR6P9ulQ6rZw936s
-   ZYTQKONX7ooND6fRYMK4iA9G09nqry/UINSYX1Xo/CMjsp3WMtJIR+zH7
-   w==;
-X-CSE-ConnectionGUID: wYgoyjdJRuaXwp2bGWkFsA==
-X-CSE-MsgGUID: Xm2l5LIsQmCwoiAhSil9qQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90240308"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="90240308"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:00:39 -0700
-X-CSE-ConnectionGUID: VbpjZQ9YQ/yufrQWJ/xuVA==
-X-CSE-MsgGUID: ln1o0BBTRuWQZZfomhhbCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="300559958"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:00:37 -0700
-Date: Fri, 25 Sep 2026 13:00:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Manos Pitsidianakis <manos@pitsidianak.is>,
-	David Laight <david.laight.linux@gmail.com>,
-	Jonathan McDowell <noodles@meta.com>,
-	Lianjie Wang <karin0.zst@gmail.com>,
-	"Thomas Richard (TI)" <thomas.richard@bootlin.com>,
-	PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwrng: core - reject unknown RNG names
-Message-ID: <arZGQxGEP-i9fLiJ@ashevche-desk.local>
-References: <20260924212114.120633-2-blum@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otlwK+XF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03FCF1F000FF;
+	Fri, 25 Sep 2026 10:00:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790330450;
+	bh=091cobKw1OczUPtMjUVWe4j3hvI4PcnBahesORRu4pQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=otlwK+XFcIczRvU351HmIuZLYxMIZCirmb0t07v8w5giskWGcbwuFfzinfGMydPP5
+	 kjhdNcTzGVQH+jRBwqQ0UrYXs9lJgs8+4bSBhexyCrdiFqRfxzFOIVjUJBuSHocuIk
+	 DM5DlzSuOe4hA1pSD7uYeF6oqzFiwhJhLEmuy1tcpnSooMGO+GebjyIn9PvlyazEEq
+	 bhc9PBHLH0Q8xZF1klnLahZKGwaXIU7XohAjArScJG53G899SQRH5tSw82GNMBoAE5
+	 tetOqVHn9nULkXQcgzBdvC+XT4ftE4WmCNgwp8bxWEvHUck12Wt/tp7gTwhvs26EZ1
+	 V2cixsZ2Fo60A==
+Date: Fri, 25 Sep 2026 11:00:46 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Charlie Garner <charlie@akao.au>
+Cc: Cristian Marussi <cristian.marussi@arm.com>,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>, Dhruva Gole <d-gole@ti.com>,
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] firmware: arm_scmi: perf: ignore an implausible
+ sustained frequency
+Message-ID: <20260925-native-glorious-kelpie-8bf5dd@sudeepholla>
+References: <20260923152245.44624-1-charlie@akao.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,30 +46,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260924212114.120633-2-blum@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260923152245.44624-1-charlie@akao.au>
 
-On Thu, Sep 24, 2026 at 11:21:13PM +0200, Thorsten Blum wrote:
-> In rng_current_store(), err is 0 after successfully locking rng_mutex,
-> and if the requested RNG name cannot be found, the function reports
-> success even though the current RNG was not changed.
+On Thu, Sep 24, 2026 at 12:52:45AM +0930, Charlie Garner wrote:
+> On a Dell Inspiron 14 Plus 7441 (Snapdragon X Plus X1P64100, soc_id 615)
+> the SCMI firmware reports a sustained frequency below the lowest available
+> OPP for performance domains NCC1 and NCC2. It reports zero for both
+> sustained_freq_khz and sustained_perf_level there, while NCC0 reports
+> 3417600 kHz at level 12. All three domains use level indexing mode, so
+> mult_factor is fixed at 1000 and the OPP frequencies come from
+> indicative_freq; this is not a units or mult_factor problem.
 > 
-> Set err = -ENODEV before searching the RNG list to reject unknown names.
+> scmi_dvfs_device_opps_add() then flags every OPP in NCC1 and NCC2 as turbo:
+> 
+> 	data.turbo = freq > dom->sustained_freq_khz * 1000UL;
+> 
+> cpufreq_frequency_table_cpuinfo() skips boost-flagged entries and fails
+> when none are left:
+> 
+> 	if ((!cpufreq_boost_enabled() || !policy->boost_enabled)
+> 	    && (pos->flags & CPUFREQ_BOOST_FREQ))
+> 		continue;
+> 	...
+> 	if (min_freq == ~0)
+> 		return -EINVAL;
+> 
+> cpufreq_policy_online() drops the policy on that error without logging
+> anything. Only one of the three performance domains ends up with a policy.
+> The part has 10 cores (the x1e80100 DT describes 12, CPUs 7 and 11 fail to
+> boot): 4 of them can scale, the other 6 get no policy, no governor, and no
+> cpufreq cooling device.
+> 
+> This cannot be worked around by enabling boost. policy->boost_enabled is
+> still 0 during that validation, and both places that set it -
+> boost_supported in cpufreq_table_validate_and_sort(), boost_enabled in
+> cpufreq_online() - run after the call that already returned -EINVAL. A
+> domain whose OPPs are all flagged turbo can therefore never get a policy.
+> 
+> Confirmed by probing dev_pm_opp_add_dynamic() on the affected machine: all
+> 13 OPPs are added with turbo=0 for domain NCC0 and turbo=1 for every CPU in
+> NCC1 and NCC2, across an identical 710400-3417600 kHz table. The raw domain
+> attributes above were read the same way, with a kprobe on
+> scmi_dvfs_device_opps_add() fetching the perf_dom_info fields.
+> 
+> A sustained frequency below the lowest OPP carries no information - it
+> cannot separate sustained levels from boost levels. Treat it as "this
+> domain has no turbo levels" instead of letting it disable the domain
+> entirely, and say so once with a FW_BUG warning, since the failure is
+> otherwise silent. A sustained frequency equal to the lowest OPP is left
+> alone, it already leaves that OPP non-turbo.
+> 
+> Fixes: a897575e79d7 ("firmware: arm_scmi: Add support for marking certain frequencies as turbo")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Charlie Garner <charlie@akao.au>
+> ---
+> 
+> Notes:
+>     The SCMI quirks framework (quirks.c) would also work here, and this
+>     platform already has two quirks enabled. I went with a generic check
+>     because a sustained frequency below every OPP is meaningless on any
+>     platform, and the check is a no-op for firmware that reports a sane value.
+>     Happy to turn it into a quirk if you'd prefer that.
+> 
 
-Yeah, from the
+I am unable to decide which is better approach. I am more inclined to quirks
+so that other systems are not penalised by unnecessary checks but at the same
+time it seems like a sensible generic check.
 
-> Fixes: 142a27f0a731 ("hwrng: core - Reset user selected rng by writing "" to rng_current")
+Cristian,
 
-it looks like it was the intention, but the mutex_lock_interruptible() rewrites
-an error code. That's a good example on why I often tell people to decouple
-assignment from the definition and the very same issue might happen and would be
-hard to debug later on. Surprisingly this happened in the same patch...
+Any strong opinion/inclination ?
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+>  drivers/firmware/arm_scmi/perf.c | 34 ++++++++++++++++++++++++++------
+>  1 file changed, 28 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/firmware/arm_scmi/perf.c b/drivers/firmware/arm_scmi/perf.c
+> index 4583d02bee1c..94f644996f9d 100644
+> --- a/drivers/firmware/arm_scmi/perf.c
+> +++ b/drivers/firmware/arm_scmi/perf.c
+> @@ -861,11 +861,20 @@ static void scmi_perf_domain_init_fc(const struct scmi_protocol_handle *ph,
+>  	dom->fc_info = fc;
+>  }
+>  
+> +static unsigned long scmi_perf_opp_freq(const struct perf_dom_info *dom,
+> +					int idx)
+> +{
+> +	if (!dom->level_indexing_mode)
+> +		return dom->opp[idx].perf * dom->mult_factor;
+> +
+> +	return dom->opp[idx].indicative_freq * dom->mult_factor;
+> +}
+> +
+>  static int scmi_dvfs_device_opps_add(const struct scmi_protocol_handle *ph,
+>  				     struct device *dev, u32 domain)
+>  {
+>  	int idx, ret;
+> -	unsigned long freq;
+> +	unsigned long freq, sustained_hz, lowest_hz = ULONG_MAX;
+>  	struct dev_pm_opp_data data = {};
+>  	struct perf_dom_info *dom;
+>  
+> @@ -873,14 +882,27 @@ static int scmi_dvfs_device_opps_add(const struct scmi_protocol_handle *ph,
+>  	if (IS_ERR(dom))
+>  		return PTR_ERR(dom);
+>  
+> +	for (idx = 0; idx < dom->opp_count; idx++)
+> +		lowest_hz = min(lowest_hz, scmi_perf_opp_freq(dom, idx));
+> +
+
+Just wondering how badly the perf values are also screwed up on this system ?
+If we are adding it as generic, I am thinking of just using the sorted
+opp list and lowest_hz = scmi_perf_opp_freq(dom, 0), no ? It avoids
+unnecessary loop above.
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Regards,
+Sudeep
