@@ -1,193 +1,337 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E483839A3
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:21:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349666; cv=none; b=jjNdHA0/GKiZN0RgsmPoZ7zjCzTXZZ6S5iEBUEyaQWeUeAQwvLPYkOhCHF+KCb7i8veYu2cWwkPiUGdj7Fj3nDkJxEwtxad731Uat9rJeKA3GCflsnJrcGv+VUS15ad+rne3SNyQ9ybIZlP2kKXyncTpnlBeAuW0iu6K/9bM/zQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349666; c=relaxed/simple;
-	bh=0SnJkzwA/pHULhb5TwuLkpxcvwrBwkvslcB87um5YV4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=lvxSB0rmhouYTJz44eQIAu2HORl8OxOI+XRKoujp0MOjYMEWIiNse4ZYu0MUUOYHZzUqbwSwMpFdsnSFbbIw7P/OR2WVvWX61isq1LnbxZPV/83BmxgT6pez5CYifJa6UhMHVszBhtgCsB6otOF+yIj8omJ+ly3ek9UiN8Z4nkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=F656mgJ9; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA244CA29B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:21:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790349676; cv=pass; b=Xzqyj4ODu8ch/TnKxMYGGY4AJ5LAAeRiz2+ssi39OjDCCYQIbWnyS0kQ+NnApD/Pblar0/z9d/+m2A6GQQlzNrXfVh04DpWP+PpktCjjGkdooJNhdkkIz/HyuZ0wqOjbBKU18OA79iQmMNNtD5I4e55cFh5+lUPt127hkO2vZbU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790349676; c=relaxed/simple;
+	bh=BhdfBEozeGSRDvYgw6he9SoGVdQ8qrm+juGnR4QiXlY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=axD9IOV8jlCtTNbU95ltNaO6jBMG3IWlXIHbQFqte2ormRf2qPnY4+ei1rb530ls7ihLHTI4NnAROSkjfD3tJVFtbPHp8csW409ZKwhgKKw0wxDf4e5518zQ06P6O0Fc3Ubphi7w9WZ1a92F0GqD27SonkMfUlE/e2T2vPheIzw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Z32yI5W8; arc=pass smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="F656mgJ9"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260925152100euoutp02ee0a01272570598754dc3263f7e10901~YmYfXROmS3149731497euoutp02B
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:21:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260925152100euoutp02ee0a01272570598754dc3263f7e10901~YmYfXROmS3149731497euoutp02B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790349660;
-	bh=SHgaribOFjNf5YMHUlR3fMpt5ySYd+TAsj/f7UavMDk=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=F656mgJ9jfgNjrKs8uA1ZyoifUtpO6Jd2QaA5EhGg1UsGVHdaiunvQVyoBsr8yvQm
-	 4JvEzIJQ1xTCBczVOiZBqIm+3EdyCpwECRq8i8GN27wlqHNo+fCU/+mKx+GZJgiYUH
-	 q6eRUP+VcFpqTg/tZTDMerGTpXC394G1YEw2aP4w=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260925152059eucas1p2019d7b4eb9d392a10993cc13136edee1~YmYeygoFS3026930269eucas1p2w;
-	Fri, 25 Sep 2026 15:20:59 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260925152057eusmtip25e163fc5b8da5ebbde70f8a09827ff17~YmYcynyS-2281922819eusmtip28;
-	Fri, 25 Sep 2026 15:20:57 +0000 (GMT)
-Message-ID: <a5b453db-a4f9-4dba-b150-6e4045f61027@samsung.com>
-Date: Fri, 25 Sep 2026 17:20:57 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Z32yI5W8"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-530e8c6fb80so258031cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:21:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790349673; cv=none;
+        d=google.com; s=arc-20260327;
+        b=I61IE7XGBvj5yMtVU2IQ2cPWrj85oAMiXyOG2dnbRrgOcGPYzvzVsTcV917ZanMLgA
+         IadfV75ho/ZZtpLLfyh92ubbb7BaaKXut//EeDMg9Rk8GaexO4uh7M/Kh5mTRYOE9p/1
+         eN7NHMzCDNBHSH2L5pNB8Qjr5EtpVpoJCDRGnz+Etn5/FJJLaKczWGWyQnQIeWvZpkmT
+         A/2wU84DTIfSsjP123C5nKByEoJA8DtlxVRr2tLLX6WD7NNP/kgFbFBjkFvrOySM8+WA
+         2xVRoKFgLh30K5xQ9g4ZflZ4fQw6s1j1WgwB3h6291IjVrbMCIN8/D+byYCM59qQFSff
+         Cyfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4AQvNYQWEmUAL1IVpAcXwqEvB4Tc2M/RExqLeJl04xg=;
+        fh=PQ/kbZ8Y+Dq+jTRk5pA141XJ5FDWc0QlSoqg/IjZAVM=;
+        b=iyFd0LdMtqGRV7Xzn6YCe6D91nLg4BP3fInfmatBd4TndnOdKHpjwWFq5Ef8zZ6la1
+         AkRuohXSCpPiFLOA00SBubKy/BQ+3tJul/GaZXChPqOQLMoKh0NWi1olIPAK092dugew
+         YD7N4iuuRijrySMSKcPkwd1E4am/Uqacm5vsIZO+zmjK09ZE6jwI+81XnDQhh4lIkNcS
+         gnUmgJONnTKnZiqDaIiSlBg7/IFVLecuIEcT0jbzdfWI9Z1ILGEVldAUZ86G79iemFAc
+         RscvCXE9y7bmeqEpYmuuWsQEFLxloGh5woM7iAFw7/F0H8bJFw9IBSWXMVl+eL8EfTx3
+         9Mdg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790349673; x=1790954473; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4AQvNYQWEmUAL1IVpAcXwqEvB4Tc2M/RExqLeJl04xg=;
+        b=Z32yI5W8fOKgE+FTr6Sv/N8y/ncMFKzwI/G0LPR+EZOuucib6gp45Q+WIB2akwiYPL
+         2bf4n2RBmXvI7R4Y9I+CVKl6UpHyvCob9451qWj2oxx7+Vj/BHIEcGz7nKsTJUCXb1ux
+         HXQV7nk7zaHC2XoHKtPKvTxYCLI3Wxi24YVcv5j50LpIh2KDWaxJSQx/PmwqRnExx/Wi
+         iO1yiOB7LX1b0pC38QKbJuPLpWixfsYxfx/foy3LTvh53i5zsImmKqzSitGSdIly6Npp
+         LvGYB5c/aIEYwO1P/E5q9T13AnoHMVYrZFoUYUDjO24iwHsIN2LOuhalyLyiW2PSb6mn
+         TwKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790349673; x=1790954473;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4AQvNYQWEmUAL1IVpAcXwqEvB4Tc2M/RExqLeJl04xg=;
+        b=LJxkPMUTXRmkcNEBFiExd8LQEQhdfudaK3j3ej6tmZL52lF33zENHRTQVdBQXEbCZL
+         8u1ev0cUtie/6xDoaAS8IsCO5/1NC7ietE81pboT+co2Ah1e3jKGdV5IAn1c2ot30kHO
+         l/4TXRxamb8k4h176O3WMk7Rh/z03UZlRX4GimWovQHT7ij7t2NITkGO1gRXdiXzRFjW
+         IzKZRXl5d8sS9LbYpvGHMFm8nkvWuYXmGmJmFrTw5s8vNAUY7guGFGOpcLAwtpRSrnUp
+         +hww1pK97CyNuNkwkZZnH1CTQZrDpevuBSkBgiQBL/iq4m25jHiW+WUKbfsd/Bw/MMgq
+         83Uw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDN98qKCfrH2v5vjbVnLnqXphCyIhTgy8HEArgI+XJrwrkRRXfbp0QxjyEuPk/UOY6xynTuTGs+cEreLw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/nr9zH0vWNn08BdsxrozmJuEWaYqGOwg8cRBZUppbcusFUnlc
+	xvqLRmCClqgjAKxLuTA0pGP4ERZh3Of/5Cn1XV1bmDh949BG7bcA5Aq5i6xkC58l6EoCL1unT9Y
+	uvd1LIghp2SCG1xwGSce2aRkZBKypEInslJZ39UAG
+X-Gm-Gg: AYBFou18OIKaAFiuWXpqUKMFgcMd+ZxSASLbLrtBz+4JTJt5guQgF0Ij4piKxQP70PI
+	5+E5M/NHJFS7VurT8z7XBKWKRtzBvTOWCuGE7NVNJDTh8vmtJSWmJ6KkW8RpDKBvpR9bOoGPkpz
+	nQBXXCGPTEyQ+PDq8PxKk0QnPZ7AE924Mc38YgRm+EyoYeA0oGrI8TxD5dd3a6sJW9WvY8nRzWQ
+	j6wTqBrvzEEdS65MKywA1uoGcQSt17brJFzVbjNdX0fzld519l/uyg7hLXwo7n3DMPIJxLnVzxC
+	+ahG1BHPBhIvl5nDHtXk+yjKogyD5VWeuNZBp0MhXfnQ8E7jMNjSsef9fDS67TWgEvxwMNP4XyU
+	as4qugjUEUU0+zljTxrjp
+X-Received: by 2002:a05:622a:260a:b0:532:d36c:7094 with SMTP id
+ d75a77b69052e-5331a7a38e0mr3882811cf.4.1790349669311; Fri, 25 Sep 2026
+ 08:21:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 00/11] Make the 32-bit ARM DMA API work with normal
- IOMMU DMA default domains (+ Tegra PoC)
-To: Mikko Perttunen <mperttunen@nvidia.com>, Robin Murphy
-	<robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon
-	<will@kernel.org>, Russell King <linux@armlinux.org.uk>, Heiko Stuebner
-	<heiko@sntech.de>, Thierry Reding <thierry.reding@kernel.org>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jonathan Hunter
-	<jonathanh@nvidia.com>, Krishna Reddy <vdumpa@nvidia.com>, Krzysztof
-	Kozlowski <krzk@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
-	<alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
-	<jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Yong Wu
-	<yong.wu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Rob
-	Clark <robin.clark@oss.qualcomm.com>, Geert Uytterhoeven
-	<geert+renesas@glider.be>, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260915-b4-arm32-iommu-dma-cookie-v1-0-ba4f9d33a2b8@nvidia.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260925152059eucas1p2019d7b4eb9d392a10993cc13136edee1
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915021542eucas1p254addab18c10cb117f42ccf3d3522883
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915021542eucas1p254addab18c10cb117f42ccf3d3522883
-References: <CGME20260915021542eucas1p254addab18c10cb117f42ccf3d3522883@eucas1p2.samsung.com>
-	<20260915-b4-arm32-iommu-dma-cookie-v1-0-ba4f9d33a2b8@nvidia.com>
+References: <20260925150657.1826942-1-acme@kernel.org> <20260925150657.1826942-3-acme@kernel.org>
+In-Reply-To: <20260925150657.1826942-3-acme@kernel.org>
+From: Ian Rogers <irogers@google.com>
+Date: Fri, 25 Sep 2026 08:20:58 -0700
+X-Gm-Features: AclHuK9iV1la3sMHmQ0H9rX55LlJK38t52cDodEsYfAtl_J8x0nPn4SCUw_CZJE
+Message-ID: <CAP-5=fU=Bp9x32W5Xo+Qa6vvC0OR0u9FAc0A4Y=rKV=kytcjsA@mail.gmail.com>
+Subject: Re: [PATCH 2/6] perf dwarf-aux: Add die_same_file() and die_get_type_die()
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, James Clark <james.clark@linaro.org>, 
+	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 15.09.2026 04:14, Mikko Perttunen wrote:
-> Depending on the probe ordering, TegraDRM does not currently probe on 
-> kernels with CONFIG_ARM_DMA_USE_IOMMU enabled, such as with 
-> multi_v7_defconfig. The Tegra SMMU puts several display and 2D/3D 
-> clients into one IOMMU group, and the legacy 32-bit ARM DMA API path 
-> creates one UNMANAGED domain per device and attaches it with 
-> iommu_attach_device(). That only works for one device per group, so 
-> every client after the first fails to attach, 
-> iommu_device_use_default_domain() rejects the group with -EBUSY, and the 
-> driver goes down with it. tegra_defconfig is currently working by virtue 
-> of not enabling CONFIG_ARM_DMA_USE_IOMMU.
+On Fri, Sep 25, 2026 at 8:07=E2=80=AFAM Arnaldo Carvalho de Melo
+<acme@kernel.org> wrote:
 >
-> Robin suggested [1] that instead of teaching the legacy path about 
-> groups, we should explore modernizing the 32-bit ARM DMA code a bit by 
-> making it use domain cookies and have the core code own the domains, as 
-> is the case on other architectures. Still, ARM's own DMA code is kept to 
-> support existing drivers and APIs that expect it, and because dma-iommu 
-> is considered too big and unnecessary for 32-bit ARM.
+> From: Arnaldo Carvalho de Melo <acme@redhat.com>
+>
+> dwarf_dieoffset() is relative to the file the DIE is in, so an offset
+> saved by die_collect_vars()/die_collect_global_vars() is only
+> meaningful in that file: add die_same_file(), comparing the Dwarf each
+> DIE's CU belongs to, and die_get_type_die(), resolving the offset in it
+> with the saved tag as a sanity check.  Resolving the offset in the main
+> file instead parses whatever is at it when it came from the dwz common
+> file.
+>
+> dwarf_cu_getdwarf() is new in elfutils 0.160, so the libdw feature test
+> probes for it and Makefile.config says 0.160.
+>
+> Cc: Masami Hiramatsu <mhiramat@kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 
+Reviewed-by: Ian Rogers <irogers@google.com>
 
-I agree that such little modernization is the right step to unify a bit
-ARM 32bit with modern archs and get rid of some workaround in the drivers.
+Thanks,
+Ian
 
-It was me who raised the concern about the drivers depending on the first-fit
-allocation algorithm used in the32-bit ARM DMA code. This is an issue for some
-legacy Samsung Exynos drivers. I not aware of any other driver used on ARM 32bit
-SoCs that depends on this behavior.
-
-If one is still interested in switching ARM 32bit to generic IOMMU-DMA code I
-can prepare a workaround for those Exynos drivers. I still have it on my todo
-list, but in meantime there was no interest in updating ARM 32bit DMA code.
-
-
-> The series is in four parts:
->
-> - Patches 1-2 are preparation in the IOMMU core:
->   1. Add iommu_teardown_dma_ops, counterpart to iommu_setup_dma_ops.
->   2. Add cookie type for ARM's DMA domains.
-> - Patches 3-6 implement the DMA API side on 32-bit ARM:
->   3. Split up domain and address space management code in arch/arm/.
->   4. Implement parallel dma_ops / cookie APIs on ARM side.
->   5. Avoid domain allocation when IOMMU core does it.
->   6. Support foreign-allocated sg_tables.
-> - Patch 7 enables 32-bit ARM IOMMU drivers to provide a DMA default 
->   domain.
-> - Patches 8-11 convert Tegra:
->   8. Allows deferring translation enable until driver handshake for
->      selected devices.
->   9-10. Removes code detaching ARM UNMANAGED DMA domains in
->         Host1x/TegraDRM.
->   11. Enables DMA default domain for selected Tegra devices.
->
-> None of this should have any functional effect on any device other than 
-> the Tegra devices enabled in patches 8-11. Other IOMMU drivers can opt 
-> in later. The new DMA default domains are enabled only when the IOMMU 
-> driver explicitly specifies a DMA domain type, just returning 0 for the 
-> default is not enough (unlike on arm64), keeping the current behavior.
->
-> Patches 8-11 are provided for demonstration but we can deal with them 
-> separately if the rest of the series is accepted.
->
-> Patches 1,2,3 are applicable independently.
-> Patches 4,5 depend on the previous patches.
-> Patch 6 can be applied independently but is only required once
->   the whole series lands (by TegraDRM).
-> Patch 7 depends on patch 4.
->
-> Patches 1-7 only touch drivers/iommu/ and arch/arm/mm/ and associated 
-> headers.
->
-> Best regards,
-> Mikko
->
-> [1] https://lore.kernel.org/linux-tegra/910d1492-ad3b-4201-93c6-208be1dcde7d@arm.com/
->
 > ---
-> Mikko Perttunen (11):
->       iommu: Add iommu_teardown_dma_ops
->       iommu: Add cookie type for ARM_DMA_USE_IOMMU
->       ARM: dma-mapping: Split mapping allocation from domain allocation
->       ARM: dma-mapping: Implement and expose DMA setup functions
->       ARM: dma-mapping: Bypass the legacy path for core-owned DMA API domains
->       ARM: dma-mapping: Handle foreign buffers in arm_iommu_get_sgtable
->       iommu: Let 32-bit ARM drivers opt into a DMA API default domain
->       iommu/tegra-smmu: Defer display client translation to driver handover
->       gpu: host1x: Drop release of legacy 32-bit ARM DMA domain
->       drm/tegra: Drop release of legacy 32-bit ARM DMA domain
->       iommu/tegra-smmu: Use a DMA API default domain per swgroup
+>  tools/build/feature/test-libdw.c | 10 +++++-
+>  tools/perf/Makefile.config       |  2 +-
+>  tools/perf/util/dwarf-aux.c      | 56 ++++++++++++++++++++++++++++++--
+>  tools/perf/util/dwarf-aux.h      | 13 ++++++++
+>  4 files changed, 77 insertions(+), 4 deletions(-)
 >
->  arch/arm/include/asm/dma-iommu.h |  17 ++++
->  arch/arm/mm/dma-mapping.c        | 209 ++++++++++++++++++++++++++++++++-------
->  drivers/gpu/drm/tegra/dc.c       |   8 ++
->  drivers/gpu/drm/tegra/drm.c      |  15 ---
->  drivers/gpu/host1x/dev.c         |  15 ---
->  drivers/iommu/Kconfig            |   1 +
->  drivers/iommu/dma-iommu.c        |   5 +
->  drivers/iommu/dma-iommu.h        |  52 +++++++---
->  drivers/iommu/iommu.c            |  24 ++---
->  drivers/iommu/tegra-smmu.c       | 109 +++++++++++++++++++-
->  drivers/memory/tegra/tegra114.c  |  15 ++-
->  drivers/memory/tegra/tegra124.c  |  12 ++-
->  drivers/memory/tegra/tegra210.c  |   6 +-
->  drivers/memory/tegra/tegra30.c   |  18 ++--
->  include/linux/iommu.h            |   3 +
->  include/soc/tegra/mc.h           |  20 ++++
->  16 files changed, 410 insertions(+), 119 deletions(-)
-> ---
-> base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
-> change-id: 20260728-b4-arm32-iommu-dma-cookie-3170e07f9125
+> diff --git a/tools/build/feature/test-libdw.c b/tools/build/feature/test-=
+libdw.c
+> index aabd63ca76b4d7e6..46f75cde59471079 100644
+> --- a/tools/build/feature/test-libdw.c
+> +++ b/tools/build/feature/test-libdw.c
+> @@ -49,8 +49,16 @@ int test_elfutils(void)
+>         return 0;
+>  }
 >
+> +/* Needs elfutils 0.160: taking its address fails the probe, not the lin=
+k. */
+> +int test_libdw_cu_getdwarf(void)
+> +{
+> +       void *sym =3D (void *)dwarf_cu_getdwarf;
+> +
+> +       return sym =3D=3D NULL;
+> +}
+> +
+>  int main(void)
+>  {
+>         return test_libdw() + test_libdw_unwind() + test_libdw_getlocatio=
+ns() +
+> -              test_libdw_getcfi() + test_elfutils();
+> +              test_libdw_getcfi() + test_libdw_cu_getdwarf() + test_elfu=
+tils();
+>  }
+> diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+> index dca62e155fb5570a..b288ae0191acf7ef 100644
+> --- a/tools/perf/Makefile.config
+> +++ b/tools/perf/Makefile.config
+> @@ -477,7 +477,7 @@ else
+>    else
+>      ifneq ($(feature-libdw), 1)
+>        ifndef NO_LIBDW
+> -        $(warning No libdw.h found or old libdw.h found or elfutils is o=
+lder than 0.157, disables dwarf support. Please install new elfutils-devel/=
+libdw-dev)
+> +        $(warning No libdw.h found or old libdw.h found or elfutils is o=
+lder than 0.160, disables dwarf support. Please install new elfutils-devel/=
+libdw-dev)
+>          NO_LIBDW :=3D 1
+>        endif
+>      endif # Dwarf support
+> diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
+> index 2c135ebb1551fca4..54f8b5ec74a2fe70 100644
+> --- a/tools/perf/util/dwarf-aux.c
+> +++ b/tools/perf/util/dwarf-aux.c
+> @@ -1677,6 +1677,15 @@ Dwarf_Die *die_find_variable_by_addr(Dwarf_Die *sc=
+_die, Dwarf_Addr addr,
+>         return result;
+>  }
 >
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+> +/*
+> + * Whether two DIEs live in the same debug file: dwarf_dieoffset() is
+> + * relative to the file the DIE is in.
+> + */
+> +bool die_same_file(Dwarf_Die *die_a, Dwarf_Die *die_b)
+> +{
+> +       return dwarf_cu_getdwarf(die_a->cu) =3D=3D dwarf_cu_getdwarf(die_=
+b->cu);
+> +}
+> +
+>  static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
+>  {
+>         struct die_var_type **var_types =3D arg;
+> @@ -1721,6 +1730,8 @@ static int __die_collect_vars_cb(Dwarf_Die *die_mem=
+, void *arg)
+>                         vt->is_reg_var_addr =3D true;
+>
+>                 vt->die_off =3D dwarf_dieoffset(&type_die);
+> +               vt->die_tag =3D dwarf_tag(&type_die);
+> +               vt->from_alt =3D !die_same_file(die_mem, &type_die);
+>                 vt->addr =3D start;
+>                 vt->end =3D end;
+>                 vt->has_range =3D (end !=3D 0 || start !=3D 0);
+> @@ -1740,7 +1751,8 @@ static int __die_collect_vars_cb(Dwarf_Die *die_mem=
+, void *arg)
+>   *
+>   * Save all variables and parameters in the @sc_die and save them to @va=
+r_types.
+>   * The @var_types is a singly-linked list containing type and location i=
+nfo.
+> - * Actual type can be retrieved using dwarf_offdie() with 'die_off' late=
+r.
+> + * Actual type can be retrieved using die_get_type_die() with 'die_off',
+> + * 'die_tag' and 'from_alt' later.
+>   *
+>   * Callers should free @var_types.
+>   */
+> @@ -1786,6 +1798,8 @@ static int __die_collect_global_vars_cb(Dwarf_Die *=
+die_mem, void *arg)
+>                 return DIE_FIND_CB_END;
+>
+>         vt->die_off =3D dwarf_dieoffset(&type_die);
+> +       vt->die_tag =3D dwarf_tag(&type_die);
+> +       vt->from_alt =3D !die_same_file(die_mem, &type_die);
+>         vt->addr =3D ops->number;
+>         vt->end =3D 0;
+>         vt->has_range =3D false;
+> @@ -1797,6 +1811,43 @@ static int __die_collect_global_vars_cb(Dwarf_Die =
+*die_mem, void *arg)
+>         return DIE_FIND_CB_SIBLING;
+>  }
+>
+> +/**
+> + * die_get_type_die - Get a type DIE saved by die_collect_vars()
+> + * @dbg: the main debug info
+> + * @die_off: offset of the type DIE, from dwarf_dieoffset()
+> + * @die_tag: tag that DIE had when the offset was saved
+> + * @from_alt: whether the type DIE is in the dwz alt file
+> + * @die_mem: where to store the resulting DIE
+> + *
+> + * Resolve @die_off in the file it was recorded as belonging to, with no
+> + * fallback; @die_tag is a sanity check.
+> + */
+> +Dwarf_Die *die_get_type_die(Dwarf *dbg, u64 die_off, int die_tag, bool f=
+rom_alt,
+> +                           Dwarf_Die *die_mem)
+> +{
+> +       Dwarf *target =3D dbg;
+> +       Dwarf_Die die;
+> +
+> +       if (from_alt) {
+> +               /* No fallback: an alt offset here parses whatever is at =
+it. */
+> +               target =3D dwarf_getalt(dbg);
+> +               if (target =3D=3D NULL) {
+> +                       pr_debug("DWARF: no alt (dwz) debug file to resol=
+ve the type DIE at offset 0x%lx in\n",
+> +                                (unsigned long)die_off);
+> +                       return NULL;
+> +               }
+> +       }
+> +
+> +       if (dwarf_offdie(target, die_off, &die) && dwarf_tag(&die) =3D=3D=
+ die_tag) {
+> +               *die_mem =3D die;
+> +               return die_mem;
+> +       }
+> +
+> +       pr_debug("DWARF: no DIE with tag %d at offset 0x%lx in the %s deb=
+ug file\n",
+> +                die_tag, (unsigned long)die_off, from_alt ? "alt" : "mai=
+n");
+> +       return NULL;
+> +}
+> +
+>  /**
+>   * die_collect_global_vars - Save all global variables
+>   * @cu_die: a CU DIE
+> @@ -1804,7 +1855,8 @@ static int __die_collect_global_vars_cb(Dwarf_Die *=
+die_mem, void *arg)
+>   *
+>   * Save all global variables in the @cu_die and save them to @var_types.
+>   * The @var_types is a singly-linked list containing type and location i=
+nfo.
+> - * Actual type can be retrieved using dwarf_offdie() with 'die_off' late=
+r.
+> + * Actual type can be retrieved using die_get_type_die() with 'die_off',
+> + * 'die_tag' and 'from_alt' later.
+>   *
+>   * Callers should free @var_types.
+>   */
+> diff --git a/tools/perf/util/dwarf-aux.h b/tools/perf/util/dwarf-aux.h
+> index 9b662db710220522..6f9145510adcb841 100644
+> --- a/tools/perf/util/dwarf-aux.h
+> +++ b/tools/perf/util/dwarf-aux.h
+> @@ -152,6 +152,8 @@ int die_get_scopes(Dwarf_Die *cu_die, Dwarf_Addr pc, =
+Dwarf_Die **scopes);
+>  struct die_var_type {
+>         struct die_var_type *next;
+>         u64 die_off;
+> +       int die_tag;
+> +       bool from_alt;  /* die_off is relative to the alt (dwz) file */
+>         u64 addr;
+>         u64 end;        /* end address of location range */
+>         int reg;
+> @@ -183,6 +185,17 @@ Dwarf_Die *die_find_variable_by_addr(Dwarf_Die *sc_d=
+ie, Dwarf_Addr addr,
+>  /* Save all variables and parameters in this scope */
+>  void die_collect_vars(Dwarf_Die *sc_die, struct die_var_type **var_types=
+);
+>
+> +/*
+> + * Get the type DIE saved by die_collect_vars()/die_collect_global_vars(=
+):
+> + * @from_alt says which file the offset must be resolved in, @die_tag is
+> + * a sanity check.
+> + */
+> +Dwarf_Die *die_get_type_die(Dwarf *dbg, u64 die_off, int die_tag, bool f=
+rom_alt,
+> +                           Dwarf_Die *die_mem);
+> +
+> +/* Whether two DIEs live in the same debug file */
+> +bool die_same_file(Dwarf_Die *die_a, Dwarf_Die *die_b);
+> +
+>  /* Save all global variables in this CU */
+>  void die_collect_global_vars(Dwarf_Die *cu_die, struct die_var_type **va=
+r_types);
+>
+> --
+> 2.53.0
+>
