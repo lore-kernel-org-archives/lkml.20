@@ -1,222 +1,181 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FDC44062F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C007332EBB;
+	Fri, 25 Sep 2026 11:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790334214; cv=none; b=PhBtauAEzIn/lRDc7pinAqkoJODlJN6PBMSVe7ca901eE5gUFOJct6oT3vPd9pKFAkQBkIEBtGJ22qKQgdFo28Syd4qmCk+iDdb0X/QZ7L709IKK3qKfe1Qp5MrzQpyadcRsAIdrhtOHfJMQu6Ute+4DW7kwwX5N4BXJQKLuCck=
+	t=1790334239; cv=none; b=lXs7Ee8aDqigHQvA+Wu1dLT0XVZT0sEqPIDV6nvN9M1ZkVlLyzwyGYxoSMRlLQyW/LYIcRsqu6/4NnfCT+7wE1xgS49iSAe3KRTDClqIzV54k6rkgB2Jnva+4pj2NAdFGpCn3X/k/Fe2RNNpafegRCmyaKis1Hq4JJxHq62byuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790334214; c=relaxed/simple;
-	bh=NrOkTLU9aNS6hrvJ6qdUXdLjRzSoJw9qNpjM9yVrK6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o3zECuborKUJsh/sgBw2Xxp6AAquNdaL+ux12msmo9Dn8RPcT5emkagJCYJrBJepjQbbm3SmaVRBtQSrNt3Q2FN7krNez5h8xTYke+Ag5+q/Nu3csC595qTl/wKb1UetMNXrVVIGwvGPx1b4YMTNQdMTupPQWAcEdqG0pYCHXQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h8SJlM1o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PUdm+8VF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790334239; c=relaxed/simple;
+	bh=nXQnIlYNwBU1e8HetIwjFEmHHHz4OIEgbg1vGVK4Ns4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Tw0EFT71h1c0L9rxj7aggVYs9RpV2nAmkP3x4krHae/fwOd3OndCgZagWMkykGiHN+3vV+6sa0hhLFHdpPHtuAO2+YBKWzmLJB9aDBHSQzWhxd7iiRk/zAJdPVEm8p8FwOchMvZVlTL335Vp0Eyv+6CLozj3uSpm03B3QFMa+sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TcwEUEtc; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h8SJlM1o";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PUdm+8VF"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4Z2xH1194495
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:03:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=KL5UvpKHjzpyxWhNGv3591jL
-	faKqMWyF0eLovdVJgck=; b=h8SJlM1opHmnGymsHaTRDEHKvmL9+e3QVetJkJ3i
-	9jw5a5FJ7Cp+O1glWFBGzl29UZqmQgNSsq4/6Gs57GWgTNG1ASnk7HELCgciBBMT
-	uSTYoU84eVK+CqNWekYhkLrtbYQFgMOwlcl17YOQrhuAluPwBX3uewKW71EvEa5/
-	XWhcK2PHbFjl9RordTtUjXuo0VWyXGRs0L4QJMw2kPLhGRjzLaOq5DQsqxUuMOkD
-	j9K0nwJgJM64bMSregfTs3zKL0+KCiC1KwqxBYkxI9Xa8fwKTlYphmQ+AG2syVCK
-	pP2PhKHZfMYG50MdN1LuZ7oECpjVGaXkj4srjuV9Ej631A==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw874k4wb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:03:31 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c96bf59c31so181348e0c.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:03:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790334211; x=1790939011; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KL5UvpKHjzpyxWhNGv3591jLfaKqMWyF0eLovdVJgck=;
-        b=PUdm+8VFwhf5CvYKq7KppljkUrYN/kohJ6Kb4w2nKl8d3KXqRUVe5bMvjblt67dLQ7
-         7IB9SC7YtwMd/302fvBXBy9Det2Jk+D1wtwaNFHMPe8393iqBQcfHoRIVULusuia8PTE
-         OtQLQsHZAuewngu0FAxulq/AqFVA1u/cEQ5BOZJnj4PbkXj0I70H6NBd2ddt8tG8h2S5
-         ZeRfRRnYM0akdYKRNVGYjw7Ewvo3GIfPoDB0xy/mBcKKCREtRYx6OPebnGpcB3dw39Y2
-         VI28k2lHQtVpbic0M4E61NwoKB+djnsPL+j7rdUOzqgyUqscDhqo7EYcie9nNdJ0oabH
-         IePQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790334211; x=1790939011;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KL5UvpKHjzpyxWhNGv3591jLfaKqMWyF0eLovdVJgck=;
-        b=lLXIZU8eWAlW3ZJs/6htIAZyoXwN+Uktdq6HOqUO3hJGHIaUYHYwjSEQMJGCkD6AdV
-         +MUnKMpv4wScE4GXOOce/Ns02BANz224revb2G0eCvIKn+SirHJLecifB9PSC730jS7x
-         1QbsF0CmNzV7DF6FtK4kcdOuVozeC0cG9Z+gKdXollV5tSuqrWTcOPH7WrJoyG2stDKm
-         E+XTxPCo1v4EHDrUyZHxRAKzQGOPsNAuAY50wk3RTTCzcLnYgLYnbql/k8r8Udj5cASW
-         GPfLqczDyo73epHbeIWVRQz1oQWMyNMN3ZgZFuh9a8ZQZ97LJPa/OdO8dwEKCX9+S8uK
-         rb7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzs7qnOeqYdcTVxjT4OaMM8ctOcQo76ow9Rg0JyiTzBkJ6IrSK0qHJuzdPFJGJpfdpOdlJsuMCWPiIUwB8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCtuq9fZOuTw0NqkD5pKA2Yy5BvTRkX+GBCA4azZrP0Y6awvPD
-	BGk8XxnUBMO5RfPKzeMbiXi3tbrdfAcmgOOqdwvu7+LyHcGH0lAwhMCjkf2B5Dn9Neu582tkRJd
-	sVyui29tWmCmMAt4DtGiph2wPFF3CSLJERrRT6ITET/AkrYlKmpzO+v9TuYEDQWqe5/c=
-X-Gm-Gg: AYBFou3fvMwtfSN2LlElqLEDFcQB3FS2GsQsWU5xZHHJ3LHw0iShteayJvwqjE9pVHo
-	mVfu9PgHEqi1D5ScXvZ2+UtNSNLZLyeAD6DQP6eC3FKT9fZ7k6vOuIwjXbv1ZQ2T/MCU8t40NS5
-	b2tUxQOu1rVxjo9IIwQsO7CVQIhCqk0f0Xi8OLvVUgZLW819PxI08Y+D5FFmJzHtSwJr0NUh67g
-	9h348mr5EoNvyYgEXa0B5La6Yaz3x5Gjx06jFXsdnFYKoWdQsjwDQGzMxRskEz/fKuxxjfvK4VO
-	nCoEGq39TUeQEZEva8haX+FEiUcAdcrdsfN9RTxgJaXQkjPv0aHYmFua5Z4Qk7bsJgsSu7EtMX8
-	n7NSBdoSbvoXj9w==
-X-Received: by 2002:a05:6102:160c:b0:7a2:4b76:55fe with SMTP id ada2fe7eead31-7af1eaeade3mr2080934137.21.1790334210475;
-        Fri, 25 Sep 2026 04:03:30 -0700 (PDT)
-X-Received: by 2002:a05:6102:160c:b0:7a2:4b76:55fe with SMTP id ada2fe7eead31-7af1eaeade3mr2080917137.21.1790334209864;
-        Fri, 25 Sep 2026 04:03:29 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff04440e2sm48935915e9.0.2026.09.25.04.03.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 04:03:28 -0700 (PDT)
-Date: Fri, 25 Sep 2026 13:03:28 +0200
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-        Jose Abreu <joabreu@synopsys.com>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-        Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Subject: Re: [PATCH RFC net-next 5/9] net: pcs: xpcs: initialize runtime PM
- as suspended
-Message-ID: <arZVAEHs04xLNXTu@lore-desk>
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
- <20260923-qcom_xpcs_nord_emac-v1-5-4b1c682af70f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TcwEUEtc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790334238; x=1821870238;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=nXQnIlYNwBU1e8HetIwjFEmHHHz4OIEgbg1vGVK4Ns4=;
+  b=TcwEUEtcqpm+TRNNqqVevyrY78wD40A4krlD5h5/DEG2QhWo53nsl8KD
+   041X1LFMA5rNdIedr7LtfAyoV8dAvfRIs6zVnPS9Oo2gJJ1RTwK1bP7vN
+   T254mChpyLF6pI+N5La5I6FSVXzImrUY8BVCP9ab5V4ka+1o5yhqZlWmk
+   X63qFsIFDXynzs3hflbb7EkXYqXzSZMPk4p685E+7cOvUVZRzukpbih7J
+   eEsh0ykcQuzbVgZkspF4gEh9exyy4bF4UVu1ir9IZzkIhSLP0301lxMuU
+   OPEwmNMLTBZeziUfIhQF1/3Uq8fU4W+naiNFO5YXF+cK+cokyeOk+2iY3
+   A==;
+X-CSE-ConnectionGUID: UI66HF0ITz2MmmseXrjpSA==
+X-CSE-MsgGUID: oPHy5y8GQZybqX7cQmOyOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89982436"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="89982436"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:03:58 -0700
+X-CSE-ConnectionGUID: 8tQhNSLuTQeN9tn0rTv30g==
+X-CSE-MsgGUID: aoiTU67JQR6BEDKShx4+Uw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="272438369"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.131])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:03:56 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 25 Sep 2026 14:03:53 +0300 (EEST)
+To: TuteMthCD <matias.civadda2342001@gmail.com>
+cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Fix profile handling on
+ Redmi Book Pro 14 2022
+In-Reply-To: <20260925032001.111062-1-matias.civadda2342001@gmail.com>
+Message-ID: <6467163f-8978-1c20-c7f4-360a3762edcc@linux.intel.com>
+References: <20260925032001.111062-1-matias.civadda2342001@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lVoFIgUXX7x55kE9"
-Content-Disposition: inline
-In-Reply-To: <20260923-qcom_xpcs_nord_emac-v1-5-4b1c682af70f@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: P6Dv6cesw1q7fTvI_DZLzFXyPVXxahyu
-X-Authority-Analysis: v=2.4 cv=MI71C8Zl c=1 sm=1 tr=0 ts=6ab65503 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=05hQUwIZQIh6G6I0U8UA:9 a=CjuIK1q_8ugA:10 a=QVkzxUxUNwT0qHlZT5MA:9
- a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA0MyBTYWx0ZWRfX8qsNjmGc7Dk1
- CUNGVla5OuGquyLY6Ut/N+IOBms0fWAd25dUZNt9geE6VdcTZRUBCXB4RdmL3oEMIiwZRs17i71
- oXqjHfKIM4fOt16YYnHP0Zx5JPNrw53dVrokrWxCHTZ0XZV2x7vtL+PXIIL+omtK3bN7uRgnX6v
- hSuO7RApjhtd0AO856bljI9M3+KdGa1SWakzlHhhzNqX4OBcvtPeYV0xjVwmGydiz1b/D/xevK0
- 4NA7wfQ0yjd2KMENCWeO+7NoIvMzAW7wtfdQ3ZCVWhs9i/3fSloIXkIh/gWy8cE7W/cPa7ID1EL
- U4IAiBIVs5yFZw1CD0wxBm0wKVYush4wEImRQF2J0BM1BLp4EiZRfetekqZjclHhAjVucQQZiOW
- ft1VF0yTr4dv6I5rYwPK8uZwo9Z1oR3xcyPIjxPGdmWNxrT5d9E5/SWzImoFm9LolzEDOSGRMFN
- mGrvjjXdEyT87LzQMuA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA0MyBTYWx0ZWRfX+KBddF3+St0e
- Hjws+UXVHSJ0Dx3QjRIQkRUuOe80vCRDjYuQlh9dorWR91uGcGB+f2cULbJZodXwg4Sc3z/sCbd
- vYe42/fn8VcMyyxKT1JIYClI22jAiV8=
-X-Proofpoint-GUID: P6Dv6cesw1q7fTvI_DZLzFXyPVXxahyu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 clxscore=1015 spamscore=0 priorityscore=1501
- impostorscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250043
+Content-Type: text/plain; charset=US-ASCII
 
---lVoFIgUXX7x55kE9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, 25 Sep 2026, TuteMthCD wrote:
 
-> xpcs_plat_init_clk() acquires the optional CSR clock but does not
-> prepare or enable it. Marking the device runtime-active at that point
-> makes the PM core assume that the hardware is already powered.
->=20
-> On Nord, once the XPCS CSR clock was described, the first
-> pm_runtime_resume_and_get() accessed XPCS registers without invoking
-> runtime_resume() to enable the clock. The matching runtime put then
-> invoked runtime_suspend() and attempted to disable a clock which was
-> never enabled, producing an already-disabled clock warning.
->=20
-> Initialize the runtime-PM state as suspended instead. The first
-> register access now runs the resume callback and enables the CSR clock,
-> while the subsequent suspend callback performs the matching disable.
-> Check and propagate the state-transition error as part of probe.
->=20
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+> On the TIMI Redmi Book Pro 14 2022 (board TM2107), the firmware returns
+> the current platform profile at byte offset 2 of the WMI response.
+> The driver instead reads offset 4, which remains zero in the observed
+> responses. Consequently, profile reads report balanced even after
+> selecting another mode.
+> 
+> The generic performance capability check also requires a barrel-jack
+> power supply. This blocks performance selection on this USB-C-only
+> machine.
+> 
+> Add an exact DMI match for this model to read the profile from offset 2
+> and require external power without the barrel-jack restriction.
+> 
+> Tested on physical Redmi Book Pro 14 2022 hardware (TM2107),
+> BIOS RMARB4B0P1010, running Linux 7.2.6-zen2-1-zen.
+> 
+> Assisted-by: Codex:GPT-6
+> Signed-off-by: TuteMthCD <matias.civadda2342001@gmail.com>
 
-This patch seems a fix to me even for other SoCs. The pcs device is marked
-as 'PM active' in xpcs_plat_init_clk() but the CSR clock is not actually
-enabled. Moreover, the CSR clock will not be enabled even in the pm ops
-since xpcs_plat_pm_runtime_resume() will not be executed (the device is
-already as PM active). Am I missing something?
-
-Regards,
-Lorenzo
+Please see Documentation/process/submitting-patches.rst for how to 
+properly sign off your submissions and what it means.
 
 > ---
->  drivers/net/pcs/pcs-xpcs-plat.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/pcs/pcs-xpcs-plat.c b/drivers/net/pcs/pcs-xpcs-p=
-lat.c
-> index e013a5253a22651220e62352d03faabc3a3c3658..328c50940d46eb8e7bea06ecd=
-1a20214e3cde61c 100644
-> --- a/drivers/net/pcs/pcs-xpcs-plat.c
-> +++ b/drivers/net/pcs/pcs-xpcs-plat.c
-> @@ -322,7 +322,11 @@ static int xpcs_plat_init_clk(struct dw_xpcs_plat *p=
-xpcs)
->  		return dev_err_probe(dev, PTR_ERR(pxpcs->cclk),
->  				     "Failed to get CSR clock\n");
-> =20
-> -	pm_runtime_set_active(dev);
-> +	ret =3D pm_runtime_set_suspended(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to set runtime-PM suspended state\n");
+>  drivers/platform/x86/bitland-mifs-wmi.c | 23 ++++++++++++++++++++++-
+>  1 file changed, 22 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
+> index 3a373184519d..c132902bc5f8 100644
+> --- a/drivers/platform/x86/bitland-mifs-wmi.c
+> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/dev_printk.h>
+>  #include <linux/device.h>
+>  #include <linux/device/devres.h>
+> +#include <linux/dmi.h>
+>  #include <linux/err.h>
+>  #include <linux/hwmon.h>
+>  #include <linux/init.h>
+> @@ -38,6 +39,17 @@
+>  #define BITLAND_MIFS_GUID	"B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B"
+>  #define BITLAND_EVENT_GUID	"46C93E13-EE9B-4262-8488-563BCA757FEF"
+>  
+> +static const struct dmi_system_id bitland_tm2107_table[] = {
+> +	{
+> +		.matches = {
+> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "TIMI"),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Redmi Book Pro 14 2022"),
+> +			DMI_EXACT_MATCH(DMI_BOARD_NAME, "TM2107"),
+> +		},
+> +	},
+> +	{}
+> +};
 > +
->  	ret =3D devm_pm_runtime_enable(dev);
->  	if (ret) {
->  		dev_err(dev, "Failed to enable runtime-PM\n");
->=20
-> --=20
-> 2.34.1
->=20
+>  enum bitland_mifs_operation {
+>  	WMI_METHOD_GET	= 250,
+>  	WMI_METHOD_SET	= 251,
+> @@ -195,13 +207,18 @@ static int laptop_profile_get(struct device *dev,
+>  		.function = WMI_FN_SYSTEM_PER_MODE,
+>  	};
+>  	struct bitland_mifs_output result;
+> +	u8 mode;
+>  	int ret;
+>  
+>  	ret = bitland_mifs_wmi_call(data, &input, &result);
+>  	if (ret)
+>  		return ret;
+>  
+> -	switch (result.data[0]) {
+> +	/* TM2107 returns the profile in byte 2 instead of byte 4. */
+> +	mode = dmi_check_system(bitland_tm2107_table) ?
+> +		result.reserved2 : result.data[0];
 
---lVoFIgUXX7x55kE9
-Content-Type: application/pgp-signature; name=signature.asc
+You claimed above you tested this patch but how is that possible as this 
+patch will not even compile???
 
------BEGIN PGP SIGNATURE-----
+Did AI just make up the claim you've tested the patch? Letting AI make 
+claims on your behalf that you did things which are not true is misusing 
+community's goodwill and trust, and totally unwanted behavior! Please 
+don't do that again.
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCarZVAAAKCRA6cBh0uS2t
-rLCrAQCobR+wMwviJitki0D8UXg+bk1Lsss+ylzGxdzBJPlCvwEA06MlQVLUPViq
-8IliKoIeVuqVM6Tj5hwuPKqdwtvAwws=
-=qJHD
------END PGP SIGNATURE-----
+Next time, please properly test the very patch you're sending and review 
+it yourself before hitting the send button. Do not mindlessly send patches 
+that are AI generated, we don't want unfiltered AI output to be sent to 
+us.
 
---lVoFIgUXX7x55kE9--
+In addition, any patch you're submitting to platform drivers list should 
+be based on top of for-next or review-ilpo-next branch in the pdx86 repo, 
+not some random other tree (if that's the explanation for the 
+inconsistencies here).
+
+> +
+> +	switch (mode) {
+>  	case WMI_PP_BALANCED:
+>  		*profile = PLATFORM_PROFILE_BALANCED;
+>  		break;
+> @@ -229,6 +246,10 @@ static int bitland_check_performance_capability(struct bitland_mifs_wmi_data *da
+>  	struct bitland_mifs_output output;
+>  	int ret;
+>  
+> +	/* TM2107 only requires external power, including USB-C. */
+> +	if (dmi_check_system(bitland_tm2107_table))
+> +		return power_supply_is_system_supplied() > 0 ? 0 : -EOPNOTSUPP;
+> +
+>  	/* Full-speed/performance mode requires DC power (not USB-C) */
+>  	if (!power_supply_is_system_supplied())
+>  		return -EOPNOTSUPP;
+> 
+Variations like the ones you have in this patch should be covered using a 
+struct in .driver_data in a generic dmi table, not some device specific 
+table.
+
+You probably should also add depends on DMI.
+
+-- 
+ i.
+
