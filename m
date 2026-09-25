@@ -1,285 +1,71 @@
-Received: from mta0.migadu.com (out-22.mta0.migadu.com [91.218.175.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B191F47FB17
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FF53E3D9E
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:07:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790327187; cv=none; b=nntJ5MO32iyknFcjvp7MoJmV7skDlxygPHbCxyh30zI+4I5Xdzx5tXPbhMkcC0Gzr3ognfdnceWMh85NMbl+5E5moxps59WdXnkXA1xbVww8kNSB6mEctnuqTi2d6fNnSwUJcIDyBFYuzKbXceCZvmdRB/YolUF7lmEcENXE434=
+	t=1790327248; cv=none; b=mnVoio6aB0XbIHxyNC0bHM2vedQRVxalbZR0q2V5MCtx6hDr6PlCC0nOJx39eiKQ66+rMg/OZFMLtcrSqkFdbYmEIUX1GIkwSWIdA9rulsNPJpHnZQ2bt4JFakEipc3n4CC3BMD+biRwLUinWQbF6/9T0uzF610Hbxb5bIUqUX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790327187; c=relaxed/simple;
-	bh=O1l056xqARvD1RNEki93f2/Djl/k6smWQ7BMr3/NITQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=sqwWAfg49JcwMtknnjTKceFmhV6lTyRMeHLsJ0H/bn3qL79s1o13HFouVbAPrKOOOiMHvi94bcU+o15ZLI8ETlJeGhyeeQafqY2uy5eORbHYcPBRYZqZghltEPKVkHQJX45b3KoMeLECtYWWbDUaawVbzYYPcz1mz3dAxh1mQmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iqy3l2px; arc=none smtp.client-ip=91.218.175.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790327248; c=relaxed/simple;
+	bh=2Kg/2fVUrR/FnWTt/4h0ndGGym/81OnE+7MHDvLh0IY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c1SrGjWX52cIXB3WQgrngKIsEWgYJ+ORwuFvVLtSpXlbwj0XOId/oK3wWT53wHSUsygIWIyhQ+XfQfIHlIYePa/mt8yQYx4oVeHuMB0RhRY/BCxVJxR10+WE+4xAaqMggfY8j1DnpbNFYVvghHlgZy0bb4xDz/VDVDqkovSaYBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Jm2UAcpx; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iqy3l2px"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=O1l056xqARvD1RNEki93f2/Djl/k6smWQ7BMr3/NITQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790327183; v=1; x=1790931983;
- b=iqy3l2pxJsO8dV6QFfpnCn5KHxrrsmdzY0do9n6s0wybotb9Ux9IPEBM6NoOXvE6E9vYlIK3
- 5FubOko3vtk2l0Xn2rBabdes38JHdEF8wAaq9aFYdoJmhTJsVcot/2ZgHi4ZR8tldzHfBE2fPXM
- HcXCMXRTjrLEbsxXTc7S+DWI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 21230619e030cab0;
-	Fri, 25 Sep 2026 09:06:22 +0000
-X-Mizu-Trace-ID: 21230619e030cab0
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Quentin Perret <qperret@google.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 4/4] KVM: arm64: selftests: Check a feature hidden in an ID register is UNDEF
-Date: Fri, 25 Sep 2026 10:06:19 +0100
-Message-Id: <20260925090619.852995-5-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260925090619.852995-1-fuad.tabba@linux.dev>
-References: <20260925090619.852995-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Jm2UAcpx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=KCyV94oyn7UgoSfgjaYpx+E0zyZIPbxzlpyxYGj8GX8=; b=Jm2UAcpxToTAxr+Svp1O2pM4D2
+	ctatdOQnUip7JuJmrAlj1RMH8E1zlPVFjc8sc3mciWWVQmMLyYIHqH6Dt3Ybcu1hVdMkiUxVlKcZm
+	vsaiUPmIHUutP2/fkDKowSq04+IjHyu0g+bD0oub1gDqlD1X//vJV2jAxVBwKQ0T7SrSIgZmEuLMA
+	TWrMDsdz+q2WtqoY4X5ZhkOHQ+YepDxsc64ieSY1Z6kAa6eKz8J5zGgZ7jQkjjGS9x0Q9gOKNdwBI
+	gwaQUDi8N7wC3NC23QU+ZP6EXyWXQMEjCMzpNMlGq0CnJo/u8+RkdqU/1TVMrE2UJNuYHEwRG7tOh
+	OmV4cLhA==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xA1ts-0000000CyOj-3qzm;
+	Fri, 25 Sep 2026 09:07:24 +0000
+Date: Fri, 25 Sep 2026 02:07:24 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: mpenttil@redhat.com
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	David Hildenbrand <david@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
+	Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>
+Subject: Re: [PATCH v15 00/11] migrate on fault for device pages
+Message-ID: <arY5zKsLuf7f_EYw@infradead.org>
+References: <20260924065313.899730-1-mpenttil@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924065313.899730-1-mpenttil@redhat.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Userspace can hide a feature from a guest by clearing its field in a
-writable ID register, and KVM then makes the feature's instructions
-UNDEFINED in the guest by trapping or disabling them. No selftest checks
-that. In pKVM, a hidden TLBI OS executed on a CPU without FGT until
-"KVM: arm64: Use the host's HCR_EL2 for non-protected VMs in pKVM".
+On Thu, Sep 24, 2026 at 09:53:02AM +0300, mpenttil@redhat.com wrote:
+> Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
+> which tells to prepare for migration also during fault handling.
+> For the migrate_vma_setup() call paths, new flags, MIGRATE_VMA_FAULT,
+> and MIGRATE_VMA_WRITE are added to tell to add fault handling to migrate.
 
-Add a test that runs the instruction of each of TLBI OS, MOPS, TCR2_EL1
-and FPMR once with its field as advertised and once with it cleared, and
-expects an UNDEF only when cleared. A feature the vCPU doesn't advertise
-is skipped, as is hidden TLBI OS on a CPU with neither FGT nor
-FEAT_EVT2, where KVM can't trap it.
-
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/arm64/hidden_features.c     | 184 ++++++++++++++++++
- 2 files changed, 185 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/arm64/hidden_features.c
-
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 96bab7002d39e..864fdca7f362e 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -194,6 +194,7 @@ TEST_GEN_PROGS_arm64 += arm64/vgic_v5
- TEST_GEN_PROGS_arm64 += arm64/vpmu_counter_access
- TEST_GEN_PROGS_arm64 += arm64/no-vgic
- TEST_GEN_PROGS_arm64 += arm64/idreg-idst
-+TEST_GEN_PROGS_arm64 += arm64/hidden_features
- TEST_GEN_PROGS_arm64 += arm64/kvm-uuid
- TEST_GEN_PROGS_arm64 += access_tracking_perf_test
- TEST_GEN_PROGS_arm64 += arch_timer
-diff --git a/tools/testing/selftests/kvm/arm64/hidden_features.c b/tools/testing/selftests/kvm/arm64/hidden_features.c
-new file mode 100644
-index 0000000000000..194d746e7605e
---- /dev/null
-+++ b/tools/testing/selftests/kvm/arm64/hidden_features.c
-@@ -0,0 +1,184 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * hidden_features - Check that a feature's instruction runs in the guest when
-+ * its ID register field is advertised, and is UNDEFINED when userspace clears
-+ * the field.
-+ *
-+ * Copyright (c) 2026 Google LLC
-+ * Author: Fuad Tabba <fuad.tabba@linux.dev>
-+ */
-+#include "kvm_util.h"
-+#include "processor.h"
-+#include "test_util.h"
-+
-+static volatile bool undef;
-+
-+static void guest_tlbi_os(void)
-+{
-+	/* tlbi vmalle1os */
-+	asm volatile("sys #0, c8, c1, #0\n\tdsb ish\n\tisb" ::: "memory");
-+}
-+
-+static void guest_mops(void)
-+{
-+	register u64 *d asm("x0");
-+	register u64 n asm("x1");
-+	register u64 s asm("x2");
-+	u64 buf[8];
-+
-+	d = buf;
-+	n = sizeof(buf);
-+	s = 0;
-+	/* setp [x0]!, x1!, x2; setm; sete */
-+	asm volatile(".inst 0x19c20420\n\t.inst 0x19c24420\n\t.inst 0x19c28420"
-+		     : "+r"(d), "+r"(n) : "r"(s) : "cc", "memory");
-+}
-+
-+static void guest_tcr2(void)
-+{
-+	read_sysreg_s(SYS_TCR2_EL1);
-+}
-+
-+static void guest_fpmr(void)
-+{
-+	read_sysreg_s(SYS_FPMR);
-+}
-+
-+struct feature {
-+	const char *name;
-+	u64 id_reg;
-+	u64 mask;
-+	u8 shift;
-+	u64 min;
-+	void (*insn)(void);
-+	bool (*trappable)(struct kvm_vcpu *vcpu);
-+};
-+
-+/* Without FGT, KVM traps a hidden TLBI OS only through HCR_EL2.TTLBOS (FEAT_EVT2). */
-+static bool tlbi_os_trappable(struct kvm_vcpu *vcpu)
-+{
-+	u64 mmfr0 = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_ID_AA64MMFR0_EL1));
-+	u64 mmfr2 = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_ID_AA64MMFR2_EL1));
-+
-+	return SYS_FIELD_GET(ID_AA64MMFR0_EL1, FGT, mmfr0) >= ID_AA64MMFR0_EL1_FGT_IMP ||
-+	       SYS_FIELD_GET(ID_AA64MMFR2_EL1, EVT, mmfr2) >= ID_AA64MMFR2_EL1_EVT_TTLBxS;
-+}
-+
-+#define FEATURE(n, reg, field, min_val, fn, trap)		\
-+{								\
-+	.name		= n,					\
-+	.id_reg		= SYS_##reg,				\
-+	.mask		= reg##_##field##_MASK,			\
-+	.shift		= reg##_##field##_SHIFT,		\
-+	.min		= reg##_##field##_##min_val,		\
-+	.insn		= fn,					\
-+	.trappable	= trap,					\
-+}
-+
-+static const struct feature features[] = {
-+	FEATURE("TLBI OS", ID_AA64ISAR0_EL1, TLB, OS, guest_tlbi_os, tlbi_os_trappable),
-+	FEATURE("MOPS", ID_AA64ISAR2_EL1, MOPS, IMP, guest_mops, NULL),
-+	FEATURE("TCR2_EL1", ID_AA64MMFR3_EL1, TCRX, IMP, guest_tcr2, NULL),
-+	FEATURE("FPMR", ID_AA64PFR2_EL1, FPMR, IMP, guest_fpmr, NULL),
-+};
-+
-+static void guest_code(const struct feature *feat)
-+{
-+	undef = false;
-+	feat->insn();
-+	GUEST_SYNC(undef);
-+	GUEST_DONE();
-+}
-+
-+static void guest_undef_handler(struct ex_regs *regs)
-+{
-+	undef = true;
-+	regs->pc += 4;
-+}
-+
-+static bool run(const struct feature *feat, bool hide)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	struct ucall uc;
-+	bool got = false;
-+	u64 val;
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, (void *)guest_code);
-+	vm_init_descriptor_tables(vm);
-+	vcpu_init_descriptor_tables(vcpu);
-+	vm_install_sync_handler(vm, VECTOR_SYNC_CURRENT, ESR_ELx_EC_UNKNOWN, guest_undef_handler);
-+	vcpu_args_set(vcpu, 1, feat);
-+
-+	if (hide) {
-+		val = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(feat->id_reg));
-+		vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(feat->id_reg), val & ~feat->mask);
-+	}
-+
-+	for (;;) {
-+		vcpu_run(vcpu);
-+		switch (get_ucall(vcpu, &uc)) {
-+		case UCALL_SYNC:
-+			got = uc.args[1];
-+			break;
-+		case UCALL_ABORT:
-+			REPORT_GUEST_ASSERT(uc);
-+			break;
-+		case UCALL_DONE:
-+			kvm_vm_free(vm);
-+			return got;
-+		default:
-+			TEST_FAIL("Unknown ucall %lu", uc.cmd);
-+		}
-+	}
-+}
-+
-+static void probe_feature(const struct feature *feat, bool *present, bool *trappable)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	u64 val;
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, NULL);
-+	val = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(feat->id_reg));
-+	*present = ((val & feat->mask) >> feat->shift) >= feat->min;
-+	*trappable = !feat->trappable || feat->trappable(vcpu);
-+	kvm_vm_free(vm);
-+}
-+
-+int main(void)
-+{
-+	const struct feature *feat;
-+	bool present, trappable;
-+	int i;
-+
-+	test_disable_default_vgic();
-+
-+	ksft_print_header();
-+	ksft_set_plan(ARRAY_SIZE(features) * 2);
-+
-+	for (i = 0; i < ARRAY_SIZE(features); i++) {
-+		feat = &features[i];
-+
-+		probe_feature(feat, &present, &trappable);
-+		if (!present) {
-+			ksft_test_result_skip("%s advertised, not supported\n", feat->name);
-+			ksft_test_result_skip("%s hidden, not supported\n", feat->name);
-+			continue;
-+		}
-+
-+		if (run(feat, false))
-+			ksft_test_result_fail("%s advertised, UNDEF\n", feat->name);
-+		else
-+			ksft_test_result_pass("%s advertised\n", feat->name);
-+
-+		if (!trappable)
-+			ksft_test_result_skip("%s hidden, not trappable\n", feat->name);
-+		else if (run(feat, true))
-+			ksft_test_result_pass("%s hidden\n", feat->name);
-+		else
-+			ksft_test_result_fail("%s hidden, no UNDEF\n", feat->name);
-+	}
-+
-+	ksft_finished();
-+}
--- 
-2.39.5
+Who is going to use this?  The series seems to lack an actual user for
+it.
 
