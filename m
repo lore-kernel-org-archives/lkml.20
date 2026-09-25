@@ -1,140 +1,100 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2611A267;
-	Fri, 25 Sep 2026 00:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C82F3A1B5
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:05:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790294686; cv=none; b=BJ745ajz1MNmrHKmui6Y1oWi1CKpB6FGiTHtozviErynmiJLl9dtmPt7IKGIReKmfSXsHrBxKM5ahFtU1+1CD+p+y+XyA0zMHMZp2+3dZ5wWru5GyCIj6/u2bW7PT7fCyX7tTYFLcTZUj6N4J2czakztpkAvUmVomiFL45CM504=
+	t=1790294751; cv=none; b=KZi4s+4UEfZlg1+a3jSBAo8EI6RMOjc6HCEfaZHbMApk0gv2SLC6S1UruUHDmoOhusZnhy79K0711T/bKwXUyXKe3DQ/jBOkP1xyEZ73n0svPkh+Nzb4oawUK22K8Q2sq9i5xHrXhziEOc6Mu9RRqIp84nCFFKlBVKYipJR05zs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790294686; c=relaxed/simple;
-	bh=HvsBmvYUBmw+Sy2UkGl81oqHKz8g4fZqaJXTq9WZ5Oo=;
+	s=arc-20240116; t=1790294751; c=relaxed/simple;
+	bh=LK8YbNkcz2rsO1Y8eYNkUqy/IjUVzqPhRsoF2ILmK9M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R1PtpkS59ndx+eIEbUndCvNqJMgk82IlDuvxggg/dd/CBZpseURXDakab/QZ1mwhVxe+lQnj8fiWErAX4GlhAnKekMv1RCkjgyRu0nO664tj/nTI7sUpmhGaU9L/ArT16pjnZ+qSqoahkhVyg7OGbZbFHumWIJNOEqtdIkB6jzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=PG4XNaZL; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=QF6UiJU4Jc/ktfgwNOBHNeH8JI+xIjfCQJZmElKwnnoTAuDrUriGzX5K7MrHVk4m3ZzJjhiEFu47N1pDpReH/Yqi0x2tCiSDD6SQVXiAQwhY/LI/JPFi6IrbuM9XcJBxP9bvqf7pfixMYyWqCapi7X5jXKzaHFioffIlNOYkahw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zrwfn+N7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="PG4XNaZL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=GvrPeFIm2JKZW2zlPW0AMx8ld3eL9qOjcIbpnfOK7W4=; 
-	b=PG4XNaZLPb+yZu/5jr6EvKnkqL5Tx9cTnbufAjN+Bnh0U58qf3qsFw+lq9IqnfzaPh5ahJpW/rX
-	LvJcLDEHrpCZH0k06qFdyO1qaQaTXeVXa2UQIBZwqz0nIPzNSfzJmMu/gwPws8iVoncVtE0JAFiXh
-	1SUgxpAlNX3L4tPIL8DK6qu2mx1xbEcFtJezq8MDEsMruaQmIOBvjs/3XOQ0501khN6WI0QBMVTHT
-	/7wZStfm8bfNAkORMm3TNXpTAgIyGJgWeQp+ZhGwnX7TjGCsShHS/45B00rfMPeFO+9VA+SLQH2FK
-	TcSy/DQBMGTCD0DBIJ9SScOM0GYSGhB6bhEg==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x9tQP-000000003eW-42jT;
-	Fri, 25 Sep 2026 08:04:27 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 25 Sep 2026 10:04:25 +1000
-Date: Fri, 25 Sep 2026 10:04:25 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, justinstitt@google.com,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, morbo@google.com, nathan@kernel.org,
-	ndesaulniers@google.com, Thomas Graf <tgraf@suug.ch>,
-	nickolay.lysenko@gmail.com, peterz@infradead.org,
-	rostedt@goodmis.org, sched-ext@lists.linux.dev, tj@kernel.org
-Subject: Re: [PATCH] rhashtable: specialize default comparison for constant
- parameters
-Message-ID: <arW6ibT1RkVCqTdT@gondor.apana.org.au>
-References: <20260924184733.2317353-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zrwfn+N7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB5E61F000FF;
+	Fri, 25 Sep 2026 00:05:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790294749;
+	bh=x9wmj+UF3ZBwNytHK13BfVarj9jHLB/ciTxE2Q6X0qw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zrwfn+N7i0gd+uW4UcPFxlywSNaic7UyQW+i3oiCbNdYV7D5TAvDozCn+YsKAXMgt
+	 6F2Ye7K4QdkjIAdruy1A8gZuP0xAz5urEYYx5zpBnXq2bXYlusq27zJs+8xsUr8Z8T
+	 LkFI45DWzmz9Yfb6Spv/u6LWiLHNe3LVmaHwYOoSUQRqHbngKlqDFPlm6zPTR5817k
+	 hJ+G57s5yfhOaMRRb6y3EfyrZK2zT8T+cUwlQJO6Kgy+OslVXRpSxeoQSPr5UeANYI
+	 dQWm8NR9AvSnrJagc+Eztowq1/Qjlw9f/F8izSlEwzmAevHKKROqgRujDQyks17ikC
+	 q7AhLfjWWijGg==
+Date: Thu, 24 Sep 2026 17:05:49 -0700
+From: Kees Cook <kees@kernel.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+	oleg@redhat.com, luto@amacapital.net, wad@chromium.org,
+	peterz@infradead.org, ada.coupriediaz@arm.com, linusw@kernel.org,
+	yeoreum.yun@arm.com, kevin.brodsky@arm.com,
+	anshuman.khandual@arm.com, james.morse@arm.com, thuth@redhat.com,
+	vladimir.murzin@arm.com, tglx@kernel.org, broonie@kernel.org,
+	liqiang01@kylinos.cn, ryan.roberts@arm.com, pengcan@kylinos.cn,
+	kmehltretter@gmail.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v19 00/14] arm64: entry: Convert to Generic Entry
+Message-ID: <202609241703.4AF69048@keescook>
+References: <20260922035510.1090299-1-ruanjinjie@huawei.com>
+ <202609221129.B5E13A7@keescook>
+ <927d57a4-64ab-4420-9485-5336f2ec3fd5@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260924184733.2317353-1-usama.arif@linux.dev>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <927d57a4-64ab-4420-9485-5336f2ec3fd5@huawei.com>
 
-On Thu, Sep 24, 2026 at 11:47:33AM -0700, Usama Arif wrote:
-> The inline lookup and insert helpers receive the rhashtable parameters by
-> value. With a static const parameter block, key_offset and key_len are
-> compile-time constants at the call site.
-> 
-> The default comparison throws that information away by reading both fields
-> back from ht->p. Fixed-size keys consequently load the parameters and call
-> bcmp() for every object in the bucket, even when the compiler could use
-> scalar comparisons instead.
-> 
-> The commit "sched_ext: Specialize the DSQ hashtable compare" [1] resulted
-> in a 2.9x faster DSQ lookup after replacing this path for its u64 key
-> with a scalar comparison. Doing that through obj_cmpfn requires every
-> fixed-key user to provide its own callback.
-> 
-> Pass the call-site parameters to rhashtable_compare(), as
-> rht_key_get_hash() already does. Use them when key_len is a compile-time
-> constant. Retain the ht->p path for dynamic parameter blocks. A constant
-> zero key_len continues to take the runtime length from ht->p.key_len.
-> 
-> This specializes the default comparison for all fixed-size users. With
-> Clang 22 on x86-64, bcmp() disappears from sched_ext, mac80211, NFSd,
-> TIPC, NFQUEUE, VFS superblock, pidfs, SysV IPC and hardware-breakpoint
-> table paths. The affected build_policy.o, sta_info.o and nfsd filecache.o
-> text shrinks by 512, 400 and 352 bytes respectively. Four- and eight-byte
-> keys become direct scalar comparisons; six-byte MAC addresses become a
-> four-byte and a two-byte comparison.
-> 
-> Measure the VFS case with ustat() on a mounted ramfs. This exercises
-> user_get_super() and its super_dev lookup. Across ten interleaved baseline
-> and patched VM boot pairs, with five 3 million call samples per boot, the
-> average per-boot median latency drops from 477.2 to 462.6 ns per call, or
-> 3.0%. All ten pairs improved.
-> 
-> No functional change intended.
-> 
-> [1] https://lore.kernel.org/all/20260921171928.1639407-1-usama.arif@linux.dev/
-> 
-> Suggested-by: Mykola Lysenko <nickolay.lysenko@gmail.com>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
->  include/linux/rhashtable.h | 20 +++++++++++++++-----
->  lib/rhashtable.c           |  5 +++--
->  2 files changed, 18 insertions(+), 7 deletions(-)
+On Thu, Sep 24, 2026 at 05:32:14PM +0800, Jinjie Ruan wrote:
+> 在 2026/9/23 2:29, Kees Cook 写道:
+> I tested the rr test cases on a Kunpeng HIP09 (with minor adaptations,
+> since Kunpeng CPUs aren't supported by default), and the results showed
+> no regressions.
 
-Nice work, I'm glad that someone is looking at the assembly :)
+Great! Thank you for getting that set up.
 
-> diff --git a/include/linux/rhashtable.h b/include/linux/rhashtable.h
-> index 57a2a29bef0e8..c9872965b753c 100644
-> --- a/include/linux/rhashtable.h
-> +++ b/include/linux/rhashtable.h
-> @@ -598,13 +598,23 @@ static inline void rht_assign_unlock(struct bucket_table *tbl,
->  	for (pos = list; pos && rht_entry(tpos, pos, member);		\
->  	     pos = rcu_dereference_all(pos->next))
->  
-> -static inline int rhashtable_compare(struct rhashtable_compare_arg *arg,
-> -				     const void *obj)
-> +/*
-> + * Use constant params from inlined callers to specialize memcmp(). If params
-> + * isn't constant, it must be equal to ht->p.
-> + */
-> +static __always_inline int rhashtable_compare(struct rhashtable_compare_arg *arg,
-> +					      const void *obj,
-> +					      const struct rhashtable_params params)
->  {
->  	struct rhashtable *ht = arg->ht;
->  	const char *ptr = obj;
->  
-> -	return memcmp(ptr + ht->p.key_offset, arg->key, ht->p.key_len);
-> +	if (!__builtin_constant_p(params.key_len))
-> +		return memcmp(ptr + ht->p.key_offset, arg->key,
-> +			      ht->p.key_len);
-> +
-> +	return memcmp(ptr + params.key_offset, arg->key,
-> +		      params.key_len ? : ht->p.key_len);
+> 
+> |               |    7.3-rc4 baseline     |   Patched                 |
+> 
+> |  ------------ |------------------------ | ------------------------- |
+> |   result      |  87% passed, 190 failed |   88% passed, 186 failed  |
+> 
+> 
+> | Failure Mode   | 7.3-rc4 baseline |   Patched  |
+> | ------------   | ---------------- | ---------- |
+> | TICK_MISMATCH  |         76       |   74       |
+> | TIMEOUT        |         68       |   65       |
+> | GDB_SCRIPT     |         34       |   37       |
+> | PERF_EVENT_OPEN|         3        |   2        |
+> |   OVERSHOOT    |         1        |   0        |
+> |    OTHER       |         8        |   8        |
+> | -------------- |  --------------- | ---------- |
+> |  Total         |      190         |   186      |
 
-If there is no obj_cmpfn then there is no obj_hashfn.  If there
-is no obj_hashfn then params.key_len must be non-zero.  So this
-could become unconditional, perhaps with a comment.
+GDB_SCRIPT failures went up? Are the tests just flaky?
 
-Thanks,
+> > - MTE: I didn't see MTE in the cover letter's test list, and it seems
+> >   relevant since patch 13 puts _TIF_MTE_ASYNC_FAULT into
+> >   ARCH_EXIT_TO_USER_MODE_WORK, so an async tag check fault lands
+> >   on the reworked exit path. The MTE selftests showed no differences,
+> >   but a third of them don't actually run for me under QEMU, so they'd
+> >   be worth running on your hardware. (Testing MTE under QEMU saw
+> 
+> Turns out our arm64 machines don't support MTE; I was testing it on QEMU.
+
+Ah, dang. I wonder if we can find anyone with MTE hardware to test this.
+Any volunteers? :)
+
+-Kees
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Kees Cook
