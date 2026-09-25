@@ -1,150 +1,101 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012048.outbound.protection.outlook.com [40.107.209.48])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97695501F47;
-	Fri, 25 Sep 2026 22:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790376518; cv=fail; b=nDvZQxQEBf6+1HG+oiG7Jh0PbpyFdnA3VRSNDUuusVgfDdSlhEApZr0uJ3lEeEmEvFyVoy/wK4wYccF6l2WhHjDYDppsaUO794vga3N3fizl5dR7yaoEJl/xGQXafUcJCnoRz4bomVxnuSDHOR9j6YcfdomZazia83AisGH7HPc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790376518; c=relaxed/simple;
-	bh=yfD9XMfDr1/snR8qj2GACLSnYcfdIxhNxvOD8Ff2P6M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=rcVmltt9yd3hQRNuVVLkUlRomfV62k3fQ/EV5Oq5uM0kwDdtC0r/z8liT4W36P8hRbVT7vfDdVok6Mto3fyUHbELEOjEoYoPXW5YeA7HQgZHNMMWUoZaTSQfhD58sSvSO1/+LWwoB1c9APRRenzxSTp08490qhVz5PRhQ+6xhT0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=r5huvLzm; arc=fail smtp.client-ip=40.107.209.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE4E3FFF9D;
+	Fri, 25 Sep 2026 22:49:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790376556; cv=none; b=iojOprUhKvNuw5AxLRCqOnGslTeUgDM0C9GC+n3KPPL/tYXv33fbymK82qcFGr+WqeiyhOaSfam3xYJxQyaW4/t0LFRjOkc+uZazJBRUB/1xaFSUa5jMwlF5i5kjBue1P72TdqaQnuRPLWp5xjC2KxEuVx9OSWcvV/5ZlsBr2so=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790376556; c=relaxed/simple;
+	bh=Y95UQmeT/ukjLgSezHbUyqHff6vAEDwkJco7fGSM0Tc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s/V3qgu1iWm86i6rUiIwopSuwvHLTafzZq5Wp1uEPCMH1sS3fTF2LsRzQcg/uUdJid5MuVkaM9T7XQkVB0DPVQ57KjQViWM0lSSouKQadAcSLtAd3kyE/lA5su5jibXPz0cLI/wVV0cOTbgx1s2JwqgeKMZK3H4OeNwzYxqLhNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RaafAq5M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="r5huvLzm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V36iN/97eVLzChOE0M3l+zOSLZsDROYEWKwawOb3jUlmRr2xQYt+UKCjP6vMJ29OiIBwuFDqLPRWjAoaWhccAMsciIfPs+D5rwcQiyl2l3YbQEP9+t+2NBwca2/Dq2VhMl+UONHJGGdQZcL/RCUyjSr0GRCkzLVcy7HQRf4MiUuIKC8qQB6Sa9DFP0NuiKnamjHTRDmyDhkRB/9xNQ2JDo5mZH5d5uc7VQgOr+O56LztAXPR41VcEThC1ING7fwlKMdCavkAYZbUew0C/OaWCpykWC+3rsI/uY8WhoEu9aVj8qy49y7cdq6KVfFKeoirXT157ax676ZVdsUCJ6THOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WDiJhqeP/3eK61Zue18ejXmcZlLg6KE7iWJtrDX6Be8=;
- b=hxdP5xwaI1LrPutyyFMH5ceh0USvDjPVTCuSwHsWT3dZTJWusmqBEnDtxgvLSnc3XB+4Wn9WqnliuFLkpxPQ7EGI099iIxwkyLjs3/5Zkm9x5iWHRRPKJfvTl+kD9pgDai6LE+RRgUJhM6l64ocdB9I3CV9Qierjpbh2Ol8MpNFbdS4uXkb6Zn7sHCpSG2XqKm+7fDhRdACmtAAAexoNJ6f9JP41FBzrkdQsnZiBR5uDMCjnONxmVVytqq2R1Gc57G9bCYDuyhu22jBqUAO6CDKIUT2vbTWK2ipcfjAeK+MC5q1lT5sRXr26L3lxs5Sjh+0aWdu6gCrdhdezvUdn3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WDiJhqeP/3eK61Zue18ejXmcZlLg6KE7iWJtrDX6Be8=;
- b=r5huvLzm/S2umvj7nQz4/9RKWuyta/VlALYstIRNxf8nO/r1Wl1dr37va1h1FlgIWoC8jQ1FPu41KZQPZlbly03Wt1BZOSIdYcuMr5KUObiIaMk1G6yXm6TjvAm5Pz8ZF994EvA3mABGw9jjjT4zw/xr7pRQ9dwTaZ6mLFiAQgeeR1dobI84ozWBllG413gXfOAt1Unz6j1X1lyBYW6uRUqZzQ4x2xa8hQNfzyYPBEl0eNM9gKQz286YAxn6nuXOynpq0YjlsmLMafoIyk7FaMq8XXbmPJ4UUDiN/lUjkXyWO/Kk7Us2bYlrfa/KjTgSfF3RbMf9cjRiPYzSNzuybQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by CH3PR12MB8546.namprd12.prod.outlook.com
- (2603:10b6:610:15f::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 22:48:31 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 22:48:31 +0000
-Date: Fri, 25 Sep 2026 19:48:29 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Breno Leitao <leitao@debian.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Ashish Mhetre <amhetre@nvidia.com>,
-	Shameer Kolothum <skolothumtho@nvidia.com>,
-	Yuanhe Shu <xiangzao@linux.alibaba.com>,
-	Kyle McMartin <jkkm@meta.com>, Usama Arif <usama.arif@linux.dev>,
-	kernel-team@meta.com, linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/2] iommu/arm-smmu-v3: Make the queue depths tunable,
- and shrink them in a kdump kernel
-Message-ID: <20260925224829.GO9354@nvidia.com>
-References: <20260925141532.1274962-1-kirill@shutemov.name>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925141532.1274962-1-kirill@shutemov.name>
-X-ClientProxiedBy: SN7PR04CA0235.namprd04.prod.outlook.com
- (2603:10b6:806:127::30) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RaafAq5M"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 706D91F000FF;
+	Fri, 25 Sep 2026 22:49:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790376555;
+	bh=TkaMhPcU6EN6kseIWAWRa1q3PMr7Fv4dOgRgKGXTDnw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RaafAq5M511Ogj3VnsexZWp3/jc59DqjKSNhfxE4IQYF/6p9yKlIRcN/Dhljb09v9
+	 pFmtRJa9m/qoRIuVblqBOBeoD4cdBh/fcgrMxhYiT399NGkPYOf5qiNUuWfX4xQXPL
+	 7YwsbvvyS2q+RIBleu7mZu/ntBkqs7BwuejqXQuqsa/MvApIKJbqNhTvx3SYmdkwkr
+	 VWjgHC+QjdCWJ8OLqmY+friWmUhN47NWSCTJNL00Kwuf6wH6y6UIYGrwMw8TchLrzq
+	 eKisgXkeGnIRB/zauYD+ZE3ItU+IjpilRCeETeweO9ERZc4D4QiB8IzdzBDHKrJdBt
+	 roGKG56hDaqyw==
+Date: Sat, 26 Sep 2026 01:49:11 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	"Serge E. Hallyn" <serge@hallyn.com>, linux-kernel@vger.kernel.org,
+	David Howells <dhowells@redhat.com>,
+	James Morris <jmorris@namei.org>,
+	linux-security-module@vger.kernel.org,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Paul Moore <paul@paul-moore.com>
+Subject: Re: [PATCH] KEYS: trusted: Fix blob allocation size in
+ tpm2_key_decode()
+Message-ID: <arb6Z3s3mLu45Bau@kernel.org>
+References: <20260923173506.41519-1-sgarzare@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CH3PR12MB8546:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab966ada-d3b5-4505-2612-08df1b571f2c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|10067099003|56012099006|6133799003|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	KWNmDDlXxKexecToWvC5BZUb3Xr3PO7v1qKODunslHJatYqLzHdplui3OvSOmJUQjKlT6lqaoksdGH/eLXjFNlnsKg04VJHx8VtQt45fGQedQzvv99r5muEZ60Ek3RiJez2/WVzKH5emXykfFw66CXgoR8pn7qL4tRz1oKDMGi3sFzCLDtQz/wCOb2x0MdxR8aA/ti61UGSTganYC1Y1Rsj1CnixDwDLWxdmm/5IcdWEpSLdFMZkGQwIvagDV9LlTUEA/tHor/Yqc5jPvBxel35/U94A869J6Z3rdOsXJXKHyzaysYeDfj3k7sJCmvkqpSq4dwJmcqTYg0rAcc+w4rS/NMKevusYoCE10U3IUmeTHVF6dVHLU2Rd6ImrXFZ2n3ZZbJRzW52a766I9L3SrutGwBUhDWwbsg9XZKp0Pz+hpv7lhbUvcPeodkeXxzPyEyc9nEZ7YaLZJ9Qad5HhCz1tBH7JsMkVNI++wlEJHFyqYaPY1EMD4dKKoi3UCl/YMsjajUscg6YXVOKrKg20cXuXDS5VENG5bKoEf/oQLGrqcHxGQCzV/CJQcnugGs9lr3o9jQxgWT74hEaWt+VpbRSdVOZv899XB87iqeYRVOvNgSAffPeVNRUnGVhxXRGvOmbNsbWwvqwQYo99dv4mykOhc3T15JZ5JvNrl65aesY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?oaJ6XXKnH5MxHQpLbQhF0uQ4n94+NAwMc/6N+qBjVoBIVzQ5+iK5Mlop0N5R?=
- =?us-ascii?Q?luHrYLqjwT9Pn6ezwwZoe/8EtztbvzjAnA6QUnbl8qQtQ80chLAlmq03z+6p?=
- =?us-ascii?Q?K14miclQkr9tZYdpJd7bz41JFGwaIMR1Qha4WlG2fyOgaW6lbH/vOpr4m4hC?=
- =?us-ascii?Q?ExcgRa7HMOA3qPwEywPujH8l2fc3ABiNNCCDzlxwvg3YmUhHW3KvwmxQOD7y?=
- =?us-ascii?Q?w/PB4n5UVWJv34V+mR5neCcYf0JO6ofNb4ep5pH/HKfnNK9VLwDlU2N2YODk?=
- =?us-ascii?Q?wzWD8pZBZNNqNQQTPwbvIJHmXCOVmJViLVZlf9B+ketlHzhRGFPo6zjUsi7C?=
- =?us-ascii?Q?TzV2IIg/AU20MbXZBshvonR3Y53iMyOvG9CgPfaaivNRN6kjzSnRT0WJGWFi?=
- =?us-ascii?Q?zhj9APXFGgY+fY5RcEMeiddlCIpbW1lPtdID65Z0FVNvk2z1dTuSDYTamzpU?=
- =?us-ascii?Q?gka7HFaW1WtupMi9ALo9Dpws+mXEXD3fV5gVfHxW+/usCj027ABpu9+uaC7L?=
- =?us-ascii?Q?LZ0qog2aCautdbbxz+jKfEC49GiqYqy72PkkLJtOFjFNA/thX4l1yv+6UX/h?=
- =?us-ascii?Q?Vkv/oJifEAEkHBtjONJoO+apZgbjJKb1jQRMwk6yONYt0HEZjhnmPpoxOH+I?=
- =?us-ascii?Q?vOihEnrUxk9yaNLW7aiwu7v+CvWcJF/iqsy7x3qChF+dnpHSPf/pErTx3T+s?=
- =?us-ascii?Q?uVYvdYSxTQPe5tCyg11Cq3mJhSS49Sqq6TjppPC1xoKtm4CUwtxczl3oEAK7?=
- =?us-ascii?Q?ZXacEvK554gInExwJvjVrViz2qgf9F2Mj4c9sfvgezrZ5CmQxBaR7R4usCA3?=
- =?us-ascii?Q?w4Tx9pLd7IKcVzEtVD/q6Fb9XunFv5Gk1BqIh2OuxgKDcGPMcVxGSqaHn1Tu?=
- =?us-ascii?Q?13cnkP1oW70buNLImos3S+dVfDSZr46iLcx6hoZLvPMCDq0KnqdlY62BLMYf?=
- =?us-ascii?Q?h7wH9COZdJSeys17ZfobS1xnHy3pqd/5qImhd+AxaE8JXR6zamkjtxhxCRFh?=
- =?us-ascii?Q?nY9AJWodn8REFJJx/37c2H0sLgvbfdDz/j3lzNUQWaqBH6c03nSyLlJg7bWo?=
- =?us-ascii?Q?xWYcGgDP3bEEDmarDlFBYqmVKNskQ7aiFEvpiON7yJw/OQDrafEakdaENZni?=
- =?us-ascii?Q?VD4fKuJqKV1Yz9KkiPC/wyGpV5U2Jwhn0xoA3KXy8yjjqfBxzPicr8Xrk8OA?=
- =?us-ascii?Q?iTsgMlHQlaucEzQwLuLPe+JEyJMytaQKiDz2jA791Udv8RsYVg+LQQwUEeMT?=
- =?us-ascii?Q?BVET2PqvYhA3gcdo/mM2OOH/sODUpWRcZpRt/nIW5q5RUVueL60nV38tpzNX?=
- =?us-ascii?Q?RcOP4Sb4CsuGQuN5a1psZuVCEazm4QLFc57oGO/7/GAV6y5G7kOHbjHhG2kC?=
- =?us-ascii?Q?bbGD2zzCWaUcf0wir9La2tIUivcx1jSL4EAXloEUjttqE0FPRlgBUe59w2vR?=
- =?us-ascii?Q?NeQjCY4vixfJg4FoWkUBLIFXM7bX4eZ2wHEKhDgTv18WVkT87/jIPnSEs6BV?=
- =?us-ascii?Q?WTzPaQ6oXl7mLVLqJ4GWpMrh+KlA0CztPfvyTQ3JtJlE0qwk3cc7XUOvrFiS?=
- =?us-ascii?Q?NlUk7sL8P1SN0acM93jpqhLejcxsNFRo6ZbdjESl/sNCki0jDnSrQUZjHC5g?=
- =?us-ascii?Q?gCKmMvDvb0jixuXPErMD2tQsyhHBhl+jUc5NP//h26AU/g/FAVbmTbL6PHdr?=
- =?us-ascii?Q?IIpqml4dJOlXUDsBARm+VGKiVUqJo5sfSewKOS3sHHEDOmbj?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab966ada-d3b5-4505-2612-08df1b571f2c
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 22:48:31.0040
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6J6wQOPVfE8MXaTZRpZmg1MKMjNZxIW4PcnD6dA7YvPZOOD4SiHmOYOgVwIqdJdE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8546
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923173506.41519-1-sgarzare@redhat.com>
 
-On Fri, Sep 25, 2026 at 03:15:28PM +0100, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On Wed, Sep 23, 2026 at 07:35:06PM +0200, Stefano Garzarella wrote:
+> From: Stefano Garzarella <sgarzare@redhat.com>
 > 
-> The queues are sized from the IDR1 maxima and allocated at probe, costing
-> megabytes per queue per SMMU instance. A kdump capture kernel pays that out
-> of a small crashkernel reservation, for queues it barely uses and two of
-> which it switches off anyway.
+> tpm2_key_decode() allocates 4 bytes more than needed. The ASN.1
+> callbacks tpm2_key_priv() and tpm2_key_pub() provide the lengths
+> of TPM2B_PRIVATE and TPM2B_PUBLIC, so ctx.priv_len and ctx.pub_len
+> already account for the 2-byte `size` field each of those structures
+> starts with.
 > 
-> Patch 1 adds a cmdq_max_n_shift module parameter, decided in a per-queue
-> helper and floored at one page. Patch 2 has a kdump kernel size all three
-> queues at one page through the same helper. The parameter does not apply
-> there.
+> I noticed this while reviewing commit 114f00d738f1 ("KEYS: trusted:
+> Fix tpm2_load_cmd() boundary check"), which correctly reports
+> ctx.priv_len + ctx.pub_len as the decoded blob size [1].
+> 
+> Let's allocate exactly that amount, matching the data copied into
+> the blob.
+> 
+> [1] https://lore.kernel.org/linux-integrity/apfoKo-BdwaLXtkT@sgarzare-redhat/
+> 
+> Fixes: f2219745250f ("security: keys: trusted: use ASN.1 TPM2 key format for the blobs")
+> Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+> ---
+>  security/keys/trusted-keys/trusted_tpm2.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+> index 01f18bb37047..a9b8a31a637c 100644
+> --- a/security/keys/trusted-keys/trusted_tpm2.c
+> +++ b/security/keys/trusted-keys/trusted_tpm2.c
+> @@ -115,7 +115,7 @@ static int tpm2_key_decode(struct trusted_key_payload *payload,
+>  	if (ctx.priv_len + ctx.pub_len > MAX_BLOB_SIZE)
+>  		return -EINVAL;
+>  
+> -	blob = kmalloc(ctx.priv_len + ctx.pub_len + 4, GFP_KERNEL);
+> +	blob = kmalloc(ctx.priv_len + ctx.pub_len, GFP_KERNEL);
+>  	if (!blob)
+>  		return -ENOMEM;
+>  
+> -- 
+> 2.55.0
+> 
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Yeah, we talked this over so not much to say about this:
 
-Jason
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+
+Thanks.
+
+Br, Jarkko
