@@ -1,183 +1,121 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AAC4D90DE
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5C84D9F75;
+	Fri, 25 Sep 2026 18:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360621; cv=none; b=OgOlOCLLmnGpa/L1/Km1sSVXnHcpfUaSaBRvyGzZLjj/y+1TstQQzduvCiJ/WieIqhrMSwrF5VfRbnH4dnk+f/upB/vZy4ns2MHhGIfaCcmt1EgB7o0G1nGzQqagHcmr4ht2NF7kLMdoveMlnnxel2nHDewUdwEW97qA12qLQLA=
+	t=1790360622; cv=none; b=K77/asWSjcdDOvGIux3xbl50xlMk+OyOftipp7UxtzdsQ8MUgpV1NLFUG2/utePIMTZxn61zg16k4rAcZNMvSweZ4WN4P4HgLBs+XVKpZ7lQsciaeJ5ISvFbUdeXzU3ihFbqvWFMQD6CBCH/OG6YiOl41HaV1u+K/k8IcFnxO0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360621; c=relaxed/simple;
-	bh=s5+8pjr6Fwtuw6XJ7hD5nPa7v+Qr2/LhjInKDahwUig=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hQLkJ/vbbAVGkNW+GW7yOTO3INAVFb3/hYx6P/8244/5fWhLTIT60sacLheaz/rMsEO6BS9XxhzfBIW/OuoXPU3F7RuNZLWoYd6NH++34mZT5Es1PY95Uql34OqipeTL665MEADCav8nnNp0Otol7/3LvjjhsCRsiUre0VcCOLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be; spf=none smtp.mailfrom=inspiral.be; dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b=XQDpfvER; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inspiral.be
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=inspiral.be
+	s=arc-20240116; t=1790360622; c=relaxed/simple;
+	bh=h1WnzZmi3pyewV9/vCrQ0MdXk6vxiZtPSBs0IU8k0EM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Ay1eK+gPp9jEaymdpY2qLuzxy+WocAzzVemeI/GkrG5j2lKLOhUIEeKZ/zxV8jN/iDamrAMUyffs5WxyBE1UBYPcEiJQ23KBWVpawz8MbrJdmaQkYuoks3ZlDiKJJ1Hve7aCRhSRlQ+eaJBivSt9QTCK1JUJzQVMzcuDLLRPD6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mA37eq20; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inspiral-be.20251104.gappssmtp.com header.i=@inspiral-be.20251104.gappssmtp.com header.b="XQDpfvER"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so7430585e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:23:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=inspiral-be.20251104.gappssmtp.com; s=20251104; t=1790360618; x=1790965418; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jlZAHXA/+Siu5/Nc7tK0sL1VUl2GgSD7bLrNdmf+Xek=;
-        b=XQDpfvERlhhx/yGZH7dwnQNKgU+e6looAe/m0h9ND816aiQnWE4dfjqieNhxnGZYXv
-         2zXvoqxVulpztyq32o0uuDGzA21x0l/3VGZ4w5u94p8cwBCAfXmbqrp1hL8eDDZGOs6C
-         uJelOOboM8fRy3EADVlkJScaiWpCVuvwzJKtXtkXnPduuyOya2W8HwDaRS0XYmQ0cPYC
-         6nZ0K+EAPY26dlqdmZCdWr/Gpreb+g/Vuo4tWP6b2Y5AWieIh2D5mDlNKVHmJULikb6j
-         1U5srnpL2NnznjwWpimwhvaR7ddnl9HOsMC7oqRkLrnAEYQQ9UM/crEwztn1CShSSlnX
-         SMrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790360618; x=1790965418;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jlZAHXA/+Siu5/Nc7tK0sL1VUl2GgSD7bLrNdmf+Xek=;
-        b=o4CmE4RQekQE1J9hdJJMgpnM9YhyXnDlXeih68ChQhaXKzOnX8uvmwkIf9HPYtZkEO
-         2aNs6qqVzXWenwCfqeSy+7UTWDCHbrTWd7WZzkc0GjmGMuwJsHKcWZzXAfBpOPvPtLXd
-         Pl0YeACp5kWEWN5oPQ8XmRUg9MPxDB05afD7n5aBXic7Gaex9uHlxHLmASW/m/1hsuV0
-         LAEopacTqNU1s+yIunJCRUHPb9eqmQKbc5bNXk8g8F56YKgAMt3PJl0t75mAWGmzraDo
-         Oc3WDAqpZNrYbYedcZCJXJQo1oqJOUwkvnOkswkoMD+k4OR36LNdj0ZFhf9tGFA5puuZ
-         /x3A==
-X-Forwarded-Encrypted: i=1; AKwUvBwLsSzaZ3mtqdPMDUcmEP8836S7B3N2wlN8xn8RoIBLG088yey04q74QoaJW3NV19U9ZubS5SAR4MKprwM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdpTtrWeVew4a50i74L19xEwpPe8gKeOjG8AN1rwwc/Sx1INp+
-	qkuYdtge7Am/6BapxApj8bEYEWRuRikRl49KpAAvjtXxF49IsBUZEJSa3xgMPr+nhnU=
-X-Gm-Gg: AYBFou2o6ygzQh8UKmX1swSjxR5NSU6fC7J2I0iIMI9dkNCAo4GwL0juGlwuC2sAP8M
-	WBjMz7M0Bu/i1QH+O7zUxasnwAbYwGYnqIYrj1rKKW4lmGCRPDksfl382lxzgMcGS9dEyrNl4E6
-	oY6vfV4Xn3mVCDWHgZbBd/BjRdoMyY5/X01oTVTEIGKrYlpAZhB+d/6/uZtG0KA0kEK7KgO5q3g
-	i4Ke1S+BjBsUUeMbxDkiOoK3Ra8372qKm3P5p9tkcIMyg0CI0asZ6cRH15carc7KSblFd8kicSf
-	DZ9GXjMluJYk1JYqIvOiAugGIZYOns4CWQyGSxh40DMxyYon7PGFpJieQqwa7B31x1YBv5+aZyl
-	xkSmTK9sGvR4pcShg1qymsjns1Ky6+vtwCdsb96f5G8PHpCHhsfwOThB9HgBYARvFuxewl/pbfz
-	POC0yA3wrEJDo7FwX0DF+2QlU7BdSfJO0WWOXHLZB5c8MnHdP4RwLqlCNGME6nhWIFOE55LjZZL
-	fxC3vU3Q4D8G2j/0CtoyDviFRAT3XEWJiAdFE/UuTzGhYm7
-X-Received: by 2002:a05:600c:4689:b0:49f:bc8a:b103 with SMTP id 5b1f17b1804b1-49fe66841f8mr118534915e9.0.1790360617819;
-        Fri, 25 Sep 2026 11:23:37 -0700 (PDT)
-Received: from vger.localdomain (178-119-186-126.access.telenet.be. [178.119.186.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe667ae2fsm165253895e9.13.2026.09.25.11.23.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:23:36 -0700 (PDT)
-From: Tom Verdonck <tom.verdonck@inspiral.be>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tom Verdonck <tom.verdonck@inspiral.be>,
-	stable@vger.kernel.org,
-	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH 3/3] hwmon: (sht4x) Fix jiffies wraparound in heater-ready check
-Date: Fri, 25 Sep 2026 20:23:24 +0200
-Message-ID: <7b2087ccb963e097cf3f6333efaec0c46549003b.1790358356.git.tom.verdonck@inspiral.be>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1790358356.git.tom.verdonck@inspiral.be>
-References: <cover.1790358356.git.tom.verdonck@inspiral.be>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mA37eq20"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34D471F000FF;
+	Fri, 25 Sep 2026 18:23:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790360621;
+	bh=YXD/bcemTBzmK3LtpaIyAjbwDuPz3nvXg3CfboN6GTQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=mA37eq20O1YEAWpJjBKxtTbXtkkBgoE50aP2A7xAjpu91C4KOyM1M1JBylcPUnKx5
+	 D+eVBUF8lbR2+gzSgKo0eDOoL04OpJo5IbV+25xBrnuV8rrWg0O1142R4l9JzfcWnc
+	 Tu2iQDPrnXMXjHHPma0v1l+74kudxCo2EIWgFLeAgyB96g08YMmKkVp3tPOG7Fix9t
+	 9DzrcjPPc6j7bBtBaj3ItZr2ki2w8NkjetA8MqvXntUtWFRB4HvIN6ZIpkdG8/jps8
+	 pYKeNO07vEf/ia9AU7HRHwnu4ot0ng1p45icNpd1vAEPNmkJp5cRgVqzHbVv0lJMpM
+	 5w8zisdxczKCQ==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ David Rhodes <drhodes@opensource.cirrus.com>, 
+ Conor Dooley <conor+dt@kernel.org>, David Heidelberg <david@ixit.cz>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+In-Reply-To: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
+References: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
+Subject: Re: (subset) [PATCH v4 0/8] Speakers for Pixel 3 / 3 XL
+Message-Id: <179033512686.204944.16990313455275309471.b4-ty@b4>
+Date: Fri, 25 Sep 2026 12:18:46 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2152; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=h1WnzZmi3pyewV9/vCrQ0MdXk6vxiZtPSBs0IU8k0EM=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtrwmZJjTUy9mi4xOWCYdUDcLFZ0FI7ejsKp1d
+ XYSpKhfHomJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCara8JgAKCRAk1otyXVSH
+ 0EJXCACHAXZzQJLSmm2F8tvsa9eZCAbaljZmp6TzvJQYT84xmk5ldGmiVssXgmZF0bkU/SlWArG
+ TKl3kdVHID43faOm04jIZVT17+2Ii7iE71xRC/1KnmeFwhNcJLUObD9oj3Ot/2zcCQLeGM7T++c
+ Xql7S5zUnX+piEmUgnpqlav/Zlc//xuJd0pOiPluLkUpER4FCgRrpzHTI4XybLb1KckELoPY32+
+ u96ViCIbhTcqg1jo1MWm1dY6S0YMwmIDb7gaag9nAfgXUNf5bQM726v45xB4bvioi3LlG89PZSM
+ EgXbRZwkYq8rf3JdG9vZ2kKqDmE8QP20SCiuA+Xlzo1t3ff+
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-sht4x stores in ->heating_complete the jiffies deadline at which the
-current heater pulse finishes. It is set once at probe (to jiffies) and
-only updated when the heater is explicitly enabled via sysfs, so in the
-common case where the heater is never used it stays frozen at its probe
-value.
+On Thu, 24 Sep 2026 15:24:05 +0200, David Heidelberg wrote:
+> Speakers for Pixel 3 / 3 XL
+> 
+> This series address:
+> 
+> 0. demistify the hex to BIT() macro and add left/right rx spk
+> 1. most likely wrongly set DSP_B in sdm845.c
+>    my guess this is because TDM was never used in the mainline with
+>    sdm845
+> 2. applying correct mask to left/right speaker for the TDM in sdm845.c,
+>    so both speakers can work simultaneusly
+> 3. setting sysclk at startups, which some codecs need (such as cs35l36)
+> 4. setting proper tdm slot in the cs35l36 driver
+> 5. device-tree wiring for Pixel 3 / 3 XL
+> 
+> [...]
 
-->heating_complete is an unsigned long compared with time_before(),
-whose signed difference is only meaningful while the two values are
-within LONG_MAX jiffies of each other. Because the deadline is frozen,
-jiffies keeps advancing away from it, and after 2^31 jiffies the
-difference flips sign. On a 32-bit HZ=100 kernel that happens ~248.5
-days after boot. time_before() in sht4x_read_values() then wrongly
-reports that heating is still in progress and the read path executes
+Applied to
 
-	msleep(jiffies_to_msecs(data->heating_complete - curr_jiffies));
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-with a bogus, huge delta, blocking the temperature read for a very long
-time instead of returning data. The heater_enable sysfs attributes are
-affected the same way (spurious -EBUSY and "1" readback).
+Thanks!
 
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
+[1/8] ASoC: qcom: sdm845: Demystify TDM masks a bit
+      https://git.kernel.org/broonie/sound/c/090991b292c6
+[2/8] ASoC: qcom: sdm845: use DSP_A format for TDM codec DAIs
+      https://git.kernel.org/broonie/sound/c/ed41c80271e6
+[3/8] ASoC: qcom: sdm845: Use per-speaker RX masks for TDM slot assignment
+      https://git.kernel.org/broonie/sound/c/84c3a8e05ce8
+[4/8] ASoC: qcom: sdm845: Set codec dai and component sysclk during startup
+      https://git.kernel.org/broonie/sound/c/5e9f324509a7
+[5/8] ASoC: cs35l36: Implement set_tdm_slot to program RX and TX slots
+      https://git.kernel.org/broonie/sound/c/f390794e6354
 
-Fixes: 0eed6fc3d2b9 ("hwmon: (sht4x): add heater support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
----
- drivers/hwmon/sht4x.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
-index a97dda9e92dc..da2b6130fca7 100644
---- a/drivers/hwmon/sht4x.c
-+++ b/drivers/hwmon/sht4x.c
-@@ -67,7 +67,7 @@ DECLARE_CRC8_TABLE(sht4x_crc8_table);
-  */
- struct sht4x_data {
- 	struct i2c_client	*client;
--	unsigned long		heating_complete;	/* in jiffies */
-+	u64			heating_complete;	/* in jiffies */
- 	bool			data_pending;
- 	u32			heater_power;	/* in milli-watts */
- 	u32			heater_time;	/* in milli-seconds */
-@@ -92,14 +92,14 @@ static int sht4x_read_values(struct sht4x_data *data)
- 	u8 crc;
- 	u8 cmd[SHT4X_CMD_LEN] = {SHT4X_CMD_MEASURE_HPM};
- 	u8 raw_data[SHT4X_RESPONSE_LENGTH];
--	unsigned long curr_jiffies;
-+	u64 curr_jiffies;
- 
--	curr_jiffies = jiffies;
--	if (time_before(curr_jiffies, data->heating_complete))
-+	curr_jiffies = get_jiffies_64();
-+	if (time_before64(curr_jiffies, data->heating_complete))
- 		msleep(jiffies_to_msecs(data->heating_complete - curr_jiffies));
- 
- 	if (data->data_pending &&
--	    time_before(jiffies, data->heating_complete + data->update_interval)) {
-+	    time_before64(get_jiffies_64(), data->heating_complete + data->update_interval)) {
- 		data->data_pending = false;
- 	} else {
- 		next_update = data->last_updated +
-@@ -237,7 +237,7 @@ static ssize_t heater_enable_show(struct device *dev,
- {
- 	struct sht4x_data *data = dev_get_drvdata(dev);
- 
--	return sysfs_emit(buf, "%u\n", time_before(jiffies, data->heating_complete));
-+	return sysfs_emit(buf, "%u\n", time_before64(get_jiffies_64(), data->heating_complete));
- }
- 
- static ssize_t heater_enable_store(struct device *dev,
-@@ -279,14 +279,14 @@ static ssize_t heater_enable_store(struct device *dev,
- 
- 	guard(hwmon_lock)(dev);
- 
--	if (time_before(jiffies, data->heating_complete))
-+	if (time_before64(get_jiffies_64(), data->heating_complete))
- 		return -EBUSY;
- 
- 	ret = i2c_master_send(data->client, &cmd, SHT4X_CMD_LEN);
- 	if (ret < 0)
- 		return ret;
- 
--	data->heating_complete = jiffies + msecs_to_jiffies(heating_time_bound);
-+	data->heating_complete = get_jiffies_64() + msecs_to_jiffies(heating_time_bound);
- 	data->data_pending = true;
- 	return count;
- }
-@@ -410,7 +410,7 @@ static int sht4x_probe(struct i2c_client *client)
- 	data->client = client;
- 	data->heater_power = 200;
- 	data->heater_time = 1000;
--	data->heating_complete = jiffies;
-+	data->heating_complete = get_jiffies_64();
- 
- 	crc8_populate_msb(sht4x_crc8_table, SHT4X_CRC8_POLYNOMIAL);
- 
--- 
-2.53.0
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
