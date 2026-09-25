@@ -1,248 +1,241 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABE3488239;
-	Fri, 25 Sep 2026 09:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B904E48A2BC;
+	Fri, 25 Sep 2026 09:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790329722; cv=none; b=U/EIzZx20JUWjdp7wvQipnwlm/Mfo0WwdC61P+mQdUUT0SSreSgVnxiSOSxlUcAOlG0gwaRd2lzdvSRD+LxK6MauUXc2MFcoblvH5K9GSu1alzPMXapxj/mCcZKSXOWf3Y09CysacQOccmmilMRev7mvu2EiUZSPSWd1CHmmWso=
+	t=1790329749; cv=none; b=exIEsL5cgRho3bATG3yMlq10IGgzjtyCyUD0pwWh6fXrjrgfASe9Q6Wwq9Eow6vovES1TlHerJrLxpfCpV8Ir0POGJ0gZK3Md90kZFAthxM+WHJPuyk+CcT1ISWG72zwXHDnBq+lnDWS2K5i+Nb3tAdxjYqRLnlt3WCzODEbGe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790329722; c=relaxed/simple;
-	bh=hqExfXTHIcTcyEHklVRM0BzpUqrw+4faYEwu8KNKxog=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mzYv8341vBjvn/kX1osPhf0IQ2ztcb9RN/S+X3RNcqaWmISZcgmvKFK0IGOb1RWY9ve8RxdFzlbEPwaXetH3JjX33wVT4goPkKK58BE3zyR5NOlSq/ErfG/uW36PwZitXrKk6hNUI68sv4h/nI6h/F8PsqpxKm/5Yi9sPCbI1JM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cWNcGIlT; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790329749; c=relaxed/simple;
+	bh=lQCTLasbuwYcVGDZHvJw+1sPXedvmI6DEURwQMum3Lk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Egdx+qMzk7iTGfcclL1nf9e+SF6PL2KyBTwENVxCz7sJibVD+ujnl0t2QtrXbFltnq4CF595BZrtdW+1SbjidVL+JUxbqW+Zdr0xkcY+3dMROhYR6Pb+MksZfTU+BId0X3AxhVRu2dIF2wAwoBWuftUZojCC/GQ0yVlndrlYWEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=KpAEb4bz; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cWNcGIlT"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4acrZ061841;
-	Fri, 25 Sep 2026 09:48:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=BAMPiq
-	7qxEpN74mGPM819vspDrfZEjaehxE6QVIsFAY=; b=cWNcGIlTcJiSZH8xq8QVzR
-	DBWvc3wHTz4K5AsLqobBuIMiqkb8zBib7yyWzCB5vMixov2YXWrt9UukppXXwTHI
-	oWM+OYwGfj92WqpgGSMkucBqBP4A7jkhvjR8TZzuiMqhN9FGac4+SwXfW+lRax7d
-	Rkd6oU+vDpb8TIxqBWyLIMYGVckp08SCa2c4pGv+j1ccRXGnnx8/ZHEjhH0NH349
-	wpKM7O83vGE8+5evNYytgTyYC9sX25YiilXJaNYFhje9373s06ZgKJOfCFCWW/GZ
-	VLndvWBf+v+iqtmQPaadicoVD1xdFKzH80iNJ5K38qJ4JMeJaa7yRFsoB3XYYVig
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgsp8mr-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 09:48:01 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4lU8e3288179;
-	Fri, 25 Sep 2026 09:48:00 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbe21w8w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 09:48:00 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68P9luMD52298060
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 25 Sep 2026 09:47:56 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8458D20043;
-	Fri, 25 Sep 2026 09:47:56 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3ACFF20040;
-	Fri, 25 Sep 2026 09:47:48 +0000 (GMT)
-Received: from [9.39.19.124] (unknown [9.39.19.124])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 25 Sep 2026 09:47:47 +0000 (GMT)
-Message-ID: <4e2421fe-4b26-4d92-8709-bfa8d3a4114a@linux.ibm.com>
-Date: Fri, 25 Sep 2026 15:17:47 +0530
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="KpAEb4bz"
+Received: from localhost.localdomain (unknown [82.96.140.143])
+	(Authenticated sender: stephane.grosjean@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 3C525780882;
+	Fri, 25 Sep 2026 11:48:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1790329741;
+	bh=lQCTLasbuwYcVGDZHvJw+1sPXedvmI6DEURwQMum3Lk=;
+	h=From:Date:Subject:To:Cc:From;
+	b=KpAEb4bzEQqkdnCYi4+8G1awqbnBHo6UYjTdg+Lg3Hb67OgAIosUZHONlsFR3ZL79
+	 KiEmN3jwDb24XgbIzTForVkwwVtMbguQ7H4i3lPjQTOfDmWhj0Oy4OPQZ/bWCd87PB
+	 jGiPg40ZU6Bou2EldmDA7Vd6uu/1OjeD3a/QXT0YtSQ6EzDokHa5lD5kGD+FaK/Xv7
+	 djbdeOaffYMpIuMvH4Z8L2VZ+4Xwd79RfkB4ORLcVmlRDD9MUD8DjSlSXZbIwpFD3n
+	 5K5IYNqogFTX4xVDoomStTivHA/ChkrP0uWsdmI9KAsCdodRrjw6D11odolXf1bWWo
+	 dURlFoexhfzGg==
+From: =?utf-8?q?St=C3=A9phane_Grosjean?= <stephane.grosjean@free.fr>
+Date: Fri, 25 Sep 2026 11:48:39 +0200
+Subject: [PATCH v2] can: peak_usb: Add PCAN-USB bus errors reporting
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 08/13] sched/core: Push current task from non
- preferred CPU
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, juri.lelli@redhat.com,
-        vincent.guittot@linaro.org, yury.norov@gmail.com,
-        kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
-        meted@linux.ibm.com, ynorov@nvidia.com, tglx@kernel.org,
-        gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
-        vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
-        dietmar.eggemann@arm.com, maddy@linux.ibm.com, srikar@linux.ibm.com,
-        hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
-        frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
-        christian.loehle@arm.com, tj@kernel.org, tommaso.cucinotta@gmail.com,
-        maz@kernel.org, rafael@kernel.org, rdunlap@infradead.org,
-        kernellwp@gmail.com, linux-doc@vger.kernel.org, jgross@suse.com,
-        virtualization@lists.linux.dev, sunlightlinux@gmail.com
-References: <20260909135617.871006-1-sshegde@linux.ibm.com>
- <20260909135617.871006-9-sshegde@linux.ibm.com>
- <20260925074953.GG4121339@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <20260925074953.GG4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab64352 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=sB9Cf5MOR3c-l3nHmB8A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: c6kA6vVibaezv8Rv_91wlU8f0HEHy6qR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzOCBTYWx0ZWRfX4f+Zfj0ioizA
- jpZIE4/2mClgZ0mgNK0bSZx94Z9rkRWX3MWF8WkbE2KrwQGyeR+l/bzGcElKIfmJGpvXBmfEzKw
- dSB2l/pjQtyry8I/Ds56AeKM60fCWIkPn2EUq//OTXFNXWqMFBqX8Iu90Fy3rl9Ta7Xkh7Jl9W8
- crM11vO5fltbLTGpDcaEBM7K8CoMmVsa9uAF0OoKMatndXBwlWSkjfFaaql/y08cGVcxdA84/fY
- +ydoOTY49JdrDswoGeU965d/MZYJd91+/Ch5YnXZTQzFfUEP2W5SHyZnpOVbFwpoePkquHR4gJ0
- PTIDVCqKHxPO+4RvkiAz1o2xWxjqhjfB5CO1nju+BuHgV/HIvgRjtT8AV5mtraUgcZH3U3U4eKY
- fYzNLoQCBOkarWrjspdXdhFxFk0ast7abNyZzTDSi05cnlxoMdw2Sh71l7pAjyqN/vz7vhQfJ4l
- uPQc/xGnI8o72UUzWoQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzOCBTYWx0ZWRfX0g2S1LbZbO1G
- z6t6UEMCkVPe7mHymTr+wKCNHh/9kWcQjlzCKRWEFpRI6cqtPCFrdyKuoVvv10BXq4g1vyDV6nu
- REE6VLPbS7QKg/jJS7RKvmr32upXzN8=
-X-Proofpoint-GUID: ojXf-R95wBDJl8rQb_uFtSW0mjZyzSGF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250038
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260925-peak_usb-v2-1-f3257bdeb7e6@peak-system.fr>
+X-B4-Tracking: v=1; b=H4sIAHZDtmoC/22NQQ6CMBREr0L+2hraUKCuvIchptBfqUYg/dBIC
+ He3xa3Ll3kzswGhd0hwyTbwGBy5cYggThl0vR4eyJyJDCIXZa5EwSbUr/tCLZOmLvNKW26Vgqh
+ PHq37HFO35se0tE/s5tRPRu9oHv16fAWevD+zgTPOTFHXleSl0lJdU8RopRnfZ+uh2ff9C2Wgz
+ F63AAAA
+X-Change-ID: 20260924-peak_usb-5d8607af1f99
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
+X-Mailer: b4 0.16.0
 
-Hi Peter.
+From: Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-On 9/25/26 1:19 PM, Peter Zijlstra wrote:
-> On Wed, Sep 09, 2026 at 07:26:12PM +0530, Shrikanth Hegde wrote:
->> Actively push out the current running task on a non-preferred CPU. Since
->> the task is currently running, a stopper thread must be queued to push the
->> task out. However, if the task is pinned only to non-preferred CPUs,
->> it will continue running there. This helps to maintain userspace
->> affinities, unlike CPU hotplug or isolated cpusets.
->>
->> Though the code is similar to __balance_push_cpu_stop and quite close to
->> push_cpu_stop, it is kept separate as it provides a cleaner
->> implementation specifically for CONFIG_PREFERRED_CPU.
->
+The good old PCAN-USB was missing CAN bus error reporting. This patch fixes
+that.
 
-> I would have preferred the code looking more like
-> __balance_push_cpu_stop(). Now you're written more or less the same, but
-> visually different for no reason. This makes comparing them unnecessarily
-> hard.
-> 
+Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
+---
+Changes in v2:
+- Remove legacy bus error handling code
+- Fix potential out-of-bounds read in pcan_usb_handle_bus_evt()
+- Link to v1: https://patch.msgid.link/20260924-peak_usb-v1-1-d48875169a59@peak-system.fr
 
-Yes. I will keep your version at the end and respin v14. Hopefully by Monday.
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/net/can/usb/peak_usb/pcan_usb.c | 114 +++++++++++++++++++++++++++-----
+ 1 file changed, 99 insertions(+), 15 deletions(-)
 
->> Add the npc_push_work_pending flag to protect the work buffer.
-> 
-> I can't help but read NPC as Non-Playing-Character. Too much RPGs, and
-> that ain't Rocket Propelled Grenades. TLA are such fun :-)
-> 
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
+index 8fd058c32856..786f6600a5bf 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+@@ -115,6 +115,7 @@
+ #define PCAN_USB_REC_BUSEVT		5
+ 
+ /* CAN bus events notifications selection mask */
++#define PCAN_USB_ERR_ECC		0x01	/* ask for BERR */
+ #define PCAN_USB_ERR_RXERR		0x02	/* ask for rxerr counter */
+ #define PCAN_USB_ERR_TXERR		0x04	/* ask for txerr counter */
+ 
+@@ -122,7 +123,20 @@
+  * In other words, its interest is to know which side among rx and tx is
+  * responsible of the change of the bus state.
+  */
+-#define PCAN_USB_BERR_MASK	(PCAN_USB_ERR_RXERR | PCAN_USB_ERR_TXERR)
++#define PCAN_USB_BERR_MASK	(PCAN_USB_ERR_ECC | \
++				 PCAN_USB_ERR_RXERR | PCAN_USB_ERR_TXERR)
++
++/* SJA1000 ECC register */
++#define PCAN_SJA1000_ECC_SEG		0x1f
++#define PCAN_SJA1000_ECC_DIR		0x20
++#define PCAN_SJA1000_ECC_ERR		6
++#define PCAN_SJA1000_ECC_BIT		0x00
++#define PCAN_SJA1000_ECC_FORM		0x40
++#define PCAN_SJA1000_ECC_STUFF		0x80
++#define PCAN_SJA1000_ECC_MASK		0xc0
++
++/* SJA1000 Bus Error Interrupt */
++#define PCAN_SJA1000_IRQ_BEI		0x80
+ 
+ /* identify bus event packets with rx/tx error counters */
+ #define PCAN_USB_ERR_CNT_DEC		0x00	/* counters are decreasing */
+@@ -550,23 +564,92 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_context *mc, u8 n,
+ /* decode bus event usb packet: first byte contains rxerr while 2nd one contains
+  * txerr.
+  */
+-static int pcan_usb_handle_bus_evt(struct pcan_usb_msg_context *mc, u8 ir)
++static int pcan_usb_handle_bus_evt(struct pcan_usb_msg_context *mc, u8 ir,
++				   u8 status_len)
+ {
+ 	struct pcan_usb *pdev = mc->pdev;
+ 
+-	/* according to the content of the packet */
+-	switch (ir) {
+-	case PCAN_USB_ERR_CNT_DEC:
+-	case PCAN_USB_ERR_CNT_INC:
++	/* process bus error interrupt */
++	if (ir & PCAN_SJA1000_IRQ_BEI) {
++		u8 rec_len = status_len & PCAN_USB_STATUSLEN_DLC;
++		u8 *pd = mc->ptr, ecc = 0;
+ 
+-		/* save rx/tx error counters from in the device context */
+-		pdev->bec.rxerr = mc->ptr[1];
+-		pdev->bec.txerr = mc->ptr[2];
+-		break;
++		/* Check for potential out-of-bound accesses */
++		if ((pd + rec_len - 1) > mc->end)
++			return -EINVAL;
+ 
+-	default:
+-		/* reserved */
+-		break;
++		if (rec_len >= 1) {
++			ecc = *pd++;
++
++			/* save rx/tx error counters from record data bytes */
++			if (rec_len >= 2) {
++				pdev->bec.rxerr = *pd++;
++				if (rec_len >= 3)
++					pdev->bec.txerr = *pd++;
++			}
++		}
++
++		/* create an "bus-error frame" skb if any bit is set in ECC */
++		if (ecc) {
++			struct net_device_stats *stats = &mc->netdev->stats;
++			struct sk_buff *skb;
++			struct can_frame *cf;
++			u8 can_err_tx = 0;
++
++			pdev->dev.can.can_stats.bus_error++;
++
++			/* Error occurred during reception? */
++			if (ecc & PCAN_SJA1000_ECC_DIR) {
++				stats->rx_errors++;
++			} else {
++				stats->tx_errors++;
++				can_err_tx = CAN_ERR_PROT_TX;
++			}
++
++			/* if berr-reporting is off, stop here */
++			if (!(pdev->dev.can.ctrlmode &
++						CAN_CTRLMODE_BERR_REPORTING))
++				return 0;
++
++			/* allocate an skb to store the error frame */
++			skb = alloc_can_err_skb(mc->netdev, &cf);
++			if (!skb)
++				return -ENOMEM;
++
++			cf->can_id |= CAN_ERR_PROT | CAN_ERR_BUSERROR;
++			cf->data[2] |= can_err_tx;
++
++			/* set error type according to 1st data byte (ECC) */
++			switch (ecc & PCAN_SJA1000_ECC_MASK) {
++			case PCAN_SJA1000_ECC_BIT:
++				cf->data[2] |= CAN_ERR_PROT_BIT;
++				break;
++			case PCAN_SJA1000_ECC_FORM:
++				cf->data[2] |= CAN_ERR_PROT_FORM;
++				break;
++			case PCAN_SJA1000_ECC_STUFF:
++				cf->data[2] |= CAN_ERR_PROT_STUFF;
++				break;
++			default:
++				break;
++			}
++
++			/* set error location */
++			cf->data[3] = ecc & PCAN_SJA1000_ECC_SEG;
++
++			cf->data[6] = pdev->bec.txerr;
++			cf->data[7] = pdev->bec.rxerr;
++
++			if (status_len & PCAN_USB_STATUSLEN_TIMESTAMP) {
++				struct skb_shared_hwtstamps *hwts =
++					skb_hwtstamps(skb);
++
++				peak_usb_get_ts_time(&mc->pdev->time_ref,
++						     mc->ts16, &hwts->hwtstamp);
++			}
++
++			netif_rx(skb);
++		}
+ 	}
+ 
+ 	return 0;
+@@ -627,7 +710,7 @@ static int pcan_usb_decode_status(struct pcan_usb_msg_context *mc,
+ 
+ 	case PCAN_USB_REC_BUSEVT:
+ 		/* bus event notifications (get rxerr/txerr) */
+-		err = pcan_usb_handle_bus_evt(mc, n);
++		err = pcan_usb_handle_bus_evt(mc, n, status_len);
+ 		if (err)
+ 			return err;
+ 		break;
+@@ -1017,7 +1100,8 @@ const struct peak_usb_adapter pcan_usb = {
+ 	.device_id = PCAN_USB_PRODUCT_ID,
+ 	.ctrl_count = 1,
+ 	.ctrlmode_supported = CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
+-			      CAN_CTRLMODE_CC_LEN8_DLC,
++			      CAN_CTRLMODE_CC_LEN8_DLC |
++			      CAN_CTRLMODE_BERR_REPORTING,
+ 	.clock = {
+ 		.freq = PCAN_USB_CRYSTAL_HZ / 2,
+ 	},
 
-hehe. one more into the mix.
-> 
->> +#ifdef CONFIG_PREFERRED_CPU
->> +static DEFINE_PER_CPU(struct cpu_stop_work, npc_push_task_work);
->> +
->> +static int sched_non_preferred_cpu_push_stop(void *arg)
->> +{
->> +	struct task_struct *p = arg;
->> +	struct rq *rq = this_rq();
->> +	struct rq_flags rf;
->> +	int cpu;
->> +
->> +	if (cpu_preferred(rq->cpu)) {
->> +		scoped_guard(rq_lock_irqsave, rq)
->> +			rq->npc_push_work_pending = false;
->> +		put_task_struct(p);
->> +		return 0;
->> +	}
->> +
->> +	raw_spin_lock_irq(&p->pi_lock);
->> +
->> +	/*
->> +	 * select_fallback_rq() may acquire the rq lock in case of fallback.
->> +	 * So call it before grabbing rq lock. If the task migrates to
->> +	 * another CPU before the rq lock is acquired, subsequent validation
->> +	 * of task's current rq will help to safely bail out.
->> +	 */
->> +	cpu = select_fallback_rq(rq->cpu, p);
->> +	rq_lock(rq, &rf);
->> +	rq->npc_push_work_pending = false;
->> +	update_rq_clock(rq);
->> +
->> +	context_unsafe_alias(rq);
->> +
->> +	if (task_rq(p) == rq && task_on_rq_queued(p) &&
->> +	    !is_migration_disabled(p))
->> +		rq = __migrate_task(rq, &rf, p, cpu);
->> +
->> +	rq_unlock(rq, &rf);
->> +	raw_spin_unlock_irq(&p->pi_lock);
->> +	put_task_struct(p);
->> +
->> +	return 0;
->> +}
-> 
-> Anyway, I ended up with:
-> 
->    static int sched_non_preferred_cpu_push_stop(void *arg)
->    {
-> 	  struct task_struct *p = arg;
-> 	  struct rq *rq = this_rq();
-> 	  struct rq_flags rf;
-> 	  int cpu;
-> 
-> 	  if (cpu_preferred(rq->cpu)) {
-> 		  scoped_guard (rq_lock_irqsave, rq)
-> 			  rq->npc_push_work_pending = false;
-> 		  put_task_struct(p);
-> 		  return 0;
-> 	  }
-> 
-> 	  scoped_guard (raw_spinlock_irq, &p->pi_lock) {
-> 		  /*
-> 		   * select_fallback_rq() may acquire the rq lock in case of
-> 		   * fallback. So call it before grabbing rq lock. If the task
-> 		   * migrates to another CPU before the rq lock is acquired,
-> 		   * subsequent validation of task's current rq will help to
-> 		   * safely bail out.
-> 		   */
-> 		  cpu = select_fallback_rq(rq->cpu, p);
-> 
-> 		  rq_lock(rq, &rf);
-> 		  rq->npc_push_work_pending = false;
-> 		  update_rq_clock(rq);
-> 
-> 		  context_unsafe_alias(rq);
-> 
-> 		  if (task_rq(p) == rq && task_on_rq_queued(p) &&
-> 		      !is_migration_disabled(p))
-> 			  rq = __migrate_task(rq, &rf, p, cpu);
-> 		  rq_unlock(rq, &rf);
-> 	  }
-> 
-> 	  put_task_struct(p);
-> 
-> 	  return 0;
->    }
-> 
+---
+base-commit: 3bb1277609aae9b56b8e9462fe18fc000944fa96
+change-id: 20260924-peak_usb-5d8607af1f99
 
-Alright. Will keep the above. (without the additional migrate check)
+Best regards,
+--  
+Stéphane Grosjean <s.grosjean@peak-system.fr>
 
-> And note how you have an extra !is_migration_disabled() vs
-> __balance_push_cpu_stop(). Either yours is superfluous or
-> __balance_push_cpu_stop() should have one. Which is it?
-> 
-
-yes. It is superfluous. Queue side check is sufficient.
-Will remove it.
-1. Even if task got pulled by remote CPU before stopper got to run,
-    the task_rq check will fail and bail out.
-2. Since the policy is currently for FAIR tasks only, it can't run
-    before stopper.
