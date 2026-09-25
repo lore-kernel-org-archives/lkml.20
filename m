@@ -1,131 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB823BE621
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A9C448B96
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:25:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364319; cv=none; b=Ram6/G+jd1hzIGxRVNcMsRhEKyCKssqquQ/KStrHyo9Etj5zCN628uVodVXAUdqpgkeD2WpDmrLWCY3jYDsZwudcaEk2LQzncbf9lUNmZU29oCSFrouhMHJ1+d1Y5XKXi9ncIhGBD6Wtt6uTV2xxoulAgnQgQYONQYlrajwptp8=
+	t=1790364320; cv=none; b=IKdT/4KB9wmdg+S9Z5TourUz97WAwGmKYDuiK+AciwNUupKd8EO7+53aa9VjbuH9PqW2eCjwRxgAam8fWMgbKTUHqTp4z2QPOMybEP61n/YIAyWd1NwEfWaqWCSv6SlYw8CoeJlonCrO4qMfID3chuESsBXQzfzUE+Vv8DLNei0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364319; c=relaxed/simple;
-	bh=orOQIuMWgmNfpyVvSBIiKDXXIfxlvVwi1uDc6JpnOnE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eOdFzBCQDisqbc69DuiicR3EppWngj8A6FjPU8f3u9kCe8NLmv+KcxxZdaodu6/QRQdzb2/49/75j44dnDhSw5er5C6o7IBtGspUUj7HFXicCZ3RXgFra4PUnAjXAxTbaCkj0LJtrMCRl9ekMnyg9ZcL3e9qkNapdIhxGhKGCds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SgMhPCgS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790364320; c=relaxed/simple;
+	bh=j5Njce1R2CzMDzpSrCt4D4C2yKngQ2KuqhBpl1pHhmE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=t3+4oyktkE4XVoWy4zU0tBDdVo5/rh8ksFQ9z9C2UAMj5miopatkMTdZ6XcscmO40PKTAXuiy17I2UD9IAYtgJzEPbcmmiGqUx9koADpv5W/1Pp0GwL/Z50z6PLZeISYUY5FSOml6E/nzd7Wa9Bv5okSSXWlXUT0zqoYMIKWkOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CZEVauiQ; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SgMhPCgS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66561F0089E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:25:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790364317;
-	bh=nBf4LR0QybGxODUVGWLYzoR9YycS12OFozmgvcTcyzc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=SgMhPCgS1g/SBrRAXC8/7WLHaXSM2aK4ZHjIgziO+Y1yxNb0kRKuGqhqLKFt4ivnU
-	 ESvmWhh8cb3ASdcq9bciF2ZUUCnRpAJ+osXj13vUizJB8bBqrCyj+MYcXwsF50SOFh
-	 eYIUau2uDrZQrg9AigBLcithA5eKQWoCmSHzA4LoSXR8C/Xo/9DKbTteAl6ZuHpk3j
-	 Hhm7ReTPekFizzh+KnWlu7NscYt5+j4GIbyDURUfiVvDrnlUzbAQuQI7mJzQJonR1G
-	 wkXhIwRaPfL6f7SLxQ3InNFxsXbBdfhAcaT28SkpfgUgQq9fRokW1pK44HuKIAtqkv
-	 uOvEYVmuAC0iQ==
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a652b710a5so7575601fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:25:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy7hiEb3tzu481KQ3a943mTiiqRay9Q7ZP1YLj+/LI8TsOWJ563FuIigT2LLOROK07LsvhvCMZ6+B+wwFE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kc0voqTAAPKsaMI4g7bUpP9CzAKn2kqD83ht9vZTUJpkVQn5u1
-	Y5wGOGCmkZb7UJhtIPfqB8tfcbBoz6nldCMh2fC1pmVyvwDrcZwtl8Ug2ktIgbFZf1b4/ds+MK7
-	BJ4d5MOb4HRWV/VPRh6vfUtv/fdYjdUo=
-X-Received: by 2002:a05:651c:418e:b0:3a6:553d:cb1c with SMTP id
- 38308e7fff4ca-3a6553dce4cmr4861551fa.12.1790364316036; Fri, 25 Sep 2026
- 12:25:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CZEVauiQ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so792008f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:25:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790364317; x=1790969117; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G9E+sqsbctWeMKlnS+UkV61JpHdXQmDR0/Cg9hJ8tHo=;
+        b=CZEVauiQEUUSshI568NztLVATBws7TXi2Zw2Ovcz0GRj7cZIcOjkTw/jvIL0WGzWWj
+         xXqQ562xEWyLL9IB/V/wskVU3ZTAt40Ct/mbKk8IDciQB5KgRsspOo7hDmuyifpfzlMM
+         82SDqR+l/ZiUn0JtjFPjUBD9STlJQ9/04jpghtw5DVJ4r+meCYtstNRrelvNPluixHx2
+         O7WFyvaYq058kl33hPQ6czuFj7cnF3KmnEP/JpAqB9ialZPL0BMCXtYNPGv0JVYudldn
+         iGZxbUC/9kVbn+FcWS8Hun+DgiNDV7e7J9tuPjptgKynbzmfTBIeBskqMQ3YKWID4sjA
+         kzUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790364317; x=1790969117;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G9E+sqsbctWeMKlnS+UkV61JpHdXQmDR0/Cg9hJ8tHo=;
+        b=arTV0xDfHL7q6tGcLk9q7jkC30+JLgQ/rNIdGyMx66Gf2tgVcC27cCjhA/JWLdvcJg
+         9XV7UtnzmrqcWCeJ53X0J7373F/zKwCuRkC8WAd4W0+JAQqd5WgEMEoRAG3L5pQd751j
+         sn+jU8dvyQgMSw2D/kIfdOAYwk5MWtRCDDqR55UEukLubA4YqR4UFOvdZPbs0FxjcFql
+         7w6UqnCtLv5BxlKByvqu6MivJtWpWHEUSpeXP72Faq1nWsTnDvirZRFr8KnVILV9Gh1n
+         OmBuz6Kqa3YdbfdoRESF279vFFgxc1KAc6TgUjdnhRI1C/cQ6Bxq4XCYUOsOXvsWAWnh
+         qGaA==
+X-Forwarded-Encrypted: i=1; AKwUvByusriIy0Gyan7axDrCH2QZBusZ40/7J+74hqe8l9U5j+von1ECFsKwQueNSIjNEAYiFLmYcp5EnpqZ8ik=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4aq5Oic9cRxGUcG4/PLC5HQcIJoAiMj/zn6qJZ038h+GO5aMe
+	gbUrt3bN+ZOFLSn0fyVaHfIvsHy/wXwkuJsYrLAen6CCLOEkKCI95eNP
+X-Gm-Gg: AYBFou2Miu7aEO4oI+D9kmztIxV26uEUvhwmHhYe4kgqI/j1j1RtiOVdsULcew7X3HA
+	n26lA4VpvBuBJcSQbhk9kluYVyj04eJf2Ffyx990syFaAsSEvTy0Ac2eo41xqdK0QjqE/p2H0pI
+	sJQg9vAv2UjQOJkHn9JbK1d5zRBwYmXPBb/M42f9KoqEURXI5Jncl0X+ABrbxbZjo+ZXTqyb02L
+	LpnRBgXpIHcH5ZRhu8uzDK/gLUKa1wXRcI9N2hJ5HiFNCY1QWKZvwvZUUSrFIO3medz7Rz1pUL6
+	OSn/xGpGgNIZjbqgsd3zRck4nr3waF4Bv1ktOExz9p+fpPO0Cj/AB/HgoqFve6zVgK1WCrrFwGL
+	kRxNO0J9bAj9Lk6v7H7/dX8SJAKFNav0xIb5Zz9HY1yf5ujNpmX7lrY5JPFAJzXY66DwuV/79Iq
+	IXQtinZHSdUPhKJn+RDFUx0erzFY5DRaa8v/DS4ZajVbKboCvRDFCCq3JvZrvYcJDXdiqTfxway
+	zH5MEUpIq3h4ugDeZkPsfDOLhh4GvBhjpkZhzxlUlBnhKQ7meLNHFDLwCoeNix+kEfmy/xAxqnY
+	E6JL5V5mFBzzyxs1wenjNjZOEU4VGdlDdgb/sRrm2anOShkSQyF5Wizi/vplCM8tHzkd6b9b1Qq
+	lt7PaSmA=
+X-Received: by 2002:a05:6000:26d1:b0:487:8ec:1fc with SMTP id ffacd0b85a97d-4887d9fa635mr5543814f8f.12.1790364316713;
+        Fri, 25 Sep 2026 12:25:16 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-adc6-9c01-89ae-b145-8960-cf19.310.pool.telefonica.de. [2a02:3100:adc6:9c01:89ae:b145:8960:cf19])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a35fb05sm10205982f8f.20.2026.09.25.12.25.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 25 Sep 2026 12:25:16 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jeremy Kerr <jk@codeconstruct.com.au>,
+	Matt Johnston <matt@codeconstruct.com.au>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>,
+	Rae Moar <raemoar63@gmail.com>,
+	linux-kselftest@vger.kernel.org,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: mctp: Stop selecting flow support for KUnit tests
+Date: Fri, 25 Sep 2026 21:25:10 +0200
+Message-Id: <20260925192510.93840-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916103820.1760297-1-sumitg@nvidia.com>
-In-Reply-To: <20260916103820.1760297-1-sumitg@nvidia.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 25 Sep 2026 21:23:38 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hXcRSj5ufpLTAgTSYtFDCXRQL3bJ5wNLtfRMrvHfo9ow@mail.gmail.com>
-X-Gm-Features: AclHuK9qDYz-k5dcjQxp54XHZKMEw0rv2InbPBzQTUFY63R1_VmtSqKrupNEn6Q
-Message-ID: <CAJZ5v0hXcRSj5ufpLTAgTSYtFDCXRQL3bJ5wNLtfRMrvHfo9ow@mail.gmail.com>
-Subject: Re: [PATCH v5 0/4] cpufreq: CPPC: Preserve OSPM-set registers across
- hotplug and unload
-To: Sumit Gupta <sumitg@nvidia.com>, pierre.gondois@arm.com, zhenglifeng1@huawei.com, 
-	zhanjie9@hisilicon.com
-Cc: viresh.kumar@linaro.org, christian.loehle@arm.com, ionela.voinescu@arm.com, 
-	ray.huang@amd.com, mario.limonciello@amd.com, perry.yuan@amd.com, 
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, linux-tegra@vger.kernel.org, treding@nvidia.com, 
-	jonathanh@nvidia.com, vsethi@nvidia.com, ksitaraman@nvidia.com, 
-	sanjayc@nvidia.com, mochs@nvidia.com, bbasu@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 12:39=E2=80=AFPM Sumit Gupta <sumitg@nvidia.com> wr=
-ote:
->
-> This series keeps the CPPC cpufreq policy alive across CPU hotplug and
-> preserves the OSPM-set CPPC registers (Energy Performance Preference,
-> Autonomous Activity Window, Autonomous Selection - set via sysfs).
->
-> Without online()/offline() callbacks, the core tears a policy down when
-> its last CPU goes offline and rebuilds it on the way back, re-reading the
-> CPPC capabilities each time. The values written to these registers can
-> be lost:
->
->  - Across CPU hotplug or suspend/resume: the platform may reset them
->    while the CPU is offline.
->  - On driver unload: the driver-written value is left in the register
->    instead of returning to its pre-driver state.
->
-> Handle these with:
->
->  - Patch 1: adds online()/offline() callbacks so the core keeps policy
->    alive across CPU hotplug instead of tearing it down and rebuilding it.
->  - Patch 2: makes the autonomous selection register helpers take a u64.
->  - Patch 3: adds a table-driven mechanism that captures each register's
->    firmware value at init(), restores it from offline(), and reapplies
->    the OSPM-set value from online().
->  - Patch 4: extends the same save/restore to system suspend/resume.
->
-> v4[4] -> v5:
->  - Patch 1:
->    - offline() stops the frequency invariance updates and online()
->      restarts them, replacing the resync that raced with tick. (Sashiko)
->    - reorder the functions to match cppc_cpufreq_driver. (Jie Zhan)
->  - Patch 3:
->    - reapply the OSPM-set registers even when the performance control
->      write fails. (Sashiko)
->  - Patch 4:
->    - suspend() stops the frequency invariance updates too, completing the
->      patch 1 change for a policy whose CPUs stay online.
->
-> Sumit Gupta (4):
->   cpufreq: CPPC: Keep the policy across CPU hotplug
->   ACPI: CPPC: Make autonomous selection helpers take a u64
->   cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
->   cpufreq: CPPC: Preserve OSPM-set registers across suspend/resume
->
->  drivers/acpi/cppc_acpi.c       |  20 +-
->  drivers/cpufreq/amd-pstate.c   |   2 +-
->  drivers/cpufreq/cppc_cpufreq.c | 378 ++++++++++++++++++++++++++++++++-
->  include/acpi/cppc_acpi.h       |   8 +-
->  4 files changed, 381 insertions(+), 27 deletions(-)
->
-> [1] v1: https://lore.kernel.org/lkml/20260623095403.3407436-1-sumitg@nvid=
-ia.com/
-> [2] v2: https://lore.kernel.org/lkml/20260716153820.2007095-1-sumitg@nvid=
-ia.com/
-> [3] v3: https://lore.kernel.org/lkml/20260724215937.3368276-1-sumitg@nvid=
-ia.com/
-> [4] v4: https://lore.kernel.org/lkml/20260806200857.601152-1-sumitg@nvidi=
-a.com/
->
-> --
+MCTP_TEST selects MCTP_FLOWS, which also enables SKB_EXTENSIONS when no
+transport requires them. Remove the selection to follow the dependency
+rule in Documentation/dev-tools/kunit/style.rst.
 
-Dear CPPC cpufreq driver reviewers, I need your input on this series.
+The two flow-specific tests already skip when MCTP_FLOWS is disabled.
+The remaining tests can run in either configuration.
 
-It is not going to be applied without any input from anyone.
+Fixes: 109a5331143d ("net: mctp: tests: Test that outgoing skbs have flow data populated")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Validation on net-next 42a9fb3382fc: x86_64 LLVM builds and QEMU runs
+with MCTP_FLOWS disabled and enabled. Both suites pass. With flow support
+disabled, only the two flow-specific cases skip. The enabled configuration
+uses the I2C transport to select MCTP_FLOWS.
 
-Thanks!
+ net/mctp/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/net/mctp/Kconfig b/net/mctp/Kconfig
+index d8d3413a37f7..3a5c0e70da77 100644
+--- a/net/mctp/Kconfig
++++ b/net/mctp/Kconfig
+@@ -14,7 +14,6 @@ menuconfig MCTP
+ 
+ config MCTP_TEST
+         bool "MCTP core tests" if !KUNIT_ALL_TESTS
+-        select MCTP_FLOWS
+         depends on MCTP=y && KUNIT=y
+         default KUNIT_ALL_TESTS
+ 
+
+base-commit: 42a9fb3382fc2573e92f41d203b095d9a372cfc9
