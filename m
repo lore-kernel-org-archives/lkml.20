@@ -1,89 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E5C3911B5;
-	Fri, 25 Sep 2026 15:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686BC4C14E9
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350547; cv=none; b=Hx1eDn1QhuqRWJF2TJpKEJ7wLJsi6WB94QMwCMvs/jcUMoyNWIx8Ey0QGzCip8GicnUhfApmCi/+yKRU/wFQ474t6YdvNN90r//2BCbIYzUhTQUYCZmRzLBTs/sh7fA/mOGaZ7SJd0RXzo5P+semLTGEhY4RfrS16c1zPWy1sFo=
+	t=1790350576; cv=none; b=ZCo6LYNTK+XfkQ/Yjp4xD5uOePPPjG0F16LEDxPBCs0MSbDVF2koMUIiXkce32mK1cM16SsjIStkLmtnbcDxpGd/8pkYJEnRCcOdbeQM22A71aJ3TYCWV3qgd7tPZ12ejxujEskEBYgup4znSoWAgjGu+DIKbdJrq2qDh0L8AJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790350547; c=relaxed/simple;
-	bh=aDfKdjzQm3vyUHFNnWu4PiIDKuEX8i98zrpL7PvteKw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QAkVFyNkWSZzTajm3BxLPXObZmeMppjG4Wwp13KvFmUoRcRvlGdEtpWDn3EB/glGjkLhrNSr3TebJNqJj/s8WvWghXkbvZfGOoQN0tszCQjwY3daUwdKMvZCBf4YCU2hhXEyvVYsrNpDzz8WSbwGpCCCR7DH7NapKHE5/uxyec8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NmYlQObY; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NmYlQObY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AEA31F000FF;
-	Fri, 25 Sep 2026 15:35:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790350545;
-	bh=Aa9cYFJ37ytJHCRoA2y3rb4veOJl4gMOjRaDQrcSfkw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NmYlQObY+W9YYYxtEy03Qd/AWbDPYq2yo7/Z5QyR5sm2TZL3BCfWGM99dQyBCpYhv
-	 ycFlHX7k3fWrl5V0+LPuFBzK+160XWn4hH+K+ukIZa3Gq08ygescwaPsaTH74NhoRG
-	 GVQcOV29+IgqxB9flAy/vN2wOz9zF0EDMUJHIXUBupOQ5Ded2PfC/RjKP1G6RGufAg
-	 TfPKc4XQxO0dxjjCv95uYGF5cV/NbRBxkog4Myi573xzUHsyJZ1+vY4/CCljvFreOk
-	 BJO4LEWOIgmUi4ca0xPnfwDKhHiqcwpv+lJSr0vuCB35aHJsdF+ZiJvjzenKbXbOih
-	 nnuRgO16HDvvQ==
-Date: Fri, 25 Sep 2026 08:35:43 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] perf test: stat metrics cgroup strip possible slash
- from cgroup name
-Message-ID: <araUzxox2c-e_pOA@z2>
-References: <20260917061312.820074-1-irogers@google.com>
+	s=arc-20240116; t=1790350576; c=relaxed/simple;
+	bh=5EW3PWjoiPMUsf4N19qO08/p9Gt3Dn77fDyo7nz/NzE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=pfhdnRwiXwN6NXj6W3O2s5/rpB6riPUOoC33KW9JTMx4YZPYnjIpsYh2xEOe5hjBdynS2iFLUDvMoelMIU1mT+teyZB76Z5yr0dusFzaDramiYpWyLPN/PCu8PguLwOoTE+EJff++Jl8HJPcPwigLmMn0DRwerXvUGl7mZao514=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cbf700ddccso1176344b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:36:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790350574; x=1790955374;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=s5zyqHkjsfJElUgXLCkz/RTYL8utQUvXR8T4fV0Dhq4=;
+        b=Q9X99PwQNbo5eZUUgbFffxm7mArPjpFBP2xRgCel5c2hXfJaV2JyhmFjSQurTMFKVm
+         VXf4bAepsWJ1ifoYmrDbiaX8PL+q+tWJVSpmj/eFAeecx9miBf+kBudiA639oMkN0Exi
+         ZLCYBUdaQYEpk6qXcwKK2Kzv0H0koOYhWbmdEnzmqDgk05TXVzULE+TTam/TV8oP9ugJ
+         sB6Ds+eeRDN/HqHqcUsh9dl/q9efv6RbSK1LSMA5UMHh/P1y2TlhdxDKmiInz/7yx+Fd
+         qVkgBdzUcKZvK22aixqi0Am9PYh/L0k4QbUIxmH69bQOMQIO8YFBld7h6DrPpdDTX5K0
+         F5YQ==
+X-Gm-Message-State: AFuF++ny049fXy9K/u7qDqNWxzyELaC8ER5Vgg9uRQSgm0PWn98plqrX
+	ocsW9hzh3DBacKvcrmD9yJ+g043dlJa/nrUpLP3z3UQPNJV+2Z9v+KiXg/zEY5p1y8BMSU9hECH
+	HWQXxOcr3l5cPvxOabw+YphU1j85PwenxhdHYS6LJ4RwcokesY5cXs5EvFvM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917061312.820074-1-irogers@google.com>
+X-Received: by 2002:a05:6808:17a2:b0:4d6:9283:1bde with SMTP id
+ 5614622812f47-4dc6812d185mr3055701b6e.59.1790350574396; Fri, 25 Sep 2026
+ 08:36:14 -0700 (PDT)
+Date: Fri, 25 Sep 2026 08:36:14 -0700
+In-Reply-To: <68a82586.a00a0220.33401d.0251.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab694ee.e548f532.1ca396.0024.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [nilfs?] WARNING in nilfs_rename (2)
+From: syzbot <syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 16, 2026 at 11:13:12PM -0700, Ian Rogers wrote:
-> The grep to match cgroup name in metric output assumes no leading / on
-> the cgroup name, however, cgroups in /proc/self/cgroup may have a
-> leading /. Strip the / if it exists to avoid failures to match the
-> cgroup name in the perf stat output.
-> 
-> Signed-off-by: Ian Rogers <irogers@google.com>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-Acked-by: Namhyung Kim <namhyung@kernel.org>
+***
 
-Thanks,
-Namhyung
+Subject: Re: [syzbot] [nilfs?] WARNING in nilfs_rename (2)
+Author: konishi.ryusuke@gmail.com
 
-> ---
->  tools/perf/tests/shell/stat_metrics_cgrp.sh | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/tools/perf/tests/shell/stat_metrics_cgrp.sh b/tools/perf/tests/shell/stat_metrics_cgrp.sh
-> index d4226ee0ae98..0728f48f21fa 100755
-> --- a/tools/perf/tests/shell/stat_metrics_cgrp.sh
-> +++ b/tools/perf/tests/shell/stat_metrics_cgrp.sh
-> @@ -86,6 +86,13 @@ check_metric_reported()
->  
->  	for cgrp in "${cgrps[@]}"; do
->  		# Find metric lines for this cgroup
-> +		case "$cgrp" in
-> +			/)  # The root cgroup, leave unchanged.
-> +			  ;;
-> +			/*) # Strip any starting slashes.
-> +			  cgrp="${cgrp#/}"
-> +			  ;;
-> +		esac
->  		# We use exact cgroup match with surrounding commas
->  		local cgrp_lines
->  		cgrp_lines=$(echo "${output}" | grep -F ",${cgrp}," | grep "insn_per_cycle" || true)
-> -- 
-> 2.55.0.1082.g2b9226bbc0-goog
-> 
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 89a312991dc6
+
+Replace the -ERESTARTSYS return value in nilfs_segctor_sync(), the
+primary cause among several issues, with -EINTR to see if the problem
+can be reproduced.
+
+diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
+index 01a04080ef70..b2b67d6a1f09 100644
+--- a/fs/nilfs2/ioctl.c
++++ b/fs/nilfs2/ioctl.c
+@@ -965,10 +965,10 @@ static int nilfs_ioctl_clean_segments(struct inode *inode, struct file *filp,
+  * Return: 0 on success, or one of the following negative error codes on
+  * failure:
+  * * %-EFAULT		- Failure during execution of requested operation.
++ * * %-EINTR		- Interrupted.
+  * * %-EIO		- I/O error.
+  * * %-ENOMEM		- Insufficient memory available.
+  * * %-ENOSPC		- No space left on device (only in a panic state).
+- * * %-ERESTARTSYS	- Interrupted.
+  * * %-EROFS		- Read only filesystem.
+  */
+ static int nilfs_ioctl_sync(struct inode *inode, struct file *filp,
+diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
+index 45fb37215669..a7086a93480b 100644
+--- a/fs/nilfs2/recovery.c
++++ b/fs/nilfs2/recovery.c
+@@ -785,11 +785,11 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
+  *
+  * Return: 0 on success, or one of the following negative error codes on
+  * failure:
++ * * %-EINTR		- Interrupted.
+  * * %-EINVAL		- Inconsistent filesystem state.
+  * * %-EIO		- I/O error.
+  * * %-ENOMEM		- Insufficient memory available.
+  * * %-ENOSPC		- No space left on device (only in a panic state).
+- * * %-ERESTARTSYS	- Interrupted.
+  */
+ int nilfs_salvage_orphan_logs(struct the_nilfs *nilfs,
+ 			      struct super_block *sb,
+diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
+index 829573cb6131..5705e6e1fb2d 100644
+--- a/fs/nilfs2/segment.c
++++ b/fs/nilfs2/segment.c
+@@ -2275,7 +2275,7 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
+ 			schedule();
+ 			continue;
+ 		}
+-		err = -ERESTARTSYS;
++		err = -EINTR;
+ 		break;
+ 	}
+ 	finish_wait(&sci->sc_wait_request, &wait_req.wq);
+@@ -2309,10 +2309,10 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
+  *
+  * Return: 0 on success, or one of the following negative error codes on
+  * failure:
++ * * %-EINTR		- Interrupted.
+  * * %-EIO		- I/O error (including metadata corruption).
+  * * %-ENOMEM		- Insufficient memory available.
+  * * %-ENOSPC		- No space left on device (only in a panic state).
+- * * %-ERESTARTSYS	- Interrupted.
+  * * %-EROFS		- Read only filesystem.
+  */
+ int nilfs_construct_segment(struct super_block *sb)
+@@ -2339,10 +2339,10 @@ int nilfs_construct_segment(struct super_block *sb)
+  *
+  * Return: 0 on success, or one of the following negative error codes on
+  * failure:
++ * * %-EINTR		- Interrupted.
+  * * %-EIO		- I/O error (including metadata corruption).
+  * * %-ENOMEM		- Insufficient memory available.
+  * * %-ENOSPC		- No space left on device (only in a panic state).
+- * * %-ERESTARTSYS	- Interrupted.
+  * * %-EROFS		- Read only filesystem.
+  */
+ int nilfs_construct_dsync_segment(struct super_block *sb, struct inode *inode,
+-- 
+2.53.0
+
