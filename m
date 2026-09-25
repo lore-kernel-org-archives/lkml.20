@@ -1,132 +1,150 @@
-Received: from mta1.migadu.com (out-138.mta1.migadu.com [95.215.58.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE30364044
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:46:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27664766A5;
+	Fri, 25 Sep 2026 22:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790376370; cv=none; b=NfOlC6Gj7FU76wbu8pVaY76jMG/0SkMV1G/rWANqBO4X+Ycuy8ltf/WCluS/x5wjpnntt4V7fWjyjEfQTmAT0aO0MOfKUGDHaTgap7nU6ce/+mRdUEewF5Ki6jo3aUce06OHvuZdCXV5TvA2nA36cRqC/eayYfzudeydXb/t1n4=
+	t=1790376436; cv=none; b=X8qzs0aWSbdoaw7ZPCQo7KMeRtwcCb2B0ne3RJJw1HEEZ8MFj2teusQHV4p2BY0iuTvT8UYm6E3P2saIbI51OQx59MDgxPvq04f8kZ9r4RRH0ZKJcrzYSeSxL8fJ2hR9y3QaqnT3K6nmJ473v5z3PSACQrQRL43fAZ9mQWwx3vU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790376370; c=relaxed/simple;
-	bh=u9HaVC9yb8cnMF0BGh/IsIBs0kCSUhaTfBn+ofOxLvw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f7pTWTVjqDCy4KJXzbZZun8fR86jBkLMeB6dC70Bc4MJEGhvUB27J2qvCtP9B1phUKOSwv1Ve37DkAxrG1IA4H4XYoUFKHE8KtG0TRB3yjY7Gmm0GLFmOCidemvfkEEecqEvD0vuNuKWu0fCsTaDnY9VyGic9uujv3770NlaYNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=muvQKXnY; arc=none smtp.client-ip=95.215.58.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790376436; c=relaxed/simple;
+	bh=JqEcmoDDWblFAh0Nxq2yq/H40ZTIt44qB8BOo44Q6H8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G+rBLz/ASqZLqjB1rPdB+A+fB7t+csE4xJmEosAw0ATCFLWuomlJ6SjgFa5Z46eVkmej+JCcXwPVo39okJYGQhTwd+en5224obIq259BssEzmVcMGn3qiOfJUBUUFdQ2C84+/f8xQQJT8EWq/fxB2+L1lZHp3Ua0S6X99sn3FzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOoorRDw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="muvQKXnY"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=u9HaVC9yb8cnMF0BGh/IsIBs0kCSUhaTfBn+ofOxLvw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790376365; v=1; x=1790981165;
- b=muvQKXnY1aR0WDClWFLBjxEyDFd9BlHQvVl7IigXG0TyehESvntz0q3sxZ9XQgXOWi72FSk9
- gijZI7Xeo5VuBOyFBHwclMwokb8piBXppQ0pFFsZN16tGHyKKX4CuhPLk+OkCUxa5opxzcaizKB
- jMs/kEnaXXlaISqXGpXh1MM4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id d3ecf85df4c964fe;
-	Fri, 25 Sep 2026 22:46:05 +0000
-X-Mizu-Trace-ID: d3ecf85df4c964fe
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <58411d37-dd5b-41c2-8b9e-d54939a1119d@linux.dev>
-Date: Sat, 26 Sep 2026 01:46:01 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOoorRDw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982911F000FF;
+	Fri, 25 Sep 2026 22:47:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790376435;
+	bh=HG1xmjc9muedxWRreV/dfHrFYuUNJrN4Sktg41zjz+0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=QOoorRDwiu0o6dE7nQTAlNfujFNM+C7Cjwef9qOnpB3I7zwF70uwIY53WaxgX8Z1X
+	 qNCuv1bCv7DgbqTSg2Rew1+3bVYvCLtxu6QcE43hyMNfa/C+HM3MTNqlEo+8KdnjU4
+	 7odbBOf/wXm7Lt26NTFKYAYTF24g+t+FKDkrKhU118I5gIYCdfc0BCd6MvJzfQv9LE
+	 zsxGkwC3J70C/tni9Vj6lfC0pX2EpVoBHXy4CromeL8PphvekON1L2PZgRQWj9LOHi
+	 K7RK65hjnEra0Dd/MEli90/bFZJE5ecMhPVdPXJouKO8qKwWLLKTtdQ+PPjVzrBL/g
+	 zSmR/4v+wx97w==
+Subject:
+ Re: [PATCH net v2 2/2] selftests: net: check timestamp echo after an old ACK
+From: netdev-bot+sashiko@kernel.org
+To: jeffjo@openai.com
+Cc: netdev@vger.kernel.org, edumazet@google.com, ncardwell@google.com,
+ kuniyu@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, shuah@kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+Date: Fri, 25 Sep 2026 22:47:14 +0000
+Message-ID: <179037643415.2160803.14897657788666510697@kernel.org>
+In-Reply-To: <20260924224456.55690-6-jeffjo@openai.com>
+References: <20260924224456.55690-6-jeffjo@openai.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] mm: implement page refcount locking via dedicated
- bit
-To: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Zi Yan <ziy@nvidia.com>, "David Hildenbrand (Arm)" <david@kernel.org>,
- akpm@linux-foundation.org, andrew+netdev@lunn.ch, apopple@nvidia.com,
- artem.kuzin@huawei.com, baolin.wang@linux.alibaba.com,
- Liam.Howlett@oracle.com, edumazet@google.com, harry.yoo@oracle.com,
- hramamurthy@google.com, ivgorbunov@me.com, joshwash@google.com,
- kirill@shutemov.name, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- lorenzo.stoakes@oracle.com, mhocko@suse.com, muchun.song@linux.dev,
- pfalcato@suse.de, rppt@kernel.org, surenb@google.com, vbabka@suse.cz,
- willy@infradead.org, yuzhao@google.com
-References: <cover.1789239015.git.ilya.gladyshev@linux.dev>
- <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
- <DLFJL5U9DI6F.3QJP9YP0KX636@nvidia.com>
- <56e036665dbeb0a8f51d697220d5ed84f210994c@linux.dev>
- <570cf649-a8bf-4073-be71-207fbb2bef40@kernel.org>
- <CAHk-=wh3LLDV2AMZn1PZcU1o3Na-BNcQtP=LPXouLKPZWaiRdQ@mail.gmail.com>
- <DLO1WIACYFWF.3N01DXYFJLMD0@nvidia.com>
- <a1d5881926dbf4b16dc796fb1da939f32dd42f18@linux.dev>
- <CAHk-=widZMoVwT+to2PKPfy-y2gERYWdLsZCZvXcz0ZbXYpt9w@mail.gmail.com>
-Content-Language: en-US
-From: Ilya Gladyshev <ilya.gladyshev@linux.dev>
-In-Reply-To: <CAHk-=widZMoVwT+to2PKPfy-y2gERYWdLsZCZvXcz0ZbXYpt9w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 9/25/26 22:00, Linus Torvalds wrote:
- > On Fri, 25 Sept 2026 at 00:03, Ilya Gladyshev 
-<ilya.gladyshev@linux.dev> wrote:
- >>
- >> Hmmm, I’m afraid that since you need CAS for a safe 1->FR transition,
- >> it will result in a CAS loop for the decrement itself (like in
- >> atomic_sub_unless). And this will introduce scalability issues just like
- >> in folio_try_get(), but this time for everyone...
- >
- > Note that we could make that CAS case be the thing that only the
- > special cases do.
- >
- > IOW, maybe only do that slow sequence in compaction_free() and the
- > memory offlining.
- >
- > So we'd have two different cases:
- >
- >   - the high-performance case is ready and willing to accept the "sees
- > zero" window and the extra 0->FR state that can race with somebody
- > else taking an optimistic ref
- >
- >   - the unusual slow cases that are *not* willing to deal with
- > optimistic ref takers do the "CAS 1 -> FR" state atomically and always
- > use compare-and-exchange for their freeing path
- >
- > That actually sounds like a good approach to me.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Cool idea, thanks!
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-This, however, will still require converting all page_frag_free()
-callers to use the generic dispatching dtor (which is __folio_put()
-for now), right?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
----
+- [Medium] The new selftest
+  tools/testing/selftests/net/packetdrill/tcp_old_ack_ts.pkt checks for…
 
-Beyond that, I see two trade-offs with my patchset. Neither seems
-important for the current kernel code, but I'd like to outline them
-anyway.
+--
 
-1. We lose the "high-performance + custom deallocation" scenario
+selftests: net: check timestamp echo after an old ACK
 
-For example, in cases where the current refcount allows you to write
-the following:
+This adds a packetdrill regression test for a gap-filling segment that
+carries an old ACK. Two peer data segments arrive out of order. The test
+then requires the ACK that closes the gap to echo the delayed segment's
+timestamp (301000) and not the stale saved value (1000).
 
-if (!put_page_testzero()) {
-   /* We failed to steal the last refcount. However, our refcount is
-    * already decremented, and therefore we can move forward -- the one
-    * who stole our page will free it via the generic dispatching dtor.
-    */
+Link: https://github.com/google/packetdrill/commit/83f72d3f9085d0e26eb4d206fe4d7cfab5b6d872
+
+> diff --git a/tools/testing/selftests/net/packetdrill/tcp_old_ack_ts.pkt b/tools/testing/selftests/net/packetdrill/tcp_old_ack_ts.pkt
+> new file mode 100644
+> index 0000000000000..f072e5e4c4494
+> --- /dev/null
+> +++ b/tools/testing/selftests/net/packetdrill/tcp_old_ack_ts.pkt
+> @@ -0,0 +1,22 @@
+
+[ ... ]
+
+> +0.300 write(4, ..., 17) = 17
+> ++0 > P. 1:18(17) ack 1 <nop,nop,TS val 300 ecr 1000>
+> +0.310 < P. 18:35(17) ack 18 win 20000 <nop,nop,TS val 301001 ecr 300>
+> ++0 > . 18:18(0) ack 1 <nop,nop,TS val 310 ecr 1000,nop,nop,sack 18:35>
+> +0.320 < P. 1:18(17) ack 1 win 20000 <nop,nop,TS val 301000 ecr 100>
+> ++0 > . 18:18(0) ack 35 <nop,nop,TS val 320 ecr 301000>
+                                                  ^^^^^^^^^^^
+
+[Severity: Medium]
+Can this test report PASS on a kernel that doesn't have the fix?
+
+The commit message says packetdrill versions older than 83f72d3f9085 do
+not check the outgoing TSecr:
+
+  older tools incorrectly pass on an unfixed kernel
+
+This ecr 301000 check is the only line in the script that depends on the
+fix. The seq, ack and SACK checks give the same result with or without
+it, and so does the read() of 34 bytes below.
+
+The runner only checks that some packetdrill is in PATH. It then reports
+PASS whenever packetdrill exits 0:
+
+tools/testing/selftests/net/packetdrill/ksft_runner.sh:
+    if [ -z "$(which packetdrill)" ]; then
+    	ktap_skip_all "packetdrill not found in PATH"
+    	exit "$KSFT_SKIP"
+    fi
+    ...
+    	unshare -n packetdrill ${ip_args[$ip_version]} ${optargs[@]} $script > /dev/null \
+    		&& ktap_test_pass $ip_version || $failfunc $ip_version
+
+On a kernel without the fix, tcp_ack() sends the gap filler down the
+old_ack path, since ack 1 is before snd_una 18. That kernel does not have
+this update:
+
+net/ipv4/tcp_input.c:tcp_ack() {
+    ...
+old_ack:
+	...
+	if (flag & FLAG_UPDATE_TS_RECENT)
+		tcp_replace_ts_recent(tp, TCP_SKB_CB(skb)->seq);
+    ...
 }
 
-The proposed refcount impl will require either a slow decrement or a
-proper (slow) deallocation when put_page_testzero() succeeds. So,
-basically, the compaction_free() scenario but with a performance
-requirement.
+As a result, ts_recent stays at 1000. With an older packetdrill, such as
+a distro package, wouldn't ipv4, ipv6 and ipv4-mapped-ipv6 all still pass?
 
-2. Page deallocation becomes unpredictable
+Could the script add a check that doesn't rely on packetdrill's TSecr
+handling? For example, after the gap-closing ACK, inject:
 
-With the current refcount impl, if you work with a page of "type X",
-you can be sure that folio_put() will perform X-specific actions on
-it, and you can make implicit assumptions based on that. This is no
-longer true for fast decrements.
+  < P. 35:36(1) ack 18 win 20000 <nop,nop,TS val 2000 ecr 320>
 
----
-Ilya Gladyshev // foxido.dev
+With the fix, ts_recent is 301000, so the PAWS check in
+tcp_validate_incoming() drops the segment. The segment carries data, so
+tcp_oow_rate_limited() does not suppress the dup-ACK, and the reply is
+ack 35.
+
+Without the fix, ts_recent is 1000. The segment is accepted and the reply
+is ack 36. That difference would show up whichever packetdrill version is
+used.
+
+> ++0 read(4, ..., 34) = 34
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924224456.55690-4-jeffjo%40openai.com
