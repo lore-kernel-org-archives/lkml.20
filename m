@@ -1,60 +1,153 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE3E36194F;
-	Fri, 25 Sep 2026 14:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110F84BB5C5;
+	Fri, 25 Sep 2026 14:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348296; cv=none; b=KluiugoJ+SFl52ot+P5/Ik3VHrKc1wVji5+/wSEvrSjy+IvigYwc/NJEacdHnflgAPrVARq2e3i90+RIep6TkMOfQvI+032RyXbtyHlY69FzxvePORjZCO6HHdm9swcscVGJQNxCo+T6NvIzpYP/+zKtEMaF6hzqkhaZsDBhPt4=
+	t=1790348326; cv=none; b=swH6E+UO/c0FI1wDBh2jAX3h5tEWhICCzQpkAmjzN63CVFVWsUjxQBYCtcNPFtainwwy205eO2R5FOD39wTfkKyIOGuSjqjjSLMs2RxLP0iGWtdLjvKTqhqWBxbqg540J0Yn7vpkAAX0kGYH+argsVdJVQg6M6G8o0WdRWft57Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348296; c=relaxed/simple;
-	bh=0F2OIT6MnRQMXdLWrpLb2TyOXEnxtdzKajUPegIJha4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FNt2CG5aGu8DLpoeDqLlOpu7puyW3kOsz6s4q+38QoGOV+GEXM7F0lavph2dxfs/8z8UIsBQGRUc4Cxsehlo/qIEyu4tZbc841QGmKtzZegdP9XUj5HW9FQJErGmD/4us0mBMD24iKG8hT56ghihruiP5w5ElgEG6OaeySF9iKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=nnkd+hKa; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790348326; c=relaxed/simple;
+	bh=8nACMrCWfwp+pDLedguEFOlRFkQtwRvV070jPpnQZcI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=C+MxyXYIKLGJS0n5ifPMYKG/pERIjAK+qt96sne/HENJTbkJkZO7RNR0rCVK7KEsp5Hht6s6FlNwlkVGuvqydQnFARClUDCHOEroDtib1ec1dpVPNpvvnxsH6iPnvrkiWZcBChNIR3+QM1yI1E5ru005R5E1YtI/Fq7JfLYy6cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLQX+T31; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="nnkd+hKa"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=lOavYm1hTi0msU7PDlwE7ydIOrqAl7/uabqbE87HbLE=; b=nnkd+hKarR1b1JLzrM17aO82g3
-	byV8hs34hkwH9FtRhG7GXp60QehgHvOw0x5i/9w2Q7l8R79OMsbsTWYOCchA4wiYwAdpjY4XTiadk
-	qvGUFAj28rMF/OzDZnoP2ph+Wa3K8WUB4XLp2lJgb2nJkheiAw6xLhzPWYqAFl7paspM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xA7N6-007EWu-By; Fri, 25 Sep 2026 16:57:56 +0200
-Date: Fri, 25 Sep 2026 16:57:56 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: David Yang <mmyangfl@gmail.com>
-Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4 5/8] net: dsa: motorcomm: Introduce
- yt921x_speed
-Message-ID: <20a5b49e-c61d-4628-84f8-762c52e0b515@lunn.ch>
-References: <20260923021945.2203368-1-mmyangfl@gmail.com>
- <20260923021945.2203368-6-mmyangfl@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLQX+T31"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 334E91F000FF;
+	Fri, 25 Sep 2026 14:58:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790348314;
+	bh=8nMofoqgrFqPqCj7VNyHsWfuBiFqNeg+a4J6+g7v+aE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GLQX+T31c4UsJlZtCr8REqO8vk0SkFPyCmn/7l35tabF4Uum3jA83EUjh4WNYCvjL
+	 rrClSmbkpoIQ8utrVflFSsG6pBGPOteHQelXisB2dBNBSGdatDU1zK5sLL3j0IgerE
+	 MHXcM8MLur1n1ePSe3QhyzSHFEtdafoF/iXJuS7SfJFsMR8V08Ly+0OgyAYd2CWDCw
+	 eZmUPtzY1eN1rLnEv2/uzkymlQoKKSzJiMwBR6m0ySODliT1e0p2LlEX/uJNk2OSx3
+	 61XPjUZT9RJ9KecmS2ZdzHZDV85Q1CeP4Sm052YuXDNbiyYv7IZ5DrgeaIDmH/JdBg
+	 dV98Y6ky1Hm4Q==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xA7Nf-0000000DUVE-2g6D;
+	Fri, 25 Sep 2026 14:58:32 +0000
+Date: Fri, 25 Sep 2026 16:01:35 +0100
+Message-ID: <8733ux4bow.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Quentin Perret <qperret@google.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/4] KVM: arm64: Clear HCR_EL2.RW for 32-bit non-protected vCPUs
+In-Reply-To: <20260925090619.852995-3-fuad.tabba@linux.dev>
+References: <20260925090619.852995-1-fuad.tabba@linux.dev>
+	<20260925090619.852995-3-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923021945.2203368-6-mmyangfl@gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, seiden@linux.ibm.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, qperret@google.com, vdonnefort@google.com, tabba@google.com, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed, Sep 23, 2026 at 10:19:37AM +0800, David Yang wrote:
-> FIELD_PREP values cannot be used as case labels. Introduce enum for
-> future use.
+On Fri, 25 Sep 2026 10:06:17 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
 > 
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> In pKVM, KVM_RUN on a vCPU created with KVM_ARM_VCPU_EL1_32BIT fails
+> with KVM_EXIT_FAIL_ENTRY. pkvm_vcpu_reset_hcr(), pKVM's EL2 counterpart
+> of vcpu_set_hcr(), never clears HCR_EL2.RW, so the first ERET into the
+> vCPU is an illegal exception return. Protected VMs are AArch64-only, so
+> only non-protected VMs are affected.
+> 
+> Clear RW for 32-bit vCPUs. The vCPU's features come from the host, and
+> on a CPU without AArch32 EL1 a cleared RW would make EL2 switch
+> registers that are UNDEFINED there. Clear it only when the system has
+> AArch32 EL1, the same check system_supported_vcpu_features() makes on
+> the host.
 
-    Andrew
+Apologies from repainting the proverbial bike shed, but I find the way
+the above is written very hard to understand, because you are
+describing minute aspects of the code without giving the big picture
+upfront.
+
+I'd rather see something like:
+
+"pKVM maintains its own copy of a per-vcpu HCR_EL2. On initialisation
+of the hypervisor's private vcpu structure, HCR_EL2.RW is set to 1
+unconditionally.  However, nothing forbids userspace to create a
+non-protected, AArch32 guest. Since HCR_EL2.RW==1, entering the guest
+fails with an IL exception.
+
+Make sure HCR_EL2.RW is cleared when the vcpu is AArch32 at EL1, and
+that the HW actually supports this."
+
+which describes the problem without the reader having to dig into
+code. It makes matching the description and the code very easy. At
+least for me, YMMV...
+
+> 
+> Fixes: b56680de9c648 ("KVM: arm64: Initialize trap register values in hyp in pKVM")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> index 459bd9eb7e4bc..affc9595fda20 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> @@ -54,6 +54,14 @@ static void pkvm_vcpu_reset_hcr(struct kvm_vcpu *vcpu)
+>  	else
+>  		vcpu->arch.hcr_el2 |= HCR_TID2;
+>  
+> +	/*
+> +	 * At EL2, vcpu_el1_is_32bit() reads HCR_EL2.RW, and EL2 switches the
+> +	 * *32_EL2 registers when it returns true; they're UNDEFINED without AArch32 EL1.
+> +	 */
+
+That's another example: yes, this is all true. But how relevant is it?
+Are you clearing RW just for the sake of vcpu_el1_is_32bit() to work
+and prevent an UNDEF? No. It is so that 32bit guests do work. The
+above really is only paraphrasing the ARM ARM.
+
+What you don't describe is that if ARM64_HAS_32BIT_EL1 is not
+implemented, you let the vcpu walk to the cliff with RW==1, and rely
+on the CPU generating an IL exception. For me, this is the important
+piece of information that needs to be captured.
+
+> +	if (vcpu_has_feature(vcpu, KVM_ARM_VCPU_EL1_32BIT) &&
+> +	    cpus_have_final_cap(ARM64_HAS_32BIT_EL1))
+> +		vcpu->arch.hcr_el2 &= ~HCR_RW;
+> +
+>  	if (vcpu_has_ptrauth(vcpu))
+>  		vcpu->arch.hcr_el2 |= (HCR_API | HCR_APK);
+>  
+
+Other than that, the patch looks great! :)
+
+Thanks,
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
