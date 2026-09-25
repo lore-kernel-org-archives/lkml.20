@@ -1,113 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30ABC20DD51;
-	Fri, 25 Sep 2026 03:05:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88C21A9FA8
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790305508; cv=none; b=ekEOWN9epdj03MI+Rd/+9qaS3U1T4kmB47UQrAhj8ZMNLY9+8djYQ/IryOONWr14hGjZA5clhbMesJ/+EEQxIbDsUZoK4IDmSR+t/nuCXPA56CN0q/OhiZDhK7CB4myDxoO6CYbF8GvFA4DUU/uLUbMQWcGR9yWUd//EOQlTD+E=
+	t=1790305786; cv=none; b=S1Eq5D8ibNiyfT4+qAePbJOaGNMU8fmTOgAyrBhwE6lnOwehaPdJsytkuxAM8OkpUz0EfdFOCSQjSsw7PbQ5fi5OFRfzffcyl3HzYEM5/Q89HdTjJWVaN3HfS3CuW+xs/y3Y7lhQNfjNuMil3KfCNHt1LrYenj6nWKhmHhq+M38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790305508; c=relaxed/simple;
-	bh=2A8vo2SuH6b7YVnhQt79UkvODW+AXcGxLv/gEtfkqP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PhdHmSfC1A+5f5Ted7i2AOnIA023/TrpiP8VjY8dNU4AjZ5rkQuYwz6aIZ80Igl83mUTBvl5Q/ng5i9piIAIcCK3f6UjaKrsywLOtisVLvV817RAfeSLTuQ6uGrGiugl+t1KlB4ZkGGrz7RXq0xbThVqpPS/ewgjhxem8UUq84M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aNViKnWz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790305786; c=relaxed/simple;
+	bh=a8MxFJFxDe3mlXcocv+JVKuo73xbs4f0LCNXuLNDV9A=;
+	h=Content-Type:Subject:Message-Id:To:Cc:Mime-Version:From:Date; b=DBvfkZzxt079XmzDldd3jBAQpZSQtn6vFTaNdnA3yrMyqBKCeGWkFooccTHqG0KndYnobhRrfrsYvAPYC3seCwYTqC6fdirX7rXmSVmJ/spVJ7Ko0IUzF8HRqW3sa8RLW7LhEiYAYP5Dsf4lHDARIpd1WbIecrrzOWrp9YPfDTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=cLTN3XXz; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aNViKnWz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC27B1F000FF;
-	Fri, 25 Sep 2026 03:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790305507;
-	bh=pDXMhPHA2gHjXcVjTuL1ZM+tJpMVc3m3oAFbbntrwRQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aNViKnWzHTMKl13Gmi7ToI8DPgS9miZ911vIvRMdCciGgnarMtljmq3v4LqNCkvDF
-	 ZAEP0wJ+rfBII2g2Fwzbc9JfZTY4oPw1ZvQhpOrA3ZK5SnZphaR8rNbb7l01embAgr
-	 4KMZnWSI7aZfuocI2eG07so+FaP1x+NdDpndw/4l7qAy0Uk3WIkjbh2OcyZUK3nqkE
-	 zwzKj4u85j+Nz3wSmR7FatkSnTeUjuXYCxXTeUJAvJTZH+4Fl5+BNcfh8euvZQSN0Q
-	 TufB+KMcrLJZUC92P57vk03Red9xl+9B5h0s1yAuzIjVZIoih17cacP1DIbXCyRPJt
-	 hIJR9LIriLzNg==
-Date: Fri, 25 Sep 2026 04:05:00 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Carlos Casadiego via B4 Relay <devnull+cdcp206.gmail.com@kernel.org>
-Cc: cdcp206@gmail.com, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Olof Johansson
- <olof@lixom.net>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: accel: bmc150: check reset write error
-Message-ID: <20260925040500.0f637249@jic23-hlaptop>
-In-Reply-To: <20260924-iio-bmc150-check-reset-error-v2-1-b6dc74d7aaf4@gmail.com>
-References: <20260924-iio-bmc150-check-reset-error-v2-1-b6dc74d7aaf4@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="cLTN3XXz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1790305774; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=sBU7GGQ/oj9fWAqJXQyybmelwygzgg5VcUHTnG64hC8=;
+ b=cLTN3XXzldRnrAWRFK3U3vMNyHmns1oCMrlOrn8BHTZjLcUzDgE02YNm1UOz87zJhdjPw+
+ T0ekjLaLOsZp22AVdqByg7+6feqmZx9dYCEgWaPd3R8lUsJh/Rxg3jahuK8BznPChWzxz8
+ eLqRxWsvDSkZax8TbmaSuWjOwSL4WHffTz0ez8qZS4P9Lo6/CXzg7AIvg26+GxUGWVZ3rC
+ /KlEkJY1tmiK4qxybzdG73Z/DfAR91Sw0pf24qTYtMhexVnXq09JcU4KjpCdVCj2ty78iB
+ xOa+ctfTFy4C45K9Y6b1kduv8dAd4jV5Wm2nqcFxkvToe7byDlZ7lCtmHBN9cw==
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH v3] RAS/AMD/FMPM: Fix spurious BUG when ERST record enumeration fails
+Message-Id: <20260925030918.3428029-1-qirui.001@bytedance.com>
+X-Mailer: git-send-email 2.20.1
+To: "Yazen Ghannam" <Yazen.Ghannam@amd.com>, 
+	"Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>
+Cc: "Kees Cook" <kees@kernel.org>, 
+	"Guilherme G . Piccoli" <gpiccoli@igalia.com>, <muralidhara.mk@amd.com>, 
+	<naveenkrishna.chatradhi@amd.com>, <linux-edac@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, "Rui Qi" <qirui.001@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26ab5e5ec+0fe22e+vger.kernel.org+qirui.001@bytedance.com>
+From: "Rui Qi" <qirui.001@bytedance.com>
+Date: Fri, 25 Sep 2026 11:09:18 +0800
 
-On Thu, 24 Sep 2026 09:48:45 -0500
-Carlos Casadiego via B4 Relay <devnull+cdcp206.gmail.com@kernel.org> wrote:
+When erst_get_record_id_begin() returns an error, get_saved_records()
+jumps to the out_end label and unconditionally calls
+erst_get_record_id_end(). But begin() only bumps the
+erst_record_id_cache refcount on success, so calling end() after a
+failed begin() underflows it.
 
-> From: Carlos Casadiego <cdcp206@gmail.com>
-> 
-> The software reset is required to bring the device into a known
-> state before reading the chip ID.
-> 
-> Check the return value of regmap_write() and abort initialization if
-> the reset command cannot be written.
-> 
-> Fixes: 1c500840934a ("iio: accel: bmc150: reset chip at init time")
-> Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-> Signed-off-by: Carlos Casadiego <cdcp206@gmail.com>
+This is reachable when fmpm is built as a module: if the cache lock
+is contended (by pstore, erst-dbg, or apei_read_mce) and a signal
+arrives, mutex_lock_interruptible() in begin() returns -EINTR without
+incrementing the refcount. end() then takes the lock, decrements the
+refcount below zero, and BUG_ON() fires while still holding it. The
+loader dies with the mutex held, so every later ERST user blocks
+indefinitely.
 
-Just to check: Was this verified against actual hardware?
+Built-in fmpm is not affected, since its initcall runs before
+userspace and mutex_lock_interruptible() can never see a signal.
 
-Quite a few devices get going on their resets before sending
-acks on i2c which means you get an error on that particular
-write.  That is often why you don't see an error check on this
-particular operation.
+Fix it by jumping to the out label on begin() failure, skipping
+erst_get_record_id_end(). kfree(old) moves to that shared label so
+it still runs on every path.
 
+Fixes: 6f15e617cc99 ("RAS: Introduce a FRU memory poison manager")
+Signed-off-by: Rui Qi <qirui.001@bytedance.com>
+---
+Changes in v3:
+- Reword the commit message per review feedback from Yazen Ghannam.
+- No code changes.
 
+Patches 1-3 of the series are unchanged and already carry Reviewed-by
+on v2; they are not resent.
 
+Link: https://lore.kernel.org/r/20260924161746.GI1080284@yaz-khff2.amd.com
 
-> ---
-> Changes in v2:
-> - Remove the blank line in the tag block.
-> - Add Srinivas Pandruvada's Acked-by.
-> - Link to v1: https://patch.msgid.link/20260923-iio-bmc150-check-reset-error-v1-1-b8c1ebc4c947@gmail.com
-> ---
->  drivers/iio/accel/bmc150-accel-core.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/accel/bmc150-accel-core.c b/drivers/iio/accel/bmc150-accel-core.c
-> index 46bb36d9366e..43a39e1ccce5 100644
-> --- a/drivers/iio/accel/bmc150-accel-core.c
-> +++ b/drivers/iio/accel/bmc150-accel-core.c
-> @@ -1561,8 +1561,12 @@ static int bmc150_accel_chip_init(struct bmc150_accel_data *data)
->  	 * Reset chip to get it in a known good state. A delay of 1.8ms after
->  	 * reset is required according to the data sheets of supported chips.
->  	 */
-> -	regmap_write(data->regmap, BMC150_ACCEL_REG_RESET,
-> -		     BMC150_ACCEL_RESET_VAL);
-> +	ret = regmap_write(data->regmap, BMC150_ACCEL_REG_RESET,
-> +			   BMC150_ACCEL_RESET_VAL);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Error writing reset register\n");
-> +		return ret;
-> +	}
->  	usleep_range(1800, 2500);
->  
->  	ret = regmap_read(data->regmap, BMC150_ACCEL_REG_CHIP_ID, &val);
-> 
-> ---
-> base-commit: d8c0f48f0b1583308a98401c0c7b1a65d1d43a6c
-> change-id: 20260923-iio-bmc150-check-reset-error-389b096b0ad4
-> 
-> Best regards,
-> --  
-> Carlos Casadiego <cdcp206@gmail.com>
-> 
-> 
+ drivers/ras/amd/fmpm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/ras/amd/fmpm.c b/drivers/ras/amd/fmpm.c
+index c13db1f743e5..48a437042953 100644
+--- a/drivers/ras/amd/fmpm.c
++++ b/drivers/ras/amd/fmpm.c
+@@ -673,7 +673,7 @@ static int get_saved_records(void)
+ 
+ 	ret = erst_get_record_id_begin(&pos);
+ 	if (ret < 0)
+-		goto out_end;
++		goto out;
+ 
+ 	while (!erst_get_record_id_next(&pos, &record_id)) {
+ 		if (record_id == APEI_ERST_INVALID_RECORD_ID)
+@@ -714,8 +714,8 @@ static int get_saved_records(void)
+ 
+ out_end:
+ 	erst_get_record_id_end();
+-	kfree(old);
+ out:
++	kfree(old);
+ 	return ret;
+ }
+ 
+-- 
+2.20.1
