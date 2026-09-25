@@ -1,117 +1,224 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f38.google.com (mail-ej2-f38.google.com [74.125.228.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF056495AE4;
-	Fri, 25 Sep 2026 10:35:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC78497B79
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790332549; cv=none; b=cwlN7zcSCEBIBjSA/ao8zUABVKeqrozvbbPaOuEkF9yf8wCCzfS3gGgcJ0vMdzUqHZOyLK1dxXDk+ozc6A/RICIbMemzhWxtNZJyQk0ZiQjkvDe2DA4WN3OVEBJmac0B0xTaL6NEuUWUxJjrCJxA515+BlgKzIR1eKAyccTG+SY=
+	t=1790332612; cv=none; b=cz+16kMRWyas32kFesY48fktKR/4WPeQA31RnIrKiZ6wCPBfukymGS14MSUl5Xm0KurNFJDjiWgOTmAyFSeQs8+icJzT+qfN0IsvORGiQ1IS3tJsGyLm4eZwF4bROpHAGlOWuPuWcTusRTtmxc1KykKFu0vCKXxpD97hEOuj77U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790332549; c=relaxed/simple;
-	bh=wQqmt2NWHj1mgubyNVguKY/67LUBnd0DTi3PNonAcPU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KLMeCbYS3SuvOHPlTw98DtlLQrs2G/D0rE+fwQsjeV381vTrtYHkvQvTULQJoVHlVqFB7Mv0LFan4dnvPfO9SW88gs2FPFs+vriHomaSsllYTIwOI1QZuvhtmCTNfoQzMWzUnsNTXYzT7NYC6Mjev6e32edbEIKIZPoCUzSxo9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CYhr6Xe7; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790332612; c=relaxed/simple;
+	bh=p8eecZ4y/X0nnQGJnEGiA025hbiv/mId6im2EVDxeRE=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m+QDpA4KmxuAFf4aTris9iw47v83KVl4M7mAYsx4unOAx5FYx4cy7YgJLokLkkxl8EFbcrgKNEEj0p1+NjwcdIXluA5r56fAgdsi3yA1/etAdYtU1mmWQ4bkpIIxyR1KdwPD+f9O8YCgqw79EC7nZZDX8eH1Qi/60HZ2NjACks8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FKeeMMfx; arc=none smtp.client-ip=74.125.228.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CYhr6Xe7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790332547; x=1821868547;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=wQqmt2NWHj1mgubyNVguKY/67LUBnd0DTi3PNonAcPU=;
-  b=CYhr6Xe7f66lZzO3cOGXI18vW6840z4FhxxPmQeUpS26juTjOeyIDTZr
-   3uX1DjWYYAHxl98V23WpXfRKjatjZXXk5TFANVPqBeCNabAoYJTgZA+wF
-   aTOkGxcxxPx/wgnxsy5HXTN/lNJJ1V1MwExdV9q42z9aI8NVckIS8aNA2
-   eNwcDUvlwKkwt2Y6Dry/49hs1SiMbUAhnrLr84ZpVmP/QsmQSpfLwdlWn
-   JO9Fgy9CblfrK/4lUVvsIRJCQ+TwPE6h+urD6cQYRdxaoA2nZO0yxxYWA
-   EXwI6Zh5ESf0KildsJTIOK4brNMB+AW/Z/MczOqc/28fc71vIyxnWwDSi
-   A==;
-X-CSE-ConnectionGUID: iG8KllMgTz2xDstMJ+PUtA==
-X-CSE-MsgGUID: erTjxSLYSVyc/MQwLfShfg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93835012"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="93835012"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:35:47 -0700
-X-CSE-ConnectionGUID: uNXAvX86Q3iNNlCxgwrtKw==
-X-CSE-MsgGUID: 5vekCPdMQk2Jcqa9XUgEMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="272431679"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:35:44 -0700
-Date: Fri, 25 Sep 2026 13:35:42 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Linus Walleij <linusw@kernel.org>,
-	"Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
-	linux-gpio@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH] gpio: wcove: use regmap_assign_bits() for conditional
- set/clear
-Message-ID: <arZOfm4_ePPn6QU0@ashevche-desk.local>
-References: <20260924083512.461838-1-peng.fan@oss.nxp.com>
- <179032407610.10527.4008737984510756760.b4-ty@oss.qualcomm.com>
- <CAHp75VdBbr5TgEXrJ6XDQiPvsGfhyKQmVL+zUQ3mNS=GiWw1RQ@mail.gmail.com>
- <CAMRc=MfdAU0fvYa-XzGvdeMPsAG7z+QeMP7zywNaRW-emRJjRw@mail.gmail.com>
- <arZJDjT42V1X0I8m@ashevche-desk.local>
- <CAMRc=MdZ7n5061rwA6mo0_xTn++63HZ_JjwxTaC_qMWvTZT-fw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FKeeMMfx"
+Received: by mail-ej2-f38.google.com with SMTP id a640c23a62f3a-c2af9270c53so6902366b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:36:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790332609; x=1790937409; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FhWuBlVR+9Exee5MQnVdQb500Y1OJ3oFiUVTaPUsfcQ=;
+        b=FKeeMMfxJBPDdmIAiJ1dRvOQy2FheNuHcaYpeMHIdRlwJzpIvNTRAD4fnkpKXQiOqS
+         Hzeh6pgjVtqJUUHG2ZrL3JB+TBOEbjA6ImLyaWktSH8FS9M6JF14/hqgDqz/jpMUEgre
+         SZ1dkI+qApSyG1tYomC99oLYoBjqTDKXFUCI+taBm87tylt4+JEuosgX1OtMQrtMJDCo
+         QfCpbX9bbbJu2fu81nzBIdM6S5AAxSiE8Zgbtqcl6jqZ1XMEY3oU5l36nJO0aFDh1BPW
+         5dMdj1i19gs4ID9Hf+T3p14MoiosyMcIVfg2apyfclwpu6aGwXwxGT6W6lMwkmmorblZ
+         VrQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790332609; x=1790937409;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FhWuBlVR+9Exee5MQnVdQb500Y1OJ3oFiUVTaPUsfcQ=;
+        b=qEUxajyFjRz6DE96I0449D4CKYBMFs5ZvBlsG/vOh03hTQOn1Ph1XASr1NjbbFNfZ2
+         HJqqbPPKRjsk+Ysiua8vF7afOdlSXgsNUZDIG3JNQP318K4EdoMDPEqirsAorzi+ULqU
+         0O0yXdI//aD4jXyF8xPAZKB/BXV2FBO3qRqWbjv7B3OyNM1GIxAIh770F5nXToG17ThC
+         fiV301rjvttFnu/5+XlFyj3NeQmPi7ZUAnf5Zl5lGzdEOzxakIKpK9FOBZcOdKw8WklW
+         mxSAMEOT2AN+v5fX71d8eyPNzJc9a789ye/rK6YQFyrg5ul26MZDt2JUtne/DtlXKdS6
+         pmoA==
+X-Forwarded-Encrypted: i=1; AKwUvBztXkmunO3qZH18wUZO8A3SfqhmFQEkmEulWbMBwK/DXila69Mfw37rEYZOGoF9Zg6Okh3lWjVCdNiK73s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQV+xw2xWX+xJs/HM6YVX+eZ9UqBMejedGf5BQ81rvoK4ymi/4
+	dcYbXmpXnoYt7LaZyTqed3tmMGiCJbTCJuDXaZluurAa7RJ17bidCKM3
+X-Gm-Gg: AYBFou0bts/67C2LZ2BfjqSqn6zTuf820KxV8Poum3PafSFHMQjTlE4k8FoJxo0Bzsc
+	f2MczXn5YOetjc9ewu8RmdoFfdaPadZaUwuIQo1fFFTzVgqHdpGBObRvJCkLBhZNHzJ77eGEBmB
+	09sKAMLwCHoZ/0Vei06rylmGnp1m1V0sH7BMGxg0iZJt69EUSLrO3W5gxxcN/PxGTO1TWwg4UBR
+	1AMk+fVAgVGzI3ljRmBYa7teLZe/ZFx7crwfd38QYk/2HqP3n9VvVhTF011lC2gSQXpxu7Ezly3
+	yuyw8hwYqwDialUdVG82jK5KZZK4FUwYgo2YaycICzCvuOISW48kKP5WAjEQitH2hs+n4T52Zu7
+	JwbnjCQUNIp3AWYJiBBdx8bvdzXebX8oXhxY9uLqPigbO7fiUajO5xTJZmJ3dMQLT6EyQKK0t3a
+	Rs7BpBWPamgdUutVmwTSjT/bKIzPwuWq+BDEE=
+X-Received: by 2002:a17:906:7947:b0:c26:1649:47ad with SMTP id a640c23a62f3a-c2ac53c3f15mr404029566b.35.1790332608444;
+        Fri, 25 Sep 2026 03:36:48 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae77fd743sm95444766b.47.2026.09.25.03.36.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 03:36:48 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Fri, 25 Sep 2026 12:36:45 +0200
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Uladzislau Rezki <urezki@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, Ye Liu <liuye@kylinos.cn>
+Subject: Re: [PATCH v3 2/2] mm/vmalloc: fix vmalloc_dump_obj cross-zone VA
+ lookup
+Message-ID: <arZOvQzkacy826wJ@milan>
+References: <20260924-vmalloc_dump_obj-v3-0-5bdee3da37b3@linux.dev>
+ <20260924-vmalloc_dump_obj-v3-2-5bdee3da37b3@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMRc=MdZ7n5061rwA6mo0_xTn++63HZ_JjwxTaC_qMWvTZT-fw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260924-vmalloc_dump_obj-v3-2-5bdee3da37b3@linux.dev>
 
-On Fri, Sep 25, 2026 at 10:23:52AM +0000, Bartosz Golaszewski wrote:
-> On Fri, 25 Sep 2026 12:12:30 +0200, Andy Shevchenko
-> <andriy.shevchenko@intel.com> said:
-> > On Fri, Sep 25, 2026 at 09:54:42AM +0000, Bartosz Golaszewski wrote:
-> >> On Fri, 25 Sep 2026 10:27:55 +0200, Andy Shevchenko
-> >> <andy.shevchenko@gmail.com> said:
-> >> > On Fri, Sep 25, 2026 at 11:14 AM Bartosz Golaszewski
-> >> > <bartosz.golaszewski@oss.qualcomm.com> wrote:
-> >> >> On Thu, 24 Sep 2026 16:35:11 +0800, Peng Fan (OSS) wrote:
-> >> >> > Replace if/else block using regmap_set_bits()/regmap_clear_bits() with
-> >> >> > the simpler regmap_assign_bits() call.
-> >> >>
-> >> >> Applied, thanks!
-> >> >>
-> >> >> [1/1] gpio: wcove: use regmap_assign_bits() for conditional set/clear
-> >> >>       https://git.kernel.org/brgl/c/428cb7603f95d0ee6fad06cbf56321b1bdeaaa85
-> >> >
-> >> > Are you going to handle all the Intel GPIO drivers that have a
-> >> > MAINTAINERS record?
-> >>
-> >> Sorry, backing it up. We really need to organize GPIO drivers by vendor...
-> >
-> > Do you want me to start intel subfolder?
-> >
+On Thu, Sep 24, 2026 at 04:51:40PM +0800, Ye Liu wrote:
+> From: Ye Liu <liuye@kylinos.cn>
 > 
-> I already did[1]!
+> vmalloc_dump_obj() searches only one vmap node (addr_to_node(addr)),
+> but a vmalloc allocation may span multiple vmap zones.  The VA is
+> stored in only one node's rb-tree (addr_to_node(va_start)), so an
+> object pointer in a different zone than va_start maps to a different
+> node and the search misses.  This affects any allocation larger than
+> vmap_zone_size (64 KiB) on multi-CPU systems.
 > 
-> Bart
+> Extract find_vmap_area_lock() from find_vmap_area() to share the
+> cross-node iteration logic.  The helper supports both spin_lock and
+> spin_trylock, the latter for atomic dump contexts (OOM, KASAN, RCU).
 > 
-> [1] https://lore.kernel.org/all/20260925-gpio-organize-by-vendor-v1-1-8feefd60581b@oss.qualcomm.com/
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> ---
+>  mm/vmalloc.c | 111 +++++++++++++++++++++++++++++++++++++----------------------
+>  1 file changed, 69 insertions(+), 42 deletions(-)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index df42d8a6f058..e5b465de1559 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -2517,39 +2517,81 @@ static void free_unmap_vmap_area(struct vmap_area *va)
+>  	free_vmap_area_noflush(va);
+>  }
+>  
+> -struct vmap_area *find_vmap_area(unsigned long addr)
+> +static inline int next_vmap_node_id(int i)
+> +{
+> +	return (i + nr_vmap_nodes - 1) % nr_vmap_nodes;
+> +}
+> +
+> +enum vmap_lock_mode {
+> +	VMAP_LOCK,
+> +	VMAP_TRYLOCK,
+> +};
+> +
+> +/*
+> + * Search for a vmap_area at @addr across all vmap nodes.  An
+> + * addr_to_node_id(addr) converts an address to a node index where
+> + * a VA is located. If VA spans several zones and passed addr is not
+> + * the same as va->va_start, what is not common, we may need to scan
+> + * extra nodes. See an example:
+> + *
+> + *      <----va---->
+> + * -|-----|-----|-----|-----|-
+> + *     1     2     0     1
+> + *
+> + * VA resides in node 1 whereas it spans 1, 2 an 0. If passed addr
+> + * is within 2 or 0 nodes we should do extra work.
+> + *
+> + * Returns the VA with @locked_vn->busy.lock held; the caller must
+> + * release it. If @mode is VMAP_TRYLOCK, nodes that cannot be locked
+> + * are skipped.
+> + */
+> +static struct vmap_area *
+> +find_vmap_area_lock(unsigned long addr, struct vmap_node **locked_vn,
+> +		enum vmap_lock_mode mode)
+>  {
+>  	struct vmap_node *vn;
+>  	struct vmap_area *va;
+>  	int i, j;
+>  
+> -	if (unlikely(!vmap_initialized))
+> +	if (unlikely(!vmap_initialized)) {
+> +		*locked_vn = NULL;
+>
+Just set it to NULL once on entry?
 
-Sorry, but I have my own approach which I prefer over yours. I will share patches soon.
+>  		return NULL;
+> +	}
+>  
+> -	/*
+> -	 * An addr_to_node_id(addr) converts an address to a node index
+> -	 * where a VA is located. If VA spans several zones and passed
+> -	 * addr is not the same as va->va_start, what is not common, we
+> -	 * may need to scan extra nodes. See an example:
+> -	 *
+> -	 *      <----va---->
+> -	 * -|-----|-----|-----|-----|-
+> -	 *     1     2     0     1
+> -	 *
+> -	 * VA resides in node 1 whereas it spans 1, 2 an 0. If passed
+> -	 * addr is within 2 or 0 nodes we should do extra work.
+> -	 */
+>  	i = j = addr_to_node_id(addr);
+>  	do {
+>  		vn = &vmap_nodes[i];
+>  
+> -		spin_lock(&vn->busy.lock);
+> +		if (mode == VMAP_LOCK) {
+> +			spin_lock(&vn->busy.lock);
+> +		} else {
+> +			if (!spin_trylock(&vn->busy.lock))
+> +				continue;
+> +		}
+> +
+>  		va = __find_vmap_area(addr, &vn->busy.root);
+> +		if (va) {
+> +			*locked_vn = vn;
+> +			return va;
+> +		}
+> +
+>  		spin_unlock(&vn->busy.lock);
+> +	} while ((i = next_vmap_node_id(i)) != j);
+>  
+> -		if (va)
+> -			return va;
+> -	} while ((i = (i + nr_vmap_nodes - 1) % nr_vmap_nodes) != j);
+> +	*locked_vn = NULL;
+> +	return NULL;
+> +}
+> +
+> +struct vmap_area *find_vmap_area(unsigned long addr)
+> +{
+> +	struct vmap_node *vn;
+> +	struct vmap_area *va;
+> +
+> +	va = find_vmap_area_lock(addr, &vn, VMAP_LOCK);
+> +	if (va) {
+> +		spin_unlock(&vn->busy.lock);
+> +		return va;
+> +	}
+>
+Can we simplify like?
+...
+	va = find_vmap_area_lock(addr, &vn, VMAP_LOCK);
+	if (va)
+		spin_unlock(&vn->busy.lock);
 
+	return va;
+...
 
--- 
-With Best Regards,
-Andy Shevchenko
+Thanks!
 
-
+--
+Uladzislau Rezki
