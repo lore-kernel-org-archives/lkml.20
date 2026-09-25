@@ -1,80 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436C24746A5;
-	Fri, 25 Sep 2026 23:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F133E00B4;
+	Fri, 25 Sep 2026 23:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790377794; cv=none; b=DqgoH8yfXB6V2dV+EP+UYfrGnfDrp+B+ap4Md7QM/C/LnwfHSeNcI/DwoJKFsPLiD1u47gYOmp9CyvlJcbLgIdx4MffvetJw1nQiXYT0E7F3D0AYP9rJM1Ah44eFgVN/AUoFTAcjOYllfax27oyUwxcZq6wPL8GpWgloKkrdqQk=
+	t=1790377865; cv=none; b=nfGDW6RNo97IdJfJhInKuTz9s85eA/w2I//gAUBSvX01DWgvILC5rBbSIyDp3oulcEYZCIbKUlzIUPPauFDSLCT/kVcTQw1fD22PRkxk1VheUOkCq/GCkEZ5PozBvCXstFX5sZG6flYOQ/pjX5QnwpoUDzDGTgQHNR3RMHnvJdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790377794; c=relaxed/simple;
-	bh=uoM4MXjQo+6H2AoBOdp/G+fZmDHbKMwFkuVU19UQltk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Puiyp2RLqctE9cg9qPcXIWO4sHUTBg3Ta44h1nPmlH2oyBNVfHFgFgNy7x0K1SkOg+0VaJKESoZ8Gl8VgWLWD1UJ12ny6z3Qyutnfxz29sL6J96CPY917cLuyUIWHrzrf06FwNvIi3MoKh7qF/yUt5wnGynxjCXZ2CsnwHobIVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5PYe3IH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790377865; c=relaxed/simple;
+	bh=WDuhiKoto+GckTuEBZVglaXPfxxrI3TMeVmIEz4ttGQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=niRGNSHGNf2qZb1KnsEEx8InGLPCy5kKx4TwRfW2Yw85Go9G+3/mb02IvyF8CbA9owb8rVWuNKvmLkob5Yn4K6e3x+5KH37rt5dPQJz5hKuqvewa2S2zRZTB4SHdQh1XS0y1lc/ocLM3VvkGrjtZ4UZnN2F3fu/IhTKsqirDKOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4JtgAefU; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5PYe3IH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A00E1F000FF;
-	Fri, 25 Sep 2026 23:09:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790377793;
-	bh=iTAi320q47+Uncq8P7GlnXO4Ao5Emmd16DavP6Kc9T8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=a5PYe3IHa02wZMeHmjeS7FUY8fSQTa6QcxHIylpSsKd5q1mhV3Ib7OJP+L9ucZCB9
-	 SOjCOGj+ARZOUgfwAGtKk6M3WKR/G2LubFE6IMQ7s/C1wSRsvKZKxDmaVKRHjZJ0AH
-	 i1DXjPIAusRil6MMJ+kdvr42Q1/JqOitbFWgXXnj4fJJVV39vBeDcIy75FOWqF0TEZ
-	 tCLnUo2MxaZSLC4w0UCsr40zV1cXC7B5wXzdPSWtAmXcEBWOkaiaIWXc7be5RFtjrE
-	 72NoQgVHegvFESCvzr6upPaCiJ+hjoGnYimJo82D+7VqDBPK2V/yZriQYD0CfgKKYs
-	 7SBLqvHGauPAw==
-Date: Sat, 26 Sep 2026 00:09:47 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Guixin Liu <kanie@linux.alibaba.com>
-Cc: Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
- Alison Schofield <alison.schofield@intel.com>,
- linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org
-Subject: Re: [PATCH v2] checkpatch: don't flag ACQUIRE_ERR() assignments in
- if conditions
-Message-ID: <20260926000933.6d51223e@jic23-hlaptop>
-In-Reply-To: <20260924033923.4140210-1-kanie@linux.alibaba.com>
-References: <20260924033923.4140210-1-kanie@linux.alibaba.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4JtgAefU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=IGuHgtxJPba8b9kLu8sf/C1GQa9JsFH4QyigTFqdx9o=; b=4JtgAefU6c/DWinFRd1OJq8pLp
+	ds1uVQMYpNQshwUYpOvGh02ngxT5IxYmZwT1N8WeW7JoSMX+mi0pvEsbqotIdRkdlutD9ePOwWbMI
+	H1IAGUOcvi0Wh6Y7VyuDXNCvpswx5/jDbGYCPVyNrfz7MLU7aXSWpS/SsD1CEJFdJe2U=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAF4B-007KAX-Fh; Sat, 26 Sep 2026 01:10:55 +0200
+Date: Sat, 26 Sep 2026 01:10:55 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Martin Kaistra <martin.kaistra@linutronix.de>,
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v3 5/8] net: mdio: Add SoC-e SWIP MDIO
+ controller driver
+Message-ID: <e4440c27-5551-482c-95ae-9b75481bcf7b@lunn.ch>
+References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+ <20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
 
-On Thu, 24 Sep 2026 11:39:23 +0800
-Guixin Liu <kanie@linux.alibaba.com> wrote:
+> diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
+> index 048586746026..079b46dea25f 100644
+> --- a/drivers/net/mdio/Makefile
+> +++ b/drivers/net/mdio/Makefile
+> @@ -23,6 +23,7 @@ obj-$(CONFIG_MDIO_OCTEON)		+= mdio-octeon.o
+>  obj-$(CONFIG_MDIO_PIC64HPSC)		+= mdio-pic64hpsc.o
+>  obj-$(CONFIG_MDIO_REALTEK_RTL9300)	+= mdio-realtek-rtl9300.o
+>  obj-$(CONFIG_MDIO_REGMAP)		+= mdio-regmap.o
+> +obj-$(CONFIG_MDIO_SOCE)			+= mdio-soce.o
+>  obj-$(CONFIG_MDIO_SUN4I)		+= mdio-sun4i.o
 
-> ACQUIRE_ERR() and its wrappers, PM_RUNTIME_ACQUIRE_ERR() and
-> IIO_DEV_ACQUIRE_FAILED(), report whether a conditional cleanup.h guard
-> was acquired, and drivers consume the result directly in an if
-> condition:
-> 
-> 	if ((rc = ACQUIRE_ERR(mutex_intr, &lock)))
-> 		return rc;
-> 
-> That combined form is the established style at the 49 in-tree call
-> sites under drivers/cxl and drivers/pci/tsm.c, so ASSIGN_IN_IF fires
-> there only as a false positive, and every patch touching those lines
-> carries noise that reviewers have to wave off manually.
-> 
-> Skip the check only when every assignment in the condition assigns the
-> result of such a call, matched by the *_ACQUIRE_ERR() /
-> *_ACQUIRE_FAILED() naming convention of its wrappers. Plain
-> assignments, mixed conditions and near-miss identifiers still get
-> flagged.
-> 
-> Suggested-by: Alison Schofield <alison.schofield@intel.com>
-> Cc: linux-cxl@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
-> 
-I'm thoroughly in favour but seeing as I'd end up using an LLM
-just to figure out what the actual code does no tags from me!
+Maybe the indentation is wrong here?
 
-Jonathan
+Otherwise:
+
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+    Andrew
