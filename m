@@ -1,307 +1,193 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23CB74CEE57
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349557; cv=pass; b=ZbkdGfjOftcEMtNMBc7nOyNrOQFpSQE380B713Se0jGBBWRQjh9V/iNBvbet79LR5C5v8RV/QGyc8+8sTQnreYQM0kmjsPmq78Qni5Q6z4wbCmhtSJw7futJ6Qfn1iF2wPAJ69me9J/syt+CkUHd87aQiSwIGBJx6gH6CQfhCCI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349557; c=relaxed/simple;
-	bh=BfpSiMoRMuhz7+ENiUrfdl8trjCkqbUwJbd+UOn+scQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R8eFEV3Ot2SPAJg4Hxa1XtD6gtORr2qT7BBFUnt6auXCRF075yomR2QVboSbgDA/SoaWVUYrz98DZQKdXFB+0v2V86ukCvE2IgkreKrZwoiUB7C5bRX2p9pdImiwVG9d+Hrb4FLcF1lFovjOMvOmIV+vQD2qUL35nVTYE97tgBE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lUCGMUnz; arc=pass smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E483839A3
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:21:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790349666; cv=none; b=jjNdHA0/GKiZN0RgsmPoZ7zjCzTXZZ6S5iEBUEyaQWeUeAQwvLPYkOhCHF+KCb7i8veYu2cWwkPiUGdj7Fj3nDkJxEwtxad731Uat9rJeKA3GCflsnJrcGv+VUS15ad+rne3SNyQ9ybIZlP2kKXyncTpnlBeAuW0iu6K/9bM/zQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790349666; c=relaxed/simple;
+	bh=0SnJkzwA/pHULhb5TwuLkpxcvwrBwkvslcB87um5YV4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=lvxSB0rmhouYTJz44eQIAu2HORl8OxOI+XRKoujp0MOjYMEWIiNse4ZYu0MUUOYHZzUqbwSwMpFdsnSFbbIw7P/OR2WVvWX61isq1LnbxZPV/83BmxgT6pez5CYifJa6UhMHVszBhtgCsB6otOF+yIj8omJ+ly3ek9UiN8Z4nkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=F656mgJ9; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lUCGMUnz"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-52faa58bff5so317151cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:19:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790349550; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jE776yBz17dny764xaSo9cJyUrYYbIdV6Fz1d4nsynw1gMg+Y9eJSVz7aRFDvUm2bu
-         8hGK0WLNeDi6+qdW5+lPlwbJ/iswY8XABdTTIL21PdEO44rm+LoP1+HmRw2IES54858q
-         +6K8bTjFS7zYZ6kCtuab6TB1ZIFNHqecH83hfUukd4dZ9dsX7Bfx3EeiVuWpiafq1rxP
-         GA/aKUsOSjI7jhacFT1c/yTMgVCAdxS6EvMgSOEoZA52e/mlbvI7HrC01DHqctSRuCsg
-         uKD/LNcaszZ/EQvEOdC+pqOkMzFVkiX45DV9Ml8KE6O8xPRUsKP2CBlUFVzj3Je2PaD5
-         Vn3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/ALsqvqm5mzN+veMsZMal3KopdpFJFoLKTSC5y2Sj9g=;
-        fh=Xkx2LQrs1XmUspBCHEwbJ7I2e4FKjbkYTlnxMV/S02c=;
-        b=Rzzep4ususBziuMy/nCQ/OxRzAehzcVN/Vmu7LYgTZSxVmR0G+jmr6KYEpD4dueuPn
-         nkDag14ehEelzONSHCtz1tU5TrFSV9oec4q7w3SM416DyO3M/uxmKq0vtEzXG1MfWrpz
-         S6u0heQ8tt459W4Y3wu1WQjOWjtIgqAM4/c0Sdh6sd76AXoSu+kuHz4kyD+8NUvIvEJN
-         goILESTo3sDb3KFPK4lXPBZlgrk5umfcLsZT+5BONILVVr0V5pAd4x8dk6Oxd1YAVb7S
-         B6npIS1roQae96S4BtVFjY/YfhU8Z9ye5eDMfZmCl1rmTHHXunF3MkrvzHeYq9pk6DVt
-         u+HQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790349550; x=1790954350; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/ALsqvqm5mzN+veMsZMal3KopdpFJFoLKTSC5y2Sj9g=;
-        b=lUCGMUnzz3cyMb0m0D/dhADOIQqOhqzCPwk40IQgSReO0sqOnfKuz44F1qhy6yExt8
-         fBnuSz01GmHZMPls/RZMz8gcIKy9Xo4PTwgkusKuPNjZbDV/3GBkaAVJo5OqCT1BO9Bu
-         TJrWbt1PTvTFKWtzxc1yiIOUyGtVXZAyPJ2yMGA2N5jZt5QBZ4qZ166zY+F99iXjBXvO
-         Cqj9UiV8qsmhRZFIUTklicBhgb4sJoF2EO6G9/kcwi+c3b0G2RFaYmGzCJQDx5o78eEi
-         1sBfwQcC3bqb3ZMPQTdQVAa+0qRiWbo8YEwTtYhfRe46pmZ407ayZyVylhZxoAVS1Dtg
-         Gg5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790349550; x=1790954350;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/ALsqvqm5mzN+veMsZMal3KopdpFJFoLKTSC5y2Sj9g=;
-        b=wBYwK3BtQHFSUao9Yp+/Sd+UzxE3rBanI+hvEbm3+hDXwYKDM4bcE5j5U6t45jdWV9
-         w+7bYcyV16STDHxu4xqRBnBidnTzNEDBgTSG0yrLEjWaYMfAfGZUuITMGLo0VZEI5Ubi
-         tmj+qQRz53AY1WrS04dZaL640qpo3aHZAq+NSwJCJKByOOD5BMBOwH8x14UcHLIQ9R/8
-         cDD+sSNlc+8Vo4OJcPND01fwsr6SVA2BHNJ8y+fCTDtSmuYq8loga6l7v++84Q5J8ows
-         paePnvuKmzkTClURlcheKSyydXMt0sPeV6orncVO9w8oC0PXlahpTGmSVz1j7wJZSdx4
-         yatA==
-X-Forwarded-Encrypted: i=1; AKwUvBy27hnT8M9hU6Vyat4Lx8AOhPbzbuKoV5DO9v+BGSQuFXOvV84uHl1SyspQRqwy924yoZ/7Azvp4HEAtNY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGs6szaNORTKx2jjk8/Vy6eTJCIYsAD0uTS/nhS7dsjuFQRjEm
-	X35Miw5L6Rx9WgIbkIT/rTh+dVtaeY7w4v1wcpmDWxo2ab4EijwslSlzSHM/Zzs8j+ImLRr5FBE
-	umdqfzwYAIVXfv2lSXacFGP2ydGpXL+REIxIT7y5x
-X-Gm-Gg: AYBFou0lKxM9bms6WeTpe9JD4BPTQbANy4b/gO6sZIF7edw1wsmWXyIZ/hHg+Q9l4TI
-	cjjqmYQAjQk8E1QIhLR4aGTPRMHqRx+WUQF+wiPLWtRnFaQLgJXrpkmCsARjr7abAfIXgGGQj17
-	NpOLzEHoYB06JoIQ29LEzxXpmT8SFqh4lSc/DhbtshWztFYJhRBPRyhJbv6aof8xlieogJzTOE2
-	du4ZqRiWcr+ENXInJxL4J9NJBC+iPDw4h/FgGGamLAylLVCQc+pH0dcUR5bty8mLP0DSJMIpmSt
-	QzTvIypxqMijU6dUFQFJyvQUL1pWbfi1iODGaYZv0tvp4o9epGnMmRshoZvW0tHHILsMUQjSel9
-	geuJfxvTMmg==
-X-Received: by 2002:a05:622a:4d03:b0:531:475:4ce6 with SMTP id
- d75a77b69052e-5331a828ed9mr4694441cf.9.1790349548780; Fri, 25 Sep 2026
- 08:19:08 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="F656mgJ9"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260925152100euoutp02ee0a01272570598754dc3263f7e10901~YmYfXROmS3149731497euoutp02B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:21:00 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260925152100euoutp02ee0a01272570598754dc3263f7e10901~YmYfXROmS3149731497euoutp02B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1790349660;
+	bh=SHgaribOFjNf5YMHUlR3fMpt5ySYd+TAsj/f7UavMDk=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=F656mgJ9jfgNjrKs8uA1ZyoifUtpO6Jd2QaA5EhGg1UsGVHdaiunvQVyoBsr8yvQm
+	 4JvEzIJQ1xTCBczVOiZBqIm+3EdyCpwECRq8i8GN27wlqHNo+fCU/+mKx+GZJgiYUH
+	 q6eRUP+VcFpqTg/tZTDMerGTpXC394G1YEw2aP4w=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260925152059eucas1p2019d7b4eb9d392a10993cc13136edee1~YmYeygoFS3026930269eucas1p2w;
+	Fri, 25 Sep 2026 15:20:59 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260925152057eusmtip25e163fc5b8da5ebbde70f8a09827ff17~YmYcynyS-2281922819eusmtip28;
+	Fri, 25 Sep 2026 15:20:57 +0000 (GMT)
+Message-ID: <a5b453db-a4f9-4dba-b150-6e4045f61027@samsung.com>
+Date: Fri, 25 Sep 2026 17:20:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925150657.1826942-1-acme@kernel.org> <20260925150657.1826942-2-acme@kernel.org>
-In-Reply-To: <20260925150657.1826942-2-acme@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Fri, 25 Sep 2026 08:18:55 -0700
-X-Gm-Features: AclHuK-seQpw-2YxFwtwTKniZ_ikqHuOG23hBi3iBbgvt26gBMVSs5fj_-JBUB0
-Message-ID: <CAP-5=fUsMK7m5_VFh4xPDx=Dy3GK5bSGKYYzxWqm_LTn86svfQ@mail.gmail.com>
-Subject: Re: [PATCH 1/6] perf dwarf-aux: Bound the type chases for broken
- debug info
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, James Clark <james.clark@linaro.org>, 
-	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>, 
-	Masami Hiramatsu <mhiramat@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 00/11] Make the 32-bit ARM DMA API work with normal
+ IOMMU DMA default domains (+ Tegra PoC)
+To: Mikko Perttunen <mperttunen@nvidia.com>, Robin Murphy
+	<robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon
+	<will@kernel.org>, Russell King <linux@armlinux.org.uk>, Heiko Stuebner
+	<heiko@sntech.de>, Thierry Reding <thierry.reding@kernel.org>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jonathan Hunter
+	<jonathanh@nvidia.com>, Krishna Reddy <vdumpa@nvidia.com>, Krzysztof
+	Kozlowski <krzk@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
+	<alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
+	<jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Yong Wu
+	<yong.wu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Rob
+	Clark <robin.clark@oss.qualcomm.com>, Geert Uytterhoeven
+	<geert+renesas@glider.be>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260915-b4-arm32-iommu-dma-cookie-v1-0-ba4f9d33a2b8@nvidia.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260925152059eucas1p2019d7b4eb9d392a10993cc13136edee1
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915021542eucas1p254addab18c10cb117f42ccf3d3522883
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915021542eucas1p254addab18c10cb117f42ccf3d3522883
+References: <CGME20260915021542eucas1p254addab18c10cb117f42ccf3d3522883@eucas1p2.samsung.com>
+	<20260915-b4-arm32-iommu-dma-cookie-v1-0-ba4f9d33a2b8@nvidia.com>
 
-On Fri, Sep 25, 2026 at 8:07=E2=80=AFAM Arnaldo Carvalho de Melo
-<acme@kernel.org> wrote:
+On 15.09.2026 04:14, Mikko Perttunen wrote:
+> Depending on the probe ordering, TegraDRM does not currently probe on 
+> kernels with CONFIG_ARM_DMA_USE_IOMMU enabled, such as with 
+> multi_v7_defconfig. The Tegra SMMU puts several display and 2D/3D 
+> clients into one IOMMU group, and the legacy 32-bit ARM DMA API path 
+> creates one UNMANAGED domain per device and attaches it with 
+> iommu_attach_device(). That only works for one device per group, so 
+> every client after the first fails to attach, 
+> iommu_device_use_default_domain() rejects the group with -EBUSY, and the 
+> driver goes down with it. tegra_defconfig is currently working by virtue 
+> of not enabling CONFIG_ARM_DMA_USE_IOMMU.
 >
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
->
-> A DIE parsed at an offset that is not the start of a DIE can have a
-> DW_AT_type that refers back to itself, making the typedef/qualifier
-> chases in die_get_real_type(), die_get_pointer_type() and
-> die_get_typename_from_type() spin forever; 'perf report -s type' did
-> that on the dwz compressed debug info of zlib-ng (libz.so.1).
->
-> No sane typedef/qualifier chain is 32 DIEs long, so give up on the type
-> with a pr_debug instead of hanging.
->
-> Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+> Robin suggested [1] that instead of teaching the legacy path about 
+> groups, we should explore modernizing the 32-bit ARM DMA code a bit by 
+> making it use domain cookies and have the core code own the domains, as 
+> is the case on other architectures. Still, ARM's own DMA code is kept to 
+> support existing drivers and APIs that expect it, and because dma-iommu 
+> is considered too big and unnecessary for 32-bit ARM.
 
-Reviewed-by: Ian Rogers <irogers@google.com>
 
-Thanks,
-Ian
+I agree that such little modernization is the right step to unify a bit
+ARM 32bit with modern archs and get rid of some workaround in the drivers.
 
+It was me who raised the concern about the drivers depending on the first-fit
+allocation algorithm used in the32-bit ARM DMA code. This is an issue for some
+legacy Samsung Exynos drivers. I not aware of any other driver used on ARM 32bit
+SoCs that depends on this behavior.
+
+If one is still interested in switching ARM 32bit to generic IOMMU-DMA code I
+can prepare a workaround for those Exynos drivers. I still have it on my todo
+list, but in meantime there was no interest in updating ARM 32bit DMA code.
+
+
+> The series is in four parts:
+>
+> - Patches 1-2 are preparation in the IOMMU core:
+>   1. Add iommu_teardown_dma_ops, counterpart to iommu_setup_dma_ops.
+>   2. Add cookie type for ARM's DMA domains.
+> - Patches 3-6 implement the DMA API side on 32-bit ARM:
+>   3. Split up domain and address space management code in arch/arm/.
+>   4. Implement parallel dma_ops / cookie APIs on ARM side.
+>   5. Avoid domain allocation when IOMMU core does it.
+>   6. Support foreign-allocated sg_tables.
+> - Patch 7 enables 32-bit ARM IOMMU drivers to provide a DMA default 
+>   domain.
+> - Patches 8-11 convert Tegra:
+>   8. Allows deferring translation enable until driver handshake for
+>      selected devices.
+>   9-10. Removes code detaching ARM UNMANAGED DMA domains in
+>         Host1x/TegraDRM.
+>   11. Enables DMA default domain for selected Tegra devices.
+>
+> None of this should have any functional effect on any device other than 
+> the Tegra devices enabled in patches 8-11. Other IOMMU drivers can opt 
+> in later. The new DMA default domains are enabled only when the IOMMU 
+> driver explicitly specifies a DMA domain type, just returning 0 for the 
+> default is not enough (unlike on arm64), keeping the current behavior.
+>
+> Patches 8-11 are provided for demonstration but we can deal with them 
+> separately if the rest of the series is accepted.
+>
+> Patches 1,2,3 are applicable independently.
+> Patches 4,5 depend on the previous patches.
+> Patch 6 can be applied independently but is only required once
+>   the whole series lands (by TegraDRM).
+> Patch 7 depends on patch 4.
+>
+> Patches 1-7 only touch drivers/iommu/ and arch/arm/mm/ and associated 
+> headers.
+>
+> Best regards,
+> Mikko
+>
+> [1] https://lore.kernel.org/linux-tegra/910d1492-ad3b-4201-93c6-208be1dcde7d@arm.com/
+>
 > ---
->  tools/perf/util/dwarf-aux.c | 84 ++++++++++++++++++++++++++++---------
->  1 file changed, 64 insertions(+), 20 deletions(-)
+> Mikko Perttunen (11):
+>       iommu: Add iommu_teardown_dma_ops
+>       iommu: Add cookie type for ARM_DMA_USE_IOMMU
+>       ARM: dma-mapping: Split mapping allocation from domain allocation
+>       ARM: dma-mapping: Implement and expose DMA setup functions
+>       ARM: dma-mapping: Bypass the legacy path for core-owned DMA API domains
+>       ARM: dma-mapping: Handle foreign buffers in arm_iommu_get_sgtable
+>       iommu: Let 32-bit ARM drivers opt into a DMA API default domain
+>       iommu/tegra-smmu: Defer display client translation to driver handover
+>       gpu: host1x: Drop release of legacy 32-bit ARM DMA domain
+>       drm/tegra: Drop release of legacy 32-bit ARM DMA domain
+>       iommu/tegra-smmu: Use a DMA API default domain per swgroup
 >
-> diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-> index 1560e721479a1ac2..2c135ebb1551fca4 100644
-> --- a/tools/perf/util/dwarf-aux.c
-> +++ b/tools/perf/util/dwarf-aux.c
-> @@ -267,16 +267,27 @@ Dwarf_Die *die_get_type(Dwarf_Die *vr_die, Dwarf_Di=
-e *die_mem)
->                 return NULL;
->  }
+>  arch/arm/include/asm/dma-iommu.h |  17 ++++
+>  arch/arm/mm/dma-mapping.c        | 209 ++++++++++++++++++++++++++++++++-------
+>  drivers/gpu/drm/tegra/dc.c       |   8 ++
+>  drivers/gpu/drm/tegra/drm.c      |  15 ---
+>  drivers/gpu/host1x/dev.c         |  15 ---
+>  drivers/iommu/Kconfig            |   1 +
+>  drivers/iommu/dma-iommu.c        |   5 +
+>  drivers/iommu/dma-iommu.h        |  52 +++++++---
+>  drivers/iommu/iommu.c            |  24 ++---
+>  drivers/iommu/tegra-smmu.c       | 109 +++++++++++++++++++-
+>  drivers/memory/tegra/tegra114.c  |  15 ++-
+>  drivers/memory/tegra/tegra124.c  |  12 ++-
+>  drivers/memory/tegra/tegra210.c  |   6 +-
+>  drivers/memory/tegra/tegra30.c   |  18 ++--
+>  include/linux/iommu.h            |   3 +
+>  include/soc/tegra/mc.h           |  20 ++++
+>  16 files changed, 410 insertions(+), 119 deletions(-)
+> ---
+> base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
+> change-id: 20260728-b4-arm32-iommu-dma-cookie-3170e07f9125
 >
-> +/*
-> + * A DIE parsed at an offset that is not the start of a DIE can refer
-> + * back to itself via DW_AT_type: bound these chases.
-> + */
-> +#define MAX_TYPE_CHASE 32
-> +
->  /* Get a type die, but skip qualifiers */
->  Dwarf_Die *__die_get_real_type(Dwarf_Die *vr_die, Dwarf_Die *die_mem)
->  {
-> -       int tag;
-> +       int tag, chase =3D 0;
 >
->         do {
->                 vr_die =3D die_get_type(vr_die, die_mem);
->                 if (!vr_die)
-> -                       break;
-> +                       return NULL;
->                 tag =3D dwarf_tag(vr_die);
-> +               if (++chase > MAX_TYPE_CHASE) {
-> +                       pr_debug("DWARF: qualifier chase limit reached at=
- DIE 0x%lx\n",
-> +                                (unsigned long)dwarf_dieoffset(vr_die));
-> +                       return NULL;
-> +               }
->         } while (tag =3D=3D DW_TAG_const_type ||
->                  tag =3D=3D DW_TAG_restrict_type ||
->                  tag =3D=3D DW_TAG_volatile_type ||
-> @@ -297,8 +308,15 @@ Dwarf_Die *__die_get_real_type(Dwarf_Die *vr_die, Dw=
-arf_Die *die_mem)
->   */
->  Dwarf_Die *die_get_real_type(Dwarf_Die *vr_die, Dwarf_Die *die_mem)
->  {
-> +       int chase =3D 0;
-> +
->         do {
->                 vr_die =3D __die_get_real_type(vr_die, die_mem);
-> +               if (++chase > MAX_TYPE_CHASE) {
-> +                       pr_debug("DWARF: typedef chase limit reached at D=
-IE 0x%lx\n",
-> +                                vr_die ? (unsigned long)dwarf_dieoffset(=
-vr_die) : 0);
-> +                       return NULL;
-> +               }
->         } while (vr_die && dwarf_tag(vr_die) =3D=3D DW_TAG_typedef);
->
->         return vr_die;
-> @@ -315,7 +333,7 @@ Dwarf_Die *die_get_real_type(Dwarf_Die *vr_die, Dwarf=
-_Die *die_mem)
->   */
->  Dwarf_Die *die_get_pointer_type(Dwarf_Die *type_die, Dwarf_Die *die_mem)
->  {
-> -       int tag;
-> +       int tag, chase =3D 0;
->
->         do {
->                 tag =3D dwarf_tag(type_die);
-> @@ -325,6 +343,11 @@ Dwarf_Die *die_get_pointer_type(Dwarf_Die *type_die,=
- Dwarf_Die *die_mem)
->                     tag !=3D DW_TAG_restrict_type && tag !=3D DW_TAG_vola=
-tile_type &&
->                     tag !=3D DW_TAG_shared_type)
->                         return NULL;
-> +               if (++chase > MAX_TYPE_CHASE) {
-> +                       pr_debug("DWARF: pointer type chase limit reached=
- at DIE 0x%lx\n",
-> +                                (unsigned long)dwarf_dieoffset(type_die)=
-);
-> +                       return NULL;
-> +               }
->                 type_die =3D die_get_type(type_die, die_mem);
->         } while (type_die);
->
-> @@ -1119,17 +1142,25 @@ Dwarf_Die *die_find_member(Dwarf_Die *st_die, con=
-st char *name,
->                               die_mem);
->  }
->
-> -/**
-> - * die_get_typename_from_type - Get the name of given type DIE
-> - * @type_die: a type DIE
-> - * @buf: a strbuf for result type name
-> - *
-> - * Get the name of @type_die and stores it to @buf. Return 0 if succeede=
-d.
-> - * and Return -ENOENT if failed to find type name.
-> - * Note that the result will stores typedef name if possible, and stores
-> - * "*(function_type)" if the type is a function pointer.
-> +/*
-> + * The name follows DW_AT_type, so a self-referring DIE makes this
-> + * recurse forever: bound it like the chases above.
->   */
-> -int die_get_typename_from_type(Dwarf_Die *type_die, struct strbuf *buf)
-> +static int __die_get_typename_from_type(Dwarf_Die *type_die, struct strb=
-uf *buf,
-> +                                       int depth);
-> +
-> +static int __die_get_typename(Dwarf_Die *vr_die, struct strbuf *buf, int=
- depth)
-> +{
-> +       Dwarf_Die type;
-> +
-> +       if (__die_get_real_type(vr_die, &type) =3D=3D NULL)
-> +               return -ENOENT;
-> +
-> +       return __die_get_typename_from_type(&type, buf, depth);
-> +}
-> +
-> +static int __die_get_typename_from_type(Dwarf_Die *type_die, struct strb=
-uf *buf,
-> +                                       int depth)
->  {
->         int tag, ret;
->         const char *tmp =3D "";
-> @@ -1156,7 +1187,12 @@ int die_get_typename_from_type(Dwarf_Die *type_die=
-, struct strbuf *buf)
->                 /* Write a base name */
->                 return strbuf_addf(buf, "%s%s", tmp, name ?: "");
->         }
-> -       ret =3D die_get_typename(type_die, buf);
-> +       if (depth >=3D MAX_TYPE_CHASE) {
-> +               pr_debug("DWARF: type name recursion limit reached at DIE=
- 0x%lx\n",
-> +                        (unsigned long)dwarf_dieoffset(type_die));
-> +               return -ENOENT;
-> +       }
-> +       ret =3D __die_get_typename(type_die, buf, depth + 1);
->         if (ret < 0) {
->                 /* void pointer has no type attribute */
->                 if (tag =3D=3D DW_TAG_pointer_type && ret =3D=3D -ENOENT)
-> @@ -1167,6 +1203,19 @@ int die_get_typename_from_type(Dwarf_Die *type_die=
-, struct strbuf *buf)
->         return strbuf_addstr(buf, tmp);
->  }
->
-> +/**
-> + * die_get_typename_from_type - Get the name of a type DIE
-> + * @type_die: a type DIE
-> + * @buf: a strbuf for the result type name
-> + *
-> + * Stores the typedef name if possible, "*(function_type)" for function
-> + * pointers.  Returns 0 or -ENOENT.
-> + */
-> +int die_get_typename_from_type(Dwarf_Die *type_die, struct strbuf *buf)
-> +{
-> +       return __die_get_typename_from_type(type_die, buf, 0);
-> +}
-> +
->  /**
->   * die_get_typename - Get the name of given variable DIE
->   * @vr_die: a variable DIE
-> @@ -1179,12 +1228,7 @@ int die_get_typename_from_type(Dwarf_Die *type_die=
-, struct strbuf *buf)
->   */
->  int die_get_typename(Dwarf_Die *vr_die, struct strbuf *buf)
->  {
-> -       Dwarf_Die type;
-> -
-> -       if (__die_get_real_type(vr_die, &type) =3D=3D NULL)
-> -               return -ENOENT;
-> -
-> -       return die_get_typename_from_type(&type, buf);
-> +       return __die_get_typename(vr_die, buf, 0);
->  }
->
->  /**
-> --
-> 2.53.0
->
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
