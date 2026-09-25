@@ -1,247 +1,250 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCBB1A83F9
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:17:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AF122425B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790324256; cv=none; b=pkfgC75Lm9hQ97p9P0ZMU0cgVkyedfPo+xsGL57t6r26OyUi9+Y8gL1e2jl6AiK/TZ5NfTZvZVmNFYOVwghB4DWgMlYCqI7oxHRp13eOe5P1CDcI9sDI67BBeqkRNF8Ko4lW2wksZjSdyR+VpWkakqbdgj6e7Ml2Y7JXWqpJRhI=
+	t=1790324319; cv=none; b=aOYMP+zn0zo6YlYbnTy8SoVEO6p/zbs+ZXPxXecQ7rxa4E7cCyDioVZpHprgK82pvqr7TcD6Djg9VOrfe+XHr6O+6SoE2GbRnaREGnSQo+xqBZU6S94GEAIg8nBeFKIrBvmm2dS+XdoHg/5rF81FQtX2C3NtlZNX27BaN7g06es=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790324256; c=relaxed/simple;
-	bh=LiGbslpSw1BZSzsUAYmJNaUcdG2k9KF+ZclF5FdcFmQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BRCYNOljqrc2jK6zxIGu3IXz1YUfwy0Ldph8bKJ3ve2ZusMtFaLHyA5taXsp3JHIgpDTVZfZCKHzWp89uWTO/NyA0ltsIPJySEqWeDsT7Bv0kqKjQ00Jb8Di2tpV0OU4JAJHQwe2yOpAhia8JOCr91J3f2V9zecWCjsfyjyyqRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=fVDKOnKF; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
+	s=arc-20240116; t=1790324319; c=relaxed/simple;
+	bh=+tH4Mc9FC4T4Lpy94DCG6SpUwN4tXJW8DVCLpr5sk9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ba5hwydk+WkODdojB8PhbAuJKnu3+NcWI3bDGYCP35GwtBb/dimstqzK4eOt+KCWf8cV+2aNIsPY95L8zITT7EFvDmA/y8s8dWtyVNkqMmZ9dccf1OpMP94hwQOBj6OKAFc4oyMaB/p0DxM2RQA5Arjzxlx8kNQWwVXibaiy4Gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=CEh1cYrK; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="fVDKOnKF"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48583cb7d44so40540f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:17:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=6wind.com; s=google; t=1790324253; x=1790929053; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vMw0vdUUGSQAbQKLUcnYcE+r3kZ8/NMxHIwt7/zuSwM=;
-        b=fVDKOnKFU7NheLf9ZUBlirTUJMrEkvpQgi1c6Ru4+F7MoMlDkIoljXV64OxANVLxc+
-         B7LZhjkDoegoUUGGRGSkLboPC+TePSaakw9fyRl7jyWy/NHPSl+3dE6MOftSWZz4acrJ
-         R/9BqgmcXw8s1wmxMRLQjE6ePzP/6OAP1WCBzUpOzX8Yaws/+4n6LNCnMNfyqmBgSzHC
-         GPo0Gr/c+f9E8RIuixxhX3reVOGZX6iJGaNL4zqJeG7aEJLHbJiLA0ydMO7TkNsJQlWF
-         +h2C+ZFS0v08xWWynP02pft1gZ43l8DL2QegkLfETJNuMXyQFEloqUmA1317rEXKUbWZ
-         j8PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790324253; x=1790929053;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vMw0vdUUGSQAbQKLUcnYcE+r3kZ8/NMxHIwt7/zuSwM=;
-        b=imtIIWHLlFvVUy54uTcScArVXhQW5QNqaGzIDmiu5jpaOJgmdJH4HI03znbXwc8+sK
-         sicJ8U239PigVNpAhcobQnwOhR//9MYGg8ckYJUv4rnK5RIt/zo55Im0wO15Odm7cVwE
-         sriId1FzzoxgxFt1X73obec0ulNJvRlXF7ZP1hfyS1JobvYt/8DD+19ZNvYgpnuJhQnt
-         IT+Wq9ryS1wwSpB4b2/j4J1LhbLPgIgiiF9RETwuJGw9LwCsouZvy7ClUb8UItzIEpZP
-         52UbO2QA5axU+MHy6D5gzRU6hwMemFqydQHzm80GSz9rN7S0aLSyayKk7TN6x9FUndxC
-         u7MA==
-X-Forwarded-Encrypted: i=1; AKwUvBybRFuqrCoqxwQxDHfG93msGRFj+BxtiN98yoKGRXPPIEx6XnZE+ejMi1xNJI5hn4J9V+yQPv7Uo2ojF2A=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzmERF/WFSVp5JOlVE/82ISXe/NgjpvElyjhPlIK+vIo2RBp6+
-	9Sm4CMYKpuxnYSIr9vqA7AizpKeisumFbVjeb48wFLa6pjYqCSfLflS+V/AQ7cuaMPWRqaab5CN
-	3lxa+4z3vrg==
-X-Gm-Gg: AYBFou0pXjjKvM7J5JHoH8ROn2N4vDBJenwitCYYyioEshMHdl99wY6tR1XBAS0dHZm
-	OLAhfEzBZIP7YJd1zkgstBMCHN/fW7WC1Q+juAAwskhH7zcEnY7OveDRlHy5YwHeQqupqoRDfTv
-	3/Kdsk8AtDVtq712SULxqdZLMIqM74J8BXn0T45/IApQjOME8lP3IgRQw3mWmoLpgq3JiJB8ZTT
-	aLp/f2wexq3+PKsGciVDzZP0xmoD9L2Og+Xb1FYJGsF01jOdwdVWOqCCz5FL92k+UBEKY6r31fL
-	4tuor3tIXPvg6gaeEHFEyAJRHmvV07p0SoV7a7HH4m6RfSIPNtQMCMbfV172lDhU1KL3HPFGszj
-	cZWmVehDwQsMIEy9Lr4Z0xlxDGG4t5WXpPs27fvlvcUdEsY4recxKs5OLbSC+L3hedIzjnkIYEl
-	eSq2l1dmYiYdfd7bwj9+tFbpvfViCSJAgXjLv/5jhA0rrrhFFarGZyG1+VuEUjUYnTUNO0siBbu
-	EMvWMgQI4vcuEKn02AZ4+vXbEqKXiuhf4L7IZln6D8922ywS3Q=
-X-Received: by 2002:a05:600c:6088:b0:49e:7186:f36e with SMTP id 5b1f17b1804b1-49feddba128mr35504205e9.1.1790324253108;
-        Fri, 25 Sep 2026 01:17:33 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff044406dsm48037575e9.1.2026.09.25.01.17.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 01:17:32 -0700 (PDT)
-Message-ID: <6541b309-4e1f-462b-a867-57b67bba1b94@6wind.com>
-Date: Fri, 25 Sep 2026 10:17:31 +0200
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="CEh1cYrK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790324315;
+	bh=+tH4Mc9FC4T4Lpy94DCG6SpUwN4tXJW8DVCLpr5sk9o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=CEh1cYrK2B39TQLwj7BzHLDsqqM99K3trEOfbawx/yC4wO/v++gvzkXQsq730rcyM
+	 gWc6RB0pk7Qt5VGfBug7k5r4d0NgPjaTPCQAdO5PRbgSWPtxbw+qeEWhyuJh4shR8P
+	 c0bRAwRkkrTDPdgaZXPwUgXZ4wI4tWtfHSpbfT9yTP2p+pAAP2W6QquSx7JVuW+I2Y
+	 Gg4CuBec/xumiHxX787HuPzUztlNczfHkwfwsVTqrtXRZlt4kgC7ipzTsNFGhEeEsY
+	 7ovxXwZ7ndEvSY+YZ+rMRDZrlW5IUSZh80UP2G6uMNYIAb5h/HlYObTonAVrfZXpTF
+	 +3LeYG6p+7TAQ==
+Received: from fedora-32.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 47A1117E05F4;
+	Fri, 25 Sep 2026 10:18:35 +0200 (CEST)
+Date: Fri, 25 Sep 2026 10:18:30 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v10 15/15] drm/panfrost: Fix races between perfcnt and
+ reset sequence
+Message-ID: <20260925101830.25d16466@fedora-32.home>
+In-Reply-To: <20260924-claude-fixes-v10-15-755929b3cc19@collabora.com>
+References: <20260924-claude-fixes-v10-0-755929b3cc19@collabora.com>
+	<20260924-claude-fixes-v10-15-755929b3cc19@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: nicolas.dichtel@6wind.com
-Subject: Re: [PATCH net-next v7 2/5] net: add a generation counter for dev->mc
- changes
-To: Yuyang Huang <sigefriedhyy@gmail.com>
-Cc: Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Ido Schimmel <idosch@nvidia.com>, Jacob Keller <jacob.e.keller@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
- Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
- Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, netdev@vger.kernel.org
-References: <20260924011554.3494-1-sigefriedhyy@gmail.com>
- <20260924011554.3494-3-sigefriedhyy@gmail.com>
-From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
-Content-Language: en-US
-Organization: 6WIND
-In-Reply-To: <20260924011554.3494-3-sigefriedhyy@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-Le 24/09/2026 à 03:15, Yuyang Huang a écrit :
-> A multi-part RTM_GETMULTICAST dump of dev->mc resumes by position, so
-> entries added or removed between two dump rounds can be skipped or
-> repeated. The IPv4 and IPv6 dumps report that with NLM_F_DUMP_INTR by
-> stamping cb->seq from a per netns generation counter combined with
-> dev_base_seq, see inet_base_seq().
-> 
-> Add the equivalent for the device multicast lists: a per netns counter
-> bumped whenever an entry is added to or removed from any dev->mc. The
-> list helpers do not know which device a list belongs to, so give
-> netdev_hw_addr_list an owner set for dev->mc only and bump the counter
-> of dev_net(owner) where entries are created and freed. That covers the
-> dev_mc_* helpers, both lists of a sync, the hardware sync helpers
-> drivers call from their rx mode callbacks or their own workers and the
-> reconciliation after an asynchronous rx mode update, while snapshot
-> and other lists have no owner and are not tracked. It is atomic since
-> the writers only hold the address lock of their own device.
-> 
-> Used by the following patch for the AF_PACKET multicast dump.
-> 
-> Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
+On Thu, 24 Sep 2026 19:09:32 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+
+> Formerly, the reset sequence would race with panfrost_mmu_as_put()
+> when tearing down a perfcnt session. On top of that, poking GPU
+> registers to program a perfcnt session or obtaining a dump might lead to
+> undefined behaviour when done at the same time a reset was ongoing.
+>=20
+> Use the reset r/w semaphore to govern access to the hardware at reset
+> time. On top of that, expand the DRM uAPI for the perfcnt DUMP operation
+> so that userspace can be made aware of a reset having happened. UM needs
+> to know about this condition because counter data is inaccurate after
+> a reset, so the best approach is simply to try again.
+>=20
+> The new perfcnt-aware reset sequence also takes care to reestablish
+> perfcnt to its original configuration if there was an enabled session,
+> or else flags the current session as dead if that failed.
+>=20
+> Also bump DRM driver minor to reflect the new DUMP IOCTL req field.
+>=20
+> Fixes: 73e467f60acd ("drm/panfrost: Consolidate reset handling")
+> Fixes: 7786fd108777 ("drm/panfrost: Expose performance counters through u=
+nstable ioctls")
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 > ---
->  include/linux/netdevice.h   |  3 +++
->  include/net/net_namespace.h |  1 +
->  net/core/dev_addr_lists.c   | 21 +++++++++++++++++++++
->  3 files changed, 25 insertions(+)
-> 
-> diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-> index 5d16737167ee..be3804cdbb2d 100644
-> --- a/include/linux/netdevice.h
-> +++ b/include/linux/netdevice.h
-> @@ -256,6 +256,9 @@ struct netdev_hw_addr_list {
->  
->  	/* Auxiliary tree for faster lookup on addition and deletion */
->  	struct rb_root		tree;
+>  drivers/gpu/drm/panfrost/panfrost_device.c  |   2 +
+>  drivers/gpu/drm/panfrost/panfrost_drv.c     |   3 +-
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 200 ++++++++++++++++++++--=
+------
+>  drivers/gpu/drm/panfrost/panfrost_perfcnt.h |   1 +
+>  include/uapi/drm/panfrost_drm.h             |   8 +-
+>  5 files changed, 155 insertions(+), 59 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
+/panfrost/panfrost_device.c
+> index 801ca07ccb28..98de04362517 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> @@ -483,6 +483,8 @@ void panfrost_device_reset(struct panfrost_device *pf=
+dev, bool enable_job_int)
+>  	panfrost_jm_reset_interrupts(pfdev);
+>  	if (enable_job_int)
+>  		panfrost_jm_enable_interrupts(pfdev);
 > +
-> +	/* Set for dev->mc, the owning device of a tracked list */
-> +	struct net_device	*owner;
-There are several lists owned by a device (dev->dev_addrs, dev->uc, dev->mc,
-dev->rx_mode_addr_cache), the name 'owner' does not reflect that it is set only
-when the list is dev->mc.
-I wonder if the name should be changed or if __hw_addr_init() should be updated
-to always set owner when the list is owned by a device.
-
->  };
->  
->  #define netdev_hw_addr_list_count(l) ((l)->count)
-> diff --git a/include/net/net_namespace.h b/include/net/net_namespace.h
-> index 46b4c67e2966..d8c681ab5c74 100644
-> --- a/include/net/net_namespace.h
-> +++ b/include/net/net_namespace.h
-> @@ -71,6 +71,7 @@ struct net {
->  	spinlock_t		rules_mod_lock;
->  
->  	unsigned int		dev_base_seq;	/* protected by rtnl_mutex */
-> +	atomic_t		dev_mc_genid;	/* bumped on dev->mc changes */
->  	u32			ifindex;
->  
->  	spinlock_t		nsid_lock;
-> diff --git a/net/core/dev_addr_lists.c b/net/core/dev_addr_lists.c
-> index 08528ca0a8b3..18acd874fdbd 100644
-> --- a/net/core/dev_addr_lists.c
-> +++ b/net/core/dev_addr_lists.c
-> @@ -16,6 +16,19 @@
->  
->  #include "dev.h"
->  
-> +/**
-> + * __hw_addr_changed - account a change of a tracked address list
-> + * @list: the address list an entry was added to or removed from
-> + *
-> + * Bumps the netns generation counter RTM_GETMULTICAST dumps use to detect
-> + * changes of dev->mc between dump rounds. Untracked lists have no owner.
-> + */
-> +static void __hw_addr_changed(struct netdev_hw_addr_list *list)
-> +{
-> +	if (list->owner)
-> +		atomic_inc(&dev_net(list->owner)->dev_mc_genid);
-> +}
-> +
->  /*
->   * General list handling functions
+> +	panfrost_perfcnt_reset(pfdev);
+>  }
+> =20
+>  static int panfrost_device_runtime_resume(struct device *dev)
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 571a26b84126..de9b1c115181 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -808,6 +808,7 @@ static const struct file_operations panfrost_drm_driv=
+er_fops =3D {
+>   * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
+>   *	   PANFROST_IOCTL_QUERY_BO_INFO and
+>   *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
+> + * - 1.7 - adds PERFCNT_DUMP req state field
 >   */
-> @@ -126,6 +139,7 @@ static int __hw_addr_add_ex(struct netdev_hw_addr_list *list,
->  
->  	list_add_tail_rcu(&ha->list, &list->list);
->  	list->count++;
-> +	__hw_addr_changed(list);
-list->count and dev_mc_genid evolves together. Perhaps some helpers would be
-less error-prone for future patches?
+>  static const struct drm_driver panfrost_drm_driver =3D {
+>  	.driver_features	=3D DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
+> @@ -820,7 +821,7 @@ static const struct drm_driver panfrost_drm_driver =
+=3D {
+>  	.name			=3D "panfrost",
+>  	.desc			=3D "panfrost DRM",
+>  	.major			=3D 1,
+> -	.minor			=3D 6,
+> +	.minor			=3D 7,
+> =20
+>  	.gem_create_object	=3D panfrost_gem_create_object,
+>  	.gem_prime_import	=3D panfrost_gem_prime_import,
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index b3f71d7fd82a..91983d450c24 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> @@ -11,6 +11,7 @@
+>  #include <drm/drm_file.h>
+>  #include <drm/drm_gem_shmem_helper.h>
+>  #include <drm/panfrost_drm.h>
+> +#include <drm/drm_print.h>
+> =20
+>  #include "panfrost_device.h"
+>  #include "panfrost_features.h"
+> @@ -28,21 +29,31 @@
+> =20
+>  struct panfrost_perfcnt {
+>  	struct panfrost_gem_mapping *mapping;
+> +	unsigned int counterset;
+>  	size_t bosize;
+>  	void *buf;
+>  	struct panfrost_file_priv *user;
+>  	struct mutex lock;
+>  	struct completion dump_comp;
+> +	unsigned int state;
 
-__hw_addr_count_inc()
-__hw_addr_count_dec()
-__hw_addr_count_reset()
+nit:
+	u32 state;
 
-?
+to be consistent with the uAPI field.
 
->  
->  	return 0;
->  }
-> @@ -162,6 +176,7 @@ static int __hw_addr_del_entry(struct netdev_hw_addr_list *list,
->  	list_del_rcu(&ha->list);
->  	kfree_rcu(ha, rcu_head);
->  	list->count--;
-> +	__hw_addr_changed(list);
->  	return 0;
->  }
->  
-> @@ -487,6 +502,8 @@ void __hw_addr_flush(struct netdev_hw_addr_list *list)
->  {
->  	struct netdev_hw_addr *ha, *tmp;
->  
-> +	if (list->count)
-> +		__hw_addr_changed(list);
->  	list->tree = RB_ROOT;
->  	list_for_each_entry_safe(ha, tmp, &list->list, list) {
->  		list_del_rcu(&ha->list);
-> @@ -501,6 +518,7 @@ void __hw_addr_init(struct netdev_hw_addr_list *list)
->  	INIT_LIST_HEAD(&list->list);
->  	list->count = 0;
->  	list->tree = RB_ROOT;
-> +	list->owner = NULL;
->  }
->  EXPORT_SYMBOL(__hw_addr_init);
->  
-> @@ -612,6 +630,7 @@ void __hw_addr_list_reconcile(struct netdev_hw_addr_list *real_list,
->  				__hw_addr_insert(real_list, ref_ha,
->  						 addr_len);
->  				real_list->count++;
-> +				__hw_addr_changed(real_list);
->  			}
->  			continue;
->  		}
-> @@ -623,6 +642,7 @@ void __hw_addr_list_reconcile(struct netdev_hw_addr_list *real_list,
->  			list_del_rcu(&real_ha->list);
->  			kfree_rcu(real_ha, rcu_head);
->  			real_list->count--;
-> +			__hw_addr_changed(real_list);
->  		}
->  	}
->  
-> @@ -1177,6 +1197,7 @@ EXPORT_SYMBOL(dev_mc_flush);
->  void dev_mc_init(struct net_device *dev)
->  {
->  	__hw_addr_init(&dev->mc);
-> +	dev->mc.owner = dev;
->  }
->  EXPORT_SYMBOL(dev_mc_init);
->  
+> +	bool owns_as_ref;
+>  };
+> =20
 
+[...]
+
+> +static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u=
+32 *state)
+> +{
+> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
+> +	u64 gpuva =3D perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+> +	int ret;
+> +
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		*state =3D perfcnt->state;
+> +		if (perfcnt->state & PANFROST_PERFCNT_SESSION_DEAD)
+> +			return -EIO;
+> +
+> +		perfcnt->state =3D 0;
+> +
+> +		reinit_completion(&pfdev->perfcnt->dump_comp);
+> +
+> +		gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
+> +		gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
+> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> +						GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
+> +	}
+> +
+> +	/*
+> +	 * Here we release the reset semaphore because perfcnt should not get i=
+n the way
+> +	 * of a HW reset. Besides, a legitimate reset might be issued during th=
+e wait.
+> +	 */
+>  	ret =3D wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump=
+_comp,
+>  							msecs_to_jiffies(1000));
+> +
+> +	/* A reset might come through in the gap between the completion returni=
+ng and the following
+> +	 * check, but because no sample was produced, we don't care to relay th=
+e state back to UM
+> +	 */
+>  	if (!ret)
+> -		ret =3D -ETIMEDOUT;
+> -	else if (ret > 0)
+> -		ret =3D 0;
+> +		return -ETIMEDOUT;
+> +
+> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> +		u32 new_state =3D perfcnt->state;
+> +
+> +		*state |=3D new_state;
+> +		if (new_state & PANFROST_PERFCNT_SESSION_DEAD)
+> +			return -EIO;
+> +
+> +		perfcnt->state =3D 0;
+> +
+> +		/* If we faced a reset during our SAMPLE, the user needs to try again.=
+ */
+> +		if (new_state & PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET)
+> +			return -EAGAIN;
+
+Okay, so I think we have a weird situation where sometimes the state
+should be ignored when an error is returned (we don't
+propagate the state on ETIMEDOUT), and sometimes not (if EAGAIN or EIO
+is returned, the state has been propagated and cleared). This is problematic
+if INTERRUPTED_BY_RESET is set and EAGAIN is returned, because on the next
+DUMP this flag will have disappeared, and if userspace didn't store the
+information on the EAGAIN, it wouldn't know the counters are disjoint.
+
+We either need to propagate the state all the time, and document the errno
+where userspace should not ignore it (EAGAIN, ETIMEDOUT and EIO), or we need
+to preserve the INTERRUPTED_BY_RESET bit when EAGAIN is returned (basically
+move the perfcnt->state =3D 0 below the if (INTERRUPTED_BY_RESET) branch, a=
+nd
+restore the state that was cleared in the first scoped_guard()).
+
+Once addressed, this is
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
