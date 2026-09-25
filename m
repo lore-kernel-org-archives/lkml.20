@@ -1,145 +1,65 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58A9472F65
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:27:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031ED49E15A;
+	Fri, 25 Sep 2026 14:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346430; cv=none; b=EcSxqZWnpYKo8c6BjfgJX5wACsFOUk/cgoqAquiQIq0HwX9aP8e5NLz3GPOzcddC0nh50/TmNa68LKLDo6R1C4HyAVtkWT61Q6dpy89/Y1LwMsYMTefEG6uxIX7o8ATXgI29vcNcOtI81LYHZVJUrv1Cp3JIO1kDz0uAwcR2+m8=
+	t=1790346484; cv=none; b=Jg/76CRdZU+z7+BQBzwQFy7JlT4fN+puO5YZK+I4GtrjjFqwtsZ9toT84F3tFfQX2n0ig6j49xx+ODLiO5S6x3jpERuVRhoDY6a0ZU0d2uBEob/keneJhc8GXYgwTnlnK5He1f+QHrSbRXZ+E+vAkppGYzOYvWU0udgs0Krk6H8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346430; c=relaxed/simple;
-	bh=UoAGtivm13Z/G+GS8buiXncWFubJT52dfckO7FwqDKg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dG2nPktty6vkTuS5z6sjS4E18H5xd4EV7X5TTlaCR85PNk2eDphDF6pvXHmCcO9MEaQqWpFRJMWNrLa0j4tXGZjysLzr4T0PBQ/BOxo9TpexYRFVXRbign4MuumnpABLsUJIk4WtViD/d/6D/ncslHikNaqfSfgL7rkkkMcEdNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ckvExvVG; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790346484; c=relaxed/simple;
+	bh=16gFGw7pnYBN5T2lrrKMq0hC2sJmi4qV0zpsGueGOTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QobgAkoH2k8k6Jez46Q/Q1nJolKhDI9kzlx5vRyJUhVun49lDs0VHEMnHDzkN7eSs/Tr679Yyy/Vgav3oBXc0dc1pT7TB3ipE+3+zS+0IgaOdL7vy4yHtwuAy2xYt535GV8q1MlvuvO4NQ6RCFNRGk9KC8JaYhYPl48QJbGavsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7Hi101O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ckvExvVG"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso7181645e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:27:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790346427; x=1790951227; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jO5beRzZsz868Jf5T9GMnrT2XrBUC24WMlTYLcF2ONY=;
-        b=ckvExvVGxRsvHYnGnjo9H+vkbd8b1a6Xc/+gAu3l/Lst6KszXBrTB8EuUCGiZucjcm
-         zEHwDdvbnG91nws8oA0DlS1DOBr891HDwrTVbsMML5B98XDrDeAcuFLBH93zoDtVdTSO
-         uxSI4MdC2CS8m5NoeWvZsedFnm2+s7yC52HtlgQToBz1AJY14KXmXrIJBsJzjD8TCLpF
-         rvkLDrhGbEmxTjM/QSyUvw8fBJOQ/0h6wwmomfr0WRkPLp/7uejf7YDtBJVqEDlYE2vy
-         7uaiQuCk1f5dk7sSNN8XhjP71nVaSO8l4UedqsIHlABiK0SvK4aLe5QUnfwmCIiyQl/Y
-         o/mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790346427; x=1790951227;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jO5beRzZsz868Jf5T9GMnrT2XrBUC24WMlTYLcF2ONY=;
-        b=qvEAN9Fw2pUg8o/U7FFBkV04fvkOZr+clMu5RhD4m6/B2UsVO+uSuTP/lnIhLwgwbn
-         XQdlIJAPcRE5eQo0vmcJRnXy4xqmVaXCmX9NbFFl9dHtYBbXn6ssnv54qDqTDKorI1eh
-         Klyux9kOdJcCM/KA+ftvT+RFAr7Wnqs9piiThNJIt8KWtgI1r5QcIbnFnIdroLmpbRnK
-         eOWGAPDJS+uvK9KaO48mGj4qypursj7zI9Ah/TRz+cdfIXEfe3veZm4EPWjSLb017XrN
-         I3w87oIQjQLohs06fnbWtAcug3Ach+bMZ/O0Qkuib+8TXnoj2JNWHYb62uQo1cLEcM5b
-         yf+A==
-X-Forwarded-Encrypted: i=1; AKwUvBznC/J4UDGLMvwLCKk0mucfZyWBFTt55wSk0QwzLwiaByyj5uADADQuuonyyunxe9XxFyZCr99AWz67ftM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLumoS5IAGxxpJs4TbK9/mrtXkRLoua+kybZSuwgLBd/rAKlr1
-	uTKX01aap/UaxHxUcXVZ+3Laa1R7LHVQ9CbUPYegTSDAGlMI+LUEYYuk
-X-Gm-Gg: AYBFou3myEGvQNg+tK17Xr3yUtSVVwoe5LvJlInZDwIzZ+PoeZVz1fYp8cDlHtuSkCu
-	pyqzwayp9Y5NyFQzLPSftMv4Uw83XgqlPcKCAMfiCSz12t4sU7ymkQHwMXBbwBqACnkzoUlWPoi
-	5SguYP2cPNbJS0b6WUKLmkYIUfUao9tCWpqrEPtffEsQy3QCizq8PwhC44ZPe3liGt+lRjSsAT5
-	HuxDfMVAFUHXxC15ODFWENRpwBrS5W9lz6czlW35PiMZrsvl0MSPsm073E5R7cVH4tM59ME0IZk
-	BWhRZr3Xm0RhFybugVmS77gOFn9a+2VHa9L/8HpTaAE2O7bWlRR/5KyYOXM8Bv9LLn1sWXl2yCe
-	6nak28vfbdrw00J1JUeGJC3nvsVqkUsUvF6gwfhoDisQp/HGUZD6H5P5XRlYD+ssQUVtu53VxiN
-	TojFzJpxmYtZ7cbQWvlulzgflJXs4IeafWC497/ZICS1Iw8wwI1/F5nu6iiPPzVtREF2SN7M954
-	8GJqA==
-X-Received: by 2002:a05:600d:8643:10b0:49f:bb8a:b4ce with SMTP id 5b1f17b1804b1-49fe67bc26fmr77016705e9.28.1790346426809;
-        Fri, 25 Sep 2026 07:27:06 -0700 (PDT)
-Received: from [192.168.1.50] ([81.196.40.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff43ad975sm59418545e9.13.2026.09.25.07.27.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 07:27:06 -0700 (PDT)
-Message-ID: <cf974a83-e2f0-4315-913d-62759465fa5d@gmail.com>
-Date: Fri, 25 Sep 2026 17:27:04 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7Hi101O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0883D1F000FF;
+	Fri, 25 Sep 2026 14:28:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790346482;
+	bh=eQfH6TWU+8kLhZyhYEPxSS41QwgjPG1zEmLcOr81UYE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F7Hi101OPL3YCpxzXmrTUgdz9EAjilg5bruqCGyFN8XYnTggwvFY9ktsD0cyqpqjV
+	 F+Q9N74ghoE1OA27zXBlSO3rSl0SXKqXXg2TatOUsj9/e6OKHY48AR9J1sz5t+ETrk
+	 L/S+65XjsaECes/wG+K1/l3yy0iYOcjEyA1SKSWfBzuYjfLhcWHZcthQEgKekouFFL
+	 sXVl/S+KaY+bSGfwK3zJQIJnGcYY8adupChLr74y6UUSl8XCfQ6N3fmg0AVkTZXfFY
+	 NHH10AnqgZOjGTg4X2gnzmFkLLcJXvgj0z40/XKvPKChSsWDW1iA0HbYpyUwzmrP+B
+	 z+uN60d6wb5yA==
+Date: Fri, 25 Sep 2026 16:27:59 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: longlong yan <yanlonglong@kylinos.cn>
+Cc: namhyung@kernel.org, mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+	irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf bench numa: add NULL check after calloc()
+Message-ID: <araE77-hIcOcWLdq@x2>
+References: <20260902070913.1424-1-yanlonglong@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-To: Ping-Ke Shih <pkshih@realtek.com>, Luka Gejak <luka.gejak@linux.dev>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Michael Straube <straube.linux@gmail.com>,
- Peter Robinson <pbrobinson@gmail.com>
-References: <20260923213557.186205-1-luka.gejak@linux.dev>
- <20260923213557.186205-7-luka.gejak@linux.dev>
- <afb044e0aef8425880ddb24add9340ab@realtek.com>
-Content-Language: en-US
-From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
-In-Reply-To: <afb044e0aef8425880ddb24add9340ab@realtek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902070913.1424-1-yanlonglong@kylinos.cn>
 
-On 24/09/2026 04:24, Ping-Ke Shih wrote:
-> Luka Gejak <luka.gejak@linux.dev> wrote:
->> Add Luka Gejak as the maintainer for the RTL8723B/RTL8723BS and
->> as designated reviewer for support in rtw88 subsystem.
->>
->> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
->> ---
->>  MAINTAINERS | 8 ++++++++
->>  1 file changed, 8 insertions(+)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 0b42e898f4d8..7851cfcc9368 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -23007,6 +23007,13 @@ S:     Maintained
->>  F:     Documentation/devicetree/bindings/net/dsa/realtek.yaml
->>  F:     drivers/net/dsa/realtek/*
->>
->> +REALTEK RTL8723B WIRELESS DRIVER (rtw88)
->> +M:     Luka Gejak <luka.gejak@linux.dev>
->> +L:     linux-wireless@vger.kernel.org
->> +S:     Maintained
->> +F:     drivers/net/wireless/realtek/rtw88/rtw8723b*.c
->> +F:     drivers/net/wireless/realtek/rtw88/rtw8723b*.h
->> +
+On Wed, Sep 02, 2026 at 03:09:13PM +0800, longlong yan wrote:
+> Two calloc() calls in the numa benchmark lack NULL return checks,
+> leading to potential NULL pointer dereferences on allocation failure:
 > 
-> I think no need this entry.
+> 1. worker_process(): the allocated `pthreads` array is used in the
+>    following for-loop via pthreads[t] without checking for NULL.
 > 
-> Just with below 'R', the ./scripts/get_maintainer.pl with rtw88 patch can
-> output your name, no?
+> 2. __bench_numa(): the allocated `pids` array is used in the following
+>    for-loop via pids[i] without checking for NULL.
 > 
->>  REALTEK SPI-NAND
->>  M:     Chris Packham <chris.packham@alliedtelesis.co.nz>
->>  S:     Maintained
->> @@ -23027,6 +23034,7 @@ F:      drivers/net/wireless/realtek/rtlwifi/
->>
->>  REALTEK WIRELESS DRIVER (rtw88)
->>  M:     Ping-Ke Shih <pkshih@realtek.com>
->> +R:     Luka Gejak <luka.gejak@linux.dev>
->>  L:     linux-wireless@vger.kernel.org
->>  S:     Maintained
->>  T:     git https://github.com/pkshih/rtw.git
->> --
->> 2.55.0
-> 
-> By the way, your patch should tag rtw-next (i.e. [PATCH v5 rtw-next]).
-> Otherwise, NIPA test your patches on wireless-next tree, reporting
-> errors [1].
-> 
-> I don't know if someone is reading your patches. I'd skip v4.
-> Please wait a while and send v5.
+> Add BUG_ON() checks after each calloc(), consistent with the existing
+> NULL check style used elsewhere in the same file (e.g., node_present
+> and nodes allocations).
 
-I'm reading it now. I should have some comments today or tomorrow.
+Thanks, applied to perf-tools-next, for v7.4.
 
-> 
-> [1] https://patchwork.kernel.org/user/todo/linux-wireless/?series=1172592
-
+- Arnaldo
