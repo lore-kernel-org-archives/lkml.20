@@ -1,46 +1,87 @@
-Received: from www74.your-server.de (www74.your-server.de [213.133.104.74])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CA3440A2F;
-	Fri, 25 Sep 2026 09:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB17477E58
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790328006; cv=none; b=YzzG02XU31ICdB0c9PHmaaXezgWYaV2ApFL5b0hXFZ7rhceTjWyO3Fegxzz3BRWbOOyyC1lTxKz1B/BBlOwyIqVg2u9DjVpK5R8f5oABlU4IDLb4L+3ZRGGgGaWNCpc4g7brAfCYLXLpNDXH0tBL5B3zaysw4HvtN73fgfvaZf0=
+	t=1790328086; cv=none; b=kYBmLek2CzMZmNuNOyScShGfDKTbNhkWJ3D5sH85OOopcUN/uu8NDMjGcwGTU86sfufX0kXp1F5mivQlsobne/yeY0uUiQunKUTjK0UY2mSxo47LqY5nghrpbmEY3S9bjL0KqiMGTD9GXK1H7BHHTqRRiaw0mqDYFmxjP2R5kYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790328006; c=relaxed/simple;
-	bh=Jb+tfZXfhjkMwyb675IEbLXf0k99xcg6s0tFPleHucI=;
+	s=arc-20240116; t=1790328086; c=relaxed/simple;
+	bh=mvedpIxak0Fnzj/mZY4251qn7YJgCBi9zAfCHtRMKVM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=avOHbIS806+/1i0XMBtmAJ+ANqP+qm8x/7Cp4DvKFsinvoYofJye9eKEXh3cPL8ekpdbR9ykPRpcPFike6ZlyibbBN0ha02MgsstbWUlnUFauLAFjyaBsfZmY9nK+esVNw0nuqtnAlmgCnjn0V+gAMGR3yFHoMNjX/4F6me1qKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=computerix.info; spf=pass smtp.mailfrom=computerix.info; dkim=pass (2048-bit key) header.d=computerix.info header.i=@computerix.info header.b=qLoCmbPP; arc=none smtp.client-ip=213.133.104.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=computerix.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=computerix.info
+	 In-Reply-To:Content-Type; b=URoO6kNXtB2Sl9fNGWJAhoL5oMsYqJsFu0Y43hWmlLjMQSPU3Y4TVCr7YNbBmAEHXztsz/igmsiuA3JSYlFxP4kZ4S/6/GvXmOS1kOVijKBs2sD8VUF0G0iGimiAhx2II8tJznCyjRV+vzBbw7VZ7aUbxcVAE68Z6PtdZtUc1Qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fRTYy2jv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NFDGXV22; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=computerix.info header.i=@computerix.info header.b="qLoCmbPP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=computerix.info; s=default2306; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=Bgprr1PiioxZNQVAP0PuKrbMqXUqXN3dvlodRiThu3E=; b=qLoCmbPP9mgsFLAaloUys4BEC0
-	lnWEw8fJ+wy6cmVOOCksBiXO6upeZPv3jErPJAQhv8sX5Jps3g/++NqweZYLLfSnfa945uP8fS5ni
-	lhUhm5JCXqaBW+m1fvX83kq3Oqnj7oHWAGgmdB+Bxo7Y7amM2XSsWxh0JU/RnT/HgEcCykgjkL3kk
-	R8Zq2sfX5nlRb9/3rQU18HJRuEvhOvXRc1u9sA3bmrnZeOwmT5pna+9WH/LHr2NmCQyvF+54DrF9r
-	iH5ZXnN80IexR2VPKNieTdmScwfXAPIDa0VzE8xN6ajKpPUN1QT7U2ELc4e8vxyR6LDZV5QPessCx
-	w3tTACBQ==;
-Received: from sslproxy08.your-server.de ([78.47.166.52])
-	by www74.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <klaus.kusche@computerix.info>)
-	id 1xA1ls-000IU8-0X;
-	Fri, 25 Sep 2026 10:59:08 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <klaus.kusche@computerix.info>)
-	id 1xA1lK-000MgO-0U;
-	Fri, 25 Sep 2026 10:59:07 +0200
-Message-ID: <e2c87de0-31f7-4ed0-b80e-7f9aa7d0e511@computerix.info>
-Date: Fri, 25 Sep 2026 10:59:06 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fRTYy2jv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NFDGXV22"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YWpl1055788
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:21:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RBsfdl/T6Ue4W2/aqLwt1CKH7MzyP/xPKpBBNUg1PjI=; b=fRTYy2jvZM+gocIf
+	Anjg/IjTKq5zbwrdhfH419Jt9409fi3VgGXtPuFwOFCnhHnXB/O2OMFELzUd+LGU
+	qidQpL17GbphNSW2n46rTQBteVN+Fd0wWNmJU82LS06qVnGSC4L5nyMtdsYiy4sw
+	3hdh0/99kT4e4y2WluAK8vsczO9uDilKk1njvv9dkGBwlVJJUf8PSxf3+3G9hSCG
+	6UTveLjrwCTzrMVmTNBU5IPZW9P1X2pytvwd531JXQ5yZrX4WHxDzg/oTiCYUJzc
+	jvf0XzQU1Bpc59PbAptplKXqsKbU/OlGF7xlk5j97AWuBSsP2jl/c/SBJwOAv9bP
+	4GgaMA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwce79t7n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:21:20 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-342217d8d53so444289eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:21:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790328080; x=1790932880; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RBsfdl/T6Ue4W2/aqLwt1CKH7MzyP/xPKpBBNUg1PjI=;
+        b=NFDGXV22LJtS3zJ380XsL2sMxKlYapYiicnk/oPEEt1tPpeqq3wX1cD67fgtB5HwjG
+         m4xUiaOsHNI9PKW1CL3oGORisgq6P9PmdKH8X0hnunxciW6nnUx9vaIv3CCHkrO12enz
+         A4nvPn1HjsaAlE6zABQLkU1EXXey+FfJmWkXpi+DadF74XvHvqv3SuQzclFSExjBOUOL
+         r2DNl2GoZ+GiJt7dS3yqZlFjuG9bQE3YccO77D9CVrkyn/qm2N/PbVcQeiE7BzAd+7Lz
+         fq5P2pKnx543iMcj8mlX7W1gltQO/sS/G+dfzT+fgVlZANlLccHufeauu3esKjEMHyQa
+         g5+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790328080; x=1790932880;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RBsfdl/T6Ue4W2/aqLwt1CKH7MzyP/xPKpBBNUg1PjI=;
+        b=ZZIeDiKwM/Q8KtB9f1fL8WDRluHJzTqVRh0U4WybQcu3v72t41okJ/yiHTZua2PTG8
+         lwB4vhYuuAWD2EhYbiGGX/YcOgfPKmEaqpwl6AHLA00Cd5jZgquu2kd9pRmHVcPLNMqD
+         EaWWx7ORfNWbxZ7mtifSBhB37udnZCTRtw45gopBIWeedvWG8lsqXgIr/U6HHWuvY6DP
+         BiMPVnqkJiwz8M2WXdyxRJn4exwd0XHqn3ZWBEyTG8kcf0mVATVhNrryzPz8fZfOsUmK
+         5t0TyHDpSz2UWlkkbZr8fvHtihf+FJF6/ogLp8nD8nQk1eaOvpki9NtQEoNyklN3hgWd
+         BlGw==
+X-Forwarded-Encrypted: i=1; AKwUvBzzzyYR7aNyCiovBaI14EBjWRkBGCISVAF76iFkvRa11PsZALsQs0RSOIqOs9286D8hWAg+79ugdGvtED4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqiQ+8n0bcu40olk0Hvz3NevG658nP3Ur5K9LODHfPakZtuDe5
+	xZzRtY+YsxQl99IYTooRoip5/HVp/TfR4nbN6jX/UU4mZJm8MmpUidY1wYAS7wekHNaWMDVk9ax
+	wp/EEUL/2rGNAIY7izrd+iDWPaWlVdsWfwMQc90jhinOCZc/JAk07hx3scmdnuDEcs2M=
+X-Gm-Gg: AYBFou34Lt6ODsK10D7APU4UFQBxulDS+UVudHtRrruvPgP30f8TdK8jkUgn5eZ2Unt
+	xOwB6+BsFuo0OhzXtzIFvovVgy8AJ1yZYFc2jGOpKCkxZG6o4vn1//3joUWwcg96f00slEr7OeY
+	dmb8ejLlueQpZYtxFFPO1tgUrg6J2locO90gfhNXfOHqfLOxWjhr/J3/wRnfM0YpVUKyHj8juQQ
+	OaDTnScg22A9ULFlMcG/Jo1w/mssiqtseR4koPcoQ5oHoYMYx0967Kd+pmCOBq6mRTf3OMrrO2U
+	oHGuVvIZt0+YbGcTiMC6zfo2wTmDYjH+3KylUbTrFMdIRCouqAB974XUt++Vo3ZMgniy2Atm6pg
+	p1SN1tHiRG9F46PYrYrC6V/HalImq
+X-Received: by 2002:a05:7301:618c:10b0:341:ea04:4102 with SMTP id 5a478bee46e88-341ea0445b5mr810784eec.19.1790328079328;
+        Fri, 25 Sep 2026 02:21:19 -0700 (PDT)
+X-Received: by 2002:a05:7301:618c:10b0:341:ea04:4102 with SMTP id 5a478bee46e88-341ea0445b5mr810746eec.19.1790328078540;
+        Fri, 25 Sep 2026 02:21:18 -0700 (PDT)
+Received: from [192.168.1.25] ([122.183.173.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757263sm4813814eec.12.2026.09.25.02.21.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 02:21:18 -0700 (PDT)
+Message-ID: <8ea976cd-b012-4ae6-a74b-b5c2dceaecbc@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 14:51:11 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,143 +89,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Cache-aware scheduling does not work well with amd big/little
- cores
+Subject: Re: [PATCH v4 5/8] ASoC: qcom: lpass-va-macro: Add SoundWire
+ microphone support
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        ajay.nandam@oss.qualcomm.com
+References: <20260922-add_shikra_support-v1-0-6c6cb6444caf@oss.qualcomm.com>
+ <20260922-add_shikra_support-v1-5-6c6cb6444caf@oss.qualcomm.com>
 Content-Language: en-US
-To: Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- "Badole, Vishal" <Vishal.Badole@amd.com>,
- Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- platform-driver-x86@vger.kernel.org, K Prateek Nayak
- <KPrateek.Nayak@amd.com>, ricardo.neri@intel.com
-References: <b475039b-defe-46e7-ab85-46e3196da667@intel.com>
- <369d0bbb-db7a-4f86-bee2-332d5295c452@computerix.info>
- <406a5c407bbe60cafc24f715e089f5552a0791f9.camel@linux.intel.com>
- <14630984-9287-4454-b52f-3a1e526e1fdf@computerix.info>
- <3cb5cbdb227bee0b822f1550e10659faadd77a3d.camel@linux.intel.com>
- <e17ef3af-c1cd-4360-ba4b-9900ccc36ef6@computerix.info>
- <76dba935-1052-4fa9-a70c-16cecdfd12c8@amd.com>
- <4da55124e32dd0587a3516c8f5ed512bffbbb42e.camel@linux.intel.com>
- <2fe2c681-b748-41fa-8b56-1169c86cefbc@intel.com>
- <6b173ff1-6fde-401d-a4a8-6fa8bbe3287c@computerix.info>
- <aqfy8PjSUOYI-_Ju@chenyu-dev>
- <8aea0f25-0317-42ac-b59f-1a008c6eb106@computerix.info>
- <7b83cf0cd1704b552978af88d7de9c57970c23a1.camel@linux.intel.com>
-From: Klaus Kusche <klaus.kusche@computerix.info>
-In-Reply-To: <7b83cf0cd1704b552978af88d7de9c57970c23a1.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20260922-add_shikra_support-v1-5-6c6cb6444caf@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28134/Fri Sep 25 08:25:58 2026)
+X-Proofpoint-GUID: leYROTq93zNULjDCLOqC0_FwZrKZ9esG
+X-Proofpoint-ORIG-GUID: leYROTq93zNULjDCLOqC0_FwZrKZ9esG
+X-Authority-Analysis: v=2.4 cv=NJFAaE6g c=1 sm=1 tr=0 ts=6ab63d10 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=uk8ae9/F1LYL5lfeGCaUoA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=ohAgsov0r_a2WbmJIscA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzNyBTYWx0ZWRfXxT1OTX25E0RO
+ aeESOjj2QCIkwbvsYDA7lfdVn1Y+TAM4G+etU+L4L6zUhI5ZItJN9KVrQ7yA1J9rKAAal4QvkoZ
+ 5NvQ6PtQfIuLxvDR2iB63FfXHk21/kPBdFSfkufIRm1B5oDXgth0m1tU69FZwbPKKC+TWyNhJOj
+ xgdXkgnl9bzissOcTeLXI4xNnE+cxwn5lH7wcw0JFUGgRabh1VYOd21NpWAhL6LXINynojNKgP9
+ CxIgvkH0wDoU3L8Fvd4iIGxIa2gWV/xnmX3q28UIFguj4ZRdBXUe0/OM7Hk7uVPZNFF3Dx2A63m
+ reyPmkZnBjc4zitdTqCfkK+5rqHeP3wdHHi19vrFilr00sd2d90BHTDZ6AGQurVYBu7ngdHPTUB
+ Ig1BckYpDh1gbLvum1y4IfcC//EL+HCSyMQMHfopWbpaR0HH0ddzABGzUG5tlh4777j5bY/wCFs
+ IpG5g/3W2eSO4vhcc0A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzNyBTYWx0ZWRfXwzjw/YaiJsUO
+ fL/PbBovuIJbC0fIEXSXj857koX0Kimmfh3M10v9n7npuB3kgCTOGyZT8s8kWfuGOl3A07KJKXN
+ BqnWCgLsVyZKElgR6qrWmtY8dnFhmXo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 priorityscore=1501 bulkscore=0 spamscore=0
+ phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250037
 
-On 24/09/2026 01:47, Tim Chen wrote:
-> Hi Klaus,
+
+
+On 9/22/2026 3:12 PM, Mohammad Rafi Shaik wrote:
+> The VA decimators can currently capture audio only from DMIC inputs.
+> Add support for routing audio from SoundWire microphone (SMIC) inputs
+> as well.
 > 
-> I wonder if you can try this alternate patch to Chen Yu's.
-> This patch does not require turning off cache aware scheduling
-> entirely as in the previous patch when using the asym packing
-> mechanism to prioritize big core.
-
-Hello,
-
-1.) This patch applies with quite some fuzz to 7.2.7 (for example, 
-the context of the -10847,6+10849,10 hunk is obviously different), 
-and the resulting fair.c fails to compile:
-call to undeclared function 'sched_use_asym_prio'
-conflicting types for 'sched_use_asym_prio'
-(sched_use_asym_prio is called before being declared)
-use of undeclared identifier 'env'
-
-2.) As far as I know, "inline" does not look ahead in C.
-So I think the call to sched_asym you added in hunk -10847,6+10849,10
-will result in a real call, not in inline code
-(at least without optimization), because the code of sched_asym
-is not yet known at the position of that call.
-
--- 
-Klaus Kusche
-
-> From 7bad1c19317e08d398fa36d66940867110bdd037 Mon Sep 17 00:00:00 2001
-> From: Tim Chen <tim.c.chen@linux.intel.com>
-> Date: Wed, 23 Sep 2026 14:28:40 -0700
-> Subject: [PATCH] sched/cache: Honor asym packing over cache aware scheduling
->  on hybrid system
+> Update the decimator source selection logic to switch between DMIC and
+> SMIC sources based on the active input path.
 > 
-> A regression was reported on an AMD Ryzen AI HX 370 running a cache
-> intensive Clang full-LTO link. The little cores run at a much lower
-> frequency (3.3 GHz vs 5.1 GHz) and have only half of the L3 cache
-> (8 MB vs 16 MB), so pinning such a task to the little-core LLC hurts
-> twice, and full-LTO builds slow down dramatically compared to
-> pre-cache-aware-scheduling kernels.
+> The ADC_DMIC_SEL bit of CDC_VA_TXn_TX_PATH_CFG0 is shared by the DMIC and
+> the SoundWire mic mux, so a mixer write to the mux that is not part of the
+> active path can leave it stale. Program it from the resolved mux state
+> when the decimator is enabled, so capture does not depend on the order in
+> which userspace restores the two controls.
 > 
-> Asym packing and cache aware scheduling express conflicting placement
-> strategy. Asym packing wants a task to run on the highest priority
-> CPU, whereas CAS wants to co-locate the tasks of a process on one LLC
-> regardless of the priority of CPUs in that LLC. When asym packing
-> is turned on, it is trying to migrate task to an empty core that has
-> higher priority than source cpu, let asym packing win.
+> Add a helper to detect whether a decimator is using a SoundWire microphone
+> input. Use this information to skip DMIC-specific HPF programming sequences
+> when the decimator is configured for an SMIC source.
 > 
-> Reported-by: Klaus Kusche <klaus.kusche@computerix.info>
-> Closes: https://lore.kernel.org/lkml/2180ea5a-eb28-4152-8d4d-cd00b0c24b2e@computerix.info/
-> Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+> This enables VA decimators to capture audio from either DMIC or SoundWire
+> microphone inputs.
+> 
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 > ---
->  kernel/sched/fair.c | 21 ++++++++++++++++++---
->  1 file changed, 18 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index f265de8721db..89eed4fbc4e2 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -10823,6 +10823,8 @@ static inline bool task_misfits_asym_cpu(struct lb_env *env, struct task_struct
->  	return false;
->  }
->  
-> +static inline bool sched_asym(struct sched_domain *sd, int dst_cpu, int src_cpu);
-> +
->  /*
->   * Check if task p can migrate from source LLC to
->   * destination LLC in terms of cache aware load balance.
-> @@ -10847,6 +10849,10 @@ static enum llc_mig can_migrate_llc_task(struct lb_env *env,
->  	if (cpu < 0 || cpus_share_cache(src_cpu, dst_cpu))
->  		return mig_unrestricted;
->  
-> +	/* Prioritize asym packing over cache awareness */
-> +	if (sched_asym(env->sd, dst_cpu, src_cpu))
-> +		return mig_unrestricted;
-> +
->  	/* skip cache aware load balance for too many threads */
->  	if (invalid_llc_nr(grp, p, dst_cpu) ||
->  	    exceed_llc_capacity(grp, dst_cpu)) {
-> @@ -12043,6 +12049,15 @@ static inline bool llc_balance(struct lb_env *env, struct sg_lb_stats *sgs,
->  	    sgs->group_misfit_task_load)
->  		return false;
->  
-> +	/*
-> +	 * On asym packing domains, if the destination CPU
-> +	 * has higher priority than all CPUs in the source group,
-> +	 * prioritize asym packing.
-> +	 */ 
-> +	if ((env->sd->flags & SD_ASYM_PACKING) &&
-> +	    sgs->group_asym_packing)
-> +		return false;
-> +
->  	/*
->  	 * Skip cache aware tagging if nr_balanced_failed is sufficiently high.
->  	 * Threshold of cache_nice_tries is set to 1 higher than nr_balance_failed
-> @@ -13458,12 +13473,12 @@ static int need_active_balance(struct lb_env *env)
->  {
->  	struct sched_domain *sd = env->sd;
->  
-> -	if (alb_break_llc(env))
-> -		return 0;
-> -
->  	if (asym_active_balance(env))
->  		return 1;
->  
-> +	if (alb_break_llc(env))
-> +		return 0;
-> +
->  	if (imbalanced_active_balance(env))
->  		return 1;
+
+> +		if (!is_amic_enabled(comp, decimator))
+> +			snd_soc_component_update_bits(comp, hpf_gate_reg,
+> +						      CDC_VA_TX_HPF_ZERO_GATE_MASK,
+> +						      CDC_VA_TX_HPF_ZERO_GATE);
+>   
+>   		usleep_range(1000, 1010);
+>   		hpf_cut_off_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
+> @@ -1046,7 +1079,6 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
+>   				0x0);
+>   		}
 >  
 
+The commit message says the DMIC-specific HPF programming sequence is 
+skipped for SMIC paths. However, this only skips the initial ZERO_GATE 
+write; the cutoff programming and the later ZERO_GATE clear still run 
+unconditionally.
+
+Is only the ZERO_GATE assertion DMIC-specific, or should the whole HPF
+set/program/clear sequence be under the same `!is_amic_enabled() condition?
+
+Thanks
+Ajay Kumar Nandam
+
+> -
