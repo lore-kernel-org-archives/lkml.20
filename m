@@ -1,200 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC3533C18B;
-	Fri, 25 Sep 2026 07:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3634279E3
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:42:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322092; cv=none; b=ZMn862S0PBIMoxIPPWS6/eu4Vt7nE1Q0Frfbjlm2O4puR7Etowjgn8AZN3sP2Xj4RLYgT1CdkpZrMpfwldB3HJ1LCqYWkAeYctLEOrCbyTyoBj82eo88moO1mlJE6czq7icwIavx+nnb+Zo45UHNuNPYJ0GSKP0B7weUbFXt6kw=
+	t=1790322167; cv=none; b=R+ic3+tcozr/6BMQnyea58m9dsZkdi8Poh6Yzgb0JufJEg5MbYce9N/uxqZI/G86mVZEfllPB4EUve13dMlhpvVyId/JxTUFCJ7E35pUslatOX0E4jetebWhUW07mqdyxPTck+oEdLE//YGddDJZ642d0GW91CXX1GDgfGzVRNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322092; c=relaxed/simple;
-	bh=TtF3YUgRmhYqp/HGXQw7dNOjKsNcVFgn8XFttRU/b8c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SuwowDZIuK6mcLLTzLkompXAoDcrRwevVaDeKX9XvKdYdSHn0MD0E/SLO5pJ35EOnHzk2A3eUXHLmxne9NjYrX2rWWzC6MlGUxMCBRnAUk8F804gDmdFDva/cSNrFK4ABVtMmn1QVmWn1/yxqyymRlBu+7ExvmY7ZZMl1zHYcaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mojc1X2e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790322167; c=relaxed/simple;
+	bh=4Ms1j6HDHR9POx8IQpp5n2Cvct/LATjoKlGYR8Bb2vM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PNXW5nRiedmGdNO/edmhnICdz3okTzfeJwiM+NvWSRpGezlYBwbnhoBXfw8n+9MSk7wkiDF32crvJpjmImJvhgesPYu4V6ynEy4489akWJ9dkgfSp7j+P+nQH42soXs1QMR56OIuXHIaCWlxruaeMgtsYNLBHFsAcKUAsF9kAzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HVexedt5; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mojc1X2e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0BC1F000FF;
-	Fri, 25 Sep 2026 07:41:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790322091;
-	bh=sSXXHcoKeJGdNHQgFKs26HgxQNSGO9LllOG334GweVs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Mojc1X2e2BKYS5x6as8pQ1NzXmlundxvuGcBb5WPkaE7dvY7/dEEGUKy/DPS9i95v
-	 UIJesHTcAlIJTjtw/Oyk9SMcyAu9quYuxtqUg2e3bcSRFPkxa27VTOGMKge/ni2P5V
-	 jWFk9wmBeHYwcu4pjSffNF+67ayFWIYsEAcg9aL1Vll9RW+5laPjhtGkphDbsYoxWQ
-	 HLefio5ZpWeUHpBqFDJanj6jK9AY1G4+Ci4BwjEgiVLquuoFoGn/D9l9dMMXnW8pKk
-	 na+ra7w5ODe3CkjBBXKvkCNQm11V8ndON9dKEZzD5YFdhlUDCUsAVgRuUMkgEHyO3Q
-	 blAaGAUvPdDng==
-Message-ID: <226ec797-ff8c-4465-a682-21c684a25021@kernel.org>
-Date: Fri, 25 Sep 2026 09:41:24 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HVexedt5"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4888129c46eso71622f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:42:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790322164; x=1790926964; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zWr1PMB3Rc/UXhUDgKdBkp20G3Gj5KQDsYg0EGVPPQM=;
+        b=HVexedt5QhZ3flESB+YIwesNwxvTOdgSlJoXb0w4VO7ZvvFkhcCMiirjZTX1AUcBfZ
+         7gVUFFOc69/lMgr8Nmljftwl+4QOG5Vh8V5xwB19bFLgZAVj1xsrVy6XWIA8Qsp5K2xg
+         hN9PU9tFl5IJ1vtXL/CPmxpyWjPQGtg+uqnvtpY6WgkgunShCAyMxTPpS2TYhwjHqu6Y
+         HOtHSmt4QVM489IPExXJWkD69tAtxCPz0cxU0L28h5HtHv7fUnsyibRbS2+oi9LZNKoe
+         UjR+xOrVMTnit0A8q6KyTqdn0niVGh3Kyx8QcqVHMHEsxkyXdlhhLmZgAkXhsA1pgkIq
+         TA5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790322164; x=1790926964;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zWr1PMB3Rc/UXhUDgKdBkp20G3Gj5KQDsYg0EGVPPQM=;
+        b=qSX/uToSgR3Z2lmFBkntTGFY6gIw4JHdYbTUqxS0/r08+Zs6Tzgd6OC0tV1S6AZcXk
+         pn9+9fbD8igJySVW6E8PPYwqXQD0dJ4GwyW1cxNW4SJXWmTCgXjsJSKONqKWpg6co7Va
+         JvuaSzAZqHeVWfuy/KnDQSHhPfg6TE4lk9ICT0g5us8eSrVIrMs385z5qDc794eQBzCK
+         Bzu89Pk18am9jOEyPMybPrEjcL+6fe9f1kUR3jVXUxONkO9+ggT1SQyYUJ8dX7kaJw2v
+         0/JFk94uuveQnOy06P6R/2gkMGscWuFZx3nWWAI+vAf4oWXTSgR2A8ZPI6fzAa0gJD/F
+         M1Gw==
+X-Forwarded-Encrypted: i=1; AKwUvBxP3Jv37ZRNscPMZTFlA5b1YTzmCkoTgzUYd4sIO9QYxVlzBePopLf/l8nqUoJw26Sn7kH6LZLERr3B0ao=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkH7Ak5j0ttGzgqpB4Ndnd1lNIsL8lyAKNVd+NJ9tWT//FgSl7
+	kJAwsFRN6uljdmgumCGvhKJhlalWa5vSHgh2Yde0M+bGwu8icAAMeGziuxz3O/jxu+vqeQst
+X-Gm-Gg: AYBFou2N2X9Ssff/YGqAgWUKy5FDaMamRhHKo10JtEIQGcibg076zLIw/mtBZ6NehdK
+	2drAXLIIdRFqWAqN6PGtZ4Q8H2bljxh+P12hup09AYSHUI7bUne396Xi8pi23ElaSKCfKKGDFg/
+	2aCCblI3i8ZuC9S/MQsL499LfOrz5ldSqZza8UocU5NgbSs7QJQReY3Us+ZB+xd57n7W+7Y65zy
+	h4Alia3BylJ8Rb5HFkBcJWxslbeE9+9BhxAe7K0/tO+H0C5IOuNgaXnqyYc0dzzz8kJsgfX9Vmv
+	72BIxo4NfDZmCf2qGXMOiSezXXa8CRjkMDM6rbdpH5Yn5H5FA3KRbU2GciunhV9/pgDdg2aNDIA
+	6lNO4367XFIaNsjlnVgot8BLNobqySBAUAn+/2ithKIt0Yv2LlN3Ox5Wrqo3HUDHSS/bINSqyLH
+	K0C6bUOlDXtSmQd6+63Vw6TlF7BgppZrwIK79cAoxBngsYhh2ezwknozx2lCzVzvEZZ+c=
+X-Received: by 2002:a05:6000:4103:b0:488:7496:15b5 with SMTP id ffacd0b85a97d-48874961605mr5882933f8f.47.1790322163538;
+        Fri, 25 Sep 2026 00:42:43 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a355d96sm5487752f8f.17.2026.09.25.00.42.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 00:42:42 -0700 (PDT)
+Date: Fri, 25 Sep 2026 10:42:38 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: oe-kbuild@lists.linux.dev, kernel test robot <lkp@intel.com>,
+	oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: drivers/xen/gntdev.c:817 gntdev_get_page() warn: mask and shift
+ to zero: expr='(addr & ~(~((1 << 12) - 1))) >> 12'
+Message-ID: <arYl7m87hzxROT86@stanley.mountain>
+References: <202609241805.VsLzGPLn-lkp@intel.com>
+ <94cbe491-1b32-47ec-a9b5-bed69bc4d52c@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] selftests/mm: add a test for UFFDIO_MOVE of a
- write-protected swap entry
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, akpm@linux-foundation.org,
- rppt@kernel.org
-Cc: peterx@redhat.com, surenb@google.com, aarcange@redhat.com,
- ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, mhocko@suse.com,
- shuah@kernel.org, kirill@shutemov.name, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260925042907.2330519-1-donggeunyoo.kernel@gmail.com>
- <20260925042907.2330519-3-donggeunyoo.kernel@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260925042907.2330519-3-donggeunyoo.kernel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <94cbe491-1b32-47ec-a9b5-bed69bc4d52c@app.fastmail.com>
 
-On 9/25/26 06:29, Donggeun Yoo wrote:
-> Move a swapped-out page out of a write-protected area into a destination
-> registered for missing faults only, and read pagemap bit 57 at the
-> destination.  The destination was never write-protected, so the bit must
-> be clear.
+On Fri, Sep 25, 2026 at 08:43:54AM +0200, Arnd Bergmann wrote:
+> On Thu, Sep 24, 2026, at 21:39, Dan Carpenter wrote:
 > 
-> Assisted-by: LLM
-> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-> ---
->  tools/testing/selftests/mm/uffd-unit-tests.c | 61 ++++++++++++++++++++
->  1 file changed, 61 insertions(+)
+> >    489                          return -EFAULT;
+> >    490                  break;
+> >    491          case 2:
+> >    492                  if (copy_from_user(&m, udata, sizeof(struct 
+> > privcmd_mmapbatch_v2)))
+> >    493                          return -EFAULT;
+> >    494                  /* Returns per-frame error code in m.err. */
+> >    495                  if (!access_ok(m.err, m.num * (sizeof(*m.err))))
+> >                                               ^^^^^^^^^^^^^^^^^^^^^^^
+> > These integer overflow bugs are from 2012, but I guess your patch 
+> > exposed
+> > the arm32 build to the zero day bot.  The bugs only affect 32bit 
+> > systems.
 > 
-> diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/selftests/mm/uffd-unit-tests.c
-> index ef9b3956bdcfd..ae8b718f0a278 100644
-> --- a/tools/testing/selftests/mm/uffd-unit-tests.c
-> +++ b/tools/testing/selftests/mm/uffd-unit-tests.c
-> @@ -2037,6 +2037,59 @@ static void uffd_move_pmd_split_test(uffd_global_test_opts_t *gopts, uffd_test_a
->  			      uffd_move_pmd_handle_fault);
->  }
->  
-> +/*
-> + * Moving a swapped-out page out of a write-protected area must not carry the
-> + * uffd-wp bit into a destination that is not write-protect registered: such a
-> + * bit is never cleared afterwards, so pagemap keeps reporting the page as
-> + * uffd-tracked.
-> + *
-> + * Needs a swap device; skipped if MADV_PAGEOUT cannot evict the page.
-> + */
-> +static void uffd_move_swap_wp_test(uffd_global_test_opts_t *gopts,
-> +				   uffd_test_args_t *targs)
-> +{
-> +	unsigned long page_size = gopts->page_size;
-> +	struct uffdio_move move = { };
-> +	int pagemap_fd, i;
-> +
-> +	if (uffd_register(gopts->uffd, gopts->area_src, page_size,
-> +			  false, true, false))
-> +		err("register src failure");
-> +	if (uffd_register(gopts->uffd, gopts->area_dst, page_size,
-> +			  true, false, false))
+> Right, the randconfig came up with an ARMv6 Xen build, which was not
+> possible before my patch. I'm sure this was reported for other configs
+> before and just showed up as introduced by my patch here.
+> 
+> This is clearly a bug but it does look harmless to me, as it only
+> results in the userspace corrupting itself when passing invalid
+> data.
 
-Side note: this binary encoding of features is horrible.
+In ancient times, these access_ok() overflows were a much bigger deal.
+Easy to solve with a size_mul(m.num, sizeof(*m.err)).
 
-> +		err("register dst failure");
-> +
-> +	wp_range(gopts->uffd, (unsigned long)gopts->area_src, page_size, true);
-> +
-> +	pagemap_fd = pagemap_open();
-> +	for (i = 0; i < 100; i++) {
-> +		if (madvise(gopts->area_src, page_size, MADV_PAGEOUT))
-> +			err("MADV_PAGEOUT");
-> +		if (pagemap_is_swapped(pagemap_fd, gopts->area_src))
-> +			break;
-> +		usleep(10000);
-> +	}
-
-Is this loop really required? I thought the page should just be unmapped from
-the page table. It might still be in the swapcache and under writeback, but
-that's irrelevant.
-
-> +	if (!pagemap_is_swapped(pagemap_fd, gopts->area_src)) {
-> +		uffd_test_skip("MADV_PAGEOUT did not swap the page; is swap enabled?");
-> +		goto out;
-> +	}
-> +
-> +	move.dst = (unsigned long)gopts->area_dst;
-> +	move.src = (unsigned long)gopts->area_src;
-> +	move.len = page_size;
-> +	if (ioctl(gopts->uffd, UFFDIO_MOVE, &move))
-> +		err("UFFDIO_MOVE");
-> +
-> +	if (pagemap_get_entry(pagemap_fd, gopts->area_dst) & PM_UFFD_WP)
-> +		uffd_test_fail("uffd-wp bit moved into an area that is not write-protected");
-> +	else
-> +		uffd_test_pass();
-> +out:
-> +	close(pagemap_fd);
-> +	uffd_unregister(gopts->uffd, gopts->area_src, page_size);
-> +	uffd_unregister(gopts->uffd, gopts->area_dst, page_size);
-> +}
-> +
->  static bool
->  uffdio_verify_results(const char *name, int ret, int error, long result)
->  {
-> @@ -2359,6 +2412,14 @@ uffd_test_case_t uffd_tests[] = {
->  		.uffd_feature_required = UFFD_FEATURE_MOVE,
->  		.test_case_ops = &uffd_move_test_pmd_case_ops,
->  	},
-> +	{
-> +		.name = "move-swap-wp",
-> +		.uffd_fn = uffd_move_swap_wp_test,
-> +		.mem_targets = MEM_ANON,
-> +		.uffd_feature_required = UFFD_FEATURE_MOVE |
-> +		UFFD_FEATURE_PAGEFAULT_FLAG_WP,
-> +		.test_case_ops = &uffd_move_test_case_ops,
-> +	},
-Do we also want to check wrp? I'd assume it suffers from the same problem (did
-not check carefully though)
-
--- 
-Cheers,
-
-David
+regards,
+dan carpenter
