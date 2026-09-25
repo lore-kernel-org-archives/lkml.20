@@ -1,110 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76759472F6C;
-	Fri, 25 Sep 2026 07:52:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730B536E489
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322728; cv=none; b=PQbeX4FK1Z5evzJcSJpXnB0a2j5e5A2gm7lNhOn9cgRYKtuPQRmgpbQSeYJ15uQdslex5pd+ee3N9nMZ3cmRK8/7am4gHCsFFQxYfDy6Uioyho+xsZk6NzaEHQJQSCwFowHBphbID+OqUkX1dCupsy7orEkTqSx05x2BuFi8iYs=
+	t=1790322770; cv=none; b=RPGz3igzAoEzQyM+B8yn7ulyEjjq4ZR7TtrTrGFGVzlfuoXIcZ2HobI0Dc/VIUPtBfRk3HUvAUwngommHas4LJXIDoXo7aEkPU7m3A7e88YfsokJHuN44gCUBZQWWN2RojU85xdGlNk1u/CTy63YEh2ZRPHMMBsnnKoIBBANWKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322728; c=relaxed/simple;
-	bh=crAnev32KuLVSJVQjGvR5L9UQnWQcWYK9AIZ7Pe38lw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sK0X27NjTm3sJKshxDSwPV88cTaPKohsSZcPqPRcg5FcoIp3rEGbfCLTFWh2JT0IqU844iY2Rg5TfLUgHxkUl0xY95z710OJnDXI2KEDSOlJqihtsXbRYf5IJhvLorEg/NVMnyq2ZdPXg0Psy3VAVuQ0WyJwbSysaJvwqNMkr2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6SHolFL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790322770; c=relaxed/simple;
+	bh=CgRcXQie+T69ETEa8rUNcovgYaW8VSUwbPpeXhnPCS4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NvkWuVKrRxxVcE2cJO8jPCftA5r5EMZW8acNKJ079u6fjpyda8cxEKtQT+ByuwsQ882Vr2LjDXy87B/+5Ox1GJEIqJzMd4lZ1IMooBl4tqGtkCIGIq4DyGlZrzAp0CkzytIdAmDt5CyocQmbBPRg/E8GPlVr6zYyy4bedVIlUaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jZUho3+V; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6SHolFL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E3A21F00893;
-	Fri, 25 Sep 2026 07:52:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790322727;
-	bh=nAjjmueqCXIzlMRnAfqoy03r2hmAnD29o4maM9aKTQU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N6SHolFLa6lDebw2ouaPOAOdlejWz6gwgUhmD/Jgm0NlWcTI3hnfdGHS3iUHgqVA5
-	 ibx29oHhnQRxwTBSAfGXg4wDjHlXMued0VACvY5KHkxkbX5PRIT0cNjJwwrYiZQauW
-	 EFRY0nY2kJKahqLIjAfkyKj3BboAjvJnNbQGETq/PJSqHlxOGgrBZxDfjCV6+I31x2
-	 G9P9WX+C6R8pMk/wpuCGM9ADATuwWzudS/B/j3RVHPx8EN73va/ZNzo3526cw4Ve1H
-	 GbK15wqGPZ2YtdrNgqeFqo1cD6rGAC62VQzWZh/Jly02dZuL0nUY655J3+5X4FuyNs
-	 7ymINlBRO8YQQ==
-From: Ard Biesheuvel <ardb@kernel.org>
-To: linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Subject: [PATCH v2 3/3] x86/boot: Drop unused implementation of panic()
-Date: Fri, 25 Sep 2026 09:51:41 +0200
-Message-ID: <20260925075137.44298-8-ardb@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260925075137.44298-5-ardb@kernel.org>
-References: <20260925075137.44298-5-ardb@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jZUho3+V"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 532854E41071;
+	Fri, 25 Sep 2026 07:52:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1BEEA6073B;
+	Fri, 25 Sep 2026 07:52:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5DB0C1032947E;
+	Fri, 25 Sep 2026 09:52:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790322756; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=FsDCnj6jRyJlNhpK+Zm7bz+TGLpERitPmKFYbPhCRNQ=;
+	b=jZUho3+V2sXORWO/87Gy1JG8gAzwqQq5Yo3cIVVeCsAmi6ouBCI8dyt+CJGY3wK58aV+4u
+	KRFCXdEh4v54G19XseA7JQOHzrdWI6wFm1pFcfqXATFKey63PgCog/iMKV1D7F/aAQQRU1
+	GWCao+AK0NMLQ/XB080Kf/7nr+yoIJl1k0j6ikKMjpF4wH7uqV4gxxsRlLnwhi2N/uUs4N
+	ZxMU6lk0yJt7ZnWLYw24BxNEallJir7tyQ5CDhYLOSaj2Hq/WVNEAD2+OmuYlZqpCZ769J
+	ciQpDnq9fRhk4bfYHlSQFykA5llS5TNFpZMLJ4JnGtMvJCPyHjlhGycyC+aEjw==
+From: "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
+Subject: [PATCH 6.18.y 0/2] netfilter: nf_tables: join hook list via
+ splice_list_rcu() in commit phase
+Date: Fri, 25 Sep 2026 09:52:22 +0200
+Message-Id: <20260925-cve-2026-52988-6-18-v1-0-680b24895415@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1687; i=ardb@kernel.org; h=from:subject; bh=crAnev32KuLVSJVQjGvR5L9UQnWQcWYK9AIZ7Pe38lw=; b=owGbwMvMwCn83sBh/rljoYmMp9WSGLK2aXDZhea8PxooGarCsD3HZJOv29J9n9nO7pzwfDHjZ dt/HcGfOqayMAhzMsiKKbLsVM7pfu0i+k5foTIHZg4rE8gQBi5OAZhIuBJjQ5vR0S3TuxnqVmR+ TC4t0PP5IJDVsUL3VmhM0o44d1aW2ElrtR+uE/QSthCo/6yxclIFY8Nkry0nlzIfnVdkFGS9+lt 3JkvkAYEZystUpjw6caeDqVmfqzw19f+W468MXD+3ahkFrQAA
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3ZJW6G2vgrhIHXR5QCmFYIhv
+ LtFj98k829IHIUTrsWGyIskmcYMfSoQnrfxwST3bBhlrPKmprAwHaDaeOfIknbkA6vzxfquqnr
+ k5ytyL+uv2sCW2pUftP89zd3A4X0kse9f5UWAnH8AAAA=
+X-Change-ID: 20260925-cve-2026-52988-6-18-9ce03769b44f
+To: stable@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, 
+ Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>, 
+ Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Cc: miguel.gazquez@bootlin.com, thomas.petazzoni@bootlin.com, 
+ rcu@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+ netdev@vger.kernel.org, 
+ "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>, 
+ Sasha Levin <sashal@kernel.org>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-The decompressor has its own implementation of panic(), which is based
-on the vsnprintf() routine provided by the EFI stub.
+I backported an additional patch, which adds list_splice_rcu(), which is
+required.
 
-The decompressor's panic() has no remaining users, and is implemented in
-terms of the EFI stub's snprintf() implementation, which is going away
-(and relying on the EFI stub from code that does not execute in the
-context of the EFI boot services is a bad idea in general).
-
-So drop it.
-
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+Signed-off-by: Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
 ---
- arch/x86/boot/compressed/error.c | 19 -------------------
- arch/x86/boot/compressed/error.h |  1 -
- 2 files changed, 20 deletions(-)
+Pablo Neira Ayuso (2):
+      rculist: add list_splice_rcu() for private lists
+      netfilter: nf_tables: join hook list via splice_list_rcu() in commit phase
 
-diff --git a/arch/x86/boot/compressed/error.c b/arch/x86/boot/compressed/error.c
-index 19a8251de506..ce5ed7d8265e 100644
---- a/arch/x86/boot/compressed/error.c
-+++ b/arch/x86/boot/compressed/error.c
-@@ -22,22 +22,3 @@ void error(char *m)
- 	while (1)
- 		asm("hlt");
- }
--
--/* EFI libstub  provides vsnprintf() */
--#ifdef CONFIG_EFI_STUB
--void panic(const char *fmt, ...)
--{
--	static char buf[1024];
--	va_list args;
--	int len;
--
--	va_start(args, fmt);
--	len = vsnprintf(buf, sizeof(buf), fmt, args);
--	va_end(args);
--
--	if (len && buf[len - 1] == '\n')
--		buf[len - 1] = '\0';
--
--	error(buf);
--}
--#endif
-diff --git a/arch/x86/boot/compressed/error.h b/arch/x86/boot/compressed/error.h
-index 31f9e080d61a..87062dea9a20 100644
---- a/arch/x86/boot/compressed/error.h
-+++ b/arch/x86/boot/compressed/error.h
-@@ -6,6 +6,5 @@
- 
- void warn(const char *m);
- void error(char *m) __noreturn;
--void panic(const char *fmt, ...) __noreturn __cold;
- 
- #endif /* BOOT_COMPRESSED_ERROR_H */
--- 
-2.53.0
+ include/linux/rculist.h       | 29 +++++++++++++++++++++++++++++
+ net/netfilter/nf_tables_api.c |  8 ++++----
+ 2 files changed, 33 insertions(+), 4 deletions(-)
+---
+base-commit: e8694cdbd7db99fa26f6e8c80a2a337e0de29a2f
+change-id: 20260925-cve-2026-52988-6-18-9ce03769b44f
+
+Best regards,
+--  
+Benjamin Robin (Schneider Electric) <benjamin.robin@bootlin.com>
 
