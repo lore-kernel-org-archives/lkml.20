@@ -1,62 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1E14AC167;
-	Fri, 25 Sep 2026 14:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92CA4A92C7
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790345931; cv=none; b=pXQQ+eNLPs1D3EJzlulE7djnHQpnpT74YTDuxsWqgTIneAF2SpVqQFRqGYdh/eootMr6pSnXRe9Z5d3RkY5hthVsLFpmCLNdrhwVROhZxsGK3qyTy4C9ehKvaojQEYczbXJjU2CxnDuKhLHOna41U+XcE50ZeE9e55cyN6hzWE0=
+	t=1790345980; cv=none; b=BarvWi9cfJoCjD1Toy8VzWmFnfDDwKZlNsrCiH+bKP1Qa0zpjtU27kRbgLnEOEb1PYg8gmbwLVTcdDkDbPRW777sPmQOnRwuAX5H/dYwCgXPh6W9layunc+TUFi82ZItC+b7aRJGtFxXx/DP47YAthhRADVBGCxxFkRDlEBu62k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790345931; c=relaxed/simple;
-	bh=Lz7S9hRPMrOiw1jmTn397ZOfa1r7jmlgvAOidvR5GXw=;
+	s=arc-20240116; t=1790345980; c=relaxed/simple;
+	bh=P2QceO7TWL/OkfQx50Hr3eRAkUKv9seQDfKLnm86cUE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FPzujfqfETeCDCX1PtHmNJkBIoDXEyOcZEU3SKuYx6eYY9SLxg1by2oh8U0eNkp0t9E6ad5gkFe+qg6hL661vTqfMLX2vCu0zCX3BSM6+p0uFF4dn46ALhHGwvG6jvBxly7rRlCyrUmjZ3PXmFfRfyjdl1BA3O9MiWdOjUAa3i0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lAyG4tzB; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=DcA9sr0BEUhBLz4wWKL74gJl2TC6zU4uDvB0MUU+rJT+OK8bIXG/WF3kto6sFD7aC3oWYIcP9kcbjRaaMZ7FXiyrGSMcPOG0brWvWFyPKQ8fOPzgnIZYs8B/yxOIYrjauU7cBP8255r8uBuNXuyPWs7jfMpmWOHbLbllZdAFIVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GXewc01/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lAyG4tzB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790345930; x=1821881930;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Lz7S9hRPMrOiw1jmTn397ZOfa1r7jmlgvAOidvR5GXw=;
-  b=lAyG4tzB6o4ZpRGdbie/M/MsZ/YSvCs4Akd0xIArLXPUy6gmSrPT9vYe
-   oaTAlMk8rhZo5rgOpvXuFEsm1Z/JI7WTYfq5olxzG8ptnKGXWccJg3qpL
-   wMTsRZ0fgnrSxonXqxQsaADPj2BArABWQQNwcjx6F07327vbAVvzOO8R+
-   QSk3qEdFs8R+BlGrUyaCuR/3x7DKQ2mi0gbOyUEAKPHogJikA28SpRQdJ
-   uEV+ReJMjemOLwmq7SZD5VslqKcn6+5TsNkoW8wLt06gSJd1M4/txE+hH
-   bUwAxR5KHg5pAtFtAu0psmZnfQ6M1omtgS+HuB9mqfGiV4Ou2RvNE9JXs
-   g==;
-X-CSE-ConnectionGUID: FHSQyCS5QpW0MVIqOnSjBw==
-X-CSE-MsgGUID: +u1rlyI1TiePtJwPHLkcbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93849263"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="93849263"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 07:18:49 -0700
-X-CSE-ConnectionGUID: KAiusXl3RR+WUdvO5Lye9g==
-X-CSE-MsgGUID: miQA4zCQRo2QAFzrdJjNpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="273897144"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 07:18:47 -0700
-Date: Fri, 25 Sep 2026 17:18:44 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Siratul Islam <email@sirat.me>, Maxwell Doose <maxwell@maxwelld.cc>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: kmx61: reject duplicate event disable
-Message-ID: <araCxIGnZK0zuUSS@ashevche-desk.local>
-References: <20260925141006.2255067-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GXewc01/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7401F000FF;
+	Fri, 25 Sep 2026 14:19:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790345977;
+	bh=O90HcrDUDgs2gPlyP4PnGmdYEEb1BqgRZEgL2Xb6ukw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GXewc01/R8D6CuSugKRzRVSbYHz161gyghKdjbBLXgPoxnBYiwvlYMDy19RpgyO7z
+	 RoAzuRyYQ1wUfenQJmIctyatSXZcfRy5yPXkHfRwbN+jNZkFNP/CXJyPMBv0PPf7wA
+	 vB4GnsqGDG7W6YJJqHefdXeSqauBqsOF18fAxiPxFr4KmGyX6xqGN7XED4SE+qWjGm
+	 09Cm5j0x/RqY/Gb9iU2wNz3k8E3P0NuRI2X8cyJSIGHBi6WON277di/UhPFcHYlrH7
+	 ORuvIf6RIOXvnNbe1wqxNAHRMUBuWZJgB+cw5tuDSNk4IgY47Z91uDoVBFO+TD2xKU
+	 zCpLfnfzWlt7Q==
+Date: Fri, 25 Sep 2026 15:19:31 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, hughd@google.com, david@kernel.org, 
+	ziy@nvidia.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, 
+	kas@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mm: shmem: ignore sysfs configs for shmem forced
+ collapse
+Message-ID: <araC3bWDouc4_i4X@gremlin>
+References: <063f655b4d6c4234f3aa27ed6ecab10283ecb880.1789351825.git.baolin.wang@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,25 +45,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260925141006.2255067-1-yaojiale02@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <063f655b4d6c4234f3aa27ed6ecab10283ecb880.1789351825.git.baolin.wang@linux.alibaba.com>
 
-On Fri, Sep 25, 2026 at 10:10:05PM +0800, Jiale Yao wrote:
-> The IIO core does not filter duplicate writes to the event enable
-> attribute. kmx61_write_event_config() already ignores repeated enable
-> requests, but a repeated disable request still calls
-> kmx61_set_power_state(data, false, KMX61_ACC), dropping a runtime PM
-> reference that was not acquired for this request. This can underflow the
-> runtime PM usage count and trigger a "Runtime PM usage count underflow"
-> warning.
-> 
-> Return early when the requested state already matches ev_enable_state.
+On Mon, Sep 14, 2026 at 10:12:41AM +0800, Baolin Wang wrote:
+> According to Documentation/mm/transhuge.rst, MADV_COLLAPSE is expected to
+> ignore any THP or mTHP interface settings.
+>
+> However, after commit 26c7d8413aaf ("mm: thp: support "THPeligible" semantics
+> for mTHP with anonymous shmem"), performing MADV_COLLAPSE on shmem will
+> depend on /sys/.../hugepages-2048kB/shmem_enabled being set to "inherit"
+> (although that is the default), which can cause MADV_COLLAPSE to fail
+> unexpectedly.
+>
+> Fix this by returning the result of shmem_huge_global_enabled() directly
+> when MADV_COLLAPSE is requested, allowing PMD-order collapse while ignoring
+> shmem THP/mTHP settings.
+>
+> Fixes: 26c7d8413aaf ("mm: thp: support "THPeligible" semantics for mTHP with anonymous shmem")
+> Reported-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Closes: https://lore.kernel.org/all/20260908125105.1510704-7-kirill@shutemov.name/
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 
-Same comments as per previous patches of the same topic.
+Seemes reasonable!
 
--- 
-With Best Regards,
-Andy Shevchenko
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
+> ---
+> Changes from v1:
+>  - Use the correct fixes tag (per Kiryl).
+>  - Collect reviewed tags from Kiryl, Zi and Lance. Thanks.
+> ---
+>  mm/shmem.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index c92ed17dbc4a..b572c60f2af8 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -2049,8 +2049,11 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
+>
+>  	global_orders = shmem_huge_global_enabled(inode, index, write_end,
+>  						  shmem_huge_force, vma, vm_flags);
+> -	/* Tmpfs huge pages allocation */
+> -	if (!vma || !vma_is_anon_shmem(vma))
+> +	/*
+> +	 * Tmpfs huge pages allocation or forced collapse ignores
+> +	 * sysfs configs.
+> +	 */
+> +	if (!vma || !vma_is_anon_shmem(vma) || shmem_huge_force)
+>  		return global_orders;
+>
+>  	/*
+> --
+> 2.47.3
+>
 
+--
+Cheers, Lorenzo
