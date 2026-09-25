@@ -1,216 +1,159 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74462931DE;
-	Fri, 25 Sep 2026 17:34:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CFF4ADD8A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790357694; cv=none; b=OsHXUvMtoiT/gpTqL6cvo7LHJR+ScDOa8WV4JDuRRkFypgT9uOQNRf9DWI7QI7WAxXjSm3b1PhVUffbMeZFRRTfFePpxVduUkNwwRXVpAS3hdNpLnNZBetw6nPYq857Vs0io0bN6zSSxsTJwZo86jcD+kvl27FOiJBSrIHqqnuc=
+	t=1790357730; cv=none; b=QCK34ngv+Yl3M/KNMFmQ3F6YrfV+6S3+aLXD4C4Eez8uGKBRCXklzIvX2SWJCQK4F/VyfI7XkaSILnQNBWbzWuu/kAKB0ftoPX4EWIoE/K/28c5pNk19FFGgXAa5aN4QrSaLvKkDNM2OneHizcj87Jo2X8tCYtVDtVPFAiNtSCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790357694; c=relaxed/simple;
-	bh=9fMS9EGN55k8x9iYklQ1qMiwv3+ky8OIEKvs8b2tJ0w=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=rGV149jKFpHn9ITubZTwrRXfBLNtiga5wxtiPIT5VSCEujqh1T/QiWdxAUqYiDRGZgsEXtuDqZGZ/32jF2QWup6Qxt4YLtzBrB7P+W+wAvGRfbNL4g3mxidTw/sJ8QPpfITpfKFwOo+dRS4+H6z0JlI+/BoSjtItWVztX2HEzmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=YwHRIYKL; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=vbW4mgHB; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790357730; c=relaxed/simple;
+	bh=fzcoyo69KXGefqxSS7X+PXbTEIdF4MESbyCrnQvBXr4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VfNZPa1xjEfcaoeRDvuLNNYht6dRR+VoqTgmeoTpDTmKqNzIUc+2YBpMQM4I5ZFZuG3kS6R5N7zjYan08tevfRb/BM6f8ejlPvkMFyZpN9gFr1C3WpQpcLOIg7PIHpDgKtkd5fHuliotu69e/L2HYeiUujPkdDdqoIneOEmHAQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jd1jQ5RN; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="YwHRIYKL";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="vbW4mgHB"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790357675; bh=0Sgl7bEsfnsVv90ks8Rcc0S
-	PptGsKOC8t9AF3/Ay4fo=; b=YwHRIYKLnPTiRulivWE2lm/HeYzgCr0vglwvi+jEdC8/6Aupo7
-	+ntqCw958ddMAaHCVN7pnYQzEMnxFxkTenjbZ830prMZF16bbtsgoVGHdmGPR1bFAJ+XZydiLO/
-	X91avNmPVXB7empHeGx4kouvbSIStbZO40JrFNBqLkhCh3LlXnNYKRKeOxiX6eNfSg9WMaPcC1E
-	EhbY0B2PP21hjuEmPfwCaDQm8jCS+klVIqGtVvIoDlxcnWYSO8CxZI0dQTv4M09nZnmCiWOOsCP
-	lSTJYc2lGHzSht1NoAiQLvvNDYJGWFpEqzhOi0Rl2OR0yR1WyCYWMTFaShZIb2fIgHw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790357675; bh=0Sgl7bEsfnsVv90ks8Rcc0S
-	PptGsKOC8t9AF3/Ay4fo=; b=vbW4mgHBWZgU2INBk3mGgB05RwcYW3C9/ec7ISzgdN6AwJ974u
-	6HHcpUMLYsnk9ryOmBJ48315E4FaufpkmMBA==;
-Date: Fri, 25 Sep 2026 18:34:36 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: faruque.ansari@oss.qualcomm.com
-CC: avaneesh.dwivedi@oss.qualcomm.com, bleung@chromium.org, broonie@kernel.org,
- chrome-platform@lists.linux.dev, daniel.lezcano@kernel.org,
- francesco@valla.it, groeck@chromium.org, kernel@pengutronix.de,
- lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, lukasz.luba@arm.com,
- mazziesaccount@gmail.com, o.rempel@pengutronix.de, rafael@kernel.org,
- rui.zhang@intel.com, sebastian.reichel@collabora.com, sre@kernel.org,
- tzungbi@kernel.org, umang.chheda@oss.qualcomm.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v14_0/6=5D_power?=
- =?US-ASCII?Q?=3A_reset=3A_Introduce_the_Pow?=
- =?US-ASCII?Q?er_State_Change_Reasons_Recording_=28PSCRR=29_framework?=
-In-Reply-To: <20260921-pscrr-framework-v14-0-a16290003b7c@oss.qualcomm.com>
-Message-ID: <18786958-94C5-42BE-903F-ED103612C1B0@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jd1jQ5RN"
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e33b917so885831e0c.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:35:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790357728; x=1790962528; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nej2ob9CdbG1DOfUQmIUHXKCzCnebeOZh/kYsDtKROw=;
+        b=jd1jQ5RNLXOulslwVfa4fECC5p5ayy6GW+VSH/wYRKtiwr7ugBUQHRTRVla1HFWQka
+         bt+wTn+kjHCLcc2q6vC3/UZe6tb5JNKkadyOYLYhJtKIUjZCoH0rSGLHk2wE/0rKGzqn
+         HYGWGJF+aGC8ib/RK2PrFHko+zEA+0kubMkIlVk5d3oaQ8bCoV5ovULS/qVJkrvnOZcw
+         Y0gLzqQDL1r0h6k5bk6jXZxNYja6d58NpOc55a3OessRSwmnc71mywaTmDSg1q0Xlu23
+         Yvj2HSeYDfTDarXIsorgRS8vx8tcZ3CwZzPr8QZB4fogMtkZIHjaPU3J8rH0Evg/cUoB
+         Bexg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790357728; x=1790962528;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nej2ob9CdbG1DOfUQmIUHXKCzCnebeOZh/kYsDtKROw=;
+        b=nI/7tTigAI3DFH5BUMS18cBGsus6fEL288e1PHUpwezSuYAJW3MJKVClCx4agfegYU
+         UXNlJ3OE+tdN52SBZw0gHJR5x82WtnegYO1uFAc8mkZQL8Wua1KSf6yniKUTwSguxm2D
+         2yrOwH+iW4FrwQJFMbCXaHhyYRz7Ysufb71f1gzpFleaD8quJARpW+5xbsoRhLQ2joQJ
+         iXDWwKCzas0Fph1dr5WEIF7QIY2QPtBltw1WvWE/wlX62cZ2RGTQtT0iId7B3EmrOnnY
+         9kbDcKI/SIxnJWkSiuTd59RjVmQX6uYHe2ZSAfsn+wch3qQX/6QxsuhrUJvfQbG7KKpT
+         nO4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwS3ujNQqWc6cK8g9j8iyYdRUpucC+GJ9orPBGbDKsyqamP8IcrXbbmOXLUXWC44j00CFC6VRIFfW28wIA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbyfahI3lib7bayqlWeLgf1E1jVlrJHFXRrK8icL/W3kvrN6vn
+	TuRDxyEbYzH/HdsZKWcTjL+emkIKFk1XQqdKFva9PVTwSGqmPtSOjRzV
+X-Gm-Gg: AYBFou3DatLpzGX+txkkMkKLQRMbwIB1AFPYn1hWRhGUw2KMZxDWVGkYTLOsSB/ZnGz
+	SlV52hL6eL0vJTWfR9vMKy8TpwA1NcvFYdGgXk703SakcvkukLsdbM7pUZgcU8J7IOx3rxdd2AV
+	k8bcDumVuDybBuzgJbcatAJWfPJ/MPzchg6gYXSoztUIfzh19YrSimVDVnYFKoXuG5JmA/r25v4
+	oIo4SCcCn83FpXIGBrsRJSAzJZ1H2sVKBgq0J1UPgnPq+xRF+OUZU7j5Sp/touZrgOjjqdOya2R
+	YtJ4qRBmnnc5zR97/S7HTI8VyT+HWmu126ZW1quLfcu1G/cbIG+sUANz4dkjrH0I1UrfBwZj375
+	cEGmLG4OceYVbl3EHDd08nBEZH7oisg5pSeZ+FNLaW+UI/MesIJDLO8S+lHFGkbzRzmNJkazPRC
+	vijeVsfFVS09quLAZMTy4Cd71guXtslN+GzctDdOcGz7FC/Gn4xFVFtb7dMSp6ODTMuG/D7RwDd
+	nh6fRFpyxKBuu8qmF48XmCen/2Oz5S6Jw+a7ZmP/QMGOxf7jCioB2XMWCzHOydZjeYo
+X-Received: by 2002:a05:6102:5613:b0:7a1:f7e2:aae3 with SMTP id ada2fe7eead31-7af1e6f3a10mr2817620137.21.1790357727527;
+        Fri, 25 Sep 2026 10:35:27 -0700 (PDT)
+Received: from archlinux (dynamic-190-24-104-85.dynamic.etb.net.co. [190.24.104.85])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9861afee2d2sm3436422241.6.2026.09.25.10.35.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 10:35:26 -0700 (PDT)
+Date: Fri, 25 Sep 2026 12:35:24 -0500
+From: Carlos Casadiego <cdcp206@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Carlos Casadiego via B4 Relay <devnull+cdcp206.gmail.com@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+	Olof Johansson <olof@lixom.net>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] iio: accel: bmc150: check reset write error
+Message-ID: <arawwqTgXBuAsX1h@archlinux>
+References: <20260924-iio-bmc150-check-reset-error-v2-1-b6dc74d7aaf4@gmail.com>
+ <20260925040500.0f637249@jic23-hlaptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260925040500.0f637249@jic23-hlaptop>
 
-On 21 September 2026 18:44:15 BST, Faruque Ansari
-<faruque.ansari@oss.qualcomm.com> wrote:
->Hello all,
->
->A system power-state transition - a shutdown or a reboot - rarely has a
->single, unambiguous cause, and no one component sees the whole picture:
->the
->PMIC, the watchdog, the SoC reset registers, the bootloader and software
->each
->only know their own part, so there is no single source of truth.
->
->PSCRR gives these sources one central place to report side by side. Every
->provider keeps its own view - several providers, and several reasons
->within a
->provider, can be reported at once and are deliberately not collapsed into
->a
->single "winning" cause (a bit of a minority report). On top of that it
->adds a
->software-backed recorder, so software-detected reasons - under-voltage,
->over-temperature, a watchdog pretimeout, a panic, a controlled reboot -
->are
->captured too and survive into the next boot.
->
->The NVMEM-cell binding a recorder needs to pick its storage is still
->deadlocked, and several projects already need the framework, so this v13
->posts the framework, its reboot/reason infrastructure and the sysfs
->documentation only; the provider drivers (NVMEM, PMIC, ...) and the tests
->follow separately once the binding is resolved. One built-in provider,
->reporting the bootloader's device-tree /chosen/reset-source, is kept so
->the
->framework is useful on its own without a new binding.
->
->For followup drivers, see:
-> https://github.com/olerem/linux-2.6/tree/v7.2/topic/pscr-v12
->
->Changes in v14:
->- Ignore v13, it was mistakenly posted as a reply to Oleksij's v12
->  patch series.
->
->Changes in v13:
->- Rework pscrr_provider_register() based on review feedback from Francesco Valla:
->  move the pscrr_root check before allocation and narrow pscrr_lock scope.
->- Carry the series forward with Faruque Ansari as author and Oleksij
->  Rempel as co-developer, and vice versa where required.
->- Link to v12: https://lore.kernel.org/r/20260731095959.296056-1-o.rempel@pengutronix.de
->
->Changes in v12:
->- Drop all provider drivers and their tests; post the framework alone. The
->  NVMEM-cell binding a recorder needs to pick its storage is still
->  deadlocked, and several projects already need the framework - so unblock
->  the core now and let the providers (NVMEM, PMIC, ...) follow separately.
->- Rework into a multi-provider design (per-provider /sys/kernel/pscrr/
->  directories); add reason tokens and a built-in /chosen/reset-source
->  provider.
->
->Changes in v11:
->- add missing break reported by kernel test robot <lkp@intel.com>
->
->Changes in v10:
->- add some add Reviewed-by tags
->- regulator_handle_critical: set pscr = PSCR_UNKNOWN for default case
->- make g_pscrr static
->
->Changes in v9:
->- Remove redundant pr_crit() messages before hw_protection_trigger()
->- Replace psc_reason_to_str() switch with static const string array
->- Mark psc_last_reason as static
->
->Changes in v8:
->- Use DEFINE_GUARD() and guard(g_pscrr) for scoped locking of the global
->  pscrr_core struct
->- Replace manual mutex_lock/unlock with automatic cleanup-based guard() usage
->- Centralize backend and locking state in struct pscrr_core
->- Prepare for future multi-backend support with clean encapsulation
->- Improve sysfs documentation
->
->Changes in v7:
->- document expected values in sysfs documentation
->- make write support optional
->
->Changes in v6:
->- add sysfs documentation
->- push core part of the reset reason into kernel/reboot.c
->
->Changes in v5:
->- fix compile with NVMEM=n and potential issues with NVMEM=m
->
->Changes in v4:
->- fix compile with CONFIG_PSCRR=n
->
->Changes in v3:
->- rework to remove devicetree dependencies
->- extend NVMEM to search devices and cells by names
->
->Changes in v2:
->- rename the framework from PSCR to PSCRR (last R is for Recorder)
->- extend the power-on reason header and reuse it for the detected reason
->- rebase on top of v6.8-rc1
->
->To: Sebastian Reichel <sre@kernel.org>
->To: Benson Leung <bleung@chromium.org>
->To: Tzung-Bi Shih <tzungbi@kernel.org>
->To: Guenter Roeck <groeck@chromium.org>
->To: Liam Girdwood <lgirdwood@gmail.com>
->To: Mark Brown <broonie@kernel.org>
->To: Matti Vaittinen <mazziesaccount@gmail.com>
->To: Rafael J. Wysocki <rafael@kernel.org>
->To: Daniel Lezcano <daniel.lezcano@kernel.org>
->To: Zhang Rui <rui.zhang@intel.com>
->To: Lukasz Luba <lukasz.luba@arm.com>
->To: Oleksij Rempel <o.rempel@pengutronix.de>
->To: Pengutronix Kernel Team <kernel@pengutronix.de>
->Cc: linux-arm-msm@vger.kernel.org
->Cc: linux-pm@vger.kernel.org
->Cc: linux-kernel@vger.kernel.org
->Cc: chrome-platform@lists.linux.dev
->Cc: avaneesh.dwivedi@oss.qualcomm.com
->Cc: Umang Chheda <umang.chheda@oss.qualcomm.com>
->
->Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
->---
->Faruque Ansari (6):
->      power: Extend power_on_reason.h for upcoming PSCRR framework
->      reboot: hw_protection_trigger: use standardized numeric shutdown/reboot reasons instead of strings
->      reboot: add parsable tokens for power state change reasons
->      reboot: extend psc_reason with power-on and reset causes
->      power: reset: Introduce PSCR Recording Framework for Non-Volatile Storage
->      Documentation: Add sysfs documentation for PSCRR
->
-> Documentation/ABI/testing/sysfs-kernel-pscrr | 108 +++++
-> MAINTAINERS                                  |  11 +
-> drivers/platform/chrome/cros_ec_lpc.c        |   2 +-
-> drivers/power/reset/Kconfig                  |   2 +
-> drivers/power/reset/Makefile                 |   1 +
-> drivers/power/reset/pscrr/Kconfig            |  33 ++
-> drivers/power/reset/pscrr/Makefile           |   2 +
-> drivers/power/reset/pscrr/pscrr.c            | 633
-> +++++++++++++++++++++++++++
-> drivers/regulator/core.c                     |  16 +-
-> drivers/regulator/irq_helpers.c              |   9 +-
-> drivers/thermal/thermal_core.c               |   3 +-
-> include/linux/power/power_on_reason.h        |   5 +
-> include/linux/pscrr.h                        | 107 +++++
-> include/linux/reboot.h                       | 108 ++++-
-> kernel/reboot.c                              | 165 ++++++-
-> 15 files changed, 1183 insertions(+), 22 deletions(-)
->---
->base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
->change-id: 20260921-pscrr-framework-25f48818efe8
->
->Best regards,
->
-Hi, all of the reboot.c patches looks good to me, I mean, they have nits
-attached by Matti, but I'm focused more on "correctness"
+I have not verified this on BMC150 hardware.
 
+The datasheet documents the soft reset, but I could not find a guarantee
+that the I2C write is acknowledged before the reset starts.
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Given that, I agree that propagating this error could cause a regression,
+so I think the patch should be dropped.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Thanks for pointing this out.
+
+En Fri, Sep 25, 2026 at 04:05:00AM +0100, Jonathan Cameron escribió:
+> On Thu, 24 Sep 2026 09:48:45 -0500
+> Carlos Casadiego via B4 Relay <devnull+cdcp206.gmail.com@kernel.org> wrote:
+> 
+> > From: Carlos Casadiego <cdcp206@gmail.com>
+> > 
+> > The software reset is required to bring the device into a known
+> > state before reading the chip ID.
+> > 
+> > Check the return value of regmap_write() and abort initialization if
+> > the reset command cannot be written.
+> > 
+> > Fixes: 1c500840934a ("iio: accel: bmc150: reset chip at init time")
+> > Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+> > Signed-off-by: Carlos Casadiego <cdcp206@gmail.com>
+> 
+> Just to check: Was this verified against actual hardware?
+> 
+> Quite a few devices get going on their resets before sending
+> acks on i2c which means you get an error on that particular
+> write.  That is often why you don't see an error check on this
+> particular operation.
+> 
+> 
+> 
+> 
+> > ---
+> > Changes in v2:
+> > - Remove the blank line in the tag block.
+> > - Add Srinivas Pandruvada's Acked-by.
+> > - Link to v1: https://patch.msgid.link/20260923-iio-bmc150-check-reset-error-v1-1-b8c1ebc4c947@gmail.com
+> > ---
+> >  drivers/iio/accel/bmc150-accel-core.c | 8 ++++++--
+> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/iio/accel/bmc150-accel-core.c b/drivers/iio/accel/bmc150-accel-core.c
+> > index 46bb36d9366e..43a39e1ccce5 100644
+> > --- a/drivers/iio/accel/bmc150-accel-core.c
+> > +++ b/drivers/iio/accel/bmc150-accel-core.c
+> > @@ -1561,8 +1561,12 @@ static int bmc150_accel_chip_init(struct bmc150_accel_data *data)
+> >  	 * Reset chip to get it in a known good state. A delay of 1.8ms after
+> >  	 * reset is required according to the data sheets of supported chips.
+> >  	 */
+> > -	regmap_write(data->regmap, BMC150_ACCEL_REG_RESET,
+> > -		     BMC150_ACCEL_RESET_VAL);
+> > +	ret = regmap_write(data->regmap, BMC150_ACCEL_REG_RESET,
+> > +			   BMC150_ACCEL_RESET_VAL);
+> > +	if (ret < 0) {
+> > +		dev_err(dev, "Error writing reset register\n");
+> > +		return ret;
+> > +	}
+> >  	usleep_range(1800, 2500);
+> >  
+> >  	ret = regmap_read(data->regmap, BMC150_ACCEL_REG_CHIP_ID, &val);
+> > 
+> > ---
+> > base-commit: d8c0f48f0b1583308a98401c0c7b1a65d1d43a6c
+> > change-id: 20260923-iio-bmc150-check-reset-error-389b096b0ad4
+> > 
+> > Best regards,
+> > --  
+> > Carlos Casadiego <cdcp206@gmail.com>
+> > 
+> > 
+> 
