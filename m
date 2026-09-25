@@ -1,218 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD0732ED3A;
-	Fri, 25 Sep 2026 02:28:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B803603C7;
+	Fri, 25 Sep 2026 02:28:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790303318; cv=none; b=abmP6LBLj9qkKfMELLZXHPwY4YUvDEsS35OCAkveHU+FAreMqDMiB8lXuTWwzwIDMiMTlz76lnfRDn3zykxb9KnskZb/UNo62tWVdzKYe9Iwl1tL6QEkCg2ZU7V6+RTZCR8TIhYdQQp/6ouH2pO+vmIz77lGdKQ+AVYkuB5C6Vs=
+	t=1790303326; cv=none; b=tTdaejaIvKnChTq0b1r6ARkkfESCNwd3gyq+slsYsJYLGlPL2nGtIGJV9/peM0YmmW5uhAEwOvEo3I/SQMRZqsSqdhSEsntw3+bjQpw4UDWoR1GqfDeJjE6cqILYfgxoQCbH+LJxuTd5kECiKBk/JE5NHn7lmp9EHCuVF8KdHa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790303318; c=relaxed/simple;
-	bh=z4Q9Up30GPThJgGmkONs/sU9OzCm7u+4BRBNcNRjapI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=P9LgwhdP+EoTXXYfn3ylhIbYGkVoJ7b4DuMdSerCwxDOzsdMNU78dCZAUyfg8gBgvfAk4rRlnTn7DHE/r63uzVqQoAwtYdv3dvhzIOBugqJH5XQxehOc2Xpq/MvrbaP1/HUldzh6hLt41vfzwIwhcR/4e6/p7Kq1xzXDUYk3jWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KyHXYh0H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790303326; c=relaxed/simple;
+	bh=zso+kvxDJ2qv1iSLP+PynnfmiZtMeHqCGB0+L3RiEr0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eA/JNMqx3drwxj+u+Ip3HJwu1CRUvIEkanJHuY+slqg18AKazCvjX8FVFuUKnGwWmflI5wPdQodHLIWqab9uuSdvAhKbdv1YcMicbNwWbHPpsB2EoRaMxYw+2tu2V8RDyDDagYm/7p5XQWEteVgO/dLf7Pf1Nypj+XS4Ld2K/RA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=oi9wDrWC; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyHXYh0H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC661F000FF;
-	Fri, 25 Sep 2026 02:28:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790303317;
-	bh=5v6MISeHpe/4mcQWjNeXTIoK1j5tdhtNL1a+WNkKcVA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KyHXYh0HjdRAhI2c8amvu8OK9kSSzq3wdaQ9klJYqpPl3cBxDfRw47svldz+6Vxbm
-	 x8jrGSHm0B3LScpQ6yxQEdcEGpmmVRjCLQfbREoIrhz2B+YMSUXSV7HhsmtBlNXYIb
-	 cwplPoWBNquP5vp3/N8zoOfL4UGEY3kI4BFi+21p8rEHTwrexix8d237yim4QbI8R3
-	 I8n8H2WUk2kDlOckrvkFbfZ8LiXEko4koVWZtkbBon/ETTP7OtgXu+ITz1W2ukGWYN
-	 Wnu75Irj+QQWX6zZAlXm4ROhGCB2EWz+PLjSRiH+f17WLc1bK4N2EjcEK+bf5IKpiP
-	 mZCoriVpWt74w==
-Date: Fri, 25 Sep 2026 03:28:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v9 3/5] iio: magnetometer: ak8975: use temporary
- variable for struct device
-Message-ID: <20260925032834.16498c58@jic23-hlaptop>
-In-Reply-To: <20260925032112.1cf46d80@jic23-hlaptop>
-References: <20260920-ak8975-cleanup-v9-0-1b0f00ec19ef@gmail.com>
-	<20260920-ak8975-cleanup-v9-3-1b0f00ec19ef@gmail.com>
-	<20260925032112.1cf46d80@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="oi9wDrWC"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hrZPt1tr4zMlfh;
+	Fri, 25 Sep 2026 04:28:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790303314;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t2LBfSxfYe3nbU/Oot6vi1YmJRa0ldi8/fdJliZoxhE=;
+	b=oi9wDrWCwviJoq7itWrS+FalgDhqY1qSnj/ItoxGgFO1Gu32Xmkh2FEqd59qSGTkcLTC7F
+	enNCjTKmb7ZzeGicbRgcxgsQOdJvx77zvUIAi8Vl7IMJOWkx+pFM/JSSpvhbCK4yzw8+rK
+	42hSO5CJxuGNheYgkC1WnrlQ74uA+m/JPb6glIcmt6COQ+9yzN88VVomaOkZonbt3EzeO7
+	JAirXVGFevO7WjWjUIrFDjztORUMLV6/VdJT8eeaF1wa1BA1Xe2En7gKXHB6hM32OXcqQz
+	BxXU/6Zx2Pn50wQGb0osGkOzu5p6j3u3Ivx1TXzHWODpouA4hfGcMg6msNG2Rw==
+Date: Fri, 25 Sep 2026 04:28:29 +0200
+From: Benjamin Boortz <bennib@mailbox.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
+	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
+Message-ID: <arXcFhLUX0qXiQsm@bb-82jq>
+References: <20260923140644.756254324@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
+X-MBO-RS-ID: 8e7a7eb4477a049776a
+X-MBO-RS-META: ysd5qnass3dta3brsxa47rf8xkszep8z
 
-On Fri, 25 Sep 2026 03:21:12 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Wed, Sep 23, 2026 at 04:00:21PM +0200, Greg Kroah-Hartman wrote:
 
-> On Sun, 20 Sep 2026 20:05:25 +0200
-> Joshua Crofts <joshua.crofts1@gmail.com> wrote:
->=20
-> > From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> >=20
-> > Use temporary variable for struct device to make code neater.
-> >=20
-> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
-> > Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com> =20
-> A couple of places in here where I'd also switch to dev_err_probe().
->=20
-> Jonathan
-diff --git a/drivers/iio/magnetometer/ak8975.c b/drivers/iio/magnetometer/a=
-k8975.c
-index 66f105d8e42d..0e0eba116d52 100644
---- a/drivers/iio/magnetometer/ak8975.c
-+++ b/drivers/iio/magnetometer/ak8975.c
-@@ -613,38 +613,28 @@ static int ak8975_setup(struct ak8975_data *data)
-=20
-        /* Write the fused rom access mode. */
-        ret =3D ak8975_set_mode(data, FUSE_ROM);
--       if (ret < 0) {
--               dev_err(dev, "Error in setting fuse access mode\n");
--               return ret;
--       }
-+       if (ret < 0)
-+               return dev_err_probe(dev, ret, "Error in setting fuse acces=
-s mode\n");
-=20
-        /* Get asa data and store in the device data. */
-        ret =3D i2c_smbus_read_i2c_block_data_or_emulated(client,
-                                                        data->def->ctrl_reg=
-s[ASA_BASE],
-                                                        sizeof(data->asa),
-                                                        data->asa);
--       if (ret < 0) {
--               dev_err(dev, "Not able to read asa data\n");
--               return ret;
--       }
--       if (ret !=3D sizeof(data->asa)) {
--               dev_err(dev, "Error reading asa data\n");
--               return -EIO;
--       }
-+       if (ret < 0)
-+               return dev_err_probe(dev, ret, "Not able to read asa data\n=
-");
-+       if (ret !=3D sizeof(data->asa))
-+               return dev_err_probe(dev, ret, "Error reading asa data\n");
-=20
-        /* After reading fuse ROM data set power-down mode */
-        ret =3D ak8975_set_mode(data, POWER_DOWN);
--       if (ret < 0) {
--               dev_err(dev, "Error in setting power-down mode\n");
--               return ret;
--       }
-+       if (ret < 0)
-+               return dev_err_probe(dev, ret, "Error in setting power-down=
- mode\n");
-=20
-        if (data->eoc_gpiod || client->irq > 0) {
-                ret =3D ak8975_setup_irq(data);
--               if (ret < 0) {
--                       dev_err(dev, "Error setting data ready interrupt\n"=
-);
--                       return ret;
--               }
-+               if (ret < 0)
-+                       return dev_err_probe(dev, ret, "Error setting data =
-ready interrupt\n");
-        }
-=20
-        data->raw_to_gauss[0] =3D data->def->raw_to_gauss(data->asa[0]);
->=20
-> > ---
-> >  drivers/iio/magnetometer/ak8975.c | 65 +++++++++++++++++++------------=
---------
-> >  1 file changed, 32 insertions(+), 33 deletions(-)
-> >=20
-> > diff --git a/drivers/iio/magnetometer/ak8975.c b/drivers/iio/magnetomet=
-er/ak8975.c
-> > index 59a7bb83a731..42f6892f4efd 100644
-> > --- a/drivers/iio/magnetometer/ak8975.c
-> > +++ b/drivers/iio/magnetometer/ak8975.c =20
->=20
-> > @@ -580,6 +579,7 @@ static irqreturn_t ak8975_irq_handler(int irq, void=
- *data)
-> >  static int ak8975_setup_irq(struct ak8975_data *data)
-> >  {
-> >  	struct i2c_client *client =3D data->client;
-> > +	struct device *dev =3D &client->dev;
-> >  	int irq;
-> >  	int ret;
-> > =20
-> > @@ -590,9 +590,8 @@ static int ak8975_setup_irq(struct ak8975_data *dat=
-a)
-> >  	else
-> >  		irq =3D gpiod_to_irq(data->eoc_gpiod);
-> > =20
-> > -	ret =3D devm_request_irq(&client->dev, irq, ak8975_irq_handler,
-> > -			       IRQF_TRIGGER_RISING,
-> > -			       dev_name(&client->dev), data);
-> > +	ret =3D devm_request_irq(dev, irq, ak8975_irq_handler, IRQF_TRIGGER_R=
-ISING,
-> > +			       dev_name(dev), data);
-> >  	if (ret)
-> >  		return ret;
-> > =20
-> > @@ -608,12 +607,13 @@ static int ak8975_setup_irq(struct ak8975_data *d=
-ata)
-> >  static int ak8975_setup(struct ak8975_data *data)
-> >  {
-> >  	struct i2c_client *client =3D data->client;
-> > +	struct device *dev =3D &client->dev;
-> >  	int ret;
-> > =20
-> >  	/* Write the fused rom access mode. */
-> >  	ret =3D ak8975_set_mode(data, FUSE_ROM);
-> >  	if (ret < 0) {
-> > -		dev_err(&client->dev, "Error in setting fuse access mode\n");
-> > +		dev_err(dev, "Error in setting fuse access mode\n");
-> >  		return ret;
-> >  	}
-> > =20
-> > @@ -623,26 +623,25 @@ static int ak8975_setup(struct ak8975_data *data)
-> >  							sizeof(data->asa),
-> >  							data->asa);
-> >  	if (ret < 0) {
-> > -		dev_err(&client->dev, "Not able to read asa data\n"); =20
->=20
-> _setup is only called from probe, so the prints in here can all
-> be return dev_err_probe();
->=20
-> > +		dev_err(dev, "Not able to read asa data\n");
-> >  		return ret;
-> >  	}
-> >  	if (ret !=3D sizeof(data->asa)) {
-> > -		dev_err(&client->dev, "Error reading asa data\n");
-> > +		dev_err(dev, "Error reading asa data\n");
-> >  		return -EIO;
-> >  	}
-> > =20
-> >  	/* After reading fuse ROM data set power-down mode */
-> >  	ret =3D ak8975_set_mode(data, POWER_DOWN);
-> >  	if (ret < 0) {
-> > -		dev_err(&client->dev, "Error in setting power-down mode\n");
-> > +		dev_err(dev, "Error in setting power-down mode\n");
-> >  		return ret;
-> >  	}
-> > =20
-> >  	if (data->eoc_gpiod || client->irq > 0) {
-> >  		ret =3D ak8975_setup_irq(data);
-> >  		if (ret < 0) {
-> > -			dev_err(&client->dev,
-> > -				"Error setting data ready interrupt\n");
-> > +			dev_err(dev, "Error setting data ready interrupt\n");
-> >  			return ret;
-> >  		}
-> >  	} =20
->=20
->=20
->=20
+>This is the start of the stable review cycle for the 7.2.8 release.
+>There are 438 patches in this series, all will be posted as a response
+>to this one.  If anyone has any issues with these being applied, please
+>let me know.
+
+Build and boot tested with QEMU for x86_64, i386, arm64, and riscv
+across multiple configurations, and boots on AMD Ryzen 7 5800H.
+No regressions observed.
+
+Tested-by: Benjamin Boortz <bennib@mailbox.org>
 
