@@ -1,135 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E27E422522
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C72343899
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:32:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790314244; cv=none; b=T8UPtQsCup/9Z8Uy1qsPf0LFsuoQn/c7RXNQ8OdUKmGISY3NImCIeZqhhn/myfF6tOZ9MTaBk7SDVWNpqoXA4t9M2Hd5ZwCtvJSdCe3m8iS2l3R3kVoOV3GfMv2sZYiv99Pc4z5TSNX+YLK5JuT+eUk7hjSPE60b8F41h+T5fn8=
+	t=1790314341; cv=none; b=CUybMLF6lLiDP+GrkKqqQ7aeAo6UCGq8rM/4KSYm7eAKNeHfsrKmtRAHkyNfy9+LSmdphYsvitX7GKYCBb2XUndL/W5Ut6MQL2/nuxtl4YYGCGT0KyspOu+x3d+UhKc2aPF1VqOM2PfqVvk62TQrsSxoIli/bypeqlae0ZEFAHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790314244; c=relaxed/simple;
-	bh=woF2v9CO+9k+xhnEELF3zVy7m1Qb3HiAIZRwyEAKx4c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uqdQ3RykT8zgE9C5rSqzsa4YSfZQrTVtuX6XOmbP6GImVcViYd2VdEkHWx6Y32pG1WzVIRIjFr5GgozlTbpRAXHefy3jAwV4Xfb2a625xN2OalZzJkan2b03diXTARwbrm3a6HQri8idVzoitawGOgIIQ57J94/jecTQOvEomnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DAjoFiD2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790314341; c=relaxed/simple;
+	bh=OA6Puq8GEsEgmszu2sBjmctnxLzOG12itnYfXkTQdZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EKvvDtxed3G8YT45uB9Gs+UdbsqTGb8+uOyEnnpvZ+EHAaNJAuIy+IRXHWoTaru6qacjmLiLj3Rl1vkdLtZiVFkZjHgR0avI8/9YVkSR/mYIDamDGjbk0gFYzjWGusCLMavNrpvW0ABtw7OB1eqsERYNH7K0UGo/KpzQNtpKlb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=modal.com; spf=pass smtp.mailfrom=modal.com; dkim=pass (2048-bit key) header.d=modal.com header.i=@modal.com header.b=JLHsXPRh; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=modal.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modal.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DAjoFiD2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4971F00898
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:30:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790314242;
-	bh=iuVHKe+kHLV/jSPQ1Sp6pScTLQ6GybikNB88F+4NQpg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DAjoFiD24Cdy6c2ES17VvfffdKkBKZC8OaKquPQylTnZu3l0Rfcfzkow9Fvr1RQpM
-	 CreQeqEJU5ZY92W638ubb5rI6AJm4tgu8yU2Oods0rF8H5iFRaC/UvmozeNqFweKfl
-	 DNjEM5WcsC2W44XwmRN6vUQIgOJ5voCv5QZkI5X/G+5xgZZMzsJzvQWvYy4gX9B/3J
-	 KwJV1JBh/C+bx5VoCTbLUD3AtEneolnWi2VACjE+DFz+yDVsRMqi72YNiGWbow+lsx
-	 1cwHVrEDdYho5sLmNjCYZHgVt06d5avWNJt/2DVQmfe3967e7PrWAZJgsSjfyjs/1G
-	 vmqiNUoe0ffIw==
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93a222edc62so57162885a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:30:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByMW3anN3a0+LPwKPbsYRSxyq2t3n7ZL5R2abmi9//xy30U2bDd5EshFkpznfOW7ZkaHVukoV2+ycNg2jE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5sOKDAUzPZnXK/ib9M+ZGdiuAQUA8qre3fa27jmtjVot6XV0W
-	pXlNhOkhpWlMkLHTHkhKiGJ2AhVN/dyaepRhURLhGF+jRUBAQmx+85foCzEMRtm1viBb68bbRZy
-	+3tpf1LW9yiqAETrV77I0nDt91hYJiPY=
-X-Received: by 2002:a05:620a:2945:b0:93c:b10:7243 with SMTP id
- af79cd13be357-93c43b61d03mr262098485a.5.1790314242069; Thu, 24 Sep 2026
- 22:30:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=modal.com header.i=@modal.com header.b="JLHsXPRh"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea50dc3so166362a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 22:32:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=modal.com; s=google; t=1790314339; x=1790919139; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ehv35jM2xSxwjjV6xaS7dv57/W9hK0TedPz2NPct384=;
+        b=JLHsXPRhRUDzpWZQ33K+O85NAnnMuj4hj9xhQPmP20pFllbTQBsI4gRnfQrQfkx0C0
+         uCJyPpOkBQxCy2/h2sdrr7Zbkr/oJezByooYjSzid5ICG792Qm3vUcBTj62e5spaiD0D
+         0M5UtHRkzdoEzbw8i6pl06zlrryg8FLoJCkGyMNTO4VQp8WzVEUNbub56iju+90/5dH1
+         JFzSvejDjAd8BtbfVoHY7u/Oag0n5+wh6HIkFypeU5Sg3xRH28nKckc/cW5C+xTGsnRK
+         1v/Ry6UUbV20sVPo9nm0klvBxmu5vbsqY05boRfZrcpvRGBRnbXR/GWTMBlpi5ahShhc
+         aSlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790314339; x=1790919139;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ehv35jM2xSxwjjV6xaS7dv57/W9hK0TedPz2NPct384=;
+        b=r2K8m54oDPzgR+V3KP3h6nkyhD7YSGxxmAZPPZc9dCmTZ4ACpE58vSp0SgZBsINzH2
+         0gErmH7bgMgu8L0FpuuyFuChxAfOpT+jkyTdEoFmTvZ/W8GitfhnqY+Ai9CCX2ejkNHF
+         vKZMVoIfOCO7yzVVfOBbjW95OEMC+9bim3ileV5c43cMhf+ufNS1WHsW3+JcCi0X4LC5
+         KwGEjyZC9s9XLerGdn0FQqCkm+uKdqLkNTsjFu7mBxS/w7aDnd4xSxPy3UftTBZeFmRF
+         TItQ/j+REPUmNeJ1Y17aeQosGFBEBTZTgl/TwlRe52ViXUCSeuPzCABQhE0fnmHxOWWG
+         OS1Q==
+X-Forwarded-Encrypted: i=1; AKwUvByfNMB24sG6w3Dsk4GR/Qgc+rqqY90n1QjVhM6M7ZkIVnYiSOk+Wz4HQKgs9FiHtg6K6suvWOe/wnRQIJ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvqpURnb8ETDxhyBEGP6ArS2EQ7KMCwlnYgYCv3KH2TW0AFGsw
+	1aOtMEY9ZNBoihx5VFgMvmU6BfpXFEYW8fHet1FiIHqduDkNlxN5Zo/uQBYD9cAYIf4=
+X-Gm-Gg: AYBFou3GhL+pMFMIU0qTSTwwGI22yfiAYnYERDlsBSFyvGv63mmToblPMCJ43VavkT+
+	PHaYl7Y7ANCVBdtE+DIuz420tu5aLAnzkGezCRykiOW3Nk90iDwFwYBvevakvsargm4qp1c0vTZ
+	8Lxkg5cQb5fY+IAG7MAsD6F5w6g+9g/s1tX3rGu0pvnFpfZ/z2ibLW1xdu9az3zkybbzi6MBlFV
+	maPfeiu1lFRPhhi5qhrBXSvSZJU4K7ILSPwuDc2UvL8ZZKrM1lC+blEchenHrng6hToM9Ff9jl/
+	QmN02bSOW06iBMCCX5ApeHgNlRURAHTqicW6JLNNbd9D7YnHFaJsdaQcpONLerWUQsJ+I1U4STE
+	zWZXPpiPdODvcXMoMcHpVCf0GUs/C8dz6Cvarop5S5HuQ25cxM5hxVgKOs4TkbGs66+s6zR7e5p
+	KXUe/gWq/nJbaosfjL74B24WGPG/rYIg5ig6d8zxFVASQJTzPTXvlJoPJnxnq5GwpB31voVbI/P
+	yn1hPoVMYgHFfH0vvfVtzh7W7TQbbpelvnaTDWngcTYj0kWDR+ZEEGnUffQ+VQ+RN6wIiX9q9JN
+	syBMoNxEsDBTOlPfLHkKVyglKnlwymoHxg1E5W83tTpo3uUm
+X-Received: by 2002:a17:90b:2fc4:b0:39e:6c6a:4b64 with SMTP id 98e67ed59e1d1-3a098dfb087mr4009593a91.46.1790314339197;
+        Thu, 24 Sep 2026 22:32:19 -0700 (PDT)
+Received: from devbox-ayushr-01ed.tail5292b.ts.net (ec2-44-242-192-44.us-west-2.compute.amazonaws.com. [44.242.192.44])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b4f5b1aasm936305a91.1.2026.09.24.22.32.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 22:32:18 -0700 (PDT)
+From: Ayush Ranjan <ayushr@modal.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Ayush Ranjan <ayushr@modal.com>,
+	Hugh Dickins <hughd@google.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Gregory Price <gourry@gourry.net>,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts page cache / rss counters
+Date: Fri, 25 Sep 2026 05:32:10 +0000
+Message-ID: <20260925053211.2036445-1-ayushr@modal.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <uf7lys6izqrxjsp3tstqxmdok5yy3w52d3bnpkfzyjm7uiyqzr@ickbg3ocvcji>
+References: <20260924061708.1645968-1-ayushr@modal.com> <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net> <uf7lys6izqrxjsp3tstqxmdok5yy3w52d3bnpkfzyjm7uiyqzr@ickbg3ocvcji>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924131106.1730494-1-dev.jain@arm.com> <20260924131106.1730494-5-dev.jain@arm.com>
-In-Reply-To: <20260924131106.1730494-5-dev.jain@arm.com>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 25 Sep 2026 13:30:31 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yDZypOxjwmAY_usM+v_OJahShz-_uRSAiUZUAzv14VRA@mail.gmail.com>
-X-Gm-Features: AclHuK8jj4BEC2ZukHa7pkW7xEBHFBfsvYex5BDejOLunxBiVqvO5dSgOHCPAnA
-Message-ID: <CAGsJ_4yDZypOxjwmAY_usM+v_OJahShz-_uRSAiUZUAzv14VRA@mail.gmail.com>
-Subject: Re: [PATCH v3 4/9] mm/rmap: Add batched version of folio_try_share_anon_rmap_pte
-To: Dev Jain <dev.jain@arm.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	hughd@google.com, chrisl@kernel.org, kasong@tencent.com, davem@davemloft.net, 
-	andreas@gaisler.com, riel@surriel.com, liam@infradead.org, vbabka@kernel.org, 
-	harry@kernel.org, jannh@google.com, lance.yang@linux.dev, 
-	baolin.wang@linux.alibaba.com, shikemeng@huaweicloud.com, nphamcs@gmail.com, 
-	baoquan.he@linux.dev, youngjun.park@lge.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, pfalcato@suse.de, jgg@ziepe.ca, thuth@redhat.com, 
-	sparclinux@vger.kernel.org, ryan.roberts@arm.com, anshuman.khandual@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 9:11=E2=80=AFPM Dev Jain <dev.jain@arm.com> wrote:
->
-> To enable batched unmapping of anonymous folios, we need to handle the
-> sharing of exclusive pages. Hence, a batched version of
-> folio_try_share_anon_rmap_pte is required.
->
-> Currently, the sole purpose of nr_pages in __folio_try_share_anon_rmap is
-> to do some rmap sanity checks. Now, clear the PageAnonExclusive bit on a
-> batch of nr_pages. Refactor the function such that the clearing of the bi=
-t
-> can be done at one place without duplication.
->
-> Note that __folio_try_share_anon_rmap can receive nr_pages =3D=3D HPAGE_P=
-MD_NR
-> from the PMD path, but currently we only clear the bit on the head page.
-> Retain this behaviour by setting nr_pages =3D 1 in case the caller is
-> folio_try_share_anon_rmap_pmd.
->
-> While at it, convert nr_pages to unsigned long to future-proof from
-> overflow in case P4D-huge mappings etc get supported down the road.
-> I haven't made such a change in each function receiving nr_pages in
-> try_to_unmap_one - perhaps this can be done incrementally.
->
-> Add two WARN's: check that the batch is entirely exclusive (for PMD
-> callers, need to check only head page), and that there are only
-> PTE/PMD paths converging into __folio_try_share_anon_rmap.
->
-> Signed-off-by: Dev Jain <dev.jain@arm.com>
+On Thu, Sep 24, 2026 at 09:15 +0000, Jan Kara wrote:
+> Can this be perhaps somehow related to the fixes in partial large folio
+> truncation Zhang Yi is working on, possibly even the tmpfs bug in handling
+> of folio split I've found [1]? It seems large folios are used here so that
+> matches, I just don't immediately see how those bugs would lead to the
+> errors reported here...
 
-The patch looks correct to me, but it seems a bit hard to follow
-because of the `pinnable` handling.
+That would fit what I see, for what it's worth:
 
-> ---
->  include/linux/rmap.h | 56 ++++++++++++++++++++++++++++++--------------
->  1 file changed, 39 insertions(+), 17 deletions(-)
->
-> diff --git a/include/linux/rmap.h b/include/linux/rmap.h
-> index 62ef511a6175a..91b5763ef466f 100644
-> --- a/include/linux/rmap.h
-> +++ b/include/linux/rmap.h
-> @@ -723,17 +723,23 @@ static inline int folio_try_dup_anon_rmap_pmd(struc=
-t folio *folio,
->  }
->
->  static __always_inline int __folio_try_share_anon_rmap(struct folio *fol=
-io,
-> -               struct page *page, int nr_pages, enum pgtable_level level=
-)
-> +               struct page *page, unsigned long nr_pages, enum pgtable_l=
-evel level)
->  {
-> +       /* device private folios cannot get pinned via GUP. */
-> +       const bool pinnable =3D !folio_is_device_private(folio);
-> +
+  - the rss-counter imbalance from the reproducer is always exactly
+    one PMD-order folio (+/-512), which looks more like large-folio
+    split/accounting going wrong than lost or extra PTEs;
 
-If we make a helper that does:
+  - the reproducer's punching thread deliberately mixes unaligned
+    sub-PMD ranges, so partial truncation of large folios is exercised
+    constantly, and the production "still mapped when deleted" splat
+    is reported from truncate_inode_partial_folio() (full stack in my
+    reply to Pedro).
 
-for (;;) {
-     ClearPageAnonExclusive(page);
-     if (--nr_pages =3D=3D 0)
-               break;
-     page++;
-}
-
-wouldn't that allow us to avoid this ugly `pinnable` variant?
-
-Then we can make a much smaller modification, which should
-also be much easier to follow? No?
-
-Best Regards
-Barry
+Thanks,
+Ayush
