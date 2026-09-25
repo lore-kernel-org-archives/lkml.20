@@ -1,228 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB824E80C3;
-	Fri, 25 Sep 2026 16:39:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103D54E8E06
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:40:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354413; cv=none; b=rpe92FIlNDjZPf4W+L7bpd40ecTNU7Vv9eHidnmQnX42I6unC/zcIs6fo7/vKbxllApRNV+vP+g738h/l9mrt7twgtBfA/PvfCTY9mGvbpzug3X1Q7IUmWX41STG4UQq0OypfrYB0n5vQiBp9l+nu3ZwJ9ARtizVcQWY7NZhWL8=
+	t=1790354412; cv=none; b=pY0u5ikqWY8ilHkUenxmSs/sO/LQIs+bL2IHre+WLEhclg6OL6Rafo8PRAJ5ewlbjmkMGy7U6U6udwUGdntWiCBVYIdykbhbKdqtZY+jFoIMNroHjScRWOH8pit/6/qmaIhJdLcHoGhEsjUyUthNakKSmmLmy6jlRjgt5lixYOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354413; c=relaxed/simple;
-	bh=fdXA+7OaBsNV8TRWDics8GbB+kxJtdx9lSKqXXMCMog=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ON60tTvVHKW9SvJmNGBQ9DYadY/pdwsIIpUNp4tsHe/MFXfvq0Y6Jvr2vCyBMSn7r/TWwJq7OFzfk7VaMuuFX5xEFkYMVGNOx3QcUCg+lvypyNNh3ZwF2WkoNEJrsErMHL8Haoz2yp8ocLYdXVVQz+a5NNE1R/SPH4Ynhcp7beg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d7Wx1Jx0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790354412; c=relaxed/simple;
+	bh=LnFCumRPW5KkkTADLpdYawZ4Ym7zY4tKFvbDYPg3oPo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nA47JcI/vHGrbeDocy4h12iysVIFQV7K1E9JMtBGY7+rkhLo6oZ6fXnAdOkVyB9BtNGy7qeNqJlaQGmW20eS1fLjaq2DXNLCJPQGybJGPqbbbtgFtVCfJCMvot6jNeK123OMpelQ4F6uiCafO6DjkXpgaB6CRdbi7GZvhI6WlLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Da4kxrr7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d7Wx1Jx0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 031F61F00893;
-	Fri, 25 Sep 2026 16:39:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Da4kxrr7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB2EF1F0089F
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:40:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790354392;
-	bh=1jykViny6r6kbRxSStwd/fOT3w6GsHOrhLRb0gYmw/w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d7Wx1Jx0c4Byv+JWmPgJYpTuBza3tRPkQOYu6w8gVNI5VCVeKHnBMVRhliUozczTe
-	 cyGTjd6dikhJwhCzlrUJbX6fjK9lSkN3FbMRZAAJ6ye4mHAIbSxGfvbjgB3IF5FDiD
-	 4woQ0hDHe9SUyqI5RPhkkxpyz38Q23X1JpThgmd4hgaKqouo/7C+fSLl26ayCoUtAW
-	 bHXYJd1lkJru3N+WlIjR2g0Hqd+8wIl9ZpX2Teu2CW7LUpxUaivqisgbFFQihGWeT1
-	 5hBPqMCNXPiEzYYDttrDlUw618iC+v+z2b4n+syqfpc0YzKN6rXGieQJ30XldtKj3B
-	 5u7FIUQdawUOQ==
-From: Simon Horman <horms@kernel.org>
-To: parvathi@couthit.com
-Cc: Simon Horman <horms@kernel.org>,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	danishanwar@ti.com,
-	rogerq@kernel.org,
-	pmohan@couthit.com,
-	afd@ti.com,
-	vadim.fedorenko@linux.dev,
-	haokexin@gmail.com,
-	basharath@couthit.com,
-	arnd@arndb.de,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	pratheesh@ti.com,
-	j-rameshbabu@ti.com,
-	vigneshr@ti.com,
-	praneeth@ti.com,
-	srk@ti.com,
-	rogerq@ti.com,
-	m-malladi@ti.com,
-	krishna@couthit.com,
-	mohan@couthit.com
-Subject: Re: [PATCH net-next v4 3/3] net: ti: icssm-prueth: Support duplicate HW offload feature for HSR and PRP
-Date: Fri, 25 Sep 2026 17:39:44 +0100
-Message-ID: <20260925163944.721179-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921134343.200426-4-parvathi@couthit.com>
-References: <20260921134343.200426-4-parvathi@couthit.com>
+	s=k20260515; t=1790354406;
+	bh=LnFCumRPW5KkkTADLpdYawZ4Ym7zY4tKFvbDYPg3oPo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Da4kxrr7dMbJ32AyfEX245OU5vO+hGYp+YxW5c6M2i8h8OVAwUI7Cbu3rS49JXuM6
+	 a5mRllx20Kf7Gu/kdQ/IyGqoaboeBvciomnz1Ltjll/+/PTVGyrDaqe1+gA0Y47xvO
+	 DJoQAKx1nVc374htNwc85lEzwp/HzzgNsyWcivEgs6GNNsa4xQ7SR0aSNCwfjftMEj
+	 cccMdGVqXQl6XIqK2VHbFzt3jUe8mCt6GpGV5NYIZku/bFtx+d0J3lOdzd8Fxf8KZk
+	 7R6CbsVHXoMTRatNOkm3PicYGfrsVqIju8y1V2ITIroph3ga0NTfCm9KmL9d0MlWCD
+	 TaRaThs668h0A==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5d0ad9b89so8998911fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:40:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByOTSE2yKRfknx6XSw3Dxa239sqz+Ewgt7dTewkE8jc9/MuLKa+mnTKMgGyADdyA1h7drqeNurZJpg/h14=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZrYI7Q+GgRD0IqFUn3tkE4ymcYjh6O0jOWLq8u+yAI4RpjJff
+	/AAleq7WYNki4B8z0rN827SgwNyzcBscRwN9a81/misSLYtuoA6o1UzllgMP037IPU/cPQOYN3j
+	v8YRyEYAM52MHGA07VSbewgHG1rSAdsM=
+X-Received: by 2002:a05:651c:154a:b0:3a3:74b9:8a79 with SMTP id
+ 38308e7fff4ca-3a63c30cb49mr16943651fa.18.1790354405251; Fri, 25 Sep 2026
+ 09:40:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <12985239.O9o76ZdvQC@rafael.j.wysocki> <SN6PR02MB415753ABAFF3119B85B4DEEFD4802@SN6PR02MB4157.namprd02.prod.outlook.com>
+In-Reply-To: <SN6PR02MB415753ABAFF3119B85B4DEEFD4802@SN6PR02MB4157.namprd02.prod.outlook.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 25 Sep 2026 18:38:26 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0iT49TDwYFHOpeSgci3dEySae-ggdwYFeh4YnAY=qD2Zg@mail.gmail.com>
+X-Gm-Features: AclHuK92Clwh4unR71Db_V9est7mnsRaI26kEfG495yOxv53OK9E3laP1v2FN2s
+Message-ID: <CAJZ5v0iT49TDwYFHOpeSgci3dEySae-ggdwYFeh4YnAY=qD2Zg@mail.gmail.com>
+Subject: Re: [PATCH v3] driver core/ACPI: Introduce companion_bus_register()
+To: Michael Kelley <mhklinux@outlook.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Linux Driver Core Development <driver-core@lists.linux.dev>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>, Hyper-V List <linux-hyperv@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://sashiko.dev/#/patchset/20260921134343.200426-4-parvathi@couthit.com?part=3
----
-net: ti: icssm-prueth: Support duplicate HW offload feature for HSR and PRP
+On Fri, Sep 25, 2026 at 6:38=E2=80=AFPM Michael Kelley <mhklinux@outlook.co=
+m> wrote:
+>
+> From: Rafael J. Wysocki <rafael@kernel.org> Sent: Friday, September 25, 2=
+026 2:24 AM
+> >
+> > The ACPI bus type does not allow drivers to be matched to devices, so
+> > the sysfs attributes related to drivers created for it are useless and
+> > their existence is confusing.
+> >
+> > Moreover, it is better to prevent drivers from being registered and
+> > looked up for a bus like that.
+> >
+> > To allow skipping the creation of those sysfs attributes and preventing
+> > driver registration and lookup for the ACPI bus type, introduce a
+> > "companion" bus type concept and add a special registration function
+> > for registering "companion" bus types, companion_bus_register().
+> >
+> > The "drivers" directory under the ACPI bus type is still needed because
+> > there are versions of systemd that depend on it [1].
+> >
+> > Link: https://lore.kernel.org/linux-acpi/SN6PR02MB41575266A4580339E186E=
+5D9D4812@SN6PR02MB4157.namprd02.prod.outlook.com/ [1]
+> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> > Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>
+> Tested this against 7.3.0-rc2, running on my Ubuntu 20.04 instance
+> with the older systemd, and as a Hyper-V guest. The VM booted
+> as expected, whereas the boot failed with v2 of this patch.
+>
+> Tested-by: Michael Kelley <mhklinux@outlook.com>
+> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
 
-This commit introduces hardware duplication offloading for HSR and PRP in
-the PRU Ethernet driver. It uses a shared queue to write frames into OCMC
-RAM once, replicating transmission in firmware, and adds receive-side
-handling for duplicate frames.
-
-> diff --git a/drivers/net/ethernet/ti/icssm/icssm_prueth.c b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
-> --- a/drivers/net/ethernet/ti/icssm/icssm_prueth.c
-> +++ b/drivers/net/ethernet/ti/icssm/icssm_prueth.c
-[ ... ]
-> @@ -656,6 +725,57 @@ static int icssm_prueth_tx_enqueue(struct prueth_emac *emac,
->  	if (PRUETH_IS_HSR(prueth))
->  		wr_buf_desc |= BIT(PRUETH_BD_HSR_FRAME_SHIFT);
->  
-> +	if (prueth_is_lre(prueth)) {
-> +		ethhdr = (struct ethhdr *)skb_mac_header(skb);
-> +		proto = ethhdr->h_proto;
-> +
-> +		if (proto == htons(ETH_P_8021Q)) {
-> +			vlan_hdr = (struct vlan_ethhdr *)ethhdr;
-> +			proto = vlan_hdr->h_vlan_encapsulated_proto;
-> +			is_vlan = true;
-> +		}
-> +
-> +		/* Check if the SKB has HSR tag */
-> +		if (PRUETH_IS_HSR(prueth) && proto == htons(ETH_P_HSR)) {
-> +			hdr = skb_mac_header(skb);
-> +
-> +			if (is_vlan) {
-> +				hsr_ethhdr =
-> +					(struct hsr_txopt_ethhdr *)(hdr +
-> +								    VLAN_HLEN);
-> +			} else {
-> +				hsr_ethhdr = (struct hsr_txopt_ethhdr *)hdr;
-> +			}
-> +
-> +			/* PTP frames (ETH_P_1588) carry no LAN ID
-> +			 * in the HSR tag
-> +			 */
-> +			if (hsr_ethhdr->hsr_tag.encap_proto !=
-> +			    htons(ETH_P_1588)) {
-> +				wr_buf_desc |= PRUETH_BD_LAN_INFO_MASK;
-
-[Severity: Medium]
-Is it expected to unconditionally duplicate the frame here?
-
-The driver exposes NETIF_F_HW_HSR_DUP as a toggleable ethtool feature, but
-this data path checks PRUETH_IS_HSR() and always performs duplication. If a
-user disables hw-hsr-dup, the software HSR core will duplicate packets and
-send two copies. The hardware will then duplicate them again, causing a
-broadcast storm.
-
-Should this check the active ndev features instead?
-
-> +			} else {
-> +				wr_buf_desc |= (txport <<
-> +						PRUETH_BD_LAN_A_SHIFT);
-> +			}
-> +			wr_buf_desc |= PRUETH_BD_RED_PKT_MASK;
-> +		} else if (PRUETH_IS_PRP(prueth)) {
-> +			/* Check if the SKB has PRP tag */
-> +			struct prp_txopt_rct *rct =
-> +				(struct prp_txopt_rct *)(skb_tail_pointer(skb) -
-> +							 ICSSM_LRE_TAG_SIZE);
-> +
-> +			if (rct->prp_suffix == htons(ETH_P_PRP)) {
-
-[Severity: Medium]
-Could this lead to unaligned memory accesses?
-
-Since skb->len can be odd for arbitrary payloads like ICMP packets, the
-tail pointer may be unaligned. The struct prp_txopt_rct contains __be16
-fields and is not marked as __packed. Dereferencing rct->prp_suffix
-directly from an unaligned address can cause unaligned access exceptions on
-some ARM architectures.
-
-> +				wr_buf_desc |= PRUETH_BD_LAN_INFO_MASK;
-> +				wr_buf_desc |= PRUETH_BD_RED_PKT_MASK;
-> +			} else {
-> +				wr_buf_desc |= (txport <<
-> +						PRUETH_BD_LAN_A_SHIFT);
-> +			}
-> +		} else {
-> +			wr_buf_desc |= (txport << PRUETH_BD_LAN_A_SHIFT);
-> +		}
-> +	}
-[ ... ]
-> @@ -741,11 +871,36 @@ int icssm_emac_rx_packet(struct prueth_emac *emac, u16 *bd_rd_ptr,
-[ ... ]
-> +	actual_pkt_len = pkt_info->length;
-> +
-> +	if (has_hsr_tag)
-> +		actual_pkt_len -= ICSSM_LRE_TAG_SIZE;
-
-[Severity: Medium]
-Does this unconditionally strip the HSR tag regardless of the netdev feature
-configuration?
-
-Similar to the duplication offload, NETIF_F_HW_HSR_TAG_RM is exposed via
-ethtool but not checked in this data path. If a user disables tag removal in
-hardware, the host stack might fail to parse the packet since the driver
-still forcibly strips the tag.
-
->  
->  	/* Allocate a socket buffer for this packet */
->  	skb = netdev_alloc_skb_ip_align(ndev, actual_pkt_len);
-[ ... ]
-> @@ -1309,17 +1473,31 @@ static enum netdev_tx icssm_emac_ndo_start_xmit(struct sk_buff *skb,
->  						struct net_device *ndev)
->  {
->  	struct prueth_emac *emac = netdev_priv(ndev);
-> +	/* Spinlock for Tx Queues */
-> +	spinlock_t *lock_queue;
-> +	unsigned long flags;
->  	int ret;
->  	u16 qid;
->  
->  	qid = icssm_prueth_get_tx_queue_id(emac->prueth, skb);
-> +	/* Select the TX queue spin lock for this queue ID */
-> +	if (prueth_is_lre(emac->prueth))
-> +		lock_queue = &emac->prueth->lre_host_queue_lock[qid - 2];
-> +	else
-> +		lock_queue = &emac->host_queue_lock[qid - 2];
-> +
-
-[Severity: High]
-Could a race condition occur here when the interface mode changes?
-
-Because icssm_prueth_change_mode can modify the eth_type (which changes the
-result of prueth_is_lre) and calls ndo_stop directly without waiting for
-in-flight ndo_start_xmit calls to complete, there is a time-of-check to
-time-of-use vulnerability.
-
-If eth_type changes between this lock selection and the lock acquisition
-below, one thread could acquire host_queue_lock while another acquires
-lre_host_queue_lock. Both might then evaluate prueth_is_lre() as true inside
-icssm_prueth_tx_enqueue, concurrently modifying the exact same shared LRE
-queue descriptors and causing queue corruption.
-
-> +	if (eth_skb_pad(skb)) {
-> +		if (netif_msg_tx_err(emac) && net_ratelimit())
-> +			netdev_err(ndev, "packet pad failed\n");
-> +		atomic64_inc(&emac->stats.tx_dropped);
-> +		return NETDEV_TX_OK;
-> +	}
-> +
-> +	spin_lock_irqsave(lock_queue, flags);
->  	ret = icssm_prueth_tx_enqueue(emac, skb, qid);
-> -	if (ret) {
-> -		if (ret != -ENOBUFS && netif_msg_tx_err(emac) &&
-> -		    net_ratelimit())
-> -			netdev_err(ndev, "packet queue failed: %d\n", ret);
-> +	spin_unlock_irqrestore(lock_queue, flags);
+Thank you!
