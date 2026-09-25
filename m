@@ -1,62 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57BB3C1094;
-	Fri, 25 Sep 2026 13:45:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B84747ECC8;
+	Fri, 25 Sep 2026 13:47:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343958; cv=none; b=PsbNU2B7dM2tRWuHX95M6GpT7VZslIBCo/LspZs4R1L3eqnmPj/BJWy0WCw/NLTtXhAlKM8u/CqfsG/t9WOqmBlSG9eXlbaw5HIG5BFkOc3ssodwN5/d3hgJq5bb79h+zof34melBOkMCLhSX+MPSF9zck8zzRBSmOsmAELRgCI=
+	t=1790344040; cv=none; b=pF0RmvOsodpRxSjk17zp3w40Cz9cxQKReaJ9fg8xHQ+J6EYw4kRtB7z5IKBEqvyoStB2Aqdbt1xtG77l75ZaS9kTdn/81ZF8hGyTRxiRGgzFOg0tD9pdec6Cjdg3qBrMe3fzafeTFZ1y9ehSnElHHNqLzh98f4LNQTbwJfJbDtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343958; c=relaxed/simple;
-	bh=dRl1yVhiXESaw3QxbXdm8h50uudzdf7P9l3hydLvojw=;
+	s=arc-20240116; t=1790344040; c=relaxed/simple;
+	bh=F7NqRQh6Iqu9662fFFUXc6ZTQjcakCemsHwCU8vyQqE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oCJLZeN8heuq9rnVjEHTms8KZlqEowBGnxhZ9MgRLP3PYBT5a7k6k+xvHQMzqWHnM90tsFv33g4rAn2QaEw4dBlHSlRMEXbz0nnZuJrDG4Z+pFTE8oaOC6eP3vNNL4pEupTGFoo3A0DzFr/dzGJDhcxfznuXF+FRFMjoCw+pzAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7p2wa2x; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FGGWJmKYn192U025bwqoGNwUbQZt5pbtiuiIcd42XsWVYriGkmCEM2rcescZZwuq74KSiyAEsr1rkGT4PDV50gByx2wWcsq5jutkbuWsdIgFJQ0nRlQNWB25Q4l3svmqpzwNpxwxAhdKxTlRYtWxxIngZuhHBxnLaSdYnXwZXFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ErI23zIE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7p2wa2x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736931F000FF;
-	Fri, 25 Sep 2026 13:45:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ErI23zIE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1B6B1F000FF;
+	Fri, 25 Sep 2026 13:47:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790343957;
-	bh=59nxGZHJvZr5XQ75rR1WP8mIQYoF7VHfx/7++gmKwVs=;
+	s=k20260515; t=1790344039;
+	bh=R3hsk3Eb5fjuVF/d97+eog9UgG37J77aZb9c19pgAA0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E7p2wa2x0o2/f0OxRCp/ys2zOdoPobNAspj4UQaYXeiqO9y1Ft4AXI5pjAYa6FLnD
-	 QLI2fz/jl875IcpiMY2QdsIJcG91Xx628FjOP6OeleSwqTzm3AzZmojY6OurOGv1fh
-	 1KUVCxFddAEmQThy+IljjjMVWBMsuImkSocJasvDTh5/BnM5LytuAzKs2yV0OQTmI7
-	 YpdJ4xv7Tu/q8mFMpP8aYnX6U9w759/UtRtQ9/LYwJ6Zh64os3XgUyoXFVaGfMSnc/
-	 zz4880ZdoLWegb9GrKdj0rU0IAzme7+CtIgVB3X6W/gInnRm9ib5CCHdB+GmQjxcxx
-	 kmQ7zmcnWHfrw==
-Date: Fri, 25 Sep 2026 15:45:51 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Kir Kolyshkin <kolyshkin@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, Jeff Layton <jlayton@kernel.org>, 
-	"Eric W . Biederman" <ebiederm@xmission.com>, David Howells <dhowells@redhat.com>, 
-	Amir Goldstein <amir73il@gmail.com>, Andrei Vagin <avagin@google.com>, Shuah Khan <shuah@kernel.org>, 
-	Giuseppe Scrivano <giuseppe@scrivano.org>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, containers@lists.linux.dev
-Subject: Re: [RFC PATCH] mount: add OPEN_TREE_SKIP_MNTNS
-Message-ID: <20260925-zugnummer-intolerant-unwahr-2cddd52e435c@brauner>
-References: <20260923205028.711077-1-kolyshkin@gmail.com>
+	b=ErI23zIEm3VBF8axMd3vcbrkD7GnIdKBCQeV7StoMbuP6Pja2cZGHntUcy7hoJao5
+	 MeK78fycmSzbsNzJ4akgzj72+off9h5q/sLveZklI7Zc++kkSZCd+2ofvURFilNM/o
+	 5x/h+bUnqWlCsP0Kxun6phVnZKRK6HbmUzNbZHJBU0OofT00wRuJdmUONdgHApQkV5
+	 CMq68fgcZS4HRmuqeB6xA4jhl8OmokKHPaoIg0HQcZYixdWZ3VoLQNnhz/+7r3ixxp
+	 5k1jWUYf56ywmIfCqu7FWthKHS1gpE/mFngKhifWt6f+P8MNv301h2KHJAXo4HWF9j
+	 bxN/fDmj34H8w==
+Date: Fri, 25 Sep 2026 14:47:14 +0100
+From: Simon Horman <horms@kernel.org>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Doug Berger <opendmb@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Justin Chen <justin.chen@broadcom.com>, kmehltretter@gmail.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: bcmgenet: allocate RX buffers as page fragments
+Message-ID: <20260925134714.GM13925@horms.kernel.org>
+References: <20260924101922.2675127-1-nb@tipi-net.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923205028.711077-1-kolyshkin@gmail.com>
+In-Reply-To: <20260924101922.2675127-1-nb@tipi-net.de>
 
-On Wed, Sep 23, 2026 at 01:50:25PM -0700, Kir Kolyshkin wrote:
-> crun, a container runtime, recently started using OPEN_TREE_NAMESPACE to
-> set up the container's mount namespace, and open_tree(OPEN_TREE_CLONE)
-> for the sources of its bind mounts.  This turns out not to work on hosts
-> that have a mount namespace pinned anywhere below such a source: the
-> recursive clone picks the pinned namespace up, and move_mount(2) then
-> refuses to attach the tree with ELOOP from check_for_nsfs_mounts().
-> This was reported to crun in [1].
+On Thu, Sep 24, 2026 at 12:19:21PM +0200, Nicolai Buchwitz wrote:
+> Since the page_pool conversion every RX buffer is a whole page and the
+> skb truesize is the page, although the hardware writes at most 2 KiB of
+> it. On 64 KiB pages a packet therefore counts 65792 bytes against the
+> socket buffer where it used to count 2752. As a result a UDP socket
+> with the default buffer starts to drop after three packets, and the RX
+> rings pin 16 MiB for 512 KiB of buffers.
+> 
+> Fix this and allocate the buffers as page fragments, so the truesize is
+> what a packet occupies. 4 KiB pages stay one buffer per page.
+> 
+> Sync each buffer in the refill path, as page_pool can only sync a whole
+> page on recycle. On 4 KiB pages that is twice what the hardware wrote.
+> 
+> Fixes: 7bc054c2d4ed ("net: bcmgenet: convert RX path to page_pool")
+> Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Closes: https://lore.kernel.org/all/20260924065839.56793-1-kmehltretter@gmail.com/
+> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-Yeah, I think that makes sense. Please split this into two patches
-though: semantic changes separate from test changes. Maybe call it
-OPEN_TREE_DROP_MNTNS_MOUNTS instead?
+...
+
+> @@ -2254,11 +2257,12 @@ static int bcmgenet_rx_refill(struct bcmgenet_rx_ring *ring,
+>  			      struct enet_cb *cb)
+>  {
+>  	struct bcmgenet_priv *priv = ring->priv;
+> +	unsigned int size = GENET_RX_BUF_SIZE;
+> +	unsigned int offset;
+>  	dma_addr_t mapping;
+>  	struct page *page;
+>  
+> -	page = page_pool_alloc_pages(ring->page_pool,
+> -				     GFP_ATOMIC);
+> +	page = page_pool_dev_alloc(ring->page_pool, &offset, &size);
+
+I think it is not so important either way, but I'm wondering
+if you considered using page_pool_alloc_frag() here.
+
+>  	if (!page) {
+>  		priv->mib.alloc_rx_buff_failed++;
+>  		netif_err(priv, rx_err, priv->dev,
+
+...
