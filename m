@@ -1,109 +1,88 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF21D488227;
-	Fri, 25 Sep 2026 09:45:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B74748640A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790329523; cv=none; b=JMjlUCK8uaRmvRAD6BiwA+W9MzmodRpxxp9o4IJgnybNiyTuxqTCPyc+qst0DutyjM/znY38Z9MNHStDanrRBHK5G+7cpQULbzoqsCN4pKCvhxkyObFGvN4ZjLGgWzzuDEKao3DO+2Sk1+Mda445X4CM3WGwNfRIGauTv1kSORw=
+	t=1790329540; cv=none; b=Y3kLPmU3kdJ/orjaj+R9fIj5Ca8QIfr3U1TYrlJXS3KAWHHfZKgW9lwXwD4d9iMnhsL4+ldOUESFNTFUOqJfcEipM2PocJyxlCZ5ISv7fcsd9dbODqSVnvQXzUnzEdbu1DOlqIAGiavzfAyHCZeLR+jEe7i8YmHoT97+7f1kaS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790329523; c=relaxed/simple;
-	bh=u03sCXgRX7pcyePoPYi95dX0Tff82Nq1OTABJ1meNc0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lQNacCrx/RolKWkLHFkeCaeofkkSWmT5J3TMNlkiY4WeagTPmkZ0Gi26GIQJ9FCoihD6g4CCI+5Rc9G0ci4gqNR19c4H3etxbPaWRQDu7zbzHu4dzO5XdhFr35NWy22nT/7PRtbUnE4Uly120W+4xw6rY6cWL/Ve7tuHqsf1p+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f1nmoBxH; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790329540; c=relaxed/simple;
+	bh=hVLNA8llyUn7Lq9zEZMrLdBjjuDOXvUThATt634uEHY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bvgZCDUL3a7hlvev5Q07FBl/OptXFHr5wnMaz8W1KDPTaanCuO1mWh1QI9cBmL/8b0lOJS73HQSC3UFvqMMZ3ZEXh/x/dH91snvlAiZBZ8Mn9IrhOsycD2WG+ASPAS99ZDEkw8UxVdU2TGv+Gy6/iX1uShUJxv5P66vnXIIIRFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=qv31wrhi; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f1nmoBxH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790329521; x=1821865521;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=u03sCXgRX7pcyePoPYi95dX0Tff82Nq1OTABJ1meNc0=;
-  b=f1nmoBxH6kK+qiwur8BkUgvRtWP2QTgTaa6cX7eRhpsRVmy1PMwsfV6U
-   3ZbahELlgc0V68L3EjGaOT5tU75kXCXuomYRKRQ5pjcz2gEslAVkTHUn1
-   wP1SGsfRR5k0FxmwmJuUuRf/SJVVd0ubp7R0tBX6SRgJKQ1yMIDlMmgo/
-   721kW4+7dyUHeCKVtBuGOVtVChnDcbYMo5VyAAYuMxIX/3HTuqxZfr5A0
-   /lVRnZZFPOxMrCQRsEIdqdGSu80lgnZs1PuAKy3VHNKdOO7ZOhQ64S0b6
-   5Pc7sAts5NWVO6YJUkejnYXFdTZl2es0DlkZDi+xaOtzUCDTclS6ngLmg
-   Q==;
-X-CSE-ConnectionGUID: 7o7ZgGCVRl++1vGNaEIW1w==
-X-CSE-MsgGUID: Q/HoOFrGQ2iBfirJ1SFEGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90019980"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="90019980"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 02:45:20 -0700
-X-CSE-ConnectionGUID: wdn0TnkBRpSrePz8THZskQ==
-X-CSE-MsgGUID: lcRbf3LGT5+3e3PDRzZSIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="277458396"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 02:45:15 -0700
-Date: Fri, 25 Sep 2026 12:45:13 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH RFC 01/11] ACPI: irq: Return -EPROBE_DEFER on missing IRQ
- domain
-Message-ID: <arZCqRJHaCp-pgWI@ashevche-desk.local>
-References: <20260925-acpi-static-table-irq-probe-defer-v1-0-2c62125d0085@kernel.org>
- <20260925-acpi-static-table-irq-probe-defer-v1-1-2c62125d0085@kernel.org>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="qv31wrhi"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=EbKmQmawPcLMgSKHp45FiPglETAC7VTaq1PXQmNkJEY=; b=qv31wrhiEqpDx9nkhKl0+jAhYy
+	fpXevY49UoUNJk8YlVXJYlDX+Y40bP6T2KhhY1HOsY8WnF2W2DcHtnBmr9ReEA21gpmhjhpt2flde
+	/h1/+FRlbpbJuTMJ3/9yH8HDAc46Pql/vDL3Haf49Ga2pc+qUeDrWGghy9E9vaD4IAUdQ3x9zNYEH
+	BEwQIedbhypYtD18Plw2zG/LGsPf8michkHHaIt/4dSBk351NQjp6liwBqnmgI0ITXSlCbhjF621Q
+	45QlZSAEYtjmOdKimq8ZVR9eRY50VkmVT5Tp8D67/QPeWE4bxmtu7Qei480urF9Hg+ruP9QTfulJz
+	D15wrsnQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xA2Ui-007575-Qe; Fri, 25 Sep 2026 11:45:28 +0200
+Message-ID: <3f2c2f1b-e6ea-4ef0-a405-a840fdca6ce5@igalia.com>
+Date: Fri, 25 Sep 2026 10:45:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-acpi-static-table-irq-probe-defer-v1-1-2c62125d0085@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] drm/amd/display: assign missing trace entry in
+ amdgpu_dm_dc_clocks_state
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, aurabindo.pillai@amd.com,
+ christian.koenig@amd.com, David.Francis@amd.com, harry.wentland@amd.com,
+ simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ linux-kernel@vger.kernel.org
+References: <20260924211410.867686-1-mwen@igalia.com>
+ <20260924211410.867686-2-mwen@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260924211410.867686-2-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 25, 2026 at 09:48:00AM +0200, Lorenzo Pieralisi wrote:
-> acpi_register_gsi() might fail if the IRQ domain a GSI belongs to has
-> not been registered yet by the respective interrupt controller driver.
+
+On 24/09/2026 22:10, Melissa Wen wrote:
+> disp_dpp_voltage_level_khz is declared and printed, but never assigned.
+> So when using clock tracepoint the value of this clock is just garbage.
+> Assign clk->disp_dpp_voltage_level_khz since this is stored in dc_clocks
+> as other entries.
 > 
-> Return -EPROBE_DEFER in this case so that the mapping can be retried
-> later by deferring the probe for the driver that requested the IRQ
-> mapping.
-> 
-> Signed-off-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
-
-> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> Cc: Marc Zyngier <maz@kernel.org>
-
-You may keep the Cc list under the '---' cutter, so this noise won't make
-the commit message. The email will be still send to the respective people
-and someone can harvest it in the lore archive if needed in the future
-(when commit gets accepted).
-
-Note, you may keep that part in your local Git tree (in the commit message)
-and handle with `b4 trailers`.
-
+> Fixes: 13b5ca42ca9c ("drm/amd/display: Add tracepoint for capturing clocks state")
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 > ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> index f33a2c1e0da5..cc70aeb75798 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+> @@ -513,6 +513,7 @@ TRACE_EVENT(amdgpu_dm_dc_clocks_state,
+>   	    TP_fast_assign(
+>   			   __entry->dispclk_khz = clk->dispclk_khz;
+>   			   __entry->dppclk_khz = clk->dppclk_khz;
+> +			   __entry->disp_dpp_voltage_level_khz = clk->disp_dpp_voltage_level_khz;
+>   			   __entry->dcfclk_khz = clk->dcfclk_khz;
+>   			   __entry->socclk_khz = clk->socclk_khz;
+>   			   __entry->dcfclk_deep_sleep_khz = clk->dcfclk_deep_sleep_khz;
 
--- 
-With Best Regards,
-Andy Shevchenko
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
+Regards,
+
+Tvrtko
 
