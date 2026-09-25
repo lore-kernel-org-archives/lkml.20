@@ -1,237 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6798285CBA
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C672248BE
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:02:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790308339; cv=none; b=LUdCKwS4EYhejYexR3k491w557ieauYY7qbu06Ag+Sd8CsMykiw4iLwg4xEvLSf6GVkwtVsVi8V7nwCKg4UlOnXWrR03TG9EG9NJbGXsClt5+w9c0EWXP6ljHqcvVV33RvNRVk7/82YmXa88He2SLC1oF15vGgFyaBhfEJrO0Zg=
+	t=1790308969; cv=none; b=BQrOKdLiGcMQUeV4BgMgLTxQmQpVQ75+Iqn3xPAZIuQLTE7+S1q3/Z9C3v4AGxfKIONb9bR7rSuAorafS7PLCg7PiWKrfOR1jNqXKJvEHdps/x22xP3g7P3TTI9RMzknYUjxi78fsYBGyCjpZ4lWmHO3+wRD+t9KCb7OF7mQEts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790308339; c=relaxed/simple;
-	bh=QPfdJbuQR/C9Wzg7UZd8bNUclGmIj/Bq0uURy195g9Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oGSlkNcGL+Lthc+h4JOIiHsgwnbe/12yG5jZZCvqvw/hH1/zuGqdSvM0xzEjkrR1Jt5ZuRhEsG9i91kldyyMoYd30sxosESZmhk6YoXdyLCHUCQZ4Y4cd69+Pn9rHO/E5u6SPv/UyevxaktvbBjB203wZDHASkpT0bxbttT+kVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CWp8TzKj; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790308969; c=relaxed/simple;
+	bh=gjz4eAh9r8e7B0XJJhXz1omS87MKhqb85V0oJEfgxRU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I+M4DfrPLMsNS8f42VraUFkMJXbNWq57NCjDuiE0LEQrDLxPTm3N0kw4H4g5G4g5mY/vl1QUZ+e2CTV9Fbxj3r6hL4sYJznBxTN+bnAy59Y+K3d/tznCJye3W4oJOtVcSA82A6oPl02NjwpRUd5VJGlIEEXVk2YWdzWdU5s3ohU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=i1NcwsNp; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CWp8TzKj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790308338; x=1821844338;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=QPfdJbuQR/C9Wzg7UZd8bNUclGmIj/Bq0uURy195g9Y=;
-  b=CWp8TzKjNG6IofU7yLMHUxz7Uv6GKbUuQ0yLNH06ZgquNArBFw5UF8b2
-   0QQQgOgxngzPIfq8p2CUlCPdrhlXXwOcEj9PxIfnyAiEBKSxGBxO9GlEd
-   aGw9an20viTEs3c8ojPzKtjtVvwH/dScdBqJumbtJCvtTFV6ccE+eH1Qb
-   Eev01a63gax6YTngO9QWBFCd2hPP5f5qzFkG9DN8BneIcFusB06uV1p8Z
-   y5usx/9qSt7DnF7+KL51McPnHEAGoHH3csPn5V37gUxhuq+P6wLer2304
-   bJ5yvlWy7ZlEYKH0iEuplpsH3bxYrbQGIxZTxxZZfd/xtgs7kLaaqb5UB
-   g==;
-X-CSE-ConnectionGUID: D9iWTqBjTXOF9Af2Bs1t8A==
-X-CSE-MsgGUID: Qc2bmRkrQHeJz6qOB2TqOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90051160"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="90051160"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 20:52:17 -0700
-X-CSE-ConnectionGUID: TzrgFpDMS+m8IxO9vXdXNg==
-X-CSE-MsgGUID: fZMOo/kUTIq0xScRRnv3Cg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="272798313"
-Received: from gdsworo-desk4-x299-aorus-gaming-3-pro.jf.intel.com ([10.54.67.206])
-  by fmviesa006.fm.intel.com with ESMTP; 24 Sep 2026 20:52:17 -0700
-From: "George D. Sworo" <george.d.sworo@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	joonas.lahtinen@linux.intel.com,
-	tursulin@ursulin.net,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	"George D. Sworo" <george.d.sworo@intel.com>
-Subject: [PATCH] drm/i915/hdcp: Fail fast when HDCP Type 1 is unsupported via MST
-Date: Thu, 24 Sep 2026 20:56:39 -0700
-Message-ID: <20260925035639.2034315-1-george.d.sworo@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="i1NcwsNp"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D0B1940E015D;
+	Fri, 25 Sep 2026 04:02:38 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id K9hOh1ocpdwk; Fri, 25 Sep 2026 04:02:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790308948; bh=EW62N+pcJ/yklySi4JDKkkR0W+TsN7XjHETaluMMIt0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=i1NcwsNpTlH5tTnT4oiTCLEJ/B2F64elCsX0k8vurIo4s1XzysEHysXgf9HFR/FAd
+	 LSOIjO0hAvS4WqHL7y7KXH9GN8GfAz8/Fg1LpV2fs1hcWR4RON9Jpxb9TzqCNt8Fpt
+	 wdsl90AvcCAKDhh2FBtPNd2lAZoiHdZpEXazVBVuhh4vpv1C1hlCYGBty3bZDyZC6c
+	 pvsyNLrBSWUz0A65E0VVp12/mTV9tR+5DlDvLVQPgIyaKmvr/iH/SHpsnRiqhdaJQE
+	 J/ihuDChO2xLq6G9MGtC+TgLzXwF5Ci9p/soP/Ka31Vly22c7WpCvcb+/NU3uxHMFd
+	 kJIX0DYmXDakWdy/a50SUR2nfAG+0dFGMTxnjYEmkoswPXr7L2dnVglrsDu16Drlfw
+	 L3mFQrFDXkmvKH+xfJrXnxIStJkNVR4JLGP5zovKZx343AeS6jSqgvRo5TCK+nhbOj
+	 Z64TDy0i/xDsq/js5aOE8XaSzKpfJVuwKhMRAxwCkMPd3vH+RMlvqm9DTQbc+1DGCb
+	 cmRCRIPUjVaNHEx+sWRylhJZB/TOOtx7DPefT3OQTMo2K/cZwMnzdM4hyP+usjakR0
+	 tSF4V1f09u8glDFgoawf4FtlWc/o6hKK++G/RwJSM+S1tUxUmShTcKDYQ6Fp8LaPFv
+	 SLnwztUA0PhBvCWSdp0so/5o=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5066240E00E7;
+	Fri, 25 Sep 2026 04:02:18 +0000 (UTC)
+Date: Thu, 24 Sep 2026 21:02:15 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Andrei Vagin <avagin@google.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	"Chang S. Bae" <chang.seok.bae@intel.com>,
+	linux-kernel@vger.kernel.org, criu@lists.linux.dev,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH 6/7] x86/fpu: Pre-fault only required size of xstate
+ buffer
+Message-ID: <20260925040215.GAarXyR6cUzn9OH4ZD@fat_crate.local>
+References: <20260924210121.87032-1-avagin@google.com>
+ <20260924210121.87032-7-avagin@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260924210121.87032-7-avagin@google.com>
 
-HDCP Content Type 1 requires HDCP 2.x support from both the source and
-the downstream MST sink. A request for a sink that supports HDCP 1.x but
-cannot use HDCP 2.x currently passes atomic validation and fails later in
-the HDCP enable path.
+On Thu, Sep 24, 2026 at 09:01:20PM +0000, Andrei Vagin wrote:
+> diff --git a/arch/x86/kernel/fpu/xstate.h b/arch/x86/kernel/fpu/xstate.h
+> index 38a2862f09d3..c73cf2444de6 100644
+> --- a/arch/x86/kernel/fpu/xstate.h
+> +++ b/arch/x86/kernel/fpu/xstate.h
+> @@ -55,6 +55,8 @@ extern int copy_sigframe_from_user_to_xstate(struct task_struct *tsk, const void
+>  extern void fpu__init_cpu_xstate(void);
+>  extern void fpu__init_system_xstate(unsigned int legacy_size);
+>  
+> +extern unsigned int xstate_calculate_size(u64 xfeatures, bool compacted);
+> +
+>  extern void __user *get_xsave_addr_user(struct xregs_state __user *xsave, int xfeature_nr);
+>  
+>  static inline u64 xfeatures_mask_supervisor(void)
+> -- 
 
-Query the downstream sink through its MST remote AUX channel during HDCP
-initialization. Cache the result only when the sink reports HDCP support
-and either the source or sink lacks HDCP 2.x. Treat a missing callback,
-probe failure, or no reported HDCP support as unknown and non-fatal.
+Hmm, so which tree are you basing your stuff ontop?
 
-Use the cached result to reject unsupported Content Type 1 requests with
--EOPNOTSUPP in intel_hdcp_atomic_check(), and propagate the error through
-the digital connector atomic check. This keeps remote AUX transactions
-out of the atomic check path.
+Because in patch 5, xstate_calculate_size() is not static so you must be
+basing it ontop of some tip/master branch from sometime because tip/perf/core
+has 
 
-Signed-off-by: George D. Sworo <george.d.sworo@intel.com>
----
- drivers/gpu/drm/i915/display/intel_atomic.c   |  6 ++-
- .../drm/i915/display/intel_display_types.h    |  2 +
- drivers/gpu/drm/i915/display/intel_hdcp.c     | 50 +++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_hdcp.h     |  6 +--
- 4 files changed, 55 insertions(+), 9 deletions(-)
+b84c96283684 ("perf/x86: Enable XMM register sampling for non-PEBS events")
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
-index b66c2d4ba2b3..c6383e27e62b 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-@@ -123,8 +123,12 @@ int intel_digital_connector_atomic_check(struct drm_connector *conn,
- 	struct intel_digital_connector_state *old_conn_state =
- 		to_intel_digital_connector_state(old_state);
- 	struct drm_crtc_state *crtc_state;
-+	/* Propagate HDCP capability failures during atomic validation. */
-+	int ret;
- 
--	intel_hdcp_atomic_check(conn, old_state, new_state);
-+	ret = intel_hdcp_atomic_check(conn, old_state, new_state);
-+	if (ret)
-+		return ret;
- 
- 	if (!new_state->crtc)
- 		return 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 79f30660c2b6..1c169849e502 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -605,6 +605,8 @@ struct intel_connector {
- 	struct {
- 		struct drm_dp_mst_port *port;
- 		struct intel_dp *dp;
-+		/* Used to reject unsupported HDCP Type1 requests during atomic check. */
-+		bool type1_unsupported;
- 	} mst;
- 
- 	struct {
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index e56df337dc6d..7490fc0fd96a 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -312,6 +312,26 @@ static void intel_hdcp_get_remote_capability(struct intel_connector *connector,
- 		*hdcp2_capable = false;
- }
- 
-+/* Determine whether atomic check should reject Type1 for this MST sink. */
-+static bool
-+intel_hdcp_mst_type1_is_unsupported(struct intel_connector *connector,
-+				    const struct intel_hdcp_shim *shim)
-+{
-+	struct intel_hdcp *hdcp = &connector->hdcp;
-+	bool hdcp_capable = false, hdcp2_capable = false;
-+	int ret;
-+
-+	if (!shim->get_remote_hdcp_capability)
-+		return false;
-+
-+	ret = shim->get_remote_hdcp_capability(connector, &hdcp_capable,
-+						   &hdcp2_capable);
-+	if (ret)
-+		return false;
-+
-+	return hdcp_capable && (!hdcp->hdcp2_supported || !hdcp2_capable);
-+}
-+
- static bool intel_hdcp_in_use(struct intel_display *display,
- 			      enum transcoder cpu_transcoder, enum port port)
- {
-@@ -2421,6 +2441,10 @@ int intel_hdcp_init(struct intel_connector *connector,
- 	if (is_hdcp2_supported(display))
- 		intel_hdcp2_init(connector, dig_port, shim);
- 
-+	/* Cache the remote capability before atomic checks can run. */
-+	connector->mst.type1_unsupported =
-+		intel_hdcp_mst_type1_is_unsupported(connector, shim);
-+
- 	ret = drm_connector_attach_content_protection_property(&connector->base,
- 							       hdcp->hdcp2_supported);
- 	if (ret) {
-@@ -2684,10 +2708,11 @@ void intel_hdcp_cleanup(struct intel_connector *connector)
- 	mutex_unlock(&hdcp->mutex);
- }
- 
--void intel_hdcp_atomic_check(struct drm_connector *connector,
--			     struct drm_connector_state *old_state,
--			     struct drm_connector_state *new_state)
-+int intel_hdcp_atomic_check(struct drm_connector *connector,
-+			    struct drm_connector_state *old_state,
-+			    struct drm_connector_state *new_state)
- {
-+	struct intel_connector *intel_connector = to_intel_connector(connector);
- 	u64 old_cp = old_state->content_protection;
- 	u64 new_cp = new_state->content_protection;
- 	struct drm_crtc_state *crtc_state;
-@@ -2700,7 +2725,20 @@ void intel_hdcp_atomic_check(struct drm_connector *connector,
- 		if (old_cp == DRM_MODE_CONTENT_PROTECTION_ENABLED)
- 			new_state->content_protection =
- 				DRM_MODE_CONTENT_PROTECTION_DESIRED;
--		return;
-+		return 0;
-+	}
-+
-+	/*
-+	 * Fail fast if userspace asks for Type1 but neither the platform nor
-+	 * the downstream sink can do HDCP 2.x, instead of only discovering
-+	 * this once intel_hdcp_enable() is reached.
-+	 */
-+	if (new_cp == DRM_MODE_CONTENT_PROTECTION_DESIRED &&
-+	    new_state->hdcp_content_type == DRM_MODE_HDCP_CONTENT_TYPE1 &&
-+	    intel_connector->mst.type1_unsupported) {
-+		drm_dbg_kms(connector->dev,
-+			    "HDCP Type1 requested without HDCP 2.x support\n");
-+		return -EOPNOTSUPP;
- 	}
- 
- 	crtc_state = drm_atomic_get_new_crtc_state(new_state->state,
-@@ -2725,10 +2763,12 @@ void intel_hdcp_atomic_check(struct drm_connector *connector,
- 	     new_cp == DRM_MODE_CONTENT_PROTECTION_ENABLED)) {
- 		if (old_state->hdcp_content_type ==
- 				new_state->hdcp_content_type)
--			return;
-+			return 0;
- 	}
- 
- 	crtc_state->mode_changed = true;
-+
-+	return 0;
- }
- 
- /* Handles the CP_IRQ raised from the DP HDCP sink */
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.h b/drivers/gpu/drm/i915/display/intel_hdcp.h
-index efe86808e17e..34661b074784 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.h
-@@ -22,9 +22,9 @@ struct intel_hdcp_shim;
- struct seq_file;
- enum port;
- 
--void intel_hdcp_atomic_check(struct drm_connector *connector,
--			     struct drm_connector_state *old_state,
--			     struct drm_connector_state *new_state);
-+int intel_hdcp_atomic_check(struct drm_connector *connector,
-+			    struct drm_connector_state *old_state,
-+			    struct drm_connector_state *new_state);
- int intel_hdcp_init(struct intel_connector *connector,
- 		    struct intel_digital_port *dig_port,
- 		    const struct intel_hdcp_shim *hdcp_shim);
+which drops the static qualifier of that function.
 
-base-commit: 999838292166407bbe911a41dee23112c49e9d44
+But then you're declaring a prototype above in the header while that same
+patch is declaring the same prototype too. So if you were applying ontop of
+some tip/master state which has tip/perf/core, then you wouldn't need the
+extern.
+
+Weird.
+
+So what I think you should do is, rebase all your stuff ontop of this branch:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/log/?h=x86/fpu
+
+Then I can apply your pile and we can sort out the merge conflicts later.
+
+That would be better, IMO, than merging the whole pile of gunk from
+tip/perf/core into x86/fpu or applying everything FPU ontop of perf/core which
+would be yuck in a different way.
+
+Thx.
+
 -- 
-2.43.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
