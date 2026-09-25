@@ -1,239 +1,141 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFBE46D0A0;
-	Fri, 25 Sep 2026 11:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790336733; cv=pass; b=W3PnhhoilinNNGLXrkiK6oDBZs2AAG3sYiShMF3JaErvuGzbCoJEwT6M04dKWQMj7rBf037UhNPxPXcPU02S00s5lzzqqsjHApzAYyQW99nP1NPEZ6dPCBi5ElcIUVuPZL7TRg5qRzHiS6s28zQ7sHx27iJzl9ZzXH8lD9cKGb0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790336733; c=relaxed/simple;
-	bh=gelfVXPRUI9lntnkL+U4FhD1/gZ6OlA0mb0S8llJ7A0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=leiyhEXkEesOdAG1PHyJAuskiIUXEW6TiSfuK1s+1VsqkVpG2r3bAyPSH/s8RPH5a6B/Q+XYBwYwNERVwKc2WdJFOvo/lMuLLI3xgQ8UKPTCIlPr1KzO4G9Z1xBRWVUyqJKHI8Dqm8ACQiBpuK+FULZcIIusEotP5D/Mg3OEs4E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=UXm65EgZ; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2188463B9B;
+	Fri, 25 Sep 2026 11:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790336736; cv=none; b=ZT1QMOcKyruG38MvI4c86rMeaQ31B9fAyyCNBBCvcme6GDsdXtTbQ04uYuXo9fAeyxn06fTkuunFCOInRnN5A7OM4Wk7kIhXjoWs2nKsNxaQ+fh1OSZnzx9HIUCctFJBLhJS7QrjFxwxA2BwZBNUpV7EgtK5sgrOIkviret2Df4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790336736; c=relaxed/simple;
+	bh=sOXEg71BUGKyDJrHdPBHLKpc3WpqngZcbILuz1oxTkU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ddEATHnHF2Gu1rMNDzckCPEiw+ys8MG/HEr6tgDh9RuOdLxJ3xCi9KqBbMflm/nBbQBa7qLtvVNXPPOV7OsVlXTno1pA99BMf5INUqSN9Fx1367BNK3WNYphsNg0VtAmK8wV7y1XChXEvR08sP+PBVCP+awX/WbnXGf6Yclch/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jmdRJn6Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="UXm65EgZ"
-Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 35A4D2008EB;
-	Fri, 25 Sep 2026 13:45:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790336726;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=73JIQ3h7BNI8yX+F7iHYZ3k7OZlBvEQT7aHQLxKzRog=;
-	b=UXm65EgZuoBZ9nYqmQOo/13SUjluJOyFzzkZ4LCalnPVZj6a7EPwLOsj4xqhPKWINepqR8
-	1cO+potNnIijqousasKzsYvRmXQMws0OfZA4h0HWZGo8PGiW38oUuBsdBWh67VhgiRtoOn
-	yjz0aIrsB8+AoMZlZhBwrmkxPpb1aRvu9vxk60pbK537mjaL7rpw8Asrk2GNIY4cMXTK5m
-	pWwxDarosFyoIP1awsuD25NaDhq/dAOCqxXwASX+wgrmTtvuJJG8FCuL4whForP4Tothis
-	5xMdaRATlx4d662ReGdRcSPSHs/xMJGZKcHtHMUhkrLWwfRr43gDlkbS6isVsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790336726;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=73JIQ3h7BNI8yX+F7iHYZ3k7OZlBvEQT7aHQLxKzRog=;
-	b=RhCx9EHV3PA+te07C9y2xHwnwXK1LAfgq9nv/Gi+B2CfmPScpoTHIRnGA2Gtnn89Gx39dL
-	ZHP7naydmZa1ASQ8W14KJ9V9zdj7V6iSzAG0e8EA4VF+QynVGB/zqZDewo974Ox0QAbmb2
-	ioQZIzhImcW0Qlm+kJLyfhLCnaY+qh7McocieuOE7HhAhAZDau+1bQlT+NGx85hNOmrP6S
-	hc0Km09EU0onl4CM5T1X7lMz+KExA+AnW+eYH68MrQvxkBHUaP43PT+yeJOBR0Aw7LQNqi
-	7OiAO3Y3/DNBkUiNc8t47pm1eKqAQC5biB8WWKlPC067OimTY81g66/BNW6GsA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790336726; a=rsa-sha256;
-	cv=none;
-	b=EQpJEWDgMPrcHbcXCxSPHB1aUhdSM96Rus7HgnXvduMulaIM9PMpdnMOSdLuDv6txp87cU
-	nIxjPufErhUMH9McQlyIjvuNDOaxjWG17kOw8HlTpv4oASqJXsBWTzd36bB0sNhes0Lad3
-	+qQFNelK5diYXqzONOUdQLezpcHKWWkc8N/ypMBe/tqHG0LmBcLs5CVk45CuaMgUkpwwgM
-	xO8GvguoraG0Zw9Rfm/1J3cIp3mYUzNTdrTTIIOiBoySWOwSbspt5GpBGrh3/JZ+HOFEuu
-	KZtiiI0AaDnSJdAp+ZDaM/pv0el7p5ZgmZnve5Fv9kZRbxDMeWk4HZuzxgQTyg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Fri, 25 Sep 2026 13:45:25 +0200
-Subject: [PATCH v5 1/4] media: dt-bindings: Add Rockchip JPEG decoder
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jmdRJn6Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42CEB1F0089E;
+	Fri, 25 Sep 2026 11:45:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790336732;
+	bh=ggwwsl+iq/VaBSGM1TzbVcxHERHXm/WV/VPmnlEAa9o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jmdRJn6ZjVjXSdXvjm9E7H5DhjbwVi6p/pL8myI0oHyuu2DgZWaAZIkOrEV0yKFZK
+	 36XhQCTsTWuXpch0BIVNx9qdsZgi7OYoLt7Q4/BVTvqjPzEDFbWM1I6tO/lw7HlkGe
+	 UKN2M6EdpWxP0CFIJd/fWcLv7dk+NQ69ABEjBtNQWCPP36RlIpt21ySOXbyTeton+2
+	 +Rgnxx5NNiBYSP6f24xvdytsg99BqA459GulAUeQVROuLMXpOv05ie5B42xLkPAH/F
+	 /1sdTYR76F3FW2GTYpZS1AevCJ+u0rTABXjkd/5gAzdLb65uV0QlISJ8p6e4msQTkR
+	 Kb0iTBFH7C4eQ==
+Date: Fri, 25 Sep 2026 13:45:27 +0200
+From: Joel Granados <joel.granados@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Zhan Xusheng <zhanxusheng1024@gmail.com>, 
+	Zhan Xusheng <zhanxusheng@xiaomi.com>, Kees Cook <kees@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 2/2] selftests: sysctl: Check the sign of a negative
+ jiffies read
+Message-ID: <4wuqtjbpekdnpf6gn7pjc32bed2ln44unp2dd2zatiju4zeq5e@efqhttn3pfyc>
+References: <20260923144940.3712965-1-zhanxusheng@xiaomi.com>
+ <20260923144940.3712965-3-zhanxusheng@xiaomi.com>
+ <6DBE514E-E307-4E8E-999B-1B5592CE9AC5@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-rockchip-jpegdec-v5-1-30658833cb68@pengutronix.de>
-References: <20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de>
-In-Reply-To: <20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de>
-To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790336726; l=5061;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=gelfVXPRUI9lntnkL+U4FhD1/gZ6OlA0mb0S8llJ7A0=;
- b=yHzTUbq8ZRk/uC0KQqBuQP+vWFz7t0MFMCat+P8x9bVLRPapxt+Uk3vM2K77r9Q8JFDOntkW1
- QWTJDwVXnhgDBn9N/8Xeprmnq7dFR32mBKHShYlRERNgmBW55cLsvD2
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nu4apolu3sbk76tk"
+Content-Disposition: inline
+In-Reply-To: <6DBE514E-E307-4E8E-999B-1B5592CE9AC5@mainlining.org>
 
-Add a devicetree binding schema for the JPEG hardware decoder Rockchip
-integrates into a number of its SoCs.  Documents the single register
-window (task registers plus the LLP link-table block at offset 0x300),
-the decode interrupt, the AXI and AHB clocks and resets, the IOMMU and
-the power domain.
 
-The core is not tied to one SoC.  Downstream it is known as the VDPU720
-and the same block sits on the RK3528, RK3562, RK356x, RK3576, RK3588 and
-RV1126B, with only the clocks, the resets and the power domain differing,
-none of which this schema constrains.  A compatible per SoC is all it
-takes to cover them; the RK3568 and the RK3588 are the two that have been
-tested and are enabled here.
+--nu4apolu3sbk76tk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The resets and the power domain are required.  The block cannot be
-reached with its domain off, and the driver falls back to pulsing the
-reset lines when a frame times out and the in-block soft reset does not
-complete, which a node without them would leave with no way to recover.
+On Wed, Sep 23, 2026 at 04:53:54PM +0100, Bradley Morgan wrote:
+> On 23 September 2026 15:49:37 BST, Zhan Xusheng <zhanxusheng1024@gmail.co=
+m>
+> wrote:
+> >proc_int_k2u_conv_kop() returns the sign through *negp and the magnitude
+> >through *u_ptr.  For a negative value it used to convert the
+> >sign-extended int and negate afterwards, so the magnitude came back as a
+> >wrapped 64-bit number.  Nothing noticed, because no test wrote a
+> >negative value to a jiffies sysctl.
+> >
+> >Write one to each of the three int converters and require the value to
+> >read back unchanged.  Each value is chosen to convert exactly at every
+> >CONFIG_HZ, so the test does not depend on it:
+> >
+> >	converter		write	jiffies stored	reads back
+> >	jiffies			-1	-HZ		-1
+> >	ms_jiffies		-1000	-HZ		-1000
+> >	userhz_jiffies		-100	-HZ		-100
+> >
+> >On a kernel without the fix, at CONFIG_HZ=3D250:
+> >
+> >  # int_jiffies: got '-18372957097414713411', want '-1'
+> >  # int_ms_jiffies: got '-18446744069414585320', want '-1000'
+> >  # int_userhz_jiffies: got '-18446742229035144346', want '-100'
+> >  not ok 1 test_int_jiffies_negative
+> >
+> >(paths shortened; the runner prints them under
+> >/proc/sys/debug/test_sysctl)
+> >
+> >Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> >---
+> > tools/testing/selftests/sysctl/sysctl.sh | 23 +++++++++++++++++++++++
+> > 1 file changed, 23 insertions(+)
+> >
+> >diff --git a/tools/testing/selftests/sysctl/sysctl.sh b/tools/testing/se=
+lftests/sysctl/sysctl.sh
+> >index ceb5cfa0cfd4..ad1ee0fccd7c 100755
+> >--- a/tools/testing/selftests/sysctl/sysctl.sh
+> >+++ b/tools/testing/selftests/sysctl/sysctl.sh
+> >@@ -328,6 +328,29 @@ test_int_plain()
+> > 	assert_int_range "$t" "$baseline" || RET=3D$KSFT_FAIL
+> > }
+> >=20
+> >+# The jiffies converters report the sign separately from the magnitude,=
+ so a
+> >+# negative value must survive the round trip through the converter.  Ea=
+ch
+> >+# value below is chosen to convert exactly at every CONFIG_HZ.
+>=20
+> I have a feeling this could be decreased, but I don't care.
 
-The IOMMU stays optional.  The driver never refers to it, it is a platform
-integration detail, and rockchip-vpu.yaml does not require it for the
-other codec blocks on these SoCs either.
+If you don't care, don't comment.
+>=20
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>=20
+>=20
+> Tested on PowerPC:=20
+>=20
+> Tested-by: Bradley Morgan <brads@mainlining.org> # POWER10
 
-Assisted-by: Claude:claude-opus-5
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- .../bindings/media/rockchip,rk3568-jpegd.yaml      | 92 ++++++++++++++++++++++
- MAINTAINERS                                        |  8 ++
- 2 files changed, 100 insertions(+)
+Please don't suffix anything after the tag as b4 picks it up.
 
-diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
-new file mode 100644
-index 0000000000000..27d85f17922ec
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
-@@ -0,0 +1,92 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/rockchip,rk3568-jpegd.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip JPEG Decoder
-+
-+maintainers:
-+  - Lucas Sinn <lucas.sinn@wolfvision.net>
-+  - Sascha Hauer <s.hauer@pengutronix.de>
-+
-+description:
-+  Rockchip's in-house JPEG/MJPEG hardware decoder, known downstream as the
-+  VDPU720.  The same core is integrated into a number of Rockchip SoCs, which
-+  differ only in the clocks, resets and power domain they are wired to.  A
-+  dedicated Link List Processor (LLP) register block, located at offset 0x300
-+  within the same register window, allows the hardware to decode a chain of
-+  frames autonomously ("link mode").
-+
-+properties:
-+  compatible:
-+    enum:
-+      - rockchip,rk3568-jpegd
-+      - rockchip,rk3588-jpegd
-+
-+  reg:
-+    maxItems: 1
-+    description:
-+      The decoder register window.  It covers both the task (function)
-+      registers at offset 0x000 and the LLP (link table) registers at
-+      offset 0x300.
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: AXI clock
-+      - description: AHB clock
-+
-+  clock-names:
-+    items:
-+      - const: axi
-+      - const: ahb
-+
-+  resets:
-+    items:
-+      - description: AXI reset line
-+      - description: AHB reset line
-+
-+  reset-names:
-+    items:
-+      - const: axi
-+      - const: ahb
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  iommus:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - power-domains
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/rk3588-power.h>
-+    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
-+
-+    video-codec@fdb90000 {
-+        compatible = "rockchip,rk3588-jpegd";
-+        reg = <0xfdb90000 0x400>;
-+        interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
-+        clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
-+        clock-names = "axi", "ahb";
-+        resets = <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER>;
-+        reset-names = "axi", "ahb";
-+        iommus = <&jpegd_mmu>;
-+        power-domains = <&power RK3588_PD_VDPU>;
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b3..290c3a1452ea0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23699,6 +23699,14 @@ F:	Documentation/userspace-api/media/v4l/metafmt-rkisp1.rst
- F:	drivers/media/platform/rockchip/rkisp1
- F:	include/uapi/linux/rkisp1-config.h
- 
-+ROCKCHIP JPEG DECODER DRIVER
-+M:	Lucas Sinn <lucas.sinn@wolfvision.net>
-+M:	Sascha Hauer <s.hauer@pengutronix.de>
-+L:	linux-media@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
-+
- ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
- M:	Daniel Golle <daniel@makrotopia.org>
- M:	Aurelien Jarno <aurelien@aurel32.net>
+Best
 
--- 
-2.47.3
+--nu4apolu3sbk76tk
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmq2XtYACgkQupfNUreW
+QU+lPwv6AuNOKqmNNLHxDYSsKVPMgOFn5QqC5HOXon5Jx+J78PWJDHtUen3O2bK+
+tamEGQbwRTvl5wLq5D1QC9AoHGs4AL4xX7PK7kFc5MCkysGe4b4fZlhKZ8sPqIsI
+/rZvV5+gKof/1+1rHPrNmC6jHyWGMYzjO0FIa3lr/IrcO7hUQrzxwYlQ7lymUkpi
+Y02PPY9cbh3oGstcDQSJTr9XcwX0DWLcJepyqh8R4tOq7KHJqBwet7bVIqjizi84
+KvA0BUytLPJIA8um2qMCMJ5WqTxMwo/6rfr/Cnx7nF97ggWCP8YlH9dz2QDIzRXi
+l9oQ4nUjgmp43LysKxXVA6pbWNny/M6B3m1SR7CVkgPqWPH7n+tyGH9mclujqnp3
+Fy9gqEn9Sapxb2hHXzbPL0o2J1XpLPph1a2v2NFj8rMyHwRo5/o5h5DgJM/syoY7
+SMhUiThzpjKlwJJJrBDilWqodAFNj2QTxng89EdGr31OUqxASWwZo+CWGGwkFC1q
+JcyX5d6W
+=jVUN
+-----END PGP SIGNATURE-----
+
+--nu4apolu3sbk76tk--
