@@ -1,141 +1,107 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-67.mta1.migadu.com [95.215.58.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0591D47126F;
-	Fri, 25 Sep 2026 09:06:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2735447ECFB
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:06:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790327182; cv=none; b=itVmmrr8yO1O37PYaMgTY3as4y3P062qBekIk6D5e+H0F/zu4ai3iZISLSOPTqVyvRlwW7sMvZNd/eTb+JIAPpNORKcoKiwhj/9DmowX25/G/wMcL/oIzvzzXdcj4si92daC5Ipls/91n+bzJewtZ7qebBh6ZgKHs4e4aeRd+88=
+	t=1790327185; cv=none; b=SS8kpofXsX3K40t8Oda+HAfFB38TjjR8aHax1drelfsFCSYWD83SgElXFc+iGQQgxU+ihChAAQ7PX5EJ+KTYO0cSxuypUUM0i5HoVZGRW9Z/LazcejKD4VTmKWYLZj8G/P5aLsWKBR//p9paz/1G2aF30ONEvGlYAydI3jY82xQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790327182; c=relaxed/simple;
-	bh=SJVcI/EkKT5qN9PuN96627g2c1HT0j46qZH1zpOIzGo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:In-Reply-To:
-	 Content-Type:References; b=APZSyMOvQ2Rnp/QoF94xJaGMe/Y/C3rSGj7b2m3iwYflfNg72tQOsdy2CgFwGoN490Y9dBxa3ohXODqxwHi+zlr4yJx9UdE86fLqCooI728Pb/jaQYgDJkt0IpIEG7bj7cyoe05jKwYBVDczGgu3FXAq8s/a1rL/BGTy/cfSLlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=vanVKrSk; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790327185; c=relaxed/simple;
+	bh=8smf6B5tmlcKz4QzEGNgl2hIDEjwNVAhW9TDDQkcLVc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=STakpcqjEA4ccoTzeqj+7GlM2rhRiluN3W7VtRRKKYQWhtlFn2+GWGNxFbzU0gG+4vJRgVBaMAo1RPqxy9Y9a+QJqq3IS8pEUaeSviNoddM2ULodBlErmH86CevXU92zb+ojEyuGc25XYzZRyrGrUFZwT/PWYYEYgFs3Tcrc6yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Dc7Qh4lT; arc=none smtp.client-ip=95.215.58.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="vanVKrSk"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260925085711euoutp023034b78e8628550a3ae5d7840b37570c~YhJYCLvL92670226702euoutp022;
-	Fri, 25 Sep 2026 08:57:11 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260925085711euoutp023034b78e8628550a3ae5d7840b37570c~YhJYCLvL92670226702euoutp022
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790326631;
-	bh=fRkS/AwRvXfqS9hACKPrCrxlhkEVLAdRbTDbRYWa8VU=;
-	h=Date:From:Subject:To:Cc:In-Reply-To:References:From;
-	b=vanVKrSk5T6FjDTn74/1SUO/LMXVqJxekusjmh+babZgiVJMQp94HjScOSgxnGlOR
-	 5d4koPLRi1e6pSrU0IEHhOTj75hlbtCMapcYoGSA9uiDQv+BCXn4dZic+bQLLvKziH
-	 LU69fdmLb9XCyuTFLtUEuYD6O202XJ3H6/pu8JBg=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260925085711eucas1p1485ce5a6153e8db654ed3cd6ed2fb70c~YhJX0T9dK1519715197eucas1p1s;
-	Fri, 25 Sep 2026 08:57:11 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260925085707eusmtip2203bb57f8f737ff31c8cf3ba1f2b8a50~YhJULSaYY1254612546eusmtip2q;
-	Fri, 25 Sep 2026 08:57:07 +0000 (GMT)
-Message-ID: <40d8c179-f240-486d-b446-c76549d72772@samsung.com>
-Date: Fri, 25 Sep 2026 10:57:07 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Dc7Qh4lT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8smf6B5tmlcKz4QzEGNgl2hIDEjwNVAhW9TDDQkcLVc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790327181; v=1; x=1790931981;
+ b=Dc7Qh4lTakRVf8bxkvV1sjA0IfVZc5Sc6/YbSNBt321yjzf0KtF51lxYQL6UA4LgNPpkOZf5
+ UMDuP1MjpRvaLWZmdZsYV3mBrYsKiSEJFZgEN/UHM2kVOT11TYk/SATjzQNV5boFxdq0NMq9XjJ
+ RT/APY3oi35p/kE2q9GXPm1o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dbee69ddbf1bd07b;
+	Fri, 25 Sep 2026 09:06:20 +0000
+X-Mizu-Trace-ID: dbee69ddbf1bd07b
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Quentin Perret <qperret@google.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 1/4] KVM: arm64: Don't WARN on an unsupported TLBI OS from vEL1
+Date: Fri, 25 Sep 2026 10:06:16 +0100
+Message-Id: <20260925090619.852995-2-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260925090619.852995-1-fuad.tabba@linux.dev>
+References: <20260925090619.852995-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [PATCH v6 0/8] dma: swiotlb: Centralize default pool policy and
- sizing
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>, Mark
-	Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Steven Price
-	<steven.price@arm.com>, Suzuki K Poulose <Suzuki.Poulose@arm.com>, Catalin
-	Marinas <catalin.marinas@arm.com>, Jiri Pirko <jiri@resnulli.us>, Jason
-	Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, Petr Tesarik
-	<ptesarik@suse.com>, Alexey Kardashevskiy <aik@amd.com>, Dan Williams
-	<dan.j.williams@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>, Madhavan
-	Srinivasan <maddy@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>, Albert Ou
-	<aou@eecs.berkeley.edu>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
-	<peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
-	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, x86@kernel.org
-Content-Language: en-US
-In-Reply-To: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260925085711eucas1p1485ce5a6153e8db654ed3cd6ed2fb70c
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260924060823eucas1p1d27fbf57221c9b4c0e9831a9b0cdd7d3
-X-EPHeader: CA
-X-CMS-RootMailID: 20260924060823eucas1p1d27fbf57221c9b4c0e9831a9b0cdd7d3
-References: <CGME20260924060823eucas1p1d27fbf57221c9b4c0e9831a9b0cdd7d3@eucas1p1.samsung.com>
-	<20260924060756.1325156-1-aneesh.kumar@kernel.org>
 
-On 24.09.2026 08:07, Aneesh Kumar K.V (Arm) wrote:
-> This series centralizes swiotlb default-pool selection and sizing, and
-> simplifies the initialization flags used to describe pool placement.
->
-> The first patch replaces the addressing-limit argument with initialization
-> flags and introduces explicit policies for the different reasons a default
-> pool may be needed. Architectures now report DMA addressing constraints with
-> SWIOTLB_INIT_ADDRESSING_LIMIT, while the core selects the corresponding pool
-> policy.
->
-> The second patch moves the reduced sizing used when the pool is needed only
-> for unaligned kmalloc bouncing from arm64 and RISC-V into the swiotlb core.
->
-> The third patch centralizes swiotlb sizing for memory-encrypted systems. It
-> moves the existing x86 guest-sizing policy into the core. Host memory
-> encryption retains the normal pool size, and a shared default pool is not
-> selected solely for guest memory encryption when a restricted DMA pool is
-> present.
->
-> The fourth patch removes SWIOTLB_ANY. Pool placement is derived directly from
-> SWIOTLB_INIT_ADDRESSING_LIMIT: pools required for limited DMA addressing are
-> allocated below the architecture's low address limit, while other pools may
-> be allocated anywhere in directly mapped memory. Xen continues to request a
-> pool explicitly with SWIOTLB_INIT_REMAP without imposing a low-address
-> constraint.
+A VMM can trigger the WARN_ON(!vcpu_is_el2()) in handle_tlbi_el1() on a
+CPU with FEAT_EVT2 and FEAT_TLBIOS but no FEAT_FGT, by setting
+ID_AA64ISAR0_EL1.TLB to NI and having the guest execute TLBI VMALLE1OS.
 
+Without FGT, HCR_EL2.TTLBOS traps the instruction. KVM records no FGT
+trap information on such a host, so triage_sysreg_trap() doesn't UNDEF
+it. The instruction reaches handle_tlbi_el1(), which warns before
+checking whether the guest supports it.
 
-I would like to give this patchset some tests in linux-next and merge this to
-v7.4-rc1, as this is important continuation of the code already merged to v7.3.
+Check support before the warning.
 
+Fixes: 0cb8aae226768 ("KVM: arm64: nv: Add handling of outer-shareable TLBI operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/kvm/sys_regs.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Any chance to get some more acks from arch maintainers (especially x86)?
-Unfortunately I had to reduce the CC list due to my smtp limits...
-
-> ...
->
->  Documentation/core-api/swiotlb.rst   |   8 +-
->  arch/arm/mm/init.c                   |   6 +-
->  arch/arm/xen/mm.c                    |   2 +-
->  arch/arm64/mm/init.c                 |  14 +-
->  arch/loongarch/kernel/setup.c        |   2 +-
->  arch/mips/cavium-octeon/dma-octeon.c |   2 +-
->  arch/mips/loongson64/dma.c           |   2 +-
->  arch/mips/sibyte/common/dma.c        |   2 +-
->  arch/powerpc/kernel/dma-swiotlb.c    |   4 +-
->  arch/powerpc/mm/mem.c                |  17 ++-
->  arch/powerpc/platforms/pseries/svm.c |  10 --
->  arch/powerpc/sysdev/fsl_pci.c        |   1 +
->  arch/riscv/mm/init.c                 |  24 +---
->  arch/s390/mm/init.c                  |   2 +-
->  arch/x86/include/asm/crash_reserve.h |   4 +-
->  arch/x86/kernel/pci-dma.c            |  23 +++-
->  arch/x86/mm/mem_encrypt.c            |  24 ----
->  include/linux/swiotlb.h              |  17 ++-
->  kernel/dma/swiotlb.c                 | 193 +++++++++++++++++++--------
->  19 files changed, 210 insertions(+), 147 deletions(-)
-
-Best regards
-
+diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+index 44aae52c473d7..0ce29ce678b08 100644
+--- a/arch/arm64/kvm/sys_regs.c
++++ b/arch/arm64/kvm/sys_regs.c
+@@ -4257,6 +4257,10 @@ static bool handle_tlbi_el1(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+ {
+ 	u32 sys_encoding = sys_insn(p->Op0, p->Op1, p->CRn, p->CRm, p->Op2);
+ 
++	/* Without FGT, HCR_EL2.TTLBOS also traps a hidden TLBI OS from vEL1 */
++	if (!kvm_supported_tlbi_s1e1_op(vcpu, sys_encoding))
++		return undef_access(vcpu, p, r);
++
+ 	/*
+ 	 * If we're here, this is because we've trapped on a EL1 TLBI
+ 	 * instruction that affects the EL1 translation regime while
+@@ -4279,9 +4283,6 @@ static bool handle_tlbi_el1(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+ 
+ 	WARN_ON(!vcpu_is_el2(vcpu));
+ 
+-	if (!kvm_supported_tlbi_s1e1_op(vcpu, sys_encoding))
+-		return undef_access(vcpu, p, r);
+-
+ 	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu)) {
+ 		kvm_handle_s1e2_tlbi(vcpu, sys_encoding, p->regval);
+ 		return true;
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.39.5
 
