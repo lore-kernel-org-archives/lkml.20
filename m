@@ -1,112 +1,166 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103753B058E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543973BED18
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:44:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790358177; cv=none; b=R9jc7G0FYcW2pInAOKHg1K4cuPNsD7s/QpRvDc/zL2Mkr5MyoCEnjJy0BTJAUlWCPzuCAn3opHFInJrTGf5mFNQwVqB82GgHNOxESgQQAMbQBCyHy1mOwllx2Hv+Om0GvMp5shhdDfnw6AoTSk/ZcJTqlBZLKgFrYp9msfh0pGw=
+	t=1790358253; cv=none; b=pY7HJ5yJ0Jtpejyi57kPMOSZn23VcFnP1SrAW9iR9GCbq44JMISrakzeKvAqv5RrabnRO8U3pisEVP6tz/4Lp4DZUD3e9UASklCychIh4xi9z5bZmoNVdvvhC2NqIBlgxVFKveUzhwf3nPY+fcS4KHmFRHKBbQUAg2IRadbSuJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790358177; c=relaxed/simple;
-	bh=/1GG9AWHZPRVIFzjaaGHBfhCPnSj/Iv+RmtawUBpjK0=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=gYPsrlJs8w3mWwg5yGjgeBiQI8QVi88JJ9TTiUrRlisCFT0XbAOaTvmbligYBcd9Y1UpKm7B6p6bvLjPuZmlQ5R7titzAiTChT615ikpiCEpqb/yK7sKSwGijTDM1jjIHLVfD561g/3daJXSIWDS0gZJJNihQYJf5y4Aa3Qhxag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Zcno1I5k; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790358253; c=relaxed/simple;
+	bh=lzQs0tU1yYqAVocT49emvCDvrENuMTJy20JKeuFCVI8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yl/LY/cWwi7OVLIPH1wysx/Mmg+zBAeuvUcrbC4JoI1FxeLjXnrSxCUlbdjbJrUT9hMfyVObSQDl1UQS5QCBDGyCJ/aMEfGl7aoxiOkwJi643vgY+QCtuoxqyc3pgAdX/jo3lwyIvHbmMWAxNxI/u7Wjgqkkyw/2XSW5AULapls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=WM9Z3rkd; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Zcno1I5k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790358175; x=1821894175;
-  h=date:from:to:cc:subject:message-id;
-  bh=/1GG9AWHZPRVIFzjaaGHBfhCPnSj/Iv+RmtawUBpjK0=;
-  b=Zcno1I5kkybsNo8aa0AEY5HSQBmSLAbokC0IAUk121h+deInE/axJFI/
-   s4KC0EiBM411hhq33MA75s+7lEdvjb0OolQMkgr2IdbPGaAlfTtqbPVDC
-   /GX8cyC8YU6qkD5I1piq0+mL/GVvjvIzDAEVtWdqsRGcEr9MPQGyOg/w6
-   3OWRWP3/m/f17R15+Vj6ndRiWhDAN/2+/E7adgmfPJZa84tTF1Z/yeav9
-   QhrKH2dXdPLqMlDm5rCLJYR3BMeuudjJH5TQHdDKfQeYj63sHGvnlNjjx
-   EixH/s1/WPeL17/jQ8IqvuoWBa2xq8lvvISDP/3Fsd/sXmw0Y/2/zfwoK
-   Q==;
-X-CSE-ConnectionGUID: lDdYeWBtRwuauBHup28bOg==
-X-CSE-MsgGUID: se+uZFsfTdqMCP06fIwUDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="107528004"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="107528004"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 10:42:54 -0700
-X-CSE-ConnectionGUID: mgJ7EDDhRF2HWfKCzCqJeg==
-X-CSE-MsgGUID: 3VK7unb7S2eOH/kJcORXeQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="277562134"
-Received: from igk-lkp-server01.igk.intel.com (HELO a88263cc608e) ([10.211.93.152])
-  by orviesa003.jf.intel.com with ESMTP; 25 Sep 2026 10:42:53 -0700
-Received: from kbuild by a88263cc608e with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xA9wh-000000000qZ-1N0E;
-	Fri, 25 Sep 2026 17:42:51 +0000
-Date: Fri, 25 Sep 2026 19:42:45 +0200
-From: kernel test robot <lkp@intel.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: drivers/tty/serial/cpm_uart.c:1533 cpm_uart_probe() warn:
- unsigned 'pinfo->port.irq' is never less than zero.
-Message-ID: <202609251916.1XlVHLwd-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="WM9Z3rkd"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so752330a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:44:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790358250; x=1790963050; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TK/DH+4JzTnTVS+XnmmVmFsrlIQXhSuIy6L0xg5cFTs=;
+        b=WM9Z3rkdnnJ4vm1rxoEnjYnAE2EWCNDyfwP2iyP60XdgGcVo3Xyl7p23Y3YuqRDie8
+         dOO0h/CBKOuH/57VJhWqx3xbstZhC/9dxKsUq5+ll90dTZge8/uwNLERowc9mmTp5w4P
+         ifm5ADg7OLu/TgJCrpZQj4kI7yMNYVLcNwC9XmLOB3I7+by5ECU4Q2KRBe2rGKhjRTDP
+         h7YZfwTE3rJKGMBtoNYo/iDKnv93JpbAmFo3Db5e6dYp4s0Ix7QdbYHJk2eQskUKJnLi
+         gNoyLD63uCUSBrKMEdlFlV/j8BtcbGSQewk81vxF59/vuHRA2mKyK4qykZZoYTg5YKno
+         GinA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790358250; x=1790963050;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TK/DH+4JzTnTVS+XnmmVmFsrlIQXhSuIy6L0xg5cFTs=;
+        b=MGYbMHOe9fSP1ccC9gSif9HVWFxYfKdCP1OO3UsBOkH8u2RbmUc4/cyWb4DaNbng5L
+         M1uR57yT8z05D9FjOcJ/B+/GO3Q/WcLYDnvgelwmqmF4q6b66ApE0H7thC/04WOLacyE
+         SpjxBUKFdfwT7dhfaAhKf0x0iT42X8jgnKUgbKwHB9HGqReC+p/8pBIu9pCTJb81oNYT
+         eFYMiOVUbmcW4H6CULqFoRhfklxgEKdxjUHiJLU6YtTBf3UF2XAiugdllbzaGdTH0K64
+         KGASjB26mr4Be5juXf26EKqaQDPqaajxjEx64MKCuQyhG1d6xw8nGVy7U8aDHJFZMNFX
+         S+DA==
+X-Forwarded-Encrypted: i=1; AKwUvByGtEO39sMySeEkaE9oaBn5qzhVoJo9LH5ExQ/YK93k8UC+Y4w5gl+u1L+BO14VgICdGtLsXLXO6hrwy6M=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTGXg22VlkTLBkNY/Z84cPcO4daksk77bNmAdERUZUUuaV/z7d
+	4KBcptw1ssnzci2EbowYVHFXCNR6DItL98SwQxpd76OH8CoO58zPesSrMSN05rG5oer5wafhJsA
+	+A2wa
+X-Gm-Gg: AYBFou38lOVT0MB1CQXyPUYSQVQfckFIuvXc2lSDx62CLLYt6abs7Y6LiNH+CGI3ift
+	vp4gRqqKQmtnPl7ddG/Vt1eqxn/eY1GUjY9GeQkZhmle0o1ArNxj1a+YV7MkAy4yMm2Jb0GDaRU
+	7EiNytjMuwDykEs/gDjFOcDM73RApyYdTXyQNJMopGek8BDftInlL7mfrTdWFHrJ8mXXPgQTW9P
+	MOtRpge2DbX5n5zlPu2ZEbs57/g0V/ADlK9RaEAmuXrykYo9xi0hvo3HP3R67fEys2nPM7O+d9L
+	dXb7tgVYg0dewNregUJotUr3J8vyg+BmoCAYNfJ+lnVkSdFUiaJOOYMm/OLbnZeRPX7P7IWCNUI
+	7tOpkEw3RR3iep3LdtjdtHulNhGR5sJ+1qbJom2tDAdeKKHLEOHCdmLDdHsqAHPPoFIi+ZF21wu
+	nIFZFZXSrfYrtPYvh3ZZM6VVVV+ZdNgVhObB9AdXpj7ZLfvJ0Q0rTZqBGv4jYB0wLxBieS27EMe
+	KwcWNScQuA=
+X-Received: by 2002:a17:90b:390d:b0:3a0:c717:2db with SMTP id 98e67ed59e1d1-3a0c7170934mr1394363a91.27.1790358250609;
+        Fri, 25 Sep 2026 10:44:10 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:5::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0972f111csm11862481a91.2.2026.09.25.10.44.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 10:44:10 -0700 (PDT)
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Joe Damato <joe@dama.to>
+Subject: [RFC net v4 0/4] bnxt_en: Make RING FREE more robust
+Date: Fri, 25 Sep 2026 10:43:57 -0700
+Message-ID: <20260925174404.2789072-1-joe@dama.to>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   165768bb70265b5c38cf0b73fafd75be235f8b14
-commit: 831603b3e8aa3892de229fda846b2f859c518699 serial: cpm_uart: replace irq_of_parse_and_map with platform_get_irq
-date:   3 months ago
-config: powerpc-randconfig-r2202-20260925 (https://download.01.org/0day-ci/archive/20260925/202609251916.1XlVHLwd-lkp@intel.com/config)
-compiler: powerpc-linux-gcc (GCC) 16.1.0
-smatch: v0.5.0-9187-g5189e3fb
+Greetings:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 831603b3e8aa ("serial: cpm_uart: replace irq_of_parse_and_map with platform_get_irq")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609251916.1XlVHLwd-lkp@intel.com/
+This is a follow up to the previous RFC (linked below), updated based on
+feedback from Michael.
 
-smatch warnings:
-drivers/tty/serial/cpm_uart.c:1533 cpm_uart_probe() warn: unsigned 'pinfo->port.irq' is never less than zero.
+On two production systems, I saw the following dmesg pattern:
 
-vim +1533 drivers/tty/serial/cpm_uart.c
+  NETDEV WATCHDOG: transmit queue 0 timed out 6073 ms
+  Resp cmpl intr err msg: 0x51                  x20
+  hwrm_ring_free type 1 failed                  x12
+  hwrm_ring_free type 2 failed                  x8
+  AMD-Vi: IO_PAGE_FAULT  x3
 
-  1515	
-  1516	static int cpm_uart_probe(struct platform_device *ofdev)
-  1517	{
-  1518		int index = probe_index++;
-  1519		struct uart_cpm_port *pinfo = &cpm_uart_ports[index];
-  1520		int ret;
-  1521	
-  1522		pinfo->port.line = index;
-  1523	
-  1524		if (index >= UART_NR)
-  1525			return -ENODEV;
-  1526	
-  1527		platform_set_drvdata(ofdev, pinfo);
-  1528	
-  1529		/* initialize the device pointer for the port */
-  1530		pinfo->port.dev = &ofdev->dev;
-  1531	
-  1532		pinfo->port.irq = platform_get_irq(ofdev, 0);
-> 1533		if (pinfo->port.irq < 0)
-  1534			return pinfo->port.irq;
-  1535	
-  1536		ret = cpm_uart_init_port(ofdev->dev.of_node, pinfo);
-  1537		if (!ret)
-  1538			return uart_add_one_port(&cpm_reg, &pinfo->port);
-  1539	
-  1540		return ret;
-  1541	}
-  1542	
+This suggests that, for some currently unknown reason, TX completions stall
+and the netdev watchdog fires. The driver asks FW to free the rings, this
+times out, but the driver ignores the possible failure and frees ring memory.
+Since the FW didn't respond to the ring free command, it is possible that the
+FW is still DMAing to the memory which was freed.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+This series tries to prevent this by:
+
+ - Returning and checking ring free command return values
+ - Examining the FW response if the ring free command times out. It is
+   possible that, for some reason, the FW did complete the ring free but was
+   unable to respond with an IRQ. This seems unlikely given what appears to be
+   a use after free in dmesg, but worth logging just in case.
+ - Stop DMA before the driver frees ring memory, which should prevent
+   any possible use after free.
+ - Set a bit in the state flags to signal that DMA was stopped. This prevents
+   the device from being reopened without user intervention.
+
+In the future, this could possibly be extended to make recovery automatic.
+
+Sending this as an RFC so that the Broadcom folks have some time to take a
+look and test as needed.
+
+Thanks,
+Joe
+
+v4:
+  - No changes to patch 1 or 2
+  - Patch 3: reworded the message logged when DMA is stopped, a rebind is
+    what recovers the device, not a firmware reset. No functional change.
+  - Patch 4 added which adds a new bit (BNXT_STATE_DMA_STOPPED) that is set
+    when DMA is disabled. When this bit is set, the device requires user
+    intervention to bring back up.
+
+v3: https://lore.kernel.org/netdev/20260923210744.3406861-1-joe@dama.to/
+  - No changes to patch 1
+  - Patch 2: Don't poll for the valid bit as Michael suggested.
+  - Patch 3: bnxt_hwrm_ring_free now returns -EIO instead of stopping the
+    device, so the remaining resources can be freed and the remaining commands
+    can be sent before stopping the device, as Michael suggested. Note the
+    switch to using pci_clear_master in this patch instead of
+    pci_disable_device. This was done so that the normal shutdown paths can
+    call pci_disable_device without generating a warning.
+
+v2: https://lore.kernel.org/netdev/20260922182405.1290749-1-joe@dama.to/
+  - No changes to patch 1
+  - Patch 2 from v1 dropped
+  - Patch 2 in the v2 now checks the response and logs state before giving up
+  - Patch 3 in the v2 disables the device to stop DMA before freeing ring
+    memory
+
+RFCv1: https://lore.kernel.org/netdev/20260917233218.1160001-1-joe@dama.to/
+
+Joe Damato (4):
+  bnxt_en: return the RING_FREE status to callers
+  bnxt_en: check HWRM response if completion never arrives
+  bnxt_en: stop DMA before releasing rings the firmware did not free
+  bnxt_en: refuse to open a device with stopped DMA
+
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c     | 122 ++++++++++++------
+ drivers/net/ethernet/broadcom/bnxt/bnxt.h     |   1 +
+ .../net/ethernet/broadcom/bnxt/bnxt_hwrm.c    |  33 ++++-
+ 3 files changed, 115 insertions(+), 41 deletions(-)
+
+
+base-commit: 11536ee3d3e0b1bd35b6f3f8df55a6053eb0c71d
+-- 
+2.53.0-Meta
+
