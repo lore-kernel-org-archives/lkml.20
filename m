@@ -1,101 +1,100 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABE74DE705
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:15:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924793A2E25
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790363748; cv=none; b=lFUDeeQe2vErVHF7bBtNVrWJwQPtgVI+WgKIxGVpKP3IF7kpKU6XSXyZ9FhuRoYaK4gAopnFJR5pp+ylLFATkjKgpK2u68dg6F85DwqouyrpWQI/4p2MwnVxNE9Sjm9gGpW+86w5/OCRbBRmiVqrZw5T9/I+Tx3aycdfXqVf3a0=
+	t=1790363754; cv=none; b=MTUXR7n7UUvqHOqgiz38Q8isrJAgOcNrPu/aBChMFgs2k2wsMIRIbSfVNUDG8FRZ6pGJMpn4wAvv0lSyv7v7QyQRxlbhiPRUe4atcpo+ICHDJhtubxNDuVeQBEBFne9GYc9pBE7KuBlU3pwMtnqbSrGbOUvCecDq1HX/AjlxtFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790363748; c=relaxed/simple;
-	bh=NiPUZi6Al5uPRmMXb22Y9rxVsPEB+1bQ/8NzIbSQR+E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XO2ie3u5AtiUHcxi2QDA1XLFpuwd+07af8f8BM9gQlUVP3XxXzF0AElHjoIJFDeIVF8FZZN83hlmgGStrp7I8h4UFtmq8ZO8fotmHPNHh4F6EVLGqnRxfiedCFMNen4cMGrQCJkLxQymjsidBjD/hQk+SMg2y76EZ4chLxtqVpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=icZ422X0; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790363754; c=relaxed/simple;
+	bh=e+WinPAucV+GfWRrtt5ADkut+z9MM6GnVAZpizY/GBw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WxkTTqsWRWQ//JNV9u5khZhvJMGZhlR9q3BhnezvG9VMvZ7SZ8k2+koE0u8zvQhqi7zDcyhrSFqV8EvvqgfvqWEUs/FQFFMrNcf2reabQjjnQUOLhwMWl8dCMMwPOSOaja0jfC0NPsdyJPJyUJH5Za+sabkzaa3Pot2E3JpgP2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTVt/z+D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="icZ422X0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790363740;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=VFihAIrqz+RYvkszD3bVjyhkeNcRuMjw3/hfFNwWt6o=;
-	b=icZ422X0vyyqcuv4BWvvLdiUc5r0ibSrW2xfUV9zS5emuntSIR6XRz+pNxgNWIMzplo0SJ
-	ljwewGEyGFC+CF3inq4dVd4F/hKbNh05UcC0IeAR0pj+SU6MXvigf0VKIArsDorlsQa6UJ
-	WgPTPqS6QcAm+z34rlTcI9oZ5EfWsx4=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-169-Bz9o_3_LO1CDrR83TB3NMA-1; Fri,
- 25 Sep 2026 15:15:36 -0400
-X-MC-Unique: Bz9o_3_LO1CDrR83TB3NMA-1
-X-Mimecast-MFC-AGG-ID: Bz9o_3_LO1CDrR83TB3NMA_1790363735
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3026C18005AC;
-	Fri, 25 Sep 2026 19:15:35 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.54])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9B6931956042;
-	Fri, 25 Sep 2026 19:15:31 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: netdev@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net 0/2] rxrpc: RACK-TLP fixes
-Date: Fri, 25 Sep 2026 20:15:17 +0100
-Message-ID: <20260925191520.2206700-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTVt/z+D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F76F1F0089F
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:15:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790363750;
+	bh=/ZUwSQWAxvj4c4HOQ6Qvu23WkOSR7Y6AUF9uiTwPmfI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YTVt/z+DTyKGKG7S3TT1tATMabgwxbhVFCGIAbb84Hnj1Yk+67lLQrUmTZIH8iEkp
+	 zmBDvUDiP8UvS7LQ29T2qG6KP2Iih3ePXIt16ujOkYiln4snCrhz3OZNRnuoSMiRVm
+	 sEA753iwrJq9On8eDGe0mgc1yjhsPmUSmrKVo0zMKfZFr3Ced9y4ahtvgLjCYbNgCs
+	 c5o5TgHSQMZVVCqmmET5Nlt92pEIawSTDhLikrpbL1TVkvw6GnjxI7jdAsXWH1bdAG
+	 h4ZFoCghNtKJ4TufZZgI88fkNF9xbf7vJ36CyeIiiqdegXilNtlrd9GNAtVRdOWzgm
+	 0j7ovB/acHbXA==
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a652e2149aso7036001fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:15:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzK5IOfiHWZ09IDojygTzMBF0LUdxh8temhYnz7JDlkQaPTBCc8/dT/CDUxWeLmU5g8HtQfwKYJ3HAst84=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPlsL3LG+EU9jFC4PkeV3PnyNqvM1UxOZDOJc9l40P1B8cXUS/
+	2RQeXYiMah2dtDR6nW8m3YNuZc7KQII11SSDm6ZWa1ZenHpXsW3iXQSwkhlvtewqbXCg7TVdNXp
+	NnJCwz5Cu10o/pubhFrhEH69HCwrcNxA=
+X-Received: by 2002:a05:651c:50e:b0:3a3:2a41:e329 with SMTP id
+ 38308e7fff4ca-3a63c072584mr19216131fa.9.1790363748651; Fri, 25 Sep 2026
+ 12:15:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+References: <20260915220105.14655-1-norsyazwina.fazrul@gmail.com> <fa9f518f-e10a-41e4-99ba-b281741c22db@infradead.org>
+In-Reply-To: <fa9f518f-e10a-41e4-99ba-b281741c22db@infradead.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 25 Sep 2026 21:14:09 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jepvJLOVFWypNPsRYcbQtqbQFSFjDLTU+CrHAGGZzfww@mail.gmail.com>
+X-Gm-Features: AclHuK-WY6JXOOTMvZPD4eOzRiBaSkQw2wPlszcuyOKDprTunHaFFTxFxFcnkxc
+Message-ID: <CAJZ5v0jepvJLOVFWypNPsRYcbQtqbQFSFjDLTU+CrHAGGZzfww@mail.gmail.com>
+Subject: Re: [PATCH] Documentation: power/cpuidle: Fix repeating phrase
+To: Randy Dunlap <rdunlap@infradead.org>, Syazwina Fazrul <norsyazwina.fazrul@gmail.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Christian Loehle <christian.loehle@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-pm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Here are some fixes for AF_RXRPC's RACK-TLP implementation.  It's split
-into two patches: the first just fixes the RFC number in comments but has
-no actual code changes; the second does the actual fixing, including:
+On Wed, Sep 16, 2026 at 12:47=E2=80=AFAM Randy Dunlap <rdunlap@infradead.or=
+g> wrote:
+>
+>
+>
+> On 9/15/26 3:00 PM, Syazwina Fazrul wrote:
+> > remove repeating 'with the' phrase
+> >
+> > Signed-off-by: Syazwina Fazrul <norsyazwina.fazrul@gmail.com>
+>
+> Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
- - Making the in/exiting fast/RTO recovery flags available to RACK-TLP code
-   after the Reorder timer expires.
+Applied as 7.4 material, thanks!
 
- - Arming the RTO timer if no other timer is running and there is unacked
-   data.
-
- - Initialising the TLP state in the correct place.
-
- - Not resetting the xmit timestamp when marking a packet lost.
-
- - Correctly checking the flight size.
-
- - Correctly tracking the number of packets in the Tx window that have been
-   re-sent and thus correctly estimating the flight size.
-
-David
-
-The patches can be found here also:
-
-	http://git.kernel.org/cgit/linux/kernel/git/dhowells/linux-fs.git/log/?h=rxrpc-fixes-2
-
-David Howells (2):
-  rxrpc: Fix the comments saying RFC8958 to be RFC8985
-  rxrpc: Fix RACK-TLP implementation
-
- net/rxrpc/ar-internal.h |  6 +++---
- net/rxrpc/call_event.c  | 13 +++++++++++++
- net/rxrpc/input.c       | 10 ++++++----
- net/rxrpc/input_rack.c  | 28 ++++++++++++++--------------
- net/rxrpc/output.c      |  4 ++--
- 5 files changed, 38 insertions(+), 23 deletions(-)
-
+> > ---
+> >  Documentation/admin-guide/pm/cpuidle.rst | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/Documentation/admin-guide/pm/cpuidle.rst b/Documentation/a=
+dmin-guide/pm/cpuidle.rst
+> > index be4c1120e3f0..e91ebd432f6f 100644
+> > --- a/Documentation/admin-guide/pm/cpuidle.rst
+> > +++ b/Documentation/admin-guide/pm/cpuidle.rst
+> > @@ -316,7 +316,7 @@ interval" value.
+> >
+> >  Now, the governor is ready to walk the list of idle states and choose =
+one of
+> >  them.  For this purpose, it compares the target residency of each stat=
+e with
+> > -the predicted idle duration and the exit latency of it with the with t=
+he latency
+> > +the predicted idle duration and the exit latency of it with the latenc=
+y
+> >  limit coming from the power management quality of service, or `PM QoS =
+<cpu-pm-qos_>`_,
+> >  framework.  It selects the state with the target residency closest to =
+the predicted
+> >  idle duration, but still below it, and exit latency that does not exce=
+ed the
+>
+> --
