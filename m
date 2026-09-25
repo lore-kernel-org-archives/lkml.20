@@ -1,145 +1,92 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B7747CC78
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:04:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8393655E0;
+	Fri, 25 Sep 2026 22:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790373869; cv=none; b=O/hEFxkiUPDJLilMkX15LNokmlymDyk1QjaLuXoa/5deTbkOoZeb8ZmvrA2CJe7bZ5nvhlA8wr2PPOC94O9adaFDUqNnUiIlLRdOWkhDI1yV4Bq/muSLF61Dj18vln/g7Z6rjTBz8PD08bgUS/8lFqZ8FqVv6E5JrJFAfxjsLD0=
+	t=1790373933; cv=none; b=hAs0N6c7RoZzZkadnO4Xo2kugLWBkYqQ2QRUWFDBsR3UwiGhrZvKHt29sh3wrXdFC8ugxO57MlyPmoe4LVi2cxFgF/ijX+TA7a/1gKqEmCQYdhzLOKpfeBwBtiJ4WmJMMFHF3ZmsBclewbZDTJ7hv63AC4O6+1hbPVrOMO00GqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790373869; c=relaxed/simple;
-	bh=HAP/sFklTJPiQKLsjznjzZZN3nbst3jpCvp5m9djKik=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k59xNjjqL5jxlFT44s3dGVLuiqqaoxnMztRMGBAnqK2PFF4y+HveBpvOklBdL6gU8Be1E87dA3bcmfWJOVwKhMWHDj0RM2MVmjfAs9Xqt2tdWWczZ54YcdQKe7heRkV3i/+vghPdbG63t2IZFYqiPMVTZyhKPxTh+UID9XH+rM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Vn3bnv/r; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790373933; c=relaxed/simple;
+	bh=7eT7PUWjs0411v6rxIUz8bDPPZYI8hiqKSOCtT9YKjg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=mGjIESLASdKyGel9mtqDjeHrDv9BtAUfeoWFUFEA+k8UFns04ZgImHSEnK5b70yjNPZA4eYloE7BDA44pA/ycFG953DMREzJC0XS1t6HZ6v+iG845ApKnew8xzUY9wfn2TtG+1qoHBfOZpDkTZFtHYzBhqUatg+6F5RgsZwgmbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BPjkV3ko; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Vn3bnv/r"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so10925ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:04:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790373867; x=1790978667; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ksyuSwUH2dGx1asD3+Rht2rW0CHu4s19+UlL6wUtms0=;
-        b=Vn3bnv/r56IioWKUSiP5ascRSINxgMXtSxvPJU+Jch8/YXzNS8HcmS1cO3AQJrypG7
-         DxY0YWyv40gN9phTHEV0agjk+7RMqnoGZ5RYUxyDfjgYl3OgKb2Pj8tZjwmFu9ir3Xlc
-         0j0a8U4Skwl30PTHKzrv/TjGUMxZQIgF1l6opYcQ77SaQqQl2gcp1FMHWWEjdsjwpUb/
-         rko4FOMiyKaV9RS5lAkzQZNVxSdZio293+5Cem7ZtUBsahg30MyhWPkYr+oFrhI6Dsdd
-         B+nbtPmlRrCv/+nLFNZFpALELn9TfoK9pDD4abC1fXaaBVsiEre9kjUcfrWiFrdpyGkX
-         +XGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790373867; x=1790978667;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ksyuSwUH2dGx1asD3+Rht2rW0CHu4s19+UlL6wUtms0=;
-        b=Zhu9Zjv4d1TYin4jPIEo4kCS7StbXGY1QaJXZgxmjkGikSKGiuGCLpmQ8+bncgMuGZ
-         WrwVKCjKUa+U9H9ogXpdRFX5I/COG5FgPXC07g2rk/O+COFk3VaE857eakUkknZyyKZC
-         1/e8/o21KF24accpHTI00aihD0WT+WrHprM5iIqxb6OwEeLJZfdlxNSsYunUCK6Lm54E
-         x3RBQQ/qkNgA9p+tO0Tku7xdWTdV4hk2lCl/ICCsEId13iIvlwK90sDYF8Tly9hHLalu
-         uLD/pc4rxl6m4ZZhpnvUmgc2BLkimjxvMu+Fiedz3N5ogO/6Xzxgls2gqbt4knVbC+V6
-         murw==
-X-Forwarded-Encrypted: i=1; AKwUvBzzYBkutazWQYnDCaojrlW/QCf9ZjUR3SYVb712IkyPmctyavAKQwqH2gg3Xsg1Uhr9oufNFz9YhZfAvD4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVnHfco4ujNe2XLz7YkGb2FwTM/4sz2e5pjcUjXpZ8JORmfcWS
-	wa12Onfc0p8SA9xS5UHitW4Ro9GyYimur62xPHkUJzj/asvTSTbkXIB7DcjZfQAp/g==
-X-Gm-Gg: AYBFou0Y9u55SIAq0d97Z2VFeeRugvkHqyd3lBWXmnjX3WTneGHiKbsGWoLoJ5HhWER
-	IDh7vqWqirKrRJ+0vNlumofw5TnOuKj5QVloHynTJgVxKAkaSVE0z8Gtb6mqF7KpoaC+/BMXbUS
-	FJvXzuj1ByiqQ/ZV8tnVnsL0fRkK5WbHIlyauii4fRs92jCeTwmcMZqkzj2v4luuFRpyR0OynCm
-	1WGUWLggpHbKA43cTTGCAksMdeLdELHwAPErMW8UlsHti5LBNXOmcB06J5D7ErIVlRkyFCCOQm8
-	Qhw/QQiwlCfXF1sjMXZDXhnp7HjrcTkUBIFRVYuXMBTvESXaDiXEpDFDqFMuEEQ8NitCSV1XvNd
-	B2AeXpKxIbemVx8inUTZfNVk8efPWI7s9D6Tce9w4vlEyz/BpnVozElcskiPOP2WiOF/Qrc5n9s
-	LYqRJonoc46K9xf3z0+YfZ8pmOkMxVioJhdOGGBOALm8AwXSN6ppZpyzi4hUN2MftgYvy1T6t3z
-	+L/dnjxfuXJHCGkVGa+fSICpHU0CWIt
-X-Received: by 2002:a17:903:46c6:b0:2c9:d89f:fd98 with SMTP id d9443c01a7336-2dfa968787fmr718815ad.1.1790373866593;
-        Fri, 25 Sep 2026 15:04:26 -0700 (PDT)
-Received: from google.com (230.0.127.34.bc.googleusercontent.com. [34.127.0.230])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a097663fd0sm12373594a91.9.2026.09.25.15.04.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 15:04:25 -0700 (PDT)
-Date: Fri, 25 Sep 2026 22:04:22 +0000
-From: Lisa Wang <wyihan@google.com>
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: Andrew Jones <ajones@ventanamicro.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Binbin Wu <binbin.wu@linux.intel.com>,
-	Chao Gao <chao.gao@intel.com>,
-	Chenyi Qiang <chenyi.qiang@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Erdem Aktas <erdemaktas@google.com>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Isaku Yamahata <isaku.yamahata@intel.com>,
-	Kiryl Shutsemau <kas@kernel.org>, linux-kselftest@vger.kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Roger Wang <runanwang@google.com>,
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v14 12/22] KVM: selftests: Require guest_memfd for TDX VMs
-Message-ID: <arbv5jEZ439Yo_UE@google.com>
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
- <20260722-tdx-selftests-v14-12-15ad654a50db@google.com>
- <ef53ccf8-00c4-4a50-985e-425a2d40583d@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BPjkV3ko"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52EFD1F000FF;
+	Fri, 25 Sep 2026 22:05:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790373931;
+	bh=q8F8aEDs/291b5v0Gs+UkW/M3P9nH0yxcjIqX8tJU5k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=BPjkV3koxNIwP2tAzGB1Dd9bOyZhEelIETl2+BazMXVpoUya29S7FoyfcIjgBiIWs
+	 Ymv0wRPlsFAbc/umhcihg4CLlxLSrKle1vIhZVkX+CQFthIZo/gj4KdQm50Jk8X8St
+	 v2g3AKmpciVuTfXxBHA/PuJYSL+aAGtUKi+D/8FAJb4hGTc/Fb91J4hdqPTIX7CwhT
+	 5PUL9gcFxtSBu+GYEeoEZp4qhI8Tum+K/IvjCN7ETVQnyCkJFpbg2Y2XAsHTJKciA3
+	 W7RA1TGMB8Dv0FJtRV3Co7aA4mCbe7ffM4P3Q3TXCeATgT6m5dLb5goFRlV6JfXddm
+	 FcZ0y/GUyoMBA==
+From: Mark Brown <broonie@kernel.org>
+To: srini@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
+ vkoul@kernel.org, Ma Ke <make_ruc2021@163.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, akpm@linux-foundation.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260914095009.12049-1-make_ruc2021@163.com>
+References: <20260914095009.12049-1-make_ruc2021@163.com>
+Subject: Re: [PATCH] ASoC: wcd9335: Fix device reference leak in
+ wcd9335_slim_status()
+Message-Id: <179035784658.204944.1147782981571580690.b4-ty@b4>
+Date: Fri, 25 Sep 2026 18:37:26 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ef53ccf8-00c4-4a50-985e-425a2d40583d@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1141; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=7eT7PUWjs0411v6rxIUz8bDPPZYI8hiqKSOCtT9YKjg=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtvAmSmZ0fAswx905+x5MJ2hrow3dndKNNnlR6
+ r4dl7wExKWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarbwJgAKCRAk1otyXVSH
+ 0CfBB/0ROktEnIEFi7Hm1T4IXfVZy9NStJ+0Pyad4GyOCUAnf62JPEaekX77+08Slwbcgp8bErr
+ zUtkJFWqOjYfcHV5WwUq0zV0No4pTItMNKvBjH3wYnuOwQuknCc9ZBtDfeJ7C9kq4ifLy519sfK
+ TIU+ElVxbDMnjZ9/4OMXVlafBuLhpm5WT4hHDp/V6eECor+LFxl9fqQ+9n2J8rZUOCIy0FZ+ipT
+ EzdcsyinXZxfbULi0SSSXS9scgcHf27G2ewAtXrYoJ757cJkUPZvOcfA2yNgwg5QQgQIL7UX4Mj
+ ZOuHdQTu+DJALq66oZQS3yRMucJUfEWTyaJHKBzEg8fsDA8C
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, Aug 14, 2026 at 03:42:48PM +0800, Xiaoyao Li wrote:
-> >   static bool is_guest_memfd_required(struct vm_shape shape)
-> >   {
-> >   #ifdef __x86_64__
-> > -	return shape.type == KVM_X86_SNP_VM;
-> > +	return (shape.type == KVM_X86_SNP_VM || shape.type == KVM_X86_TDX_VM);
-> 
-> Instead of updating is_guest_memfd_required(), I'm thinking how about just
-> replacing is_guest_memfd_required() with vm_arch_has_protected_memory()?
+On Mon, 14 Sep 2026 17:50:09 +0800, Ma Ke wrote:
+> ASoC: wcd9335: Fix device reference leak in wcd9335_slim_status()
 
-vm_arch_has_protected_memory() returns true for SEV, but an SEV VM is
-expected not to use guest_memfd. If we replace is_guest_memfd_required()
-with vm_arch_has_protected_memory(), we need an extra test to ensure
-SEV VMs work well without guest_memfd.
+Applied to
 
-Thus, I prefer keeping is_guest_memfd_required().
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-> > @@ -27,6 +27,7 @@ static struct ucall_header *ucall_pool;
-> >   void ucall_init(struct kvm_vm *vm, gpa_t mmio_gpa)
-> >   {
-> > +	struct userspace_mem_region *region;
-> >   	struct ucall_header *hdr;
-> >   	struct ucall *uc;
-> >   	gva_t gva;
-> > @@ -37,6 +38,13 @@ void ucall_init(struct kvm_vm *vm, gpa_t mmio_gpa)
-> >   	hdr = (struct ucall_header *)addr_gva2hva(vm, gva);
-> >   	memset(hdr, 0, sizeof(*hdr));
-> > +	region = vm_get_mem_region(vm, MEM_REGION_DATA);
-> > +	if (region->region.flags & KVM_MEM_GUEST_MEMFD) {
-> > +		size_t aligned_sz = align_up(sizeof(*hdr), vm->page_size);
-> > +
-> > +		vm_mem_set_shared(vm, addr_gva2gpa(vm, gva), aligned_sz);
-> > +	}
-> 
-> this diff about the ucall needs to be a separate patch. What's the reason to
-> add it to this patch in this version?
+Thanks!
 
-Thanks. Will separate in the next version.
+[1/1] ASoC: wcd9335: Fix device reference leak in wcd9335_slim_status()
+      https://git.kernel.org/broonie/sound/c/f0cc352be29b
 
-> >   	for (i = 0; i < KVM_MAX_VCPUS; ++i) {
-> >   		uc = &hdr->ucalls[i];
-> >   		uc->hva = uc;
-> > 
-> 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
