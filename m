@@ -1,161 +1,219 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B194DF4A8
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790361752; cv=pass; b=vBMUhooOPk1Ro4mkl2odtupsmVqMnQumeMNsjmbdpvmx4uskYY3dFasF8gT8A+GRjGrwxbYJwI0Mz4NqPQTqLP+L2jQfRx1sS1HrXPWUWNGkojotHxHz6zLVYFEh8PwwxFzwfWtMZgQlKZh36wBdh0M1/X3qkVrN0i16VeeXSGY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790361752; c=relaxed/simple;
-	bh=DlEudOypjlT0UT2XU/5WL96WZISmA/ECBN7ByCN7TWo=;
-	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PRxo58h/HHtGOw2rmuLuT0xkrXOmrCVthXrlnb+nj0qd6PCY+n/NLEzVwQ9kuCHl3i/sKSw6JxMZfjPhE7Hx1xn5K4Qv8ACieYtdxlbGeQSAC7A0cMKfZQhxvkAH6Sf99XIaoTj2PAy70IZffjIqNYV9i/KjON9Jj+IJmS5u5LY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iOTkTZBP; arc=pass smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45633672BD;
+	Fri, 25 Sep 2026 18:42:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790361766; cv=none; b=AWY557D2J65jykFShD7tI3tSAKp3bD35levRK88SsMt8dSo+os3zGD5O51qUrQgLhTGye9st0/xnfZrbsrE7ldALIxNHnjbmtmFarvMEP5JhSheRJ1v5tAfjVZdDW9Rr9ugsXz8P/z46TCrfV98dSoZZmjWO7MTZAYXjrjXAtPU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790361766; c=relaxed/simple;
+	bh=gVe5Dqj5kGF+QMoYW7jGRPpUqOiZfc93w8cD/uGHXx4=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=HzA4kYpT43J17k8tzb7cdtHYr559KFkbSGRBzaSgZa+PQRQ6wpqdSNH1bJQ0MB1TLhj3FZdpBBfSC56My/UA0RnlrDcZnL9oCzi5hjWMz6sWedexxcoTjAdMhw9Qi/Gpr4iYTWAZN5+uSARxSxl0BD7NZ36pjJNqkQ+ezjkXQ8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=r5m1Z/F5; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=3I2XqBa5; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iOTkTZBP"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2c570a3030so15574666b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 11:42:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790361749; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aabr+0KfdWSrc2Wfy7wMvDMVkmQP0KC5W68By/yBFDrq/ACMDLM7lAhukIIgyP9KqB
-         QTCodmuYNM9lROYGopLWWDy7TCes0DNLNNLK03Yvkojd+PuIH5VJdrrWCUy8kLRJgmju
-         C5pSSKS9baJTqqKq451X7FHnNp7ajEVTAJuKFx2Ko72UPS2fJyfk8v0rj9bfcqe/eZfH
-         2OrOMv+sU4dfFFcQWxYDQ6qZSiah37jrnM8/ZOQtNYyS90NC12mVo23bAowx8jXZc7Pw
-         syQAkI/RINVIoWMih9ZbkTdXMdr9AIZCl5TbWn5P+c5EB5n7RFHN2169HNiWcO7YY3RU
-         lVEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=vaQh9agvQKXu5WYBVA5rNUeh6UbMXv22v7ZPcWcdZXE=;
-        fh=6fxEveRGvERjOxh25yoCRDYwisfTVGi7g8q6RV4k7nE=;
-        b=fJVAbVHqacGTP0gMUkBlJXYPUUxaYXsSOXyp5CrvoeN2R3bdwTf8YYQQca+joFyqGz
-         JbtCTeTWIWfPxG12gKggpFIdpmQQRlPaHZaElGHxgwAz9Dkl88hu5H8j3CVEoIoXiY1t
-         4CC/gq5p4sVrk/XcbuyI3FCHUkl0zMnkU+pxetixK0E9rIYODEBVkyuz5e0L4/+fWZ01
-         MpP+okft7qf/WK1c/PNLpJhrLl0Kqye4xYMvnjPXEw0Y1w04Cw8oPBwTbY8i5ggQALQ5
-         wxdLpQ0DeV4i55UTKwDL4NAucRYMGaV+oKSLFa0UujlIQONda07364Kzh3+5woQ7fQaG
-         c9rg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790361749; x=1790966549; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vaQh9agvQKXu5WYBVA5rNUeh6UbMXv22v7ZPcWcdZXE=;
-        b=iOTkTZBP/Lm7/AH6yWxrX3SzvVDy5ZLkhrQLnMoZBIv1nK4dGfrCAPMwWofw7kDqLk
-         00bthYyZ5+B/ATTa0fFrzJDHxzgRbcGyUZ/xsLCy1YHZ9LMx4LDEOVB5YZikAIlBO74B
-         7WWltWBTfBNUgICa9vB/ElUGNY+Ftp5q3bmHDiCqfzfUCA4sFs/m0xobtgERqJFsKP6e
-         r8cheojJXlT3BC2JhAE78FzKaoxv7x8tLhFvJ+8JQZWNW6pTfF46NnH5VQmyqBcsNz91
-         VY4ZGtQOU4ZMZp8RkdmEPLX+mDja/J1fAC0GbmxGhx5mTas0muLBe5s2dc1CEm72G9jk
-         jOvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790361749; x=1790966549;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vaQh9agvQKXu5WYBVA5rNUeh6UbMXv22v7ZPcWcdZXE=;
-        b=t093L8BjWVBTMSYU12FYCeJ8L0Ab6KEBiiyu9GdGwyPhNwof8nh3p9jDlN4axeGPok
-         h1cwkTDgsoYrWaCKG0ZaPm5nw8HgTbVHBo2cpNOmD2usVIHqYeNxrvSzejOktWacv2Dx
-         YfwxIoVgsAtLwFv8CVbzlkOImy+511pGUT6wNPOqa570b/6OK1dnWl8TYtelzUZq8OMe
-         RHBg0d2Eymsenyvlmes35I0CloaMuOK4WLn59GkIdUm5ukb6nzwZgCdZjAkVl9GGYTv/
-         I2aIAcxRplCU7Mz9EtggF64pbB+8L8l3KShdAPhUoOiA2pbNz2UHBojDswvV4D9hOJJH
-         Fcyg==
-X-Forwarded-Encrypted: i=1; AKwUvBxmzwqjal67qjBUfAR8ChC8XeFHaJhhfaCQ3zD4GheAiVYP6voygsvxWdDzbat4YfitOEe3HoJZzMTl/TE=@vger.kernel.org
-X-Gm-Message-State: AFuF++na6oVnkXrMYAi0cFQJa+VXEDqWjzy45XUPgVMdgL+BpvKycDh6
-	LQ/+8vAFjCH4C6ejxA/92akYVeOAR2IhiyAm49WXTSXeAiRfoXRiVtDwgbDtPIeWOZPsRdkpqqg
-	Ekojs4uzw6ywajuG22YKjYkaMlfwchA==
-X-Gm-Gg: AYBFou3Ik0QwHEcxVGY0u9SpNTbnPFWlD2PTScgLymM4fsRGBtf2tsLbApd+1fYY2mU
-	o241nfopxeS9l18uzae0TCYpRe22s4tjmmGS32UDhqXiZbkbHGTk9i1ZoJ+4CKLsTkrrmW4OAn/
-	OO2uiJBG5gYZHRgQpBpyVKMyEtCeaXkU77KG79xQuMEJ8jPrM5u2TlsPEZPav/ll5He0SmXkMJV
-	5U+yzjYHkc9h1Wx4R2xqoLdhPCrZfZhvyDWhOKQYCakn0s1Nwvjqp7Jqs3H+u1W+qu/92/WhYp4
-	b3lorCZfuzLm1ozRTfpqdu3MaAmm2ed7lD0Ap5ySN9Gbb2jNnr62Z9n4UZpsqOElmhZffE0MIJ2
-	RYTXUexeXPN3GAykvdqnEsMrY1erneSZfb5FwZX7QISK/U+ngyzNnHActSasIr/0C
-X-Received: by 2002:a17:906:dc90:b0:c29:57c4:cb92 with SMTP id
- a640c23a62f3a-c2ac228849fmr621819666b.0.1790361748717; Fri, 25 Sep 2026
- 11:42:28 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 11:42:27 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 13:42:06 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 25 Sep 2026 18:41:38 +0000
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="r5m1Z/F5";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="3I2XqBa5"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790361744; bh=35vQAHdO64Nk1a0T+biHwYP
+	apDIz6FTP0CKPnrXV4iA=; b=r5m1Z/F5eKRaxpfPbktIJUZ1RTdzn+5V9QcqbnQLK2MxIwJvZ2
+	OdRa5IBnzo9imqj+7+PUFXUscMtfFMYFEvqR7atPejv0e2/X/qOtCcYRKtfV0+L5ccGQ/r+4r1y
+	DUu2Q9tqd1HSzEgOznitobJtUTsoIrBE490ck8LqQamKf3MeKI0/2OQBGA614GkMifO829eJC/p
+	qYaqR1s3R9l+Sht4Vyuxq7P/Hai0FVlyFk48PLwlGRBNA+WzPLhRddOLbPnirSoqXs6plM9w6lK
+	qiD49WM6xUsqleKkYmhlqrtADVhZ3vrxq11kyvW/qlEUMAV63c7cfHYzif/VFOVeb3w==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790361744; bh=35vQAHdO64Nk1a0T+biHwYP
+	apDIz6FTP0CKPnrXV4iA=; b=3I2XqBa5Yp0hdint0QiEwe+dVcwoEE1EXvv208uNNaMXD6m64g
+	/eoLjrX6av1QXf3SebjUwHiLhZRvxx+hGMDQ==;
+Date: Fri, 25 Sep 2026 19:42:25 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: =?ISO-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: Johan Hovold <johan@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Armin Wolf <W_Armin@gmx.de>,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH] Add TAINT_DRIVER_OVERRIDE for usage of driver_override
+In-Reply-To: <20260925182041.1025371-2-u.kleine-koenig@baylibre.com>
+References: <20260925182041.1025371-2-u.kleine-koenig@baylibre.com>
+Message-ID: <E7B71661-74B0-42A9-9FC2-2AFCC7A3532D@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: mhun512@gmail.com
-In-Reply-To: <CAGEsz8HtRE-sAM2YfC0_Vzcq9OeuMiRVc0cMTpWogt0Uwc4-1g@mail.gmail.com>
-References: <CAGEsz8HtRE-sAM2YfC0_Vzcq9OeuMiRVc0cMTpWogt0Uwc4-1g@mail.gmail.com>
-Date: Fri, 25 Sep 2026 11:42:27 -0700
-X-Gm-Features: AclHuK_62Txs1R6aJpFVtyE2f4h_5eO8zVZDoQklxyOE6uOg6AtGXwg5pp6EdGo
-Message-ID: <CAGEsz8GWLwXjNKo-9RpR=sGWqoqiaW-bmT9o+fYsTJSkymiqNA@mail.gmail.com>
-Subject: [PATCH v2 2/2] media: venus: disable recovery work before HFI teardown
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Cc: "Bryan O'Donoghue" <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org, 
-	Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-venus_remove() cancels core->work before the IRQ is disabled. An IRQ
-thread can queue the work again after cancellation. The work can then
-access HFI state after venus_hfi_destroy() frees it. The work also
-requeues itself when recovery fails, so cancelling an already running
-instance alone does not close the race.
+On 25 September 2026 19:20:40 BST, "Uwe Kleine-König"
+<u.kleine-koenig@baylibre.com> wrote:
+>Commit fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when
+>userspace manually messes with devices and drivers") introduced a taint
+>for usage of bind/unbind sysfs files that manually trigger driver probe
+>and remove respectively.
+>
+>For drivers that do their resource management correctly (which is also
+>needed for module unloading) bind and unbind for matching devices are
+>not critical operations. The thing that makes bind and unbind unsafe is
+>that drivers can be forced on devices that originally don't match using
+>driver_override. The result is that e.g. of_device_get_match_data()
+>returns NULL despite all .of_match_table entries having a non-NULL
+>.driver_data member which yields a NULL pointer exception for several
+>drivers. And given that after setting a driver_override a manual bind is
+>only one way a driver can be bound to an unexpected device, a separate
+>taint for such an override is justified.
+>
 
-Disable and drain the work at the start of remove, before other resources
-are dismantled. Do the same in venus_hfi_destroy() for paths that bypass
-remove, including probe unwind. Disabling the work prevents both IRQ
-handlers and the work itself from requeuing it. Drain the work before
-disabling the IRQ so an active recovery can finish any IRQ based
-completion waits. Then synchronize the IRQ before freeing HFI state.
+LGTM, thanks!
 
-Fixes: af2c3834c8ca ("[media] media: venus: adding core part and
-helper functions")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260730153912.BAC5E1F00A3D@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/media/platform/qcom/venus/core.c      | 2 +-
- drivers/media/platform/qcom/venus/hfi_venus.c | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-diff --git a/drivers/media/platform/qcom/venus/core.c
-b/drivers/media/platform/qcom/venus/core.c
-index 243e342b0ae7..94d4b8688ac2 100644
---- a/drivers/media/platform/qcom/venus/core.c
-+++ b/drivers/media/platform/qcom/venus/core.c
-@@ -538,7 +538,7 @@ static void venus_remove(struct platform_device *pdev)
- 	struct device *dev = core->dev;
- 	int ret;
 
--	cancel_delayed_work_sync(&core->work);
-+	disable_delayed_work_sync(&core->work);
- 	ret = pm_runtime_get_sync(dev);
- 	WARN_ON(ret < 0);
+>Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+>---
+>Hello,
+>
+>I first considered to just set TAINT_FORCED_BIND when driver_override is
+>written to. But IMHO it's very useful to differentiate for reported bugs
+>if bind/unbind was used in combination with driver_override or not.
+>
+>Also if only bind/unbind was used and driver_override not, a resulting
+>problem is worth fixing (opposed to what is considered for
+>bind+driver_override).
+>
+>IMHO it would also be fine to drop TAINT_FORCED_BIND, but let time prove
+>how many reports we get with TAINT_FORCED_BIND but without
+>TAINT_DRIVER_OVERRIDE.
+>
+>Best regards
+>Uwe
+>
+> Documentation/admin-guide/tainted-kernels.rst | 6 +++++-
+> drivers/base/bus.c                            | 1 +
+> include/linux/panic.h                         | 3 ++-
+> include/trace/events/module.h                 | 3 ++-
+> kernel/panic.c                                | 3 ++-
+> tools/debugging/kernel-chktaint               | 8 ++++++++
+> 6 files changed, 20 insertions(+), 4 deletions(-)
+>
+>diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentation/admin-guide/tainted-kernels.rst
+>index abbf5e3dd749..75750a9533e9 100644
+>--- a/Documentation/admin-guide/tainted-kernels.rst
+>+++ b/Documentation/admin-guide/tainted-kernels.rst
+>@@ -74,7 +74,7 @@ a particular type of taint. It's best to leave that to the aforementioned
+> script, but if you need something quick you can use this shell command to
+> check
+> which bits are set::
+> 
+>-	$ for i in $(seq 20); do echo $(($i-1)) $(($(cat /proc/sys/kernel/tainted)>>($i-1)&1));done
+>+	$ for i in $(seq 21); do echo $(($i-1)) $(($(cat /proc/sys/kernel/tainted)>>($i-1)&1));done
+> 
+> Table for decoding tainted state
+> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>@@ -103,6 +103,7 @@ Bit  Log  Number   Reason that got the kernel tainted
+>  18  _/N   262144  an in-kernel test has been run
+>  19  _/J   524288  userspace used a mutating debug operation in fwctl
+>  20  _/Y  1048576  device was manually bound or unbound from a driver
+>+ 21  _/Z  2097152  a driver was forced on a non-matching device
+> ===  ===  ======= 
+> ========================================================
+> 
+> Note: The character ``_`` is representing a blank in this table to make reading
+>@@ -193,3 +194,6 @@ More detailed explanation for tainting
+> 
+>  20) ``Y`` If userspace wrote to the `bind` or `unbind` sysfs files and
+>      successfully bound or removed a device from a driver.
+>+
+>+ 21) ``Z`` If userspace wrote to a `driver_override` sysfs file opening the gate
+>+     for unexpected driver binding.
+>diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+>index c51ad96d4de4..6e91210aab45 100644
+>--- a/drivers/base/bus.c
+>+++ b/drivers/base/bus.c
+>@@ -513,6 +513,7 @@ static ssize_t driver_override_store(struct device *dev,
+> {
+> 	int ret;
+> 
+>+	add_taint_module(drv->owner, TAINT_DRIVER_OVERRIDE, LOCKDEP_STILL_OK);
+> 	ret = __device_set_driver_override(dev, buf, count);
+> 	if (ret)
+> 		return ret;
+>diff --git a/include/linux/panic.h b/include/linux/panic.h
+>index 23976b1dfdb6..e6e24d8afcf7 100644
+>--- a/include/linux/panic.h
+>+++ b/include/linux/panic.h
+>@@ -90,7 +90,8 @@ static inline void set_arch_panic_timeout(int timeout, int arch_default_timeout)
+> #define TAINT_TEST			18
+> #define TAINT_FWCTL			19
+> #define TAINT_FORCED_BIND		20
+>-#define TAINT_FLAGS_COUNT		21
+>+#define TAINT_DRIVER_OVERRIDE		21
+>+#define TAINT_FLAGS_COUNT		22
+> #define TAINT_FLAGS_MAX			((1UL << TAINT_FLAGS_COUNT) - 1)
+> 
+> struct taint_flag {
+>diff --git a/include/trace/events/module.h b/include/trace/events/module.h
+>index 19df3e39bba4..c7cdb1f53bc6 100644
+>--- a/include/trace/events/module.h
+>+++ b/include/trace/events/module.h
+>@@ -27,7 +27,8 @@ struct module;
+> 	{ (1UL << TAINT_FORCED_MODULE),		"F" },		\
+> 	{ (1UL << TAINT_CRAP),			"C" },		\
+> 	{ (1UL << TAINT_UNSIGNED_MODULE),	"E" },		\
+>-	{ (1UL << TAINT_FORCED_BIND),		"Y" })
+>+	{ (1UL << TAINT_FORCED_BIND),		"Y" },		\
+>+	{ (1UL << TAINT_DRIVER_OVERRIDE),	"Z" })
+> 
+> TRACE_EVENT(module_load,
+> 
+>diff --git a/kernel/panic.c b/kernel/panic.c
+>index b824b68fcb08..f5476a61f6f3 100644
+>--- a/kernel/panic.c
+>+++ b/kernel/panic.c
+>@@ -826,6 +826,7 @@ const struct taint_flag taint_flags[TAINT_FLAGS_COUNT] = {
+> 	TAINT_FLAG(TEST,			'N', ' '),
+> 	TAINT_FLAG(FWCTL,			'J', ' '),
+> 	TAINT_FLAG(FORCED_BIND,			'Y', ' '),
+>+	TAINT_FLAG(DRIVER_OVERRIDE,		'Z', ' '),
+> };
+> 
+> #undef TAINT_FLAG
+>@@ -862,7 +863,7 @@ static void print_tainted_seq(struct seq_buf *s, bool verbose)
+>  * exact size is allocated dynamically; the initial buffer remains
+>  * as a fallback if allocation fails.
+>  *
+>- * The verbose taint string currently requires up to 344 characters.
+>+ * The verbose taint string currently requires up to 364 characters.
+>  */
+> #define INIT_TAINT_BUF_MAX 370
+> 
+>diff --git a/tools/debugging/kernel-chktaint b/tools/debugging/kernel-chktaint
+>index d8628be37214..14d8febd6b16 100755
+>--- a/tools/debugging/kernel-chktaint
+>+++ b/tools/debugging/kernel-chktaint
+>@@ -219,6 +219,14 @@ else
+> 	addout "Y"
+> 	echo " * device was manually bound or unbound from a driver (#20)"
+> fi
+>+
+>+T=`expr $T / 2`
+>+if [ `expr $T % 2` -eq 0 ]; then
+>+	addout " "
+>+else
+>+	addout "Z"
+>+	echo " * a driver was forced on a non-matching device (#21)"
+>+fi
+> echo "Raw taint value as int/string: $taint/'$out'"
+> 
+> # report on any tainted loadable modules
+>
 
-diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c
-b/drivers/media/platform/qcom/venus/hfi_venus.c
-index e7e4e78a186a..20b8ba1e62f1 100644
---- a/drivers/media/platform/qcom/venus/hfi_venus.c
-+++ b/drivers/media/platform/qcom/venus/hfi_venus.c
-@@ -1689,6 +1689,7 @@ void venus_hfi_destroy(struct venus_core *core)
- {
- 	struct venus_hfi_device *hdev = to_hfi_priv(core);
-
-+	disable_delayed_work_sync(&core->work);
- 	disable_irq(core->irq);
- 	core->priv = NULL;
- 	venus_interface_queues_release(hdev);
--- 
-2.53.0
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
