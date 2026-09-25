@@ -1,185 +1,222 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013062.outbound.protection.outlook.com [40.107.159.62])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9444DEC3D;
-	Fri, 25 Sep 2026 16:38:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.62
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354320; cv=fail; b=Tn3jwMG00h0H2fYm5w0YLT/zxdDClvlNpHQ7Qh9eK0ex/PQa/yNaPNpprUPTRwmgEgr8agVNiu0wTpa5vUrXy2snUcKZ/6LJJiD6p7M8RKnVPp90cxkuXJjXHu4USgVR2Ek6WeDrBq/6dls7xDTwzpf9GmJ6Y7VwwoAHp4Nhb1Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354320; c=relaxed/simple;
-	bh=iTKULG9+6rUxJovA+Yd1ysC5xc0aYgPsW7Hqr8qe8eU=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=q8EtPV/vFGVGeYdm4oBp/lb/f5Jk4mlQPrlcChFPb4oEKec4xCFtJiRLuPT0iJhGUtp6RHPr1ofqoL2uP+UlkLh09Un+QX91MVON3JV58DkluWbYV5l6SF3mPCMgpw2PAjonXoeM9GCoNwU+VUyrq16RKq3a1/lVgrbjkLtDjX0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=j5omKsii; arc=fail smtp.client-ip=40.107.159.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3DE4D9573;
+	Fri, 25 Sep 2026 16:38:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790354322; cv=none; b=hPOF0KvWGLUjevvlG0119FVG7iXkxek4BX/SzEktpFM/v6wTMLT8O0UxMNo8H9xrKiVHKFpxMiJ9CvuH7sa+Lj2SZyhCVKjvGvQHwJ+6Z9bk60HyaJIY4UmR87mtSVdVubkVqkSZ6i1l3WkJKr4RPi51xNjG7tbeFjqBMPYnjUM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790354322; c=relaxed/simple;
+	bh=7JEZFKX+P/T1np0rBfRn5XbrnUCGgHH+54tJTV1OQXU=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=oZL4iBqI4JK15ZEzZ3Z6VlXHtRxk7A29EmrRPKk5colh67jJmkAV8ctJoYD0WX+JJBNcnXL6/NjAXuARe8mAWf14pOEbUUVNrfH7hWCJT64Q+taZjikWWLB4KEIIakU2IHeLDHzP3umkT5fdk7+g0TLpVzorOEpiB+tNdiIuSg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ER993GLF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="j5omKsii"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JI/pz3dE8e57kt2qFCaV6Rf6g/0eYQurtrbceLaTsWSUM0h6TzlUknYKRkN6e/4aFF3KgXerSGpg3mzDlO08A8ddPXjortOVRsVBFb5joe24Q9lwIUjdyZ/L8p8VXgs1n0bPxbCBevUsuMD7XUZZAe7zOVSEEwc1XF/wOs5oB440mQnt+DIX3JwsMMsfs9Y8BjwFAlJGQx9K/ywadndUHvDnZU5rURgklYss+FWK2QKIHl9j8j4lavdhOaQF3aRAYLt86CAUKXCFzcKUhQsUesIF8shFqqDJ2AmyYo2g6TEuVMvqNkb/zNGBnfWX9vJvpBDuYAiHycyX0bwWS4UY9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s7jCIE7s49HSZSrIcK596jkzqRpqjDRp/sgbvh9meN0=;
- b=kONK72vC6nAq1gPNVv6c+N6GoJRyDw29bqUbWVYq343BQUgciBc4xaukascpOneDdlOL6y4BKwdYA2YEpNZpH+sthuJPMnvLHoQyq5ePLOUVu/cG9MqAQz9E8/sPBwA087cJMWTIiztfClSoHdlED2c6UGBIp2O5wM65BXwXQLDsxz0fosY3h/R2o/SIIdHAG8n9WHCuV2v9OPXZuT8ip8hIS2Rq+CrtjaCT6qzXe32afN3HcLEuyt2bunpIqcgL7hiMdEhdlmCmZ2heFrc3lKGQafZMgbCtT7Dz/f1OjmcwAivJbAJaKC6k858SK0Jeb2xZHkle2enuQovHf/hbIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s7jCIE7s49HSZSrIcK596jkzqRpqjDRp/sgbvh9meN0=;
- b=j5omKsiijYrCSi7Gr2f8CoPkOc49LgxXmkjpTmZDArbbkjMCsLgYo0xgt2jsdMTiAdsgdCo4vJHpgsakye+rx3G5ayIMlqjVJA2GtWChHHwGd8Uvh6KNrpdxkOMYmAKF0VjmoQ4meTwt+Q1A6dR3HXcv3F/sA1ePZQ4xHBcwpsjGV/M9mxy8an9mjVfinLUVI+zLCMLaMaKmDuRO33SV2xrXbE/QTXbHdMIbBd67ejVERt4G1e7odotWpZGtTJrhxy2mnctCHGSSWyJerH2R0BnIRl4F5pbL6yyYKAfrOfuiwEMpbfzHHvN+fR/Y1LmGCuvNE8foEUnTkeEzLIlMNQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AMDPR04MB075100.eurprd04.prod.outlook.com (2603:10a6:20b:749::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 16:38:19 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 16:38:19 +0000
-From: Frank.Li@oss.nxp.com
-Date: Fri, 25 Sep 2026 12:37:53 -0400
-Subject: [PATCH 4/8] arm64: dts: imx8mq: remove #address-cells and
- #size-cells in dsi@30a00000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-cleanup_dtb_warning-v1-4-f999fafbca60@nxp.com>
-References: <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
-In-Reply-To: <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Guido_G=C3=BAnther?= <agx@sigxcpu.org>, 
- Robert Chiras <robert.chiras@nxp.com>, Tim Harvey <tharvey@gateworks.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790354274; l=1131;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=T3t+GWq4MQw69zRHEG44E/Fx0XLSGRNOz8Kd6HtEDNs=;
- b=P4GhcOMILD8sJurKPvVnLeIZsPCnB+k9CmeWu9NIj3PZv4rrpeqs2+/WxfsDgMI3KM+IahoBx
- FtNTHlXMW/UCn/IB5IvRL9HrX9uvhQh4JOpwDcoUiVcbNHt/5ESZpSW
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: CYXPR02CA0011.namprd02.prod.outlook.com
- (2603:10b6:930:cf::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ER993GLF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA6201F00893;
+	Fri, 25 Sep 2026 16:38:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790354316;
+	bh=Ef5AYQYzA6WRtJxzWsmKVPm+wztV1FQUcjUH5RY8340=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ER993GLFdFWegZ1zeJakvYgwmNtNST0z1wbj7yRNKh1rwstT4dVw1BDWN4mx6hRt+
+	 E9q8dgtPMHNudVEujWTF/4jAJ2r+8gLELbFtKKZLSyoOEO6KVpLXgcWItrwUI+oA0Q
+	 CeUlFIdkaIdRVgr1ykl5B1fzAa/gk/ZxMB9IhPCEZv3U2PHJ4mYOsCBXQhliOKU1qV
+	 gfL43YaEpPISCRDVyy/PqZD5z3inJ/Ffsnp+tCCVUmikrnjjZoYhXBmWb24FST4Df1
+	 qIVuDhsBhvztbE1aem5vP93USxJ1GCUTXL64TcW/hargRO7ULBLZWo7eGBSfw80mP4
+	 CUNqT89AnHBUw==
+Date: Sat, 26 Sep 2026 01:38:32 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Naveen N Rao <naveen@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, Steven Rostedt <rostedt@goodmis.org>, Josef Bacik
+ <josef@toxicpanda.com>, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] kprobes: Fix permanent hang when flushing the kprobe
+ optimizer
+Message-Id: <20260926013832.abaa63a3903d563655bc60d6@kernel.org>
+In-Reply-To: <20260924092142.199198-1-parri.andrea@gmail.com>
+References: <20260924092142.199198-1-parri.andrea@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMDPR04MB075100:EE_
-X-MS-Office365-Filtering-Correlation-Id: e26a6ca4-23e8-4d23-52e6-08df1b23680a
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|366016|1800799024|921020|10067099003|22082099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
- ZIvdSoirHBA8VUC5CdXpXIWmUwaUGajxl01XtaW6Lp5LWC8yp+wGLAIwxxxa0kEnxqvTnaw5EplEauxgw2XyWwj1OvTXZJfP/glTWjiNn9wafqlFwVwXK74jlR6cqlAlNFyWeGbx3hbbi2DjR9BEx/Z1w3fb6PM34ROVTGI+hB2e8neQD8IoHEcXIOl6/BJkE10XyDWpqT1XgpOCl8dmJOJtVBuk42q9QalRD7gO56x8Ge5tg7WzANRYnoB+ehprh4FNf1ho2/11lBMG4oShyLaLv3+MkYIk54a6gL4ickYdsICUoziDm2Vifaa5DwQ8IPiWLb+st+h0wX/CwT156FmkLLGICHFLtRZDVdnL+CqGyPB9lzSHa82536Dc96VQqrU+W+hsRd61YStO8O3dJR2h+A5Yzz4dRFydYcOQgHK9S1+4a5Eo69TEWf7HCMTI6big44eYAcUhTbdDx829gR0sY7i+FyZtxDXoGU3GZYP8U23nhXn6iJTmyUaA03TPWGXKi+7Pj2Xc9HuL0II6MNTjHzW8JX82qFfWFygxSXLiJnmhRWvewhZmp4HkaikGb3MeV6z6NvkYpcz5oHvDxJuP12DPQOWAJaeaQdvOXCzm2uA57M1aXoH6cwYnMWqJ7BqX4tXqYBnLWR1v2G+g6VaZHEnSwi27N9DhWOnDy43f0tre5+kzpR7DNM9y71EFvRqsWwds+65l2RcD4TIO3g==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(366016)(1800799024)(921020)(10067099003)(22082099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?OGJaaVgvd2t3VS9OaDFaaHJjOGtwaTIrWVpjYlpuRHpYYkpzM1dPZnJQN0Rv?=
- =?utf-8?B?NGJhNGhaWGRvN3c2QVlBSldtUnZHNkhtZjJ2YzZwcnZLSW8wWU9uLzd3b2dq?=
- =?utf-8?B?ZndKTHk4bk56R3Q5VmRSajhJYWVrSnVaczdtMlRMd2w0eDVqMW1zeDhkaHhs?=
- =?utf-8?B?Rk1NYkQ4WHJVVC93QmxHRnFvVmhLR2hxVmNWdUQ1dVFDWk42L3JpY0Y2UlJ5?=
- =?utf-8?B?cUdOajY1SVJ4VzNidnB0TDJMZklwN2x3Nno5SkhyNG9jZE9GTUtnTkxYR1Fl?=
- =?utf-8?B?UzFLVlhkV2gwOU5IRW9EOUFWQkpGb1dIUmdMeUI2L0JIdzFJeWFhSVRZbGlS?=
- =?utf-8?B?L1A3MWxaNUwzWmlRVjdnZFJubjNqbGVJcHhwalltNkt5RUo4NkxlOHR2WUor?=
- =?utf-8?B?RVJrenFlS08xMCtjdWMxRWY0b0ZMbzBXei94UzU3UmJUdWZZSkc5SWpNN3My?=
- =?utf-8?B?T3JWSUFGY2J4d09YUmNCZGRUN1ZBSmRsTXV6Rzk5TGlDNkFQMUV1cEtMK2Fn?=
- =?utf-8?B?dm1PVzBjWDFWZGt3a2IzQldKdFo0OC9WOWpuRTVmeWlyeXJvRlFQTkJOQ2to?=
- =?utf-8?B?MTZ3ZlNGNituS3VOdUdoWGNjV2tCSzdLcUt0QWQ3cDBKVk1QT1RSQ0orb25T?=
- =?utf-8?B?L1FwZjl3aUYxRE4xd3dBbW9wZkRPZ0s5M1hra2t3SkZpdVJudFRZYkJXWWJX?=
- =?utf-8?B?aTZPSHhhazVBcGdiSzhlL3JYSkkvNi9VcWhua01vamN3VE5jd2NBa1hXYzFy?=
- =?utf-8?B?eE0zYnpFanh4Rkl1MUluQjFGSkVhN0JEVldXNFNtMFdOZXhJcDJYZUhWUm10?=
- =?utf-8?B?eXVaTldqU1VDQnhnSEZOeHRJNXR5TTh0Q2hscWFJdmVFeFdNTFc4TzhEWmgx?=
- =?utf-8?B?ei9oUWdCOVNUVjZwUHRidVkwY3hWSmxvd0ZFdkFiL3hBZjlUUW9wZlZESjlo?=
- =?utf-8?B?Z2pXMW9SNXM2SkJoQnB0bWt4UWIrNzlMR2NQdk1VbE4zV3FYVmM4SjJFL2d5?=
- =?utf-8?B?Z1oxK3NSVHN3TlZUYUMwSXA0TzdIUlNXbitQQ3FOOFVtdkxhVElEcjkwKzlr?=
- =?utf-8?B?TEZpdEdKNVVnSWxid3VxRllJVHlTbXdxb1dJckVHWEI1akEzQmVrUjdsdHl3?=
- =?utf-8?B?TitETzRsWVZNbE8ra2wrZlRJKzNNZFg5akpOR0dqODQ4Q3VKeTZDWExnQWtk?=
- =?utf-8?B?cHRmVWFqbDFESlBMSnlPZUpYSFpMNUpTeVRZbHNOeEJvZ1BsZnVSS2c0aXp6?=
- =?utf-8?B?Z2wvcTdsT1RPeTBhb0VMbUdGZ0JJK3loS3ZQZWVCYVlZSlZSWC9yR2VqVW0v?=
- =?utf-8?B?N3kwWHNXL1NzYUREZi9mc3VyVnE0eHNpcGpOQXlYY0Rna2JtT3J4T0Z5M0Zt?=
- =?utf-8?B?WnYvYks1MDcvdW02ak1Cb2pQa1JkRWovNWtjK0lCYWw5d3ByUG10d1RqYlc1?=
- =?utf-8?B?MDJlWjZlSTZHZkhQZ0hnTFJKejR0WWRncXlQRTV2eUtobUltZi9GYUJXUCsz?=
- =?utf-8?B?WnFWSEl5dytYWTRadUVFWEE0RlRtYWI4aGx6UEZ2UFRBQmJzdlQvMFU3cDh2?=
- =?utf-8?B?RjlaZXBqbG01ZHdOc2dhMGx6NlV1S3ZMeXhORlF6ME1obkZyK3hSTTNzMjIy?=
- =?utf-8?B?WnhpVHpXQWNDQjNQRnhMQytyQnhFOC9hTWlwcVZhc0hIVjFud0kzaEpvZDM1?=
- =?utf-8?B?dU5XTG90Rk1MckhhYWtFN3lDTTZ2SHVjUk9DMi9MZ2ZBU2RiV2JJZlBuNDRR?=
- =?utf-8?B?UHFCdUppd3dGOXp1V2RzcUdDVkE1NXpmWWRGdmEwSFVDcFBEUlp2bERxUW5t?=
- =?utf-8?B?VzQ1S0JlYlZzZ25HTVFacXN0ejZlTkk4dzlwQmxKMUwzZVNXaUlMQmpmQSs1?=
- =?utf-8?B?M3d3aXE4bTBGelRTYVVWTVR2aFJYbTlpbS9HRkhMY2ZjbTMydW1CY2F4eDBr?=
- =?utf-8?B?QzA1L3hBclFwZzJOY2Z2RTZoUFNuaXlNZ2VueFMycWJvdmNkSFBzZUVrNmhN?=
- =?utf-8?B?UHErbW9CZHd5OFVGRU45Rkd5Y2VXcWZnWkRsZ1JmcUMyaUNST08xQkNaWFVC?=
- =?utf-8?B?ZzNHSEV2TzNMYXE4SG42NGNoT1lrYlBTa3h6OWxON1N2eUh3NlA1NXVrbTBH?=
- =?utf-8?B?ZmxadlNRMjh2TGFGRXoxMkhBUDNackpIWnNaS1lzblIzd2NYclQ3NHdOMTdi?=
- =?utf-8?B?eXUzMG0zOXJZUUFCT2tzUjJobkl0REZ0NVdsdW85a1RVc1hsV0Z3TXVTOTBV?=
- =?utf-8?B?V3NGS0pFZklOZkJoT0dPalN5NWYxU0hzeDZPaGNUY3laWVdSMHQvaXdWTHVo?=
- =?utf-8?B?UmVMbjRFa3ZSQWlpSU03UXRIUEY3cUhWU3J1cmwwRXRDNEVCNUl1T1BMZEtv?=
- =?utf-8?Q?/J+KOVozViYNQ0I+QuyxNk5srrWMVyGKqGtZK?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e26a6ca4-23e8-4d23-52e6-08df1b23680a
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 16:38:19.6370
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kU4sBNBzpWaVhQO9Izq9KPIS3fIAoIf5QcqmDfyBDx8hedOMHW5mMor8qq6SQwBmBqUEaeaFyKel3rw81Vukikd/aS+upABMDC8iRA6P/kJOvT+SFViCqL22OMHTrtru
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB075100
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Frank Li <Frank.Li@nxp.com>
+On Thu, 24 Sep 2026 11:21:39 +0200
+Andrea Parri <parri.andrea@gmail.com> wrote:
 
-No children nodes under dsi@30a00000, so remove '#address-cells' and
-'#size-cells' to fix warning with (W=1):
+> Writing 0 to /proc/sys/debug/kprobes-optimization while a kprobe is
+> jump-optimized never returns. The writer sleeps in D state forever with
+> kprobe_sysctl_mutex held, so any later read or write of that sysctl
+> hangs as well. For example, with vfs_read+9 as an optimizable address
+> in this build:
+> 
+>   # cd /sys/kernel/tracing
+>   # echo 'p:myprobe vfs_read+9' >> kprobe_events
+>   # echo 1 > events/kprobes/myprobe/enable
+>   # # wait until /sys/kernel/debug/kprobes/list shows [OPTIMIZED]
+>   # echo 0 > /proc/sys/debug/kprobes-optimization
+> 
+>   INFO: task sh:246 blocked for more than 10 seconds.
+>   Call Trace:
+>    <TASK>
+>    __schedule+0x1176/0x4f70
+>    schedule+0xdc/0x2c0
+>    schedule_timeout+0x17b/0x260
+>    wait_for_completion+0x173/0x3c0
+>    wait_for_kprobe_optimizer_locked+0xbc/0x130
+>    proc_kprobes_optimization_handler+0x156/0x1b0
+>    proc_sys_call_handler+0x324/0x490
+>    vfs_write+0x52d/0xfe0
+>    ksys_write+0xff/0x200
+>    do_syscall_64+0x106/0x630
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>    </TASK>
+>   ...
+>   INFO: task cat:265 is blocked on a mutex likely owned by task sh:246.
+> 
+> wait_for_kprobe_optimizer_locked() reinitializes optimizer_completion,
+> asks the optimizer thread to flush and sleeps in wait_for_completion().
+> The thread drains the (un)optimizing lists, but calls complete() only
+> if completion_done() is true, i.e. if the completion is already done,
+> which never happens while someone waits. disarm_all_kprobes() and
+> kprobe_trace_self_tests_init() wait the same way.
+> 
+> Calling complete() unconditionally would not be enough: the waiter
+> drops kprobe_mutex while it sleeps, and nothing else serializes the
+> sysctl handler against the debugfs "enabled" file. A second flusher
+> that still finds the lists non-empty, e.g. because a disabled probe is
+> queued for unoptimizing, reinitializes the completion under the first:
+> 
+>   sysctl write                      debugfs "enabled" write
+>   unoptimize_all_kprobes()
+>     wait_for_kprobe_optimizer_locked()
+>       init_completion(c)
+>       mutex_unlock(&kprobe_mutex)
+>       wait_for_completion(c)
+>                                     disarm_all_kprobes()
+>                                       wait_for_kprobe_optimizer_locked()
+>                                         init_completion(c)
+>                                           // c->wait is reset, the first
+>                                           // waiter is off the queue
+>                                         mutex_unlock(&kprobe_mutex)
+>                                         wait_for_completion(c)
+>   kprobe_optimizer()
+>     complete(c)
+>       // wakes the debugfs writer only
+> 
+> where c is &optimizer_completion. Lining up the two writes during an
+> optimizer pass loses the sysctl writer this way.
+> 
+> Replace the completion with a counter of optimizer passes, bumped at the
+> end of each pass and signalled with wake_up_var_locked(), both under
+> kprobe_mutex. A flusher samples the count and waits with
+> wait_var_event_mutex(), which drops kprobe_mutex only while sleeping, so
+> a new count means a whole pass ran in the meantime. Nothing is
+> reinitialized, so several flushers can sleep in the wait at once.
+> 
+> Fixes: 73c12f209462 ("kprobes: Use dedicated kthread for kprobe optimizer")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+> ---
+> This overlaps with two patches under discussion in the "rcu-tasks: build
+> Tasks RCU on Tasks Trace readers in trampolines" thread:
+> 
+>  - Masami's RFC "kprobes: Make optprobe optimizer multi-generational and
+>    asynchronous" [1] rewrites the same code.  It drops the
+>    completion_done() check, which fixes the hang reported here, but it
+>    keeps init_completion() in wait_for_kprobe_optimizer_locked(), so the
+>    concurrent-flusher case described above remains.  The two patches
+>    conflict textually.
 
-arch/arm64/boot/dts/freescale/imx8mq.dtsi:1247.27-1297.6: Warning (avoid_unnecessary_addr_size): /soc@0/bus@30800000/dsi@30a00000: unnecessary #address-cells/#size-cells without "ranges", "dma-ranges" or child "reg" or "ranges" property
-  DTC [C] arch/arm64/boot/dts/freescale/imx8mq-kontron-pitx-imx8m.dtb
+OK, this fix looks good to me. Let me pick this for probes/fixes and
+rebase mine on top of it. Anyway I think we need both.
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx8mq.dtsi | 2 --
- 1 file changed, 2 deletions(-)
+Thank you,
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq.dtsi b/arch/arm64/boot/dts/freescale/imx8mq.dtsi
-index 5545b5b20ab2e..8d53df2be2280 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mq.dtsi
-@@ -1247,8 +1247,6 @@ sec_jr2: jr@3000 {
- 			mipi_dsi: dsi@30a00000 {
- 				compatible = "fsl,imx8mq-nwl-dsi";
- 				reg = <0x30a00000 0x300>;
--				#address-cells = <1>;
--				#size-cells = <0>;
- 				clocks = <&clk IMX8MQ_CLK_DSI_CORE>,
- 					 <&clk IMX8MQ_CLK_DSI_AHB>,
- 					 <&clk IMX8MQ_CLK_DSI_IPG_DIV>,
+> 
+>  - Josef's "kprobes: Expose the optprobe jump window to Tasks RCU" [2]
+>    changes kprobe_optimizer() around synchronize_rcu_tasks(); its
+>    kernel/kprobes.c hunks still apply on top of this patch.
+> 
+> [1] https://lore.kernel.org/all/179017148080.466588.9116221556625712980.stgit@devnote2/
+> [2] https://lore.kernel.org/all/20260922-b4-rcu-tasks-preempt-qs-v5-3-410f57770bad@toxicpanda.com/
+> 
+>  kernel/kprobes.c | 22 ++++++++++++++--------
+>  1 file changed, 14 insertions(+), 8 deletions(-)
+> 
+> diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+> index 6337da5cab9e7..4edd8ca5c6578 100644
+> --- a/kernel/kprobes.c
+> +++ b/kernel/kprobes.c
+> @@ -42,6 +42,7 @@
+>  #include <linux/execmem.h>
+>  #include <linux/cleanup.h>
+>  #include <linux/wait.h>
+> +#include <linux/wait_bit.h>
+>  
+>  #include <asm/sections.h>
+>  #include <asm/cacheflush.h>
+> @@ -526,7 +527,8 @@ enum {
+>  	OPTIMIZER_ST_FLUSHING = 2,
+>  };
+>  
+> -static DECLARE_COMPLETION(optimizer_completion);
+> +/* Bumped at the end of each kprobe_optimizer() pass, under 'kprobe_mutex' */
+> +static unsigned long optimizer_passes;
+>  
+>  #define OPTIMIZE_DELAY 5
+>  
+> @@ -654,9 +656,9 @@ static void kprobe_optimizer(void)
+>  		do_free_cleaned_kprobes();
+>  	}
+>  
+> -	/* Step 5: Kick optimizer again if needed. But if there is a flush requested, */
+> -	if (completion_done(&optimizer_completion))
+> -		complete(&optimizer_completion);
+> +	/* Step 5: Wake up flushers, and kick optimizer again if needed. */
+> +	optimizer_passes++;
+> +	wake_up_var_locked(&optimizer_passes, &kprobe_mutex);
+>  
+>  	if (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list))
+>  		kick_kprobe_optimizer();	/*normal kick*/
+> @@ -708,7 +710,8 @@ static void wait_for_kprobe_optimizer_locked(void)
+>  	lockdep_assert_held(&kprobe_mutex);
+>  
+>  	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
+> -		init_completion(&optimizer_completion);
+> +		unsigned long passes = optimizer_passes;
+> +
+>  		/*
+>  		 * Set state to OPTIMIZER_ST_FLUSHING and wake up the thread if it's
+>  		 * idle. If it's already kicked, it will see the state change.
+> @@ -717,9 +720,12 @@ static void wait_for_kprobe_optimizer_locked(void)
+>  			OPTIMIZER_ST_FLUSHING) != OPTIMIZER_ST_FLUSHING)
+>  			wake_up(&kprobe_optimizer_wait);
+>  
+> -		mutex_unlock(&kprobe_mutex);
+> -		wait_for_completion(&optimizer_completion);
+> -		mutex_lock(&kprobe_mutex);
+> +		/*
+> +		 * kprobe_optimizer() holds 'kprobe_mutex' for a whole pass, which
+> +		 * this drops while sleeping, so a new count means a full pass ran.
+> +		 */
+> +		wait_var_event_mutex(&optimizer_passes,
+> +				     optimizer_passes != passes, &kprobe_mutex);
+>  	}
+>  }
+>  
+> -- 
+> 2.53.0
+> 
+
 
 -- 
-2.43.0
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
