@@ -1,204 +1,312 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2B146EF64
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:20:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367641; cv=none; b=uBcrMLAWAAfSXGVK5+73Pdq7dY2L1gzNqh7oltoiy/YJ6MkYXkth/nvVB6+Cs+nrJn48JrYkYYL42AAu9Qoh0w4MoCL4oODjFvFRybSP6Cq468fmbj2O3YBb9F/hx8zTVzoKw8yvFkhyXz5uMGK2jchuvGsZi1bhqokhB0QpqgA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367641; c=relaxed/simple;
-	bh=jLtlM+dcV4vNFcRKCK3NS6KrvFDMXTg1LH4aBfPd9q0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XalHZTScTqK/BFQCZhAzoyIKOMdlTeZZ5tfB/PR09RUBYoMOu9UzC5j/bh9VwgZIy6ba7QhzxjNGbDuIgCJGRSQXqJiZGDwYQzG9iXKC7qwy1tQLzSLfY8dEYd5eF2zq348waH0p+xL6W7j5q1l3fbRVdvVrR2z5zAGMgCFtVO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=LExt+f7K; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3F0414A0A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:20:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790367653; cv=pass; b=P3GNMMz2gamdTerpAUEQLpvLqLv51PeX21dvpFayFeGVd2H763zzHBjH91Jlbezs8mwZAqYAYoXxuiEGceJtp+ruKTOXlRk6y7RanDW3GCtvvKwOxwSpdCV31ZMPMWV4FZBPmYIbCLgHPw1R/9QSS0i7ZnqSGOex3fqKyAlKXEc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790367653; c=relaxed/simple;
+	bh=ntdvCfc1Y5/sPC6UOT9tkk623bqjbzk7ppMuSWDFXEw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BHzE1uqKBLkFO9RzxrYsC4DizVa6NyjDDV3rcWlDGtbjRqCpDcY0hIurhUxrfA5Iwxqed9TDJwIQA9rUJjOA6/y1EthBvPTkZ4zQOpsgPKXmT+PhjnnyzjqSgnI6y28Pznr3IM+rpkDh8QWDSBfPyQXuBHmFHCN2VP6MWMlEwds=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=llNN9Wjz; arc=pass smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="LExt+f7K"
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ca5aa8so120429385a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:20:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="llNN9Wjz"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-533202fe429so64681cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:20:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790367650; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NDE5JRGS/11AuCz3WRgkJOB1SQfsjqM7RpGRslH+H2FR5r6BumNWgDVInxn7skKgXg
+         Cz/x8FYO+Z0iIYtR1Erhjlg8QcRmG98qw73du/TmTbzI7e1pSgJ+PIftjVr0V2P8o0AD
+         UnhnIeoeZsiwYLb1AuV1rQwUpstCMnBn8LtmfbRQXp7+0ksRRtxJ75MNpky0sQMTqvYN
+         V6TJqvFIJxkbPGCTjf5n/q89OPGAJvub5q2OfJV6xa8CphIGNMKruLercmAByBowFxT/
+         RsAEhIMIu85lspATK2VFGNCdB7k4jckXnY1fA6TJnRBZ3eRVDKlWHjwQY3fBpkRK5330
+         c8Vw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9UAR/4keNWxLSi4t1vjjVFho1evIXjZioXSXvU/VZYg=;
+        fh=zIiJBPecAw1/EZvuDt1WfceOJh08rYYVgjEYx8LYfus=;
+        b=BorUcNH1J9yG1e0Gz9kSwkAdRPxLzOFJmbpyhIuPcH6qCjDIGDMqH8/xxfyKUtZU0s
+         vNgikB4GXsT8EHGIVnkP6fgEl+GUR+iwWXL9l0/oUyQaUKkxAlx3Ft9mIdV7dWUzXqPL
+         7F0aL8m5vYd9VggVQU74mcAV7YTL3n6DQcPPJjYa06RgEkfwa5LjLfw2ytVyD19+ZUcK
+         /F7i7G8neRKj6Tp8tpy8yIImtt8aHTkqtYFEsXIkalRWADy1P1zf+fLdB+GbM7HRtMQI
+         0KyziWUu89Uhi1On91j/zN0hRSCuuwu0mTfssH3ggpOpKfjitEkZBg5prUV9Nz/czoJc
+         8ViQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1790367638; x=1790972438; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1790367650; x=1790972450; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jHCr0O6x1oEoTdeKSMNckh0NZBgonxokbaxnCBlTws4=;
-        b=LExt+f7K6CGlDCo+ccJ0C/qPcdEHZ7ysBk0LSmZ1AAxuQ0IpSJqmfkaPxvehYWy1GX
-         JjcahiiMFDwiDdT9ZCOuIbGsbc1BKrcTkNr5cE0c0fLk7NKjN6a+3/TYrhCnCFDzIgbg
-         5IxH19SIePnMUZD2kGUGHYDQN8JjCZBeu5np3a8LPTpvQLLeDGgeAQm1wGaZTMmABsNG
-         AJcKz66sBUCoIMf90t4zR4Xqz22ImV38rvqGYEebOulEH6Hkzx0OeCNyxBO2AaKsF2wY
-         MT+PB+/rzvj4jMNrgN0VMxsAiusjh4+tWK/csi8MKHpETLH8X0jgF2SHEsO2v3VrjF3c
-         G0vQ==
+        bh=9UAR/4keNWxLSi4t1vjjVFho1evIXjZioXSXvU/VZYg=;
+        b=llNN9Wjzyrs21mqOvEQvZw/jXc7UkwFajPloxsArT9Lu6oU9efmtdCEo7vpu9obpld
+         y2pBFNyiH2oeUPG39eYYVJ+ep3OMw82qWUabPh6/4y5X+YEGIweVwmwTsue4Rrx37PgK
+         AOfP9sFYuVkKaHK3L+LTH5RjnI2Y3CzyMrmjtMvr5yephjrN4dsZboGwny/Qbnm7ahyU
+         /QiTRy7Hvx/30mTy+gc3BNGjm5mWfJRqNcwL0O2wRknvek3eRY0fmYZm5Zi6X0cbfyDv
+         8TWwb4ykh4euDeXqR5YuTp3Q58BVxdAij8C6/JibYEJwYbSLnJBbMuahGRTqgw34mgd+
+         ksSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790367638; x=1790972438;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790367650; x=1790972450;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jHCr0O6x1oEoTdeKSMNckh0NZBgonxokbaxnCBlTws4=;
-        b=wjSp7QRsK1yPrAaSlmF5BiIW0c4uPfEcx5AF6cEjTbksMRhmjlcdRDaQT22PgF2CIb
-         r6nydBW3ZSOWUpVE9oOWogOoxO/sT385QRoZ9vPzdnkkrU31B+R+zJbi0oKrnDeSXJxK
-         m0vNr1DI9Dw298s4QQd+KFkB0bB7Se9OKPuBQRm0nHfAodeBgbANw9aHH+cjqUcIcqP8
-         M1ff+f6yf1arMPIArMKdCWW1uPid85a356UTGaCrJ5xCg4FAx2QG2oEQjgaSpOsYrtKy
-         YXXDYDjcRsNmojZDjxIfwTg27Sfox8PaE17nt8XqIAXZlk3oOXaVwdIp4aQUdlRk9Lxh
-         EgRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxuzT5qe+TtDfstgoGD+m/7TZ4YEoxF+CRQELlGDECy8QO2L04w9T3a4BflU/RhSWyYyZ1jr6jX18yeO/k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAu/IXr/WB4plIi6D5isZyh5Ih7dEK7xHvuUgHOrdd5+VIYo57
-	NE/31F7b1EiF4oUh1e8ASk2IJ1z4xsSV20Nz2txeCdVQ8LLtGdxhV301T2XGuZTr8FU=
-X-Gm-Gg: AYBFou0F3XRzIqAnOMJYq8OVAP5O7i342nbkVaXaIp23sQpt8EP680hD36NopAO4R5c
-	gg04o6y0L5IeUr75SERJwHAi/bUwbrQMivr5wHul/I6aN4Keqf71M+xAo1ejka0PapBjvW3FhqH
-	uB7ibW/8AcHh9DbxzzOorc2LKFDkIg3yAnz0riUzSj3zdQMm+EneS5TFE8pDq/2IarSiaax4R0M
-	eY0tf15UMCreNxHtZiJNFOd/fdt/TfUQyyAYXGVah60WmwNscYn9n5jDR/O4t2iJWa2UlKYuG7u
-	AClaSP7RYF1eTdNtalUIsG2la1svtF63kvbSwRLwRQdyx571cd3cuV3lAs89x195ddy2zwvhiSg
-	/tMi+0NqCagwYpDM+lZJibi5iVDMtNkr0bz/4f/B4qniZpW5r9+ym2zffCmKI7dhX5wyKp5AXcc
-	bHl7YN8DX0VSdW/34ByQamEfsxj1xfbmmFJrNGYqMu/Dn39Of6fjuQt4hJBKRmytrZW2tD
-X-Received: by 2002:a05:620a:40ce:b0:939:a9d4:7022 with SMTP id af79cd13be357-93c43b5acadmr649894985a.8.1790367637558;
-        Fri, 25 Sep 2026 13:20:37 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c448b06c9sm260456585a.11.2026.09.25.13.20.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 13:20:36 -0700 (PDT)
-Date: Fri, 25 Sep 2026 16:20:32 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: YoungJun Park <youngjun.park@lge.com>, Chris Li <chrisl@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>, Rik van Riel <riel@surriel.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Barry Song <baohua@kernel.org>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Gregory Price <gourry@gourry.net>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arbXkEQ1cwOVMqEy@cmpxchg.org>
-References: <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
- <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
- <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
- <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
- <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
- <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
- <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
- <arUcil9kxUPiymXI@KASONG-MC4>
- <araWKyJ5MENBwXCL@cmpxchg.org>
- <arbHLt-iB4RHXyWt@KASONG-MC4>
+        bh=9UAR/4keNWxLSi4t1vjjVFho1evIXjZioXSXvU/VZYg=;
+        b=NvxQokw43hVeCD8oWxj0q1zY9Y+CeoDE6FvtHbW6y3m4E6lJE/+3+jVPibXFkP84i2
+         +LBAaK4WJmidu1xavprAcBwHOqWLJwqM2RpKZvFxlPWS9WeJUCSuyjPci/TU+ZWjOe0Z
+         /syCwh7K5TdzC7SVbCObWk0nwY9Woahp/Gs706rABzaRzk13m4RHX6I79/5AG/Conp+j
+         kw3XZc35Z1bAXtSxbl068DbLouWw34VZjOdvvP43pUC1xwAIVBkR7OQm2O10cBts+LWN
+         Hlr5Bu/IhPLW+GslhIZqjQ0IpZpV4VZyjvYMuCm6CDXEzRAvZKZppV84riG7AwsCslj9
+         TSsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZasVaZxQ1Q2F5tCpJI5GQ7tU2KjUQsH/8YfMqdAJaq0ZyHGKDYgjPuh1GkxoA3Y43jOt/utLbWAeQZlE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kijbP0kn7GDm2edHtbMpiJjpNMy7xo959eF75kkkoEjBJl0/+S
+	hr7QQxoy5xsCjvQMeX+V9W+qywwIpebIVOmqunuscasPVIxG/Pg+r4OvOTheeix5i06NoRgltQc
+	Qbd0H9yQkpv4ZOGgSxau2pG0NjPRHMxB3eQuX31bC
+X-Gm-Gg: AYBFou2PqnORUZlk7oAwBXL62JJ9KMaxjgo4Ikg7JjAEhIxWepIZ1454EeAZ+CEjLZg
+	tmZqvQ9Ow+OtHSNQ1MWAKuTDVXKtSekuJf/E+cUbXYt44FGJQv1c0Is2xcLFr2T4bWFPVj0EAD+
+	VYoe7ZgR0uewqjniVYRZL7knhmyasQgLkCjTmdXTci+6OnidGAbuvmkdNHFSzC2Xa05fenyQpSt
+	G14wZODJohrnnqnh0/QLFOIGuTbHuONbpoSxP8eamK8AHwZpToXWvrzY+sCE9swl+T3n6buaN9T
+	zUIad+9smQxRqep2YKZWTb+8ow6KwC0T9DlBP/IYir8irOOXahLkSVi2kKtFnH5JVtC4JwFohH4
+	WXlHKNrJCgQ==
+X-Received: by 2002:a05:622a:304:b0:532:eff8:3491 with SMTP id
+ d75a77b69052e-5332017dac0mr3342871cf.14.1790367649498; Fri, 25 Sep 2026
+ 13:20:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arbHLt-iB4RHXyWt@KASONG-MC4>
+References: <20260925-perf-symbol-memory-send-v3-0-3e4e234c363b@uber.com>
+In-Reply-To: <20260925-perf-symbol-memory-send-v3-0-3e4e234c363b@uber.com>
+From: Ian Rogers <irogers@google.com>
+Date: Fri, 25 Sep 2026 13:20:38 -0700
+X-Gm-Features: AclHuK__5EL3z5lGL9iU2gLgFQUrPkWD2Krp0skWq8IhbjJj5TJ3lxNdTCO7P3U
+Message-ID: <CAP-5=fWLp5c9HYZ6oTsfPhWprz3uMTT=mt3M-OVu8GEjzSpEww@mail.gmail.com>
+Subject: Re: [PATCH v3 0/6] perf script: Bounded and lazy symbol loading
+To: haghdoost@uber.com
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 26, 2026 at 03:21:30AM +0800, Kairui Song wrote:
-> On Fri, Sep 25, 2026 at 11:41:31AM +0800, Johannes Weiner wrote:
-> > 
-> > Thanks for your thoughtful email, Kairui.
-> 
-> Hello Johannes,
-> 
-> > > I also want to separate two things that I think got bundled together
-> > > here: not requiring a physical slot behind a compressed entry, and not
-> > > charging the raw size to the swap counter. The first one is great, yeah,
-> > > and it's exactly the part we want, it's what makes compression usable
-> > > without provisioning disk. The second one is a policy change, maybe it's
-> > > not needed for the first stage, charging a cgroup for the
-> > > memories it has offloaded doesn't require any slot to exist behind them.
-> > > If someone wants to run memory compression with no disk at all,
-> > > memory.swap.max defaults to max, so that still works fine, right?
-> > 
-> > I think what we found out over the course of this discussion is that
-> > people have been using memory.swap.max in two ways. Regardless of what
-> > we do, we will "break" one side.
-> > 
-> > (1) The usecase you're describing. Use memory.swap.max, combined with
-> > memory.max, to set a "total", predictable footprint of in-use
-> > application address space. You can mmap whatever you want, but the
-> > number of unique pages you can touch is limited to this sum. And you
-> > can control residency vs non-residency through the invididual values
-> > of those settings. If compressed entries are not included, this
-> > usecase will break.
-> 
-> Right, thanks for the reply! residency vs non-residency is one of
-> the issues here. It's also about how we consider these two kind of
-> resources to balance the scheduling of containers.
+On Fri, Sep 25, 2026 at 12:15=E2=80=AFPM Alireza Haghdoost via B4 Relay
+<devnull+haghdoost.uber.com@kernel.org> wrote:
+>
+> perf script loads the entire ELF symbol table of every DSO that appears
+> in a sample, allocating each symbol into an rb-tree held until process
+> exit. Therefore, a large enough profile turns symbol loading into an
+> OOM kill. This does not scale to profiling a large cgroup with many large
+> binaries on a production system with limited free memory.
+>
+> This series adds two independent, opt-in mechanisms, a leading
+> regression fix, and two preparatory patches:
+>
+>   [1/6] Fix a broken "#ifdef ELF_C_READ_MMAP" guard so perf actually
+>         mmaps ELF files instead of malloc'ing section data. This is a
+>         standalone regression fix for 22dd1ac91a77.
+>
+>   [2/6] Let a DSO read its data from one explicit file through the DSO
+>         data cache. This fixes the split-debuginfo case where offsets fro=
+m
+>         the debuginfo file would be applied to the runtime image.
+>
+>   [3/6] Factor duplicate-symbol selection so it works on symbol
+>         attributes rather than struct symbol. No functional change.
+>
+>   [4/6] --max-symbol-bytes <size>: a byte budget on struct symbol
+>         allocations (and the lazy index) enforced at the ELF symbol
+>         loader, degrading to [unknown] with a warning past the cap.
+>         An unbounded profile doesn't just risk OOM-killing itself. It
+>         also forces memory pressure on the whole host, pushing the kernel
+>         to reclaim from co-located latency-sensitive processes. Capping
+>         it lets the user bound that footprint up front and choose the
+>         trade-off explicitly.
+>
+>   [5/6] --lazy-load-symbols: build a compact per-DSO sorted index and
+>         resolve only the sampled addresses, reading names through the DSO
+>         data cache at lookup time. On the production fixture, peak RssAno=
+n
+>         drops from 265 MiB to 39 MiB (6.8x) and wall time from 3.1 s to
+>         1.85 s (1.7x). Memory optimizations usually cost time; this one
+>         does not because lazy loading skips a lot of calloc and demangle
+>         calls.
+>
+>   [6/6] Shell and unit tests for both options.
+>
+> Lazy loading handles the common userspace ELF symtab/dynsym path. Eager
+> loading remains available for dense coverage and for PPC64 .opd and
+> .gnu_debugdata.
 
-Ack.
+So currently we have a symbol as:
+```
+/**
+ * A symtab entry. When allocated this may be preceded by an annotation (se=
+e
+ * symbol__annotation) and/or a browser_index (see symbol__browser_index).
+ */
+struct symbol {
+        struct rb_node  rb_node;
+        /** Range of symbol [start, end). */
+        u64             start;
+        u64             end;
+        /** Length of the string name. */
+        u16             namelen;
+        _Atomic uint16_t flags;
+        /** Architecture specific. Unused except on PPC where it holds
+st_other. */
+        u8              arch_sym;
+        /** The name of length namelen associated with the symbol. */
+        char            name[];
+};
+```
+and the struct rb_node is a significant size cost:
+```
+struct rb_node {
+        unsigned long  __rb_parent_color;
+        struct rb_node *rb_right;
+        struct rb_node *rb_left;
+} __attribute__((aligned(sizeof(long))));
+```
 
-> > (2) The use case we have. Use memory.swap.max to divide a finite space
-> > in storage. We only have so much space on disk, and we need to manage
-> > fair access. Note that this isn't about speed. We have a mix of
-> > containers where some use writeback and others do not. The ones who
-> 
-> Same for us, the usage is mixed.
-> 
-> > write back to the swapfile need to be able to get their fair share -
-> > not more, not less. Including something that doesn't actually consume
-> 
-> Is that writeback compression rate based? I mean for zswap, you have to
-> writeback uncompressable part, and then also do cold writeback through
-> shrinker. The compressable part is hard to predict and control though?
+A sorted array of symbols would only require 1 pointer per entry,
+saving 2 words. The array could reside in the "symbols" variable
+passed around something like this:
+```
+struct symbols {
+        struct rw_semaphore lock;
+        struct symbol **symbols;
+        unsigned int cnt;
+        unsigned int allocated;
+        bool sorted;
+};
+```
+This is basically what we do with struct dso and dsos. With a struct
+symbols we can add a lock and ensure operations are appropriately
+synchronized. On top of this we can build lazy symbol resolution. For
+the bounded memory size, I'd prefer something like a reference count
+in every symbol (which uses one word we previously saved). We can
+periodically scan the symbols array for symbols with a reference count
+of 1 and then lower that count, knowing it is safe to release the
+symbol's memory because no other thread is referencing it. This would
+avoid having symbols appear as "[unknown]". We should really have a
+similar scan of the dsos to free up their memory.
 
-It is compression rate based. And yes, the exact composition of what's
-in zswap and what gets written back isn't very predictable.
+If we have a reference count then symbol__annotation and
+symbol__browser_index can reference a symbol rather than using
+container_of.
 
-We don't really care at the cgroup level, though. The goal at that
-layer is isolation: a container gets a slice of memory and disk swap,
-and the most important thing is that it stays within those confines
-and doesn't become a noisy neighbor to the others.
+I think the patches 4 and 5 do the core work, but they introduce some
+warts that I wish didn't have to exist. How do you feel about
+reference counting? To avoid reference count leaks we adding a
+checking framework that is documented here:
+https://perfwiki.github.io/main/reference-count-checking/
 
-We do care about workload health, too, but that sits one layer above
-it. For example, we monitor memory pressure. If a workload expands
-hard into (z)swap and starts thrashing, we kill it. But if it just has
-a very large set of cold data that gets pushed into (z)swap without
-any thrashing, we don't really care. Let it run. Maximizing
-utilization in this case is more important than predictable capacity.
+Thanks,
+Ian
 
-There is one exception, but it's narrow: when we run out of disk swap,
-things can become very unstable. Especially when the workload is
-mostly anon, and there is only a small share of file cache to absorb
-pressure. So we kill when N% of disk swap is used.
 
-But that's only for the cliff. If zswap didn't use disk slots, there
-wouldn't be such a cliff. As long as you're within memory.max, put all
-you want into zswap. We only kill if you start thrashing.
 
-Neither of these need additional kernel interfaces. Just psi and swap
-usage metrics that get polled every few seconds.
 
-I think you could easily extend this mechanism to "predictable
-capacity" by monitoring anon + shmem + a "vswap" counter and issue
-kills when they go above some threshold you consider unreasonable.
 
-It doesn't sound to me that you actually need synchronous,
-cgroup-style enforcement for this? If a workload goes over, you kill
-it within a few seconds.
+
+
+
+> Changes in v3:
+>
+> - Rebase onto current perf-tools-next.
+> - Pick up Namhyung's Reviewed-by for patch 1.
+> - Split the exact-path DSO data support into its own patch (2/6), with a
+>   DSO data test for reading and reopening through an explicit path.
+> - Move the duplicate-selection refactor into a preparatory patch (3/6)
+>   and factor the whole lazy alias-group handling (traversal, demangling,
+>   IFUNC propagation, compaction) into one helper.
+> - Keep struct symbol::namelen as u16. Charge symbol bytes from the stored
+>   namelen on both allocation and free, and drop the 64 KiB-name test.
+> - Fix lazy-loading races reported by Sashiko: in lazy mode, address
+>   lookups always take the DSO lock, and building the name-sorted array
+>   materializes and frees the lazy index even when the budget truncates
+>   it, so the name array is never invalidated. dso__reset_symbol_names()
+>   is gone. Add a concurrent budget-truncation test.
+> - In lazy mode, when no PT_LOAD covers a symbol and its section is NOBITS
+>   in the debuginfo file, adjust with the runtime section header as eager
+>   loading does. Add a lazy/eager symbol parity test and a split-debuginfo
+>   shell test that exercises this path.
+> - Keep each unit test with the code it needs (DSO data in 2/6, budget
+>   reservation in 4/6); the other tests stay in 6/6.
+>
+> Link: https://lore.kernel.org/all/20260919-perf-symbol-memory-send-v2-0-4=
+95b8f00ad7c@uber.com/
+>
+> Changes in v2:
+>
+> - Replace direct pread() name reads with the exact symbol source's DSO da=
+ta
+>   cache, preserving split-debuginfo offsets and descriptor reopen behavio=
+r.
+> - Drop the byte-identical-output claim and retain eager loading for PPC64
+>   .opd and .gnu_debugdata.
+> - Make the symbol budget atomic and strict, account complete name lengths=
+,
+>   accept a bare 0 as unlimited, and keep partial zero-sized ranges from
+>   covering omitted symbols.
+> - Align lazy lookup with eager duplicate and IFUNC selection, PLT clippin=
+g,
+>   and name-sorted materialization.
+> - Move option documentation into the feature patches. Add unit and shell
+>   coverage for cache reopen, truncated names, budget truncation, and skip
+>   handling.
+>
+> Link: https://lore.kernel.org/all/20260915-perf-symbol-memory-send-v1-0-1=
+d3360e21f07@uber.com/
+> ---
+> Alireza Haghdoost (6):
+>       perf symbols: Fix broken ELF_C_READ_MMAP fallback guard
+>       perf dso: Allow reading DSO data from an explicit file
+>       perf symbols: Factor out duplicate symbol selection
+>       perf script: Add --max-symbol-bytes to bound ELF symbol memory
+>       perf script: Add --lazy-load-symbols for lazy symbol loading
+>       perf test: Test lazy symbol loading and symbol memory limits
+>
+>  tools/perf/Documentation/perf-script.txt           |  26 +
+>  tools/perf/arch/powerpc/util/sym-handling.c        |   6 +-
+>  tools/perf/builtin-script.c                        |  44 ++
+>  tools/perf/tests/Build                             |   1 +
+>  tools/perf/tests/builtin-test.c                    |   1 +
+>  tools/perf/tests/dso-data.c                        |  42 ++
+>  .../tests/shell/lazy_load_symbols_split_debug.sh   | 113 ++++
+>  tools/perf/tests/shell/script_lazy_load_symbols.sh | 278 ++++++++
+>  .../tests/shell/script_lazy_load_symbols_skip.sh   |  26 +
+>  tools/perf/tests/symbol-bytes.c                    | 599 +++++++++++++++=
+++
+>  tools/perf/tests/tests.h                           |   1 +
+>  tools/perf/util/dso.c                              |  60 +-
+>  tools/perf/util/dso.h                              |  47 ++
+>  tools/perf/util/map.c                              |  19 +-
+>  tools/perf/util/symbol-elf.c                       | 728 +++++++++++++++=
++++++-
+>  tools/perf/util/symbol-minimal.c                   |  16 +
+>  tools/perf/util/symbol.c                           | 143 +++-
+>  tools/perf/util/symbol.h                           |  30 +-
+>  tools/perf/util/symbol_conf.h                      |   2 +
+>  19 files changed, 2133 insertions(+), 49 deletions(-)
+> ---
+> base-commit: edd8a9fe2eca009599e013a29c421c7a6b5ad1b9
+> change-id: 20260915-perf-symbol-memory-send-e7cfca1ac3d9
+>
+> Best regards,
+> --
+> Alireza Haghdoost <haghdoost@uber.com>
+>
+>
