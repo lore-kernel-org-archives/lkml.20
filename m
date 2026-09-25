@@ -1,181 +1,103 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7523343BDA3
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2EB143BDA3;
+	Fri, 25 Sep 2026 19:44:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365443; cv=none; b=U7kNFdc4I/y05YKNY20jsK6OuiRKnCpjpvqCKACOb8DmPKL2LuAdSp3GI6W4QhpHutqGl5h4sm/A+5GhLDOSBNobQZNu4uLeH3CucGLbnnMn9CGbIwaloAUClw7fz4kmObikYrc46X1r90jq0rqog3yN+IaXcSRDiLUO1QAYxfo=
+	t=1790365464; cv=none; b=NJV612+Y6TSHxMg2OpNEC8uttAgunzy1qEAzX8KA4kD6KumCQfC93QZYRJQQjPL3yjvjuwFLg+5VEN1nwgTopezw0kv36BOD6vo15armrqfIIIsQoTjlOYi52AB7TmGhF56ZOpuowMJac3Nc3SVTAlw51r6mDBFr5DG/w/411JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365443; c=relaxed/simple;
-	bh=XLBHiYVbY4XboqeYH53a089Bs0z0CZeIc845oCpHAWE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SyUeytel0O31GRHrERSZIW33IdNTR5htBb+/Z+Kgf43On/QeaCcpHf47VoMVS9ZOlGNcB1y9PwTDgyHgzY4PRdi0CkbyguQeCPzmD/x3IypacbWzHcqlZwOrN+edXvuqntc9EcFYQ5E5+1bINdhEVt/fIXWO+bB5zTml7cF8IKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xp3t0K5/; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790365464; c=relaxed/simple;
+	bh=3Xb0oGhzLfYczPGuE2/pQo/PBUev7kNI3+4C2KVWQio=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ol6nQpem3PdDauG2kiulmQnPTM7dR5Fyh1/it14PbOY2bnZOTqcrzuAx0CFmRVUC27Mf2z3yKdzNPXnPZBfWamNaP0Fhws3S49Vv+1RMLPrdPwHuXEYJoyNJJm5fpQGcp7vg+r14dHH6AO+rU/L622SS72iZWrwKLl1dNkgjZNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=edVBNN9Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xp3t0K5/"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-145ab8fd39cso1124916c88.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:44:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790365441; x=1790970241; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZYLzW5RinpejYLZI0RBfejVj09PiRk3kGoXJkMm971A=;
-        b=Xp3t0K5/1Jj3CFSXumS/lC/8YeOmOrPq5p31dpMvxmIe6fpP0HOlLEL4IIOWaM/Am/
-         nNf9ns4VyEYKf9fjzawfVum0Wa4CfoK0olXqXXnmXjRYvikfUGNP9nRI/v3vyd9+9kMK
-         KtShCGR0plvt1sL6Qa04e5IuSUcFn7XVmJ9nEJFVRU7U7JImsRF/14fprnwm6RFYH3y9
-         VLsUaKOLpv5F+S77Ofx0XJIisdO5VOX++ZaTwJcsGu/ymCEt5YVL0tHMwm+hYl7aVOAv
-         AEwOG5bB5xhwv/3KZ3MGBf/rPm25jU4fEwWwEX2B1UOkdYBpNXo64Xz3qFTK8o/3O96d
-         ZNjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790365441; x=1790970241;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZYLzW5RinpejYLZI0RBfejVj09PiRk3kGoXJkMm971A=;
-        b=ALRhvI0BL8ISdiKaZ/UPbkBA0NWjjzFDkmoMwHzsJ+s3IEqFPSzT98oG+dog9Y2Emw
-         8BwIfrcvQl63QW7b7Ukl+JSm/DcMplrfx1oy3pegAPZZG81jJW0ylLtja4Gw5k6xdwn1
-         Zm9RTidIbDS5Q6WLOCHupVVvTpgwXdWrmu4MKEmTeOl+3lv0f6GBLveI35iZ5esc8gPM
-         ZnwMEo3L8I7tFYioOdkliZRWnMRHwLLqHZ/tS4Kop8zQe5qQ8pdQ2GWg/bVZsxgE+201
-         JgP0oXPOKAR+Eo2FNcxwyRfouQAXEKQvuA8UfBn1+zuRPdgsHNChjU9ZGZetpVlgAUEI
-         L+NA==
-X-Forwarded-Encrypted: i=1; AKwUvBzezP/C9J2IigrJoKdbz/YH61zSIYgLAFYzh2AwTD7nEkl0PIflXH2bjjixEKHEBkapUewt3bSS8byh8pM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLyDBFPEhENFiC2SnLNLSmY6KDvyQ8UJimxSg7LWfkdQ53sF1r
-	Q8nqt9jcb6bRwJvBjnIKNG5sxK6+HPa5gh6GXX/O654Sknxnv/NYSsMM
-X-Gm-Gg: AYBFou2WtJLWizzs9AgFNLtGi9y5QunCLIElormU0FoKzYWS5XS6ToTMofwNuBJO/dD
-	Qy4ZjZKPo0HIJ1vnf13/LXikuE3keLhQ73Ub7wGgNXRO1oBjDYrh+voPJcHCMrIy07RRRFIQ/ig
-	s/zsoQDGXJHwiFGVwODs7fPp9/5qlXE26YjJmSLYlYGMPeMIroqoaVNo2RZlHnL0uNgbiR3clM0
-	DA3KuNgoUAOnFUVUMCqrhozebORorUXuc2BNARMX6J8pqxOMKSsr4VCe+MXxqwx3/RgdB8AK/qK
-	ye9a1WhPC1fRQ9BuAv0bsjGxT/Ml0JZh9HsDnSaktnkRLvsMEvv1Xq4WSKX9D8Txy+uLsu0Ltl1
-	R0IMdrrw18ZXJreJFoLmmNG9+RbPDqsWsleEuDX7zniotJnrE4Kk2d2zmsosPWi9YKdKZAO53Yv
-	1we3LPLpYt9vLH5j2lb+gWZIwDv59tYcTj/Znk7NokcsNOO6hrg3ZeyF4Ly9Tt/S7NVn1orU9Sh
-	7wCtHusuGRXn3uZrGfLzVZ5rG6t98FxY5lBWE8xogHbtuahI/bj7vYn0aLAeP9pK3QHd8YsaWw=
-X-Received: by 2002:a05:701b:21d3:20b0:145:123:5bfd with SMTP id a92af1059eb24-146cddbcdb0mr1091632c88.10.1790365441309;
-        Fri, 25 Sep 2026 12:44:01 -0700 (PDT)
-Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:afc1:567c:4083:c0c4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ac67c0ccsm7253008c88.4.2026.09.25.12.43.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 12:44:00 -0700 (PDT)
-From: "Hemendra M. Naik" <hemendranaik@gmail.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	hemendranaik@gmail.com,
-	horms@kernel.org,
-	jhs@mojatatu.com,
-	jiri@resnulli.us,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	shuah@kernel.org,
-	tahiliani@nitk.edu.in,
-	vishy0777@gmail.com
-Subject: Re: [PATCH net-next v8 1/3] net/sched: sch_fq_pie: add per-flow statistics via class ops
-Date: Sat, 26 Sep 2026 01:13:51 +0530
-Message-Id: <20260925194351.8139-1-hemendranaik@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <179028363994.2160803.3084881967142411218@kernel.org>
-References: <179028363994.2160803.3084881967142411218@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="edVBNN9Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 603E91F000FF;
+	Fri, 25 Sep 2026 19:44:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790365463;
+	bh=3B8UaLQAJccxK3dSqs8InHQL9/S4ix3IsZ9bb0Uj2Ao=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=edVBNN9ZRY1ru4c6XE1Kig1Te25JnVJC9L9gnjSOXBz/74U/D3TiM+uSCN3qhFr8L
+	 0KwvcALYoH+oj76ZslsqAdlQJi0Fz+9syvsjQRHeTUEBrCUca8sPIXZD0TVQTGlN4R
+	 asE5hIf9T8oV8s8ol26p7zOUK+s6lSGrh/wHR8Wpxm7NsKqq+2vl76wMKVvOMrj8Xp
+	 zy6hXtAPnOOf14LnrdTDkk/aVNd/xOkXszH92C0/MRDfS8HRCk6SUpmru2U807MJR0
+	 BJLb56i5ghpqf58hfo5E3pPtWvFlcgIqLUBd+ouAdazWHzvXD+jvfTAmvfDtJWdoo3
+	 W+AkOv780Ny0Q==
+Date: Fri, 25 Sep 2026 20:44:18 +0100
+From: Nathan Chancellor <nathan@kernel.org>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Nicolas Schier <nsc@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	linux-kbuild@vger.kernel.org
+Subject: Re: [PATCH] kbuild: add header check facility as a manually run
+ static analyzer
+Message-ID: <20260925194418.GA3652012@ax162>
+References: <20260915104331.255636-1-jani.nikula@intel.com>
+ <211fcac1-d85d-4680-8e55-598b2064a002@infradead.org>
+ <20260916231319.GA550816@ax162>
+ <71a8b988-3977-44e4-93d6-782e4447f160@t-8ch.de>
+ <20260917171722.GA356152@ax162>
+ <80690e33ca5d2eb3cdbe5b84f75b2af39e3b8423@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <80690e33ca5d2eb3cdbe5b84f75b2af39e3b8423@intel.com>
 
+On Wed, Sep 23, 2026 at 01:40:57PM +0300, Jani Nikula wrote:
+> On Thu, 17 Sep 2026, Nathan Chancellor <nathan@kernel.org> wrote:
+> > On Thu, Sep 17, 2026 at 11:05:32AM +0200, Thomas Weißschuh wrote:
+> >> On 2026-09-16 16:13:19-0700, Nathan Chancellor wrote:
+> >> > include/uapi already has its own header checking infrastructure under
+> >> > CONFIG_UAPI_HEADER_TEST and usr/include/Makefile, which avoids this with
+> >> > a no-header-test list that includes many of the files listed in these
+> >> > messages. To be honest, we should probably forbid HEADER_CHECK from
+> >> > including 'include/uapi' and refer people to use CONFIG_UAPI_HEADER_TEST
+> >> > instead, as there are other differences like being built under a
+> >> > different C standard or C++ and such that the existing infrastructure
+> >> > handles.
+> >> 
+> >> Testing the UAPI headers here too would still be valuable.
+> >> CONFIG_UAPI_HEADER_TEST tests the headers from the perspective of
+> >> userspace after they have undergone processing. The kernel build
+> >> might see the same headers quite differently.
+> >> 
+> >> For instance the example from above:
+> >> 
+> >> ./../include/uapi/linux/input.h:29:6: warning: ‘__BITS_PER_LONG’ is not defined, evaluates to ‘0’ [-Wundef]
+> >>    29 | #if (__BITS_PER_LONG != 32 || !defined(__USE_TIME_BITS64)) && !defined(__KERNEL__)
+> >>       |      ^~~~~~~~~~~~~~~
+> >> ./../include/uapi/linux/input.h:34:9: error: unknown type name ‘__kernel_ulong_t’
+> >>    34 |         __kernel_ulong_t __sec;
+> >>       |         ^~~~~~~~~~~~~~~~
+> >> 
+> >> These are legitimate issues, the inclusion of the necessary header is
+> >> gated behind #ifndef __KERNEL__ although it should not be.
+> >
+> > Hmmm, fair enough. I guess we can leave this functionality in place for
+> > UAPI headers then but I just worry about people doing what Randy did and
+> > reporting these issues when they are already known and handled in some
+> > other way. Maybe the UAPI header test could grow an "internal kernel
+> > usage" check similar to the other checks that it has at some point then
+> > we could forbid HEADER_CHECK=include/uapi but it is fine for now.
+> 
+> Do you think the patch at hand is good to go, then? Anything further you
+> need from me?
 
-Thank you for the review. Replies are inline below. No code changes are
-planned for this patch.
+I don't have any other comments or objections. I will give a few days
+for other folks to comment on it before I apply it to the kbuild tree.
 
-> [Severity: Medium]
-> Will this layout limit how both views can be extended later?
->
-> type sits at offset 36 and class_stats at offset 40, so the struct is 64
-> bytes. Once this is released:
->
->   - a new qdisc-level counter can only be appended after class_stats
->   - after that, struct tc_fq_pie_cl_stats can never grow again
->
-> Every message also carries both views. fq_pie_dump_stats() sends 24 zero
-> bytes of class stats, and fq_pie_dump_class_stats() sends nine zeroed qdisc
-> counters.
->
-> The sibling struct in the same header avoids this with a union:
->
-> struct tc_fq_codel_xstats {
-> 	__u32	type;
-> 	union {
-> 		struct tc_fq_codel_qd_stats qdisc_stats;
-> 		struct tc_fq_codel_cl_stats class_stats;
-> 	};
-> };
->
-> Keeping the existing offsets means type cannot go first here. Would a
-> union after the discriminator still let the two views grow independently?
->
-> 	__u32 type;
-> 	union {
-> 		struct tc_fq_pie_cl_stats class_stats;
-> 		/* future qdisc extension */
-> 	};
->
-> The commit message gives the new size and offsets but does not mention this
-> constraint.
-
-We actually posted exactly this in an earlier round:
-
-	__u32 type;
-	union {
-		struct tc_fq_pie_cl_stats class_stats;
-		struct tc_fq_pie_xqd_stats xqdisc_stats;
-	};
-
-It was removed after review flagged that the qdisc-side arm
-(tc_fq_pie_xqd_stats) had no concrete member yet, making it an empty
-struct in a UAPI header.
-We flattened class_stats to a direct member specifically to avoid that
-portability problem. We're not planning to reintroduce a union now,
-since there's still no concrete qdisc-only field to justify the second
-arm. Once one exists, wrapping class_stats and it in an anonymous union is
-straightforward and won't break anything, since everything from offset
-36 onward is still unshipped.
-
-
-> [Severity: Medium]
-> Does this silently truncate the rate?
->
-> The product is computed in 64 bits and then assigned to the __u32
-> tc_fq_pie_cl_stats.avg_dq_rate, so the high bits are lost.
->
-> pie_vars.avg_dq_rate holds bytes per psched tick scaled by 2^8.
-> pie_process_dequeue() fills it from (dq_count << PIE_SCALE) / dtime, and
-> dtime can be only a few ticks during back-to-back GSO dequeues.
->
-> PSCHED_TICKS_PER_SEC is 15625000 and PIE_SCALE is 8. Any internal value
-> above about 70369 (roughly 4.29e9 B/s, about 34.4 Gbit/s) wraps. For
-> example, 81920 converts to 5,000,000,000 B/s but is exported as 705,032,704.
->
-> The commit message says:
->
->   Widen avg_dq_rate to u64 before scaling it by PSCHED_TICKS_PER_SEC.
->
-> That moves the overflow to the narrowing assignment instead of avoiding it.
-> This is a new uAPI field. Could it be made __u64, or saturated at U32_MAX,
-> before it is released?
-
-We're keeping avg_dq_rate as __u32 by design, to stay consistent with
-the sibling field in the older tc_pie_xstats. pie_dump_stats() in
-sch_pie.c computes the exact same formula into the exact same __u32
-width, with the exact same ~34.4 Gbit/s wrap ceiling, and has shipped
-that way, unchanged, since the original 2014 PIE merge without this
-being a reported problem. We'd rather keep the two structs consistent
-with each other than introduce an asymmetry between them for one field.
-
-
-
+-- 
+Cheers,
+Nathan
