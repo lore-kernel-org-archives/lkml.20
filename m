@@ -1,152 +1,215 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31044C6511
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1590440632;
+	Fri, 25 Sep 2026 16:03:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352186; cv=none; b=VOmyzN1A0lYxPnBL4WDyRV+a0q8eJQWXNN+6HFZlgkF6ovDDDOmzcmPvA6iNLjJ/jveAZih2iYFEI4HadrBLEX5CR5SlYEw8fh5vLyUxZI6nD7MAIcAdEV1jYida15jr4D7PvjLOdGW0Rb7vsCmcKJMIZ7FJU28FZLSeTuJxso8=
+	t=1790352197; cv=none; b=WlpR6pbBtqzdQ+gfOuQTXVV7YBFjILECBiLuUkEpk8lsEC0FwmKKbi3PFAhh8N6qSoRJPHQSSfDlSIRRK/Ri1FbNxw/GVybiq80Ccuu/enMj7QqcaPWTLD9xu3RsVPg29vE+BPv4ZUS0S7vVgf0ccZfpQZbJ7lzIZleHcrZNxec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790352186; c=relaxed/simple;
-	bh=JZCiMhMj9Qi1hwAH9YEFbNu41lkzW5HMsRwV5LvxLlY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GQ93QTm/ScCom/zxbsrKPQ82rlx4f859s6X7wXniTLH5tu7jKPqEvCOm6y+R5hfiteNorh3JBqvkb/fKBfJfusiTMmO6gzzURrqaLPmCDovnjF9skbTG5/mFWlJ5jPjnQo2OlGrpAS+U0zKTvoAuPYorFOSbY21V+L3W/KKNaXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CHIwSdtj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=O8ImMFwm; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790352197; c=relaxed/simple;
+	bh=wUvrQx7wN1ZR68S9qB+Q4XG4UdbXYncb7w5tGJaeVyI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pfhhN3/l4CIqLdtNYlC6FHuF0BP+7YZeC4mG+yAYxvX7TInOaOUt6DS1d2IMraeACSaF4Jn421ENdON6vGmMb9AFE52RugLBqW/BIgFeQQP1OMVdcqHhqIU5GZOzxW8NxoXQz6a7SZH+cvfrcMh6Hll6zMnTyJ7Oy0lFiqtW7w0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HtBhFNxo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CHIwSdtj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O8ImMFwm"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PG1hG71668902
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:03:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=pPUscgiiGEE2Ts6w5N0M5vrxQHmauRrDTsR
-	QpGYB8bo=; b=CHIwSdtj/Lo9jqq+QUDkDZGz5er9nK0n/ommKXcOJ3ouoxXBwYZ
-	GJFYPJoqGOOQVQY3Ck5zZR0Oe3H5c4P3ZPwA8DgCCts3xY2kyJ2DM2XwL+hCT3vs
-	+huoMoGs3NEoGKPtvOUpsHUHgZlXKxnJYhiBajxGYaeWKSaQSisInxkFX/MduxQX
-	zoIyo8LGTCLBKBDRI9Q9gKyeAXglMOdn2BFrFeXUOJAsROkDUjY+SUYJSHNP0V/I
-	ZAqqvSBAev5cV/NXqOltAuw/MHUKNha2o2n2lAKVgWjEFaLH5hvSSiN3TZEeSQiH
-	W6RwmnYSLQfAFYAnoSAaD5yKdTqfZ6tbw3g==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw898v9du-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:03:03 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7b335cdddaeso193353137.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:03:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790352183; x=1790956983; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pPUscgiiGEE2Ts6w5N0M5vrxQHmauRrDTsRQpGYB8bo=;
-        b=O8ImMFwm8e+k569S6yaClhxmtN2rBkILtnCqpZNP52f+Y9SEHbPVKDFpEr6/ke7c4f
-         JUeV2bWsNGWJOiRXR6kcNrcO05IyuvbjR0izkR0o0TL273/VsV8xRg958cJCOzwkAghg
-         /Z4ols//r3a45ARIUOXwgotlzz5CGRFXKFBnGhxpxjlr5H47RimsBFtqELd8KWAL+NZR
-         JgozIB8GSK2b6MnPx3xjEqCz946fuqakJNo4mbSgti+2OueK4EvJULRzJWPKIxTUfoRW
-         ZR2wg7BjOuuAjkzQJpg+QwqETTK7qcaMAJM91x9HceW5Subo9FEwtQm9LejH/Ft+pwvY
-         gKvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790352183; x=1790956983;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pPUscgiiGEE2Ts6w5N0M5vrxQHmauRrDTsRQpGYB8bo=;
-        b=ZK3LVxQ1HIZSAYb1gEucPkDe10hF8ZVwCYMpmYSVoGPQp1tSgIBDivPBvj9MKtMuyz
-         67PG3foW4NZ/S7yUfnJmzjcmaug9q2ADoBOoRlGJkSuay7MOJ8EXNVGDHh2QYUP4F6Kj
-         Jpfvn1t8vO3duooSeMfaZImSrUVOky+OBvHCftxnB/2ZxrloeSNMOXdvygDsUmAlKYmU
-         sf2GI9YXJCnIato+yZTeml9Spu4vssXJQn1xKMA1j1b1QBczv9VUrJRaxeV65wB8rnKS
-         uTcYEiK0FFgVMO7/jwlJjBZbr3OEJ/aGTY7vLrbGdkX2Q3iO5SR/ngDv2dS9BGSgAEWz
-         P7CQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz34uOOWq7S1rO5d2DC6VrtS721HKVIlpEcWjhIjc6ZpgLFNS8nsA+oNwaqa/2tPro07uNIT26GmTfj8rY=@vger.kernel.org
-X-Gm-Message-State: AFuF++maAs8XqUkVFBkGOVDnmc2ThAHJ/yQ6cDkJCRNu0AtKJ4pL0+bK
-	szoipcyGZ0QbTiM5hRYJel59psLJ+neIGkvaYHwnIHVQqazJmPzdfZ0eXTNe/T2VQi0NiVmY87l
-	XotUEwYs6+alU9yxErN5Az8EXJDLF0ncT7G7K8Mrqh8xuwiw700slJrxfTUmPJJ4xwII=
-X-Gm-Gg: AYBFou3GubawOUzHHHeCrUqkJsn7Wq4HBRF0JGyVXqyANSiLDBsmEP34KsV1hmOFUgi
-	S2O9XPJF8R3PmHFLPt+vPpR0xO8vB+Fxz806dPSNjpFlyHwRJPE7uOZYuJdpKIM4SUlFYaWt/ao
-	dttKDZUrxhHyDRLDb/hwWnEr7+r21xccMaTjWTs+cYkRp/TSCwHOUuW8x2f53LwcshfjvdXjY4l
-	Knhk+aaoSF8tzDSCULrTG95X5Ue7bieERFu5g7E/R/RwZivxZuOBwKp1scjaoJuL5jbCr+0M5gr
-	R3diYVeYX1rS26iVjHAUET2+7phAr440vATGtbCLEGOkdfpYKlVU445QI5ttLeH3VjUk6nP+gsl
-	z2Tq9rWC7aW8nunWLL9uZo9ZdPbl2P9FUruQAlA==
-X-Received: by 2002:a67:ef82:0:b0:7a7:69a1:add2 with SMTP id ada2fe7eead31-7af1f1fd553mr1987013137.30.1790352182760;
-        Fri, 25 Sep 2026 09:03:02 -0700 (PDT)
-X-Received: by 2002:a67:ef82:0:b0:7a7:69a1:add2 with SMTP id ada2fe7eead31-7af1f1fd553mr1986990137.30.1790352182076;
-        Fri, 25 Sep 2026 09:03:02 -0700 (PDT)
-Received: from localhost (ip-86-49-245-11.bb.vodafone.cz. [86.49.245.11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a84221bsm8151098f8f.36.2026.09.25.09.03.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 09:03:01 -0700 (PDT)
-From: Andrew Jones <andrew.jones@oss.qualcomm.com>
-To: kvm-riscv@lists.infradead.org
-Cc: anup@brainfault.org, atish.patra@linux.dev, pjw@kernel.org,
-        palmer@dabbelt.com, kvm@vger.kernel.org,
-        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] RISC-V: KVM: Reject vCPU creation after AIA initialization
-Date: Fri, 25 Sep 2026 18:03:00 +0200
-Message-ID: <20260925160300.467884-1-andrew.jones@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HtBhFNxo"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 75F941F000FF;
+	Fri, 25 Sep 2026 16:03:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790352194;
+	bh=avJ34ZHeNKOpOv+p5xC+ogLSQK6o6Io53VISfHccvjc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HtBhFNxoC/sscRi1Tp8lLM0t0cvv93KdPYIQ6q6QKjLkWtFnf5qgJ+HGhMLj+uXUG
+	 T7rluzmys0Dwr4w5dI8VuQzL051kUWOuu21N7STYovIsqC5Kjd6qBVVo0COnudUVm0
+	 qHyk9emzfjqFzR30vCUX0VB6Bi9OVDUtILycx/obUUwE7pxSt2EuHO0UdhPAOAllFP
+	 7f1O8KMq3UFcnjVqVICL/HXOtNHHmefLtIV4CeENbSdm7WmvhoGvL2pSjPunVarMwU
+	 N4R+LmQ4KeU9KAHEDktjadX8+CXBtvS3ETXZKMsUQZ+cqIRUfEF5fZvdTw9yVn/dDY
+	 BNoubm9KvlTxg==
+Date: Fri, 25 Sep 2026 19:03:10 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Surendran Kanagaraj <surenkj@amazon.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	nh-open-source@amazon.com, Alexander Graf <graf@amazon.de>,
+	Gunnar Kudrjavets <gunnarku@amazon.com>,
+	Josh Levinson <joshlev@amazon.com>
+Subject: Re: [PATCH 1/2] tpm: Add per-chip timeout for transient
+ unavailability
+Message-ID: <arabPv2YCddSMu_b@kernel.org>
+References: <20260923142834.16786-1-surenkj@amazon.com>
+ <20260923142834.16786-2-surenkj@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2MyBTYWx0ZWRfX/WWlEWXGUaNc
- pBQescAqdIm0n0PukqvXytDmig0xy+Ga4J8BVlUKlCzsD2Hm5ljH+S3mVdFjfa7lbRHCtT9YJkE
- PjBiTj1Xfi7qcJ/ItZvjE9Kol9Py/xv5R8CTI4Qf2sVDuBlPj+78QRDfWnyd8oiWnkDrNkjO4Ep
- syFo60Xt72owJxqwxDq2F1M89T6tccUxJ+J1T6BEzMaXt2imhI5KPKBjscz+o4GkgrIeTtqy6y0
- GUhr3sQsmyjAMo/QDVNzRH73Lf6xlUOBidatXoHAiw0tOVdIvZEGear0SAakxIyg9czEy10mOz3
- UAwsa7dT/4jUb37hSVlTtHMvPFTARKF9DQIA2Biz85jr6V/3P7B+MKaXdvx50gROjLa3Oh3WkEp
- wPr3TP6XZKcf/aLIPujN6HF1iEZmD84r2L1V7+xVJqNtfSiK4GR0qcLHVnTA3F3LPsNHvOuykr2
- oYEpcOSjAWFujh1weXw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2MyBTYWx0ZWRfXymPapFZpbGal
- 7b9GNDTw1H7KQkLKY2zM6/O3uI8zsUWUR+H42oXBDgbtLXgNNyE8znKzuJujQgMqSgCS6wFocdE
- 7Lcfwc457Ox1KoXlo7ih6DPGfPBK/AE=
-X-Proofpoint-GUID: laxbsv4C6weljl9FGr0q_Kvtan5RU0NB
-X-Proofpoint-ORIG-GUID: laxbsv4C6weljl9FGr0q_Kvtan5RU0NB
-X-Authority-Analysis: v=2.4 cv=EJWTQFZC c=1 sm=1 tr=0 ts=6ab69b37 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=9vyTzsUqMagNZt02PzcA:9 a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 suspectscore=0 impostorscore=0 bulkscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609250063
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923142834.16786-2-surenkj@amazon.com>
 
-AIA initialization sets up per-vCPU IMSIC state by iterating over all
-online vCPUs. Creating another vCPU afterwards leaves it without
-initialized IMSIC state, but KVM currently permits that sequence.
+On Wed, Sep 23, 2026 at 02:28:33PM +0000, Surendran Kanagaraj wrote:
+> TPM commands need to complete within the command duration defined
+> in the TPM2 spec or to keep answering TPM2_RC_RETRY for at most
+> TPM2_DURATION_LONG (2s).
+> 
+> Devices that have different timeout requirements than the TPM2 spec
+> could exhaust the retry budget or exceed the command duration. These
+> failures disable the device during an auth session, failing all
+> subsequent TPM requests. Worse, when a TPM2_CC_FLUSH_CONTEXT command
+> fails, it leaks the TPM's transient memory:
+> 
+>     tpm tpm0: in retry loop
+>     tpm tpm0: tpm2_load_context: failed with a TPM error 0x0922
+>     ...
+>     tpm tpm0: A TPM error (2338) occurred flushing context
+> 
+> Fix this by adding chip->busy_timeout_ms to support devices that know
+> the expected delay window. This value raises the TPM2_RC_RETRY retry
+> budget and per-command durations to at least busy_timeout_ms. Chips
+> that leave it at 0 keep the current timeouts. The driver sets it for
+> NitroTPM in the following patch.
+> 
+> Tested with CONFIG_TCG_TPM2_HMAC=y and the following patch with the
+> NitroTPM quirk applied, in QEMU with swtpm by stalling commands and
+> holding the TPM in TPM2_RC_RETRY.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Surendran Kanagaraj <surenkj@amazon.com>
+> ---
+>  drivers/char/tpm/tpm-interface.c | 11 ++++++++---
+>  drivers/char/tpm/tpm.h           |  2 +-
+>  drivers/char/tpm/tpm2-cmd.c      | 17 ++++++++++++-----
+>  include/linux/tpm.h              |  7 +++++++
+>  4 files changed, 28 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
+> index 0bab78c8767c..a423395b201a 100644
+> --- a/drivers/char/tpm/tpm-interface.c
+> +++ b/drivers/char/tpm/tpm-interface.c
+> @@ -53,7 +53,7 @@ MODULE_PARM_DESC(suspend_pcr,
+>  unsigned long tpm_calc_ordinal_duration(struct tpm_chip *chip, u32 ordinal)
+>  {
+>  	if (chip->flags & TPM_CHIP_FLAG_TPM2)
+> -		return tpm2_calc_ordinal_duration(ordinal);
+> +		return tpm2_calc_ordinal_duration(chip, ordinal);
+>  	else
+>  		return tpm1_calc_ordinal_duration(chip, ordinal);
+>  }
+> @@ -213,7 +213,8 @@ static ssize_t tpm_try_transmit(struct tpm_chip *chip, void *buf, size_t bufsiz)
+>   *
+>   * A wrapper around tpm_try_transmit() that handles TPM2_RC_RETRY returns from
+>   * the TPM and retransmits the command after a delay up to a maximum wait of
+> - * TPM2_DURATION_LONG.
+> + * TPM2_DURATION_LONG, or chip->busy_timeout_ms when the driver declared a
+> + * longer transient unavailability window.
+>   *
+>   * Note that TPM 1.x never returns TPM2_RC_RETRY so the retry logic is TPM 2.0
+>   * only.
+> @@ -228,6 +229,7 @@ ssize_t tpm_transmit(struct tpm_chip *chip, u8 *buf, size_t bufsiz)
+>  	/* space for header and handles */
+>  	u8 save[TPM_HEADER_SIZE + 3*sizeof(u32)];
+>  	unsigned int delay_msec = TPM2_DURATION_SHORT;
+> +	unsigned int max_delay_msec = TPM2_DURATION_LONG;
+>  	u32 rc = 0;
+>  	ssize_t ret;
+>  	const size_t save_size = min(sizeof(save), bufsiz);
+> @@ -241,6 +243,9 @@ ssize_t tpm_transmit(struct tpm_chip *chip, u8 *buf, size_t bufsiz)
+>  	 */
+>  	memcpy(save, buf, save_size);
+>  
+> +	if (chip->busy_timeout_ms > max_delay_msec)
+> +		max_delay_msec = chip->busy_timeout_ms;
+> +
+>  	for (;;) {
+>  		ret = tpm_try_transmit(chip, buf, bufsiz);
+>  		if (ret < 0)
+> @@ -255,7 +260,7 @@ ssize_t tpm_transmit(struct tpm_chip *chip, u8 *buf, size_t bufsiz)
+>  		if (rc == TPM2_RC_TESTING && cc == TPM2_CC_SELF_TEST)
+>  			break;
+>  
+> -		if (delay_msec > TPM2_DURATION_LONG) {
+> +		if (delay_msec > max_delay_msec) {
+>  			if (rc == TPM2_RC_RETRY)
+>  				dev_err(&chip->dev, "in retry loop\n");
+>  			else
+> diff --git a/drivers/char/tpm/tpm.h b/drivers/char/tpm/tpm.h
+> index fa554c5ad80b..457eba8d03dd 100644
+> --- a/drivers/char/tpm/tpm.h
+> +++ b/drivers/char/tpm/tpm.h
+> @@ -119,7 +119,7 @@ ssize_t tpm2_get_tpm_pt(struct tpm_chip *chip, u32 property_id,
+>  ssize_t tpm2_get_pcr_allocation(struct tpm_chip *chip);
+>  int tpm2_auto_startup(struct tpm_chip *chip);
+>  void tpm2_shutdown(struct tpm_chip *chip, u16 shutdown_type);
+> -unsigned long tpm2_calc_ordinal_duration(u32 ordinal);
+> +unsigned long tpm2_calc_ordinal_duration(struct tpm_chip *chip, u32 ordinal);
+>  int tpm2_probe(struct tpm_chip *chip);
+>  int tpm2_get_cc_attrs_tbl(struct tpm_chip *chip);
+>  int tpm2_find_cc(struct tpm_chip *chip, u32 cc);
+> diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+> index ae22295df798..dc5ed57fefe1 100644
+> --- a/drivers/char/tpm/tpm2-cmd.c
+> +++ b/drivers/char/tpm/tpm2-cmd.c
+> @@ -78,20 +78,27 @@ static const struct {
+>  
+>  /**
+>   * tpm2_calc_ordinal_duration() - Calculate the maximum command duration
+> + * @chip:	TPM chip to use.
+>   * @ordinal: TPM command ordinal.
+>   *
+>   * Returns the maximum amount of time the chip is expected by kernel to
+> - * take in jiffies.
+> + * take in jiffies. The duration is never lower than chip->busy_timeout_ms.
+>   */
+> -unsigned long tpm2_calc_ordinal_duration(u32 ordinal)
+> +unsigned long tpm2_calc_ordinal_duration(struct tpm_chip *chip, u32 ordinal)
+>  {
+> +	unsigned long duration = TPM2_DURATION_DEFAULT;
+>  	int i;
+>  
+>  	for (i = 0; i < ARRAY_SIZE(tpm2_ordinal_duration_map); i++)
+> -		if (ordinal == tpm2_ordinal_duration_map[i].ordinal)
+> -			return msecs_to_jiffies(tpm2_ordinal_duration_map[i].duration);
+> +		if (ordinal == tpm2_ordinal_duration_map[i].ordinal) {
+> +			duration = tpm2_ordinal_duration_map[i].duration;
+> +			break;
+> +		}
+> +
+> +	if (duration < chip->busy_timeout_ms)
+> +		duration = chip->busy_timeout_ms;
+>  
+> -	return msecs_to_jiffies(TPM2_DURATION_DEFAULT);
+> +	return msecs_to_jiffies(duration);
+>  }
+>  
+>  /**
+> diff --git a/include/linux/tpm.h b/include/linux/tpm.h
+> index 0db277af45c3..7089067412d3 100644
+> --- a/include/linux/tpm.h
+> +++ b/include/linux/tpm.h
+> @@ -140,6 +140,13 @@ struct tpm_chip {
+>  	unsigned long duration[TPM_NUM_DURATIONS]; /* jiffies */
+>  	bool duration_adjusted;
+>  
+> +	/*
+> +	 * Longest unavailability expected from the chip in ms. Raises the
+> +	 * TPM2_RC_RETRY retry budget and the per-command durations to at
+> +	 * least this value; 0 keeps the defaults.
+> +	 */
+> +	unsigned int busy_timeout_ms;
 
-Reject KVM_CREATE_VCPU once AIA initialization succeeds. Both paths are
-serialized by kvm->lock, so checking the initialized state from
-kvm_arch_vcpu_precreate() freezes the vCPU set used by AIA.
+So I think this is a wrong solution.
 
-Fixes: 89d01306e34d ("RISC-V: KVM: Implement device interface for AIA irqchip")
-Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
----
- arch/riscv/kvm/vcpu.c | 3 +++
- 1 file changed, 3 insertions(+)
+Instead this should be tpm_crb internal and you should simply patch
+chip->duration[]. See tpm_tis_core for example.
 
-diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
-index e062ca19f9d8..ccf2def834f1 100644
---- a/arch/riscv/kvm/vcpu.c
-+++ b/arch/riscv/kvm/vcpu.c
-@@ -138,6 +138,9 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu, bool kvm_sbi_reset)
- 
- int kvm_arch_vcpu_precreate(struct kvm *kvm, unsigned int id)
- {
-+	if (kvm_riscv_aia_initialized(kvm))
-+		return -EBUSY;
-+
- 	return 0;
- }
- 
--- 
-2.43.0
+> +
+>  	struct dentry *bios_dir;
+>  
+>  	const struct attribute_group *groups[3 + TPM_MAX_HASHES];
+> -- 
+> 2.47.3
+> 
 
+Br, Jarkko
