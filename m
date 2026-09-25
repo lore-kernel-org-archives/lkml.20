@@ -1,70 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBC446D0B4;
-	Fri, 25 Sep 2026 07:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5293502A7
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322364; cv=none; b=ngQfWsSe7RTmnPrf44asFd45ymPWVVGyg3EbIKutovIqpSOcydFb2egL33QQvfeu0WZMYA740QO0u/8wUTqXBUvm4EEnZO8IQqINMTofv2m6cHy4qH5iRXlL+Pd8Ay/NmPxakrR+WgUeTtQbKihADoMtg6sKGf39q+saF77tX44=
+	t=1790322382; cv=none; b=cFIX+bKq/nazF4sVjfXpReC8OfcblFoBZuS3eD37nMpSY3f1HlFp/qPiEqAppbVI5VaJiMcr9cY3bTCM4LJlrdYJTh0Nu9K/C1fEJFv/fumfLGxDsHyHXuQdiyY3dUob6mPT61E9A/JZn3E22WLW9Rut0AgOZXJLbORmmhnA8P8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322364; c=relaxed/simple;
-	bh=riYq6OKMYegM1B0GVCH0DJyK2fe3mY/rTPYTYYmVUro=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ZSXK+un9cO/wvsb5wf4TZbCobF6Oht2NkjcMU+9kknvVhXPiieale6sM2KUU57kWsXRYVYzgLuCpCs47pMz8qrVwFYC6Lt1m9QkU2EbhDOGBrpL03Sxubh2R+ksvZYSWQaduEUHrlVb7pD/DO3Y+YBdsDZHROCQSPAXDCSmtTFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LxCIJSeM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790322382; c=relaxed/simple;
+	bh=zCTuDqlNX3/6/wVssV35Ayu2kyDqNktIb5z2fDgv8vY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Zb3G8YsRyDnUqwwl2u46T0OuUgHRwpTYE3Qz6lJlJUnCRMBVHWl9SgrK9mrD+9c8Ejzlrv67WenJ9dKwPJBCd6G2UjVWLVuG/7MCytP/BtOlwhJznnTrhp2sfoEuSFoxJLo9kX5SWNK+fabcKDazbvdv7Qqc2q1Gvy4DqKyqFg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Zczmql+L; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LxCIJSeM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27451F000FF;
-	Fri, 25 Sep 2026 07:46:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790322362;
-	bh=fgp57Y0foq2G1j/7LLzFZqIU8Hc1ayNJsYPGWIzRsfU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=LxCIJSeMqhoPioUankmKaNl2HWqPiEw9oHZCqMKvK0/LShJicYI6q9WFH/rDMz8QW
-	 AaMeJPrRxZDdYkpH7ZUaxQuAcNJ8LaN1VibtFu6BpW7KdR0uohl0O+nMI3OS/QsSGB
-	 rPCK7mFl9lYZoW92EkV+LMmU4hYbHhbiiBj1eFtpGG1CmkKJ5NJKOuR0X9jhVdKnb8
-	 cPfEnwLSR95Grj1DzM4P7q/Oj/53gJhih7Jh4MTlZrV7O6U08Gp3djcMWfdVqIZ/a0
-	 ERRfZ+HMRQKNrM4ac23/Q8V2m1SVFwfQeEWlwkKdclvZKjseHl7dOuqdTtDWS+jQTo
-	 d6FYaPMLURbDA==
-From: Benjamin Tissoires <bentiss@kernel.org>
-To: Jiri Kosina <jikos@kernel.org>, Shuah Khan <shuah@kernel.org>, 
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260915-wip-bpf-signed_size-v1-0-6bc8f3d09f5b@kernel.org>
-References: <20260915-wip-bpf-signed_size-v1-0-6bc8f3d09f5b@kernel.org>
-Subject: Re: [PATCH 0/2] HID: bpf: add one ssize_t check detected by
- Sashiko
-Message-Id: <179032236044.351067.2844140440422327024.b4-ty@b4>
-Date: Fri, 25 Sep 2026 09:46:00 +0200
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Zczmql+L"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790322373;
+	bh=zCTuDqlNX3/6/wVssV35Ayu2kyDqNktIb5z2fDgv8vY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=Zczmql+LBk8L5sTxZ+0n4Mko5ek9KJIptOVerW6Dp2cZNp4mLAiGUazkxAE+E6vhy
+	 s0c9GkMpXPXmzYv2YNlG5F4/1IOyljDrz0xJDJcsQYo+XVpSav5Lh/bVZYyWSrWlRX
+	 lo8T18WU0Nrg2DIe1hcohncmzDwm7tZTilVqIRn0BcUYDOebhrVjghgm1Vt5rdEg00
+	 LdofasBVP6zw1vPnpRamByMoJwCNL8AY5IsC66YBDHDhSxDlbQ9dziOL26LL0wmnsg
+	 +dfeFjYoSV23TKvPV5gc3VXuHAZr9fCPK+tooJXNijOKshGEGXz8F2P5YreMP4EVll
+	 9mARIY8uNouzg==
+Received: from fedora-32.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 679F317E006F;
+	Fri, 25 Sep 2026 09:46:12 +0200 (CEST)
+Date: Fri, 25 Sep 2026 09:46:06 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v10 06/15] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
+Message-ID: <20260925094606.4bb127dc@fedora-32.home>
+In-Reply-To: <20260924-claude-fixes-v10-6-755929b3cc19@collabora.com>
+References: <20260924-claude-fixes-v10-0-755929b3cc19@collabora.com>
+	<20260924-claude-fixes-v10-6-755929b3cc19@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 15 Sep 2026 17:46:56 +0200, Benjamin Tissoires wrote:
-> Sashiko detected an existing issue in hid_bpf_hw_request:
-> if the transport layer returns an error code, hid_bpf_hw_request
-> returns success, which can confuse the caller.
-> 
-> Add the actual fix and a selftest to ensure this gets properly passed
-> around.
-> 
-> [...]
+On Thu, 24 Sep 2026 19:09:23 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Applied to https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git (for-7.3/upstream-fixes), thanks!
+> During device probe(), failure to do a PM get() will leave the usage_count
+> set to 0, which is the value assigned at device creation time. That means
+> when the autosuspend delay expires, runtime suspend callback won't be
+> invoked, so the device will remain powered on forever.
+>=20
+> On top of that, failure to call PM put() during device unplug means
+> Panfrost device's PM usage_count increases monotonically for every new
+> module reload.
+>=20
+> The outcome of both of the above meant that:
+>=20
+> - Devfreq OPP transition notifications would be printed all the time,
+>   even when no jobs are being submitted. This quickly fills the kernel
+>   ring buffer with junk.
+> - Because MMU interrupts are only enabled when the device is reset,
+>   the very first job targeting the tiler heap BO after device probe()
+>   would always time out, since the driver's PM runtime resume callback
+>   would not be invoked.
+>=20
+> To fix the above:
+> - Manually adjust the PM refcnt at device probe and removal time.
+> - Ensure pm_runtime_dont_use_autosuspend is called in the wind-down path.
+> - Call pm_runtime_put_autosuspend() when device is ready to accept jobs
+> - Move pm_runtime_set_suspended() before panfrost_device_fini() so that
+>   resource unwinding happens in the opposite order as initialisation.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
+> Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_drv.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> index 55fc22e8d4d4..02ddd391231c 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -852,8 +852,13 @@ static int panfrost_probe(struct platform_device *pd=
+ev)
+>  		goto err_out0;
+>  	}
+> =20
+> +	/* The reason we must manually set the PM status and usage counter is
+> +	 * we have just powered the device up but did not go through the PM
+> +	 * runtime resume callback, so we need to update these ourselves.
+> +	 */
+>  	pm_runtime_set_active(pfdev->base.dev);
+>  	pm_runtime_mark_last_busy(pfdev->base.dev);
+> +	pm_runtime_get_noresume(pfdev->base.dev);
+>  	pm_runtime_enable(pfdev->base.dev);
+>  	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+>  	pm_runtime_use_autosuspend(pfdev->base.dev);
+> @@ -866,13 +871,16 @@ static int panfrost_probe(struct platform_device *p=
+dev)
+>  	if (err < 0)
+>  		goto err_out1;
+> =20
+> +	pm_runtime_put_autosuspend(pfdev->base.dev);
+> =20
+>  	return 0;
+> =20
+>  err_out1:
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+> -	panfrost_device_fini(pfdev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  	pm_runtime_set_suspended(pfdev->base.dev);
+> +	panfrost_device_fini(pfdev);
+>  err_out0:
+>  	return err;
+>  }
+> @@ -884,9 +892,11 @@ static void panfrost_remove(struct platform_device *=
+pdev)
+>  	drm_dev_unregister(&pfdev->base);
+> =20
+>  	pm_runtime_get_sync(pfdev->base.dev);
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> +	pm_runtime_put_noidle(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
 
-[1/2] HID: bpf: cast size to ssize_t when checking hid_bpf_hw_request
-      https://git.kernel.org/hid/hid/c/3afefbfe55c2
-[2/2] selftest/hid: add test for negative return codes for hid_bpf_hw_request
-      https://git.kernel.org/hid/hid/c/3f35b678a1d6
+You really want put_noidle() after pm_runtime_disable(), otherwise if
+the ref you put is not the last one, and another entity puts its ref
+without no_idle() before you call pm_runtime_disable(), it will
+schedule and potentially execute the suspend hook, which might mess up
+with the state the _fini() helpers expect the device to be in.
 
-Cheers,
--- 
-Benjamin Tissoires <bentiss@kernel.org>
+> -	panfrost_device_fini(pfdev);
+>  	pm_runtime_set_suspended(pfdev->base.dev);
+> +	panfrost_device_fini(pfdev);
+
+With:
+
+	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+	pm_runtime_disable(pfdev->base.dev);
+	pm_runtime_put_noidle(pfdev->base.dev);
+	pm_runtime_set_suspended(pfdev->base.dev);
+	panfrost_device_fini(pfdev);
+
+This patch is
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
+>  }
+> =20
+>  static ssize_t profiling_show(struct device *dev,
+>=20
 
