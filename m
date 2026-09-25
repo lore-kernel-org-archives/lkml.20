@@ -1,47 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B78937F8CC;
-	Fri, 25 Sep 2026 16:44:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B427F4E80B0;
+	Fri, 25 Sep 2026 16:44:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354659; cv=none; b=tKm2U89l+DI6XwStYeNQKxltnf+mCwiT1NU25Xux7SEskqaP8zFqVs1w4QJ2w9weS5KPCalITmcf1Y1Zw7Kr38Cznaf3LfOaxwL5NCP9GvZ9ayO547E54aKJn5lsCur0g78m8pvmxK7z6QBso46oQTSYyH+ah3oEXidoM5ZLo+A=
+	t=1790354660; cv=none; b=W5InIyyj0J+eQ8Ai+4K+0u6AgeGBRdJHjmA8RAuxLOlM55kYamH12F9RwcUIFB4i+2A+AGFUDrA+UPRVv9RypulbpDrtGDHy4soh22fNwWjOGxQwqWAmSSic0h9YT3PDR2FaHrb8K7J7sySFR6x4XqdM6LuBQC4X2Z1DIH/YfLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354659; c=relaxed/simple;
-	bh=kdxK6fT62obRWCZAgifwZqHvMZ+CdQYxS9b1MVFSEDA=;
+	s=arc-20240116; t=1790354660; c=relaxed/simple;
+	bh=HTEgvhv3CABgcVZF8tgAlyx+/ENUgaMlZWP4unNfYyQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mwGFHLeJWy5aEGlXfEs+ySC4lMlVaF/svxEmbmqVLrw+fwvJ+ZPPERfNaxtLDDgnZk/TeF5iJQ25d8QgBYBIXagn+mWPtOVaQ0Pq1kPkh99KWvOh0rvpqm5zJFYmSLRJa07MdPmPIbxd3xVAksOsqt3wdwpSUtV4FP3CJrfSyjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ErlmFel4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=DVhl0e5VABouHVLdGGkFKM1kCCOyhcFeTgHSsXE4ErmIAzyvroN5K6Tqz7R26oXQH+UH8IIHSsvW13pPpUvoqpLqwVsVB6STWnTf2XZmLN4X6jM79ulc4SNvCROLU1qHob0Dh1/WJ1YPBPMu5v2Hlw40JyU01HSGIkXPNKT1jIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AlGR6jIm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ErlmFel4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7C711F0089B;
-	Fri, 25 Sep 2026 16:43:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AlGR6jIm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91F1F1F0089E;
+	Fri, 25 Sep 2026 16:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790354641;
-	bh=l64qG0IpvrF8rYW57l1p+zKarbzphNIaPq9R9z/QCdI=;
+	s=k20260515; t=1790354644;
+	bh=qkdcdQQ6KPtrx7gEdkbjHsPLxkJ3KBwNcE5t97XNpSQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ErlmFel43A5paYsdK6jHa4hXhN81J1Inry+gw/LMIPkkppIs3H44Hh8M9m2ZBbAsO
-	 dTRDeAwizo2VQJNr5qEEe6ndJbh00lIDM4GOf1Cv/HhM2wXewvyR6iPvgk6VWkQDi7
-	 aSdcrKSejKaeZ/158ExNqbxtzwBFrJiKlWwqEqw1WV6fwkgPH/eCWhjdBsxK8Avhwz
-	 dFypgdaZrwgQ2Eu7RqbRTdYkTpfWsWXj07jsk8ev/LTGbLaBrUoj+qzgm7+CI6N+hY
-	 YafKhbLmRVR38/pH5GnXcMqwCO+bvxPn79l6rWf34CFAuJHf1ZaB9UBDV2isknSpQY
-	 6F7ZeaJ3s9Xcw==
+	b=AlGR6jImCWsq9+P71+8OkGkidlCxG+9O5BJrn9cAvibQlCUGhTurcMvMD9G5petu3
+	 PFPyqZwKT2gbDot1P4WzCpBvnfxwTXL8PitrYns98jMEl5db2EwTb2lm+QoxWRjgbY
+	 cxpca+lRZq0JamJoJswi8bzxCOy9+bsxyXh3FRp3VK/L94wavxzZ8eACZFg7WTY4Pw
+	 n+4pL2FozMpDoFYP/hyq/exnAGX7m2vaA/C2rmjlMAiR94Se3eraFFj/fxBijVeg8o
+	 1YMeCtA3hJQ8JA4z07pyltzmDIbNqvLOTc5/PshaogvjXjOzHuSusqckSi4OnZ3nup
+	 7K+l9REZFmULg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Abel Vesa <abelvesa@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 1/4] arm64: dts: qcom: hawi: Sort IPCC client IDs
-Date: Fri, 25 Sep 2026 11:43:30 -0500
-Message-ID: <179035461218.1296652.8764249187439190973.b4-ty@b4>
+Subject: Re: (subset) [PATCH 0/2] clk: qcom: negcc-nord: Add the secondary QUSB2 PHY reset
+Date: Fri, 25 Sep 2026 11:43:32 -0500
+Message-ID: <179035461227.1296652.17107293800728170798.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260925101309.3826038-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260925101309.3826038-1-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260901035322.654-1-shengchao.guo@oss.qualcomm.com>
+References: <20260901035322.654-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,26 +55,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 25 Sep 2026 15:43:05 +0530, Mukesh Ojha wrote:
-> The IPCC client ID macros within each group in hawi-ipcc.h are not
-> ordered by their numeric values, making it harder to cross-check
-> against hardware documentation and spot missing IDs at a glance.
+On Tue, 01 Sep 2026 11:53:20 +0800, Shawn Guo wrote:
+> The series adds the missing secondary QUSB2 PHY reset to negcc-nord
+> clock driver, so that usb_1_hsphy can be enabled properly on Nord
+> platform.
 > 
-> Sort the defines in the IPCC_MPROC, IPCC_COMPUTE_L0, IPCC_COMPUTE_L1,
-> and IPCC_FENCE groups by ascending value.
+> Bartosz Golaszewski (2):
+>   dt-bindings: clock: qcom: nord-negcc: Add the secondary QUSB2 PHY
+>     reset
+>   clk: qcom: negcc-nord: Add the secondary QUSB2 PHY reset
 > 
 > [...]
 
 Applied, thanks!
 
-[1/4] arm64: dts: qcom: hawi: Sort IPCC client IDs
-      commit: e8493dd1265294c999cb5badbc26c6b42ea5c499
-[2/4] arm64: dts: qcom: hawi: Fix PCIe IOMMU maps
-      commit: 5105107939b082a98446018e5679d16724fcc75f
-[3/4] arm64: dts: qcom: hawi: Enable SoCCP by default
-      commit: 2b5d5dea36d4d45246cef89611c8e7a6002aa6a3
-[4/4] arm64: dts: qcom: hawi: Trivial fix
-      commit: 7ce6844c0d6ade683fc741c9409a406eb754ed11
+[2/2] clk: qcom: negcc-nord: Add the secondary QUSB2 PHY reset
+      commit: 03445cb3e60340ac8215db9a59daff97d63a5ba9
 
 Best regards,
 -- 
