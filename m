@@ -1,213 +1,62 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AACD1DA0E1
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1C63BADBD
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790319423; cv=none; b=df+rpWjH4p76l1Y2aTqt40kuEAaqiU4UrBo4gYEprks/X9X+7kZiBPFugHsQO9ja4HTrEt1AZ1ML+ny7iwsjrcfDaPVb5mnapi/uiM3desxRUV8Ja6v85NL7R2g+Ri83qeJWLio9vR+ZzNuRQNC/M0t5u0jMphBX9OQEdBiOLOA=
+	t=1790319440; cv=none; b=VR6uEkSs2d8Hcp7eE7STNREUZqySrOQMfs6Vv2gzTX7M8seV2YCV9JPVwf3FciIcqXuMuxJzmrjdBM3TgTe5GB9Kmbbk1lExwd/3JWsSV3tfnibid21YhFHX45LANukSfh7xfz07EvqTMXrEfqqDjoj7IrWBVZCbsmXTbCxISSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790319423; c=relaxed/simple;
-	bh=6EnR6gxetzVyti5xB43XsKChwK5ivtjKIcYmj7P4oEw=;
+	s=arc-20240116; t=1790319440; c=relaxed/simple;
+	bh=u8SUmcFVH1QfhvtajZ4mJgoh3l1E0lhGn639ZcJf9+I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OheDd77igsbztyshuklFcrYg9fluTdrBy/QoAI4oTurSrcJ6rmtg9L0Zk55KBa+6Q7hsYQ2ITjmYx4/C7yt3LvygWIp5wBVI7480jCWdUarcahE98VQRn6ZR/gnDm3PfncS0zrz5UDbPAPUUamFVKcSbBO8uRV8106vZsqWjmqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=SDihzcyf; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="SDihzcyf"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4aKnJ061566;
-	Fri, 25 Sep 2026 06:56:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:to; s=pp1; bh=gg3zGTD2Nn4teC3ohC9gQ
-	//QfX/4YNW3sAHzpThlsd4=; b=SDihzcyfbDEAETLARV0CuV4KpmuMl/f+45Uwg
-	ce5rJsDEYG6HmL6tS2xAsSsElgxuLyfDdkRWjUoJZwwobUf7HkxuBlI6dDS+EYcm
-	Mzivk96Mx97aq7QOawAieYYdHMu7bUWDcmRNmSnN60frQ7oTPCoBKZ944JQRv5bS
-	+9zG5OTEseaVgh2GdFywaHL5g/46uQe9QV9ZKipvI6VwZaPzCjzROSEsFZ9CRm70
-	RXRRdWbDaudIqpBIQbwRMeB/dMaOOmM7VslDDwjH3Dptz3QZTXzCH1yDeBnpEhJ5
-	A3TDQ18uVr8ZuMUyD5P/B6e9epudbE8rxvdn8Y5f07nSZASPQ==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgsnk9n-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 06:56:49 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4lWMX3248857;
-	Fri, 25 Sep 2026 06:56:48 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbt31asd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 06:56:48 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68P6uile46661892
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 25 Sep 2026 06:56:44 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5D66220043;
-	Fri, 25 Sep 2026 06:56:44 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B983B20040;
-	Fri, 25 Sep 2026 06:56:41 +0000 (GMT)
-Received: from linux.ibm.com (unknown [9.126.150.29])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Fri, 25 Sep 2026 06:56:41 +0000 (GMT)
-Date: Fri, 25 Sep 2026 12:26:40 +0530
-From: Srikar Dronamraju <srikar@linux.ibm.com>
-To: Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        skiboot@lists.ozlabs.org, arbab@linux.ibm.com, mahesh@linux.ibm.com,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] powerpc/numa: Support coregroup on PowerNV
-Message-ID: <arYbKIJPnGQoyKES@linux.ibm.com>
-Reply-To: Srikar Dronamraju <srikar@linux.ibm.com>
-References: <20260902123458.340456-5-srikar@linux.ibm.com>
- <20260902123458.340456-8-srikar@linux.ibm.com>
- <c11197ac-ce7b-4fba-8ea5-4f38be9f7106@linux.ibm.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=i765DsWClJM5k5FBGzXv6nsPINo1lSjqw7QfbpSSlbFeIk2v1hT6LkYkoUPlih48Achjk75/z62uUi3hhbV+oAU/mE7Bv2FRgyGDNEML3iacPGSVr09M1SXM6oF7NvOJ6nIOPP2VzKER/OJPpWEL3847onkOFxq47HHjHPm5Fwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 963CB68BFE; Fri, 25 Sep 2026 08:57:14 +0200 (CEST)
+Date: Fri, 25 Sep 2026 08:57:14 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Maurizio Lombardi <mlombard@arkamax.eu>
+Cc: "Ing. Alfonso Kuen Arroyo" <gerencia@idkmanager.com>, hch@lst.de,
+	sagi@grimberg.me, kch@nvidia.com, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] nvmet-tcp: fix stale comment on NVMET_TCP_MAXH2CDATA
+Message-ID: <20260925065714.GA4457@lst.de>
+References: <179013720383.9364.11263428288753603011@idkmanager.com> <DLMIXHATYR90.4RUG08AMWH8U@arkamax.eu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <c11197ac-ce7b-4fba-8ea5-4f38be9f7106@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab61b31 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=xvsa6UuGsR3Vo65tH-wA:9 a=wPNLvfGTeEIA:10
-X-Proofpoint-ORIG-GUID: ytdS7RR2m4FRQMKEA5kr_CDi9uDgQ6Hn
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAyNiBTYWx0ZWRfX1dyQy+7cZjUx
- QgdFevMPGhhpBGzN/debrfNC9ANxHttngRU4O0q/twQZ9fnaAMKbr8W9VY656OqDfTuDlU4+/p7
- YQatc7mNjyZyfL1dxrOjxiLSbXyT71jgX3Sxsp/Z75kA+wIfSghxvTjAcSrYur5OEeEW1CYxrYc
- 8hidKlQUfKsyDIOwdXe1jqUrY4cfxUsFGvCeK+tL4h6j28iZw1eYh0r1nYjdLuobnMhEqZi0sSu
- PJCbi3hHSsL8hdPnkhp9y3gnN64Bp+xDMYUbqdd9Q36m5RCRi9aPNBqKXfLC+rwwWp6HrJUPPfc
- 998sPy7BbTb/rLUhMiENJqCISEdO5/lJxNCnpuRK9fkA09Bcv1yTCIHFxInveGrou8EYtnBrXyc
- ANPdA31fHd/zkk5JwFPDrc7NhViNeYT+M9Xjf6A8KeNJHLIR4OHZgBfFIndsmj6WuCgVdTz3j5U
- w+FA+3FS7lPNXQjEV7Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAyNiBTYWx0ZWRfX3of7sbNrSOuc
- 2yMn1kTIZ4juxEoGi1sBZDzGvbqSJGDEbuz+5Ntfj9tDqPjzvSLF5e6pIbkr0/8CCpPFe4FfJmc
- AiOqqhWaZOZxDW+2+Sad0t9DAMVSCOk=
-X-Proofpoint-GUID: T0iavXmKeUakmDjWdT5w0XnGRXSG3LM3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250026
+In-Reply-To: <DLMIXHATYR90.4RUG08AMWH8U@arkamax.eu>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-* Shrikanth Hegde <sshegde@linux.ibm.com> [2026-09-04 15:34:50]:
+On Wed, Sep 23, 2026 at 09:39:59AM +0200, Maurizio Lombardi wrote:
+> On Wed Sep 23, 2026 at 6:20 AM CEST, Ing. Alfonso Kuen Arroyo wrote:
+> > The constant is 0x400000, 4 MiB, but the comment next to it said 16M.
+> > Use SZ_4M instead of a value and a comment that can drift out of sync
+> > with each other, as suggested by Christoph Hellwig.
+> >
+> > Noticed by Maurizio Lombardi while reviewing "nvmet-tcp: report a
+> > bounded MDTS instead of "no limit"".
+> >
+> > v2: use SZ_4M instead of the raw hex value + comment (Christoph
+> >     Hellwig). The file did not pull in linux/sizes.h yet and had no
+> >     other SZ_ user, so the include is added.
+> 
+> version differences should be put after the '---' separator, they are
+> not part of the commit message
+> 
+> >
+> > Signed-off-by: Alfonso Kuen
+> 
+> The mail is missing, this should be:
+> Signed-off-by: Alfonso Kuen <gerencia@idkmanager.com>
 
-> On 9/2/26 6:05 PM, Srikar Dronamraju wrote:
-> > Coregroup support on powerpc has so far been limited to PowerVM LPARs.
-> > However, PowerNV can also support coregroups when firmware exposes the
-> > required coregroup information through the associativity hierarchy.
-> > 
-> 
-> Existing firmware does expose this info already?
-> 
-> > Detect coregroup support by checking whether primary_domain_index is the
-> > penultimate domain in the CPU node's ibm,associativity property. On
-> > PowerNV, a non-penultimate primary_domain_index indicates that firmware
-> > provides an additional level for coregroup information.
-> > 
-> > This keeps the logic compatible with PowerVM systems, where
-> > primary_domain_index is likewise not the penultimate associativity
-> > domain.
-> > 
-> 
-> Could you please put the ibm,associativity on this powernv? as well
-> PowerVM's so that one understands it better?
-> 
-> > Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
-> > ---
-> > Changelog from v2:
-> > - Handle comments from Ritesh (one hunk needed to be moved from patch 2 to
-> >    patch 3 to build correctly)
-> > 
-> > Changelog from v1: https://lkml.kernel.org/r/20260524010017.140408-1-srikar@linux.ibm.com
-> > - Handle comments from Christophe Leroy; make code more flat
-> > 
-> >   arch/powerpc/mm/numa.c | 58 ++++++++++++++++++++++++++++++++++--------
-> >   1 file changed, 48 insertions(+), 10 deletions(-)
-> > 
-> > diff --git a/arch/powerpc/mm/numa.c b/arch/powerpc/mm/numa.c
-> > index 5f326b005a2a..e97b624203ea 100644
-> > --- a/arch/powerpc/mm/numa.c
-> > +++ b/arch/powerpc/mm/numa.c
-> > @@ -889,12 +889,32 @@ static int __init numa_setup_drmem_lmb(struct drmem_lmb *lmb,
-> >   	return 0;
-> >   }
-> > +/*
-> > + * If hierarchy extends beyond primary_domain_index + 1, then next
-> > + * level corresponds to coregroup.
-> > + */
-> > +static int detect_and_enable_coregroup(const __be32 *associativity, int index)
-> > +{
-> > +	if (!associativity || index == -1)
-> > +		goto out;
-> > +
-> > +	index = of_read_number(associativity, 1);
-> > +
-> > +	if (index > primary_domain_index + 1) {
-> > +		coregroup_enabled = 1;
-> > +		return index;
-> > +	}
-> > +out:
-> > +	coregroup_enabled = 0;
-> > +	return -1;
-> > +}
-> > +
-> >   static int __init parse_numa_properties(void)
-> >   {
-> >   	struct device_node *memory, *pci;
-> > -	int default_nid = 0;
-> > -	unsigned long i;
-> > +	int default_nid = 0, index = 0;
-> >   	const __be32 *associativity;
-> > +	unsigned long i;
-> >   	if (numa_enabled == 0) {
-> >   		pr_warn("disabled by user\n");
-> > @@ -927,7 +947,6 @@ static int __init parse_numa_properties(void)
-> >   	 */
-> >   	for_each_present_cpu(i) {
-> >   		__be32 vphn_assoc[VPHN_ASSOC_BUFSIZE];
-> > -		struct device_node *cpu;
-> >   		int nid = NUMA_NO_NODE;
-> >   		memset(vphn_assoc, 0, VPHN_ASSOC_BUFSIZE * sizeof(__be32));
-> > @@ -935,7 +954,9 @@ static int __init parse_numa_properties(void)
-> >   		if (__vphn_get_associativity(i, vphn_assoc) == 0) {
-> >   			nid = associativity_to_nid(vphn_assoc);
-> >   			initialize_form1_numa_distance(vphn_assoc);
-> > +			index = detect_and_enable_coregroup(vphn_assoc, index);
-> 
-> nit: I don't see return value being used.
+Agreed on both.  Otherwise this looks great, thanks.
 
-index is getting used within the loop. Do note, we are passing index as a
-parameter to detect_and_enable_coregroup().
-For example, index is set to -1, in the first iteration, then
-in the next iterations,  detect_and_enable_coregroup will not retry.
-So the return value gets used.
-
-> 
-> Other than that, rest looks good to me.
-> Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
-> 
-> >   		} else {
-
--- 
-Thanks and Regards
-Srikar Dronamraju
