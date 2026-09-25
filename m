@@ -1,155 +1,261 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7704D5990;
-	Fri, 25 Sep 2026 15:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350898; cv=fail; b=qKn3x4XhQwXEqSrSu5Rtf8fr7MctSgl2oBi/P6CzsKTr8g+h1GabZBzR0nUhv7MIzThh6vFTtwDw6feSgp+zu8JIkKfialKAjSp4yNbpozqsrDyGDDuFi5vsdA9uu68guuTH4BDJo8MI7UuF02fypw/F+HnRdS5CxLIEIqa2x3M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790350898; c=relaxed/simple;
-	bh=gYWgOwrR5AEMp8y1/Hg9p0jMegG0jTDFGpH0zbFiomk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=T1oJ630zyO+NoViEYrqD7gy/fdJQCptxdhwDf7+kI2osdGAIsbF7C3uVUnRbNZSev18P9aNyfnVmzmqARGNQ0egpGLmZp4H+7xeM3joiiy56zfZfrXbE2mb3mCD8wwOQU8Dmkml0jRxaFUSZkFG+uViKRI+yKssYt1ZG59HFlSY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=YX6wQwpM; arc=fail smtp.client-ip=52.101.43.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C964D5980
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:41:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790350909; cv=none; b=DHaugWo5iRRce/cGec2KXhtlnviFcAP9ZzSUM8IOh2OBLWH7Em5tUNw8NNz4ytAOM4pOm72wD1IwZABICCTLMGyfIiuAK2vyr3ZN/ij8Hu0PPGLM8xMWFl0KmspOP9JceSETzc5fMsckPPNzINxgS5psec5tKF/X9giHVKLtbfQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790350909; c=relaxed/simple;
+	bh=8VXDxwsX1o+yHZsWaTKgQc5D6VhgVDIKq1qYb3Phszg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QbLtScygp7g7MFXbM8yueqAA4eTPXZw7JesW7/LPGwilK7ku8S7HhDNi5b0FMB+Bv+yfEzB6Rxl12d7cjIUGykkKPSLScuqcvYa5eZhU0QnUe7dnBDj5wyVOlmusjlLM/Ly5GbxwfLkHcNMr3++rWX1QHf2mNFGOzkPONykEQmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=W/SWaEgH; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="YX6wQwpM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GnVQ+U6Y5JrAPNEvIekbMjaJZT4J3Wwpoc7hvR2yyfvIriWA2pEVoSGD1rk45V8eEJB2tW8vm1zTg0y4OvMUnNN9BMRR/+9WKiuqwbc5PmkplJ91NsW9SemQSnCraumt0It23p74Zux8UUcCv7hSScgbLu/+OFYjHogErCr0bMJOROV7FUFM6xhMqUm3gezxKdUMVDycT0rPiz6pVja+SI3aXH3bIMJ3fM9vf00uXlg7JWai9RQlv3iLju3SY3adw7rhOdVfbsizUSpTMHaM9ugQ09+E5FzQQMVrgHnRsjYrJSvFHK9WC45X3T290aSyylXCRPG7JM7J4v4TOFjTDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N55dui14bf6AhWR6LjXjktGb/pARiHJI6cLSxuMsbHc=;
- b=e76YZhxib/szh9nUSQv1s44Hz6ckhhie9aTB11RYaQcu4Bb8Rz2lOLyvgQeo69WVBj5SNzjZYUHx4z2Ke4YV3oTFDzWhgJCTS1SsHsjvdEgunduHQ20PzG+0yqjHxnjAb94FnTYWII8toswx+qIf3Vl8Sjlwp7kwBf0qo7JF9N2JzsNflH8PVAULz87T+1hOhhZ5bWAgf2nUxo/kQ5mwi3aHYIidbKQIN15sxTgmIww8+iD+TWUciof3j4XgS2umtckx75RqVsNWsahbblIxECi+S+B3WS+qOPX6iKeM+qcM/PIoiPY6vQYVMiL0egrQtlWCNIMcgBtfG8rPXmIIRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N55dui14bf6AhWR6LjXjktGb/pARiHJI6cLSxuMsbHc=;
- b=YX6wQwpMags0ZYvkmh8D2bjiUgLYGQzMpnpXFC7+6ZaVlgBoEAOQ+KARUW9V/mLxapg9flBzlBwVHmsL3qmeaCkIdssErnNO+aQ8PaVJYhkwfemvZqYp3RYQsgh3gM3r4Kwn+kZ3LajMad+BNc0ZVW3J+dAIiMT836zI9sX6xEk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- LV9PR12MB9807.namprd12.prod.outlook.com (2603:10b6:408:2eb::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 15:41:27 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 15:41:27 +0000
-Date: Fri, 25 Sep 2026 11:41:19 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Vishal Badole <Vishal.Badole@amd.com>
-Cc: bp@alien8.de, tony.luck@intel.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH Intenal 1/2] EDAC/amd64: Add support for AMD family 1Ah
- models 80h-8Fh
-Message-ID: <20260925154119.GB1859103@yaz-khff2.amd.com>
-References: <20260923112003.3677719-1-Vishal.Badole@amd.com>
- <20260923112003.3677719-2-Vishal.Badole@amd.com>
- <20260924141146.GD1080284@yaz-khff2.amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924141146.GD1080284@yaz-khff2.amd.com>
-X-ClientProxiedBy: MN0P223CA0020.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:208:52b::11) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="W/SWaEgH"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ca5aa8so96021285a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:41:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1790350899; x=1790955699; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rIiTdCRmfuDk3fuKkf/gmUjp83CRXZD1qvI7wHqMTnI=;
+        b=W/SWaEgHInd/0mHvagT9NV4aEKHu+/uW2rcZcmWi13ixrmP6t+2dt+5Atx7FeNXNVz
+         G6H2ErPZjBIpMiqndDrwcj1HM8feEa5D2VfHxAiBxof4zlh3qf3xrwXsMS5nNkMgYzjU
+         yxSQw77STHkHY6dE8KZjC5So34Hx5a007+e21gGruB/R0G9mTyXBlbusuZ1hkjm0o2ss
+         bH40WLDBqLs6Y6PPyJBn9QXs9poTe6hz/HbyjlDCbisMvgiaDVnNiqTn1tybw/juEoWc
+         S5jLD+nbaBl/TXKZsanyZDmAPJ7w0ZFBHlaxjjcdJ9+pJBZmrPfACAPAsvIPoYCArPhe
+         Xq4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790350899; x=1790955699;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rIiTdCRmfuDk3fuKkf/gmUjp83CRXZD1qvI7wHqMTnI=;
+        b=ntJJjszVuiShZO3W1LO0taGkc5PQ5NRGAkChNmAg66TjcnXUOZUKMHwiDR/vZ5RxTd
+         9Y7t3LsAT4D5oQM8MaSK7ZzaSEc9DWIcSyrY70Kdigm25YdRYvd+GqVIBDeAaSyhFKq3
+         0inD0qWDURPr2x8SUt61SYosWvGs43CduW98AfTc0Rr6ZIWEC/I4nElPN7dIgYJ8S62Z
+         C4xCBpGbZ2IZJ0HpIgjs9Uw9qcopZw89RR1bGyIutXDXbylFX1hQyWdwJpTmhHXYWFjK
+         wYFd8eQZmYscBRCLCJzNWIm0OGs+xqrqyOuK69owq9Jsiy+BirrCe9LQz9PyjheBTZg/
+         uwig==
+X-Forwarded-Encrypted: i=1; AKwUvBxfO4EVhTX8yUK1pAa5FwRUn+E08nYrM/9D1uCWLbDtqrJcpBDT1YBSr0Y8dCqhXamh0Yw/ie46r91KRc0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGP1iKy9Ldm5gDddEEqe0HmGwIxFvs7WGHXmUNR5O6m2SGIhLb
+	laBc82lrxLO4e366bVfv0ppz1XCSZPO1/8Ie1nhlRtzo1kwX9hIU5eOUgMbfMCX7y0U=
+X-Gm-Gg: AYBFou3wegEd2/lmYTVp/K5NnW180eEC+WITs6fanhHw79eZdClKVNd5rv7BKbLpl1A
+	aUzNxzGh7bEJO7QCCiHcESCimiwhDwWWsvzycAN1a6nkF4wSWBAsLbcxqvKsMOtSoAUKsVtsAkd
+	4uDXyuldMfNPxmaDVpkEBc2Oi6R1enAlcgzS5JxQVsB6kmU4xzyLaAwuhfplgulCu6rxYmKgQrd
+	wgkOgxmNwVWtKHW2/3TK2zQOiW+JsJtc9cAdCK84nvKubbwpOW5F80KsJBzoPBWp1XZAsTtaucg
+	iJjeZzX/eJafiglFlZyqixI/o5GtsBq+BsMEbLRrHc5ctS3PZYBMeda0FDc48WFYY+Mwjkr+fkV
+	dusYBFhqBHP2n/2EJUtcdfseGdiwkUL+Zwfiy6e7JnVjo3CxV7w160Ofe97cCxk68bsF1z/W05U
+	+6EDwX/bq9S3ETnvuxfO/MyY0GPCLPxXDCVsTRcwsvMWwA2JGkhg4Y+z/DHEDrfut+8+OY
+X-Received: by 2002:a05:620a:2720:b0:939:feaa:949c with SMTP id af79cd13be357-93c43ca0f79mr497616285a.36.1790350899351;
+        Fri, 25 Sep 2026 08:41:39 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c44652fa3sm205736385a.4.2026.09.25.08.41.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 08:41:35 -0700 (PDT)
+Date: Fri, 25 Sep 2026 11:41:31 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
+	Rik van Riel <riel@surriel.com>, Baoquan He <baoquan.he@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Barry Song <baohua@kernel.org>,
+	YoungJun Park <youngjun.park@lge.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Gregory Price <gourry@gourry.net>,
+	Wenchao Hao <haowenchao22@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Tejun Heo <tj@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-doc@vger.kernel.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <araWKyJ5MENBwXCL@cmpxchg.org>
+References: <aqjcFb6MFNiA6n4V@fedora>
+ <aqjpYHbZ14A8xRtK@fedora>
+ <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
+ <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+ <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+ <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+ <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
+ <arUcil9kxUPiymXI@KASONG-MC4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|LV9PR12MB9807:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72a83b79-40db-4a02-5781-08df1b1b7655
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	z9eLjG98qC2V9bLsK+ngD91D2SotY3u94w81tkI0UuK0zjuHeGYf2T8h1XgUfFmql9elDn+iMU2RwJoNFvzEvX9u9oXbevgRTw9AijFrUttb3CFDb+bKEchbyGPTHsTRS012XXROqyFOe22OEvOFrJIUIUfoJRR1cBAGOYnPLcwoG1Dqombswt5mX48uhoYclm8ES7AlF3BRLqo5Ksx1eXPRJvmuzOjBA6eVwJ1GyxKyT3C0ABivi8uwQxT6zK1eTx5yIpeHG7NH650BM+vJuK8369sjYDX1STn5F15UDC0w7zFPE78sdizmDc/qOOWPSiFXhFw/ge6wsMjW3nPwIzZ6xRxXUga+ycgZIn5Z2zQozx0BsO2yND6U6wJu+ZXC2i4JsSRzU/zZ1bRMEHHdlw27SaWpiyOsvrIcoF/8Pq3T5y9vvQyoPIidZkoFFjvXVwbYr/Jm1eg2sLEE9qau3rFF7iMrlp14d3j1g6VMFjxl0BJ96Ds/Heh7BiE9wiTUsm+T/RcSFAj5LVg4b5go8doAOh6NkLW6rEjueUZp69Zmhc507IkM9YSHuHvQP3s0pMj+PA2iNgfRkq8eiUJIaNkmQgudrf1GMy+FKVnDHtY0A0W660kW9PmvAgpxb9fXLO06GILqp6aDZgFR1xnJ3AD4j1wgyAmjv19Z9WIMMvY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rtzb0f5G6ftkpTfprxJylgddfe4Sp3md3qmrFDv317+29aOcUoOMVMDRrg10?=
- =?us-ascii?Q?lY4GK5mAz2mgVrsttPXMs+xhU6PsLKzUfQ2+++7XHjHWS2GZszuzqQKR90lX?=
- =?us-ascii?Q?07ecpEjR9YfaZc9xqwRYE4i+NbRZtKQjeFEHJk1khtd9nHNObK0SKXuqDRXx?=
- =?us-ascii?Q?i0RifrvvSWugcatpzNB3s/CPXo6cu6/zHhpGgLzWe8LRq56xdHoHYIPqiH2t?=
- =?us-ascii?Q?P7ZHfa3NRkZRTTGdTTeQ2LblWBEssAbw2+MCcouF85keJEPpPTolBFmaKPj/?=
- =?us-ascii?Q?TxjT/KBO+TxuD9mDNMUhsORJMLS/KFomaYXW1sEhQVfUbjM8xrmhqzw+No5q?=
- =?us-ascii?Q?JkDf0Dcwy2OZBiT+YSYeQwWmjEkUaWXIhgDLb8kf/cl3Xj0FVsv7RbyW2NCi?=
- =?us-ascii?Q?T6x0KHyfgu4orl/zpFKNlxxBjD85Wjt6EEWwIw7dLS9nebzTD8AZTXCyUID1?=
- =?us-ascii?Q?ywyf1VcwxxMaLabeN5hy63Q+J4oOjm84SH7/JvBuSDlRr64qz8BWuut9tMdH?=
- =?us-ascii?Q?jJ/KwmRAkjlr7IXBMHLBt3k9nqu1ZS8Pc80wDCdOSXExT70seHDWe30EGVjW?=
- =?us-ascii?Q?pmQqA9S9CVtUlradkgxgYPH20c5sICMZJOtHNkadHeWNMde2U1XyCw7vDxzW?=
- =?us-ascii?Q?hgVZeGgZA+00q31OTuaLmNCO1nMsZBJtSZD/GYOrvO1XH35/H4afmZPwtHmR?=
- =?us-ascii?Q?UYAv+rtrLfyXyNrQLKLQWVdg2GiPTfQn312ArP3ED/CgzEVknmtwxhs3495B?=
- =?us-ascii?Q?P9g0nAHTptDztWupaGRzbEA6t0wzmlbqTWfEt3SRqt+hFQwKL0mtzmGTlfXS?=
- =?us-ascii?Q?FBVR4HFsAsI2+nskz4xOb46y6Bu3j+xPwEpMnhLcz0rGY0LEZDgIqttQxyaG?=
- =?us-ascii?Q?ezV73WMgJVj4B9rE7spOXpTd+x7Z0BlpXEFhfRQSNb6RyP7TH2a1kM0gZHxN?=
- =?us-ascii?Q?mI8dUBLAUFaA9RaFNwwEJKh3/AO6kEPQsO98YgMWvH5E42+m8JHQNdkf+as8?=
- =?us-ascii?Q?6zjoU0E7piLW5i37wjZ0Zcn7jC0FIUIe426FJcwOWxkbWkbXif0jN77+T7gu?=
- =?us-ascii?Q?3H0VfRfZAl9aM5SifyvJsf7EDu2isN400pW4SGMbbjg+RFkLPrbupwpq9bKY?=
- =?us-ascii?Q?qY6MzdvbIocew8czgZbZcSJCkNGDEVl5T5O4XDGlUoTU7qxNlZFXKs/dmFKE?=
- =?us-ascii?Q?MOoGdXxiNilHcpzMhD/odFtVzEav7Hf5V3K02mexsI5uWgey8xUoE/5ASKrG?=
- =?us-ascii?Q?MyBrzEn7Y+AIqZ9iZqAS57E331tzon+X04CcZo3yQXfDrUOaTYe+MHJf7xsb?=
- =?us-ascii?Q?ltYiDVV6+lDmMjJv2ZMseXAtQB6hAxeWFYmtUfYpSbQNKEVVnrSiOvk9sDcj?=
- =?us-ascii?Q?3x12IkV7QInR2Y+INnO2KjU3nzve4XmyvrXoXLvmiSxVQtZJioly2lLEsm/2?=
- =?us-ascii?Q?OxJES/k3xymPiEZqAx8yf2W1oIAwDSwVsUmwJ9Yv49XfdLUGfeWFmu4czRfC?=
- =?us-ascii?Q?sDtRUgf3Z6+yduRMKI/HwG1LGbXXz1vW5XfUSTVCagMPN7ICDIdQktlfeHUZ?=
- =?us-ascii?Q?ObFpt3y596jaR1hFvrYj7+EqAQ7YEnThiDvnym4uk+W9fbvCOh3WWDJ9nSK4?=
- =?us-ascii?Q?mRxCL1KMTVGggOFD0e8uXwCfvsZWDnZAOVmIvvv1gzeNxSQue108EKMZPfqJ?=
- =?us-ascii?Q?hHJBSmSimm0aG9De94xfpFTE+alwhP+XphO8kkIhY9j0FpDd?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72a83b79-40db-4a02-5781-08df1b1b7655
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 15:41:27.5355
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k1x+s4Ufz40Hs1FcavmqiBjfIM5jO4DNh0EkN3TJEmeQflOT2OjUgdCflNavouKuuOUm4GQsF61ksjCun+0I2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9807
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arUcil9kxUPiymXI@KASONG-MC4>
 
-On Thu, Sep 24, 2026 at 10:11:46AM -0400, Yazen Ghannam wrote:
-> On Wed, Sep 23, 2026 at 04:50:02PM +0530, Vishal Badole wrote:
-> > Add support for family 1Ah-based models 80h-8Fh.
+On Fri, Sep 25, 2026 at 09:15:17PM +0800, Kairui Song wrote:
+> On Tue, Sep 22, 2026 at 09:44:37PM +0100, Chris Li wrote:
+> > It seems you are talking about a different topic: the vswap charging issue.
+> > There is a golden rule that we should follow: don't break existing
+> > users. At least with the same persistence, this rule should apply
+> > universally.
+> > In the swap tiers discussion, the UAPI was such a big deal that we
+> > couldn't implement new UAPI. On the other hand here we argue for
+> > liberally changing user-space visible behavior.
 > > 
-> > Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
-> > ---
-> >  drivers/edac/amd64_edac.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
-> > index c6aa69dbd9fb..ff0ebc8e15f6 100644
-> > --- a/drivers/edac/amd64_edac.c
-> > +++ b/drivers/edac/amd64_edac.c
-> > @@ -3900,6 +3900,10 @@ static int per_family_init(struct amd64_pvt *pvt)
-> >  			pvt->max_mcs            = 16;
-> >  			pvt->flags.zn_regs_v2   = 1;
-> >  			break;
-> > +		case 0x80 ... 0x8f:
-> > +			pvt->max_mcs            = 2;
+> > BTW, I already shared that changing swap counter charging will break
+> > our and others' existing deployments.
 > 
-> Should this be '4'?
+> Hi all
 > 
-> In documentation, I see 4 UMC MCA banks, and the UMC register
-> definitions list UMC0-UMC3 instances.
+> As I read the threads and try to clean up the requirement, just
+> realized that I forgot and ignored something previously. I think I can
+> share a few things here.
 > 
+> I also see that Rik mentioning that:
+> 
+> > It adds up anonymous, file, accounted slab, and
+> > (after compression) zswap memory use for a cgroup,
+> > and can be limited with all the usual cgroup
+> > limits.
+> 
+> That's very true, and that's also the one reason we can't
+> migrate some workload to zswap easily (at least yet) :D
+> See below.
+> 
+> The discussion on this can be saw two years before (I know
+> things are different for V2, so see below):
+> https://lore.kernel.org/linux-mm/CAMgjq7AYA91f4g-bknUZOMg6hApTD-X5LqjcTBN2u-Lu8pjs+w@mail.gmail.com/
+> 
+> An minor update for that, memsw in V1 serves pretty well (we also
+> modded that part and would try push to upstream if doable), and as
+> memsw is missing in V2, we can still workaround that using
+> memory.current and memory.swap.current. BUt missing the offloaded
+> part in memory.swap seems a problem.
+> 
+> First a little bit off topic, I'll be really happy if we can make
+> both compressed memory and swap as separate counters (I even once
+> tried to implement a zpool accounting to account compressed memory
+> in some unified way, but, well, zpool got killed before I post
+> that :P), or at least a way to do that, e.g. something like nokmem.
 
-Correction: 2 and 4 are both correct. But the models numbers are wrong.
+Thanks for your thoughtful email, Kairui.
 
-0x80-0x87 => 4 UMCs
-0x88-0x8F => 2 UMCs
+> Due to our real usage:
+> 
+> With compressed memory staying in a separate counter (which
+> we manged to do that with ZRAM) the memory.current + memory.swap
+> (or, memsw for cgv1) could be the exactly planned or sold size of a
+> container, the scheduler (e.g. from k8s level) is fully aware of
+> the packing rate of a host based on this reading. and can make
+> scheduling decisions based on that. And can control it by
+> adjusting the limit two combined.
+> 
+> But with compression as a fixed part in memory.current, first the
+> compression rate is totally uncontrollable, both the user and us
+> will be fully *unaware* of how much memory they can *actually* use,
+> that makes the planning really awkward. memory.max stops being the
+> bound of what we planned or sold, anything compressed lets the raw
+> footprint go past it by however much the compression ratio happens
+> to give, so what we oversold is bounded by the workload's data and
+> not by anything we configure. We can substract the zswap reading
+> though with adaption, however it's hard to change the performance,
+> OOM behavior or reclaim behavior:
+> 
+> As you may considering compression is trading CPU time with memory,
+> then two things here: the user could use more memory than we expected
+> by burning the CPU. And, some users has a leaking application, the
+> application could goes super slow or experiencing high CPU usage due
+> to memory being compressed. They really just want to get OOM killed
+> in time when ever the application leaks beyound a threshold (and
+> yes that is a real and actually practical model for many applications).
+> And, we can't simply disable memory compression for them.
+> 
+> In many cases we just want a best effort compression to make space
+> for low priority tasks, and do not want ordinary containers to use
+> compression at the cost of lose of performance. While still has
+> a fixed limit as usual. So simply disable memory compression is also
+> not the plan, we do need compression to make place for other
+> applications, we just don't want their real raw usage to exceed
+> memory.max, and we can dynamically adjust memory.swap.max to
+> control the oversold part, compression or physical.
+> 
+> And this is not about residency, so memory.min/low don't help here:
+> it's about overselling, and about not leaving a container thrashing in
+> compress/decompress loops instead of being killed.
+> 
+> And if the memory compression is really fully transparent (not
+> doable by software), yeah, that's great as there is nothing to do
+> with reclaim.  But, for now, we have to go through page fault / folio
+> allocation / map it again. So For example, if we already have
+> memory.max == memory.current or under high pressure, then now
+> doing any read from the compressed part would need to some
+> require further eviction first to make place for the decompressed
+> new data, this is not like any kind of "real" memory, something
+> feels not right here.
+> 
+> Another thing is that I think we has been assuming that physical
+> swap is slower than compressed memory, which is not always true either.
+> They all need to be read through page fault, the page fault could
+> be the real blocker here rather than IO or de-compression.
+> 
+> I also want to separate two things that I think got bundled together
+> here: not requiring a physical slot behind a compressed entry, and not
+> charging the raw size to the swap counter. The first one is great, yeah,
+> and it's exactly the part we want, it's what makes compression usable
+> without provisioning disk. The second one is a policy change, maybe it's
+> not needed for the first stage, charging a cgroup for the
+> memories it has offloaded doesn't require any slot to exist behind them.
+> If someone wants to run memory compression with no disk at all,
+> memory.swap.max defaults to max, so that still works fine, right?
 
-Vishal is working on a patch using a different approach.
+I think what we found out over the course of this discussion is that
+people have been using memory.swap.max in two ways. Regardless of what
+we do, we will "break" one side.
 
-Thanks,
-Yazen
+(1) The usecase you're describing. Use memory.swap.max, combined with
+memory.max, to set a "total", predictable footprint of in-use
+application address space. You can mmap whatever you want, but the
+number of unique pages you can touch is limited to this sum. And you
+can control residency vs non-residency through the invididual values
+of those settings. If compressed entries are not included, this
+usecase will break.
+
+(2) The use case we have. Use memory.swap.max to divide a finite space
+in storage. We only have so much space on disk, and we need to manage
+fair access. Note that this isn't about speed. We have a mix of
+containers where some use writeback and others do not. The ones who
+write back to the swapfile need to be able to get their fair share -
+not more, not less. Including something that doesn't actually consume
+this separate finite resource is also a behavioral change that would
+break that usecase. And arguably it's a deviation from how the control
+was intended and from the broader cgroup design philosophy.
+
+I think we need to build tools to support both cases. But somebody
+will have to change how they're doing things... :/
