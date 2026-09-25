@@ -1,95 +1,204 @@
-Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com [74.125.230.170])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6CA3E00B4
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2B146EF64
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367588; cv=none; b=fKZNNCY6bIJEBqDqtyyHIFWJjI7nKoFKvUgLAh2RDj043Fkkbwm/70CKciQAfQ7eR31o+CfW7MRuPrv/rMbmzY3ASIwDa7WW9X2bwGYYEYrzcjLVt06wDnwTjY0iCKUna/nz8BOXwq8T/R/klYTwdqT/Nr93cgut74P58/RrnDU=
+	t=1790367641; cv=none; b=uBcrMLAWAAfSXGVK5+73Pdq7dY2L1gzNqh7oltoiy/YJ6MkYXkth/nvVB6+Cs+nrJn48JrYkYYL42AAu9Qoh0w4MoCL4oODjFvFRybSP6Cq468fmbj2O3YBb9F/hx8zTVzoKw8yvFkhyXz5uMGK2jchuvGsZi1bhqokhB0QpqgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367588; c=relaxed/simple;
-	bh=K88g/NRBGmhTSI9GMeLUT029uyZ4Jq4cmaHJJxQ8Vt0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Cb3j6l2AK69eE9OBTpjnR97TaCKHnpiUXuTN9XZSgrALdwAxeBMP/DLSBaKGQFQJJEK8xVCplDAwA23B1aUFsaOHjHSDx+iZSJJQvMyv2N81s31RtMuyvql3d/HWFyc/lDVALyga+gI3M/9K5fwQZc7OUIiYuEvkEYQ4EjI4FG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FrC+BULQ; arc=none smtp.client-ip=74.125.230.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790367641; c=relaxed/simple;
+	bh=jLtlM+dcV4vNFcRKCK3NS6KrvFDMXTg1LH4aBfPd9q0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XalHZTScTqK/BFQCZhAzoyIKOMdlTeZZ5tfB/PR09RUBYoMOu9UzC5j/bh9VwgZIy6ba7QhzxjNGbDuIgCJGRSQXqJiZGDwYQzG9iXKC7qwy1tQLzSLfY8dEYd5eF2zq348waH0p+xL6W7j5q1l3fbRVdvVrR2z5zAGMgCFtVO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=LExt+f7K; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FrC+BULQ"
-Received: by mail-qv2-f42.google.com with SMTP id 6a1803df08f44-9143e192df5so5686746d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:19:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="LExt+f7K"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ca5aa8so120429385a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:20:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790367582; x=1790972382; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=cmpxchg.org; s=google; t=1790367638; x=1790972438; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=K88g/NRBGmhTSI9GMeLUT029uyZ4Jq4cmaHJJxQ8Vt0=;
-        b=FrC+BULQVYhb1/j9jrOUrqdt/ZYfxlJiVnfWyHH3KaXcUwIOvVixCVhQNozo31vmS7
-         nPPghoSW4SWNs0qmgGofdVV1ntYUaux66bibh2u/NXVajshJOJWNrzOlnoEcRt4XV+mE
-         +lXhHb0YT0YnYcLcLbx/JLMyVi6KrNwio9Bc8HSHrfH3doGhu2epr50C2mnWKM9lFk9N
-         gB7mS8Xkz0//8RKAq6QeeCNwiOlmSpvR1IoOAHzbUIHd45Yk7IThWiuBPTV1JCKmMRtu
-         qO/T7Rfb6T2hNiBzQEgN/S3cz3wDY4q+nFyAeLlzqNZMGI1Eqc3DgKuB6gJCWJy38P+B
-         Qzqg==
+        bh=jHCr0O6x1oEoTdeKSMNckh0NZBgonxokbaxnCBlTws4=;
+        b=LExt+f7K6CGlDCo+ccJ0C/qPcdEHZ7ysBk0LSmZ1AAxuQ0IpSJqmfkaPxvehYWy1GX
+         JjcahiiMFDwiDdT9ZCOuIbGsbc1BKrcTkNr5cE0c0fLk7NKjN6a+3/TYrhCnCFDzIgbg
+         5IxH19SIePnMUZD2kGUGHYDQN8JjCZBeu5np3a8LPTpvQLLeDGgeAQm1wGaZTMmABsNG
+         AJcKz66sBUCoIMf90t4zR4Xqz22ImV38rvqGYEebOulEH6Hkzx0OeCNyxBO2AaKsF2wY
+         MT+PB+/rzvj4jMNrgN0VMxsAiusjh4+tWK/csi8MKHpETLH8X0jgF2SHEsO2v3VrjF3c
+         G0vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790367582; x=1790972382;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790367638; x=1790972438;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K88g/NRBGmhTSI9GMeLUT029uyZ4Jq4cmaHJJxQ8Vt0=;
-        b=DiaLs/2D/2FXzXSevMEF0VSmjaU/vVOelwrSnsY9eWbqdh8rIEL/kFfeceqVOqLoHr
-         XvXqTjdyw86h0jdOaooBSTjPJl3zPUedLP3CeWjWVFEZUVHgU42xZoa7po0E+b2u7Mpx
-         q9RwKCb3Y7EkiDCGv8wqdEgZi2jaPkZAz7+7e1Tzi13XPTPWujaarF+TO+BGZYTsyerd
-         qLO2tt+9YOuZSqg2O/k3oRqWNf3BSFVGsA873yofoQkeHdMdbfvJEkPO33HqsBX+wZeD
-         SEBfA0ZoXflRlqq/+NICuDJUqVgkUCbbVObjUQnjxJ9JivXt+2+RpWl20xsDbn4n0tFG
-         WHCw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZlYMcEZ3Jg5K9/9exuvXZ4ac2FVcwMf+AFpGma4CJlBh7g9GvPKhA6MTdljtCixwiF/rZI2trvmx5HWQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nacOqjBnuyJKeIbAnWKECsKmspxSWm15+r10q+Eth1alm2SVtB
-	IG3ioPNFcRY6HsRKZoSM/GS8oCcjNKNlnQxjEEWPt6NaBk0yYwVuiVTkTfCuh1VLwtg=
-X-Gm-Gg: AYBFou03IfUgG28R5MN2x+HsRva34NBgaKLQkhYjV6VKPdY+Wia85m8LZ+MBTLUWpAm
-	3+p04euwYZSnbTOFjF3UVCZ7uIwb4oVmFqVG95+yQEIzJzvA9mSHZta8ai+u2LiUZMPA2Af7n0j
-	7qB566Cx16bbcHetNTawXdz1oZzVSncDOP6D5+GDLyueKPitT1JJYlHBO1+dxv2+mlYp4Eg9cmC
-	iG3KbIAL3Zr9hiq5I1oeGq3HiO5oQ6lwwLQTIls1vLABIwqnzmD69Obs/nzZpxMV7RBdREMkLKo
-	gJutIrXvJVrC5lnf0eynncmAk0X/0QilnWZAwvB1Y8mhXEXP9RcxOIkBAsqaszmjEUVLpVlGw2h
-	0lqm9EdoTU4lrVXZu7w6UUSFJAnsrxADrXE3AvoT8YuvHU575qfEFkonYiq97jA2VxBIkaZyP3y
-	6z5Aj72JnaxJROpH6vFND4hcv2Uf2AHNDZwzkXX/SqpJLZy3drmDPXfkY5awXh3iihGbKCvY98+
-	AaYn0ZQG0MyHSBAeQO9UbutIDgRpCnUfJONmu5KMC3uE05rEuiTcM9zVUDyblUN8Qf/Kp9dhMM/
-	u17rhxtTo31+2sMjkX5pQ+8jSWm9MXDJykLGqJRDyuxzkh8VuBwCp6rIUjUPmNgJM4p7XslUxAv
-	YJGOwhfNJRFT9pNwBLAhm6PHQXX4vNAauUqlqJgV/Zf7CalDi1ycwZqU=
-X-Received: by 2002:a05:6214:d45:b0:912:3c52:5e72 with SMTP id 6a1803df08f44-9142f08e731mr60599636d6.0.1790367582365;
-        Fri, 25 Sep 2026 13:19:42 -0700 (PDT)
-Received: from edhar.longhair-great.ts.net (pool-173-48-206-252.bstnma.fios.verizon.net. [173.48.206.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914309a24c4sm25159636d6.6.2026.09.25.13.19.41
+        bh=jHCr0O6x1oEoTdeKSMNckh0NZBgonxokbaxnCBlTws4=;
+        b=wjSp7QRsK1yPrAaSlmF5BiIW0c4uPfEcx5AF6cEjTbksMRhmjlcdRDaQT22PgF2CIb
+         r6nydBW3ZSOWUpVE9oOWogOoxO/sT385QRoZ9vPzdnkkrU31B+R+zJbi0oKrnDeSXJxK
+         m0vNr1DI9Dw298s4QQd+KFkB0bB7Se9OKPuBQRm0nHfAodeBgbANw9aHH+cjqUcIcqP8
+         M1ff+f6yf1arMPIArMKdCWW1uPid85a356UTGaCrJ5xCg4FAx2QG2oEQjgaSpOsYrtKy
+         YXXDYDjcRsNmojZDjxIfwTg27Sfox8PaE17nt8XqIAXZlk3oOXaVwdIp4aQUdlRk9Lxh
+         EgRw==
+X-Forwarded-Encrypted: i=1; AKwUvBxuzT5qe+TtDfstgoGD+m/7TZ4YEoxF+CRQELlGDECy8QO2L04w9T3a4BflU/RhSWyYyZ1jr6jX18yeO/k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAu/IXr/WB4plIi6D5isZyh5Ih7dEK7xHvuUgHOrdd5+VIYo57
+	NE/31F7b1EiF4oUh1e8ASk2IJ1z4xsSV20Nz2txeCdVQ8LLtGdxhV301T2XGuZTr8FU=
+X-Gm-Gg: AYBFou0F3XRzIqAnOMJYq8OVAP5O7i342nbkVaXaIp23sQpt8EP680hD36NopAO4R5c
+	gg04o6y0L5IeUr75SERJwHAi/bUwbrQMivr5wHul/I6aN4Keqf71M+xAo1ejka0PapBjvW3FhqH
+	uB7ibW/8AcHh9DbxzzOorc2LKFDkIg3yAnz0riUzSj3zdQMm+EneS5TFE8pDq/2IarSiaax4R0M
+	eY0tf15UMCreNxHtZiJNFOd/fdt/TfUQyyAYXGVah60WmwNscYn9n5jDR/O4t2iJWa2UlKYuG7u
+	AClaSP7RYF1eTdNtalUIsG2la1svtF63kvbSwRLwRQdyx571cd3cuV3lAs89x195ddy2zwvhiSg
+	/tMi+0NqCagwYpDM+lZJibi5iVDMtNkr0bz/4f/B4qniZpW5r9+ym2zffCmKI7dhX5wyKp5AXcc
+	bHl7YN8DX0VSdW/34ByQamEfsxj1xfbmmFJrNGYqMu/Dn39Of6fjuQt4hJBKRmytrZW2tD
+X-Received: by 2002:a05:620a:40ce:b0:939:a9d4:7022 with SMTP id af79cd13be357-93c43b5acadmr649894985a.8.1790367637558;
+        Fri, 25 Sep 2026 13:20:37 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c448b06c9sm260456585a.11.2026.09.25.13.20.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 13:19:41 -0700 (PDT)
-From: Zack Gomez <zack.gomez@gmail.com>
-To: leitao@debian.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	stephen@networkplumber.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3] netpoll: bound the deferred transmit queue
-Date: Fri, 25 Sep 2026 16:19:40 -0400
-Message-ID: <20260925201940.1950809-1-zack.gomez@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <araTwjYJRMlfd2PX@gmail.com>
-References: <20260923181111.1182838-1-zack.gomez@gmail.com> <araTwjYJRMlfd2PX@gmail.com>
+        Fri, 25 Sep 2026 13:20:36 -0700 (PDT)
+Date: Fri, 25 Sep 2026 16:20:32 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Kairui Song <ryncsn@gmail.com>
+Cc: YoungJun Park <youngjun.park@lge.com>, Chris Li <chrisl@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>, Rik van Riel <riel@surriel.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Barry Song <baohua@kernel.org>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Gregory Price <gourry@gourry.net>,
+	Wenchao Hao <haowenchao22@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Tejun Heo <tj@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-doc@vger.kernel.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <arbXkEQ1cwOVMqEy@cmpxchg.org>
+References: <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
+ <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+ <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+ <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+ <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
+ <arUcil9kxUPiymXI@KASONG-MC4>
+ <araWKyJ5MENBwXCL@cmpxchg.org>
+ <arbHLt-iB4RHXyWt@KASONG-MC4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arbHLt-iB4RHXyWt@KASONG-MC4>
 
-On Fri, Sep 25, 2026 at 08:32:56AM -0700, Breno Leitao wrote:
-> I don't think this should be a fix, honestly. I would prefer to see this
-> on net-next without the Fixes tag.
+On Sat, Sep 26, 2026 at 03:21:30AM +0800, Kairui Song wrote:
+> On Fri, Sep 25, 2026 at 11:41:31AM +0800, Johannes Weiner wrote:
+> > 
+> > Thanks for your thoughtful email, Kairui.
+> 
+> Hello Johannes,
+> 
+> > > I also want to separate two things that I think got bundled together
+> > > here: not requiring a physical slot behind a compressed entry, and not
+> > > charging the raw size to the swap counter. The first one is great, yeah,
+> > > and it's exactly the part we want, it's what makes compression usable
+> > > without provisioning disk. The second one is a policy change, maybe it's
+> > > not needed for the first stage, charging a cgroup for the
+> > > memories it has offloaded doesn't require any slot to exist behind them.
+> > > If someone wants to run memory compression with no disk at all,
+> > > memory.swap.max defaults to max, so that still works fine, right?
+> > 
+> > I think what we found out over the course of this discussion is that
+> > people have been using memory.swap.max in two ways. Regardless of what
+> > we do, we will "break" one side.
+> > 
+> > (1) The usecase you're describing. Use memory.swap.max, combined with
+> > memory.max, to set a "total", predictable footprint of in-use
+> > application address space. You can mmap whatever you want, but the
+> > number of unique pages you can touch is limited to this sum. And you
+> > can control residency vs non-residency through the invididual values
+> > of those settings. If compressed entries are not included, this
+> > usecase will break.
+> 
+> Right, thanks for the reply! residency vs non-residency is one of
+> the issues here. It's also about how we consider these two kind of
+> resources to balance the scheduling of containers.
 
-Agreed, I'll drop the tag and send v4 to net-next with your Reviewed-by.
-Thanks for the reviews and I'll be watching your patchset as well.
+Ack.
+
+> > (2) The use case we have. Use memory.swap.max to divide a finite space
+> > in storage. We only have so much space on disk, and we need to manage
+> > fair access. Note that this isn't about speed. We have a mix of
+> > containers where some use writeback and others do not. The ones who
+> 
+> Same for us, the usage is mixed.
+> 
+> > write back to the swapfile need to be able to get their fair share -
+> > not more, not less. Including something that doesn't actually consume
+> 
+> Is that writeback compression rate based? I mean for zswap, you have to
+> writeback uncompressable part, and then also do cold writeback through
+> shrinker. The compressable part is hard to predict and control though?
+
+It is compression rate based. And yes, the exact composition of what's
+in zswap and what gets written back isn't very predictable.
+
+We don't really care at the cgroup level, though. The goal at that
+layer is isolation: a container gets a slice of memory and disk swap,
+and the most important thing is that it stays within those confines
+and doesn't become a noisy neighbor to the others.
+
+We do care about workload health, too, but that sits one layer above
+it. For example, we monitor memory pressure. If a workload expands
+hard into (z)swap and starts thrashing, we kill it. But if it just has
+a very large set of cold data that gets pushed into (z)swap without
+any thrashing, we don't really care. Let it run. Maximizing
+utilization in this case is more important than predictable capacity.
+
+There is one exception, but it's narrow: when we run out of disk swap,
+things can become very unstable. Especially when the workload is
+mostly anon, and there is only a small share of file cache to absorb
+pressure. So we kill when N% of disk swap is used.
+
+But that's only for the cliff. If zswap didn't use disk slots, there
+wouldn't be such a cliff. As long as you're within memory.max, put all
+you want into zswap. We only kill if you start thrashing.
+
+Neither of these need additional kernel interfaces. Just psi and swap
+usage metrics that get polled every few seconds.
+
+I think you could easily extend this mechanism to "predictable
+capacity" by monitoring anon + shmem + a "vswap" counter and issue
+kills when they go above some threshold you consider unreasonable.
+
+It doesn't sound to me that you actually need synchronous,
+cgroup-style enforcement for this? If a workload goes over, you kill
+it within a few seconds.
