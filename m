@@ -1,77 +1,90 @@
-Received: from mta1.migadu.com (out-197.mta1.migadu.com [95.215.58.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C434A2070
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:37:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51145481FAA;
+	Fri, 25 Sep 2026 13:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343432; cv=none; b=ghN4CsW7volGdXMtT/IlRL5fsc2pRLLKIf1W7negOFObcyKhOMxrywfAK83oW7vkxNSEfFmPe5pgSD972hFL91yc4Y8ZD55ETSCndOIK5/7uNgg7XgA3GXe5rMchdnkRFoU1XNht9hcgyTnbEQllLrO700Djcg1tm7BkqC0Yxcs=
+	t=1790343434; cv=none; b=p0H0QwLxrRrl/msEBdDc1XKQn+fi+eZNiXqeMVfWrprFcQeRfITfgP0LglB2s7qSIH9hbgTkiW2aiaH08tyzv6+9y49pkBFCTHk5VEiYcFjB0XlD7g7smS4apawmRclP1/ogZ/KWnQXEFK/6cXN/02RSpn07BjVIW7Pc2lGhVBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343432; c=relaxed/simple;
-	bh=yUbhz4q8Bk6ad7ykhWaGlMSrczLK4cYYxIxLGl+Ap/U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LJ6gpp4SZJX7OB4rM3JWIUZz6WxfosWSGqe/yOK7E3caW+4W0wlcnhOXviVpb0YSXRzDEYUC9UORr8mk3dveL77hwfDfzvtkGfUzd3pvFfXA0bG9kAl2DsH61eiZeD6FklW4aEGXEBUIZmXM6Nc81V8hmAki1SsVnwePp3Qk3+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vcxsB362; arc=none smtp.client-ip=95.215.58.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790343434; c=relaxed/simple;
+	bh=tppLKGihpPbrBaoD6zrC97omhc4nZCVt4fENCagZiKo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ce+UF4dJbRKBB1Kv8yXyASIGE2CdLwIZ8ghtDF6n29KV08pss0CepBVjIRwIbY9jQGZYp0UtbR4HOWASZTSSUAbA7Gy4IstEQBBsjpE2KFrS5Msi0mhG+9prtCv2eoj5dJJ1RojZqDWA/YZitqqNvcExwKJdBfnwhYarMJcP7KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=D0a7jcAT; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vcxsB362"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yUbhz4q8Bk6ad7ykhWaGlMSrczLK4cYYxIxLGl+Ap/U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790343428; v=1; x=1790948228;
- b=vcxsB3625tFAL4PybA5yYvTPD9o3Ji3J8lNkM/K7VMe9fSXuBcyE6W0LVi5ObLYWEq07ZQqY
- /vCO2yAPdz13DpjC6cWKr1aXX34foP5I/Dek+cu0JaFfyC2Pkq4RNPyUDLsYHOpHOdopT6yGy7o
- Pc3CHfHevyuFya2CgHOF9K0Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 5d53d689c26fed9d;
-	Fri, 25 Sep 2026 13:37:07 +0000
-X-Mizu-Trace-ID: 5d53d689c26fed9d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <69579dae-285d-472c-ba69-4279e5170502@linux.dev>
-Date: Fri, 25 Sep 2026 14:37:06 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="D0a7jcAT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Rz
+	F04bESnonyKgD5D1eC1a+7YoFMLwMQxE8AgHg55KQ=; b=D0a7jcAT4BrkA0qSV1
+	7Jsick2GZ/50XBPro1ifVUVbEDKF1B9kyrY2MlatMcgdJsmol4n5jUj3H4Krhf6Y
+	IvpM++cNSGFq9BOfVyiJvTM8ppAeqvnETqItvz83Y8p9SIfstn8vnKXWw8+60ijf
+	BfQcewQKb/ni3m/Fa8hl8jGvk=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3P5vpeLZqaNgdAw--.65146S2;
+	Fri, 25 Sep 2026 21:36:42 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jens Reidel <adrian@mainlining.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] Input: goodix_berlin - reject devices without match data
+Date: Fri, 25 Sep 2026 21:36:38 +0800
+Message-Id: <20260925133639.2229728-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/9] block: fail a short atomic pin in
- bio_iov_iter_get_pages()
-To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Christian Brauner <brauner@kernel.org>, "Darrick J. Wong"
- <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-References: <20260923-blkdev-fixes-v5-0-89e60d66eb38@columbia.edu>
- <20260923-blkdev-fixes-v5-5-89e60d66eb38@columbia.edu>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <20260923-blkdev-fixes-v5-5-89e60d66eb38@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P5vpeLZqaNgdAw--.65146S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFW8Ww45CryrArykCw1xKrg_yoW8GFW3pF
+	W5Ca4xKryUXa13tw48tryDZFya9w18Ww4rKFyqk3y093s8WryUZr1akrW3Za4YyFW5J3WU
+	Ary7Z3sru3sxA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEjg4wUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wqg2mq2eOrHmgAA3M
 
-On 9/24/26 00:56, Tal Zussman wrote:
-> On a partial page pin, __blkdev_direct_IO_simple() and
-> __blkdev_direct_IO_async() submit what was pinned with REQ_ATOMIC set
-> and leave the rest to the buffered fallback, tearing an IOCB_ATOMIC
-> write.
-> 
-> This can be triggered deterministically. A 16K pwritev2(RWF_ATOMIC)
-> whose last page is PROT_NONE, on a scsi_debug device with atomic_wr=1,
-> completes short with only three of the four pages written, violating
-> RWF_ATOMIC semantics.
+A device bound through driver_override need not match an entry in the
+driver tables. In that case spi_get_device_match_data() returns NULL,
+but goodix_berlin_spi_probe() dereferences the result while calculating
+the regmap transfer limits.
 
-I don't mean to load more work, but a blktests case for this would be 
-great. I am consider doing it if you are too busy.
+Reject devices without match data before using the chip information.
 
-Thanks!
+Fixes: 4d395cb071a3 ("Input: goodix_berlin - add support for Berlin-A series")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/input/touchscreen/goodix_berlin_spi.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/input/touchscreen/goodix_berlin_spi.c b/drivers/input/touchscreen/goodix_berlin_spi.c
+index 01f850f484c2..db9e151ced65 100644
+--- a/drivers/input/touchscreen/goodix_berlin_spi.c
++++ b/drivers/input/touchscreen/goodix_berlin_spi.c
+@@ -127,12 +127,16 @@ static const struct input_id goodix_berlin_spi_input_id = {
+ 
+ static int goodix_berlin_spi_probe(struct spi_device *spi)
+ {
+-	const struct goodix_berlin_ic_data *ic_data = spi_get_device_match_data(spi);
++	const struct goodix_berlin_ic_data *ic_data;
+ 	struct regmap_config regmap_config;
+ 	struct regmap *regmap;
+ 	size_t max_size;
+ 	int error = 0;
+ 
++	ic_data = spi_get_device_match_data(spi);
++	if (!ic_data)
++		return -ENODATA;
++
+ 	spi->mode = SPI_MODE_0;
+ 	spi->bits_per_word = 8;
+ 	error = spi_setup(spi);
+-- 
+2.34.1
+
