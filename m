@@ -1,44 +1,52 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C8B368D45
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:57:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679CE400DFC
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790333865; cv=none; b=eV1CFLV45mVtbGks+psdLkQDZznXCkwGtT81y3Xoqey6VjsX/CfUC+/Rc4BGh3b2KcJAkk8tgbV7qI9btBHpEf5IYT+fvlp+Hpy0rkIUSTpQWvO4JjotoMVy/0AxtwFka6HYRAe3SpF7X84GgD7dUKOB7ZvVyZRMr/3ezQ8dh0A=
+	t=1790333877; cv=none; b=gRAR/QndOQIvDTWcpGFN4iTe9Qr6FxS1MrNDrb8UxSDr3P9bp0n6DO0GQt+ZCX7HZ4EqmkICZmmJkmUKMus15epYTNRiS5rknyv7A8CjWNyAHjWpJ+IwcB1mV44Hhahnhm9F0lEBIqmiEj5EgtqE2aZjTww80JtloiQWbyUjd/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790333865; c=relaxed/simple;
-	bh=5QQleRhvMuMXr0hNnWCKZu7nFiqRsbQ43lsdzgw8qS0=;
+	s=arc-20240116; t=1790333877; c=relaxed/simple;
+	bh=XZxo+WADsr42hu/WwcEvLMNMXV8qU7PpguPLDEp9b50=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X4AFz/iPC2O4DMHy2hhWPGeOhtzwinqDX+y14CBnKmpW28mclsM63GgWAPjHHrctYMIRrQe80GESAcVz1ryYyna5Y9atAz2AcaqMoziBCDxDaEDLglihovrqYs2MacI0L19/Dc8Ry61V+dzg2BCwjCHPACS1zZVhHGOM3xw87I0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFSHH485; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=bQv6a/1cZHgVeMwYl782WDcBc/fquIc0RTzuGnG3SyDrnAecc6IQ32tp00tFluqFTVP71C0eQ1yD5xf1PabXEdU+KncDzhJ+PODpH7W/k6yVO18XXYXE5+ue+mR6MI5K/SWWpadNinJ2/4lxD6LmWVPC1yWdrwfaVh6ySfMEjto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=VzyewI3y; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFSHH485"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2FF1F000FF;
-	Fri, 25 Sep 2026 10:57:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790333864;
-	bh=Nnw14xvfnQJHUMg1YXGWQNGAHKQa7rYgYgJD3iK4zYE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NFSHH4853QkanVK7cAcdsVYAO7CYl3VgyNJYz2cVgQtgurMgoA3lFdYljYW/k9syR
-	 3iLr0riA8QHTHG+jgg+f7jROnNDUwZYZ633UjZ1M5/70fCm6UsfoeyKoblQAClGJAn
-	 t7eBTDsQHSF5p3YIfUhIiiKOjIu7mlTYOCEwTdT6E4BfV4XrST0m1eEG4xxAGnSsY3
-	 q+xVulTcc5tNj7kVYX00uvcM4mttnaY3zaCCQ6F3onF+q5RD/6Hec7jryDoUiiBM3Y
-	 hWPZ2MrnOGXId0wyubFDI8IcuEwFClX0ByYw1lP+xnX0C1zvIQIkKsToQ+nus7++SD
-	 yUqx0FT6Da1Cw==
-Date: Fri, 25 Sep 2026 11:57:41 +0100
-From: Harry Yoo <harry@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
-	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Suren Baghdasaryan <surenb@google.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH slab/for-next-fixes] mm/slab: do not wake up kswapd in
- __kfree_rcu_sheaf()
-Message-ID: <arVERNhXeU1BX54G@thinkstation>
-References: <20260922-kfree-rcu-dont-wakeup-kswapd-v1-1-42d7e2636f9e@kernel.org>
- <2db41ce0-a510-4050-a79c-ff1f16640b47@kernel.org>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="VzyewI3y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=anZU
+	1KfXBrg0LBONVfZO0pF5ldmszDBWgaPcW+jObfg=; b=VzyewI3yGO86fam5WTld
+	zvvz7ZZwnlYyWWaEVbLJY0SXay3FtSQG0IXNkSishLxmBPdBnZxcjwmIqHxGA3H5
+	qpXD/AqBCejFa2WMaKB6chS5k2bGIAAADbdKXrQdFp3IRQnghM5qlxb43sHfU767
+	QywHCw+cmThFPTcAWqyoxlAZO0Pj4VXCxJdo8hTan5crYNkNweu3zE9oIgbWC+TA
+	kb6FO//YmBehA2iNiswLAWa/OKB+R5gfXrR8frTNOhqbBUy8iDTgxWTDqKOY+bpH
+	E2XpS10vdMoyhpOO6GdfJOA4MYh0YowWFxMt+/NaN8CPPVv0DCLzgkE8N02/I6FM
+	gw==
+Received: (qmail 1529304 invoked from network); 25 Sep 2026 12:57:42 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Sep 2026 12:57:42 +0200
+X-UD-Smtp-Session: l3s3148p1@r6HilUxcJoIujnvn
+Date: Fri, 25 Sep 2026 12:57:42 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Sam Agazaryan <samagazaryan@google.com>, linux-i3c@lists.infradead.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
+	Vitor Soares <vitor.soares@toradex.com>,
+	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
+Message-ID: <arZTphXbVF5wagy2@shikoro>
+References: <20260921230603.2518652-1-samagazaryan@google.com>
+ <arY6DfVf_9tZ_TCu@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,120 +55,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2db41ce0-a510-4050-a79c-ff1f16640b47@kernel.org>
+In-Reply-To: <arY6DfVf_9tZ_TCu@black.igk.intel.com>
 
-On Thu, Sep 24, 2026 at 10:43:01AM +0200, Vlastimil Babka (SUSE) wrote:
-> On 9/22/26 13:56, Harry Yoo (Meta) wrote:
-> > Fix this by always avoiding waking up kswapd in __kfree_rcu_sheaf().
-> > Note that there are two paths that might wake up kswapd:
-> > 
-> >   1) __kfree_rcu_sheaf()
-> >      // __GFP_KSWAPD_RECLAIM might wake up kswapd
-> >      -> alloc_empty_sheaf(GFP_NOWAIT)
-> > 
-> >   2) __kfree_rcu_sheaf()
-> >      // Let's say __kfree_rcu_sheaf() doesn't pass GFP_NOWAIT
-> >      -> alloc_empty_sheaf(__GFP_NOWARN)
-> >      -> kmalloc_flags()
-> >      -> slab_alloc_node()
-> >      -> alloc_from_pcs()
-> >      -> __pcs_replace_empty_main()
-> >      // Free a sheaf in an allocation path when the sheaf becomes empty
-> >      // and refilling the sheaf fails
-> 
-> So that's this
-> 
->                 /*
->                  * we must be very low on memory so don't bother
->                  * with the barn
->                  */
->                 sheaf_flush_unused(s, empty);
->                 free_empty_sheaf(s, empty);
-> 
-> Now I wonder if we should just use the barn then, lol. We either took the
-> empty sheaf from there, or there was none, so we don't risk overfilling it
-> with free sheaves.
+Hi Andy,
 
-Well when refill_sheaf() fails, it's not guaranteed to be empty.
-Might have to put a partial sheaf to full list?
+> And you need to gather the opinion of Wolfram as well.
 
-... well, now we have sheaf_partial though :-)
+Dunno if I can help here. When it comes to driver development, a dev
+interface is surely useful but can stay in some debug corner. However,
+cover letter says:
 
-> Well but I guess sheaf_flush_unused() could end up in freeing paths anyway.
-> But that's a bulk free which doesn't involve sheaves at least.
+>> Userspace access to I3C targets is needed for devices that do not have a
+>> kernel driver bound to them, such as targets in ROM/bootloader recovery
+>> mode (e.g., OCP Secure Firmware Recovery v1.1 and Caliptra Silicon Root of
+>> Trust recovery flows), as well as hardware bring-up and diagnostics.
 
-What do you mean by "**sheaf_flush_unused()** could end up in freeing path"
-but "that's a bulk free which doesn't involve **sheaves**"?
+I don't know anything about these recovery mechanisms and their needs. I
+might have time to look into I3C things after all the conferences in
+Prague, but no promises...
 
-> We could also distinguish which callers of refill_sheaf() can continue with
-> a partially refilled sheaf. This one likely can so we'd not have to be
-> flushing, ever?
+Happy hacking,
 
-Can we do that without adding too much complexity?
+   Wolfram
 
-> >      -> free_empty_sheaf()
-> >      -> slab_free()
-> >      -> free_to_pcs()
-> >      -> __pcs_replace_full_main()
-> >      // However free path always assumes it's safe to wake up kswapd
-> >      -> alloc_empty_sheaf(GFP_NOWAIT)
-> 
-> Would be great to avoid all this from kfree_rcu().
-
-Yeah.
-
-> > Drop __GFP_KSWAPD_RECLAIM in both cases. Note that the kfree_rcu() is
-> > not the only user of free_to_pcs() path, but it should be fixed as it
-> > can be invoked under pi_lock.
-> > 
-> > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > Closes: https://sashiko.dev/#/message/20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b%40kernel.org
-> > Fixes: ec66e0d59952 ("slab: add sheaf support for batching kfree_rcu() operations")
-> > Link: https://lore.kernel.org/linux-mm/20260831143500.x-saxdAs@linutronix.de
-> 
-> Fixed up per your reply.
-
-Ack.
-
-> > Assisted-by: LLM
-> 
-> Changed to (per below)
-> 
-> Assisted-by: LLM # dicovery and verification
-
-Ack.
-
-Didn't know adding # blablah after Assisted-by: was a thing!
-
-> > Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
-> > ---
-> > The discovery and verification (w/ a modified kernel) of the bug was
-> > assisted by LLMs.
-> > 
-> > More speicifically, the first path was pointed out by Sashiko, and
-> > the second path was discovered by LLM while reviewing the commit with
-> > review-prompts [1].
-> > 
-> > Harry Yoo reviewed those findings and manually crafted the patch based
-> > on that.
-> > 
-> > [1] https://github.com/masoncl/review-prompts
-> > 
-> > I believe the right direction to address this issue is to make
-> > kfree_nolock() work in any context and replace it with kfree_rcu()
-> > in the scheduler. However for now it won't work under pi_lock,
-> > and resolving that would be a longer journey.
-> 
-> Indeed.
-> 
-> > Address this issue by dropping __GFP_KSWAPD_RECLAIM, for now.
-> 
-> Applied to mm/slab.git slab/for-next-fixes, thanks!
-
-Thanks!
-
-> But still could discuss a better solution per above.
-
--- 
-Cheers,
-Harry / Hyeonggon
