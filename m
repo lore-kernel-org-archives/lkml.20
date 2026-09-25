@@ -1,117 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9094947424F;
-	Fri, 25 Sep 2026 08:30:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77514448BA7;
+	Fri, 25 Sep 2026 08:32:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790325010; cv=none; b=YAeR0XP3JLTSD99kX46N4QVCA8sKm0Cl3rGu/F9BdpbhZSdyCfZqbFBHgbYbFaaggU//aoCmYbNBqzAMmErHgWTQtCw2O9YytCkMLxYvptI2B7WEZz0IT7JbyqTO4KALlGpKKPdM4uhQE91+URFCFUA/7BtlhgPAj4nAeLwJpDc=
+	t=1790325126; cv=none; b=pw/3J6lvMQk0HOnUBu4JFBxfaZiXq5R9BABVCBx1fMEVAqxHCoWL7IU0gUxMUWTlP27Fna62qlC4+3WjLjV1UMT9JZmcyK79O7U44DpqX3UUlx25to+wNoiuMLcvzld9IOCRqHqNXbVRZScwUTCeTB59YGXfUBl6sfrNku9sdZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790325010; c=relaxed/simple;
-	bh=xhM1NDChH2yBawOA0vUao/tE6p8o+ERW0qsYwP7gEQs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=c/jtVqPSP6iTWX9jaNA9fCEw/PK0tKktxMDXBxvbKpxeRXmDEAOcbhYb5x/6vYv4YUC4jHreW70gPlLDoGMABfyHRRhxliCssFaWLNzy6jhDO4Z8mNrvqEr9J22tSfO+Nprq/t5TxLcbteVscerKOeCeQc9Pex+67+c8z3XiqpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVdxndEl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790325126; c=relaxed/simple;
+	bh=t47BzwwXIFhA+OXA5Pgu2sP3rEwCeyovyc5A2lLgu1Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ITTP3cAg20IDf9vQyS583hrzViTUJW5/OnZI8zdsobAaTsTc6muiGGeEmuaUXTAzDjVP1v+VXixq03SclGfp2JZ7Y4ujKkK4NnL3NeviYhU7pv19BX9sPj6lZclPy+Yaes1R3At64rR6nt3pTcN43pIdr2s9fz6FbpaIHXW6QFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ax2rY14H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVdxndEl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E55B21F000FF;
-	Fri, 25 Sep 2026 08:30:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ax2rY14H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C1F1F000FF;
+	Fri, 25 Sep 2026 08:32:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790325008;
-	bh=rglxVdnrltiFTbNqP4P/NgQosnzKQgmbqN8xvLDEm5M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=fVdxndEl6qmzTqWiM+UdhtVle1tOzfNzhtqYqX6biLR6O9LkSVLrLL4fiz4t2Gfko
-	 hfZNSJ21zU1sLc98URdnvGYobn06NAZjhwWSePtelR0L4tiO9/EE0om9S0p+57eYc1
-	 9tCVPfbvQf+Th/NPPGsyab75An5lOoIUZPPcSOtMo1xKdDjILWHIC2zA8ozC9Gt1r2
-	 ZhvyoszTGd8Dl8yskVHqZawRy2PvZhMg4V9oViW3hhRB8A6vqI2VCMaVYyCD+Hsfso
-	 3ZYyxrpD7kTkczqkCgGBVDU2hyEeBkCJWxdzL+W8+E5saCWFRZZF490FasuuMZLkWj
-	 8b3Rs+YTxE0Ww==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: "Tian, Kevin" <kevin.tian@intel.com>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: RE: [RFC PATCH v6 00/11] iommufd: Infrastructure for vIOMMU
- creation for confidential guests and guest TSM requests
-In-Reply-To: <CO1PR11MB48358E3116CC6CF34E6437658C812@CO1PR11MB4835.namprd11.prod.outlook.com>
-References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
- <CO1PR11MB48358E3116CC6CF34E6437658C812@CO1PR11MB4835.namprd11.prod.outlook.com>
-Date: Fri, 25 Sep 2026 13:59:59 +0530
-Message-ID: <yq5a33uxka2g.fsf@kernel.org>
+	s=k20260515; t=1790325121;
+	bh=f21bfSgajoZ96zkKMMzYLpGU2lQgnejSnZbLSzP7oqk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Ax2rY14HrX3kBp9ZOKN/2lxZDzfwKLCfKd7UmShTsrwoMDi/2+GMdW5k6Uk7j+y1x
+	 360aNj2JRWu3NaDYu1YHhO80vitYvlWd5PM+ps4QlQrhpWxVvwpZJ+kSyqJRYbUEnc
+	 M4D+o+cGrsZa6wqa+w6gN2iB6OPdx/32U70dt9erdKyD/drU+G4XV/v2EOFWyi4To8
+	 55a11O+WMGeOxH0tAW6SplHBK9dckq1yqfq2O1gRgPaNAv8DH0YirsdnQU30M6dZHu
+	 sZnHPA4XaUoAAJ8bpxKh3djbVJnaDxIkW+GkNs5druTz9GKLt1dXRQyAdnztBM/6JH
+	 C8PsDnYlZWDBg==
+From: Srinivas Kandagatla <srini@kernel.org>
+To: gregkh@linuxfoundation.org, Zongmin Zhou <min_halo@163.com>
+Cc: linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, 
+ Zongmin Zhou <zhouzongmin@kylinos.cn>, stable@vger.kernel.org
+In-Reply-To: <20260924062856.42977-1-min_halo@163.com>
+References: <e76a151b-4dde-4bdd-91ee-e025e9bcc994@163.com>
+ <20260924062856.42977-1-min_halo@163.com>
+Subject: Re: [PATCH v2] slimbus: messaging: fix leaked PM vote on tid
+ allocation failure
+Message-Id: <179032512009.104177.10348463176756654367.b4-ty@kernel.org>
+Date: Fri, 25 Sep 2026 09:32:00 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-"Tian, Kevin" <kevin.tian@intel.com> writes:
 
->> From: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
->> Sent: Thursday, September 17, 2026 10:02 PM
->> 
->> This series adds the IOMMUFD and PCI/TSM infrastructure required for device
->> assignment. It introduces an IOMMUFD-owned vIOMMU provider registry and
->> the
->> IOMMU_VDEVICE_TSM_REQ ioctl.
->> 
->> The series adds a vIOMMU provider abstraction that allows a subsystem
->> other than the physical IOMMU driver to implement a vIOMMU type. It groups
->> the vIOMMU operations with their module owner and private data, and makes
->> that implementation discoverable during vIOMMU allocation.
->> 
->> External providers are selected by exact vIOMMU type. When no provider
->> matches, vIOMMU creation falls back to the physical IOMMU driver. Once a
->> provider matches, its result is authoritative and failures do not trigger
->> fallback.
->> 
->
-> I wonder whether this abstraction is necessary.
->
-> The underlying IOMMU driver still needs to understand this vIOMMU type
-> to check vendor-specific compatibility and provide the relevant hardware
-> parameters.
->
+On Thu, 24 Sep 2026 14:28:56 +0800, Zongmin Zhou wrote:
+> In slim_do_transfer(), when a transaction needs a tid and
+> slim_alloc_txn_tid() fails, the function returns directly instead of
+> jumping to slim_xfer_err. The runtime PM vote taken earlier with
+> pm_runtime_get_sync() is then never released, leaving the controller
+> permanently powered up.
+> 
+> As txn->tid is still 0 at that point, jumping to slim_xfer_err drops
+> the vote exactly like it is done for other failed transactions.
+> 
+> [...]
 
-There is an iommu_ops callback, viommu_get_params, that can be used to
-check compatibility and return hardware parameters.
+Applied, thanks!
 
-> There may also be further vendor-specific interactions between
-> the IOMMU and TSM drivers.
->
+[1/1] slimbus: messaging: fix leaked PM vote on tid allocation failure
+      commit: d4af0dab1a6ffc5bc3688a34358be68ee93561c1
 
-This is an important point. Can you identify those interactions so we
-can determine whether an iommu_ops callback is the right abstraction?
+Best regards,
+-- 
+Srinivas Kandagatla <srini@kernel.org>
 
-> In that case, the abstraction risks becoming
-> little more than a connection between two vendor-specific drivers, while
-> making it harder to maintain a clear scope for its operations.
->
-> Would it be simpler to provide helper APIs and let the IOMMU driver use
-> its own interface to delegate vIOMMU operations to the TSM driver? 
->
-
-Does this mean that the vIOMMU would be created by iommufd, with
-the TSM driver registering callbacks that iommufd invokes for
-TSM-related operations?
-
-> From iommufd's perspective, the vIOMMU type and its operations would
-> still be handled by the IOMMU driver.
-
--aneesh
