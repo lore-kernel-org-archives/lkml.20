@@ -1,151 +1,335 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FDA3E7640
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58333BADBD
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790318924; cv=none; b=A+OMatJ6EQyVB0nuTpO9a0vbuMQ3Buluo6q5ysbXUYGf/IkVIgwJCKKfVa46TQZGA1FscVnOWv9IiBNpi0KXG+c/eRGYOL7sjPYawoKHKrYO+eIUesNh2+KFpfNkhY7F66OHM7GVSf4/sRWxVIwbXmx3fXzCV0wveGQPG8cVmPg=
+	t=1790319020; cv=none; b=X66ut1XLph2szPNXMR/RAdkznVFPxXswBsGkOnd4adZeOCzXAHTFMreWCbhEZo2D2VDDItyfXrVsKOwun3FHEL1Zy/uESk8/ZTdGl5AzNciwKzzvS6BWfl3TKr07UBOYicrAY27tX5L5e2j4cW1ocM8ZvKumhWybiyd7Z8qAidI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790318924; c=relaxed/simple;
-	bh=tMx1MW1swPT9LU92Qd6jrMUtdo1rOEFSJMzCq6IeAcQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NYj5zyWDgKbspb3HJnPk6HDbnGxjVL5FqL0XplVJHjYR2ELJBmyPgevCP3Xu3dO/NlawJVeV96qprsS6Wkb+n52oJZvA7fT0RPfes4HlZ10vuQow5Uqsrr/ik/y12XVXWAVc2nRYCmsPBBpQsA1O2tLWAlSxs6CfadCxoHjo7NU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YlMuo9gm; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790319020; c=relaxed/simple;
+	bh=GvReiu1FlNVvKhKU781NY+wh2lMMcZAHeXJ40l8/fPU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EAEeZK0iGK8kmDFY/cKrbo/y7cIU113GUoywEhF7uefNnBaWUh4N7LXqlMkn2T6Zyw0+ykxtVTUD7yag60JzId9iLD83v2fa2yYsmczVijxA3NHFJBRe92Adj/9Ejx9VdyMlI+/bHzZFzN5anTBjY0tboDkRw5WY78Yc/WfMDn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=modal.com; spf=pass smtp.mailfrom=modal.com; dkim=pass (2048-bit key) header.d=modal.com header.i=@modal.com header.b=NMMDAR/F; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=modal.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modal.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YlMuo9gm"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4adX0103282;
-	Fri, 25 Sep 2026 06:48:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=BaD1Wh
-	IvjbYFRzWbPP4r9VA6M2K53iLy5ER309mNOZg=; b=YlMuo9gmrDhjJTECS1G6Cy
-	iuzFyytDFZTkii24z1zg1RnOSRyUTkPOI+7Y+tEhdxalmHEm/skXx/dayj0qo5FA
-	EVQ/ioIDZt5102H3CPA8/dsl4WiSAU3/fhw1h0U0f04BaVT8BLcPh5AkiFRU2Az1
-	3QMjXh8VGUWmgH+XAQo0lckf8nAf9ojfNI/wJH92wA1tJYYlEc8UVeb3xBNREHNM
-	LqM0ZZmL4ebbZwgu9LS84DB7KlRy0X0vNX1RNsUMYn+d68wAx/stbZ8f2vXGLkTM
-	Ea9hKTDUqKyZf7UzY0hRGObOM4dexd+jsTUmZnzW0SIM3xWcjesKq4A8GS0TCIPA
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskdvmqj6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 06:48:22 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4lSpl3296974;
-	Fri, 25 Sep 2026 06:48:21 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb6qsdub-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 06:48:21 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68P6mJYw38994380
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 25 Sep 2026 06:48:19 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 72DBD20043;
-	Fri, 25 Sep 2026 06:48:19 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0BEB420040;
-	Fri, 25 Sep 2026 06:48:18 +0000 (GMT)
-Received: from [9.123.14.142] (unknown [9.123.14.142])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 25 Sep 2026 06:48:17 +0000 (GMT)
-Message-ID: <ff767954-a8c0-49eb-94f1-8f0b9419498c@linux.ibm.com>
-Date: Fri, 25 Sep 2026 12:18:17 +0530
+	dkim=pass (2048-bit key) header.d=modal.com header.i=@modal.com header.b="NMMDAR/F"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0bec20a6fso107505a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:50:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=modal.com; s=google; t=1790319018; x=1790923818; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o2MOlqC3CqQeIkJJQSE5ZBko91IuDQ76O2zDmJDbjzA=;
+        b=NMMDAR/FpIzHnVu1/XFC3hYr1J59i9lVBCB7g+Kr3B/8GZN7ICGt84VvoQNXcxWInZ
+         IZEF7CEWi540vtBXIybqY6FC348JHwdp5Zy/j7Z6UU4FEEi62rl2rOcal9oebrG9g0eA
+         iAwjAg8gO0V3gajK1HJRqYvHihJaCfNKXJBDOCGOC/1VhTHrtWbjgQDp7N3/0xmGHNJX
+         vNgoFR7s5ktupCXR0bi22ZZIA0iYv1UyfvlAjSopouY/TzFWTyBuy+y3mpKfgLCYOZ7J
+         0zxKzV+5WqnAmXBc3i8sbAeawRWvSBIWBDs3w03iNOeFNFgY9E55yEMkmD32+JFeM2jW
+         kzaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790319018; x=1790923818;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o2MOlqC3CqQeIkJJQSE5ZBko91IuDQ76O2zDmJDbjzA=;
+        b=ygYTQsjVjI+NQprP31+9NW7k7zh+4mHunp+WEdvVQN/y0gf0sgjMlul80s0lZBJgh7
+         372ZXubrN3HksdEyRuX2xt15VHNHUjZ0XyW33JB16BMu3dsU+lmXEJYgYCD/C8HOneMf
+         6i8DxCtbLHCRXqvfTOkOhUOZqqYtQ1ALYzAB4bjXMo4fBBusX7a2iiQLz54Qc5y8v1+D
+         fx/DwhGoPGoFrCOyd27rJzi5oJ0ITVbTizEHuH+oe//T125IP0Kxvn9n5yU6KYAf+KAm
+         Qmad6gjABWS7He2LWS2/WPw0aw33rXO213pDLOd5Uac0kZZc3CZsgXJChNQrjGKKsaTv
+         2xTA==
+X-Forwarded-Encrypted: i=1; AKwUvBzbx/FAyC7zpzkj0UyF7cYd5nvnOyoIy3686E6Qzg9cI0oNw29ei5uv4XfCwYuDDbt2c11ebrn3zL1cTc4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+wfroMGGEJUopE3j0rL6ve+v2oqBlve0lfydNfT4B3Z2TdmPj
+	L1tyI8lnp0XiiwAC9uFh3qLHc1BoGiQ8L5di3f6Fpdc1FsVWbGPv8DjNSu+pij33YCo=
+X-Gm-Gg: AYBFou2VsOD0LowuUJyMOSTb89ZqhbDMOdmLfghK3xGiKYdqzl14+eU4EbWqTpBD7H0
+	YInNsbdO5omXSnfvS6orcTj45X1YOlW+oJIuD3UcC7CJ3uP90Io21Z45Bb2AuQom+PVIcohZwQx
+	wLOYRpoFQkuz5X4epk9wu8psJRNDyx0CcaleKw+7IK1PD9NvVnqpI+WDQNVvePCjakYWN6l0/Dq
+	U0xajX4qz4GCrxSui8nRQ8LaCZPdIEHLJAjVpDJQiyd6xi2cLRtqNef5hxRJCkE43zQRMK9xkti
+	K8rYHnklc3FBeaKOOaA+mMfSE3bHnsJWNLCnYqBYQI0zfLD7VgABczujJQH843ccqgV+YRg9q44
+	YvjggmBfiMTMNXl5zTPKAs5QCErZv3M9xylL0H+/P/KJy3vTKpbwKl1ZoZ/Ly1pMMGwBCwvxfDq
+	ZX/FU16FQmYXkNrwBI2ljtX6jCYsijmVGni1Qbw1bhVRud9Amv41klIkS0hSC6GbHEXTq57wooB
+	ox983Q63v4cKZk8eyW9ECWmJyBYI+0PKm/lQSqzuPBayBFfDYqAKWVfmeTTPlnXRahenYvZRPvL
+	JNENf4KlLvdOO6QeEpsk5naP9ggPTr+UTdGpPy+/0a03LEXY
+X-Received: by 2002:a17:90a:da8e:b0:3a0:34a4:187e with SMTP id 98e67ed59e1d1-3a09865216bmr2874283a91.15.1790319017911;
+        Thu, 24 Sep 2026 23:50:17 -0700 (PDT)
+Received: from devbox-ayushr-01ed.tail5292b.ts.net (ec2-44-242-192-44.us-west-2.compute.amazonaws.com. [44.242.192.44])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b898cabesm2713563a91.0.2026.09.24.23.50.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 23:50:17 -0700 (PDT)
+From: Ayush Ranjan <ayushr@modal.com>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Ayush Ranjan <ayushr@modal.com>,
+	Hugh Dickins <hughd@google.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jan Kara <jack@suse.cz>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Gregory Price <gourry@gourry.net>,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts page cache / rss counters
+Date: Fri, 25 Sep 2026 06:50:10 +0000
+Message-ID: <20260925065013.3682431-1-ayushr@modal.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260925053027.1998394-1-ayushr@modal.com>
+References: <20260924061708.1645968-1-ayushr@modal.com> <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net> <20260925053027.1998394-1-ayushr@modal.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/rtas_flash: Use scnprintf() in
- rtas_flash_read_num()
-To: Thorsten Blum <thorsten.blum@linux.dev>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-References: <20260722162816.156697-3-thorsten.blum@linux.dev>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <20260722162816.156697-3-thorsten.blum@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: ZHsTgbjEkx9uYEU5MSnOXzYIyEqAjbsE
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAyNiBTYWx0ZWRfX9fZkFfv+NLUS
- 7uKtXC8iliOVpFFxCNnN2hjmYq5RR4r2LXd7Ypc8gUxXDyP1lpVR8du94Nnha9UFGU+kaP/fWso
- pM3IKUPwg6BsIRcXgM65lrD+unMHbL0=
-X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab61936 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=NKNl3_LDKE-7nIAXPEwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: tK6TSA63-ryta480CZLHU9GUv3hCqT1W
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAyNiBTYWx0ZWRfXyLEUhadzr0KZ
- 9hOMEpbLS1kGWJ+aZ1w6WmSUSqWr1ka8ayB++9JT7yu53nlhGgaSFHtiNEbCbceCxjP2gOJ/ose
- FTU10w8HlYojTiRHh99dHMNhlHY4QK7BmNPtAk4PXhagzQqk10TaJt5mAetyVTV/Ig+QY5CJWzw
- nE/8sp8EQkmiZAsjYyJZ8HiurhEFwKOxzj9Xh6ckzQHwn1QXQqTrY2cL3IWAW0N3q0oyHYU0PTl
- 4jTLUGjvUvC2zKTsG2t5u5FqPj8GjeLOtilJAYumbarENEil2d8hEc/SwkhdC5YLL6JCI+PJWRR
- aT98Ns52DQBo7q4wrfsAB2Qu7BsrvCYCF48ZDyKW3L7Dt1iUHxlbYD8EOOAzCVKZGNMDNgjRAsj
- B0ADcq7bIG4PBhS/7Iw57bXdCvOQb4rpzUrXCVTAqjc5Evzn1xM2sj6F2UXKmzzC1NAKOBKxoch
- viyN3i1KxBEW6rSj8cw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609250026
+Content-Transfer-Encoding: 8bit
 
+On Fri, Sep 25, 2026 at 05:30 +0000, I wrote:
+> The standalone reproducer, however, has so far only triggered the
+> rss-counter one, and only on the UEK8 kernel. Not on our 6.18.46
+> hosts, and it has never triggered the "Bad page cache" one for me.
+> So it clearly does not capture everything the production workload
+> does.
 
+Following up: a reworked reproducer (at the end of this mail) now
+triggers the "Bad page cache ... still mapped when deleted" bug on
+6.18.46 (plus 31c1d19ead2c "writeback: use a per-sb counter to drain
+inode wb switches at umount"). The new reproducer typically works
+within 2 minutes on a 128-CPU box. It also still produces the
+rss-counter imbalance when the process exits.
 
-On 22/07/26 21:58, Thorsten Blum wrote:
-> Use scnprintf() and its return value to avoid a separate strlen() call.
->
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> ---
->   arch/powerpc/kernel/rtas_flash.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/powerpc/kernel/rtas_flash.c b/arch/powerpc/kernel/rtas_flash.c
-> index 583dc16e9d3c..aff8a67e274f 100644
-> --- a/arch/powerpc/kernel/rtas_flash.c
-> +++ b/arch/powerpc/kernel/rtas_flash.c
-> @@ -291,6 +291,7 @@ static ssize_t rtas_flash_read_num(struct file *file, char __user *buf,
->   {
->   	struct rtas_update_flash_t *const uf = &rtas_update_flash_data;
->   	char msg[RTAS_MSG_MAXLEN];
-> +	size_t len;
->   	int status;
->   
->   	mutex_lock(&rtas_update_flash_mutex);
-> @@ -298,8 +299,8 @@ static ssize_t rtas_flash_read_num(struct file *file, char __user *buf,
->   	mutex_unlock(&rtas_update_flash_mutex);
->   
->   	/* Read as number */
-> -	sprintf(msg, "%d\n", status);
-> -	return simple_read_from_buffer(buf, count, ppos, msg, strlen(msg));
-> +	len = scnprintf(msg, sizeof(msg), "%d\n", status);
-> +	return simple_read_from_buffer(buf, count, ppos, msg, len);
+Two changes over the previous version made the difference:
 
+  1. Every punch now forces a partial-folio split: it punches
+     [pmd_start, pmd_start + k * PAGE) with 1 <= k < 512 (PMD-aligned
+     start, mid-PMD end), which sends the straddling huge folio
+     through truncate_inode_partial_folio() and a folio split.
 
-Though there is no real buffer overflow issue here, it is a good idea to
-convert sprintf to scnprintf. This change helps avoid calling strlen on the
-same buffer.
+  2. Fault-around is steered at just-punched ranges: the punching
+     thread publishes the PMD index it just punched into a small
+     shared ring, and the faulting threads preferentially read across
+     those PMDs, so filemap_map_pages() keeps re-installing PTEs over
+     the range being torn down.
 
-Changes looks good to me. Feel free to add:
-Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+Two data points from this version:
 
+  - fork() is not needed: a single-process variant (one memfd, one
+    MAP_SHARED mapping, faulting threads plus one punching thread)
+    trips it as well, so the dup_mmap() angle can be ruled out
+    entirely.
 
->   }
->   
->   /* We could be much more efficient here.  But to keep this function
+  - it still strictly requires shmem_enabled=always plus aggressive
+    khugepaged (scan_sleep_millisecs=1, pages_to_scan=4096,
+    max_ptes_none=511); with default khugepaged settings it does not
+    trip within 150s. The constant re-collapse of punched ranges back
+    into PMD folios is essential.
+
+Pedro: I think this is consistent with your folio-lock point. Both
+mapping and truncation do hold the folio lock, but not across the
+whole punch: on a partial punch, truncate_inode_partial_folio()
+splits the straddling folio, and the sub-folios inside the hole are
+only removed by shmem_undo_range()'s subsequent lookup pass. In
+between, they sit unlocked in the page cache, where
+filemap_map_pages() -- which, unlike shmem_fault(), knows nothing of
+the shmem_falloc guard -- can lock and map them; the later removal
+then finds them mapped.
+
+Baolin: given the above, this version may be worth another try on
+v7.3-rc1 with the khugepaged settings applied; I would expect the
+same behaviour there but have only verified 6.18 so far.
+
+Run recipe (same as before, plus alloc_sleep_millisecs):
+
+  echo always > /sys/kernel/mm/transparent_hugepage/shmem_enabled
+  cd /sys/kernel/mm/transparent_hugepage/khugepaged
+  echo 1    > scan_sleep_millisecs
+  echo 1    > alloc_sleep_millisecs
+  echo 4096 > pages_to_scan
+  echo 511  > max_ptes_none
+
+  cc -O2 -pthread -o repro shmem_punch_fault_race.c
+  for i in $(seq $(( $(nproc) / 4 ))); do ./repro 120 & done
+  # watch: dmesg -w
+
+Thanks,
+Ayush
+
+---- shmem_punch_fault_race.c ----
+
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Reproducer: shmem/tmpfs hole-punch vs fault-around race on huge
+ * folios ("BUG: Bad page cache ... still mapped when deleted").
+ *
+ * One memfd, mapped MAP_SHARED. The punching thread punches
+ * [pmd_start, pmd_start + k * PAGE), 1 <= k < 512, to force a split
+ * of the straddling huge folio, and publishes the punched PMD index
+ * to a shared ring; faulting threads read across recently punched
+ * PMDs so fault-around re-populates them. Peer processes only
+ * accelerate the race: a single process suffices.
+ *
+ * Usage: ./shmem_punch_fault_race [seconds] [file_MiB] [peer_procs]
+ */
+#define _GNU_SOURCE
+#include <fcntl.h>
+#include <pthread.h>
+#include <stdatomic.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sys/wait.h>
+#include <time.h>
+#include <unistd.h>
+#include <linux/falloc.h>
+#include <linux/memfd.h>
+
+#define PAGE		4096UL
+#define HPAGE		(2UL << 20)		/* PMD-order folio */
+#define PMD_PAGES	(HPAGE / PAGE)		/* 512 */
+
+/* Shared across all peer processes; steers faulters onto just-punched PMDs. */
+struct ctl {
+	_Atomic uint64_t hot[64];		/* recently punched PMD indices */
+	_Atomic uint64_t seq;
+	_Atomic long n_punch;
+	volatile int stop;
+};
+
+static unsigned char *map;
+static int fd;
+static size_t file_sz, n_pmd;
+static struct ctl *ctl;
+
+static inline uint64_t xs(uint64_t *s)
+{
+	*s ^= *s << 13; *s ^= *s >> 7; *s ^= *s << 17; return *s;
+}
+static uint64_t seed(void)
+{
+	struct timespec t;
+	clock_gettime(CLOCK_MONOTONIC, &t);
+	return (t.tv_nsec ^ ((uint64_t)getpid() << 20) ^
+		(uint64_t)pthread_self()) | 1;
+}
+static void push_hot(uint64_t pmd)
+{
+	uint64_t i = atomic_fetch_add(&ctl->seq, 1) & 63;
+	atomic_store(&ctl->hot[i], pmd + 1);		/* 0 == empty */
+}
+static uint64_t pick_hot(uint64_t *s)
+{
+	uint64_t v = atomic_load(&ctl->hot[xs(s) & 63]);
+	return v ? v - 1 : (xs(s) % n_pmd);
+}
+
+/* Read across a (recently punched) PMD so fault-around re-populates it, then
+ * drop it to force the next touch to fault in again through map_pages. */
+static void *faulter(void *a)
+{
+	uint64_t s = seed();
+	while (!ctl->stop) {
+		uint64_t p = pick_hot(&s);
+		size_t base = p * HPAGE;
+		volatile unsigned char sink = 0;
+		for (size_t o = 0; o < HPAGE; o += PAGE)
+			sink += map[base + o];
+		(void)sink;
+		if (xs(&s) & 1)
+			madvise(map + base, HPAGE, MADV_DONTNEED);
+	}
+	return NULL;
+}
+
+/* Keep PMD folios present and dirty so the puncher always has one to split. */
+static void *writer(void *a)
+{
+	uint64_t s = seed();
+	while (!ctl->stop) {
+		uint64_t p = xs(&s) % n_pmd;
+		memset(map + p * HPAGE, 0x5a, HPAGE);
+	}
+	return NULL;
+}
+
+/* Punch [pmd_start, pmd_start + k*PAGE), 1 <= k < 512: forces a folio_split()
+ * of the trailing partial PMD folio. Occasionally drop a whole PMD to keep the
+ * allocator/khugepaged churning fresh huge folios. */
+static void *puncher(void *a)
+{
+	uint64_t s = seed();
+	while (!ctl->stop) {
+		uint64_t p = xs(&s) % n_pmd;
+		size_t off = p * HPAGE, len;
+		if (xs(&s) % 4 == 0)
+			len = HPAGE;
+		else
+			len = (1 + (xs(&s) % (PMD_PAGES - 1))) * PAGE;
+		fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
+			  (off_t)off, (off_t)len);
+		push_hot(p);
+		atomic_fetch_add(&ctl->n_punch, 1);
+	}
+	return NULL;
+}
+
+static void peer(int secs)
+{
+	pthread_t t[4];
+	pthread_create(&t[0], NULL, faulter, NULL);
+	pthread_create(&t[1], NULL, faulter, NULL);
+	pthread_create(&t[2], NULL, faulter, NULL);
+	pthread_create(&t[3], NULL, writer,  NULL);
+	sleep(secs + 2);
+	_exit(0);
+}
+
+int main(int argc, char **argv)
+{
+	int secs   = argc > 1 ? atoi(argv[1]) : 120;
+	file_sz    = (argc > 2 ? (size_t)atol(argv[2]) : 256) << 20;
+	int peers  = argc > 3 ? atoi(argv[3]) : 3;
+
+	file_sz = (file_sz / HPAGE) * HPAGE;
+	n_pmd = file_sz / HPAGE;
+
+	ctl = mmap(NULL, sizeof(*ctl), PROT_READ | PROT_WRITE,
+		   MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+
+	fd = memfd_create("runsc-memory", MFD_CLOEXEC);
+	if (fd < 0) { perror("memfd_create"); return 1; }
+	if (ftruncate(fd, file_sz)) { perror("ftruncate"); return 1; }
+	map = mmap(NULL, file_sz, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+	if (map == MAP_FAILED) { perror("mmap"); return 1; }
+	madvise(map, file_sz, MADV_HUGEPAGE);
+	memset(map, 1, file_sz);
+
+	pid_t pid[64];
+	if (peers > 64) peers = 64;
+	for (int i = 0; i < peers; i++) {
+		pid[i] = fork();
+		if (pid[i] == 0) peer(secs);
+	}
+
+	pthread_t t[5];
+	int n = 0;
+	pthread_create(&t[n++], NULL, faulter, NULL);
+	pthread_create(&t[n++], NULL, faulter, NULL);
+	pthread_create(&t[n++], NULL, faulter, NULL);
+	pthread_create(&t[n++], NULL, writer,  NULL);
+	pthread_create(&t[n++], NULL, puncher, NULL);
+
+	sleep(secs);
+	ctl->stop = 1;
+	for (int i = 0; i < n; i++) pthread_join(t[i], NULL);
+	for (int i = 0; i < peers; i++) { kill(pid[i], SIGKILL); waitpid(pid[i], NULL, 0); }
+	while (waitpid(-1, NULL, WNOHANG) > 0) {}
+
+	fprintf(stderr, "pid %d: punches=%ld\n", getpid(),
+		atomic_load(&ctl->n_punch));
+	return 0;
+}
