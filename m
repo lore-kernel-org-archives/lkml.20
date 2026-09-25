@@ -1,191 +1,212 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2104.outbound.protection.partner.outlook.cn [139.219.17.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0BB3F7AAB;
-	Fri, 25 Sep 2026 05:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790313006; cv=none; b=rJvEXjU6yB+G0S6jRAjrPKZfzM9wvzvaYdYUfOPKEYQulWcQ4m7ZzAoJpNaEaJ/N4Dz762Zfz3gfWjRK3qQ6kvYbTlR49UTRnVRYn6CrEMdwZSbptxtqjS79TgNuH/wg3nRVaiifCOTzLv5KdzjgdQP9OkYMtAmQj14rUf6uDV8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790313006; c=relaxed/simple;
-	bh=v64y7N95oMg6Ru5wJOHoWnwLhn0lEqJ9B7e7jl8MkvM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F4Sm+ocI8PK+FmiLx82rwPiIDq2qMQg8lz/Z/DzwECVZsnqCVuH31G29uTvPC2/K/yo3A3lDSwmJ6QTdLYIBIY4bFr9x/n5UyyqrxksBspWzWJr+9+QN3xSr7dgZwVDWlbL2n+qZolcHAG0Rv1EMIJuu2p/bgLdLPFgmVKRwe/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=JwW8oDJf; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HGIU1Czn; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Hd6qNjaJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+AAfL/Lm; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JwW8oDJf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HGIU1Czn";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Hd6qNjaJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+AAfL/Lm"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3C5B91FFE6;
-	Fri, 25 Sep 2026 05:09:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790312998; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D0JZfVv9Tl9PjTrtkqmBRz5s6KPc27+JXH6tHdZHZWM=;
-	b=JwW8oDJfti+pnwyHBiaSGR2i9WEMTlMCPgUBJPEtQRmn98TFYJkP9QHY3axB5igt/nc6cU
-	QNzq/BXKm1oXbisMy52S0F1We+V/GNBTeI8Iprhw2ss2pa1qKioxDgSfP/FTJU6fhUa8eA
-	cgTTPjA8jJQTsscRIVgQbjd5rAAjiAk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790312998;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D0JZfVv9Tl9PjTrtkqmBRz5s6KPc27+JXH6tHdZHZWM=;
-	b=HGIU1CznmJQAKQX6+atRx85T/TOA2c4IsX4xZcfB0KUp3MvPUxBTojBuTzXFhN/xdKc3yI
-	j1a1yzOQ/OG4KRAw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Hd6qNjaJ;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="+AAfL/Lm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790312994; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D0JZfVv9Tl9PjTrtkqmBRz5s6KPc27+JXH6tHdZHZWM=;
-	b=Hd6qNjaJKmc+6UAmoTxECGTheOO76ZwWUYZ4HFrJWd0587kQ6fyKdlmm3FLxCYt1Fx/XJc
-	kjMerftAaJu4nmy/xaYSf06eNXzketD43kxtzyGIemw5Qt2Alh0AGBnb1NsC1t49q42Mp5
-	S7uQSXJ7bzhSzcsF1DThg6Vm51G4BSI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790312994;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D0JZfVv9Tl9PjTrtkqmBRz5s6KPc27+JXH6tHdZHZWM=;
-	b=+AAfL/LmruMK41qlVoULgHUAU3gUxuJHtOPPJqLntUGI/EDUvvRBUc2XTGRJgcI6IyP/Dl
-	6ckMS71us+i9gDCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6205213432;
-	Fri, 25 Sep 2026 05:09:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id aDteBSECtmqTfgAAD6G6ig
-	(envelope-from <hare@suse.de>); Fri, 25 Sep 2026 05:09:53 +0000
-Message-ID: <a7a60b61-24b4-429b-8ccb-ee5b6f06a5ed@suse.de>
-Date: Fri, 25 Sep 2026 07:09:52 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBB41DDA18;
+	Fri, 25 Sep 2026 05:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.104
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790313074; cv=fail; b=EyZVFzo1kwTjWgzvD2b5QjOMs5emGSuYzKL2q+Jpi8nL+xIIvhzF7J+f9eEz6IR2Zh+vcyicMXldb9f33tMB82jHNDRbdeJgqkSqOXAHVzNARNGgoBCULXyEKiVQ+Z8rDZVPghz2ClGtLBSIBCYcA7UpwL3McxrjXBnsIsWvLVY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790313074; c=relaxed/simple;
+	bh=a3HGHKub9JFgo+WBNtKpj5ko6hFy0aiQWlIViTPhRjw=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=UR/nANTSXqq94isRdVCDmQPhszjscbwFfsvUSOyVBF5T23s6HOkJFzaGZJLJa2fZ6EkmxRiiyI2UL2q4jybwsKuTwB+YsDyl3Mts92T62wJi1HrpX4kd2ZQqFqw64ByX1k70GM7BU1OeUg+etHSpX5sGMcR7u+bLOn9zQgKxcFc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JJiX4P8ouR4pkKK25NEe5fMnieVTNTQksQCKBtb9A3XsZxylycHeZd2iXaqk9ftypug/eizyH8mb0esnHX3A5uNFoOpfw1bbXT9gGzL1LhtkNpCv3y1XVCBWIfJfG6l9yW8G1FPkdc0CnbEuUD36zgUwQT9/kQe5ORPE0x2zJUj+fNvMepDR7+95D1QeM5IlitEgJyxmJdqoLpYz6IU3HbqgZE3AsybGvoY64zbri2FUwP2Y7kyN/cg2gjuvWtv0u4W9wodyAzhc14smlnQmXrybsB6y1eEO7jtJ5eUr6Yikji8fPk2XLUZDfLjAD/EWk0NTGNjctNzgPmDdB9Y3zQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vS0mwKKUID6NtqCRyzu/4zn9jVsRM7VA/+aPh41MbwE=;
+ b=ih1pQrcVVwPUjenH7qOXrI4Fbrjbu3QIbuzrk+m5tHWC7ujFbe95EDFMnUnCfmeaIoUnltJe6MQTu/t/pbpiwsNkTKhGzt6mbWmOBKI9vkKdBsQWbXRb6Y8J5q7Qtgb13ltQNAr47OJpEEJgaTKf5vS2wo7FIB1NMfcssURehrH0EbvU9+H9GCRN1QI1d2OG+sYu+CQDAPBm2pRE6DUz5RitQ7DzBD1A5M9U5mHbarArOoDlz4K7nr0S01jcTu8s7n+cX97KJ1SuRxxyBwmX8HZ0UcYiLYBvWfjkbjyxSu/Y/lhvw3HRgXcIDMjRekcKBKh2b/wgiiKSy7MtFztjjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1169.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Fri, 25 Sep
+ 2026 05:10:59 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0451.014; Fri, 25 Sep 2026 05:10:59 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
+	Oskar Senft <osk@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jani Nikula <jani.nikula@intel.com>,
+	Vitaly Lubart <lubvital@gmail.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexander Usyskin <alexander.usyskin@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Breno Leitao <leitao@debian.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	James Morse <james.morse@arm.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	Dave Penkler <dpenkler@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dan Williams <djbw@kernel.org>,
+	Mukesh Rathor <mrathor@linux.microsoft.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Alexandra Winter <wintera@linux.ibm.com>,
+	Julian Braha <julianbraha@gmail.com>,
+	Karthikeyan KS <karthiproffesional@gmail.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org
+Subject: [PATCH v3 0/4] Add support for StarFive JHB100 UART Routing
+Date: Thu, 24 Sep 2026 22:09:43 -0700
+Message-Id: <20260925050947.9900-1-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SH0PR01CA0005.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:5::17) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/7] nvme: fcloop: Add set_marginal_rport to sysfs
-To: Jesse Taube <jtaubepe@redhat.com>
-Cc: linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- Justin Tee <justin.tee@broadcom.com>,
- Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
- Paul Ely <paul.ely@broadcom.com>, Chaitanya Kulkarni <kch@nvidia.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Nilesh Javali <njavali@marvell.com>, GR-QLogic-Storage-Upstream@marvell.com,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- John Meneghini <jmeneghi@redhat.com>, Bryan Gurney <bgurney@redhat.com>,
- Chris Leech <cleech@redhat.com>, "Ewan D . Milne" <emilne@redhat.com>,
- shinichiro.kawasaki@wdc.com, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
-References: <20260902200547.184734-1-jtaubepe@redhat.com>
- <20260902200547.184734-8-jtaubepe@redhat.com>
- <ab97f32b-31dd-4975-a8b2-b445110ae3a9@suse.de>
- <CADRr4bePoiDnWX_XrMWtQe=1g4Yrw1_dK86EV2k9XZR0HnL+UQ@mail.gmail.com>
- <d4879e78-2735-4f86-beab-8aa319e9162c@suse.de>
- <CADRr4bcSvLwzfSiV0LTxnhZR7oo3F1b2XEo+wwqi668Gr2BBQA@mail.gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <CADRr4bcSvLwzfSiV0LTxnhZR7oo3F1b2XEo+wwqi668Gr2BBQA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 3C5B91FFE6
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[26];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.infradead.org,vger.kernel.org,lwn.net,linuxfoundation.org,kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,hansenpartnership.com,oracle.com,marvell.com,redhat.com,wdc.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1169:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a402724-6b59-430e-285c-08df1ac362db
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|52116014|366016|10067099003|18002099003|56012099006|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	uf7dDOgohsxMdlJYJ9X61RY1xPmGu/ei6gULtnol0SKEBJ9dYLowQQtNOSkzjvUHF73zhFittn4AzSw/B1IybjRDcji4a/Qiqn+x6Y3f51TSZk4L3sWiydmx+L/1/+AQXsEBXzgP5LgK7kNE0lI6lWq3towGzIYgr7d1706W3fpgJRa8a9LPjTFJeSf/ASd4ztxvl48h94izivLzlTtgQOvZHQQAn0aaR+DN7mk6n2mvxKJlTEBry6breF2MKK6ZnCXbsv+uewYqZRyDIyVK6WQGbHVvUY3UR6dhCw85H9HMjPLfPbXeRiDgqHA6/mvJ7iBhzlYAmLGr5pFfxI9TfUsvS8H6BtKkrjWmvKw9TeUDfSlYNFXfr6Pe8iPoG6nArzA1jMuApdvCeGv16p0NsoqtfYDXcIsplRFbLfUo1LYZaWkzpw/mv9rSwWyH4Ngp9/t2dqFx09Kye6a5+Q8pJ5Q8ZVXoenJbGF4s4LZiNGmaKHQqm/dmwozZMmwxJXxOckhZsS8QeNR/F3CiDtNvctpzCIDnkIiXTOiwyIxfi05nCJC981xy7vcxFDViSl4d
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(52116014)(366016)(10067099003)(18002099003)(56012099006)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XiD6BVEHpHHaW6t5TdfUHnFVeCo0I0RmCxhWumSBgzlbFgQN/jY7wLcqNry3?=
+ =?us-ascii?Q?IE+Ep2g3ETMhXZn1z4+tB/oinsNnQAeJF8C75NsIbYtH7Y+h6AByHdkOrH6t?=
+ =?us-ascii?Q?Us/TOZhZQZRoIMdUDMFf4pyKCAiLrQFerJIHJbzFoD+TMjlswbRyu1bYPkaK?=
+ =?us-ascii?Q?2RlMfuKYuw7mVBPv4cDdm8XMpTek4NA3yaLMYuo9yhddyk6tpeeWn0xZyqEk?=
+ =?us-ascii?Q?S9qov6sVmEE5yFnSmiz+s8ozXOR0EKrAoRZ82MnsFgznqLWrRn+26ODJmpcS?=
+ =?us-ascii?Q?VA7ZcE5/q9SAa9ZA63Citbq4wbo03HO2xJv5bnqX1uq2jg9wRB73sX5GPHTf?=
+ =?us-ascii?Q?2NzSesK3Kh9kza2ziXmOtBhmJHuEAsWBSx3q3uPTjfgR+WCpO3V2WqLqbWLK?=
+ =?us-ascii?Q?OuM6e5byzeDTnezcyUg+Zptr/HaFEBEoNQTc3otXjGqmpUBjRTzZtKRWr4WA?=
+ =?us-ascii?Q?Yj/DNgy9zONanU53VfCA2lqrOTlyoHgym0r2KSS6YY5XZiJ1WOFZkr8xBRMB?=
+ =?us-ascii?Q?bonkFFy6N2+qJycpmDy04vQzHqtnMoJHo5iTluShPcpy5QyRES3cTjFmT9QY?=
+ =?us-ascii?Q?o+0OzxpBR8EkGGZoRD/fcWTcJ9oX/Vtn/OKpQqE0X3LAV7GtVIAPG5a5Krbu?=
+ =?us-ascii?Q?Sp6qIwqncga/VzkB4U2+qt01DdhtGI6pqfH+q/nNxiXCHSkskn9yy6hoPCDi?=
+ =?us-ascii?Q?ZKE+FIfd7Yv9R1z7xESiLnF04pbASmo4VQRh4K1M0Ep+m84DPnrpOyzoWNSt?=
+ =?us-ascii?Q?6PM+vyHy0Xr+2hwyXXJQkDkZalHO088MPbOedNVbGMh/06kNpIyQ94kFH+/G?=
+ =?us-ascii?Q?TKs3TuFYNNzV6wnBI142vymj4A+7RT9vzsP4PrPLuWgrcY3A+A5VC62ywar7?=
+ =?us-ascii?Q?THolFponJgHjiz4K4OKPk9fEKLXxNhxWLLwKnnvF1IPkbqR87gWZH/QktixX?=
+ =?us-ascii?Q?2sAzMtmhWpv7pgvrWIGJLUfQzdx2H3yrizF7QjLnvfudXDQS/h/xcijLl9Kl?=
+ =?us-ascii?Q?7HBIPZ6GATkM29X8hxV6LtXtY3v+ZHqh3Ig1zSao3mIl5cl02QpgO7MS/YYm?=
+ =?us-ascii?Q?jTtZjJKblWOeEzuWpnbl8mk7nzvMVYdwB9eCsInW70MPktrEqpv4ywz0bEh3?=
+ =?us-ascii?Q?T5f4OPm9RkTQ/I1xjkW1NZFU3mawrnqiBD/Ei/nNh/wE9gy7IV51lTOyNE5v?=
+ =?us-ascii?Q?tSZxajGtdrsK4G8Qg0Z9TD8mCl1m/4fWTlRl3CACSHYwICLHB8xyNwvDM3hI?=
+ =?us-ascii?Q?XNd/96OeXjmZ/AgR/jXv1detRgQjNjRyaVKObn8wC+YOpReaUtno0ai0q54c?=
+ =?us-ascii?Q?A/pjya3IiC560RGqi+10BGxxgun7nQE/P6LzeFV7Evfc5Oi7ePqIocCfs0ht?=
+ =?us-ascii?Q?oyW8Lxcr5M/4rf4LHPpqeSuld/eXKFh/67evFEXMAO9cOUtDcf/k/cOW8Rj2?=
+ =?us-ascii?Q?9tW1/w+B8RY9GrxztMe5FqLCgD4HwSUqjOdEHzhYMSP7/DEG+OsrrvQCldQl?=
+ =?us-ascii?Q?pMv2q7WPKieMCgplB7aCC8KJMA8UTtlP+frHO4dyGcu26dnNiTroCfH6QrY0?=
+ =?us-ascii?Q?YuWygFpA6a5xpi4w8DqPth4r7IEGgpYmvsNwyhMtv89xSC25dfHeUlw+aiu0?=
+ =?us-ascii?Q?BGjOQOGAQY4dWwartBPXCy2wYemMZU0pM9Tr9odhv3TQF1Plt3Ud04Xg6GDd?=
+ =?us-ascii?Q?md5FKbAf02TGlQg/BjaiKWAJCfVoJsMcyCoywrrHz1BLtkdD0eaymjXTdbG2?=
+ =?us-ascii?Q?OxNh8bUg/ejbcI1EHWtC3zWmdsArtHa/B8v9ELW4ht4kNfm11Ces?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a402724-6b59-430e-285c-08df1ac362db
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 05:10:59.1539
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /hKK//bnQ/lbFJQJcDutB3i6ABBrh6UtfTmtOcbS81ABfDWxerN6i6tbp5ayNE2DxGyHxpg9LSIYOfrDV6lMtc11/kuGU3N/V254ULa7WBWH0PQeNyqVr+FK+pDpNqNy
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1169
 
-On 9/23/26 6:16 PM, Jesse Taube wrote:
-> On Wed, Sep 23, 2026 at 11:34 AM Hannes Reinecke <hare@suse.de> wrote:
->>
->> On 9/23/26 4:56 PM, Jesse Taube wrote:
->>> On Mon, Sep 21, 2026 at 10:03 AM Hannes Reinecke <hare@suse.de> wrote:
->>>>
-[ .. ]
->>>>> @@ -1671,6 +1719,7 @@ static DEVICE_ATTR(del_remote_port, 0200, NULL, fcloop_delete_remote_port);
->>>>>     static DEVICE_ATTR(add_target_port, 0200, NULL, fcloop_create_target_port);
->>>>>     static DEVICE_ATTR(del_target_port, 0200, NULL, fcloop_delete_target_port);
->>>>>     static DEVICE_ATTR(set_cmd_drop, 0200, NULL, fcloop_set_cmd_drop);
->>>>> +static DEVICE_ATTR(set_marginal_rport, 0200, NULL, fcloop_set_marginal_rport);
->>>>>
->>>>>     static struct attribute *fcloop_dev_attrs[] = {
->>>>>         &dev_attr_add_local_port.attr,
->>>>> @@ -1680,6 +1729,7 @@ static struct attribute *fcloop_dev_attrs[] = {
->>>>>         &dev_attr_add_target_port.attr,
->>>>>         &dev_attr_del_target_port.attr,
->>>>>         &dev_attr_set_cmd_drop.attr,
->>>>> +     &dev_attr_set_marginal_rport.attr,
->>>>>         NULL
->>>>>     };
->>>>>
->>>> Please don't make it a fabrics option.
->>>
->>> What do you mean by fabrics option? How should I fix this?
->>>
->> Your patch does two things; one is to modify the parser in
->> fcloop_parse_options, and the other is to implement a new
->> sysfs rport attribute 'set_marginal_rport()'.
->> My suggestion is to drop the first part;
-> 
-> You want to drop the parser?
-> 
-Yes. 'set_marginal_rport()' sets a boolean value.
-You don't really need a parser for that.
+Currently, since Aspeed also has a similar driver, there is some code
+with identical structures on both sides, but a common framework is
+lacking. Therefore, this series introduces a generic UART routing
+framework. It also moves aspeed-uart-routing.c under this generic
+framework and makes it use the interfaces provided by the generic
+framework. At the same time, StarFive also registers its own driver
+based on this generic framework.
 
-Cheers,
+StarFive JHB100 UART Routing allows dynamic routing of inputs between
+built-in UARTs and physical serial I/O ports, enabling use cases such
+as Host <-> BMC communication via UARTs.
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+This series has been tested on the EVB1 board.
+
+changes since v2:
+
+PATCH 2:
+- Add a "depends on ARCH_ASPEED || COMPILE_TEST" to the "UART routing drivers"
+  menu.
+
+PATCH 3:
+- Move the binding to bindings/soc/starfive/ and update the $id
+
+PATCH 4:
+- Append the depends on ARCH_STARFIVE to the "UART routing drivers"
+- Use RST literal blocks instead of backslash-escaped asterisks in the
+  sysfs ABI documentation.
+- Update the MAINTAINERS entry for binding.
+
+v2: https://lore.kernel.org/all/20260905102901.126035-1-changhuang.liang@starfivetech.com/
+v1: https://lore.kernel.org/all/20260830065118.51551-1-changhuang.liang@starfivetech.com/
+
+Changhuang Liang (4):
+  uart-routing: Add common UART routing framework
+  soc: aspeed: Move UART routing driver to drivers/uart-routing
+  dt-bindings: soc: starfive: Add StarFive JHB100 UART routing
+  uart-routing: Add UART Routing driver for StarFive JHB100 SoC
+
+ .../sysfs-driver-starfive-uart-routing        |  49 ++
+ .../soc/starfive/starfive,uart-routing.yaml   |  46 ++
+ Documentation/driver-api/index.rst            |   1 +
+ Documentation/driver-api/uart-routing.rst     | 145 +++++
+ MAINTAINERS                                   |  25 +
+ drivers/Kconfig                               |   2 +
+ drivers/Makefile                              |   1 +
+ drivers/soc/aspeed/Kconfig                    |  10 -
+ drivers/soc/aspeed/Makefile                   |   1 -
+ drivers/soc/aspeed/aspeed-uart-routing.c      | 601 ------------------
+ drivers/uart-routing/Kconfig                  |  45 ++
+ drivers/uart-routing/Makefile                 |   5 +
+ drivers/uart-routing/aspeed-uart-routing.c    | 415 ++++++++++++
+ drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++
+ drivers/uart-routing/uart-routing.c           | 200 ++++++
+ drivers/uart-routing/uart-routing.h           |  84 +++
+ 16 files changed, 1210 insertions(+), 612 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
+ create mode 100644 Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
+ create mode 100644 Documentation/driver-api/uart-routing.rst
+ delete mode 100644 drivers/soc/aspeed/aspeed-uart-routing.c
+ create mode 100644 drivers/uart-routing/Kconfig
+ create mode 100644 drivers/uart-routing/Makefile
+ create mode 100644 drivers/uart-routing/aspeed-uart-routing.c
+ create mode 100644 drivers/uart-routing/starfive-uart-routing.c
+ create mode 100644 drivers/uart-routing/uart-routing.c
+ create mode 100644 drivers/uart-routing/uart-routing.h
+
+--
+2.25.1
