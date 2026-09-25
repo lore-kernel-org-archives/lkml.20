@@ -1,159 +1,229 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012000.outbound.protection.outlook.com [52.101.43.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A342442B3C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790317970; cv=none; b=ZoVVRl5phbWgs34BbemCZ/DWwnzI+TmgfWRFc1j8JEEDgNHFG71zSBxZVelI6jeJW9gnm0pI9BjC8ofHJYmkNKmJ6EUZCbvt4MOHF6m+ujCU2h2fekwYzbDvRNl4xHxtdhVMMvhY09BFXMoyH24Ta+FwwDEONxVdD4dRxN/b82s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790317970; c=relaxed/simple;
-	bh=xOahPn69qqJwSaHXWqegaZpvObEwTRDPSZd6wMIDrN0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d8Add6v80XEwlTrS0n6wfnB0EnBH5qQEavs05CeSn8+LSt5Cw8TnWRJXQdOyiCru0ma+RUCSZUXnpCaBONQ2/HeS/n6mo7HJ2HE2H23Um7iyXVcw2P4Fr0yy+yndyagq6krba0xGwvkLeR3Sbyxjrb4gR0SBaTxfKZ+zwiinVJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p6gss9QJ; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA304432FF;
+	Fri, 25 Sep 2026 06:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790317998; cv=fail; b=ePALXHPPX9BSZuInP5E4DneprMMndrUsHzLE8Ryu0Zw+uBehorZhpcJekARfwjt0omPZNj5jmXYdE+ExekB3JJPxGtFkuj0sYjng4Nl0h8O7w4FoR5eaehPTvte5egjFR8YzAwtu7/GAvmxwT288B7fhYpvNmxwOfLHIKtRMiGs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790317998; c=relaxed/simple;
+	bh=cWe5aip5IahY1IpOQ8S6hqCgZo1B6r9dPS5cNimXKxs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=T22NCKCbmvUKQGYOIKfD0b+qFBO2aIgiW9jg2rHRtqGYjaX54HVS2nGmBoY7RTeir1fPv1dIkhHD6jTAogv56VSNxmlTfjZNzXkaQ5IhgzAjEbEvg8isrQbsIrJRRfcbj3sfl2q7G+hQAmoBQChN+51AEfR5dwRTYQtCk+cq0QA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bnpKDFDy; arc=fail smtp.client-ip=52.101.43.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p6gss9QJ"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-341027843a5so306098eec.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:32:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790317966; x=1790922766; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ff013h9UPO5JfvQ6KOoQNBZOiCtGEKIOGbWYKhP5c+0=;
-        b=p6gss9QJ+FW+VqAr7m46o4hoTZiZYuyY8RKXwAGRLxDZINW5gd+qEJJzF6sU41W8yD
-         T4DSkpk6ZdDjVC7LO99SIF6Fi7t/RA3vdn18aLS3ggHadEQqesAsh/GLxa0MEV0x1Gov
-         rvKpWhDNg48d38ISxcTIn3FWNZBqmCzPrme0KYTVv6jFWTgAT8/onT0alZ52qe8NtvUp
-         IU7JgbjsilcZ4WGWBcimrv7IUfrsVISSnE/R0c65/5fBiIfu74c66vL9KaXQlEIe5l2T
-         2RWtoIBHQZ1f/2PdD3zzFyQ0uK/hSCQUM1c9/WkUp1bMZ5ZrTKD13x3DeDH19HltRit5
-         BFUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790317966; x=1790922766;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ff013h9UPO5JfvQ6KOoQNBZOiCtGEKIOGbWYKhP5c+0=;
-        b=Wu8mAis3D/HIwTWffGkG+pZXjAZvx/duivpOty9p6XvT7pealm01EYDF75MYr1DWAl
-         TtKZcUtgBoPi/sn0RI5PrO0Q/D44Y55+Dc9a5TrjZndQpRPGO+9xEtvfUJdOnp6+9tPd
-         JWKbUznNw9aMeiOSZENmX57pgIs89AR0HpYIRcgMKvZdr/ZpkPB0LTQ+z378qtRJU4+B
-         Ig39nBl+vEVwbkxWKnOpglXjcU4XrGQqvXXbUBSM+EY5UxgykQUQZam3SJpxNitiAETZ
-         O4Gesa1cpPlR3Yw50H9f104CKyhOVF82yqP7A1hv0kTFdDQAtU4wmjHbsmPuHLNGeqfm
-         Jx3A==
-X-Forwarded-Encrypted: i=1; AKwUvBwpxuqsQqGO+tWxRtR2JO2BRUh4jSbl+tgKKJHu20MlP0CyvSyiGIDU6VoF9jbggmK/q1UlMUNZLQYHd2w=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3cdHtIJXlOu0EPVzGKaFujZmdJ0tq4V9TfyDBoTKY1wCeRGoJ
-	TKhiK4DMY+14/8cusMTAd2DxE8+iDkkXiqhZX0DU9Nj4lrzXf50CyzFl
-X-Gm-Gg: AYBFou05reDnBpCqiDqKnt1LrTd2M7t6xhoHfoT/VQK5tuNvcmRZOanT2+4UtldPqJT
-	SGT62rdzfCBByy8CeJ2OnuFqyfga5Stmof2mVPiGC5ev+7gcalEIqQby9YLrFSlT2ZcBZ7JjS5w
-	zg6OP5GND49Zank5Twtk7UzuzQ0BAVM1O5IDNXFTRraT6JW2s0QjGhJvfXLW0YAh/iBRc/9nNjj
-	44TrzdUtQRB2TwdxJyCoBDZ6Gehd+ysQfB+XPs10ppyC6lz1mYPpZk/az6RXc5VdqjnFDNuX/Mi
-	sjFHH+i6J7F1NlMlnWZ35LPLDpf3quBaKduft0OuxZDvbAYQ7Vq4ifmSeCEoxj+aMFcZKgSkHJ3
-	IfNFWGU0gl8eUMa8EkyQepI+uNZb1SGAHoCIccIfy1mZndUUNjSs4/ly4KA2mAQ3nRz1WqVkS3T
-	bLgnjfMnBK5HlAjM2iUUulkNIdu/kr5U4NKsLjWTLNQKzDVV4dtaypmCJyiXNMOiBBv6z8SBj9l
-	WcVnssqaayeHwIrR9EXIP18+xI8RMljoV+JOPuUKyp5
-X-Received: by 2002:a05:693c:87c3:10b0:33b:c478:a545 with SMTP id 5a478bee46e88-34002be4604mr3482720eec.8.1790317965974;
-        Thu, 24 Sep 2026 23:32:45 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144172de6sm5786357eec.9.2026.09.24.23.32.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 23:32:45 -0700 (PDT)
-Date: Fri, 25 Sep 2026 12:02:24 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, catalin.marinas@arm.com, 
-	will@kernel.org, maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
-	chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com, pjw@kernel.org, 
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, hca@linux.ibm.com, 
-	gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com, 
-	svens@linux.ibm.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, ojeda@kernel.org, 
-	boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org, 
-	a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org, 
-	daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, 
-	nathan@kernel.org, ndesaulniers@google.com, morbo@google.com, 
-	justinstitt@google.com, jszhang@kernel.org, japo@linux.ibm.com, jpoimboe@kernel.org, 
-	seanjc@google.com, pmladek@suse.com, thuth@redhat.com, ynorov@nvidia.com, 
-	joelagnelf@nvidia.com, david@davidgow.net, fujita.tomonori@gmail.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	llvm@lists.linux.dev
-Subject: Re: [RFC] rust: kernel: Add KUnit tests for ARCH_WARN_ASM bug table
- emission
-Message-ID: <arYUiddxIDeLYj8v@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20260922054959.955093-2-mkchauras@gmail.com>
- <20260922064735.GS4121339@noisy.programming.kicks-ass.net>
- <arNxAn7I7NCVWmD1@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
- <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
- <arUbw_TIA0Uj7oXT@J2N7QTR9R3>
- <20260924125253.GY776954@noisy.programming.kicks-ass.net>
- <arUgNdqpA5U8EjjP@J2N7QTR9R3>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bnpKDFDy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UJwJK8x9y45wURrOK5O9Ya41U8Vtxg4lN9xJXtv1bGDWEKt1ivoTJwUrFzPdQ9NAakOMwLZUZWNanJFx91b5XjudApu9NhZOhWHwh64u7vtD8HBN33L3u7CLT8hcVRgt0rDY16138tXBBoV1QEYgrZ7fpv2Re3B59OQjyYjY4mUj4HigRd3D2RzxngTK/WGrFyaWJVx03iV5Mu37/xLOUtxhwJ4ghBBLb4zrO9b9fLDS2Qx6h+eR7aXzOUAmgi/1tPBJI80tK8CzB9kLb4QNz/ecMPPByZS9HNvo8grMdYkxvaQT9iqCKM0rKigWwaFJrXiIzQqGyDXGNupTB2n/qA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qvXnIbnim7ip1ox4SYDw8tGjRyr7E9bmooSJ3kxTVLU=;
+ b=qvBIEmFwQ/+cmXvN+WQBr2MeYGMBrmh05RYqSzcSAor08seqiaubHgisYZKUMavO9LTktgeJNlCw4vFIttwjOe92Sz1eX5CigTDNJmHSqnUk1e3qs2chYKAG5ADLco1u+kdZf1pEABfYK8a2rKv2t25Y8/wpNZEOGa1+qOhkIo5LGi+9u6PRmeGHbkZHTkZiC+T0dj5mjfMIxv4kifFrSoCvLHOUZwG+qcBOOO+FxhFPt1O5pRqAy+zPD/+FoYMYZZVVlwcbdJ1ZrJRnbppG7TVTynL27bfFj3qRcsbHqZT+f/CcrbJAV0omoCn4hzTZKwVEzKl/XxCfXCoMWAE8fw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qvXnIbnim7ip1ox4SYDw8tGjRyr7E9bmooSJ3kxTVLU=;
+ b=bnpKDFDylNwrGfHxWs3KmWDRZFGxalKsRsJOHpf8hPYuE/GviFzAlONMC4PmI3J86kVZBU3sVJrdj0SKnySOiKAtf4sYTcUGXsBpURvHgXjoW5Kz1tmpAVZ8guHarCShJ8tpUupCfx+zGrFbVxa//Z6T3/v4/XyTQHAqNmMbX44=
+Received: from SJ0P220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::34)
+ by CHAPR12MB999249.namprd12.prod.outlook.com (2603:10b6:610:300::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 06:33:07 +0000
+Received: from SJ5PEPF00000206.namprd05.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::84) by SJ0P220CA0003.outlook.office365.com
+ (2603:10b6:a03:41b::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
+ 25 Sep 2026 06:33:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF00000206.mail.protection.outlook.com (10.167.244.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 06:33:07 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
+ 2026 01:33:06 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
+ 2026 01:33:06 -0500
+Received: from [10.85.35.99] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 25 Sep 2026 01:33:04 -0500
+Message-ID: <f0ff1193-8612-4eee-9997-4ef3ec215977@amd.com>
+Date: Fri, 25 Sep 2026 12:03:03 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arUgNdqpA5U8EjjP@J2N7QTR9R3>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] KVM: SVM: Trigger new ASID allocation in both VMCBs on
+ pCPU switch
+To: Yosry Ahmed <yosry@kernel.org>, Sean Christopherson <seanjc@google.com>
+CC: Paolo Bonzini <pbonzini@redhat.com>, <kvm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Stefan Teodorescu
+	<fane@google.com>
+References: <20260903223258.486034-1-yosry@kernel.org>
+Content-Language: en-US
+From: Nikunj A Dadhania <nikunj@amd.com>
+In-Reply-To: <20260903223258.486034-1-yosry@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000206:EE_|CHAPR12MB999249:EE_
+X-MS-Office365-Filtering-Correlation-Id: af24912e-8ef6-4f91-e72a-08df1acedc6a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|6133799003|13003099007|18002099003|22082099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	gYfExFccB+WZt3OvefJn87QeuKyQRqrgPRATRhTJETHr8Xo7070pWAvMXg9lOX1pXA7257Dbm8nDdyHKYb/HhStcslHcXELczgHE1a7UMjKABd+82V3oOPW5YxRFleAd+6Yvu0XDkPR6VjMdBnmBf+Z53dpnjNNvB63FNd2gUpIM2wLBZGMw4Ov1oqHQNEz6rU7pFyQnmdagwtFO3qKdA540ZOCUoWGN6Jebhj11uCtrFtPvDxW8qklEQ1cp1IFMZEmLgqtak7EDxn9Ee+K/tedKoYl51KkPp9SjR9jU019cagYbob3HqYUaVdULekqvlNcbhUVKhtOSIcSJ81shqB0oQdw+U5cZMSI03PEnoP5KrRDtqiw5FB3llh9tlDLFXU9I7wNiA0H+bPsvyAiu0ydcOsAtNRKfbYFiFWJ4M53HmtjLrdbyO5j125sRSPkExuN9/yhaym/jtK1xxqSThwJ/kE/rM0wslGZ3ynhDRdqhVuMzaqPBU2Yp3h+e+gbXlHfboI+CYSA7eEIqqLeY4CYYSOTiekrOOaLsbJQNgO6fmxPD/BsRyZE5jQsOtQdQkFjpybr6vs5XB0h3J6GAVc8tGXDicuPVID49ghVsqhvBO9JK5udIpEtGA6N7YWn6bx+6R6hdCczFhm6TthtuCcrYdAZSwLvJ00bVyWF9iYsbvuBY4AMVxgOm7Te0ayQV8q/ymbGgIAOam6Sd/SQz0Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(6133799003)(13003099007)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ZcJZTKIaKKJ4vEH6mXUHkSlHsT+noAd+qdeegc6O9Iz4HUELF0146YkmONAuw1N1SEDo6zB1dAdka/RHkDeAI4xgQkhQXbK5iVJGUgS9sy1XkKBAv75gfX27JdlXC0PUD6g4W/9JMYLWCJes7UH9YZL0n5rfg2ySUUC3fAdcQNR0zpQnZzTUeRn+gUuMWtjtFcoI5xnDc9uTJMRYeseqC5eDxNhSUo93t87E4bVSC9uee25O59VkvLaBTt7poAYf9JukA44dt3G2gCMd61Gl9+cZtfxJqm/LoPFgMp/qz3Ab/R3fm4qwcf1I7J5PEjP6LmNQvDmAxF4iUakdEcWr2pwIH7If3w+tkfxhJJSmkVFS0h737FBAwOgAZh9UFZJl/tx9CUqKXXLDo7geC6Cwx6rZmR51Un8vhH3s+PyZ0xxZ5Xh6gKkDmlpVMjHrVd6/
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 06:33:07.2205
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: af24912e-8ef6-4f91-e72a-08df1acedc6a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF00000206.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR12MB999249
 
-On Thu, Sep 24, 2026 at 02:05:57PM +0100, Mark Rutland wrote:
-> On Thu, Sep 24, 2026 at 02:52:53PM +0200, Peter Zijlstra wrote:
-> > On Thu, Sep 24, 2026 at 01:46:59PM +0100, Mark Rutland wrote:
-> > > What problem is this trying to solve?
-> > > 
-> > > Mukesh's original patch seems to be trying to check whether we compiled
-> > > things correctly (such that the bug_table entry points at the expected
-> > > insturction), and I don't think that warrants a runtime check, but (as
-> > > per my reply to him) I don't understand why that's a thing to check in
-> > > the first place.
-> > > 
-> > > On arm64 we only call is_valid_bugaddr() under do_el1_brk64() ->
-> > > call_el1_break_hook() -> bug_brk_handler(). We only call
-> > > bug_brk_handler() when HW has taken a BRK exception with the BUG_BRK_IMM
-> > > immediate, and that can only be triggered by executing the right
-> > > instruction (BRK #BUG_BRK_IMM), which we ONLY use for BUG(). and WARN().
-> > > 
-> > > So I don't see why any change is necessary here.
-> > > 
-> > > If the HW has somehow taken a BRK exception from any other instruction
-> > > (which would presumably be a HW bug), there won't be a bug_table entry,
-> > > and so __report_bug() will fail to find an entry, and will return
-> > > BUG_TRAP_TYPE_NONE, same as for the !is_valid_bugaddr() case.
-> > 
-> > Right, so I wasn't at all sure what he was doing, Rust is still mostly
-> > unreadable garbage to me.
-> > 
-> > But I figured I'd much rather see him use is_valid_bugaddr() to do
-> > runtime checks than whatever dodgy games he was playing with that label.
-> > 
-> > So *if* doing runtime checks is what is wanted, then is_valid_bugaddr()
-> > needs to actually work, because then it grows a user outside of the BRK
-> > handler.
+On 9/4/2026 4:02 AM, Yosry Ahmed wrote:
+> When the pCPU where the VMCB was mostly recently used is switched, reset
+
+s/mostly recently/most recently/
+
+> the ASID generation in both VMCBs, triggering new ASID allocation for
+> the immediate VMRUN as well as the next VMRUN on the other VMCB.
 > 
-> Thanks; I think we're aligned. :)
+> The ASID is shared between vmcb01 and vmcb02, and gets flushed on every
+> nested transition. However, since pCPU tracking is done per VMCB, it is
+> possible for one VMCB to allocate a new ASID when migrated to a new
+> pCPU, and then the other VMCB reuses that ASID on the old pCPU. This can
+> result in the same ASID being used by multiple vCPUs on the old pCPU.
 > 
-> Before we delve into implementation details, I'd like to understand the
-> problem Mukesh is trying to solve.
+> Example scenario:
+> - vCPU runs on pCPU A, vmcb01 is active, asid=1.
+> - vCPU migrates to pCPU B, vmcb01 pCPU changes, new asid=2.
+> - Another vCPU runs on pCPU A and allocates asid=2 as well.
+> - vCPU migrates back to pCPU A, and then switches to vmcb02 before it
+>   runs again with vmcb01.
+> - No pCPU switch is detected for vmcb02, so VMRUN is done with asid=2.
+> - Two vCPUs end up using asid=2 on the same pCPU.
 > 
-> Mark.
+> Keep the VMCB dirtying to the active VMCB only. Clean bits are tracked
+> by a pCPU for each VMCB, so do not unnecessarily dirty a VMCB if its
+> pCPU does not change.
+> 
+> Additionally, initialize the tracked pCPU for vmcb02 to -1 on nested
+> enablement as hardening, so that a new ASID allocation is always
+> triggered when nested is disabled and re-enabled.
+> 
+> No performance regression was noticed when overcommitting L1 vCPUs in L0
+> (to force rescheduling), pinning L1 <-> L2 vCPUs, and running CPUID in a
+> tight loop bouncing between 2 vCPUs in L2.
+> 
+> An alternative (and perhaps more proper) fix would be tracking the ASID
+> per-VMCB instead (e.g. [1]). However, that's a more involved change, and
+> it would result in having different ASIDs for L1 and L2 without actually
+> properly maintaining them. It would probably work because all TLB
+> flushes target the current VMCB, and the other VMCB is always flushed on
+> nested transitions, but the code ends up in an arguably more fragile
+> state. Punt a proper clean fix to an incoming (and overdue) overhaul of
+> SVM's ASID usage [2].
+> 
+> [1]https://lore.kernel.org/lkml/20250205182402.2147495-2-yosry.ahmed@linux.dev/
+> [2]https://lore.kernel.org/kvm/20260728003557.1136583-1-yosry@kernel.org/
+> 
+> Cc: stable@vger.kernel.org
+> Reported-by: Stefan Teodorescu <fane@google.com>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> ---
+> 
+> v1 -> v2:
+> - Make resetting asid_generation in vmcb02 unconditional (Sean).
+> 
+> ---
+>  arch/x86/kvm/svm/nested.c |  1 +
+>  arch/x86/kvm/svm/svm.c    | 19 +++++++++++++++----
+>  2 files changed, 16 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+> index 73f37b050d0a0..0c55c71fc6010 100644
+> --- a/arch/x86/kvm/svm/nested.c
+> +++ b/arch/x86/kvm/svm/nested.c
+> @@ -1494,6 +1494,7 @@ int svm_allocate_nested(struct vcpu_svm *svm)
+>  	if (!svm->nested.msrpm)
+>  		goto err_free_vmcb02;
+>  
+> +	svm->nested.vmcb02.cpu = -1;
+>  	svm->nested.initialized = true;
+>  	return 0;
+>  
+> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> index ea647938a2a65..762b6059eda31 100644
+> --- a/arch/x86/kvm/svm/svm.c
+> +++ b/arch/x86/kvm/svm/svm.c
+> @@ -3765,14 +3765,25 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
+>  	struct vcpu_svm *svm = to_svm(vcpu);
+>  
+>  	/*
+> -	 * If the previous vmrun of the vmcb occurred on a different physical
+> -	 * cpu, then mark the vmcb dirty and assign a new asid.  Hardware's
+> -	 * vmcb clean bits are per logical CPU, as are KVM's asid assignments.
+> +	 * If the previous VMRUN of the VMCB occurred on a different physical
+> +	 * cpu, then mark the VMCB dirty as hardware's clean bits are per pCPU.
+> +	 *
+> +	 * Reset the ASID generation in both VMCBs. This will lead to assigning
+> +	 * a new ASID now, and then again when switching to the other VMCB.
+> +	 * However, this is needed as the ASID is shared between the VMCBs, and
+> +	 * otherwise it would be possible to use an ASID allocated on one pCPU
+> +	 * on another, for example:
+> +	 * - vCPU migrates from pCPU A to pCPU B, allocates a new ASID.
+> +	 * - vCPU migrates back to pCPU A, and then switches the VMCB.
+> +	 * - The new VMCB does not detect a pCPU change and runs on pCPU A with
+> +	 *   the new ASID allocated on pCPU B, which is potentially used by
+> +	 *   another vCPU/VM.
+>  	 */
 
-Hey Peter and Mark,
+Nit, the example duplicates the one in the change log. How about dropping
+the bullet list here and depend on the change log for example scenario?
 
-It's not as a problem, it's something i faced while implementing the
-ARCH_WARN_ASM, the generated assembly was not correct so i wrote a test
-for it, I sent it out along with the same patch[1] but then the
-discussion led to it being for all archs so I sent it out as an RFC to
-know others opinion.
+Either way:
 
-After Peter's last comment i found is_valid_bugaddr can use a bit more
-work(atleast on ppc) so i think i am going to drop this and go ahead
-with improving is_valid_bugaddr.
+Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
 
-Regards,
-Mukesh
+>  	if (unlikely(svm->current_vmcb->cpu != vcpu->cpu)) {
+> -		svm->current_vmcb->asid_generation = 0;
+>  		vmcb_mark_all_dirty(svm->vmcb);
+>  		svm->current_vmcb->cpu = vcpu->cpu;
+> +		svm->vmcb01.asid_generation = 0;
+> +		svm->nested.vmcb02.asid_generation = 0;
+>          }
+>  
+>  	if (is_sev_guest(vcpu))
+> 
+> base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
 
-[1]https://lore.kernel.org/all/20260915090453.1227034-1-mkchauras@gmail.com/
