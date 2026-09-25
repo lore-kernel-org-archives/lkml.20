@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF683372B50;
-	Fri, 25 Sep 2026 02:07:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A42022083;
+	Fri, 25 Sep 2026 02:07:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790302036; cv=none; b=LJjeRJpSgrVdrYKkilghVWftEpkFcrqkiQRS9G7MFqLyqg0ZznqmO6wpWS5+vNYnQbxgYjxi2wQxwHrUK+Txc/e8Jsrcyqh71U4f1QxjfojohHE72sJFmPRDm5FAKcy2X1ROBMHVxc3BaziFIJxPtsvaVhCig9FzG98PlCk/u9Q=
+	t=1790302050; cv=none; b=fPw+hmCj0BqN/RkQdRpxgPSI4owCnvi+LcCVyHo4UbwtFqGfYPkhsdlA82lPJrE9rihfKqQ8QjD2yLDeshcd0kKXIIh5dBUPGAH0Na2KJMJ2q+7wcj3trJzA+y2s62FKTnkScuBv59ZNLi+nioLeV5+s+ARsFZeiHhDvM6XqrkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790302036; c=relaxed/simple;
-	bh=oy40Gp6Rag2wSK10iZUZPR9R7oMp/JDVWYeGLLE2t1Q=;
+	s=arc-20240116; t=1790302050; c=relaxed/simple;
+	bh=JGRZhGByTbOJ2V5rmJlkdhLoAyRZhvP3/gDkkiuwhFE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rxGJmc64ps327mmY3HYbNeVA3ft9SXf0GNvrMviEsPiYbytzFc0rWa4mgzHiOh+Y5wqdge6EGwSbyIMhZ5K7OK8h7Rn7x+g1GUbSA0lzOm60SwzxdNYv7HxfDsU9qMWdJ1uScoeERvbjJ8pKWQpIzVgQ6pU8OQi0Z5K52aMkdgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3ZrmD0g; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=D7Fi4q9ZXTvXkk1ODHPemv3+jaGAbyATu34wrkkB5+RkX+8/Q5bs9Lfj/ENV3P7bYtafJCYDGcJBnaxu/AzqffiVS7VTRwn8kmW9Hv1XEiJyENVu4EjvuPYXzVwHG0S/yBmbtjjirb+erLvB7JJS2I9pfQHPjT8n8ZeAw2eK+8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZG/P+1A3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3ZrmD0g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400121F00898;
-	Fri, 25 Sep 2026 02:07:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZG/P+1A3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E1121F000FF;
+	Fri, 25 Sep 2026 02:07:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790302031;
-	bh=7IMr+1Y1gs8musuB3lxBDbTxUTorIIZaFvz4JGe/z+Y=;
+	s=k20260515; t=1790302046;
+	bh=SuC+Si5CoLwUqZAYShu0+3OnrzJPb7S4zX7HnpY4R4s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E3ZrmD0gEVbadu51DlEnTFlPiQkxkkUgK90N3+D6DZjEmmLLpjTW1okHt20EAoM9h
-	 OIMcjpA1wi7msPiFj74jNombscyGa1IT1JjMRJ9ga5IFMMrxtRREaaYk94sWecatG9
-	 GlfRToEhu/Z9kHJaeokPPaZsOiPKtfgdyfrp1e/drGWqUkhZ9AMG0FkIQowQC4UE/h
-	 hVoy44X4JCV8ertbl4BJARqLZxABtqalhf6VNupmtBDWagLwjexRa1cisAb9TC0HZb
-	 mandoVixuNcsVsJKqP/H0kwzofol1C225s5NGPezHL/EURmdBJTx5z/4d37Bt+vVfN
-	 9HsnY5WLmT/uA==
-Date: Thu, 24 Sep 2026 21:07:10 -0500
+	b=ZG/P+1A3VgL/YdkJt/Hw2oq9jvajyESPCXj9yNhoT5XCoCBNfwYWz+vUOtZTH9mRF
+	 qn3kHLI5hDYDcTvDp3fvCL0BVJPok/Ie1vCauJTYoO1uFLWwdYiiuWqTNGZJZF1/X2
+	 6iBiQiWnvCu2VrMYU3ImjYcR1L5XyGXjYNB/0V+5ISj6dPSd0wQRgrSE1UuMm2kOKY
+	 5lscoSdbbqES02EAmqOVpL5HeFwAltG2nY8VW0+dAN39at2zJC850nvJlW6x7ZZfbH
+	 Y7FiC7+FNanOZ0Meiil217FeVhXgN/Slc4QtmsdqZh5zTb3bbasgUa1TAPa7k67++h
+	 B5KGQSbiA7oOQ==
+Date: Thu, 24 Sep 2026 21:07:24 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
 To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Maxime Ripard <mripard@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH] dt-bindings: gpu: Allow Hi6220 Mali resets
-Message-ID: <179030202997.2926646.12844524842767365149.robh@kernel.org>
-References: <20260921232758.3136548-1-robh@kernel.org>
+Cc: Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+	devicetree@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>,
+	Patrick Venture <venture@google.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>, Nancy Yuen <yuenn@google.com>,
+	openbmc@lists.ozlabs.org
+Subject: Re: [PATCH] dt-bindings: soc: nuvoton: Fix NPCM845 GCR compatibles
+Message-ID: <179030204429.2927607.14425350535266461647.robh@kernel.org>
+References: <20260921232509.3126844-1-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,19 +50,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260921232758.3136548-1-robh@kernel.org>
+In-Reply-To: <20260921232509.3126844-1-robh@kernel.org>
 
 
-On Mon, 21 Sep 2026 18:27:58 -0500, Rob Herring (Arm) wrote:
-> Hi6220 Mali nodes provide both ao_g3d and media_g3d resets. Require
-> those two resets and their names for the Hi6220 compatible. Other Mali
-> Utgard nodes have at most one reset and do not use reset names.
+On Mon, 21 Sep 2026 18:25:08 -0500, Rob Herring (Arm) wrote:
+> The Nuvoton NPCM845 GCR doesn't have any child nodes and therefore isn't
+> a simple-mfd device, so drop the compatible for it. This matches the DTS
+> files.
 > 
 > Assisted-by: LLM
 > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
->  .../bindings/gpu/arm,mali-utgard.yaml         | 25 ++++++++++++++++++-
->  1 file changed, 24 insertions(+), 1 deletion(-)
+>  .../bindings/soc/nuvoton/nuvoton,npcm-gcr.yaml | 18 +++++++++++-------
+>  1 file changed, 11 insertions(+), 7 deletions(-)
 > 
 
 Applied, thanks!
