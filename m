@@ -1,219 +1,145 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0A54D9546
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:51:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351487; cv=none; b=CxP02ipMAR5Q3a8XpWSPfeUcBWBR8C2saJYBPQ3qUND+6/pgYYxESRSBwDVOzTckN55bMdqxMGA5jqvTLGRtJ4M100ugCd5JJOneprMTgKsYsr9azuMxiKuoAv1OXiAuJ71lJfBYM4w+tbiiwjwnqIe4Fr2a94Kx+O2t8PR+uxg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351487; c=relaxed/simple;
-	bh=Nywh3AV/fItRNAdlIAibimW1WrPark9IQHhU0mkIv9Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VHHSfH+erOYHHKCFLx3TaAUgXCeAiAnyFCsdL4N4DI6w7DM37/j0XTTuIF8sEL/y07yPftHwtQuRcJhPAVbp5/VD36QmEQoek2dmC1SaahPH43t9eUsb+EDEKYlKq/ra574rc0fVHrOw2DV9eqQrQwz/K6mZM0bisPGJxQ6qyAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RsQkcJLs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GnrNjMwn; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46861388382
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790351490; cv=pass; b=WMPZ6k9KQ2xCW8OhfAf4J+IAwh3p2u1ait4XUKAl0YIWtsbxt2a5LknySh1MUlVeK4SZ+07BWYmGXLhr4sC9rOuRpsT6Q9BhbqNOqcKJCbTm3221zHm5GFTvwusPOIMwpJe+vZ6RcB2fNqb84owmkDFNLAmS34ouZZihGFkJ54k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790351490; c=relaxed/simple;
+	bh=ksv9+eayqWXdAvP9hbPnMbA2UNu74L0hqhKX+YUYQA4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=APmAQZb/OqtiyDOz3Xq2CjuZwlwDJHrmB/EAf2kOk2X1XCUta3vCS1r8XOBBllGgp+mlle5husAS41UXC6qUh0yI+JD7suIctDl9Ee5ltI4EiNgqHkgc4Bgm2SgU5q+A/9Pg7J12aiSq65QewKoPOrXcq6pqX3KZlJwPUE5zuRU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=o7weNjUT; arc=pass smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RsQkcJLs";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GnrNjMwn"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PChEHQ2911742
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:51:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=4EQApj9r2VvF6sDy4NREnewmJKRcfdPjIfo
-	gl31Oeao=; b=RsQkcJLsAmUF2WOEhb0EweNUBr4RJEtO4fwE1g3EbSb0whsZ1wA
-	Judwm4Tnle/phQvDBCurK5vRrfqpMEqAXACuAxpUpNEWsElgcUEabj2+YwcgRTa1
-	OfjJyryi+tdRpSlsjHVULX2Iga6dg54Q+/+/v0w6ZGPFoTwQobEj08zkGTnzEsw9
-	1QhvqT5emLhIl9SppJYVBAP9+BqUKeUM00JhY4PLK+QQyTnJgZ2+q24EeIACsmF1
-	AEVYrvdzIXkpXEPLwzSMt/BvdzUTUYoolPiSM47k8Pa+rlK0lBy3o+g9erFhHoau
-	nlfp0N+jvXeHqXtx+4LqvbEKf5HLBA2ozfg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwhm527up-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:51:19 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e82060977so192270885a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:51:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="o7weNjUT"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48884b926f0so25073f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:51:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790351482; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Q8Wan8uxWD8o8sQpuLKu5AB+HTl4XrsD4fVHWFdA5JDuyRakL8mwIdE0pTqvNS2r41
+         qSYXtpKjbcHH+aCo70PCm6+8V5jMDWteQNmrNmg/UfWjsz4qpIlaQR+1XC8/GNyN1RlI
+         MCWrQJNVidYCmMbRWcAtAQwUCYzCiY5YUmdIvtjpklicUa2f+8TQlTPCD9Bb46rYOJgN
+         hodoJTWDJoJX68PnT1Izb/Gy0ZFA3g31ZEv255E4bT5syB/WEFZTH+aBOsus/rZV9onH
+         cmzStEmHd5i9hrh6apetyxlnonY/Cim/d8nvdKts1aRAl2iTRZ1C8XQnHnEMiA9fH1cb
+         +QKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=v7p/CXRNed6Ee5EzOeUUhXw4TYzwEpF8rokaKaV5e+Q=;
+        fh=q8m4jOTl4dKwkwWwdeEi7OH5KyZegCiFSqHYDJC3EP0=;
+        b=DEBY9B0SdhRogLQD4TZhtrktFcsJFPfpic1CS04gNfdXCMm0xFEwt+cfVbaqalkBky
+         Pn9hAe32XCS7vHErVvLCeV+4SWGV5w2iB+Wqw69ZGji2YO4dKqwIlfSLcKn0FLjiVPRH
+         cbmegzojqUcjGoiBHEThPHHXDLovkSvgpab7cemxVjQSrr0SJ4Eg0RQeUAIU+o1F5wcb
+         sXcV4JRP1e1Xsf52vblL2tKL3RJQNPJSpSLH/3CB7gfiw6F8ah0murffDusfdDLrQs5F
+         mABGJlqY9nEh5GpFvr9tTwKcFKhsXrzLYF2QFpLdp+H6Q/wiOCRXs9UxaV5jxXzy6XSO
+         Bfnw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790351478; x=1790956278; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4EQApj9r2VvF6sDy4NREnewmJKRcfdPjIfogl31Oeao=;
-        b=GnrNjMwnoAmgam8NSdM3D2f35Rxmr23oNifyOb9FBARfYeQDkJwmD8JzPF4Nj8M4gi
-         gSAPue3Q5WIpsgHgYGjBmbB5G78fpsGQ9WOW3P9Sx2zZdUq5BYk2B/VDfsSdY02QbgLu
-         TqFoNIX4EvUBXFDE4NWnrWvh4DFSJBn+zprmRRQBglBg5FNaIvKj+drjnySSXTrwTBxf
-         1P9BO6LMeVxQ1KBZo0/eBr+NXjRJoBUoEOMUEWBGdVGkRq7+PXFQgBqt+6JawSOMMtbg
-         0t2C6Sa4QV0MWXqDFSMWepQ0lrQOyjfztTyOnLlq3hEYsL25tjrvZMEXBvf6Da66XoBU
-         3UWA==
+        d=brainfault.org; s=google; t=1790351482; x=1790956282; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v7p/CXRNed6Ee5EzOeUUhXw4TYzwEpF8rokaKaV5e+Q=;
+        b=o7weNjUTAPMzXLXYhFqboBmj3PpW+Pc6A8P50M6cV1Qnh05nVWMt3azGn2QEH4ZSA+
+         IIDQMHbmDDgf2+FB/mTJJaAqkb7A8XAILbIDQhmWEo7Qvkt0lLG6AicfZ+T/hCUWdCey
+         pLSyecvltMQZ3ao1WzyYOpXrkPjTC8GC9E74Jll/4g28GFCfPsvoNhc++XJvnWeRYvQQ
+         4JFpIhMEse91bQNGyYEE+KZz2h9m+r4b0RXRmA2Gt68QK39KqSR9rF2c8AXMo1Qlv7s2
+         fmVeW97NcNkaRPRY5SCZh16sFUcoZLSMiOShT69Ibse/czruRvBWtJ8WzJlxSzxdFKWL
+         rEug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790351478; x=1790956278;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4EQApj9r2VvF6sDy4NREnewmJKRcfdPjIfogl31Oeao=;
-        b=gRPbn62QEnC6DN1rHudmOopoEFaqJD6ZnMII1hN3LufoNJ4VogmoJvXGNZd9jk3Ffn
-         lw5mms2zPze9qcskeueBCML59IRyP/pd6TvNPZyu9GIQGI/BI1+tRZYW8wuQMgWsf3hU
-         nWhjk/yKPA8v0m5suVmzpDOavMPWbFTUGHemo19nypSEkOUtOjZFEDTRvtfS7Zsn/iqZ
-         9PqoGL+k0skXZtUT3qVDh7hqx1bvKnhgYDUfW3p+dBlD+7bFKYNm9gpogDJuAB2NDXPr
-         7VT3WUOaapE1BeKY7BgzXf5m47e5aRW9cVksuTVKNvRreH5wnxyhtNGnEqz37NioBDBD
-         kw9A==
-X-Forwarded-Encrypted: i=1; AKwUvByXKEL8Ej06uwk/J226ES2qPCkYOJfhFwEe3hm0Bu/U4NarC/y5u1rCD6aaf0NifjzSSlWISJn+HdNHe0U=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldQ5ut9ftgoC3XCQ7r7e4coqkPyjDVn/nG/G4l9weayGHakfgL
-	nWcRiwCA2sGqV0EuLwEO0CxfeAxJAy+sNKQfQMn8F+bEYShdeiwgUsYCDRUbTcmQWrYTHC40v6Q
-	B4UmE/H9TvDJ0mHRpo/3fcMwOX+f2qv+BNOsrEq8CZEzBdJTIJxxuChTcmFsntB+IWbM=
-X-Gm-Gg: AYBFou3+eihECvcRlKQx2OfHs8GY3jtx3wiG4DhlBzUy+bnv7wazw1CYCOxOQWLv6Xc
-	IE5HlOeyl8XeNO9lRm3zLMAltVYZTRJS2lXWOy4lgHiQIL9INrr93y6qdi4rpIV/iIWdSuSVGPT
-	Gzush6CSVVfHpJgqvx/Q7fRGhMTEdnVeRe2sRHXapjwm6ABfrE7PYveSlkp+V4Qt4CPCzjY77hF
-	IJtXHqCNHvWf1GVEK8c50FJhAhhZKcB0WajUKd8G0dfGvqJMLWHnk2W19Ildk7jEzml91ArH4dq
-	y4ZRqSR7F+vDbVxgFArvMjUR7+E+BQZ/vIUnP/xp/1AajQ99alFD7decxW/sI9TtiZdzpaK4VAF
-	/B7IAEN4oizyn1e1haY7pphQu86oT680CAoQQsQ==
-X-Received: by 2002:a05:620a:1724:b0:939:72cb:bae5 with SMTP id af79cd13be357-93c43d6c35amr489400085a.28.1790351478242;
-        Fri, 25 Sep 2026 08:51:18 -0700 (PDT)
-X-Received: by 2002:a05:620a:1724:b0:939:72cb:bae5 with SMTP id af79cd13be357-93c43d6c35amr489395285a.28.1790351477616;
-        Fri, 25 Sep 2026 08:51:17 -0700 (PDT)
-Received: from localhost (ip-86-49-245-11.bb.vodafone.cz. [86.49.245.11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef60cc72sm49048745e9.3.2026.09.25.08.51.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 08:51:16 -0700 (PDT)
-From: Andrew Jones <andrew.jones@oss.qualcomm.com>
-To: kvm-riscv@lists.infradead.org
-Cc: anup@brainfault.org, atish.patra@linux.dev, pjw@kernel.org,
-        palmer@dabbelt.com, kvm@vger.kernel.org,
-        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] RISC-V: KVM: Use a raw lock for IMSIC wakeup state
-Date: Fri, 25 Sep 2026 17:51:16 +0200
-Message-ID: <20260925155116.465203-1-andrew.jones@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1790351482; x=1790956282;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v7p/CXRNed6Ee5EzOeUUhXw4TYzwEpF8rokaKaV5e+Q=;
+        b=BmauzbEEDuQ5XThFtsLiXaoxYPpkPPPnAsVU18zlI9Zo2MirNnB1+4Dp2yrrCG7GX4
+         2YuWWybCEj+RVE4jkB7lFC2cTFCOiozGrvA9FFRw977JF3EKp0gal7Qbc4xPirYNFMOC
+         DWhPENGHTN3JTnnVlaPLMGp5whGip/w/UoF+NtcMuAI0mEQRlpOnhA0s/+tEriOGSXYX
+         9qjP8Mp0MgCUKNQ6iQjm5zBu1K8vsB9CY084ayXefsynJ5GnMvFdZ3WLpH/AkcP9HDAN
+         vdH44Gut6rhnow2whhI36C78yAKo71LjFKTgd3DCjRqmJg4fbc3+yaM1Sxn1JsW7LDNO
+         VdIA==
+X-Forwarded-Encrypted: i=1; AKwUvBzh54Jmvrs8JVxSMcS3wRtsgcyQCY1BF9Mk2HwodDqpvp7Whmgv/lRJ35SiZSDVCFzJZ/dzS/QjZoMhhSs=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltWiMs89sBMYkF3B6wpPOg7Uo8l+cF3Z+n6f2S+UQ2qY0+fHrk
+	Utn8dhY6oGFHK33TP7kxSA8nZRI4mOeYdEzqCa+576cNLH+C4OIHt6R4NrwN8Z7MKs5svJHduGt
+	LhLsMGXuPrenpbfPo63L5gafb0t99uPKSVLFl53Ol2A==
+X-Gm-Gg: AYBFou1mm8yeluxjGmne7IItWTFM62IxotgyGv2HwueP2bRL5kaKS/Pldw9CH2mW02c
+	9BAI9O7nWyARlu7I/KsUid5on9izuAA9pnbY4N0gR0sVpiFs7YCHhCE3k/Y634bemG3lE07uRde
+	dU88AROX/KSRxFyh7oWdWkWEWnSbz7LPRbXqmzkj4ZRGm2XlhChn3fnTJ8X1ofEWQ8Rcd7HVWx7
+	MsxMWWTwCugPlsnHZjYh/dpiwqTqNM1jmNFp4491e6+KJnvuGlPd6xUGVU9f/4BteZmBrcrWmdc
+	sELTMbFtxR/xr97nTD7EfFNFyJhb8CRWqAZCn/dTTZggxyIi1af9bQz/Q0/cFq5KXEb+pqszFvN
+	aGUcbNBWyekS6C/7ft4SSrbm2Ulk17ub7oIVhZBh5Fk53fYcpK7ybt3KavnmLnQKgyzLIo/nMRs
+	M=
+X-Received: by 2002:a5d:5888:0:b0:488:57ad:d5c8 with SMTP id
+ ffacd0b85a97d-4887171423cmr11459377f8f.3.1790351482096; Fri, 25 Sep 2026
+ 08:51:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 3XmrucBumQcPOfAsPGi0wjQSXW-44LAO
-X-Authority-Analysis: v=2.4 cv=QYnzLcbv c=1 sm=1 tr=0 ts=6ab69877 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=4CXLxsOAgPM/krjtHEZQyA==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=vaztLdeRwP-UqatcU2kA:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2MyBTYWx0ZWRfXxqubAPG3tnQW
- PJ5oTNtIy/gGZBwjnf5CYNLZpLqFbhWMQkQC7+S0mogoQ+hCb7J3leldC5kHHPPIP2BQQJzlkum
- BzCl3FcD1dDXRzQHgO7cqvYtxumzjBqPaZatckY8yf90UiO49b1ho59Ai99DVqoCkIcTjsKUkck
- iMzk01mWf58hi4F8rImEVdKEae46FmP/qZernITjYLrQt2HZdu0Vxw08xrp1FZsXzQGiOhUbEYM
- GcWSzcjKLWwhSptpGy1J2rBFKU+EpaDgrrRhho7Ai4tXrj7ukQ/EsHd/qWXh0YjGEgGvVe8gLX1
- M/OWzl5OQhbK5dakIUwroBMij7WcmWSJuksHZzvjQp3BYYuw2tHbDfRW4q+LDUtSA1uhcWVrBLC
- wsjcVff0mz+n40HIpDReElJpoQ2qrcUeFHtFDlpQsHutfR23pHpMOR5T/VlRTsHaB71pLMMK6rO
- m5353DbfJBmg8q+t9eQ==
-X-Proofpoint-ORIG-GUID: 3XmrucBumQcPOfAsPGi0wjQSXW-44LAO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2MyBTYWx0ZWRfX1FfPTiZ7+Ixe
- 7TVqpJWdxTBev/2ILEcXSWzoU0It29Ul98ZRYgXUqEhXOyrdLUOVNLdge+yTXtL3s6uW36Ahi3e
- vDzGhqASH4ZvSiF4q8J53EFWQMb67mM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250063
+References: <20260925151659.419512-1-andrew.jones@oss.qualcomm.com> <20260925151659.419512-15-andrew.jones@oss.qualcomm.com>
+In-Reply-To: <20260925151659.419512-15-andrew.jones@oss.qualcomm.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Fri, 25 Sep 2026 21:21:09 +0530
+X-Gm-Features: AclHuK-IHMdTsA8jz2IcBn7rlhmgx5DYTuZzwV1GUkqdkciiE-3lPooZDFeq3zM
+Message-ID: <CAAhSdy2WLpd7rA0+cUi-oLgDePsZV_4zr4v8rnxp=y=RkObuCA@mail.gmail.com>
+Subject: Re: [PATCH v6 14/16] RISC-V: KVM: Enable KVM_VFIO interfaces on
+ RISC-V arch
+To: Andrew Jones <andrew.jones@oss.qualcomm.com>
+Cc: linux-riscv@lists.infradead.org, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev, tjeznach@rivosinc.com, 
+	jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org, will@kernel.org, 
+	robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com, tglx@kernel.org, 
+	kevin.tian@intel.com, fangyu.yu@linux.alibaba.com, 
+	Nutty Liu <nutty.liu@hotmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-kvm_riscv_vcpu_aia_imsic_put() can run from the scheduler preemption
-notifier while the raw runqueue lock is held. Taking vsfile_lock, an
-rwlock_t, there violates the lockdep wait-context rules.
+On Fri, Sep 25, 2026 at 8:47=E2=80=AFPM Andrew Jones
+<andrew.jones@oss.qualcomm.com> wrote:
+>
+> From: Tomasz Jeznach <tjeznach@rivosinc.com>
+>
+> Enable KVM/VFIO support on RISC-V architecture, now that VFIO device
+> assignment is available on RISC-V through VFIO_IOMMU_TYPE1, so a
+> RISC-V KVM guest can be notified about VFIO-assigned devices.
+>
+> Signed-off-by: Tomasz Jeznach <tjeznach@rivosinc.com>
+> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+> Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
+> Tested-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-Protect the CPU/HGEI pair with a separate raw spinlock. All updates to
-that pair retain vsfile_lock and take the new lock, while scheduler-out
-uses only the new lock around the HGEIE update. This keeps the wakeup
-setup serialized with VS-file publication and release without bringing
-wider IMSIC operations into a raw critical section.
+LGMT.
 
-Fixes: 4cec89db80ba ("RISC-V: KVM: Move HGEI[E|P] CSR access to IMSIC virtualization")
-Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
----
- arch/riscv/kvm/aia_imsic.c | 25 +++++++++++++++++++------
- 1 file changed, 19 insertions(+), 6 deletions(-)
+Reviewed-by: Anup Patel <anup@brainfault.org>
+Acked-by: Anup Patel <anup@brainfault.org>
 
-diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
-index c1af23e79ae0..1ccb7eac9f45 100644
---- a/arch/riscv/kvm/aia_imsic.c
-+++ b/arch/riscv/kvm/aia_imsic.c
-@@ -48,6 +48,8 @@ struct imsic {
- 
- 	/* IMSIC VS-file */
- 	rwlock_t vsfile_lock;
-+	/* Writers hold both locks; scheduler-out only takes hgei_lock. */
-+	raw_spinlock_t hgei_lock;
- 	int vsfile_cpu;
- 	int vsfile_hgei;
- 	void __iomem *vsfile_va;
-@@ -582,6 +584,17 @@ static void imsic_vsfile_local_update(int vsfile_hgei, u32 nr_eix,
- 	csr_write(CSR_VSISELECT, old_vsiselect);
- }
- 
-+static void imsic_vsfile_set_hgei(struct imsic *imsic, int cpu, int hgei)
-+{
-+	unsigned long flags;
-+
-+	/* Serialize the CPU/HGEI pair with scheduler-out's wakeup setup. */
-+	raw_spin_lock_irqsave(&imsic->hgei_lock, flags);
-+	imsic->vsfile_cpu = cpu;
-+	imsic->vsfile_hgei = hgei;
-+	raw_spin_unlock_irqrestore(&imsic->hgei_lock, flags);
-+}
-+
- static void imsic_vsfile_cleanup(struct imsic *imsic)
- {
- 	int old_vsfile_hgei, old_vsfile_cpu;
-@@ -596,7 +609,7 @@ static void imsic_vsfile_cleanup(struct imsic *imsic)
- 	write_lock_irqsave(&imsic->vsfile_lock, flags);
- 	old_vsfile_hgei = imsic->vsfile_hgei;
- 	old_vsfile_cpu = imsic->vsfile_cpu;
--	imsic->vsfile_cpu = imsic->vsfile_hgei = -1;
-+	imsic_vsfile_set_hgei(imsic, -1, -1);
- 	imsic->vsfile_va = NULL;
- 	imsic->vsfile_pa = 0;
- 	write_unlock_irqrestore(&imsic->vsfile_lock, flags);
-@@ -727,10 +740,10 @@ void kvm_riscv_vcpu_aia_imsic_put(struct kvm_vcpu *vcpu)
- 	if (!kvm_vcpu_is_blocking(vcpu))
- 		return;
- 
--	read_lock_irqsave(&imsic->vsfile_lock, flags);
-+	raw_spin_lock_irqsave(&imsic->hgei_lock, flags);
- 	if (imsic->vsfile_cpu > -1)
- 		csr_set(CSR_HGEIE, BIT(imsic->vsfile_hgei));
--	read_unlock_irqrestore(&imsic->vsfile_lock, flags);
-+	raw_spin_unlock_irqrestore(&imsic->hgei_lock, flags);
- }
- 
- void kvm_riscv_vcpu_aia_imsic_release(struct kvm_vcpu *vcpu)
-@@ -747,7 +760,7 @@ void kvm_riscv_vcpu_aia_imsic_release(struct kvm_vcpu *vcpu)
- 	write_lock_irqsave(&imsic->vsfile_lock, flags);
- 	old_vsfile_hgei = imsic->vsfile_hgei;
- 	old_vsfile_cpu = imsic->vsfile_cpu;
--	imsic->vsfile_cpu = imsic->vsfile_hgei = -1;
-+	imsic_vsfile_set_hgei(imsic, -1, -1);
- 	imsic->vsfile_va = NULL;
- 	imsic->vsfile_pa = 0;
- 	write_unlock_irqrestore(&imsic->vsfile_lock, flags);
-@@ -861,8 +874,7 @@ int kvm_riscv_vcpu_aia_imsic_update(struct kvm_vcpu *vcpu)
- 
- 	/* Update new IMSIC VS-file details in IMSIC context */
- 	write_lock_irqsave(&imsic->vsfile_lock, flags);
--	imsic->vsfile_hgei = new_vsfile_hgei;
--	imsic->vsfile_cpu = vcpu->cpu;
-+	imsic_vsfile_set_hgei(imsic, vcpu->cpu, new_vsfile_hgei);
- 	imsic->vsfile_va = new_vsfile_va;
- 	imsic->vsfile_pa = new_vsfile_pa;
- 	write_unlock_irqrestore(&imsic->vsfile_lock, flags);
-@@ -1112,6 +1124,7 @@ int kvm_riscv_vcpu_aia_imsic_init(struct kvm_vcpu *vcpu)
- 	/* Setup IMSIC context  */
- 	imsic->nr_msis = kvm->arch.aia.nr_ids + 1;
- 	rwlock_init(&imsic->vsfile_lock);
-+	raw_spin_lock_init(&imsic->hgei_lock);
- 	imsic->nr_eix = BITS_TO_U64(imsic->nr_msis);
- 	imsic->nr_hw_eix = BITS_TO_U64(kvm_riscv_aia_max_ids);
- 	imsic->vsfile_hgei = imsic->vsfile_cpu = -1;
--- 
-2.43.0
+Thanks,
+Anup
 
+> ---
+>  arch/riscv/kvm/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/arch/riscv/kvm/Kconfig b/arch/riscv/kvm/Kconfig
+> index ec2cee0a39e0..49179aae9504 100644
+> --- a/arch/riscv/kvm/Kconfig
+> +++ b/arch/riscv/kvm/Kconfig
+> @@ -29,6 +29,7 @@ config KVM
+>         select KVM_GENERIC_DIRTYLOG_READ_PROTECT
+>         select KVM_GENERIC_HARDWARE_ENABLING
+>         select KVM_MMIO
+> +       select KVM_VFIO
+>         select VIRT_XFER_TO_GUEST_WORK
+>         select SCHED_INFO
+>         select GUEST_PERF_EVENTS if PERF_EVENTS
+> --
+> 2.43.0
+>
