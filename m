@@ -1,184 +1,158 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-99.mta1.migadu.com [95.215.58.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE7A3502A5;
-	Fri, 25 Sep 2026 13:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342797; cv=pass; b=e8MMwtlH1Eve7fGJRmbrP9T9a6Zofsb1UhNUr31oJO8dXpewF66lF8af5E7Zhsy5eBW38/5Om1oeWCWSy9X2bapmoJePv3ueh5k/p2Mb8OgcUITRYAy4+3SxIQ71dgHLSsOGlTuUTrGgd0XjUGTBi9UPlWfhMWBSzkMdkKpNgbI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342797; c=relaxed/simple;
-	bh=KatJ+RzNowR9TAsQ9JayoiWdlAvKTv7/Nf90gD4O9vY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HwqmNjMyHy+P1sLlle4uUFrcKbTDcKQIlmfglXho/XgUTViAFhD0oa4FJkdlC+V+FoyDGYZS0lsfVZp0CiqgAMVwUnzUOo7nyrCdwOFZQXNWtGhfh4YxzOGEBa9Eh1YwR7VLT7Ffe4DyeHbzyB9hQxb2EvJ4G1fAV8kR7BsHa3g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=jUSgJNOb; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D492E03E4
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:28:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.99
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790342907; cv=none; b=DmST5B1BZg84p99ZL5a+GizYnrehvatijQNUl2qY1Kwt/IPLA3UnqRLNLurfu6QUFcoKLXIH0HRCx+jS7AMq2dfdmEkUO9klRhRd9DsJbgb5I9JID7U9P2fljLkqCU0OZ08Eie1lty48fcYz5HFoD1V1cbbcu9Ri+nkZu8IfQSY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790342907; c=relaxed/simple;
+	bh=KBJNJZ99wqa5tNb5ZwQjjrE8HikWsGszb2RQSZ1VdK0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Shj4c7i4Vz3u1pxtR/pdKhpwOVjp8YHd49he/0IyV4N+p2b4MiEV8iTPEiRPiUd2PsoNQcFw0Wa1AfhDTFQU0FvhX7hmVxVpJG2uRO7IFCE7XJlYlVdANJmqAV4gcaP5nxCnXfxpWcvp6Gq1gCyqXzioHbEZf9PmwkLLvvYE8Vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HmVTdxry; arc=none smtp.client-ip=95.215.58.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="jUSgJNOb"
-ARC-Seal: i=1; a=rsa-sha256; t=1790342763; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=V5FLorA8Lb3aR+vcL5FBo9HDzvNr64Cf6wlrnB53DORVFlYjiOs35o0mAH9WXbcVJtuCN5+bKVz1vO569f6YLvWjRy7AmXuVr+CBZ9fkfR38T9XJsur6Se7qCODeKZxCyDCzXXmvAMmwIg3m5s8Xg8pRfDp84AwXsDTw/EyFs+Q=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790342763; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=tbI7BY1/DMfC1o6Nu52xiZ2zV1iIXaUIFyG9Dk4Azbw=; 
-	b=gCWWqz1hZ6/B0eBdHBhvi63kX9mJEe9OrAuvd0w3nkMv4nM8H82ZJ6cWfkNpOomro6me3pa7KVLKdQFIeLo1e+7Q7xYGNCHmHXuIggMPF2xfGWapJdPp3N1L87OKAV8BcYiQf3WWKCc6o+6B3+wHHW5deabV/kZUqykWFxgdgqk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790342763;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=tbI7BY1/DMfC1o6Nu52xiZ2zV1iIXaUIFyG9Dk4Azbw=;
-	b=jUSgJNOb5k/1s87wXZmGFXUJYpjBsFnNjpGjDRb7G8nxlk//Jj7ztMph0CXv85ue
-	Q9dzAnDSlGxTMMPL5iam1h7Gun8hUcotu+7ZAjXsav0wmiS1/g7NyXogVxct6TdkvAU
-	SdP79mNybPZxo3zmdQF9/MJ6Gp1JigCyINqy6IO0=
-Received: by smtp.zohomail.com with SMTPS id 1790342761292221.70362510434052;
-	Fri, 25 Sep 2026 06:26:01 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 4DE3E180809; Fri, 25 Sep 2026 15:25:57 +0200 (CEST)
-Date: Fri, 25 Sep 2026 15:25:57 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Adam Wermuth <adam@wermuth.pl>
-Cc: Jonas Karlman <jonas@kwiboo.se>, Heiko Stuebner <heiko@sntech.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa
- ROCK 3B
-Message-ID: <arZ0nqBvHDzSbZOE@venus>
-References: <20260924071445.441822-1-adam@wermuth.pl>
- <20260924071445.441822-2-adam@wermuth.pl>
- <e03db2e9-085b-49ff-8d4a-bc112bc4ddd7@kwiboo.se>
- <CABkrwJ6uvjS8bez6j0MZbp2Y+O9RhyU09YOLrUzHaeUEVC=Qkg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HmVTdxry"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KBJNJZ99wqa5tNb5ZwQjjrE8HikWsGszb2RQSZ1VdK0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790342902; v=1; x=1790947702;
+ b=HmVTdxryUavcKgddH3EhuweynIhT/yU1A8AQNhdrcdakjXxUPXdoRy5ujE/EzzZYK49pE2jl
+ JYUHgxAXSefqSgRVAKfjGPG9fl3t84OMnVW1A4vW7e/keFsB4icYYlI0cSUI3EhcANGkUoW1sB5
+ /uYoDoW2HE8aoMWDjzFPz0Qg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bbd36d2360a9889a;
+	Fri, 25 Sep 2026 13:28:21 +0000
+X-Mizu-Trace-ID: bbd36d2360a9889a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <856c4436-8328-4561-a399-2df292c08b35@linux.dev>
+Date: Fri, 25 Sep 2026 14:28:20 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ezpnci3ypobxl7j4"
-Content-Disposition: inline
-In-Reply-To: <CABkrwJ6uvjS8bez6j0MZbp2Y+O9RhyU09YOLrUzHaeUEVC=Qkg@mail.gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.314.86
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 15/29] fs/proc: account PMD swap entries in smaps
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-16-usama.arif@linux.dev>
+ <e375b500-be0c-4ad2-b59c-ce1d4d58bb10@kernel.org>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <e375b500-be0c-4ad2-b59c-ce1d4d58bb10@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
---ezpnci3ypobxl7j4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/3] arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa
- ROCK 3B
-MIME-Version: 1.0
 
-Hi,
+On 24/09/2026 21:37, David Hildenbrand (Arm) wrote:
+> On 9/14/26 14:28, Usama Arif wrote:
+>> smaps_pmd_entry() derives a page from a non-present PMD and gives up if it
+>> cannot. A PMD swap entry carries no PFN, so a swapped-out THP is accounted
+>> nowhere: its bytes show up in neither Swap nor SwapPss, and VmSwap silently
+>> loses them.
+>>
+>> The slots of a PMD swap entry can have different swap reference counts, so
+>> SwapPss has to be computed one slot at a time rather than divided once.
+>> Factor that loop out of smaps_pte_entry() and call it from both levels,
+>> then return early: a swapped-out THP is not resident and must not be added
+>> to AnonHugePages or Rss.
+>>
+>> pagemap needs no equivalent change - it already emits PM_SWAP and
+>> type | offset+idx for a PFN-less softleaf entry - but its
+>> thp_migration_supported() gate answers a different question than the decode
+>> requires, so use pmd_is_valid_softleaf() there instead.
+>>
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>> ---
+>>  fs/proc/task_mmu.c | 42 ++++++++++++++++++++++++++++--------------
+>>  1 file changed, 28 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+>> index 24425e2308951..aa3f4d54a8580 100644
+>> --- a/fs/proc/task_mmu.c
+>> +++ b/fs/proc/task_mmu.c
+>> @@ -957,6 +957,27 @@ static void smaps_pte_hole_lookup(unsigned long addr, struct mm_walk *walk)
+>>  #endif
+>>  }
+>>  
+>> +static void smaps_account_swap(struct mem_size_stats *mss,
+>> +			       softleaf_t entry, unsigned long size)
+> 
+> Wouldn't consuming nr_pages be more consistent with other functions that consume
+> swap entry ranges?
 
-On Thu, Sep 24, 2026 at 09:03:00PM +0200, Adam Wermuth wrote:
-> On Thu, 24 Sep 2026 6:12 PM, Jonas Karlman wrote:
-> > This and next patch is likely best suited as an dt-overlay.
->=20
-> Thanks for the review. That makes sense, as the B-key slot is not
-> always populated.
->=20
-> For v2 I will move the host1 enablement and the WWAN power, RESET#
-> and W_DISABLE1# handling into a new rk3568-rock-3b-wwan.dtso overlay,
-> and keep only the fan patch in the base DT.
-
-Why would this be better suited as an Overlay? Nothing describes the
-specific card plugged in as it is auto-discovered via USB. The
-overlays are mostly required for things that cannot easily be
-auto-detected. FWIW we don't have M.2 Key M as a DT overlay either.
-
-Something to consider is, that for Key E and Key M there is a proper
-DT binding now: Documentation/devicetree/bindings/connector/pcie-m2-*.yaml
-
-We probably want the same for Key B.
-
-Greetings,
-
--- Sebastian
+Yes, done. mss->swap += nr_pages << PAGE_SHIFT; below in the next revision now.
 
 
->=20
->=20
-> czw., 24 wrz 2026 o 18:12 Jonas Karlman <jonas@kwiboo.se> napisa=C5=82(a):
-> >
-> > Hi Adam,
-> >
-> > On 9/24/2026 9:14 AM, Adam Wermuth wrote:
-> > > The USB 2.0 data lines of the M.2 B-key slot are routed to USB2_HOST3,
-> > > which is served by usb_host1_ehci/ohci through the host port of
-> > > usb2phy1. Enable the controllers and the PHY port so that modules in
-> > > the B-key slot, such as LTE modems, can enumerate.
-> >
-> > This and next patch is likely best suited as an dt-overlay.
-> >
-> > Regards,
-> > Jonas
-> >
-> > >
-> > > Signed-off-by: Adam Wermuth <adam@wermuth.pl>
-> > > ---
-> > >  arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts | 13 +++++++++++++
-> > >  1 file changed, 13 insertions(+)
-> > >
-> > > diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/a=
-rm64/boot/dts/rockchip/rk3568-rock-3b.dts
-> > > index 149a5306bb03..ad9a91c0d0d0 100644
-> > > --- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-> > > +++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-> > > @@ -758,6 +758,14 @@ &usb_host0_xhci {
-> > >       status =3D "okay";
-> > >  };
-> > >
-> > > +&usb_host1_ehci {
-> > > +     status =3D "okay";
-> > > +};
-> > > +
-> > > +&usb_host1_ohci {
-> > > +     status =3D "okay";
-> > > +};
-> > > +
-> > >  &usb_host1_xhci {
-> > >       status =3D "okay";
-> > >  };
-> > > @@ -780,6 +788,11 @@ &usb2phy1 {
-> > >       status =3D "okay";
-> > >  };
-> > >
-> > > +&usb2phy1_host {
-> > > +     phy-supply =3D <&vcc5v0_usb_host>;
-> > > +     status =3D "okay";
-> > > +};
-> > > +
-> > >  &usb2phy1_otg {
-> > >       phy-supply =3D <&vcc5v0_usb_host>;
-> > >       status =3D "okay";
-> >
->=20
+> 
+>> +{
+>> +	unsigned long nr_pages = size >> PAGE_SHIFT;
+>> +
+>> +	mss->swap += size;
+>> +	do {
+>> +		int mapcount = swp_swapcount(entry);
+> 
+> While at it, can you please call that swapcount?
 
---ezpnci3ypobxl7j4
-Content-Type: application/pgp-signature; name="signature.asc"
+Done.
 
------BEGIN PGP SIGNATURE-----
+> 
+>> +
+>> +		if (mapcount >= 2) {
+>> +			u64 pss_delta = (u64)PAGE_SIZE << PSS_SHIFT;
+>> +
+>> +			do_div(pss_delta, mapcount);
+>> +			mss->swap_pss += pss_delta;
+>> +		} else {
+>> +			mss->swap_pss += (u64)PAGE_SIZE << PSS_SHIFT;
+>> +		}
+>> +		entry.val++;
+>> +	} while (--nr_pages);
+>> +}
+> 
+> 
+> [...]
+> 
+>> @@ -2000,7 +2014,7 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
+>>  			flags |= PM_UFFD_WP;
+>>  		if (pm->show_pfn)
+>>  			frame = pmd_pfn(pmd) + idx;
+>> -	} else if (thp_migration_supported()) {
+>> +	} else if (pmd_is_valid_softleaf(pmd)) {
+>>  		const softleaf_t entry = softleaf_from_pmd(pmd);
+>>  		unsigned long offset;
+>>  
+> 
+> Interesting, the function already seems to do what we want. Weird that we
+> indicate PM_SWAP for migration entries ...
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmq2dloACgkQ2O7X88g7
-+pr/mg/7B+OoEEnFA754wyjYfRo8dxmBN2hNuzkDTAK9Nt3BsF9Isgc9nHMJ+u05
-nnyo/WzdkZA1PxvQHfCdAvM0GvqiGfjMJGrHSdlY9Oe49aVSDqz9nKiHWg2CWmDu
-zbTryJ8NW+5V/xeDGBHdM6cyMijY163EbOGYjiADvp5s5BRuHAtjyBp7mR1ioIQv
-WvJH80zO5zKZ+HEBrEQb7Ubtu1nutrdi1+dv0gd6+lLwLclsAz02GOzORBC3m4QG
-wm5tKVHKvatK2qNvPvqwOzagDLzRboJRizUK9xpsl0cFo8vUUhTBzyqANTxDr1f/
-ZnlntysqzIlUryj7lFxCUnR3faIMEZ/gNd19z87+JtMnyMpoMry5JSnaU+wcS9aO
-rLdK79wUux7VW3xMH35NWR7Tzh5OYXyizncw5TJ0l6vwlH8qGgS2M3wuisDtrzax
-lAkNhwXKCjokbemj2/JBGX632TZY/ZUHq+4mVQ27+6pjfx13efMiM6+FRfav2pfU
-BqONw6uZkbTi3RURfYMumfftnjczwQtqAd5sYV3cdVg9ufHRgs3yRgfVHbboKYPV
-dfJoj3w/UldTw4TB3VHzBdcQiQ7boCIVjIAJQkhTTil2nT2QqXk1ZATN+RDz3Q3n
-nILT8M3CGNu+7No4ijr1nksfo9Hev19qsbkVU4nORonCCwTvgUA=
-=rQLU
------END PGP SIGNATURE-----
 
---ezpnci3ypobxl7j4--
+> 
+> Also, are device_private PMD's handled correctly? *doubt*
+> 
+> [maybe there were patches, not sure]
+> 
+
+Not in smaps.  smaps_account() documents device-private
+as fake-present and smaps_pte_entry() does it, but smaps_pmd_entry()
+never did, so a PMD-mapped device-private folio got PSS charged
+undivided and landed in shared_* even when mapped exactly once.
+I have folded the fix for the next revision
