@@ -1,116 +1,85 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63F21C28E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2266E38553F;
+	Fri, 25 Sep 2026 02:37:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790303842; cv=none; b=KcJZSk5lh8x/uF4PunESEoI96AooD3NuCgDNhone8ETQQnhvjo7Rh/WYismf/0MGHINEc0wyNqBeUP3ZWu0cMvqOThzpSQzGqdcHdC7Cr7GzZnoC/X4zZMdix9bYfqBUe6sFIFK6RMuw40YTK9H3NWXZJ1BLjrWqpgbznLGkVZM=
+	t=1790303853; cv=none; b=K3sepwx5WM6d5kzYhcQXiqyIasyKNJknLrSofyuyYkg3mtPtP0et5OSXe850mQMsnbQ0bFEgTdfSUETaPv3qYF5FN5yGjzoPl2XEX4njl1/BD91A/ZrdU97yCweP1VmzxsXKMh7DE+M3m/6sUsHbfZ1oi+c6yfD1IYGGd6qYJsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790303842; c=relaxed/simple;
-	bh=l04TOEpZhNykE621pEvmbpIKDfEahGsajnZ9Kaku39g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m4OWhiAM3vgLTCp7lCO3C1JerAo3RLgzsy9pGn+wSPOGnK7wbF/Mu13JGM91GSiCLmXx7yeei/grYNxYsdfu8Jw93Z2dYGhMsZ9+WhHamesTl2TozCtvP+JTv70KXgG9jCkH43SPnvpNT3BgOlI9xjTIn6fR7df1oG8RPFAdr1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KL+zBgxt; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790303853; c=relaxed/simple;
+	bh=IyI4o+w7JlujvkuAbTQla0RSW62kL28I+MICoZ579rU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=m/dTndy8WY34Fp07vpDx0kDSsVWoaCcNQMcZym0qBIQCsmtU7Gnn/4BW5ibXqeQk6J9O8SYUIrIkVtFz45PmPVoPKHKafBnfqo8K8YPctnWFWvEBxiyPsS1tzBQOkBMnj69C3x2ZSD1lfO1YNj3lv4s2p64tTAt0P38LeNKPnJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfoVzrwP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KL+zBgxt"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398cb5615deso381084a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:37:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790303840; x=1790908640; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1hvE16omYzK/0hBy/Co0mAjilr6lqIeUfcQO23ZacDw=;
-        b=KL+zBgxtIBssg8/Unkb7HE/+n4xWKkedfY3JR03MT2YtJ8CL8ZXVBsBrfRIQUUjmzc
-         X/KcWJe6UlQ7myW02AUMmrd6Y8PPl31K+G09Fq8lJktNlE2Y01mc5zQL4NAJW9Knd52O
-         2LhhJo7KXDUBIfdXE3dxbn9Fq66D7uNJ2RWoEGCFFvaJ00zUqhjMMlOyxpzK9UsgXXKk
-         NsFEM/yNrvM6CwvF7FdnXG0rNDRF/iEkT2Iv2NRnD7ez2HPCwMYDIrdHXkOw2Li7id3e
-         I7LF+3OLM2VYd/1nN/qk5oIKETzwSZRj8My+xo3j0hQAE5LQONQ3Fq6nm+RtcR08taV3
-         1fdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790303840; x=1790908640;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1hvE16omYzK/0hBy/Co0mAjilr6lqIeUfcQO23ZacDw=;
-        b=Gr++vJefSOFsN+oh7dvR3xxZ7OHjpdyBoa3DBGVprN8nxrWav0HXNvbovsC6SOLwyL
-         wLWoCUa/Q2fP75Nxc5zHFzzsCf5Z8trshVATCQo4VtTZgjZITQrVshFSVvUzoo0C/e8R
-         Wh4cKDRFjzVxTcUeea2Tlqpuz1fFgh0dXkG6UVrkElbxrp+rdsvdmeoGxK2nt+ijFZBe
-         QWKx2YC7FJmLvPBTA8sB//w34hNWQAG6NP02QbhTg3DfGUQDHIlCk/HTcZnVzI1ijpdI
-         U+u9Kpb9bjo4aSBEQcWM3PWEE5cn4VWlmcIsZh62jXFcXWRmN0vwIrOlQwYjMRY1FtnL
-         wLOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxqzEJlaLDE58rpsb+VBN7RfT6tr2UNmMEUJdZ7cfZpzZvVyfsHuNplHmdiR5TShIHxbK1JxG7QgrRiMF8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7mdeW6OuLWcdeO7NzhT5jZm8NrfMCXvVW+u45GsjiqWN+e0ht
-	8rOZEnO9S9sj17pjQJi947Op8dS28v2JlFWSHijagdCT4gXx62oOUVLg
-X-Gm-Gg: AYBFou1UISHqx9pqyLpiw76Hwibk/agv7mghp08LE5595rulnfwIBrvBCvBDalW8fRj
-	KNP8aR+rsON04KA0yobybeJBMxiK5gAKXX+406Xo+5Bsv/CpMPViZcjU1038FvN9pjbBauzsEIr
-	Si50dDr7K8UTQki4h5ZQWDhZfiWGMj5NAnU8HmFqzWcGRboTUCBzDSdr8wf9i41W1T2lrP6uWyx
-	I2lkEIhsDXmcVPp08ZaYVr8E+zObNw9jkBJ7meiSL0+09H/eQ1UGeN0BUeb14olSSu0nHmicLiC
-	JGnoUTAEzHpZ0gT+YW+uisx6X/Vz/tVatM0CdGRVrRuJHjSlWT0MjWAHgNOf6/lVvP2geBkCgcD
-	2kcnh4aRfYYnoy4tKAN3rWtIZSLoSaSi/lyEUKUHdj7iFLY1D+jJFYHsEsN3Fjf9qMtyrcJvjZZ
-	/KsF4gvYvAyh8dHem9XarOG5MhujHmIKIUZDzdCYNkd9jiu9nJpYshvA4r5FMm5a1hdU3KaOFaz
-	tfWwpochVlM
-X-Received: by 2002:a17:90a:d446:b0:39e:6c69:9b8d with SMTP id 98e67ed59e1d1-3a099230f6amr3868920a91.50.1790303840107;
-        Thu, 24 Sep 2026 19:37:20 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9356f48sm1507678a91.6.2026.09.24.19.37.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 19:37:19 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 24 Sep 2026 19:37:18 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Cc: david.nystrom@est.tech, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	ricardo.neri@intel.com
-Subject: Re: [PATCH 0/3] hwmon: (coretemp) Report unreliable temperature
- readings
-Message-ID: <46f9f319-de71-412f-a424-6cb801478456@roeck-us.net>
-References: <20260924-coretemp-temp-fault-v1-0-1884f0ff97d5@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfoVzrwP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51AFF1F000FF;
+	Fri, 25 Sep 2026 02:37:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790303851;
+	bh=sfuy814gd+GoGAQ/1cA7GcN0tn3BPTF1STk5ZVfAWPA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UfoVzrwPJneUv6tWV8xIQo4KMeoq2bVImq5G/RBl7WOs0jb+VMceUJYabgDi7Bui/
+	 w33q4Wm7UilbHlygTqADydzCPXQVnwbt8e4sbmZAr3gZWM3zRlkZL4wGhjHlpZ5Pp1
+	 PCfV1LGFfHGyGCO1DFQASZLmH6SO/e+gFVfKRdrFkJmtnpUTfXPIpYz1Tx/EFTv2pw
+	 54Llz2BBJtDZm2r4b7KdFqK1K1hNLaUs7Kn2GAiLmOuGkHgEJhhJ65RQ/sR2bi5Etf
+	 HFGf+VPpPFe5qhi6ic1tlid8kYzsOdxdcVWbs8CcYyirG/Ypz5mz9cG9YA6/NZA/DW
+	 shsQeT0sfI49Q==
+Date: Fri, 25 Sep 2026 03:37:27 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: Matti Vaittinen <mazziesaccount@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, "Nuno =?UTF-8?B?U8Oh?=" <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Kees Cook <kees@kernel.org>, "Gustavo A. R.
+ Silva" <gustavoars@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ codemender-patching+linux@google.com
+Subject: Re: [PATCH v2] iio: gts-helper: add __counted_by_ptr to struct
+ iio_gts
+Message-ID: <20260925033727.3d4da22d@jic23-hlaptop>
+In-Reply-To: <20260923192450.3008671-1-morbo@google.com>
+References: <20260923041630.2553973-1-morbo@google.com>
+	<20260923192450.3008671-1-morbo@google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924-coretemp-temp-fault-v1-0-1884f0ff97d5@linux.intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 07:33:19PM -0700, Ricardo Neri wrote:
-> Hi,
-> 
-> Intel CPUs indicate in IA32_[PACKAGE]_THERM_STATUS whether the digital
-> thermal readout they expose is valid. coretemp deliberately ignores that
-> indication, for the reason given in commit bf6ea084ebb5 ("hwmon:
-> (coretemp) Do not return -EAGAIN for low temperatures"): some CPUs clear
-> it while the temperature is too low to be measured, and the value reported
-> in that state is more useful to userspace than an error would be.
-> 
-> The consequence is that userspace cannot distinguish a genuinely low
-> temperature from one the CPU could not measure. This series exposes the
-> indication through the standard hwmon temp%d_fault attribute, leaving
-> temp%d_input exactly as it is.
-> 
-> One user-visible effect is worth mentioning: sensors(1) prints FAULT in
-> place of the temperature when temp%d_fault reads 1. On a CPU that clears
-> the valid bit at low temperature, that core stops showing a number in the
-> default output, although sensors -u and -j still report it, as does
-> anything that reads temp%d_input from sysfs directly. A driver-custom
-> attribute name would avoid this, but would be invisible to generic tools.
-> Reporting the condition through the documented attribute looks like a
-> better option, but please say if you prefer otherwise.
+On Wed, 23 Sep 2026 19:24:50 +0000
+Bill Wendling <morbo@google.com> wrote:
 
-I think it would be _much_ better to return -ENODATA for invalid readings.
-This isn't really a fault, after all. The sensor is not defective,
-it just can not provide valid data.
-
-With -ENODATA the sensors command reports N/A for the temperature
-measurement, which I also think would be better than reporting FAULT.
+> The compiler attribute __counted_by_ptr can be used by KASAN and UBSAN
+> to detect out-of-bounds accesses to pointer fields in structs where a
+> corresponding element count field is available.
+> 
+> In "struct iio_gts", there are multiple pointer fields associated with
+> an element count. This patch annotates these pointer fields with
+> "__counted_by_ptr" to improve runtime safety:
+> 
+> - 'hwgain_table': counted by 'num_hwgain'
+> - 'itime_table': counted by 'num_itime'
+> - 'per_time_avail_scale_tables': counted by 'num_itime'
+> - 'avail_all_scales_table': counted by 'num_avail_all_scales'
+> - 'avail_time_tables': counted by 'num_avail_time_tables'
+> 
+> To ensure that the count is set correctly before any pointer is
+> accessed or assigned, we update "iio_init_iio_gts()" to set the counts
+> prior to assigning the pointers.
+> 
+> Cc: codemender-patching+linux@google.com
+> Assisted-by: LLM
+> Signed-off-by: Bill Wendling <morbo@google.com>
+> Acked-by: Matti Vaittinen <mazziesaccount@gmail.com>
+> Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+Applied to the testing branch of iio.git. So effectively queued for 7.4 merge
+window.
 
 Thanks,
-Guenter
+
+Jonathan
