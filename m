@@ -1,111 +1,299 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA02D44C506;
-	Fri, 25 Sep 2026 22:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071C13B42DD
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:18:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790374657; cv=none; b=dK+Wd928SR696wmpjjXVuvYAIXjWoaPph9p35fWSI6SGURZK83BK/s3Asj3lGX0LwJyQ1rtuJQfxts4xJM58T+EsZKG06+bHvsn/oAmzzdvYtXhwUFbq1DTEiemyLh82wYG/SEb7XwCE++9lxc67PntyN1+3ToydBhFYxVHhYNA=
+	t=1790374698; cv=none; b=DrfUYRhSBs/Z8ftaOG0dIQsqYk9mXpoDWVmB+GKRjxy0xJ457e+wN54a7FEUaUqVe646BoRfXyx7S+reH3vtshasx0gPCZTanhTWqtctGG8lnJsfbsRU3RVqQlQIxv/bp7dq7ZOqOgPx0AQ8c7qKF3kgue2Bi3gw+UYf36EUP5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790374657; c=relaxed/simple;
-	bh=ZMOGXjvvGJ/q7GIO71jdVxzA9tWJ7yRD96RxWO0LfJc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lJFunelVn1rZdNVaIO+UX/7BKHTZsAB3zHBZF6eb0sstCjiB2WwOuSNkca9Siw7YYSd8ROuj4pV4tBVL++k7hxUc395TH+qqVExpcZyNS2uz2teKrHT1QAq8Gkk5q96lUDUYgAODwktaSNs0skFwnOk6ulJXFfMJnP2JN7DMPd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPRv9Cwd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790374698; c=relaxed/simple;
+	bh=lUyCqvIhkx+oa2eX2J77bBkV43sFd/DsKxrwXJcJW70=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EN9EyhDw3Z45IoDMZ2HbUAu+qGyc2nQ3WCt7/b/Bc1kQWAhkNt1AC67CGRssDRqyW4lI1dplgE3q8CAvrqbaNEadYyLLl7Hdl6bZ/WQWvIvB6cH7Tb4wjiFcBaLUyb5l1IAkGSM98lJX5pxvnQ3+/lU6Qxfn2b/qlnvpKgUgnQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jqK0M+3r; arc=none smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPRv9Cwd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFE2D1F000FF;
-	Fri, 25 Sep 2026 22:17:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790374655;
-	bh=0XXy8apy+Mp8WfT7XYeRzAzMyP4YJRvHRzhLqanVPoU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fPRv9Cwd6IG6ofN7RE2t9zCPwUlkYB/IVceAQIdl2uWwsiEHCT/cgvvg03Kzo3l6V
-	 Me0IUPZ11fuc6qSUWuKjLHOixLxO48nhSRcHowvXIUqNVdtHcJjwG862A9QFtaF6Cr
-	 8SQAeMPZ4H4CbQh0xxpbwB+LVHkBqNOu1zbGZbLnkwOh50RpbsytpWCr/FoUqImnuT
-	 Uul7+BaLKQkxQYh9i0MQo6gnXQGuK8AsADpaFBjZ6RSu05dd+f4sO6K/8ujxsjdSbV
-	 yJstfAAbMyr6hthyLiznf+xuPGH7WLZ+r63K3ILxvDjhl3EcuUnzbz5H7FveEqPjuI
-	 jT4o1UrQNGdng==
-Date: Fri, 25 Sep 2026 23:17:30 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: <mhonap@nvidia.com>
-Cc: <alex@shazbot.org>, <jgg@ziepe.ca>, <ankita@nvidia.com>,
- <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
- <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <dave@stgolabs.net>, <alison.schofield@intel.com>,
- <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
- <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
- <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
- <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>
-Subject: Re: [PATCH v5 12/27] vfio/pci: Call the CXL open and close hooks
- around device use
-Message-ID: <20260925231730.45933ca7@jic23-hlaptop>
-In-Reply-To: <20260916183540.3813685-13-mhonap@nvidia.com>
-References: <20260916183540.3813685-1-mhonap@nvidia.com>
-	<20260916183540.3813685-13-mhonap@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jqK0M+3r"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-142dd046b87so1066889c88.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:18:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790374695; x=1790979495; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ayLp4Jx22xan0yoaXXO0H5UJI37HFonSA4zUCdy+nIo=;
+        b=jqK0M+3rOKmnvbUCAihw+0CnJmxPVScYGgTauAfdDzHWgiMVfW72Ga9i6+HDuThXuU
+         4U6sFRkMObqrl/wYTTFVVwBGXcDlP4Ionpv3mxDVzBZBrL3CGEyawwTfbl7qsr/kkPi2
+         V8rM7wMyJh7B7UEj4XvR38+CmkaSV8rSb8X43A5qDDJ2ZJZdbBL/zaQj6JzmbxjaM8Q6
+         tyVfcVJuBqXBVv4lf27RqQgS7vb+erG9qGWfQrDnAkKb9SWQi1pyVkq7wCG/UZw82zsi
+         gbTP+KsDDWiW4JtEnBiVkF60eSmsEizKkfT7x4EWNyrknbhgaiyDF5/6Vv62aTTPX2xp
+         BrcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790374695; x=1790979495;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ayLp4Jx22xan0yoaXXO0H5UJI37HFonSA4zUCdy+nIo=;
+        b=0c3j8UBicWCiYnQ3CcB40kxQWlIQxMqyh6axEXZXXatV+INWs/Y8tmIpEA0Z5QYyCy
+         vWAdScTnDQOx0OaDIbtBUiSsPwTtEtqSsaEBIMyYOh3stvmJxVmjTAkEzQh8ok3XmFhQ
+         cw8BYBx6SS4+aQ+Xz1jvEmtUpcE4T4tMzhVyKwBmICWnMqJOGXdY5IRGtn3GjcxXpoDo
+         TTljILKfIeIAQyXkU9KoiU1HPse3htgw+i6lpDAnRo+FVQ48gvqjYZjZCqrjVnnBO8J5
+         GDdPLTtonKb1jOsKgFMzLRSqLCBXxxcWu9v8ba4rCCWMoOTkeVCXMqQmLSWhuwIau6rd
+         SxxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzFp8sHNhe6ndvDvdMkpJzZuLExJAWaxeBS3i7priAhAfMPKGXPoJfh8NzOInEnXqPRpAvB/ju91lHbu5U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mppMQZ8cJd1yrSszor4E/Q6c4GRMlWJ/mwmkoxIeEZZjrA8XYN
+	N281cUD8B1LB887C/qoRVlbVYva1OyxUh6YdF4R5RjFTJ4XG3GNNsEOk
+X-Gm-Gg: AYBFou1FeUjheanftrO/4MCZ312WphyfXF4bvHo4iUfRn+NS5lG/CaJgzuvSMlf1VVR
+	cOgIiN9Gwq3iOVEXyS1PiCDEEGM1uFnd0fYKxPbs0HECI8EW1V4jECJmQ93wjobfzRDM3JjfqYb
+	t8kTJ5AmFeoF1HzalC4ZV6zzv0E/sr1b6dPTMpxh3S+Fqqg+4CPc1DRcKiVsL+fSL6Z+n7MsSCv
+	wDwxq+iRo78iDcYi+uNQyq0I/nf8f/OuIFsHsMg3L79FWUURvZU5OzsQ+1PjqCtz5rVmyIHTJ1o
+	1EWbxFn/m3qqhN0AignC635hIRVAzHsPiXrdXBTA5ZViivgsDF0SWLD5RJk5zE2/RNq+O3Uodhz
+	UmPPo4ZqbdLCSRFcNZWKL26hsikhQb91nvecJj6pcz5Fp6LTmL1mYYO4vxya/e0xNDjEZubDEcO
+	MpQO1R4i4wiyFmmL2SFOeDOB4XYEmOeKtfiB6ObFGQS5cytzrcE5ztZ0wTplHM4SI44ev3IxKr1
+	ZEOujOria0LDEyfzjz9snLAjsmfXFNU+zQHI5w=
+X-Received: by 2002:a05:7022:288:b0:138:3613:dc6 with SMTP id a92af1059eb24-146ce67ee45mr1270576c88.14.1790374694857;
+        Fri, 25 Sep 2026 15:18:14 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:375:19cf:5fee:be32])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145aa0cb6b9sm7166213c88.1.2026.09.25.15.18.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 15:18:14 -0700 (PDT)
+Date: Fri, 25 Sep 2026 15:18:10 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: david@ixit.cz
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Henrik Rydberg <rydberg@bitmath.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Petr Hodina <petr.hodina@protonmail.com>, 
+	linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	phone-devel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v8 1/5] Input: stmfts - wait for controller ready after
+ reset
+Message-ID: <arbyyscK-3xYlj6H@google.com>
+References: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
+ <20260925-stmfts5-v8-1-0fcf49e2c85f@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925-stmfts5-v8-1-0fcf49e2c85f@ixit.cz>
 
-On Thu, 17 Sep 2026 00:05:25 +0530
-<mhonap@nvidia.com> wrote:
-
-> From: Manish Honap <mhonap@nvidia.com>
+On Fri, Sep 25, 2026 at 11:22:19PM +0200, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
 > 
-> Volatile CXL register state must be sampled from live hardware when the
-> guest opens the device, not at bind, because a low-power transition
-> between bind and open can leave the bind-time values stale.
+> After releasing the reset line stmfts_reset() sleeps a fixed 50 ms and
+> stmfts_power_on() another 50 ms before the first I2C access.  That is
+> enough for a warm reset, but when both supplies were really cut during
+> system suspend the controller boots from cold and can need longer.  If
+> it does, the first read fails, stmfts_resume() returns an error and the
+> touchscreen is left powered off with its interrupt disabled.
 > 
-> Add open and close to the CXL ops and call them from the common enable
-> and close paths. A failed open unwinds the enable in reverse order:
-> unmap the BARs, drop the excluded ranges, then free the virtual config.
+> The controller posts a controller ready event once it has booted, and
+> the event parser already completes cmd_done on it.  Enable the interrupt
+> right after releasing reset and wait for that event instead of sleeping,
+> giving the controller 300 ms, the total budget the vendor driver allows.
+> Boards without a reset line keep the old timing.
 > 
-> Factor the BAR unmap out of vfio_pci_core_disable() into a helper so the
-> enable failure path and the disable path share it.
+> Usually phones such as Pixel 4a and Xiaomi Mi 8 needs longer delay, so
+> without this change touchscreen stops working.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Manish Honap <mhonap@nvidia.com>
+> Fixes: 8a1f9de80e45 ("Input: stmfts - add optional reset GPIO support")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
->  drivers/vfio/pci/vfio_pci_core.c | 40 +++++++++++++++++++++++++-------
->  include/linux/vfio_pci_core.h    |  2 ++
->  2 files changed, 33 insertions(+), 9 deletions(-)
+>  drivers/input/touchscreen/stmfts.c | 60 ++++++++++++++++++++++++--------------
+>  1 file changed, 38 insertions(+), 22 deletions(-)
 > 
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index c5b7a59a4548..2f593b2721a1 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -591,6 +591,21 @@ static const struct dev_pm_ops vfio_pci_core_pm_ops = {
+> diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+> index 972687797f826..1720202d6186b 100644
+> --- a/drivers/input/touchscreen/stmfts.c
+> +++ b/drivers/input/touchscreen/stmfts.c
+> @@ -59,16 +59,18 @@
+>  #define STMFTS_MASK_X_MSB			0x0f
+>  #define STMFTS_MASK_Y_LSB			0xf0
 >  
->  static void vfio_pci_free_excluded_ranges(struct vfio_pci_core_device *vdev);
+>  /* key related event masks */
+>  #define STMFTS_MASK_KEY_NO_TOUCH		0x00
+>  #define STMFTS_MASK_KEY_MENU			0x01
+>  #define STMFTS_MASK_KEY_BACK			0x02
 >  
-> +static void vfio_pci_core_unmap_bars(struct vfio_pci_core_device *vdev)
-> +{
-> +	struct pci_dev *pdev = vdev->pdev;
-> +	int i, bar;
+> +#define STMFTS_RESET_TIMEOUT_MS	300
 > +
-> +	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-	for (int i = 0; i < PCI_STD_NUM_BARS; i++)
-		int bar = i + PCI_STD_RESOURCES;
-
-Nice to keep things tightly scoped where we can.
-
-> +		bar = i + PCI_STD_RESOURCES;
-> +		if (IS_ERR_OR_NULL(vdev->barmap[bar]))
-> +			continue;
-> +		pci_iounmap(pdev, vdev->barmap[bar]);
-> +		pci_release_selected_regions(pdev, 1 << bar);
-> +		vdev->barmap[bar] = NULL;
+>  #define STMFTS_EVENT_SIZE	8
+>  #define STMFTS_STACK_DEPTH	32
+>  #define STMFTS_DATA_MAX_SIZE	(STMFTS_EVENT_SIZE * STMFTS_STACK_DEPTH)
+>  #define STMFTS_MAX_FINGERS	10
+>  #define STMFTS_DEV_NAME		"stmfts"
+>  
+>  static const struct regulator_bulk_data stmfts_supplies[] = {
+>  	{ .supply = "vdd" },
+> @@ -538,25 +540,16 @@ static int stmfts_read_system_info(struct stmfts_data *sdata)
+>  	sdata->chip_ver = reg[0];
+>  	sdata->fw_ver = be16_to_cpup((__be16 *)&reg[2]);
+>  	sdata->config_id = reg[4];
+>  	sdata->config_ver = reg[5];
+>  
+>  	return 0;
+>  }
+>  
+> -static void stmfts_reset(struct stmfts_data *sdata)
+> -{
+> -	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+> -	msleep(20);
+> -
+> -	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+> -	msleep(50);
+> -}
+> -
+>  static int stmfts_configure(struct stmfts_data *sdata)
+>  {
+>  	int err;
+>  
+>  	err = stmfts_command(sdata, STMFTS_SYSTEM_RESET);
+>  	if (err)
+>  		return err;
+>  
+> @@ -582,53 +575,76 @@ static int stmfts_configure(struct stmfts_data *sdata)
+>  
+>  	return 0;
+>  }
+>  
+>  static int stmfts_power_on(struct stmfts_data *sdata)
+>  {
+>  	int err;
+>  
+> +	if (sdata->reset_gpio) {
+> +		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+> +		/* a short delay before powering up */
+> +		usleep_range(1000, 1500);
 > +	}
-> +}
+> +
+>  	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
+>  				    sdata->supplies);
+>  	if (err)
+>  		return err;
+>  
+> -	/*
+> -	 * The datasheet does not specify the power on time, but considering
+> -	 * that the reset time is < 10ms, I sleep 20ms to be sure
+> -	 */
+> -	msleep(20);
+> +	if (sdata->reset_gpio) {
+> +		reinit_completion(&sdata->cmd_done);
+>  
+> -	if (sdata->reset_gpio)
+> -		stmfts_reset(sdata);
+> +		/*
+> +		 * The datasheet does not specify the power on time, but
+> +		 * considering that the reset time is < 10ms, sleep for 20ms
+> +		 * to be sure before releasing reset line.
+> +		 */
+> +		msleep(20);
+> +		gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+>  
+> -	err = stmfts_read_system_info(sdata);
+> -	if (err)
+> -		goto err_disable_regulators;
+> +		enable_irq(sdata->client->irq);
+>  
+> -	enable_irq(sdata->client->irq);
+> +		if (!wait_for_completion_timeout(&sdata->cmd_done,
+> +						 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS))) {
+> +			dev_err(&sdata->client->dev, "controller not ready after reset");
+> +			err = -ETIMEDOUT;
+> +			goto err_disable_irq;
+> +		}
+> +	} else {
+> +		/*
+> +		 * We do not know the real controller state (was it powered
+> +		 * off or reset). Let's hope that this is enough time to
+> +		 * initialize.
+> +		 */
+> +		msleep(70);
+> +
+> +		enable_irq(sdata->client->irq);
 
+Sashiko gave me an idea. What if we do this:
 
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index 1720202d6186..e147a27f57b3 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -578,6 +578,7 @@ static int stmfts_configure(struct stmfts_data *sdata)
+ 
+ static int stmfts_power_on(struct stmfts_data *sdata)
+ {
++	unsigned int timeout;
+ 	int err;
+ 
+ 	if (sdata->reset_gpio) {
+@@ -591,9 +592,9 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+ 	if (err)
+ 		return err;
+ 
+-	if (sdata->reset_gpio) {
+-		reinit_completion(&sdata->cmd_done);
++	reinit_completion(&sdata->cmd_done);
+ 
++	if (sdata->reset_gpio) {
+ 		/*
+ 		 * The datasheet does not specify the power on time, but
+ 		 * considering that the reset time is < 10ms, sleep for 20ms
+@@ -602,23 +603,29 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+ 		msleep(20);
+ 		gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+ 
+-		enable_irq(sdata->client->irq);
+-
+-		if (!wait_for_completion_timeout(&sdata->cmd_done,
+-						 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS))) {
+-			dev_err(&sdata->client->dev, "controller not ready after reset");
+-			err = -ETIMEDOUT;
+-			goto err_disable_irq;
+-		}
++		timeout = STMFTS_RESET_TIMEOUT_MS;
+ 	} else {
+ 		/*
+ 		 * We do not know the real controller state (was it powered
+ 		 * off or reset). Let's hope that this is enough time to
+ 		 * initialize.
+ 		 */
+-		msleep(70);
++		timeout = 70;
++	}
+ 
+-		enable_irq(sdata->client->irq);
++	enable_irq(sdata->client->irq);
++
++	if (!wait_for_completion_timeout(&sdata->cmd_done,
++					 msecs_to_jiffies(timeout))) {
++		if (sdata->reset_gpio) {
++			dev_err(&sdata->client->dev, "controller not ready after reset");
++			err = -ETIMEDOUT;
++			goto err_disable_irq;
++		}
++		/*
++		 * If we did not reset the countroller ourselves continue
++		 * even if we did not receive "ready" message.
++		 */
+ 	}
+ 
+ 	err = stmfts_read_system_info(sdata);
+
+No need to resend the series unless there is more feedback on the
+bindings.
+
+Thanks.
+
+-- 
+Dmitry
