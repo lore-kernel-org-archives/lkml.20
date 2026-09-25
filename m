@@ -1,93 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F5F2DF6F4;
-	Fri, 25 Sep 2026 23:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537A5509EEA;
+	Fri, 25 Sep 2026 23:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790377495; cv=none; b=e5ta5+9PfWilDE2t/Vv21LTAJH6UDWhUZ6Q/urGzPFyHFgXkANkD4FVg0IV+vj364jGQfENdTjfWlsCVU8t1BHMlFI2J90ET/l06FwlNGzjKfUkhid8MkIYGMA8yWKNrHdHkB338mC7t55bsLWi5HMd2Yrl/61iW2YiNiE/Lh5I=
+	t=1790377511; cv=none; b=p69vOSSPFiDozReiTQgnPgFamHAX+6FeA0er+Oa09xos27vzCgVmzYP+zoM1VF9OjKTpOc+RXyRuaS5YPbKAZQ+5DPcnJjI3VEx6gb62Gtqp4QtFpUg2sur/m0n9Q2P/k7aUUsjmpZKguPN3SCNnJRuOYmFCYMA4O5+Ks6bmq5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790377495; c=relaxed/simple;
-	bh=gPgu9rnLTTgzZyYxrou4VP0kKKqtdv8uvlM7X852xPE=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=NgIaVvbPkKwmE0oeQVeGTB07VBctBEd3UomR62noSi/DxqW+xjd1JmDkp7Sy6foXu2VEzwvIgjn9bKJT0z6V5OumxXT707LGXO04BTQUaTf3P3d5Cu+3qa9DU152KnffuRreKJmfiEICHVv/rGjmcVQWms2DGcRJsJ9BGsPqHCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=fv/XMh+c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790377511; c=relaxed/simple;
+	bh=nCYlGLO6kZh9bo0A+MIdNf49AA+uVrLTJV2J7tEJV5s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f3U+vJGTWGPBKhK34DFYDxLwasW3kCMD+1wyTFM7rJEw9SujorRIm4HW5ZxBMifufIDQqzJt4i3jCbNHhpJCM4x19HNfSltM2BVIhxzii2I6TcR6D+T3hIAlDNsz9zEdEaWfR2fJngdcbsh4tamslyrDUUmrsh/YNDh+Lr441/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=YzD9UN8G; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="fv/XMh+c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 786071F000FF;
-	Fri, 25 Sep 2026 23:04:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790377493;
-	bh=/CbPmrir7hvxqhkoRGJquW0lh0N7NUF6YrjVn/tUNMw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fv/XMh+ciNrkinWE2uBqyZ2g/HbLC9pT6uDzbPPDf4mdTgRykf8To4g7xkYKggnZw
-	 ADGOc6rhFVqm8fli9Kg6FbxUztl7iIXjjFxXe7c5uqSxWDNZNzPSwlssQE70XaQ2lY
-	 E67hvMJX/ROPD8WgGruQCvgAveUmP7zQv+QdGYpk=
-Date: Fri, 25 Sep 2026 16:04:53 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>,
- linux-mm@kvack.org, liam@infradead.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/nommu: Reject wrapping ranges in access_remote_vm()
-Message-Id: <20260925160453.7e7561edb77b5c4152675f7e@linux-foundation.org>
-In-Reply-To: <arZzn0bwWqp7xTE5@gremlin>
-References: <20260909064231.18693-1-tasos.papagiannnis@gmail.com>
-	<arZzn0bwWqp7xTE5@gremlin>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="YzD9UN8G"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=lJOmKJ6UjY7owjMN7s2usEwfCxjnnHNKXOmJAF4Zr2c=; b=YzD9UN8GW2czQXGN+0i4cEHfaC
+	ircxf9old2up3hv94ZU7xLbId7QWvNznCpgop1gqoRev90BUmJI530cApKNX83X6YMDpQxrtMqkVD
+	807NWysdJG0GoYhWxfFGT5xLjDfPmiWogP0CR8yBZzFDMDi6fiNXZ6K06p87wGhI78bU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAEyU-007K87-LL; Sat, 26 Sep 2026 01:05:02 +0200
+Date: Sat, 26 Sep 2026 01:05:02 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Martin Kaistra <martin.kaistra@linutronix.de>,
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v3 3/8] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch
+Message-ID: <88bd3f83-ce29-4424-b536-e2ab05b8b822@lunn.ch>
+References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+ <20260923-devel-vstrassheim-soce-dsa-ml-v3-3-ddebafcb9ba7@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-3-ddebafcb9ba7@linutronix.de>
 
-On Fri, 25 Sep 2026 14:20:33 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> +  mdio@204:
+> +    $ref: /schemas/net/soce,swip-mdio.yaml#
+> +    unevaluatedProperties: false
+> +    description:
+> +      Integrated MDIO controller bus on the master side of the mux.
+> +
+> +  mdio-mux@202:
+> +    $ref: /schemas/net/mdio-mux-mmioreg.yaml#
+> +    unevaluatedProperties: false
 
-> BTW always feel free to nag if you're not getting review! Something things
-> get missed. (Though I'd say wait at least a couple weeks before doing
-> that!)
-> 
-> On Wed, Sep 09, 2026 at 09:42:31AM +0300, Anastasios Papagiannis wrote:
-> > The NOMMU implementation of access_process_vm() rejects address ranges
-> > whose end wraps around, but access_remote_vm() bypasses this check even
-> > though both functions delegate to __access_remote_vm().
-> >
-> > Move the wraparound check into __access_remote_vm() so it applies to
-> > both entry points.
-> >
-> > This is originally reported in [1].
-> >
-> > [1] https://lore.kernel.org/bpf/4ef240a5bea36ff84df9589671367832860795159386a4c8fba546a0fa8b786f@mail.kernel.org/
-> 
-> Probably better to drop this big and make this a Link: tag.
+> +        mdio_parent: mdio@204 {
+> +            compatible = "soce,swip-mdio-23-02";
+> +            reg = <0x204 0xc>, <0x200 0x4>;
+> +            reg-names = "data", "control";
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +        };
+> +
+> +        mdio-mux@202 {
+> +            compatible = "mdio-mux-mmioreg", "mdio-mux";
+> +            reg = <0x202 0x2>;
 
-My scripts (after much recent LLM-driven fancification) made this
-change automatically!  It became
+So these two overlap? That is pretty unusual, so might be worth a comment somewhere.
 
-Closes: https://lore.kernel.org/bpf/4ef240a5bea36ff84df9589671367832860795159386a4c8fba546a0fa8b786f@mail.kernel.org/ [1]
-
-But scripts didn't figure out how to add a Reported-by: as well.
-
-> >
-> > Fixes: f55f199b7d76 ("NOMMU: implement access_remote_vm")
-> 
-> Cc: stable I think?
-
-Well why.
-
-I see in [1] "causing memory disclosure or a bus fault".  OK, we care
-about that.  So the changelog should tell people this very important
-info and should explain the circumstances which can lead to the failure.
-
-> > Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-> 
-> Seems reasonable to me! So:
-> 
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-Cool.
-
-
+	Andrew
