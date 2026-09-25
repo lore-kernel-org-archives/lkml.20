@@ -1,91 +1,70 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FAE4562BA
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBC446D0B4;
+	Fri, 25 Sep 2026 07:46:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322307; cv=none; b=YGiJJVKNmgWRivvJWsaNx8ZcH7tzGPYpvEKzI9ornvGwsjwImTgIZy+OUaaada7nnJrAvVzEQRT8BeMtTKUwlV536GqCRd+vRyM6kTmo9yf79t6rY66IuamUTzRxw1yQRw98cp2ShZ0CNyTbQNqoRN/O+t2Ejufg84evVbPMNV8=
+	t=1790322364; cv=none; b=ngQfWsSe7RTmnPrf44asFd45ymPWVVGyg3EbIKutovIqpSOcydFb2egL33QQvfeu0WZMYA740QO0u/8wUTqXBUvm4EEnZO8IQqINMTofv2m6cHy4qH5iRXlL+Pd8Ay/NmPxakrR+WgUeTtQbKihADoMtg6sKGf39q+saF77tX44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322307; c=relaxed/simple;
-	bh=heFdcvQGNWUArbNYmzRquOJetzpYllqWGrWAVYi8W20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dMU2B15mSUkimxXs0S29aVZENNYF6QeD4Gpp/tT6GgBp/ddfyPyCfMlCmYR8TJm3VuZtm+5GTsP1FLjC5Vd/UXqQPqz4uHmLnZW6qPkvzWsUbRLOeyDD+6gGPeBqCXXJoo6Po2KjyAAdUqCAI/hHkcUAuzryouM0iL8fpM/dODE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VAeTOBMJ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=lWUk7fOj; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790322364; c=relaxed/simple;
+	bh=riYq6OKMYegM1B0GVCH0DJyK2fe3mY/rTPYTYYmVUro=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ZSXK+un9cO/wvsb5wf4TZbCobF6Oht2NkjcMU+9kknvVhXPiieale6sM2KUU57kWsXRYVYzgLuCpCs47pMz8qrVwFYC6Lt1m9QkU2EbhDOGBrpL03Sxubh2R+ksvZYSWQaduEUHrlVb7pD/DO3Y+YBdsDZHROCQSPAXDCSmtTFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LxCIJSeM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VAeTOBMJ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="lWUk7fOj"
-Date: Fri, 25 Sep 2026 09:44:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790322299;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dtWmTU06YdsuZE+fXiVc9MxOHsMRsrZATbjWp381J7E=;
-	b=VAeTOBMJi5I5cGBngoZWkaDq2W7UDhQCJYG9aqiLNCoUDJu3wMD0aYK3YqIoQqwRkrCsX2
-	03A9nVglUa7bXADcxHi+wsIOGeBoLDAJaABc3a8uwRz6FglpIToL13nt6yzESy/ATv7Krq
-	uUoiXQkw7y55bupw9QtnnHLZqQjLIrTmiQkDyigASMmkjv6pKSXUlHaKr2TJAc3gkVep04
-	eGbnUOdaXLsVafICpPyYuvl01K7Hy5xHVR+t3eREW10iTHWiA5F9m8uN8SN0Npubpzw9C5
-	f0rtsyppMrFvstbXdwpJ3oq2pHWymTH+jm+ZJDiRCDQQE0OSaoaOu4okylJ1Pg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790322299;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dtWmTU06YdsuZE+fXiVc9MxOHsMRsrZATbjWp381J7E=;
-	b=lWUk7fOjlspfsRCzYOfKGiyXWPo0E2+PTx0bmMIFNI3jT+Kkv9m+KqctMbU0IcUc8OouwS
-	kRfl1/pYEvEGEWBw==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: tglx@kernel.org, luto@kernel.org, vincenzo.frascino@arm.com, 
-	david.laight.linux@gmail.com, linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-Subject: Re: [PATCH v5 1/4] vdso/math64: Use OPTIMIZER_HIDE_VAR() in
- __iter_div_u64_rem()
-Message-ID: <20260925094434-d13d4b84-b552-4a34-87ff-033330213268@linutronix.de>
-References: <20260916023252.418473-1-zhanxusheng@xiaomi.com>
- <20260916023252.418473-2-zhanxusheng@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LxCIJSeM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27451F000FF;
+	Fri, 25 Sep 2026 07:46:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790322362;
+	bh=fgp57Y0foq2G1j/7LLzFZqIU8Hc1ayNJsYPGWIzRsfU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=LxCIJSeMqhoPioUankmKaNl2HWqPiEw9oHZCqMKvK0/LShJicYI6q9WFH/rDMz8QW
+	 AaMeJPrRxZDdYkpH7ZUaxQuAcNJ8LaN1VibtFu6BpW7KdR0uohl0O+nMI3OS/QsSGB
+	 rPCK7mFl9lYZoW92EkV+LMmU4hYbHhbiiBj1eFtpGG1CmkKJ5NJKOuR0X9jhVdKnb8
+	 cPfEnwLSR95Grj1DzM4P7q/Oj/53gJhih7Jh4MTlZrV7O6U08Gp3djcMWfdVqIZ/a0
+	 ERRfZ+HMRQKNrM4ac23/Q8V2m1SVFwfQeEWlwkKdclvZKjseHl7dOuqdTtDWS+jQTo
+	 d6FYaPMLURbDA==
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Jiri Kosina <jikos@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260915-wip-bpf-signed_size-v1-0-6bc8f3d09f5b@kernel.org>
+References: <20260915-wip-bpf-signed_size-v1-0-6bc8f3d09f5b@kernel.org>
+Subject: Re: [PATCH 0/2] HID: bpf: add one ssize_t check detected by
+ Sashiko
+Message-Id: <179032236044.351067.2844140440422327024.b4-ty@b4>
+Date: Fri, 25 Sep 2026 09:46:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260916023252.418473-2-zhanxusheng@xiaomi.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Wed, Sep 16, 2026 at 10:32:49AM +0800, Zhan Xusheng wrote:
-> __iter_div_u64_rem() divides by repeated subtraction, because its callers
-> only ever produce a small quotient.  A barrier inside the subtraction loop
-> keeps the compiler from replacing the loop with a division:
+On Tue, 15 Sep 2026 17:46:56 +0200, Benjamin Tissoires wrote:
+> Sashiko detected an existing issue in hid_bpf_hw_request:
+> if the transport layer returns an error code, hid_bpf_hw_request
+> returns success, which can confuse the caller.
 > 
-> 	asm("" : "+rm"(dividend));
+> Add the actual fix and a selftest to ensure this gets properly passed
+> around.
 > 
-> The "rm" constraint permits a memory operand.  clang picks it and spills
-> the dividend inside the loop, at 32-bit and 64-bit alike.  The helper sits
-> on the clock_gettime() fast path through vdso_set_timespec(), so the spill
-> is not free: with clang 18 the x86 vDSO is 64 bytes larger in vdso64 text
-> and 112 bytes larger in vdso32 text than with a register-only barrier.
-> 
-> Use OPTIMIZER_HIDE_VAR(), which is the register-only form of the same
-> barrier and the form the rest of the kernel uses.  gcc 13 generates
-> identical code either way, and neither compiler turns the loop into a
-> division at either width.
-> 
-> Put the function signature on one line while touching it, and reformat the
-> comment, which described the asm() that is now gone.
-> 
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> [...]
 
-Reviewed-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
+Applied to https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git (for-7.3/upstream-fixes), thanks!
 
-> ---
->  include/vdso/math64.h | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
+[1/2] HID: bpf: cast size to ssize_t when checking hid_bpf_hw_request
+      https://git.kernel.org/hid/hid/c/3afefbfe55c2
+[2/2] selftest/hid: add test for negative return codes for hid_bpf_hw_request
+      https://git.kernel.org/hid/hid/c/3f35b678a1d6
 
-(...)
+Cheers,
+-- 
+Benjamin Tissoires <bentiss@kernel.org>
+
