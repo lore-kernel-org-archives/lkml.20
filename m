@@ -1,109 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7451E352001
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AC2472076
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790325407; cv=none; b=U1KBdbmhvT+w4fSz50oGXmfCycPP8rLxD+wKcP56QYZPnv9EmtHVtr4Ezzwv16oFqj0rgkaLrfgB0gi60eF0lDwo+x+2M1C/skWOxf16dqObR+3l6IeJSCQgeS4zDtMlNOx1Jr0moMMfAQeIgis04VS/KHxV+OUbw1uGwuCOKlc=
+	t=1790325426; cv=none; b=pfq932tXBj8h0NTT0SyoJqxoi9/tY8Ndw0k3MMF3jwsIEYKBQYBou2lZGQdwQzaV5gvBXLatmPkeXQK7Vcq99lq87fH/v9aG9nxTTR7jPtoClsO2imh+/0NQNa5wH8JFkyejroLD7iqDXCaGvX9l0AHMv5MGggTj7cAFjwc5DT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790325407; c=relaxed/simple;
-	bh=GCuHOtJxm2b81KOhBCW3cvDuSryx1XyY6JNkak6BgMU=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=AlnNuHB61wwSr9pSwotleCNzCh3hanCVWX1dQcPd5bKyC1dWkyjCyGZVj6UZ8CWNnn3MZ+PtarE2dqZlERla8zVR3g9yVBIJh5p/wkDtqwdPKUJh69FweaNt/hv3ZvZEVvCc5UVSDj15PQRYrA6P7TkisIJ8r5H/X9877vA/m8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GT++3n+m; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GT++3n+m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB731F00898;
-	Fri, 25 Sep 2026 08:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790325398;
-	bh=114QUcBjjdn/IrfmK2pagwdgwGYp8phHItNsHUG/lW0=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=GT++3n+mowteJa7krPBjbDK0jxXHVqMBd8SO4Guelgt6HTK/pety6CYEhb9xs57KJ
-	 5JOfymKiJQoldqc1xKYubaeI7dktqIpw2MNDuapU5zKX5mZtfIxhoanAhSqaVCRUsu
-	 IQW87I56vBp15J++VoCrRvgU/GTa69bpOyc1ZryKQvsqb5GfMG8eewQoZhDITwFPcx
-	 DF9RPjvPblhcE2ZwOZ5aAnm3yluyuKwSnMz06osYQkTIIdxKrCRiXpgsbCDD/xRJeV
-	 O6G9PykyAgOrJ0PHiwxwvHprjWvsW9paT84ILI9LDgnBGjbMd9HePKjT88PtAaShWV
-	 DCJMbVmf++g6Q==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 5D5841980058;
-	Fri, 25 Sep 2026 04:36:36 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 25 Sep 2026 04:36:36 -0400
-X-ME-Sender: <xms:kjK2alLn0W67eVNMXqVzfC49pNkreK-6drIThm-wQ5pgtxGNNHaHUw>
-    <xme:kjK2ar_9WfxoRsTpdjKtODuzf0PhdTCsWpbUTyoQzUQlVftKXFgSGa8RihuFHGeKo
-    BnqX4t-_J4Mgd7eAqAAgZQ8YVIFTpMcWjKoOhz-gmBDIBXrVZApFmXu>
-X-ME-Proxy-Cause: dmFkZTE19TdlFNXcVstMCPHlxqFbrrYCTMKU7W9t/zo/ImM33i9J0Nu1hqKT8WARXS4ZiL
-    T1WF8VvaawVP116ZV0OM0JjvMVs4WIhHQEwqPmXFksN3sPauN3UbP+7W7zbbv8h4sn/67y
-    6/mUe1oNDXe5RntjArkae2Ydpo7U57hgWFZ9zHfyCAGcVbJjNE5ukrpGQSZ2D078BdPeZv
-    ispqGkfwPLnGcxOhXiQS8wOdCMjYLUnW8qVrUuCg0LEjc2E51FPdmikrPhs6waLXN8pyz+
-    W6rIgau98G2q4fQOQ9UpY7ZkopTiDEmq6FC8HpR2hnPo1eFMwXlflvORftU69caH9og/Pb
-    /6yTp9mRIK92E2eMRH8X3EdLJ2iK75UgXQNArOWonlE1DUbCTjiiR/dusDbB+AtN/y7ycs
-    +Fexm/ThmaK8f5Qqnowha8KDXlsLQ6VU09HY/Nkk2aJ6xhwvQp5uoLr6g9k/aT2s+txD71
-    Ea606KX3Cl68DaBOEq+pzq9Yq2Nziz/hprckeFCNCS8fD9DRlJ+8tWm4oZBMsQlrrMd++u
-    HXflPGnGcsmKMDsb6tD0MO0DexNP0VLw5I+w5onRTzZFlbD0m9fJ5tv1x0qr3IZ7tMuzQH
-    H7F9ZWkZZFMa3qRxvyUxcgU9VQ8baNndx0yVXOtdPiHzGEpVYuJ9F9gcKvhg
-X-ME-Proxy: <xmx:lDK2aixz3L-G3mwnLj-VmkDmwt3LDanpo_ekNuEVPOxAy8kwoBw5cA>
-    <xmx:lDK2aoXxM2c8uIDxm1ihsyVyHXUt7PX-QUHXt3ipGHxdWuNxM4MA6w>
-    <xmx:lDK2akOvkQyupuptjP4sCsBFQaG5hD1LBhqiP2U1Z25veDLwq8DT1g>
-    <xmx:lDK2aqDMqnfDd4dylSgCur0CcDH4RUzaJqObfOwfJSdCza9vgtSBZA>
-    <xmx:lDK2aheenV4_rz8Db9L7nGDGOEAv79_5ckYOOz2sJmGB1HWeFHq-uSvf>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 814B3F80080; Fri, 25 Sep 2026 04:36:34 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1790325426; c=relaxed/simple;
+	bh=ynpwjG+I+W6n5EtE22Z7G3rUSMwbcRn+9MipAwmrRDc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=htJGz8xCenIZoVImKoXprhqQcQCzDOlE0gmIp1yqh/h+35TuBLaQs/QfxctmuNhrs7yWtGzcGAM7XUkzZPREgeSDufitghzefZEX5NFZrjuz8WlDxE50Y9gaFbjhLO+Ih8+rdrjxcPYh+9wk5ID/9ND50EGD+aTFoVklZ1fdlX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f40.google.com with SMTP id ada2fe7eead31-7a03fe69236so196730137.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:37:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790325420; x=1790930220;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qCNI8jGo1Ov8X30u+i1BBvFQUriwSK3GJhOUtQAjv2Q=;
+        b=TfcKEac0+rleiOKy4JSqojdE2hXoksTvMUWT413UVISsaX2la/MsXHZKFcFcNxubcQ
+         EChcuAgYvZnlNGanoO4ANtf6Mk4sIQcsXp7/N6+BVmL6izeKXgL+JR5xHifXQCiIwx8R
+         0tRD12+2QcfhXSXGYSvvAj7ju+jxgI4U+RYSkkx7Tg95YgHdinEvEj/6YQH9dHKUNH8L
+         d5YsPOb53eSfDsMszhDLcZxbNa6XM3oiQFmUTE5apz/SegFALBO0UlqoEwII5/p2LkC5
+         DpHadMmD5KD7zByt96HGGFuESx5+cpZ/SK7i5OH/HV7i22nOBJNmIBRH53CsFN9sXHaT
+         Zoaw==
+X-Forwarded-Encrypted: i=1; AKwUvBwwoIlRMw+TkzPsJ4HgLWK1f71WE4mTYOBtGl9d9cB8C1JLLQLRDG5caGzweS35AYPUHIRRfHZ0BcYpk30=@vger.kernel.org
+X-Gm-Message-State: AFuF++lc0yFoTQ0xP3nVG5M8BLGVFzjxFkwBTmurjlKqTT6039wWfz+z
+	Ej30OrS4TYowVMA0iuL4m7JeoznOXSLgT1Pp2+BoW4allwxX9KngGzB2BcmeT1io
+X-Gm-Gg: AYBFou0V9wd66sAKSzCJm+w6hdbIzLrMvwJ0ZOjwUqErLmcWHW7aE10x9ZQc294KH4x
+	lEIcQFPOV7iGH706lC4xbaTq+SMIZhlFSjhVz/xY4oYiAldkjNxlrvNT7C+cVGvOetblFEUZLGk
+	wmRLi3QfHei3jGVSXZmG+IZZl31/uARUhv96bVvLNOi/hYiOcBwqO4rJHWfM4WHtfZ3Gt9+FCzJ
+	Wz2L/LfJWXgpO2uiqe7lxsL94e2PwhHbaW5tGYntTA09dwPCBjY52JZDUkbl7lcV6VX57NuSggG
+	RCO4xsoEfd+R1tP4jScjCP81L/2l3sq/Qq1xmyWr9S2yoMraZDrxTCC7dFQq6Ea6Rx6hxLnoJL7
+	46jHqVcWLNvA6lxZ4Fj3AyAqDv3XsjCjTbqrqeAGEeD0DyFntqklTwUYfFJ8I8vzkHdcICWfes4
+	QB1xl9x4r8WqDZZ9+LZQOgl9RLXO/cora0lpqGXGebZ0u929+k09lmbT9ltTdZjYF/r7/4yDO4R
+	Qnsj+fRtXdxEx4ivPCZI5RZB0bkrLnmvYyAnoz94y5WNa0L
+X-Received: by 2002:a05:6102:162a:b0:7a5:1d50:ac35 with SMTP id ada2fe7eead31-7b1c76179a1mr475283137.21.1790325419692;
+        Fri, 25 Sep 2026 01:36:59 -0700 (PDT)
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9861afee4c1sm1772160241.7.2026.09.25.01.36.58
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 01:36:58 -0700 (PDT)
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-982db8d3b1eso194450241.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:36:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByZCqgpYZ+OEaGPnCmUcpGnE3J5jX75GLso64pJbhD8S6YAXNhW3L7S0NEfrI4Zv5osRjBeOmH4iUxhAEM=@vger.kernel.org
+X-Received: by 2002:a05:6102:3f4e:b0:779:5049:87b2 with SMTP id
+ ada2fe7eead31-7b1b34d3523mr571652137.0.1790325418233; Fri, 25 Sep 2026
+ 01:36:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 25 Sep 2026 10:36:14 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Eric Biggers" <ebiggers@kernel.org>, linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, "Jason A . Donenfeld" <Jason@zx2c4.com>,
- "Herbert Xu" <herbert@gondor.apana.org.au>, linux-doc@vger.kernel.org
-Message-Id: <53592751-bcde-4dc0-9ea1-89d6ad39126e@app.fastmail.com>
-In-Reply-To: <20260925053240.189395-1-ebiggers@kernel.org>
-References: <20260925053240.189395-1-ebiggers@kernel.org>
-Subject: Re: [PATCH] MAINTAINERS: Place libcrypto docs under CRYPTO LIBRARY
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com>
+ <20260904-rzg2-sr-boards-v8-1-94c4674927e8@solid-run.com> <CAMuHMdXtcxyD4Zh+HyM1D43zu8KND-18FiLhi9OXTHZPojRH=A@mail.gmail.com>
+ <29a64d27-b19e-41e3-8d2f-768cfa8de2e6@solid-run.com>
+In-Reply-To: <29a64d27-b19e-41e3-8d2f-768cfa8de2e6@solid-run.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 25 Sep 2026 10:36:46 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVHSdXX_xaNAGGtwpUHH2K4NUaDZVsLPjC+aqL6stKxag@mail.gmail.com>
+X-Gm-Features: AclHuK8NKCeC4Y5XQE8QASTp0kSvhUAEgHHcCqI-Lvtiu6JPf2U_mHtpxgJb_YI
+Message-ID: <CAMuHMdVHSdXX_xaNAGGtwpUHH2K4NUaDZVsLPjC+aqL6stKxag@mail.gmail.com>
+Subject: Re: [PATCH v8 01/11] dt-bindings: soc: renesas: Add various SolidRun
+ RZ/G2 based boards
+To: Josua Mayer <josua@solid-run.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
+	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+	Yazan Shhady <yazan.shhady@solid-run.com>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Josua,
 
-On Fri, 25 Sep 2026, at 07:32, Eric Biggers wrote:
-> Place Documentation/crypto/libcrypto* under the appropriate entry in
-> MAINTAINERS.
->
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
->
-> This patch is intended to be taken through libcrypto-next
->
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
->
+On Fri, 25 Sept 2026 at 10:29, Josua Mayer <josua@solid-run.com> wrote:
+> On 9/23/2026 3:42 PM, Geert Uytterhoeven wrote:
+> > On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
+> >> Add bindings for various SolidRun boards and System on Module built
+> >> around Renesas RZ/G2 family of SoCs:
+> >>
+> >> - RZ/G2L SoM [1]
+> >> - RZ/V2L SoM [2]
+> >>    (shares PCB with G2L and has very similar programming model)
+> >> - RZ/G2LC SoM [3]
+> >> - RZ/G2UL SoM [4]
+> >>    (shares PCB with G2LC but programming model differs largely)
+> >> - HummingBoard IIoT [5] (RZ/G2L, RZ/V2L, RZ/G2LC)
+> >> - HummingBoard Pro [6] (RZ/G2L, RZ/V2L)
+> >> - HummingBoard Base (Ripple) [7] (RZ/G2L, RZ/V2L, RZ/G2LC, RZ/G2UL)
+> >>
+> >> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2l-som/
+> >> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/
+> >> [3] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2lc-som/
+> >> [4] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2ul-som/
+> >> [5] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+> >> [6] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-sbc/
+> >> [7] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2lc-base/
+> >>
+> >> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> >> Signed-off-by: Josua Mayer <josua@solid-run.com>
+> > Thanks for your patch!
+> >
+> >> --- a/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
+> >> +++ b/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
+> >> @@ -508,6 +508,14 @@ properties:
+> >>                 - renesas,r9a07g043u12 # RZ/G2UL Type-2
+> >>             - const: renesas,r9a07g043
+> >>
+> >> +      - description: SolidRun RZ/G2UL based boards
+> >> +        items:
+> >> +          - enum:
+> >> +              - solidrun,rzg2ul-hummingboard-ripple # SolidRun RZ/G2UL HummingBoard Ripple
+> > As RZ/G2UL is pin-compatible with RZ/G2LC,
+> The SoM is, the SoC is more complex.
+> SolidRun uses the G2L/G2LC package 15x15mm while G2UL is 13x13.
 
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
+IC.
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c52ec2d7d3c1..12647d3b367a 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -6980,6 +6980,7 @@ L:	linux-crypto@vger.kernel.org
->  S:	Maintained
->  T:	git 
-> https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git 
-> libcrypto-next
->  T:	git 
-> https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git 
-> libcrypto-fixes
-> +F:	Documentation/crypto/libcrypto*
->  F:	lib/crypto/
->  F:	scripts/crypto/
-> 
+> You are correct to expect HB-IIoT, however due to the reduced pin count
+> and feature set it is not useful and will likely never get supported by SR.
+
+OK (same for RZ/Five ;-)
+
+> > I guess you could have an
+> > RZ/G2UL-based HummingBoard IIoT, too?
+> >
+> >> +          - const: solidrun,rzg2ul-sr-som
+> > Is there any special meaning of the "sr" in the middle of this and all
+> > other SoM compatible values?
+> > If it just means "SolidRun",
 >
-> base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
-> -- 
-> 2.55.0
+> It does.
+>
+> > I think it can be dropped.
+>
+> The "sr" is merely to avoid name collision with other SoM vendors.
+
+OK, for non-DT situations where there is no vendor-prefix.
+
+> > However,
+> > you already have that for various SoMs with non-Renesas SoCs.
+>
+> Correct.
+
+OK, so keep it for consistency.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
