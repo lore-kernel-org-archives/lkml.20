@@ -1,111 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEC849B209;
-	Fri, 25 Sep 2026 13:20:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8DF48B397
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342441; cv=none; b=drUD+cdOzc7BXE72tY9LZU5/+JK9XWoh4ux5Q5iOrBwmz6+U1/uGkalUU0Cq36k8TdRnNkhjhTvfiEFoXU+DNStSruAzFaWELbL7V2TaRFXF89Iz7acBnzxxXX8G2myQRJcUmaOCufCol1X9jQrDIB77FmdlqHU4TjagU2UlK6g=
+	t=1790342535; cv=none; b=bZl0NboSpY0+KbFl8GUufMoJKjZCHAxRMq1vpYmMa11ch0SNI7EU2ZknL3E4ukVKhsDSkKQIsdCbaiadMBdCbKPTp+0E1AnDIVXn9UhO4hNfkMhoJywO55LPz3n+MMeCP5TKYtVoPGeCu9i3318RU1k4aeLP9aVI0zZBb3FRvxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342441; c=relaxed/simple;
-	bh=F/OhDoVZ2kxMDJVc7u5XfigG07bMhBj9po7CRptv/S4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VuCHc5Mlh7j6ovMsIT7nGAeiIkp+jaezwaQZleQkYB2elrjk69ygK9CTMBueZ5ci088rKim5PebsU3D3dZ/1zj+vnMwB5gsdLjk+tRuhG+YpARIMpc6SNJbWjwjnpGEzzO/uLylfGv/2KqrYKfaPXy5r9l9rsxE8cV7LQckiZWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a/uR9vXh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790342535; c=relaxed/simple;
+	bh=n/TKYly8xl3MXPb0OF34EJV7CyyTKW7ZFMwMfJtV9qE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mgWFfC/fNYkCgMf4vVnVO4wB2ftmjkK8QYAX066+DZIvDvwJLnie5yrVhGLWElMigiwlwe0J8Gq2/P0Cm7E6lYhNK1DC0v1DjPerJafbF+EsOyw/WOpQj/15y2uiyBmlhKdqeNMoggzZsQrcb+gZN+t1gpPTOagZz5N2zeh0ia0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cYdjzrjj; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a/uR9vXh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1A261F000FF;
-	Fri, 25 Sep 2026 13:20:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790342437;
-	bh=NR172yVIih/zfu1yzA8kSDN8MpChBZ8zgP9NIckvtHU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a/uR9vXhx9AxJeRoIXw2P+Xo6eJbkLGU0etqDWBpGV6MBGmZwlfcngoU3R65Wk3WS
-	 bd8L7pSd2vcI1dis8rUXnt4RbrloYsbagJ+yfzBE7KCHCp3er4QWjxUiX6Hn3pwmEW
-	 UqN4/BCOWololLqxWTfKi5vfkHJjQJ4h4N6A2mArBTp4v8vQlwCyCfl7KPFLOD95IA
-	 fOE5cVENbX9+0ZBd8PGw6PXoFkC3errgcJRbeWIAdb5wEk8hWH+D3ikmwjuHONzroA
-	 9X6snFPs4dIFUezVArlndAMhAtJRvm3s0VkU6oNc+KQmmxw5Y+Bv3mp2Tw4IhBy+Rd
-	 g44fFDKG+cCEA==
-Date: Fri, 25 Sep 2026 14:20:33 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-Cc: linux-mm@kvack.org, akpm@linux-foundation.org, liam@infradead.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/nommu: Reject wrapping ranges in access_remote_vm()
-Message-ID: <arZzn0bwWqp7xTE5@gremlin>
-References: <20260909064231.18693-1-tasos.papagiannnis@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cYdjzrjj"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6E5581A1021;
+	Fri, 25 Sep 2026 13:22:09 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3A4B46073B;
+	Fri, 25 Sep 2026 13:22:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8D617103282AC;
+	Fri, 25 Sep 2026 15:21:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790342523; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=JUDK+4onXhp2iRvPxU/uQSUAagGAh7xN++WKnr01BRU=;
+	b=cYdjzrjjcvK5XlIByhhfwC1MpMqbU6K2XJ6C/V+eO6NRXuPMvJA7dEwdnG7y7Psf+mGYQQ
+	TdQmayFJMI1iNlDMvYjGpLbSShTtFUmOP0FhEBRkP4U8cX2oSb2UsurkpgKjG0oMlrPqn3
+	pYYSWMtmKK9OlA4cFasX6j1UwsayV1NeWuu1s4a8FLzlKVqUwDM86Iqu0qGGmBe6F9q3Ns
+	YmRQWUREWaUwfTQqe//iewa5cnyfLvLPw1hR/t6UTrHxjFFJtSguGpAHPC4T+O/LCkshvi
+	vytFOVwtP2wdZqUXwHtgzLKf2oR8xyy3ROg6t9Gjr0Mb9fLnyp2croS76UXyaQ==
+Date: Fri, 25 Sep 2026 15:21:57 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <20260925152157.511dc65c@bootlin.com>
+In-Reply-To: <arDMhoNNXcPi81sR@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-16-herve.codina@bootlin.com>
+	<arDMhoNNXcPi81sR@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909064231.18693-1-tasos.papagiannnis@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-BTW always feel free to nag if you're not getting review! Something things
-get missed. (Though I'd say wait at least a couple weeks before doing
-that!)
+Hi David,
 
-On Wed, Sep 09, 2026 at 09:42:31AM +0300, Anastasios Papagiannis wrote:
-> The NOMMU implementation of access_process_vm() rejects address ranges
-> whose end wraps around, but access_remote_vm() bypasses this check even
-> though both functions delegate to __access_remote_vm().
->
-> Move the wraparound check into __access_remote_vm() so it applies to
-> both entry points.
->
-> This is originally reported in [1].
->
-> [1] https://lore.kernel.org/bpf/4ef240a5bea36ff84df9589671367832860795159386a4c8fba546a0fa8b786f@mail.kernel.org/
+On Mon, 21 Sep 2026 16:20:02 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-Probably better to drop this big and make this a Link: tag.
+> On Wed, Aug 26, 2026 at 10:31:46AM +0200, Herve Codina wrote:
+> > This v18 version will add support for
+> >   - Structured tags.
+> >     Those tags value definition will allow "old" libfdt, dtc and other
+> >     tools to skip unknown tags if encountered in future dtb version.
+> > 
+> >     libfdt, dtc and other tools implementing version v18 will be able to
+> >     skip unknown tags available in dtbd generated with later version of
+> >     dtc.
+> > 
+> >   - dt_flags header field.
+> >     For now this flag field is set to 0. It is a placeholder for future
+> >     dtb version and could be used to store some dtb related information
+> >     such as the kind of dtb. For instance, the future addons format will
+> >     use this field to clearly identify that the dtb is an addon dtb.
+> > 
+> >   - last_comp_version_w header field.
+> >     This field is similar to last_comp_version but for writing.
+> >     It contains the lowest version of the devicetree data structure with
+> >     which the version used can safely perform modifications (taking into
+> >     account following rules related to unknown tags).
+> >     If this lowest version is greater than the last known supported
+> >     version, modification are simply forbidden and lead to a
+> >     FDT_ERR_BADVERSION error.
+> > 
+> > For modification, when an unknown tag that can be skipped is involved
+> > and last_comp_version_w allows modifications, the following rules
+> > apply:  
+> 
+> "last_comp_version_w allows modifications" is a bit hard to
+> understand.  What exactly is the version number against which we're
+> comparing that value?
 
->
-> Fixes: f55f199b7d76 ("NOMMU: implement access_remote_vm")
+We had one last_comp_version.
 
-Cc: stable I think?
+Now we have two last_comp_version, one for reading and one for writing.
+We compare again the dtb version supported by our libfdt version.
 
-> Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+This comes from the discussion [1]
 
-Seems reasonable to me! So:
+[1] https://lore.kernel.org/all/CAL_JsqLRrbZje_gGZPBDni6StFa+6rdiECtk49on8VfkP7CDvw@mail.gmail.com/
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
+> >   - When a property is modified, tags related to this property are
+> >     removed and the dtb version is downgraded.  
+> 
+> We need a definition of what "related to" means somewhere.
 
-> ---
->  mm/nommu.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/mm/nommu.c b/mm/nommu.c
-> index 498e01ee40b0..ed44510e3770 100644
-> --- a/mm/nommu.c
-> +++ b/mm/nommu.c
-> @@ -1674,6 +1674,9 @@ static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  	struct vm_area_struct *vma;
->  	int write = gup_flags & FOLL_WRITE;
->
-> +	if (addr + len < addr)
-> +		return 0;
-> +
->  	if (mmap_read_lock_killable(mm))
->  		return 0;
->
-> @@ -1727,9 +1730,6 @@ int access_process_vm(struct task_struct *tsk, unsigned long addr, void *buf, in
->  {
->  	struct mm_struct *mm;
->
-> -	if (addr + len < addr)
-> -		return 0;
-> -
->  	mm = get_task_mm(tsk);
->  	if (!mm)
->  		return 0;
->
-> base-commit: 0d9ff90a5422cc7509258aaaba1e7481df4d332a
-> --
-> 2.55.0
->
+Yes a tag is said related to a property if it is available after its FDT_PROP and
+before the next FDT_PROP (other proterty) of FDT_BEGIN_NODE (subnode) for FDT_NODE_END
+(end of node).
 
---
-Cheers, Lorenzo
+This is defined by "structured tag"
+
+Devicetree Specification will be updated to have all of this documentation
+available.
+
+> 
+> >   - When a property is removed, tags related to this property are
+> >     obviously removed. The dtb version is kept unchanged.
+> > 
+> >   - When a property or a node is added, obviously no unknown tags are
+> >     added and the dtb version is kept unchanged.  
+> 
+> Again, this rule doesn't make sense to me at the same time as the
+> property modification rule.
+
+A current libfdt/dtc version cannot add tags which will be defined in the
+future.
+
+> 
+> >   - When a node is removed, tags related to this node are obviously
+> >     removed. The dtb version is kept unchanged.
+> > 
+> >   - Adding, removing or modifying a property is not considered as a node
+> >     modification and so, those operations have no impacts on unknown
+> >     tags related to the node. Those node related tags are kept
+> >     unchanged.
+> > 
+> >   - The only modification considered as a node modification is setting
+> >     its name. We consider that this operation has no impact on tags
+> >     related to the node. Here also, those node related tags and the dtb
+> >     version are kept unchanged.
+> > 
+> >   - Global (dtb related) unknown tags are kept unchanged regardless the
+> >     modification done.
+> > 
+> > In all cases, if unknown tags are not involved in a modification, the
+> > dtb version is not downgraded when the modification is made.
+> > 
+> > It is worth noting that with this v18 version, the dtb version is not
+> > downgraded for any modification but only when unknown tags are removed
+> > due to a property modification. In v17 or older version any modification
+> > led to a dtb version downgrade.  
+> 
+> I don't think removing that behaviour is safe.  Even if the rules
+> above make sense specifically for the metadata tags (which I'm not yet
+> convinced of), that's not sufficient.  If nothing else, future
+> versions could add extra header fields.  If we modify the tree, those
+> header fields could be stale, or even removed.
+
+last_comp_version_w will be used by the future version to prevent this
+kind of issue with old version.
+
+Best regards,
+Hervé
+
