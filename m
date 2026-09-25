@@ -1,65 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-191.mta1.migadu.com [95.215.58.191])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F6D48C41F;
-	Fri, 25 Sep 2026 10:02:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8BB2E5429
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.191
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790330531; cv=none; b=Lc01N+ISHkSj7NO/6DJyvWHBP3SW7I/xdAoqygtqO1vWp8R+rlJKH+X5dof4aZUuQFSOLdRlcjCUIapc8RRuxRZlYJiblBWfYDRKybWgpfi3Ke1K5E6ts2cBBZFAGhSOyWXEnjWEwr5pWibLNg7G3j8HgPdzRPZQ67qp36A2eeM=
+	t=1790330636; cv=none; b=hu4J9hd2rX8Fcj+r05C7FhNyPMP23YcyNS2hq0T2YXVjAhS8dEuweOYN5NqbA93ANCatWIGrLhOOnidzI9+IYbHGkUdPvJZau+TuBtEqWtbu9T61h+6zZyT8DX4bDTV5ruEWKrt2clCc5J/zU8paMulhhJrsry1qM/Ki73dAjus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790330531; c=relaxed/simple;
-	bh=B3rdrfnv54WZ49qINmAlzSZ6jGggCXw9kLGs7XPsLPM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=swfepyecDpb8fss3I47X3Sj8M1FE/0UV5ULRzc5srqpXEu2BqsL+Bo5zN/8LJwA8EWHGiBsi6NJ8pBb10aekPgu5czQpup/FUPK9GV5rr92OgErQMf62hkTz8u7PxZ/g2cMXV9cERAlPwVKmuLEqQfxfEvbZtyAMUspNv/HyxCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DHMnEtLF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790330636; c=relaxed/simple;
+	bh=1b+JF5KLCCVK5IPqGWkBoybqB76qs/M88oEinSvldGA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jXURV+vpYsfi/NrNqvfeiGgYP+mepxwXtug34WH1oZCJnbmK/b/8989/61N93k1KSV9Ilj2S/uZQxl3Q2wuZE9miYcZhJUzVoFl12dCxf5EcVMKxQvHZVjsytMyrHd49XVQHWbWooRJ91Ilo+3Fzc5TFlbrOFdaQ/7cDOsuJV88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LWfaLtzS; arc=none smtp.client-ip=95.215.58.191
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DHMnEtLF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BB4A1F00899;
-	Fri, 25 Sep 2026 10:02:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790330522;
-	bh=B45rqpR/eaQf3u6GX+wJz8kSl41jR/ejZEj+uiBeSug=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DHMnEtLFQzuZKru9N/8ERZ5RIhoFZVWVeg2D3sq4hQ8B1krO8qDQOHQMjFGQMaFsH
-	 OZz22w3Ep9SH6pgAHwZpmGRGHCvhRCzq5lZcXxB11VXBXGNy8CjMAy1Nz2QR6rtmPL
-	 RMYMJBWkgZWOfBOqx/iakNJv7W0uBvYm5RgyJTbnAFa4glQMX+eP2/6Wwi+q+sivro
-	 Qqy/XG78sdAbsZmrhavHw/HbwRfto0E65OS1A8dtIQn1f30J/Nuvqi6P5+yog4bTgY
-	 JfXqAoOUjk8F32veWH6d0BX1M4Oo8007T83Pi6apHswft1VwthZSlrTH0lRRfNNzPc
-	 BTidVw59CtVEA==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xA2ki-00000000E7o-2DBY;
-	Fri, 25 Sep 2026 12:02:00 +0200
-Date: Fri, 25 Sep 2026 12:02:00 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH] tty: add break_wait kernel-doc
-Message-ID: <arZGmBW-hG7Vv66M@hovoldconsulting.com>
-References: <20260925094222.18303-1-johan@kernel.org>
- <2026092538-available-multiple-6b11@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LWfaLtzS"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1b+JF5KLCCVK5IPqGWkBoybqB76qs/M88oEinSvldGA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790330632; v=1; x=1790935432;
+ b=LWfaLtzSg37l6Gr/4zFYChcQfU0udKomGlYTb2i7c+iOcqE2H8+dCvR7GbzcSmeceP6skjFD
+ /2evy/+ulmHHuPZvLoJnyVJBvTroOt1xqrsldaDLEBdquKpKeFpHCk7ZBzPdv7tkZNrhyFfFWml
+ WCDmCeMpEWOFbq7X7K6lnn7Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d69167434a93a146;
+	Fri, 25 Sep 2026 10:03:51 +0000
+X-Mizu-Trace-ID: d69167434a93a146
+X-Migadu-Flow: FLOW_OUT
+From: "Florent Revest (Anthropic)" <florent.revest@linux.dev>
+To: bpf@vger.kernel.org,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>
+Cc: "Florent Revest (Anthropic)" <florent.revest@linux.dev>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	KP Singh <kpsingh@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Junseo Lim <zirajs7@gmail.com>,
+	Sechang Lim <rhkrqnwk98@gmail.com>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Naveen N Rao <naveen@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	Pu Lehui <pulehui@huawei.com>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Hengqi Chen <hengqi.chen@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf v4 0/3] bpf: Fix use-after-free of progs detached from busy trampolines
+Date: Fri, 25 Sep 2026 10:03:29 +0000
+Message-ID: <20260925100342.481242-1-florent.revest@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026092538-available-multiple-6b11@gregkh>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 11:55:48AM +0200, Greg Kroah-Hartman wrote:
-> On Fri, Sep 25, 2026 at 11:42:22AM +0200, Johan Hovold wrote:
-> > Add the missing kernel-doc description for the new break_wait field in
-> > struct tty_struct.
-> > 
-> > Fixes: c7e9bff9b4b3 ("tty: abort break signalling on hangup")
-> 
-> Don't you mean:
-> 	845a2737e0f5 ("tty: abort break signalling on hangup")
-> ?
+A task running in a trampoline image can call a prog that was detached
+and freed in the meantime, when it slept in a sleepable prog before
+reaching the detached one or was preempted right before calling it.
+Patch 1 handles the preempted case with an RCU tasks grace period,
+patch 2 handles the sleeping case by patching detached progs out of the
+images that still call them and patch 3 adds a selftest for the sleeping
+case.
 
-Yes, sorry. Can you fix it up when applying or do you want me to resend?
+v3 patched all the nops of an image when it was put. bpf-ci pointed out
+that this lets a task skip fmod_ret and LSM progs that are still
+attached, for as long as it sleeps in an earlier prog, and Alexei asked
+to go back to what v2 did: only the nop of the prog that is detached is
+patched, in every image that isn't freed yet. Patch 2 explains why that
+takes a list of images and not just the current one. ip_after_call is
+gone in both versions, and the call to the original function is never
+skipped.
 
-Johan
+sashiko noted that on riscv and loongarch a task can be preempted in
+the middle of a multi-instruction patch site. ip_after_call has this too
+and it isn't addressed here, pending input from the JIT maintainers on
+whether a single instruction site is fine for these in-image jumps.
+
+Tested on x86_64 under KVM and on arm64, s390x, powerpc64le, riscv64
+and loongarch64 under qemu TCG, all with KASAN: the new selftest crashes
+the unpatched kernel and passes with the series on every one of them,
+along with trampoline_count, fentry/fexit, fentry_fexit, modify_return
+and lsm_cgroup (and the full test_progs on x86_64). On x86_64, 18
+fsession progs with cookies on an 11 argument function still fit in the
+image. Same on bpf-next, where patch 2 has a trivial conflict in x86's
+arch_bpf_trampoline_size().
+
+Changes since v3
+(https://lore.kernel.org/bpf/20260924170543.1017048-1-florent.revest@linux.dev/):
+- Only patch the nop of the prog that is detached, in all the images
+  that aren't freed yet, like v2 did, and explain why a list of images
+  is needed (Alexei, bpf-ci)
+- Lower BPF_MAX_TRAMP_LINKS to 36 on x86, the worst case no longer fit
+  in a page with the nops (bpf-ci, Alexei)
+- selftest: wait for the detached progs to really be freed before
+  releasing the task, the grace period of patch 1 made the previous wait
+  too short (bpf-ci). Detach two progs one after the other, so that the
+  second detach has to reach an image that isn't the current one anymore
+- Keep a single comment block in bpf_tramp_image_put() (bpf-ci)
+
+Changes since v2
+(https://lore.kernel.org/bpf/20260912095924.866254-1-florent.revest@linux.dev/):
+- Patch all the nops in bpf_tramp_image_put() instead of the detached
+  prog's nop at detach time, drop the image list, the trampoline
+  backpointer and ip_after_call (Alexei)
+- Wait for an RCU tasks grace period before freeing progs that were
+  linked to a trampoline, for tasks preempted right before the enter
+  helper (Junseo, sashiko)
+- Initialize the jit ctx in loongarch's arch_bpf_trampoline_size() and
+  the dummy image in every arch_bpf_trampoline_size() (bpf-ci)
+- selftest: move the userfaultfd helper to testing_helpers.c and share
+  it with bpf_mod_race, comment fixes (bpf-ci), add a subtest where the
+  original function runs between the sleeping prog and the detached one
+
+Changes since v1
+(https://lore.kernel.org/bpf/20260819122252.1782790-1-florent.revest@linux.dev/):
+- Patch nops in front of detached progs instead of taking prog
+  references from the image (Alexei)
+- Lower BPF_MAX_TRAMP_LINKS on arm64, loongarch and powerpc so the
+  image still fits in a page
+- Explain that the sleepable case doesn't depend on CONFIG_PREEMPTION
+  (Kumar, Alexei)
+- Add a selftest (Jiri, Alexei)
+- Add Sechang's Reported-by (Junseo, Kumar)
+- Drop Leon's and Kumar's acks since the code changed entirely
+
+Florent Revest (Anthropic) (3):
+  bpf: Wait for an RCU tasks grace period before freeing trampoline
+    progs
+  bpf: Skip detached progs in trampoline images that are still in use
+  selftests/bpf: Detach a trampoline prog while a task sleeps before it
+
+ arch/arm64/net/bpf_jit_comp.c                 |  33 +--
+ arch/loongarch/net/bpf_jit.c                  |  45 +++--
+ arch/powerpc/net/bpf_jit_comp.c               |  45 +++--
+ arch/riscv/net/bpf_jit_comp64.c               |  39 ++--
+ arch/s390/net/bpf_jit_comp.c                  |  46 +++--
+ arch/x86/net/bpf_jit_comp.c                   |  26 ++-
+ include/linux/bpf.h                           |  46 ++++-
+ kernel/bpf/syscall.c                          |  19 +-
+ kernel/bpf/trampoline.c                       |  75 +++++--
+ .../selftests/bpf/prog_tests/bpf_mod_race.c   |  34 +---
+ .../bpf/prog_tests/tramp_prog_detach.c        | 188 ++++++++++++++++++
+ .../selftests/bpf/progs/tramp_prog_detach.c   |  56 ++++++
+ tools/testing/selftests/bpf/testing_helpers.c |  28 +++
+ tools/testing/selftests/bpf/testing_helpers.h |   2 +
+ 14 files changed, 526 insertions(+), 156 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c
+ create mode 100644 tools/testing/selftests/bpf/progs/tramp_prog_detach.c
+
+
+base-commit: 5fc5768c7ca92895ccd1de94dc521e5a55ae7896
+-- 
+2.55.0
+
