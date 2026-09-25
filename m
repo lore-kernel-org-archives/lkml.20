@@ -1,56 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D2B4E80BA;
-	Fri, 25 Sep 2026 16:44:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B78937F8CC;
+	Fri, 25 Sep 2026 16:44:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354657; cv=none; b=QYjbUtd5TrSntYcNADEY7m7KtuZZ+hi26ctnGQw+ClZ/cmWi8ZNh7gdDNNYpE8Ta6m0T4/04m2rkaDsTrlPFY2CRRK3ZTR76I9nO3nEixutsYqnOdx6FT3tZ2+heDmxKunhgmKdS+dLkUObw5eDdOjYO4DNnNU0mhiG6l9sx+jE=
+	t=1790354659; cv=none; b=tKm2U89l+DI6XwStYeNQKxltnf+mCwiT1NU25Xux7SEskqaP8zFqVs1w4QJ2w9weS5KPCalITmcf1Y1Zw7Kr38Cznaf3LfOaxwL5NCP9GvZ9ayO547E54aKJn5lsCur0g78m8pvmxK7z6QBso46oQTSYyH+ah3oEXidoM5ZLo+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354657; c=relaxed/simple;
-	bh=hyK5J9mPPKwiX/dFgYJEZlLRuvfhsxSqE+XH9y9EtXE=;
+	s=arc-20240116; t=1790354659; c=relaxed/simple;
+	bh=kdxK6fT62obRWCZAgifwZqHvMZ+CdQYxS9b1MVFSEDA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pWtHA1gFoHY7VGNAHioVvJ8uRG3dE0WpX34GgmysXxzEeap6jmiytSl5Cti3h/NDDiiKzGQptIlnJKkkbN75jlTJJNvMTWPDS8PUUmBOYoDDgT9XrgjESb9+KKPsrPJORARuvvtIC9dLTkIfMEXYAbCc5dIQtNI5JvjrFK5JMM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6HMgdaq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=mwGFHLeJWy5aEGlXfEs+ySC4lMlVaF/svxEmbmqVLrw+fwvJ+ZPPERfNaxtLDDgnZk/TeF5iJQ25d8QgBYBIXagn+mWPtOVaQ0Pq1kPkh99KWvOh0rvpqm5zJFYmSLRJa07MdPmPIbxd3xVAksOsqt3wdwpSUtV4FP3CJrfSyjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ErlmFel4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6HMgdaq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0436D1F0089D;
-	Fri, 25 Sep 2026 16:43:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ErlmFel4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7C711F0089B;
+	Fri, 25 Sep 2026 16:43:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790354636;
-	bh=auT01dKw9KoRKcdYjDZdalcmjamUWzwRdXmfsqdgIxI=;
+	s=k20260515; t=1790354641;
+	bh=l64qG0IpvrF8rYW57l1p+zKarbzphNIaPq9R9z/QCdI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U6HMgdaqcD+loPfu2k4ioIbTE12UhB7AWbGRyhOkKWksUe3G5a5lWUKXF/Y+GFLT4
-	 aahac2FFbXJFDeOXyPhHTUo4SxXaPtRBkpMLgfAOsAogAOCehxvsVZbxGtMqU2S6Me
-	 Ee4vcnt35/YQPZacUhcGmXaO6K1c6n8wFSWQukcBfY8YbKqWo9SCTMHPUT6YpyZJFW
-	 ZE1Nqw3fN1XypiEhUaAOz4knNGXShmz3ZEH1d6pyHiyEu9HYjHJozaDuMFgfs7a/6Y
-	 G62EiaQnB3jxmU2+yj9cI3P+fR2HiB/i7IPJFAHY9E5Kz7Cm99XXYbWZD9yBas1e0z
-	 QZiw9nigcDVFA==
+	b=ErlmFel43A5paYsdK6jHa4hXhN81J1Inry+gw/LMIPkkppIs3H44Hh8M9m2ZBbAsO
+	 dTRDeAwizo2VQJNr5qEEe6ndJbh00lIDM4GOf1Cv/HhM2wXewvyR6iPvgk6VWkQDi7
+	 aSdcrKSejKaeZ/158ExNqbxtzwBFrJiKlWwqEqw1WV6fwkgPH/eCWhjdBsxK8Avhwz
+	 dFypgdaZrwgQ2Eu7RqbRTdYkTpfWsWXj07jsk8ev/LTGbLaBrUoj+qzgm7+CI6N+hY
+	 YafKhbLmRVR38/pH5GnXcMqwCO+bvxPn79l6rWf34CFAuJHf1ZaB9UBDV2isknSpQY
+	 6F7ZeaJ3s9Xcw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Luo Jie <jie.luo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Abel Vesa <abelvesa@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	quic_kkumarcs@quicinc.com,
-	quic_linchen@quicinc.com,
-	quic_leiwei@quicinc.com,
-	quic_suruchia@quicinc.com,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v4 00/12] clk: qcom: ipq-cmn-pll: Add IPQ5210 CMN PLL support
-Date: Fri, 25 Sep 2026 11:43:27 -0500
-Message-ID: <179035461230.1296652.11291614603851605905.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH 1/4] arm64: dts: qcom: hawi: Sort IPCC client IDs
+Date: Fri, 25 Sep 2026 11:43:30 -0500
+Message-ID: <179035461218.1296652.8764249187439190973.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906-qcom_ipq5210_cmnpll-v4-0-aec5ed642f4f@oss.qualcomm.com>
-References: <20260906-qcom_ipq5210_cmnpll-v4-0-aec5ed642f4f@oss.qualcomm.com>
+In-Reply-To: <20260925101309.3826038-1-mukesh.ojha@oss.qualcomm.com>
+References: <20260925101309.3826038-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,38 +52,26 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 06 Sep 2026 07:18:06 -0700, Luo Jie wrote:
-> The CMN (Common) PLL block of IPQ5210 is almost same as that of IPQ9574
-> which is currently supported by the driver. It accepts a 48 MHz reference
-> clock from the on-board Wi-Fi block and is configured to run at 12 GHz.
-> The difference is in the output clocks.
+On Fri, 25 Sep 2026 15:43:05 +0530, Mukesh Ojha wrote:
+> The IPCC client ID macros within each group in hawi-ipcc.h are not
+> ordered by their numeric values, making it harder to cross-check
+> against hardware documentation and spot missing IDs at a glance.
 > 
-> This patch series adds support for IPQ5210 into the CMN PLL clock driver.
-> On the IPQ5210, the CMN PLL block supplies a broad set of output clocks
-> to the networking hardware and GCC:
+> Sort the defines in the IPCC_MPROC, IPCC_COMPUTE_L0, IPCC_COMPUTE_L1,
+> and IPCC_FENCE groups by ascending value.
 > 
 > [...]
 
 Applied, thanks!
 
-[01/12] clk: qcom: ipq-cmn-pll: Use devm_clk_hw_register_fixed_rate_parent_data
-        commit: 02abccc8cbd496e41197ce49606d7e62e51e74ae
-[03/12] clk: qcom: clk-regmap-divider: Support CLK_DIVIDER_* flags
-        commit: a6c7b75f0a2841e996173183f03b1f660cdfe01d
-[04/12] clk: qcom: ipq-cmn-pll: Register CMN PLL /2 clock
-        commit: 2b7bf51437b3ca029bf1ce34c8bd0f6f31364262
-[05/12] clk: qcom: ipq-cmn-pll: Add NSS clock support
-        commit: 305945963fd7c1baf913b2d9899a3bdc1cbf9d37
-[06/12] clk: qcom: ipq-cmn-pll: Add PPE clock support
-        commit: 9d9326971cfe983e29050d3f4abdd236307d93cc
-[07/12] clk: qcom: ipq-cmn-pll: Add PON reference clock support
-        commit: e30664a4cee3096aad71f63e6d5e2b2e67248277
-[08/12] clk: qcom: ipq-cmn-pll: Add EPHY-RAW clock support
-        commit: c627e9d87bfcfb277082922863d2d139667fdc53
-[09/12] clk: qcom: ipq-cmn-pll: Add clock gate support for fixed clocks
-        commit: 0de5d615f1b698affec0c6050742c72240cc7fb9
-[10/12] clk: qcom: ipq-cmn-pll: Add all output clocks for IPQ5210
-        commit: 77bc1b834c53b4209b9ba3ec313caf9796367f9b
+[1/4] arm64: dts: qcom: hawi: Sort IPCC client IDs
+      commit: e8493dd1265294c999cb5badbc26c6b42ea5c499
+[2/4] arm64: dts: qcom: hawi: Fix PCIe IOMMU maps
+      commit: 5105107939b082a98446018e5679d16724fcc75f
+[3/4] arm64: dts: qcom: hawi: Enable SoCCP by default
+      commit: 2b5d5dea36d4d45246cef89611c8e7a6002aa6a3
+[4/4] arm64: dts: qcom: hawi: Trivial fix
+      commit: 7ce6844c0d6ade683fc741c9409a406eb754ed11
 
 Best regards,
 -- 
