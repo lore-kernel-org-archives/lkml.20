@@ -1,270 +1,100 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A0348FF80
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DCC48EBE4
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331825; cv=none; b=RGRwZp8dyfrlcx1mpbe76NSr0DS/9WblC96l6gj+9saBirP9j7eDxRpAu5HcwvPaVBO1tvlvv/LhBV73pebflnpwEGumOjYHDdlbXH/6p2tDldaXOmLzlnFTXm8laZXzsGP+ZsGyFq1Ru5BH28gcK5FlBzIHPauha3fBKrWHAK8=
+	t=1790331836; cv=none; b=Vzn9uWTWYqnsW+sOIBLmzZ/Gqz5XeA/BZlCL1wo2Hcmcj+5oukGxRLto7YOPvPgKwKqsVkqKjlGNxnEg3D5siXZrhojc5J7Lm2irmM92Qi4UGygUQoV+Hhh2I491fiX6xebAB67F1dyVmmqx3qqwZZpq29N+/jid/nBc6dfJEIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331825; c=relaxed/simple;
-	bh=bJ9mjgvgy63CVURyEBxilwBv4lxmciIUAtuW7RsI48g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gybn7q+ntJay5Y84UHji89gmjfb2UzFDnrwTAyCcLqAODZfb8wQFsvvfh/vqoLV/SAUbFFGpY1tn9BryVYN/4IxiknNM7IMyhim+Z+i5Xu2Huunl2hRXMO4Jrumj893p7ZM2ItbiB+UHw1+c94+ExlmmMtu6dCA/ln/WDguK3Dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jTk41lRE; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790331836; c=relaxed/simple;
+	bh=mYL9jrgJntw1uTiYaPA8rqvX87CeWqWEkuqVf/MuJ2g=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FPm9gvozS9j5rxGPuN1SAwryFe25pfyH4ACBc/ZEC5tdIZl0i4FLXGro2ylyskTxXfT2oysy+fV6qiD+WGy/ZS17zWmzymNvsrI2ixWV6PxAh8AWwr2dIXae2uPecpAIzuDZSDDg2Pd7J8BJ3owbq9GZL6JQM+7neZbQOX2WM4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=etoZZUM/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jTk41lRE"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-340f56c44b0so291814eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:23:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790331823; x=1790936623; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AUqXXsS1oTWUMaZa0d9vSWNRltf7D2wfMl4AyP+vB8Y=;
-        b=jTk41lREEfv1McUlRb/aPTr/CxsvJPHe+wcGp3eyDch21V8XySRpoLwzU7V6z7fuKS
-         ubWuq+dO8VtX/zyfFtxH9VIkkYSr6ky8E2aNHVs2onAOPI3xsno2V7KJ15agOG94MjJk
-         zsxWPevo2ka9RbclioibFvOfXzsyeKTo1+/8UuT1R3Wf7g+L0N10oYrchzu+J+xT98MY
-         Lg7Hg2Q0DG6Ks3ys8pS5sPLHQ7viCk0FEFRO/60AoRmm9FWTl8DlhhPSzFBy7tsVf/C0
-         N9h81adcrn1Npgjydo2XwJClrAnNlhz8v4desjhZ6HtOdlC7sCTrpUcvsF2fiqlVTcoB
-         +I2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790331823; x=1790936623;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AUqXXsS1oTWUMaZa0d9vSWNRltf7D2wfMl4AyP+vB8Y=;
-        b=IuuMODSx48htCOJgtGGpuj9plSGL8N/olwd7hvfDb+6K2S1mUCSOIhifKlPcdxbRxq
-         4UCsq4hg+hna6Xdts4WLvfV5ZQ5ZPwW9WvKo9XbP0iPBDUICtPYlcrxAPQplJV7XLCY0
-         enHFO/mzugSP3Hs6QtJ9fuNFg5aE2SvLZI1wLfQpRcNJzzKBB2KQKnA1KRgUqtiSf65z
-         txQ85QKYptRin5GyUByeXbTfXGOCqlmaahSzQR4Q4WQZmN3g/MBR1VTSWKD3UxuG05Vv
-         5b7ZMw62sKBqEQCmCvYcnT1zG9Npj1omrt54R7AlzY+dGVgRQsdpu1pwq3rO8M1aN1TE
-         zASQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxuBCwFQXSJcvAaK382HfMx/81oF1OPXtdHul0g63lrQNciBq9jPj1qScgXlwi6xGeVzv/G+nz0uWorQiw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzpPxchGX66RenpO/w+UtAA/gW/iTpiOK599/Dtc68bFKJqyw/
-	26o+zSBTEKgSc0wzaQV7XqFkDWDhksOpquGqupk5BwqyLEe4fcFVeEYn
-X-Gm-Gg: AYBFou1Ry86+87tV11dKDCNK3Y+9ytuzj3XucptLifEgHwqPZBRSka9lfUWK4wylPAa
-	eVlCjlqEPtLxqSKerKlkj2RUj1PONzQyqBSLh4dE754AiYbBLjS3BdPX4N7Go6CARtKPpzYgU0E
-	8kcfMJ6hX6gvEEauIbluIrQoVmXXGJxtAoodT8scTz6yBpScMsPhCCR4u3BUqVARBFlXP8p2tIZ
-	VfXWHmWN4L3xrPkXIyPp+b5tttPBxWDng+9B0GWtNv9bA5ktinlvtBgtGtZxRTcPjIZTRaY5yam
-	2svblqQwBUwuz8R36z8rZ3UsM5ogfVmS+i9coE/ckngZPobxtXshNr5VOrYKVUW5tp+VnCWrytp
-	bF9babYfrNWrrLszbtkvyXvnvyLtEO/y4bXkfT6jV4/iX9tKVQTSAtjIXDlUUDxeHYLQMsAqBe0
-	3pvyeON9pT2cUYPvtTuvGv9BV8PDtFEomPHpu7ENwGSkP0jvlKepBhT3yNBWbnmjWEjOUXEbF9z
-	I9kNdeON6ampKbib3lmBHCfC54CeKedAnKUcfxz8wBUUMUgVrfwFk4kd+GHOZSkb3LKQi/x943D
-	rlN/nVEVTch/1mLFa1QWsS/W2Yow1DuorRn6XT+eSsGmZ1w8XV9mMPzghkIgYr0XQLyAK3pfzw=
-	=
-X-Received: by 2002:a05:7301:7bc9:b0:33b:e77f:8a3c with SMTP id 5a478bee46e88-34000d3600amr5598603eec.33.1790331822682;
-        Fri, 25 Sep 2026 03:23:42 -0700 (PDT)
-Received: from FT6N242TWK ([223.181.117.176])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144173a2asm5787949eec.6.2026.09.25.03.23.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 25 Sep 2026 03:23:42 -0700 (PDT)
-From: shashank <jain.sm@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Alex Elder <elder@kernel.org>,
-	David Gow <david@davidgow.net>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] lib/tests: add KUnit test for parser number helpers
-Date: Fri, 25 Sep 2026 15:53:34 +0530
-Message-ID: <20260925102334.49693-2-jain.sm@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260925102334.49693-1-jain.sm@gmail.com>
-References: <20260925102334.49693-1-jain.sm@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="etoZZUM/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8683D1F00898
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790331834;
+	bh=FrSot8x4QotVXyr/g8ObBtebHxyiGnkrZvpM0ljF0Ck=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=etoZZUM/NgHwmbaHw3aPr9aWHpvzxSV97euUHRnfIkrx3p3CLqPDXapEvOXa4AX6P
+	 LSwNJP3X7AtDXWF9rR9Qfpm2zVy667449sNqvvjTf+1nJ+EKE0uCAwUQLRAVkvlSzG
+	 z41Nb2e50Dx12AtQ6youHq63D9+T4owvjPFWdjS2d4HrVvCo7RiVseH89T3HgloyZN
+	 PnxcnGw11lri29v6WvkBLn0itTrIEMW6sJWtHJZgbtO61aOKGN0YkFWW6+YlWm/e1u
+	 rRztVFbmp31aCdBFrJWIrJGHY18QvhEdUev2O3r4QZOdo0IYMeGRgbx1DFZVBvieAl
+	 5NkvTKsLdHusQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8ea203e5bso237304e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:23:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwHM0ba/o7brilzbau+LTy/VNrjWEJQ5aYgFy5iKxVXB9nKGRN52kWnExNV7OhyEXV0LaThyMMjQNYi0Xs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l96He+Fb6FA017lID0DtcwZEtoC9M9x2M2EAyyxIQBY5C8Wm8S
+	MEFaQwoGGKm4Ui7woJDvVZCqpaEAml+SF0BMusxQtohGf3tZvjPiZLSfWfDllPFE4sp7o/wmDrN
+	bPhW74eDUWJ2rdC4vYX9RWtWFripnxSpZQY0BGXwN2g==
+X-Received: by 2002:a05:6512:318e:b0:5b6:1a7c:fd99 with SMTP id
+ 2adb3069b0e04-5b8df0e5636mr1998168e87.63.1790331833253; Fri, 25 Sep 2026
+ 03:23:53 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 25 Sep 2026 10:23:52 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 25 Sep 2026 10:23:52 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <arZJDjT42V1X0I8m@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260924083512.461838-1-peng.fan@oss.nxp.com> <179032407610.10527.4008737984510756760.b4-ty@oss.qualcomm.com>
+ <CAHp75VdBbr5TgEXrJ6XDQiPvsGfhyKQmVL+zUQ3mNS=GiWw1RQ@mail.gmail.com>
+ <CAMRc=MfdAU0fvYa-XzGvdeMPsAG7z+QeMP7zywNaRW-emRJjRw@mail.gmail.com> <arZJDjT42V1X0I8m@ashevche-desk.local>
+Date: Fri, 25 Sep 2026 10:23:52 +0000
+X-Gmail-Original-Message-ID: <CAMRc=MdZ7n5061rwA6mo0_xTn++63HZ_JjwxTaC_qMWvTZT-fw@mail.gmail.com>
+X-Gm-Features: AclHuK8BLJv0Nmfuu1qClpQlZ68hH-_lPmNJq0HkRLGew1Aay6jSE9B3O9rM94M
+Message-ID: <CAMRc=MdZ7n5061rwA6mo0_xTn++63HZ_JjwxTaC_qMWvTZT-fw@mail.gmail.com>
+Subject: Re: [PATCH] gpio: wcove: use regmap_assign_bits() for conditional set/clear
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, Andy Shevchenko <andy@kernel.org>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+	Linus Walleij <linusw@kernel.org>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, linux-kernel@vger.kernel.org, 
+	Peng Fan <peng.fan@nxp.com>, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a small KUnit suite for match_int(), match_octal() and match_hex(),
-covering values at and just beyond the int range, values that overflow
-64 bits, and a match_token() round trip with an out-of-range argument.
+On Fri, 25 Sep 2026 12:12:30 +0200, Andy Shevchenko
+<andriy.shevchenko@intel.com> said:
+> On Fri, Sep 25, 2026 at 09:54:42AM +0000, Bartosz Golaszewski wrote:
+>> On Fri, 25 Sep 2026 10:27:55 +0200, Andy Shevchenko
+>> <andy.shevchenko@gmail.com> said:
+>> > On Fri, Sep 25, 2026 at 11:14=E2=80=AFAM Bartosz Golaszewski
+>> > <bartosz.golaszewski@oss.qualcomm.com> wrote:
+>> >> On Thu, 24 Sep 2026 16:35:11 +0800, Peng Fan (OSS) wrote:
+>> >> > Replace if/else block using regmap_set_bits()/regmap_clear_bits() w=
+ith
+>> >> > the simpler regmap_assign_bits() call.
+>> >>
+>> >> Applied, thanks!
+>> >>
+>> >> [1/1] gpio: wcove: use regmap_assign_bits() for conditional set/clear
+>> >>       https://git.kernel.org/brgl/c/428cb7603f95d0ee6fad06cbf56321b1b=
+deaaa85
+>> >
+>> > Are you going to handle all the Intel GPIO drivers that have a
+>> > MAINTAINERS record?
+>>
+>> Sorry, backing it up. We really need to organize GPIO drivers by vendor.=
+..
+>
+> Do you want me to start intel subfolder?
+>
 
-Assisted-by: LLM
-Signed-off-by: shashank <jain.sm@gmail.com>
----
- lib/Kconfig.debug        |  12 ++++
- lib/tests/Makefile       |   1 +
- lib/tests/parser_kunit.c | 131 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 144 insertions(+)
- create mode 100644 lib/tests/parser_kunit.c
+I already did[1]!
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 134b15a44625..905ccec61868 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2918,6 +2918,18 @@ config CMDLINE_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config PARSER_KUNIT_TEST
-+	tristate "KUnit test for parser number helpers" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This builds the unit test for the number parsing helpers in
-+	  lib/parser.c (match_int(), match_octal(), match_hex()).
-+	  For more information on KUnit and unit tests in general please refer
-+	  to the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+	  If unsure, say N.
-+
- config BASE64_KUNIT
- 	tristate "KUnit test for base64 decoding and encoding" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index 3cac3b63a752..cbabf4939ce8 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -41,6 +41,7 @@ obj-$(CONFIG_MEMCPY_KUNIT_TEST) += memcpy_kunit.o
- obj-$(CONFIG_MIN_HEAP_KUNIT_TEST) += min_heap_kunit.o
- CFLAGS_overflow_kunit.o = $(call cc-disable-warning, tautological-constant-out-of-range-compare)
- obj-$(CONFIG_OVERFLOW_KUNIT_TEST) += overflow_kunit.o
-+obj-$(CONFIG_PARSER_KUNIT_TEST) += parser_kunit.o
- obj-$(CONFIG_PRANDOM_KUNIT_TEST) += random32_kunit.o
- obj-$(CONFIG_PRINTF_KUNIT_TEST) += printf_kunit.o
- obj-$(CONFIG_RANDSTRUCT_KUNIT_TEST) += randstruct_kunit.o
-diff --git a/lib/tests/parser_kunit.c b/lib/tests/parser_kunit.c
-new file mode 100644
-index 000000000000..b92476cf711f
---- /dev/null
-+++ b/lib/tests/parser_kunit.c
-@@ -0,0 +1,131 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * KUnit tests for the number helpers in lib/parser.c
-+ */
-+
-+#include <kunit/test.h>
-+#include <linux/limits.h>
-+#include <linux/parser.h>
-+#include <linux/string.h>
-+
-+struct parser_number_case {
-+	const char *in;
-+	int ret;
-+	int val;
-+};
-+
-+typedef int (*match_fn_t)(substring_t *s, int *result);
-+
-+static void parser_check(struct kunit *test, match_fn_t fn, const char *name,
-+			 const struct parser_number_case *c, size_t n)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < n; i++) {
-+		char buf[64];
-+		substring_t s;
-+		int val = 0x5a5a5a5a;
-+		int ret;
-+
-+		strscpy(buf, c[i].in, sizeof(buf));
-+		s.from = buf;
-+		s.to = buf + strlen(buf);
-+
-+		ret = fn(&s, &val);
-+		KUNIT_EXPECT_EQ_MSG(test, ret, c[i].ret, "%s(\"%s\")",
-+				    name, c[i].in);
-+		if (!c[i].ret)
-+			KUNIT_EXPECT_EQ_MSG(test, val, c[i].val, "%s(\"%s\")",
-+					    name, c[i].in);
-+	}
-+}
-+
-+static const struct parser_number_case match_int_cases[] = {
-+	{ "0",				0,		0 },
-+	{ "42",				0,		42 },
-+	{ "-42",			0,		-42 },
-+	{ "0x10",			0,		16 },
-+	{ "010",			0,		8 },
-+	{ "2147483647",			0,		INT_MAX },
-+	{ "-2147483648",		0,		INT_MIN },
-+	{ "2147483648",			-ERANGE,	0 },
-+	{ "-2147483649",		-ERANGE,	0 },
-+	{ "4294967295",			-ERANGE,	0 },
-+	{ "9223372036854775808",	-ERANGE,	0 },
-+	{ "18446744073709551615",	-ERANGE,	0 },
-+	{ "-18446744073709551615",	-ERANGE,	0 },
-+	{ "99999999999999999999",	-ERANGE,	0 },
-+	{ "0xffffffffffffffff",		-ERANGE,	0 },
-+	{ "abc",			-EINVAL,	0 },
-+};
-+
-+static const struct parser_number_case match_octal_cases[] = {
-+	{ "755",			0,		0755 },
-+	{ "17777777777",		0,		INT_MAX },
-+	{ "20000000000",		-ERANGE,	0 },
-+	{ "1777777777777777777777",	-ERANGE,	0 },
-+	{ "8",				-EINVAL,	0 },
-+};
-+
-+static const struct parser_number_case match_hex_cases[] = {
-+	{ "ff",				0,		0xff },
-+	{ "7fffffff",			0,		INT_MAX },
-+	{ "80000000",			-ERANGE,	0 },
-+	{ "ffffffffffffffff",		-ERANGE,	0 },
-+	{ "10000000000000000",		-ERANGE,	0 },
-+	{ "g",				-EINVAL,	0 },
-+};
-+
-+static void parser_test_match_int(struct kunit *test)
-+{
-+	parser_check(test, match_int, "match_int", match_int_cases,
-+		     ARRAY_SIZE(match_int_cases));
-+}
-+
-+static void parser_test_match_octal(struct kunit *test)
-+{
-+	parser_check(test, match_octal, "match_octal", match_octal_cases,
-+		     ARRAY_SIZE(match_octal_cases));
-+}
-+
-+static void parser_test_match_hex(struct kunit *test)
-+{
-+	parser_check(test, match_hex, "match_hex", match_hex_cases,
-+		     ARRAY_SIZE(match_hex_cases));
-+}
-+
-+enum { PARSER_TEST_OPT_SIZE, PARSER_TEST_OPT_ERR };
-+
-+static const match_table_t parser_test_tokens = {
-+	{ PARSER_TEST_OPT_SIZE, "size=%d" },
-+	{ PARSER_TEST_OPT_ERR, NULL },
-+};
-+
-+static void parser_test_match_token_int(struct kunit *test)
-+{
-+	char opt[] = "size=18446744073709551615";
-+	substring_t args[MAX_OPT_ARGS];
-+	int val = 0;
-+
-+	KUNIT_ASSERT_EQ(test, match_token(opt, parser_test_tokens, args),
-+			PARSER_TEST_OPT_SIZE);
-+	KUNIT_EXPECT_EQ(test, match_int(&args[0], &val), -ERANGE);
-+}
-+
-+static struct kunit_case parser_test_cases[] = {
-+	KUNIT_CASE(parser_test_match_int),
-+	KUNIT_CASE(parser_test_match_octal),
-+	KUNIT_CASE(parser_test_match_hex),
-+	KUNIT_CASE(parser_test_match_token_int),
-+	{}
-+};
-+
-+static struct kunit_suite parser_test_suite = {
-+	.name = "parser",
-+	.test_cases = parser_test_cases,
-+};
-+
-+kunit_test_suite(parser_test_suite);
-+
-+MODULE_DESCRIPTION("KUnit tests for lib/parser.c number helpers");
-+MODULE_LICENSE("GPL");
--- 
-2.43.0
+Bart
 
+[1] https://lore.kernel.org/all/20260925-gpio-organize-by-vendor-v1-1-8feef=
+d60581b@oss.qualcomm.com/
