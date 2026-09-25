@@ -1,437 +1,137 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F87B4E06F6
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790353510; cv=none; b=lvfMMb7EcMXH9W81Wd3m18zh3aWPBAPAbk1siN3/o68gaaB8pNvNPe0d/RDfGPgdaTbcCPFes+YaiSWSsgpoFSEy3m213eY7rsAMgMczbRTkCJrBCGKpbg6L0WLT1F/DJqPKlXB/SrFU+8Ca+Zdbof9kjRsmsaWyLElVju2Wb4Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790353510; c=relaxed/simple;
-	bh=FsVSIBc+HjB1zaeI5YriTgJMS4OU/tbQX67ti5MOPTM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=RVqGqhbnD23szItTJl2atqeuZjOyyP29TUinoqAvfQ4/zALA8qjRaJ1mYEI3Xngre2MEEqM+OuXFpEoyViqdm88i7/hacOA66LNSkbSQny/TUP+NI8+rPWYyK2mPDSXQb4ZWUaXpsLh8S6f6tbxghvh0jmNAvUouQKSdTc+RPuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bRW53JD/; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711374DD3B5
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790353522; cv=pass; b=noslaG3m5l83Re3+xtiTzuWLrBB/00MrRNiZehPQVeg2MJOBrWkq1YvcvzFvUdd9mj6sJS5Aq749svy7fsExIjnK7N25A3GtRsPGYNHzXYYtp50iVxvnBc3k1Y8h9rYnd9f3+M1/X5OrflMxui88s6u7PvhgBHTx/H8Gx/G0pLU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790353522; c=relaxed/simple;
+	bh=8zm7M4OxoFSvQ+TgH5PpjZhe1RxAkkquoTyQXaliDfY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jx4Us41s5ONFxDzNysc5mY81muTw0g4xclxTOmOxrvLOkONjr2tlfSX7TCEVIWOdnMATPJSmvc7+wIcMktDTxe5nyO+NQuyxeY15B+ep0OC5gEf4LBpdbaPqlOhY+is4gR3WRF6IQJQNab1tbS1r497j+p8kNbU6O3QZPe6VNe0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HeWQ8mVY; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bRW53JD/"
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-8064fadbb1dso754519a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:25:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HeWQ8mVY"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a49c068e85so7765511fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:25:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790353518; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sibB29Wlknvra8KrgNg2RDXk1c5ukj5709c7c4cBmkr5SHrxZxPt90Z4no1lAzVrHs
+         fuD8Foi4EGm2CgQaHwdHXLazMxT9BN7EZ1dN0N/cMbsXhfT7m2Eok5uSE6nsDXdBT1aW
+         ZUOR3f83h2mpwXa8E+fxtCitubIZmLoLYtvyLP4oynNCQXxdy2JRsWYhe1KmpVMEZFen
+         kdWrMTHIP1luAhnxyW5H9YDVPRCtVZXzENl30xYXbojjV2TmJ9aul8VRE/MRk5E5Ply/
+         P+Vzxd9PLDOuiZSHFI/9fb1gQ9sBCSsjEZq5F5bwizZdVFKdQYOOVsgHqhpQ8zXLU1HB
+         KRtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iLeLfpbYpsHoDt+ljmKBY+6pn+0K/uh1JAal5HfsYCY=;
+        fh=ddafWakDZX3zg85JmGPe2qkmzlkw9II+Ew5I1JoB+Zc=;
+        b=YTQRZamRRtofxyVjUUajyKjudaRErGjUrhrLAxtJE0Ke65R4TiV8cCDTA+CcDKRWjv
+         8KTV4qplgtzWDQyqRawX+TtUhGR4H5V962/Tx7YeAbLGjRsvN3pOsJMqt6dCYAH7KZIM
+         n6hfNcr2pt9JqhmT+HRWJKLo93qQJPauEgUt8QE9I9E1sF9K3V0YZ+YxFjO8zXP2U+qp
+         lHjs2eDgvriGl+dwDfF51+fdK2S2EOIe23kovqIb+MWCaXgdklnF6decJGsZQCKDQxUq
+         se4xWLE4+Z/Ef1QzzpimOdowQXEPPn0ckumeizIhpge/6++/vhsmxmm6Y0PbgHg3upwT
+         QmSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790353505; x=1790958305; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1hEP9qeV58nzFrdp3hTRSmcvYkxrqT6ufYBwKHkJbXo=;
-        b=bRW53JD/TDqIfLk1+H75TVITvr+TwBsEH2NsXwn431DiJMxORljJEYjEKnfjZEz7J+
-         NW2y4OeLVPgfwpISDnD3Ar7sW9PoSs/SMnRuICzkIEfoKZZtpWVbQqoudjbXhwGDPJAs
-         UMn3s3nxwoZSOVeeEDu7aSVVhCjPpu215Fb7NS/31VznrVBuL4tTfMi4CzE3GXDdtkwH
-         Bryr1iAiSYklXEF+YsXER9MZsEI7ArFttKAEILKM74HfRbKOj4thZhH3P1HPAOyKWZKP
-         MmfMxUv+zKS7oLz1ZClO4Uq5QK+spIuqm+o+nBmOLy5wtY3QGLEbbolSovwCYrlEiOhY
-         FCiQ==
+        d=gmail.com; s=20251104; t=1790353518; x=1790958318; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iLeLfpbYpsHoDt+ljmKBY+6pn+0K/uh1JAal5HfsYCY=;
+        b=HeWQ8mVY1pQirJU9xHFq4lCkQi1F7yZ6JBXYKyWRvFkCn1eylZNitxk2Mo/CNLt3hX
+         ziSRkNV6ffihFnkYD2Xcgr9O2EpMTL2d99kJyq5hSGxiapuS2ewnqiOI+qXdXIYc7tFF
+         6Fo+zMm08FXTqXEvxbqNxPnvQjiFT1PJjsOGmipZwHLPwbi8h+CEMCNhcfxtDvWSKuTr
+         Bq1DGVh8xRW29FaR43WVmKyTBX05UHCUwru4CpxLPRqBGNOFlci8XfjjRJIFEpeRXNZU
+         J8ZxjS6+sCO4EA7zZvHbZDQACugAh81WPByRmGWQIXc7DrAPbUD/WtCVHI7YCOVppxP1
+         VZqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790353505; x=1790958305;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1hEP9qeV58nzFrdp3hTRSmcvYkxrqT6ufYBwKHkJbXo=;
-        b=NSkWUqsXMoYToVBjnm7ZJcA0GxsKmVxZavTl4TotNTUsqcQlKSsCUQevDzx1NrzLc3
-         C7GdKZ7BJF2SMzi2UgHsiv1AXF1sjIs+8CD1Q+FJC41p/y6KQO7PHKFiH5mcH+WDjUtf
-         1pbPHy1ebuBiGzYrQOyYArNRGfyXRyrO3afd+fpEGvOoPBAVj1sE/AWAEwWICf9nekam
-         QLXziq/tWyM3bGllj2xodNrqsnTfwJGfETtBofUussP+PLu8k6pUP7+Lh+mmNEn+tmR0
-         Q7x+R+u+pwsyplplwaIJOq4CZX4nckH4tT4j3n+GIIl2YVE+Vm1Yi4mi7hE/GafEmu7w
-         bUzg==
-X-Gm-Message-State: AFuF++mZKXYkODbU4tmnqwu3ibUDIQYfPBetTzny/r+uqxmQBWVk7h6N
-	p2jDnXLFgqFoeUtiX+vTs/5wWTsG82/K9ij0Epxn476B7m+sel624FmtGK9Mb6mVtlE4WpxiTAF
-	Badu/rg==
-X-Received: from jags2.prod.google.com ([2002:a05:6638:abe2:b0:5f3:7e85:d83c])
- (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:14cf:b0:4d6:90f3:74b6
- with SMTP id 5614622812f47-4dc66fd5147mr2771795b6e.54.1790353505030; Fri, 25
- Sep 2026 09:25:05 -0700 (PDT)
-Date: Fri, 25 Sep 2026 16:24:53 +0000
-In-Reply-To: <20260925162454.1403405-1-avagin@google.com>
+        d=1e100.net; s=20260707; t=1790353518; x=1790958318;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iLeLfpbYpsHoDt+ljmKBY+6pn+0K/uh1JAal5HfsYCY=;
+        b=SNznjT8v6DYBVRHNlpjBH4KllF/VfwNzzSWAnwKIBmL6xIxeVIaarL1f2RSmbZytkS
+         W1wTlWJZww4Mwy8j5LNwpNMYmkkqIg0pMqYXGoTFvtKQg460shJcsy25/tgYTwhJbzm1
+         EOGbB/8bANu3Oo4BQ54mAEAqSCX/bpiHwSOMgTt3JWmlORCm5Hp+Sb4qtevoArxCn/Vw
+         RWrorTjnvlMN1KXdTX2Lq4b525SUJ73Djz17tCf4+DGFmoQi9LOtzSjfQldDJ63ukX6G
+         9jmcGcNrvppeqVX2Hb+/yuhpoZ/kpPsN1WT1p78MIGRnMLxKsI2ofYBUWxZCBSHo0pth
+         l3Zw==
+X-Forwarded-Encrypted: i=1; AKwUvBwClIqrAjRhh9fX9d4JS5RotiTVcRfA3O9lvfyEj9CDsIaiH1HcgxsVU8wGFtsHhBSEF/zFEf21tZ4sOys=@vger.kernel.org
+X-Gm-Message-State: AFuF++keSJ0qzPOXz0kV/b4QgNYD3vVE+uLzKQw2cC72Ybs17h/RJhoj
+	pkBjzgNWfmYxAlZyNFFrcxxue6lfLg3Mnqo33QWfGZc0X0kHOh0/t1rBq8axH+WWs1o5gBbiXBz
+	wtt+7+oUx36/tS1OQxADNTPgK2AGy6Ss=
+X-Gm-Gg: AYBFou0nQb2E05QkAJsfora5RUYV2BfYIxBcjvdLNjRI3q5NFfgggJiZAgIMG7fAG0B
+	8K0b713DL3I676CiA9+SBrVEx4aySAZBA8zOZ9a9dN+6qPEkSWvmqaOeJxbLI1Xb+s7Tq9YW6zb
+	ZnpZWYD05KBGydj3/dRmWxKBHfz+eiWVmEXWRSQ7F1vAD+aBktvMKFoLwJjp+0gdKg3Hyy9zM6+
+	lufrmsB5mVWG/rffX7l0EyrDds8lWJrk9UIzwKTZXe5sza4Jo2cgBtRlBfJ/BUID8gs4NQ3g4qY
+	vDOQkW+vGhgOeeBp/urfA0zF4Mhbk+OzngKSe6qECUrw3QfQwz3RyBgavfdiKmp5sai3HExu5ns
+	ITO9sWVM+B+la3yOW39e9moIQLkFqSmb6ExO1d2Vt+Kg=
+X-Received: by 2002:a2e:bc1e:0:b0:3a5:b187:c7a1 with SMTP id
+ 38308e7fff4ca-3a63bf4fb7cmr16159921fa.9.1790353518313; Fri, 25 Sep 2026
+ 09:25:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260925162454.1403405-1-avagin@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260925162454.1403405-8-avagin@google.com>
-Subject: [PATCH 7/7] selftests/x86: Add tests for signal frame FPU portability
-From: Andrei Vagin <avagin@google.com>
-To: Borislav Petkov <bp@alien8.de>, "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: linux-kernel@vger.kernel.org, criu@lists.linux.dev, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Andrei Vagin <avagin@google.com>, Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
-	"H. Peter Anvin" <hpa@zytor.com>
+MIME-Version: 1.0
+References: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
+ <20260925-aw88166-cleanup-v1-6-11f74cb5fe28@gmail.com> <721467a7-6b7e-4234-8321-660eb43f1f9c@sirena.org.uk>
+ <CALHNRZ-ofi9J6SZpKih5pogtH4aL_HDy3WmUQJ=w_nVd=YskTw@mail.gmail.com> <d11d2b20-74ec-408c-bd06-765ccdea1504@sirena.org.uk>
+In-Reply-To: <d11d2b20-74ec-408c-bd06-765ccdea1504@sirena.org.uk>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Fri, 25 Sep 2026 11:25:06 -0500
+X-Gm-Features: AclHuK8p1YRovjIsB1rIwKZPdfnnCz8fE1woFYGlsyQTwiHN-svfCGDW5y0jElY
+Message-ID: <CALHNRZ_GTEsbAr6Byo_DtHG2VMqS+daJMM4=a+icbnu=h1Bj-w@mail.gmail.com>
+Subject: Re: [PATCH 6/6] ASoC: codecs: aw88166: make volume control usable
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Weidong Wang <wangweidong.a@awinic.com>, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Val Packett <val@packett.cool>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a new selftest tools/testing/selftests/x86/sigframe_fpu_portability.c
-to verify signal frame portability and consistency when the xstate size
-is shrunk:
+On Fri, Sep 25, 2026 at 11:18=E2=80=AFAM Mark Brown <broonie@kernel.org> wr=
+ote:
+>
+> On Fri, Sep 25, 2026 at 11:05:42AM -0500, Aaron Kling wrote:
+> > On Fri, Sep 25, 2026 at 9:18=E2=80=AFAM Mark Brown <broonie@kernel.org>=
+ wrote:
+> > > On Fri, Sep 25, 2026 at 02:47:34AM -0500, Aaron Kling via B4 Relay wr=
+ote:
+>
+> > > > - Invert the value to match userspace expectations (in the hardware=
+,
+> > > >   positive numbers represent negative dB attenuation)
+>
+> > > That's a very bad compatibility break, if anyone has a profile saved
+> > > they might get excessively loud volume from their existing configurat=
+ion
+> > > which could be distressing.  It might be better to rename the control=
+.
+>
+> > Mmm. At the risk of sounding like a broken record, is this any
+> > different from the accepted aw88261 change? I wouldn't be specifically
+> > opposed to a new control as my use case, Android, is very tightly
+> > controlled and I can just update the audio config I ship. But more
+> > standard Linux use cases that rely on a standardize control name would
+> > be stuck with a non-standard inverted control forever.
+>
+> Why would renaming the control do that?
 
-- test_valid_shrunk_xstate_size: Verifies that the kernel correctly
-  restores the xstate context from a signal frame where xstate_size has
-  been manually shrunk to only cover active features, as long as the
-  FP_XSTATE_MAGIC2 marker is correctly placed. This simulates migrating
-  a process created on a host with fewer xstate features to a host with
-  more features.
+I might be misunderstanding something, but I thought there were
+standardized names, like this "PCM Playback Volume" that tools and os
+handling expect and will use if found. Which would cause a second
+control with a different name to not get used. Is there something I'm
+missing to where a new control would get used without manual
+intervention?
 
-- test_invalid_shrunk_xstate_size: Verifies that the kernel rejects
-  (via SIGSEGV) a signal frame where xstate_size is smaller than required
-  by the enabled features in the xfeatures mask.
-
-Reviewed-by: Alexander Mikhalitsyn <alexander@mihalicyn.com>
-Reviewed-by: Chang S. Bae <chang.seok.bae@intel.com>
-Signed-off-by: Andrei Vagin <avagin@google.com>
----
- tools/testing/selftests/x86/Makefile          |   5 +-
- .../selftests/x86/sigframe_fpu_portability.c  | 235 ++++++++++++++++++
- tools/testing/selftests/x86/xstate.c          |  12 -
- tools/testing/selftests/x86/xstate.h          |  20 ++
- 4 files changed, 259 insertions(+), 13 deletions(-)
- create mode 100644 tools/testing/selftests/x86/sigframe_fpu_portability.c
-
-diff --git a/tools/testing/selftests/x86/Makefile b/tools/testing/selftests/x86/Makefile
-index 434065215d12..72071deda978 100644
---- a/tools/testing/selftests/x86/Makefile
-+++ b/tools/testing/selftests/x86/Makefile
-@@ -19,7 +19,8 @@ TARGETS_C_32BIT_ONLY := entry_from_vm86 test_syscall_vdso unwind_vdso \
- 			test_FCMOV test_FCOMI test_FISTTP \
- 			vdso_restorer
- TARGETS_C_64BIT_ONLY := fsgsbase sysret_rip syscall_numbering \
--			corrupt_xstate_header amx lam test_shadow_stack avx apx
-+			corrupt_xstate_header amx lam test_shadow_stack avx apx \
-+			sigframe_fpu_portability
- # Some selftests require 32bit support enabled also on 64bit systems
- TARGETS_C_32BIT_NEEDED := ldt_gdt ptrace_syscall
- 
-@@ -138,3 +139,5 @@ $(OUTPUT)/avx_64: CFLAGS += -mno-avx -mno-avx512f
- $(OUTPUT)/amx_64: EXTRA_FILES += xstate.c
- $(OUTPUT)/avx_64: EXTRA_FILES += xstate.c
- $(OUTPUT)/apx_64: EXTRA_FILES += xstate.c
-+
-+$(OUTPUT)/sigframe_fpu_portability_64: CFLAGS += -mno-avx -mno-avx512f
-diff --git a/tools/testing/selftests/x86/sigframe_fpu_portability.c b/tools/testing/selftests/x86/sigframe_fpu_portability.c
-new file mode 100644
-index 000000000000..8377de052032
---- /dev/null
-+++ b/tools/testing/selftests/x86/sigframe_fpu_portability.c
-@@ -0,0 +1,235 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#define _GNU_SOURCE
-+#include <stdio.h>
-+#include <signal.h>
-+#include <string.h>
-+#include <sys/ucontext.h>
-+#include <stdlib.h>
-+#include <stdint.h>
-+#include <stdbool.h>
-+#include <cpuid.h>
-+#include <unistd.h>
-+#include <sys/syscall.h>
-+#include <stddef.h>
-+#include <setjmp.h>
-+
-+#include "helpers.h"
-+#include "xstate.h"
-+
-+#ifndef FP_XSTATE_MAGIC2_SIZE
-+#define FP_XSTATE_MAGIC2_SIZE	sizeof(FP_XSTATE_MAGIC2)
-+#endif
-+
-+/*
-+ * This test verifies the FPU portability and consistency of the signal frame.
-+ *
-+ * - test_valid_shrunk_xstate_size:
-+ *   Verifies that the kernel restores state from a frame with xstate_size
-+ *   shrunk to only include active features.
-+ *
-+ * - test_invalid_shrunk_xstate_size:
-+ *   Verifies that the kernel rejects a frame if xstate_size is too small for
-+ *   the features enabled in xfeatures.
-+ */
-+
-+#define SIGFRAME_XSTATE_HDR_OFFSET	512
-+#define XSTATE_SSE_ONLY_SIZE	(SIGFRAME_XSTATE_HDR_OFFSET + XSAVE_HDR_SIZE)
-+#define XFEATURE_MASK_FPSSE	((1 << XFEATURE_FP) | (1 << XFEATURE_SSE))
-+
-+static uint32_t ymm_offset;
-+static uint32_t xstate_size_ymm;
-+static pid_t self_pid;
-+
-+/*
-+ * Load %ymm0 from @v, invoke SYS_kill to deliver @sig, and store the
-+ * restored %ymm0 state back into @v within a single inline assembly
-+ * block so the compiler cannot clobber %xmm0/%ymm0 between steps.
-+ */
-+__attribute__((target("avx")))
-+static void raise_with_ymm0(int sig, uint64_t *v)
-+{
-+	register long rax asm("rax") = SYS_kill;
-+	register long rdi asm("rdi") = self_pid;
-+	register long rsi asm("rsi") = sig;
-+
-+	asm volatile ("vmovdqu %0, %%ymm0\n\t"
-+		      "syscall\n\t"
-+		      "vmovdqu %%ymm0, %0"
-+		      : "+m" (*(char (*)[32])v), "+r" (rax)
-+		      : "r" (rdi), "r" (rsi)
-+		      : "rcx", "r11", "ymm0", "memory");
-+}
-+
-+/*
-+ * Avoid using printf() in signal handlers as it is not
-+ * async-signal-safe.
-+ */
-+#define SIGNAL_BUF_LEN 1024
-+static char sig_err_buf[SIGNAL_BUF_LEN];
-+
-+static void sig_print(const char *msg)
-+{
-+	int left = SIGNAL_BUF_LEN - strlen(sig_err_buf) - 1;
-+
-+	strncat(sig_err_buf, msg, left);
-+}
-+
-+static void check_avx_support(void)
-+{
-+	uint32_t eax, ebx, ecx, edx;
-+	struct xstate_info xstate;
-+
-+	/* Check CPUID.01H:ECX.OSXSAVE[bit 27] before calling xgetbv to avoid #UD */
-+	__cpuid(1, eax, ebx, ecx, edx);
-+	if (!(ecx & (1 << 27)))
-+		ksft_exit_skip("OSXSAVE not enabled by OS\n");
-+
-+	/* Check XCR0[2] (YMM) is enabled by OS */
-+	if (!(xgetbv(0) & (1 << XFEATURE_YMM)))
-+		ksft_exit_skip("AVX (YMM) not enabled in XCR0\n");
-+
-+	xstate = get_xstate_info(XFEATURE_YMM);
-+	if (!xstate.size)
-+		ksft_exit_skip("AVX not supported by hardware\n");
-+
-+	ymm_offset = xstate.xbuf_offset;
-+	xstate_size_ymm = xstate.xbuf_offset + xstate.size;
-+}
-+
-+#define TEST_YMMH_VAL (0x5656565656565656UL)
-+
-+static void __handle_shrunk_xstate_size(int sig, siginfo_t *si, void *ucp, bool valid_size)
-+{
-+	uint64_t xfeatures, *ymmh_p;
-+	struct xsave_buffer *xbuf;
-+	struct _fpx_sw_bytes *sw;
-+	ucontext_t *uc = ucp;
-+	void *fp;
-+
-+	fp = uc->uc_mcontext.fpregs;
-+	if (!fp) {
-+		sig_print("fpregs is NULL\n");
-+		return;
-+	}
-+
-+	sw = get_fpx_sw_bytes(fp);
-+	if (sw->magic1 != FP_XSTATE_MAGIC1) {
-+		sig_print("magic1 is not valid\n");
-+		return;
-+	}
-+
-+	xbuf = (struct xsave_buffer *)fp;
-+
-+	/*
-+	 * Both test cases shrink the frame to contain only AVX (FP + SSE + YMM).
-+	 * If valid_size is true, set xstate_size to match the enabled features.
-+	 * If valid_size is false, set xstate_size too small (SSE only), which
-+	 * the kernel must reject.
-+	 */
-+	if (valid_size)
-+		sw->xstate_size = xstate_size_ymm;
-+	else
-+		sw->xstate_size = XSTATE_SSE_ONLY_SIZE;
-+
-+	xfeatures = get_xstatebv(xbuf);
-+	xfeatures &= XFEATURE_MASK_FPSSE | (1 << XFEATURE_YMM);
-+	set_xstatebv(xbuf, xfeatures);
-+	set_fpx_sw_bytes_features(fp, xfeatures);
-+
-+	*(uint32_t *)(fp + sw->xstate_size) = FP_XSTATE_MAGIC2;
-+
-+	if (valid_size) {
-+		ymmh_p = (uint64_t *)(fp + ymm_offset);
-+		ymmh_p[0] = TEST_YMMH_VAL;
-+		ymmh_p[1] = TEST_YMMH_VAL + 1;
-+	}
-+
-+	/* clear everything after MAGIC2. */
-+	if (sw->xstate_size + FP_XSTATE_MAGIC2_SIZE < sw->extended_size)
-+		memset(fp + sw->xstate_size + FP_XSTATE_MAGIC2_SIZE, 0,
-+		       sw->extended_size - sw->xstate_size - FP_XSTATE_MAGIC2_SIZE);
-+}
-+
-+static void handle_valid_shrunk_xstate_size(int sig, siginfo_t *si, void *ucp)
-+{
-+	__handle_shrunk_xstate_size(sig, si, ucp, true);
-+}
-+
-+static void handle_invalid_shrunk_xstate_size(int sig, siginfo_t *si, void *ucp)
-+{
-+	__handle_shrunk_xstate_size(sig, si, ucp, false);
-+}
-+
-+static void test_valid_shrunk_xstate_size(void)
-+{
-+	uint64_t v[4];
-+
-+	sig_err_buf[0] = 0;
-+	sethandler(SIGUSR1, handle_valid_shrunk_xstate_size, 0);
-+
-+	v[0] = 0x1111111111111111ULL;
-+	v[1] = 0x2222222222222222ULL;
-+	v[2] = 0x3333333333333333ULL;
-+	v[3] = 0x4444444444444444ULL;
-+	raise_with_ymm0(SIGUSR1, v);
-+
-+	if (sig_err_buf[0])
-+		ksft_test_result_fail("%s\n", sig_err_buf);
-+	else if (v[2] == TEST_YMMH_VAL && v[3] == (TEST_YMMH_VAL + 1))
-+		ksft_test_result_pass("YMM state restored correctly from shrunk frame\n");
-+	else
-+		ksft_test_result_fail(
-+				"Got upper bits: 0x%lx 0x%lx (expected %lx %lx)\n",
-+			       v[2], v[3], TEST_YMMH_VAL, TEST_YMMH_VAL + 1);
-+
-+	clearhandler(SIGUSR1);
-+}
-+
-+static sigjmp_buf segv_jmpbuf;
-+
-+static void handle_segv(int sig, siginfo_t *si, void *ucp)
-+{
-+	siglongjmp(segv_jmpbuf, 1);
-+}
-+
-+static void test_invalid_shrunk_xstate_size(void)
-+{
-+	uint64_t v[4];
-+
-+	sig_err_buf[0] = 0;
-+	sethandler(SIGUSR1, handle_invalid_shrunk_xstate_size, 0);
-+	sethandler(SIGSEGV, handle_segv, 0);
-+
-+	if (sigsetjmp(segv_jmpbuf, 1) == 0) {
-+		v[0] = 0x1111111111111111ULL;
-+		v[1] = 0x2222222222222222ULL;
-+		v[2] = 0x3333333333333333ULL;
-+		v[3] = 0x4444444444444444ULL;
-+		raise_with_ymm0(SIGUSR1, v);
-+		sig_print("Inconsistent size was NOT rejected\n");
-+	}
-+
-+	clearhandler(SIGUSR1);
-+	clearhandler(SIGSEGV);
-+
-+	if (sig_err_buf[0])
-+		ksft_test_result_fail("%s\n", sig_err_buf);
-+	else
-+		ksft_test_result_pass("Inconsistent size correctly rejected\n");
-+}
-+
-+int main(void)
-+{
-+	ksft_print_header();
-+	ksft_set_plan(2);
-+
-+	self_pid = getpid();
-+
-+	check_avx_support();
-+
-+	test_valid_shrunk_xstate_size();
-+	test_invalid_shrunk_xstate_size();
-+
-+	ksft_finished();
-+	return 0;
-+}
-diff --git a/tools/testing/selftests/x86/xstate.c b/tools/testing/selftests/x86/xstate.c
-index 97fe4bd8bc77..0ab577157cd7 100644
---- a/tools/testing/selftests/x86/xstate.c
-+++ b/tools/testing/selftests/x86/xstate.c
-@@ -34,18 +34,6 @@
- 	 (1 << XFEATURE_XTILEDATA) |	\
- 	 (1 << XFEATURE_APX))
- 
--static inline uint64_t xgetbv(uint32_t index)
--{
--	uint32_t eax, edx;
--
--	asm volatile("xgetbv" : "=a" (eax), "=d" (edx) : "c" (index));
--	return eax + ((uint64_t)edx << 32);
--}
--
--static inline uint64_t get_xstatebv(struct xsave_buffer *xbuf)
--{
--	return *(uint64_t *)(&xbuf->header);
--}
- 
- static struct xstate_info xstate;
- 
-diff --git a/tools/testing/selftests/x86/xstate.h b/tools/testing/selftests/x86/xstate.h
-index 6ee816e7625a..eedf0cab7ccb 100644
---- a/tools/testing/selftests/x86/xstate.h
-+++ b/tools/testing/selftests/x86/xstate.h
-@@ -3,6 +3,8 @@
- #define __SELFTESTS_X86_XSTATE_H
- 
- #include <stdint.h>
-+#include <stdlib.h>
-+#include <string.h>
- 
- #include "kselftest.h"
- 
-@@ -94,6 +96,14 @@ static inline void xrstor(struct xsave_buffer *xbuf, uint64_t rfbm)
- 		     : : "D" (xbuf), "a" (rfbm_lo), "d" (rfbm_hi));
- }
- 
-+static inline uint64_t xgetbv(uint32_t index)
-+{
-+	uint32_t eax, edx;
-+
-+	asm volatile("xgetbv" : "=a" (eax), "=d" (edx) : "c" (index));
-+	return eax + ((uint64_t)edx << 32);
-+}
-+
- #define CPUID_LEAF_XSTATE		0xd
- #define CPUID_SUBLEAF_XSTATE_USER	0x0
- 
-@@ -160,6 +170,11 @@ static inline void set_xstatebv(struct xsave_buffer *xbuf, uint64_t bv)
- 	*(uint64_t *)(&xbuf->header) = bv;
- }
- 
-+static inline uint64_t get_xstatebv(struct xsave_buffer *xbuf)
-+{
-+	return *(uint64_t *)(&xbuf->header);
-+}
-+
- /* See 'struct _fpx_sw_bytes' at sigcontext.h */
- #define SW_BYTES_OFFSET		464
- /* N.B. The struct's field name varies so read from the offset. */
-@@ -175,6 +190,11 @@ static inline uint64_t get_fpx_sw_bytes_features(void *buffer)
- 	return *(uint64_t *)(buffer + SW_BYTES_BV_OFFSET);
- }
- 
-+static inline void set_fpx_sw_bytes_features(void *buffer, uint64_t features)
-+{
-+	*(uint64_t *)(buffer + SW_BYTES_BV_OFFSET) = features;
-+}
-+
- static inline void set_rand_data(struct xstate_info *xstate, struct xsave_buffer *xbuf)
- {
- 	int *ptr = (int *)&xbuf->bytes[xstate->xbuf_offset];
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
-
+Aaron
