@@ -1,156 +1,135 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C27945A288
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F512470E8B;
+	Fri, 25 Sep 2026 08:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790323356; cv=none; b=nSbWDIYVwBRZJcPV2VhIgijVszE9rtoHxQNM7vADZP+VdxKjCeHmhPG8rAnT+1zQcaH4sGrauYaDL+wWYCBNvk1xZFngTOW6ZAbpkhpgihH/CEl+hRjEiidgwUGu8K30Ct4LSNXoATJvIA0NELufDEArxrKS4LTDbndT9d9Vxus=
+	t=1790323382; cv=none; b=GbLJY3sxPtVGB0NpVwn0HX4MEo5NuilBX7MZICeNskL503VYAF5MqcxXlTkjmhXY+BEPta5XhRyRCMtk3NJrhdQs9g2CyImHxDSfvYabkMW6EG4vE/Mj7DzLmEnIop9vlEyM7axXfpBb6Wv9olhd7aANftemjoXvv1zulI11nc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790323356; c=relaxed/simple;
-	bh=qNr6Apk3Godwi/9ImXuWGabmY96dx2BaJxTeEFghH6E=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=PLp1hKt+5ALlhlv82UbPXWLRKezR3HwojIlo9Snvmv+OmlT0eN8hCEGMrDkO2TAWrPt2rOnUxMp6IksUY5z2YO/hEEVfSPvdaprrmIfIPfObx6h05HS/+EQb0FGHYVz7F+bkhiC4mCrm7uTvNiZDLSNHCOqs/jf+d7N5KtiTkIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28d7ffab1so1118986b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:02:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790323354; x=1790928154;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+JdXLViuf1GiHiJeHTfCLCCXl9xI/LP8+sA7j9T/9hY=;
-        b=B0mN6ED5FIhaGOQgi4VPOk62l0DFBarcyNgls4+YZJel6qolOgqTvqdyICIlJ+NuXP
-         jXWlfkpuOnzJcR17vxNdWP+2LAbZcshsfc973LVOAGBvgNmndk0WuT6A/60BkmTmVq1a
-         WwIjbdt3PXfllvtwAU5AUR468TRtjEbgk9oDe2FM1ZuxK/mg0C+w2e9Z6lp/EoXfD6e5
-         V0sEwtMuXZ790v96WCCnBVuWTSFRQS0YDzaMLJzbPiP5OrU52hyD1s2//EI0yGKt0L2T
-         9aW/u2S6/Kw36u7u7ZkVOE07e/Go7nF+q/lhxoRTdu/QwYnw5LqvhG0rR2jpjixjBM9l
-         jU9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwzlHWGC6lJcTnMlXymI3hjDBJ1D3N6DPt0sij2kd50K/JXwpKWleCQlQKfsd6EplUHgCAUwhHKjLdMO6k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nztQFlRrBr2qsEJTmYxzYhIEEVCfA5WCV/8hPdACJLug7sJPsr
-	KvPQb105srh8gvGEhe+URuXjgVbkKBWSzDfgApv8J1yUAQYAzpuk5HFOwbPUdv2ibenwcYQ9mFU
-	GNsUsn9eKhv+ADWFo0tAAJnU5oHNNSN7uS5KLXis2I0nF96vdJqhl+wi4/Nc=
+	s=arc-20240116; t=1790323382; c=relaxed/simple;
+	bh=TgRYGnzwRhNgP5FQnSma4S6kkCs+3PAsJfZfNgeqgdg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V3/TZufLNpIuM/8mzDrKEvlfZ/Lyul3fQdurC1jj5YQnL4kK/twCn80Pqd4SYgg7kxsWeGRkNsvdrhjkGDe19f4SPu4L7Uj5xPKBoj9lOC0630qArhCvm7PdMAONqFzQ9BzUZZjZasYxyp4m3pJ9SQPxe0hnPqoRvHbym5aBf5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=Z4RQXCFe; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="Z4RQXCFe"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1790323378;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HlPWaL/rIMb9Av+7frzxb/HY0Sru9mrRgToabhszOc0=;
+	b=Z4RQXCFezhLteOik0+WRNXznxqkkYQS/zmmhMLKnQnGlTL/A7AyOgzdhtbxpLeoMXaWprd
+	6zi9F8ViAfO42EkfVark72iI0dXO9iZXnDh5fxG6w5bhfdxHANIG5oviiUyEUDroa40qjw
+	/vvy4UsGJpwPc5awDx3J5AgUyJn0n+Y=
+To: davem@davemloft.net,
+	Andreas Larsson <andreas@gaisler.com>
+Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stian Halseth <stian@itx.no>
+Subject: [PATCH v2] sparc64: vdso: Flush the D-cache after updating the time data
+Date: Fri, 25 Sep 2026 10:02:50 +0200
+Message-ID: <20260925080250.2874750-1-stian@itx.no>
+In-Reply-To: <20260917082547.223729-1-stian@itx.no>
+References: <20260917082547.223729-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1642:b0:4d6:9133:cfe0 with SMTP id
- 5614622812f47-4d72cd32638mr3804097b6e.37.1790323354036; Fri, 25 Sep 2026
- 01:02:34 -0700 (PDT)
-Date: Fri, 25 Sep 2026 01:02:34 -0700
-In-Reply-To: <6a895324.ae6ddae5.3da009.0053.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab62a9a.7eec07f4.c25c.0004.GAE@google.com>
-Subject: Re: [syzbot] [usb?] possible deadlock in lookup_open
-From: syzbot <syzbot+c39ae720fb00e7e6f14b@syzkaller.appspotmail.com>
-To: a.hindborg@kernel.org, gregkh@linuxfoundation.org, leitao@debian.org, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+The vDSO time data page is written through the kernel linear mapping
+and read through a user mapping placed without colour alignment.  On
+sun4u the L1 D-cache is virtually indexed, so when the two differ in
+colour the timekeeping CPU's stores leave stale lines behind the user
+alias in its own D-cache.  The seqcount does not catch this: the line
+holding seq and the lines holding the clock data are refreshed
+independently, so a reader sees an even, unchanged seq together with a
+mix of old and new fields.
 
-HEAD commit:    5fc5768c7ca9 Merge tag 'bpf-fixes' of git://git.kernel.org..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15a7a2c9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=2a820d8842c77560
-dashboard link: https://syzkaller.appspot.com/bug?extid=c39ae720fb00e7e6f14b
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1562fc05580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1409ed25580000
+On a Sun Fire V240 (UltraSPARC IIIi, clocksource stick) this makes
+clock_gettime(CLOCK_MONOTONIC) via the vDSO wrong for most calls on
+the tick CPU, by multiples of the 10 ms tick and up to a second, in
+about half of all processes: those that drew the other colour at exec.
+The syscall is correct, so a deadline derived from the vDSO can already
+be in the past when handed to the kernel; MySQL's InnoDB
+log_files_governor thread spun at ~24000 futex calls/s on ETIMEDOUT
+this way.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-5fc5768c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/2038b7f58a0e/vmlinux-5fc5768c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/1f03bad44e45/bzImage-5fc5768c.xz
+Flush the page after every update, as arm does.  The helper lives in
+vma.c because asm/vdso/vsyscall.h is also compiled into the vDSO, where
+asm/cacheflush.h is unavailable.  On sun4v flush_dcache_folio() is a
+no-op, the caches there being physically indexed.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c39ae720fb00e7e6f14b@syzkaller.appspotmail.com
+The sparc-specific vDSO that v7.1-rc1 replaced had the same defect
+(reproduced on 6.18), so the bug is as old as the sparc vDSO, but this
+fix relies on __arch_sync_vdso_time_data() and applies from v7.1-rc1.
 
-LUN: removable file: (no medium)
-============================================
-WARNING: possible recursive locking detected
-syzkaller #0 Not tainted
---------------------------------------------
-syz.0.17/5921 is trying to acquire lock:
-ffff888022716460 (sb_writers#12){.+.+}-{0:0}, at: lookup_open+0x150/0x1990 fs/namei.c:4451
+Verified on 7.2.6: 32 probe runs across mapping colours show no vDSO
+deviation, and MySQL's governor idles at 0.2% CPU across five restarts
+of an unpatched build.
 
-but task is already holding lock:
-ffff888022716460 (sb_writers#12){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
-
-other info that might help us debug this:
- Possible unsafe locking scenario:
-
-       CPU0
-       ----
-  lock(sb_writers#12);
-  lock(sb_writers#12);
-
- *** DEADLOCK ***
-
- May be due to missing lock nesting notation
-
-locks held by syz.0.17/5921: 4, last CPU#1:
- #0: ffff888022716460 (sb_writers#12){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
- #1: ffff88802a22f280 (&buffer->mutex){+.+.}-{4:4}, at: configfs_write_iter+0x76/0x4e0 fs/configfs/file.c:226
- #2: ffff888023773970 (&p->frag_sem){.+.+}-{4:4}, at: flush_write_buffer fs/configfs/file.c:205 [inline]
- #2: ffff888023773970 (&p->frag_sem){.+.+}-{4:4}, at: configfs_write_iter+0x218/0x4e0 fs/configfs/file.c:229
- #3: ffff888024051120 (&common->filesem){+.+.}-{4:4}, at: fsg_store_file+0x193/0x450 drivers/usb/gadget/function/storage_common.c:452
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 5921 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_deadlock_bug.cold+0xbd/0xca kernel/locking/lockdep.c:3085
- check_deadlock kernel/locking/lockdep.c:3137 [inline]
- validate_chain kernel/locking/lockdep.c:3939 [inline]
- __lock_acquire+0x13f4/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
- percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
- __sb_start_write include/linux/fs/super.h:19 [inline]
- sb_start_write include/linux/fs/super.h:125 [inline]
- mnt_want_write+0x6f/0x420 fs/namespace.c:494
- lookup_open+0x150/0x1990 fs/namei.c:4451
- open_last_lookups fs/namei.c:4767 [inline]
- path_openat+0xa2c/0x2440 fs/namei.c:4997
- do_file_open+0x20e/0x430 fs/namei.c:5029
- file_open_name+0x1c3/0x3e0 fs/open.c:1375
- filp_open+0x2e/0x50 fs/open.c:1392
- fsg_lun_open+0x6b/0x7b0 drivers/usb/gadget/function/storage_common.c:194
- fsg_store_file+0x1e7/0x450 drivers/usb/gadget/function/storage_common.c:455
- flush_write_buffer fs/configfs/file.c:207 [inline]
- configfs_write_iter+0x302/0x4e0 fs/configfs/file.c:229
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf701efec
-Code: Unable to access opcode bytes at 0xf701efc2.
-RSP: 002b:00000000ff91c89c EFLAGS: 00000292 ORIG_RAX: 0000000000000004
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00000000800003c0
-RDX: 0000000000000005 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-mass_storage.0/lun.0: unable to open backing file: file0
-
-
+Fixes: 9a08862a5d2e ("vDSO for sparc")
+Fixes: 7c5fc16c7a56 ("sparc64: vdso: Switch to the generic vDSO library")
+Closes: https://github.com/sparclinux/issues/issues/94
+Signed-off-by: Stian Halseth <stian@itx.no>
+Reviewed-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+v2: add the Fixes: tag for the switch to the generic vDSO library, as
+    the diff is against that code (Thomas); collect Reviewed-by.
+
+ arch/sparc/include/asm/vdso/vsyscall.h | 10 ++++++++++
+ arch/sparc/vdso/vma.c                  |  6 ++++++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/arch/sparc/include/asm/vdso/vsyscall.h b/arch/sparc/include/asm/vdso/vsyscall.h
+index 8bfe703fedc5..4852f122ce47 100644
+--- a/arch/sparc/include/asm/vdso/vsyscall.h
++++ b/arch/sparc/include/asm/vdso/vsyscall.h
+@@ -5,6 +5,16 @@
+ 
+ #define __VDSO_PAGES 4
+ 
++#ifndef __ASSEMBLER__
++
++/* The user mapping may alias the kernel one in the VIPT D-cache. */
++struct vdso_time_data;
++void __arch_sync_vdso_time_data(struct vdso_time_data *vdata);
++#define __arch_sync_vdso_time_data __arch_sync_vdso_time_data
++
++#endif /* !__ASSEMBLER__ */
++
++/* The asm-generic header needs to be included after the definitions above */
+ #include <asm-generic/vdso/vsyscall.h>
+ 
+ #endif /* _ASM_SPARC_VDSO_VSYSCALL_H */
+diff --git a/arch/sparc/vdso/vma.c b/arch/sparc/vdso/vma.c
+index 60029d60f4d3..fe6a47af6b05 100644
+--- a/arch/sparc/vdso/vma.c
++++ b/arch/sparc/vdso/vma.c
+@@ -27,6 +27,12 @@
+ 
+ unsigned int __read_mostly vdso_enabled = 1;
+ 
++/* Called by the timekeeping code after every update of the vDSO data. */
++void __arch_sync_vdso_time_data(struct vdso_time_data *vdata)
++{
++	flush_dcache_page(virt_to_page(vdata));
++}
++
+ #ifdef	CONFIG_SPARC64
+ static struct vm_special_mapping vdso_mapping64 = {
+ 	.name = "[vdso]"
+-- 
+2.43.0
+
