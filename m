@@ -1,106 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2DF486410
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:35:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED68D4854FC
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790328917; cv=none; b=mCsLh5auP3kCY+8sFzma22dpdNhCBPyV6iiEVEiDULd5XOSxq6XWq5buP5hf9wuWYafu/UvLFmo2LZAvT4/YjffYcvqzUd50cPRMih5NqhzphauwxVdN3Wq5/s3qJ0hHU9pXi0N92gSKu/8Iyr8Ul08eFIp487B/hnQdyLvDUJc=
+	t=1790328912; cv=none; b=ffWFJZGPoQyO7zPLgfEMfusoWHNy7sFcBz31id4I7sPjIMv0l2g033XIkyCir1u5psXkKYX1Fcg0jJiqZixBROR95ZaX0WcmllrYUtsRwNMUwoFfzWOUdzkGFK6QU5l8X/YQdFm4m/i67IF0A3pgT2QuRGv0nZzj/yfbQhyi1cU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790328917; c=relaxed/simple;
-	bh=DDAoA13Z8+rHS9pPf8eE11524ZJOa7eHz1ryfQ2IOIc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CuOSW31Ki0YkSyKRga7zUW1ubt5fltIvxMK6FDukbLE6Tx6dAewnTMzmUB8Q5lsDTtLQnSbGkfpBl1EyVRwv7Z9pkfiMbGhgf0ezgbRKSIeD1Tb2U8SZsBFesf30e46L46vRuYzYjDMWgVmm/+YvpvTowGa4FvhW1RbgDc7ogtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YmWOf3lv; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790328912; c=relaxed/simple;
+	bh=zL6QUn1TpvWtmYgwxcSIkriDKPEG/scU+3oxMlrKFZE=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=J+sGsPV3nGXkKdXM5dxqo61hu4GJqCLZQsvXwqA2tXsNx1Ce1UtRlwUXJKOr/nvap/o1XRapgF/cmRWPzUZA0uBsXd0L4FXi36bwWe6woPB67J1OrsWvPxY6sW/uqEeVlAb/QVjA33PiwoANSfqSHO8KlqjAs2R50fyUKBrs2hQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=SF9qMH9I; arc=none smtp.client-ip=185.70.43.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YmWOf3lv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790328916; x=1821864916;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=DDAoA13Z8+rHS9pPf8eE11524ZJOa7eHz1ryfQ2IOIc=;
-  b=YmWOf3lvSOWeKLNqDzsUVu80g0khTamVWfGJHpptMgc57SBwlZUu4zoe
-   6n6lQmvrIVpwJOlkA3etGAyBvXKmhFaTeEFvvBY4BfZwurWL17Q9WsUE2
-   v66vJ+YAu85eBu5I4qSXT1uVJXWuEG+QfmUG6VC7CcOFC2TXR49S6HLT4
-   VcCyJGFuYbkSkzgjySvaYkWKCskOFNoNG27Qe+jS8v6+nZFsESGmAE70J
-   ILDqWubU8MR6HMlsMRZzdy9hYOk8LoTKgZaEz8wHyI+SeMiNpj3eiIUzr
-   7yEBVgqaE/NwjsmUsW+3SlLPRH4DwvDqDZugt9cmKRXk9kEwKHa3wXMo/
-   A==;
-X-CSE-ConnectionGUID: anUnaGp5RbqbdGmTv+hy3w==
-X-CSE-MsgGUID: pFwAuO4GTYWzeGNLERIkGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="116640893"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="116640893"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 02:35:15 -0700
-X-CSE-ConnectionGUID: o748zX7PTHK637eUrNQGBg==
-X-CSE-MsgGUID: 0ijMl8OxRIai1FCC/5NBLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="272103426"
-Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
-  by orviesa006.jf.intel.com with ESMTP; 25 Sep 2026 02:35:13 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: driver-core@lists.linux.dev,
-	gregkh@linuxfoundation.org,
-	rafael@kernel.org,
-	dakr@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	dawid.osuchowski@linux.intel.com,
-	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH] driver core: platform: Simplify platform_device_alloc()
-Date: Fri, 25 Sep 2026 11:39:28 +0200
-Message-Id: <20260925093928.3765486-1-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="SF9qMH9I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1790326509; x=1790585709;
+	bh=zkohvUbYW8D1KYV9baP5FqoHLALhVh3cVlMGQa+d5Hw=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=SF9qMH9I82BQQ4bubbNt4y7V1oCvLulO2dx1qcoWcLRhVxeSNtW2CPxT4y/VZVbhg
+	 CmyEgABO5bYHHB38MpGVKDXLoK++o19for5m3lKUgx8enCqp6LwipmbTVz4m44N/D9
+	 LAdog5N38pa0qCHIf129o7rrsdONFqPjXzEFUSkaEP1Sm36HWq4rXtRcODwcDYgdLm
+	 Qao+nJrBQx4jjCgVnCxQw2kv3lqAZgnF/IAYyHyv1Z6R7C47wPw9DbBzsgrhDnBYlS
+	 pcO/f46yrU83MUvfX3vZXxX9l5AnuOdV+J8dqdWc2P4aF0wzF/tlmRVByn1vtdiYB/
+	 XqOqJkWqrKeXw==
+Date: Fri, 25 Sep 2026 08:55:04 +0000
+To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Carlos Llamas <cmllamas@google.com>, Matthew Maurer <mmaurer@google.com>, Andrew Lunn <andrew@lunn.ch>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Sagar Taunk <sagartaunk@proton.me>
+Cc: Sagar Taunk <sagartaunk@proton.me>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH net v6] rust: net: netlink: validate attribute length before casting to `c_int`
+Message-ID: <20260925085449.22553-1-sagartaunk@proton.me>
+Feedback-ID: 130121444:user:proton
+X-Pm-Message-ID: c5cf01b9f15066f4acb72ad7d1d2fa3474d02485
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-There is no need to double check the 'pa' object.
+`put()` trusted an unchecked `as` cast from `usize` to `c_int`.
+When the length exceeds `i32::MAX` that cast wraps around to a
+negative value.
 
-Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+This ultimately resulted in a kernel panic when the reinterpreted
+value via `__nla_reserve()` and `skb_put()` became enormous.
+
+Validate payload and header both fit together in a `u16`, rejecting
+any payload that wouldn't leave room for `NLA_HDRLEN`.
+
+Fixes: 5eaa5fbb6e6c ("rust: netlink: add raw netlink abstraction")
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Reviewed-by: Carlos Llamas <cmllamas@google.com>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
 ---
- drivers/base/platform.c | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+changes since v5:=20
+Rebased on net/main
 
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index b45d41b018ca..461ffcddad2c 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -620,16 +620,17 @@ struct platform_device *platform_device_alloc(const char *name, int id)
- 	struct platform_object *pa;
- 
- 	pa = kzalloc(sizeof(*pa) + strlen(name) + 1, GFP_KERNEL);
--	if (pa) {
--		strcpy(pa->name, name);
--		pa->pdev.name = pa->name;
--		pa->pdev.id = id;
--		device_initialize(&pa->pdev.dev);
--		pa->pdev.dev.release = platform_device_release;
--		setup_pdev_dma_masks(&pa->pdev);
--	}
-+	if (!pa)
-+		return NULL;
- 
--	return pa ? &pa->pdev : NULL;
-+	strcpy(pa->name, name);
-+	pa->pdev.name = pa->name;
-+	pa->pdev.id = id;
-+	device_initialize(&pa->pdev.dev);
-+	pa->pdev.dev.release = platform_device_release;
-+	setup_pdev_dma_masks(&pa->pdev);
+ rust/kernel/net/netlink.rs | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
+index 22ef3dde36fa..2f8733a694a9 100644
+--- a/rust/kernel/net/netlink.rs
++++ b/rust/kernel/net/netlink.rs
+@@ -11,6 +11,7 @@
+ use kernel::{
+     alloc::{self, AllocError},
+     error::to_result,
++    num::casts::u16_as_usize,
+     prelude::*,
+     transmute::AsBytes,
+     types::Opaque,
+@@ -86,9 +87,17 @@ fn put<T>(&mut self, attrtype: c_int, value: &T) -> Resu=
+lt
+     where
+         T: ?Sized + AsBytes,
+     {
++        // `nla_len` is a 16-bit field that encodes the total attribute le=
+ngth
++        // (header + payload). Subtracting the header size from `u16::MAX`=
+ gives
++        // the largest payload that still fits within that field.
++        const MAX_PAYLOAD_LEN: usize =3D u16_as_usize(u16::MAX) - size_of:=
+:<bindings::nlattr>();
 +
-+	return &pa->pdev;
- }
- EXPORT_SYMBOL_GPL(platform_device_alloc);
- 
--- 
-2.34.1
+         let skb =3D self.skb.skb.as_ptr();
+         let len =3D size_of_val(value);
+         let ptr =3D core::ptr::from_ref(value).cast::<c_void>();
++        if len > MAX_PAYLOAD_LEN {
++            return Err(EMSGSIZE);
++        }
+         // SAFETY: `skb` is valid by `NetlinkSkBuff` type invariants, and =
+the provided value is
+         // readable and initialized for its `size_of` bytes.
+         to_result(unsafe { bindings::nla_put(skb, attrtype, len as c_int, =
+ptr) })
+--=20
+2.55.0
+
 
