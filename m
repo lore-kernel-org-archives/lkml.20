@@ -1,211 +1,600 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from GV3P280CU013.outbound.protection.outlook.com (mail-swedencentralazon11020102.outbound.protection.outlook.com [52.101.75.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EA04D597A
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351895; cv=none; b=NnmkufiQZjalF5E+VUKmo3UreSWcqYqRi+xfi1dSlPS1hy4iVbgRmcpRAm0WLFcyVJVxbKuTin6qQ//OjpvejLdpaZ06r0HhTT+u1UxX5160JYaowXiaqdwL9k76UHmh/WFA4yZaZPyjOtpuR5NX2AYn0YtTv59KX0lRD7ZSk24=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351895; c=relaxed/simple;
-	bh=H8Rbv3eBQpD9WgFbo2yB7uif+cAfBZh5zCbauor89yw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S5rgbo9y7bchFx218huEaDZElJnl4yEzEF1LBNbN2cRA1aOfEzjunw8N5Ecu5jxtzIZTuyOOAZSYwMKCABdgjrTxP9Z0UnYf4JI+HUBk/uAsWIvl4xVm+McvCA8KojN24QcGzNwDddLFO3r1NhW7smspi14iHXt7ghh472JEc2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WeVZen3y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gD4lnky4; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20904DA540;
+	Fri, 25 Sep 2026 15:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.75.102
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790351907; cv=fail; b=GcLgPOeRjZtjrW0P2vsRlTraYN4+ZRym4PzfGYLbqCenM7mQmH4JaVe5il8zUz9R5GWo0HDcy3RybfsQDVydIJPwBnrlpzk1rv4wZ1zXjlFmdMCaWKTpJerSWBAvRdhpszV/+0tDxTA9no4WU0qptnZjaKxAtjKmXUaZTrxyjMc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790351907; c=relaxed/simple;
+	bh=PpzFF6C9QGjFjP+tLOErDZKxZM1RcrzDwCiSVM6s1ac=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=V2OC0t3KDamC+lUGLniCgVR5W4Fb30n2tAKkO0nUZfFaGt4q5HIhC0swqlOXORxnyIY2v0UuUAVCPvSurm8E6aee36ueG+TtIhovwvec72K7oEXgPTYv4W5LGsAApr1XfbQqsS3CjZEM4Y3GsIeGVkQz0Btfv8F5+Tc3MELOzZc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com; spf=pass smtp.mailfrom=gaisler.com; dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b=cTwCQruE; arc=fail smtp.client-ip=52.101.75.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WeVZen3y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gD4lnky4"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PFHalx2554019
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:58:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=zS7HAWLYB2K
-	PmMHyPqOeaG0eVqDjrURQXru3PTmytm4=; b=WeVZen3y/kyqt4GzvLiaHTnoRyf
-	0jttmCryP7WG2a5THrEeUc3ec6gLqFVdEKSR+yOohOfKd6lA0X/5X3fhIFI+ImTu
-	qmATk3FdhnabrwfDEVerNCuQiyff1wqt7u5FO+rNOcsDR2t/OnVlnaDeVJRnZBmg
-	1GSkG/4WrGVLX56iHdFVVRs2j94RpENvp6Xt8GxuktOt3eWPZbOCXKcpHAy1R8m4
-	DglMg+jA6+oHofSdidaJFWRPw5sBwVSRSQ+mHSq28uUxI2Dde3SUVcW3gzhDavmP
-	fTke5X/1PEu9HjjDJMudD0IiSiQ12cRZzrNZMpNz8lcWsuQQ4YziFxkmOgQ==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwufk057k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:58:05 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8716b158692so467020b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:58:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790351885; x=1790956685; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zS7HAWLYB2KPmMHyPqOeaG0eVqDjrURQXru3PTmytm4=;
-        b=gD4lnky44G7cidVoGDIiEKQNCFAhptKnwCvKvTivGcoJDcOR1mufN7SBYQmdpRMxr5
-         DKEDQP5YtkG559tfbAputo4JjLvRmQFKcNW9DtJGPF3X43Z6yEb+vwg6wO9FeolSchfG
-         rQagNUUPW4k/+VUB+EOUQHyoAB1FUH2r0bw2FltxGWPv41pmB+xscsp7NqEFAy29i7ul
-         DK0wPhn5cD/Br44Brg7vxasar3d4D1PNLZjBQrZmOtn/gDmbhoeSz0cS7hterdgfygRh
-         pQTV4Ge2E1GZIVTrvWb+Xyisa9puaDpKKfrdzusBdNFN4c36sSv9+IKJaHEi3gIa2iY/
-         RILg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790351885; x=1790956685;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zS7HAWLYB2KPmMHyPqOeaG0eVqDjrURQXru3PTmytm4=;
-        b=0vLTtcplQYxHqKuGM+QYxDzWTtnYhELpY5YyuzUr9TC6Xa3qP52L/K4nDJIUt1lYvW
-         HCH6wBU0rzH36S39Jib/lSvFSUUuPVkEIjZG2syBUqRSRPRnmKmhmGG+xC9kQgxjvJul
-         fUIKDWKlK00gRTHls59IwxR3zecOsTOxQgKbwXNLuGJUGw4Pj8sfqSntNM/KpHpQMnF/
-         JITW/FQMjF3l4aH3OwmO5J26FZQkQ1hfXmzDtzq6wmMCA6s806QjSvh/2X0ZSS0+rzcC
-         c1AuPIrJYQIGlCdzY2KVknIpTTMInYb8fKs2BmxFLBmauX8cOt+5S45o1RhBHg0D7+zL
-         8wlg==
-X-Forwarded-Encrypted: i=1; AKwUvBzKW8NATQ3YKnfx4wiJEMLXYYWCS3U5QBbyw7sxvA4P/ygrkallh2R/e/IdS3Hyz2OnqrSZ0+CuMxsGfMI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYWVk7qJ1cdZ1I0c/pd456mtRhKJlO02SaPS+crJezO04uG35u
-	tghZn7sLNCSwkCVxxUI3zqS/wuiPwBRy5fSYDIeirgksLr39+xoXvJ3ONfOkCp5ch3e6PS+yFFu
-	LrEApLcPQ51VEMMpgmG1qdSVcInEMM0tPakdAreyXlW/98cfCq4fI0FQKS3F0/hDWsx8=
-X-Gm-Gg: AYBFou3aAwokrumZi3504HqtUWcxbFyPpHgaks+amQkh/suf7kk5YtNUKSuonWBAB+2
-	mPyg9MXRhmV3/FUx2FZJrI2qtGB6BnX8BGOMqWNQf7B86uEWMMMsd3LfAOGAjIfTlgIaaWXmAuD
-	xHCh7gE/+ChtKmKe4jkxhubWil+IGyc+4yUJXvrkSd5cHV2LpVtBmAxWiTOo1CdsmmEvfdHULax
-	LtK0R99MVY7U3vfvfbaMUWDHwW+kjN/juXMbVE98ZVcwc7SMlTpbYPaDOItbIPm3z88+h9ys1Sb
-	Ryfr64fEM29jTINo/aBWPumaGU0FrLm9H4/4L5Ho04JDNTc6RHdurGBxFVM71A8YGRmOpTrXLuq
-	CjyX5s6/98lcGy7qUt99zhI8d9eQ=
-X-Received: by 2002:a05:6a00:3e27:b0:880:fe7b:bc61 with SMTP id d2e1a72fcca58-880fe7c01afmr530743b3a.50.1790351884764;
-        Fri, 25 Sep 2026 08:58:04 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3e27:b0:880:fe7b:bc61 with SMTP id d2e1a72fcca58-880fe7c01afmr530719b3a.50.1790351884190;
-        Fri, 25 Sep 2026 08:58:04 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87ff354d854sm1361299b3a.2.2026.09.25.08.57.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 08:58:03 -0700 (PDT)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Sumit Garg <sumit.garg@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
-        Simona Vetter <simona@ffwll.ch>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        "Bryan O'Donoghue" <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-media@vger.kernel.org, netdev@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-remoteproc@vger.kernel.org,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH 1/8] remoteproc: qcom_wcnss: migrate to qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
-Date: Fri, 25 Sep 2026 21:27:30 +0530
-Message-ID: <20260925155737.4161358-2-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b="cTwCQruE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yt/A1Cp6iXRVDTdxpl848hp+gNZA+WcB/nINTE5dsOb9aQwaMF8hsFIA73/R+fcTvf3zzFXAlvPlZCe4n8NRgaphhBstbLLsDgHxIuLIakMzxEW3T+VQ2dKyOPQNEpRY9CIUhV2/8T32Ffvy0Ayi2owj2DicWd8qd87Hf4Hiiw30qWsxi6ldIP9ps+pZza9g0bam5oPOkm7eJoOj8xD+508epudntO8/STmjjdfm7NoP0bh0piGdxfXAGprM4T5jUkbxJnKauN341j2gg7Y3EqoGfyJ53RJAx0Kwnih6r3gP8Gry4K7EFrfuOfq3hZHZ924acjvT5nWFWZgFHEoXkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GRAhKEBrdaupu8JRwUErMHDDwG1AOFdrTaYKLmNZZ6o=;
+ b=cg6nUmzKURiHKnYvn2Z8lSXEAUebIdDgGDQ//nAzFhHyjS9hi2/s851KivMMUnZJYYzWTYS8Vy8MyipE/25Q4JUw3Z1F3urD33QbldhY83fXB6piSngKlOwI9idyAmby+D31m1VqRO1nJcNyVVZYb30Ix/4CN7Rlh/dN2uOWa3xd968D3Q8OuQ1YAiLnxmBHqk+YupLyw3HqTS4P5k+Ld2mOhdjE9JdXbISDVB4t8UWs+REBZrs9KfB7gvFwCJiNsb9kJDGkJWJHLPXBjl0VN62bdavCNCfSVhAEKECF2QW3EWyVDlswXdsOI9VesqpgybNiORI+GbRn4e6CkwgxoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=gaisler.com; dmarc=pass action=none header.from=gaisler.com;
+ dkim=pass header.d=gaisler.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GRAhKEBrdaupu8JRwUErMHDDwG1AOFdrTaYKLmNZZ6o=;
+ b=cTwCQruE6xc3XMjwryI3fK5hLNH5RlxpjBEkIlxW5tLYHDxMqSzoENty63GgGgs7WjRirXkOgPc5YWvZwB51TPuaUvrHa4L//BsnUsPSR3jpnS5S9m+vD77t4I9roOThmzxdJmnOv+mi5aN+PhXaOS++7epIC9AqkHzf5O9TxhmoTeBBXiCqbJ+rgnb8am9PdFbv4MedaTEwS565ZiVR2wo2GHK6bosqkDkCxyGZkPwlW530aru3f6JJ1GfUXpPayatsW7FrfdKsk1M80cv5nKEO9YWOf0EPxcKLntXXI+dje295ISPpzTWrxIPi2ipHT3nI8M7L3M4tR1ykiy+4YQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=gaisler.com;
+Received: from GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:195::18)
+ by MM0P280MB2230.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:23::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 15:58:14 +0000
+Received: from GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::be76:7636:f4ac:6773]) by GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::be76:7636:f4ac:6773%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 15:58:13 +0000
+Message-ID: <01904ae2-ed8e-487e-80f7-540b4d06b55d@gaisler.com>
+Date: Fri, 25 Sep 2026 17:58:12 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/6] sparc32: move early memory setup to setup_arch
+To: Magnus Lindholm <linmag7@gmail.com>, sparclinux@vger.kernel.org
+Cc: davem@davemloft.net, linux-kernel@vger.kernel.org, sam@ravnborg.org,
+ glaubitz@physik.fu-berlin.de
+References: <20260901214611.60560-1-linmag7@gmail.com>
+ <20260901214611.60560-6-linmag7@gmail.com>
+Content-Language: en-US
+From: Andreas Larsson <andreas@gaisler.com>
+In-Reply-To: <20260901214611.60560-6-linmag7@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: GV3PEPF0001DC09.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::277) To GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:195::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: Ju3BcBPWMM2n5y8le5M_S_ok-jJI-R8f
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2MyBTYWx0ZWRfXxqa1YIZ/FZDb
- q7iEJUYiwZQXf31VQV9kq0S1uCI1FIufIEIAO03ursa8c/I+Kfrxyk8eWJ4uCEQnUzDSgoU7vso
- eUwAcNXnEiemvk+k+YodQiRwI9aVIqI=
-X-Proofpoint-ORIG-GUID: Ju3BcBPWMM2n5y8le5M_S_ok-jJI-R8f
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2MyBTYWx0ZWRfXwIc+rsGxwG/7
- xz1zjdJhHhoO75jlxhIA0nMpJiDXJS439v46pOB8zDhQUyVdi6Irr5HQnWLwHA/4At8ldVX1EwT
- o5chZEp1tjiaxvbs5OhfeY3l6dA20Ir5TVs9LiIjPdnkBm1me3LJyKzRht6RUNtAWhBjsCFPGWI
- Vqx0JL6s2zTc6MXfBEjpyxlMSFZexMSAkVLWuyn5yqlNIQPForxzrVbETqlGgJuM/SgpFMwxqw2
- CGn8RfpbHOE34UnoaiDLQFnhXcRGXdi14TzUmdq0UTkbN/3dQWusdUBRuDsHG9uzZU7oqaIbrUj
- KOCEbh8XwSUDqGoPqzSIbIw/m1tZkvpO87M6acwhRQj89tyHg7RhWZBL7HzxAz9jHcQUJG4rq80
- Rgv63FWiKq3PpKjUWfWVkbF+sKpbSn/62Ojn4c8gkTQz5vSQRgSOlJ1cze0MizUlRRfMRBxxGEW
- cF99aVamELBbLryd8VQ==
-X-Authority-Analysis: v=2.4 cv=B+wsQ+tM c=1 sm=1 tr=0 ts=6ab69a0d cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=BENypEIf3hN4rM3MEzYA:9 a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 bulkscore=0 spamscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609250063
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVYP280MB1290:EE_|MM0P280MB2230:EE_
+X-MS-Office365-Filtering-Correlation-Id: f14cfb1c-5140-49d1-b67f-08df1b1dce39
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|6133799003|22082099003|18002099003|4143699003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	nI7ZmHyBlq4iOoeo1NUyDrFPjAA36tImS3A6Ut8j3kO5Y3cZqPPN7MEgEK9CeULcQcWfH3h8Q3aCdoMSA0IUlJVvy2Fqfn8IYnoaZ/nmcapjfCv94vTWnTiMkmjYiMyNDtrCWeyEVptv7+0Shxuxg000I++aF24Vn4tv86h6QXMgscYImrLL4tEPPFQaLqWmG4rJW1UTzt/yq/JSN1cUbxQZklwPylWW6aF0XIhydoIIqMUXHFhvL08xRGvPu1o/Y1qssHGIAkfKHEuZq7rn9CusxImjBDkHvTg4ga042vx9zmftevSBysTQMuaJ9t8fuU/t4mcboFPryki6I2Ck9OnMusTW9xvKX55aqg6rpKtbUz8T6TDph6iLt3pAL6sIaW0kY4T0X4i/aHptmAu/jvEGeY879UAVNhy5VJVBZq6nGu+PR3LAfNK/chY7U8vRvXCRZJcU8qDcKYWDhEHZmJOxzvIkS0uGChXYpfbXWx2r8afpu8Ns8hsCZXpaEX4ZI8JWiygBn96LJp3fWeK7C305+knQNWQaD9dG66PyewqemI1MephN1l3TBJebPC4wh6GlQJnrQPFZebIMftgT9i9VXK/rmuyfqQLgFc+q6LxT7eNktgFyNMueBdZ1iT0WXFMcACs5upbciOGyCACT1RZGnhE153XV/HO4WrXkTP8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UENtRXFvdGVxZmVnM1p2VGdXREpjajBCREhFR0pnWWpPL3U2S256RjAzSUd4?=
+ =?utf-8?B?d2pEWlh4NWV3NmhKaVlGQ0lBZEtIT3drR1J3c0lVZU9BOFV1b2hHcHZ6Wmoz?=
+ =?utf-8?B?RHlScFJ4WmRFVk5oTDlQOUpmalBvMFRLc2hHZ3lCa0E0YXZMR1F5UVZ5UVd6?=
+ =?utf-8?B?U1E4cWIvYUs4N2ZCUWRFWHNmL3Q3dlUzbVh6TFVkTkFVci83UHkxKzM3Z3Za?=
+ =?utf-8?B?Mk5lUXk5SzdsbG5hUkhIb2ZkT2pjTklYL0RXY2NpWlFhOTc4aE84SnZFV2Rn?=
+ =?utf-8?B?eXdoTVdXVC9sUkE3YkNiY25vTlRISmdJZU1JbHpFOTM1YXF6aGFCc1FYRGs5?=
+ =?utf-8?B?MUdLQVhXdlJmM0NONlUwb05WSWU2ODdsMnVFTTZ3ZWJWWHB0YXg5U1RYL3Y0?=
+ =?utf-8?B?MXE4RTZDSUlRcFA3NkIyNWlpRlJHYjIra21LS1hGMHdFTjJOZ2pyUGU1U2tk?=
+ =?utf-8?B?dk1vb2F2ZTBlVm1jRjJPNUFDVEFyUldYOTRtTjEvUzh2MjgxVEpPUWw5bTJY?=
+ =?utf-8?B?TGtmQm4ybVd4TXEwSlNlZGNNbUZPbFJlRTN0dVJHQWU3bkljWjFjbTNUbUE5?=
+ =?utf-8?B?Z0hFRSsybVdFZFd2TzUySVFWZUxtTFFvcXBzaUJ6TGRKQU9tSkNFNDZSeGJY?=
+ =?utf-8?B?SFcrQjlyWllzN1JLREhPdlhNcWVKTm9namF2VWEyTFZaNW15M0RCY2VwcXVX?=
+ =?utf-8?B?MnRtUjRLNTZiZU1QcTJIVHNMSFdOcXRUdzU1TlNleFJROFA5SjdJRzFOZXJn?=
+ =?utf-8?B?TS9OZFNGWkhBMEtsbXZtU1lYRHZucjR2VWQ0S1I0TkpvcmFhTTVtUnZmc0tZ?=
+ =?utf-8?B?SkM4OTJOOHY0eGRpdGs2S0JMaDdRQjJFQWcvb0F1YkFBVTBrNnNiRmRnSnpX?=
+ =?utf-8?B?eS9RTnJGUFVmaGhxcWdIMlFIalplWG9LYlFVa1A2VDJNRWNQVVRHNEhZVFJV?=
+ =?utf-8?B?VUZRc21wVk9jRm5HZUZ6QWtrZ0s1c3JReGNtVGVtalJpUzB0ekRWVnhKY2Mx?=
+ =?utf-8?B?YklLMnZqRUFMNzVlUDBaUnhKVUFibnNPTFY4ZFNLUFhWeVFqYXBVVTY2ZlNt?=
+ =?utf-8?B?TkNNazNFMXBNS0JrNSt6VzJJeTI2eTQvd25UVWZRdWZsRnBYNmRsdStoMkVy?=
+ =?utf-8?B?VW83dy9SWFhwM0pEcDBwYUk2V2NIcDUrOXl6bWhLTU5RTjA2OStSZld1a0gv?=
+ =?utf-8?B?QkpQcEtkYlpkaDBxZG1uclRZSzFzUFlCTlFlUmJpa2xrRG9YcS9HMnMzV2cw?=
+ =?utf-8?B?b01HZUxLY2lBYTBwYjdyaklqWXdZeVBBM3dUbWtmSlVHdmhEaGVVZ0YrV0ww?=
+ =?utf-8?B?eC9NYTBZVzJnbFZsOU5lNlZ6cjJIRHErcFRwOG1HclhSNEMySXlXaHQyNzdU?=
+ =?utf-8?B?bXJIeGd4Ums5bFdPTEZseDFSVlg5OEFsek1yTWkzejRqT3dKWWFMVFFrL3Bm?=
+ =?utf-8?B?cGhUejlsRWhUV3dHTStiOTNIMGNOWmZEd0traVJscDF2RmQ0ZFVwTDdTTXZX?=
+ =?utf-8?B?Zi9BTnIxQWduaGFCYkE4VEY2cTlodmJSbFZlS0g1aGloTXZveFZ5SWhiSDFY?=
+ =?utf-8?B?aGg1K1hPckdZK0NvQ3lsS2hXYk5xaUU0R0JSRENueElYSnE5eWFwSGZnUTZE?=
+ =?utf-8?B?bk5xcHBMSjFCQ3cwcmg0eUZFM3M4QncrdVpqK3lBY2NlcUxITVA5MDB5VWw2?=
+ =?utf-8?B?NTREckxDSG41Rks1Zjd5dnJJZ29XYmF3MmxSa3BzenN4MkY0eTEwV3VSaTJV?=
+ =?utf-8?B?LzJHYUVRZXZwSHNJdmZ4RVh0aWJsUVhjY1ZmTWJsU3Zkc0FJa2hTdWttRGhW?=
+ =?utf-8?B?anRzMVI5ZzFqdmxEc2VjWGNvRUQxUE43U0xkWm1rS2RNVzBOZUZ4MFRxcGF6?=
+ =?utf-8?B?ZkhpSXA3VEZLUlNQV0d1MENVRUdDRWpYZEdCVHV0ZENkRy9tVzc5SFVzRUgr?=
+ =?utf-8?B?NGpmWDFRZXo5NTlzNUlhUnBuYmlXaTBUcnhOSjRUSFFBZS9QZzJiMy9VZkJ3?=
+ =?utf-8?B?NnRPNVN2d0owRS9MNFViVXIycTI1ZUVyVE5Xd20vWlJ1bGdRQ1J3M2RHRDda?=
+ =?utf-8?B?RkRwbk51OFFxR0xKYVo4bWpzQXl3L0orKzdmMzl0emZzM3dIS2UrdGxVN21W?=
+ =?utf-8?B?TFdYRWhuOFoyTDVyM2pmVVp2eVRnSyt1aG5Bb1FudFVab2xjSldIMU5DdDZP?=
+ =?utf-8?B?Zzl5SkhLaElFUkplcUdJd2lRMUdQa05Bbm1sZ0szaGFCbU5oa0VYN2M0OEpw?=
+ =?utf-8?B?TnZNREVZSnFHUVBQWGNYVUVHK1ZvcjNkVUEzdnYyemQrd05FUFEzOTFQZ250?=
+ =?utf-8?B?d2FCQ3o1VDBMNFdxQTV6STZGZmFyTTl0Wis5ZFZhSEZmSStpVjg1RDFsYzFy?=
+ =?utf-8?Q?f+oAuX/PpsamyQRE=3D?=
+X-OriginatorOrg: gaisler.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f14cfb1c-5140-49d1-b67f-08df1b1dce39
+X-MS-Exchange-CrossTenant-AuthSource: GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 15:58:13.9138
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 91fa4a59-2167-458a-8318-e45d80469d7e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YjyxN5YIcNZ1jz9Hxf0W139XVIeYr+54t5LtltJsSBkjRESly0+hvPIi5Sn9okvfH5Z/PA0C5yoQ/YlYZu8ARrJyIjHt6tm/WKBjufur3wg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MM0P280MB2230
 
-wcnss_load() calls qcom_mdt_load() which bundles metadata init, memory
-setup, and segment loading into a single API that does not expose a PAS
-context, and wcnss_start() calls qcom_pas_auth_and_reset() which skips
-the shmbridge prepare step required before TrustZone authentication.
+On 2026-09-01 23:45, Magnus Lindholm wrote:
+> Move the early memory configuration out of SRMMU paging setup and next to
+> the rest of setup_arch(). Derive the PFN limits from memblock, reserve the
+> kernel and initrd there, and retain mem= support with
+> memblock_enforce_memory_limit().
+> 
+> Use for_each_mem_pfn_range() to find the lowmem boundary and replace
+> last_valid_pfn with the standard max_low_pfn variable. Set the standard
+> max_pfn variable to the end of physical memory and use it as the highmem
+> zone limit. This tightens LEON's _pfn_valid() upper bound from all RAM to
+> the lowmem limit, with no functional change because LEON does not use
+> highmem.
 
-Allocate a qcom_pas_context in wcnss_probe() via
-devm_qcom_pas_context_alloc() and store it in struct qcom_wcnss.
-Replace qcom_mdt_load() with qcom_mdt_pas_load() in wcnss_load() and
-replace qcom_pas_auth_and_reset() with qcom_pas_prepare_and_auth_reset()
-in wcnss_start().  The existing devm_ioremap_wc() mapping is retained
-for wcnss_da_to_va() address translation.
+It is not at all true that LEON systems do not use highmem. Rather, they
+can make heavy use of highmen. Continued further down.
 
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
----
- drivers/remoteproc/qcom_wcnss.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
-index c856a92af43c..01f9076aa0b1 100644
---- a/drivers/remoteproc/qcom_wcnss.c
-+++ b/drivers/remoteproc/qcom_wcnss.c
-@@ -96,6 +96,7 @@ struct qcom_wcnss {
- 	phys_addr_t mem_reloc;
- 	void __iomem *mem_region;
- 	size_t mem_size;
-+	struct qcom_pas_context *pas_ctx;
- 
- 	struct qcom_rproc_subdev smd_subdev;
- 	struct qcom_sysmon *sysmon;
-@@ -157,9 +158,7 @@ static int wcnss_load(struct rproc *rproc, const struct firmware *fw)
- 	struct qcom_wcnss *wcnss = rproc->priv;
- 	int ret;
- 
--	ret = qcom_mdt_load(wcnss->dev, fw, rproc->firmware, WCNSS_PAS_ID,
--			    (__force void *)wcnss->mem_region, wcnss->mem_phys,
--			    wcnss->mem_size, &wcnss->mem_reloc);
-+	ret = qcom_mdt_pas_load(wcnss->pas_ctx, fw, rproc->firmware, &wcnss->mem_reloc);
- 	if (ret)
- 		return ret;
- 
-@@ -257,7 +256,7 @@ static int wcnss_start(struct rproc *rproc)
- 	wcnss_indicate_nv_download(wcnss);
- 	wcnss_configure_iris(wcnss);
- 
--	ret = qcom_pas_auth_and_reset(WCNSS_PAS_ID);
-+	ret = qcom_pas_prepare_and_auth_reset(wcnss->pas_ctx);
- 	if (ret) {
- 		dev_err(wcnss->dev,
- 			"failed to authenticate image and release reset\n");
-@@ -600,6 +599,11 @@ static int wcnss_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	wcnss->pas_ctx = devm_qcom_pas_context_alloc(wcnss->dev, WCNSS_PAS_ID,
-+						     wcnss->mem_phys, wcnss->mem_size);
-+	if (IS_ERR(wcnss->pas_ctx))
-+		return PTR_ERR(wcnss->pas_ctx);
-+
- 	wcnss->pmu_cfg = mmio + data->pmu_offset;
- 	wcnss->spare_out = mmio + data->spare_offset;
- 
--- 
-2.55.0
+> The removed bootmem code also printed a private HIGHMEM summary. Generic
+> memory initialization already reports the highmem zone, so do not retain
+> the duplicate message.
+> 
+> When PAGE_OFFSET maps a relocated kernel, remove memory below phys_base
+> from memblock because it cannot be reached through the linear map. This
+> replaces the equivalent trimming of sp_banks.
+> 
+> Suggested-by: Sam Ravnborg <sam@ravnborg.org>
+> Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+> ---
+>  arch/sparc/include/asm/highmem.h    |   3 -
+>  arch/sparc/include/asm/leon.h       |   2 +-
+>  arch/sparc/include/asm/pgtable_32.h |   3 +-
+>  arch/sparc/include/asm/pgtsrmmu.h   |   1 -
+>  arch/sparc/kernel/setup_32.c        | 112 ++++++++++++-----------
+>  arch/sparc/mm/init_32.c             | 132 +---------------------------
+>  arch/sparc/mm/leon_mm.c             |   1 +
+>  arch/sparc/mm/srmmu.c               |   8 +-
+>  8 files changed, 67 insertions(+), 195 deletions(-)
+> 
+> diff --git a/arch/sparc/include/asm/highmem.h b/arch/sparc/include/asm/highmem.h
+> index c7b2e208328b..b1b915ac604d 100644
+> --- a/arch/sparc/include/asm/highmem.h
+> +++ b/arch/sparc/include/asm/highmem.h
+> @@ -26,9 +26,6 @@
+>  #include <asm/vaddrs.h>
+>  #include <asm/pgtsrmmu.h>
+>  
+> -/* declarations for highmem.c */
+> -extern unsigned long highstart_pfn, highend_pfn;
+> -
+>  #define kmap_prot __pgprot(SRMMU_ET_PTE | SRMMU_PRIV | SRMMU_CACHE)
+>  extern pte_t *pkmap_page_table;
+>  
+> diff --git a/arch/sparc/include/asm/leon.h b/arch/sparc/include/asm/leon.h
+> index 053a24b67aed..815131c77ed7 100644
+> --- a/arch/sparc/include/asm/leon.h
+> +++ b/arch/sparc/include/asm/leon.h
+> @@ -251,7 +251,7 @@ extern int leon_ipi_irq;
+>  
+>  /* macros used in leon_mm.c */
+>  #define PFN(x)           ((x) >> PAGE_SHIFT)
+> -#define _pfn_valid(pfn)	 ((pfn < last_valid_pfn) && (pfn >= PFN(phys_base)))
+> +#define _pfn_valid(pfn)	 ((pfn < max_low_pfn) && (pfn >= PFN(phys_base)))
+
+What is the reason for doing this change? When leon_swprobe() is called
+max_pfn has already been set up. Is there a reason for not using that?
+
+
+However, in the scope of the calls to leon_swprobe(), no parts of the
+inherited MMU table's PTDs/PTEs are outside of lowmem. If there indeed
+is some technical reason for needing to do this change I suggest that
+you, in a separate patch before this one:
+
+- Remove PFN() and replace the callers in leon_mm.c with the standard
+  PFN_DOWN() instead, as also Sam lifted as "future work", and
+
+- Move the _pfn_valid define to leon_mm.c, make it only check for lowmem
+  pfns and rename it to _pfn_lowmem() or something like that.
+
+>  #define _SRMMU_PTE_PMASK_LEON 0xffffffff
+>  
+>  /*
+> diff --git a/arch/sparc/include/asm/pgtable_32.h b/arch/sparc/include/asm/pgtable_32.h
+> index f89b1250661d..91a6032cf6a2 100644
+> --- a/arch/sparc/include/asm/pgtable_32.h
+> +++ b/arch/sparc/include/asm/pgtable_32.h
+> @@ -37,8 +37,7 @@ struct vm_area_struct;
+>  struct page;
+>  
+>  void load_mmu(void);
+> -unsigned long calc_highpages(void);
+> -unsigned long __init bootmem_init(unsigned long *pages_avail);
+> +void __init find_ramdisk(unsigned long end_of_phys_memory);
+>  
+>  #define pte_ERROR(e)   __builtin_trap()
+>  #define pmd_ERROR(e)   __builtin_trap()
+> diff --git a/arch/sparc/include/asm/pgtsrmmu.h b/arch/sparc/include/asm/pgtsrmmu.h
+> index a265822a475e..a2a6c8564c3e 100644
+> --- a/arch/sparc/include/asm/pgtsrmmu.h
+> +++ b/arch/sparc/include/asm/pgtsrmmu.h
+> @@ -98,7 +98,6 @@
+>  	 restore %g0, %g0, %g0;
+>  
+>  #ifndef __ASSEMBLER__
+> -extern unsigned long last_valid_pfn;
+>  
+>  /* This makes sense. Honest it does - Anton */
+>  /* XXX Yes but it's ugly as sin.  FIXME. -KMW */
+> diff --git a/arch/sparc/kernel/setup_32.c b/arch/sparc/kernel/setup_32.c
+> index 795714959da6..6ad85538964d 100644
+> --- a/arch/sparc/kernel/setup_32.c
+> +++ b/arch/sparc/kernel/setup_32.c
+> @@ -23,6 +23,7 @@
+>  #include <linux/syscalls.h>
+>  #include <linux/kdev_t.h>
+>  #include <linux/major.h>
+> +#include <linux/memblock.h>
+>  #include <linux/string.h>
+>  #include <linux/init.h>
+>  #include <linux/interrupt.h>
+> @@ -254,28 +255,71 @@ static __init void leon_patch(void)
+>  
+>  struct tt_entry *sparc_ttable;
+>  
+> -/* Drop RAM below the kernel; the linear map runs upward from phys_base
+> - * and cannot reach it.
+> - */
+> -static void __init trim_sp_banks_below(unsigned long base)
+> +unsigned long phys_base;
+> +EXPORT_SYMBOL(phys_base);
+> +
+> +unsigned long pfn_base;
+> +EXPORT_SYMBOL(pfn_base);
+> +
+> +static unsigned long __init calc_max_low_pfn(void)
+>  {
+> -	int i, j = 0;
+> +	unsigned long limit = pfn_base + PHYS_PFN(SRMMU_MAXMEM);
+> +	unsigned long start_pfn, end_pfn;
+> +	unsigned long last_pfn = 0;
+> +	int i;
+> +
+> +	for_each_mem_pfn_range(i, MAX_NUMNODES, &start_pfn, &end_pfn, NULL) {
+> +		if (start_pfn >= limit) {
+> +			if (last_pfn < limit)
+> +				limit = last_pfn;
+> +			break;
+> +		}
+>  
+> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
+> -		unsigned long start = sp_banks[i].base_addr;
+> -		unsigned long end = start + sp_banks[i].num_bytes;
+> +		last_pfn = end_pfn;
+> +	}
+>  
+> -		if (end <= base)
+> -			continue;		/* wholly below - drop it */
+> -		if (start < base)
+> -			start = base;		/* straddles - trim the front */
+> +	return limit;
+> +}
+>  
+> -		sp_banks[j].base_addr = start;
+> -		sp_banks[j].num_bytes = end - start;
+> -		j++;
+> +static void __init setup_memory(void)
+> +{
+> +	unsigned long ram_base = memblock_start_of_DRAM();
+> +	unsigned long real_base = __get_phys(PAGE_OFFSET);
+> +	unsigned long size;
+> +
+> +	memblock_set_bottom_up(true);
+> +	memblock_allow_resize();
+> +
+> +	phys_base = ram_base;
+> +	if (real_base && real_base != phys_base) {
+> +		prom_printf("phys_base: RAM starts 0x%x but kernel is at 0x%x\n",
+> +			    (unsigned int)phys_base, (unsigned int)real_base);
+> +		phys_base = real_base;
+> +		memblock_remove(0, phys_base);
+> +		prom_printf("phys_base: adopted 0x%x, RAM below it dropped\n",
+> +			    (unsigned int)phys_base);
+>  	}
+> -	sp_banks[j].base_addr = 0;
+> -	sp_banks[j].num_bytes = 0;
+> +
+> +	if (cmdline_memory_size)
+> +		memblock_enforce_memory_limit(cmdline_memory_size);
+> +
+> +	min_low_pfn = PFN_DOWN(memblock_start_of_DRAM());
+> +	pfn_base = PHYS_PFN(phys_base);
+> +	max_pfn = PFN_DOWN(memblock_end_of_DRAM());
+> +	max_low_pfn = max_pfn;
+> +
+> +	if (max_low_pfn > pfn_base + PHYS_PFN(SRMMU_MAXMEM))
+> +		max_low_pfn = calc_max_low_pfn();
+> +
+> +	find_ramdisk(memblock_end_of_DRAM());
+> +
+> +	/* Reserve the kernel text/data/bss. */
+> +	size = __pa(PAGE_ALIGN((unsigned long)&_end)) - phys_base;
+> +	memblock_reserve(phys_base, size);
+> +	memblock_add(phys_base, size);
+> +
+> +	/* Only allow low memory to be allocated by memblock. */
+> +	memblock_set_current_limit(PFN_PHYS(max_low_pfn));
+>  }
+>  
+>  /* Called from head_32.S - before we have setup anything
+> @@ -306,9 +350,6 @@ void __init sparc32_start_kernel(struct linux_romvec *rp)
+>  
+>  void __init setup_arch(char **cmdline_p)
+>  {
+> -	int i;
+> -	unsigned long highest_paddr;
+> -
+>  	sparc_ttable = &trapbase[0];
+>  
+>  	/* Initialize PROM console and command line. */
+> @@ -343,36 +384,7 @@ void __init setup_arch(char **cmdline_p)
+>  
+>  	idprom_init();
+>  	load_mmu();
+> -
+> -	phys_base = 0xffffffffUL;
+> -	highest_paddr = 0UL;
+> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
+> -		unsigned long top;
+> -
+> -		if (sp_banks[i].base_addr < phys_base)
+> -			phys_base = sp_banks[i].base_addr;
+> -		top = sp_banks[i].base_addr +
+> -			sp_banks[i].num_bytes;
+> -		if (highest_paddr < top)
+> -			highest_paddr = top;
+> -	}
+> -
+> -	/* phys_base must describe what PAGE_OFFSET maps to, not where RAM starts. */
+> -	{
+> -		unsigned long real_base = __get_phys(PAGE_OFFSET);
+> -
+> -		if (real_base && real_base != phys_base) {
+> -			prom_printf("phys_base: RAM starts 0x%x but kernel is at 0x%x\n",
+> -				    (unsigned int)phys_base,
+> -				    (unsigned int)real_base);
+> -			phys_base = real_base;
+> -			trim_sp_banks_below(phys_base);
+> -			prom_printf("phys_base: adopted 0x%x, RAM below it dropped\n",
+> -				    (unsigned int)phys_base);
+> -		}
+> -	}
+> -
+> -	pfn_base = phys_base >> PAGE_SHIFT;
+> +	setup_memory();
+>  
+>  	if (!root_flags)
+>  		root_mountflags &= ~MS_RDONLY;
+> diff --git a/arch/sparc/mm/init_32.c b/arch/sparc/mm/init_32.c
+> index 6880d9cb30a5..ac4462f1cf76 100644
+> --- a/arch/sparc/mm/init_32.c
+> +++ b/arch/sparc/mm/init_32.c
+> @@ -35,66 +35,13 @@
+>  
+>  #include "mm_32.h"
+>  
+> -unsigned long phys_base;
+> -EXPORT_SYMBOL(phys_base);
+> -
+> -unsigned long pfn_base;
+> -EXPORT_SYMBOL(pfn_base);
+> -
+>  struct sparc_phys_banks sp_banks[SPARC_PHYS_BANKS+1];
+>  
+>  /* Initial ramdisk setup */
+>  extern unsigned int sparc_ramdisk_image;
+>  extern unsigned int sparc_ramdisk_size;
+>  
+> -unsigned long highstart_pfn, highend_pfn;
+> -
+> -unsigned long last_valid_pfn;
+> -
+> -unsigned long calc_highpages(void)
+> -{
+> -	int i;
+> -	int nr = 0;
+> -
+> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
+> -		unsigned long start_pfn = sp_banks[i].base_addr >> PAGE_SHIFT;
+> -		unsigned long end_pfn = (sp_banks[i].base_addr + sp_banks[i].num_bytes) >> PAGE_SHIFT;
+> -
+> -		if (end_pfn <= max_low_pfn)
+> -			continue;
+> -
+> -		if (start_pfn < max_low_pfn)
+> -			start_pfn = max_low_pfn;
+> -
+> -		nr += end_pfn - start_pfn;
+> -	}
+> -
+> -	return nr;
+> -}
+> -
+> -static unsigned long calc_max_low_pfn(void)
+> -{
+> -	int i;
+> -	unsigned long tmp = pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT);
+> -	unsigned long curr_pfn, last_pfn;
+> -
+> -	last_pfn = (sp_banks[0].base_addr + sp_banks[0].num_bytes) >> PAGE_SHIFT;
+> -	for (i = 1; sp_banks[i].num_bytes != 0; i++) {
+> -		curr_pfn = sp_banks[i].base_addr >> PAGE_SHIFT;
+> -
+> -		if (curr_pfn >= tmp) {
+> -			if (last_pfn < tmp)
+> -				tmp = last_pfn;
+> -			break;
+> -		}
+> -
+> -		last_pfn = (sp_banks[i].base_addr + sp_banks[i].num_bytes) >> PAGE_SHIFT;
+> -	}
+> -
+> -	return tmp;
+> -}
+> -
+> -static void __init find_ramdisk(unsigned long end_of_phys_memory)
+> +void __init find_ramdisk(unsigned long end_of_phys_memory)
+>  {
+>  #ifdef CONFIG_BLK_DEV_INITRD
+>  	unsigned long size;
+> @@ -124,83 +71,6 @@ static void __init find_ramdisk(unsigned long end_of_phys_memory)
+>  #endif
+>  }
+>  
+> -unsigned long __init bootmem_init(unsigned long *pages_avail)
+> -{
+> -	unsigned long start_pfn, bytes_avail, size;
+> -	unsigned long end_of_phys_memory = 0;
+> -	unsigned long high_pages = 0;
+> -	int i;
+> -
+> -	memblock_set_bottom_up(true);
+> -	memblock_allow_resize();
+> -
+> -	bytes_avail = 0UL;
+> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
+> -		end_of_phys_memory = sp_banks[i].base_addr +
+> -			sp_banks[i].num_bytes;
+> -		bytes_avail += sp_banks[i].num_bytes;
+> -		if (cmdline_memory_size) {
+> -			if (bytes_avail > cmdline_memory_size) {
+> -				unsigned long slack = bytes_avail - cmdline_memory_size;
+> -
+> -				bytes_avail -= slack;
+> -				end_of_phys_memory -= slack;
+> -
+> -				sp_banks[i].num_bytes -= slack;
+> -				if (sp_banks[i].num_bytes == 0) {
+> -					sp_banks[i].base_addr = 0xdeadbeef;
+> -				} else {
+> -					memblock_add(sp_banks[i].base_addr,
+> -						     sp_banks[i].num_bytes);
+> -					sp_banks[i+1].num_bytes = 0;
+> -					sp_banks[i+1].base_addr = 0xdeadbeef;
+> -				}
+> -				break;
+> -			}
+> -		}
+> -		memblock_add(sp_banks[i].base_addr, sp_banks[i].num_bytes);
+> -	}
+> -
+> -	if (cmdline_memory_size)
+> -		memblock_enforce_memory_limit(cmdline_memory_size);
+> -
+> -	/* Start with page aligned address of last symbol in kernel
+> -	 * image.
+> -	 */
+> -	start_pfn  = (unsigned long)__pa(PAGE_ALIGN((unsigned long) &_end));
+> -
+> -	/* Now shift down to get the real physical page frame number. */
+> -	start_pfn >>= PAGE_SHIFT;
+> -
+> -	max_pfn = end_of_phys_memory >> PAGE_SHIFT;
+> -
+> -	max_low_pfn = max_pfn;
+> -	highstart_pfn = highend_pfn = max_pfn;
+> -
+> -	if (max_low_pfn > pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT)) {
+> -		highstart_pfn = pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT);
+> -		max_low_pfn = calc_max_low_pfn();
+> -		high_pages = calc_highpages();
+> -		printk(KERN_NOTICE "%ldMB HIGHMEM available.\n",
+> -		    high_pages >> (20 - PAGE_SHIFT));
+> -	}
+> -
+> -	find_ramdisk(end_of_phys_memory);
+> -
+> -	/* Reserve the kernel text/data/bss. */
+> -	size = (start_pfn << PAGE_SHIFT) - phys_base;
+> -	memblock_reserve(phys_base, size);
+> -	memblock_add(phys_base, size);
+> -
+> -	size = memblock_phys_mem_size() - memblock_reserved_size();
+> -	*pages_avail = (size >> PAGE_SHIFT) - high_pages;
+> -
+> -	/* Only allow low memory to be allocated via memblock allocation */
+> -	memblock_set_current_limit(max_low_pfn << PAGE_SHIFT);
+> -
+> -	return max_pfn;
+> -}
+> -
+>  /*
+>   * paging_init() sets up the page tables: We call the MMU specific
+>   * init routine based upon the Sun model type on the Sparc.
+> diff --git a/arch/sparc/mm/leon_mm.c b/arch/sparc/mm/leon_mm.c
+> index 1dc9b3d70eda..a43c5ffbbbe5 100644
+> --- a/arch/sparc/mm/leon_mm.c
+> +++ b/arch/sparc/mm/leon_mm.c
+> @@ -11,6 +11,7 @@
+>   */
+>  
+>  #include <linux/kernel.h>
+> +#include <linux/memblock.h>
+>  #include <linux/mm.h>
+>  #include <asm/asi.h>
+>  #include <asm/leon.h>
+> diff --git a/arch/sparc/mm/srmmu.c b/arch/sparc/mm/srmmu.c
+> index f094f6c105a2..e333d3eac451 100644
+> --- a/arch/sparc/mm/srmmu.c
+> +++ b/arch/sparc/mm/srmmu.c
+> @@ -59,8 +59,6 @@ int vac_line_size;
+>  
+>  extern struct resource sparc_iomap;
+>  
+> -extern unsigned long last_valid_pfn;
+> -
+>  static pgd_t *srmmu_swapper_pg_dir;
+>  
+>  const struct sparc32_cachetlb_ops *sparc32_cachetlb_ops;
+> @@ -871,7 +869,7 @@ void __init arch_zone_limits_init(unsigned long *max_zone_pfns)
+>  {
+>  	max_zone_pfns[ZONE_DMA] = max_low_pfn;
+>  	max_zone_pfns[ZONE_NORMAL] = max_low_pfn;
+> -	max_zone_pfns[ZONE_HIGHMEM] = highend_pfn;
+> +	max_zone_pfns[ZONE_HIGHMEM] = max_pfn;
+>  }
+>  
+>  void __init srmmu_paging_init(void)
+> @@ -884,7 +882,6 @@ void __init srmmu_paging_init(void)
+>  	pud_t *pud;
+>  	pmd_t *pmd;
+>  	pte_t *pte;
+> -	unsigned long pages_avail;
+>  
+>  	init_mm.context = (unsigned long) NO_CONTEXT;
+>  	sparc_iomap.start = SUN4M_IOBASE_VADDR;	/* 16MB of IOSPACE on all sun4m's. */
+> @@ -910,9 +907,6 @@ void __init srmmu_paging_init(void)
+>  		prom_halt();
+>  	}
+>  
+> -	pages_avail = 0;
+> -	last_valid_pfn = bootmem_init(&pages_avail);
+> -
+>  	srmmu_nocache_calcsize();
+>  	srmmu_nocache_init();
+>  	srmmu_inherit_prom_mappings(0xfe400000, (LINUX_OPPROM_ENDVM - PAGE_SIZE));
+
+Thanks,
+Andreas
 
