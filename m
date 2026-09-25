@@ -1,45 +1,45 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9EFB199EAD
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3124E3B14C7
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790361971; cv=pass; b=BE8L0FFJjGI0h0jJyUxoQmmk7Ntsx3UEVXaFXtkWk2PyRJlzRfNzCWdzaUggBsdk06FOBvCR7yAilHAArexoRuIzvbbhuJQaXDFgo3MRj7hNwZizEgXa9tX89qhlQH5urr/mrQhnV2z6M6ZiZxCzjf5hzRTzSQQzNMaP51SHrVE=
+	t=1790361981; cv=pass; b=FBK3eXJQxrdgxQC4SPW/hjz+Kbtfzop7s03+nq31s7Y3ecq5mkFg4cxbDB2f19bWZhkoNYYT9T6VcbdSSK9jrAMllKlqxkl/nc0dE54Swc8l24Ms9U0JemJ+SSzm3+7TTF30bG/Rnw2LAJZ+7dY1PrTzN0eIYX3mAWuvcPc0TSk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790361971; c=relaxed/simple;
-	bh=BseDd5ptshL8O0X6ZZAknqhIzPZMy2A4L4RfHDWk90U=;
+	s=arc-20240116; t=1790361981; c=relaxed/simple;
+	bh=ZbKj/0+gldpyeLSSMbRlmpp9mm9nCUYXI4PymrPfLzQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ivoDjhIzrZxHcJMqYXyaTzxOcbMefJ9jfHjAgxot3CBNSjJCZTy4VGnKnJfSVo0hkIlT4Z8TO14LzxHX7WRs02VHHlO7DJ87iHdGON279nFWH0Klj+9V/xPhjjUIq0FjuQV6LOrf1ha3sKwN/1xLDuU7qZXeIT3eDeOaBiGcf8k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=clGk1dyG; arc=pass smtp.client-ip=165.173.180.11
+	 In-Reply-To:To:Cc; b=HvsPi+BOQ6thrbRjTUdP8wntgDQEMpMg6YWi8Q3qq+URvf6Gvprj9VOTugZNVOEjSRkLMhO/JIMXlYvFP71Z66pS7UPqzZmO8z6nZ6AElQmS68mET9e428AgogisQmuPOhFX93lL7muAbDstSsbM/9PVwqB31WYBUwCOr4Kz7F0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=gAh/KK1m; arc=pass smtp.client-ip=165.173.182.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="clGk1dyG"
-ARC-Seal: i=1; a=rsa-sha256; t=1790361942; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="gAh/KK1m"
+ARC-Seal: i=1; a=rsa-sha256; t=1790361952; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=JJTHjeMCnrlRV/6PfwXBrrop4A1OiS3seVhJV2BnocJv2ERHAz8MwEDJ4jNLfQ6oo5mbTtZQL5p4WnAM7tCPjb5V8MMkOoPhA1lX1ts01znAv5UGE000LlMgB6e7hn+MB0j/Ub/UZ+jkOUOPG6NpzPs7cA7WS2DYSf/pZGE/g7Y=
+	b=LZrOrcedXR75hHWAKW+frLRM90noSuSvP4w6g0b1g4SOhYoYDRecB86fEFByBQtcR9DrLUmFiJSZot1VwzyMrX4H2m8khOlf4xq63mS5TNDemOz4VXgnYq+VaK9WfR6W74uzLpeBHJlBcg/PB1fmg5VfqEbt/u9qAUC0zT8mmak=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790361942; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=LZw4Kt2mQuWgyKmlrDPFTNJYeu3IN02ygsBncDd+4ds=; 
-	b=O8UTP69aPCXN7K3miZFwPE+K6wE6+X1cP7nk1+vM9a18BATBQpsweL4FOJoqxRpQwCmj8sTSZaFJGyO9p2mhhCMF2PaCTxR6Nn7rXOwAyxx3RoZYR3cL1rZeYLmCybnUhZRz9crJJF4az80uuvPe8n36IYUUoypuWEX+5pcFUmA=
+	t=1790361952; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=5tcaP2IVkF4SV3ksstD6wFI9LNYjrG0cIcTQTiq6ocI=; 
+	b=n+iwIDc4nc/ZJeCBV4Ei6e4qzMyw3Ke5FsV/RsFc1KkOuPhBg1fJDF6cNovXuCdqMvhOoGWDdimT7DLRwnwXrUNnLQG8WQ5R1QCPIGiW8YzeqDlLRD21BPHB0aql59wwNEv/78SajwaSDmUIaBJBra7a57+3FGL30ESHYAm42Gg=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
 	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790361942;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790361952;
 	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
 	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=LZw4Kt2mQuWgyKmlrDPFTNJYeu3IN02ygsBncDd+4ds=;
-	b=clGk1dyGfWTuXt6gZQf1hLFlsvxaQkKl4koLHCGNxu5wDy/ERcoJgU295joFYZkD
-	D8K29J01wqIS7Iu+tyDygE2OhpeyvofoIrHDM1OPYImOOZ6Z9k6ieP4afZv5UcUIqU8
-	BtOZK+8woO3a2CBxbI/uDu1BFpSo2CocVCOERsqk=
-Received: by smtp.zohomail.com with SMTPS id 1790361940744166.63089196362;
-	Fri, 25 Sep 2026 11:45:40 -0700 (PDT)
+	bh=5tcaP2IVkF4SV3ksstD6wFI9LNYjrG0cIcTQTiq6ocI=;
+	b=gAh/KK1m5CdZKr6Kj+yVRktz6Dj7erYGhzNJIxzdfzDjMmNZdhJm0KE2DEiQ/2xw
+	wwgsmUFKsiGvvYFRcKq3Q79XaMhzfFJQrCx5YgNpUYqjguMzjwXGmu9esWrCrmCFHJ5
+	vpfFxFoyso/lK52l1Ybso0XH4NH7qQeuzVL7d+C0=
+Received: by smtp.zohomail.com with SMTPS id 1790361951195381.447267247186;
+	Fri, 25 Sep 2026 11:45:51 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Fri, 25 Sep 2026 19:45:23 +0100
-Subject: [PATCH v11 02/15] drm/panfrost: Move lock and modparam
- initialisations into their subsystems
+Date: Fri, 25 Sep 2026 19:45:25 +0100
+Subject: [PATCH v11 04/15] drm/panfrost: Skip NULL checks for clock
+ enable/disabling
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,7 +48,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260925-claude-fixes-v11-2-0dbf5a58e7ce@collabora.com>
+Message-Id: <20260925-claude-fixes-v11-4-0dbf5a58e7ce@collabora.com>
 References: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
 In-Reply-To: <20260925-claude-fixes-v11-0-0dbf5a58e7ce@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -66,204 +66,69 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7189;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1586;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=BseDd5ptshL8O0X6ZZAknqhIzPZMy2A4L4RfHDWk90U=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqtsFD2x8jmlPIB3OVpZuPwdB7BZzSqeAQCRp0c
- 41RfvdcxGCJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCarbBQwAKCRAOJn5M7lND
- PZ14DACADtMyWks579mTxOmkGevpxnw7NqLdA0wgSXnklJD86YH7OMknOlNGL+36cBy2FERADxz
- 2tNVk7b2RZvGGDKjPvwFeF6eNjpy+X4BPCuM7iNMjxsvfqD0M2Wv2FjHUtuJxwd0/XnRBfCgja3
- 4duY39BAtC82CDQZiSYq7ptMilPB0Su/aQ/3BT+aEagXwLe0nF+3mCaKdG+4SOEjj8D7ERhnXUu
- ZudTNCZH57J/QI7Q6cpYGS3ekzJXsx6GueODD5HdY4kYaSIGICd88fc2TGrhnclXdFLUa+iKJQR
- E/EmGPH82KylLEAxSWWWG+teIGn87T3xvU/Rd3Wznk5VoQmbdINrr5t7GxI992NEHJUYP547H0X
- qv2qKOyA2EedZ22BG33cwvEqHeVNI4QZzyKIHsTviY93CTG13t5n5Sb2Q5z7Q4f0K1Yn/KVA1/8
- ZTTIFrhr9Av9+z0KKg9edrmILAKjDX13RX8OPt388STOUfdDsDcUHrUVLOn/yC+nujagk=
+ bh=ZbKj/0+gldpyeLSSMbRlmpp9mm9nCUYXI4PymrPfLzQ=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqtsFDB4nJ71qoK/li91o6Keb0e0zN9a50eeN8K
+ L2BgOlgIkKJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCarbBQwAKCRAOJn5M7lND
+ PbJyDACRB+42WPBKqIRzTRerVNrIYMJKBMOOFOKNAL1kAm96fzB2IvLiqHXyfVpycOqNPx1dqrC
+ 14WCAv4f3X4Zd6zygzTqhwZCav7b0yQ2Al9TGj9BgZfkHzlAbb+10CvqvqZdcabPIVWaq9LkkAT
+ 0pzZiC6l0m2hT3g858eMqJXZhgwGTvzYxTZJz/WzHhAj0Rv/999+R1ocul60MLkUWwc9ccBEPkd
+ I4BFZ9y9h+hiKW0cJe0vm/n8TaX4rc9POi2SNA0qDDgAeko9kMAQ/Hk40ZKhv/PNtm5nd8j4kew
+ rdyDdkg08UeGDp6ReWMOND87w7zSVJYmDzHTI/UuCAimfdtt6qQ1ccE0nzIY7iXaO4h7Qlen02o
+ 81kudoc0s1PWlDDpqyPRtvbvkfdFE0o2fe30Y+em1/CYlha7oThsdRED52U+9hCU2ZPqXkuASII
+ sJY69t2TNY1Upw8x89Ry/P8MFXpMcU3wxv2Bb7yCX0q0nI9wS0aGkeaPecIbUBOd6ENqw=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-The device init function feels a bit cluttered with things that should be
-done in the specific subsystems where those locks and lists are being
-used. Same goes for module parameters, it's best to limit them to the
-subsystems where they're relevant.
+The clk_* API can deal with NULL clock objects, so we can do away with NULL
+checks in client code.
 
-Then we can also discard panfrost_drv.h since the transparent_huge_page
-doesn't need to be accessed elsewhere. We can also simplify the
-creation of a mount point, because drm_gem_get_huge_mnt() would never
-return NULL if drm_gem_huge_mnt_create() returns 0 when kernel is built
-with support for transparent huge pages.
-
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c       |  7 -------
- drivers/gpu/drm/panfrost/panfrost_drv.c          | 10 ----------
- drivers/gpu/drm/panfrost/panfrost_drv.h          |  9 ---------
- drivers/gpu/drm/panfrost/panfrost_gem.c          | 19 +++++++++++++------
- drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  3 +++
- drivers/gpu/drm/panfrost/panfrost_gpu.c          |  2 ++
- drivers/gpu/drm/panfrost/panfrost_job.c          |  1 +
- drivers/gpu/drm/panfrost/panfrost_mmu.c          |  3 +++
- 8 files changed, 22 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_device.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index 05c40d5a20b5..c1a2e93a2b9b 100644
+index 5bf528f41278..b3a53504bd01 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_device.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -216,13 +216,6 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- {
- 	int err;
+@@ -510,11 +510,9 @@ static int panfrost_device_resume(struct device *dev)
+ 		if (ret)
+ 			goto err_clk;
  
--	mutex_init(&pfdev->sched_lock);
--	INIT_LIST_HEAD(&pfdev->as_lru_list);
--
--	spin_lock_init(&pfdev->as_lock);
--
--	spin_lock_init(&pfdev->cycle_counter.lock);
--
- #ifdef CONFIG_DEBUG_FS
- 	mutex_init(&pfdev->debugfs.gems_lock);
- 	INIT_LIST_HEAD(&pfdev->debugfs.gems_list);
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 9882a3ede75f..59af79a534fa 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -21,7 +21,6 @@
- #include <drm/drm_utils.h>
- 
- #include "panfrost_device.h"
--#include "panfrost_drv.h"
- #include "panfrost_gem.h"
- #include "panfrost_mmu.h"
- #include "panfrost_job.h"
-@@ -955,12 +954,6 @@ static const struct drm_driver panfrost_drm_driver = {
- #endif
- };
- 
--#ifdef CONFIG_TRANSPARENT_HUGEPAGE
--bool panfrost_transparent_hugepage = true;
--module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
--MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (true = default)");
--#endif
--
- static int panfrost_probe(struct platform_device *pdev)
- {
- 	struct panfrost_device *pfdev;
-@@ -979,9 +972,6 @@ static int panfrost_probe(struct platform_device *pdev)
- 
- 	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
- 
--	mutex_init(&pfdev->shrinker_lock);
--	INIT_LIST_HEAD(&pfdev->shrinker_list);
--
- 	err = panfrost_device_init(pfdev);
- 	if (err) {
- 		if (err != -EPROBE_DEFER)
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
-deleted file mode 100644
-index a2277ec61aab..000000000000
---- a/drivers/gpu/drm/panfrost/panfrost_drv.h
-+++ /dev/null
-@@ -1,9 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 or MIT */
--/* Copyright 2025 Amazon.com, Inc. or its affiliates */
--
--#ifndef __PANFROST_DRV_H__
--#define __PANFROST_DRV_H__
--
--extern bool panfrost_transparent_hugepage;
--
--#endif
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-index f39c0f50ed4f..383ac8cd5645 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-@@ -11,20 +11,27 @@
- #include <drm/panfrost_drm.h>
- #include <drm/drm_print.h>
- #include "panfrost_device.h"
--#include "panfrost_drv.h"
- #include "panfrost_gem.h"
- #include "panfrost_mmu.h"
- 
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+static bool panfrost_transparent_hugepage = true;
-+module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
-+MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (true = default)");
-+#else
-+#define panfrost_transparent_hugepage false
-+#endif
-+
- int panfrost_gem_init(struct panfrost_device *pfdev)
- {
--	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && panfrost_transparent_hugepage) {
-+	if (panfrost_transparent_hugepage) {
- 		int err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
- 
--		if (drm_gem_get_huge_mnt(&pfdev->base))
-+		if (err)
-+			drm_warn(&pfdev->base,
-+				 "Can't use Transparent Hugepage (%d)\n", err);
-+		else
- 			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
--		else if (err)
--			drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
--				 err);
+-		if (pfdev->bus_clock) {
+-			ret = clk_enable(pfdev->bus_clock);
+-			if (ret)
+-				goto err_bus_clk;
+-		}
++		ret = clk_enable(pfdev->bus_clock);
++		if (ret)
++			goto err_bus_clk;
  	}
  
- 	return panfrost_gem_shrinker_init(pfdev);
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-index fefae87535d6..72cd7a165e6d 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-@@ -97,6 +97,9 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
-  */
- int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
- {
-+	mutex_init(&pfdev->shrinker_lock);
-+	INIT_LIST_HEAD(&pfdev->shrinker_list);
-+
- 	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
- 	if (!pfdev->shrinker)
- 		return -ENOMEM;
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-index 7d555e63e21a..8a15ccce08e9 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-@@ -516,6 +516,8 @@ int panfrost_gpu_init(struct panfrost_device *pfdev)
- {
- 	int err;
+ 	ret = pm_runtime_force_resume(dev);
+@@ -524,7 +522,7 @@ static int panfrost_device_resume(struct device *dev)
+ 	return 0;
  
-+	spin_lock_init(&pfdev->cycle_counter.lock);
-+
- 	err = panfrost_gpu_soft_reset(pfdev);
- 	if (err)
- 		return err;
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index d59b4863b8ad..476c936b54e6 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -874,6 +874,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+ err_resume:
+-	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS) && pfdev->bus_clock)
++	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
+ 		clk_disable(pfdev->bus_clock);
+ err_bus_clk:
+ 	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
+@@ -545,9 +543,7 @@ static int panfrost_device_suspend(struct device *dev)
+ 		return ret;
  
- 	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
- 	spin_lock_init(&js->job_lock);
-+	mutex_init(&pfdev->sched_lock);
+ 	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
+-		if (pfdev->bus_clock)
+-			clk_disable(pfdev->bus_clock);
+-
++		clk_disable(pfdev->bus_clock);
+ 		clk_disable(pfdev->clock);
+ 	}
  
- 	js->irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "job");
- 	if (js->irq < 0)
-diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-index 4a3162c3b659..5c393ed6e310 100644
---- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-@@ -955,6 +955,9 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
- {
- 	int err;
- 
-+	INIT_LIST_HEAD(&pfdev->as_lru_list);
-+	spin_lock_init(&pfdev->as_lock);
-+
- 	pfdev->mmu_irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "mmu");
- 	if (pfdev->mmu_irq < 0)
- 		return pfdev->mmu_irq;
 
 -- 
 2.55.0
