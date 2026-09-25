@@ -1,158 +1,128 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086994F474F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5794D794C
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790369666; cv=none; b=FI+KM+Y5dE4oeLg+zTDMvIALS+nNnilKc18GQ5u+GcyxnWGaKEAy3TZK9h/um8lc2+RKUQMtdf1Dijbaxh0sQaCROaN5If8wUNtTkWw9umGTsCEg1SQ9KjY579lEfkbA8j+TFYo5nbpOlHzfiQRIm9uoqDXUm4VTZzaa0EQtYCY=
+	t=1790369680; cv=none; b=VM6nQGzKVOMV5nc8oHc7GoJWF8YwilClexJqPm7vjQ/o1JCk8qL+Yz7uv2/uuHXsoTJPtqSV/8e+C1iIjIh3f9rHEZsPu7QasD03KifxsMMJ70mAxAEYg/gYf1dyrP2HHS5wCVaV2ovjr2qnh042gv7BZrpN1zM/ZcVCarnS5WA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790369666; c=relaxed/simple;
-	bh=wMUkMpvxRdSIcgthlqnHNGgTyW2QNMNAXejshKH+PfQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fEELyWEoAEzKfaVrjqM21Hd2oMJyOHEp4AMkcgJUu6aTer9Rbla5apfBFpEmCJvjRQc9P1KrGYMCpRTXECAkc8AMb5QTqKV8/AsclrJ5E70hPhqZcaAjdZvnIfsFB+nL5orMuD2ZkNonN/AWIUsVwN7GuYB3PWrbzO7AOsqoZIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kRHTx1+G; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790369680; c=relaxed/simple;
+	bh=sTi6v8TYKgmZhr/v3pk4G+5lmshfVWfgQ+SFXaf0iic=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=apbgo+/rd1+E/CA2y9QOJMLTTyZCjJ/jWuDpZceBLG8KLiCJmDv+zv4NM3/++G5p1B92bQDrGvkWuqGP1awYahNWH+0eq5rDE2St4u6TRcGRs4uxUj/EH5SLopQrVP13hVSQP4PcFwHo6p+KuODBUbaal60zUs1SHpgHjDSnS0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=Av1CNv7I; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kRHTx1+G"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-342568a5b54so407468eec.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:54:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790369664; x=1790974464; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZW1dj8PuZjyHIWZ7P5gBwoFvQLqjKYglx97PDSrLr/w=;
-        b=kRHTx1+GLwebm9QcdfMJv59mdTDoyD3wnX0xRpv9WwFXDtShxeCrgXCOfPQb7fL/LY
-         6sntBr/lSsN0aakH1rNddIxxmOfB7oqCiy54TnxsBS9HmvQSirznIcNlM+MlnkFXijyK
-         zpTGOazU8sO7TxYd0m5Jr3Oc6dwCUXqQFSBwLjKyfH2u9EoBatbbFHu9k/1eu6swHU94
-         aq3zlR6QASYNFeViLMfmX+bWECdg1FctQIBVXa9Gk40LQLk3Npne2KGe2AtGDAnjc056
-         waKx1tvefccgZw6dGPiBlrZu8lyjTmwAcXaLVvhTz7EZ0Q9jkeXHw8IhH9ylEGF0KdY8
-         cRvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790369664; x=1790974464;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZW1dj8PuZjyHIWZ7P5gBwoFvQLqjKYglx97PDSrLr/w=;
-        b=VqyhYp5lIZTvuZ9YtnzOQOScnUaP+b1n0FjwkerJAXObLvkospDMVczOXv82rRCqxG
-         XTJbdarH7ASL4QOdMdruNslPg3j8HVE0+NQydNu1gdwvpBKG0BGWQBM7ONjQ2TSBzmNT
-         aTwKqSEZuNu2A8V1lZpQoaAvQ1BYL98UgydA7apEQ4d4DfrlNh3V4odPslQVe877rW+y
-         QY4hxAqDXN9aFopnYueP2xYseVi4f/klbBa3jcFeN+rjMJFqEOlJYNDfek5rro5iC8DH
-         J3bjnyCe+j4nHTlWc70v6avpGpRQnPmaaO3Bxno5MVgDYQekyB6Ee8eR+vut+BQlVK4X
-         2gpw==
-X-Forwarded-Encrypted: i=1; AKwUvBwcd7R5T3pvIlzlPiSf+Nu8BmltOJsmuyB22LGf1Og4M89PwxMP3siH7i9KC/65BbfoB0yBEE7BMZYXs0I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lW0oxtWHVzT7NwYuZTuzexknncTvJbOlheUMlMqMU+gb8hr6GY
-	DNcX8FkB8PXgPATxs0yNRJAL/7LvLDABMrbvo+YNfDDNvpTaHZFXOV3X
-X-Gm-Gg: AYBFou1zsZj22uOXs/OW6HiKnFoa6aPS6i98d3oFwgB4ao5J7yL94G0wn2XhVq2LfP/
-	Z64kG8BbgPrCgA1xKKWtMdfKifmy+OW+Jw9SwhWkSCN1ZG50ISpggTrRPaAG43xTJ9MxXqMesra
-	npXNn5OpL7O2rAHDLBbG+EeW1y/MxLI/ZoiYYHV7JE2SfdFiQRTJd2k51sqIFj2ndibSbeV8a7R
-	1rGaw6ycXmJB8xO9rqXwiqB/UYPNmwWDeTMVxcJeJXwpZO5c1m79raheVpSvX+jM0zBkv0BT45X
-	cc6n3zaWgv0MrukvFz8F+kB51J+UUUv90T2Fi1auRnUSGt0lySPmLpCm1mwZO8nD11NLaKv79Ai
-	rfg0HKKN/IQifTGo4OrrmyPp6qZbfP8kHkircKwWcLlI3EPKFtV6nJwosVk4l2cWGtSnAWn+jSi
-	BTivZsmq6MydLbhk31anyxTpEQY9krO/LhsNeR2PREXkawDcHcCzS5+9WwknTashD7m2J6Y3cRd
-	Q==
-X-Received: by 2002:a05:7300:7313:b0:342:39f5:f9c5 with SMTP id 5a478bee46e88-34270ac9464mr1657179eec.18.1790369663811;
-        Fri, 25 Sep 2026 13:54:23 -0700 (PDT)
-Received: from operator.. ([203.192.238.51])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757747sm9437703eec.13.2026.09.25.13.54.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 13:54:23 -0700 (PDT)
-From: Ashutosh Yadav <yadavxashutosh@gmail.com>
-To: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
-	Mark Greer <mgreer@animalcreek.com>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Ashutosh Yadav <yadavxashutosh@gmail.com>
-Subject: [PATCH] staging: greybus: add missing newlines in sysfs_emit formats
-Date: Sat, 26 Sep 2026 02:23:28 +0530
-Message-ID: <20260925205328.59183-1-yadavxashutosh@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="Av1CNv7I"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=tdnR0hQoks1raul8LJNCZKc3Dj++dhTUAanHv/0PU4c=; b=Av1CNv7IACArSn3DGiaeJ3WK3f
+	YcC2faFWdSr0Ti5EmseHpaYxdnh2txUUOdYhkQXDj2ikzVbm2Ykg+r32UcOsj5HgIMCywnRpYLATC
+	2DjXSzjSBjhP4lkqlXthnxjF3g75rj7j+iaFIeuc4X1a94zP5iWI8Ruy1CcQTA8rbQBtbSapPsMOP
+	5dNodJz57NXsJmzo504CNqMQPbP/xqn0sSKN6cXNzUZIXlPPiWl2/8vUwds0mWG0eJTZQeaVKzWLy
+	RnyVVTR5RYFmHK7vdx3a63Htb2vKXPOIxF+n2gOblBer3QadHmsP2LR4fOMGHbp2X9to+xPA3s3xP
+	Q3f56uUg==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1xACw0-0000000Ac8p-1mNt;
+	Fri, 25 Sep 2026 22:54:20 +0200
+Date: Fri, 25 Sep 2026 22:54:19 +0200
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: shao.mingyin@zte.com.cn
+Cc: pjw@kernel.org, mikey@neuling.org, jiangfeng@kylinos.cn,
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	zhang.yue5@zte.com.cn, david.laight.linux@gmail.com,
+	qingfang.deng@linux.dev
+Subject: Re: [PATCH v4] riscv: lib: Fix =?utf-8?Q?Z?=
+ =?utf-8?Q?BB_strnlen_wrap-around_regression_on=C2=A0huge?= counts
+Message-ID: <arbfe8ZROfJshMJ_@aurel32.net>
+Mail-Followup-To: shao.mingyin@zte.com.cn, pjw@kernel.org,
+	mikey@neuling.org, jiangfeng@kylinos.cn, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	zhang.yue5@zte.com.cn, david.laight.linux@gmail.com,
+	qingfang.deng@linux.dev
+References: <20260915152656708z04s4oSYY2BGj34F36RZa@zte.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915152656708z04s4oSYY2BGj34F36RZa@zte.com.cn>
+User-Agent: Mutt/2.4.1 (2026-07-04)
 
-According to Documentation/filesystems/sysfs.rst, sysfs attribute show
-functions should output a single value and terminate with a newline.
+On 2026-09-15 15:26, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> The aligned scan boundary is derived from the last valid byte,
+> (s + count - 1).  When count is huge (e.g. SIZE_MAX, which FORTIFY
+> strcat/strlcat pass when the destination size is not known at compile
+> time), s + count wraps around and the boundary lands before s, so the
+> ZBB path returns a bogus length.  The original implementation
+> (5ba15d419fab) had the same wrap-around in its (s + count) & ~7
+> boundary computation; after 5d588c684833 the wrapped boundary is caught
+> by the pre-loop guard "bgeu t0, t4, 2f", which then always exits for
+> aligned strings of 8 or more characters and strnlen() returns 8
+> instead of the real length.
+> 
+> This silently truncates strings built by fortified strcat: the dm
+> sysfs name attribute shows "live-bas" instead of "live-base", the
+> truncated name pollutes the udev database, and blivet/anaconda (as
+> well as LVM/dm-crypt/multipath userspace) break on RISC-V systems.
+> 
+> Detect the wrap-around and saturate the boundary to the top of the
+> address space, making the scan equivalent to strlen().  The saturation
+> clamps the increment to ~s, so it stays branchless and wrap-free:
+> 
+> 	s + min(count - 1, ~s) == saturating_add(s, count - 1)
+> 
+> Normal counts are unaffected.
+> 
+> Fixes: 5ba15d419fab ("riscv: lib: add strnlen() implementation")
+> Cc: stable@vger.kernel.org
+> Suggested-by: David Laight <david.laight.linux@gmail.com>
+> Suggested-by: Qingfang Deng <qingfang.deng@linux.dev>
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> Acked-by: Michael Neuling <mikey@neuling.org>
+> ---
+> Changes in v4:
+> - Use Zbb minu to clamp the increment (addi/not/minu/add): one
+>   instruction less than the sltu/mask/or sequence and no extra
+>   register (Qingfang Deng).  Clobbers stays t0-t4.
+> 
+> Changes in v3:
+> - Replace the taken branch in the saturation with a branchless
+>   sltu/mask/or sequence (David Laight).
+> - Update the Clobbers list for the additional t5 register.
+> - Michael's Acked-by is kept: the patch semantics are unchanged, only
+>   the saturation sequence is branchless now.
+> 
+> Changes in v2:
+> - Point Fixes: at the original implementation (5ba15d419fab) and reword
+>   the commit message accordingly: the wrap-around exists since the
+>   original implementation, 5d588c684833 only changed how it surfaces
+>   (Michael Neuling).
+> - Add Acked-by from Michael Neuling.
+> 
+> v3: https://lore.kernel.org/all/20260914162123230u1y1M4UHrO8E-cU-opJ_7@zte.com.cn/
+> v2: https://lore.kernel.org/all/20260914145205778-sZJbZc1D-XBfWRXO2f-o@zte.com.cn/
+> v1: https://lore.kernel.org/all/20260828145152578tXQPUG9lxxgbJjmfpuaQz@zte.com.cn/
+> 
+>  arch/riscv/lib/strnlen.S | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
 
-Currently, gb_audio_module_name_show(), gb_audio_module_vid_show(),
-gb_audio_module_pid_show(), gb_audio_module_intf_id_show(),
-gb_audio_module_ip_devices_show(), and gb_audio_module_op_devices_show()
-call sysfs_emit() without a trailing newline in their format strings.
+Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
 
-Add the missing newline character to each sysfs_emit() format string to
-comply with the sysfs documentation and silence checkpatch warnings.
-
-Signed-off-by: Ashutosh Yadav <yadavxashutosh@gmail.com>
----
- drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
-index dc90cc2d2308..5737f2a32f5a 100644
---- a/drivers/staging/greybus/audio_manager_module.c
-+++ b/drivers/staging/greybus/audio_manager_module.c
-@@ -75,7 +75,7 @@ static void gb_audio_module_release(struct kobject *kobj)
- static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
- 					 struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sysfs_emit(buf, "%s", module->desc.name);
-+	return sysfs_emit(buf, "%s\n", module->desc.name);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
-@@ -84,7 +84,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
- static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
- 					struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sysfs_emit(buf, "%d", module->desc.vid);
-+	return sysfs_emit(buf, "%d\n", module->desc.vid);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
-@@ -93,7 +93,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
- static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
- 					struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sysfs_emit(buf, "%d", module->desc.pid);
-+	return sysfs_emit(buf, "%d\n", module->desc.pid);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
-@@ -103,7 +103,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
- 					    struct gb_audio_manager_module_attribute *attr,
- 					    char *buf)
- {
--	return sysfs_emit(buf, "%d", module->desc.intf_id);
-+	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
- }
- 
- static struct gb_audio_manager_module_attribute
-@@ -114,7 +114,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
- 					       struct gb_audio_manager_module_attribute *attr,
- 					       char *buf)
- {
--	return sysfs_emit(buf, "0x%X", module->desc.ip_devices);
-+	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
- }
- 
- static struct gb_audio_manager_module_attribute
-@@ -125,7 +125,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
- 					       struct gb_audio_manager_module_attribute *attr,
- 					       char *buf)
- {
--	return sysfs_emit(buf, "0x%X", module->desc.op_devices);
-+	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
- }
- 
- static struct gb_audio_manager_module_attribute
 -- 
-2.43.0
-
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
