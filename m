@@ -1,256 +1,354 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21C63B52FB;
-	Fri, 25 Sep 2026 21:53:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF1E479889
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:53:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790373205; cv=fail; b=CmMOTxLUzJmFN3hkq3FTNPWo11WkDo2jr2zvGy4oSDYeSLm71NlFLP1rtp858M7h8bW+HxtQS8FJxUTDGO4USBNFss/FtEKv3y7lv+ESiWtdJTa3N5Lvb0a5yqrOw6fWpjkCwrpgpBsXVay/wkdaBN4otazSc6sVWn/jTPi5jQc=
+	t=1790373207; cv=pass; b=R3BXnSdAo64k6Xr6/I2ixmrul4RZqS+g4H1YvFew5scCzrE4A4rx/rIqjvLwJqxBlVHYjRwtwae2SXWmMRiWTId9iAGuKSQQzg7XDYtYSDfTAGbBC7EtAYK1gUaIwRxCUVOV0b+vxqME3srPfbXASwE9+NsVaaNlSoA/LQ1b9zY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790373205; c=relaxed/simple;
-	bh=8vbwlk4wUdmy0NHRBAB6+Pzx0H3C8BZUNdSHPEROmQI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=ZIEXhprLpC5Jc830eKLw2b6olsBkKGGDWh0Hd6/BORHPA/3pe1ed28gWj17mdBOvs9rTHcdKWFhM3lNujh/K2TnwYCmSXoHw8mrGRyggqh7c/XvdOaVenL2iMK9rxX4GnrqGFc1bmTueLMH8qRsc2UGq/UHqDVKjxOJjr/ePzbE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=eAyGkEYC; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=fjcPXgnP; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1790373207; c=relaxed/simple;
+	bh=IvIDM1gQpQElg71mfxdhwP333IjSor731C2Y5yjUqyk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gKcBR6M2HAnLjAioITJhBQM0JjT2NMkTGVwg0VkEjlpo/IMefnKQedVPVfJ1ApvCCx4R+pRrRRXX5aslE5KU8U0DEl6j0HGuSLIBET1vzvO9fyQfI5L1OOTJ71uq7CKZhp1njhr0dMR81OfNQUjKRZf65mdQLMfy5Z8fZ6hMmyU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mAeZrXdm; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="eAyGkEYC";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="fjcPXgnP"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PIotvr3281765;
-	Fri, 25 Sep 2026 16:53:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=6Xl5xlyEHdvb/bdq4+0uyRfvbCdQ48s5uYNXWT7+q
-	k8=; b=eAyGkEYCZn5BT/L3PqtGQssbQS8LFIB0/LuSShKTQ3arLVNLUuGlldyHu
-	XW76/TZiIKHY3ysxy0dnCOGnGO1OSYDuKvloItS4aF1dNGZnfea3hDJl/P4t/9Ow
-	O38UxS0RrTr3fP8Ip2Y7k7rQpsAsbFTY9sZ6JeubyA9Jc67qb0TBqDBmrF7Mu1Bd
-	B6LSyU9nbfadR8S2lJCiitF8hUadh5AOM4/N5oekjbQ7QeJ69Oslfib4/UOSyLdz
-	OPMw+kzDUezoYtMriX0a5NHCTMs1oJQV/jNocasUApChE7q2stPI1ilh6vYEOfvU
-	DmLKTQV+wkb4bG73Vbnx+sXDNvpAQ==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012053.outbound.protection.outlook.com [40.107.209.53])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gwkhrcr1v-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 16:53:19 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vPz7CD9yHmlgEYg7YZPslwbZHhmYy1DmWcipLFRR8VbahCIz8jl6+v9sHOGK+iT61OX01rznr+8c1AlT4aotfb/EdNDyPGOEbuQN33ExN8CkR09DCxdYwieytrCopp7VySRlJsyG48syKQ1sKp4pa3n6F1gdf8VROiPY2x4VLtLaIwBsr2M+qQLR88mSY7LAVcp9Zv4v3GVS2Ae1yU5eWMISWwwhx1lSfPrQsXhkm37FasbAB5aeBPNe0TZBkUDV45Vj6Qds44fxEUP+0/lsBtPavjG8xXyglOMkRp1InCigw2cDVxAyc41aMhbsg17OTO6EgOYNCue4mi1CmACiWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6Xl5xlyEHdvb/bdq4+0uyRfvbCdQ48s5uYNXWT7+qk8=;
- b=JlJcxlYM5U6J/X9R4o1Ih14nMF15kukG0ivppMWY/rpQefP7XGZU4ZBD5w5+B8s2BOka6C+qQbcf2sE5GIEVNxn2lAjRqQeNT7zggmq6j4T5vN9J4oE+r1MoYGW+EYDOooxudGxIvc2bcGW7lNnCJdLAtIe86LnQXs/A/AcFVO1QfLWwZV+u+GyS7nKlCLZqVdd6ZNR1aDzXTRv1FwDjrXjkvI7mmp3StKqN66wt7dfIXtSFOQcPTLm7A/8chDl3wjc2X6ltev6TPxoKQHdAXDkvcQPRM8lx/eLaJt+x1yWKeNPTVgriI7dvJEG0pxYywC9b57GMLL6ugkKVddiGZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6Xl5xlyEHdvb/bdq4+0uyRfvbCdQ48s5uYNXWT7+qk8=;
- b=fjcPXgnPUjHrRwRylClQT3TCoRG7xHPBSNlvcGk0XVVI0l2r1J3jmd4TtktU+cUBB0r683X75ARsz6cJ2mAtdCC0sGan1ZDT7d3HuP/yW2uc+FP0HCLC0YPPEndFswXLQlltHRg5Aa2A4RBU7HCL7D81faGES3aiWLdBNs9g67w=
-Received: from DS1P220CA0013.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:455::8) by
- SA2PR10MB4731.namprd10.prod.outlook.com (2603:10b6:806:11e::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.7; Fri, 25 Sep 2026 21:53:15 +0000
-Received: from DS3PEPF0000C37B.namprd04.prod.outlook.com
- (2603:10b6:8:455:cafe::1c) by DS1P220CA0013.outlook.office365.com
- (2603:10b6:8:455::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.19 via Frontend Transport; Fri,
- 25 Sep 2026 21:53:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- DS3PEPF0000C37B.mail.protection.outlook.com (10.167.23.5) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 21:53:14 +0000
-Received: from DFLE214.ent.ti.com (10.64.6.72) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 25 Sep
- 2026 16:52:41 -0500
-Received: from DFLE210.ent.ti.com (10.64.6.68) by DFLE214.ent.ti.com
- (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 25 Sep
- 2026 16:52:41 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Fri, 25 Sep 2026 16:52:41 -0500
-Received: from [127.0.1.1] (uda0506412.dhcp.ti.com [128.247.81.196])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68PLqe3r2596725;
-	Fri, 25 Sep 2026 16:52:41 -0500
-From: Kendall Willis <k-willis@ti.com>
-Date: Fri, 25 Sep 2026 16:52:39 -0500
-Subject: [PATCH v2 2/2] Input: gpio-keys - support wakeup pinctrl state on
- suspend
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mAeZrXdm"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so970720f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:53:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790373204; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SPi9xCjzBPIjHLrpt1IR3ctNwZ4Iw7NBkG0HwfavP0MZsnYpaF6901o7sd+JIqFmF0
+         gHDCphnG3Y2d2PmGhhUp1PnqVQ1a1ty7X5yPv3Fm3YeMvbSSI6Duv9SUDakMs+7leWZz
+         sl76IyizUeGjrwUiqt6H5RzQ9N6IfQchifh6EoMZRJj2dOTmsE5chh7IG53W+aKABJ15
+         f/XaVNxtPHRgIM8sGiHLyi8cm/s3JsTHfa8Vm2yV7NspYGzQ9/nV2LCp7SsusC6zdsqt
+         5jN/uyZ3WZEO5H7AxaYijp4IQ6BbfoUKhLyB6sOl3j/Pq7lqtv3JGY71N/QtQOHkIg9J
+         PyQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dVV1KtWyTLSLHpIl6BWB4AgM90d4cWInAt7fjY5duR4=;
+        fh=N1J+M+B8HvwdAOTaAc8rFbHuI24EKMH5AOXO1R7HkHA=;
+        b=baKgT96+N+JV1W3U3pqYzkHXyjrLMVpvKR5BMNWGlR0jWkfzsIF9OfawzQRIHX0iOo
+         9EUH2zb9wxgNEHSVXf/cMOmINLdApPY+zGVWKamG0AAnmHdQi5zjgKYErpzD2j5PcE4N
+         hUrF96HNAi2+6rR/P0NzxQMXxOuZJ/kO2gQT0kgNS24zNu8A3qbpDLcOz49Z9VcTtj9l
+         sG/MTEq+p3q62YFEfergLX9tU0kT/QqGSIFRvdNhQS8Wog8ISEatz0mFhGssLbRvE9Vm
+         oF/X5XuNYjN44W25q0pcB/bqHzhcP0n7/Ma4+FtTp0712EeLKlNoZF21krw1dcf83s8T
+         hlyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790373204; x=1790978004; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dVV1KtWyTLSLHpIl6BWB4AgM90d4cWInAt7fjY5duR4=;
+        b=mAeZrXdmB5n57q4q9YYE1PNXeYgdSHZl6FWzEQG8TceHHY9gd8xQU4o6KHV5Tr9zUM
+         JuNsgSoJRKTf2cN40W/qijZOTY0sgDZFmlPqV7UHVjyGimq0c3HFDYVBY4fAaOXrRHXS
+         um8msLpcQCyf+0keMaIwtg2Obi+jclLWWSIGsCmL4zezDTj0LtUFWRVQjir5vhnsVMI7
+         Mj1AmBmb656seIQ5pH2kVkjQYGaVBzkT+EFAlY5EYY8jf1CFqXIamJt4KwsN/k9glt9O
+         38QoZ2GN1EM4O1wN7ic1ghJZLP3tTnB++94OTmc9qdXCRgaDeyD5QB0pL/9kjVgns/+b
+         XzyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790373204; x=1790978004;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dVV1KtWyTLSLHpIl6BWB4AgM90d4cWInAt7fjY5duR4=;
+        b=LgQcHEfPpt/xObzSfCE2zaQYIxvIHiojRyrgYISGBg/4FQOF0gtA2X8Z03FjaZjQ47
+         RzjtZSi0kSvlHyGe95Yo/WT0ShG7zrK00/Mb+dz8dSGxQi9LEdclHDlgvaeB5Z3pGCzN
+         JiMmdHgIHuteYi1mpA0pJfIEVaa+IPoKq/ihLBt3F3HGG/k6wWnuHe3g81GfpCXqSaxw
+         2aqPnE4Fu5RESpTYy6oPLDbXNljGvU3dVsKiBpCl+j2gUlMps4OoHJtORF8GQ3NLXFdt
+         N8ywH35hpPvjlvq2T2+UqSyGmA+2QMIxtWImM54sMuC2qu1bBVlR7H7SSCLL98iFpdpJ
+         PprA==
+X-Forwarded-Encrypted: i=1; AKwUvByhbWvkw9NMruL7V+O+Cxj8lqOwI8OZAXgajLs83siNRqz75zCHzW4aykdHd14P39Q0At+uMkGy4Aewz4c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTGIQYOtw2cUogXfA7PkcXfRqBr19Ie9Hjk9VtL37EYUHF8aoG
+	bViEg7Q/G5bPzGpkHJ9uyweGtyz/Ixg5RMYWgp/RzFA77fQeJCp3n7TGVAHyDFpD+IKhoiAeojD
+	mzNyBU1n22Y4zDJs/orVw/DfBl62ZbzqwQDDa+zFU
+X-Gm-Gg: AYBFou02hYLejsHiWQcGiGV3cgDyW3kR3Zis6ilDZ7fR3LqHGRBLP4HVo4+mjVHlFkB
+	+cX0/86TbM1IKgjB0dj76LV3COtDeVtRi+eGgTcR819Scnp3pyVPOZlwXwy4MCmlqNTLET8Lbmo
+	u8pCLTMyTk6ZY2AZmsAj6mHi/t0FXtnxXtGILvoO65OAgtA9sqOHO0o/mPsyCUjG0+/7Un2m6cI
+	rxQY27SlbAbbDopiqc2TcnOgRVu6PNNtLgX+It87ojtmmRCtPzN2PZ3QeFJ7gGz3MNZNTA9Blgd
+	tD5Esa5IEWG4k1OqVPi8JOoYxtkoQ0PJ6KFc/+c32o/rbp7mt09XGk8k/TdcyTnkqnIjGVyYPlM
+	eNJLXi+5dO/o9FQfqtAW5Dkwebny07jDQhc+e6+8nYEqqVqzlrL+ukNHOi99OeUwpWbzUBg==
+X-Received: by 2002:a5d:59c9:0:b0:488:8232:d16e with SMTP id
+ ffacd0b85a97d-4888232d398mr4215448f8f.45.1790373203169; Fri, 25 Sep 2026
+ 14:53:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260925-upstream-gpio-wakeup-v2-2-6c5533356246@ti.com>
-References: <20260925-upstream-gpio-wakeup-v2-0-6c5533356246@ti.com>
-In-Reply-To: <20260925-upstream-gpio-wakeup-v2-0-6c5533356246@ti.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>
-CC: <msp@baylibre.com>, <s-kochidanadu@ti.com>, <a-kaur@ti.com>,
-        <s-tripathi1@ti.com>, <vishalm@ti.com>, <k-willis@ti.com>,
-        <linux-input@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <devicetree@vger.kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790373161; l=2720;
- i=k-willis@ti.com; s=20251230; h=from:subject:message-id;
- bh=8vbwlk4wUdmy0NHRBAB6+Pzx0H3C8BZUNdSHPEROmQI=;
- b=4gGSLFaFsmYMYP7vVclIT2tJhhXmCLEHNq6pz0EyJ8Y3N25edjM8RxIDp7OzJLefXz9CeDROp
- 140VeOxYdJjDzL8RO9yOthjNrgHSm9E9wD8fNLVRelcqFNXoU3nrGIQ
-X-Developer-Key: i=k-willis@ti.com; a=ed25519;
- pk=fQiPVFwmogfDAKdaAKq163RWSfgHZVE/MrsDzp0Xo1k=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37B:EE_|SA2PR10MB4731:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd61746c-8cb4-4da1-b1c5-08df1b4f667d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|23010399003|82310400026|1800799024|10067099003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	uxG7mXhoOvPvEuiCQlQSMc0DVL2dBmVIMZfO7qB76Mh0rhEwPyruWV6firJgHj/mwyf2U9WsdSZ1VeqMG1QY2WmznmWV/uevm1XKfebwca4Rh22D5BWI7YEoLjonB1+I/IBBvw9El9ULSMSI43NsASWw3Sd8ePGEV9YQMjpPzddfgKjXipQF5RFyQd7zZrBHrUAC8of5ehFn+owkAUsWW4SxWcK6sJGxzcybIxv6k0lwfa6J4b0QIIAE8pHI1ygKDzywy9huafyxC4GN4QmHn49oODXg7mh4QIDPqQ/E90+8RXF+tN+JRc5/dwRhWH1OWXpTCsOUPaj+/8nShxLCsZv7Gu/rqJnY5wFjnwOd762gVYHGIamS8Q8H0pDmOmv3bOyTFLKxShpj5GaoVXLuWmdm9W0PdqPy0yuePUkiX+wV05ZgjMv144f8kCDXAeABSImymAZB2q83uRO8wXsAEcYnQg6eiu5p1BcRZEE4U3R/ajrPAAAu5sFWD0NfbGLpgaB9HMsjt2J0XDypMtNmy5+IqEjZjD8jY3yvD49c0hCYknQvWTlY6PohU5d7n54zA0GtybSPaBw0FSFvfLe4J2iatRrC2woQcVrTeB4Ij5q6Bxg3Q1w89CRHekYGqbpqEPXr61Uuu3FHMYkOkG7MY4i3kaP8/fLthPt99Zj9kUHqvCtEyequuRaWGQti21lpFMlV/EKZeNncOSmdavZ+6Q==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(82310400026)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	9xgy5RlLXsjAe91UuKn3CtZNmIwBUacsJbXXaOO4Zv1T6u0OXmm4Q2aHagmRmwv3K3QOwDtwIFbpAXaFGmoE4s8oL0BCeeVUNuAlpBd0iLkOs5w2K3xd2IciIXcOLUNritZtuO0D1suJBHYe6IsfxATGP7f+Eap/5vQ+ZsoqQmKwTzdOjM5PfLFB4bFN0H9SEgMIRAof9A/AMJ/i5I0QvKHk3uIM/gePRyBYX8+NpNGW2dhDEdpVPzg9rqXaMeL8zHohEdCadZFOxSFMQEtH17A4j6pE4tj6AQrW2cDWZ9i1b4v6VLD8oBKv3K0atJ8GMNFo31sTmqC839PiUf/4Qxgl5W7wlgpvkCSh8lWjzq6+clz/BsZ0qIZEA2GLxo7I45yuZJ4vIq3gWHx84aWqCbQfEoOpF+QFxf/0mB4s2uRdYd9rbiGmnr0I5mHxTobD
-X-Exchange-RoutingPolicyChecked:
-	r5qUGvCmorvfo1goM7n0yt+8lOQyxxOtdgpSbNxqW1TbeTNK4KnMiUoDJh+ZWfEQSLt/gttLe+eXroF1k/FI+7NKj0UY7sPFFCB1mibVzwbk/GIFQYvJ2gFQKDw95P1PkUQ9KiwlU9y/Z0uA2+35RHM09JJgrNxG/8TmfmQow5vkkIDKlSO/jY+vWY88yQ4UpqZzUYombCIDHsFXk69TrcOo/9l4ZK0KI6hKlddQoMtLXH3a1QyWF26/FqT5Q24QsVv+xlAlr4GNebuHTqQ8jSd0tfbNeiueOvD2iKzbR3Wi52ia0IGOfqA3O5bJ1LZwUoPS+rg3DYJb2bijYw3wGA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 21:53:14.4744
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd61746c-8cb4-4da1-b1c5-08df1b4f667d
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF0000C37B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR10MB4731
-X-Authority-Analysis: v=2.4 cv=Fv+QbGrq c=1 sm=1 tr=0 ts=6ab6ed4f cx=c_pps
- a=5XdDR3/zV2dQAmk0xmzXVw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=sozttTNsAAAA:8 a=OP4iwnenC8Is5NdNPIcA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: pj9R-kIYm9Y3A2A0YzTdmH3d4TimNUeu
-X-Proofpoint-ORIG-GUID: pj9R-kIYm9Y3A2A0YzTdmH3d4TimNUeu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA4NyBTYWx0ZWRfXzwJCibgWKkFM
- btOxEOlYlU0k9M/T3wtPmYaxI9r5mg280hWrL7NTirpVcClPoKArPCmRH7oyfB3NFmcjiohXdJf
- F20++OvjDOCgo00UX4X5qLPgAA2lLIqJnrZLT1rtRYZW3ghbRTBqvAsrn8pf38IDURfkKTVwN4l
- Xp6PucBsPqdwnWUbDTuPU8zrtUQ3DDKHWCOqaJYsIQX2eF+eZxuVifOwjh+yixEQx2OCScrlDfW
- vamEE+wd3/wB2XJOsh8NGPqslMsna5MGCBitNGJgzO8GGOGF9cKNTYVZYm4U/J+Re9xAPTYw6YK
- JJYdk3RcapiajH5dB4ojdplGx4nTuBHsJMQEO98Zk5RDAUiz/a2J0eZhTP2SGJxlUha3zeBdJkC
- 0g0xUGt+/va6qnK/wittjAEz5XFecquCzBjGzSPFhgH+DxyQK8UPYVg/kHMDEuwkHgMA22YPNLo
- 9g/W4maVTXTGxtOuIsw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA4NyBTYWx0ZWRfX7FP6LrM4ZZ7X
- V3yT9xiWVgomCSGLOhib/JyOjA79lTZRechLb/EQHBhxOqXfrF+tjWb8k6WDPeXbNfgOineGCy3
- FMoWoILcu02BZB8LKZdN4PSBIuiePig=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
- suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250087
+References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
+In-Reply-To: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Fri, 25 Sep 2026 14:53:11 -0700
+X-Gm-Features: AclHuK_Ft21uXDV_iMRtDzCCVqU8DQdapOlwM8X7gfzinGS8ws8kiw9mFw7TZZY
+Message-ID: <CAKwvOdmuvn0LZkYEsH84hnOGTYhTtzuWs3wMARtWdTeL6dD9sA@mail.gmail.com>
+Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, "Theodore Ts'o" <tytso@mit.edu>, 
+	"Jason A. Donenfeld" <Jason@zx2c4.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-GPIO can be used as a wakeup source for TI K3 AM62 devices during
-suspend to RAM states. The GPIO controller is powered off in these
-states, so a wakeup enable flag must be set on the GPIO pin in the
-pinctrl in order to allow wakeup.
+On Fri, Sep 25, 2026 at 2:46=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
+g> wrote:
+>
+> After a recent change in LLVM [1], builds with the random vDSO
+> implementation, such as PowerPC and RISC-V, fail when checking the vDSO:
+>
+>   arch/powerpc/kernel/vdso/vdso32.so.dbg: dynamic relocations are not sup=
+ported
+>   arch/riscv/kernel/vdso/vdso.so.dbg: dynamic relocations are not support=
+ed
+>
+> memset() is now generated when zeroing params->reserved for some builds
+> because LLVM has an optimization (now run in more instances) that can
+> recognize at compile time when it is assigning a static value to a
+> contiguous area of memory and turn that into a call to memset(). Both
+> clang and GCC assume memset() is always available [2].
+>
+> clang provides a builtin, __builtin_memset_inline [3][4], that can be
+> used to ensure an external function call is not generated when zeroing
+> this memory. Use it when it is available.
+>
+> While GCC has no issues with the current code, it has generated memset()
+> before, as seen in commit b7bad082e113 ("random: vDSO: avoid call to out
+> of line memset()"). GCC 14 provides '-finline-stringops=3Dmemset' [5][6]
+> with a similar guarantee to the clang builtin, so use it and
+> __builtin_memset() when available.
+>
+> If no option is available, provide a simple memset_inline() like the one
+> from lib/string.c to avoid adding an ugly ifdef.
+>
+> Link: https://github.com/llvm/llvm-project/commit/90cebef1411617fc3eedd35=
+9bdf00cb44b1c2439 [1]
+> Link: https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/Standards.html#index-=
+ffreestanding [2]
+> Link: https://github.com/llvm/llvm-project/commit/38637ee477541370a90b37f=
+149069d8e5c0c2efd [3]
+> Link: https://clang.llvm.org/docs/LanguageExtensions.html#guaranteed-inli=
+ned-memset [4]
+> Link: https://gcc.gnu.org/git/?p=3Dgcc.git;a=3Dcommit;h=3D1ff6d9f7428b066=
+8cd8ab0b3e3ab94f1d733124d [5]
+> Link: https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-finl=
+ine-stringops [6]
+> Suggested-by: "Jason A. Donenfeld" <Jason@zx2c4.com>
+> Suggested-by: Nick Desaulniers <ndesaulniers@google.com>
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+> Changes in v2:
+> - Switch approach entirely (Jason, Nick)
+>   - clang: use __builtin_memset_inline() to avoid external call
+>   - GCC 14+: use __builtin_memset + -finline-stringops=3Dmemset (hence th=
+e
+>     massive CC list increase)
+>   - GCC < 14: no issues currently but avoid ifdef with simple memset
+>     implementation
+> - Link to v1: https://patch.msgid.link/20260916-vdso-getrandom-avoid-mems=
+et-llvm-24-v1-1-80a92f2e225a@kernel.org
+> ---
+>  arch/arm64/kernel/vdso/Makefile     |  2 +-
+>  arch/loongarch/vdso/Makefile        |  1 +
+>  arch/powerpc/kernel/vdso/Makefile   |  1 +
+>  arch/riscv/kernel/vdso/Makefile     |  1 +
+>  arch/s390/kernel/vdso/Makefile      |  1 +
+>  arch/x86/entry/vdso/vdso64/Makefile |  2 +-
+>  init/Kconfig                        |  7 +++++++
+>  lib/vdso/getrandom.c                | 19 +++++++++++++++++--
+>  8 files changed, 30 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/arm64/kernel/vdso/Makefile b/arch/arm64/kernel/vdso/Mak=
+efile
+> index 7dec05dd33b7..f6619e1cb2ce 100644
+> --- a/arch/arm64/kernel/vdso/Makefile
+> +++ b/arch/arm64/kernel/vdso/Makefile
+> @@ -41,7 +41,7 @@ CC_FLAGS_REMOVE_VDSO :=3D $(CC_FLAGS_FTRACE) -Os $(CC_F=
+LAGS_SCS) \
+>                         $(CC_FLAGS_LTO) $(CC_FLAGS_CFI) \
+>                         -Wmissing-prototypes -Wmissing-declarations
+>
+> -CC_FLAGS_ADD_VDSO :=3D -O2 -mcmodel=3Dtiny -fasynchronous-unwind-tables
+> +CC_FLAGS_ADD_VDSO :=3D -O2 -mcmodel=3Dtiny -fasynchronous-unwind-tables =
+$(CONFIG_CC_OPT_INLINE_MEMSET)
+>
+>  CFLAGS_REMOVE_vgettimeofday.o =3D $(CC_FLAGS_REMOVE_VDSO)
+>  CFLAGS_REMOVE_vgetrandom.o =3D $(CC_FLAGS_REMOVE_VDSO)
+> diff --git a/arch/loongarch/vdso/Makefile b/arch/loongarch/vdso/Makefile
+> index 9c9181bb4071..0b84892d084b 100644
+> --- a/arch/loongarch/vdso/Makefile
+> +++ b/arch/loongarch/vdso/Makefile
+> @@ -16,6 +16,7 @@ ccflags-vdso :=3D \
+>         $(filter -m64,$(KBUILD_CFLAGS)) \
+>         $(filter -march=3D%,$(KBUILD_CFLAGS)) \
+>         $(filter -m%-float,$(KBUILD_CFLAGS)) \
+> +       $(CONFIG_CC_OPT_INLINE_MEMSET) \
+>         $(CLANG_FLAGS) \
+>         -D__VDSO__
+>
+> diff --git a/arch/powerpc/kernel/vdso/Makefile b/arch/powerpc/kernel/vdso=
+/Makefile
+> index 368759f81708..0d1a49529885 100644
+> --- a/arch/powerpc/kernel/vdso/Makefile
+> +++ b/arch/powerpc/kernel/vdso/Makefile
+> @@ -43,6 +43,7 @@ ccflags-y :=3D -fno-common -fno-builtin -DBUILD_VDSO
+>  ccflags-y +=3D $(DISABLE_LATENT_ENTROPY_PLUGIN)
+>  ccflags-y +=3D $(call cc-option, -fno-stack-protector)
+>  ccflags-y +=3D -DDISABLE_BRANCH_PROFILING
+> +ccflags-y +=3D $(CONFIG_CC_OPT_INLINE_MEMSET)
+>  ccflags-y +=3D -ffreestanding -fasynchronous-unwind-tables
+>  ccflags-remove-y :=3D $(CC_FLAGS_FTRACE)
+>  ldflags-y :=3D -Wl,--hash-style=3Dboth -nostdlib -shared -z noexecstack =
+$(CLANG_FLAGS)
+> diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Mak=
+efile
+> index 8dbf2532a573..c023046a3fd7 100644
+> --- a/arch/riscv/kernel/vdso/Makefile
+> +++ b/arch/riscv/kernel/vdso/Makefile
+> @@ -36,6 +36,7 @@ endif
+>  ccflags-y :=3D -fno-stack-protector
+>  ccflags-y +=3D -DDISABLE_BRANCH_PROFILING
+>  ccflags-y +=3D -fno-builtin
+> +ccflags-y +=3D $(CONFIG_CC_OPT_INLINE_MEMSET)
+>  ccflags-y +=3D $(KBUILD_BASE_ISA)$(CFI_MARCH)
+>  ccflags-y +=3D $(CFI_FULL)
+>  asflags-y +=3D $(KBUILD_BASE_ISA)$(CFI_MARCH)
+> diff --git a/arch/s390/kernel/vdso/Makefile b/arch/s390/kernel/vdso/Makef=
+ile
+> index 35c834b895ec..54bcf2984ca1 100644
+> --- a/arch/s390/kernel/vdso/Makefile
+> +++ b/arch/s390/kernel/vdso/Makefile
+> @@ -29,6 +29,7 @@ KBUILD_CFLAGS_VDSO :=3D $(filter-out -munaligned-symbol=
+s,$(KBUILD_CFLAGS_VDSO))
+>  KBUILD_CFLAGS_VDSO :=3D $(filter-out -fno-asynchronous-unwind-tables,$(K=
+BUILD_CFLAGS_VDSO))
+>  KBUILD_CFLAGS_VDSO +=3D -fPIC -fno-common -fno-builtin -fasynchronous-un=
+wind-tables
+>  KBUILD_CFLAGS_VDSO +=3D -fno-stack-protector $(DISABLE_KSTACK_ERASE)
+> +KBUILD_CFLAGS_VDSO +=3D $(CONFIG_CC_OPT_INLINE_MEMSET)
+>  ldflags-y :=3D -shared -soname=3Dlinux-vdso.so.1 \
+>              --hash-style=3Dboth --build-id=3Dsha1 \
+>              $(call ld-option, --eh-frame-hdr) -T
+> diff --git a/arch/x86/entry/vdso/vdso64/Makefile b/arch/x86/entry/vdso/vd=
+so64/Makefile
+> index 7c0790065b5e..c2353a065279 100644
+> --- a/arch/x86/entry/vdso/vdso64/Makefile
+> +++ b/arch/x86/entry/vdso/vdso64/Makefile
+> @@ -14,7 +14,7 @@ vobjs-$(CONFIG_X86_SGX)                       +=3D vsgx=
+.o
+>  vobjs-$(CONFIG_FUTEX_ROBUST_UNLOCK)    +=3D vfutex.o
+>
+>  # Compilation flags
+> -flags-y                                :=3D -DBUILD_VDSO64 -m64 -mcmodel=
+=3Dsmall
+> +flags-y                                :=3D -DBUILD_VDSO64 -m64 -mcmodel=
+=3Dsmall $(CONFIG_CC_OPT_INLINE_MEMSET)
+>
+>  # The location of this include matters!
+>  include $(src)/../common/Makefile.include
+> diff --git a/init/Kconfig b/init/Kconfig
+> index 8583d9f06c52..ff3f8475dd2f 100644
+> --- a/init/Kconfig
+> +++ b/init/Kconfig
+> @@ -173,6 +173,13 @@ config CC_HAS_ALLOC_TOKEN
+>  config CC_HAS_MULTIDIMENSIONAL_NONSTRING
+>         def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring=
+__)) =3D { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
+>
+> +config CC_HAS_OPT_INLINE_MEMSET
+> +       def_bool $(cc-option,-finline-stringops=3Dmemset)
+> +
+> +config CC_OPT_INLINE_MEMSET
+> +       string
+> +       default "-finline-stringops=3Dmemset" if CC_HAS_OPT_INLINE_MEMSET
+> +
+>  config LD_CAN_USE_KEEP_IN_OVERLAY
+>         # ld.lld prior to 21.0.0 did not support KEEP within an overlay d=
+escription
+>         # https://github.com/llvm/llvm-project/pull/130661
+> diff --git a/lib/vdso/getrandom.c b/lib/vdso/getrandom.c
+> index 2851afa9154f..f5cad5641985 100644
+> --- a/lib/vdso/getrandom.c
+> +++ b/lib/vdso/getrandom.c
+> @@ -29,6 +29,22 @@
+>         }                                                                =
+       \
+>  } while (0)
+>
+> +#if __has_builtin(__builtin_memset_inline)
+> +#define memset_inline(dst, value, size) __builtin_memset_inline(dst, val=
+ue, size)
+> +#elif IS_ENABLED(CONFIG_CC_HAS_OPT_INLINE_MEMSET)
+> +#define memset_inline(dst, value, size) __builtin_memset(dst, value, siz=
+e)
+> +#else
+> +static inline void *memset_inline(void *dst, int value, size_t size)
+> +{
+> +       char *d =3D dst;
+> +
+> +       while (size--)
+> +               *d++ =3D value;
+> +
+> +       return d;
+> +}
+> +#endif
 
-If the device is wakeup enabled, select the wakeup pinctrl state on
-suspend and restore the default pinctrl state on resume.
+Does this work?
+https://godbolt.org/z/Tx6EaGMfb
 
-Signed-off-by: Kendall Willis <k-willis@ti.com>
----
- drivers/input/keyboard/gpio_keys.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+(Sorry, I _should_ have replied to Jason on V1. I'm not ignoring him,
+just way behind on my code reviews. Sorry!)
 
-diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/gpio_keys.c
-index 129fc4212a5ed126496b331ce626682d441c53bf..d3fbc9776ac8cbdc7349a28df990ee609edf9e59 100644
---- a/drivers/input/keyboard/gpio_keys.c
-+++ b/drivers/input/keyboard/gpio_keys.c
-@@ -28,6 +28,7 @@
- #include <linux/of.h>
- #include <linux/of_irq.h>
- #include <linux/spinlock.h>
-+#include <linux/pinctrl/consumer.h>
- #include <dt-bindings/input/gpio-keys.h>
- 
- struct gpio_button_data {
-@@ -60,6 +61,8 @@ struct gpio_keys_drvdata {
- 	struct input_dev *input;
- 	struct mutex disable_lock;
- 	unsigned short *keymap;
-+	struct pinctrl *pinctrl;
-+	struct pinctrl_state *pinctrl_wakeup;
- 	struct gpio_button_data data[];
- };
- 
-@@ -884,6 +887,10 @@ static int gpio_keys_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, ddata);
- 	input_set_drvdata(input, ddata);
- 
-+	ddata->pinctrl = devm_pinctrl_get(dev);
-+	if (!IS_ERR_OR_NULL(ddata->pinctrl))
-+		ddata->pinctrl_wakeup = pinctrl_lookup_state(ddata->pinctrl, "wakeup");
-+
- 	input->name = pdata->name ? : pdev->name;
- 	input->phys = "gpio-keys/input0";
- 	input->dev.parent = dev;
-@@ -1010,6 +1017,12 @@ gpio_keys_enable_wakeup(struct gpio_keys_drvdata *ddata)
- 	int error;
- 	int i;
- 
-+	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup)) {
-+		error = pinctrl_select_state(ddata->pinctrl, ddata->pinctrl_wakeup);
-+		if (error)
-+			return error;
-+	}
-+
- 	for (i = 0; i < ddata->pdata->nbuttons; i++) {
- 		bdata = &ddata->data[i];
- 		if (bdata->button->wakeup) {
-@@ -1023,6 +1036,9 @@ gpio_keys_enable_wakeup(struct gpio_keys_drvdata *ddata)
- 	return 0;
- 
- err_out:
-+	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup))
-+		pinctrl_pm_select_default_state(ddata->input->dev.parent);
-+
- 	while (i--) {
- 		bdata = &ddata->data[i];
- 		if (bdata->button->wakeup)
-@@ -1039,6 +1055,9 @@ gpio_keys_disable_wakeup(struct gpio_keys_drvdata *ddata)
- 	struct gpio_button_data *bdata;
- 	int i;
- 
-+	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup))
-+		pinctrl_pm_select_default_state(ddata->input->dev.parent);
-+
- 	for (i = 0; i < ddata->pdata->nbuttons; i++) {
- 		bdata = &ddata->data[i];
- 		bdata->suspended = false;
+> +
+>  static void memcpy_and_zero_src(void *dst, void *src, size_t len)
+>  {
+>         if (IS_ENABLED(CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS)) {
+> @@ -83,8 +99,7 @@ __cvdso_getrandom_data(const struct vdso_rng_data *rng_=
+info, void *buffer, size_
+>                 params->size_of_opaque_state =3D sizeof(*state);
+>                 params->mmap_prot =3D PROT_READ | PROT_WRITE;
+>                 params->mmap_flags =3D MAP_DROPPABLE | MAP_ANONYMOUS;
+> -               for (size_t i =3D 0; i < ARRAY_SIZE(params->reserved); ++=
+i)
+> -                       params->reserved[i] =3D 0;
+> +               memset_inline(params->reserved, 0, sizeof(params->reserve=
+d));
+>                 return 0;
+>         }
+>
+>
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260916-vdso-getrandom-avoid-memset-llvm-24-74d45fa6031e
+>
+> Best regards,
+> --
+> Cheers,
+> Nathan
+>
 
--- 
-2.34.1
 
+--=20
+Thanks,
+~Nick Desaulniers
