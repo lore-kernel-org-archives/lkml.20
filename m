@@ -1,98 +1,129 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC904D9F9C;
-	Fri, 25 Sep 2026 20:30:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AB73DA7C8;
+	Fri, 25 Sep 2026 20:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790368263; cv=none; b=sjGwsJ8qiM2GMyfn7cm/MvSTs1NHWWNM2UYTTP6PQazgYjKxtv/5v0hZYAUDCAxwyQydXLFmRbz+TJkDvexnsfOgj25ARoyiKTabkciDh5Lv+iDA+S35loq1znVPz2VmAO8TZex4nViNb8leQfS4EDJjUkFuuKhN/Hqegn6JTOM=
+	t=1790368268; cv=none; b=B3LDjS1xisOsGDGmhvhpa7lrPdVUvFKzTZlZe8N/ejxZsHgu3Z7Y493dH2oWXB1Pw2+U4tdIoSH9BDPZclDEj1lu/1uge0aNeg4Ijxhlh8X5lkNNcj2TJbColnpc/kHf4bX3k5CVi6FF1DMQvvX9uNW9B2CaJ/SJBM51LgY1Pio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790368263; c=relaxed/simple;
-	bh=IvmJC+wnoMKmtznA56KVh+cnnldg9D+xK7StRD9xfgw=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=FSXd7gzWUHkBA0OhGqw4HITTmbHBRRlR48bHlYBpJ48TJBrdpA31j9/tvNUf9hiB5zFhhEsaz0FfbV7DcBjhxnwnyp9eJNRkkCgq6a6fjLTMCfpWzN6V8lQTnn4AABsmla9WoM3AHjEmpe+uFQjUj2LTxrdimRtaL9JprnEk0W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=R/wLDUhv; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=cjxl5yN/; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790368268; c=relaxed/simple;
+	bh=4prjH3JSerSDfYDuINQFJhIuaAABekcPPtNcx1u/gm0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ojyuxrzj3a6T3WzqZsTBPZ4N/tYMW/ggAWyiHHS2XQgD6p40ozJOiG0oUnak9tDtlV3J63SY2SwB7JbuPe+nAbRYKgTPn788oaSOnI+QhJPZi0sLIO5kvFFo2uhn3mjIEay+K44g/4Gcf3Xu5rWDNfVDvlOlxTcCEvfDFUruJc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=xfF6xg+N; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=QwFRNKbq; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="R/wLDUhv";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="cjxl5yN/"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790368236; bh=mGecoquQS03nc45mEusf/0T
-	7jpG+ELP0oFHt185c/9c=; b=R/wLDUhvneiSr8D/xNGzLXYeVPKdlXPYYKPp8bZ0yA8+wBeJx+
-	jiA8n1ZorQ6VCRHRRPWq4F4WFsgZySSu78M/Z2WIqR5a0YKxbnkYBeM3OmtTtFdKD88Xjve+1WO
-	QeLvB9aaaF/z+/qw8etz+x6/wMofTlYnTVqiZArAhdNg8AmCgwepLwL+tHnaiXaf+HUdv16rySP
-	+ZKmNbH/XMXGE0rSVjlfbQqNVjqoj1V3lWzNRd1V0q5xupgVj3wgud2zQSgjb2XuaW4lUJI7nNp
-	jyguD8vpxlcx14d2ychp7ZHoq/bZNzYaWtPhd7RHfGLevx3RrATj5+jKpEtsiHxBItA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790368236; bh=mGecoquQS03nc45mEusf/0T
-	7jpG+ELP0oFHt185c/9c=; b=cjxl5yN/mUcKXC59gh0I0U1DWuxO0I5hWFkpUfgXUIZAEbhRGC
-	DWM1beTjfTFUg0qQJVf9gOxW9UYh338BKUAg==;
-Date: Fri, 25 Sep 2026 21:30:34 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: =?ISO-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Johan Hovold <johan@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Armin Wolf <W_Armin@gmx.de>,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH] Add TAINT_DRIVER_OVERRIDE for usage of driver_override
-In-Reply-To: <arbYJUnMkb8Mqbam@monoceros>
-References: <20260925182041.1025371-2-u.kleine-koenig@baylibre.com> <arbYJUnMkb8Mqbam@monoceros>
-Message-ID: <897D45CE-C577-4DCB-90BA-5DA45AEA307B@mainlining.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xfF6xg+N";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="QwFRNKbq"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hs2Qk2CnTzKmHl;
+	Fri, 25 Sep 2026 22:30:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790368254;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f9tjU9mEZpQyYYbCsp2FIl5GryBCKfGpmvGA6r5giC4=;
+	b=xfF6xg+NMxALi42SSsmp1KqEMXn2tBKBiK9uCcaooHlta3DTm1a2mTJFRe14T/sy2TdUqS
+	tn0jJ09W+xrsn6iIL8W2E3dcrLH9pqIE7E/iaqr1aY203cOD04n5wr5nNnEnVSlKGWvFQT
+	j2klZfDuORZkexaYL/88LNdHYma30f9Y2GOXNWkKOf1oOPj6NhZwE7Ktdd/D7fuywSN57Q
+	gB3XcULGlAmFukC7kNZ1n9lKsn27hqKPzMBb0fEx9lFOhLXayi8yPeohizqQcEOoRRZPJ1
+	rUkytkA/5JLu+tULFOth7yECKlopBHB3yVhTMv6tT4m+QsLWkCa9tZVxP1CNbQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=QwFRNKbq;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790368252;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f9tjU9mEZpQyYYbCsp2FIl5GryBCKfGpmvGA6r5giC4=;
+	b=QwFRNKbqZip7B7/RPpJLWT29m6gthv2XDU9X/Uq4UIjIrCpvQI40kpEHXVp6LTWvJR+Zsd
+	3z9YW8IMu1qkhLcVdUQZG9oNTYTBkqjsLgb67F8WY6euO1Fg+98xtpNFprdxy0n8W06sKN
+	4xOokx8DDmRthNQZDyQ7oWFQhnczZqkAN9pFXThG2ivRgYVk6/o0o3/Vh6ughFH0YkeHvW
+	nyzOFhXBnji5wnm1WIwRTawfwa9hXfP5GSH96lJ6ikwdY3LmWkvkCmwzOcIdy+zkQL1Lwf
+	19Rl5CLXhaObTwyyUbOKZFub+G0474X0V2qFqBeilwAI+9VOvcLxV3ik22ZIGA==
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 2/2] dt-bindings: PCI: rcar-gen4-pci-ep: Fix reset-names
+Date: Fri, 25 Sep 2026 22:29:52 +0200
+Message-ID: <20260925203039.110653-2-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260925203039.110653-1-marek.vasut+renesas@mailbox.org>
+References: <20260925203039.110653-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: ea34df963bbccee2e3d
+X-MBO-RS-META: zxyadjbobjx49zk8mqsezawebcy3jwm8
+X-Rspamd-Queue-Id: 4hs2Qk2CnTzKmHl
 
-On 25 September 2026 21:28:29 BST, "Uwe Kleine-König"
-<u.kleine-koenig@baylibre.com> wrote:
->Hello David,
->
->On Fri, Sep 25, 2026 at 08:20:40PM +0200, Uwe Kleine-König wrote:
->> Commit fcbfaffee51a ("driver core: add TAINT_FORCED_BIND for when
->> userspace manually messes with devices and drivers") introduced a taint
->> for usage of bind/unbind sysfs files that manually trigger driver probe
->> and remove respectively.
->> 
->> For drivers that do their resource management correctly (which is also
->> needed for module unloading) bind and unbind for matching devices are
->> not critical operations. The thing that makes bind and unbind unsafe is
->> that drivers can be forced on devices that originally don't match using
->> driver_override. The result is that e.g. of_device_get_match_data()
->> returns NULL despite all .of_match_table entries having a non-NULL
->> .driver_data member which yields a NULL pointer exception for several
->> drivers. And given that after setting a driver_override a manual bind is
->> only one way a driver can be bound to an unexpected device, a separate
->> taint for such an override is justified.
->> 
->> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
->
->Sashiko found an issue in the oneline shell script, I fixed that in a
->separate commit because it wasn't introduced in my patch.
->
->Also I violated my own rule not to send patches directly before calling
->it a day and so missed to squash in the build fix that Sashiko also
->found 🤦.
->
+Drop maxItems: from reset-names, since the entry already contains items: .
+Fixes the following warning detected by DT checker:
+"
+Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml: properties:reset-names: {'minItems': 1, 'maxItems': 2, 'items': [{'const': 'pwr'}, {'const': 'core'}]} should not be valid under {'required': ['maxItems']}
+        hint: "maxItems" is not needed with an "items" list
+        from schema $id: http://devicetree.org/meta-schemas/items.yaml
+"
 
-Hah! A emoji 🥺
+Fixes: 173cc7417848 ("dt-bindings: PCI: rcar-gen4-pci-ep: Document Application/Local register reset")
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml | 1 -
+ 1 file changed, 1 deletion(-)
 
->I wait a bit before sending a v2, but if you want to take a glimpse
->already on the changes I did, look at
->
->	https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git driver_override-taint
->
->Best regards
->Uwe
->
+diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml
+index a983aa015cd1b..ce177f0eca753 100644
+--- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml
++++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml
+@@ -61,7 +61,6 @@ properties:
+ 
+   reset-names:
+     minItems: 1
+-    maxItems: 2
+     items:
+       - const: pwr
+       - const: core
+-- 
+2.53.0
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
