@@ -1,156 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D525B49A3C8;
-	Fri, 25 Sep 2026 10:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E4A497B81;
+	Fri, 25 Sep 2026 10:44:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790333008; cv=none; b=o8qmG1BkDX6vS6OGCVCvHxVcbG9osMjYDUJhZ0KUR0l3yVnAJy+yMuIeOhrjBpjsqNtSY4HwBuAJWLQjs0WgLHR3EvaxWQdhhbtwPv9oI2brCYwMicA4Gabj4pFqyxVFj1q7xfe8BN/xRqTXPi2wmRLM59El1gWH9gOUB0/PZEE=
+	t=1790333068; cv=none; b=My9xPM4zYDx7vlYIf6RNh6IxYHk6zL3QQXKBWLDqao1P6hD6HvjNl/n5KB9WrcX8/uO+sHmhwK6HeGvNcevZup3XXzHEc1Agz4EYgvvG/bJjYDaQyu4gntGg2JrfRyb8Bqwk/disikVB0j1vicuaENm9Hsxt0LRsgMYXvTg4doM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790333008; c=relaxed/simple;
-	bh=jPWO8NRa+f0g0v8dbKCK2h3llHZx7aafBFUVGLf4TaM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AyktKFbinxiSGwju8C9HE7yEGd3F+6luLjM/OxLguwv4j3KEjBtPPcrKA3GZdbqHWter0sRHJUN0poOVG25IvMfYyXVUjbdUuB/SWtvZUITV//XBH8FzC9H+VnXwJCJD1nxyNpIlpHeybLZ/7QmoB5y7K2p4VlQzuoGeQ8pQk14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFnPZ3FP; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790333068; c=relaxed/simple;
+	bh=OcZ/H5VbX5rV8SaKdTzwQ6H/xkR6BFDJ3mqQSmVV9oU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=G6Eq0hTVvZhgmaIVV0VHQVfOJ839myeFH8OHbJcAPZGTz63Ur1bfW45JOHF8pjcM6sHD/jkEgMTgQuZE+3IwT3XExuWe2AsBIO5sb+oYvAlU1Lct7XgNU47MXr+qFJ7TVk9eoQoKiKXZVIiM8kCDp5HxWCHiPGg9R6yXsW9oPnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JICC+xGP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFnPZ3FP"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 57C5CC2BCF5;
-	Fri, 25 Sep 2026 10:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790333008;
-	bh=jPWO8NRa+f0g0v8dbKCK2h3llHZx7aafBFUVGLf4TaM=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=NFnPZ3FP/8F1OoewYjeni1ZY/a1kRs38FIUf2j3LOylDc1YbfB23fKRCE5oHGZmio
-	 0nMbbjLKGEUFFvdrwh5vhx8gKa1rs9B1nqru62OVqce04swom3QiXqZDHAKHmspmln
-	 jmDVLUGqrYz+hI7TlxXTnUU5ZQcb1o8K6J2ezCFd43ukarr3I4h4tg2Vly7Kf1VrOZ
-	 gOGcqw5Zn3dvPVuxxUFqusaLCOfEXoETBL4BJjoYUlGv+tpIrZ9gxmN6WjHVfevXxX
-	 VVMN75kXkNYhhJPY6/fn/BfpJ/EhzWW6BOfSSfowver+dRSOAW+xT678aQmfZqVM5e
-	 oeaxvVdQBqlmg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 337C5C98321;
-	Fri, 25 Sep 2026 10:43:28 +0000 (UTC)
-From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Fri, 25 Sep 2026 20:43:22 +1000
-Subject: [PATCH] regmap: Drop map lock during cache init and exit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JICC+xGP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8ED11F000FF;
+	Fri, 25 Sep 2026 10:44:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790333066;
+	bh=9elvgz5ZgXTGvxeikDMflzLeR6nob/gpH+bHTa7KCJY=;
+	h=From:To:Cc:Subject:Date;
+	b=JICC+xGPUEtk40NNnHxb10WtvQRwzoZNT0DGCK8TBncdwfEXaNWI5swRho9P1M115
+	 8vn1a24Mlp6ut9CE5XLUzRAp/iRg7kQiKPMGc6gOi9C5CyZpF6zVxQhpxIW0XXSxkU
+	 k+RxWt+87Ac0x45ZrfKanIR98A+mi92geOwuNWVjSnp3tcT4d+M/nuJ9Z1wmZsTj+Y
+	 J2SiVWFawzNXFMFmNqwHeJ+mWb5CVsSEDc1xmWxYLwR3x5IpJL0H+7gKtZaQjGjxnU
+	 qOSsq4hShDNRchSDd+jvS9Hv+ldAQ/dE+xJqU+F5vO7MbZBlSkwotDzqxUZWdKV4Eg
+	 6ZQvfe4wOdDHQ==
+From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
+To: Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>
+Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	Dimitri Daskalakis <daskald@meta.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Tao Cui <cuitao@kylinos.cn>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	David Wei <dw@davidwei.uk>
+Subject: [PATCH net-next v4 0/5] fbnic: Support larger RX pages
+Date: Fri, 25 Sep 2026 12:44:07 +0200
+Message-ID: <20260925104417.2325213-1-bjorn@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-regcache-lifecycle-submit-v1-1-83b75ca79d96@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQrCMBBG4auUWRuIVSN6FXGRjH+agTbKTBWl9
- O5Gl9/ivYUMKjA6dwspXmJyrw3bTUdcYh3g5NZMve+DP/UHpxg4coEbJYM/PMLZM00yu+M+70J
- I8Dkxtf6hyPL+vy/X5hQNLmmsXH7HKdoMpXX9AqTUvreEAAAA
-X-Change-ID: 20260925-regcache-lifecycle-submit-74f366be0fbc
-To: Mark Brown <broonie@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- asahi@lists.linux.dev, Michael Reeves <michael.reeves077@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790333007; l=3198;
- i=michael.reeves077@gmail.com; s=fedora-20260918;
- h=from:subject:message-id;
- bh=bhjdNcpqzJyQqu6KoQ8twHsi4wLo39lzrrDM3q6SV2U=;
- b=dUG6HMWKRqJlIop9DgRJPb3yaHf2oRN1ulewe0RSquIucnpgEeaD4QYiU0nCrYihnyo2OHmbE
- ZqaWLU/lz7nCNl5ztbqyWdqV8WQL4Uud5DiTfVkChm4nrPoRdWuzwbm
-X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
- pk=VJ0TvyQ9TvfzYZa908YSE9kpkjFLLD5luv0bERu+boc=
-X-Endpoint-Received: by B4 Relay for
- michael.reeves077@gmail.com/fedora-20260918 with auth_id=1035
-X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
-Reply-To: michael.reeves077@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Michael Reeves <michael.reeves077@gmail.com>
+Hi!
 
-On systems with CONFIG_PROVE_RAW_LOCK_NESTING enabled, Apple GPIO probe
-triggers an "Invalid wait context" lockdep warning.
+This series adds support for large io_uring zero-copy RX buffers to
+fbnic.
 
-The driver uses a regmap with a raw spinlock and REGCACHE_FLAT. During
-regcache_init(), regcache_flat_init() allocates memory while holding the
-raw spinlock. The memory allocator can acquire a non-raw spinlock, which
-causes an invalid raw-to-non-raw lock nesting error. The abbreviated call
-chain is:
+fbnic hardware consumes receive memory in 4 KiB device pages, while
+io_uring may expose a larger software buffer, such as 256 KiB. Track
+the device-page geometry per BDQ, represent each large buffer with
+consecutive descriptors, and decode completions to the corresponding
+offset within the buffer. HPQ keeps its existing PAGE_SIZE geometry.
 
-  apple_gpio_pinctrl_probe
-    regcache_init
-      regcache_flat_init
-        __kmalloc_noprof
-          __pcs_replace_empty_main
-            refill_objects
-              _raw_spin_lock_irqsave
+Larger buffers also reduce pressure on the memory provider. One
+provider allocation supplies multiple 4 KiB device pages, so the same
+amount of receive memory needs fewer net_iov objects and fewer
+allocation, refill, and recycle operations. Hardware descriptor use
+remains unchanged.
 
-GFP_ATOMIC does not make this lock nesting valid.
+Ring depth and buffer size must be validated together. An ethtool ring
+change can otherwise make an active memory-provider configuration
+invalid. Store RX ring depths in netdev_config, stage proposed values
+in cfg_pending, and validate the default and each RX queue before
+committing the change. Both netlink and ioctl use the same transaction
+helpers.
 
-Holding the map lock during cache allocation and exit is not needed:
+The selftest requests a power-of-two buffer larger than twice the MTU,
+checks the reported buffer length, and verifies received data. It does
+not assume how packets are placed within the buffer.
 
-- Cache allocation occurs before the regmap is published.
-- Cache destruction occurs only after all users stop access.
-- regmap_reinit_cache() requires callers to prevent concurrent access.
+This series depends on the fbnic real-queue synchronization fix:
+https://lore.kernel.org/netdev/20260924191817.1843726-1-bjorn@kernel.org/
 
-Commit fd4ebc07b4df ("regmap: Hold the regmap lock when allocating and
-freeing the cache") added the lock for Maple tree lockdep validation.
-The current Maple tree backend uses internal locking, and cache
-population is now separate from cache allocation.
+Changes in v4
+=============
 
-Remove map locking from the cache init and exit callbacks. Keep map
-locking for cache population and normal register access.
+- Document that set_ringparam callbacks must report normalized ring
+  sizes through the in/out ethtool_ringparam argument.
+- Drop the unused stored TX ring depth; only RX depths are consumed by
+  queue-configuration validation.
+- Document that drivers consuming RX ring depths must initialize them
+  before registering the netdev.
+- Note the dependency on the separately posted real-queue
+  synchronization fix.
+- Carry Breno's Reviewed-by on the BDQ geometry patch and Tested-by on
+  the selftest patch.
+- Rebase on net-next after the net tree merge.
 
-Fixes: fd4ebc07b4df ("regmap: Hold the regmap lock when allocating and freeing the cache")
-Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
----
-Tested on Apple M3 MacBook Air (T8122):
+Changes in v3
+=============
 
-- All 4 GPIO controllers probe successfully with lockdep enabled.
-- The "Invalid wait context" warning no longer occurs.
-- All 549 regmap KUnit tests pass (38 test groups).
----
- drivers/base/regmap/regcache.c | 6 ------
- 1 file changed, 6 deletions(-)
+- Carry Breno's Reviewed-by on the netdev_config helper patch.
+- Clarify that the fbnic ring-depth consumer follows the core patch.
+- Document initialization, override, normalization, and stored ring
+  depth semantics.
+- Drop the CQE placement assertion from the large-buffer test.
+- Reject a zero RX-jumbo depth before validating large RX pages.
+- Rebase on net-next.
 
-diff --git a/drivers/base/regmap/regcache.c b/drivers/base/regmap/regcache.c
-index 0d58d900a..b137ded7f 100644
---- a/drivers/base/regmap/regcache.c
-+++ b/drivers/base/regmap/regcache.c
-@@ -225,9 +225,7 @@ int regcache_init(struct regmap *map, const struct regmap_config *config)
- 	if (map->cache_ops->init) {
- 		dev_dbg(map->dev, "Initializing %s cache\n",
- 			map->cache_ops->name);
--		map->lock(map->lock_arg);
- 		ret = map->cache_ops->init(map);
--		map->unlock(map->lock_arg);
- 		if (ret)
- 			goto err_free_reg_defaults;
- 	}
-@@ -259,9 +257,7 @@ int regcache_init(struct regmap *map, const struct regmap_config *config)
- err_exit:
- 	if (map->cache_ops->exit) {
- 		dev_dbg(map->dev, "Destroying %s cache\n", map->cache_ops->name);
--		map->lock(map->lock_arg);
- 		map->cache_ops->exit(map);
--		map->unlock(map->lock_arg);
- 	}
- err_free_reg_defaults:
- 	kfree(map->reg_defaults);
-@@ -281,9 +277,7 @@ void regcache_exit(struct regmap *map)
- 	if (map->cache_ops->exit) {
- 		dev_dbg(map->dev, "Destroying %s cache\n",
- 			map->cache_ops->name);
--		map->lock(map->lock_arg);
- 		map->cache_ops->exit(map);
--		map->unlock(map->lock_arg);
- 	}
- 
- 	kfree(map->reg_defaults);
+Changes in v2
+=============
 
----
-base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
-change-id: 20260925-regcache-lifecycle-submit-74f366be0fbc
+- Add generic netdev_config lifecycle helpers for the netlink and
+  ioctl paths.
+- Store ring parameters in netdev_config and revalidate RX queues
+  before committing a ring change.
+- Preserve the distinction between accepted and applied HDS state.
+- Track fbnic device-page geometry per BDQ.
+- Validate the fbnic RX page size, fragment count, and PPQ depth.
+- Add automated large-buffer test coverage.
 
-Best regards,
+v3: https://lore.kernel.org/netdev/20260915182105.4162425-1-bjorn@kernel.org/
+v2: https://lore.kernel.org/netdev/20260910180908.1506533-1-bjorn@kernel.org/
+v1: https://lore.kernel.org/netdev/20260522113225.241337-1-bjorn@kernel.org/
+
+
+Björn Töpel (4):
+  fbnic: Track BDQ device-page geometry per ring
+  net: Revalidate queue config for ringparam changes
+  fbnic: Support larger memory-provider RX pages
+  selftests: drv-net: Request larger zcrx buffers
+
+Jakub Kicinski (1):
+  net: Add netdev_config helpers
+
+ drivers/net/ethernet/meta/fbnic/fbnic_csr.h   |  34 +---
+ .../net/ethernet/meta/fbnic/fbnic_debugfs.c   |   5 +-
+ .../net/ethernet/meta/fbnic/fbnic_netdev.c    |   4 +
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.c  | 173 ++++++++++++++----
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.h  |   7 +
+ include/linux/ethtool.h                       |   4 +-
+ include/net/netdev_queues.h                   |  56 +++++-
+ net/core/dev.c                                |   7 +-
+ net/core/dev.h                                |   7 +
+ net/core/netdev_config.c                      |  75 +++++++-
+ net/ethtool/common.c                          |   8 +
+ net/ethtool/common.h                          |   2 +
+ net/ethtool/ioctl.c                           |  24 ++-
+ net/ethtool/netlink.c                         |  15 +-
+ net/ethtool/rings.c                           |  13 +-
+ .../selftests/drivers/net/hw/iou-zcrx.py      |   6 +-
+ 16 files changed, 350 insertions(+), 90 deletions(-)
+
+
+base-commit: 42a9fb3382fc2573e92f41d203b095d9a372cfc9
 -- 
-Michael Reeves <michael.reeves077@gmail.com>
-
+2.55.0
 
