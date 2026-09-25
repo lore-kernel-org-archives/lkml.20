@@ -1,97 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881A83EB0E3;
-	Fri, 25 Sep 2026 17:10:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385054078D1
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790356256; cv=none; b=KbRbVcKbseayIvoeODUK7nds2UXL3WPNmXa/pt27y2A4erdZ1jZ/fGMCxaASxmMvpqD3wyaZBo9oyqw1JR9o6pGShLP8eMOMKWdXrJV6lEmdWBxkiAVRHChReyvNF+muetrFFNUZodpCLEm4+RMiVnDGaJjfJbzcTuRIu5oOrFc=
+	t=1790356312; cv=none; b=Z274opgJjGIhOPeB8aITGWUGBZIzWfWaTkFcnvYLXjS1CoOhYF6B+JmAZDMuIZl+9cEaNmoc0fPsc0f389mqdqFVKyCFZWy1McXii8ksjjxFD2SFC5qQA0dfrjCCTXi1wvTlkGRce9Yj+17Zwpfh+EKl01dJ9+aHEH+jkS/SkQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790356256; c=relaxed/simple;
-	bh=btAJTGQM17nfINWzcM50CcOirwQ19hxLz8BOtzLcA/4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=jioYejq1YyrGMWqsKXTdTgklb9Gh5G6+GnbTWzBMBUlpPiSnqPh+dMmHfc+8PeEbpILxUnaTe8YlclyfcHlm36ScRZqANHgxU+e5prsuo3Fl+qDeqkNZ32/fTZgKXJdKQ7evVziEi7mL6NiQzd5W5p0lim6b/K5JThoK09ydi0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lIC+TS1r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790356312; c=relaxed/simple;
+	bh=nYw7CrwIsWWZ2NPPuERLElRuvwBTOJ+y+XwzJT93iaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ebffIr4Pfymbvn5ArPSF/ik5bjdJZ5CGr2xGZncM6dTRVzkouzqD5pr1kU3B1ieTBTdmkX6RKzLLc1WQbOrg5g/Dgow2FdkQ7FbwnxdJ59cpOgJYIu+fdd8qFIQCq5HpTD5zd+vnlmftveWhqew/tQBUWNyIDEN4zaX4+oneGIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SKuux+ka; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lIC+TS1r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBBE51F00893;
-	Fri, 25 Sep 2026 17:10:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790356235;
-	bh=ZY+JAmDmWtIQ8nQAOLoeWreSqeSKKZ9GlEGYCiTzBVw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=lIC+TS1r64GhqZtFkfmCigk1hjosRIX061L6K5cF+BPEwCRYpjdqz4Ln0COS4tOPS
-	 94wL7/3xYqFbYeHI87Z8kZfD1UvrnFqJxNz60hux26d0t1TUq9E9uLsGaRRJJStXrp
-	 4zRbds65I03aBTW2g/q2PiMln3Js9V7iGbDcnMCjEuOOZ5QoyXByz9K53bvXBt8q8t
-	 JrfzR0VSRzK42JJAgmbvvQgyeuYucCfB36XtpIdDADgBLe7V9Bp03bvZev+Gkap+Dy
-	 CJ/Fr1jXZcH6ZDtQioEZ3eBQ6k3VvjSiy+EViVUmOgkZCER58IUfh3gyQf9Bpux1r/
-	 Ho7EjK6pp9kPA==
-From: Mark Brown <broonie@kernel.org>
-To: David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>, 
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-In-Reply-To: <20260924083420.461715-1-peng.fan@oss.nxp.com>
-References: <20260924083420.461715-1-peng.fan@oss.nxp.com>
-Subject: Re: [PATCH] ASoC: use regmap_assign_bits() for conditional
- set/clear
-Message-Id: <179029244481.149798.12087901953016730058.b4-ty@b4>
-Date: Fri, 25 Sep 2026 00:27:24 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SKuux+ka"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so8707295e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:11:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790356306; x=1790961106; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zI1uNrLXO6lrfRFZprfTQ1p/tdW6w070lpBa0j3NKS8=;
+        b=SKuux+kaMroUezcTyhTj78WsTeqy0PQj+fD8CumhpehUz9T1lnbrD8mw1nXpYUMiKq
+         wQmm8oNVtNLMx9IU3xyfSqQaK/wleoe3wrEn5RoD2pE/FignMBL6JEC6EBSSjPwuNSlZ
+         2zdz3JudS3TcuPBpDJG5AlcftbJTrWqd6sbClBc/1Cd9NMc4DPKBFsRHYfEnDjqNE+L/
+         5hmc0ftVqoMhuB+U2EMwZ1OoPdoA1M5l4bR1T/iLNY7hHxAh/xmUh9bB42TxJGwyjynF
+         NIyrGgSvo11wwLdlY0OJ4skHQCymXW3XMnvY3Q+bFAOj3GBh11uoRfzO4uciIipmA4VN
+         k4jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790356306; x=1790961106;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zI1uNrLXO6lrfRFZprfTQ1p/tdW6w070lpBa0j3NKS8=;
+        b=z3YnNDkkyyAqF31QivJLDpup8oP6gQe78GaiccjqgVE6DJqAlWTnXpjsYn2xLRN9kN
+         fgbeudzYxc+oRZgrYalE3X2EBZ27PlvHbgizunJHYwaj/lNPoNwa4n1qyPBZZoiCGjJ0
+         8kAyOIOJipfJaLmLxkWipQVWN1yzVi81V761ZqG/bP71h2E15Pa3DzlXLaRVq3loYKMg
+         GOVsFQh89C9Fq0MAu3ZQVG0Lug3s1ZHeQYk7kxs9JnoE4JakYQuya645FUGXqlRinM4Q
+         JW0d9PzuK8I5iQSFHc2ERJuRNCCFHA3rT/I3pu1E7Hr5sJtGore34fWHgVZlG4Yc7s33
+         xDsA==
+X-Forwarded-Encrypted: i=1; AKwUvByYgw7z32XksN7DCpOVLj1YgNOq9Dx5+bzU4Pg9AHN6xhJPYZy9bmkM8zm0gs7/JQes2XrfZkqKSAhzq18=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTonKThVnFFS8qQAKHD9Cp3MYJMPadT9wPPJ+jyyq7h4dHeXR+
+	dDq5LNvducxB6MSfhhgBAsPWAnuK7SKNnQdOo29ZTMLWXir5w+LviNtW
+X-Gm-Gg: AYBFou0jtP6EyOaM+HyB8U4sWqoN4M8nescHrJU728u+y19ykVVKPYkj8e9NKWa69yh
+	Yctpczyrbu5vsLKXOvLuVYTJZcByo7QkuMp/InlxW0JBUVAmHK7o1QC44NaXIUMeu6ZgcKVy9oX
+	VeOBIZKTiFr21crg/qRXd0BnIQaj9gj1OoVTrR7D9cZm60yT3RVNMBecnxT+QAeLi3QtlwBS3Ne
+	j7YxMUWfxWaHqZLuTP3/QxDRYUt215qU/SXM3pLonTpZtp4A7vDeml53uPn7FT7/yK0e6RFynHG
+	mOGl/5jwEt0+718Qb/+qhckkgrP/Jdh6sHpRJuUHRVcPsvcDZfQAPDBS4YnGVhCwPGhboKaWixB
+	9y/dN2bXzvlO1gpnrryNdkPx0iijs2/XHGuOaD/rixMbrmyjsuSPuU9Vzk+LhOqJ/QoTR9VhSuK
+	tFUbwAo+pxjWtylqc7qT3pzCG44W7oolKozQr89HFPbyj/QgAcC0joYk624X1UIGGkX3ud5v0zd
+	egkUxyuFIooQJmVRvzH4v0f60qt9SzdDnA/PyIIuMzDLodMFwA9fg5KCToLNwi4+nr3HcAHsGm4
+	YeqPz2Tf1qCwAxuzBwa8fE/05QsezQZZPIVId92ajRoHVhNFshQlVV4Iu6ioBAHFwiZC1y+FqBD
+	zeQ+JwD7ocio55FdI
+X-Received: by 2002:a05:600c:4e93:b0:49b:d45:703e with SMTP id 5b1f17b1804b1-49fe66d1097mr122428005e9.8.1790356305537;
+        Fri, 25 Sep 2026 10:11:45 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-adc6-9c01-89ae-b145-8960-cf19.310.pool.telefonica.de. [2a02:3100:adc6:9c01:89ae:b145:8960:cf19])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a35fb05sm9422346f8f.20.2026.09.25.10.11.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 10:11:45 -0700 (PDT)
+Date: Fri, 25 Sep 2026 19:11:40 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Doug Berger <opendmb@gmail.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Justin Chen <justin.chen@broadcom.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: bcmgenet: allocate RX buffers as page fragments
+Message-ID: <araqwSZWDYqbPZWa@gmail.com>
+References: <20260924101922.2675127-1-nb@tipi-net.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1132; i=broonie@kernel.org;
- h=from:subject:message-id; bh=btAJTGQM17nfINWzcM50CcOirwQ19hxLz8BOtzLcA/4=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtqsGQa3KIOzA11v0aMkbM/3taweh3nHNDOqXK
- AAibBZBC0SJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCararBgAKCRAk1otyXVSH
- 0N4wB/97dJj9Hb3yE5W3Pex5aZp39b0z9qdn81f1AIzfdST/6WhThVQiD4g6s8ASSEuZVonETLW
- y+6NKn2YLYrx4NOLTIkB9C+aPVQnX9DR5ImwcbskduGdmau5yhY6+PoLs8m2/h7WHqCVZbbSWm/
- cofCyi3KOsmAO2IhDSMHqe/7PW+NOyQnsed8VYpyzAgZAT9lhbD3Pmafc7E8iewke8OKw5be+Yi
- OqT/PNwBAIwMCl/SYUAfQD2TS4Frk2LNncRRd8xgw2KcFDMAoS9vxTDMO/yDNHeUa8RtaWLdoyq
- 9Efk4Cu4eYqbHcWiXY8ztpQwzngPTY0WjSvF061FZZIzKXw6
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924101922.2675127-1-nb@tipi-net.de>
 
-On Thu, 24 Sep 2026 16:34:12 +0800, Peng Fan (OSS) wrote:
-> ASoC: use regmap_assign_bits() for conditional set/clear
+On Thu, Sep 24, 2026 at 12:19:21PM +0100, Nicolai Buchwitz wrote:
+> Fix this and allocate the buffers as page fragments, so the truesize is
+> what a packet occupies. 4 KiB pages stay one buffer per page.
+> 
 
-Applied to
+Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+I applied this unchanged to current net at 11536ee3d3e0, current net-next at
+42a9fb3382fc, and after patches 129 and 130 from 6.18.54-rc1. I tested each
+with a 64 KiB arm64 kernel in a custom QEMU Pi 400 model with GENET v5 DMA.
 
-Thanks!
+My LLM agent helped me running these tests.
 
-[1/1] ASoC: use regmap_assign_bits() for conditional set/clear
-      https://git.kernel.org/broonie/sound/c/286ece639c37
+Results with a 524,288-byte receive buffer (repeated over five rounds):
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+                             Unpatched net   Patched net/net-next
+Charge per 512-byte UDP      65,792 bytes    2,624 bytes
+Datagrams queued (of 1,000)  7               195
+Socket drops                 993             805
 
 Thanks,
-Mark
-
+Karl
