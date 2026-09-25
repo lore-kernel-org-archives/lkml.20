@@ -1,152 +1,89 @@
-Received: from mta0.migadu.com (out-107.mta0.migadu.com [91.218.175.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4663C4B8E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9999F3C4B60
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790311634; cv=none; b=fCbG45eLdJzmv63ydfsXuho8Kpy/Fj6MRRJIYSVpwKaiPVPrEUgUDj4IIHaxI5lU62A2+3MB21lQWphKK5n9i2MwsreEAiHL//vpfLoZ1dK9is1d6nC9xNBCM7yXlr73RpHsBPXn4pb7WQ0suJij0sC5BrGA8jOswkLwuUEzC6k=
+	t=1790311655; cv=none; b=VaPQm5sYDjkv4OgPvW9j/NU5h/GCowMGJExYsT5Uj6uVZimLrd411Rx2zWQDVft17OzSQx98C6BAZwwzqQIMmgS8yc+cH49wLT1GijcrBbUqVQkAe8k+Ffv6K9EnlXx/k3GM0O6AxzTri2Zj0RhENHdi1dnDhY5rWxSn1L3uZ9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790311634; c=relaxed/simple;
-	bh=jh8C5ShYQXr3viaQ/Mi2fvp0GqNzxRBy1mECrQ4hGaU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i/deltwXektpEdYmN1BWj26yOHPcicX4i+GjOpJ25l9fMbldybnYaXBTUe/KWcC052S9HbVTlW48vbqVoIdPNR3I6S9QQ53SldwM7Bk6ptFf8ktMLy/4EvZlhWrmsmmeB1QfaWquwE7yNP1ffgHKj2LpF7WA3+CaLAiB0fuMDVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FCNIHfma; arc=none smtp.client-ip=91.218.175.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790311655; c=relaxed/simple;
+	bh=eS+2aD9Y3jEV1QgHlIKiZa5jyEEltwbcErLzUySWIrw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fn4XUDMfNDlNOxO0+sX0GVQrGbVSTwl0JFEVvp6et2sdC7+n4tLBlmFh69PF12rwc3r8avjWiYbXPJTdsIDnjJ0uE0JOC9akzvgUC/ZA2T8FYMeiu/Eq5JI9zdNZCl63TqyB3j7k0mRAvdzTuYDRheqjnzOIIfKebMtyMIlRJbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=WH23jZtR; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FCNIHfma"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jh8C5ShYQXr3viaQ/Mi2fvp0GqNzxRBy1mECrQ4hGaU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790311630; v=1; x=1790916430;
- b=FCNIHfma3LS/3JaA2BJJYgDvh1b5rgyweLTodShdjDg10c9sNGQLzo2UvkvnwLTdJtjoIrS7
- mMXE2rZi3p1dVlTJpgMILbaFwI/JbzCqyKkox75GhQxTTxTX2sEMVAnja/huZQTORQDsTLPa2mX
- vlIlxjfm+N/2uTk4OrJ46b9c=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f70f5b72ae709b91;
-	Fri, 25 Sep 2026 04:47:10 +0000
-X-Mizu-Trace-ID: f70f5b72ae709b91
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b1a845c3-3720-4ef6-8c97-8a40ee7bd286@linux.dev>
-Date: Thu, 24 Sep 2026 21:47:03 -0700
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="WH23jZtR"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B03F240E015D;
+	Fri, 25 Sep 2026 04:47:31 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 1Ly4T7OTK9FN; Fri, 25 Sep 2026 04:47:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790311641; bh=HetyRvPQmfmjEsUDeoWTrgtwxMne6qmaMBlEDqkIhCc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WH23jZtRWQQgQI6AssfgwE6MEY+VjFc+2f8jAC/eAai9mAnfpYTI5xemfa2LZtqmO
+	 MF12iIH3BjZl0ZSyq7keQpk7eYeMvRssmwi2k5bo/lTp5MmQoTCxCsE2eBl/hjPnNK
+	 xwYk8tAb4JEH0K/8YW/NB8BSnjXD8meS9/q21hSvdvGv+GrhRKNaeCKgLzKKZN1yoY
+	 Wn3t84XZa+7BxyCIs2G1zu1Gc9qUyqo2FqC0ElR3QP+1Bwthc7O1T6cojCgGNecUF3
+	 eoGVmnKCIKFEabTpzS5GKzfuoZUOVr/r2USX1lOWJz0BjDuO/R6JKdDgZ49MvcCmMA
+	 3m5AHffNr4yNq/SX3EG+O4p8JFgY7tt9ynzAMk0ERgwL0ZprbMNkBpqrYKE5pq1SjH
+	 hA+E9QPdvyetC0JwKtF0+RxcMQ1bSnGZXGIcxYvO+8jWNVnLhOaqFNkMxJ/1UUrhDk
+	 7arsTNLDvykpc26hIMSfnWINGi6TJ2p7nZibZkr2huD4WqIoi8rgi/0qU61T1oSroF
+	 q/4qyYif13v5IBQdRNDnclZff2m9blZLCO/1s5RObLgE1SXlQN4NsudzcvePIm4LyK
+	 TBVboUzHJoNshtT5sOKI0u/nf/Cj5N5Y5Iy/AEoW2fuD2NKyGGV0K9t4RaryAZ8JMO
+	 4Ybc4/RwjlQLDxljqYEr2y7Y=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 428B440E00E7;
+	Fri, 25 Sep 2026 04:47:16 +0000 (UTC)
+Date: Thu, 24 Sep 2026 21:47:13 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Melody Wang <huibo.wang@amd.com>, x86@kernel.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>
+Subject: Re: [PATCH v3 0/8] Alternate Injection: Secure Interrupt Delivery
+ for SEV-SNP Guests - Guest Support
+Message-ID: <20260925044713.GEarX80eZzKR-DKfzJ@fat_crate.local>
+References: <cover.1789927246.git.huibo.wang@amd.com>
+ <1a64a4fb-c14b-454f-a89c-43112b01d187@app.fastmail.com>
+ <43674b3b-15a5-494c-b1de-041070b1e816@amd.com>
+ <517e154d-dbdf-47f9-849f-2ee369dc832e@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 00/13] PCI: liveupdate: PCI core support for Live
- Update
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pci@vger.kernel.org,
- Adithya Jayachandran <ajayachandra@nvidia.com>,
- Alexander Graf <graf@amazon.com>, Alex Williamson <alex@shazbot.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
- David Rientjes <rientjes@google.com>,
- Jacob Pan <jacob.pan@linux.microsoft.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Jonathan Corbet <corbet@lwn.net>, Josh Hilke <jrhilke@google.com>,
- Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
- Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pranjal Shrivastava <praan@google.com>, Pratyush Yadav
- <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Saeed Mahameed <saeedm@nvidia.com>, Samiullah Khawaja <skhawaja@google.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Vipin Sharma <vipinsh@google.com>,
- William Tu <witu@nvidia.com>, Yi Liu <yi.l.liu@intel.com>,
- "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-References: <20260918200640.887030-1-dmatlack@google.com>
- <2e88b92a-d3f2-41f7-bdbe-11fd71690606@linux.dev>
- <CALzav=eJU+fnPr-QN4s7gY_Lj8Pc3T6KXfC9kiQQ=g4rPEDMuA@mail.gmail.com>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <CALzav=eJU+fnPr-QN4s7gY_Lj8Pc3T6KXfC9kiQQ=g4rPEDMuA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <517e154d-dbdf-47f9-849f-2ee369dc832e@app.fastmail.com>
 
+On Thu, Sep 24, 2026 at 09:06:00PM +0200, Ard Biesheuvel wrote:
+> What I would like to see is an abstraction implemented in OVMF that encapsulates
+> the logic that you are adding here. All the EFI stub would have to do is call
+> the protocol, nothing more.
 
-在 2026/9/22 11:53, David Matlack 写道:
-> On Tue, Sep 22, 2026 at 11:36 AM Zhu Yanjun <yanjun.zhu@linux.dev> wrote:
->> 在 2026/9/18 13:06, David Matlack 写道:
->>> Future Work
->>> -----------
->>>
->>> Following this series, we expect to make further improvements to the PCI
->>> core support for Live Update:
->>>
->>>     - Allow P2P across Live Update by avoiding resizing or moving
->>>       preserved device BARs and preserving all upstream bridge windows.
->>>
->>>     - Support preserving Virtual Functions by preserving SR-IOV
->>>       configuration on PFs and enumerating VFs after Live Update.
->> Preserving the PCIe topology, bus numbers, ACS, and Bus Mastering across
->> kexec is a foundational step for minimizing downtime.
->>
->> As we look toward complete end-to-end support for DMA preservation
->> across Live Update—especially for VFIO device passthrough and dma-buf
->> sharing scenarios—IOMMU table/domain preservation becomes crucial to
->> prevent IOMMU page faults when devices continue performing DMA during kexec.
->>
->> I would like to ask about the current status and roadmap regarding IOMMU
->> Live Update / KHO (Kexec Handover) support:
->>
->> Is there an ongoing effort or RFC series for IOMMU handover / page-table
->> preservation currently in development or under discussion?
->>
->> How is the coordination between the PCI core Live Update mechanisms and
->> the IOMMU subsystem being envisioned for preserving IOVA mappings (e.g.,
->> restoring domains or handing over root tables)?
->>
->> Any pointers to active discussion threads, RFCs, or future plans
->> regarding IOMMU participation in Live Update would be greatly appreciated.
-> The first IOMMU series to support Live update, can be found here:
->
->    https://lore.kernel.org/linux-iommu/20260921004834.2601285-1-skhawaja@google.com/
+Out of pure curiosity, why?
 
-After cloning the source code from samikhawaja/linux, branch 
-iommu/phase1-v5, I tested the VFIO live update functionality in my local 
-KVM environment and encountered the following issue.
+Is the answer something along the lines of, before ExitBootServices(), the
+firmware owns the machine, the kernel should not poke at anything but should
+call the fw and latter is supposed to do the init and synchronization and
+setup of resources, yadda yadda...
 
-When I run the following commands to verify that VFIO live update works 
-correctly, I get the output shown below.
-
-I am currently testing with VFIO v5 and PCI core v9, and I am not sure 
-whether this behavior is expected.
-
-Interestingly, when I revert the following commit:
-
-vfio/pci: Preserve the iommufd state of the vfio cdev
-
-the issue disappears.
-
-Could you please let me know whether this is expected behavior, or 
-whether it indicates a problem with the current VFIO live update 
-implementation?
-
-"
-
-echo "vfio-pci" > /sys/bus/pci/devices/0000:00:04.0/driver_override
-
-echo "0000:00:04.0" > /sys/bus/pci/drivers/vfio-pci/bind
-Preserving device in session
-vfio_pci_liveupdate_kexec_test.c:122: Assertion Failure
-
-   Expression: ret == 0
-   Observed: 0xffffffffffffffea == 0
-   [errno: 22 - Invalid argument]
-"
-
-Thanks a lot.
-
-Yanjun Zhu
-
->
-> The IOMMU series builds on top of the PCI core support (this series)
-> and the VFIO series linked further up in the cover letter.
+Thx.
 
 -- 
-Best Regards,
-Yanjun.Zhu
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
