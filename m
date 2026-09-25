@@ -1,113 +1,143 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9A3472061;
-	Fri, 25 Sep 2026 11:11:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAF2425CC6;
+	Fri, 25 Sep 2026 11:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790334680; cv=none; b=gWV2J6NqA+LreD8GHEU0BOg2f9c4jhenC6VFWWdEekV7HdUrn4pwPvjYgAa9YzlbodRrym2mjyv7tVC1IAh4/92sDmm3tLYixN1fMlS5hdb2mdSP1dP3ZlKwK7jT6O7RzakTxonJM26W+4ln49PNENlFiWnlN1je5ebCcmzT+RI=
+	t=1790334686; cv=none; b=bBJW9Itf0qFUHFErXf2xHlQeBZ/CGFWuEWqJkYVzFyXJ+GhM6j8uc9b0d6r5HQ6vJrBLIrUdgkpPV9pQcObWVuXjIJiZuwIGYdGgqs7vG5e5Nf3hO3NnmGzhlpFyRTnSlToUOP57siQ5kxN++47JKciYbMgHybjAX9Zt5Qo1dR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790334680; c=relaxed/simple;
-	bh=vSeCZ9O5eG/K7p1MJHuO7HvlzV5gbYx/iOgQvOdeWME=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=d/wWjfYg1XwpWtTvOMvJABVDe3d4kLPWOENAyz6pVSZEVQBHL/GyRR8DA2D4DpJf4gQdMwOrXsEdGxLKiRxjfmzmGdSMny1/m0jWQUXf8cep7lsep+CZPg2LGT2qjXCZiC/0rfzNx91OPSkF8UviTu2aVaMX2VX8+lJn13L6Zx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=jnOdvrpF; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1790334686; c=relaxed/simple;
+	bh=pKJG4NNixG1bTghsu6d6b7QSc5YQncCMfKdLtiQwQAA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=rR1p1E4pO32fXSIFuFEBKEoQI0T+A2PvF9HX1OGrQgdCmvEc8SgKgc99snVo4R93dxMW4TCuXWlqazeyUR783SKDYFFFRYC8QwDvHm0sm7je7wZicZwsXBvM75V9SD720Xm9TAd8urE2SDWe6nXB5qdlEFmurCW1wDneHB04fos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n8Cr6Ked; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="jnOdvrpF"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9E430A4A45;
-	Fri, 25 Sep 2026 13:11:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790334674; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=/ceWdbC+JyNTlmv5IbRzDryAGPP8an2udxzophTzdys=;
-	b=jnOdvrpFN5idBDIme4XeN/9oQN0KX0hnyKgEy/ng07IddvVotOduzI3ckMocjBNh/d2t5F
-	+xrcvsEtD6ItiuFXbklM01F7GtXooUWCstfKuwwcXJEgHJU6eRq1pnH9KIeGDv8G0n17K8
-	teGhB1J7kxcUtWgyQGX997SYkwP/fJV86ZMLFcAqS/04aO+/wynsCZaLTb3n6x2RZHpD7Y
-	IPQsLSzOUut9pS5JylAxIXOGQErpkRIu7oiwk3jScrrfzpCXlTEU9F/KPEV146r/yt3/TT
-	gzsoPn7yzktDQ5V0iOuKkSCIFh4kELOszDHfYU0FakPlx2BZu6QDX1XwyxyNlw==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n8Cr6Ked"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790334685; x=1821870685;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=pKJG4NNixG1bTghsu6d6b7QSc5YQncCMfKdLtiQwQAA=;
+  b=n8Cr6KedIOaRj44vEtEv4kL8b6m1CFmrTQ3nyGOLbYp3BTOVcm1TBOJt
+   YqP8z1W3PwLO5JP4bco72F9UCRjm66KNEE+iTCLafX77NO2O+F0SbWcaA
+   OtcCNgS8SHuzgB8Jf7qBfOJW+0cqVOT7TwRc2sQjmbz1wX6Amc6GRF6WP
+   NZpM5vf7QQzi4UjGGcMoIeREWKK8ZxyVhlkRPsHvyVXvaYP9SOwcKGZAj
+   wijsNqisII1iD26Q8hQov63Q1gTJqXrcqRcTqLPvRhoxFMfTHLDNnUsDa
+   FJrTdeSU6KJeryCZEF4M8mu06Zj6Id+yMYyZcE2wQlS1NICX4VHqTkRqB
+   g==;
+X-CSE-ConnectionGUID: vytpH/fkQIC1lKeeQRP1Sg==
+X-CSE-MsgGUID: QYBGz1hSQCmdv5en7KH6pA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101645888"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="101645888"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:11:24 -0700
+X-CSE-ConnectionGUID: cAeg1zLZQKKVg0SQhiZSeg==
+X-CSE-MsgGUID: gN2VeGlYSaS63jTDQxoBpQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="270788768"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:11:18 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Daniel Stone <daniel@fooishbar.org>, Vidith Madhu <vmadhu@nvidia.com>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, "Borah, Chaitanya
+ Kumar" <chaitanya.kumar.borah@intel.com>, Leo Li <sunpeng.li@amd.com>,
+ Daniel Stone <daniels@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Andrzej
+ Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
+ <andy.yan@rock-chips.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com, Derek Foreman
+ <derek.foreman@collabora.com>, wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH RFC 06/25] drm/connector: hdmi: Add VTEM EMP generation
+In-Reply-To: <CAPj87rO2+oSA7KtocG-M1hqgQTJO=3Qxmg-OMC5MmOLaja_kRg@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
+ <20260921-vrr-limiter-uapi-v1-6-2fcd7d011646@collabora.com>
+ <a5bc012a-9b9e-eb2b-d67e-a91f2d93d6bf@nvidia.com>
+ <CAPj87rO2+oSA7KtocG-M1hqgQTJO=3Qxmg-OMC5MmOLaja_kRg@mail.gmail.com>
+Date: Fri, 25 Sep 2026 14:11:15 +0300
+Message-ID: <80ac0fee0d67a9e44a4858be904bdbb2265e50b5@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 25 Sep 2026 13:11:14 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Doug Berger <opendmb@gmail.com>, Broadcom
- internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
- <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 4/6] net: bcmasp: fix OF node reference leak for
- phy_dn
-In-Reply-To: <20260922221630.3864427-5-florian.fainelli@broadcom.com>
-References: <20260922221630.3864427-1-florian.fainelli@broadcom.com>
- <20260922221630.3864427-5-florian.fainelli@broadcom.com>
-Message-ID: <b41bceee7f0a221d52feca688ca95d65@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
 
-On 23.9.2026 00:16, Florian Fainelli wrote:
-> In bcmasp_interface_create(), intf->phy_dn is obtained via
-> of_parse_phandle() or assigned ndev_dn. of_parse_phandle() returns a
-> node reference with its refcount incremented, but of_node_put() was
-> never called on intf->phy_dn in bcmasp_interface_destroy() or the
-> error unwind path in bcmasp_interface_create().
-> 
-> Acquire a reference on ndev_dn for the fixed-link case as well so that
-> intf->phy_dn consistently holds a reference, and release it with
-> of_node_put() on teardown and error.
-> 
-> Fixes: 490cb412007d ("net: bcmasp: Add support for ASP2.0 Ethernet 
-> controller")
-> Assisted-by: LLM
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> ---
->  drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c 
-> b/drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c
-> index 2ad8a7eac888..7a63a592f158 100644
-> --- a/drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c
-> +++ b/drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c
-> @@ -1298,7 +1298,7 @@ struct bcmasp_intf 
-> *bcmasp_interface_create(struct bcmasp_priv *priv,
->  				 ndev_dn->name);
->  			goto err_free_netdev;
->  		}
-> -		intf->phy_dn = ndev_dn;
-> +		intf->phy_dn = of_node_get(ndev_dn);
->  	}
-> 
->  	/* Map resource */
-> @@ -1338,6 +1338,7 @@ struct bcmasp_intf 
-> *bcmasp_interface_create(struct bcmasp_priv *priv,
->  err_deregister_fixed_link:
->  	if (of_phy_is_fixed_link(ndev_dn))
->  		of_phy_deregister_fixed_link(ndev_dn);
-> +	of_node_put(intf->phy_dn);
->  err_free_netdev:
->  	free_netdev(ndev);
->  err:
-> @@ -1350,6 +1351,7 @@ void bcmasp_interface_destroy(struct bcmasp_intf 
-> *intf)
->  		unregister_netdev(intf->ndev);
->  	if (of_phy_is_fixed_link(intf->ndev_dn))
->  		of_phy_deregister_fixed_link(intf->ndev_dn);
-> +	of_node_put(intf->phy_dn);
->  	free_netdev(intf->ndev);
->  }
+On Fri, 25 Sep 2026, Daniel Stone <daniel@fooishbar.org> wrote:
+> Hi Vidith,
+>
+> On Fri, 25 Sept 2026 at 04:49, Vidith Madhu <vmadhu@nvidia.com> wrote:
+>> On Mon, 21 Sep 2026, Nicolas Frattaroli wrote:
+>> > +     if (!crtc_state->vrr_enabled) {
+>> I don't think we should use the vrr_enabled CRTC property to determine
+>> VRR_EN in the VTEM EMP. Transitioning the VRR mode sink-side typically causes
+>> blanking, and it was discussed in patch [03/25] that drivers should be
+>> free to handle vrr_enabled changes as a seamless switch since it only
+>> concerns source-side VRR state (this is how the NVIDIA driver handles it).
+>> Maybe it would make sense to extend the qms_enabled connector property
+>> introduced in this patchset to an enum of {Off, Gaming, QMS}? This would allow
+>> a standard path to control the VRR state on the sink, separately from
+>> vrr_enabled.
+>
+> I remain cautious of putting this amount of policy inside the kernel
+> and/or left to individual IHV choices. It's relatively obvious for
+> NVIDIA and AMD to say 'we'll always enable FRL/VRR to smash the
+> maximum rate (unless it's contraindicated by USB-C bandwidth somehow)
+> because the power burn is inconsequential', but if you were MediaTek
+> or Rockchip you'd probably make a different decision. Then again, if
+> you were an MTK device living on AC power, maybe you'd make the same
+> decision. Or maybe AMD would want to make a different decision on
+> laptop parts because the bandwidth is noticeable then.
+>
+> The point is that I don't think we should bury this down in implicit
+> kernel state. I'm with you on surfacing this as an explicit connector
+> property. Possibly a bitmask of modes the user will use? e.g. {
+> frr_only = 0, maybe_gaming_vrr = (1 << 0),  maybe_qms = (1 << 1), ...
+> }? Or perhaps just a flag for whether the link should be negotiated as
+> wide as possible or tight to the existing mode params?
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+On a tangent, Ville and I have been tossing around an idea to introduce
+a drm device level property to control device "power mode" policy,
+mapping to the kind of setting userspace already provides. Could start
+of with the typical "performance", "balanced/default", and "power
+saver".
 
-Thanks,
-Nicolai
+It could be a single high-level knob to choose policy in the drm core
+and drivers, instead of exposing a plethora of fine grained policy that
+don't necessarily map well between drivers and may have conflicts
+between them. And end up with a lot of ABI to maintain.
+
+Policy decisions like this crop up all the time, even on things like how
+to choose Display Port link config and DSC and color depth, and my gut
+feeling is that just having e.g. those three options would help with
+design decisions massively.
+
+The user and userspace could use AC power or battery level or whatever
+to decide which power mode to choose at the high level, and you wouldn't
+have to have every desktop environment tweak every little thing at the
+detailed level.
+
+
+BR,
+Jani.
+
+
+-- 
+Jani Nikula, Intel
