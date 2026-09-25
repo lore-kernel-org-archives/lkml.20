@@ -1,586 +1,224 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013024.outbound.protection.outlook.com [40.93.196.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21DBD4A3D2D;
-	Fri, 25 Sep 2026 13:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B23D345EAC;
+	Fri, 25 Sep 2026 13:32:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343133; cv=fail; b=hk7BjOpXjPb5m83knJTGw3u2dzYHjzQJvvaxp/DtFL9t8T5RoWg9KtLDG5Zao4VZ5FL2Y4dcZy7ycsZWM3WqXnusqM6jTrIsyTRiTzQWBYa5N2oQ4teW9bplTedcBJkw8CuM8by4pQv46q+pdEBwRm/ayrsvPQQjNSWUiACP/ys=
+	t=1790343150; cv=fail; b=cwT+cXzS0PgYu2WtkxHXKtYgs5MQUWEZ6VVLDH1246d5dz4IgsApUArzFQR/7gB6s50FEOHcxA9XS0aLq0IPxqSxz7A3mAQgAbz7xraO8t31lhSZsOLTxGGJQQ4uuOmnUqgyVAjBRqOI0Ng1TC4G/aBewCUywLjgq9SzPsdOgcI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343133; c=relaxed/simple;
-	bh=N0LJSmUK66OKl4bGWEFK6vf7+ZSuTWqYZACkhQ06D8Q=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZySt+EAilJkQT/MhZOUUoOQ9r4UWB/EdrqfjhDZd6VMh1zekEimfDLyeQqWvNXlnSoaadpJeFZ0xsMY/ap7SklrXWw5Pkh995jzoo1w8BRa8RqkjGILeyGaxeiIp3UNqOBPwThQ9jKyZ2ck4rabdApINkZFIrVCgrv319f+iGLI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Z1jTbfgS; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=i7+z051W; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1790343150; c=relaxed/simple;
+	bh=ARn5iaiOdm3XaKpND8eeCMFG7pJzmQh8SB3Z8nLw0Kw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=fYzqY+TB68DNf/XpwdRxS1D/WhCWbxK7lmqGM3BkWtmlkjQzMeCJVNVNQO/976WIBVy6A+sFaWYySe8zIz0vbPcUvQE00mewyowz5gAW4Ikz+VqnibqjjssENfPx2LmzkHoWFU0cRE5u97IRkKkdVjpiN0ve15DcdK+HLMx7a6s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=F53ET5QU; arc=fail smtp.client-ip=40.93.196.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Z1jTbfgS";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="i7+z051W"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68P91rCY1888882;
-	Fri, 25 Sep 2026 08:31:43 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=n7IOFd3wNqsFtEIbfABeyhnhYl7cA9gRRgYuKI1Tn
-	PA=; b=Z1jTbfgS962PfEyNi4jyzPL/mGxXFKjR6ggonlx+xf6CN1ma+TrTrEawZ
-	nxvHTMC7Anyrm8YFmm7zrThpEFSKgmqbm6U+Y/oCz2CtKW6/9XJiXt2dsh3+XqtT
-	spB1H13Asu0Ww1YzlIBqnv46ZljAFXlpSr3Gn2TXcc5NfncrVWCrGPok7rc0fw74
-	jEyACX9OlJG3Yup5lJeI4qUjne7LHNrsSrFxgEAdm4Tem8iHRvlNpMNbkJy7wnRj
-	+LRYs+xASjhUQfoBVUkrXm4ToQiNU9xMTLAnPztdnDQP8BlcPTF3kuekbXKb/Jec
-	DXmEGkXgYGA0rMop3C0/CnJCS05Kw==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012009.outbound.protection.outlook.com [40.107.209.9])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4gwnyfs9c0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 08:31:42 -0500 (CDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="F53ET5QU"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Eq+WGANjFhxzjkZ2GnkDLRe3BSnSnvwYHVGVmHgqLebewVS2IXiEgLyyjx5H5yzUSQva4reCNP4h82aRBsxIesxshm6YL1AGZwguIgqB0I1gYc3yThA3qlQezX54cMd6jxN5ghdkg/608RlPMhOm8RzRSppFZ382UeNx4Q5mWzsjFOOyd0xMOhxUzdg7w4AuO8h1klxFR36Xa5KqFlDte2t0BsQWMyY/9PFMz8twpu9/DV+kKJWnwfYA6aiDa5OBzO1n25C2JNV3RDDZF8nJspZDrbXlZ+UXC6kBTlKznOhQNPWg3LnoeAj+lT+BZBci6J7olVtcZC+BoQe7PgFmqQ==
+ b=etzZ5weMAkVuhR43MfEepRPXJ1VP2elnn86JK26gGIR3LvzIEjgAFEgN89R+CwSPCis4siybFlSOyoQgs7rkHdZonHLhYLGa4bo94OIJMckXoWtDEGda45HXFY5FBXZNt1VORWkDvM2YTbI1ta4vJeCg/2NMcTedYVlcvr3+fKlatqUfGlyMiTMoe1GQsP4nwREd3pvb3QPN5GRsM0zgeslFOoWq4k9XHc8Nu6bwwTJ6H5W7cifNUhWadrh+yJazFI3N7hAwp81TOmMoiiHBK4buRWSkf8pBO/WAE4IjSeANQwqKGOoqPHRiIdSPeqsBdDQa1taiptnE8WJJvipYLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n7IOFd3wNqsFtEIbfABeyhnhYl7cA9gRRgYuKI1TnPA=;
- b=SjCNlBRk3KuKNwQvvBRAHMkjMwfo1SnwDof9Thb9aMiaHOniumyHFe/vPduTxlYW11JJQ9JAkyeVhRaWJQ4N3kjWC3799WVf1/mQighFwDwMAoZQgdzQ2QNCRON9kOktlO6zSwb5YmRxTY5FallQr9aN0qzu9ZaKODPeYTwDdzhIz6Y+WE8n24jnkqBT0L5L4ji/GO8MbXp8f2B3PL15ckR1BX3cTaBrKV24ZAh9Do6J6XQ3wQ4xJftZ0LYa1N0Ue3GIj6JMtN+UeJacwrWiHbsjXbIDt3YyntzTJiPpxl69y7CL62bdTD1LcBxZyL2thZup0TZm9WN5gTn8HPaMNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ bh=rFGKUCSfG+b5FQE4/0fy7mkoNZMg5nSJlN69Y64zIUM=;
+ b=pqV7pQZtclMszlQ2yMwCPU/iKmE5rj0IWTtM7uujUNpn2J68WQJJo0dZojad6PQjgh6x3CwLfbonSRBYQoQ5Egj4d9MoufqsA6IMow39D5TUfxFF2ATM28ZRdSARJKhzbcoeT7vZYmLSa+5FWioYoR6+woXIwY8CBFEMwUnPpIQfltZXMRY/MbFq/zkRQTPxmyS9juqVTuKpnCWOJGQeF04YXJTxLuGSeGodCf5f/yWkVPI7zwwU21XI88N7V4l5+4A1HGiPs4EvDtgE5A41Lg0FdBWJnxEs0p3A+e+9LAThzXiX8uKmYAY0uN/NU5GKlYToaNFeE+Ts8bxbOBl0mQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n7IOFd3wNqsFtEIbfABeyhnhYl7cA9gRRgYuKI1TnPA=;
- b=i7+z051WrLgxZDYk21LHNlkaFhVz91qUpVw+dcmcP79jZbPQ3yWYkfa9iWo6FeEErasuhetSsYvfjMeYt/jc4XkvFED1xuKB9Q9xwTV58vagG/noI8AWvhQSuo+6WDriUinwvaYttR5M7vFE0YpjKf/Z0rSnMSHK29f1hzwM1A8=
-Received: from CH0P223CA0016.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::34)
- by CH3PR10MB7259.namprd10.prod.outlook.com (2603:10b6:610:12a::22) with
+ bh=rFGKUCSfG+b5FQE4/0fy7mkoNZMg5nSJlN69Y64zIUM=;
+ b=F53ET5QUwJwnMx7JHsH5X4pOp+Dn5xdnDhr+4bR4W/ZFR2Lb/Y1KGXX7eXP8+S4PCb7WKxbrPNb0tlXQc7uQKiImG6yx2PFbQPStUW7Sh6jKnbOmAM0SICZzAXb6GQm01OlWS3dlRuVKTe7nesdCyX7Uf7CSWWt600jNmXHxdV0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by CYXPR12MB9425.namprd12.prod.outlook.com (2603:10b6:930:dc::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Fri, 25 Sep
- 2026 13:31:38 +0000
-Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:116:cafe::8b) by CH0P223CA0016.outlook.office365.com
- (2603:10b6:610:116::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
- 25 Sep 2026 13:31:38 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 13:31:36 +0000
-Received: from DFLE210.ent.ti.com (10.64.6.68) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 25 Sep
- 2026 08:30:47 -0500
-Received: from DFLE209.ent.ti.com (10.64.6.67) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 25 Sep
- 2026 08:30:47 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE209.ent.ti.com
- (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Fri, 25 Sep 2026 08:30:47 -0500
-Received: from ws.dhcp.ti.com (ws.dhcp.ti.com [10.24.52.125])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68PDU1nC2840014;
-	Fri, 25 Sep 2026 08:30:41 -0500
-From: Rishikesh Donadkar <r-donadkar@ti.com>
-To: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <tomi.valkeinen@ideasonboard.com>, <mchehab@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nm@ti.com>,
-        <vigneshr@ti.com>, <kristo@kernel.org>, <sakari.ailus@linux.intel.com>,
-        <mripard@kernel.org>, <jai.luthra@linux.dev>,
-        <jai.luthra@ideasonboard.com>, <devarsht@ti.com>,
-        <y-abhilashchandra@ti.com>, <mirela.rabulea@nxp.com>,
-        <laurent.pinchart@ideasonboard.com>
-Subject: [RFC PATCH 7/8] arm64: dts: ti: k3-am62a7: FPDLink overlays for LI OV2312
-Date: Fri, 25 Sep 2026 19:00:00 +0530
-Message-ID: <20260925133001.2780868-8-r-donadkar@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260925133001.2780868-1-r-donadkar@ti.com>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 13:32:25 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 13:32:25 +0000
+Message-ID: <9f8e5988-ca08-44a6-b047-f5aaa133da41@amd.com>
+Date: Fri, 25 Sep 2026 08:32:21 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: SOF: amd: fix building without CONFIG_ACPI
+Content-Language: en-US
+To: Arnd Bergmann <arnd@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>
+References: <20260925131104.118993-1-arnd@kernel.org>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260925131104.118993-1-arnd@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH5PR02CA0008.namprd02.prod.outlook.com
+ (2603:10b6:610:1ed::15) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|CH3PR10MB7259:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9b7d341-df4d-46dc-9758-08df1b0952ce
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CYXPR12MB9425:EE_
+X-MS-Office365-Filtering-Correlation-Id: e3be4141-c1d0-4e30-90b8-08df1b096fba
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|7416014|376014|1800799024|10067099003|3023799007|18002099003|22082099003|56012099006|13003099007;
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|22082099003|10067099003|56012099006|3023799007|11063799006|18002099003|5023799004;
 X-Microsoft-Antispam-Message-Info:
-	f/E/ACuwklG6OQPZZeWYphhXlNXj0R2UTWIX7g0iCHXIYkUUEWPPyFpXWR8y7//z7D4u411jNaaSXPcW8K4IZselrFDsa0s0m50eaMzl0vC1zolFhWXMvuL6zI9D6KDCbIlDgo2oOO8T+17tynH7VvAvciasHcMU/sNWh9I7jLblarBHvCeAx2uYEwYpjzbJko3kinWyZDIR4QnFuEntTT+26aUyhtTZTQGwhVRH4DhmsEl2rZmlpyvjbOLqTQz2kUQOIaZYSOCauY9icmpOmSp+EwPhjkgFGvjf9L4mxRnUrGgqAkdUncZV6vNR65k3DKHiAboXYsZhhpFxcIlrwz+FJN39Qb0rL3vrmD4dhtrQ6YT4e66t16IcuYxK2xYl5q7pBacNX93P2r75xkE7f5RtLcSt13CWCpAV9zLtHSxq1ZxV+2Mlbx0XHTcq3VMspeplXB+YXo5B9raW/HjVrW5CLIE14+8hoJWhBLdxUPT9GyXS84EOB+9BNYaGcMuDR0xfKNHGS1+V+Ae7Ly8yuWQcZE5mCYgbWZjq687Ha6fbzFpHAy/BMHS8hftIvM0mY4mKiJgB3tgWbT7koAIUi/ukPdwrtaIcBQCRxyDxZT5Ocp9Pd/zC7rzh7RzQc9lTqxyOzd4nivHFTYV0UZ+N5w==
+	wyI/oo8bGvQfZmlMMYYFjycvqEcwpY/hP750g8qSKSUTLMpRcl+89qIae/cgnryq5tZ/CN8kLaD1Ce2HxcQPvrgprg6rAXfmXHeSUhn5AZgleczX1D20VHA7tt1ZAr3pYJsMI/OPlP8nH1IYm1xneXRqB15AhYMwhG27wCKgY9/wzgByuX7v7/sCiW7q8z97gDOB0stz1jQGv9YliS94D2e8lTc61e15bIC6/poVGps/3LTBbG7bSEGwvY7qrY1d5hWS7CgDlzIIKIWPnjuLBTI+kqqQGWkUmPzDyY9CFUGqU0ZaWJlySDWZCLAWWzPtosu2oAq6rRqPhgNgsAnwn+HvZP1cZh94DWvwSXJB5+XSciTe1DCmSSqf2weVH42hLkraFRMuqI5FnpCPPKIDP1AiELRTkUbW6hi7wumZxtKo8RLI5KOqprg3TqECM3Rtv+QK+E7vy/a29CYnOlsEuxJ9ARaRK6305N8bUjWSIytCKKRuGo8s9FSllpebMcQlpXUs3SOx/5dV8tdp83ejL/SQATz7WtbP82ve9PojOFD9LkhTMcPjwlk/tPQWJmN76Os4sakwONdvyX/eHaCapms6kW1xxveiBGB1s4Qar8w2ZXlZR/OHgiHAmMSYLKBy
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(7416014)(376014)(1800799024)(10067099003)(3023799007)(18002099003)(22082099003)(56012099006)(13003099007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(22082099003)(10067099003)(56012099006)(3023799007)(11063799006)(18002099003)(5023799004);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	K0URlfQHVzpX+5TkBEZlophCjB24ejA2OI3APfi6JW4jFau4BU31JG2VmXNFNk6h12FIJCPDyHACjDdkBhY5K1+yZMWoTNbauxmVpZ4ejbxlfXCDIuLljMS0do6DhI5GPKZjOJ+7tKTymOIAre8qvQlQ5sbcXiCqACUzLC/m/mu8j3OVg3NOwejpCXxbrMvPxZ/2Tyjxq9hKU1m4YP/hAt/9TRziRD4MkbIFJ3QbhDvg1W+0kYTbbxMLGGxMcZMsJ9BeK4IoKZaU+dcFGWOGk2sbXf7ySVAzB6j2Y574Nj/ulJdr1bXuY5OlWGSOwK3lzUtVFR7iU8W4TynUHjz7xkPlmb0mWE4dCV3R01YY7KsdnjAXzpwXudo0GbLjKAIr7w0cIUIVZJy4+x4UcLKg+Zz72sGXBJGAdDy3tzvjG3QqKp/iWvi4gx6KDMFH23SB
-X-Exchange-RoutingPolicyChecked:
-	1SvaS1A0kwqLe9fZOHTMhuIo++gU62fESw/1BncRSlKsirDtVgqNRw5Szpx5ocCscsYVfAYVs7GD1OtCScS9+5PYSqrd+2TyWkxE7w/oa+LsWSkvGYxcLBn4lizekRiqV1dT7Jw5eMgOBh21Nb4FNSwOq0hW0KTbyD4UYg3r668QfZ9rsJzH0osCZG8wJJm8MIqjjAByeMPdGt0XCAKfPkh7rpyGQPGY/5LnBRlW/iV2GlV0kphxIiDWCwHUc4T6gwzOchQFzyW09bDLQ8flItWESEUfitR+dHuyMQuY2DcJulQb3pRJ2jxYK/b+Kq+0EmdGaGOaQ8f8o7xWSTLDfg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 13:31:36.6848
+	=?utf-8?B?OW9wNTVUWGdaaUVWTGxDZHNWMXZFd0ZkMXA4RjdLUk1QTHJ5LzhyT3N4T2du?=
+ =?utf-8?B?a05CWHh6M3VKM3pRYmRFVkEvNDVxZy9aZ3FOcWVMeUF5VzQ2T3I3MEUzeTFG?=
+ =?utf-8?B?TXRnNEhXdlBmcFR5cERHay9hZmxnN2lmRm04ejVJZlRHZHgyQWc1SGdFZ3Mx?=
+ =?utf-8?B?bHRmb0FDR3RuNGJQd3FVUGZwT2RqdS96cmVtcUVHRzUyU0dBMDhyRVU1RlF3?=
+ =?utf-8?B?TDZ0QmxFTnNsRHdMNEhZcEpiZ2pUK3htNVlCZmNjb00yZHBXcDdPb2o5QVNu?=
+ =?utf-8?B?SDEva0VNRVFRWjVld1M2Vm9zNjMyaGYwMFM1UnZHbFVCdU4zTkQ2MFp2ZlIz?=
+ =?utf-8?B?VmVSNU9kNDZHRDRUZFhaQ2FNUzA0ZnplN1IxVWk2dk1YcHdNMnQ3ZmxOQU1o?=
+ =?utf-8?B?Qkx0WGg1NVpXeVM5dGVld2RSZ2NucTdFQmwwVDd0bGFGZWVtWHE3UlZOQ2RJ?=
+ =?utf-8?B?VVQ1enE0STNwMjVvdTdOMmZNWHVzNU9EU0xublpVWEkxOE5yaWt3T05PZ3hp?=
+ =?utf-8?B?UXI1WWFyNFV6a0R5d0c1WW5YbGYvSHhMSE5lakU3N0o1Q2dGcmtMcWFTK2Ji?=
+ =?utf-8?B?ZE1EZFlzbERXc0NSR1htQm5CVktGVnM0QStJQkticFArS29LUVJDc3MyYW0w?=
+ =?utf-8?B?ZWdDMGcxVk1MRENFWU5xUnFBaEFPVHVnblNOcmY0NnVvb0J6Sk9TY3UvZFBm?=
+ =?utf-8?B?U0hnVnk5NWZ2R1I5YTUvTWlmdHJ0YU1HVkh1bGpBS0xQWU1NOWx4WURMd0NB?=
+ =?utf-8?B?WUdoSE9Vd09GWmZyeGttYkVrSVlxZmxkNWFDbnJwR2tiVnBkSWltZXM1VGk2?=
+ =?utf-8?B?NGF4YzJWMXdzT2w5NmdaMmZaMFBQT3RacHRValhNWGJYbXUrYjhtcU1zcUM0?=
+ =?utf-8?B?SHVIbWdVcmYrKytBZ2FZZU9iMFhENmFPWlJKbnVydXJkUkRieTNaaEswdDdH?=
+ =?utf-8?B?R0hTTFlXSDRteHdIeXFlRklQR3RXamxtcW1TV0crZ2tHZG1wSytMRWVYVmwy?=
+ =?utf-8?B?NEUrc3FaUjdVSm1TMStCZVg2R2Y3MzJkRXBNeDdZckRKWUwyQXVYVTNTc2x1?=
+ =?utf-8?B?OUk4L2NTWStXM3lnRVRweUN5aWswWXY2Z3Fia29pSXdiNXhXdjlBUWcvTDZn?=
+ =?utf-8?B?aWNHeDhsTnpDYjhHOXFnak8waVUybUc1MWJmVUkrK2cxMThqMUpSM0czZXh6?=
+ =?utf-8?B?UllHcFB0cVhWMzhIdmdZS1dDRE1CRU4wRzdWNGxCKzZEUGxYMWhJUWVtUDR4?=
+ =?utf-8?B?bHBGcTdQVkFkVENwQzRyMW4rSXdqam5nZnZBSUcyQU1XRkd1WHM4WkJXSVVC?=
+ =?utf-8?B?RWpyWDAwcktkN3lUL1lMNndWUERmWk05VEtPcitXcEk3WmR6QWZmQ1ZPMVM1?=
+ =?utf-8?B?MHRMVWNyR1ZTbENXZG1KbGJLT2xCdkJ2ZDQzbWh0cEtxdXIzTFZkRDNWSTRR?=
+ =?utf-8?B?bTltVnVkSlBhSG1ZTlNDSGZZdGFaQmQ3Q2tCQnd3em9pMGdFYkFFeEFBclhG?=
+ =?utf-8?B?dURqWUU3T0FLNGZsck5UWGR4UnJIUUtuSjJHQitpTVZ3a3VXcTN3RGRPTjdX?=
+ =?utf-8?B?Tk8ycEFQbFpkeTk3T3gzVVBWcmNuSHI3WW5WTVJZVHkrMWVHL0RkSEdtWnVx?=
+ =?utf-8?B?ZGNWWTJSY3p1QWpoekVKZmRPVGFOK1BYVnpxQ3F4eWRoaTlLQ29oSWZ5Tmwv?=
+ =?utf-8?B?ekZTamJWZC8zRVgvMzl0MGVKYVA4ZFVZaXI4ZGcwdWthV01oZnFHamNla3R4?=
+ =?utf-8?B?b2czaUlOVHpYUGRZQ2E1Q0t4b2paaC8yZXNTVXJ1ajdYSExRWnR0aTFjRm05?=
+ =?utf-8?B?bU5kR3g4TllQNEFtU2xWTmFGWjI4T3FpT3lzcVFZaWVpWW5yNXV4dE5JakpT?=
+ =?utf-8?B?aG9NazZXWjB2OGhvb05LQWF2eXJ3N2NMT2RnZXVxVDZxZ3I0RDdIVDllUFlt?=
+ =?utf-8?B?RU5uNFlaQmtVRFY4eGMvUUc0UE5DR1F2MHo5YTJlQW5vYkM4Z2J4TXhwdHdF?=
+ =?utf-8?B?eHlScmVKa28vb3BRZ2QvRURMWEl0cFovQ0VTVnRjQU9OOWxSWlgzWURQNmF6?=
+ =?utf-8?B?Qy9lS3AvUnhLR0NzQXVvZHAwQ2JVL0haYlNkZ2lmMFBiNzdLTWdWMmdzcGYz?=
+ =?utf-8?B?TWMvS1dLS09XM3VrQmRvYmNwc0RMNEtvWVJvWlRZNmtEdVluVUoxOUwrakZE?=
+ =?utf-8?B?ZUNDVUUxN1RoNTRrN05NTHNtQ1l4V3kyTmxIUGVrSUZvdkU1R1gyanVzcHl6?=
+ =?utf-8?B?VUg1SXBQb2V4bndsMERoOVhWMUZBaHluM3dqZ0VFWDc3N21vdDRVamFvZUZq?=
+ =?utf-8?B?Yzd1VnpReFdyeURLRjBjOUhzQkVxb1d2NHZKS2pCQ0NZSVVobnlJQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3be4141-c1d0-4e30-90b8-08df1b096fba
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 13:32:25.5476
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9b7d341-df4d-46dc-9758-08df1b0952ce
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB7259
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1MyBTYWx0ZWRfXy7lXDiRUsujV
- nSNZfRle3PcO5Z/s8f5h9xqZdiysoq2ifG0MEq8bVuLH2HQ3c7jBShMsl/mh+Cr5hbUqOAyD9jt
- jCylMk9wrqluNJy8pgef7se4ddlHLKwl4xG1DS5hILPvwXsPtYTM3YA85kullQ5XhgYqH6Dpa3u
- zXV9KTnWwgaJ+U4JZSaKTVj7FiHvhq/6F7n4yozqwAuXf/aOgQNwGUAF8jqo4V6YJURc3/PQ6D0
- pUZYdwJn+caawbGy+NgV8x2od9JVUD5rMKDoJjAmuBnz39fRCYoE+svWp/vQn8QPAg9sOl8iYdl
- WZRM/vsOIrsbSGu63rBiwy2ViYQ3aolRgd1ao74PGWSeNymN3zllIjFeYbNJXSOQKsexx1EvOHU
- lK/L0bl+3k6RQfz1P4Jg6sfEVX4XZqEjocTMDsFP8r2cn5HBK3J76QyQRcWmOdjFaVj3xF2AN4P
- AkeqCcNkx78Dr4tfYRQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1MyBTYWx0ZWRfX5newoA0BjUI8
- fM3sgEvh05NMvLvd8LhZCFu8eJbqQ9I3J8XCHDWR+94Rf9H1e7XzBYMOfDU2gqMGqlixO4Iug0C
- ss1ZHCoyQhK2HlAX+lj5igClzD9d4Vs=
-X-Authority-Analysis: v=2.4 cv=aeL0Dhot c=1 sm=1 tr=0 ts=6ab677bf cx=c_pps
- a=NtQEcg4T3rGzBSLVY3gzHQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22
- a=BIeaPEhIAAAA:8 a=sozttTNsAAAA:8 a=SCyOuhRj4KJ622XhaHgA:9
- a=xdwx0GSDnVkbZ8IFV8PL:22
-X-Proofpoint-GUID: AnlvfcITFKgytFhERBN3imMAUnGP5dw_
-X-Proofpoint-ORIG-GUID: AnlvfcITFKgytFhERBN3imMAUnGP5dw_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
- bulkscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250053
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qy/jvBD5+mX9n7ETq03jmWdeGECcB6gD09vNzM4oEUP0p9rcuSw/ZQlM7AQz94EgBXF2fzHRI5bH+iM0/Gi7cA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9425
 
-From: Jai Luthra <j-luthra@ti.com>
 
-OV2312 is a raw (4x4 RGB-IR bayer) sensor, the LI-OV2312-FPDLinkIII-110H
-module [1] packages it with an FPDLink-III serializer (DS90UB953) for
-use with sensor fusion setups using FPDLink-III deserializer boards.
 
-Link: https://www.leopardimaging.com/product/autonomous-camera/ti-fpdlinkiii-cameras/li-ov2312-fpdlinkiii/li-ov2312-fpdlinkiii-110h/ [1]
-Signed-off-by: Jai Luthra <j-luthra@ti.com>
-Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
----
- arch/arm64/boot/dts/ti/Makefile               |  6 ++
- .../boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso    | 89 +++++++++++++++++++
- .../boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso    | 89 +++++++++++++++++++
- .../boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso    | 89 +++++++++++++++++++
- .../boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso    | 89 +++++++++++++++++++
- 5 files changed, 362 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
+On 9/25/26 08:10, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> When ACPI is disabled, this driver runs into a build failure:
+> 
+> sound/soc/sof/amd/acp.c:1374:13: error: call to undeclared function 'acpi_find_child_device'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+>   1374 |                 pdm_dev = acpi_find_child_device(adev, ACP7X_DMIC_ADDR, 0);
+> 
+> The code block is already guarded by an 'if (adev)' check that
+> can only be true if ACPI is enabled, so add another #ifdef
+> to match this.
+> 
+> Fixes: 203ea76c4b0a ("ASoC: SOF: amd: add ACP7.B/7.F PDM controller scan and pdata propagation")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+> I also tried adding ACPI Kconfig dependencies, but that quickly
+> got out of hand since the acp module is selected by a number of
+> drivers that then all need the same dependency.
+> 
+> It may be possible to work around this in the ACPI code by adding
+> a stub macro for acpi_find_child_device() that does nothing.
 
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 795978e962ee..8d608e244087 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -508,5 +508,11 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-j784s4-evm-usb0-type-a.dtb \
- 	k3-j784s4-evm-usxgmii-exp1-exp2.dtb
- 
-+# FPDLink Sensors
-+dtb-$(CONFIG_ARCH_K3) += k3-fpdlink-ov2312-0-0.dtbo \
-+			 k3-fpdlink-ov2312-0-1.dtbo \
-+			 k3-fpdlink-ov2312-0-2.dtbo \
-+			 k3-fpdlink-ov2312-0-3.dtbo
-+
- # Enable support for device-tree overlays
- DTC_FLAGS := -@
-diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
-new file mode 100644
-index 000000000000..0829f01a0f90
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * IMX390 FPD-Link 3 Camera Module
-+ * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&deserializer_0_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* FPDLink RX 0 */
-+	port@0 {
-+		reg = <0>;
-+
-+		ub960_fpd3_1_in: endpoint {
-+			remote-endpoint = <&ub953_1_out>;
-+		};
-+	};
-+};
-+
-+&deserializer_0_links {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	link@0 {
-+		reg = <0>;
-+		i2c-alias = <0x44>;
-+
-+		ti,rx-mode = <3>;
-+
-+		serializer: serializer {
-+			compatible = "ti,ds90ub953-q1";
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			#clock-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ub953_1_in: endpoint {
-+						data-lanes = <1 2>;
-+						/*clock-noncontinuous;*/
-+						remote-endpoint = <&sensor_1_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ub953_1_out: endpoint {
-+						remote-endpoint = <&ub960_fpd3_1_in>;
-+					};
-+				};
-+			};
-+
-+			i2c {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				sensor@60 {
-+					compatible = "ovti,ov2312";
-+					reg = <0x60>;
-+
-+					clocks = <&serializer>;
-+					clock-names = "xvclk";
-+					assigned-clocks = <&serializer>;
-+					assigned-clock-rates = <24000000>;
-+
-+					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-+
-+					port {
-+						sensor_1_out: endpoint {
-+							remote-endpoint = <&ub953_1_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
-new file mode 100644
-index 000000000000..06cba8c7397f
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * IMX390 FPD-Link 3 Camera Module
-+ * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&deserializer_0_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* FPDLink RX 1 */
-+	port@1 {
-+		reg = <1>;
-+
-+		ub960_fpd3_1_in: endpoint {
-+			remote-endpoint = <&ub953_1_out>;
-+		};
-+	};
-+};
-+
-+&deserializer_0_links {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	link@1 {
-+		reg = <1>;
-+		i2c-alias = <0x45>;
-+
-+		ti,rx-mode = <3>;
-+
-+		serializer: serializer {
-+			compatible = "ti,ds90ub953-q1";
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			#clock-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ub953_1_in: endpoint {
-+						data-lanes = <1 2>;
-+						/*clock-noncontinuous;*/
-+						remote-endpoint = <&sensor_1_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ub953_1_out: endpoint {
-+						remote-endpoint = <&ub960_fpd3_1_in>;
-+					};
-+				};
-+			};
-+
-+			i2c {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				sensor@60 {
-+					compatible = "ovti,ov2312";
-+					reg = <0x60>;
-+
-+					clocks = <&serializer>;
-+					clock-names = "xvclk";
-+					assigned-clocks = <&serializer>;
-+					assigned-clock-rates = <24000000>;
-+
-+					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-+
-+					port {
-+						sensor_1_out: endpoint {
-+							remote-endpoint = <&ub953_1_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
-new file mode 100644
-index 000000000000..7d377dbe5bbf
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * IMX390 FPD-Link 3 Camera Module
-+ * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&deserializer_0_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* FPDLink RX 2 */
-+	port@2 {
-+		reg = <2>;
-+
-+		ub960_fpd3_1_in: endpoint {
-+			remote-endpoint = <&ub953_1_out>;
-+		};
-+	};
-+};
-+
-+&deserializer_0_links {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	link@2 {
-+		reg = <2>;
-+		i2c-alias = <0x46>;
-+
-+		ti,rx-mode = <3>;
-+
-+		serializer: serializer {
-+			compatible = "ti,ds90ub953-q1";
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			#clock-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ub953_1_in: endpoint {
-+						data-lanes = <1 2>;
-+						/*clock-noncontinuous;*/
-+						remote-endpoint = <&sensor_1_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ub953_1_out: endpoint {
-+						remote-endpoint = <&ub960_fpd3_1_in>;
-+					};
-+				};
-+			};
-+
-+			i2c {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				sensor@60 {
-+					compatible = "ovti,ov2312";
-+					reg = <0x60>;
-+
-+					clocks = <&serializer>;
-+					clock-names = "xvclk";
-+					assigned-clocks = <&serializer>;
-+					assigned-clock-rates = <24000000>;
-+
-+					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-+
-+					port {
-+						sensor_1_out: endpoint {
-+							remote-endpoint = <&ub953_1_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
-new file mode 100644
-index 000000000000..f74bff5f12b0
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * IMX390 FPD-Link 3 Camera Module
-+ * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&deserializer_0_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* FPDLink RX 3 */
-+	port@3 {
-+		reg = <3>;
-+
-+		ub960_fpd3_1_in: endpoint {
-+			remote-endpoint = <&ub953_1_out>;
-+		};
-+	};
-+};
-+
-+&deserializer_0_links {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	link@3 {
-+		reg = <3>;
-+		i2c-alias = <0x47>;
-+
-+		ti,rx-mode = <3>;
-+
-+		serializer: serializer {
-+			compatible = "ti,ds90ub953-q1";
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			#clock-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ub953_1_in: endpoint {
-+						data-lanes = <1 2>;
-+						/*clock-noncontinuous;*/
-+						remote-endpoint = <&sensor_1_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ub953_1_out: endpoint {
-+						remote-endpoint = <&ub960_fpd3_1_in>;
-+					};
-+				};
-+			};
-+
-+			i2c {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				sensor@60 {
-+					compatible = "ovti,ov2312";
-+					reg = <0x60>;
-+
-+					clocks = <&serializer>;
-+					clock-names = "xvclk";
-+					assigned-clocks = <&serializer>;
-+					assigned-clock-rates = <24000000>;
-+
-+					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-+
-+					port {
-+						sensor_1_out: endpoint {
-+							remote-endpoint = <&ub953_1_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
--- 
-2.34.1
+I reproduced the issue as you reported.  The stub approach seems to work 
+too.  I've posted that option here for Mark and Rafael to weigh out, 
+thanks for the idea.
+
+https://lore.kernel.org/linux-acpi/20260925132031.4073551-1-mario.limonciello@amd.com/
+
+> 
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>   sound/soc/sof/amd/acp.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
+> index b059039c9e0d..4b2d7cb244c9 100644
+> --- a/sound/soc/sof/amd/acp.c
+> +++ b/sound/soc/sof/amd/acp.c
+> @@ -1059,6 +1059,7 @@ int amd_sof_acp_resume(struct snd_sof_dev *sdev)
+>   }
+>   EXPORT_SYMBOL_NS(amd_sof_acp_resume, "SND_SOC_SOF_AMD_COMMON");
+>   
+> +#ifdef CONFIG_ACPI
+>   static void acp_sof_scan_pdm_devices(struct snd_sof_dev *sdev,
+>   				     struct acpi_device *pdm_dev)
+>   {
+> @@ -1083,6 +1084,7 @@ static void acp_sof_scan_pdm_devices(struct snd_sof_dev *sdev,
+>   	}
+>   	fwnode_handle_put(child);
+>   }
+> +#endif
+>   
+>   #if IS_ENABLED(CONFIG_SND_SOC_SOF_AMD_SOUNDWIRE)
+>   static int acp_sof_scan_sdw_devices(struct snd_sof_dev *sdev, u64 addr)
+> @@ -1299,9 +1301,7 @@ int amd_sof_acp7x_probe(struct snd_sof_dev *sdev)
+>   	struct pci_dev *pci = to_pci_dev(sdev->dev);
+>   	struct acp_dev_data *adata;
+>   	const struct sof_amd_acp_desc *chip;
+> -	const union acpi_object *obj;
+>   	struct acpi_device *adev;
+> -	struct acpi_device *pdm_dev;
+>   	unsigned int addr;
+>   	unsigned int irqflags;
+>   	int ret;
+> @@ -1369,7 +1369,11 @@ int amd_sof_acp7x_probe(struct snd_sof_dev *sdev)
+>   		adata->is_sdw_dev = true;
+>   
+>   skip_soundwire:
+> +#ifdef CONFIG_ACPI
+>   	if (adev) {
+> +		struct acpi_device *pdm_dev;
+> +		const union acpi_object *obj;
+> +
+>   		/* DMIC ACPI child address is 2 on ACP7x platforms */
+>   		pdm_dev = acpi_find_child_device(adev, ACP7X_DMIC_ADDR, 0);
+>   		if (pdm_dev)
+> @@ -1379,6 +1383,7 @@ int amd_sof_acp7x_probe(struct snd_sof_dev *sdev)
+>   					   ACPI_TYPE_INTEGER, &obj))
+>   			adata->acp_sof_signed_firmware_image = obj->integer.value;
+>   	}
+> +#endif
+>   
+>   	sdev->dsp_box.offset = 0;
+>   	sdev->dsp_box.size = BOX_SIZE_512;
 
