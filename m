@@ -1,63 +1,48 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2AD1DA60D;
-	Fri, 25 Sep 2026 13:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215FD4772A1;
+	Fri, 25 Sep 2026 13:24:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342668; cv=none; b=pyHCTRagF9tgxG9q94YmCWSW3Wv0DT3YJ2BNOZxC4viYv6aNsabNPzlxEF0fAdRjo3peYSqYfCr1EBM1M+pClcJePWXDeWHsgk3wMdASqyV+XVhkrjGvSXhsZErVM3EGxQM/s1rmUtOETcVYw3jJrGB6sOJyK2EacSpuqdtKVj4=
+	t=1790342703; cv=none; b=fMMfENJjcW7eVdndaI2+tlj9slnNINTew6+Fuz+9FBr93NqQ2evBP7JbH7+eFR6Ma/D6uriSvzfKVqwIP/GqchgkOMFxabmv4AEXYz8zHlHUhJU3a1rZ+OCQgztCe6njzs3UDGjziUSm1EY77fI+ctHE/k1DWBxC1X/NoLHIA58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342668; c=relaxed/simple;
-	bh=4y24Yk+Rzhuj1/s72AkBq6Szbdrt5sE0ovPW5rzCBo4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KDKqJV+rCZmg5iKlKJ8yiE8vvK2Ji0piNmTRz1Pp7FtRS1fg6HQ7S6Hem2M/d5Yu4i7UibBQYQlFNeU75R0TaX9siRzvyjEq6cWxWm8asTA2VyVtRuK830rZaLihkgUE80QdzbZj2o2MJfbqNIjIYfRd1XV7QE5WeFCB8l66nyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=l9dlpdkD; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790342703; c=relaxed/simple;
+	bh=/fn5JF3HX8ZZOlVsWdEZcSzPrpbkbs+cFhXiyc+XrwE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dFiZ7VEevVhiqtCa4zd+JwwP7Pb3cEs9LzES4r+grQ6PB810GNZkAIUBc/hQ4ezcBK1LepXBvMRpUMxK+n4jVqyRRmABhnZIMq+NK88ikF1i2iyfp4nSE7BoZdmT0G2kRXIGkBc6MlKVwTbXRNH8J8aNxd7y5fmmJEC7NgjcNvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSoaOEXq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="l9dlpdkD"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 550DD4E41070;
-	Fri, 25 Sep 2026 13:24:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 114D06073B;
-	Fri, 25 Sep 2026 13:24:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E7FB8103282D5;
-	Fri, 25 Sep 2026 15:24:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790342656; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=dWHwO8k89KMIOROmHdTn+tsJpwKFcpuMyDpGO9S6/Q0=;
-	b=l9dlpdkDqiMckaNfwr7bun/p57zAVub7v1PghXsTuWnOsGqHAv7yuZLECjhqrrsOeJUlt8
-	0yi7CHR2q3FKkEu2BWyKiTdGdFyriXxXWni+kPX//yN7vO8tYReF0gJRI4D6/VYNUXKadT
-	P/NLpDmMJxWSM66/UTT8NCpc+1YWPVWxixpKyenM6bzKNGCL37wrmmjS5N884rAc0om23n
-	FoLrsIGum1CEoiMAq5r1n1hPJ7y7vPZklmteNdn3HQb8/uEBaq9lATJSaE7nTOFVOESVEv
-	0+UGOn3R4XdzuF3E1tQSRg6EQ2GujU5+bWm6Wn9LDddEUB91EaiETkax8M+e5Q==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
- <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
-  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
- <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
- <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
- Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
-  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  devicetree@vger.kernel.org,  Jacky Huang
- <ychuang570808@gmail.com>,  stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] clk: nuvoton: ma35d1: Add missing WDT/WWDT
- parent clocks
-In-Reply-To: <20260925-skinny-husky-of-cookies-4aaddb@quoll> (Krzysztof
-	Kozlowski's message of "Fri, 25 Sep 2026 14:58:11 +0200")
-References: <20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com>
-	<20260921-perso-ma35d1-upstream-clk-v2-1-209fd32a8b00@bootlin.com>
-	<20260924-bald-awesome-griffin-7d1d5b@quoll>
-	<87jyo9ljlo.fsf@bootlin.com>
-	<20260925-skinny-husky-of-cookies-4aaddb@quoll>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 25 Sep 2026 15:24:08 +0200
-Message-ID: <87a4p5jwg7.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSoaOEXq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF1A11F000FF;
+	Fri, 25 Sep 2026 13:24:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790342690;
+	bh=JcvwxJfj+wQCvTyKCuDmOvkUWIndsvAdclXPqwL6QjM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GSoaOEXqNZo5+lFu4BWpMyM+JE4KVsAWFxigirREnjn9EsPKMGSXqy6zl+1JRw4dm
+	 3U0v1lVUBRas/uYlViba9t+pwZ7GuOvS/CJJXOpFmu1sberKqQygJmySBYCf3ycyp4
+	 WvXUDgAxGmgJLJYcldjLPV2k9kmJsPLnVrhrQE5Rgxx1pd1IXH2Ld4PbCi05X3sEMk
+	 z7+1KJsjNpR9btN0PPFvJBbcDgR8JadJYt+p7Lus/nPk+0oR55RlDDn0uG8WYtWyj8
+	 o6VxOCBheopmhNVFgCDB/Jgjw8GuX14GXG+SzVRHn/ShaPfg2sA9qGq8yuX3XzRRBd
+	 tHA2EHtPG0A8A==
+Date: Fri, 25 Sep 2026 15:24:47 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
+ compatible for mt8167
+Message-ID: <20260925-inventive-crystal-firefly-0deffe@quoll>
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
+ <20260921113914.779393-2-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,36 +50,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Disposition: inline
+In-Reply-To: <20260921113914.779393-2-l.scorcia@gmail.com>
 
+On Mon, Sep 21, 2026 at 01:38:55PM +0200, Luca Leonardo Scorcia wrote:
+> MediaTek mt8167 SoC has two Digital Parallel Interface (DPI) blocks,
+> one can be routed to a DPI display while the other is wired to the HDMI
+> block. They are not compatible with any other device, so add a new
+> compatible to describe them in the device tree.
+> 
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../devicetree/bindings/display/mediatek/mediatek,dpi.yaml       | 1 +
+>  1 file changed, 1 insertion(+)
 
->> Maybe one way to fix that mess is to:
->> 1- Add the 2 new values (238 and 239) + a new define:
->>    NUVOTON_MA35D1_MAX_IDX 240
->>    238 would then have two definitions for a short period of time.
->> 2- Replace CLK_MAX_IDX by NUVOTON_MA35D1_MAX_IDX in the driver
->> 3- Drop CLK_MAX_IDX in the bindings.
->
-> Why we can't fix it like we did everywhere else?
-> git lg -- include/dt-bindings/clock/
-> and search for "number" which leads to recent commits like
-> d10f26a7abbd3dd5d59bac1acdca117385b54ea9
-> but there was same work for Samsung and many others (Renesas, maybe
-> NXP?). You add define to the driver, then drop it from the
-> binding. Can
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Aaah, ok, got it. Now I get what you mean by "the max is not a
-binding". While true, I find it much less obvious to have it somewhere
-outside of the file defining the clocks. I would have "preferred" to
-consider the name of the definition immutable, rather than its value,
-but if that's the way, I'll comply :-)
+Best regards,
+Krzysztof
 
-> be a few commits like we did for many cases, but recent change from
-> Linus I think went acked while combined binding and driver.
-
-Thanks for the pointers, I'll "move" that number away from the bindings,
-since the driver is the only consumer of that.
-
-Thanks,
-Miqu=C3=A8l
