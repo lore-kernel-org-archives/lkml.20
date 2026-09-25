@@ -1,168 +1,220 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF154C33F3
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350186; cv=none; b=kRkbYcc+Am4pGLEar1k1lRZy4Vj4ckKFhQn79633yL2rbrJvBDQmFFbqjHz2F7aXVkIJKBtCPczGAXk1vEOshdWk6L/tGEsqyrX9UYhTNTdZEkZeJxQzDAUsMOxKALzJJ6e2Vw5j3WNsHyU0n/j+VU9Y16vAM4hgM+hhY3G9PAo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790350186; c=relaxed/simple;
-	bh=upblnXNb+p2KtLS8GurcmAtzvFFSYd4j6PFmlGgUicg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Meyt6or2I67Uh1Oh36cPiNcgvopJEbMogQfgaRPqmLskaYhzpbcVYFNzsUTPTbH70v5175kltAxiPrsXK9luze2g4sTowyu+kWdPdStWG685Z7swMAOrKfK0E7zZt7VBNTwCxOB2RJuUA7GoPli6Cevpg/ZWy7NMzsLMx1d04zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=W/MHFSkB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q+tAkuBa; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C905E4CEE48
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790350214; cv=pass; b=SNaaZmyxVotpPfhqc4/9mZDPTZKhv9fszKQxKW2kWp5Nh2BxKXYR4TTsYzYhbYyVEKFBJ7Dasri5UqtuiXpPCLutZMPk63L+AFfyjHrmvxqR1UmTiugwMRO3wuUm/zyy8Nrn/sl/FbEwStte57migpmakcxkS6xuGwzRgZ9Ecrs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790350214; c=relaxed/simple;
+	bh=n4954fXz02c4Oj5+YdOqhp+44wJpR+Hr4ZJmBOKkwVU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qYjoYTcZMz+YyJ7nA4po3lAV/HPhUNKFMtmsTh+N6yWWTFOpoBHEr9TmJZfNi2Q/or112LyMWZekVReoQkVjXYQRLNLsepCP4WLjgeihl7siikxzXhnM2cMcIrRHqyLRUm6PTwViCp7G8oFls1mbSD2r17EI5kfnQ+ekqluw47A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JfYXZeRK; arc=pass smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="W/MHFSkB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q+tAkuBa"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PDOK9K1055735
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:29:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=EugQq82UdCAjcqop/r7zwdrt
-	/Yc1q9zAWsDcJB9IHDQ=; b=W/MHFSkBdsCw9c2KQmz/KGAY3vAaZNc4yS/AEkn8
-	VYlLY/yyn+SLqyp28hFYzS9vF+x1U28X9OmBVqMit6/9ZpK6eKX3aLa/HFOcfo73
-	xYJRCEYMnImNx/rT6YInlQFfs8i/OoGF9jP1ToshJj9SPTR+EMyURpRHj7eC/yky
-	oVYiG+4WGrb/mTs/swKbo7ROa7H/h+fTH0ZxxnmDc1BiwaJxaoXP7EcmhGT2KIfi
-	cue2cpXBSVS5E9Fd8PwyrgyULvv4ON9LmqNAKuJrXTMhExASM4Ivhm7XoeKLtzMK
-	A3Iei8AnSc+cpPY6KEnrdcImp7RAkQ6WSe6E9y8fllidqg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwce7b22y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:29:44 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d55d8cd938so14206005ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:29:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JfYXZeRK"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49e6425f96eso58075e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:30:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790350211; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oslauyXPPeAQG0Y/oJ+MbILTgcgJQ+Es9EpVuIBfCIZKEFWe0NV0zqkiC4rMY95+3Y
+         kheDvqHfVBwZr33hhil99tLa1GjMEPR8yRW+MpvDsyMuD2waWQLT/XCrvf9M1vPrBI72
+         NUwzuWoKfmqPsINeagSwsYYgp8+T2i1xQMGzgVIELZQGtG/XX+mhQXms7TWtj2rupBml
+         y9XI4VEOnF5rtFTExbCLG8aSNJLozZyvqM9N37shn7z8XKEmCr5OrfHVfrCIounMMXDX
+         ji4F/rzLV4ilclHOiFj55cEupjIapMatJs2/UuAOUVhIp0faHN5AiL57bdunxRepjtEw
+         euCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ROrsOcUgsvdnaotZ8dOgUC/WrOneg/H1WIYmp3Dbi2o=;
+        fh=935yAi6rW0t39M68yAW/3cl7ve7tJr0EsNcXTtKyxu0=;
+        b=L4l167QRfEsWDwxWtXpfLggJTEnffE6oawx4weeARuArTJBM/DJ5uCeuPDYht8RfcJ
+         yQxMQbnqN53Tn/E/hQrGYHvrr64Bo4N1yGW4eLLnHJYbPym/5OIEFn6ufGqTUkX8Qxnq
+         yBKS3OqCb2kDC8ntAs8m8S0LTUml5P49QqLEgNQdPq2ugcCQROK9TXaC16SYQF+W0uNc
+         MPy2HieMvImTrb8p1mpGnEpZGSFlWGk8F1q0JXUwhC5PW1mhSECCKu9Arkj4KLZWAgC+
+         a1mYQOnZokX2MLaPw79gSPNPibT8w6uUO6muRWGtVBcEd7kKX+CqOCqYqZ7pZNGv3i02
+         c6yQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790350184; x=1790954984; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1790350211; x=1790955011; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EugQq82UdCAjcqop/r7zwdrt/Yc1q9zAWsDcJB9IHDQ=;
-        b=Q+tAkuBaqxiSfLYd8XGLW6kphzDgi3ANHRy+SMT24XvdCn7KWXd/pSM/oB/qGenHGY
-         Xe4sJgQ8gFRfRcXzzlA795weeY89TtprS/Ou65GjlyahFVHvM92jIVsXSNXlGGNR3Yf6
-         URBMy0C/kWVjTBKaU4gh55nXPypk2dozk+vKe4U3fSfVkDG323wWOZSY8juGG1/lwp/G
-         QizhsLiNnU3Y3ay1dZ5OO892G+8AjIZGA0cOyEIBbLFa4weQTyyQrVFDQtJTTsPZY9P7
-         zLd4NkI1Lf/4OWCzv9OcWCndzzXzei0jAg0jOTXNtnhUORQuOtyuc938/F6V/oxVUyk6
-         dzrQ==
+        bh=ROrsOcUgsvdnaotZ8dOgUC/WrOneg/H1WIYmp3Dbi2o=;
+        b=JfYXZeRKk+uo+6AtZ+rfAZ977i9l1p0mBf9rBbX/kWrI5TcybcuIR4Gf522f/5UTPB
+         fDbzEwsEZcha+MJhIV2JKoIBFYARrvbYspiMSsa3rRKytjZs3gby81jzxx8toUGeiisF
+         dGvZU+yC0u74Cv6qmCGyY7Rue4sVx9ZR0UAhj0cXyYgNGxI5r5li1AuMQq9W0dH9I2oT
+         jpyXTJYC2EWY1IhacHEtrPyfTwDsZU73rjEZwnAj2asGOkVJnd6VpYcjXvxEgJ/TT0LR
+         MXhacQBFV+kxg4M+YGXqE1K+NFirslVqtfMvawzo3dCRuKEteH+eT07u5hymiyxMFlRr
+         AscA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790350184; x=1790954984;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790350211; x=1790955011;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EugQq82UdCAjcqop/r7zwdrt/Yc1q9zAWsDcJB9IHDQ=;
-        b=sWd4g6kDdqAT7dYm2JklBdcn8mroZLG4znz89AcPvKLt02kXBxFe9GDrqK9VAPBHYD
-         OleDjelOYxHiIbrD2tOLlHPN7CH1del5dNBrLAXN0Ey/zv7/nqL8M1p98oXFwpua1Ayh
-         eZz+pRxBTNtB+2wmee8V5h9ByhEwRTJFfmzbupj93OyomgzRJigSx8HLUNuZD5T8aaAO
-         IMhD22V3nGvuRNArZvy6fT88O06xxDGn0DGOIxERpWLNo+WKusFuxknemw2kvBtj+KPa
-         qMbaW6L0zsJt91UpXGGvjvcequ0csBM2TBjV1tof5FH6nV6WMOg34jskM/kU9WAyXj/s
-         QulQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy1ul1oVTXcxXX1xhCcMFdFDybPpcz8441xdMynXTHGGz3i13CrTY/3ErdxEFZfwHfBCVSLX7mJhmR+OH4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBC14y2Ya+ra3Amr2NUQ8kevV9bbN+9GvKfIzlJUuG5SM0k6I4
-	CUfcH/9Ps+W8SqJbE5dH7xCD6+Vhy22lkfJPrdgbOtkPXPsNZpjeveDTGtFlXgqk/NPsVgSyO3P
-	34i89+EOVDjAlP8WAkSOhC3D2qlSOJY4Wdhls8VYJiHviep+fpvlmDsTw/Peem5wmzOs=
-X-Gm-Gg: AYBFou0HBr8ppGoiUYF05hYVHqdjqEPyQSV9SqKA5DSiq5/RLnnMnYkD3JBv4NconEU
-	1EDIr9ABoR1ydNiR/hHzVyyftilKc/kxtAQfnxAL2zzmFDwBmRw4RV1jC9DM58qu+OXCMo5Qz0G
-	DRwJPigjbM0Qbp6AC4XlqG/Mhi29skm1LwmPR33HqwtSY8DEycwdXFCE7K0w6uG4xDEr1o4y1wG
-	/GyyzkoTlkg9lGvYViNBN9SWkdDflF23YkffPU7S7g8iG/MOaDYRSnUZPt99sDfp5PMeOFAFG12
-	UWWnarG1ZGa/Y+Aut4LN4p9Hlu3yOTBFZ90sft1cQCgB2rwLkNuzrp3qE6vHUBG1FejJab1rrjX
-	LccLbuJLtd0i8K4jNUhqBbjYbUKVEiO5tX27KLpnL6Q==
-X-Received: by 2002:a17:902:cf42:b0:2dd:ad74:ac7c with SMTP id d9443c01a7336-2df949937edmr18018805ad.23.1790350184128;
-        Fri, 25 Sep 2026 08:29:44 -0700 (PDT)
-X-Received: by 2002:a17:902:cf42:b0:2dd:ad74:ac7c with SMTP id d9443c01a7336-2df949937edmr18018655ad.23.1790350183693;
-        Fri, 25 Sep 2026 08:29:43 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91468978sm12693375ad.79.2026.09.25.08.29.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 08:29:43 -0700 (PDT)
-Date: Fri, 25 Sep 2026 23:29:36 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <quic_jkona@quicinc.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm8750: Fix videocc clock inputs
-Message-ID: <araTYLZoYUKyQw5b@QCOM-aGQu4IUr3Y>
-References: <20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com>
- <20260924161152.1162301-4-shengchao.guo@oss.qualcomm.com>
- <3l6v5idon2edkritzyqlmvdjn5ijt3lytp656sxicfnqah2rga@o6plxiv5d53u>
+        bh=ROrsOcUgsvdnaotZ8dOgUC/WrOneg/H1WIYmp3Dbi2o=;
+        b=IOh43KSXUq/Fvyaih+ZBuHGJ6v/3LTfr6FcQyTKi8sst0GUeIyDYpdn63uH17FyM2g
+         0NOoyc2mjuwkH1+70rvfet0AwGRh7tLocAAsvJX/tm8diKtZBDOR7Fdg1VjMSnJr3c0R
+         5jLJWkHanfOb6DWehZwHfOm/UWEUrD3w0SXCUWstmdM1LLm5figQXqwM6aG3s21c0HKa
+         9L/ZyODXWm1lQDMNRyF1fmGtTOahTNXtKGUKx+G6OrU9y17qFvzqfHbB7CBNWQFIa9u4
+         UbZYhW7gF60ScqfjRJqJzXMtAgO7w0N+BQakGurWykERDYsSAk98va+uguAJk4zJIhnJ
+         2/8A==
+X-Forwarded-Encrypted: i=1; AKwUvBwcE0P2svuO/DbbZCp8PFGOTyxu+wSMVJaVtSjXvUcWr7DycFrRwaQJaJA6Glfo+/LA7n4pDnTK7N12iJ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHa6YaMg1aenc1e+Zm/J17fPxSCOtucUpEIxR3TVdS6CJYwXGk
+	px0clPA/urcECjwez3lwoe5S5xfXM9gvaHmKeX76RbyiOxHiewqgeUq6Pcr93kcFq+NKfA4maLx
+	V4YOwAWxhNBp/kcA3CJc96h5LBWxirD5CGp+gTv+S
+X-Gm-Gg: AYBFou2OQWxy7L9634kNXI0lyh3XpBS/qkDtTBxDTlBOqOgHcURcNFzcafMXQgJlcYQ
+	/foNJtwtq2NsGqzgIly881oFQDhGDCG4lthwTxCNSRXBjZ7NjhhFKI3QUpdO2yvY68Tw5kiA/4B
+	XdNB8SHlXECgc0ZMNAsu3mzQs3ccq/az2U9+PIcHYyIhjQvWtlW0VMqNyCOzMVVYAGvLRPVJccP
+	Q81YJBLazcoSF3gL6oDTWc+LCyUog1z8fTsJZO/Kk+cMO3seqlXrVmKgODygTIAEU5ewPaouQPZ
+	E1Zs//pv+QH2BW2lne5SVgse++nyYLxEz51Y7VJ4TaFynsYhQDcZJLohATa9htL2cjcXywc9mfl
+	F8C7AXPZiWbe0Mw==
+X-Received: by 2002:a05:600c:3014:b0:49f:e12d:1a60 with SMTP id
+ 5b1f17b1804b1-49ff638a87fmr227415e9.4.1790350210427; Fri, 25 Sep 2026
+ 08:30:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3l6v5idon2edkritzyqlmvdjn5ijt3lytp656sxicfnqah2rga@o6plxiv5d53u>
-X-Proofpoint-GUID: UMQd3ZwWtq6q2mpVATlhYoxkR6MZs_Nr
-X-Proofpoint-ORIG-GUID: UMQd3ZwWtq6q2mpVATlhYoxkR6MZs_Nr
-X-Authority-Analysis: v=2.4 cv=NJFAaE6g c=1 sm=1 tr=0 ts=6ab69368 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=91EBbpWxNo6HCqDt5gIA:9 a=CjuIK1q_8ugA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2MSBTYWx0ZWRfX4s+Z2uzGSajc
- s6BnsKhrpwXe8K5Fbg9DonGRC4nRDMp+y3QLESa9ZwVMIZsuV/iDlPqtIXx7UuJ6qOnAOVxwVjX
- KsIb8fyvMovcbp0HWacKgs2SVU92h2HUlEuA3uXqvXEp/eh/DaRkcabnxCr4zQG451jUjYIDh8L
- Z5xFufx68OeCGw72/AEzszscl+AL4RNmO2xQ02ByPpr2RZR1da+ubTUEpJUs6tFS2L+81ZzRxzH
- 9/KK31VmZeJ3aMobRCKOqBa7tSoxTtXDzWZp0Fu0zJaK94aBnyzVxSHBFaca9uDA6w7WPsstO9o
- rLlrqx5D99ljaBmnidp2M8QMKgMWo9UdwvpirMK/k6FIeYu0z/0xsKn7MWog/dwhXiNeDVrnpns
- o/5+EPEYlpNEZcTBZBAP3A90fKtF5GTrzQK0nLQvaNM/l8XwiMxTI19HsLxc6qNptle9cTKXttD
- 3F95QEASck+3X3IVViQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2MSBTYWx0ZWRfX3Sn2o8mXpVZb
- jc5++efaEJ1CiB19WvvxwJCZaFIatOOpSKxT6Jf2ot/GK+bsMgLdAgJOZMkjjdoGSuwwzJYMXTG
- BFBobcllNJj76mAa3WhHycDOc4LzAR8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 priorityscore=1501 bulkscore=0 spamscore=0
- phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250061
+References: <20250417201913.2393655-1-jyescas@google.com> <df0a5e79-f2a2-4f74-868b-8f6291accb04@oss.qualcomm.com>
+In-Reply-To: <df0a5e79-f2a2-4f74-868b-8f6291accb04@oss.qualcomm.com>
+From: Juan Yescas <jyescas@google.com>
+Date: Fri, 25 Sep 2026 08:29:58 -0700
+X-Gm-Features: AclHuK91aA7NHqV433GteBTggY1TVKYNnE0__wEQzOG6MTG22gothUdiDWS_u9I
+Message-ID: <CAJDx_rhLvcWV2-qzwVNG1DHnh2G4i26FgusebATLDj9zGg166g@mail.gmail.com>
+Subject: Re: [PATCH v3] dma-buf: system_heap: Set allocation orders for larger
+ page sizes
+To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	baohua@kernel.org, dmitry.osipenko@collabora.com, jaewon31.kim@samsung.com, 
+	surenb@google.com, kaleshsingh@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 12:47:16PM +0300, Abel Vesa wrote:
-> On 26-09-25 00:11:52, Shawn Guo wrote:
-> > The videocc node passes GCC_VIDEO_AHB_CLK as its second input and stops
-> > there. videocc-sm8750.c declares its DT inputs as DT_BI_TCXO,
-> > DT_BI_TCXO_AO and DT_SLEEP_CLK, so the second input is the always-on
-> > board XO rather than an AHB clock, and the sleep clock is missing
-> > entirely.
-> > 
-> > The missing third input leaves video_cc_sleep_clk_src unable to resolve
-> > its parent, so it registers as an orphan clock and cannot be rated.
-> > The AHB phandle in the always-on XO slot is not resolved by the driver
-> > today, but it implies a parent relationship the hardware does not have.
-> > 
-> > Pass bi_tcxo_ao_div2 and the board sleep clock instead.
-> 
-> So videocc can still function properly without the GCC video AHB clock then?
+On Tue, Sep 22, 2026 at 5:11=E2=80=AFAM Pankaj Patil
+<pankaj.patil@oss.qualcomm.com> wrote:
+>
+> On 4/18/2025 1:49 AM, Juan Yescas wrote:
+> > This change sets the allocation orders for the different page sizes
+> > (4k, 16k, 64k) based on PAGE_SHIFT. Before this change, the orders
+> > for large page sizes were calculated incorrectly, this caused system
+> > heap to allocate from 2% to 4% more memory on 16KiB page size kernels.
+> >
+> > This change was tested on 4k/16k page size kernels.
+> >
+> > Signed-off-by: Juan Yescas <jyescas@google.com>
+> > Acked-by: John Stultz <jstultz@google.com>
+> > Reviewed-by: T.J. Mercier <tjmercier@google.com>
+> > ---
+> >
+> > Changes in v2:
+> >   - Add John's Acked-by tag.
+> >   - Add TJ's Reviewed-by tag
+> >   - Use dma-buf: system_heap: in the subject since this is specific to =
+the
+> >     system heap, as per TJ.
+> >   - Remove extra space in if statement.
+> >
+> > Changes in v3:
+> >   - Remove defines for the orders as per Christian.
+> >   - Update the order array for 64k page sizes as per TJ
+> >
+> >  drivers/dma-buf/heaps/system_heap.c | 21 ++++++++++++++++++---
+> >  1 file changed, 18 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heap=
+s/system_heap.c
+> > index 26d5dc89ea16..8c10c0f2b473 100644
+> > --- a/drivers/dma-buf/heaps/system_heap.c
+> > +++ b/drivers/dma-buf/heaps/system_heap.c
+> > @@ -18,6 +18,7 @@
+> >  #include <linux/mm.h>
+> >  #include <linux/module.h>
+> >  #include <linux/scatterlist.h>
+> > +#include <linux/sizes.h>
+> >  #include <linux/slab.h>
+> >  #include <linux/vmalloc.h>
+> >
+> > @@ -44,14 +45,28 @@ struct dma_heap_attachment {
+> >  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+> >                               | __GFP_NORETRY) & ~__GFP_RECLAIM) \
+> >                               | __GFP_COMP)
+> > -static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_OR=
+DER_GFP};
+> >  /*
+> >   * The selection of the orders used for allocation (1MB, 64K, 4K) is d=
+esigned
+> >   * to match with the sizes often found in IOMMUs. Using order 4 pages =
+instead
+> >   * of order 0 pages can significantly improve the performance of many =
+IOMMUs
+> >   * by reducing TLB pressure and time spent updating page tables.
+> > + *
+> > + * Note: When the order is 0, the minimum allocation is PAGE_SIZE. The=
+ possible
+> > + * page sizes for ARM devices could be 4K, 16K and 64K.
+> > + */
+> > +#if (PAGE_SIZE =3D=3D SZ_64K)
+> > +static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, LOW_ORDER_GFP};
+> > +/* 1MiB allocs are calculated with (2 ^ (20 - PAGE_SHIFT)) * PAGE_SIZE=
+ =3D 1MiB */
+> > +static const unsigned int orders[] =3D {20 - PAGE_SHIFT, 0};
+> > +#else
+> > +static gfp_t order_flags[] =3D {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_OR=
+DER_GFP};
+> > +/*
+> > + * 1MiB allocs are calculated with (2 ^ (20 - PAGE_SHIFT)) * PAGE_SIZE=
+ =3D 1MiB
+> > + * 64KiB allocs are calculated with (2 ^ (16 - PAGE_SHIFT)) * PAGE_SIZ=
+E =3D 64KiB
+> >   */
+> > -static const unsigned int orders[] =3D {8, 4, 0};
+> > +static const unsigned int orders[] =3D {20 - PAGE_SHIFT, 16 - PAGE_SHI=
+FT, 0};
+> > +#endif
+> > +
+> >  #define NUM_ORDERS ARRAY_SIZE(orders)
+> >
+> >  static struct sg_table *dup_sg_table(struct sg_table *table)
+> > @@ -318,7 +333,7 @@ static struct page *alloc_largest_available(unsigne=
+d long size,
+> >       int i;
+> >
+> >       for (i =3D 0; i < NUM_ORDERS; i++) {
+> > -             if (size <  (PAGE_SIZE << orders[i]))
+> > +             if (size < (PAGE_SIZE << orders[i]))
+> >                       continue;
+> >               if (max_order < orders[i])
+> >                       continue;
+>
+> Hello Juan,
+> I've posted a respin of the patch by extending upon your work,
+> Can you please review?
+> Aplogies for adding signed-off by, will drop it in v2.
+>
+> Link -
+> https://lore.kernel.org/all/20260921-dma_buf_improvement-v1-1-23d82e771de=
+c@oss.qualcomm.com/
+>
 
-I do not have a sm8750 device to test, but I did verify the same change
-on Nord, and videocc can still function properly.
+Hi Pankaj,
 
-Dropping gcc_video_ahb_clk as a videocc input clock shouldn't break
-sm8750 videocc from what I can see.
+There is another change that fixes the problem and adds the 2MiB
+order. It has already been
+reviewed the Christian K=C3=B6nig:
 
-- The AHB clock isn't a videocc input at all. The videocc clocks array is
-  positional and the driver maps index 0/1/2 to
-  DT_BI_TCXO/DT_BI_TCXO_AO/DT_SLEEP_CLK.
+https://lore.kernel.org/all/20260914212258.2657788-3-dave@stgolabs.net/
 
-- gcc_video_ahb_clk cannot be consumed anyway. gcc_sm8750_probe() leaves
-  it always enabled in probe and never registers it as a clk at all. So
-  <&gcc GCC_VIDEO_AHB_CLK> resolves to nothing.
-
-Shawn
+>
