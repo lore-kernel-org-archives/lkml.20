@@ -1,64 +1,38 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E73948125E;
-	Fri, 25 Sep 2026 10:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393F047143C;
+	Fri, 25 Sep 2026 10:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790330776; cv=none; b=paQ8kHjxSG0Xco9tAFcbEdd7qYmjy7oVmQy7q6igC2lkWHZADfivnjF1LZEahkrdvcQ2cw/UmNC94RYBvX0pPuT2LE3uMY7HL+70LDGUKu/lwC1dxIMU7L2qevWe2XToZd6Cy+B+tJKhrHXDlh4f5KoFpzYvvveoip49xXDHa18=
+	t=1790330962; cv=none; b=lbzdU5p9DZIrNumv2JFQCLP3oiaEpFdSk633DHDdDOnxPg++IW/YhVwHdNMGuaB7SPz2nFEEjvOt53FZM5c2KhyaTvXowDMBUNhRbBzHrWF4pOnaeewvDLlHFQgmgHjtLgSSN6u9fCJ/ByPs3vl0bHePahazWypLcRI4Ric5Mxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790330776; c=relaxed/simple;
-	bh=O29JxlP7H3AHO7oC6sS4ggkHIQdHda2i0tIQ6RtdsqU=;
+	s=arc-20240116; t=1790330962; c=relaxed/simple;
+	bh=Iq6fhZxE1I42ljnuePaa3E2pV+zUhgw1f7dsbCrvjfQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MQbwXmRkb9ncHwMt9NhgVfPa9VQOG6KElDrqFk+ZZaxadLOLdlVh0jew47uAg+iCVWK6EJhOr1ciHPvEPF59cS+PKdxyl8UQNFwFBkA6CvENYFAXWzqMUQy+RUOP68ujMmurdZXB7n7IGJw/yB5Imw1teTU+97mrSJR89eNDfL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kOBcu3Rs; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rl8AS1pd+072j+IjQlv0CLPgqKcnHMx4C5r7GDOLCX+XQ/EZSwcBojUwYaSRPOqLtuGlcLF7MgKyQcy9TLhNouC6rRos53ExquCTC8yk+AbSMTwpz5xF473JV5K/hiZxkBwrXNjMRclpD3cVvWxFCC9DbNNurUiZk05yLOXX8Uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SYLrP0W4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kOBcu3Rs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790330775; x=1821866775;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=O29JxlP7H3AHO7oC6sS4ggkHIQdHda2i0tIQ6RtdsqU=;
-  b=kOBcu3RsSvBPpQTuMri3UMKThJCFh+GaaMpRRGFIxU8Woy6Rebuw+8aN
-   Kvnf1mrO3lbiH8pSd1TEeXY+2ua6+/zE+O7liN8LJ/Kn3dZF9Sj3tgpKd
-   yG9sxtgNtH37zIyILO5jrdZEh3oSEq9K+SQFpBQws2b4hf18iY5cXACnP
-   iq1azcgsOTt6HZcMEnP2xKxM/24jNT9C8b9h3fQ+jWAkZ8LrVPIha6iRo
-   p/n/lvnk1a5fe67HgJZN3QsftYG8qw6j3b4mvbPJRbQUMQcNy1FRIzxG+
-   ybIXcJrDWTeuLxX+GhOJ2V3Stj5H0KSK/bHb0FyoW5wR4aFc/2D8qtVB5
-   w==;
-X-CSE-ConnectionGUID: 8FUMETemREWIjub/nnvksg==
-X-CSE-MsgGUID: mMETd6xSTh6YJOm6Dti4xw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101287806"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="101287806"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:06:15 -0700
-X-CSE-ConnectionGUID: E8ziHc+2SiaXStz2awS3mw==
-X-CSE-MsgGUID: 1vRteQK8QTC3c4GFY/TKBA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="274389613"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:06:12 -0700
-Date: Fri, 25 Sep 2026 13:06:09 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Manos Pitsidianakis <manos@pitsidianak.is>,
-	David Laight <david.laight.linux@gmail.com>,
-	Jonathan McDowell <noodles@meta.com>,
-	Lianjie Wang <karin0.zst@gmail.com>,
-	"Thomas Richard (TI)" <thomas.richard@bootlin.com>,
-	PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwrng: core - reject unknown RNG names
-Message-ID: <arZHkd8efyV0IFYQ@ashevche-desk.local>
-References: <20260924212114.120633-2-blum@kernel.org>
- <arZGQxGEP-i9fLiJ@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SYLrP0W4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4276D1F000FF;
+	Fri, 25 Sep 2026 10:09:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790330960;
+	bh=r4VcBAGMaBtD3eaP3crF0aa1T4HPjvttKsIqdVRgaJo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SYLrP0W4Iu/iRfW/CQF/Cbm1vV2qaLzblZQYaV8ylLFdtakWrk5X1gRMO4fognyt9
+	 WEXJ3pexKDU8gxOsDa6e2Dtr7ajmW+vkG0rMv/yjjaXRbKaKyPxx5GWW3cUtu+Fcna
+	 fgtmUBjYxOn3TX6xlD1LSFICrmoGduB9QYUGmgHk=
+Date: Fri, 25 Sep 2026 12:09:15 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH] tty: add break_wait kernel-doc
+Message-ID: <2026092508-eligibly-celery-650f@gregkh>
+References: <20260925094222.18303-1-johan@kernel.org>
+ <2026092538-available-multiple-6b11@gregkh>
+ <arZGmBW-hG7Vv66M@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,37 +41,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arZGQxGEP-i9fLiJ@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <arZGmBW-hG7Vv66M@hovoldconsulting.com>
 
-On Fri, Sep 25, 2026 at 01:00:39PM +0300, Andy Shevchenko wrote:
-> On Thu, Sep 24, 2026 at 11:21:13PM +0200, Thorsten Blum wrote:
-> > In rng_current_store(), err is 0 after successfully locking rng_mutex,
-> > and if the requested RNG name cannot be found, the function reports
-> > success even though the current RNG was not changed.
+On Fri, Sep 25, 2026 at 12:02:00PM +0200, Johan Hovold wrote:
+> On Fri, Sep 25, 2026 at 11:55:48AM +0200, Greg Kroah-Hartman wrote:
+> > On Fri, Sep 25, 2026 at 11:42:22AM +0200, Johan Hovold wrote:
+> > > Add the missing kernel-doc description for the new break_wait field in
+> > > struct tty_struct.
+> > > 
+> > > Fixes: c7e9bff9b4b3 ("tty: abort break signalling on hangup")
 > > 
-> > Set err = -ENODEV before searching the RNG list to reject unknown names.
+> > Don't you mean:
+> > 	845a2737e0f5 ("tty: abort break signalling on hangup")
+> > ?
 > 
-> Yeah, from the
-> 
-> > Fixes: 142a27f0a731 ("hwrng: core - Reset user selected rng by writing "" to rng_current")
-> 
-> it looks like it was the intention, but the mutex_lock_interruptible() rewrites
-> an error code. That's a good example on why I often tell people to decouple
-> assignment from the definition and the very same issue might happen and would be
-> hard to debug later on. Surprisingly this happened in the same patch...
-> 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Yes, sorry. Can you fix it up when applying or do you want me to resend?
 
-Also
+I'll fix it up, no worries, thanks.
 
-Fixes: cb028f1662a9 ("hwrng: core - remove redundant initialization of variable err")
-
-as that one removed the indeed redundant assignment, but forget to fix the issue.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+greg k-h
