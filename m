@@ -1,63 +1,61 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF4E38553F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F0F38553F
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:35:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790303725; cv=none; b=ilVGIV+91VVcSBM2JUD0q0dlT26bj4XIhCA1P7KFDOAz4mJ4AIPVJQTXJDMDrE2FF/QyvBRVRv8NkGQKBJwPtefdhxP7cMbHKtTlXl8CyRyc2bgIQtr/srNjdkZTcRozdrrWT3oJGEDgSF0qsbv2OdAmJL91uF1ud5O4dmbu6z0=
+	t=1790303741; cv=none; b=jd40l0NC1iuyUoSrnAC03Z/hSlh6bT1W1QrzPkiltiahWMDtQn6CG8vmkUpBtMUaWIoXM6O6riOgM2PZx7lkRrwoSYOsWPqQKMh4gucZcFxEyWfx5R+hBpmyp36+bnsPpnTVB+toJX+PaKi6Tdh2aaWA6paJw80ILP4FggN9A1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790303725; c=relaxed/simple;
-	bh=mzoEsAc2Sr91/I0SgoFP1CmTbLAMnntKENmE31N2EC8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jSTSr4nppk2DRYVe0SmsHS2UMDyFf41x3/7Mi//46J4v52R0v5LWZU82kYvUI1O7U+FLJZBRpHGsOC+N1b68uzb0r0VPWDdATBzCVE1QltKPcCbwpGX64kgWx1J7ZjpnO0/6tCYoM33w9RV0HmXkPIANUG4eBtGLxSBQqaJWaf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LDIvft/t; arc=none smtp.client-ip=74.125.227.12
+	s=arc-20240116; t=1790303741; c=relaxed/simple;
+	bh=mLzFb0wUMf/2JsZbOeNHMQqBI0nCl4svyVfY+mfVD3U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LLA6pOkOXvQPpjPlx/u0x7oDG3YaMLSDWFbda2STnZoqwHkU+tWUrtDhy5qKtHG5KCGKGGsdSXnxk9YMhq75E66Pn2J11tLd/5HEJsvs57ED2mA/HHZsVUZ06awfMlvxfgsAWB7inv+PXUarA3YbFVilNjHNhwI71P+Eh1mxuI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FRKvamD8; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LDIvft/t"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c7e8a17839so75315e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:35:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FRKvamD8"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e630052ebso416345eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:35:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790303722; x=1790908522; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ABMyZuvqxUd+c3too9IAPvLCmxU7UkIesXzVqZa5J60=;
-        b=LDIvft/tV3wpf3QhyYh6QDYfh8F4t0/qiXGJfQyFRcw7SyP/OG2SMZ3gXRhsKdnZ5w
-         7A90/SeAD8FMTU/ni/LbiCs1Xl0YbKoYWD+jbcLxsFnA2+7C6LXlnCx6moEtmKeJuKIZ
-         0lYbVcWhNRd4Tvr6vjqbf2uCO5av3QXp28nYkEl0haKIfYP+2nWJHMWxt4TdymPDGEAS
-         p1e41F+AwBPWytzOhPcPi5bh77FWmR7gci8/zZiPDCBKX5FzkJ+fVnV8ayJ5LBfsITNh
-         J5Yf6fNfj1VTiBNtt7K2lXQNWpQH8pli2yNqDP4nOYMoGZR5VDezApADuKKLw2HF4EMF
-         H4Zw==
+        d=gmail.com; s=20251104; t=1790303738; x=1790908538; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L60OKz5e4cB68kG1U4rmEvHYKKWbnczDtlXEaWaKfOg=;
+        b=FRKvamD8KDeTbuN/DQJzIlnclGtOqL1RKAyGdsS460x7V+RMQkYONxjYhnrTmLJb0u
+         +ibHibimbArtD5B/mIAcr3Yi1kQKmkA9YyX0xnejr5C/2MerHDLSEAqnXulIxlWrDiEA
+         g3XzaSCSUpRvYu4nxqcz2PD9dNjcj1d0aIuai3KBBqB6v2LnT948J+DwbXcO8IS25d9o
+         4YVmonE85sZXuMCRXjDqMrcOr7BRadBq5DAIvbDU0byK1KX5cv1LmOp7muR9OLTGafGH
+         et1HPeWSkapJ3Bn+ZmJshiplnFG/K9l+/E/XZhy6HIEcE2cSVGoG7tPsAJ7YUMkgiyxq
+         yCFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790303722; x=1790908522;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ABMyZuvqxUd+c3too9IAPvLCmxU7UkIesXzVqZa5J60=;
-        b=JEaXFcP+u/50V0URhowTRJcp3SmXCNLG3kGsMJnUrjw2z1i2UFuNCGFbfmJufFTV5+
-         v7Hnw7I7/2GVpl/rxmzfmBnHuwLMPRKhpJhG/vJWVQ++WACXb16Aea3bpsxia3OSB5pe
-         xLTTbObJuWXkMiSvLepgZkA3JTwEnIU0cWCrila0EICXUf1KYSpx0bMTU3KMk4l4V18V
-         /9B/8XmSuu6/taVZSQA9NtRaO1zUiAHBK9I8O7ck+yJJoduIkfo2Wgs6HBAdkqd/Du5Y
-         bBdjSNJKj/rKiMgeJW7AB0A9XlpO+Mla89KuxPfCMDD9o3eii/rD+RHYYn9xMJ/Sm9py
-         8/IQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxIgXX77OfK6bl9odB8n5OHpNYG9quxYCl3F9Ua5isf3NOui7j0YegRdh0QLA7k43oE2JPyHt0VA4onMb4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCIPCdL/WIB57Cf4tQop0sMd/6Oggp+wmsQ9FXhNH+ZcQGGtSK
-	LAIC9zgLLZDNCdcUz5GT7uZCX/3XFmJPBhR1f+Nt4HTLlG2l1tgFmamLU7uWqlNf
-X-Gm-Gg: AYBFou3F9ZRhyAPJWz9/27YaphwhH3dW8g25ro5fu/DCSFd7271OMA7KijkAF+hCyao
-	pEi+qEShu9t044/kln4yRWRqZuuTOMiCZdGb6Bm5rwTfcLZTZU96rW+4uLGp4jjCbeI/EM9IJLM
-	tIYjJnAAoRPd87UFVL/ZGv2rpEkKy9uh2YD7ovu3YNoL/0iiKi/uIr903n6PStHvliPxpDI4GaC
-	3iHSG/cS4UN59j/i7iupsKEH64l5WGKbsKCXOFPjEhVjSrApZ4vsHZlQWOzo1SdlQkKNkcUW8Q6
-	6FZjM5JP5/g3lOgEaM9iIjspbnFMvxZVcU9/lpRyX25D2KvZCRMjPy+1XmzN+K58VkZRN2hRArw
-	QAmfPyN0w3T8iMYiK+T3uyG0CNDRjrgE6TowjeG3avGoHQ5sNkPVjRp+axMu1t1LqgnIeNyxuzb
-	JIOLQ7ooZBWAudkA5blQeEZrzqIqkb4av2TMCYghxItI29OY9H4agJ4uhr3fbJc1Q=
-X-Received: by 2002:a05:6102:3911:b0:79e:df6b:d2b6 with SMTP id ada2fe7eead31-7af1c483ba4mr1717243137.2.1790303722355;
-        Thu, 24 Sep 2026 19:35:22 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790303738; x=1790908538;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=L60OKz5e4cB68kG1U4rmEvHYKKWbnczDtlXEaWaKfOg=;
+        b=NE07g959v+Tp7Kpt8YbraZzcnPLBo52GDQsIIjfhfk/9WeEvq+FWZ2YIJ1mmhad80n
+         THoc1yYa2/J74uh8x/R4+FgPb/P6Vw7Z605S1Od3AbfBC2MEdssBXtluO1DcFmLGlQWH
+         8eHkc+/Mqv6RYtF0vUcvTBSJ7OS/f+3R4Bpxo/yMJx1eFYjRXEZBP1lK5HGdlHgj0OGq
+         94RmiNjloGYVV22rlF5upEn0x9NROuQGuiDTcZtLfhEYGTdWw5bDtlQBVr4l22n8Imm/
+         WpsLt7wc0s8ZFSZbXQ3HMbU5UmOwOw/JUZdDdiH2Angj0GWnES007tS8dlBcTyYsUEZk
+         SwKw==
+X-Forwarded-Encrypted: i=1; AKwUvByr34EDH+/OozNTYYCtM0jvoIps0UaIrN4FDbbMpaYUCeKYisCxL1JrPasC+uzZluxEsnhZVJdoVEvJhHY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldSJpHK2Ry1mcNYQ8h4O0NTVM99jae/YV6VEWgWTadwY26nO9u
+	Gn/YsewnbwfDtjx1/vCjPLOYpI/cVY9Uq5bU40mJXnXwgbhIRNJq60+/
+X-Gm-Gg: AYBFou3q0oTmECbimRF5V6Q2ybP8oJPzz9HtJn5Ur4BiOf0JRPXxYXswvMVQrGhOml/
+	QGO2D/OmCppIizNIvvaMxBfnTc3WQtDQc1Xm8G9pL6645FYTeOgaG5EnZjtzI9a/yiRAkKadsnn
+	33WJJDqmYmusJlTFUyXXEFQ33gSCiu2aQu/obEZvCGw0iezhO5nnKlZ1oU95Fn5Siuc6l0qtU7Y
+	attDkzobutTKxdfB/0E5uQhFcvowls+FFtWSD64f1flJtXD6/pPFRt/Gt3ZG5OKneykReC6E4+x
+	erWJYEUKkDqYQsiEZuL0ffX9zX8G5k7aJIdtNPDM8hbFwvFTT0Unh5YLq5OIoGhjh92MRMowBMG
+	3Nb8l0TrKN6tOiflWLn3yCi3eSdRtYcGBtBtRw2vZWiMwbAjSMkETJw36UOSauiglpjM8z3lyXQ
+	sOg5BrIdFglBsMknuzRU8wHnLpgKQdpptCorwgLubJHef9LWwvxGQwWURZgEXqnrU=
+X-Received: by 2002:a05:693c:8381:20b0:33b:bd89:26d1 with SMTP id 5a478bee46e88-34004c81f1emr4004679eec.12.1790303737909;
+        Thu, 24 Sep 2026 19:35:37 -0700 (PDT)
 Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cc651999ecsm1303758e0c.12.2026.09.24.19.35.17
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145632298sm2364961eec.22.2026.09.24.19.35.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 19:35:21 -0700 (PDT)
+        Thu, 24 Sep 2026 19:35:37 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 To: david@ixit.cz,
 	davem@davemloft.net,
@@ -68,14 +66,12 @@ Cc: horms@kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Aldo Lacuku <qwe.aldo@gmail.com>,
 	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net] nfc: llcp: check socket state after locking in nfc_llcp_recv_dm()
-Date: Thu, 24 Sep 2026 23:35:09 -0300
-Message-ID: <20260925023509.3060096-1-qwe.aldo@gmail.com>
+Subject: [PATCH net] nfc: llcp: prevent resource leak on repeated connect after DM
+Date: Thu, 24 Sep 2026 23:35:27 -0300
+Message-ID: <20260925023527.3065197-1-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923133339.2518641-1-qwe.aldo@gmail.com>
-References: <20260923133339.2518641-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,35 +80,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Between nfc_llcp_connecting_sock_get() and lock_sock(), another
-thread can move the socket from connecting_sockets to sockets via
-a failed connect + re-bind. After lock_sock(), the socket may no
-longer be in LLCP_CONNECTING state, so unconditionally unlinking
-from connecting_sockets corrupts the wrong list.
+From: Aldo Lacuku <qwe.aldo@gmail.com>
 
-Add a state check after acquiring the socket lock: only unlink
-from connecting_sockets if the socket is still LLCP_CONNECTING.
+A nonblocking connect can return while the socket is still connecting.
+If the peer rejects the connection with a DM PDU, nfc_llcp_recv_dm()
+changes the socket state to LLCP_CLOSED.  A subsequent connect() on that
+socket currently overwrites the previous local, SAP and service name
+without releasing them.  Repeated retries therefore leak local references
+and SAP allocations until no SAPs remain.
 
-Fixes: bf1460acdf8c ("nfc: llcp: Fix list corruption / refcount desync in nfc_llcp_recv_dm()")
-Cc: stable@vger.kernel.org
+Release any resources left on the socket before obtaining resources for a
+new connection.  A closed socket can also retain the device reference held
+by an asynchronous connect, so drop that reference as well.  Bound sockets
+do not hold the device reference, so release it only when reconnecting from
+LLCP_CLOSED.
+
+Fixes: d646960f7986 ("NFC: Initial LLCP support")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Link: https://lore.kernel.org/all/20260923133339.2518641-1-qwe.aldo@gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Lacuku <qwe.aldo@gmail.com>
 ---
- net/nfc/llcp_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  net/nfc/llcp_sock.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-index 74bf81700..acf113311 100644
---- a/net/nfc/llcp_core.c
-+++ b/net/nfc/llcp_core.c
-@@ -1326,7 +1326,7 @@ static void nfc_llcp_recv_dm(struct nfc_llcp_local *local,
- 	 * corrupt the connecting_sockets list / desync the socket refcount.
- 	 * This mirrors nfc_llcp_recv_cc().
- 	 */
--	if (connecting)
-+	if (connecting && sk->sk_state == LLCP_CONNECTING)
- 		nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
+diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
+index 5558d8a..e76361e 100644
+--- a/net/nfc/llcp_sock.c
++++ b/net/nfc/llcp_sock.c
+@@ -690,6 +690,23 @@ static int llcp_sock_connect(struct socket *sock, struct sockaddr_unsized *_addr
+ 		goto error;
+ 	}
  
- 	sk->sk_err = ENXIO;
++	if (sk->sk_state == LLCP_CLOSED) {
++		/* Release resources retained by a previous failed connection. */
++		if (llcp_sock->local) {
++			if (llcp_sock->reserved_ssap < LLCP_SAP_MAX)
++				nfc_llcp_put_ssap(llcp_sock->local, llcp_sock->ssap);
++			nfc_llcp_local_put(llcp_sock->local);
++		}
++		if (llcp_sock->dev)
++			nfc_put_device(llcp_sock->dev);
++		kfree(llcp_sock->service_name);
++		llcp_sock->local = NULL;
++		llcp_sock->dev = NULL;
++		llcp_sock->service_name = NULL;
++		llcp_sock->service_name_len = 0;
++		llcp_sock->reserved_ssap = LLCP_SAP_MAX;
++	}
++
+ 	dev = nfc_get_device(addr->dev_idx);
+ 	if (dev == NULL) {
+ 		ret = -ENODEV;
 -- 
 2.43.0
