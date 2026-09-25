@@ -1,180 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C534F6468;
-	Fri, 25 Sep 2026 21:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6774D4D794C
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790370131; cv=none; b=JfujFDTfqPkBnnD6EO3DcXk/dN86UlYcsNLC0x08EL24PD/xAIbCtjLCAkpyLoFw7nwm4j9zlAfPIFXYaQgwa8WOpyM9+rS0vaDBEcewboldwKrfNzEtN3b1S9XJYsLec6Xr2xhv1eJA32pbWDJF/h+clo3wEL/Nl9uTro94ljY=
+	t=1790370245; cv=none; b=WyMq9OLMXEYiptVg2MrOUma6QBBswvRoTHKXdy7IHo85KUwX6vG1LiFyvSZgk7J/JnSGodZIbzRtbUJIZe6A99VAFSsES3Vxn05K2/3mHSqc5R6LWsDETQnn1pTnqetcPX0Hj5RWoWRR6ZsS125Pr7JLqHzSH7gt1TpgoR2vc0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790370131; c=relaxed/simple;
-	bh=1meTcNlj9NWmKXjNVxoCO1GoHjR2aMAFZtfd2GRj6ho=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=Cd8fK5/iOWXkTm0KsV7By223oWK7+vNOnmt+6pneZeHLy9zeX751g6BA9RExSEqaKzPp8KT+wzO39LRIBupa+JeSSfBd2Xe4QYNvnHfH7gFwKFvUoWbVqRQdyDhzu6QH32T8B5Fvod5kXxFVn5cTfNbt1MwLJglRLNQuwIoeGqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QkDam5UB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QkDam5UB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CC491F000FF;
-	Fri, 25 Sep 2026 21:02:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790370129;
-	bh=Xxnwq2liuR/h0COSiDia8u8avPdnrITgnRI+KPDTj+Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=QkDam5UBe8G1n6b3cupssgLkR09k8GjbnTRnTKeXzPli2mC+EaHP11wDhlNwO9cM9
-	 3dwAaOfD3jVRE0ZO1JMGSlXMD0t/Hlt49JTlUVcqZ8c8ScJrJ/6JTiIW0YBm/agDQr
-	 BfU/OWGxFP7zotKQVtiCuwhl7bA5cpGxAp2xQir9FYbr0YXSqT4JXaEkls03yj5JWJ
-	 BnHaRFNerl9qIpOSiSXoHudJP2JqhbDbb/Ta3m/2totL8S73gwgkw3ZoAw8tT3+Ga6
-	 Ca+h5uk78MgLBOloico1WnfoEysIO6ITHxaRIO+3f2IvDIaHazODT2tdnqT8fUnVAo
-	 TJLtgjJlXCNeg==
-Date: Fri, 25 Sep 2026 16:02:08 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Logan Odell <loganodell@google.com>
-Cc: KarimAllah Ahmed <karahmed@amazon.de>, bhelgaas@google.com,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI/IOV: Make VF config reads match PCIe 7.0 spec
-Message-ID: <20260925210208.GA2098512@bhelgaas>
+	s=arc-20240116; t=1790370245; c=relaxed/simple;
+	bh=BE21cmSFfuAQ83Rs9m2L3At3+YqRFs1oevcw/2tS8mk=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=kIy7xM56+vfKbQbRciuewvhSkXaQ1yooMDI/46ABid5PkX6rRnmr9EL4IgUB3K330291zGsYEriqoD0RDlLpQVFd4N/W1uYA+hVuumCjAmJ1kcM77nepWK0w59CTX1yaOb70FcGZ1IHDmRFaGZU1MnqcY6Cx6Jjeb1l/IURTv9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dab94dc3e7so2206030b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:04:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790370243; x=1790975043;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QMv4zUnWDsMBQN3OtbAXR4nIKmgx+GY56qtAo6bYdh8=;
+        b=YJZindGMXAX4S+EM4Siw/XW9IPFZCWCxvVD75uuv2YYaYlRz2VYamDmmKcnC+X1RT6
+         3Rkx/kXKQ+TOiawJU28jb+9zoRm6gkoj2wxwZVo9m38bqxhDJXXMI/46jCh5vx0CSj5q
+         eIgSd88AsMvJi3Hvz1kMHxsXUJUpoBKxj5Axn/xjqRWVrCj4L5FK3sAxCvLxaKr8Q+5o
+         qd4ZxUKY4jjk3tyRM8ncLj2KqacOEWZdah6N++QTClIMijvnuLhRVaT6HFyAhi4YRbNP
+         9IWBMJvbotO47cc3tTJfqh5WguXyYBGRfeseS1xpmPQdBYW8ko7MagssUYdZT+uy5yyF
+         3k6g==
+X-Forwarded-Encrypted: i=1; AKwUvBxJb9C21Sj0wvOKQbKFvjOxyHnlibSumPVFbpskvYRkOoIG/ZHvQiSs3tASgS243nAOyeaqZzqZnmOTp7I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyVIPEgk2a1mTH8aYt03hIbRVjmh2nticimQF0UHVuAUU9YVax
+	G1Gmpp2DN/bV+zHxGUm20jhdTWiIiIOa+98m6e8HUrDvEEC07vfRt/rbSeI7y/5adf+qOPXR3Lz
+	6UQoV7G9VsWGS6pVJbsJjnKq4QPuwQfuHoZzm3n3WnXRrbkl+h7UCWklirWI=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924225944.GA2019638@bhelgaas>
+X-Received: by 2002:a05:6808:50a3:b0:4c5:cd9d:c6de with SMTP id
+ 5614622812f47-4d72c635ff8mr7595835b6e.7.1790370243336; Fri, 25 Sep 2026
+ 14:04:03 -0700 (PDT)
+Date: Fri, 25 Sep 2026 14:04:03 -0700
+In-Reply-To: <20260926.053927.1813206630085668690.konishi.ryusuke@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab6e1c3.7eec07f4.c25c.0007.GAE@google.com>
+Subject: Re: [syzbot] [nilfs?] WARNING in nilfs_rename (2)
+From: syzbot <syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com>
+To: konishi.ryusuke@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 24, 2026 at 05:59:44PM -0500, Bjorn Helgaas wrote:
-> On Thu, Sep 10, 2026 at 10:36:48AM -0700, Logan Odell wrote:
-> > The revision and subsystem ID of the VFs for a given PF do not all have
-> > to match per 7.5.1.1.5 and 7.5.1.2.3[1]. Read these values from the
-> > config space instead of using cached values from VF0. Class codes and
-> > subsystem vendor IDs do need to match per 7.5.1.1.6 and 7.5.1.2.3. Use
-> > the PF's value instead of reading from the VF config space. Per
-> > 7.5.1.1.9, the header type for a VF should be 0, so hardcode that
-> > assignment.
-> > 
-> > [1] https://members.pcisig.com/wg/PCI-SIG/document/previewpdf/22464
-> > 
-> > Fixes: cf0921bea66c ("PCI/IOV: Use VF0 cached config registers for other VFs")
-> > Signed-off-by: Logan Odell <loganodell@google.com>
-> 
-> Applied to pci/iov for v7.4, thanks!
-> 
-> > ---
-> >  drivers/pci/iov.c   | 25 -------------------------
-> >  drivers/pci/pci.h   |  4 ----
-> >  drivers/pci/probe.c | 14 +++++++++-----
-> >  3 files changed, 9 insertions(+), 34 deletions(-)
-> > 
-> > diff --git a/drivers/pci/iov.c b/drivers/pci/iov.c
-> > index 9d408fb8ac25..9185934a900f 100644
-> > --- a/drivers/pci/iov.c
-> > +++ b/drivers/pci/iov.c
-> > @@ -179,29 +179,6 @@ bool pci_iov_is_memory_decoding_enabled(struct pci_dev *dev)
-> >  	return cmd & PCI_SRIOV_CTRL_MSE;
-> >  }
-> >  
-> > -static void pci_read_vf_config_common(struct pci_dev *virtfn)
-> > -{
-> > -	struct pci_dev *physfn = virtfn->physfn;
-> > -
-> > -	/*
-> > -	 * Some config registers are the same across all associated VFs.
-> > -	 * Read them once from VF0 so we can skip reading them from the
-> > -	 * other VFs.
-> > -	 *
-> > -	 * PCIe r4.0, sec 9.3.4.1, technically doesn't require all VFs to
-> > -	 * have the same Revision ID and Subsystem ID, but we assume they
-> > -	 * do.
-> > -	 */
-> > -	pci_read_config_dword(virtfn, PCI_CLASS_REVISION,
-> > -			      &physfn->sriov->class);
-> > -	pci_read_config_byte(virtfn, PCI_HEADER_TYPE,
-> > -			     &physfn->sriov->hdr_type);
-> > -	pci_read_config_word(virtfn, PCI_SUBSYSTEM_VENDOR_ID,
-> > -			     &physfn->sriov->subsystem_vendor);
-> > -	pci_read_config_word(virtfn, PCI_SUBSYSTEM_ID,
-> > -			     &physfn->sriov->subsystem_device);
-> > -}
-> > -
-> >  int pci_iov_sysfs_link(struct pci_dev *dev,
-> >  		struct pci_dev *virtfn, int id)
-> >  {
-> > @@ -329,8 +306,6 @@ static struct pci_dev *pci_iov_scan_device(struct pci_dev *dev, int id,
-> >  	virtfn->physfn = pci_dev_get(dev);
-> >  	virtfn->no_command_memory = 1;
-> >  
-> > -	if (id == 0)
-> > -		pci_read_vf_config_common(virtfn);
-> >  
-> >  	rc = pci_setup_device(virtfn);
-> >  	if (rc) {
-> > diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-> > index ba3c3fddddc2..5b3dd1adbf35 100644
-> > --- a/drivers/pci/pci.h
-> > +++ b/drivers/pci/pci.h
-> > @@ -711,10 +711,6 @@ struct pci_sriov {
-> >  	u16		driver_max_VFs;	/* Max num VFs driver supports */
-> >  	struct pci_dev	*dev;		/* Lowest numbered PF */
-> >  	struct pci_dev	*self;		/* This PF */
-> > -	u32		class;		/* VF device */
-> > -	u8		hdr_type;	/* VF header type */
-> > -	u16		subsystem_vendor; /* VF subsystem vendor */
-> > -	u16		subsystem_device; /* VF subsystem device */
-> >  	resource_size_t	barsz[PCI_SRIOV_NUM_BARS];	/* VF BAR size */
-> >  	u16		vf_rebar_cap;	/* VF Resizable BAR capability offset */
-> >  	bool		drivers_autoprobe; /* Auto probing of VFs by driver */
-> > diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-> > index 27008e2ea5af..693c07cf45ff 100644
-> > --- a/drivers/pci/probe.c
-> > +++ b/drivers/pci/probe.c
-> > @@ -1888,10 +1888,14 @@ int pci_cfg_space_size(struct pci_dev *dev)
-> >  static u32 pci_class(struct pci_dev *dev)
-> >  {
-> >  	u32 class;
-> > +	u8 rev;
-> >  
-> >  #ifdef CONFIG_PCI_IOV
-> > -	if (dev->is_virtfn)
-> > -		return dev->physfn->sriov->class;
-> > +	if (dev->is_virtfn) {
+Hello,
 
-I moved the "rev" declaration here to avoid an unused variable warning
-when CONFIG_PCI_IOV is not set:
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-https://lore.kernel.org/all/179030514298.542007.4329779510355469675@kernelci.org
-https://lore.kernel.org/all/arac0WyK8MIbFeNP@sirena.org.uk
+Reported-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
+Tested-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
 
-Check
-https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/commit/?h=iov&id=180b6d7bd729d5f07374af6fd4c3b8a7eefde0d1
+Tested on:
 
-> > +		if (pci_read_config_byte(dev, PCI_REVISION_ID, &rev))
-> > +			rev = 0;
-> > +		return (dev->physfn->class << 8) | rev;
-> > +	}
-> >  #endif
-> >  	pci_read_config_dword(dev, PCI_CLASS_REVISION, &class);
-> >  	return class;
-> > @@ -1901,8 +1905,8 @@ static void pci_subsystem_ids(struct pci_dev *dev, u16 *vendor, u16 *device)
-> >  {
-> >  #ifdef CONFIG_PCI_IOV
-> >  	if (dev->is_virtfn) {
-> > -		*vendor = dev->physfn->sriov->subsystem_vendor;
-> > -		*device = dev->physfn->sriov->subsystem_device;
-> > +		*vendor = dev->physfn->subsystem_vendor;
-> > +		pci_read_config_word(dev, PCI_SUBSYSTEM_ID, device);
-> >  		return;
-> >  	}
-> >  #endif
-> > @@ -1916,7 +1920,7 @@ static u8 pci_hdr_type(struct pci_dev *dev)
-> >  
-> >  #ifdef CONFIG_PCI_IOV
-> >  	if (dev->is_virtfn)
-> > -		return dev->physfn->sriov->hdr_type;
-> > +		return 0;
-> >  #endif
-> >  	pci_read_config_byte(dev, PCI_HEADER_TYPE, &hdr_type);
-> >  	return hdr_type;
-> > -- 
-> > 2.55.0.1007.g17ff1f9808-goog
-> > 
+commit:         89a31299 Merge tag 'cifs-fixes-7.3-rc2' of https://git..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1725fc5e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=db6ce8c8614a5a8f
+dashboard link: https://syzkaller.appspot.com/bug?extid=f6c7e1f1809f235eeb90
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1021e2c9580000
+
+Note: testing is done by a robot and is best-effort only.
