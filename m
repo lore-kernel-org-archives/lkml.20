@@ -1,164 +1,456 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BCB148EC7E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:19:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1D53D9DB1
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:22:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331593; cv=none; b=b9Kn+bZbnlx6riXn3uFbTwLJyr35y4eTOTVWFfBoFjM/HXG5o2bbRe94lMZ0W2MPyswBk1AfCzslKyEY7mhcPt9ylNlCm4xQ9h6Xmx4FVZLbOoiVgmD1DIMrZc43L047hiFlkUafOXWXuCrJ9gdynGzcdxsOqr9P9cmvjABrlyA=
+	t=1790331751; cv=none; b=FJkgZ+ihAgpkwFo8ANv7EAGUiXWNUUoK/JNfigjf7kJu0GjvhucRMnuIIaTGZQ+wQYk8+ZTlTXuqQTFjCFF/R22RUYPCfD1tPdmQ5m09nny1yUJjvRXlPc5bxPiIbGnl+aOeMsYqpjORclFcF82sdKfWpfoctyKUvfaPN9OUYA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331593; c=relaxed/simple;
-	bh=T9LPW9sKWJNoad54fQzJ0IRRrWXS67ixVlhkccyL/fc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AFvJmPtCyRKmnt/B7F0WtBrlM4aWdiMmYeXZEAI3SiK8Qzvop3oH1f6GUkGBCETMBx42gQTIJyzfRVAkavmQzXEKYT/c12Spu6hWPpVxOkwIY+sF/XIKzgj1EqqEpWKr1AommA9em7vw++bm+0bEspJSSbyfTumaDR+KVDPRvO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PY6bP1Zz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h4aKDGRy; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1790331751; c=relaxed/simple;
+	bh=nqnQLBKHno6gKYYM9XNFtLYJdRGkVDekf39b8GX99v8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ggl6by6vfhTXvWv1kJFXtcE6sgr2TperA2GuBR0M2pYBMsnpICNeyvBAQO/3vw+s14EYvmD1HFAq2alZbJXLotmgEE9oZfTOfmk3tEKJj26O13DZcb442cLtTr3oXedbAkC/BsZxnVwnSnF6atBgis5zpuUgi4bzlacPOUEZr8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mbJjYkt3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kZV/ijtO; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PY6bP1Zz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h4aKDGRy"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YYQl208416
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:19:51 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mbJjYkt3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kZV/ijtO"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4Z6kN1195003
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:22:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Xf2vfOTw6OghVgtOTKpyAIz/SPmCktUBeB9H5JkyO5o=; b=PY6bP1Zzy2OI54b0
-	eWYPEApLj86npiYiybzhCFTCpCb9qWv9ruDWWfe1R1XKtQ7Mb9VfsN+xNrDPEy56
-	IpcSD7+WfwSBKyFCDFTfASl6nmJ2o9TBj2wNqSvyamFgiKaIicX1qxZqbG43QlBd
-	8azz0qVVLYKgXKkeED6fiV9lnaxyxqAhCgVZFvamdU1EEfgwlFslctY4Vo09gN2z
-	YSMxo2KMMS42jmOLP/C3E1gPzciBCELZitxg5/3V0ZT9Iob0ScCtPsuZz3oMgHhQ
-	iE4UYlZ7shWxLlLkXs7J9e81MCLuSPlTwuLB6tbJoRKbA3Y3oZUEM2ZHEEpKndiD
-	UGHcdg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw898u2p8-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=uyQKB1E62YP/fNu85EfC3+
+	zQYXWoAArsTWIrAThf3xc=; b=mbJjYkt3DoofdNu6j5tZeBFLB50HWnGZSaIAGi
+	q7LwkM39c3QzVDhBXQWA+XR+dAPKUhJPN+20qvacqNFN5BrcJeSqLSJ13dSWD9Fu
+	zJSIG4b7/I9u0GjSZEm5Ul2qasv/ph6wcYEYRi1gHZNnYWFYSjv/pvwt9i/aaKDA
+	HLWgCnZfLqcG8wWDaYFiye37vb4BgBnRRL78irZ66EeWABmTQlTR8PjCwVW+8hvd
+	9u3nR8np3CPxQwwXxjS3aJ5MCiapWg6+s1q06UzeyINBJjMoLmODlwIPWsS/XbtS
+	48u24Ru/NjXvvenXTK3I5YTvik/dCqT9TvSCbgG1t4c2p4ug==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw874k1as-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:19:51 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-930a312222dso11211085a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:19:51 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:22:28 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a1de6d5c3so167989785a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:22:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790331590; x=1790936390; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xf2vfOTw6OghVgtOTKpyAIz/SPmCktUBeB9H5JkyO5o=;
-        b=h4aKDGRyhIMTPGYhTNTgXRoS8ccQ32fbsaZMX3Ez6D/CPkvSNI6AmtwYgPKpZicGXa
-         HMr1t4/d0tt0uDC9/Qb0kfaHQdUdRyva08CsnMYnG64ad8PeY5xRRYWjO3lLlCOFzn2W
-         8tZI2fZO4MDqcgYnWsPacTfoHd0ptpEJjRiUG8yGQn/1cYTPu3xzsrsbUculwJqoLBV5
-         1mAHz+T0ma5cXGwpn7dlfRJGmUEag25JYzEScqWXkUdlH8Z8aTtxqmmeRxeCaK6NdLHs
-         eOThRC0VywHYaAv8tUOZ8gV3CnkGbg7zKEkIwSAjjeyyrRAjAqz+JlCPXpeljRGVz7YJ
-         WR9Q==
+        d=oss.qualcomm.com; s=google; t=1790331748; x=1790936548; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uyQKB1E62YP/fNu85EfC3+zQYXWoAArsTWIrAThf3xc=;
+        b=kZV/ijtOuSOaEaEUGvO88b6N3uuFAvLXOPOD9Jw357zWDFXAqeSwh+fRWW2H6FGT8V
+         nAAlcqmD74kmwa5lbyFZnlPlLJZ69MArqqghhGa8pi8GD6wpPys23sSxxHLVN5mGDnJD
+         +mXfDKlZ8lSe9dfiwimrCVOQ7BHKQ/47fS2tVlbe0p0y2Hbm99a/qEg4icy9fvJ18YKS
+         ihuB7Rr280brbBB8mRVR7e8Wr4fqaeGBHn2tsf+KEUgUcudXQRgeiW0Ta1X4nfcDafOC
+         jQv5Nnz0X1YjtRfNxkQOVk6Q6nsI9jE19RwudOZlBeKeDbqHr3lysLLXmPjvQAHhyTZB
+         9K4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790331590; x=1790936390;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xf2vfOTw6OghVgtOTKpyAIz/SPmCktUBeB9H5JkyO5o=;
-        b=OeybLityHU6lYAi5ZCE98zIFuU5oimlJCkZt1L5aNYGL+7uQsumeFNjspz849mWAlJ
-         HW1BJ2Q2HTUQE3axyCcamffQ0vgw2lyShHTvz+/lwar5+6PP6Sbc9TZwEm9tr+gcn+f5
-         Ta5FlR3sU+zJbRtfBa6FVvdlTBV4v67hkDCjWGmOLjcUIjJp9eVb2JzENle14SfU/TsH
-         H+oNkVwYEAmWZDHqiA/7OwhxQ/mH9iUjiE3IOqZ3D0HqBJg/KzC70l+gKtz8OTftAWlW
-         cBoVY3s111ekZZFAOivRPCx2JNjRcwHEoqRX6rcwSmiwZ6lnee1viFiWqcm7pLaXj4Px
-         ymlA==
-X-Forwarded-Encrypted: i=1; AKwUvBxWrFZaVtaG0LKUnHr6gSU+UQ3HA6gMQOJJLDoAhHacwCOPoO/G6yzTMVMlF7WukL2q21qDBnZH0JFSpp4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMbkjNHSK71SPjooz8loml4kgrBOjYJH4ydbwTGwuuidHqVDmA
-	KgXJSJqZzXmJTiDHTwc8D4odbAnnE8oGYk0z0xYD1/kc0ocm23yuRHkAZdP6RjtHLL3V9DfibiM
-	Yp+OzxVrfe8FO4xKKDdWfDEOrzZ2e3Te1jWtwN6DcKzB6rCyAub/F3ta/Afj8wimycWk=
-X-Gm-Gg: AYBFou2OlM5I9ZY0twmX9R71wWsIzoFfBKPfUXVwEToHK1kpC/bRwQeqk/rz3baaBqa
-	tf6cFlwEIUCOhzhQZpDdW9cQsyqMYfgw2U97H3KxIe8uoKJaMt9da23ClIi/D/UXxcU8DuPTjYp
-	2/1f0fFi0drJTw6Fspqyfi115JPAeLmR+LYUyviOPJtRMOSBDZAj7Yokn+z7rjjJKmbyOmgRQGq
-	bz5r6cBemcmRgw0vaq53BJak2kNq9vF/NLsus/KWvapEGPP0wnJwiYs9JUgIAouNvnyd2orwQGl
-	8wqJATSsQnX+Yhlf0tduCFdH2jH2C1CFmxOX8yMQW48nSiUR06/lzu6r2lHjGqM8PkfFNDwlBct
-	hGT6xZGT0yGfc4oBbP6sh4w==
-X-Received: by 2002:a05:620a:838d:b0:93b:e9b2:3f97 with SMTP id af79cd13be357-93c43ebbefbmr309667385a.4.1790331590015;
-        Fri, 25 Sep 2026 03:19:50 -0700 (PDT)
-X-Received: by 2002:a05:620a:838d:b0:93b:e9b2:3f97 with SMTP id af79cd13be357-93c43ebbefbmr309664785a.4.1790331589559;
-        Fri, 25 Sep 2026 03:19:49 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae74815easm93578766b.23.2026.09.25.03.19.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 03:19:48 -0700 (PDT)
-Message-ID: <a5c84bc4-8848-44cc-bfbd-97878c3fb088@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 12:19:42 +0200
+        d=1e100.net; s=20260707; t=1790331748; x=1790936548;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=uyQKB1E62YP/fNu85EfC3+zQYXWoAArsTWIrAThf3xc=;
+        b=Ntv1YeaRy6PeEAZvL8OXGLjxuuQDoOsBOIONxE68BlJRBwVBWZ3m08CO1oIPecqnEZ
+         D/KSRgMTQAfCQPiI4151CnfWVc2vu6PFuGxT4PeRy9HX1avaNPlB2CC+OkQi7EQYH+RH
+         Zguz2c8Z3B7AC+APbNXTPlFMU6+iGV2cXL5EawUxX71wmyYYf4wExL0FyjmL+/E22K0I
+         ld00S/SkTaN9+UtCgXfVZ9nXO3qfx//k4IeTrRQ/ejmHzHyGTn5TqaIvyBcW9Zec7pdK
+         /tvQWP2hu+9y8pIDM7sNG1RQb9luVjww0WzmUpCqAmzxbnNFz/kAeOioBXnweR6SIege
+         1dHA==
+X-Gm-Message-State: AFuF++ljtAR5IOC04RcnzQg1ldtMZ/l0vacx/kwAJjpFsVsp+8Z+OsF/
+	qsV3iZkcbnAge5pUb93EidQH100jnyiCSikFhvWJYqxP5VexeGticATUJwf+msAn4ktNJqPnAVx
+	iFLrhtBmaYeHBvbWx24OdR5JFb2BbGaJP2w2wZtgOmEbkkA0tn5REak6idsCmyA7IaMU=
+X-Gm-Gg: AYBFou2PWDt/HQTxuUrK7eOGMEQFOD8zT4uQn4l+53CtZc4nyOzUym5TD1S31S0+v+D
+	ce22U/tn4f4jndC+oAbaAW2RsqzcuJquPuU84iwK76FMvn9u3b5wlZFIyghOIH8Z8v7GlMtArYW
+	dX5/1eo+7Pht7czv07g8Ohc5TVyrULAbbi5KMRuw32C8WAq9zqhoPmbEPiM/idsUyyCJK8QTRuu
+	UymWGVaxK+UX2gG834IeU3bwnv/4179rJtcgEorq44Ky2S14pWzAF9vm9SV1hTIGWYCe1H8I1cU
+	1SNnz7gSElS0BgEcytS5CCFG1arBIFcDiNGAcHPiq8N43UBpL8YKrVkjFQEXmXfa1g7i+LUWcFL
+	5t5oRYnlaW3sVYHLBKe5guZnBcph7
+X-Received: by 2002:a05:620a:468c:b0:92e:5d44:73fc with SMTP id af79cd13be357-93c43cc5819mr362647485a.12.1790331747573;
+        Fri, 25 Sep 2026 03:22:27 -0700 (PDT)
+X-Received: by 2002:a05:620a:468c:b0:92e:5d44:73fc with SMTP id af79cd13be357-93c43cc5819mr362643185a.12.1790331747067;
+        Fri, 25 Sep 2026 03:22:27 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:bde1:52f9:d7f0:c581])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef4fc959sm55071025e9.2.2026.09.25.03.22.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 03:22:26 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 12:22:15 +0200
+Subject: [PATCH RFC] gpio: move intel drivers into their own directory
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] drm/msm/a8xx: Add Mahua GPU support
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jie Zhang <jie.zhang@oss.qualcomm.com>
-References: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com>
- <20260925-mahua-gpu-v1-3-0fa0bfd8d315@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260925-mahua-gpu-v1-3-0fa0bfd8d315@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA0MSBTYWx0ZWRfX1b+ADDPjm9Mt
- x0GPTbBEMmz7IoNyKm/JunlIaJDvLZ5ABCcMj8wXMOKX6dzSFLNijqTtaJs7BTTYepYBR08seoe
- P6Z9UPH9KaahIkMt4B/hC6Go8iwEa+Gd9at+E6MoG3K02litFa/5FyyAKuYhSrZPUc3o1gRsv1A
- V0VGtNkAj7HZ9mD/HycGv6ju/y8yeO+9t0aW4TzaBNntEI6TF7ediELYEO4EyqSfumfC21Hr1l9
- kChwKr5Hp21kfxU5Ce24bklQG9zypk7g1JMe76eIUDmEAIK5ilqbzZQXg9zD+J6zVuOI7wP/oRy
- 7iMHuXgAu1LXR7zb0BbsoWm/tyEuJl0lScArapSOZ/f+DYCsLlncj4wK4YbOHZPdDCmlZMPymyr
- Zpag/xRotOGp0tPaF+o5OS2YN36HjAZ/Rr3QUgsY7E52Z4WfyUZQ1aZloWFokY7iGNqYA+YL78d
- T0m8zzgfA/gEAUJ/xqQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA0MSBTYWx0ZWRfX5iSDf1MFw384
- O2iHXnxOyceACzFhFc+HB+fVS7A0q5Z86zHQO1xiqcKAskavWZdYt06S0To00PUKVX7mNT83KBj
- pS7d5sDoXJu5lKw0+1EPa/bVXoJ6OeY=
-X-Proofpoint-GUID: vEcSvCfu6-oE8hRD78tHn6RRQcBnO1Yw
-X-Proofpoint-ORIG-GUID: vEcSvCfu6-oE8hRD78tHn6RRQcBnO1Yw
-X-Authority-Analysis: v=2.4 cv=EJWTQFZC c=1 sm=1 tr=0 ts=6ab64ac7 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=QDjCMyA0A8yHJihhU1wA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
+Message-Id: <20260925-gpio-organize-by-vendor-v1-1-8feefd60581b@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAFZLtmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyNT3fSCzHzd/KL0xLzMqlTdpErdstS8lPwi3WRjixRjk8RU09RkUyW
+ g7oKi1LTMCrDJ0UpBbs5KsbW1AC14S0duAAAA
+X-Change-ID: 20260925-gpio-organize-by-vendor-c38d34ae5ec5
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>,
+        Lixu Zhang <lixu.zhang@intel.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
+        Mika Westerberg <westeri@kernel.org>,
+        Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
+        Hans de Goede <hansg@kernel.org>,
+        Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13804;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=nqnQLBKHno6gKYYM9XNFtLYJdRGkVDekf39b8GX99v8=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqtktcC5sP4GMuwIWei1QK1DpxwZKuxHJVfJhWl
+ Y8egUIAHsWJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarZLXAAKCRAFnS7L/zaE
+ w2iUD/90qG0u87l/DwcK7lgRhvor02QAWz1h3Sf/7PnUGJXGj/9ech4eGk8CbaJNIuuMUAn9PoY
+ EF+zELX2OPq3QEzLgbUHgG2vjpvEB2QG+YeGGkGvIajHoJnp3wcztzekqcGc19P/oZ2KVLWJ5/c
+ Ny74jE8q+1v8YAYXwEZ80nEUKd+Qt/OcLvtYenU68t/6yeXk2oI52pvIQgvLmXMpsOOmEiqq/Kd
+ HUMPOkpLSz6PIUXRBYrTaEUnmYcIAps1MxNDFjqWkZKOwrAx6Ff54YDfTeKyN2hs4vyfhD/bkkz
+ Mm++OftjRGr22ZoSZe/7HVSk6DXGxfyM/H4bdUpgwRmQSY9KmxiwkwcuXdoaSMktvxrWVXbc2wM
+ stwRIXPd7/4YF/Gf+m+wT35mpi41BCK0Mu+YXahTXXBSHcVZs2avHB0Uiu7EQ3ySIHxvQhdK88i
+ irCE0fNz8aaCu+7cV/mosi/kJE0/EufD/tqazv7f1BJIMSUldDqdnl0pWIj34v6C7UwE2O73KRt
+ E5h6QHfwOEb6xBZRxj1ud8j79Ee8QYfFoyAdGl2KkxevCF9XvrmHAf9bFPSOjjrY3jHaWfJ5xza
+ LRrlAqTSQmbyZQPtB44zZboNKFy7tADoEylrCaJbJNQxEx8A0lti6pFtxgM/6PMkNVn4ccA3EDl
+ asjGdzk8/hL2ktA==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-ORIG-GUID: dh10QLIr5Oi-5s4Utj3mNZdpjxKQRG3o
+X-Authority-Analysis: v=2.4 cv=MI71C8Zl c=1 sm=1 tr=0 ts=6ab64b64 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=Byx-y9mGAAAA:8
+ a=XwzLNDupwSXTBgz851UA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA0MSBTYWx0ZWRfX47oltCdlrUIy
+ bCkaUnoRQu3evx6HsUqaT+odONIOWB37mHvsMYzlcJ+HIgDpE48xbHfpMRtIzYeXURrAx21FkkG
+ O+OmPk/v2lQAUINELsV3YxutNtJ1gIXqDUPDIx4E0cjej11zvwT/b8AJftHWDFgZlWxWVz9PYDD
+ z3TbhkhEvcq4Rth3GsWeRxN7y09QCAW/GmnUtHVt0rrx+rE1ZKM5BrHbX2AJaPWNXEUOSCI1g/t
+ l3t3ObjtUetZMMc9I6v9xbaGX7X44sMcGmNR6Ar9JKiHe1qibidTSvZKpmV210QsCFktJV9Hm1+
+ /Qmja5HKpARiBiKTlrlWgkVyuJOt1bwrkaE27qKwlsmTTgHCq+UJQUawPfxvCAFdcy6Wyw+USC9
+ tJVpjBnQdtJFjzHiOOb69Gh2McFmFHiot4VyD0RTqWlTcYdSJFCeL8ylldB8nk2wKlkINbKfhgI
+ wgT232L38sqYWGV8oKA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA0MSBTYWx0ZWRfX8btcBWjJ/S1R
+ BGp3fvYb3XDgYM43q0b7VZ2Fi94esmLp6J6YlyDmnToCq0WAf/VH2ajIF0olQUO2L1MOF14NXRU
+ Ly3/g6k0hOENoS2ZLBhOiwbNf/sLq5w=
+X-Proofpoint-GUID: dh10QLIr5Oi-5s4Utj3mNZdpjxKQRG3o
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 suspectscore=0 impostorscore=0 bulkscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609250041
+ suspectscore=0 malwarescore=0 clxscore=1015 spamscore=0 priorityscore=1501
+ impostorscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250041
 
-On 9/24/26 11:14 PM, Akhil P Oommen wrote:
-> From: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> 
-> Add support for Adreno X2-85 GPU present in Mahua SoC. This GPU is a
-> smaller version of Glymur GPU with fewer slices and smaller internal
-> memories, but shares the same register layout. Also, the GMU chipid is
-> different when compared to Glymur's GPU. Add a new catalog entry to
-> support this GPU.
-> 
-> Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
+In order to avoid maintainer mistakes on patch ownership: move all the
+Intel drivers into their own dedicated directory under
+drivers/gpio/intel. Don't touch Kconfig options as we historically sort
+GPIO drivers by type, not by vendor.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+I've repeatedly been queuing patches that are Intel GPIO maintainers'
+territory becuase I don't rememember all the intel GPIO driver names. In
+order to avoid such mistakes in the future, I'm proposing to move Intel
+drivers into their own directory. Other vendors may follow.
 
-Konrad
+I wasn't sure about gpio-ixp4xx.c and gpio-pxa.c, let me know if they
+should go in there as well.
+---
+ MAINTAINERS                                     | 29 +++++++++++++------------
+ drivers/gpio/Makefile                           | 17 +++------------
+ drivers/gpio/intel/Makefile                     | 16 ++++++++++++++
+ drivers/gpio/{ => intel}/gpio-crystalcove.c     |  0
+ drivers/gpio/{ => intel}/gpio-elkhartlake.c     |  0
+ drivers/gpio/{ => intel}/gpio-graniterapids.c   |  0
+ drivers/gpio/{ => intel}/gpio-ich.c             |  0
+ drivers/gpio/{ => intel}/gpio-ljca.c            |  0
+ drivers/gpio/{ => intel}/gpio-merrifield.c      |  0
+ drivers/gpio/{ => intel}/gpio-ml-ioh.c          |  0
+ drivers/gpio/{ => intel}/gpio-novalake-events.c |  0
+ drivers/gpio/{ => intel}/gpio-pch.c             |  0
+ drivers/gpio/{ => intel}/gpio-sch.c             |  0
+ drivers/gpio/{ => intel}/gpio-sodaville.c       |  0
+ drivers/gpio/{ => intel}/gpio-tangier.c         |  0
+ drivers/gpio/{ => intel}/gpio-tangier.h         |  0
+ drivers/gpio/{ => intel}/gpio-usbio.c           |  0
+ drivers/gpio/{ => intel}/gpio-wcove.c           |  0
+ 18 files changed, 34 insertions(+), 28 deletions(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9765e8a72dc78a8f2aee6a6f00f7b5f729b1f457..e68cb1774f8c93facf9e18167d8a45ce941a68b1 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13292,23 +13292,24 @@ M:	Andy Shevchenko <andy@kernel.org>
+ L:	linux-gpio@vger.kernel.org
+ S:	Supported
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/andy/linux-gpio-intel.git
+-F:	drivers/gpio/gpio-elkhartlake.c
+-F:	drivers/gpio/gpio-graniterapids.c
+-F:	drivers/gpio/gpio-ich.c
+-F:	drivers/gpio/gpio-merrifield.c
+-F:	drivers/gpio/gpio-ml-ioh.c
+-F:	drivers/gpio/gpio-pch.c
+-F:	drivers/gpio/gpio-sch.c
+-F:	drivers/gpio/gpio-sodaville.c
+-F:	drivers/gpio/gpio-tangier.c
+-F:	drivers/gpio/gpio-tangier.h
++F:	drivers/gpio/intel/gpio-crystalcove.c
++F:	drivers/gpio/intel/gpio-elkhartlake.c
++F:	drivers/gpio/intel/gpio-graniterapids.c
++F:	drivers/gpio/intel/gpio-ich.c
++F:	drivers/gpio/intel/gpio-merrifield.c
++F:	drivers/gpio/intel/gpio-ml-ioh.c
++F:	drivers/gpio/intel/gpio-pch.c
++F:	drivers/gpio/intel/gpio-sch.c
++F:	drivers/gpio/intel/gpio-sodaville.c
++F:	drivers/gpio/intel/gpio-tangier.c
++F:	drivers/gpio/intel/gpio-tangier.h
+ 
+ INTEL GPIO GPE DRIVER
+ M:	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
+ R:	Mika Westerberg <westeri@kernel.org>
+ L:	linux-gpio@vger.kernel.org
+ S:	Supported
+-F:	drivers/gpio/gpio-novalake-events.c
++F:	drivers/gpio/intel/gpio-novalake-events.c
+ 
+ INTEL GVT-g DRIVERS (Intel GPU Virtualization)
+ R:	Zhenyu Wang <zhenyuw.linux@gmail.com>
+@@ -13475,7 +13476,7 @@ INTEL LA JOLLA COVE ADAPTER (LJCA) USB I/O EXPANDER DRIVERS
+ M:	Lixu Zhang <lixu.zhang@intel.com>
+ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+ S:	Maintained
+-F:	drivers/gpio/gpio-ljca.c
++F:	drivers/gpio/intel/gpio-ljca.c
+ F:	drivers/i2c/busses/i2c-ljca.c
+ F:	drivers/spi/spi-ljca.c
+ F:	drivers/usb/misc/usb-ljca.c
+@@ -13709,7 +13710,7 @@ M:	Israel Cepeda <israel.a.cepeda.lopez@intel.com>
+ M:	Hans de Goede <hansg@kernel.org>
+ R:	Sakari Ailus <sakari.ailus@linux.intel.com>
+ S:	Maintained
+-F:	drivers/gpio/gpio-usbio.c
++F:	drivers/gpio/intel/gpio-usbio.c
+ F:	drivers/i2c/busses/i2c-usbio.c
+ F:	drivers/usb/misc/usbio.c
+ F:	include/linux/usb/usbio.h
+@@ -29736,7 +29737,7 @@ WHISKEYCOVE PMIC GPIO DRIVER
+ M:	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+ L:	linux-gpio@vger.kernel.org
+ S:	Maintained
+-F:	drivers/gpio/gpio-wcove.c
++F:	drivers/gpio/intel/gpio-wcove.c
+ 
+ WHWAVE RTC DRIVER
+ M:	Dianlong Li <long17.cool@163.com>
+diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+index ce56e9b3f55d62d077ff69a2e1f68ee229b55204..03059fcb066180d79032dde8b9cb5443857e6536 100644
+--- a/drivers/gpio/Makefile
++++ b/drivers/gpio/Makefile
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ # generic gpio support: platform drivers, dedicated expander chips, etc
+ 
+-ccflags-$(CONFIG_DEBUG_GPIO)	+= -DDEBUG
++subdir-ccflags-$(CONFIG_DEBUG_GPIO)	+= -DDEBUG
+ 
+ obj-$(CONFIG_GPIOLIB)		+= gpiolib.o
+ obj-$(CONFIG_GPIOLIB)		+= gpiolib-devres.o
+@@ -56,7 +56,6 @@ obj-$(CONFIG_GPIO_CGBC)			+= gpio-cgbc.o
+ obj-$(CONFIG_GPIO_CLPS711X)		+= gpio-clps711x.o
+ obj-$(CONFIG_GPIO_SNPS_CREG)		+= gpio-creg-snps.o
+ obj-$(CONFIG_GPIO_CROS_EC)		+= gpio-cros-ec.o
+-obj-$(CONFIG_GPIO_CRYSTAL_COVE)		+= gpio-crystalcove.o
+ obj-$(CONFIG_GPIO_CS5535)		+= gpio-cs5535.o
+ obj-$(CONFIG_GPIO_DA9052)		+= gpio-da9052.o
+ obj-$(CONFIG_GPIO_DA9055)		+= gpio-da9055.o
+@@ -65,7 +64,6 @@ obj-$(CONFIG_GPIO_DLN2)			+= gpio-dln2.o
+ obj-$(CONFIG_GPIO_DS4520)		+= gpio-ds4520.o
+ obj-$(CONFIG_GPIO_DWAPB)		+= gpio-dwapb.o
+ obj-$(CONFIG_GPIO_EIC_SPRD)		+= gpio-eic-sprd.o
+-obj-$(CONFIG_GPIO_ELKHARTLAKE)		+= gpio-elkhartlake.o
+ obj-$(CONFIG_GPIO_EM)			+= gpio-em.o
+ obj-$(CONFIG_GPIO_EN7523)		+= gpio-en7523.o
+ obj-$(CONFIG_GPIO_EP93XX)		+= gpio-ep93xx.o
+@@ -75,14 +73,12 @@ obj-$(CONFIG_GPIO_FTGPIO010)		+= gpio-ftgpio010.o
+ obj-$(CONFIG_GPIO_FXL6408)		+= gpio-fxl6408.o
+ obj-$(CONFIG_GPIO_GE_FPGA)		+= gpio-ge.o
+ obj-$(CONFIG_GPIO_GPIO_MM)		+= gpio-gpio-mm.o
+-obj-$(CONFIG_GPIO_GRANITERAPIDS)	+= gpio-graniterapids.o
+ obj-$(CONFIG_GPIO_GRGPIO)		+= gpio-grgpio.o
+ obj-$(CONFIG_GPIO_GW_PLD)		+= gpio-gw-pld.o
+ obj-$(CONFIG_GPIO_HISI)                 += gpio-hisi.o
+ obj-$(CONFIG_GPIO_HLWD)			+= gpio-hlwd.o
+ obj-$(CONFIG_HTC_EGPIO)			+= gpio-htc-egpio.o
+ obj-$(CONFIG_GPIO_I8255)		+= gpio-i8255.o
+-obj-$(CONFIG_GPIO_ICH)			+= gpio-ich.o
+ obj-$(CONFIG_GPIO_IDIO_16)		+= gpio-idio-16.o
+ obj-$(CONFIG_GPIO_IDT3243X)		+= gpio-idt3243x.o
+ obj-$(CONFIG_GPIO_IMX_SCU)		+= gpio-imx-scu.o
+@@ -92,7 +88,6 @@ obj-$(CONFIG_GPIO_JANZ_TTL)		+= gpio-janz-ttl.o
+ obj-$(CONFIG_GPIO_KEMPLD)		+= gpio-kempld.o
+ obj-$(CONFIG_GPIO_LATCH)		+= gpio-latch.o
+ obj-$(CONFIG_GPIO_LINE_MUX)		+= gpio-line-mux.o
+-obj-$(CONFIG_GPIO_LJCA) 		+= gpio-ljca.o
+ obj-$(CONFIG_GPIO_LOGICVC)		+= gpio-logicvc.o
+ obj-$(CONFIG_GPIO_LOONGSON1)		+= gpio-loongson1.o
+ obj-$(CONFIG_GPIO_LOONGSON)		+= gpio-loongson.o
+@@ -117,8 +112,6 @@ obj-$(CONFIG_GPIO_MAX77759)		+= gpio-max77759.o
+ obj-$(CONFIG_GPIO_MB86S7X)		+= gpio-mb86s7x.o
+ obj-$(CONFIG_GPIO_MC33880)		+= gpio-mc33880.o
+ obj-$(CONFIG_GPIO_MENZ127)		+= gpio-menz127.o
+-obj-$(CONFIG_GPIO_MERRIFIELD)		+= gpio-merrifield.o
+-obj-$(CONFIG_GPIO_ML_IOH)		+= gpio-ml-ioh.o
+ obj-$(CONFIG_GPIO_MLXBF)		+= gpio-mlxbf.o
+ obj-$(CONFIG_GPIO_MLXBF2)		+= gpio-mlxbf2.o
+ obj-$(CONFIG_GPIO_MLXBF3)		+= gpio-mlxbf3.o
+@@ -135,7 +128,6 @@ obj-$(CONFIG_GPIO_MXC)			+= gpio-mxc.o
+ obj-$(CONFIG_GPIO_MXS)			+= gpio-mxs.o
+ obj-$(CONFIG_GPIO_NCT6694)		+= gpio-nct6694.o
+ obj-$(CONFIG_GPIO_NOMADIK)		+= gpio-nomadik.o
+-obj-$(CONFIG_GPIO_NOVALAKE)		+= gpio-novalake-events.o
+ obj-$(CONFIG_GPIO_NPCM_SGPIO)		+= gpio-npcm-sgpio.o
+ obj-$(CONFIG_GPIO_OCTEON)		+= gpio-octeon.o
+ obj-$(CONFIG_GPIO_OMAP)			+= gpio-omap.o
+@@ -143,7 +135,6 @@ obj-$(CONFIG_GPIO_PALMAS)		+= gpio-palmas.o
+ obj-$(CONFIG_GPIO_PCA953X)		+= gpio-pca953x.o
+ obj-$(CONFIG_GPIO_PCA9570)		+= gpio-pca9570.o
+ obj-$(CONFIG_GPIO_PCF857X)		+= gpio-pcf857x.o
+-obj-$(CONFIG_GPIO_PCH)			+= gpio-pch.o
+ obj-$(CONFIG_GPIO_PCIE_IDIO_24)		+= gpio-pcie-idio-24.o
+ obj-$(CONFIG_GPIO_PCI_IDIO_16)		+= gpio-pci-idio-16.o
+ obj-$(CONFIG_GPIO_PISOSR)		+= gpio-pisosr.o
+@@ -166,21 +157,18 @@ obj-$(CONFIG_GPIO_RTD1625)		+= gpio-rtd1625.o
+ obj-$(CONFIG_ARCH_SA1100)		+= gpio-sa1100.o
+ obj-$(CONFIG_GPIO_SAMA5D2_PIOBU)	+= gpio-sama5d2-piobu.o
+ obj-$(CONFIG_GPIO_SCH311X)		+= gpio-sch311x.o
+-obj-$(CONFIG_GPIO_SCH)			+= gpio-sch.o
+ obj-$(CONFIG_GPIO_SHARED_PROXY)		+= gpio-shared-proxy.o
+ obj-$(CONFIG_GPIO_SIFIVE)		+= gpio-sifive.o
+ obj-$(CONFIG_GPIO_SIM)			+= gpio-sim.o
+ obj-$(CONFIG_GPIO_SIOX)			+= gpio-siox.o
+ obj-$(CONFIG_GPIO_SL28CPLD)		+= gpio-sl28cpld.o
+ obj-$(CONFIG_GPIO_SLOPPY_LOGIC_ANALYZER) += gpio-sloppy-logic-analyzer.o
+-obj-$(CONFIG_GPIO_SODAVILLE)		+= gpio-sodaville.o
+ obj-$(CONFIG_GPIO_SPACEMIT_K1)		+= gpio-spacemit-k1.o
+ obj-$(CONFIG_GPIO_SPEAR_SPICS)		+= gpio-spear-spics.o
+ obj-$(CONFIG_GPIO_SPRD)			+= gpio-sprd.o
+ obj-$(CONFIG_GPIO_STMPE)		+= gpio-stmpe.o
+ obj-$(CONFIG_GPIO_STP_XWAY)		+= gpio-stp-xway.o
+ obj-$(CONFIG_GPIO_SYSCON)		+= gpio-syscon.o
+-obj-$(CONFIG_GPIO_TANGIER)		+= gpio-tangier.o
+ obj-$(CONFIG_GPIO_TB10X)		+= gpio-tb10x.o
+ obj-$(CONFIG_GPIO_TC3589X)		+= gpio-tc3589x.o
+ obj-$(CONFIG_GPIO_TEGRA186)		+= gpio-tegra186.o
+@@ -211,7 +199,6 @@ obj-$(CONFIG_GPIO_VISCONTI)		+= gpio-visconti.o
+ obj-$(CONFIG_GPIO_VX855)		+= gpio-vx855.o
+ obj-$(CONFIG_GPIO_WAVESHARE_DSI_TOUCH)	+= gpio-waveshare-dsi.o
+ obj-$(CONFIG_GPIO_WCD934X)		+= gpio-wcd934x.o
+-obj-$(CONFIG_GPIO_WHISKEY_COVE)		+= gpio-wcove.o
+ obj-$(CONFIG_GPIO_WINBOND)		+= gpio-winbond.o
+ obj-$(CONFIG_GPIO_WM831X)		+= gpio-wm831x.o
+ obj-$(CONFIG_GPIO_WM8350)		+= gpio-wm8350.o
+@@ -226,3 +213,5 @@ obj-$(CONFIG_GPIO_XTENSA)		+= gpio-xtensa.o
+ obj-$(CONFIG_GPIO_ZEVIO)		+= gpio-zevio.o
+ obj-$(CONFIG_GPIO_ZYNQ)			+= gpio-zynq.o
+ obj-$(CONFIG_GPIO_ZYNQMP_MODEPIN)	+= gpio-zynqmp-modepin.o
++
++obj-y					+= intel/
+diff --git a/drivers/gpio/intel/Makefile b/drivers/gpio/intel/Makefile
+new file mode 100644
+index 0000000000000000000000000000000000000000..b1dc40f21f4b33e33522acaefd2dd4adbd6c0f00
+--- /dev/null
++++ b/drivers/gpio/intel/Makefile
+@@ -0,0 +1,16 @@
++# SPDX-License-Identifier: GPL-2.0
++
++obj-$(CONFIG_GPIO_CRYSTAL_COVE)		+= gpio-crystalcove.o
++obj-$(CONFIG_GPIO_ELKHARTLAKE)		+= gpio-elkhartlake.o
++obj-$(CONFIG_GPIO_GRANITERAPIDS)	+= gpio-graniterapids.o
++obj-$(CONFIG_GPIO_ICH)			+= gpio-ich.o
++obj-$(CONFIG_GPIO_LJCA)			+= gpio-ljca.o
++obj-$(CONFIG_GPIO_MERRIFIELD)		+= gpio-merrifield.o
++obj-$(CONFIG_GPIO_ML_IOH)		+= gpio-ml-ioh.o
++obj-$(CONFIG_GPIO_NOVALAKE)		+= gpio-novalake-events.o
++obj-$(CONFIG_GPIO_PCH)			+= gpio-pch.o
++obj-$(CONFIG_GPIO_SCH)			+= gpio-sch.o
++obj-$(CONFIG_GPIO_SODAVILLE)		+= gpio-sodaville.o
++obj-$(CONFIG_GPIO_TANGIER)		+= gpio-tangier.o
++obj-$(CONFIG_GPIO_USBIO)		+= gpio-usbio.o
++obj-$(CONFIG_GPIO_WHISKEY_COVE)		+= gpio-wcove.o
+diff --git a/drivers/gpio/gpio-crystalcove.c b/drivers/gpio/intel/gpio-crystalcove.c
+similarity index 100%
+rename from drivers/gpio/gpio-crystalcove.c
+rename to drivers/gpio/intel/gpio-crystalcove.c
+diff --git a/drivers/gpio/gpio-elkhartlake.c b/drivers/gpio/intel/gpio-elkhartlake.c
+similarity index 100%
+rename from drivers/gpio/gpio-elkhartlake.c
+rename to drivers/gpio/intel/gpio-elkhartlake.c
+diff --git a/drivers/gpio/gpio-graniterapids.c b/drivers/gpio/intel/gpio-graniterapids.c
+similarity index 100%
+rename from drivers/gpio/gpio-graniterapids.c
+rename to drivers/gpio/intel/gpio-graniterapids.c
+diff --git a/drivers/gpio/gpio-ich.c b/drivers/gpio/intel/gpio-ich.c
+similarity index 100%
+rename from drivers/gpio/gpio-ich.c
+rename to drivers/gpio/intel/gpio-ich.c
+diff --git a/drivers/gpio/gpio-ljca.c b/drivers/gpio/intel/gpio-ljca.c
+similarity index 100%
+rename from drivers/gpio/gpio-ljca.c
+rename to drivers/gpio/intel/gpio-ljca.c
+diff --git a/drivers/gpio/gpio-merrifield.c b/drivers/gpio/intel/gpio-merrifield.c
+similarity index 100%
+rename from drivers/gpio/gpio-merrifield.c
+rename to drivers/gpio/intel/gpio-merrifield.c
+diff --git a/drivers/gpio/gpio-ml-ioh.c b/drivers/gpio/intel/gpio-ml-ioh.c
+similarity index 100%
+rename from drivers/gpio/gpio-ml-ioh.c
+rename to drivers/gpio/intel/gpio-ml-ioh.c
+diff --git a/drivers/gpio/gpio-novalake-events.c b/drivers/gpio/intel/gpio-novalake-events.c
+similarity index 100%
+rename from drivers/gpio/gpio-novalake-events.c
+rename to drivers/gpio/intel/gpio-novalake-events.c
+diff --git a/drivers/gpio/gpio-pch.c b/drivers/gpio/intel/gpio-pch.c
+similarity index 100%
+rename from drivers/gpio/gpio-pch.c
+rename to drivers/gpio/intel/gpio-pch.c
+diff --git a/drivers/gpio/gpio-sch.c b/drivers/gpio/intel/gpio-sch.c
+similarity index 100%
+rename from drivers/gpio/gpio-sch.c
+rename to drivers/gpio/intel/gpio-sch.c
+diff --git a/drivers/gpio/gpio-sodaville.c b/drivers/gpio/intel/gpio-sodaville.c
+similarity index 100%
+rename from drivers/gpio/gpio-sodaville.c
+rename to drivers/gpio/intel/gpio-sodaville.c
+diff --git a/drivers/gpio/gpio-tangier.c b/drivers/gpio/intel/gpio-tangier.c
+similarity index 100%
+rename from drivers/gpio/gpio-tangier.c
+rename to drivers/gpio/intel/gpio-tangier.c
+diff --git a/drivers/gpio/gpio-tangier.h b/drivers/gpio/intel/gpio-tangier.h
+similarity index 100%
+rename from drivers/gpio/gpio-tangier.h
+rename to drivers/gpio/intel/gpio-tangier.h
+diff --git a/drivers/gpio/gpio-usbio.c b/drivers/gpio/intel/gpio-usbio.c
+similarity index 100%
+rename from drivers/gpio/gpio-usbio.c
+rename to drivers/gpio/intel/gpio-usbio.c
+diff --git a/drivers/gpio/gpio-wcove.c b/drivers/gpio/intel/gpio-wcove.c
+similarity index 100%
+rename from drivers/gpio/gpio-wcove.c
+rename to drivers/gpio/intel/gpio-wcove.c
+
+---
+base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
+change-id: 20260925-gpio-organize-by-vendor-c38d34ae5ec5
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
