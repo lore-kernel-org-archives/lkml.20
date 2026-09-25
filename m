@@ -1,96 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40821272E56;
-	Fri, 25 Sep 2026 02:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF4E38553F
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:35:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790303645; cv=none; b=IhgkRp5qYW+OyRS0iHhjY0mECUnwu/pQ+5DOp1ESemz2JRD/zch9M2eHI8MC6Nv7kl4wZfCCp3FkqCVgPHFxj52qLk4UELAiq6XLPz2PCcPhQ2PRmsMc5QzPJjv0R/0wZ+frrvrK0/F+qk9nN+4XK4dpWaOeyUHuho6UHtfp0lg=
+	t=1790303725; cv=none; b=ilVGIV+91VVcSBM2JUD0q0dlT26bj4XIhCA1P7KFDOAz4mJ4AIPVJQTXJDMDrE2FF/QyvBRVRv8NkGQKBJwPtefdhxP7cMbHKtTlXl8CyRyc2bgIQtr/srNjdkZTcRozdrrWT3oJGEDgSF0qsbv2OdAmJL91uF1ud5O4dmbu6z0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790303645; c=relaxed/simple;
-	bh=TeeSQ9fFDyZAdqdO/I4zMXTqUaGGx6p5rjMz1ysnSxo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VFIfxFGNpiLv4mAAF72qyy3CpLdLO2RCPmlhy0TpKhaUtZIEVyoUPGrU/5K7TYnAlmrETn3BVhT7mNrWozZUfRrAvQ+zCIaxPlpQvcIkjlynZbyk8vJHStaQPVlgITrWsyeU1FsVpviUUD3mmu7WSxkzb0MtF5oJh6XVnl1jgZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/3igz5K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790303725; c=relaxed/simple;
+	bh=mzoEsAc2Sr91/I0SgoFP1CmTbLAMnntKENmE31N2EC8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jSTSr4nppk2DRYVe0SmsHS2UMDyFf41x3/7Mi//46J4v52R0v5LWZU82kYvUI1O7U+FLJZBRpHGsOC+N1b68uzb0r0VPWDdATBzCVE1QltKPcCbwpGX64kgWx1J7ZjpnO0/6tCYoM33w9RV0HmXkPIANUG4eBtGLxSBQqaJWaf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LDIvft/t; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/3igz5K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6941F000FF;
-	Fri, 25 Sep 2026 02:34:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790303643;
-	bh=h/+yYx+0xMAjB5zvAyeuWLKVfnSZn30lN+aJajSHPuc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=R/3igz5KqCXx0IyN79B84PgVi6Da34kpI6nuuwXdPjsezNH47U9mz97HH2Zsvd2Xb
-	 wZlWZaua3y2JomIHHI3ZAVtfZnCl7oXf2ZjC4Ki3QqowCAYVNIsPJz12y4yA2ueZre
-	 4U8hUTFayuf8ABUhuSSRtnCm9JTPine99vjeG5gor7dS9tF7Qhw5xFOFHsH15fJtS7
-	 Nf6yrBChsZ4WiFdooLdEKZ0f3CkmKxJfHYquSek9xkLPCLCCSl/pwKWeAjM0lpcX2c
-	 M7UdI2lpTGX1Gw2HBhw9maGbrAli2eoaVaP6V27KM3IEU46s3EZYmQRaW8O+n3cOJQ
-	 bctVPiMTwYIQg==
-Date: Fri, 25 Sep 2026 03:33:55 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Prabhakar <prabhakar.csengg@gmail.com>, Cosmin Tanislav
- <cosmin-gabriel.tanislav.xa@renesas.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Magnus
- Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: renesas,r9a09g077-adc: Drop
- unwired interrupts
-Message-ID: <20260925033355.3137ea67@jic23-hlaptop>
-In-Reply-To: <CAMuHMdUX9s1q6SdrgiMciGfHYAvCp1kFzGYL4pHf7PzzipEPUw@mail.gmail.com>
-References: <20260921110144.44425-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-	<20260921110144.44425-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-	<CAMuHMdUX9s1q6SdrgiMciGfHYAvCp1kFzGYL4pHf7PzzipEPUw@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LDIvft/t"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c7e8a17839so75315e0c.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:35:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790303722; x=1790908522; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ABMyZuvqxUd+c3too9IAPvLCmxU7UkIesXzVqZa5J60=;
+        b=LDIvft/tV3wpf3QhyYh6QDYfh8F4t0/qiXGJfQyFRcw7SyP/OG2SMZ3gXRhsKdnZ5w
+         7A90/SeAD8FMTU/ni/LbiCs1Xl0YbKoYWD+jbcLxsFnA2+7C6LXlnCx6moEtmKeJuKIZ
+         0lYbVcWhNRd4Tvr6vjqbf2uCO5av3QXp28nYkEl0haKIfYP+2nWJHMWxt4TdymPDGEAS
+         p1e41F+AwBPWytzOhPcPi5bh77FWmR7gci8/zZiPDCBKX5FzkJ+fVnV8ayJ5LBfsITNh
+         J5Yf6fNfj1VTiBNtt7K2lXQNWpQH8pli2yNqDP4nOYMoGZR5VDezApADuKKLw2HF4EMF
+         H4Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790303722; x=1790908522;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ABMyZuvqxUd+c3too9IAPvLCmxU7UkIesXzVqZa5J60=;
+        b=JEaXFcP+u/50V0URhowTRJcp3SmXCNLG3kGsMJnUrjw2z1i2UFuNCGFbfmJufFTV5+
+         v7Hnw7I7/2GVpl/rxmzfmBnHuwLMPRKhpJhG/vJWVQ++WACXb16Aea3bpsxia3OSB5pe
+         xLTTbObJuWXkMiSvLepgZkA3JTwEnIU0cWCrila0EICXUf1KYSpx0bMTU3KMk4l4V18V
+         /9B/8XmSuu6/taVZSQA9NtRaO1zUiAHBK9I8O7ck+yJJoduIkfo2Wgs6HBAdkqd/Du5Y
+         bBdjSNJKj/rKiMgeJW7AB0A9XlpO+Mla89KuxPfCMDD9o3eii/rD+RHYYn9xMJ/Sm9py
+         8/IQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxIgXX77OfK6bl9odB8n5OHpNYG9quxYCl3F9Ua5isf3NOui7j0YegRdh0QLA7k43oE2JPyHt0VA4onMb4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCIPCdL/WIB57Cf4tQop0sMd/6Oggp+wmsQ9FXhNH+ZcQGGtSK
+	LAIC9zgLLZDNCdcUz5GT7uZCX/3XFmJPBhR1f+Nt4HTLlG2l1tgFmamLU7uWqlNf
+X-Gm-Gg: AYBFou3F9ZRhyAPJWz9/27YaphwhH3dW8g25ro5fu/DCSFd7271OMA7KijkAF+hCyao
+	pEi+qEShu9t044/kln4yRWRqZuuTOMiCZdGb6Bm5rwTfcLZTZU96rW+4uLGp4jjCbeI/EM9IJLM
+	tIYjJnAAoRPd87UFVL/ZGv2rpEkKy9uh2YD7ovu3YNoL/0iiKi/uIr903n6PStHvliPxpDI4GaC
+	3iHSG/cS4UN59j/i7iupsKEH64l5WGKbsKCXOFPjEhVjSrApZ4vsHZlQWOzo1SdlQkKNkcUW8Q6
+	6FZjM5JP5/g3lOgEaM9iIjspbnFMvxZVcU9/lpRyX25D2KvZCRMjPy+1XmzN+K58VkZRN2hRArw
+	QAmfPyN0w3T8iMYiK+T3uyG0CNDRjrgE6TowjeG3avGoHQ5sNkPVjRp+axMu1t1LqgnIeNyxuzb
+	JIOLQ7ooZBWAudkA5blQeEZrzqIqkb4av2TMCYghxItI29OY9H4agJ4uhr3fbJc1Q=
+X-Received: by 2002:a05:6102:3911:b0:79e:df6b:d2b6 with SMTP id ada2fe7eead31-7af1c483ba4mr1717243137.2.1790303722355;
+        Thu, 24 Sep 2026 19:35:22 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cc651999ecsm1303758e0c.12.2026.09.24.19.35.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 19:35:21 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH net] nfc: llcp: check socket state after locking in nfc_llcp_recv_dm()
+Date: Thu, 24 Sep 2026 23:35:09 -0300
+Message-ID: <20260925023509.3060096-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923133339.2518641-1-qwe.aldo@gmail.com>
+References: <20260923133339.2518641-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 22 Sep 2026 17:30:47 +0200
-Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+Between nfc_llcp_connecting_sock_get() and lock_sock(), another
+thread can move the socket from connecting_sockets to sockets via
+a failed connect + re-bind. After lock_sock(), the socket may no
+longer be in LLCP_CONNECTING state, so unconditionally unlinking
+from connecting_sockets corrupts the wrong list.
 
-> Hi Prabhakar,
-> 
-> Thanks for your patch!
-> 
-> On Mon, 21 Sept 2026 at 13:01, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Remove the compare match and compare mismatch interrupts from the binding,
-> > as these interrupts are not wired to the GIC on RZ/T2H and RZ/N2H SoCs
-> > according to the hardware manual Rev. 1.30.  
-> 
-> These are indeed only wired to the DMAC and Event Link Controller.
-> 
-> >
-> > While this change introduces an ABI break, the expected impact on existing
-> > users is minimal, if any, since the interrupts are not wired to the GIC
-> > and are not used by the driver.
-> >
-> > Fixes: 4d8d58987cb5 ("dt-bindings: iio: adc: document RZ/T2H and RZ/N2H ADC")
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>  
-> 
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-I'll assume the dt maintainers won't mind me merging a patch that
-drops stuff without a tag from them.
-Applied to the testing branch of iio.git which basically means queued for 7.4
+Add a state check after acquiring the socket lock: only unlink
+from connecting_sockets if the socket is still LLCP_CONNECTING.
 
-Thanks,
-Jonathan
+Fixes: bf1460acdf8c ("nfc: llcp: Fix list corruption / refcount desync in nfc_llcp_recv_dm()")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+ net/nfc/llcp_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-> 
-
+diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+index 74bf81700..acf113311 100644
+--- a/net/nfc/llcp_core.c
++++ b/net/nfc/llcp_core.c
+@@ -1326,7 +1326,7 @@ static void nfc_llcp_recv_dm(struct nfc_llcp_local *local,
+ 	 * corrupt the connecting_sockets list / desync the socket refcount.
+ 	 * This mirrors nfc_llcp_recv_cc().
+ 	 */
+-	if (connecting)
++	if (connecting && sk->sk_state == LLCP_CONNECTING)
+ 		nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
+ 
+ 	sk->sk_err = ENXIO;
+-- 
+2.43.0
