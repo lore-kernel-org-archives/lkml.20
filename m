@@ -1,98 +1,213 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514053B71C2;
-	Fri, 25 Sep 2026 16:18:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BF04D957A;
+	Fri, 25 Sep 2026 16:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790353115; cv=none; b=HdVSBzjfdciBM//6r/vnJEaFctNbExYyDFCzfUql/+PDV/onW3l431mMnssqe6EfEm3X8Tu/4gO+mT3Z/nccrBEvc43Gw3W/BsFR3Xvd55T/uJnXkkmUu6GBU1xKfboL9bFzEIC6l3pgu7bzhHqBcstEpr5U3ogp1ZXDiB6B9M4=
+	t=1790353183; cv=none; b=tXitdYDSdDlpfGuxU66iHIBfYcVdUxYVVFGCY/C6jkU0+yfck64QAhKjupa+xtpyrZp3CzUClKLn4KbfPW+K39uT5vTpgkHL463bnrQtlJP+533rO230qZI5tZ/3+LC/EB8u8qpoCU/qXf4XA5Y2tbc3lryInWTo7nPfaAPkUpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790353115; c=relaxed/simple;
-	bh=nepsMJqaqya+RdPsMR2Zx/r7D5TnbskzUdbNoW1W1nk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iJeUdD1aJGMxpIbXbFbu0xBgRsZt9OKbgEQAGh8Wmzw4f0h8RoMz2d12DHlldG4pYrht2cg98WuYYSOcRUCHJRMpZvk2/LP9kvXw78Fsqvqaw6K6+qilWH35/sjiO++DzJYVpVJ6y8/6g5nyY6r1fEl8pJuCL9S1wIEbf0zIqig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TJtFsT+P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790353183; c=relaxed/simple;
+	bh=7SPfgT3yxAtUy4/I7jtEfVht8qM404aP0hv4bacumsI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XOAepRxdSxtprP4ZMwY7Ei0CH+L/seic6DwQJpBTMSQw/MSmHtnuT636+w6EkOsvEF8jJQou+u/EBC9wNsEq/yyRIBoWQUc5N0TyHrtURc9clr9FiUgPB7y9eBw5Kca0upeLmEKmyMSSQKxCByp5y9oDe4Wfbl02C6huwoKrJAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HOWhbPX8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TJtFsT+P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38B0E1F000FF;
-	Fri, 25 Sep 2026 16:18:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HOWhbPX8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B98511F000FF;
+	Fri, 25 Sep 2026 16:19:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790353114;
-	bh=PFdr3oMOYugfvjblVBa0cuadRVP5302Yx+yU4gLdRmw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TJtFsT+PIpVihOdpT5yPjdbVMr8zBEWQQ5/N1fCJpBGNPm9qhXAIAxFpWDVd0Mp8Q
-	 3t73k72yJ30zV5Hp0cMVWhh/jrOn6TmaWIofuDeIvk8J5PtKE1Jf8mXGJFbn0ioj/3
-	 S1P+Z84/ygv1WtbV0ZfsAl8at7m8jlIihdFfRVy1t7AgyY/bNjUD7HrBCWMXFfGUg1
-	 VMnNkEt0N791uyUNsYFH5TfUTDP6NH6xWQ1nEoO0AtCIGcp3DX+6MzYoTy67rrrbeY
-	 mtQXtzPj5Zc+aXjQhBRzMTGblXSgpEmIH8VrKwapCqpn7sH50Nftls50GBqcdmBcFq
-	 FZ2dW5FW9jHfw==
-Date: Fri, 25 Sep 2026 17:18:29 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Weidong Wang <wangweidong.a@awinic.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Val Packett <val@packett.cool>
-Subject: Re: [PATCH 6/6] ASoC: codecs: aw88166: make volume control usable
-Message-ID: <d11d2b20-74ec-408c-bd06-765ccdea1504@sirena.org.uk>
-References: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
- <20260925-aw88166-cleanup-v1-6-11f74cb5fe28@gmail.com>
- <721467a7-6b7e-4234-8321-660eb43f1f9c@sirena.org.uk>
- <CALHNRZ-ofi9J6SZpKih5pogtH4aL_HDy3WmUQJ=w_nVd=YskTw@mail.gmail.com>
+	s=k20260515; t=1790353181;
+	bh=GUDwkH9+BOmXyNnZzKsLz6X0f0k83C9EHLFD/tQ4fMw=;
+	h=From:To:Cc:Subject:Date;
+	b=HOWhbPX8G08VpVlkwopza9PxKXeUNb46KCzqk01LFYmVlA8bCchZLIglDrD3Ge/xh
+	 SbgVc2/vuG6AnCmqg3DSaZ1bVc/utCKSxMz3YgXAlUUdT27XNO8Tvn+Pnu3YZuPeaH
+	 ak9RP4nFAnAiv0XvN6SsSqV8AY0f9FfijzFT69qs+wXbPgKFz5wwYyREOB2C/r0BPE
+	 pvRR1WtTLk0kZhA34W3ADJQbr20IxsXxZ9lAg+SShNFuBD8525jQ3gnWxsilAGb/is
+	 acaKl7Vg79G421vCUQt//2Xw7x/wADx9YCMICnLB5ON8+Rm/u7zeszhzl0kIYOb+P8
+	 6aY4e3FWUYq7g==
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL for v7.3] vfs fixes
+Date: Fri, 25 Sep 2026 18:19:27 +0200
+Message-ID: <20260925-vfs-7.3-rc5.fixes-924ff07b1ab1@brauner>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GLpr9e/E4qATSc7z"
-Content-Disposition: inline
-In-Reply-To: <CALHNRZ-ofi9J6SZpKih5pogtH4aL_HDy3WmUQJ=w_nVd=YskTw@mail.gmail.com>
-X-Cookie: Love America -- or give it back.
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6572; i=brauner@kernel.org; h=from:subject:message-id; bh=7SPfgT3yxAtUy4/I7jtEfVht8qM404aP0hv4bacumsI=; b=kA0DAAoWkcYbwGV43KIByyZiAGq2nxahE/tCKIIuMV//RZkIMSWvxODqcICxwPywSdhYFmX4C oh1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmq2nxYACgkQkcYbwGV43KIqCwD/e5iD l7RdSclmSYI+RpQskohVIomlbLa4myqmJ8xJWCkA/iUeMZ94Dym7UjdrkslEMb5vvrdh6WT5nn/ YhXKhR3oB
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
+Hey Linus,
 
---GLpr9e/E4qATSc7z
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+/* Summary */
 
-On Fri, Sep 25, 2026 at 11:05:42AM -0500, Aaron Kling wrote:
-> On Fri, Sep 25, 2026 at 9:18=E2=80=AFAM Mark Brown <broonie@kernel.org> w=
-rote:
-> > On Fri, Sep 25, 2026 at 02:47:34AM -0500, Aaron Kling via B4 Relay wrot=
-e:
+This contains fixes for the current development cycle:
 
-> > > - Invert the value to match userspace expectations (in the hardware,
-> > >   positive numbers represent negative dB attenuation)
+- Revert "put_mnt_ns(): leave mounts connected". This allows the
+  creation of reference count cycles in a very trivial way. We can't
+  bring this in until we have fixed the underlying cause.
 
-> > That's a very bad compatibility break, if anyone has a profile saved
-> > they might get excessively loud volume from their existing configuration
-> > which could be distressing.  It might be better to rename the control.
+- vfs: Don't create the private nullfs instance for kthreads under
+  namespace_sem to avoid false lockdeps complaints.
 
-> Mmm. At the risk of sounding like a broken record, is this any
-> different from the accepted aw88261 change? I wouldn't be specifically
-> opposed to a new control as my use case, Android, is very tightly
-> controlled and I can just update the audio config I ship. But more
-> standard Linux use cases that rely on a standardize control name would
-> be stuck with a non-standard inverted control forever.
+- binfmt_misc
 
-Why would renaming the control do that?
+  * Copy the name into a stack buffer and look up the copy in
+    bpf_binprm_select_interp().
 
---GLpr9e/E4qATSc7z
-Content-Type: application/pgp-signature; name="signature.asc"
+  * bpf_binprm_set_interp() and bpf_binprm_set_interp_arg(): Check the
+    private copy instead so the string that gets staged is the kstring
+    that was checked.
 
------BEGIN PGP SIGNATURE-----
+- netfs
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2ntQACgkQJNaLcl1U
-h9AcpQf/RBzYECiH4yBSUN+ZlMingxbhFajYAdk68KedZrEqPh1FuIo+12Mj3GfE
-gGQvGiaCMOGiPhTeBBgCoyjaznWbdtP8Sb5GA6M7tM9AP2tWmrALPbPZoDotBJ3m
-EkvpFMe/l35HhYceiNZgVagI+IPAcR4HOHK9ckx0vi4/agqbNyDaH8lPC5rNe6nR
-KjKCqQC/UJV6fSCLaaWpgk//J+Nv49nrddQ4j9TwBM50BSK5OuiExV2HrwR4OOVR
-LuCORLi5kqqQPuNXvU6aS1tMZL5pcDUPohsbTmv66AId4wUHB9SPiH9X1WHyvybk
-6t5JRtlTZDa6UTjOSMGdj9c4yKJzew==
-=wykq
------END PGP SIGNATURE-----
+  * Make netfs_read_gaps() use separate sink folios rather than one
+    reused sink folio to discard unwanted data so that cifs checksum
+    checking sees all the data that was fetched.
 
---GLpr9e/E4qATSc7z--
+  * Trim reads down to i_size so afs symlinks read correctly from the
+    cache.
+
+  * Wrap the direct mempool ->alloc() calls the GFP_KERNEL paths make
+    in alloc_hooks() via a new mempool_alloc_noreserve() helper.
+
+- iov_iter: Use iov_iter_alignment() for the start and length check
+  added to iov_iter_extract_bvecs() this cycle. It used iter_iov_addr()
+  and iter_iov_len() which are only valid for ITER_UBUF and ITER_IOVEC
+  iterators.
+
+- super: Make iterate_supers_type() deletion-safe.
+
+- inode: Stop evict_inodes() from rescanning the same inodes.
+
+- writeback: Bound the cleanup_offline_cgwb() rescans.
+
+- ntfs3: Use d_instantiate_new() in ntfs_create_inode().
+
+- ovl: Fix a use-after-free in the ovl_do_mkdir() debug print.
+
+- dcache: Unpoison the inline name buffer in __d_alloc() for KMSAN.
+
+- autofs: Fix a pipe file reference leak in autofs_kill_sb().
+
+- bpf: Drop the path_unlink and path_rmdir hooks from the list of hooks
+  for which the verifier rewrites bpf_{set,remove}_dentry_xattr() to
+  the _locked variants.
+
+- squashfs: Range check the xz dictionary size before shifting by it.
+
+- selftests: Add the missing eventfd, open_tree_ns, openat2 and xattr
+  filesystems selftests to TARGETS and drop the stale openat2 entry
+  left behind when those tests moved.
+
+/* Conflicts */
+
+Merge conflicts with mainline
+=============================
+
+No known conflicts.
+
+Merge conflicts with other trees
+================================
+
+No known conflicts.
+
+The following changes since commit 50d05c7c76c96b90462f24debacca971d2e86713:
+
+  Merge tag 'landlock-7.3-rc3' of git://git.kernel.org/pub/scm/linux/kernel/git/mic/linux (2026-09-09 11:00:35 -0700)
+
+are available in the Git repository at:
+
+  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.3-rc5.fixes
+
+for you to fetch changes up to b78b728e21c32ec4c330b299f657fb1eb02dffc2:
+
+  netfs: Fix missing alloc tagging of direct mempool allocations (2026-09-25 17:30:39 +0200)
+
+----------------------------------------------------------------
+vfs-7.3-rc5.fixes
+
+Please consider pulling these changes from the signed vfs-7.3-rc5.fixes tag.
+
+Thanks!
+Christian
+
+----------------------------------------------------------------
+Amir Goldstein (1):
+      ovl: fix UAF in ovl_do_mkdir() debug print
+
+Andrea Parri (1):
+      bpf: fs/xattr: don't assume the inode is locked in path_unlink/path_rmdir
+
+Chris Mason (2):
+      binfmt_misc: fix OOB read in bpf_binprm_select_interp()
+      binfmt_misc: fix racy checks in bpf set_interp kfuncs
+
+Christian Brauner (7):
+      fs/ntfs3: use d_instantiate_new() in ntfs_create_inode() and murder syzbot's "WARNING in do_new_mount" saga
+      fs: don't create the private nullfs mount under namespace_sem
+      Merge patch series "binfmt: fixes for kres reports"
+      Revert "selftests/filesystems: add mntns cleanup test"
+      Revert "put_mnt_ns(): leave mounts connected"
+      Merge patch series "Revert "put_mnt_ns(): leave mounts connected""
+      super: make iterate_supers_type() deletion-safe
+
+David Howells (3):
+      block: Fix start and length check added to iov_iter_extract_bvecs()
+      netfs: Fix netfs_read_gaps() to use separate sink folios
+      netfs, afs: Fix symlink reading
+
+Disha Goel (1):
+      selftests/filesystems: fix missing and stale TARGETS entries
+
+Drif Abdelmalek Mohamed Said (1):
+      dcache: unpoison the inline name buffer in __d_alloc()
+
+Hao Ge (1):
+      netfs: Fix missing alloc tagging of direct mempool allocations
+
+Hui Peng (1):
+      autofs: fix sbi->pipe file reference leak in autofs_kill_sb()
+
+Julian Sun (1):
+      fs: avoid repeated scans in evict_inodes()
+
+Patrick Lu (Anthropic) (1):
+      writeback: bound cleanup_offline_cgwb() rescans by rotating scanned inodes
+
+Ran Hongyun (1):
+      squashfs: Add dictionary size range check to prevent shift-out-of-bounds
+
+ fs/autofs/inode.c                                  |  4 ++
+ fs/binfmt_misc_bpf.c                               | 35 +++++++++++--
+ fs/bpf_fs_kfuncs.c                                 |  4 --
+ fs/dcache.c                                        |  4 ++
+ fs/fs-writeback.c                                  | 25 ++++++++--
+ fs/inode.c                                         | 11 ++--
+ fs/kernfs/mount.c                                  |  4 +-
+ fs/namespace.c                                     | 27 ++++++----
+ fs/netfs/buffered_read.c                           | 34 +++++++------
+ fs/netfs/objects.c                                 |  4 +-
+ fs/netfs/read_collect.c                            |  5 ++
+ fs/netfs/rolling_buffer.c                          |  2 +-
+ fs/ntfs3/inode.c                                   |  7 +--
+ fs/overlayfs/overlayfs.h                           |  4 +-
+ fs/squashfs/xz_wrapper.c                           |  6 +--
+ fs/super.c                                         | 39 +++++++--------
+ include/linux/mempool.h                            |  7 +++
+ lib/iov_iter.c                                     | 18 ++++++-
+ tools/testing/selftests/Makefile                   |  6 ++-
+ .../selftests/filesystems/mntns_cleanup/.gitignore |  2 -
+ .../selftests/filesystems/mntns_cleanup/Makefile   |  6 ---
+ .../filesystems/mntns_cleanup/mntns_cleanup_test.c | 58 ----------------------
+ 22 files changed, 165 insertions(+), 147 deletions(-)
+ delete mode 100644 tools/testing/selftests/filesystems/mntns_cleanup/.gitignore
+ delete mode 100644 tools/testing/selftests/filesystems/mntns_cleanup/Makefile
+ delete mode 100644 tools/testing/selftests/filesystems/mntns_cleanup/mntns_cleanup_test.c
