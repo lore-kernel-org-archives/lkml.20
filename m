@@ -1,121 +1,152 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010039.outbound.protection.outlook.com [40.93.198.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C672248BE
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790308969; cv=none; b=BQrOKdLiGcMQUeV4BgMgLTxQmQpVQ75+Iqn3xPAZIuQLTE7+S1q3/Z9C3v4AGxfKIONb9bR7rSuAorafS7PLCg7PiWKrfOR1jNqXKJvEHdps/x22xP3g7P3TTI9RMzknYUjxi78fsYBGyCjpZ4lWmHO3+wRD+t9KCb7OF7mQEts=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790308969; c=relaxed/simple;
-	bh=gjz4eAh9r8e7B0XJJhXz1omS87MKhqb85V0oJEfgxRU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I+M4DfrPLMsNS8f42VraUFkMJXbNWq57NCjDuiE0LEQrDLxPTm3N0kw4H4g5G4g5mY/vl1QUZ+e2CTV9Fbxj3r6hL4sYJznBxTN+bnAy59Y+K3d/tznCJye3W4oJOtVcSA82A6oPl02NjwpRUd5VJGlIEEXVk2YWdzWdU5s3ohU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=i1NcwsNp; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2012248BE;
+	Fri, 25 Sep 2026 04:03:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790309026; cv=fail; b=TxMg1AsDqD5d0GZMq24X+JJ9av/d/vHVqr2CsKURGp9KzOZLk3sQYlP/8Yyole1WPgS9kYg/V+hXlnCmVCtPWO6BlsShV5z3JjVPyAfowpOHt29bao51j3KOzl7yUKTcuRjWPgVjcDHbtLauzEmjIjBCTzlIUxcoVTqJ6aphtT0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790309026; c=relaxed/simple;
+	bh=2lwGGHoBmDmOoURKIIJlVA5o2ts0zsPJHU7e5XlsTLA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=qi3QfSwNfJYSgNW0cIk+ABJKKVr+njNbMEJLy8VK6r3PR3P/B/tmn1c3DDdpDkrvbnpAX9H0PjgUkTtr5XTG1Grd7hRGpiPynGFdXuqubgVsdjU3/5Wczan4oqnkzfu9nLnfcb2You7v36CUIq3Vi1Fi/gg3e9M4If/l/EGhHlA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=URos7oWG; arc=fail smtp.client-ip=40.93.198.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="i1NcwsNp"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D0B1940E015D;
-	Fri, 25 Sep 2026 04:02:38 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id K9hOh1ocpdwk; Fri, 25 Sep 2026 04:02:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790308948; bh=EW62N+pcJ/yklySi4JDKkkR0W+TsN7XjHETaluMMIt0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=i1NcwsNpTlH5tTnT4oiTCLEJ/B2F64elCsX0k8vurIo4s1XzysEHysXgf9HFR/FAd
-	 LSOIjO0hAvS4WqHL7y7KXH9GN8GfAz8/Fg1LpV2fs1hcWR4RON9Jpxb9TzqCNt8Fpt
-	 wdsl90AvcCAKDhh2FBtPNd2lAZoiHdZpEXazVBVuhh4vpv1C1hlCYGBty3bZDyZC6c
-	 pvsyNLrBSWUz0A65E0VVp12/mTV9tR+5DlDvLVQPgIyaKmvr/iH/SHpsnRiqhdaJQE
-	 J/ihuDChO2xLq6G9MGtC+TgLzXwF5Ci9p/soP/Ka31Vly22c7WpCvcb+/NU3uxHMFd
-	 kJIX0DYmXDakWdy/a50SUR2nfAG+0dFGMTxnjYEmkoswPXr7L2dnVglrsDu16Drlfw
-	 L3mFQrFDXkmvKH+xfJrXnxIStJkNVR4JLGP5zovKZx343AeS6jSqgvRo5TCK+nhbOj
-	 Z64TDy0i/xDsq/js5aOE8XaSzKpfJVuwKhMRAxwCkMPd3vH+RMlvqm9DTQbc+1DGCb
-	 cmRCRIPUjVaNHEx+sWRylhJZB/TOOtx7DPefT3OQTMo2K/cZwMnzdM4hyP+usjakR0
-	 tSF4V1f09u8glDFgoawf4FtlWc/o6hKK++G/RwJSM+S1tUxUmShTcKDYQ6Fp8LaPFv
-	 SLnwztUA0PhBvCWSdp0so/5o=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5066240E00E7;
-	Fri, 25 Sep 2026 04:02:18 +0000 (UTC)
-Date: Thu, 24 Sep 2026 21:02:15 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Andrei Vagin <avagin@google.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	"Chang S. Bae" <chang.seok.bae@intel.com>,
-	linux-kernel@vger.kernel.org, criu@lists.linux.dev,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH 6/7] x86/fpu: Pre-fault only required size of xstate
- buffer
-Message-ID: <20260925040215.GAarXyR6cUzn9OH4ZD@fat_crate.local>
-References: <20260924210121.87032-1-avagin@google.com>
- <20260924210121.87032-7-avagin@google.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="URos7oWG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ShPe+BH1QD0KQPH9qrtq+d5hTC8678MH25KGX5cSg0x3KjxO6ccxjsYTwq2xPEJ5TNyfYPiiyWad3odMVgJn4flEYAAcWAY76WmGO25s9tHrOmHRcMj00EbyuqWfV7PhQJn7HbpjApLG16DS3TwZRUqxq9X0TEmZccUiO8Efw+HjG5r0s6oh6ZuILfhIQTcCSZR9ljBxjc7jPdZjmO3y4UJcQ/2nNWR69bWnfj9vAuDkYMltF2reYHwm5Zh6k1Q3c2pxcZo9x/txKZ7hGp745/rpnO7LTrcQog5+PYEo1TDMwnC791kQwAJeYo4bqoQo9paLTxPaAeU78rPQU+uUkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jsnnqac8gfyBINPFd3ZucDZhpMfGVcVDgb5VLK2u7RQ=;
+ b=ccdmz5KoTYsnGRmaLDQNa/vfBOOv8JuZLIY6B4DtIuEbVYzviHAbhq2xm5yLdjIIFgFXl/ihFyaungNlkDJOcbVVD739ujfBuOnNvtVQ3Ipf08lRENNpfCwrAc/m8mbkjs7F8KGvKHEt1lrxND+pnhCCFxO+L6uhG2JOgzGZjhzrOvTRiHxREbSnujQaIFK7ArlNk2bR8wmjBOmQDGxhAvAC98pmM1v+4lLvsO134WdmKWazokt+CP2bMqzlBeG9/rUkP1Z9YHLi4M2MPolmciZ7RDK3nM9cFO/iHwFAqSZoqMnVzQtHgMnWbeyYOEslbnCGNBjmBqz0shUuFDKm4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jsnnqac8gfyBINPFd3ZucDZhpMfGVcVDgb5VLK2u7RQ=;
+ b=URos7oWGzHNESOFPIzrDlt3yNhjbfxw7drGVAbZgqzj4UWaPXuuke8Fe+RFhDRxOa2t+QWwBGZskezgBgsQqcHzO4iL2RCPOj24HMx0E016Dl5GbuEMAHYw9mYGW3OLlj+0QvGGzqwtktFqf7bgk8hzjAt6Q3vkw7IPKnvIURbo=
+Received: from BN9PR03CA0296.namprd03.prod.outlook.com (2603:10b6:408:f5::31)
+ by PH7PR12MB7819.namprd12.prod.outlook.com (2603:10b6:510:27f::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 04:03:40 +0000
+Received: from BN3PEPF00022BD7.namprd03.prod.outlook.com
+ (2603:10b6:408:f5:cafe::c) by BN9PR03CA0296.outlook.office365.com
+ (2603:10b6:408:f5::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
+ 25 Sep 2026 04:03:40 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF00022BD7.mail.protection.outlook.com (10.167.248.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 04:03:39 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 23:03:28 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 24 Sep
+ 2026 23:02:47 -0500
+Received: from [192.168.0.101] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 24 Sep 2026 23:02:43 -0500
+Message-ID: <76ef085b-e8e3-41a5-b029-2cd0489aa430@amd.com>
+Date: Fri, 25 Sep 2026 09:32:42 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260924210121.87032-7-avagin@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 6/6] perf mem record: Use the IBS swfilt filter when
+ available
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+	<namhyung@kernel.org>
+CC: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>, "Ian
+ Rogers" <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, "Clark
+ Williams" <williams@redhat.com>, <linux-kernel@vger.kernel.org>,
+	<linux-perf-users@vger.kernel.org>, Arnaldo Carvalho de Melo
+	<acme@redhat.com>, Ravi Bangoria <ravi.bangoria@amd.com>
+References: <20260924212809.1733663-1-acme@kernel.org>
+ <20260924212809.1733663-7-acme@kernel.org>
+Content-Language: en-US
+From: Ravi Bangoria <ravi.bangoria@amd.com>
+In-Reply-To: <20260924212809.1733663-7-acme@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD7:EE_|PH7PR12MB7819:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ce4231d-a157-41cc-7835-08df1ab9fb44
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|7416014|23010399003|6133799003|18092099006|18002099003|22082099003|11063799006|56012099006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	OjG3DDLTXnv8TjK0/60KaWASJFlfh5ZKzRHK3Qi/8vWDfM2UhNAh54l6e681swdoA3yZDSt+A9HOWCCua/iu7Cm2UmFCRJmbrZK+2v0KjC1sa86H8UzhkZFTFFgOCRKbi6bqD7PlGrbdwO61N3O6+M/IU426d78NWdxzMaCmp658aCGtXS/dc5SYLF3KwvuVBRDe4qwcEiL5Rp0M1kYDoBWO8jXJTRUlOJuKqCPY5KGkJ+34mFPFthNpd0Oko2iYeoOMoy1geG4dz8+Q0etUUmFWKT5Q0T9Q6GdUiufYfkWR9eyUKiljWmSHf0WXYLgMgm3Ynecp3uYCJUQgY+3kveZczHwpT0bdIz9X9X+RI2iewg0FGemjUoYHsV+iQZ5A3lxaOgEAsZ34xE8sID+61CYVQrcuMlDTmt0TRit2/+Wj1cyzwAdGIlZ95qp/3ayHBBccBWGwsFrPxHjloK+WuU8KVrlt5VoaHg2ur1RPAE3ZUVUDzKIQcDxZDcaJV6oTDGEGgCY+DzTjMtub0pyNeExo/0sIUBVp977v3HboscJJW5f+xdu89u+U4lYylivK1BzpPvNkwJf0nXLmmWPGqSzthL9zYMMB9zd4Z7ciYZRjLTnBtwMydoK2fcmVMYd/qkOmP7pThGS9TXoisHmzDgqMvAStk6+Qep5X2vkOicJV6fAfgTxbL09NardydxHlhHKQDNnA1K3exuq+3+Ad+Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(7416014)(23010399003)(6133799003)(18092099006)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	E+GVqz9qaoT4LWUPq6VktxPTNY61cDmX0IBPm3qNpKUzSZyAOjA6+UEFiGVMyVIRlENZ7RmoiRw3ssScRT9bk04Tv7afdRdBgt6mPTLAMoOUw+FY1EREb1wvet9c7hzNtKL5B+afe3/Q8Iz5u74CdTkz6dcdaNh8dhQuP509CZ3jFlU1fnZ5QTmtsIIdq/pmXE1tp0gDQzYZsQfAUl/w5FWUviSmKt+BI7EbKze/GXOwmO5f3g7tqShRO7G7usPhc82LgaOuXfwr3TEgtDDOegvuL8ssl2WZ61rDVJTYRHxqso4VoQ6QnEChlmRYOZ00ZY939IhgzRKTR2uKJ3cQpZO7/Hwg5sRTbBCKPjxgNwkbo1oQmOg7VmKeolNxdh01ltr+1C1Zg4DK7/Yu0UvOmMyz/+Jgd4zgM9eg0NBgiX+Jm6Vz/9xes3AYilmc7Gbb
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 04:03:39.6351
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ce4231d-a157-41cc-7835-08df1ab9fb44
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BD7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7819
 
-On Thu, Sep 24, 2026 at 09:01:20PM +0000, Andrei Vagin wrote:
-> diff --git a/arch/x86/kernel/fpu/xstate.h b/arch/x86/kernel/fpu/xstate.h
-> index 38a2862f09d3..c73cf2444de6 100644
-> --- a/arch/x86/kernel/fpu/xstate.h
-> +++ b/arch/x86/kernel/fpu/xstate.h
-> @@ -55,6 +55,8 @@ extern int copy_sigframe_from_user_to_xstate(struct task_struct *tsk, const void
->  extern void fpu__init_cpu_xstate(void);
->  extern void fpu__init_system_xstate(unsigned int legacy_size);
->  
-> +extern unsigned int xstate_calculate_size(u64 xfeatures, bool compacted);
-> +
->  extern void __user *get_xsave_addr_user(struct xregs_state __user *xsave, int xfeature_nr);
->  
->  static inline u64 xfeatures_mask_supervisor(void)
-> -- 
+Hi Arnaldo,
 
-Hmm, so which tree are you basing your stuff ontop?
+> IBS events with exclude_{user,kernel} bits, as used for per-thread
+> recording when kernel samples are not allowed, are rejected on hardware
+> without the privilege filter, so per-thread 'perf mem record' fails on
+> AMD:
+> 
+>   $ perf mem record -o /dev/null -- true
+>   Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
+> 
+> Kernel v6.14 added swfilt, a software privilege filter exposed as the
+> 'swfilt' format term, making those events usable per-thread.  Give the
+> ibs_op memory events extra tables with the term, selected in
+> perf_pmu__arch_init() when the PMU exposes it, keeping the names that
+> need system wide mode otherwise; the knowledge that IBS needs this
+> stays in the arch code.
+> 
+> Suggested-by: Namhyung Kim <namhyung@kernel.org>
+> Suggested-by: Ravi Bangoria <ravi.bangoria@amd.com>
+> Assisted-by: LLM
+> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-Because in patch 5, xstate_calculate_size() is not static so you must be
-basing it ontop of some tip/master branch from sometime because tip/perf/core
-has 
+Reviewed-by: Ravi Bangoria <ravi.bangoria@amd.com>
 
-b84c96283684 ("perf/x86: Enable XMM register sampling for non-PEBS events")
+> + * ... Keep it even when
+> + * the event has no exclude bits yet, 'perf record' adds them on the
+> + * first open failure and retries with the same name.
 
-which drops the static qualifier of that function.
+Currently, 'perf record' fails rather than silently retrying with
+/swfilt=1/. The reason to not transparently add /swfilt=1/ is to
+make the user aware that software filtering is being used, and it
+is not overhead free.
 
-But then you're declaring a prototype above in the header while that same
-patch is declaring the same prototype too. So if you were applying ontop of
-some tip/master state which has tip/perf/core, then you wouldn't need the
-extern.
-
-Weird.
-
-So what I think you should do is, rebase all your stuff ontop of this branch:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/log/?h=x86/fpu
-
-Then I can apply your pile and we can sort out the merge conflicts later.
-
-That would be better, IMO, than merging the whole pile of gunk from
-tip/perf/core into x86/fpu or applying everything FPU ontop of perf/core which
-would be yuck in a different way.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Thanks,
+Ravi
