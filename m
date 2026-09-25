@@ -1,164 +1,201 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pj2-f17.google.com (mail-pj2-f17.google.com [74.125.227.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BBA4779A1
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790327660; cv=none; b=VcJ9XnNcJ+w+WO7EWT13g8sl/QC1uBfZV1KQqs9UoPpE2fApb6y37FFm9FeGkmakCy7VRboW0AvCFXvmnflJgAfiOdtxrLY8rFHSwXPd68hTY12HcMkizoYNWlD5YNvh/PigiGcN8gS8egZnsfVqPVGpsfrZcn2w95Pe1uiRZBM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790327660; c=relaxed/simple;
-	bh=VQgjHcUGv3AS+aRshySRXB9Na6W07JFD8/rafiGks80=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=dzi8U3DReN6PUXHhtKwmnFlL8Fw8inqnOI17dI43w4uyBfHHBo3KOLlLaQrkAlLN33XtXaQtHJ1AAoMWPIQKYlJR1Y6sKV6r1NJ3DB8/iWsDI8efjtt2EXiOBjjyiyR2MsI3GcgLJHjiL0ii964vtjHt5mYDnG/Wt+HUIW1tcu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=h5GLm2dN; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9321447F789
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:15:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.145
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790327704; cv=pass; b=ncOaDlR5Z67uUw7p7ic2TQ1kaNtxoYclH47CyJP6vCnwxPSfNXNBzQg43ln58xPOCRTn1AgtmtPWcKKrs43XW0hA9Z0Tqh6izP4S/Bi0D2804JOnQHSqQElqn+jmhkw8L6JZYJiyceIEqRDbzrv96fFQUSDoffmBgaxygujhLvI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790327704; c=relaxed/simple;
+	bh=p9nwhpNShwsCELITN+2tBnZ+go6kbcsWckBkl8WHBog=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=g0zlaNoHrH58dk8WxpOvfJNKRq4hU/tOd9I9stkNr//qCQ7MLK7E4n6/W+Y4sfDN7aP+lmYxNu9PVsGzMb42anw+JPc2lnKSs5KayZQsKPKiH1+WcWOAdvunCZJsv1OcFRneE0iMzDkcpqvIXyY6ztyS45o6lJTUVGwxc2BycOo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V+B9NSQt; arc=pass smtp.client-ip=74.125.227.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="h5GLm2dN"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so390117f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:14:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V+B9NSQt"
+Received: by mail-pj2-f17.google.com with SMTP id d9443c01a7336-2db1ca06a25so2381065ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:15:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790327703; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Oe6obC+FMpZLnbNzO9G6/nKJEC2gnRb0Xx0cLdaE3JdXc0W7sqRbnNiiP/g9l+xFqA
+         o8VDFMVBH+dz6Nr6ejJPH3dy5Jzr2dZKbT4XWxW6qHx25ddVaBYXI28KWL+fQ/f9wwEB
+         1raCF6QeFf1P4u+Bni/teWxN85iZohNCnGnakz/s/ufOQvDnE4+smbzqMrk6lATfPbWD
+         gHrD++lsx7EBjTmAVTVTbTLhYQC+yN43rX8sykL+W+iCdYCi5HSWFlhnkuM3ihwu41kP
+         80+krgYyBPifgq+UMwWi9pbUe1cT5UVuUIBJCH1dryYt0VS9DqODURSX9oO80wsE7heD
+         uY6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=p9nwhpNShwsCELITN+2tBnZ+go6kbcsWckBkl8WHBog=;
+        fh=23AlUJRAU3YsohmV2Qbi9gtfKdlsXry37P0HTCJzKOE=;
+        b=QhXpsPRU1/PqXH0vqzW9mXysjd/uZxFvXsn49co1Obaargrd2NAK1v2nydZZbYRu2d
+         l/UYBqgAjJ2FzpFmRXPeL5H1w2VBAZGoz0nA1Fs4qLHxOqmLtvAJI4se7q98fffpYMgt
+         fyJHzu1zn5y2Pt0lpRl8DsTzDoLCNerSEEmKcmHRV1rqyGd2yn8XlrtLRbxhhxRjNv+2
+         ux7zvr3KNQf5W2CpKfbY7lpK6WgbkPsu8TQH6lzmb/EcNkcuG1E70Cx4xw0lz9vA5Uqd
+         TjDielXYO9sNaGfAZC5jV0HPXjICQC1wTBcVHZn+5fW51pRXTWlz2EOIdCxKE+gfS0Ps
+         CYVA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790327657; x=1790932457; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RUy9AG7lIgjavOAkd4pUReRQm+p1laq2n2IXc5r/9Fk=;
-        b=h5GLm2dN0wA9GvipNGEoUGMf9pENNFcm+GMuT6HhQdqMzvy1qdx1O+1LjaPNB5Ipt0
-         siYbLHYKRYRSNa+ZTfnN/I5yeVCRkFlVgQ0vyY6ryj2NrQBqvjW8IMJ+2WdyOGwM+4Es
-         v9C2wQVzu2RmyNeHwFgVuXiKaVucM9ECvvYOYxzztsbUr5sANVLDQmH//vMmLPBiWs9b
-         2s8ivlCJYWgHSXy49RmiGDJweIQYgt0Mxvpawf2+BOn6Iwd5lX6OKCwEb3JmSDFSE9ji
-         OiNcD4HIO39xFqr1hkcoC2m/aBWbNbFt+OqB4jZWa/zE7o5d+SqlxECONmFOZLDCmiDq
-         b1sw==
+        d=gmail.com; s=20251104; t=1790327703; x=1790932503; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p9nwhpNShwsCELITN+2tBnZ+go6kbcsWckBkl8WHBog=;
+        b=V+B9NSQtCML/QWFyIgYUTJooTNaBUy75und26GfpBKEljRnZ1pJFMS65J4GeSRi9GV
+         yfHv1ZnwVV0KrmtkOQvUI56qcf1x4H3vqWAI06vd2XUXlXSy46dSMIupkqGHu42gtdCl
+         7jNhTmP56ejhvCd2BFOOgTK6LqFgYMIvUyme920D4c3dMUnaOKwq2GBkUcEe1dBQbgYb
+         Hd5GXcAEULg5qhrjMDIw6giKOP+ShKkAXDBiAAkh7SgagMCklWn6/R8r8d7qFAUyxajl
+         HhtQPeclf/FVPoCPAn1rAOZFr84OQN6jLUNQmMX2ldg469CBbDu2FM0mwHh8GD4ac7tQ
+         DPuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790327657; x=1790932457;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RUy9AG7lIgjavOAkd4pUReRQm+p1laq2n2IXc5r/9Fk=;
-        b=V/p56OcPrDsDauFOoqpSFQhfjwq3dhop7hnF2KXtsnlyPnW+RMyPpLxBQJitRHzHZV
-         aPxMcDLxg5p5s5WBYhLbjviGM+fsgSbtRoRxGwXaph3Dq3Pubfz9AFKFfc24A/NEbF5h
-         zGqwOHB060UPlXrN1m+lW+yMuwO3Vch3QxbUCWAhk0xhWwDg1GH4Xnb+C2xVWYUfjV+R
-         SHui27r/8ZpeogEcq42oA999GoSlEr88L6WXOCL1Lpv/B4tLJX6MhBSfIkyKWw07LWgX
-         BBso7KyOdlyAc0/smBj2KvqJWBBdN3hE1Oi1DHaR+OwI9A/M5NIapGbu+Leh7jRgPuoe
-         BBMA==
-X-Forwarded-Encrypted: i=1; AKwUvByjyvVkip5bNOqW2au/EkvtyA6a/UOxh9qiLQmWmQ7Hi7LMRmzTIFx3rsglK0aLJ7QyHatpA33Msz6i4cc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqiTiJWB7lYcleX1cLGcwd+ANONoL1ihWJrosquaJLXQC/PUXy
-	sebC7rpINpuAHeGUeIptBBdV7rDloZ3RmjNj1rWpKxQtuKsf+cylg7dndp4mOMup5VucWYRgFLZ
-	0Guyv
-X-Gm-Gg: AYBFou00Aas2EpL/AIIBNDJphbYA5b8sPyqThhNTf3VXMl1NCF/8dNrPKQMnQY00FH7
-	5RrlL+g2NVBRtx4KwycdrKI8YS4L1NpOARKL5LSd5WvSsFmj6oEcGGmJxNC+hYks+X488kh5Eac
-	qPpz9dgoMZExSezpQpMWKtH/Tcwbh5odlM60qjBpmEdh/XAyBZrcmw3EPjDnmLpTL8YDTFcxI/D
-	3A+QI1lSNlKCEaQd6hd9V1L6YkEFzfTBFaFdbFuZn8GsffTMBswKVDHT1D+LRU13hfd9yFYw+Lv
-	ClhfcOp2xoJPYevKgl94Bqvc5HtQBvCbaGshH2QipADd2AGS9AyubTM7bdtqny0uzTvylqTNYTW
-	rPRZu5vfdbEB8FrcHyW5xG8i3yiPQ0CzdbvqraxulN+8D044rASUUBO5QTq8LRoNaCT77kbPvUb
-	PwFOGME1BOmjDG/sOh1ynCKd0NIz6rZA+9J3s9NE5iZCd/HTLdfzSpz8ufBtlOgy5kqjBYeb917
-	dP8D1c+4ybsmOYiCc5r7zNcz8y+
-X-Received: by 2002:a05:6000:18a3:b0:487:732:9964 with SMTP id ffacd0b85a97d-488716befa6mr10307474f8f.13.1790327656987;
-        Fri, 25 Sep 2026 02:14:16 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a638sm5295892f8f.9.2026.09.25.02.14.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 02:14:16 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-Cc: "sboyd@kernel.org" <sboyd@kernel.org>, "bmasney+clk@redhat.com"
- <bmasney+clk@redhat.com>, "jbrunet+clk@baylibre.com"
- <jbrunet+clk@baylibre.com>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
- <conor+dt@kernel.org>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- =?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
- "afaerber@suse.com"
- <afaerber@suse.com>, =?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?=
- <jyanchou@realtek.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-realtek-soc@lists.infradead.org"
- <linux-realtek-soc@lists.infradead.org>, =?utf-8?B?SmFtZXMgVGFpIFvmiLQ=?=
- =?utf-8?B?5b+X5bOwXQ==?=
- <james.tai@realtek.com>, =?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?=
- <cy.huang@realtek.com>, =?utf-8?Q?Stanley_Chang=5B=E6=98=8C=E8=82=B2?=
- =?utf-8?Q?=E5=BE=B7=5D?= <stanley_chang@realtek.com>, Brian Masney
- <bmasney@redhat.com>
-Subject: RE: [PATCH v14 09/11] clk: realtek: Add RTD1625-CRT clock
- controller driver
-In-Reply-To: <b9d5a1a82df34aadaee2390af871f7c8@realtek.com>
-References: <20260901072446.2563145-1-eleanor.lin@realtek.com>
- <20260901072446.2563145-10-eleanor.lin@realtek.com>
- <178947735404.448573.10061486937030065064.b4-reply@b4>
- <b9d5a1a82df34aadaee2390af871f7c8@realtek.com>
-Date: Fri, 25 Sep 2026 11:14:15 +0200
-Message-ID: <1jjyo98zh4.fsf@starbuckisacylon.baylibre.com>
+        d=1e100.net; s=20260707; t=1790327703; x=1790932503;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=p9nwhpNShwsCELITN+2tBnZ+go6kbcsWckBkl8WHBog=;
+        b=K2nSlPSKJHofMc4YJCtx9Gpkmgbrg01VkE+1LzO5Mgp3RPUnm1Nz/ezh69u5XY5HZz
+         k6vJnnGBIi4eJDzhur9OFybXi7d65QF47GiBWZnAlaaoBXgAcL4MMw5wjaFsHtxCB6IQ
+         mP+ynOxmlFVqH41SgbkkSHGUILQeUv74llNIB0xgmuPQW9tIi3bJqoF6CE7hddjva2NW
+         3esRcMlu22Mn6qt4tbaSRTnvFfEKt+T5RutF8QMt4eNFGRGhot2taNCBlWRXNmwhqPhh
+         kR2mrv39AxWSNyJ08eypkZG5XEP0YryGjl6UhokhwVSihrZRvmrQl2QSgVzCiX7qdhFd
+         82/g==
+X-Forwarded-Encrypted: i=1; AKwUvBz/Gat9p7poNjzXm1NDgfzMoSVDTnI+9lADxKh7Bj0tovIcCtM8epgqJ5bl/S+6prB0xOVfxYvV9BY+edw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbLpOfZS4m7VgwMD9HZUjYRSeQ6mp/T1vDptfdTeAjKwcMR9ZR
+	CnhsfVtZqPngLWPyXZF9I2i1Q6GhfURuydxZomSLwWfocToWnM81CAAfv1L4Hqv5QxsJSIs+eG9
+	uJQl+ugXMYIi93FEVER8FukQc95scjmA=
+X-Gm-Gg: AYBFou2GjG+EN8kpO0Y04xhqLRxs9vEK9bqTjHriA+gdD9kBO2VYdeKeSaRm09HG6R6
+	yhvo2vpsDtDU3um7nI0QMbh4qLHY5Mu571KH/GtnlFAYgr7ZUe6mHVkoKYOheg6b7FEjBq8j+re
+	KN50ySAlQQ8KLZK8zYiGQbYQKILwOpe89SVMdtmvbtCXNjylFbeckygxFwV38VC2fmqM99cm7sD
+	7JQdf/n9aWt5CVhpU1tmkVgs30R+J1LM/Y8BJnrFL/qR7EtqZ4utwcbNDnD90p9p3oFGFu5Ezh2
+	k2U857UTppVts4IQURYfBTIqJYX9tIcsoalRNkzF2zmeyh7fqEeWHA==
+X-Received: by 2002:a17:903:324c:b0:2dd:c100:80b5 with SMTP id
+ d9443c01a7336-2df7e6644a0mr38012105ad.48.1790327697988; Fri, 25 Sep 2026
+ 02:14:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+From: =?UTF-8?B?5rSb56We6JG1?= <chengjna@gmail.com>
+Date: Fri, 25 Sep 2026 17:14:46 +0800
+X-Gm-Features: AclHuK93wbhjjM2-7srtIZwrbaXXOw3HXafZeMMpj52e39XQN_y1Uupp1neqqdg
+Message-ID: <CAHDTbUFX=8aAQnwv32hqmwHKkeJR0UA5XfZtMZRD1H+kV7uCzA@mail.gmail.com>
+Subject: [RFC] Proposal for a standard Competitive / Protected Session API in Linux
+To: linux-security-module@vger.kernel.org
+Cc: linux-api@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On mer. 23 sept. 2026 at 05:43, Yu-Chun Lin [=E6=9E=97=E7=A5=90=E5=90=9B] <=
-eleanor.lin@realtek.com> wrote:
+Hello,
 
-> Hi Jerome,
->
->> > +
->> > +static const char * const clk_gpu_parents[] =3D {"pll_gpu", "clk_sys"=
-};
->> > +static RTK_CLK_REGMAP_MUX(clk_gpu, clk_gpu_parents,
->> CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT,
->> > +                       0x28, 12, 0x1); static const char * const
->> > +clk_ve_parents[] =3D {"pll_vo", "clk_sysh", "pll_ve1", "pll_ve2"};
->> > +static RTK_CLK_REGMAP_MUX(clk_ve1, clk_ve_parents,
->> CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT,
->> > +                       0x4c, 0, 0x3); static
->> > +RTK_CLK_REGMAP_MUX(clk_ve2, clk_ve_parents, CLK_SET_RATE_PARENT |
->> CLK_SET_RATE_NO_REPARENT,
->> > +                       0x4c, 3, 0x3); static
->> > +RTK_CLK_REGMAP_MUX(clk_ve4, clk_ve_parents, CLK_SET_RATE_PARENT |
->> CLK_SET_RATE_NO_REPARENT,
->> > +                       0x4c, 6, 0x3); static
->> > +RTK_CLK_REGMAP_GATE_NO_PARENT(clk_en_misc, CLK_IS_CRITICAL, 0x50,
->> 0,
->> > +1); clk_en_pcie0, 0, 0x50, 2,
->> > +1); clk_en_gspi, 0, 0x50, 6, 1);
->> > +clk_en_iso_misc, 0, 0x50, 10,
->> > +1); clk_en_sds, 0, 0x50, 12, 1);
->> > +clk_en_hdmi, 0, 0x50, 14, 1);
->>=20
->> This is a lot of clock with no parents which is a bit suspicious especia=
-lly for
->> gates.
->> What is really feeding those ?
->>=20
->
-> In v15, we will do our best to reduce the number of gate clocks without a=
- parent.
->
-> However, after discussing with our colleague, we confirmed that for some =
-of
-> these NO_PARENT gate clocks, their actual upstream clocks (like PLLs and
-> Muxes) are located in separate, independent hardware subsystems. The regi=
-sters
-> controlling those upstream clocks are physically inaccessible from the Li=
-nux
-> CPU domain.
+I would like to propose an idea for a Linux API intended for
+competitive games, online games, and potentially other applications
+that require a high-integrity execution environment.
 
-Control and input are different things. It feels like your DT (binding)
-description is not complete as it stands which will eventually be a problem.
+Linux already provides a number of relevant security mechanisms,
+including ptrace restrictions, process memory access controls, LSM,
+Secure Boot, kernel lockdown, and kernel module signing.
 
-A clock with no input is something that does generate the clock by
-itself, like an osciallator. Pretending it has no parent because you
-don't know how describe it yet is wrong.
+However, these mechanisms are currently exposed separately. A game
+that wants to establish a trusted competitive environment may need to
+detect and combine several different mechanisms on its own.
 
->
-> Best Regards,
-> Yu-Chun
+I would like to ask whether it would make sense to provide a unified
+Protected Session / Competitive Session API.
 
---=20
-Jerome
+The basic model could be relatively simple.
+
+When a game starts, it requests a protected session, for example:
+
+competitive_session_create(...)
+
+The kernel checks whether the current environment satisfies the
+requested protection level and returns something similar to:
+
+ALLOWED: the environment satisfies the requested requirements;
+
+DENIED: the environment does not satisfy them, together with a
+standardized reason.
+
+While the protected session is active, Linux would protect processes
+belonging to that session from unauthorized interference.
+
+For example, depending on the selected protection level, this could
+restrict other processes from:
+
+debugging or attaching to the protected process through ptrace;
+
+reading or modifying its process memory;
+
+obtaining sensitive information through /proc;
+
+using other kernel interfaces to observe or interfere with the
+protected process.
+
+The exact interfaces covered by such a mechanism would of course need
+further discussion.
+
+The game may explicitly terminate the protected session:
+
+competitive_session_close(...)
+
+Normal system behavior would then be restored.
+
+If the game crashes, is terminated, or the protected process exits,
+the session should automatically be destroyed by the kernel.
+
+This would ensure that the system cannot accidentally remain in a
+competitive/protected state if the application fails to shut down
+cleanly.
+
+A major advantage of this model is that game developers would not need
+broad permission to scan the user's system, inspect unrelated files,
+or monitor every other application.
+
+Instead, Linux itself would establish and enforce the protected environment.
+
+The game would only need to know:
+
+"Does the current system satisfy the requirements for this protected session?"
+
+In other words, the API would provide a trusted execution environment
+for the application rather than granting the application broader
+system-monitoring privileges.
+
+A simplified lifecycle would look like this:
+
+Game starts
+|
+v
+Request Protected Session
+|
+v
+Linux checks the environment
+|
+v
+ALLOWED / DENIED
+|
+v
+Game enters competitive mode
+|
+v
+Game exits or explicitly closes the session
+|
+v
+Protected Session is automatically destroyed
+
+My main questions are:
+
+Does Linux already provide a unified interface with similar semantics?
+
+If not, would a Protected Session abstraction like this be worth
+discussing as a generic userspace API?
+
+Competitive gaming is the most obvious use case, but such a mechanism
+could potentially also be useful for other applications that need
+stronger protection of their process integrity or confidentiality, so
+I do not think it necessarily needs to be designed as a game-specific
+API.
+
+Thank you.
