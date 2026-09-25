@@ -1,137 +1,180 @@
-Received: from mail-ej2-f37.google.com (mail-ej2-f37.google.com [74.125.228.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1B14F648D
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:02:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C534F6468;
+	Fri, 25 Sep 2026 21:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790370130; cv=none; b=nKOzaBbKaTHzibA0vseCmZ2hLHrDBqZsRh7e13mW8eZwLxL5kJSTVQ7H3ICBNBXWS3ttBQwDHoCPlSvA2bb0O2xEXPSI6na4skMCLQJvocBBljEOMU4G1bWzzQd84N2nkgJ1L61+95ymDp4oWCgjqdZW9yXi27+YIkTR7hKD/DE=
+	t=1790370131; cv=none; b=JfujFDTfqPkBnnD6EO3DcXk/dN86UlYcsNLC0x08EL24PD/xAIbCtjLCAkpyLoFw7nwm4j9zlAfPIFXYaQgwa8WOpyM9+rS0vaDBEcewboldwKrfNzEtN3b1S9XJYsLec6Xr2xhv1eJA32pbWDJF/h+clo3wEL/Nl9uTro94ljY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790370130; c=relaxed/simple;
-	bh=Qbyuka3GiyzI8GcOPcPBKISMBjQR5N/Oom1sUT6XUUw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H5clM5UGHinoJ2eBq/mRlwu2E1Y0u5gunTMQ6EsNCU4VExNZ3mnVy58daWxvOCniQR9H6P1EOM6KV5QF9kb2PyILNYeVQtTy8pcG/rsi+TQhz7pTTH35W1MgOkw+yfOxRQqdslZ/UStWoB+N/jwvOKhdkZQlSYgNJr4a+4TA3qE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oYkBDx6R; arc=none smtp.client-ip=74.125.228.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790370131; c=relaxed/simple;
+	bh=1meTcNlj9NWmKXjNVxoCO1GoHjR2aMAFZtfd2GRj6ho=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=Cd8fK5/iOWXkTm0KsV7By223oWK7+vNOnmt+6pneZeHLy9zeX751g6BA9RExSEqaKzPp8KT+wzO39LRIBupa+JeSSfBd2Xe4QYNvnHfH7gFwKFvUoWbVqRQdyDhzu6QH32T8B5Fvod5kXxFVn5cTfNbt1MwLJglRLNQuwIoeGqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QkDam5UB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oYkBDx6R"
-Received: by mail-ej2-f37.google.com with SMTP id a640c23a62f3a-c294af0caa8so195990866b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:02:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790370127; x=1790974927; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qbyuka3GiyzI8GcOPcPBKISMBjQR5N/Oom1sUT6XUUw=;
-        b=oYkBDx6RSrPyUWLQ8cGXg+XE7agKlIF+K8YIUSDhpCpY/TGFUOmzk5tRm3FUK6e3O6
-         cHrFC9YcXB//NLzk+JHQdnu4B/eDv/ahK2j8Jvu2Wab5y5PouDk34CXg13Y1iutu+vnD
-         hlGVV+eCfxHxMxRsFjyS2FNGs30GqK+T6i3C0CCXMmF8NtywFK39DVRixtRbKpJnIexY
-         fzDpsvaX7UEXNi6NRMbYnWIcHMRHNWdZbMMhn+qtnmLG/7+Oa1mBwYRt++NYi6MzwGIw
-         uIiXzaLRihY6jJxkmWwjc6eQXsni5fUB2iY3//m5giItzsMbcg/N9xHZUjeqSDZVgb2I
-         47GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790370127; x=1790974927;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qbyuka3GiyzI8GcOPcPBKISMBjQR5N/Oom1sUT6XUUw=;
-        b=OmCiWHQHwTbjcRwgvu2l5e9yUSU/r+VrRVP9mXxQIDOH7qnBHqgusaf325vCHtaIXq
-         3ql36nlMInB6H3X/WVgaaJhNUKoEO7MYA7Q3xdGYjTsxZxpC93h8+3YSSMP4HfZFqCHz
-         3TSaYLur3R81n8racJk9qjoGFqISjC6Q8+Yvd3cir2rNDiftKINXErKFjXgssN2M1cVJ
-         AiNrsYPj45/MTFTeobCWBi9NdZjyK9bqHSsBUt1EGkd+JMEzmdCYFYEzPxs688zqNDf8
-         8ewdIMpmizm5ZFI0qwXc8mSLzP80J4+unnmUR4BnSidLTgGJOdHWGTLIWsyWTkPEQHov
-         qB1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwttUKVFV6vZdEOfJNMlfeHRxuqu2AwLUFuIwfltgSYLWwHaygwk++VZk/GtotZ5D0UCr06OPnnbIBdTH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nG4eCWtnZfwtijicZK8YE8Mp/HqgnfmzY8bGx0birF1vPJIsjf
-	jpI0Q3I+k5ZHqVFOgp3JfvmPpQPrl4aenSNeoDLY7REVod+jWHHR3Mi9
-X-Gm-Gg: AYBFou3KmYusfhAAAn+0X2TQkuP4k3wtJkQkcTxMLz6jd406x/I3OEeMiUirZAk3yf0
-	PHqNnAdv5dPw8bx9WXNzoH5/ou0R5hQijR1phLog+R474fUApZMRviVqxvqkvPc8hYhv3W052Vc
-	ExGcxDc7bNNRIzPybPEhnQ2yITPka6X0TK+z0LrrIlXRBgEGxz47getH4uaHtvMR9xZThuNjdok
-	1joYOekGjBmMLt684qbB/zwfWJELc9rLu/7SA8CQpfV1VKtJaiXblaZrrVHxPjRVpaUgSsfFYN+
-	JQGQeLOludVdb3sS52oKj1RKRGOmnpAZrEJwfSnyUsxkr0nrT5nUn4aX3bn7kCTKjQvRlLSR4hE
-	ECT8lWWXfBt0weOPVTesEy+wex4cKBt3v0nXlOwv4dcZ2fa3YdGPT2Q8T81iiVk7UhDc54QNVLx
-	0TD24819kXJlMtZ8yYfcGuwTpsSkPNHAGXtlY3KXfIa/S2OsP6ZHUD9Nl2xVeywz9ExyE0WSIvS
-	dbRTf79Cr086sAe13y0BniOD80gHmal5ZNgIDb0MJscZDSP54qXFBuY
-X-Received: by 2002:a17:907:7b9e:b0:c29:4970:abec with SMTP id a640c23a62f3a-c2ac24cb86cmr657977766b.19.1790370126717;
-        Fri, 25 Sep 2026 14:02:06 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:aa1:1647:5faf:ac50:9dfb:d1bf:ddf6])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aae5df167esm1421523a12.25.2026.09.25.14.02.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 14:02:06 -0700 (PDT)
-From: Yongzhao Chen <yongzhao.derek@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Ziyang Huang <hzyitc@outlook.com>
-Subject: Re: [RFC PATCH net-next v3 4/5] net: dsa: qca8k: flag QCA8337 internal CPU PHYs for SmartSpeed
-Date: Fri, 25 Sep 2026 23:01:53 +0200
-Message-ID: <20260925210153.8717-1-yongzhao.derek@gmail.com>
-X-Mailer: git-send-email 2.45.2.windows.1
-In-Reply-To: <d2797713-9b92-43c8-a26e-bf3bc9817ad8@lunn.ch>
-References: <20260923215858.1653-1-yongzhao.derek@gmail.com> <20260923215858.1653-5-yongzhao.derek@gmail.com> <09d669ff-7aad-4414-880a-21c2e7bf2cd7@lunn.ch> <20260924234814.1734-1-yongzhao.derek@gmail.com> <d2797713-9b92-43c8-a26e-bf3bc9817ad8@lunn.ch>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QkDam5UB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CC491F000FF;
+	Fri, 25 Sep 2026 21:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790370129;
+	bh=Xxnwq2liuR/h0COSiDia8u8avPdnrITgnRI+KPDTj+Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=QkDam5UBe8G1n6b3cupssgLkR09k8GjbnTRnTKeXzPli2mC+EaHP11wDhlNwO9cM9
+	 3dwAaOfD3jVRE0ZO1JMGSlXMD0t/Hlt49JTlUVcqZ8c8ScJrJ/6JTiIW0YBm/agDQr
+	 BfU/OWGxFP7zotKQVtiCuwhl7bA5cpGxAp2xQir9FYbr0YXSqT4JXaEkls03yj5JWJ
+	 BnHaRFNerl9qIpOSiSXoHudJP2JqhbDbb/Ta3m/2totL8S73gwgkw3ZoAw8tT3+Ga6
+	 Ca+h5uk78MgLBOloico1WnfoEysIO6ITHxaRIO+3f2IvDIaHazODT2tdnqT8fUnVAo
+	 TJLtgjJlXCNeg==
+Date: Fri, 25 Sep 2026 16:02:08 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Logan Odell <loganodell@google.com>
+Cc: KarimAllah Ahmed <karahmed@amazon.de>, bhelgaas@google.com,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI/IOV: Make VF config reads match PCIe 7.0 spec
+Message-ID: <20260925210208.GA2098512@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924225944.GA2019638@bhelgaas>
 
-Hi Andrew,
+On Thu, Sep 24, 2026 at 05:59:44PM -0500, Bjorn Helgaas wrote:
+> On Thu, Sep 10, 2026 at 10:36:48AM -0700, Logan Odell wrote:
+> > The revision and subsystem ID of the VFs for a given PF do not all have
+> > to match per 7.5.1.1.5 and 7.5.1.2.3[1]. Read these values from the
+> > config space instead of using cached values from VF0. Class codes and
+> > subsystem vendor IDs do need to match per 7.5.1.1.6 and 7.5.1.2.3. Use
+> > the PF's value instead of reading from the VF config space. Per
+> > 7.5.1.1.9, the header type for a VF should be 0, so hardcode that
+> > assignment.
+> > 
+> > [1] https://members.pcisig.com/wg/PCI-SIG/document/previewpdf/22464
+> > 
+> > Fixes: cf0921bea66c ("PCI/IOV: Use VF0 cached config registers for other VFs")
+> > Signed-off-by: Logan Odell <loganodell@google.com>
+> 
+> Applied to pci/iov for v7.4, thanks!
+> 
+> > ---
+> >  drivers/pci/iov.c   | 25 -------------------------
+> >  drivers/pci/pci.h   |  4 ----
+> >  drivers/pci/probe.c | 14 +++++++++-----
+> >  3 files changed, 9 insertions(+), 34 deletions(-)
+> > 
+> > diff --git a/drivers/pci/iov.c b/drivers/pci/iov.c
+> > index 9d408fb8ac25..9185934a900f 100644
+> > --- a/drivers/pci/iov.c
+> > +++ b/drivers/pci/iov.c
+> > @@ -179,29 +179,6 @@ bool pci_iov_is_memory_decoding_enabled(struct pci_dev *dev)
+> >  	return cmd & PCI_SRIOV_CTRL_MSE;
+> >  }
+> >  
+> > -static void pci_read_vf_config_common(struct pci_dev *virtfn)
+> > -{
+> > -	struct pci_dev *physfn = virtfn->physfn;
+> > -
+> > -	/*
+> > -	 * Some config registers are the same across all associated VFs.
+> > -	 * Read them once from VF0 so we can skip reading them from the
+> > -	 * other VFs.
+> > -	 *
+> > -	 * PCIe r4.0, sec 9.3.4.1, technically doesn't require all VFs to
+> > -	 * have the same Revision ID and Subsystem ID, but we assume they
+> > -	 * do.
+> > -	 */
+> > -	pci_read_config_dword(virtfn, PCI_CLASS_REVISION,
+> > -			      &physfn->sriov->class);
+> > -	pci_read_config_byte(virtfn, PCI_HEADER_TYPE,
+> > -			     &physfn->sriov->hdr_type);
+> > -	pci_read_config_word(virtfn, PCI_SUBSYSTEM_VENDOR_ID,
+> > -			     &physfn->sriov->subsystem_vendor);
+> > -	pci_read_config_word(virtfn, PCI_SUBSYSTEM_ID,
+> > -			     &physfn->sriov->subsystem_device);
+> > -}
+> > -
+> >  int pci_iov_sysfs_link(struct pci_dev *dev,
+> >  		struct pci_dev *virtfn, int id)
+> >  {
+> > @@ -329,8 +306,6 @@ static struct pci_dev *pci_iov_scan_device(struct pci_dev *dev, int id,
+> >  	virtfn->physfn = pci_dev_get(dev);
+> >  	virtfn->no_command_memory = 1;
+> >  
+> > -	if (id == 0)
+> > -		pci_read_vf_config_common(virtfn);
+> >  
+> >  	rc = pci_setup_device(virtfn);
+> >  	if (rc) {
+> > diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+> > index ba3c3fddddc2..5b3dd1adbf35 100644
+> > --- a/drivers/pci/pci.h
+> > +++ b/drivers/pci/pci.h
+> > @@ -711,10 +711,6 @@ struct pci_sriov {
+> >  	u16		driver_max_VFs;	/* Max num VFs driver supports */
+> >  	struct pci_dev	*dev;		/* Lowest numbered PF */
+> >  	struct pci_dev	*self;		/* This PF */
+> > -	u32		class;		/* VF device */
+> > -	u8		hdr_type;	/* VF header type */
+> > -	u16		subsystem_vendor; /* VF subsystem vendor */
+> > -	u16		subsystem_device; /* VF subsystem device */
+> >  	resource_size_t	barsz[PCI_SRIOV_NUM_BARS];	/* VF BAR size */
+> >  	u16		vf_rebar_cap;	/* VF Resizable BAR capability offset */
+> >  	bool		drivers_autoprobe; /* Auto probing of VFs by driver */
+> > diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> > index 27008e2ea5af..693c07cf45ff 100644
+> > --- a/drivers/pci/probe.c
+> > +++ b/drivers/pci/probe.c
+> > @@ -1888,10 +1888,14 @@ int pci_cfg_space_size(struct pci_dev *dev)
+> >  static u32 pci_class(struct pci_dev *dev)
+> >  {
+> >  	u32 class;
+> > +	u8 rev;
+> >  
+> >  #ifdef CONFIG_PCI_IOV
+> > -	if (dev->is_virtfn)
+> > -		return dev->physfn->sriov->class;
+> > +	if (dev->is_virtfn) {
 
-> But this is testing the wrong thing. This is testing downshift
-> works. What you are actually interested in is downshift happening when
-> it should not....
->
-> So take a closer look at the user ports. phylib should report when a
-> downshift occurs:
+I moved the "rev" declaration here to avoid an unused variable warning
+when CONFIG_PCI_IOV is not set:
 
-Thanks, that is a better test. I ran it on RA74 with the OpenWrt 6.18.52
-backport that includes the read_status change, so phy_check_downshift()
-sees the speed from 0x11. The user ports keep SmartSpeed at its hardware
-default (enabled). The CPU PHY keeps the existing workaround, so
-SmartSpeed stays disabled there.
+https://lore.kernel.org/all/179030514298.542007.4329779510355469675@kernelci.org
+https://lore.kernel.org/all/arac0WyK8MIbFeNP@sirena.org.uk
 
-Across 8 boots (1 after flashing, 4 warm reboots, 3 power cycles) and 10
-"ethtool -r" on each of wan, lan1, lan2 and lan3, there was no
-"Downshift occurred" message. CTRL1000 stayed at 0x0600 on all four user
-PHYs, and each port came up at the speed its link partner supports. The
-only unexpected event was one link drop on lan3 about 7 seconds after
-its last renegotiation; it came back at 1 Gb/s after 3 seconds.
+Check
+https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/commit/?h=iov&id=180b6d7bd729d5f07374af6fd4c3b8a7eefde0d1
 
-I also tried to recreate what the CPU link sees at boot, where the
-IPQ5018 PHY does not advertise 1000BASE-T at first and adds it a few
-seconds later. On lan1 I switched the PC NIC 30 times between
-advertising only up to 100 Mb/s, with autonegotiation still enabled,
-and full autonegotiation, then restarted it another 10 times. lan1
-returned to 1 Gb/s every time. In 741 once-per-second samples CTRL1000
-stayed at 0x0600 and 0x11 bit 5 was never set, and there was no
-downshift warning.
-
-So on this board I have not seen downshift misbehave on the user ports,
-including when the link partner changes its advertisement in a similar
-way. This is one board and a limited number of attempts, and the link
-partner was a PC NIC rather than the IPQ5018 PHY. It also does not show
-that downshift works on a bad cable, and the CPU link failure itself was
-not exercised because SmartSpeed stays disabled on that PHY.
-
-Disabling downshift for all qca83xx PHYs would also remove it from the
-user ports, where I have not seen it misbehave. The CPU link has no
-cable, only a fixed on-board connection, so disabling it there should
-cost little. Given this, would you accept keeping the workaround limited
-to the CPU link, or would you still prefer disabling it in the PHY
-driver without a flag?
-
-Thanks,
-Yongzhao Chen
+> > +		if (pci_read_config_byte(dev, PCI_REVISION_ID, &rev))
+> > +			rev = 0;
+> > +		return (dev->physfn->class << 8) | rev;
+> > +	}
+> >  #endif
+> >  	pci_read_config_dword(dev, PCI_CLASS_REVISION, &class);
+> >  	return class;
+> > @@ -1901,8 +1905,8 @@ static void pci_subsystem_ids(struct pci_dev *dev, u16 *vendor, u16 *device)
+> >  {
+> >  #ifdef CONFIG_PCI_IOV
+> >  	if (dev->is_virtfn) {
+> > -		*vendor = dev->physfn->sriov->subsystem_vendor;
+> > -		*device = dev->physfn->sriov->subsystem_device;
+> > +		*vendor = dev->physfn->subsystem_vendor;
+> > +		pci_read_config_word(dev, PCI_SUBSYSTEM_ID, device);
+> >  		return;
+> >  	}
+> >  #endif
+> > @@ -1916,7 +1920,7 @@ static u8 pci_hdr_type(struct pci_dev *dev)
+> >  
+> >  #ifdef CONFIG_PCI_IOV
+> >  	if (dev->is_virtfn)
+> > -		return dev->physfn->sriov->hdr_type;
+> > +		return 0;
+> >  #endif
+> >  	pci_read_config_byte(dev, PCI_HEADER_TYPE, &hdr_type);
+> >  	return hdr_type;
+> > -- 
+> > 2.55.0.1007.g17ff1f9808-goog
+> > 
