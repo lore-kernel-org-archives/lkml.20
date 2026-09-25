@@ -1,73 +1,99 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2E0375F83;
-	Fri, 25 Sep 2026 06:44:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4E6126C02;
+	Fri, 25 Sep 2026 06:47:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790318682; cv=none; b=tk3hkTPHM2/1Cgg1IojbeQt7PZX7Su/6BzLF/cfOKzkTtrOdHpSW3WiSDkxvifEdHWdhx81nnYANUwLmu0MC1WlHlRBs6EHdv4S2DjohHiOwxSjPQVQsFdgl/vjQnZkfZQNKlJKs1wnOFJnDuCN2HxYH7+UnByqRFv4s5w4uksk=
+	t=1790318829; cv=none; b=QxJaRXayaJtPe/xjdb+JVOfOvo2CW3C/SRoJ+Ubax2FksXlNLd3Hakh9Wy48/styuUp/dohiluXuv+/zbcf0CRU1f1b/+KSN7DBT77R+kqCOH+qF9cfxW394E+OGnx4Gp3DeYgNoNXxvszJdaEQSS3Oe61IXuvVWHuulWP77ChQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790318682; c=relaxed/simple;
-	bh=FfqpPNJtRO0EUXXIhB7MM4WDvAfN8CH25Udahn/qzmw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FZwpm3VU3hUGhU15nzz1DIAZ1NjAXwuq6yW7KWKrzOxUWYmE7bG6I57ALhOni/9NQcnbNyFpwPoZ9cU3GEkOIYwuUDL85sjTfcpT80PoVi3fvRZmQ7SCEHDXVpzfsufHS4wqkJ2Vcx7vFvknHOHKOYypTMj777i1aK6xZrexNiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=wR67LYNT; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1790318829; c=relaxed/simple;
+	bh=8f+gswlACgozdTz8iyPhelemFLgSo5hsf/bjDclOIr8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=E/RSesUUc47YDrLcBTuUHnmTnn/69sh56pVFi2AUTm1plT8phcUVa15dW44Pn6VgM73IVLPHPu2vO/V/YmhzBzu/7VbcAeobJaFa4K0ourTdVNj1S9RYN8HZFpNKSz+YCauNnMCfSwDzAea+ip1RPBYqMlvyJrvafz1wHF/uQHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NeninARG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="wR67LYNT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Transfer-Encoding
-	:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=KzvSr9R/mBch7S+QJxiPCb7JhJ6PYAVMLtJt+FvjF58=; b=wR67LYNTPRSf7G/CzgVP6pfASC
-	AOwzdpGcvG3083Y4RQU1pcU1TlfoWNCDY0K9I6kIVWAN0BBlhs2SKehnLucqIZHCNbqduBbE/0hj+
-	m8YSVpAJY/oQmS6hVCY7qzvLf0n4bXYi4tba8gYWVerb0EVbYgWvK3u93kVJMF4A5e02J0raDUUP9
-	QL69O1I/ahYMIHTFq/ZW9N880IcPCBNZVmWHQ4OLTM3GWq4A2R+AAGlpODxgphV1fh1Hn4mvDUZUq
-	oA1trrcpd1b323POHkKL1IaA+4ou8TD9uE70Dze5wPDgnDYz3GyHXwTiRc+9sdvza+Hjv5b/ssg3t
-	jhiD+/GQ==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9zfb-0000000ClrF-42Yv;
-	Fri, 25 Sep 2026 06:44:31 +0000
-Date: Thu, 24 Sep 2026 23:44:31 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Ratheesh Kannoth <rkannoth@marvell.com>, netdev-bot+sashiko@kernel.org,
-	davem@davemloft.net, gakula@marvell.com,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	sgoutham@marvell.com, andrew+netdev@lunn.ch, edumazet@google.com,
-	pabeni@redhat.com, sbhatta@marvell.com
-Subject: Re: [PATCH net] octeontx2-af: nix: Export CN10K admin queue enqueue
- mbox handler
-Message-ID: <arYYTw8l90VNnKal@infradead.org>
-References: <20260915072357.980485-1-rkannoth@marvell.com>
- <178971638355.22033.14086854049232485813@kernel.org>
- <aqzpNjAtWSoi7hX1@rkannoth-OptiPlex-7090>
- <20260921150241.10a47c1f@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NeninARG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7D61F00893;
+	Fri, 25 Sep 2026 06:47:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790318827;
+	bh=8f+gswlACgozdTz8iyPhelemFLgSo5hsf/bjDclOIr8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=NeninARGTpOwQ5rlNxK7fiUxrTMBbzUXF1TZPIjOUbDRCwmvuDAiL4ZZfZByxTi3j
+	 RP6zhKNLlmHEVRd8ffpzXoKS84KHpEh1F/dCP+m8ZZd8zfzqhnFaHjl3xfK6YG+s1l
+	 0VBEsqUqBtZNmzBXnm5F/rVOPx5qZYjEoY6DlKELM6abvjXD0z9uN13rQDDgB8Kw0q
+	 NJRDUMXgkSdGjvlLoagn0neF50+D+Q55WTUTABevdTui/DDY2aQLqc8SXc5aVQgpaE
+	 NGL4v6psklItXzhEPG+PTiInjeUUVMjV1JydjaSmuwsZiGdCl9N/pw3OiLbwS0VeZE
+	 yd7clkMlnzlKA==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [RFC PATCH v6 00/11] iommufd: Infrastructure for vIOMMU
+ creation for confidential guests and guest TSM requests
+In-Reply-To: <20260924190935.GA112301@nvidia.com>
+References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
+ <20260924190935.GA112301@nvidia.com>
+Date: Fri, 25 Sep 2026 12:16:58 +0530
+Message-ID: <yq5a8q4pkeu5.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260921150241.10a47c1f@kernel.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain
 
-On Mon, Sep 21, 2026 at 03:02:41PM -0700, Jakub Kicinski wrote:
-> On Fri, 18 Sep 2026 13:03:10 +0530 Ratheesh Kannoth wrote:
-> > > - [High] New EXPORT_SYMBOL() with no in-tree consumer:
-> > >   `EXPORT_SYMBOL(rvu_mbox_handler_nix_cn10k_aq_enq)` is added in…  
-> > Can i post this patch to net-next as consumer is out of tree ?
-> 
-> No, we don't carry exports for OOT code upstream.
+Jason Gunthorpe <jgg@nvidia.com> writes:
 
-Btw, someone really should do an audit of all the octeontx2
-exports.  There is a lot of them, they are non-GPL and non-namespaces
-which is a bit of a red flag.
+> On Thu, Sep 17, 2026 at 07:31:48PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> This series adds the IOMMUFD and PCI/TSM infrastructure required for device
+>> assignment. It introduces an IOMMUFD-owned vIOMMU provider registry and the
+>> IOMMU_VDEVICE_TSM_REQ ioctl.
+>
+> I couldn't guess how to apply this with b4 review. Since it requires
+> the series to apply I can't use it without knowing your base..
+>
+> .. and for some reason this series doesn't have a base-commit trailer
+>
+> .. nor does it specify a git URL to find it on.
+>
+> I strongly recommend consistently doing both of these, by script, so
+> it happens right every time.
+>
+> Please send all your series in a rigerous way. Make sure you have a
+> script that does all of this stuff, ideally automatically. I have one
+> if you want to see it..
+>
+> Anyhow, I used a crazy AI prompt to make this apply on top of the last
+> tsm series..
+>
 
-Similar the drivers/net/ethernet/marvell/prestera is really weirdly
-split into two drivers for no reason at all.
+I should be able to split these changes into an independent series on top
+of upstream. I did not include a base-commit because the series is
+currently based on other CCA patches, solely to enable testing of the
+complete stack.
 
+The full tree, including the other CCA changes, is available at:
+
+https://git.gitlab.arm.com/linux-arm/linux-cca/-/tree/cca/scratch/vdevice-tdi?ref_type=heads
+
+For the next iteration, I will rebase the IOMMUFD series onto the upstream
+kernel and include the base-commit trailer.
+
+-aneesh
