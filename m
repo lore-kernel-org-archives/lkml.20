@@ -1,158 +1,132 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37CF39769B
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:39:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6A035B632;
+	Fri, 25 Sep 2026 06:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790318343; cv=none; b=mFCnPTRSc3UhlAENKKM9gW8H1U8njXUSp7zRW2BJ5tudmUB1uE2eMyqZsL3B/Q6s/TfMMH21RvOsEIWkhFpTC2Ufukbjyi+EpMRisasZ16fD9zjyPzGgsYkLIu2s1lPQRtU9K1iei56fcpeKoKJsGnaBbwzz2FNJ/GyXJRIAwW8=
+	t=1790318406; cv=none; b=o4n/SoZFdEQm8EOpA9/ztD7CG2edd3qracXcJvpsLTJvFJrPaTPg82U9C2nnH286A+zs7Gk36CuPDMWhH5zfHpl2PaHPv4Jr0hTu3iY44AW6GF1632icDaCs9fs0/JzhG0v9ClXbfBSwy6viQCvAs8G+vG7KcvMiBSiLVT0vlIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790318343; c=relaxed/simple;
-	bh=bBEIpBUB43BZa53CSuyn25k126QXXsrK9MijXSC+VwE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P59pMq/SyD6Klfl0hO05WCpcn/40w5qFBMa2rttW/Mu3ttxQnpAGgA8+hk8E/hMqyqQWk9k5NphjlByD2AQLdVbN7LCycih8tUJE2RGx0bgcY7zELJZ+IatxbgxFzE9/oUyEvRCzXTWO2IAsm2xMxH+ggGWXs8YWTccnU6ym76U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kjHUu+hR; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790318406; c=relaxed/simple;
+	bh=X7W+v3OhN0BEf9XjBV2u5tsUe/V0pc4AbUdnHcNPxm4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tzf9eUQxH3UdKdi1q9bem1l+KwfHC4W1DTPIZXJvY05HSFpVidPJ7lR4Yvpgw+eaQ1KIMGynEEbz9iLIPAtsE0MR4Ae7qpXbKBxO4DE/f+zGEgivQyUSMhe0Mh40QmJbTaErAFZPY4PkKTpqSs6WIAJsM0pLLoCfFSWwIPsJhP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=nUa5SS5T; arc=none smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kjHUu+hR"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3411e0ace19so256059eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:39:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790318340; x=1790923140; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+XCKYNMunQtwjsoXeGr7yLk4ydEdG3nbjO5mlaJXoXQ=;
-        b=kjHUu+hRDiAjx/GTeNB7c+y11/uouUMKOLJ7gegIystcmre94e+ZE2VmfY91wwDdoX
-         OkmFdlVABrSNSJMyrgI62SAf6Lb6GiGJmsNKKYOCVLyd1SxNrW12Ad0CWg4WbF8AWYO2
-         KFez60cTOpOz/gSQ/cgfbRWcPO6qdXlKXrhaXJpZuXpofNFuI47DxCw8Lnf0QC+a6+Ma
-         KJDDVzI5sUb4/hpmBeJ7HJGnPlMhlLxJBRDSGGOi4nQcTjZgg+ef0SDoiMVVE4xeFeLn
-         jg6VTL43h9kNORo1Mdd2dnFxQ+wuFtQiVP/2VpY8ejXtJEQR3oP/45AQePAhb9zgEgKx
-         qYoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790318340; x=1790923140;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+XCKYNMunQtwjsoXeGr7yLk4ydEdG3nbjO5mlaJXoXQ=;
-        b=EKzuf2c96BG2N17on8gYUM92S9Hybn2w4XXFrUnN/uNbxGKYmf4VrH7t2LEeenAMlU
-         6uhuBY/u/p4/t/kD4OgD4SkFWMP7YbT7EoDE0wmlhC2LmKIJOU2WPVH1I4MR5j5tmdbR
-         RuiDfBfoo4ls+12M3/WsBmEGQSZrpJki5kj87iRN7gvSZeej5LBKNmxZqvDir3+Nlf7t
-         EjLldyImuPG7AJZxjY/BDDs7ZZ+skNZRWvTfx3HggyvXDqS45htjAhgrepduROSw4WiO
-         eVYTthIU9SwwftFTXDpdOFxZw0QGXnt9NnW6s03Ot6caftzOK7ot8TamLG19bc88aFcT
-         BDtA==
-X-Forwarded-Encrypted: i=1; AKwUvBx+MyOunyn0GN0dnjc/r2YbMcyPcSiOwz0r3GfYwv9Jyg+CxRZ6IMz+UXP2b7j1DOoGQPijObFADtVLE54=@vger.kernel.org
-X-Gm-Message-State: AFuF++mK7itdiXeHhpbmtXoGKlatjf69Fy6CAIvdmnStn9n6G1J/0eX7
-	DTGLbz0wQq1CW9xK0AmhujSL2CgTR2EvkD5TQhyrOTOTfzugh6iQiFnN
-X-Gm-Gg: AYBFou1fRbPog9SQ3FgTfQprpAMuKwTN75gUMXwrGXMrWX6CTl23UXHHJLO7ydtI8P7
-	o6fDB2zxQpLSzQGSmxLYSVGZh9U3oPlQ8fExqlBzLaFMrfgFetHhJ4EbjsJ2poIZKcbKI/0Qm/F
-	BV1z0nRhy5q5cMxNwq3EFo/j3ML8Y0mjrOxWsnhcuSkxQBKKLzBU+qX4EpCbEV2dv60lrvn0NVv
-	/1l8MJOEA3o0QODMNI2X2czJsk1pA012NCiT4k8JsA1dAkst2BT+2H0rqiYYiyWYMnncbmeiBNB
-	dKZl7m1LgPlq5No5QPQ/taZ8RWTkWzZl8tzkaZzneIlVIkx5wpeVgsHS2T+6Ig4TuszJNcl+TAT
-	RzhbiwH7l+T0uQOFsD1+Tk9RAiQD8QCrCDDtLgYKziX2VT+S7yzdL0I/ym0DXReUKO91oukm23k
-	Mtr5pf/Mdlwn6Q0md9PwbCABuLSM7OrNC8XHQC3rwzniKc2n1tSL1X7Hd07bSgdgm8sLwu/XTVP
-	EhaH0EJ1uoKrZGFJwg7L6GXf/vWdEec1Px+IHRCAKWl
-X-Received: by 2002:a05:7300:7315:b0:33b:e9a7:d81f with SMTP id 5a478bee46e88-340031cca3cmr5226961eec.11.1790318339666;
-        Thu, 24 Sep 2026 23:38:59 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757f31sm6418823eec.14.2026.09.24.23.38.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 23:38:58 -0700 (PDT)
-Date: Fri, 25 Sep 2026 12:08:38 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, 
-	ritesh.list@gmail.com, sshegde@linux.ibm.com, pjw@kernel.org, palmer@dabbelt.com, 
-	aou@eecs.berkeley.edu, alex@ghiti.fr, hca@linux.ibm.com, gor@linux.ibm.com, 
-	agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com, tglx@kernel.org, 
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, 
-	hpa@zytor.com, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
-	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com, 
-	tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org, 
-	acourbot@nvidia.com, work@onurozkan.dev, nathan@kernel.org, ndesaulniers@google.com, 
-	morbo@google.com, justinstitt@google.com, jszhang@kernel.org, japo@linux.ibm.com, 
-	jpoimboe@kernel.org, seanjc@google.com, pmladek@suse.com, thuth@redhat.com, 
-	ynorov@nvidia.com, joelagnelf@nvidia.com, david@davidgow.net, 
-	fujita.tomonori@gmail.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
-	linux-s390@vger.kernel.org, rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [RFC] rust: kernel: Add KUnit tests for ARCH_WARN_ASM bug table
- emission
-Message-ID: <arYWpnhia9icB-60@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20260922054959.955093-2-mkchauras@gmail.com>
- <20260922064735.GS4121339@noisy.programming.kicks-ass.net>
- <arNxAn7I7NCVWmD1@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
- <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="nUa5SS5T"
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OLMsG63847423;
+	Fri, 25 Sep 2026 06:39:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=corp-2025-04-25; bh=8Wx74CcjZN2KpLzFAPrGCL0wBHdAL
+	z/M9ECkC+f9nFw=; b=nUa5SS5TRMPNKD4rFZtDSqIinJhsGrNrwioh5MGQBw1GL
+	sHj78NFoIT9IFp8K8dbe9RogaWgfaXbuHZjSIbhGpnlVllDSwXQgrPioxpK60P6k
+	VNmW/Q2LEKhpa5rw5jpKPo3b1Oews1wnJRpERDdvOp/Ow9GbIidm9wgE9rRDGq5y
+	IIMtAzeQjK9ex7zhzS3tQwy/dOQv9/Vx5H1eyMBnBsUWBAkcfWWPtYtGvivFJd7/
+	qGuV+mzXPFRqHBe3NWjSOS7inp6wm4XkEvZJPUg0002qcbGRDqv//GkvgViMPOBa
+	cvpwD77QGAPMe42oKA35d2ipqm4XH6geJhnz89bJw==
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gsjxb8xc2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 25 Sep 2026 06:39:43 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 68P6Yq7L023634;
+	Fri, 25 Sep 2026 06:39:43 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gtegpxu13-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 25 Sep 2026 06:39:43 +0000 (GMT)
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 68P6dgLM036692;
+	Fri, 25 Sep 2026 06:39:42 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4gtegpxu0a-1;
+	Fri, 25 Sep 2026 06:39:42 +0000 (GMT)
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+To: Steen Hegelund <Steen.Hegelund@microchip.com>,
+        Daniel Machon <daniel.machon@microchip.com>,
+        UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, linux-arm-kernel@lists.infradead.org,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org, error27@gmail.com,
+        harshit.m.mogalapalli@oracle.com
+Subject: [PATCH] net: microchip: vcap: stop scanning after deleting key field
+Date: Thu, 24 Sep 2026 23:39:36 -0700
+Message-ID: <20260925063937.963430-1-harshit.m.mogalapalli@oracle.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxlogscore=999 lowpriorityscore=0 spamscore=0 mlxscore=0 suspectscore=0
+ phishscore=0 adultscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2609040000 definitions=main-2609250026
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAyNiBTYWx0ZWRfX75AOeZb2Rkov
+ W4XinyGdG2OydliU3JylfdNGIAMNNE00n51FPootjAO5/wyElKh/UbE4yFoMSp0JnYWReA5489I
+ AVn2ri1JglkoicToQv1BUAJWV+ooLvrPmlp2zCj5BJjZol2ZfEgV5YSIGaOe7H3hXS+A70MZnEF
+ u3pwvwqyimTp7LTUxYcRZ+3jFP3QytyPFMfZG2XIaFG0JYBpGiu07scclTuB9QOA8ZGWQxzoulB
+ D8kJYFqVGJuc5kNwY5ZgIUZ4Nw6dYSKxKDGS7/fgkcKM7jNIfKospFwCbwUi4z4B0JXhoWd3yNu
+ oFSIn622bCXfgsxgp5bVn8XmEHbMLz1ywdFqhbyHdJ4O31nqlTgACqAREs8IGusmlKM6hAfVlGw
+ gfia59Z2TglYrcmbY8mbdFg0h1hjkZhYA1EQEDSaWLSCV7wE7TCbDqmOD9pAB50bZjPGxJVGgd6
+ hy4TWi6OTx5NzXsTgWw==
+X-Proofpoint-ORIG-GUID: H3bv3TOXvrw2tKZOqmCs9849OdC1-jvv
+X-Authority-Analysis: v=2.4 cv=UINIjyfy c=1 sm=1 tr=0 ts=6ab6172f cx=c_pps
+ a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=RD47p0oAkeU5bO7t-o6f:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=yPCof4ZbAAAA:8
+ a=uVw-QqTyBSQbbWnki_UA:9
+X-Proofpoint-GUID: H3bv3TOXvrw2tKZOqmCs9849OdC1-jvv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAyNiBTYWx0ZWRfX40ygXbz5QkSY
+ 3fM645nqsrGRdY5a2IztYiU4rfgTZdGZkvnwSXZSSdtlcDWSGtC8f2DvXnLJ2CQQyOGVN1Grlef
+ Wz0vOgR1VfjbgLxcpO4NJK2PLb0LyAT2B9br/72NOD/cw66PolZa
 
-> Untested thingies for arm64 and s390x.
-> 
-> diff --git a/arch/arm64/kernel/traps.c b/arch/arm64/kernel/traps.c
-> index 914282016069..3d8a969eab5f 100644
-> --- a/arch/arm64/kernel/traps.c
-> +++ b/arch/arm64/kernel/traps.c
-> @@ -987,14 +987,13 @@ void do_serror(struct pt_regs *regs, unsigned long esr)
->  #ifdef CONFIG_GENERIC_BUG
->  int is_valid_bugaddr(unsigned long addr)
->  {
-> -	/*
-> -	 * bug_brk_handler() only called for BRK #BUG_BRK_IMM.
-> -	 * So the answer is trivial -- any spurious instances with no
-> -	 * bug table entry will be rejected by report_bug() and passed
-> -	 * back to the debug-monitors code and handled as a fatal
-> -	 * unexpected debug exception.
-> -	 */
-> -	return 1;
-> +	u32 insn;
-> +
-> +	if (aarch64_insn_read((u32 *)addr, &insn))
-> +		return 0;
-> +
-> +	/* Match ASM_BUG_FLAGS() / BUG() instructions. */
-> +	return insn == (0xd4200000 | (BUG_BRK_IMM << 5));
->  }
->  #endif
->  
-> diff --git a/arch/s390/kernel/traps.c b/arch/s390/kernel/traps.c
-> index b6ba4465f59d..8bbb082fd5e3 100644
-> --- a/arch/s390/kernel/traps.c
-> +++ b/arch/s390/kernel/traps.c
-> @@ -26,6 +26,7 @@
->  #include <linux/entry-common.h>
->  #include <linux/kmsan.h>
->  #include <linux/bug.h>
-> +#include <linux/uaccess.h>
->  #include <asm/entry-percpu.h>
->  #include <asm/asm-extable.h>
->  #include <asm/irqflags.h>
-> @@ -55,7 +56,12 @@ static inline void __user *get_trap_ip(struct pt_regs *regs)
->  #ifdef CONFIG_GENERIC_BUG
->  int is_valid_bugaddr(unsigned long addr)
->  {
-> -	return 1;
-> +	u16 insn;
-> +
-> +	if (get_kernel_nofault(insn, (u16 *)addr))
-> +		return 0;
-> +
-> +	return insn == 0x0001 || insn == 0x000e;
->  }
->  #endif
->  
-Thanks for this.
-lemme test these and i'll send it out after verifying.
+The only call outside the KUnit tests is in
+sparx5_tc_add_rule_copy(), which passes a fixed key list with no
+duplicate entries. Therefore, the potential double-free is not
+currently reachable in tree.
 
-Regards,
-Mukesh
+However, vcap_filter_rule_keys() is exported and does not require its
+key list entries to be unique. If a future or external caller supplies
+the same key at another position that the inner loop visits, it calls
+list_del() and kfree() a second time on the freed field, leading to a
+potential double-free.
+
+Break the inner loop after removing a matching field. The outer safe
+list traversal continues to process the remaining rule fields.
+
+Fixes: 465a38a269e9 ("net: microchip: sparx5: Support for copying and modifying rules in the API")
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/all/ahs-lCAXXikkaHky@stanley.mountain/
+Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+---
+ drivers/net/ethernet/microchip/vcap/vcap_api.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/microchip/vcap/vcap_api.c b/drivers/net/ethernet/microchip/vcap/vcap_api.c
+index 788c0728d763..0f8d98f2094d 100644
+--- a/drivers/net/ethernet/microchip/vcap/vcap_api.c
++++ b/drivers/net/ethernet/microchip/vcap/vcap_api.c
+@@ -3527,8 +3527,8 @@ int vcap_filter_rule_keys(struct vcap_rule *rule,
+ 				if (key == keylist[idx]) {
+ 					list_del(&ckf->ctrl.list);
+ 					kfree(ckf);
+-					idx++;
+ 					err = 0;
++					break;
+ 				}
+ 		}
+ 	}
+-- 
+2.52.0
 
