@@ -1,120 +1,198 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502EE44B69C;
-	Fri, 25 Sep 2026 08:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5500F472521
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790323926; cv=none; b=ZSgU7wP25FmGMse6DG0WruIT8ZDhmYirVCm2LOF2IcyWuekVTfNfd0g+v4/FuEVR5FC1dRgQNsz61133I3mUi/rJ9fyC4cZVeTaNqOb1wZWF3UxceiJSiD9lk6zVqTMDBk2gbVGerqg5sgqiPRfhuCIwj3zPhIkIoPiAXrp+mcY=
+	t=1790323960; cv=none; b=g6dsn4YR+8cFOefyK/vfN/ikxzEUfo619tSvkZXxLWEtJgtZFNkP6vrTWt3/3HG7YeEBXkJqG/uyLnxB/zUxfE6p63v+IA7DcTbo7VhIXzprOrMFYpRzg4nmektDD7WgdGxOtzLyvj/yiEUBUghsrdqDqejXwYgoYWF+va4ADMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790323926; c=relaxed/simple;
-	bh=IjeL6lQxC5wfgimI7fNsrGkvvTPhkEWoddXXRqMbvUQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P9O8zmYD5HVhJZ6rKwtln1KSxMwjp5zDeaCrbd7pWSKBKJ6XE55bXl/ZEinij+UYTEjvTQtMUo9hRYt/JzWmlvVRAzauPZ/c40GGVKzvwj9l/IZ0e0RxHNGvCwjw7VhjoI0voIHOg0cpjN7sWX3P30RhfAdok/YkL6vUeBuyIdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WZsMMWV+; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790323960; c=relaxed/simple;
+	bh=F0pWMUz53o74VHfGDjLqFGkToYkSgo8+QZV8EalfPAU=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=qzwArmlhz9IwYYlSBSCXL+/gDHjfHSgfrbxKZsCFb1Sw5TkAInAPNbmtId2P8FJj36eDP9l42bERoZcIt0e5YKEcnyvAlXei0R6s6QKnbRkMXIdqeOMxXe+2lg9b3GvJMSm4CfP0kvX+CY96yJfJD3DnX1Czw/UEqy/AFBdfDxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=JZbW5VH9; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WZsMMWV+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790323924; x=1821859924;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IjeL6lQxC5wfgimI7fNsrGkvvTPhkEWoddXXRqMbvUQ=;
-  b=WZsMMWV++sV2/m9yfc1uYPHzRf4qWMEEWMQs7eYYzPnJs+a68/NHRcTN
-   F2djqPoVjc/Mu+D1wC9wM0pZiu9FbtNlAggDVuKqzvfeB7+xCp/KneoQE
-   HesknvW371n3DXFw5ccxo9O3EApUT6IaG4+7ZTzlclD4QtequI1HWI+jV
-   8wBK+/imYXyWCvFdnDiZm0f5p8hjlrW3ppofvr1PsBP7778CG6xexh5xi
-   lSg6vIQWbTEJwexp6lMSYURW7Kf75JrljFqy4q8oMiUTTDqKoecWeCggz
-   mga5qPacsWuZLsiwvrFLB4kQI5Hnn1FEf7Xq0j/f66NczVyKqrJULpftj
-   Q==;
-X-CSE-ConnectionGUID: KxYyP3GIS8aTtc+X0BM7ow==
-X-CSE-MsgGUID: 32Z//ApJSXiXJaFlIRsatw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91211221"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="91211221"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 01:12:01 -0700
-X-CSE-ConnectionGUID: Hc5aw++YSMy/x7myuLeEKQ==
-X-CSE-MsgGUID: 0K945wrTQrmEvyGtHP6A2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="273363683"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 01:11:57 -0700
-Date: Fri, 25 Sep 2026 11:11:54 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Aniket Limaye <a-limaye@ti.com>, Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
-	u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
-	Ritwick.Sharma@arm.com
-Subject: Re: [PATCH 2/3] i2c: designware: Introduce per-variant register
- offset and bit-layout tables
-Message-ID: <arYsyiu4KG-m23hh@ashevche-desk.local>
-References: <20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com>
- <20260919-tda54-upstream-i2c-v1-2-b0b9f77be18b@ti.com>
- <20260921111148.GT106095@black.igk.intel.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="JZbW5VH9"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso1717915e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 01:12:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790323954; x=1790928754; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ATk7xMKP08uK1zoQuR5gtkcggdAXygth+dWq3sg9U0A=;
+        b=JZbW5VH95n8qS3OkappBNq64+Ev7wUSqzSPSwBCms3Qr83bacL9P4vyE4YUw3EQ8EP
+         evlPc+1LWZgVQ6V7Ee1cBu/fJflSSWjIKofKLjC9CP/2UN3RMwBMBDVO3dHGu7iOyBp2
+         ToeqO2ymtyWx//g9lHVJipsc18RqoJsEpdOpiDCtnp3/c5UXT2InBLpFgSzdETE1vH+n
+         4Cp2SOvBRTUKT8r2W3nliVRDkgDN4g02oiE6x240IENIine6tA0GroZIkwGuh8CJbxqG
+         rwtRKAtKQ1XrYd4z1lUVtwK3k5o/prKa9kXjHTUEbGAnjog00FZ3qlcFEa9buskNJTPM
+         2JaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790323954; x=1790928754;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ATk7xMKP08uK1zoQuR5gtkcggdAXygth+dWq3sg9U0A=;
+        b=PaaVA7IH7PLia7WhD3PNWlojrgbQiqMLZMI5UhIGZ0Zb+XU04wddjewQJz4GWKMUka
+         35L/LDwF2VfO3ytqciCBVCbXJyW7q1BNH7HjA1TYoXiAC65Hus3tmkb2C3Gy/El8IKHO
+         +ywEkom5xQBqKwxY4c9sKxruMcjra5PB4kv6nFJDGcfNd8wayg+Ql5hvnZ35yGIRcheM
+         /3oqkq6SgtztIpFwc4v3+q8z367sVOvIWo/eCfsCsF7YByizvEmeeDaSARLRJyL1DQ5s
+         Z19cThhEDAsHeIpYkeVpYLO8EpmxC2C7BGb2UNwZujXW1ouphAj4C7W+Ka7e6w0ntZu0
+         GbFg==
+X-Forwarded-Encrypted: i=1; AKwUvBwSIJ4C3f/lmQ6MVnnbqe33FCAAS01xCUdCNtyJRV9I8EWXp3DuYEyUeW86PcycQCAKGIF+hEGmNs0kQi8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnj2hMOJ0lTuXAGZC5CB2r6lXtIwdM8AfysWLQ6ePua4MDp2n8
+	XRiodS6GgSWFVuthI53e6doqtyXK4jeA1LrQnD+riUppz4ghhmVG/HFj/EneuQMVp9c=
+X-Gm-Gg: AYBFou3Kdv6CmKfbYx3T7qW1h5pOrHGFWXt3N2OjNTH+O0hURjHaLx2kJBCoBnbjudo
+	gGeNfGjdZQH7xC378jqp120tSmzM+wy+SewQM7k+LWbMJ2aMuZwiD/OO/bpJIQ5oNrQesIt82GF
+	hLVHeP6Wcqm4PYEByW/rOEJwDNcq/HX2QbJRrE8U2pASP6J6yg0JKVleDtPTgODMm8akCzFW1in
+	GYAhdyYRITHbxIEbc3mEaIMpyOxSHjKLkEWzQqW/f7n8miE5ExdTv8GzTyUUomKFAFku4zh+2to
+	gnFzK5muSJGbj1p72TXdcO33AQ3x1hgBwqqL1AnryvIh7wqc/KaXzqmHSaA7Egc7Ikr3ztN6JXy
+	zDicdBt8Hscp6IFI8Or/HAofbEgRpdI1PJh6b8txCgTo+CYxQpC47AhXAv5uDD0/ffI/32zqOJ7
+	7PiR5Qg2QLPHQpqTMJFBlz/ATSDFwP0HhLcvnMFmldjUojnj3XcfPo3HeVylL3Qm+tkgJXAxH0N
+	E+INx+hyT7I+tHbHe070kIGDpjyLAbPO8HRYQk0FrN8ukJFdYOWuw==
+X-Received: by 2002:a05:600c:1f83:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49fe66c8087mr84370395e9.3.1790323953453;
+        Fri, 25 Sep 2026 01:12:33 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:3151:fc9b:d41c:770b? ([2a01:e0a:106d:1080:3151:fc9b:d41c:770b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fee915f3dsm45286775e9.1.2026.09.25.01.12.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 01:12:32 -0700 (PDT)
+Message-ID: <9be6cfd1-5cb6-4437-b253-1590292b8cbf@linaro.org>
+Date: Fri, 25 Sep 2026 10:12:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921111148.GT106095@black.igk.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 0/2] iio: adc: add support for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
+ <20260925041325.0efac345@jic23-hlaptop>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260925041325.0efac345@jic23-hlaptop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 21, 2026 at 01:11:48PM +0200, Mika Westerberg wrote:
-> On Sat, Sep 19, 2026 at 02:36:07PM +0530, Aniket Limaye wrote:
-> > Every DW_IC_* register offset and CON-register bit position is currently
-> > baked in as a compile-time constant, which only works while there is a
-> > single register layout. Introduce a logical register-ID enum (enum
-> > dw_i2c_reg_idx) plus a per-variant offset table (dev->regs[]) and a
-> > per-variant CON-register bit-layout descriptor (dev->con_bits), selected
-> > at probe time via the new i2c_dw_select_variant().
-> > 
-> > Replace every direct DW_IC_* offset/bit-position reference with a lookup
-> > through dev->regs[]/dev->con_bits. Also fold the read-to-clear
-> > interrupt-acknowledgment pattern into a new i2c_dw_ack_intr() helper,
-> > driven by a per-variant dev->intr_clr[] table.
-> > 
-> > Only one variant exists at this point (DW_apb_i2c), so this is a
-> > mechanical, behavior-preserving change: the values in
-> > dw_i2c_reg_offsets[] and dw_i2c_con_bits match the DW_IC_* macros
-> > exactly. It lays the groundwork for adding a second register layout
-> > (DWC_i2c) without duplicating the whole driver.
+Hi Jonathan,
 
-...
-
-> > -		regmap_write(dev->map, DW_IC_TX_TL, dev->tx_fifo_depth / 2);
-> > -		regmap_write(dev->map, DW_IC_RX_TL, 0);
-> > -		regmap_write(dev->map, DW_IC_CON, dev->master_cfg);
-> > +		regmap_write(dev->map, dev->regs[DW_REG_IDX_TX_TL], dev->tx_fifo_depth / 2);
-> > +		regmap_write(dev->map, dev->regs[DW_REG_IDX_RX_TL], 0);
-> > +		regmap_write(dev->map, dev->regs[DW_REG_IDX_CON], dev->master_cfg);
+On 9/25/26 05:13, Jonathan Cameron wrote:
+> On Thu, 24 Sep 2026 15:14:14 +0200
+> Neil Armstrong <neil.armstrong@linaro.org> wrote:
 > 
-> Instead of all this. Can't you do this inside the regmap so that here and
-> elsewhere in the driver we continue to do:
+>> The MAX34417 is a specialized current and voltage monitor used to determine
+>> power consumption of portable systems. The driver support getting the channel
+>> voltage and accumulated average power over an I2C/SMBUS serial interface.
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > 
-> 	regmap_write(dev->map, DW_IC_RX_TL, 0);
+> Hi Neil,
 > 
-> but internally, depending on the hardware it then maps this into the
-> corresponding register offset.
+> As pointed out too fast for a v2.  You aren't new upstream so
+> that shouldn't come as a surprise!
 
-Exactly what I was going to say when I hit "reply".
-These series is definitely NAKed (in terms of the approach taken).
+Yeah sorry, but with the initial feedback v1 was far form beeing
+acceptable, will adjust timings for next versions.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> 
+> Secondly for devices that are all about monitoring power supplies
+> etc we always ask for a clear statement of why IIO rather than
+> hwmon + to CC at least the maintainer and often the hwmon list.
 
+Sure, thanks for the suggestion.
+
+> 
+> There are various valid reasons for that choice, but it is good
+> if they are clearly stated for discussion.
+
+I don't honestly have an strong opinion on that, for me IIO offers
+much more options to retrieve data from the sensor and adding the
+complex feature offered. The IIO triggers for example would
+perfectly match with the bulk readout we coulnd't implement with
+the hwmon API.
+
+Thanks,
+Neil
+
+> 
+> Thanks,
+> 
+> Jonathan
+> 
+>> ---
+>> Changes in v2:
+>> - switch to shunt-resistor-micro-ohms no more required
+>> - removed gpio.h from example
+>> - Fixed max34417->MAX34417 in Kconfig and comments
+>> - Added missing includes and remove unneeded
+>> - Fixed typos in comments
+>> - Switched to fsleep()
+>> - Better aligned max34417_read_power declararation
+>> - Handled 0 acc_count
+>> - Switched to GENMASK_ULL() for 32bits systems
+>> - Added missing empty lines
+>> - Moved the input correction into a helper
+>> - Set default input correction for all channels
+>> - Switched to dev_err_probe() to return from probe
+>> - Switched to device_for_each_child_node_scoped()
+>> - Handled invalid shunt-resistor-micro-ohms value
+>> - Link to v1: https://patch.msgid.link/20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org
+>>
+>> ---
+>> Neil Armstrong (2):
+>>        dt-bindings: iio: add: document the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+>>        iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+>>
+>>   .../bindings/iio/adc/maxim,max34417.yaml           | 100 ++++++
+>>   drivers/iio/adc/Kconfig                            |  11 +
+>>   drivers/iio/adc/Makefile                           |   1 +
+>>   drivers/iio/adc/max34417.c                         | 374 +++++++++++++++++++++
+>>   4 files changed, 486 insertions(+)
+>> ---
+>> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+>> change-id: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
+>>
+>> Best regards,
+>> --
+>> Neil Armstrong <neil.armstrong@linaro.org>
+>>
+> 
 
