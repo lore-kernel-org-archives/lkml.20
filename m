@@ -1,124 +1,134 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-120.mta0.migadu.com [91.218.175.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409AE503BE9
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:13:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F6335FF5B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790378016; cv=none; b=dGMCsHxBjncJ7eWh6qrj/jUGBMBhBn7I3aCGqhU1kYOdZlj15YXY8VYkJ2I/3G6zkti4aRQo4BxrdpWF0ABdpRs5w3GnaIdZqIqaLZBKL6f2Dwh8PjRTgRJOiofcDBnIWHzTAS9cBbEYynHbhfe4TyiNbuN1BLEHdExQkxYTa+s=
+	t=1790378043; cv=none; b=qIOIpdHMld5OV6EItWFBX1MgKDuSCB4EmGFNww9SnEPhkUUx7WCW744nXin0qmD7tj0ljhYTWAc/3yFif5arA1wcj4ajOwYo1Va26YzGQncpgBpLqJXuKHvOoaMvcuq8ColENeWXN2yNci9AgwLnzU4VMhTpetzT3J1xewCnaD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790378016; c=relaxed/simple;
-	bh=IHzywUCHO0ob7Ukns7yJ4Z4Dhpta9lJ6UZN308yPmHg=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=HdK3NkGIAnhTxm/gaSBLs8RsNfCdq544Cs7l23fm4I1OCg51c85CWUXkOsDcpzTWAIMkEsL61aNekoh4+iaT+Lhq/XqoTkF1zoBPBh0+l9hyHX9uLeLX3E6XNSA+cMICXWen6SYMUWs7eRAr3bWd57aEyfMLUQmz9Hf8Nf5RAXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=UDj2z3dT; arc=none smtp.client-ip=195.121.94.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
+	s=arc-20240116; t=1790378043; c=relaxed/simple;
+	bh=tOxz9HoU6pRLO9zJ7CotYpqDOpegZThflwPxXAEwQro=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QEGJ4PfohWGH/++JbsDBo+2hcizNvU1hgxOXOiXmKgwomMVSu9IaUnpXCRq3ghQYJ4R0OvKHAjfZuH5Mgd+zl8hYxI269DJXWS8FW+182M9yuQTzsnSAJDmcYPRzEBCu5A3m67OaQ1iBI21hXSJUWKWk7/zD8bLfcV5rLqbcMDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=evWoAjjG; arc=none smtp.client-ip=91.218.175.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="UDj2z3dT"
-X-KPN-MessageId: b6dc0517-b936-11f1-a5a2-005056994fde
-Received: from mta.kpnmail.nl (unknown [10.31.161.188])
-	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id b6dc0517-b936-11f1-a5a2-005056994fde;
-	Sat, 26 Sep 2026 01:13:27 +0200 (CEST)
-Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.189])
-	by mta.kpnmail.nl (Halon) with ESMTP
-	id b6dae0c2-b936-11f1-ac15-00505699693e;
-	Sat, 26 Sep 2026 01:13:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xs4all.nl; s=xs4all01;
-	h=content-type:mime-version:subject:message-id:to:from:date;
-	bh=b4cs3pQWmtJ0lv6ft+kCFdHthnWoZIwih0aFunzSbp0=;
-	b=UDj2z3dT9YyLqqT965II8uA1WUpa00eNKfdgxg4RULFKHmF4wxFDYpRFP/0TxruULf9fKQjk1WlMo
-	 xjM8ioKATExzV7Qr+oBJ/OFrJbZeCegFoT0Po+x+OsS97t+6v/gZNuyvYMIXjHxAdUxqdpQ3iN76uE
-	 1z5BE+GKqXLjzRguCqGZgHv7dnKgtqqGi8SsQ/3mHOqwnDdtFZRYY8AFtoUQ2/jaDUwIloiPbEqM7s
-	 O+kdhxaxfj5uf7YpCdUDwXnF5t/j+6ECgxOLESWVb+phstU99rCWLdt8uOueKkWLFAjRJQf3D58j1W
-	 wHgQupPJkMQN+QWRulvhkMuMIi//PdQ==
-X-KPN-MID: 33|SnyEX77jiPo3jdzb0R8r1R4CQ8JqpRuWlRDUnh63a/HJWF00fWLcSK/zdAGd0MN
- VFiGaGMS6ibYIOxFBjH3J6xn3VTkckWo05VaeAOHaRh8=
-X-CMASSUN: 33|brvZ+V5WyKLsR+PX1wwd5weRmkU1MJ71tO/8scHW4cUUZX7DkFfyj6ejpFsmIRP
- C2Hsy8XO/II4/ptvnuuM47Q==
-X-KPN-VerifiedSender: Yes
-Received: from cpxoxapps-mh07 (cpxoxapps-mh07.personalcloud.so.kpn.org [10.128.135.213])
-	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
-	id b6d4addd-b936-11f1-8edd-00505699eff2;
-	Sat, 26 Sep 2026 01:13:27 +0200 (CEST)
-Date: Sat, 26 Sep 2026 01:13:27 +0200 (CEST)
-From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: Christian Brauner <brauner@kernel.org>, NeilBrown <neil@brown.name>
-Cc: Jeff Layton <jlayton@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
-	Aleksa Sarai <aleksa@amutable.com>,
-	Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-ID: <1131164231.213466.1790378007193@kpc.webmail.kpnmail.nl>
-In-Reply-To: <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
-References: <20260913185016.523376-1-jkoolstra@xs4all.nl>
- <20260913185016.523376-8-jkoolstra@xs4all.nl>
- <20260918-reklamieren-syndikat-gemildert-763b72008b46@brauner>
-Subject: Re: [PATCH v6 07/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="evWoAjjG"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tOxz9HoU6pRLO9zJ7CotYpqDOpegZThflwPxXAEwQro=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790378037; v=1; x=1790982837;
+ b=evWoAjjG8MUS8ghpyToP9qlyFF1wjRV7QE7o3UNUFDkZk5nVWEqIfhYGmoQd5Xn2Ef35LsId
+ PYu6x2IgGwocPaY7CeWRBGAVj+etllEvnfAq/HH6v+n3sdV+KquZffM/z5CSLibQrvdUe66eEzh
+ N5iD6dHSGjYrEYlZEXsPAfzE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id faa0fec37a4f7450;
+	Fri, 25 Sep 2026 23:13:57 +0000
+X-Mizu-Trace-ID: faa0fec37a4f7450
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <293f4c3d-c6b4-4ccd-a116-71ce02341c39@linux.dev>
+Date: Sat, 26 Sep 2026 02:13:50 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/3] mm: implement page refcount locking via dedicated
+ bit
+To: Matthew Wilcox <willy@infradead.org>
+Cc: akpm@linux-foundation.org, andrew+netdev@lunn.ch, apopple@nvidia.com,
+ artem.kuzin@huawei.com, baolin.wang@linux.alibaba.com, david@kernel.org,
+ Liam.Howlett@oracle.com, edumazet@google.com, harry.yoo@oracle.com,
+ hramamurthy@google.com, ivgorbunov@me.com, joshwash@google.com,
+ kirill@shutemov.name, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ lorenzo.stoakes@oracle.com, mhocko@suse.com, muchun.song@linux.dev,
+ pfalcato@suse.de, rppt@kernel.org, surenb@google.com,
+ torvalds@linuxfoundation.org, vbabka@suse.cz, yuzhao@google.com,
+ ziy@nvidia.com
+References: <cover.1789239015.git.ilya.gladyshev@linux.dev>
+ <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
+ <arbNrVX20f2WDJjO@casper.infradead.org>
+Content-Language: en-US
+From: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+In-Reply-To: <arbNrVX20f2WDJjO@casper.infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Priority: 3
-Importance: Normal
 
+On 9/25/26 22:38, Matthew Wilcox wrote:
+> On Sat, Sep 12, 2026 at 10:50:10PM +0300, Ilya Gladyshev wrote:
+>> This patch reallocates the refcount value range:
+>>
+>> (1) refcount < 0 means dead refcount (uninit / frozen)
+>> (2) refcount = 0 allowed only as a temporary state (see below)
+>> (3) refcount > 0 is a regular reference count
+>>
+>> In other words, refcount is now split into "dead bit" and a 31-bit
+>> counter.
+> 
+> It seems to me that refcount overflow is now a problem.
+> 
+> We can deliberately increase the refcount on a page by stuffing it into
+> a pipe.  Over and over again.  See merge commit 6b3a70773630 and the four
+> commits on that branch: f958d7b528b1 88b1a17dfc3e 8fde12ca79af 15fab63e1e57
 
-> Op 18-09-2026 04:17 EDT schreef Christian Brauner <brauner@kernel.org>:
-> 
-> 
-> > @@ -4582,12 +4646,25 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
-> >  		goto out_dput;
-> >  	}
-> >  
-> > -	if (!dir_inode->i_op->create) {
-> > +	/* mimic operation missing errnos of vfs_mkdir/vfs_create */
-> > +	if (create_dir && !dir_inode->i_op->mkdir) {
-> > +		error = -EPERM;
-> > +		goto out_dput;
-> > +	}
-> > +	if (!create_dir && !dir_inode->i_op->create) {
-> >  		error = -EACCES;
-> >  		goto out_dput;
-> >  	}
-> >  
-> > -	error = vfs_create_no_perm(idmap, dentry, mode, &delegated_inode);
-> > +	if (create_dir) {
-> > +		struct dentry *res = vfs_mkdir_no_perm(idmap, dir_inode, dentry, mode,
-> > +						       &delegated_inode);
-> 
-> So, I think this is broken. Whatever vfs_mkdir_no_perm() returns is
-> passed to do_open(). Kernfs makes that buggy.
-> 
-> cgroup, cgroup2, and resctrl are all implemented on top of kernfs. And
-> kernfs ->mkdir:: iop never instantiates the dentry.
-> 
-> So that means e.g.,
-> 
-> openat(cgroup_dir, "subdir", O_CREAT|O_DIRECTORY) creates a cgroup
-> and then fails with ENOTDIR.
-> 
-> So the negative dentry gets handed out and now userspace holds an fd
-> with that negative dentry. So say userspace does fchown() to 1000 and
-> then fchmod() with the sticky bit and then you get a NULL deref. I have
-> reproduced this.
-> 
+Thanks for pointing that out!
 
-Damn, nice catch. None of the LLMs caught this, only our flesh and blood
-maintainer ;) I must admit I didn't consider a ->mkdir that left the dentry
-negative.
+> Unfortunately, I think the discussion that led to those commits was
+> conducted off-list because security.  I wish we had a way to declassify
+> thse emails after the fact.
+> 
+>> +/* Most significant bit in page refcount */
+>> +#define PAGEREF_FROZEN_BIT BIT(31)
+>> +
+>> +/* Page reference counter can be in 3 logical states,
+>> + * which are described below with their value representation
+>> + *        state              |         value
+>> + * (1)  safe with  owners    |   1...INT_MAX
+>> + * (2)  safe with no owners  |         0
+>> + * (3)  frozen               |  INT_MIN....-1
+> 
+> I think we need four states.  The first two are the same.
+> 
+> (3) frozen: 			0xc000'0000 - 0xffff'ffff
+> (4) temporarily overflown:	0x8000'0000 - 0xbfff'ffff
 
-I haven't looked into kernfs yet, but does it make sense you can set the
-sticky bit there? Not that it is a viable solution to just mask that out,
-as anyone would expect positive dentry at the time of do_open(). Curiously,
-with a very quick glance, it does seem that only may_create_in_sticky() relies
-on the inode being available.
+Agree.
 
-Thanks for looking into this, Christian. See you at Plumbers, I guess?
+> (we don't really need that much space for temporary overflow; we could
+> have something like 0x8100'0000 as the boundary if that works out better)
 
-Best wishes,
-Jori.
+Frozen state doesn't really need that much space either, so I guess the 
+boundary with the simplest check in page_ref_count wins.
+>>   static inline bool __page_count_is_frozen(int count)
+>>   {
+>> -	return count == 0;
+>> +	return count & PAGEREF_FROZEN_BIT;
+> 
+> This probably becomes '(unsigned)count >> 30 == 3'.  If we choose a
+> different boundary then something like (unsigned)count >> 24 >= 0x81.
+> 
+>>   static inline int page_ref_count(const struct page *page)
+>>   {
+>> -	return atomic_read(&page->_refcount);
+>> +	int val = atomic_read(&page->_refcount);
+>> +
+>> +	if (unlikely(val & PAGEREF_FROZEN_BIT))
+>> +		return 0;
+> 
+> ... use __page_count_is_frozen() here?
+
+Missed that, thanks!
+
+> and you need to adjust folio_ref_zero_or_close_to_overflow().
+> try_get_page() can stay as it is.
+
+Agree.
+
+> (Thanks to Pedro for asking me annoying questions about mapcount
+> overflow which prompted me to look at this again)
+
