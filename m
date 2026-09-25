@@ -1,144 +1,149 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD1A4E8DFA;
-	Fri, 25 Sep 2026 19:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AE64E80D7
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:51:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365707; cv=none; b=A2yFEKdU42NCbesSQCNKBZxn6XgyTh1VAB5GqeuL7d73AbknPP5zTjMcO+/5jICeV/dUSTuQsPjBS27362qCpQXD+RfCC/ofxgFEAp9QeJfexdaYIqz4aJV2IdTeLK2gyKqjHJKx0m21NXDGZc/G8M71G3eIqDGyAa/s5wan9eg=
+	t=1790365865; cv=none; b=kMVldgRA4X4WHw4E6b2v3nO5l3Fb1erpyPJ/yaqwjG7qt5AkVFu6dzRzCgCfl07SBVayZfP7iyWmvYhsgyJwPNu9uhDQ+njxxeW8rZzYvdKQREb7UBwJjmObN0yHYobar8lw5nYj0F4TxFsgQEou84zvf8waj1qcgFPl67brGZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365707; c=relaxed/simple;
-	bh=C62xArAqKjFYTe9fBgBsPrEb+56dKqvULln787lmLic=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R9SfDbCPYNJ6T8xT4oc+/uaH/iI8oac9AmHvOAZhwihiNt+yfil2FO2u40PVmAo3NMANZ6k/yKiJxh3k1ptHs+Dlv7OFMMUjEWPXflmtFlvZv/F6kei0BWPuVc+xGJCfH5a31Tl1nsYo5v7o0OvSkJHaoafGyfN06B/cPVa4NXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=z1ixV01+; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790365865; c=relaxed/simple;
+	bh=2TQZFwirqOWes4En7HI9aoy8gROqVgMcdHaWnUUX8Kc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=fbp3/ZWGerfv9ko1JT3nNu6jmBU3+iMmMJHDktX98/6lU4bY2zlNX8v7DzRCtom902N5e/aDetXKGuu0YMI20ySqKOwWKS87fLnvRwY7NYzJBkQkU7IAysC9nE8ZGH+Sme30rcK/vt8cHbODQiNQX17vcipo5+WV2BOS4hNB3tE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tM1J7WUC; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="z1ixV01+"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id A1FBB53401E9;
-	Fri, 25 Sep 2026 21:48:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790365702;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Jmxowlh8dx4cnk1PAZboFsGtd98nrGjzJK5X1uKxjhc=;
-	b=z1ixV01+hyamCp5xeWVL638GCR/f7wHS/bpW1dQ30RP07ohwuQCOz6fi3w3jlp0GTT1o/3
-	Q+Q6aILwO7dPr728wn/JpreOUKdMkCIMJJPOYfJF2sHN1RFvJH+SbPqtyqi9KS1IrQXXWg
-	JXWh2/21dV3FFkFlAxqpEuvWlphVxmE=
-Message-ID: <f8a5ce16-bc6b-4dbe-9262-cd5be0e33451@ixit.cz>
-Date: Fri, 25 Sep 2026 21:48:22 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tM1J7WUC"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33e619af891so845735eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:51:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790365863; x=1790970663; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HyiruoU89fBmLALvorzSciHBi6mzhh5Mz13gcRYwmgo=;
+        b=tM1J7WUCH4/D9J45ykBfF/Mk2GnVwPa1U2PN/gSHFK+jziuI27lIy3y3voI6A/wiai
+         4vbr6P2TEu+MrWqmy+Xu/gGIvEdDY0NSOTmTCcoRE2EyqTMuhwUNOQMDPQ8RsUD8s8m1
+         L9qq00/mmR67VHprGBeXS0EJAytCfyfkXVQhpqgN76lMSQonVvF/vGM7fRS4nj0gy7pV
+         Z9ymNOkA2ElRU/Z9Za65OFU+mK4+FbRUFLH56XsAXa1H7Ym/bWFcD/HNYhVzJ3/vlQ8K
+         bmuSaF0AEs1NCA2S5Z/mUrv/7WkoJM/UhaxvXV/1g4z0H8nzmAKe2mgrZLhkeAVBi027
+         o1PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790365863; x=1790970663;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HyiruoU89fBmLALvorzSciHBi6mzhh5Mz13gcRYwmgo=;
+        b=neokvMaThb2Bu9ZEf/TDga93FB6H64LxhArM03h9qc7BQ2tpI3t0lfIvg+J5kAyi4Z
+         QJvw1OhLT5csjcJdt0uql3ew7n4w/Lzr/UqEwWPq7GE+w1PDOB/hpHUTcA+AQfs9h/C2
+         iXcIMc6BOrPSoq99e5ChUvqGekmPvp9sPDu8WDRZR6QEgqzj43DoebnGOgd4Bvk9LKTS
+         KL18itAh1Wjz7p6/uGAv7Go8Zy6Qb8ygLRxcP8Ta9ZO5kOzE86R5ECaYVlvYkCw6yg9w
+         49Zse6FGiGzi8pfBARWoMMdLOqeoneYeEmFKhWldkP+Csa6MrmSB1zyuJKowOXFVqzDF
+         2v5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBysnjIJV6t0iRS7jgrACsibN/lOayPUgEFiTeCgkEvLjzjfcLh8eqERWLrswPHeYsxLAZzF+kWS7/D0NAQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOxTan8VI/ingmLbHkVdtuLGyeSp7mxw3pwxjww0l3/H4KKHRr
+	vmCF62uMdmzdGc72tKhvr9WOWFNShJ8gxKUkLgwqkuc52tFavEURtVMI
+X-Gm-Gg: AYBFou2g0r9ixQWl2YTyHfUTEm8MTJ8DDvlarjmIeD6YoPI+5+fqdxmYKVav/h6FXTU
+	5p6j+k92a+Q1HzD7UAYHKV0QK5ANWf/UBHQopxg+lBiHKN7lnht4UAbiB56i5k6ejjX+sy/fY+e
+	+yKZJHEVtzVNZOnmhZfCQk7hjQexMz0JfGmRM2YXDEcBwKm/zFIl2ikt7BKrrL/7HeGw9lzyzkl
+	+3TKd6gGEqKqWA51RostlhYfUuRsfZjvxUfeOmg6RGhRw2n7u3eTPSBuXqqGQ3flnddXtFZt2ia
+	eapyp/M8AmUJD3COkaMSs3MIYuyiSOsPLHfDqtv65lF2/yl8BfzkHMCaVo8rLEoFwcxqw3PDJYG
+	f1F1er1ptA70ooluwPzkfiTVuWjPKVTIdFvptdAoiKJYvrrmmsNQVfcLBBAMX4jSuLA32q6EKmS
+	tRTCQbeAdVltp8to4yD5eB66K78Zbgb6/satacDW4S+AccTMjGqtFfhB1sAQb39pD9bcVvfS0u5
+	3uZ0nT48LvU+mtbQua+yTSl63uxoBtMFHNjvn/rk3CQy3gLDkIqBqYN2RhzNBFspvurVsokkbU=
+X-Received: by 2002:a05:7301:dd96:b0:32e:3b62:6951 with SMTP id 5a478bee46e88-3426cde4ef0mr1005752eec.0.1790365862642;
+        Fri, 25 Sep 2026 12:51:02 -0700 (PDT)
+Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:afc1:567c:4083:c0c4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341447576b9sm9020399eec.15.2026.09.25.12.50.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 12:51:02 -0700 (PDT)
+From: "Hemendra M. Naik" <hemendranaik@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	hemendranaik@gmail.com,
+	horms@kernel.org,
+	jhs@mojatatu.com,
+	jiri@resnulli.us,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	shuah@kernel.org,
+	tahiliani@nitk.edu.in,
+	vishy0777@gmail.com
+Subject: Re: [PATCH net-next v8 2/3] selftests: tc-testing: add fq_pie per-flow class stats test
+Date: Sat, 26 Sep 2026 01:20:54 +0530
+Message-Id: <20260925195054.9009-1-hemendranaik@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <179028364138.2160803.8521628163584007831@kernel.org>
+References: <179028364138.2160803.8521628163584007831@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/4] dt-bindings: input: touchscreen: st,stmfts:
- Introduce STM FTS5
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
- <20260907-stmfts5-v7-2-4a53381cd038@ixit.cz> <arbIsdvRzPCqPXfs@google.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <arbIsdvRzPCqPXfs@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25/09/2026 21:19, Dmitry Torokhov wrote:
-> Hi David,
-> 
-> On Mon, Sep 07, 2026 at 12:50:20PM +0200, David Heidelberg via B4 Relay wrote:
->>           touchscreen@49 {
->>               compatible = "st,stmfts";
->>               reg = <0x49>;
->> -            interrupt-parent = <&gpa1>;
->> -            interrupts = <1 IRQ_TYPE_LEVEL_LOW>;
->> -            touchscreen-size-x = <1599>;
->> -            touchscreen-size-y = <2559>;
->> +            interrupts-extended = <&gpa1 1 IRQ_TYPE_LEVEL_LOW>;
->> +            touchscreen-size-x = <1600>;
->> +            touchscreen-size-y = <2560>;
-> 
-> Krzysztof questioned this change. You need to explain why this is being
-> changed (and potentially split it into a separate patch as it does not
-> seem to be related to STMFT5 introduction).
+Thank you for the review. Replies are inline below. No code changes are
+planned for this test; we'd like to keep it as posted.
 
-Oh, sorry about that, I thought I addressed it, but apparently not.
-I'll just split it.
+> [Severity: Medium]
+> Will this test fail with any iproute2 release available today?
+>
+> The kernel side, fq_pie_dump_class_stats(), only sends a binary struct
+> tc_fq_pie_xstats with type TCA_FQ_PIE_XSTATS_CLASS:
+>
+>     xstats.type = TCA_FQ_PIE_XSTATS_CLASS;
+>     ...
+>     return gnet_stats_copy_app(d, &xstats, sizeof(xstats));
+>
+> The words "prob", "delay" and "deficit" only appear if tc formats that
+> struct. According to the commit message, only the pending iproute2 patch
+> does that.
+>
+> With a stock tc, re.findall() in run_one_test() in tdc.py finds 0
+> matches against a matchCount of 1. tdc then marks the test as failed,
+> even on a kernel where the fq_pie class stats work correctly.
+>
+> tdc already has a way to skip in this case: the dependsOn key handled in
+> run_one_test(). Other tests use it to gate on newer iproute2 features.
+> For example, in actions/mirred.json:
+>
+>     "dependsOn": "$TC actions add action mirred help 2>&1 | grep -q blockid",
+>
+> Could 83c0 get a similar dependsOn probe, so that it skips instead of
+> failing when the tc in use can't print the per-flow stats?
+>
+> The commit message also describes the test more narrowly than it
+> behaves:
+>
+>     verify that 'tc -s class show' reports an fq_pie class.
+>
+> The pattern needs the per-flow counters too, not just an fq_pie class.
+> Could the description say that the test depends on the iproute2 change?
 
-David
+We'd like to keep the check as it is, without a dependsOn probe. There
+are several cases already in this suite that were written against, and
+still assume, newer tc wording with no dependsOn guard at all, e.g.:
+  - tc-tests/qdiscs/fq.json (commit 3007d8712c9b, "adjust fq test to
+    latest iproute2")
+  - tc-tests/infra/qdiscs.json (commit 56acc7f51974, "Adapt test's
+    output to HFSC's iproute2 printing changes")
+  - tc-tests/actions/police.json (commit b7df2e7eaef7, "Adapt tc
+    police action tests for Gb rounding changes")
+  - tc-tests/actions/bpf.json (commit ac2944abe4d7, "Be compatible
+    with newer tc output")
 
-> 
->>               touch-key-connected;
->>               avdd-supply = <&ldo30_reg>;
->>               vdd-supply = <&ldo31_reg>;
->>               ledvdd-supply = <&ldo33_reg>;
->>           };
->>       };
->>
-> 
-> Thanks.
-> 
+We're doing the same thing here: this test is paired with the
+companion iproute2 patch, the same as those cases were paired with the
+tc versions they were written for.
+
+The commit message already says the per-flow counters are printed by
+the companion iproute2 change; we don't think it needs to be repeated
+in the test's own one-line description as well.
 
