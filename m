@@ -1,600 +1,237 @@
-Received: from GV3P280CU013.outbound.protection.outlook.com (mail-swedencentralazon11020102.outbound.protection.outlook.com [52.101.75.102])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20904DA540;
-	Fri, 25 Sep 2026 15:58:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.75.102
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351907; cv=fail; b=GcLgPOeRjZtjrW0P2vsRlTraYN4+ZRym4PzfGYLbqCenM7mQmH4JaVe5il8zUz9R5GWo0HDcy3RybfsQDVydIJPwBnrlpzk1rv4wZ1zXjlFmdMCaWKTpJerSWBAvRdhpszV/+0tDxTA9no4WU0qptnZjaKxAtjKmXUaZTrxyjMc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351907; c=relaxed/simple;
-	bh=PpzFF6C9QGjFjP+tLOErDZKxZM1RcrzDwCiSVM6s1ac=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=V2OC0t3KDamC+lUGLniCgVR5W4Fb30n2tAKkO0nUZfFaGt4q5HIhC0swqlOXORxnyIY2v0UuUAVCPvSurm8E6aee36ueG+TtIhovwvec72K7oEXgPTYv4W5LGsAApr1XfbQqsS3CjZEM4Y3GsIeGVkQz0Btfv8F5+Tc3MELOzZc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com; spf=pass smtp.mailfrom=gaisler.com; dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b=cTwCQruE; arc=fail smtp.client-ip=52.101.75.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDFE36A01A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790351912; cv=none; b=b3V2o9eP0f0s5DNBaRbeo+OUBn/OskWkIGvGN6KoPsS6MairUhRMxqJNRiizO/4vqkaxjjiUO3Xj0ZYueD3yGjy7jtKvd3jFyGIa1d+UUYjJCYG73ssW5oEqEqxQyASKhe4TOyfurrChdGRxkks9KsaRt0p23wb8+lYCLzK1vFc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790351912; c=relaxed/simple;
+	bh=GEWW6s2e1tbVayHxcvCEMGBUsyNeH1TC18r9wWPEPCw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YZ9yf1X6bndrvuiia09LBLn4h8oLxVgNhJIx3Q/sGDh4b9lEg1FcOhB4fuCk5dfxYT5rPKVooXhHdz3GLKnb8E8XaJn58SnmRR7aLFXgNsLtiFy0iHr6nJgyHoVbc69pgrLA6LDWDJlpQZ6jAZtGub7sWgDtMBa6jV7cZEpx+yM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RTrbhiXu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ym22JwUu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b="cTwCQruE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yt/A1Cp6iXRVDTdxpl848hp+gNZA+WcB/nINTE5dsOb9aQwaMF8hsFIA73/R+fcTvf3zzFXAlvPlZCe4n8NRgaphhBstbLLsDgHxIuLIakMzxEW3T+VQ2dKyOPQNEpRY9CIUhV2/8T32Ffvy0Ayi2owj2DicWd8qd87Hf4Hiiw30qWsxi6ldIP9ps+pZza9g0bam5oPOkm7eJoOj8xD+508epudntO8/STmjjdfm7NoP0bh0piGdxfXAGprM4T5jUkbxJnKauN341j2gg7Y3EqoGfyJ53RJAx0Kwnih6r3gP8Gry4K7EFrfuOfq3hZHZ924acjvT5nWFWZgFHEoXkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GRAhKEBrdaupu8JRwUErMHDDwG1AOFdrTaYKLmNZZ6o=;
- b=cg6nUmzKURiHKnYvn2Z8lSXEAUebIdDgGDQ//nAzFhHyjS9hi2/s851KivMMUnZJYYzWTYS8Vy8MyipE/25Q4JUw3Z1F3urD33QbldhY83fXB6piSngKlOwI9idyAmby+D31m1VqRO1nJcNyVVZYb30Ix/4CN7Rlh/dN2uOWa3xd968D3Q8OuQ1YAiLnxmBHqk+YupLyw3HqTS4P5k+Ld2mOhdjE9JdXbISDVB4t8UWs+REBZrs9KfB7gvFwCJiNsb9kJDGkJWJHLPXBjl0VN62bdavCNCfSVhAEKECF2QW3EWyVDlswXdsOI9VesqpgybNiORI+GbRn4e6CkwgxoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=gaisler.com; dmarc=pass action=none header.from=gaisler.com;
- dkim=pass header.d=gaisler.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GRAhKEBrdaupu8JRwUErMHDDwG1AOFdrTaYKLmNZZ6o=;
- b=cTwCQruE6xc3XMjwryI3fK5hLNH5RlxpjBEkIlxW5tLYHDxMqSzoENty63GgGgs7WjRirXkOgPc5YWvZwB51TPuaUvrHa4L//BsnUsPSR3jpnS5S9m+vD77t4I9roOThmzxdJmnOv+mi5aN+PhXaOS++7epIC9AqkHzf5O9TxhmoTeBBXiCqbJ+rgnb8am9PdFbv4MedaTEwS565ZiVR2wo2GHK6bosqkDkCxyGZkPwlW530aru3f6JJ1GfUXpPayatsW7FrfdKsk1M80cv5nKEO9YWOf0EPxcKLntXXI+dje295ISPpzTWrxIPi2ipHT3nI8M7L3M4tR1ykiy+4YQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=gaisler.com;
-Received: from GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:195::18)
- by MM0P280MB2230.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:23::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 15:58:14 +0000
-Received: from GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM
- ([fe80::be76:7636:f4ac:6773]) by GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM
- ([fe80::be76:7636:f4ac:6773%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 15:58:13 +0000
-Message-ID: <01904ae2-ed8e-487e-80f7-540b4d06b55d@gaisler.com>
-Date: Fri, 25 Sep 2026 17:58:12 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] sparc32: move early memory setup to setup_arch
-To: Magnus Lindholm <linmag7@gmail.com>, sparclinux@vger.kernel.org
-Cc: davem@davemloft.net, linux-kernel@vger.kernel.org, sam@ravnborg.org,
- glaubitz@physik.fu-berlin.de
-References: <20260901214611.60560-1-linmag7@gmail.com>
- <20260901214611.60560-6-linmag7@gmail.com>
-Content-Language: en-US
-From: Andreas Larsson <andreas@gaisler.com>
-In-Reply-To: <20260901214611.60560-6-linmag7@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: GV3PEPF0001DC09.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:400::277) To GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:195::18)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RTrbhiXu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ym22JwUu"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PDjDd43627536
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:58:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=EwWgdkmodUk
+	wOcTt4ODaG1IRCHTJP6TRQlF7VVlOptQ=; b=RTrbhiXuprnEVvEXgCWrKWWbex9
+	R2dTkucVuZzBnUe2kXl8Lru+KAJbJZt3UmL5bMjOmVHV9DUncg9b08tjjSa7QeaF
+	Zcjfsj2Zmr+nq78ZOSGeYux5mr1J4exjxqtBGB0Z5MFxsNyYFsVlLUoomocIS8/W
+	8zyu5t7eYDSLsLQPJ/8PBBdmeTkSs0x/OTLk2d5xLd1HEeKJI8S9Vc4XB7FrZvRd
+	IjNITOrBSM0Lz8HUn4b+no7WADJnIFF0ctwxX2ATacLc61n+tRdi750Hkb6aBHZ2
+	UWmv/z38bEWIeIhWoRCRsgTHAleAJcuDW/7kncTEmSI+K9uGwP815oJCcsg==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwjq3a3q8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:58:20 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc79892d934so103545a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:58:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790351900; x=1790956700; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EwWgdkmodUkwOcTt4ODaG1IRCHTJP6TRQlF7VVlOptQ=;
+        b=Ym22JwUuH4ZwmoyMqgPEHJs0UQWjb/aOmTePwFD33sw4BlRZgDPD0aFEhovOc1d1Gi
+         orXN35soSRzogU4Wv57MPSH1W7c5Gn5+onIF7iWuYRnaaacacsZ5S5I/s8cDuBvqTRyA
+         qXBQRA7eU/d/FxydzpcAkpiOmjC6Q7VgxnrOUvA04ReAQz4/U5aCjJnOkrRAH7ma0cBo
+         EDnQJVsSURxTjjun7e/4wxKR10st7UfE5IkQ1GR3U9rOHvH2107ACDeYGelEKZQihQGe
+         vlyJtPzrqfIPbNedDjEDHN+5wXLbun2w3uXcMOVXhY8TMAsv8qjskHyjlyuf79e2GAYy
+         aEUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790351900; x=1790956700;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EwWgdkmodUkwOcTt4ODaG1IRCHTJP6TRQlF7VVlOptQ=;
+        b=Ae67CcABVJ/gKAYx26wAW2+7TlGfucKkodYt+nJOFNMJw2F26Eo6Vfs9NXd2624ELz
+         t49ChlaNnFe9LasgBo0/KKcLff8ng3ll4eATugYRg5EBTeiLkemf1uvL8kt0dhOD7dTo
+         9j8UspOZK1zDzNFvkvHBAFsAudALD5H1BDZwAxS3g32ilRAvXJT72/ErbsWcteg1o7Ea
+         3ZQFnLlCwQwCJjm75BNsJpwyiUBqKHpLEpKcKKl7a7mMbp5vjEXml1Pirggo/r64GvTb
+         9DX6puBlADPStd6B7wEpuLumD10MCtlNXdPP2sVni1Leg0gvLbgw23O4azbqVuJv97mW
+         I7sQ==
+X-Forwarded-Encrypted: i=1; AKwUvBylE5r8fmmGcXDe+0+c4inNmo4iim/NqGUgpTTLRSDzv6U66kd+f8Yf4ne+ToxmoR4BsERPmdqBUdEQrMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCkHsdrUheN5waclMzxTz7BnqBnYpDjC7PNrqjcrdAWU3Xxd5g
+	nHBWsI0xcWX93SI7feZz0p+saqfYLG9DhdDJB5Y7Lx1CrhrMH9+IdO7ZKxVTGottMk0W+ipGc4g
+	4CecOsaJ+xzgC3jQ8zSFQPAJLIAj3WEYG1WJI6Z1+Zz+NXr0iteW9Hv6V6kUNHhkZU6A=
+X-Gm-Gg: AYBFou24AzQb3xe/vXj8VVSg28aq+t/zvHc/mERjdvAouca8E3p9HYLrgJIVUbWL387
+	IXNMsy1dN0vAApN+tV9cLSiiEIHzqCVWGdGL/H+vk36qf7pltbq+hNn/jnmnrP8T636Kh15VTg9
+	LrkGZdwm9YM9dSdSJpe1sZkg9/sHDF7VF568rdekx1ssEau3nwpJOZ3FMP3mUBXEG6LAklB5KWm
+	XoRGa3Uu8HsU4tMS/DrE+Dh2TWmpnp6O9hVzerBNWx0y1qW2Hvj0cHY2nkrUiewhGY0Hxv1TTdq
+	v9ie6Q4JYU96RVSAMrlMmTObh+nJaLSISpr049X88GMTqFQH+nx4mDQn3g5NCdXX5ZBHvc3TifC
+	OO15Uoco25CRrW/gE+pdEncC5YXE=
+X-Received: by 2002:a05:6a21:7484:b0:3dd:cc61:c0df with SMTP id adf61e73a8af0-3de26c83b92mr2661211637.25.1790351899730;
+        Fri, 25 Sep 2026 08:58:19 -0700 (PDT)
+X-Received: by 2002:a05:6a21:7484:b0:3dd:cc61:c0df with SMTP id adf61e73a8af0-3de26c83b92mr2661193637.25.1790351899240;
+        Fri, 25 Sep 2026 08:58:19 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87ff354d854sm1361299b3a.2.2026.09.25.08.58.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 08:58:15 -0700 (PDT)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Sumit Garg <sumit.garg@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+        Simona Vetter <simona@ffwll.ch>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-media@vger.kernel.org, netdev@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-remoteproc@vger.kernel.org,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH 2/8] drm/msm/adreno: migrate zap shader loading to qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
+Date: Fri, 25 Sep 2026 21:27:31 +0530
+Message-ID: <20260925155737.4161358-3-mukesh.ojha@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com>
+References: <20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVYP280MB1290:EE_|MM0P280MB2230:EE_
-X-MS-Office365-Filtering-Correlation-Id: f14cfb1c-5140-49d1-b67f-08df1b1dce39
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|6133799003|22082099003|18002099003|4143699003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	nI7ZmHyBlq4iOoeo1NUyDrFPjAA36tImS3A6Ut8j3kO5Y3cZqPPN7MEgEK9CeULcQcWfH3h8Q3aCdoMSA0IUlJVvy2Fqfn8IYnoaZ/nmcapjfCv94vTWnTiMkmjYiMyNDtrCWeyEVptv7+0Shxuxg000I++aF24Vn4tv86h6QXMgscYImrLL4tEPPFQaLqWmG4rJW1UTzt/yq/JSN1cUbxQZklwPylWW6aF0XIhydoIIqMUXHFhvL08xRGvPu1o/Y1qssHGIAkfKHEuZq7rn9CusxImjBDkHvTg4ga042vx9zmftevSBysTQMuaJ9t8fuU/t4mcboFPryki6I2Ck9OnMusTW9xvKX55aqg6rpKtbUz8T6TDph6iLt3pAL6sIaW0kY4T0X4i/aHptmAu/jvEGeY879UAVNhy5VJVBZq6nGu+PR3LAfNK/chY7U8vRvXCRZJcU8qDcKYWDhEHZmJOxzvIkS0uGChXYpfbXWx2r8afpu8Ns8hsCZXpaEX4ZI8JWiygBn96LJp3fWeK7C305+knQNWQaD9dG66PyewqemI1MephN1l3TBJebPC4wh6GlQJnrQPFZebIMftgT9i9VXK/rmuyfqQLgFc+q6LxT7eNktgFyNMueBdZ1iT0WXFMcACs5upbciOGyCACT1RZGnhE153XV/HO4WrXkTP8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UENtRXFvdGVxZmVnM1p2VGdXREpjajBCREhFR0pnWWpPL3U2S256RjAzSUd4?=
- =?utf-8?B?d2pEWlh4NWV3NmhKaVlGQ0lBZEtIT3drR1J3c0lVZU9BOFV1b2hHcHZ6Wmoz?=
- =?utf-8?B?RHlScFJ4WmRFVk5oTDlQOUpmalBvMFRLc2hHZ3lCa0E0YXZMR1F5UVZ5UVd6?=
- =?utf-8?B?U1E4cWIvYUs4N2ZCUWRFWHNmL3Q3dlUzbVh6TFVkTkFVci83UHkxKzM3Z3Za?=
- =?utf-8?B?Mk5lUXk5SzdsbG5hUkhIb2ZkT2pjTklYL0RXY2NpWlFhOTc4aE84SnZFV2Rn?=
- =?utf-8?B?eXdoTVdXVC9sUkE3YkNiY25vTlRISmdJZU1JbHpFOTM1YXF6aGFCc1FYRGs5?=
- =?utf-8?B?MUdLQVhXdlJmM0NONlUwb05WSWU2ODdsMnVFTTZ3ZWJWWHB0YXg5U1RYL3Y0?=
- =?utf-8?B?MXE4RTZDSUlRcFA3NkIyNWlpRlJHYjIra21LS1hGMHdFTjJOZ2pyUGU1U2tk?=
- =?utf-8?B?dk1vb2F2ZTBlVm1jRjJPNUFDVEFyUldYOTRtTjEvUzh2MjgxVEpPUWw5bTJY?=
- =?utf-8?B?TGtmQm4ybVd4TXEwSlNlZGNNbUZPbFJlRTN0dVJHQWU3bkljWjFjbTNUbUE5?=
- =?utf-8?B?Z0hFRSsybVdFZFd2TzUySVFWZUxtTFFvcXBzaUJ6TGRKQU9tSkNFNDZSeGJY?=
- =?utf-8?B?SFcrQjlyWllzN1JLREhPdlhNcWVKTm9namF2VWEyTFZaNW15M0RCY2VwcXVX?=
- =?utf-8?B?MnRtUjRLNTZiZU1QcTJIVHNMSFdOcXRUdzU1TlNleFJROFA5SjdJRzFOZXJn?=
- =?utf-8?B?TS9OZFNGWkhBMEtsbXZtU1lYRHZucjR2VWQ0S1I0TkpvcmFhTTVtUnZmc0tZ?=
- =?utf-8?B?SkM4OTJOOHY0eGRpdGs2S0JMaDdRQjJFQWcvb0F1YkFBVTBrNnNiRmRnSnpX?=
- =?utf-8?B?eS9RTnJGUFVmaGhxcWdIMlFIalplWG9LYlFVa1A2VDJNRWNQVVRHNEhZVFJV?=
- =?utf-8?B?VUZRc21wVk9jRm5HZUZ6QWtrZ0s1c3JReGNtVGVtalJpUzB0ekRWVnhKY2Mx?=
- =?utf-8?B?YklLMnZqRUFMNzVlUDBaUnhKVUFibnNPTFY4ZFNLUFhWeVFqYXBVVTY2ZlNt?=
- =?utf-8?B?TkNNazNFMXBNS0JrNSt6VzJJeTI2eTQvd25UVWZRdWZsRnBYNmRsdStoMkVy?=
- =?utf-8?B?VW83dy9SWFhwM0pEcDBwYUk2V2NIcDUrOXl6bWhLTU5RTjA2OStSZld1a0gv?=
- =?utf-8?B?QkpQcEtkYlpkaDBxZG1uclRZSzFzUFlCTlFlUmJpa2xrRG9YcS9HMnMzV2cw?=
- =?utf-8?B?b01HZUxLY2lBYTBwYjdyaklqWXdZeVBBM3dUbWtmSlVHdmhEaGVVZ0YrV0ww?=
- =?utf-8?B?eC9NYTBZVzJnbFZsOU5lNlZ6cjJIRHErcFRwOG1HclhSNEMySXlXaHQyNzdU?=
- =?utf-8?B?bXJIeGd4Ums5bFdPTEZseDFSVlg5OEFsek1yTWkzejRqT3dKWWFMVFFrL3Bm?=
- =?utf-8?B?cGhUejlsRWhUV3dHTStiOTNIMGNOWmZEd0traVJscDF2RmQ0ZFVwTDdTTXZX?=
- =?utf-8?B?Zi9BTnIxQWduaGFCYkE4VEY2cTlodmJSbFZlS0g1aGloTXZveFZ5SWhiSDFY?=
- =?utf-8?B?aGg1K1hPckdZK0NvQ3lsS2hXYk5xaUU0R0JSRENueElYSnE5eWFwSGZnUTZE?=
- =?utf-8?B?bk5xcHBMSjFCQ3cwcmg0eUZFM3M4QncrdVpqK3lBY2NlcUxITVA5MDB5VWw2?=
- =?utf-8?B?NTREckxDSG41Rks1Zjd5dnJJZ29XYmF3MmxSa3BzenN4MkY0eTEwV3VSaTJV?=
- =?utf-8?B?LzJHYUVRZXZwSHNJdmZ4RVh0aWJsUVhjY1ZmTWJsU3Zkc0FJa2hTdWttRGhW?=
- =?utf-8?B?anRzMVI5ZzFqdmxEc2VjWGNvRUQxUE43U0xkWm1rS2RNVzBOZUZ4MFRxcGF6?=
- =?utf-8?B?ZkhpSXA3VEZLUlNQV0d1MENVRUdDRWpYZEdCVHV0ZENkRy9tVzc5SFVzRUgr?=
- =?utf-8?B?NGpmWDFRZXo5NTlzNUlhUnBuYmlXaTBUcnhOSjRUSFFBZS9QZzJiMy9VZkJ3?=
- =?utf-8?B?NnRPNVN2d0owRS9MNFViVXIycTI1ZUVyVE5Xd20vWlJ1bGdRQ1J3M2RHRDda?=
- =?utf-8?B?RkRwbk51OFFxR0xKYVo4bWpzQXl3L0orKzdmMzl0emZzM3dIS2UrdGxVN21W?=
- =?utf-8?B?TFdYRWhuOFoyTDVyM2pmVVp2eVRnSyt1aG5Bb1FudFVab2xjSldIMU5DdDZP?=
- =?utf-8?B?Zzl5SkhLaElFUkplcUdJd2lRMUdQa05Bbm1sZ0szaGFCbU5oa0VYN2M0OEpw?=
- =?utf-8?B?TnZNREVZSnFHUVBQWGNYVUVHK1ZvcjNkVUEzdnYyemQrd05FUFEzOTFQZ250?=
- =?utf-8?B?d2FCQ3o1VDBMNFdxQTV6STZGZmFyTTl0Wis5ZFZhSEZmSStpVjg1RDFsYzFy?=
- =?utf-8?Q?f+oAuX/PpsamyQRE=3D?=
-X-OriginatorOrg: gaisler.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f14cfb1c-5140-49d1-b67f-08df1b1dce39
-X-MS-Exchange-CrossTenant-AuthSource: GVYP280MB1290.SWEP280.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 15:58:13.9138
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 91fa4a59-2167-458a-8318-e45d80469d7e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YjyxN5YIcNZ1jz9Hxf0W139XVIeYr+54t5LtltJsSBkjRESly0+hvPIi5Sn9okvfH5Z/PA0C5yoQ/YlYZu8ARrJyIjHt6tm/WKBjufur3wg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MM0P280MB2230
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2MyBTYWx0ZWRfX6cHOvbd/7Xq6
+ pAflNVfMHfzqHVwEJgghVdgSvG2wYsX9ExAnIxe2okuKpWmqA9ipS4Ku5xgmLFJc30r3x9YYvXU
+ 2v1utnB7SKp4td23B29SsEN3Z4FPHJo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2MyBTYWx0ZWRfX6U+XdCWzDSlX
+ eUhLEhHn3oBZD28/XRUotd0cz3SxJiBnqemu8Bc39GMPWKnkZJn5WDSMAF7BUQ/vfkDgtVo8OEv
+ o82VAkMSJh6zJ6HQURg2phMM1NQ+6R9KBioPL/u/CcJt4YGjUoeoJ9Laai4CpjGAOwwpmZJ2bCj
+ 3zhnKYAJKlbXfUUupKJCx8RgnYGpJ4p559KygcY0l1SDYxY0FcC+Hvy6NGl8+khCbJM27Tuj95j
+ 0LDNLDg3ThDknXT80VH0Z+6I5rXplv8ox9kTlmAf5F2HKZJbfKlkwXy7KGM2kh1u/atRuS8Vgxl
+ EkFAHKSaJD2LZzajMRzoN7SfjDcSzvdwT0AcYLc62qkZdGzRXP55S9i/KFGxWkaIUPJVsqGCKNF
+ MDxNDPCj4a+FTYxodbhcfKIGN9JD7F3F7ig1887vx9UG0JYTVGB5AW8U+1XEVWU3XhanuPg8+IG
+ sJi4w6Q+KhN7Ry/PWsA==
+X-Authority-Analysis: v=2.4 cv=VuO2kO2n c=1 sm=1 tr=0 ts=6ab69a1c cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=heNUI75aw_s-mFou8AwA:9 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-GUID: xNsjfauBCbIvxvPJfJeIPlvUpINhd7fO
+X-Proofpoint-ORIG-GUID: xNsjfauBCbIvxvPJfJeIPlvUpINhd7fO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609250063
 
-On 2026-09-01 23:45, Magnus Lindholm wrote:
-> Move the early memory configuration out of SRMMU paging setup and next to
-> the rest of setup_arch(). Derive the PFN limits from memblock, reserve the
-> kernel and initrd there, and retain mem= support with
-> memblock_enforce_memory_limit().
-> 
-> Use for_each_mem_pfn_range() to find the lowmem boundary and replace
-> last_valid_pfn with the standard max_low_pfn variable. Set the standard
-> max_pfn variable to the end of physical memory and use it as the highmem
-> zone limit. This tightens LEON's _pfn_valid() upper bound from all RAM to
-> the lowmem limit, with no functional change because LEON does not use
-> highmem.
+zap_shader_load_mdt() uses qcom_mdt_load() which bundles metadata init,
+memory setup, and segment loading but exposes no PAS context, and then
+calls qcom_pas_auth_and_reset() which skips the shmbridge prepare step
+required before TrustZone authentication.
 
-It is not at all true that LEON systems do not use highmem. Rather, they
-can make heavy use of highmen. Continued further down.
+Replace the open-coded memremap()/qcom_mdt_load()/memunmap() sequence
+with devm_qcom_pas_context_alloc() and qcom_mdt_pas_load(), then pass
+the same context to qcom_pas_prepare_and_auth_reset().  The -EOPNOTSUPP
+handling for targets without zap shader support is preserved.
 
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++-------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
-> The removed bootmem code also printed a private HIGHMEM summary. Generic
-> memory initialization already reports the highmem zone, so do not retain
-> the duplicate message.
-> 
-> When PAGE_OFFSET maps a relocated kernel, remove memory below phys_base
-> from memblock because it cannot be reached through the linear map. This
-> replaces the equivalent trimming of sp_banks.
-> 
-> Suggested-by: Sam Ravnborg <sam@ravnborg.org>
-> Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
-> ---
->  arch/sparc/include/asm/highmem.h    |   3 -
->  arch/sparc/include/asm/leon.h       |   2 +-
->  arch/sparc/include/asm/pgtable_32.h |   3 +-
->  arch/sparc/include/asm/pgtsrmmu.h   |   1 -
->  arch/sparc/kernel/setup_32.c        | 112 ++++++++++++-----------
->  arch/sparc/mm/init_32.c             | 132 +---------------------------
->  arch/sparc/mm/leon_mm.c             |   1 +
->  arch/sparc/mm/srmmu.c               |   8 +-
->  8 files changed, 67 insertions(+), 195 deletions(-)
-> 
-> diff --git a/arch/sparc/include/asm/highmem.h b/arch/sparc/include/asm/highmem.h
-> index c7b2e208328b..b1b915ac604d 100644
-> --- a/arch/sparc/include/asm/highmem.h
-> +++ b/arch/sparc/include/asm/highmem.h
-> @@ -26,9 +26,6 @@
->  #include <asm/vaddrs.h>
->  #include <asm/pgtsrmmu.h>
->  
-> -/* declarations for highmem.c */
-> -extern unsigned long highstart_pfn, highend_pfn;
-> -
->  #define kmap_prot __pgprot(SRMMU_ET_PTE | SRMMU_PRIV | SRMMU_CACHE)
->  extern pte_t *pkmap_page_table;
->  
-> diff --git a/arch/sparc/include/asm/leon.h b/arch/sparc/include/asm/leon.h
-> index 053a24b67aed..815131c77ed7 100644
-> --- a/arch/sparc/include/asm/leon.h
-> +++ b/arch/sparc/include/asm/leon.h
-> @@ -251,7 +251,7 @@ extern int leon_ipi_irq;
->  
->  /* macros used in leon_mm.c */
->  #define PFN(x)           ((x) >> PAGE_SHIFT)
-> -#define _pfn_valid(pfn)	 ((pfn < last_valid_pfn) && (pfn >= PFN(phys_base)))
-> +#define _pfn_valid(pfn)	 ((pfn < max_low_pfn) && (pfn >= PFN(phys_base)))
-
-What is the reason for doing this change? When leon_swprobe() is called
-max_pfn has already been set up. Is there a reason for not using that?
-
-
-However, in the scope of the calls to leon_swprobe(), no parts of the
-inherited MMU table's PTDs/PTEs are outside of lowmem. If there indeed
-is some technical reason for needing to do this change I suggest that
-you, in a separate patch before this one:
-
-- Remove PFN() and replace the callers in leon_mm.c with the standard
-  PFN_DOWN() instead, as also Sam lifted as "future work", and
-
-- Move the _pfn_valid define to leon_mm.c, make it only check for lowmem
-  pfns and rename it to _pfn_lowmem() or something like that.
-
->  #define _SRMMU_PTE_PMASK_LEON 0xffffffff
->  
->  /*
-> diff --git a/arch/sparc/include/asm/pgtable_32.h b/arch/sparc/include/asm/pgtable_32.h
-> index f89b1250661d..91a6032cf6a2 100644
-> --- a/arch/sparc/include/asm/pgtable_32.h
-> +++ b/arch/sparc/include/asm/pgtable_32.h
-> @@ -37,8 +37,7 @@ struct vm_area_struct;
->  struct page;
->  
->  void load_mmu(void);
-> -unsigned long calc_highpages(void);
-> -unsigned long __init bootmem_init(unsigned long *pages_avail);
-> +void __init find_ramdisk(unsigned long end_of_phys_memory);
->  
->  #define pte_ERROR(e)   __builtin_trap()
->  #define pmd_ERROR(e)   __builtin_trap()
-> diff --git a/arch/sparc/include/asm/pgtsrmmu.h b/arch/sparc/include/asm/pgtsrmmu.h
-> index a265822a475e..a2a6c8564c3e 100644
-> --- a/arch/sparc/include/asm/pgtsrmmu.h
-> +++ b/arch/sparc/include/asm/pgtsrmmu.h
-> @@ -98,7 +98,6 @@
->  	 restore %g0, %g0, %g0;
->  
->  #ifndef __ASSEMBLER__
-> -extern unsigned long last_valid_pfn;
->  
->  /* This makes sense. Honest it does - Anton */
->  /* XXX Yes but it's ugly as sin.  FIXME. -KMW */
-> diff --git a/arch/sparc/kernel/setup_32.c b/arch/sparc/kernel/setup_32.c
-> index 795714959da6..6ad85538964d 100644
-> --- a/arch/sparc/kernel/setup_32.c
-> +++ b/arch/sparc/kernel/setup_32.c
-> @@ -23,6 +23,7 @@
->  #include <linux/syscalls.h>
->  #include <linux/kdev_t.h>
->  #include <linux/major.h>
-> +#include <linux/memblock.h>
->  #include <linux/string.h>
->  #include <linux/init.h>
->  #include <linux/interrupt.h>
-> @@ -254,28 +255,71 @@ static __init void leon_patch(void)
->  
->  struct tt_entry *sparc_ttable;
->  
-> -/* Drop RAM below the kernel; the linear map runs upward from phys_base
-> - * and cannot reach it.
-> - */
-> -static void __init trim_sp_banks_below(unsigned long base)
-> +unsigned long phys_base;
-> +EXPORT_SYMBOL(phys_base);
-> +
-> +unsigned long pfn_base;
-> +EXPORT_SYMBOL(pfn_base);
-> +
-> +static unsigned long __init calc_max_low_pfn(void)
->  {
-> -	int i, j = 0;
-> +	unsigned long limit = pfn_base + PHYS_PFN(SRMMU_MAXMEM);
-> +	unsigned long start_pfn, end_pfn;
-> +	unsigned long last_pfn = 0;
-> +	int i;
-> +
-> +	for_each_mem_pfn_range(i, MAX_NUMNODES, &start_pfn, &end_pfn, NULL) {
-> +		if (start_pfn >= limit) {
-> +			if (last_pfn < limit)
-> +				limit = last_pfn;
-> +			break;
-> +		}
->  
-> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
-> -		unsigned long start = sp_banks[i].base_addr;
-> -		unsigned long end = start + sp_banks[i].num_bytes;
-> +		last_pfn = end_pfn;
-> +	}
->  
-> -		if (end <= base)
-> -			continue;		/* wholly below - drop it */
-> -		if (start < base)
-> -			start = base;		/* straddles - trim the front */
-> +	return limit;
-> +}
->  
-> -		sp_banks[j].base_addr = start;
-> -		sp_banks[j].num_bytes = end - start;
-> -		j++;
-> +static void __init setup_memory(void)
-> +{
-> +	unsigned long ram_base = memblock_start_of_DRAM();
-> +	unsigned long real_base = __get_phys(PAGE_OFFSET);
-> +	unsigned long size;
-> +
-> +	memblock_set_bottom_up(true);
-> +	memblock_allow_resize();
-> +
-> +	phys_base = ram_base;
-> +	if (real_base && real_base != phys_base) {
-> +		prom_printf("phys_base: RAM starts 0x%x but kernel is at 0x%x\n",
-> +			    (unsigned int)phys_base, (unsigned int)real_base);
-> +		phys_base = real_base;
-> +		memblock_remove(0, phys_base);
-> +		prom_printf("phys_base: adopted 0x%x, RAM below it dropped\n",
-> +			    (unsigned int)phys_base);
->  	}
-> -	sp_banks[j].base_addr = 0;
-> -	sp_banks[j].num_bytes = 0;
-> +
-> +	if (cmdline_memory_size)
-> +		memblock_enforce_memory_limit(cmdline_memory_size);
-> +
-> +	min_low_pfn = PFN_DOWN(memblock_start_of_DRAM());
-> +	pfn_base = PHYS_PFN(phys_base);
-> +	max_pfn = PFN_DOWN(memblock_end_of_DRAM());
-> +	max_low_pfn = max_pfn;
-> +
-> +	if (max_low_pfn > pfn_base + PHYS_PFN(SRMMU_MAXMEM))
-> +		max_low_pfn = calc_max_low_pfn();
-> +
-> +	find_ramdisk(memblock_end_of_DRAM());
-> +
-> +	/* Reserve the kernel text/data/bss. */
-> +	size = __pa(PAGE_ALIGN((unsigned long)&_end)) - phys_base;
-> +	memblock_reserve(phys_base, size);
-> +	memblock_add(phys_base, size);
-> +
-> +	/* Only allow low memory to be allocated by memblock. */
-> +	memblock_set_current_limit(PFN_PHYS(max_low_pfn));
->  }
->  
->  /* Called from head_32.S - before we have setup anything
-> @@ -306,9 +350,6 @@ void __init sparc32_start_kernel(struct linux_romvec *rp)
->  
->  void __init setup_arch(char **cmdline_p)
->  {
-> -	int i;
-> -	unsigned long highest_paddr;
-> -
->  	sparc_ttable = &trapbase[0];
->  
->  	/* Initialize PROM console and command line. */
-> @@ -343,36 +384,7 @@ void __init setup_arch(char **cmdline_p)
->  
->  	idprom_init();
->  	load_mmu();
-> -
-> -	phys_base = 0xffffffffUL;
-> -	highest_paddr = 0UL;
-> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
-> -		unsigned long top;
-> -
-> -		if (sp_banks[i].base_addr < phys_base)
-> -			phys_base = sp_banks[i].base_addr;
-> -		top = sp_banks[i].base_addr +
-> -			sp_banks[i].num_bytes;
-> -		if (highest_paddr < top)
-> -			highest_paddr = top;
-> -	}
-> -
-> -	/* phys_base must describe what PAGE_OFFSET maps to, not where RAM starts. */
-> -	{
-> -		unsigned long real_base = __get_phys(PAGE_OFFSET);
-> -
-> -		if (real_base && real_base != phys_base) {
-> -			prom_printf("phys_base: RAM starts 0x%x but kernel is at 0x%x\n",
-> -				    (unsigned int)phys_base,
-> -				    (unsigned int)real_base);
-> -			phys_base = real_base;
-> -			trim_sp_banks_below(phys_base);
-> -			prom_printf("phys_base: adopted 0x%x, RAM below it dropped\n",
-> -				    (unsigned int)phys_base);
-> -		}
-> -	}
-> -
-> -	pfn_base = phys_base >> PAGE_SHIFT;
-> +	setup_memory();
->  
->  	if (!root_flags)
->  		root_mountflags &= ~MS_RDONLY;
-> diff --git a/arch/sparc/mm/init_32.c b/arch/sparc/mm/init_32.c
-> index 6880d9cb30a5..ac4462f1cf76 100644
-> --- a/arch/sparc/mm/init_32.c
-> +++ b/arch/sparc/mm/init_32.c
-> @@ -35,66 +35,13 @@
->  
->  #include "mm_32.h"
->  
-> -unsigned long phys_base;
-> -EXPORT_SYMBOL(phys_base);
-> -
-> -unsigned long pfn_base;
-> -EXPORT_SYMBOL(pfn_base);
-> -
->  struct sparc_phys_banks sp_banks[SPARC_PHYS_BANKS+1];
->  
->  /* Initial ramdisk setup */
->  extern unsigned int sparc_ramdisk_image;
->  extern unsigned int sparc_ramdisk_size;
->  
-> -unsigned long highstart_pfn, highend_pfn;
-> -
-> -unsigned long last_valid_pfn;
-> -
-> -unsigned long calc_highpages(void)
-> -{
-> -	int i;
-> -	int nr = 0;
-> -
-> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
-> -		unsigned long start_pfn = sp_banks[i].base_addr >> PAGE_SHIFT;
-> -		unsigned long end_pfn = (sp_banks[i].base_addr + sp_banks[i].num_bytes) >> PAGE_SHIFT;
-> -
-> -		if (end_pfn <= max_low_pfn)
-> -			continue;
-> -
-> -		if (start_pfn < max_low_pfn)
-> -			start_pfn = max_low_pfn;
-> -
-> -		nr += end_pfn - start_pfn;
-> -	}
-> -
-> -	return nr;
-> -}
-> -
-> -static unsigned long calc_max_low_pfn(void)
-> -{
-> -	int i;
-> -	unsigned long tmp = pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT);
-> -	unsigned long curr_pfn, last_pfn;
-> -
-> -	last_pfn = (sp_banks[0].base_addr + sp_banks[0].num_bytes) >> PAGE_SHIFT;
-> -	for (i = 1; sp_banks[i].num_bytes != 0; i++) {
-> -		curr_pfn = sp_banks[i].base_addr >> PAGE_SHIFT;
-> -
-> -		if (curr_pfn >= tmp) {
-> -			if (last_pfn < tmp)
-> -				tmp = last_pfn;
-> -			break;
-> -		}
-> -
-> -		last_pfn = (sp_banks[i].base_addr + sp_banks[i].num_bytes) >> PAGE_SHIFT;
-> -	}
-> -
-> -	return tmp;
-> -}
-> -
-> -static void __init find_ramdisk(unsigned long end_of_phys_memory)
-> +void __init find_ramdisk(unsigned long end_of_phys_memory)
->  {
->  #ifdef CONFIG_BLK_DEV_INITRD
->  	unsigned long size;
-> @@ -124,83 +71,6 @@ static void __init find_ramdisk(unsigned long end_of_phys_memory)
->  #endif
->  }
->  
-> -unsigned long __init bootmem_init(unsigned long *pages_avail)
-> -{
-> -	unsigned long start_pfn, bytes_avail, size;
-> -	unsigned long end_of_phys_memory = 0;
-> -	unsigned long high_pages = 0;
-> -	int i;
-> -
-> -	memblock_set_bottom_up(true);
-> -	memblock_allow_resize();
-> -
-> -	bytes_avail = 0UL;
-> -	for (i = 0; sp_banks[i].num_bytes != 0; i++) {
-> -		end_of_phys_memory = sp_banks[i].base_addr +
-> -			sp_banks[i].num_bytes;
-> -		bytes_avail += sp_banks[i].num_bytes;
-> -		if (cmdline_memory_size) {
-> -			if (bytes_avail > cmdline_memory_size) {
-> -				unsigned long slack = bytes_avail - cmdline_memory_size;
-> -
-> -				bytes_avail -= slack;
-> -				end_of_phys_memory -= slack;
-> -
-> -				sp_banks[i].num_bytes -= slack;
-> -				if (sp_banks[i].num_bytes == 0) {
-> -					sp_banks[i].base_addr = 0xdeadbeef;
-> -				} else {
-> -					memblock_add(sp_banks[i].base_addr,
-> -						     sp_banks[i].num_bytes);
-> -					sp_banks[i+1].num_bytes = 0;
-> -					sp_banks[i+1].base_addr = 0xdeadbeef;
-> -				}
-> -				break;
-> -			}
-> -		}
-> -		memblock_add(sp_banks[i].base_addr, sp_banks[i].num_bytes);
-> -	}
-> -
-> -	if (cmdline_memory_size)
-> -		memblock_enforce_memory_limit(cmdline_memory_size);
-> -
-> -	/* Start with page aligned address of last symbol in kernel
-> -	 * image.
-> -	 */
-> -	start_pfn  = (unsigned long)__pa(PAGE_ALIGN((unsigned long) &_end));
-> -
-> -	/* Now shift down to get the real physical page frame number. */
-> -	start_pfn >>= PAGE_SHIFT;
-> -
-> -	max_pfn = end_of_phys_memory >> PAGE_SHIFT;
-> -
-> -	max_low_pfn = max_pfn;
-> -	highstart_pfn = highend_pfn = max_pfn;
-> -
-> -	if (max_low_pfn > pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT)) {
-> -		highstart_pfn = pfn_base + (SRMMU_MAXMEM >> PAGE_SHIFT);
-> -		max_low_pfn = calc_max_low_pfn();
-> -		high_pages = calc_highpages();
-> -		printk(KERN_NOTICE "%ldMB HIGHMEM available.\n",
-> -		    high_pages >> (20 - PAGE_SHIFT));
-> -	}
-> -
-> -	find_ramdisk(end_of_phys_memory);
-> -
-> -	/* Reserve the kernel text/data/bss. */
-> -	size = (start_pfn << PAGE_SHIFT) - phys_base;
-> -	memblock_reserve(phys_base, size);
-> -	memblock_add(phys_base, size);
-> -
-> -	size = memblock_phys_mem_size() - memblock_reserved_size();
-> -	*pages_avail = (size >> PAGE_SHIFT) - high_pages;
-> -
-> -	/* Only allow low memory to be allocated via memblock allocation */
-> -	memblock_set_current_limit(max_low_pfn << PAGE_SHIFT);
-> -
-> -	return max_pfn;
-> -}
-> -
->  /*
->   * paging_init() sets up the page tables: We call the MMU specific
->   * init routine based upon the Sun model type on the Sparc.
-> diff --git a/arch/sparc/mm/leon_mm.c b/arch/sparc/mm/leon_mm.c
-> index 1dc9b3d70eda..a43c5ffbbbe5 100644
-> --- a/arch/sparc/mm/leon_mm.c
-> +++ b/arch/sparc/mm/leon_mm.c
-> @@ -11,6 +11,7 @@
->   */
->  
->  #include <linux/kernel.h>
-> +#include <linux/memblock.h>
->  #include <linux/mm.h>
->  #include <asm/asi.h>
->  #include <asm/leon.h>
-> diff --git a/arch/sparc/mm/srmmu.c b/arch/sparc/mm/srmmu.c
-> index f094f6c105a2..e333d3eac451 100644
-> --- a/arch/sparc/mm/srmmu.c
-> +++ b/arch/sparc/mm/srmmu.c
-> @@ -59,8 +59,6 @@ int vac_line_size;
->  
->  extern struct resource sparc_iomap;
->  
-> -extern unsigned long last_valid_pfn;
-> -
->  static pgd_t *srmmu_swapper_pg_dir;
->  
->  const struct sparc32_cachetlb_ops *sparc32_cachetlb_ops;
-> @@ -871,7 +869,7 @@ void __init arch_zone_limits_init(unsigned long *max_zone_pfns)
->  {
->  	max_zone_pfns[ZONE_DMA] = max_low_pfn;
->  	max_zone_pfns[ZONE_NORMAL] = max_low_pfn;
-> -	max_zone_pfns[ZONE_HIGHMEM] = highend_pfn;
-> +	max_zone_pfns[ZONE_HIGHMEM] = max_pfn;
->  }
->  
->  void __init srmmu_paging_init(void)
-> @@ -884,7 +882,6 @@ void __init srmmu_paging_init(void)
->  	pud_t *pud;
->  	pmd_t *pmd;
->  	pte_t *pte;
-> -	unsigned long pages_avail;
->  
->  	init_mm.context = (unsigned long) NO_CONTEXT;
->  	sparc_iomap.start = SUN4M_IOBASE_VADDR;	/* 16MB of IOSPACE on all sun4m's. */
-> @@ -910,9 +907,6 @@ void __init srmmu_paging_init(void)
->  		prom_halt();
->  	}
->  
-> -	pages_avail = 0;
-> -	last_valid_pfn = bootmem_init(&pages_avail);
-> -
->  	srmmu_nocache_calcsize();
->  	srmmu_nocache_init();
->  	srmmu_inherit_prom_mappings(0xfe400000, (LINUX_OPPROM_ENDVM - PAGE_SIZE));
-
-Thanks,
-Andreas
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 5832dc25d6bf..d3e843220b73 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -34,11 +34,11 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+ 	struct device *dev = &gpu->pdev->dev;
+ 	const struct firmware *fw;
+ 	const char *signed_fwname = NULL;
++	struct qcom_pas_context *ctx;
+ 	struct device_node *np;
+ 	struct resource r;
+ 	phys_addr_t mem_phys;
+ 	ssize_t mem_size;
+-	void *mem_region = NULL;
+ 	int ret;
+ 
+ 	if (!IS_ENABLED(CONFIG_ARCH_QCOM)) {
+@@ -122,9 +122,9 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+ 	}
+ 
+ 	/* Allocate memory for the firmware image */
+-	mem_region = memremap(mem_phys, mem_size,  MEMREMAP_WC);
+-	if (!mem_region) {
+-		ret = -ENOMEM;
++	ctx = devm_qcom_pas_context_alloc(dev, pasid, mem_phys, resource_size(&r));
++	if (IS_ERR(ctx)) {
++		ret = PTR_ERR(ctx);
+ 		goto out;
+ 	}
+ 
+@@ -133,27 +133,25 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+ 	 *
+ 	 * Note that we could be dealing with two different paths, since
+ 	 * with upstream linux-firmware it would be in a qcom/ subdir..
+-	 * adreno_request_fw() handles this, but qcom_mdt_load() does
++	 * adreno_request_fw() handles this, but qcom_mdt_pas_load() does
+ 	 * not.  But since we've already gotten through adreno_request_fw()
+ 	 * we know which of the two cases it is:
+ 	 */
+ 	if (signed_fwname || (to_adreno_gpu(gpu)->fwloc == FW_LOCATION_LEGACY)) {
+-		ret = qcom_mdt_load(dev, fw, fwname, pasid,
+-				mem_region, mem_phys, mem_size, NULL);
++		ret = qcom_mdt_pas_load(ctx, fw, fwname, NULL);
+ 	} else {
+ 		char *newname;
+ 
+ 		newname = kasprintf(GFP_KERNEL, "qcom/%s", fwname);
+ 
+-		ret = qcom_mdt_load(dev, fw, newname, pasid,
+-				mem_region, mem_phys, mem_size, NULL);
++		ret = qcom_mdt_pas_load(ctx, fw, newname, NULL);
+ 		kfree(newname);
+ 	}
+ 	if (ret)
+ 		goto out;
+ 
+ 	/* Send the image to the secure world */
+-	ret = qcom_pas_auth_and_reset(pasid);
++	ret = qcom_pas_prepare_and_auth_reset(ctx);
+ 
+ 	/*
+ 	 * If the pas call returns -EOPNOTSUPP we assume that this target
+@@ -165,9 +163,6 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+ 		DRM_DEV_ERROR(dev, "Unable to authorize the image\n");
+ 
+ out:
+-	if (mem_region)
+-		memunmap(mem_region);
+-
+ 	release_firmware(fw);
+ 
+ 	return ret;
+-- 
+2.55.0
 
