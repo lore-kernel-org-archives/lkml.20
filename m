@@ -1,89 +1,88 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D5047F796
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAE44854F2
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:10:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790327407; cv=none; b=mqDpqZPeljt6aUyW5RWJksrjFFFl7RXH2PmTNWRUVhYYznb8QDnR3bAgmrpZqgRBNw1JigYGzUy7noIy+Ai86oqZNGRWv+i2sy7CC7/mc45LDsyDhNPLheEHA0aH355irbMmcAGoXyNbHfRw8LqHe6RTtbBEMBz4cIdHj9CqzmI=
+	t=1790327413; cv=none; b=p1KzlSt587t5GW3UVRZWhjUqabeaYAwEdk+eWTFixoH5QTCp/j/7aODwKxYy8PL6haa+378/k7OQYkJlaJW74rPBwSYXSpYfS2a9f0ln8m6qoFjSVMJC0SEHXpjK2AwPvVcpkEOlgAfDoIdZkOZLA6OgCXfpaUangy6Z/BBMpKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790327407; c=relaxed/simple;
-	bh=eFX4xFKGu1d2iMPrSFu9VG2KHuB4iXe/IQlKD1I5PhY=;
+	s=arc-20240116; t=1790327413; c=relaxed/simple;
+	bh=KacuOzfLT7ghT0l8x9+HoH6R9vGKNBZqubpcPoF6wZ0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AK+ORfLJor7ho7JqtL3WKjF31jTQSFscCAJ2fo8aCFF4KidxDPePvcjnv06cUPPOvbNq3dz0b+1n3cc0yR5pzCKAfeBa+7hD0rHG0iRA+nVLLF15B1Mhi9ZxCsDsC9fWRHhLP4GSlPkt5VqIn8OMonrz6s+eaw6G3Klv+kvcuiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Yhv7d+ab; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GdJnYFco; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=ewIubnYITbt2vsK0kqYl6apkWWVHRfttW6Ut0z0FEskpM93FiQypvC8IgJ/RkSOvoseuRW6Rnj7MilTzdUDze22OlfRqxBI05BSM2P1Ck7zfEE+IauuWBLPbAuxW120zALTrbLaAlqT6+cXwyUI7wbTJOkwpvNdLFHG0Sd84S4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OpYNDB9a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Poshcal5; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Yhv7d+ab";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GdJnYFco"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YXP0289462
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:10:00 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OpYNDB9a";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Poshcal5"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YW5L039598
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:10:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lQGoGb2ujLMFHLGciJF9hIS3vNu7w27PseR4q+F9Fug=; b=Yhv7d+abFLQGf5t3
-	mrQkbVYc1kRTjGA3oBmGW+QzziDvK0z1w71LlFrAM0ImYTjexx3C1LNCwsuUJtxD
-	INojZxOxberVnYRHMx0cfch3Fm1+3IFCmhdFFVSYRbOG+t8sWGggG6NP2o8C+V1H
-	PQNLjpdSczlfhbR3RLXNIumByvrnC9xQ8ySRcqLTY2a1rpFsyEg4cTgp1atYOX5X
-	deXuWH0s+rvgI4jMt4OcI3C80kN4bqI/BO9MrEH0UtQXk/UPEh9mHxBxPXXocPmf
-	/jdpVzdU88W+TOz5mwdc+OtDlyD1oN0xGco6o3bB7xYXclvEi94Z0O7LcXkFOYWW
-	phc0EQ==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw881tus9-1
+	posbByi2C22vAqDX2ezu/Vx97adQ0JmvEhOqcNgZPY0=; b=OpYNDB9amq3IPPHA
+	GQ9b3nwmdrCb4zGFzHx1gNfUp2OiDu8S7riLLmIHvcdmbQ+mshZqKed/EFYuUHU2
+	MlsoF5fdW82rBuWPAIEAFVjwlxPDg4itM/cwBLLq47jDXZ+2bpqlsi9wD6QVVInO
+	hvggE/E1Tk6tYF7258Bz8SFwPKe7R+zw0RVrVoBM0NTuMw5d9x8wa4Z+4jiqW4J3
+	oS4Bx47q3Fd9njBrd9hCoB7htTSBM48ZvCyo9/izJRDZn2uCNdT564DMW35VliCX
+	5RejgwsIxGIqd2fsaYdCCZQPjfGj6sqTdUHcQuZKe7EgrA3ilcbXjsmA7uO5Fopw
+	nPM46g==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw465417h-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:10:00 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9143cb073b9so1031516d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:10:00 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:10:07 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9143cb073b9so1033086d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:10:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790327399; x=1790932199; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790327406; x=1790932206; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lQGoGb2ujLMFHLGciJF9hIS3vNu7w27PseR4q+F9Fug=;
-        b=GdJnYFco8ezFwVwmv+sluwUwa4ya4M82YBhTjc0soIYp1d7rvl9RtmZ41uePMHzCJm
-         bGBPNI4m2ga4vPFThjDU+i/mSNCW2srV2mqWMekDrEdema9tYcVK37pGdqoZVfJCjjAs
-         CbPtzLJKl3Z07ctB2sZxu1PDe2wwxPhQbop/QmCL6fjCt1j1YN50HuataSOCajFPMMTA
-         5ee6RSOdo9FUoF4rqt5xa9EESRdrITUPc4ssfCvivT1Jv2ZeFgkg6Sf2c0mw1ts+YZDD
-         kUuH3drVlBeJBC7jbBPaowhMHaM1BBv5moW7XVvnKYXsBbXr8KCBe9Q+ZzbdOLzicb03
-         tj1w==
+        bh=posbByi2C22vAqDX2ezu/Vx97adQ0JmvEhOqcNgZPY0=;
+        b=Poshcal5xM3X1Og/6lUs1gY3jbn3U88B8VJarKNX7BpZT3p7olKnbAbrpXsgKTS1sz
+         bA6YEav8kcOZhKxiZW490JcdrlTaKqTxFh3Qd4UbrLPTGlyb6wwj8gHqYMg6r51Zezql
+         5H/YscacXSas+CDL0yV+0xTXl8cEnJfeVd3FCuxBa3LA85/TvuOHPX89UtI/7rqPT24p
+         kkHbT5QSoxmyJ0C8HmeD7Z+mQ21AeFtwi8DbKqWqOEzBwqieT6AN6dmQWKbfRQiKyHVo
+         sQRZ0LBQIdqYnrXlwOcIqJv44+ds74LXpZ07ahwM0qXu7vn634GwKkJJutRmW2u0vHxl
+         c5hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790327399; x=1790932199;
+        d=1e100.net; s=20260707; t=1790327406; x=1790932206;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lQGoGb2ujLMFHLGciJF9hIS3vNu7w27PseR4q+F9Fug=;
-        b=HPpGCfpiOu4uuNR7+J4ITctAh8nwkBMk0Uv/Y2uuWv4unTt93lub+AtZPwnzRf0mhK
-         QP+Bp8y9rK0dXPeE8S4e04KkheCu5LBjBQj9wF7byWTzKTvo0qX7tTFjUJ2ATJkYvao3
-         p6VOhNfmQcmVKmRlSBGb3Ah4ZgIT6PyWWqKiDkMQEMKiZQ2aLV2Upxp6LDNPj39fRIiv
-         vurPXCEcf5LIxJMWdQ31ToeDxGmj0z4hxYqQSGAvUd9D+BqQtmR49h4q/AsjKeHDksBE
-         4/Hny4hWjHR35hEhqjpeSlhvznzah25xh5+JnUhT2M+m4/eutUL5WEFGVD93or76QnMG
-         rWBA==
-X-Forwarded-Encrypted: i=1; AKwUvBxbhgJQyZzoS6YuBfpc+9u3cXY1mCbkz/Vq3UCrWSG65V15fbfY3yoI5Nu5n9DgQpBsqxg3QJW8beR0y1U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQoSrmSaGphThhr3AfVEaT3Hh66DMCCe0+4xRz9g/aIxj6gwUS
-	EA6yADsmsB3SQxEnU6VLrVyPZmab8yvdHvUjsBpcID7a8XKp9Btxd3eNk0FJ728wo4Ah31UU1PW
-	nJtxr2mKdJOqawgrJpTdRj8zVwVvc1N/TfoToZyza9YZVS9AmZ0hmE9rbEAPsnrJVjBo=
-X-Gm-Gg: AYBFou3EO7xfEkVnWqhWOWLUsnuGUy+trmFQjbc42uyZIW+1xe8vIB4ctagCb6pNqXM
-	/bF6x/V8QPbcXiSWoQQrvDxI2c3UheM03jpIreyBumjzx5Gu1/ZkAVj6YoGfTHJulA0S4+lBN/5
-	LiCPH+cZ5CdNMS+Q8dSC1oCz2OMWYt0ByrXN1bT7UdyD/vqy/ElMHSzEh4Urn3m99Bda2udaKwr
-	f1I0ioih01F1Wg/2qoxk3xa0acAciwp2B28wxT+oio/t+nRcOMeG7mGrG+UK0mP5JQDXRM70Yii
-	d7xPhbx0zI0iA7RMwCtq/1GW58hnHCoHftoeZKckLOC9U+ppjQCe465bUs8QB8Y4v2eFUcwKME6
-	Wzpmc4vXQ3IJorbov8T4v5qnnCnwBuQv9/iF/RKjBdcs4yJjYhRLAQ56S9nyXDfm/dNvfIigz6o
-	VV1/Mj1Qy/6zsUtAzaq4gnajc7yf1dbId1Prb0KOFN8nG2Ki1N8w8=
-X-Received: by 2002:a05:620a:7010:b0:939:f522:b2f7 with SMTP id af79cd13be357-93c43cd31b9mr320614285a.33.1790327399365;
-        Fri, 25 Sep 2026 02:09:59 -0700 (PDT)
-X-Received: by 2002:a05:620a:7010:b0:939:f522:b2f7 with SMTP id af79cd13be357-93c43cd31b9mr320610485a.33.1790327398804;
-        Fri, 25 Sep 2026 02:09:58 -0700 (PDT)
+        bh=posbByi2C22vAqDX2ezu/Vx97adQ0JmvEhOqcNgZPY0=;
+        b=JDCi+iv46gsN/XW+qOuOwBY3r+xTzzvEWQ9bSkJhsj9KbYl92qljM/xF3w1RvSugSJ
+         ggPPmHo3WvgnK+JXOH9sWnPRJcr5Pbn8HBLL6hyDPTtvMDpawE2SC5uwaMxQZcW5DgCq
+         CXetlQJUNiK6TZ7I0SbTQKiqnx+GzBh8HmWOu/tl+lO66sHgnXfNe0nsymTzaZoILbVk
+         rLmbfKiXlbyf2V3YPLszAf1FsguQoh6gwv7+04RTCoPy0KuTBRYnzqzuCEZtUNtU/yRQ
+         Dl5ooSmBawGsrlRBYwULWYhXlpKrjiH2gWWsJU486acLKhdkX5m9mhj+nzLt6JcMLAF1
+         gqSQ==
+X-Forwarded-Encrypted: i=1; AKwUvByAvNr+W3n+Uh2Jr3IUan0aYkfknIvQzHiWtR6nDY8Fxw4N3ywSxkBCJV+Ramhh63G7qzBvlkDwr2KQnv4=@vger.kernel.org
+X-Gm-Message-State: AFuF++klCPU4cXaql83fjZlbbU1o65TrDerRZ49cIoO7IACO0m93st+K
+	QhaNYjepPzICMxSSRMjzSk//b7Wf0EOd6SBla46jG8ctAI84OdULdiGPF9pZUnlOyG4g7YRCG8Y
+	/NWy/d1rVuatENOVUObpgzWKPbqtEGVeIaVlLoBG9BXzySifbxZjnXVEQpOJcDPL0TGc=
+X-Gm-Gg: AYBFou2obeKayWJ2zlSNEWpMSva98wvWj3BVPHLMGCFtCc6yQA2y5tQMHO2/CIZkYbV
+	m5dxWmf0SCxcHjfUdMFreFI/CGXqSZ1Nod3mX70SRL10jXwG7uJ6fObu+2d2eWWM0qA1fOfz01u
+	OeVIa7TRhQROdTD4CI1JqVnIj5bkhLgTTD7sjGzzvDZ20a+BVzNUeKn8YWG9YXykMFGrF+o7kSE
+	NTTu4aP8d5hzqmBrZ9ixomIUyelOTGJKDS1v0CVNkqzQ4kZPkEWdcARIw7sPEUC7tP9BV4M8xJL
+	wVXnYeZCZliEsPnJ0QJdExiQpQ+TkKqLW0nD8GDNT44kt3XaTYILISYXE96nOfn2sqOYFgBke+q
+	ygEvLytvYdCVkMEaWr/nSC7vfdw5PZSW8A96foYCMwcXO/ViTbjBg9pUNdg/hY2KYH/W3DlnCzp
+	XdSqShdOrm12iU7ivjVAN4H+rjEGacxkjNuJne65ThXMxgHquCxe8=
+X-Received: by 2002:a05:620a:4495:b0:936:6c8a:f7aa with SMTP id af79cd13be357-93c43b86612mr335564185a.4.1790327406372;
+        Fri, 25 Sep 2026 02:10:06 -0700 (PDT)
+X-Received: by 2002:a05:620a:4495:b0:936:6c8a:f7aa with SMTP id af79cd13be357-93c43b86612mr335559785a.4.1790327405903;
+        Fri, 25 Sep 2026 02:10:05 -0700 (PDT)
 Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:5c1f:3897:a4a1:99e1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a638sm5269890f8f.9.2026.09.25.02.09.57
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a638sm5269890f8f.9.2026.09.25.02.10.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 02:09:58 -0700 (PDT)
+        Fri, 25 Sep 2026 02:10:05 -0700 (PDT)
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 11:09:51 +0200
-Subject: [PATCH v10 4/9] media: uapi: Add CAMSS ISP configuration
- definition
+Date: Fri, 25 Sep 2026 11:09:55 +0200
+Subject: [PATCH v10 8/9] arm64: dts: qcom: shikra: Add OPE node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,8 +90,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260925-camss-isp-ope-v10-4-2622411034cb@oss.qualcomm.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-camss-isp-ope-v10-8-2622411034cb@oss.qualcomm.com>
 References: <20260925-camss-isp-ope-v10-0-2622411034cb@oss.qualcomm.com>
 In-Reply-To: <20260925-camss-isp-ope-v10-0-2622411034cb@oss.qualcomm.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -108,267 +107,142 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
         Bryan O'Donoghue <bod@kernel.org>
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-hardening@vger.kernel.org
+        linux-hardening@vger.kernel.org,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=TptzFzXh c=1 sm=1 tr=0 ts=6ab63a68 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=Wrq+otfv c=1 sm=1 tr=0 ts=6ab63a6f cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=cBt3T3tByBXynNCq78MA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzNiBTYWx0ZWRfXys0F4vuFn/FC
- YtJUcKT9PglfKVTls8bhXgp9UuaZtzR7fz+1WhVbnl9y527hKbe5mL36qg8+OjQW/3eTu8icau5
- zvYtXCcc7unPvxciz9oFmptD3Brc138yJIkSmiEeuqeKaCOm6lhoatzvUstmw/RF2D2VI+vUvou
- Z40Ys9/vnr5dn2tHa0eQLCCGPm4IeKSxbDiG6GBJzgmDGODB1Ox07CZhLquoYdrk6WGlmaRA8z/
- 90P2ZraLlFtkRegZl7E2lE8TqkhM1CST4wnhi9/OBXXIuROS9uibowMLUJGUpARWWdI05hF7zqj
- 7xNV6xLixB55FlX8Jz+QD7jbCt8RfzzUlZgFZRIwEt1BjHpeAcIzkec6IkbFrXL+Oh6NpgUXWFO
- HiOxPzrTnKTezeTRSYsjzDd7z8fL5Jbsy8bxSUc2u0csQVKdNKsVnSR/c6IQ+oCFzhrMaO9zqxo
- EEH+Aq3yUt3Fk+wNyeA==
-X-Proofpoint-ORIG-GUID: t8uJLnN-EugiowLmSdflL5aTsXz7zswG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzNiBTYWx0ZWRfX6DExWE4i0GeF
- 6WqamBprpGHiM1wvjS2rGPpYMosD/jgFvAU3NYziZ/EjR4wAPlRbh6IVB2nhOlDlkxXjiZeedXv
- aiOA4o6dTr+E+ra7AByloPZaB/q28KA=
-X-Proofpoint-GUID: t8uJLnN-EugiowLmSdflL5aTsXz7zswG
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=EzCDy3pf2FPqfMyO2-oA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-ORIG-GUID: jB4Gc5xJYCPhxvq_yYI43U3zs8q07o_C
+X-Proofpoint-GUID: jB4Gc5xJYCPhxvq_yYI43U3zs8q07o_C
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzNiBTYWx0ZWRfX6enYtR7H4ZPN
+ WuBYJw7hCd1PSHI+EdNYYnpdFouULxAitpKNZxBDGxdrpT+HoKMMU2+aGORMehfrKKP6tAk/nSe
+ Bw/zgZKcPk/CEyF7UOvoDTQC11j3/aZsHzdVfMSnxO42IqG8dj+gSVLeKtIhpU04VU19elEEzlx
+ XnAXmO1LNmA4OI/wk2p1zHw138Ak7rqS3pRvKaxr4dXnN22f5ngcz59ulWBL8i0XgncAABYvnlk
+ tuo4IKbYZFvZD6MLGRsONcKjNjR1jXHZIsivf963ppHG/0IF+gNWo74BwelLrKh/vzP2Z/tmCYl
+ 6DurmurLRdGD6nFrO8S/bwtNBe5V6FvZQRaiJi7aMADBTLSCxB/YX5VmkPHAKtjyFVfqiBJQPfQ
+ 35jnzb52besKZi4rJItQnwQaEQCkkpxak8D2iB8Xz2bYDDemYEnQ3gd0VO00/dP3KSJAIDzHGhX
+ N9itQgu0LiVRUy/zQSQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzNiBTYWx0ZWRfX8uZVG34bTAu2
+ CAgMQ+4mlNIXzhGA1mUJBSlyCXtxo3DrWO9WsSuxvv1invUAJ0TtHmIsVMP1zX1JGEYxNEaCA2s
+ uuEiWRL1l4WlfEyemjXrBv1oKhOKwHU=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250036
 
-Add the uapi header qcom-camss-config.h defining the ISP parameter
-structures used by the CAMSS Offline Processing Engine (OPE) driver.
-This includes structures for white balance, chroma enhancement and
-color correction configuration.
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 
-The block type enum is shared across CAMSS ISPs so that userspace only
-has to deal with a single set of block identifiers.
+Add the Offline Processing Engine (OPE) device tree node for Shikra.
+The node describes the six register regions (cdm, top, qos, pipeline,
+bus_read, bus_write), clocks, interrupt, interconnects, IOMMU mappings,
+and OPP table.
 
+OPE is a memory-to-memory block with no board-level dependencies, so
+the node is left enabled for all Shikra boards.
+
+Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- include/uapi/linux/qcom-camss-config.h | 212 +++++++++++++++++++++++++++++++++
- 1 file changed, 212 insertions(+)
+ arch/arm64/boot/dts/qcom/shikra.dtsi | 77 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 77 insertions(+)
 
-diff --git a/include/uapi/linux/qcom-camss-config.h b/include/uapi/linux/qcom-camss-config.h
-new file mode 100644
-index 0000000000000000000000000000000000000000..aa3d97cfcc78e22a6f7ed79bee331c2dfd06f662
---- /dev/null
-+++ b/include/uapi/linux/qcom-camss-config.h
-@@ -0,0 +1,212 @@
-+/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
-+/*
-+ * Qualcomm CAMSS ISP Driver - Userspace API
-+ *
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
+diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
+index 92d22e3b6931cf49f213d1807f78fc1a261f290d..5adc28e9aa64508366e6c7fdad191a152b8cb6dc 100644
+--- a/arch/arm64/boot/dts/qcom/shikra.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+@@ -1828,6 +1828,83 @@ &clk_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
+ 			};
+ 		};
+ 
++		isp_ope: isp@5c42000 {
++			compatible = "qcom,shikra-camss-ope", "qcom,qcm2290-camss-ope";
 +
-+#ifndef _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
-+#define _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
++			reg = <0x0 0x5c42000 0x0 0x400>,
++			      <0x0 0x5c42400 0x0 0x200>,
++			      <0x0 0x5c42600 0x0 0x200>,
++			      <0x0 0x5c42800 0x0 0x4400>,
++			      <0x0 0x5c46c00 0x0 0x190>,
++			      <0x0 0x5c46d90 0x0 0xa00>;
++			reg-names = "cdm",
++				    "top",
++				    "qos",
++				    "pipeline",
++				    "bus_read",
++				    "bus_write";
 +
-+#include <linux/types.h>
-+#include <linux/media/v4l2-isp.h>
++			clocks = <&gcc GCC_CAMSS_AXI_CLK>,
++				 <&gcc GCC_CAMSS_OPE_CLK>,
++				 <&gcc GCC_CAMSS_OPE_AHB_CLK>,
++				 <&gcc GCC_CAMSS_NRT_AXI_CLK>,
++				 <&gcc GCC_CAMSS_TOP_AHB_CLK>;
++			clock-names = "axi",
++				      "core",
++				      "iface",
++				      "nrt",
++				      "top";
 +
-+/**
-+ * enum camss_params_block_type - CAMSS ISP parameter block identifiers
-+ *
-+ * Each value identifies one ISP processing block.  The value is placed in
-+ * the @type field of &struct v4l2_isp_params_block_header.
-+ *
-+ * @CAMSS_PARAMS_WB_GAIN: white balance gains and offsets (CLC_WB),
-+ *	&struct camss_params_wb_gain
-+ * @CAMSS_PARAMS_CHROMA_ENHAN: RGB to YUV colour transfer matrix
-+ *	(CLC_CHROMA_ENHAN), &struct camss_params_chroma_enhan
-+ * @CAMSS_PARAMS_COLOR_CORRECT: colour correction matrix (CLC_CC),
-+ *	&struct camss_params_color_correct
-+ * @CAMSS_PARAMS_GAMMA: per-channel gamma correction curves (CLC_GLUT),
-+ *	&struct camss_params_gamma
-+ */
-+enum camss_params_block_type {
-+	CAMSS_PARAMS_WB_GAIN = 1,
-+	CAMSS_PARAMS_CHROMA_ENHAN = 2,
-+	CAMSS_PARAMS_COLOR_CORRECT = 3,
-+	CAMSS_PARAMS_GAMMA = 4,
-+};
++			interrupts = <GIC_SPI 209 IRQ_TYPE_EDGE_RISING 0>;
 +
-+/* Number of entries in each gamma channel LUT. */
-+#define CAMSS_GAMMA_LUT_SIZE	256
++			interconnects = <&mem_noc MASTER_AMPSS_M0 RPM_ACTIVE_TAG
++					 &config_noc SLAVE_CAMERA_CFG RPM_ACTIVE_TAG>,
++					<&mmnrt_virt MASTER_CAMNOC_SF RPM_ALWAYS_TAG
++					 &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
++			interconnect-names = "config",
++					     "data";
 +
-+/**
-+ * struct camss_params_wb_gain - White Balance gains
-+ *
-+ * Implements the CLC_WB pipeline module.  The pipeline applies three
-+ * sequential operations per channel:
-+ *   1. Subtract sub-offset (black-level subtraction)
-+ *   2. Multiply by gain    (colour balance)
-+ *   3. Add add-offset      (output pedestal)
-+ *
-+ * Gains are 15uQ10 (15-bit unsigned, 10 fractional bits). Offsets
-+ * are 16-bit unsigned, normalised to full input scale (65535 = 1.0)
-+ *
-+ * @header:   block header; @header.type = CAMSS_PARAMS_WB_GAIN
-+ * @g_gain:   green channel gain (15uQ10, 1024 = 1.0)
-+ * @b_gain:   blue  channel gain (15uQ10, 1024 = 1.0)
-+ * @r_gain:   red   channel gain (15uQ10, 1024 = 1.0)
-+ * @g_sub:    green sub-offset, subtracted before gain (16u)
-+ * @b_sub:    blue  sub-offset, subtracted before gain (16u)
-+ * @r_sub:    red   sub-offset, subtracted before gain (16u)
-+ * @g_add:    green add-offset, added after gain (16u)
-+ * @b_add:    blue  add-offset, added after gain (16u)
-+ * @r_add:    red   add-offset, added after gain (16u)
-+ * @_pad:     padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_wb_gain {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 g_gain;
-+	__u16 b_gain;
-+	__u16 r_gain;
-+	__u16 g_sub;
-+	__u16 b_sub;
-+	__u16 r_sub;
-+	__u16 g_add;
-+	__u16 b_add;
-+	__u16 r_add;
-+	__u16 _pad[3];
-+} __attribute__((aligned(8)));
++			iommus = <&apps_smmu 0x600 0x0>,
++				 <&apps_smmu 0x620 0x0>,
++				 <&apps_smmu 0x640 0x0>;
 +
-+/**
-+ * struct camss_params_chroma_enhan - RGB to YUV colour transfer matrix
-+ *
-+ * Implements the CLC_CHROMA_ENHAN pipeline module. All coefficients are
-+ * signed 12-bit fixed-point Q3.8 (range roughly -8.0 to +7.996).
-+ *
-+ * RGB2Y - Luma (Y) coefficients
-+ * Y = v0 * R + v1 * G + v2 * B
-+ *
-+ * @luma_v0:  R-to-Y coefficient (12sQ8)
-+ * @luma_v1:  G-to-Y coefficient (12sQ8)
-+ * @luma_v2:  B-to-Y coefficient (12sQ8)
-+ * @luma_k:   Y output offset    (9s,  0 = no offset)
-+ *
-+ * RGB2Cb - Chroma (Cb) coefficients
-+ * Cb = a x ((B - G) + b(R - G)) + KCb
-+ * with:
-+ *   a = ap, when (B-G) + b(R-G) > 0; a = am, when (B-G) + b(R-G) ≤ 0;
-+ *   b = bp when (R-G) > 0; b = bm when (R-G) ≤ 0
-+ *
-+ * @coeff_ap: Cb positive coefficient (12sQ8)
-+ * @coeff_am: Cb negative coefficient (12sQ8)
-+ * @coeff_bp: Cb positive coefficient (12sQ8)
-+ * @coeff_bm: Cb negative coefficient (12sQ8)
-+ * @kcb:      Cb output offset        (11s)
-+ *
-+ * RGB2Cr - Chroma (Cr) coefficients:
-+ * Cr = c x ((R - G) + d(B - G)) + KCr
-+ * with:
-+ *   c = cp, when (R-G) + d(B-G) > 0; c = cm, when (R-G) + d(B-G) ≤ 0
-+ *   d = dp when (B-G) > 0; d = dm when (B-G) ≤ 0
-+ *
-+ * @coeff_cp: Cr positive coefficient (12sQ8)
-+ * @coeff_cm: Cr negative coefficient (12sQ8)
-+ * @coeff_dp: Cr positive coefficient (12sQ8)
-+ * @coeff_dm: Cr negative coefficient (12sQ8)
-+ * @kcr:      Cr output offset        (11s)
-+ *
-+ * @header: generic block header; @header.type = CAMSS_PARAMS_CHROMA_ENHAN
-+ * @_pad:   padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_chroma_enhan {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 luma_v0;
-+	__u16 luma_v1;
-+	__u16 luma_v2;
-+	__u16 luma_k;
-+	__u16 coeff_ap;
-+	__u16 coeff_am;
-+	__u16 coeff_bp;
-+	__u16 coeff_bm;
-+	__u16 coeff_cp;
-+	__u16 coeff_cm;
-+	__u16 coeff_dp;
-+	__u16 coeff_dm;
-+	__u16 kcb;
-+	__u16 kcr;
-+	__u16 _pad[2];
-+} __attribute__((aligned(8)));
++			operating-points-v2 = <&ope_opp_table>;
++			power-domains = <&gcc GCC_CAMSS_TOP_GDSC>,
++					<&rpmpd RPMPD_VDDCX>;
++			power-domain-names = "camss",
++					     "cx";
 +
-+/**
-+ * struct camss_params_color_correct - colour correction matrix
-+ *
-+ * Implements the CLC_CC pipeline module.  The matrix computes:
-+ *   Out_ch0 (G) = a0*G + b0*B + c0*R + k0
-+ *   Out_ch1 (B) = a1*G + b1*B + c1*R + k1
-+ *   Out_ch2 (R) = a2*G + b2*B + c2*R + k2
-+ *
-+ * @header:  block header; @header.type = CAMSS_PARAMS_COLOR_CORRECT
-+ * @a:       G-input coefficients per output channel (12s;
-+ *           a[0]=Out_G, a[1]=Out_B, a[2]=Out_R)
-+ * @b:       B-input coefficients (12s)
-+ * @c:       R-input coefficients (12s)
-+ * @k:       per-output-channel offsets (typically 9s effective)
-+ * @qfactor: Q-format selector (2u):
-+ *           0 = 12sQ7  (range ~-16.0 .. +15.992)
-+ *           1 = 12sQ8  (range  ~-8.0 ..  +7.996)
-+ *           2 = 12sQ9  (range  ~-4.0 ..  +3.998)
-+ *           3 = 12sQ10 (range  ~-2.0 ..  +1.999)
-+ * @_pad:    padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_color_correct {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 a[3];
-+	__u16 b[3];
-+	__u16 c[3];
-+	__u16 k[3];
-+	__u16 qfactor;
-+	__u16 _pad[3];
-+} __attribute__((aligned(8)));
++			ope_opp_table: opp-table {
++				compatible = "operating-points-v2";
 +
-+/**
-+ * struct camss_params_gamma - per-channel gamma correction curves
-+ *
-+ * Implements the CLC_GLUT pipeline module, applied in the RGB domain.  It
-+ * holds one independent lookup table per colour channel. Each table is a
-+ * direct (not segmented) map of input level to output level.
-+ *
-+ * Each table has @CAMSS_GAMMA_LUT_SIZE (256) entries of 16-bit unsigned
-+ * output. The number of significant output bits follows the width of the
-+ * engine's internal bus; the upper bits are ignored by the hardware.
-+ *
-+ * The module maps a 12-bit input to an 8-bit output: the top 8 input bits
-+ * index the table and the low 4 bits are used to linearly interpolate
-+ * between adjacent entries. Entry i therefore represents the output for
-+ * input level i/255 of full scale.
-+ * Output range: 0x00 = black, 0xFF = white.
-+ *
-+ * How to fill a curve (same on all three channels for pure luminance
-+ * gamma; different curves per channel additionally shift colour balance):
-+ *
-+ *   Identity (pass-through, gamma 1.0):
-+ *     lut[i] = i;                                // i = 0..255
-+ *
-+ *   Encode with gamma g (e.g. sRGB-like, g = 2.2):
-+ *     lut[i] = round(pow(i / 255.0, 1.0 / g) * 255.0);
-+ *
-+ * @header:  block header; @header.type = CAMSS_PARAMS_GAMMA
-+ * @glut:    green channel gamma curve
-+ * @blut:    blue  channel gamma curve
-+ * @rlut:    red   channel gamma curve
-+ */
-+struct camss_params_gamma {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 glut[CAMSS_GAMMA_LUT_SIZE];
-+	__u16 blut[CAMSS_GAMMA_LUT_SIZE];
-+	__u16 rlut[CAMSS_GAMMA_LUT_SIZE];
-+} __attribute__((aligned(8)));
++				opp-19200000 {
++					opp-hz = /bits/ 64 <19200000>;
++					required-opps = <&rpmpd_opp_min_svs>;
++				};
 +
-+#define CAMSS_PARAMS_OPE_MAX_PAYLOAD		\
-+	(sizeof(struct camss_params_wb_gain)	+\
-+	 sizeof(struct camss_params_chroma_enhan)	+\
-+	 sizeof(struct camss_params_color_correct)	+\
-+	 sizeof(struct camss_params_gamma))
++				opp-200000000 {
++					opp-hz = /bits/ 64 <200000000>;
++					required-opps = <&rpmpd_opp_svs>;
++				};
 +
-+#endif /* _UAPI_LINUX_QCOM_CAMSS_CONFIG_H */
++				opp-266600000 {
++					opp-hz = /bits/ 64 <266600000>;
++					required-opps = <&rpmpd_opp_svs_plus>;
++				};
++
++				opp-465000000 {
++					opp-hz = /bits/ 64 <465000000>;
++					required-opps = <&rpmpd_opp_nom>;
++				};
++
++				opp-580000000 {
++					opp-hz = /bits/ 64 <580000000>;
++					required-opps = <&rpmpd_opp_turbo>;
++					turbo-mode;
++				};
++			};
++		};
++
+ 		remoteproc_mpss: remoteproc@6080000 {
+ 			compatible = "qcom,shikra-mpss-pas";
+ 			reg = <0x0 0x06080000 0x0 0x100>;
 
 -- 
 2.34.1
