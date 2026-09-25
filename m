@@ -1,135 +1,272 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3EB391845;
-	Fri, 25 Sep 2026 08:39:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AC042122E;
+	Fri, 25 Sep 2026 08:39:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790325579; cv=none; b=DBVHOse5cgvr6cZplt4+FqkK0ZEZvb/KWUS4u6TOQzJE1HODl/lfqX01dtLr4souLjiP2+iQYUFYwmhGpjTv6EbfmcNDK3rhBBIKCd5cJtNlDmWWJYZTZU6r+TJb6eNxgtA62Ic9DuyuLm0oEVvzwDmrYy+N5mlcro4s37TGVY0=
+	t=1790325601; cv=none; b=nxeHgqmzKSf8ucH6Bn4zLZebh1VxTrfZ2gCvB2mHFciM3klQMb6B4s1jSdlB4mUetMo548oIwUFYfbumOX8a6un0N1BvHeSwHr9Xyfqhqvw8RRoiKkl64eNpxUqFoge+b5gU31D3gL2wZCn2pfsTKZ774Yb0cBk9DZg+hCY8KNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790325579; c=relaxed/simple;
-	bh=2bV/6e/zD+/zSR/D0Yr5ooqOrIdjNNV3DzaBWajLvUc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NGuRFOoxRBQ2D/S22wfmI6mSSRohNS6YuVVcTjVlb2m+T+oSOhRrIcRQyihgY0Nf9jIPsNx2Yp/IgnAl8IOAw4HAlkOk1lLeZbd4CDfzCL/sPHEGxE9n0PKa/g4slc6WHIn98GjkTbdTOd+NjJZqrkCDb/aEZctXp7lpKT5Uy7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nQCyeCGv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790325601; c=relaxed/simple;
+	bh=pRxtOPD+wTV723hRSqUjEY+Db9xDhxf+jC0XKAhT/pg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OB9i0lIG0HkYs7N6dtIm/ppdk8F2YW+vM+ZQkolsLcOOl0EgSZMkYr801LORebk07kkacE+ZCc3jdtl1/VUWFXlGt+14CqVI6CQKZz1j4aOWwglfGUTyGeIeE1s7OEEqTSNXl7nHIHyFv08qEw+tecVcAddeo6VfLpP2qCxiIAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=jmfWB1hk; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nQCyeCGv"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id AAC261F000FF;
-	Fri, 25 Sep 2026 08:39:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790325578;
-	bh=I21Y0zUxOqibpDhaQPCMpK8pLAjRT5+UlLhgvlp695U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nQCyeCGvMCdv+YYwH0LCsQ5KneRjMND2h9b5QnylcqFyvRS2neveSn9WQRDyDQQCM
-	 Xldvqml5GKwOFcMg3I8smcHRBSmwaLJfO38RSFTmxxKco8mKA8EbEzhEzsVHUjxOJ0
-	 Z9R3gsqAhlPO+KH2ODgcwXibY98xP2zZX4kgoNuicqW4xRDk/VSIm6d6XTr/81Ecy9
-	 0/nRCMsEd4aDpINKgR8VutD+Hp04JK6bpJgTUOkq2xWRbMWTet573H/F/8htfwGvtz
-	 HjBIUByVIXg7h23nQktDinStpwnTL2dJ22uUEwmYP15q1H8KHoQcvT0+yzQTif36XN
-	 4A1cnE6eQjiSA==
-Date: Fri, 25 Sep 2026 11:39:28 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Andrew Halaney <andrew@amutable.com>
-Cc: David Howells <dhowells@redhat.com>, Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, bpf@vger.kernel.org,
-	fsverity@lists.linux.dev, linux-doc@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: Re: [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
-Message-ID: <arYzQN1ViuiCBemo@kernel.org>
-References: <aqyiCavj3xeNqyAo@kernel.org>
- <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com>
- <20260914-ajhalaney-dmverity-key-identifier-v1-1-01922dc1366a@amutable.com>
- <715249.1789718726@warthog.procyon.org.uk>
- <aq2VxlttdlTNlHo6@toolbx>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="jmfWB1hk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=mnnEVurKsE39VK48mQRlSprYtzG3NdBD2JmMXmTnB9A=; b=jmfWB1hkHhyIf1MLqAlKpJjFjG
+	rmnnv+vQotGLnRkpPJh52dMym9rkzC6XYqlHzjlwIRg08yVmmNdLHFMCUxroFesYd8ge4/19dFnuN
+	9HjCYm0JH44xF8zk4699EQvaPbYkEMB+aycSf7u8M/rITLODvn/JYfoWuEeN3L0X0921LhuHSFJ9C
+	/332+AGH7lx+e/XCnGRBXN/eFIQ9IcqrudFH7SB7w6I1VahvisI3oOPp/UWgVecK55RTDee9GTCC8
+	FNigEuRr4aR9hDC6hioDoa60v9rNgzL0cAu8K4NMFWCWOdjGMLtP//A8aEHXCxwubtImSDlueMU7K
+	r82OMMxg==;
+Received: from sslproxy04.your-server.de ([78.46.152.42])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xA1TA-000Ccs-2S;
+	Fri, 25 Sep 2026 10:39:48 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xA1T9-000Dnx-2R;
+	Fri, 25 Sep 2026 10:39:48 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, virtualization@lists.linux.dev,
+ imx@lists.linux.dev, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, Francesco Valla <francesco@valla.it>,
+ Francesco Valla <francesco@valla.it>
+Subject:
+ Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add multiple vdevs
+Date: Fri, 25 Sep 2026 10:39:46 +0200
+Message-ID: <3065678.e9J7NaK4W3@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
+References:
+ <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq2VxlttdlTNlHo6@toolbx>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28134/Fri Sep 25 08:25:58 2026)
 
-On Fri, Sep 18, 2026 at 02:59:49PM -0500, Andrew Halaney wrote:
-> On Fri, Sep 18, 2026 at 09:05:26AM +0100, David Howells wrote:
-> > Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> > 
-> > > This is great for discussion but what we want for the commit message
-> > > is just motivation and resolution.
-> > 
-> > Actually, I think it's useful that Andrew wrote up the issues in the commit
-> > message - and I think it shows part of the motivation.  The 'writing a fake
-> > /proc/keys line in the description' is something I hadn't considered.
-> 
-> I'll defer to what you all want in the message here, I found it valuable
-> but I trend on the side of overly verbose admittedly!
-> 
-> > 
-> > > I don't think we need all this just to say that /proc/keys in a racy
-> > > query mechanism for production, which is an issue for dm-verity, given
-> > > that nothing else is available.
-> > 
-> > I think at some point, we will need a system call to search all for all
-> > accessible keys matching certain criteria by actually walking the key
-> > database.  The problem there is that there may be multiple hits, so we may
-> > need something like:
-> > 
-> > 	int count = find_key(key_serial_t start_id,
-> > 			     const char *type, const char *desc_prefix,
-> > 			     key_serial_t *results, size_t results_size,
-> > 			     unsigned int flags);
-> > 
-> > Allowing you to do:
-> > 
-> > 	key_serial_t dm_key;
-> > 	int n = find_key(0, "keyring", ".dm_verity", &dm_key, 1,
-> > 			 FIND_KEY_EXACT_DESC);
-> > 
-> > This wouldn't be as fast as a direct lookup since it would have to walk the
-> > key tree, doing name comparisons and perm checks on each key of the type.
-> > 
-> > > And secondly special keys are meant for implicit keyrings so isn't
-> > > that all there's to it?
-> > 
-> > I have no particular objection to setting aside a block of negative key IDs
-> > for special keyrings that need to be accessed a lot - though I would make
-> > common reg/unreg functions that take the ID to be registered and, say, set the
-> > block at -257..-512.  Moving the BFP keyring to -257 and DM to -258.
-> 
-> To be clear are you suggesting I do that for v2 here? Happy to make the
-> change and add some reuse to the registration functions, etc. I'm
-> guessing its fine to change the bpf id since its still only in -next?
-> 
-> The only awkward bit with making that more generic is that dm-verity
-> isn't __ro_after_init since its coming from a module possibly, and
-> because of the module usage I also protected it with a spinlock in case
-> someone's accessing it while you unload the module. Could just use one
-> spinlock for the whole generic array, and drop the __ro_after_init I
-> suppose.
-> 
-> Let me know if I'm not following properly!
+Am Mittwoch, 16. September 2026, 23:10:57 CEST schrieb Francesco Valla:
+> Add rings for multiple vdevs, as well as the required virtio nodes for
+> I2C, SPI and GPIO functionalities. On top of that, add example
+> peripherals using all of them.
+>=20
+> NOTE: this is a Proof-Of-Concept, not meant to be integrated!
+>=20
+> Signed-off-by: Francesco Valla <francesco@valla.it>
 
-I just read David's response and I think he made fair arguments,
-and patches look fine to me.
+Just a general question, unrelated to virtio, but related to AMP: How do you
+manage the clocks, so that Linux doesn't disable clocks needed by the
+Cortex-M?
 
-David, did you have anything? I could pick these.
+Best regards
+Alexander
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+> ---
+>  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++++++=
+++++--
+>  1 file changed, 119 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/ar=
+m64/boot/dts/freescale/imx93-11x11-frdm.dts
+> index bd14ba28690c..dfa3b122ac5f 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> @@ -53,6 +53,32 @@ button-k3 {
+>  		};
+>  	};
+> =20
+> +	gpio-keys-virtio {
+> +		compatible =3D "gpio-keys-polled";
+> +		poll-interval =3D <100>;
+> +
+> +		button-v1 {
+> +			label =3D "Button V1";
+> +			linux,code =3D <BTN_3>;
+> +			gpios =3D <&v_gpio 23 GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		button-v2 {
+> +			label =3D "Button V2";
+> +			linux,code =3D <BTN_4>;
+> +			gpios =3D <&v_gpio 24 GPIO_ACTIVE_LOW>;
+> +		};
+> +	};
+> +
+> +	leds {
+> +		compatible =3D "gpio-leds";
+> +
+> +		led {
+> +			gpios =3D <&v_gpio 18 GPIO_ACTIVE_HIGH>;
+> +			label =3D "LED V";
+> +		};
+> +	};
+> +
+>  	reg_usdhc2_vmmc: regulator-usdhc2 {
+>  		compatible =3D "regulator-fixed";
+>  		off-on-delay-us =3D <12000>;
+> @@ -89,11 +115,6 @@ linux,cma {
+>  			linux,cma-default;
+>  		};
+> =20
+> -		rsc_table: rsc-table@2021e000 {
+> -			reg =3D <0 0x2021e000 0 0x1000>;
+> -			no-map;
+> -		};
+> -
+>  		vdev0vring0: vdev0vring0@a4000000 {
+>  			reg =3D <0 0xa4000000 0 0x8000>;
+>  			no-map;
+> @@ -105,12 +126,42 @@ vdev0vring1: vdev0vring1@a4008000 {
+>  		};
+> =20
+>  		vdev1vring0: vdev1vring0@a4010000 {
+> -			reg =3D <0 0xa4010000 0 0x8000>;
+> +			reg =3D <0 0xa4010000 0 0x1000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev2vring0: vdev2vring0@a4011000 {
+> +			reg =3D <0 0xa4011000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev2vring1: vdev2vring1@a4013000 {
+> +			reg =3D <0 0xa4013000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev3vring0: vdev3vring0@a4015000 {
+> +			reg =3D <0 0xa4015000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev4vring0: vdev4vring0@a4017000 {
+> +			reg =3D <0 0xa4017000 0 0x4000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev5vring0: vdev5vring0@a401B000 {
+> +			reg =3D <0 0xa401B000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev5vring1: vdev5vring1@a401D000 {
+> +			reg =3D <0 0xa401D000 0 0x2000>;
+>  			no-map;
+>  		};
+> =20
+> -		vdev1vring1: vdev1vring1@a4018000 {
+> -			reg =3D <0 0xa4018000 0 0x8000>;
+> +		vdev5vring2: vdev5vring2@a401F000 {
+> +			reg =3D <0 0xa401F000 0 0x1000>;
+>  			no-map;
+>  		};
+> =20
+> @@ -149,8 +200,67 @@ &cm33 {
+>  		 <&mu1 3 1>;
+>  	mbox-names =3D "tx", "rx", "rxdb";
+>  	memory-region =3D <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
+> -			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
+> +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
+> +			<&vdev3vring0>, <&vdev4vring0>,
+> +			<&vdev5vring0>, <&vdev5vring1>, <&vdev5vring2>;
+>  	status =3D "okay";
+> +
+> +	virtio {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		vdev@2 {
+> +			reg =3D <2>;
+> +
+> +			v_gpio: gpio {
+> +				compatible =3D "virtio,device29";
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <2>;
+> +			};
+> +		};
+> +
+> +		vdev@3 {
+> +			reg =3D <3>;
+> +
+> +			i2c {
+> +				compatible =3D "virtio,device22";
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				eeprom@50 {
+> +					compatible =3D "atmel,24c1025";
+> +					reg =3D <0x50>;
+> +				};
+> +			};
+> +		};
+> +
+> +		vdev@4 {
+> +			reg =3D <4>;
+> +
+> +			spi {
+> +				compatible =3D "virtio,device2d";
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				sram@0 {
+> +					compatible =3D "microchip,mchp23k256";
+> +					reg =3D <0>;
+> +					spi-max-frequency =3D <20000000>;
+> +				};
+> +
+> +				lcd@1 {
+> +					compatible =3D "adafruit,yx240qv29", "ilitek,ili9341";
+> +					reg =3D <1>;
+> +					spi-max-frequency =3D <10000000>;
+> +					dc-gpios =3D <&v_gpio 21 GPIO_ACTIVE_HIGH>;
+> +					reset-gpios =3D <&v_gpio 20 GPIO_ACTIVE_HIGH>;
+> +					rotation =3D <90>;
+> +				};
+> +			};
+> +		};
+> +	};
+>  };
+> =20
+>  &eqos {
+>=20
+>=20
 
-> 
-> Thanks,
-> Andrew
+
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
 
 
-Br, Jarkko
