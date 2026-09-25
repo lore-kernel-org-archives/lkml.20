@@ -1,204 +1,291 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9345650AC33
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651E450EBEB
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790379652; cv=none; b=DVqeb3DIaMhshbWnbbnEhZzBi1cf39rH+PlMKi0gu1p2SWZRcS9nPGIjEfu2BQF4OQA2RgE1JksY7h/RacfnaqSfjCDvlfMPfnZpXjNeb327dHge9Ik3mTNn/hCzcScUg841FshemII1D9/U6LMkCPdz7P1Tt+flnsbxI7vNdx4=
+	t=1790379660; cv=none; b=b6E5Tcoc6LE9V1JwCO11nDF0xWP7jRGh4OjKRWrrHYLGMxs54DXLcKBp9wDv/jZdpQ9sIOaW7g759UfIwl14XMZnxswjy+FiSCnUh0rWVC04iM3hFSn64SaFfDBv3HdiEjApKfE/bOQWThUGS10EmLtrOUtTpcIJN1N19SV72hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790379652; c=relaxed/simple;
-	bh=uRR+LIGULq3sIogdrp81ySdpjAgHU0suquUv/eZryA8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=TDuejPZU1jUy6hPynaW9MjN+xo7qJamzSExV6ncCS0qxareejMgnpoZHh4pU16hhXfIKC+EkTXBFI0JbILEKOk1a3JqGq88MhlQwXMD6MHCgLPyzbXpsrOtgDD35OtUFuiVRB4oZ4PqD/zcWSHaP3lAYy+8h4aezP4ccq+ENIHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=huCJUmPp; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790379660; c=relaxed/simple;
+	bh=EQOqmbHbh5fQ0X2C6iqhCwP3KdZoMmE0a0ZhPxKdfPg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YBBCy12xLjbljHgznw4VVkZ8Y/fZ4b9sm0eSJ94OLX0pe5bPhpqjYIQkaZmrp5fL1ZBZgWBRIxsHmvZ6Bpl+fZ6UIgTR0kqfpan5MKq7+6zTSPbt3az/IAmY+HfUQ4JK9L61JIuWqCfpBFkw9ZWRR6AKgE1gRkFXNZ0joOq3UFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fknSZK2u; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="huCJUmPp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790379648; x=1821915648;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=uRR+LIGULq3sIogdrp81ySdpjAgHU0suquUv/eZryA8=;
-  b=huCJUmPp614aDbVCO6I/Wrh1R3hpioukLA5IMkrT9uSgKoyBNtLMxg8f
-   C/nBQ+YTDdg01aenp5wziJ/kFPeuHXah7V7B9yr4ckEwhvdNhcr0tHYDI
-   XUGvZcHBqMsgcI/K8rFOUPXh1vY2y2PfL+DxLJYbVizbD/jGbSs8NuL9f
-   Fgsk+W3rlXEKSPEDQaWIQ+yv+6bKdjEWkHBn6CaiZ3Sd4PXAqV8vncm8Q
-   OE7EHyA847vWjxJTE/glpLiMNfRNKcwgaDaK/NkFd2eUL58uMahnU3CBO
-   UBoNOG2J3MDJqWepyjZ0r9ao/fdmT8/m9mBCBQro0SL/0HA5gmT31bewS
-   Q==;
-X-CSE-ConnectionGUID: RoFhqJWFR2yL8/xQfzX9WQ==
-X-CSE-MsgGUID: Pz+UiIZeQP6Xo030pC5DQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="91273149"
-X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
-   d="scan'208";a="91273149"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 16:40:47 -0700
-X-CSE-ConnectionGUID: ctNNDOCaQRmQRbajfM1Gmw==
-X-CSE-MsgGUID: djMhQB28Q/CvaZNRsdXG1w==
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 25 Sep 2026 16:40:45 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xAFX1-00000000LL5-0KWu;
-	Fri, 25 Sep 2026 23:40:43 +0000
-Date: Sat, 26 Sep 2026 07:40:31 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Christian =?utf-8?Q?K=C3=B6nig"?= <ckoenig.leichtzumerken@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Dave Airlie <airlied@redhat.com>
-Subject: error: couldn't allocate output register for constraint 'ZB'
-Message-ID: <202609260715.renJwQgG-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fknSZK2u"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-3a0aa5e2b20so427454a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:40:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790379653; x=1790984453; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kKYZ7QmEMKBKN0PWq40K1NCVT7LCh/HrFy5AX5GhHjI=;
+        b=fknSZK2ufmc206TLS4/XCq4h7SkOBGp9U7h4HR/r5tWmayOgXuUTSi7R7L12hP62+Q
+         L+ce5jkI+3qQkGj3mFXvitKiqB1lk8SdXYQdGYOdwHbfBL27XYJd5xe2NCKHHws0LhRm
+         uPTuYvU6zk33tZ/YvFoKFHXajXrB25gKjNRW1PIT0h5apoRtYpkwEYlkN2SXGyIropE2
+         e0S1drQLD1WBMzgghRjtzNMMj3fouv0nDYQLa4oxLco7QAJztNGdL3Yg+oxR+FmpYg0U
+         fbDXPGvCN/CJ6K4mY59DpbMK3svWnrh8Jb1rHGU/FjGczZfU6ClzgxNMkf9OyGqpRTgC
+         4Nbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790379653; x=1790984453;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kKYZ7QmEMKBKN0PWq40K1NCVT7LCh/HrFy5AX5GhHjI=;
+        b=2oO4TYazX5CRsRy/ZCxDs1g6RdaNlxs9Cw/HKDWTfb7/TeeUc0Jj2+nkwr7tz8weLh
+         asOs4H4MyXnA6wv4NmigC2f6FyMmAFzRGGEPJAxDMNOKEuSVtpLqd44KFBzKMjUJnZuL
+         sl3pEjOVxgC64tePNB5k1QJvVhUZALe7tX1vPshRs+6mY4S89QOUdFgT0arf6pzjCaIR
+         nPSsZRX4tFOa6AgUvkxfhWiynCsMRe6hA0AflIyMt0aNe15prlYEAapG/sLY/Pn/aBGN
+         XbuzmEm1hSWYTzqA7nX39S7E4DyYV1PIsKXWyK86Ac5F8si70igpE4G6GrAYyST769ow
+         HjuA==
+X-Forwarded-Encrypted: i=1; AKwUvBz9uLP1sAlPkIthag1/iDMxJeQl987SEeMyAveV78xxNMLuUTBHHffPxI9SGEen37/YGRfCrJP7Uin86qs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCkmV9pQT4aBHPgA8/vI67DFR5iedAdMKuBy2Rze4XR1I9gesC
+	+C6PPQyBNXfXppjqREwFr0Bc1ogluKNCZskkWV3MeB91ud5Kry6cdvr5
+X-Gm-Gg: AYBFou2pMuB4wEJJjzBtvyNGy+vq9vH3BQKQOzOkMvfQfV0QPAU+8pIS5iXn/O7l8cy
+	mtQMNFT1e4EfbrckP6/NmU47bS9KDvbi0mhkke8FpI3fa5RpC7A7tydX9udfq44oGNNz5NHAM9Y
+	QUh8flI5Wlq5zorTVy1uAdRcNFoZsNvzIhLhbmSnyBpGDW5tP+1HUN5OrOPqAvdRY9ZP/rDQGVa
+	FtZjucCs4b8hGBf6lXEAWo69yA0GSmPLpzSAVoG4s2S0A7d/iLy4bqHI1eSgLREFafL8AoQWCW0
+	Db4rVFqWCgQKE90fMGV5cMA6ikq2f8G8K9f3ow1Dj6wjiv6wGjgjqTZ38Tu609mlGEVcn305vKo
+	oQfUIDT9SGMa2GqGk19dRtWNAPR+pwSxY4LvanOhvRX/5qk2WRbdnK21fFw4NTjWtvJzvgjlQMf
+	izQKX1kw4nncVUp2RSxmmgo7VeEVyM+d8LLDtnYqNIEylabxa3jpn6elEvoN9xHK7FDISIj7Gqu
+	s5+WH/UXQ0=
+X-Received: by 2002:a17:90b:1648:b0:3a0:d651:394e with SMTP id 98e67ed59e1d1-3a0d651474fmr892499a91.16.1790379652628;
+        Fri, 25 Sep 2026 16:40:52 -0700 (PDT)
+Received: from pandar.dancher.net ([2409:8a28:881:a300:decd:fb28:f50d:71a1])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b94936ddsm6706966a91.7.2026.09.25.16.40.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 16:40:52 -0700 (PDT)
+From: Cai Yu <caiyu7372@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 3/4] Bluetooth: hci_intel: add serdev support for the CcP controller
+Date: Sat, 26 Sep 2026 07:40:42 +0800
+Message-ID: <20260925234043.707679-4-caiyu7372@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260925234043.707679-1-caiyu7372@gmail.com>
+References: <20260925234043.707679-1-caiyu7372@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   5fc5768c7ca92895ccd1de94dc521e5a55ae7896
-commit: 4e28aa8f7ee26d67a4addee6e3980f1cbf861b49 drm/drm_exec: avoid indirect goto
-date:   3 months ago
-config: loongarch-randconfig-r1306-20260925 (https://download.01.org/0day-ci/archive/20260926/202609260715.renJwQgG-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260926/202609260715.renJwQgG-lkp@intel.com/reproduce)
+The Intel Bluetooth controller on the ThinkPad X1 Fold Gen1 (Lakefield,
+ACPI INT33E4) is described as a serdev child of its LPSS UART: the port
+has no tty device at all, so the line discipline path of this driver can
+never be used and nothing binds to the controller today.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 4e28aa8f7ee2 ("drm/drm_exec: avoid indirect goto")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609260715.renJwQgG-lkp@intel.com/
+Add a serdev driver next to the platform driver, in the same way hci_bcm
+supports controllers of both kinds:
 
-All error/warnings (new ones prefixed by >>):
+ - the ACPI id INT33E4 is matched in a separate table, so the platform
+   driver keeps its INT33E1/INT33E3 set;
+ - the probe power cycles the controller through the "reset" GPIO (it
+   does not keep the firmware across a power cycle, and this also clears
+   a controller left in an unknown state) and waits for the bootloader to
+   come up before the first command.  On this board 500 ms of reset pulse
+   plus 2 s of boot delay are needed, otherwise the first command is lost;
+ - this UART is described with FlowControlHardware, so the serial core
+   enables CTS/RTS.  The Intel handshake has to transmit freely before
+   the controller answers, so flow control is turned off;
+ - the serdev path uses a protocol struct with oper_speed = 0.  The
+   generic baudrate change in hci_serdev.c runs before intel_setup(), but
+   the controller is in bootloader mode at that point: it only answers at
+   init_speed until the firmware has been downloaded, and it is not even
+   listening yet right after the reset pulse.  Switching the host to
+   oper_speed there makes the setup fail with a -110 timeout on the
+   version read; intel_setup() changes the baudrate itself.
 
-   warning: overriding the module target triple with x86_64-unknown-linux-gnu [-Woverride-module]
-   warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_vtdss.o': Linking two modules of different target triples: 'lib/kunit/test.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_vtdss.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
-   warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_vtdss.o': Linking two modules of different target triples: 'lib/maple_tree.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_vtdss.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
->> warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_vtdss.o': Linking two modules of different target triples: 'mm/kasan/generic.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_vtdss.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
->> warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_vtdss.o': Linking two modules of different target triples: 'mm/kasan/shadow.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_vtdss.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
-   warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_vtdss.o': Linking two modules of different target triples: 'mm/vmstat.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_vtdss.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
-   '-d' is not a recognized feature for this target (ignoring feature)
-   '-f' is not a recognized feature for this target (ignoring feature)
-   '-ual' is not a recognized feature for this target (ignoring feature)
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
-   '-d' is not a recognized feature for this target (ignoring feature)
-   '-f' is not a recognized feature for this target (ignoring feature)
-   '-ual' is not a recognized feature for this target (ignoring feature)
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
->> <inline asm>:1:2: error: invalid instruction mnemonic 'dbar'
-           dbar $16 
-           ^~~~
-   error: cannot compile inline asm
->> <inline asm>:1:2: error: invalid instruction mnemonic 'dbar'
-           dbar $16 
-           ^~~~
-   error: cannot compile inline asm
->> <inline asm>:1:2: error: invalid instruction mnemonic 'dbar'
-           dbar $16 
-           ^~~~
-   error: cannot compile inline asm
->> <inline asm>:1:2: error: invalid instruction mnemonic 'dbar'
-           dbar $16 
-           ^~~~
-   error: cannot compile inline asm
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
->> <inline asm>:1:2: error: invalid instruction mnemonic 'dbar'
-           dbar $16 
-           ^~~~
-   error: cannot compile inline asm
->> <inline asm>:1:2: error: invalid instruction mnemonic 'dbar'
-           dbar $16 
-           ^~~~
-   error: cannot compile inline asm
->> <inline asm>:1:2: error: invalid instruction mnemonic 'dbar'
-           dbar $16 
-           ^~~~
-   error: cannot compile inline asm
->> <inline asm>:1:2: error: invalid instruction mnemonic 'dbar'
-           dbar $16 
-           ^~~~
-   error: cannot compile inline asm
-   6 warnings and 14 errors generated.
---
-   warning: overriding the module target triple with x86_64-unknown-linux-gnu [-Woverride-module]
-   warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_amdv1.o': Linking two modules of different target triples: 'lib/kunit/test.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_amdv1.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
-   warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_amdv1.o': Linking two modules of different target triples: 'lib/maple_tree.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_amdv1.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
->> warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_amdv1.o': Linking two modules of different target triples: 'mm/kasan/generic.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_amdv1.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
->> warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_amdv1.o': Linking two modules of different target triples: 'mm/kasan/shadow.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_amdv1.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
-   warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_amdv1.o': Linking two modules of different target triples: 'mm/vmstat.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_amdv1.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
-   '-d' is not a recognized feature for this target (ignoring feature)
-   '-f' is not a recognized feature for this target (ignoring feature)
-   '-ual' is not a recognized feature for this target (ignoring feature)
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
-   '-d' is not a recognized feature for this target (ignoring feature)
-   '-f' is not a recognized feature for this target (ignoring feature)
-   '-ual' is not a recognized feature for this target (ignoring feature)
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
-   6 warnings and 3 errors generated.
---
-   warning: overriding the module target triple with x86_64-unknown-linux-gnu [-Woverride-module]
-   warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_riscv64.o': Linking two modules of different target triples: 'lib/kunit/test.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_riscv64.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
-   warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_riscv64.o': Linking two modules of different target triples: 'lib/maple_tree.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_riscv64.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
->> warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_riscv64.o': Linking two modules of different target triples: 'mm/kasan/generic.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_riscv64.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
->> warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_riscv64.o': Linking two modules of different target triples: 'mm/kasan/shadow.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_riscv64.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
-   warning: linking module 'drivers/iommu/generic_pt/fmt/kunit_iommu_riscv64.o': Linking two modules of different target triples: 'mm/vmstat.o' is 'loongarch64-unknown-linux-gnusf' whereas 'drivers/iommu/generic_pt/fmt/kunit_iommu_riscv64.o' is 'x86_64-unknown-linux-gnu'
-    [-Wlinker-warnings]
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
-   '-d' is not a recognized feature for this target (ignoring feature)
-   '-f' is not a recognized feature for this target (ignoring feature)
-   '-ual' is not a recognized feature for this target (ignoring feature)
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
-   '-d' is not a recognized feature for this target (ignoring feature)
-   '-f' is not a recognized feature for this target (ignoring feature)
-   '-ual' is not a recognized feature for this target (ignoring feature)
-   'loongarch64' is not a recognized processor for this target (ignoring processor)
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
->> error: couldn't allocate output register for constraint 'ZB'
-   note: expanded from here
-   6 warnings and 2 errors generated.
+Tested on a Lenovo ThinkPad X1 Fold Gen1 (20RKA000CD): the controller
+comes up as hci0, the Intel firmware is downloaded, the DDC parameters
+are applied and the (sole) HOG keyboard connects.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Signed-off-by: Cai Yu <caiyu7372@gmail.com>
+---
+ drivers/bluetooth/hci_intel.c | 132 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 131 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/bluetooth/hci_intel.c b/drivers/bluetooth/hci_intel.c
+index d25d029..5926d1f 100644
+--- a/drivers/bluetooth/hci_intel.c
++++ b/drivers/bluetooth/hci_intel.c
+@@ -544,6 +544,14 @@ static int intel_setup(struct hci_uart *hu)
+ 
+ 	bt_dev_dbg(hdev, "");
+ 
++	/* ACPI describes the UART of this controller with FlowControlHardware,
++	 * so the serial core enables CTS/RTS.  The Intel handshake has to
++	 * transmit freely at init_speed before the controller starts answering,
++	 * otherwise the first commands time out; keep flow control off.
++	 */
++	if (hu->serdev)
++		serdev_device_set_flow_control(hu->serdev, false);
++
+ 	hu->hdev->set_diag = btintel_set_diag;
+ 	hu->hdev->set_bdaddr = btintel_set_bdaddr;
+ 
+@@ -1067,6 +1075,33 @@ static const struct hci_uart_proto intel_proto = {
+ 	.dequeue	= intel_dequeue,
+ };
+ 
++/* Do not let the generic baudrate change in hci_serdev.c run for this path.
++ *
++ * It is executed before intel_setup() (and right after the controller has been
++ * power cycled by the probe), but the controller is still in bootloader mode at
++ * that point: it only answers at init_speed until the firmware has been
++ * downloaded, and it needs a few seconds after the reset pulse before it
++ * answers at all.  Switching the host to oper_speed while the controller is
++ * silent leaves the two sides at different baudrates and the setup never
++ * recovers.  intel_setup() changes the baudrate itself, once the bootloader is
++ * talking.
++ */
++static const struct hci_uart_proto intel_serdev_proto = {
++	.id		= HCI_UART_INTEL,
++	.name		= "Intel",
++	.manufacturer	= 2,
++	.init_speed	= 115200,
++	.oper_speed	= 0,
++	.open		= intel_open,
++	.close		= intel_close,
++	.flush		= intel_flush,
++	.setup		= intel_setup,
++	.set_baudrate	= intel_set_baudrate,
++	.recv		= intel_recv,
++	.enqueue	= intel_enqueue,
++	.dequeue	= intel_dequeue,
++};
++
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id intel_acpi_match[] = {
+ 	{ .id = "INT33E1" },
+@@ -1074,6 +1109,16 @@ static const struct acpi_device_id intel_acpi_match[] = {
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, intel_acpi_match);
++
++/* Controllers which the firmware describes as a serdev child of their UART
++ * instead of as an LPSS platform device.  The CcP controller (Lakefield,
++ * Jasper Lake) is one of them.
++ */
++static const struct acpi_device_id intel_serdev_acpi_match[] = {
++	{ .id = "INT33E4" },
++	{ }
++};
++MODULE_DEVICE_TABLE(acpi, intel_serdev_acpi_match);
+ #endif
+ 
+ static int intel_suspend_device(struct device *dev)
+@@ -1217,6 +1262,67 @@ static struct platform_driver intel_driver = {
+ 	},
+ };
+ 
++#ifdef CONFIG_ACPI
++/* The controller does not keep the firmware across a power cycle, so it starts
++ * in bootloader mode every time; power cycling it here also makes sure a
++ * controller left in an unknown state by a previous boot cannot break the
++ * setup.  Measured on the ThinkPad X1 Fold Gen1: 500 ms of reset pulse, then
++ * 2 s until the bootloader answers the first command.
++ */
++#define INTEL_RESET_PULSE_MS	500
++#define INTEL_BOOT_DELAY_MS	2000
++
++static int intel_serdev_probe(struct serdev_device *serdev)
++{
++	struct hci_uart *hu;
++	struct gpio_desc *reset;
++
++	hu = devm_kzalloc(&serdev->dev, sizeof(*hu), GFP_KERNEL);
++	if (!hu)
++		return -ENOMEM;
++
++	hu->serdev = serdev;
++
++	/* The port is not open yet (hci_uart_register_device() opens it), so
++	 * only the ACPI properties and the reset GPIO can be used here.
++	 */
++	if (devm_acpi_dev_add_driver_gpios(&serdev->dev, acpi_hci_intel_gpios))
++		dev_dbg(&serdev->dev, "No ACPI GPIO mapping table\n");
++
++	reset = devm_gpiod_get_optional(&serdev->dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(reset))
++		return dev_err_probe(&serdev->dev, PTR_ERR(reset),
++				     "Unable to retrieve reset gpio\n");
++
++	if (reset) {
++		gpiod_set_value_cansleep(reset, 0);
++		msleep(INTEL_RESET_PULSE_MS);
++		gpiod_set_value_cansleep(reset, 1);
++		msleep(INTEL_BOOT_DELAY_MS);
++	} else {
++		dev_warn(&serdev->dev, "No reset gpio, relying on the firmware state\n");
++	}
++
++	return hci_uart_register_device(hu, &intel_serdev_proto);
++}
++
++static void intel_serdev_remove(struct serdev_device *serdev)
++{
++	struct hci_uart *hu = serdev_device_get_drvdata(serdev);
++
++	hci_uart_unregister_device(hu);
++}
++
++static struct serdev_device_driver intel_serdev_driver = {
++	.probe = intel_serdev_probe,
++	.remove = intel_serdev_remove,
++	.driver = {
++		.name = "hci_uart_intel",
++		.acpi_match_table = ACPI_PTR(intel_serdev_acpi_match),
++	},
++};
++#endif
++
+ int __init intel_init(void)
+ {
+ 	int err;
+@@ -1225,12 +1331,36 @@ int __init intel_init(void)
+ 	if (err)
+ 		return err;
+ 
++#ifdef CONFIG_ACPI
++	err = serdev_device_driver_register(&intel_serdev_driver);
++	if (err)
++		goto err_platform;
++
++	err = hci_uart_register_proto(&intel_proto);
++	if (err)
++		goto err_serdev;
++
++	return 0;
++
++err_serdev:
++	serdev_device_driver_unregister(&intel_serdev_driver);
++err_platform:
++	platform_driver_unregister(&intel_driver);
++	return err;
++#else
+ 	return hci_uart_register_proto(&intel_proto);
++#endif
+ }
+ 
+ int __exit intel_deinit(void)
+ {
++	hci_uart_unregister_proto(&intel_proto);
++
++#ifdef CONFIG_ACPI
++	serdev_device_driver_unregister(&intel_serdev_driver);
++#endif
++
+ 	platform_driver_unregister(&intel_driver);
+ 
+-	return hci_uart_unregister_proto(&intel_proto);
++	return 0;
+ }
