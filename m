@@ -1,144 +1,181 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B1447140A;
-	Fri, 25 Sep 2026 07:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA473BE178
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322772; cv=none; b=SnUTUuM2vKsWZk0WLRJEA7NqC61IRnADHPNvoNUFiXcwCa2eL5NjGB5i13BoLUQWF1CrXUmj2fmxNROKypwZslRSKeEn0t19XcTJHqrQqNelJpKxH+R9N8jmW7b+wqlGWs7KY36s7Eb+4SGFi6nk4eYlD7PyJLfyaz5+8sfDtNA=
+	t=1790322910; cv=none; b=R+kASGvjIoyNk8Wp1ZV2v3Ia7ZGCb+SlAt7mPsnT6zGcrdR8mPhnrQ5cfJ87sMByFxOs6zDb6ldjbODYctgMEgbevYbQ4d3HzHNkoFsvInihgpgUGCfx74ykkbVi/SuyLrxpFxkVFwrERF49arVEfQPNkezUP9qJjequLuqRsxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322772; c=relaxed/simple;
-	bh=3WckWxDfJCA2dZcKE1sGNEXpr+I7T1cAqZX2rCtMqHU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fa1By8I785EKs1FuDNvBBJNcggQ+DM6LT02KCwriib8FOcbn5ekHJoF+UA6KgPcyiX7IDHqCsqloNl1rW3R2ETPFRldk8DjciVwIRgPfx+iG09xT0MTlfu7IzHF+miISVAAxKo9Qc1d4OUnEm8+37kqsKdus7WM+iMaJobc/C00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AQ4qzR0A; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790322910; c=relaxed/simple;
+	bh=DHHzktsDLAM4f7rIUIIn9lXfD1w/CqMfKuEuew5qCes=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kJgUefNnqoPE7i6PeaHEFwWRAoH9ljtbQ4AcdvxowZ/gL4iTO+zIIIlEE95+V6RZB5ebtPA1yDF7aCZW/24O+DBKaKHyQsPfHqxAaUNxUyUGeteoU2E4/QI4SSEusSKV9NG4MECCcpIPhBKVyfxI3qTYoCR/rlnLMcDD0+RzLVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QkuJ28OM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZAd+CxmQ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AQ4qzR0A"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 786F94E41072;
-	Fri, 25 Sep 2026 07:52:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4B8056073B;
-	Fri, 25 Sep 2026 07:52:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1174010329578;
-	Fri, 25 Sep 2026 09:52:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790322760; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=9eBguXvKP4vgROv6pl9kUVS0QLCOAGklt8Wrvw1sXog=;
-	b=AQ4qzR0AiNbvWTH8Iklg7CksUw+I9j36/RxLqPBIO429Mn3cljn9l5TwxWW7KZodQdgbRz
-	ElqK9Bf4ln0ogOF3zp3mjy0+K3O9rdYABDRV2pMB+NIl9Kt5I7IPunK2zvTDjlhywCjKqf
-	ugg7Dsv4brElI3HX+9oW81kySre+hlhEHzNw9/Q+ACKkgkSDq8eaW5DYncMV5ixG/aramm
-	2xqpO257IX3Eo4eCDO7jBaBqApZGB/v1LhH/0xwkqC4C1+3OQA/ytFiWNXhBa3Tcix3z8v
-	ywMa8LpKyfrFmP39wqq4ZNnfIzg0yP3UGoonU95ForFlMM+l7pCOz/45gNsm9Q==
-From: "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
-Date: Fri, 25 Sep 2026 09:52:23 +0200
-Subject: [PATCH 6.18.y 1/2] rculist: add list_splice_rcu() for private
- lists
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QkuJ28OM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZAd+CxmQ"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YTVt2911652
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:55:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MU1bXUmmuwrr1uy5tFVB9eld75zZ4KDn2NV0kvtO0Ao=; b=QkuJ28OMMeOdpYrD
+	JM2gcZ8DGgCBQdnLREK7uzV/jrc5h2uVQQZsijPPCgflB+AZ3+DFTVvK6cL041uD
+	/ga4ysFrrcqp+fiblFYVK8S0s4BwULcfufxcwAFIh3kQE0ofEQ9N6A28amUyoxnE
+	2NWrQWBOi2QfQgb5eYZiRuvkjSWaz/aC00YtMWea4/lYEehwFLwbyPkiO/WKwF5J
+	KT3oT10fHFZyP6uRci33d0np8/OaafwW8L/A/lntgXpkWhaNfBmN6c7vsSeiR2F2
+	wGrDtSgMVce4OLemb4Wz2i9+YEhb1Dgg7YfXcNtc0eNgQ/6Oah74reXVE4A35mxl
+	Uz8P+w==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwhm50nbg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:55:08 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c26012cd0so14252401cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:55:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790322907; x=1790927707; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MU1bXUmmuwrr1uy5tFVB9eld75zZ4KDn2NV0kvtO0Ao=;
+        b=ZAd+CxmQ0FD7jX891xqOeniz5VBqUh3Vumrni9MMQTqxcKmwuoUsGCwIRZ7mqjc1aR
+         V2135nxE2T/Jif6waBxppuOwDRqyTaz5T4JRBUlKdfLjELeAWfO6E8w94NUmL2E2/TNi
+         TxKlcp1vZ9jNfjy5d0DLui6IOsJQo6R42bqCMOYvhabERHeZ9h42dYsc5e2V0Vb7O3hT
+         DNBlrfTXW44r5qDYRoTdZgK2+gPQHMoCmEhWv4JtZ7Vvk2PQ2IRDtQi3zEIVt9UhubSA
+         lKREvdDa7pK1ZIWacFe65lV9fEDa+eVptYRwhSnPdZwVYGNuvmi5zyyLJc/gTJyrmH3n
+         /z1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790322907; x=1790927707;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MU1bXUmmuwrr1uy5tFVB9eld75zZ4KDn2NV0kvtO0Ao=;
+        b=FdudnCoazRhqPBW+pyPP7maQVdU0cZGadeEwFdcXE9y3Z1bmfuIjNsTqNiPPwR19n6
+         xSQK5Q2YkW3tFohEKgfN0UUQm7KL2aKa/fLNW3lOD2efqD2tmWdxM6TDSrXJ4Sx3jk9y
+         8WeRK6hPDdr4/hhoeFLzTE1IT+LE6nXzs7cI9EZuE82/WHW7wXn7O45EVxzjziw1Ok//
+         acQ5L180orBMbMuzZiz2IN+Bzck9UqeEnrcm0x5LKnfZXnpDasnX4oJYD6CaZDGLfBc8
+         BFgrJw8hI8rW1464ytN4plbqwztVc+GyTgRarmmMn7nqRvItFVfByT2iAYU5RTrMpvok
+         w4fg==
+X-Forwarded-Encrypted: i=1; AKwUvBwsuDFpG0e2HZMm94shm8g6IIZvDMwxZ5cZwpyRS0CpfYHKHreo0Pdv3NmxSR/AJjhej+bmZTmF8Eql2pk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKD885RMVXu+iqJ9/tpPBRlYaCQXL/BVm3+uiizJLGUeRSuh2T
+	R5E6t88dZiYERt0/dY9rYumJiKRSJ6x5rWDo2DbVgZI+tQfs+IGm1f+6abpHMgGtKNodzZJaoTx
+	YkN64HqV2HQ2vB/Ra/1mq4oDlRFiltLEFeY9VplN9i2IkyYiAjSSZZBG1EBGY41nCS4w=
+X-Gm-Gg: AYBFou3cGLoExk13EDb3A0JRtv8w0AhGEl22I2RQ9zu7YxGqJPahYD7b/fyGfOguie6
+	RhNzSm3d+Dq2h+SKwPMndWMVHXYLisiqtLUxUG7eT/8g9Rtl7LFgfwrh+XS6QAru5cVgFEmf1Jo
+	DVDZDI4n+VkvpQ+YbBVQcAUfORfyKSKcKNy9oK9kA3iWAviEPef9k3fGaJEjHpNxIwAjtSe3DE0
+	nqgKttyT0RMiMnylQ6klJ4x/9gsVvV3saHFqRzfQ5WW9tJksiFEv/jH6jPiidChwvpM4sHbGgBP
+	LNNIXnvXVIvb+HfR2mdFL4YXL06KoAcCINLIX6tHZN/5Anr3mozo6M+p3OMFfLGsyD9S4TwoqBG
+	icqdtpC25GyRy1nv0xDjK2jlMHQ==
+X-Received: by 2002:a05:622a:1a8c:b0:530:b2e4:d59f with SMTP id d75a77b69052e-5330b6ebb60mr28415661cf.58.1790322907455;
+        Fri, 25 Sep 2026 00:55:07 -0700 (PDT)
+X-Received: by 2002:a05:622a:1a8c:b0:530:b2e4:d59f with SMTP id d75a77b69052e-5330b6ebb60mr28415281cf.58.1790322906928;
+        Fri, 25 Sep 2026 00:55:06 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fe5dff204sm196689075e9.14.2026.09.25.00.55.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 00:55:06 -0700 (PDT)
+Message-ID: <32b16fac-2c4d-442f-9174-da16e82944f9@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 08:55:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: defconfig: Enable EMC2305 and PCA963x drivers
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-kernel@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
+References: <20260925-config-ventuno-v1-1-800c19c1d33a@oss.qualcomm.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260925-config-ventuno-v1-1-800c19c1d33a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-cve-2026-52988-6-18-v1-1-680b24895415@bootlin.com>
-References: <20260925-cve-2026-52988-6-18-v1-0-680b24895415@bootlin.com>
-In-Reply-To: <20260925-cve-2026-52988-6-18-v1-0-680b24895415@bootlin.com>
-To: stable@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
- Joel Fernandes <joelagnelf@nvidia.com>, 
- Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun.feng@gmail.com>, 
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
- Pablo Neira Ayuso <pablo@netfilter.org>, 
- Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>, 
- Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: miguel.gazquez@bootlin.com, thomas.petazzoni@bootlin.com, 
- rcu@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
- netdev@vger.kernel.org, 
- "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+X-Proofpoint-GUID: nLSgkiwxDmd5zgMQLhnKyLm_7CTWVpBk
+X-Authority-Analysis: v=2.4 cv=QYnzLcbv c=1 sm=1 tr=0 ts=6ab628dc cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8 a=8N9GC05w9tLPy7rIr4cA:9
+ a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzMSBTYWx0ZWRfX/FW8BHlPyqp1
+ VbA4f9D/RL0h353Ziu8s9Sgf/XuYMkZt1otGVBo6oW15AUx8NwMDWHvUSNpK71xvT0/EERzn8vh
+ xACVVxNmiAE3QF1nZ1cPP6O8gzqjyIL69/W9jDZZGHMSnECq5gJ01QDVv9nMB0mprX3o8VKaOC0
+ r9Cqrnw3xbHO6SKL2xApP7ObYmqq1mpHOArquZH1sdBq/L5aAIvfUZ7zy5kcCyuIKj8hGskD8wD
+ /f+BVd7QFnEDyJ+9z9R65w1fT+n8/CTfeEl6o8QAwSpFBEc+7hcA+KGVajR33s+yeB6GAXqExoH
+ hF8qSGsh3Xxhm1tFcOmPOvvWJVVsNJgi0gqyrGbHmsIoEgcvM5g0Z39U2ZPJqeFJxzXKJvN/KWs
+ zTfNS+MbK1N5ddi37RfS8uPa0F780joJTGB8p0FUttXS3ykzVCLKSztvIefFQ+7TzaKX39ooRn3
+ pQb2Ql0FhYVX5kbIr6w==
+X-Proofpoint-ORIG-GUID: nLSgkiwxDmd5zgMQLhnKyLm_7CTWVpBk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzMSBTYWx0ZWRfX39Utb2BSJOms
+ f9irPs0c5eIGxcgisTkZQUTuJgfwxd7VXdNSHGP+mjHQaJyXs/4GFJobpygUH3wJ12l+S7HxCzG
+ SQ9rpqxchpJ75sTKelVaQF7bu/oPPwA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
+ phishscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250031
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
 
-[ Upstream commit f902877b635551513729bdf9a8d1422c4aab7741 ]
 
-This patch adds a helper function, list_splice_rcu(), to safely splice
-a private (non-RCU-protected) list into an RCU-protected list.
+On 9/25/26 8:51 AM, Loic Poulain wrote:
+> Enable drivers for the EMC2305 fan controller and PCA963x LED
+> controller present on the Arduino Ventuno Q board.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+> To: Rob Herring <robh@kernel.org>
+> To: Bjorn Andersson <andersson@kernel.org>
+> To: Konrad Dybcio <konradybcio@kernel.org>
+> To: Srinivas Kandagatla <srini@kernel.org>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
 
-The function ensures that only the pointer visible to RCU readers
-(prev->next) is updated using rcu_assign_pointer(), while the rest of
-the list manipulations are performed with regular assignments, as the
-source list is private and not visible to concurrent RCU readers.
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-This is useful for moving elements from a private list into a global
-RCU-protected list, ensuring safe publication for RCU readers.
-Subsystems with some sort of batching mechanism from userspace can
-benefit from this new function.
 
-The function __list_splice_rcu() has been added for clarity and to
-follow the same pattern as in the existing list_splice*() interfaces,
-where there is a check to ensure that the list to splice is not
-empty. Note that __list_splice_rcu() has no documentation for this
-reason.
-
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
----
- include/linux/rculist.h | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
-
-diff --git a/include/linux/rculist.h b/include/linux/rculist.h
-index 2abba7552605..e3bc44225692 100644
---- a/include/linux/rculist.h
-+++ b/include/linux/rculist.h
-@@ -261,6 +261,35 @@ static inline void list_replace_rcu(struct list_head *old,
- 	old->prev = LIST_POISON2;
- }
- 
-+static inline void __list_splice_rcu(struct list_head *list,
-+				     struct list_head *prev,
-+				     struct list_head *next)
-+{
-+	struct list_head *first = list->next;
-+	struct list_head *last = list->prev;
-+
-+	last->next = next;
-+	first->prev = prev;
-+	next->prev = last;
-+	rcu_assign_pointer(list_next_rcu(prev), first);
-+}
-+
-+/**
-+ * list_splice_rcu - splice a non-RCU list into an RCU-protected list,
-+ *                   designed for stacks.
-+ * @list:	the non RCU-protected list to splice
-+ * @head:	the place in the existing RCU-protected list to splice
-+ *
-+ * The list pointed to by @head can be RCU-read traversed concurrently with
-+ * this function.
-+ */
-+static inline void list_splice_rcu(struct list_head *list,
-+				   struct list_head *head)
-+{
-+	if (!list_empty(list))
-+		__list_splice_rcu(list, head, head->next);
-+}
-+
- /**
-  * __list_splice_init_rcu - join an RCU-protected list into an existing list.
-  * @list:	the RCU-protected list to splice
-
--- 
-2.55.0
+>  arch/arm64/configs/defconfig | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+> index 6ec8d3a69c98e0da38465010d11166bb0e058f4a..012bd0cb1bf6cb130c92012748a90ebe76534854 100644
+> --- a/arch/arm64/configs/defconfig
+> +++ b/arch/arm64/configs/defconfig
+> @@ -769,6 +769,7 @@ CONFIG_SENSORS_PWM_FAN=m
+>  CONFIG_SENSORS_RASPBERRYPI_HWMON=m
+>  CONFIG_SENSORS_SL28CPLD=m
+>  CONFIG_SENSORS_SHT4x=m
+> +CONFIG_SENSORS_EMC2305=m
+>  CONFIG_SENSORS_AMC6821=m
+>  CONFIG_SENSORS_INA2XX=m
+>  CONFIG_SENSORS_INA3221=m
+> @@ -1323,6 +1324,7 @@ CONFIG_LEDS_CLASS_MULTICOLOR=m
+>  CONFIG_LEDS_LM3692X=m
+>  CONFIG_LEDS_PCA9532=m
+>  CONFIG_LEDS_GPIO=y
+> +CONFIG_LEDS_PCA963X=m
+>  CONFIG_LEDS_PWM=y
+>  CONFIG_LEDS_SYSCON=y
+>  CONFIG_LEDS_QCOM_FLASH=m
+> 
+> ---
+> base-commit: b9bb4134a9583a388704433eef22c82c49963585
+> change-id: 20260924-config-ventuno-398c8e9ca9c8
+> 
+> Best regards,
 
