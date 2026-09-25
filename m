@@ -1,50 +1,49 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C0B4A2070
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D8FA483819
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:35:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343354; cv=none; b=tn5rH/XT7AtEBzMmkZI+dFoYPnczzT/B2BrYuz9pYCaW/zO0e25byzMFW4yDRG3eR9+P3NRHOcp9/FNr7nbxZsd1mDqbxk/dGEdOyfJJMRmI6M1j7SP/27pye6Ff1jPGA6PcWP4ir+TLwc3XAeGtBx0d87LXyCbtsid4j+KUJOU=
+	t=1790343355; cv=none; b=XjI5o/uKXywUola4/vesqm+ZmVp2dGK3aTQA8ONj9EBfxdx6eNn2K5pDqisOcNDcm9nllZ6WUYSJOLS71jJ6Zrjel6D9UDBmX7So/Q1dmR5kMXWfmXidZ4G7aq/uec1s/9o6iwpL+xcRO0JRk1O8devcaRIwFdefnU83IB5rDhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343354; c=relaxed/simple;
-	bh=Zu3GYWdQb2Vh0cJDlbZ3kIWWiOBaQXw3I5UIff2Ka2M=;
+	s=arc-20240116; t=1790343355; c=relaxed/simple;
+	bh=T16usDBBvBCh5clejlTA5X8LPS8Cht3dp/vicv6iOk0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=WJfCP7Db+H9FnrLJhHs+SqVXMsU6xR4pxqNBkuhhnjgWQ/UNw12Cjcivkc6iFBTfLpunglvPnsMZk/4YyePTghoDBCT6mv+2qiuWKIjOpVIozF6RpG4xRZb/CFg6IIhGxVRLsPUOi4LuZsLuA4MKtH3+0cT1X2uBIElLGOQ+2hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cw1Dm84v; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version:Content-Type; b=pas6TuC1JfpvBNANyNYQlMA6TuuOGDXXV8bca9wqIf6VWPt3SxUU52FFmEuIIO/l08RaSZ6L46EQ+tUhS8sgaf4FbFB1ipUGSyIP/fFJchehOJ7lwl5hCziOCPDFNmQFFa4aYUSwOQhEWL1EbWGXF69Iqf8WB0Ww0Qn9vVub/zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CnVUNRAH; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cw1Dm84v"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CnVUNRAH"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 42FA21A1012;
-	Fri, 25 Sep 2026 13:35:51 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 018D8C653F2
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:36:40 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 152A26073B;
-	Fri, 25 Sep 2026 13:35:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B70A810328856;
-	Fri, 25 Sep 2026 15:35:45 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 268CA6073B;
+	Fri, 25 Sep 2026 13:35:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 556B5103293B8;
+	Fri, 25 Sep 2026 15:35:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790343349; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790343351; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=WQZlysiv0d/2BjDEIe3tNwkeQrAxLfTelLLNUmuJ3W4=;
-	b=cw1Dm84viQYCZx6ABoHnHL1Qp9oQfr5rKvoMMxb+r9sNGxE7HwsyCXIsK14za/yYulyUev
-	ykqBIkwzXO23hvV/2Xu1UPId8vjaogYuO6EQ36ik2HxCFInJV0o4nFTvnXHrc5rCViVfXf
-	TLs8WZJd9Wnsy5Bwcsy/DxOky5ivu2e3jrStr2kp88CG2xnkPKpETPzc/JDAAz4Ea0lpd0
-	0lOwcLXS8u61ce7L9z5E3hzS67PiK4q0wTDXsbm1j4fmR4A4l7pov7Pl9Xtqol+bQJCF2g
-	SBYbwhpFZD3QCd1IU3JEDouubYPDDsJo4Haj1EZ5XvXvPQJONj/pjKNU5DhhYg==
+	bh=dUQeykvRToiIwN0421XD/d8rA//rqTeV9r8Rf1AoZ/0=;
+	b=CnVUNRAHyoYY9spRo9JzDyyVQtD8h0g3m3YtR7ANnYz3Zy2DPvKtnS4ImOhAOzAwl4qH0x
+	rP4LTRM/DyXyX528SyYxM14BavLE24WMuvLYq4XXPOVDKaE/B9oST9vJozawMpDuvTVi8A
+	cCwqBzj5Lgnp7X3bc8EqN49JbUA3W7A7CImo7F22Hc2Wics9Y3mHXpFYWRi5uAfoHyTksV
+	tdwPk6AAf9KjnpRO2NYmOcDvo3QXouwanbBqxc9IWFRmX5gpBV5hUXzOST5rGlxNmLPkc2
+	Z67Wv+v1Um7ybvwPTOeCe2LMlvHHmTDD32e88YNM3NTUnklfkPonlIgGcbA4HQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: alexandre.belloni@bootlin.com, Wentao Liang <vulab@iscas.ac.cn>
-Cc: bbrezillon@kernel.org, claudiu.beznea@tuxon.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-mtd@lists.infradead.org, nicolas.ferre@microchip.com, richard@nod.at, 
- vigneshr@ti.com, stable@vger.kernel.org
-In-Reply-To: <20260917102924.2146959-1-vulab@iscas.ac.cn>
-References: <20260917102924.2146959-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] mtd: rawnand: atmel: Fix MCK clock leak in
- atmel_nand_controller_init()
-Message-Id: <179034334517.1124555.16021884625975139988.b4-ty@bootlin.com>
-Date: Fri, 25 Sep 2026 15:35:45 +0200
+To: Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, 
+ Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260917-esmt-gd9fu2g8f3a-v1-0-577c0ab2d31a@vaillant-group.com>
+References: <20260917-esmt-gd9fu2g8f3a-v1-0-577c0ab2d31a@vaillant-group.com>
+Subject: Re: [PATCH 0/2] mtd: rawnand: Handle GigaDevice chips behind the
+ ESMT manufacturer ID
+Message-Id: <179034335020.1124555.10591572083530016506.b4-ty@bootlin.com>
+Date: Fri, 25 Sep 2026 15:35:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,21 +55,29 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 17 Sep 2026 10:29:24 +0000, Wentao Liang wrote:
-> atmel_nand_controller_init() takes a reference to the MCK clock with
-> of_clk_get() and keeps it in nc->mck for the lifetime of the
-> controller.  If the "atmel,smc" phandle is missing or the SMC regmap
-> cannot be obtained afterwards, the error path jumps to out_release_dma
-> which only releases the DMA channel, so the clock reference is leaked.
-> The callers return the error directly and never run
-> atmel_nand_controller_cleanup(), where the clock is normally put.
+On Thu, 17 Sep 2026 15:00:41 +0200, Peter-Simon Dieterich wrote:
+> JEDEC manufacturer ID 0xc8 is shared between ESMT and GigaDevice, so
+> GigaDevice raw NAND chips are detected as ESMT and handled by
+> nand_esmt.c. This series deals with a GigaDevice part that ends up there.
+> 
+> Patch 1 works around a broken timing mode feature on the GD9FU2G8F3A:
+> the parameter page advertises SET/GET_FEATURES support, but
+> GET_FEATURES(TIMING_MODE) does not report the mode that was written, so
+> the core does not see its selection acknowledged and falls back to timing
+> mode 0. GigaDevice confirmed the chip is compatible with every timing
+> mode it advertises and that SET_FEATURES is not required to enter them,
+> so the feature is unflagged for this model and only the host side is
+> configured. This mirrors the existing handling of the Macronix MX30LF AC
+> series in nand_macronix.c.
 > 
 > [...]
 
 Applied to nand/next, thanks!
 
-[1/1] mtd: rawnand: atmel: Fix MCK clock leak in atmel_nand_controller_init()
-      commit: 94edcda45d888c3bb1310de11e10e4537c166f00
+[1/2] mtd: rawnand: esmt: Disable broken timings feature on GD9FU2G8F3A
+      commit: e97c701c09d3d8f23397f68478c7e2c7eaf87528
+[2/2] mtd: rawnand: Reflect that ESMT and GigaDevice share ID 0xc8
+      commit: c62b598ac7f650c963ca00a19f161e99e899498e
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
