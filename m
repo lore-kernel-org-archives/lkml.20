@@ -1,262 +1,150 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF984CB8A9
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7201F4CC624
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790349995; cv=none; b=Zi1k/LVYF71l+KVzXnRHkWSeL2UpKzIfcZe+TKECaR1lSZBKlaRKqZtuZo/BQatvBBT/F6c86xXnRduh4tcc5tacB/0sG0Ng9buoGAHzOy9khfbzNeRp9LKyGcAd5U3NEyW3z5bySi7XNIlLPxVfS8cET4dglCiNBSB1KZWTI/A=
+	t=1790350022; cv=none; b=MECTEWe6onX31ln6fjQvydfB6OGE+CF34Cc1TdSq8oIMGCrIgxkkFN2tqPAbOshUrYEPxVmZXRWtls31Ef8CzFuTycEfoNoKgV9W9KOMZo+piCqep1Oc4IHcE3ds06WPWP15era8OHuwulL9E3ycgH/uFkl3od2xwzDp55QzvJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790349995; c=relaxed/simple;
-	bh=wk49+cAl8PXGjwTyGFaDmBGtdgnuazbb8rirbbNIRgo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=gZ0TmzHgHrXJeCs2OtlXn2slCgNxZcPCZUILJvyADzhFD4dZzUsPntJwp+5IFlvaJwrhmsbcXE0sc/Dv8XToLb1adWMaE7IDSUAmxPd2AHisTl7HYBn6bLs8WSvP3ji+exaJBADDbUr5RxKa0YTV20Sv1CpZf5q8xKGq4ysTj+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BvQNEnfD; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790350022; c=relaxed/simple;
+	bh=MJKtxmh5YLQ4CTMXT7Xtr7eovK4rSJJzlr3jIYaPDp4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ThFeLHGhacWGutdrMYeSWwY2fG/iHoQABl/7aIg90va9cNeI7MPWW0jTL1AZBP25nWF6XXK/HoUoR5RknlQXcVY+CgsvzYjqbXwemNthMGjQH9jTejpzBPmuB+C+FrygbX/ImYAXxtlcdVoPa0S/VsqrhcrnESQ8Zdg1UNmoezo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dUv8z3s0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DnOJUM1v; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BvQNEnfD"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so10528735e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:26:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dUv8z3s0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DnOJUM1v"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PDrZM6756734
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:26:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5DKvmXhpPlBR3vI9A+Drw/VIkw1kzao7rZBY+Ap1mi8=; b=dUv8z3s0k0KBBbwd
+	NNjzCGxSoFZpRrYh4gsf4b/rsVTNhsq3s1WxUbIhens0l45BT0yRCL5JuR3Bz3yI
+	sSQarEpn1fsDZxH5W+YCaddyiYHMM/O83wYkAkNE5lgV07rWL3z8R6oPZs6F+6bF
+	bVXroe4y9B9eqRxscuLFPynjV9gFvgm20WAmAAW7u6C6g7oxCVPTZayz7AB4elc5
+	fNkQhfOEGSU/HCuLiUIYQs1ROYAN9sH+AgCBDCvuQMeNXz+q7w6AI+9JT8bwU+Ot
+	klN83LPPEgQVFGLBiWS7Fpb3Zh8Q6jlyOFaG8q40iDQJHWDZA0mPYvmKGW9td4Qr
+	8bsMWA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwjq09xqu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:26:58 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39de1f85cb2so1203986a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:26:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790349990; x=1790954790; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vaDR7gLTMcuaZYjvT6IfS3NURHPj6dBBuLJSgRQzTEY=;
-        b=BvQNEnfD958U/VGOXwd3y7faYpQeCuhQW/3OcpIgXPi2W8Pt4+jzGYd5A0VHOt7Uix
-         tpzB8iHuQMfoW1VLJt7IGysa94C2Nh4ux75RhlRYiKmoh0F3aI4AvgBOFDeyVPGxqrPo
-         hbvZ9smUbHjA5YM1YmaBkiOtzwD/s1P4AdLPlVQ47IEmYSNOQHsuJk9A46CEoKMTwCmg
-         g9Vcw7daIhY9hVhEPw1EDYOm84MS079ANDTlvso3GqozEJ/RI2cevPddy7criCss4wcO
-         zxmauucEe3aQ6irTvri0+SzmkCBIvyM43b2JdukeFDvUg/3VNGTZu1BM+0HsU0LUduLC
-         Wa+A==
+        d=oss.qualcomm.com; s=google; t=1790350018; x=1790954818; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5DKvmXhpPlBR3vI9A+Drw/VIkw1kzao7rZBY+Ap1mi8=;
+        b=DnOJUM1vNIhldMWFyRAtHP+1yElp55XsEt+ulk+RgKfIBqm01MTXMrk6I8S5s1tp2M
+         QOWy9NNYe+WQyXB2uTu+gNX3jhxCkakOgHr6P8DIJumc5OpMsMSghjMFO2H0MZMYP/Ns
+         mfxjyYy7vQCb9oz4OSkiUPo0m0f1PpKTq7jNo2w1fr/FeAM2EGn9o6+nS/L06lexla6+
+         fWYdzPWuagDXo1sZgdUxhU/5XUi/PlJzcNfMjxLhw8i7GSrubtHr1BH9jtrooJ84LjPa
+         h19d8L26XA/2CTko/u1c0KSp+dwAArsuaOzs0VJ63z8YWJS/U9xD1sBxzgWRtCkLVuXN
+         +8KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790349990; x=1790954790;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vaDR7gLTMcuaZYjvT6IfS3NURHPj6dBBuLJSgRQzTEY=;
-        b=EllNsuXamOjHYuign5NvfNYv0GH8pbe98aUQlajL51nYpVPrkjIqDBg78jwVRAPcZ6
-         Kg+Bj3d7teUeI1Mq9p9JXgsEeEnnr6BnukyWSxX3b9eivu/gylXXtkoQvko8+dZQQiSy
-         BnwXJWZLIOqlHFzTgD5xvGHJuTklMaq/0AFVKYbLb901VWC3UpbF6Nnu3zpLK+5wicAw
-         OPb3SLpbipyXNh4V7j1lOcPvV8LQKh2C8iOKGHszCljNPAPQNaYreusNyuD8XQITD50n
-         FYVfZBE3BFyW8LqE2dieJxpYMaM1fqyJ1X7Oob6JT5Wut7MDyNsimVXCJ94AtztvN+i0
-         7qsw==
-X-Forwarded-Encrypted: i=1; AKwUvBzNc2W9F4w+7CvZKJ7cHt5dGuato6DdJarJD/14KMf0H6n1MaBu0ybemZIn6yph67+Z8aX5/Wve5AEzMhI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZtez+1b9OY3UNzwzdbxdYKIu7m4PHsvxuaVbJLsaRg7E2gMwH
-	DOv33ht9o89awuo5rF9xnoZ7VMxErW43daosE3TTRkNex94i4ZqCL3pHEoLTBJ1z9kQ=
-X-Gm-Gg: AYBFou3gVoHdlJbfQLx0IQ9JYavBxgVqeh60FNHxa7cnj4/lvXJ54ea/wDrWq+3EHa5
-	gKBqusDitpQDwsrx6IsC/TlDZQKQZD/q5111KEKPKL01e4Wyahv8tKW0NLU9DNkFUKK5z5uKTx5
-	B+qvrj3eBep3SCmMfUdAn+RZzYHh2nxcyfa/rZdttHznj57avutlFTR2nFaQRtCzZ9XreNtdajn
-	ZJHiFSOymhzv2gDTyp18WMfjgmKwpMMghrH1KF5XsFUYv13QfDxRGHpVg7hgvrxsS0juhD54Yra
-	N5LYQzQqoZcJErGlOrS7QgnseIW5+ZP4I+AsbgiK3EzvEwYBZZrK7OVyKMSSBZCg0X8AXdCK7Wg
-	TFyQ+SvV0H7KW4WQn+6rnwuZ6QdB00PHYidq6SlpnoVlqZ79kSJF/vnrpL2f+DIJXKFreRWNIYD
-	yPm3j70uejFkrgoyQd3tdSi9P0Zeegc6fMZrHV0oOdy6euIf16hpQCOUBruA4JoyiV2wWlyjJyw
-	TBw2lR+80cHa9F59Q==
-X-Received: by 2002:a05:600c:8b26:b0:499:8ff5:8ecc with SMTP id 5b1f17b1804b1-49fe66d83camr120484355e9.15.1790349990326;
-        Fri, 25 Sep 2026 08:26:30 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff0f1f2e3sm109952885e9.0.2026.09.25.08.26.29
+        d=1e100.net; s=20260707; t=1790350018; x=1790954818;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5DKvmXhpPlBR3vI9A+Drw/VIkw1kzao7rZBY+Ap1mi8=;
+        b=JvQ/BbpQ4qTuhZ0F2DLuGBqYkqTRvhwyhV6FAr6mmHdCoFU0y9AjfvVQSs4SyW1RKu
+         PnUZlzCYjovHgZOzbyy7e211as1SNv11una0bjT9rev64d5EfdUsEK81zZGkNnkaP5JN
+         TffXuzOdp/PByRzVIM32fbiFoV/5Zf5KPAQV6v3hVoXshoaCjkhtltuIbQU1U1hLh0CK
+         CjOWCa+ugdwoxw2iDOhudAoXTM/ykF8kh5ektO3QpnA91/PNwJfhQ3OLtELsKFvrMMAF
+         EYowDeptBiUkK7MGM5YEpAqa8fRvqGhxPcoSfIy9b1ytyaHCoDz16SvKtV4MXu2IYfus
+         D1mA==
+X-Forwarded-Encrypted: i=1; AKwUvBydYKq1MqTrgiGcaKY3TakvVWWFP63wpTINS1EU+2EZ9rgFoxi4RzEa34PuCGee2Yvf02lFvDJ8qqnw9TU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSkaGVDbGeyV6gHYqlJOnO1vLrhoSLsm/YkheVqx96zjYaHFTm
+	s2ONilc2ptaVLxYm7Um3X7eddCzvH6w0EbV3enNTXgO+NrDzm2neeuZVx5cAJz/ietdugC8QFi6
+	7ZehsUNEx9iYFMRLs5eoykAiQfviv3/OYVOYuZqx43ONkkBziWHA/q/jxDYZD/1RxcXs=
+X-Gm-Gg: AYBFou2S63k4YmqL4LYlQZsoX1Y/9T54c3AIrfX5E+xJXsJCtYEGb/sO2F20dwqpkSP
+	yl9MkbukBR+hdnLfw5sbHHgpZvA6JBig/8uF5FRnkvfpI5v3BNxiGzhOJBtWCp4U57v5KVCHAm1
+	BsJgd4TIufqQwCY4WnDx0YqR5RaR6O2p1M+bNv+Os+eVCe2znjSowrfq8JpAryNu6pGWIXP8Y2w
+	cO8aF8RtFA7e8oBRfaHedY0y3AAgVYADE3Sdxpzj/A+IYaXoE6YLMsU3i9HCWq36VJl4Sf18XkE
+	79L0y8NZ1l5Vwe3ykAhjYgJ2mtOpFsKXwbOeXSncQ+k8Vw8gWRYXNwWJablm0g025gQhhpJjjeY
+	RbVEcK4OEJqe2g8cuVyq+QAdz2dGc/1v8v8AM3I2f0QGTXxlTFnop4xM=
+X-Received: by 2002:a17:90b:3d8b:b0:39d:f024:c7ee with SMTP id 98e67ed59e1d1-3a098b444bbmr4769219a91.25.1790350017901;
+        Fri, 25 Sep 2026 08:26:57 -0700 (PDT)
+X-Received: by 2002:a17:90b:3d8b:b0:39d:f024:c7ee with SMTP id 98e67ed59e1d1-3a098b444bbmr4769195a91.25.1790350017326;
+        Fri, 25 Sep 2026 08:26:57 -0700 (PDT)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b898cabesm5320405a91.0.2026.09.25.08.26.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 08:26:29 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>, Michael Turquette
- <mturquette@baylibre.com>, Brian Masney <bmasney@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel
- <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Kees
- Cook <kees@kernel.org>, "Gustavo A . R . Silva" <gustavoars@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-hardening@vger.kernel.org, netdev@vger.kernel.org, Hal Feng
- <hal.feng@starfivetech.com>, Changhuang Liang
- <changhuang.liang@starfivetech.com>
-Subject: Re: [PATCH v4 03/22] clk: starfive: Rename file name "jh71x0" to
- "common"
-In-Reply-To: <20260920120044.194901-4-changhuang.liang@starfivetech.com>
-References: <20260920120044.194901-1-changhuang.liang@starfivetech.com>
- <20260920120044.194901-4-changhuang.liang@starfivetech.com>
-Date: Fri, 25 Sep 2026 17:26:28 +0200
-Message-ID: <1jqzih73ob.fsf@starbuckisacylon.baylibre.com>
+        Fri, 25 Sep 2026 08:26:56 -0700 (PDT)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: Jeff Johnson <jjohnson@kernel.org>,
+        Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+In-Reply-To: <20260817-reg_info_store-leak-v1-1-77025a99b074@oss.qualcomm.com>
+References: <20260817-reg_info_store-leak-v1-1-77025a99b074@oss.qualcomm.com>
+Subject: Re: [PATCH ath-next] wifi: ath11k: fix reg_info_store leak in
+ ath11k_service_ready_ext_event()
+Message-Id: <179035001623.3875741.2110365933382475990.b4-ty@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 08:26:56 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2MSBTYWx0ZWRfXzc8/OgF/6PPm
+ 9MO9EefeCUOM3vKKSXMnQksQoL/X3gQUKxl7Yq/5gDTKG+tb9ntV+T+u15ZPSSvuMOQxjiA+DCq
+ Zf+foOWgcMB9SDuS+7YiK9BKdj+nhZ0=
+X-Proofpoint-GUID: gTpVQ7q2DgAgo1tL0SMN_Uw3SkmnmpJn
+X-Proofpoint-ORIG-GUID: gTpVQ7q2DgAgo1tL0SMN_Uw3SkmnmpJn
+X-Authority-Analysis: v=2.4 cv=LNPz05W9 c=1 sm=1 tr=0 ts=6ab692c2 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=9eebIFysW1Mfredz1lwA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2MSBTYWx0ZWRfX4Yi689DK+DIq
+ 6mKGvzLtCq5RSko/fYS6qSuh/wx4pcT4lhiH80zWYKq7V4pPeyUBODpAuRXpav2S6xVFw6CgLQS
+ U8Fpn84beGK6aNDDnqZMEZW0SrybcHyBq5+Pb0Ya06b4pk6I/VOdAcRjieHHnGP4sraMibWoMdL
+ nhcaUBy3Jc9K/7oCq7m6ebTZKNJlShzsXIjfizyXxtNW3wf9ifVRWKznDOxuo+xu7neTJncMTRS
+ xKFBK3+1PXJB80BZWsenUyL+lkx6wEskr//i8Y6EWC84pW3c2h6DhQU09bug3mofCsKUste1O40
+ MbYzeMwEbecBPCG10fMpDQH+mnqV0Wjmg3N6qTTQ26aGNKbVsbhu/P/abQ4UYz/V6ZYVhI+NVN1
+ m3fOeKDQ1cwt81h2D/t1H4fMLS9R7aKYl6dOXjHzYm9FyFilJajAAtHm3uVSrVd1+mZtDolc8Ur
+ TVp4IFXLwi2flWrYRAA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250061
 
-On dim. 20 sept. 2026 at 05:00, Changhuang Liang <changhuang.liang@starfivetech.com> wrote:
 
-> From: Sia Jee Heng <jeeheng.sia@starfivetech.com>
->
-> StarFive JHB100 shares a similar clock and reset design with JH7110.
-> To facilitate the reuse of the file and its functionalities, files
-> containing the "jh71x0" naming convention are renamed to use the
-> "common" wording.
+On Mon, 17 Aug 2026 16:46:34 -0700, Jeff Johnson wrote:
+> Currently, while processing the WMI Service Ready Ext event, the iterator
+> in ath11k_service_ready_ext_event() can dispatch the HAL Regulatory
+> Capabilities handler ath11k_wmi_tlv_ext_soc_hal_reg_caps_parse() which can
+> allocate ab->reg_info_store.
+> 
+> If a subsequent failure occurs during iteration, the ab->reg_info_store
+> allocation is leaked.
+> 
+> [...]
 
-Is this really necessary ? Rename are generally not recommended.
-Do we really care if your new soc use something named after the older
-one ?
+Applied, thanks!
 
-You are naming it common now but how long is it going to stay "common" ?
-If your next SoC does not use this anymore it won't be common for long ...
+[1/1] wifi: ath11k: fix reg_info_store leak in ath11k_service_ready_ext_event()
+      commit: 64828f091c7de5c1324427b140fb545f93ef073f
 
->
-> Signed-off-by: Sia Jee Heng <jeeheng.sia@starfivetech.com>
-> Reviewed-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
-> Reviewed-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  drivers/clk/starfive/Kconfig                              | 8 ++++----
->  drivers/clk/starfive/Makefile                             | 2 +-
->  .../{clk-starfive-jh71x0.c => clk-starfive-common.c}      | 4 ++--
->  .../{clk-starfive-jh71x0.h => clk-starfive-common.h}      | 4 ++--
->  drivers/clk/starfive/clk-starfive-jh7100-audio.c          | 2 +-
->  drivers/clk/starfive/clk-starfive-jh7100.c                | 2 +-
->  drivers/clk/starfive/clk-starfive-jh7110.h                | 2 +-
->  7 files changed, 12 insertions(+), 12 deletions(-)
->  rename drivers/clk/starfive/{clk-starfive-jh71x0.c => clk-starfive-common.c} (99%)
->  rename drivers/clk/starfive/{clk-starfive-jh71x0.h => clk-starfive-common.h} (98%)
->
-> diff --git a/drivers/clk/starfive/Kconfig b/drivers/clk/starfive/Kconfig
-> index bd29358ffeec..ff8eace36e64 100644
-> --- a/drivers/clk/starfive/Kconfig
-> +++ b/drivers/clk/starfive/Kconfig
-> @@ -1,12 +1,12 @@
->  # SPDX-License-Identifier: GPL-2.0
->  
-> -config CLK_STARFIVE_JH71X0
-> +config CLK_STARFIVE_COMMON
->  	bool
->  
->  config CLK_STARFIVE_JH7100
->  	bool "StarFive JH7100 clock support"
->  	depends on ARCH_STARFIVE || COMPILE_TEST
-> -	select CLK_STARFIVE_JH71X0
-> +	select CLK_STARFIVE_COMMON
->  	default ARCH_STARFIVE
->  	help
->  	  Say yes here to support the clock controller on the StarFive JH7100
-> @@ -15,7 +15,7 @@ config CLK_STARFIVE_JH7100
->  config CLK_STARFIVE_JH7100_AUDIO
->  	tristate "StarFive JH7100 audio clock support"
->  	depends on CLK_STARFIVE_JH7100
-> -	select CLK_STARFIVE_JH71X0
-> +	select CLK_STARFIVE_COMMON
->  	default m if ARCH_STARFIVE
->  	help
->  	  Say Y or M here to support the audio clocks on the StarFive JH7100
-> @@ -33,7 +33,7 @@ config CLK_STARFIVE_JH7110_SYS
->  	bool "StarFive JH7110 system clock support"
->  	depends on ARCH_STARFIVE || COMPILE_TEST
->  	select AUXILIARY_BUS
-> -	select CLK_STARFIVE_JH71X0
-> +	select CLK_STARFIVE_COMMON
->  	select RESET_STARFIVE_JH7110 if RESET_CONTROLLER
->  	select CLK_STARFIVE_JH7110_PLL
->  	default ARCH_STARFIVE
-> diff --git a/drivers/clk/starfive/Makefile b/drivers/clk/starfive/Makefile
-> index 199ac0f37a2f..012f7ee83f8e 100644
-> --- a/drivers/clk/starfive/Makefile
-> +++ b/drivers/clk/starfive/Makefile
-> @@ -1,5 +1,5 @@
->  # SPDX-License-Identifier: GPL-2.0
-> -obj-$(CONFIG_CLK_STARFIVE_JH71X0)	+= clk-starfive-jh71x0.o
-> +obj-$(CONFIG_CLK_STARFIVE_COMMON)	+= clk-starfive-common.o
->  
->  obj-$(CONFIG_CLK_STARFIVE_JH7100)	+= clk-starfive-jh7100.o
->  obj-$(CONFIG_CLK_STARFIVE_JH7100_AUDIO)	+= clk-starfive-jh7100-audio.o
-> diff --git a/drivers/clk/starfive/clk-starfive-jh71x0.c b/drivers/clk/starfive/clk-starfive-common.c
-> similarity index 99%
-> rename from drivers/clk/starfive/clk-starfive-jh71x0.c
-> rename to drivers/clk/starfive/clk-starfive-common.c
-> index 80e9157347eb..4aecb65e9fd7 100644
-> --- a/drivers/clk/starfive/clk-starfive-jh71x0.c
-> +++ b/drivers/clk/starfive/clk-starfive-common.c
-> @@ -1,6 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0
->  /*
-> - * StarFive JH71X0 Clock Generator Driver
-> + * StarFive Clock Generator Driver
->   *
->   * Copyright (C) 2021-2022 Emil Renner Berthing <kernel@esmil.dk>
->   */
-> @@ -10,7 +10,7 @@
->  #include <linux/device.h>
->  #include <linux/io.h>
->  
-> -#include "clk-starfive-jh71x0.h"
-> +#include "clk-starfive-common.h"
->  
->  static struct jh71x0_clk *jh71x0_clk_from(struct clk_hw *hw)
->  {
-> diff --git a/drivers/clk/starfive/clk-starfive-jh71x0.h b/drivers/clk/starfive/clk-starfive-common.h
-> similarity index 98%
-> rename from drivers/clk/starfive/clk-starfive-jh71x0.h
-> rename to drivers/clk/starfive/clk-starfive-common.h
-> index 9d5dec1d5cd1..f634c62c196a 100644
-> --- a/drivers/clk/starfive/clk-starfive-jh71x0.h
-> +++ b/drivers/clk/starfive/clk-starfive-common.h
-> @@ -1,6 +1,6 @@
->  /* SPDX-License-Identifier: GPL-2.0 */
-> -#ifndef __CLK_STARFIVE_JH71X0_H
-> -#define __CLK_STARFIVE_JH71X0_H
-> +#ifndef __CLK_STARFIVE_COMMON_H
-> +#define __CLK_STARFIVE_COMMON_H
->  
->  #include <linux/bits.h>
->  #include <linux/clk-provider.h>
-> diff --git a/drivers/clk/starfive/clk-starfive-jh7100-audio.c b/drivers/clk/starfive/clk-starfive-jh7100-audio.c
-> index de1cf717e391..0e363b971e9d 100644
-> --- a/drivers/clk/starfive/clk-starfive-jh7100-audio.c
-> +++ b/drivers/clk/starfive/clk-starfive-jh7100-audio.c
-> @@ -14,7 +14,7 @@
->  
->  #include <dt-bindings/clock/starfive-jh7100-audio.h>
->  
-> -#include "clk-starfive-jh71x0.h"
-> +#include "clk-starfive-common.h"
->  
->  /* external clocks */
->  #define JH7100_AUDCLK_AUDIO_SRC			(JH7100_AUDCLK_END + 0)
-> diff --git a/drivers/clk/starfive/clk-starfive-jh7100.c b/drivers/clk/starfive/clk-starfive-jh7100.c
-> index 761e46ed0ffd..ca81ccb5af94 100644
-> --- a/drivers/clk/starfive/clk-starfive-jh7100.c
-> +++ b/drivers/clk/starfive/clk-starfive-jh7100.c
-> @@ -14,7 +14,7 @@
->  
->  #include <dt-bindings/clock/starfive-jh7100.h>
->  
-> -#include "clk-starfive-jh71x0.h"
-> +#include "clk-starfive-common.h"
->  
->  /* external clocks */
->  #define JH7100_CLK_OSC_SYS		(JH7100_CLK_END + 0)
-> diff --git a/drivers/clk/starfive/clk-starfive-jh7110.h b/drivers/clk/starfive/clk-starfive-jh7110.h
-> index 0659adae4d76..6b1bdf860f00 100644
-> --- a/drivers/clk/starfive/clk-starfive-jh7110.h
-> +++ b/drivers/clk/starfive/clk-starfive-jh7110.h
-> @@ -2,7 +2,7 @@
->  #ifndef __CLK_STARFIVE_JH7110_H
->  #define __CLK_STARFIVE_JH7110_H
->  
-> -#include "clk-starfive-jh71x0.h"
-> +#include "clk-starfive-common.h"
->  
->  /* top clocks of ISP/VOUT domain from JH7110 SYSCRG */
->  struct jh7110_top_sysclk {
-> -- 
-> 2.25.1
->
->
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
-
+Best regards,
 -- 
-Jerome
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+
