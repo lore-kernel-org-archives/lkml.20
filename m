@@ -1,187 +1,151 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012012.outbound.protection.outlook.com [52.101.43.12])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83233CC9F6;
-	Fri, 25 Sep 2026 11:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4223746D2AA;
+	Fri, 25 Sep 2026 11:45:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790336727; cv=fail; b=uPJy0NhzoEWa5CigKgXLQt9I20wnZkE1unbKtcQJ8cG9V/isYt2MqAWq6e+4+Xy7r1NQkr8Rnxp+c1v5EEc7QABfxBqEOWh5+h5qFpgC5UTgIjOS6qyPDBddHidvbjt03oS39FuffEMDBBU3MDQl49Jv+c4m5j3j/xBwJj4eQhs=
+	t=1790336732; cv=pass; b=ACNPrJgGyImBDraBa0zWUehliX4CvcmxYvbLPTn0dX705h9M6ld8WQIc6z0KB09LFCt/x5IAk6xWIt/IVJXquMtdd4dLZC9/duaG+mHBnsA14Pf67qfaP5bwhQhIa+/xq+RDMw6dGXCTy9YXxqhMLEU8fS42sMb2DNiDC287650=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790336727; c=relaxed/simple;
-	bh=qP0lFvevU/mHr7HZ/mEI0BrOV8FkoC5ALDHKP4EAavQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VRsRLq1jnjotVMoC3k2drZSKFROyfmHjcf5rtvfmaF5Y6YMqIhONbEaQETwOIFBjXvhDqOLNZhKP4LUoLUs81XcIpVr2+/i/FRmdYy6FB8mCR8b4h3SRc5IDNgAEPnEOFMKdhVYLfABL1cqLGTGcFbpPLJ12845jcMWMK2FaVhM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xRYvQrcg; arc=fail smtp.client-ip=52.101.43.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790336732; c=relaxed/simple;
+	bh=ujCnc81X8XtyLlHK4oFfY/Z41Z4iwHW9m83DFIX6cSE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Gxge0PWmnO3RI8FQEHxLLtAo/kRgIlmXyFIgDASjaE4Xf5aWkT5Jn3OEzKi7fyR/7EX3Q660njQ+lkCK0Gs6UdcE5PMGjMaNHEdeWWokcg2m6DoiUxERYwrV3P26lkEBvIVFL50Y1QdJnYTuPJRQWgZjQ3gSJQYxklSuUBhIXDE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=fnloXkQP; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xRYvQrcg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oQuuwjVcqBf8C0uPBKURObepYqeXDFL6xJVEn2hc71MfXzPGoVPVVdvqE/Awpo63B+FyTPOkW9/vb5bYGUrlLS8EvvbKPuNkUDNt5fo7BBygO5gI3V0IwvJ1R9yWa7/GfK+iNY5fIfSa+919NckAohn2h2nGQiyc0qYWZAbKyb33/ghfodetoQ0ymSvGxn1xk7RCGhsmPlvuDbxVfuH6rDvS+TcamLmTXQY0ubpt+vPHceDrM3Ou5uYjkC6adWp+1+Vci1broLaFW1y1IZuypAkanFB+ltv5A1FtFhwViVx7ai4PZtQPV/EUwLKJy+YNNu0yDOfSwZqMrfSatjXMBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oD/7ZHUFGopD8CV3ZW/Tyz/mksLsS9YrdYkUzmYgMDs=;
- b=H2gMTM8S/UPUEtlKoz5wEOlpY93aK87M9tsKmVmpzTdluuItxSQaw5tpRNhqjemygfEWfeyZdYooimvrZXDfpclx8Z5+Fwn+A5Z/ByZFAdcxALGenbjS9+nxE/KwY5ygY4rIlGQmM+OgTCvFuipHB56jqp5JQ0JKQtmgxZ6lW3xwu3zo4dP2/lT1kGWkwDCYcKxQ1ojHYNpteVzqDv6dWkabWWskftbRvTpUCKaMlP2fWmZ+/MaBrapCV8PRbT3IEe5ydb05iDoBkr+M4GsU4l4uEnxigwMDbktLya+YV2n8Nr4yewOX4rMH7UR/yAJjKHyk5bY/hNdeUQI2CHyafQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oD/7ZHUFGopD8CV3ZW/Tyz/mksLsS9YrdYkUzmYgMDs=;
- b=xRYvQrcgN/nXfrhW7btjMMDHtb4QnQEO7x7RXzZCh60BGoqZASfb5jIJjGxitj1XsIZ3+o38t198XV4LLDnbEHjLVe/nO3LsPADhg1eeQxnyMizfz2Zj/OzuaKkz7vXzuI0OvlUVbLeMRI18/QdiG3/jPhqYuun9MLWi+40BTD8=
-Received: from BN0PR04CA0038.namprd04.prod.outlook.com (2603:10b6:408:e8::13)
- by IA0PR12MB8328.namprd12.prod.outlook.com (2603:10b6:208:3dd::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Fri, 25 Sep
- 2026 11:45:17 +0000
-Received: from BN7PEPF0000009E.namprd04.prod.outlook.com
- (2603:10b6:408:e8:cafe::62) by BN0PR04CA0038.outlook.office365.com
- (2603:10b6:408:e8::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.19 via Frontend Transport; Fri,
- 25 Sep 2026 11:45:17 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF0000009E.mail.protection.outlook.com (10.167.248.150) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 11:45:16 +0000
-Received: from purico-abeahost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 06:45:11 -0500
-From: Shivansh Dhiman <shivansh.dhiman@amd.com>
-To: <seanjc@google.com>, <pbonzini@redhat.com>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>
-CC: <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<xin@zytor.com>, <andrew.cooper3@citrix.com>, <sohil.mehta@intel.com>,
-	<dwmw@amazon.co.uk>, <yosry@kernel.org>, <nikunj.dadhania@amd.com>,
-	<santosh.shukla@amd.com>, <shivansh.dhiman@amd.com>
-Subject: [PATCH v3 8/9] KVM: SVM: Enable FRED virtualization
-Date: Fri, 25 Sep 2026 11:40:16 +0000
-Message-ID: <20260925114017.2208531-9-shivansh.dhiman@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260925114017.2208531-1-shivansh.dhiman@amd.com>
-References: <20260925114017.2208531-1-shivansh.dhiman@amd.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="fnloXkQP"
+Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 81724201E70;
+	Fri, 25 Sep 2026 13:45:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790336726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J+kLoc8HWzyOxKOyXRrCV9IQDfH2HyHmz14W6mFXI/A=;
+	b=fnloXkQPX31QqhFSm2I6hftJIZyL14WEDJm+tJ8VukuWAQT7TlKROK7xyyhlj4U4BlKNDX
+	bWo88xM3hCVdYyukaMSBNy+5XvUycT8oFPv7gGRvmhec+15rxK6qbZc+fe2LHCieWHZaD6
+	WQBihvtqaVKJgb+QN71viuyyxZ4tXceiWxx9rm9hZA4HziZobbWZjWboLyslPbvUI53Bgm
+	mg0iLb0RcJ7s8BbLX5Xmn8+Vrlh85iwNaO4EDRV7ERhZWe/+08ipMR6zMKh5ZbtoYh/4a8
+	u0cr1fNVvBPp4jmhbDKUUE98pBd+YZfPWcva810xczPLYM2DEj9lhg2Z7o/1Yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790336726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J+kLoc8HWzyOxKOyXRrCV9IQDfH2HyHmz14W6mFXI/A=;
+	b=Avafuu8eF7aKOxf0OGrBNYHFsjXj1jShq+wXTWjMqo5Vt1IW0cQM4UX923pVPAaMejRGD/
+	Esp3WvmkY30YqYlV4za+ClAjljqdRhqrcLjr+SiB5Kc0imU0g47cMQ3ZiLM3gMOavXSBVT
+	JO+2ev5WQOiB3XaVn2QQtSrff5U3OhbLRvl2hW28F5VsJliKuTddfwlgRbb5/v5P4VuR/K
+	a//8AaKMvTehke9H0T2e4RFTIYLDtiDYpC58HFA4SSBrxSLy6Q08xo4iTuKp3UUDkTqN3p
+	nxTU6yOyvaUQvN2NDGYiO2AVbdcwBaCOk5Fw8jhlO9ueXI+K/i8P1sXf5ubJfw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790336726; a=rsa-sha256;
+	cv=none;
+	b=UlUTwMXOqfZhS11bLVcsjY3poevP8U1RYShmi90q/WD1QVS7y2zcBjdqQlj+juqIqCH11r
+	hBWK6h1My/FoYBp0+vrxHRpjGNoMlWHDphO4HdN7l3DbEq1MmdCRk7RAYGUc6lY7BF4Gw5
+	d/VJQvON89RK3gnC1QHePhy7/XOll746V5Ow6q/wVC1jcHirmlea55IsiDV+WdN+6wt5f6
+	A1QHCcHoo8f9gAbmmah1eCYsYfjlyhMLdDBhzqxjr2RcYms6yN1WtDGszVXBDlgvvrCJHb
+	REyxkO1KFAJ4X3SY/5J7qxYff1vEV37tT78J3X1zSe2uKjCtLDdOwUgTemvNZw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Fri, 25 Sep 2026 13:45:28 +0200
+Subject: [PATCH v5 4/4] arm64: dts: rockchip: rk356x: Add JPEG decoder node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF0000009E:EE_|IA0PR12MB8328:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc5b197f-c2e2-4f31-d60e-08df1afa782d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|82310400026|7416014|376014|10067099003|11063799006|6133799003|260925021311599003|22082099003|18002099003|56012099006|260925021911599003|260925022911599003;
-X-Microsoft-Antispam-Message-Info:
-	x0iPU4l+oRyN8oNg+24IxKZ7Vf584sJiGU4TT78NUi8xkh4k+2lbf7PlfUVbXZUzDAZ/TCWeHDZu4AXQk1u6TYjGA7PipkLlk5siN3x8XgC2M89rw3eoP5IswvI1cDGIroGtn2SM9nSNOzoUl04lGaz29i3fsmZok4qi6KVrvygIfMjpA8dn+7rT69ZvIk+06A1lFumfNjksKY3slx8A1pDWxa1oUz2HYfSFoxVzsLWidCMXVehySCsoOTYIF2FcKxb3cBTIYm9AZlgJcxXpfDW8lCX3R3RC8mblk6uobY4AzoBFsyljQouMB5drufglkGfggvrOqNObTJQl8rMDu/bV4euQWsnjjeCm/+Hgf+e5hEVPmKDy1l3waxo/dLOaCPRaFxt2dUPG08+mc5sUgeQtwfGrtnoOmFKqvXwwxUdniq6gHJtOlmKcnYJdps5YXkFSycd6nLhZoy2r2ZAQAfarTxnRkthinHJWMIMZksOLLAvAUVdEPCEXvCqMfehoh+CQD/2gfjO0tfEBiPDax3p7+syQBxVfSZR638fjpDguGVBqdGQf5TEUo8GVinD7TRUk4xOlWYwSfw8eyaISs+Tud2UXQRanyKayaKerpL4tJvL1FNm9HtYV8U2T+exXRQPvoLXuNkswDPIHTVVo9aDnps5G+JjN5Q2rWKh/kUpsTLtt5YmfKgBgbfcJgvLfHVz/b0WfLFcVZfVS/NUwmA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(82310400026)(7416014)(376014)(10067099003)(11063799006)(6133799003)(260925021311599003)(22082099003)(18002099003)(56012099006)(260925021911599003)(260925022911599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	SQTO8I62L6HbFdYjhuuBh56ZQmvqodL8JEUCHuEOEAIVuSRL8shMuJb7ch9NB2me+OGbK6alM1c5Ip3qBfziF7vgf6HOol3hif+OOFzRvHRn+kcStkwUMvcj80VIClUONmeeDcRkcvT1A+luqVRY9NPJKvLZ56V/n1PxyeTb8JzyNYHO0XA43Te0d+yYcd4Cp1Jr4hoxI1lZPLkDMq50I+08ne4vqYDB8UNN9yUMBVJ23WfxNylSLapHPrgajVYwJ8XF2ZYklMwK0iO8M2eJArNQc5hIBeND2etr3WtA560Krk6UR0DHtfDI5aIcxwQKLFIphi0sCC3i1x8DeGQK8xNDwNjYkjnkRzN6nIcgxiYDzah9Bqcoc/VKC1+gu16oMY+htprU0Cgb4u+0QhMgX1LtSyuej5C+roRELCQWWCxLpa/S5N13eVe1U5duLcC6
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 11:45:16.9889
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc5b197f-c2e2-4f31-d60e-08df1afa782d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF0000009E.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8328
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-rockchip-jpegdec-v5-4-30658833cb68@pengutronix.de>
+References: <20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de>
+In-Reply-To: <20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de>
+To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790336726; l=2456;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=ujCnc81X8XtyLlHK4oFfY/Z41Z4iwHW9m83DFIX6cSE=;
+ b=0NNEUUXKJXtKH6jDpUNUDfCktEQowrHfPSEtlcmG48o8RZv7uzGT1Exoq5zEo1jMvkhjfsAWO
+ arX+qCJlgDrBbCtYUyjXu1HzB15ng8/Lnz92R4BlInEMEokKbiOVTdo
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Set the FRED_VIRT_ENABLE bit (bit 4) in the misc_ctl2 field of the VMCB to
-enable FRED virtualization. This enables hardware to automatically save and
-restore the FRED MSRs on VMRUN and #VMEXIT.
+Add device tree nodes for the Rockchip JPEG hardware decoder and its
+IOMMU on the RK356x.
 
-Set the bit in svm_vcpu_after_set_cpuid() when FRED is exposed to the
-guest, and clear it otherwise.
+The decoder is the same block as on the RK3588, here at 0xfded0000 with
+its MMU at 0xfded0480 and the same 0x400 register window.  Only the
+integration differs: ACLK_JDEC and HCLK_JDEC instead of the JPEG decoder
+clocks, SRST_A_JDEC and SRST_H_JDEC for the AXI and AHB resets, and the
+RGA power domain rather than VDPU.
 
-FRED virtualization requires vNMI to handle guest NMIs correctly, so, clear
-FRED when vNMI is unavailable.
+No rate is assigned to the AXI clock here.  Unlike on the RK3588 it is a
+gate off aclk_rga_pre, shared with the RGA, the IEP and the EBC, so a
+rate set for the decoder would move those too.  Its mux tops out at
+300 MHz, which is also the default rate of the downstream driver.  The
+downstream device tree assigns no rate to it either, and the vepu node
+on the same clock tree already leaves it alone.
 
-Signed-off-by: Shivansh Dhiman <shivansh.dhiman@amd.com>
+The domain needs nothing else, it already lists qos_jpeg_dec.
+
+Both blocks are entirely on-SoC and have no board dependency, so they are
+enabled unconditionally like the other codec blocks in this file.
+
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-Changes in v3:
-* Renamed FRED_VIRT_ENABLE_MASK to SVM_MISC2_ENABLE_V_FRED.
-* Set the bit in misc_ctl2, the current name of the VMCB field.
-* Removed the unconditional kvm_cpu_cap_clear(X86_FEATURE_FRED).
-* Clear FRED when vNMI is unavailable (Andrew Cooper).
-
-Changes in v2:
-* Confined the enabling of vFRED to svm_vcpu_after_set_cpuid() only
-  (Sean Christopherson).
-
----
- arch/x86/include/asm/svm.h |  1 +
- arch/x86/kvm/svm/svm.c     | 11 ++++++++---
- 2 files changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/arch/x86/include/asm/svm.h b/arch/x86/include/asm/svm.h
-index 1a6d4509b05b..288a8a78f1c7 100644
---- a/arch/x86/include/asm/svm.h
-+++ b/arch/x86/include/asm/svm.h
-@@ -250,6 +250,7 @@ struct __attribute__ ((__packed__)) vmcb_control_area {
+diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+index a5832895bd392..e6c7ae908a99f 100644
+--- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+@@ -619,6 +619,28 @@ rga: rga@fdeb0000 {
+ 		power-domains = <&power RK3568_PD_RGA>;
+ 	};
  
- #define SVM_MISC2_ENABLE_V_LBR	BIT_ULL(0)
- #define SVM_MISC2_ENABLE_V_VMLOAD_VMSAVE	BIT_ULL(1)
-+#define SVM_MISC2_ENABLE_V_FRED BIT_ULL(4)
- 
- #define SVM_TSC_RATIO_RSVD	0xffffff0000000000ULL
- #define SVM_TSC_RATIO_MIN	0x0000000000000001ULL
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 86a3ba54aab2..25dd379725d4 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -4912,6 +4912,11 @@ static void svm_vcpu_after_set_cpuid(struct kvm_vcpu *vcpu)
- 	if (guest_cpuid_is_intel_compatible(vcpu))
- 		guest_cpu_cap_clear(vcpu, X86_FEATURE_V_VMSAVE_VMLOAD);
- 
-+	if (guest_cpu_cap_has(vcpu, X86_FEATURE_FRED))
-+		svm->vmcb->control.misc_ctl2 |= SVM_MISC2_ENABLE_V_FRED;
-+	else
-+		svm->vmcb->control.misc_ctl2 &= ~SVM_MISC2_ENABLE_V_FRED;
++	jpegd: video-codec@fded0000 {
++		compatible = "rockchip,rk3568-jpegd";
++		reg = <0x0 0xfded0000 0x0 0x400>;
++		interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
++		clocks = <&cru ACLK_JDEC>, <&cru HCLK_JDEC>;
++		clock-names = "axi", "ahb";
++		resets = <&cru SRST_A_JDEC>, <&cru SRST_H_JDEC>;
++		reset-names = "axi", "ahb";
++		iommus = <&jpegd_mmu>;
++		power-domains = <&power RK3568_PD_RGA>;
++	};
 +
- 	if (is_sev_guest(vcpu))
- 		sev_vcpu_after_set_cpuid(svm);
- }
-@@ -5675,9 +5680,6 @@ static __init void svm_set_cpu_caps(void)
- 
- 	kvm_cpu_cap_clear(X86_FEATURE_IBT);
- 
--	/* SVM FRED virtualization not implemented yet */
--	kvm_cpu_cap_clear(X86_FEATURE_FRED);
--
- 	/* CPUID 0x80000001 and 0x8000000A (SVM features) */
- 	if (nested) {
- 		kvm_cpu_cap_set(X86_FEATURE_SVM);
-@@ -5751,6 +5753,9 @@ static __init void svm_set_cpu_caps(void)
- 	/* CPUID 0x8000001F (SME/SEV features) */
- 	sev_set_cpu_caps();
- 
-+	if (!vnmi)
-+		kvm_cpu_cap_clear(X86_FEATURE_FRED);
++	jpegd_mmu: iommu@fded0480 {
++		compatible = "rockchip,rk3568-iommu";
++		reg = <0x0 0xfded0480 0x0 0x40>;
++		interrupts = <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>;
++		clocks = <&cru ACLK_JDEC>, <&cru HCLK_JDEC>;
++		clock-names = "aclk", "iface";
++		power-domains = <&power RK3568_PD_RGA>;
++		#iommu-cells = <0>;
++	};
 +
- 	/*
- 	 * Clear capabilities that are automatically configured by common code,
- 	 * but that require explicit SVM support (that isn't yet implemented).
+ 	vepu: video-codec@fdee0000 {
+ 		compatible = "rockchip,rk3568-vepu";
+ 		reg = <0x0 0xfdee0000 0x0 0x800>;
+
 -- 
-2.43.0
+2.47.3
 
