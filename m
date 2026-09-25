@@ -1,556 +1,115 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA2030D3FE
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53D2377A80;
+	Fri, 25 Sep 2026 06:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790318068; cv=none; b=uWP1mp9NiuvAjpv48sve+ayhRrW3DEyzs5Ceh+HY226oZk97vQ22023FJdEQT+z+Xh4HrE/ZDApBl1sHAI4/GKyrecwE4NHA2WhmpZk2ZZePdPwtPpb078DaW3ggZcjcj1W1xZaTRvDxi5jY79RvJjOl7JdJJDMLrHej9U+7I/4=
+	t=1790318178; cv=none; b=ceEAPivHbo1RJFzfhkNEVt8oMS2E2jsOH2x0WkWQv62F8Hn4rTGniOMjwEFJVpTpEIUZMZl/77BNhMasFtePWj//6AfxM+cs3q6IWiQNTXOkniQ6OVW9yU/r9SCsQFTcY61Nqv957Fy4gXqGdOS6xl9evMURUNVqfNB4YMlnQSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790318068; c=relaxed/simple;
-	bh=HP9CSk+31CL2u2CpU9ncF2fw67X3OXsJQYs98ZAAAmQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HSrJSKiX9R/V2yUThalHAhdiVmTAxaczjNOtuUR+Qjdr3JF/emTOQolPVYqQtHmEQOTLdRBLsujzHM0vrO3kjWY7+P8bZkmm0wa2WV/orjNX2wfhKHovHpwCIi0gSM6iDAn8826xxgDe3bw/OMYcXvmXCScPfquG8GU7sDonIZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W+oOBMOa; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790318178; c=relaxed/simple;
+	bh=6NLCUhqQooEkbJUlQ1iLLeeX1wce4q6ftksGR/L1gEA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fqpowJL1P+VYWU95uSisONWNFHnnhCHcX4s5HOdeqH8FkjfaLVEowdVi9W2S20QFZGwASVOYfKtPI0wJfOICaFUb8Sfrd0YyI2fv45g14JJ7iO6fRV6HcjvqqrqrXUDUCK1O+ZMWGJhrnAQxw2LAFJ1bCmet6+gCoxGLP/CBYOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R26EJ6z4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W+oOBMOa"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so507421c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 23:34:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790318065; x=1790922865; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5FlXqd38cLKtqYQBgCbmR8MfhZfjY7ZgkCyR1ZWO3TQ=;
-        b=W+oOBMOaCBpT2GCZwnHtVIbJTyBZX744euDsXn9UxkKqAHXmJzFGR98wA98Nc8Vwx2
-         ppfb2cNqAhpGB1vCW3IT8veVA18Ejb057lKc4cF+wDtAI/vIg8scBbMMK7FuZ+LJFZVw
-         kzr7EzZVNycV4TKeS1b+SVBaX9oEulPD7NTw+FL5ck+0IHFOk14UkpKjL2mOQnZfH8we
-         p1MlP3jsu2KswQe40TshzTe/RF9n1owphP48/lgXGrkUH6IEm5voyIoFs88WK4cxL5Je
-         Xkcn7BlKnr0D8jrRzdWi8McS2N9C7KbXDvl8ihHyf/JI5bqA/ABINO4BMtVdL6tQYNRe
-         0JaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790318065; x=1790922865;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5FlXqd38cLKtqYQBgCbmR8MfhZfjY7ZgkCyR1ZWO3TQ=;
-        b=XY84U/wtit1IURaP1ozsJ7ujFVVgmrsqikl3DXwV/iJy+m12qxhrQCvEpxRKLX2bYP
-         /sS05OoNUKYlULC1pYbHDRN7iHzMvJwmRfpCWEgo9J7YWsw3PlkZyvkuclGRnKxyI133
-         QLWnTq6jfZu3wmT4lcpBYpzj1KoH/b+f9YsgWBefBAmy8fDzl3HPtf0dYVqWXKS8m8L9
-         tyv6JrPCtKRtYby/n52LUNez9/hfQs59aN1Su2Ueh/VNoZ2gNQ9zombFeXG+PMwXSUKk
-         YJdncdTZSZoeC1fFT8LdI3wvv01VTUh/fmSrmgKgEB6Ihv3qRQoj8EPFh1FkIcfUredL
-         1mfw==
-X-Forwarded-Encrypted: i=1; AKwUvBzXgySVHR+mnH+MAVtmtM3q+reF3hXwQSyxAXM5qH+4HsW10pN1AWYiYVfVUFjChlclf+FEtG1qVXHsNoE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwBF39bqPDN2VcxMSdL/8t87/aCr/He2qWqLIUu9+Mprx1uqxt
-	kaO1oHVBRxcIpp/mZX6Wy34arzhw80C7uzT22w2wJAAFsJpSdsnb5Y6S
-X-Gm-Gg: AYBFou2HfiaKN1xcLCZX5i4JfJcugfP72Sb7b+7CNyJEsRy7E20BU9ViFKQHQbRvWSP
-	q3fnpofKZ8eLpxGLOqpjWOyFOWRZimjJW1A6jelhnSFQubHeTKYmDIkRzD8tWN3NOBDc7QdX+d1
-	kFhXXoJIdvFKrL0lnMU4mAjLBwIZogECyopts9Va9XgFM+hevjCnceKn97kzItVBKIRDbDSWjK3
-	EUkBcZFWijUEZmcaanRw1FRfY60qzniG3888e8hmq6mLz+e8nZ/DBOqS6QBnzl48OBPk5FeFy8B
-	+qQwB+dEtkbNltC1MTmdgNXi3mbVeWtUoh17HxJ1/MOLSzGvQBkPQA0IJZdIyzBa/qb4gMreg8q
-	Rf2glw5jJigbIzdDuGF8bSsi9tRk5JdCZSvG4iZOA111gP3bo1+IVt3ghJjVRwe3bD79GYKQmEL
-	ZQO1rO3kstW2sxzyBBw/0u3Z26VD34GkjeJQIQ+88XwXKiVH8IrEi/gG5cxu/JZtYqOf2Kjn4Tw
-	CrUoytrBNyS5bbb+rcp+DL6AATJ+ZJREfhAptOsqLnREu6f+85ZwrY=
-X-Received: by 2002:a05:701b:4583:10b0:144:e246:a0b5 with SMTP id a92af1059eb24-14503febad4mr3452314c88.40.1790318062297;
-        Thu, 24 Sep 2026 23:34:22 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145adcc5b00sm3576046c88.15.2026.09.24.23.34.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 23:34:21 -0700 (PDT)
-Date: Fri, 25 Sep 2026 12:04:01 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, ritesh.list@gmail.com, 
-	sshegde@linux.ibm.com, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
-	alex@ghiti.fr, hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com, 
-	borntraeger@linux.ibm.com, svens@linux.ibm.com, tglx@kernel.org, mingo@redhat.com, 
-	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
-	ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
-	lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu, 
-	dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org, 
-	acourbot@nvidia.com, work@onurozkan.dev, nathan@kernel.org, ndesaulniers@google.com, 
-	morbo@google.com, justinstitt@google.com, jszhang@kernel.org, japo@linux.ibm.com, 
-	peterz@infradead.org, jpoimboe@kernel.org, seanjc@google.com, pmladek@suse.com, 
-	thuth@redhat.com, ynorov@nvidia.com, joelagnelf@nvidia.com, david@davidgow.net, 
-	fujita.tomonori@gmail.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
-	linux-s390@vger.kernel.org, rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [RFC] rust: kernel: Add KUnit tests for ARCH_WARN_ASM bug table
- emission
-Message-ID: <arYVqCsWwppdWs0a@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20260922054959.955093-2-mkchauras@gmail.com>
- <122118f0-1147-492d-8a81-b2f839e0cd7a@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R26EJ6z4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 336731F000FF;
+	Fri, 25 Sep 2026 06:36:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790318176;
+	bh=p8rslO5t96PYUDZI3bkR02KMKPkCIVM1vCUFIY9mUhs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=R26EJ6z44sny9/A+y/pfZfdhChALd+J9fbCYr4DV2JfuV5lwMH5nlAyQ0eXb+IZN/
+	 qghgCsCRkji/g5HCltDIWIdBVvP/Q0PStgWEsw5tSXBJ4YxlGpFby/RnBtPAB/CCxe
+	 Vc5qb8OZsGcvhbqdqpAOTMVuk3WyvsVRCmVIKCj6NKeDzyNEgFpQNCLI/GvvOagb3j
+	 5XZrttOFlEN8CJybugQJWsqbSU/Ov0RHzuT0iCYUNwzAvWkoyt6ZHktUzzusQTvEok
+	 iD2XxIvufE4OWmdbo5BXFzBWDBlZFWyKCi9whZHrn1De7M9Htis2lYWc6TfZW8sEKF
+	 ttXmneRW5df7g==
+Message-ID: <5674102a-9460-43e6-907b-97efd8263853@kernel.org>
+Date: Fri, 25 Sep 2026 08:36:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <122118f0-1147-492d-8a81-b2f839e0cd7a@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/6] dt-bindings: phy: qcom: add Nord QMP PCIe PHY
+ binding
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi
+ <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Bjorn Andersson <andersson@kernel.org>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: shengchao.guo@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+References: <20260921-nord-v4-0-ed05c6e09240@oss.qualcomm.com>
+ <20260921-nord-v4-1-ed05c6e09240@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260921-nord-v4-1-ed05c6e09240@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 03:00:50PM +0200, Christophe Leroy (CS GROUP) wrote:
+On 21/09/2026 07:37, Krishna Chaitanya Chundru wrote:
+> Document the PCIe PHY found on the Qualcomm Nord platform.
 > 
-> 
-> Le 22/09/2026 à 07:50, Mukesh Kumar Chaurasiya (IBM) a écrit :
-> > Verify that the __bug_table entry emitted by ARCH_WARN_ASM has a correct
-> > bug_addr displacement — i.e. the arch's trap label reference resolves to
-> > the trap instruction — by calling find_bug() with the exact virtual address
-> > of the trap, mirroring what the real trap handler does.
-> > 
-> > To support all architectures, each arch that implements ARCH_WARN_ASM now
-> > defines ARCH_WARN_ASM_TRAP_LABEL, a string constant naming the local label
-> > at which the trap instruction is placed:
-> > 
-> >    x86       "1"     (ud2 at label 1:)
-> >    powerpc   "1"     (twi at label 1:)
-> 
-> Shouldn't it also handle twnei and tdnei used for WARN_ON() and BUG_ON() ?
-> 
-> Christophe
-> 
-Yes it should. But I have decided to drop this and focus on
-is_valid_bugaddr() improvement suggested by Peter.
+> Nord has a 32.0 GT/s capable QMP PCIe PHY that can operate in multiple
+> lane configurations using four PHY segments (A/B/C/D). The active
+> topology is selected by firmware through a TCSR configuration
+> register and may be configured as x16, x8+x8, x8+x4+x4, or
+> x8+x4+x2+x2.
 
-Regards,
-Mukesh
-> 
-> >    riscv     "1"     (ebreak at label 1:)
-> >    arm64     "14471" (brk placed at 14471: by __BUG_ENTRY_END)
-> >    s390      "0"     (mc at label 0:)
-> > 
-> > The label is used consistently: in ARCH_WARN_ASM itself, in the
-> > bug_addr back-reference inside __BUG_ENTRY / _EMIT_BUG_ENTRY, and in
-> > the new generated_arch_warn_asm_trap_label.rs template, which the
-> > C preprocessor expands at build time into a .rs file included by the
-> > test's global_asm! block.
-> > 
-> > global_asm! is used instead of asm! because LLVM eliminates asm! blocks
-> > in dead branches; global_asm! is file-scope and always emitted.
-> > BUG_KUNIT_TRAP_ADDR is defined as a .global symbol in .data on top of a
-> > .dc.a {trap_label}b relocation so the linker resolves the trap address
-> > into it at link time. A Rust static initialized to zero would land in
-> > BSS where relocations are not applied.
-> > 
-> > The global_asm! string mirrors warn_flags!() exactly — same "/* {size} */"
-> > prefix, same generated_arch_warn_asm.rs and generated_arch_reachable_asm.rs
-> > includes, same operands — plus the .pushsection/.dc.a/.popsection tail.
-> > This keeps the test structurally in sync with the macro it exercises.
-> > 
-> > The CONFIG_RUST_BUG_WARN_ASM_KUNIT_TEST option depends on GENERIC_BUG
-> > and excludes ARM, LOONGARCH, and UML (which use a different warn_flags!
-> > path without ARCH_WARN_ASM).
-> > 
-> > Five tests are included in the rust_kernel_bug_warn_asm suite:
-> > 
-> >    bug_entry_found           - find_bug() returns non-NULL for the trap
-> >                                address, proving bug_addr is correct
-> >    bug_entry_is_warning      - the emitted entry has BUGFLAG_WARNING set
-> >    bug_entry_file            - bug_get_file_line() returns the correct
-> >                                source file (CONFIG_DEBUG_BUGVERBOSE only)
-> >    bug_entry_line            - recorded line number is non-zero, confirming
-> >                                the {line} operand was substituted correctly
-> >                                (CONFIG_DEBUG_BUGVERBOSE only)
-> >    bug_entry_addr_is_in_text - kernel_text_address() confirms the trap
-> >                                address lies in kernel text
-> > 
-> > Tested (pass:5 fail:0 skip:0) on:
-> >    x86_64  - QEMU x86_64
-> >    powerpc - QEMU pseries ppc64le (pseries_le_defconfig)
-> >    riscv   - QEMU riscv64
-> >    arm64   - QEMU aarch64
-> >    s390    - QEMU s390x
-> > 
-> > Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> > ---
-> > Note: I sent this out as a powerpc specific tests earlier. During review
-> > process some people wanted these to be arch independent. Hence sending
-> > this out as an RFC.
-> > 
-> > Earlier version: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2F20260915090453.1227034-3-mkchauras%40gmail.com%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C2fb25d39088f4c4e7ba308df186d76f5%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639256530592353420%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=lzso63z76C74rUe7h%2FG%2FEkDi1yXK0oPXBVrlG427Z%2BM%3D&reserved=0
-> > 
-> >   arch/arm64/include/asm/asm-bug.h              |   3 +
-> >   arch/powerpc/include/asm/bug.h                |  22 +-
-> >   arch/riscv/include/asm/bug.h                  |   5 +-
-> >   arch/s390/include/asm/bug.h                   |   4 +-
-> >   arch/x86/include/asm/bug.h                    |   5 +-
-> >   rust/Makefile                                 |   2 +-
-> >   rust/kernel/.gitignore                        |   1 +
-> >   rust/kernel/Kconfig.test                      |  15 ++
-> >   rust/kernel/bug.rs                            | 191 ++++++++++++++++++
-> >   .../generated_arch_warn_asm_trap_label.rs.S   |   7 +
-> >   10 files changed, 239 insertions(+), 16 deletions(-)
-> >   create mode 100644 rust/kernel/generated_arch_warn_asm_trap_label.rs.S
-> > 
-> > diff --git a/arch/arm64/include/asm/asm-bug.h b/arch/arm64/include/asm/asm-bug.h
-> > index a5f13801b784..e0694543115e 100644
-> > --- a/arch/arm64/include/asm/asm-bug.h
-> > +++ b/arch/arm64/include/asm/asm-bug.h
-> > @@ -60,6 +60,9 @@ _BUGVERBOSE_LOCATION(__FILE__, __LINE__)		\
-> >   		".short " flags ";"			\
-> >   		__stringify(__BUG_ENTRY_END)
-> > +/* Trap instruction is placed at label 14471: by __BUG_ENTRY_END */
-> > +#define ARCH_WARN_ASM_TRAP_LABEL "14471"
-> > +
-> >   #define ARCH_WARN_ASM(file, line, flags, size)		\
-> >   	__BUG_ENTRY_STRING(file, line, flags)		\
-> >   	__stringify(brk BUG_BRK_IMM)
-> > diff --git a/arch/powerpc/include/asm/bug.h b/arch/powerpc/include/asm/bug.h
-> > index bf31ee1e902a..f0333c564d4f 100644
-> > --- a/arch/powerpc/include/asm/bug.h
-> > +++ b/arch/powerpc/include/asm/bug.h
-> > @@ -32,6 +32,8 @@
-> >   #endif /* verbose */
-> >   #else /* !__ASSEMBLER__ */
-> > +#define ARCH_WARN_ASM_TRAP_LABEL "1"
-> > +
-> >   #ifdef CONFIG_DEBUG_BUGVERBOSE
-> >   #define _EMIT_BUG_ENTRY(bug_entry, trap, file, line, flags)	\
-> >   	".section __bug_table,\"aw\"\n"				\
-> > @@ -45,21 +47,21 @@
-> >   	"		.short " flags "\n"
-> >   #endif
-> > -#define BUG_ENTRY(cond_str, insn, flags, ...)			\
-> > -	__asm__ __volatile__(					\
-> > -		"1:	" insn "\n"				\
-> > -		_EMIT_BUG_ENTRY(2, 1b, "%0", "%1", "%2")	\
-> > -		".org 2b+%3\n"					\
-> > -		".previous\n"					\
-> > +#define BUG_ENTRY(cond_str, insn, flags, ...)				\
-> > +	__asm__ __volatile__(						\
-> > +		ARCH_WARN_ASM_TRAP_LABEL ":	" insn "\n"		\
-> > +		_EMIT_BUG_ENTRY(2, 1b, "%0", "%1", "%2")		\
-> > +		".org 2b+%3\n"						\
-> > +		".previous\n"						\
-> >   		: : "i" (WARN_CONDITION_STR(cond_str) __FILE__), "i" (__LINE__),	\
-> >   		  "i" (flags),					\
-> >   		  "i" (sizeof(struct bug_entry)),		\
-> >   		  ##__VA_ARGS__)
-> > -#define ARCH_WARN_ASM(file, line, flags, size)			\
-> > -		"1:	twi 31, 0, 0\n"				\
-> > -		_EMIT_BUG_ENTRY(2, 1b, file, line, flags)	\
-> > -		".org 2b+" size "\n"				\
-> > +#define ARCH_WARN_ASM(file, line, flags, size)					\
-> > +		ARCH_WARN_ASM_TRAP_LABEL ":	twi 31, 0, 0\n"			\
-> > +		_EMIT_BUG_ENTRY(2, 1b, file, line, flags)			\
-> > +		".org 2b+" size "\n"						\
-> >   		".previous\n"
-> >   #define ARCH_WARN_REACHABLE
-> > diff --git a/arch/riscv/include/asm/bug.h b/arch/riscv/include/asm/bug.h
-> > index 699c0cf3e4ef..def6b0d153f2 100644
-> > --- a/arch/riscv/include/asm/bug.h
-> > +++ b/arch/riscv/include/asm/bug.h
-> > @@ -29,7 +29,8 @@
-> >   typedef u32 bug_insn_t;
-> > -#define __BUG_ENTRY_ADDR	RISCV_INT " 1b - ."
-> > +#define ARCH_WARN_ASM_TRAP_LABEL	"1"
-> > +#define __BUG_ENTRY_ADDR	RISCV_INT " " ARCH_WARN_ASM_TRAP_LABEL "b - ."
-> >   #define __BUG_ENTRY_FILE(file)	RISCV_INT " " file " - ."
-> >   #ifdef CONFIG_DEBUG_BUGVERBOSE
-> > @@ -47,7 +48,7 @@ typedef u32 bug_insn_t;
-> >   #ifdef CONFIG_GENERIC_BUG
-> >   #define ARCH_WARN_ASM(file, line, flags, size)			\
-> > -		"1:\n\t"					\
-> > +		ARCH_WARN_ASM_TRAP_LABEL ":\n\t"		\
-> >   			"ebreak\n"				\
-> >   			".pushsection __bug_table,\"aw\"\n\t"	\
-> >   		"2:\n\t"					\
-> > diff --git a/arch/s390/include/asm/bug.h b/arch/s390/include/asm/bug.h
-> > index 2010342c97b1..3c0fa1acc92a 100644
-> > --- a/arch/s390/include/asm/bug.h
-> > +++ b/arch/s390/include/asm/bug.h
-> > @@ -26,9 +26,11 @@
-> >   #define WARN_CONDITION_STR(cond_str) ""
-> >   #endif
-> > +#define ARCH_WARN_ASM_TRAP_LABEL "0"
-> > +
-> >   #define __BUG_ENTRY(format, file, line, flags, size)			\
-> >   		"	.section __bug_table,\"aw\"\n"			\
-> > -		"1:	.long	0b - .		# bug_entry::bug_addr\n"\
-> > +		"1:	.long	" ARCH_WARN_ASM_TRAP_LABEL "b - .	# bug_entry::bug_addr\n" \
-> >   		"	.long	" format " - .	# bug_entry::format\n"	\
-> >   		__BUG_ENTRY_VERBOSE(file, line)				\
-> >   		"	.short	"flags"		# bug_entry::flags\n"	\
-> > diff --git a/arch/x86/include/asm/bug.h b/arch/x86/include/asm/bug.h
-> > index 23ab05438269..6cca8880660e 100644
-> > --- a/arch/x86/include/asm/bug.h
-> > +++ b/arch/x86/include/asm/bug.h
-> > @@ -62,8 +62,9 @@ extern void __WARN_trap(struct bug_entry *bug, ...);
-> >   #define HAVE_ARCH_BUG_FORMAT_ARGS
-> >   #endif
-> > +#define ARCH_WARN_ASM_TRAP_LABEL "1"
-> >   #define __BUG_ENTRY(format, file, line, flags)				\
-> > -	"\t.long 1b - ."	"\t# bug_entry::bug_addr\n"		\
-> > +	"\t.long " ARCH_WARN_ASM_TRAP_LABEL "b - ." "\t# bug_entry::bug_addr\n" \
-> >   	__BUG_ENTRY_FORMAT(format)					\
-> >   	__BUG_ENTRY_VERBOSE(file, line)					\
-> >   	"\t.word " flags	"\t# bug_entry::flags\n"
-> > @@ -101,7 +102,7 @@ do {									\
-> >   	"99:\n"								\
-> >   	"\t.string \"\"\n"						\
-> >   	".popsection\n"							\
-> > -	"1:\t " ASM_UD2 "\n"						\
-> > +	ARCH_WARN_ASM_TRAP_LABEL ":\t " ASM_UD2 "\n"			\
-> >   	_BUG_FLAGS_ASM("99b", file, line, flags, size, "")
-> >   #else
-> > diff --git a/rust/Makefile b/rust/Makefile
-> > index da1a7409d984..8f253d516495 100644
-> > --- a/rust/Makefile
-> > +++ b/rust/Makefile
-> > @@ -46,7 +46,7 @@ obj-$(CONFIG_RUST_KERNEL_DOCTESTS) += doctests_kernel_generated_kunit.o
-> >   always-$(subst y,$(CONFIG_RUST),$(CONFIG_JUMP_LABEL)) += kernel/generated_arch_static_branch_asm.rs
-> >   ifndef CONFIG_UML
-> > -always-$(subst y,$(CONFIG_RUST),$(CONFIG_BUG)) += kernel/generated_arch_warn_asm.rs kernel/generated_arch_reachable_asm.rs
-> > +always-$(subst y,$(CONFIG_RUST),$(CONFIG_BUG)) += kernel/generated_arch_warn_asm.rs kernel/generated_arch_reachable_asm.rs kernel/generated_arch_warn_asm_trap_label.rs
-> >   endif
-> >   # Avoids running `$(RUSTC)` when it may not be available.
-> > diff --git a/rust/kernel/.gitignore b/rust/kernel/.gitignore
-> > index f636ad95aaf3..05bb00bbb83c 100644
-> > --- a/rust/kernel/.gitignore
-> > +++ b/rust/kernel/.gitignore
-> > @@ -3,3 +3,4 @@
-> >   /generated_arch_static_branch_asm.rs
-> >   /generated_arch_warn_asm.rs
-> >   /generated_arch_reachable_asm.rs
-> > +/generated_arch_warn_asm_trap_label.rs
-> > diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
-> > index e6a5c7a795f0..8cd7c8f91b07 100644
-> > --- a/rust/kernel/Kconfig.test
-> > +++ b/rust/kernel/Kconfig.test
-> > @@ -83,4 +83,19 @@ config RUST_BITFIELD_KUNIT_TEST
-> >   	  If unsure, say N.
-> > +config RUST_BUG_WARN_ASM_KUNIT_TEST
-> > +	bool "KUnit tests for ARCH_WARN_ASM bug table emission" if !KUNIT_ALL_TESTS
-> > +	depends on GENERIC_BUG && !ARM && !LOONGARCH && !UML
-> > +	default KUNIT_ALL_TESTS
-> > +	help
-> > +	  This option enables KUnit tests that verify ARCH_WARN_ASM emits a
-> > +	  correct __bug_table entry: the bug_addr displacement must resolve
-> > +	  back to the trap instruction so that find_bug() can locate the
-> > +	  entry — exactly as the real trap handler does.
-> > +
-> > +	  Supported on all architectures that implement ARCH_WARN_ASM
-> > +	  (x86, powerpc, riscv, arm64, s390).
-> > +
-> > +	  If unsure, say N.
-> > +
-> >   endif
-> > diff --git a/rust/kernel/bug.rs b/rust/kernel/bug.rs
-> > index 3566f0234ca4..9e9b6d3a68b7 100644
-> > --- a/rust/kernel/bug.rs
-> > +++ b/rust/kernel/bug.rs
-> > @@ -152,3 +152,194 @@ macro_rules! warn_on {
-> >           cond
-> >       }};
-> >   }
-> > +
-> > +// Test-only constants and file static referenced by the global_asm block below.
-> > +//
-> > +// global_asm! is file-scope and always emitted — LLVM cannot eliminate it,
-> > +// unlike asm! inside a function which is subject to dead-code removal.
-> > +//
-> > +// BUG_KUNIT_TRAP_ADDR is declared as a .global symbol entirely inside the
-> > +// global_asm! block so the .dc.a {trap_label}b relocation lands directly on it.
-> > +// A Rust static initialized to zero would end up in BSS; the linker does
-> > +// not apply relocations to BSS, so the address would stay zero at runtime.
-> > +#[cfg(CONFIG_RUST_BUG_WARN_ASM_KUNIT_TEST)]
-> > +mod test_statics {
-> > +    use crate::bindings::{bug_entry, BUGFLAG_WARNING, TAINT_WARN};
-> > +
-> > +    pub(super) const FLAGS: u32 = BUGFLAG_WARNING | (TAINT_WARN << 8);
-> > +    pub(super) const SIZE: usize = core::mem::size_of::<bug_entry>();
-> > +
-> > +    // LINE and BUG_KUNIT_FILE are only referenced by the {file}/{line}
-> > +    // operands in global_asm!, which are only present when
-> > +    // CONFIG_DEBUG_BUGVERBOSE is set (the non-verbose _EMIT_BUG_ENTRY
-> > +    // drops the file/line fields from the bug table entry entirely).
-> > +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
-> > +    pub(super) const LINE: u32 = line!();
-> > +
-> > +    // Null-terminated source file name — the assembler references this symbol
-> > +    // for the verbose file pointer in __bug_table, same as warn_flags!.
-> > +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
-> > +    const _FILE: &[u8] = file!().as_bytes();
-> > +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
-> > +    #[no_mangle]
-> > +    pub(super) static BUG_KUNIT_FILE: [u8; _FILE.len() + 1] = {
-> > +        let mut bytes = [0u8; _FILE.len() + 1];
-> > +        let mut i = 0;
-> > +        while i < _FILE.len() {
-> > +            bytes[i] = _FILE[i];
-> > +            i += 1;
-> > +        }
-> > +        bytes
-> > +    };
-> > +}
-> > +
-> > +// Emit ARCH_WARN_ASM at file scope and capture the trap address.
-> > +//
-> > +// The asm string mirrors warn_flags!() exactly — same "/* {size} */" prefix,
-> > +// same generated_arch_warn_asm.rs and generated_arch_reachable_asm.rs includes,
-> > +// same operands — so the two stay in sync as the macro evolves.  The only
-> > +// addition is the .pushsection/.dc.a/.popsection tail that records the trap
-> > +// address into BUG_KUNIT_TRAP_ADDR at link time.
-> > +//
-> > +// BUG_KUNIT_TRAP_ADDR is a .global symbol in .data whose value is set by a
-> > +// .dc.a relocation to the arch's trap label (from
-> > +// generated_arch_warn_asm_trap_label.rs); .dc.a self-aligns to pointer width
-> > +// so no .balign is needed.
-> > +#[cfg(all(CONFIG_RUST_BUG_WARN_ASM_KUNIT_TEST, CONFIG_DEBUG_BUGVERBOSE))]
-> > +::core::arch::global_asm!(
-> > +    concat!(
-> > +        "/* {size} */",
-> > +        include!(concat!(env!("OBJTREE"), "/rust/kernel/generated_arch_warn_asm.rs")),
-> > +        include!(concat!(env!("OBJTREE"), "/rust/kernel/generated_arch_reachable_asm.rs")),
-> > +        "\n\t.pushsection .data\n\t",
-> > +        ".global BUG_KUNIT_TRAP_ADDR\n\t",
-> > +        "BUG_KUNIT_TRAP_ADDR:\n\t",
-> > +        ".dc.a ",
-> > +        include!(concat!(env!("OBJTREE"), "/rust/kernel/generated_arch_warn_asm_trap_label.rs")),
-> > +        "b\n\t",
-> > +        ".popsection\n",
-> > +    ),
-> > +    file  = sym test_statics::BUG_KUNIT_FILE,
-> > +    line  = const test_statics::LINE,
-> > +    flags = const test_statics::FLAGS,
-> > +    size  = const test_statics::SIZE,
-> > +);
-> > +
-> > +#[cfg(all(CONFIG_RUST_BUG_WARN_ASM_KUNIT_TEST, not(CONFIG_DEBUG_BUGVERBOSE)))]
-> > +::core::arch::global_asm!(
-> > +    concat!(
-> > +        "/* {size} */",
-> > +        include!(concat!(env!("OBJTREE"), "/rust/kernel/generated_arch_warn_asm.rs")),
-> > +        include!(concat!(env!("OBJTREE"), "/rust/kernel/generated_arch_reachable_asm.rs")),
-> > +        "\n\t.pushsection .data\n\t",
-> > +        ".global BUG_KUNIT_TRAP_ADDR\n\t",
-> > +        "BUG_KUNIT_TRAP_ADDR:\n\t",
-> > +        ".dc.a ",
-> > +        include!(concat!(env!("OBJTREE"), "/rust/kernel/generated_arch_warn_asm_trap_label.rs")),
-> > +        "b\n\t",
-> > +        ".popsection\n",
-> > +    ),
-> > +    flags = const test_statics::FLAGS,
-> > +    size  = const test_statics::SIZE,
-> > +);
-> > +
-> > +#[cfg(CONFIG_RUST_BUG_WARN_ASM_KUNIT_TEST)]
-> > +#[::kernel::macros::kunit_tests(rust_kernel_bug_warn_asm)]
-> > +mod tests {
-> > +    use crate::bindings;
-> > +
-> > +    fn trap_addr() -> usize {
-> > +        // BUG_KUNIT_TRAP_ADDR is a .global symbol defined in the global_asm!
-> > +        // block above, placed in .data at the exact .dc.a 1b relocation word.
-> > +        // The linker resolves it to the virtual address of the twi instruction
-> > +        // before any Rust code runs, so reading it here is always safe.
-> > +        extern "C" {
-> > +            // .dc.a emits a pointer-width word: 4 bytes on ppc32, 8 on ppc64.
-> > +            // usize matches the native pointer width on both.
-> > +            static BUG_KUNIT_TRAP_ADDR: usize;
-> > +        }
-> > +        // SAFETY: read-only after link time, no concurrent mutation possible.
-> > +        unsafe { BUG_KUNIT_TRAP_ADDR }
-> > +    }
-> > +
-> > +    /// The `__bug_table` entry emitted by `ARCH_WARN_ASM` must be locatable
-> > +    /// via `find_bug()` using the trap instruction's address.  A NULL result
-> > +    /// means the `1b` label reference in `_EMIT_BUG_ENTRY` resolved to the
-> > +    /// wrong address and the real trap handler would not recognise the site.
-> > +    #[test]
-> > +    fn bug_entry_found() {
-> > +        // Non-zero proves the .dc.a relocation was resolved by the linker.
-> > +        assert!(trap_addr() != 0);
-> > +
-> > +        // SAFETY: find_bug() is always safe to call with any address; it
-> > +        // simply walks __bug_table and returns NULL if nothing matches.
-> > +        let entry = unsafe { bindings::find_bug(trap_addr()) };
-> > +        // Non-NULL proves the bug_addr displacement in _EMIT_BUG_ENTRY is correct.
-> > +        assert!(!entry.is_null());
-> > +    }
-> > +
-> > +    /// The emitted entry must be flagged as a warning (not a hard BUG).
-> > +    #[test]
-> > +    fn bug_entry_is_warning() {
-> > +        assert!(trap_addr() != 0);
-> > +        let entry = unsafe { bindings::find_bug(trap_addr()) };
-> > +        assert!(!entry.is_null());
-> > +        // SAFETY: entry is non-null and points to a valid bug_entry.
-> > +        let flags = unsafe { (*entry).flags } as u32;
-> > +        assert!(flags & bindings::BUGFLAG_WARNING != 0);
-> > +    }
-> > +
-> > +    /// With `CONFIG_DEBUG_BUGVERBOSE` the entry must record a non-null file
-> > +    /// pointer pointing back into this source file.
-> > +    #[test]
-> > +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
-> > +    fn bug_entry_file() {
-> > +        use kernel::str::CStrExt;
-> > +
-> > +        assert!(trap_addr() != 0);
-> > +        let entry = unsafe { bindings::find_bug(trap_addr()) };
-> > +        assert!(!entry.is_null());
-> > +
-> > +        let mut file_ptr: *const kernel::ffi::c_char = core::ptr::null();
-> > +        let mut line: u32 = 0;
-> > +        // SAFETY: entry is non-null and valid; file_ptr and line are local
-> > +        // variables passed as out-parameters.
-> > +        unsafe { bindings::bug_get_file_line(entry, &mut file_ptr, &mut line) };
-> > +
-> > +        assert!(!file_ptr.is_null());
-> > +        // SAFETY: file_ptr is a non-null, null-terminated C string from BUG_KUNIT_FILE,
-> > +        // valid for the lifetime of this function.
-> > +        let file_str = unsafe { kernel::prelude::CStr::from_char_ptr(file_ptr) }
-> > +            .to_str()
-> > +            .unwrap_or("");
-> > +        assert!(file_str.contains("bug"));
-> > +    }
-> > +
-> > +    /// With `CONFIG_DEBUG_BUGVERBOSE` the recorded line number must be
-> > +    /// non-zero (a zero line would mean the asm operand was not substituted).
-> > +    #[test]
-> > +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
-> > +    fn bug_entry_line() {
-> > +        assert!(trap_addr() != 0);
-> > +        let entry = unsafe { bindings::find_bug(trap_addr()) };
-> > +        assert!(!entry.is_null());
-> > +
-> > +        let mut file_ptr: *const kernel::ffi::c_char = core::ptr::null();
-> > +        let mut line: u32 = 0;
-> > +        // SAFETY: entry is non-null and valid.
-> > +        unsafe { bindings::bug_get_file_line(entry, &mut file_ptr, &mut line) };
-> > +
-> > +        assert!(line != 0);
-> > +    }
-> > +
-> > +    /// The trap address stored in `__bug_table` must lie within the kernel
-> > +    /// text segment.  If the label reference in `_EMIT_BUG_ENTRY` resolved
-> > +    /// to data or zero, `kernel_text_address()` would return false.
-> > +    #[test]
-> > +    fn bug_entry_addr_is_in_text() {
-> > +        assert!(trap_addr() != 0);
-> > +        // SAFETY: kernel_text_address() is always safe to call with any addr.
-> > +        let in_text = unsafe { bindings::kernel_text_address(trap_addr()) };
-> > +        assert!(in_text != 0);
-> > +    }
-> > +}
-> > diff --git a/rust/kernel/generated_arch_warn_asm_trap_label.rs.S b/rust/kernel/generated_arch_warn_asm_trap_label.rs.S
-> > new file mode 100644
-> > index 000000000000..d7bed8751f10
-> > --- /dev/null
-> > +++ b/rust/kernel/generated_arch_warn_asm_trap_label.rs.S
-> > @@ -0,0 +1,7 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +
-> > +#include <linux/bug.h>
-> > +
-> > +// Cut here.
-> > +
-> > +::kernel::concat_literals!(ARCH_WARN_ASM_TRAP_LABEL)
-> 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
