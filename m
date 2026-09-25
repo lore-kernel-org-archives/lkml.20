@@ -1,83 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B880B4B049D;
-	Fri, 25 Sep 2026 14:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4514B488E;
+	Fri, 25 Sep 2026 14:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790347969; cv=none; b=aw4jHYNzpZxkeBr4iWalRHijpv+NkEYPXFZTn7Q47NCmg9VaQvqmAGn+/PiN9Il91H3ncKs1Vlw56DpTbizULnL8GUXNkvJumaPg8pJBP1NTIMdOAWmR1VJMVc3PBXo6kH5Bl134T2afDhN9gIrUiwzrl7rK6CnFQqth2VaItg0=
+	t=1790348043; cv=none; b=ZS4aIlkVGBMXdtZmL9mAMRWg+6/MRGhfiFzkzvR558oq2QgTHsQpVq/lsHhEtaLWwKtn1HCnYdSGkTi4Obh69xG88m+vIAGgONMsa3xY1mtmFS8P+O2JDZDD8TaKTXb4qClrc2VPpeFDgTern564Zc6YdA8R6NcJoPccRorHVdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790347969; c=relaxed/simple;
-	bh=Hl+8wz8tp1wu8qAL6hnJ8ublCc3/qSu9zox/vnjT1Pw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ew1u3ucgil652hj2bWM6p19Ddg2OMflUk0msgk7IsM2Nav5N+h1Vvz8tnDlBFZ2bPpo0v80xwTn6MkFtrVdF0Pg0RxARvTAAgWgl6tZuLHCU4Pd8DWTgewIuaTFl7Z/TH15KUe2HDzHzZCDIiG4x0UXCR4emWt+CAWUkJqb5Q7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WKKK8XKP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790348043; c=relaxed/simple;
+	bh=JyMxU6snONWtt3RhFpbfAUM04pv9R2ebELfpNymy7L4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Mbx3n0X8ugtnuTZygq50Bm9IEj67rtA0aQVFRN4aEyS0F9jW59GmRt/w8rHQlSF3ey0mWPcCjm+ye/BqhMgjnfMmPxP8XdxMJ90Fu6H+Q0/snBFMabXFe1HWqBQXZD8rolHkk0PXki4/xImv6fyY8Kvj53tlfEVYjSQD8T/scaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=BqxZ2HiG; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WKKK8XKP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE9D21F000FF;
-	Fri, 25 Sep 2026 14:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790347961;
-	bh=eqwba8uIyIBHU0D+mbWaPP6/65+16kFFe7c0vWebTx4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WKKK8XKP/if2xktccrO3rxMkmW6KauTsNF/lj7apJemrvIkZh0tl++Rd6QTb/r0kB
-	 7aiSZdBVt4ia9O5hAGENSxqkZ6y2rmcbfkuKUCjPZzgPw2pwDyiOl+fIe5iyPYZ8H/
-	 Ax8/uJesAMhZVGETEX/Idvmy/JXR20JcAIQ/6lnzcMqNkB+Zj5dIMi78/ThMizoyQa
-	 RuS8y4xzId+2brqX6xy9hkRWnXdYwcBc8RPHksQMo6YqBf6F/wgkB6axS4oSzJmBOG
-	 SJ+tevz7BD4d/3Z1HyECvqS51nX6U5rChQ3MB+b0dlPtJiXM64w+BkSrns4wj5gvKM
-	 RgVt6SXFkZNVg==
-Date: Fri, 25 Sep 2026 15:52:36 +0100
-From: Simon Horman <horms@kernel.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: anthony.l.nguyen@intel.com, alessio.bogani@elettra.eu,
-	przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, richardcochran@gmail.com,
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	jianhao.xu@seu.edu.cn
-Subject: Re: [PATCH net v2] igb: initialize PTP state before registering PHC
-Message-ID: <20260925145236.GO13925@horms.kernel.org>
-References: <cd12af33-ed01-4eca-88e3-703b59c05453@intel.com>
- <20260917150247.2562991-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="BqxZ2HiG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=g2
+	m4iPWcaNoVzycK5u3hyWJISl6pndfOKW8vp8dCRmY=; b=BqxZ2HiGs3CaClH+ny
+	ZJnh7p/ptARb42BBbTdlPfy4uCVPL01c4q7ueHIcBfchjacQ/WTQ7RRlbrSKQcHi
+	lxdK9ED+PT1wvmGyhodS0C0ZWTQhkO71uIjy0GeD44bh51XiwejfJkzMDiX/7h2E
+	awXciyStGMCffjkoDRFo7eH+U=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnDzotirZqxGkVAw--.19574S3;
+	Fri, 25 Sep 2026 22:50:23 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Rander Wang <rander.wang@intel.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH 1/6] ASoC: rt5682-sdw: always cancel jack work on remove
+Date: Fri, 25 Sep 2026 22:50:13 +0800
+Message-Id: <20260925145019.2290367-2-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260925145019.2290367-1-yaojiale02@163.com>
+References: <20260925145019.2290367-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917150247.2562991-1-runyu.xiao@seu.edu.cn>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnDzotirZqxGkVAw--.19574S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar1xZrykKr1fWrWUCFyUJrb_yoW8GryDp3
+	9xWF48GayUJrWkA3Z0qw48JF4akrZ2v347Ar17Ww18J345CF1jgw1xJr4j9FW8XrWv9F17
+	XF47Zry5ur45CaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pM_M3iUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A-1MGq2ii-q3QAA30
 
-On Thu, Sep 17, 2026 at 11:02:47PM +0800, Runyu Xiao wrote:
-> igb_ptp_init() currently initializes the PTP lock, work items,
-> timestamp configuration, and timecounter after ptp_clock_register().
-> The PHC is published by that call, so PTP callbacks and timestamp
-> interrupts can run before those objects are ready.
-> 
-> Initialize the complete PTP state before registering the PHC. Skip the
-> setup when CONFIG_PTP_1588_CLOCK is disabled, since the PTP registration
-> helper is then a no-op. If PHC registration fails, cancel the work items
-> queued by igb_ptp_reset() or a timestamp interrupt before returning.
-> 
-> Fixes: b888c510f7b3 ("igb: Avoid starting unnecessary workqueues")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/netdev/20260830154912.2712900-1-runyu.xiao@seu.edu.cn/
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> 
-> ---
-> v2:
-> - Restore all PTP state initialization before PHC registration.
-> - Skip PTP setup when CONFIG_PTP_1588_CLOCK is disabled.
-> - Cancel both PTP work items when PHC registration fails.
+rt5682_sdw_remove() cancels jack_detect_work only when hw_init is true.
+rt5682_update_status() clears hw_init when the SoundWire slave becomes
+unattached, but jack_detect_work may already have been queued by
+rt5682_interrupt_callback() or the jack initialization path.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+A remove after that status update can therefore skip the cancellation and
+leave delayed work pending after the codec private data has been freed.
 
-For future reference: please post new patch revisions as new
-email threads, rather than as a response to an earlier revision.
+The work object is initialized during probe, so cancel it unconditionally
+instead of relying on the mutable hw_init state.
 
-Link: https://docs.kernel.org/process/maintainer-netdev.html#resending-after-review
+Fixes: ac63716da307 ("ASoC: Realtek/Maxim SoundWire codecs: disable pm_runtime on remove")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ sound/soc/codecs/rt5682-sdw.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Thanks!
+diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
+index 23c7d2a9dbee..5f2897c58ad7 100644
+--- a/sound/soc/codecs/rt5682-sdw.c
++++ b/sound/soc/codecs/rt5682-sdw.c
+@@ -704,8 +704,7 @@ static void rt5682_sdw_remove(struct sdw_slave *slave)
+ {
+ 	struct rt5682_priv *rt5682 = dev_get_drvdata(&slave->dev);
+ 
+-	if (rt5682->hw_init)
+-		cancel_delayed_work_sync(&rt5682->jack_detect_work);
++	cancel_delayed_work_sync(&rt5682->jack_detect_work);
+ 
+ 	pm_runtime_disable(&slave->dev);
+ }
+-- 
+2.34.1
+
