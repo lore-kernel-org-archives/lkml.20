@@ -1,100 +1,96 @@
-Received: from mta0.migadu.com (out-53.mta0.migadu.com [91.218.175.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2805D4D9F7A
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:36:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA3D4E2F32;
+	Fri, 25 Sep 2026 19:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365016; cv=none; b=OFWwFWarAGZVnQDQSclKe6cCGap5V79ARH8QYK29anhu7LCS3yAVU4cquVi3iLSDmd4l21J9I4Dsb7AVJklUhrMEmbDBHr1Jx9qdW27Obh2geXLg1fRcZQqAYAhllTRkoKFBsJkMTELBxIW+PniPDU7PobG7JdoDkCBJTxU92EA=
+	t=1790365024; cv=none; b=k2ZaptYuUjpgG24m3/TQ0p2Lum8wSwz7nbAvr2XWnkPu+aT3wblhffJ3GogqT82A9ujgkhA62bzo8vTy8fGiDcnxgDUlXXGD4rrTAw4iJD5iNh+eTC5tiJsWXIb0yCMfjFqvtQJma2/eLmiqwdkXxID+fl6L8nw2kqJ97QCW9hM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365016; c=relaxed/simple;
-	bh=M4/lST7zD2Erdwe6/sNV3cFEsUbk898lwUHJrduDZXw=;
+	s=arc-20240116; t=1790365024; c=relaxed/simple;
+	bh=a6YgVydek5Dn4F4OIbLH+qRAsZ/TMVHeaHC37xBA/Nk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uv9b4ejQQybfCvYjRZw2zMjGRCY0rcxvctioi492c/Z30utbeR3Z9p+iN18GUpe/uV5JNiXQx7nWwnPfhjGWWc5UyFy6REPYrTRVl1jVVaZRVaI9sD6isvQHbRe+2/duDFsqsmzUuq2Khv5plPMxAx6Hrhbw8ykpqrvvrHTtD/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BRe/E98K; arc=none smtp.client-ip=91.218.175.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=FDSgQ7FNnQR9w6xIMAHrktmHdc6iBolSL8NFkdxwrEZxZMxygwKiYCgQOv20Xm54OybFnHBdJY3kvruZQtgoiLYddvNBysrJzJHcQbGRZKzwLziiFKhLmqWrt4F/V6PvPXy92O5DC//T+eajCvuwVRPquq1g6XdOdrgct/exOp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dv7Paa+e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BRe/E98K"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=M4/lST7zD2Erdwe6/sNV3cFEsUbk898lwUHJrduDZXw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790365013; v=1; x=1790969813;
- b=BRe/E98KZSR63+gkjFk3hcCk4237lUFu1x2KoDAA8k5aPotOm9b/w6nC2l/Ev5et+DCZVvi8
- qxNz7mPoX7PPvkBjB3x1V86N2fzl8Ogt+5xYJjhVf0TGLAiTqEjmKmLFmUhsaskLYaxulWzvJGS
- p91blrhC0QDIDgDcFfibKeY4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9b23b1b9c141f10f;
-	Fri, 25 Sep 2026 19:36:52 +0000
-X-Mizu-Trace-ID: 9b23b1b9c141f10f
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 25 Sep 2026 12:36:46 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Chris Li <chrisl@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Rik van Riel <riel@surriel.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Gregory Price <gourry@gourry.net>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arbGo3QTYlUD5cVW@linux.dev>
-References: <aqjcFb6MFNiA6n4V@fedora>
- <aqjpYHbZ14A8xRtK@fedora>
- <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
- <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
- <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
- <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
- <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
- <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
- <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
- <arUcil9kxUPiymXI@KASONG-MC4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dv7Paa+e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FE2D1F000FF;
+	Fri, 25 Sep 2026 19:37:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790365023;
+	bh=ZswR5UWkm1BCz5yg/l3wO12v6Cnrj2+kj6gXYAI0W58=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Dv7Paa+eIvVZGik3JSlnNwxiRxyacR5S5JuDFMqN6Wgc0C/mJfvmzYBgK5pn5Jv8H
+	 GIF5tGv0XB8dymG4tiNLS0XOuJFkWeSCFcc01zcZkKe9+mgs96zSymDrwO+wkDokw0
+	 UmQ2eFcFGCksIhLyVIcm+8xZO5ckaE4kU8XNqU+hUka5ICBHUYOvbb3tlRTi5TWpKn
+	 9iodHSkXWjleXHoUfybbB6zEWmhkNT7zXvtCP8u5n48JeN3pHbmuOCnzs6fYBL3GD2
+	 8Es+Bhu73aHnbn/ZppLo9ocdwCoWTeFQCyChsAPzZ2ek4eGosclQunZY7cS/xmxfSD
+	 gacSkmEM7FPjw==
+Date: Fri, 25 Sep 2026 20:36:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@redhat.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Intel Graphics <intel-gfx@lists.freedesktop.org>,
+	DRI <dri-devel@lists.freedesktop.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <47218081-0338-4a3d-bca3-8b0b5a3bda14@sirena.org.uk>
+References: <arPTRF4qS6o1Q3vD@sirena.co.uk>
+ <CADnq5_NUH1MBU15Vs287by4P37YV+6F1Q3J1e4Q4KuOvPwK9Fw@mail.gmail.com>
+ <arPhsTaiqXPgCqAU@sirena.co.uk>
+ <CADnq5_OJ=kP+0=iXbpcjsWbTx8=sNfov0wLSW53qLcFU0fmVVg@mail.gmail.com>
+ <4ddbd29e-3524-4f4c-b6d7-1e2e677641b5@sirena.org.uk>
+ <CADnq5_OPPnSs9Bv8LxRp104Cejf3H3JFkBE4XSfiTYgkdmjbHg@mail.gmail.com>
+ <2eaa0128-4cda-4f26-b9de-311add98a1fa@sirena.org.uk>
+ <CADnq5_M0uB6uRvQh3jEZGVEFqmU0wp_w=wmsipXqz=Nq5QZwhg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="s1+vNEBEsb7MYG6e"
 Content-Disposition: inline
-In-Reply-To: <arUcil9kxUPiymXI@KASONG-MC4>
+In-Reply-To: <CADnq5_M0uB6uRvQh3jEZGVEFqmU0wp_w=wmsipXqz=Nq5QZwhg@mail.gmail.com>
+X-Cookie: Love America -- or give it back.
 
-On Fri, Sep 25, 2026 at 09:15:17PM +0800, Kairui Song wrote:
-[...]
 
-Thanks Kairui for very clear description of what you want and looking for.
-After reading your email, I think you want memsw support in v2. Currently you
-somehow are implementing memsw using memory.current and memory.swap.current.
-(I am assuming you need to subtract swapcache to avoid double counting.)
-To conclude, you want to use vswap (the aim is it to default) but you still want
-your way to implementing memsw keep working.
+--s1+vNEBEsb7MYG6e
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Please correct me if I missed something.
+On Fri, Sep 25, 2026 at 03:21:43PM -0400, Alex Deucher wrote:
+> On Fri, Sep 25, 2026 at 1:03=E2=80=AFPM Mark Brown <broonie@kernel.org> w=
+rote:
 
-I am wondering if you really want memsw, why not propose memsw. Someone from
-tencent proposed memsw [1] previously, so why not continue that effort? I am
-pretty sure folks from Google (people who actually work on prodkernel there)
-will be happy to collaborate with you on that.
+> > It seems everything built fine today, I'll try dropping the workaround
+> > commits for Monday.  The drm and drm-misc trees are still failing due to
+> > the original issue.  Thanks for getting things sorted.
 
-[1] https://lore.kernel.org/20250319064148.774406-1-jingxiangzeng.cas@gmail.com/
+> Thanks.  I've sent Dave and Simona a PR with the fixes so as soon as
+> that gets merged into drm-next, this should be resolved.
 
-Setting aside the memsw conversation, I think we should go back to the actual
-vswap conversation and list down what we agree on and where we still need
-discussion and decision. (I will take a stab at it and start a separate thread
-but still on this email and will use AI for the summary.)
+Great.  Someone will still need to prod the drm-misc people once the
+merge is taken I guess?
 
+--s1+vNEBEsb7MYG6e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2zVkACgkQJNaLcl1U
+h9A2gQf/XCnaD5SCzCDZRF1Y6n8QkFfln/MHlX4+hqg+C2pMWneYdac3rAWXJKHN
+Irn0VtA7Z0xViKwudX7huCBrQhNm/9U1pucqXXkVSd4gUhbjGeH6mqCViU2QIm+J
+PjW3N816n+Yi5hZR0kuJZ77HLhYVZcI4hTXCYhbWueVVKb+AKx9kwjWFCVhH+5vU
+JDZfnBoaapsSCbPogFUWybCd1WNRJJzBu8s1gF57QK+NBb7rVG07DUGDxF+zFbNq
+6djRO01iXENsTSRuRsH7mMsqLL1JKQrdIGPAIy2mXEL0qFdPDhvYPEkqHedn5lci
+DOlXIiYukKASSAKuy0cE8p6lxxm3rg==
+=4JH7
+-----END PGP SIGNATURE-----
+
+--s1+vNEBEsb7MYG6e--
