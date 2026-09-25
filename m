@@ -1,121 +1,166 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8431A4E66A2
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790366131; cv=pass; b=uZJVQOmFpwwkLcsOUAUdna65N9BXb5efHO0b5STPjBY1RM0KgqNau+LlE0aCZIxzuR97pua8Kjdo+CZmdztqoJtZG7jDfLCmqSGyUO2XIINK5IY+FrNFHNLliPrwXImv7gHZ8UkKxYAxTCdLwPvFNX20+ogLdvAYuU0uaL06anA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790366131; c=relaxed/simple;
-	bh=y3d480aQ4neFXYQOEaCvASlHXtKnpBE1ubNE+6f7raw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kYmRTXNWR3B8oBpfYsAMULTtBGTwYBpQF3IBHWIqQR8Csmbw29oGEOKgcB5Jjx6yJXQqeBvJUKd3rsKrKVLmyr5QKSu8v6uHjFDVPj7FjKPGGRgYPBMFRBu5DmuxGRU4mmPp3JoZNgTUjq1aJaduh6BZbp5H97CRQcVy6WISopA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=wBeTCMps; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2484E3ECA;
+	Fri, 25 Sep 2026 19:56:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790366174; cv=none; b=PF9r9kSVwaq2fGtG9WxdFcSzWNjlJZGJQCffl8YsY79jxcp20BeNCQIA/ActI9FYMVDUe+OsMwgcrIaRZ23TJv45vSYcK+q3+P9dJ7bRjFiwrwxiePAB+0OsNy0PTREupgK4uiTCoeFM92V/NeAYgNo4v4AnVBbhUcy+qeixamA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790366174; c=relaxed/simple;
+	bh=audB0FpfDuBfRyPBf9bWcCoNtlhwyLxuyZnOlMpzEJY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uUMRskgjBwBg3OStAL4O4ZYuM27krg6yf9uuE7gv7mTuoBPNIjUt7EABEKPXJQ32l8Dz7jULT4orSeOX2W4EgsveQVOfBUGi74OzveYHjW8IJ8pETWajqLl0gky1wLoBIqDAhf8pAVZ991HJ6dJB7AWmzvg32x2NtK0agnAAvOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=Wq313/Pc; arc=none smtp.client-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="wBeTCMps"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab2029eso1278823d50.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:55:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790366128; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g/KmdCU5GUXubwOuDYRVT3FriCIyZjIT9CrU4vHX1qFHvhM8gQVJwvyQBMepvK8XIf
-         lLVDTUIWWwKfFAS7JomD+AUzwBUiLaTRzFTBmpNAbBSC20koMYahWVHQv+/en7fDb4Ss
-         QaKpGWRuQR9Zp8kautzri6wdNsqa6XNaTQ9Na6bhtLPiR2V0iMbvE2wpE8dde+iEwHch
-         VxTjAWgVl9tgTzcgCxpRnbMbEIfXL8mTGi0bIqrAZ6ap2NGQYgSyN2fGAU7NJ9J0K6w3
-         n9m/DgC4BAJLlwcn2/pGhgu5ccWpGpfAkqeV/0njeAtZUsTRLmMlv2MHp1MwavGCq3Ue
-         D67A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=M/kLmD3ssejf7itbaiJfm/99tp9oxE9QonIXci/xOzo=;
-        fh=FZmc20SlxWYeLtUEEfLHtx9Qq+5bZT3Wwf2h0u/ujqA=;
-        b=hhRvdWjF1n56Hinoa3xJvdSapOw//AxsaCBZ7MQYmFGRK7K5s8Lv3lDLgyzuEX/LWQ
-         ho5BmDgooN6YrO1k57I+kO/FLKwKQbRCVuIuVedgargC/VznirY2C009jsjpyLRyh40n
-         SYUFUh7RFBl3JyngZKS5RTWWV8l1MHtTLfaojrk2rtM7f5rKdJkF3EdaqGNtwsn6LuAQ
-         I9/AsjIDKAOp6wR/VdvEBXCjXnhfjFtOpS6sZA2FByNPsbmPVI0K8DHTCV5c5rxVWY4J
-         TUxsEYYsAcISMBq5xD/w1pScjKE92XT+y6nS0WBcAymLVQKDJQXzpmk7IlqJ/F8RwOXq
-         X7eA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1790366128; x=1790970928; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M/kLmD3ssejf7itbaiJfm/99tp9oxE9QonIXci/xOzo=;
-        b=wBeTCMps1t6bOOsVZiXLq+I+rCRB2V+jvSit1DyZoLyG0oHUhct2R7qWUKmfzvrsnS
-         lIvCSJ60sKjUz4WsRDjOtgoMB02nIZg2DyzgRh//hzlT2GzZ3zN9ZotrAMjfh7FGmQhJ
-         JXxFQowJ9rG9dNpfXG1zFPLpRCIeAZPex+uOQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790366128; x=1790970928;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=M/kLmD3ssejf7itbaiJfm/99tp9oxE9QonIXci/xOzo=;
-        b=fMz1ZGThWgUNasaGat9/hmHutptHR12BJVjikBVYpuilLvQInxZM9Hv2H8DTudMhdh
-         6S+ZtMSVvQpE02cYFTKzkuvsCcMMWvUoLs8FY/v8ArSG0kn28oveTeqKrgLPC5flp90P
-         wJG7KvehRFNdX6v5Z+89vqwsxcJ/8UI9iYM1W7AKxtDIVzxqF3hXc3RrnRJNbQsWDLIh
-         eM2ds5ZcLsmGTZLe9vdLwN94buLbSzcs6YefkB8TruHLhErF4TKOQHr3lJLF5mtoHugb
-         nt1sTmuVeOSA4fMN6V4qnRzJt9K/7GeLiwplHOjB4tyMct/qMdPmCqKo8o2sgUkfCNvM
-         yRVg==
-X-Forwarded-Encrypted: i=1; AKwUvBxOhM/g9O+2gTTxkCDhA9wILvfjAGJubVyYswZG84LG9IhQTTse7NygVCteHekAZ2NcUvV4JXI6s0ZbxS4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0OXR4eOReQN4Ql79uB9Jep6DtlArSI6Oa7oX3WueOihJ0mqIQ
-	gW/46XQeQSvHeD8feHTd7sutOfF1F/99M0CdwRTDoPMZ3qpLH3Ox3ZGVSnbtZltR8ftvmOb332i
-	Jb3uliS4bFPZbZUAEtV901mrxCn0Y0YrLRiwV3tyuwg==
-X-Gm-Gg: AYBFou3+K7Mw00mYY19cA8WHXA1DB5tYMvcBJFsWq5+mB+NSohayQdCSTIvPb4vGqrc
-	U8ibs9oJVUofU9or/hd9C0jjnYzPCVzHTiSkVvNIQjMCse2bGzy7N6IN1yS2CyAbWoa4nAIJx2F
-	8oioZoNq0XdE4RIhI1xSO9ov3BUHtsUza4wnTQPp2kBNLzrbPAyXDEV4iuE0cttZ+MqRtO2wcWY
-	TlWNt+LsJRFTMmeg+uLYQ2/29erYwjOJUEtsL/fpMV9lQbP082GiFqCHaMDozAt7cFUyc7f3Fum
-	QLfGkVfpny07mAAg+ZvggVOlK2k+gvlhbhcxHFeOdMEVTH9kYgM2VsUt+gNYO/YDhmKe5ZHLG8F
-	Q8I4woO1ix78=
-X-Received: by 2002:a05:690e:190d:b0:674:eef:ff94 with SMTP id
- 956f58d0204a3-6740ef00198mr1221668d50.94.1790366128017; Fri, 25 Sep 2026
- 12:55:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="Wq313/Pc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1790365805;
+	bh=87cpbqsvmvNk3D+HWx2HPcws+nCHaTHP+1cQwQL9204=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Wq313/PcFbW8iZ61i863Ef88wzhMoiLcYCMPsCOq0XIOXF4vOhHJF2VoxQwAgNv3G
+	 zXbgVy/7oC3QRMawBIwj6zsHHaQ2UI/EOtJfSlRSgqEXFpRRfFnEoecn0s3E8Q9Me4
+	 QCadYiWUg4853PVzCYZFiLYbumIGL0e3ODW7z6jgHFab/XLjdaikdFr6XqjPs6EEf0
+	 mAjCR2/jWeh7FSxYY9iMM8jF12WapgchU2o94vRP+lL1gstHQKavEbQSEk2l5RBn3l
+	 IiIGOUwmD4WlnyH1MryF+Chrp0n9+zNJLpxdPlyparsRzq44R45OD899vApttUpjXI
+	 xB9H68P46auwg==
+Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hs1Wd22khzgw0;
+	Fri, 25 Sep 2026 15:50:05 -0400 (EDT)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: "Paul E . McKenney" <paulmck@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	Gary Guo <gary@garyguo.net>,
+	rcu@vger.kernel.org,
+	lkmm@lists.linux.dev
+Subject: [PATCH] hazptr: Fix two-phase hazptr_synchronize race with detach
+Date: Fri, 25 Sep 2026 15:49:42 -0400
+Message-ID: <20260925194952.4704-1-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-perf-symbol-memory-send-v3-0-3e4e234c363b@uber.com>
- <20260925-perf-symbol-memory-send-v3-3-3e4e234c363b@uber.com> <CAP-5=fUumhE1-DT3a-EBYQADy6Az=nViGmz==n1ocqXiXAEQjg@mail.gmail.com>
-In-Reply-To: <CAP-5=fUumhE1-DT3a-EBYQADy6Az=nViGmz==n1ocqXiXAEQjg@mail.gmail.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Fri, 25 Sep 2026 12:55:12 -0700
-X-Gm-Features: AclHuK-_YU3Ru0K4GbKsaTj_Yit9QoL61jEi7xwvNXY-JzFdQZ5vCR4eLAKyjWI
-Message-ID: <CA+w=M=RJYSCuk1SoU+OR53Odf6OyKMsjDMUAtaxSmD_4Zyq7oQ@mail.gmail.com>
-Subject: Re: [PATCH v3 3/6] perf symbols: Factor out duplicate symbol selection
-To: Ian Rogers <irogers@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> > -int arch__choose_best_symbol(struct symbol *syma, struct symbol *symb);
-> > +int arch__choose_best_symbol(const struct symbol_candidate *a,
-> > +                            const struct symbol_candidate *b);
->
-> Given you can change this function definition and only change 1 C
-> file, is there any reason not to make the function static in symbol.c
-> and move the struct symbol_candidate definition also to symbol.c?
->
+Boqun Feng pointed out that a detach happening concurrently with
+hazptr_synchronize can miss a slot. Indeed, scanning the per-CPU
+slots needs to be done *before* scanning the overflow lists. Fix the
+implementation accordingly.
 
-Thanks for the review. Patch 5 calls symbol__choose_best() from
-symbol-elf.c: the lazy index resolves same-address duplicates from its
-index entries, not from struct symbols, and uses the same policy as
-the eager loader. That's why patch 3 makes it non-static.
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Reported-by: Boqun Feng <boqun@kernel.org>
+Cc: Paul E. McKenney <paulmck@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>
+Cc: Bradley Morgan <brads@mainlining.org>
+Cc: Gary Guo <gary@garyguo.net>
+Cc: <rcu@vger.kernel.org>
+Cc: <lkmm@lists.linux.dev>
+---
+ kernel/hazptr.c | 43 ++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 36 insertions(+), 7 deletions(-)
 
-struct symbol_candidate has to stay in symbol.h as well, because
-arch__choose_best_symbol() takes it and powerpc overrides that weak
-function in arch/powerpc/util/sym-handling.c.
+diff --git a/kernel/hazptr.c b/kernel/hazptr.c
+index d3d1050d92cf..ccc19843edbd 100644
+--- a/kernel/hazptr.c
++++ b/kernel/hazptr.c
+@@ -24,6 +24,9 @@ static DEFINE_MUTEX(hazptr_wildcard_lock);	/* Protect the wildcard flip. */
+ void *hazptr_wildcard = (void *) 1UL;
+ EXPORT_SYMBOL_GPL(hazptr_wildcard);
+ 
++/* The current overflow list phase. */
++static unsigned int hazptr_overflow_list_phase;
++
+ struct hazptr_overflow_list {
+ 	raw_spinlock_t lock;		/* Lock protecting overflow list and list generation. */
+ 	struct hlist_head head;		/* Overflow list head. */
+@@ -53,6 +56,12 @@ void *flip_wildcard(void *wildcard)
+ 	return ((unsigned long) wildcard == 1UL) ? (void *) 2UL : (void *) 1UL;
+ }
+ 
++static
++unsigned int flip_list_phase(unsigned int phase)
++{
++	return 1 - phase;
++}
++
+ static
+ bool is_wildcard(void *addr)
+ {
+@@ -178,15 +187,12 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
+ }
+ 
+ static
+-void hazptr_scan_period(void *addr, void *scan_wildcard)
++void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
+ {
+-	unsigned int scan_idx = (unsigned long) scan_wildcard - 1;
+ 	int cpu;
+ 
+ 	/* Scan all CPUs slots. */
+ 	for_each_possible_cpu(cpu) {
+-		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+-
+ 		/*
+ 		 * Scan CPU slots.
+ 		 * Forward progress against recurring wildcards is guaranteed
+@@ -199,6 +205,17 @@ void hazptr_scan_period(void *addr, void *scan_wildcard)
+ 		 * to acquire that same hazard pointer value.
+ 		 */
+ 		hazptr_synchronize_cpu_slots(cpu, addr, scan_wildcard);
++	}
++}
++
++static
++void hazptr_scan_overflow_list_period(void *addr, unsigned int scan_idx)
++{
++	int cpu;
++
++	/* Scan all CPUs overflow lists. */
++	for_each_possible_cpu(cpu) {
++		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+ 
+ 		/*
+ 		 * Scan backup slots in percpu overflow lists.
+@@ -218,6 +235,7 @@ void hazptr_scan_period(void *addr, void *scan_wildcard)
+  */
+ void hazptr_synchronize(void *addr)
+ {
++	unsigned int scan_list_phase;
+ 	void *scan_wildcard;
+ 
+ 	/*
+@@ -236,10 +254,21 @@ void hazptr_synchronize(void *addr)
+ 	smp_mb();
+ 
+ 	guard(mutex)(&hazptr_wildcard_lock);
++
++	/* Scan per-CPU slots. */
+ 	scan_wildcard = flip_wildcard(hazptr_wildcard);
+-	hazptr_scan_period(addr, scan_wildcard);
+-	WRITE_ONCE(hazptr_wildcard, scan_wildcard);	/* Flip the current wildcard. */
+-	hazptr_scan_period(addr, flip_wildcard(scan_wildcard));
++	hazptr_scan_cpu_slots_period(addr, scan_wildcard);
++	WRITE_ONCE(hazptr_wildcard, scan_wildcard);			/* Flip the current wildcard. */
++	hazptr_scan_cpu_slots_period(addr, flip_wildcard(scan_wildcard));
++
++	/*
++	 * Scan overflow lists *after* scanning per-CPU slots. See
++	 * hazptr_promote_to_backup_slot() for scan ordering requirement.
++	 */
++	scan_list_phase = flip_list_phase(hazptr_overflow_list_phase);
++	hazptr_scan_overflow_list_period(addr, scan_list_phase);
++	WRITE_ONCE(hazptr_overflow_list_phase, scan_list_phase);	/* Flip the current list phase. */
++	hazptr_scan_overflow_list_period(addr, flip_list_phase(scan_list_phase));
+ }
+ EXPORT_SYMBOL_GPL(hazptr_synchronize);
+ 
+-- 
+2.43.0
 
-I can say this in the patch 3 commit message in v4.
-
-Thanks,
-Alireza
