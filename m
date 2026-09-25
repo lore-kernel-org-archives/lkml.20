@@ -1,139 +1,90 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686BC4C14E9
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B54395AE6;
+	Fri, 25 Sep 2026 15:36:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350576; cv=none; b=ZCo6LYNTK+XfkQ/Yjp4xD5uOePPPjG0F16LEDxPBCs0MSbDVF2koMUIiXkce32mK1cM16SsjIStkLmtnbcDxpGd/8pkYJEnRCcOdbeQM22A71aJ3TYCWV3qgd7tPZ12ejxujEskEBYgup4znSoWAgjGu+DIKbdJrq2qDh0L8AJE=
+	t=1790350602; cv=none; b=geoDIX1iLs+pMNKaUNw+xvBMvVxE/TrIK0RheOFTm1vaEIxGtbY9zl1Fky8luNlWZ4NB3wDZS6mlClmPH7oAaZqbrFRJGEFSjvT9PMDhh9lGh2HSxGdA6ShlOPrIU1xJm+ZRFKpuN9FYVL4dIl8BjHkc7jYNUkgTo5yG9+iijq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790350576; c=relaxed/simple;
-	bh=5EW3PWjoiPMUsf4N19qO08/p9Gt3Dn77fDyo7nz/NzE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=pfhdnRwiXwN6NXj6W3O2s5/rpB6riPUOoC33KW9JTMx4YZPYnjIpsYh2xEOe5hjBdynS2iFLUDvMoelMIU1mT+teyZB76Z5yr0dusFzaDramiYpWyLPN/PCu8PguLwOoTE+EJff++Jl8HJPcPwigLmMn0DRwerXvUGl7mZao514=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cbf700ddccso1176344b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:36:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790350574; x=1790955374;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=s5zyqHkjsfJElUgXLCkz/RTYL8utQUvXR8T4fV0Dhq4=;
-        b=Q9X99PwQNbo5eZUUgbFffxm7mArPjpFBP2xRgCel5c2hXfJaV2JyhmFjSQurTMFKVm
-         VXf4bAepsWJ1ifoYmrDbiaX8PL+q+tWJVSpmj/eFAeecx9miBf+kBudiA639oMkN0Exi
-         ZLCYBUdaQYEpk6qXcwKK2Kzv0H0koOYhWbmdEnzmqDgk05TXVzULE+TTam/TV8oP9ugJ
-         sB6Ds+eeRDN/HqHqcUsh9dl/q9efv6RbSK1LSMA5UMHh/P1y2TlhdxDKmiInz/7yx+Fd
-         qVkgBdzUcKZvK22aixqi0Am9PYh/L0k4QbUIxmH69bQOMQIO8YFBld7h6DrPpdDTX5K0
-         F5YQ==
-X-Gm-Message-State: AFuF++ny049fXy9K/u7qDqNWxzyELaC8ER5Vgg9uRQSgm0PWn98plqrX
-	ocsW9hzh3DBacKvcrmD9yJ+g043dlJa/nrUpLP3z3UQPNJV+2Z9v+KiXg/zEY5p1y8BMSU9hECH
-	HWQXxOcr3l5cPvxOabw+YphU1j85PwenxhdHYS6LJ4RwcokesY5cXs5EvFvM=
+	s=arc-20240116; t=1790350602; c=relaxed/simple;
+	bh=NevHYeeyT9ZUafgWCjY6Kak9YcENAr3B7oLhCBKMfvc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uYSw7RQRqU8AlgJKDHx9FXiiMp67IHfhS9FxH9bSM3Dir1CAjqUK+0khB2us6Cs15qt12pWDG/dap4JRHDXf1hDHFB3zs2XA+rsrK6L8wbAWiqbTUTHjs/kv6J5vROIdYolPZXPVZFAwLBu+C7r/NoiyxmdSux9+dQZoArHsqdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=UlWdXKNL; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="UlWdXKNL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=UDPeS3KsTd5jTAjH7wQqYPnOP77l/2BPC3nDAy/sItU=; b=UlWdXKNL4bEfhh3dNLYxyqQhoi
+	evNMj8YqERVvjzibqqueJBqM61g/u8W6Ha19QAVlyCasHGObLS2+rlS8ATPkNVRTF5fubVCjvUFhO
+	3nzn+8jrAcSHjgBded2+r8IRMEuZagFNzlADnLnFIhE9oPg3ZcuyDk2IPmGQAm6hUJeqYYk3TbJu0
+	QpRzS4nSe/hGjAvCHus/qu7IsPIfcaELfWJWazaHXUA0KG+84j6lBUBnlyvxZH1JzzHRI122x7l3h
+	omLug+fUPTtpQ22w3t0XGia48Ouida2ZB4b9Y0FF1tEv73lX+OB8i4ZkbC0VQweOBmhLG5Q3ONb8o
+	RT+sg1WA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xA7yH-005OzL-39;
+	Fri, 25 Sep 2026 15:36:22 +0000
+Date: Fri, 25 Sep 2026 08:36:15 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	Joerg Roedel <joro@8bytes.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Jason Gunthorpe <jgg@nvidia.com>, 
+	Nicolin Chen <nicolinc@nvidia.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+	Krishna Reddy <vdumpa@nvidia.com>, Pranjal Shrivastava <praan@google.com>, 
+	Mostafa Saleh <smostafa@google.com>, Ashish Mhetre <amhetre@nvidia.com>, 
+	Shameer Kolothum <skolothumtho@nvidia.com>, Yuanhe Shu <xiangzao@linux.alibaba.com>, 
+	Kyle McMartin <jkkm@meta.com>, Usama Arif <usama.arif@linux.dev>, kernel-team@meta.com, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/2] iommu/arm-smmu-v3: Default queue depths to one
+ page in a kdump kernel
+Message-ID: <araUqf6BsJHP7BN1@gmail.com>
+References: <20260925141532.1274962-1-kirill@shutemov.name>
+ <20260925141532.1274962-3-kirill@shutemov.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:17a2:b0:4d6:9283:1bde with SMTP id
- 5614622812f47-4dc6812d185mr3055701b6e.59.1790350574396; Fri, 25 Sep 2026
- 08:36:14 -0700 (PDT)
-Date: Fri, 25 Sep 2026 08:36:14 -0700
-In-Reply-To: <68a82586.a00a0220.33401d.0251.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab694ee.e548f532.1ca396.0024.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [nilfs?] WARNING in nilfs_rename (2)
-From: syzbot <syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925141532.1274962-3-kirill@shutemov.name>
+X-Debian-User: leitao
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On Fri, Sep 25, 2026 at 03:15:30PM +0100, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> All three queues are sized from the maxima the hardware advertises in IDR1
+> and allocated at probe, up to 4 MB each on a 4K-page kernel. The capture
+> kernel already disables two of them: arm_smmu_device_reset() drops
+> CR0_EVTQEN and CR0_PRIQEN. It still allocates both at full size.
+> 
+> A kdump capture kernel runs from a small crashkernel reservation, and every
+> SMMUv3 instance pays that cost again, up to 12 MB apiece. It goes to queues
+> that either serve the handful of devices used to save the dump or are
+> switched off outright, and it is memory the dump itself needs.
+> 
+> Size all three queues at one page worth of entries when is_kdump_kernel().
+> The queues carry commands and fault records rather than DMA data, so dump
+> throughput is unaffected. A shallower command queue only bounds how many
+> commands may be in flight before a sync, which does not matter for the few
+> devices that save the dump. The cmdq_max_n_shift parameter therefore does
+> not apply in a capture kernel.
+> 
+> Suggested-by: Kyle McMartin <jkkm@meta.com>
+> Assisted-by: LLM
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Tested-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-***
-
-Subject: Re: [syzbot] [nilfs?] WARNING in nilfs_rename (2)
-Author: konishi.ryusuke@gmail.com
-
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 89a312991dc6
-
-Replace the -ERESTARTSYS return value in nilfs_segctor_sync(), the
-primary cause among several issues, with -EINTR to see if the problem
-can be reproduced.
-
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index 01a04080ef70..b2b67d6a1f09 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -965,10 +965,10 @@ static int nilfs_ioctl_clean_segments(struct inode *inode, struct file *filp,
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-  * * %-EFAULT		- Failure during execution of requested operation.
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- static int nilfs_ioctl_sync(struct inode *inode, struct file *filp,
-diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-index 45fb37215669..a7086a93480b 100644
---- a/fs/nilfs2/recovery.c
-+++ b/fs/nilfs2/recovery.c
-@@ -785,11 +785,11 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EINVAL		- Inconsistent filesystem state.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  */
- int nilfs_salvage_orphan_logs(struct the_nilfs *nilfs,
- 			      struct super_block *sb,
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index 829573cb6131..5705e6e1fb2d 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -2275,7 +2275,7 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 			schedule();
- 			continue;
- 		}
--		err = -ERESTARTSYS;
-+		err = -EINTR;
- 		break;
- 	}
- 	finish_wait(&sci->sc_wait_request, &wait_req.wq);
-@@ -2309,10 +2309,10 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error (including metadata corruption).
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- int nilfs_construct_segment(struct super_block *sb)
-@@ -2339,10 +2339,10 @@ int nilfs_construct_segment(struct super_block *sb)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error (including metadata corruption).
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- int nilfs_construct_dsync_segment(struct super_block *sb, struct inode *inode,
--- 
-2.53.0
-
+Reviewed-by: Breno Leitao <leitao@debian.org>
