@@ -1,84 +1,72 @@
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF80471CE4
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFB4471CE4
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364671; cv=none; b=g0Yzx/4goLvmLTnU9JmHDy39AT6NSb+D/VJMRweDoER54n7FgF5QrQU+Vd08D5GT2ctlYnA4iIlYRiqpPqYMUta2NBYFh+nS54lhqFFw+7w7TeaD6tng7Cv6F9pxDna8RDB4SvxRfRmjQtp04GeSYkX/E0OrqSDtcM937kotrkM=
+	t=1790364717; cv=none; b=pgtGPZofbsvdxq8iHqbNHn8VK0AAhL01V/o6HfapM6S+E4KlqQvTtA1CLaS+4f0/I7lllexdBVIx5TnEzsLTtjqP3LPZSL/liyEAMpM8dj2m+cbipMyQvbpz+AlOBeXJTENWeqk8UZzdx1PKH+fNExpM2yaFK6zxdgHq0s1y5gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364671; c=relaxed/simple;
-	bh=dcxM9nciXFXskGhLl3NfboI6U82tcnMqomfNizhspnU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oqqBoJdNL0n4GpICcJD9/kgWjRVl328h2oXje13zPOSyb/wMwSiwBbgOWPaiaCxP9KQqk3lnlj+PBVkAhzNIxK9vbCCk8t/V/bD9ZSL+m5JWRnzUFEIf+fzEEQn7wmwwbTLt0hP4jwqgC1IKNjSVQEnccTEhDftVoyFcQRr9MFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kI3BXM7H; arc=none smtp.client-ip=74.125.82.54
+	s=arc-20240116; t=1790364717; c=relaxed/simple;
+	bh=cYiVeZguetQ2DZ7DdyUR8Q0IdUlxNmguR0zDq8TQ450=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rvjHAnU9roZbUVUgao9eaVCf9u0709TTEkuDwfp65D1NTXObwl+R1YHGPtn5vB2+LtW3Mhff+m3FA+CyPfawmqD6dxXkOwYTcN68j7nIX7egbTwwEdnMxlk0fYjFGYCQNDe5KzTShE4XXaYgFR5weCmxZJDUdB2zQvae6ouFFBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cXeEC0Yb; arc=none smtp.client-ip=74.125.227.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kI3BXM7H"
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-13fc403e373so2224736c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:31:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cXeEC0Yb"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c83a304930so44983e0c.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:31:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790364668; x=1790969468; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/PfC+JKXiHR2gOczjEvFYMX7OwerkeM8UAQevJLjnNs=;
-        b=kI3BXM7HmkiDuG2//zoA2nI+Ol8UU2sJHIknc7ZIovdBOntXpnInQ490DZNBYydjyW
-         xebUnG7anUkarGF0Ob4YdsN09hsUyJJy/0cMT3WYef0l3LcaO2gE0cElySZ26kIjIe4Q
-         wXp2xjpaU/9Prtv0Gl05FPGbkhMzkg93IP8fmpnp1qlKJM9ZqOcgnjPWmQDxyaXTuMo7
-         uik7gL3HnVmnwy3truAy++2fTHENsVvsfZkbj51r2hyvRVcL5IOHyGfMDVXEGYRrmEMR
-         tNDXXwKPyVxKVc776pGpstlU4gJkTdFr6m18kg9zBA9wb+aGVnRG2lLOBVOlkqrtFlsn
-         PfPw==
+        d=gmail.com; s=20251104; t=1790364714; x=1790969514; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BHhX4lWU7b61qXvFhT2xwAHTxPoZGFp0LuRIrYtjK68=;
+        b=cXeEC0YbpkQNFZXbh3Oy6ws7BSOT5yU2I06BgJCIIJOfkFkkFyZVdNPc05uOicqz8i
+         OcwJNTiOFD+SxWc1QhbujKZq9iZ5VsqWbrI1lcneBSpxN+lK2lOAvRNyRLdfgtud/fFf
+         esbM7mm1VYZSO+ApJH+zeBjXojB8/5mSvk9McIwd2egHC4wRT14CktBIpi0Gh6UIHSTR
+         MDrJkWQ7JeePez2SOyHhHJqqBV0it7jLLzxT73jKnylAtesKVeHElWYDNfPxXsSaknZf
+         bYO/Wj8gi157S+1dA1+RxftjUpvEi9pcOnB36dm2bFJOCZqmI+fqppYBklmXzhl48shJ
+         0jLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790364668; x=1790969468;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/PfC+JKXiHR2gOczjEvFYMX7OwerkeM8UAQevJLjnNs=;
-        b=FRYr4yDZG5AMo0tjUmzxkr43JEy8jhcvY1AK5dDBvATQj9qF/9ILIrN1Cb8xJVuEf7
-         xvEQmWGjTJGjrJr3kHg/rxDcolmZN9iT+JJV7MTWRBNpVQi4//xepvLHqmuR3BgECt2l
-         MXZAlX7IOHQCjYPmy+7E5Tns5CtsfYKSrLIoABm9rHKAnuXBVglrQE/G0eM4HuXnhM26
-         3y5TnPRVASs6V65bxQfdB5+CFSxECubTgH2+NvPMDpHxL8G/zh+AEl67TOJxL/jC7CZO
-         lYHXK+LihHNmJkPEE6j2bLr0AzlBpBbo/cwOOuJ2Jma7v3Vt2YLwhf4lrRlpG5O1bXp3
-         HpUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwD6QwVOGUTJbQlDz0szM9Gk0sAYJlNCcCCeMzwIaEifeA9UIxqk/YeuWmsax30fFCD/z+SKkJmAP3dh3k=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+m5j/okzuKaxRKGU//sth9y4yYyNKg8BCRGQtHMKFI3bvda4o
-	twSU3qRrHRHhq4O3VRRQCMIjbZoS/zVnn8pOqf/2Wj8mixOZIbA0VmGU
-X-Gm-Gg: AYBFou1Y/Kuj/jxdL8JE7yIsNTGNJZuHSgHhJYm7Vqh431VlfRLP+8TJ0o61QpEeZAc
-	rvYqfcCNSLSBd/VoQliK48a5S4uJifYg88o7x6XFFNPgktfhpicwB64kw8v4Bboh/wbBnRgfKOE
-	ZKQCU6w1MtqNNGLaQJeJ9QfIg9oOWRRjtB2yQzMNt5m4N7WcE+GYKTlzmimKGi7pPVEwZiRSXBy
-	z5tY6F4MCWS7B7n3Qwdb2pgmNcKhB+519EHhdVgvCLkhS3L29UpmR4FztZLFk+AC+epW3H/i6xq
-	QE8R4j+d8DFkSXQFZ5AMfRd40nMfTEmsBsLJdgGpJrzSb2MQoIdDHNh1GOGaJ7wNnwN+vQb+bvt
-	HhlHXDUV3YzHfgmV//qFF8mXXhiOFJ0gj6Tjtk1wujySV7jTkaeM0ah/Uf6AV2ei2xF9okmWh55
-	uI1jKwez+f0jL18FtKIwuLqOmzLoIL1x6HTByOK7DVnrWc8r5uTiGlVWCjCbkRVcLg95FE3mAj6
-	vBKbqKhGs3KJv1kXopNUhZin9cb3WVA3YDdSsdPIMVa1Izr29pUA5OShoZZl2CeBc9lfWudMgKs
-	kmyooxWYxhmhJKXm7kWjF6brNFT/R1sNduX6BophVdpqRQ==
-X-Received: by 2002:a05:7022:1584:b0:13b:32f4:e826 with SMTP id a92af1059eb24-146ce968c47mr1007700c88.11.1790364668278;
-        Fri, 25 Sep 2026 12:31:08 -0700 (PDT)
-Received: from ututo.. ([2803:9810:87dd:de10:161:9095:8001:15fb])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc47ab8sm7886956c88.6.2026.09.25.12.31.05
+        d=1e100.net; s=20260707; t=1790364714; x=1790969514;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BHhX4lWU7b61qXvFhT2xwAHTxPoZGFp0LuRIrYtjK68=;
+        b=yTPbDVF056D//XGR7dpf9i8UZCFGk7WRYXY6eGsm83vZkEJD/MTQ3LivE0ndlVF9lg
+         rqEF1JbVL9exUfuI+MJqn8U/OhKjqkl0na2brXIsiei7v0Yd2QhVdodd5GGC+IFXXRdJ
+         3JJCO3v0FijzTA09YGzEaJ9+KLUvSaqX1esnPkL0x63nzAWGH5iGwGLI/z7S5f/mYI9E
+         y1AW65VWKmQGGYRGpjuYZLTQv/UCtBZtKjSpTuONIGAqI5F4jLYVTBsNhTRWoRkQNQsT
+         Meg2nIBB4RYRHjR8cvMMP4YPI/xRp7Pw5xQIsrP7BZ7IbMhO+Tqr5sA2yciMgFZLSutn
+         QHyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwT09QV1xJ1e0GLmDCrM/7iTRIPBlU2Wsv1LDTsXqzKPtEJgj2IZKUHHBPhQo0lXctmgr8TgHJqDolbZKo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mK+DpmFP5gUczeSw2Gk/hfh+eeqUHujK0LYmawWggEKEXSCt25
+	ioVZzPp/kzOIqZDyhqgtY9ivYOF4dVfGW+INLO1hn1kLZ/lmq35h1bsC
+X-Gm-Gg: AYBFou1Jkf0zmc1M9XH5CP2LMNrwa64/+9fkgTEZRamS1SAoSvxzMGmk7Xmp2EIzhqd
+	05s8QPG6nB34xAIV+bOn6etxj/8F86ifrshbat4ZAvtvCsztejpbsOFdLOprzT6/YRHUl6vlUX+
+	KVqG8Ao3hn4o3szikzg1brGLGeg22Rq03Mk29CP6feBN6doC0vpcbSbtATzizAeTSBZ8h/k4CJd
+	aJ0tm+ixALTnUyLIS9QORAqvAPbRfUH7Tjxj47op6zShTFUonQYmaCeYQByVB9I8JIpCLl2+Qgw
+	JgTb7iu/FOFnOMIaRgzMxAkbJkAaIxPnyJmzbenLaDap+eH/HBofWm8mNwbR8pwSJvvBcwCRP0q
+	l2HMxV7zjbWuCBWPfDsWzgp/iCQwsXYwCa5lco+5LW5Ql96pU5wfHuCA+X0hAp4dcdTaXvnxipR
+	mB82rvFP8FEN1l9NYcbpb2zEN+DqTO3+3v9bFKEgug88ddmPa/2tNnJ/Z6VQqirfk40S2ngdWxj
+	ixB+241+0fYhPFESazT/xDSEDzvQA==
+X-Received: by 2002:ac5:c7d3:0:b0:5c8:39c7:ba55 with SMTP id 71dfb90a1353d-5cb061001fdmr2264470e0c.0.1790364714250;
+        Fri, 25 Sep 2026 12:31:54 -0700 (PDT)
+Received: from Tifa.lan ([2804:1124:fd10:e01:5236:1a05:963b:44ce])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cd23e654e8sm2043280e0c.16.2026.09.25.12.31.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 12:31:07 -0700 (PDT)
-From: Lucas Costa <2000.costalucas@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-spi@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+        Fri, 25 Sep 2026 12:31:53 -0700 (PDT)
+From: Carlos Junior <cjuniorfox@gmail.com>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: linux-ide@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Lucas Costa <2000.costalucas@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] spi: bcm2835: fix device_node reference leak in bcm2835_spi_setup()
-Date: Fri, 25 Sep 2026 16:30:08 -0300
-Message-ID: <20260925193008.127314-1-2000.costalucas@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923184450.135601-1-2000.costalucas@gmail.com>
-References: <20260923184450.135601-1-2000.costalucas@gmail.com>
+	Carlos Junior <cjuniorfox@gmail.com>
+Subject: [PATCH] ata: sata_mv: enable SoC SATA LED presence indication
+Date: Fri, 25 Sep 2026 16:31:34 -0300
+Message-ID: <20260925193134.114566-1-cjuniorfox@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,43 +75,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-of_find_compatible_node() returns a device_node with its reference count
-incremented, but bcm2835_spi_setup() only uses the return value to test
-for a matching node in the loop and never releases it.
+Enable the SoC SATA LED controller in mv_soc_enable_leds().
 
-Declare the node with a scope-based __free(device_node) cleanup so the
-reference is dropped automatically when leaving the loop body, matching
-the existing __free(kfree) usage in the same function.
+Set the LED controller enable, device presence multiplexing, and
+activity blink bits in the SoC SATA host-controller register. This
+enables SATA device presence indication on boards using the SoC SATA
+controller.
 
-Fixes: e19c1272c80a ("spi: bcm2835: Restore native CS probing when pinctrl-bcm2835 is absent")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lucas Costa <2000.costalucas@gmail.com>
+Signed-off-by: Carlos Junior <cjuniorfox@gmail.com>
 ---
-Changes in v2:
-- Use a scope-based __free(device_node) cleanup instead of an explicit
-  of_node_put(), as suggested by the reviewer.
-- v1: https://lore.kernel.org/all/20260923184450.135601-1-2000.costalucas@gmail.com/
+ drivers/ata/sata_mv.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
- drivers/spi/spi-bcm2835.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/spi/spi-bcm2835.c b/drivers/spi/spi-bcm2835.c
-index 8f8715809c7c..23606967f7d1 100644
---- a/drivers/spi/spi-bcm2835.c
-+++ b/drivers/spi/spi-bcm2835.c
-@@ -1297,7 +1297,9 @@ static int bcm2835_spi_setup(struct spi_device *spi)
- 	}
+diff --git a/drivers/ata/sata_mv.c b/drivers/ata/sata_mv.c
+index d260f04e6..4a6a6dc7b 100644
+--- a/drivers/ata/sata_mv.c
++++ b/drivers/ata/sata_mv.c
+@@ -251,6 +251,7 @@ enum {
+ 	SOC_LED_CTRL		= 0x2c,
+ 	SOC_LED_CTRL_BLINK	= (1 << 0),	/* Active LED blink */
+ 	SOC_LED_CTRL_ACT_PRESENCE = (1 << 2),	/* Multiplex dev presence */
++	SOC_LED_CTRL_ENABLE	= (1 << 3),	/* Enable SATA LED control */
+ 						/*  with dev activity LED */
  
- 	for (i = 0; i < ARRAY_SIZE(pinctrl_compats); i++) {
--		if (of_find_compatible_node(NULL, NULL, pinctrl_compats[i]))
-+		struct device_node *np __free(device_node) =
-+			of_find_compatible_node(NULL, NULL, pinctrl_compats[i]);
-+		if (np)
- 			break;
- 	}
+ 	/* Shadow block registers */
+@@ -3382,12 +3383,21 @@ static void mv6_phy_errata(struct mv_host_priv *hpriv, void __iomem *mmio,
+ 	writel(m2, port_mmio + PHY_MODE2);
+ }
  
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
+-/* TODO: use the generic LED interface to configure the SATA Presence */
+-/* & Acitivy LEDs on the board */
++/*
++ * Enable the SoC SATA LED controller and device presence
++ * indication on the board's SATA LEDs.
++ */
+ static void mv_soc_enable_leds(struct mv_host_priv *hpriv,
+ 				      void __iomem *mmio)
+ {
+-	return;
++	void __iomem *hc_mmio;
++
++	hc_mmio = mv_hc_base(mmio, 0);
++
++	writel(SOC_LED_CTRL_ENABLE |
++		SOC_LED_CTRL_ACT_PRESENCE |
++		SOC_LED_CTRL_BLINK,
++		hc_mmio + SOC_LED_CTRL);
+ }
+ 
+ static void mv_soc_read_preamp(struct mv_host_priv *hpriv, int idx,
 -- 
-2.43.0
+2.54.0
 
