@@ -1,60 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84AD509F09;
-	Fri, 25 Sep 2026 23:07:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204EC50AC02;
+	Fri, 25 Sep 2026 23:07:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790377628; cv=none; b=t/iXX/BBHK7b8FN4WZDk/st/OTK++FnOHMWE5sDtqcWWZhYs6wp8i11NI0QMOd7NgpwVF4feL3424ozj4sXe79pTEASvj4NlMbjo0ffmVC8jpjhPncKmanV4MhyQDDLzIXG0G6KRvyMTIpdnO4TBuA8BYtYtDcHBUn/WklHBXsI=
+	t=1790377632; cv=none; b=Ejo8gaNxrZyRuWsbds5YmseuSXiTvGppI6W9H6JlebTVKJjmvKPdRMHRHZwMXXwggiYFP99ifdZnbqkdSkGAxxx8cuZetjheb76/ErZD9sf0dfgN7rIBBtoZsxfF9q3GbFK9z1qon95hl5bVhOg20t+ch0yp6zOOaDyLgArg5EA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790377628; c=relaxed/simple;
-	bh=cU+J4n3+epQ4nHU2vHvTEi1VfVUVV2iuTPy2p4qto+E=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=aY7hcju4CmzkLw9Z+mzB18EgWpK3REiVYr/2Skv2JfNRPj+YjHD5apj99sCXwmKP1e+3ZBK77pc/z+azfnhB0LysYjZcQ+tQhI8Ka8vdcITQSevGcTKxzW7zLt1u/3DR1WB4mG0FOiO3wcpbhJ3Y272paMR//j1okbCZyqSfm94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TDVUJn4y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790377632; c=relaxed/simple;
+	bh=RnF7l85TN4GX3jv4GErhsAWEdcSe1//jx3QoLmBAEX8=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=MHFaIGJF3IbmwSbZuOTxqOdAutVoQsSsqPcLc7a/DHOgTGo//SJBhCemc8iokuBTvKJg12iWmEn+KmP+zztcHpzBMU3/3abETJYmNGkIcnWesJ7OUJgexw2eG0/ZSVRbiw1kK8KNgmPpOu/TOeMjxtDSGjc00wuH06YAnjBtrUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Utex9vLM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TDVUJn4y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1A651F000FF;
-	Fri, 25 Sep 2026 23:07:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Utex9vLM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 074A81F000FF;
+	Fri, 25 Sep 2026 23:07:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790377627;
-	bh=u7+1WhFyMA3G2/oKbAYuGhrl7PBPqd1M2eQYcXcsS7E=;
+	s=k20260515; t=1790377631;
+	bh=oozRJSWoP9r3tb5ttqp/8EaFSt0zb0MJIHHKFJicyWE=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=TDVUJn4ycXwPJV+8T570wjYi2kv+heOsn9pKYyj0Zmg83zuhTarqa9c8/6ncezWDD
-	 u7XwnLrkBqyWEfa1MZG2ty2BYZpOyUfBflN7B1EazvFi7DMCRth/mDLPIG/7EN69aZ
-	 qo3c9K3yP8+Qb1sAbiF1RMipFqRx+5gKOKPXLuXTGpnQ2s31CE9F+n0Jd3czZW0jfS
-	 eifxtHHwAGO5tH3nBrG6qmbZCR6aEGNqv6WLqcFm3n0AMb4F/ZWixUTySuj29sxnzy
-	 JhIH7JATatys7qH0f6Ozpw4mg7obwOHmMjGZrBeVfJKFaJBys6y4nc1FuadHaP1CG8
-	 l0bHWYOz2BQRA==
+	b=Utex9vLMLa0VC0/dUnxxWawHCt0n1pgPbTUmKs2v1g1qjlT4w4lQexi1way76wbzr
+	 v5eQxIjDC3JsPqaLiz/ttPLv4GQQdy1AUlNiEBAOuDRGEMY+xpPJQYjUWLex2MfBy+
+	 FGlv1P782MiFFMO8qPtw5/81ymmqDg42ligGePHKEFmdu7yFhN3oT5R6MJeGSOxyCY
+	 WaPTQldcI8bWe4Y4loXHELbSYJ2gxxJXGzswXaxfm0zT3SJ19L28ZtxVIgqk0XtQbJ
+	 4y/fRRUHHjsl2tVBz4QUVFDGVAjIAfDQH4QHxmE47sYGs94rkXSPXiARR3yQ33iAzv
+	 lMOvDnaIJ3VYQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93CFC380820D;
-	Fri, 25 Sep 2026 23:05:56 +0000 (UTC)
-Subject: Re: [GIT PULL] IPE fixes for 7.3-rc5
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A29380820D;
+	Fri, 25 Sep 2026 23:05:59 +0000 (UTC)
+Subject: Re: [GIT PULL] SCSI fixes for 7.3-rc4+
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAKtyLkFPVY0zBLBZx_9A4f_t2ud3JPR7N=DtJtFuC5AsgvpRnw@mail.gmail.com>
-References: <CAKtyLkFPVY0zBLBZx_9A4f_t2ud3JPR7N=DtJtFuC5AsgvpRnw@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-security-module.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAKtyLkFPVY0zBLBZx_9A4f_t2ud3JPR7N=DtJtFuC5AsgvpRnw@mail.gmail.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/wufan/ipe.git tags/ipe-pr-20260925
-X-PR-Tracked-Commit-Id: 2776e9c28513a1c855a94792b292cbcc533418c8
+In-Reply-To: <ea8f769b49f7d1185f588cf5b9202f300c280af7.camel@HansenPartnership.com>
+References: <ea8f769b49f7d1185f588cf5b9202f300c280af7.camel@HansenPartnership.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <ea8f769b49f7d1185f588cf5b9202f300c280af7.camel@HansenPartnership.com>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi.git/ tags/scsi-fixes
+X-PR-Tracked-Commit-Id: 42d1221d321e55afc7bba9109a77aaf5a817c8a3
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 75467f60a3d14f08f86f2b353298d2826382ff23
-Message-Id: <179037755515.3195274.6877756220047279207.pr-tracker-bot@kernel.org>
-Date: Fri, 25 Sep 2026 23:05:55 +0000
-To: Fan Wu <wufan@kernel.org>
-Cc: torvalds@linux-foundation.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-security-module@vger.kernel.org
+X-PR-Merge-Commit-Id: 049380360ca6f4cc22ac2f67fe95b98967c887f0
+Message-Id: <179037755845.3195274.18063974288286929571.pr-tracker-bot@kernel.org>
+Date: Fri, 25 Sep 2026 23:05:58 +0000
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Linus Torvalds <torvalds@linux-foundation.org>, linux-scsi <linux-scsi@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The pull request you sent on Fri, 25 Sep 2026 14:54:43 -0700:
+The pull request you sent on Fri, 25 Sep 2026 17:22:51 -0400:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/wufan/ipe.git tags/ipe-pr-20260925
+> https://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi.git/ tags/scsi-fixes
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/75467f60a3d14f08f86f2b353298d2826382ff23
+https://git.kernel.org/torvalds/c/049380360ca6f4cc22ac2f67fe95b98967c887f0
 
 Thank you!
 
