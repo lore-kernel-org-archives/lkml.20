@@ -1,55 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C76493D4E;
-	Fri, 25 Sep 2026 10:30:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E7B3F5BFD;
+	Fri, 25 Sep 2026 10:31:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790332216; cv=none; b=HIPH4vB2T0skZSUFbyGn/0ilQ6ahYBLTOHeRfgTX2t7WtLnt6HvDm4Hv/IohO9h7DvXjN37r1Q5sm5534yOfbEpDk4HqknswrmyiepcBDW8rXkqpKeV7hL3a8fqDVDPz4FlrY3EiQAFVHNm9zJiUbxreVsrkntTkPtZT/UuXtbg=
+	t=1790332313; cv=none; b=X+elx7QLggPM11PAW76LWfBJfricocC6l9dX4bGc6MoNuRNzKMM2+NvS8gitGs/9Nye4I1vOTqFrCtyWfd9kqyx4PfDsLp9xi93JYO62vekpi5h1E1T8kWiEQgzQaSGqrAxrv6rXAU8ps3m2zkC2WgPqWcE6JJ64V1PebmIlim8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790332216; c=relaxed/simple;
-	bh=G38+9Xi1BL5x3HemPTXAYafBVSe9mK5t4PCHwW9U/+g=;
+	s=arc-20240116; t=1790332313; c=relaxed/simple;
+	bh=A3iiIxFr/AWrVtDAz6oFNjqJfl045U2hhYWWA0kwB8o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T4C4POeeCdRem7tpP15VRVyBMMboNjxjtOc6j0SEXsx9paNeP+gxcSqoaagLgdRA6hcnRojfTBgFJN0hdelDeQ4tTzcZ0BbvUSIggA/dKk43/wghbtSbYO/+vC1o+BUKV0Yfa/I3LINdWdIbrv17rOmYqxu6yOEmyWiT+Oyjlz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/PC1qgX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=LDVf1StEBiubutHH3Hu+x2Nk7X1vhYbVH2iwkdHCav0jz8TMIMJk4XCsEI6/s/z06XsHGYfTnfbv7zuS2F50BDZg/7N0Rn+bhBSw+wlg4dO8ZLDGr+7E1o8cx5iPtusTymxN0ZuM3kbR8H7IMsxV+9wsCkiNXMYhN2nyOqxgOJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KFh05/CW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/PC1qgX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDABB1F00893;
-	Fri, 25 Sep 2026 10:30:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KFh05/CW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE031F000FF;
+	Fri, 25 Sep 2026 10:31:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790332214;
-	bh=u0UNCp5jO3JC5Gl7IqvtlCZ2BmcuD3WupLp9PnEdBrA=;
+	s=k20260515; t=1790332312;
+	bh=9qa1eqfWkeyPHZy7/1Nc4UwLf1SaoqrDP6nwckO+zKM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I/PC1qgXUGnaE4DvqOgsMbPQTZn2nVuMsNNnif3JLU7v5NloNltpDdIV8iSK/TZmb
-	 +mh2Ck91xOwSKHSDdKxXVz+yyj9whQWuVYYfiwRqhDyH+faUYY18Z5YIrBpkrNRMP/
-	 uNQQSf5eQE0TVTsS8LXy/Nosl63JqRWVc6SrqVl6KnrUsRYWFCbxqae0EI3G+ypZ2H
-	 ZQCIEgAXl7BfPtcdBhc7/IQz4+BQz+gu6/Hd/EeX6nhIQcmXdxpAvbN6U8LddkyeKn
-	 x7NaFqcK4ooeA/eUN0TRkoaionFpY5Uf7ceIDpt8lo2PUceZQJUiFPLkrU1u6m6nc5
-	 mUqEOB9Hh9sPQ==
-Date: Fri, 25 Sep 2026 12:30:07 +0200
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
-Message-ID: <arZNL9BnTGK0Klwc@red-moon>
-References: <20260925-acpi-static-table-irq-probe-defer-v1-0-2c62125d0085@kernel.org>
- <20260925-acpi-static-table-irq-probe-defer-v1-2-2c62125d0085@kernel.org>
- <arZDwutoadki7tiZ@ashevche-desk.local>
+	b=KFh05/CWgMWzK+m571PEsHrByqXxLm0wv44ws+S+yI4Jkx5GRkYOj7b1lYgGNeP8O
+	 NCdFsM2EIcxZg/XCU060FBJEL8VJheWkOD6sIl5rW2LDYViIYFGcszvcf2qsJSnmcb
+	 Jj8WMh7r/T3flKZENqYOaCiwtl+z7ofVBz00I74WPi0llt+j0Y1ieVljIPOBIAKVxu
+	 vb+s9Bg2pqpJJctMh46kB+234Mbn9x7ZhIF3S+Et4XtN4UA43KypThjawU0wBJlLY4
+	 /U5j+IIB6MXyNecyOSs2+SmLda8pEuIczb+OvcUjuNFL8zqmQ6qvwJWzpcC3prO+q3
+	 +I7Bj5fJ5haZg==
+Date: Fri, 25 Sep 2026 12:31:49 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ravi Bangoria <ravi.bangoria@amd.com>
+Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH v4 6/6] perf mem record: Use the IBS swfilt filter when
+ available
+Message-ID: <arZNlT3kb8Gg8kVo@x2>
+References: <20260924212809.1733663-1-acme@kernel.org>
+ <20260924212809.1733663-7-acme@kernel.org>
+ <76ef085b-e8e3-41a5-b029-2cd0489aa430@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,90 +51,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arZDwutoadki7tiZ@ashevche-desk.local>
+In-Reply-To: <76ef085b-e8e3-41a5-b029-2cd0489aa430@amd.com>
 
-On Fri, Sep 25, 2026 at 12:49:54PM +0300, Andy Shevchenko wrote:
-> On Fri, Sep 25, 2026 at 09:48:01AM +0200, Lorenzo Pieralisi wrote:
-> > To describe and map GSIs for firmware nodes created out of ACPI static
-> > table entries in a uniform way it is required to define some standard
-> > properties and attach them to ACPI static fwnode as secondary nodes.
+On Fri, Sep 25, 2026 at 09:32:42AM +0530, Ravi Bangoria wrote:
+> Hi Arnaldo,
+> 
+> > IBS events with exclude_{user,kernel} bits, as used for per-thread
+> > recording when kernel samples are not allowed, are rejected on hardware
+> > without the privilege filter, so per-thread 'perf mem record' fails on
+> > AMD:
 > > 
-> > Define properties names to describe GSIs and their trigger-mode/polarity,
-> > and implement an irq_get() callback for static fwnodes so that core code
-> > can retrieve and map IRQs for ACPI static fwnodes in standard manner.
+> >   $ perf mem record -o /dev/null -- true
+> >   Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
 > > 
-> > An empty stub for property_read_string_array() is also added, so that
-> > the fwnode_irq_get_byname() interface falls back (through
-> > fwnode_property_read_string_array()) to the secondary
-> > fwnode to grab the "interrupt-names" property.
+> > Kernel v6.14 added swfilt, a software privilege filter exposed as the
+> > 'swfilt' format term, making those events usable per-thread.  Give the
+> > ibs_op memory events extra tables with the term, selected in
+> > perf_pmu__arch_init() when the PMU exposes it, keeping the names that
+> > need system wide mode otherwise; the knowledge that IBS needs this
+> > stays in the arch code.
+> > 
+> > Suggested-by: Namhyung Kim <namhyung@kernel.org>
+> > Suggested-by: Ravi Bangoria <ravi.bangoria@amd.com>
+> > Assisted-by: LLM
+> > Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 > 
-> > Signed-off-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> > Cc: Bartosz Golaszewski <brgl@kernel.org>
-> > Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> > ---
+> Reviewed-by: Ravi Bangoria <ravi.bangoria@amd.com>
 > 
-> Same here, please avoid polluting commit message with the Cc list.
+> > + * ... Keep it even when
+> > + * the event has no exclude bits yet, 'perf record' adds them on the
+> > + * first open failure and retries with the same name.
 > 
-> ...
-> 
-> > +static int acpi_static_fwnode_read_u32_prop_index(const struct fwnode_handle *fwnode,
-> > +						  const char *propname,
-> > +						  unsigned int index, u32 *value)
-> > +{
-> > +	u32 *values;
-> > +	int ret, count;
-> > +
-> > +	count = fwnode_property_count_u32(fwnode, propname);
-> > +	if (count < 0)
-> > +		return count;
-> > +
-> > +	if (index >= count)
-> > +		return -ENOENT;
-> > +
-> > +	values = kcalloc(count, sizeof(*values), GFP_KERNEL);
-> > +	if (!values)
-> > +		return -ENOMEM;
-> > +
-> > +	ret = fwnode_property_read_u32_array(fwnode, propname, values, count);
-> > +	if (!ret)
-> > +		*value = values[index];
-> 
-> Use standard pattern, id est
-> 
-> 	if (ret)
-> 		...
-> 
-> > +	kfree(values);
-> 
-> You want to use __free()
-> 
-> > +	return ret;
-> > +}
-> 
-> I believe the whole approach is suboptimal, if you wish get indexed value (but why?)
+> Currently, 'perf record' fails rather than silently retrying with
+> /swfilt=1/. The reason to not transparently add /swfilt=1/ is to
+> make the user aware that software filtering is being used, and it
+> is not overhead free.
 
-Why what (that's what the irq_get() interface requires ?) I agree it is
-suboptimal - the whole point of the series is an RFC on using properties
-to store GSI number/flags, then how to read them we will optimize it
-when/if we agree that's the approach to be taken.
+Made it more concise:
 
-> it needs to be retrieved as that in the guts of ACPI. Allocating memory for the whole
-> array to retrieve a single element is simply wrong.
-> 
-> ...
-> 
-> > +#define ACPI_IRQ_PROP_GSI		"linux,acpi-gsi"
-> > +#define ACPI_IRQ_PROP_GSI_TRIGGER	"linux,acpi-gsi-trigger"
-> > +#define ACPI_IRQ_PROP_GSI_POLARITY	"linux,acpi-gsi-polarity"
-> 
-> Oh... This sounds like a big ugly hack.
++/*
++ * IBS events with exclude_{user,kernel} bits are rejected on hardware
++ * without the privilege filter unless swfilt is used: the extra tables
++ * carry the term, selected when the PMU exposes it.
++ */
+ struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX] = {
+        E(NULL,         NULL,           NULL,   false,  0),
+        E(NULL,         NULL,           NULL,   false,  0),
+        E("mem-ldst",   "%s//",         NULL,   false,  0),
+ };
 
-That does not help much I am afraid.
-
-What's a ugly hack ? Property names ? Using properties for this purpose ?
-
-Again, it is an RFC for this specific reason and I mentioned that in the
-cover letter, thank you for your inputs.
-
-Lorenzo
++struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX] = {
++       E(NULL,         NULL,           NULL,   false,  0),
++       E(NULL,         NULL,           NULL,   false,  0),
++       E("mem-ldst",   "%s/swfilt=1/", NULL,   false,  0),
++};
++
+ struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX] = {
+        E(NULL,         NULL,           NULL,   false,  0),
+        E(NULL,         NULL,           NULL,   false,  0),
+        E("mem-ldst",   "%s/ldlat=%u/", NULL,   true,   0),
+ };
++
++struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX] = {
++       E(NULL,         NULL,                   NULL,   false,  0),
++       E(NULL,         NULL,                   NULL,   false,  0),
++       E("mem-ldst",   "%s/ldlat=%u,swfilt=1/",        NULL,   true,   0),
++};o
+- Arnaldo
