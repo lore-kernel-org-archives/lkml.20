@@ -1,84 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C77A4908A7;
-	Fri, 25 Sep 2026 14:18:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1E14AC167;
+	Fri, 25 Sep 2026 14:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790345927; cv=none; b=Bam3cHcwLD/bvl8Pvk4chDEfjJBcN1V0bXSqq+g0hIjNAKY+VeqYMTcE0LFXL4mcM9ZQm577BoNH2mq9sM0C5gZ5ipvI/lsD7XOQXwV7bEML1Hy+rAxEoXvDR9OLQCqGh4RGOD6MCC6EO2xHruChL5GjmocjIsSY2UiTA9EDBmY=
+	t=1790345931; cv=none; b=pXQQ+eNLPs1D3EJzlulE7djnHQpnpT74YTDuxsWqgTIneAF2SpVqQFRqGYdh/eootMr6pSnXRe9Z5d3RkY5hthVsLFpmCLNdrhwVROhZxsGK3qyTy4C9ehKvaojQEYczbXJjU2CxnDuKhLHOna41U+XcE50ZeE9e55cyN6hzWE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790345927; c=relaxed/simple;
-	bh=gfZe73eROlgP7ifuqB/QUbG/ocamsjz0EBFAYb6z/to=;
+	s=arc-20240116; t=1790345931; c=relaxed/simple;
+	bh=Lz7S9hRPMrOiw1jmTn397ZOfa1r7jmlgvAOidvR5GXw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lml4cPlyQr2VQHmrMOuDgtw2xr607xqmaGt8bzjG0eLD37aGmgBmvuIJQ0KX6vPu22vc2aEB7Qf87E0VO4ER4eKiEOo5dA8/ZSO/gn6esP+iG/B4gYInPSD3hzzA3HY9UdAG+IUl/nIZJpnsHN2OmHPIMzXVBXS5CxkMqmo0rhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJcO0UZR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FPzujfqfETeCDCX1PtHmNJkBIoDXEyOcZEU3SKuYx6eYY9SLxg1by2oh8U0eNkp0t9E6ad5gkFe+qg6hL661vTqfMLX2vCu0zCX3BSM6+p0uFF4dn46ALhHGwvG6jvBxly7rRlCyrUmjZ3PXmFfRfyjdl1BA3O9MiWdOjUAa3i0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lAyG4tzB; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJcO0UZR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 477401F000FF;
-	Fri, 25 Sep 2026 14:18:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790345926;
-	bh=VoGcfkdD5SkPp5ZIcp/ccfFrvE7Iga2+NMsGRE/mIMw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PJcO0UZR6Ec1zhyOBwTunpaO9EEiCAm+Px2nB9/mQg3u2PXgoPiAJbQjWc4YIxtoA
-	 T9S9zGuQTHYPAC54hlVsZIv8M2GywTf8ncufl92VHSevApwkGgd6Bt6mgbimuuw42B
-	 HZJ2pW28QxVKzhdCXi1N3hFsrVy2s0QJfbSUU+Fe13mXn6IanhpjhQEwrVxzprSBeH
-	 ZS3XWqEFW2OcKO1Zzvoi6xLEzcUZrc+SXNWI7v1CfRMVEDFD0kPcDs/znJeqWJ513t
-	 C2wmmkJDbLpInfy4mXw9w/dceq0+vWZr2vZmpfLCD0D8BYvyJPJkKD14BTTpBvKIqF
-	 E114U9hNrZtng==
-Date: Fri, 25 Sep 2026 15:18:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: webgeek1234@gmail.com
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Weidong Wang <wangweidong.a@awinic.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Val Packett <val@packett.cool>
-Subject: Re: [PATCH 6/6] ASoC: codecs: aw88166: make volume control usable
-Message-ID: <721467a7-6b7e-4234-8321-660eb43f1f9c@sirena.org.uk>
-References: <20260925-aw88166-cleanup-v1-0-11f74cb5fe28@gmail.com>
- <20260925-aw88166-cleanup-v1-6-11f74cb5fe28@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lAyG4tzB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790345930; x=1821881930;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Lz7S9hRPMrOiw1jmTn397ZOfa1r7jmlgvAOidvR5GXw=;
+  b=lAyG4tzB6o4ZpRGdbie/M/MsZ/YSvCs4Akd0xIArLXPUy6gmSrPT9vYe
+   oaTAlMk8rhZo5rgOpvXuFEsm1Z/JI7WTYfq5olxzG8ptnKGXWccJg3qpL
+   wMTsRZ0fgnrSxonXqxQsaADPj2BArABWQQNwcjx6F07327vbAVvzOO8R+
+   QSk3qEdFs8R+BlGrUyaCuR/3x7DKQ2mi0gbOyUEAKPHogJikA28SpRQdJ
+   uEV+ReJMjemOLwmq7SZD5VslqKcn6+5TsNkoW8wLt06gSJd1M4/txE+hH
+   bUwAxR5KHg5pAtFtAu0psmZnfQ6M1omtgS+HuB9mqfGiV4Ou2RvNE9JXs
+   g==;
+X-CSE-ConnectionGUID: FHSQyCS5QpW0MVIqOnSjBw==
+X-CSE-MsgGUID: +u1rlyI1TiePtJwPHLkcbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="93849263"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="93849263"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 07:18:49 -0700
+X-CSE-ConnectionGUID: KAiusXl3RR+WUdvO5Lye9g==
+X-CSE-MsgGUID: miQA4zCQRo2QAFzrdJjNpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="273897144"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 07:18:47 -0700
+Date: Fri, 25 Sep 2026 17:18:44 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Siratul Islam <email@sirat.me>, Maxwell Doose <maxwell@maxwelld.cc>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: imu: kmx61: reject duplicate event disable
+Message-ID: <araCxIGnZK0zuUSS@ashevche-desk.local>
+References: <20260925141006.2255067-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dJCplXDiFsaSrND+"
-Content-Disposition: inline
-In-Reply-To: <20260925-aw88166-cleanup-v1-6-11f74cb5fe28@gmail.com>
-X-Cookie: Love America -- or give it back.
-
-
---dJCplXDiFsaSrND+
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260925141006.2255067-1-yaojiale02@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Sep 25, 2026 at 02:47:34AM -0500, Aaron Kling via B4 Relay wrote:
-> From: Aaron Kling <webgeek1234@gmail.com>
->=20
-> - Invert the value to match userspace expectations (in the hardware,
->   positive numbers represent negative dB attenuation)
+On Fri, Sep 25, 2026 at 10:10:05PM +0800, Jiale Yao wrote:
+> The IIO core does not filter duplicate writes to the event enable
+> attribute. kmx61_write_event_config() already ignores repeated enable
+> requests, but a repeated disable request still calls
+> kmx61_set_power_state(data, false, KMX61_ACC), dropping a runtime PM
+> reference that was not acquired for this request. This can underflow the
+> runtime PM usage count and trigger a "Runtime PM usage count underflow"
+> warning.
+> 
+> Return early when the requested state already matches ev_enable_state.
 
-That's a very bad compatibility break, if anyone has a profile saved
-they might get excessively loud volume from their existing configuration
-which could be distressing.  It might be better to rename the control.
+Same comments as per previous patches of the same topic.
 
---dJCplXDiFsaSrND+
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+With Best Regards,
+Andy Shevchenko
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2gsAACgkQJNaLcl1U
-h9AvcAf+NQOUjx18PCv9xSpcC9KTn20iTdx/MD/9suRhv52JVKyG36/F6nAY+MSt
-yCQ/wTG8lQdVYrTB/405AulUcRFb2gUk3ZcjmSqrTedk+bPjmNOwdziE5RngjBSY
-AUFW/dczzXf3QRLxspzpfJ4ktgblOY0dX8213XEYFi8j8oxTxF3DIfFmeBNuVvUG
-PuVX4tEj1J8ax8n15glyiV8R8DQCz43Knc6EmqclreC1B1fBFpeavaXsGyho/Hx7
-vfUNIdNzVtXXJ5LabRkwGv4RZGWIn55THjfbbJj6nubSBoSRmDXz+LTW+VnHv4lJ
-DqBsaA35AVlU35IY/bN76pbSa3xk8g==
-=2wmR
------END PGP SIGNATURE-----
-
---dJCplXDiFsaSrND+--
