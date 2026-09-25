@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210883BED7D;
-	Tue,  6 Oct 2026 20:35:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A59B3812DB;
+	Tue,  6 Oct 2026 20:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791318916; cv=none; b=IU7Hj4inZMIzRFaGuO6xtCaRatjoo6ETXiqys5jFGqUOOG+ufGW3snspi5Ai5eS4PTtF/UlE+ZwtIIDr75qero92P0dGhBelYYAEKZlSD92SvF2gH+r3BwGf0snOFfCbzIcSZnn7jfTh7EpEBe4qO94wGaWHNz3s9L2wi2XF0KM=
+	t=1791319231; cv=none; b=qrkH6ajYKytHbmgV/eBqG3BhhE0KvwxBW6nqqS6WB9iVmDYz83HSV0Poh9CGxny+OQFmIxCsHwBYW/Ci4T4ynkU5VIRImd3efou0BFmQ8mm+TzcxDz8SEySFMsBGbUzH54kTV/YY+UqsPHK/6umXPyXrvskO97Ftm4DMfa4Qy1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791318916; c=relaxed/simple;
-	bh=QA3fQbLQ78R3dfOORKjeTlrzwpLrcaatYor7wBsWz5g=;
+	s=arc-20240116; t=1791319231; c=relaxed/simple;
+	bh=ky+mKliKhEVovZWz02c5m0P4qkXwqsESsKOGhrKT7Rc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DU1V54ssGxgHv/QDQdo3ze3OeIOXuRu5ctRYmVzPqCSNxnpsy6EaBFLGMlHercXU/UjXNg/48ub8t4BKpf7amvJH5icPi+HzGpeeUWNnUDWdneY5JIDXP1oxDc40wFu6G4I0owTQeN78KAI5j2LtTZnsaT3OHoQDBMwOTzlceDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwGwtFSw; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=k48S7fm2jpPHbwlxEebUuBOfmuEyn/yQIUWz4EbE3LE+TJew0brusq6Rj8/sifz4LzPIyZGRhS/G0TEmTfO/SEoLXKfgS+zmXy/fMhDlFLKmQ8hCNRFxj3kzsTw2aHJ1vgq6j2wWLLoQBOfWslanXX/DcxXuLYYM6MpiLFd1cV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.arm.com; spf=pass smtp.mailfrom=foss.arm.com; dkim=pass (1024-bit key) header.d=foss.arm.com header.i=@foss.arm.com header.b=S+TM+R44; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwGwtFSw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27BC21F0089B;
-	Tue,  6 Oct 2026 20:35:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791318914;
-	bh=5r7PPAyd8oCWuOmPAyTmj40kUBA5HNxIdcgppOWP7CE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cwGwtFSwy7fVY2WKO8yGvqfv58cfgjzJDaBQ3GxwtiLSaED/pQboj8ZFcNNc8AHbI
-	 WUNcjD5abrkJJya0i7Wrj6ze3xbmiTnT0F+isuut38IbX8DOkc8zZP+ndHN+rIgqeI
-	 8jKBZg1ze9Z/BPpm3xmXoUuaCFcLaER/s560hzVMnQO/YtHQVWpX3AEpqces1w2rbQ
-	 rv+CWNzlXeNxpXWdyRVIEc3CAaoLEaYLIs7dlQxIRwXZN/C9q53+PiPbbyqtsbDSpE
-	 o7+eZdKkg1YQBB9j/X9JjfJ+KVzj8SKglIPD7RfGXkSrK2b00KvQ9V+Ub4pdiH7W1x
-	 9HgUkgHZz5BBA==
-Message-ID: <afc14b81-32b3-4f91-8b0c-0152889f80f6@kernel.org>
-Date: Tue, 6 Oct 2026 22:35:09 +0200
+	dkim=pass (1024-bit key) header.d=foss.arm.com header.i=@foss.arm.com header.b="S+TM+R44"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E1F2B1516;
+	Tue,  6 Oct 2026 13:40:24 -0700 (PDT)
+Received: from [10.211.55.7] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7709F3F66F;
+	Tue,  6 Oct 2026 13:40:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=foss.arm.com; s=main;
+	t=1791319228; bh=ky+mKliKhEVovZWz02c5m0P4qkXwqsESsKOGhrKT7Rc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=S+TM+R44BRJ+mIXKBODQZsUDIolThvjnEFKqYp7JbT5qr5IMiHprlR0xXUt+xEKhU
+	 qmoxVe2SLNr5pJCOa279ptm38LV9WQsNndxQQs7JkroNoRlcE+3vGkWeE4eOjmGFr6
+	 JJfqHphR+96jQ1fONlmXnCGY4TGdpELdGMT2QgxE=
+Message-ID: <58ba1c2a-c6c3-476d-aee0-5ec7a2ed5207@foss.arm.com>
+Date: Thu, 24 Sep 2026 20:55:24 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,82 +35,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/2] netconsole: avoid printing partially updated
- target attributes
-To: Gustavo Luiz Duarte <gustavold@gmail.com>,
- Breno Leitao <leitao@debian.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sashiko <netdev-bot+sashiko@kernel.org>
-References: <20261006-netcons-fixes-next-v1-0-231cd26f8c51@gmail.com>
- <20261006-netcons-fixes-next-v1-1-231cd26f8c51@gmail.com>
+Subject: Re: [PATCH 0/2] arm64: gcs: Return -EPERM when changes are prevented
+ by locking
+To: Mark Brown <broonie@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Shuah Khan <shuah@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20260910-arm64-gcs-lock-eperm-v1-0-d88e51855c9f@kernel.org>
+ <asUIWgHk3hdaLEu5@arm.com> <asUQdaTtMF1X_Hsa@sirena.org.uk>
+ <8c425dac-11f0-4267-8745-d23d6391a6b1@foss.arm.com>
+ <asUiaocg44i8n3zA@sirena.org.uk>
 Content-Language: en-US
-From: Eric Dumazet <edumazet@kernel.org>
-In-Reply-To: <20261006-netcons-fixes-next-v1-1-231cd26f8c51@gmail.com>
+From: Bill Roberts <bill.roberts@foss.arm.com>
+In-Reply-To: <asUiaocg44i8n3zA@sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-
-On 10/6/26 20:58, Gustavo Luiz Duarte wrote:
-> The configfs store callbacks all serialize on dynamic_netconsole_mutex
-> but not on the read side, so reading an attribute while it is being
-> written returns a partially updated value.
-> 
-> Hold dynamic_netconsole_mutex on *_show() callbacks to avoid racing with
-> writers.
-> 
-> The dev_name_show() callback can also race with
-> netconsole_netdev_event() writing to np.dev_name due to
-> NETDEV_CHANGENAME. So it needs to hold RTNL in addition to
-> dynamic_netconsole_mutex.
-> 
-> Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-netcons-fixes-v1-0-bb5ffe5e698a%40gmail.com
-> Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
-> ---
->   drivers/net/netconsole.c | 62 +++++++++++++++++++++++++++++++++++++++---------
->   1 file changed, 51 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-> index 267254f046de..188beacb308d 100644
-> --- a/drivers/net/netconsole.c
-> +++ b/drivers/net/netconsole.c
-> @@ -859,7 +859,19 @@ static ssize_t release_show(struct config_item *item, char *buf)
->   
->   static ssize_t dev_name_show(struct config_item *item, char *buf)
->   {
-> -	return sysfs_emit(buf, "%s\n", to_target(item)->np.dev_name);
-> +	struct netconsole_target *nt = to_target(item);
-> +	int ret;
-> +
-> +	dynamic_netconsole_mutex_lock();
-> +	/* Hold RTNL to prevent racing against netconsole_netdev_event()
-> +	 * changing np.dev_name.
-> +	 */
-> +	rtnl_lock();
-> +	ret = sysfs_emit(buf, "%s\n", nt->np.dev_name);
-> +	rtnl_unlock();
-> +	dynamic_netconsole_mutex_unlock();
-> +
-> +	return ret;
->   }
-
-Please do not add rtnl_lock() in a _show() sysfs handler unless there is 
-no other way?
-
-Something like:
-
-     dynamic_netconsole_mutex_lock();
-     strscpy(name, nt->np.dev_name, sizeof(name));
-     if (nt->state == STATE_ENABLED) {
-         struct net_device *dev = nt->np.dev;
-
-         if (dev)
-             netdev_copy_name(dev, name);
-     }
-     dynamic_netconsole_mutex_unlock();
-
-
+On 10/6/26 11:31 AM, Mark Brown wrote:
+> On Thu, Sep 24, 2026 at 03:49:14PM -0500, Bill Roberts wrote:
+>> On 10/6/26 10:15 AM, Mark Brown wrote:
+>>> I was intending to do something soon to pull more of this code out into
+>>> some shared place since especially for RISC-V and arm64 where they're
+>>> using the prctl() rather than arch_prctl() interface so there's less
+>>> reason for things to be duplicated.
+>> Bear in mind that I do have patches out there, for x86 that enable prctl
+>> for them as well. I looked into doing the lock check in the prctl call path
+>> before
+>> it gets dispatched to the arch specific backend, it does require a common
+>> interface
+>> into the threads feature bits that each arch would need to, trivially,
+>> implement.
+> Yeah, it'd be great if that could land and we could hopefully eventually
+> end up with a shared interface for userspace.  We'd still need some arch
+> hooks no matter what, but the userspace experience would be much more
+> pleasant.
+OK let me clean the patches up, and ill send em when I can. Does anyone
+know how can I test the risc-v path?
