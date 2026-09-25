@@ -1,100 +1,82 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33754052D9;
-	Fri, 25 Sep 2026 23:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8C24052D9;
+	Fri, 25 Sep 2026 23:18:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790378242; cv=none; b=koTk7RC/zDfXRZhAa1ZJYg8XNSe4jnL+y3LUzbN0xO3FQ7eGnYoaG+gWdagxvb8jD63bk752/3ZbFf9QrJnWnXWDQLcFJjbaIcSI4sYpGxXpCsBgreYGEarKGeKyhbfIAoWQlgIUOmVpy3N1C6lm7IHDxueSYMGWAfz+8XwBV1s=
+	t=1790378313; cv=none; b=mMhCteV/iMrSt7JmGPLYf7lqTx2Whw69vHexe/VZ4ZXIuSatqni1neXyZGDRQE+ruve1nFLP86Pv2I4vTv2LkTYL/Fe+xAsEYReXqJlQ8D3/mRT4cu5WonP+NNOIkdI7G3SRv2EF4zQMCdCwnn398/l39IB8YPYS24347b+76M4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790378242; c=relaxed/simple;
-	bh=+vKXCBtdk637c0n1Wkj8QfS5F31BiucdN9/XpNxmgmg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U07bNtG46clVw3EmmzTjyIb5nl6e+qqE1Mero5yY2mC2iV7dXG+5hv6Gz+C9pLbGprMYtSELiBDdp9ucF59j/sa5BhjcTjxdqyj98ILF6EtSWmKoWkieUPfqTaWS0rq7zRWkz7dRda/wh8jss1+W+0AMIcNL4DYgFRijVBYQAvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=LaQ1gqcX; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790378313; c=relaxed/simple;
+	bh=+3/8lX22F8PExynknXLQgXUcUCdEmWnbvVgPswsZ+yE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e7pXVuSoP06Ch47+I1K1dtmnbcCVKqB3kK3T6LkCWaR24XsxIIO4iGQ3pKq3IK1trdWLBJiSlwTLcWt9dHtYxvMu0/frT9qd+LqGDlQroDbQO/4VCmq8s1iqU2S5cGf+P51Kkaj2/gFi0QYefQCt42x02wGN/AL8lzgctFAE7qY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LGafbZ9b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="LaQ1gqcX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=9mGHywWFBuS1brYkfWRhdDtGg9HQW7eaDie7RYOA7Yo=; b=LaQ1gqcXVllIYPL90gvLN41r64
-	4CP0b4KPbejRnLB/W2H99ZyG9lrN8ebav14G4K2Ix3SzJiun2jU2kOaf/q+C6VhhRZ+mnPU/fEbu2
-	WPbdvzs1l2if/IifL486lRwxHcEZflTMjIjXyXHcu63j2DwoVzK+VM7zrb6R6Kjq5yck=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xAFAH-007KDl-30; Sat, 26 Sep 2026 01:17:13 +0200
-Date: Sat, 26 Sep 2026 01:17:13 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v3 6/8] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-Message-ID: <6c75787b-f06c-4d85-8fc4-5bd7b2a30716@lunn.ch>
-References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
- <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LGafbZ9b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FAC71F000FF;
+	Fri, 25 Sep 2026 23:18:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790378311;
+	bh=wownGkDODVsUoCmEkDtdm7U0WfmFdaCjKWMc+dHNJ4s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LGafbZ9b9JjmYF4nez8XfoAr1NkeNj0ppu4DGnvgs/h+g+pgThKL+rFMMNo8ciuQL
+	 xzLjfwSNC88Qrx2vSro2fKxWdLDg747Llgu99ThJBIf5I1uCEUMzSQr3lghFvxugqK
+	 EW/C7AukAbHQx5LXNb2fFt8pgu9NsiGBtPUgTo4Lqzy8fpU5y8+IGj5nXz8OSaRpqY
+	 EcNtDh57t2gYVnRpQjlyB9qxple8q4vaAXSA7y4E7qsrALlw0ScBhQV4ldQS8dedDu
+	 5mL+EU5sFi9vgn67T09zejvoCGTB05yE/mknpmaHzBPI9EC2PRrdKdSvT2j4oGr1jZ
+	 jbyOIUZc2H8cg==
+Date: Sat, 26 Sep 2026 00:18:29 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Richard Cheng <icheng@nvidia.com>
+Cc: dave@stgolabs.net, dave.jiang@intel.com, alison.schofield@intel.com,
+ vishal.l.verma@intel.com, iweiny@kernel.org, ming.li@zohomail.com,
+ kaihengf@nvidia.com, kobak@nvidia.com, newtonl@nvidia.com,
+ kristinc@nvidia.com, linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 2/4] cxl/region: Don't leak tolerated RAM -EFAULT
+ from unmapped poison scan
+Message-ID: <20260926001829.4dbd173b@jic23-hlaptop>
+In-Reply-To: <20260922101129.52794-3-icheng@nvidia.com>
+References: <20260922101129.52794-1-icheng@nvidia.com>
+	<20260922101129.52794-3-icheng@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-> +static void soce_sw_read_core_version(struct soce_dsa_local *local,
-> +				      u8 *version, u8 *subversion,
-> +				      u16 *revision)
-> +{
-> +	u32 regval;
-> +
-> +	regval = readl(local->base_addr + SOCE_CORE_VERSION_OFFSET);
-> +	*version = (u8)(regval >> SOCE_CORE_VERSION_VERSION_SHIFT);
-> +	*subversion = (u8)(regval >> SOCE_CORE_VERSION_SUBVERSION_SHIFT);
-> +	*revision = (u16)regval;
+On Tue, 22 Sep 2026 18:11:27 +0800
+Richard Cheng <icheng@nvidia.com> wrote:
 
-FIELD_GET() would make this more readable. 
-
-> +static int soce_sw_detect_features(struct soce_dsa_local *local,
-> +				   u32 *numports)
-> +{
-> +	void __iomem *base = local->base_addr;
-> +	u32 implemented_numports;
-> +	u32 licensed_numports;
-> +	u32 regval;
-> +
-> +	regval = readl(base + SOCE_LIC_FEATURES_OFFSET);
-> +	licensed_numports = FIELD_GET(SOCE_LIC_FEATURES_NUM_PORTS_MASK, regval);
-> +	if (!licensed_numports || licensed_numports > SOCE_MAX_NUM_PORTS)
-> +		return -EINVAL;
-> +
-> +	regval = readl(base + SOCE_IMPL_FEATURES0_OFFSET);
-> +	if (!(regval & SOCE_IMPL_FEATURES0_DSA))
-> +		return -ENODEV;
-> +
-> +	implemented_numports =
-> +		FIELD_GET(SOCE_IMPL_FEATURES0_NUM_PORTS_MASK, regval);
-> +	if (implemented_numports < SOCE_MIN_NUM_PORTS ||
-> +	    implemented_numports > licensed_numports)
-> +		return -EINVAL;
-
-Maybe add dev_err() here for all these error cases. It will help
-somebody debug why there switch fails to probe.
-
-	 Andrew
+> CXL 3.0 section 8.2.9.8.4.1 requires Get Poison List to return Invalid
+> Physical Address for a volatile range when the device does not support
+> volatile poison lists.
+> 
+> For example, consider a memdev with a single RAM partition and a
+> committed decoder covering only part of it:
+> 
+>   RAM partition: [ committed decoder ][ unmapped tail ]
+> 
+> On a device without volatile poison-list support, querying this tail
+> returns Invalid Physical Address, which cxl_internal_send_cmd() maps
+> to -EFAULT. The driver tolerates this response for RAM because volatile
+> poison-list support is optional.
+> 
+> When cxl_get_poison_unmapped() was converted to iterate over partitions,
+> the RAM-specific error handling became a continue without clearing rc.
+> If no subsequent query overwrites rc, the function returns the tolerated
+> -EFAULT and incorrectly reports the enumeration as failed.
+> 
+> Clear rc before continuing, restoring the previous handling of this
+> expected response for RAM partitions.
+> 
+> Fixes: be5cbd0840275 ("cxl: Kill enum cxl_decoder_mode")
+> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+> Reviewed-by: Alison Schofield <alison.schofield@intel.com>
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
