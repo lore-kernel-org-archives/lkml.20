@@ -1,72 +1,78 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010047.outbound.protection.outlook.com [52.101.201.47])
+Received: from mx08-0057a101.pphosted.com (mx08-0057a101.pphosted.com [185.183.31.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF84368D6B
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D859B35F180
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:01:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=185.183.31.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790344858; cv=fail; b=iLY3o9vQEDGsrFbYOWAS2IBIDqRV+U6sb4DaVMphl/JN0VhO5bFW+vv5sZDJw1qi9ZeKh4pbeh6vb06xL0xFdc5l9DH85InbpmpPoDlZ96t2fsVsBoXfJ9hLchEbfLrWi35zuRe+4MLZ6aL5ZfUMWTsBUzvfjUHH2+db7tQqShw=
+	t=1790344865; cv=fail; b=MnlgGRGyU6/AUdlCmX3zrKF+syqrikh9X/R/8ie5yU7IHi8RTLmVJs791iYxhlPIsMNM6uSboJ78S7QMAsDpitayfL7w2dzu4+l/HxS0jqbsX5tTskdR82OATUwVZYj8bSSDSUkblI87kjkwF2ewStqWg00HLMf0uHdXOgnzOvw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790344858; c=relaxed/simple;
-	bh=ldu0d4egBuS8nkzw6TAbG5UhvQOn0ORPSRlCZRSsYcg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=raxcHzwnh1pz2nqeh9Z24UKcpYmdBjdiNVWORVcTb6+O8Eg0YcmhZXVgplxd1wsqGrNvseXn/bHrYIFeao+0o/2970iMYfD76r64+v5pouUKodZa6G4uyguGPldhGMIsJElnih7TeQFQtGIheFVP0N33eXhHdxIsVQCZLBRZrss=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=RgfCkIA9; arc=fail smtp.client-ip=52.101.201.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790344865; c=relaxed/simple;
+	bh=MDYxKbT4NVu6RbJZkoW8/5WjFWC3XwDXEuERiuOHRNg=;
+	h=Date:From:To:Cc:Subject:Message-ID:Content-Type:
+	 Content-Disposition:MIME-Version; b=l6NbM2avJpoTye7VY7pe5GFPAZhU8CVh7g4xqFe+TInL36/f+Z4Y4/p8phS3llVyfuIlhIPTYsykeZJJxRXTQkabFjn8ISHNMP2+zotmfvZZYMw11looHVdrCU/RyJRkNcHnHnOEbz+YkKSW27qDwQ9Fz1J2dnrOrX6Pn1fGT4U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=westermo.com; spf=pass smtp.mailfrom=westermo.com; dkim=pass (2048-bit key) header.d=westermo.com header.i=@westermo.com header.b=Ygm6PowF; dkim=pass (1024-bit key) header.d=beijerelectronicsab.onmicrosoft.com header.i=@beijerelectronicsab.onmicrosoft.com header.b=aP/iAaOq; arc=fail smtp.client-ip=185.183.31.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=westermo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=westermo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="RgfCkIA9"
+	dkim=pass (2048-bit key) header.d=westermo.com header.i=@westermo.com header.b="Ygm6PowF";
+	dkim=pass (1024-bit key) header.d=beijerelectronicsab.onmicrosoft.com header.i=@beijerelectronicsab.onmicrosoft.com header.b="aP/iAaOq"
+Received: from pps.filterd (m0214196.ppops.net [127.0.0.1])
+	by mx07-0057a101.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P5o3aL1678033;
+	Fri, 25 Sep 2026 16:00:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=westermo.com; h=
+	cc:content-type:date:from:message-id:mime-version:subject:to; s=
+	270620241; bh=hXvCnIf4yLnGuCiaJ121sOZbcQJ5VgrBaZeXwYor2gc=; b=Yg
+	m6PowFNuTeXwMDS67gvMhjhp6JSmxrdOBB+JHA6RLT8EB1Gn7fxT+3eAke46NrYu
+	nilxnyLmd+wYpaRWvWLZ6/ayOhlUUc60QPsH5l+QL6I4uQqbWgE0CxSajTgq7+u7
+	XQJwWbp5Vlrg8VqjW3XGkguU6XiRcG41iT7cq63Ia5trpRdm58LaQvaaIFbaQAeh
+	gh6WdgzNNC09VG9tDLyi054l4uVOt34/2ulWnT02n8Giw9ulUIH8nfvQcyB4E4rE
+	Yho6t+XXoILCLi7rO8Yk14jYv4XLkQURcEr/QGuX7Cho8Vig0D1adhPrJDlnemfY
+	BTmnbmVZGo0cF99eaU9Q==
+Received: from du2pr03cu002.outbound.protection.outlook.com (mail-northeuropeazon11021085.outbound.protection.outlook.com [52.101.65.85])
+	by mx07-0057a101.pphosted.com (PPS) with ESMTPS id 4gweje0n07-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 16:00:38 +0200 (MEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=diKeXp8rY6bYgvbhyq9tRfJQMXu2r1PdMkq71z6yXnudWPsO3eBzzBpzoKVSkxohbIs3IioEMNRPCIWIAGQi8tZJXE75dpwTFZE2Z2LqGGoChgCqJY0f0LFLOPE+D60pSS7iZuX9ISXIsM2FO/DGGDlFVSjmeV2k/2LBBSXGQmFqcruhxh47XSN1pRFlgxDw8tO3AMbC+n6j5xFkKgoe8zfIco28OjeWxQ+Hb+K6ldOEagx77nc6PWPMzgAL08120hfvLH0yO6FvjfdcVjM8TjVlL1dsZ3e2yGNm0pLuuu4+lC3oC77APPGwh5w4Wo3pKZAduHq+x/6w2Srzkg/XYg==
+ b=JFtF+en2OZwGWVhKdWpBdGBQMVq9v+TiDfLnNysNvvXWmJJDpue7PIjncjUpHO1P3v7eO+cUlrw1iF9panz/gebZeQMSdzirwud9yWe4Os4fRwVCwt33psiRt4uk8phJexBsshl2xqenXC08NL+ORoGCHYdn3CqkCXbw65VUEyNka41tN7lX2A93gbD5kbKymfgtd7YkLGy7EHEYnRUKmH5QM4aHstyb3CHeGtWsJ1/5/ULav0mG/g/ZwsHfjSb6LCMgHbXg0PmKq0BnzQ9yp7JRwa6j/OF+n/webLX8uVjny7X0vxwzePTLzKRayCRUByycy/LHr29qEHV5AhLUvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ok0DJyNkZQcQMeHkdTkYqnEmiAl7UYk/I0dlTU3U6+c=;
- b=bm2jxqlQOWZvtMc9t6Bv4KGvBpVEY9LUrtgeL+3qoHsSI/sdDzRSxJSxNf62cBMR8dVliYBh8U+RMXLPZaDinw7uXf3UpUHpGbxVf2rmdF1zXL3+a7CP0dXJKl10QPE7p1/ks7SHiqYqlP5mTSlNjMk8hhLIcznv8hvyYsSLXX/3NjkC9x8QpZ+4NwAaFKOAyr7wjXQhTumxO8+dROHLL7DXvkJSgilWUMh3wc16+imU7gIhm1TS0rtYFLOxkXuTYeFj3xxPkqqDqJr21cd6W2/8Cu7R4assWGwQeecI4Hk9TeibL1f2MO5hIQJb0lukQAhGwvBIR9B8WwwaeQpW/A==
+ bh=hXvCnIf4yLnGuCiaJ121sOZbcQJ5VgrBaZeXwYor2gc=;
+ b=BPiTtWiB53Mas86QEtRSHN1xT/hMu45we19EpEeRr50YXWBmonj4Lpql7xJtiWcDlxPtuVY/ZqOX8dQW2F4AwWx8diBtcmbY9x6NyQJrKDP3hKk5PeUxT4xCHaDUeQ+6bdYGzoBZO26/68ZJsfSxR9ozFF1cPuEUkxSSEUyxLCkJUg0fUSq3ZUF6Iu0KEkHNnbTq0jM5qIZ8Bdq8xjaNWXrgfecqa5lAoGSjQLaoRgpnxXn1drZZpvIXx5NcIeyg7/KWYJjcYh+uJ4LhNvCNRjyMJ6focD7f1ab0ioYtV27jjPBxSqq02b8MULDm5yR5pu+v8blJauoxlCfeyt/M9g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=westermo.com; dmarc=pass action=none header.from=westermo.com;
+ dkim=pass header.d=westermo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=beijerelectronicsab.onmicrosoft.com;
+ s=selector1-beijerelectronicsab-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ok0DJyNkZQcQMeHkdTkYqnEmiAl7UYk/I0dlTU3U6+c=;
- b=RgfCkIA99tnQxeAwU7xllfWp2b9txMWsws8Wlhgm5h8ME03Tfxs/4phv/lccxeL9cTyyam4jU+zUS9Q6AndWtQBn4oC1gsyAUBQ2/dVTceNAd7GtU5LYVCJ/+P7k5ziRsYpnMMuTXUqBiD9syJycGnELM0+Bzu733YT10MDmJz8=
+ bh=hXvCnIf4yLnGuCiaJ121sOZbcQJ5VgrBaZeXwYor2gc=;
+ b=aP/iAaOqskESXs2HZIEuAc7y1tPHYzYCj91/11TzMPhmSFoQMi2KA8iZEZ0kJGiZpI1Njpa2zFJjG9WNA+iN4S8bS00mSEI4UxXPo0JTM8X85fBbyQpFm1mVe7PvJg3LYwmFkvO+4mo8rMNiA04TiMMvFfmqXcUlQlsbC/IXQBw=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by SJ0PR12MB7476.namprd12.prod.outlook.com (2603:10b6:a03:48d::19) with
+ header.d=none;dmarc=none action=none header.from=westermo.com;
+Received: from DB9P192MB3090.EURP192.PROD.OUTLOOK.COM (2603:10a6:10:5e2::11)
+ by DB8P192MB0566.EURP192.PROD.OUTLOOK.COM (2603:10a6:10:167::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 14:00:53 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 14:00:53 +0000
-Message-ID: <9a917ebe-9d9d-409d-8913-89b448425726@amd.com>
-Date: Fri, 25 Sep 2026 09:00:49 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/7] VESA DisplayID fixed DSC BPP value support
-Content-Language: en-US
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Yaroslav Bolyukin <iam@0la.ch>, Yaroslav Bolyukin <iam@lach.pw>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20251202110218.9212-1-iam@lach.pw>
- <5d1fc27a-eea0-4995-8b8e-46006144ae7b@0la.ch>
- <5b7332c6bc0c7b7f9ba0d95477a5b9f438a07ff6@intel.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <5b7332c6bc0c7b7f9ba0d95477a5b9f438a07ff6@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS7PR03CA0260.namprd03.prod.outlook.com
- (2603:10b6:5:3b3::25) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+ 2026 14:00:36 +0000
+Received: from DB9P192MB3090.EURP192.PROD.OUTLOOK.COM
+ ([fe80::656d:42d4:bdce:a46b]) by DB9P192MB3090.EURP192.PROD.OUTLOOK.COM
+ ([fe80::656d:42d4:bdce:a46b%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 14:00:36 +0000
+Date: Fri, 25 Sep 2026 16:00:32 +0200
+From: Alexander Wilhelm <alexander.wilhelm@westermo.com>
+To: Jeff Johnson <jjohnson@kernel.org>, Jouni Malinen <j@w1.fi>
+Cc: ath11k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        hostap@lists.infradead.org
+Subject: ath11k: Question about active scanning of DFS channels
+Message-ID: <arZ-gEnmv0QyuGI0@FUE-ALEWI-WINX>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/2.2.12 (2023-09-09)
+X-ClientProxiedBy: GV3PEPF0001DC3C.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::2f8) To DB9P192MB3090.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:10:5e2::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,193 +80,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SJ0PR12MB7476:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7320a71c-3bd5-44fc-b592-08df1b0d6950
+X-MS-TrafficTypeDiagnostic: DB9P192MB3090:EE_|DB8P192MB0566:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0021a20c-3a06-4430-dfbc-08df1b0d5f6d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|10067099003|56012099006|11063799006|4143699003|6133799003|3023799007|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|10067099003|5023799004|11063799006|56012099006|3023799007|6133799003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	U+CTrM91UcRJtEB0es6/jKuyVFj3T5hD+Bwcm2tsKyDPTDGCS6vTTafc6LAciUNxykidRFBo15aztYr8MKRxzLcYx/tM/MYhRuc/6LmLhMmg0cC94eNCHXASZmiuwXIlqUrKNAvvbEfQB88rF4L6rU2v4269wzctmszVe79u5ihcegAQnLV13AazpKZgUX+biRG0O5GCyMpQGkC4xLx2RP2wjVmKRpWU/+gshJk54qM9btDOTBrZ2D0SNShSQ9d7shiqlLwzddbYA+WPLexUvKYWYzHPLZvFMTJmZolPc17mJtWvoZd2h9pk34xQRGMkm7ve2hdM4NlTYdBX0zMleI/itWZmJsOLJ1AVHjWFm50lP1Im7YMSB8dXTnuJii6qiH86CXfC/GwpS2pVCtYl5U+Ua4RvYGnpPo9jt1Y/WPdYOWatUUC1v4P9TgsZt3wcTNxcKWZ8eVmiYhg62fBkkSpuvz8hv0DK6HCr6slltNsG2UK7Ks5RYTMPZvONgLToO1NlbpEBIhoVAbOhaZGQpJrXH8dFDQX3fv629K924VzCm9ts9tZoPx35twyRiVuiV94ofhy4v+wzk7xN6i/2Hiy8sP+jaV550wd5rUa9cq5QVBWj3Yg5rsinXlF8Mwp6
+	WEE1IrptX4D9SGiU+pEoJO99MbTQfEyo/mJgPMe/UR7R6Qh9QZsFa1Gg3AHMW1F2tcyFSsVMeLZ2BjkxSpFqSGOf/vHY5nCgJmyiJ5S/2aYnL5pSnh4+XVhv0DkawomVFC6viVG3BpH+fsElj+3OxG5fO1Eq6lzgGEf/Ca+hf2Q0GJwhjv/B/77Vft4IHyysKhKObWDfTWQeeodwaOasemP9PqzsRNMy08vYpvwMJX/Gkhsmc+a4Dd/MbH/o8kY8jO3AZslrosJ4DyFbQX3sGt0RxQ5bQQBGb5C60vcDCpPdkqHpPzRN2Q9zyi11PvURpyRMeMrOT2AKKN9rlg17ICq77t3fWzHkvY29b6MTocVQNaNcpx1W+FHnHY+W2L3+D1d8CTZrgfjYp5j9/acZtVeGqzb8flZvIaMBQfZuCaVN8xmdZp+FsAyXNgtxw8loNHZjxA6zu5JYHmQNVby3bdB0lpegjX5VqTCL7nzpTcDc2iaq9CGoxlrSKLoELmCAwiax11wVQj9kbNmzWBMTC2G2j83+25Y2O5n4q7f3JjhTM0fWDm8Hc3AKAiUCv4euvSnDOteYd4aiczIL2h2p9xoR8XoMCosZaH0yqQLD66nRfQATOD0uFIUab20++A7qpVix+BBkWc9HeqXzVAyMGR4FcsmpLmbE+BzXYbSoKmo=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9P192MB3090.EURP192.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(5023799004)(11063799006)(56012099006)(3023799007)(6133799003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TTlRbXl4YW1FM3NFTU5STkg4Y0QxVUhuZ2tPdThOejFLejhNR3V6bVp5Z21Q?=
- =?utf-8?B?bzRRNzNPYkQ1NDBNeUFsZnpRWDAxV0dlNWR4ZW9ENTdiOEtPLzIyMjN5TmZ5?=
- =?utf-8?B?TmpNN0tYUkpHaXBHakRIVVBQeXhISGdhSEQ3UDljd21YRHR2ekE5Y0JQYVlP?=
- =?utf-8?B?N2k2ZDdNa2R6eEUwWi9uSm9pbDVYb2pVR3lOcVZEaUE5UE1LYzNON3NnVTZ5?=
- =?utf-8?B?NGdsYzE2UkpVRHBpZHN4aHE5WGNjeXlNTDVTMERHQzFxSzBCOVdGbCtuL1VD?=
- =?utf-8?B?MUg0WlBkZHZjUVRzdHNhVkxLd2J1U1BCdkhXSkhIbk9hZ2loMXM3VnFtcWVr?=
- =?utf-8?B?SXpWcEsrSEJiYkxGM0d5NEw0T2VnZXpFeVFWM0wzWWc0Q0VUSDdxeWZqcldz?=
- =?utf-8?B?QS9nRC8yZGtwWTlPTmFpa2EydnFnZWlJanhyTlRNUEYycDd1d2xoelZWYUU3?=
- =?utf-8?B?b1pQN2R3bDZkbHR4ZENHbFF5bGFnSG15WWthakhJMitLVHFNaUNhVVIyTEcx?=
- =?utf-8?B?YXRFb3VmRnhQcFd2OUorQng2bzk4djFsd3lTNWhiazZMTjRGcy9RSVk1LzBN?=
- =?utf-8?B?NjdRQ2ZTd3FyZWpGM0xsL2Z4M2l4dGZoVUYyUklkUUltQlhnZWtpQWlkeVov?=
- =?utf-8?B?RmVqMmpVOG1ldWZ6QjBmcFVubXgvZjBCZFk4R0ZGOGx3Zlpkc24xM09ZaUk4?=
- =?utf-8?B?cEd5UTRNajhMWnBFbXAxdEg3eHpINElTVTMwYlB6V2ZHanFTcUptZDNxTFlZ?=
- =?utf-8?B?bk8yK3drUnJTSnFqVEpiRzEyd2NQc3NDellkdG9SSzkwbWx0bjR2QXRvOUtt?=
- =?utf-8?B?V3h0TlVVM0RDdFBKM3ZueEVjbkFzYVFiYlREUHo4eDFHKzJlU3RMcXdFcXlK?=
- =?utf-8?B?RlljY24xeHo0b2JtTmJsZ1FjQjhkWDZiT09ZWHBZb0ZCV0xnMDBoTExwWm04?=
- =?utf-8?B?SFpFWGJlR0xudENqSXZHd2M3QkJxNzJ0QXF2c05oYUZuTWQvZERJU1NNdWlX?=
- =?utf-8?B?Q1dJUll1RFIzdmhnVHFDU0FYQ1dpZlFOU2ptMlFOb2tRMGFlOVAxaGl5WnpS?=
- =?utf-8?B?UlUrOTE5SytoeFBwSjJpSDlkSm9Ec29CWVFwSTA2a09vSWM3MEVMMlFwSjF3?=
- =?utf-8?B?dzJOaXdhUStPSzRXZWFNL2dkalFBaGxqR3hHQ0pENDh4VVJqbkJSaTRyV3ZR?=
- =?utf-8?B?QjFYTFYvNXlEYlFYQUM3UzlkZ3A5QjgrOTdzZERXVDBKUkoxVTlyY213UWZJ?=
- =?utf-8?B?TUZUYlAwL3R6QkRvUFlEN05veHRqeFd1ZVg1SStwVEIwYjU5Q2JLZldzRDNa?=
- =?utf-8?B?WkV2MkFQZ3E2ZGh6R2FoVThkL2E2cE1yc21sSHBIWno4OU82TFEyNTNxd2Yz?=
- =?utf-8?B?MGNTL3E1cVN0T3Z4bi9JdmJBUHRsNnE2QS9zTkRMVzhNNEljd2J5aXE5c2F2?=
- =?utf-8?B?ZHhkNXVWSUl5QVJHb2lmbXRvby9kaGV1dy8xejVHdDBMVGpLcUxVcXRjaTdp?=
- =?utf-8?B?QUNHSXB3azF6YWsrR2wrMktzd1BGbjVrU3dpZHg5T2lNQURMYTI0a0FJbDVN?=
- =?utf-8?B?UVYraU9sbitsK1JER2h3SUtyYW9hSE1BeVljNDFHc2xwUFQxaGlvVjQ1MTFN?=
- =?utf-8?B?SmRDdmZFaDE0ZmZJZWZGQURkRlI5enJXVCtZaUxCcWVVUmZ3RUNyc0VoMzQ1?=
- =?utf-8?B?b1poRTJYZTJOKzF1Ni91N1FWeUUwNHVDM29lWFNncSs1RWhOb2VERzBrRFBD?=
- =?utf-8?B?WXlvOXE4c1REbzhudUduOXozWXFSN2ErVXBYdzR1MUY1ZjZ1L3E3dHRKRm9E?=
- =?utf-8?B?eHFEbkROQTM0SzNlcHpKZDZFTXpjSlpicVZNT0ZHYlA3ZDY0Ui8vdmxsdDNh?=
- =?utf-8?B?VFd4Ry9NeUhJa1RPZVkyUXhKOUxJdzhBZS9abjdWRjdnT3h2MmRDQ0hadXBs?=
- =?utf-8?B?czZoUXU0bDhGb1FsUDE2MG83aGV5Wk1KMmhybVFMc29XdTJKZEx2M2hRQzJY?=
- =?utf-8?B?bndrcEFMTG9OT1NhNVZ6RXR6aW4rV2xaZldJL2FaQXF2WkhQMDdPaE5iU0dm?=
- =?utf-8?B?aGFnTTVrVnU3ODdadE9PSkdEdnk1aDI4NWdmbUZRNGtrbWkxcFBjQjhvT2Fm?=
- =?utf-8?B?blJONGlJZ3duaHFzT0dKWlBaRCtGaFg3SURsWTJUMjFMN2hQUCt3RWVXeUQ4?=
- =?utf-8?B?QllGYXByclhOdklBZ3ZqZFZuWXVoVE82UjVMMXdGY1Yyc2hFUXBvMFkyWmZj?=
- =?utf-8?B?ditoRUhkNkx1bjJXZGlnUlBGWFZ3UlNFbm8xMENjUU5kUlBiS1NMTURGaVJH?=
- =?utf-8?Q?XFPkNLATvYhIj8jhLO?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7320a71c-3bd5-44fc-b592-08df1b0d6950
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+	=?us-ascii?Q?6zd/w8EKxmRiZTM1tEDBYaLWY0WWufTWUlb+zSoo4Tw5GeuWvkMZfnLaGZQR?=
+ =?us-ascii?Q?ZrNFEqEGzh9/V3TR8nTSessrvuSCyh6yh2+U7dw95NV2NZqLmX6vG1Oa478S?=
+ =?us-ascii?Q?Ja8/R/3zir305ysbORWnkO/+cak6JTiCMLdefiIW7/WZ9PzBcPasR5UX1BKF?=
+ =?us-ascii?Q?esGC4PI62uFP3JUqwFu+bR6Zd0oKxODCQFgAnHuCE3KccuoXal17jKqHZOZM?=
+ =?us-ascii?Q?um0p9pTrO0j0kaFJzmi6J17QNSDl3iY0wCsQB3QX6tIHoC5PXqJla5kI41vW?=
+ =?us-ascii?Q?cBXAP6AtQusm5pS0CyR9qbU++UDHH0bz6J2vFBv4uyiNp9rXI+1pvrr8cgRB?=
+ =?us-ascii?Q?Iuu7SUI4fSQZ/ZpwT8q2tBNbDI00lYgyaJ+x5rccXEXVeavKRQWqmM/QJt83?=
+ =?us-ascii?Q?0TjmLPK0WmM2AV3edEqKK7OmwrTTHI7x7xQU+xp15WY4Lkb6EADqQwGQXGL8?=
+ =?us-ascii?Q?coI5KDFYcnw1KVjdTti2/clt3iRLXAlJNptTYmKpw4Dl38lB6oMIo33W2FsY?=
+ =?us-ascii?Q?N7fXR/kJf4NdtPwxsm0IQc4ssQOUab7fWyEamvolI/cLDBmrbCQhhgIzKRq5?=
+ =?us-ascii?Q?DvUqCepLtRE1F43NmPVrJrGS8d8jaqb9BLa1ivoKkwZAFyPkYDBUqvusj33t?=
+ =?us-ascii?Q?XZK6zCpYWXbsxeqUjzpraql9bii7c6zeKAPlq6DKBN1myRZTukzX5KOIZAqN?=
+ =?us-ascii?Q?cE+60x6FR4gYavKnkPRzYzibLqik+REblbVvPASnxmomWYeGdGvqDiG3B/a1?=
+ =?us-ascii?Q?FAAkl0vNlxgnnn95zbdsJeeiutV9Z9XHHHLv2AAC+7UxnqyDQbbVIp2F/S48?=
+ =?us-ascii?Q?UbPTurq/xZDK+EFmEqRJV8zuMWaUvvYV+VdyCuYqXbmrYsEQ7K8gn/rsvWT3?=
+ =?us-ascii?Q?3O7fQ1sx61ke/sWyCcZ5w7jk4K9wSaTJlhyJAK5IN5lLf68AN7nZ6SWhVi1d?=
+ =?us-ascii?Q?T6f+IVqUip6LZ1Y2TE0UvVn2RKXwP9ltD51rPSKidVSC0WFCQjpran2VLnRP?=
+ =?us-ascii?Q?z2JhevQViM0Tptt+5MH3RhpjF64caluiog2AxNj/0sDx3rgnZD1W01/GVRZ0?=
+ =?us-ascii?Q?IWWM3ubfkBhrZmbWljoePEa5Fp+toRXMtftnBHiNTVsa665pmfY3bDlC5gIB?=
+ =?us-ascii?Q?kDDnoYwfCfEipRDb50EYJ7bAv29doSGAjc7q/8xtJedPlCaOGJyTzwovSC6f?=
+ =?us-ascii?Q?eF1/8llH1rT5qD+hROribAbtEFyEwAfXuugsvkotSSIGhcmqS0Wpv9Uz/u/Q?=
+ =?us-ascii?Q?UQV0qB3iUBjrNDpjmJc/sMj2ZxkMKVjtwDjqbXxQG+P4iVBgug58jRnY7Nj1?=
+ =?us-ascii?Q?c4F2WZFTf8k95h+RrH5HO+NVJ30NBUP+Kl9yl+9Zno2np5ThL0pxLlX8quig?=
+ =?us-ascii?Q?iCEOUOLdE9bO6mD5B66axWiGv99UhbwK1ox1x1I3yaYmh3c2ZZbDIyBHdP7a?=
+ =?us-ascii?Q?OhpAzF493oX2H7BSCEM3QaPxRbCDmRSkFdfI+94X74GYS+00bgcJG0znjDr9?=
+ =?us-ascii?Q?lZlVOf2vRmNqd93aqE2jixOkbisxObo4JJAbABYsH9+ZYUDWXrVywi6J8i2P?=
+ =?us-ascii?Q?1Jv5SVSOobLp0wA6ay1z8cPd3tev3KKU/HcENXFpZgMOg8zG97k3ZD3UnT3Q?=
+ =?us-ascii?Q?oWD8vfROJk3/GpAiqmLFKIFyRc4zmN2uOt3Qxh64/VPPxe4bJV8+T75E8c3u?=
+ =?us-ascii?Q?2pkzWZXLdpHbaAcToKn97p42aVXra91iMlSXBbP4mdvkETOxqwJEGwozuJqM?=
+ =?us-ascii?Q?g3OlN8FeMQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked:
+	BFFoX4TS3ipmnkOugOi40LBYY9CRlqRHc67JwMoJuoTouhIg6kynkvKOaaXF9+zJcn0D+SCAOwGIPYiA810/NnGaZmyQheTap8b0qtY2Tq8yjGSY1uhFfxzIK0aRuEXd/q+dTAI7MIZgmMzVbrAbfHZXp0TyOHb6GKCD8L7usRq9eixZ8DGe6lc79+lQmWrTUE2p1WFRL7qkqIOy9w18d3lBElrARvL4cqGHrdiUmJ6SjMXeY7SPDxg8HCKYq0dtjhNil/Skey8Z5SEwTU14gAuqPr5vGDw2os5n2jazBhAmkZ3JTTPy4JDF1q9L6QGLyzJR7hLsBoruCpo3J8BpDw==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	ImDau3L6uBXpZydkT8EC36wOwi0grFsexr+WlvVrRO9ZoeJpXku3bDY5IGVVdE9F34zySsIwzv+BL9KdvnDSnRESUkz7Pzu3UiSvQeYxtGABRU59QGk2+Gj2ket/DEKw5onQEG9wNLrmjj5hs2A/k0jNAenJrNYkPTaNwhzRaD3CMQjR1cM8/O49v0mHHhJpiwElNSrP2IcJdRPlMKm43Kt6s3vgty/xd24d25T0WVCrD9tsGZ24crNg36/KUwyzM8GKfZW/D2p9WMALg7ry2wcjdDth4onZ3hS/kzmdap8RMxOpkDceZx2s8Ozdh2mdRbivfb9t4hbn3e5XHx0MAmj8NOpYtq6/0jDGmc/6Xs3zEb/wzDOAB42jzsSRupqT0MQ/2+xjG4HG89+5m+CopBExFNg59epeR0/nJG4GyAPFRrEBt3lTRSRAn/TV8tXzL514oQHpDh0utbPNH9tWRZvKDlak/+lyXrHI92UvGGw7mjJ+wCsKZpd1/PnVM6TU5Ni0DDCrR0M8D0rB4QZ/moi+Os4YsGSEfOBAsAvUUbS80FlkrVIxhvWyeoWIoPm/5E+eXwEm76JBiL5Dgs5IBBK0LSiEC3mAlD7va+sZXEur0dbJSTRI4UOROvh+aNym
+X-OriginatorOrg: westermo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0021a20c-3a06-4430-dfbc-08df1b0d5f6d
+X-MS-Exchange-CrossTenant-AuthSource: DB9P192MB3090.EURP192.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 14:00:52.8055
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 14:00:36.0778
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 4b2e9b91-de77-4ca7-8130-c80faee67059
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dsqzNf3r9fnEDr+1Oga1fGfVzpfJXoHTSeWyDMWv5KrOSgNPkgQhcL5JIc11nom8qbk6n/5QVlu/y/zCJTr7zA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7476
+X-MS-Exchange-CrossTenant-UserPrincipalName: xdkfiQ9+1TnNZuE0G1amQc5q0MWsxcBkzudvjLq3IM/jp6PEHXPldqiZsDibGBuQhFUkZ/RT4nqhTrV0a7i5tA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8P192MB0566
+X-MS-Exchange-CrossPremises-AuthSource: DB9P192MB3090.EURP192.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossPremises-AuthAs: Internal
+X-MS-Exchange-CrossPremises-AuthMechanism: 14
+X-MS-Exchange-CrossPremises-Mapi-Admin-Submission:
+X-MS-Exchange-CrossPremises-MessageSource: StoreDriver
+X-MS-Exchange-CrossPremises-BCC:
+X-MS-Exchange-CrossPremises-OriginalClientIPAddress: 104.151.95.196
+X-MS-Exchange-CrossPremises-TransportTrafficType: Email
+X-MS-Exchange-CrossPremises-Antispam-ScanContext:
+	DIR:Originating;SFV:NSPM;SKIP:0;
+X-MS-Exchange-CrossPremises-SCL: 1
+X-MS-Exchange-CrossPremises-Processed-By-Journaling: Journal Agent
+X-OrganizationHeadersPreserved: DB8P192MB0566.EURP192.PROD.OUTLOOK.COM
+X-Proofpoint-ORIG-GUID: rIsfkcGvjnqBGqBK8f-dJNS-jJ2uObG4
+X-Proofpoint-GUID: rIsfkcGvjnqBGqBK8f-dJNS-jJ2uObG4
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1NSBTYWx0ZWRfX+YkYnZio+cGq
+ Y73biAeDVM+POHSvBIVEqmHASyCkEAK2Tg0kaNXMiCp9+g+X42IYq2eFvpiU4lQGEL9YHQ3Blvv
+ EJL+Qy8M2oWDeWJjEhFfe1+7nnJuYmE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1NSBTYWx0ZWRfX5oB9YUnhNpki
+ aFhzmqr62RDJ5M06bs6ePG9xoUyafbDp/RpFbHF6uSdpfXktsfPs7DXvuje4RJ76qTCTCdbV60P
+ la4SksAe1ZVnOeVZGfUCFRB5L5hPPQFKOt/LyEZRZfWrbVqP/whTibdzORCQZqMfYwb+ivF/eaw
+ ldYhlKO19Yu9Ec+fZJ8UCw11vulegDj3Qng4dYLB8mmOY/MwGN+dXCyMh84mV9p03PxLXJmzLea
+ J2ZJfTNu1qw/4wAaKyPVRNle7/XLwRYJoyvPY0BukNe32qXUg4AxmjIuYQ7lbgBtOJT7KKRIK0W
+ tvtiKqT9td7Es2nAdmz5PPwWEI31VA3ecuAzsiv/WhfGOGV8Thj7qPZ3xDPLXwnbKNYKqZkUuwt
+ Wjj4sZACYzIH0CLxaJ8HDjYuiyTrVrU+r3ZU0HDdBcknxmARjMOzAf5Pe7vGzJCorwgq5KDiaXb
+ 7q/A/twlSlbWiPZlSUw==
+X-Authority-Analysis: v=2.4 cv=DMYacCNb c=1 sm=1 tr=0 ts=6ab67e86 cx=c_pps
+ a=dceCaKy/xC/3bTNpRNSjDw==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=8gLI3H-aZtYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=tr3XZvuDWTETL0Uaxejn:22 a=WQ4YJ39tjzx_Hbm9pN5v:22
+ a=ZoHfLQ28jryDjCGo3uoA:9 a=CjuIK1q_8ugA:10
+
+Hello Developers,
+
+I would like to investigate the following issue and would greatly appreciate
+your support and feedback. I am using a QCN9074 chipset with the `ath11k` driver
+and would like to use the background scan functionality in `wpa_supplicant`.
+During my testing, I noticed that hidden access points operating on DFS channels
+are not discovered. Even when I manually trigger a scan, I can only see the
+hidden AP to which the client is currently connected. Other hidden APs remain
+absent from the scan results.
+
+Based on my research, DFS channels cannot be scanned passively, so I used a
+sniffer to verify that the "directed" probe requests with given SSID were
+actually being transmitted. I also confirmed that the hidden AP responded with a
+probe response. However, despite receiving the probe response, the AP never
+appears in the `scan_results` list reported by `wpa_supplicant`.
+
+To further investigate, I modified the `ath11k` driver in the scan request
+handling path `ath11k_wmi_start_scan_init()` as follows:
+
+    -   arg->repeat_probe_time = 0;
+    +   arg->repeat_probe_time = 50;
+    +   arg->n_probes = 2;
+
+After applying this changes, I was able to verify that two directed probe
+requests were transmitted with a spacing of 50 ms between them. My main question
+is how this use case is intended to work. At first glance, this does not appear
+to be a driver bug. However, with the default configuration (repeat_probe_time =
+0), the scan results do not seem to be updated as expected. Is this modification
+to the `ath11k` driver considered valid, or is there a preferred way to handle
+this scenario? Are there any `wpa_supplicant` parameters that should be adjusted
+instead?
+
+I would like to fully understand the intended behavior and the interaction
+between `ath11k`, firmware, and `wpa_supplicant` in this case. Any insights,
+recommendations, or background information would be greatly appreciated. Thank
+you for your time and support.
 
 
-
-On 1/9/26 02:15, Jani Nikula wrote:
-> On Thu, 08 Jan 2026, Yaroslav Bolyukin <iam@0la.ch> wrote:
->> Hi,
->>
->> Now that every patch in this patchset has a review, any chance this can
->> be picked up for drm-misc-next?
->>
->> Or should it go through amd-staging-drm-next, given that the main EDID
->> change is only handled for amdgpu driver right now?
-> 
-> As I said in [1] I'm hoping to get Ville's approval on the approach, as
-> he had earlier concerns [2].
-> 
-> BR,
-> Jani.
-> 
-> [1] https://lore.kernel.org/r/b0b1567707c91806e3758bf0b678c2038dffb3c2@intel.com
-> 
-> [2] https://lore.kernel.org/r/aPF32XpVst5mPVz7@intel.com
-> 
-
-Ville,
-
-Can you take a look at this series per Jani's comments?  Here is the 
-full series lore link if you don't have it.
-
-https://lore.kernel.org/all/20251202110218.9212-1-iam@lach.pw/
-
-
->>
->> Best regards,
->> Lach
->>
->> On 2025-12-02 12:02, Yaroslav Bolyukin wrote:
->>> VESA DisplayID spec allows the device to force its DSC bits per pixel
->>> value.
->>>
->>> For example, the HTC Vive Pro 2 VR headset uses this value in
->>> high-resolution modes (3680x1836@90-120, 4896x2448@90-120), and when the
->>> kernel doesn't respect this parameter, garbage is displayed on the HMD
->>> instead.
->>>
->>> Me and other users have successfully tested the old (v3) version of this
->>> patch (which was applying DSC BPP value unconditionally, thus incorrect:
->>> https://lkml.org/lkml/2023/2/26/116) on Vive Pro 2 and
->>> Bigscreen Beyond VR headsets, and have been using it daily, it is known
->>> to work and doesn't seem to break anything else since 2022.
->>>
->>> Previously, I didn't have enough dedication to get it merged, I hope
->>> this time I will manage to get it to v6.19 :D
->>>
->>> Regarding driver support - I have looked at amdgpu and Nvidia's
->>> open-gpu-kernel-modules, and both seem to have some indication for this
->>> value; however, in Linux, it is unused in both.
->>>
->>> First patch implements parsing of DSC BPP values and display mode VII
->>> timings flag which mandates that the DSC BPP value should actually be
->>> used for this display mode.
->>>
->>> The second patch implements handling of this value for AMDGPU driver.
->>>
->>> The only thing that I don't like in the current implementation, is how
->>> the value of `dsc_passthrough_timings_support` flag is propagated from
->>> the connector display modes to the mode created in `DRM_IOCTL_MODE_SETCRTC`
->>> handler (which is used for VR display initialization in Monado and
->>> StreamVR), it feels like this flag should be initialized by the kernel
->>> itself, but as far as I can see there is no correct way to do this, as
->>> the timing constraints calculation belongs to the individual drivers.
->>>
->>> Another problem with how this flag is set, is that there is no hard
->>> connection between modes creaded in `SETCRTC` and the modes actually
->>> defined by connector, so the current implementation searches for the
->>> resolution and refresh rate that match exactly declared to obtain
->>> this flag value. This might not be correct, as device might not support
->>> the other mode at all, but the situation won't be any worse for the
->>> existing devices, as the currently they don't work at all, and there
->>> is no other known devices on the market to check their assumption in
->>> regard to this part of specs, and the spec does not describe how that
->>> should work.
->>>
->>> Both of those downsides are due to the fact my understanding of DRM
->>> subsystem is not that high. If another implementation would be proposed
->>> by AMDGPU maintainers - I will gladly implement it here.
->>>
->>> v6->v7:
->>>    * Print DSC bpp value in fixed point format instead of x16
->>>    * MSO should only be enabled for eDP, not the other way round.
->>> v5->v6:
->>>    * amdgpu: only apply dsc bpp to modes that match exactly the declared
->>>      modes with this flag set.
->>> v4->v5:
->>>    * The patch was split into multiple
->>>    * Disabled MSO parsing for eDP displays
->>>    * Disabled MSO logs if not used
->>>    * Minor codestyle changes: lines moved around, naming, passing of
->>>      function arguments
->>> v3->v4:
->>>    * This patch now parses timings support flag on type VII block, instead
->>>      of applying it unconditionally. Previously I didn't understand the
->>>      spec properly.
->>>    * Now it also is not being applied for non-supported and/or non-VII
->>>      blocks in amdgpu driver.
->>>
->>> Regards,
->>>
->>> Lach
->>>
->>> Yaroslav Bolyukin (7):
->>>     drm/edid: rename VESA block parsing functions to more generic name
->>>     drm/edid: prepare for VESA vendor-specific data block extension
->>>     drm/edid: MSO should only be used for non-eDP displays
->>>     drm/edid: parse DSC DPP passthru support flag for mode VII timings
->>>     drm/edid: for consistency, use mask everywhere for block rev parsing
->>>     drm/edid: parse DRM VESA dsc bpp target
->>>     drm/amd: use fixed dsc bits-per-pixel from edid
->>>
->>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  16 +++
->>>    drivers/gpu/drm/drm_displayid_internal.h      |  11 ++
->>>    drivers/gpu/drm/drm_edid.c                    | 102 +++++++++++-------
->>>    include/drm/drm_connector.h                   |   6 ++
->>>    include/drm/drm_modes.h                       |  10 ++
->>>    5 files changed, 109 insertions(+), 36 deletions(-)
->>>
-> 
-
+Best regards
+Alexander Wilhelm
