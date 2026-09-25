@@ -1,200 +1,419 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15C925A645
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:39:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343551; cv=pass; b=KX58GZTVC1uqBwV5saVHEcPlJlNSkKOrw8weMWDp6WlVOdMu+A6oOtZFvgso0a+KoogKRM0fIi3PcMsfSHM/1MAG5XyX6NyiXDi1PKSEiPuvtQCI4C9qYVgfBZcSa1Ds1It7PYxIqQjNkVt60Yfe/YsC9yYf2Hn4/tuLIdGxgjQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343551; c=relaxed/simple;
-	bh=kqdNlwg778/987rRPFcemtjB5R0/alDQShoyszIUXi0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CZxoQFvZFFEa6hgQDmI51SHQhkVyt9ONzRjqH9FMAehvJsKl9YQiLJMQZOkEKdOytO7gfTlDtUPNLH72dRal5sxn54XzxERxAwJrQT8YTQM8pJJkEbi3Hdvla7lu4H8Y0sfav1lTz9THGj80ArHSnopINKSbIReLPvOVL3X3UAE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CiFirrNM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OjLnN41T; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91409345EAC;
+	Fri, 25 Sep 2026 13:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790343553; cv=none; b=FgzasScImNA1aEEgFUWg0r0ZOfp5ZOpGyYG3U3bIC3s/sMjH/+DvM+Kq1UwPAl+vlmbZGCs3/keNRMcxEzLJXgQFsZxS9kWYNZntOQvxBzGWJzwBGJd/onRn5eWbVADy3s4UujGlyEwRjq7zdZ49Fr8LNK//svw60MZoPbXPlg4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790343553; c=relaxed/simple;
+	bh=13t4uQ+2tJf8ohOF1mnl+sfExWk6M9yf7echlq7Lfbo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=k/hd1T3bRur8LM24+VH640Kv5C5nLQmT9isZsydUZv3ouXfHH3aXiwgn7A36wr49bIJYJjfG7xfwLt9iZycKzUpuv/sY4k8pKpZ11mZ4tz3uD8AfN6jaCyAWbZbjc5t8QKj0S2h91pIf8UH831eRlM2uNd6PEzLpWKDfltZtSi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=LOuV3rBv; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=KuERjEDf; arc=none smtp.client-ip=160.80.4.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CiFirrNM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OjLnN41T"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PDGeCd1193848
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:39:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kDqgsZ4XGZtl4jjOzkJ5PS9aFgMs5r1UIrTA9EsegCY=; b=CiFirrNMJE46vkez
-	ab/ALVoKzVYq3KdM+wurlRbp1B6pozl0+xZlajKqHYhciUozzuBY7HlW4B9bEgeq
-	01aTayxTFbLZjXcK2kUyA4C5CGDxayVgrjT12DPiulgqZp8+24MXVbQFUBKalGN5
-	p9GwIgBIhMFeCrnL/r+4yFxTmyyyZcUvwHKtmgVueHEfPC1dTHXv2IcCvaA5pY9E
-	bXsatblJpbCU9xw3/A1vAwABdtqMVYDxHNRpOtBokCQv+9P5D3KSurkRHYF8jsvl
-	7RxWADkv+Ho9B8J+D3C4m7HNizpmI3Gz6NL7dRH63YIWrYea4jFZFF+zLX2j8bQ9
-	XChfMQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw874kkx2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:39:08 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a1e564fd5so164577885a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:39:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790343548; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cVQmTmLW9390lqdmUZIv6oviPaM2hxz/Vv0ygqW+G9T7dQoF50N8gldHBAVCx+ooS6
-         3tBeimI3CDl5gebKrRDXYDx6/g7FPtydaDAUAEfamN3SGwP6H20IughhrBTa4bCoktV/
-         C1yLPQvTyPpDhaAmghaVBh7+eGA6IVfvDmMqchMyvwxuCheKSmf0UsIz2vntC8h/JUHZ
-         vnMmHwER4D8bsUrpkKeyqxm0kSq9L04hlOCJcPrTMAQdMkdtX7F0JWGuKVEeOUS61KS+
-         vd6T0iIkaQx8yDhO0iffYYl0nszdwaDpami14E8ipCcd4KwJwsRb1U9Nk4R6HqSIfW5T
-         kvRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kDqgsZ4XGZtl4jjOzkJ5PS9aFgMs5r1UIrTA9EsegCY=;
-        fh=DclG0M06jwznEBiVE6KT+BSyTFNNFLXrJ9W+A8YHjvg=;
-        b=GgFiewn8QHhmaC40yADmrDFvw3lE8v9ZZMJachVSPw7sEQTwnMHds/9nO3cvSEvxs3
-         6SXhHLkEv5rOeFFJQj+M5fS/FTNoWkd1e2d6ae/AjXuy0xPCS/S7e08+Ce7lIWL9SvLB
-         /ebOpSceQW5KbUygitRRcyQHZWuMDdZtE4xUpr9YtwCbgoId6C64RwamL0Gz8uge2r8K
-         H4t/ZgoaQMnxKSALU2NSG98rfUS/gh3CkCFB5Uasofo/l8nUWq9AIhv/rRPXA1rFWNds
-         JS8LMSOntRMrBON5pembs0kk1ix+5iwJ9uUtRjiMGbTeUekLIVuTEzdbILyc/wARG121
-         o2jA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790343548; x=1790948348; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kDqgsZ4XGZtl4jjOzkJ5PS9aFgMs5r1UIrTA9EsegCY=;
-        b=OjLnN41TvHXUGa7MBrf9fj+CrpaWlDp6jgP20kUZ79RYwBnqHsD2K/ZHsBfxJr0C6X
-         5bLg4kK6XWXCGlWpS4+g8GmhWc5sivFMkZ6UPcPR0PfTiZKGAXGfrZJAn1JrUrO9v3pL
-         +o/3NTphHMc1pEr1w9tuiniwaSWa84DJXKLHsZJBOqqauXJKVeciIGSFjrUGEe+xevFE
-         0tu5GV/o/wBP/LDnwxL4ckGIva0g4Fy9erhgynszry1UC2kIN6hUmqZne6dnMQMW7GsT
-         RLoI9Iw1mSzZIhFcCnl5EDBJRUTgLvqYhyFIIEVyfYO8DPzOfGwQ8Vznq6kgHkRZsrq9
-         XTNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790343548; x=1790948348;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kDqgsZ4XGZtl4jjOzkJ5PS9aFgMs5r1UIrTA9EsegCY=;
-        b=W1M04R8LPvZPDksrC3++v7ewPBNf54VAFgOKKF8/twSK7M+rCDbOzJ4U6yfyuoP4A9
-         Yj6N534qHZoTlNwSi9vE4CPMEHNOfWWRZvHtHzdDF1S9fyBwBswzvxmlusO2tZtYlhT6
-         OpbyRJfxnRAXwn6gQZs8WrnQ/i/4fLmh0xbRe33whMhLzxj8quzmGDIuWSb/KZR4t/XD
-         Th8BD01u3VKCMokKAGsrHJPcg/UJuM0pghpIbUXMSKFJ7uw4dPBlFQ9DcEZIfnscjcg4
-         NrY/LiI04XhuOgEQ1GE2qrKvjtXcdjA5JhvvxWwsW0YwNzTPc2jKnUNv5QyDAPGd8/7R
-         MtqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxOJ94NruSVsNkKJb/bjPLu5EscFm31IDYtIwXX+JhUayPVb6niq9mBs4tuEVRcDTqGLJeFrPEis/nEpl0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOY6kclYydS1V8yS/hEQCDYBuNhD1Sl4qLIZsvFLPsYHQY0npY
-	fHPpmMl2zhkS6sAP+ARc1quarpflIdVdVTh9OKyG061BUCTW/yY7O0Q9pRz5Awaa2s6ywvRhnMD
-	PulfRRCLmlVUN7cjtexp68sgwuaxEPZ7E123dGc+qjaA3Y0JHLn33NLPmufYejs2/C5GP5VpPQb
-	wPLi2q/vOmFfVaDZ3zNwXZh8kahQlVPWW6rn09F7ZVUQ==
-X-Gm-Gg: AYBFou1DQBo4Fsk2Tm8Ox5yfm4XGTvGrSbiBImyhwOgDSaThCkPvYb8SItVaHb1iqjI
-	tHI4cXIq1oXmgrhCBLTWqdqxqsp+7gEWdv6N5s37XvJK57zBebKQeRPYNsNuZ6HLmcWjU6iw/Zx
-	gQjQ8DHmAm9cqgE3Lsu40b5Tk4H+yqaE3QUceCu9557hRXxwLK7tfaAnAAJZhHbHqpYtuhu9SUv
-	RZHzI964NMqgRcWrnCpxKWfb5m+MiOYQN+tocCiojsGNcXzX1q1ur9fvhjGULerP/OYq9ZrPZA=
-X-Received: by 2002:a05:620a:4588:b0:93b:fbf0:8791 with SMTP id af79cd13be357-93c43bf1ff2mr431890885a.29.1790343547648;
-        Fri, 25 Sep 2026 06:39:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:4588:b0:93b:fbf0:8791 with SMTP id
- af79cd13be357-93c43bf1ff2mr431882585a.29.1790343547133; Fri, 25 Sep 2026
- 06:39:07 -0700 (PDT)
+	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="LOuV3rBv";
+	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="KuERjEDf"
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 68PDcRg1022286;
+	Fri, 25 Sep 2026 15:38:33 +0200
+Received: from localhost.localdomain (unknown [160.80.105.87])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id B4FC6120537;
+	Fri, 25 Sep 2026 15:38:23 +0200 (CEST)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1790343503; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:references; bh=uMzBZqUfy4ha6uqOX3Bn5eWkfaTy1gWx4xywfrRzoR4=;
+	b=LOuV3rBvkfzA2SiIyxlRL2Vss2FK45p87175jLNoDeqZlzzIwiW6CnmBiTxNqgq3l+emOM
+	MKjE4i/eve7XIVDA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1790343503; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:references; bh=uMzBZqUfy4ha6uqOX3Bn5eWkfaTy1gWx4xywfrRzoR4=;
+	b=KuERjEDf8E0AAfuksStzUDQj1md272B6UCbXKX7dIa3VreRrcUt4Hvf4NGmXSYr3oCf9t1
+	jPsN7BqwifcL5I52GY27EbfLnlSGo2y6UmRofaR8FvJgonsxUyhKc/IDqyjEvvM3+7avO9
+	WZI/HenMYP9Unqa/jtCAGViMXBbQl70YrivNa2LbD7a5a97Z+uuVUmfX8If5qX6Cc7Mlsd
+	bfUGHIGrOOIIBEo1tj7g2Iti6YIrp3yj1H3eY1stpI4uZ8KDRSIONrSmlw3HGLj4ZpCMuc
+	HObJ1u8QMaLzTJgypkqMPLBcvIi28Vux5v5tX9PstKVsGQlBf92vpIVfWgC1jw==
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, David Ahern <dsahern@kernel.org>,
+        Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        David Lebrun <david.lebrun@uclouvain.be>,
+        Hangbin Liu <hangbin.liu@linux.dev>,
+        Stefano Salsano <stefano.salsano@uniroma2.it>,
+        Andrea Mayer <andrea.mayer@uniroma2.it>
+Subject: [PATCH net] seg6: ensure packet data is writable before modifying SRH and IPv6 DA
+Date: Fri, 25 Sep 2026 15:38:07 +0200
+Message-Id: <20260925133807.32-1-andrea.mayer@uniroma2.it>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260806-block-as-nvmem-v10-0-be598b2a5606@oss.qualcomm.com> <178998281449.889291.7893229102394463283.b4-ty@kernel.org>
-In-Reply-To: <178998281449.889291.7893229102394463283.b4-ty@kernel.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 15:38:56 +0200
-X-Gm-Features: AclHuK99T0Ubawi22EyQadvbidnQEmVlySi-fMkWCvta4a9Udx0OX1G_I0L1lvQ
-Message-ID: <CAFEp6-2P14MdYJGuH6ygRL4ZKtLnJEj=PVMx2p+b9L1RuiX1dg@mail.gmail.com>
-Subject: Re: (subset) [PATCH v10 00/10] Support for block device NVMEM providers
-To: Jens Axboe <axboe@kernel.dk>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Christian Marangi <ansuelsmth@gmail.com>, linux-mmc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-block@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
-        linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
-        daniel@makrotopia.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Christoph Hellwig <hch@lst.de>,
-        Piotr Kwapulinski <piotr.kwapulinski@intel.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: Rxc9DeWZTl-hprFLImGslM5qjJ2KSJxE
-X-Authority-Analysis: v=2.4 cv=MI71C8Zl c=1 sm=1 tr=0 ts=6ab6797c cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8 a=MW6_J8xfeE2cRKj6bkYA:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1NCBTYWx0ZWRfX+kZn9Rt5og+r
- sTwyob9gC66X5+slErSCHSyhZgAse5HQJX5/39EnOTj0wgzgS/4arKwJUgzrZ29wdJxjrAgIp8x
- P1nPk6X2AlJctuttpYboMepuzVHlANxXs6rozKWfYLFtS2oVPRgn6D8S501rs0BVfPWMF2vFyil
- I3I7ksgpE+YwLKxEVqYal7bVJP/XyCkww9SwEPDX0KxudY9hTesQ/rQJfKUvTBKq84F2UHK5tSQ
- QfoPQrmM104Vh1F3UPAbR8+VX/ChzZ/AhXvLE1/vKwteJ/drpVIA1r9+v75zP3/wrD2jenVmFfe
- z4c4eMz8heaBKScYkBxfnTl9gRHAiCcjehFq+N39YCO5CUNinYBGnBV+Z+wNsgVhEMnn4Zc//EZ
- 33+0KGhHcUdu80cJDwr+UMHh9Kil0f9koEUotXePcbZEUyeQ3V28G5o8eM3Tiwt7xou9IIapvcB
- 5gzUKO5Z9Fa3jWDVA+w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1NCBTYWx0ZWRfXzfEKHTgAkeAt
- FUPKmqhVyE620Wxf/X2jzCAcXAP+VN+CNx/dQ1H8gakT9hYkc9mzxzThHALfv8JKt/wdL/bHvyi
- LZwrm70CL6t97wiRFjMSk1rrlskjDfA=
-X-Proofpoint-GUID: Rxc9DeWZTl-hprFLImGslM5qjJ2KSJxE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 clxscore=1015 spamscore=0 priorityscore=1501
- impostorscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250054
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-Hi Jens, Luiz,
+advance_nextseg() modifies the SRH Segments Left field and the IPv6
+destination address without ensuring the packet data is writable.
+seg6_next_csid_advance_arg() has the same problem when it advances the
+NEXT-C-SID argument in the destination address.
 
-On Mon, Sep 21, 2026 at 11:27=E2=80=AFAM Srinivas Kandagatla <srini@kernel.=
-org> wrote:
->
->
-> On Thu, 06 Aug 2026 16:38:33 +0200, Loic Poulain wrote:
-> > On embedded devices, it is common for factory provisioning to store
-> > device-specific information, such as Ethernet or WiFi MAC addresses,
-> > in a dedicated area of an eMMC partition. This avoids the need for
-> > and additional EEPROM/OTP and leverages the persistence of eMMC.
-> >
-> > One example is the Arduino UNO-Q, where the WiFi MAC address and the
-> > Bluetooth Device address are stored in the eMMC Boot1 partition.
-> >
-> > [...]
->
-> Applied, thanks!
->
-> [04/10] nvmem: layouts: Support fixed-layout as the nvmem device node its=
-elf
->         commit: 9c6cab93dcd47c3075d896c777567b9d8f813d18
+The skb may be cloned, for example by an AF_PACKET socket receiving on
+the ingress device. advance_nextseg() and seg6_next_csid_advance_arg()
+then write into the packet data shared with the clone. A read from that
+socket can return the modified packet instead of the received one. The
+simplified path below shows this for advance_nextseg():
 
-If you're happy with the current state, would you mind picking up the
-block-related and Bluetooth-related patches in the respective trees?
-They are independent.
+__netif_receive_skb_one_core
+  __netif_receive_skb_core
+    deliver_skb               [orig: users=2, cloned=0]
+      packet_rcv
+        skb_clone             clone queued to the AF_PACKET socket
+        consume_skb(orig)     [orig: users=1, cloned=1]
+  ipv6_rcv
+    ip6_rcv_core              skb_share_check: no-op [orig: users=1]
+    [...]
+      input_action_end_core
+        advance_nextseg       writes into the data shared with the clone
 
-Thanks,
-Loic
+Call skb_ensure_writable() in advance_nextseg() and in
+seg6_next_csid_advance_arg() before they modify the packet data.
+skb_ensure_writable() may reallocate skb->head, which invalidates the
+pointers into the packet data taken before the call.
+advance_nextseg() now returns a valid SRH pointer, or NULL if
+skb_ensure_writable() fails.
+seg6_next_csid_advance_arg() takes the pointer to the destination
+address from the skb after skb_ensure_writable().
+On failure, the callers drop the packet with SKB_DROP_REASON_NOMEM.
+
+Fixes: 140f04c33bbc ("ipv6: sr: implement several seg6local actions")
+Fixes: 848f3c0d4769 ("seg6: add NEXT-C-SID support for SRv6 End behavior")
+Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+---
+ net/ipv6/seg6_local.c | 140 +++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 117 insertions(+), 23 deletions(-)
+
+diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+index d1070aec7b72..53f7b2452575 100644
+--- a/net/ipv6/seg6_local.c
++++ b/net/ipv6/seg6_local.c
+@@ -278,13 +278,43 @@ static bool decap_and_validate(struct sk_buff *skb, int proto)
+ 	return true;
+ }
+ 
+-static void advance_nextseg(struct ipv6_sr_hdr *srh, struct in6_addr *daddr)
++/* advance the SRH to the next segment and set the IPv6 DA accordingly.
++ * skb pointers may change: after this call, the caller must evaluate again
++ * any pointer into the packet data.
++ *
++ * This function returns:
++ *  - the SRH on success;
++ *  - NULL when the skb cannot be made writable. In this case, the function
++ *    sets the drop reason to SKB_DROP_REASON_NOMEM.
++ */
++static struct ipv6_sr_hdr *advance_nextseg(struct sk_buff *skb,
++					   struct ipv6_sr_hdr *srh,
++					   enum skb_drop_reason *reason)
+ {
+ 	struct in6_addr *addr;
++	int srhoff;
++	int wlen;
++
++	srhoff = (unsigned char *)srh - skb->data;
++	/* we write only the Segment Left field and the IPv6 DA. The segment
++	 * list is only read, and seg6_get_srh() already pulled it into the
++	 * linear area.
++	 */
++	wlen = srhoff + sizeof(*srh);
++
++	if (unlikely(skb_ensure_writable(skb, wlen))) {
++		*reason = SKB_DROP_REASON_NOMEM;
++		return NULL;
++	}
++
++	/* skb_ensure_writable() may change skb pointers; evaluate srh again */
++	srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
+ 
+ 	srh->segments_left--;
+ 	addr = srh->segments + srh->segments_left;
+-	*daddr = *addr;
++	ipv6_hdr(skb)->daddr = *addr;
++
++	return srh;
+ }
+ 
+ static int
+@@ -382,12 +412,26 @@ static bool seg6_next_csid_is_arg_zero(const struct in6_addr *addr,
+ 	return true;
+ }
+ 
+-/* assume that DA.Argument length > 0 */
+-static void seg6_next_csid_advance_arg(struct in6_addr *addr,
+-				       const struct seg6_flavors_info *finfo)
++/* assume that DA.Argument length > 0.
++ * skb pointers may change: after this call, the caller must evaluate again
++ * any pointer into the packet data.
++ *
++ * This function returns:
++ *  - SKB_NOT_DROPPED_YET on success;
++ *  - SKB_DROP_REASON_NOMEM when the skb cannot be made writable.
++ */
++static enum skb_drop_reason
++seg6_next_csid_advance_arg(struct sk_buff *skb,
++			   const struct seg6_flavors_info *finfo)
+ {
+ 	__u8 fnc_octects = seg6_flv_lcnode_func_octects(finfo);
+ 	__u8 blk_octects = seg6_flv_lcblock_octects(finfo);
++	struct in6_addr *addr;
++
++	if (unlikely(skb_ensure_writable(skb, sizeof(struct ipv6hdr))))
++		return SKB_DROP_REASON_NOMEM;
++
++	addr = &ipv6_hdr(skb)->daddr;
+ 
+ 	/* advance DA.Argument */
+ 	memmove(&addr->s6_addr[blk_octects],
+@@ -395,6 +439,8 @@ static void seg6_next_csid_advance_arg(struct in6_addr *addr,
+ 		16 - blk_octects - fnc_octects);
+ 
+ 	memset(&addr->s6_addr[16 - fnc_octects], 0x00, fnc_octects);
++
++	return SKB_NOT_DROPPED_YET;
+ }
+ 
+ static int input_action_end_finish(struct sk_buff *skb,
+@@ -408,31 +454,42 @@ static int input_action_end_finish(struct sk_buff *skb,
+ static int input_action_end_core(struct sk_buff *skb,
+ 				 struct seg6_local_lwt *slwt)
+ {
++	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
+ 	struct ipv6_sr_hdr *srh;
++	int err = -EINVAL;
+ 
+ 	srh = get_and_validate_srh(skb);
+ 	if (!srh)
+ 		goto drop;
+ 
+-	advance_nextseg(srh, &ipv6_hdr(skb)->daddr);
++	srh = advance_nextseg(skb, srh, &reason);
++	if (!srh) {
++		err = -ENOMEM;
++		goto drop;
++	}
+ 
+ 	return input_action_end_finish(skb, slwt);
+ 
+ drop:
+-	kfree_skb(skb);
+-	return -EINVAL;
++	kfree_skb_reason(skb, reason);
++	return err;
+ }
+ 
+ static int end_next_csid_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ {
+ 	const struct seg6_flavors_info *finfo = &slwt->flv_info;
+ 	struct in6_addr *daddr = &ipv6_hdr(skb)->daddr;
++	enum skb_drop_reason reason;
+ 
+ 	if (seg6_next_csid_is_arg_zero(daddr, finfo))
+ 		return input_action_end_core(skb, slwt);
+ 
+ 	/* update DA */
+-	seg6_next_csid_advance_arg(daddr, finfo);
++	reason = seg6_next_csid_advance_arg(skb, finfo);
++	if (reason) {
++		kfree_skb_reason(skb, reason);
++		return -ENOMEM;
++	}
+ 
+ 	return input_action_end_finish(skb, slwt);
+ }
+@@ -448,19 +505,25 @@ static int input_action_end_x_finish(struct sk_buff *skb,
+ static int input_action_end_x_core(struct sk_buff *skb,
+ 				   struct seg6_local_lwt *slwt)
+ {
++	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
+ 	struct ipv6_sr_hdr *srh;
++	int err = -EINVAL;
+ 
+ 	srh = get_and_validate_srh(skb);
+ 	if (!srh)
+ 		goto drop;
+ 
+-	advance_nextseg(srh, &ipv6_hdr(skb)->daddr);
++	srh = advance_nextseg(skb, srh, &reason);
++	if (!srh) {
++		err = -ENOMEM;
++		goto drop;
++	}
+ 
+ 	return input_action_end_x_finish(skb, slwt);
+ 
+ drop:
+-	kfree_skb(skb);
+-	return -EINVAL;
++	kfree_skb_reason(skb, reason);
++	return err;
+ }
+ 
+ static int end_x_next_csid_core(struct sk_buff *skb,
+@@ -468,12 +531,17 @@ static int end_x_next_csid_core(struct sk_buff *skb,
+ {
+ 	const struct seg6_flavors_info *finfo = &slwt->flv_info;
+ 	struct in6_addr *daddr = &ipv6_hdr(skb)->daddr;
++	enum skb_drop_reason reason;
+ 
+ 	if (seg6_next_csid_is_arg_zero(daddr, finfo))
+ 		return input_action_end_x_core(skb, slwt);
+ 
+ 	/* update DA */
+-	seg6_next_csid_advance_arg(daddr, finfo);
++	reason = seg6_next_csid_advance_arg(skb, finfo);
++	if (reason) {
++		kfree_skb_reason(skb, reason);
++		return -ENOMEM;
++	}
+ 
+ 	return input_action_end_x_finish(skb, slwt);
+ }
+@@ -760,10 +828,12 @@ static bool seg6_pop_srh(struct sk_buff *skb, int srhoff)
+  */
+ static int end_flv8986_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ {
++	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
+ 	const struct seg6_flavors_info *finfo = &slwt->flv_info;
+ 	enum seg6_local_flv_action action;
+ 	enum seg6_local_pktinfo pinfo;
+ 	struct ipv6_sr_hdr *srh;
++	int err = -EINVAL;
+ 	__u32 flvmask;
+ 	int srhoff;
+ 
+@@ -787,10 +857,18 @@ static int end_flv8986_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ 	switch (action) {
+ 	case SEG6_LOCAL_FLV_ACT_END:
+ 		/* process the packet as the "standard" End behavior */
+-		advance_nextseg(srh, &ipv6_hdr(skb)->daddr);
++		srh = advance_nextseg(skb, srh, &reason);
++		if (!srh) {
++			err = -ENOMEM;
++			goto drop;
++		}
+ 		break;
+ 	case SEG6_LOCAL_FLV_ACT_PSP:
+-		advance_nextseg(srh, &ipv6_hdr(skb)->daddr);
++		srh = advance_nextseg(skb, srh, &reason);
++		if (!srh) {
++			err = -ENOMEM;
++			goto drop;
++		}
+ 
+ 		if (unlikely(!seg6_pop_srh(skb, srhoff)))
+ 			goto drop;
+@@ -807,8 +885,8 @@ static int end_flv8986_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ 	return input_action_end_finish(skb, slwt);
+ 
+ drop:
+-	kfree_skb(skb);
+-	return -EINVAL;
++	kfree_skb_reason(skb, reason);
++	return err;
+ }
+ 
+ /* regular endpoint function */
+@@ -847,21 +925,27 @@ static int input_action_end_x(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ 
+ static int input_action_end_t(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ {
++	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
+ 	struct ipv6_sr_hdr *srh;
++	int err = -EINVAL;
+ 
+ 	srh = get_and_validate_srh(skb);
+ 	if (!srh)
+ 		goto drop;
+ 
+-	advance_nextseg(srh, &ipv6_hdr(skb)->daddr);
++	srh = advance_nextseg(skb, srh, &reason);
++	if (!srh) {
++		err = -ENOMEM;
++		goto drop;
++	}
+ 
+ 	seg6_lookup_nexthop(skb, NULL, slwt->table);
+ 
+ 	return dst_input(skb);
+ 
+ drop:
+-	kfree_skb(skb);
+-	return -EINVAL;
++	kfree_skb_reason(skb, reason);
++	return err;
+ }
+ 
+ /* decapsulate and forward inner L2 frame on specified interface */
+@@ -1375,6 +1459,7 @@ static int input_action_end_b6(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ static int input_action_end_b6_encap(struct sk_buff *skb,
+ 				     struct seg6_local_lwt *slwt)
+ {
++	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
+ 	struct ipv6_sr_hdr *srh;
+ 	int err = -EINVAL;
+ 
+@@ -1382,7 +1467,11 @@ static int input_action_end_b6_encap(struct sk_buff *skb,
+ 	if (!srh)
+ 		goto drop;
+ 
+-	advance_nextseg(srh, &ipv6_hdr(skb)->daddr);
++	srh = advance_nextseg(skb, srh, &reason);
++	if (!srh) {
++		err = -ENOMEM;
++		goto drop;
++	}
+ 
+ 	skb_reset_inner_headers(skb);
+ 	skb->encapsulation = 1;
+@@ -1398,7 +1487,7 @@ static int input_action_end_b6_encap(struct sk_buff *skb,
+ 	return dst_input(skb);
+ 
+ drop:
+-	kfree_skb(skb);
++	kfree_skb_reason(skb, reason);
+ 	return err;
+ }
+ 
+@@ -1434,6 +1523,7 @@ static int input_action_end_bpf(struct sk_buff *skb,
+ 				struct seg6_local_lwt *slwt)
+ {
+ 	struct seg6_bpf_srh_state *srh_state;
++	enum skb_drop_reason reason;
+ 	struct ipv6_sr_hdr *srh;
+ 	int ret;
+ 
+@@ -1442,7 +1532,11 @@ static int input_action_end_bpf(struct sk_buff *skb,
+ 		kfree_skb(skb);
+ 		return -EINVAL;
+ 	}
+-	advance_nextseg(srh, &ipv6_hdr(skb)->daddr);
++	srh = advance_nextseg(skb, srh, &reason);
++	if (!srh) {
++		kfree_skb_reason(skb, reason);
++		return -ENOMEM;
++	}
+ 
+ 	/* The access to the per-CPU buffer srh_state is protected by running
+ 	 * always in softirq context (with disabled BH). On PREEMPT_RT the
+
+base-commit: 11536ee3d3e0b1bd35b6f3f8df55a6053eb0c71d
+-- 
+2.43.0
+
