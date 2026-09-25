@@ -1,48 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199DC3CFF44;
-	Fri, 25 Sep 2026 05:34:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077593ABD99;
+	Fri, 25 Sep 2026 05:37:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790314465; cv=none; b=kGIqKx8UqP7mPLBKdFDP+WJzXF6GL+YQZom1dCcmXqzWfKGdmBIbzXCwWa50y/73jAH3/7ldeZTiGp+xuW7FgBr5hLyoK77nFXEa8OW571h7uP4/IHVW0AcIxprvn6gxDw20lg8RTmCE27CqtviPsMtiTKzpLd5b4vPgCPCD/bU=
+	t=1790314662; cv=none; b=X9RVPSbvOOGAN0pWv+uzGquMqpqkr0sqCpgjfmLZazi2rujJ+PUxq2HFnaToiLRxamfeKWSkn6InpSkAjR0RxVvcLa0eEcpfkyXf7+VyB4tU2VQfL9MNvF2FvQjIU3oEYOGc9zjb8aV91W2Db3j/wmVyKyshJBlARmQKMXN8RPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790314465; c=relaxed/simple;
-	bh=SBPmEYWRj7FesvnmSMCjuo+IHA5a1Kuen9nGJyHdsHE=;
+	s=arc-20240116; t=1790314662; c=relaxed/simple;
+	bh=TiptZsxf29OlOe5WXy9sZcFl7rzB5X4lMEs5dta2ZEw=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Q5OOpsoUzCGKvV2LYDHZhlotq2vMr2W6qe4TOefqIDcW8HGbL3kqxwwC+IUEzKnGNB35psLZ25GSwpZByVeAHxr4UBbeHUoGI79bDXLQKk8u2WNkkFaL90olY57qDzvydA1ZVxuE5+vmec9PzLQSENoK7a97xlkKcSh4gyBQ3ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BQGePuXs; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=SzFxvX+077gW8fP8kujV3vpBW+pL8NJXAFefRGTSjgFrC2dE7i/HwcPODmvFWc/j0SvsUGrKg84e0cDowWufTg0voo0JC3JXPlkj2M6qX8tTOJry0/1K534kpVvMg+UDAD6V7rfVdLkNLQo/4vV1NoTDwzppVT5d2V1QTJle7+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GrG/hNu4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BQGePuXs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D641F000FF;
-	Fri, 25 Sep 2026 05:34:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GrG/hNu4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D25E11F000FF;
+	Fri, 25 Sep 2026 05:37:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790314463;
-	bh=OlsLchOVxsGXMo2CJJd9paaBhJbScpiX2qYT/uYAl1w=;
+	s=k20260515; t=1790314659;
+	bh=EL5nCry69SwHPUTQMjJHl7impNhyS6Pktx8aZN5u7lY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BQGePuXsTuIF+qAfWC32j9gxhVjRZ3GGQdE2DBrsfjYV8Usq2aLtfGmOz3Rvt29fo
-	 6FVmDwuUpM2k1yF5gVo7QV6uYqmpuSRuTdLy1JJjYxYFH+GQ+QytKcS3+wicY7ALT8
-	 tvN917OuJKsdb9AnNF7OKT8Uk8K/wyxVxc6mNxCw0qirpkqAePxlyTctdhMPBkuOl+
-	 WKvxDDib9B+QpSrJ1YO9iI8atudmpr3b2Fk3oSjopIo0pQed3w0sW5EmlKSbHjJxxy
-	 Bhkvlv+gIAzBjRycvxq4OF7kXQLXFKaAGeOG0ed7msL5c7I0al9QrMily4UJo4sy9N
-	 dQb75LntNAI/g==
-Subject: Re: [PATCH net-next v17 5/6] net: dsa: mxl862xx: recover switch stuck
- in MCUboot rescue mode
+	b=GrG/hNu4nPXNyo0wDtdIm5hVDIvNEP7LPxEQMlEdPWVrPERU4+SqOEeYvgwuCOaYX
+	 j0ARcQhufb3k6d8d3PWGOKmBeuINU/ARJ/zwKc4mMo6drVS4wz3mgUkzVXXCcwI3+J
+	 rbtyBucJyp/JGf6Lzw/SlXEsi3SLmvLt8j0Z6ZmagMuWOJYY+KTBW6zW0TJs2QyD8l
+	 TjfNwcfoh9rS1/3yOKrAgiqEkyU90ozMvygS8gFJYn9Cp63HsUhdhjrRbNTPDATnR/
+	 pVVIU1ybuEy1nOtlg+BFI33+08YIZa8u0d/hjzFwkjxjLIMdsj91fgQrOg0nb2g+J7
+	 Nae0d/eETWZJg==
+Subject: Re: [PATCH v1] ptp: idt82p33: Stop PTP work producers before teardown
 From: netdev-bot+sashiko@kernel.org
-To: daniel@makrotopia.org
-Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, gregkh@linuxfoundation.org,
- rafael@kernel.org, dakr@kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
-Date: Fri, 25 Sep 2026 05:34:22 +0000
-Message-ID: <179031446208.2160803.5824341179821498261@kernel.org>
-In-Reply-To: =?utf-8?q?=3Cf5e7d88800d34d3ff8462039409d9b3e6b645bc4=2E1790130?=
- =?utf-8?q?482=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-References: =?utf-8?q?=3Cf5e7d88800d34d3ff8462039409d9b3e6b645bc4=2E17901304?=
- =?utf-8?q?82=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-X-sashiko-severity: High
+To: lhfff@tju.edu.cn
+Cc: richardcochran@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kuba@kernel.org
+Date: Fri, 25 Sep 2026 05:37:38 +0000
+Message-ID: <179031465830.2160803.9108448970348190131@kernel.org>
+In-Reply-To: <20260922113601.855416-1-lhfff@tju.edu.cn>
+References: <20260922113601.855416-1-lhfff@tju.edu.cn>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -52,10 +45,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 10 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 3 · Low: 6
+Critical: 0 · High: 0 (1) · Medium: 1 (2) · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -63,417 +56,251 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] mxl862xx_setup() now runs mxl862xx_rescue_mode_detect(priv,
-  false) on every probe, before any clause-45 access.
-- [Medium] mxl862xx_rescue_mode_detect(priv, true) can never return
-  MXL862XX_NOT_RESCUE.
-- [Medium] mxl862xx_rescue_drain() starts chunk at 0 on every run (line
-  379).
-- [Medium] In rescue mode the CPU port and conduit are set up, so DSA's
-  conduit ethtool override stays installed.
-- [Low] At probe time, rescue_failed can only be set by the START/ACK
-  branch of mxl862xx_rescue_mode_detect().
-- [Low] The patch made mxl862xx_port_mdb_add() also return 0 on -ENODEV
-  when READ_ONCE(priv->rescue_mode) is set.
-- [Low] The @flags kernel-doc in struct mxl862xx_priv still says
-  MXL862XX_FLAG_WORK_STOPPED "is set before cancelling stats_work to…
-- [Low] The file header says the loader leaves the host's byte count in
-  STAT while it programs a chunk.
-- [Low] In rescue mode, mxl862xx_devlink_info_get() reports the zeroed
-  fw_version cache ("0.0.0") with devlink_info_version_stored_put() as…
-- [Low] mxl862xx_setup_rescue() queues rescue_heal_work on
-  system_long_wq, which is not freezable.
+- [Medium] The new `stopping` gate in `idt82p33_enable()`
+  (drivers/ptp/ptp_idt82p33.c:947-949) is placed before `switch…
+- [Low] Missing `Fixes:` tag and `Cc: stable@vger.kernel.org` on a
+  genuine use-after-free fix.
+
+Pre-existing issues:
+- [High] User-triggerable AB-BA deadlock in the very work-cancellation
+  path this patch reworks, left unfixed.
+- [Medium] `idt82p33_ptp_clock_unregister_all()` unconditionally calls
+  `cancel_delayed_work_sync(&channel->adjtime_work)` for all MAX_PHC_PLL…
+- [Medium] The teardown path drains `extts_work` and each channel's
+  `adjtime_work` but does nothing about an in-flight double-DCO (ddco)…
 
 --
 
-net: dsa: mxl862xx: recover switch stuck in MCUboot rescue mode
+ptp: idt82p33: Stop PTP work producers before teardown
 
-At setup, this patch detects the MCUboot loader over clause-22 SB PDI,
-before any clause-45 access. If the loader is found, the switch is
-registered with only its CPU port so devlink can reflash it, and devlink
-dev info reports 0.0.0. A background work item drains an interrupted
-download one byte at a time and then schedules a re-probe.
+This adds a stopping flag to struct idt82p33, set under the device mutex at
+the head of idt82p33_ptp_clock_unregister_all(), and uses it to reject new
+adjtime and enable requests while the EXTTS and per-channel adjtime work is
+drained.  The extts_work cancellation is moved out of idt82p33_remove() into
+the unregister helper.
 
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx-fw.c b/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
-> index 7a506d110c8da..0761132120b1a 100644
-> --- a/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
-
-[ ... ]
-
-> @@ -218,6 +268,379 @@ static void mxl862xx_flash_notify(struct devlink *dl, const char *status,
-
-[ ... ]
-
-> +static int mxl862xx_sb_pdi_poll_drain(struct mxl862xx_priv *priv,
-> +				      unsigned long sleep_us,
-> +				      unsigned long timeout_ms)
-> +{
-> +	int val;
-> +
-> +	read_poll_timeout(mxl862xx_smdio_read, val,
-> +			  val < 0 || (u16)val == MXL862XX_SB_PDI_READY ||
-> +			  (u16)val == 0 ||
-> +			  test_bit(MXL862XX_FLAG_WORK_STOPPED, &priv->flags),
-> +			  sleep_us, timeout_ms * 1000, false,
-> +			  priv, MXL862XX_SB_PDI_STAT);
-> +	if (val < 0)
-> +		return val;
-> +	if (test_bit(MXL862XX_FLAG_WORK_STOPPED, &priv->flags))
-> +		return -ECANCELED;
-> +	return (u16)val;
-> +}
+A few questions below.
 
 [Severity: Low]
-This isn't a bug, but the @flags kernel-doc in struct mxl862xx_priv still
-says MXL862XX_FLAG_WORK_STOPPED "is set before cancelling stats_work to
-prevent rescheduling during teardown".
+The changelog describes a real use-after-free:
 
-The flag now has a second job. It cancels the drain here and in
-mxl862xx_rescue_drain(), and it also skips the reprobe hand-off in
-mxl862xx_rescue_heal_work_fn(). Unbind and shutdown rely on it to stop a
-long drain.
+    "Device removal then frees the channel while its delayed work remains
+    queued, causing a use-after-free."
 
-Should the kernel-doc mention this as well?
+The producer being closed is in _idt82p33_adjtime_internal_triggered():
 
-[ ... ]
+	/* Schedule to implement the workaround in one second */
+	(void)div_s64_rem(delta_ns, NSEC_PER_SEC, &remainder);
+	if (remainder != 0)
+		schedule_delayed_work(&channel->adjtime_work, HZ);
 
-> +static int mxl862xx_rescue_drain_finish(struct mxl862xx_priv *priv, u32 chunk)
-> +{
+and struct idt82p33 is devm_kzalloc()ed in idt82p33_probe(), so the embedded
+delayed_work is freed once idt82p33_remove() returns.  git blame attributes
+the schedule_delayed_work() above to ad3cc7760dc45f.  Should this carry
 
-[ ... ]
+	Fixes: ad3cc7760dc45f ("ptp: idt82p33: Add adjphase support")
+	Cc: stable@vger.kernel.org
 
-> +	if (stat) {
-> +		if (!chunk) {
-> +			dev_err(dev,
-> +				"flash: loader still busy after the erase window\n");
-> +			return -EIO;
-> +		}
-> +		/* A firmware is answering, not the loader: an image survived
-> +		 * in flash and booted.
-> +		 */
-> +		dev_info(dev, "flash: firmware booted while draining\n");
-> +		return 0;
-> +	}
+so the fix is picked up for the affected stable trees?
+
+> diff --git a/drivers/ptp/ptp_idt82p33.c b/drivers/ptp/ptp_idt82p33.c
+> index f01c50dfa44e8..ffc2ec1fc4bed 100644
+> --- a/drivers/ptp/ptp_idt82p33.c
+> +++ b/drivers/ptp/ptp_idt82p33.c
+> @@ -918,6 +918,13 @@ static void idt82p33_ptp_clock_unregister_all(struct idt82p33 *idt82p33)
+>  	struct idt82p33_channel *channel;
+>  	u8 i;
+>  
+> +	mutex_lock(idt82p33->lock);
+> +	idt82p33->stopping = true;
+> +	idt82p33->extts_mask = 0;
+> +	mutex_unlock(idt82p33->lock);
+> +
+> +	cancel_delayed_work_sync(&idt82p33->extts_work);
+> +
+>  	for (i = 0; i < MAX_PHC_PLL; i++) {
+>  		channel = &idt82p33->channel[i];
+>  		cancel_delayed_work_sync(&channel->adjtime_work);
 
 [Severity: Medium]
-Can the "firmware booted while draining" branch be reached when
-chunk == 0?
+This isn't a bug introduced by this patch, but since this is the teardown
+function being hardened: can this cancel_delayed_work_sync() run on a
+channel whose adjtime_work was never initialized?
 
-mxl862xx_rescue_drain() starts with chunk = 0 on every run. It does not
-count the 1-byte slice-advance that mxl862xx_rescue_mode_detect() already
-sent, or the settle wait.
+INIT_DELAYED_WORK(&channel->adjtime_work, ...) is the last statement of
+idt82p33_channel_init(), and the per-PLL loop in idt82p33_probe() breaks on
+the first failure before calling this helper:
 
-Suppose WSP firmware boots before the worker feeds its first byte. That
-can happen if detect's advance completed the image, or on the settle path
-after mxl862xx_wait_ready() failed. Wouldn't this then poll for 300 s,
-return -EIO and set rescue_failed?
+			if (idt82p33->pll_mask & (1 << i))
+				err = idt82p33_enable_channel(idt82p33, i);
+			else
+				err = idt82p33_channel_init(idt82p33, i);
+			if (err) {
+				...
+				break;
+			}
 
-After that there is no reprobe, and rescue_mode stays true, so
-mxl862xx_api_wrap() returns -ENODEV for every command. In rescue mode,
-mxl862xx_port_setup() also returned before mxl862xx_port_state(false) and
-the single-port bridge setup.
+With DEFAULT_PLL_MASK == 0x01 and MAX_PHC_PLL == 2, a failure inside
+idt82p33_enable_channel(idt82p33, 0) (an i2c/regmap error, or
+ptp_clock_register() failing) leaves channel[1].adjtime_work as the zeroed
+devm_kzalloc() memory.  cancel_delayed_work_sync() then reaches
 
-Would the running firmware then forward traffic with its default setup
-while the driver treats the switch as an inert loader, until someone
-rebinds it by hand?
+kernel/workqueue.c:__flush_work() {
+	if (WARN_ON(!work->func))
+		return false;
+}
 
-[ ... ]
+and work_grab_pending() -> try_to_grab_pending() calls timer_delete() on a
+timer that never went through debug object init, which reports assert_init
+with CONFIG_DEBUG_OBJECTS_TIMERS.  Would guarding the cancel, or moving the
+INIT_DELAYED_WORK() so it runs for every channel before any failure is
+possible, be preferable here?
 
-> +	stat = mxl862xx_smdio_read(priv, MXL862XX_SB_PDI_STAT);
-> +	if (stat < 0)
-> +		return stat;
-> +
-> +	/* Flashless-download loop (MxL86281S tier): this driver does not
-> +	 * support it -- the console flash path expects READY. Treat it as an
-> +	 * unusable configuration, like any other unsupported state.
-> +	 */
-> +	if ((u16)stat == MXL862XX_SB_PDI_DL_READY)
-> +		return -EOPNOTSUPP;
+[Severity: Medium]
+This is a pre-existing issue, but the drain added here does not cover an
+in-flight double-DCO adjustment.  idt82p33_start_ddco() programs a
+transient frequency offset and relies only on the PTP aux worker to undo it:
 
-[Severity: Low]
-The file header says the loader keeps the host's byte count in STAT while
-it programs a chunk. For the final slice, mxl862xx_sb_pdi_flush_last()
-writes data_written, which can be any value from 1 to 65520. The values
-0xc33c, 0xc55c, 0xf48f and 0xf490 all fall in that range.
+	err = _idt82p33_adjfine(channel,
+				idt82p33_ddco_scaled_ppm(current_ppm, ppb));
+	if (err)
+		return err;
 
-Can detection misread STAT if probe runs while an interrupted host's
-final chunk of one of these sizes is still being programmed or verified?
-These checks run before any settle wait:
+	/* schedule the worker to cancel ddco */
+	ptp_schedule_worker(channel->ptp_clock,
+			    msecs_to_jiffies(duration_ms) - 1);
+	channel->ddco = true;
 
-  0xc33c: probe fails with -EOPNOTSUPP
-  0xc55c: the RDREG challenge goes to a loader outside its console loop,
-          and probe fails with -ENXIO
-  0xf48f/0xf490: rescue_failed is set, although the loader would finish
-                 on its own
+ptp_clock_unregister() cancels rather than runs that work:
 
-[ ... ]
+drivers/ptp/ptp_clock.c:ptp_clock_unregister() {
+	if (ptp->kworker) {
+		kthread_cancel_delayed_work_sync(&ptp->aux_work);
+		kthread_destroy_worker(ptp->kworker);
+	}
+}
 
-> +	if ((u16)stat == MXL862XX_SB_PDI_START ||
-> +	    (u16)stat == MXL862XX_SB_PDI_START + 1) {
-> +		WRITE_ONCE(priv->rescue_failed, true);
-> +		return MXL862XX_IN_RESCUE;
-> +	}
+So if a small-delta clock_adjtime() (|delta| below phase_snap_threshold and
+at least DDCO_THRESHOLD_NS) happens within the ddco duration before unbind,
+idt82p33_stop_ddco() never restores channel->current_freq and the DPLL keeps
+the slew offset after the driver is gone.  Should the teardown path stop an
+active ddco before unregistering the clock?
 
-[Severity: Low]
-At probe time this is the only place that sets rescue_failed, and no
-drain has run yet. rescue_heal_work is only queued after the
-rescue_failed check in mxl862xx_setup_rescue().
-
-Even so, mxl862xx_setup_rescue() logs "download recovery gave up", and
-mxl862xx_devlink_flash_update() returns the extack "download recovery
-failed".
-
-Could these messages say that the download handshake is stuck, rather
-than pointing at a recovery that never ran?
-
-[ ... ]
-
-> @@ -486,6 +911,25 @@ int mxl862xx_devlink_info_get(struct dsa_switch *ds,
->  	char buf[16];
->  	int ret;
+> @@ -937,6 +944,10 @@ static int idt82p33_enable(struct ptp_clock_info *ptp,
+>  	int err = -EOPNOTSUPP;
 >  
-> +	/* No chip-id/revision in MCUboot (needs the firmware MMD mailbox). The
-> +	 * fw version doubles as the "ready to flash" signal: report it only
-> +	 * once the loader is at a clean READY, nothing while still draining.
-> +	 */
-> +	if (READ_ONCE(priv->rescue_mode)) {
-> +		if (!READ_ONCE(priv->rescue_ready))
-> +			return 0;
-> +
-> +		snprintf(buf, sizeof(buf), "%u.%u.%u",
-> +			 priv->fw_version.major, priv->fw_version.minor,
-> +			 priv->fw_version.revision);
-> +		ret = devlink_info_version_running_put(req,
-> +				DEVLINK_INFO_VERSION_GENERIC_FW, buf);
-> +		if (ret)
-> +			return ret;
-> +		return devlink_info_version_stored_put(req,
-> +				DEVLINK_INFO_VERSION_GENERIC_FW, buf);
-> +	}
-
-[Severity: Low]
-Documentation/networking/devlink/devlink-info.rst defines the stored group
-as the versions in device flash. It also says a device that cannot keep
-those versions accurate must not report them.
-
-The file header says MCUboot is also entered through the sticky rescue
-bit, so the flash may still hold a valid image with a real version.
-
-Is it intended to report stored 0.0.0 here? That value means "ready to
-flash" rather than describing what is in flash.
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx-host.c b/drivers/net/dsa/mxl862xx/mxl862xx-host.c
-> index 4b3956a518cfe..694c22d2dd094 100644
-> --- a/drivers/net/dsa/mxl862xx/mxl862xx-host.c
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx-host.c
-
-[ ... ]
-
-> @@ -347,6 +348,11 @@ int mxl862xx_api_wrap(struct mxl862xx_priv *priv, u16 cmd, void *_data,
->  		goto out;
->  	}
->  
-> +	if (priv->rescue_mode) {
-> +		ret = -ENODEV;
+>  	mutex_lock(idt82p33->lock);
+> +	if (idt82p33->stopping) {
+> +		err = -ENODEV;
 > +		goto out;
 > +	}
-> +
+>  
+>  	switch (rq->type) {
+>  	case PTP_CLK_REQ_PEROUT:
 
 [Severity: Medium]
-In rescue mode the CPU port and the conduit are still set up, so DSA's
-conduit ethtool override stays in place. ETHTOOL_GSTATS needs no
-CAP_NET_ADMIN, so any local user can reach this path:
+This gate sits before the switch, so it also refuses requests with on == 0.
+Since stopping is set before the ptp_clock_unregister() loop, doesn't that
+mean the PTP core's own teardown disable call is now rejected?
 
-ethtool -S <conduit>
-  dsa_conduit_get_ethtool_stats()
-    dsa_conduit_append_port_stats()
-      mxl862xx_get_ethtool_stats(ds, cpu_port)
-        mxl862xx_read_rmon()
-          mxl862xx_api_wrap() returns -ENODEV here
+idt82p33_ptp_clock_unregister_all()
+  ptp_clock_unregister()
+    ptp_disable_all_events()
+      ptp_disable_pinfunc()
+        ops->enable(ops, &rq{PTP_CLK_REQ_EXTTS}, 0)   -> -ENODEV
 
-mxl862xx_get_ethtool_stats() then does this, with no ratelimit:
+drivers/ptp/ptp_chardev.c:ptp_disable_all_events() {
+	for (i = 0; i < info->n_pins; i++)
+		if (info->pin_config[i].func == PTP_PF_EXTTS)
+			ptp_disable_pinfunc(info, info->pin_config[i].func,
+					    info->pin_config[i].chan);
+}
 
-	ret = mxl862xx_read_rmon(ds, port, &cnt);
-	if (ret) {
-		dev_err(ds->dev, "failed to read RMON stats on port %d\n", port);
-		return;
-	}
+The return value is discarded there, but idt82p33_enable() still ends with
+the unconditional
 
-Rescue mode can last indefinitely: a stuck handshake, a long drain, or a
-loader waiting for a flash. Can an unprivileged user flood the kernel log
-this way?
+	if (err)
+		dev_err(idt82p33->dev,
+			"Failed in %s with err %d!\n", __func__, err);
 
-port_enable/disable, stp_state_set and mdb_add/del now have rescue_mode
-guards. Should the stats callbacks get one too?
+so every unbind of a device whose userspace assigned a pin to PTP_PF_EXTTS
+prints "Failed in idt82p33_enable with err -19!" for a routine core call.
+
+The second effect is on PEROUT.  A userspace perout-off landing between
+stopping = true and that channel's unregistration is also refused, so
+idt82p33_perout_enable() -> idt82p33_output_enable() never runs:
+
+	if (enable)
+		val &= ~SQUELCH_ENABLE;
+	else
+		val |= SQUELCH_ENABLE;
+
+	return idt82p33_write(idt82p33, OUT_MUX_CNFG(outn), &val, sizeof(val));
+
+and the chip keeps driving the output.  Would testing the arming direction
+only (on && idt82p33->stopping), or setting stopping after the
+ptp_clock_unregister() loop, avoid both?
 
 [ ... ]
 
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx.c b/drivers/net/dsa/mxl862xx/mxl862xx.c
-> index 33a7cdb8edd31..911114579f100 100644
-> --- a/drivers/net/dsa/mxl862xx/mxl862xx.c
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx.c
-> @@ -667,27 +667,85 @@ static void mxl862xx_free_bridge(struct dsa_switch *ds,
->  	priv->bridges[bridge->num] = 0;
->  }
+> @@ -1342,6 +1358,8 @@ static void idt82p33_extts_check(struct work_struct *work)
+>  		return;
 >  
-> +static void mxl862xx_setup_rescue(struct dsa_switch *ds)
-> +{
-
-[ ... ]
-
-> +	/* Drain the wedged download in the background so it never holds the
-> +	 * devlink lock; info and flash become available once ready.
-> +	 */
-> +	dev_warn(ds->dev,
-> +		 "switch in MCUboot with an interrupted download, recovering in background\n");
-> +	queue_work(system_long_wq, &priv->rescue_heal_work);
-> +}
-
-[Severity: Low]
-system_long_wq is not freezable. The driver also has no PM callback that
-sets MXL862XX_FLAG_WORK_STOPPED or cancels this work.
-
-Can a drain that runs for tens of minutes keep accessing the MDIO bus
-while the bus controller suspends? Any bus error in that window makes
-mxl862xx_rescue_heal_work_fn() set rescue_failed with no retry. After
-that, devlink flash returns -EIO until the driver is rebound.
-
-device_schedule_reprobe() uses system_freezable_wq. Would a freezable
-workqueue fit better here as well?
-
->  static int mxl862xx_setup(struct dsa_switch *ds)
->  {
->  	struct mxl862xx_priv *priv = ds->priv;
->  	int n_user_ports = 0, max_vlans;
->  	int ingress_finals, vid_rules;
->  	struct dsa_port *dp;
-> -	int ret, i;
-> +	int ret, i, rescue;
+>  	mutex_lock(idt82p33->lock);
+> +	if (idt82p33->stopping)
+> +		goto out;
 >  
-> -	ret = mxl862xx_reset(priv);
-> -	if (ret)
-> -		return ret;
-> +	/* Detect the loader over SB PDI first: it needs no firmware, unlike the
-> +	 * C45 API (mxl862xx_reset/wait_ready), which spends its whole 10 s
-> +	 * window on a mailbox nobody answers. Touch C45 only once rescue is
-> +	 * ruled out.
-> +	 */
-> +	rescue = mxl862xx_rescue_mode_detect(priv, false);
-> +	if (rescue < 0) {
-> +		dev_err(ds->dev, "switch state detection failed: %pe\n",
-> +			ERR_PTR(rescue));
-> +		return rescue;
-> +	}
+>  	for (i = 0; i < MAX_PHC_PLL; i++) {
+>  		mask = 1 << i;
 
 [Severity: High]
-Can this break probe on switches that worked before this patch?
+This is a pre-existing issue, but the new stopping check is placed after
+mutex_lock(), so it cannot break an existing AB-BA cycle around
+extts_work that this patch's drain now also depends on.
 
-Previously the driver only used clause-45 accesses, so a switch with
-working firmware probed even when SB PDI was unusable. Now any negative
-return from mxl862xx_rescue_mode_detect() fails setup before
-mxl862xx_reset() or mxl862xx_wait_ready() is tried.
+idt82p33_gettime() takes the mutex and calls _idt82p33_gettime(), which does:
 
-These cases return an error here:
+	u8 old_mask = idt82p33->extts_mask;
+	...
+	/* Disable extts */
+	if (old_mask)
+		new_mask = idt82p33_extts_enable_mask(channel, old_mask, false);
 
-- The host MDIO bus has no clause-22 ops. In that case
-  mxl862xx_smdio_write() -> __mdiobus_write() returns -EOPNOTSUPP because
-  bus->write is NULL. For example, mvmdio in BUS_TYPE_XSMI mode sets only
-  read_c45/write_c45.
+and with enable == false that helper drains the poller while the caller
+still holds the lock:
 
-- The ADDR/DATA scratch readback does not match. The kernel-doc says this
-  includes "one whose SB PDI window is not at the offsets above". The file
-  header says the 0xe1xx offsets are only the OTP reset defaults.
+drivers/ptp/ptp_idt82p33.c:idt82p33_extts_enable_mask() {
+	if (extts_mask == 0)
+		return 0;
 
-- STAT reads 0xc33c (-EOPNOTSUPP), or it reads 0xc55c and the marker is
-  left untouched (-ENXIO).
+	if (enable == false)
+		cancel_delayed_work_sync(&idt82p33->extts_work);
+}
 
-Every normal boot also writes to the SB PDI mailbox now. If STAT reads 0,
-detect sends a 1-byte download chunk and returns MXL862XX_IN_RESCUE
-whatever follows. That relies on 0 being "the one value a running
-firmware never holds". Is that guaranteed?
+The work being drained is idt82p33_extts_check(), whose only pre-lock guard
+is the lockless extts_mask test, and extts_mask is non-zero on this path:
 
-Would it be safer to fall back to the clause-45 path when detection
-fails, instead of failing probe?
+	if (idt82p33->extts_mask == 0)
+		return;
 
-The commit message only says "Detect the loader over SB PDI at setup,
-ahead of any clause-45 access". The v10 and v16 changelog notes say the
-message was extended to cover the scratch writes to a running firmware,
-the -ENODEV/-ENXIO outcomes and the handshake outcome. That text is not
-in the final commit message. Could it be added back?
+	mutex_lock(idt82p33->lock);
+	if (idt82p33->stopping)
+		goto out;
 
-> -	ret = mxl862xx_wait_ready(ds);
-> -	if (ret)
-> -		return ret;
-> +	if (rescue == MXL862XX_NOT_RESCUE) {
-> +		ret = mxl862xx_reset(priv);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = mxl862xx_wait_ready(ds);
-> +		if (ret) {
-> +			/* the reset may only now have triggered rescue mode */
-> +			rescue = mxl862xx_rescue_mode_detect(priv, true);
-> +			if (rescue < 0) {
-> +				dev_err(ds->dev,
-> +					"switch not responding after reset: %pe\n",
-> +					ERR_PTR(rescue));
-> +				return rescue;
-> +			}
-> +			if (rescue == MXL862XX_NOT_RESCUE)
-> +				return ret;
+If the 95 ms poller is already blocked on that mutex_lock(), does
+cancel_delayed_work_sync() wait for a callback that is waiting for the lock
+the canceller holds?  The same window exists through idt82p33_adjtime() ->
+_idt82p33_adjtime_internal_triggered() -> _idt82p33_gettime().
 
-[Severity: Medium]
-Can mxl862xx_rescue_mode_detect(priv, true) ever return
-MXL862XX_NOT_RESCUE? With settle set, each branch returns either an error
-or MXL862XX_IN_RESCUE:
-
-  DL_READY: -EOPNOTSUPP
-  READY: IN_RESCUE or -ENXIO
-  START/ACK: IN_RESCUE
-  other non-zero: the !settle return is skipped. The poll then returns
-                  IN_RESCUE for READY or non-zero, or falls into the
-                  STAT == 0 path, which also returns IN_RESCUE
-
-If so, this check is dead code, and the -ETIMEDOUT from
-mxl862xx_wait_ready() is always dropped.
-
-Take a firmware that is present but fails mxl862xx_wait_ready(): for
-example, it boots slower than the timeout, reports iv_major == 0, or
-fails CFGGET. It holds a stable non-zero STAT word. Wouldn't it be
-classified as rescue, bound with all user ports unused, and have
-rescue_heal_work queued?
-
-The drain then calls mxl862xx_rescue_drain_finish(priv, 0), waits 300 s,
-returns -EIO and sets rescue_failed. Before this patch, probe simply
-failed with -ETIMEDOUT.
-
-> +		}
-> +	}
-
-[ ... ]
-
-> @@ -1603,7 +1677,8 @@ static int mxl862xx_port_mdb_add(struct dsa_switch *ds, int port,
->  	 * rebuilds the configuration. See mxl862xx_port_mdb_del().
->  	 */
->  	if ((ret == -EBUSY && priv->block_host) ||
-> -	    (ret == -ENODEV && priv->skip_teardown))
-> +	    (ret == -ENODEV &&
-> +	     (priv->skip_teardown || READ_ONCE(priv->rescue_mode))))
->  		return 0;
->  	if (ret)
->  		return ret;
-
-[Severity: Low]
-This isn't a bug, but the comment above still mentions only the flash
-cases ("A flash blocks the API (-EBUSY) and its teardown drops the MAC
-table (-ENODEV)"). The comment in mxl862xx_port_mdb_del() was updated to
-say "its teardown or MCUboot drops the MAC table". Should this comment
-be updated to match?
+Also, because idt82p33_ptp_clock_unregister_all() now takes
+mutex_lock(idt82p33->lock) first, an unbind racing a wedged gettime blocks
+there as well, so the drain this patch adds would not complete.  The mutex is
+the shared rsmu MFD lock (idt82p33->lock = &ddata->lock), so the other MFD
+users are held off too.  Should idt82p33_extts_check() check stopping before
+taking the lock, or should the cancel in idt82p33_extts_enable_mask() be
+moved outside the lock?
 
 [ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1790130482.git.daniel%40makrotopia.org
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922113601.855416-1-lhfff%40tju.edu.cn
