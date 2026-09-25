@@ -1,129 +1,259 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F3E4CDA3C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:38:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C565D4D0A0D
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350695; cv=none; b=KUITkRhUyjiEVyb3vWf3DIdz91Dplz351dotx/rd3c1toNSwpLf13XEK3MpJQJt9I4e2f0U6E/SxcTamtRARx6ZT4E8BCjIEuKMT+vyVlBAFm1dyhfOpWDpBa/iPN+JDz8jpDMqKXdoEwTX282FKPGvKEROzVupOm0Ka2ntJy4w=
+	t=1790350739; cv=none; b=o+aUiz2A9cvJQINdZ0npkPcHgS3rBQaNVpvVq2//7FqPmOoE8h6YflEQA9vPgqBNI4JWtvzg4TBHMPBTtmx2iaklsyrv8QLBhMaEfnCU8piStBf8Anfr0jnhJqDqqrtS+hf3oBrfaBJUdBwSGZdjAqw1/tEYlHFOHUyHXM+zYqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790350695; c=relaxed/simple;
-	bh=R9ZvPoqCku9almMzakLa7ZXEB9R9SYeZaEl4deCFJP4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gEE7pz5yoESVwWkrfwnblNm055PvHxvZt7CQCJoCmdhZJfvi3y7PNwPkg1pUss9oFge4VWGOq/ovxsZvns/iw5REFfH+JjRNLh6XS6s7gJKKgKr7/eGjEeigHKp7AdYHDOcCvf22UGhZ5tjaPTMYpQCNAFFfea+uShr7ydzk01A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OjooBZam; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790350739; c=relaxed/simple;
+	bh=Q7E+UxpSbSVKgIapvkQ6Zr4zHvBWYuY5FDhOnkjFOJw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JWwPCvkd+DiCZ+qHhzkY8tdP9foe14lK48aU5SemKVHBHVUfRKESuk5MTxt++TGbk/gFqh96HFQd588ldV7/3nVYtMD7Q0ADoky2yaq1lYBYAcR2kjY7IK1yuoxZm6U/PCvHA8vabVfpQ6ISC3iCLrbw+vDB2jyMsKJUwtFtnio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=MkOKJdrY; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=nBbbPTOb; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OjooBZam"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24071F000FF
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:38:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790350693;
-	bh=Wek62W+kRFsKJPtoX0m2rFT+XwrRF1I/2Ks22JZyF/U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OjooBZam90zCqfmySVnQvKweBzpUTI1atoCT+VizyxE9ORjaFUek0mzmYv0VPoDGk
-	 iLAVg0buXOfWAGCI5lCfWrKx5LAZjgLaXxz9pHRBdTVg+tgXFQgRhQiAAP7CegY9EA
-	 wa+1vLcqBvwePRCkzHV9Qx6s1xyLAIoA8vkHsdCOkeXGOLonpjRFZVfrO8l0j5Ladk
-	 UUOseU1Af02DIbRLcpIUEjNVKujlZYnqoxzs6TEtJAvu480F+QX4WgTSdyuplOT98S
-	 VNbcYjXAJibbiNoTevNwt0OI9whDzfGmn30mYW+eiy/JRMKMTn1cWdohMzIqT6gQiX
-	 4ZMkrniZNKXkQ==
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a652b710a5so5470461fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:38:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzOriZRYcQKZ6xdC2HxC3TGwo9iDHZ9TfRqRhKtkzPJ4jxPCBppufmobzZv+QYGfNsMW9IOKnSOoTdhtZE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k69MI8s/JX/YMoknRMEwizIi7iwZaebCfq+Dx9gjX3LT9RcRf7
-	q1DE6TDIpMlsHCBNkWlXPE8AqDMD1Ku4fr+LvY8SpiMsTzxyLiVzvcbOO3Pfy2G2KXFEg6xdAK3
-	0LKF54uB3zCqqtpj6kXtnFxLhXw79k7Y=
-X-Received: by 2002:a05:651c:502:b0:3a3:476:2e37 with SMTP id
- 38308e7fff4ca-3a63dd61f6fmr14973111fa.6.1790350692193; Fri, 25 Sep 2026
- 08:38:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="MkOKJdrY";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="nBbbPTOb"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 4CEB51F786;
+	Fri, 25 Sep 2026 15:38:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1790350731; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Q7E+UxpSbSVKgIapvkQ6Zr4zHvBWYuY5FDhOnkjFOJw=;
+	b=MkOKJdrYpbH20iat/Xwt07OOV6JJUWfoivW+A2sE9YajFmQBvCRt+KCwUloD8nLJnUXN+Y
+	bbWkr+9k9YeaEQhHVbilGKIHV3SeP7l6yYz9JYEUCYLebfRYoi5sxSPKwy0w3Qy7txzJd0
+	+iBwt+P52hbl1/SLq/7NbqK9GdtQznQ=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=nBbbPTOb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1790350727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Q7E+UxpSbSVKgIapvkQ6Zr4zHvBWYuY5FDhOnkjFOJw=;
+	b=nBbbPTObp3gDQllql9JNDucUxkPV0bICklGMESfcvIvwv11p30wy9q0CSIOZ0675fNUiIC
+	vt3vmxUHEtWKLNIAANblr/X0uDxHUaO6UjIaMTYlCcFv7VPLLTKawveb0N2L4WtD/gxSwl
+	hSKLEysG1diwQZKIXqPN+k08G8OFuDM=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DC0E113274;
+	Fri, 25 Sep 2026 15:38:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 5C4DK4aVtmoPOgAAD6G6ig
+	(envelope-from <jgross@suse.com>); Fri, 25 Sep 2026 15:38:46 +0000
+Message-ID: <3a2f0678-f81a-47cd-a47b-af9b439cedb3@suse.com>
+Date: Fri, 25 Sep 2026 17:38:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-acpica-pcc-field-leak-v2-1-e37008e715af@debian.org>
-In-Reply-To: <20260925-acpica-pcc-field-leak-v2-1-e37008e715af@debian.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 25 Sep 2026 17:36:34 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jfqfg2VHqZ+x0hb53vvBZBVRphmdYRTusyKq2DBdb2XQ@mail.gmail.com>
-X-Gm-Features: AclHuK_FYPVEltT73pW_e9bZj6mBFs4ygpg75eVubvcIjsZZXuj7Kj_C_2zOyt4
-Message-ID: <CAJZ5v0jfqfg2VHqZ+x0hb53vvBZBVRphmdYRTusyKq2DBdb2XQ@mail.gmail.com>
-Subject: Re: [PATCH v2] ACPICA: Fix memory leak at acpi_ds_create_field()
-To: Breno Leitao <leitao@debian.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Saket Dumbre <saket.dumbre@intel.com>, 
-	Len Brown <lenb@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Bob Moore <robert.moore@intel.com>, 
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
-	Pawel Chmielewski <pawel.chmielewski@intel.com>, Erik Kaneda <erik.kaneda@intel.com>, 
-	Kyle Pelton <kyle.d.pelton@intel.com>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
-	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, thepacketgeek@gmail.com, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/gntdev: prevent private mappings from becoming
+ writable
+To: Abdifatah Suruur <suruurism@gmail.com>, xen-devel@lists.xenproject.org
+Cc: linux-kernel@vger.kernel.org
+References: <20260819084217.1577-1-suruurism@gmail.com>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20260819084217.1577-1-suruurism@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------gD9bE6JzZy8Y0hi00bZF6K5L"
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 4CEB51F786
+X-Spamd-Result: default: False [-5.41 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_BASE64_TEXT(0.10)[];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_TRACE(0.00)[suse.com:+];
+	HAS_ATTACHMENT(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DWL_DNSWL_BLOCKED(0.00)[suse.com:dkim];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid]
+X-Spam-Flag: NO
+X-Spam-Score: -5.41
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------gD9bE6JzZy8Y0hi00bZF6K5L
+Content-Type: multipart/mixed; boundary="------------gx0ezLrPrh60GfZgX60H2J7b";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Abdifatah Suruur <suruurism@gmail.com>, xen-devel@lists.xenproject.org
+Cc: linux-kernel@vger.kernel.org
+Message-ID: <3a2f0678-f81a-47cd-a47b-af9b439cedb3@suse.com>
+Subject: Re: [PATCH] xen/gntdev: prevent private mappings from becoming
+ writable
+References: <20260819084217.1577-1-suruurism@gmail.com>
+In-Reply-To: <20260819084217.1577-1-suruurism@gmail.com>
+
+--------------gx0ezLrPrh60GfZgX60H2J7b
+Content-Type: multipart/mixed; boundary="------------eA0awQggEX202hh8SIARYAow"
+
+--------------eA0awQggEX202hh8SIARYAow
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMTkuMDguMjYgMTA6NDIsIEFiZGlmYXRhaCBTdXJ1dXIgd3JvdGU6DQo+IGdudGRldl9t
+bWFwKCkgcmVqZWN0cyB3cml0YWJsZSBwcml2YXRlIChub24tc2hhcmVkKSBtYXBwaW5ncyBv
+ZiBmb3JlaWduDQo+IGdyYW50IHBhZ2VzLCBiZWNhdXNlIGEgcHJpdmF0ZSB3cml0YWJsZSBt
+YXBwaW5nIHRha2VzIHRoZSBDT1cgcGF0aCBvbg0KPiBwYWdlcyB0aGF0IGhhdmUgbm8gcHJv
+cGVyIHN0cnVjdC1wYWdlIGJhY2tpbmcuICBIb3dldmVyLCBWTV9NQVlXUklURSBpcw0KPiBs
+ZWZ0IHNldCwgc28gdXNlcnNwYWNlIGNhbiBtYXAgdGhlIGdyYW50IHJlYWQtb25seSBhbmQg
+dGhlbiB1cGdyYWRlIHRoZQ0KPiBtYXBwaW5nIHRvIHdyaXRhYmxlIHdpdGggbXByb3RlY3Qo
+KSwgaGl0dGluZyB0aGUgc2FtZSBDT1cgcGF0aCB0aGUNCj4gY2hlY2sgd2FzIHdyaXR0ZW4g
+dG8gcHJldmVudC4NCj4gDQo+IENsZWFyIFZNX01BWVdSSVRFIGZvciBwcml2YXRlIG1hcHBp
+bmdzLCBhcyBpOTE1IGRvZXMgZm9yIGl0cyByZWFkLW9ubHkNCj4gb2JqZWN0cyBhbmQgYXMg
+Zml4ZWQgaW4gZHJtL3ZjNCAoQ1ZFLTIwMjYtNjg0NDUpIGFuZCBkcm0vcGFudGhvcg0KPiAo
+Q1ZFLTIwMjQtNTMwNzEpIGFuZCBwdHA6IHZtY2xvY2sgKGNvbW1pdA0KPiBhNWVkYWRiYWU1
+N2UyMjk4YTU2Y2Y3YTRlNzc0YTAyNzkwNWEzMzFmKS4NCj4gDQo+IEZpeGVzOiBhYjMxNTIz
+YzJmY2FjICgieGVuL2dudGRldjogYWxsb3cgdXNlcm1vZGUgdG8gbWFwIGdyYW50ZWQgcGFn
+ZXMiKQ0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZw0KPiBTaWduZWQtb2ZmLWJ5OiBB
+YmRpZmF0YWggU3VydXVyIDxzdXJ1dXJpc21AZ21haWwuY29tPg0KDQpSZXZpZXdlZC1ieTog
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
+--------------eA0awQggEX202hh8SIARYAow
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 4:35=E2=80=AFPM Breno Leitao <leitao@debian.org> wr=
-ote:
->
-> acpi_ds_create_field() allocates internal_pcc_buffer for operation
-> regions in the PCC address space.
->
-> The function runs once per field, so a second field on the
-> same region overwrites the pointer and orphans the previous buffer.
->
-> The matching ACPI_FREE() in acpi_ut_delete_internal_obj() only ever sees
-> the last one.
->
-> An arm64 platform whose SSDT declares regions with multiple fields each
-> leaks two buffers at boot, as detected by kmemleak:
->
->   unreferenced object 0xffff000051e65400 (size 192):
->     comm "swapper/0", pid 1, jiffies 4294668436
->     backtrace (crc 0):
->       __kmalloc_noprof
->       acpi_ds_create_field
->       acpi_ds_load2_end_op
->       acpi_ds_exec_end_op
->       acpi_ps_parse_loop
->       acpi_ps_parse_aml
->       acpi_ns_load_table
->       acpi_load_tables
->       acpi_init
->
-> Do not allocate a region if it was previously allocated before,
-> preserving the current design, but, not leaking memory.
->
-> Fixes: aa6ec56b574d ("ACPICA: ACPI 6.3: add PCC operation region support =
-for AML interpreter")
-> Link: https://github.com/open-acpica/acpica/commit/c71849d476bb5f97ca1867=
-849e893368e12a69e6
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
-> Changes in v2:
-> - Got the fix into ACPI CA first, and now respining this one with the
->   Link to ACPI CA change.
-> - Link to v1: https://patch.msgid.link/20260813-acpica-pcc-field-leak-v1-=
-1-3d6c5f0eb557@debian.org
-> ---
->  drivers/acpi/acpica/dsfield.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/acpi/acpica/dsfield.c b/drivers/acpi/acpica/dsfield.=
-c
-> index d7d56cc600d318..f7e503bf57c87c 100644
-> --- a/drivers/acpi/acpica/dsfield.c
-> +++ b/drivers/acpi/acpica/dsfield.c
-> @@ -522,7 +522,8 @@ acpi_ds_create_field(union acpi_parse_object *op,
->         }
->
->         if (info.region_node->object->region.space_id =3D=3D
-> -           ACPI_ADR_SPACE_PLATFORM_COMM) {
-> +           ACPI_ADR_SPACE_PLATFORM_COMM &&
-> +           !region_node->object->field.internal_pcc_buffer) {
->                 region_node->object->field.internal_pcc_buffer =3D
->                     ACPI_ALLOCATE_ZEROED(info.region_node->object->region=
-.
->                                          length);
->
-> ---
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Applied as 7.4 material, thanks!
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------eA0awQggEX202hh8SIARYAow--
+
+--------------gx0ezLrPrh60GfZgX60H2J7b--
+
+--------------gD9bE6JzZy8Y0hi00bZF6K5L
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmq2lYYFAwAAAAAACgkQsN6d1ii/Ey/U
++wf+PIoLqIUl84NjR6o2F/4ariIjps5xrsLvpynPalwaaR6Yt5EiirO/m1+z41jI0E/BcDcmPSxS
+BQo91xWov9mB6HSk6XjEf1EyAIlBeLCp8EY7uGog+6cfuNUeYtbkQ4VRlKzi2jDxjEMhpXHbUiBJ
+GuTO6PRGIuLsHWjgENJNnSnwvFsYH8+SwVnxPmnrbo26ZjJ6l6EJnE57dNMxaTjZJuBnd9BRWcCn
+WdLQBZGCJtTTg+EMmsdK3fOom5iA2s2VBSJf1tlfeOShy0ZQKVgfWn5/QxmwtX0neyinXquqWBfB
+fZKS250tJNTQniIIdJdn9/Ui1SIcROS1aEUDIruUuA==
+=5oNC
+-----END PGP SIGNATURE-----
+
+--------------gD9bE6JzZy8Y0hi00bZF6K5L--
