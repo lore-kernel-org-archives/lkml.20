@@ -1,163 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E9B39E6FD;
-	Fri, 25 Sep 2026 20:24:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB08C36655C
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:25:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790367845; cv=none; b=C8geZNAJ4vOLq9IkbpX9NBOE7rPklKeQtr7KgDU8Q4uy/8xKNp0pdeQKjLdoUwg7oWshJctz5tsFf4PKNInIYf/Vj0X2yP2giYf0mOW16Ac/PX28zBrvf4c3yY4rvcdh0eNlo+bwUIRHxD4G4J3yi0FCjRP6Z7J7Anx4PIRhUwI=
+	t=1790367906; cv=none; b=cgw8o3nB4V1o5cy1j3Qw42GpqrI+FIvGyjILudgIa+O7MC/TUQK7LdC8H2YCvzyT++Eg316LVYFlfsVCB2S07uoQ0+HfERcPMhSBzdBbsUAHv9BbPq+oERfUQ3EGD1hF80Jx4WwxluLQ29GaXyX2E99gg2zjbipfyR2ZDpkt76Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790367845; c=relaxed/simple;
-	bh=sEy0iS3lMe+7dT7VRMQG77lvgBadr1yYxPHFXErlTAg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pNVmbEjahIhXBel5dBRvWX5/j9ynxjRCtCkzEnhRUJMLJU3FTUokhJlT1c9VgpQXy2R4O8eVeSN5EfolSLXDc56cMmiKu8anCzH5CCP8n+l4uggAfLig5ixUhiuIZPEYlXFh5dkY6q0AvLIxGU746iIgzr3ePPt5h4+IIk+ACCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXk6iOiF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790367906; c=relaxed/simple;
+	bh=ONfzlMwZUmt9iQP0GdhJWz6HRCumIiMG2gc58uPgNpM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sJyqYK7KLpjdgOIifjp5U/0+UjAh09+MfaoUjG/Rk7e8hDQ8vsIUEedK5QZzci6/rsXEh9F0oi8YRigcFgQwOqoxJs9ivCrzu1Q/SDAV3pTIJn04LQ/idK2O8cic+QVEBzfAUNwS7TB59SEW2Wypy5z+O5tHHGpPJfEsWiDdJnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGn3yQGo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXk6iOiF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39DB31F000FF;
-	Fri, 25 Sep 2026 20:24:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGn3yQGo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77F141F0089C
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:25:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790367843;
-	bh=0XtDr7CWLuuPjZmyPXX7gre02vj8EXdAecl3xCM4xLI=;
-	h=From:To:Cc:Subject:Date;
-	b=fXk6iOiFDfp2qzi6JReKLwJ9xcBr9WCwQ3EDjSGqsfsFnEt0x4ArV9IxRDkcj1hyF
-	 IlIovwFjZBVOkluBJ2OMvXgmWNqKDIrtXeZt2oZldErQlX77+InRPdO47h2YmPvh/W
-	 znwzDi6aAnO3NwYy9s0toEwgGlbc7+PxQIqV3Oh0RQVPkR/2aNKfEjCpd2jkyiGbAK
-	 YidyHZmRlEmvwYFEn7q1msBUbNqsy9ZQZjz0hEfwNCLLY1GJul0X6Z3NZsyS7LIsP7
-	 92nvTRMGfN0ozGsODR6QE0lygvoGTKm1ZtYusv7GebbhctfHOo6FMxgSE5o3fc0Uw6
-	 csQ/vsaXQG3Kw==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH v2] crypto: aes - Fix undesired override of some optimized AES modes
-Date: Fri, 25 Sep 2026 13:23:53 -0700
-Message-ID: <20260925202353.10763-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1790367903;
+	bh=WNQees8/ehGot81631VV5fQVbOPJSRm59MHRcSjht10=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=jGn3yQGookNeaQk/WwM3h8B906jLy4vTACkjht1SDqGucEZ9thWqH7V92mT+lsTP6
+	 zHE0Ds5BpIqcfevi7utJZifH8N483Xj80nyzIOhOwwwwjWAeoCLbX20hFFxN37h+Ja
+	 qqIdh6kQ0sTBREyfvNINbQGViPL44H5GUuXxjVHaBc6Eh1LVdQXcuMasbqKMsURgTc
+	 LRPAx2NkvzFRS72WJ3FubNCldpt7kIheGJSp0J3l0z7ju377cn0P9iPYUvriSpW23F
+	 6rzleVti+v8AptG2Q6DyRdK2v2aRSp+gflygpQ+VzN2OSxLKhCxiUM4InQmqdCNGAZ
+	 ScAibf+CxO+dw==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d47b5987so1239200e87.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:25:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwz8IdFECvJpSIfUSQOHoTmjZxkd8Es8ZqIrSkIiLuneyBpDCAMva2poE6MRLghDF0lQ8TvHkfVZVMhcSM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwh7Cq7S8e6qNkpxVMZWYWXU/mJEcgW/WI3RjzuWemUT1BhOAh
+	hlDr3Pfl9glZjV1NsRfj4iDxuMDfAxCYnN9vY5M9eHpB648H9CI7yc/91X9Hh6lxI9OqPlQD0y/
+	cuQkwuu9teNWhuh0iWKIAqqF7uYqwwx4=
+X-Received: by 2002:a05:6512:b1a:b0:5b8:ed7d:8b42 with SMTP id
+ 2adb3069b0e04-5b8ed7d8bc7mr577236e87.39.1790367901803; Fri, 25 Sep 2026
+ 13:25:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260922124121.3426219-1-zhenglifeng1@huawei.com>
+In-Reply-To: <20260922124121.3426219-1-zhenglifeng1@huawei.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 25 Sep 2026 22:23:24 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jko6SjZ2642DryhSMZyPgatvG442m7y1E8J7TcxvtOKA@mail.gmail.com>
+X-Gm-Features: AclHuK9frkW9y83b_87zzoPb_5_iwomW9wqA2MKboLGqOzwuRlqnR5CdgiySfqg
+Message-ID: <CAJZ5v0jko6SjZ2642DryhSMZyPgatvG442m7y1E8J7TcxvtOKA@mail.gmail.com>
+Subject: Re: [PATCH v4 0/8] ACPI: CPPC: Resource Priority Register support and
+ sysfs interface
+To: Lifeng Zheng <zhenglifeng1@huawei.com>, Christian Loehle <christian.loehle@arm.com>
+Cc: viresh.kumar@linaro.org, ionela.voinescu@arm.com, zhanjie9@hisilicon.com, 
+	pierre.gondois@arm.com, sumitg@nvidia.com, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, linuxarm@huawei.com, 
+	yubowen8@huawei.com, zhangpengjie2@huawei.com, wangzhi12@huawei.com, 
+	linhongye@h-partners.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The new library APIs for AES encryption modes were wired up to the
-traditional crypto API via crypto/aes.c.  However, for now the kernel is
-still in a transitional state where various architectures still have
-architecture-optimized implementations of AES modes in arch/*/crypto/,
-wired up to the traditional crypto API only.  Because of that, the
-crypto/aes.c algorithms were given a cra_priority of only 110 to prevent
-them from overriding arch/*/crypto/ in the traditional crypto API.
++Christian
 
-However, because of how the traditional crypto API works, the
-cra_priority trick doesn't work in cases where the relevant algorithm
-isn't directly implemented by arch/*/crypto/ but rather is provided by a
-template instance using other code in arch/*/crypto/.
+Christian, can you have a look at this, please?
 
-For example, x86 doesn't have its own "ccm(aes)" but rather relies on
-the "ccm" template constructing it from the x86-optimized "ctr(aes)".
-The existence of the library-based "ccm(aes)" prevents that, even though
-its priority is lower than what the template would produce.
-
-Thus, "ccm(aes)" ends up using the slower single-block AES code.
-
-Therefore, skip wiring up the relevant library-based code to the
-traditional crypto API on architectures where this problem can occur, as
-determined by what exists in arch/*/crypto/ for each architecture.
-
-This is ugly, but it's also temporary: these conditions will go away as
-architecture-optimized implementations of AES modes are migrated into
-the library.  But until then, we need to prevent performance regressions
-by ensuring that the optimized code continues to be used.
-
-Note: "xts(aes)" is left alone.  Though the "xts" template can use
-"ecb(aes)" as an inner algorithm, in practice this isn't very efficient
-and a dedicated "xts(aes)" is already provided in all the important
-cases anyway.  (This omission is also consistent with the fact that the
-library isn't planned to provide a similar ECB-to-XTS "adapter".)
-
-Fixes: 20df21a482aa ("crypto: aes - Add CBC and CBC-CTS support using library")
-Fixes: 8ca62072faa1 ("crypto: aes - Add GCM support using library")
-Fixes: f70ad727d1d6 ("crypto: aes - Add CCM support using library")
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
-
-This patch is intended to be taken through libcrypto-fixes
-
-v2: Fixed PowerPC config option, and resent as standalone patch
-
- crypto/aes.c | 39 ++++++++++++++++++++++++++++++++++++---
- 1 file changed, 36 insertions(+), 3 deletions(-)
-
-diff --git a/crypto/aes.c b/crypto/aes.c
-index 94791f481e984..5046b887ac9a0 100644
---- a/crypto/aes.c
-+++ b/crypto/aes.c
-@@ -637,7 +637,17 @@ static struct skcipher_alg skcipher_algs[] = {
- 		.decrypt = crypto_aes_cbc_decrypt,
- 	},
- #endif
--#if IS_ENABLED(CONFIG_CRYPTO_CTS)
-+#if IS_ENABLED(CONFIG_CRYPTO_CTS) && \
-+	/*
-+	 * Skip registering this when it might block a "better" implementation
-+	 * from being instantiated via the "cts" template wrapping an arch-
-+	 * optimized "cbc(aes)" that hasn't yet been migrated into the library.
-+	 */ \
-+	!(IS_ENABLED(CONFIG_ARM) || \
-+	  IS_ENABLED(CONFIG_ARM64) || \
-+	  IS_ENABLED(CONFIG_PPC) || \
-+	  IS_ENABLED(CONFIG_S390) || \
-+	  IS_ENABLED(CONFIG_SPARC))
- 	{
- 		.base.cra_name = "cts(cbc(aes))",
- 		.base.cra_driver_name = "cts-cbc-aes-lib",
-@@ -980,7 +990,18 @@ static __maybe_unused int crypto_aes_ccm_decrypt(struct aead_request *req)
- }
- 
- static struct aead_alg aead_algs[] = {
--#if IS_ENABLED(CONFIG_CRYPTO_GCM)
-+#if IS_ENABLED(CONFIG_CRYPTO_GCM) && \
-+	/*
-+	 * Skip registering these when they might block "better" implementations
-+	 * from being instantiated via the corresponding templates using
-+	 * arch-optimized code that hasn't yet been migrated into the library.
-+	 */ \
-+	!(IS_ENABLED(CONFIG_ARM) || \
-+	  IS_ENABLED(CONFIG_ARM64) || \
-+	  IS_ENABLED(CONFIG_PPC) || \
-+	  IS_ENABLED(CONFIG_RISCV) || \
-+	  IS_ENABLED(CONFIG_S390) || \
-+	  IS_ENABLED(CONFIG_SPARC))
- 	{
- 		.base.cra_name = "gcm(aes)",
- 		.base.cra_driver_name = "gcm-aes-lib",
-@@ -1012,7 +1033,19 @@ static struct aead_alg aead_algs[] = {
- 		.chunksize = AES_BLOCK_SIZE,
- 	},
- #endif /* CONFIG_CRYPTO_GCM */
--#if IS_ENABLED(CONFIG_CRYPTO_CCM)
-+#if IS_ENABLED(CONFIG_CRYPTO_CCM) && \
-+	/*
-+	 * Skip registering this when it might block a "better" implementation
-+	 * from being instantiated via the "ccm" template wrapping an arch-
-+	 * optimized "ctr(aes)" that hasn't yet been migrated into the library.
-+	 */ \
-+	!(IS_ENABLED(CONFIG_ARM) || \
-+	  IS_ENABLED(CONFIG_ARM64) || \
-+	  IS_ENABLED(CONFIG_PPC) || \
-+	  IS_ENABLED(CONFIG_RISCV) || \
-+	  IS_ENABLED(CONFIG_S390) || \
-+	  IS_ENABLED(CONFIG_SPARC) || \
-+	  IS_ENABLED(CONFIG_X86))
- 	{
- 		.base.cra_name = "ccm(aes)",
- 		.base.cra_driver_name = "ccm-aes-lib",
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
--- 
-2.55.0
-
+On Tue, Sep 22, 2026 at 2:43=E2=80=AFPM Lifeng Zheng <zhenglifeng1@huawei.c=
+om> wrote:
+>
+> This series implements support for the CPPC v4 Resource Priority Register
+> mechanism defined in ACPI 6.6, Section 8.4.6.1.2.7, and exposes it to
+> userspace via sysfs.
+>
+> Resource Priority allows OSPM to control the relative priority among
+> processors for shared resources. OSPM can utilize these sysfs interfaces
+> to configure resource priorities, allowing resources to be preferentially
+> allocated to more important tasks.
+>
+> The controlled resource types include processor boost, throttle, L2 cache=
+,
+> L3 cache, and memory bandwidth.  Each Resource Priority group consists of=
+:
+>
+>   - CONTROLLED_RESOURCES: which resource types the group affects
+>   - ENABLE_VALUE / ENABLE_REGISTER: enable/disable the group
+>   - PRIORITY_COUNT / PRIORITY_REGISTER: read/write the priority level
+>
+> The patch series is organized in three parts:
+>
+>   - patches 1-4 extend the CPPC data structures and _CPC parser to handle
+>     Package-type entries and parse Resource Priority sub-packages into
+>     structured descriptors.
+>
+>   - patches 5-7 refactor existing register I/O helpers to support direct
+>     register access and add accessor functions for Resource Priority
+>     attributes (enable, priority count, priority value).
+>
+>   - patch 8 creates a "resource_priority" sysfs hierarchy under each
+>     cpufreq policy to expose the Resource Priority attributes to userspac=
+e.
+>
+> Changelog:
+> v4:
+>  - Patch 7: Set *num_resources to 0 when controlled resources number
+>    invalid in cppc_get_resource_priority_resources(), therefore, the call=
+er
+>    will not read the unassigned `resources` pointer.
+>  - Patch 8: Remove kfree() from the error path of
+>    cppc_create_res_prio_sysfs() because cppc_res_prio_release() will do i=
+t.
+>
+> v3:
+>  - Patch 2: Add the (i - 2) =3D=3D RESOURCE_PRIORITY condition back to en=
+sure
+>    the new code behaves the same as the original.
+>  - Patch 4: Assign -ENODATA to ret when an unexpected ACPI_TYPE_PACKAGE
+>    appears.
+>  - Patch 5: Initialize the `optional` field of the remaining cpc_regs to
+>    true so that they are treated as unsupported.
+>  - Patch 8: Call cppc_cpufreq_cpu_fie_exit() and set perf to lowest_perf
+>    when cppc_create_res_prio_sysfs() fails. Call kobject_put() and kfree(=
+)
+>    when kobject_init_and_add() fails in cppc_create_res_prio_sysfs().
+>  - Link: https://lore.kernel.org/all/20260812015217.74598-1-zhenglifeng1@=
+huawei.com/
+>
+> v2:
+>  - Patch 1: Revert changes to the CPC_SUPPORTED() macro.
+>  - Link: https://lore.kernel.org/all/20260804085042.4118193-1-zhenglifeng=
+1@huawei.com/
+>
+> v1:
+>  - Link: https://lore.kernel.org/all/20260717024502.3520445-1-zhenglifeng=
+1@huawei.com/
+>
+> ---
+>
+> RFC: sysfs placement
+>
+> The sysfs interface is currently placed under /sys/devices/system/cpu/cpu=
+freq/
+> (i.e. the cpufreq policy directory). I am unsure whether this is the best
+> location and would appreciate reviewer feedback.
+>
+> The concern is that Resource Priority covers resource types beyond CPU
+> frequency control:
+>
+>   - PROCESSOR_BOOST, PROCESSOR_THROTTLE -- clearly CPU-frequency related
+>   - L2_CACHE, L3_CACHE -- cache partitioning, not frequency
+>   - MEMORY_BANDWIDTH -- memory QoS, not frequency
+>
+> Placing the attributes under cpufreq makes sense for boost/throttle but
+> feels semantically wrong for cache and memory bandwidth resources.
+>
+> I would appreciate feedback on whether cpufreq is the right home for
+> this interface, or whether a different location would be more appropriate=
+.
+>
+> Lifeng Zheng (8):
+>   ACPI: CPPC: Prepare cpc_register_resource for Package-type entries
+>   ACPI: CPPC: Refactor element parsing into parse_cpc_element()
+>   ACPI: CPPC: Refactor resource cleanup into free_reg_resource()
+>   ACPI: CPPC: Parse Resource Priority Register entries from _CPC package
+>   ACPI: CPPC: Store optional flag in cpc_register_resource
+>   ACPI: CPPC: Factor out cpc_read_reg() and cpc_write_reg()
+>   ACPI: CPPC: Add Resource Priority accessors
+>   cpufreq: cppc: Expose Resource Priority attributes via sysfs
+>
+>  drivers/acpi/cppc_acpi.c       | 719 +++++++++++++++++++++++++++------
+>  drivers/cpufreq/cppc_cpufreq.c | 281 ++++++++++++-
+>  include/acpi/cppc_acpi.h       |  60 +++
+>  3 files changed, 930 insertions(+), 130 deletions(-)
+>
+> --
+> 2.33.0
+>
+>
