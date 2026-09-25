@@ -1,135 +1,96 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A943836215D;
-	Fri, 25 Sep 2026 14:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDDB440632;
+	Fri, 25 Sep 2026 14:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346199; cv=none; b=qlBaKwlkCDb6RQlJUZ7wIHY0F9E3i143nUDNllnaxgpUjw4hXGhreNMw3x8cwM22mPj4jOpoVV/TIe4v5+N++hhitZS0NjrJC1i5y7mhLLJA7mhV110548HL70fvMhqeAqLs7O7Gk3igt7O5/T6SUnxsCgvpsIEPYu/Oo38sJ+U=
+	t=1790346240; cv=none; b=fExl4YP4QN6wbNe9oaS/tuHSshjCBiN9FjfWCkYwDbusA46JnUHIr5vEojIuo/tAnWwSdkpRntSWCcEm92Up4lr3feJ3/oScUfbUAwbf/k3KhVmaJw0XBXDjAWA3J4ROdfuf/eiObXFKvsjXutPRDbVG9ovfE8goJf4/OIP+BoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346199; c=relaxed/simple;
-	bh=p5M52w+o5HEtF8yjYDd7ocLU11nT7BYOmwbTMgf/3oU=;
+	s=arc-20240116; t=1790346240; c=relaxed/simple;
+	bh=MumCk2iQV8NfZ4FIye7VSM07PHu0TroAPaJIbu0QsCo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bYL8RaxhMUgAxErJENY8nzMj/jXFWqAxwBIiVWXPoz/Ula6A7gBmBl4XPnXGiuhL5Ht/vRFUMlAtifcDr0I05d24tMy+SGypTbdGXUhrRSpk6bZ2yo/OFbu8L1qSDrvSrRNd9rCN8IjkO9jk0IUxBnx9WyDRS01oufKXMzdWSMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Zh3hLqsx; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=YYL3iHWW9XCu0cRy/03O00NZ4+idAYDqF3Jo5vTb2GVfWEAbbC/FMbTq4NVD3pG5bdrf1sjDl1A4otopfzNguvsbJzdrPmQIp0nOXAEPK+uUxY7c3i4eMbIF64Dqhtn5i/rBQsBcdMDWF1CzBXdvgmrVtAaJDxumLhPf5pMw7OU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Uv++AnLt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Zh3hLqsx"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 562FB169C;
-	Fri, 25 Sep 2026 07:23:12 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 81B7B3F85F;
-	Fri, 25 Sep 2026 07:23:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790346195; bh=p5M52w+o5HEtF8yjYDd7ocLU11nT7BYOmwbTMgf/3oU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Zh3hLqsxZi1yCHoYIty8FRF1DXZFW3bWWJPP+naPNiaJdyGaN6QgpCy8jYRtcIZi5
-	 DbSpuKNNjKL2MEbq8/YFqvm/qJklH2xHIxWOm5Eu2JoDbR9u6A+nkSPqAlflAa3QZZ
-	 qAlbHMEqQm1dDCO1yzWfh+M7sghx5++tXcnxX6U4=
-Date: Fri, 25 Sep 2026 15:23:09 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 2/4] kselftest: mm: replace usage of /proc/self/smaps
- for __check_pmd_huge()
-Message-ID: <araDzcqZMmne_w4Z@e129823.arm.com>
-References: <20260924-fix_split-v8-0-cba7359d882a@arm.com>
- <20260924-fix_split-v8-2-cba7359d882a@arm.com>
- <bde32459-31ce-4b15-a129-4641ef1c6337@arm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Uv++AnLt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29BEC1F000FF;
+	Fri, 25 Sep 2026 14:23:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790346238;
+	bh=gPQw0BITWNXX7SKrbkyHcPnZ8F5JrYYZZ0WWmA2r42g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Uv++AnLtGnniFK5YSTNIX9gVqOtVjJDGfby40Lq4zqDeDFWbXVarO/ZyLtNcLBNCc
+	 Z2eLUo0Iot+3Fv90Wbf434Zu9XeYIpgkxXj9vxSqD7/l23smbMGi7vh7KEPga6TCD9
+	 WOcxsAi+bUb94xioBJoxRw34s2ptPSqJUgXgm8hI=
+Date: Fri, 25 Sep 2026 16:23:53 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: "Benjamin Robin (Schneider Electric)" <benjamin.robin@bootlin.com>
+Cc: stable@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Jozsef Kadlecsik <kadlec@netfilter.org>,
+	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, miguel.gazquez@bootlin.com,
+	thomas.petazzoni@bootlin.com, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, netdev@vger.kernel.org
+Subject: Re: [PATCH 6.18.y 1/2] rculist: add list_splice_rcu() for private
+ lists
+Message-ID: <2026092540-jokester-certify-1339@gregkh>
+References: <20260925-cve-2026-52988-6-18-v1-0-680b24895415@bootlin.com>
+ <20260925-cve-2026-52988-6-18-v1-1-680b24895415@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <bde32459-31ce-4b15-a129-4641ef1c6337@arm.com>
+In-Reply-To: <20260925-cve-2026-52988-6-18-v1-1-680b24895415@bootlin.com>
 
-On Fri, Sep 25, 2026 at 06:08:44PM +0530, Sarthak Sharma wrote:
+On Fri, Sep 25, 2026 at 09:52:23AM +0200, Benjamin Robin (Schneider Electric) wrote:
+> From: Pablo Neira Ayuso <pablo@netfilter.org>
 > 
+> [ Upstream commit f902877b635551513729bdf9a8d1422c4aab7741 ]
 > 
-> On 9/25/26 12:41 AM, Yeoreum Yun wrote:
-> > Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
-> > glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
-> > made by memalign().
-> > 
-> > The underlying VMA may start at a different address from the aligned
-> > address returned by memalign(). Furthermore, a subsequent
-> > madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
-> > already set.
-> > 
-> > This causes split_huge_page_test to fail because the check_pmd_huge()
-> > helpers incorrectly require the address returned by memalign() to
-> > match the VMA start address reported in /proc/self/smaps.
-> > 
-> > Instead of relying on /proc/self/smaps, use /proc/self/pagemap and
-> > /proc/kpageflags to detect huge-page mappings checking PAGE_IS_HUGE
-> > and PAGE_IS_FILE accroding to type of huge page.
+> This patch adds a helper function, list_splice_rcu(), to safely splice
+> a private (non-RCU-protected) list into an RCU-protected list.
 > 
-> s/accroding/according
+> The function ensures that only the pointer visible to RCU readers
+> (prev->next) is updated using rcu_assign_pointer(), while the rest of
+> the list manipulations are performed with regular assignments, as the
+> source list is private and not visible to concurrent RCU readers.
+> 
+> This is useful for moving elements from a private list into a global
+> RCU-protected list, ensuring safe publication for RCU readers.
+> Subsystems with some sort of batching mechanism from userspace can
+> benefit from this new function.
+> 
+> The function __list_splice_rcu() has been added for clarity and to
+> follow the same pattern as in the existing list_splice*() interfaces,
+> where there is a check to ensure that the list to splice is not
+> empty. Note that __list_splice_rcu() has no documentation for this
+> reason.
+> 
+> Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+> Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+> ---
+>  include/linux/rculist.h | 29 +++++++++++++++++++++++++++++
+>  1 file changed, 29 insertions(+)
 
-Okay.
+You did not sign off on this commit :(
 
-> 
-> > 
-> > Since shmem pages are also file-backed, simply check whether the page
-> > is file-backed.
-> > 
-> > Fixes: 642bc52aed9 ("selftests: vm: bring common functions to a new file")
-> 
-> Checkpatch gives a warning saying it requires atleast 12 characters of
-> commit SHA.
-
-Oops. I'll update.
-
-> 
-> > Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > ---
-> 
-> [...]
-> 
-> > +static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
-> > +		  uint64_t hpage_size, enum check_huge_type type)
-> > +{
-> > +	int pagemap_fd;
-> > +	int nr_pmd_mappings = 0;
-> > +	uint64_t categories;
-> > +	char *start = addr;
-> > +	char *end = start + len;
-> > +
-> > +	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
-> > +	if (pagemap_fd < 0)
-> > +		ksft_exit_fail_msg("open pagemap fail\n");
-> 
-> Can we use ksft_exit_fail_perror("open pagemap") here? Will help in
-> diagnosing failures as well.
-
-I see thanks!
-
-
-> 
-> Apart from these nits, rest looks good.
-> 
-> Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
-
--- 
-Sincerely,
-Yeoreum Yun
