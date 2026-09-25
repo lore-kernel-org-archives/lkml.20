@@ -1,123 +1,153 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A9C448B96
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364320; cv=none; b=IKdT/4KB9wmdg+S9Z5TourUz97WAwGmKYDuiK+AciwNUupKd8EO7+53aa9VjbuH9PqW2eCjwRxgAam8fWMgbKTUHqTp4z2QPOMybEP61n/YIAyWd1NwEfWaqWCSv6SlYw8CoeJlonCrO4qMfID3chuESsBXQzfzUE+Vv8DLNei0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364320; c=relaxed/simple;
-	bh=j5Njce1R2CzMDzpSrCt4D4C2yKngQ2KuqhBpl1pHhmE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=t3+4oyktkE4XVoWy4zU0tBDdVo5/rh8ksFQ9z9C2UAMj5miopatkMTdZ6XcscmO40PKTAXuiy17I2UD9IAYtgJzEPbcmmiGqUx9koADpv5W/1Pp0GwL/Z50z6PLZeISYUY5FSOml6E/nzd7Wa9Bv5okSSXWlXUT0zqoYMIKWkOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CZEVauiQ; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775003BED2D;
+	Fri, 25 Sep 2026 19:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790364411; cv=pass; b=aOZG/RtSxg99e8yW+FhJ7KLM3m3NQM3MK/KtTh2XVGaPJMMQuUbuMHewLZZzKSFSbebwWiTbKwltNjuM0TYTcpkz/e7bnteTcODDlQ0NsdTkW8PEOQNPV/shqFUSQz7EkR3KjeOYcjl2N5pBzim/EE7vAwZH8TQVpZAyAQzBEFk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790364411; c=relaxed/simple;
+	bh=xgwXF789iMFU1tHJBCYfohzF1FMXCUeFcBdG42GdAwI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q3fJcvi7Ow7928OdpIKEG3baVo1LvDaMBB12laL92bop+oMdtHw/g5KjdHwSHZWRPj+hKjyIqOVc1JK7IF9m4ZD5DKmagYHmMoBjP3IaGuQEhdr6yPIsRfa4dY3ciwRnpTXmHiMoVF+6iKItYCX/cwpt52rPpWWVNXk71WxQ238=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=2LEng0gb; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=TYJhyBN1; arc=pass smtp.client-ip=185.56.87.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CZEVauiQ"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so792008f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:25:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790364317; x=1790969117; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G9E+sqsbctWeMKlnS+UkV61JpHdXQmDR0/Cg9hJ8tHo=;
-        b=CZEVauiQEUUSshI568NztLVATBws7TXi2Zw2Ovcz0GRj7cZIcOjkTw/jvIL0WGzWWj
-         xXqQ562xEWyLL9IB/V/wskVU3ZTAt40Ct/mbKk8IDciQB5KgRsspOo7hDmuyifpfzlMM
-         82SDqR+l/ZiUn0JtjFPjUBD9STlJQ9/04jpghtw5DVJ4r+meCYtstNRrelvNPluixHx2
-         O7WFyvaYq058kl33hPQ6czuFj7cnF3KmnEP/JpAqB9ialZPL0BMCXtYNPGv0JVYudldn
-         iGZxbUC/9kVbn+FcWS8Hun+DgiNDV7e7J9tuPjptgKynbzmfTBIeBskqMQ3YKWID4sjA
-         kzUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790364317; x=1790969117;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G9E+sqsbctWeMKlnS+UkV61JpHdXQmDR0/Cg9hJ8tHo=;
-        b=arTV0xDfHL7q6tGcLk9q7jkC30+JLgQ/rNIdGyMx66Gf2tgVcC27cCjhA/JWLdvcJg
-         9XV7UtnzmrqcWCeJ53X0J7373F/zKwCuRkC8WAd4W0+JAQqd5WgEMEoRAG3L5pQd751j
-         sn+jU8dvyQgMSw2D/kIfdOAYwk5MWtRCDDqR55UEukLubA4YqR4UFOvdZPbs0FxjcFql
-         7w6UqnCtLv5BxlKByvqu6MivJtWpWHEUSpeXP72Faq1nWsTnDvirZRFr8KnVILV9Gh1n
-         OmBuz6Kqa3YdbfdoRESF279vFFgxc1KAc6TgUjdnhRI1C/cQ6Bxq4XCYUOsOXvsWAWnh
-         qGaA==
-X-Forwarded-Encrypted: i=1; AKwUvByusriIy0Gyan7axDrCH2QZBusZ40/7J+74hqe8l9U5j+von1ECFsKwQueNSIjNEAYiFLmYcp5EnpqZ8ik=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4aq5Oic9cRxGUcG4/PLC5HQcIJoAiMj/zn6qJZ038h+GO5aMe
-	gbUrt3bN+ZOFLSn0fyVaHfIvsHy/wXwkuJsYrLAen6CCLOEkKCI95eNP
-X-Gm-Gg: AYBFou2Miu7aEO4oI+D9kmztIxV26uEUvhwmHhYe4kgqI/j1j1RtiOVdsULcew7X3HA
-	n26lA4VpvBuBJcSQbhk9kluYVyj04eJf2Ffyx990syFaAsSEvTy0Ac2eo41xqdK0QjqE/p2H0pI
-	sJQg9vAv2UjQOJkHn9JbK1d5zRBwYmXPBb/M42f9KoqEURXI5Jncl0X+ABrbxbZjo+ZXTqyb02L
-	LpnRBgXpIHcH5ZRhu8uzDK/gLUKa1wXRcI9N2hJ5HiFNCY1QWKZvwvZUUSrFIO3medz7Rz1pUL6
-	OSn/xGpGgNIZjbqgsd3zRck4nr3waF4Bv1ktOExz9p+fpPO0Cj/AB/HgoqFve6zVgK1WCrrFwGL
-	kRxNO0J9bAj9Lk6v7H7/dX8SJAKFNav0xIb5Zz9HY1yf5ujNpmX7lrY5JPFAJzXY66DwuV/79Iq
-	IXQtinZHSdUPhKJn+RDFUx0erzFY5DRaa8v/DS4ZajVbKboCvRDFCCq3JvZrvYcJDXdiqTfxway
-	zH5MEUpIq3h4ugDeZkPsfDOLhh4GvBhjpkZhzxlUlBnhKQ7meLNHFDLwCoeNix+kEfmy/xAxqnY
-	E6JL5V5mFBzzyxs1wenjNjZOEU4VGdlDdgb/sRrm2anOShkSQyF5Wizi/vplCM8tHzkd6b9b1Qq
-	lt7PaSmA=
-X-Received: by 2002:a05:6000:26d1:b0:487:8ec:1fc with SMTP id ffacd0b85a97d-4887d9fa635mr5543814f8f.12.1790364316713;
-        Fri, 25 Sep 2026 12:25:16 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-adc6-9c01-89ae-b145-8960-cf19.310.pool.telefonica.de. [2a02:3100:adc6:9c01:89ae:b145:8960:cf19])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a35fb05sm10205982f8f.20.2026.09.25.12.25.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 25 Sep 2026 12:25:16 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jeremy Kerr <jk@codeconstruct.com.au>,
-	Matt Johnston <matt@codeconstruct.com.au>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>,
-	Rae Moar <raemoar63@gmail.com>,
-	linux-kselftest@vger.kernel.org,
-	kunit-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: mctp: Stop selecting flow support for KUnit tests
-Date: Fri, 25 Sep 2026 21:25:10 +0200
-Message-Id: <20260925192510.93840-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="2LEng0gb";
+	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="TYJhyBN1"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-2q7f.prod.antispam.mailspamprotection.com; s=arckey; t=1790364409;
+	 b=aVzn60tlrD5vs7gbcx+m4ZdzfUaQpZyAftHtZd3bSwgEjVrut1lZ3uO8NSq1/+fyBcrgm1iA3S
+	  Z3d1663uhK7YGTzXagp1WVYIRqRmaCoNBxGzDsHru8C//19oehDh3binvWtejrKMxERZ4CsRh8
+	  tiCWVbxdfnCTsk6MfVFlSM3HigVAXcbjaHhu4dvSTcY1trCJNf3skbMNNLE591bwjObssZUyJF
+	  El7l/347JvdMER04wTqE/fUnoASEV/MGPsyYi202NAht/7JUax5RS0Qh+6Ce1fBdQfjF6JISv4
+	  oYokRrIKh0ThPp/vrxynLCpcPSkrkqOWhW71h5L+3ZDrXg==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-2q7f.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-2q7f.prod.antispam.mailspamprotection.com; s=arckey; t=1790364409;
+	bh=xgwXF789iMFU1tHJBCYfohzF1FMXCUeFcBdG42GdAwI=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=yOMOUZHSpH1E+i2R5bkK/lw93R1cuiitgAIygll4meeMHX8LBq9oqb6ljzOv9JZcDR4miQ58vH
+	  m+N3Zn+wEZX98V6Rz8d+rYvJxaa0TTRhdm4fwhESnozH31aXv9wjIFPhSMkytDno5UuT/9KbXb
+	  hs86lrY161A409muhfJYcZBPN9mZmMcdeUuS+hoJf7mwrWpt5BQ0ANwWQmLwIPDqrJWrfK2R6W
+	  pn1r5bWSLq6LvtAbOOovdOeino//hRGI9BwPxpehIsKqBMOuroVyznAcbilR8S/tAQ0Hxgz44P
+	  lBN+gB4jxryKx2mHkbnceGM5ENLgeDzxOQQ/oCrFFHjhfg==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=pe3VO7IOUXW8W+2mymQNpuRLjGNQ7piBXOGa6ZWGAGA=; b=2LEng0gb+r1XlJ4s46SYtuAnk0
+	+hM+rAsIa2c48CkDmoeeThoOoIb4g7tUjrwDiGDT5ugMdETMeT29eWU9l8tlU1LYUfeR9wJFs7ZLD
+	GcfHkG7L5Oh/8Kk5fLb+hzWuSXenLtTG0a6p/clIo0GKe8xwtmvQ/TF/fG/lDg1dODVk=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-2q7f.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xABZA-00000006fTs-15dS;
+	Fri, 25 Sep 2026 19:26:41 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=pe3VO7IOUXW8W+2mymQNpuRLjGNQ7piBXOGa6ZWGAGA=; b=TYJhyBN1lLzM3j+8pakSQMWVuQ
+	t9mPBySmzyc3WNNnz8yxKZciuJ4xoz92WA8IDQ9Cf+qyAtkbvu2kdW9CFkJo1rvQUlA6QAnv+Os09
+	A/+p5mE4ALa7sex5tsF+sHPQqVKAeFRcuB359Jqm8Xwur31oJ9WFh59QQVbTtu6FCDtM=;
+Received: from [79.45.60.29] (port=62628 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xABYu-000000007dA-1S38;
+	Fri, 25 Sep 2026 19:26:24 +0000
+Date: Fri, 25 Sep 2026 21:26:22 +0200
+From: Francesco Valla <francesco@valla.it>
+To: Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	linux-arm-kernel@lists.infradead.org, linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, virtualization@lists.linux.dev, imx@lists.linux.dev, 
+	iommu@lists.linux.dev
+Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
+ multiple vdevs
+Message-ID: <arbILwxDF9lZZtd7@bywater>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
+ <3065678.e9J7NaK4W3@steina-w>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3065678.e9J7NaK4W3@steina-w>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 1c9dc338d8a14fb2ac9e92178055ff3e
+X-AntiAbuse: ID - 1c9dc338d8a14fb2ac9e92178055ff3e
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xABZA-00000006fTs-15dS-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-2q7f.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-MCTP_TEST selects MCTP_FLOWS, which also enables SKB_EXTENSIONS when no
-transport requires them. Remove the selection to follow the dependency
-rule in Documentation/dev-tools/kunit/style.rst.
+Hi Alexander,
 
-The two flow-specific tests already skip when MCTP_FLOWS is disabled.
-The remaining tests can run in either configuration.
+On Fri, Sep 25, 2026 at 10:39:46AM +0200, Alexander Stein wrote:
+> Am Mittwoch, 16. September 2026, 23:10:57 CEST schrieb Francesco Valla:
+> > Add rings for multiple vdevs, as well as the required virtio nodes for
+> > I2C, SPI and GPIO functionalities. On top of that, add example
+> > peripherals using all of them.
+> > 
+> > NOTE: this is a Proof-Of-Concept, not meant to be integrated!
+> > 
+> > Signed-off-by: Francesco Valla <francesco@valla.it>
+> 
+> Just a general question, unrelated to virtio, but related to AMP: How do you
+> manage the clocks, so that Linux doesn't disable clocks needed by the
+> Cortex-M?
+> 
+> Best regards
+> Alexander
+>
 
-Fixes: 109a5331143d ("net: mctp: tests: Test that outgoing skbs have flow data populated")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Validation on net-next 42a9fb3382fc: x86_64 LLVM builds and QEMU runs
-with MCTP_FLOWS disabled and enabled. Both suites pass. With flow support
-disabled, only the two flow-specific cases skip. The enabled configuration
-uses the I2C transport to select MCTP_FLOWS.
+Clock management for remote processors on i.MX93 (and other i.MX parts)
+is... not really a management, AFAICT. If you want to use a remote
+processor, the mcore_booted argument shall be specified in the kernel
+cmdline; this forces the clock management driver to leave root clock
+gates enabled for *everything*, leaving the possibility for the remote
+processor to use anything it needs.
 
- net/mctp/Kconfig | 1 -
- 1 file changed, 1 deletion(-)
+While out of scope for the current patchset, some work in this field
+certainly is on my (long) TODO list.
 
-diff --git a/net/mctp/Kconfig b/net/mctp/Kconfig
-index d8d3413a37f7..3a5c0e70da77 100644
---- a/net/mctp/Kconfig
-+++ b/net/mctp/Kconfig
-@@ -14,7 +14,6 @@ menuconfig MCTP
- 
- config MCTP_TEST
-         bool "MCTP core tests" if !KUNIT_ALL_TESTS
--        select MCTP_FLOWS
-         depends on MCTP=y && KUNIT=y
-         default KUNIT_ALL_TESTS
- 
+Current implementation can be seen in [1] and [2].
 
-base-commit: 42a9fb3382fc2573e92f41d203b095d9a372cfc9
+
+Regards,
+Francesco
+
+
+[1] https://elixir.bootlin.com/linux/v7.2.7/source/drivers/clk/imx/clk-imx93.c
+[2] https://elixir.bootlin.com/linux/v7.2.7/source/drivers/clk/imx/clk-composite-93.c#L83
+
