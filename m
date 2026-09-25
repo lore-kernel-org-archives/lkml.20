@@ -1,85 +1,95 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E311DDF0;
-	Fri, 25 Sep 2026 12:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF9448F836;
+	Fri, 25 Sep 2026 12:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790340246; cv=none; b=C24aZ0wQJ+mHke8KE0BpT9oCI5avT28LZlNJq2WTZApMIgAc97WN5PwBEs3gQISabY2uZYG9nivuC3R6MWaBmlEAN8PvTDc9w/KKa+kmazgBQcujlI2oFAW5Qe7VN33UVkRtYnpsOnKrKcLm4pgNgSIWWAmAZy/KWbYaCUFagtM=
+	t=1790340255; cv=none; b=jhGP/F6yr/ARdhCwmxZ/gecTdYuqhp5fALaitIMZafaL0J5pcWFBwQ/hM9tPFFcnCGaYnnh8BFONHzeOK6fdxOsCdXhNS4nsGiLwHfLTWeHWJurar5Rb/B3AkTzI94yuQA6/CTYOllz8M2YUtgZiuKSwAPXKFLUqX6XtWNX8Zjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790340246; c=relaxed/simple;
-	bh=XN0Gf1zvOCykiChPwISzY8g//JmTBnwFnHJOq0q3Buc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NIeuqqhhDzYFm49gWFZ2vzNmXvAqV52nInw/OovRTgH+36eiTTlve/AnIOAeGu95NOSPooDKaOESkV9Qaq3PVY+KCGYn2kefgC+NHNNOT4TNv4p3j60SNH7rJvj0R1GQq5dNXjZAi0+bVagRZ/7HWhkqijybRj5XiL/AWHfF4Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=W6Ss2O0A; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790340255; c=relaxed/simple;
+	bh=KYZJVMlJVqrfjo8bnVDozgWGFCzuHx0/eNlNH2Obn1Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ZTdNgGRo/BUNaf4r0QaObAqohH9lDivf1jgEaXBsTJ3lau/0cmlunbmIHRcrZdpjDNp3ypUz81xosEsHLsAjxtBhBRITUW0kaK9DuXFhKEldpODMSQ9CYRjXCEDVf3cXpa3Oj2UHWdbeL3dMSRoEA58JqleFSniuEB8HEt8gTI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VCEfkl+/; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="W6Ss2O0A"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=OHkkYwmGY8TatjNU9FZ7bLDOmRJ2GPTH7qfyHVSXguo=; b=W6Ss2O0AOsM0xBeviLYmE+NaLh
-	js2qCsglwdRISHyTivMkIqbEuP/d8INQ2qabbBRpdkSaqrww/PbdWp4DuJOVnd9LW616GAgn6tHcf
-	9Oe4qy4R60aYaWDzyQXxWAGAjGW5yt+y002csIw21oNg+Ffoq3uPTOUX7VBWT42fxzjY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xA5HG-007CIn-NS; Fri, 25 Sep 2026 14:43:46 +0200
-Date: Fri, 25 Sep 2026 14:43:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [RFC PATCH net-next v2] net: pcs: airoha: add support for Airoha
- AN7583 SoC
-Message-ID: <8448d07f-a0eb-41d4-8d66-f6af8525c6fa@lunn.ch>
-References: <20260925072712.23419-1-ansuelsmth@gmail.com>
- <12d6e310-3aa9-45f1-925e-e3c8f2f0efad@lunn.ch>
- <6ab6669c.232cdbff.15fa39.f0d3@mx.google.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VCEfkl+/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=9y
+	ecaw7HXdwQALYRJ85nDXe95I6nFrjvjNkvYy7Mb08=; b=VCEfkl+/v7O181YRgh
+	MwkMxwgy8GGZpzPXIjwxFfvvASx46NWEfqsvLdru+21AHm0XSVOzVEGN3fEiop/X
+	rtw9vM7wI7xehEd1oiR7pbK90XA6FrbFeHXQNrNXUOZPjFKeKbH78/5i+98wGabh
+	RJgFOROjANV9AZf47sPZaiSEQ=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgC3l8p2bLZqMEjpBA--.27791S4;
+	Fri, 25 Sep 2026 20:43:37 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/4] iio: accel: adxl372: reject devices without match data
+Date: Fri, 25 Sep 2026 20:43:29 +0800
+Message-Id: <20260925124332.2090895-3-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260925124332.2090895-1-yaojiale02@163.com>
+References: <20260925124332.2090895-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6ab6669c.232cdbff.15fa39.f0d3@mx.google.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgC3l8p2bLZqMEjpBA--.27791S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tw15uF1fuw4UZrW5uryfJFb_yoW8JFW7pF
+	Z8GFyYkry3WF4DK3yUJr1UAa4Ygr15t34rW3WkW3Za9F4rury8WFyagFyrKryrKFWSkF9F
+	qayDZryUWFn5Zr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pCjg9QUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhqBu2q2bHpy9AAA3i
 
-On Fri, Sep 25, 2026 at 02:18:34PM +0200, Christian Marangi wrote:
-> On Fri, Sep 25, 2026 at 02:07:52PM +0200, Andrew Lunn wrote:
-> > > +static void an7583_pcs_setup_scu_pcie(struct airoha_pcs_priv *priv,
-> > > +				      int index, phy_interface_t interface)
-> > > +{
-> > > +	u32 xsi_sel;
-> > > +
-> > > +	if (priv->phy)
-> > > +		return;
-> > > +
-> > > +	switch (interface) {
-> > > +	case PHY_INTERFACE_MODE_USXGMII:
-> > > +	case PHY_INTERFACE_MODE_10GBASER:
-> > > +	default:
-> > > +		xsi_sel = AIROHA_SCU_PCIE_XSI1_USXGMII;
-> > > +	}
-> > > +
-> > > +	regmap_update_bits(priv->scu, AIROHA_SCU_SSTR,
-> > > +			   AIROHA_SCU_PCIE_XSI1_SEL,
-> > > +			   xsi_sel);
-> > 
-> > I suspect the AI will be here soon. xsi_sel is initially a random
-> > stack value. IF interface is something else, you use that random value
-> > with regmap_update_bits().
-> >
-> 
-> Doesn't default address that case?
+SPI driver_override allows a device to bind to this driver without
+matching either the OF or SPI device ID table. In that case,
+spi_get_device_match_data() returns NULL.
 
-Yes, maybe. But why have a switch statement at all?
+adxl372_spi_probe() passes the result to adxl372_probe(), which
+dereferences chip_info to set the IIO device name and capabilities,
+causing a NULL pointer dereference.
 
-	Andrew
+Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
+data") fixed the same driver_override issue in another SPI driver.
+Reject devices without match data in the SPI frontend.
+
+Fixes: 23d742859a2d ("iio: accel: adxl372: introduce chip_info structure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/iio/accel/adxl372_spi.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/iio/accel/adxl372_spi.c b/drivers/iio/accel/adxl372_spi.c
+index 128e148c4e96..d54544d6df6f 100644
+--- a/drivers/iio/accel/adxl372_spi.c
++++ b/drivers/iio/accel/adxl372_spi.c
+@@ -25,6 +25,8 @@ static int adxl372_spi_probe(struct spi_device *spi)
+ 	struct regmap *regmap;
+ 
+ 	chip_info = spi_get_device_match_data(spi);
++	if (!chip_info)
++		return -ENODATA;
+ 
+ 	regmap = devm_regmap_init_spi(spi, &adxl372_spi_regmap_config);
+ 	if (IS_ERR(regmap))
+-- 
+2.34.1
+
