@@ -1,163 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAD63B14B7;
-	Fri, 25 Sep 2026 18:43:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AA34DF4BA;
+	Fri, 25 Sep 2026 18:43:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790361787; cv=none; b=kLtZcpzuRC5bBZJF0i2IjXpHnDhFcQ4212/P4PXhY25q7L3MJc4F5igjSVMkoASgONpm/T2P7P8GxeEHqWonDKuYPUTM21qRq1/KI/g+jwdCTrp54XTnM8G2nGT80VGNbmipLwfmwVBwtW3droH50FHbZ7y88qnDDRVPi3Fg26Q=
+	t=1790361789; cv=none; b=rfHBydLXqIGdsrnS9XmVLb0pZmrhcs032ZrQL0Hv9RASftK6eKF+PiZhE/DBi6OljZvAXmAzUdJjYi3yi7nTYOh6Ihg3i35eQLdutwrvaq1htQXzIuuwwO2C2XevqucWuazkWj5yM/+ZuIkcJ/FVJ8lXvN5gzWsKJrbkmlJhqy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790361787; c=relaxed/simple;
-	bh=wKfCsQQMeZSeqxSgDauk8svih84GS4XuTP6ZJBPgTE4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=TpAM1fNdVeMyxWNiEqc7q5g7tzrwHZxoJBzzZLls195FKVLIDmnbDqX1SzErRm0HEhw3fpSIkXWuRzoSKjq12Ai4kjH1FZxNZ5fFh30JPLHtYlIojuI2cg6gKtsKBaZdZN50RaYDpl0IFnIM96aHu2rHVSJJWitAdZlJzxCyWCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNfwTJAZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790361789; c=relaxed/simple;
+	bh=M3eyXHU774bbNAAr0Ool6V346ffZ2HSmAdOt2axnDuI=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=YwJOt3FRODGsOUwMnxwx3ZGUXTt3pJt+ur0z3NIPvivhAnqeb7ZkDIIZNb64DiGmRRR5hUPGoAVRTieKjGoXFnCyY7bZHeoCaFjW+5d43kJFhvxAYJCZg9HVhn8InVVpHFDgNSjJbLOaa62JDQNhvs6elrHnwADf6E2hRxcGQUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTYmpfFQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNfwTJAZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADC5F1F000FF;
-	Fri, 25 Sep 2026 18:43:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTYmpfFQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89181F00899;
+	Fri, 25 Sep 2026 18:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790361785;
-	bh=NvG9jW/6Ypl5e1J7vlxrwdFbpCJZ3skRDSf1wuygkBU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KNfwTJAZPooPdvcLyn+EKHhJZga5jtdo4d7i9uhHlWE2M2rc2qcmr65v/BrpLjmXZ
-	 Wn2zruQpxvYMgVFsYRVYFOv8Gk9oymC1Ddp2jWEZPQSHakwDSHgvEq3xJBbHAAfdnF
-	 hUNjDVTS1DndrK8xwZshELvXuIhHee2TfmsGTOA2bolTvKZZxy+0J8jSuU6U8N8UIn
-	 gpb9xvZPwSGh7i90np3INc/94HIKXDX0p5vXZclVhOthnz4VW9mriwd+QKrEKLXBMq
-	 T0NMiYvxtoe8SV/gdALw6RCi16LzfXFZTozcwPElkjFPtCn2cBdZN7Juf/n7qZ+RmU
-	 RQBjYpAwD8pmQ==
-Subject: Re: [net-next,PATCH v2] enetc: Increase eMDIO MDC rate to 2.5 MHz
-From: netdev-bot+sashiko@kernel.org
-To: marex@nabladev.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
- xiaoning.wang@nxp.com, claudiu.manoil@nxp.com, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, vladimir.oltean@nxp.com, wei.fang@nxp.com,
- imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Date: Fri, 25 Sep 2026 18:43:04 +0000
-Message-ID: <179036178420.2160803.4979357583820016009@kernel.org>
-In-Reply-To: <20260924180607.60932-1-marex@nabladev.com>
-References: <20260924180607.60932-1-marex@nabladev.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790361787;
+	bh=dzbhzGtVTo5LDAEE9mIll/R09MKflkhK+1nWaQvoY0k=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=nTYmpfFQMEgR9Q1RmNNfbjRFX2BbLCGqwRv/DX0IRW3FKTE36ytYYnPfZbekyQ+hN
+	 iXRdJzEAl4U4zspuIQfHa9PTHAjrpxHbSXqM3r4d7JAYJr4Q+T30+Xjs/Jpe8srfVm
+	 +bM2eb7UcEkUW160qLkUwHbg7w48/xkMhkIyb7JoxCm3bhRsLj/liggYIdUkqPPavs
+	 QgVYLPqKkZK+iSgLw4P9c5kTP70ImhRn/WVyUtFvs5S/u6P2mdOuhpOsVfvbMczqlE
+	 n3Pg/MudyZH9ZDEdNfb+UhL0GON0VAuAHQBK+xE59FpVieE+kQiJstkgKmApuiJSri
+	 7Xb/qx7Mk3bXA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BC886380820D;
+	Fri, 25 Sep 2026 18:41:56 +0000 (UTC)
+Subject: Re: [GIT PULL] gpio fixes for v7.4-rc5
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20260925080204.9234-1-bartosz.golaszewski@oss.qualcomm.com>
+References: <20260925080204.9234-1-bartosz.golaszewski@oss.qualcomm.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20260925080204.9234-1-bartosz.golaszewski@oss.qualcomm.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/gpio-fixes-for-v7.3-rc5
+X-PR-Tracked-Commit-Id: 270437f3fe62516f16482742a7762a075e7a9457
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 80e466f0c8acc545159a1f1fcca62512bf848413
+Message-Id: <179036171542.3089752.7845164512566603672.pr-tracker-bot@kernel.org>
+Date: Fri, 25 Sep 2026 18:41:55 +0000
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+The pull request you sent on Fri, 25 Sep 2026 10:02:04 +0200:
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+> git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/gpio-fixes-for-v7.3-rc5
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/80e466f0c8acc545159a1f1fcca62512bf848413
 
-- [Medium] The patch changes ENETC_EMDIO_CFG in
-  drivers/net/ethernet/freescale/enetc/enetc_mdio.c from…
-
-Pre-existing issues:
-- [Medium] Documentation/devicetree/bindings/net/fsl,enetc-mdio.yaml
-  covers pci1957,ee01 (LS1028A) and pci1131,ee00 (i.MX95/94).
-
---
-
-enetc: Increase eMDIO MDC rate to 2.5 MHz
-
-This commit changes the fixed eMDIO clock divider in ENETC_EMDIO_CFG from
-258 to 66. The goal is to raise MDC from 558 kHz to 2.5 MHz on i.MX95 B0.
-The NXP TJA1120 PHY needs an MDC of at least 1 MHz, which is the reason
-for the change.
-
-> diff --git a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-> index 998aaa394e9c4..a90a04a47befd 100644
-> --- a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-> +++ b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-> @@ -24,7 +24,7 @@
->  
->  #define ENETC_EMDIO_CFG \
->  	(MDIO_CFG_HOLD(2) | \
-> -	 MDIO_CFG_CLKDIV(258) | \
-> +	 MDIO_CFG_CLKDIV(66) | \
->  	 MDIO_CFG_NEG)
-
-[Severity: Medium]
-The commit message only describes i.MX95 B0. What MDC rate does this
-divider give on the other SoCs that use it?
-
-ENETC_EMDIO_CFG is a compile-time constant and does not depend on the
-input clock. enetc_mdio_read_c22(), enetc_mdio_write_c22(),
-enetc_mdio_read_c45() and enetc_mdio_write_c45() write it to MDIO_CFG
-before every transaction:
-
-    mdio_cfg = ENETC_EMDIO_CFG;
-    ...
-    enetc_mdio_wr(mdio_priv, ENETC_MDIO_CFG, mdio_cfg);
-
-These accessors are installed by:
-
-  - enetc_pci_mdio_probe(), for both the LS1028A EMDIO (1957:ee01) and
-    the i.MX95/i.MX94 netc_emdio (1131:ee00)
-  - enetc_mdio_probe() and enetc_imdio_create() in enetc_pf_common.c
-  - vsc9959_mdio_bus_alloc(), for the LS1028A Felix switch internal MDIO
-  - netc_port_create_emdio_bus(), for the NETC switch per-port EMDIO
-
-The driver uses a different system clock for each of the two generations
-in enetc.c:
-
-    .sysclk_freq = ENETC_CLK_400M,  /* enetc_pf_data */
-    .sysclk_freq = ENETC_CLK_333M,  /* enetc4_pf_data */
-
-The sibling QorIQ driver, xgmac_mdio.c, puts its divider at the same bit
-position and uses MDC = f_in / (2 * div + 1). Under that formula the new
-divider gives f_in / 133.
-
-If the LS1028A EMDIO is clocked at 400 MHz, would MDC be about 3.0 MHz?
-The old divider gave about 774 kHz. That new rate is above the 2.5 MHz
-802.3 limit the commit message is aiming for. Even at 333 MHz, the result
-would be about 2.504 MHz, slightly over the limit.
-
-The driver has no per-SoC divider and does not read the input clock rate.
-Boards such as LS1028A RDB/QDS, Kontron sl28 or TQ MBLS1028A would have
-no way to bring MDC back down.
-
-Could the divider be derived from the actual input clock, or at least
-chosen per SoC?
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. The
-binding and the driver do not agree on how the MDC rate is set.
-
-Documentation/devicetree/bindings/net/fsl,enetc-mdio.yaml covers both
-pci1957,ee01 and pci1131,ee00. It includes mdio.yaml, so the generic
-clock-frequency property passes schema validation:
-
-clock-frequency:
-    description:
-      Desired MDIO bus clock frequency in Hz. Values greater than IEEE 802.3
-      defined 2.5MHz should only be used when all devices on the bus support
-      the given clock speed.
-
-enetc_pci_mdio_probe() never reads this property. It only calls:
-
-    err = of_mdiobus_register(bus, dev->of_node);
-
-The divider therefore always comes from ENETC_EMDIO_CFG, and any
-clock-frequency value in the DT is silently ignored. By comparison,
-xgmac_mdio_set_mdc_freq() in xgmac_mdio.c and fec_main.c both honour this
-property.
-
-This patch makes the fixed MDC about 3.9 times faster on every board.
-Should the driver honour clock-frequency, so that a board whose PHY or
-wiring can't handle the new rate can lower it through the DT?
-
-That would also need the input clock rate. The netc_emdio and
-enetc_mdio_pf3 DT nodes don't provide it today.
+Thank you!
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924180607.60932-1-marex%40nabladev.com
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
