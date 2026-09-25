@@ -1,151 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D07C4A7CA5;
-	Fri, 25 Sep 2026 13:52:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF0543BDC0;
+	Fri, 25 Sep 2026 13:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790344350; cv=none; b=eBB6OzPDKnRMPUW7Zz0Dt8zZ4htBs5mz3s9rDj65sB4HWdTihaaEFwKc0+/l71tpKdqQLEZzCVdCXAuDXtyYLE2ZjfTB1TZ+D6vEJTcFp3irwjT2hfETySUI1W0m5O3MCrBYZ/XgjLiFYjjYJ2ifPXZIU2eTF6HFn5tnylT4w2Q=
+	t=1790344393; cv=none; b=RctEiYwBjX0c0ejZHhrwhhucUkBN2R5FNejaX24ZH5pEiq7AN/gOGFqjV3fttnjvnNOOFIZGmPGqir2PK3p/R7Qj0A4TuipSURyQ3/R287CMG4MD9bdlquO94guv3K2rETQHwLuvv1FC8/iRM5xP1kIK14ykcp2NCXqR3uJJofE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790344350; c=relaxed/simple;
-	bh=3ZwrtGEgzfnJfpp/JNMb+qskrl4M7nAiLP15haxC12g=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=h/lvwK4S4BULDDIvuMNpbFp7NXFXZ65pHNtgKGLIEoxN8WyjPr/EcgjDcZStR5yc+cGgJSxKqDeME67KaXcUfcXMScEVD3fhYlIPdfTBZH5D0HqShoEKcyy01R7jVWODNfuw4wTCIDeyownHwUst5aVTEcRP9D/VLaaG3ncO/Jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NSNkHMwN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790344393; c=relaxed/simple;
+	bh=Y58bPz2z4AP1Sg8SS87CnMm0rK2+L7evrleySoooekg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MurfACxZ1Y/kr73Ul5N42OG9gmo/oihuR11j8soSBtVeo+J8+ZmqXK4JFnPpSxmJKXgJ/65ASxVLC/BT8VjWD+hsaT0l4ztn4wfG4m3rx2CTcImFbhbmSo7pRwlSPDj773FSTO+kP+IEIhYj6QAhGSQQl4lF3N0Do692k3rDBpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=BWkFKHcj; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NSNkHMwN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C9661F00893;
-	Fri, 25 Sep 2026 13:52:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790344348;
-	bh=Kw7fCq2tAP6shzD4hEnIRaBnhicH7vAPWucV0s/ym6M=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NSNkHMwNACBGBo3GRBR6ungCcNwdsrdoR0QZxybVOVrGN/g/zJ6qIkIMaoIsF7/IY
-	 abSbjNxXSrpOjNH/7aZq6yoL5edgwjbF20/MVxYEw8fRb3wdy9sOXdNy08mky7PH1C
-	 H329G79bsi4Naj1hqZOR0iOU0ceJFUcVMjiFjuxUpsM1EdNcKtlYdETfkaoiVjDdgI
-	 7rtiI0+aAEAPH3Qv0L5nQN/F/rypPHUw+U7Hkd+L1iDskM4psLcuI1CIx/Q8aexcEI
-	 bnAqdO3ZzXVH2r3XiBb8whvg+Kzo2+VsCLT86zUNQ5cF7PXcA0kqWtY6feT2MN86GO
-	 l+TGjZ3k3mhpQ==
-Subject: Re: [PATCH net v2 4/4] net: axienet: reprogram the link settings
- after a DMA error reset
-From: netdev-bot+sashiko@kernel.org
-To: maimon.sagi@gmail.com
-Cc: netdev@vger.kernel.org, radhey.shyam.pandey@amd.com, michal.simek@amd.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk,
- daniel@iogearbox.net, andybnac@gmail.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 25 Sep 2026 13:52:27 +0000
-Message-ID: <179034434763.2160803.1935314662107834629@kernel.org>
-In-Reply-To: <20260924135116.185161-5-maimon.sagi@gmail.com>
-References: <20260924135116.185161-5-maimon.sagi@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="BWkFKHcj"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 280DCA02D8;
+	Fri, 25 Sep 2026 15:53:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790344389; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=G3jYPwXqqQKzyrTkuEGWPfBU+1NwmFN2RF8hcaQa2o4=;
+	b=BWkFKHcjB98uUTfig+d1dYpiSHUalbhy0K9Q1A34hFCCkjn8V+H24tikWf4QrY8ygr/Rms
+	aO6ol+sasSWzCNs/TIRGCesiN2ehcA/NB6W2UHuSQQvjWS8JR6tMQ+v3uY4re0LZS4DRme
+	2CC49L/AQLqn30zSRM9YtcxDxweUSQz0GmTLU8ah38e9o5PMaIZHw19CL7B1NoXrYNP4GF
+	b+KQyd0b58ywIb1jk55T6wddVc47C1fm9FyEX4aI3yOxg+6sJtc7UVXpNnr1ge6c3R0Cuq
+	EwlS/u1/Y1tqiOtlOjzwxhKus92AnRYhnEoEk6wbMfGFrbanoq0zPQOrCH0mtA==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kory Maincent <kory.maincent@bootlin.com>
+Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3 1/2] net: ethtool: reject an out of range hwtstamp provider index
+Date: Fri, 25 Sep 2026 15:52:35 +0200
+Message-ID: <20260925135237.3432266-2-nb@tipi-net.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260925135237.3432266-1-nb@tipi-net.de>
+References: <20260925135237.3432266-1-nb@tipi-net.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+A provider index of 0xFFFFFFFF picks a provider on hardware that has
+none. phc_index is an int where -1 means no PHC, and the u32 from user
+space ends up as -1, so the two match.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+TSINFO_GET uses -1 for "no provider requested" and answers with the
+default provider instead of an error.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Reject the value in the netlink policy, which covers every comparison
+site.
 
-- [Medium] In axienet_dma_err_handler()
-  (drivers/net/ethernet/xilinx/xilinx_axienet_main.c:2804-2811), the new…
+Fixes: b9e3f7dc9ed9 ("net: ethtool: tsinfo: Enhance tsinfo to support several hwtstamp by net topology")
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+NLA_POLICY_MAX does not fit here, .max in struct nla_policy is s16.
 
---
+ net/ethtool/ts.h | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-net: axienet: reprogram the link settings after a DMA error reset
+diff --git a/net/ethtool/ts.h b/net/ethtool/ts.h
+index d901a879a671..ab9805308353 100644
+--- a/net/ethtool/ts.h
++++ b/net/ethtool/ts.h
+@@ -5,9 +5,15 @@
+ 
+ #include "netlink.h"
+ 
++/* phc_index is an int and -1 means no PHC, so keep the request non-negative */
++static const struct netlink_range_validation ethnl_ts_prov_index_range = {
++	.max = INT_MAX,
++};
++
+ static const struct nla_policy
+ ethnl_ts_hwtst_prov_policy[ETHTOOL_A_TS_HWTSTAMP_PROVIDER_MAX + 1] = {
+-	[ETHTOOL_A_TS_HWTSTAMP_PROVIDER_INDEX] = { .type = NLA_U32 },
++	[ETHTOOL_A_TS_HWTSTAMP_PROVIDER_INDEX] =
++		NLA_POLICY_FULL_RANGE(NLA_U32, &ethnl_ts_prov_index_range),
+ 	[ETHTOOL_A_TS_HWTSTAMP_PROVIDER_QUALIFIER] =
+ 		NLA_POLICY_MAX(NLA_U32, HWTSTAMP_PROVIDER_QUALIFIER_CNT - 1)
+ };
 
-axienet_dma_err_handler() resets the AXI Ethernet core but never restores
-the link speed in XAE_EMMC, and it leaves XAE_FCC with only FCRX set. This
-patch calls phylink_mac_change(lp->phylink, false) at the end of the
-handler, so phylink takes the link down and back up and reruns
-axienet_mac_link_up(). The call uses the same condition as the queue wake.
-
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> index f16dbfc7dc933..d53f7dc7bd223 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> @@ -2801,8 +2801,15 @@ static void axienet_dma_err_handler(struct work_struct *work)
->  	 * device was detached for suspend: axienet_stop() and axienet_open()
->  	 * own the queue state then.
->  	 */
-> -	if (!READ_ONCE(lp->stopping) && netif_device_present(ndev))
-> +	if (!READ_ONCE(lp->stopping) && netif_device_present(ndev)) {
-> +		/* The reset also cleared the link speed and pause settings,
-> +		 * which only axienet_mac_link_up() programs.  Have phylink take
-> +		 * the link down and up again so that it is called.  This must
-> +		 * follow the axienet_setoptions() above, which writes XAE_FCC.
-> +		 */
-> +		phylink_mac_change(lp->phylink, false);
-
-[Severity: Medium]
-Can the netif_device_present() check skip the relink during resume, even
-though phylink is already running at that point?
-
-The commit message says:
-
-    Skip it under the same conditions as the queue wake:
-    axienet_stop() stops phylink, and a resume restarts it.
-
-In axienet_resume(), though, phylink is restarted before the device is
-attached:
-
-axienet_resume()
-    rtnl_lock();
-    axienet_open(ndev);
-        axienet_device_reset(ndev);
-        phylink_start(lp->phylink);
-        axienet_init_legacy_dma(ndev);
-            lp->stopping = false;
-            request_irq(lp->tx_irq, ...);
-            request_irq(lp->rx_irq, ...);
-    rtnl_unlock();
-
-    netif_device_attach(ndev);
-
-Consider this sequence inside that window:
-
-1. phylink resolves the link and calls axienet_mac_link_up(). With a
-   fixed-link or in-band PCS this can happen quickly.
-2. A TX or RX DMA error interrupt schedules dma_err_task.
-3. axienet_dma_err_handler() resets the core through axienet_dma_stop(),
-   which clears the XAE_EMMC speed. It also rewrites XAE_FCC to FCRX only.
-4. The handler reaches the final check before netif_device_attach() has
-   run. It sees lp->stopping == false but netif_device_present() == false,
-   so it skips phylink_mac_change().
-
-netif_device_attach() then wakes the TX queue, so the queue wake gets a
-second chance. Nothing reruns axienet_mac_link_up(), so the MAC stays at
-its reset-default speed and pause settings. That is the state this patch
-is meant to fix.
-
-phylink already ignores the notification while it is stopped:
-
-phylink_run_resolve()
-    if (!pl->phylink_disable_state)
-        queue_work(system_power_efficient_wq, &pl->resolve);
-
-axienet_stop() also sets lp->stopping and calls
-flush_work(&lp->dma_err_task) before it calls phylink_stop().
-
-Would it be enough to gate phylink_mac_change() on !lp->stopping alone,
-and keep the netif_device_present() check only for netif_wake_queue()?
-
->  		netif_wake_queue(ndev);
-> +	}
->  }
-
+base-commit: 11536ee3d3e0b1bd35b6f3f8df55a6053eb0c71d
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924135116.185161-1-maimon.sagi%40gmail.com
+2.53.0
+
