@@ -1,233 +1,218 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8206F3655FA;
-	Fri, 25 Sep 2026 02:23:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD0732ED3A;
+	Fri, 25 Sep 2026 02:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790303018; cv=none; b=uPsFXSO6zr1SA434vvFExb8p7GEKdLJ9jOICMLIbocaGiHSVH0EEGZaCsWZBRcIqlFZg5btcbP3DmiExWW7vRjdGfKxkbLPbSb5plSmVkFuEnL6jeDNoYRMk4JXeiOSEIu3isfSYpDm/7tlTCbSD0ysarBVc3wiAe9n1hFicJiI=
+	t=1790303318; cv=none; b=abmP6LBLj9qkKfMELLZXHPwY4YUvDEsS35OCAkveHU+FAreMqDMiB8lXuTWwzwIDMiMTlz76lnfRDn3zykxb9KnskZb/UNo62tWVdzKYe9Iwl1tL6QEkCg2ZU7V6+RTZCR8TIhYdQQp/6ouH2pO+vmIz77lGdKQ+AVYkuB5C6Vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790303018; c=relaxed/simple;
-	bh=4vRNppN3FLumiUhSCw+3UtKUBCkiE/1MEBId+otF5Y0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=s7foXsmvZ4vJ/CPQ0PEf9q7CYOuigUXLc4KWGVBtq+1hJhDw7f3pvftzBtgUPWNImqn7DV2MwefW53G13Ymz6hEjWas0TkU6CrNzxjDVGyVNvTKqezhXUr4mZB1GyV0jXZ6UpQB4fq84QbQLcMTc/vjNIP8ab19hsrcNJc+Y6r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lhkV36Zv; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790303318; c=relaxed/simple;
+	bh=z4Q9Up30GPThJgGmkONs/sU9OzCm7u+4BRBNcNRjapI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=P9LgwhdP+EoTXXYfn3ylhIbYGkVoJ7b4DuMdSerCwxDOzsdMNU78dCZAUyfg8gBgvfAk4rRlnTn7DHE/r63uzVqQoAwtYdv3dvhzIOBugqJH5XQxehOc2Xpq/MvrbaP1/HUldzh6hLt41vfzwIwhcR/4e6/p7Kq1xzXDUYk3jWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KyHXYh0H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lhkV36Zv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790303015; x=1821839015;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=4vRNppN3FLumiUhSCw+3UtKUBCkiE/1MEBId+otF5Y0=;
-  b=lhkV36ZvHmZf50jaEuiC59Gr6kTQ1MHwUSVlA1J7Uga+/8sOYsyMDofk
-   QH0RpR13nmKHeqVGYQEPdQPgPKumQbHtjbu8X64ZG0+6e1timp9PZzlr5
-   1EZQ4xRXpr5FxDdQmzerhPsmvG6w1YeU+TROrbGskrv+UwZLSyFdnT17w
-   4zZQiOd5YOs7Ojj9FqzKcY++3a+vjsFDDouWQpQWR+xnFDI8r1wUBBsyh
-   Vp9vSXoE7xqnPfITq8vbzM/NxaTKiCQOhhtNs0JbnWRygxvXH5KZPn+cb
-   6S3AJp500IW5UuiGXKPOjpL42CTzWhaK6YoacmdrcUnga2k2GIIruiPxj
-   A==;
-X-CSE-ConnectionGUID: FwlG4xMLRTav3Q6yqTSCvw==
-X-CSE-MsgGUID: dBrMrvnQS4aeR7/MtRcOvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91107238"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="91107238"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 19:22:59 -0700
-X-CSE-ConnectionGUID: VOqYqExYQmCP6QL4dXlDPA==
-X-CSE-MsgGUID: Z06w/pnQQMuAWMmJAWQRag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="278920527"
-Received: from unknown (HELO [172.25.112.21]) ([172.25.112.21])
-  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 19:22:58 -0700
-From: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Date: Thu, 24 Sep 2026 19:33:22 -0700
-Subject: [PATCH 3/3] hwmon: (coretemp) Add temp%d_fault sysfs attribute
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyHXYh0H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC661F000FF;
+	Fri, 25 Sep 2026 02:28:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790303317;
+	bh=5v6MISeHpe/4mcQWjNeXTIoK1j5tdhtNL1a+WNkKcVA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KyHXYh0HjdRAhI2c8amvu8OK9kSSzq3wdaQ9klJYqpPl3cBxDfRw47svldz+6Vxbm
+	 x8jrGSHm0B3LScpQ6yxQEdcEGpmmVRjCLQfbREoIrhz2B+YMSUXSV7HhsmtBlNXYIb
+	 cwplPoWBNquP5vp3/N8zoOfL4UGEY3kI4BFi+21p8rEHTwrexix8d237yim4QbI8R3
+	 I8n8H2WUk2kDlOckrvkFbfZ8LiXEko4koVWZtkbBon/ETTP7OtgXu+ITz1W2ukGWYN
+	 Wnu75Irj+QQWX6zZAlXm4ROhGCB2EWz+PLjSRiH+f17WLc1bK4N2EjcEK+bf5IKpiP
+	 mZCoriVpWt74w==
+Date: Fri, 25 Sep 2026 03:28:34 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v9 3/5] iio: magnetometer: ak8975: use temporary
+ variable for struct device
+Message-ID: <20260925032834.16498c58@jic23-hlaptop>
+In-Reply-To: <20260925032112.1cf46d80@jic23-hlaptop>
+References: <20260920-ak8975-cleanup-v9-0-1b0f00ec19ef@gmail.com>
+	<20260920-ak8975-cleanup-v9-3-1b0f00ec19ef@gmail.com>
+	<20260925032112.1cf46d80@jic23-hlaptop>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-coretemp-temp-fault-v1-3-1884f0ff97d5@linux.intel.com>
-References: <20260924-coretemp-temp-fault-v1-0-1884f0ff97d5@linux.intel.com>
-In-Reply-To: <20260924-coretemp-temp-fault-v1-0-1884f0ff97d5@linux.intel.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: david.nystrom@est.tech, linux-hwmon@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- ricardo.neri@intel.com, 
- Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790303618; l=6261;
- i=ricardo.neri-calderon@linux.intel.com; s=20250602;
- h=from:subject:message-id; bh=4vRNppN3FLumiUhSCw+3UtKUBCkiE/1MEBId+otF5Y0=;
- b=RJFcrYQvldkg009hpAnvxLFqQ0ETrNTFFNCl34JelbKNaL11bxMJmvxPLcCMCCiajMsVhirPB
- fEpgaPxy94mDlUFRuKGuKdJTpHn/0ZpaPaR9v4i9MTUw7dgAeKo2nzw
-X-Developer-Key: i=ricardo.neri-calderon@linux.intel.com; a=ed25519;
- pk=NfZw5SyQ2lxVfmNMaMR6KUj3+0OhcwDPyRzFDH9gY2w=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-The temp%d_input sysfs attribute reports the CPU core temperature
-regardless of the valid bit (bit 31) in IA32_[PACKAGE]_THERM_STATUS.
-Commit bf6ea084ebb5 ("hwmon: (coretemp) Do not return -EAGAIN for low
-temperatures") established this behavior after observing that some Intel
-CPUs do not set the valid bit while the temperature is too low to be
-measured. The value reported is of more use than an error. Changing this is
-not an option: the interface is long-established and userspace relies on
-it never failing.
+On Fri, 25 Sep 2026 03:21:12 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Userspace, however, cannot distinguish a genuinely low temperature from
-one the CPU could not measure. Until that commit it could: reading
-temp%d_input returned -EAGAIN. That signal was removed and nothing
-replaced it. Report the inverse of the valid bit through the standard hwmon
-temp%d_fault attribute. Its documented meaning is that the measurement
-for that channel should not be trusted. Tools built on libsensors consume
-the standard attribute.
-
-temp%d_input continues to ignore the valid bit. A new update_temp() helper
-refreshes the cached temperature and its fault state together, so both
-attributes are served from the same reading of the status register.
-
-Signed-off-by: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
----
- Documentation/hwmon/coretemp.rst |  4 +++
- drivers/hwmon/coretemp.c         | 68 +++++++++++++++++++++++++++-------------
- 2 files changed, 51 insertions(+), 21 deletions(-)
-
-diff --git a/Documentation/hwmon/coretemp.rst b/Documentation/hwmon/coretemp.rst
-index 349301683381..e3e3205b5155 100644
---- a/Documentation/hwmon/coretemp.rst
-+++ b/Documentation/hwmon/coretemp.rst
-@@ -50,6 +50,10 @@ All sysfs entries are named with their core_id (represented here by 'X').
- 
- ================= ========================================================
- tempX_input	  Core temperature (in millidegrees Celsius).
-+tempX_fault	  Set when the CPU reports the reading in tempX_input as
-+		  invalid. Some CPUs do this while the temperature is too
-+		  low to be measured. tempX_input still reports a value in
-+		  this state; it is low or zero.
- tempX_max	  Maximum recommended operating temperature (Tcontrol).
- 		  All cooling devices should be turned on.
- tempX_crit	  Maximum junction temperature (in millidegrees Celsius).
-diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
-index 0ab6bbff5637..e0fb7c0ef4d0 100644
---- a/drivers/hwmon/coretemp.c
-+++ b/drivers/hwmon/coretemp.c
-@@ -45,6 +45,7 @@ enum coretemp_attr_index {
- 	ATTR_LABEL,
- 	ATTR_CRIT_ALARM,
- 	ATTR_TEMP,
-+	ATTR_TEMP_FAULT,
- 	ATTR_TJMAX,
- 	ATTR_TTARGET,
- 	MAX_CORE_ATTRS = ATTR_TJMAX + 1,	/* Maximum no of basic attrs */
-@@ -60,6 +61,9 @@ enum coretemp_attr_index {
- 
- /*
-  * Per-Core Temperature Data
-+ * @temp_fault: The temperature in @temp is not to be trusted. Mirrors the
-+ *		meaning of the tempX_fault attribute, and is therefore the
-+ *		inverse of the valid bit the CPU reports in @status_reg.
-  * @tjmax: The static tjmax value when tjmax cannot be retrieved from
-  *		IA32_TEMPERATURE_TARGET MSR.
-  * @last_updated: The time when the current temperature value was updated
-@@ -72,6 +76,7 @@ enum coretemp_attr_index {
-  */
- struct temp_data {
- 	int temp;
-+	bool temp_fault;
- 	int tjmax;
- 	unsigned long last_updated;
- 	unsigned int cpu;
-@@ -393,41 +398,62 @@ static ssize_t show_ttarget(struct device *dev,
- 	return sprintf(buf, "%d\n", ttarget);
- }
- 
--static ssize_t show_temp(struct device *dev,
--			 struct device_attribute *devattr, char *buf)
-+/* Requires tdata->update_lock to be held. */
-+static void update_temp(struct temp_data *tdata, struct device *dev)
- {
- 	struct msr val;
--	struct temp_data *tdata = container_of(devattr, struct temp_data, sd_attrs[ATTR_TEMP]);
- 	int tjmax;
- 
--	mutex_lock(&tdata->update_lock);
--
- 	/* Check whether the time interval has elapsed */
--	if (time_after(jiffies, tdata->last_updated + HZ)) {
--		tjmax = get_tjmax(tdata, dev);
--		rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
--		/*
--		 * Ignore the valid bit. In all observed cases the register
--		 * value is either low or zero if the valid bit is 0.
--		 * Return it instead of reporting an error which doesn't
--		 * really help at all.
--		 */
--		tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
--		tdata->last_updated = jiffies;
--	}
-+	if (!time_after(jiffies, tdata->last_updated + HZ))
-+		return;
-+
-+	tjmax = get_tjmax(tdata, dev);
-+
-+	rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
-+
-+	/*
-+	 * Cache the temperature even when the CPU reports it as invalid. In
-+	 * all observed cases the register value is either low or zero if the
-+	 * valid bit is 0, which is of more use than reporting an error.
-+	 * tempX_fault tells userspace when the temperature is unreliable.
-+	 */
-+	tdata->temp_fault = !((val.l >> 31) & 1);
-+	tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
-+	tdata->last_updated = jiffies;
-+}
-+
-+static ssize_t show_temp(struct device *dev,
-+			 struct device_attribute *devattr, char *buf)
-+{
-+	struct temp_data *tdata = container_of(devattr, struct temp_data, sd_attrs[ATTR_TEMP]);
-+
-+	guard(mutex)(&tdata->update_lock);
-+	update_temp(tdata, dev);
- 
--	mutex_unlock(&tdata->update_lock);
- 	return sprintf(buf, "%d\n", tdata->temp);
- }
- 
-+static ssize_t show_temp_fault(struct device *dev,
-+			       struct device_attribute *devattr, char *buf)
-+{
-+	struct temp_data *tdata = container_of(devattr, struct temp_data,
-+					       sd_attrs[ATTR_TEMP_FAULT]);
-+
-+	guard(mutex)(&tdata->update_lock);
-+	update_temp(tdata, dev);
-+
-+	return sprintf(buf, "%d\n", tdata->temp_fault);
-+}
-+
- static int create_core_attrs(struct temp_data *tdata, struct device *dev)
- {
- 	static ssize_t (*const rd_ptr[TOTAL_ATTRS]) (struct device *dev,
- 			struct device_attribute *devattr, char *buf) = {
--			show_label, show_crit_alarm, show_temp, show_tjmax,
--			show_ttarget };
-+			show_label, show_crit_alarm, show_temp, show_temp_fault,
-+			show_tjmax, show_ttarget };
- 	static const char *const suffixes[TOTAL_ATTRS] = {
--		"label", "crit_alarm", "input", "crit", "max"
-+		"label", "crit_alarm", "input", "fault", "crit", "max"
- 	};
- 	int i;
- 
-
--- 
-2.43.0
+> On Sun, 20 Sep 2026 20:05:25 +0200
+> Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+>=20
+> > From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> >=20
+> > Use temporary variable for struct device to make code neater.
+> >=20
+> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+> > Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com> =20
+> A couple of places in here where I'd also switch to dev_err_probe().
+>=20
+> Jonathan
+diff --git a/drivers/iio/magnetometer/ak8975.c b/drivers/iio/magnetometer/a=
+k8975.c
+index 66f105d8e42d..0e0eba116d52 100644
+--- a/drivers/iio/magnetometer/ak8975.c
++++ b/drivers/iio/magnetometer/ak8975.c
+@@ -613,38 +613,28 @@ static int ak8975_setup(struct ak8975_data *data)
+=20
+        /* Write the fused rom access mode. */
+        ret =3D ak8975_set_mode(data, FUSE_ROM);
+-       if (ret < 0) {
+-               dev_err(dev, "Error in setting fuse access mode\n");
+-               return ret;
+-       }
++       if (ret < 0)
++               return dev_err_probe(dev, ret, "Error in setting fuse acces=
+s mode\n");
+=20
+        /* Get asa data and store in the device data. */
+        ret =3D i2c_smbus_read_i2c_block_data_or_emulated(client,
+                                                        data->def->ctrl_reg=
+s[ASA_BASE],
+                                                        sizeof(data->asa),
+                                                        data->asa);
+-       if (ret < 0) {
+-               dev_err(dev, "Not able to read asa data\n");
+-               return ret;
+-       }
+-       if (ret !=3D sizeof(data->asa)) {
+-               dev_err(dev, "Error reading asa data\n");
+-               return -EIO;
+-       }
++       if (ret < 0)
++               return dev_err_probe(dev, ret, "Not able to read asa data\n=
+");
++       if (ret !=3D sizeof(data->asa))
++               return dev_err_probe(dev, ret, "Error reading asa data\n");
+=20
+        /* After reading fuse ROM data set power-down mode */
+        ret =3D ak8975_set_mode(data, POWER_DOWN);
+-       if (ret < 0) {
+-               dev_err(dev, "Error in setting power-down mode\n");
+-               return ret;
+-       }
++       if (ret < 0)
++               return dev_err_probe(dev, ret, "Error in setting power-down=
+ mode\n");
+=20
+        if (data->eoc_gpiod || client->irq > 0) {
+                ret =3D ak8975_setup_irq(data);
+-               if (ret < 0) {
+-                       dev_err(dev, "Error setting data ready interrupt\n"=
+);
+-                       return ret;
+-               }
++               if (ret < 0)
++                       return dev_err_probe(dev, ret, "Error setting data =
+ready interrupt\n");
+        }
+=20
+        data->raw_to_gauss[0] =3D data->def->raw_to_gauss(data->asa[0]);
+>=20
+> > ---
+> >  drivers/iio/magnetometer/ak8975.c | 65 +++++++++++++++++++------------=
+--------
+> >  1 file changed, 32 insertions(+), 33 deletions(-)
+> >=20
+> > diff --git a/drivers/iio/magnetometer/ak8975.c b/drivers/iio/magnetomet=
+er/ak8975.c
+> > index 59a7bb83a731..42f6892f4efd 100644
+> > --- a/drivers/iio/magnetometer/ak8975.c
+> > +++ b/drivers/iio/magnetometer/ak8975.c =20
+>=20
+> > @@ -580,6 +579,7 @@ static irqreturn_t ak8975_irq_handler(int irq, void=
+ *data)
+> >  static int ak8975_setup_irq(struct ak8975_data *data)
+> >  {
+> >  	struct i2c_client *client =3D data->client;
+> > +	struct device *dev =3D &client->dev;
+> >  	int irq;
+> >  	int ret;
+> > =20
+> > @@ -590,9 +590,8 @@ static int ak8975_setup_irq(struct ak8975_data *dat=
+a)
+> >  	else
+> >  		irq =3D gpiod_to_irq(data->eoc_gpiod);
+> > =20
+> > -	ret =3D devm_request_irq(&client->dev, irq, ak8975_irq_handler,
+> > -			       IRQF_TRIGGER_RISING,
+> > -			       dev_name(&client->dev), data);
+> > +	ret =3D devm_request_irq(dev, irq, ak8975_irq_handler, IRQF_TRIGGER_R=
+ISING,
+> > +			       dev_name(dev), data);
+> >  	if (ret)
+> >  		return ret;
+> > =20
+> > @@ -608,12 +607,13 @@ static int ak8975_setup_irq(struct ak8975_data *d=
+ata)
+> >  static int ak8975_setup(struct ak8975_data *data)
+> >  {
+> >  	struct i2c_client *client =3D data->client;
+> > +	struct device *dev =3D &client->dev;
+> >  	int ret;
+> > =20
+> >  	/* Write the fused rom access mode. */
+> >  	ret =3D ak8975_set_mode(data, FUSE_ROM);
+> >  	if (ret < 0) {
+> > -		dev_err(&client->dev, "Error in setting fuse access mode\n");
+> > +		dev_err(dev, "Error in setting fuse access mode\n");
+> >  		return ret;
+> >  	}
+> > =20
+> > @@ -623,26 +623,25 @@ static int ak8975_setup(struct ak8975_data *data)
+> >  							sizeof(data->asa),
+> >  							data->asa);
+> >  	if (ret < 0) {
+> > -		dev_err(&client->dev, "Not able to read asa data\n"); =20
+>=20
+> _setup is only called from probe, so the prints in here can all
+> be return dev_err_probe();
+>=20
+> > +		dev_err(dev, "Not able to read asa data\n");
+> >  		return ret;
+> >  	}
+> >  	if (ret !=3D sizeof(data->asa)) {
+> > -		dev_err(&client->dev, "Error reading asa data\n");
+> > +		dev_err(dev, "Error reading asa data\n");
+> >  		return -EIO;
+> >  	}
+> > =20
+> >  	/* After reading fuse ROM data set power-down mode */
+> >  	ret =3D ak8975_set_mode(data, POWER_DOWN);
+> >  	if (ret < 0) {
+> > -		dev_err(&client->dev, "Error in setting power-down mode\n");
+> > +		dev_err(dev, "Error in setting power-down mode\n");
+> >  		return ret;
+> >  	}
+> > =20
+> >  	if (data->eoc_gpiod || client->irq > 0) {
+> >  		ret =3D ak8975_setup_irq(data);
+> >  		if (ret < 0) {
+> > -			dev_err(&client->dev,
+> > -				"Error setting data ready interrupt\n");
+> > +			dev_err(dev, "Error setting data ready interrupt\n");
+> >  			return ret;
+> >  		}
+> >  	} =20
+>=20
+>=20
+>=20
 
