@@ -1,161 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-111.mta1.migadu.com [95.215.58.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DC7126C02;
-	Fri, 25 Sep 2026 07:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E393101C8
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:03:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790319691; cv=none; b=Q/QlNGODmKiMf4vlcftpw+YA1cQJe9Cfvq4IWD4OCPuokryMrUGFO41yqGnsFbyAPe/MuWEmyOp0lb3WpTJ3tYDrnEPSsOF8vSRS+nOHAPldHZt4J8QztJgSrhfme7ec98mWuYnzPOxF33nLaLzLaqNiw0QcP0kD3OlXg2SPZXM=
+	t=1790319801; cv=none; b=FsMjiqOGncw3Lzk8mt+MNu01X0SDYNpfJqp5pCOoCIqwKNVVWy5KVtOHohOnTcyn/Wb5OC3wezNSfDBeIFOzKiG2xr6OgcP9/5XpwcFqrxeAUXO3iudBsr/rdc1czJkw54bFnWaQq9OOB/9bMGvzZ8IWduPLRmlixW5eY+7uKNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790319691; c=relaxed/simple;
-	bh=ybrqyG5jd+0ZNmw6bxWvXnpAFn0qEQAc0SpEc+wlL/w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Md7KJNkrgpt6BVtwS+UQqzzaMYChUwCHpiynWc4hHFIcPtNcwrSWBq/C7b8Xhtq2PPEUyRMqkrqlq+AOQffB7TMR2207L+av3VxRrWBDKHeVjn5uN7miJqUvUR2fSn7sOuSJeeQP/bpAQ41qWOYk0tswahC78sOJyF/DaVH3FzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZsFUjKBg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790319801; c=relaxed/simple;
+	bh=kewsY2OluvVAW64X+i+86icUTbgNEdAoaeGfcLyjEu8=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=hsXvEye2+wAr6u45YbUNR2Mu3dVrgm6uYiDScpnjdmKgw8L/8GCKbWwgXanfoXXFUXnTNphuPicE4tL+xrc4rs6jBnybuh+1AP4GuXd0mr1ZdolJOCKJHM31r7d/dPihl8O8oZ6R2Mnk8Mx1SXi/Z2DVSkdn2ErWib3KErecBkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oz7kiieG; arc=none smtp.client-ip=95.215.58.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZsFUjKBg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD041F000FF;
-	Fri, 25 Sep 2026 07:01:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790319689;
-	bh=12GQTQF+CbA5YWBSY494mtmthnVLIa76obNaRDLDI/c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZsFUjKBgrpHW8BPAYX+7NWH4Sgkrz1IewWel2Oqzog+gTBQMFg6F22pt+peCYKq3s
-	 0erWR043KfeVfU7c9hbkT5gFacZ2S2SVvoQRngbPCHTQliIyjgMrzNi4YpWpgKEHAW
-	 yc6BU1+ypEBxx3O9T0wnjWani0UonVjC9NA8sauVwF1q0j9wdcKY4Q5log9VP3jvPf
-	 F+DUFg4l1MOFJwRIOvefvcRyHtzzRgAXJe+34GgThhIulZ4Mz5sFTjAiSxqKyS2Twf
-	 vVZewlqy6kOIGqFtCPEeQ36qkpjc9DDEIjbR9E3JdGeHjCxr1BOsxbGFnkAgU9dfah
-	 6cfKfYb3HfnnQ==
-Message-ID: <90fc724a-08c4-4324-9420-89fab05d53d1@kernel.org>
-Date: Fri, 25 Sep 2026 09:01:22 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oz7kiieG"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kewsY2OluvVAW64X+i+86icUTbgNEdAoaeGfcLyjEu8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790319794; v=1; x=1790924594;
+ b=oz7kiieGnfL4paSZwrjaMApP4sKPauioqNRtEnoJAwTp1JzL6M3okTaoGOuTMWtEDL1ABPv0
+ cimZpzbW+aksPEzg7XkN6aVpN6mrBD11S5a0zNEUCcg1PLTcrNPqWXnzJ1SaR11SW2BiC773A/Z
+ T3uF9Y+Ehto9cv+eSO3elGwE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1628244cb04595ea;
+	Fri, 25 Sep 2026 07:03:14 +0000
+X-Mizu-Trace-ID: 1628244cb04595ea
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] userfaultfd: clear the inherited uffd bit in
- move_swap_pte()
-To: Kiryl Shutsemau <kirill@shutemov.name>,
- Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: akpm@linux-foundation.org, rppt@kernel.org, peterx@redhat.com,
- surenb@google.com, aarcange@redhat.com, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, mhocko@suse.com, shuah@kernel.org, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260919004630.1159895-1-donggeunyoo.kernel@gmail.com>
- <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com>
- <arO0a3CU_idyVsqQ@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <arO0a3CU_idyVsqQ@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Fri, 25 Sep 2026 07:03:12 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Ilya Gladyshev" <ilya.gladyshev@linux.dev>
+Message-ID: <a1d5881926dbf4b16dc796fb1da939f32dd42f18@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v6 3/3] mm: implement page refcount locking via dedicated
+ bit
+To: "Zi Yan" <ziy@nvidia.com>, "Linus Torvalds"
+ <torvalds@linuxfoundation.org>, "David Hildenbrand  (Arm)"
+ <david@kernel.org>
+Cc: akpm@linux-foundation.org, andrew+netdev@lunn.ch, apopple@nvidia.com,
+ artem.kuzin@huawei.com, baolin.wang@linux.alibaba.com,
+ Liam.Howlett@oracle.com, edumazet@google.com, harry.yoo@oracle.com,
+ hramamurthy@google.com, ivgorbunov@me.com, joshwash@google.com,
+ kirill@shutemov.name, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ lorenzo.stoakes@oracle.com, mhocko@suse.com, muchun.song@linux.dev,
+ pfalcato@suse.de, rppt@kernel.org, surenb@google.com, vbabka@suse.cz,
+ willy@infradead.org, yuzhao@google.com
+In-Reply-To: <DLO1WIACYFWF.3N01DXYFJLMD0@nvidia.com>
+References: <cover.1789239015.git.ilya.gladyshev@linux.dev>
+ <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
+ <DLFJL5U9DI6F.3QJP9YP0KX636@nvidia.com>
+ <56e036665dbeb0a8f51d697220d5ed84f210994c@linux.dev>
+ <570cf649-a8bf-4073-be71-207fbb2bef40@kernel.org>
+ <CAHk-=wh3LLDV2AMZn1PZcU1o3Na-BNcQtP=LPXouLKPZWaiRdQ@mail.gmail.com>
+ <DLO1WIACYFWF.3N01DXYFJLMD0@nvidia.com>
 
-On 9/23/26 13:18, Kiryl Shutsemau wrote:
-> On Sat, Sep 19, 2026 at 09:46:29AM +0900, Donggeun Yoo wrote:
->> UFFDIO_MOVE on a swapped-out page installs the source PTE at the
->> destination unchanged, so a uffd bit set on the source lands in a
->> destination VMA that was never registered for write protection.  It is
->> then permanent: the bit is dropped only by change_protection() under
->> MM_CP_UFFD_{WP,RWP}_RESOLVE, which uffd_wp_range(), mrwprotect_range()
->> and userfaultfd_clear_vma() issue only for a VMA registered in that
->> mode.  pagemap reports the page as uffd-tracked, and MADV_COLLAPSE
->> refuses the range while the bit is set, because collapse_scan_pmd() is
->> strict about uffd on swap entries.
->>
->> move_present_ptes() and move_zeropage_pte() build the destination PTE
->> from dst_vma->vm_page_prot and arm RWP only when dst_vma asks for it, so
->> the destination's own registration decides the result.  move_swap_pte()
->> copies the source PTE instead and only ever sets the bit, never clears
->> it, so one UFFDIO_MOVE behaves differently depending on whether the page
->> happened to be resident.
->>
->> Clear the uffd bit on the moved swap entry unless the destination is
->> RWP-registered, as copy_nonpresent_pte() does where it installs a PTE
->> into a destination that may not be armed.  A WP-registered destination
->> stops inheriting the bit as well, which is already what it gets when the
->> moved page is resident.
->>
->> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
->> Cc: <stable@vger.kernel.org>
->> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
->> ---
->>  mm/userfaultfd.c | 2 ++
->>  1 file changed, 2 insertions(+)
->>
->> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
->> index 74f04c323c50..6495666c596b 100644
->> --- a/mm/userfaultfd.c
->> +++ b/mm/userfaultfd.c
->> @@ -1452,6 +1452,8 @@ static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
->>  	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
->>  	if (userfaultfd_rwp(dst_vma))
->>  		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
->> +	else
->> +		orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
-> 
-> Putting it in the 'else' is wrong. Clear uffd on the source
-> unconditionally and re-arm based on the target VMA:
-> 
-> 	orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
-> 	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
-> 	if (userfaultfd_rwp(dst_vma))
-> 		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
+September 25, 2026 at 5:44 AM, Zi Yan wrote:
+>=20
+>=20On Thu Sep 24, 2026 at 4:06 PM EDT, Linus Torvalds wrote:
+>=20
+>=20>=20
+>=20> On Thu, 24 Sept 2026 at 11:52, David Hildenbrand (Arm) <david@kerne=
+l.org> wrote:
+> >=20
+>=20> >=20
+>=20> > There needs to be a common page freeing function that dipatches s=
+tuff.
+> > >=20
+>=20>  I think this all needs to be entirely generic to all pages. Agreed=
+.
+> >  Everybody needs to do it right.
+> >=20
+>=20It assumes all callers of page_ref_dec_and_test() are free page
+> functions, but there are two exceptions:
+>=20
+>=201. compaction_free() uses folio_put_testzero(), which calls
+> page_ref_dec_and_test() to put not used migration dst page back to
+> isolated freelist instead of freeing them.
+>=20
+>=202. virtio_mem_fake_offline_going_offline() drops the last reference o=
+f
+> fake-offline pages, so that they can be offline.
+>=20
+>=20They will need to be converted to not use page_ref_dec_and_test() in
+> addition to a common page freeing function. And any such future use
+> needs to be banned.
+>=20
+>=20>=20
+>=20> But I think that in the scenario that Ilya mentioned:
+> >=20
+>=20>  Refcount operations as follows (FR =3D FROZEN):
+> >=20
+>=20>  A: DEC 1 -> 0 [ page_ref_dec_and_test() ]
+> >  B: INC 0 -> 1 [ folio_try_get() ] =3D> success
+> >  B: DEC 1 -> 0 [ page_ref_dec_and_test() ]
+> >  B: CAS 0 -> FR [ page_ref_dec_and_test() ]
+> >  B: * deallocates via __folio_put() *
+> >=20
+>=20>  C: * re-allocates page *
+> >  C: DEC 1 -> 0 [ page_ref_dec_and_test() ]
+> >  A: CAS 0 -> FR [ page_ref_dec_and_test() ] =3D> success
+> >  A: * deallocates directly via free_frozen_pages() * =3D> BUG
+> >=20
+>=20>  the big here is that the de-allocation was done not from the state=
+ of
+> >  the *page*, but from the state of who finished it off.
+> >=20
+>=20>  So that
+> >=20
+>=20>  A: CAS 0 -> FR [ page_ref_dec_and_test() ] =3D> success
+> >=20
+>=20>  is not a problem per se. It's a fine case of "we had one single un=
+ique
+> >  final free".
+> >=20
+>=20>  The failure is that A then goes on to do that
+> >=20
+>=20>  "deallocates directly via free_frozen_pages"
+> >=20
+>=20>  because A mis-judged the page as having the old stale state that i=
+t
+> >  had when *A* was using it.
+> >=20
+>=20>  IOW, I think the soluition is either:
+> >=20
+>=20>  (a) every user of put_page_testzero(page) agrees tro do exactly th=
+e
+> >  same thing and there is no difference between how that final
+> >  "0->FROZEN" is dealt with, so it doesn't matter that A is freeing a
+> >  page that C allocated for something else
+> >=20
+>=20>  or
+> >=20
+>=20>  (b) the CAS 0 -> FR state sequence always looks at the *page* to
+> >  decide what to do, never at the caller state (ie A will look at
+> >  whatever C wrote when it allocated the page to know how to do that
+> >  final free).
+> >=20
+>=20>  Hmm?
+> >=20
+>=20Just wonder if we could make 1 -> FROZEN atomic to get rid of the gap=
+.
 
-I'm confused why the original code proposed would be "wrong"?
+Hmmm, I=E2=80=99m afraid that since you need CAS for a safe 1->FR transit=
+ion,
+it will result in a CAS loop for the decrement itself (like in
+atomic_sub_unless). And this will introduce scalability issues just like
+in folio_try_get(), but this time for everyone...
 
-I prefer your way of writing it as well, but I don't understand why it would be
-"wrong"?
+Unless there is a way to change the refcount encoding even further and
+fix this gap.
 
-Maybe I need more coffee :)
-
--- 
-Cheers,
-
-David
+---
+Ilya Gladyshev // foxido.dev
