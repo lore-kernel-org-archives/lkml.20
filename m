@@ -1,135 +1,114 @@
-Received: from mail-wr2-f8.google.com (mail-wr2-f8.google.com [74.125.225.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A414F7987
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E053A7593;
+	Fri, 25 Sep 2026 21:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790372220; cv=none; b=Pv1WaTQY24FITp8ARkB17I6B8iifgWul/fK/ANhZ9KK9PDJ3/YpIfNT0PK4u44SHFAo2d9dwGjAYQ7bH731ruTC2qNI9f4JMIXmzrxIL5rMoPFe9AGZEeEuFFo0RooVFVShcwt+e7atLErhlb4hO5V4TMU+vkHkqbnVLQXOKqtU=
+	t=1790372370; cv=none; b=p14oiv40vGTADF2MCDf89gemNgQRRjexRh5nYMev36Mcujtbh/Cctsv5QUzncftpagW5IhWbkAEJ/QHAFQqh2z+txDW3i3kcP3VjR968BuTZRNmlryBp6/I9g6QopWd+cuDQ7+JZhlb9pRMarCP1XTiQQx1bKeMCN+geYETiM2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790372220; c=relaxed/simple;
-	bh=14Acq4QSZJ2hz6pe2oxe3D/5LXQaAWPm75oRsFXV9a8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u/9gpd5K2FN4KTq2UWUXXNGK9mlJLNoeFH8jp6q34XsURuEQQ1meusgMtgAwC4htDqu6AWQbVs9fxbC7TF24hJtfnIWsqinMMnQP4LlTwImIJiOiTHqfsRSOE4Ykd8THNpEf0q0jl9+TL3zRqa126wqFo1QzpAWCs5zS+LdV4qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UJXB3m8B; arc=none smtp.client-ip=74.125.225.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790372370; c=relaxed/simple;
+	bh=3BiBwcUDkbh+FbP7ofxpEUfVhiDKAwkXAcXzUYOr06U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GL4R13lzTgNPhZoc8xSXmQeNJ4NZlY4wnmx33j3/VC5PQevoPchBY1KMbXjj+N7qUqTn8bVtnv24b6fuT396aiGktZP9Eli5I9gFw8omTFc1ZT7+sIfKlYyRkEDNT5+5rWPaCt4MkUqwXin6KHn/Etw8EGVS8SrVsp8QKIIHJFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uq3jK6lz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UJXB3m8B"
-Received: by mail-wr2-f8.google.com with SMTP id ffacd0b85a97d-4887881b3e0so126837f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:36:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790372217; x=1790977017; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uH5VHzqYeyzrxon03BvBTLMWbRiul1yKTMOPE8eGDHQ=;
-        b=UJXB3m8BWUABzBMwtJF0nYnO9hZD/W9JBhG1kTxE+2+FQ/xBiPacVf4PWwxXoc5iA5
-         G2TAHJjxcsRfrajXhlcMAKsbNwBVxos2syNiprkFoWhG6FVc2TdTZe5dXnVcTYqzEE6V
-         a+ym6q5m9EqUePi6x86Qa3Gi6RM/ag3Rw75KZ05o/FQbbEV8qfbX9KbUQuqJS0UzPOsO
-         +4bWh8r9zyuXwNfL8SUj7iylOErGp7T24ud4JjPgB4KPnXK+003AJ3JjCYj7lu8OieW7
-         /5JyYad7MJfg1j5PvSr/Lf7kc45WoVbY/zgO7troNMkC3J8KGW6ogWe7GlilFwB0ARJp
-         eCFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790372217; x=1790977017;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uH5VHzqYeyzrxon03BvBTLMWbRiul1yKTMOPE8eGDHQ=;
-        b=IfBS9CtXuBzCuZOCAuU92ER+eP9im65AlZWSUZSWuoG7COo6AKg5z3jOmDZ3hC20ej
-         aHF1C+ryMP97ut2Yxg5wj6hFrK1opE8F5S6GG3APCnPRIizx5yOo3oRsVcDezIQQWyDK
-         +RRUiSElWkcy0t8xELA0q2EhJR7RKH6bXq7VIbJgJCPRDXv/AEIpAkJ6Llaxr53OIpSC
-         4gqnrZMAm0R+FhNeYId/qh9OiOmwowjw/x5v5kKf97bVvtaoVo5enCxs6CwqyUE5XNSY
-         LFp7LLIxBTLsVzOc2nzpr2jyblS2QisVVnC/S3INIC8XMnYZNjHkAb4bC5rRSsXVdKDi
-         nz5w==
-X-Forwarded-Encrypted: i=1; AKwUvBz5e7cmeCIS3jpeBuVqRKQF+LWj5G5UyXoJ2gFnDuNZGRxeqhg5SBAiRX3wL8Za+o2jWAD1BtZvJhOWb6U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJw7MCxoudyr4v7G9q+FTkGNaj+25Yw/66u+WR8T+VaYrh0yJm
-	Wt//kct2MOquyoGzaSzbrzz0Gh2oaSYvE8B6jW8GikdRGgb+md/kS2aX
-X-Gm-Gg: AYBFou1uRpmdfQAvldCefpUAPSQVuEOfNxui6u1LN6IVVL2qig44NqQtHXykyJfWgwh
-	v5hiw5DesRhLwY41BmP8TmEj5h6Z6GE6tGeHlMyIJmDR062J9/GX18X5navs27fb4UP/lzNr5X7
-	g5msZGPvUcfBTBaewngNd5HUbRXLrZxPqCAMh/8/oVcM5rSC4MxDAoihldsGb8QFvt9PAk3Dnjh
-	NyV3xbp2+cph+M0aaucrYc95WmV0VnEK94R+/7zJhmFfijZThd+pTZinuDJ8xfkArZBpGg80IGB
-	60c9SOhI8ObZHiuuGW/VWwhwHO70qRx+VTv57QchzgEVC7Wna/E8XqvukT5ZVlwYkgmk9WOca06
-	cyP6kqhHlfZ/OiR7auAN9psVUfyrgQJF92u4kjmcjkIZDozL4Nqpuyhj9XhTqd9hoXZVd3ZV+ZE
-	HcxHWrGNnC86/KDo/E1zn3v8tqEcIaX3iYPIldd+JySz4WfmlpZpvVYgWRRMFly8Wqsiq5tFgqh
-	Dv4zlILMKWSluc=
-X-Received: by 2002:a05:600c:8b28:b0:49f:fbad:29ae with SMTP id 5b1f17b1804b1-49ffbad2d56mr188775e9.17.1790372216761;
-        Fri, 25 Sep 2026 14:36:56 -0700 (PDT)
-Received: from serhat-ubuntu.home ([212.253.192.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fee915f3dsm84624035e9.1.2026.09.25.14.36.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 14:36:56 -0700 (PDT)
-From: Serhat Kumral <serhatkumral1@gmail.com>
-To: Bart Van Assche <bvanassche@acm.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
-	Sagi Grimberg <sagi@grimberg.me>,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Serhat Kumral <serhatkumral1@gmail.com>
-Subject: [PATCH v4] RDMA/srpt: Reject an srp_sq_size that does not fit in a CQ
-Date: Sat, 26 Sep 2026 00:36:29 +0300
-Message-ID: <20260925213629.8039-1-serhatkumral1@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uq3jK6lz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55CA41F000FF;
+	Fri, 25 Sep 2026 21:39:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790372368;
+	bh=qGAVtFU1ZWDmCtLaT+G7B5o5ljsTh3nqCzq4ca6rlME=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Uq3jK6lzFPBk2mUB+21kzIEJ3e7xo6lES0MeUECU8KDNeBmretRa77Q3OlwhtoQmE
+	 JG8Dx0lTEjtjm2k8juBgSTzHaF2rroNVk1zww7OONmnk0v+x0FA56wC0MjZCrNSV/e
+	 H2pVr0Zo24UJv/vG9L8beZRRHMlmE7YAN/RF7/BIf3sCxDQZGCKJr+E+v3UjzyyNbI
+	 MirHao5U2KikMGzvv4h38MAzkcRcWP7PU8EZ2aiQo71N4cAbsRUfMEcbTXCJ/xYXPz
+	 HyiCZr2awcrNsxXI7Kdq8YVAeSXWzjieQzGLgVnG89GGjnkOohpJbH4QMHQxQzDjRf
+	 Ccal7IQ4ASL7g==
+Date: Fri, 25 Sep 2026 14:39:26 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Helge Deller <deller@gmx.de>, Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Minchan Kim <minchan@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org,
+	linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>,
+	Nick Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Phillip Lougher <phillip@squashfs.org.uk>,
+	Sungguk <sungguk.na@samsung.com>,
+	Jaehoon Chung <jh80.chung@samsung.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	linux-erofs@lists.ozlabs.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-crypto@vger.kernel.org
+Subject: Re: [PATCH RFC 9/9] MAINTAINERS: add an entry for the LZ4
+ compression library
+Message-ID: <20260925213926.GA1903@quark>
+References: <20260925-lz4-vendor-upstream-v1-0-1c7ffbe21c4b@samsung.com>
+ <CGME20260925113507eucas1p2ddb94f2077b679426aa86dd1d492eaf3@eucas1p2.samsung.com>
+ <20260925-lz4-vendor-upstream-v1-9-1c7ffbe21c4b@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925-lz4-vendor-upstream-v1-9-1c7ffbe21c4b@samsung.com>
 
-srpt_create_ch_ib() asks ib_cq_pool_get() for rq_size + srp_sq_size
-CQ entries, but srp_sq_size is only checked against MAX_SRPT_SRQ_SIZE
-(65535), never against the device's max_cqe. On a device with a
-smaller limit, such as rxe (32767), ib_cq_pool_get() keeps allocating
-CQs that can never satisfy the request until memory runs out:
+On Fri, Sep 25, 2026 at 01:27:39PM +0200, Michal Wilczynski wrote:
+> lib/lz4/ has never had one: get_maintainer.pl returns only the LKML
+> fallback for every file in it, including include/linux/lz4.h, which eight
+> subsystems build against.
+> 
+> This matters more now than it did. With the previous patches lib/lz4 is
+> vendored upstream sources, and someone has to bump them to new upstream
+> releases and decide what the kernel-side glue may do. I am willing to do
+> that, so add myself as its maintainer.
+> 
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+>  MAINTAINERS | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index cc3cae2e378b34aeb705cef654c720ca9f2ba223..989e1b5fab21432dd7042d1e60c4bbad85beb925 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15606,6 +15606,12 @@ S:	Supported
+>  F:	drivers/net/pcs/pcs-lynx.c
+>  F:	include/linux/pcs-lynx.h
+>  
+> +LZ4 COMPRESSION LIBRARY
+> +M:	Michal Wilczynski <m.wilczynski@samsung.com>
+> +S:	Maintained
+> +F:	include/linux/lz4.h
+> +F:	lib/lz4/
+> +
 
-      Out of memory and no killable processes...
-      Kernel panic - not syncing: System is deadlocked on memory
-      Workqueue: ib_cm cm_work_handler
-      Call Trace:
-       __vmalloc_node_range_noprof
-       vmalloc_user_noprof
-       rxe_queue_init
-       rxe_cq_from_init
-       rxe_create_cq
-       __ib_alloc_cq
-       ib_cq_pool_get
-       srpt_cm_req_recv.cold
+Should this entry cover lib/decompress_unlz4.c and
+include/linux/decompress/unlz4.h as well?
 
-Reject such values when srp_sq_size is written.
-
-Fixes: c804af2c1d31 ("IB/srpt: use new shared CQ mechanism")
-Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
----
- drivers/infiniband/ulp/srpt/ib_srpt.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
-index 7197d95f2216..1761345b33f1 100644
---- a/drivers/infiniband/ulp/srpt/ib_srpt.c
-+++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
-@@ -3603,6 +3603,8 @@ static ssize_t srpt_tpg_attrib_srp_sq_size_store(struct config_item *item,
- {
- 	struct se_portal_group *se_tpg = attrib_to_tpg(item);
- 	struct srpt_port *sport = srpt_tpg_to_sport(se_tpg);
-+	const struct ib_device_attr *attrs = &sport->sdev->device->attrs;
-+	u32 rq_size = min(attrs->max_qp_wr, MAX_SRPT_RQ_SIZE);
- 	unsigned long val;
- 	int ret;
- 
-@@ -3621,6 +3623,11 @@ static ssize_t srpt_tpg_attrib_srp_sq_size_store(struct config_item *item,
- 			MIN_SRPT_SRQ_SIZE);
- 		return -EINVAL;
- 	}
-+	if (val + rq_size > attrs->max_cqe) {
-+		pr_err("val: %lu exceeds max_cqe: %u minus rq_size: %u\n",
-+		       val, attrs->max_cqe, rq_size);
-+		return -EINVAL;
-+	}
- 	sport->port_attrib.srp_sq_size = val;
- 
- 	return count;
--- 
-2.53.0
-
+- Eric
