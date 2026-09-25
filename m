@@ -1,480 +1,152 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2098.outbound.protection.partner.outlook.cn [139.219.17.98])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B03175A8D;
-	Fri, 25 Sep 2026 08:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790325841; cv=fail; b=gzFJJVa/1nTum6G8mH8hHUH3o1uPgXBpCuwiihDyAZXesOeZlFd7mjMs6uvwgqyX9LZ4+ZTiBxYpAijfTwpVNnBHaT71V5bJ80QqYuz/o3DegxaZEgkiCWf8g/fVAWFlk3FtwBqHDiiFwWQU+INyNvzzlZHa7gpUEYC5E9i+urg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790325841; c=relaxed/simple;
-	bh=vTgTEYyuswQ0+s4SMCzC/U3zBZ/RynYzl9SzeqDEOfM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fy9J8b2WWQ/pRIm2rwebL8pf2fSaYHr8oGWZP8hWue0S2jYa3OkpNNCBK+rbp8QYgrxN6aqQGqyyeTVkOtc/0Gr6qYhJfKrwRCRRoRLiyhmngmjPOgwqw8BBspLGnVsGU0oeia4edvKCIOyppTbdOaM3o4HxQmt630jfKyx+qa0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GtTaNyW0LQDvVqrix7NBT1Pgf0wBCarjzsM36GXz51oqS0trmnP5TkytNyizl3fJ967gM6ubHeReF79tLpuqZIfHnXd/irUOBwdCwu5Fr8jCHSFnWUQSJsfPVFeHs3evL5GN4bcwE0UPiSaTHnm8hCfL1fK7HYa+72Ka7CIZ9/IE8wARFZfd6CcGxXmZumvTKvKC0M3w9bXujgEv90rZHMGlTbH3IqtK1K721Ky3QDPERiNwzyHlyrMe9YcvCYElgV/KXygsMzz/Yc3QLj+B+y4YXUUF+S8/YxW1A6YbgKfYvjSzVYJJF1QGlBz3z/bZ3OFwxsNO6Zu1jPfKE3aaMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B3WI0l2fLcsjral4dphS2l+e8pM0k0DZhUpFW6LxElk=;
- b=e5a+4XK4L4X6p9pC8KVxAVJw1k8RfrGG47nDpjIP678Dpt94+pygr4d/9PteZLTrf8ICiboDICjdw119IczNRlVSauSmFsPy2QaIY4uBXReO6LUWiAHU1P4cOR+fXKuvTcxosJ6NgFss/LYct8DAvQpOeUOp2aP9YE3ln9COCQovWIphnLoLpUj7+8PM/SIsbvzMEV63ssjeahIkldV+DQP3156iWUki3NDhly25Ho4tWTc877WaJYuG071kzmp0JtwnczZZPYmfl5wBdQs7wAwhCd2Aa3DE3syJ2BrU2AIzO2SvsVNBNT/ZqPbV0Y5GG4bp92elXnfKZkYudQyMSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1204.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 05:11:09 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0451.014; Fri, 25 Sep 2026 05:11:09 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
-	Oskar Senft <osk@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Vitaly Lubart <lubvital@gmail.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Breno Leitao <leitao@debian.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	James Morse <james.morse@arm.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	Dave Penkler <dpenkler@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Mukesh Rathor <mrathor@linux.microsoft.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Alexandra Winter <wintera@linux.ibm.com>,
-	Julian Braha <julianbraha@gmail.com>,
-	Karthikeyan KS <karthiproffesional@gmail.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org
-Subject: [PATCH v3 4/4] uart-routing: Add UART Routing driver for StarFive JHB100 SoC
-Date: Thu, 24 Sep 2026 22:09:47 -0700
-Message-Id: <20260925050947.9900-5-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260925050947.9900-1-changhuang.liang@starfivetech.com>
-References: <20260925050947.9900-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SH0PR01CA0005.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:5::17) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619EA3A5436;
+	Fri, 25 Sep 2026 08:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790325929; cv=none; b=OMHayU2F9ClYu/mwmbqokLZ8VRe+RDuKxMa9NTO8UHfJkT6ihZxoDXxChC05zh+G3lp13VgCVQ4k38SeUMQznERErJHEN3CLDoGlYOxDpkUI3xy/SS+h2GkABT+bwFEYpfojzvj0wjcMVvrmbsmkJUYU7Um5iLhWLbyoqdMXv7A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790325929; c=relaxed/simple;
+	bh=J/nvE5eYJpS0kIo0tIMt5vOFhmfBJFQUnBTgMp5546c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cJLOliqldhv/UyPibHly+BUE8VR3nNyjqsES6/S3w1t+Pdqt2P5SqWsqynedcakCYFHmXLvTWC4cKh8XbKrU29ON3wSlukOMKIYt1hrO8XG5uRkWhvkEqlRMB7xvTyIFjpw2uEQjFLL8UarToYpmstPGc93JctSZ+uXbN1KqMLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=p3huYxFH; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="p3huYxFH"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4ZuCw4104239;
+	Fri, 25 Sep 2026 08:44:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=2de9xHNjmPAOVaG2ifsPQ33bU5QHct
+	L9cV7tymsHQY0=; b=p3huYxFHoSEQncV4QHHXzz9lN66r41EH9qE+HH2FTWFAo5
+	h/zba0v1i+C0lHm8p2oh9LrPWVV3JhMXJRxLFZdaiKbbx78fnhoRNxy3VsNT261u
+	bOl1eIgrFHbcrLXw+wr961mlSwl/0x47DzjqFGscKv1Z2XQo5YHvdhbHwvJ/B67N
+	RoylsQAfclr6bKM/i7XgIxeHGJuwlQzJkx7+sn+KWg+ZW8EfSpKI3oV0+kp8R6Ef
+	M+UIn9ZkBXlwgq5Ra5CRDPgCDKq4OfWB+dP1dpoNuFNSn2sM8P0NVMsKNkfB4/GG
+	o5fFDUTtUg7Pcb+/6QZNnYiMoUzfXOw8A4Zzf+1w==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1w7vm-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 08:44:29 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4lYGl1959512;
+	Fri, 25 Sep 2026 08:44:28 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvu7edxau-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 25 Sep 2026 08:44:28 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68P8iPQw28836176
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 25 Sep 2026 08:44:25 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EF1762004B;
+	Fri, 25 Sep 2026 08:44:24 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 39CD820043;
+	Fri, 25 Sep 2026 08:44:23 +0000 (GMT)
+Received: from osiris (unknown [9.111.31.68])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 25 Sep 2026 08:44:23 +0000 (GMT)
+Date: Fri, 25 Sep 2026 10:44:21 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, catalin.marinas@arm.com,
+        will@kernel.org, mark.rutland@arm.com, maddy@linux.ibm.com,
+        mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
+        ritesh.list@gmail.com, sshegde@linux.ibm.com, pjw@kernel.org,
+        palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+        gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
+        svens@linux.ibm.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+        bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+        aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org,
+        daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com,
+        work@onurozkan.dev, nathan@kernel.org, ndesaulniers@google.com,
+        morbo@google.com, justinstitt@google.com, jszhang@kernel.org,
+        japo@linux.ibm.com, jpoimboe@kernel.org, seanjc@google.com,
+        pmladek@suse.com, thuth@redhat.com, ynorov@nvidia.com,
+        joelagnelf@nvidia.com, david@davidgow.net, fujita.tomonori@gmail.com,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+        linux-s390@vger.kernel.org, rust-for-linux@vger.kernel.org,
+        llvm@lists.linux.dev
+Subject: Re: [RFC] rust: kernel: Add KUnit tests for ARCH_WARN_ASM bug table
+ emission
+Message-ID: <20260925084421.23528Afe-hca@linux.ibm.com>
+References: <20260922054959.955093-2-mkchauras@gmail.com>
+ <20260922064735.GS4121339@noisy.programming.kicks-ass.net>
+ <arNxAn7I7NCVWmD1@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <20260924111557.GP1837346@noisy.programming.kicks-ass.net>
+ <20260924151335.18402A8b-hca@linux.ibm.com>
+ <arYWDWmMJgIAt1_W@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1204:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65432f77-85ba-42f8-3a51-08df1ac36941
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|52116014|38350700014|10067099003|56012099006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	BYgS7ubmrCs2gKUL/Qob1cSCil1TZTyqX9YYvT2sef1LJbk9jGvZxLH3lZWIxrJ8n7Rm96JrC7qpGEbOqf+g1ZK1Z3H7GYSosMpSDqr18B182dR8PoCV140qMNITlKCN42j6YQwVz9/bu2WnzQbjlQUJQeO42Bw3Jw/PXvq8vhvzlCy6ZzlnBWIbfniAGrks65utZC051EfZNqJooAeQqji8YCDLjAJd21VUq0EHN0fk2vkKSlz8YNB17yWOLlX1LGKLep1TBU+Ld+fKXaOPqY71iW+5uHlNYvran0r4wymJHwYW2ug48i8bT7Kdm7jyG1fHZXDJ/Iv9YQBbjr/dpaSaNgQJ0QFlIBZrXmT7Sy5pK2LGXw0jPpTXkUUB8/b3Bye6YMIqobQYWDuTbQWnMGdXHttg7BnPsE6hEmeoQyS5g9wFloCr/LYiHCscRVUbBfWgea6rMMv3pH5PAusuj+hXH1015pnuxYhUtDbC68YS7wEQ4In/FCIYa4w7aHcwO3FM3Hy86uIA6RK5wuwWTHJLL8AxrXfGhikz2pDwjctfL+YFPyzcM0cb9296R2sD
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(52116014)(38350700014)(10067099003)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fuZqZBT26IXz+0Cxia/xnI64j6fS/k0zLn547fCJYsSnPfWQpHb/p9txQNrd?=
- =?us-ascii?Q?vcrC3kzDYBeKb12dwydmuk9SBKIGMKDIB37zivc5qqZCM1FoX0w/qkAvz1xw?=
- =?us-ascii?Q?QvcSlk+IrAmKx9rQafG7knrWxgiCowFkvOZUWXuneISb6LGYUTfta/ekjPLf?=
- =?us-ascii?Q?W+1kQiSQYE035NXfJirrayKWJ9lQhGuWiliRCiviqwn4VX6qwgUqzlD5Gxf5?=
- =?us-ascii?Q?DXvHMPYvon528vbGih4imwAHMjsJD4Hy5uQy5wurFWDwrCd5F2p/qw6M2qsx?=
- =?us-ascii?Q?hqI/9G1uGYOeLAzm3L9lLIsUi7hxEFWn/ZJJSew0ZFE6pHD9ierpFNSkeFes?=
- =?us-ascii?Q?2WmmXWd4gWcjUqvoJpsT+0DqWky06ciyE+OI4q6nvpbvJcQ03mP8xZRJtdUz?=
- =?us-ascii?Q?XTifgEiya6os8yg8EPtw55k22KNHqIfBzYxfzaGO1ZOpLMOZUKy0CMBUzSWW?=
- =?us-ascii?Q?6KrvXPzj2b5uKYmTH4CQ9JG4oY4xQU4j2delPCzcrsQ8tnmbltgGoWDVtlz3?=
- =?us-ascii?Q?xAn/m/pkNhFEok3M/JtUeOdXEMaOeIXJI/TjAhCXr/Bb0SmkQab8MPZgCSMV?=
- =?us-ascii?Q?9yIE9Qof5qKLcpX1ZmkVQ106P+80rUkr34ZVcPzAH5xL8irov85eh5qB0Zsj?=
- =?us-ascii?Q?0oox4B0riV2JgM9r1FUrrHSQfsNb8v8Yj3u9A0my5y9XnU22zjBLPkc73vDv?=
- =?us-ascii?Q?zuvyW/YZj1GKkiuvcp5Av3hew4ChvmVLQ5adUZaluVZnMYsZEFfpa7DztGm5?=
- =?us-ascii?Q?Ga/SLTRTTap43BzEn1yGy60sxBol6Qqq4jZt+lOAcI43DOcITwkEXLjvyvYG?=
- =?us-ascii?Q?EiSqiU9qnUVc3zHL4u51720kpeHRUMgTcQkj+B/BxquzaqCxO3oEPrptz58r?=
- =?us-ascii?Q?yXrsjk+hfYXiiOVH6jsxzRNnlHADeYOief0mD7qtu4ab1tq+YvnAxl63NexK?=
- =?us-ascii?Q?G+z3TRK6D65RF1NKj0LPPmu5SBkEMCQHFKj/07PLkmMDSNVhlh0VevilpOND?=
- =?us-ascii?Q?OFb78IpKZWxAVD7CSsWwECchB3PF5AH2yovvfKXKzbdpoP8zyQ4c8Y66PCS7?=
- =?us-ascii?Q?ItsSEc6fhIdXWy+oohiIgNWn1Iqtq4mbQ2vLLyTW44BnI8CdmIMyQ9xFHLRf?=
- =?us-ascii?Q?rfHZbJUKMnI/M0zbooOxNS7XDr//qZeRuKmUuEYlEuzqHs97YjMORhYIRbm4?=
- =?us-ascii?Q?G+C5+KPeAH5ePZQK5PCsEwAeW/l49wPXzerWCEI2q6hfQIrJXSyqThZNKarm?=
- =?us-ascii?Q?CwefF05JapPlXuvM9hb65AG4qhFXc6ARtlDGrsPXnPUSFVppY1EVl/TloP96?=
- =?us-ascii?Q?JnHJqAHzpRFeWHSW1TM0AxofC6MyD45PL5k9KV/9bgGaKsXgRR7VJeXPjRO7?=
- =?us-ascii?Q?PTox3zPguqsdV+xRDrGMaJqyH+omqMLG2S9B4n5vQlDZ+T58MbVrbjSjiDB4?=
- =?us-ascii?Q?iMLO7oGALQdhS/yt+521T5YvgKqP0cPYR7nuCwejlOw+ufPqC1e9YkLrWF8i?=
- =?us-ascii?Q?yz7IhZiN20XWUA61ADPFmX1YPHQxhPOHBnawW6rYDPrGlvVFOFJSKtN1a9Ji?=
- =?us-ascii?Q?tVDD7ixpqb11jwjdq776kze35sBtJQ/FzTHfKlCNDsFDDjlgI/AW+3xhrsnQ?=
- =?us-ascii?Q?tqL34+jCRP+2RtWg/6AKI0b8BG6eXFH4uWyd+aNIPWPp5aLbtBLLkneqbWOp?=
- =?us-ascii?Q?08bj/IL4HepBte4LM3EQD1b5pTVZpDK1IIuzSQdjz3qAcFiLerO/39aNdq1y?=
- =?us-ascii?Q?ldWts0+ZPZ+v7zWnNBxHP54lst5JDFV87Her0I6+HBdzwGVXrHyM?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65432f77-85ba-42f8-3a51-08df1ac36941
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 05:11:09.7951
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Layzh+DQ9jDpgY5EteJ34EvVWRgkjzukMjquF04Na77RXNK1qkidF/ubW/b3mvysVOJOIxzSozJnUU/hqVLFChbVtnxCnjA7Pe8HQKaFkBh8oAqE+KRCb0+ZnRAVxG44
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1204
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arYWDWmMJgIAt1_W@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 87lA0aCgX2z2D3O1YImj8y7jkpHmz4CB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzNCBTYWx0ZWRfXyKhVgC1T7hXc
+ V/4zpWORmrgXaPIYCPqnXQh+/XRSwR1UXNgV2YvLqkokz4XTbTo2lSCIo2oGyHP5I/BQxBbtksw
+ OLPZx6zdmUHojKQonoku7cjqsdZoePEMaX0dEzbcuBAjpuNDcXWXe3/vUlCZJCpBd1Ovtom/noX
+ MmniggVMhfgZ4L07KrgtwHhet7Eir9r3Xd+hvhCrbn95SRLiCdjhLNRQOT1IocKdr6r3LvwTadO
+ y4CSA8jcRzWbkgfE23lR/ONSq0zsrCi65ubnC6woMeUNsQI0j9K2e5fXc2TQHy5gh1QKHLNc17Y
+ OAKjpKoYQ7Qn9zZ/n69xqyFwRfiWN33KM1gJzZ/57d5EDtrsVvAoPaozHfnjajPwokHT1TRbBU9
+ QhA36CoSDk/x1vOSIIwGzAn4zrb42OphDQSjxR+zQe/DJOGEddcYVSIoiECr93Fdhd/S9YsZJa3
+ kKlU0vrfYgVZwYwHzZg==
+X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab6346e cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=kNr3sdrnxbR47e0HQjsA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzNCBTYWx0ZWRfXy9BY6yI3+QWb
+ ojtvWdD5I9GgEO2EI/5q1+KsJFtrN8hUGDyFDrjjLiBS4udvzPoklpbszwigPS0vRy/fC9pj/Ag
+ cPRsb7OwEtSlA8sDaU+DGjpOMGVPE3o=
+X-Proofpoint-GUID: rzTFMSH6Roqit0uEX2DfQ6jw3cCbmDAk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250034
 
-Add driver support for JHB100 UART Routing control, allowing runtime
-configuration of RX muxes between UART controllers and I/O pins.
+On Fri, Sep 25, 2026 at 12:06:28PM +0530, Mukesh Kumar Chaurasiya wrote:
+> On Thu, Sep 24, 2026 at 05:13:35PM +0200, Heiko Carstens wrote:
+> > On Thu, Sep 24, 2026 at 01:15:57PM +0200, Peter Zijlstra wrote:
+> > > Untested thingies for arm64 and s390x.
+> > >  int is_valid_bugaddr(unsigned long addr)
+> > >  {
+> > > -	return 1;
+> > > +	u16 insn;
+> > > +
+> > > +	if (get_kernel_nofault(insn, (u16 *)addr))
+> > > +		return 0;
+> > > +
+> > > +	return insn == 0x0001 || insn == 0x000e;
+> > 
+> > I have no idea why anybody wants to do this, but it looks like I'm not
+> > alone :) In any case: the check is wrong.
+> > s390 uses only the monitor call instruction and this should be
+> > 
+> > 	return insn == 0xaf00;
+> 
+> should i send this out along with ppc. I am not paricularly very good
+> with s390's assembly, but if this looks correct to you, i can send it
+> out.
 
-A sysfs interface is provided for easy checking and updating of routing
-paths.
-
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
- .../sysfs-driver-starfive-uart-routing        |  49 +++++
- MAINTAINERS                                   |   8 +
- drivers/uart-routing/Kconfig                  |  15 +-
- drivers/uart-routing/Makefile                 |   1 +
- drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++++++++++++++
- 5 files changed, 264 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
- create mode 100644 drivers/uart-routing/starfive-uart-routing.c
-
-diff --git a/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-new file mode 100644
-index 000000000000..76aeed729d4b
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-@@ -0,0 +1,49 @@
-+What:		/sys/bus/platform/drivers/starfive-uart-routing/*/uart*
-+Date:		August 2026
-+Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+Description:	Selects the RX source of the UARTx device.
-+
-+		When read, each file shows the list of available options with currently
-+		selected option marked by brackets "[]". The list of available options
-+		depends on the selected file.
-+
-+		E.g.::
-+
-+		  cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/uart1
-+		  io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
-+		  uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
-+
-+		In this case, UART1 gets its input from IO1 (physical serial port 1).
-+
-+		To switch the RX source of UART1 to UART2, write the desired source to the file::
-+
-+		  echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
-+
-+		This indicates that UART1 now receives its input from UART2.
-+
-+Users:		OpenBMC.  Proposed changes should be mailed to
-+		openbmc@lists.ozlabs.org
-+
-+What:		/sys/bus/platform/drivers/starfive-uart-routing/*/io*
-+Date:		August 2026
-+Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+Description:	Selects the RX source of IOx serial port. The current selection
-+		will be marked by brackets "[]". The list of available options
-+		depends on the selected file.
-+
-+		E.g.::
-+
-+		  cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/io9
-+		  uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
-+		  uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
-+
-+		In this case, IO9 (physical serial port 9) gets its input from UART9.
-+
-+		To switch the RX source of IO9 to UART10, write the desired source to the file::
-+
-+		  echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
-+
-+		This indicates that IO9 now receives its input from UART10.
-+
-+Users:		OpenBMC.  Proposed changes should be mailed to
-+		openbmc@lists.ozlabs.org
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8667b05b73f5..e8a91b66685e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26523,6 +26523,14 @@ M:	Changhuang Liang <changhuang.liang@starfivetech.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/soc/starfive/starfive,jhb100-syscon.yaml
- 
-+STARFIVE UART ROUTING DRIVER
-+M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-+F:	Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
-+F:	drivers/uart-routing/starfive-uart-routing.c
-+
- STATIC BRANCH/CALL
- M:	Peter Zijlstra <peterz@infradead.org>
- M:	Josh Poimboeuf <jpoimboe@kernel.org>
-diff --git a/drivers/uart-routing/Kconfig b/drivers/uart-routing/Kconfig
-index 983e7fbd1bc4..be6f5d54721e 100644
---- a/drivers/uart-routing/Kconfig
-+++ b/drivers/uart-routing/Kconfig
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
- menu "UART routing drivers"
--	depends on ARCH_ASPEED || COMPILE_TEST
-+	depends on ARCH_ASPEED || ARCH_STARFIVE || COMPILE_TEST
- 
- config UART_ROUTING
- 	tristate
-@@ -29,4 +29,17 @@ config ASPEED_UART_ROUTING
- 	  If M is selected, the module will be called
- 	  aspeed-uart-routing.
- 
-+config STARFIVE_UART_ROUTING
-+	tristate "StarFive uart routing control"
-+	depends on ARCH_STARFIVE || COMPILE_TEST
-+	select UART_ROUTING
-+	select REGMAP_MMIO
-+	help
-+	  Provides a driver to control the UART routing paths, allowing
-+	  users to perform runtime configuration of the RX muxes among
-+	  the UART controllers and I/O pins.
-+
-+	  If M is selected, the module will be called
-+	  starfive-uart-routing.
-+
- endmenu
-diff --git a/drivers/uart-routing/Makefile b/drivers/uart-routing/Makefile
-index 226980c639a4..59d9b65c2273 100644
---- a/drivers/uart-routing/Makefile
-+++ b/drivers/uart-routing/Makefile
-@@ -2,3 +2,4 @@
- obj-$(CONFIG_UART_ROUTING)			+= uart-routing.o
- 
- obj-$(CONFIG_ASPEED_UART_ROUTING)		+= aspeed-uart-routing.o
-+obj-$(CONFIG_STARFIVE_UART_ROUTING)		+= starfive-uart-routing.o
-diff --git a/drivers/uart-routing/starfive-uart-routing.c b/drivers/uart-routing/starfive-uart-routing.c
-new file mode 100644
-index 000000000000..3bd83ca5a258
---- /dev/null
-+++ b/drivers/uart-routing/starfive-uart-routing.c
-@@ -0,0 +1,192 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * StarFive JHB100 UART Routing driver
-+ *
-+ * Copyright (C) 2026 StarFive Technology Co., Ltd
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
-+#include <linux/sysfs.h>
-+
-+#include "uart-routing.h"
-+
-+/* One selector register per channel, holding the IO and UART RX mux. */
-+#define JHB100_ROUTING_SEL(ch)		((ch) * 0x04)
-+#define JHB100_ROUTING_IO_SHIFT		0
-+#define JHB100_ROUTING_UART_SHIFT	8
-+#define JHB100_ROUTING_MASK		GENMASK(4, 0)
-+
-+#define JHB100_UART_PORTS		15	/* UART0-UART14 */
-+
-+#define JHB100_IO_TARGETS						\
-+	"io0",  "io1",  "io2",  "io3",  "io4",				\
-+	"io5",  "io6",  "io7",  "io8",  "io9",				\
-+	"io10", "io11", "io12", "io13", "io14"
-+
-+#define JHB100_UART_TARGETS						\
-+	"uart0",  "uart1",  "uart2",  "uart3",  "uart4",		\
-+	"uart5",  "uart6",  "uart7",  "uart8",  "uart9",		\
-+	"uart10", "uart11", "uart12", "uart13", "uart14"
-+
-+/*
-+ * The two mux fields of a channel index the same target list, but starting
-+ * from a different end of it: field value 0 selects IO0 for the RX mux of a
-+ * UART, and UART0 for the RX mux of an IO pin.
-+ */
-+static const char *const jhb100_uart_rx_options[] = {
-+	JHB100_IO_TARGETS,
-+	JHB100_UART_TARGETS,
-+	NULL,
-+};
-+
-+static const char *const jhb100_io_rx_options[] = {
-+	JHB100_UART_TARGETS,
-+	JHB100_IO_TARGETS,
-+	NULL,
-+};
-+
-+#define JHB100_UART_SELECTOR(_ch)					\
-+	UART_ROUTING_SELECTOR(jhb100_uart##_ch##_sel, uart##_ch,	\
-+			      JHB100_ROUTING_SEL(_ch),			\
-+			      JHB100_ROUTING_UART_SHIFT,		\
-+			      JHB100_ROUTING_MASK,			\
-+			      jhb100_uart_rx_options)
-+
-+#define JHB100_IO_SELECTOR(_ch)						\
-+	UART_ROUTING_SELECTOR(jhb100_io##_ch##_sel, io##_ch,		\
-+			      JHB100_ROUTING_SEL(_ch),			\
-+			      JHB100_ROUTING_IO_SHIFT,			\
-+			      JHB100_ROUTING_MASK,			\
-+			      jhb100_io_rx_options)
-+
-+/* RX source of UART0-UART14 */
-+JHB100_UART_SELECTOR(0);
-+JHB100_UART_SELECTOR(1);
-+JHB100_UART_SELECTOR(2);
-+JHB100_UART_SELECTOR(3);
-+JHB100_UART_SELECTOR(4);
-+JHB100_UART_SELECTOR(5);
-+JHB100_UART_SELECTOR(6);
-+JHB100_UART_SELECTOR(7);
-+JHB100_UART_SELECTOR(8);
-+JHB100_UART_SELECTOR(9);
-+JHB100_UART_SELECTOR(10);
-+JHB100_UART_SELECTOR(11);
-+JHB100_UART_SELECTOR(12);
-+JHB100_UART_SELECTOR(13);
-+JHB100_UART_SELECTOR(14);
-+
-+/* RX source of IO0-IO14 */
-+JHB100_IO_SELECTOR(0);
-+JHB100_IO_SELECTOR(1);
-+JHB100_IO_SELECTOR(2);
-+JHB100_IO_SELECTOR(3);
-+JHB100_IO_SELECTOR(4);
-+JHB100_IO_SELECTOR(5);
-+JHB100_IO_SELECTOR(6);
-+JHB100_IO_SELECTOR(7);
-+JHB100_IO_SELECTOR(8);
-+JHB100_IO_SELECTOR(9);
-+JHB100_IO_SELECTOR(10);
-+JHB100_IO_SELECTOR(11);
-+JHB100_IO_SELECTOR(12);
-+JHB100_IO_SELECTOR(13);
-+JHB100_IO_SELECTOR(14);
-+
-+static struct attribute *jhb100_uart_routing_attrs[] = {
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart0_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart1_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart2_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart3_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart4_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart5_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart6_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart7_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart8_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart9_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart10_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart11_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart12_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart13_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart14_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io0_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io1_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io2_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io3_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io4_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io5_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io6_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io7_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io8_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io9_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io10_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io11_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io12_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io13_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io14_sel),
-+	NULL,
-+};
-+
-+static const struct attribute_group jhb100_uart_routing_attr_group = {
-+	.attrs = jhb100_uart_routing_attrs,
-+};
-+
-+static const struct regmap_config jhb100_uart_routing_regmap_cfg = {
-+	.reg_bits	= 32,
-+	.reg_stride	= 4,
-+	.val_bits	= 32,
-+	.max_register	= JHB100_ROUTING_SEL(JHB100_UART_PORTS - 1),
-+};
-+
-+static int starfive_uart_routing_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct reset_control *rst;
-+	void __iomem *reg_base;
-+	struct regmap *regmap;
-+
-+	reg_base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(reg_base))
-+		return dev_err_probe(dev, PTR_ERR(reg_base),
-+				     "Unable to map IO resources\n");
-+
-+	rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
-+	if (IS_ERR(rst))
-+		return dev_err_probe(dev, PTR_ERR(rst),
-+				     "Unable to get and deassert reset control\n");
-+
-+	regmap = devm_regmap_init_mmio(dev, reg_base,
-+				       &jhb100_uart_routing_regmap_cfg);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap),
-+				     "Unable to init regmap\n");
-+
-+	return devm_uart_routing_register(dev, regmap,
-+					  &jhb100_uart_routing_attr_group);
-+}
-+
-+static const struct of_device_id starfive_uart_routing_match[] = {
-+	{ .compatible = "starfive,jhb100-uart-routing" },
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(of, starfive_uart_routing_match);
-+
-+static struct platform_driver starfive_uart_routing_driver = {
-+	.probe = starfive_uart_routing_probe,
-+	.driver	= {
-+		.name = "starfive-uart-routing",
-+		.of_match_table = starfive_uart_routing_match,
-+	},
-+};
-+
-+module_platform_driver(starfive_uart_routing_driver);
-+
-+MODULE_AUTHOR("Changhuang Liang <changhuang.liang@starfivetech.com>");
-+MODULE_DESCRIPTION("StarFive JHB100 UART Routing driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
-
+No, I still don't get what this fixes, or what the improvement would be
+(also not after reading you reply to Mark). The current code is fine for
+s390. Unless there is a pressing need I'd like to keep it as it is.
