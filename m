@@ -1,142 +1,191 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F180E4D37DA
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE404AF142
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350404; cv=pass; b=KdY+o74rXUem9rUljDSAQD8/RPTsF0swEWg+5otUpSUUC/j5L26hUz3nmMxtBVxUTnG4/Htnyah06lNzR9qW27cTb3UDmP8AHWsWK2AXWyYm6rJNuhmAG40rUKyoji2DI6uRh97bQwNiFQSKpmk9TNzGOEEFkzDinXq/RvfjfxE=
+	t=1790350495; cv=pass; b=cCQJc6fTuRu2XcenDFdcrxS9tdTIWvk4W9fN9Okz/Qu6skFwxYY3gR+tKX7O2oNH9kFlie6f3LK1peSO/KkmhV4VT8rIbFOpCBZnmX2n75ucpirnk8auG+Fzl0+9tCZ9qAfENd+Rv1VYx4Ut83qOaPgmv1xpwU6PbrXQklLpwb4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790350404; c=relaxed/simple;
-	bh=BTBoKRsKkhaIY8JcZ9+wHBG7cBrTi6LEsy1fpIQp3fI=;
+	s=arc-20240116; t=1790350495; c=relaxed/simple;
+	bh=c4skHotUrohj5tY649YiUgljNI4R9MsOmUhNsuTt4mw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=N4oedeqTFH+OwFtFecD+mJalclelnEGsOHKjqzmz2cHqxtiXAOmSvp4lKwQRHmJWRlNQDdCsFpzws+/FRPi9Ff8kod0H1nP7O8DQLvrHcDTG7UO4XCpS6e8Tcs/oxA3sj8fv8zYLez5guKQCCb4AIeF3myYV7AfwVTPSrOCYg80=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lGd4lK+4; arc=pass smtp.client-ip=209.85.160.176
+	 To:Cc:Content-Type; b=O+1bGGQhlWI3b+CdB1JumuopcNyvzpswmbXijTtUx2/wRsRvZnZzm9bcuGMCZI59DIgGSz5BkL0/wOwLl0QtUUfG+0lt/KVO/ZYaRxRQ2tjDpjgy/jCv1wFqvhNftSGWKI7sfRhr0+uV+oi/kJZSQd+sMOBrUfbrghdshr3VNL4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=O1MyTIQn; arc=pass smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lGd4lK+4"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53113d72966so257341cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:33:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790350401; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="O1MyTIQn"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b8e6ec4e0bso731154e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:34:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790350490; cv=none;
         d=google.com; s=arc-20260327;
-        b=YuY8XXYovjTr2znWlHPOV4qpmm+mp2aoTvJkmcqFXWyXq0a0zURVE3mfJ3HOYyVh/G
-         gsNye1z0yxK5f5KlFkubSLNcgJe+rie30mYFD+dQzcFTRwSviFgG+Cnd8bzJKhj9+xcE
-         wKoYTtGVNEVW8WyZ38CyvazBvRAg/g9SISJ4ctEAIlMK665GkyqN/HZtJoVAmK9b12GR
-         wLh8Mt/yYDJrkAMIEDO5ZY49DSqzX/ogBm0z7HOaB+SS3Uka32cfWccD2EljG4M5eH4z
-         tQ3L9M7QvBhCswwZ8y/nidSln2HumasZrijLlwVP8LomBoyhGm4lWBfC+i4rAU6SOk86
-         jM1g==
+        b=AgyuzGkP+UJ7qy5s3wP7EunjEofOWrAXm0Sr2LNibVDiSeqguHwb1JgImBZYGM6Phu
+         LlgD1o2cE0Z05yHOflVmZDMQ0ZiRRUZR3cbuHZDHmeKpC6QN/KyBtyihNZa1RzFtmf1V
+         AkSeZ32tdahaqnYTjpXEy6N+3XLqrimn9pJjXIw8CMAeTTcxqJbu6LU4iKDBxkDRpZ4Y
+         5Vj+ZxTXxXVK1lQ6uX8bN8wz698rs2ja/eV0wWDGhgKRJZ0Ro3nrVM4JCLH8NNYyHt+4
+         B/crPItqW5OZboSZNPfcchBtOXHp16UKkXAD2w6HRCP2ePsm8I5IS/wu6sgjdi31HjHG
+         JTlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:to:subject:message-id:date:from
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=WspHH2q7IdJFzP5Ho9Zej6L2+bb6vQF0pB8bvL5RAhc=;
-        fh=5D4TFoPmoLn+DI4Z76npnNuu7sKkIg75tSmZlXRW4HY=;
-        b=i2rCplU3BKiaCCfxMCa8oRU/S0+GScEhjUmzrhVfT/rNoUT/ggAwtP10sQOcf8fbwe
-         7R05MchoU1j0E1tzXYDp/W/aQV4QaBz3biYOLfSsUF6775h//HMm+bT9ZWg0nbedX6SV
-         PaOPa4u6dmepqK3ELNVDGGbhjxY95u+GcjiFwPKKaZmMY2X8argmkhWttPF57UMChgf7
-         vJ+oKQDmcN+r6Eh6sQ+cwKlzPasjQwm0b+YzatmwCnbjhJnX/bu3a+I0lVqd8o5Ta7Ig
-         97RgkuSht3cibJfv8lXsSza01qVjlUylF+TT73WH/QAYEvcbPRSPy5P2zbWBnZjMVV0C
-         u/XQ==;
+        bh=LvgREEEhLtnlSAa2TqV+iSmo5cysotPSfNcR8BHubB4=;
+        fh=yhK3+W7/u7+KnuGhgsu8W4zPicFAuxBQw/HXl1BPnyg=;
+        b=FlgVs9A8eZgRQHVqECYq8U8ljR4gFk2ydBZkKOX5fmxly985fSobld5Rldh1lKu0PN
+         5mtVUJsX0kX+q3E3NU86fVqwnbVRlpWWWB9Ex6r5C6yP/QHIF5lIzyeyZ1plgzomVFDu
+         dcSkwzBuisDLDStnfaEswSwLgRu+3G1sTR0hGUiJ9pgLuik/EyEQSCiEPm3bOcjIdX+C
+         VcsMMOvlE/5kQ2dzA0zKdZb2KF5JB3h/Ey5UtwrUxvtHYs8HA5zDmqcptTAl1AAgAlQ7
+         9mFvNiIDZfl7bfVyjrRuwSORPfCd1WI6FnkmhMZnoO2C9+lgoV9EbgJlpq61+uEGxSTI
+         3+kw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790350401; x=1790955201; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WspHH2q7IdJFzP5Ho9Zej6L2+bb6vQF0pB8bvL5RAhc=;
-        b=lGd4lK+4BX/8Yrv+Y7eiHIFRENOEpbaL+HKEKgp0EU+yA2D8leochMbqvEwoere5AA
-         Wv5NEKhwgzcaG0x7mWIaWZY4b3LKMxWQOdtGXTs+iLBiOXRJtYxObQ9LEVyaRR7U+gYB
-         laRj8fxpY20QLVCo8m4hc2Q1hR5MgKCKNU1Swgzv9uGs/064GNXwtAdwoDWNv1F/jFI9
-         bXiHW1WFxzoRcjJq+YWdeuJ1kQZ5q1TibJ7LY3Sfq9NaFEiNO7jR0sCTu8CuMZuf/ldU
-         P4N/8i7oOn6NUcfhUnTop344v1F0WSIrUo2DFojX5Il2ACHDs7VpEaFWjOzGQETa2f4/
-         KmRQ==
+        d=google.com; s=20251104; t=1790350490; x=1790955290; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LvgREEEhLtnlSAa2TqV+iSmo5cysotPSfNcR8BHubB4=;
+        b=O1MyTIQnzOyM27E9q6b9rXtmkvc+s0IFHz1fOicCZf9QMnCGE0SuUbofcAyMnnZPqf
+         mwQr06NaG0OIitVLmOfFTgD8QE3Ull+234CKemM0td5PZIaUa9rv7Mf/aaMT3j9mLLmD
+         hgmY5jcPFosd+WNio7fBSi/DESSYRkiM8d1W94Jca9GEqljNQqn+D3fxr91B2r6jQ2ip
+         wZliHo9q+DUW5Md7c2SXIQOOJOf2eudtLlkoqy9g9OPuwHgZM5BiI7qHpC/RO9UoT+me
+         SlBvs6OdgHK7Ylck7eBNye6uy1wXfcFgcYQFHCyP2afH/UltMNwHYmhaJy8QIki7mM8X
+         NGIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790350401; x=1790955201;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WspHH2q7IdJFzP5Ho9Zej6L2+bb6vQF0pB8bvL5RAhc=;
-        b=Vb0eh57fNgSnWwkQ4+m8eVHmTY8D9mEgjexH+s+dRdL5anHVwtinl2IqRNxMW/kO5J
-         rNa322kBKMJgcRtHHH8yNvhoEseIHIHQEbahhayPi2vkgu73VLgmiFRTpcrXelScG/wc
-         8lMJBDRiZm/QrZb5ii4CgNgg1lCu21xF+aJG3NtY+Vt/6KdsKYpmFfZhdPY9BMHmrf2S
-         +k9yG6T5hKnZN4eNGyJvX3sXOTQiuY0H6+qCdwyBQJrdhc8xgKgNy3UwNYEb53scHoUH
-         VOAmj9rfIRrzLjBD5aFO3L6TqPcQBUvn/oScQKG/dwsEukWUMzJHuTp0mBXoFecYlPWi
-         +qQQ==
-X-Forwarded-Encrypted: i=1; AKwUvByMtCWyEchO3Gd13E15j1J5/clJ83S4vVm1OHWBKpLiJJdC3dv9lX7h/BaxxkL7+R5tjArTWvgHx3OwSK0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lr4GUBQQdJEASNUgh4Jmh0xXFRYnZr1zUTw2pTvOI0OxH0rZAL
-	dF6M0M1KFdG+E3ZDdyKKJmdwpwOdOTXfCUcGu2EmsLmXJomdwmnHG696n9pvIdunw6IoW22y7sa
-	Alrzt/1Qm/+XLuFgMYURpiG2Od06nf77yXOvFRONS
-X-Gm-Gg: AYBFou1T0poGN8pqR2RqW4AaswSIdi4C0Toygq6gkAFtBiwA/UzBaFPSGE9F3Pd8NTf
-	lSCsmFLrt2eYdXVIZuqshAjIl9J8sCFEWruP8cMbQkHMeeMMNepXMkQ7y/+AogJTriq4zgfeHOO
-	dA6maeVwXHlo3BoJ8J+2+MGghfdE3rtO66TK8faX3qx2A8fqJBsR1y5d5ygF57XOJX/DaggZn0G
-	AdVoVwCfEKSVhtnQV8KHrHiCpdNwuxHQk1hO244tkRRuo3lbmi8cDQTAoux5lkgIOPBNEGQA7BM
-	SBzd8y19vp32jAJhl5LmCn96ogCy+ZHdMQwgvHob3/QFPmXBISkr6o+rlRPZciNmYJ61tPsnakZ
-	t+oUJg2/E6Q==
-X-Received: by 2002:a05:622a:11c4:b0:532:9003:35b1 with SMTP id
- d75a77b69052e-5331a787127mr4656621cf.2.1790350400731; Fri, 25 Sep 2026
- 08:33:20 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790350490; x=1790955290;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LvgREEEhLtnlSAa2TqV+iSmo5cysotPSfNcR8BHubB4=;
+        b=jiN3vchyODqN+bBUv7HVEEwR1oGz/9Sq5IZs2mfeJpSRCUyTTrDvU1apKhQq3YebjY
+         hkI8eMM71GS18DrAtDH+M+GkrWxyKjWD2oaU2J9Ui97UL2+o3UbVfdE3TEdGpMMQGmV7
+         SpFb3JQJcmsT8GsJkWjO/l4JN0Q8QisLh65FYKwtegHDJoc3sZjOpqoGmypbNGsYJiZd
+         Ju3UDzOaTZVCTL4/sBsaOxSGUyYxtdGgoD7dkjWJcoXdqPV1PoRfpRzzGBMekcGVrbJc
+         TGEVgloNVOVOsa6L79jhub88w2xD7Jbf2VCNnRJ0VIaaJ9h7Nmy6S+N5d2qoA9CXPwQO
+         TaGw==
+X-Forwarded-Encrypted: i=1; AKwUvBx2/fl8xlbsU091UiKOJqvxkqPaXCuf4Em0/I7PX8LVy1XHnYBFX2hFTuJ4/J4RMrTTgqXS4hUW+01ekFA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUZ6/EnhSlhUlkOz3Gol3K5G3yVJXGnlHUmRDHlICPwmdctG6t
+	6TT2r5jIu7Bu6kaNHz0HXRPM6VQEVYu2ohFuDIe6ljv9AwoF31lCTnf5vUMWXBdk9k4f0/4Q0a1
+	w1vVRYufWgalQoG6Bo+8GT9f+7PYVW3uWdLavrhMi
+X-Gm-Gg: AYBFou3kH+K59S8IZ8IRNwpEuri1+LNaT7FFgns/Jy8cFXJcVPkoLzv+40ZAYhe5uwF
+	yjZgURKS0hwsOzUFlmP7yG1nLnrSNo4csdMovPSLinooq7ah8T+t6SymMOlOMEbe4RJWAs3aOKv
+	xk/GVgzX8sccMfYDkHs8I6hUvtNU/PTSgfF2bXZ4rUPCcPLDHKCQlV7S5DKPsC75cfpumE/W1Dq
+	jgxUxcMHhALRK000DWkQuRSPy2QpuA4trG3Vl2su/wyAj1hj+cYgLLShmglrOyMz4H5QT9Csp1X
+	qUYFPWaiSFb47rT+Sc+NaT5tZcZw1FU5k5qeTZwwrJ1yMZYw1H28eQ==
+X-Received: by 2002:a05:6512:118c:b0:5b7:5142:d495 with SMTP id
+ 2adb3069b0e04-5b8df085af7mr1904494e87.64.1790350489353; Fri, 25 Sep 2026
+ 08:34:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917061312.820074-1-irogers@google.com>
-In-Reply-To: <20260917061312.820074-1-irogers@google.com>
-From: Ian Rogers <irogers@google.com>
-Date: Fri, 25 Sep 2026 08:33:08 -0700
-X-Gm-Features: AclHuK9bHrGPf8FuyoHNYaQY6jmF3U-YBLL6uatLtXIzCa91FydxfPvQBlHCV1k
-Message-ID: <CAP-5=fW36Momg+N_P4vU08Pd_t+8PGK_-KfEn9HZjLPM4UO8nA@mail.gmail.com>
-Subject: Re: [PATCH v1] perf test: stat metrics cgroup strip possible slash
- from cgroup name
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-6-suzuki.poulose@arm.com> <arZmXFw5Jw2IbAmA@arm.com> <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
+In-Reply-To: <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
+From: Alper Gun <alpergun@google.com>
+Date: Fri, 25 Sep 2026 08:34:37 -0700
+X-Gm-Features: AclHuK8ZdVRdb_V4naZFOsXJSH2Fz3e3v_5J12YbiSGiHDcQI7elXhO9Nk5iNy0
+Message-ID: <CABpDEu=Dmo6+KpkYwRwYyCWtKjazJvTktVQh6d+2sUM3AchHbg@mail.gmail.com>
+Subject: Re: [PATCH v19 5/7] firmware: arm_rmm: Activate the RMM
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
+	maz@kernel.org, will@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
+	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, 
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, 
+	sdonthineni@nvidia.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, 
+	jonathan.cameron@oss.qualcomm.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 11:13=E2=80=AFPM Ian Rogers <irogers@google.com> wr=
-ote:
->
-> The grep to match cgroup name in metric output assumes no leading / on
-> the cgroup name, however, cgroups in /proc/self/cgroup may have a
-> leading /. Strip the / if it exists to avoid failures to match the
-> cgroup name in the perf stat output.
->
-> Signed-off-by: Ian Rogers <irogers@google.com>
+On Fri, Sep 25, 2026 at 8:02=E2=80=AFAM Suzuki K Poulose <suzuki.poulose@ar=
+m.com> wrote:
+[...]
+> Kdump may be a bit more easier, as the kdump kernel is supposed to use
+> the "reserved" region and vmcore access could handle the GPF and
+> provide "0"s to the reader ? May be this is one case where the
+> host needs to be able to handle GPFs.
 
-Ping.
+I've tested kdump on CCA hardware with a running Realm VM and hit
+GPF 0x28 in copy_oldmem_page() when reading pages delegated for
+RMM/Realm metadata.
+Since do_gpf() already runs fixup_exception(), using
+copy_from_kernel_nofault() and falling back to iov_iter_zero() in
+copy_oldmem_page() fixes it.
 
-Thanks,
-Ian
+Here is the fix I've tested for the v16 CCA series.
 
-> ---
->  tools/perf/tests/shell/stat_metrics_cgrp.sh | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/tools/perf/tests/shell/stat_metrics_cgrp.sh b/tools/perf/tes=
-ts/shell/stat_metrics_cgrp.sh
-> index d4226ee0ae98..0728f48f21fa 100755
-> --- a/tools/perf/tests/shell/stat_metrics_cgrp.sh
-> +++ b/tools/perf/tests/shell/stat_metrics_cgrp.sh
-> @@ -86,6 +86,13 @@ check_metric_reported()
->
->         for cgrp in "${cgrps[@]}"; do
->                 # Find metric lines for this cgroup
-> +               case "$cgrp" in
-> +                       /)  # The root cgroup, leave unchanged.
-> +                         ;;
-> +                       /*) # Strip any starting slashes.
-> +                         cgrp=3D"${cgrp#/}"
-> +                         ;;
-> +               esac
->                 # We use exact cgroup match with surrounding commas
->                 local cgrp_lines
->                 cgrp_lines=3D$(echo "${output}" | grep -F ",${cgrp}," | g=
-rep "insn_per_cycle" || true)
-> --
-> 2.55.0.1082.g2b9226bbc0-goog
->
+
+diff --git a/arch/arm64/kernel/crash_dump.c b/arch/arm64/kernel/crash_dump.=
+c
+index 670e4ce81822..b0ab22293aa9 100644
+--- a/arch/arm64/kernel/crash_dump.c
++++ b/arch/arm64/kernel/crash_dump.c
+@@ -6,16 +6,28 @@
+  * Author: AKASHI Takahiro <takahiro.akashi@linaro.org>
+  */
+
++#include <linux/cpufeature.h>
+ #include <linux/crash_dump.h>
+ #include <linux/errno.h>
++#include <linux/gfp.h>
+ #include <linux/io.h>
++#include <linux/uaccess.h>
+ #include <linux/uio.h>
+ #include <asm/memory.h>
+
++static bool system_has_rme(void)
++{
++ u64 pfr0 =3D read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1);
++
++ return cpuid_feature_extract_unsigned_field(pfr0,
++    ID_AA64PFR0_EL1_RME_SHIFT);
++}
++
+ ssize_t copy_oldmem_page(struct iov_iter *iter, unsigned long pfn,
+  size_t csize, unsigned long offset)
+ {
+  void *vaddr;
++ void *buf;
+
+  if (!csize)
+  return 0;
+@@ -24,8 +36,31 @@ ssize_t copy_oldmem_page(struct iov_iter *iter,
+unsigned long pfn,
+  if (!vaddr)
+  return -ENOMEM;
+
+- csize =3D copy_to_iter(vaddr + offset, csize, iter);
++ if (!system_has_rme()) {
++ csize =3D copy_to_iter(vaddr + offset, csize, iter);
++ memunmap(vaddr);
++ return csize;
++ }
++
++ buf =3D (void *)__get_free_page(GFP_KERNEL);
++ if (!buf) {
++ memunmap(vaddr);
++ return -ENOMEM;
++ }
++
++ /*
++ * Pages delegated to the Realm Management Monitor (RMM) or Root
++ * world trigger a synchronous Granule Protection Fault (GPF) when
++ * read from the Non-Secure crash kernel. Use copy_from_kernel_nofault()
++ * so the exception table catches the GPF and fall back to zero-filling
++ * the inaccessible granule.
++ */
++ if (copy_from_kernel_nofault(buf, vaddr + offset, csize))
++ csize =3D iov_iter_zero(csize, iter);
++ else
++ csize =3D copy_to_iter(buf, csize, iter);
+
++ free_page((unsigned long)buf);
+  memunmap(vaddr);
+
+  return csize;
