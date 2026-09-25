@@ -1,80 +1,87 @@
 Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDEC44065E
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:33:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F11472065
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:33:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790339620; cv=none; b=bvlGCxfOyJ0HdbYBmBQqwpbbXXDgdEWyIF7gwkfQer8+w10YwcPKSii9PuGrayb/Tc7xUjJOM+uEAQgXqJxMxZmb3PxgwQhYQfkH7b3eitcJ0qlVaPxvJsL+O68RIpXBTpRjerxBQvX/SJZDJtPRM4C2o3BlZZ/bn01JNqj9DwI=
+	t=1790339620; cv=none; b=NrMbDmk7dNxkG001ZAb+KOkVtXA0VpBGkaXUcqJtHTCmUTZYJv7VvBxO9OH+79TWIptzLBG+ou1HPVF3g37sxBZo9Gcx/HaEl6AEHX7ormWejDoo4sMcur+0gvF7WcFsfBJYmYzUnnsFXKviN70oRRDiiOMF5lV1sQMeMGFWPME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790339620; c=relaxed/simple;
-	bh=fUjQ52ag332CiUrQx7rmtoK/j5URJZjewRsvMLE4k6U=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=TW/vBj6VNSnKWRYO3im66x+9D0761CHi4x4F9QtCmFxHUpUPl2HV/YeuIZDWFskKaL+NlOTCRvubqZfP8rY81+SWRTWACm3ye6yr45ThLa4vv2E92022xTeIb4c88elz6j67BBsRpdFQZKC/QcKoRZg6lseDN+HcP91lus34Df4=
+	bh=Olll5538sssrk68cKb+6lh5JqkNnLGdUBWebScXwjb8=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=mDBtiMmwZghubgUxgCIQR67gw+XXf/rWdXNSy5DBvs+fQNXuG7csqCaFv5bQFu12F7Qci3KIvEIPTUA8ht9n6WIWNXLJ1dAx0jX946Qtd9mqFzCsEnRcmX5O+y9mqc9rWCjSrErPd2EdwBC0LqBA0teeMGzOxm1VIIvc4+UruIE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4cd3e90ff97so928751b6e.2
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c9ade8cfe1so2486397b6e.0
         for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 05:33:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790339618; x=1790944418;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mNU2C5KmBRcs2Ebwo4gD57Zy+MYfjXnr8InYiS34/8c=;
-        b=tYoteVFo+XZcvkfBp0kGit+q+w7ET3pIiMvfdyttdYQCCJ2q5iUzy6aCuv11pNyM/K
-         PFHGt59W6DiqPEbF5uokTFo/9TnbC6aj3uZrx8PYvDJFH73QRYdmfoudHR25YwBMerRp
-         FcqRmdo6OY12zW35Q3i1vWKUf95LC/7VJz5RSe+gWDS53cVhBpbBTO/3ADHOSQjXrDIO
-         x/XQqZxZkfGK8Ua9hhY6QsLLo0DRPYHSvdBlMDd1jKk7EgqC+UpbKS0a5XX0YYcBr3m+
-         9UonaCrsrgfK3lp9fwqUTxuMkiyUIlZu2ospWZ3LnHv2nNtyGpLkUISA7ywhbfmeWMUD
-         S1hA==
-X-Forwarded-Encrypted: i=1; AKwUvBxKsrUyXHtR6bvn7bBp5+VWkJQ6zpIK/EbwUyFXxiKKphtHJu1JmLnP8vnWmglL6yvJh2zBcDBxpSY4hdA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mG+IFjuzXEomyZhR331dImv72ZIk9FjNSQV3qU4OxeaOZJg0i1
-	iUliIKHlfz7U36C0k25BeF6OfoMcXK0HNyzYt/bDac5iMX+cedqpOVkO7+JG5AcQHS/MkbTHZp6
-	jLUDTywPJjd3s+JDXeWcPcE/jFnU5xlNhFfoO6uTL1ueIabjCDYdOxRfV9rE=
+        bh=3tGsQcEo2L+rh2VXZGGUz0I7c7yOYimMqn0H8hByYtU=;
+        b=2Wr23XXVbf+IhlxTfblrYLIfdljqFaZiXj8+7mjX0VdsrbeB6XVZza70fFYohSs328
+         754EQogi+iTkybwEUIGdwtQrV+jitL5dblc/t8Qt4JRGocEdJRnebXULEY/mrjXPvUwb
+         Zu8xiHhVntTww/Q3bkGpK7T/pxFUMwsgKe3NsZjVxo9DhPyhgwa/5LH/nZDgHxVOy2SB
+         NLkkFvAEUB0l/MW8jvgs5oaJPsUh779/zddSdeaPreLrcQnFGwdVU8twmTzpwuWZ94cT
+         3jvh5WtmrG0eJ/7rxRrIH4ykkZINjzLvWeXBsWGvihhFv7mY/ULWz4SCD6fwwpIe49uI
+         ugbA==
+X-Gm-Message-State: AFuF++nXF/xb60cGzv8CGyxde8MD98Tmhau1gK2tbwJ49sRAAlriz544
+	Vqr0PfTOahulatEWZj1FqnzVFfIIMk/40w5j9u2XIWdhQwC56dNRj0dY0qNTJ0wV0tDqu2b7Hm1
+	SxMNxetk+Pc9ZygKIYgKtWKsFLh1nokgSkYBnKx3rPvmox5Gfx1Xqs2ihIOc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:17aa:b0:4d6:90d4:6bc with SMTP id
- 5614622812f47-4d72cc3cba3mr6843640b6e.46.1790339617858; Fri, 25 Sep 2026
- 05:33:37 -0700 (PDT)
-Date: Fri, 25 Sep 2026 05:33:37 -0700
+X-Received: by 2002:a05:6809:3cb:10b0:4dd:f8bb:e1bd with SMTP id
+ 5614622812f47-4ddf9083167mr694918b6e.13.1790339618117; Fri, 25 Sep 2026
+ 05:33:38 -0700 (PDT)
+Date: Fri, 25 Sep 2026 05:33:38 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab66a21.80e1c6cc.1e8e5f.0030.GAE@google.com>
-Subject: [syzbot] Monthly gfs2 report (Sep 2026)
-From: syzbot <syzbot+list410acf864b0ea39e7b49@syzkaller.appspotmail.com>
-To: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
+Message-ID: <6ab66a22.80e1c6cc.1e8e5f.0031.GAE@google.com>
+Subject: [syzbot] Monthly mm report (Sep 2026)
+From: syzbot <syzbot+list9522b235663d5a4f6672@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
 	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello gfs2 maintainers/developers,
+Hello mm maintainers/developers,
 
-This is a 31-day syzbot report for the gfs2 subsystem.
+This is a 31-day syzbot report for the mm subsystem.
 All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/gfs2
+https://syzkaller.appspot.com/upstream/s/mm
 
-During the period, 1 new issues were detected and 0 were fixed.
-In total, 24 issues are still open and 47 have already been fixed.
-There are also 10 low-priority issues.
+During the period, 2 new issues were detected and 1 were fixed.
+In total, 76 issues are still open and 382 have already been fixed.
+There are also 39 low-priority issues.
 
 Some of the still happening issues:
 
-Ref Crashes Repro Title
-<1> 103     Yes   kernel BUG in do_qc
-                  https://syzkaller.appspot.com/bug?extid=bad65435361712796381
-<2> 78      Yes   INFO: task hung in gfs2_recover_journal (4)
-                  https://syzkaller.appspot.com/bug?extid=9013411dc43f3582823a
-<3> 56      Yes   WARNING in gfs2_ri_update (2)
-                  https://syzkaller.appspot.com/bug?extid=7567dc5c8aa8f68bde74
-<4> 56      Yes   general protection fault in gfs2_glock_dq (2)
-                  https://syzkaller.appspot.com/bug?extid=5a5f492ccae698fd7434
-<5> 33      No    KASAN: slab-use-after-free Read in gfs2_ail_drain
-                  https://syzkaller.appspot.com/bug?extid=84a21b16aba9f279d96a
-<6> 172     Yes   kernel BUG in gfs2_quota_cleanup (3)
-                  https://syzkaller.appspot.com/bug?extid=af4d53576692f8956fd6
+Ref  Crashes Repro Title
+<1>  3955    Yes   WARNING in trace_suspend_resume
+                   https://syzkaller.appspot.com/bug?extid=99d4fec338b62b703891
+<2>  3805    Yes   possible deadlock in attr_data_get_block (2)
+                   https://syzkaller.appspot.com/bug?extid=262a71e9d2faf8747085
+<3>  3136    Yes   possible deadlock in filemap_fault
+                   https://syzkaller.appspot.com/bug?extid=7736960b837908f3a81d
+<4>  638     Yes   INFO: rcu detected stall in sys_newfstatat (4)
+                   https://syzkaller.appspot.com/bug?extid=1c02a56102605204445c
+<5>  528     Yes   kernel BUG in filemap_unaccount_folio
+                   https://syzkaller.appspot.com/bug?extid=17a207d226b8a5fb0fd9
+<6>  329     No    kernel BUG in __page_table_check_zero (3)
+                   https://syzkaller.appspot.com/bug?extid=2b5fe617654be3d8848b
+<7>  308     No    INFO: task hung in migrate_pages_batch (4)
+                   https://syzkaller.appspot.com/bug?extid=f523acb98cd782b4872e
+<8>  185     Yes   INFO: rcu detected stall in sys_unshare (9)
+                   https://syzkaller.appspot.com/bug?extid=872bccd9a68c6ba47718
+<9>  166     Yes   WARNING in ext4_mb_load_buddy_gfp
+                   https://syzkaller.appspot.com/bug?extid=fd3f70a4509fca8c265d
+<10> 115     Yes   INFO: rcu detected stall in sys_setsockopt (4)
+                   https://syzkaller.appspot.com/bug?extid=6e61d59e9d2150c8492b
 
 ---
 This report is generated by a bot. It may contain errors.
