@@ -1,135 +1,83 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A263B05AB
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:38:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AA4348C4A;
+	Fri, 25 Sep 2026 04:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790311095; cv=none; b=QgWbUnJAO64ZtROvG62v0D7/ru0C+Naja2IUnPDUnEPU6M6Gg+K+JDH9HXovZlcYd72vwM5MqWTR4yUbItqt6EPfRkhwbF4v5l2ekCRhr5JeylgDc++BNnFtndus6YvP7mKjy/7ZiG3igpiDiwG6PLY4wCgLEzLuvFBlUwETcVc=
+	t=1790311127; cv=none; b=V4vkpwy2tMgw5vclmcdU5yL6bEqP9EW1rDHMcbB9/hUOcjxG86ihRFauMdJZIdr4NlB3Yticz66sA12s7TJ0YwVyCYknX6kff398bFk0h6K7Fa1dCZOK3+IQxvFWMzBm75Zjw4DhQSsF5lvE6FGaY6HUDWSCu3xMJi4aVp1DN3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790311095; c=relaxed/simple;
-	bh=DsichDivTPeQ31poorz8uMENw82Z8sxoMacf2VYGfEI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hn5Gn2pLKbxhs6rb5CP6OLfBgc/2Vg5efH2Tpd9sAD2zfDoJlKHESBTT9r0jPzzEF2byoZ9kqP0dyQgUyjETWcb3xFHoPH2MhEw/v39437/6lwlV0w7TB2InsuB9pi6br14Shsh5nIcgvBqoB8cxoK4wK04MPXWcmUFioUdGLzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ombXNg0O; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790311127; c=relaxed/simple;
+	bh=T2+UtO+c4TIDiF6rVGPoPln8hlXZPztRsDrxoR9HUAk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EopISfbrIbiF32iZd4cgXF6FrPKYUz1JDrM4/u3W/FYmMJ7fNxCav/h/2qizLgxO3dBh/KGSwTT4dvYKoEdhzZDdoztGptLGfZL2UTxj+wbzCVx+7VFNXO9LuaFwIAiTsJ+wUHkJWVFE/bfzIfgy+h3KsgVG9RTcVQt9awvNYXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=dnXuHAxR; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ombXNg0O"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f0b25dso2713315ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:38:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790311089; x=1790915889; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aZ8/PUatfs3RdYJ/qWQW+G/R/sQoJ3VzSpSzDZnpImY=;
-        b=ombXNg0OBoxMJwmw7rpFAEA6lFwKZ+0u/tjz/LrVRssznROFqACLuyQlw9ebGLSXxg
-         7W11a/Yez3ltEvzi0w1SFc5yeVAve6irV69rZ20mdSvMExmliAAkBi4gtw9d9jDTOpC3
-         1EhmsXcmk/2lxEkTPL8qmoMLH9IT+ghFsQg1Ndb9W54dAMmqdacZSKg034M3u+rGFCxj
-         AziPbNm/9ZnrJYEIXUW2QOOWwbpowapnaOa+CRRWH404qir7jIF9os4xs68as3dxBZg4
-         DyaYwpfxOoGI1kme6wBCRuDdquABhLyaiDKYv40FejwJqOWrHkK7QnEC5PgXCaUduCwI
-         gErw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790311089; x=1790915889;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aZ8/PUatfs3RdYJ/qWQW+G/R/sQoJ3VzSpSzDZnpImY=;
-        b=tJQ13ZqCYtivoCXm2g+vum2Ch+j3zzYBTqbYCW4uN7W1S6EiEhJQmXjMlEwvZJU6hA
-         UPGobp2z7Omkl5Lj4vKihVFWooZ637CcDdHffzh+zQUr1IHjCJHnr7v8ye77x39Aonwb
-         nVQP1udQG8HrO4Qu2FPOQdhP8Dce9dqXslfpUaU10rMqVtchJ9L1PUucMS+f+13XEyvx
-         inw2qz1XE1Vj/C1Zr4LBRuQj/Owf3isUt1h8HOzaS8yB7U93/eaXIbRX1Bxhh54ihKHM
-         md4+wa28RQMk0NU19RAbsQDM1Q3+x5iwtJueJpbedmcwLszkYVv1OqkmBljYY8psF17s
-         pRHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3ZiPeuCdnDZysbk0B7uKB3c9l/jkHXH1Dt/7LgXi2x2AAfozP9ikeG2D0R8oN1djp0h1huLtO0QfMVH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUWMa53K6dafWLnfX/Tjo5ZWPvXvIk2CXgKuAA0P/VZttLYXQI
-	psC8UNNtLx0UqEZ15tSUPH95Xv30zqKvtBRsAbKtdVoxLAkqbaCl4ptg
-X-Gm-Gg: AYBFou2X+cxff6rWb+uf4/HqipfbFbKgQBTFDN9pjRi1hXrNrb+eNxX7PXm7coWXF9V
-	PPS53lcQ0L75anPvd28lzFIb6mWSQpO/74hP+p/nfwU/t1m04bbFKbmlL8SVHYWAVU7Oy3sdWa/
-	/AduxobaByMhN4Do7fLtZikOa2v3XxRypAwguxnMQabvfO1sRzJjgMv0EqEcI+upFMx7PrK7gFF
-	qBofD6s9CqPMNg/lTo+kcIUk6wErzRWlPkrUijdfVWAvMEjt2PGhZmffKaMt+59Xv4vIRCxmTER
-	7wTEWRfly/UZux8yuOiPj8+h//2/SoHGB6DfLxGfqcVNOSyRTewNWOkSOy/jSXejHx9XYoexQuy
-	0CwDaiTFuQ+ru1Vt4sWE8nIYjEretPyKAAaTNUatF3m4Tw4XWyuP8I5iEWLGYt1Mh9Q0wgWGQRp
-	35MyxaO6DJcit8Q9DzPLmf0IynQE6I4ugCMJ3TW5j6zl8WzfUeUPOLekMIngotsqFT3AwzCPpUZ
-	MvSg7WnOsvuQSal0Z+NwNw9M5Aslfl8seQlpXB23UQmQib3cA/yyGpTAEk4fk0zpvLQaPFRH+jr
-	F3mrjCnoIlOvtpsjC5mxp/MNMpitAoi7p4IdIGjoTv6L+bMBFRp5fyOBA/w=
-X-Received: by 2002:a17:902:d98c:b0:2dd:c100:313a with SMTP id d9443c01a7336-2df7e24f58cmr37942205ad.54.1790311088993;
-        Thu, 24 Sep 2026 21:38:08 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90c03890sm4441685ad.0.2026.09.24.21.38.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 21:38:08 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: jack@suse.cz
-Cc: benquike@gmail.com,
-	brauner@kernel.org,
-	viro@zeniv.linux.org.uk,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] isofs: reject short directory records in isofs_read_level3_size()
-Date: Fri, 25 Sep 2026 12:38:04 +0800
-Message-ID: <20260925043804.2091174-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924151356.3287733-1-matthias.goergens@gmail.com>
-References: <20260919222553.3792320-1-benquike@gmail.com> <20260923175215.1577791-1-matthias.goergens@gmail.com> <w3rnunloyshklgq4ocr4jsullzhaey6u7odstfoyhd4usbfppo@m33jyem5jgrf> <20260924151356.3287733-1-matthias.goergens@gmail.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="dnXuHAxR"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 297C140E021A;
+	Fri, 25 Sep 2026 04:38:40 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 839XkFG_kSRT; Fri, 25 Sep 2026 04:38:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790311110; bh=w9hb24ibBUepNNwdcwsLaUiILM7arKSHAZS/2HLosAU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dnXuHAxRy2Uifyw1iqToiz9IZzF+rwy1rTlG1Li0bqoboQukd8kqJuFyDs27HqkPL
+	 Qoi7REU3efRIMBV+4tPDpWxDGBJ/I8rO9tWdgoy2oeuntSiNF+FIGG5cpJXs1H/jT3
+	 prt5VFPzUbqcWZAKnTP9LLJCiGGFqKUu3kWzuBk3AeruSMSeTKptkundmdpw6szDWb
+	 jq9xvHqcsxwthF7Y6/giqRgkpaecyYPTsnd6DtPqR6QACtthZbOKm3Lq37GyLcQXgD
+	 Nysc2+COTXIC8IVTRBB1ca5M5cJjtOCbJf8IO7yHOGH1uz052H3BhrTAt8IkuvwmUl
+	 o9W8WKMeaqw5HuhcpxV3XA2T6aAmA6tleQhMZjwW+SbQYWoYv32JLrUKl7yYOL6QXs
+	 /6xQdUL2L/KUH1UK2/3iVOQPGu2x3n5W6fNdRoJzXOOZ42k8fYT/BJQBxy3Rhv17MT
+	 FwIbHMapgHfQ7XD4b59yP33i7E/8lMHMnU6MM7h8SjsxMp8hbSxtbN8jODd9U5vFMV
+	 DOPdnXJHPur9nqKEe4/L7hJX320nJwFmoL3ZnAgvqVQMAEgYXNDvEjMSubv+6I7LF5
+	 OsOq3VG4mQZeyJVMksiE4Qk3M2I7PVJYuMQX7g55OoWfqxPC8CAJx18ZRcM/b5h64a
+	 tU7Yzk02WB3tcUBdiQyjQk3Y=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C265540E00B9;
+	Fri, 25 Sep 2026 04:38:24 +0000 (UTC)
+Date: Thu, 24 Sep 2026 21:38:21 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: tony.luck@intel.com, linux-edac@vger.kernel.org,
+	rounakdas2025@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCHv5 0/4] EDAC/altera: Address sashiko reviews part 1(v5)
+Message-ID: <20260925043821.GBarX6vdJ1WucqPuvN@fat_crate.local>
+References: <20260911120627.2634225-1-dinguyen@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260911120627.2634225-1-dinguyen@kernel.org>
 
-Hi Honza,
+On Fri, Sep 11, 2026 at 07:06:23AM -0500, Dinh Nguyen wrote:
+> Dinh Nguyen (4):
+>   EDAC/altera: Do not allow driver unbinding
+>   EDAC/altera: Drop __init from ECC setup paths for re-probe safety
+>   EDAC/altera: Fix code leak on dci allocation failure
+>   EDAC/altera: Fix use-after-free in error paths
 
-On Thu, Sep 24, 2026 at 11:13:56PM +0800, Matthias Goergens wrote:
-> Either way, I'll first check a set of real images for empty directory
-> blocks, so we know the check doesn't reject discs that mount today.
+All those are marked for stable backports but the last three are fixing error
+handling paths. Are they really that serious that you want to backport them
+everywhere? If so, which ones?
 
-Empty directory blocks do occur: about 1% of the disc images I checked
-on archive.org have them, mostly from Easy CD Creator 4.0 to 4.2 and
-Nero, and always at the end of a directory.  One of them hangs on
-for_next, see [1].  Two more examples, with the bytes used in each
-block of the directory:
+Thx.
 
-  https://archive.org/details/Anime_Transformer  DM_BXL2.iso
-    /XTRAS    2022 1526 empty   (Easy CD Creator 4.2)
-  https://archive.org/details/comdex-edu  Comdex_05.iso
-    /IMAGES   2012 2048 empty   (Nero)
+-- 
+Regards/Gruss,
+    Boris.
 
-So a general check in readdir or lookup would stop those discs from
-mounting.
-
-In isofs_read_level3_size() it would reject none of them: no empty block
-on those discs follows a record with the multi-extent flag, so the walk
-always ends first.  What refusing buys is limited to crafted images,
-where a flagged record followed by empty blocks makes the walk skip
-block after block until a read fails, because the 100-section limit
-counts records, not blocks.
-
-No other reader I looked at rejects them: Microsoft's published CDFS
-sample, GRUB, libarchive, libcdio, 7-Zip and libisofs all skip empty
-blocks inside a multi-extent chain and stop at the end of the directory,
-and GRUB fixed an unbounded walk that way in 4e0bab34ece7 ("fs/iso9660:
-Add check to prevent infinite loop").  Windows Server 2022 and 2025 also
-join the sections across an empty block and return the whole file.
-
-So I'd suggest following their lead: skip empty blocks in the walk as
-readdir and lookup do, and stop at the end of the directory.
-isofs_read_level3_size() doesn't know where the directory ends today,
-though.  isofs_lookup() does and could pass it down through
-__isofs_iget(), but inodes reached from an NFS file handle can't, so
-those would still need a bound such as counting skipped blocks towards
-the 100-section limit.  If that is more plumbing than you'd like, the
-counting alone would do.  What would you prefer?
-
-Whatever the bound, only a zero length at the start of a block should
-count as an empty block.  A multi-extent record can end one block with
-padding and its next section start the following one; that has to keep
-working.
-
-Thanks,
-Matthias
-
-[1] https://lore.kernel.org/all/20260925042835.1974673-1-matthias.goergens@gmail.com/
+https://people.kernel.org/tglx/notes-about-netiquette
