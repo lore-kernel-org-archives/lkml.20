@@ -1,82 +1,100 @@
-Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC10A47799D
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:54:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E3D48424E
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:54:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790373278; cv=none; b=Wsd65a26cjC8EQSdIOzD4lXkYy8w+3ToXrq6JJtWKYTDMMY+o9UBUyGDo5p3Tp9XTj6SX5U1/PZZectlF/ApfXJ7eOI0Lfyis7GQ11l8HVzo6iFD7NiWM0yQe1pgJdp9levvt+AUyIs1JKJIzuYTAQBUs8RD/hdhAOLGcuEInhg=
+	t=1790373299; cv=none; b=K9z0Wbmgx0J00zHBSucQIP/JEXALJA3GZ9nhuslG8xd7lRM86lbeRhuOLi4nC4ivjdeCHYU3iZhU4wyEx3dp25y3qxMA9QcuXbZ4wufeSKWKEAuCLfQ6RiRfNBpMfUVTioog5DAi8qeEHPRaurZ+9jAkbckzBk/EQqm8bvSDIaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790373278; c=relaxed/simple;
-	bh=dh5D3G836DUj2lo2Ng6i8fYgw0FVBnlELE3fvOwftbE=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=XFP9EP70mNVQOJzSCGedWuSmDuIie6H0z4jn6Wc8DKbuRuCzHkBCuBb9+DSl7vDW/py9T/8V1uJPLoiEcdUzR1EJJ0VO/hCSe0BDG/bqR5rH3+utj8A6zVO9oxQ1FKVu+39hSBRfTISNk2y/41PdEHkN9LbCX6LsA9gGAxKoVfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=RfY4ixGe; arc=none smtp.client-ip=109.224.244.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
+	s=arc-20240116; t=1790373299; c=relaxed/simple;
+	bh=uL5GG0Rhy2kqx41pafopbGKUn9BWoUoGILgGIU4hV5Y=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=i/+z+KZpZjYELOe5I6yDtAWRS087CEOwiSl5Z8jZv4UW/Ezfejyhvz6TQBWbIKtlHTL6+7zXw3sNjJ3uYkcQW5fFmWkIqj3a2LeQbInetBm59nrhtZ9jT2yn8tzXoRF/NjdwUYfe0MnWoh7fNRLH96F0sDUasSuksc1c/BgEZCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPrRA9Eg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="RfY4ixGe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
-	s=protonmail3; t=1790373265; x=1790632465;
-	bh=ErF7CfE2J2KkQtLXok6mhVam2RRVJtrfwuAWVpvttw8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=RfY4ixGeeqbIgW6Ps5HNNRwWQZQqaalQsPRQOqylEjHFYYveDPqWbsT3BbT2PCukC
-	 dgMI/3XcBWhOAnpvkdY46YmmULKBza51EHpecGYZ96jOdFTuvdWlpmpzQe14+izML+
-	 Keb+IrMyQWfxHVVeJTcvux4IPv/mnp+iDZARYNgj0jbo9hGFNXn+ZWTQy55dzw0aGh
-	 7Sxfr3NzuHM3XDdsvkyHWVC91/6Gws0ZiFLUWMDJOM2nOX/2Iwvha9cUv2VrzcPRh7
-	 y5VrRbPg2MgTzdkinVz4pUIDfcmxhgiSnuvU5YRokqid/CUanlQrznSOiD6144W2J2
-	 hsBABMSZnHIzg==
-Date: Fri, 25 Sep 2026 21:54:20 +0000
-To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: Clover <alex@ironrobin.net>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] Lenovo ThinkPad X13s embedded controller support
-Message-ID: <20260925215358.33417-1-alex@ironrobin.net>
-Feedback-ID: 54785507:user:proton
-X-Pm-Message-ID: 5c58b5ca42a24e4d87b2ec8efb1ab51cb726a9f6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPrRA9Eg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABF581F00893
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:54:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790373296;
+	bh=cuU7iDUVNjz66/P7FWp2ZsG+j9S9ECJg0zYFXGseCIc=;
+	h=From:Date:Subject:To:Cc;
+	b=ZPrRA9Egj3WMNTd5GsfTyJtA5ESANI7/eobJuApg2i2bWvzhAbvdZ5jmL7lz+6Qtg
+	 U49Jdnc5O3MogbAqgg0ba1Hs1+FpWRQT93HSIa8vQFim9Gykca1a5gJ9FXmIjw4/eN
+	 g6TE89gj2Hn7ktmKJpXZA7bbHfJnKGXgs9lLwdqvjX3nfVQeh4xYQAZHxp7z5gk7xi
+	 OHy3MzMWPg9a7b39nzf0ClMBsWMTxDCM04qZRuTIlTMaub+roPh67wwqbjynBhczjs
+	 sGmKJnRptOZN7vEMwQmKBYqvUJULj2SEHU4sjIKBpQElR014VU+ZTIvYNCG/zSLAYo
+	 D9yf5oaBDk4Lw==
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04be84so1628846c88.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:54:56 -0700 (PDT)
+X-Gm-Message-State: AFuF++n6kal/cQqoG1Izv9iWfAGuiA734PwInxthPEYFFJm08rGbuo/i
+	tpYzUbT/s0w+RHlEyp8UGpfu62NYLxAxKxl351YG1oVBsToct0Lb6thAxTg+6wnBPgyFc+O3A/T
+	ju3iaLaI97KTIxfqBhVumSIRkzx43zpQ=
+X-Received: by 2002:a05:7022:7e85:b0:144:ff47:60d2 with SMTP id
+ a92af1059eb24-146ce2a0697mr1522054c88.13.1790373296134; Fri, 25 Sep 2026
+ 14:54:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+From: Fan Wu <wufan@kernel.org>
+Date: Fri, 25 Sep 2026 14:54:43 -0700
+X-Gmail-Original-Message-ID: <CAKtyLkFPVY0zBLBZx_9A4f_t2ud3JPR7N=DtJtFuC5AsgvpRnw@mail.gmail.com>
+X-Gm-Features: AclHuK86fNR6pYQI7ojQXiBVyVc4SEzAPWtq7CvxM_W04dqbFhtesH6uZSds1nY
+Message-ID: <CAKtyLkFPVY0zBLBZx_9A4f_t2ud3JPR7N=DtJtFuC5AsgvpRnw@mail.gmail.com>
+Subject: [GIT PULL] IPE fixes for 7.3-rc5
+To: torvalds@linux-foundation.org
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-security-module@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add support for the embedded controller found in the Lenovo ThinkPad X13s.
+Hi Linus,
 
-The X13s EC uses an I2C command transport similar to the ThinkPad T14s EC,
-but its event, keyboard backlight, and power-management interfaces differ
-enough to warrant a separate driver.
+Please merge this PR for the IPE fixes for 7.3.
 
-The EC event interrupt is provided by GPIO103. GPIO176 is a separate
-host-controlled power-state signal used during low-power transitions. The
-driver follows the EC command and GPIO sequencing described by the X13s
-ACPI DSDT and defers EC event queries during suspend until the I2C
-controller is available again on resume.
+This PR contains two commits that fix use-after-free issues found by
+recent LLM-assisted code analysis.
 
-This initial series provides EC transport and power-management support,
-wake handling, and keyboard-backlight control. Other EC events have been
-left for follow-up work rather than exposing unverified input mappings.
+The first commit moves successful policy load auditing under the new
+policy directory's inode lock, preventing a concurrent policy deletion
+from freeing the policy while it is still being audited.
 
-This follows earlier X13s EC work by Konrad Dybcio and Steev Klimaszewski.
+The second commit protects the dm-verity root hash with RCU, preventing
+policy evaluation from racing with root hash replacement during
+preresume.
 
-Development was assisted by an LLM, including analysis of the decompiled
-X13s ACPI DSDT and review of the resulting implementation. The resulting
-behavior was verified against the hardware.
+Both commits have been tested in linux-next since Tuesday without any
+issues.
 
-This series is based on Linux v7.3-rc4.
+Thanks,
+Fan
 
-The series has been tested on a Lenovo ThinkPad X13s, including keyboard
-backlight control and firmware-driven brightness changes, s2idle
-suspend/resume, keyboard-backlight state restoration, and wake from EC
-events.
+--
+The following changes since commit 93f51579e7df248780214094418f205253383cc5:
 
-The binding passes dt_binding_check. The X13s DTB has also been validated
-against the binding, and the driver builds cleanly with W=3D1.
+  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
 
-Clover (3):
-  dt-bindings: embedded-controller: Add Lenovo ThinkPad X13s EC
-  platform: arm64: Add Lenovo ThinkPad X13s EC driver
-  arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
+are available in the Git repository at:
 
+  git://git.kernel.org/pub/scm/linux/kernel/git/wufan/ipe.git
+tags/ipe-pr-20260925
+
+for you to fetch changes up to 2776e9c28513a1c855a94792b292cbcc533418c8:
+
+  ipe: protect the dm-verity root hash with RCU (2026-09-25 13:30:27 -0700)
+
+----------------------------------------------------------------
+ipe/stable-7.3 PR 20260925
+
+----------------------------------------------------------------
+Fan Wu (2):
+      ipe: fix use-after-free when auditing a newly loaded policy
+      ipe: protect the dm-verity root hash with RCU
+
+ security/ipe/eval.c      | 12 ++++++++----
+ security/ipe/eval.h      |  2 +-
+ security/ipe/fs.c        |  8 +++-----
+ security/ipe/hooks.c     | 22 +++++++++++++++++-----
+ security/ipe/policy_fs.c |  3 +++
+ 5 files changed, 32 insertions(+), 15 deletions(-)
