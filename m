@@ -1,64 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCFD38D407;
-	Fri, 25 Sep 2026 03:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93AF14A8B
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 03:30:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790306894; cv=none; b=Y8NNrw+ibiuAXHVPJNlW2M3yv4qUGi/VlcoXsdZagCwMyPKiNeTXxCQwQzV2TmZmhjQYEHXgqcU5AgfEPuVQu4G02bkHPWQjaUzwdO+Fd5AlhXz2RpcleoKJr07cz8YZoft4ZHbta0Ls9Eki2DvWJ23guIbCOCPwuWbbfKFKx+E=
+	t=1790307003; cv=none; b=Ax2jrD7KYpkm83D3HaiVcSqegu2jmqECgxLIKzSsf2uC/ZWk7hYEV7UnUAXZ5LFNjXWwASJIPxZ/bwVppvypyreDeIM9ooZyzwVMOsc01fInLACgBIME0CsiO3wYXGY4wohu7ym/Y6TK/0oBwtP8lHcufbBJLd5hFiwVFaB4ASU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790306894; c=relaxed/simple;
-	bh=ntsxCWg57E9sur+lf4IWnwAio4v//AuC6DM1pkmWLr0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JyDdSjiu1YOXj/unXnZqCsUqHRLqHXbCyKnqgwyhYEUcbW0V9eVK6qsBg6CKar/WA8UdkDvKeqnKHiCeuxbBIYk9P5+FNtWitmBn2jL9v+n1oSY9SThOv1wWfNITx1sL//3vN3hAMueBDMBD8AALxHZMo8KRXt7J5mSNfxU5tlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h0/ed/T/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790307003; c=relaxed/simple;
+	bh=XsGb0667CGK/hO2jQo+Q5ReRgUhJncq+3Rut1CJPR7g=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=sYMYNxdAOgJhCcA/xi/OJBzyTAMElxvQMyL/zXCq3Td9Y34V0PhWONflO+Ruvnz5P5HY+Q2mFnSe41CWqlHxzv8S/mUBmopFB2Cf97iSAWIxQv6H/dSmvspfaY8SW3ruYfe5RrIwDJbWOt/+Cefk5FkrAhpHrFEJY5euMA+8sr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Edo+nD5i; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h0/ed/T/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAAE21F000FF;
-	Fri, 25 Sep 2026 03:28:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790306891;
-	bh=wTB6cD4BGI4dRB4kG32zjFetlHYThjEVT4rOmUCX5Qs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=h0/ed/T/mez+W8d26QNcyayBBUItuLUCEVgC+U3uL9Qdy8nBztZbhXBsjt1K9VYTv
-	 65L8lD1p5lx7ITwsHDYe/5dURvVWBpgnsgCrzj2/Ssjpj/HYxr6aYWwwPB5Rt1zIzx
-	 DDzE+IuhvZrqgxyM4/20fAisnjKKe9Vv+k35K+/dS7zcggNQN8hZJPY7/h/ZDCUfgz
-	 GNaPR2ApA4FL80PrNp6RNGbL46CIH2A9wlYFgxmO9CoXNKSLWFqSrZWWVTxk8GrFT1
-	 +kfK7VTH4dOt8CipXIJFsyPrw1lIUcUrXQ9mvG9MRkHtxDXCA30bIm0413UTegYTn6
-	 11H686whGOyPw==
-Date: Fri, 25 Sep 2026 04:28:08 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Gustavo Silva
- <gustavograzs@gmail.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
- linux-iio@vger.kernel.org
-Subject: Re: [PATCH] iio: chemical: ens160: use regmap_assign_bits() for
- conditional set/clear
-Message-ID: <20260925042808.1e43e987@jic23-hlaptop>
-In-Reply-To: <arUx2r3swu5512Bd@ashevche-desk.local>
-References: <20260924083527.461864-1-peng.fan@oss.nxp.com>
-	<arUx2r3swu5512Bd@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Edo+nD5i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790307001; x=1821843001;
+  h=date:from:to:cc:subject:message-id;
+  bh=XsGb0667CGK/hO2jQo+Q5ReRgUhJncq+3Rut1CJPR7g=;
+  b=Edo+nD5i1EmfizCqPTWhAOCqZ0ZGwK72ReMiZ1+PzcG6ET30YT5zNZnb
+   1lt+h5dgGlAY8SqguV8nb03MlRr/CIFHQN69AmpL46t7rY4FRsHJHlFcs
+   ACQQ0tYi+4J5n4m23sD6GoMtOm3Q/9ElZNy7HQs7ToFrxjg3QAPr/LFA0
+   KICG5UaQuigrR9gRPZDeTxfGWoEdPfLkFUHG1zewuvVZOPeVI8kCKWNY9
+   r7Y10rTDEDeQCBUbvs4ukxBEw3WRiIzApK3tJxengRrINO9NwoX2nXUi9
+   1yxZOLnIxvEPL8s9MMUZmIh381oz1rd0abARmOTQhGuNMH5TUA3b43kDc
+   w==;
+X-CSE-ConnectionGUID: e18L1eTbSheWrUFU4H346g==
+X-CSE-MsgGUID: 4Ig4R+irQm2bjjg36GfTNw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101618237"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="101618237"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 20:30:01 -0700
+X-CSE-ConnectionGUID: XuxTWQwqSs+CQCGAuq8fLQ==
+X-CSE-MsgGUID: 868AKIu/QjKjcFPZNz7mCQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="272038635"
+Received: from igk-lkp-server01.igk.intel.com (HELO a88263cc608e) ([10.211.93.152])
+  by orviesa006.jf.intel.com with ESMTP; 24 Sep 2026 20:29:58 -0700
+Received: from kbuild by a88263cc608e with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x9wdH-000000000aE-3W1H;
+	Fri, 25 Sep 2026 03:29:55 +0000
+Date: Fri, 25 Sep 2026 05:29:28 +0200
+From: kernel test robot <lkp@intel.com>
+To: Roman Li <Roman.Li@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: 
+ drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c:1114
+ dcn42_clk_mgr_construct() warn: inconsistent indenting
+Message-ID: <202609250538.vnefIvSp-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Thu, 24 Sep 2026 17:21:14 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   165768bb70265b5c38cf0b73fafd75be235f8b14
+commit: 6b2dd7d37badd8bf076875397f9f39b494258ca7 drm/amd/display: Enable dcn42 DC
+date:   7 months ago
+config: i386-randconfig-r2201-20260923 (https://download.01.org/0day-ci/archive/20260925/202609250538.vnefIvSp-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+smatch: v0.5.0-9187-g5189e3fb
 
-> On Thu, Sep 24, 2026 at 04:35:26PM +0800, Peng Fan (OSS) wrote:
-> 
-> > Replace if/else block using regmap_set_bits()/regmap_clear_bits() with
-> > the simpler regmap_assign_bits() call.  
-> 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 6b2dd7d37bad ("drm/amd/display: Enable dcn42 DC")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609250538.vnefIvSp-lkp@intel.com/
 
-Applied.
+New smatch warnings:
+drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c:1114 dcn42_clk_mgr_construct() warn: inconsistent indenting
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:1060 dcn42_optimize_bandwidth() warn: inconsistent indenting
+
+Old smatch warnings:
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:279 dcn42_init_hw() error: we previously assumed 'dc->res_pool->funcs->update_bw_bounding_box' could be null (see line 274)
+drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn42/dcn42_hwseq.c:560 dcn42_program_rmcm_luts() warn: inconsistent indenting
+
+vim +1114 drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
+
+bd096a56da7cad Roman Li 2026-02-02  1077  
+bd096a56da7cad Roman Li 2026-02-02  1078  void dcn42_clk_mgr_construct(
+bd096a56da7cad Roman Li 2026-02-02  1079  		struct dc_context *ctx,
+bd096a56da7cad Roman Li 2026-02-02  1080  		struct clk_mgr_dcn42 *clk_mgr,
+bd096a56da7cad Roman Li 2026-02-02  1081  		struct pp_smu_funcs *pp_smu,
+bd096a56da7cad Roman Li 2026-02-02  1082  		struct dccg *dccg)
+bd096a56da7cad Roman Li 2026-02-02  1083  {
+bd096a56da7cad Roman Li 2026-02-02  1084  	clk_mgr->base.base.ctx = ctx;
+bd096a56da7cad Roman Li 2026-02-02  1085  	clk_mgr->base.base.funcs = &dcn42_funcs;
+bd096a56da7cad Roman Li 2026-02-02  1086  	clk_mgr->base.regs = &clk_mgr_regs_dcn42;
+bd096a56da7cad Roman Li 2026-02-02  1087  	clk_mgr->base.clk_mgr_shift = &clk_mgr_shift_dcn42;
+bd096a56da7cad Roman Li 2026-02-02  1088  	clk_mgr->base.clk_mgr_mask = &clk_mgr_mask_dcn42;
+bd096a56da7cad Roman Li 2026-02-02  1089  
+bd096a56da7cad Roman Li 2026-02-02  1090  	clk_mgr->base.pp_smu = pp_smu;
+bd096a56da7cad Roman Li 2026-02-02  1091  
+bd096a56da7cad Roman Li 2026-02-02  1092  	clk_mgr->base.dccg = dccg;
+bd096a56da7cad Roman Li 2026-02-02  1093  	clk_mgr->base.dfs_bypass_disp_clk = 0;
+bd096a56da7cad Roman Li 2026-02-02  1094  
+bd096a56da7cad Roman Li 2026-02-02  1095  	clk_mgr->base.dprefclk_ss_percentage = 0;
+bd096a56da7cad Roman Li 2026-02-02  1096  	clk_mgr->base.dprefclk_ss_divider = 1000;
+bd096a56da7cad Roman Li 2026-02-02  1097  	clk_mgr->base.ss_on_dprefclk = false;
+bd096a56da7cad Roman Li 2026-02-02  1098  	clk_mgr->base.dfs_ref_freq_khz = 48000; /*sync with pmfw*/
+bd096a56da7cad Roman Li 2026-02-02  1099  
+bd096a56da7cad Roman Li 2026-02-02  1100  	clk_mgr->smu_wm_set.wm_set = (struct dcn42_watermarks *)dm_helpers_allocate_gpu_mem(
+bd096a56da7cad Roman Li 2026-02-02  1101  				clk_mgr->base.base.ctx,
+bd096a56da7cad Roman Li 2026-02-02  1102  				DC_MEM_ALLOC_TYPE_GART,
+bd096a56da7cad Roman Li 2026-02-02  1103  				sizeof(struct dcn42_watermarks),
+bd096a56da7cad Roman Li 2026-02-02  1104  				&clk_mgr->smu_wm_set.mc_address.quad_part);
+bd096a56da7cad Roman Li 2026-02-02  1105  
+bd096a56da7cad Roman Li 2026-02-02  1106  	ASSERT(clk_mgr->smu_wm_set.wm_set);
+bd096a56da7cad Roman Li 2026-02-02  1107  
+bd096a56da7cad Roman Li 2026-02-02  1108  	/* Changed from DCN3.2_clock_frequency doc to match
+bd096a56da7cad Roman Li 2026-02-02  1109  	 * dcn32_dump_clk_registers from 4 * dentist_vco_freq_khz /
+bd096a56da7cad Roman Li 2026-02-02  1110  	 * dprefclk DID divider
+bd096a56da7cad Roman Li 2026-02-02  1111  	 */
+bd096a56da7cad Roman Li 2026-02-02  1112  	clk_mgr->base.base.dprefclk_khz = 600000;
+bd096a56da7cad Roman Li 2026-02-02  1113  
+bd096a56da7cad Roman Li 2026-02-02 @1114  		clk_mgr->base.smu_present = false;
+bd096a56da7cad Roman Li 2026-02-02  1115  
+bd096a56da7cad Roman Li 2026-02-02  1116  		if (ctx->dc_bios->integrated_info) {
+bd096a56da7cad Roman Li 2026-02-02  1117  			clk_mgr->base.base.dentist_vco_freq_khz = ctx->dc_bios->integrated_info->dentist_vco_freq;
+bd096a56da7cad Roman Li 2026-02-02  1118  
+bd096a56da7cad Roman Li 2026-02-02  1119  			if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType)
+bd096a56da7cad Roman Li 2026-02-02  1120  				dcn42_bw_params.wm_table = lpddr5_wm_table;
+bd096a56da7cad Roman Li 2026-02-02  1121  			else
+bd096a56da7cad Roman Li 2026-02-02  1122  				dcn42_bw_params.wm_table = ddr5_wm_table;
+bd096a56da7cad Roman Li 2026-02-02  1123  			dcn42_bw_params.vram_type = ctx->dc_bios->integrated_info->memory_type;
+bd096a56da7cad Roman Li 2026-02-02  1124  			dcn42_bw_params.dram_channel_width_bytes = ctx->dc_bios->integrated_info->memory_type == 0x22 ? 8 : 4;
+bd096a56da7cad Roman Li 2026-02-02  1125  			dcn42_bw_params.num_channels = ctx->dc_bios->integrated_info->ma_channel_number ? ctx->dc_bios->integrated_info->ma_channel_number : 4;
+bd096a56da7cad Roman Li 2026-02-02  1126  		}
+bd096a56da7cad Roman Li 2026-02-02  1127  		/* in case we don't get a value from the BIOS, use default */
+bd096a56da7cad Roman Li 2026-02-02  1128  		if (clk_mgr->base.base.dentist_vco_freq_khz == 0)
+bd096a56da7cad Roman Li 2026-02-02  1129  			clk_mgr->base.base.dentist_vco_freq_khz = 3000000; /* 3000MHz */
+bd096a56da7cad Roman Li 2026-02-02  1130  
+bd096a56da7cad Roman Li 2026-02-02  1131  		/* Saved clocks configured at boot for debug purposes */
+bd096a56da7cad Roman Li 2026-02-02  1132  		dcn42_dump_clk_registers(&clk_mgr->base.base.boot_snapshot, clk_mgr);
+bd096a56da7cad Roman Li 2026-02-02  1133  
+bd096a56da7cad Roman Li 2026-02-02  1134  	if (clk_mgr->base.smu_present)
+bd096a56da7cad Roman Li 2026-02-02  1135  		clk_mgr->base.base.dprefclk_khz = dcn42_smu_get_dprefclk(&clk_mgr->base);
+bd096a56da7cad Roman Li 2026-02-02  1136  	clk_mgr->base.base.clks.ref_dtbclk_khz = 600000;
+bd096a56da7cad Roman Li 2026-02-02  1137  	dce_clock_read_ss_info(&clk_mgr->base);
+bd096a56da7cad Roman Li 2026-02-02  1138  	/*when clk src is from FCH, it could have ss, same clock src as DPREF clk*/
+bd096a56da7cad Roman Li 2026-02-02  1139  
+bd096a56da7cad Roman Li 2026-02-02  1140  	dcn42_read_ss_info_from_lut(&clk_mgr->base);
+bd096a56da7cad Roman Li 2026-02-02  1141  
+bd096a56da7cad Roman Li 2026-02-02  1142  	clk_mgr->base.base.bw_params = &dcn42_bw_params;
+bd096a56da7cad Roman Li 2026-02-02  1143  }
+bd096a56da7cad Roman Li 2026-02-02  1144  
+
+:::::: The code at line 1114 was first introduced by commit
+:::::: bd096a56da7cad1c93c0138a64478b43f5a94736 drm/amd/display: Add dcn42 DC resources
+
+:::::: TO: Roman Li <Roman.Li@amd.com>
+:::::: CC: Alex Deucher <alexander.deucher@amd.com>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
