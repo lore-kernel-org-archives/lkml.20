@@ -1,326 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D33B37E5E1;
-	Fri, 25 Sep 2026 15:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EC2381E8C
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:03:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348580; cv=none; b=Er0vFsJFFDkDfYXNRPNRNxrdF8Y+KWagOGwO4uLBihI53mjPw0/26UuUfOADPev1TcBZ4yQ+gvVaYX/T0bT6t5WZIGgeDw/M9CfIpmskNXDw2BvQ4q9hmAqWG4hbIy+KMBIYF+VUAwsgfeXCCDjE4Mk19bqzYKivcYWZUZTS8nE=
+	t=1790348612; cv=none; b=DHigUD+ZQPivbS1oFUWkpu3w575fGtviyQfZT1HUArd0zrFkLOjQYgMbZCRkBg4jXmug13bwVXX3FAA0n9pL4nXs50/jBI2TCf4FEtl23IK4wkcDSx/QuT8/FzHy2Hp2d1MqVoF1N3sRfqCr7z1w4m9MLVf8QtfEqcJDKtNVJ6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348580; c=relaxed/simple;
-	bh=D+IvWrh3Xp3sts7ylIo0zH0HDPJr8QQjeGW8J16Yn28=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DBZhsbNM8jvv3lbLNC62OehEt8Y7zvU0+V3RBbu8vxm4s3LY7qlFsFGf2SSwll+gFKqRL5bdgEi5+ZXg3Lwe8ML9nxIupXBuOqnktj0ooNHl3H4CfIziCyeAxUcNU0TPLMC3jerg8O4FrCD95WLUGqqegbaQYb8qgJnZDOm0Gvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TAssOL+a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790348612; c=relaxed/simple;
+	bh=ZmPPJwHUko9FYnBNqzFjadYHd829bs4wtITnCpXH4Jc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AtSsut6cVKtxYGxAgGbSOa4veW/99tWbvDkCIunwLhPy95s9HyGEi3KaicVRUhNdAHu6+AYhEh9SI+LRlE2L6sHXEyAnIeh6Un13DuSYSkkllhDBoYulmJFy52pLh9dY86B+oZb2diRx27GLjDr0XNZ6NASbmVzvrtRMH/5UoU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h0AvOe/a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hepk9/Mq; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAssOL+a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45591F000FF;
-	Fri, 25 Sep 2026 15:02:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790348569;
-	bh=1Vz14WVxEZ+5HsZOE4US0Akac5iAXwZOcYLBCs8xszg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TAssOL+akFZjsCyWoQFw2I9XAnuQbmOzaSTy2rgSydBphyGNYQEpDoucXHHyzfsc8
-	 gWjptqyh/xCG1gu38M3pOkHofpVFUvUB+s2fPzRZTqrqc29R0Zv9wqY0D+gWaU0vjR
-	 JEDvmg5tlNKWUkmcxWDqaMI0IHrqMGvKphm6Wmx2OngD+JD17rO3FvgkcTapBlgS0o
-	 osrOCpJsrIOyvduqqXpgQWTP/ZtXlTT1kFzMl4gLDhA+wJrfYtrNAKA0/32YkHdzJh
-	 5QbgSpbEFQnAEilCvPGxkjtWL3dJEhQvQpAxTyecj01EliwP5xQlxO11YgFFb3utNg
-	 zkUstFF593+Gg==
-Date: Fri, 25 Sep 2026 17:02:43 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Andrew Halaney <andrew@amutable.com>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>
-Subject: Re: [PATCH v2 03/10] net: add SO_PASSPIDFD_THREAD to get a
- thread-specific SCM_PIDFD
-Message-ID: <20260925-nutzen-fachbegriff-bauhof-2e7dd6d47390@brauner>
-References: <20260909-work-unix-passpidfd-v2-0-7bd342abb2d1@kernel.org>
- <20260909-work-unix-passpidfd-v2-3-7bd342abb2d1@kernel.org>
- <CAAVpQUAK8uhZtO+oza3=5qfZvxy+RHFQd2AQ2y9FpWKbK5jgyg@mail.gmail.com>
- <arGuC7Kaml0N728m@toolbx>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h0AvOe/a";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hepk9/Mq"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PD8vV4289418
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:03:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZmPPJwHUko9FYnBNqzFjadYHd829bs4wtITnCpXH4Jc=; b=h0AvOe/a9dWJbUP4
+	ona6pb8Pkwg4EnpW5lblO4R3CV+S2Etp+jiL3JrMTpwBb/M6WjyAX1o0k+UBTXx7
+	6e8FWrepwZNvx43PqbCfBRGm3gEXMrgyfmdqPM9E6LajwWchW7IMlxDWFrTtVNcF
+	ukLCPuk9BRAgMxxWlIMMVzfxqo/6ZaRCbhg5jii00koOq43Jn7BodqrtwLYGLeN6
+	3e6UKAHUhQwm/bsfUOaXNdQ7yVtRNoK7ogfiMTldrwhiOrkLGh6rJKH097JwTtni
+	aHjgan48Yw6REMefCc6M/fU3qICaDXFeK133iTXWFEwWszehpzAqARwGmm7jg5mX
+	UoW8JA==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw881v2u8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 15:03:20 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a880e91f0so1362164b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 08:03:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790348599; x=1790953399; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZmPPJwHUko9FYnBNqzFjadYHd829bs4wtITnCpXH4Jc=;
+        b=hepk9/Mql1Pu+AZ4q2sBOQ8QBVHYxXrP0focFozY3+2BZcIj8QOO8fQFYGM/KbAZxW
+         MKGLuCVPM9qhKoiMT0Cplsy38uLVl+j2ANEtdJ3f55RY5PVguj1ycnoZ2bNn43jGuzfn
+         oYKZdGZXFomNLUqxhbYoQW/9/tEXHLb3nzcnQvL2K30eUKo8sqrU+HDaBEw0npIBSPm+
+         ov+izAGfeVpwsXYDvK5gJ9nfIIvqwhA0gBcjcOjGJFyW2YI2vZ2lLAfRIsuGO9vR8VaC
+         uXszJR+WaS/1QltAMypFAAbVpI/NBrSlER4UvdT0JioUnJa5eSrVw5AzQpxg/mUH+wTw
+         78DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790348599; x=1790953399;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZmPPJwHUko9FYnBNqzFjadYHd829bs4wtITnCpXH4Jc=;
+        b=KcovcG1vyohIpjNsMLFDwykZE2FTvZbvZBe+vCL1ykb/UjB5PJNLB1P2mlm1IKrzVP
+         y8sAz7IaF+XGMgl2NP4bv2PpEORbJxugeiPu8rRvaoZdjVRVGcKlPTitjXPRGpxnguUQ
+         dG7WhIl7ub81/TeMyOcSBFd98mCAa3YvxAe1IBmfrZPMLso7Htd2jZCP694bylZ8PKoT
+         GjwGU6CtWOliNcEpCS6NPKfiAqgb4oEketbaTiR8V04EEoqSwr1UTPka9myeLBZ1u6T0
+         McoepRNhpvM5es7nEUbYHQ36THPGiDKvwrn2VdldzsVXm9VxxXYhniyaFXX0yCkjpDmn
+         emJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxqKyjnoAaF8/dNfKw0Keogy24IpmurjCZkBHoLlsyDVdC8EV8YAWa6VV1iRRY1iuQitpi+ZxR7Op4Jq84=@vger.kernel.org
+X-Gm-Message-State: AFuF++koVVmhlgHJYKhdc51y6SFmeQ4iEx3LPv600XuZQF+zWraFRuM/
+	CY3gDG4IpyCSgLUS6ip+0/kdGSAsGUaloX96+VI5pcNnAm8rsARagkLdhuVu0yF56H3IzvP6v6m
+	nS7Jw62GkF4rklVK550r3og761rK8nvw0SI6yJwPfVoXQQqnQcPQke6muLYSr0BCarIeNA3tjej
+	M=
+X-Gm-Gg: AYBFou3pvshIHm6/3bSxqHhM5TPyKPHk3TXS9lccE17fQg+tMUXAPrnEuty5CMafsOC
+	+qngoE9xIu7HvlFamkYFAmM0jC/nry653820pE5nsPsiDVN9b3KCzWhoFhHJSUYcwdIkMlYDUpo
+	qPl1SN10eWqrm1SQ2sBla9Ubc5M4CQsxqdt/VqiLPupTjNKYJLW2TKrV868SXsCRK/rAK2WM8hM
+	AyvqfJDhJ86qIO2+iLHuv7OPt7SGXpInwZDL/Twe1dHWIvH4FXhen2YBODE6ydHjwRW+xmdFye3
+	gEyhLnQKZSrNcoNKRwUsOgnw4SUYElaOQxdjSaBdfH8cuceiihjMV8xA8FgbZYbQOd4fHxzmJWv
+	akEAfntsJkURkbTYzrzpeyLiSLGf9mVqrtv3AlUll0edKBey9Sf9qV+mvUrXu
+X-Received: by 2002:a05:6a00:2283:b0:86b:43f6:67b7 with SMTP id d2e1a72fcca58-87e9898de76mr4761000b3a.4.1790348598929;
+        Fri, 25 Sep 2026 08:03:18 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2283:b0:86b:43f6:67b7 with SMTP id d2e1a72fcca58-87e9898de76mr4760950b3a.4.1790348598304;
+        Fri, 25 Sep 2026 08:03:18 -0700 (PDT)
+Received: from [10.227.105.111] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feb583422sm1324979b3a.50.2026.09.25.08.03.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 08:03:17 -0700 (PDT)
+Message-ID: <3ea7e9ab-ed3a-4e6a-9006-b6f6af51c1fd@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 08:03:16 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <arGuC7Kaml0N728m@toolbx>
+User-Agent: Mozilla Thunderbird
+Subject: Re: ath11k: Question about active scanning of DFS channels
+To: Alexander Wilhelm <alexander.wilhelm@westermo.com>,
+        Jeff Johnson <jjohnson@kernel.org>, Jouni Malinen <j@w1.fi>
+Cc: ath11k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        hostap@lists.infradead.org
+References: <arZ-gEnmv0QyuGI0@FUE-ALEWI-WINX>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <arZ-gEnmv0QyuGI0@FUE-ALEWI-WINX>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=TptzFzXh c=1 sm=1 tr=0 ts=6ab68d38 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=ePHqwv-1doYRykRbqMUA:9 a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1OSBTYWx0ZWRfX3qMJLTCwKn2I
+ VtceoYIOUnWmAFKtMIMRbOFsP11wozCzrBpki/FDRHXsqZ2ZDyVswP27Dotc3xDL00uWigvQiwL
+ zjbiN+uRfJpX4RLSFjqPl6aVPKydPeE8OJUTH3vaCQ8ZOq54/1dHLBd1AF5MA6Bh8kW7cztgJlN
+ WoDo0KuojvII6/tMy1s9a+FpsY/U97DDLG3pT21/lKKnXNOx/CSKGn3Ik6chjjVY/9Dv89WQBg2
+ d6xq0j/L2DLr0KBwZpFEEGVM796RUZUKQAxAXF/5jIEOkboJ5rzRKpTYRlP1ez/Dys7jS8hD05B
+ UYBIOSaf86qwPA+8AyX2FJGUbhUH2KyR9UE/brF+IcUOyX10/6FqYEevrQC2pGTMaCESRrX+TYL
+ RaOWehZrBfCFFY26cmIaaa0X6wGpET8ja+GkLO8KwVRTwkpD63zGSgbwDV+2nsi2TdyVRJaSjTA
+ GJ6WJh+vPfXIjivqNuQ==
+X-Proofpoint-ORIG-GUID: cgPvFaHTG3nG-wNzhCpQQ0HOOx2Bm-Sc
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1OSBTYWx0ZWRfX22yERoUMyL+v
+ KhCQ+OGK5lgHLdfpj6nsjPcGOUwDae5UHuV3f4VaioIabU8wK+2urNfs6Art/ih8122P8XssE6z
+ 2X6O3e/Skggp2aEJMLho+7mKWmmqKsE=
+X-Proofpoint-GUID: cgPvFaHTG3nG-wNzhCpQQ0HOOx2Bm-Sc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250059
 
-On Mon, Sep 21, 2026 at 05:25:34PM -0500, Andrew Halaney wrote:
-> On Wed, Sep 09, 2026 at 10:24:47PM -0700, Kuniyuki Iwashima wrote:
-> > On Wed, Sep 9, 2026 at 3:43 AM Christian Brauner <brauner@kernel.org> wrote:
-> > >
-> > > Currently, SCM_PIDFD carries a pidfd for the thread-group leader. A
-> > > broker or the coredump server cannot learn the identity of the specific
-> > > thread that sent a given message. Now that both struct pids are recorded
-> > > a receiver can ask for the specific identity it needs.
-> > >
-> > > So add SO_PASSPIDFD_THREAD as a sibling of SO_PASSPIDFD. Either option
-> > > makes recvmsg() deliver an SCM_PIDFD. SO_PASSPIDFD sends a pidfd for the
-> > > thread-group leader and SO_PASSPIDFD_THREAD sends a pidfd for the
-> > > specific thread.
-> > >
-> > > The two options are mutually exclusive. Enabling one switches the other
-> > > off, so getsockopt() always reports which of the two is active.
-> > >
-> > > On SOCK_STREAM sockets recvmsg() only stops merging data at a thread
-> > > boundary when the receiver asked for a thread pidfd. For SO_PASSCRED and
-> > > SO_PASSPIDFD receivers all threads of one process remain a single
-> > > writer.
-> > >
-> > > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> > > ---
-> > >  arch/alpha/include/uapi/asm/socket.h  |  2 ++
-> > >  arch/mips/include/uapi/asm/socket.h   |  2 ++
-> > >  arch/parisc/include/uapi/asm/socket.h |  2 ++
-> > >  arch/sparc/include/uapi/asm/socket.h  |  2 ++
-> > >  include/net/sock.h                    | 10 +++++++++-
-> > >  include/uapi/asm-generic/socket.h     |  2 ++
-> > >  net/core/scm.c                        | 19 +++++++++++++------
-> > >  net/core/sock.c                       | 26 ++++++++++++++++++++++++--
-> > >  net/unix/af_unix.c                    | 11 ++++++++---
-> > >  9 files changed, 64 insertions(+), 12 deletions(-)
-> > >
-> > > diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/uapi/asm/socket.h
-> > > index 946a5fad2691..bb3d534826bb 100644
-> > > --- a/arch/alpha/include/uapi/asm/socket.h
-> > > +++ b/arch/alpha/include/uapi/asm/socket.h
-> > > @@ -157,6 +157,8 @@
-> > >
-> > >  #define SO_RIGHTS_NOTRUNC      85
-> > >
-> > > +#define SO_PASSPIDFD_THREAD    86
-> > > +
-> > >  #if !defined(__KERNEL__)
-> > >
-> > >  #if __BITS_PER_LONG == 64
-> > > diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi/asm/socket.h
-> > > index f1641dde135f..269badcaa086 100644
-> > > --- a/arch/mips/include/uapi/asm/socket.h
-> > > +++ b/arch/mips/include/uapi/asm/socket.h
-> > > @@ -168,6 +168,8 @@
-> > >
-> > >  #define SO_RIGHTS_NOTRUNC      85
-> > >
-> > > +#define SO_PASSPIDFD_THREAD    86
-> > > +
-> > >  #if !defined(__KERNEL__)
-> > >
-> > >  #if __BITS_PER_LONG == 64
-> > > diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/uapi/asm/socket.h
-> > > index f3a3815c7dc2..313aee10a52c 100644
-> > > --- a/arch/parisc/include/uapi/asm/socket.h
-> > > +++ b/arch/parisc/include/uapi/asm/socket.h
-> > > @@ -149,6 +149,8 @@
-> > >
-> > >  #define SO_RIGHTS_NOTRUNC      0x4053
-> > >
-> > > +#define SO_PASSPIDFD_THREAD    0x4054
-> > > +
-> > >  #if !defined(__KERNEL__)
-> > >
-> > >  #if __BITS_PER_LONG == 64
-> > > diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/uapi/asm/socket.h
-> > > index 7907f3b1f0ee..bd3e69bcce7a 100644
-> > > --- a/arch/sparc/include/uapi/asm/socket.h
-> > > +++ b/arch/sparc/include/uapi/asm/socket.h
-> > > @@ -150,6 +150,8 @@
-> > >
-> > >  #define SO_RIGHTS_NOTRUNC        0x005e
-> > >
-> > > +#define SO_PASSPIDFD_THREAD      0x005f
-> > > +
-> > >  #if !defined(__KERNEL__)
-> > >
-> > >
-> > > diff --git a/include/net/sock.h b/include/net/sock.h
-> > > index 51185222aac2..fc09c92e8a83 100644
-> > > --- a/include/net/sock.h
-> > > +++ b/include/net/sock.h
-> > > @@ -356,6 +356,7 @@ struct sk_filter;
-> > >    *    @sk_scm_security: flagged by SO_PASSSEC to recv SCM_SECURITY
-> > >    *    @sk_scm_pidfd: flagged by SO_PASSPIDFD to recv SCM_PIDFD
-> > >    *    @sk_scm_rights: flagged by SO_PASSRIGHTS to recv SCM_RIGHTS
-> > > +  *    @sk_scm_pidfd_thread: flagged by SO_PASSPIDFD_THREAD to recv a thread SCM_PIDFD
-> > >    *    @sk_scm_unused: unused flags for scm_recv()
-> > >    *    @ns_tracker: tracker for netns reference
-> > >    *    @sk_user_frags: xarray of pages the user is holding a reference on.
-> > > @@ -562,7 +563,8 @@ struct sock {
-> > >                                 sk_scm_security : 1,
-> > >                                 sk_scm_pidfd : 1,
-> > >                                 sk_scm_rights : 1,
-> > > -                               sk_scm_unused : 4;
-> > > +                               sk_scm_pidfd_thread : 1,
-> > > +                               sk_scm_unused : 3;
-> > >                 };
-> > >         };
-> > >         u8                      sk_clockid;
-> > > @@ -2986,6 +2988,12 @@ static inline bool sk_is_stream_unix(const struct sock *sk)
-> > >         return sk_is_unix(sk) && sk->sk_type == SOCK_STREAM;
-> > >  }
-> > >
-> > > +/* SO_PASSPIDFD or SO_PASSPIDFD_THREAD asked for an SCM_PIDFD. */
-> > > +static inline bool sk_scm_pidfd_wanted(const struct sock *sk)
-> > > +{
-> > > +       return sk->sk_scm_pidfd || sk->sk_scm_pidfd_thread;
-> > > +}
-> > > +
-> > >  static inline bool sk_is_vsock(const struct sock *sk)
-> > >  {
-> > >         return sk->sk_family == AF_VSOCK;
-> > > diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic/socket.h
-> > > index 84ea7b92936e..d1e5c6de146d 100644
-> > > --- a/include/uapi/asm-generic/socket.h
-> > > +++ b/include/uapi/asm-generic/socket.h
-> > > @@ -152,6 +152,8 @@
-> > >
-> > >  #define SO_RIGHTS_NOTRUNC      85
-> > >
-> > > +#define SO_PASSPIDFD_THREAD    86
-> > > +
-> > >  #if !defined(__KERNEL__)
-> > >
-> > >  #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
-> > > diff --git a/net/core/scm.c b/net/core/scm.c
-> > > index 9b9e119c353a..d69768414af4 100644
-> > > --- a/net/core/scm.c
-> > > +++ b/net/core/scm.c
-> > > @@ -499,9 +499,13 @@ static bool scm_has_secdata(struct sock *sk)
-> > >  }
-> > >  #endif
-> > >
-> > > -static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
-> > > +static void scm_pidfd_recv(struct sock *sk, struct msghdr *msg,
-> > > +                          struct scm_cookie *scm)
-> > >  {
-> > > +       enum pid_type type = sk->sk_scm_pidfd_thread ? PIDTYPE_PID : PIDTYPE_TGID;
-> > > +       struct pid *pid = scm->pid[type];
-> > >         struct file *pidfd_file = NULL;
-> > > +       unsigned int flags = PIDFD_STALE;
-> > 
-> > nit: Please keep the reverse xmas tree order.
-> > 
-> > 
-> > >         int len, pidfd;
-> > >
-> > >         /* put_cmsg() doesn't return an error if CMSG is truncated,
-> > > @@ -517,10 +521,13 @@ static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
-> > >                 return;
-> > >         }
-> > >
-> > > -       if (!scm->pid[PIDTYPE_TGID])
-> > > +       if (!pid)
-> > >                 return;
-> > >
-> > > -       pidfd = pidfd_prepare(scm->pid[PIDTYPE_TGID], PIDFD_STALE, &pidfd_file);
-> > > +       if (type == PIDTYPE_PID)
-> > > +               flags |= PIDFD_THREAD;
-> > 
-> > I'm wondering how this flag can be useful.
-> > 
-> > I thought this should be
-> > 
-> >   if (pid_has_task(pid, PIDTYPE_TGID))
-> >     flags |= PIDFD_THREAD;
-> > 
-> > because when the sender sends TGID, this flag is set even though
-> > it is a thread leader.
-> > 
-> > It seems PIDFD_THREAD is just feedback of whether the
-> > receiver has set SO_PASSPIDFD or _THREAD, which the
-> > application should already know.
-> > 
-> 
-> Isn't this flag necessary to indicate how to handle signals? i.e. its acting like
-> PIDFD_THREAD acquired pidfds defaulting to pidfd_send_signal() with
-> PIDFD_SIGNAL_THREAD. userspace can even read that back with fcntl() so
-> if you were to pass the pidfd around with SCM_RIGHTS, etc the other end knows
-> what type of pidfd they've gotten.
-> 
-> > 
-> > > +
-> > > +       pidfd = pidfd_prepare(pid, flags, &pidfd_file);
-> > >
-> > >         if (put_cmsg(msg, SOL_SOCKET, SCM_PIDFD, sizeof(int), &pidfd)) {
-> > >                 if (pidfd_file) {
-> > > @@ -539,7 +546,7 @@ static bool __scm_recv_common(struct sock *sk, struct msghdr *msg,
-> > >                               struct scm_cookie *scm, int flags)
-> > >  {
-> > >         if (!msg->msg_control) {
-> > > -               if (sk->sk_scm_credentials || sk->sk_scm_pidfd ||
-> > > +               if (sk->sk_scm_credentials || sk_scm_pidfd_wanted(sk) ||
-> > >                     scm->fp || scm_has_secdata(sk))
-> > >                         msg->msg_flags |= MSG_CTRUNC;
-> > >
-> > > @@ -586,8 +593,8 @@ void scm_recv_unix(struct socket *sock, struct msghdr *msg,
-> > >                 scm_detach_fds(msg, scm, READ_ONCE(u->scm_rights_notrunc));
-> > >         }
-> > >
-> > > -       if (sock->sk->sk_scm_pidfd)
-> > > -               scm_pidfd_recv(msg, scm);
-> > > +       if (sk_scm_pidfd_wanted(sock->sk))
-> > > +               scm_pidfd_recv(sock->sk, msg, scm);
-> > >
-> > >         scm_destroy_cred(scm);
-> > >  }
-> > > diff --git a/net/core/sock.c b/net/core/sock.c
-> > > index 1ad41904db25..f9615b0de10e 100644
-> > > --- a/net/core/sock.c
-> > > +++ b/net/core/sock.c
-> > > @@ -1571,10 +1571,25 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
-> > >                 break;
-> > >
-> > >         case SO_PASSPIDFD:
-> > > -               if (sk_is_unix(sk))
-> > > +               if (sk_is_unix(sk)) {
-> > > +                       /* Mutually exclusive with SO_PASSPIDFD_THREAD. */
-> > >                         sk->sk_scm_pidfd = valbool;
-> > > -               else
-> > > +                       if (valbool)
-> > > +                               sk->sk_scm_pidfd_thread = 0;
-> > > +               } else {
-> > > +                       ret = -EOPNOTSUPP;
-> > > +               }
-> > > +               break;
-> > > +
-> > > +       case SO_PASSPIDFD_THREAD:
-> > 
-> > If SO_PASSPIDFD had boolean check, it would have been possible
-> > to reuse SO_PASSPIDFD==2 as SO_PASSPIDFD_THREAD.
-> > 
-> > Given two options are mutually exclusive here, I think it's cleaner
-> > to have u32 SO_PASSPIDFD_OPTIONS or something, which can
-> > store 32 flags for future extension.
-> > 
-> > #define SO_PASSPIDFD_OPTION 86
-> > #define SO_PASSPIDFD_THREAD 1
-> > 
-> > Then, sk_scm_pidfd_thread will be used in unix_skb_scm_eq()
-> > and scm_pidfd_recv() only.
-> 
-> 
-> Are they really mutually exclusive? I could see a world where
-> maybe you want both set. If we do treat it as exclusive is it
-> a last option wins sort of thing?
-> 
-> i.e.:
-> 
->     1. set SO_PASSPIDFD
->     2. set SO_PASSPIDFD_OPTION with SO_PASSPIDFD_THREAD
-> 
-> does that just result in a SCM_PIDFD related to the thread?
-> and then if we do a SO_PASSPIDFD_OPTION with 0, does that
-> just stop sending the cmsg at all (or does it go back to SO_PASSPIDFD)?
-> 
-> To me it would be kind of nice if they were unique / independent,
-> i.e. if you did the above you'd get SCM_PIDFD and SCM_PIDFD_THREAD type as well
+On 9/25/2026 7:00 AM, Alexander Wilhelm wrote:
+> Based on my research, DFS channels cannot be scanned passively, so I used a
+> sniffer to verify that the "directed" probe requests with given SSID were
+> actually being transmitted.
 
-I agree that's the nicer model!
+In general that isn't correct.
+
+For starters, everything related to DFS is gated by regulatory rules. So the
+operation of the client device first depends upon whether it is configured for
+operation in a given country, or if it is configured for World Mode.
+
+If configured for World Mode, then initially DFS channels can only be scanned
+passively. A client device in World Mode must not transmit on a DFS channel
+unless under the control of a master device. To do otherwise violates
+regulatory rules in many countries. So the normal process is to perform
+passive scan on DFS channels and process Country elements in Beacon frames in
+order to determine the country in which the client is operating (aka perform
+an 802.11d scan). Then the client can switch from World behavior to
+country-specific behavior.
+
+But even when operating in country-specific mode, whether by the initial
+configuration or by processing Country elements, a client cannot transmit on a
+DFS channel unless it is under control of a master device. If a client
+receives a beacon on a DFS channel, then that channel is considered to be
+under control of the master device that sent the beacon, and only at that
+point can a client device actively probe/authenticate/associate.
+
+Further complicating the issue is that some regulatory bodies have rules that
+govern under what conditions Country elements can be used to determine the
+current operating country. In particular, the FCC has rules which require a
+device to maintain all FCC restrictions unless multiple criteria are met (I
+don't remember the exact rules but seem to remember that at a minimum there
+cannot be any master devices sending beacons with US Country elements and
+there must be multiple master devices sending beacons with the same non-US
+Country element before the device can be consider to be located in that non-US
+country.
+
+/jeff
