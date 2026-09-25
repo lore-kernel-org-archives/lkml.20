@@ -1,84 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243194FB9B8
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F784FB9BC;
+	Fri, 25 Sep 2026 21:16:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790370970; cv=none; b=Wf64Q1QrB9RYSOdxCpmP2lpPC7bc8wCK47f7/lSL0shMo4geaeWqbKzigtiGiuy96vn9fREE894ZRhjPrpa5lcEMsSdmwcowk+HcpjVYm6gSZNoOFCZCBQyHx0XjngWW5hWewv+wfpCq12B/0vboEvaZkSI54gWL/+awoiM1XXQ=
+	t=1790370997; cv=none; b=JZsCAXpqQGGVqgu6kUtwTCZMhEPS+yaFn3Q1rRitPkF4sIGIbClICe0VGjjdrRdicjlhVQkhgRe4cGjiIJQn7yEbuPvWRh3WdhR7irV73s9FJ4GAC7xAAHo2MVDIXz0x+jkYVHN4Bv1ENv1z0FapsMgb9EGpuomzzJ+DbFulC+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790370970; c=relaxed/simple;
-	bh=IiOuPbtnCcIY+LvqnlYO+tAjpv2SzZg8BQjeknfXbdc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oOtdO05jNJ+c3aJMxKf33sX8VzZRrGO1PvqEk4uVWkxSeZ49tS/VJsQvYMlKvYjYBLHAuZdGtPgOwgAk/UdWlN7FEJA7nf14f7+zUK5nfZFqfs1D3NjFojoIweebXw1luyZSVKFicHnfILyvOHKKEt3sTaTAnWwOTuTKSwhUx78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TdyNDN3G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790370997; c=relaxed/simple;
+	bh=GI/d9/oH5DJNiFiuZOnJXcMZNNvA/Gob8NoXCPf5QLU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=k0dSr1AX0x7ZKcxdUSNMtNhLHsEschcI3wnM2EvJqi3fih6B6qBtzHHdjJk7JL5v5BPamxD3zd0Jr8akLqTyIoyzYvuLbBJwwkq3Cg8QEslIqkTGvl2OnkWq2e5pW9jBGS29Q1lVpA8nnqi4Oe71ayJQc5FH//JKn9/7xYafwmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pfJEM9nL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TdyNDN3G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4BB31F008A0
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:16:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790370968;
-	bh=o7vv2zCnn+8YFHVHlCAGyM9+OpN94jh7Pzu1l+wtiw0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TdyNDN3G70qnR90wz9poIu0G3/yuYQ2Og3m0yLnaVSDlUswTRq9W4a0vGyiZ1jRAk
-	 pWgltJ87NiUOJR3liXOk0uX9GXKhWY8ejJkk9VA6SZVZnb5lo+MMBdAPVgpCA0u77T
-	 1rUavcxAvXe7OonnMHM3PYzctZCNiXdI9RM7gtkcXZljk0YcBlno827Tt4k5V4uLjX
-	 hiccwL69s0XCS6sw1W5sYmidXGKw/+o8suurGtmQDa/5E1XrASKng99N9iQq5/V/P2
-	 nazgmd2Pohgq2fpwQnR6V384oMkPWXW1g6hgTyEJ2B9NZ3oGok1i9DqaDSlMRg8y3S
-	 bYA5p6+tn0p0Q==
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7dbfso154431866b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:16:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwphBRhlHeH4/gBdSNR1tj6XbmytsT/2Fu3P0LXl/0j9wtRlGEIUD3nwrY/x741whJPhC6U4ytF7U5uduY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXdn4uYh+4GarPCo80JTPDUbaw8Q7Tf47x9QY1+CLkjLPyaY0I
-	qFKwlIumi4Wgd8Kuy+s8fNgA8iBV+mdlFGcus6sGWgrtEKgAXVR5c3HtomZ9TLvG5yiSF6MrAEg
-	1RKkk3Irxhn+iJzJDrhbr15/yMAq66A==
-X-Received: by 2002:a17:907:a68b:b0:c29:6400:ef8e with SMTP id
- a640c23a62f3a-c2ac262e026mr623148866b.42.1790370967328; Fri, 25 Sep 2026
- 14:16:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pfJEM9nL"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4CEF3C2BCFC;
+	Fri, 25 Sep 2026 21:16:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790370997;
+	bh=GI/d9/oH5DJNiFiuZOnJXcMZNNvA/Gob8NoXCPf5QLU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=pfJEM9nLKdWZXZv2trRmJEngIEX+mSVXqb9xqBotKgZRqZGUTQANfJTa2uzTLQ+Te
+	 GZq97F3/PtFIS6ITqgbZb71dibrKl/Ab0GLwtH2SycQK15Ck7PL70w1ltTAy1DMkKo
+	 FXD8b+mitlCOkkIpAOItY3lp7whyEXWjZlOf2H7OxNoclY8TXa0//J+zxa1i3AqX31
+	 1j4N+fOHd9K8rHxcVs7BiajlMyXXbcB67dhk6HldT1jSw7X52WT85RHvTUdYCy1UrR
+	 MOMimizWeXcQjFayN1KrOKsfdbWHqqBKlG1GXdQamh0DcuonmKqbiOfqbY4h1sU4KX
+	 hJ2bXHbaJfccw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33DE4C9832C;
+	Fri, 25 Sep 2026 21:16:37 +0000 (UTC)
+From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
+Date: Fri, 25 Sep 2026 15:16:38 -0600
+Subject: [PATCH v5 3/3] kallsyms: Unroll 24-bit sequence reconstruction in
+ get_symbol_seq()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923211312.3793073-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20260923211312.3793073-1-Frank.Li@oss.nxp.com>
-From: Rob Herring <robh@kernel.org>
-Date: Fri, 25 Sep 2026 16:15:55 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLKjc2KVbnj=Tyq2Vk_KRV-M3REv3TvwfA_D2R8CU91vg@mail.gmail.com>
-X-Gm-Features: AclHuK-zZXzRBN60UkCEC4cL7VJx068Csh0ck7YdxPUbq_OiVD3z-aiLcwOJiIg
-Message-ID: <CAL_JsqLKjc2KVbnj=Tyq2Vk_KRV-M3REv3TvwfA_D2R8CU91vg@mail.gmail.com>
-Subject: Re: [PATCH 1/1] arm64: dts: imx8mn-solidsense-n8-compact: drop
- undocumented adi,led-polarity
-To: Frank.Li@oss.nxp.com
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
-	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>, 
-	"moderated list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>, Josua Mayer <josua@solid-run.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-ksyms-tune-v5-3-1f75ad0c321c@gmail.com>
+References: <20260925-ksyms-tune-v5-0-1f75ad0c321c@gmail.com>
+In-Reply-To: <20260925-ksyms-tune-v5-0-1f75ad0c321c@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
+ David Laight <david.laight.linux@gmail.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, Jiri Olsa <olsajiri@gmail.com>, 
+ linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+ bpf@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790370996; l=1647;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=LVYPylbZu3M6VrXkQZcoyGu2621tAs/rWNxgexduWm0=;
+ b=bSolZ+xGo7YGVyE/3Cc+G5drg3brNK2iYeolVWvKMXXI2CAqLCidykIGWr5i46jOAhTuIs6OA
+ KhazXZcFQ1mDR5TPuzNNE+OE1QA9MUIkT3Dfl335jc9Y8TExPKVlrUe
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
+ auth_id=958
+X-Original-From: Jim Cromie <jim.cromie@gmail.com>
+Reply-To: jim.cromie@gmail.com
 
-On Wed, Sep 23, 2026 at 4:13=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
->
-> From: Frank Li <Frank.Li@nxp.com>
->
-> Drop undocument property adi,led-polarity and adi,link-st-polarity.
-> ethernet-phy@0 status is disabled and no in tree overlay file to enable i=
-t.
->
-> Fixed below DTB_CHECK warnings:
->   arch/arm64/boot/dts/freescale/imx8mn-solidsense-n8-compact.dtb: etherne=
-t-phy@0: adi,led-polarity: b'\x00\x00\x00\x01' is not of type 'object', 'in=
-teger', 'array', 'boolean', 'null'
->
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
-> cc: Josua Mayer <josua@solid-run.com>
-> ---
->  arch/arm64/boot/dts/freescale/imx8mn-solidsense-n8-compact.dts | 2 --
->  1 file changed, 2 deletions(-)
+From: Jim Cromie <jim.cromie@gmail.com>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+kallsyms_seqs_of_names[] stores 3-byte big-endian sequence indices that
+map alphabetical symbol positions to address-ordered symbol records.
+Currently, get_symbol_seq() reconstructs each 24-bit integer using a
+3-iteration for-loop that shifts and bitwise-ORs each byte sequentially.
+During binary search in kallsyms_lookup_names() and duplicate boundary
+scans, this loop introduces branch and loop overhead on the hot lookup
+path.
+
+Mark get_symbol_seq() as static inline and unroll the 3-byte extraction
+into direct byte shifts: (p[0] << 16) | (p[1] << 8) | p[2]. This
+eliminates loop induction variable maintenance and allows the compiler
+to generate direct loads and constant shifts.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+Changes in v3:
+- Added as a standalone micro-optimization patch (addresses David
+  Laight review).
+---
+ kernel/kallsyms.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
+index 91ced7aa797e..52e41879c24b 100644
+--- a/kernel/kallsyms.c
++++ b/kernel/kallsyms.c
+@@ -185,14 +185,11 @@ unsigned long kallsyms_sym_address(int idx)
+ 	return (unsigned long)offset_to_ptr(kallsyms_offsets + idx);
+ }
+ 
+-static unsigned int get_symbol_seq(int index)
++static inline unsigned int get_symbol_seq(int index)
+ {
+-	unsigned int i, seq = 0;
++	const u8 *p = &kallsyms_seqs_of_names[3 * index];
+ 
+-	for (i = 0; i < 3; i++)
+-		seq = (seq << 8) | kallsyms_seqs_of_names[3 * index + i];
+-
+-	return seq;
++	return (p[0] << 16) | (p[1] << 8) | p[2];
+ }
+ 
+ static int kallsyms_lookup_names(const char *name,
+
+-- 
+2.55.0
+
+
