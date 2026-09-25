@@ -1,148 +1,131 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99988347536
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4692F3C0E;
+	Fri, 25 Sep 2026 13:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342222; cv=none; b=JgSJ3un8y0wcPqOTqVXW62nZfEqer2aG9E/sVeJBsAKkBs9zlv6cDBvzjaEjQeLjMTvFMFC3+UCWmOasLsllNpDF4bpWxNCC2+a1kA4Tu0ZX1HwDBYThosvAAZtwlpMTi1viWIvSKfZmU0ze3shwt5KA3HMmUzTz/d33dKDVglQ=
+	t=1790342223; cv=none; b=JhwXusmQ8XxIRc+cUiIntzoH8tLfHo2mCyV9WzlPLqeugSUCHHTEsXWzEchCsxshphF/AQJBLVp1VA9tHLe9XrhNb08eLK9limdQEMnLbodmIch3QgZfsI/pgzZHJ4C44lGKR4dDqAk0ujFJlwGFM2aMw1mAQM1gdE5BA7fYx20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342222; c=relaxed/simple;
-	bh=B712JoRcyFoMSbKBervxh9wr2vYX17tgUo12dg0bdxU=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=BYClPeG2rl/6bXBFBfySiZzqAfAzrdjUgwD2a9GAZu0NIGoXyVt000DoCzqleydkTPt5NF2I7wh04H2tHL2GAdXp2aUkb+a5fMRyhx0J5uIiJC3asWZBo1dVZmVaAhT3YLDVU8vHum/QnnEugoqFOYLAmzOR+SKLgNvOG4t2bUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EEdwpLgm; arc=none smtp.client-ip=209.85.221.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com
+	s=arc-20240116; t=1790342223; c=relaxed/simple;
+	bh=TYkMkmVIpU2J6lpj/XgmAtr/c8Mw8Mn0fdmAzNuAo1Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RlhfyDR3XzijXBq6p/7fe5ugtFtKTde/k5dEU/9x4a2SZq6IoXznlYpC62iBsy52UO/AcIotK9fVopr5Uy1iKvSkEhMbYcUkS4cfN9aiGrWKWkY9DZ2PYcgpYFyC1NglSG7H9fvkg69zUiYLElUaBAv4ECipCl6YGFupHwsbD5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jd6Rd12S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EEdwpLgm"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48704504d61so233025f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 06:16:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790342215; x=1790947015; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pnYktdoDVBCojJdRzjgQ4AeYDMFgB+nPtv1aQqwR7fk=;
-        b=EEdwpLgmW1TI/qAsXI+mB7zlUcUKVJdeBvARQOGPBT9yVJdpJVzaI1YvFNskiGbrW+
-         CDdHot/vo3trLX+zoX+RVpWX71den6Y9afbbZ8IyMm363C4d6m95MjTdmH9/BoXw+7jC
-         SymnzR3jrQUc65g+13AjdqJSVvhFMlxqUYDQdfi3K6F6aUKYDLuJWGJ/UevChQcRRAcF
-         n/aKfXjLEmk221whwHB0b7ysINXnwziz/tVvTH+wR/KTjTT7Ude8omu3waKsWHuW4BSN
-         Hm/lGgdKE9Eq9SnJ8fBFzFsg7U58+I9KWUJg16633tv/0tOkBohwQRjZePXGV680iaJu
-         VVKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790342215; x=1790947015;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pnYktdoDVBCojJdRzjgQ4AeYDMFgB+nPtv1aQqwR7fk=;
-        b=EWUTAVnyxcYLnR8c9qaZaT3PZT+mbtmCrzh3UuwAmQOEqgDVakixRXdyJKgIyb/JX6
-         HA7d1R+R5YlSRNfPp+8Oyp9ascvBXYm2sRP79V0C3BX7coyD7bAPXzyTsHrY8ju6KYKG
-         SPtsx3a81/UXALCwjdnarhI/Y6tOxJVFSFVBCp3/q9+fc8M8/OL9IkUfyF7Cu7SMRsQI
-         aKm+apA049K/Gk7mWs5Icmkw9q740TTEOSAI1ey86a+QrZEV4kKv+/pwZ045NxjWeySO
-         sWwAluVXqN7huP97HWTU9V8zG4y4H5adM78LJI9KqPGSoDSWPRZerZmxZPUI30+lcKEy
-         aUyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwujDjXbhW09utV4exFyXxktepxE1g7IAgsTUg+T/qEU3fDOobOuaY/LJGC4O4iAHREcKypyjyQ6YOdafQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNS4JZf6LWkOgw2qipoSb3gvS3CFlbc6PbSvgv4uNIy3JiO5sE
-	kPLf1kqY12LleUW/8mKIXwbMby5N62FEzREdKoErTxRr8x0AFvhZ9ruDAH853cbm17DGer5UFCZ
-	IB/y10Dzg9xKQEQhFxw==
-X-Received: from wryt2.prod.google.com ([2002:a05:6000:1a42:b0:488:7ee2:d76b])
- (user=mmaslanka job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:2910:b0:487:1aa1:f54f with SMTP id ffacd0b85a97d-488716a89cemr10903126f8f.46.1790342214446;
- Fri, 25 Sep 2026 06:16:54 -0700 (PDT)
-Date: Fri, 25 Sep 2026 15:16:50 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jd6Rd12S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD91F1F000FF;
+	Fri, 25 Sep 2026 13:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790342211;
+	bh=6hx8tIQBqEZCA6RMs3GEzhHsfOp+B8oZbYhgqwXwkDU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jd6Rd12SODX0oYmsCoaRKLziziTTpNy3IlG1EtScRfBvOOh4uiZx/tV8TPNkKx/PU
+	 xjAPW4JQIPUpK52RBwytQfIfc/+ERRUlEQno4Yf+GKn3jQTjFtdkMqRYeq1c9iIzdp
+	 62jNjNuqpq4cwtVijV2Kr3ARU+BY9ae0Rb3zYxk4IcgqZrxf1sssD36R5bzMv8TyNR
+	 +LYVYdzXl49fxcE4JiVQupib8K742Gq3mQwVZkYyWAC3vg+GMiWXeyEiDhrd0z6KkR
+	 i+zxMapSeo7WlNRMdubA0c1mPbPnHF3ktyDv3UHhEALo40au8F9yqOE2wDwcUH+kX6
+	 o0XKE59ufoCrw==
+Date: Fri, 25 Sep 2026 15:16:45 +0200
+From: Joel Granados <joel.granados@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Bradley Morgan <include@grrlz.net>, Kees Cook <kees@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] sysctl: drop the pointer dance in proc_put_char()
+Message-ID: <id6ij3wpybrig6nqfydr522lhxoc7dsdvxnbn53pndnfq4vdjy@v3j37rvmluyo>
+References: <20260822184244.13569-1-include@grrlz.net>
+ <adblkub2acrgjlgmjs2uu5644zm5fjghjzr5zkyga7uatrfeif@jsumbzlthyfb>
+ <20260916134700.3e0d17cd@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260925131650.3777399-1-mmaslanka@google.com>
-Subject: [PATCH] usb: typec: port-mapper: Only match USB4 port if host
- interface is available
-From: Marek Maslanka <mmaslanka@google.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Marek Maslanka <mmaslanka@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="iwdvrmlk3hoahznz"
+Content-Disposition: inline
+In-Reply-To: <20260916134700.3e0d17cd@pumpkin>
 
-typec_port_match() adds a component match for the USB4 port whenever a
-USB 3.x port that shares the _PLD with the Type-C connector has the
-"usb4-host-interface" property, regardless of whether a USB4 port can
-ever be registered for it. The component framework binds the aggregate
-device only once every match has found its component, so if the USB4
-port never shows up, the USB 2.0 and USB 3.x ports are not linked to the
-connector either: the "connector" symlinks are never created and USB
-devices enumerated on those ports are never linked with the Type-C
-partner.
 
-This happens in at least two cases:
+--iwdvrmlk3hoahznz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-1. CONFIG_USB4 is not reachable from the Type-C core, i.e. CONFIG_USB4=n,
-   or CONFIG_USB4=m with CONFIG_TYPEC=y as in the x86_64 gki_defconfig.
-   usb4_usb3_port_match() is then a stub that always returns false.
+On Wed, Sep 16, 2026 at 01:47:00PM +0100, David Laight wrote:
+> On Wed, 16 Sep 2026 13:46:40 +0200
+> Joel Granados <joel.granados@kernel.org> wrote:
+>=20
+> > On Sat, Aug 22, 2026 at 06:42:44PM +0000, Bradley Morgan wrote:
+> > > proc_put_char() still drags around a char **buffer alias, writing
+> > > the char through it, advancing it, then copying it back into the
+> > > slot it was loaded from. That only made sense when the buffer was
+> > > __user and the char went through put_user() (which could fail).
+> > >=20
+> > > Since commit 32927393dc1c ("sysctl: pass kernel pointers to =20
+> > > ->proc_handler") the buffer is just a kernel pointer, so the alias =
+=20
+> > > is dead weight. proc_put_long() and the skip helpers already advance
+> > > *buf directly, so do the same here. No functional change.
+> > >=20
+> > > Signed-off-by: Bradley Morgan <include@grrlz.net>
+> > > ---
+> > >  kernel/sysctl.c | 7 ++-----
+> > >  1 file changed, 2 insertions(+), 5 deletions(-)
+> > >=20
+> > > diff --git a/kernel/sysctl.c b/kernel/sysctl.c
+> > > index f7b7598..2b92b30 100644
+> > > --- a/kernel/sysctl.c
+> > > +++ b/kernel/sysctl.c
+> > > @@ -350,12 +350,9 @@ static void proc_put_long(void **buf, size_t *si=
+ze, unsigned long val, bool neg)
+> > >  static void proc_put_char(void **buf, size_t *size, char c)
+> > >  {
+> > >  	if (*size) {
+> > > -		char **buffer =3D (char **)buf;
+> > > -		**buffer =3D c;
+> > > -
+> > > +		*(char *)*buf =3D c;
+> > >  		(*size)--;
+> > > -		(*buffer)++;
+> > > -		*buf =3D *buffer;
+> > > +		(*buf)++;
+> > >  	}
+> > >  }
+> > > =20
+> > > --=20
+> > > 2.47.3
+> > >  =20
+> >=20
+> > I was thinking more along these lines https://lore.kernel.org/all/20260=
+916-lklm-sysctl-void-vs-char-v1-1-c3f8b2eb8b1e@kernel.org/
+>=20
+> I think I'd decrement *size before writing to buf.
+> Should ensure the compiler never reloads *size.
+> Could also be worth an __always_inline - likely to make the code smaller.
 
-2. The firmware references a USB4 host interface that is disabled. For
-   example, on Intel Alder Lake-N (ChromeOS Nissa) the TCSS xHCI USB3
-   ports (SS01-SS04) reference TDM0/TDM1, whose _STA returns 0 because
-   the SoC has no integrated Thunderbolt/USB4 and the DMA controllers
-   are disabled in TCSS DEVEN. No PCI device is enumerated for them.
+This seems sensible. I'll update my the one in [1]
 
-Only add the USB4 component match if CONFIG_USB4 is reachable and the
-referenced host interface is available and has been enumerated as a
-device. The latter mirrors the check in usb_acpi_add_usb4_devlink(), see
-commit 623dae3e7084 ("usb: acpi: fix boot hang due to early incorrect
-'tunneled' USB3 device links").
+[1] https://lore.kernel.org/all/20260916-lklm-sysctl-void-vs-char-v1-1-c3f8=
+b2eb8b1e@kernel.org/
 
-Fixes: 4fd7a1f0f7f2 ("usb: typec: Connect Type-C port with associated USB4 port")
-Cc: stable@vger.kernel.org
-Signed-off-by: Marek Maslanka <mmaslanka@google.com>
----
- drivers/usb/typec/port-mapper.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+--iwdvrmlk3hoahznz
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/usb/typec/port-mapper.c b/drivers/usb/typec/port-mapper.c
-index cdbb7c11d714..3a97b084c3bd 100644
---- a/drivers/usb/typec/port-mapper.c
-+++ b/drivers/usb/typec/port-mapper.c
-@@ -42,6 +42,23 @@ static int usb4_port_compare(struct device *dev, void *fwnode)
- 	return usb4_usb3_port_match(dev, fwnode);
- }
- 
-+static bool typec_has_usb4_host_interface(const struct fwnode_handle *fwnode)
-+{
-+	if (!IS_REACHABLE(CONFIG_USB4))
-+		return false;
-+
-+	struct fwnode_handle *nhi_fwnode __free(fwnode_handle) =
-+		fwnode_find_reference(fwnode, "usb4-host-interface", 0);
-+
-+	/*
-+	 * The USB4 port can only appear if the host interface is enabled in
-+	 * the firmware and has been enumerated as a device. The latter is
-+	 * the same check as in usb_acpi_add_usb4_devlink().
-+	 */
-+	return !IS_ERR(nhi_fwnode) && fwnode_device_is_available(nhi_fwnode) &&
-+	       nhi_fwnode->dev;
-+}
-+
- static int typec_port_compare(struct device *dev, void *fwnode)
- {
- 	return device_match_fwnode(dev, fwnode);
-@@ -64,11 +81,11 @@ static int typec_port_match(struct device *dev, void *data)
- 				    adev_fwnode);
- 
- 		/*
--		 * If dev is USB 3.x port, it may have reference to the
-+		 * If dev is USB 3.x port, it may have reference to an available
- 		 * USB4 host interface in which case we can also link the
- 		 * Type-C port with the USB4 port.
- 		 */
--		if (fwnode_property_present(adev_fwnode, "usb4-host-interface"))
-+		if (typec_has_usb4_host_interface(adev_fwnode))
- 			component_match_add(&arg->port->dev, &arg->match,
- 					    usb4_port_compare, adev_fwnode);
- 	}
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+-----BEGIN PGP SIGNATURE-----
 
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmq2dDwACgkQupfNUreW
+QU/Tkgv/ZlLbCS3lZcer7UKldjjY4KxG10Z+T5Q+QBndR6UiKbps/K6F196kvAud
+LbjQoocc9goKr/jqlGygS6/F5+9Dk9tvyRuL8b03WKKJfi1A3M3PfN8U8PG+ykQ2
+VjzlmaOSUx7RVqR5fGgM7qyUdCsKJcmtnTS4tBS9jBDT2w1ljlohrAeq5gBwZeRf
+Dwu5MXmqmqdqoI4qLqvvQf1KbMFPxhFVYKe24vbRja+z1ZK3wEQDIZ0k25ADX8JH
+G8Qu9zhzvIRQPFc+SI1Hn4Y7GPrHRNi2R7AnCWaK7z0Oc+xyUZNEWOLLtPQe8Fen
+b58I7yiX8eEX2vYrifgBVQl5R8aspZSo7yYyGlxxxXDnASA5FOKNCecDSazTseQa
+DErp1EDaoWDd6k8sOAzXsB5HQHvwzNOdXPC4/AjOHHVCwpgaqOvHg3dOCsTx09+7
+Z4jn3yDHslgTxn7/+KKPdcqiUO0VZDUqtRssb1VMjAsy0krof9VylPEtHpUFzrK0
+RsbvTR29
+=qLEX
+-----END PGP SIGNATURE-----
+
+--iwdvrmlk3hoahznz--
