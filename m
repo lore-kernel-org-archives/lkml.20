@@ -1,222 +1,248 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A78B26AC3
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 02:19:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5567348C6F;
+	Fri, 25 Sep 2026 02:19:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790302773; cv=none; b=r9xmhvyMY9eb34oXOZBUExudDitQWZ6xrObLh6VDfLwgmqvhgJ5dhpnNbx2KzW2aWZa6a7ftuD0y2+JzBy1N7gr1e5aV8lmQBqdvnxfUXJcsz4SuHzvmpPQyl/sWUTfvo7Wavipg46X5/1P2M+LEFDekh+fhGKNpMTZ05QdruhU=
+	t=1790302787; cv=none; b=AF9pHfJEBGu68vYyftd9Ow8P05GdWaR+pC1b9Wipalja7VjvQPY8geyiksWty1LMiKt04A8NTugDzshzwoCGiHib41yuySQYd2fDxr6h5YqnguqBvmRxVV4aOkewF/KL0fgd3fJd+lu3sZD56Mb20w2bBlebzsdOBwF+CYuQm4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790302773; c=relaxed/simple;
-	bh=BVsR/Le3p7XUjNMygmMfdzWGgyiUfG/up2i4TgQQr+E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=COkUEm48RxzXABnxOK9cHzyPQFPrUhup36JWXs0T7+ACHRwXhBl5LSpwGk7ETOB9SpQquQQQv7pLuYYZ3++wC8EpjV9oOSfMRPH8R6Oj0nqbZGb/LZ9U0o4drVwGuvd3cPNdHe3QdLOwDsANf1TjarsGTxPPj898a37ttANHKdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CzndHdM5; arc=none smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790302787; c=relaxed/simple;
+	bh=5d1IMb44AVKj6v8CMu+pa4/V3lY1E8LHHMH4mbMTua4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=du2xVFGkkGo5H5NofYaQX3IFysD9lE7Djvy6YcsEMLe5vFGS4BDfwZJpjM0iBNzkF8Uo+s63y8mncW0ymlODdSeEdx5PQnt0/CZ29BG8WgTdhtOv6TtN3Ehop5RQ2DBanbZ3JutzqwHsdYASe5afjx+zXehOiYe2fZAg8FF0LQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eRXvEZFN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CzndHdM5"
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-78564319a92so156018137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 19:19:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790302771; x=1790907571; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XpC/TNEC6wqnmlf8h6VzeWNUpPK2sqaQuYRZKFpNrJk=;
-        b=CzndHdM5lnVDTQyTyfgznkYwJvCOLOXkOAcw1vVq5nDHWzvgtnmR/2uWA6yxl2bOEl
-         zD01oO8Ku51pHVYxPipeeRB5PE4HbL7j4tFy2aa7wXJe5jbMNz4s7jc4Lg7MO5Dc+2Yv
-         lG0/4opN56aYYoXxsFPVtmirw7v/wBStwkxhT38/zBWhMWGG3ycjYfG8wmwxSUvLPgZ4
-         alMpCI30fXn5ksuo1x9QJi5y3tjsGOsQwvmQFAvToF8X9gr7uAwbHpAHHMzvf4hAOcME
-         JWEOTUhwIPivtSnbNLq1XSQTUKyGrnL16L17uhQkDvRvTPDu4Zj+Sc0vUBvso05+JoTH
-         edhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790302771; x=1790907571;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XpC/TNEC6wqnmlf8h6VzeWNUpPK2sqaQuYRZKFpNrJk=;
-        b=EIrP7SgvEUjx57FL8W6u/dCgC+eUD9ozEBb3qig56Jo/Im/i4SAOTWGS1cllYwaiGm
-         mYGpBLX3ZDV1mXRnGN9wsbv/W2cpUX+rPLMInuzdzf2VvujkDXuowXscbxSsBdUceB+5
-         OlfMoRAT+aFH4Nhb9odDcHeAQqeDKKI2DWe6LsnmZjYXx0dlR7atcXblVQdTBywD89yI
-         q3l5ryCzrW5WXM51l3SUJaZDohFNXUEPFDK7CNDNXcV7rwE9qISZH1NDNonHp7SX0C70
-         L72z4jGo0NrZhd+luBFMKCoHM+Eh1+jdO7B2KxR+AQCUoUB6ihStaYPz6/sDoUuadGe9
-         22Xg==
-X-Forwarded-Encrypted: i=1; AKwUvByN8P9gZRGTsRSY25xKvaimUaamV0Tgp/ZtrjnCNio7VMw/2KbGU6IB+LJ+tDJygK1IebdrFctI8Mf55bg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgmTn7K0lTEeGINevvPhubjrmZ9PTzoCEhH0GGw/K4aDR0YZ8D
-	sDuNA5mBktD69u0FUc6ko0KEhZTK8Ua4Kb+TyBMZSPcdg2S6jNLYDvE4RMzNlE8r
-X-Gm-Gg: AYBFou0OfN6SyosfvglUVPiv9zKcu6Nw24wXSnwEy4DxRAY6QaJhClId/YmRB2YvGwb
-	q7ZVChkzg++2algxVHZdtoSY2xqDjPkAPFmLRB/Z2b477ZERDFgpOHMud1KhFzf6VxYRtYn6Tyy
-	AxA+1BdBjyrsUVOK/Q2gd4WVZymcF4aeD/KawlFRwc/dglhFqZwMge3lkUX+jFNztICsnEMmUAo
-	hfLVPIH6QBSRD6WTmXGOhX1IErJ4VchKCGP1ZsGSYVgTxjvCREZIJoYpUN7iiy1mC+XKxsqwM5H
-	WYR2zTjNzHBuKQ3vSUJU0ITketnS25nEzHW1XkNg7nKy/SvplLqSIA8dWc6yw6Wd0d+JvBThwfg
-	G1lRQKiAt0Pw+SK1Xgv4+TlgcXM/JY6chRhbSt0O0DgV84Aj2q7qf9d6e0y2BAQobeXtEhXUlq/
-	p57ultONC+5EdUFlnxZWV4PhvPVLTvFN4AEGM8KD2jJyBz9KLWad4TR8kAp7c0+2n3wxfNP7Fy0
-	F/tMrSrdL4Xe/JKjtbSS3MasvmSWn1ILBbqdHSI8qRVs7cqGxyvMmT4COkjYqe6sF6+FsnqMg==
-X-Received: by 2002:a05:6102:358d:b0:7a1:f7d2:e843 with SMTP id ada2fe7eead31-7af1e9f2334mr1643487137.19.1790302770980;
-        Thu, 24 Sep 2026 19:19:30 -0700 (PDT)
-Received: from alsa-dev.int.suenodeluz.com.do ([74.244.193.53])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b0d01e6f6fsm1427497137.2.2026.09.24.19.19.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 19:19:30 -0700 (PDT)
-From: Frank van de Pol <fvdpol@gmail.com>
-To: tiwai@suse.de,
-	perex@perex.cz
-Cc: corbet@lwn.net,
-	khan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	fvdpol@gmail.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/1] ALSA: usb: Add support for Reloop Jockey 3 DJ controllers
-Date: Thu, 24 Sep 2026 22:19:13 -0400
-Message-ID: <20260925021915.78909-1-fvdpol@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eRXvEZFN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A163D1F000FF;
+	Fri, 25 Sep 2026 02:19:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790302785;
+	bh=Lt6ZSl+CO/t8SKf5uO4mhsTaM/8pXBSu+eH4k2cDzGE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=eRXvEZFNETXfZI52grJ91XZ/OAjtokeRxVFEy4i7FjjB+7FxcyQxfWRELNYcawq/Q
+	 IjXlzwN+xGtRb/Z7YzWvgPCQ6LzaFHgWcjU22XevzET/AQLq999DixDW5F48H5IZe/
+	 /z+/WU9MBwLXc5eB0GzSX5NFiEakgj7uZwubkZdRTtauHaYgv0+Di66+oZg41LgeHN
+	 KWALUWt0U6z2PZkRIhRRdt7JK28i0ytq8rPSW+NVDLYtfqc/woKm/7SgE7WaZQPjlm
+	 Z0yFAOyxdoPQ3YGSal13mowutt9AoWGY+jh4EorgrYkfBP1MWuCQz8/TMNspise63r
+	 iTgQy/PktTRSQ==
+Subject: Re: [PATCH net-next v4 2/8] net: dsa: motorcomm: Split xMII and
+ SERDES port masks
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 02:19:44 +0000
+Message-ID: <179030278415.2160803.7209731671356572587@kernel.org>
+In-Reply-To: <20260923021945.2203368-3-mmyangfl@gmail.com>
+References: <20260923021945.2203368-3-mmyangfl@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Takashi, Jaroslav, and the ALSA community,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Apologies for the long gap since v3. This is not simply v3 with the review
-comments addressed -- I went back to the reverse engineering, and a fair
-amount of what came out of it changed the driver structurally.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1 (1)
 
-The patch has grown accordingly: v3 was 8 files and 1613 insertions, this is
-17 and 7326.  Most of that is not new logic: of the roughly 5700 added
-lines, about 2100 are comments, 1660 are KUnit tests and generated test
-vectors for the codec, 249 are the new jockey3.rst documentation, and only
-about 1300 are executable code.  The rest is blank lines and Kconfig
-plumbing.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The relatively large number of comments comes from the deliberate decision
-to include what I learned from the protocol analysis with the relevant
-section of code.  The parts that most need explaining (the bit-plane wire
-format, device initialization, why the URBs run for the device's whole
-lifetime, the locking order etc.) cannot be verified by reading the code
-alone.  ploytec_codec.c is over half comment for that reason: the DOC: block
-deriving the format from the board's I2S and DMA geometry is effectively the
-specification the optimized variants implement.
+- [Medium] After this patch, a GMAC port that is in xmii_mask but not in
+  serdes_mask gets an empty supported_interfaces bitmap.
+- [Low] Two comments in yt921x_dsa_phylink_get_caps()
+  (drivers/net/dsa/motorcomm/chip.c) no longer match the code after this…
 
-Previous version:
-v3: https://lore.kernel.org/all/20260622011131.1748298-1-fvdpol@gmail.com/
+Pre-existing issues:
+- [Low] The concern: the in-tree binding example
+  (Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml,…
 
-Changes v3 -> v4:
+--
 
- - Reworked the locking architecture around an explicit hierarchy: a
-   process-context rate_mutex outermost, then IRQ-safe leaf spinlocks for
-   playback, capture and MIDI that are never nested in one another.
-   Documented in jockey3.c.
+net: dsa: motorcomm: Split xMII and SERDES port masks
 
- - Fixed the capture stall after a sample-rate change, eliminating the USB
-   device reset that recovery used to require.  The reset rate per rate
-   change went from 19.3% to zero, with a 98k clean streak on arm64 and 61k
-   on x86_64.
+This commit replaces external_mask in struct yt921x_info with two
+separate fields, xmii_mask and serdes_mask. It changes
+yt921x_dsa_phylink_get_caps() so that SERDES modes are only advertised
+for ports in serdes_mask. It also moves struct yt921x_info into chip.h.
 
- - Rewrote the bit-plane codec: a portable reference implementation plus
-   32-bit and 64-bit SWAR variants selected at compile time, called through a
-   batch API at the driver's real batch sizes. Against the same machine's
-   reference build, the optimized path measures 11.0x encode / 7.8x decode on
-   x86_64 and 6.9x / 6.1x on arm64. KUnit tests validate all variants against
-   an independently derived model of the wire format.
+> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+> index 825e0bfcff86f..54881856b796a 100644
+> --- a/drivers/net/dsa/motorcomm/chip.c
+> +++ b/drivers/net/dsa/motorcomm/chip.c
+> @@ -96,53 +96,48 @@ static const struct yt921x_mib_desc yt921x_mib_descs[] = {
 
- - Added URB coalescing.  The driver used to submit one 512-byte packet per
-   URB, fixing the completion rate at 9923/s at 44.1 kHz and 21600/s at 96
-   kHz for as long as the device was plugged in, used or not.  N packets per
-   URB (N a power of two, 1 to 8) are now chosen per PCM open from the
-   requested period size.
+[ ... ]
 
- - Fixed a cold-boot initialization race. Straight after power-on the device
-   accepts the entire init sequence, reports success on every transfer, takes
-   playback samples, but its audio engine never starts. Bisected over 100
-   cold boots to between 144 and 156 ms after enumeration; the driver now
-   waits 250 ms before its first control transfer, close to the 297-308 ms
-   the Windows driver waits.
+>  	{
+>  		"YT9215S", YT9215_MAJOR, 2, 0,
+>  		GENMASK(4, 0),
+> -		BIT(8) | BIT(9),
+> +		BIT(9),
+> +		BIT(8),
+>  	},
+>  	{
+>  		"YT9215RB", YT9215_MAJOR, 3, 0,
+>  		GENMASK(4, 0),
+>  		BIT(8) | BIT(9),
+> +		0,
+>  	},
+>  	{
+>  		"YT9214NB", YT9215_MAJOR, 3, 2,
+>  		BIT(1) | BIT(3),
+> -		BIT(8) | BIT(9),
+> +		BIT(9),
+> +		BIT(8),
+>  	},
 
- - Added a URB liveness watchdog. Every error path hangs off a URB
-   completion, so a device that stops completing URBs produces no error, no
-   xrun and no log line. A work item now reports either direction silent for
-   20 ms and enters the recovery ladder on a stall onset.
+[ ... ]
 
- - Hardened handling of an unresponsive device: an EP0 error-class predicate
-   aborts the handshake before usb_set_interface() is reached, since the USB
-   core disables an interface's endpoints as its first action and does not
-   re-enable them on the failure return.
+> @@ -4021,15 +4016,10 @@ yt921x_dsa_phylink_get_caps(struct dsa_switch *ds, int port,
+>  		 */
+>  		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
+>  			  config->supported_interfaces);
+> -	} else if (info->external_mask & BIT(port)) {
+> -		/* TODO: external ports may support SERDES only, XMII only, or
+> -		 * SERDES + XMII depending on the chip. However, we can't get
+> -		 * the accurate config table due to lack of document, thus
+> -		 * we simply declare SERDES + XMII and rely on the correctness
+> -		 * of devicetree for now.
+> -		 */
+> +		return;
+> +	}
 
- - Added Documentation/sound/cards/jockey3.rst
+[Severity: Low]
+This isn't a bug, but the comment at the top of the internal_mask branch
+still says:
 
- - Addressed the v3 review comments.
+	/* Port 10 for MCU should probably go here too. But since that
+	 * is untested yet, turn it down for the moment by letting it
+	 * fall to the default branch.
+	 */
 
+The if/else-if chain is now an early return followed by two independent
+if blocks, so there is no default branch anymore. Could this comment be
+updated?
 
-Testing:
+The same applies to the trailing comment at the end of
+yt921x_dsa_phylink_get_caps():
 
-Validated with an automated hardware-in-the-loop framework written for the
-purpose: probe and unbind endurance, PCM cycling, every rate in both
-directions, period and buffer boundary matrices, duplex, xrun injection,
-rate-change soaks, suspend/resume, USB disconnects via hub port power
-switching, and cold-boot cycling through a network-controlled mains switch. 
-Some of the figures above come from runs of tens of thousands of iterations.
+	/* no such port: empty supported_interfaces causes phylink to turn it
+	 * down
+	 */
 
-Exercised on real hardware on x86_64, i386, arm64 (Raspberry Pi 4) and
-armv6/armhf (Raspberry Pi 1B -- functional but tight at 88.2/96 kHz), with
-x86_64 and arm64 also run under a KASAN + lockdep debug kernel.  The codec
-KUnit suite additionally tested under UML and QEMU on i386, arm, arm64,
-riscv and s390 (test big/little endianness).
+Real GMAC ports that are only in xmii_mask now reach this comment too
+(YT9215RB ports 8 and 9, and port 9 on YT9215S and YT9214NB). Should it
+be reworded so that it doesn't describe those ports as nonexistent?
 
+>  
+> -		/* SERDES */
+> +	if (BIT(port) & info->serdes_mask) {
+>  		__set_bit(PHY_INTERFACE_MODE_SGMII,
+>  			  config->supported_interfaces);
+>  		/* REVSGMII (SGMII in PHY role) should go here, once
+> @@ -4042,9 +4032,8 @@ yt921x_dsa_phylink_get_caps(struct dsa_switch *ds, int port,
+>  		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
+>  			  config->supported_interfaces);
+>  		config->mac_capabilities |= MAC_2500FD;
+> -
+> -		/* XMII */
+> -
+> +	}
+> +	if (BIT(port) & info->xmii_mask) {
+>  		/* Not tested. To add support for XMII:
+>  		 *   - Add proper interface modes below
+>  		 *   - Handle them in yt921x_port_config()
 
-Two things I would rather state than have found:
+[Severity: Medium]
+If a port is in xmii_mask but not in serdes_mask, this block sets no
+interface modes, so supported_interfaces stays empty. With the new table,
+that covers ports 8 and 9 on YT9215RB (serdes_mask is 0) and port 9 on
+YT9215S and YT9214NB.
 
- - The mitigation stack around the rate-change stall is now practically
-   dormant since the rate-change improvement.  I kept it as cheap insurance;
-   happy to remove it.
+Before this patch, these ports were in external_mask. They advertised
+SGMII, 100BASE-X, 1000BASE-X and 2500BASE-X, so phylink_create()
+succeeded. The xMII -EINVAL from yt921x_port_config() was only logged,
+and yt921x_port_up() still enabled the MAC on ports 8 and 9.
 
- - The 250 ms settling delay in jockey3_initialize() runs on the
-   USB hub thread.  I can move initialization off the probe path if you
-   prefer, though that introduces complexity to avoid races.
+Now phylink_create() rejects the empty bitmap:
 
+drivers/net/phy/phylink.c:phylink_create() {
+    ...
+	if (phy_interface_empty(config->supported_interfaces)) {
+		dev_err(config->dev,
+			"phylink: error: empty supported_interfaces\n");
+		return ERR_PTR(-EINVAL);
+	}
+    ...
+}
 
-I look forward to your review/feedback.
+If one of these ports is the CPU port in the device tree, does the whole
+switch now fail DSA setup?
 
-Best regards,
-Frank
+dsa_tree_setup_ports()
+  dsa_port_setup()
+    dsa_shared_port_link_register_of()
+      dsa_shared_port_phylink_register()
+        phylink_create()   <- returns -EINVAL
 
-Frank van de Pol (1):
-  ALSA: usb: Add support for Reloop Jockey 3 DJ controllers
+After that, dsa_tree_setup_ports() goes to teardown. CPU ports don't have
+the fallback to an unused port that user ports get. On YT9215RB this
+affects both GMACs, so a CPU conduit on port 8 or 9 would fail. A user
+port in the same situation is silently turned into an unused port.
 
- Documentation/sound/cards/index.rst           |    1 +
- Documentation/sound/cards/jockey3.rst         |  249 +
- MAINTAINERS                                   |    8 +
- sound/usb/Kconfig                             |    1 +
- sound/usb/Makefile                            |    1 +
- sound/usb/jockey3/.kunitconfig                |   13 +
- sound/usb/jockey3/Kconfig                     |   60 +
- sound/usb/jockey3/Makefile                    |    7 +
- sound/usb/jockey3/jockey3.c                   | 4060 +++++++++++++++++
- sound/usb/jockey3/ploytec_codec.c             |  656 +++
- sound/usb/jockey3/ploytec_codec.h             |   44 +
- sound/usb/jockey3/ploytec_codec_kunit.c       |  871 ++++
- .../usb/jockey3/ploytec_codec_test_vectors.h  |  793 ++++
- sound/usb/jockey3/ploytec_midi.c              |   83 +
- sound/usb/jockey3/ploytec_midi.h              |   36 +
- sound/usb/jockey3/ploytec_proto.c             |  365 ++
- sound/usb/jockey3/ploytec_proto.h             |   78 +
- 17 files changed, 7326 insertions(+)
- create mode 100644 Documentation/sound/cards/jockey3.rst
- create mode 100644 sound/usb/jockey3/.kunitconfig
- create mode 100644 sound/usb/jockey3/Kconfig
- create mode 100644 sound/usb/jockey3/Makefile
- create mode 100644 sound/usb/jockey3/jockey3.c
- create mode 100644 sound/usb/jockey3/ploytec_codec.c
- create mode 100644 sound/usb/jockey3/ploytec_codec.h
- create mode 100644 sound/usb/jockey3/ploytec_codec_kunit.c
- create mode 100644 sound/usb/jockey3/ploytec_codec_test_vectors.h
- create mode 100644 sound/usb/jockey3/ploytec_midi.c
- create mode 100644 sound/usb/jockey3/ploytec_midi.h
- create mode 100644 sound/usb/jockey3/ploytec_proto.c
- create mode 100644 sound/usb/jockey3/ploytec_proto.h
+yt921x_port_config() still has no xMII handling, so nothing takes the
+place of the removed SERDES modes:
+
+	/* add XMII support here */
+	default:
+		return -EINVAL;
+
+This is still the case at the end of the series. In "net: dsa: motorcomm:
+Add SerDes PCS", the xmii_mask branch is still empty and
+yt921x_port_config() still has no xMII case.
+
+The commit message says the driver will "advertise the interface modes it
+actually supports". Could it mention that these ports change from
+"phylink created, mode not configured" to "phylink creation fails"?
+
+Also, the removed TODO said the SERDES/xMII table was not available due
+to lack of documentation. Where do the new per-chip xmii_mask and
+serdes_mask values come from?
+
+[Severity: Low]
+This is a pre-existing issue and was not introduced by this patch. The
+binding example in
+Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml uses
+an RGMII mode on port 9:
+
+                ethernet-port@9 {
+                    reg = <9>;
+                    label = "wan";
+                    phy-mode = "rgmii-id";
+                    phy-handle = <&phy1>;
+                };
+
+The driver never advertises any RGMII mode in
+yt921x_dsa_phylink_get_caps(), and it never configures one in
+yt921x_port_config(). With the current driver, port 9 from the example
+can't be used.
+
+Bindings describe hardware rather than driver support, and xMII is
+already marked as a TODO in both functions. This patch also moves port 9
+into xmii_mask on all YT9215 variants, which is closer to the example.
+Is it still worth noting that the example depends on the pending xMII
+support?
 
 -- 
-2.47.3
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923021945.2203368-1-mmyangfl%40gmail.com
