@@ -1,251 +1,183 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011051.outbound.protection.outlook.com [40.107.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB8A463B6F;
-	Fri, 25 Sep 2026 11:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790336819; cv=fail; b=jIp/eBqUhdMNMQp7TpUDNP122TnQ6hv7NyiD5a2KpIsxUWNrhuBE1itFuzelSIOdkVFYDwtnbvgpneuOJ8VrI5efsrkRXKPTrMgGJdcYvqvkzJBtKUFDh4rqQAD/T4xJLjJ2uwb7Dy6TWPRd+ersu8rtuRsrb1Owx0RdOogIc10=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790336819; c=relaxed/simple;
-	bh=UyRbee0h3JCE8d84aBZQYXF1h3dS+Ip8+H4198kXcY0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bz1ajbl99qX+j/bHqKO54Myov8OborW4VFcrBnsZ6KpQk5a11wRbVZA9vI3PozCV5/YODktjNum1LVuGShdDv3ATg7AIFKfG9Xg3L7CZK8Snks6sK5H4EJ5dP1X+qt+tLpdCF2pU0wWYNW+rweaLeREkJR/3TAEFgGasChzrZyM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=UwKWW1og; arc=fail smtp.client-ip=40.107.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0DDEC45D5FF;
+	Fri, 25 Sep 2026 11:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790337047; cv=none; b=jPFrxL281MaKtcQgiFdjPN+MeltaF/RcKW7Uh7/XyrvU1fxkQJ/nCqC3MxWYIfgCI3DAdVwq4oTXd7BTUAwiPPEdvdXjXIRKd8HW9leVWprK5X2rosjQc8Pm2Hc6T1TtfCabHQEMX0BlSO/gywphs5MJtgWmxfZoUMF3xBAG7LE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790337047; c=relaxed/simple;
+	bh=QVCeiKaLLsWqFAAQeL9n0+h8tt+vp+tZtOpFNlQ3uRw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hh/VJN4CvXkfy+LpbBGajNnm1Rhz8Z8LI/bgkTvCx4JZE5jbkpVyw9M4OGssFvW4l1nH6ITOcVZEY0ml5gV6M82m0bZuG+IuiNkNxT5EDOc9yYfyKB7ygv6CAMQwjlnDMJhjMUiv+Isup2egQXQXi7S8TZqOrsWqlzcT/svCuZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SvrqnLBu; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="UwKWW1og"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GseuQpbzHuVdvTH4BHDDpob4Hzc//CLaGjkpHZI4daTfw+IUiTOXrLS0ryAah67skq891mJgMjPN/LVDRNvgrMvHiAtmTn/6KOolmaqfvpWthAXck8LjJFpf2rSiENLIyAW2uggLH1UAM5sWa0X/OfzLfO3uOdgcghOM3/KgVBRb6lJZPvFiy9npteuAKYBa69ZHcwRBWKvW5RVmVqnajyGDtRtib6gptBvqnKu+urN90VfCmCVNUALyLzYnbqnMezfCw4Vv5+NaGh8mns/LFgEEaU4mnrBQAhdH4A1D+jJirLsBtk5P/U5awMYlcWJZ2yp/MRCGAAr96177Ukjorw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V+VyS3uP5K+d6Xb13KGZ2vP55swMRudWSLMZS8JBtgQ=;
- b=HuW88a7IybkJ0XSMJyheEuDNPn3NXOgGKu6zCnozPwyAMlfqu+l+UpgT+nV0pABzM3ltZyPgHUKtchUh9nT5SMz2Q/spJEcr+7KEY6YV48eqhONf/hAtwesFi0f0oPVpfWzNAUbYM+QHIJWcKkjwXZlXeFpPH+Q+k0IR9//3R3x0eaW6FRbpPgGVurD6H6Btta0XQ2ZoDJHMVcCUyly+CODqnFPGG/r/XAYEZTqIgFFHvnKXWRGQFSy+YJVrs1az8r5L1qemK+qzMF/qhSVX/vJh8vEnMsLlu+J7Z7I9WHMiBJTfS6A7oGIv+JfitLpmaJPc0dTv/TzxSv5MPRu+1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V+VyS3uP5K+d6Xb13KGZ2vP55swMRudWSLMZS8JBtgQ=;
- b=UwKWW1oglDE5fZ3AJpWDWB7L4Uw7u4QK2P/5+a/NskjrXUHqhDin/5oA3GWrebHzP0N3NH+OAPuNJE/sHa0qYnl9CUoRPCul3sljA4O0TwBd3kQxkBIBe74CgG36ukELBg2igHxNFYMii9MQkgUDjfkoPFmvXZH3CODCEvMbpeg=
-Received: from BN0PR04CA0038.namprd04.prod.outlook.com (2603:10b6:408:e8::13)
- by DSWPR12MB999178.namprd12.prod.outlook.com (2603:10b6:8:36f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Fri, 25 Sep
- 2026 11:46:53 +0000
-Received: from BN7PEPF0000009E.namprd04.prod.outlook.com
- (2603:10b6:408:e8:cafe::5f) by BN0PR04CA0038.outlook.office365.com
- (2603:10b6:408:e8::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.19 via Frontend Transport; Fri,
- 25 Sep 2026 11:46:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF0000009E.mail.protection.outlook.com (10.167.248.150) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 11:46:53 +0000
-Received: from qyzhu-os-debug.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 06:46:51 -0500
-From: Zhu Qiyu <qiyuzhu2@amd.com>
-To: Bjorn Helgaas <bhelgaas@google.com>, <linux-pci@vger.kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <qiyuzhu2@amd.com>, Lukas Wunner
-	<lukas@wunner.de>
-Subject: [PATCH v2] PCI: pciehp: Avoid dropping hotplug interrupts due to stale HPIE
-Date: Fri, 25 Sep 2026 11:46:35 +0000
-Message-ID: <20260925114635.192878-1-qiyuzhu2@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924101929.143806-1-qiyuzhu2@amd.com>
-References: <20260924101929.143806-1-qiyuzhu2@amd.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SvrqnLBu"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BF234169C;
+	Fri, 25 Sep 2026 04:50:40 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E1F353F86F;
+	Fri, 25 Sep 2026 04:50:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790337044; bh=QVCeiKaLLsWqFAAQeL9n0+h8tt+vp+tZtOpFNlQ3uRw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SvrqnLBui3M+PrATNF/BP/rA6CJ5DGdYxCAJft3/xiR14cPQcEvRfcJIPsSQxAGoz
+	 xIKuAjGm0HQCK6kPgoni6UCZ1QNEdGsGP+fTEzNiH6+GqVN89AsMVcJTvbkoe2PWbl
+	 r0s5D58XQ2hSGXwtCFtmPqkU+U66vuwoEOVWS70Q=
+Date: Fri, 25 Sep 2026 12:50:38 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+	will@kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+Subject: Re: [PATCH v19 4/7] firmware: arm_rmm: Add support for SRO
+Message-ID: <arZgDmHV8uK1kv8R@arm.com>
+References: <20260924135201.850038-1-suzuki.poulose@arm.com>
+ <20260924135201.850038-5-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF0000009E:EE_|DSWPR12MB999178:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58193fbf-c349-4a94-4a41-08df1afab1dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003|8126099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	KzDi7OJ86ApTFjRXkmtheL/j+bJrxgIw7zXIukEfX040sj4bq75A6g1SsiWx/l6LLUKAbtkgZos+cND9WgdivLLNrrJAtX2O3c52qJk/8LXsHUPveFYNiGhzrv+FffYAXGdaZRKpF16spqp0nH+yjrLqX2Ic3KziQ/eLI/yV/avtCmATe+OXrvVdX1Fi9QKA4fRa38yfSnKXzmzaVPxkv0CtoegTpO6Ynmhs7k4uVmxPua9uUbbMxgUigHK3nuPH7SBWPqQNIX9IRNfehcXmxvKDfk4svss/nEukCz2rLiAWaw6fGF9g4RAWro+xGBr+OAuPvGFG6/9JqxjcjUXJFyaGscEyZFVOwDh0SPwdaDWvwbkeCgGngw8MFyxXEjPcLywoVR807n0G8cE5r2pwfP+4r1AIFnwHqxwoBuWB+c8809A4dVbh/rG+mip9GB3GM+8MDH70STiISvtKD0xSh5rjUYtuemCVYv1wLK8xPoYQqCioNkstEmAk0eS8rb0JAqCqurCb3nRKigvh9mFM9jo3btmEm/siV2NmHmSDwc5D137QvhwERVtV9arrpGtdJcgONQQM1cLvqAxBMhBJA+3uyeHANsuobAkGrKZ+cFxMBkRCOggdR5ntYniijgropPqebXCyCUQCKl7pLwE3BvHKwc4CG+p8qvHmWqwaFWHh8a84yeSQPSH4uhZhqxDtWTeCN+wVoooRt4FZ3UUJSg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(8126099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	oYe/+YT7/PJ+UpceMfUDraFBktII8xZ/7Stw0pdNqRr6AyldiBQlPo9k2NVB9ChAimdWgHnP+6eQHn5MOdDOLR2geokmTHMZ8xXXt+Q4XeRZaBqB9BqDS7cXnu7kzqWkyJtoa1wbqjhsLQsJdEbtRZJXHrq2sQdvWAENx8cN6gHKUzS9Ze20meWqBfx3Ixu232Yvy11kW0wj+2rqfTnWsyfYNtYQbaA1z9RFxru4i9nnhoAaC3v1X6QZ6cyZkkQcsPA6wQ0EPCUAq42rt9y+GO3qAPGpIcDD+RpkDqyjMjfwF6bxvhTQJ9k0MssA74M3XhhBrcYX22YySKdsIyJRZbGnToo2R0sNS3ctSbOqIEjbitq17GosMPT+ED8c/pPUe6OWHNuYbnnNi4kvax5hv0QqM4zqlEz+UsR/X904bihcDEoJed8p3ZNwY5ayyVEc
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 11:46:53.7620
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58193fbf-c349-4a94-4a41-08df1afab1dc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF0000009E.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999178
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924135201.850038-5-suzuki.poulose@arm.com>
 
-pciehp_isr() uses the Hot-Plug Interrupt Enable (HPIE) bit in
-ctrl->slot_ctrl to reject interrupts when hotplug interrupts are
-disabled.  This check is needed because hotplug can share an interrupt
-with other sources, including native PME.
+On Thu, Sep 24, 2026 at 02:51:58PM +0100, Suzuki K Poulose wrote:
+> +static int rmi_sro_donate_contig(struct rmi_sro_state *sro,
+> +				 unsigned long sro_handle,
+> +				 unsigned long donatereq,
+> +				 struct arm_smccc_1_2_regs *out_regs,
+> +				 gfp_t gfp)
+> +{
+> +	unsigned long block_size_fld = RMI_DONATE_BLOCK_SIZE(donatereq);
+> +	unsigned long block_size = rmi_addr_block_size_to_bytes(block_size_fld);
+> +	unsigned long count = RMI_DONATE_COUNT(donatereq);
+> +	unsigned long state = RMI_DONATE_STATE(donatereq);
+> +	unsigned long size = block_size * count;
+> +	unsigned long addr_range;
+> +	unsigned long donated_granules;
+> +	unsigned long donated_size;
+> +	int ret;
+> +	void *virt;
+> +	phys_addr_t phys;
+> +
+> +	/*
+> +	 * The RMM specification requires contiguous allocations are always a
+> +	 * power of 2
+> +	 */
+> +	if (WARN_ON_ONCE(!is_power_of_2(size)))
+> +		return -EINVAL;
+> +
+> +	/* Reuse the cached address range if we have one */
+> +	for (int i = 0; i < sro->addr_count; i++) {
+> +		unsigned long entry = sro->addr_list[i];
+> +
+> +		if (RMI_ADDR_RANGE_BLOCK_SIZE(entry) == block_size_fld &&
+> +		    RMI_ADDR_RANGE_COUNT(entry) == count &&
+> +		    RMI_ADDR_RANGE_STATE(entry) == state &&
+> +		    IS_ALIGNED(RMI_ADDR_RANGE_ADDR(entry), size)) {
+> +			sro->addr_count--;
+> +			swap(sro->addr_list[sro->addr_count],
+> +			     sro->addr_list[i]);
+> +
+> +			goto mem_donate;
+> +		}
+> +	}
+> +
+> +	ret = rmi_sro_ensure_capacity(sro, 1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	virt = alloc_pages_exact(size, gfp);
+> +	if (!virt)
+> +		return -ENOMEM;
+> +	phys = virt_to_phys(virt);
+> +
+> +	if (state == RMI_OP_MEM_DELEGATED) {
+> +		phys_addr_t delegated_phys;
+> +
+> +		if (rmi_delegate_range(phys, size, &delegated_phys)) {
+> +			if (!rmi_undelegate_range(phys, delegated_phys - phys))
+> +				free_pages_exact(virt, size);
+> +			return -ENXIO;
+> +		}
+> +	}
+> +
+> +	addr_range = phys & RMI_ADDR_RANGE_ADDR_MASK;
+> +	FIELD_MODIFY(RMI_ADDR_RANGE_BLOCK_SIZE_MASK, &addr_range, block_size_fld);
+> +	FIELD_MODIFY(RMI_ADDR_RANGE_COUNT_MASK, &addr_range, count);
 
-However, ctrl->slot_ctrl is updated from hardware on every Slot Control
-Register read-modify-write.  A firmware change to HPIE can race with an
-unrelated driver operation, such as an LED indicator update:
+Courtesy of an LLM - if we get a contiguous/4K pages request for 4MB
+(1024 pages), the above 10-bit field becomes 0. Should we reject the
+request or the updated spec will guarantee this won't happen?
 
-  1. The driver enables hotplug interrupts, setting both hardware HPIE
-	  and the cached HPIE bit to 1.
-  2. Firmware temporarily clears hardware HPIE; the cached bit remains 1.
-  3. pcie_do_write_cmd() reads Slot Control for an indicator update and
-	  observes HPIE=0.  Since the command's mask excludes HPIE, it
-	  preserves the value read from hardware.
-  4. The driver updates ctrl->slot_ctrl and writes Slot Control.  Both
-	  hardware and cached HPIE are now 0, although the driver did not
-	  explicitly disable hotplug interrupts.
-  5. Firmware restores hardware HPIE to 1 after the driver's write,
-	  but the cached bit remains 0.
-  6. A subsequent hotplug interrupt reaches pciehp_isr(), which sees
-	  cached HPIE=0 and returns IRQ_NONE without reading or clearing
-	  Slot Status, leaving the event pending.
+Somewhat related, with RMI_BLOCK_L2 or higher and appropriate count we
+can easily go over the MAX_PAGE_ORDER allocation and fail alloc_pages()
+(the contig case). IIUC, the kernel can reject the donation but current
+TF-RMM does not report RMI_OP_CAN_CANCEL (R_SZVNK says it can be
+cancelled). It gets complicated if we want to support large contiguous
+allocations here (e.g. alloc_contig_pages() can sleep). I'd rather just
+cancel the request, not support such large sizes.
 
-ctrl_lock serializes driver commands, but cannot prevent this race
-because firmware does not acquire it.
+[...]
 
-Track the driver's HPIE setting separately.  Update it under ctrl_lock
-only when the command's mask includes HPIE, before writing Slot Control.
-Use this setting in the ISR so unrelated hardware readbacks cannot
-override the driver's enable/disable state.  This adds no configuration
-space accesses to the ISR and leaves the register writes and runtime PM
-flow unchanged.
+> +static int rmi_sro_donate_noncontig(struct rmi_sro_state *sro,
+> +				    unsigned long sro_handle,
+> +				    unsigned long donatereq,
+> +				    struct arm_smccc_1_2_regs *out_regs,
+> +				    gfp_t gfp)
+> +{
+> +	unsigned long block_size_fld = RMI_DONATE_BLOCK_SIZE(donatereq);
+> +	unsigned long block_size = rmi_addr_block_size_to_bytes(block_size_fld);
+> +	unsigned long count = RMI_DONATE_COUNT(donatereq);
+> +	unsigned long state = RMI_DONATE_STATE(donatereq);
+> +	unsigned long found = 0;
+> +	unsigned long donated_granules;
+> +	unsigned long granules_per_block = block_size >> PAGE_SHIFT;
+> +	unsigned long consumed_blocks;
+> +	int addr_list_start = sro->addr_count;
+> +	int ret, i;
 
-Wait for command completion interrupts only when the software HPIE
-setting and the cached HPIE and CCIE bits are all set; otherwise poll.
-Also check cmd_busy when polling to recognize completions already
-consumed by the ISR.
+[...]
 
-This prevents stale-cache rejection of delivered interrupts, but does
-not restore hardware interrupt delivery.  If firmware restores HPIE
-before the driver's write, that write may clear it again.
+> +	for (int i = 0, src = addr_list_start + consumed_blocks;
 
-Signed-off-by: Zhu Qiyu <qiyuzhu2@amd.com>
----
-Changes in v2:
-- Replace the Slot Control re-read in the ISR with a separate software
-  HPIE setting.  A parent runtime PM reference does not prevent the port
-  itself from entering D3cold, so it cannot guarantee that the added
-  configuration access is safe.
-- Update the setting only for explicit HPIE commands, under ctrl_lock,
-  using READ_ONCE()/WRITE_ONCE() for concurrent access.  Keep the early
-  interrupt-disable check and the existing ISR runtime PM flow.
-- Require the software setting as well as cached HPIE/CCIE for command
-  completion interrupt waits.  Check cmd_busy when polling to recognize
-  completions already consumed by the ISR.
-- Explain the race step by step and clarify that the fix does not
-  restore hardware interrupt delivery.
-- Retitle the patch to describe the failure rather than the solution.
+Nit: we have 'int ret, i' earlier already, so you can drop the 'int'
+here.
 
- drivers/pci/hotplug/pciehp.h     |  3 +++
- drivers/pci/hotplug/pciehp_hpc.c | 18 ++++++++++++++----
- 2 files changed, 17 insertions(+), 4 deletions(-)
+[...]
 
-diff --git a/drivers/pci/hotplug/pciehp.h b/drivers/pci/hotplug/pciehp.h
-index debc79b0adfb2..819899d04a418 100644
---- a/drivers/pci/hotplug/pciehp.h
-+++ b/drivers/pci/hotplug/pciehp.h
-@@ -54,6 +54,8 @@ extern int pciehp_poll_time;
-  *	controller and disabled per spec recommendation (PCIe r5.0, appendix I
-  *	implementation note)
-  * @slot_ctrl: cached copy of the Slot Control register
-+ * @hpie_enabled: driver's Hot-Plug Interrupt Enable setting, updated only
-+ *	by commands that explicitly change HPIE, not by hardware readback
-  * @ctrl_lock: serializes writes to the Slot Control register
-  * @cmd_started: jiffies when the Slot Control register was last written;
-  *	the next write is allowed 1 second later, absent a Command Completed
-@@ -96,6 +98,7 @@ struct controller {
- 	unsigned int inband_presence_disabled:1;
- 
- 	u16 slot_ctrl;				/* control register access */
-+	bool hpie_enabled;
- 	struct mutex ctrl_lock;
- 	unsigned long cmd_started;
- 	unsigned int cmd_busy:1;
-diff --git a/drivers/pci/hotplug/pciehp_hpc.c b/drivers/pci/hotplug/pciehp_hpc.c
-index 4c62140a3cb44..ab1c6da9054e1 100644
---- a/drivers/pci/hotplug/pciehp_hpc.c
-+++ b/drivers/pci/hotplug/pciehp_hpc.c
-@@ -89,6 +89,10 @@ static int pcie_poll_cmd(struct controller *ctrl, int timeout)
- 	u16 slot_status;
- 
- 	do {
-+		/* The IRQ handler may have consumed the completion event. */
-+		if (!ctrl->cmd_busy)
-+			return 1;
-+
- 		pcie_capability_read_word(pdev, PCI_EXP_SLTSTA, &slot_status);
- 		if (PCI_POSSIBLE_ERROR(slot_status)) {
- 			ctrl_info(ctrl, "%s: no response from device\n",
-@@ -106,7 +110,7 @@ static int pcie_poll_cmd(struct controller *ctrl, int timeout)
- 		msleep(10);
- 		timeout -= 10;
- 	} while (timeout >= 0);
--	return 0;	/* timeout */
-+	return !ctrl->cmd_busy;
- }
- 
- static void pcie_wait_cmd(struct controller *ctrl)
-@@ -137,7 +141,8 @@ static void pcie_wait_cmd(struct controller *ctrl)
- 	else
- 		timeout = cmd_timeout - now;
- 
--	if (ctrl->slot_ctrl & PCI_EXP_SLTCTL_HPIE &&
-+	if (READ_ONCE(ctrl->hpie_enabled) &&
-+	    ctrl->slot_ctrl & PCI_EXP_SLTCTL_HPIE &&
- 	    ctrl->slot_ctrl & PCI_EXP_SLTCTL_CCIE)
- 		rc = wait_event_timeout(ctrl->queue, !ctrl->cmd_busy, timeout);
- 	else
-@@ -179,6 +184,9 @@ static void pcie_do_write_cmd(struct controller *ctrl, u16 cmd,
- 	ctrl->cmd_busy = 1;
- 	smp_mb();
- 	ctrl->slot_ctrl = slot_ctrl;
-+	/* Do not let unrelated read-modify-writes change the IRQ setting. */
-+	if (mask & PCI_EXP_SLTCTL_HPIE)
-+		WRITE_ONCE(ctrl->hpie_enabled, !!(cmd & PCI_EXP_SLTCTL_HPIE));
- 	pcie_capability_write_word(pdev, PCI_EXP_SLTCTL, slot_ctrl);
- 	ctrl->cmd_started = jiffies;
- 
-@@ -629,10 +637,12 @@ static irqreturn_t pciehp_isr(int irq, void *dev_id)
- 
- 	/*
- 	 * Interrupts only occur in D3hot or shallower and only if enabled
--	 * in the Slot Control register (PCIe r4.0, sec 6.7.3.4).
-+	 * in the Slot Control register (PCIe r4.0, sec 6.7.3.4).  Use the
-+	 * driver's HPIE setting, not a cached hardware value which may be
-+	 * affected by firmware changes to Slot Control.
- 	 */
- 	if (pdev->current_state == PCI_D3cold ||
--	    (!(ctrl->slot_ctrl & PCI_EXP_SLTCTL_HPIE) && !pciehp_poll_mode))
-+	    (!READ_ONCE(ctrl->hpie_enabled) && !pciehp_poll_mode))
- 		return IRQ_NONE;
- 
- 	/*
+> +/*
+> + * rmi_sro_execute: Execute an RMI command that is Stateful but not memory
+> + * tranfserring. Takes regs, filled with the FIDs and the arguments in place.
+> + *
+> + * Returns :
+> + *  -ECANCELLED - If the operation had to be aborted and SRO was cancellable.
+
+Nit: -ECANCELED.
+
+> + *  Otherwise, returns the result of the RMI command.
+> + */
+> +long rmi_sro_execute(struct arm_smccc_1_2_regs *regs)
+> +{
+> +	bool cancelled = false;
+> +	unsigned long sro_handle = regs->a1;
+> +
+> +	rmi_smccc_invoke(regs);
+> +
+> +	sro_handle = regs->a1;
+
+Nit: drop the first initialisation maybe?
+
 -- 
-2.43.0
-
+Catalin
