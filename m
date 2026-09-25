@@ -1,128 +1,77 @@
-Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BD443F4AB
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:09:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2AA2D73A0;
+	Fri, 25 Sep 2026 19:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790363360; cv=none; b=BHeCwp4Em9Pxp/CR8sWWW7kQZTrXK5iKTQpd4H3VbMduNL0D/JzwMaECc/RKXxUpQS5JubDSAft3Xc1VroVv9r39aaEPuyIGkKEPVp5dmJIvC1vWMBReIK3xuPqSbI2MP3bY23Uv1D5tV8orG9aAIo9T5VgRHf2++FPTDp/JYDU=
+	t=1790363417; cv=none; b=KAdJbr5GehY8YpAX4UFIUzmjMMvqqPQ3xFPspNAb8dUpmoHjvSxV6EvzRyhHDOnMbawibF3YmAWDK/D5shZDJDL1Eeuliotj8KwnDmHY/LETTIAPap+Qe8utgdetzyBioZz/xFVtb/qCbS2P4L6Z1DEptjDZnb+l/14+St+5dEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790363360; c=relaxed/simple;
-	bh=P4N5NiQtgf6akdcneOmQDJyafFZ6ZSCqTp8XKHCQvSE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JG7UaqmUavSw6ojghHN1G8SlAVCPqCnYBSjuOBhhov4oo0ACxavXyBzUyYscsj0Bp/fcH+YapfzhpxgFuUlMOKPIHrPueHKOgGuSt9Y1XlPUUBuZZiMN0LLjQCUuMlGfreN6PrMv5oIUYmEx9KXgPiD/vTSGEyvh9QP7xGThmmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qa19jkOJ; arc=none smtp.client-ip=74.125.230.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1790363417; c=relaxed/simple;
+	bh=zPE7Fpdceg+qVWrlR6SfURBbX130IhK2/zfJ968obXE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=T4+IEPSCYyVqYw/fuwHWQjWhSoG/4DnOUmmFIM6r0xMMODtAZprQ0sCtZddz35PtMPNjsBrJX0uWde7fFV/sz31CyQPCDJSWtAyx75ffPzQmzXEs3T6QRhZlNybJvIs036WcOtairOCGdlbw94toeu+niwmAuK6bW4ww6cQ3GrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lta26CTJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qa19jkOJ"
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a6595b02ebso2359391fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:09:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1790363349; x=1790968149; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jyusYEZ6OMCBSOJianrKz0ypKfJejIPeyJrkqXUe7fI=;
-        b=Qa19jkOJz5MSBHWa1LxTk5Gl1rGoSDktmyxJhgcawZriNo+VAiQyvcIv3aqwGfSLtD
-         t8N3961RX9w76/B3cTNySgwtv4Af0wTPx9ObP0VA7MRJ3AJuD2NffaGCJtM0OCCwe5RL
-         e676VapjChy849rUCARQodHUpTBAHNJm6xF8A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790363349; x=1790968149;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jyusYEZ6OMCBSOJianrKz0ypKfJejIPeyJrkqXUe7fI=;
-        b=j35iuRqZRIgvOIt2w3HF0qec9a5X2C4YlI9RdMFHZU7oiz45CuA/3hnceZvlbYJLED
-         WbqtZA7M1DwOsD4DZfL2bmnpWQQptL9hlx+xWMVW5Gmsxp0SJjxTV3xikUSQJvzu0bCY
-         VvOil1C8wMxzl0qGwSLrfQcTYc//d+ZtiV9Kuez2BzEzdU7ijZ0p8AoyM3UK1ET8y1WQ
-         AyCEjG8cw+AaLFdto0hNMEtzaMg9PONtFQHMC5vAjj8aKLd75myJJvR3Zy4YPBp367Hy
-         82K2JhVgzGJV1a6rSnkdAiAEphZuAA90wBvD6FxaAfGWvaEk8gtxVGRRD+C2nHnwNamm
-         YF8Q==
-X-Forwarded-Encrypted: i=1; AKwUvByIqPvsjKLIVY1zqUxWx6+0PCv08mBYlkzV6//sPqK+J0g6LJxHAcLlPOMl0fZEDPNRagNI3O0QA+58r78=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3Dp8bB3HevhHW1GYkrNij8T7zfwyJlHAmDv6YIepgDRQuXy+x
-	pmXVkKGYO4+lI3Q9mZOLwc7lMQAhazPK5E2hON7X2ytDZX3YsEnyCQh8pSxGrIqPumzQoz8VMJl
-	YiwxiaUrN1g==
-X-Gm-Gg: AYBFou3x9DHL9Yow15W+TfEMiZbkP+DsWjt1uQIZIQGN0tQeaaiHZSwu5RAWmvW3IWt
-	T534z+0wZufaQgOhV2xFqNZ19r2iQM2SownkDgu7uYiYgjyVIEYevH/ogFAr8NfMW1dj0H19cWF
-	DC8nuj/xCumz0iKMJETMZngZBk8sAXWRCSyKBwi6a1vvullQBUpNDMldMjtYEBmEKtA1zYHCF/3
-	MO2DfzrUEqrqF+tH8H64T1l68jBG2xHc/Im1liT/XCwmRaCajtskZu+uVu4g6F+po6C+YtSyXyF
-	snZx5EicyYsbw7emks9QlMo3qQSQZZPqyeL1lO9QC3+o8fGLQijXtZYYMFKTriMbwzmpZGDGtMc
-	nKNmL4aDdjn172zMFl/0FxVqsgwUr9cGRiiI1oImIBnnYmjc3XnS45veSZtVDcuN79RFAmb/3QS
-	Rjj2Ko18MMkez1hDmbx/HnJZAUP2ygUO1hhog67msBpdcf5+/4Q3MdgR8eF1200mdoHg7qbOx+9
-	fBJvUSLlYLVJMJWL+AWK9Tjrvi76v+UOgCLVC73de5XRowlwn2iOS6zUoU=
-X-Received: by 2002:a2e:be04:0:b0:3a5:da9c:4661 with SMTP id 38308e7fff4ca-3a64c7e8928mr7642131fa.26.1790363348941;
-        Fri, 25 Sep 2026 12:09:08 -0700 (PDT)
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com. [74.125.229.205])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a64c30b92fsm8468231fa.29.2026.09.25.12.09.07
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 12:09:08 -0700 (PDT)
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8eacb7c8fso708073e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:09:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxC4682gbqKVTWchAI9ylJiKFFbLCSiiFBtRBSCVT1JdrXtGgn6vb0izNCgNWWe7CrCgNGfzAyQbzZhSTM=@vger.kernel.org
-X-Received: by 2002:a17:907:971a:b0:c29:d525:72a9 with SMTP id
- a640c23a62f3a-c2aea0c733amr303710766b.49.1790362848349; Fri, 25 Sep 2026
- 12:00:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lta26CTJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C64E1F000FF;
+	Fri, 25 Sep 2026 19:10:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790363416;
+	bh=WIh5MF91TgNDRmG6Qisl3WLz2tFz4iMG+XOqdmL7CGE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lta26CTJTzuqDDh5KI8mVWRhpEM81U1UcckDr7elT2XmDDv9u3Yu83P5Kh49UB1d7
+	 3RmumOK4R51exJOZZNWGrKtF5MQN87aNO+1fQdjMPzcQisfnSm1Sv3mQpPjr5nVKML
+	 ClXq0r1H+aVB7Wb5sxjDOFcwtAuh3SeOaFRNklbtdCY2DF5NQOUE8Q4alUJYQJ7BjU
+	 0WLKQ8Gl14aZLEKpS81xG/puqobi7SQ6pP3/HchhrBK1Sd4KV9rXlWut9JVd7yL2qs
+	 c3EtSA68/rbFVVNiAjBjoowFqz46o784ouT6Tas+VISMbCw56jRrP+LfDzqv2gbI6h
+	 4Y8PV2u15/CsQ==
+Date: Fri, 25 Sep 2026 12:10:15 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Konstantin Sinyuk <ksinyuk@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Francois Dugast
+ <francois.dugast@intel.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>, Thomas
+ Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Donald Hunter <donald.hunter@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, "Paolo Abeni" <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Ilia Levi <ilia.levi@intel.com>,
+ <linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
+ infrastructure for scale-up accelerator interconnects
+Message-ID: <20260925121015.08b8cc15@kernel.org>
+In-Reply-To: <ara5iTl7bmgWbPW9@intel.com>
+References: <cover.1787552412.git.ksinyuk@kernel.org>
+	<20260921131911.532d81f4@kernel.org>
+	<ara5iTl7bmgWbPW9@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789239015.git.ilya.gladyshev@linux.dev>
- <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
- <DLFJL5U9DI6F.3QJP9YP0KX636@nvidia.com> <56e036665dbeb0a8f51d697220d5ed84f210994c@linux.dev>
- <570cf649-a8bf-4073-be71-207fbb2bef40@kernel.org> <CAHk-=wh3LLDV2AMZn1PZcU1o3Na-BNcQtP=LPXouLKPZWaiRdQ@mail.gmail.com>
- <DLO1WIACYFWF.3N01DXYFJLMD0@nvidia.com> <a1d5881926dbf4b16dc796fb1da939f32dd42f18@linux.dev>
-In-Reply-To: <a1d5881926dbf4b16dc796fb1da939f32dd42f18@linux.dev>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Fri, 25 Sep 2026 12:00:31 -0700
-X-Gmail-Original-Message-ID: <CAHk-=widZMoVwT+to2PKPfy-y2gERYWdLsZCZvXcz0ZbXYpt9w@mail.gmail.com>
-X-Gm-Features: AclHuK84xe3uYtoS3qkT2jpKdwnf58NHL9DKtWnMUTEyzhDeLLiMiURHSpbJsHU
-Message-ID: <CAHk-=widZMoVwT+to2PKPfy-y2gERYWdLsZCZvXcz0ZbXYpt9w@mail.gmail.com>
-Subject: Re: [PATCH v6 3/3] mm: implement page refcount locking via dedicated bit
-To: Ilya Gladyshev <ilya.gladyshev@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>, "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org, 
-	andrew+netdev@lunn.ch, apopple@nvidia.com, artem.kuzin@huawei.com, 
-	baolin.wang@linux.alibaba.com, Liam.Howlett@oracle.com, edumazet@google.com, 
-	harry.yoo@oracle.com, hramamurthy@google.com, ivgorbunov@me.com, 
-	joshwash@google.com, kirill@shutemov.name, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, lorenzo.stoakes@oracle.com, mhocko@suse.com, 
-	muchun.song@linux.dev, pfalcato@suse.de, rppt@kernel.org, surenb@google.com, 
-	vbabka@suse.cz, willy@infradead.org, yuzhao@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, 25 Sept 2026 at 00:03, Ilya Gladyshev <ilya.gladyshev@linux.dev> wr=
-ote:
->
-> Hmmm, I=E2=80=99m afraid that since you need CAS for a safe 1->FR transit=
-ion,
-> it will result in a CAS loop for the decrement itself (like in
-> atomic_sub_unless). And this will introduce scalability issues just like
-> in folio_try_get(), but this time for everyone...
+On Fri, 25 Sep 2026 14:12:25 -0400 Rodrigo Vivi wrote:
+> I do understand the feeling here :(
+> 
+> But I do hope that you reconsider your position here. We had such a great
+> experience with the drm-ras using the netlink and I was really hoping that
+> we could just reproduce the same experience here.
+> 
+> Netlink is such an incredible API.
+> 
+> Would it help if I take the maintainership of this drm-fabric netlink
+> along with the drm-ras one, ensuring the same consistent and clean usage?
 
-Note that we could make that CAS case be the thing that only the
-special cases do.
+Hard call, I have nothing to complain about with the drm-ras work.
+Purely worried about the time :( Well, that, and DRMs general love
+of Rust which seems to be about 10x less development efficient for us..
 
-IOW, maybe only do that slow sequence in compaction_free() and the
-memory offlining.
-
-So we'd have two different cases:
-
- - the high-performance case is ready and willing to accept the "sees
-zero" window and the extra 0->FR state that can race with somebody
-else taking an optimistic ref
-
- - the unusual slow cases that are *not* willing to deal with
-optimistic ref takers do the "CAS 1 -> FR" state atomically and always
-use compare-and-exchange for their freeing path
-
-That actually sounds like a good approach to me.
-
-But maybe I'm missing something obvious and it doesn't really solve the iss=
-ue.
-
-              Linus
+Let's start by feeding this + the spec into your LLM
+https://github.com/masoncl/review-prompts/blob/main/kernel/subsystem/netlink.md
