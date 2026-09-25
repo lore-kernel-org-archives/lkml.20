@@ -1,139 +1,201 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837864F798D
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07034E80D9
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:19:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790371173; cv=none; b=A2RlJoiyYEaAkgXxViWGOngtl+7QQ90tYytgRENIdOXAhDCz9fCMhONDmNjjGDamrquD6ruxmbLzlnW7t9gfJdgtqKtnTitTXTHv9Xvi7r+X4xF/3irit1mlhs41t75qjsZFWR1DWp7hCHf+htGAKY43JnIMm7MIVewDP4nb/AM=
+	t=1790371184; cv=none; b=eJQxj1ygtbbwOW68IMAiIGghYJDl3Imx9LLdwTA1eomvtQbhf1gdqhkM+RcQoIeh3unNVxUlYuyX/gzX0PmTetXOD0jC+MpDVz5ShXaP87A9ZpLFDE6YymZPN1BIAL2aGblvVp4dHX+YYmRVjU/CU1NmluJ8IiLNDWnY/0zNT5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790371173; c=relaxed/simple;
-	bh=+ycUu4Lrfdhzd9jKGwQrR5OBQYug2brCLTLBMKycAlE=;
+	s=arc-20240116; t=1790371184; c=relaxed/simple;
+	bh=0GWPqZpmdGFUSUdNZnUFUlJDkU2OEy7Ysxs/AaAevAk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b6ISK4OAG6hP6hIy+cWZm44FrIjsiN/1omkWXx/idAw4OG08RAdZFj6QpOOTUJ03NHTtCq5m1UUUewHzyD9F39363AgAFaM7IbnlNvtFY866QUav7eF59qaZUx/6hMMpPI0SEqQPpMI7JGofYg54i/4menuQLxzsXF+8ttcQ47k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BcgtoNnN; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=eCfs2GqBOkfFpucPGFZnOoZzdamSPNVmgaKJPlAndY2jdERBpooVd244K1xMEaShKfqzeLuyCs96G81Xk+UmHbm4vHyFobD2haMH7frl56GOOkGB55HTXdaye/FgJwAsILtgS+QMl7GRx9b+19FJ67tBwfWmj+oFD7saDrc7fdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BSKa1VE5; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BcgtoNnN"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-342773d94a7so358060eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:19:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BSKa1VE5"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d73b8so511860a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 14:19:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790371170; x=1790975970; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1BSFDJmV96PMiREIfL8Vp0Pof+pF3vE7NpaMcF3TO54=;
-        b=BcgtoNnN7tyT5vXhQxH2W/svjj04rjfZBk106Yx5Ud7AdBiH36T4d3HMQw4OKcx8Sq
-         NSM1vLK6E71a3ci5ofu6g4WdMJ9lDPD/0Vcx/FyPu6F9VzovP6Lta6Wlt01yttgWz0W1
-         8Z3YgLtmzsDiboBvrDdfOWCFsKNWW2peKDw801gsQ4fYGmg1QBitC25naGpcGWZB424v
-         Hk44SSp0/6Ie3W/gSdfw1W9BxtikJ2//by1ti504vamhy+Imv72w+IeZgrh8gJHy3a+/
-         ReuZTohoTELW7MiJjEDd9lcTjXHtDCM80++FO+XxJ4oRlHFEYa/ejek8AkAeRZpBlYOg
-         fr6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790371170; x=1790975970;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790371182; x=1790975982; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1BSFDJmV96PMiREIfL8Vp0Pof+pF3vE7NpaMcF3TO54=;
-        b=Rwr14wbfTax2Db15iNtNOdRjto2sn3vrgLImShuGjdrDBKpgIN5UcSQHGtlm1wVlGb
-         wmo6Se3N5rjxf0DECZcVri1+VlsgMNZIFHyh80qQVS0E2/4Bwg9vXHoEv5M6VgYUyj3M
-         gQK3x7ZLmgZzNbbjdgKNvOKTN8ybK/hNg3TAJcE597bsvijGyM1u1/0N2WMlDPN+eRzY
-         G6oUZvlhIYtaODcAvpoar7HuQRYbfyXscSMlWTDk1QPE5Xeh3eT/7hOW0ETyTVgaAc1b
-         AQ2YlxwWm7wYI2FwlgDRHQCrLJR/byk/3Jv7TXD8qhQQoABBWY67Wayz9IBm8Nzekdrv
-         ulTw==
-X-Forwarded-Encrypted: i=1; AKwUvBwrWs8+VYPXo56N2GeFLlrzWDw1cbwRNE8ZXI8d2UE0duLIsjbMHcYdUdy+dlGb6d+8Xt0sjWErRBgcLh4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhJFAE8sbB6tsEv647pfi9bX1K3zg21uIn1QBG3gExBHvuZtiG
-	e5VywHYt4UNyGh1Ius0BoXAHTzQFXeSJX6PaJGXcYGQtJrgolKzdpJvq
-X-Gm-Gg: AYBFou0wCgC8fAxBwVO3EaMEpSrv1yur+3mrmLp8NcMIYtYrtUyCGz1LP27bUhbyVjz
-	y/QJAC4o22CpwQI+IWfocVH6cYYbKN38WYnrBFLaYy4PopFzXIDgb4zPzXnbluCBkLilDvp67Ka
-	6AotziRg6sBb/r9M14O6OoD/uWomYUuSCbNDotqtNvE1W4HFJRlDTPq9GPig4RRZfo+rGsEYDs+
-	QLuit3aLO6oOsiBCWtK7SeE14g8i/KWpUboOdzyw5CoYp44YSo+WlnWlQWG6bK/aRgA3YPgZZfy
-	k3EW40q9maiPzcHtu8Sl3ZwAx3CpaaidAxZLwap5aptcl2ToWNmrYJYvgOJw1Hj49LitQ2B3xtj
-	CybdnvWXQbHvAQaz6T0tGxXsQyKC5zXqgwjyAsWMeWquR32sqntSrdtBWSoui2JeKi+DZ0nClHK
-	jXjg1u6/hL+v/Mc25SK1jUg6Zp1mQk/Wom0RL4YkC2sStpFWHBCqDJPBqBpMR6gdNnWmq5ar50M
-	bx1JQ1psxf9guymT0wxaqjJ91TPBFcDcUl9ZLo=
-X-Received: by 2002:a05:7300:dd48:b0:33b:eb33:9f70 with SMTP id 5a478bee46e88-34272a41d89mr1027757eec.37.1790371169410;
-        Fri, 25 Sep 2026 14:19:29 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:375:19cf:5fee:be32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3416e4c2f50sm8029385eec.27.2026.09.25.14.19.27
+        bh=JB0nUqbya8/nZnbD9q59QxieeAyOe2s3ehiXTlDcKL4=;
+        b=BSKa1VE5VJY8h86oU2v5pKBpJIMFaWRw7l6J8d5l4DEtWlXq+LtN6GRsRZ0F37vWmV
+         4tgxUZA9H/vYPCi/fKRjOmpYac8gIhZ1tWsabEqJi0mwVy5nNq+7ND4wy/mpJhr4yIvJ
+         ObMgGoh8W/cG4ZceWhlAbqQnd5urz7cpdAfeCIGUDq2bcSKvgxU1gXOpGSLtcGkPUTXM
+         lbnGebl2kXAZ7aadqbqpxHVkMf0ZCol5kRbv4M7KKsQ8NlDJaMWGcw8+re8qW062vYFO
+         9CSG/1/TTg8UCOUvC6C15vBwhJ8UmLM+5bZZ0b16pZIdaF3psXf23V4t8onsYxEHD+eY
+         2Jkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790371182; x=1790975982;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JB0nUqbya8/nZnbD9q59QxieeAyOe2s3ehiXTlDcKL4=;
+        b=DpfLx4n5Fh0vP2NeaHAqUcNSIPnbVEZgCF3NkDwy3TwWQ0QjO5GJLkZkVoa0ELhhKU
+         bL7NNzeZX/Rp5gJQ7BRK1uzn3fDUp7vQgKR5Z6KbqT2+H/k6yRDw0WLgY2nhbsPlQBok
+         yw1zttxQMdu/2tespxieOCuMfkF3AGvvc6Vzqa6rFNKWYADrshq1mFMBWOL874SAbXPU
+         woJ7sL3H/FJjjjn1MT4qf7u+tIlqOJWkdwiZssngfjICWwnS8wgMS2SDBKxZJChc4ivf
+         nIzuPI6KrqFABcpstModFhuyaFUDwKuxOUkrYor8H+V0OAMaPW6pPyyETw874ZUT6KWN
+         sW8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxEG4bcBEsPmQV1pwVkQ4ej/D01h5z/JxnsPq7f5dy9359LjTSFJZd8S/2RTd1yg11gIV8vfAOPeuCMmZY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTJNSciftzwH/3tvce0a5kNe0aRSjqWHRORlsFiHYKq8flEkeU
+	Wdz5Qsdfs1LqMv8810mD5Sqm8i5zRieLuyqvbFZw5DQ3XSO/JVVG4vnb81WUe2gB
+X-Gm-Gg: AYBFou3Lxz0jNEwS4SS0+AqY49YATsdVu3Iko99NZFmIEbslZ3fVD9p3IR7RNZFS69Y
+	965YTFvhA9mjG6gCYR5h5/TMBT4iYPo9L/UTVlFdz9/3fkfhymuvYGoXbmPVA+JiPIju/da/vxN
+	OE/nB7jmdaEbIKKA6C7QrrQ2XYlkdLgPZuTXca9EmL50psxGnnkjB1jSlYgE7I5T1XsxYm/wlsa
+	HOoRqjFFLsTkqnpeEqa0KQiHdCgz2muNrrK6HgKLYR89gdr7XUnq1MbgHQoVLWNEnjeeYqzlXwQ
+	w44prhA+A1FSO7Tt/y8zi71zNdgBV6Cc5QhcbJqAhEQfP7O3JEVGJfNoNUbXrhDQDmhWCRcGMfA
+	M4yMx4ME1MVktWwP+LtMfeWeOEHpzrOrIuUMdLa8k+ex4BT4zPHWiy0JYMDOIgjCdmKNNonXeb0
+	7vLjdLeo5OQHGxZcHVgI0Gm60rzQDG5yfikBYc3M92QPJYyz2SGTZ8vJkrdngBmIIHnrXVSYcTr
+	Xd5IhuRtXCU
+X-Received: by 2002:a05:6a21:748b:b0:3dd:a196:9070 with SMTP id adf61e73a8af0-3de0e9432damr6262879637.58.1790371181958;
+        Fri, 25 Sep 2026 14:19:41 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc787943cc9sm1828969a12.21.2026.09.25.14.19.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 14:19:28 -0700 (PDT)
-Date: Fri, 25 Sep 2026 14:19:25 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <arbkvK54vT7SIyjV@google.com>
-References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
- <20260826-bind_taint-v1-2-52b05f4a965c@linuxfoundation.org>
- <apA8n524yIn-g6ep@hovoldconsulting.com>
+        Fri, 25 Sep 2026 14:19:41 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 25 Sep 2026 14:19:39 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christian Lamparter <chunkeey@gmail.com>
+Cc: Ridham Khurana <khurana.ridham222@gmail.com>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Christian Lamparter <chunkeey@googlemail.com>,
+	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+	Nikita Shubin <nikita.shubin@maquefel.me>,
+	Shuah Khan <shuah@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev
+Subject: Re: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
+Message-ID: <3334ba64-2f0b-4e66-9a3b-84f46af70212@roeck-us.net>
+References: <20260924205326.1739229-1-khurana.ridham222@gmail.com>
+ <f28a5470-0d9e-4045-9c64-5614e0e88de2@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <apA8n524yIn-g6ep@hovoldconsulting.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f28a5470-0d9e-4045-9c64-5614e0e88de2@gmail.com>
 
-On Thu, Aug 27, 2026 at 03:33:19PM +0200, Johan Hovold wrote:
-> On Wed, Aug 26, 2026 at 11:19:33AM +0200, Greg Kroah-Hartman wrote:
-> > The ability to add and remove devices from a driver through the sysfs
-> > "bind" and "unbind" files was created all those decades ago as a way
-> > that kernel developers can iterate faster, and provide a debugging way
-> > for users to attempt to add a new device to a driver without having to
-> > rebuild their kernel.
-> > 
-> > This api over the years has been abused and recently come under a major
-> > fuzzing "attack" through tools like syzbot which decided that it would
-> > attempt to just randomly bind any driver to any type of device, causing
-> > loads of unneeded errors and pointless kernel patches to be generated by
-> > unsuspecting new developers.
-> > 
-> > Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
-> > will be set on the driver if the bind/unbind sysfs files are ever
-> > successfully written to.  This lets kernel developers "know" that a user
-> > is attempting to do something that is not normal, and as such, if the
-> > kernel breaks they get to keep the shiny pieces laying around on the
-> > floor.
-> > 
-> > Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
-> > as many times crashes/oops/warnings/failures happen within the callback,
-> > and the taint flag needs to be there to show what was being attempted.
-> > If it were to be set after the callback happens, the oops report would
-> > not properly reflect what foolishness was being attempted.
-> > 
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+On Fri, Sep 25, 2026 at 08:03:06PM +0200, Christian Lamparter wrote:
+> Hi,
 > 
-> This makes it clear that this is a development tool, and it is a good
-> compromise preferable to adding unnecessary complexity or suppressing
-> the attributes completely just to prevent root from shooting themselves
-> in the foot:
+> On 9/24/26 10:53 PM, Ridham Khurana wrote:
+> > temp1_input_show() drops the low bits of the temperature register by
+> > dividing the raw value (raw / 32 on the LM70). These bits are not part
+> > of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
+> > return some of them as 1, and the TMP125 fills them with copies of the
+> > temperature LSB. Division rounds toward zero, so a negative temperature
+> > with any of these bits set is reported one LSB too high.
+> > 
+> > For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
+> > driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
+> > the driver reports as -24750.
+> > 
+> > Use an arithmetic right shift instead, which drops the low bits and
+> > rounds down. tmp421 had a similar problem with negative values, fixed
+> > by commit 724e8af85854 ("hwmon: (tmp421) fix rounding for negative
+> > values").
 > 
-> Reviewed-by: Johan Hovold <johan@kernel.org>
-> Tested-by: Johan Hovold <johan@kernel.org>
+> For the TMP125 yes:
+> 
+> Reviewed-by: Christian Lamparter <chunkeey@gmail.com>
+> 
+> 
+> > Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
+> > Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
+> > Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
+> > Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+> > ----
+> I wrote a little test program by hand (see below) and ran it on x64.
+> No idea if different archs behave differently or if
+> a clever unsafe math optimizing compiler flag will
+> convert the  "/ 32" to a " >> 5" but I doubt that...
+> 
+> ---
+> tmp125: raw:7ec0 tmp125_proposed: -2500 tmp125_now: -2500
+> tmp125: raw:7eff tmp125_proposed: -2250 tmp125_now: -2000  <--- loss of percision
+> tmp125: raw:7f00 tmp125_proposed: -2000 tmp125_now: -2000
+> tmp125: raw:7f3f tmp125_proposed: -1750 tmp125_now: -1500  <--- more
+> tmp125: raw:7f40 tmp125_proposed: -1500 tmp125_now: -1500
+> tmp125: raw:7f7f tmp125_proposed: -1250 tmp125_now: -1000  <--- and this
+> tmp125: raw:7f80 tmp125_proposed: -1000 tmp125_now: -1000
+> tmp125: raw:7fbf tmp125_proposed:  -750 tmp125_now:  -500  <--- also bad
+> tmp125: raw:7fc0 tmp125_proposed:  -500 tmp125_now:  -500
+> tmp125: raw:7fff tmp125_proposed:  -250 tmp125_now:     0  <--- ouch
+> tmp125: raw:   0 tmp125_proposed:     0 tmp125_now:     0
+> tmp125: raw:  3f tmp125_proposed:   250 tmp125_now:   250
+> tmp125: raw:  40 tmp125_proposed:   500 tmp125_now:   500
+> tmp125: raw:  7f tmp125_proposed:   750 tmp125_now:   750
+> tmp125: raw:  80 tmp125_proposed:  1000 tmp125_now:  1000
+> tmp125: raw:  bf tmp125_proposed:  1250 tmp125_now:  1250
+> tmp125: raw:  c0 tmp125_proposed:  1500 tmp125_now:  1500
+> tmp125: raw:  ff tmp125_proposed:  1750 tmp125_now:  1750
+> tmp125: raw: 100 tmp125_proposed:  2000 tmp125_now:  2000
+> tmp125: raw: 13f tmp125_proposed:  2250 tmp125_now:  2250
+> tmp125: raw: 140 tmp125_proposed:  2500 tmp125_now:  2500
+> 
 
-bind/unbind without overrides should not necessarily be treated as a
-development tool. For example with I2C devices you may want to unbind
-the functional driver, perform firmware update from userspace, and bind
-the device again. This will ensure that driver is not confused and at
-the same time you do not need to put into the kernel code that is
-dormant 99.9999 percent of the time.
+Sorry, you lost me with the above. Are you suggesting that the patch is
+correct, that it is only correct for TMP125, or something else ?
 
-Thanks.
+Guenter
 
--- 
-Dmitry
+> (the positive values all look good.)
+> 
+> --- SNIP test.c program
+> 
+> #just name the file test.c and run make test (in a directory without any other makefile)
+> #include <stdio.h>
+> #include <asm-generic/int-l64.h>
+> 
+> static __s32 sign_extend32(__u32 value, int index)
+> {
+>         __u8 shift = 31 - index;
+>         return (__s32)(value << shift) >> shift;
+> }
+> 
+> static int tmp125_now(__s16 raw)
+> {
+>         return (sign_extend32(raw, 14) / 32) * 250;
+> 
+> }
+> 
+> static int tmp125_proposed(__s16 raw)
+> {
+>         return (sign_extend32(raw, 14) >> 5) * 250;
+> 
+> }
+> 
+> int main(int argc, char **args)
+> {
+>         for (__s16 raw = -320; raw <= 320; raw+=32) {
+>                 __s16 tmp=raw & 0x7fe0 | ((raw & 32) >> 1) | ((raw & 32) >> 2) | ((raw & 32) >> 3) | ((raw & 32) >> 4) | ((raw & 32) >> 5);
+>                 printf("tmp125: raw:%4x tmp125_proposed:%6d tmp125_now:%6d\n", tmp, tmp125_proposed(tmp), tmp125_now(tmp));
+>         }
+> 
+>         return 0;
+> }
+> 
+> --- SNAP
+> 
+> FYI: TMP125 datasheet says:
+> "The  Temperature  Register  of  the  TMP125  is  a  16-bit, read-only register that stores
+> the output of the most recentconversion. However, temperature is represented by only10-bits,
+> which are in signed two’s complement format. Thefirst bit of the Temperature Register, D15,
+> is a leading zero. Bits D14 and [sic] D5 are used to indicate temperature. Bits D4 to D0
+> are the same as D5 (see Table 1)."
+> 
+> (They probably meant Bits D14 >>to<< D5 are used to indicate temperature).
+> 
