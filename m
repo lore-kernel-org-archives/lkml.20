@@ -1,87 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6F525A645;
-	Fri, 25 Sep 2026 13:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B007949EC5A
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343589; cv=none; b=gVhBu98i1Y3tzg6UC1lkUgj2qX4r75iLWrTBM8tDjRcaZilto6lU3TWiLu6iZTRBGUsaiunB5tKccDRWpEw/+huNeKRVd1UkQ6UvdCOOYz1cgtMeLxP1eqopmYd6vMMbUD2RI+DIurbzFa/9gmDIVeyujKSw1dC0ugLXEvtJSvo=
+	t=1790343606; cv=none; b=RATnVrwRs3XeeFlgz20oiMQHXXpy9xBJbmN4QenkGtuh29QNw+E+LtkkyTP0YD8RC4FerIqjRO6g7ifdLpBhu5nVfWyC4hrafCT9pF7U7E4dCQ8eYkrAso7Ye4OutL+CaBzzZeKLY18x/wj2VJPA/pBSKGMeN/gb2V37U4bYnzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343589; c=relaxed/simple;
-	bh=EJrogBOmykwU5YYDtuXLechUrczLhU0VXgU3OVOUboo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p2L373mmiHIiD7AJTyWKLFXeBJhSl/15+cbGo6G9NCX8iwpavDwjN07lQOKjlShgfir2+a+AdURGwpG7Ui6YY9RpsSRpVx4rRwL8+ybyZMVRzrPxKCBTmvn8baHuqK3yiQ8vervedjEa245REjgoSljgXKOnBjdtMARdldz2A5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DoPGZI+q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790343606; c=relaxed/simple;
+	bh=AXKRUR9A4FIrBfJhdR+Bf9SUSczGGvQ5U+kVokyuKbs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=swGKzAA+Zk/gsjMo1X7ZuljqkQ7XbBLm2N1XvzSDCvBu7o/K2kgRyxDfI1vl0riZk0N8XMhVk6i1lJPulfpur9X27gASo7RMQKjZgcHD9GBTl/3BL+RJWQ+Jyf/tQavPQufeXZ9Y0oF7XsYPN6cNbGFORXOBajYz+n+P9s8OO3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=NG/AEA5X; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DoPGZI+q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8927D1F000FF;
-	Fri, 25 Sep 2026 13:39:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790343588;
-	bh=7WSWlAyFgg3pyLPe2qxYT+aJudjYOWE9v/3Ty5fttX0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DoPGZI+qvmnA7NgVG98JmBm1veQcfnBva7cD+HVyecx4coUifmCIYJCaeedvnCrkR
-	 8ZBlTWXlMdoLReudAgf/4gLArsvXoM1GRJsR2qnecdj2u9Xzux9HdkiSKDIWFM86+o
-	 THFn3aZ0nKNVqaJTBxOJ1gW4PA+rIwaMFuCqDoomDdX/k8KOm0FW1WXlBuzA+vPXRE
-	 mQv5FvnmF8W8aJUv3/EgUxLv/zhhm2hQvXYb013c73i4twHYhZNkio749Q++lcdVv+
-	 QUXfAtcw+uf4mpsbYZGlLVrfdSW8AE2eIuHng/oFMjBpEhEq0Fb44ChM33/m/o7gfx
-	 cQWlN8x/E0KGA==
-Date: Fri, 25 Sep 2026 15:39:44 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Robert Marko <robimarko@gmail.com>, 
-	Guru Das Srinagesh <linux@gurudas.dev>, Amit Kucheria <amitk@kernel.org>, 
-	Thara Gopinath <thara.gopinath@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, linux-pm@vger.kernel.org, 
-	linux-input@vger.kernel.org
-Subject: Re: [PATCH v3 01/19] dt-bindings: clock: qcom: Add MSM8952 global
- clock controller
-Message-ID: <20260925-devious-vegan-buzzard-bffbb5@quoll>
-References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-1-b96fd3fe298b@mainlining.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="NG/AEA5X"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 9AEB2C653F3
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:40:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9DDD76073B;
+	Fri, 25 Sep 2026 13:40:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9147E10329294;
+	Fri, 25 Sep 2026 15:39:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790343602; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=XHkEOzH7Xbe/GK8KJUktRku6qNZ+JMr43NslTVYlhXo=;
+	b=NG/AEA5XkeVoN9LDRMXzCggJJ0effMbNMsX+bfZB7oZRhLeHyYc5EYwPgkeQjgNIz9hk+f
+	DxIgQ1wnQnCKB9Jjk5AzrYV2RVizD2C1IWxusi60TXHD3oQd3p/2NOOpIyRZ6MxPVbrMab
+	tnrej4pqBJzYjyAtJW+SyubNdbYyiJJtg2YffSj4vODQxW6seJRbVsZXySInOoMhz39Rcc
+	i/HlN7GspKRTcsn3ys8cCThHnN7hxVl4+6U7jnv9CM3z6VM7jHUO+LkeTMP3ZLRR1iEWq0
+	oOmqofvjqyORFbRAfFGZEHJSL9A2RRtjvSrkhzwfzyfsmQSOuF/nKOGU159jEw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Sagnik Sasmal <sagnik@sagnik.me>
+Cc: richard@nod.at, vigneshr@ti.com, tudor.ambarus@linaro.org, 
+ mikhail.kshevetskiy@iopsys.eu, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <010701a08d7e1638-79aaf1ea-cc8c-49e8-ba74-cba028aaa183-000000@eu-central-1.amazonses.com>
+References: <010701a08c36e962-eb595dbe-b80b-44eb-858d-c1033f8a86a1-000000@eu-central-1.amazonses.com>
+ <010701a08d7e1638-79aaf1ea-cc8c-49e8-ba74-cba028aaa183-000000@eu-central-1.amazonses.com>
+Subject: Re: [PATCH v3] mtd: spinand: Do not update the QE bit on devices
+ without one
+Message-Id: <179034359937.1130052.15368175578389496971.b4-ty@bootlin.com>
+Date: Fri, 25 Sep 2026 15:39:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260921-msm8952-initial-support-v3-1-b96fd3fe298b@mainlining.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Sep 21, 2026 at 09:18:52PM +0300, Muzaffer Kadir wrote:
-> Add a device tree binding to describe clocks, resets and power domains
-> provided by the global clock controller on MSM8952 SoC.
+On Thu, 10 Sep 2026 22:44:05 +0000, Sagnik Sasmal wrote:
+> Commit be0b86c648bf ("mtd: spinand: Gather all the bus interface
+> steps in one single function") moved quad-enable setup into
+> spinand_configure_chip(). The new code only determines whether quad
+> mode is needed when SPINAND_HAS_QE_BIT is set, but calls
+> spinand_init_quad_enable() unconditionally. This clears configuration
+> register bit 0 on devices without a QE bit.
 > 
-> MSM8952 GCC driver is mainly based on MSM8939 GCC driver.
-> 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
->  .../bindings/clock/qcom,gcc-msm8952.yaml           |  65 +++++++
->  include/dt-bindings/clock/qcom,gcc-msm8952.h       | 215 +++++++++++++++++++++
->  2 files changed, 280 insertions(+)
+> [...]
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Applied to nand/next, thanks!
 
-Best regards,
-Krzysztof
+[1/1] mtd: spinand: Do not update the QE bit on devices without one
+      commit: 6b660e07255d46a25a7f8cf158804506dffbbfa7
+
+Patche(s) should be available on mtd/linux.git and will be
+part of the next PR (provided that no robot complains by then).
+
+Kind regards,
+Miquèl
 
