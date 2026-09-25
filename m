@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2FB4C14F0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C2084A4EE7;
 	Fri, 25 Sep 2026 15:07:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348841; cv=none; b=uEBaweYIEAiYjaHICUkvIKwAICeQC96YNr+kyJM9fo5nBgR/XmwgzXREE5VbwJ0crKQOA2gJe/1CaiIKPuk0+H40gfB6SoNt5WAZQTZXqtKlautd5BiRUweEutKr4QHYuKavAAd+HA4qM594bsYJU/lxHbmzWeh8QFVNzlyxydU=
+	t=1790348841; cv=none; b=CQ7duIcVCmbMOGHCW1mOZxF+PisuCH8jQ7PeN2QdHr2DWZkhDIyRRINCip++FrGdsTumf8Ize2hHCJ29zYgy9MOjBHEy2fHcMs2s8xrOCG8GsRA3P6QPH7JLE6mjUpPC+BSssfkMECUHh072X40krvLuCA/p24vB6IOzZWfgImk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790348841; c=relaxed/simple;
-	bh=MfrI+godD+3+OeIU4goPbhVnat/EBsRHrdxSkw0nrR8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CRm1ymrWYWQUh8KRa0encbL0YXQZsIwLxm8fNxXdfHidgXzr6XIhLaoZ9P7BLuYyiZnrd4J/4zysiWCT1HMG5+mN1LQf6ygIqcmq2Hw4s5swaNsQmca2xiKRY72Uv3F43n6Br6w/hwRKLbTYaajJY6/lsewlMFw2gYV13KaYp0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PPJxqQoq; arc=none smtp.client-ip=100.103.45.18
+	bh=1+OAEN1iD585KnyomuruZmJJCBpym4RT99/vewzgSLk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IKOKmXt7oByH2PRzOq7NEG63+IJpox4EYYR4ywGSiAHVqM8KXLzab4J0f74hZhVf3l/FSEUgNmOSYdx3COYwhK1ENGmOPqhCRY55S0nAR2eF/7pBA1QrB5/zOYjmscwo6eFUyvk2oL7JGkss6WQx8v/0QB1c0E7oe8efU8VVEeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQv1Uv2H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PPJxqQoq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D83231F000FF;
-	Fri, 25 Sep 2026 15:07:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQv1Uv2H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77DE71F00899;
+	Fri, 25 Sep 2026 15:07:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790348823;
-	bh=sV6J+8TN5XSMOwp05rkcvvqV0rYL8F+QY3ZFuHhXK9E=;
-	h=From:To:Cc:Subject:Date;
-	b=PPJxqQoq3xIQWaGNV53iOGtrUFeHMHnaMokVrXmCTY/htlG3binWqs73q/9quwTk1
-	 RMh98jW2Z4DpLfK/eOhVec32iopu8UrP8RZP3112Wu9AYhX2bUNi/fVnL9FzmJYsEr
-	 cwEMfSWKsc+Pc85dvU2SNOfem02W4cuJEDWO6vP6RO8p2aQBKJsK+ohy25m9Ryfan0
-	 LKI7FPWRE8U/KcKD22HMR1ZJTih82qaOd6WkpufsQGdPY3uhqB+euJJyd6pbpV3xXh
-	 FGlX9iBzVh/OKcgn7nkZ1kghOJMJZV/HGMfTqOH4AzeED8+YTktNBCpUfh8mIXEVJa
-	 6VIe0wga1cStA==
+	s=k20260515; t=1790348828;
+	bh=J3X/f4wDloyblPcy8w8AIIlzFd7xJGB00/1yHA3GFB0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NQv1Uv2HztuMVbtsQhFqQWayk9jHVgQgeZ3zxr/yt9wMXkpJjq4zlWzLuaSMF/hDJ
+	 1aYZMNb6+U8a2OzPszOec6IIPBdQve0gcuvtewxzxDxGMmbwROVe2N5nsnLnfMauy5
+	 V5WZKibqpkCiqMfpnEx/oejitZ4LQI7EnsFmfBBwTCJidj4T3qcb3ZNDxyjA1doi7A
+	 hld+hO+PcwER9uIN9a8vwNH3MjHKXVW44fwTqiU38cJbH+vFdRsLdAX90EEjltPhB5
+	 FXAHJvU2jUV9jxBhNd0g8BEmO6txf2Xl48yJnEgyBjhNVmt1SfjuOkkloSSHODf6tB
+	 Mg3nmO1EVAO1A==
 From: Arnaldo Carvalho de Melo <acme@kernel.org>
 To: Namhyung Kim <namhyung@kernel.org>
 Cc: Ingo Molnar <mingo@kernel.org>,
@@ -36,12 +37,14 @@ Cc: Ingo Molnar <mingo@kernel.org>,
 	Clark Williams <williams@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>
-Subject: [PATCH v5 0/6] perf annotate-data: Fix hangs on broken debug info, AMD mem record
-Date: Fri, 25 Sep 2026 17:06:51 +0200
-Message-ID: <20260925150657.1826942-1-acme@kernel.org>
+Subject: [PATCH 2/6] perf dwarf-aux: Add die_same_file() and die_get_type_die()
+Date: Fri, 25 Sep 2026 17:06:53 +0200
+Message-ID: <20260925150657.1826942-3-acme@kernel.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260925150657.1826942-1-acme@kernel.org>
+References: <20260925150657.1826942-1-acme@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,105 +53,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-This originated in another patch series, 'perf tools: Annotate fixes,
-stdio progress indication, debuginfo-client in more places', and is
-being split off so that these fixes can be reviewed right away; the
-debuginfod download feature work from it will come later, separately,
-based on this series.
+dwarf_dieoffset() is relative to the file the DIE is in, so an offset
+saved by die_collect_vars()/die_collect_global_vars() is only
+meaningful in that file: add die_same_file(), comparing the Dwarf each
+DIE's CU belongs to, and die_get_type_die(), resolving the offset in it
+with the saved tag as a sanity check.  Resolving the offset in the main
+file instead parses whatever is at it when it came from the dwz common
+file.
 
-  - 'perf report -s type' spins forever on the dwz compressed debug info of
-    zlib-ng (libz.so.1): die_collect_vars() saves a type DIE offset that is
-    relative to the file the DIE lives in, the dwz alt file for types shared
-    by several CUs, and resolving it in the main file parses whatever is at
-    that offset, here a typedef whose DW_AT_type refers to itself, making the
-    typedef/qualifier chase spin (patch 3), with the chases bounded so that
-    other kinds of broken debug info don't hang perf either (patches 1, 2
-    and 4);
+dwarf_cu_getdwarf() is new in elfutils 0.160, so the libdw feature test
+probes for it and Makefile.config says 0.160.
 
-  - 'perf mem record' requests PERF_SAMPLE_CPU (patch 5) and uses the IBS
-    swfilt filter when the kernel exposes it (patch 6), with the tables
-    carrying the term kept in the arch/x86 code, where the knowledge that
-    IBS needs it stays, as Ravi Bangoria suggested reviewing Namhyung
-    Kim's v6 review remark on this patch
-    (<4349c387-5b8a-4e8d-932a-5175a7598e1e@amd.com>, replying to
-    <aqsRVABj23jaaiSq@google.com>).
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+---
+ tools/build/feature/test-libdw.c | 10 +++++-
+ tools/perf/Makefile.config       |  2 +-
+ tools/perf/util/dwarf-aux.c      | 56 ++++++++++++++++++++++++++++++--
+ tools/perf/util/dwarf-aux.h      | 13 ++++++++
+ 4 files changed, 77 insertions(+), 4 deletions(-)
 
-About PATCH 5, answering Namhyung Kim's v6 review question
-(<aqsPKGVUkWk6wvYA@google.com>) about the --sample-cpu default: the
-data source field is about the memory hierarchy level of the access,
-it has no record of which CPU issued it, and while the TID is in
-every sample and in the CTF stream, a thread time-sliced on one CPU
-or moved between SMT siblings is not told apart by it from cross-core
-contention, so it is the CPU id that keys it, and it is what the
-false-sharing detector in pahole needs.  The TID is recorded as well.
+diff --git a/tools/build/feature/test-libdw.c b/tools/build/feature/test-libdw.c
+index aabd63ca76b4d7e6..46f75cde59471079 100644
+--- a/tools/build/feature/test-libdw.c
++++ b/tools/build/feature/test-libdw.c
+@@ -49,8 +49,16 @@ int test_elfutils(void)
+ 	return 0;
+ }
+ 
++/* Needs elfutils 0.160: taking its address fails the probe, not the link. */
++int test_libdw_cu_getdwarf(void)
++{
++	void *sym = (void *)dwarf_cu_getdwarf;
++
++	return sym == NULL;
++}
++
+ int main(void)
+ {
+ 	return test_libdw() + test_libdw_unwind() + test_libdw_getlocations() +
+-	       test_libdw_getcfi() + test_elfutils();
++	       test_libdw_getcfi() + test_libdw_cu_getdwarf() + test_elfutils();
+ }
+diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+index dca62e155fb5570a..b288ae0191acf7ef 100644
+--- a/tools/perf/Makefile.config
++++ b/tools/perf/Makefile.config
+@@ -477,7 +477,7 @@ else
+   else
+     ifneq ($(feature-libdw), 1)
+       ifndef NO_LIBDW
+-        $(warning No libdw.h found or old libdw.h found or elfutils is older than 0.157, disables dwarf support. Please install new elfutils-devel/libdw-dev)
++        $(warning No libdw.h found or old libdw.h found or elfutils is older than 0.160, disables dwarf support. Please install new elfutils-devel/libdw-dev)
+         NO_LIBDW := 1
+       endif
+     endif # Dwarf support
+diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
+index 2c135ebb1551fca4..54f8b5ec74a2fe70 100644
+--- a/tools/perf/util/dwarf-aux.c
++++ b/tools/perf/util/dwarf-aux.c
+@@ -1677,6 +1677,15 @@ Dwarf_Die *die_find_variable_by_addr(Dwarf_Die *sc_die, Dwarf_Addr addr,
+ 	return result;
+ }
+ 
++/*
++ * Whether two DIEs live in the same debug file: dwarf_dieoffset() is
++ * relative to the file the DIE is in.
++ */
++bool die_same_file(Dwarf_Die *die_a, Dwarf_Die *die_b)
++{
++	return dwarf_cu_getdwarf(die_a->cu) == dwarf_cu_getdwarf(die_b->cu);
++}
++
+ static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
+ {
+ 	struct die_var_type **var_types = arg;
+@@ -1721,6 +1730,8 @@ static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
+ 			vt->is_reg_var_addr = true;
+ 
+ 		vt->die_off = dwarf_dieoffset(&type_die);
++		vt->die_tag = dwarf_tag(&type_die);
++		vt->from_alt = !die_same_file(die_mem, &type_die);
+ 		vt->addr = start;
+ 		vt->end = end;
+ 		vt->has_range = (end != 0 || start != 0);
+@@ -1740,7 +1751,8 @@ static int __die_collect_vars_cb(Dwarf_Die *die_mem, void *arg)
+  *
+  * Save all variables and parameters in the @sc_die and save them to @var_types.
+  * The @var_types is a singly-linked list containing type and location info.
+- * Actual type can be retrieved using dwarf_offdie() with 'die_off' later.
++ * Actual type can be retrieved using die_get_type_die() with 'die_off',
++ * 'die_tag' and 'from_alt' later.
+  *
+  * Callers should free @var_types.
+  */
+@@ -1786,6 +1798,8 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
+ 		return DIE_FIND_CB_END;
+ 
+ 	vt->die_off = dwarf_dieoffset(&type_die);
++	vt->die_tag = dwarf_tag(&type_die);
++	vt->from_alt = !die_same_file(die_mem, &type_die);
+ 	vt->addr = ops->number;
+ 	vt->end = 0;
+ 	vt->has_range = false;
+@@ -1797,6 +1811,43 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
+ 	return DIE_FIND_CB_SIBLING;
+ }
+ 
++/**
++ * die_get_type_die - Get a type DIE saved by die_collect_vars()
++ * @dbg: the main debug info
++ * @die_off: offset of the type DIE, from dwarf_dieoffset()
++ * @die_tag: tag that DIE had when the offset was saved
++ * @from_alt: whether the type DIE is in the dwz alt file
++ * @die_mem: where to store the resulting DIE
++ *
++ * Resolve @die_off in the file it was recorded as belonging to, with no
++ * fallback; @die_tag is a sanity check.
++ */
++Dwarf_Die *die_get_type_die(Dwarf *dbg, u64 die_off, int die_tag, bool from_alt,
++			    Dwarf_Die *die_mem)
++{
++	Dwarf *target = dbg;
++	Dwarf_Die die;
++
++	if (from_alt) {
++		/* No fallback: an alt offset here parses whatever is at it. */
++		target = dwarf_getalt(dbg);
++		if (target == NULL) {
++			pr_debug("DWARF: no alt (dwz) debug file to resolve the type DIE at offset 0x%lx in\n",
++				 (unsigned long)die_off);
++			return NULL;
++		}
++	}
++
++	if (dwarf_offdie(target, die_off, &die) && dwarf_tag(&die) == die_tag) {
++		*die_mem = die;
++		return die_mem;
++	}
++
++	pr_debug("DWARF: no DIE with tag %d at offset 0x%lx in the %s debug file\n",
++		 die_tag, (unsigned long)die_off, from_alt ? "alt" : "main");
++	return NULL;
++}
++
+ /**
+  * die_collect_global_vars - Save all global variables
+  * @cu_die: a CU DIE
+@@ -1804,7 +1855,8 @@ static int __die_collect_global_vars_cb(Dwarf_Die *die_mem, void *arg)
+  *
+  * Save all global variables in the @cu_die and save them to @var_types.
+  * The @var_types is a singly-linked list containing type and location info.
+- * Actual type can be retrieved using dwarf_offdie() with 'die_off' later.
++ * Actual type can be retrieved using die_get_type_die() with 'die_off',
++ * 'die_tag' and 'from_alt' later.
+  *
+  * Callers should free @var_types.
+  */
+diff --git a/tools/perf/util/dwarf-aux.h b/tools/perf/util/dwarf-aux.h
+index 9b662db710220522..6f9145510adcb841 100644
+--- a/tools/perf/util/dwarf-aux.h
++++ b/tools/perf/util/dwarf-aux.h
+@@ -152,6 +152,8 @@ int die_get_scopes(Dwarf_Die *cu_die, Dwarf_Addr pc, Dwarf_Die **scopes);
+ struct die_var_type {
+ 	struct die_var_type *next;
+ 	u64 die_off;
++	int die_tag;
++	bool from_alt;	/* die_off is relative to the alt (dwz) file */
+ 	u64 addr;
+ 	u64 end;        /* end address of location range */
+ 	int reg;
+@@ -183,6 +185,17 @@ Dwarf_Die *die_find_variable_by_addr(Dwarf_Die *sc_die, Dwarf_Addr addr,
+ /* Save all variables and parameters in this scope */
+ void die_collect_vars(Dwarf_Die *sc_die, struct die_var_type **var_types);
+ 
++/*
++ * Get the type DIE saved by die_collect_vars()/die_collect_global_vars():
++ * @from_alt says which file the offset must be resolved in, @die_tag is
++ * a sanity check.
++ */
++Dwarf_Die *die_get_type_die(Dwarf *dbg, u64 die_off, int die_tag, bool from_alt,
++			    Dwarf_Die *die_mem);
++
++/* Whether two DIEs live in the same debug file */
++bool die_same_file(Dwarf_Die *die_a, Dwarf_Die *die_b);
++
+ /* Save all global variables in this CU */
+ void die_collect_global_vars(Dwarf_Die *cu_die, struct die_var_type **var_types);
+ 
+-- 
+2.53.0
 
-Requires elfutils 0.160 for dwarf_cu_getdwarf(), so the libdw feature test
-probes for it and Makefile.config says 0.160: older versions now disable
-dwarf support with that message instead of failing to link.
-
-Best regards,
-
-- Arnaldo
-
-What changed from v4:
-
-- Added Ravi Bangoria's Reviewed-by (<76ef085b-e8e3-41a5-b029-2cd0489aa430@amd.com>),
-  given together with his rationale for keeping the IBS swfilt selection
-  explicit: 'perf record' fails rather than transparently retrying with
-  /swfilt=1/, so that the user is aware software filtering is being used
-  and that it is not overhead free.
-- Trimmed the comment on the AMD mem event tables in
-  tools/perf/arch/x86/util/mem-events.c per that review, dropping its
-  last sentence about how 'perf record' handles exclude bits on open
-  failure; the code is unchanged.
-- Patch 4: reworded the comment on the truncated flag; the JSON exporter
-  that reads it is added in a later series.
-- Patch 6: dropped a leftover no-op hunk from tools/perf/util/mem-events.c;
-  the swfilt selection is all in the arch/x86 code.
-  Command to see this delta: git diff eb568956a7129c91..HEAD
-
-What changed from v3:
-
-- Dropped patch 5/7, "perf annotate-data: Show the sample count in the
-  data-type browser": it is already in perf-tools-next as commit
-  9db4e9d6cc7c, so the series is now 6 patches and the subject no longer
-  mentions it.
-- Rebased onto current perf-tools-next (base-commit below; v3 was based on
-  29f320d221c1), patch 4 adapted to the upstream __add_member_cb() cleanup
-  that dropped the member_type local, no behavior change.
-
-What changed from v2:
-
-Only aggregate (struct/union) members are marked as truncated when the
-MAX_MEMBER_DEPTH limit is reached in the member nesting recursion (patch
-4), addressing a sashiko [Medium] review finding
-(<20260921165704.38DBD1F000FF@smtp.kernel.org>): the v2 check was made
-before looking at the member's type, so a primitive field that merely
-landed on the limit, e.g. an int in a struct nested 31 deep, was marked
-as truncated and logged even though it has no children to expand.  The
-limit still bounds the recursion, as only aggregates are expanded.
-
-What changed from v1:
-
-Bump MAX_MEMBER_DEPTH from 8 to 32, addressing a review comment from Namhyung.
-
- tools/build/feature/test-libdw.c           |  10 ++-
- tools/perf/Documentation/perf-mem.txt      |   4 +
- tools/perf/Makefile.config                 |   2 +-
- tools/perf/arch/x86/util/mem-events.c      |  17 ++++
- tools/perf/arch/x86/util/mem-events.h      |   2 +
- tools/perf/arch/x86/util/pmu.c             |  10 ++-
- tools/perf/builtin-mem.c                   |   7 +-
- tools/perf/tests/shell/test_data_symbol.sh |   6 +-
- tools/perf/util/annotate-data.c            |  41 +++++++--
- tools/perf/util/annotate-data.h            |   3 +
- tools/perf/util/dwarf-aux.c                | 140 ++++++++++++++++++++++++-----
- tools/perf/util/dwarf-aux.h                |  13 +++
- 12 files changed, 217 insertions(+), 38 deletions(-)
-
-v4-head: eb568956a7129c91a8c0ccebb5979440a046c7ef
-v3-head: e2504280f5c4086e9851a758ed1bae8df7ef269e
-base-commit: edd8a9fe2eca009599e013a29c421c7a6b5ad1b9
---
