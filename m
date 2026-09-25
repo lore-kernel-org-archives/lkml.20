@@ -1,126 +1,124 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E866825B0A5
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 04:18:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B33C328243;
+	Fri, 25 Sep 2026 04:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790309891; cv=none; b=iXZRtpoKde0m8uiNALE7dVjEeQSdxCw2CNS7YPDSqS9U7Rr0TxjuCYRIFCVJ8GbKuwYqZei3HuGvxL43WDZdEOmQPcqjV/ZokADhQUfVqINXPLTDzLOTKm8jCv4uSKZQf9P+W2BdW7mu4IOtc8d7nGrvGimQ8uPErd0mGEqL4ec=
+	t=1790309929; cv=none; b=NBVim8Z/SGjZagXDHFH2v7PtZ9/0Ck+5lZVk1RSKhXc8XvzBQ8ExaZfOtPa42w5IbnNAOJ+Zy0fYOarzXb73A91t2YGIvp75vNENyQnmk/EHSIQxow7AVL7kd+bRZO5juAcxjkgjIQfKUtvIPBUhK/7gABgcQEnUqbMFEZmduVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790309891; c=relaxed/simple;
-	bh=BIhx9ICvbHtpfbqLnPkCJJkaqtIgJ+HeWkbFrbYaDFc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nWknNTgM5g4oHRv1vYSUHq5+MjB6csORm1j5eO6a9hrreY1Oq2zgBYUaX0hYRq381HZ1k7C//TMxzLg2uwyhOIAiia+XTY7UsyzlYE0YAMu1+UyQFYUzPZkeZLZkIYfe9kruGBl8cadXUW8k2MU4AXklrnUVk2WDU+Xs5lh8UQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XbiX+O98; arc=none smtp.client-ip=74.125.227.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790309929; c=relaxed/simple;
+	bh=FHUz+DfsrT1n6pQhuvpk/+iRp5WJ1hmoTnsQ5WemJJQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U5qljvDC87oZhLhSo28wnE3vXKc966CXM8LYPpFpAOpWaqJVnFitVRinLvVfMbDT/EIYopos16CewMEryARhEYrm3aLpSOrQfRh7iUn3VTXkJ9RUkw1Ov7kdz9eHdL5r5p9oYDic0/ys2NGDIJYGRW7QARYNL+EDFeipHy6uBI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=ajdJN8Fj; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bvmk9C5h; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XbiX+O98"
-Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-39e249c766bso169242a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 21:18:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790309889; x=1790914689; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6smwopks2PJXygtKAHcL+6mCESGQpHs+ktHru5C6inI=;
-        b=XbiX+O98UD9OxoB84C9n+eo5VcqHMIFL4+4Blh4QzGAhcunWY53CKglYb+U5y5fysD
-         MOLW5VDk6zcrC1mTeD4gUPbf5sn6gKo9hswzy31B+YGvQKEtiLycmCIRdmIztC6VPmsY
-         P5BKx9cImtK2R5IPivzU9tYRswM3sS2Gg0rlv4GdAUHmi2Ktdgo0OSUuS17O5JK1unJs
-         9cbFmvlPgaJIg9seW0aTj6kPMHSs+AjZtCRJkUwYFLPuR4Q6tnK7+kT5h+ijGl2XPrcD
-         6bhtUhZw7Bxqtbvu4cmP3UcLLxUwcDrg4lG3PapFZl/IW4M9rvI0sQP/GrffzhybBJWm
-         WH8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790309889; x=1790914689;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6smwopks2PJXygtKAHcL+6mCESGQpHs+ktHru5C6inI=;
-        b=YVmoTmFj5dEsHta6xD8vPdazB7smXn1PFFVHbAGLARQJIV9hjF415VLUzNRLQOkV/2
-         4w4tO7AlatOyjNBVRRvH90qkMhZiJ9Y6YqDv1Ss9mBHNhpLjBVzV4Ri4xK+qeU38qFSz
-         STjvWZTqYBDYPGhCRQMqHLYuFG1didELv6PditkdG4zUGW7tg20pgV1awUmAz/fl6JOg
-         rbWSvOsEROg4jcGMjLedEQeAgQbpnWkQG/pDKIhZJPkD6/RLOCJ0arwlMOd6iUSn+qVC
-         PkNmHgV2mlXydDuodKswDAGML2ksK6U5vfWN8Sg3DBfOf2TaRrQmnoRHZLqxv7AMxuJe
-         4tIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxYGGdQU5qTPhIP5u83kg2APGP8cjBe7k9IYaAnJtVJP8WRzMqDeaMtcEQhkzaVL4ibT0ITS9UMykGw6qk=@vger.kernel.org
-X-Gm-Message-State: AFuF++knW5HWi8ySbiLJGvnnygB4YUTRVm/np+uvO96VZWsfUXScGem6
-	T5d4ZRfZynXBDRQubizzu87zljXIbtOkRJwwTVP/CL1Vl6YZQuk76VhK
-X-Gm-Gg: AYBFou0jiHuSJMKVOPXK9ljHNqqOmKFw8kI7q0QbIEAy+dghMn5iHtJriwBxNS55UJK
-	sY3UG+WfdeUJP0/HMRssZl1iPPlaTVN2/aYNTdws8O9etc41MQfPwZQ2xvZ2/Q012uysEXhScYW
-	1HgWyUIIGjZguuJ1laMzJMjOFuuFzXfjlLsN5jaoG9UsLDHt7xrs/vrqwg3Buji/wHo3JbAmUhG
-	XJyrStxOAcZxpZVs1jbL+l35fxvvXntVHlzjmn+ZeROlsY9cEL6TBi0ZWUWuj1Qad7yLpjs2pyi
-	3wfEgUkZtGlQEigynTgLsNEtZfCUCRKDtpCiiA+3Dphi8u/6Par8xTXfCQ36tq+pEws/kvcD6Kw
-	wr1zdCLJJ/Gv2xHaYkkgGtIk3c5Kq2g/RCxedjv3pHi47zrk4Uo1N1SsQc4Vq49P0NNlYMDq32i
-	V6IHl+z+N1PV/LoJmSvCLFTCPobOa73Q88ACgyVTsfIGiU3V/9lG/AgL7DUkaEBZ9usTLo
-X-Received: by 2002:a17:90b:4ad0:b0:39d:b1bd:b384 with SMTP id 98e67ed59e1d1-3a0985b949fmr4116287a91.17.1790309889066;
-        Thu, 24 Sep 2026 21:18:09 -0700 (PDT)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b4983f43sm852262a91.0.2026.09.24.21.18.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 21:18:08 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
-	linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>
-Subject: [PATCH] pmdomain: rockchip: mark PD_PIPE as active wakeup on RK3568
-Date: Fri, 25 Sep 2026 12:17:51 +0800
-Message-ID: <20260925041751.495818-1-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="ajdJN8Fj";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bvmk9C5h"
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfout.phl.internal (Postfix) with ESMTP id 21A16EC021B;
+	Fri, 25 Sep 2026 00:18:46 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-11.internal (MEProxy); Fri, 25 Sep 2026 00:18:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1790309926;
+	 x=1790396326; bh=/5eEb1xerJLAbtSFCqEL4ocUKBGXXhcin+4+uz96tnA=; b=
+	ajdJN8Fjh9LxR8/AOaPr8M9V07L0Yuh2B/+tHuUig9PJMegz2sJnaCDlIwXZsCT5
+	RR1awYepHbZvDbDhHsrFXl29SMIIx8Yc6inx3leb3Nj9lhQFvlbTRSxUgCnt8OCV
+	aAWFiyEUmVePhG+RlHH7AEf/FWbbRSLOTsiWr3UNja5tzACSU82x/ZjuEI3s5J+2
+	p8HWfJt39U0MnTOYaPSjVijFjVrHOSGwI6ONhWMLVZCe/oz2lV7A4f+yumTEN8xO
+	FC9Q+r1J8hB+JD9r/+DaIkr8MjR3J0Sv06GNMGMdl+T6izW9ufPHxNLr5qOCZIO7
+	jbT6ZN1MAyyS5XZQIHy3lw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790309926; x=
+	1790396326; bh=/5eEb1xerJLAbtSFCqEL4ocUKBGXXhcin+4+uz96tnA=; b=b
+	vmk9C5h4vFE/fp+2QLSzcKgpwMQmB4++Ha/eUwvx3THwReTb0/ni4U35ArJlu99C
+	dhNU/TchAFWvFsZ18fjNulOvg9ZOHyzcJetj4nRarZPMDcP0gpmkkCrVOND0FX0k
+	wk67klSlY3+w0JR02lh/Z0cHXUTS3ZspcZVKkpF6t32Bf3wP6iRWsFRCbnLSig50
+	P8vvSRK0jm51X9xncqTIOFFksW4b9J2lkeBXPZ7RbHmYEqYhfDog5FP9aSow/GqC
+	q167LJSYwV7GeKgTOmgWOr/Imwc+vzyeC8HbAPf+sBp7UEFLDEMq83J0OznkKZIn
+	Cq7xU3E9xwUyHYShIhwOQ==
+X-ME-Sender: <xms:Jfa1anvFEqFQ1-0fvRAVlTzTHFMBLCEJf0OTgtZxLZlCrzTtBNM79Q>
+    <xme:Jfa1akXm0QUEkWRhhcRkCjyqlAy0IcQz9mprarA_T4pugk_C0lKQm1897ztTggOsf
+    BGiEB1e1Ln3L4Q8PTdTwaRx-VUO5UepS3y1Jj7uXQ4etZTaFNXv7Vhe>
+X-ME-Received: <xmr:Jfa1amTw8DV4ceNFo5s1W4TtQpGk4wZvKhGcuXIFFLwpPPKbmpac5k7tDHAVHMAEna_fdDBN649fWVLClrwodvXjb5maKmdS>
+X-ME-Proxy-Cause: dmFkZTGsP48+WByhG+X7tNrTBmqPjV5nT4JgXqfIb6LSMkBmlZp629+BkEepAHRxOhzHt7
+    lIrAPJ00gcEQfVN6cQ5Wr5qCa3eNzMHziejRc4HpApBfBNjnaqF8IPEte99jJGqiquVvl1
+    TnOmEg0OjIy+MY5B3v0CzxArFjo7f0AIy8Nb1oqXnnuO2lcTRUP34/0rlO9StDO7YHgor9
+    HL6RTfeUuxE9h7iZof13jcH1Slr1VlkEfvYjyscBjj5rWNSRqB+dH1lOpGOyF4mdnEXcSR
+    ptz/7E+ESs5JHnykKRBqNSdGM1hNfn3r44lBqHpWY9HA2E+Ikuok5BmxR3SJBj7DHTOSqr
+    nxZs1endMDolYMlcIJ2tjFlUGK5B1fySaTTJdprgtODXTRUSd/xfR+ds3HS1d+ARkVbqGX
+    2pwSGw0Tm96YY6fFsCA2xLWLgRv+Xtn8oKAQmcH476nQaeM0ZYdJYwjdfAl/I8tMXwg0JW
+    7KdUwtMB4ne1EKRoZcAKbQiraxGTKMBXPsf5PQbby30gY9PotinVUGIzP7NxsTpWFdad95
+    atAgJ1wPiLYVQf+aazK09fYxwuZ8XzRmDuLpJ5Dr6CWOOWa0M6tBOrw7/Dzug25YxvIXma
+    3qLrvBIXz43wsEWzQjJB0gLFh+4/6NGM1jTo1ZnxgcmU5L+CuQTgfPJ7VP0Q
+X-ME-Proxy: <xmx:Jfa1aqIcMxfkMduHebSMCAK43iGcjIiMDeeMjr0yUCgYkEV65XFP2w>
+    <xmx:Jfa1av11QCn5SiOy7QTWeKvZRNICX4ufuwk1ZD8nb5RoTfGSUyTjRg>
+    <xmx:Jfa1alIhC2bBEZZb35JruvM3uF4lRU1Rok6VeR3LcIcYsP9-p4co6Q>
+    <xmx:Jfa1ann9DlDu6nMWp19O8MQNeIu6v1ZvpC8FTxbLWwZUqlUR-oD5HA>
+    <xmx:Jva1aiDpBzlG5zPszoxoeslEmdRenJBIO2njIMA8yLlHYBdfeVuvRUrY>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 25 Sep 2026 00:18:43 -0400 (EDT)
+Message-ID: <1272ec00-bbe6-4d70-ae0c-e1f68c5e65ee@pobox.com>
+Date: Thu, 24 Sep 2026 21:18:41 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260923140644.756254324@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The PD_PIPE power domain on RK3568 hosts the XPCS, the PCIe
-controllers and the SATA controllers.  All of them can act as
-wakeup sources for the system:
+On 9/23/26 7:00 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.8 release.
+> There are 438 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 25 Sep 2026 14:05:46 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.8-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-  - the XPCS for MAC WoL, through the SGMII link
-  - the PCIe controllers for PME#
-  - the SATA controllers for hotplug wake
+On 3 amd64 systems and 1 arm64 virtual machine, I tested 7.2.7 +
+stable-queue as of commit b1b54c5d771a22b69e435ef44b5fe9ac1e714703
+("drop 3 patches and reorder one 6.18 patch based on RC review feedback").
 
-The domain is registered with active_wakeup = false, so genpd powers
-it down during system suspend even when a consumer is on the wakeup
-path.  That kills the XPCS and the SerDes, which breaks MAC WoL on
-RK3568 SGMII boards, and it also powers down the PCIe and SATA
-controllers while their drivers still expect the link to be alive.
+Working well, no regressions observed.
 
-Mark PD_PIPE as active_wakeup so that genpd honours the wakeup path
-of its consumers.  Consumers that call device_set_wakeup_path() keep
-the domain powered; consumers that do not mark themselves as wakeup
-sources are unaffected and the domain is still powered down when
-nothing needs it.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Several other Rockchip SoCs already mark their PCIe and USB power
-domains as active wakeup, for example RK3588's pcie and usb domains
-and RK3576's usb domain.  PD_PIPE hosts the same kind of
-wakeup-capable controllers on RK3568, so this follows the same
-pattern.
-
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- drivers/pmdomain/rockchip/pm-domains.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-index ba66ae719428..16ef0a235f0f 100644
---- a/drivers/pmdomain/rockchip/pm-domains.c
-+++ b/drivers/pmdomain/rockchip/pm-domains.c
-@@ -1296,7 +1296,7 @@ static const struct rockchip_domain_info rk3568_pm_domains[] = {
- 	[RK3568_PD_VPU]		= DOMAIN_RK3568("vpu",  BIT(2), BIT(6),  false, false),
- 	[RK3568_PD_RKVDEC]	= DOMAIN_RK3568("vdec", BIT(4), BIT(8),  false, false),
- 	[RK3568_PD_RKVENC]	= DOMAIN_RK3568("venc", BIT(3), BIT(7),  false, false),
--	[RK3568_PD_PIPE]	= DOMAIN_RK3568("pipe", BIT(8), BIT(11), false, false),
-+	[RK3568_PD_PIPE]	= DOMAIN_RK3568("pipe", BIT(8), BIT(11), true, false),
- };
- 
- static const struct rockchip_domain_info rk3576_pm_domains[] = {
 -- 
-2.47.3
-
+-Barry K. Nathan  <barryn@pobox.com>
