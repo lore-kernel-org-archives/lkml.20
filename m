@@ -1,183 +1,239 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012049.outbound.protection.outlook.com [52.101.48.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF9233936C
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:00:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.125.188.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D61430B529;
+	Fri, 25 Sep 2026 20:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790366453; cv=pass; b=nhTHv2K0DDzX8hJ1crKfg5O9vyFWR5VY7BwDX/Auf+BFaBzvNucoRrJzTE2aokWnYvHkX4IIvpVU/FP91muFJn+yu8LBJnDm9BSZWWskZQNzSbojriNwaJOcJUXyq19RNqGuLTskIc3iE2emncykXFAC9AjBZTpZke067NBitAs=
+	t=1790366509; cv=fail; b=kpk2xFL227EntIxlVElZk+uYn5JftfbvCnxuSh/3H3qWbY0paiiZW9++BiAWlj9SQXFgSEZF401EWLoTjkK5juH0heAybN4c2ETUkTnjM4gbx7thT2ZgO8aGO++CPM2bSiVGv6QkwsOXCLtwicZmsFvE78HXi0kXc23JPTQu4Tk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790366453; c=relaxed/simple;
-	bh=4FQImKMswil5Yf4qU3iL4HP635uKtAuGj+q4LcLbdU8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nd6PK08G0M1Xj97mnlazcY8BfREBFv9aBMPDSkWyxlLLH9TyGiw2zd/MFrMjmYH7DAPjYYiqnXDU1sZ/QcO3epLgRrs1P75GX+0ROYJHLy443WybB6gpNJyEjBDpnrh2M64QcN3CIycZvFGI4/1Vo/+loE0aCCnSp4RKsFzVOSA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=ASggcdiF; arc=pass smtp.client-ip=185.125.188.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1790366509; c=relaxed/simple;
+	bh=y8cLVRqYDOUmpy87HjPtZzI5fu7dptposrUiHWNw574=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qU9Fq5gTAdii5++hGwC286/yMac7UwvM5K6Xj7w2/9uQb9DJHIWZxmASmj4oEadJj9X7LTo0+a+xPjTohU1iDlfAqry5rY9FT/OErzgN0As5zGGy+qy4H4dyexNYJbybRrzGirntCxWqF5hch9mYJlrcTbbiWAf/k8rm8zJW9XM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kmxH3X8J; arc=fail smtp.client-ip=52.101.48.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="ASggcdiF"
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id A6A283F289
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:00:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1790366443;
-	bh=wG/i9tiTp8ePesopRc3qMjTf5qhlfbVXuwOQ1MTUCQ0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type;
-	b=ASggcdiFfS70gaeC/3v2waOXAOULhbL4KLEY8m+KX7faUgunvnCQfOpJ8fgg9JKCv
-	 oFS7SQ2/Z/biB6PDPslnRniAcdAX4G1ZpbTFEKfS4F7vhy6Zszeu+2ni8PQeSvKps7
-	 OZjgaxnn3u1IFf6T38QCq9xkvywsQUz/E1BsL4Q5YLRWCtoPVVgPQoLwePErkQA3sK
-	 RPODYvweQDkXBr0hC9Fye6Ivmpvl5AGDTG55SjlGP0khnlYeGvg51byih0Dv2lmZL9
-	 XLqPNPDn+o9uw7Itb4M17TNiGyPKHAI/8T7vkDY+ptvHFszHKJrRqACZOWTBWHoctf
-	 7PFvITiiHdhBQ9CeYEiMP+GttIfX8GmKZq6P/OXEIQ+6a60UQ6jKvP1iJxKaKRIcBl
-	 qlBH9xDpd1PjWpDi8NQfAW9npwITC8kDD+TVorcAbgCBvQ8eaUPCjg6TSCAp1oA05v
-	 BfjqUHnpcdVC5uYkwIpcaSCLC2d6Fpd5tD5CWHdZyupiJuSVdo9SuuBCJdJTjzodUj
-	 yFtbRiFvEp51sVdGkICrS/31Aj56xw19kfhRL0Yh29pL75IInPeZr4AAB61XeLyuE7
-	 pdVD7msH19/o8yakJ1munNwu73SX6YJHsiEZ5rsAAMkUjFbRzXRVxSV9RRr9pfAZni
-	 BAmuv5E8oz7lBrisCDCo1oOc=
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67415fd800fso1034468d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 13:00:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790366442; cv=none;
-        d=google.com; s=arc-20260327;
-        b=A7eJGAwNrxI4xEJ//UBCJQcwSB/Pf1oNhSy1ILIQoa8gxTJ2ZoM2xml75SKDCi760i
-         Sx4Fl+uRdSUAIHgtWrJLtoCc+L6qtP2gPgfX25+uQ4zk8N6yLtwa0odE86RrTBR77ucG
-         bXixjlpHTfYECia2yAS0ct7cjxT1AqE/T/9tKpOCfhKjJYxQGlAlcivXl2K8jaZBc3Gf
-         CkfdznMFkbiK7CrV2m1gcOYO6ax0uzcQZvAfN4/NkmA6Xoc5q5IzlMeQKOYcnO4MXmDu
-         71XtPC2kE734//s/jPLzfe+uRcoo9FCaxSX8JnjJ1SqVbxE5lGqa7aSiHPrE1vMamLpo
-         L0Dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=wG/i9tiTp8ePesopRc3qMjTf5qhlfbVXuwOQ1MTUCQ0=;
-        fh=atmOkczZp+mahHwtTIa4YIYT/nU1bH06pTONpzf0apI=;
-        b=o2Na64y7PQAH6xpTtznM/KhWhGYMd2atvvfImmBJLUd9LwMILraMv9MqRmoLlUfe1I
-         /r/QtWyN/EkmtiVbXzmAHZyo0S9YPAg0MAiqH42I/79i3EqJXWzQOkf+5B+0oWZO7lrg
-         umlkhyZthcqjI1hHXh5Dw2h5OjOPf/rdacvC+Z1Erwm19Gftf8C5fhU1jJO1oNxYrqfV
-         f/3ITN4vJsU4kYrknDFT6KMOM+vrPCtgFUhG7F50swX7bADRac9eBu3llAflslnTjAiV
-         SJzMge/7LspcDXsweuwmNroiAxlEvHYfJegD/GcSVWxDCOSdLhBygU1clJhRv26FQZWf
-         rAjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790366442; x=1790971242;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wG/i9tiTp8ePesopRc3qMjTf5qhlfbVXuwOQ1MTUCQ0=;
-        b=wpSkMnylk4k9e5Iq3SZ0zsh/H40JNgXDxKPYxfh9/wmVOyztkYsz8TzuhMLG05wN43
-         HI1ol/qf6N4OHB0+axzrtcvX0RKKTP0pvhKjjKkIS0yZLL9tM06U8WTco45DeDbxMr7H
-         0hQurwdNHPRnVYrPpqr0Jl/VfBugSnK/+P+w05sCPxWzz7YpChnWzSFTdNNt1m/T97Mc
-         U2TJEF9lrql8veco+107ZhjsHdnUNV2/xb9LaXUBUxBe/XmU0rZ1hKRf14Z4BhnMb3Qp
-         oHBlHWl3X7+FArOntKTt/p8JaWJ11UF3pVt4RgVG7sGUTLeWArqiYZX2dzFksteQ3kOq
-         fS7g==
-X-Forwarded-Encrypted: i=1; AKwUvBweafzNnpr+tvlpsCe+4gVW+qkputK1aTwoxZgHsfqh0DazkbTKlUDnHudI9nQtotzNCpfFJTttFHnDW74=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9L5phXCQj64/fUTag5ZbQMIxl2ihHmjXDa8Kc/6wJ0hjbYky2
-	8jErDCq8nOFadkPXZ8Jf4l+3AqmqGI8EXL9eVSKluoiC4e/mxw8foT/fVa0zsLwNaaf7BB5GrJW
-	s4U91rZ2lnHkR8LM2hT/B1BUatA14154wCNjFzvxJ4PPFcD6UKAhCA5vGBj0etUJ5RgGeRQnKsF
-	W4uXBXbsB5nLOmWigyLkQ04oeQBKo29rtUzZoullgx/JuovWTobFHx70s+
-X-Gm-Gg: AYBFou2qec2rc7QJXfkh3xnLCEbmFzzZjpt+5zzqbjNZu+VxX19EUohseEmSJUU6xDu
-	wYDLM202YXiJr0VwbA+U6d2pBOFtbcKLCxm/CS8Wlg7sa6IesvctBbsRpaZTWcJ1CzqYfO5ro6h
-	NXwTFVKr5T45+fweA/klZfqLZr0tkAhyOAc95R1GdBLMgG8CiIa31JFjMZayCuDQl+jZywP926U
-	4bUeckcZRQiesmRPUyWz1RE9UgCakHXH39comF61sQ=
-X-Received: by 2002:a05:690e:1349:b0:674:1e39:446 with SMTP id 956f58d0204a3-6741e390a77mr479899d50.39.1790366442333;
-        Fri, 25 Sep 2026 13:00:42 -0700 (PDT)
-X-Received: by 2002:a05:690e:1349:b0:674:1e39:446 with SMTP id
- 956f58d0204a3-6741e390a77mr479884d50.39.1790366441838; Fri, 25 Sep 2026
- 13:00:41 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kmxH3X8J"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ueBNd0TYEPJtN/sjqGng8dBSopelXdxECOfrqRW0ZACNpvwFjsX0unukIja1AE7LBH6JFadrwYhzZGDnVjXmkSk/rvD5TspGCQKiNSVr9H6lT8fPFwoV7++ZDcbPd6NdLgNhTmMyO5IN8gw6E2AOcN77aD4xh57RFQPkgjXe9uQhHh+BDUUf6S/zlbShFUB1oMITOC127jmQN30uGD7bi9pZcPRSYKPPc2QO8bIzpWuo4OarvcLRXSzVzPCm0aZ2So+wkNtT7lWEin+N0vFfVcX5o6U20AfDN+BPs1P/QITNAvCRUbCSOLL9qZXXrG/RlelcJgbLF4g/LS+f0Urn5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WtDDuqzTcLaREbTlarVToWHkUb1Hd4FXh4CHBQ6p/ls=;
+ b=lBA8xhuW1HASh8TFhzzU4zx3/8f+1gqrmllq2/f6ZzJpyZRmpS30qbwB7aqDNFSc+BBlfMJD7PFuzLUg0JqXxvHCMrNufjkoEdfKecbcSeC1ufIKzHY4eFJPZcTc3eFjN5SJS1KLXV3Ur3X7aQaPkDiPo4Qi6O+j9ygQofOLHiJ8SVmoKLSbZpsVxI1+6Gdxp0GYn5vl7Sl/lZ7BK3oKbwe7h3+NrEy4d6MllP73BHch47FMmOueJz9AL/znqH5de82ciMWVhZKD0aIi50wgcNx2WVFMcsuL+2Fival4G4BkU/miLDy6xNEN28VszWHFpOU4ztc+3Sf9seeKp3ELvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WtDDuqzTcLaREbTlarVToWHkUb1Hd4FXh4CHBQ6p/ls=;
+ b=kmxH3X8JpPr4Jz6Xo6TynAIP5AU7+Q7YL68tuDHj2JhNWR6U4y7ez8Bc+AarBrlLqILaKNs/f1iL4n1NYN24xVqFNQPTlhWBxCeOHfzmvIad8hl6ZMIEW7mlC5NRHEhK6b/dMTaqxTXbD+EFsNbA+t6410Euz7yHwjd6wTvWugU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by PH0PR12MB999088.namprd12.prod.outlook.com (2603:10b6:510:38d::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 20:01:44 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 20:01:44 +0000
+Message-ID: <3cbc91d7-3833-48e4-b21a-ed0f2b1370a7@amd.com>
+Date: Fri, 25 Sep 2026 15:01:39 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] Revert "ata: ahci: force 32-bit DMA for JMicron
+ JMB582/JMB585"
+To: Bjorn Helgaas <helgaas@kernel.org>, Niklas Cassel <cassel@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Damien Le Moal <dlemoal@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ "H . Peter Anvin" <hpa@zytor.com>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
+ <linux-kernel@vger.kernel.org>,
+ "open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)"
+ <linux-ide@vger.kernel.org>, Arthur Husband <artmoty@gmail.com>,
+ Roland Waltersson <roland.waltersson@netinsight.net>, snoep <snoepke@live.nl>
+References: <20260925194208.GA2072993@bhelgaas>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260925194208.GA2072993@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DSSP220CA0007.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:8:3d3::10) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925193842.1208132-3-Jeremy.Jean@oss.cyber.gouv.fr>
-In-Reply-To: <20260925193842.1208132-3-Jeremy.Jean@oss.cyber.gouv.fr>
-From: Ryan Lee <ryan.lee@canonical.com>
-Date: Fri, 25 Sep 2026 13:00:29 -0700
-X-Gm-Features: AclHuK_mOIA3FwKExSadHRMkzyxNL4pwM7I_MYyeQT-_8dlrK5CScnNC01wdXIw
-Message-ID: <CAKCV-6u01ARuWLn3snV6fo=k-3LOVNdEkMux3NQmcj4X+vYprQ@mail.gmail.com>
-Subject: Re: [PATCH] apparmor: check connect permission for SCTP
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: John Johansen <john.johansen@canonical.com>, 
-	Georgia Garcia <georgia.garcia@canonical.com>, apparmor@lists.ubuntu.com, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|PH0PR12MB999088:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9bad0217-a350-4802-b343-08df1b3fd2be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	DOFYfbLRXb534gwjsAe8yvVbl8SHCfcW86xFa5MCWqz0vIoFP9RoLpQzAMA12SY+T4Xxz0gnCAglZiIuiSvZOouiJFr1koTRYdOoZjksvIuVJipgmdmwHkEmb9kovMl4wy+QZ8PuSOwRFSg/iyh/RL8ibEgdSdrlXY8ckG+PsAKWQeCApvgmk1PFutGPGJeTaQ4rbX5QFk47qbdAZuKj21SSM8as9cEou1urK3t2IapPHctPthGJgp50Z1GutjbmrAVApWsA9DF4ojp5asgdrBfXO7XIxipkOFNzY+OEIpvjXxHjH7U7+JG9OupKM+3Xb+BITJKSrjNo6hyebdO0mDSMO/IOyDuqvdMKjF+HrxaVhhvA28vkXn4/WkwAe9i0uEu+LffpmsxTVBbB2XgR+fnck20wZA/WTGIGaOHaLuXVIOkm1dpBn3hDQ2g4uwW3FVvV+GSVt0LIOGxT3vgYDiFMZVMLSmn24QR+RIg2YuM5fC+9NFtL0I46MHYgjrNv0dAlvUepfKt30P+sFbxDeh19+lVl6v2zScjmWVCnaYPe9a608Zny+CUNuq5HQvYNzcDgsIQFdi6NtYbFzx7VbqphydNtIUHMAppAjMuaGyU0UcI0LZ4saXeaLFP6xMsx
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dllIU0RFMHg1T1VSOTZYZzlpSVFZUURDUGtkcGJzRDludFcycmlSZGZ2Ujhk?=
+ =?utf-8?B?dkk1QVNRd2djaWUyZVlGYkMxYS8rRnMwejFWZ0Nkc1FPQTNqWU9DVVFxdTFz?=
+ =?utf-8?B?SHFDa2hESVo3UmFMQ3krQ1pMKzV2Z3JaUVpRcnRrUUk0SGVRdU1lNGxBRzdG?=
+ =?utf-8?B?N2hZMVArOWZPQTNuU3h6RDcvY1gvRFRsQzl2RnRiVklqUkRyamFCRk1zSHEr?=
+ =?utf-8?B?dHNrZWVrY2JaTDN0WlZQWTNNRlRLRnYwbTBFVFpZbzZOdmcxcHVhWEg4aXU3?=
+ =?utf-8?B?NVAyMHQwc242NEN5NUdFRTlvUldCTGZzaTJWYWZRVGJXQjNUVjFEUEl2eTJU?=
+ =?utf-8?B?RlBaUkdaNzBTYi9Uc2dKc3N0N2lTZXp3K3M3YlNMZFRSeFFFY2FnM1l5NS9k?=
+ =?utf-8?B?eU9rTjFvQUhEZ2VkMmliZkEweXRNcUZ1aTM5VlJoQUVJTjZpMit0RGRkaWN6?=
+ =?utf-8?B?TStCUCtFWXhlMzFxMkZML1lNR1V0dG1Gc0UxV0l6MXVVWWpUcFNXSjJpL1p1?=
+ =?utf-8?B?Qk1XOVNLRmlRdXl3c3libXBwazF6UEx6WWUxeC8vaGVkdlorQ0h3N2lWRkhC?=
+ =?utf-8?B?VnZPSEVyVzM0enphblpBRFFBU1ZZVmZTR2NTYXM1L2ZrOXdyY3U2NFNid29I?=
+ =?utf-8?B?bEF3dVZITlRlL1BjTjE0dHpINGRHYlFwRFN1b0IxMnpBUnVYMm9hbWJ1eDU5?=
+ =?utf-8?B?cldualdzL2g4VU13a1A0WFdDVFJRa1JxUjBBNmFEQzFyNW5oc1Bobk9ycG0v?=
+ =?utf-8?B?YkhaUUhLWHZaRFFJZW5SK0NQeWRBQUJ2OWZ4dXhMc0kva1VWVXBSaThmdXBO?=
+ =?utf-8?B?VTBrRDQ5aElnVE96VGpmZXd4YXd6TFhHMHVjcXA5anlxb3ZHdG42UnhSQURy?=
+ =?utf-8?B?WWgyNUt3Umx2MlUxL0EveXlQVVdSbytKRDNpWVRWWEoxWnZscld1RW1nc0tx?=
+ =?utf-8?B?MnJwNm5nYk9Ua0Y2ckFyZ05mTjNtS2pNV3lSNVprRUhNOUhqZithVFRKOUhs?=
+ =?utf-8?B?Vk5wSmJHaVp6ZXRCMEpLVktrZ1ZLS0U3V080MnkyNGozclBucHV4OTBKa1VM?=
+ =?utf-8?B?SkJYNmI2YUFKKzZrc3B3SjQ1cHQ2OWloR2R4L3h5R3c1NE1ZM1FNT2QwQW14?=
+ =?utf-8?B?TGhZaEVBTXNadHFOT0k3MGZGUGhsc092YUc5WDNoS1c5SjVmczJFT3dXa1g0?=
+ =?utf-8?B?Q1QvamVFajlkQ0pIdzRpOEwzSTEybjhPU0tvTWlvcGRGR2FzeGpZditUMmNE?=
+ =?utf-8?B?aU5GekdTeUh4TUg4V1BZMTV3NDBkcENQVjA1S1dHMFRENEFieTlQbUducUw2?=
+ =?utf-8?B?M245Y05URnVzS1N2cmJ1ME9rMFI1amI4WWNvc2VIc3V2TzRDTzRhaVMrcGtz?=
+ =?utf-8?B?RW9XN2dpL01zZE8vUElvRG85dFhyc1MvTlo5elRGekJkOW5BVU1aaklsU1l4?=
+ =?utf-8?B?dTR6dm1ZY2tSeGg0VENoZ2NvYzhWQjRST3Fhc2JSVk9jU0FKTGhBTmpPMldF?=
+ =?utf-8?B?amU3WkQveXd2WGtTY3A0UnMyaGszYkx5WjVuMmJXNDZhWmNnSE5VSzNLTDdG?=
+ =?utf-8?B?WUgvUUhRL3Z5eWtuaDEzZ1RKaUdqbzFHMWY5UG9Od0xXWjg4Y2l3TnlESkpa?=
+ =?utf-8?B?Mm1XWGtvMWFPbE1zMHc0ZnF4QlpaaFRUVmhma2xlb05KWmFHTEZPTElJS1FH?=
+ =?utf-8?B?ZDlqd3orRVBWN3dUN1RkM3htSUVaQXAreWxNbnlGSTdPZCtwOXI5SlJUUmc2?=
+ =?utf-8?B?S3JMQjRxZnpwWngxVEVpLzNkK0pCd25yL2x0WUZySGhmaDEyV1FZekV1ODk2?=
+ =?utf-8?B?Ym9NMlRQU1lHaFB3c3BteDQ0RHVNV1lrSGorZndUaFJjQmM5dkNydkgzZEsw?=
+ =?utf-8?B?WkkxK05qODF6MXVnTWJlN3QzMHhsWERUdUsySFJPYm13QUJFL3hYWERQU29l?=
+ =?utf-8?B?Z0pjd1lpc3QxM1N0eXZ2R0VXUFhOQWRlUkZsSHFOUjRyVmhTNVJyYk1DbUVj?=
+ =?utf-8?B?MkwyYXBuNFVPRDJwcFYrZm13TGQrRklGQ1NOQU9UTkJORHpxSGxTaWEzSkxW?=
+ =?utf-8?B?YjhVdXpQVjM3ZjhhcUNrU2JudmlyTWhNeDBTdG94VHVobm1NZW9XLzE1MTNC?=
+ =?utf-8?B?VGFNdW5DekdhdktCSFBRQ29zWFVtK3VXeDdnNlM0Tm9rOGV3QzRPS2Y4R0w4?=
+ =?utf-8?B?bHQyc3B6cC93WHZNUVY3a05wYW5kQ1J6MVBMajZoUm5rN01YdmJFMm5TYytw?=
+ =?utf-8?B?alFTUlFKcW04MTIwZk12TjNld1pWTndGbUJ5aTBDQ3RIMkx3d3FqaWpvZ2xy?=
+ =?utf-8?Q?dh1kemZviNGF8nSm/a?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bad0217-a350-4802-b343-08df1b3fd2be
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 20:01:44.4263
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uwsyDkjjaHPkAhCBUobVJRIgnvz13gwjs8mvAlDZ7Wd1pyZrrujdExvgGm9MYm5nwbYiPb6jXsPMbPSApHCBOA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999088
 
-On Fri, Sep 25, 2026 at 12:40=E2=80=AFPM J=C3=A9r=C3=A9my Jean
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->
-> SCTP can start an association through sendmsg() or CONNECTX. These paths
-> call the SCTP-specific sctp_bind_connect hook instead of the normal socke=
-t
-> connect hook, but AppArmor does not register it. As a result, a profile c=
-an
-> deny connect and allow send or setopt, yet a task can still create an SCT=
-P
-> association.
->
-> Register the SCTP hook. Ask for connect permission when SENDMSG_CONNECT
-> or CONNECTX creates an association.
->
-> Fixes: 56974a6fcfef ("apparmor: add base infastructure for socket mediati=
-on")
-> Assisted-by: LLM
-> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  security/apparmor/lsm.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
->
-> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-> index d502ad0ac26f..dba078c73abc 100644
-> --- a/security/apparmor/lsm.c
-> +++ b/security/apparmor/lsm.c
-> @@ -15,6 +15,7 @@
->  #include <linux/mount.h>
->  #include <linux/namei.h>
->  #include <linux/ptrace.h>
-> +#include <linux/sctp.h>
->  #include <linux/ctype.h>
->  #include <linux/sysctl.h>
->  #include <linux/sysfs.h>
-> @@ -1405,6 +1406,18 @@ static int apparmor_socket_connect(struct socket *=
-sock,
->         return aa_sk_perm(OP_CONNECT, AA_MAY_CONNECT, sock->sk);
->  }
->
-> +static int apparmor_sctp_bind_connect(struct sock *sk, int optname,
-> +                                     struct sockaddr *address, int addrl=
-en)
-> +{
-> +       switch (optname) {
-> +       case SCTP_SOCKOPT_CONNECTX:
-> +       case SCTP_SENDMSG_CONNECT:
-> +               return aa_sk_perm(OP_CONNECT, AA_MAY_CONNECT, sk);
-> +       }
-> +
-> +       return 0;
-> +}
-> +
->  static int apparmor_socket_listen(struct socket *sock, int backlog)
->  {
->         AA_BUG(!sock);
-> @@ -1823,6 +1836,7 @@ static struct security_hook_list apparmor_hooks[] _=
-_ro_after_init =3D {
->         LSM_HOOK_INIT(socket_getsockopt, apparmor_socket_getsockopt),
->         LSM_HOOK_INIT(socket_setsockopt, apparmor_socket_setsockopt),
->         LSM_HOOK_INIT(socket_shutdown, apparmor_socket_shutdown),
-> +       LSM_HOOK_INIT(sctp_bind_connect, apparmor_sctp_bind_connect),
->  #ifdef CONFIG_NETWORK_SECMARK
->         LSM_HOOK_INIT(socket_sock_rcv_skb, apparmor_socket_sock_rcv_skb),
->  #endif
-> --
-> 2.47.3
->
->
 
-Could you also add a regression test to the upstream userspace repo
-(https://gitlab.com/apparmor/apparmor, tests/regression/apparmor) to
-exercise mediation of SCTP connections?
+
+On 9/25/26 14:42, Bjorn Helgaas wrote:
+> [+cc Roland, snoep]
+> 
+> On Tue, Sep 08, 2026 at 02:06:00PM -0500, Mario Limonciello wrote:
+>> This reverts commit 105c42566a550e2d05fc14f763216a8765ee5d0e.
+>>
+>> The issue is actually a problem with BIOS configuaration of PCIe
+>> root ports, enabling a feature that causes problems with 64-bit
+>> DMA.  It is fixed by adjusting the kernel adjusting the
+>> configuration of those root ports.
+> 
+> I'm a little concerned about doing this revert for v7.3:
+> 
+>    - The AMD issue should affect any SATA controller, but 105c42566a55
+>      ("ata: ahci: force 32-bit DMA for JMicron JMB582/JMB585") is very
+>      specific about JMicron JMB582/JMB585.
+> 
+>    - The BIOS configuration change only affects AMD NBIO 7.7 and 7.11
+>      but the original posting [1] of 105c42566a55 ("ata: ahci: force
+>      32-bit DMA for JMicron JMB582/JMB585") mentions Raspberry Pi,
+>      which isn't AMD (the Raspberry Pi mention was removed before
+>      105c42566a55 was merged).
+> 
+>    - There are reports of problems on Raspberry Pi 5 JMB585 [2], [3]
+>      that don't seem completely resolved.
+> 
+>    - The revert doesn't seem like it fixes a problem, so I don't know
+>      that I can justify it as post-rc1 material for v7.3; maybe the ATA
+>      folks should take it for v7.4?
+> 
+> What if I just merge patch [1/2] ("x86/PCI: Disable enhanced atomics
+> on AMD NBIO 7.7 and 7.11") for v7.3?  Would that leave anything
+> broken?
+> 
+> [1] https://lore.kernel.org/all/20260403050225.50186-1-artmoty@gmail.com/t/#u)
+> [2] https://forum.radxa.com/t/repeated-ext4-metadata-corruption-on-raspberry-pi-5-with-penta-sata-hat-jmb585-despite-healthy-ssds-and-raid1/31393/10
+> [3] https://forums.raspberrypi.com/viewtopic.php?p=2386959#p2386959
+> 
+>> Cc: Arthur Husband <artmoty@gmail.com>
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+
+I think we should let Niklas speak up here because there was 
+confirmation on this thread it's an AMD only issue.
+
+https://lore.kernel.org/all/ap6RyP28fxXNjRWS@ryzen/
+
+
+>> ---
+>>   drivers/ata/ahci.c | 18 ------------------
+>>   1 file changed, 18 deletions(-)
+>>
+>> diff --git a/drivers/ata/ahci.c b/drivers/ata/ahci.c
+>> index 9b8c0935001cb..bffe50a109b88 100644
+>> --- a/drivers/ata/ahci.c
+>> +++ b/drivers/ata/ahci.c
+>> @@ -68,7 +68,6 @@ enum board_ids {
+>>   	/* board IDs for specific chipsets in alphabetical order */
+>>   	board_ahci_al,
+>>   	board_ahci_avn,
+>> -	board_ahci_jmb585,
+>>   	board_ahci_mcp65,
+>>   	board_ahci_mcp77,
+>>   	board_ahci_mcp89,
+>> @@ -213,15 +212,6 @@ static const struct ata_port_info ahci_port_info[] = {
+>>   		.udma_mask	= ATA_UDMA6,
+>>   		.port_ops	= &ahci_avn_ops,
+>>   	},
+>> -	/* JMicron JMB582/585: 64-bit DMA is broken, force 32-bit */
+>> -	[board_ahci_jmb585] = {
+>> -		AHCI_HFLAGS	(AHCI_HFLAG_IGN_IRQ_IF_ERR |
+>> -				 AHCI_HFLAG_32BIT_ONLY),
+>> -		.flags		= AHCI_FLAG_COMMON,
+>> -		.pio_mask	= ATA_PIO4,
+>> -		.udma_mask	= ATA_UDMA6,
+>> -		.port_ops	= &ahci_ops,
+>> -	},
+>>   	[board_ahci_mcp65] = {
+>>   		AHCI_HFLAGS	(AHCI_HFLAG_NO_FPDMA_AA | AHCI_HFLAG_NO_PMP |
+>>   				 AHCI_HFLAG_YES_NCQ),
+>> @@ -954,14 +944,6 @@ static const struct pci_device_id ahci_pci_tbl[] = {
+>>   		/* Elkhart Lake AHCI */
+>>   		PCI_VDEVICE(INTEL, 0x4b63),
+>>   		.driver_data = board_ahci_pcs_quirk,
+>> -	}, {
+>> -		/* JMicron JMB582/585: force 32-bit DMA (broken 64-bit implementation) */
+>> -		PCI_VDEVICE(JMICRON, 0x0582),
+>> -		.driver_data = board_ahci_jmb585,
+>> -
+>> -	}, {
+>> -		PCI_VDEVICE(JMICRON, 0x0585),
+>> -		.driver_data = board_ahci_jmb585,
+>>   	}, {
+>>   		/* JMicron 360/1/3/5/6, match class to avoid IDE function */
+>>   		PCI_DEVICE(PCI_VENDOR_ID_JMICRON, PCI_ANY_ID),
+>> -- 
+>> 2.43.0
+>>
+
