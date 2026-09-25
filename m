@@ -1,129 +1,118 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9469F2E6CA6
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:52:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9322303A35
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790297527; cv=none; b=Gxc1JgfG7uaBI2CXxeh8JNlINGTZEjfM3vLlvzHaD+Kl4w3W+jC8GE/xAIOM8+SPQfBMv6cvOk8F9UyiNsoWpEtdbYSa6jNtta53Pa3hyAt5nGRSlXFk07pyOX4VlmJVhXa99LUKTLiZu9ZMMb8TZcJ475PvcGpVOs1VEb/EQto=
+	t=1790297829; cv=none; b=Nhol3QRURDFjnOhVHQ4uvuKFgEnlMaQPJ4d5IC4kZGMb4GC7mHyjPr/W47yAXtBdj4f6SpggKN2Pm33AGK18hL2XO3yTN+vQbAsE6qGHR88IneRBPpYUiRjXJ/jsuKZHXj+cDyAYnIdPC/787L/pDZjV7U+TRvOKCVai0vL6Muo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790297527; c=relaxed/simple;
-	bh=SU8S+k0GaQXhN8wKEarVxueYV4JjSov8C14rwhv0NAs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iMydfX6AtUtk2JeGWRHmeaGQOhKrt/8/OixpTmuKxdQiLmsuKpQuEtwcWHCIucXsEVAu5BH1Fkb6/uW/ysFGL0H8UNIsLAXako0CpgJIPfTh76iuz4AMaJyo4KkkKGc2wQKuj2li7GbZxAfk0u5H85hNzbXL+lDkRy+63uegYX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ELRfux6N; arc=none smtp.client-ip=74.125.224.141
+	s=arc-20240116; t=1790297829; c=relaxed/simple;
+	bh=FJCgrw0AhIQoDzBVODYuql4sWvDFJqLutJAEKYfbpgA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=fVTm8Jo5g97/NgxakbfU8K7atQtaHN1VcB3hUJhPLR3jhMKxf7TJZXN80/4MeRS2fs68XozWXDadAF+PIuBM93k2IpY7XM+qVPxkHRrVuiuCKBorTjQYtpJqwMkDOuT0xF3zcLX8BlAOeDibnRkLb8iN2/fYNDO++U2OCvjQy+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OZUQf/wO; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ELRfux6N"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab22370so438725d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:52:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OZUQf/wO"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398a147688bso307945a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 24 Sep 2026 17:57:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790297524; x=1790902324; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=waVePeybHmNVRSEGWIUXZUy64+O4FCvxTaJgwpuKHSA=;
-        b=ELRfux6N9Oki6EP1OMjq1ecT3yEyMMRgn4eBI12axrzs7vk+HeRocDMvN/fCSZSC2o
-         FLoyUZ62Je4GNBWnFRJvn3Oo7wsjDuq+YuGtyptYZZEICKJJ2eDdmq7pIDgWC7x9Q+GH
-         D2rXseRIIFeq85JEXTUi0vqeDTPg2i+uTg5T/FPfu2kV3g2YIhewsghRszgHAYOyYz3D
-         W/rKgbEPzU9q/XC9i241qZz7K6hC0vBqqCPe5yv8VnPIFF9YJ8z9zQRN21lPE4h9Epzj
-         +lhC4oqhRwaAUIRukG/dLOBafw9TXF8Y3lgksUx0lGdnVMzi7/zRV6tB7TXYR4cZKxM+
-         UgHg==
+        d=gmail.com; s=20251104; t=1790297827; x=1790902627; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FJCgrw0AhIQoDzBVODYuql4sWvDFJqLutJAEKYfbpgA=;
+        b=OZUQf/wOSaVGQmrWHYMlcAqrCuF3fHq/AIMv2z8XXt4g5i7epzr2+uuaVw9s2yowLK
+         W0G0cDg+RjxTvibGgvKLMmOoYou+w9Wv3ENjj+VDBnwxd4AVJuLE6sMP0rdrRmeP15fU
+         t1iyErm/tYN7EHmqJ2uf19zgieDENiaD43Z4oMeXWgsnevbvZpX9iM9xDFnakt/E6bKb
+         czA3Ojljgh0SDgGzLBcsL+fK5SSYIfIhNTWyz7Xx0Z2gEz4NP+CJNybZ8hWDAotxj8YO
+         YYPexsDhcbGR+Cy9Y3sRiRYqaGHVb+0rafhB2RpT96Xjkbijnyfu263tcuzn0o8GEauJ
+         ybHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790297524; x=1790902324;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790297827; x=1790902627;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=waVePeybHmNVRSEGWIUXZUy64+O4FCvxTaJgwpuKHSA=;
-        b=fc6nnqCiJfJbKN2uFaRoVW4KZ9ZmEj7cyG1zF0VHmJhEj4ee1ntU4vPWjpb0jC4AA/
-         RM3tLSqSy03zDQCA6U6oT1fbdrEdMwJ1F+rMWz8MztDp/vV2j+74NKHVzF/CFq5g+tHq
-         BMEFMLr5SIp4zaocAOQjfUGbbB+8tg+q2pH+Ke4n05hpLwTDSrUaxM+zhlNjUcHMaCvz
-         D89ilIbnxNguMGdyZ8bccy/ZhOCFG2khjUEIrzFgXxVfsGx7WconOlUq3fEr9r5LSJtM
-         7AmzQzm0mSKgtZX1Oop1QyLTPxtKhd42ZGJarZ2pNyt2YevAJtsS3+b1CgSxubM9Oje6
-         sSBw==
-X-Forwarded-Encrypted: i=1; AKwUvBwschTdwvGoyPXrtS/WtLTst1EtlmdyObDB67wQK3/VZP0bPFHSEfJhLAnKRvnK48SUQ4DpL2ZxgsHuNe0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMss3Yrg5GG3Mn6BQ/+0XPNm2ft4t54EHQdrc72BqAHSjR9ILI
-	RqTXlW4Y7im9S6swxKEJSFDAPi8s7s+rluOFCCcy3SdoRpgBrE9KWaPdcr/R3ipD
-X-Gm-Gg: AYBFou2e/CkewOGWdDcpgigKP2kqieGNrRJhqyaR5mneuLDQb3tJK6faxWAYTCjG5Cz
-	83Rajm3Ykl+zSyVaKsq+wilAfDVe1/FdAU+hXNCyWb7JthYFRjhR2YGwHlFKtCejlGujRav5gqJ
-	qz3KQ/ITO6wxAo4aXsgCky4uBKjEt8XHHja1hg1bHKx+cg7wDKUSFyy03GSZu/XDvwsFYB2skEg
-	4A6pwohe5a81ZjBQkN/7QbFo9INMVvR/9Z5WTbpL4xEp0yWAvJDpb/VLLFlpGgktpt6+4aHDJAR
-	ufm1YkllgLZfoElp6rJTl/Otw153pxueLiV3uqPacgSr9RxP8AsyHo3WVvVcQIqbdDl5kh48vAa
-	Tb+1kueBZLm3COlYJYjcC/VnfTLeumEjl6URz75a+x7R/GJm8X4ZkUsewM94LOPSYcbR0ZBDFyw
-	STfxZCz07oFEfkN3qLH/zehQ7pWiEOJcAhp1DBNAagxFUWHy2Kzm/0vw==
-X-Received: by 2002:a05:690e:d44:b0:66f:c1be:318d with SMTP id 956f58d0204a3-672ed4db1a4mr1606622d50.100.1790297524534;
-        Thu, 24 Sep 2026 17:52:04 -0700 (PDT)
-Received: from gmail.com ([2600:1700:5431:250::3e])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740ef2932dsm293078d50.12.2026.09.24.17.52.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 17:52:04 -0700 (PDT)
-Date: Thu, 24 Sep 2026 17:52:00 -0700
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Cc: Chang Yu <marcus.yu.56@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-Message-ID: <arXFsPr9gmjLXMYR@gmail.com>
-References: <20260919235145.48273-1-marcus.yu.56@gmail.com>
- <20260919235145.48273-3-marcus.yu.56@gmail.com>
- <arWccqy8YlLJxeWA@gmail.com>
+        bh=FJCgrw0AhIQoDzBVODYuql4sWvDFJqLutJAEKYfbpgA=;
+        b=v87jGDOF5MzPCzYaUFujQrY8gOvoxuQAEMWVQMeuYfwjlWFM/0taBgs4bl7ifbYDSd
+         IPOWGkVLylnSZfKFXNxMiWWCNI4kUHVd+mOhtB7ri+F7+WivuyjMTNqDCz7TpZtd3Uko
+         hy1Ssjkpq+w3fJq7xfTytFR3c/uARGz6PBHQ7Xe4bfvj+zoLxeNQJFGxLZgndhpJ+sai
+         Cqd2YvGGTbinugBhz00YeKEHjWjGTEFvwtvW50RR6yVr/FinLd3ygY1L70gALKL4VVAB
+         zyvXKjqQ/u+Ze2+JL3p161cGxPqZcpMWwE7745OcDeXQgK0H8Wk1IBBGPvYb4jomW36M
+         L91g==
+X-Forwarded-Encrypted: i=1; AKwUvBxGo/6No+eL+i4j4VSPMGtampYcp1Kvts2GdB/iGOMPPs5FA+ni4sAipvGNKlaRf+Xy50LOwkL7O6Ckeds=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYkLQXW7xwqPkXNU/vA2svVgaYuFnLBvMhE06sBOGx5frceBhq
+	sDDgMN4ZsVVkJD5BkaJACr1RkJJstl5FsYCbRLyMVER2EX3iFi1Rsgck
+X-Gm-Gg: AYBFou1Uk9juNj9Lt7bRqpQECPO/MQy5WzC0QThxf+ndWniOc7WEzxRzl4qMG3GJaOJ
+	pOiXQo+EyCcja6lZb0lORXWBOVR9+jR5+0SDMxLbo9M6GKRqHD9UX0GJcdVJ8GAhOG/TzyzOZdH
+	BeipCxv77uhYPglkGdfg92MYGG/c4YeH/HR6qDooxPYsKPaoSdckPZ2ZM/utWQsDi6fPIS/05oX
+	j8J4mxPsuFLjL1K1bbwUWWHtfmNXByziai+QyCWET9dNj0bbJ9x8kgmcjsTfc3dlvFcWjK4D34w
+	i195QfTKWfIdh/FmOmVc8NgBoJjU+qzHAuLojcEnp9GJSdBC+jihzmGbPF0GuwzTgshZ0JBFCfH
+	rhP/DPdkW50YsSfrlZ69zICqc9oqn6/9nOSlU8Ivsv1QRbgITca5ThOrouU7kSTYtbIyf/DOBRf
+	nYO5zZ6rBIo6mathEkvO+4BQjPAkvvUb8uMWvIIKV+bjaqQnXHyiSZtFTap+BNXQ==
+X-Received: by 2002:a17:90b:5544:b0:3a0:ad24:c0aa with SMTP id 98e67ed59e1d1-3a0ad24c0f7mr1970446a91.25.1790297827124;
+        Thu, 24 Sep 2026 17:57:07 -0700 (PDT)
+Received: from localhost ([240d:1a:f76:b500:4431:46e3:c76b:79bc])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9589f7esm1147879a91.10.2026.09.24.17.57.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 17:57:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arWccqy8YlLJxeWA@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 25 Sep 2026 09:57:03 +0900
+Message-Id: <DLNZM1Z3VUX3.23ZXHHQWLCSHI@gmail.com>
+Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Hans Verkuil"
+ <hverkuil@xs4all.nl>, "Brian Daniels" <briandaniels@google.com>,
+ <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] media: v4l2-ioctl: zero the ext control built for
+ VIDIOC_{G,S}_CTRL
+From: "Alexandre Courbot" <gnurou@gmail.com>
+To: "Nick Rogers" <nick@getfieldwork.ai>
+References: <20260923160936.33445-1-nick@getfieldwork.ai>
+In-Reply-To: <20260923160936.33445-1-nick@getfieldwork.ai>
 
-On Fri, Sep 25, 2026 at 12:02:34AM +0200, Jose A. Perez de Azpillaga wrote:
-> On Sat, Sep 19, 2026 at 04:51:45PM -0700, Chang Yu wrote:
-> > +static int as7343_read_raw(struct iio_dev *indio_dev,
-> > +			   struct iio_chan_spec const *chan,
-> > +			   int *val, int *val2, long mask)
-> > +{
-> > +	struct as7343_data *data = iio_priv(indio_dev);
-> > +	struct regmap *map = data->regmap;
-> > +	struct device *dev = regmap_get_device(map);
-> > +	unsigned int unused;
-> > +	__le16 result;
-> > +	int ret;
-> > +
-> > +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> > +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	switch (mask) {
-> > +	case IIO_CHAN_INFO_RAW: {
-> > +		/* Wait until integration time passes for all 3 cycles. */
-> > +		msleep(160);
-> 
-> three integration periods hardcoded next to a hardcoded integration
-> time, so nothing keeps them in sync. make ATIME/ASTEP writable and the
-> fixed wait no longer covers a readout. as73211, which this is based on,
-> computes the timeout and polls NDATA. STATUS2 (0x90) bit 6 is AVALID is
-> defined and never read, does it cover all three cycles? the datasheet
-> does not say.
-> 
-Configurable ATIME/ASTEP will be added in future patches since I want to
-keep the initial driver lean. I'll switch to dynamically computing wait
-time in those patches. For now I'm inclined to leave the value hardcoded
-just to keep things simple.
+On Thu Sep 24, 2026 at 1:09 AM JST, Nick Rogers wrote:
+> When a driver implements the extended control ioctls but has no control
+> handler, v4l_g_ctrl() and v4l_s_ctrl() pass VIDIOC_G_CTRL and
+> VIDIOC_S_CTRL on as a single struct v4l2_ext_control built on the stack.
+> Only its id and value are set, and check_ext_ctrls() clears reserved[0]
+> and reserved2[0]; the control's size and the rest of both structures are
+> left uninitialized.
+>
+> A driver that forwards the controls rather than handling them through
+> the control framework sees that stack garbage. The virtio-media driver
+> under review takes a nonzero size as a payload to copy from userspace,
+> so VIDIOC_G_CTRL and VIDIOC_S_CTRL fail with -EINVAL through it whenever
+> the stack is dirty. GStreamer's V4L2 encoders set their profile with
+> VIDIOC_S_CTRL, and cannot negotiate against such a device.
+>
+> Zero-initialize both structures.
+>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Nick Rogers <nick@getfieldwork.ai>
+> ---
+> Found running the virtio-media v9 series [1] in a VMM with a host-side
+> stateful encoder: GStreamer's v4l2h264enc fails to negotiate because
+> VIDIOC_S_CTRL returns -EINVAL. Tested on 6.18 with that series applied:
+> VIDIOC_G_CTRL and VIDIOC_S_CTRL now reach the device intact, and
+> v4l2-compliance 1.30.1 reports the same results with and without this
+> patch. Build-tested on media.git next (arm64, W=3D1, no new warnings).
+>
+> [1] https://lore.kernel.org/all/20260917171921.2810550-1-briandaniels@goo=
+gle.com/
 
-The documentation on AVALID is indeed pretty poorly worded and unclear.
-I'll test on hardware when I have time and see if it covers all three.
-I think it's fine even if AVALID turns out to be unreliable? Worst case
-scenario the userspace reads a stale value, which is OK for my use case
-at least.
+I'm wondering what the API contract intent is here. If it is that
+drivers are supposed to fill the control structures themselves, then
+virtio-media should also be fixed, regardless of this safeguard.
+
+Indeed it is likely that virtio-media will be ported to some older
+kernels, which may not have this patch, in which case the same bug will
+arise again.
