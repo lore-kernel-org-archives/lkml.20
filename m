@@ -1,71 +1,75 @@
-Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FD9477E4D
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A9B50C28C
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:40:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790379649; cv=none; b=QBbkMwWY++cv95cm8Kw3yUwA3wQkZyr5EueRsYuyU37jTIkmA3OVYrKAXen9aCNq7E+dvq0e3o7ffIRbfYgZlRyoEGmTsF5SKi9dfgHuVQHN0W8/kT7brEorHR2izCkhXN/Iwi2/wA5/79puOUM5O04lAk2foac0kNJLdJhd4KM=
+	t=1790379651; cv=none; b=u11Yt9gA+a44yp1zi6I7da5JleMk2Hmaar2kpJJR2lN+i1xylXZYdmACSjDipJceaoXeW6d2esUbRNV4MIYazxq42DGPDjsEGGVaAV59yW+TS/G1b1CJegt3Py5o9/6KssRg+c1M5D2PfcdFlDLu2t+169Syk1yb5MCud367yPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790379649; c=relaxed/simple;
-	bh=RzREx1Uxjk3hzRbbgnHTrePp4jkBwQXN3E9MvrjrNO4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cuEIFkyT/SDJy6U86pOzMtE6l12w2yxUGuioaw6YAimU918IwVG5zqQxztMtTkNO6jPb2L5u6TQq4yzi8w4B9rVvk7EU3lkbnp/R4Qu5GExJycoaoI0v/DIjmVNrCwN+q/moSPn0B26rBU8DOPSvCBZiphSQjoSTTAhLQKpSYEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nuDEAwM/; arc=none smtp.client-ip=74.125.227.135
+	s=arc-20240116; t=1790379651; c=relaxed/simple;
+	bh=1TKVsLcsA/nB5psPpaUR4f+Fq9xErmLlGg6vQRkojoc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=apn9XEaX/bK7RegS2ObAahlWXhe2h0MTcB6E2VRD4p0oZ0BN/QPN7uEOq5OsJLk7KlYLfkQ0Oij2flQrXAX9821fZC4rx46xpvDLJYt+1r/1r2xIog/8Dk+2rXY1+7lKuaf4AnXqjQjkVLKi+hHX8VTu62n0AK0h4K/w8bexrWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ohuipKUh; arc=none smtp.client-ip=74.125.227.129
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nuDEAwM/"
-Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-398da2bdcb9so372614a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:40:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ohuipKUh"
+Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2dae660f31bso4457165ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:40:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790379647; x=1790984447; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BQ5wuRbRUfsgbPAtkKgj0SL1PaDXyp6OqvLbZ3GzU4Y=;
-        b=nuDEAwM/F6OtAwajUjOzGhV+CtoerhKYDFbVrQUqdF4ofpovvFsCveSUYBGQq4IbU+
-         LlADnfQySD0H7kEx2XsYHIQx1b5Ak3B2j/XgwGsn5Kdmb3MXiqIkZ2Px7v6x8kQHVLna
-         Nj2HbWUFSnS7SKteL8fR5lFic/6Nxp4brAvi6nibKvgwvcIs+40sLOr4rC50OcFMbvw2
-         G1BDrO7yLqTHoa2IOYnMrphcCuN2kQlmaEFkPG6X38WtTckoYfXPEQpsB42A8gAVkfXK
-         4VSB+bxYBwa9hjoOEtVxFG3wFpnSLFogbMwJohZ6+xr2gDMLOMObQuqUJ6TroYBU2ot5
-         mSsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790379647; x=1790984447;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790379649; x=1790984449; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BQ5wuRbRUfsgbPAtkKgj0SL1PaDXyp6OqvLbZ3GzU4Y=;
-        b=pIUsw9eeGda1TeD7ItfAZFtTXQDhNJHiIEgixhdSWacCzwu7+XX6jYBCV56ZtmpmkY
-         BqW1Pmxi8qCy6BCpXZv9eBhbvh5a3A4uPsoeYjJnHbgJ8w1mRamxx+X4C+bpVLu3e63p
-         Z68Tj6LkAK0H72YucYf6UYhNxxs333g2N7ajrAp7FcZQyznz3J05YidCTG1MUumj7tUL
-         qwoBx6ZKjzEQjAhlME1bfk1z5tIwQq07xoxGmFfzhV6zuuqX2g5C5uOdxq7+gktw2tv+
-         whbkh2GZ+wvWLRvEF8KC8L+8Qok1lHHCMcgkrbqy4f7wK8Zj3oBPr2LpC2VoIpBs9Pn/
-         eOIw==
-X-Forwarded-Encrypted: i=1; AKwUvBy3ZnOS94Xeq13B81dgati/5pGh0e2uD/hbo+zj/VW7lnBSC7uKLVBsto9/ZXy6zRs49nleERuYyLmFBKo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ks/X2qFusmYyZWiVmuWraThWmy3q4gsE2BUx0lcvBwxjyzbiDs
-	a/7I/PlxYntgS4tZTjc5g9T6IbV0A7qdBp0bGGkqUPZ/ihGFT7SmTBCt
-X-Gm-Gg: AYBFou3NPxGO+6Zs2iOiG23LzCPmalY6ZTHlGfFnBYL0KQH+lFaYftLiUCRkfP+ZGJO
-	YlRi8N0QJBWrPHNB6fHwxXwqhGt/umhZYqp8/zpjvjv46yj0kfWZ7Fd+kpwNLHePIR9hyU4cEIp
-	XDYQB/y/vgtMkiaezw/3mqdVNCUA5FO/A4QdxrrVZRfQFX1QLUfvIsvmsbka5OZ4fpT+z9HL3uo
-	IfYRqZmS91WJLv91ReQqimVHyIyNyPFf98pS1tJhckOhG50dXnOJ6ETRLgZhkHOTJVlijuzb1pa
-	wk7BP3iebcC4a/hGrCs1/X5MX80YIgfrOkvxmgOYa8Wd3SRbum+MZZyfHzQJgwwsI+X+m0vGwGc
-	5aXtLnCgKErRto/dwa7lmeiRKV++twtXtpsb8ikj1JVNw4HGLXvo3vP4CZEbt98d9Tbsyz316pw
-	djpCBrXwaFNTJBPgCZe3jdGHMIXlonkRhq7xlagcBOigZPimU3meP4d3ZiRgjVHrXn4opRdB6Pi
-	g3M5qxQZwI=
-X-Received: by 2002:a17:90a:d883:b0:3a0:4146:295b with SMTP id 98e67ed59e1d1-3a0987255a0mr5811902a91.17.1790379647458;
-        Fri, 25 Sep 2026 16:40:47 -0700 (PDT)
+        bh=Y+LGcXOuUDCudNBOVhXbuTe9tAr0TSwIZMFABdm4BCE=;
+        b=ohuipKUhVNPxQKj36w492hKX5XXOXSpkLF7cFICvfb/LAczSyl4Tr69ALyROHBMcKd
+         yj421mjwVrP69P/kdHqThiCHwDcjA4wW1LY3ING4fRORphWrNiblzThCPaj2EQNYUCBE
+         YPczJNJYaJrE1n6HXWo2NYYIGshlqhd+OqWgXVpmEtq46kj9H2Yn2I10qIFFZWjWdSUA
+         GRBIf9kaJLb1o4GMd8lSyB+A1TuF1mf5oLWw3Fw5ZdKaq17q4QWw+ts+JpTDpDSEPDry
+         wElPlUK/ZVA3ltld/BL3oyR9tLmEPnfekQEnPVA4GcBj3HwcEYaoEftK1dtCbuyEMj2H
+         y7mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790379649; x=1790984449;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y+LGcXOuUDCudNBOVhXbuTe9tAr0TSwIZMFABdm4BCE=;
+        b=u6IJMO3hH8JFTD+Xq55oUz9z+1wRyAoHzzzQ4oirv0U77GYlAnGLjFXnOzCV2bgfZ1
+         uiL4X2rPfkXr0dolhNH+h4Uy9PLkLbQbHMWtDBcXjgu8QypS9BuH+JHwnDJJqxwTBmDf
+         fQjXcOIiZB55zPC7zzE/qfMzQuUhaZyltjHSzVeVS55da1TvstpFeCYY31jFICX6+a4v
+         MPyihlcjXx43hbchY5U0qsi+SX6LMrjI1Jukb6H75rB9a1zCn8hw3ssPySEV0Aqt/3qD
+         dVxJ6Woj22SctwTzLvpV+7q/6DeYNc0tmHx0FQeh5gEyTBDihx6gH45N8Go3zvkOL0ct
+         X5fw==
+X-Forwarded-Encrypted: i=1; AKwUvBzTyzVvoUWTU+ZNFKBN4h8O42xd+spN4dVUy3bOTpGMy3ZDRL6OI1teQtQcK+GV7lV+mo1ntZUtljKwyNM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kj2ieueS1EbXrtjEFlvELczX9L9HlQZCqrUtJLJYR7d3WRfqHl
+	A2CWPvhda+b2of0f3f/kx5/IFNAqY82e3k7QcTSLLQAEyBBCK7Kt5XG+
+X-Gm-Gg: AYBFou3ys1CWz5fMyMMT8DYUsrFVjtG4gPzq3rFnMbJYU9U65iEv7cYb2VTjaBXd2XF
+	yI7sJePkItXPHZvwyFVfbkP3jNWjpcCh7a8Smc22BokJcBIWci4PxOFbsisfLjBOqAD9iAPtvhM
+	gUMHem/z1r3rLJRJ/XA5ZolfRLMjOgj6UZeWl7awVg2utciyZLgKRdqCItjTjayD/aQYTOTAT9m
+	sMwBgpFJKH8FL5Lb0QwYBnqekdQUUOsQLmQRBDqRpxyLX0GHWbpyplw4q/Xx3L8Sjr4ZUWyWx3H
+	oX3X9KPMQYVZ4nKcVxDWWrZhxAfu5gju0eWQ/WXhEUlIBrEloHdkdOLI9TVsauukA0xkyPR2Sve
+	QVC1yIxkTSNrGY4JfB6GHV28vmqkqhxc2adiv+cXgnzMi8FCbYJJ2B+TFwRGhe6MmWZ4vdUTnob
+	TPM4f9y6DthO/4AYKk0ZglxQj1/8vND904nK8T9SpLGx5pJeHpw5AKECO3d+In1nQN8+G3FuYPZ
+	x2/gxjqQZIJ9wK2WIsjGw==
+X-Received: by 2002:a17:90a:d64c:b0:3a0:c13d:8b2b with SMTP id 98e67ed59e1d1-3a0c13d8f3bmr2052540a91.33.1790379649122;
+        Fri, 25 Sep 2026 16:40:49 -0700 (PDT)
 Received: from pandar.dancher.net ([2409:8a28:881:a300:decd:fb28:f50d:71a1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b94936ddsm6706966a91.7.2026.09.25.16.40.46
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b94936ddsm6706966a91.7.2026.09.25.16.40.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 16:40:47 -0700 (PDT)
+        Fri, 25 Sep 2026 16:40:48 -0700 (PDT)
 From: Cai Yu <caiyu7372@gmail.com>
 To: Marcel Holtmann <marcel@holtmann.org>,
 	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
 Cc: linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/4] Bluetooth: hci_intel: support the CcP controller (X1 Fold Gen1)
-Date: Sat, 26 Sep 2026 07:40:39 +0800
-Message-ID: <20260925234043.707679-1-caiyu7372@gmail.com>
+Subject: [RFC PATCH 1/4] Bluetooth: hci_intel: fix tty-only assumptions in the LPM paths
+Date: Sat, 26 Sep 2026 07:40:40 +0800
+Message-ID: <20260925234043.707679-2-caiyu7372@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260925234043.707679-1-caiyu7372@gmail.com>
+References: <20260925234043.707679-1-caiyu7372@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,70 +78,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series makes hci_intel work with the Intel CcP controller as it is wired
-on the ThinkPad X1 Fold Gen1 (Lakefield, ACPI INT33E4).  That controller is
-described as a serdev child of an LPSS UART, so the line discipline path of
-the driver can never be used for it and nothing binds to it with the current
-kernel.
+The LPM support of this driver looks up the platform device that provides
+the reset GPIO by comparing the parent of hu->tty->dev.  That tty device
+does not exist for controllers attached through serdev: hu->tty is NULL
+and four code paths dereference it unconditionally, so binding such a
+controller would crash.
 
-  1/4  fix four unconditional hu->tty dereferences in the LPM paths and in
-       the baudrate helper, so the driver survives a tty-less controller.
-       Independent of the rest, and a crash on any serdev-attached
-       controller.
-  2/4  accept the CcP hardware variant (0x14).  btintel.c already knows it
-       (btintel_get_fw_name()), but hci_intel.c duplicates that lookup and
-       rejects the controller before the firmware is requested.
-  3/4  add the serdev driver: ACPI INT33E4 match, reset GPIO power cycle,
-       boot delay and flow control handling.
-  4/4  download the firmware at 921.6 kbaud instead of the operating speed.
+Add the missing NULL checks and use serdev_device_set_baudrate() in
+intel_set_baudrate() when the controller is a serdev device.  The LPM
+transactions are skipped for those controllers: they own their reset GPIO
+and have no host-wake IRQ.
 
-On the X1 Fold Gen1 (20RKA000CD) the controller comes up as hci0, the Intel
-firmware is downloaded on every boot, and both the HOG keyboard and audio
-over Bluetooth work; without these changes the controller is not bound at all
-and no hci0 device exists.  The reset pulse, boot delay and download speed
-used here are the values measured on that machine.
+This is a preparation for adding serdev support to this driver, selected
+with CONFIG_SERIAL_DEV_BUS; no tty-based setup changes behaviour.
 
-The version posted here is the same change reorganized for mainline (a second
-hci_uart_proto instead of module parameters, with those values hardcoded).  It
-applies to and builds against master with no new warnings; I have not booted
-this exact revision.
+Signed-off-by: Cai Yu <caiyu7372@gmail.com>
+---
+ drivers/bluetooth/hci_intel.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-RFC note: 1/4 and 2/4 are plain fixes and I believe them to be correct on
-their own.  3/4 adds a second hci_uart_proto and 4/4 hardcodes a download speed
-for one bootloader revision; the series is marked RFC mainly to get feedback on
-the shape of those two.  I am happy to rework 3/4 into a per-device flag in
-hci_serdev.c or to drop 4/4 entirely, and 1/4 and 2/4 can be applied without the
-rest.
-
-Points I am not sure about and would appreciate feedback on:
-
- - 3/4 uses a second struct hci_uart_proto with oper_speed = 0 for the serdev
-   path.  The generic baudrate change in hci_serdev.c runs before ->setup(),
-   i.e. while the controller is still in bootloader mode.  It only answers at
-   init_speed at that point (and right after the reset pulse it does not
-   answer at all yet), so switching the host to oper_speed makes the setup
-   fail with a -110 timeout on the version read.  A per-device "no early set
-   baudrate" flag in hci_serdev.c (hci_bcm.c has that concept as
-   no_early_set_baudrate) would work as well - I am happy to rework it that
-   way if that is preferred.
-
- - 4/4 is a rate quirk of one bootloader: it stops acknowledging firmware
-   fragments above 1 Mbaud (measurements in the commit message).  If a quirk
-   table, a max-speed device property or a DMI match is preferred over
-   hardcoding 921.6 kbaud for CcP, I can respin that patch.
-
- - I could not find a way for the platform driver and the serdev driver to
-   share one probe: the platform device is an ACPI device for which the
-   driver looks up the reset GPIO and the LPM/wakeup resources, while a
-   serdev controller owns its reset GPIO itself.  hci_bcm supports both kinds
-   with two probes as well.
-
-Cai Yu (4):
-  Bluetooth: hci_intel: fix tty-only assumptions in the LPM paths
-  Bluetooth: hci_intel: add the CcP controller (hardware variant 0x14)
-  Bluetooth: hci_intel: add serdev support for the CcP controller
-  Bluetooth: hci_intel: download the CcP firmware at 921.6 kbaud
-
- drivers/bluetooth/hci_intel.c | 184 ++++++++++++++++++++++++++++++++--
- 1 file changed, 177 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/bluetooth/hci_intel.c b/drivers/bluetooth/hci_intel.c
+index d10ce7a..28c11dd 100644
+--- a/drivers/bluetooth/hci_intel.c
++++ b/drivers/bluetooth/hci_intel.c
+@@ -14,6 +14,7 @@
+ #include <linux/wait.h>
+ #include <linux/tty.h>
+ #include <linux/platform_device.h>
++#include <linux/serdev.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/acpi.h>
+ #include <linux/interrupt.h>
+@@ -288,7 +289,11 @@ static int intel_set_power(struct hci_uart *hu, bool powered)
+ 	struct intel_device *idev;
+ 	int err = -ENODEV;
+ 
+-	if (!hu->tty->dev)
++	/* Controllers attached through serdev have no tty device; the platform
++	 * device providing the reset GPIO and LPM support is matched through
++	 * the tty device, so there is nothing to do for them.
++	 */
++	if (!hu->tty || !hu->tty->dev)
+ 		return err;
+ 
+ 	mutex_lock(&intel_device_list_lock);
+@@ -361,7 +366,7 @@ static void intel_busy_work(struct work_struct *work)
+ 						busy_work);
+ 	struct intel_device *idev;
+ 
+-	if (!intel->hu->tty->dev)
++	if (!intel->hu->tty || !intel->hu->tty->dev)
+ 		return;
+ 
+ 	/* Link is busy, delay the suspend */
+@@ -511,7 +516,10 @@ static int intel_set_baudrate(struct hci_uart *hu, unsigned int speed)
+ 	/* wait 100ms to change baudrate on controller side */
+ 	msleep(100);
+ 
+-	hci_uart_set_baudrate(hu, speed);
++	if (hu->serdev)
++		serdev_device_set_baudrate(hu->serdev, speed);
++	else
++		hci_uart_set_baudrate(hu, speed);
+ 	hci_uart_set_flow_control(hu, false);
+ 
+ 	return 0;
+@@ -828,7 +836,7 @@ done:
+ 	 */
+ 	mutex_lock(&intel_device_list_lock);
+ 	list_for_each_entry(idev, &intel_device_list, list) {
+-		if (!hu->tty->dev)
++		if (!hu->tty || !hu->tty->dev)
+ 			break;
+ 		if (hu->tty->dev->parent == idev->pdev->dev.parent) {
+ 			if (device_may_wakeup(&idev->pdev->dev)) {
+@@ -990,7 +998,7 @@ static int intel_enqueue(struct hci_uart *hu, struct sk_buff *skb)
+ 
+ 	BT_DBG("hu %p skb %p", hu, skb);
+ 
+-	if (!hu->tty->dev)
++	if (!hu->tty || !hu->tty->dev)
+ 		goto out_enqueue;
+ 
+ 	/* Be sure our controller is resumed and potential LPM transaction
