@@ -1,93 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103D54E8E06
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287504C9DFE
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:41:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354412; cv=none; b=pY0u5ikqWY8ilHkUenxmSs/sO/LQIs+bL2IHre+WLEhclg6OL6Rafo8PRAJ5ewlbjmkMGy7U6U6udwUGdntWiCBVYIdykbhbKdqtZY+jFoIMNroHjScRWOH8pit/6/qmaIhJdLcHoGhEsjUyUthNakKSmmLmy6jlRjgt5lixYOI=
+	t=1790354487; cv=none; b=BsaoVNWUzIDamCNyW+LERnrUfLJfnSP6miRmYeX+H8hwMf+7qPYO3a2eI6cnHfHV6QbXQplkab2yCKROFFzKVodWEascUW4LaQ5Mc3mcHPTp1pCfSABk5OxjnjvVAltQbzHQogSArg6U1rmojzEV0uUID0RmUg9Hs2H19nCFvDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354412; c=relaxed/simple;
-	bh=LnFCumRPW5KkkTADLpdYawZ4Ym7zY4tKFvbDYPg3oPo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nA47JcI/vHGrbeDocy4h12iysVIFQV7K1E9JMtBGY7+rkhLo6oZ6fXnAdOkVyB9BtNGy7qeNqJlaQGmW20eS1fLjaq2DXNLCJPQGybJGPqbbbtgFtVCfJCMvot6jNeK123OMpelQ4F6uiCafO6DjkXpgaB6CRdbi7GZvhI6WlLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Da4kxrr7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790354487; c=relaxed/simple;
+	bh=6Gd4vf7bpYvevr/XoLpiMssWOSifiMZ6CNt4MPZA9zs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GO34eRdF/9KOxeDUujKQL1s2Detwj7b41YjMtAZctY/cFf0MnZ+E02xrxwYuIRWTchacKYxyR5cdZrbdqzWyzZ0jdJnca5ikhU35G4REyHtdfRzbZ6/SbCHdqKrms8baJ3sd7ugAAicyOl/btCcKPgvnl0Nn6kPX1p1IQZ+I3r4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=ZPVmwzjP; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Da4kxrr7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB2EF1F0089F
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 16:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790354406;
-	bh=LnFCumRPW5KkkTADLpdYawZ4Ym7zY4tKFvbDYPg3oPo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Da4kxrr7dMbJ32AyfEX245OU5vO+hGYp+YxW5c6M2i8h8OVAwUI7Cbu3rS49JXuM6
-	 a5mRllx20Kf7Gu/kdQ/IyGqoaboeBvciomnz1Ltjll/+/PTVGyrDaqe1+gA0Y47xvO
-	 DJoQAKx1nVc374htNwc85lEzwp/HzzgNsyWcivEgs6GNNsa4xQ7SR0aSNCwfjftMEj
-	 cccMdGVqXQl6XIqK2VHbFzt3jUe8mCt6GpGV5NYIZku/bFtx+d0J3lOdzd8Fxf8KZk
-	 7R6CbsVHXoMTRatNOkm3PicYGfrsVqIju8y1V2ITIroph3ga0NTfCm9KmL9d0MlWCD
-	 TaRaThs668h0A==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5d0ad9b89so8998911fa.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:40:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByOTSE2yKRfknx6XSw3Dxa239sqz+Ewgt7dTewkE8jc9/MuLKa+mnTKMgGyADdyA1h7drqeNurZJpg/h14=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZrYI7Q+GgRD0IqFUn3tkE4ymcYjh6O0jOWLq8u+yAI4RpjJff
-	/AAleq7WYNki4B8z0rN827SgwNyzcBscRwN9a81/misSLYtuoA6o1UzllgMP037IPU/cPQOYN3j
-	v8YRyEYAM52MHGA07VSbewgHG1rSAdsM=
-X-Received: by 2002:a05:651c:154a:b0:3a3:74b9:8a79 with SMTP id
- 38308e7fff4ca-3a63c30cb49mr16943651fa.18.1790354405251; Fri, 25 Sep 2026
- 09:40:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="ZPVmwzjP"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ca5aa7so108637585a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 09:41:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790354477; x=1790959277; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6Gd4vf7bpYvevr/XoLpiMssWOSifiMZ6CNt4MPZA9zs=;
+        b=ZPVmwzjPCgFbxehdiQntsj2eCKJdbl//1zWkim3xVQsVZOn5eDTac12e3DfVhKSN8C
+         rXI5U6hA29+CHnX4aqdYM+3aaitlnPh3WzWcE855XhjykP8iUb0lM5WtLLZclmY3aXGs
+         Y9Eunv5JcmbFTQq7aInRAaoRsy+1eJlWW3aL+/63mSeBVqZg00Cq3bbtgtMcph8ZPA95
+         Sd7gkHrZPF4jczy16gYAkhfGa/GOVm21WbVAdaAe8IdnTnlo150FgnidXPcNWfQKWZrB
+         1zlPXsh9HSnabZI2CleXw0tk5TgdVgTM2D1CDRFLR9L5FQnBV/fD7i3p71BTaOFMu247
+         5CMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790354477; x=1790959277;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6Gd4vf7bpYvevr/XoLpiMssWOSifiMZ6CNt4MPZA9zs=;
+        b=gE89YdL6tXHRGmtzwF3EDHsLZJ1fbkht52L/rxis/T593eE+HFNHdeWA/xFkjfccHH
+         B/trBBusKxsy/PfiPDEhgVo0YSgzAFBvz1cXQ+PG9xwTpKn8/kkRlxASFacJWssNIbnP
+         xUmL8RQzWjtoRU/JB/Yu+XzKpngpCanGc5VfSlU/sFeaNxWCH5HzD9FDhHdIZm4Z479v
+         Z2Yn6dpJhwWjzpcnMCpFXyT+cZKQhKBay/CKS7cR7LqtQy2RizlI5PS0cveXWnk8Lrnv
+         XkvtU/lLdfUhdkSHS3geoZ8hSM4cr/MqSAwPqyaMzMLy3PRKOQoLl+gQ1KeuG6cpPTjJ
+         U/Ug==
+X-Forwarded-Encrypted: i=1; AKwUvBwfoTNhf+FlKSsdHhnBXxLpxDyr+VzyEg+TOV2yjXD+9vtuCrIzGJz67eB6wks/WfHRxQ9VASmM0XekPU8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrIMlsqDL5e/QEJSrauiwrPla8ZYAvE86ulh8azcpjAES/ueVp
+	L1U+RkrqpGLs05TRvjHFtwKaTLWUiI2EDZdppBL2fb1nVPOpwPE6mRiNtS0pOzzQ9mI=
+X-Gm-Gg: AYBFou0TT8QGlRNb/HB5NltZi5YywUcSXLn0JtDZru2gFsO2lCbkHoxTRgck+AIHVMN
+	w8dAXB4mO4E6QfKHkHN5tA46nWaLSsgKukvGueC0a/Fv3Eyr9GWEhQsC1aAu4MF8TtAMmhO62gZ
+	s5gr/VD6Zpm9i5wgj6nnECXKwjyqZXBDViCwxz+9IO7um9TkfPs3NecvUbwiVo+NQkhg2oBSyHB
+	Wgzk+c/psofbvDgERb69DnOpAWblQ3JgLekJlGQgHoQNIwuscWOIJ+g92S5WFk6mCmj2WyhvsZL
+	N9KGZaxQYTQ37W4q70AaEGMgUzH6mjj5vpBzOttmLGD4+HwpP/EOrE2kGuLo3gaJEvT12uDKhvP
+	y8ZAr66CDHI1JAyMxyUZGAJRzEOC9V8vF23DoWMF0IKU1Qh7ebPoLFQsAJjxupcE3nteEc2ypjx
+	kBe9a29+IZYNeTyFcuROQtM6kum9pYdsB8i8ucuu2v1aNx9XPAFTe8ylqOyA==
+X-Received: by 2002:a05:620a:414a:b0:939:9b1c:ea4c with SMTP id af79cd13be357-93c43bc93b2mr592149085a.28.1790354477368;
+        Fri, 25 Sep 2026 09:41:17 -0700 (PDT)
+Received: from armok ([2605:a601:a61d:7a00::2])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c448ae8ecsm217064385a.9.2026.09.25.09.41.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 09:41:17 -0700 (PDT)
+From: Liviu Nicoara <lnicoara@thinkoid.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Todor Tomov <todor.too@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Felipe Balbi <balbi@ti.com>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Oleg Keri <okerixx@gmail.com>
+Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API devices
+Date: Fri, 25 Sep 2026 12:40:54 -0400
+Message-ID: <20260925164054.25831-1-lnicoara@thinkoid.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
+References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <12985239.O9o76ZdvQC@rafael.j.wysocki> <SN6PR02MB415753ABAFF3119B85B4DEEFD4802@SN6PR02MB4157.namprd02.prod.outlook.com>
-In-Reply-To: <SN6PR02MB415753ABAFF3119B85B4DEEFD4802@SN6PR02MB4157.namprd02.prod.outlook.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 25 Sep 2026 18:38:26 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iT49TDwYFHOpeSgci3dEySae-ggdwYFeh4YnAY=qD2Zg@mail.gmail.com>
-X-Gm-Features: AclHuK92Clwh4unR71Db_V9est7mnsRaI26kEfG495yOxv53OK9E3laP1v2FN2s
-Message-ID: <CAJZ5v0iT49TDwYFHOpeSgci3dEySae-ggdwYFeh4YnAY=qD2Zg@mail.gmail.com>
-Subject: Re: [PATCH v3] driver core/ACPI: Introduce companion_bus_register()
-To: Michael Kelley <mhklinux@outlook.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Linux Driver Core Development <driver-core@lists.linux.dev>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, Hyper-V List <linux-hyperv@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 6:38=E2=80=AFPM Michael Kelley <mhklinux@outlook.co=
-m> wrote:
->
-> From: Rafael J. Wysocki <rafael@kernel.org> Sent: Friday, September 25, 2=
-026 2:24 AM
-> >
-> > The ACPI bus type does not allow drivers to be matched to devices, so
-> > the sysfs attributes related to drivers created for it are useless and
-> > their existence is confusing.
-> >
-> > Moreover, it is better to prevent drivers from being registered and
-> > looked up for a bus like that.
-> >
-> > To allow skipping the creation of those sysfs attributes and preventing
-> > driver registration and lookup for the ACPI bus type, introduce a
-> > "companion" bus type concept and add a special registration function
-> > for registering "companion" bus types, companion_bus_register().
-> >
-> > The "drivers" directory under the ACPI bus type is still needed because
-> > there are versions of systemd that depend on it [1].
-> >
-> > Link: https://lore.kernel.org/linux-acpi/SN6PR02MB41575266A4580339E186E=
-5D9D4812@SN6PR02MB4157.namprd02.prod.outlook.com/ [1]
-> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> > Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->
-> Tested this against 7.3.0-rc2, running on my Ubuntu 20.04 instance
-> with the older systemd, and as a Hyper-V guest. The VM booted
-> as expected, whereas the boot failed with v2 of this patch.
->
-> Tested-by: Michael Kelley <mhklinux@outlook.com>
-> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+On Fri, 18 Sep 2026 14:56:40 +0100, Bryan O'Donoghue wrote:
+> In the first instance the code will try to use the new PHY interface. If no
+> PHYs are present in the DT then the legacy method will be attempted.
 
-Thank you!
+Tested on a Dell XPS 13 9345 (X1E80100, OV02C10 on CSIPHY4, two
+lanes), with this series, the CSI2 PHY driver v18 and patches 1-4 of
+the x1e camera DT v7, on 7.2.6, plus a board DT for the 9345 (to be
+posted). CAMSS picks up CSIPHY4 through the PHY API, and the sensor
+streams at 30 fps through libcamera's software ISP and into a browser.
+
+Tested-by: Liviu Nicoara <lnicoara@thinkoid.org> # Dell XPS 13 9345
