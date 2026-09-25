@@ -1,137 +1,131 @@
-Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCC23BED2D
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:24:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB823BE621
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790364287; cv=none; b=DGL/q3uFPN1Z7CMSoN6g2S4RqgkolSqE+RlmXWXU4wMVZSpu0oVMfkzFwIuiU/nGKbRD6AO5K6OiBM9Xtx4buikcJn533DkA8M0RP2o5m3bjPCfxHMdoAxnMdcEiOpYE8Loo6mRnZ3ZtH/yOO+ZUT6fxe+YmopneN6418Z8sN7Y=
+	t=1790364319; cv=none; b=Ram6/G+jd1hzIGxRVNcMsRhEKyCKssqquQ/KStrHyo9Etj5zCN628uVodVXAUdqpgkeD2WpDmrLWCY3jYDsZwudcaEk2LQzncbf9lUNmZU29oCSFrouhMHJ1+d1Y5XKXi9ncIhGBD6Wtt6uTV2xxoulAgnQgQYONQYlrajwptp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790364287; c=relaxed/simple;
-	bh=7S/MKduvHW3eZ0cEHVQzZei57mdgxITKfqv+Mzb0+Os=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=NfFpV0lrvYrDBn/0u64yUrT4LZLrC5JSTNgtzGGnMQ2oeGijva2Cz6Pb+aWI3R+Z73PLYeQRTwUp1bmeoLs2U7Z7j+lGc7emUmEREUVywar+1shjAcXMaF2YnADZvveeQ98XzlI+pAjN9quYgV1GF4bA8hbDrLA4a5xIOvJU/ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JKG+lVrw; arc=none smtp.client-ip=74.125.227.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790364319; c=relaxed/simple;
+	bh=orOQIuMWgmNfpyVvSBIiKDXXIfxlvVwi1uDc6JpnOnE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eOdFzBCQDisqbc69DuiicR3EppWngj8A6FjPU8f3u9kCe8NLmv+KcxxZdaodu6/QRQdzb2/49/75j44dnDhSw5er5C6o7IBtGspUUj7HFXicCZ3RXgFra4PUnAjXAxTbaCkj0LJtrMCRl9ekMnyg9ZcL3e9qkNapdIhxGhKGCds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SgMhPCgS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JKG+lVrw"
-Received: by mail-vs2-f40.google.com with SMTP id ada2fe7eead31-790ec94be85so457069137.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:24:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790364284; x=1790969084; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7z+aHZZJ9kwGfOKnNeUVi/yULRqMkVDfnGrm/awK8nY=;
-        b=JKG+lVrwLdmlikedoA8gbiM81wgJyXjc0pz4aWuQitS9ASmGKngljtPdEq3yEvgLzq
-         q+SrLZ3f3afE9DP+25yhYei3Emuq8JLXQLn4CkV3CAO0sfmPKdJzSApTfB+KVaaIskrA
-         guE+xzs1K9B0a1FELOZah79veNvkmGAKrBR+3Uyp3ajC9nJBHqo6pOrgLKz5d2EoP0l5
-         FtTGwmN4mqa+0KmWqlAsm9Y9U/D0QcZ73CszKIvpKW/olxCfmYukI64RE1lCKE7wT9k8
-         BVL0zPRWm8zk4yrPrLdwy6rd+hQl1vlevIjA6HPzpyURSpfmi92hCukqIWcTo6qj6iEL
-         bYjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790364284; x=1790969084;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7z+aHZZJ9kwGfOKnNeUVi/yULRqMkVDfnGrm/awK8nY=;
-        b=2JCA4RcwcXFdGoYFdwe7SU1j1cXtDOIY8xZ1zu5NMxsPAARSR403+AJxjaRexp56+e
-         DHjWFDnIY1yTe45uB5kEoZj2MGV1hfec5vQbGKQWEkVSV6LlaVxEwV292TxUjPPWqyuz
-         YrYvEMwyae2hYOuk0ZXVUy3HUdwljbdDywlnKCiYC+7JEWGJHx7/71/goYuBj8TD3qJT
-         2fMH0yWAKDHIVW3HtiHcaHxkXyrCXKqklnDkIHzBOKwj6JoPcSd4xwzWDQvOAELjzasr
-         e22Zb1pNr1AVXDFE9jUtl81zd8MB32tPNiRpXW1jv/JjN7MVnz75IrmBtTOO7/s6xUeH
-         9OhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxCMYj0x7mvmgJub2y5DRwJ/6DDuHSzwfzoJ6DJXv1KetZcM/KgeTK0+/bL1Nbfr7eqtb3FLhlJaXJVVuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUFZ7dXi2HpQ6v4FQRzJc7glQRgVKBgp9agtfGULi++YFzqyCk
-	YhqSWdWO012ilMm+4N5OdSn9ZFa24YSV6NcT+t32LA13921qFCdJXuxo
-X-Gm-Gg: AYBFou0F5MrcZeP466qk50lK1Pn41rRwlHfLiP9ytHIgD00eBo79n3xoTwYaXB2Zyz6
-	fxHEpKmJL9kw1waDntb/bs7r4HvvyPZ1eWudVncnVqJqwHxfQ7FFqDvFJXF/joy2nDvyqAaB+uK
-	fTsnZQ+FsCg2x5eyIPVhtrWCde4VqhFIvFdtTQVWCTPyuPsLI4aGDaWn86BFeVztLx5U60z3PZY
-	FxZQ6JXt1HKLZf2YFigIRXe/fNEDF5BKSSWpLV9PYoGiZOayWWI0ZCTvvJHJ6ZnkWPRSJGA15N2
-	t3r4MyfYB7HrJZOw2aDV/uZfRMZWlr1TfH+I6lqgMM1arq6IFtb0TkA+1rykYws35SnGKnV1A0i
-	5PxfwNkSjUmtpPpatHeW3FZQOVUItal1bRb6XrYuKlUqsYf7j/KPwvpM4+3D6IJE8Y82V8XiEm4
-	9DPjJTcSTN3Eqa2ve0AUcTPcnzcvZuWGTsf1fvG3q1Keae4Z9tmyobHHhRVLQxtBhM2XZkLm5+C
-	gi+iuot3C2Z0aeElQlV6ouLf6qChF+bu0BK2wYy
-X-Received: by 2002:a05:6102:8098:b0:7a7:1db6:c769 with SMTP id ada2fe7eead31-7b1c751f1e3mr1094309137.22.1790364283907;
-        Fri, 25 Sep 2026 12:24:43 -0700 (PDT)
-Received: from localhost (host-190-210-193-94.iplanisp.com.ar. [190.210.193.94])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9861b0b6ce4sm3698675241.13.2026.09.25.12.24.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 12:24:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SgMhPCgS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66561F0089E
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:25:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790364317;
+	bh=nBf4LR0QybGxODUVGWLYzoR9YycS12OFozmgvcTcyzc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SgMhPCgS1g/SBrRAXC8/7WLHaXSM2aK4ZHjIgziO+Y1yxNb0kRKuGqhqLKFt4ivnU
+	 ESvmWhh8cb3ASdcq9bciF2ZUUCnRpAJ+osXj13vUizJB8bBqrCyj+MYcXwsF50SOFh
+	 eYIUau2uDrZQrg9AigBLcithA5eKQWoCmSHzA4LoSXR8C/Xo/9DKbTteAl6ZuHpk3j
+	 Hhm7ReTPekFizzh+KnWlu7NscYt5+j4GIbyDURUfiVvDrnlUzbAQuQI7mJzQJonR1G
+	 wkXhIwRaPfL6f7SLxQ3InNFxsXbBdfhAcaT28SkpfgUgQq9fRokW1pK44HuKIAtqkv
+	 uOvEYVmuAC0iQ==
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a652b710a5so7575601fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 12:25:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy7hiEb3tzu481KQ3a943mTiiqRay9Q7ZP1YLj+/LI8TsOWJ563FuIigT2LLOROK07LsvhvCMZ6+B+wwFE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kc0voqTAAPKsaMI4g7bUpP9CzAKn2kqD83ht9vZTUJpkVQn5u1
+	Y5wGOGCmkZb7UJhtIPfqB8tfcbBoz6nldCMh2fC1pmVyvwDrcZwtl8Ug2ktIgbFZf1b4/ds+MK7
+	BJ4d5MOb4HRWV/VPRh6vfUtv/fdYjdUo=
+X-Received: by 2002:a05:651c:418e:b0:3a6:553d:cb1c with SMTP id
+ 38308e7fff4ca-3a6553dce4cmr4861551fa.12.1790364316036; Fri, 25 Sep 2026
+ 12:25:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260916103820.1760297-1-sumitg@nvidia.com>
+In-Reply-To: <20260916103820.1760297-1-sumitg@nvidia.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 25 Sep 2026 21:23:38 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hXcRSj5ufpLTAgTSYtFDCXRQL3bJ5wNLtfRMrvHfo9ow@mail.gmail.com>
+X-Gm-Features: AclHuK9qDYz-k5dcjQxp54XHZKMEw0rv2InbPBzQTUFY63R1_VmtSqKrupNEn6Q
+Message-ID: <CAJZ5v0hXcRSj5ufpLTAgTSYtFDCXRQL3bJ5wNLtfRMrvHfo9ow@mail.gmail.com>
+Subject: Re: [PATCH v5 0/4] cpufreq: CPPC: Preserve OSPM-set registers across
+ hotplug and unload
+To: Sumit Gupta <sumitg@nvidia.com>, pierre.gondois@arm.com, zhenglifeng1@huawei.com, 
+	zhanjie9@hisilicon.com
+Cc: viresh.kumar@linaro.org, christian.loehle@arm.com, ionela.voinescu@arm.com, 
+	ray.huang@amd.com, mario.limonciello@amd.com, perry.yuan@amd.com, 
+	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	acpica-devel@lists.linux.dev, linux-tegra@vger.kernel.org, treding@nvidia.com, 
+	jonathanh@nvidia.com, vsethi@nvidia.com, ksitaraman@nvidia.com, 
+	sanjayc@nvidia.com, mochs@nvidia.com, bbasu@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 25 Sep 2026 16:24:39 -0300
-Message-Id: <DLON63JAAXEO.18FNAXS16CHHB@gmail.com>
-Cc: <stable@vger.kernel.org>
-Subject: Re: [PATCH 7/9] iio: adc: ti-ads1018: reject devices without match
- data
-From: "Kurt Borja" <kuurtb@gmail.com>
-To: "Jiale Yao" <yaojiale02@163.com>, "Kurt Borja" <kuurtb@gmail.com>,
- "Jonathan Cameron" <jic23@kernel.org>, "David Lechner"
- <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20260925125754.2162337-1-yaojiale02@163.com>
- <20260925125754.2162337-8-yaojiale02@163.com>
-In-Reply-To: <20260925125754.2162337-8-yaojiale02@163.com>
 
-On Fri Sep 25, 2026 at 9:57 AM -03, Jiale Yao wrote:
-> SPI driver_override allows a device to bind to this driver without
-> matching either the OF or SPI device ID table. In that case,
-> spi_get_device_match_data() returns NULL.
+On Wed, Sep 16, 2026 at 12:39=E2=80=AFPM Sumit Gupta <sumitg@nvidia.com> wr=
+ote:
 >
-> ads1018_spi_probe() immediately dereferences the returned chip
-> information to initialize the IIO device, causing a NULL pointer
-> dereference.
+> This series keeps the CPPC cpufreq policy alive across CPU hotplug and
+> preserves the OSPM-set CPPC registers (Energy Performance Preference,
+> Autonomous Activity Window, Autonomous Selection - set via sysfs).
 >
-> Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
-> data") fixed the same driver_override issue in another SPI driver.
-> Reject devices without match data before allocating the IIO device.
+> Without online()/offline() callbacks, the core tears a policy down when
+> its last CPU goes offline and rebuilds it on the way back, re-reading the
+> CPPC capabilities each time. The values written to these registers can
+> be lost:
 >
-> Fixes: bf0bba486b5b ("iio: adc: Add ti-ads1018 driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+>  - Across CPU hotplug or suspend/resume: the platform may reset them
+>    while the CPU is offline.
+>  - On driver unload: the driver-written value is left in the register
+>    instead of returning to its pre-driver state.
+>
+> Handle these with:
+>
+>  - Patch 1: adds online()/offline() callbacks so the core keeps policy
+>    alive across CPU hotplug instead of tearing it down and rebuilding it.
+>  - Patch 2: makes the autonomous selection register helpers take a u64.
+>  - Patch 3: adds a table-driven mechanism that captures each register's
+>    firmware value at init(), restores it from offline(), and reapplies
+>    the OSPM-set value from online().
+>  - Patch 4: extends the same save/restore to system suspend/resume.
+>
+> v4[4] -> v5:
+>  - Patch 1:
+>    - offline() stops the frequency invariance updates and online()
+>      restarts them, replacing the resync that raced with tick. (Sashiko)
+>    - reorder the functions to match cppc_cpufreq_driver. (Jie Zhan)
+>  - Patch 3:
+>    - reapply the OSPM-set registers even when the performance control
+>      write fails. (Sashiko)
+>  - Patch 4:
+>    - suspend() stops the frequency invariance updates too, completing the
+>      patch 1 change for a policy whose CPUs stay online.
+>
+> Sumit Gupta (4):
+>   cpufreq: CPPC: Keep the policy across CPU hotplug
+>   ACPI: CPPC: Make autonomous selection helpers take a u64
+>   cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
+>   cpufreq: CPPC: Preserve OSPM-set registers across suspend/resume
+>
+>  drivers/acpi/cppc_acpi.c       |  20 +-
+>  drivers/cpufreq/amd-pstate.c   |   2 +-
+>  drivers/cpufreq/cppc_cpufreq.c | 378 ++++++++++++++++++++++++++++++++-
+>  include/acpi/cppc_acpi.h       |   8 +-
+>  4 files changed, 381 insertions(+), 27 deletions(-)
+>
+> [1] v1: https://lore.kernel.org/lkml/20260623095403.3407436-1-sumitg@nvid=
+ia.com/
+> [2] v2: https://lore.kernel.org/lkml/20260716153820.2007095-1-sumitg@nvid=
+ia.com/
+> [3] v3: https://lore.kernel.org/lkml/20260724215937.3368276-1-sumitg@nvid=
+ia.com/
+> [4] v4: https://lore.kernel.org/lkml/20260806200857.601152-1-sumitg@nvidi=
+a.com/
+>
+> --
 
-Reviewed-by: Kurt Borja <kuurtb@gmail.com>
+Dear CPPC cpufreq driver reviewers, I need your input on this series.
 
-> ---
->  drivers/iio/adc/ti-ads1018.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/iio/adc/ti-ads1018.c b/drivers/iio/adc/ti-ads1018.c
-> index d9ec4a8d7ce5..8f2d03eee77b 100644
-> --- a/drivers/iio/adc/ti-ads1018.c
-> +++ b/drivers/iio/adc/ti-ads1018.c
-> @@ -624,12 +624,16 @@ static int ads1018_trigger_setup(struct iio_dev *in=
-dio_dev)
-> =20
->  static int ads1018_spi_probe(struct spi_device *spi)
->  {
-> -	const struct ads1018_chip_info *info =3D spi_get_device_match_data(spi)=
-;
-> +	const struct ads1018_chip_info *info;
->  	struct device *dev =3D &spi->dev;
->  	struct iio_dev *indio_dev;
->  	struct ads1018 *ads1018;
->  	int ret;
-> =20
-> +	info =3D spi_get_device_match_data(spi);
-> +	if (!info)
-> +		return -ENODATA;
-> +
->  	indio_dev =3D devm_iio_device_alloc(dev, sizeof(*ads1018));
->  	if (!indio_dev)
->  		return -ENOMEM;
+It is not going to be applied without any input from anyone.
 
---=20
-Thanks,
- ~ Kurt
+Thanks!
