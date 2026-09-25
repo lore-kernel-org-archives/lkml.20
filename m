@@ -1,147 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013048.outbound.protection.outlook.com [40.93.196.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B623ADB89
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:27:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790357225; cv=none; b=W4TiiLZimlRzwW/EEcIMvecUQ0oNRGVGtyzn+5udx7rNrudG1t/aFdqqCmQGc+O4MwjI8WrqcDWhUGzbOpKMGx65gteflil9qfZcgoxDh/JfnsOAqX8DDUQQdwDuZC2Klpz0vzIfnNvb4oG9PBQjpzC/0Swb+mrFAngJzky39sQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790357225; c=relaxed/simple;
-	bh=xDh1Ss17oGJ0UYJjAazKqzsfdZ+kwOSaB4uaBWStnx4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oj//VIK4Ao0HiqlGQodD3LBn2/Rl/OWec0Vd9bxKgTIfuodHM4K9WaON2jZSE5JGttUMAfaO3PkwhWIYSzAYYqGPucqzdT6b7uOmjejt8Gmh+ZdPn7Ea+LiaXN5vX3pFBp6Ssop7Q9H5WNo9xfjr2oWoqGezlJ6NbU3TcczW5HU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfFKqsvK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE133EC822;
+	Fri, 25 Sep 2026 17:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790357238; cv=fail; b=tEHVMcDgvjOBBX6/9qHx4LzydzA1zWQXLdHsFCoA6PjFZMd4Icj5PAQZ6XlruDdNOEV1ZSCQkwj2HLxHmOJktnX6mSz0n/m/UP98uPCzyKNslj2jNYNSsJCHPC7wB5ulEYg0k7AYUQBqEKycQEnDiDOI05/5kKoHxqqnAgBZZgs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790357238; c=relaxed/simple;
+	bh=r0HvWyXiOPNuSe3EHD47F74R9q0KTojDye+tdOJdODQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CamttvALifugiXu7ZxnRmipcxPjCjfjNqW1g/hwYHvz8+toQnNi25tm+zluHD9r0UDrv9++TOw/vk3FLhY3vauft+UTiifMab8kH6maIIz76/U1yiqnG1qhWcMmKAAW9teQ4RZwv95oAVlgmIDtvRdlcSFahx0NwRVRaOA4KV/8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=pBHtHIPd; arc=fail smtp.client-ip=40.93.196.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfFKqsvK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D95C1F000FF
-	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:27:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790357224;
-	bh=nrCZY+w8ZAuOgUKyJ5bzQ3lA0kZX185uW8oYwG5RuQA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UfFKqsvK75p5eO5B5LPWqx7YmtHZp5SiX1PFOsrb/Rw7u/0QFbVRoYO3MBcG/t5cL
-	 f0grYRNmRlCV/gnwPAuW3LI+ccOXT0MjTt7Y8FeHXxJ869jP4sIIJdGs5M2A3YPkRs
-	 ukh/P2eflHnEpauu+zEccKoAmEXT4qeEDi7o0bJS06Qz1CCYGEgXO5YqMpVQhl3no4
-	 lLRGB99pVq05PP0MRgcsH4//8wpFOz+qWgGYKGx2Z78V8f5l9jdhS4QzuPEDb8kFis
-	 pnJBNA0VYqlKgjIBYJuffADzzi0g5B+u1BB7AUPs4ANGSHG8KVd1IE7vW4tmTi93D2
-	 bENY6AcgbMT3A==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f16f15so1081841e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 10:27:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzP26udAFiwh67ZWlH89buGIkZBWpB1j29kAqzAH6E2MHZ7dEK+l9daj1yeGf4enQwhQXdaGu8mHVOEUMg=@vger.kernel.org
-X-Gm-Message-State: AFuF++k34ZWfr0h3SwQKE01vehCv32kXcjTD8f83pfmpffrMJIrScumW
-	2eKV09QHuMmJJC/VRC5rXjlgSjv/d36Ad7bS1zU+j4QmoHHzWFRykdeLxrQ81YLdeoCKB9EMXaR
-	hi6nbwCRlS3aJAR8Ucfc6JXpzwBJvqNE=
-X-Received: by 2002:a05:651c:43dc:10b0:3a6:95a:52ab with SMTP id
- 38308e7fff4ca-3a63c0e006emr12420831fa.18.1790357222990; Fri, 25 Sep 2026
- 10:27:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="pBHtHIPd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CQdN7QZy5gAexH0pGeiKS3KXQx1HY+HUEGy7GXYuA2u5e9zW+vh37TCi9PbIgmPeeMJgW03edl1zstVYWG+nyBjdI6BrQHbeuGlbwwCf8fQmtcdIomIJn3t3f6i0QXL320SelzMQlCvjirnVRRl3t4Ch7E0PH0PyvzJD2d7HHlKEyzPJBkLMoZ/kgSiI8K+FVE3s1ZCF0gv1sazVUDSPKnus2/CX3IxKRhN4KdKe2+OZW3mF3U+DqWkpI/2Sto/0rfSgKf82ZGUyKQ7s3YxZJjiG0F83wWf2mrYfif79lIqFtYlpOiNQfmdAQkyh6V21TKlicECo2l1rJ0FBWEWpyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AfbBrZ7n3OGpUR6bI5/qvWgwvsQwrn3Pu0KcPqMmgRM=;
+ b=n5nqwWeh8xSpWdHW1+8DuZR3eNAFKBV6Xg1aUK2/9K2KRzX1A625LkQvY57JhNLN+2iu/vDF93TEk9gWloiAsCD6r4MzwLxge37ZojpdYcmdFqyHXnTx3U2V2Drr3bxDyc9KFTb0uHjdD8JB8pOmAPQQxNqMki8ZQ3qRM7Pu/Es+prFrSMoWJj2yL6h95kAGyR0uddHDztYz02mGDxjEKwzishYHOZYBY1d4xsIG7uAAorTs/WVVVdclgk82myTOhDcKFt8mUMwHl6TVnj1sELLxGjN79tL9UZrQqgONqiHqHMrBaSzd4bN148kNsHjnmyKRNXO5c7XF+qS3lwYxCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AfbBrZ7n3OGpUR6bI5/qvWgwvsQwrn3Pu0KcPqMmgRM=;
+ b=pBHtHIPdqIFVS+mfUdOPGdq1cSc0iCGewnsUws7K9wmrsPuIi/VdXOrZPuygQH7B23ONKMmzqJ+yNpL5iGWybT5D4HEVRjup40VTwP+Tn9STZMSFA1hAOASbv+UWtbVGEZStJR8slnhhloH0wpw05n5pCXB2cwSL6PZB/QAG8as=
+Received: from CP3P284CA0045.BRAP284.PROD.OUTLOOK.COM (2603:10d6:103:6d::20)
+ by MW9PR12MB999208.namprd12.prod.outlook.com (2603:10b6:303:301::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 17:27:12 +0000
+Received: from BN1PEPF0000468D.namprd05.prod.outlook.com
+ (2603:10d6:103:6d:cafe::5a) by CP3P284CA0045.outlook.office365.com
+ (2603:10d6:103:6d::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
+ 25 Sep 2026 17:27:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF0000468D.mail.protection.outlook.com (10.167.243.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 17:27:10 +0000
+Received: from airavat.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
+ 2026 12:27:04 -0500
+From: Vishal Badole <Vishal.Badole@amd.com>
+To: <bp@alien8.de>, <yazen.ghannam@amd.com>, <tony.luck@intel.com>,
+	<linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Vishal Badole <Vishal.Badole@amd.com>
+Subject: [PATCH 0/2] EDAC/amd64: Consolidate Family 1Ah setup and fix UMC csrow decode
+Date: Fri, 25 Sep 2026 22:56:37 +0530
+Message-ID: <20260925172639.97063-1-Vishal.Badole@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912191156.185448-1-sumeet4linux@gmail.com> <20260912191156.185448-5-sumeet4linux@gmail.com>
-In-Reply-To: <20260912191156.185448-5-sumeet4linux@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 25 Sep 2026 19:25:25 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0inzDfF5zNba7BHnq=-xTH1ucHvBv-bJSKXW0dTF71Q0g@mail.gmail.com>
-X-Gm-Features: AclHuK-zkJzcW3eTrPbI8n4uwvaOkU97xV6DSlSAXWBceH5EJVI8blUeGSzDawM
-Message-ID: <CAJZ5v0inzDfF5zNba7BHnq=-xTH1ucHvBv-bJSKXW0dTF71Q0g@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] thermal: Use %pe to print error pointers symbolically
-To: Sumeet Pawnikar <sumeet4linux@gmail.com>
-Cc: rafael@kernel.org, krzk@kernel.org, amit.kachhap@gmail.com, 
-	daniel.lezcano@kernel.org, thara.gopinath@gmail.com, talel@amazon.com, 
-	hayashi.kunihiko@socionext.com, mhiramat@kernel.org, mmayer@broadcom.com, 
-	viresh.kumar@linaro.org, sumitg@nvidia.com, peter.griffin@linaro.org, 
-	myungjoo.ham@samsung.com, kyungmin.park@samsung.com, cw00.choi@samsung.com, 
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, matthias.bgg@gmail.com, 
-	angelogioacchino.delregno@collabora.com, sven@kernel.org, j@jannau.net, 
-	marcan@marcan.st, casey.connolly@linaro.org, sre@kernel.org, wens@kernel.org, 
-	t.schramm@manjaro.org, bcm-kernel-feedback-list@broadcom.com, 
-	linux-samsung-soc@vger.kernel.org, kernel@pengutronix.de, imx@lists.linux.dev, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468D:EE_|MW9PR12MB999208:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a24de32-4f05-4ee2-1f43-08df1b2a3b17
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ty3fU5SkhIRr9DL2no45aQWrkF7nIF8XTLi3zUaLlbf9qbe9WZ1TdhEW2gmyvF2NTa6jsdo/CcqX6g25YqvT33Fe4Rk1fAsLNpqAQ0CFiRAqR9747WsQi3ZTzJYP8BzPrmlbHviGC69puIUgSQo3q+i5M/1Wuzjh0sFoc1haLapAbEOHWMdUkRRcypuHmEGdtLEBld8TXQmAu2DRAJgBb+Yv5ECVhwY/Vvr5s0a+dCnqkCdZhmr921YgxtmlNTFjL5ZLB/j8ShCJ91GwiqA4y2Ifeqa/WrJmfy+FB+pM4Xh/kFasBBmAU04iiVvx/AEM0N7NyEP5eLddE82tRlRp+U5i2DgEfDcx0UE9L1P82yIbQ2taKHPBMI1JCK7QTsewElVrUFONUwlHGRR5anHPCZUsgMvpzIfUBfzzK6OZ/gDjJ+VPM12bY1C2lPSVi4FtaCZLSvi332mbjz9j9yv2cwyhdUPDXR1RqKyJ341W2E+zas+rc+ahqrB6I0vCGPrn/PXOWCPynR2QDlZd0qdQzHsjzkMgXrKXyEw7jNo6itxj5kyGGNe6sbCGMyRo9EH5QjtQLxDNadHZywrvxj1hP8Fg+IOhMDoat94QRA1jSoavnF6vmMxudhBPhbLajHa91vusgWd6BMqOFaavC5Wk8886wPlEZq65cfvujg7fuMdwxEx8pOEAWgvF/ushAZcLF9t3F3g8aNjdh0v+opoBoQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Fp4/8Ueu7DFfByc7T9X4wyN0xu9YA0kYeUJfZGOBhKhEaOj5uxFFUAyaDUNXte3PusNdWJv+KUsmUBs0ns0FycE1NikZf1oSONxKesGZbIIGJM0wfp1wbEx9aZgTVJaRz7fz7xdSctoT6GUvshkL9LDDH/XFs9ucKPzDpDXDpS7EsoTKGiv8+ULrgEMIYBL7jYijBllTuSp1c18KcBslvXRApky0KIcVi4izJf5GZXnwcVeTGsnbqeHBIK/XOa2DCgawcA18TAQdBq5a20ho3WS1BnFA6NBqg66Pa6AxY0yV7EJQb3znXEfWM8RMSIC9GDTA+bOQPeRzeJyboAqunzwmhdmK+s8wmAcnELpQl/Q1dr7Q8vK6QKWr23XQOPgRQS+ILBOF1+l4Jb4k5V7qijVC9IVv/GaGfrJhLrdx9kLd2cOblMlNFi4sEr+Uwlk4
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 17:27:10.3420
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a24de32-4f05-4ee2-1f43-08df1b2a3b17
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0000468D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW9PR12MB999208
 
-On Sat, Sep 12, 2026 at 9:13=E2=80=AFPM Sumeet Pawnikar <sumeet4linux@gmail=
-.com> wrote:
->
-> Replace PTR_ERR() and %ld with %pe and pass the original pointer directly
-> to pr_err() and dev_err(). The %pe format specifier prints a symbolic err=
-or
-> name (e.g. -ENOMEM) when CONFIG_SYMBOLIC_ERRNAME is enabled, otherwise it
-> falls back gracefully and prints the raw integer value. This makes messag=
-es
-> more readable without any functional change.
->
-> Signed-off-by: Sumeet Pawnikar <sumeet4linux@gmail.com>
-> ---
->  drivers/thermal/cpufreq_cooling.c        | 4 ++--
->  drivers/thermal/devfreq_cooling.c        | 4 ++--
->  drivers/thermal/qcom/qcom-spmi-adc-tm5.c | 4 ++--
->  3 files changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/thermal/cpufreq_cooling.c b/drivers/thermal/cpufreq_=
-cooling.c
-> index 768859a7aed0..856d619370db 100644
-> --- a/drivers/thermal/cpufreq_cooling.c
-> +++ b/drivers/thermal/cpufreq_cooling.c
-> @@ -661,8 +661,8 @@ of_cpufreq_cooling_register(struct cpufreq_policy *po=
-licy)
->
->                 cdev =3D __cpufreq_cooling_register(np, policy, em);
->                 if (IS_ERR(cdev)) {
-> -                       pr_err("cpufreq_cooling: cpu%d failed to register=
- as cooling device: %ld\n",
-> -                              policy->cpu, PTR_ERR(cdev));
-> +                       pr_err("cpufreq_cooling: cpu%d failed to register=
- as cooling device: %pe\n",
-> +                              policy->cpu, cdev);
->                         cdev =3D NULL;
->                 }
->         }
-> diff --git a/drivers/thermal/devfreq_cooling.c b/drivers/thermal/devfreq_=
-cooling.c
-> index 0330a8112832..9ada52cbf7dd 100644
-> --- a/drivers/thermal/devfreq_cooling.c
-> +++ b/drivers/thermal/devfreq_cooling.c
-> @@ -156,8 +156,8 @@ static unsigned long get_voltage(struct devfreq *df, =
-unsigned long freq)
->                 opp =3D dev_pm_opp_find_freq_exact(dev, freq, false);
->
->         if (IS_ERR(opp)) {
-> -               dev_err_ratelimited(dev, "Failed to find OPP for frequenc=
-y %lu: %ld\n",
-> -                                   freq, PTR_ERR(opp));
-> +               dev_err_ratelimited(dev, "Failed to find OPP for frequenc=
-y %lu: %pe\n",
-> +                                   freq, opp);
->                 return 0;
->         }
->
-> diff --git a/drivers/thermal/qcom/qcom-spmi-adc-tm5.c b/drivers/thermal/q=
-com/qcom-spmi-adc-tm5.c
-> index af72db6299cd..4554a6fa55d1 100644
-> --- a/drivers/thermal/qcom/qcom-spmi-adc-tm5.c
-> +++ b/drivers/thermal/qcom/qcom-spmi-adc-tm5.c
-> @@ -680,8 +680,8 @@ static int adc_tm5_register_tzd(struct adc_tm5_chip *=
-adc_tm)
->                                 continue;
->                         }
->
-> -                       dev_err(adc_tm->dev, "Error registering TZ zone f=
-or channel %d: %ld\n",
-> -                               adc_tm->channels[i].channel, PTR_ERR(tzd)=
-);
-> +                       dev_err(adc_tm->dev, "Error registering TZ zone f=
-or channel %d: %pe\n",
-> +                               adc_tm->channels[i].channel, tzd);
->                         return PTR_ERR(tzd);
->                 }
->                 adc_tm->channels[i].tzd =3D tzd;
-> --
+Two small amd64_edac cleanups/fixes for AMD Family 1Ah.
 
-Applied as 7.4 material, thanks!
+Patch 1 sets zn_regs_v2 once at the Family 1Ah level instead of in each
+model case, so future models cannot miss the v2 register layout. No
+functional change.
+
+Patch 2 masks the UMC chip select from MCA_SYND with 0x3 instead of 0x7.
+Only four chip selects are ever implemented, so the old mask could decode
+an out-of-range csrow and trip an EDAC core warning.
+
+Vishal Badole (2):
+  EDAC/amd64: Set zn_regs_v2 for all Family 1Ah models
+  EDAC/amd64: Mask UMC chip select to the four implemented selects
+
+ drivers/edac/amd64_edac.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+-- 
+2.34.1
+
