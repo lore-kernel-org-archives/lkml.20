@@ -1,104 +1,218 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A18745198E;
-	Fri, 25 Sep 2026 07:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9853449B24
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322217; cv=none; b=a+mHV2vpgZVXIDMOGOh+Caa9e8Yvuvc5O+JmY3DA/YKigw9v8OiRMmOwVxuC5frVoI8ny/IMDkGvqkucQh/S6O2ez1yI4s4c8lnoFxmZxZys1p8cfaoazLAENU7I50opXbFkuvK1JXUHJ9E6cylY3hiMV16vcTwbkSgGayxcX7Q=
+	t=1790322219; cv=none; b=pcYhwHHgcFq76OCs4YhL7ShuiQ52ikDCf1WkMEQr9GMMX2iS2xi3nPTLv+P97MqYvjAF++m3kK6owvKgurwDyHtv2QBc8RI+p8SrQUifA1VMh9rG79BKp9cD5G9oufWZm02FbyX7ApC5U3pefWKwPmAfKZdIK4BrFShHa77rPKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322217; c=relaxed/simple;
-	bh=HmLFghI7T/rZIZJUKluSxFd5PCbOk8DZrf0mZqC6KAg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h1+z1DpEDsNp3nlSumKrddpxMcAdETmbI+3FpjYu4uxX5yXCAjx9p9M5CvVkgC6T6wbjpNR0nyWmuGYwcP8RnupEAU2k2XVO0eLNZasiONm4Bk5tp3JG2y7jBq80NgRY4oku7dSA/YK0xr2354Afgu9bUTrjfexsyBCtmTcd2kI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=MUvezfih; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790322219; c=relaxed/simple;
+	bh=AD6u7FdoeUADwTnTJ/GsHGXbI7Jju8HXgSAGAH8Uy3Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KASIoC+HLiLJHF6lWzwMFdI3wM5yNjhl8ppdgLEHcUxUe6sTfI18cFySRKZ4AEMMICiczMisAZKsmWN0DibEff/NzmwWlZQw87E//tMgnWnkscQLh3n66FlS6jJQyrY5vzlzE56KjhMrKhNnwyBTvAPvMOBXQZVVAjffuCoEekg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LIiqcfKq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xvw9+lXS; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="MUvezfih"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=KgGrQ2Rb3/9aZ1fMAFWII3W+U6TCnA4h9tEdG5e23tg=; b=MUvezfih/DPOzLe6xL8tgJcc9f
-	54kuO/Hi4KW4rV/RFK3dL01oQtgbBHLNRugpxCSH0JbSibJsBec6QcFcYV4TWLCIxDSkek+0+Wx3K
-	hONBAOxR7C201wHRUFI4vyP9k0JD+29j15gP+dwfrRT9wAdwOvEZsRfXQyW/utTeYKkyQj/PRh/mX
-	9iR220DJ6s8VATFvPPWfRkBkdGWfC0e5JCUOhjrefItQ6Bq8+2bGl+Cjwo5C5Y02NzAw5QAcWwlmN
-	I/sKbhdxBkJKJQ4GOiYFDVPqyaHxWq2YcZ2RXiL1mU6PGdPpXu6xatB8I/SQyG/Kou+UP/V8+tiN4
-	nkh5FZKA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1xA0aS-0000000GhUh-2wRB;
-	Fri, 25 Sep 2026 07:43:16 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id CA9D430070F; Fri, 25 Sep 2026 09:43:14 +0200 (CEST)
-Date: Fri, 25 Sep 2026 09:43:14 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, yury.norov@gmail.com,
-	kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
-	meted@linux.ibm.com, ynorov@nvidia.com, tglx@kernel.org,
-	gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
-	vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
-	dietmar.eggemann@arm.com, maddy@linux.ibm.com, srikar@linux.ibm.com,
-	hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
-	frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
-	christian.loehle@arm.com, tj@kernel.org,
-	tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
-	rdunlap@infradead.org, kernellwp@gmail.com,
-	linux-doc@vger.kernel.org, jgross@suse.com,
-	virtualization@lists.linux.dev, sunlightlinux@gmail.com
-Subject: Re: [PATCH v13 06/13] sched/core: Try to use a preferred CPU in
- is_cpu_allowed
-Message-ID: <20260925074314.GF4121339@noisy.programming.kicks-ass.net>
-References: <20260909135617.871006-1-sshegde@linux.ibm.com>
- <20260909135617.871006-7-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LIiqcfKq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xvw9+lXS"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4Z6Nu1056551
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:43:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=M/DWbxeGSIRIL3H4zTAb/a
+	2zRJf/Vq+YD16QWknpe5Y=; b=LIiqcfKqXKmfhIK1/ZC+Gtaf3+7ej0KjyJj9ov
+	/ZywfjJGlyXdR4PnLawwfhEduuhiu2GlWaGWZ3GAXVyhmCxp7Zan0CH4hLrCkAZi
+	EmJxswJW8CFnllbKvCUDTen3RWWjPkyNOUVmgybxJ8q8aTXntqza96hAVq9v5gdd
+	HNZT4/6/h+nbxkQt4DtSUGNUYFfFlXcfT2Zw9k252Od6Ksp6VVWm5tpPG8ENbdej
+	5U6RDc8IKzBwqwuAnSq2dlciZhMBlUBpE1Vo3P8ZkNfN5/gT1t+Hnj4qLROGPXCv
+	gT7a4pgX2tgHnmUxk0Ld1AbLzHJ8jWsoBQW+lFNuKumA/qwg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwce79g56-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 07:43:36 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52fc0097865so17543741cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 00:43:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790322216; x=1790927016; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=M/DWbxeGSIRIL3H4zTAb/a2zRJf/Vq+YD16QWknpe5Y=;
+        b=Xvw9+lXS4PhFfUo7vMelMgUCgUT1R0+Z1YZQgviSaRuLoTy7i3Oy5PbAIsDjc/hJif
+         U0ekaRwjEjkuAyd2Ua5Sh7n3q15czGuurtxQpTTzngYivw6UlMNbjiDXCBbUUmNFyhJa
+         P6CHlowKyxvnU/HdBmDa7C3BAcM/pz2+PACnxcCTVJnSu/M5mijuf2fACZG+wACF61oo
+         v7upBJbM61IqgTmxKIfPahngf2MoSm3bKzdUwkHcDI4PnP5nXbzfRCo1kTgLb+dWHc+k
+         av0r1JjDnWN9+soczNz2OFRgeevmDjadugywBnco0T2nv7/nVp9uI6fGhd94qSbYtBhK
+         H8bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790322216; x=1790927016;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=M/DWbxeGSIRIL3H4zTAb/a2zRJf/Vq+YD16QWknpe5Y=;
+        b=EGlukprjFRPoGcp/GxjIc91VJm9OqYvMM/IZIkpFeU0Q6zhfDpDTyTeGYONyOGQ9PO
+         3ae1036GHvHdDOBYhF+T7GUszHlPTDw8PB2qkbm+3AOeydeZTruktCMccXPS56UPPFrT
+         Wc6EGLPrCBTNivbobarBFzBUHYM/RVDtYlIh5BjwrkPnORJODDIHI6iVA0TYhFcDDlG1
+         pnsZSQSUo+9XBwRZCZYZYO/ixx9rrwLftg//2Rr7l1H9mgxqNxhTDDoVXgjUTyfwU3H3
+         HfbYqq06mLDV5X7V6kfqFXvVdFgSSZGBxVL9RwOG9c5tOo2oyTcnQZe4JZkGDplMomDI
+         VrWw==
+X-Forwarded-Encrypted: i=1; AKwUvBx7tE7o1Cy6C25FAFEJbEjIIp0jUr+3bF2Q0mDY653oFeqZpDP36G5VIqUvC2SNxKVtSo7+QD1tAcxxSbA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPtmRjzarhVRok5Q3M/No31lTZ2wt5mwQmwEXi9t86r8JdfcmG
+	GLUiefipleUDpSjuD3mzBQz1EIFbcc7BsR+1YsFMb8GTVoUjvszW6WauE4Nd+qYpuvrzTH7uusN
+	UgTDkG5hXkelL1Q2a7tGkzfPa0l4rizWbhRYjVwQDUjzzQ/xUCVX+P16oEhzGeuGxhl4=
+X-Gm-Gg: AYBFou0vQhm+eksKeDotAFycI/mIFOnRvLPqSOaZcDiQnIf5327scTOcBARmQdMWeMW
+	goWPipYGaFahL9BI9cMkmpgOvvs+KPljK4KlsPUoBW/xz37QPU2qb8w8F3zS4jRWW9j8UIgAjat
+	aiJMrh1fFJ6D12WZgfB7Zc5sxB/hysguO4lo05T2tbhXqBNQ6JSRFxeeBz1aLt6XrkbU60QDFdm
+	8nCG07IZ9yAt+CQHpWOR16P4lIc5AyFBORweX8cDBxpoKjlV8Wrm9D+b2qZ2P7oPu4qDJNLK0aM
+	tocuMHlb4QykyYSA4AmlENIgVsCPP07Q9nuQeHSrOxRNTC0eNpmr0kQmwe9rpG9LhuIgJSK0dA6
+	co8bSlJe3eOYIGxOYFgBo4KZzoZhg
+X-Received: by 2002:a05:620a:2b94:b0:93b:c3ce:9056 with SMTP id af79cd13be357-93c43cc71afmr302934985a.1.1790322215749;
+        Fri, 25 Sep 2026 00:43:35 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b94:b0:93b:c3ce:9056 with SMTP id af79cd13be357-93c43cc71afmr302932885a.1.1790322215287;
+        Fri, 25 Sep 2026 00:43:35 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:bde1:52f9:d7f0:c581])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fee911e9bsm53820945e9.1.2026.09.25.00.43.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 00:43:34 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 09:43:17 +0200
+Subject: [PATCH RESEND] arm64: enable HAVE_SHARED_GPIOS for all ARM64
+ platforms
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909135617.871006-7-sshegde@linux.ibm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-arm64-have-shared-gpios-v1-1-57fed3fae35c@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIABUmtmoC/4WNwQ6CMBBEf4Xs2SUtIARPHuTqQY+GQ20XaCIUu
+ 9poCP9uww94meTNZGYWYPKWGA7JAp6CZeumCHKXgB7U1BNaExkykZWiFhUqP5YFDioQ8qA8Gex
+ n6xgLXWpRmcroPUFsz546+9mWb3Bprs35BG30B8sv57/bYZBb+nc7SJSYS9XVRabuueiOjjl9v
+ tVDu3FMo0C7rusP/MHD0c0AAAA=
+X-Change-ID: 20260907-arm64-have-shared-gpios-4c6c07d7dc5e
+To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Alexandre Belloni <alexandre.belloni@bootlin.com>,
+        Drew Fustini <fustini@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
+        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+        Frank Li <Frank.Li@nxp.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2513;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=AD6u7FdoeUADwTnTJ/GsHGXbI7Jju8HXgSAGAH8Uy3Q=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqtiYgnMpt+ze/3gOBof/K5QUMTpTjKTsj89xpR
+ aYhi4BObeyJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarYmIAAKCRAFnS7L/zaE
+ w0SrD/4vfSDU0oVoElzWp+gQZ29LGTH8q+y1RBxSnlUiiIpKfUXPbSaGgB+OtaszwgI8R+/H9ib
+ iDLtS6bnV5R5oHaqG/zkpMt8n9Ghb5CdU4kriuimfC6KxSAp+GL2zmRQkKm/w3Tjq6rYahaRFn6
+ PZ1WWNZVe56L8nlVfDjpAAj+r4UQxuOKyrCFjAxoBpV2wsf63ryBOVHZgUOMkCE4axrjBnBLKmp
+ ert7OYK6xC0bB5rDYIhEmBTAj3dutD6SsHHbWVLKveMUUIvLbwm7UJBN2Mv2SUB5tmFrdvhcGmo
+ dInoZuK5ZqTWUk8gN86l9XeQeR9fXk9QBiZRhhHz318rz/saJMOsqbwNhBkWJgKOe6lZt9YlJZQ
+ MgaOS0lMSXaZwyGfPpPisDvspKulNpl8dIAe1tO/ctpD4P2c8cnkOOstPcthxhFu1h53CfWuGNU
+ 4cHO7+xICvfFb4ceqaA6Y2fqMvO0Cb8e+0PYQwY8iTl8sfFwdQn3q5/o3Me5IZJC2aJQ7TnUfKQ
+ 8h5OyCQQjAs5Wsaqi0wG83KVVCar3GL/o7NzlRVp5skiDE9kdpO/bQsmifQaGLq3mx4a6G3s5zv
+ Y9mxgrHgu4ny7Rnku2vYmEOqHAqqE61E3nUKFzbF6Bhk+HC30bPHh6KPSJ9ez+3uxlvMGcgtc0M
+ rLchbTXc9wQBXcQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-GUID: 89I8SsDphkBlL8ndliqbzAeJlX6wJnuv
+X-Proofpoint-ORIG-GUID: 89I8SsDphkBlL8ndliqbzAeJlX6wJnuv
+X-Authority-Analysis: v=2.4 cv=NJFAaE6g c=1 sm=1 tr=0 ts=6ab62628 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=7CQSdrXTAAAA:8 a=8AirrxEcAAAA:8 a=EUspDBNiAAAA:8 a=xAMoY1eAQyGtPIDUt64A:9
+ a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+ a=ST-jHhOKWsTCqRlWije3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzMCBTYWx0ZWRfX2Yp4BreMPNxe
+ C7gBnWRTTalWHTbXaQxRtqwcHVcZ6Q/ilFZYE5Ul85jT86CaxYSXV05ir3AZ59xqBwMwt95IRyz
+ skOPnw8ZuieeZiOJKQ+uRycBlKeoffMQM5RMtHZt8nQ2iLnTgFuOfr+0KwaIRE7eAnGywxPsT5r
+ A1/B91jc36Th7DmQgZe/sA3b6AuAYDqLWAhKxMnfd9jGAjn4Zshoj069GR0bTMdgDqkiTNK3FWa
+ 7rQd1SuRsuUPdMcnOHpiCuHKXK0r1R/0sN63Ypx/oP6+1AcCzbvJNohP7WB1TedLBpYvbw414dT
+ 7eg0Xa0oGnok02xuWkLkEIuBSSmqzNFW/TifMR0/+VeQG0Qjy7pEDV3+9WuLJQGnR1v1Z/UmGQR
+ 7jfzOGcx/lWiF/xwChjl1jCLnDcj7nzoy4C50azUtwa6korG4GFqmO6LjxXfjcyMW0CsCmGA9Go
+ 1/gh78fGF6YKWzrcAwA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzMCBTYWx0ZWRfX6NlTAU67zuEE
+ pt2R9qIix1AKrVM6ZWQLHulXIfodSRApjIT4A+2UuiFIme2RHaKgj2kBcoJuSoe0yiL5o3niWK4
+ ENXBqfb7ijnV/sj7TFjq4uyPszOSLYI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 priorityscore=1501 bulkscore=0 spamscore=0
+ phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250030
 
-On Wed, Sep 09, 2026 at 07:26:10PM +0530, Shrikanth Hegde wrote:
+Shared GPIO management provided by the GPIO shared proxy module has been
+enabled for Qualcomm platforms for some time. By extension of the
+defconfig, it's been effectively enabled for all ARM64 platforms when
+using the default configuration. Bugs discovered initially after the
+feature was first enabled, were fixed and I haven't seen any new reports
+for several months. Make the feature enabled by default for all ARM64
+platforms officially, which will allow us to continue the removal of the
+deprecated GPIOD_FLAGS_BIT_NONEXCLUSIVE flag from the kernel.
 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index a689a0cea4eb..b4ef2e92d786 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -2504,6 +2504,23 @@ static inline bool rq_has_pinned_tasks(struct rq *rq)
->  	return rq->nr_pinned;
->  }
->  
-> +static inline bool task_can_sched_on_preferred(int cpu, struct task_struct *p)
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Hi ARM SoC maintainers! As per Catalin's message[1], I'm resending it to
+wider audience. Can you please queue it for v7.4 via the ARM SoC tree?
 
-(somehow those arguments feel backwards)
+[1] https://lore.kernel.org/all/arPfRFC5jzVaSQvq@arm.com/
+---
+ arch/arm64/Kconfig           | 1 +
+ arch/arm64/Kconfig.platforms | 2 --
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-> +{
-> +	if (cpu_preferred(cpu))
-> +		return false;
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 94cc8075460f0a763cd82b2cabbdb80275042935..19e453b1214353e842e0aa9d3ff9f684c5b693e5 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -195,6 +195,7 @@ config ARM64
+ 		if DYNAMIC_FTRACE_WITH_ARGS
+ 	select HAVE_SAMPLE_FTRACE_DIRECT
+ 	select HAVE_SAMPLE_FTRACE_DIRECT_MULTI
++	select HAVE_SHARED_GPIOS
+ 	select HAVE_BUILDTIME_MCOUNT_SORT
+ 	select HAVE_EFFICIENT_UNALIGNED_ACCESS
+ 	select HAVE_GUP_FAST
+diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+index 1489bad527d8e61584b2a29e5161820cbc0ec0f7..21fb82ab4983f80fc3eaba7cdb5627cf80a18c95 100644
+--- a/arch/arm64/Kconfig.platforms
++++ b/arch/arm64/Kconfig.platforms
+@@ -37,7 +37,6 @@ config ARCH_APPLE
+ 	bool "Apple Silicon SoC family"
+ 	select APPLE_AIC
+ 	select APPLE_PMGR_PWRSTATE if PM
+-	select HAVE_SHARED_GPIOS
+ 	help
+ 	  This enables support for Apple's in-house ARM SoC family, such
+ 	  as the Apple M1.
+@@ -329,7 +328,6 @@ config ARCH_QCOM
+ 	select GPIOLIB
+ 	select PINCTRL
+ 	select HAVE_PWRCTRL if PCI
+-	select HAVE_SHARED_GPIOS
+ 	help
+ 	  This enables support for the ARMv8 based Qualcomm chipsets.
+ 
 
-FWIW, this reads very weird. task_can_sched_on_preferred() returning
-false when task is on a preferred cpu.
+---
+base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
+change-id: 20260907-arm64-have-shared-gpios-4c6c07d7dc5e
 
-The question really is more like: can we migrate to a preferred CPU, and
-in that context it makes more sense. No point in migrating if we are
-already on one.
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Perhaps a comment on top of the function can clarify?
-
-> +	/* Only FAIR tasks honor preferred CPU state */
-> +	if (unlikely(p->sched_class != &fair_sched_class))
-> +		return false;
-> +
-> +	/* Ignore preferred state if task affinity is changing */
-> +	if (unlikely(!cpumask_test_cpu(task_cpu(p), p->cpus_ptr)))
-> +		return false;
-> +
-> +	return cpumask_intersects_and(p->cpus_ptr, cpu_preferred_mask,
-> +				      task_cpu_possible_mask(p));
-> +}
