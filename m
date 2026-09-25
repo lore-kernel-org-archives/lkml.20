@@ -1,143 +1,187 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAF2425CC6;
-	Fri, 25 Sep 2026 11:11:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C319D47F778;
+	Fri, 25 Sep 2026 11:11:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790334686; cv=none; b=bBJW9Itf0qFUHFErXf2xHlQeBZ/CGFWuEWqJkYVzFyXJ+GhM6j8uc9b0d6r5HQ6vJrBLIrUdgkpPV9pQcObWVuXjIJiZuwIGYdGgqs7vG5e5Nf3hO3NnmGzhlpFyRTnSlToUOP57siQ5kxN++47JKciYbMgHybjAX9Zt5Qo1dR0=
+	t=1790334701; cv=none; b=dHNFA/+xuUg+tWVxUO7rwYSA0klUWM9cRtusy64gFJBSrBsVs+p2apfRtZ1H/y6SVDtSk4t64Mr0mTFQNaXqWuLuBbDKuqWuh+YJIu7bUbPmlN9OEml2R6mjcUelAQRf3kWiR0k1QvZuxvJClkLJnXs7JXy+KLDPzZgIOp2PNak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790334686; c=relaxed/simple;
-	bh=pKJG4NNixG1bTghsu6d6b7QSc5YQncCMfKdLtiQwQAA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=rR1p1E4pO32fXSIFuFEBKEoQI0T+A2PvF9HX1OGrQgdCmvEc8SgKgc99snVo4R93dxMW4TCuXWlqazeyUR783SKDYFFFRYC8QwDvHm0sm7je7wZicZwsXBvM75V9SD720Xm9TAd8urE2SDWe6nXB5qdlEFmurCW1wDneHB04fos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n8Cr6Ked; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790334701; c=relaxed/simple;
+	bh=KGClkuKaUup4lCgi0hiMD2W62qNnYOQ5xSa3Rbyi+3U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MztDp1HmGcuo8yVIYhh85FtfecAj+/H2HC2HQBgDv9eVCe/JeyjoU+VhfQCYMk1BtRUo1mgAiBmp9rGa2cIkvTEm9/MlgPnfg2mbtPVssp0W30ho6nI50U50WyufEtcw1aIOjFiFw3pYrCVJHYQQG6buKjbaLY2WUDDGVvoV8+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UcQ8lQEy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n8Cr6Ked"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790334685; x=1821870685;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=pKJG4NNixG1bTghsu6d6b7QSc5YQncCMfKdLtiQwQAA=;
-  b=n8Cr6KedIOaRj44vEtEv4kL8b6m1CFmrTQ3nyGOLbYp3BTOVcm1TBOJt
-   YqP8z1W3PwLO5JP4bco72F9UCRjm66KNEE+iTCLafX77NO2O+F0SbWcaA
-   OtcCNgS8SHuzgB8Jf7qBfOJW+0cqVOT7TwRc2sQjmbz1wX6Amc6GRF6WP
-   NZpM5vf7QQzi4UjGGcMoIeREWKK8ZxyVhlkRPsHvyVXvaYP9SOwcKGZAj
-   wijsNqisII1iD26Q8hQov63Q1gTJqXrcqRcTqLPvRhoxFMfTHLDNnUsDa
-   FJrTdeSU6KJeryCZEF4M8mu06Zj6Id+yMYyZcE2wQlS1NICX4VHqTkRqB
-   g==;
-X-CSE-ConnectionGUID: vytpH/fkQIC1lKeeQRP1Sg==
-X-CSE-MsgGUID: QYBGz1hSQCmdv5en7KH6pA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101645888"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="101645888"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:11:24 -0700
-X-CSE-ConnectionGUID: cAeg1zLZQKKVg0SQhiZSeg==
-X-CSE-MsgGUID: gN2VeGlYSaS63jTDQxoBpQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="270788768"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:11:18 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Daniel Stone <daniel@fooishbar.org>, Vidith Madhu <vmadhu@nvidia.com>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, "Borah, Chaitanya
- Kumar" <chaitanya.kumar.borah@intel.com>, Leo Li <sunpeng.li@amd.com>,
- Daniel Stone <daniels@collabora.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Andrzej
- Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andy.yan@rock-chips.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com, Derek Foreman
- <derek.foreman@collabora.com>, wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH RFC 06/25] drm/connector: hdmi: Add VTEM EMP generation
-In-Reply-To: <CAPj87rO2+oSA7KtocG-M1hqgQTJO=3Qxmg-OMC5MmOLaja_kRg@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-6-2fcd7d011646@collabora.com>
- <a5bc012a-9b9e-eb2b-d67e-a91f2d93d6bf@nvidia.com>
- <CAPj87rO2+oSA7KtocG-M1hqgQTJO=3Qxmg-OMC5MmOLaja_kRg@mail.gmail.com>
-Date: Fri, 25 Sep 2026 14:11:15 +0300
-Message-ID: <80ac0fee0d67a9e44a4858be904bdbb2265e50b5@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UcQ8lQEy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B07A1F000FF;
+	Fri, 25 Sep 2026 11:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790334699;
+	bh=7AfOVXhNr6aVAS93mjjDI1zHRc5gJSUYX5m1TeHMjbw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UcQ8lQEyVJJseW0HcSUKhkWo7UXHZl5Kd253Eeky/jbi/l1ESUSi7MzSPvOdvQ8xA
+	 sU8NoSmHM8SgRyEp8wJD6c0rEpj4DPJWe1gxilagy3b6RRr5lMo5KZAo6epy36PoRC
+	 qAzncL0VFKpgLImY18w3QHCH3p294DIU9rbhK9tGeMCNNgWpPWtgEZ+OBkXmjrkXON
+	 AeON+IUgUIIaHgIl6FmObMzP/+Lb1TT5vw1p7c577omkRjdZQGmfmnrvUVvgbYiSYm
+	 Hqsa1hX/s0FEZCVmAmfE7jC6k4XEG1iKBx/eDbg0ZcrYWjksnV1ZRFVe7XsZ2pRn43
+	 nl6xkLd9bGqDQ==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>
+Cc: Jinchao Wang <wangjinchao600@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	x86@kernel.org
+Subject: [PATCH v18 03/11] perf/hw_breakpoint: Add register_wide_hw_breakpoint_cpuslocked() API
+Date: Fri, 25 Sep 2026 20:11:29 +0900
+Message-ID: <179033468904.136630.17162448537904534428.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179033464327.136630.864883694296882051.stgit@devnote2>
+References: <179033464327.136630.864883694296882051.stgit@devnote2>
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, 25 Sep 2026, Daniel Stone <daniel@fooishbar.org> wrote:
-> Hi Vidith,
->
-> On Fri, 25 Sept 2026 at 04:49, Vidith Madhu <vmadhu@nvidia.com> wrote:
->> On Mon, 21 Sep 2026, Nicolas Frattaroli wrote:
->> > +     if (!crtc_state->vrr_enabled) {
->> I don't think we should use the vrr_enabled CRTC property to determine
->> VRR_EN in the VTEM EMP. Transitioning the VRR mode sink-side typically causes
->> blanking, and it was discussed in patch [03/25] that drivers should be
->> free to handle vrr_enabled changes as a seamless switch since it only
->> concerns source-side VRR state (this is how the NVIDIA driver handles it).
->> Maybe it would make sense to extend the qms_enabled connector property
->> introduced in this patchset to an enum of {Off, Gaming, QMS}? This would allow
->> a standard path to control the VRR state on the sink, separately from
->> vrr_enabled.
->
-> I remain cautious of putting this amount of policy inside the kernel
-> and/or left to individual IHV choices. It's relatively obvious for
-> NVIDIA and AMD to say 'we'll always enable FRL/VRR to smash the
-> maximum rate (unless it's contraindicated by USB-C bandwidth somehow)
-> because the power burn is inconsequential', but if you were MediaTek
-> or Rockchip you'd probably make a different decision. Then again, if
-> you were an MTK device living on AC power, maybe you'd make the same
-> decision. Or maybe AMD would want to make a different decision on
-> laptop parts because the bandwidth is noticeable then.
->
-> The point is that I don't think we should bury this down in implicit
-> kernel state. I'm with you on surfacing this as an explicit connector
-> property. Possibly a bitmask of modes the user will use? e.g. {
-> frr_only = 0, maybe_gaming_vrr = (1 << 0),  maybe_qms = (1 << 1), ...
-> }? Or perhaps just a flag for whether the link should be negotiated as
-> wide as possible or tight to the existing mode params?
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-On a tangent, Ville and I have been tossing around an idea to introduce
-a drm device level property to control device "power mode" policy,
-mapping to the kind of setting userspace already provides. Could start
-of with the typical "performance", "balanced/default", and "power
-saver".
+Add register_wide_hw_breakpoint_cpuslocked() which registers a wide
+hardware breakpoint across all online CPUs while caller holds
+cpus_read_lock(). This allows callers who need to perform additional
+setup under cpus_read_lock() without releasing it to avoid races with
+CPU hotplug and without triggering recursive lockdep warnings.
 
-It could be a single high-level knob to choose policy in the drm core
-and drivers, instead of exposing a plethora of fine grained policy that
-don't necessarily map well between drivers and may have conflicts
-between them. And end up with a lot of ABI to maintain.
+Refactor register_wide_hw_breakpoint() as a wrapper around
+register_wide_hw_breakpoint_cpuslocked().
 
-Policy decisions like this crop up all the time, even on things like how
-to choose Display Port link config and DSC and color depth, and my gut
-feeling is that just having e.g. those three options would help with
-design decisions massively.
+Assisted-by: LLM
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+---
+ include/linux/hw_breakpoint.h |    9 +++++++++
+ kernel/events/hw_breakpoint.c |   38 ++++++++++++++++++++++++++++++++------
+ 2 files changed, 41 insertions(+), 6 deletions(-)
 
-The user and userspace could use AC power or battery level or whatever
-to decide which power mode to choose at the high level, and you wouldn't
-have to have every desktop environment tweak every little thing at the
-detailed level.
+diff --git a/include/linux/hw_breakpoint.h b/include/linux/hw_breakpoint.h
+index bf65c7fffd99..65efe55fef14 100644
+--- a/include/linux/hw_breakpoint.h
++++ b/include/linux/hw_breakpoint.h
+@@ -76,6 +76,11 @@ register_wide_hw_breakpoint_cpu(struct perf_event_attr *attr,
+ 				void *context,
+ 				int cpu);
+ 
++extern struct perf_event * __percpu *
++register_wide_hw_breakpoint_cpuslocked(struct perf_event_attr *attr,
++				       perf_overflow_handler_t triggered,
++				       void *context);
++
+ extern struct perf_event * __percpu *
+ register_wide_hw_breakpoint(struct perf_event_attr *attr,
+ 			    perf_overflow_handler_t triggered,
+@@ -123,6 +128,10 @@ register_wide_hw_breakpoint_cpu(struct perf_event_attr *attr,
+ 				void *context,
+ 				int cpu)		{ return NULL; }
+ static inline struct perf_event * __percpu *
++register_wide_hw_breakpoint_cpuslocked(struct perf_event_attr *attr,
++				       perf_overflow_handler_t triggered,
++				       void *context)		{ return NULL; }
++static inline struct perf_event * __percpu *
+ register_wide_hw_breakpoint(struct perf_event_attr *attr,
+ 			    perf_overflow_handler_t triggered,
+ 			    void *context)		{ return NULL; }
+diff --git a/kernel/events/hw_breakpoint.c b/kernel/events/hw_breakpoint.c
+index 69bfb17b87c4..5627ad97600a 100644
+--- a/kernel/events/hw_breakpoint.c
++++ b/kernel/events/hw_breakpoint.c
+@@ -832,27 +832,30 @@ void unregister_hw_breakpoint(struct perf_event *bp)
+ EXPORT_SYMBOL_GPL(unregister_hw_breakpoint);
+ 
+ /**
+- * register_wide_hw_breakpoint - register a wide breakpoint in the kernel
++ * register_wide_hw_breakpoint_cpuslocked - register a wide breakpoint with cpus locked
+  * @attr: breakpoint attributes
+  * @triggered: callback to trigger when we hit the breakpoint
+  * @context: context data could be used in the triggered callback
+  *
++ * Same as register_wide_hw_breakpoint(), but caller must hold cpus_read_lock().
++ *
+  * @return a set of per_cpu pointers to perf events
+  */
+ struct perf_event * __percpu *
+-register_wide_hw_breakpoint(struct perf_event_attr *attr,
+-			    perf_overflow_handler_t triggered,
+-			    void *context)
++register_wide_hw_breakpoint_cpuslocked(struct perf_event_attr *attr,
++				       perf_overflow_handler_t triggered,
++				       void *context)
+ {
+ 	struct perf_event * __percpu *cpu_events, *bp;
+ 	long err = 0;
+ 	int cpu;
+ 
++	lockdep_assert_cpus_held();
++
+ 	cpu_events = alloc_percpu(typeof(*cpu_events));
+ 	if (!cpu_events)
+ 		return ERR_PTR_PCPU(-ENOMEM);
+ 
+-	cpus_read_lock();
+ 	for_each_online_cpu(cpu) {
+ 		bp = perf_event_create_kernel_counter(attr, cpu, NULL,
+ 						      triggered, context);
+@@ -863,7 +866,6 @@ register_wide_hw_breakpoint(struct perf_event_attr *attr,
+ 
+ 		per_cpu(*cpu_events, cpu) = bp;
+ 	}
+-	cpus_read_unlock();
+ 
+ 	if (likely(!err))
+ 		return cpu_events;
+@@ -871,6 +873,30 @@ register_wide_hw_breakpoint(struct perf_event_attr *attr,
+ 	unregister_wide_hw_breakpoint(cpu_events);
+ 	return ERR_PTR_PCPU(err);
+ }
++EXPORT_SYMBOL_GPL(register_wide_hw_breakpoint_cpuslocked);
++
++/**
++ * register_wide_hw_breakpoint - register a wide breakpoint in the kernel
++ * @attr: breakpoint attributes
++ * @triggered: callback to trigger when we hit the breakpoint
++ * @context: context data could be used in the triggered callback
++ *
++ * @return a set of per_cpu pointers to perf events
++ */
++struct perf_event * __percpu *
++register_wide_hw_breakpoint(struct perf_event_attr *attr,
++			    perf_overflow_handler_t triggered,
++			    void *context)
++{
++	struct perf_event * __percpu *cpu_events;
++
++	cpus_read_lock();
++	cpu_events = register_wide_hw_breakpoint_cpuslocked(attr, triggered,
++							    context);
++	cpus_read_unlock();
++
++	return cpu_events;
++}
+ EXPORT_SYMBOL_GPL(register_wide_hw_breakpoint);
+ 
+ /**
 
-
-BR,
-Jani.
-
-
--- 
-Jani Nikula, Intel
