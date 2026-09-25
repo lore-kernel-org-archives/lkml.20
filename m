@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8294A4BFE79;
-	Fri, 25 Sep 2026 15:07:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6792E4C226C;
+	Fri, 25 Sep 2026 15:07:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348841; cv=none; b=UpC8AReCpqq35j5O6sacmqSh21c21JMiEv9UmC+mTgedyuNN3UvmYRBydWM2rOZSG4uqXJ4oXPq9kTNteznzQHd6ygsUUYGshQRxYZQ0Va6gvbnAkUBUvQ8oGtXt0Xwne/4YuhkmUGBr07I+6hXKoOdmWfPYApdo/Yn+8HrbP9c=
+	t=1790348849; cv=none; b=LUyh2jwcsVXEBwdBFt19rHqhH2M6Scxee2qN6TdMeMcUaV/H1iP+kDLAY8DNYFBKEm88PbFFS2SFJXX25cem8oJ65SlUrlJ/uyW4n9gY2z6t/NPlPz/70+mYmOPqEfiIsQMtt7L80P7GN3YTNfNvgC2VzJtJNLwrfh5rXG0jULo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348841; c=relaxed/simple;
-	bh=KxO5qPXM9FbaoNLo69cUV8NlgPxhAP8aMZcEyjOeLE4=;
+	s=arc-20240116; t=1790348849; c=relaxed/simple;
+	bh=+2eJD629q1ARCdDWrqn+5/1zUYg/1c0PszkBmOjScFM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PKobZGu5ED8C4XaQDxGEsdeUf6k6XH4ZkEGCG4JRyVpzzHFpnWg0OweKtX+0ql1goi2H85SH4nwptnwh5+pTwM+dP32tXUPxPkJLF/Cpt5vltcWjW0M28DYBfYbDvJK49SemCaYt243Y0EsC56vaigiO1mbCjC/LWCbIjFByHZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/wHK48C; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZPskEefcf8yU5V6fu15YA9AnI7uH7uVcu8N++wiYiwrXMpWRcSR+jRYnU5a3PzJ4nKWDzWdEoTVDzUvXRTJ4iP/of2p12STZBtasxyXP7hZ1XZfS2uZ3EXU+E3/jBtTZR1TUH1g09Ai9pa2w1D+Kbmn141K2/l2JKkc4s0bAioo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BbJ7g4kd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/wHK48C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4F481F0089A;
-	Fri, 25 Sep 2026 15:07:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BbJ7g4kd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C2E1F00898;
+	Fri, 25 Sep 2026 15:07:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790348834;
-	bh=M1NMKBmM7/1YWvdOM75XN9nOUA4bkPfX1aS6i02DlFk=;
+	s=k20260515; t=1790348831;
+	bh=53rhS/RoSwM54PPbARszq9J4rk8Cbol7osj2y9wayrw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F/wHK48CihNX6/QGFA3EhJMw8cRIfxz7+BfC6HNM6km5pJSlVew0gcrR024Bnp/UF
-	 JRNJKB/ibCVDL57ewOwuScf1f4shbTqqcG9glOGqJMsPMDSbwBVNiS54ZCDo5upuNM
-	 1jlh2qDi9kPRPazwaGmBUgVj0BlW5uGU6/8UhYSg88spsmvh5rnx6MVpX4pGekJuIS
-	 MDrmqcN5kyfEaKdu1dUCBRbaoLETcH8qcPzpS1wMwdfaeEnIic/t7xbU3RG3ZFgaNn
-	 nS7qlj8kzIuu8X+zShP/Qdcka5+kKMbEnx3CWM2FGdK1vUOvG5Kkfqr9/y6O/EtLHP
-	 +9kjdquG5Db3A==
+	b=BbJ7g4kdI563Q289CF66T6su2iqe40ZLlLUgwxBcM2GYLAC/1NNZq2fX7t1rtacep
+	 iNGU5J+d79of8jw87IPFYKI3z+mFlMphnb6/v0NQx2Xk6JCN6cSXW1dvjgn+9bYQgh
+	 q3kotTprrq9SRmzgk/fCsgfm/HjKbYwG7IeBWP80221vfBGHVm+fJ7lkcas0tc6YiZ
+	 FNh5N4c8Znz52iNWN0Nhm6gs7vOoIWXCWemQ46/OMTcMd3y1QFcKOY+bF0maZ8wMRv
+	 quZhmuhXlp6rF8oKc+R5JhIui9kUyaPFObMuoUD2rTyqCJD+BqGnsZnJN5gMGaOlaq
+	 2RR7RbsBQja/g==
 From: Arnaldo Carvalho de Melo <acme@kernel.org>
 To: Namhyung Kim <namhyung@kernel.org>
 Cc: Ingo Molnar <mingo@kernel.org>,
@@ -38,9 +38,9 @@ Cc: Ingo Molnar <mingo@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
 	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH 4/6] perf annotate-data: Bound the member nesting recursion
-Date: Fri, 25 Sep 2026 17:06:55 +0200
-Message-ID: <20260925150657.1826942-5-acme@kernel.org>
+Subject: [PATCH 3/6] perf annotate-data: Resolve type DIEs in the debug file they came from
+Date: Fri, 25 Sep 2026 17:06:54 +0200
+Message-ID: <20260925150657.1826942-4-acme@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260925150657.1826942-1-acme@kernel.org>
 References: <20260925150657.1826942-1-acme@kernel.org>
@@ -54,95 +54,103 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-Members are added recursively, and a broken DIE can make a member's
-type point back at one of its own ancestors, recursing until the stack
-is gone; nothing usable comes out of nesting members 32 deep anyway, so
-stop there, marking the member as truncated and giving up on member
-types that don't resolve.
+'perf report -s type' hangs burning CPU on the dwz compressed debug
+info of libz.so.1 (zlib-ng): die_collect_vars() saves the
+dwarf_dieoffset() of the type DIE, which is relative to the file it
+lives in - the dwz alt file for the types shared by more than one CU -
+and update_var_state() resolves that offset in the main debug file,
+parsing whatever is at it, here a typedef whose DW_AT_type refers to
+itself.
 
-The check is where the children of an aggregate would be expanded, so
-only struct/union members are marked as truncated.
+Record whether the type DIE came from the alt file and resolve the
+offset with die_get_type_die() in that file, with no fallback.
 
+Fixes: 06b2ce75386df04b ("perf annotate-data: Maintain variable type info")
+Fixes: 55ee3d005d62279d ("perf annotate-data: Add a cache for global variable types")
 Assisted-by: LLM
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 ---
- tools/perf/util/annotate-data.c | 20 ++++++++++++++++++--
- tools/perf/util/annotate-data.h |  3 +++
- 2 files changed, 21 insertions(+), 2 deletions(-)
+ tools/perf/util/annotate-data.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
 diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-index bc9698abc6a9e055..19a6ecd67f28719d 100644
+index e9b58a3d587be45b..bc9698abc6a9e055 100644
 --- a/tools/perf/util/annotate-data.c
 +++ b/tools/perf/util/annotate-data.c
-@@ -222,6 +222,12 @@ static bool data_type_less(struct rb_node *node_a, const struct rb_node *node_b)
- 	return strcmp(a->self.type_name, b->self.type_name) < 0;
- }
- 
-+/*
-+ * A broken type can point back at one of its own ancestors: bound the
-+ * nesting so it doesn't recurse until the stack is gone.
-+ */
-+#define MAX_MEMBER_DEPTH 32
-+
- /* Recursively add new members for struct/union */
- static int __add_member_cb(Dwarf_Die *die, void *arg)
- {
-@@ -236,6 +242,9 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
- 	if (dwarf_tag(die) != DW_TAG_member)
- 		return DIE_FIND_CB_SIBLING;
- 
-+	if (die_get_real_type(die, &die_mem) == NULL)
-+		return DIE_FIND_CB_SIBLING;
-+
- 	member = zalloc(sizeof(*member));
- 	if (member == NULL)
- 		return DIE_FIND_CB_END;
-@@ -248,8 +257,6 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
- 	if (die_get_typename(die, &sb) < 0)
- 		strbuf_add(&sb, "(unknown type)", 14);
- 
--	die_get_real_type(die, &die_mem);
--
- 	if (dwarf_aggregate_size(&die_mem, &size) < 0 || size == 0) {
- 		if (dwarf_tag(&die_mem) == DW_TAG_array_type) { /* flex-array? */
- 			die_get_real_type(&die_mem, &die_mem);
-@@ -299,6 +306,7 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
- 	}
- 	member->size = size;
- 	member->offset = loc + parent->offset;
-+	member->depth = parent->depth + 1;
- 	INIT_LIST_HEAD(&member->children);
- 
- 	list_for_each_entry_reverse(prev, &parent->children, node) {
-@@ -313,6 +321,14 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
- 		member->is_union = true;
- 		/* fall through */
- 	case DW_TAG_structure_type:
-+		/* Only aggregates have children to expand, so only they get truncated. */
-+		if (member->depth >= MAX_MEMBER_DEPTH) {
-+			/* Consumed by the JSON exporter added in a later series. */
-+			member->truncated = true;
-+			pr_debug_dtp("member nesting limit reached at %s\n",
-+				     member->type_name ?: "(unknown type)");
-+			break;
-+		}
- 		die_find_child(&die_mem, __add_member_cb, member, &die_mem);
- 		break;
- 	default:
-diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
-index 14b8113521a927cf..ca0abfb2a036d229 100644
---- a/tools/perf/util/annotate-data.h
-+++ b/tools/perf/util/annotate-data.h
-@@ -61,6 +61,9 @@ struct annotated_member {
- 	int size;
- 	bool is_union;
- 	bool is_flex_array;
-+	unsigned int depth;
-+	/* Children not expanded because the nesting limit was reached */
-+	bool truncated;
+@@ -739,6 +739,8 @@ struct global_var_entry {
+ 	u64 start;
+ 	u64 end;
+ 	u64 die_offset;
++	int die_tag;
++	bool from_alt;	/* die_offset is relative to the alt (dwz) file */
  };
  
- /**
+ static int global_var_cmp(const void *_key, const struct rb_node *node)
+@@ -776,7 +778,7 @@ static struct global_var_entry *global_var__find(struct data_loc_info *dloc, u64
+ }
+ 
+ static bool global_var__add(struct data_loc_info *dloc, u64 addr,
+-			    const char *name, Dwarf_Die *type_die)
++			    const char *name, Dwarf_Die *type_die, bool from_alt)
+ {
+ 	struct dso *dso = map__dso(dloc->ms->map);
+ 	struct global_var_entry *gvar;
+@@ -798,6 +800,8 @@ static bool global_var__add(struct data_loc_info *dloc, u64 addr,
+ 	gvar->start = addr;
+ 	gvar->end = addr + size;
+ 	gvar->die_offset = dwarf_dieoffset(type_die);
++	gvar->die_tag = dwarf_tag(type_die);
++	gvar->from_alt = from_alt;
+ 
+ 	rb_add(&gvar->node, dso__global_vars(dso), global_var_less);
+ 	return true;
+@@ -872,12 +876,14 @@ static void global_var__collect(struct data_loc_info *dloc)
+ 			if (pos->reg != -1)
+ 				continue;
+ 
+-			if (!dwarf_offdie(dwarf, pos->die_off, &type_die))
++			if (!die_get_type_die(dwarf, pos->die_off, pos->die_tag,
++					      pos->from_alt, &type_die))
+ 				continue;
+ 
+ 			get_global_var_info(dloc, pos->addr, &var_name, &var_offset);
+ 
+-			global_var__add(dloc, pos->addr, var_name, &type_die);
++			global_var__add(dloc, pos->addr, var_name, &type_die,
++					pos->from_alt);
+ 		}
+ 
+ 		delete_var_types(var_types);
+@@ -902,7 +908,8 @@ bool get_global_var_type(Dwarf_Die *cu_die, struct data_loc_info *dloc,
+ 
+ 	gvar = global_var__find(dloc, var_addr);
+ 	if (gvar) {
+-		if (!dwarf_offdie(dloc->di->dbg, gvar->die_offset, type_die))
++		if (!die_get_type_die(dloc->di->dbg, gvar->die_offset,
++				      gvar->die_tag, gvar->from_alt, type_die))
+ 			return false;
+ 
+ 		*var_offset = var_addr - gvar->start;
+@@ -932,7 +939,8 @@ bool get_global_var_type(Dwarf_Die *cu_die, struct data_loc_info *dloc,
+ 
+ ok:
+ 	/* The address should point to the start of the variable */
+-	global_var__add(dloc, var_addr - *var_offset, var_name, type_die);
++	global_var__add(dloc, var_addr - *var_offset, var_name, type_die,
++			!die_same_file(cu_die, type_die));
+ 	return true;
+ }
+ 
+@@ -987,7 +995,8 @@ static void update_var_state(struct type_state *state, struct data_loc_info *dlo
+ 				continue;
+ 		}
+ 		/* Get the type DIE using the offset */
+-		if (!dwarf_offdie(dloc->di->dbg, var->die_off, &mem_die))
++		if (!die_get_type_die(dloc->di->dbg, var->die_off,
++				      var->die_tag, var->from_alt, &mem_die))
+ 			continue;
+ 
+ 		if (var->reg == DWARF_REG_FB || var->reg == fbreg || var->reg == state->stack_reg) {
 -- 
 2.53.0
 
