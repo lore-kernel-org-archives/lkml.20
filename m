@@ -1,350 +1,248 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011035.outbound.protection.outlook.com [52.101.62.35])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012006.outbound.protection.outlook.com [40.93.195.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4FC3090E8
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:36:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2431A23E342;
+	Sat, 26 Sep 2026 01:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.6
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790386583; cv=fail; b=f+5B0ibPdat1qPJ0jbU0i7IEupOCQv8/qzanULYl9EbRmQRlJ3nLLQdGpjUVqTeXoXr1vjKC90GEVNf8QhOd2ReZEcvQME6e2ZIrxcV+bvXil0FumgzynGfVZHdWYvgqd/oEBQrzkIVVaRfL8iIRazzzJBL3gWE+JltQ0ZuoTJ4=
+	t=1790386695; cv=fail; b=UXOhxuiVEECGzNtHDqLSgoxQbTsph8lU9k43lC+CCT5BWNylQvPxJ2nwuMYCIj16G76PMZa9j7O7gv5ZslCl8U0MxLiT/06NQHOyFx2n9mXx+nOzRBeBmwt6SKWdO3sY/lKQutne572BvR3H6f9c9jzrE7cE+diuVfUDbA575Co=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790386583; c=relaxed/simple;
-	bh=AN/i5tKes2rYkDjuHwIyVNNV0waM2eBCsJVkULCVTj8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=po1Gnwid9KJT8T3BiJ6fpkkNVjFVbDbSanbkd/NR8pEr0AJpCVcvqpqwEQfzMQcy0E8+I2OCHjuqN0nJpQK+0IMuXEF1dXTL6xNsTK4dVi9aRrODZtKJYAcwuEbgyvqmkd2PvX/XLfu4cqt2sa+Y0YDDJaY8JseeRfs+/Z+XJ4M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ojOPRuad; arc=fail smtp.client-ip=52.101.62.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790386695; c=relaxed/simple;
+	bh=hhnMCREZn0wq22a1StCnKPL4mhTvb6SRHqhHvgtkBBA=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=jW3kOpFfLGFIYl/RGdUOBqaj0oSFOLXDSVX91ljv/wn6kWG8DlRkLfJ0fgsRUj5DcSM2jf5gLH1kNo3LEqdKb+l0uxg6O2grZLF/Bhuu6Do658WFzN72RaLafkKkXXlmTBS7pSdocdUuvKrQI2h9XzcCL1Jab6mmolmJqw3Sjmw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IlgmnWC0; arc=fail smtp.client-ip=40.93.195.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ojOPRuad"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IlgmnWC0"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xexlDfgZlQ//nngDtIIkIvKYVw9qotBMPBS1Ol7VP5Ng2ik9xFjYstyo7j1gxYnbY+VQjGfUSg/NajUnCdeGFR10sB9Vkb2KpFIC8wc5K2N/ESS5FyCrxHEUhc1k8sL9lHpF9P3cmpPKAuIE2tf7UExrheNXKcvzODSD+78xssnUWoWVzbpkNDGfpugVEJDLvbgVYjj7x3MS986/cvMTLl8h9PTHX8WDuKVA5d9/pd/UWea+yVg977/YwJgcsyd0wiP48f5/ZPgy12/20wTjfwouW8mt1zpYs7pOmCxntVElbgb5cVQw4B8PlYxOwT3XZljyz2rrK0WjMnUqDDfoZQ==
+ b=nvoe+6KAlh9q4MhGIK0UDQg/EYvSIh2qF+dvQtLnaboA6F7xJf45zMPl4q4fHZU0OJUh8HSsJVmE+3Q/i7meFV3A0zxihk9GcXjL1IjsQaOdboX6Dce+eIlFc93YkfHXHKVo/5MYa5stBSjMCAOYLKpsLk0h2f2BGedQT6MezOF4pwePlBRHceI1sEvTRj8IEEdxP3T+E9mzhrZXnAAaMLLAJt3k/I/F4LJqcizZCxxqSYDh9f9k2Z8xDhPcNfvQT57QkUg5W1kZFE/Rlme4J8WpMIW/KloP5mHk3NKbHTA/DzZ3yz2c8vscKf+Ye47u1tRQaB8nC1isIjJKWEsOfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NGBRyLarvyowaxbWeVHcMKmkVyH/YRvhxLhZETMarOc=;
- b=iwzgnV5m83grmyCixTdxvQXXGR+wUfc7a9cRMGqI2SgaIRF8sF4H6Ja6sc+QEarXhqiQJ/zBQg3s675RtF/WbOzE604BuY9DCk0m+EpyHeRObdW67WP0CR3AWHulGnzVQAuUBbim+K0++6MslRs647EBjlYkIPU1l9YiIePDLJyXB1TTk11Vw8SvHEatJR2R6m9WNr+UdOV460WPKKA+IfLdb5Qm2a+FMoYd9sLmPCjIKY7EMgZZPUkYLV10Z9pS6gNMaHhHG0FsnPIYOAaLGZ7edkSjJzZyxKJNJQ/boK5RUtooAVoJRbFe5O09KpL7r9/a2q8y+VAB6ECeKymN6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=JREHSo7U9IfHqKqetOS7hWZc9sDxByVpwPxnE1Mw09Q=;
+ b=Lyfs+cJXBtFi26dK2WzE1vLfJgTzu0rLEXIprhcRJEtkHEGB3btLmSrHNXF1N7sLQkC89iKPaiDFCn9ujAwXqTHa7ispVK3tEGbXSd3Gt8wHeSCFOG5CP1bA+YIcNg/PFVKw8jh6RynlifufJ18AbHnUwzqAqQJkKRCn3as50kXFz1ABQ4bKZtJ2CcWRc4SF7sAFHEW7993Q7bZ1ilUhGY0vcAfIvthpSWq5gM988ct10JOJGI5YIGfCLU7t+TfdYgntcgjU3rTxMACfI1oaEXlZyJ9Q2yQZxDfyVgrKts1cbtImiXfZIO4zayZKI0WjHAaC/nv7zSsb6vbdMbP1lA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NGBRyLarvyowaxbWeVHcMKmkVyH/YRvhxLhZETMarOc=;
- b=ojOPRuad2HjjTMWsbW0PPK6xsVG2r7bL5b02MnWfnUjDwtkpI/gxSDbYQdatCdhUtXEtAFzW3ZU2lRoGcJdMyLJeKz2bKKFf9A4hRua4WvX9/b8QKk8Lr+6JI6dWIvG+BiIdAyREj6wkrp342eWUkFkACfTraT8Zmdc0mybYe/c=
-Received: from CH2PR12CA0011.namprd12.prod.outlook.com (2603:10b6:610:57::21)
- by DS7PR12MB6215.namprd12.prod.outlook.com (2603:10b6:8:95::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.22; Sat, 26 Sep 2026 01:35:25 +0000
-Received: from BN2PEPF0000A7FE.namprd02.prod.outlook.com
- (2603:10b6:610:57:cafe::ac) by CH2PR12CA0011.outlook.office365.com
- (2603:10b6:610:57::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.19 via Frontend Transport; Sat,
- 26 Sep 2026 01:35:25 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A7FE.mail.protection.outlook.com (10.167.245.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Sat, 26 Sep 2026 01:35:25 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 20:35:23 -0500
-Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 25 Sep 2026 20:35:22 -0500
-From: David Zhang <yidong.zhang@amd.com>
-To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
-	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>, Hayden Laccabue <hayden.laccabue@amd.com>,
-	"Soham Donwalkar" <soham.donwalkar@amd.com>
-Subject: [PATCH V0 07/21] accel/amdxdna: Add get and set power_mode for AIE4
-Date: Fri, 25 Sep 2026 18:34:34 -0700
-Message-ID: <20260926013448.3840921-8-yidong.zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260926013448.3840921-1-yidong.zhang@amd.com>
-References: <yidong.zhang@amd.com>
- <20260926013448.3840921-1-yidong.zhang@amd.com>
+ bh=JREHSo7U9IfHqKqetOS7hWZc9sDxByVpwPxnE1Mw09Q=;
+ b=IlgmnWC0rE/hjKPkhzRPb5WBKdrd91VzGb7XPPYpP5meQ00MvavGEh4qjtsyoZP47yfHwesFTsYgyv6rAG7Fg9yAlaLmNQ59TqwjXR29YNzE1THb2BQVwxIHHaCS1hst/i0F4Wguk99xqh/n/K/6xO6icloPdsORyojdNMRxFcd33r4WTjqlHzIC6nA14gkuVNw0pLzhwGdW7DKvTw/lAYVAt0m+xNx8qyfIb30szdMOvYVHyEWp24RWz9knmUEGcWlvd3SwsOlVULHF/7bGWxqtZIugT12i4CjvfOdhDo9P6efBbf2kyfzXQU+9DyJxtO03gsFhkEm1AdMqLvqRXQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DM4PR12MB7502.namprd12.prod.outlook.com (2603:10b6:8:112::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Sat, 26 Sep
+ 2026 01:37:58 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
+ 01:37:58 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 25 Sep 2026 21:37:54 -0400
+Message-Id: <DLOV3VTNOBPL.193R3V124JURK@nvidia.com>
+Subject: Re: [PATCH v3 15/40] mm/vma: add vma[_flags]_is_kernel_owned()
+ predicates
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, <selinux@vger.kernel.org>,
+ <linux-sound@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <linux-scsi@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-trace-kernel@vger.kernel.org>,
+ <linux-perf-users@vger.kernel.org>, <linux-arch@vger.kernel.org>,
+ <linux-fsdevel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <kvmarm@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+ <kvm@vger.kernel.org>, <kvm-riscv@lists.infradead.org>,
+ <linux-riscv@lists.infradead.org>, <linux-s390@vger.kernel.org>,
+ <sparclinux@vger.kernel.org>, <fuse-devel@lists.linux.dev>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>,
+ "Pedro Falcato" <pfalcato@suse.de>, "David Hildenbrand" <david@kernel.org>,
+ "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
+ <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>, "Jason
+ Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>, "Paul
+ Moore" <paul@paul-moore.com>, "Stephen Smalley"
+ <stephen.smalley.work@gmail.com>, "Jaroslav Kysela" <perex@perex.cz>,
+ "Takashi Iwai" <tiwai@suse.com>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Ryan
+ Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry
+ Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama
+ Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>, "Doug
+ Gilbert" <dgilbert@interlog.com>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+ <mkp@kernel.org>, "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter"
+ <simona@ffwll.ch>, "Helge Deller" <deller@gmx.de>, "Sebastian Reichel"
+ <sre@kernel.org>, "John Hubbard" <jhubbard@nvidia.com>, "Peter Xu"
+ <peterx@redhat.com>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Oleg
+ Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
+ <dave.hansen@linux.intel.com>, <x86@kernel.org>, "Arnaldo Carvalho de Melo"
+ <acme@kernel.org>, "Namhyung Kim" <namhyung@kernel.org>, "Mark Rutland"
+ <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
+ <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>, "Vincent Guittot"
+ <vincent.guittot@linaro.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Will Deacon" <will@kernel.org>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, "Nick Piggin" <npiggin@gmail.com>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Muchun Song" <muchun.song@linux.dev>, "Oscar
+ Salvador" <osalvador@suse.de>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Marc Zyngier"
+ <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>, "Catalin Marinas"
+ <catalin.marinas@arm.com>, "Madhavan Srinivasan" <maddy@linux.ibm.com>,
+ "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Janosch Frank"
+ <frankja@linux.ibm.com>, "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>, "Gerald Schaefer"
+ <gerald.schaefer@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
+ "Vasily Gorbik" <gor@linux.ibm.com>, "David S. Miller"
+ <davem@davemloft.net>, "Andreas Larsson" <andreas@gaisler.com>, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
+ "Matthew Brost" <matthew.brost@intel.com>, "Joshua Hahn"
+ <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul Park"
+ <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
+ <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Kemeng
+ Shi" <shikemeng@huaweicloud.com>, "Nhat Pham" <nphamcs@gmail.com>, "Baoquan
+ He" <baoquan.he@linux.dev>, "Youngjun Park" <youngjun.park@lge.com>,
+ "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>, "Axel Rasmussen"
+ <axelrasmussen@google.com>, "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu"
+ <weixugc@google.com>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Michal
+ Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>, "Xu Xin"
+ <xu.xin@linux.dev>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org> <20260917-b4-mmap-prepare-vma-flag-sanify-v3-15-4583d8a23bca@kernel.org>
+In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-15-4583d8a23bca@kernel.org>
+X-ClientProxiedBy: IA1P220CA0010.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:461::7) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FE:EE_|DS7PR12MB6215:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d74fe1c-646d-402a-7f4a-08df1b6e707a
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB7502:EE_
+X-MS-Office365-Filtering-Correlation-Id: 545be6ab-443e-42d1-8b0e-08df1b6ecb54
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|36860700016|82310400026|376014|10067099003|11063799006|56012099006|4143699003|3023799007|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|921020|6133799003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	/7ApYPIsu06XdnmYg1XU6venXgASD+ubv1oINiZaK580k1kKiUjmvDQphFgfUc9Hk+xabICOdE5Hs3czD0FGWlmHlNy1S5JD8TF9OLl8sLXFl/5elyI3iSvUAMvuhCIn0CMxbLEPeJVTipBAVunNvdSxva0TAltSI4kd1GSj+BoAGx2yshMzWTBvJkjwQCVWN1Waaqnqb2vqW13KVTTWnu0c/fMCE5Wu/bVYxyXz1/8O4x8hlw8ywaBMs10shzWH3nx4D16AWixR+FTRmFrjG2iKvXzM8j4eOB0DrD47yeo9/Y0wJj7NKbkTcXf/k369O9teyHBPypepc7xny3sO+g8O5qweItKKgxl/yu+yI4rxzOPTo9aDbhuvZe0mUN3FmpZYnl03ImqySiIpBuWHi48cPLen8cC9zoOEU/qgq7rj2SKwU1dOpO3j5j55F/QtplRaF6GIzLfMjW9B+eFnw0f6YanZe/wxK2/xnwp0+qD8X4XpLkpT32Vh7rhUiZHqsH/zJEa6oO/+GXB838ukgNfohApjSS5awfIWzKl97B799GgT2gHBo2sU14+CXp0Pk7KSOKiwxtHb8yMHuzDEKpFBdVYBFuDabXk982Znp/U0zEDN/kdj4iDkq18b81h8KQhNuAuiuaiqZCFyfJ4Dtp1uAR6vbhZkyiqbTfdR8WgElJrsbSt6OFHS5WD3gCQp7rfV9MDcfVG1s2pfO0yiNg==
+	eHTozzARUAPxautQc1g9RpS1Mb919g7GvHX3YmPnOtBZeaoLZ2ADMz+gWYvXqcBVfq/FUJK8gjMMH2y0ELwdrLt+g3ZaKBBKL2Aq6L91xZ/b8Z/T5lDVyXK1dpD2Pov8FrLNOeXQs+GYiqCX6OSOY6YCwg5dXXvudw7uPOkLjf8dCh/p6nKZ3dvvozUzcnGsoxrdd1dpdYuTc93yE/y+N5+D6RztFnm/J8jQw2FjjIrAd7FzboO6ea8fUMUExYKd2zdrcq/q6rXQ0vNqbK+BDfGXXojKaFHMZ/Ht64s1CmfYNlDHGgKumfO1ZmvrGqlTyme2BOsPiH4uksM1oDVZOgx69LGbUAZb/kmF0utEFkbjFBOl+uwUelfb54j+xpHwJbyaq5hE8fymtnL5lovlenfoRpXFqj6R7A6Zjjz5aUeC4uUVHjOFBWErnsUaX8QUj78oVnPDlb2FWFZaRY2oxlTG0Vt2r9czLLJip6jcjS9uLAONOZDvyJp79gbotv1T7g4nMpVCZNvu5Xc+OripRjMiQpS6kAI7rioDX/nvLESDj4jSXBmjy8hVDtFp1c477E/59qTwUfyMxhPPCdpTDFUCrfWUYFh3HNdaAfDnmZM0GSzhnOvIKXg4QhY7XRl87YD4E0Gf7XudDGBaDjOJLN61JB85VYqgNqTj8gVDEWrzjYP0XgbOOxT8KgOMnBUdiYItMPnw0O5m5YcY/q7eqA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(36860700016)(82310400026)(376014)(10067099003)(11063799006)(56012099006)(4143699003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(921020)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	OfoWJIbgATw4GaXw5FXhdrCwrRwKzyCt+jd5yG9zLVme0CxHNV0SYBkD1cuX0cDQUjAoknZRhgm4UJzcRmiZq8IGtovz6/+OiX66puM6zmyaZCqGmjE+enlMQHBSCZS2jGyKkCcmbruCqD8eNTjog0obZ4YdV5X+bjGLXQR3w2Yj/Vp56d4n4BrHhOFnqSW5YfcLpz9wYtr1SfWfNL/Rb1Yjz3daO2YxXmylOqCS2Mqdi5bXGbGxmRnOnogusVShSaazt7c1NGHY/fqToQd8XSfdrcykvGec/t1nJ2f/sylBjvlZ0J+TmRBZJ6SPQ0ldQN2/+zMl8vhTsy75dP1aneAaopD9wonkjcd/274hEImNOHNkiHfn9uBihTStf2LlF1qJlYI3UYyqVaK0C4jeSFIwn3oK+ojp5VjSh1WZTUkc+woBCRQlU4pbtEWgO2pd
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:35:25.6902
+	=?utf-8?B?eXZjcnl1QlloWUJQWStML09WWWNZSG9pWHFXZ0lOR3lSUERERUVJZlk1SzVu?=
+ =?utf-8?B?VTZDQ0dOaFJpL3BYWWNKc3FtT1RvS0kxcDdrdWpRTFZta2pxZTRJZ3R6RHhT?=
+ =?utf-8?B?T29ZU1lvSEZpdFh3VGtFN1padUphVEZsZS85SS9SZS9TaTJMd2JHS3FvNDYx?=
+ =?utf-8?B?TnVyQy95SFlnYytwb1ZZZFdXTm1mMitoUmNVYmNNcWpHZUt3NUlFMEZuVGJk?=
+ =?utf-8?B?Q0VqMHNSa3JndVYrbGNUL2NrYjdkelV2d3U2bVBxR1RrbC9QWWtITnR6RGd3?=
+ =?utf-8?B?UTk3K2N5azEwYUx5NytSU0poUnV2cys1NnJaUm1Bclkwd2kzcFBVbnRPVmNU?=
+ =?utf-8?B?R291b2pVYzVEYVdsdUhVSmVVa3F3OXhrMm1yd0lXMFNKTzM3T0lZMmlnd2xE?=
+ =?utf-8?B?RUY0K05IZVlkK3V1cStDdFJOU012RDNBSERJUDdQdmo5cVJnMlFMalJmYUY0?=
+ =?utf-8?B?N29ockJXVWZLRkcwTVlNMXZzZlJwSmdJYWJrcFk2Uk9mWTdITGRmalRFYllw?=
+ =?utf-8?B?dkRObXFCcHI3SGVpcm1Xd3hJb01xYXY3MjZTTVRPV0hyYlJDK2hGZzd5VC9r?=
+ =?utf-8?B?aUR3OStZN1lIckdZaVk2aVRBTE5EZlVpcGFqRENPeHBVS0VPZmNiVUFra29n?=
+ =?utf-8?B?ajRtaTYzb2sraUs2ek5KM2NvTktDOGt2NmY3Tnp4bGZSQ2lDRnEzbUkzRkYw?=
+ =?utf-8?B?S0VBa3dnOEZYT0tQNzNRb2wwSGVYY3hTa083YkhsRmYrdlFiZjhhTmxTc2ho?=
+ =?utf-8?B?SXU1UCswTWs5VDlEVTJjNHZpTy91Q2FUT3dnQ0l1Z2E1RWVpYUxOdjRUa1dN?=
+ =?utf-8?B?R3FaeGNoM01xTFh0NVdvTVZiSXpEcUhmbEUrdXpJNUZTTmFDeit3Y3pQd3ox?=
+ =?utf-8?B?VUtoZjVtcGN6MmN4ZlowcFFCaTlvVmtIWDA0YzlrUmpxQ2RXckxEdzJGanV4?=
+ =?utf-8?B?Y1JMaUtqS0FKUFlwMWRSZkZhcVBJYWV6YTFXZ05HcnRWOStieWQvYkZmdXlx?=
+ =?utf-8?B?dmhwL0ZUS2ZkdnRZcjNhb0M2cENFUzYvV005R2JqbUFXZWlwUmcyRFU0YnJJ?=
+ =?utf-8?B?ZVl2LytselRKOUVCQS9IYUNCeDJ3aURTWEpnRW1kaktsdXluWmREc3JVYW04?=
+ =?utf-8?B?cjlnM3FwK3d6cnkwa1YwMVFUbHF0VS94VVJNMytQNkkrSk5QQXhGZ1J6WWVi?=
+ =?utf-8?B?eC9UUjhtaFpEbUJzVUx1SGJhMVR6aVZyVWJvQ3YvMXlaZW9IVW9JQ2pJUUZp?=
+ =?utf-8?B?N3NYU0xCLzNiMkpxSDc1SndpLzlNenJnTVlCTGNPWXJzdnYrdGk0b2lxRENs?=
+ =?utf-8?B?ZzM0NUQ4UEU0MFJoaDBxSVhjWmRkSW5oYmpEYldISzJRRXRHWmUrV05Fb1du?=
+ =?utf-8?B?c3lCU1FqdXhIbkpWaDhMeFBNTm5WMnRHbXJhY1lwb3hIVktkMWhyUnZjRjhM?=
+ =?utf-8?B?N2JWRWtPbXRjQWo1SVpwRzBSTldzREN3WFZSTDRJUlE1Wi9pNVhwcWRlVEd1?=
+ =?utf-8?B?N1YwY0FNWmMrZjcxR0ZmWEVHbTNVeWs5R3NkNktYemRDL1ZVWUpqdmtLd3Ew?=
+ =?utf-8?B?Mno2ekFjWEdpcmJHME4renB5cFFRMDlPa2VDbUNIdW50VUUvelJ1ZTY5UlB5?=
+ =?utf-8?B?NGNOR3RZck9HWEh1YndsVTEzaVNaOURzUFFJVmY4RmRjRmx3ZXNpL2hTNUpq?=
+ =?utf-8?B?MFltV2hJeXNDOVlWaEY5WTBhc2ZPd3dZd0l6UXdreTdNLytsZ2ZxZlRMbzhQ?=
+ =?utf-8?B?UUlCUGVUYktwVzMyOGFwVlJKVlJlN1NKUy9zeFM5cDNvdG5aSUVReWxXVHFm?=
+ =?utf-8?B?a0Y4OFMyUEVmVFQ5Tk0yeDQxeXQvQmFZaFN0U2ZObnRlMXlxNmJZdG12WldI?=
+ =?utf-8?B?aWh6TlNFb0RsNjdlbmVjdVpXK3RTWnhtVTR2YUVLWHE0VFB4aldNS3dYWVBn?=
+ =?utf-8?B?b0J3MlpTVUVzTFFNR3EzL25Ga1B3MzdFZlNoeWRGWTcyZ0N4SS9BSm05SFJV?=
+ =?utf-8?B?YXUrSDNNTHFQbGJEQ2d5TFpKaVIwSVJPeWM2eGY4QlRxaEVXYTNUc0VOSDRO?=
+ =?utf-8?B?Qk02djV0blVQOWJvWENoK21JYVRwUEI0UURKQ3BCTktaNFpxa3FFNDJ5RXU2?=
+ =?utf-8?B?N1VwSVM2MDIxMzhhUE1xSC9wbU1vRTR2YVBRdDc5SGtFYTlRNHhwWUFqZWha?=
+ =?utf-8?B?a21xTU8xaHF5Q0h2UnZ5cDBMN0cyUkpUS1lNYzlkVVJ0MUdiUGpvOFJEUXNv?=
+ =?utf-8?B?dFVKckJMb3ZEeUlxcFNCRk1zeVpSMzdtb01lMERLSHVaWlBoMnBJbDF1aDZR?=
+ =?utf-8?Q?8VYEs3y2DAyj0D4u5q?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 545be6ab-443e-42d1-8b0e-08df1b6ecb54
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:37:58.3051
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d74fe1c-646d-402a-7f4a-08df1b6e707a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A7FE.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6215
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iG06bl6AsetwrGy8rU0jwt7ivW5xr1TeQD552YR9eamAkcxdA76zYOCom8MtghrX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7502
 
-Add power mode support for AIE4 devices via DRM_AMDXDNA_GET_INFO and
-DRM_AMDXDNA_SET_STATE:
-- Add AIE4_MSG_OP_POWER_OVERRIDE mailbox message definitions and
-  aie4_msg_set_power_mode() helper to send power mode commands to firmware.
-- Support DRM_AMDXDNA_GET_POWER_MODE in aie4_get_info() to return the
-  cached device power mode.
-- Implement aie4_set_power_mode() and aie4_set_state() to validate user
-  input, send the override command to firmware, and cache the mode in
-  ndev->pw_mode.
-- Wire .set_aie_state into aie4_vf_ops and aie4_classic_ops.
+On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
+> Rather than referring to VMA flags with uncertain meaning, add a new
+> predicate that explicitly describes what possession of the VMA_PFNMAP_BIT
+> or VMA_MIXEDMAP_BIT flags mean, and then refer to that function for
+> determining VMA mergeability.
+>
+> Either flag means the contents of the mapping are owned by the kernel,
+> usually a driver, rather than by the core mm: the memory may be MMIO,
+> kernel-allocated pages or even ordinary pages the driver maps itself, but
+> the core must not populate, reclaim, migrate, copy-on-write or merge the
+> range on its own initiative.
+>
+> We initially also include VMA_IO_BIT here, as by implication, these must =
+be
+> kernel-owned. (mlock() also sets VMA_IO_BIT transiently on ordinary VMAs
+> while locking them, which is addressed later in this series.)
+>
+> However the intent is to in future remove this, as no mapping should be
+> marked as an I/O mapping without also being marked with VMA_PFNMAP_BIT.
+>
+> This forms the basis of further work intended to improve how we express V=
+MA
+> properties such as this.
+>
+> Also update the VMA userland tests to reflect the change.
+>
+> No functional change intended.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  include/linux/mm.h              | 56 +++++++++++++++++++++++++++++++++++=
++++++-
+>  tools/testing/vma/include/dup.h | 29 ++++++++++++++++++++-
+>  2 files changed, 83 insertions(+), 2 deletions(-)
+>
 
-Co-developed-by: Hayden Laccabue <hayden.laccabue@amd.com>
-Signed-off-by: Hayden Laccabue <hayden.laccabue@amd.com>
-Co-developed-by: Soham Donwalkar <soham.donwalkar@amd.com>
-Signed-off-by: Soham Donwalkar <soham.donwalkar@amd.com>
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
----
- drivers/accel/amdxdna/aie4_message.c  | 14 +++++
- drivers/accel/amdxdna/aie4_msg_priv.h |  9 +++
- drivers/accel/amdxdna/aie4_pci.c      | 88 +++++++++++++++++++++++++++
- drivers/accel/amdxdna/aie4_pci.h      |  3 +
- 4 files changed, 114 insertions(+)
+LGTM.
 
-diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
-index 17cc335f0656..a7025995d0e0 100644
---- a/drivers/accel/amdxdna/aie4_message.c
-+++ b/drivers/accel/amdxdna/aie4_message.c
-@@ -156,3 +156,17 @@ int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev)
- 
- 	return ret;
- }
-+
-+int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode)
-+{
-+	DECLARE_AIE_MSG(aie4_msg_power_override, AIE4_MSG_OP_POWER_OVERRIDE);
-+	int ret;
-+
-+	req.power_mode = power_mode;
-+
-+	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
-index 81842fa1d6ce..4c06792df1bd 100644
---- a/drivers/accel/amdxdna/aie4_msg_priv.h
-+++ b/drivers/accel/amdxdna/aie4_msg_priv.h
-@@ -23,6 +23,7 @@ enum aie4_msg_opcode {
- 	AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
- 	AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
- 	AIE4_MSG_OP_AIE_VERSION_INFO                 = 0x30007,
-+	AIE4_MSG_OP_POWER_OVERRIDE                   = 0x3000B,
- 
- 	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
- };
-@@ -187,6 +188,14 @@ struct aie4_msg_query_cert_firmware_version_resp {
- 	__u16 host_queue_minor;
- } __packed;
- 
-+struct aie4_msg_power_override_req {
-+	__u32 power_mode;
-+} __packed;
-+
-+struct aie4_msg_power_override_resp {
-+	enum aie4_msg_status status;
-+} __packed;
-+
- #define AIE4_WORK_BUFFER_MIN_SIZE      SZ_4M
- 
- struct aie4_msg_attach_work_buffer_req {
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index aea3edd51b4f..3a063d3ffa94 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <drm/amdxdna_accel.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_print.h>
- #include <linux/firmware.h>
-@@ -15,6 +16,7 @@
- #include "amdxdna_mailbox.h"
- #include "amdxdna_mailbox_helper.h"
- #include "amdxdna_pci_drv.h"
-+#include "amdxdna_pm.h"
- 
- #define NO_IOHUB		0
- #define PSP_NOTIFY_INTR		0xD007BE11
-@@ -528,6 +530,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
- 
- 	ndev->priv = xdna->dev_info->dev_priv;
- 	ndev->aie.xdna = xdna;
-+	ndev->pw_mode = POWER_MODE_DEFAULT;
- 	xdna->dev_handle = ndev;
- 
- 	xa_init_flags(&ndev->cert_comp_xa, XA_FLAGS_ALLOC);
-@@ -582,6 +585,24 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
- 	return 0;
- }
- 
-+static int aie4_get_power_mode(struct amdxdna_client *client,
-+			       struct amdxdna_drm_get_info *args)
-+{
-+	struct amdxdna_drm_get_power_mode mode = {};
-+	struct amdxdna_dev *xdna = client->xdna;
-+	struct amdxdna_dev_hdl *ndev;
-+	u32 buf_sz;
-+
-+	ndev = xdna->dev_handle;
-+	mode.power_mode = ndev->pw_mode;
-+
-+	buf_sz = min_t(u32, args->buffer_size, sizeof(mode));
-+	if (copy_to_user(u64_to_user_ptr(args->buffer), &mode, buf_sz))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
- static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
- {
- 	struct amdxdna_dev *xdna = client->xdna;
-@@ -598,6 +619,9 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
- 	case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
- 		ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
- 		break;
-+	case DRM_AMDXDNA_GET_POWER_MODE:
-+		ret = aie4_get_power_mode(client, args);
-+		break;
- 	default:
- 		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
- 		ret = -EOPNOTSUPP;
-@@ -608,6 +632,68 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
- 	return ret;
- }
- 
-+static int aie4_set_power_mode(struct amdxdna_client *client,
-+			       struct amdxdna_drm_set_state *args)
-+{
-+	struct amdxdna_drm_set_power_mode power_state;
-+	struct amdxdna_dev *xdna = client->xdna;
-+	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
-+	u8 power_mode;
-+	int ret;
-+
-+	if (copy_from_user(&power_state, u64_to_user_ptr(args->buffer),
-+			   sizeof(power_state))) {
-+		XDNA_ERR(xdna, "Failed to copy power mode request into kernel");
-+		return -EFAULT;
-+	}
-+
-+	if (XDNA_MBZ_DBG(xdna, power_state.pad, sizeof(power_state.pad)))
-+		return -EINVAL;
-+
-+	power_mode = power_state.power_mode;
-+	if (power_mode > POWER_MODE_TURBO) {
-+		XDNA_ERR(xdna, "Invalid power mode %d", power_mode);
-+		return -EINVAL;
-+	}
-+
-+	ret = aie4_msg_set_power_mode(xdna->dev_handle, power_mode);
-+	if (ret)
-+		return ret;
-+
-+	ndev->pw_mode = power_mode;
-+	return 0;
-+}
-+
-+static int aie4_set_state(struct amdxdna_client *client,
-+			  struct amdxdna_drm_set_state *args)
-+{
-+	struct amdxdna_dev *xdna = client->xdna;
-+	int ret, idx;
-+
-+	if (!drm_dev_enter(&xdna->ddev, &idx))
-+		return -ENODEV;
-+
-+	ret = amdxdna_pm_resume_get_locked(xdna);
-+	if (ret)
-+		goto dev_exit;
-+
-+	switch (args->param) {
-+	case DRM_AMDXDNA_SET_POWER_MODE:
-+		ret = aie4_set_power_mode(client, args);
-+		break;
-+	default:
-+		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
-+		ret = -EOPNOTSUPP;
-+		break;
-+	}
-+
-+	amdxdna_pm_suspend_put(xdna);
-+
-+dev_exit:
-+	drm_dev_exit(idx);
-+	return ret;
-+}
-+
- static int aie4_alloc_work_buffer(struct amdxdna_dev_hdl *ndev)
- {
- 	struct amdxdna_dev *xdna = ndev->aie.xdna;
-@@ -730,6 +816,7 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
- 	.hwctx_fini		= aie4_hwctx_fini,
- 	.cmd_wait		= aie4_cmd_wait,
- 	.get_aie_info		= aie4_get_info,
-+	.set_aie_state		= aie4_set_state,
- };
- 
- const struct amdxdna_dev_ops aie4_classic_ops = {
-@@ -739,4 +826,5 @@ const struct amdxdna_dev_ops aie4_classic_ops = {
- 	.hwctx_fini		= aie4_hwctx_fini,
- 	.cmd_wait		= aie4_cmd_wait,
- 	.get_aie_info		= aie4_get_info,
-+	.set_aie_state		= aie4_set_state,
- };
-diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-index 5ae5e8427a3b..98b637279257 100644
---- a/drivers/accel/amdxdna/aie4_pci.h
-+++ b/drivers/accel/amdxdna/aie4_pci.h
-@@ -58,6 +58,8 @@ struct amdxdna_dev_hdl {
- 	dma_addr_t			work_buf_addr;
- 	u32				work_buf_size;
- 
-+	u8				pw_mode;
-+
- 	struct amdxdna_drm_query_firmware_version cert_version;
- };
- 
-@@ -77,6 +79,7 @@ int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
- 				    struct amdxdna_drm_query_firmware_version *fw_version);
- int aie4_query_cert_firmware_version(struct amdxdna_dev_hdl *ndev,
- 				     struct amdxdna_drm_query_firmware_version *cert_version);
-+int aie4_msg_set_power_mode(struct amdxdna_dev_hdl *ndev, u8 power_mode);
- u32 aie4_msg_pasid(struct amdxdna_client *client);
- 
- /* aie4_ctx.c */
--- 
-2.34.1
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+
+
+--=20
+Best Regards,
+Yan, Zi
 
