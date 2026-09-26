@@ -1,107 +1,139 @@
-Received: from mail-wr2-f30.google.com (mail-wr2-f30.google.com [74.125.225.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A6F37EFF4
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4288547040;
+	Sat, 26 Sep 2026 19:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790450879; cv=none; b=rNfWvYfarql1iTq8nabsSdJPYk9grVXslHolC8iIzUWcfXo8n5OhHPTn9YXyS8tBdjQeUanlNoIqlwYkjRLYdggUIztJfCbnxSJt8B11Tk2NE7D0QB04hTPZbMbvKHNkaSnCZn8hgljKEV4/6ZS2joeJvjJ3wjbBfYIKRrHxrmk=
+	t=1790450953; cv=none; b=fXcXIs6KAUqYLSt4c14g0Dhvt4BZ0wSbrWO7eiAlB4Wwx464oTcjmgOXnwzjKgqiHawunM2cz9fkjZ9yq+UbmCjNoC/fzflYcyM90FFZSvTtWmILk+6xb4PjiWy8LtCd4qbIwXIBzjPo7F8FArLctSQj3ADkYaCu/lJ8C4T9AAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790450879; c=relaxed/simple;
-	bh=YpaQOC1WDkFRpQbpfg74M0L2LJg3c76FI9oNmLLjydY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RWjUgf4JY9TAnPCDagXM3L8/jgSjkr0bX1EnGqOIDfXfinBc6M8cjEQqebwB0BL1sx/RVzQS6jMKrDuYAOJzBYnx0mIoxuN1LxYGWDpZaGPe2arXdoz927EkaJ/BdrHtJpVmcaqdQQyYYLu7U1KBVVJ9M/JzWQO+k9HhYacRemc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gs0ZRnCM; arc=none smtp.client-ip=74.125.225.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1790450953; c=relaxed/simple;
+	bh=a9Hfq/vZFXQnmeh6rVuwkocvTyJgrDUR/bBEUF6+mTI=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=atThh7PLNbSKIZYpsNKHQcs2gjzDqm1Ytdtx/uUNw0PrOZnLzJfs1v2vejUrZ4Bn0i+LwmbGHWIrVyk/GZqgTjdxOjIecUcAddYDBsTP5w3cogcDEjY7xI+PnNOcjG9O6NRLKg4JECIo+Rt2dR5y3BfWOTnHcRw8KS6r7D3pDP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Pkpp+PlB; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=6aB9rlo7; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gs0ZRnCM"
-Received: by mail-wr2-f30.google.com with SMTP id ffacd0b85a97d-48439feca17so1389587f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:27:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1790450875; x=1791055675; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1i/A0Q7vSMnTo4N9O4lpowhPB3CoGwq6o5i8iGE/Bqk=;
-        b=gs0ZRnCMx+XMi2CrOIaYsSBoH3Ba/g2KLA7BRI6Dy3a73c+3HMYEDuAQhsIXCF+pHa
-         aOVAk1dubbbEw22cESk6lOkAbOIkkcTfgGGDhkZkCCqaiCrAdYTxpIK+pWHY7U73TNTS
-         4RMdxpWdH99uVeyCLQTBTL1sAbWl0dR4jrf9Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790450875; x=1791055675;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1i/A0Q7vSMnTo4N9O4lpowhPB3CoGwq6o5i8iGE/Bqk=;
-        b=SyNYi1FqPCYVSg+fzwpDO4hcI32VzfYwiWqmO4LdbZQGeoaxzIy/PuSZTjkt5YPL58
-         OOyhKclz/YSO13z925WQLwVA31UesW2hmAfRowYUiXd4/H6k7JDfki67cWI0XAhIBmNw
-         muvbyfj2JtQDf7a069lFaD1fJo68cARw5YYA0jPDQMQoqj/Y7cTFJILIuhn/lK9LBFUJ
-         57hZ9V68GPGpYUwMonZ0ZeEU3TwjUq86RmzCjLxqiN1Jrb9Q/ACypSYV392zERjRXJsj
-         1T5BdNa4cayPzvRK38HcIs2UOq0taonTaOZ/c+9O7Webv3aAEOJaQZsbsXSep1chsMFt
-         EZ+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzCbZ6TewmwLX4jDSpKUzNEEba0/5u43LrOr1DHFZd/zxm90zYXiEEpV4dtzTglWSQ4tQWFX9w/k0uiX04=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndzsBM6wfA2tY6lR8hC2m0K6zioYPcBHsGhG/VSSrSmCpNeIZS
-	7SFscFIQQf2wQqKm+WofjKfJ9yUmn+oAdnXx/S/iP8l3m4ayeepzfsHlbHc4CaTsvJw=
-X-Gm-Gg: AYBFou0BuvQTagxYlhtouAhx41d8dTQNf7jfTjfk86mZLFKlW73tB4ZQJbVXN5mylLB
-	h7x4Sqh3+KPBD3QJmj36pYgt7+GN1gGhVk8dQ//9uY1mES7TOxVojwBbLf4lSlOWKn6S6PiqaZC
-	q8O4yHk9rOC3DYFCklvWPqZmhXtg+qyVsTY2tOwxFs98wE7KLjeXLzDD/z5/vLri8bclkAF45qx
-	IeDjJGsYNBIbhLC0NcWs7F0CZPBnRq/MFPb6SiQATaHQSSTHj+Zq0ZszydUJFax6OwE5BtZfs+c
-	le4MBobcc6uoz0HhUFCNZhLgYn8q8Kh4+kAd5F9/BS723cE2cPR6sMdihLQ4Daky3K7NpW6V5YF
-	JJMcZeHotVyloMRrrnpgP8IhN7bBIhzG75C/sSmW7QIeue/ykqsiSWKQ7Jj2grX0kDLW8Ir4WED
-	pXZXDQrXmsdU0ePnqoW3md4i9dt4MOC5WqVhAq6j9uoJW8GTDqKIrtLw2Qflg9M6p8eIM/hXLl1
-	jzxz6v+GAXgm4wXxo70E0S2sAGaVB+qV6ELXk0v72Wa0V0lzIl+IHBWGxjyoFmRMUkt
-X-Received: by 2002:a05:600c:83c4:b0:49f:c331:39e4 with SMTP id 5b1f17b1804b1-49fe66ca101mr152199945e9.7.1790450874738;
-        Sat, 26 Sep 2026 12:27:54 -0700 (PDT)
-Received: from [10.188.205.27] (cust-west-par-46-193-1-237.cust.wifirst.net. [46.193.1.237])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff044406dsm179388075e9.1.2026.09.26.12.27.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 26 Sep 2026 12:27:53 -0700 (PDT)
-Message-ID: <d41f6f1b-b317-404d-b1f9-ed6f4170fa26@linuxfoundation.org>
-Date: Sat, 26 Sep 2026 13:27:51 -0600
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Pkpp+PlB";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="6aB9rlo7"
+Date: Sat, 26 Sep 2026 19:29:01 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790450943;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rrzJdPknFlwJsA7qbvWX9L5rvFEJbZGuiLxYKlxzsLU=;
+	b=Pkpp+PlBtnTnF6ZckWsawYB/XN5rOgPaQ7tjzkf5y7bAzueJSmyo7Qm8Yt2pZ5UaQtSI5t
+	BUKL34Vlcz7E8Vc9tu61CNEsgZqPwxkuMJHAD+vbsO6tSuy1jWUtUaB6S2t4FbBDiC3EZf
+	Bd9RPMgw528e82Xx0x/I7NE4wNa2vt3+VAOt9LGnC5ioPlMyjL6YPAqjS22Dbb2yvqnyVN
+	/fHuehnABN0G5KlOEzZJG8CHFDP9LkhFEh1XUqTvGYkiInXA3+lDO28TdhPl4tYU6oUOkv
+	BoYxB7K8ee1ZpIsnRr0x7f7VI0gZCewYiz95wmi9CyFvUic6GDEPJSE98+R3CA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790450943;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rrzJdPknFlwJsA7qbvWX9L5rvFEJbZGuiLxYKlxzsLU=;
+	b=6aB9rlo7BZ/1mtzrdxQDJLhT13ub3IUtWq6fhmSO4zgZLREbXHahMUZfB2JLGcPTuQz0cb
+	X4XU2iRfLRMpU0Ag==
+From: "tip-bot2 for Eric Biggers" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/fpu] x86/fpu: Remove additional remnants of math emulation
+Cc: Eric Biggers <ebiggers@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260926174545.55533-1-ebiggers@kernel.org>
+References: <20260926174545.55533-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests: kselftest: Fix debug message formatting
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- ZhuangZhuang Wang <wzz_123123@163.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260916190423.1892-1-wzz_123123@163.com>
- <dfb3afb2-cec0-42e0-8e5d-25e89f54215b@igalia.com>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <dfb3afb2-cec0-42e0-8e5d-25e89f54215b@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Message-ID: <179045094172.3910103.6652246869256676786.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/22/26 14:06, André Almeida wrote:
-> Em 16/09/2026 16:04, ZhuangZhuang Wang escreveu:
->> ksft_print_dbg_msg() passes a va_list to ksft_print_msg() as a regular
->> variadic argument. As a result, format specifiers consume the va_list
->> representation instead of the caller's arguments and print garbage.
->>
->> Add a va_list-based helper and use it from both message printing
->> functions. Also annotate ksft_print_dbg_msg() so the compiler can check
->> its format arguments.
->>
->> Fixes: f2662ec26b26 ("selftests: kselftest: Create ksft_print_dbg_msg()")
+The following commit has been merged into the x86/fpu branch of tip:
 
-Does it really fix this commit? I don't see that is the case. Please don't
-add fixes tag unless it fixes the problem in the commit.
+Commit-ID:     7606d01b963fc3e4e19dd53ca6c5fdd97f7bc1d7
+Gitweb:        https://git.kernel.org/tip/7606d01b963fc3e4e19dd53ca6c5fdd97f7=
+bc1d7
+Author:        Eric Biggers <ebiggers@kernel.org>
+AuthorDate:    Sat, 26 Sep 2026 10:45:45 -07:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Sat, 26 Sep 2026 12:01:48 -07:00
 
->> Signed-off-by: ZhuangZhuang Wang <wzz_123123@163.com>
-> 
-> Reviewed-by: André Almeida <andrealmeid@igalia.com>
+x86/fpu: Remove additional remnants of math emulation
 
-Also can you tell me how this problem was found and what;s the output
-before and after this change?
+Remove math_emu.h and the declaration of math_emulate().  They are no
+longer used since support for math emulation was removed.
 
-thanks,
--- Shuah
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Link: https://patch.msgid.link/20260926174545.55533-1-ebiggers@kernel.org
+---
+ arch/x86/include/asm/math_emu.h  | 15 ---------------
+ arch/x86/include/asm/processor.h |  2 +-
+ arch/x86/include/asm/traps.h     |  2 --
+ 3 files changed, 1 insertion(+), 18 deletions(-)
+ delete mode 100644 arch/x86/include/asm/math_emu.h
+
+diff --git a/arch/x86/include/asm/math_emu.h b/arch/x86/include/asm/math_emu.h
+deleted file mode 100644
+index 3c42743..0000000
+--- a/arch/x86/include/asm/math_emu.h
++++ /dev/null
+@@ -1,15 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef _ASM_X86_MATH_EMU_H
+-#define _ASM_X86_MATH_EMU_H
+-
+-#include <asm/ptrace.h>
+-
+-/* This structure matches the layout of the data saved to the stack
+-   following a device-not-present interrupt, part of it saved
+-   automatically by the 80386/80486.
+-   */
+-struct math_emu_info {
+-	long ___orig_eip;
+-	struct pt_regs *regs;
+-};
+-#endif /* _ASM_X86_MATH_EMU_H */
+diff --git a/arch/x86/include/asm/processor.h b/arch/x86/include/asm/processo=
+r.h
+index ec9db0d..77488ff 100644
+--- a/arch/x86/include/asm/processor.h
++++ b/arch/x86/include/asm/processor.h
+@@ -10,7 +10,7 @@ struct mm_struct;
+ struct io_bitmap;
+ struct vm86;
+=20
+-#include <asm/math_emu.h>
++#include <asm/ptrace.h>
+ #include <asm/segment.h>
+ #include <asm/types.h>
+ #include <uapi/asm/sigcontext.h>
+diff --git a/arch/x86/include/asm/traps.h b/arch/x86/include/asm/traps.h
+index 3f24cc4..e13f102 100644
+--- a/arch/x86/include/asm/traps.h
++++ b/arch/x86/include/asm/traps.h
+@@ -37,8 +37,6 @@ static inline int get_si_code(unsigned long condition)
+ 		return TRAP_BRKPT;
+ }
+=20
+-void math_emulate(struct math_emu_info *);
+-
+ bool fault_in_kernel_space(unsigned long address);
+=20
+ #ifdef CONFIG_VMAP_STACK
