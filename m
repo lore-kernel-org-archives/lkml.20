@@ -1,227 +1,569 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630E94A0EE6
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46BEB388E7A
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:32:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.27.248.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790454633; cv=none; b=FZfvxO00c939oHi8YwMIz2ZUTQE4ij9pB8E6qqQWOWmcLI6Dhu4OI/4T5HO0Fm1BmZ3j/u+WPr9fuWRdy2tNfNgz1owxK1/8J7y/kmriI/efVCufgVG7tMDwBrtxK2YPxrSepFWm4u0sfMO+1BGoAl99DBshgVTV68lkM3GR8zk=
+	t=1790454749; cv=none; b=o3S0sDFMa+LHkrPaTVZe0FQGRbFnE9OQkBIeLNbM/N3YTEi6akSw/Tt3GQTr0N6Db853+cIcZ3tLddleFc163hJWG5TTdxnONQJhUySZ0drwOhZx4875D8+k5kPosn6znCYZAx9ZV0fYU74AO71MNfk+Qw/rxaIa0+hbbboAcCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790454633; c=relaxed/simple;
-	bh=BLW2WyPLNMwOv1FiQp1Al2W6/NZC3OA99WDZvdfFBbc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YMBrvu+D5rz81xbKdogfSzxZBV5QT8VyXR9aVgb7QYPjIBJDL0rheGjHSW0djuYDeckJhm7IiHkXRjzyEtkFVGM4GfbgurB2Xd3bg+HqKFNBS5Rnfo6tfe5Z0LOexLVwIK36pfxxmmXBumDVLp/o9GFBtzFbITCodWmR16r6z+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GjdSaZ5V; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790454749; c=relaxed/simple;
+	bh=aiMJ9XVb/fAOPJP97f8qgEUMoha2rXmlKGPcHFDFMsw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FkFPcERYGdP35KIHLuOS6fFgKdWfPcRR2TQbIu9FqdIYZHcrqaDqPKd/uZizyOSoiZRFLTvp1as/pRsZP6M60n4rPGZLLSjWuTUnlgKKRhkEakA2C/rdMK6aVsmQemk7115uE5pc/KrvVRGIc5lifKxBvqbA1YklNzLp8AkDbBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=IEAK2QaT; arc=none smtp.client-ip=37.27.248.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GjdSaZ5V"
-Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2df90e859e8so5820445ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:30:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790454632; x=1791059432; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ivo4BNLteKc5XTbiZYpGvrbG6IkjPUiiYjc06iaG2SM=;
-        b=GjdSaZ5VkeDs/Oi5fhPyi+Yun+Zpgr5b7frKsmUGwbAbmAJjIPQzr8YgufJGd5bu6y
-         EiWgXBRKqf/CtKf+kbsJoL/ICsqhiNYSlgsYGF7QkIMao9UTq1fk05rr6aH/8BYS0iOp
-         +VSOXsOt6oMq83BREKWJ4Rpt/OCDqumeTkWNwIOy0pwVoouujnkHFnJzlvRRYoM+GdjX
-         uGf8MxlSocqkN28wHQ8yZz1F95DCWX5GkreWWtnRL930vHncD3DIqhKJTzr+pCw2YMHy
-         WcjN/ivTulmnAv8BqFimeNl/2eh1gr6O/iO4bu4SI+us676Mxiv1lp2/ViqwCaJIGgGc
-         Ji3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790454632; x=1791059432;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ivo4BNLteKc5XTbiZYpGvrbG6IkjPUiiYjc06iaG2SM=;
-        b=lFQ95WRCgJHf0r4RMADlaAUN1cLUjRdWnYWuNdX7Y9KzHlIuShvJ2asvFsh7vLh6wX
-         ANuWjHRUIjz9snwq2Fr6Qr84FAuDVahkS68OYKi3+mNqH/R41dg5XgFnr3J+W2qX0EFH
-         R01XimCgOBqJhJWDuAXlhmH6gp6PgTshpra0aLNKO7iU1mAXMvHqSryzsZvw4R4wl9lo
-         k8zATCRVfsPMWR+8wUIcIrLVdffAxAWRWJDfytRHh5J1nHGK+AsR6CweVGALUI0Ske/q
-         v2xZuMd4Ka2bDZG+bmUjjbAh0R3ZOi/yjhu+TCvO9Pqw2JceQvNy9urSmQJR1jcxzM+m
-         ktPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxlV9lRTScJmqXeiMMvhj12uZz8Qs5YPQbxt/r9V4zcWWb+ww8549N/20xPuI2CUNJvyG0IgVfQDrhZ+CA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjoJT9jptinhQQyNsF2fI9BMa85kmymIqy49T4yPJCOGeYpYcd
-	32AhYSx1bXylDDjYDIg8lWkc/JLFar2gW9PEm8kIozemWy51HdskwC2J
-X-Gm-Gg: AYBFou2Zpg31fhuDziHC6hRUYv97jQ2AvhLjD6lNitlYerfrwKNoeXtQoJAseIN7pHs
-	yMxvfQkidhxRTqHrmQ0xiQjdqzN7ogjTIiIg5c/XKzx3Ttl4Tyd4aeDneOFlhfRl8AoVLidsnvJ
-	J0o7zM3V06OMRfINJdKTAAxX+r9da1scGOTyTFdDuNjzTepxybkduWgfUVAO9vyfkPnYqtdmiJ8
-	r15pKeQ1h+lQkGTQXzZLE6Y5HxPLbPszoa5ockI25FREVRyHDe02ke6pgavbcLlIEHFQvm1x3mx
-	Um6KaLx1F6A7TS1PmIpHuXnMhTmEvtkENiPRN+dXJZMHpezje9xPxYwpXaVnpUFamY1i+k2qNwL
-	xpmcF+7UIHRN3efsB1idbB5lZAYr4EOFidxpf36VJ7VvK3w08O419K+9cUfe6YW0BTpmDOWepUa
-	7V0L3Sf0QAEjGi8Eyipb3RsJ2l0PCnQF+EvUicJuTNMXRcXDoxEh2Y8lREsRK6GVMXBvqi0HBb8
-	MZQbbnMhUq0OEZQgPwDh50C
-X-Received: by 2002:a17:903:3202:b0:2df:69d4:86bf with SMTP id d9443c01a7336-2df7dff3106mr53438245ad.11.1790454631596;
-        Sat, 26 Sep 2026 13:30:31 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:76c0:d30::4d0:61])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913e1b6csm23762475ad.29.2026.09.26.13.30.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 13:30:31 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: dsa: motorcomm: Fix register rollback in LED setup
-Date: Sun, 27 Sep 2026 04:29:53 +0800
-Message-ID: <20260926202955.905761-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="IEAK2QaT"
+Received: from relay10 (localhost.localdomain [127.0.0.1])
+	by relay10.grserver.gr (Proxmox) with ESMTP id 7B19442BC5
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:32:25 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay10.grserver.gr (Proxmox) with ESMTPS id 3F7893F9A0
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:32:24 +0300 (EEST)
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 737681FF2E1
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:32:23 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1790454743;
+	bh=gi5IaO//agjFluDDPGgEQedzafbz2TDUY5ZwA983V9w=;
+	h=Received:From:Subject:To;
+	b=IEAK2QaT+2PLbupZhIF9iJXOH14kAd+o2YKIdsCU10G/u68GOeQTTfKYP1UMgOAwK
+	 52RD5bR5MM35qhxDi9yy9qJE+WNAGTsEf9QlkpUwOt6WLG+8BkkajYysQ8J1gtvnZe
+	 +sCxwfTp5XjRmOsebUMVcSc6Tt1l9bRkQ/xiQ7Mc3/cejrKFmHbfOPpEKBoJyZ494C
+	 BXsCcVtEG61SFJw2EtjziGiUi/4iSlIpEqrEdWj/EPQCOWoCGEuF5tGsdF7QGEQs5+
+	 LaEn3gEQlN5Zkarodwc8ZwO6l8rpRKNfci8IMBJk/ccyCSuz5o8RMJfPswcc/6s34M
+	 hn3mNtoyFmjyw==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 74.125.227.141) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pj2-f13.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pj2-f13.google.com with SMTP id
+ d9443c01a7336-2dd88a115ebso10315395ad.2
+        for <linux-kernel@vger.kernel.org>;
+ Sat, 26 Sep 2026 13:32:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzT6eRwcUGG9gMWZotidiR7wz08baPlkH+cRufI5tcx0qZGKA3eeMN6qZE9RpgLyrHHgrfgYHPUYX7+Jt8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIl4T0BUoG5kj7vc0SxQu4XcVyGymah5427KBWXVwpGvVX2I6su
+	NqBwNowQWmM3Hqq1TthySbkfD+McMrmCnMi9hK4W+MRcgeG+n9b2gP/CdkmOt2SBjbuA/pDpSlw
+	hp1vbv/6mQ8HFWor3m5/mqEj6YhG02hk=
+X-Received: by 2002:a17:903:8c5:b0:2df:a0f0:6625 with SMTP id
+ d9443c01a7336-2dfa0f06cf3mr27418185ad.17.1790454742029; Sat, 26 Sep 2026
+ 13:32:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260926-gpd-fan-duo-auto-v2-0-0a2ea41ee3b5@pm.me>
+ <20260926-gpd-fan-duo-auto-v2-2-0a2ea41ee3b5@pm.me>
+In-Reply-To: <20260926-gpd-fan-duo-auto-v2-2-0a2ea41ee3b5@pm.me>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Sat, 26 Sep 2026 22:32:10 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwG51ZAWEbhmwAfbU1RNu2QCJ-cnQhXcuKQb8e7bWKVeDQ@mail.gmail.com>
+X-Gm-Features: AclHuK8q0fQxCqk1qcnBSwPLyStF_AWG-RRmHH1uGcw9vIsjPOLIKoaYK-sljEk
+Message-ID: 
+ <CAGwozwG51ZAWEbhmwAfbU1RNu2QCJ-cnQhXcuKQb8e7bWKVeDQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] hwmon: (gpd-fan) Register both fans on the GPD Win
+ 5
+To: alexei.solcanu@pm.me
+Cc: Guenter Roeck <linux@roeck-us.net>,
+ Cryolitia PukNgae <cryolitia@uniontech.com>,
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <179045474378.550025.13698639242035381597@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-The LED error path writes back a stale snapshot of the whole words taken
-before the class device registration, silently reverting LED2/INV state
-of sibling LED groups already registered and reachable from sysfs.
-Although the odd is very small, fix it by reverting this group's fields
-only for correctness.
+On Sat, 26 Sept 2026 at 22:12, Alexei Solcanu via B4 Relay
+<devnull+alexei.solcanu.pm.me@kernel.org> wrote:
+>
+> From: Alexei Solcanu <alexei.solcanu@pm.me>
+>
+> The GPD Win 5 uses gpd_duo_drvdata, which exposes a single fan and pwm
+> channel: pwm1 writes the same duty cycle to both fans, and fan1_input
+> only reads the first fan's RPM.
+>
+> The two fans have independent registers. Fan 1 uses duty cycle 0x047A
+> and RPM 0x0478/0x0479, fan 2 uses duty cycle 0x047B and RPM
+> 0x0476/0x0477. A duty cycle of 0 returns that fan to EC control.
+>
+> Add separate board data for the Win 5 and register fan1/pwm1 and
+> fan2/pwm2, one channel per fan. Boards with a single fan are unchanged.
+>
+> This changes behaviour on the Win 5: pwm1 and pwm1_enable now control
+> only the first fan. The second fan stays under EC control unless pwm2
+> and pwm2_enable are used.
+>
+> The GPD Duo keeps a single channel, since it is untested and its
+> second fan's RPM register is unknown.
+>
+> Tested on a GPD Win 5 (G1618-05).
+>
+> Suggested-by: Guenter Roeck <linux@roeck-us.net>
+> Assisted-by: LLM
+> Signed-off-by: Alexei Solcanu <alexei.solcanu@pm.me>
+> ---
+>  Documentation/hwmon/gpd-fan.rst |  14 ++--
+>  drivers/hwmon/gpd-fan.c         | 146 +++++++++++++++++++++++++++-------------
+>  2 files changed, 107 insertions(+), 53 deletions(-)
+>
+> diff --git a/Documentation/hwmon/gpd-fan.rst b/Documentation/hwmon/gpd-fan.rst
+> index b27657d3305..6c8569c5f64 100644
+> --- a/Documentation/hwmon/gpd-fan.rst
+> +++ b/Documentation/hwmon/gpd-fan.rst
+> @@ -28,6 +28,7 @@ Currently the driver supports the following handhelds:
+>   - GPD Win Max 2 2025 (HX370)
+>   - GPD Win 4 (6800U)
+>   - GPD Win 4 (7840U)
+> + - GPD Win 5
+>   - GPD Micro PC 2
+>
+>  Module parameters
+> @@ -59,23 +60,26 @@ Sysfs entries
+>
+>  The following attributes are supported:
+>
+> -fan1_input
+> +fan[1-2]_input
+>    Read Only. Reads current fan RPM.
+>
+> -pwm1_enable
+> +pwm[1-2]_enable
+>    Read/Write. Enable manual fan control. Write "0" to disable control and run
+>    at full speed. Write "1" to set to manual, write "2" to let the EC control
+>    decide fan speed. Read this attribute to see current status.
+>
+>    NB: In consideration of the safety of the device, when setting to manual mode,
+>    the pwm speed will be set to the maximum value (255) by default. You can set
+> -  a different value by writing pwm1 later.
+> +  a different value by writing pwm[1-2] later.
+>
+> -pwm1
+> +pwm[1-2]
+>    Read/Write. Read this attribute to see current duty cycle in the range
+> -  [0-255]. When pwm1_enable is set to "1" (manual) write any value in the
+> +  [0-255]. When pwm[1-2]_enable is set to "1" (manual) write any value in the
+>    range [0-255] to set fan speed.
+>
+>    NB: Many boards (except listed under wm2 above) don't support reading the
+>    current pwm value in auto mode. That will just return EOPNOTSUPP. In manual
+>    mode it will always return the real value.
+> +
+> +fan2_input, pwm2_enable and pwm2 only exist on devices with two fans
+> +(GPD Win 5).
+> diff --git a/drivers/hwmon/gpd-fan.c b/drivers/hwmon/gpd-fan.c
+> index b3b75f99f58..e03b0dde66f 100644
+> --- a/drivers/hwmon/gpd-fan.c
+> +++ b/drivers/hwmon/gpd-fan.c
+> @@ -31,6 +31,7 @@ enum gpd_board {
+>         win4_6800u,
+>         win_max_2,
+>         duo,
+> +       win5,
+>         mpc2,
+>  };
+>
+> @@ -40,9 +41,11 @@ enum FAN_PWM_ENABLE {
+>         AUTOMATIC       = 2,
+>  };
+>
+> +#define GPD_MAX_FANS   2
+> +
+>  struct gpd_fan_data {
+> -       enum FAN_PWM_ENABLE pwm_enable;
+> -       u8 pwm_value;
+> +       enum FAN_PWM_ENABLE pwm_enable[GPD_MAX_FANS];
+> +       u8 pwm_value[GPD_MAX_FANS];
+>         const struct gpd_fan_drvdata *drvdata;
+>  };
+>
+> @@ -55,6 +58,8 @@ struct gpd_fan_drvdata {
+>         const u16 manual_control_enable;
+>         const u16 rpm_read;
+>         const u16 pwm_write;
+> +       const u16 rpm2_read; // Second fan, 0 if there is none
+> +       const u16 pwm2_write;
+>         const u16 pwm_max;
+>  };
+>
+> @@ -82,6 +87,20 @@ static struct gpd_fan_drvdata gpd_duo_drvdata = {
+>         .pwm_max                = 244,
+>  };
+>
+> +static struct gpd_fan_drvdata gpd_win5_drvdata = {
+> +       .board_name             = "win5",
+> +       .board                  = win5,
+> +
+> +       .addr_port              = 0x4E,
+> +       .data_port              = 0x4F,
+> +       .manual_control_enable  = 0x047A,
+> +       .rpm_read               = 0x0478,
+> +       .pwm_write              = 0x047A,
+> +       .rpm2_read              = 0x0476,
+> +       .pwm2_write             = 0x047B,
+> +       .pwm_max                = 244,
+> +};
+> +
+>  static struct gpd_fan_drvdata gpd_win4_drvdata = {
+>         .board_name             = "win4",
+>         .board                  = win4_6800u,
+> @@ -214,7 +233,7 @@ static const struct dmi_system_id dmi_table[] = {
+>                         DMI_MATCH(DMI_SYS_VENDOR, "GPD"),
+>                         DMI_MATCH(DMI_PRODUCT_NAME, "G1618-05"),
+>                 },
+> -               .driver_data = &gpd_duo_drvdata,
+> +               .driver_data = &gpd_win5_drvdata,
+>         },
+>         {
+>                 // GPD Pocket 4
+> @@ -290,13 +309,29 @@ static void gpd_ecram_write(const struct gpd_fan_drvdata *drvdata, u16 offset, u
+>         outb(value, data_port);
+>  }
+>
+> -static int gpd_generic_read_rpm(struct gpd_fan_data *data)
+> +static int gpd_num_fans(const struct gpd_fan_drvdata *drvdata)
+> +{
+> +       return drvdata->pwm2_write ? 2 : 1;
+> +}
+> +
+> +static u16 gpd_rpm_reg(const struct gpd_fan_drvdata *drvdata, int channel)
+> +{
+> +       return channel ? drvdata->rpm2_read : drvdata->rpm_read;
+> +}
+> +
+> +static u16 gpd_pwm_reg(const struct gpd_fan_drvdata *drvdata, int channel)
+> +{
+> +       return channel ? drvdata->pwm2_write : drvdata->pwm_write;
+> +}
 
-Fixes: 9af9a8168213 ("net: dsa: motorcomm: Add LED support")
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
- drivers/net/dsa/motorcomm/leds.c | 69 +++++++++++++++++++-------------
- 1 file changed, 42 insertions(+), 27 deletions(-)
+in my view adding all these functions is unneeded complexity. There
+should be some simpler ternary way.
 
-diff --git a/drivers/net/dsa/motorcomm/leds.c b/drivers/net/dsa/motorcomm/leds.c
-index 6613fe3b0471..c97b560299d6 100644
---- a/drivers/net/dsa/motorcomm/leds.c
-+++ b/drivers/net/dsa/motorcomm/leds.c
-@@ -420,13 +420,15 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 	char name[LED_MAX_NAME_SIZE];
- 	enum led_default_state state;
- 	struct yt921x_led *led;
-+	int polarity_orig;
- 	bool force_high;
- 	bool force_low;
--	u32 led2_val;
--	u32 inv_val;
-+	u32 led2_orig;
-+	int polarity;
- 	u32 group;
- 	u32 mask;
- 	u32 ctrl;
-+	u32 val;
- 	bool on;
- 	int res;
- 	int ret;
-@@ -452,6 +454,7 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 			port, group);
- 		return -EINVAL;
- 	}
-+	polarity = force_high ? 1 : force_low ? -1 : 0;
- 
- 	led = devm_kzalloc(dev, sizeof(*led), GFP_KERNEL);
- 	if (!led) {
-@@ -470,23 +473,27 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 	/* Inversion is internal - force on will give low logic.
- 	 * In the rest of the file, treat LEDs as if active-low.
- 	 */
--	inv_val = U32_MAX;
--	if (force_high || force_low) {
--		res = yt921x_reg_read(priv, YT921X_LED_PAR_INV, &inv_val);
-+	polarity_orig = 0;
-+	if (polarity) {
-+		res = yt921x_reg_read(priv, YT921X_LED_PAR_INV, &val);
- 		if (res)
--			goto revoke_inv;
-+			goto err_inv;
- 
- 		mask = YT921X_LED_PAR_INV_INVnm(group, port);
--		ctrl = force_high ? inv_val | mask : inv_val & ~mask;
--		res = yt921x_reg_write(priv, YT921X_LED_PAR_INV, ctrl);
--		if (res)
--			goto revoke_inv;
-+		ctrl = polarity > 0 ? val | mask : val & ~mask;
-+		if (ctrl != val) {
-+			res = yt921x_reg_write(priv, YT921X_LED_PAR_INV, ctrl);
-+			if (res)
-+				goto err_inv;
-+
-+			polarity_orig = -polarity;
-+		}
- 	}
- 
--	led2_val = U32_MAX;
--	res = yt921x_reg_read(priv, YT921X_LED2_PORTn(port), &led2_val);
-+	led2_orig = U32_MAX;
-+	res = yt921x_reg_read(priv, YT921X_LED2_PORTn(port), &val);
- 	if (res)
--		goto revoke_led2;
-+		goto err_led2;
- 	mask = YT921X_LED2_PORT_FORCEn_M(group);
- 
- 	switch (state) {
-@@ -494,16 +501,20 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 	case LEDS_DEFSTATE_ON:
- 	default:
- 		on = state == LEDS_DEFSTATE_ON;
--		ctrl = on ? YT921X_LED2_PORT_FORCEn_ON(group) :
--		       YT921X_LED2_PORT_FORCEn_OFF(group);
--		res = yt921x_reg_write(priv, YT921X_LED2_PORTn(port),
--				       (led2_val & ~mask) | ctrl);
--		if (res)
--			goto revoke_led2;
-+		ctrl = (val & ~mask) |
-+		       (on ? YT921X_LED2_PORT_FORCEn_ON(group) :
-+			YT921X_LED2_PORT_FORCEn_OFF(group));
-+		if (ctrl != val) {
-+			res = yt921x_reg_write(priv, YT921X_LED2_PORTn(port),
-+					       ctrl);
-+			if (res)
-+				goto err_led2;
-+
-+			led2_orig = val & mask;
-+		}
- 		break;
- 	case LEDS_DEFSTATE_KEEP:
--		on = (led2_val & mask) == YT921X_LED2_PORT_FORCEn_ON(group);
--		led2_val = U32_MAX;
-+		on = (val & mask) == YT921X_LED2_PORT_FORCEn_ON(group);
- 		break;
- 	}
- 
-@@ -539,22 +550,26 @@ yt921x_led_setup(struct yt921x_priv *priv, int port,
- 
- revoke:
- 	mutex_lock(&priv->reg_lock);
--revoke_led2:
--	if (led2_val != U32_MAX) {
--		ret = yt921x_reg_write(priv, YT921X_LED2_PORTn(port), led2_val);
-+	if (led2_orig != U32_MAX) {
-+		ret = yt921x_reg_update_bits(priv, YT921X_LED2_PORTn(port),
-+					     YT921X_LED2_PORT_FORCEn_M(group),
-+					     led2_orig);
- 		if (ret)
- 			dev_err(dev,
- 				"Failed to restore %s for LED %02d:%02u: %d\n",
- 				"LED2_PORT", port, group, ret);
- 	}
--revoke_inv:
--	if (inv_val != U32_MAX) {
--		ret = yt921x_reg_write(priv, YT921X_LED_PAR_INV, inv_val);
-+err_led2:
-+	if (polarity_orig) {
-+		ret = yt921x_reg_toggle_bits(priv, YT921X_LED_PAR_INV,
-+					     YT921X_LED_PAR_INV_INVnm(group, port),
-+					     polarity_orig > 0);
- 		if (ret)
- 			dev_err(dev,
- 				"Failed to restore %s for LED %02d:%02u: %d\n",
- 				"LED_PAR_INV", port, group, ret);
- 	}
-+err_inv:
- 	mutex_unlock(&priv->reg_lock);
- 
- 	pp->leds[group] = NULL;
--- 
-2.53.0
+> +
+> +static int gpd_generic_read_rpm(struct gpd_fan_data *data, int channel)
+>  {
+>         const struct gpd_fan_drvdata *drvdata = data->drvdata;
+> +       u16 reg = gpd_rpm_reg(drvdata, channel);
+>         u8 high, low;
+>
+> -       gpd_ecram_read(drvdata, drvdata->rpm_read, &high);
+> -       gpd_ecram_read(drvdata, drvdata->rpm_read + 1, &low);
+> +       gpd_ecram_read(drvdata, reg, &high);
+> +       gpd_ecram_read(drvdata, reg + 1, &low);
+>
+>         return (u16)high << 8 | low;
+>  }
+> @@ -315,18 +350,19 @@ static int gpd_wm2_read_rpm(struct gpd_fan_data *data)
+>                         gpd_ecram_write(drvdata, pwm_ctr_offset, 0xB8);
+>         }
+>
+> -       return gpd_generic_read_rpm(data);
+> +       return gpd_generic_read_rpm(data, 0);
+>  }
+>
+> -// Read value for fan1_input
+> -static int gpd_read_rpm(struct gpd_fan_data *data)
+> +// Read value for fanN_input
+> +static int gpd_read_rpm(struct gpd_fan_data *data, int channel)
+>  {
+>         switch (data->drvdata->board) {
+>         case win4_6800u:
+>         case win_mini:
+>         case duo:
+> +       case win5:
+>         case mpc2:
+> -               return gpd_generic_read_rpm(data);
+> +               return gpd_generic_read_rpm(data, channel);
+>         case win_max_2:
+>                 return gpd_wm2_read_rpm(data);
+>         }
+> @@ -349,19 +385,20 @@ static int gpd_wm2_read_pwm(struct gpd_fan_data *data)
+>         return DIV_ROUND_CLOSEST((var - 1) * 255, (drvdata->pwm_max - 1));
+>  }
+>
+> -// Read value for pwm1
+> -static int gpd_read_pwm(struct gpd_fan_data *data)
+> +// Read value for pwmN
+> +static int gpd_read_pwm(struct gpd_fan_data *data, int channel)
+>  {
+>         switch (data->drvdata->board) {
+>         case win_mini:
+>         case duo:
+> +       case win5:
+>         case win4_6800u:
+>         case mpc2:
+> -               switch (data->pwm_enable) {
+> +               switch (data->pwm_enable[channel]) {
+>                 case DISABLE:
+>                         return 255;
+>                 case MANUAL:
+> -                       return data->pwm_value;
+> +                       return data->pwm_value[channel];
+>                 case AUTOMATIC:
+>                         return -EOPNOTSUPP;
+>                 }
+> @@ -378,13 +415,13 @@ static inline u8 gpd_cast_pwm_range(const struct gpd_fan_drvdata *drvdata, u8 va
+>         return DIV_ROUND_CLOSEST(val * (drvdata->pwm_max - 1), 255) + 1;
+>  }
+>
+> -static void gpd_generic_write_pwm(struct gpd_fan_data *data, u8 val)
+> +static void gpd_generic_write_pwm(struct gpd_fan_data *data, int channel, u8 val)
+>  {
+>         const struct gpd_fan_drvdata *drvdata = data->drvdata;
+>         u8 pwm_reg;
+>
+>         pwm_reg = gpd_cast_pwm_range(drvdata, val);
+> -       gpd_ecram_write(drvdata, drvdata->pwm_write, pwm_reg);
+> +       gpd_ecram_write(drvdata, gpd_pwm_reg(drvdata, channel), pwm_reg);
+>  }
+>
+>  static void gpd_duo_write_pwm(struct gpd_fan_data *data, u8 val)
+> @@ -397,10 +434,10 @@ static void gpd_duo_write_pwm(struct gpd_fan_data *data, u8 val)
+>         gpd_ecram_write(drvdata, drvdata->pwm_write + 1, pwm_reg);
+>  }
+>
+> -// Write value for pwm1
+> -static int gpd_write_pwm(struct gpd_fan_data *data, u8 val)
+> +// Write value for pwmN
+> +static int gpd_write_pwm(struct gpd_fan_data *data, int channel, u8 val)
+>  {
+> -       if (data->pwm_enable != MANUAL)
+> +       if (data->pwm_enable[channel] != MANUAL)
+>                 return -EPERM;
+>
+>         switch (data->drvdata->board) {
+> @@ -410,25 +447,27 @@ static int gpd_write_pwm(struct gpd_fan_data *data, u8 val)
+>         case win_mini:
+>         case win4_6800u:
+>         case win_max_2:
+> +       case win5:
+>         case mpc2:
+> -               gpd_generic_write_pwm(data, val);
+> +               gpd_generic_write_pwm(data, channel, val);
+>                 break;
+>         }
+>
+>         return 0;
+>  }
+>
+> -static void gpd_win_mini_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABLE pwm_enable)
+> +static void gpd_win_mini_set_pwm_enable(struct gpd_fan_data *data, int channel,
+> +                                       enum FAN_PWM_ENABLE pwm_enable)
+>  {
+>         switch (pwm_enable) {
+>         case DISABLE:
+> -               gpd_generic_write_pwm(data, 255);
+> +               gpd_generic_write_pwm(data, channel, 255);
+>                 break;
+>         case MANUAL:
+> -               gpd_generic_write_pwm(data, data->pwm_value);
+> +               gpd_generic_write_pwm(data, channel, data->pwm_value[channel]);
+>                 break;
+>         case AUTOMATIC:
+> -               gpd_ecram_write(data->drvdata, data->drvdata->pwm_write, 0);
+> +               gpd_ecram_write(data->drvdata, gpd_pwm_reg(data->drvdata, channel), 0);
+>                 break;
+>         }
+>  }
+> @@ -440,7 +479,7 @@ static void gpd_duo_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABL
+>                 gpd_duo_write_pwm(data, 255);
+>                 break;
+>         case MANUAL:
+> -               gpd_duo_write_pwm(data, data->pwm_value);
+> +               gpd_duo_write_pwm(data, data->pwm_value[0]);
+>                 break;
+>         case AUTOMATIC:
+>                 gpd_ecram_write(data->drvdata, data->drvdata->pwm_write, 0);
+> @@ -455,11 +494,11 @@ static void gpd_wm2_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABL
+>
+>         switch (enable) {
+>         case DISABLE:
+> -               gpd_generic_write_pwm(data, 255);
+> +               gpd_generic_write_pwm(data, 0, 255);
+>                 gpd_ecram_write(drvdata, drvdata->manual_control_enable, 1);
+>                 break;
+>         case MANUAL:
+> -               gpd_generic_write_pwm(data, data->pwm_value);
+> +               gpd_generic_write_pwm(data, 0, data->pwm_value[0]);
+>                 gpd_ecram_write(drvdata, drvdata->manual_control_enable, 1);
+>                 break;
+>         case AUTOMATIC:
+> @@ -468,19 +507,20 @@ static void gpd_wm2_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABL
+>         }
+>  }
+>
+> -// Write value for pwm1_enable
+> -static void gpd_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABLE enable)
+> +// Write value for pwmN_enable
+> +static void gpd_set_pwm_enable(struct gpd_fan_data *data, int channel, enum FAN_PWM_ENABLE enable)
+>  {
+>         if (enable == MANUAL)
+>                 // Set pwm_value to max firstly when switching to manual mode, in
+>                 // consideration of device safety.
+> -               data->pwm_value = 255;
+> +               data->pwm_value[channel] = 255;
+>
+>         switch (data->drvdata->board) {
+>         case win_mini:
+>         case win4_6800u:
+> +       case win5:
+>         case mpc2:
+> -               gpd_win_mini_set_pwm_enable(data, enable);
+> +               gpd_win_mini_set_pwm_enable(data, channel, enable);
+>                 break;
+>         case duo:
+>                 gpd_duo_set_pwm_enable(data, enable);
+> @@ -491,10 +531,15 @@ static void gpd_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABLE en
+>         }
+>  }
+>
+> -static umode_t gpd_fan_hwmon_is_visible(__always_unused const void *drvdata,
+> +static umode_t gpd_fan_hwmon_is_visible(const void *hwmon_data,
+>                                         enum hwmon_sensor_types type, u32 attr,
+> -                                       __always_unused int channel)
+> +                                       int channel)
+>  {
+> +       const struct gpd_fan_data *data = hwmon_data;
+> +
+> +       if (channel >= gpd_num_fans(data->drvdata))
+> +               return 0;
+> +
+>         if (type == hwmon_fan && attr == hwmon_fan_input) {
+>                 return 0444;
+>         } else if (type == hwmon_pwm) {
+> @@ -511,14 +556,14 @@ static umode_t gpd_fan_hwmon_is_visible(__always_unused const void *drvdata,
+>
+>  static int gpd_fan_hwmon_read(struct device *dev,
+>                               enum hwmon_sensor_types type, u32 attr,
+> -                             __always_unused int channel, long *val)
+> +                             int channel, long *val)
+>  {
+>         struct gpd_fan_data *data = dev_get_drvdata(dev);
+>         int ret;
+>
+>         if (type == hwmon_fan) {
+>                 if (attr == hwmon_fan_input) {
+> -                       ret = gpd_read_rpm(data);
+> +                       ret = gpd_read_rpm(data, channel);
+>
+>                         if (ret < 0)
+>                                 return ret;
+> @@ -529,10 +574,10 @@ static int gpd_fan_hwmon_read(struct device *dev,
+>         } else if (type == hwmon_pwm) {
+>                 switch (attr) {
+>                 case hwmon_pwm_enable:
+> -                       *val = data->pwm_enable;
+> +                       *val = data->pwm_enable[channel];
+>                         return 0;
+>                 case hwmon_pwm_input:
+> -                       ret = gpd_read_pwm(data);
+> +                       ret = gpd_read_pwm(data, channel);
+>
+>                         if (ret < 0)
+>                                 return ret;
+> @@ -547,7 +592,7 @@ static int gpd_fan_hwmon_read(struct device *dev,
+>
+>  static int gpd_fan_hwmon_write(struct device *dev,
+>                                enum hwmon_sensor_types type, u32 attr,
+> -                              __always_unused int channel, long val)
+> +                              int channel, long val)
+>  {
+>         struct gpd_fan_data *data = dev_get_drvdata(dev);
+>
+> @@ -557,17 +602,17 @@ static int gpd_fan_hwmon_write(struct device *dev,
+>                         if (!in_range(val, 0, 3))
+>                                 return -EINVAL;
+>
+> -                       data->pwm_enable = val;
+> +                       data->pwm_enable[channel] = val;
+>
+> -                       gpd_set_pwm_enable(data, data->pwm_enable);
+> +                       gpd_set_pwm_enable(data, channel, data->pwm_enable[channel]);
+>                         return 0;
+>                 case hwmon_pwm_input:
+>                         if (!in_range(val, 0, 256))
+>                                 return -EINVAL;
+>
+> -                       data->pwm_value = val;
+> +                       data->pwm_value[channel] = val;
+>
+> -                       return gpd_write_pwm(data, val);
+> +                       return gpd_write_pwm(data, channel, val);
+>                 }
+>         }
+>
+> @@ -581,8 +626,9 @@ static const struct hwmon_ops gpd_fan_ops = {
+>  };
+>
+>  static const struct hwmon_channel_info *gpd_fan_hwmon_channel_info[] = {
+> -       HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT),
+> -       HWMON_CHANNEL_INFO(pwm, HWMON_PWM_INPUT | HWMON_PWM_ENABLE),
+> +       HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT, HWMON_F_INPUT),
+> +       HWMON_CHANNEL_INFO(pwm, HWMON_PWM_INPUT | HWMON_PWM_ENABLE,
+> +                          HWMON_PWM_INPUT | HWMON_PWM_ENABLE),
+
+Are you sure the correct number of fans are populated for each device
+because of the visible entry? If yes, it is fine for this hunk. If no,
+needs dynamic population for the struct in probe.
+
+You also add a board match for win5, but doesnt the duo have two fans?
+I think we had this discussion last year and I said two fans more
+complexity lets leave it. But if we do it properly this time lets do
+it properly.
+
+Verify which duo-like devices implement two fans, it should be all of
+them. I think Cryolitia has a Duo. Win Max 3 according to my GPD
+contact has a duo layout. Unfortunately, I have no users so no DMI. So
+it is at least Duo, Win Max 3, and Win5. Then make it so only these 3
+devices (which should need no separation) report two fans and two fan
+speeds throughout the driver.
+
+Best,
+Antheas
+
+>         NULL
+>  };
+>
+> @@ -619,8 +665,10 @@ static void gpd_fan_reset_hardware(void *pdata)
+>         struct gpd_fan_data *data = pdata;
+>
+>         if (data) {
+> -               data->pwm_enable = AUTOMATIC;
+> -               gpd_set_pwm_enable(data, AUTOMATIC);
+> +               for (int i = 0; i < gpd_num_fans(data->drvdata); i++) {
+> +                       data->pwm_enable[i] = AUTOMATIC;
+> +                       gpd_set_pwm_enable(data, i, AUTOMATIC);
+> +               }
+>         }
+>  }
+>
+> @@ -654,8 +702,10 @@ static int gpd_fan_probe(struct platform_device *pdev)
+>                 return -EINVAL;
+>
+>         data->drvdata = match;
+> -       data->pwm_enable = AUTOMATIC;
+> -       data->pwm_value = 255;
+> +       for (int i = 0; i < gpd_num_fans(match); i++) {
+> +               data->pwm_enable[i] = AUTOMATIC;
+> +               data->pwm_value[i] = 255;
+> +       }
+>
+>         dev_set_drvdata(dev, data);
+>
+>
+> --
+> 2.55.0
+>
+>
+>
 
