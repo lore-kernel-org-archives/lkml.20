@@ -1,132 +1,123 @@
-Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07B13822B5
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:25:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C794E1E32D6;
+	Sat, 26 Sep 2026 16:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790439955; cv=none; b=tt25m3JfEriqE1dUyfVLnwxda5Z2MN9kXe6zOULXuFfYSLCkKJhGlfQpYHqiajH276tpkge6CxE2n/lOVEdA6Dh/6B43RcMSZ5uHb1lMBf2ia4SgvzyL+Z9iv2eh0/nR6MHTZDzMbt+aES34jbVmo/FPqdlW0++kd/b+W7gXXto=
+	t=1790439989; cv=none; b=rXAQwmadz04Z2+2tdDNKmIfTWOlCDeptnlatrCUsdbFPSWHdMMRtTBN0fASCoZ9ZoCWupd/6s6afbChtHf6bZZkPJGMWLxQ4p8Iu2NoomsAhxBonSogTkb9wiY73IpWp5krpZFzc4nuI80Yn0+LUj7BK6aQJ3HACaquGEVVv+W8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790439955; c=relaxed/simple;
-	bh=hC+N0t/XXQablxn2mLCeSBru4fY1Cub75WKCNTcFHh4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QZmlXS662PVzu/NKp21YW6pQly2SFdziaXyhqV6CqmFktmgHRSfYmmhXAtOid7vPPJ47f6tIEdXhkKgDjKV9ArnNDH//2euPJeRrnhF2FMDHkLEti/f74LBeVM16Hag/Abks27DDAyfuW9+L5jZEGzaYEG3ntkVY/74RUyt7Ftk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o7mDHNiT; arc=none smtp.client-ip=74.125.230.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790439989; c=relaxed/simple;
+	bh=UQCOfWJzxARhie6nlXxoC8sa6BBw+T/hyGMnDQ4xNJs=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=RtL+L7f/5c2f0HDszi1BlzjRyIGIBT0EhrCX5++TN7tfVSEWKXZPeS3hKM9KVvYE/e/19EE0/MuyDBMUEnbLIbiEPpNBaKfL5xoyNcCTyDfyrZuohb6ZhE1rZkj9d9VjzF0e/M8T6ki319dx6OI/2BuxIIcXCb7l+qwf//fJkOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MX2mVlRz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o7mDHNiT"
-Received: by mail-qk2-f40.google.com with SMTP id d75a77b69052e-53324cfe178so5440781cf.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:25:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790439947; x=1791044747; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4rLTBzwJjcIecEwlLTNrxTAIRsESkfK6hjnt+Yx1lKg=;
-        b=o7mDHNiT3pKlRq0fPn1Vx0Z8mqqFmdv62myhAdgDywoc5Q+SDwPrpIgbvA+2cnJdSZ
-         EADAffpOcbxXggD6P5mJif2ld9tpGDczp6YcHKWPyaJZPaOwbOFAXPFzPvMs6TbTGqND
-         g253p4VC7s0wqupomH4r439OW50kxxDB3X4I6pg7G3R2vsVK9omqlOizdA3u7trYozNZ
-         ShdHy20eKFpVi88BO8oU8D6l+tO9JrKsDVH9mBjbUzLgDBlT55y3Gvzf+33KAJdZya3G
-         7M64MZ1G7vippjnG0s0nIvsZ+nmFZsSMOK/qPhgvxKz80T5Lx7wsVzodAfoHYjukikKj
-         Gyyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790439947; x=1791044747;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4rLTBzwJjcIecEwlLTNrxTAIRsESkfK6hjnt+Yx1lKg=;
-        b=LG7W5xJifoKnZHZ66YicIVFC1AN3xdzodVr9+TasZMFKT5NXMmbrrpKuVq1vDb2x/s
-         flGUq4Apa+7c7z8QggcjwQ1545VDc99sn3RXyA4wMRou+IiWkpUbRcRWj3nEKpB8T9ns
-         tSChvYUNb3WvBzG5r4U6daP1OUWg1lVC3zj3kZJz5mOupUALwojdjBqYOv2eWycX9JX4
-         d9wS7SlykXxIEGM7xpSfPXjZMAKj4nB5SDfAbql8Kg2jiV1+SWDuP2BQb+rGqlzQ0n5x
-         t165f9FjXaQGaYKAFAoxXHdSbnc2NR9CAZrLY/r0RV33OzFbQz45qrnXXvNryxzSZlmY
-         myug==
-X-Forwarded-Encrypted: i=1; AKwUvBwC3xzBDICsW+eZjPKUidj1jSlymp4bZ+lU7mla4lUl6Hnzgl3TdGgXkuC5XSvmlmi1t9kaO5cMpynOaCU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nk4ZSCxLWtcqTbPSZMFSozXtqbjJzjl2NVPRT1EOVzjNi7zwbD
-	yx4/OqOLre22qgWSzmrfVv0nFRjb4cXQmfbSB4Gbbf4JluhOskuv7fkeuV3zSwNN
-X-Gm-Gg: AYBFou3f7HnFTmiXcDwgQeA0foqXSINQRPVw7BfXalxrzA4iDclkkJEhHyFCb5BhLQm
-	jQvD4y3fG11VsXS8t+nAHdFzCzesv7gaRRQv+grGxvZtkXQXGE0XG0NtwpeQnMaWWhTyBXR7Eel
-	gvRn10x6Uf27Iyffd0B6d/Q9VhO3znUMTXNN+bEVfex99nX9e1KKi0t/5QX3+ROKYgE2eMilDFI
-	t1T8KyVktN0XAB1aBOZzqMW67zTFeNFWfstbJvnWznBPPwECwwvD84oubMZGX6M9AQG8ZsaUsco
-	4CB2jKiPll819lLNXF/gzjdGVeHoIHlVNHJJ7qCPA6tFD4n9tHSfjhH96uO6hHHz6FC5c58cPBh
-	RmCAPMaEbA6q/BZFPlBe8oaofdDV9ZkZgXlt13N7kz/L3YU/To/D0+An6hknrl1jp6abQBOQvDl
-	7iI6RmynhuZKEDaUJQ26INPsug00drvhIuCGvJlcM9Vh5zLXkoTgkjBXVpMyx4E6Uam3cA3Eciy
-	dSlSeCwReCIoiIISObJl1YPM2VRDXloG7+2O7jbzsKOyamR
-X-Received: by 2002:a05:622a:15c4:b0:530:178a:9dd8 with SMTP id d75a77b69052e-5330b556ae7mr110702981cf.8.1790439947407;
-        Sat, 26 Sep 2026 09:25:47 -0700 (PDT)
-Received: from zaina.localdomain ([172.56.198.134])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533222585a1sm20936831cf.11.2026.09.26.09.25.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 09:25:47 -0700 (PDT)
-From: Zain Aboobacker <zainaboobacker33@gmail.com>
-To: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	Bastien Nocera <hadess@hadess.net>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] HID: logitech-hidpp: fix typos in comments
-Date: Sat, 26 Sep 2026 12:25:43 -0400
-Message-ID: <20260926162544.25462-1-zainaboobacker33@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MX2mVlRz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 336891F000FF;
+	Sat, 26 Sep 2026 16:26:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790439987;
+	bh=Cz2ZwJO1HHOlAUYBtqJOf1g+WlB4Y0TrJGQ2pqro30E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=MX2mVlRz833rNE1+Qi79BnfPWuB1OEzGKB9hUYSRyfLJNCIin8BPZbbpAt4Hbj453
+	 OYp2ulu0DXjBWPOsSMe9wIwI4QXNmKey4/shM+KRZ802f1RUwaeyUfhb8mYxmFAcDK
+	 GPkc+V5xzuI9JyhBx3mbhYDRhT/Tf9nhgMXfwwLVEW2efoR8DtHagISTOpMjFpKzwR
+	 8h5WXSeOIueycsHxhIZFEYOh8TMkio2TA+NcKv3taJgHG1dA2dD2vrDbHd522zRlED
+	 VtKKhVnD0lE2G7icKRaCJZmkOt2Hu477nYdZeYCZTDPfe6z9yF/4thB/cLvVZnNBqz
+	 3EpGgqRXUxMEQ==
+Date: Sat, 26 Sep 2026 11:26:25 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Niklas Cassel <cassel@kernel.org>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	"open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+	"open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <linux-kernel@vger.kernel.org>,
+	"open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)" <linux-ide@vger.kernel.org>,
+	Arthur Husband <artmoty@gmail.com>,
+	Roland Waltersson <roland.waltersson@netinsight.net>,
+	snoep <snoepke@live.nl>
+Subject: Re: [PATCH v2 2/2] Revert "ata: ahci: force 32-bit DMA for JMicron
+ JMB582/JMB585"
+Message-ID: <20260926162625.GA2140496@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arfea9Zk6mbaoRYr@ryzen>
 
-Fix various spelling mistakes in comments found by codespell.
+On Sat, Sep 26, 2026 at 05:02:03PM +0200, Niklas Cassel wrote:
+> On Fri, Sep 25, 2026 at 03:01:39PM -0500, Mario Limonciello wrote:
+> > On 9/25/26 14:42, Bjorn Helgaas wrote:
+> > > 
+> > > What if I just merge patch [1/2] ("x86/PCI: Disable enhanced atomics
+> > > on AMD NBIO 7.7 and 7.11") for v7.3?  Would that leave anything
+> > > broken?
+> > > 
+> > > [1] https://lore.kernel.org/all/20260403050225.50186-1-artmoty@gmail.com/t/#u)
+> > > [2] https://forum.radxa.com/t/repeated-ext4-metadata-corruption-on-raspberry-pi-5-with-penta-sata-hat-jmb585-despite-healthy-ssds-and-raid1/31393/10
+> > > [3] https://forums.raspberrypi.com/viewtopic.php?p=2386959#p2386959
+> > > 
+> > > > Cc: Arthur Husband <artmoty@gmail.com>
+> > > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> > 
+> > I think we should let Niklas speak up here because there was confirmation on
+> > this thread it's an AMD only issue.
+> > 
+> > https://lore.kernel.org/all/ap6RyP28fxXNjRWS@ryzen/
+> 
+> 1) The original reporter mentioned that he had never seen any issues on
+>    Raspberry Pi, the commit message was AI generated.
+> 
+> 2) The problem "repeated-ext4-metadata-corruption" appears to be a problem
+>    with NCQ on a specific drive. I asked that person for more tests, but
+>    he did not to once turning off NCQ solved his problem.
+> 
+> 3) The quirk actually introduced a bunch of problems on Raspberry Pi,
+>    because libata did not clear upper 64 bit addresses. This has since
+>    been fixed in commit 82e47533221d ("ata: libahci: clear PxCLBU and
+>    PxFBU for AHCI_HFLAG_32BIT_ONLY")
+> 
+> 4) People had been using this AHCI controller for years (including on
+>    Raspberry Pi) without seeing any issues (until the quirk was
+>    introduced).
+> 
+> 5) The people who were complaining about data corruption could be
+>    identified to all use AMD systems.
+> 
+> 6) These people complained that it broke directly for any address > 32 bit.
+>    For the JMicron (instead of ASMedia), it breaks for any address > 43 bit.
+>    I have a hard time believing that the controller is so broken that the
+>    set the 64-bit DMA addresses supported bit in the AHCI CAP register,
+>    but does not support a single bit more than 32 bit.
+> 
+> 7) For all AHCI controllers with these quirks (except for an old ATI
+>    one), we have gotten an errata from the manufacturer.
+>    We have never seen any errata for this controller.
+> 
+> 
+> All in all, I am 100% confident to revert the patch.
+> But, I don't care if it goes into 7.3 or 7.4.
+> 
+> Just say the word and I can pick it up for 7.4 instead.
 
-Assisted-by: Claude:claude-opus-5-5 codespell
-Signed-off-by: Zain Aboobacker <zainaboobacker33@gmail.com>
----
- drivers/hid/hid-logitech-hidpp.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+That all sounds good.  How about if I ask Linus to pull Mario's AMD
+SMN fix for v7.3, since that seems to be PCI-related, and then you can
+decide how/when to take the quirk revert, since that seems to be
+ATA-related?
 
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 9646380febac..f4bf4a39fcd9 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -108,9 +108,9 @@ MODULE_PARM_DESC(disable_tap_to_click,
-  *
-  * Most older devices (including the Unifying usb receiver) use the RAP protocol
-  * where as most newer devices use the FAP protocol. Both protocols are
-- * compatible with the underlying transport, which could be usb, Unifiying, or
-+ * compatible with the underlying transport, which could be usb, Unifying, or
-  * bluetooth. The message lengths are defined by the hid vendor specific report
-- * descriptor for the HIDPP_SHORT report type (total message lenth 7 bytes) and
-+ * descriptor for the HIDPP_SHORT report type (total message length 7 bytes) and
-  * the HIDPP_LONG report type (total message length 20 bytes)
-  *
-  * The RAP protocol uses both report types, whereas the FAP only uses HIDPP_LONG
-@@ -120,7 +120,7 @@ MODULE_PARM_DESC(disable_tap_to_click,
-  * Unifying device.
-  *
-  * The paired device can be RAP or FAP, it will receive the message untouched
-- * from the Unifiying receiver.
-+ * from the Unifying receiver.
-  */
- 
- struct fap {
-@@ -1656,7 +1656,7 @@ static int hidpp20_unifiedbattery_map_status(struct hidpp_device *hidpp,
- static int hidpp20_unifiedbattery_map_level(struct hidpp_device *hidpp,
- 					    u8 battery_level)
- {
--	/* cler unsupported level bits */
-+	/* clear unsupported level bits */
- 	battery_level &= hidpp->battery.supported_levels_1004;
- 
- 	if (battery_level & FLAG_UNIFIED_BATTERY_LEVEL_FULL)
-@@ -3353,7 +3353,7 @@ static int m560_input_mapping(struct hid_device *hdev, struct hid_input *hi,
- /*
-  * The Logitech K400 keyboard has an embedded touchpad which is seen
-  * as a mouse from the OS point of view. There is a hardware shortcut to disable
-- * tap-to-click but the setting is not remembered accross reset, annoying some
-+ * tap-to-click but the setting is not remembered across reset, annoying some
-  * users.
-  *
-  * We can toggle this feature from the host by using the feature 0x6010:
--- 
-2.53.0
-
+I'll ask Linus to pull the AMD SMN fix today, so you could still
+revert the quirk for v7.3 also if you wanted.  It sounds like there
+might be more details that could be included in the quirk revert,
+e.g., the fact that the quirk caused issues on Raspberry Pi and the
+fact that the problem the quirk address was fixed by commit X.
