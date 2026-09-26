@@ -1,128 +1,209 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05685367B90;
-	Sat, 26 Sep 2026 18:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6613939B0;
+	Sat, 26 Sep 2026 18:49:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790448240; cv=none; b=WSUexuMTg/kj38l6W8YoZBnYcCbSrMxJEpc+nWHrunW2/xHs+63is9bcy/umc1wuJdfTp4jQvnx5aC4kRPKywe3SIW7OFDZZugj5uSV3A4bQ//2UHfu9eWjxihgsoLATlfSS0VVXOItCZQHbU4yV+JNialF8uP3ANk54B2Z+Ft0=
+	t=1790448573; cv=none; b=hLcRfwR21nnOlvC+9cFtR5ipC/aGxGR7soO50unwOG8qHmNcfKMDAQuyszl4HkMcKHLcPY7kFn0ZTH1CW4f7O9SybJjv0epsjvQYLyOoFq0hO4H1PQ4zHFBQvGfhHPTcP1XFZG0r3BMJOHHSes4e0pr4q2CUuseFpfxSKuu8EZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790448240; c=relaxed/simple;
-	bh=QIURmYUXBk4CGBkNo+YfBoc/rv9JGk/MEDxiCObHAY4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iTGrcv6UvS8n7I8mrmws7Q9Xkic7ZBzjUxIKFnCdSUZx15Pl0ANAIM3lZsNdZ0jlvgLzR2a+1R30xz2XByZRdVqF9NDXeVOgiq76NdSasiIzCvud/i/iF+M4QGe7Xj2cP9uy86qEOXHcWwF5Y6JxXyym3aDurqg8Zhm2WRxTuws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=DMpb17R7; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1790448573; c=relaxed/simple;
+	bh=rCVS1dbiTfDS0jhswukM+1RiwECpWcMv6BbMGC+gQvU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BirIG59vBRruLQgapLlKywMG+QA08Qlw/iVGb8/cRbFM+P5an5ci6nwe7Z/qItvj/x3Pu0XFd8x2HgCuHEK0jBRhSgnMEpjmwEJjpUIjL7vC9LqNvrZqsWOX7pkzUvdnVaiWjskoIGPyMe7IjWbAjT5gpoUnWqLIsaStsY13ieQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dk8nG90X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="DMpb17R7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=ZRqdnQVYOWo/r4+FEgARvCAFTE8PSP6/Q+C1nHisg48=; t=1790448237;
-	x=1791053037; b=DMpb17R7ahwBf2TPJAWOlB41YYPtIrB2D222YhWIfQgWVVnZ5cg5zJZKAnsXo
-	cV2j+q5x3X6zxckT9EXUoU6I3xOXzgISe4Rmd1MDZKJ7echI32Hkjs7jGooPbnHbC8Q4e+F3qTI7B
-	78Lr9VRriiOBx2SS6kk/Qe4Af2VGlcWPvztju/HybRuTVrF40Dv9GXCEkchkAwgcyjNrQWxDVHynK
-	m6aDmuoUH5dDSs9rvlEo5zJx25FDM/qN7OHatJ2FVsZDIBNTfbXBLkLmJuWV+capb9npOXC0K3/+C
-	+3UzaB0algKrjBsNJjRd/PkdhhvtsAiZ1bV+TqlzKlP5owofYA==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xAXNC-00000000zck-2x3m; Sat, 26 Sep 2026 20:43:46 +0200
-Received: from dynamic-002-245-050-003.2.245.pool.telefonica.de ([2.245.50.3] helo=suse-laptop.fritz.box)
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xAXNC-000000022yM-1ytU; Sat, 26 Sep 2026 20:43:46 +0200
-Message-ID: <9b75aa51e19f9c0f5c97ac02cfc0948ab5bbf279.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH 0/2] sh: mm: fix hugetlb on SH-4
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Yoshinori Sato
-	 <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
-Cc: linux-sh@vger.kernel.org, Muchun Song <muchun.song@linux.dev>, Oscar
- Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, Andrew
- Morton	 <akpm@linux-foundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Date: Sat, 26 Sep 2026 20:43:45 +0200
-In-Reply-To: <20260926183904.76186-1-kmehltretter@gmail.com>
-References: <20260926183904.76186-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dk8nG90X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31EB91F000FF;
+	Sat, 26 Sep 2026 18:49:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790448571;
+	bh=FhCUAjMTRdSu2iwGOuY7sgjoyeuf9oIgvabf6YO920g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dk8nG90X527poEz1klXfdOz+Wnmw0tBcxK2RwoQHKC3xf0DyjuKwe46FuFlNksp0S
+	 DSJK+JI7Xdnx6WPszQg7Ifc+BansRWyQAyfrmLFPQblF/vLk81cvw4mduxnH1ZPXJY
+	 diUCheqe8HKPTsNpfvh9JCM+tDxzQ3XzBTM+lMWuVqqasH+XkxRGuteiWmdOlcuIlH
+	 MLAKxgKzMHI+1ECC67Why3cpwYYowqbywzt1n5b6pRR+Q++UDZs1IEdiAJnXzpJb1S
+	 OQ4+Vb3OnPTiDdPVZUEXnYfdHGMag+4wWCqlRZRqjix76Kiu9H6KoimKp4SGEdIy7K
+	 4w+KtoULo3Vxw==
+Date: Sat, 26 Sep 2026 19:49:26 +0100
+From: Simon Horman <horms@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: bhargava.marreddy@broadcom.com, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	andrew+netdev@lunn.ch, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com, vsrama-krishna.nemani@broadcom.com,
+	vikas.gupta@broadcom.com, dharmender.garg@broadcom.com
+Subject: Re: [PATCH net-next v2 1/6] bnge: Extract bnapi allocation and
+ cleanup into helpers
+Message-ID: <20260926184926.GC13925@horms.kernel.org>
+References: <20260922052904.59237-2-bhargava.marreddy@broadcom.com>
+ <179026966721.2160803.3672240762098051468@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179026966721.2160803.3672240762098051468@kernel.org>
 
-Hi Karl,
+On Thu, Sep 24, 2026 at 05:07:47PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 
-On Sat, 2026-09-26 at 20:39 +0200, Karl Mehltretter wrote:
-> Muchun Song noted in the review of the Arm hugetlb alignment fix [1]
-> that SuperH has the same arch_get_unmapped_area() gap. Reproducing it
-> in QEMU turned up a second, older bug that corrupts memory once the
-> mappings are aligned.
->=20
-> Patch 1 fixes the page size in hugetlb PTEs. pte_mkhuge() ORs the huge
-> size into the base page size bits, so 64 KiB huge pages over 4 KiB
-> pages are loaded into the TLB as 1 MiB pages. User writes then land in
-> unrelated kernel memory. This dates back to the start of git history.
->=20
-> Patch 2 aligns hugetlb mappings to the huge page size. Without it
-> mmap(MAP_HUGETLB) can return an address that is not aligned to the huge
-> page size, and process exit hits the BUG_ON() in
-> __unmap_hugepage_range(). This is a 6.13
-> regression.
->=20
-> Patch 1 goes first because patch 2 alone makes the corruption reachable
-> through a plain mmap(). Both are marked for stable.
->=20
-> Tested on QEMU r2d (SH7751R, rts7751r2dplus_defconfig plus HUGETLBFS
-> with 64 KiB huge pages, gcc 15.2) on top of fddfc3ec3179. A test init
-> maps two huge pages with the default and legacy layouts and with
-> MAP_FIXED, writes and reads back every 4 KiB, mprotect()s the mapping
-> read-only and back, and checks a COW write in a forked child:
->=20
->   kernel          MAP_FIXED       default/legacy mmap
->   base            memory corrupt  misaligned, BUG at mm/hugetlb.c:5215
->   patch 1         pass            misaligned, BUG
->   patches 1+2     pass            pass
->=20
-> SH-X2 (X2TLB) is only build tested (r7785rp_defconfig with 64 KiB huge
-> pages).
->=20
-> QEMU's SH-4 TLB emulation flushes only the first 4 KiB of a 64 KiB or
-> 1 MiB entry when the entry is dropped [2]. Keep that in mind when
-> testing hugetlb on QEMU.
->=20
-> [1] https://lore.kernel.org/r/5AB6FE85-4CB9-41EF-A700-BC5E071F29F5@linux.=
-dev
-> [2] https://gitlab.com/qemu-project/qemu/-/issues/4598
->=20
-> Karl Mehltretter (2):
->   sh: mm: replace the page size bits in pte_mkhuge()
->   sh: mm: align hugetlb mappings to the huge page size
->=20
->  arch/sh/include/asm/pgtable_32.h |  7 +++++--
->  arch/sh/mm/mmap.c                | 11 +++++++++--
->  2 files changed, 14 insertions(+), 4 deletions(-)
+In the interest of moving things along I will respond to this.
 
-Thanks for the patch! This should definitely be tested on real hardware
-and I think it's a good reason to test this on my SH7785LCR which wouldn't
-boot on anything newer than 6.5.0.
+> 
+> - [Medium] The commit message describes the three new NULL guards as
+>   preparatory hardening ("add NULL guards for rx_ring and tx_ring in…
+> 
+> --
+> 
+> bnge: Extract bnapi allocation and cleanup into helpers
+> 
+> This moves the bn->bnapi allocation and free code out of
+> bnge_alloc_core()/bnge_free_core() into bnge_alloc_bnapi_mem() and
+> bnge_free_bnapi_mem(), and adds NULL checks for bn->rx_ring and
+> bn->tx_ring in the ring cleanup helpers.
+> 
+> > diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> > index a4288f0258f87..c1810a3098883 100644
+> > --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> > +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> > @@ -825,6 +825,9 @@ static void bnge_free_tpa_info(struct bnge_net *bn)
+> >  	struct bnge_dev *bd = bn->bd;
+> >  	int i, j;
+> >  
+> > +	if (!bn->rx_ring)
+> > +		return;
+> > +
 
-Adrian
+The check above appears to be purely defensive.
+I do not believe it can ever be true.
+If so, please remove it.
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+> >  	for (i = 0; i < bd->rx_nr_rings; i++) {
+> >  		struct bnge_rx_ring_info *rxr = &bn->rx_ring[i];
+> >  
+> > @@ -881,6 +884,9 @@ static void bnge_free_rx_rings(struct bnge_net *bn)
+> >  	struct bnge_dev *bd = bn->bd;
+> >  	int i;
+> >  
+> > +	if (!bn->rx_ring)
+> > +		return;
+> > +
+> >  	bnge_free_tpa_info(bn);
+> >  	for (i = 0; i < bd->rx_nr_rings; i++) {
+> >  		struct bnge_rx_ring_info *rxr = &bn->rx_ring[i];
+> > @@ -1024,6 +1030,9 @@ static void bnge_free_tx_rings(struct bnge_net *bn)
+> >  	struct bnge_dev *bd = bn->bd;
+> >  	int i;
+> >  
+> > +	if (!bn->tx_ring)
+> > +		return;
+> > +
+> 
+> [Severity: Medium]
+> Are these three new NULL checks really just preparation, or do they fix a
+> reachable NULL pointer dereference that exists today?
+
+It seems to me that the two hunks above do fix a bug,
+can could manifest under memory pressure..
+And thus should be broken out as a separate patch for net.
+
+> 
+> The commit message says only:
+> 
+>     Prepare the driver to move bnapi allocation out of the open/close path,
+>     and add NULL guards for rx_ring and tx_ring in core driver cleanup paths.
+> 
+> Before this patch, bnge_alloc_core() allocates bn->bnapi, then bn->rx_ring,
+> then bn->tx_ring, and every failure goes to err_free_core: which calls
+> bnge_free_core(). bnge_free_core() unconditionally calls
+> bnge_free_tx_rings() and bnge_free_rx_rings(), so if the bn->rx_ring
+> allocation fails both pointers are still NULL:
+> 
+> drivers/net/ethernet/broadcom/bnge/bnge_netdev.c:bnge_free_tx_rings() {
+> 	for (i = 0; i < bd->tx_nr_rings; i++) {
+> 		struct bnge_tx_ring_info *txr = &bn->tx_ring[i];
+> 		...
+> 		bnge_free_ring(bd, &ring->ring_mem);
+> }
+> 
+> and bnge_free_ring() dereferences that near-NULL address right away:
+> 
+> drivers/net/ethernet/broadcom/bnge/bnge_rmem.c:bnge_free_ring() {
+> 	if (!rmem->pg_arr)
+> 		goto skip_pages;
+> 
+> The rx side looks the same: bnge_free_rx_rings() -> bnge_free_tpa_info()
+> reads rxr->rx_tpa_idx_map, and bnge_free_rx_rings() itself calls
+> page_pool_destroy(rxr->page_pool), both off a NULL bn->rx_ring.
+> 
+> Since bnge_alloc_core() runs from the ndo_open path, an allocation failure
+> during "ip link set dev ethX up" would oops instead of returning -ENOMEM.
+> git blame points the affected loops at commit 0259379037cab9 ("bng_en: Add
+> initial support for RX and TX rings"). Would it make sense to split these
+> guards into their own patch with a Fixes: 0259379037cab9 tag, so it can be
+> picked up for stable? No commit in this series (10cfa109c8..63494c308b19)
+> carries such a tag or mentions the crash.
+> 
+> Note that bnge_free_rx_ring_pair_bufs() already had the same
+> if (!bn->rx_ring) return; check, which suggests the guard is functional
+> rather than cosmetic.
+> 
+> >  	for (i = 0; i < bd->tx_nr_rings; i++) {
+> >  		struct bnge_tx_ring_info *txr = &bn->tx_ring[i];
+> >  		struct bnge_ring_struct *ring;
+> 
+> [ ... ]
+> 
+> > @@ -1241,6 +1254,19 @@ static int bnge_alloc_core(struct bnge_net *bn)
+> >  		nqr->ring_struct.ring_mem.flags = BNGE_RMEM_RING_PTE_FLAG;
+> >  	}
+> >  
+> > +	return 0;
+> > +}
+> > +
+> > +static int bnge_alloc_core(struct bnge_net *bn)
+> > +{
+> > +	struct bnge_dev *bd = bn->bd;
+> > +	int i, j, rc;
+> > +
+> > +	rc = bnge_alloc_bnapi_mem(bn);
+> > +	if (rc)
+> > +		return rc;
+> > +
+> > +	rc = -ENOMEM;
+> >  	bn->rx_ring = kzalloc_objs(struct bnge_rx_ring_info, bd->rx_nr_rings);
+> >  	if (!bn->rx_ring)
+> >  		goto err_free_core;
+> 
+> This is the branch that reaches bnge_free_core() with both bn->rx_ring and
+> bn->tx_ring still NULL.
+
+I will add that they way that this code relies on unwind functions,
+such as bnge_free_core(), that can unwind from both a fully and partially
+initialised state is not the preferred approach.
+
+E.g. while having bnge_free_core() fully clean up state the taredown
+patch is fine, the probe path should have a goto ladder that unwinds
+incrementally based on where initialization failed.
+
+For a bug fix, a minimal approach, that adds some conditions, is probably
+best. But perhaps there are more cases than are covered by this discussion.
+
+-- 
+pw-bot: changes-requested
