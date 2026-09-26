@@ -1,102 +1,211 @@
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995104457C6
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:45:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218913B6C17;
+	Sat, 26 Sep 2026 14:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790433910; cv=none; b=uTULDXIPPenyvUi7kmd5f4nvatci00PAFmzN3VuBhmlBBZdQnqwOTqGGiE2CSxygkqbVxkiamdkeDzIyeVDuH8/lvmjMfLbm2KoDevbppwIUEMFpqwES/hnhHQd7JyFkAo92n4OToE6W/o2Dfj5oQMqHM2p8lGqJupLxC1VZda0=
+	t=1790433934; cv=none; b=NSg5BQ43doaiPHs3EVzPG5D7HgSuN2YJhqMl+wVlYArgESlI1Oi7aChiGSJNzeGdyD73Onhoj9tYgeRv0nCJSdJjqXPlsYHhJRYLjTs9PhXPaxO2jTqI6NnGpAsD5sxRtx+UcbO+jFnt5x8twCTYDyhGXTdpo9Mw1CU5katRy1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790433910; c=relaxed/simple;
-	bh=pICmn9fJ9p2A/LWOiFZzr9TtpvYjbTGzG/FF/ZXO5Jo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PnRlBtC1BLhEE9/jTvOJmczKOlQl2aaLrAK1lTE0/M2KE+0CF2h/T91DufjGYX7eI90+XejLPn6+/AdlVYgpYz3rvR6DfayMLF+tuSh56rafE8jjzWj6K9tp0bPKjOXC2XW+GSbHGUkU/ZOrTkAiTaBXmpqYwBJaQhZjvc4z0xA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=hKckLObb; arc=none smtp.client-ip=79.135.106.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790433934; c=relaxed/simple;
+	bh=dmZUngUCVOz2gkdF1xafc2BAzFipK5XtAgENKFzA6dI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=crtLhQdzHZBkm+Vcmla9asnxrRvwrerU53BTs7LFDbbWuUSh4m5Y2go7dcNJNHykDQUn0/iT262dRmecdXThuaZAKHCx/ZZTH9AzA9lWnm7QzBxvMRsfeG5tX5muI15Q/y8PTtFIFLay4aPjgMz040IUqVXnA/vMrp+nJaGqn44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=SmdpAoZs; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="hKckLObb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790433905; x=1790693105;
-	bh=lLvXWwTV8psrHGzjhZPgRvvsjTmO4/8mZi24bj1pjps=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=hKckLObbYDw9/sRnZlus4wSvwyKH6IKktRk+8l0Xo3nuaO18rZ4MTp3jfC/eNWwym
-	 0og3DvrJlSKc36wCGMK++6uSzprf7VrqxSOKjxsn9evnmedOZnR8EzyvN8E0dINOdj
-	 lc/gCMTTiNG76xYM3VS0DcPFDSY7wd65BeCEj5WBbGjnNwYUljYgrjzfU+HBAg0g94
-	 xr9iTFc0gEUDKixt26CxMco64Xcp8VPXFl8bDQdjyc+gFVMUbzVOTETD23eXwHQWb0
-	 k1LBt08K87jjA6F8nD7HcGvLjymxboBdoPGqHFvCBbEK3BaYL7aRFgsv52nHcr7zWk
-	 iEQBGO0jIc4Lg==
-Date: Sat, 26 Sep 2026 14:44:59 +0000
-To: Ravindra <ravindra@intel.com>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Marcel Holtmann <marcel@holtmann.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>, Ferenc Lengyel <dev@lengyelf.eu>, Chethan Tumkur Narayan <chethan.tumkur.narayan@intel.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Kiran K <kiran.k@intel.com>, Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Mahalingeshwara Chambarakatta <mahalingeshwara.chambarakatta@intel.com>, Arnd Bergmann <arnd@arndb.de>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] Bluetooth: btintel_pcie: fix PM flow for S0ix, S3 and S4
-Message-ID: <20260926144451.17188-1-lsa.uz@pm.me>
-In-Reply-To: <IA1PR11MB786927FFF15A4863BB96AB4FDA8F2@IA1PR11MB7869.namprd11.prod.outlook.com>
-References: <20260909123416.71919-1-lsa.uz@pm.me> <20260909123416.71919-3-lsa.uz@pm.me> <CABBYNZJfH4F1-Hy1eiOrzuU1nzTbMbue3EqMT5gfHs60wFw9QA@mail.gmail.com> <20260909204654.91282-1-lsa.uz@pm.me> <IA1PR11MB786999FA8FCC7E7B8752F7A4DA852@IA1PR11MB7869.namprd11.prod.outlook.com> <20260920075720.7004-1-lsa.uz@pm.me> <IA1PR11MB7869C1A9A0630F8C8C856B73DA822@IA1PR11MB7869.namprd11.prod.outlook.com> <20260924191301.39161-1-lsa.uz@pm.me> <IA1PR11MB786927FFF15A4863BB96AB4FDA8F2@IA1PR11MB7869.namprd11.prod.outlook.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: d8139bee98e996a06b92e1913f0906198e8f885d
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="SmdpAoZs"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id C32E653401FA;
+	Sat, 26 Sep 2026 16:45:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790433930;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=5Apn2YF5XEj2vUVw6Yx8RwrmsIykiLewffaA3kcaTPY=;
+	b=SmdpAoZs79lrPkVy/0d+Ku1eDb2aVPLHg3M/IWW+9PinutKr4USvtM7HE9Xn4uWEAreLkU
+	GHgQKxpspvwHBLkZJ7BaUDTp1laR0/30vr0PUpFfmqm4Q3cuJFRgLrebS480GZ2cYg+8nP
+	dplAPgHy//yTykZw0X1o8RiWFUVLc8Y=
+Message-ID: <b6628737-6535-42ea-bf8e-93dcaddaeb5c@ixit.cz>
+Date: Sat, 26 Sep 2026 16:45:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 06/12] usb: typec: qcom: Add gen1 Type-C port support
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Alexey Minnekhanov <alexeymin@minlexx.ru>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Lee Jones <lee@kernel.org>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org, mfd@lists.linux.dev
+References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
+ <20260926-typec-v1-6-31adc19f32c6@ixit.cz>
+ <4f089c98-a479-45c9-9b11-0207c895367a@linaro.org>
+ <f83b2992-9214-49b7-be3d-28ad435a73c9@ixit.cz>
+ <8f6c3e69-f616-42b4-8e33-f05ac0812722@linaro.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <8f6c3e69-f616-42b4-8e33-f05ac0812722@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Ravindra,
+On 26/09/2026 16:41, Bryan O'Donoghue wrote:
+> On 26/09/2026 15:32, David Heidelberg wrote:
+>> On 26/09/2026 16:22, Bryan O'Donoghue wrote:
+>>> On 26/09/2026 13:40, David Heidelberg via B4 Relay wrote:
+>>>> From: David Heidelberg <david@ixit.cz>
+>>>>
+>>>> Add a port backend for the first generation of the Qualcomm PMIC Type-C
+>>>> block, found on PM660 and PMI8998.
+>>>>
+>>>> On gen1 the Type-C CC logic is part of the charger's USBIN peripheral
+>>>> (base 0x1300) instead of the standalone Type-C peripheral used by
+>>>> PM8150B and later PMICs. All Type-C events (CC state change,
+>>>> tCCDebounce done, VBUS change and error) are signalled through a single
+>>>> aggregate "type-c-change" interrupt, the handler re-reads TYPEC_STATUS_4
+>>>> to find out what changed. The PD PHY is register compatible with PM8150B
+>>>> and is reused as is.
+>>>>
+>>>> Differences to the PM8150B backend:
+>>>>   - get_cc() returns -EBUSY until the hardware reports tCCDebounce done,
+>>>>     instead of using a software debounce.
+>>>>   - As a source, only the default and 1.5A Rp can be advertised, 3.0A
+>>>>     requests are advertised as 1.5A.
+>>>>   - The PBS workaround of the downstream SMB2 driver (TM_IO_DTEST4_SEL)
+>>>>     is applied on every power role change.
+>>>>
+>>>> VBUS sourcing is optional and only used when the connector provides
+>>>> a vbus-supply, as the charger doesn't expose a VBUS regulator yet.
+>>>>
+>>>> Assisted-by: LLM
+>>>> Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+>>>> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>>>> ---
+>>>>   drivers/usb/typec/tcpm/qcom/Makefile               |   1 +
+>>>>   drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c      |   9 +
+>>>>   .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.c    | 605 ++++++++++ ++++++ 
+>>>> +++++
+>>>>   .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.h    |  15 +
+>>>>   4 files changed, 630 insertions(+)
+>>>>
+>>
+>> [...]
+>>
+>>>> +/*
+>>>> + * Failure of this workaround write is non-fatal and
+>>>> + * we can continue with the role transition.
+>>>> + */
+>>>> +static void gen1_typec_pbs_wa(struct gen1_typec_port *port, bool sink)
+>>>> +{
+>>>> +    unsigned int val = sink ? 0 : PBS_CRUDE_SENSOR_ENABLE;
+>>>> +    int ret;
+>>>> +
+>>>> +    ret = regmap_write(port->regmap, port->base +
+>>>> +               MISC_BASE_OFFSET + TM_IO_DTEST4_SEL, val);
+>>>> +    if (!ret)
+>>>> +        return;
+>>>
+>>> Why would the write fail and why wouldn't that be a critical case if the 
+>>> write did fail ?
+>>
+>> Heya Bryan,
+>>
+>> thanks a lot for reviewing the series. For the rest notes, I'll incorporate 
+>> that and/or think about it later. Here to quickly answer to this note,
+>>
+>> this one quirk is definitely NOT REQUIRED. Originally, I was testing the 
+>> driver without it on sdm845 devices, and everything worked without it just 
+>> fine. I ASSUME in some situation or with some devices combination it may come 
+>> handy, thus likely if it fails, not much usually happens (and clanker was 
+>> suggesting to port this one from downstream, so I did).
+>>
+>> David
+>>
+>> [...]
+> 
+> I ran this code though an LLM and it is babbling about the "shape" of things to 
+> hand you LoL.
+> 
+> Anyway the pattern matching part flagged this:
+> 
+> "Write outside the node's reg. base + MISC_BASE_OFFSET + TM_IO_DTEST4_SEL is 
+> 0x16e9, the MISC peripheral. 03 declares reg = <USBIN>, <PDPHY> only."
+> 
+> Worth also verifying.
 
-Thank you - all four are in. I checked them in the code, with v4 applied
-from lore onto 671d566d3c3b and onto e40edfa04, where it lands identically.
+Yup, I explicitly split the addr into MISC_BASE_OFFSET, as it's pretty much 
+outside of this block range (same reason why I haven't sent the vbus patches for 
+qcom smbx charger).
 
-Your D3 branch also closes a hole in what I proposed: if the handler's D0
-case runs before the controller reaches D3, it breaks without recording
-D3, the context stays D0, and the guard in the D0 branch then skips the
-re-arm on resume. The bench shows it with and without your branch.
+Maybe Konrad with more insight can tell more about it. In the Type-C submission 
+I can pretty much confidently drop it (if it'll need separate driver) and still 
+assure users get expected functionality.
 
-Bench: Surface Pro 11, BE201 8086:a876, the driver at bluetooth-next
-e40edfa04 against the same plus v4, one instrumented build each. "HCI ok"
-is Read Local Version returning status 0 after the cycle.
+David
 
-  first gp0 on D3 entry dropped, as a missed interrupt (1/4's case)
-    stock  timeouts at retries 0, 1 and 2, -EBUSY, suspend aborted,
-           HCI fails
-    v4     one timeout, D3 recorded from the register, HCI ok (2 of 2)
-
-  handler's D0 case forced to break on suspend
-    v4 without the D3 branch   resume skips the re-arm, HCI fails
-    v4                         D3 recorded, handler re-arms on resume,
-                               HCI ok (2 of 2)
-
-  handler's D3 case forced to break on resume
-    stock  success reported with ctxt 6 (D3), then hw exception, FLR,
-           0x0c01 tx timeout
-    v4     re-armed to ctxt 5 (D0) either way the race falls: handler
-           before the wait, 2.2 ms; during it, 208 ms; HCI ok (2 of 2)
-
-  state check forced to fail three times on suspend
-    v4     waits=3D3, none skipped, 413 ms, -EBUSY as forced
-
-  plain s2idle
-    v4     D3 in 1.5-1.6 ms, D0 in 1.5-1.7 ms, HCI ok (3 of 3)
-
-  S4, in the kernel's suspend and test_resume hibernation modes
-    stock  .thaw goes through FLR
-    v4     .freeze: D3_COLD in 1.5-1.8 ms
-           .thaw: D0 in 1.6 ms, HCI ok after (2 of 2)
-           .restore: FLR, firmware reloaded, HCI ok (2 of 2)
-
-S4 ran on the bench kernel, since the distribution kernel refuses it
-under Secure Boot lockdown, and without cutting power, so .poweroff is
-not covered. The firmware offers no S3.
-
-After the FLR in .restore the log says "BT reprobe failed", on stock
-too; the device probes again about a second later and works.
-
-Tested-by for 4/4 follows in its own thread.
-
-Sergey
+> 
+> ---
+> bod
 
