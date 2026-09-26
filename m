@@ -1,74 +1,70 @@
-Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6C4379C37
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:25:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4362C3803C6
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:25:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790439941; cv=none; b=Z1N5eCSBNQSBApessb54cdOPzvgfnpdhN+jlkzUbZRScxQlR0Tbya1ZQWCCxLi2bX6FdjkREjnkqmfChbpdaFRvLoagNhUpdosyfttC/IG07BHN8wSEu7LLKr0x2jwMA9HbMzSGu+QApY47k+GG9ksVoD210RjrL/WhkcjqP6Vc=
+	t=1790439937; cv=none; b=nPEmlOqU7Bit0j3NK/1ps7prTfoEBmVV7dXgnILugeoNmqg2qs6g2q+IG2613UW9oYFxQbKD9Ep+o2x+E82TVFIaKxC1NQdhzb59+p8VF4/q6AHNnIPAEhYcZuNmZ7NL2zwgoBPROW+k6q9oDmEx4JAeo6l2cTZ+c/g89jx0NRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790439941; c=relaxed/simple;
-	bh=V3ZllMYRxRSz7OEVR6Ox4snTCmgHokWNBNQgaorQTw8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pqp044MWFDuA7yiI02pEQqdmav60vq1kHRt6LmIx/yYT5cFRbpW/BjgLv3DWVCmnZqmR3cKoDVSHvy4zUSJegJNSfjZkxJHKoEjf2Ag9syG4w+zZCXq2CeEeMLLCpcODNHGxAT2FzWqtcPF972yi/XmegpwY7Z4/PTZJQo35saY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ohRqhuNx; arc=none smtp.client-ip=74.125.230.231
+	s=arc-20240116; t=1790439937; c=relaxed/simple;
+	bh=GiLTx1fkhx8yG7X6K9mjE54jwkCBrB2Fu6pZDDSAyrY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UhP189gMOygJKLSM9QFgxsBw7nevpDcAmrQLIUK6Lvic7KU68YyN7h9t7mUqZi7DEg2gjLrMomY+qBg2bCO5qHwKZ7L46hOA7XnU+lB9O5qmzFWxL0JlR6lXiLZrMItvlBbM19NJRrgVC0RjGd87TSWGl5jO3RbGnrNN1/VMNWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pmv6eN0Z; arc=none smtp.client-ip=209.85.222.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ohRqhuNx"
-Received: by mail-qk2-f39.google.com with SMTP id d75a77b69052e-5332cd97dc9so2912921cf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:25:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pmv6eN0Z"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93c49cdfa4cso128671785a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:25:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790439932; x=1791044732; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790439922; x=1791044722; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ClV361TQ2pqfwGMdnIThGuqNSY7+Osp+o669BRRfF4M=;
-        b=ohRqhuNx2uKib7NyKetJWS0X9Mru7IRACtvkkrLFY5nvOZ6FXBpbkuHm7yd+ghcf9Z
-         0jXttxo2mVSJv55omaK4x26tf/LfQ/DHYUek8x5H2YG4N/q1rY6Jyzy1iwsTuv4CXl6H
-         JltEKRckjJYhYs1D7XG0BqCmBN6RWQzZgmheJu3Zvel2BASBU6ObXZlrEbg8zHgCjAUU
-         +PIIMlNXyBtb7+jGyFt0+PAKJfNRrg2YXL01IlmyzEhv0yWdAjSFRVHnwzbevsdwczYR
-         Jz3ZDxgh8oy7LOkxEzOPK+QPm60kk/lbAcpa3e4N1Ps50pL5CY/mDs6NPGoYJxFbe4Y2
-         6dnw==
+        bh=7fg3dbwS3W1KU8abSpFzbimpRIYbTpSGslxm2lys07I=;
+        b=pmv6eN0Z89n+/W0A28ck7gkM5yl5zAt4CQcPktJlI6ENaZsRdFF5wDidIJ/gRh4bWY
+         Ld+txmckHc9vnJuRCrmWsx7GfwawXGc5dt/Y7qkG+nsW4e8Yd+uR4VjnezHxFnTXkl2P
+         mvfnSQYGZPHjf4lkgPcCYEzlkDGmPrW1IpC/VoA0sQM2KJIxYrJTUj4DV0jch1HA8WbA
+         FlSHktH1LgnTmzvJRNhjPid0ASMKC/CVkJzxloYGBxOmH+oaF4C1EgeAkGMRHcHypNGF
+         7NJuWf3fcRnzHvgTekdCtAv8qNyWMr9I/pcX685h0JVr3SmwxcrkNsNaBIPi7/iDfDu4
+         CfpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790439932; x=1791044732;
+        d=1e100.net; s=20260707; t=1790439922; x=1791044722;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ClV361TQ2pqfwGMdnIThGuqNSY7+Osp+o669BRRfF4M=;
-        b=Z5OC2BA7ne9JyHUJ17D6e7ivxq6r1NPFGmi0KKXZyMY797Gcka7o+bhfmUa4hCCEai
-         3JerrWrAcUTTYtwU3MuHa3sVsuonxRGRmxuW6LCd1dbuhWdOYHdCsAL0SYVIUkXGpVUK
-         fi6LApTN1gougHe90o9OiONRfbcKWRYlHVcP9vmpe5Ym4Oltypyju8y3+jKb9AnnKEqY
-         r1UVZftCY2xRidZHCLIlbrfnz4cBMaZpv/YaUC+kWJD9XD7Cf14qj6k70JXc4FCbyDbN
-         194ihDUqPj7QnKktRcJEkd1BDYaWFHlm5gOXIfFGtgpgiSZ9PvxaPLGhP10bR8fCY4Db
-         RDww==
-X-Forwarded-Encrypted: i=1; AKwUvByK+Vknir6JCwiOXNzhKRlNxAAiAJy6gQ5t+8kSwH3wqUvrIfBUlFL7RK7KJH4JAibwCWty2uL7YN+FuDc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1lbU5xprkU/xrV7NZu8WC/uNpJiwYMkVBDgq0f92gWPtiGSAL
-	O60tQMNhuggdo1v4pH6fH73P9WRrKyvlDfemVwAlZigE9q+FZ+Vf4ytf
-X-Gm-Gg: AYBFou38ee1cLn+nWFyo0aTgNHpd14h4RcItk4p0vZlW9Yohmz9r6RdsT15Yqfya49t
-	waBWgRiUrLyjc0xcVvTkMZcjBL0UbD1tWvkMa2jzA4FPAhV1mppLaVOgboP1xWRQ93JOmUylgsu
-	UF5TGtZoQXLvp6k0LBOIZSClwGTR3DcRsAHYZExGXThVYLSRvO1zQVjA3ieyyoWZEleIM2F5WCf
-	4cXnF1CsfZ4zTQoDUW4ahnw8Tu6ROfxCXluZHVqXbb96SnDZNrM7h83M9duoxOXFksSjDZH9D/l
-	Vr0z0zyp3VgI7Ang1TygYqdT+7sPIJ32o/dJWdmTYdfdWIFJJ7hCosPMMY5+paa60CUIJkG2jOU
-	5QACom5p2/urkMl5pp8u2TRqejGpRSK4HlYs6HaiHZjqOCghIjaguO5DUR8jVqry9otyIrtCVdr
-	liTZ/7MIyGEXAwEWmUVIOga80NHiKgqCRns+Xr/BoNnRFgrydnEMjwHJVcy2J7t/17onHQVxON1
-	zahh9OSBaXIB7t9WuDyY96AFC1L2V3v/4reBehfYQxil7oi
-X-Received: by 2002:ac8:5f88:0:b0:533:2985:eae with SMTP id d75a77b69052e-53329851318mr33634181cf.31.1790439931933;
-        Sat, 26 Sep 2026 09:25:31 -0700 (PDT)
+        bh=7fg3dbwS3W1KU8abSpFzbimpRIYbTpSGslxm2lys07I=;
+        b=vMAuaJpR/65KeL6Il/e4KhAJsDXVXwXrPIZaF3NKWzAYSKA9DMThOdFfRNzTZaQoth
+         v3wy5NWvUY61xf3gvl1NEZNa8pg+tpxB2yXnaVlvwLC+Kg/6txYACbp/uUN/3POBAhe+
+         5z0ngXtAs17ffaabC0ipwb4a1IrL3LSUuobVcGYzygRpov7Pk+k8NNJOuMWzbA4uj/4M
+         vJL67fHWfmTsZGf7U2I7kgO3b92mlsn2eCCDiQ7e9T2c+lFNbwsLcN+2zUgdBUyn9WUu
+         R1bGMX3QbJ6Qv62zKwdeFEqSCYgD+Zrl/JYUNtYq/jf1QpAmGWghCiLyk+aIO1BESLwr
+         MREQ==
+X-Forwarded-Encrypted: i=1; AKwUvByotpPt90qf0MkyQOzvsnfjS0+gPj5FIRcHNBae/WeIGiq5agbeV7pjcQRjZhMlgfQrR+kruDMQdyIPWWk=@vger.kernel.org
+X-Gm-Message-State: AFuF++liC5/yQ3f9YE7/gK5cwzIsIW72YI72F/pKoZU9NpQkuZHzjoIU
+	XiuELA5pIoBkEIMpE10HVnx8/+Rqwb0C4VJUxoBBpjPx+R7/9bZmMUsM
+X-Gm-Gg: AYBFou3VuzHMFsGX+Zsj8Fajas/7Rea/41rjKpJdgHCvUE7PXDq+dfg5HIi2b/Y3QRQ
+	GiXrOCPYu/4KpkyeZ//xkdT2d0Y5vcBqz3FihiIG0z1Cl00Mmb3GVAFdTWvKixLGnhtmZpYhQXX
+	eGTms32DjGgr/PjftuD/rAcZnKRPQwrFzknb7q7gCMQJG4eJzB+mqQJ9JZB1fjucuUI7BxQzhvu
+	sLf4IHKtHUOs504OcGX/IGWf2clxw6cyVvevEb/8SAGy0cStITiaoqrhCPFHytJxAD9pwTeKLL+
+	4p7Cqi+fwcG0vV0WJLyz/lh48tZ2cAZYpLf++Z7w2DCeILrRVWPdmLFWMYyVtRC5WNxdkPcTQqp
+	+9KbSmfIQhZC2UbebrvDUbWyL8cHDMUhTFu7ts0Srh8iKfqNn1aaPPfDTXKxs905QWUIBVH1KL/
+	V3x8ZxI8Ca+4crDoCGax8fChDEnFmz6WjRQPepp/G9u+pE2wmhrzbvdxWSSc+SOp0ckxWv5B4na
+	WMMpb2/is1AYhyE3AVJQMusTsZXU1I7AcBaerue+9UfOLMO
+X-Received: by 2002:a05:620a:1724:b0:939:72cb:bae5 with SMTP id af79cd13be357-93c43d6c35amr1003367685a.28.1790439922023;
+        Sat, 26 Sep 2026 09:25:22 -0700 (PDT)
 Received: from zaina.localdomain ([172.56.198.134])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332238bdfasm20896291cf.18.2026.09.26.09.25.30
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914309a2bafsm42615726d6.7.2026.09.26.09.25.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 09:25:31 -0700 (PDT)
+        Sat, 26 Sep 2026 09:25:21 -0700 (PDT)
 From: Zain Aboobacker <zainaboobacker33@gmail.com>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: ibm-acpi-devel@lists.sourceforge.net,
-	platform-driver-x86@vger.kernel.org,
+To: Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: thinkpad_acpi: fix typos in comments
-Date: Sat, 26 Sep 2026 12:25:28 -0400
-Message-ID: <20260926162528.25365-1-zainaboobacker33@gmail.com>
+Subject: [PATCH] usb: xhci: fix typos in comments
+Date: Sat, 26 Sep 2026 12:25:18 -0400
+Message-ID: <20260926162518.25301-1-zainaboobacker33@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,85 +79,144 @@ Fix various spelling mistakes in comments found by codespell.
 Assisted-by: Claude:claude-opus-5-5 codespell
 Signed-off-by: Zain Aboobacker <zainaboobacker33@gmail.com>
 ---
- drivers/platform/x86/lenovo/thinkpad_acpi.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/usb/host/xhci-ring.c | 14 +++++++-------
+ drivers/usb/host/xhci.c      | 14 +++++++-------
+ 2 files changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-index 1225b01ed14d..ee831e6b8fbe 100644
---- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-+++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-@@ -2108,7 +2108,7 @@ static int hotkey_mask_set(u32 mask)
- 	}
- 
- 	/*
--	 * We *must* make an inconditional call to hotkey_mask_get to
-+	 * We *must* make an unconditional call to hotkey_mask_get to
- 	 * refresh hotkey_acpi_mask and update hotkey_user_mask
- 	 *
- 	 * Take the opportunity to also log when we cannot _enable_
-@@ -3770,7 +3770,7 @@ static bool hotkey_notify_dockevent(const u32 hkey, bool *send_acpi_ev)
- 		return true;
- 
- 	/*
--	 * Deliberately ignore attaching and detaching the keybord cover to avoid
-+	 * Deliberately ignore attaching and detaching the keyboard cover to avoid
- 	 * duplicates from intel-vbtn, which already emits SW_TABLET_MODE events
- 	 * to userspace.
- 	 *
-@@ -4047,7 +4047,7 @@ static void hotkey_resume(void)
- 	hotkey_wakeup_hotunplug_complete_notify_change();
- 	hotkey_poll_setup_safe(false);
- 
--	/* restore previous mode of adapive keyboard of X1 Carbon */
-+	/* restore previous mode of adaptive keyboard of X1 Carbon */
- 	if (tp_features.has_adaptive_kbd) {
- 		if (!acpi_evalf(hkey_handle, NULL, "STRW", "vd",
- 					adaptive_keyboard_prev_mode)) {
-@@ -7131,7 +7131,7 @@ static bool software_mute_active;
- static int software_mute_orig_mode;
- 
- /*
-- * Used to syncronize writers to TP_EC_AUDIO and
-+ * Used to synchronize writers to TP_EC_AUDIO and
-  * TP_NVRAM_ADDR_MIXER, as we need to do read-modify-write
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index ec278a9f9540..5a9bb18929f8 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -243,7 +243,7 @@ static void inc_enq_past_link(struct xhci_hcd *xhci, struct xhci_ring *ring, u32
+ 		 * fixed in the 0.96 specification errata, but we have to assume that all 0.95
+ 		 * xHCI hardware can't handle the chain bit being cleared on a link TRB.
+ 		 *
+-		 * On 0.95 and some 0.96 HCs the chain bit is set once at segment initalization
++		 * On 0.95 and some 0.96 HCs the chain bit is set once at segment initialization
+ 		 * and never changed here. On all others, modify it as requested by the caller.
+ 		 */
+ 		if (!xhci_link_chain_quirk(xhci, ring->type)) {
+@@ -661,7 +661,7 @@ struct xhci_ring *xhci_triad_to_transfer_ring(struct xhci_hcd *xhci,
+  * Get the hw dequeue pointer xHC stopped on, either directly from the
+  * endpoint context, or if streams are in use from the stream context.
+  * The returned hw_dequeue contains the lowest four bits with cycle state
+- * and possbile stream context type.
++ * and possible stream context type.
   */
- static struct mutex volume_mutex;
-@@ -7324,7 +7324,7 @@ static int volume_set_software_mute(bool startup)
+ static u64 xhci_get_hw_deq(struct xhci_hcd *xhci, struct xhci_virt_device *vdev,
+ 			   unsigned int ep_index, unsigned int stream_id)
+@@ -989,7 +989,7 @@ static int xhci_handle_halted_endpoint(struct xhci_hcd *xhci,
+ 	int err;
  
  	/*
- 	 * In software mute mode, the standard codec controls take
--	 * precendence, so we unmute the ThinkPad HW switch at
-+	 * precedence, so we unmute the ThinkPad HW switch at
- 	 * startup.  Just on case there are SAUM-capable ThinkPads
- 	 * with level controls, set max HW volume as well.
+-	 * Avoid resetting endpoint if link is inactive or device disonnected.
++	 * Avoid resetting endpoint if link is inactive or device disconnected.
+ 	 * Can cause host hang.
+ 	 * Device will be reset to recover an inactive link, so don't do anything
  	 */
-@@ -8043,7 +8043,7 @@ TPACPI_HANDLE(fanw, ec, "FANW",	/* E531 */
- 	   );			/* all others */
- 
- /*
-- * Unitialized HFSP quirk: ACPI DSDT and EC fail to initialize the
-+ * Uninitialized HFSP quirk: ACPI DSDT and EC fail to initialize the
-  * HFSP register at boot, so it contains 0x07 but the Thinkpad could
-  * be in auto mode (0x80).
+@@ -1384,7 +1384,7 @@ static void xhci_kill_endpoint_urbs(struct xhci_hcd *xhci,
+  * held for the URBs to finish during device disconnect, blocking host remove.
   *
-@@ -10623,7 +10623,7 @@ static int dytc_profile_set(struct device *dev,
- 			 * To get back to balanced mode we need to issue a reset command.
- 			 * Note we still need to disable CQL mode before hand and re-enable
- 			 * it afterwards, otherwise dytc_lapmode gets reset to 0 and stays
--			 * stuck at 0 for aprox. 30 minutes.
-+			 * stuck at 0 for approx. 30 minutes.
- 			 */
- 			err = dytc_cql_command(DYTC_CMD_RESET, &output);
- 			if (err)
-@@ -11685,7 +11685,7 @@ static bool tpacpi_driver_event(const unsigned int hkey_event)
- static struct proc_dir_entry *proc_dir;
+  * Call with xhci->lock held.
+- * lock is relased and re-acquired while giving back urb.
++ * lock is released and re-acquired while giving back urb.
+  */
+ void xhci_hc_died(struct xhci_hcd *xhci)
+ {
+@@ -1969,7 +1969,7 @@ static void handle_device_notification(struct xhci_hcd *xhci,
+ }
  
  /*
-- * Module and infrastructure proble, init and exit handling
-+ * Module and infrastructure probe, init and exit handling
-  */
+- * Quirk hanlder for errata seen on Cavium ThunderX2 processor XHCI
++ * Quirk handler for errata seen on Cavium ThunderX2 processor XHCI
+  * Controller.
+  * As per ThunderX2errata-129 USB 2 device may come up as USB 1
+  * If a connection to a USB 1 device is followed by another connection
+@@ -3087,7 +3087,7 @@ static void xhci_clear_interrupt_pending(struct xhci_interrupter *ir)
  
- static bool force_load;
+ /*
+  * Handle all OS-owned events on an interrupter event ring. It may drop
+- * and reaquire xhci->lock between event processing.
++ * and reacquire xhci->lock between event processing.
+  */
+ static int xhci_handle_events(struct xhci_hcd *xhci, struct xhci_interrupter *ir,
+ 			      bool skip_events)
+@@ -3801,7 +3801,7 @@ int xhci_queue_ctrl_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
+ 		/*
+ 		 * If next available TRB is the Link TRB in the ring segment then
+ 		 * enqueue a No Op TRB, this can prevent the Setup and Data Stage
+-		 * TRB to be breaked by the Link TRB.
++		 * TRB to be broken by the Link TRB.
+ 		 */
+ 		if (last_trb_on_seg(ep_ring->enq_seg, ep_ring->enqueue + 1)) {
+ 			field = TRB_TYPE(TRB_TR_NOOP) | ep_ring->cycle_state;
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index a9e47e178c28..db7310f15313 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -406,7 +406,7 @@ static void compliance_mode_recovery(struct timer_list *t)
+  * The quirk creates a timer that polls every 2 seconds the link state of
+  * each host controller's port and recovers it by issuing a Warm reset
+  * if Compliance mode is detected, otherwise the port will become "dead" (no
+- * device connections or disconnections will be detected anymore). Becasue no
++ * device connections or disconnections will be detected anymore). Because no
+  * status event is generated when entering compliance mode (per xhci spec),
+  * this quirk is needed on systems that have the failing hardware installed.
+  */
+@@ -796,7 +796,7 @@ static void xhci_save_registers(struct xhci_hcd *xhci)
+ 	xhci->s3.config_reg = readl(&xhci->op_regs->config_reg);
+ 
+ 	/* save both primary and all secondary interrupters */
+-	/* fixme, shold we lock  to prevent race with remove secondary interrupter? */
++	/* fixme, should we lock  to prevent race with remove secondary interrupter? */
+ 	for (i = 0; i < xhci->max_interrupters; i++) {
+ 		ir = xhci->interrupters[i];
+ 		if (!ir)
+@@ -2046,7 +2046,7 @@ int xhci_add_endpoint(struct usb_hcd *hcd, struct usb_device *udev,
+ 
+ 	/*
+ 	 * Configuration and alternate setting changes must be done in
+-	 * process context, not interrupt context (or so documenation
++	 * process context, not interrupt context (or so documentation
+ 	 * for usb_set_interface() and usb_set_configuration() claim).
+ 	 */
+ 	if (xhci_endpoint_init(xhci, virt_dev, udev, ep, GFP_NOIO) < 0) {
+@@ -3302,7 +3302,7 @@ static void xhci_endpoint_disable(struct usb_hcd *hcd,
+  * state. For software that wishes to reset the data toggle or sequence number
+  * of an endpoint that isn't in the halted state this function will issue a
+  * configure endpoint command with the Drop and Add bits set for the target
+- * endpoint. Refer to the additional note in xhci spcification section 4.6.8.
++ * endpoint. Refer to the additional note in xhci specification section 4.6.8.
+  *
+  * vdev may be lost due to xHC restore error and re-initialization during S3/S4
+  * resume. A new vdev will be allocated later by xhci_discover_or_reset_device()
+@@ -4296,7 +4296,7 @@ int xhci_alloc_dev(struct usb_hcd *hcd, struct usb_device *udev)
+ 		pm_runtime_get_noresume(hcd->self.controller);
+ 
+ 	/* Is this a LS or FS device under a HS hub? */
+-	/* Hub or peripherial? */
++	/* Hub or peripheral? */
+ 	return 1;
+ 
+ disable_slot:
+@@ -4512,7 +4512,7 @@ static int xhci_enable_device(struct usb_hcd *hcd, struct usb_device *udev)
+ 
+ /*
+  * Transfer the port index into real index in the HW port status
+- * registers. Caculate offset between the port's PORTSC register
++ * registers. Calculate offset between the port's PORTSC register
+  * and port status base. Divide the number of per port register
+  * to get the real index. The raw port number bases 1.
+  */
+@@ -5394,7 +5394,7 @@ static void xhci_hcd_init_usb3_data(struct xhci_hcd *xhci, struct usb_hcd *hcd)
+ 	/*
+ 	 * Early xHCI 1.1 spec did not mention USB 3.1 capable hosts
+ 	 * should return 0x31 for sbrn, or that the minor revision
+-	 * is a two digit BCD containig minor and sub-minor numbers.
++	 * is a two digit BCD containing minor and sub-minor numbers.
+ 	 * This was later clarified in xHCI 1.2.
+ 	 *
+ 	 * Some USB 3.1 capable hosts therefore have sbrn 0x30, and
 -- 
 2.53.0
 
