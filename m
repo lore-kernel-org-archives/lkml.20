@@ -1,95 +1,109 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F12380FC1
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:52:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA8738F226
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790452328; cv=none; b=ezd8O70JqTZYjwiAUascaIBpqLcQ/4EeF4qCSoYK7Hc1Hq3gAL4WBXtj1OTNU2pEzcCmnRSwfM2Rp+InuDBusIQBbkJf3pet0Gbk5e2PqLCT9PDKjcuGhwM9dMDE8XWqtFAwTgaxgL9s8Sl2JHnkw9rRVJRfntjDNObWaoyQ8as=
+	t=1790452342; cv=none; b=c5KCSeYtVR+rGh36jXn6e5O9mBKnEq+phCkGrfOa8OJ4fnheyj6/gKTu4ocTiNBDa+tP/lULreuaRLPJYcR4B9cB4xnpR0EDd9ISJOHtaQSIsQbRQaWmHUaSrQwmlPr7Yii3eLeNLpYLGR6XpTGv0I0Cv6abmOZiIT+LgUs5QkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790452328; c=relaxed/simple;
-	bh=quK4ESbWBNP7NCO/VpFQ3aGBfCDPjj+jYULDZLt3xFY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ACAhILDniDxhH6u9vee2rzamFyuJ7aPvoGMwkuQrkOfPGi6p5i9Z8rPR6VI/JW0uaOs7EM2yQpeBAziPApmLLNvhk8FDX5NuQFOTParOv9FPQh9Dloz9pCNbTd1W2Ux1iEaIUXh/21jfh+/YsL/PhdUsw04mCXgHG4fJn0SqtPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IxYeNQa+; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790452342; c=relaxed/simple;
+	bh=D1nqub9tM1dPC7lujubaxuH80QEvH7OW08kzVVZUt0A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PXlB8uKxBrdnzqToPd5wKBh2/0JknAy5ELxDNXKrcDOmoW/bf/T1LC9ifrf0Xoti69qA94EppMSwCAXS8vWgt2ELEAjl8SpFYCKr6y9oUY4ZOuiaNAjB6AyZ8e4xendhu8Irgte8OdfVstrjiP3kYF46aGD4FvXgkC2Arxyw26E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=VSV6b0Pf reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IxYeNQa+"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so9998625e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:52:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790452325; x=1791057125; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=quK4ESbWBNP7NCO/VpFQ3aGBfCDPjj+jYULDZLt3xFY=;
-        b=IxYeNQa+l/BSiMAeCtVMRQZvYslgHiiBRmba5FXHPfdr8C3RPZvT8Q+7v1R7wzLVxJ
-         CkrecyEwh5SIVKKZ8z4aMDwWkcn5N9JeY2n0D8BA4kTO1iorB/IPS+nW85CNlUcN9vh4
-         bLN2TMHPtyWItZi+6AWiHtPGKhHewE+o2UTWXiG+zBjKI1K2jVNy51dEyZcLUAV/Blyk
-         vLHlDWYESsZY8w/oBUUa8iOiZpIFl3nJiqqI0P5gwQHNMJO0rqNwn9W/ZN5wXYaH8hng
-         civ2XhBDfBHYkQVoVMsiyefTOoCI/CR8he9h98tAHQkyVdGj5lezZ/e0kIgpvWT5/TSs
-         5x0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790452325; x=1791057125;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=quK4ESbWBNP7NCO/VpFQ3aGBfCDPjj+jYULDZLt3xFY=;
-        b=d2g9/pOqEHZWS1UTmjXKeu6Z/gyLfLbehB2Zs3cCkuqWPtkwYuaLgzTGBp5uaUHnv6
-         zA5RfAcBitFSW2ISese07yKcKpPI2oPZ/m7aGz9p4mYurF7We/KZvLURVXwjOUaFC7vK
-         y4LYqRpnNRRD0BDHx8hIgVcx38LkmeTKFZ1qWMa7ldlCi+mz8Xsqz/sW1OHVSqo9Ufhb
-         gdSI1tNJWDq1O5RM+CEOCdnxXfev44Ly8i4fCu4MNvkKsRssitYfjFGKXxWPieEfFKdA
-         vzaJKIb0TLjbmF1y1arGRLC43FNTBBqV938rtotvrv6QNhzU2p7slR2Oc35Cmrjjc3ml
-         0mMA==
-X-Forwarded-Encrypted: i=1; AKwUvByYfv3CfYuAITadtSNtJFxnQwfoY2ksTkTbGQIbv5L7DCKDZ1kisiiOIkVNosxhc0HvUU09jjXcx01tJ/g=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9/joxy6L/SF98G9cx20lcQcNHCpfwtafSlQsJiupLKzOls6b1
-	E8ueTjonUPvr2CnwE6tEy4XTTXuCQ/NxQsq2sA/F56lH7hZxTEKWHmOV
-X-Gm-Gg: AYBFou2jChWeR0DdUaw4aIjI7u36tbv9UEWAfcMNmxl4tYeTZUIfHjc9hmby8YreM0J
-	4AOIKWFsZNdm++BEBRk9yfX+IpY9VIf+m9JcIDTksRf7/LBvdA5Pa9Aste7XJ+0UntYIsJCyJt/
-	GC3vKT9fntDEjJT/t+zG+YnUoITn46zv4njIRcffr6vupRX9ymRedS6V74sBumLTWrEM7pCzoX1
-	FUIHrlbjDaAlDXZX9WnvhqnUgnkNU6kXKNTaVImclvhoyhwVanMF0PdCzD1Pux4XAAPCnvFxSGW
-	ka+UhXHvuoK9vHIMq5Th76Aubz69cMcGJuLXaSiBjuxJ0YAhnhRdhj1AVq2/V7DDhc/HlFelMq9
-	adXCaH+x9CEt62xZGyFy7UMQwc9fhGKxv8jtqHk7c2/r76gKP9LXCLm5Zu2SXmCyUWeP/b9Os/y
-	pcw+z3tw+0Qfr6BeG+2gVBozxr1DjA3aNGLtw9JzEJHyea/tjjWRxYLsiYK7V2VlKrzt5HFlmQf
-	BgDIvtB+1LjTq2ppw==
-X-Received: by 2002:a05:600c:4ec8:b0:49f:dd10:3c71 with SMTP id 5b1f17b1804b1-49fe66c61c4mr167010005e9.11.1790452325101;
-        Sat, 26 Sep 2026 12:52:05 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.74.168])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fef4fc959sm139458915e9.2.2026.09.26.12.52.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 12:52:03 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Doug Anderson <dianders@chromium.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Lyude Paul <lyude@redhat.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/dp: don't mark the AUX backlight enabled when enabling failed
-Date: Sat, 26 Sep 2026 21:51:55 +0200
-Message-ID: <179045227485.41069.12855843493298872118@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAD=FV=UohyFHM3r4i6NoDbzVFpY9xZzg_=FvGFhBgScaCUwH2w@mail.gmail.com>
-References: <CAD=FV=UohyFHM3r4i6NoDbzVFpY9xZzg_=FvGFhBgScaCUwH2w@mail.gmail.com>
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="VSV6b0Pf"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5631A40E01F9;
+	Sat, 26 Sep 2026 19:52:17 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id yVhWzCsEK9wq; Sat, 26 Sep 2026 19:52:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790452325; bh=UiMSyRFKs7VC0vsliyJ+JCT7GZBHFu90GqFe0oIG6hE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VSV6b0Pfpcbadj+z1O0dIqxuh8GsGgZAsmDEln8avnprJpQy12o7Tty9JXLw/EBs3
+	 E+uWgY8bJi+pwGk9P9wAP2Timg+l9KXHF4ZVAN8vacoolIITh5pPwNzo7Uat4mM4/H
+	 Emwain9eUGcvJBpst3gdFHWric4ioFhjhrlpCeQ8Cb9WiQSAA4UOVAPUWf9xOE0+fC
+	 Mn4qNNzJnoXi0YyieOP/5LYqPfmbxGth5Lu8YR6RrsX4nBxu+qbCBqdJhsFQMB7d+A
+	 RxTKzqRdre/6a7NAx6i+/1KUAqyCYL2r3hQK1d7qV5yn669k1lphmN1PQdt/GJHjBY
+	 xfxv65ZyQEkwnivnDOHpp9djTTzHQ7x5PjQdpzbVfbVEjuIUomdinddrUQrpUXT5UA
+	 0lFQVC5iirRU/3TbzPIhv6qP3oIU+Xi+GkdbRSLj9VXCSZE8cx/S/zqkbf0rUxYFWT
+	 b5UmgVG5BMW5fyzWpVDA9D0ulTVUxQJCNeeILutVWQOsoPFPy6KhlSmmLZxVCTnAH4
+	 b4WFDeur8BoODY6CEOHvuaW9R5LMu0jW8ShEGlezD12JkmmubDUijfPsTMnWtqbcrW
+	 dQRCyLwiWHAaoHzOgtcYid2tY+w9pjcVXbMbMjauHf9rWJXN7uJ4dfLK88FqmNOlHp
+	 olNsauftvm5VpsJZRDtaWeOY=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id CC81F40E00E7;
+	Sat, 26 Sep 2026 19:51:48 +0000 (UTC)
+Date: Sat, 26 Sep 2026 12:51:45 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Oleg Nesterov <oleg@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	linux-um@lists.infradead.org, llvm@lists.linux.dev
+Subject: Re: [PATCH] x86: uapi: ptrace: guard register offset macros with
+ __ASSEMBLER__ or __FRAME_OFFSETS
+Message-ID: <20260926195145.GBargiUSEEqjWPpuaK@fat_crate.local>
+References: <20260821-ptrace_uapi-v1-1-3de8638a29f2@google.com>
+ <e801211b4c71ddd919fa5d7b9c859b86addf3fb7.camel@sipsolutions.net>
+ <CAKwvOdkMK9Tj=JgsPeQj6_Xtx3FgZK2SWTSJVU_BJ7G17pDC2w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAKwvOdkMK9Tj=JgsPeQj6_Xtx3FgZK2SWTSJVU_BJ7G17pDC2w@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hi Doug,
+On Fri, Sep 25, 2026 at 02:25:47PM -0700, Nick Desaulniers wrote:
+> On Thu, Sep 24, 2026 at 7:54=E2=80=AFAM Johannes Berg <johannes@sipsolu=
+tions.net> wrote:
+> >
+> > On Fri, 2026-08-21 at 15:45 -0700, Nick Desaulniers wrote:
+> > >
+> > >  arch/x86/um/asm/ptrace.h               | 4 +---
+> > >  arch/x86/um/ptrace_32.c                | 1 +
+> >
+> > This seems like a simple adjustment for what you need to do in x86, s=
+o
+> > that's OK, but I don't think we'll take this through the UML tree.
+>=20
+> Appreciated! I agree, maybe with Oleg's review this can go via the x86 =
+tree?
 
-Sorry for the muddy commit message. Unfortunately i cannot reproduce
-the enable fail. I found the unchecked return while debugging eDP issues
-on glymur. Please drop the second paragraph when applying, or drop the
-patch if a code-inspection fix without a reproducer isn't worth taking.
+Do we want it in stable too even if it is not really stable material so t=
+hat
+userspace does not have to upgrade kernels just for this?
 
-Oleg
+Or are they simply copying upstream UAPI headers from the latest kernel s=
+o
+that stable backports don't matter?
+
+Thx.
+
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
