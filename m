@@ -1,113 +1,119 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9C137A839
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:43:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C00F322C73
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790412221; cv=none; b=H4wiHBRRvLtyPmKfwrS+ku9aCl2yp/oSBGAFcp+p8hTeY5QbNzGMDhCHiTkxinNKg91jm4lhoRlcYGm1KJw2r7KbAVpPTC6kjJexQEmvKHu706zkCGmrVgubZpON8v4762Hm8IkkOU3CSGatU4kPPwEpXzx16qk8hIWIZxcpsAQ=
+	t=1790412257; cv=none; b=p7FmGWZrpm+pEHvk1IEq7b8bB5cNyqTOVeykN1eevjGBei3shjLu/0Da8+aPnlXOKktX34KaEXaHtjRZ46kPLNdwXz0pKlmm3DIv8KHzFoSNA8oDJQm/RLWnWuvjst/cbbBl31ZfuVfAdvCJruByxZXNxB/f/lgVFx6P8kspUpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790412221; c=relaxed/simple;
-	bh=12EUdsbFiHBURzlJjrzAK8K4NZINHomEF0ijgoIRkOM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nxAyjUEmocoRk7y8mL+IwR9APKDpKT0/8hXJw7APK1NBfXjo2RYH2O4NS2PK5TDG+VYh20VjfFeGpLSXCbmJtr6G4Yf4Dvta16OhVULK76j6tPbWeDRH555oIpGIXP3wIGhnhig9voGGSt9JY53c+JWnoMgbuoYC4YkR6cJrffM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQ9waO3B; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1790412257; c=relaxed/simple;
+	bh=357Ky0nTuRm/ryxTVFvvXIsESqKMl6UKRo2AemrEjso=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
+	 References:MIME-Version; b=X8GmUgjMUYFIlA5Vir2l28Ix5XCF5FgLxQ+n/Bea8F/HSPzYKM3GtC7f5UcCNPK3M2v0T9XPAaOdfQGE1OR90rUSDxnDerKUVfwf24FXF7w8wKSXvLMzbcClplTLaKcwlhbnIggFjpx/KMKIlUlciQNOCr0rX3PruZP11wYiUGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mas/7Xjd; arc=none smtp.client-ip=74.125.228.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQ9waO3B"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so1285844f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:43:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mas/7Xjd"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc7979d1dedso362346a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:44:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790412219; x=1791017019; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QCwVdOxjrFD+KrFGvyZLlA0okXbQCYf9gkSOoPwm8f0=;
-        b=sQ9waO3BnTOzJMYOCXCLbcxZZobeBoAgwyUF4n0Itanw/bT0XnLu0IOpdVYUqDMUuY
-         CnYvDX+CzGQAPCE9CBJl/4b9zolIuYpJdWuzZZP/X1bfrfu3VV856s+xf3mp+oW4W5zs
-         c1u39oZiHrZBS0alTPpBNkqJ6VlGFu8rTRCMFgsBuJKJrxw+XN+ZLHC3z5fa5R635lLB
-         0eSu9NAao1vCpTbLcwWb9F3I1ThGBdLeIf2TNcjEXTMRYY5UHGZatJHphdTfjGaa4xyi
-         PayrediRnZ/8NO7cBojsw9lOfUsUjNUq/k/XM6+hAvdfDehzQlgpo/9tOOIwoqExXVjt
-         VKEw==
+        d=gmail.com; s=20251104; t=1790412256; x=1791017056; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
+         :from:subject:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KpE+f047+1AeIBfIFik5jfpCl92Uu0imNFmaxvJId70=;
+        b=Mas/7Xjd1UQUnz84T1Tf3pf/boSVJH44uQ+tp42u0B1BDDviXXx1zsD0M9kI93zevQ
+         yfAC6VboBxq0WvrTnEsKvDNISjJ+kG0puPEsBqH18oUeJQMJMsqyDbT+jCdCTUyUtTMo
+         SKLnm7hfRpT6eIO+l0mf6FN8uK0Btkh+SgEgadt1kuR4yz067kf8B45WWgq1OtSzgi+4
+         fgW8BKD/u4aElvwYHypbKueZooSR3q+xiK671Ykv50wrztzkJtV4IbC7559UCnDG9zTQ
+         dmFFt+5A3LaJwJ5b/NXKnm8Z+YdSOEHrZgcoUJV0L51GfT+LdO9U26dzEQ2vhsqoAVOh
+         i5iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790412219; x=1791017019;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790412256; x=1791017056;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
+         :from:subject:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QCwVdOxjrFD+KrFGvyZLlA0okXbQCYf9gkSOoPwm8f0=;
-        b=sJ9dqnkadcMQHj9h1J/MSdGZyhnC2sIPp6kvXISILB0tTMNhQJF9RsmUt7ioE4yZV4
-         L8kV5S+nSzADBhW8k1rh9MRB3bUcyVLn/OiTQltFwnBBsi8wRvuqVAYqcHFzbCiPCiFh
-         94X9UWADE4EZnU/riNqnbbygtiVqQYjS9T44zhdGPcJ6PMGM68pkZCnaAXbFh5sL3FvX
-         GJd3ZTv7bt+En+bu1m+IOx/aooY7DncMG8Ia5f3i1vkK0MleYZQQ6DsXh88hlSjTOwyG
-         wbZYyQ07rk4tOw7RCMA5AmAjrlKQQx3YAO6m4ro2tjiDasY7FapheSkZJp5KzgQBgZnc
-         +4lg==
-X-Forwarded-Encrypted: i=1; AKwUvByS/PrXNGRbxZLCxhEBn/y05TW3DGWsHJJ1ZeM3rsorJ22ZlXN0H1ogrT6+7HjtzHJLo9bbyTvG4EkDNWw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwEpcwGjVNACLeSfTaukn4YS2YZC+0YGhzggIPynMI8zgd+i/g
-	Bsg4zCoxWslm/xqfKiw/VYhyQbvtxHupYcOdAdjt6k+rdaBO23YXho+O
-X-Gm-Gg: AYBFou0T8YylH4Wf5kYOxx9levUGmJClZBAOb6flb2TFRJIBQelsBA7zs0uaEqA0tRG
-	SwFEzzIYU7hSgYVi+/p0KAQiOcoekIp3U1mFZKvZFCBQYdtZLNTV4agSH5gR9+fkncO0UDq9tpI
-	N2SPwk4b1AkjIAvN6Co86oW02vwsYkmmSibfM6x4z/qw392O4BS3O0mEhLd/ZRLXVtYZJxb8Y23
-	RRjQmfWCrhTUb3zFY0aP7tXl8a2fzbrTzABQ1V3BY9WWvKMdcdUJNZSQ6TOEWstr8FS5x++I+Ok
-	qU/jn6WeRdm5QoJlTjuOnU9vgQ+Bewo0qezlTvsRchOFPfvHWK0LAYPyF6VIm9SqJK2ri2hX5Ex
-	/LDRX1nsTBWriJMvcdjRNfATL92NyGx4Ds65FAHAQTMvA0K1PHExgIASZrluQFF3lRp5jbFJKgk
-	2gjDdiejPXrbAq1TmrQYyXbzs919pnOwZLtYAmGdyIEgRDwPLhXggUrA0/4RqP4fddSdJrgSsCh
-	FdAQpsNn/op/AbmlOWF1i/M4XMbvzOX9jxu4GkUUqYZnayN7vOislswmNSEzBkdY6F66iMDPBCY
-	TjYBvybaVwy/FAMcyTyQlZ5lOw3A56Zb9DgkMzJdkndCsDAQyLwbJwLo0n9Qhe7TC8JzqT7Yt83
-	OqGi59t8S/ZRSqU1TIWojxg==
-X-Received: by 2002:a05:6000:1a85:b0:487:ee4:b5e4 with SMTP id ffacd0b85a97d-488716b6cd7mr15679810f8f.8.1790412218418;
-        Sat, 26 Sep 2026 01:43:38 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-b162-c701-4960-a998-3de8-2fce.310.pool.telefonica.de. [2a02:3100:b162:c701:4960:a998:3de8:2fce])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm12979497f8f.4.2026.09.26.01.43.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 01:43:37 -0700 (PDT)
-Date: Sat, 26 Sep 2026 10:43:35 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jeremy Kerr <jk@codeconstruct.com.au>
-Cc: Matt Johnston <matt@codeconstruct.com.au>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
-	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: mctp: Stop selecting flow support for
- KUnit tests
-Message-ID: <areFT_yfInT01o2r@gmail.com>
-References: <20260925192510.93840-1-kmehltretter@gmail.com>
- <8edc4e71edceb124e2dca233cddb75e198b53a51.camel@codeconstruct.com.au>
+        bh=KpE+f047+1AeIBfIFik5jfpCl92Uu0imNFmaxvJId70=;
+        b=R1SqK3/KJICym/m+xYxUfJYQwDFMX69M9ZsRCVZdi0tsSF+20sYEBspZh1L5e0AQQh
+         DGlEUlbm8OLI1JVT9bhQfhRFIR4siaZJVgqizr99q1nugObbLhbLygEhts5ir0rmmNg5
+         URfkZhs6bLq13jlKdyzmH/Rt9zAzJrFQIV58HsXzsIyXJsR+qaNPInrCsV/qY1R/MQbK
+         6qm1h7j8CyXJ4CX+TDuXbYbSQdMUy5Fw6oAE5ooJ9ONE/oMt3SaZh3kO9dASdXl5kZat
+         rmhujnTHytx+L6izVTwsivmXQMdbfSjK0b54EHTy/leBWHcKHm+xkSlmJSbmLesCPaTJ
+         7rPA==
+X-Forwarded-Encrypted: i=1; AKwUvBzuzl6p/XZWZhKjKkuJGGv53qUlK0nlyQbGHlh1beejPlWgjqVMSpfFq2tUFiVSJxAYVl9kwVNrH194yyM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEYR7LyrBxeXBxYqVwfN4mrBVUn7dv5XRe7/rSQU6ZrsvcRP//
+	aKzlVZw6VMxw8hKMFoGg9BLOKDARhim4IDQD7Q9xFxUFbIJz+A5/NWHX
+X-Gm-Gg: AYBFou3p1ubl8r12PLwRwtnGJFrEqpJ4kiLg3hIPUknY8OMJbj6JGy6dRvoeIl+FFNI
+	5/XNlMw4Z+IdXw+Tp3PKYPGYcoPd+P5AUXvkNjs1oV5bmPEGQaZXd1k6Nps7F72/dub7Cu5wbwp
+	RHsAlTvFXsZdJepoMkjgW80BGwk0EeyHYjhsmWo5JbIaUIRpFQuqtii0o9sSNjpWsZtSxSGoD7H
+	gD3v3pa2K5ANOiOOEAep+7V0aC2bTyz7/joz+GjKefoBkCGAwXWN/qsIFZTYD/JCfh0uJy37c2t
+	WfVWBt7pvn5OhcjVDZQep/smlEDoVcqpSlptSBON+h2fNCc3GcCMC/6trHNEnBHqc7nkarFHmgW
+	EUbcfxXCk0RQebe7GXd9F5ROeJVQnj/VKy+uuVIoc98volOkd6YdKEszSaKlpSlBjm9jAX9pJtA
+	U4+Uqygkj5hCnL5vIRT/k8DUYx4qls13kKUj9cFJ2eq0mESdUdcwk3RWB4r5ZKh/UBmWfDzkxdK
+	nzQils40HKwKlgcmhmdPAleq07d4HoFFlwWbRV+aH0DDkxsOT3VOTAOrzQTCqEcJ1cUEVPphSdk
+	9HyPpf9Aoa4y7Q==
+X-Received: by 2002:a17:90b:3143:b0:3a0:d42a:e22d with SMTP id 98e67ed59e1d1-3a0d42ae4dbmr2114046a91.56.1790412255695;
+        Sat, 26 Sep 2026 01:44:15 -0700 (PDT)
+Received: from localhost ([153.61.198.249])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0c719f86fsm6408824a91.7.2026.09.26.01.44.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 26 Sep 2026 01:44:14 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 26 Sep 2026 08:44:13 +0000
+Message-Id: <DLP46AE97EYD.1I2HDPGBR8GME@gmail.com>
+Subject: Re: [PATCH bpf v4 2/3] bpf: Skip detached progs in trampoline
+ images that are still in use
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: <bot+bpf-ci@kernel.org>, <florent.revest@linux.dev>,
+ <bpf@vger.kernel.org>, <daniel@iogearbox.net>, <andrii@kernel.org>
+Cc: <martin.lau@linux.dev>, <eddyz87@gmail.com>, <memxor@gmail.com>,
+ <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+ <kpsingh@kernel.org>, <john.fastabend@gmail.com>, <leon.hwang@linux.dev>,
+ <zirajs7@gmail.com>, <rhkrqnwk98@gmail.com>, <puranjay@kernel.org>,
+ <xukuohai@huaweicloud.com>, <iii@linux.ibm.com>, <hbathini@linux.ibm.com>,
+ <chleroy@kernel.org>, <naveen@kernel.org>, <bjorn@kernel.org>,
+ <pulehui@huawei.com>, <yangtiezhu@loongson.cn>, <hengqi.chen@gmail.com>,
+ <linux-kernel@vger.kernel.org>, <martin.lau@kernel.org>,
+ <mason@kernel.org>, <ihor.solodrai@linux.dev>
+In-Reply-To: <6a6d43e6bada7a1433cd525c9ec31780ed9b2401c8834894defdf671601b2f1d@mail.kernel.org>
+References: <20260925100342.481242-3-florent.revest@linux.dev> <6a6d43e6bada7a1433cd525c9ec31780ed9b2401c8834894defdf671601b2f1d@mail.kernel.org>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8edc4e71edceb124e2dca233cddb75e198b53a51.camel@codeconstruct.com.au>
 
-On Sat, Sep 26, 2026 at 03:53:28PM +0100, Jeremy Kerr wrote:
-> Hi Karl,
-> 
-> > MCTP_TEST selects MCTP_FLOWS, which also enables SKB_EXTENSIONS when no
-> > transport requires them.
-> 
-> But we want to test the flows support, why disable this (and
-> consequently skip the flow tests in the vast majority of test runs)?
-> 
-> > Remove the selection to follow the dependency
-> > rule in Documentation/dev-tools/kunit/style.rst.
-> 
-> That suggests "depending on", rather than removing the coverage.
-> 
+On Fri, Sep 25, 2026 at 10:47 AM bot+bpf-ci@kernel.org <bot+bpf-ci@kernel.org> wrote:
+>> +	/* nops for move_imm+jirl, patched to skip this prog when it is detached */
+>> +	for (i = 0; i < LOONGARCH_LONG_JUMP_NINSNS; i++)
+>> +		emit_insn(ctx, nop);
+>
+> Can a task preempted inside the skip sled resume into half of the new jump
+> sequence and jump to a garbage address?
 
-Hi Jeremy,
+[...]
 
-Thanks for the review!
+> Could the LoongArch skip site use a single instruction instead? For
+> example, a 'b' to the skip target, which is always within the +/-128MB
+> range of the same image, patched from nop to 'b'. The rest of the sled
+> would then be unnecessary.
 
-OK, I can change that.
+Seems like a real bug. Same issue on riscv.
 
-I was confused by the existing !MCTP_FLOWS fallbacks, but now understand
-that you want the suite to retain full flow-test coverage.
+ip_after_call was patched in bpf_tramp_image_put() when the image was
+already unreachable. Now bpf_trampoline_remove_prog() patches cur_image
+before bpf_trampoline_update() replaces it, so every call of the traced
+function goes through the sled while it is rewritten. stop_machine
+doesn't help the task that it preempted in the middle of the sled.
 
-Karl
+Pls fix and respin.
+Everything else looks good.
+
+pw-bot: cr
+
