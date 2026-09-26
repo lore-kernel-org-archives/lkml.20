@@ -1,148 +1,73 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC123A3830
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:34:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA503A6F1C
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790415243; cv=none; b=hytFM/358IXt5R1lX43itgfFt0LlzgMAQPsfY93MIPlymyAN1aZUFvPTBGmRRTSzTDaTwDJCTCndw8ApYmL8lGX26lwFkIa54ItnCpGOoLUEn2d6vGNp19NLupPKwfhDpBHCP6r2E3JcG8hBSqL6MQ1UaCrRxLeKbL6H9nR/ffY=
+	t=1790415664; cv=none; b=f8EhDsH3wQ6YiuQLR2YAlT4EEo+11VAqLotB/+IqVXy/tvrJEhRoeNDY4O6dZ47o2ccuaDLs4CnbjD5Z/2ngpQiY7XBy7WgJKru2JEP0FCHIoQqkHaZTuxTfdSWyLoW6JbCjTBCRULUXb3Hs4K3MtMx8hrN7Uoj9NTiGUhuxlsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790415243; c=relaxed/simple;
-	bh=CfXughzgrdv8ww1ri9Ceb4wr0FfkkEdog82MnjbMhqg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZGPslB7TTvszKS0OAS6oISUA2Dw6YoNxoyTw8Gk/pXY2C1j0NJoKnMEN5l3aja/NSvMnxQdid5r4UeUZ+nlOeOFxDdvgmRVfGkNtcv5aqclQiPlopkipJMxMrrYQDCjBCrtkaMUUAp/I+D+vYp36tDW/wmQK1s2nCctPl+/Xfbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=I76U5edA; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="I76U5edA"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 941D64E41086;
-	Sat, 26 Sep 2026 09:33:53 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6037F60749;
-	Sat, 26 Sep 2026 09:33:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 590B1102F1E39;
-	Sat, 26 Sep 2026 11:33:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790415232; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=3ImgzvPCPqF/pLzMmEdPt+sptLiEtWyXUVBfTOmQMrw=;
-	b=I76U5edAiNk+tI0IhQ05Cc52pq6tuflYYxmk1SZmxC+bS1xPTDF3ANb7wcjQO45rXuUYkh
-	QLdT41nwmwoAY+f3i0Ilm+gb1r7DOOv4OjntzDfitSJJ4yDLMt0FN9AZu7cV+6M5NFjRDk
-	LifbniLduUQFsBdI9+GK8Mw1Pdmr5k5b4TSkbuz8UoHmZSpu6GrWNHYnqJyWcsioeVw7nE
-	1oF30/5A07q4wdM/P3ehdyplfFnMCloa5DABjEVwKuy0C7M2jmmCKNQPy9e1ZffmWqWn7R
-	tRQbvNGe4LHgjajZfXEws1gYmOZSHqYAn2q1BNDlVTh2kGJWPHXyGrdA2isLUA==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	thomas.petazzoni@bootlin.com,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH net] net: stmmac: Don't set or get RSS parameters when not supported
-Date: Sat, 26 Sep 2026 11:33:41 +0200
-Message-ID: <20260926093343.292181-1-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1790415664; c=relaxed/simple;
+	bh=tUOlnlMI2He7morlnrHTQI/8yIo4HBNrPze+rbbLgsY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=QR4mLtwhyLClbylAYGuKKprspoUlvuGePBs47/dnLbee/bewm7qXsa6swWAEXook9RxTGIqD/KTdexFgy6aQ1GjHvbPrIz/pPA2EX/LeVDIwPYVU6dOubk6p5tZ9zFiJBvCYngIESY4oIJapqwGNvNMGp+i3LQ9TiELVlxrJ7R8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cbff1bc700so1273360b6e.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:41:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790415661; x=1791020461;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FT1nYSN27nTGF9etg229beGzaCODWjM8tOJhAZlbINs=;
+        b=bhfAc+FTtsX6lNgifvVB7Vet+4eaPIJYbs6/f7w4K0vB1YL60wi9yvgbYZO6h0JX+k
+         2L/H08UXhSmNy8FtyTYTztlrb7Z3e1OYEN5iyEKr3FMo1wbWVGILCoIScbjM8LSkekCp
+         p8hW+9QWUvrYFvyLoxhHkipDw8U8FIKS79Z3v9OzNduH2fVY756vSeoXcuaQ+LUL03JG
+         PnPBOotw53uylbsaPpozFtfFditq7yoTAzT30jIB3Wh4STxgym9wg1DEPg3OABwL7UIi
+         RzLYeVvS8SrDAemSfiyDB3H/qGvncbUE8+rBSptirRc29mr+I7u01qrcGjZDEJX15C3k
+         LXRA==
+X-Forwarded-Encrypted: i=1; AKwUvBzaHztWNEkF53pDC5zD45Bg5JeMp1/jr4XdsQLoPOCrxfJwiwfmVFquZJCHAHzXDRrF1c6hn4ccKog+Q9k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwC7yS8Iddix8Zc31+P1CAIPpLPD1etOocxiQlUeMeu0eT8aES
+	2cyyExDP2wPuVu9elwVt3XTinuiilmQelUlCivF5jVZ8hF/YWGrhJlZtd6oqNCWAHfiftGyQ8sk
+	eiNHKBXy1kvnzwFUgpd8MBQxuCplUFJaIvrBjdrT7KtSY4y+KRRta59Gsun0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Received: by 2002:a05:6808:4f21:b0:4b9:e5fa:8a11 with SMTP id
+ 5614622812f47-4dc5b41c2abmr4786998b6e.22.1790415661786; Sat, 26 Sep 2026
+ 02:41:01 -0700 (PDT)
+Date: Sat, 26 Sep 2026 02:41:01 -0700
+In-Reply-To: <20260925221553.3294-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab7932d.dc2998a4.2261f5.0052.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] KASAN: slab-use-after-free Read in
+ raw_process_ep_io (2)
+From: syzbot <syzbot+596b59aea1a9deaaab67@syzkaller.appspotmail.com>
+To: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The RSS kselftests fail on stmmac, and this is partly due to the driver
-reporting bogus data for the RSS ops :
+Hello,
 
- - ethtool -x reports an indirection table and a key while the hardware
-   doesn't have any of that
- - ethtool -X fails with -EINVAL.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Let's return early in the rss ops if we know the hardware and platform
-don't support RSS.
+Reported-by: syzbot+596b59aea1a9deaaab67@syzkaller.appspotmail.com
+Tested-by: syzbot+596b59aea1a9deaaab67@syzkaller.appspotmail.com
 
-Note that RSS is currently not supported on any devices upstream, so
-code that was already useless is now effectively dead. It has been the
-case since 2019 when the code was added, as platforms need to set rss_en
-in their plat data, and no glue ever did that.
+Tested on:
 
-Russell King ran a poll in february 2026 [1] asking if the code should
-be dropped, without any reply going in either direction.
+commit:         6812ce4e Merge tag 'drm-fixes-2026-09-26' of https://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11755d25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=fac807e4ec1c33e1
+dashboard link: https://syzkaller.appspot.com/bug?extid=596b59aea1a9deaaab67
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1593fc5e580000
 
-Jitendra Vegiraju from Broadcom sent 9 iterations of a Broadcom PCIe glue
-driver [2] that actually sets rss_en = 1, so there's some hope that this
-may be used in the future.
-
-[1] : https://lore.kernel.org/netdev/aYd4BkAeNW6d0iIC@shell.armlinux.org.uk/
-[2] : https://lore.kernel.org/netdev/20260402213629.1996133-1-jitendra.vegiraju@broadcom.com/
-
-Fixes: 76067459c686 ("net: stmmac: Implement RSS and enable it in XGMAC core")
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
-Jitendra, do you have plans to continue iterating on the BCM8958x glue ?
-
-Thanks,
-
-Maxime
-
- drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index 1be5310ca766..4e917a448271 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -927,6 +927,9 @@ static u32 stmmac_get_rxfh_key_size(struct net_device *dev)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 
-+	if (!priv->dma_cap.rssen || !priv->plat->rss_en)
-+		return 0;
-+
- 	return sizeof(priv->rss.key);
- }
- 
-@@ -934,6 +937,9 @@ static u32 stmmac_get_rxfh_indir_size(struct net_device *dev)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 
-+	if (!priv->dma_cap.rssen || !priv->plat->rss_en)
-+		return 0;
-+
- 	return ARRAY_SIZE(priv->rss.table);
- }
- 
-@@ -943,6 +949,9 @@ static int stmmac_get_rxfh(struct net_device *dev,
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 	int i;
- 
-+	if (!priv->dma_cap.rssen || !priv->plat->rss_en)
-+		return -EOPNOTSUPP;
-+
- 	if (rxfh->indir) {
- 		for (i = 0; i < ARRAY_SIZE(priv->rss.table); i++)
- 			rxfh->indir[i] = priv->rss.table[i];
-@@ -962,6 +971,9 @@ static int stmmac_set_rxfh(struct net_device *dev,
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 	int i;
- 
-+	if (!priv->dma_cap.rssen || !priv->plat->rss_en)
-+		return -EOPNOTSUPP;
-+
- 	if (rxfh->hfunc != ETH_RSS_HASH_NO_CHANGE &&
- 	    rxfh->hfunc != ETH_RSS_HASH_TOP)
- 		return -EOPNOTSUPP;
--- 
-2.55.0
-
+Note: testing is done by a robot and is best-effort only.
