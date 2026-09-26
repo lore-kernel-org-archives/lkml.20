@@ -1,388 +1,131 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017FA35838A
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:16:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56616357CE1;
+	Sat, 26 Sep 2026 06:17:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790403377; cv=none; b=YOCAO5J5qZaVgadAxTLC6gwRzRp9DzKi8a9+mScnr7M88VMd1SDYBbnEF2sZlTjY7+AKm+61tyyQxKt2M6hVN7viIPGQ52jxPTdQmy8kaCzE+UCFQKoi9Jx/r51G8SlI6JTa81zxSIe5LFRyIHmSiEYW/bgQYWJY3FKwrcolt78=
+	t=1790403442; cv=none; b=KTjeqydn1VpgRXaNOtC4cSoZ//p9BPKtunhg2bIwPk5kcs0zUGMzVK5RXPmidFFCw8Uefodhalwg0VRCcZgfK0Mvqs1MQBKcJdfqGaPHVEbpsDd1KOumoCyE5WW8dizEAr1Q2rnXM9gwtIfWEPq4yGAlfBoh0pdvDgKsXOvi4d4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790403377; c=relaxed/simple;
-	bh=GGkVni7RCwX5g87Z5KDjuJ94eKLTDaV6IC8n/M8yEW8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n39856q+GWSM/qm9zyszVVqjsrXvVzohHSnfcF08PxSmHBcweRLzKpzR0tVLXolHFU9Moj2Pso608MqmenI8VPH7uodQJkQcns/hU+1pN+vlU96speZHRp+Cbnhwt2bQXlWGb+CbQGdDKx0KUgfpK/7dl7Cs+vU10owPuVNg6KA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZRtjtmb1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JgVbUuHQ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790403442; c=relaxed/simple;
+	bh=uz1qQsWM9XDZpqqxN47iDPynlINrnQvOxEdKWbh4xDw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sKAx21MMbI37YGCyYXEy8fWYtnOEPDh/rCJncjN8gF4oeo1Ui6R13k/J1HvGVZz0Y6VMRMhzFIDGeDlwNIvR0Wl7p+enruG7OzXHSdx/ujK/7EtTci7O7Si53zeqvoW8zLlLqHvaswd5YzRFdOfi0Xl1Jk8oy8fGqO2wEFi41LI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qaPAMcfX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZRtjtmb1";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JgVbUuHQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790403373;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=my1WoGbjs4+PwtHjFF35v+bu7/CvxCy/eNbIFEbJUgU=;
-	b=ZRtjtmb1zI2esdEP80NAwOtJDt5ERuVZXL81qNB4lAKgL7v6Q6s2DILSzezmWwA61JCd/2
-	BjSGDoXimSyfUPlAqgb2CgTtuMZsygXKhqBI8wMFP0OZHpMRsH2NlFJk2FPtbj/k4UPsqL
-	YnxynEnsxZPlBAIKeW59TOj6w2GfEso=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-628-XtGubzCbPdSSh11edjI28g-1; Sat, 26 Sep 2026 02:16:10 -0400
-X-MC-Unique: XtGubzCbPdSSh11edjI28g-1
-X-Mimecast-MFC-AGG-ID: XtGubzCbPdSSh11edjI28g_1790403369
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48885f0ffe7so219822f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:16:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790403369; x=1791008169; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=my1WoGbjs4+PwtHjFF35v+bu7/CvxCy/eNbIFEbJUgU=;
-        b=JgVbUuHQ9AXOZ5zHZZ2VMnmRFAbbfYo+HZgrrltYG90M1USYoJWfeFmAJpSEQ+Zusw
-         YelizeKpjS8THydOun9mt6ua89iYkbKr1rAKA++Za46mW3swzaSQqEwLrtXGyCi/6W0o
-         ZxWieXdWt5zHYP6A4Hm7cwT3tL5OwTKgDUYjYGHESM3dAYyKA7MR8bZbhk7CWamW6pL0
-         Zj4sqgVzwxEWATk6WTb/zsiYwAK1B+I+kaCieKRbHw4eT+d08ORr+Q6osl8RB1pIBcT9
-         +ihr56Dsas3tz830vWYGY7aUBB/UeBjisQCJNU4cpJYjfgycUu4G+azP8/CH/Otn9d3y
-         YtrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790403369; x=1791008169;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=my1WoGbjs4+PwtHjFF35v+bu7/CvxCy/eNbIFEbJUgU=;
-        b=DcRD6FQw6oy18KWMpicOmPa5KWWcFLODsOOumv27RGrsoZ/Fpj9jOM1ehNjUCTbCRL
-         sBk+hPbu2BXMhivBOXJeDrkm28nsJ25C4QFY4WkK0GK/bjRaRyUsazPuNCJKODxyNu5B
-         MReTXqMgEfLyXoQSufruaXka/AvwGAjjHdmeLPFYXIW/P8JhZh49dlGxTOUmtbVthbDr
-         v1gaE0q5P3pC++AGBKlv+V/Yf0hAP3ClfX0Vfnf2YFxAmfUoL6ThDDecTDDb3mooQXwu
-         dbHKRtbu05xIlAoYKW2qa3DqoUt1WGCBG3G6aT79GeW3WOgxbzr8pYss/JQU2sdru/4l
-         OMBQ==
-X-Gm-Message-State: AFuF++ml7//QMz7xru2fRt2FdWDRREJmRQJceyazUdNHWPpMyNyMWDz/
-	w96Koq3MD5dRhnqscEpKiW1yGiTrAXqnPXx8WtT76SWrvqH6EoMuxIZk7d/DpLOe1PBiledKtmp
-	fueICh2V6Cbhx/8XDomrOzP0pZWo9Ui5GE8+qOoJTznjYR3h/0X2mWuy9LxlJjHpqSA==
-X-Gm-Gg: AYBFou0pqBlttInJoCAkeqcAaEgbGOdSnDy9bZp1SSagryy4WCeeRaOYPkU1gOSCsq8
-	dnAX8JR0VDNPAmddmruBwvBCzfyWkNKbwbeLGN/TxCIJjsrkZHua/yoL+oBGcw3um1YAWKfdk7P
-	SoOpQpG/cbuBTq+5sAUNNjW6mSjpvVMUg+r+uTMm21x0fuIgR1FQY46LJoW1I4oa9kTdP3Wz0zX
-	Vpugdy3LFk9kiPN4jAABZc4HarYAElHvWwrCRJ85j58GWas8UuKPk2L8HGsR09+Y0LvwgmFvdhk
-	7KoYW2IkfqxucqyFiQ4NrUkrItPDq+ygimYtqsyCQltrSC2zBVKagFqYl7Bz2iajTMa1Nq5z5pg
-	KMnQeHdN7ehpmr/u9cSxkCUs2z+BkUNvJbEAdt1WY00OAV0fx49WUlIg6p5k5exZ20xUA3KpIYD
-	KVrtEp
-X-Received: by 2002:a5d:6f1c:0:b0:488:8987:662e with SMTP id ffacd0b85a97d-48889876a9dmr579034f8f.48.1790403368731;
-        Fri, 25 Sep 2026 23:16:08 -0700 (PDT)
-X-Received: by 2002:a5d:6f1c:0:b0:488:8987:662e with SMTP id ffacd0b85a97d-48889876a9dmr579001f8f.48.1790403368265;
-        Fri, 25 Sep 2026 23:16:08 -0700 (PDT)
-Received: from [192.168.10.48] ([151.49.232.249])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a2acb4dsm11861735f8f.0.2026.09.25.23.16.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 23:16:07 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: [GIT PULL] KVM changes for 7.3-rc5
-Date: Sat, 26 Sep 2026 08:16:06 +0200
-Message-ID: <20260926061606.715681-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qaPAMcfX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C662BC2BCF5;
+	Sat, 26 Sep 2026 06:17:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790403441;
+	bh=uz1qQsWM9XDZpqqxN47iDPynlINrnQvOxEdKWbh4xDw=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=qaPAMcfXhtV7myD0LxuyGneAY0yyupIi4MNgM3XYCrvlsI14EPGQcxDKpshHNeq9u
+	 XBS1FIt/FEgAsM43hYv2YAuy4bdroblfd9t95W4C9Fp90Dwb/BlYmI/pZtW7fma0VZ
+	 CeD6KF4Mk0y+lIsGjM+nd0MdPCFGfQTevTCX54aRdIUCAf275sgFUC+CP6Vkz1a05B
+	 ORITNV3lQtnNbChJXA/Rud91e94Y7r392H/EwGvGfx1/nJeEhPY5lTfcMZ3szszf5I
+	 yRiqtNeiLG4139qYOObI2nz/m88lm7h7svfCZ/7dnyVkJGXW8ngjUfPPPf/lwnFuxe
+	 SC23l/ARwA5Pg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CC15C98328;
+	Sat, 26 Sep 2026 06:17:21 +0000 (UTC)
+From: Sam Day via B4 Relay <devnull+me.samcday.com@kernel.org>
+Date: Sat, 26 Sep 2026 16:17:13 +1000
+Subject: [PATCH] drm/msm/a3xx: fix VBIF halt mask for A306/A306A
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-a306-vbif-mask-v1-1-2bae5e81c05a@samcday.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MWwqDMBAF0K0M99uBmNpUs5XSj9hM7CA+SECE4
+ N4LngWciiJZpcBTRZZDi24rPLUN4fsL6ySsEZ5gjXVmsB2Hh3F8jJp4CWXmZ59eg3HJdi6iIex
+ Zkp53+P5c1x90ppU2YAAAAA==
+X-Change-ID: 20260924-a306-vbif-mask-58f7906f246d
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alexandre MINETTE <contact@alex-min.fr>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Sam Day <me@samcday.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790403440; l=2199;
+ i=me@samcday.com; s=20240502; h=from:subject:message-id;
+ bh=oDYwGKGyfEkOHM+q+3q3tiYEXIpdYfuD7sbODF+IpJk=;
+ b=P7wMnjbjN9vUTSd526bE/GsU+zAk9jbwq6ub1Lx30B47NQO4CXDtBYqViJyRqDCt3l1wtulhK
+ NoKQEdFjxt6BW1Ct6DdfRTqUY5I3gYpcBggYA1+RfxzrqcGYXPri2C+
+X-Developer-Key: i=me@samcday.com; a=ed25519;
+ pk=bzyS0akxWMqr9+AXzgBRIp28KKpEOs+GjYMc2yf+aeU=
+X-Endpoint-Received: by B4 Relay for me@samcday.com/20240502 with
+ auth_id=595
+X-Original-From: Sam Day <me@samcday.com>
+Reply-To: me@samcday.com
+
+From: Sam Day <me@samcday.com>
+
+A306 and A306A implement only three VBIF XIN halt request bits.
+Consequently, waiting for the full 6-bit A3xx mask times out and
+prevents runtime suspend.
+
+This issue was reproduced on a DragonBoard 410c: the request reads back
+as 0x7 and the acknowledgment as 0x00070007 - the poll eventually
+returns -ETIMEDOUT, and a3xx_pm_suspend fails with -EBUSY.
+
+The downstream kgsl driver corroborates this (see link). Since the
+single-character difference between A3XX_VBIF_XIN_HALT_CTRL0_MASK and
+A30X_VBIF_XIN_HALT_CTRL0_MASK could be confusing to read, the narrowed
+GENMASK is instead defined inline in a3xx_vbif_halt().
+
+Fixes: be0e82b8e0c9 ("drm/msm/a3xx: Drain VBIF before GPU suspend")
+Link: https://android.googlesource.com/kernel/msm/+/c90c7feeca2f5839ad6824f816c0bd207602a2f4/drivers/gpu/msm/adreno_a3xx.c#637
+Assisted-by: LLM
+Signed-off-by: Sam Day <me@samcday.com>
+---
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+index 0259e60b80115..f672abd5e15e4 100644
+--- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+@@ -500,14 +500,18 @@ static u64 a3xx_gpu_busy(struct msm_gpu *gpu, unsigned long *out_sample_rate)
+ 
+ static int a3xx_vbif_halt(struct msm_gpu *gpu)
+ {
++	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	u32 mask = A3XX_VBIF_XIN_HALT_CTRL0_MASK;
+ 	u32 ack;
+ 	int ret;
+ 
+-	gpu_write(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL0,
+-		  A3XX_VBIF_XIN_HALT_CTRL0_MASK);
++	/* A306(A) only have three VBIF XIN ports. */
++	if (adreno_is_a306(adreno_gpu) || adreno_is_a306a(adreno_gpu))
++		mask = GENMASK(2, 0);
++
++	gpu_write(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL0, mask);
+ 	ret = spin_until(((ack = gpu_read(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL1)) &
+-			  A3XX_VBIF_XIN_HALT_CTRL0_MASK) ==
+-			 A3XX_VBIF_XIN_HALT_CTRL0_MASK);
++			  mask) == mask);
+ 	gpu_write(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL0, 0);
+ 
+ 	if (ret)
+
+---
+base-commit: a15fac810c76397ec9f62a6fc26c4d7ab6e238a7
+change-id: 20260924-a306-vbif-mask-58f7906f246d
+
+Best regards,
+-- 
+Sam Day <me@samcday.com>
 
-Linus,
-
-The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
-
-  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/virt/kvm/kvm.git tags/for-linus
-
-for you to fetch changes up to c2f24f140c2ee6c00775c2a93c6ac931acec2b60:
-
-  Merge tag 'kvm-x86-fixes-7.3-rc5' of https://github.com/kvm-x86/linux into HEAD (2026-09-26 00:40:07 -0400)
-
-A very large number of fixes.  In terms of lines of code what dominates is
-a selftest and a couple pKVM files (arch/arm64/kvm/hyp/nvhe), but there's
-a lot of stuff that accumulated since rc1.  I'll send more next week.
-
-Paolo
-----------------------------------------------------------------
-Arm:
-
-- Invalidate the ITS translation cache when the guest changes the
-  base address of the ITS tables (Fuad Tabba)
-
-- Skip saving ITS devices with device IDs that are out-of-bounds
-  rather than failing the entire ITS save ioctl (Fuad Tabba)
-
-- Close race between VM teardown and invalidations of nested MMUs
-  when handling MMU operations that are allowed to block
-  (Lorenzo Stoakes)
-
-- Various fixes for the handling of the host's untrusted SVE
-  configuration in pKVM (Fuad Tabba)
-
-- Make sure that empty SMCCC ranges based at 0 are rejected by the
-  kvm_smccc_set_filter() (Karl Mehltretter)
-
-- Revoke the host mapping for pKVM's private stack pages, along
-  with a new sanity check that all mappings in the hyp's private
-  VA range have been correctly marked as hyp-owned (Fuad Tabba)
-
-- Lifetime fixes for the array of shadow stage-2 MMUs, ensuring that
-  concurrent vCPU initialization cannot relocate in-use MMUs. Defer
-  the freeing of shadow stage-2 MMUs to the point that no other users
-  (e.g. MMU notifier) could reference them (Marc Zyngier)
-
-- Drop useless WARN when rejecting an unsupported ioctl for pKVM
-  (Fuad Tabba)
-
-- Fix the steal_time selftest to install correctly-sized mappings for
-  non-4K hosts (Sebastian Ott)
-
-- Correct mapping of fine-grained trap for GCSPOPX instruction
-  (Mark Brown)
-
-- Fix KVM_BUG_ON() due to missing handling of DBGBXVR<n> from 32-bit
-  guests (Karl Mehltretter)
-
-RISC-V:
-
-- Synchronize hrtimer during VCPU teardown.
-
-- Fix the conversion between vsip and hvip values.
-
-- Serialize IMSIC attributes with vCPU migration.
-
-- Release unused page after MMU invalidation.
-
-- Propagate interrupted G-stage faults to KVM user-space as EINTR.
-
-- Fix nested acceleration hfence entry update order.
-
-- Fix sdata leak and stale snapshot_addr in snapshot_set_shmem.
-
-- Preserve firmware counter value across PMU counter stop/start.
-
-- Report PMU snapshot write failure to the guest.
-
-- Fix perf-backed counter accounting across PMU stop and read.
-
-- Correctly propagate error of a hart status SBI call.
-
-s390:
-
-- Ensure that accesses through kvm_arch_set_irq_inatomic mark as dirty
-  the pages that contain indicator and summary bits.
-
-- Fix compile warning for kvm_s390_update_cmma_dirty().
-
-- Fix incorrect propagation of ENOENT from _gaccess_shadow_fault() to
-  userspace.
-
-- Move s390_kvm_mmu_commit_memory_region() into
-  s390_kvm_mmu_prepare_memory_region() so that it can fail instead of WARN.
-
-- Add missing srcu in kvm_s390_set_irq_state().
-
-- Fix potential races in storage functions.
-
-- Fix race in _destroy_pages_crste().
-
-- Fix issues in the handling of KVM interrupt and page resources, when a
-  queue that is assigned to a mediated device (mdev) is removed from the
-  host's AP configuration.
-
-- Fix loop condition in uv_find_secrets.
-
-- Prevent potential out-of-bounds read.
-
-x86:
-
-- Fix a brown paper bag bug where KVM would incorrectly treat Intel PMU MSRs
-  as valid on AMD.
-
-- Fix a regression in the hardware disable selftest where it checked the wrong
-  macro when detecting glibc support (breaks at least musl).
-
-- Never clear KVM_REQ_VM_DEAD so that dead VMs stay dead, which is especially
-  important for KVM_BUG_ON() flows, which often guard more dangerous bugs.
-
-- Re-pend GET_NESTED_STATE_PAGES if getting the pages fails, to fix a bug
-  where KVM would let userspace run a broken setup with stale vmcs12 pages.
-
-- Fix a class of bugs where KVM would fail to fill kvm_run exit fields if
-  getting nested pages failed.
-
-- Treat reserved entries in the memory attributes xarray as "no attributes",
-  to fix false positives when checking for mixed attributes.
-
-- Fix memcg accounting for the memory attributes xarray (the xarray library
-  subtly requires the xarray to be configured for accounting upfront; the gfp
-  flags taken at runtime are used only rarely).
-
-- Don't pre-reserve xarray entries when storing empty attributes, as storing
-  NULL must not require memory allocation (KVM and other subsystems heavily
-  rely on this behavior).
-
-- Fix a memory leak and a cache maintenance issue related to doing intra-host
-  migration on an SEV guest.
-
-----------------------------------------------------------------
-Anthony Krowiak (1):
-      s390/vfio-ap: fix KVM GISC and page leak when queue removed from host config
-
-Claudio Imbrenda (8):
-      KVM: s390: Fix dirty marking in adapter_indicators_set*()
-      KVM: s390: Fix compile warning for kvm_s390_update_cmma_dirty()
-      KVM: s390: Fix _gaccess_shadow_fault()
-      KVM: s390: Refactor dat_set_slot()
-      KVM: s390: Move all code into s390_kvm_mmu_prepare_memory_region()
-      KVM: s390: Add missing srcu in kvm_s390_set_irq_state()
-      KVM: s390: Fix potential races in dat skey functions
-      KVM: s390: Fix race in _destroy_pages_crste()
-
-David Ballesteros (1):
-      KVM: Ensure memory attributes xarray nodes are accounted to the caller's memcg
-
-Fuad Tabba (13):
-      KVM: arm64: vgic-its: Free the caches when GITS_BASER changes
-      Revert "KVM: arm64: vgic-its: Don't save collections the table cannot hold"
-      KVM: arm64: vgic-its: Skip unreachable devices instead of failing the save
-      KVM: arm64: selftests: Add ITS table save tests
-      KVM: arm64: Validate the SVE vector length in pkvm_vcpu_init_sve()
-      KVM: arm64: Do not clear VM-wide SVE feature on vCPU init failure
-      KVM: arm64: Key unpin_host_sve_state() on the state it unpins
-      KVM: arm64: Derive GUEST_HAS_SVE from the SVE feature bit at EL2
-      KVM: arm64: Transfer the hyp stack pages out of the host stage-2
-      KVM: arm64: Match hyp text by physical address in fix_host_ownership()
-      KVM: arm64: Move the private VA allocation cursor to __io_map_next
-      KVM: arm64: Check every private mapping is hyp-owned at pKVM init
-      KVM: arm64: Don't WARN on an unknown VM ioctl in protected mode
-
-Jim Mattson (1):
-      KVM: x86/pmu: Move Intel PMU global MSRs to intel_is_valid_msr()
-
-Karl Mehltretter (3):
-      KVM: arm64: Return -EINVAL for an empty SMCCC filter range at base 0
-      KVM: arm64: selftests: Test empty SMCCC filter range at base 0
-      KVM: arm64: Fix AArch32 DBGBXVR<n> handling
-
-Lorenzo Stoakes (ARM) (2):
-      KVM: arm64: Fix spurious warning for benign stage 2 teardown race
-      KVM: arm64: nv: Fix null ptr deref on nested wp/unmap, teardown race
-
-Marc Zyngier (2):
-      KVM: arm64: nv: Fix life cycle of the nested_mmus array
-      KVM: arm64: nv: Delay freeing of shadow S2 structures until VM destruction
-
-Mark Brown (1):
-      KVM: arm64: Fix FGT mapping for HFGITR_EL2.nGCSEPP
-
-Myeonghun Pak (1):
-      RISC-V: KVM: Synchronize hrtimer callback during teardown
-
-Paolo Bonzini (4):
-      Merge tag 'kvm-s390-master-7.3-1' of https://git.kernel.org/pub/scm/linux/kernel/git/kvms390/linux into HEAD
-      Merge tag 'kvmarm-fixes-7.3-1' of https://git.kernel.org/pub/scm/linux/kernel/git/kvmarm/kvmarm into HEAD
-      Merge tag 'kvm-riscv-fixes-7.3-1' of https://github.com/kvm-riscv/linux into HEAD
-      Merge tag 'kvm-x86-fixes-7.3-rc5' of https://github.com/kvm-x86/linux into HEAD
-
-Sean Christopherson (6):
-      KVM: selftests: Use __GLIBC__, not _GNU_SOURCE, to detect actual glibc
-      KVM: Never clear KVM_REQ_VM_DEAD from a vCPU's requests
-      KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fails
-      KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages() error paths
-      KVM: SEV: Free have_run_cpus during VM destruction even if VM is no longer SEV
-      KVM: SEV: Do cache maintenance on the source VM during intra-host migration
-
-Sebastian Ott (1):
-      KVM: selftests: fix steal_time for arm64 with host page size > 4K
-
-SeungJu Cheon (3):
-      RISC-V: KVM: Preserve firmware counter value across stop/start
-      RISC-V: KVM: Report snapshot write failure to the guest
-      RISC-V: KVM: Fix perf-backed counter accounting across stop and read
-
-Steffen Eiden (2):
-      s390/uv: Fix loop condition in uv_find_secrets
-      s390/uv: Prevent potential out-of-bounds read
-
-Tan Chi (1):
-      RISC-V: KVM: Fix HSM hart status error propagation
-
-Xie Bo (3):
-      RISC-V: KVM: Serialize IMSIC attributes with vCPU migration
-      RISC-V: KVM: Release unused page after MMU invalidation
-      RISC-V: KVM: Propagate interrupted G-stage faults
-
-Yicong Yang (1):
-      RISC-V: KVM: Fix the conversion between vsip and hvip
-
-Zeng Chi (2):
-      KVM: Don't treat reserved xarray entries as having memory attributes
-      KVM: Don't pre-reserve xarray entries when storing empty/NULL attributes
-
-Zongmin Zhou (2):
-      KVM: riscv: Fix NACL hfence entry update order
-      RISC-V: KVM: Fix sdata leak and stale snapshot_addr in snapshot_set_shmem
-
- arch/arm64/include/asm/kvm_host.h                  |   2 +-
- arch/arm64/include/asm/kvm_nested.h                |   3 +-
- arch/arm64/include/asm/kvm_pkvm.h                  |   3 +-
- arch/arm64/kvm/arm.c                               |  10 +-
- arch/arm64/kvm/emulate-nested.c                    |   2 +-
- arch/arm64/kvm/hyp/include/nvhe/mem_protect.h      |   2 +
- arch/arm64/kvm/hyp/include/nvhe/mm.h               |   1 +
- arch/arm64/kvm/hyp/nvhe/mem_protect.c              |  20 +
- arch/arm64/kvm/hyp/nvhe/mm.c                       |  79 +++-
- arch/arm64/kvm/hyp/nvhe/pkvm.c                     |  29 +-
- arch/arm64/kvm/hyp/nvhe/setup.c                    |  16 +-
- arch/arm64/kvm/hypercalls.c                        |   3 +-
- arch/arm64/kvm/mmu.c                               |  15 +-
- arch/arm64/kvm/nested.c                            | 115 +++---
- arch/arm64/kvm/sys_regs.c                          |   1 +
- arch/arm64/kvm/vgic/vgic-its.c                     |  46 ++-
- arch/riscv/include/asm/csr.h                       |  20 +-
- arch/riscv/kvm/aia_imsic.c                         |  11 +-
- arch/riscv/kvm/mmu.c                               |  10 +-
- arch/riscv/kvm/nacl.c                              |  20 +-
- arch/riscv/kvm/vcpu.c                              |   3 +-
- arch/riscv/kvm/vcpu_exit.c                         |   2 +-
- arch/riscv/kvm/vcpu_onereg.c                       |   8 +-
- arch/riscv/kvm/vcpu_pmu.c                          |  41 +-
- arch/riscv/kvm/vcpu_sbi_hsm.c                      |   4 +-
- arch/riscv/kvm/vcpu_timer.c                        |   5 +-
- arch/s390/kernel/uv.c                              |   8 +-
- arch/s390/kvm/gmap/dat.c                           |  65 +--
- arch/s390/kvm/gmap/dat.h                           |  10 +-
- arch/s390/kvm/gmap/gmap.c                          |   6 +-
- arch/s390/kvm/gmap/kvm_mmu.c                       |  91 ++---
- arch/s390/kvm/gmap/kvm_mmu.h                       |   4 -
- arch/s390/kvm/s390/gaccess.c                       |  13 +
- arch/s390/kvm/s390/interrupt.c                     |  81 ++--
- arch/s390/kvm/s390/s390.c                          |   3 +-
- arch/s390/kvm/s390/s390.h                          |   2 +-
- arch/x86/kvm/mmu/mmu.c                             |   2 +-
- arch/x86/kvm/pmu.c                                 |   8 -
- arch/x86/kvm/svm/nested.c                          |   7 +-
- arch/x86/kvm/svm/sev.c                             |  18 +-
- arch/x86/kvm/vmx/nested.c                          |  15 +-
- arch/x86/kvm/vmx/pmu_intel.c                       |   3 +
- arch/x86/kvm/vmx/tdx.c                             |   2 +-
- arch/x86/kvm/x86.c                                 |   6 +-
- drivers/s390/crypto/vfio_ap_ops.c                  |  18 +-
- include/linux/kvm_host.h                           |   9 +-
- tools/arch/riscv/include/asm/csr.h                 |  20 +-
- tools/testing/selftests/kvm/Makefile.kvm           |   1 +
- tools/testing/selftests/kvm/arm64/smccc_filter.c   |   4 +
- tools/testing/selftests/kvm/arm64/vgic_its_save.c  | 441 +++++++++++++++++++++
- .../testing/selftests/kvm/hardware_disable_test.c  |   6 +-
- tools/testing/selftests/kvm/steal_time.c           |  30 +-
- virt/kvm/kvm_main.c                                |  35 +-
- 53 files changed, 1032 insertions(+), 347 deletions(-)
- create mode 100644 tools/testing/selftests/kvm/arm64/vgic_its_save.c
 
