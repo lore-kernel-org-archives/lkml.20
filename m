@@ -1,165 +1,230 @@
-Received: from mail-oo2-f38.google.com (mail-oo2-f38.google.com [74.125.231.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.enpas.org (lighthouse.enpas.org [46.38.232.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D586A33F5BE
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:26:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.166
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790436381; cv=pass; b=rya/HEnjbX7+L22GlHke6JVOka7zccHE7Tc6Qj7i9P4A3Vpqqwo6wRsbvgs93RFTPGGNDZc/126Z6e+jp+DtMTcbsgTqfSiu2K4HLnjMY6frhDLFKJ1Frb9ELSDM5+Eo9VdXgKu4G9dLemK/mwALudYLZSxbPfNK9dNRBxcKncU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790436381; c=relaxed/simple;
-	bh=jsXY8q60YvIEKOxzyKNJ5rydpTYaSpxDVSfpGMoTGaw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=msdBxwbIu0tNlHMQvYKUCRhIv4g2mB1VQUjf28Fan2cKWD77MaKSMmx1TL0u7a/XFTLFj7gxMxrBHhSWVzfgDjMyx7I0DLiPB8ovGyyxTysvOOee2Hm1tRFVqlfqaHozqDo6AkQOxX+K/gpWPvn63QO9r0urzBaaTvU69YPc3pk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kOJZ3HRf; arc=pass smtp.client-ip=74.125.231.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kOJZ3HRf"
-Received: by mail-oo2-f38.google.com with SMTP id 46e09a7af769-805cc8b4231so1288179a34.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:26:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790436378; cv=none;
-        d=google.com; s=arc-20260327;
-        b=B37XEicqkusqyUhaeo8KrWEbDLlxOFEK0l6H49f/nkNOUmx6oQ0nwqNl8oHp3r09x/
-         GntJX5M9hT31pknbEI/CMgf2fguoDTg683LLKpo+ZLeyhufcdvP7NX70tXwR7fUrbwmm
-         rIpc8hASRvLxcYAKaIv5yOQ//652EO2LmLnFIV83zea6yQQFlpWIa7gClRxw5+FWxV3C
-         C08R7TsVJI2+XUyMioRw8sHQzBVCAiFBu5ZOFyJ7GGSkngRCznIGjPVUTjSAeNAv/Jlz
-         Z2UzJX5i2uhujWFEIGqkK8UF3WB8DpU6F6zTxPFXpXrG1n1KqJsWU71/lmf9AgOYkmUa
-         8mpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jsXY8q60YvIEKOxzyKNJ5rydpTYaSpxDVSfpGMoTGaw=;
-        fh=XmQIHt3VtjP/zSdwYeirO4SpmV2Mz/2cBWbyM/gENF8=;
-        b=H6N5CFCaY/42bUo9PXrf1nOqZcJb8AKWtUUk+vo394z9qUwCX6J7be+r4EvN7R04l1
-         eoQkztjzbn0T+7gNxzsyvzqzBOccR+9f3luPveg9AP0LTZAU+Q9B8hC0J+FU5sztzD4x
-         NKq0Z6Vw8GS7knO4XVyy8Yn7aJHuf1doBAcmNEB8FcpkLvj8Wqf6DJImBgCLPcteCYsW
-         1lHp5rafxBICRjk5GYMOszH7B6J+1tXygGlH4GEwicYJwt8GP6GBmhXzUZ1J8jq/K8hb
-         LRNOEKong6da0aZuWB+P1fcS+CHkMC0X6dMleGjQYBS8vX8E4QOsxKc6uHUd08f4wbTf
-         t3tw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790436378; x=1791041178; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jsXY8q60YvIEKOxzyKNJ5rydpTYaSpxDVSfpGMoTGaw=;
-        b=kOJZ3HRfg738tLXPULKZqxmP8KwXFyIrkskUg5w2AvWWLOEuocqPue9igUOUBuOsPd
-         RKyy8ELmjqg85j5AP4h1iiaSJxsyFACGi1P3lhhWjFHNcgSgZxF3ahcuEwJAFsgIsPKQ
-         SJy1raUOrT/Z3pvV2totF/vBjkBG1jNXNEBHYDHY6RtA13nHE65QucSPh30smzk1BftA
-         Bj41nGuUzeIhlR1OoBm/YiaZeU7CiHLIYem8vDpTYT12hA+vwIahIOmFM/6tMJYoxxza
-         VDxLSg2YKpMkW5I77ajZkVAhXO/5wFLzqlzDuIbasyPJmBGjrfWiuvZZ3gDndubFSoFN
-         Sb8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790436378; x=1791041178;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jsXY8q60YvIEKOxzyKNJ5rydpTYaSpxDVSfpGMoTGaw=;
-        b=pmY32dEkFUO0lu8ORFgC7X67xXGfC5S3d4t+yJ1SPr0ju2mHdmLfoJk36pQxpCPIST
-         W/fHdjY3IVw9MdbT0d9A7Ya+HqGBhQlYIpndm5gDUy+tx0WSG8yRvN6BjFu0HVbVHgvU
-         dE7+EPCRvH1WKsCjQNCj3vbpMTEFMZU93RLQaZfgi20VL6c1q0BKsDYPEHq8T0aOQmJx
-         DgNDnPYcchiNuY2xfQ/KAZZHZYZzPw1YHlpouCrHQJSn7vIKNK6dz3yoTLArolnsOfDr
-         LuzVQd8gUwRX5EZG17qldzx2LWYMxux7t5SsG28PFSLlV0trucaxfJqPB5/5fSjFntHH
-         UWOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYcuQ4h1hgL77AX8xlKd0OXI9EI/80V9KPc2viPHOsy/6wZB81UqtWvoU7Ksqm6kqKlrGXopSC/J65tIQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBhsjbns6WHGl+xdok574DegQwPzfvzKCBxUvlxyU9ByJR1aZa
-	FsunC0JSdY4JXmNL2fFk4Dd0Q2dkpDESfI8kz/OFHcpwI8Ya81MLhUgSe4nJdaSrrOyQVplQfBK
-	Q+t2hdph1aumoJGfwoYzr/9266KHASo4=
-X-Gm-Gg: AYBFou1p4ACbQXsYcvPj+FehkRDDw/eYJbr8ECQ/J6Nfh4GIvPuj1hBtSUN03X6ulK8
-	kEsNycUYODG0HPbC928AugxiMaqIRFqwNjEiplzLIWB1vqeeRX+G8uKm5osWSVOlBnzEqep2Zme
-	nfw0CemMO59UiHjjmQ0YwDrNgnTrUbg2SPf2hmshchAX4Rhiwb1QN/eXb2bxyW9YbzLB6hVeYax
-	2ovBT581OUGGTZ83Qg2YjXUOcHUeCN8uTKJBeP1tgEMOKrPaVR1LlAT4XwhX8viXg9aZoACzRQw
-	ryZv5W194eFGZcgXCxLAi7iK0LeHPjwQaqlPCH2IyTJzojXAJTyXs3X2
-X-Received: by 2002:a05:6808:4f0b:b0:4d5:291b:b851 with SMTP id
- 5614622812f47-4d72ef5617cmr9396545b6e.55.1790436377961; Sat, 26 Sep 2026
- 08:26:17 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF0B33F5BE;
+	Sat, 26 Sep 2026 15:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.38.232.102
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790436423; cv=none; b=WnqLtj/JL/U8jqGSFQm3MIqnVKDx1ZZ30tYcF1pVRi5HskAtz5sAzNiTy4ORRKA/v+NLVwJYsBZElOLD+o2k8wdaU7pPWe4PLyFN9zKxhpFDp4Gqi0wVqUKnNuOlgjtspP1zTqWqDxGw8bEc3GmKmhZ5B8RY+UmFIbNXWcRMeQU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790436423; c=relaxed/simple;
+	bh=z3rqi5lnhp3ytAxTUH3SdZvOqMvHh55hc83Yuk+tdHU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gcZYHbH6/FG1p4yplXOYZAhuaJKmBwStgO7L4GD/+y4s8j665OkezjT1TZQbIq/Jqz1VgRHrAG35GUN5Nm7g99Vs9A3TnjQXR9AT3f8ZGtv3Oubrn+aogBeQXjQ2mFBz7guU+/9uC+vCXmyvaBoFMzOLUv3iy49zrY4iyaFL2vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enpas.org; spf=pass smtp.mailfrom=enpas.org; arc=none smtp.client-ip=46.38.232.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enpas.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enpas.org
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by mail.enpas.org (Postfix) with ESMTPSA id 3AD17104F78;
+	Sat, 26 Sep 2026 15:26:51 +0000 (UTC)
+Message-ID: <0daea1b3-82ef-48f0-8d35-6ce0100b60bf@enpas.org>
+Date: Sun, 27 Sep 2026 00:26:49 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAMnqnYyO98AEDOHfm32Cb4uGBDucLiZ8gKZ5S+jVf3DDCoFA5w@mail.gmail.com>
- <cfc9cb8d-d13a-4dd6-809c-1ecf3bc9c758@hust.edu.cn> <CAMnqnYxzfUUaeaGTG=pESVN+2yeue4b_7N6d=xMGNE7qdrNbYA@mail.gmail.com>
- <2026092601-reassure-darkness-229b@gregkh> <aresDaW09qoYZsVH@wyuan.org>
-In-Reply-To: <aresDaW09qoYZsVH@wyuan.org>
-From: Jiaming Ouyang <jiamingouyang13@gmail.com>
-Date: Sat, 26 Sep 2026 17:26:07 +0200
-X-Gm-Features: AclHuK-mfo7y02D9o8DG-iC7BMWRt9BbARmaIOz1o4zlN5PO0nlM1BZG46Hfaug
-Message-ID: <CAMnqnYzjDmXhbsMUCT3s1qARHu-w+BODv3OLg8rO=-DQi4StYw@mail.gmail.com>
-Subject: Re: [PATCH] docs/zh_CN: add Chinese translation for usb/ohci.rst
-To: Weijie Yuan <wy@wyuan.org>
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, alexs@kernel.org, 
-	corbet@lwn.net, skhan@linuxfoundation.org, si.yanteng@linux.dev, 
-	rdunlap@infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/3] can: rx-offload: add a per-IRQ receive context
+Content-Language: en-US
+To: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
+ <mailhol@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Markus Schneider-Pargmann <msp@baylibre.com>,
+ Heiko Stuebner <heiko@sntech.de>, Manivannan Sadhasivam <mani@kernel.org>,
+ Thomas Kopp <thomas.kopp@microchip.com>, Ming Yu <tmyu0@nuvoton.com>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, NXP S32 Linux Team <s32@nxp.com>,
+ imx@lists.linux.dev, Haibo Chen <haibo.chen@nxp.com>,
+ Enric Balletbo <eballetb@redhat.com>
+References: <20260925144558.2909639-1-ciprianmarian.costea@oss.nxp.com>
+ <20260925144558.2909639-3-ciprianmarian.costea@oss.nxp.com>
+From: Max Staudt <max@enpas.org>
+Autocrypt: addr=max@enpas.org; keydata=
+ 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
+ 1Nk4wgjdif6n69chAwuDQyOfWdz/dQ==
+In-Reply-To: <20260925144558.2909639-3-ciprianmarian.costea@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ZG9jcy96aF9DTjogYWRkIENoaW5lc2UgdHJhbnNsYXRpb24gZm9yIHVzYi9vaGNpLnJzdA0KDQpU
-cmFuc2xhdGUgRG9jdW1lbnRhdGlvbi91c2Ivb2hjaS5yc3QgaW50byBDaGluZXNlIFNpbXBsaWZp
-ZWQuDQoNClRoZSB0cmFuc2xhdGlvbiBjb3ZlcnMgT0hDSSBkcml2ZXIgb3ZlcnZpZXcsIGhhcmR3
-YXJlIHByb3RvY29sDQpkaWZmZXJlbmNlcyAoT0hDSSB2cyBVSENJKSwgaW1wcm92ZW1lbnRzIHNp
-bmNlIDIuNCBrZXJuZWwsDQpxdWV1ZWFibGUgaW50ZXJydXB0IHRyYW5zZmVycywgYW5kIG5vbi1Q
-Q0kgc3VwcG9ydC4NCg0KLS0tDQpTaWduZWQtb2ZmLWJ5OiBKaWFtaW5nIE91eWFuZyA8amlhbWlu
-Z291eWFuZzEzQGdtYWlsLmNvbT4NCg0KLS0tDQpDaGFuZ2VzIGluIHYyOg0KLSBDb3JyZWN0IHRo
-ZSBkYXRlDQotIENvcnJlY3QgdGhlIGxheW91dA0KLSBBZGQgc3BlY2lmaWMgZGV0YWlscyBmb3Ig
-aXQncyBjb250cmlidXRvcnMNCi0tLQ0KIERvY3VtZW50YXRpb24vdHJhbnNsYXRpb25zL3poX0NO
-L3VzYi9vaGNpLnJzdCB8IDM4ICsrKysrKysrKysrKysrKysrKysNCiAxIGZpbGUgY2hhbmdlZCwg
-MzggaW5zZXJ0aW9ucygrKQ0KIGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL3RyYW5z
-bGF0aW9ucy96aF9DTi91c2Ivb2hjaS5yc3QNCg0KZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24v
-dHJhbnNsYXRpb25zL3poX0NOL3VzYi9vaGNpLnJzdA0KYi9Eb2N1bWVudGF0aW9uL3RyYW5zbGF0
-aW9ucy96aF9DTi91c2Ivb2hjaS5yc3QNCm5ldyBmaWxlIG1vZGUgMTAwNjQ0DQppbmRleCAwMDAw
-MDAwMDAwMDAuLjVlMzY4MzFiZjM3MA0KLS0tIC9kZXYvbnVsbA0KKysrIGIvRG9jdW1lbnRhdGlv
-bi90cmFuc2xhdGlvbnMvemhfQ04vdXNiL29oY2kucnN0DQpAQCAtMCwwICsxLDM4IEBADQorLi4g
-U1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjANCisNCis6T3JpZ2luYWw6IERvY3VtZW50
-YXRpb24vdXNiL29oY2kucnN0DQorDQorOue/u+ivkTog5qyn6Ziz5a626ZOtIEppYW1pbmcgT3V5
-YW5nIDxqaWFtaW5nb3V5YW5nMTNAZ21haWwuY29tPg0KKw0KKz09PT09PT09DQorT0hDSempseWK
-qA0KKz09PT09PT09DQorDQorMjAwMuW5tDjmnIgyM+aXpQ0KKw0KK+KAnE9IQ0ktSENE4oCd6amx
-5Yqo56iL5bqP5piv5LiA5LiqVVNC5Li75py65o6n5Yi25Zmo56iL5bqP77yISENE77yJ77yM5a6D
-5rqQ6IeqMi405YaF5qC457O75YiX5Lit55qE4oCcdXNiLW9oY2nigJ0NCivpqbHliqjnqIvluo/j
-gILigJx1c2Itb2hjaeKAneS7o+eggeS4u+imgeeUsSBSb21hbiBXZWlzc2dhZXJiZXIgPHdlaXNz
-Z0B2aWVubmEuYXQ+57yW5YaZ5L2G5Lmf6I63DQor5b6X5LqG5p2l6IeqRGF2aWQgQnJvd25lbGwg
-PGRicm93bmVsbEB1c2Vycy5zb3VyY2Vmb3JnZS5uZXQ+77yMTGludXMgVG9ydmFsZHMNCivlkoxH
-cmVnb3J5IFAuIFNtaXRo55qE5pSv5oyB44CCDQorDQor5a6D5pSv5oyB4oCc5byA5pS+5Li75py6
-5o6n5Yi25Zmo5o6l5Y+j4oCd77yIT0hDSe+8ie+8jOivpeaOpeWPo+agh+WHhuWMluS6hueUqOS6
-juS4jlVTQiAxLjHkuLvmnLrmjqfliLblmajpgJrkv6HnmoQNCivnoazku7blr4TlrZjlmajljY/o
-rq7jgILigJzkuI7oi7HnibnlsJTml6nmnJ/nmoTigJzpgJrnlKjkuLvmnLrmjqfliLblmajmjqXl
-j6PigJ3vvIhVSENJ77yJ55u45q+U77yM5a6D5bCG5pu05aSa5Y+q6IO95Yqf6IO9DQor5rOo5YWl
-5Yiw56Gs5Lu25Lit44CC6Zmk6Iux54m55bCU5ZKM5aiB55ub5LmL5aSW55qE5YW25LuW5L6b5bqU
-5ZWG55qEVVNCMS4x5o6n5Yi25Zmo6YCa5bi45L2/55SoT0hDSeOAgg0KKw0KK+iHqjIuNOWGheag
-uOS7peadpeeahOabtOaUueWMheaLrA0KKw0KKyAgICAgICAgIC0g5o+Q6auY5LqG5YGl5aOu5oCn
-OyDkv67lpI3kuobplJnor687IOWHj+WwkeS6huW8gOmUgA0KKyAgICAgICAgIC0g5pSv5oyB5pu0
-5paw5ZKM566A5YyW55qEdXNiY29yZSBBUEkNCisgICAgICAgICAtIOS4reaWreS8oOi+k+WPr+S7
-peabtOWkp++8jOW5tuS4lOWPr+S7peaOkumYnw0KKyAgICAgICAgIC0g6YCa6L+H5L2/55So5LiK
-5bGC4oCcaGNk4oCd5qGG5p6277yM5YeP5bCR5Luj56CB6YePDQorICAgICAgICAgLSDmlK/mjIHk
-uIDkupvpnZ5QQ0nnmoRPSENJ5a6e546wDQorICAgICAgICAgLSAuLi4g5Lul5Y+K5pu05aSaDQor
-DQor4oCcT0hDSS1oY2TigJ3pqbHliqjnqIvluo/lpITnkIbmiYDmnIlVU0IgMS4x5Lyg6L6T57G7
-5Z6L44CC5omA5pyJ57G75Z6L55qE5Lyg6L6T6YO95Y+v5Lul5o6S6Zif44CC5Zyo4oCcdXNiLW9o
-Y2nigJ0NCivkuK3kuZ/mmK/lpoLmraTvvIzkvYbkuK3mlq3kvKDovpPpmaTlpJbjgILku6XliY3v
-vIzkvb/nlKjkuIDluKfnmoTlkajmnJ/kvJrlm6DkuLpJUlHlpITnkIbnmoTlvIDplIDogIzlr7zo
-h7TmlbDmja7kuKINCivlpLHnmoTpo47pmanjgILlvZPkuK3mlq3kvKDovpPmjpLpmJ/ml7bvvIzl
-j6/ku6XpgJrov4fnoa7kv53noazku7blnKjmk43kvZzns7vnu5/lpITnkIbnm7jlhbNJUlHml7bl
-p4vnu4jmnInkvKDovpPpnIDopoENCivlpITnkIbvvIzmnaXmnIDlpKfpmZDluqbnmoTpmY3kvY7o
-v5nkupvpo47pmanjgIINCisNCistIERhdmlkIEJyb3duZWxsDQorICA8ZGJyb3duZWxsQHVzZXJz
-LnNvdXJjZWZvcmdlLm5ldD4NCisNCi0tIA0KMi41My4wDQoNCg0KT24gU2F0LCBTZXAgMjYsIDIw
-MjYgYXQgMToyN+KAr1BNIFdlaWppZSBZdWFuIDx3eUB3eXVhbi5vcmc+IHdyb3RlOg0KPg0KPiBI
-aSBHcmVnLA0KPg0KPiBPbiAyMDI2LTA5LTI2IDA5OjEzOjI2ICswMjAwLCBHcmVnIEtIIDxncmVn
-a2hAbGludXhmb3VuZGF0aW9uLm9yZz4gd3JvdGU6DQo+DQo+ID4gT24gRnJpLCBTZXAgMjUsIDIw
-MjYgYXQgMDU6Mjg6NDdQTSArMDIwMCwgSmlhbWluZyBPdXlhbmcgd3JvdGU6DQo+ID4gPiBTdWJq
-ZWN0OiBbUEFUQ0hdIGRvY3MvemhfQ046IGFkZCBDaGluZXNlIHRyYW5zbGF0aW9uIGZvciB1c2Iv
-b2hjaS5yc3QNCj4gPg0KPiA+IFRoaXMgc2hvdWxkbid0IGJlIGluIHRoZSBlbWFpbCBib2R5IDoo
-DQo+DQo+IEFsdGhvdWdoIHRoaXMgbGluZSBvZiB0ZXh0IGlzIHNvbWV3aGF0IHJlZHVuZGFudCwg
-YXMgaXQgaXMgdGhlIHNhbWUgYXMNCj4gdGhlICJTdWJqZWN0IiBsaW5lIGluIHRoZSBlbWFpbCBo
-ZWFkZXIgKGdpdCBtYWlsaW5mbyB3b3VsZCBzdHJpcCB0aGUNCj4gIlJlOiAiIGJ5IGRlZmF1bHQp
-LCBpdCBpcyBmaW5lIHRvIGxlYXZlIGl0IGhlcmUuPw0KPg0KPiBnaXQuZ2l0L0RvY3VtZW50YXRp
-b24vZ2l0LWFtLmFkb2M6OltbZGlzY3Vzc2lvbl1dOg0KPg0KPiAiRnJvbTogIiwgIkRhdGU6ICIs
-IGFuZCAiU3ViamVjdDogIiBsaW5lcyBzdGFydGluZyB0aGUgYm9keSBvdmVycmlkZSB0aGUNCj4g
-cmVzcGVjdGl2ZSBjb21taXQgYXV0aG9yIG5hbWUgYW5kIHRpdGxlIHZhbHVlcyB0YWtlbiBmcm9t
-IHRoZSBoZWFkZXJzLg0KPg0KPiBlLmcuIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2dpdC94bXFx
-bXM2M29rN2cuZnNmQGdpdHN0ZXIuZy8NCj4NCj4gQnV0IEkgZ3Vlc3MgeW91IGtub3cgYWxsIGFi
-b3V0IHRoaXMsIGp1c3Qgd2FudCB0byBoYW5kbGUgaXQgaGVyZSBpbiBhDQo+IHNpbXBsZSB3YXku
-IDstKQ0KPg0KPiBUaGFua3MuDQo=
+Thank you for your patch. The general idea sounds useful, and at a quick 
+glance, the implementation seems sound. I'm not able to do a full review 
+- please wait for a maintainer's reply.
+
+Comments below, from the point of view of a simple CAN driver's 
+maintainer (can327).
+
+
+
+On 9/25/26 11:45 PM, Ciprian Costea wrote:
+> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+> 
+> The IRQ handler fills skb_irq_queue without a lock and the finish helpers
+> then splice it into skb_queue under skb_queue.lock. This breaks when a
+> driver uses the helpers from more than one IRQ line. On NXP S32G2, the
+> flexcan handlers can run at the same time on different CPUs and corrupt
+> skb_irq_queue.
+
+Please add "Currently, " to the beginning of this paragraph.
+
+
+> Add struct can_rx_offload_irq, one per IRQ line, which holds
+> skb_irq_queue, skb_queue_len_max and the mailbox range. skb_queue and napi
+> stay in struct can_rx_offload and are shared by all contexts.
+
+The IRQ naming gives me a bit of a headache. It may be IRQ in the case 
+of flexcan, but can be something else in other drivers. Also, _irq gives 
+the impression that the struct stores an IRQ, or at least something 
+related to it, but this really does not.
+
+Can you please rename the new struct and concept to something else? 
+Maybe _queue? And then the old struct can be renamed to _common or 
+_shared or something. The maintainers may have better naming ideas.
+
+I think you can keep the name skb_irq_queue inside the struct, my 
+request is about the new struct's name itself. In the same vein, 
+expanding the new struct's explanatory comment would help - please 
+explain that *the purpose* of having this struct is so you can have one 
+per source, *such as* one for each unique IRQ that the same CAN hardware 
+may trigger.
+
+
+> @@ -351,64 +378,88 @@ EXPORT_SYMBOL_GPL(can_rx_offload_threaded_irq_finish);
+>   
+>   static int can_rx_offload_init_queue(struct net_device *dev,
+>   				     struct can_rx_offload *offload,
+> +				     struct can_rx_offload_irq *offload_irq,
+>   				     unsigned int weight)
+>   {
+> -	offload->dev = dev;
+> -
+> -	/* Limit queue len to 4x the weight (rounded to next power of two) */
+> -	offload->skb_queue_len_max = 2 << fls(weight);
+> -	offload->skb_queue_len_max *= 4;
+> -	skb_queue_head_init(&offload->skb_queue);
+> -	__skb_queue_head_init(&offload->skb_irq_queue);
+> +	struct can_rx_offload_irq *pos;
+> +	u32 skb_queue_len_max;
+> +
+> +	offload_irq->offload = offload;
+> +	__skb_queue_head_init(&offload_irq->skb_irq_queue);
+> +
+> +	/* The first registered IRQ initializes the shared state. */
+> +	if (!offload->irq_cnt) {
+> +		offload->dev = dev;
+> +		skb_queue_head_init(&offload->skb_queue);
+> +		INIT_LIST_HEAD(&offload->irqs);
+> +		netif_napi_add_weight(dev, &offload->napi,
+> +				      can_rx_offload_napi_poll, weight);
+> +	} else if (weight > offload->napi.weight) {
+> +		/* All contexts feed the same NAPI, keep the largest weight. */
+> +		offload->napi.weight = weight;
+> +	}
+> +	list_add_tail(&offload_irq->node, &offload->irqs);
+> +	offload->irq_cnt++;
+>   
+> -	netif_napi_add_weight(dev, &offload->napi, can_rx_offload_napi_poll,
+> -			      weight);
+> +	/* Limit queue len to 4x the weight (rounded to next power of two).
+> +	 * All contexts feed the same skb_queue, so they share its limit.
+> +	 */
+> +	skb_queue_len_max = 2 << fls(offload->napi.weight);
+> +	skb_queue_len_max *= 4;
+> +	list_for_each_entry(pos, &offload->irqs, node)
+> +		pos->skb_queue_len_max = skb_queue_len_max;
+>   
+>   	dev_dbg(dev->dev.parent, "%s: skb_queue_len_max=%d\n",
+> -		__func__, offload->skb_queue_len_max);
+> +		__func__, skb_queue_len_max);
+>   
+>   	return 0;
+>   }
+
+This API is confusing now. It's called _init_queue(), but you've really 
+changed it into something that acts like _init_or_add_queue(). Please 
+rename this, and while at it, please add an explanatory comment for the 
+function above it, since it has grown quite complex.
+
+The comment you added in can_rx_offload_del() is a positive example - 
+having more of this stuff helps! Actually, that specific comment talks 
+about "contexts" - please try to align that wording with whatever you 
+rename the _irq struct to, such as "queue", to keep the code and 
+comments consistent for the next reader.
+
+
+Thanks,
+Max
+
