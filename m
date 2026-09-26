@@ -1,122 +1,192 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D071FA272
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241823A1A38;
+	Sat, 26 Sep 2026 10:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790417065; cv=none; b=G3Ofgwv/T91gD4GOXmXKbKbhawrmfyQBDh49Z+24dfK2kXD3D0ZOUwLdTTdnXQhqCh2CB3M2Yse491sLj/vqqacnFSJTaXGSN/2vJe+FtOzpzR4SDsbHdGMKPu6VHkJaxnEf1pzJAedfcmOr0QWWsGYAeCoPMRrqvuXZcZFyrhY=
+	t=1790417229; cv=none; b=DiItVDYPIdlQO2j7ILEl4ZExDAFUtCWCvv0GJlarLqkdTwPsf/QAPx9MtzhsUrPrNusgHZDx9rWw1hMmtz8c9zxMLpVlSgZUaDi019mupqm9dxscdMLWeVMzeA3k5BTUsJgRsg09e7nIwpIW3ySBZKWwWJIItBpNf+/sgN8qoh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790417065; c=relaxed/simple;
-	bh=euCMwxHALKONHLslqhqKhiO7u5b/S+Zz1OF1d1F2hSI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=A7haHI9hR1CpbgF5Qg9IOCJ48BlA/9TOLV78WtcbO8M5NEnySTRpJ7WDKnCs5j97hcFN/2w9RcXsQA/P/myoNXyYT0RBsNpjUDG2/8TU0JP6uqECVev9FeS9qcUVs4lFimA6PYO0hhUI3/8jIKnkV1zcLKo9KM+dRf0HZ7mUP2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bt3CzJgi; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790417229; c=relaxed/simple;
+	bh=nFzGKAUSkNx37tBECUQQrQceuqFYcg9Do4dTj3c9+7Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dgeo6MvOV4Mk/jRpl4UC6rdrBDwefcv1I7BUcp1H6nzYUGimMLck4TmzUlS62BODLhaXXs6LBuWY52GgMRPYgI2mtIVWEyswzdaLgjp3LM8XwSqf/Z3/Re8Oc/G8fu+IrzyQvuj1Bk/LUR2awdzemxxMDCSoCqABxC/2a/fCMpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PP6PZ9bM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bt3CzJgi"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so1146390a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:04:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790417063; x=1791021863; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=a2QwrJTjNePGvVoDDQsoh5hhf8GU4fREmLPOvIhMRHQ=;
-        b=Bt3CzJgiZikqVIVnL5X3UDUhEhCWZXamYXK3Wo05WNUusm91EzUh6tvbLqdC65a41z
-         Q6t9zG4Hw5ybpm/dJPF7trS8jeYwGrzX1lZ8fhN7GynCPwimYqV+63Fd9Sp2QmYvcdZK
-         7N6QFPkPRd7LOwRSRQYBey88TTchGy/aiHobGXe4M+mbTfjJUHXtz2AoUbZC56bC+v66
-         bV65k5xjmI7HwhZ0FZWdlUF6RxvPN1QWQmIe3GrjtVKLSzjTzQMjAdlTOrCtOEDUml6I
-         YoncmZFKDVNFa3G4PUIQJMwvG5o6h7MwI5PEWPfUO/JYF+2r37xmI3TXTy+EZBkL/HdS
-         CLvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790417063; x=1791021863;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=a2QwrJTjNePGvVoDDQsoh5hhf8GU4fREmLPOvIhMRHQ=;
-        b=q5ue0abocp5YY1EUIzdDSxAv3VGNB869MCw310M3BcvYEVAIuNv1MHGU6bFZYpzgd9
-         P25wP6E55tSwG8NKufRb5L2Elp+rBhxObG1BO3P1HTcZprSldm0Sn7YAysf9ZFlvU10p
-         t4B64nGK/l5922SrnWcurnj6LdB8mbrsdoe+L5hsxrctoz6/LDaUo4VBZcu0mK8vs9h/
-         ujMRPnbAjOApZ7GDK0K9q4WIpMlHXQHTPBqeC4h1bPBCuBms6V28m2Nt4mjbfjN7WQXw
-         W6LBEI01VlM51CZ7bXZQ3cqtICIg7AFmAItnjDB2jzGrmDbyEfQwioQwjFcH30/b0nB7
-         crmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybmhnOVjz3iiqfKbjXZjosSnMGgn4Ky7q8WHuDobDoBYb0eCWpZIpAt3kqQ423syt5wLMY5q10uPDgom4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyqH9UhANFY94cOs9H24YbqZYABWXEy2LeobQ97aSESgr5l5Ir
-	NYv/lPFUJFfQI0u9QszoXwNqJy7Vcc7A29OVXJdjdnugvylD9A8xqe4q
-X-Gm-Gg: AYBFou1F+cYjAH/oXbmKd18mpv1EgvMZyyLDlyXdTTsU+mWsFxYJA0O1nM8QzlZf80E
-	6MV5K3oWqklS0ceYVSifwQ5k0ztuXcX6yMmdGH8+21q5TxBmZOsJUL9rXCKqyg+WVSP8I5xBXFI
-	yKMsNH25iNbH9EdfzJ/wnznFNg/1l0hm/tTVGi6oj+WmO/4RFOev40sRs1HspT5rahLc39SAua+
-	6ySFaj4W/txyVr4zJXTzgeT5VgMX5EvKRBcyql3MnpCUsKES7mY9lMffzru/AAGGgza5Mrzhloy
-	8luomek4ZUmNxidtB9zcbjf1dPd64A+NhMqOai4O3iXuTG9srYPfr7EsGMr4D7IfaNablAoCg0R
-	+R9Cu/T/urJmcmJmp75sZJa7OuJYpOt7TvWg6FrtbyZi5ZAHKpWlLQ1fLmPtAOhQKR3Sk9mK3kq
-	ZEnBfHJHdjhVjgCRm/NJy91G/3IJ5TvFVn2IelEXlVoJyK7V7mU1LYYQbI/ycu4sS8Xrffqutpa
-	sJUjnbf1eI3jQ54I/Bn
-X-Received: by 2002:a17:90b:17c9:b0:3a0:c833:de75 with SMTP id 98e67ed59e1d1-3a0c833e54amr3104087a91.30.1790417063447;
-        Sat, 26 Sep 2026 03:04:23 -0700 (PDT)
-Received: from localhost.localdomain ([104.28.254.47])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9481e17sm8806891a91.8.2026.09.26.03.04.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 03:04:23 -0700 (PDT)
-From: Chuanhong Guo <gch981213@gmail.com>
-Date: Sat, 26 Sep 2026 18:04:14 +0800
-Subject: [PATCH] pinctrl: mediatek: mt7629: fix the 2.4 GHz Wi-Fi pin mode
- array
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PP6PZ9bM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F8511F000FF;
+	Sat, 26 Sep 2026 10:06:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790417227;
+	bh=cx2CIfJJRJI8nlg/LkJLWm6mTZk+oyqA+tLDKMt8K64=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PP6PZ9bMZs7e/duxeo/+vo5CsbMP1Rz2+y31gRT9a+0I5x57hx+X0qV3VH6ZT4U4G
+	 yJbOFXBGKOb0K1/wzI/4ZVK66vC39At0uE2uwbtQ83oA2SlyEAWclRJagc3OIbbqHm
+	 aGWgANkkLmApMwDJ2U+Pphh/en/LxpO06qIoOaCTuD43Ohhox87eyXx7fdho5yNs5A
+	 YUbNxgBjyK8Pa4hT+QXLxoaUyk9M5Ul4my8apPo6NoSv0IFMgCIjYXvQDeUqZfUlWm
+	 gpsK8pBYkPTzDaunC56zp3EElzUI0dA/SJCNUEjE1vnEPzCd1n7uEW6cQm5qDqJMYE
+	 NMKaLYXBxLBUQ==
+Date: Sat, 26 Sep 2026 11:06:35 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Doug Gilbert <dgilbert@interlog.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+	Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, linux-sound@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 16/40] mm/vma: only allow mmap to clear
+ VMA_MAYWRITE_BIT if kernel-owned
+Message-ID: <areYqRfd7mss9KQG@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-16-4583d8a23bca@kernel.org>
+ <DLOVQMACWLZ5.1WFOTGRG8ZG92@nvidia.com>
+ <DLOVXY4VFCXE.1RI7ZSD30VHH5@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-b4-mt7629-pinctrl-v1-1-23904cb0c3f3@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQrCMBBA0auUWTuYDJISryIukjjagXYsSSqB0
- rsbXb7F/zsUzsIFrsMOmT9S5K0d9jRAmoK+GOXRDWTIGU8O4wWXOjryuIqmmme0yXmybJyjEXq
- 3Zn5K+z9v9+4YCmPMQdP0O82iW0PlVs9LKJUzHMcXouaD74cAAAA=
-X-Change-ID: 20260926-b4-mt7629-pinctrl-1c6921e06627
-To: Sean Wang <sean.wang@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Ryder Lee <ryder.lee@mediatek.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Chuanhong Guo <gch981213@gmail.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLOVXY4VFCXE.1RI7ZSD30VHH5@nvidia.com>
 
-The wf0_2g group contains nine pins but only eight mux values.
-mtk_pinmux_set_mux() indexes the mode array once for each pin, reading
-past its end when configuring pin 78 (WF0_2G_HB6). This can select an
-unrelated mux value or fail with -EINVAL, preventing the Wi-Fi device
-from probing.
+On Fri, Sep 25, 2026 at 10:17:10PM -0400, Zi Yan wrote:
+> On Fri Sep 25, 2026 at 10:07 PM EDT, Zi Yan wrote:
+> > On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
+> >> For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
+> >> the underlying file is itself read-only.
+> >>
+> >> This means that mprotect() cannot mark a shared mapping of a read-only file
+> >> as read/write, as doing so would violate the read only attribute, and
+> >> permit writes.
+> >>
+> >> In general, we do not want file systems to be able to do this for
+> >> read/write files.
+> >>
+> >> Doing so would violate fundamental user expectation of file attributes and
+> >> likely break userspace.
+> >>
+> >> However, drivers pose a tricky problem here - the /dev/xxx file may be
+> >> read/write but provide access to a resource which is fundamentally
+> >> read-only.
+> >>
+> >> Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
+>
+> IIUC, a file's FMODE_* bear both fd and mmap permissions, e.g.,
+> FMODE_WRITE means fd is writable and mmap is writable. At least for
+> normal files. But a driver fd might not fit the same pattern. Would a
+> new FMODE_MAP_READ and a new FMODE_MAP_WRITE help? Not trying to propose
+> anything, but just thinking out load.
 
-Add the missing mode 1 entry for WF0_2G_HB6.
+Hmm I don't think that's necessarily at the right level of abstraction
+though, and these drivers need to do the same thing even if the file is R/W
+regardless.
 
-Fixes: b44677375fee ("pinctrl: mediatek: add pinctrl support for MT7629 SoC")
-Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
----
- drivers/pinctrl/mediatek/pinctrl-mt7629.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So I'm not so sure that's the right path.
 
-diff --git a/drivers/pinctrl/mediatek/pinctrl-mt7629.c b/drivers/pinctrl/mediatek/pinctrl-mt7629.c
-index 385d66b8e3fb..29a4c171e8b6 100644
---- a/drivers/pinctrl/mediatek/pinctrl-mt7629.c
-+++ b/drivers/pinctrl/mediatek/pinctrl-mt7629.c
-@@ -294,7 +294,7 @@ static int mt7629_pwm_1_funcs[] = { 2, };
- 
- /* WF 2G */
- static int mt7629_wf0_2g_pins[] = { 70, 71, 72, 73, 74, 75, 76, 77, 78, };
--static int mt7629_wf0_2g_funcs[] = { 1, 1, 1, 1, 1, 1, 1, 1, };
-+static int mt7629_wf0_2g_funcs[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, };
- 
- /* WF 5G */
- static int mt7629_wf0_5g_pins[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, };
+Then again, if the driver could somehow specify these modes at inode
+creation or some means of doing that it could help avoid the driver ever
+doing this, I'd really prefer us to disallow such changes in the hook in
+general.
 
----
-base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
-change-id: 20260926-b4-mt7629-pinctrl-1c6921e06627
+But I think definitely one for a follow up :)
 
-Best regards,
--- 
-Chuanhong Guo <gch981213@gmail.com>
+>
+> >>
+> >> To achieve both of these things, restrict this ability to kernel-owned
+> >> mappings as identified by vma_flags_is_kernel_owned().
+> >>
+> >> This constrains this ability to drivers which own the mapping's contents,
+> >> whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
+> >> map themselves, and so define its semantics.
+> >>
+> >> Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
+> >> across drivers, filesystems and bpf, establishes a kernel-owned mapping,
+> >> with usbmon and the ALSA PCM status page converted earlier in this series
+> >> to do so.
+> >>
+> >> Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
+> >> disable MAP_PRIVATE-file-backed mapping CoW semantics.
+> >>
+> >> This is perhaps not always intended, but we retain this capacity to
+> >> maintain existing behaviour.
+> >>
+> >> As all drivers which clear VMA_MAYWRITE_BIT establish kernel-owned
+> >> mappings, no functional change is intended.
+> >>
+> >> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >> ---
+> >>  mm/vma.c | 5 +++++
+> >>  1 file changed, 5 insertions(+)
+> >>
+> >
+> > Makes sense.
+> >
+> > Acked-by: Zi Yan <ziy@nvidia.com>
 
+Thanks!
+
+>
+>
+>
+>
+> --
+> Best Regards,
+> Yan, Zi
+>
+
+--
+Cheers, Lorenzo
