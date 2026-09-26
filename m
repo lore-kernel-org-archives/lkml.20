@@ -1,114 +1,117 @@
-Received: from mail-ua2-f42.google.com (mail-ua2-f42.google.com [74.125.226.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 512023955D2
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 21:20:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E2B35839C;
+	Sat, 26 Sep 2026 21:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790457659; cv=none; b=N+5xp5tV4FzQVndMWYwVSYV0GXsE++ryTuSwYfv5dFOXaqq2ZmzmN+bn2tdsCUan8mGrP0w9itGuJ7Ptg4+dr458srMHu2gzhEPJuUBBxgcNF9KS3huq9tS+Z8q4zOGnYQU3hv7Uu4gg2rzR/WFIcac5ciIZWY3QUrySbJdv3Rc=
+	t=1790457689; cv=none; b=s/nIGoeF9g5I3p8ZzzItbnTOuFV2WghZKucXTeBow4zlSoHkF3SHIheYIEOgnq0v0lXnLKgwc3gj9jMKqEFPdtD5ifFKp7OHNX7NxcECdGzxOQWuPoxI8HBRIg4J4KUBCk8VVTsH3Z6RrRR1IWPDn5Xr9TK/tiuFF7Lp97JGiYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790457659; c=relaxed/simple;
-	bh=ehymt4lLAFUs4DIWG3dhPtmab2vi6Zhi6J9yEIZNRNQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MZQfy0glSHysfL66EkL7cljOhmoDD5YZtIdzTzY/5R+jC9a7WwZSy9/W8OYOCEKB/7+9loIIjiewGPOn2As10qA4zXGO6PU6F1XcwtgxOvGS+TIBLUc8EVyfrlA8/FztZDocFPFfP57jsjJJ0fuWP7JLPpSaTlPY0Z/wXD628EA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r/whwn4Q; arc=none smtp.client-ip=74.125.226.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790457689; c=relaxed/simple;
+	bh=WzgW/1r0ttSUIpIcdPEpit9PDEILiICkMQfeo421xGI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hXRzU0fRai7WktbbunbksRQQ/+BhJ7uxrXlGGVaqm5QgKQxMKMPjr0XA55O4Yt9Evbuc0nEEnPPSIHg76ODnGGdSMLnKS5UYKeA18yiHsWj7cGji82IZLpW5eRGWgBqlu+TNF+/QEPDGUm0ObQMn/br+iYWSKsr+Q8cfIIwW2BM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXMDLunG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r/whwn4Q"
-Received: by mail-ua2-f42.google.com with SMTP id a1e0cc1a2514c-986e0b83340so1139708241.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:20:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790457657; x=1791062457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D3SALmSygZKgLrynJMWzH3B1y0jcmXpTFsBEcTzacV4=;
-        b=r/whwn4Qk8dT5RsTGNRmgg3PLybtN+HzcZMj2bql/Uy+9x4hpvkE8q1MzHeLdQAF0p
-         DnfKiXVKQDoMljDfuGLA4S+Ox8UboVqNrkxSAT7c+ercFphtVFHHlMXZfPukyJtfXQ96
-         Q4e4ND0uZ03zIaONfojqNfDKLA8K4F+onm1SzfHuJBvI+4RYE2KpTA3vqptR+vigdDTX
-         EupJtgaaw1CWBh9E6YNP43CuHZb3UhWWmLtuUSbbFib4sEC3blZFOyX5K0HwdY1dUbhQ
-         MCKV9aTa0E5od1D9fUJmtuhdUYgZvZ8b0g0Z6ei0a1C+mH9z+nD4UOOZKoc9OPo8jIon
-         kjFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790457657; x=1791062457;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D3SALmSygZKgLrynJMWzH3B1y0jcmXpTFsBEcTzacV4=;
-        b=dIDLBEFDuQ0vos1MXoxV0svXzj3I9C9dT53/gQ3MuPztMOosMMCUxHrax3/pz86Zhy
-         ieOhwBYbAktrd8p97sEX2sSHHUDCMx/u9oJsq8x3QH5tpaLCCH3MPz8PKEGWFunClEyf
-         DSMUba8iS3EC3mrcZURZj/k1QMxWwiwOQ/ura02qKlItb68qynAHTrmcCU+XHNfsDnfV
-         jBzxNIVUok06MV3bkc7ih+kvSFLFvCj+s5yB5DR/eoSv1spo+oOEejTPzGHFyU/5qAxv
-         yxb2N4iO5SRzcMcryO9DT+sPfH7z8qVnR7302GJBmvo45aP1Q6Yuqbw1fO4PB6lh31E6
-         QjfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzPoRcMLKZR9m0pzXyISThggy/ZZz4lSSnDMypIIMTrxwB5zyo9dcYWlDPpkbHYD/J5L51Ej7U/9dzg2hM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJig4PDxFiOCZeqSEMjuu5sA7zFodmwALINDW7wUxqgJQLk/EP6
-	aROvMkyiaNEt5hkIorZGMlRsrbic/RaxFGM7oszSn6ytXm7jPdVsJjol
-X-Gm-Gg: AYBFou2SIvMqaso+qLMD2cq3YgzONWqE44BsrxLs6WybWEMmOb87qVgINHz7IkdzXFi
-	+VDKcAw8D44xcNKhlCz8kb70AL5Rly3qlQRtd+XToobKBmT8ihz9EqLlrRadWFpwB0lpYmIJr6n
-	ic3lYh3zxzi3c1T5k7ZtdChgsMiASigR8XnszoI0gS0mBjJhYSK1q32seg9L9udcIZ2MCukiHcI
-	1lTd7wBc8vW0ew3m/enqWgu9YUJOhFEo5IVNMjG2yz1r6g/V5N4Flkns7LPVsr8ezjLw+UdbFWD
-	c3V+hQM1CN2w0c09VVx6HwD0Fd4NCYY/GbsXJa1jfHC4xn3b6uTOXE5sgwatr8dvdbR1XtikYTR
-	nVkis449mWXM0xyn/9LbRXo9MhcLOwVSjrbDSb7fKkFWpKD+jmQwxoN+pMV4ZCH858JWtcFldxQ
-	g8yGJPXFdssbC1b+QUBUBB6wvYwpUwpGdxA+T90rdl7GpGONfWeuZ7PGn5dsTXidhlxVtJQrE8x
-	g==
-X-Received: by 2002:a05:6102:4b11:b0:7a7:198b:674c with SMTP id ada2fe7eead31-7af1f3f3a90mr3668073137.33.1790457657120;
-        Sat, 26 Sep 2026 14:20:57 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b9ae253sm3267723137.8.2026.09.26.14.20.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 14:20:56 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH] nfc: llcp: clear device pointer on disconnect
-Date: Sat, 26 Sep 2026 18:20:41 -0300
-Message-ID: <20260926212041.1342558-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXMDLunG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2EB31F000FF;
+	Sat, 26 Sep 2026 21:21:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790457687;
+	bh=5W3yNoOtZtnOfw68VsFN1xiJeAXIfHZB0zCCY/1MVDQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JXMDLunGXAksKM021Y7G0vxqLl79Q/aukKhL624h/d0Qta0K/sSFLX9mD7sKaoFc7
+	 WJFXW+z8KCexB6qe2hCVsnDNZwxkAgpRG35Q+1dd8v18r+EXKA0r8mS9fdM64jZCne
+	 tHK4UMUlLeQvHIb45x+CnJ87Aga5Bg+aJbsQp6W3yi8awr8JfT/kzVhs5+BNPn9SFi
+	 8Ckhl5MkyaE1DoohsXQx6qMvJxEzMo8BIimBFcPkp9o778f2O+5CsPFA+pZk7WCisH
+	 X2tsqk6LSPpAiTmhjfszMAvtUfSyPj3zHvRKcE9YVRf8N4Ud3ju3wiAuL20giVx/c+
+	 P0BMEuw76sRjQ==
+Date: Sat, 26 Sep 2026 22:21:22 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Joshua Yeong <joshua.yeong@starfivetech.com>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	"rahul@summations.net" <rahul@summations.net>,
+	"anup@brainfault.org" <anup@brainfault.org>,
+	"lftan.linux@gmail.com" <lftan.linux@gmail.com>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"pjw@kernel.org" <pjw@kernel.org>,
+	"palmer@dabbelt.com" <palmer@dabbelt.com>,
+	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>,
+	"alex@ghiti.fr" <alex@ghiti.fr>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/3] dt-bindings: regulator: Add RPMI voltage service
+ bindings
+Message-ID: <20260926-peddling-share-5e5e8dffaa63@spud>
+References: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
+ <20260923070014.1340761-2-joshua.yeong@starfivetech.com>
+ <9c0ae39b-d214-40f5-b010-cdea14ccc774@kernel.org>
+ <c2c57bf0-e610-4353-93a4-84edfd08e767@sirena.org.uk>
+ <SH0PR01MB08411AA7F403A71D2D7470A6F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
+ <0db3ed29-8bb8-4dc3-a4cb-cc5b9bf2e893@kernel.org>
+ <SH0PR01MB0841C933DE1E00C4012BDF53F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
+ <ed0c4c67-6933-455a-937d-f5888d124538@kernel.org>
+ <a5d0d4df-7e8e-4f12-b011-e41b66efd8a7@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="noJw7wHyYsY2Yo5K"
+Content-Disposition: inline
+In-Reply-To: <a5d0d4df-7e8e-4f12-b011-e41b66efd8a7@sirena.org.uk>
 
-nfc_llcp_recv_disc() drops the device reference via nfc_put_device()
-when a connected socket receives a DISC PDU, but does not clear
-llcp_sock->dev.  If the socket is later reconnected, any cleanup code
-that checks llcp_sock->dev will find a non-NULL pointer and attempt a
-second nfc_put_device(), underflowing the device refcount.
+--noJw7wHyYsY2Yo5K
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Clear the pointer immediately after the put so that a subsequent
-reconnect does not double-release the device.
+On Fri, Sep 25, 2026 at 06:15:35PM +0100, Mark Brown wrote:
+> On Fri, Sep 25, 2026 at 05:18:08PM +0200, Krzysztof Kozlowski wrote:
+> > On 25/09/2026 09:14, Joshua Yeong wrote:
+>=20
+> > > While the above method works but I'm trying to get the entire simplif=
+y to the following.
+>=20
+> > > user-app-b {
+> > > 	compatible =3D "...";
+> > > 	voltage-domains =3D <&rpmi-voltage 0x01>;
+>=20
+> > I see. Why power domains do not fit here?
+>=20
+> The spec seems to map very clearly onto voltage regulators, it describes
+> voltages in mV:
+>=20
+>   https://github.com/riscv-non-isa/riscv-rpmi/blob/main/src/srvgrp-voltag=
+e.adoc
+>=20
+> I really don't see any problem describing this as regulators, it seems
+> to fulfil exactly the same role as SCMI regulators, supporting things
+> like SD slots where the OS genuinely needs to control voltages on a
+> mostly system power controller system.
 
-Fixes: d646960f7986 ("NFC: Initial LLCP support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- net/nfc/llcp_core.c | 1 +
- 1 file changed, 1 insertion(+)
+Unless I misunderstand your intent, me either. The binding permits
+having regulator subnodes too, so culling this "voltage-domain" business
+and going for the regulators alone shouldn't be much of a shift.
 
-diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-index 74bf81700..199543c47 100644
---- a/net/nfc/llcp_core.c
-+++ b/net/nfc/llcp_core.c
-@@ -1220,6 +1220,7 @@ static void nfc_llcp_recv_disc(struct nfc_llcp_local *local,
- 
- 	if (sk->sk_state == LLCP_CONNECTED) {
- 		nfc_put_device(local->dev);
-+		llcp_sock->dev = NULL;
- 		sk->sk_state = LLCP_CLOSED;
- 		sk->sk_state_change(sk);
- 	}
--- 
-2.43.0
 
+
+--noJw7wHyYsY2Yo5K
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarg3UgAKCRB4tDGHoIJi
+0hdiAP4qRPL8bULjFmSy+m3ZF2jcF4n1odXK4QIHasn8v4D4KAD8C+OFuee60ZJj
+k7fDaW1VQVmsHl3wZ1X62ngQ6Y9p+go=
+=E7zU
+-----END PGP SIGNATURE-----
+
+--noJw7wHyYsY2Yo5K--
