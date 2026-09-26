@@ -1,56 +1,56 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83713363C59
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B43839E6EB
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790403696; cv=none; b=LmWUTcxxOgHXPS2VJmxPJGbWsIDm5qq2n74FNesCkuPZu4SYQ/om7dC4+aqBHlh68oA+eIbNkm4r3X7qba6e6C0yoNM4g2Wb1MZT2KlqDx92xkqQ8n2c1sz/VGoMhOT8XWq1IN1stECdxIK84xV9HS5UVGhLAFN4/obsJEAYDsY=
+	t=1790403697; cv=none; b=JY5X4YEHsafhz2Iv9T0oHdY+iV6Iarzb7ix7R4WzpK4qVVFOFAENl0x3QfkbZ99l9URlG6Thr1fR3uk2qTR9gEB2JJZgynRJxnJC4yioXFbBOdYUHWy3mg00nPTpUc9X0e6Uzf4W6ntoqI3OapjGwnJdwt+5oG1+7iJRHMBa9LA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790403696; c=relaxed/simple;
-	bh=IPqBB0C4p4yBkSse63lyqSGAllQDC+1yD/wY0Hs2/D8=;
+	s=arc-20240116; t=1790403697; c=relaxed/simple;
+	bh=pAq99FGricV4DtVZQ5r6XtCB7Z0x8bMjRJDQV7k5IH0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=sN2xFqy8UYnCgeJ+yL6twT4HKPAxW28GaIYwkV9MLk8WOexI3UN2OypljkWg4OdG/RPrigOwcwmdV72Z4X3Hxlfxa7bvQ1iqc65gXf5d769GpLhwE3JX2wSGUEl4t20ViMS0/z/NbOP8l7FyeH3Ah/7Qb7f0CQ/xA/SADCVBsdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bd3i1GYp; arc=none smtp.client-ip=74.125.82.199
+	 To:Cc:Content-Type; b=RRj1Q03Dqx7FsoH1+zcn3ljYjn2/bi1dlNw2mVP1y2M+6xO5tAlncUlSxufeB28RFaHOd26n22TFh4Qcb0A5Li8oZXLojVbswTAj/6SkfROKEo2kkmCqJuGwTsiTDNEGJZoVjy6bo6csXBljJ/SSf2kl5CQp0qj1gCPQRARS4k4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EnbVAe8B; arc=none smtp.client-ip=74.125.82.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bd3i1GYp"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3282d5302ffso2195772eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:21:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EnbVAe8B"
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-143826c4a13so1305060c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:21:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790403692; x=1791008492; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790403694; x=1791008494; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LbrTFhUX9MuP/ZpY/p1nYSUJddQyRbObomIhH6W5McU=;
-        b=Bd3i1GYpSxAL7xXH7NsDGALFtat25Egn2Qb15oZXEKQL4tuisM2wnxGVofUENJBw+U
-         A6bXdaiOs6WGjtWaRLcSjxNe5/zvAIODyP6tmkg+3AnswG93xvwaBiLQKqP/HzM6WsE4
-         SSrzGhr0PCf+3OK07ebmG2TO5eTLftQ2FDi+KPPkt0e4iEY7KuvK/dhisHjOnQLxaD8S
-         wC+9b9HLiNcHHU3TISrjFnmJWTepSUnvbvLfspbi68Ya2xH21OHqO1kWLcx2aBV7blCG
-         7LVX9xVGBop/2KU+VUVTDZdSAA5wsXYjBzWsQaQ+Jp3B0eWf5cahWihs1G2l0cyeBrDb
-         ML+w==
+        bh=RIqQ8S0ryjMDBhu/T3MQxHUCk7b3KMlk8nqdhZ++QI4=;
+        b=EnbVAe8BK43J3YYaWiuts6hvjqn6Wlxct09A48t9gLQg2zZbY/bBgeRFRwaKBEltSn
+         glYSf1vhAOK9jW802H7uDktdExqNBsUAn4Kcc8HrvcBGoCiCLHakyQ7p7gvVS33yygeB
+         HMSgYFa8I+stQWKO97G9/stID8tGjO3+nS/txVyjqD4ZIHDcXOfvyyS0cGQabzdEtwaU
+         uzjZTlxfLWGLooSy4M4qdfpMVCaOTQwsmxG9ezTVH0tBA0ILYB1+BxtJcmj5dl68X9q+
+         5yYgJnGA442R/hek+dpePC8DpYofrmwJRUIXFRTxCjLaTKTgeNsvx4AyWqIS9q4B5blB
+         ItGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790403692; x=1791008492;
+        d=1e100.net; s=20260707; t=1790403694; x=1791008494;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LbrTFhUX9MuP/ZpY/p1nYSUJddQyRbObomIhH6W5McU=;
-        b=OJT1spcPjIj2b992QMIg+zEDJHQhFwr16gAgwCec1Lgdq9Mnz7ZP/sL3qiYlV47m0t
-         3hoSIVO+URKLlNfSmTXHEda/nnHTcSE301efyAQ5Bwu07sM9tp0FqkH/qvB97bYwqRnc
-         IrtrVxwmXeY7XKO4BeBVsUseprcag/SEjv/bA/TIWgZo0VMrykIi5zF5sxf8mptCwD9E
-         +zLv3EcC9LlsChM62LCxchKvdqMo5vLRn+QTBMCWbagRxfA5PvS/EviagDneNnuC4Swb
-         fn52HNk7kAU+YRl4A01gBdTchQUSEwPfgF9fgcSdoSvaMd5J9mAKFiseY43tUlZWjKgE
-         a9Jw==
-X-Forwarded-Encrypted: i=1; AKwUvBxhJIhcvznc8xvrGYwJAEWUr2NZVNgPxkUe/PxWeVqumzeh7CzfVEHnpHyHAzI1M/asrvKUQ6FRYd2R574=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAb6QRi9ng3tj8MgNyNei8ocieq4OU+HSUxrMcckpAAzgzS53G
-	i5bqE/TdNfXlE2RXfVAZjTCEdjmY0BOosT13z9fIVuJCSrF0eVtNtHF0hbxbuufyzh4sP2FZo2B
-	F7Kndq7cBtA==
-X-Received: from dlbem1.prod.google.com ([2002:a05:7022:1001:b0:143:9658:f913])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:1e0d:b0:144:e998:462a
- with SMTP id a92af1059eb24-146ce966733mr2112295c88.8.1790403691748; Fri, 25
- Sep 2026 23:21:31 -0700 (PDT)
-Date: Fri, 25 Sep 2026 23:19:44 -0700
+        bh=RIqQ8S0ryjMDBhu/T3MQxHUCk7b3KMlk8nqdhZ++QI4=;
+        b=Q+g+Pd7xSpehKIVBNeiLi3XgnRMdBVu6UbW73YbyWPYvsx3ZB0UHvqP9gEcipMMHja
+         xk74lFZesSSKNUQJjzd4dFtb0oiIGiAR5k5vxV+wEeYArEzqYySZxzL3+svAmXNOQQ9I
+         ea5ieM6ntleYkm+Uy9ImdV+XGqJ2GU3jCU4C/3aVfy7lrYVTc45tD6OzDGhK4nb8Bl7D
+         uB0JfEEkyAj1j7hJLOvFvlSLdTiuBwBr6iekIGWqo+AlXE3EVRGDqjqRn3uY13feWBvp
+         oIdwclR7HOGKlTRbChiOG4GFTgOECv571obbDopwkD/vO3JtOG3Y5giGWW7WQ/Rth6Sa
+         5lCA==
+X-Forwarded-Encrypted: i=1; AKwUvBxKnRwZQcjU4pPIQjq1VkP431rR9yTcfTjHdx+sGAk+YBHnLaj5KqeRbCYb+tVPhffsoJMs4ApjVxyP0Ck=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMy9fmio9WI3vLiQshdlpTeItsRDkmY2Zhri/38N2cqgoXWCdv
+	gBrQgCu6inYnQOuA6SHyFFzPcFlY90ohrZ3O9WKoiytVyVGzNuth6kZ1VRJs8+rK7AtW/I759rC
+	qVn6OcHX3rA==
+X-Received: from dlag1.prod.google.com ([2002:a05:701b:2501:b0:144:d82d:aebb])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4346:b0:13e:aa58:89f8
+ with SMTP id a92af1059eb24-146ce86dbddmr1609696c88.15.1790403693890; Fri, 25
+ Sep 2026 23:21:33 -0700 (PDT)
+Date: Fri, 25 Sep 2026 23:19:45 -0700
 In-Reply-To: <20260926062029.800743-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260923181213.3032038-1-irogers@google.com> <20260926062029.800743-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260926062029.800743-18-irogers@google.com>
-Subject: [PATCH v4 17/49] perf python: Port mem-phys-addr to perf module
+Message-ID: <20260926062029.800743-19-irogers@google.com>
+Subject: [PATCH v4 18/49] perf python: Port stackcollapse to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	james.clark@linaro.org, leo.yan@linux.dev, namhyung@kernel.org
@@ -70,281 +70,264 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	mingo@redhat.com, peterz@infradead.org, tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Port mem-phys-addr.py to a standalone script in tools/perf/python/
-using the perf.session API to read perf.data files and profile physical
-memory access types against /proc/iomem.
+Port stackcollapse.py from tools/perf/scripts/python/ to a standalone
+script in tools/perf/python/ refactored into a StackCollapseAnalyzer
+class.
 
 Improvements compared to the legacy script:
-- Parse the full indentation hierarchy of /proc/iomem into a parent-child
-  tree of frozen IomemEntry dataclasses (instead of only top-level
-  indent-0 ranges), resolving physical addresses to the most specific
-  sub-range (such as Kernel code/data/bss inside System RAM) and rolling
-  child counts up into parent totals.
-- Support profiling multiple memory events in a single perf.data session
-  (keyed by evsel name) instead of assuming a single global event.
-- Add argparse CLI options (-i/--input and --iomem to allow supplying an
-  offline /proc/iomem snapshot from a target system).
+- Traverse sample.callchain directly from perf.session without
+  allocating per-event dictionaries, and fall back to sample.symbol when
+  a sample has no callchain.
+- Replace deprecated optparse with argparse, adding -i/--input alongside
+  --include-tid, --include-pid, --no-comm, --tidy-java, and --kernel.
+- Handle BrokenPipeError cleanly when output is piped into downstream
+  tools (such as head or flamegraph.pl).
 
-Add a shell test (test_mem_phys_addr_python.sh) to verify the standalone
-script.
+Add a shell test (test_stackcollapse_python.sh) using a CPU workload
+(perf test -w noploop) to verify the standalone script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/mem-phys-addr.py            | 136 ++++++++++++++++++
- .../tests/shell/test_mem_phys_addr_python.sh  | 102 +++++++++++++
- 2 files changed, 238 insertions(+)
- create mode 100755 tools/perf/python/mem-phys-addr.py
- create mode 100755 tools/perf/tests/shell/test_mem_phys_addr_python.sh
+ tools/perf/python/stackcollapse.py            | 145 ++++++++++++++++++
+ .../tests/shell/test_stackcollapse_python.sh  |  78 ++++++++++
+ 2 files changed, 223 insertions(+)
+ create mode 100755 tools/perf/python/stackcollapse.py
+ create mode 100755 tools/perf/tests/shell/test_stackcollapse_python.sh
 
-diff --git a/tools/perf/python/mem-phys-addr.py b/tools/perf/python/mem-phys-addr.py
+diff --git a/tools/perf/python/stackcollapse.py b/tools/perf/python/stackcollapse.py
 new file mode 100755
-index 000000000000..53ef7e9a14b5
+index 000000000000..0e8a65969db3
 --- /dev/null
-+++ b/tools/perf/python/mem-phys-addr.py
-@@ -0,0 +1,136 @@
++++ b/tools/perf/python/stackcollapse.py
+@@ -0,0 +1,145 @@
 +#!/usr/bin/env python3
 +# SPDX-License-Identifier: GPL-2.0
-+"""mem-phys-addr.py: Resolve physical address samples"""
-+from __future__ import annotations
-+import argparse
-+import bisect
-+import collections
-+from dataclasses import dataclass
-+import re
-+from typing import (Dict, List, Optional)
++"""
++stackcollapse.py - format perf samples with one line per distinct call stack
 +
++This script's output has two space-separated fields.  The first is a semicolon
++separated stack including the program name (from the "comm" field) and the
++function names from the call stack.  The second is a count:
++
++ swapper;start_kernel;rest_init;cpu_idle;default_idle;native_safe_halt 2
++
++The file is sorted according to the first field.
++
++Ported from tools/perf/scripts/python/stackcollapse.py
++"""
++from __future__ import annotations
++
++import argparse
++from collections import defaultdict
++import os
++import sys
 +import perf
 +
-+@dataclass(frozen=True)
-+class IomemEntry:
-+    """Read from a line in /proc/iomem"""
-+    begin: int
-+    end: int
-+    indent: int
-+    label: str
 +
-+    def __lt__(self, other) -> bool:
-+        if isinstance(other, int):
-+            return self.begin < other
-+        return self.begin < other.begin
++class StackCollapseAnalyzer:
++    """Accumulates call stacks and prints them collapsed."""
 +
-+    def __gt__(self, other) -> bool:
-+        if isinstance(other, int):
-+            return self.begin > other
-+        return self.begin > other.begin
++    def __init__(self, args: argparse.Namespace) -> None:
++        self.args = args
++        self.lines: dict[str, int] = defaultdict(int)
++        self.session: perf.session | None = None
 +
-+# Physical memory layout from /proc/iomem. Key is the indent and then
-+# a list of ranges.
-+iomem: Dict[int, List[IomemEntry]] = collections.defaultdict(list)
-+# Child nodes from the iomem parent.
-+children: Dict[IomemEntry, List[IomemEntry]] = collections.defaultdict(list)
-+# Maximum indent seen before an entry in the iomem file.
-+_STATE: Dict[str, int] = {"max_indent": 0}
-+# Per-event counts for each range of memory.
-+event_counts: Dict[str, collections.Counter] = collections.defaultdict(collections.Counter)
++    def tidy_function_name(self, sym: str, dso: str) -> str:
++        """Beautify function names based on options."""
++        if sym is None:
++            sym = "[unknown]"
 +
-+def parse_iomem(iomem_path: str):
-+    """Populate iomem from iomem file"""
-+    with open(iomem_path, 'r', encoding='ascii') as f:
-+        for line in f:
-+            line = line.rstrip('\n')
-+            if not line or line.isspace():
-+                continue
-+            indent = 0
-+            while indent < len(line) and line[indent] == ' ':
-+                indent += 1
-+            _STATE["max_indent"] = max(_STATE["max_indent"], indent)
-+            m = re.split('-|:', line, maxsplit=2)
-+            if len(m) < 3:
-+                continue
-+            begin = int(m[0].strip(), 16)
-+            end = int(m[1].strip(), 16)
-+            label = m[2].strip()
-+            entry = IomemEntry(begin, end, indent, label)
-+            # Before adding entry, search for a parent node using its begin.
-+            if indent > 0:
-+                parent = find_memory_type(begin)
-+                assert parent, f"Given indent expected a parent for {label}"
-+                children[parent].append(entry)
-+            iomem[indent].append(entry)
++        sym = sym.replace(";", ":")
++        if self.args.tidy_java:
++            # Beautify Java signatures
++            sym = sym.replace("<", "")
++            sym = sym.replace(">", "")
++            if sym.startswith("L") and "/" in sym:
++                sym = sym[1:]
++            try:
++                sym = sym[:sym.index("(")]
++            except ValueError:
++                pass
 +
-+def find_memory_type(phys_addr) -> Optional[IomemEntry]:
-+    """Search iomem for the range containing phys_addr with the maximum indent"""
-+    for i in range(_STATE["max_indent"], -1, -1):
-+        if i not in iomem:
-+            continue
-+        position = bisect.bisect_right(iomem[i], phys_addr)
-+        if position == 0:
-+            continue
-+        iomem_entry = iomem[i][position-1]
-+        if  iomem_entry.begin <= phys_addr <= iomem_entry.end:
-+            return iomem_entry
-+    return None
++        if self.args.annotate_kernel and dso == "[kernel.kallsyms]":
++            return sym + "_[k]"
++        return sym
 +
-+def _print_entries(entries, load_mem_type_cnt, total):
-+    """Print counts from parents down to their children"""
-+    for entry in sorted(entries,
-+                        key=lambda e: (-load_mem_type_cnt[e], e.begin)):
-+        count = load_mem_type_cnt[entry]
-+        if count > 0:
-+            mem_type = ' ' * entry.indent + f"{entry.begin:x}-{entry.end:x} : {entry.label}"
-+            percent = 100 * count / total
-+            print(f"{mem_type:<40}  {count:>10}  {percent:>10.1f}")
-+            _print_entries(children[entry], load_mem_type_cnt, total)
++    def process_event(self, sample: perf.sample_event) -> None:
++        """Collect call stack for each sample."""
++        stack = []
++        callchain = sample.callchain
++        if callchain is not None:
++            for node in callchain:
++                stack.append(self.tidy_function_name(node.symbol, node.dso))
++        else:
++            # Fallback if no callchain
++            sym = (sample.symbol or '[unknown]')
++            dso = (sample.dso or '[unknown]')
++            stack.append(self.tidy_function_name(sym, dso))
 +
-+def print_memory_type():
-+    """Print the resolved memory types and their counts."""
-+    if not event_counts:
-+        print("No valid physical address samples found in perf data.")
-+        return
++        if self.args.include_comm:
++            comm = "Unknown"
++            if self.session is not None:
++                try:
++                    proc = self.session.find_thread(
++                        sample.sample_pid, sample.sample_tid
++                    )
++                    if proc:
++                        proc_comm = proc.comm()
++                        if proc_comm is not None:
++                            comm = proc_comm
++                except TypeError:
++                    pass
++            comm = str(comm).replace(" ", "_")
++            sep = "-"
++            if self.args.include_pid:
++                comm = f"{comm}{sep}{(sample.sample_pid or 0)}"
++                sep = "/"
++            if self.args.include_tid:
++                comm = f"{comm}{sep}{(sample.sample_tid or 0)}"
++            stack.append(comm)
 +
-+    for event_name, load_mem_type_cnt in event_counts.items():
-+        print(f"Event: {event_name}")
-+        print(f"{'Memory type':<40}  {'count':>10}  {'percentage':>10}")
-+        print(f"{'-' * 40:<40}  {'-' * 10:>10}  {'-' * 10:>10}")
-+        total = sum(load_mem_type_cnt.values())
-+        if total == 0:
-+            continue
++        stack_string = ";".join(reversed(stack))
++        self.lines[stack_string] += 1
 +
-+        # Add count from children into the parent.
-+        for i in range(_STATE["max_indent"], -1, -1):
-+            if i not in iomem:
-+                continue
-+            for entry in iomem[i]:
-+                for child in children[entry]:
-+                    if load_mem_type_cnt[child] > 0:
-+                        load_mem_type_cnt[entry] += load_mem_type_cnt[child]
++    def print_totals(self) -> None:
++        """Print sorted collapsed stacks."""
++        try:
++            for stack in sorted(self.lines):
++                print(f"{stack} {self.lines[stack]}")
++            sys.stdout.flush()
++        except BrokenPipeError:
++            devnull = os.open(os.devnull, os.O_WRONLY)
++            os.dup2(devnull, sys.stdout.fileno())
++            os.close(devnull)
 +
-+        _print_entries(iomem[0], load_mem_type_cnt, total)
-+        print()
-+if __name__ == "__main__":
-+    ap = argparse.ArgumentParser(description="Resolve physical address samples")
++
++def main():
++    """Main function."""
++    ap = argparse.ArgumentParser(
++        description="Format perf samples with one line per distinct call stack"
++    )
 +    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
-+    ap.add_argument("--iomem", default="/proc/iomem", help="Path to iomem file")
++    ap.add_argument("--include-tid", action="store_true", help="include thread id in stack")
++    ap.add_argument("--include-pid", action="store_true", help="include process id in stack")
++    ap.add_argument("--no-comm", dest="include_comm", action="store_false", default=True,
++                    help="do not separate stacks according to comm")
++    ap.add_argument("--tidy-java", action="store_true", help="beautify Java signatures")
++    ap.add_argument("--kernel", dest="annotate_kernel", action="store_true",
++                    help="annotate kernel functions with _[k]")
++
 +    args = ap.parse_args()
 +
-+    def process_event(sample):
-+        """Process a single sample event."""
-+        phys_addr = sample.sample_phys_addr or 0
-+        if not phys_addr:
-+            return
-+        entry = find_memory_type(phys_addr)
-+        if entry:
-+            event_name = str(sample.evsel)
-+            if event_name.startswith("evsel(") and event_name.endswith(")"):
-+                event_name = event_name[6:-1]
-+            event_counts[event_name][entry] += 1
++    if args.include_tid and not args.include_comm:
++        print("requesting tid but not comm is invalid", file=sys.stderr)
++        sys.exit(1)
++    if args.include_pid and not args.include_comm:
++        print("requesting pid but not comm is invalid", file=sys.stderr)
++        sys.exit(1)
 +
-+    parse_iomem(args.iomem)
-+    perf.session(perf.data(args.input), sample=process_event).process_events()
-+    print_memory_type()
-diff --git a/tools/perf/tests/shell/test_mem_phys_addr_python.sh b/tools/perf/tests/shell/test_mem_phys_addr_python.sh
++    analyzer = StackCollapseAnalyzer(args)
++
++    try:
++        session = perf.session(perf.data(args.input), sample=analyzer.process_event)
++        analyzer.session = session
++        session.process_events()
++    except IOError as e:
++        print(f"Error: {e}", file=sys.stderr)
++        sys.exit(1)
++    except KeyboardInterrupt:
++        pass
++    finally:
++        analyzer.session = None
++
++    analyzer.print_totals()
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/tools/perf/tests/shell/test_stackcollapse_python.sh b/tools/perf/tests/shell/test_stackcollapse_python.sh
 new file mode 100755
-index 000000000000..d094a0611a24
+index 000000000000..a3b6c917e842
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_mem_phys_addr_python.sh
-@@ -0,0 +1,102 @@
++++ b/tools/perf/tests/shell/test_stackcollapse_python.sh
+@@ -0,0 +1,78 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# mem-phys-addr python test
++# stackcollapse python test
 +
-+set -e
++set -e -o pipefail
 +
 +shelldir=$(dirname "$0")
 +# shellcheck source=lib/setup_python.sh
 +. "${shelldir}"/lib/setup_python.sh
 +
-+# If we don't have the perf python module, we can't test
 +if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
 +	echo "Skipping test, perf python module not found"
 +	exit 2
 +fi
 +
 +script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/mem-phys-addr.py"
++script_path="${script_dir}/stackcollapse.py"
 +
 +if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, mem-phys-addr.py not found at $script_path"
++	echo "Skipping test, stackcollapse.py not found at $script_path"
 +	exit 2
 +fi
 +
 +err=0
 +temp_data=""
-+temp_iomem=""
 +temp_out=""
 +
 +cleanup() {
-+	rm -f "${temp_data}" "${temp_iomem}" "${temp_out}"
++	rm -f "${temp_data}" "${temp_out}"
 +}
-+
 +trap 'cleanup' EXIT TERM INT
 +
 +temp_data=$(mktemp /tmp/perf.data.XXXXXX)
-+temp_iomem=$(mktemp /tmp/perf.iomem.XXXXXX)
 +temp_out=$(mktemp /tmp/perf.out.XXXXXX)
 +
-+cat << 'EOF' > "${temp_iomem}"
-+00000000-ffffffffffffffff : System RAM
-+  00000000-7fffffffffffffff : Low RAM
-+    00001000-00ffffff : Kernel code
-+  8000000000000000-ffffffffffffffff : High RAM
-+EOF
++echo "Testing stackcollapse.py..."
 +
-+test_iomem_hierarchy() {
-+	echo "Testing mem-phys-addr.py hierarchical iomem resolution..."
-+	"$PYTHON" - "$script_path" "${temp_iomem}" << 'PYEOF' > "${temp_out}"
-+import importlib.util
-+import sys
++# Create a perf.data file with callchains. Use a busy workload rather than
++# sleep, as an idle system may not generate any samples at all.
++perf record -g -o "${temp_data}" \
++		-- perf test -w noploop >/dev/null 2>&1 || \
++		{ echo "Skipping test, perf record failed"; exit 2; }
 +
-+spec = importlib.util.spec_from_file_location("mem_phys_addr", sys.argv[1])
-+mod = importlib.util.module_from_spec(spec)
-+sys.modules[spec.name] = mod
-+spec.loader.exec_module(mod)
++if [ ! -s "${temp_data}" ]; then
++	echo "Skipping test, perf record failed to create data"
++	exit 2
++fi
 +
-+mod.parse_iomem(sys.argv[2])
-+entry_kernel = mod.find_memory_type(0x100000)
-+entry_high = mod.find_memory_type(0x9000000000000000)
-+assert entry_kernel is not None and entry_kernel.label == "Kernel code"
-+assert entry_high is not None and entry_high.label == "High RAM"
-+mod.event_counts["cpu/mem-loads/"][entry_kernel] += 3
-+mod.event_counts["cpu/mem-loads/"][entry_high] += 1
-+mod.print_memory_type()
-+PYEOF
-+	if ! grep -q "System RAM" "${temp_out}" || \
-+	   ! grep -q "Kernel code" "${temp_out}" || \
-+	   ! grep -q "High RAM" "${temp_out}"; then
-+		echo "Hierarchical iomem resolution test failed."
++# Check that the script executes with default options
++if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
++	echo "stackcollapse.py test failed"
++	err=1
++else
++	# It outputs stacks like: swapper;...;... 2
++	if [ ! -s "${temp_out}" ]; then
++		echo "Expected stack traces in output, but output is empty."
 +		err=1
 +	else
-+		echo "Hierarchical iomem resolution test passed."
++		echo "stackcollapse default test passed."
 +	fi
-+}
++fi
 +
-+test_file_mode() {
-+	echo "Testing mem-phys-addr.py file mode..."
-+
-+	# Generate memory access events (try unprivileged user-space first, then system-wide)
-+	if ! perf record --phys-data -d -o "${temp_data}" \
-+	     -- perf test -w datasym >/dev/null 2>&1 && \
-+	   ! perf record -d -o "${temp_data}" -- perf test -w datasym >/dev/null 2>&1 && \
-+	   ! perf record -d -a -o "${temp_data}" -- sleep 0.2 >/dev/null 2>&1; then
-+		echo "Skipping file mode record test, perf record -d not supported"
-+		return 0
-+	fi
-+
-+	# Run the script with custom --iomem
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" --iomem "${temp_iomem}" > "${temp_out}" || \
-+	   [ ! -s "${temp_out}" ]; then
-+		echo "File mode test failed."
-+		err=1
-+	else
-+		echo "File mode test passed."
-+	fi
-+}
-+
-+test_iomem_hierarchy
-+test_file_mode
++# Test CLI flags (--include-pid, --include-tid, --tidy-java, --kernel) and BrokenPipeError
++if ! "$PYTHON" "$script_path" -i "${temp_data}" \
++	--include-pid --include-tid --tidy-java --kernel | head -n 1 > "${temp_out}" || \
++   [ ! -s "${temp_out}" ]; then
++	echo "stackcollapse.py options/pipe test failed"
++	err=1
++elif ! "$PYTHON" "$script_path" -i "${temp_data}" --no-comm > "${temp_out}" || \
++     [ ! -s "${temp_out}" ]; then
++	echo "stackcollapse.py --no-comm test failed"
++	err=1
++else
++	echo "stackcollapse options test passed."
++fi
++rm -f "${temp_out}"
 +
 +exit $err
 -- 
