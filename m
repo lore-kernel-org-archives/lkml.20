@@ -1,230 +1,141 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5780D1B3B19
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFD51B3B19
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790403138; cv=none; b=u5/TtVbnsOkpBE0lKO9xye914kLTT+MVjJ/LCSciv5kBNjq0l9oTkA/Pv/Q/Ce8A6n4zsanXQpe8Fw0KPFboenGOVwraIY2tt9cOUO74+sU460OkSE8EQUM9tEMFVcpC6E2A2h1yQicQw8J5URjjyyIG7TItl6j3+8INzqumm44=
+	t=1790403199; cv=none; b=eMoY3QS/Q8z0LXtugSmA3rE70XJwR9Xiskfjnyn71KHJcqeoY93atL3zPCEDGxe3lh1CLd2V/RN/VDC6dq6SFpJcVrA3W0RGmdyUAWwbMkaFKMquw0MlN6c/cJHDWC5yY/EN1g1ht3EhBIC8gqDKNPIPP3LxTJd7+vnGXJdS7kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790403138; c=relaxed/simple;
-	bh=aMAVCwYAzwgjRTTqaVNCL6KskGTUJHm3j8ZOolxqAAo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j/81e07K1S+JJaP4h4UHjU9LeLYHd2nNmH9kLKvLKcqkNvdd6A380mwKkfibQDKu5Z0GsEMlmwwQuSr8dRv+bdnxF6pLfMsYMREClRzCsYu6D7WeXegQcZh2Dllpam3zz0yRmJRaWllpqFRdo8rhb7S4R6Z4dNx8eldf9jyhhQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NAzXqqQU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Lc+lA8Nr; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790403199; c=relaxed/simple;
+	bh=JhcNgD5ym0n7rwQt8AOhW6hhqsqms6onYIIkuwgKgBQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n7N9Zq87EdIS1scqnkSgUPOOnidxoI1Jhwz8Tkxlv9vpzFuoDZ/tddo8DAEOe0LWTVVejwVqaiBPethxTFHpg80DDqstRiJbLQ7heoyXzdstjMlNw71BfN1AFib1dvGLxRvTVy6B3c2kZeUmm3CFvVPcUQota9nC/9wncBd5MX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=c0GRycFa; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NAzXqqQU";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Lc+lA8Nr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790403135;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o1xKo46sR3x0JxHMDQkcV1eouqIgMqjiPh6siPlWkc0=;
-	b=NAzXqqQUVXlfb24n/2ZL12qhZAksd0mf3ys9xDnJp5ElRksXkAnuFXvVlm/2TyLwxZMkG3
-	x6mMSOHuC9EjHGd4tGIqJWohK8r1VOdL9erlb8C64MTH7HiMBbIg8bZIIltZBZwfaXsJ50
-	0EfYJs6bt0ybIesi4xp9Sqr7PxrGOV0=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-151-Ux3DynDrM9KT1G8Co4rjmQ-1; Sat, 26 Sep 2026 02:12:13 -0400
-X-MC-Unique: Ux3DynDrM9KT1G8Co4rjmQ-1
-X-Mimecast-MFC-AGG-ID: Ux3DynDrM9KT1G8Co4rjmQ_1790403133
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49ffdac5e6dso547915e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:12:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="c0GRycFa"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so7818955e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:13:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790403133; x=1791007933; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o1xKo46sR3x0JxHMDQkcV1eouqIgMqjiPh6siPlWkc0=;
-        b=Lc+lA8NrvaSnBGceRrtej2dMos7EhHaKm4iwomvSVmzFj8KXXJiX4YUwlvjGvwereo
-         3h/QdptFqm9CdH9vi1gLN2w/G8Cwy/LE3UdKXz+rtwHL5wtUZdPGQWSaINqIVxqrgNnY
-         cLOsMmqobWqvfExmua1EPVT47TWn7qAZNXtfUv7hBpXe1fuOAg+eyFW/pqNaiu5UGsre
-         ddst1rONPdh5KSgw0o4n+xWcsqPLSjfgmODz1271nh4r8Xk2D+BzEtPGeA7oeDrgSgrc
-         BRVlhldjHajw4UlrFkOWXm1NbYABZd3AMPA+KfIp+2mIi9kpIeuAihss4cl5RHAPUANH
-         c3AQ==
+        d=baylibre.com; s=google; t=1790403196; x=1791007996; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n+km6I0NWRugPNV0kiVWI6nk70n82CkGaUZAPuixyOY=;
+        b=c0GRycFa3eglYxxl2TfiX9HAjmix0YX5ADYM2UGNIN/yiNhj6cO55TSRLUiz5o4lAx
+         uRZttNMsOg7dfoIGEUUQUgK/em5JwdtFAnfOrJ4PtqPJNd+/1FGtiOUcVJDjHLiUYmo5
+         QwgaGR2D0nnT/z/C9vobkhhXsD/vfKc3aKGg8tDb+K7dHwwedRGLcitbkp+DZS0tow/u
+         xbM643tCjRvhySTYPsPg5rVmaakY6ZHgXe+m5CuWE8iFBD1neB/X0XLofBg328v98j2D
+         bZ4p2isFCfP9a7vsqlruc4VCjgG4jNxWbXlFGgp/83eIyDdOaouUk/qHrCojrmdqQx3O
+         Zdzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790403133; x=1791007933;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o1xKo46sR3x0JxHMDQkcV1eouqIgMqjiPh6siPlWkc0=;
-        b=AT/9qT05PVkeFmBlC0SJyRo/kGFmjAi7EXwqMpBtMBHnOZ12FuvskqQeJ3Coox0Z33
-         Y09GDz49fH19/ZgNvrDQ5B6UecQmDHgBU03stTrye3hwLwQ1HQpNz8Alnh4PiDmEZXOU
-         xzv+E2Frv6gEo7bDLMhyuwsQZmpEiu57zQxKA5/CcsJf2J4jZaKrCN0VpLMT5t8qtQgE
-         gs2WOWtgZdGdwRJW5Y6ocbpVS69pQEyxFscvX+qcGdIZl9fJm9KtTVtw6fvucELOmc5f
-         nUMeVDJNZgcHMZBWJBq7jpRAiFkeWR8WnU41gwexHyoZJnp1Prw16z/aBZhZx4nrhqEl
-         QRMA==
-X-Gm-Message-State: AFuF++kdxwfIkunvSNv51BzbGmIAOpExzMn4/M3LQrlt92KB+s82/+ey
-	Do2rbGbhuA5ilcrDLN6YUt15pnhGjC1dOXNwtz0zNgJ8owuphaKue/xnARGPnBrf4v0O2JjYUPg
-	p9aqD3n0UVoYFegeUoE6x43jP44X+L/paGvaKVGDSIbi6RH8L5vZyAvpWtJh0ILcwFq8LNFEqXK
-	bIz4Vvs07KcVtNrTCxKHZKG+aguGYdSyJZQSdm7Umhc1zSyEMbZA==
-X-Gm-Gg: AYBFou1oqAFxeG2RdjJt00V3EVRyWXonqIMWmOZGl/EwrdQjpwC/eTWuZVLSV6eLWSA
-	rFBMHwEENe/Smn9sGkoTKffk7EIlMeDqW7zHc4rzloIisMGH/0/utIKhRwvrfiThO27p5szWgty
-	NiZFzgAYwR1dm39tc50Lwrlr+j7gYJRiXPWRQH0y4SS/WlwkxYHPHFrrfyQp8J9gseZx1jy2zBU
-	jb7rHM9TG95tmSFuIBZvXFsK4bq+GuVKJktM9AsCKrImmOflO95AemM86h2VnURz6OrZRa/FTW2
-	6UQB1Vh+Hcj1H323Ju7btTNpRqq0G0uY6Yny8ViqOov295kVNKBanK8YIiK86mVYZsVn0HtuiFO
-	G05whhB87D+k2tPhNi+jtKXYoekNOssI/ZmmgFzkiT3nGzJcjeicWJHn3YDuA3cLvWa709GvyDx
-	I2ejN7
-X-Received: by 2002:a05:600c:1d0d:b0:49c:f4e1:4c2d with SMTP id 5b1f17b1804b1-49fe66f144fmr139782355e9.16.1790403132741;
-        Fri, 25 Sep 2026 23:12:12 -0700 (PDT)
-X-Received: by 2002:a05:600c:1d0d:b0:49c:f4e1:4c2d with SMTP id 5b1f17b1804b1-49fe66f144fmr139781965e9.16.1790403132386;
-        Fri, 25 Sep 2026 23:12:12 -0700 (PDT)
-Received: from [192.168.10.48] ([151.49.232.249])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4c8dsm218640265e9.3.2026.09.25.23.12.11
+        d=1e100.net; s=20260707; t=1790403196; x=1791007996;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n+km6I0NWRugPNV0kiVWI6nk70n82CkGaUZAPuixyOY=;
+        b=N2XJsrAvw2jCzoNVF7qfHDIW8bTP9gXSf2iGEiH1B0Q+0sP7xiZcN+cVXt3cbW/NZJ
+         ONcoE1rDgbFsGVIARkoHBUlt/kxDDQpgAgk/bsd8olHXeUfRHpMaG/XUbtXCzT3WqHfa
+         9Nj8vZUSuCVxAafOn3qdufpTCekA/OUZ9UxUXaAt27gw5/Lj1QcKSkLKKgVXRAT+drlB
+         ZY36GYtq72+C7uICPL8OKcB/qUfCKExxfHv423rp4efwSKQE18PedMw75IAYgJK0n483
+         pu1wDBcq+V13hTiYeY+Saqe9NZt8oTK78i/erOPLwgL5Po791aSCMtW6EljGe3dvCi76
+         +zRg==
+X-Forwarded-Encrypted: i=1; AKwUvBywP9tG0n0PHmmWrzCoeFeWNT2pARDGFvzjr2mOZzMB7V/nSzQLY/+TpLWT+Ega8hYOgJC3sknj9O5DCx0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWLv7xAz7EQUzjNPLTYjUX9WrHAw6Br/ypUKj6ai1SBb2HLQM1
+	RG0x0dF3oFfVp1Vc4nsLI52VCZ38mXos283NZ4ZJ5rMjvzhO0RVaLMbNVAxvrFWZqRQ=
+X-Gm-Gg: AYBFou2duusxMbjGrgTRPZSnMr/tkJeTbH3vwaO0A8K8zfNQXDrCy/N0NumjLQ7zf8v
+	587maf1qhs9xqq7Ph+fDHT2dc6U/Ru6ECDjFBuxMXE7NsuW/bihk0f7VpWZUviLY/bx6C7K6UZQ
+	LG7l51g1pkPRoJPBx+w2gSH3tUDGDFheDyyXK8W20/brmCa5QpiWArZ13T0Lc4+OGOP4sZq0qtG
+	8it11XnzWDvbpbZxoBz/KHj4wI7i2vhBqZd8Tmg1hM8LaCkvU744oYlIZfxhM1eK9HmzfwFpwu7
+	FirxzU0AZXh4qT4/4/w388Ch5jSdAnH08RYY3UY6lPtmcFQ9HwH4RiFw6MM15X1Jr3jCqJnm8X6
+	tAQf4c9I0ZkGLgO+F8Vcbd8ZpHWLp1iCjeSlK0ipa753wSWnNqwDbVnWbq+S7bvj3Po7xH1fxa6
+	zCJSMZONYtVaGzG2ZCaXgXUO230XxRQR0PrmlPqXze2KeqPXJ/ajvC3pKw9QFaIuI9oX13LerK6
+	ISs
+X-Received: by 2002:a05:600c:698e:b0:49c:fc6e:a3dc with SMTP id 5b1f17b1804b1-49fe66f1491mr142775025e9.27.1790403196073;
+        Fri, 25 Sep 2026 23:13:16 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49ff06b6108sm129009385e9.8.2026.09.25.23.13.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 23:12:11 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: seanjc@google.com
-Subject: Re: [PATCH 00/11] KVM: fix issues with stale control fields
-Date: Sat, 26 Sep 2026 08:12:11 +0200
-Message-ID: <20260926061211.714733-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260926053253.195597-1-pbonzini@redhat.com>
-References: 
+        Fri, 25 Sep 2026 23:13:15 -0700 (PDT)
+Date: Sat, 26 Sep 2026 08:13:13 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Jiale Yao <yaojiale02@163.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rodrigo Alencar <rodrigo.alencar@analog.com>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Anshul Dalal <anshulusr@gmail.com>, 
+	Antoniu Miclaus <antoniu.miclaus@analog.com>, Herve Codina <herve.codina@bootlin.com>, 
+	Shi Hao <i.shihao.999@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Angel Iglesias <ang.iglesiasg@gmail.com>, linux@analog.com, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] iio: validate SPI match data before use
+Message-ID: <ardhvKaSdYh2HiS6@monoceros>
+References: <20260925131738.2200612-1-yaojiale02@163.com>
+ <20260926021143.478d5361@jic23-hlaptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qj3qlzf53fecmdod"
+Content-Disposition: inline
+In-Reply-To: <20260926021143.478d5361@jic23-hlaptop>
+
+
+--qj3qlzf53fecmdod
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/7] iio: validate SPI match data before use
+MIME-Version: 1.0
 
-> Fix two bugs where the guest could do stupid things on purpose to=0D
-> cause problems in the host.=0D
->=0D
-> Patches 1-5 cover cases where actions done through VMCB control fields=0D
-> have to be redone if VMRUN fails.  In particular, failed VMRUNs can=0D
-> cause pending TLB flushes to be dropped.=0D
->=0D
-> Patch 6 fixes a case where eVMCS execution controls can cause the=0D
-> host to use a stale MSR permission bitmap.  Patches 7-11 are tests=0D
-> for nested x2APIC; don't run them on an unpatched kernel.=0D
-=0D
-In addition to what was reported by Sashiko, the test does not pass on=0D
-SVM.  Fixed as follows:=0D
-=0D
-diff --git a/tools/testing/selftests/kvm/x86/nested_x2apic_test.c b/tools/t=
-esting/selftests/kvm/x86/nested_x2apic_test.c=0D
-index eb89d5bfc0fe..ce204ce29a9c 100644=0D
---- a/tools/testing/selftests/kvm/x86/nested_x2apic_test.c=0D
-+++ b/tools/testing/selftests/kvm/x86/nested_x2apic_test.c=0D
-@@ -48,6 +48,7 @@ static void l1_svm_code(struct svm_test_data *svm)=0D
- 	GUEST_ASSERT_EQ(ctrl->exit_code, SVM_EXIT_CPUID);=0D
-=0D
- 	stgi();=0D
-+	x2apic_write_reg(APIC_TASKPRI, 0);=0D
- }=0D
-=0D
- static void l1_vmx_code(struct vmx_pages *vmx, struct hyperv_test_pages *h=
-v_pages)=0D
-@@ -80,14 +81,12 @@ static void l1_vmx_code(struct vmx_pages *vmx, struct h=
-yperv_test_pages *hv_page=0D
- 	control |=3D CPU_BASED_USE_MSR_BITMAPS | CPU_BASED_TPR_SHADOW;=0D
- 	GUEST_ASSERT_EQ(vmwrite(CPU_BASED_VM_EXEC_CONTROL, control), 0);=0D
-=0D
--	if (control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS) {=0D
--		control =3D vmreadz(SECONDARY_VM_EXEC_CONTROL);=0D
--		control |=3D SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE |=0D
--			   SECONDARY_EXEC_APIC_REGISTER_VIRT |=0D
--			   SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY;=0D
--		control &=3D (rdmsr(MSR_IA32_VMX_PROCBASED_CTLS2) >> 32);=0D
--		GUEST_ASSERT_EQ(vmwrite(SECONDARY_VM_EXEC_CONTROL, control), 0);=0D
--	}=0D
-+	control =3D vmreadz(SECONDARY_VM_EXEC_CONTROL);=0D
-+	control |=3D SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE |=0D
-+		   SECONDARY_EXEC_APIC_REGISTER_VIRT |=0D
-+		   SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY;=0D
-+	control &=3D (rdmsr(MSR_IA32_VMX_PROCBASED_CTLS2) >> 32);=0D
-+	GUEST_ASSERT_EQ(vmwrite(SECONDARY_VM_EXEC_CONTROL, control), 0);=0D
-=0D
- 	GUEST_ASSERT(!vmlaunch());=0D
- 	GUEST_ASSERT_EQ(vmreadz(VM_EXIT_REASON), EXIT_REASON_CPUID);=0D
-@@ -103,7 +102,7 @@ static void l1_vmx_code_part2(void)=0D
- 	control &=3D ~CPU_BASED_TPR_SHADOW;=0D
- 	GUEST_ASSERT_EQ(vmwrite(CPU_BASED_VM_EXEC_CONTROL, control), 0);=0D
-=0D
--	control =3D vmread(SECONDARY_VM_EXEC_CONTROL, &control);=0D
-+	control =3D vmreadz(SECONDARY_VM_EXEC_CONTROL);=0D
- 	control &=3D ~(SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE |=0D
- 			SECONDARY_EXEC_APIC_REGISTER_VIRT |=0D
- 			SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY);=0D
-@@ -154,21 +153,23 @@ static void l1_guest_code(void *test_data, void *hv_p=
-ages)=0D
-=0D
- 	l1_test_x2apic_intercepts();=0D
-=0D
--	if (this_cpu_has(X86_FEATURE_VMX))=0D
-+	if (this_cpu_has(X86_FEATURE_VMX)) {=0D
- 		l1_vmx_code_part2();=0D
--=0D
--	l1_test_x2apic_intercepts();=0D
-+		l1_test_x2apic_intercepts();=0D
-+	}=0D
-=0D
- 	GUEST_DONE();=0D
- }=0D
-=0D
--static void __test_x2apic_intercepts(bool use_evmcs)=0D
-+static void test_x2apic_intercepts(bool with_inhibit_apicv, bool use_evmcs=
-)=0D
- {=0D
- 	gva_t nested_test_data_gva, hv_pages_gva =3D 0;=0D
- 	struct kvm_vcpu *vcpu;=0D
- 	struct kvm_vm *vm;=0D
- 	struct ucall uc;=0D
-=0D
-+	inhibit_apicv =3D with_inhibit_apicv;=0D
-+=0D
- 	vm =3D vm_create_with_one_vcpu(&vcpu, l1_guest_code);=0D
- 	vm_install_exception_handler(vm, POSTED_INTR_VECTOR, guest_irq_handler);=
-=0D
- 	vm_install_exception_handler(vm, POSTED_INTR_WAKEUP_VECTOR, guest_irq_han=
-dler);=0D
-@@ -207,29 +208,15 @@ static void __test_x2apic_intercepts(bool use_evmcs)=
-=0D
- 	kvm_vm_free(vm);=0D
- }=0D
-=0D
--#define _test_x2apic_intercepts(inhibit_apic_setting)	\=0D
--do {							\=0D
--							\=0D
--	inhibit_apic_setting;				\=0D
--							\=0D
--	__test_x2apic_intercepts(use_evmcs);		\=0D
--} while (0)=0D
--=0D
--#define test_x2apic_intercepts(use_evmcs_setting)	\=0D
--do {							\=0D
--	bool use_evmcs_setting;				\=0D
--							\=0D
--	_test_x2apic_intercepts(inhibit_apicv =3D true);	\=0D
--	_test_x2apic_intercepts(inhibit_apicv =3D false);	\=0D
--} while (0)=0D
--=0D
--=0D
- int main(int argc, char *argv[])=0D
- {=0D
- 	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM) || kvm_cpu_has(X86_FEATURE_VMX)=
-);=0D
-=0D
--	test_x2apic_intercepts(use_evmcs =3D false);=0D
-+	test_x2apic_intercepts(true, false);=0D
-+	test_x2apic_intercepts(false, false);=0D
-=0D
--	if (kvm_has_cap(KVM_CAP_HYPERV_ENLIGHTENED_VMCS))=0D
--		test_x2apic_intercepts(use_evmcs =3D true);=0D
-+	if (kvm_has_cap(KVM_CAP_HYPERV_ENLIGHTENED_VMCS)) {=0D
-+		test_x2apic_intercepts(true, true);=0D
-+		test_x2apic_intercepts(false, true);=0D
-+	}=0D
- }=0D
-=0D
-Paolo=0D
+Hello Jonathan,
 
+On Sat, Sep 26, 2026 at 02:11:43AM +0100, Jonathan Cameron wrote:
+> On Fri, 25 Sep 2026 21:17:29 +0800
+> Jiale Yao <yaojiale02@163.com> wrote:
+>=20
+> > SPI driver_override can bind a device without a matching entry in the
+> > driver's ID tables.  spi_get_device_match_data() then returns NULL.
+> >=20
+> > These seven IIO drivers use that result without checking it, causing a
+> > NULL pointer dereference during probe.  Add the missing checks before
+> > the match data is used.
+>=20
+> I was hoping we'd close this finally by adding a flag to the
+> drivers to say they should fail a match if driver_override is set.
+> Given I thought maybe that would happen when Andy looked into this
+> a while back I've been sitting on this problem for a while.
+>=20
+>=20
+> Unfortunately seems we have to carry on papering over it in the
+> drivers for now :(
+
+Note there is another effort:
+https://lore.kernel.org/lkml/20260922-driver-override-opt-out-v1-0-58c35ded=
+3b83@nvidia.com/
+
+Best regards
+Uwe
+
+--qj3qlzf53fecmdod
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq3YnYACgkQj4D7WH0S
+/k5G3wf+ISl+49DMFXf4GNQEB2v8tA68jc5xy+T5JzNOcNEajtXS1J/YhuorbySX
+ienyxR20KZdHnn2ax1uAP+2IjdhZbLyoRFxHUw+p+EJ5gEJNm4I0vQaMTr/IhF79
+Mkkc9TIyswqCMGbg3fUHtDOGWQTjUwlpRRZwKcdLvUgGL3A+ZAZXj36SlPhQn/cA
+DUo1TDIplGtu+FuHgPOXHd9TcmMbIsqz7Dw0UitCJPIMQl1NJRhracEWxaX3Ro4f
+/8sncXjnm7obW25uWPW2JvMqcZr8Kp6bUWsp3lj6gapfnyXXb97Htcoag4i+beMY
+kVyfupYJzav/YzrpCYV1FqnYd18jlQ==
+=VFj7
+-----END PGP SIGNATURE-----
+
+--qj3qlzf53fecmdod--
