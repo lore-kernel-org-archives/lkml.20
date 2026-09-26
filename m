@@ -1,49 +1,50 @@
 Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F913E4C96;
-	Sat, 26 Sep 2026 15:31:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937C1386C3E;
+	Sat, 26 Sep 2026 15:34:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790436707; cv=none; b=djiehd+Y3p3ud0mkSMCJnArhfOuXU7TEQEerYGTc8Y5vlDir3W5EEX9AELY7g9XQBM9WaBKoBsY3OtjV3+SpADxzHj0Gd+E0WKRVdeG/rmeIEYKrbJWu328CqmVuiiyt1RopnogTlkk4aF0vKCAJ4aXeAD2SjshCJGVZw52DpN4=
+	t=1790436845; cv=none; b=X4jA90CVXYu762FHIOZiob4a+yBIeW2yT7cCA4qDfWIgm2TBm4mAdOZCKB1eDYY5FHpdmXqjMyYQ21dRUS0bfOtrpXdRa/+qUR5Fc80nuEdKIZT2CmptGHkexCLcQPhtOXj79VDuVX4pOFLazkZ7O7ZVjzXvCAes1wNE+TNkFm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790436707; c=relaxed/simple;
-	bh=+TznahWGP/R9f+buMzIm2pnastsjQqrvftK9LcrJHIw=;
+	s=arc-20240116; t=1790436845; c=relaxed/simple;
+	bh=tMszyT1L7RMv4Wx38A/QEIGl7WhzsJZpNOcUsj3WhJM=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=mOpeFwmLvXYGw7HAjRID0QCRKTyrm3B1rZYIdar7J5AXrjEuj/qfAG4V/KnSU4MBDqlhsyKYhAfe49ONAqBKo+0BYVJTf6oKkCQzIEsGIw4wdARGZ+Ax6PdD8AnGmIIRa1bU32v08qa/wiBpYfuJKKIxFGH+J/XXFQ4Epy/Mmxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=bzNV7R0F; arc=none smtp.client-ip=45.79.88.28
+	 MIME-Version:Content-Type; b=OAgTZYcKmI7Vt/3x8ZgovB+/lAU69MkSOJudgbiGPNFjxFcxB2bbtMnpTQTIU7MRVCGKDcn3mQleM+XDmwDxHkXom37KmtCa+NYQQ7ceJHZhwR3ubZvZTdCaoZSBIY/qQZjw+jGdFiXskFcY2qGZvR2kD1kHT8IvfKZLiTj2028=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=Mkrv0+sA; arc=none smtp.client-ip=45.79.88.28
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="bzNV7R0F"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 836DD408B3
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="Mkrv0+sA"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net B9528408B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1790436705; bh=jZxL8se37Nbgnf+brwBoJ1zGPO5KTS1yFCFAXNFy734=;
+	t=1790436843; bh=dlb+Mdg1cAGVjkptCdnmHxV3LPAXC7XTWh5E6a5QBDQ=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=bzNV7R0FVYOB98DLRHHq0AiIBG8hxU0g/xsFQSvLOOj4/nkc2ZMxPSynhpGxDG8W9
-	 o6mnoWMITcph9w8o7uQGNt2lhTM7j5o8brIISGrbgG5u08L4gfis/AB5h31yCdIyFm
-	 wTjFSg/limzm2ZwHYvJHulk1jk1KdQUATiJaHhfcABsKwoKWVZcDIjOSshzCGSRuex
-	 Johl91Gf0f5fi5AxOJic47DEfiuMIOTJErNLXl/0G6Xw3dBrTRabow2htJCJHFWY6x
-	 nxVXWqlIUTWy0T+bkFi/5EiN8HxTiHGtYbG888IJEUzfKrPpA6O0wtTdi6ebkD0pL4
-	 daRVsTE2TtJoA==
+	b=Mkrv0+sA5VQ8kp4RXXvXJ5X6+5deW7Dkj+WP36FTs1EyZmc8qh70hESsZ5PZvItQC
+	 dQLjdEVTwyEA/80xdbXa/WAIkqwRmVbduOl+SSdOkDZKFrnJXpgXykS/zksSr6I+RG
+	 7ipxJUg8yUb5RSJ9H0uCzn7zh7FNXXVGohGgOt513cSGfJFFRthtClOKnST8kxFIzn
+	 dUOSxni3yZtI9xfQJ7mu7E0puOhul9ep177Zrb9xuUR5nzijto+thUiMj4zVFkh+Yb
+	 F5rqf4m7Styj3eA7JFNCewY4IqgmRd/PoE3zgarDovDICNVtrnWiDZfRhz8vriga5B
+	 u5GsJG4rdnVVQ==
 Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 836DD408B3;
-	Sat, 26 Sep 2026 15:31:45 +0000 (UTC)
+	by ms.lwn.net (Postfix) with ESMTPSA id B9528408B3;
+	Sat, 26 Sep 2026 15:34:03 +0000 (UTC)
 From: Jonathan Corbet <corbet@lwn.net>
 To: Lucas Adryell Ramalho <lucasadramalho@gmail.com>, Daniel Pereira
- <danielmaraboo@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>, Randy
- Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Lucas Adryell
- Ramalho <lucasadramalho@gmail.com>
-Subject: Re: [PATCH v4] docs: translations: pt_BR: translate
- stable-api-nonsense.rst
-In-Reply-To: <20260831-ptbr-stable-api-nonsense-v4-1-0ef5e58504cc@gmail.com>
-References: <20260831-ptbr-stable-api-nonsense-v4-1-0ef5e58504cc@gmail.com>
-Date: Sat, 26 Sep 2026 09:31:44 -0600
-Message-ID: <87cxu03u73.fsf@trenco.lwn.net>
+ <danielmaraboo@gmail.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Lucas Adryell Ramalho
+ <lucasadramalho@gmail.com>
+Subject: Re: [PATCH] docs: translations: pt_BR: translate
+ maintainer-devicetree.rst
+In-Reply-To: <20260916134637.216062-1-lucasadramalho@gmail.com>
+References: <20260916134637.216062-1-lucasadramalho@gmail.com>
+Date: Sat, 26 Sep 2026 09:34:02 -0600
+Message-ID: <87a4p43u39.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,35 +55,16 @@ Content-Type: text/plain
 
 Lucas Adryell Ramalho <lucasadramalho@gmail.com> writes:
 
-> Translate Documentation/process/stable-api-nonsense.rst into Brazilian
-> Portuguese.
+> Translate maintainer-devicetree.rst to brazilian portuguese.
 >
-> Assisted-by: ChatGPT:GPT-5.5
-> Acked-by: Daniel Pereira <danielmaraboo@gmail.com>
+> Assisted-by: LLM
 > Signed-off-by: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
 > ---
-> Changes in v4:
-> - Fix nested list formatting that caused an error during make htmldocs.
-> - Remove trailing whitespace reported by checkpatch.
-> - Link to v3: https://lore.kernel.org/r/20260823-ptbr-stable-api-nonsense-v3-1-58c9beebf9bd@gmail.com
+>  .../translations/pt_BR/process/index.rst      |  1 +
+>  .../pt_BR/process/maintainer-devicetree.rst   | 76 +++++++++++++++++++
+>  2 files changed, 77 insertions(+)
+>  create mode 100644 Documentation/translations/pt_BR/process/maintainer-devicetree.rst
 >
-> Changes in v3:
-> - Remove blank lines between bullet points, as Daniel suggested, to match
->   the style used in the other kernel documentation files.
-> - Link to v2: https://lore.kernel.org/r/20260821-ptbr-stable-api-nonsense-v2-1-f07df4a0fc3b@gmail.com
->
-> Changes in v2:
-> - Remove the unnecessary top-of-file label that caused a duplicate-label warning during the documentation build.
-> - Add disclosure for generative tools used while preparing and reviewing the translation.
-> - Build the documentation with make htmldocs and verify that the translated document introduces no new warnings or errors.
-> - Link to v1: https://lore.kernel.org/r/20260820-ptbr-stable-api-nonsense-v1-1-0341f55fec2d@gmail.com
->
-> I used ChatGPT and DeepL to help me clarify some Portuguese sentences that did not sound entirely natural or clear to me.
-> ---
->  Documentation/translations/pt_BR/process/index.rst |   1 +
->  .../pt_BR/process/stable-api-nonsense.rst          | 208 +++++++++++++++++++++
->  2 files changed, 209 insertions(+)
-
 Applied, thanks.
 
 jon
