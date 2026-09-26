@@ -1,158 +1,266 @@
-Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABB5352C51
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8498635893
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:46:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790462573; cv=pass; b=GiCjfpYsqIAGPhKmSSLLvn73T+ImrZcswPc0Qpk7aHkz7++ISsVsWZ+h4rsU5q4bmgxBwELv7IsEaP1I0J96UXm/tTkmAfVE9Zzw1CvHSIDriuPG2CCaeGSJWGH/3p9CxizdPQGt7guN/haa0Hlh5r/dhMhztpMCo1E9obOB07A=
+	t=1790462797; cv=pass; b=iXX5zXSdBkKOax4lOxMtouDvOWlaT2QHYPjZ34kySyIeRsCc/myAgAcFFVIxRVmwr/gGn/g46OPFn4Ktdc8SHMAzCOeLWwIU0oS9viPmRDOge9P9nQyGV/5fVRKW15cu6ZnBpIlTcHPt+j2eSg9voIiw2N2Ug2OGBXh59WK5jpM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790462573; c=relaxed/simple;
-	bh=oIoustKk4MCA1sbn3VwyOj5Ut9UQ8rmwcxgVxCOzBEw=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M9IYSHNET8xxL97FNI7jEuFKudpMRYjVKf0fwbEsSE+2dbMD4e1J2YYfJFZCLXAVdEg7QAFpCK3XC/1AWTN+phzPi7Rr8098DIpGGDb6tVKM0hzsLZz1nD2GRBF0EcwH4riDzAerK/yjXav55xsIRcEoC90Frml4r+Pk6GYZWSQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n4ivHikq; arc=pass smtp.client-ip=74.125.230.171
+	s=arc-20240116; t=1790462797; c=relaxed/simple;
+	bh=EGsHpMqvsJdko56+qOe+JPf8zXAERHfCpLuYy9xQ4Fw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=c5/trX83173/M/liMro38KcRuQWJBxL7GXT3o4lOQQNbrDGsudJmmOAl9sK167R3WKCiLfYiGKyJBmJDlkn06j5CKem4zh5zGm1iFaSecOsAk99IkNspX4Yrs/wEnRHMVCttF4rGsP9ocTGHpDeeWjN5SsMNb8HKwUovNOlDc1k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EezoyIBf; arc=pass smtp.client-ip=209.85.160.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n4ivHikq"
-Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-91434eba57fso14097986d6.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:42:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790462571; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EezoyIBf"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5333401e359so28331cf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:46:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790462794; cv=none;
         d=google.com; s=arc-20260327;
-        b=QDTxqI/WcLZjCj7oCThCU90vlPlTiQK8cm/oQWrTPtlhXSkmzhDco6mqnOD0NGwpm9
-         sYsM3nR+OFGrUGGAAKXcGcou1WbmogaOV8HxWmVyBnnfl+Q60rs996650AlZPall6CzL
-         WOzJ3nGYt2fGyAmXQqXai8RR0xTSBPF5fCVtReb2QWNGMxDnnBmuXsO6wEwO2z39mSbl
-         KVZW12tc3Z46l5yPghaElK6gVV6ZdRC8smzuSXXQxwZ48WxIw+pqdfygTcLFuypjTSyQ
-         GzgrYL+hQwhGt/Bj3FxPKFlF5qAkjnx3BSYI/hB0h2Tjkl/Dy2PArd3B2+a8GedRB2g4
-         zYJQ==
+        b=o2jflMRzVlYcTZ/Y8eY3ZtS6HBTD7oEEU/LdIx2Roo/6UkgtKYB9OlCt9GHDkTFS8o
+         meCkucUgxIVp0CVIb36WEwk7ncJXWHnV3QdpMUSpeD/V466pP737Vqbb6Jf7Uh0nXebX
+         XPG2m5N+ZrseOyZWM3T8sMQuJShoyLMmgPQ077k7FiCTPwdTNT5Z9vzIFdKa131z9K+s
+         3iPjUY2mE0WJxhKOkEEx6p+iwBUwPoMorsvfXwQ+9gUq5fJzJ9qzSBl6uAciLNfnmAjS
+         Cct8ju6vrYbHpTEGhUBPj4lQCCBf9uOIQIkot1DxBGjm2VPSzHaMsRsVIIWuvKbotLxb
+         gp8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=oPvBitOMBlhp8Hdy1YMUl7WEgUJJU4NLUnrbTGzbCOM=;
-        fh=XyzuEHSVtI9Q3nNY5V5uOBqaprnzJG4lES4j3O3EKpo=;
-        b=oXjJkNDXAvMkeIYvMVTxp5ngIr+6ZM0iKM92GGEuGDqctnRj09c0OLzdSMdUHaTMQw
-         lsHJ46FErRWaa7PQxh95zJgT4Ji0qkPYHckomoPUwlTpOGAGq598OSGu3A+y2YUeCfmo
-         axHZaFx6OCFMknMczwnIgHBRvOkTtGR4EjLIlwbw0CE+0+No2CsQzB9eDlOIvrB3KNfx
-         15OzdX2yOAJUz+r4WeMsXRmdTOeWKskyHDw8L3OAzdrktXp3zMmg8iALbWW229R+BKjU
-         BOb6c/u1rWFtPEeqBUraKRQxOFVdgZf+rkwnLloQX/nTHX8tc1xpYlQl0JgCgV56yPuQ
-         D8dA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PCuo0S1OV4LTqlcYTiFFagxuS84m6WpikLQczzGr1KA=;
+        fh=32NelqcW0jQb1ZDAvU46pXM8g/+tvf/RmREEgPCokS8=;
+        b=gACFsFQXlpK0m3kwuD5wcYxMFAmYn1MHcocCecM8Fh8C7E8Lv0xgWeFtaE/1EiRsNP
+         DXf+5l0r1SN8Bw9n2yY8rorgDG4X4ijZ0odY0fq6uFv/F9AsMSsV5ZRAuxTiYIIs9JfK
+         dDi09tNscs/u7oOcJny573dv+z8sfOrwP/772iQeGrpel3JeONdagNlHNrEWNDNfD5Fc
+         CfOha6e3NiewfVu/XeruQSHTypcx0sZskWF3PkpD6ZvnbHunslPlc8/erOuf/WiosCSV
+         7Ef6VOW9MrX6llhsvC5mZ/qsHjpNjX9ecifCWpfyhUWdsY4Mn/r0UTIPvpxpE4YKlvNE
+         sh3w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790462571; x=1791067371; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oPvBitOMBlhp8Hdy1YMUl7WEgUJJU4NLUnrbTGzbCOM=;
-        b=n4ivHikqoV8KJDh7LQu/SK6F88rEqYd2t2lH+kHUYuj1WKGVWjFT7Fdgxky03Aj5Nl
-         RYrFXkJCF7yMws79bx7mINZ8ksDj2hSmdwHd/oMAEAPAE41vXwG7z/CgOoUrvxB1+wRm
-         ev4JE8NXqZ6vKaI3emAj7hGz2Eh71Qd7wWX7huuTFMbsjQloRC3hn468HRddYv19OCXT
-         UK7Li5D3ctZ0Y3caVk7+A00pmorXk12A9skAugvqeEjCx8/TjnADSgFNncc0MwuXdvO0
-         NmDSaXA9rdq7R9UX0Xgl38jOmPf3p7DGOytMrO3I3H0VnGb03kSw4oKkPacUsdg1Wlfl
-         zyaw==
+        d=google.com; s=20251104; t=1790462794; x=1791067594; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PCuo0S1OV4LTqlcYTiFFagxuS84m6WpikLQczzGr1KA=;
+        b=EezoyIBfA4xIfoskj7bYG+kD6m4fv3Lvcd8SN5uFcFcVW+mSmw3Gv8VaytuW5aZBlH
+         XwrnZXL+9cu30X55tlKQtu7ORptUSnOhRDwqSd8C9FHfhXFSg8dJlc9xo3vsmkwDExNo
+         NmD+Q/elTKOT67ntKK9lwIneh9IOWBm/EuH7d3kpU++fdxSeBpw4fbwaB7rskzV+2TMT
+         J9/sY3lvR5kuNlA9WHoJOXqVJm1dMGgLKqpU8sccP38e5j1OnCNf4Jf6U2JxFRWXR2uI
+         JnGgHGbPIVj/McHo/ku7dZehJXy3EnmTEqfUzvbaoydoVb4S2MOhxGAYmDn1z5uCs5Qu
+         2ueQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790462571; x=1791067371;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oPvBitOMBlhp8Hdy1YMUl7WEgUJJU4NLUnrbTGzbCOM=;
-        b=gEtz5RR26IBfznC1ZAcQb3USMxyu10eiJGDe13c3ZcMTYpuYJLikceKiNtWydk6zMH
-         +1RC7uopu8+IQ2KNqrMUc2ot4NKaBNNXd/6ID/59kREm/t+g+08pt/06BkOXfsYJZO1Z
-         ktyynqX2ba0fngGNebVzGtxxEOrL9sp+RX+5Baune/PPc1rRKWI84f/MQ/WMqCxDAyQ8
-         auaLbhg3+KrO+N/A380i+qMEsTrDHw27iftQrVOU4hhU1cgbg88z7foaBi2oCT+q4ppq
-         FKpTHU7Wg++MlaYc37//cfRK8RC3LAqOpJmVPyWmXnmvJVkwUWFOXO0/noC5RduNCbE1
-         UnGg==
-X-Forwarded-Encrypted: i=1; AKwUvBycbyhRw75aQzEReqpMQ4YEH3uXdko5iXTvdCEv/lwSPX61/bErB7outCZee4CR0iMkern3rSOY3hccMRA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8DALhdcElq5YlhUwU3CpIPAhCiwME1mrTKkZtlpFQPdXV1QVA
-	YE6KpgAK43GZkox9KsD8aPeRV3STEognrc2H649dMNQt7kf61N6Pu2dg2cvuU+G3SRcrobhYSJZ
-	88k3d1q02ezhJiAwBk0fMGYn1kLenw8+xfPogWSKq
-X-Gm-Gg: AYBFou0zn7K0/Wek2hmXoivgoOFN1NpLMsGArnUtzO80v9NBFBqPjus7Ii1uTREGG/7
-	XcSSMMBaVcCbVS/1TOO1WG5XNaN1vtfSiPjFko7eusw0KKytV4R06qH7SBpJgA/fWRbLZ9YaxFo
-	b5QvaFY/u9KzvBKygC5vOjZhUYxXr9K84hjaOCgsHHJezT+urxlHwsbOsieUTfo1nsUgqGbzUq2
-	bR+dcetSYgwtq/lUEVYER4xgxCBW6E7wbXbxnMDrKH7wf1Z8xOcLgzZBf2Y8voHVs71oKRGIbvw
-	y2rVHwICzGnPg8qiJmfg4mvowXqmrZLWljkW2vfhUo5G5viFaAn4O486P38J+AJRBwPlEpkrjkl
-	M2MbkKCjdZslQn1TGWud6
-X-Received: by 2002:a05:6214:419c:b0:914:4464:41ba with SMTP id
- 6a1803df08f44-91444646dc8mr70530596d6.26.1790462570563; Sat, 26 Sep 2026
- 15:42:50 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 26 Sep 2026 15:42:49 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 26 Sep 2026 15:42:49 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <CAEvNRgHZTYUuFBXS3sGyyjiveQOeLHuPxvud8o+R3NCCwM6Ukw@mail.gmail.com>
-References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
- <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
- <20260923220912.46905-1-kmehltretter@gmail.com> <CAEvNRgHZTYUuFBXS3sGyyjiveQOeLHuPxvud8o+R3NCCwM6Ukw@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1790462794; x=1791067594;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PCuo0S1OV4LTqlcYTiFFagxuS84m6WpikLQczzGr1KA=;
+        b=AR0I9zFiUJAedHVc+3cILSPIWGdOoxBTCKaTGLV7y/wDBc1+ZOYP+467Pu6ckHkw0P
+         sleAVW/YIO+HyruHbmMLP3nmP/gv1dAZj8w1J0Gf94sy6JJyw1twi/fzT3fGZ7soKVXI
+         pA5eG687AjAwDYVhciP/SFZ9JzkZ5ZBV7xZSZEP85EL9wlOJ6nU5HnJfu5YD02eHj/X8
+         TnjjBVCua60x4JHLBweJQtRXJjrx4xQAtFmRqsYbAIcNsCt4kNNEN6mkIbSsHwIk2UPQ
+         Ik/+m9AXivRztphykwuu335LORXwnQ5B5QI90IKe8aOiBN16YsTFBlrB4xzMxtvPnStB
+         /OhA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQMJT3tsob/kOc8Qr/Hcg16oR5LB2eV3qu8f0zOLFs1W0ZHSUOh1AsqHOhLaVyRI3LcOnX99mBMLUvFMg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVkFRMW2w1f69IFwhj0hVaWq+n46xh2/yANJyAZ770H5jmh+nb
+	tJc7maSh+OsTrqWGcNRwPzgjQVLQmUQQXyXUaSb7j1Z1RxTiK1tKpx2gWCvv1UBXBOy/yVX7W5l
+	DunLdg3AvQpI/3gJI0jhnhEJa2bwNpy1z9tE5Js/7
+X-Gm-Gg: AYBFou0E2AUU/YGJC78CTSh4Ccq/Y6m0t09D+9JQCj1OP6CC+jUVig6euEn0r/Do6p2
+	8xanze0aCUcEZNtrCn1ywdjoLJrF/42F1azp3lByWMzwkaLEtC2BByPVaLdst2dragUQkHaog9h
+	PW9ORADbpNRpqpqhc07Dj/+Ng7ccV1vwMu9+N9nqWGVcuBUZ2a6zbidSzdJUGLIhw5+RQ6+upbl
+	71XWaLHuXMsoHQfCrdlyPAXA+lBX29oupinyVTKTLoDtK1pTvCqCpZ5WO9M9Bo2uQnzDgdCWvsW
+	+p9PG2LcBYcrG2Eaqk9R1a6Nf2CXkbyxVHLyAqhu+ZcASPJ5yH0P8KsfBQDmQjtIkQ==
+X-Received: by 2002:a05:622a:2613:b0:532:84d3:abb with SMTP id
+ d75a77b69052e-533226c3db1mr13278171cf.7.1790462793627; Sat, 26 Sep 2026
+ 15:46:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 26 Sep 2026 15:42:49 -0700
-X-Gm-Features: AclHuK8P2H5EpMJy1YvK3gvIP-rpUihsCxDjwpAZl1LdwcYKlVTgraMVSJkaNkw
-Message-ID: <CAEvNRgFPpigP6zq+6+dvC7nubFBjeYNZYPj4RHB1uXd6c26H2g@mail.gmail.com>
-Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
-To: Karl Mehltretter <kmehltretter@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Zhao Li <enderaoelyther@gmail.com>, Jinmeng Zhou <zhoujinmeng@bytedance.com>, 
-	Alex Shi <alexs@kernel.org>, David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
-	Hongxiang Lou <louhongxiang@huawei.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
-	Yanteng Si <si.yanteng@linux.dev>, Naoya Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com, 
-	jthoughton@google.com, rientjes@google.com, vannapurve@google.com, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	stable@vger.kernel.org
+References: <20260923181213.3032038-1-irogers@google.com> <20260926062029.800743-1-irogers@google.com>
+ <argt6raEAmM4e9PI@x2>
+In-Reply-To: <argt6raEAmM4e9PI@x2>
+From: Ian Rogers <irogers@google.com>
+Date: Sat, 26 Sep 2026 15:46:22 -0700
+X-Gm-Features: AclHuK-0IxZAf1dYZJF9GMyttOC5x9pBIt1GNidk8M2Zep5e7G-BGHdFJ36Ha2g
+Message-ID: <CAP-5=fXvENrH1PrQvQmA22h_XRTB_f_ez_sFU9him6dU4uH0Ew@mail.gmail.com>
+Subject: Re: [PATCH v4 00/49] perf: Complete transition to standalone Python scripts
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: alice.mei.rogers@gmail.com, james.clark@linaro.org, leo.yan@linux.dev, 
+	namhyung@kernel.org, adrian.hunter@intel.com, dapeng1.mi@linux.intel.com, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	mingo@redhat.com, peterz@infradead.org, tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Ackerley Tng <ackerleytng@google.com> writes:
+On Sat, Sep 26, 2026 at 1:41=E2=80=AFPM Arnaldo Carvalho de Melo
+<acme@kernel.org> wrote:
+>
+> On Fri, Sep 25, 2026 at 11:19:27PM -0700, Ian Rogers wrote:
+> > The perf script command has historically supported running Python and P=
+erl
+> > scripts by embedding libpython and libperl. That approach has several
+> > drawbacks:
+> >  - high overhead from constructing Python dictionaries for every event
+> >    (whether used by the script or not),
+> >  - complex build dependencies on specific Python/Perl libraries,
+> >  - threading and interpreter lifecycle complications from embedding the
+> >    interpreter inside perf,
+> >  - no unified model for standalone scripts such as ilist.py, treport.py=
+,
+> >    tracepoint.py, and twatch.py.
+>
+> So I applied it and tested on the containers, make -C tools/perf
+> build-test and 'perf test', that has some flakiness running the new
+> tests for these python scripts in parallel, nothing that prevents it
+> from being merged now tho:
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 146
+> Passed subtests   : 156
+> Skipped tests     : 28
+> Failed tests      : 13
+> List of failed tests:
+>    72: Test dwarf unwind
+>    88: daemon operations
+>   101: perf kvm tests
+>   111: perf record tests
+>   112: perf record sample filtering (by BPF) tests
+>   117: perf sched tests
+>   137: check-perf-trace python test
+>   138: compaction-times python test
+>   141: failed-syscalls-by-pid python test
+>   142: failed-syscalls python test
+>   144: futex-contention python test
+>   157: sctop python test
+>   159: stat-cpi python test
+> root@x2:~# perf test 72
+>  72: Test dwarf unwind                                                   =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> root@x2:~# perf test 88
+>  88: daemon operations                                                   =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> root@x2:~# perf test 101
+> 101: perf kvm tests                                                      =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> root@x2:~# perf test 112 ; perf test 117 ; perf test 137 ; perf test 141 =
+; perf test 142 ; perf test 144 ; perf test 157; perf test 159
+> 112: perf record sample filtering (by BPF) tests                         =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> 117: perf sched tests                                                    =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> 137: check-perf-trace python test                                        =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> 141: failed-syscalls-by-pid python test                                  =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> 142: failed-syscalls python test                                         =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> 144: futex-contention python test                                        =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> 157: sctop python test                                                   =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> 159: stat-cpi python test                                                =
+                                      : Ok
+>
+> =3D=3D=3D Test Summary =3D=3D=3D
+> Passed main tests : 1
+> Passed subtests   : 0
+> Skipped tests     : 0
+> Failed tests      : 0
+> root@x2:~# uname -a
+> Linux x2 7.2.5-200.fc44.x86_64 #1 SMP PREEMPT_DYNAMIC Fri Sep 11 15:11:05=
+ UTC 2026 x86_64 GNU/Linux
+> root@x2:~# cat /etc/os-release
+> NAME=3D"Fedora Linux"
+> VERSION=3D"44 (Workstation Edition)"
+> RELEASE_TYPE=3Dstable
+> ID=3Dfedora
+> VERSION_ID=3D44
+> VERSION_CODENAME=3D""
+> PRETTY_NAME=3D"Fedora Linux 44 (Workstation Edition)"
+> ANSI_COLOR=3D"0;38;2;60;110;180"
+> LOGO=3Dfedora-logo-icon
+> CPE_NAME=3D"cpe:/o:fedoraproject:fedora:44"
+> DEFAULT_HOSTNAME=3D"fedora"
+> HOME_URL=3D"https://fedoraproject.org/"
+> DOCUMENTATION_URL=3D"https://docs.fedoraproject.org/en-US/fedora/f44/"
+> SUPPORT_URL=3D"https://ask.fedoraproject.org/"
+> BUG_REPORT_URL=3D"https://bugzilla.redhat.com/"
+> REDHAT_BUGZILLA_PRODUCT=3D"Fedora"
+> REDHAT_BUGZILLA_PRODUCT_VERSION=3D44
+> REDHAT_SUPPORT_PRODUCT=3D"Fedora"
+> REDHAT_SUPPORT_PRODUCT_VERSION=3D44
+> SUPPORT_END=3D2027-05-19
+> VARIANT=3D"Workstation Edition"
+> VARIANT_ID=3Dworkstation
+> root@x2:~#
 
->
-> [...snip...]
->
->> 2. On splitting: 1/4 applies cleanly on top of both queued fixes, but
->>    in my tests it made min_size-only mounts worse on its own. As far
->>    as I can tell, that's because it starts tracking used_hpages on
->>    those mounts, while the two error paths only release it after 2/4
->>    and 3/4.
->>
->>    HugePages_Rsvd, expected value in parentheses. Q = the two queued
->>    fixes, wrap = 18446744073709551615:
->>
->>                                    rc3   +Q  +1/4  +Q+1/4  +1/4..4/4
->>    min_size=4M only:
->>      SIGBUS faults [1], no files (2)  2    2     0      0      2
->>    min_size=8M only:
->>      failed mmap [2], umounted (0)    0    0     3      3      0
->>    size=8M,min_size=4M:
->>      SIGBUS faults [1], no files (2)  0    0     0      0      2
->>    size=10M,min_size=8M:
->>      failed mmap [2], umounted (0)  wrap   0  wrap      0      0
->>
->>    With 1/4 alone, the min_size-only mount loses its reservation, and
->>    in the failed-mmap case three huge pages stay reserved after umount,
->>    presumably because the subpool is never freed.
->>
->> So it looks to me like 1/4 shouldn't go anywhere without 2/4 and 3/4.
->
-> Thanks for testing this! IIUC from your table, 1/4 introduces
-> regressions.
->
-> How do we handle this, should I squash patches 1/2/3 together, or is
-> there some way to use the Fixes: tags to require those 3 to go together?
->
+That's great! I'll dig into the flakes.
 
-I think I have a better way to organize the 4 patches and the two
-already queued. Will work on this.
-
->
-> [...snip...]
->
+Thanks!
+Ian
