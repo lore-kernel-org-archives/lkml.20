@@ -1,91 +1,71 @@
-Received: from erebion.eu (erebion.eu [142.132.183.134])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4503E3C5A;
-	Sat, 26 Sep 2026 10:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.183.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D7A3E40EA;
+	Sat, 26 Sep 2026 10:23:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790418178; cv=none; b=JfMVd2Tv5ryj7mxdsvilxw+SAj+t99yRQHHUm7HZLA9AsVzq5cu+IS07dqlm4z525S/e3drti/ajE/Uhb7ejgz3KGhL5/5oNJiIlBeopkLm/m28vOTNQ/pAtMhx64Rqgoq+Y+Dbnnt3ctHgWsjXRNm+kUpeUD3dsBnoflWmEM4Q=
+	t=1790418192; cv=none; b=AUs/CrbwtxU5lXxosMLV4bg/VKMg23L+p7jP/StBT6g0fxSPVN4KKFT27mh6rHZp0bzhA+vLCuF02ARig7obwcYkVgDpKe/nRbDd3qmHhRWKptNsboliGLYhiuIZPos0MXnTzHAh/DO92c/Rm6s3WYWeH42808nGysRVnUd0K9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790418178; c=relaxed/simple;
-	bh=sTxpDCM+G0Yq8WpiNk3ug+EjerLzcaGqlhbo/oAYrvI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Do94ENXU1qlTgADD9BT0RBHz6tO4+EhAbti81eujvATC/iipNbPzR6HR2YQ5eIZQqMnKNAGOB8crlruqD+D8tL4wZfzNakA6p6OgeG8VWpjGSQOWI51ePUGRo3SQzm1Bk5DYu/QhzY7cWUCTttB0Yqrn6KuF2e3ITrlrSQsmLHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu; spf=pass smtp.mailfrom=erebion.eu; dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=pBTpT6bH; dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=oiJfyf5m; arc=none smtp.client-ip=142.132.183.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	s=arc-20240116; t=1790418192; c=relaxed/simple;
+	bh=EZfAUbqYJ1PM3Z6EN+GlZo+sS1PxkN+Tq7cm8zBSYeI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i3Nd2UpqqlWA8zSid/VpRvzM4AvQXht3ikI98YH7zHpSfwxlCXFWUq12YXKhhBd/PUhcp1jnzMjBaW6EAwIHx7TESIWkcnQge+NitfV2NjK2xQB3FAzNcMB94u0nHDQA+8raJLCNVW8lSN9uvT1BqMc/wrgBKkSvpB1dnH3ct9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KdzGwDGU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="pBTpT6bH";
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="oiJfyf5m"
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Date:Subject:From; t=1790418021; bh=s+3AQyFd+4zTqYgAjaoftBv
-	B6wqvJfWSyCWo8CZwX9I=; b=pBTpT6bHi9K4+c36TEuh5wJpemWpfA0FNO1wCPc2q4P6aw0EwR
-	2+lcXhUtjlwYgPIgcwAoinxMwqn8/1vTKxBg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Date:Subject:From; t=1790418021; bh=s+3AQyFd+4zTqYgAjaoftBv
-	B6wqvJfWSyCWo8CZwX9I=; b=oiJfyf5mz9Ymx+JnivyQtI/iSIFxt8lOIGsTYUcL8I6fWyZqYB
-	Lz6bl8lm6K07CTS8OYInmphreQ5mdAfPOAe0GydV2k4/NHfApZFZe9WHDdfdGMx/++1aT8juK+I
-	df4++gS20/mrXInx5orlxF4WkoSM2rAh/n0F4IPSpFyoX2DUXyT4pBfZd3+PWviz8pjx/eZLGfa
-	QkHq38u+kruuEvnrPbmXegIGlN6jQi5Q1Y6Z1VHYAOP3aHwCYoNBu/kvh9B1+64B77DgaaMXjVK
-	7Qn6cObbfNUNxekoe70SB6FUd63ccRrF3wEW0w6Q1YQKqjn5J6QBpNwoH0fzX2ummjw==;
-From: erebion <erebion@erebion.eu>
-Subject: [PATCH 0/8] Enable more nodes for the Xperia 10 III
-Date: Sat, 26 Sep 2026 12:20:17 +0200
-Message-Id: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KdzGwDGU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 164451F000FF;
+	Sat, 26 Sep 2026 10:23:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790418187;
+	bh=ncaWjkTBpsuz2fmg5NCaoCKERmm+zRTCeF/S7YISaZU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KdzGwDGUQ/CbrtXngjy9wN2DpIyGA7bqJlNjVHqrgj5+sH6omk1FadPXcgDRfdkqx
+	 1/+SAInFGI/4HDg7Y6HqjbbxPYau9WQ5rlXA3NtF0DVhnzNxJRXvji8yHMJlxKuAXH
+	 Ci+62rMKd2FwTERWLgVYf+wiHQPzt7K+0xA5BIoWvjHPG3r7a+dlU5uGI6un/oFX9M
+	 sVWsdHOBDxvcAyHEdG5x00PWOpRG39Nt14TD4gAxlSBUaDbM3KzPlIX03QqHKYTyFc
+	 5httPN3HK6Kap2FXr/aB9q0Hv3nvYdCnN8y+0uelNMUpt6nRJokxUVq+FQvjx4S1e4
+	 E+LuC+ro1JJGQ==
+Date: Sat, 26 Sep 2026 12:22:55 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: zwq2226404116@163.com
+Cc: mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, quic_vpernami@quicinc.com, krishna.chundru@oss.qualcomm.com, 
+	jeff.hugo@oss.qualcomm.com, Wanquan Zhong <wanquan.zhong@fibocom.com>
+Subject: Re: [PATCH v5 1/1] bus: mhi: pci_generic: add Rolling Wireless RW151
+ 1501/1502 PCI IDs
+Message-ID: <36lpjhgapjitezxr32igozbwcy5vyqzcoqes644p2f5dndsm4y@kqf3f5yue6hs>
+References: <20260702100013.545593-1-zwq2226404116@163.com>
+ <20260904044612.6334-1-zwq2226404116@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NWw6CMBBFt0Lm2zFtUXlsxfDRx6A1KdQ+CAlh7
- 1bx8yTnnrtBpGApQl9tEGix0c5TAX6qQD/l9CC0pjAIJm6sFR16swpeY/YxBZIOazRMtWxsLp2
- 6Kig7H2i06695Hw6OWb1Ip2/obwR653KWDg2UjIR6ds6mvlqac41Bcxj2/QOBqRgLoQAAAA==
-X-Change-ID: 20260829-pdx213-upstream-3-d0b80f749b5b
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790418021; l=834;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=sTxpDCM+G0Yq8WpiNk3ug+EjerLzcaGqlhbo/oAYrvI=;
- b=arG2sJxbNpZtpTLVc1Ew+eNITgNYPE40NjLYeJCJP0ULhIjZmB1hBqnvjZHtWtJvhDcL2INaM
- NnMgNqCWYsOCNTyF+yuYaozGqDI4WCdJ93+uhDbnV+5Mf7uTkwI4AOu
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260904044612.6334-1-zwq2226404116@163.com>
 
-Enable some more nodes for the Xperia 10 III.
+On Fri, Sep 04, 2026 at 12:42:44PM +0800, zwq2226404116@163.com wrote:
+> From: Wanquan Zhong <wanquan.zhong@fibocom.com>
+> 
+> Hi,
+> Please find v5 on top of v1/v2/v3/v4. It adds PCI_DEVICE_SUB entries for
+> RW151 sub-vendor 0x2099, sub-device 0x1501 and 0x1502 on QCOM 0x0309,
+> continuing the 1500 series.
+> If you have any comments on v4 and before, I am happy to address
+> them. Please also let me know whether you prefer incremental follow-ups
+> like this or a single squashed series before merge.
+> Thanks,
+> Wanquan Zhong
+> 
 
-Signed-off-by: erebion <erebion@erebion.eu>
----
-erebion (8):
-      arm64: dts: qcom: sm6350-lena: Add flash LED
-      arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem node
-      arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP & MPSS
-      arm64: dts: qcom: sm6350-lena: Enable IPA
-      arm64: dts: qcom: sm6350-lena: Enable Bluetooth
-      arm64: dts: qcom: sm6350-lena: Enable wifi
-      arm64: dts: qcom: sm6350-lena: Enable PM7250B
-      arm64: dts: qcom: sm6350-lena: Enable PMK8350
+These comments should go below --- after Signed-off-by tag. I've fixed it now
+while applying, but please follow the patch guidelines next time.
 
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 260 +++++++++++++++++++++
- 1 file changed, 260 insertions(+)
----
-base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
-change-id: 20260829-pdx213-upstream-3-d0b80f749b5b
+- Mani
 
-Best regards,
---  
-erebion <erebion@erebion.eu>
-
-
+-- 
+மணிவண்ணன் சதாசிவம்
