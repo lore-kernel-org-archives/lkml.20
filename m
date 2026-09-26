@@ -1,90 +1,107 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2D91E492D;
-	Sat, 26 Sep 2026 00:32:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790382778; cv=none; b=eJaSe/gU9MAmbjMRMYan8C9oDJKvmGxLJEcA7OVTGJq3efB33r5Ghj9Pq8+TZvkkgDcbCVHc2lRbyhqxDnpsu3k51J2qgEHeQDFFZ+/q7te9ypHf1AZoXgopdw/Au4LYn1jH9mUClCw+pXbXftRrSFMoJkFKLinwN2MO3SLfD34=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790382778; c=relaxed/simple;
-	bh=IYAU/79dGofQylupwjb6P+yrKCCES3qfOsqibcugnRY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JJ5HZYkSyKPVFtp+a2UvOL6eqa+ckFYiL8lWPEjWvq0YtnkpKBYsDfRB12+FTzQ0v639rKXBgLPpPQ118dn9Ou+hFc+xSbUfhAeBvtAF10quU1B1Nb+LLi9uj/8HpZEyQpGFuhJcjps3/a+vpQkloOAYMdyZzUTDmiaxWO5cm+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=4llhjOTl; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93870242D84
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790382812; cv=pass; b=anlDGXRpCyqc83xMnUvsiMorgJQqeJtPv1xsZO7C+zta9ObaQLXNMjUqUhPvUwGPN7mQPiWoE4dCOH0fyRIJeAqXvMqsy0svo502NoBVDIY6tNn5z564suEn0oaSTuj2kDjODpUatDCsSuukK8KjU8BLZacEXl3F6s9Z4gk+fbo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790382812; c=relaxed/simple;
+	bh=mVxMWetFn7wHYMZOTdurI52wh0zu/kj3fyTO5UelA0E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=StfnP3ambgw7aV321Q4xi2AeudtdRkAVOCEPXgmekJMXBNiJweuXCp0CyDTA4ejo5LEJcG+2lmgYdAkntrZv2Gx3+8KFNPO7i44DucM/nbez/QzLzhLdrHFbNO6El8eO9yF8YfnQX8jeAxcoeAMy2h6Gih86Qq8yPsojASmlYWs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fcoOVwCQ; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="4llhjOTl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=zLJNeTA1Uv6NYenS6Oz+iqjgR/6nW3LkPlRDEazPsrI=; b=4llhjOTlhoBwPQfjoWbxZIC/sN
-	lO23o2Kt4n5k+dLv2jhIHM2UlwJbHarLKLlvvGIukMlnUgyX9S4iKu37Fqd1mrSrYrY7uJuMAUKP5
-	igifX5qmiaqcQz6WKyrJeRmHHTsjE+5K0Y13N5943OAvUdGUIIXIPwycTOLeDvAY90AuJecShxnfI
-	YQULfELsyxIpdPV4q8OlICa8k1FjQcLDqCH5TDnGYC2BkiuUlwWkhpWZRFHWwPxxG6cXsaRp8WOeq
-	iLOkVptf8SP+YE/E5+/4O1xXsuwzisZbtVG+Aoka+AcQcJNI4wfWApNc5pk7GK1GKtK4IV9Io4cvK
-	O7UhlTAQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xAGLT-0000000EjvH-3r0e;
-	Sat, 26 Sep 2026 00:32:51 +0000
-Message-ID: <01ca174d-f92e-4182-bd4f-f052e444eef9@infradead.org>
-Date: Fri, 25 Sep 2026 17:32:51 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fcoOVwCQ"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60590a85cso2644729a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:33:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790382809; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qmUiT46Ix3h1qLZZiH08zSRGyxzzWi+dNW2JC4OH8QX7tjYiixQuFUBhGqbIohjM1Y
+         v3mAwwvFrTP0ozGZSG0kurvvvzNLw7Qidbn7f79tq4RQVjBrCNcVPHyEBNI0S0Jrxy/I
+         CieqwFQTGYchDXmywDOfE+RqDbcDZfzfPqDOyFY1rd1m/Bj830Lnt5j99mqZh88k7zsb
+         +sg4n7HEv+1oEz1dBdH9m5jphLA65Bfp3UARQrDLoQUacfbiam9vSgOcKApAFPpoKP5t
+         KkUol9c4CKw6FKWu90n8n3Io5YJfRGoFCqGAl1i2hM3wxOGjps5Oy5hDllVHz91NesWU
+         64iQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=mVxMWetFn7wHYMZOTdurI52wh0zu/kj3fyTO5UelA0E=;
+        fh=cRcN+aJD3BBHx8yT6uqjOqfnzaR3rNGdsM7n4E50x/c=;
+        b=EURJeP56eObN4zyLd0Rdj7ruuwTj/fIBeEKiaFc22h3E6ZfhMkYZlRX4l3LaScVRbE
+         Ru4k58j01YGkDjpJbf/MrqoO81m2AqVR4hH8ukDaU/jzV05p8ZU5hK+5xagdBj5o1b2y
+         Su85Jlqt/fXXKDKB7Vxdy0bHX4yRWrkLIB2fuYq2e9BsMyomSH2N4GwodLr6TkGl1cno
+         euTqON8pjNEi6P1zBKJbpCniodJ4iJxccDu4xAp8HXklq83TNy1bDahFb/ypz24Rn6PS
+         yb4/qWAl7AojULjWtlkQN2K4dO21ctKubdaI+LibYUfpOJ9Z7N0Waba78FyoU906DAuX
+         Wv1g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790382809; x=1790987609; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mVxMWetFn7wHYMZOTdurI52wh0zu/kj3fyTO5UelA0E=;
+        b=fcoOVwCQM8RwuRa6WV5AaxjDkchYZ90euGMxSq9O6x0Zn9pfbR65UF8/qtScGS+Vt/
+         RwxQwqjWMDQo82Qv/dQoo+LnE0JZJ30n2BMQ+ICPr8vGAwQl9pahcZo0toV2jgCMrWRn
+         LWicHgOE9ULsjwp7oRI+iTf6WN0iNm0pbAl0R1TBAANRDORzWefQb58Mc7TTmo0iQGLD
+         6RTc1KCFJ92xV3ggb91AADHD8dq+pzvgVC9wpLSz284r+RQw0UVIZfJra0xv3vqR1RWA
+         OhO1Q94+h52WkgtI1w/XDua9NAls2cbqakvMisXq/DwIP84mhe5SakpZhVlH3jNemKnh
+         fRHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790382809; x=1790987609;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mVxMWetFn7wHYMZOTdurI52wh0zu/kj3fyTO5UelA0E=;
+        b=ExZ4Lz/m1605tRb2MVP40e3gaXSwusBt2TFO6i68A6ipjpUqSywo+JBIRDyxHHGfuh
+         HSxvtfM8VPZv740O7FO5h8YAzbABkg2jrxvcBFmO9PSpwKlML3FS6wTTHdemAAeNDN6E
+         pvJKbEpSHhupLmkrXHku8gYWlMcc/V5ALrwvQabWJLc9K+Hq/Rvjtp8RIhF50z/VA/6l
+         qMhIdtZJfi0NOL7wbmxZrGgQ+ZzxtQzf2jGiUIWnqqlf7dXp1wkRJonzg/H3cnjcMf4h
+         Fx9PTx8bhheQaCnfr5qJcMJWxmWnzsBQELl6LVUYt69HjbPgBn8P9V5kLDFCvhx+eprV
+         Bi+w==
+X-Forwarded-Encrypted: i=1; AKwUvByuKYkW10kDXFmfKhC474x4MJ7UX85iqJgbhHvti3U1/RiC0C2gaYbCpDIedThUoZZ0MRdqEZot67Qi7hA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkSvZ+nDqTejLy4gEdWC6tFeRR9Zbfql8YztCH2MFLl1QXLpox
+	8GFuAl5xZ4/fp10sQK/hEjJRJMTBtAGui3C5c6leMgDq7RZgx2BOvgzF7pRd890IanboPHdHv/D
+	CnlEl5AEvGTaJURGJYXeXJDy68Y9rJaU=
+X-Gm-Gg: AYBFou3cILHvHU0ErtzjYF+w0TO5EI4T7xoDGF0P29RAmPG+M6Dwc0+zDP0BmHCsNgM
+	0kmnkMQnxmoBIItXHCTEYfWN+/p61vpBCvoV+crcmJOB8zzCWmCoWirIHyhl0wF6IoTtyNrB6A1
+	lcexF4Hd7e7MP9sdFmxWKI2b0086CdcMKfq8abNl0uP8sH/vlm7GNEyWRUyQ/MKomSFiYbygMLw
+	ZTEbBEzTCRJwlMdAdCw5XTolN6fZJldBUs7xalZn3qM+VK+YkJaexhWq2fSZ6J7zzp1a/Kg/eQU
+	y7tAPqob+wWQSwreHXjpXeJu3qq3HJ9rMBAvPhPWKmn7KDA1VMrpOsO8S7itoLF5vtD/Mbhladi
+	BSD7P9O1WsFApggM=
+X-Received: by 2002:a05:6402:438e:b0:6a9:a2b9:5907 with SMTP id
+ 4fb4d7f45d1cf-6aac8f40c5cmr5939968a12.4.1790382808799; Fri, 25 Sep 2026
+ 17:33:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tty: add break_wait kernel-doc
-To: Johan Hovold <johan@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260925094222.18303-1-johan@kernel.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260925094222.18303-1-johan@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260925211635.1422516-1-amad3v@gmail.com> <20260925211635.1422516-3-amad3v@gmail.com>
+ <0b2b863f-d12a-4b1f-93a3-45a42f3ef503@gmx.de>
+In-Reply-To: <0b2b863f-d12a-4b1f-93a3-45a42f3ef503@gmx.de>
+From: Am Dev <amad3v@gmail.com>
+Date: Sat, 26 Sep 2026 01:33:16 +0100
+X-Gm-Features: AclHuK-7P8_fYd7hP59PmdOe7E2rXevYQIH5oEtq_S2IggwuoZjtBW3VLgWpGgU
+Message-ID: <CADfX_O26ViKw2bF-uft-sj26Hi4hDdy4Y+=-dcV+f3s1sQnpLw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] platform/x86: uniwill-laptop: Add platform profile support
+To: Armin Wolf <W_Armin@gmx.de>
+Cc: Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Sat, 26 Sept 2026 at 00:54, Armin Wolf <W_Armin@gmx.de> wrote:
+>
+> Nice work, but AFAIK the whole fan control/platform profile complex needs a bit more
+> work before we can enable this feature. Can we skip this patch for now?
 
+Sure, I will drop it from v2. When you get to the fan control / platform
+profile work, I am happy to test on the Recoil 16.
 
-On 9/25/26 2:42 AM, Johan Hovold wrote:
-> Add the missing kernel-doc description for the new break_wait field in
-> struct tty_struct.
-> 
-> Fixes: c7e9bff9b4b3 ("tty: abort break signalling on hangup")
-> Reported-by: Randy Dunlap <rdunlap@infradead.org>
-> Link: https://lore.kernel.org/20d75a7a-2e7a-484f-a267-c21db82dd922@infradead.org
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-
-FWIW. Too late, I suppose:
-
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-
-Thanks.
-
-> ---
->  include/linux/tty.h | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/include/linux/tty.h b/include/linux/tty.h
-> index ad4e4a835f90..833bb7b97ceb 100644
-> --- a/include/linux/tty.h
-> +++ b/include/linux/tty.h
-> @@ -168,6 +168,7 @@ struct tty_operations;
->   * @write_wait: concurrent writers are waiting in this queue until they are
->   *		allowed to write
->   * @read_wait: readers wait for data in this queue
-> + * @break_wait: wait queue for timed breaks
->   * @hangup_work: normally a work to perform a hangup (do_tty_hangup()); while
->   *		 freeing the tty, (re)used to release_one_tty()
->   * @disc_data: pointer to @ldisc's private data (e.g. to &struct n_tty_data)
-
--- 
-~Randy
+Thanks,
+Mohamed
