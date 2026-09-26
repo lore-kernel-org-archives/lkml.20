@@ -1,39 +1,39 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13CA033F589;
-	Sat, 26 Sep 2026 07:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B9633F589
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790407598; cv=none; b=QbBLlZ3rCYSYgdp5+Zd6rqQ+IUYjXvJseMHG4m89HKPRDKgyybXiPeE4fSBDpI9Tt8lsTXRoe/PAr/QHurLi8Xw+jLvMXgDzKQHj7bwVJQIhynYijTSfM13jNmIk7g0OvVQ+vb0DaTX8kP/pJsKhhiT1Nj8W6nB2VNVlkPXQCGg=
+	t=1790407605; cv=none; b=HR+MepJKMC4pkfD3cTLL1eOLzMvfeF9EAfX+G3OGVq44l/ISkLr32HuRCbe29+8ZnHCw6SLLms61t2J6mfCvZ0lIDpwa+ZhEr8hm9JJEuR5/HSsuR2gIUsl56aNH6/tE8iYtNwU69HPynvxtw/x/16NXfVrzke0Fx1UfHlMHNqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790407598; c=relaxed/simple;
-	bh=5gW3H/1yVOxL00jh4JY44hYMcfiOVXML9SuZIS61MNk=;
+	s=arc-20240116; t=1790407605; c=relaxed/simple;
+	bh=0EtfCmZ0p2dUZdtvI6F9HDjnSU/gEbK33PB0ZK9PGdE=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fWMvRcBysLIJmzKFLnnghxGqqaU1rJlcX8YwAfNzLAWabhBtYv6jLPE0lDNgllT8HZQYv65qqnL0kI8niJNMlwMGae7rnycOidg5OdsuSvNG4SNvqV0AabS63Fkjtc0pzBYkk1b0DQ4446IA2V3kykhbOkWyLn9+r9nynRsp7Yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kjqyE3fU; arc=none smtp.client-ip=220.197.31.5
+	 MIME-Version; b=X+pSk/DMzPlcEjLAGnOp8Jqiwsul0Su9/XvhGfy8GuvsOhTiZ3KhK2yJyGfXr4OiZBHdNNjIr8r8Yi1+V2CVAWhcIVRzjGUevc3g91K2QB4T+3po9JY/pKLJI9HJxK6uEA3wXmnXr3G5IpF6FgwpLrxBj5SlyJUkVKlI5ofd2Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Wzm7aQ/b; arc=none smtp.client-ip=117.135.210.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kjqyE3fU"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Wzm7aQ/b"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2C
-	SflERWiIEUtHIYwYt7AZ8Vjsf1CeCsPdvuomIllHU=; b=kjqyE3fUy/uWn9Huy2
-	aS/+HwoL9OOkbC2P8QKcnXwjzHobJwdT5Cj4fo8L1opxEvJj5T/fcgnd0FGZdDn0
-	UcEEeh6WmdwVZ3GC/YfRIcYnGKznOCISgYCAr3JN7J08q3lQWnJEJwnrbq5RyFVM
-	F+5FNKMXE2eH8HFKJ1OFfwPpo=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=gH
+	adxr7TyOC1tZSrKIdTJZQnpZqrbTw6TfKCTn5flFI=; b=Wzm7aQ/bZeqQ81vKDG
+	9p2T7cuPZT+aDSuiFAlMHCFvtf+xqHgCMDLHWvhFvdJxHCTvvF27y2tENYu4BGsQ
+	ZKEJXuNYHe2zWVXNsrH/d23jaK/+CylMCIqVaPq+1TCsuQV1clRm/IQc/NAdzscb
+	iOre5PB+Jkovv7AcFzLnONWX0=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3v62dc7dqbEDbAw--.41165S3;
-	Sat, 26 Sep 2026 15:26:23 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3v62dc7dqbEDbAw--.41165S4;
+	Sat, 26 Sep 2026 15:26:26 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Jan Kara <jack@suse.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	linux-ext4@vger.kernel.org,
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>,
+	ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH v2 1/3] ext2: drain in-flight DIO before buffered write fallback
-Date: Sat, 26 Sep 2026 15:26:10 +0800
-Message-Id: <20260926072612.3022680-2-yaojiale02@163.com>
+Subject: [PATCH v2 2/3] ntfs: drain in-flight DIO before buffered write fallback
+Date: Sat, 26 Sep 2026 15:26:11 +0800
+Message-Id: <20260926072612.3022680-3-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260926072612.3022680-1-yaojiale02@163.com>
 References: <20260926072612.3022680-1-yaojiale02@163.com>
@@ -44,16 +44,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v62dc7dqbEDbAw--.41165S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tFyUuryxtFyDXr47tF1DJrb_yoW8Zrykpr
-	Z093W5JryqyrZ7Wwn7Wa18ur1fK398ArW3XrWvv3WDCry5Gws0gF4ktr1jvF1fGFsrJw4Y
-	qan29r97u3W0yaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zinYFJUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgGNx2q3c6G66AAA3Y
+X-CM-TRANSID:_____wD3v62dc7dqbEDbAw--.41165S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tF4kGFy5AFykKF47tr1rXrb_yoW8KF4kpr
+	ZI9Fy5Jr9rtrZ7Xrn7CF48W3WFkrZ5J3y3ZrWDXw17Cr15Gr4vga18tF1Yvr4rJF9xJrW2
+	qw4v9rWkCryUZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRn2-8UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQKNx2q3c6L+XQAA3q
 
 An asynchronous direct write can remain in flight after the inode lock is
 released.  If another direct write falls back to buffered I/O while the
-first write is still pending, generic_perform_write() can dirty pages
+first write is still pending, iomap_file_buffered_write() can dirty pages
 before the first write completes its post-I/O page cache invalidation.
 The invalidation then finds dirty pages, reports a page cache invalidation
 failure, and records -EIO in the mapping error sequence.  A later fsync()
@@ -61,12 +61,15 @@ therefore returns -EIO.
 
 Commit 15cdefd0c0522f9d5e12d947fa04f4c11649b699 ("ext4: drain
 in-flight DIO before buffered write fallback") fixed the same race in
-ext4.  Ext2 has an equivalent fallback after iomap_dio_rw() returns
+ext4.  NTFS has an equivalent fallback after iomap_dio_rw() returns
 -ENOTBLK or a short write, but does not drain other in-flight DIO before
 dirtying the page cache.
 
-Wait for in-flight DIO before calling generic_perform_write() in the
-fallback path.
+Wait for in-flight DIO before calling iomap_file_buffered_write() in the
+fallback path.  Since NTFS supports IOCB_NOWAIT, do not enter the blocking
+fallback for such requests.  Return -EAGAIN if no bytes were written, or
+preserve the positive short-write result if the direct write made partial
+progress.
 
 A reproducer using concurrent AIO direct writes and buffered fallback
 triggered the following warning and made a subsequent fsync() return
@@ -75,31 +78,39 @@ triggered the following warning and made a subsequent fsync() return
   Page cache invalidation failure on direct I/O.  Possible data corruption
   due to collision with buffered I/O!
 
-Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
+Fixes: 9c87959601e8 ("ntfs: update file operations")
 Link: https://lore.kernel.org/r/20260629113827.4074335-3-libaokun@linux.alibaba.com
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- fs/ext2/file.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/ntfs/file.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/fs/ext2/file.c b/fs/ext2/file.c
-index b9020df7d89e..67fe423c3828 100644
---- a/fs/ext2/file.c
-+++ b/fs/ext2/file.c
-@@ -135,6 +135,13 @@ static ssize_t ext2_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 007d1614b9ac..8bbfa842889a 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -525,8 +525,21 @@ static ssize_t ntfs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		ssize_t written;
  		int ret2;
  
++		if (iocb->ki_flags & IOCB_NOWAIT) {
++			if (!ret)
++				ret = -EAGAIN;
++			goto out;
++		}
++
+ 		offset = iocb->ki_pos;
  		iocb->ki_flags &= ~IOCB_DIRECT;
 +
 +		/*
 +		 * Prevent concurrent direct I/O and buffered I/O to the same file
 +		 * range. Wait for in-flight DIO to finish before dirtying pages.
 +		 */
-+		inode_dio_wait(inode);
++		inode_dio_wait(file_inode(iocb->ki_filp));
 +
- 		pos = iocb->ki_pos;
- 		status = generic_perform_write(iocb, from);
- 		if (unlikely(status < 0)) {
+ 		written = iomap_file_buffered_write(iocb, from,
+ 				&ntfs_write_iomap_ops, &ntfs_iomap_folio_ops,
+ 				NULL);
 -- 
 2.34.1
 
