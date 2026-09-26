@@ -1,551 +1,305 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E232238E8A7
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F55D38D01B;
+	Sat, 26 Sep 2026 06:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790404422; cv=none; b=j/LVMGDYIWX4eSxi3O9li7x4IRAkIltRf1cKH/lI6gdHwN58Re3SMvEI1HM9K/8N9hWWnNJcSg86ZOMtOSk9Cp4fHcjfk7IfJrBEJZGRnbdtgkgPA9QN2JiJEcYsJ3IeJCJsntlIoBgykt7Zew1LgYMlLXE6s7NPWJV8ZU+U84U=
+	t=1790404461; cv=none; b=Vp+NkSBYqM0b7U+fFfeDmNRA5iVfZY9qJjaElVoLSkJgv17P55e0e9T54urIEcMfj1hYB74Emjcw/SMFdVAILtQxkQ83ED3QY+Sc1RZPM//OIWuzb6LovOzrNtU0foMUkkJYHT+q2V8wTq82NgZObFa5oFtuUuMTU9Tll+VULVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790404422; c=relaxed/simple;
-	bh=m8opNBWgNnBbo6VElS+UDYuzdFg/zqs7QW1uq3HEBG8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W/LYJXcbAiHOMrrZVF/zjqUjzJ8cWuCQqncne0vsk8Ph1ZlQfHj7QhTlIuPLou/rKg90vL7hDjUQKs0ktQp4WG9GrxOjjoUrlIE2DrQrh4ylTTnSFKwg1AetaeznxiD+Iz+sJ0ULjalnlpSyX/97dB8iHWfj7RSWv1sPZ/XuX28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhcKPZ8+; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790404461; c=relaxed/simple;
+	bh=EM8Aq0zba55JAF1PiqJZKwXUK24rdLNa8m9H7uIa2tU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LrnJHnCJ9x0qrsChV7c7MnUgi4wrbh6l9bnwTYR3xrGlfZ+3R9C66eT+uyqAf1e5icrKTbKmIl0qSxv3ciFyDKBQa17ATnkOpp78kAi+qkFXjzc46pqAZs74+EgK8YjYNZGjL0W8AYsjQUJoNWctLrpHrQGEaAlBUNBgQTplD0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X3keQOxp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhcKPZ8+"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc433d52421so581669a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:33:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790404419; x=1791009219; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z533NG1w6sjrTwHnLtX/e6C4J/G4Vgk9VW4/enNaFcA=;
-        b=NhcKPZ8+zQe9mGo+LuQfR5yOcJfPsBGXApgzSqpI+YWzxwdwIz5KAB/vx7d5QuwdGg
-         /gLx/6zz2Zp4o+CePfeudEmn/mD0LvL92YiLZroZKTtWO+5BmIq3FimS4uXuK6WV+MS6
-         hWubFWtR0Y/eohAl20nHule0rSnaglJX2E8sn9JPYZ0tUZLFzphWR9igE/TR4Cgepq9J
-         BrNuoD4pLLGJql4+NPiOmxnOj7kgb6igPp3bYeVvRiFKR+1PmBxZMNKvPJWdVoa81hvl
-         SpnVj2ZYrLQPvWhCYDcfz7K5u6XrDY4sJ4+Ldoz/M92owbuy6A5AVVPjwNMCdll2EwCa
-         RNnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790404419; x=1791009219;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z533NG1w6sjrTwHnLtX/e6C4J/G4Vgk9VW4/enNaFcA=;
-        b=ldrPXnzwcXTl4o8DfiWgBJhlZXVWx/WasZy2scefUog+44+rmUsPkThr06P5h52Nej
-         JJ7Zr83Lvm8Qazi48liEHfXujlLgRJynlsGsL+XYfFrgHt47IGUnJ0u0d/Yg6vCyO0kd
-         azTJCyXrukw+AcRIIHbbZBiQVaWqZVt7qv0MZEHbNYBXrUHFC0IYz1CqVwv91Yg2tSPG
-         D7SA63NcdM37uL0pocAxdzvSkz+l0yGIbFSkJ0qzN5gHZMOpvwDxwQIIVcIA0svp/R0M
-         hyD+0EwkwhcNo/bAlvbvTaO9fpsY/smNdVqQNi3XcazKep+5VwoC2wN5ZCgF1hYBh8td
-         X9tg==
-X-Forwarded-Encrypted: i=1; AKwUvBzrgY4GLo5ELJv0ovdomxst5WWG9J0pJU3RvgabE5AtCCq9ly/unhUoq2r+e6vJt8xTGYXdQPsgxod63kU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2xcoO81kSST88ah0Odlgvug59dW47NcoDZSPUDqfj38Byd1fj
-	loTu18feX3cnFn7bVOZiBeJVxG5tcxRAptKCW5y1zj2FforRENIqzjnr
-X-Gm-Gg: AYBFou096i3OkfcX6eddKTwLSkyYzLP0GicNKzY3hPpSHOuRVRgtQzDJCsUxFZP0Que
-	lwoMvmyCLWeQ7PQ6K/CRSjLD7SYVpgvXWscl5aKn+vHdbCdPXdR/kkpkv897myvfzT++GESZkZ2
-	vJ28TuE0tzpAvRGzzt+3iZVhyFN6aS3aXHUTcSbOiZ47ZgoXoWV5efFPLsCOU/6O9g8LAzKs8y4
-	Rz5THwNQ4qSHQhYvLVmBPv9Mcl/5QV0PGU0MsycWEib9rZH/NPstdFqNcxWWYw0mQIXydXF/pFU
-	q734lpYI1l5miPlI8ixb3BPAObC7AGNNZfR2HyVFv4MpZJ0yStBURKU455a16sICs2T1ODirFGR
-	qZ/qCGDZ9jWC2CR8j4XKvHFGv89SBZPFsB4FbtXwM44xO+1wzxE/4vsmPdKopJb+j5hFRQD5Q80
-	ONg7byVfmupWtwUNkmzk03YGz645AjFqUs0VGqoz/uhW1LVk+7+9Ox6CgpXtBP3AdS87IJwYVzu
-	+uwPcVuMnVip/clw0MDFBsfL/0w77ObCnSEfV/V9Cez0fYZ3zxKB5/ecRo0cRgQ7Q/+guVpW3lJ
-	FOygo4UlhVyllA==
-X-Received: by 2002:a17:902:fc86:b0:2df:b047:72c0 with SMTP id d9443c01a7336-2dfb047989cmr1014145ad.26.1790404418893;
-        Fri, 25 Sep 2026 23:33:38 -0700 (PDT)
-Received: from yupeng-XPS-15-9520.. (c-73-169-192-12.hsd1.wa.comcast.net. [73.169.192.12])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91460aaasm19196895ad.73.2026.09.25.23.33.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 23:33:38 -0700 (PDT)
-From: Peng Yu <yupeng0921@gmail.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Maurizio Lombardi <mlombard@arkamax.eu>,
-	cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Peng Yu <yupeng0921@gmail.com>
-Subject: [PATCH v5 2/2] nvmet: add cgroup_id to charge namespace I/O to a cgroup
-Date: Fri, 25 Sep 2026 23:33:28 -0700
-Message-ID: <20260926063328.257023-3-yupeng0921@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260926063328.257023-1-yupeng0921@gmail.com>
-References: <20260926063328.257023-1-yupeng0921@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X3keQOxp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00571F000FF;
+	Sat, 26 Sep 2026 06:34:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790404459;
+	bh=PGoBOYGQFMmgkg0THkTOdUI30C4ST2Titdv6ASdq6z8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=X3keQOxp1tBtuWVBA/GBtSTLiUQRxOBSNxRdAlOlbGfr7T3RKDQAP1hU9UbGqlC/w
+	 3PJ85mcmhlsLwmq6yVlRoD28izVuDgabWq/+5UM7kpOBE3Pk4Go9B9ehwO9gn0Bhev
+	 iTAl61Ikfsa33CGlRO1QkLudvPEperBl2X1NsI2lSzQMy65KohW5DWudmwPtA2CcV2
+	 T66a7nZlZZzbltX3v1DTuvDm+99chPB2HuXc5lYYlWIkTQ+0UMV3AL4FjdI7+rMVN7
+	 OF4JtgtAHZvxID7lezJ9eYLLkQQUepVcO0JWZGTfrVT0/Q7Lnt+hslscKk5CoLHGie
+	 QdYcU5p96v9XQ==
+Message-ID: <76f4039a-d591-4b6a-af7e-83eb90266719@kernel.org>
+Date: Sat, 26 Sep 2026 08:34:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+To: Nick Desaulniers <ndesaulniers@google.com>,
+ Nathan Chancellor <nathan@kernel.org>
+Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Theodore Ts'o <tytso@mit.edu>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>,
+ WANG Xuerui <kernel@xen0n.name>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ llvm@lists.linux.dev
+References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
+ <CAKwvOdmuvn0LZkYEsH84hnOGTYhTtzuWs3wMARtWdTeL6dD9sA@mail.gmail.com>
+ <CAKwvOdnxKVpn=nAFaqP+9PTx4PqgHsUVWv6e60Pcr29W_eZrpQ@mail.gmail.com>
+ <CAKwvOdmNZL3eFvV3v77GXDzL+XLgz+BT9TA=my0yTnbsHqVeSg@mail.gmail.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <CAKwvOdmNZL3eFvV3v77GXDzL+XLgz+BT9TA=my0yTnbsHqVeSg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Implementation:
-* Add a `cgroup_id` attribute under the nvmet namespace folder, e.g.:
-  /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/cgroup_id
-* We can write a cgroup id to it, then that cgroup will control
-  the IOs used by the namespace.
-* Write 0 to clear it.
-* The cgroup_id could be modified when the namespace is disabled.
-* Support both block device backed namespaces and file backed namespaces.
-* Only the direct io scenario is supported, enabling a namespace that
-  has both cgroup_id and buffered_io set fails with -EINVAL.
 
-Change since v2:
-* Fix the in ns->cgroup_path error free issue nvmet_ns_cgroup_path_store.
-* Use nvmet_blkcg_begin/end in nvmet_bdev_zmgmt_send_work.
 
-Change since v3:
-* Use cgroup_id instead of cgroup_path.
+Le 26/09/2026 à 00:00, Nick Desaulniers a écrit :
+> On Fri, Sep 25, 2026 at 2:56 PM Nick Desaulniers
+> <ndesaulniers@google.com> wrote:
+>>
+>> On Fri, Sep 25, 2026 at 2:53 PM Nick Desaulniers
+>> <ndesaulniers@google.com> wrote:
+>>>
+>>> On Fri, Sep 25, 2026 at 2:46 PM Nathan Chancellor <nathan@kernel.org> wrote:
+>>>>
+>>>> After a recent change in LLVM [1], builds with the random vDSO
+>>>> implementation, such as PowerPC and RISC-V, fail when checking the vDSO:
+>>>>
+>>>>    arch/powerpc/kernel/vdso/vdso32.so.dbg: dynamic relocations are not supported
+>>>>    arch/riscv/kernel/vdso/vdso.so.dbg: dynamic relocations are not supported
+>>>>
+>>>> memset() is now generated when zeroing params->reserved for some builds
+>>>> because LLVM has an optimization (now run in more instances) that can
+>>>> recognize at compile time when it is assigning a static value to a
+>>>> contiguous area of memory and turn that into a call to memset(). Both
+>>>> clang and GCC assume memset() is always available [2].
+>>>>
+>>>> clang provides a builtin, __builtin_memset_inline [3][4], that can be
+>>>> used to ensure an external function call is not generated when zeroing
+>>>> this memory. Use it when it is available.
+>>>>
+>>>> While GCC has no issues with the current code, it has generated memset()
+>>>> before, as seen in commit b7bad082e113 ("random: vDSO: avoid call to out
+>>>> of line memset()"). GCC 14 provides '-finline-stringops=memset' [5][6]
+>>>> with a similar guarantee to the clang builtin, so use it and
+>>>> __builtin_memset() when available.
+>>>>
+>>>> If no option is available, provide a simple memset_inline() like the one
+>>>> from lib/string.c to avoid adding an ugly ifdef.
+>>>>
+>>>> Link: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fllvm%2Fllvm-project%2Fcommit%2F90cebef1411617fc3eedd359bdf00cb44b1c2439&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683663121%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=TzFmsIf6K0ZNffmwZjFRWcrFHJ4akhMw%2FxcWeHR4hFY%3D&reserved=0 [1]
+>>>> Link: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgcc.gnu.org%2Fonlinedocs%2Fgcc-16.2.0%2Fgcc%2FStandards.html%23index-ffreestanding&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683681786%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=A6PdZfaF0MvKQ0TEuJEnFWmXpMKD5CPz6Ko2fWh9ZGY%3D&reserved=0 [2]
+>>>> Link: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fllvm%2Fllvm-project%2Fcommit%2F38637ee477541370a90b37f149069d8e5c0c2efd&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683693796%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=ordMFwd99jKGsM6%2F5jqb6T%2FCzJZ%2BccJTNL6Zyyz38S4%3D&reserved=0 [3]
+>>>> Link: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fclang.llvm.org%2Fdocs%2FLanguageExtensions.html%23guaranteed-inlined-memset&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683704121%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=mqgeAxJp0cTsBD1qngk%2BliTUC1kID648Z81H6hiKYDI%3D&reserved=0 [4]
+>>>> Link: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgcc.gnu.org%2Fgit%2F%3Fp%3Dgcc.git%3Ba%3Dcommit%3Bh%3D1ff6d9f7428b0668cd8ab0b3e3ab94f1d733124d&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683713563%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=hNiJSMBbn6k7Pq4uBYQ5Bi6fO8ttW8KXVK6hPLEfJCM%3D&reserved=0 [5]
+>>>> Link: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgcc.gnu.org%2Fonlinedocs%2Fgcc%2FOptimize-Options.html%23index-finline-stringops&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683722844%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=BwB1lUSynGcGGLwkspnlVbkBAkdeRo4ItXk19ffMU44%3D&reserved=0 [6]
+>>>> Suggested-by: "Jason A. Donenfeld" <Jason@zx2c4.com>
+>>>> Suggested-by: Nick Desaulniers <ndesaulniers@google.com>
+>>>> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+>>>> ---
+>>>> Changes in v2:
+>>>> - Switch approach entirely (Jason, Nick)
+>>>>    - clang: use __builtin_memset_inline() to avoid external call
+>>>>    - GCC 14+: use __builtin_memset + -finline-stringops=memset (hence the
+>>>>      massive CC list increase)
+>>>>    - GCC < 14: no issues currently but avoid ifdef with simple memset
+>>>>      implementation
+>>>> - Link to v1: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpatch.msgid.link%2F20260916-vdso-getrandom-avoid-memset-llvm-24-v1-1-80a92f2e225a%40kernel.org&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683731836%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Z1w8wFKZCVjlUIwkIjffeIBIPkDhRRln3l7xot3daRc%3D&reserved=0
+>>>> ---
+>>>>   arch/arm64/kernel/vdso/Makefile     |  2 +-
+>>>>   arch/loongarch/vdso/Makefile        |  1 +
+>>>>   arch/powerpc/kernel/vdso/Makefile   |  1 +
+>>>>   arch/riscv/kernel/vdso/Makefile     |  1 +
+>>>>   arch/s390/kernel/vdso/Makefile      |  1 +
+>>>>   arch/x86/entry/vdso/vdso64/Makefile |  2 +-
+>>>>   init/Kconfig                        |  7 +++++++
+>>>>   lib/vdso/getrandom.c                | 19 +++++++++++++++++--
+>>>>   8 files changed, 30 insertions(+), 4 deletions(-)
+>>>>
+>>>> diff --git a/arch/arm64/kernel/vdso/Makefile b/arch/arm64/kernel/vdso/Makefile
+>>>> index 7dec05dd33b7..f6619e1cb2ce 100644
+>>>> --- a/arch/arm64/kernel/vdso/Makefile
+>>>> +++ b/arch/arm64/kernel/vdso/Makefile
+>>>> @@ -41,7 +41,7 @@ CC_FLAGS_REMOVE_VDSO := $(CC_FLAGS_FTRACE) -Os $(CC_FLAGS_SCS) \
+>>>>                          $(CC_FLAGS_LTO) $(CC_FLAGS_CFI) \
+>>>>                          -Wmissing-prototypes -Wmissing-declarations
+>>>>
+>>>> -CC_FLAGS_ADD_VDSO := -O2 -mcmodel=tiny -fasynchronous-unwind-tables
+>>>> +CC_FLAGS_ADD_VDSO := -O2 -mcmodel=tiny -fasynchronous-unwind-tables $(CONFIG_CC_OPT_INLINE_MEMSET)
+>>>>
+>>>>   CFLAGS_REMOVE_vgettimeofday.o = $(CC_FLAGS_REMOVE_VDSO)
+>>>>   CFLAGS_REMOVE_vgetrandom.o = $(CC_FLAGS_REMOVE_VDSO)
+>>>> diff --git a/arch/loongarch/vdso/Makefile b/arch/loongarch/vdso/Makefile
+>>>> index 9c9181bb4071..0b84892d084b 100644
+>>>> --- a/arch/loongarch/vdso/Makefile
+>>>> +++ b/arch/loongarch/vdso/Makefile
+>>>> @@ -16,6 +16,7 @@ ccflags-vdso := \
+>>>>          $(filter -m64,$(KBUILD_CFLAGS)) \
+>>>>          $(filter -march=%,$(KBUILD_CFLAGS)) \
+>>>>          $(filter -m%-float,$(KBUILD_CFLAGS)) \
+>>>> +       $(CONFIG_CC_OPT_INLINE_MEMSET) \
+>>>>          $(CLANG_FLAGS) \
+>>>>          -D__VDSO__
+>>>>
+>>>> diff --git a/arch/powerpc/kernel/vdso/Makefile b/arch/powerpc/kernel/vdso/Makefile
+>>>> index 368759f81708..0d1a49529885 100644
+>>>> --- a/arch/powerpc/kernel/vdso/Makefile
+>>>> +++ b/arch/powerpc/kernel/vdso/Makefile
+>>>> @@ -43,6 +43,7 @@ ccflags-y := -fno-common -fno-builtin -DBUILD_VDSO
+>>>>   ccflags-y += $(DISABLE_LATENT_ENTROPY_PLUGIN)
+>>>>   ccflags-y += $(call cc-option, -fno-stack-protector)
+>>>>   ccflags-y += -DDISABLE_BRANCH_PROFILING
+>>>> +ccflags-y += $(CONFIG_CC_OPT_INLINE_MEMSET)
+>>>>   ccflags-y += -ffreestanding -fasynchronous-unwind-tables
+>>>>   ccflags-remove-y := $(CC_FLAGS_FTRACE)
+>>>>   ldflags-y := -Wl,--hash-style=both -nostdlib -shared -z noexecstack $(CLANG_FLAGS)
+>>>> diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Makefile
+>>>> index 8dbf2532a573..c023046a3fd7 100644
+>>>> --- a/arch/riscv/kernel/vdso/Makefile
+>>>> +++ b/arch/riscv/kernel/vdso/Makefile
+>>>> @@ -36,6 +36,7 @@ endif
+>>>>   ccflags-y := -fno-stack-protector
+>>>>   ccflags-y += -DDISABLE_BRANCH_PROFILING
+>>>>   ccflags-y += -fno-builtin
+>>>> +ccflags-y += $(CONFIG_CC_OPT_INLINE_MEMSET)
+>>>>   ccflags-y += $(KBUILD_BASE_ISA)$(CFI_MARCH)
+>>>>   ccflags-y += $(CFI_FULL)
+>>>>   asflags-y += $(KBUILD_BASE_ISA)$(CFI_MARCH)
+>>>> diff --git a/arch/s390/kernel/vdso/Makefile b/arch/s390/kernel/vdso/Makefile
+>>>> index 35c834b895ec..54bcf2984ca1 100644
+>>>> --- a/arch/s390/kernel/vdso/Makefile
+>>>> +++ b/arch/s390/kernel/vdso/Makefile
+>>>> @@ -29,6 +29,7 @@ KBUILD_CFLAGS_VDSO := $(filter-out -munaligned-symbols,$(KBUILD_CFLAGS_VDSO))
+>>>>   KBUILD_CFLAGS_VDSO := $(filter-out -fno-asynchronous-unwind-tables,$(KBUILD_CFLAGS_VDSO))
+>>>>   KBUILD_CFLAGS_VDSO += -fPIC -fno-common -fno-builtin -fasynchronous-unwind-tables
+>>>>   KBUILD_CFLAGS_VDSO += -fno-stack-protector $(DISABLE_KSTACK_ERASE)
+>>>> +KBUILD_CFLAGS_VDSO += $(CONFIG_CC_OPT_INLINE_MEMSET)
+>>>>   ldflags-y := -shared -soname=linux-vdso.so.1 \
+>>>>               --hash-style=both --build-id=sha1 \
+>>>>               $(call ld-option, --eh-frame-hdr) -T
+>>>> diff --git a/arch/x86/entry/vdso/vdso64/Makefile b/arch/x86/entry/vdso/vdso64/Makefile
+>>>> index 7c0790065b5e..c2353a065279 100644
+>>>> --- a/arch/x86/entry/vdso/vdso64/Makefile
+>>>> +++ b/arch/x86/entry/vdso/vdso64/Makefile
+>>>> @@ -14,7 +14,7 @@ vobjs-$(CONFIG_X86_SGX)                       += vsgx.o
+>>>>   vobjs-$(CONFIG_FUTEX_ROBUST_UNLOCK)    += vfutex.o
+>>>>
+>>>>   # Compilation flags
+>>>> -flags-y                                := -DBUILD_VDSO64 -m64 -mcmodel=small
+>>>> +flags-y                                := -DBUILD_VDSO64 -m64 -mcmodel=small $(CONFIG_CC_OPT_INLINE_MEMSET)
+>>>>
+>>>>   # The location of this include matters!
+>>>>   include $(src)/../common/Makefile.include
+>>>> diff --git a/init/Kconfig b/init/Kconfig
+>>>> index 8583d9f06c52..ff3f8475dd2f 100644
+>>>> --- a/init/Kconfig
+>>>> +++ b/init/Kconfig
+>>>> @@ -173,6 +173,13 @@ config CC_HAS_ALLOC_TOKEN
+>>>>   config CC_HAS_MULTIDIMENSIONAL_NONSTRING
+>>>>          def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) = { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
+>>>>
+>>>> +config CC_HAS_OPT_INLINE_MEMSET
+>>>> +       def_bool $(cc-option,-finline-stringops=memset)
+>>>> +
+>>>> +config CC_OPT_INLINE_MEMSET
+>>>> +       string
+>>>> +       default "-finline-stringops=memset" if CC_HAS_OPT_INLINE_MEMSET
+>>>> +
+>>>>   config LD_CAN_USE_KEEP_IN_OVERLAY
+>>>>          # ld.lld prior to 21.0.0 did not support KEEP within an overlay description
+>>>>          # https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fllvm%2Fllvm-project%2Fpull%2F130661&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683740883%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=JlYxG81FQsC5sm3aLe4M6uUIaU5QNmdbupcy3LuGPGQ%3D&reserved=0
+>>>> diff --git a/lib/vdso/getrandom.c b/lib/vdso/getrandom.c
+>>>> index 2851afa9154f..f5cad5641985 100644
+>>>> --- a/lib/vdso/getrandom.c
+>>>> +++ b/lib/vdso/getrandom.c
+>>>> @@ -29,6 +29,22 @@
+>>>>          }                                                                       \
+>>>>   } while (0)
+>>>>
+>>>> +#if __has_builtin(__builtin_memset_inline)
+>>>> +#define memset_inline(dst, value, size) __builtin_memset_inline(dst, value, size)
+>>>> +#elif IS_ENABLED(CONFIG_CC_HAS_OPT_INLINE_MEMSET)
+>>>> +#define memset_inline(dst, value, size) __builtin_memset(dst, value, size)
+>>>> +#else
+>>>> +static inline void *memset_inline(void *dst, int value, size_t size)
+>>>> +{
+>>>> +       char *d = dst;
+>>>> +
+>>>> +       while (size--)
+>>>> +               *d++ = value;
+>>>> +
+>>>> +       return d;
+>>>> +}
+>>>> +#endif
+>>>
+>>> Does this work?
+>>> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgodbolt.org%2Fz%2FTx6EaGMfb&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683749874%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3MCx7IwcEz2ieYYZzQ2dLdrxFTjJiUqH0c1qiOXeLlo%3D&reserved=0
+>>
+>> Hmmm...possibly.
+>> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgodbolt.org%2Fz%2Fec9rzd9Yf&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683758681%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=5T4oq%2B4AfVJBqvBNA19kzNq19kRYM9u8YzYcP%2B8P7Mw%3D&reserved=0
+>> I don't get it...
+> 
+> Just keep it under 2 pages, it will be fine:
+> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgodbolt.org%2Fz%2FqqoMqfxev&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C8130be3fe7304659b8e308df1b507f25%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639259704683768107%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=FrwGHnEXsSp8scH8GtL%2BlqjymHfVokSrtaOqhp2iZPg%3D&reserved=0
+> 
 
-Signed-off-by: Peng Yu <yupeng0921@gmail.com>
-Assisted-by: Claude:claude-fable-5 [Claude Code]
-Assisted-by: Claude:claude-opus-5 [Claude Code]
----
- drivers/nvme/target/configfs.c    | 47 ++++++++++++++++++++++++
- drivers/nvme/target/core.c        | 54 ++++++++++++++++++++++++++++
- drivers/nvme/target/io-cmd-bdev.c | 18 +++++++++-
- drivers/nvme/target/io-cmd-file.c | 21 +++++++++--
- drivers/nvme/target/nvmet.h       | 59 +++++++++++++++++++++++++++++++
- drivers/nvme/target/zns.c         |  5 +++
- 6 files changed, 201 insertions(+), 3 deletions(-)
+Doesn't work on powerpc (gcc 13.4):
 
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index 6286e38436dd..cef832303d72 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -561,6 +561,50 @@ static ssize_t nvmet_ns_device_path_store(struct config_item *item,
- 
- CONFIGFS_ATTR(nvmet_ns_, device_path);
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static ssize_t nvmet_ns_cgroup_id_show(struct config_item *item, char *page)
-+{
-+	struct nvmet_ns *ns = to_nvmet_ns(item);
-+	struct nvmet_subsys *subsys = ns->subsys;
-+	ssize_t ret;
-+
-+	mutex_lock(&subsys->lock);
-+	ret = snprintf(page, PAGE_SIZE, "%llu\n", ns->cgroup_id);
-+	mutex_unlock(&subsys->lock);
-+	return ret;
-+}
-+
-+static ssize_t nvmet_ns_cgroup_id_store(struct config_item *item,
-+		const char *page, size_t count)
-+{
-+	struct nvmet_ns *ns = to_nvmet_ns(item);
-+	struct nvmet_subsys *subsys = ns->subsys;
-+	u64 cgroup_id;
-+	int ret;
-+
-+	ret = kstrtou64(page, 0, &cgroup_id);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&subsys->lock);
-+
-+	if (ns->enabled) {
-+		ret = -EBUSY;
-+		goto out_unlock;
-+	}
-+
-+	/* Writing 0 clears the association. */
-+	ns->cgroup_id = cgroup_id;
-+	ret = count;
-+
-+out_unlock:
-+	mutex_unlock(&subsys->lock);
-+	return ret;
-+}
-+
-+CONFIGFS_ATTR(nvmet_ns_, cgroup_id);
-+#endif /* CONFIG_BLK_CGROUP */
-+
- #ifdef CONFIG_PCI_P2PDMA
- static ssize_t nvmet_ns_p2pmem_show(struct config_item *item, char *page)
- {
-@@ -833,6 +877,9 @@ static struct configfs_attribute *nvmet_ns_attrs[] = {
- 	&nvmet_ns_attr_buffered_io,
- 	&nvmet_ns_attr_revalidate_size,
- 	&nvmet_ns_attr_resv_enable,
-+#ifdef CONFIG_BLK_CGROUP
-+	&nvmet_ns_attr_cgroup_id,
-+#endif
- #ifdef CONFIG_PCI_P2PDMA
- 	&nvmet_ns_attr_p2pmem,
- #endif
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 43871a8f56ca..6d9d55eb11eb 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -4,6 +4,7 @@
-  * Copyright (c) 2015-2016 HGST, a Western Digital Company.
-  */
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+#include <linux/cgroup.h>
- #include <linux/hex.h>
- #include <linux/module.h>
- #include <linux/random.h>
-@@ -474,8 +475,57 @@ void nvmet_put_namespace(struct nvmet_ns *ns)
- 	percpu_ref_put(&ns->ref);
- }
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static int nvmet_blkcg_ns_enable(struct nvmet_ns *ns)
-+{
-+	struct cgroup *cgrp;
-+
-+	if (!ns->cgroup_id)
-+		return 0;
-+
-+	/*
-+	 * Buffered writes will be handled by a separate thread,
-+	 * these IOs have no namespace/cgroup information at that time,
-+	 * so we don't support buffered io.
-+	 */
-+	if (ns->buffered_io) {
-+		pr_err("cgroup_id is not supported with buffered_io: %s\n",
-+		       ns->device_path);
-+		return -EINVAL;
-+	}
-+
-+	cgrp = cgroup_get_from_id(ns->cgroup_id);
-+	if (IS_ERR(cgrp)) {
-+		pr_err("failed to resolve cgroup id %llu: %ld\n",
-+		       ns->cgroup_id, PTR_ERR(cgrp));
-+		return PTR_ERR(cgrp);
-+	}
-+
-+	ns->cgrp = cgrp;
-+	return 0;
-+}
-+
-+static void nvmet_blkcg_ns_disable(struct nvmet_ns *ns)
-+{
-+	if (ns->cgrp) {
-+		cgroup_put(ns->cgrp);
-+		ns->cgrp = NULL;
-+	}
-+}
-+#else
-+static inline int nvmet_blkcg_ns_enable(struct nvmet_ns *ns)
-+{
-+	return 0;
-+}
-+
-+static inline void nvmet_blkcg_ns_disable(struct nvmet_ns *ns)
-+{
-+}
-+#endif /* CONFIG_BLK_CGROUP */
-+
- static void nvmet_ns_dev_disable(struct nvmet_ns *ns)
- {
-+	nvmet_blkcg_ns_disable(ns);
- 	nvmet_bdev_ns_disable(ns);
- 	nvmet_file_ns_disable(ns);
- }
-@@ -602,6 +652,10 @@ int nvmet_ns_enable(struct nvmet_ns *ns)
- 	if (ret)
- 		goto out_unlock;
- 
-+	ret = nvmet_blkcg_ns_enable(ns);
-+	if (ret)
-+		goto out_dev_disable;
-+
- 	ret = nvmet_p2pmem_ns_enable(ns);
- 	if (ret)
- 		goto out_dev_disable;
-diff --git a/drivers/nvme/target/io-cmd-bdev.c b/drivers/nvme/target/io-cmd-bdev.c
-index f2d9e8901df4..0014e5ef2853 100644
---- a/drivers/nvme/target/io-cmd-bdev.c
-+++ b/drivers/nvme/target/io-cmd-bdev.c
-@@ -297,6 +297,7 @@ static void nvmet_bdev_execute_rw(struct nvmet_req *req)
- 		bio = bio_alloc(req->ns->bdev, bio_max_segs(sg_cnt), opf,
- 				GFP_KERNEL);
- 	}
-+	nvmet_blkcg_set_bio(req->ns, bio);
- 	bio->bi_iter.bi_sector = sector;
- 	bio->bi_private = req;
- 	bio->bi_end_io = nvmet_bio_done;
-@@ -322,6 +323,7 @@ static void nvmet_bdev_execute_rw(struct nvmet_req *req)
- 
- 			bio = bio_alloc(req->ns->bdev, bio_max_segs(sg_cnt),
- 					opf, GFP_KERNEL);
-+			nvmet_blkcg_set_bio(req->ns, bio);
- 			bio->bi_iter.bi_sector = sector;
- 
- 			bio_chain(bio, prev);
-@@ -358,6 +360,7 @@ static void nvmet_bdev_execute_flush(struct nvmet_req *req)
- 
- 	bio_init(bio, req->ns->bdev, req->inline_bvec,
- 		 ARRAY_SIZE(req->inline_bvec), REQ_OP_WRITE | REQ_PREFLUSH);
-+	nvmet_blkcg_set_bio(req->ns, bio);
- 	bio->bi_private = req;
- 	bio->bi_end_io = nvmet_bio_done;
- 
-@@ -366,10 +369,16 @@ static void nvmet_bdev_execute_flush(struct nvmet_req *req)
- 
- u16 nvmet_bdev_flush(struct nvmet_req *req)
- {
-+	bool associated;
-+	int ret;
-+
- 	if (!bdev_write_cache(req->ns->bdev))
- 		return 0;
- 
--	if (blkdev_issue_flush(req->ns->bdev))
-+	associated = nvmet_blkcg_begin(req->ns);
-+	ret = blkdev_issue_flush(req->ns->bdev);
-+	nvmet_blkcg_end(associated);
-+	if (ret)
- 		return NVME_SC_INTERNAL | NVME_STATUS_DNR;
- 	return 0;
- }
-@@ -380,9 +389,11 @@ static void nvmet_bdev_execute_discard(struct nvmet_req *req)
- 	struct nvme_dsm_range range;
- 	struct bio *bio = NULL;
- 	sector_t nr_sects;
-+	bool associated;
- 	int i;
- 	u16 status = NVME_SC_SUCCESS;
- 
-+	associated = nvmet_blkcg_begin(ns);
- 	for (i = 0; i <= le32_to_cpu(req->cmd->dsm.nr); i++) {
- 		status = nvmet_copy_from_sgl(req, i * sizeof(range), &range,
- 				sizeof(range));
-@@ -394,6 +405,7 @@ static void nvmet_bdev_execute_discard(struct nvmet_req *req)
- 				nvmet_lba_to_sect(ns, range.slba), nr_sects,
- 				GFP_KERNEL, &bio);
- 	}
-+	nvmet_blkcg_end(associated);
- 
- 	if (bio) {
- 		bio->bi_private = req;
-@@ -431,6 +443,7 @@ static void nvmet_bdev_execute_write_zeroes(struct nvmet_req *req)
- 	struct bio *bio = NULL;
- 	sector_t sector;
- 	sector_t nr_sector;
-+	bool associated;
- 	int ret;
- 
- 	if (!nvmet_check_transfer_len(req, 0))
-@@ -440,8 +453,11 @@ static void nvmet_bdev_execute_write_zeroes(struct nvmet_req *req)
- 	nr_sector = (((sector_t)le16_to_cpu(write_zeroes->length) + 1) <<
- 		(req->ns->blksize_shift - 9));
- 
-+	associated = nvmet_blkcg_begin(req->ns);
- 	ret = __blkdev_issue_zeroout(req->ns->bdev, sector, nr_sector,
- 			GFP_KERNEL, &bio, 0);
-+	nvmet_blkcg_end(associated);
-+
- 	if (bio) {
- 		bio->bi_private = req;
- 		bio->bi_end_io = nvmet_bio_done;
-diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-index 0b22d183f927..570e65259ad8 100644
---- a/drivers/nvme/target/io-cmd-file.c
-+++ b/drivers/nvme/target/io-cmd-file.c
-@@ -79,6 +79,8 @@ static ssize_t nvmet_file_submit_bvec(struct nvmet_req *req, loff_t pos,
- 	struct kiocb *iocb = &req->f.iocb;
- 	ssize_t (*call_iter)(struct kiocb *iocb, struct iov_iter *iter);
- 	struct iov_iter iter;
-+	bool associated;
-+	ssize_t ret;
- 	int rw;
- 
- 	if (req->cmd->rw.opcode == nvme_cmd_write) {
-@@ -97,7 +99,10 @@ static ssize_t nvmet_file_submit_bvec(struct nvmet_req *req, loff_t pos,
- 	iocb->ki_filp = req->ns->file;
- 	iocb->ki_flags = ki_flags | iocb->ki_filp->f_iocb_flags;
- 
--	return call_iter(iocb, &iter);
-+	associated = nvmet_blkcg_begin(req->ns);
-+	ret = call_iter(iocb, &iter);
-+	nvmet_blkcg_end(associated);
-+	return ret;
- }
- 
- static void nvmet_file_io_done(struct kiocb *iocb, long ret)
-@@ -251,7 +256,13 @@ static void nvmet_file_execute_rw(struct nvmet_req *req)
- 
- u16 nvmet_file_flush(struct nvmet_req *req)
- {
--	return errno_to_nvme_status(req, vfs_fsync(req->ns->file, 1));
-+	bool associated;
-+	int ret;
-+
-+	associated = nvmet_blkcg_begin(req->ns);
-+	ret = vfs_fsync(req->ns->file, 1);
-+	nvmet_blkcg_end(associated);
-+	return errno_to_nvme_status(req, ret);
- }
- 
- static void nvmet_file_flush_work(struct work_struct *w)
-@@ -274,10 +285,12 @@ static void nvmet_file_execute_discard(struct nvmet_req *req)
- 	int mode = FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE;
- 	struct nvme_dsm_range range;
- 	loff_t offset, len;
-+	bool associated;
- 	u16 status = 0;
- 	int ret;
- 	int i;
- 
-+	associated = nvmet_blkcg_begin(req->ns);
- 	for (i = 0; i <= le32_to_cpu(req->cmd->dsm.nr); i++) {
- 		status = nvmet_copy_from_sgl(req, i * sizeof(range), &range,
- 					sizeof(range));
-@@ -300,6 +313,7 @@ static void nvmet_file_execute_discard(struct nvmet_req *req)
- 			break;
- 		}
- 	}
-+	nvmet_blkcg_end(associated);
- 
- 	nvmet_req_complete(req, status);
- }
-@@ -336,6 +350,7 @@ static void nvmet_file_write_zeroes_work(struct work_struct *w)
- 	int mode = FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE;
- 	loff_t offset;
- 	loff_t len;
-+	bool associated;
- 	int ret;
- 
- 	offset = le64_to_cpu(write_zeroes->slba) << req->ns->blksize_shift;
-@@ -347,7 +362,9 @@ static void nvmet_file_write_zeroes_work(struct work_struct *w)
- 		return;
- 	}
- 
-+	associated = nvmet_blkcg_begin(req->ns);
- 	ret = vfs_fallocate(req->ns->file, mode, offset, len);
-+	nvmet_blkcg_end(associated);
- 	nvmet_req_complete(req, ret < 0 ? errno_to_nvme_status(req, ret) : 0);
- }
- 
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index dbda55895f4f..494091d7c88b 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -21,6 +21,8 @@
- #include <linux/radix-tree.h>
- #include <linux/t10-pi.h>
- #include <linux/kfifo.h>
-+#include <linux/kthread.h>
-+#include <linux/cgroup.h>
- 
- #define NVMET_DEFAULT_VS		NVME_VS(2, 1, 0)
- 
-@@ -115,6 +117,16 @@ struct nvmet_ns {
- 	struct nvmet_subsys	*subsys;
- 	const char		*device_path;
- 
-+#ifdef CONFIG_BLK_CGROUP
-+	u64			cgroup_id;
-+	/*
-+	 * Resolved from ->cgroup_id when the namespace is enabled and
-+	 * released when it is disabled, so it has the same lifetime and
-+	 * visibility rules as ->bdev and ->file.
-+	 */
-+	struct cgroup		*cgrp;
-+#endif
-+
- 	struct config_group	device_group;
- 	struct config_group	group;
- 
-@@ -732,6 +744,53 @@ void nvmet_bdev_execute_zone_mgmt_recv(struct nvmet_req *req);
- void nvmet_bdev_execute_zone_mgmt_send(struct nvmet_req *req);
- void nvmet_bdev_execute_zone_append(struct nvmet_req *req);
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static inline void nvmet_blkcg_set_bio(struct nvmet_ns *ns, struct bio *bio)
-+{
-+	struct cgroup_subsys_state *css;
-+
-+	if (!ns->cgrp)
-+		return;
-+
-+	rcu_read_lock();
-+	css = cgroup_e_css(ns->cgrp, &io_cgrp_subsys);
-+	bio_associate_blkg_from_css(bio, css);
-+	rcu_read_unlock();
-+}
-+
-+static inline bool nvmet_blkcg_begin(struct nvmet_ns *ns)
-+{
-+	struct cgroup_subsys_state *css;
-+
-+	if (!ns->cgrp || !in_task() || !(current->flags & PF_KTHREAD))
-+		return false;
-+
-+	css = cgroup_get_e_css(ns->cgrp, &io_cgrp_subsys);
-+	kthread_associate_blkcg(css);
-+	css_put(css);
-+	return true;
-+}
-+
-+static inline void nvmet_blkcg_end(bool associated)
-+{
-+	if (associated)
-+		kthread_associate_blkcg(NULL);
-+}
-+#else
-+static inline void nvmet_blkcg_set_bio(struct nvmet_ns *ns, struct bio *bio)
-+{
-+}
-+
-+static inline bool nvmet_blkcg_begin(struct nvmet_ns *ns)
-+{
-+	return false;
-+}
-+
-+static inline void nvmet_blkcg_end(bool associated)
-+{
-+}
-+#endif /* CONFIG_BLK_CGROUP */
-+
- static inline u32 nvmet_rw_data_len(struct nvmet_req *req)
- {
- 	return ((u32)le16_to_cpu(req->cmd->rw.length) + 1) <<
-diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
-index 23a17c02abee..a9836d44f5e6 100644
---- a/drivers/nvme/target/zns.c
-+++ b/drivers/nvme/target/zns.c
-@@ -480,8 +480,11 @@ static void nvmet_bdev_zmgmt_send_work(struct work_struct *w)
- 	struct block_device *bdev = req->ns->bdev;
- 	sector_t zone_sectors = bdev_zone_sectors(bdev);
- 	u16 status = NVME_SC_SUCCESS;
-+	bool associated;
- 	int ret;
- 
-+	associated = nvmet_blkcg_begin(req->ns);
-+
- 	if (op == REQ_OP_LAST) {
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_send_cmd, zsa);
- 		status = NVME_SC_ZONE_INVALID_TRANSITION | NVME_STATUS_DNR;
-@@ -511,6 +514,7 @@ static void nvmet_bdev_zmgmt_send_work(struct work_struct *w)
- 		status = blkdev_zone_mgmt_errno_to_nvme_status(ret);
- 
- out:
-+	nvmet_blkcg_end(associated);
- 	nvmet_req_complete(req, status);
- }
- 
-@@ -580,6 +584,7 @@ void nvmet_bdev_execute_zone_append(struct nvmet_req *req)
- 		bio = bio_alloc(req->ns->bdev, req->sg_cnt, opf, GFP_KERNEL);
- 	}
- 
-+	nvmet_blkcg_set_bio(req->ns, bio);
- 	bio->bi_end_io = nvmet_bdev_zone_append_bio_done;
- 	bio->bi_iter.bi_sector = sect;
- 	bio->bi_private = req;
--- 
-2.53.0
+foo:
+         li 5,8192
+         li 4,0
+         b memset
+foo2:
+         li 5,8193
+         li 4,0
+         b memset
 
+But that's the reason why vdso Makefile has option  -fno-builtin, that 
+option gives instead:
+
+foo:
+         li 10,2048
+         li 9,0
+         addi 3,3,-1
+         mtctr 10
+.L2:
+         stb 9,1(3)
+         stb 9,2(3)
+         stb 9,3(3)
+         stbu 9,4(3)
+         bdnz .L2
+         blr
+foo2:
+         li 9,0
+         li 10,2048
+         stb 9,0(3)
+         mtctr 10
+.L10:
+         stb 9,1(3)
+         stb 9,2(3)
+         stb 9,3(3)
+         stbu 9,4(3)
+         bdnz .L10
+         blr
+
+
+
+Christophe
