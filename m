@@ -1,141 +1,111 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4236381EA3
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:40:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9397930F95C
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:41:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790451628; cv=none; b=Adi2uERZj4AGfNSmEisbBobfVfT9yhXzM1uIXMLX/MDXrpvKTspU1za+rKhT3c/+azxvYQWL81d7KJpO23tjGrXM9rFLqup/QpeSgN0mG2Op87nwaO79aj1uG0ijMCXnNNqEUk5Slx/nLgLdgF+wPLD5j5YooQJyVn9zO5LbbGs=
+	t=1790451673; cv=none; b=dQz6sc+Kp7e1SFrXHteplWD4JXZZtUQXTdOp079Mbbm86P7Qeq576wlc9/fIhwfKT8Yt0L4QzsB5+AL5IZdE0Z+5Nq3hzn0wPGa2aZ9s9sEhsUpbFcwYVGHp8+s72RDANc34epSWpBnkEEIKYuWxmRbZo0qMK4L8t05UNKmsmMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790451628; c=relaxed/simple;
-	bh=LVYPylbZu3M6VrXkQZcoyGu2621tAs/rWNxgexduWm0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pBNvFMXkU+p7bAsUU29psi8nbkq5MNApurowXbcQxwDVZx5YWg5wleiGoY3KtXC5Dtz3W3opV31RoONSmFJP3YEturND+eaGukZvZirxnpxGl8hJD/yEeBoJ1Jvs/htelR9Ek0OS0qwgaoSyIdOhj41xGUlYz6RPGvJtG6fqVck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pq1Vd1xr; arc=none smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790451673; c=relaxed/simple;
+	bh=npEuW4n7TQQHCUOPnYZM7biNMGZ19hSLwSgxjFP+p/8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f7RQDAgkavy3dFmU9ExoMKQA9rTWx258LOYvBp7+aHfss40OXU8flq/8pEXVFtBsH7Xer3OS7D9SlfYVJuywby5qMo0FdE+tqNN476thVhGNhBNzpYQCOSdfE42HgQy1Zla10J6L9TuewyXlwBH99G4hU7ronK6h5scLzym9nYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QeNsRfTG; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pq1Vd1xr"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c3b639adbcso1728262b6e.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:40:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QeNsRfTG"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffa15f67fso3403525e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:41:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790451622; x=1791056422; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YKtZQLrJoNL1FhGmGKsD48Cotqxaqos8u7jP6s8F5bk=;
-        b=Pq1Vd1xrlDVKr9Yn1Up9HGTyGRvbsWvMRw9jhJlv8NQw/PaNDhs2NIuSSYi0G4h2bU
-         vocK3hlTkLVsq/Xpk/Fgltk4MGjDTlzBz4DCduXIyfdIoZYho1liY0oENr53wSksf9Gl
-         auh6aPisnXLVsuTNzv/wIpSVFhDaLBfQZYmsV98YbW3mKncFwmiPSxIUzJLlzmYaFkcd
-         BpdvvdxBlT1PkSIbhyj42/L281Q7+9bTRW7+51dZPsw80IbSQqvYyrO0NTmXFzofPxn7
-         dpeGcCLC7Gno+LcYIaqM6Ba21u2auck1wCGK6BC5Z+sAJOJNug5ZE8ezhiO8l5uiKDHM
-         b+gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790451622; x=1791056422;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linuxfoundation.org; s=google; t=1790451670; x=1791056470; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YKtZQLrJoNL1FhGmGKsD48Cotqxaqos8u7jP6s8F5bk=;
-        b=VuOqja54fkbi2DUb7jUbZWVR7wGiiGFqHDfXz2dF9e+0nig3qTx2Qc+kGy8eqvIxsP
-         mnI7FQsCJmToCRRBPjqalt+SeY8sx0UtwXundzDWGKkr5+Of2820uaDfenqsC9422eax
-         elXJAUeypfVBMjQAwERGGbSzxCTwvpiMj7JmADf6IpYbzGqqs7A9ufDu40c4xWW2Mt+x
-         bY0Sg511/oDyc53qRO726BqQQL0wSSPVbs8Wnde6G7nDeqQ+lAyXlkBkTQo8w7O83Fi+
-         y0BTZeeN36BaUkrxRt0LeEvIlmQ1ovIlgydi3dAizGXvzdLDTs+6VvCPhte90C9u3/N4
-         tXfA==
-X-Forwarded-Encrypted: i=1; AKwUvByTpKWY7QluaTEJ9l2q0ZhVSaGIgorB/XfSfZM49LdNcExTuMvBzdSG1TTDRdum3JceChyLUe+dPqn0FHE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+rgQwzU/GzqYtbOnqOk+efWGQjygIoXslMZJVPQV3PJGNme6W
-	tFfmUSe5x011G+2Zb1xW4sif0xGY5SLj8BA5NEHyclmPvvDlxFFz0WLo
-X-Gm-Gg: AYBFou2QGMaS20oauAx+pN7GoG92rlIXvWBP5AiClTgt+7o4SrK8HwbV/Waecq6nNRj
-	rFRkn/mVIJrKkdbYsS3b8qQ3qymQEprxv64XkSvOCL7O3x3VQ4hTvUffzZufkIANmVIVCZuQJB1
-	pf+ToxBuHpHjUlOpCHwomN+X4DMt8ctkkb0qGMGnB9CBfcMDfUjo1LFfwzRn6LYTapEJCZ5l31j
-	rA0MGKC5RA9gZI76CPV0cpYBu7Aaxvp2mPviGdgX8uG+A9Ju5baQ/2caPk+kCy3ywpLaeth9IpN
-	Y1oAVzluH/zV8ZHpHswq2v1oB+U3U0W+Pa3t9YCfuF+4FtdEKhlnF2E3Mbi8vqAbfGH/4ROz5fD
-	PSwFKDmHLAxqAV4ncqE5OwVBUVV636LjkD2xQ+0VKFHwuIFDjS1OsJklQkn9PKD5BD109Uc3x3f
-	L4VG/vfmT2Unlm4HZ/v2ZMTDR9dRQWHNRqxe3UzHplGv33YdR34AG2Zv4RwRwn9DFtedNZz/vAm
-	xkLcrG9fj7cWa3OI79KxaK131+EYHkDWhz75fGzLS4+WJNASmjkqwZ5HihyWEjDSTTNKJA06hn1
-	4g6Gn3UOTcx1r1qVV0k=
-X-Received: by 2002:a05:6808:f03:b0:4d6:9222:99f9 with SMTP id 5614622812f47-4d72ea5f257mr10775845b6e.57.1790451622482;
-        Sat, 26 Sep 2026 12:40:22 -0700 (PDT)
-Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
-        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-49335011458sm5955595fac.4.2026.09.26.12.40.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 12:40:21 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Sat, 26 Sep 2026 13:40:14 -0600
-Subject: [PATCH v6 3/3] kallsyms: Unroll 24-bit sequence reconstruction in
- get_symbol_seq()
+        bh=e+beTysoBwhop9miz7Sgfjczw7HyI8kJXP0d2yfzAYI=;
+        b=QeNsRfTG5Dd5b+IN/hQWiAoEmLoibW4brZZCBXmNalYwrY0t6AV4ny10kO2qdaDQBQ
+         EWoqD+YNeVBOavjHxZwgDsbbXXdjVCYSvYfVzLcZZjLalqiOK9sBFD+awuS/DhSTExDk
+         hqFVCO4lXEzTo6v/PxRbfesmKxplMkzdT5x3s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790451670; x=1791056470;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e+beTysoBwhop9miz7Sgfjczw7HyI8kJXP0d2yfzAYI=;
+        b=bWUUcmP2u5prGkdip446xj6S1D5w+if1ObueG/jt3PAy2kycJQHjau+vuwBunJsHnk
+         75MQwI1K+6bezP7ewctrdJzP/Z5F24s/XNl/FVmLeYg0f+z8xKEwORoq+ZTNwHPjIW9A
+         hjpyNaobYbFvo4uN1WdgW1rUDhC/Ef+aPYxRGUjx51LCbGYL8ICyTBx2CY1mA3KFzmKE
+         u5pV8UgdGgOmLaJaSUJwoeEAIIzmcgxdBLwudKN9h1uodiJBPShPYg1I2E3efAEifUEy
+         cXOSYWdTE4JDaTL1RPZO8f1nKy7nTWqrYSXXO2M26zYlQTHYL0pgBBVP2HKSAbIf0KdQ
+         rsUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6HQnDFHnr5Pvy/D4f7ZTxDSb7ctYkoOtm8JfQPdsvv1Cx+UyMa3tKlY2qHgA5DpZQMhGLWBJ/ijDWwOY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kY2kVpbXuVRVVteEjlhrV0MOkss/CSBD28rAtsGnKrCK9cz+cZ
+	4zyABxfarZ5bTBa1ORGm0TIXtjz9AwwjQfpVtvKqUXdAKHluIxLenakXhYnAAS4Hcuk=
+X-Gm-Gg: AYBFou3GrslbSmADekMVg7EDbf4ONY7KD9kbIDornrlG/t6Lb7q0xrDogh+xmQF6Kcq
+	OHY5LCDad0PkFuYk5kHadFqI48gp1rnE6Wep6ompueBsukTeMnqimOBYRBrSgK5gF7Ogwj2CnBi
+	gFVB8dN1xlKg96+mwR9fbUxhbqgKbV6Bw17F8pMnNJVtMbWida7LPHHMNGrNgaEaKVwzeazQcxP
+	HfkUnGOZq/HEDkvK8zjLqW248L1TwGS1+hAIlQAfAQnsj36Jcj1ICD9BKxNUYc6CqeeX52a/NOh
+	bEctS6QhNecicuqiyY0KDqNQrGg9XlNyz2VMWLQftiksaF2g4/RP4KPT0J2+m2TJm7ci7jgIpHo
+	f24K5de3V0MVmBK5CRUiZtVc8kmC5Al02iHJm7W2QIZy8xWW+oFnv66OodYuvTAiDrzKcOt/C7U
+	pVB0IPkPf6R2T7iOOq/NnrybJDTaVV7+H4KMGEUd6gbn2WoNgFoS3xvuYutro0rxVQOF+M5Jb8y
+	DwCnpU1mFKLGoE61ZiJT1jFc7M9Ns+pyM/1k8kCFyFYCvQZLSdnoqxcvoYd8CrkW0vk
+X-Received: by 2002:a05:600c:4685:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-49ffd2d25bcmr36825035e9.27.1790451669577;
+        Sat, 26 Sep 2026 12:41:09 -0700 (PDT)
+Received: from [10.188.205.27] (cust-west-par-46-193-1-237.cust.wifirst.net. [46.193.1.237])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06cbd2dsm150074965e9.12.2026.09.26.12.41.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 26 Sep 2026 12:41:07 -0700 (PDT)
+Message-ID: <3e4774b7-ef55-4288-864d-a5a9313a81c9@linuxfoundation.org>
+Date: Sat, 26 Sep 2026 13:41:05 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-ksyms-tune-v6-3-236620c65e98@gmail.com>
-References: <20260926-ksyms-tune-v6-0-236620c65e98@gmail.com>
-In-Reply-To: <20260926-ksyms-tune-v6-0-236620c65e98@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
- David Laight <david.laight.linux@gmail.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Jiri Olsa <olsajiri@gmail.com>, 
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
- bpf@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790451613; l=1647;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=LVYPylbZu3M6VrXkQZcoyGu2621tAs/rWNxgexduWm0=;
- b=dNUj7m5vUOsr5ayzqUGXa8mCtan7WqpvOb8CSFdlf7x9KECVTvRON81QIFDLKFz2EcF6imX17
- u3cQQFthy5FAaXBk1SogPOhRT8cnneAmJILB8JSWnHkrLe97OdyfQm5
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] usbip: vudc: Prevent transfer timer rearm during
+ teardown
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Valentina Manea <valentina.manea.m@gmail.com>,
+ Shuah Khan <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ijae Kim <ae878000@gmail.com>,
+ Michael Bommarito <michael.bommarito@gmail.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260923022033.957777-1-mhun512@gmail.com>
+ <f1c55b79-4487-40db-b2fc-342b2dc33c1f@linuxfoundation.org>
+ <CAGEsz8E7TT0SqSPxpJS7QbAvAwXF8n6_ra4VPvN=q0SHdavm0A@mail.gmail.com>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <CAGEsz8E7TT0SqSPxpJS7QbAvAwXF8n6_ra4VPvN=q0SHdavm0A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-kallsyms_seqs_of_names[] stores 3-byte big-endian sequence indices that
-map alphabetical symbol positions to address-ordered symbol records.
-Currently, get_symbol_seq() reconstructs each 24-bit integer using a
-3-iteration for-loop that shifts and bitwise-ORs each byte sequentially.
-During binary search in kallsyms_lookup_names() and duplicate boundary
-scans, this loop introduces branch and loop overhead on the hot lookup
-path.
+On 9/24/26 15:44, Myeonghun Pak wrote:
+> Hi Shuah,
+> 
+> __must_hold records the existing locking requirement for
+> v_start_timer() and v_kick_timer(). The old comment was inaccurate
+> because v_stop_timer() runs without the lock. timer_shutdown_sync() is
+> the actual fix.
+> 
+> The QEMU harness sends CMD_SUBMIT packets while repeatedly unbinding
+> and rebinding vudc. It reproduced the bug before the fix and ran 4,000
+> iterations without a report afterward. I’ll add this to the v3 commit
+> message.
+> 
+> I have not tested with physical devices and a remote client.
 
-Mark get_symbol_seq() as static inline and unroll the 3-byte extraction
-into direct byte shifts: (p[0] << 16) | (p[1] << 8) | p[2]. This
-eliminates loop induction variable maintenance and allows the compiler
-to generate direct loads and constant shifts.
+Please don't top-post in responses to kernel email reviews.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
-Changes in v3:
-- Added as a standalone micro-optimization patch (addresses David
-  Laight review).
----
- kernel/kallsyms.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+If you haven't tested this physical devices and a remote client, how
+do you know this change fixes the problem. Sorry I can't accept this
+patch.
 
-diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-index 91ced7aa797e..52e41879c24b 100644
---- a/kernel/kallsyms.c
-+++ b/kernel/kallsyms.c
-@@ -185,14 +185,11 @@ unsigned long kallsyms_sym_address(int idx)
- 	return (unsigned long)offset_to_ptr(kallsyms_offsets + idx);
- }
- 
--static unsigned int get_symbol_seq(int index)
-+static inline unsigned int get_symbol_seq(int index)
- {
--	unsigned int i, seq = 0;
-+	const u8 *p = &kallsyms_seqs_of_names[3 * index];
- 
--	for (i = 0; i < 3; i++)
--		seq = (seq << 8) | kallsyms_seqs_of_names[3 * index + i];
--
--	return seq;
-+	return (p[0] << 16) | (p[1] << 8) | p[2];
- }
- 
- static int kallsyms_lookup_names(const char *name,
-
--- 
-2.55.0
-
+thanks,
+-- Shuah
