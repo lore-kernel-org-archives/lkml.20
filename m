@@ -1,96 +1,104 @@
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B00341A79C;
-	Sat, 26 Sep 2026 10:42:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
+Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com [74.125.230.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FC041378D
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790419358; cv=none; b=crDrdI+FpZZ1xSOvs9QjRKdurzDMyPIBQixgz/ftENmPyWvLCzqxS/N6AGEB+JByXJjt39Tbq+DoOOSj3J4ilvzpPLl9c60QI/66wC2hLo5qHwS7OukskRKXBBhgXmiGHpSAGQlewEZXZe8oN/UxnjV2SKr+uDdm3rfVOz3/8Ck=
+	t=1790419448; cv=none; b=JKz8As9znaJAFRMsBLslglniHKD7LcPzhRYz0r+VyCFQ0xViSptY++JNXLhKdvIUfmTsIyBA1ZY6mWvbcJwIL8HknNENNZOILODVaZiYbVnHtShsLF4JYbtwH/wmLrSVwjZbgIHLE2UfAdsKSixxtsfdhqFF2VwWrZDhe9/wpUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790419358; c=relaxed/simple;
-	bh=+Lx1pgdbxYUQip+3017DTM7wVbGGBBQpwfnh75/eV/I=;
+	s=arc-20240116; t=1790419448; c=relaxed/simple;
+	bh=MctTYdfGPj00J6w1N5O8ZOZ/SCKIeqWaRzqr1F43zWQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IOMJoxZvWap6e7OiRldmyqRMq8B/gCnUTb3vWU2dRxArrNNV6dIggitkxhKLPmpvDripUEdoLecpSPLwH7ln4QpCg97S0kJwEXB9zXXDqjlqHh+58UwjiUL9EUJaRxjgdS6hwqRKvhWlcBDzyO0jRrxKDRvaWeGZX4RNndf2iL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
-Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1xAP4P-0007Lx-00; Sat, 26 Sep 2026 11:51:49 +0200
-Received: by alpha.franken.de (Postfix, from userid 1000)
-	id 4F3A2C0D3A; Sat, 26 Sep 2026 11:41:25 +0200 (CEST)
-Date: Sat, 26 Sep 2026 11:41:25 +0200
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Cc: Paul Burton <paulburton@kernel.org>, linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH] MIPS: generic: Remove undefined image 'ramdisk'
-Message-ID: <areTRXqZCKybViOC@alpha.franken.de>
-References: <20260922-mips-ramdisk-fix-v1-1-959d163c2445@oss.qualcomm.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=U0Yx1eghuJqzWIuStnqsszhhaPXrCeTWVT4aQrztkbPfT1DlRRyVI961DhjrqeWNE8pQ75UJHi7kKS1hJSwyJRciUjmNAsGWJ8MyHzGTbqYqp7VB4b8MnUftveO3ZKfFZze543TFppNDu1gqPVY/fib/RlMr9PndzhvPUYrbxs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=qL/OhyO0; arc=none smtp.client-ip=74.125.230.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="qL/OhyO0"
+Received: by mail-qv2-f42.google.com with SMTP id 6a1803df08f44-91447a0d24bso1487906d6.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:43:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1790419421; x=1791024221; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z53uSMUq2W80HZiwGXPg4CfzzfvAXSACVLwfmhiGvRc=;
+        b=qL/OhyO0UDeziz00j0G366Kb02C7eN5TfR/RBO72sZejsQSCdwPG69FsN1NCoOnS7D
+         ADSYvJKPSCfIGVUag/LhAMPfvcxZBEqa3iJmcww0jy/dk+BQvHCIWfiBON2Q010cp1m4
+         X7xALojr0YtRqI2wnRmEzT8c8qiRdDhtWbf8edoZQjDgyzgbsnBxsHlmwNKrP6OvOn4u
+         3oaBFn7t7FyaQHwFR2zZzf7uDDSZ/drROyQLXZ7Z9KTgHWPfbJI9OJ5Dj3AlHLi8Nhi8
+         +Rc9cexAdUWCRRi/OBgaWZ8nY03nRDI7WsAo+XykjaqIe3nVupulrqbwkW9SuDOMUZXU
+         B2Aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790419421; x=1791024221;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z53uSMUq2W80HZiwGXPg4CfzzfvAXSACVLwfmhiGvRc=;
+        b=DawUZoSYG7tiD14IycAn5GlH2aoPMEcU9Q24KdUJW7JDnwhLrISgy1tvG67hgfwGoJ
+         wrRiz16jRrkDqD0hpJp7O3W7ba24Io4F/N0NJa5VhIOrKlz5JWPoWNxVrQknVaU46VPF
+         pIGyONbZfT6d4oHOV/609wUn2knmxlIMZpkwLBr8OT+exiriBz+ha083wHGM4oPG1IZj
+         zND8hfF68unIcgyWkl/1p00gVRJ+wBqcAScssIQGLsBRvRqpEh0Egqf0A2f3r8GI1t8s
+         wMNpl3apj82XpXSOknbmvPjQlq9PWsfZ/LupgCiMa42LX4+VaaGmnSw8ee/R3qok/jGu
+         i2+Q==
+X-Forwarded-Encrypted: i=1; AKwUvByfNWQIBXucsoUQzntulITg2jchhJzevpmM5PkI3gKmW853G6+1DjN9XW6xIRuw1pqUuVZE+9+tLIsn4/8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4SGYCF1rwAcDaUg4okCjwBJQ0FD2GFLBwfN9A5vSwYsbVS7xS
+	43Pw+AkrpHVoLvNbcuDPpc8U3sNYZKRNAuSadOZygBSDAxx7OnvtrgxLrp6xcYO9x3k=
+X-Gm-Gg: AYBFou19vlHu0UNSLQE1L10YaRnKjXhuTtEXB7AYAcwNNBA+PGQaZiFWMPwZ707W0Em
+	rTfPB0LxJq0cCN/hMvm8MO9uOebUaJSmEu3e4/H1MTs9oEHOCEBscWCIe4RB0oTjf1cvzbR0fMi
+	DOjyQUop2rS4U5HdHUxoFUMBA6vJ6O0zh3FJm7XzHSHldbW6LREgamkySYiXrNo70VcMdiN2lyh
+	b6F4ijvBMEmRRH8loOrEZxdT7OYE4zbC59BC+QaMopEMFjk2y5NKgLy143v2yvtKs/CXCEssJpE
+	L2HSqnVN+nPJdYVDM6bOIaDYiRy5pQNw1FuVCkWgPreT0y83wqJytig1TlAjgavT6xKR95sf6h1
+	2/QuQt9HertLKYyBypH6eNo/Uj7jZCyMnKXLvcxJyRKBODfssqATd3I9W3td4ZQPZjQwrRh4p9y
+	3CESPdFsaw9+Y729BP0JfoNKGvt+GviPbIPgB079r4a5cluYlwUWPGEfzdd6yuiiJWBObwU6EiF
+	0mv3LMZXDA0FB9CFi34MeEKEBeUBWVKx+xRIGdU4LmXzN9YIZJOFYI=
+X-Received: by 2002:a05:6214:3b82:b0:914:48c8:6961 with SMTP id 6a1803df08f44-91448c86fb2mr22359076d6.17.1790419421191;
+        Sat, 26 Sep 2026 03:43:41 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430e6ccfcsm36688496d6.40.2026.09.26.03.43.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 03:43:40 -0700 (PDT)
+Date: Sat, 26 Sep 2026 06:43:38 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
+	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
+	apopple@nvidia.com, peterx@redhat.com, jgg@ziepe.ca, 
+	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm/mempolicy: use vm_normal_folio_pmd() in
+ queue_folios_pmd()
+Message-ID: <arehr1Z86Vp4gFPa@gourry-fedora-PF4VCD3F>
+References: <20260912034833.2952750-1-gourry@gourry.net>
+ <20260912034833.2952750-2-gourry@gourry.net>
+ <aqpyp7ouLyxGhJDK@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922-mips-ramdisk-fix-v1-1-959d163c2445@oss.qualcomm.com>
+In-Reply-To: <aqpyp7ouLyxGhJDK@gremlin>
 
-On Tue, Sep 22, 2026 at 08:19:04AM -0700, Jeff Johnson wrote:
-> As originally reported by Guenter Roeck [1] and subsequently confirmed by
-> me [2], a MIPS allmodconfig build can fail with:
+On Wed, Sep 16, 2026 at 11:53:58AM +0100, Lorenzo Stoakes (ARM) wrote:
+> It seems that setting ACTION_CONTINUE or not makes no difference.
 > 
-> Error: configuration 'pcb110' references undefined image 'ramdisk' in property 'ramdisk'
-> make[3]: *** [../arch/mips/boot/Makefile:173: arch/mips/boot/vmlinux.gz.itb] Error 1
-> make[2]: *** [../arch/mips/Makefile:403: vmlinux.gz.itb] Error 2
+> This is really just a long way of saying maybe you could just do:
 > 
-> Or with:
+> 	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
+> 	if (!folio)
+> 		return;
 > 
-> Error: configuration 'pcb105' references undefined image 'ramdisk' in property 'ramdisk'
-> make[3]: *** [../arch/mips/boot/Makefile:173: arch/mips/boot/vmlinux.gz.itb] Error 1
-> make[2]: *** [../arch/mips/Makefile:403: vmlinux.gz.itb] Error 2
+> ? :)
 > 
-> Guenter's original report made the observation that this was triggered by
-> an operating system update since he saw the same errors appear on
-> previously working kernels after the update.
-> 
-> I prompted an LLM with the information available and it provided the
-> following additional information:
-> 
-> This is not a kernel bug — it's a mkimage behavior change in u-boot-tools.
-> Your system recently received an upgrade from u-boot-tools 2024.01 =>
-> 2025.10 (Ubuntu 24.04 noble-security), which included two upstream commits
-> from June 2025:
-> 
-> - tools: mkimage: validate image references in FIT configurations (commit 7a8b25a)
-> - tools: mkimage: propagate error codes from fit_handle_file() (commit 21705d3)
-> 
-> These commits made mkimage strictly validate that every image name
-> referenced in a configurations node actually exists in the images section.
-> Previously it silently ignored undefined references, now it errors out.
-> 
-> The offending files in the kernel are arch/mips/generic/board-jaguar2.its.S
-> and arch/mips/generic/board-serval.its.S — their configurations reference
-> ramdisk = "ramdisk" but no ramdisk image node is ever defined anywhere in the
-> FIT source. This was always technically wrong; the new u-boot-tools 2025.10
-> just enforces it.
-> 
-> To fix the issue, remove the stale ramdisk references from both ITS files.
-> 
-> Assisted-by: LLM
-> Reported-by: Guenter Roeck <linux@roeck-us.net>
-> Link: https://lore.kernel.org/all/f817c158-412b-4fd1-9941-9c2ff421b91a@roeck-us.net/ # [1]
-> Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-> Link: https://lore.kernel.org/all/7eca1c7f-52d5-43bc-afcb-1f6ac198e391@oss.qualcomm.com/ # [2]
-> Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-> ---
->  arch/mips/generic/board-jaguar2.its.S | 2 --
->  arch/mips/generic/board-serval.its.S  | 1 -
->  2 files changed, 3 deletions(-)
 
-applied to mips-next
+You are correct, I will spin a quick v3
 
-Thomas.
+although this will hurt to rebase the rewrite series on.
 
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+~Gregory
