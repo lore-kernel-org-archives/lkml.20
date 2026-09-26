@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316DE331EB5
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:55:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA29B331EB5
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790409316; cv=none; b=B0lcbnAqL9dgjbJeV/Nf/Y7vu1bDEf/Wa7xWinOIAPuYv3zvR/0pLGBpn+AYJAac5s7GNEmrzU4qbS4ghZd1xhfJTpYFHh95Yn+OVMwvvIvZn+Z4j+qSkUnTtjjCPArfzqotXVmgiyUlpAr5+H2aDHOIK4UYxjXpP3dR7+5sP/4=
+	t=1790409369; cv=none; b=Qzd0SKGDAsntDHjIC/DzsjNv6nJkDBrFDxs/WtodxNEkXWOIpc70DFXpI1lJOtiQOwELD12bqip7ecPsC5iZhWiZpdjzPXnGqNmRdmg3ek0XytvaLOPNAyi0MUiwkOpAwLGg1Uu7ES3Li4HCZz0XdtU7gnifSHvblnQL0euyiUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790409316; c=relaxed/simple;
-	bh=aT7t3QidARE3PuizES3jfTJZCho7lmxvo7F9xNNqxYo=;
+	s=arc-20240116; t=1790409369; c=relaxed/simple;
+	bh=UDWrbsWlX7P2kvkIZ3IlhQ9c70chLfuh+pWFDdhroqI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ROQm+suDS5fnzn5dRBUE4Wb+JrZh7E7smcOe2kHwOWFpdWNTvhx/bzjT/VEYU6FRgRP5zpBvG1DLYZdZoJAdIXa2fDuX3D+39Qi9mUtl1B5e7zGwMTkNBu773XmV64g0VUXw1ZfNtese+dx00VPrjoGsKhWNHtzNKRBjMnQGxj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nw8RAwck; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fOGCzAnMiSlAchoLkU+rV/h4qHTAoTPUjlsr/D0JYR3/NF68GRR768Sgg2GNqKwsvd+E45uLjA6baeehYorhkgDB9yY2zvGIHIBaS7fCX7Pj62WcRlMUE+Gk75+nWXsADZa/eDW7cvRtI6mVSxTX4wGBkXOaYmwnyiOtxxlitQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EhiaLJ3n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nw8RAwck"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9281F000FF;
-	Sat, 26 Sep 2026 07:55:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EhiaLJ3n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987901F000FF;
+	Sat, 26 Sep 2026 07:56:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790409314;
-	bh=GwqnBwRVIsXRmAyRc8E8Ijh+jmQBFm2/IFbbIbxTCKY=;
+	s=k20260515; t=1790409368;
+	bh=W5Ve5aCU1EyBV0r6rgDy9orC+fjCn3d6sZyhy9CDc68=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nw8RAwckFc8w9qeay/H8ZADcvi7dKiR7OsXOjQ8dlqrRmM1IEqKzdBOH+G0hDFe6P
-	 r6Yq7+iL+LhiKfY8+dG97aAKl1KMOzgKEPDkpQmX95p7b5Of91/szL+0sHeFG0YOzR
-	 sVZKq9PpqAs5VAYdp8tGFWCR+aXDIw7xKpPfSgSBiUTJcT4jZtvjG8U+jpNeZqBWes
-	 xlwso6VnNctjdRTTsHvDHPBOHXbFJ42+zHpJqBPly4Cg+K6lhEbotkpcofO4+irj/o
-	 PAWdia6ZZVgalw01zhEuBqmoDBN8e+HsKGf1OXBdRqqZd/ifMiDJPHq7nL4KZOzkeb
-	 YNhboKlk4US5A==
-Date: Sat, 26 Sep 2026 09:54:56 +0200
+	b=EhiaLJ3nFsoq3nc2vNaeQvVblpK3bFt6jiLyUMEyrNrbuCG741Ku24JsSmxLU5QTa
+	 iFz+lnTKL+GPxm7OJkO5ZgxPsca1k5YYRfZIrFLvXM3guAH+yGxkrv0hjONQmGsO2e
+	 9qhE7R/0eL2W1wvmDc7nMN26vLShPTrRhqwbDx4Te9+PUfkmQqATQFnqfeDgziNv0v
+	 j+dCmgpN+hpGwDAH9z9D3C+7tXjROEHlfv8wgGJLTsc8KuK9VbvE9Jw0NnwURoCnVR
+	 u9nyBA+4fLG/f6kIujQavFbhsdR0BI3MxWaAA52TmnEqvFr1f4o7WIPQ6ZZ23g3fjb
+	 ws87FBothKG0A==
+Date: Sat, 26 Sep 2026 09:55:50 +0200
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: Sebastian Reichel <sebastian.reichel@collabora.com>
 Cc: Vinod Koul <vkoul@kernel.org>, 
@@ -35,11 +35,10 @@ Cc: Vinod Koul <vkoul@kernel.org>,
 	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
 	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
 	Igor Paunovic <royalnet026@gmail.com>
-Subject: Re: [PATCH v15 1/6] phy: rockchip: usbdp: Add phy reset notification
- support
-Message-ID: <zbqy5gqtmprapsqpodoohyxs6gml6swkie6fy7fxszfvtfgz6c@eae55gdmknaw>
+Subject: Re: [PATCH v15 2/6] phy: rockchip: usbdp: Drop -EPROBE_DEFER hack
+Message-ID: <5ajj34ec2wuvlxw3o5zpfbgzea5wzeq44xqhdxcu3aln2zdn2e@extxpxbzoqgz>
 References: <20260915-b4-rockchip-usbdp-cleanup-part3-v15-0-9ad90a456953@collabora.com>
- <20260915-b4-rockchip-usbdp-cleanup-part3-v15-1-9ad90a456953@collabora.com>
+ <20260915-b4-rockchip-usbdp-cleanup-part3-v15-2-9ad90a456953@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,35 +48,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915-b4-rockchip-usbdp-cleanup-part3-v15-1-9ad90a456953@collabora.com>
+In-Reply-To: <20260915-b4-rockchip-usbdp-cleanup-part3-v15-2-9ad90a456953@collabora.com>
 
-On Tue, Sep 15, 2026 at 05:32:48PM +0200, Sebastian Reichel wrote:
-> To resolve issues with running into permanent "cmn ana lcpll lock
-> timeout" errors after a few device replugs, add support for reset
-> notifications, which will be handled by the DWC3 driver to gracefully
-> handle the PHY being disabled. This avoids corrupting the controller's
-> internal state and the PIPE interface between the USB3 controller and
-> the PHY, thus fixing the issue.
+On Tue, Sep 15, 2026 at 05:32:49PM +0200, Sebastian Reichel wrote:
+> The hack to return -EPROBE_DEFER when the lcpll lock timeouts is no
+> longer needed. The driver now does a reset during its PHY init, which
+> avoids the problem.
+> 
+> Since rk_udphy_status_check() is called after the probe, it should not
+> return -EPROBE_DEFER.
 > 
 > Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->  drivers/phy/rockchip/phy-rockchip-usbdp.c | 19 +++++++++++++++++--
->  1 file changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> index e748acdd2d31..0f39982c70b1 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -1004,24 +1004,39 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
->  	}
->  
->  	if (udphy->status == UDPHY_MODE_NONE) {
-> +		phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_PRE_RESET);
-> +
-> +		rk_udphy_u3_port_disable(udphy, true);
 
-This change is not described in the commit message.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
 - Mani
 
