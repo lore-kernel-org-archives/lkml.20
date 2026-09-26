@@ -1,237 +1,314 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011038.outbound.protection.outlook.com [40.93.194.38])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FFA255F28;
-	Sat, 26 Sep 2026 02:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790389828; cv=fail; b=Z50kVBAB1Xa7FXM9tIgH7N96m2IF/HSx+r2mrN3UwLp1EI6EPg3oMYA3inUjPvHHfJ5a/Of3mVJJryjRSAqQvpnBDRCHVFXA+L6/0IMqr+Rebm9VFBBZrVTUejlSq8i2TYuvBRmBqGi+komWY8ho84TyrWIYomcJt0wgD+1JQac=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790389828; c=relaxed/simple;
-	bh=FNhiyKfw+w86IepAg5/GM7Ls6jy3nchchg3rrJE/Zrk=;
-	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To:MIME-Version; b=Gpnbil5rGnXNbGrqB0Q35qr6FlVuouJRQK+0JOCFRAosGR3zBV70oRjnAVK3f6/W9XtAg0HDB5kgCQnNnCjgIpdQ4sQVo7oIuLQN27EhoVyL/GqqdYths4h/ESLKiDdXuHTyoyoOyVJi2j62M547KVGez7TfW+W0cMmFSPJxyRE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Jhyp1dXd; arc=fail smtp.client-ip=40.93.194.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D57C2C8;
+	Sat, 26 Sep 2026 02:34:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790390082; cv=none; b=VElMDUiwsL4On4XcYggVEQmsu2eM0UP2G/K3UxFkT1L9CrFanmCLYitdrVBAiUajRpVeDQLP9gsOKSVCvIz+JY43Lo+Jwf6CEcO+ufst3KDbxK3umU327b/HV8HrnibneRK/Zgfe3NbU4frzBE9DUnAdZiMDN94fadQhK9+NZAo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790390082; c=relaxed/simple;
+	bh=WJVoY+GTZOA5UXQJpOzZY4CvB90ZR8SkRkD/aHa8jJM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IXB1H4HNy1Zd2H80Shb/9AK67CaGsti2WybLdcKo40dV8xNJDJ16V9h4L3C/+0F+/gQVxre2U/gj5fioIPGlKtg6fj3iLx0OTIfXex9TiI2xa41EHEItlI4y7RwUUc1uvJt5NqjQFf52sHcKSA91YCNcNOhLjuuW06KnKUCXUIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KLs0/9nd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Jhyp1dXd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MGt+/rGefaZMuWMA5TLfFlwpc/JuU7A8aX1qxvmvQ3UqMFlQJVm1XDrY9Pcr8Y5ZKk6TdVnsdNE/EklatQY8obKNbNjw9iIt5RwBGOdrT7V53dUHMrtHItSegcD/1hSjYzlQYmbpr9YxoSjWZkaiibcNir347pkoB9QpcEN7HXMIts3SfkoDOARt+imm7QAio7f5UB8bVpkLjL5dknuwhdO+VSeDkA99QogxxaGIaz4xnvMoTDu9M/S21bKi0M3W5kWx7QH3Qa/QKIqm4c0bEw188byJ0H/QNDM47M8N4qC1nuezxQFuyjM358X7ynW0yWbDvrZaunc9rf3Z/mKCmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mQMimtvf09yHV27pRM3QAJhff16w1Cd9pOcXbZNVfZ0=;
- b=ypj4dpgsiNu/i7tTLJzyvv/pipRpmPiVIwETnar17yFfkLM+jeM9+xPjPYSSM+8bjiBF8h/XO/VEiL36NtBg5gc5XghuVai1RtEZrSTyjWK5ahQA96DI65iSOzNfoESwSlUYjL3zaRDS4r1QK4TECTfHUWhsEGflZFpjND2lAh6HcPEYTlnOqNXHJaqZd5DVYBCckIJRmpOoOdiPHyjKux5H7du7LfgY1M2bdQRUIKTE68vg8/3AwXOXnYuma0s4PHeqYjW0Lxl51b/zzxbXtS4ApR0rePKyeEffyI3KnbJAAijJP9nPplH898ADSInBE+1WN/QGw78KOdatN47CYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mQMimtvf09yHV27pRM3QAJhff16w1Cd9pOcXbZNVfZ0=;
- b=Jhyp1dXd0M1VuO/UfCjUw5NuvpMNCOmvbiIwuwrppoASf2Jx85KK5TQmMftiJhMWj3hN1uq/+vJQeK54+ejiMm6V3MB8Vas0ZCOuj/Q6iUebBy6cCITtlKrS+LYimWr2PHsDJ+zhDoStXrJ0hEbcSjfbECJgHtXLQvT4ANHyr6cj5gao4s/Ic12V2Nksc00BlsYLQC+jMpSNYr4Js7hHFOIcAK3DojmNzamkCJhtT2QzcSv0d1FgpOte/Nf9PwxMju68GYUJj2XBYBKNSChYsWm7HWi6+sT9S63PIYLBVRCIJgXjc0OB5hjyRNwedF7BJFo4KyeRvWqDBmjuEFpgzg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by IA0PR12MB8255.namprd12.prod.outlook.com (2603:10b6:208:404::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
- 2026 02:30:18 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
- 02:30:18 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 25 Sep 2026 22:30:11 -0400
-Message-Id: <DLOW7WTRQY8J.RZ0XDZWZIMS5@nvidia.com>
-Subject: Re: [PATCH v3 21/40] mm/gup: error out early on !VMA_MAYREAD_BIT
- VMAs
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <linux-usb@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <selinux@vger.kernel.org>,
- <linux-sound@vger.kernel.org>, <bpf@vger.kernel.org>,
- <linux-scsi@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-trace-kernel@vger.kernel.org>,
- <linux-perf-users@vger.kernel.org>, <linux-arch@vger.kernel.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <kvmarm@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
- <kvm@vger.kernel.org>, <kvm-riscv@lists.infradead.org>,
- <linux-riscv@lists.infradead.org>, <linux-s390@vger.kernel.org>,
- <sparclinux@vger.kernel.org>, <fuse-devel@lists.linux.dev>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>,
- "Pedro Falcato" <pfalcato@suse.de>, "David Hildenbrand" <david@kernel.org>,
- "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
- <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet"
- <corbet@lwn.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>, "Jason
- Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>, "Paul
- Moore" <paul@paul-moore.com>, "Stephen Smalley"
- <stephen.smalley.work@gmail.com>, "Jaroslav Kysela" <perex@perex.cz>,
- "Takashi Iwai" <tiwai@suse.com>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Ryan
- Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry
- Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama
- Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>, "Doug
- Gilbert" <dgilbert@interlog.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
- <mkp@kernel.org>, "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter"
- <simona@ffwll.ch>, "Helge Deller" <deller@gmx.de>, "Sebastian Reichel"
- <sre@kernel.org>, "John Hubbard" <jhubbard@nvidia.com>, "Peter Xu"
- <peterx@redhat.com>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Oleg
- Nesterov" <oleg@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>,
- "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
- <dave.hansen@linux.intel.com>, <x86@kernel.org>, "Arnaldo Carvalho de Melo"
- <acme@kernel.org>, "Namhyung Kim" <namhyung@kernel.org>, "Mark Rutland"
- <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
- <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>, "Vincent Guittot"
- <vincent.guittot@linaro.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Will Deacon" <will@kernel.org>, "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, "Nick Piggin" <npiggin@gmail.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Muchun Song" <muchun.song@linux.dev>, "Oscar
- Salvador" <osalvador@suse.de>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Marc Zyngier"
- <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>, "Catalin Marinas"
- <catalin.marinas@arm.com>, "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>, "Janosch Frank"
- <frankja@linux.ibm.com>, "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
- "Alexander Gordeev" <agordeev@linux.ibm.com>, "Gerald Schaefer"
- <gerald.schaefer@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
- "Vasily Gorbik" <gor@linux.ibm.com>, "David S. Miller"
- <davem@davemloft.net>, "Andreas Larsson" <andreas@gaisler.com>, "Alexander
- Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Matthew Brost" <matthew.brost@intel.com>, "Joshua Hahn"
- <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Byungchul Park"
- <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
- <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Kemeng
- Shi" <shikemeng@huaweicloud.com>, "Nhat Pham" <nphamcs@gmail.com>, "Baoquan
- He" <baoquan.he@linux.dev>, "Youngjun Park" <youngjun.park@lge.com>,
- "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
- "Shakeel Butt" <shakeel.butt@linux.dev>, "Axel Rasmussen"
- <axelrasmussen@google.com>, "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu"
- <weixugc@google.com>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Michal
- Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>, "Xu Xin"
- <xu.xin@linux.dev>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org> <20260917-b4-mmap-prepare-vma-flag-sanify-v3-21-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-21-4583d8a23bca@kernel.org>
-X-ClientProxiedBy: YQBPR0101CA0244.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:66::16) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KLs0/9nd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B93E71F000FF;
+	Sat, 26 Sep 2026 02:34:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790390081;
+	bh=yCY15/sIwH6iQ+lRCwST3dAmRtzGiWvGa+jsp9OFjhw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KLs0/9ndc1UNqO1ZN7E2eAQ8UnMcseqBK/vN2ulZ8OU5EIZFy2mP4MwAo3iozbw6N
+	 eg5FeHmz4Vv5oRl0c5Xz7EJXOmlR4dHhmZDWR+aVme5WVPv68iEksFznCSz8NRHscg
+	 yB5AWDbl9VHVWNs7JJFT/1XjP/GPULEKWJ5IxAISE8F4T+RTBD8I8xPKR8tAXBG2qz
+	 5dBFNjJ8lfyhxvgmOZI9zLFpQ+qh7pA59ez0ix44lI+9YGBL9qoPJwKyOcDT13LccH
+	 JC+4hPfrZvJdE0gcvOUfy0cficl9Vrr4wQJi6cpmCrCXYkecelZX48y0CqVD0XS8i1
+	 lWrDKiOEbjmwg==
+From: Jakub Kicinski <kuba@kernel.org>
+To: arouhi@sitime.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	jiri@resnulli.us,
+	vadim.fedorenko@linux.dev,
+	arkadiusz.kubalewski@intel.com,
+	ivecera@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	cjubran@nvidia.com,
+	pabeni@redhat.com,
+	Oleg.Zadorozhnyi@devoxsoftware.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	dev@kael-k.io,
+	devicetree@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 02/14] dt-bindings: dpll: add SiTime SiT95316 clock generator
+Date: Fri, 25 Sep 2026 19:34:38 -0700
+Message-ID: <20260926023438.1567469-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921201108.42676-3-arouhi@sitime.com>
+References: <20260921201108.42676-3-arouhi@sitime.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA0PR12MB8255:EE_
-X-MS-Office365-Filtering-Correlation-Id: 138fddc9-a7bf-4081-49c6-08df1b761ace
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|921020|4143699003|11063799006|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	yjqVnX4u7QVMeoGtLZtilVpLpigFGWHuQ2n8R3oTV5gTh+k4sSvcwvhdBdE4FcBYxlT2GGAjngmQGd//PFhv3HshkFRhbMu46G4Tz9arATj0zyb58k/UEXPNtvtqsjfstROxgIbGfZ6qrYZP8w8qXK/mtEmIm83b2o1KS8VnTVVHfn7+EN80YuDipniFrgp18nqs/mEksiGRiRsUqiueQoCoP6DPmwPSHHj5h0lhVhOJAyTzLaYTwHAKibRZVbbk2y7Q6MrMxOUdyvkhWTK9LQ+4WUK5XH+lpAJ1cn32OdoWD2nUfYd6VAYOzH8JlWT5dbP6LnjtuvzeCC31wbS4tpbVQI4WJXUpihedWGYaAs9L4X6ZTvKwb1gnqqFSBjAaOAkEx0zvJsniEAq2263YFusu21vdWStkZB/DOlmKaQx8C5sp1MjZXBLqMhSzVa2x5/kYq4Ta8FQChTEU1aUQ3SLkAyLI0ncmqfsMb4sypZZsd3ybc1V4jNTeINEV/KGTlYlJW7L2ntQc6RxOp8UT1bLXmAmHrb5R+GyRMiSv7+FZwSXABHYxUeeklKDy/4MTX06dj4hCTYxsWMVvpjrBk569iH1+qmWOxgXN54d93bmfLMybGnrrI4buvelUaq0Uc3rzeUx0kHVTq/P+2E3JxTyinyEyXZMDdxRDjbHXuosTIOQnPcRDqcBrOZozt7IRP52P5Dy5RhXVJiR0h4SvgQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(921020)(4143699003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?LzhkM0k5SklGaXJtUU9UZzArUk0xeUR3K2Y3U29yNmE2bjZnZVZlbk8vdkx0?=
- =?utf-8?B?QXQ0ZnRQRWFIa2JoTnJSazBERHVFUWpRQ1I4K002bXFBUUZhdFpyREVmZStB?=
- =?utf-8?B?T0gzcmhhaVRWM1Y5TTJybHBndmRNcFo0Y0c0SDVoenpaWkY5U2ZGdElqQzBj?=
- =?utf-8?B?dUZHRkU0eVVndnhhY1lDc0NaMnRSUVNoODFvMktybi9LUmJ0M1pEalVaQlJo?=
- =?utf-8?B?SDI5L0YreHBkL1ZqY29Ba2hqbll3QnpQdXBxVTMreVF6VmJLeXRKL0Q1V3dZ?=
- =?utf-8?B?SHNrajh2UUI4R1ZnR1d3Mm5aOGxaT1hzSXdEMTJ4UHRQU3kyMUxzOXNtaVJC?=
- =?utf-8?B?ZDkxY2ZIcXVIVjJ5THZwQmo2eStkT0hQU1htZlRqdmlaelZ2cU9IYnRuOVVV?=
- =?utf-8?B?YXJJSDc1YktqS2JTYWxqRmVvZFlLdXZNN2cvbVNybEJTK3Vib3B1M2VxK0FY?=
- =?utf-8?B?aG5tS01XVytpTEdtaUVlYVREcDZsTnZkLzJpUTUvdVpPd0phL1UvWlZhYUJ5?=
- =?utf-8?B?R2NneHBMU2ZtUjNnRm95Y3RMQTBCOUlnTTR0SmF3eWVZU0tpU1JJbVdOWmgx?=
- =?utf-8?B?aEQwNGhvVi9PNllGbzdEZi9qM2M4M1dRdEFmcnFpNEQ4ZWtSTWptc3BMbXU2?=
- =?utf-8?B?SmRNUi9ZT3dMOHB3dlF0dGkxbmhIRmZvRUg3WjRZTEUzWU12Y2d5dzY1dk1K?=
- =?utf-8?B?TFZ6N1lBUWxHODZFNWFhUUpEcWZRbmc4bnlLZ25PMm9mYWQ4anplWHpqVm1j?=
- =?utf-8?B?V01SVEx1ZnE2VFY4dVg1ODJYT3ZKdHZtdjg5MU95bG1XYjFwUHRBUmI3eUhp?=
- =?utf-8?B?WG5tSG15K0k4cnNMUGVOaVQwSnhLd3lFWXhtYytOeDZ3a0NQY2hIbzZxaVUx?=
- =?utf-8?B?NDVKWk9reDU0ZEN0c01IZmxzR0YzNGVhN1NndG1KRzMzTkVXNDhyRkRkUG9a?=
- =?utf-8?B?WElzSWVONjVLYWprT25WK3FJYjRMNE5YanFURUFvWDBabnQrUStwczU0TjJS?=
- =?utf-8?B?eTlCQmhycDNvMlVveERiaW9aL2JCMDROUDhtSmRzOUgzRHNhMm1GWTR1OEtJ?=
- =?utf-8?B?cmcvcGx0YWdSLzU1dDV3WGpocW5ha250dXRyZ29ramVKS2xTaEZQd2x0Q3Zj?=
- =?utf-8?B?SlVZLzJyOWF6bU9QajFxYkFKZHhYK2ZnempmYU5zWEtuMktWbytCMGFXR2lk?=
- =?utf-8?B?b0wva256ZDlIYXY3M29yL3V5RTZzc2hUV0FYZ3hpVUdURExNZVJ1c2VJN3Ir?=
- =?utf-8?B?UHFJbjgwZ2tmeHBadXNYWnVIUVFib1VldHdyTm1ON21CNmw1djZrakl1Zk01?=
- =?utf-8?B?TnF1NVRua0RJZFlBVFBjcGhKaDFrUU9mSml3Y2F2Q2g5VUlxYUtRTWliVCt0?=
- =?utf-8?B?SVF2MUlreDljZ3B6WlVVMFNqRWdmdC8wYXRNYlZSRys4Vm8xZVAxQWUvSzZN?=
- =?utf-8?B?SEttR0tEOEFDYUc0NkplVGpub0FIZk84ZUVnQXVTNGZFZWJPcU5hbG5Xbi8w?=
- =?utf-8?B?b0FNTEpaSFM3ejhoYlE1V2hxQms2NGRvRWVqUk4wQUNxZTdtQnJTVEl5Qlp2?=
- =?utf-8?B?VUhHK2Fkbmc1V1lJNlVXS05QVzdlVHllblZTeFpTODJudHBKcmtYSUhuTEJw?=
- =?utf-8?B?NzlPRjJMNkJ6eUQwV3F6eVFLUXZqWEZoM2pWTTBVWW9xaHBQSHZvT2o5NFdi?=
- =?utf-8?B?N3hCS202dzhFVVJDZUQ2NnlzMWxUTDd5V3ZHUFphZnBEMlpLNDVCeFVMU1JT?=
- =?utf-8?B?Q3FHVzlOSW1mcTcwODVqSXNMNWoyd2hYSmFWdVVtWXpCNEI4ZzdjVC9odDJa?=
- =?utf-8?B?c2tqNW9XRjY4UWJHelgwdmZyUEJJL2RubEZHTmc2RnlPUjNiOFhYVGhIOVJJ?=
- =?utf-8?B?R1lTUlk0eUxJLzNJZ2JRYSs4Q1NwU1pLUUZob005VDFRZ2c2YjQ4QVlxU3RP?=
- =?utf-8?B?Y01DRU9ITXllNzgraXZkbStsWWZGTTdXdWgxMk9NRy8zTHc1QUFLcW15c2Zq?=
- =?utf-8?B?U2JBSzZPNjVjTFF2cnJzSnhaU3hySlNSUWtKeVg3M3EydU5WdHNjOEdNVXA3?=
- =?utf-8?B?QzZTOE1hT3RDbVRvdWg4ei9sYTljSkFzZE51S2JvN2syVGVPOFhPNTZyWVlQ?=
- =?utf-8?B?OFo1R3N3RWNUVlhlKzRxdGRjZWNGYXFRSWF6T0lHd1c2MHF2ZzI5R2ErVTJD?=
- =?utf-8?B?LzB2MElydjR6c09XZ2g1TzRzTERTR1ExR3VQeGNndU1MTmdrOHQ4WmVQdDJx?=
- =?utf-8?B?NlJBWlhUYWZKSW9qcDRLWFVYSit3MlhHWHF3bkxxRVYwelhzMUNEVGVtNG14?=
- =?utf-8?Q?unUmaXGZA1/PSmHZb0?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 138fddc9-a7bf-4081-49c6-08df1b761ace
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 02:30:18.0846
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: COb42g68OUl+u5Cs4xToYuDg9UqVuTh90oapNXsS4S4BMaLi2HZXpCMHLeL1bQQI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8255
+Content-Transfer-Encoding: 8bit
 
-On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
-> When populating a VMA range via the aptly named populate_vma_page_range()
-> an unreadable VMA will always eventually fail with -EFAULT.
->
-> That a VMA is accessible is always checked, however VMA_MAYREAD_BIT is no=
-t.
->
-> All user mappings always have VMA_MAYREAD_BIT set, so this check only
-> impacts kernel mappings.
->
-> It is implemented specifically to disallow population of uprobes XOL
-> mappings which are exec-only.
->
-> A nasty interaction with these mappings may occur if they are mlocked, so
-> actively disallow this early.
->
-> This allows a subsequent commit to remove the VM_IO check in
-> __mm_populate() which otherwise requires non-MMIO mappings to be wrongly
-> flagged simply as a workaround.
->
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/gup.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+dt-bindings: dpll: add SiTime SiT95316 clock generator
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+This adds a devicetree binding for the SiTime SiT95316/SiT95317 DPLL clock
+generators. These are I2C devices with four PLLs, up to eight inputs and
+up to twelve outputs. The binding builds on the common dpll-device schema,
+adds vendor properties for per-PLL VCO overrides and output-to-PLL routing,
+and adds a MAINTAINERS entry.
 
+> diff --git a/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml b/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
+> new file mode 100644
+> index 0000000000000..6f4c60ba1cb92
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
+> @@ -0,0 +1,183 @@
 
+[ ... ]
 
---=20
-Best Regards,
-Yan, Zi
+> +  clock-frequency:
+> +    description:
+> +      XO rate in Hz feeding XIN/XO_CLK.  Alternative to the "clocks"
+> +      phandle for platforms where the firmware does not expose the
+> +      oscillator through the clock framework.
+> +
 
+[ ... ]
+
+> +  sitime,pll-fvco:
+> +    $ref: /schemas/types.yaml#/definitions/uint64-array
+> +    minItems: 4
+> +    maxItems: 4
+> +    description:
+> +      Per-PLL VCO frequency in Hz for PLLA, PLLB, PLLC, PLLD.  The
+> +      values exceed 32 bits, which requires an explicit uint64-array
+> +      type; the dtschema meta-schema does not permit a type $ref on a
+> +      "-hz" unit-suffix property (only opp-hz is defined as 64-bit),
+> +      hence no unit suffix.  Override where the standard
+> +      Fvco = Fref * DIVN derivation does not match the running VCO --
+> +      for example a PLL operating in INTSYNC mode.  A value of 0 keeps
+> +      the register-derived computation for that PLL.
+> +
+> +  sitime,output-pll-map:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 8
+> +    maxItems: 12
+> +    items:
+> +      enum: [0, 1, 2, 3, 255]
+> +    description:
+> +      Source PLL index (0=PLLA .. 3=PLLD) for each output 0..11.  The
+> +      value 255 (0xff) marks an output as unmapped and prevents the
+> +      driver from registering it as a DPLL pin.  Override for
+> +      configurations where the chip's per-PLL OUTPUT_ENABLE bitmaps do
+> +      not unambiguously describe output-to-PLL routing.
+
+[Severity: Medium]
+Do clock-frequency, sitime,pll-fvco and sitime,output-pll-map describe
+the hardware, or what the Linux driver and clock framework do today?
+
+Documentation/devicetree/bindings/writing-bindings.rst says:
+
+  DON'T refer to Linux or "device driver" in bindings. Bindings should be
+  based on what the hardware has, not what an OS and driver currently
+  support.
+
+In sitime,output-pll-map, the value 255 "prevents the driver from
+registering it as a DPLL pin". The property exists to override the chip's
+own OUTPUT_ENABLE routing bitmaps.
+
+In sitime,pll-fvco, a value of 0 "keeps the register-derived
+computation". The property overrides cases where the driver's
+Fvco = Fref * DIVN derivation is wrong.
+
+The reason given for clock-frequency is that the firmware does not expose
+the oscillator through the clock framework. A fixed-clock node can already
+describe the XO, so this adds a second, mutually exclusive ABI for the
+same thing.
+
+Both vendor properties copy state that the chip already holds in its
+programmed configuration, and they would become permanent DT ABI.
+
+Can a static sitime,pll-fvco value stay correct at runtime? Later in the
+series, "dpll: sit9531x: model the inter-PLL sync net as a pair of pins"
+lets userspace switch INTSYNC through netlink. The sync source pin
+state_set in drivers/dpll/sit9531x/dpll.c does:
+
+    sitdev->intsync_src = sitdpll->id;
+
+(or -1). sit9531x_get_fvco() in drivers/dpll/sit9531x/core.c returns the
+override whatever the INTSYNC state is:
+
+    if (pll_idx < SIT9531X_NUM_PLLS && sitdev->pll_fvco[pll_idx]) {
+        *fvco = sitdev->pll_fvco[pll_idx];
+        return 0;
+    }
+
+If the VCO rate really depends on INTSYNC, which is the reason this
+binding gives for the override, would the value be stale after a runtime
+switch? sit9531x_output_divo_calc() and the phase and TDC paths all divide
+by sit9531x_get_fvco(). A stale value would give wrong output frequencies,
+phase offsets and DIVO values. I couldn't confirm whether the VCO actually
+changes with INTSYNC on this hardware.
+
+The reasons given also don't match. This binding cites INTSYNC mode. The
+later commit "dpll: sit9531x: allow the device tree to override two board
+facts" cites "free-run with a divider the configuration never programmed".
+Which case is the override meant for?
+
+The commit message doesn't mention these vendor properties or the
+clock-frequency alternative. Could it explain why they are needed?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +oneOf:
+> +  - required:
+> +      - clocks
+> +      - clock-names
+> +  - required:
+> +      - clock-frequency
+
+[Severity: Low]
+Is a node that has both clocks and clock-frequency supposed to pass this
+oneOf?
+
+Take a node with clocks = <&xo>; and clock-frequency = <...>; but no
+clock-names. The first branch fails only because clock-names is missing,
+and the second branch passes, so oneOf is satisfied. Nothing else in the
+binding requires clock-names when clocks is present.
+
+For such a node, sit9531x_dev_probe() does:
+
+    xtal_clk = devm_clk_get_optional_enabled(sitdev->dev, "xtal");
+    ...
+        if (!device_property_read_u32(sitdev->dev, "clock-frequency",
+                                      &freq))
+
+The "xtal" lookup finds no clock-names match, so the optional getter
+returns NULL. clk_get_rate(NULL) is 0, and the driver falls back to
+clock-frequency. The clock referenced by clocks is never prepared or
+enabled.
+
+Would adding dependentRequired (clocks requires clock-names), or having
+each oneOf branch forbid the other property, fix this?
+
+> +
+> +allOf:
+> +  - $ref: /schemas/dpll/dpll-device.yaml#
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but the new binding inherits a
+limitation from the shared schema. In dpll-device.yaml, input-pins
+children match:
+
+    "^pin@[0-9a-f]+$":
+
+output-pins children match:
+
+    "^pin@[0-9]+$":
+
+output-pins also has unevaluatedProperties: false, so pin@a and pin@b are
+rejected.
+
+The SiT95316 has outputs 0..11, and the driver matches output-pins
+children by physical slot. On the SiT95317 the slots are:
+
+    static const u8 clkout_map_95317[] = {0, 3, 4, 5, 7, 8, 9, 11};
+
+so OUT11 is reg 11 on both parts.
+
+Can outputs 10 and 11 be described with the usual hex unit-address names?
+The only way to pass validation seems to be pin@10 with reg = <10>, which
+breaks the hex convention. microchip,zl30731.yaml (20 single-ended outputs)
+has the same gap. Should the output-pins pattern in dpll-device.yaml be
+changed to match the input-pins one?
+
+> +  # SiT95317 exposes 8 outputs, SiT95316 exposes 12.  Bound the
+> +  # output-pll-map length to the variant so a SiT95317 node cannot
+> +  # describe more outputs than the part has.
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: sitime,sit95317
+> +    then:
+> +      properties:
+> +        sitime,output-pll-map:
+> +          maxItems: 8
+> +  # SiT95316 has 12 outputs.  When the map is supplied it must describe
+> +  # all of them, otherwise the trailing outputs are left ambiguous.
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: sitime,sit95316
+> +    then:
+> +      properties:
+> +        sitime,output-pll-map:
+> +          minItems: 12
+
+[Severity: Medium]
+What do the reg values of input-pins and output-pins children mean on
+these parts, and which values are valid for each variant?
+
+These if/then blocks only limit sitime,output-pll-map. dpll-pin.yaml only
+has reg: maxItems: 1, so nothing here limits pin reg values.
+
+sit9531x_prop_pin_fwnode_get() in drivers/dpll/sit9531x/prop.c matches
+output-pins children by physical slot:
+
+    if (id < sitdev->info->num_outputs)
+        id = sitdev->info->clkout_map[id];
+
+On the SiT95317 this puts the eight outputs at reg 0, 3, 4, 5, 7, 8, 9 and
+11. sitime,output-pll-map uses the dense logical index 0..7 instead. The
+binding only says "SiT95317 drives 8 outputs" and "for each output
+0..11".
+
+Suppose a SiT95317 board, going by the binding text, numbers its output
+pins 0..7. Wouldn't reg 3 then apply to logical output 1, reg 4 to logical
+2, reg 5 to logical 3, and reg 7 to logical 4, with reg 1, 2 and 6
+ignored? Labels, connection types and supported-frequencies-hz would end
+up on the wrong outputs. Output reg 1, 2, 6 or 10, and input reg 8 or
+higher, also pass validation and are silently ignored.
+
+The binding doesn't describe the input lane layout either. In
+drivers/dpll/sit9531x/core.h:
+
+    static inline bool sit9531x_input_is_n(u8 index)
+    {
+        return index & 1;
+    }
+
+So reg 2k is CLKINkP and reg 2k+1 is CLKINkN. When the pair is
+differential, sit9531x_input_pin_is_registrable() doesn't register the N
+lane at all.
+
+In the example, input pin@0 (10 MHz, ext) and pin@1 (156.25 MHz, synce)
+are the two lanes of CLKIN0. That only works if the pair is set up as
+single-ended.
+
+Could the binding document the reg numbering and add reg limits for each
+variant? microchip,zl30731.yaml labels each example pin with its physical
+name (/* REF0P */), which could be a model to follow.
+
+> +
+> +unevaluatedProperties: false
+
+[ ... ]
+-- 
+pw-bot: cr
