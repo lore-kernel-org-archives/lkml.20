@@ -1,89 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00753115A2
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE42F331EBA
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790462034; cv=none; b=hGfD3lIjys0oB6PBgV43JI3FnOvN/oMHpyaNwFMluRUEa9HDdP3sfmDPmUaOs+f+a91bvG/LpWmWsgvpFkm9l/5vlmzQCxccBqMr0nUBs0OjtJBmzgQ+OmooBiuCQVuEN5TmTJ+uYmnHSLOWc5m65ekxi8rbTcgMWdySTaYpHhc=
+	t=1790462129; cv=none; b=C8Gc5XBIpYODUBbWWNuuXNY/6d+bOGZXT4+siaoA5NublCurKv9frLXPhNlLm2sGx6FDkGUcBfALcFCkKCq97hT0bmFZcPbaF2j/d4SAkEfzCVlS0azugHPrZum2Mz1Fw/fU9lc4WGuGHsdHllGZexjgVMs0iboe8sNL9u8NPWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790462034; c=relaxed/simple;
-	bh=fxP3TXfyWT+sUcAC6cZncp/t39Htd3ktm9W/nEZb5KI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WVdRYuweLKC6Fcl3nMQKjEbHHi9hBwzNW62prdyVWpEIP7TQQrrzEFvZujmRkgp2QRoQIoAcPtdUakKcyEF+8av27Ie6KZeTkiHZpvbQP7Xm5Cxd1jD+WupnQ//fa/nkrB5WtONqIjEGdQrXMy5vm/22Y9cEc6wUdoS2lKWzQzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tS+E/4Mg; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790462129; c=relaxed/simple;
+	bh=XbeBt17n53buFEuUFIwiHhEOrMc/kxrKrQ8+RfPTFRE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=imciS2Gbup+1KUJSZG/N0Xlv4N58wxcgSBbyO6OzfAmmqG/BovF/N9bbJ0XleMrzDcKukIrRovOCLyqBAKGy4Yxl4pHmU43ueiONxhUAIV+c/w8BVVdNEWvT/3AhQPhlSMrNbRvV2Q1fHuafALCrIlB2PaXc1MrHpYsW1RRLv1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cF3Gnvep; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tS+E/4Mg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 31A15C2BCB8;
-	Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790462034;
-	bh=fxP3TXfyWT+sUcAC6cZncp/t39Htd3ktm9W/nEZb5KI=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=tS+E/4MgmQdLBxg9iNBbiLTjbapFyxLlw1yBVGEcsIVdGSkYiw4lzxfmIzC3dlB1K
-	 n46UsXhmESOpk9sENyg9V3gNMDG8ZE4rclqZTRlB2MtAdACNYUipxUmkRJrppgrdaq
-	 Z0Lw1DWzIDRg31mOMSMjIiY9+hcQa8Tpj85ztC/vupcb77bKJhL0Vl02UdeSK0W8UY
-	 B9HviXQ8BXzejb7DKGc7clBdMjx0135sFl4EkPKwNBOymXXFmZniUqIPVGV4t6337H
-	 eB0GGn0+KTenyEEa75scunovKqmtX0bkwOK9MaSWSTdiPsH7ncXy14ePYt99+73px+
-	 r/veRH+lYIAFw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06685C98328;
-	Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
-From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Subject: [PATCH 0/2] drm: 2 quick fixes
-Date: Sat, 26 Sep 2026 16:33:31 -0600
-Message-Id: <20260926-rd-mostly-v1-0-28b7d714ed2c@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cF3Gnvep"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F491F00893
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:35:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790462127;
+	bh=MK5SHYxXLJAvLu7cLrqWwZej2N+QB4omlWiFjp3JXW4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cF3GnvepXKHDAEMd9IqPfYoAQ12LklT82LcTQmYzCRIjf/zyqlFnzVY+R6lCU+tyF
+	 n5EQzOzhyb9lqopcwgn0CgJEZ+2gS6iDBJyhoqJM5SljGNI/7ONbfqN0QD3ndhB2GD
+	 xEKQm/OzFQKoKY5nmXTP7jjpb44wfBc7NwIkClCsABX2M54tp7PhSzm7IMXwPn8eXu
+	 Nx0LwGpx0grfP1sDB2/hvSc36B+o6EQCkLoMf9WvvO8RpHznI0jLesbxocxypWX6Ro
+	 yB5CcnrceYcb8amTich5JngjhsA5KwFG5ZT3jqGQX8+TZwnW2cbTaEsgdpNcdqE2Ji
+	 Ajfa+N93CtwvQ==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8ef951112so600061e87.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:35:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxYQrCzjKdrrdjrY7EYFXyR8Ps6joAwQxHNv+efRT0MPFUxOwWceQo/BznVTqJ0HK1lDyk+8G0tswrHgu0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRGrETWC9zp23ZmIZKk2y5J7roMCmgeor6JXn9sRJh0xCAoXzV
+	U0w93vDA9CUOnzWUj575byqrThQOdOSkIJ4DFlzKmOl5+3ylNmiosOG/8Io/pAp6ktUFqd/Ngt5
+	sjskB/RVJoSolwvh3QGUNh/9HBbcEGPc=
+X-Received: by 2002:a05:6512:33cf:b0:5b8:f356:694d with SMTP id
+ 2adb3069b0e04-5b8f35669e3mr509348e87.42.1790462126146; Sat, 26 Sep 2026
+ 15:35:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSyNT3aIU3dz84pKcSl2zRKO0ZIPkFLO0FDMloPqCotS0zAqwWdGxtbU
- AYiYBmlsAAAA=
-X-Change-ID: 20260925-rd-mostly-6a2fc0cd6fd6
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790462033; l=709;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=fxP3TXfyWT+sUcAC6cZncp/t39Htd3ktm9W/nEZb5KI=;
- b=xI/zic2+jXuvDHLxNq3q1EcjouHL9BjNcN17ZvWX1RuNF1A2eXefwQR4deGxsM57UhhK+Bzhh
- hVVzbpo9zd2AZ6JVNT66RtiRSsJNKPNwsyoMFAzwlBAfvfgC0WXKzmE
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
-X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
- auth_id=958
-X-Original-From: Jim Cromie <jim.cromie@gmail.com>
-Reply-To: jim.cromie@gmail.com
+References: <20260924070323.983528-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260924070323.983528-1-shengchao.guo@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sun, 27 Sep 2026 00:35:13 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkj-9=2sduOOJDA6bTN=HWVNeHwKcN1N6YvYNg4YNT6Cg@mail.gmail.com>
+X-Gm-Features: AclHuK88PDOBsokjieKeZXQVtMMVCkLLoYpQXgQGraJp_IQrA8KT8Hdi_-BMVOY
+Message-ID: <CAD++jLkj-9=2sduOOJDA6bTN=HWVNeHwKcN1N6YvYNg4YNT6Cg@mail.gmail.com>
+Subject: Re: [PATCH v4] pinctrl: qcom: spmi-gpio: make direction changes exclusive
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Yu Zhang <yu.zhang@oss.qualcomm.com>, 
+	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-1. make __drm_debug __read_mostly
-   it is rarely written, and read at up to 80khz
-   
-2. fix CFLAGS -> ccflags mis-spelling
-   this fails to add -DDYNAMIC_DEBUG_MODULE to ccflags
-   currently masked by DRM_USE_DYNAMIC_DEBUG=n
+Hi Shawn,
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
-Jim Cromie (2):
-      drm/print: Mark __drm_debug as __read_mostly
-      drm: Fix incorrect ccflags-y spelling inside Makefile
+thanks for your patch!
 
- drivers/gpu/drm/Makefile    | 3 ++-
- drivers/gpu/drm/drm_print.c | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260925-rd-mostly-6a2fc0cd6fd6
+On Thu, Sep 24, 2026 at 9:03=E2=80=AFAM Shawn Guo
+<shengchao.guo@oss.qualcomm.com> wrote:
 
-Best regards,
--- 
-Jim Cromie <jim.cromie@gmail.com>
+> pmic_gpio_populate() seeds pad->input_enabled and pad->output_enabled fro=
+m
+> the hardware MODE_CTL register, so a pad left in DIGITAL_INPUT or
+> DIGITAL_INPUT_OUTPUT mode by the bootloader starts out with the input
+> buffer enabled.  Neither direction callback clears the opposite buffer:
+> .direction_output() only packs PIN_CONFIG_LEVEL, which sets
+> output_enabled, and .direction_input() only packs PIN_CONFIG_INPUT_ENABLE=
+,
+> which sets input_enabled.  Requesting either direction on such a pad
+> therefore programs MODE_DIGITAL_INPUT_OUTPUT rather than the requested
+> direction.
+>
+> That silently breaks both directions.  After gpiod_direction_input() the
+> pad keeps driving the line.  And after gpiod_direction_output()
+> pmic_gpio_get_direction() still reports GPIO_LINE_DIRECTION_IN, because i=
+t
+> cannot tell plain input from input+output, which makes gpiolib consider
+> the line an input while the driver is driving it.  On a board where
+> several regulator-fixed nodes share one PMIC GPIO the shared GPIO proxy
+> reads that direction back and rejects every consumer after the first:
+>
+>   reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) f=
+ailed: -1
+>   reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get G=
+PIO
+>
+> Pack the opposite buffer's PIN_CONFIG_*_ENABLE along with the requested
+> direction so that the resulting MODE_CTL is DIGITAL_INPUT or
+> DIGITAL_OUTPUT, never both.  pmic_gpio_config_set() programs the register=
+s
+> once after walking all configs, so this stays a single register write.
+>
+> Open-drain and open-source outputs are the exception: such a pad only eve=
+r
+> drives one rail, so DIGITAL_INPUT_OUTPUT is physically correct for it, an=
+d
+> pmic_gpio_get() needs the input buffer to sample the line rather than
+> return the value last written.  So .direction_output() programs the input
+> buffer from pad->buffer_type in either case, rather than only clearing it
+> for a CMOS pad: the buffer may have been left off by the bootloader or by
+> an earlier direction change made with a different buffer type, and an
+> open-drain pad that keeps it off would fall back to reporting the value
+> last written.  gpiolib applies PIN_CONFIG_DRIVE_OPEN_DRAIN before calling
+> .direction_output(), so pad->buffer_type is up to date there.  Key
+> pmic_gpio_get_direction() off output_enabled so that these pads still rea=
+d
+> back as outputs.
+>
+> An input must not drive the line whatever the buffer type, so
+> .direction_input() clears output_enabled unconditionally.
+>
+> Pads that are genuinely bidirectional can still be described that way
+> through pinconf, which is the interface that has always been able to
+> express it; the gpiolib direction callbacks now mean what gpiolib says
+> they mean.
+>
+> Fixes: 263447532463 ("pinctrl: qcom: spmi-gpio: implement .get_direction(=
+)")
+> Assisted-by: LLM
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
+It's a bit in the style of LLM:s to write overly verbose commit
+logs, can you put this into your AGENTS.md file:
 
+- Use terse commit messages.
+
+>  static int pmic_gpio_direction_output(struct gpio_chip *chip,
+>                                       unsigned pin, int val)
+>  {
+>         struct pmic_gpio_state *state =3D gpiochip_get_data(chip);
+> -       unsigned long config;
+> +       struct pmic_gpio_pad *pad =3D state->ctrl->desc->pins[pin].drv_da=
+ta;
+> +       unsigned long configs[2];
+>
+> -       config =3D pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
+> +       /*
+> +        * An open-drain or open-source pad only ever drives one rail, so=
+ the
+> +        * line can still be sampled while the pad is an output.  Keep th=
+e input
+> +        * buffer enabled for those, so that pmic_gpio_get() reports what=
+ is on
+> +        * the wire rather than the value last written, and disable it fo=
+r a
+> +        * CMOS pad, so that the pad ends up in DIGITAL_OUTPUT rather tha=
+n
+> +        * DIGITAL_INPUT_OUTPUT.  Program it either way, as the buffer ma=
+y have
+> +        * been left in the opposite state by the bootloader or by an ear=
+lier
+> +        * direction change with a different buffer type.  gpiolib applie=
+s
+> +        * PIN_CONFIG_DRIVE_OPEN_DRAIN before calling this, so buffer_typ=
+e is
+> +        * already up to date here.
+> +        */
+> +       configs[0] =3D pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE,
+> +                                            pad->buffer_type !=3D PMIC_G=
+PIO_OUT_BUF_CMOS);
+> +       configs[1] =3D pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
+
+It is also typical for LLMs to insert verbose comments like that.
+
+BUT! I like the comment, so it can stay!
+
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
