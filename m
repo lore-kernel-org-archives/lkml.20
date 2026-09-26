@@ -1,123 +1,99 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9599632779D
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:32:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A384D2E7162
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790433126; cv=none; b=ekZEDqHr8qpm/QTLNDmIURrSOCO3rFgJcp34CMVi9ir1A5fOThUpOUt0KsmyW7VuZesoU95GFX8I1H6FLh77nasFm+FzjoZWrFKOPcgrtmxLG3czfNpV4j5BYIW+XYPWV4TK+73Y3y3FqVAc898j3GIZqnHQKtaf2I4WoYefiU8=
+	t=1790433168; cv=none; b=maDA2iv6z105s6Z4WYu1VEufMTntGW9gHsoqLjHNDjwqnTagMqxYmrAwLAoVDmVekCWjOUDkAhHnBxEOf9egHFtwphGDymuy3UvWCIHB64VEShK5aoKqqep3HhDz1L1l/IBwpbdESd+BuHfICd3PRx9buxkWo2U5plv/0btYb4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790433126; c=relaxed/simple;
-	bh=QXH2LiT8YGjoI7rTuB/5Bwfp0I60en8jf6uXJuf9Tts=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=gSBI4TBQbNl1SFlO1Q37/qmxBLg4l0mtk0zqQnDDu0wlRbBC+0xPhccOVrohL4ASXW9seDH/qdXXZJgS2PRu4s05SKiZZfoV/RGXsNgLCVXRhfppyfMA+RX2mVL2tNYvPW0MiPccy4TnBkQpBPgN7VFZSuGoh/hNiKtErmXJoT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UcQPa3aJ; arc=none smtp.client-ip=220.197.31.5
+	s=arc-20240116; t=1790433168; c=relaxed/simple;
+	bh=wlblJ404sbABBl/0zdj29ymj/j29lL8iOtwKRfSirpU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DsBJTpnDhAfbXkTIG6t7Eqh6PPj8qSPKHMcG5ydwN//t3UR5Ji4APM9oEaPo9EvFc3fpttMkoeFOAu304OmPlSamKzol0H/SIVrBWLIAGKb9SYhjD//7hRF9T8+ztJ/kQdB6B141usdSKXJCtsg7jppwCvZbeiCwHOFzv2zfP+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mdPxfJLN; arc=none smtp.client-ip=117.135.210.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UcQPa3aJ"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mdPxfJLN"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=91ZRTd//Cy0HjvpGiq45l4WHobWPEmRrOtgmFOlGYxg=;
-	b=UcQPa3aJ+hEFfrrsF4esGR7x+OlREP35kb6KBrK0tTHioyeZOGGdEldOHJmSuf
-	zsst9XNPdD0qIOug0W0Ry62P1p+W5208HBfN4UB+WvG9ZC5z4hEsi1QfUdtYg+89
-	/KC+o8nC4RVopZ40a850JZVatUHLH+UOZf8jluWf+/ULc=
-Received: from [IPV6:2409:8949:6ca0:7910:f5b:45b8:eba1:685a] (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD330c217dqjFyMAw--.59026S2;
-	Sat, 26 Sep 2026 22:31:20 +0800 (CST)
-Message-ID: <cad0b025-1c84-4076-8a3d-d04cd736a767@163.com>
-Date: Sat, 26 Sep 2026 22:31:17 +0800
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=y8
+	uk6acIn5+spuh54iSxJYMKnZSAnNC7gMYO6fVnpnc=; b=mdPxfJLNwx6YY83Auv
+	0fPtxCpADKcY1v1wYNv32qUC0ZvLsOXL893lisG/QlJD0Q2BKsE5qblUVzySUSFS
+	2KKW42/Tr3NwRGLuSM/fgqLNBq/xVu8qYv2HoQetOxTiOtbSgSMdhcZ8QBi0Cr4v
+	TTTpBEg4OqRt1aY53FoiEQNOA=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3N5Y117dqTFyMAw--.64413S2;
+	Sat, 26 Sep 2026 22:31:19 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Liviu Dudau <liviu.dudau@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Mihail Atanassov <mihail.atanassov@arm.com>,
+	"james qian wang (Arm Technology China)" <james.qian.wang@arm.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] drm/arm/komeda: Fix early runtime PM NULL dereference
+Date: Sat, 26 Sep 2026 22:31:16 +0800
+Message-Id: <20260926143116.3457144-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] ntfs: drain in-flight DIO before buffered write
- fallback
-To: Jiale Yao <yaojiale02@163.com>, Namjae Jeon <linkinjeon@kernel.org>,
- Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260926072612.3022680-1-yaojiale02@163.com>
- <20260926072612.3022680-3-yaojiale02@163.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260926072612.3022680-3-yaojiale02@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD330c217dqjFyMAw--.59026S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWrWDZryfZF47Cw48Aw4DXFb_yoW5Jw4Dpr
-	Z0kFy3Jr9FyrWxWwn3GF48W3WF939rJ3y3urWkW3W7CrWrKr4vga18KF1Yvr4fJFnrJrW2
-	qF4v9rykCryUZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2-erUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hmMV2q31zlvkwAA3n
+X-CM-TRANSID:_____wD3N5Y117dqTFyMAw--.64413S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ArWkGFWUKw18WryUuFWDXFb_yoW8WF48pF
+	4UWF4UJry8GF4ay3srAanrZFy5GayfX3y7Ar1Uu3Z5u345AF18tryDJryvyFWUtFZ5AFnF
+	grn7XF4xZFsayF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JU1OJnUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzReLxWq31zfhbQAA3l
 
+komeda_platform_probe() enables runtime PM before publishing the driver
+data.  The runtime PM callbacks dereference the driver data, so a
+callback running in that window dereferences NULL.
 
+The debugfs register file is created while komeda_dev_create() runs and
+its read path calls pm_runtime_get_sync().  The DRM minor is registered
+before dev_set_drvdata() as well.  Either path can invoke
+komeda_rt_pm_resume() while the driver data is still NULL.
 
-在 2026/9/26 15:26, Jiale Yao 写道:
-> An asynchronous direct write can remain in flight after the inode lock is
-> released.  If another direct write falls back to buffered I/O while the
-> first write is still pending, iomap_file_buffered_write() can dirty pages
-> before the first write completes its post-I/O page cache invalidation.
-> The invalidation then finds dirty pages, reports a page cache invalidation
-> failure, and records -EIO in the mapping error sequence.  A later fsync()
-> therefore returns -EIO.
-> 
-> Commit 15cdefd0c0522f9d5e12d947fa04f4c11649b699 ("ext4: drain
-> in-flight DIO before buffered write fallback") fixed the same race in
-> ext4.  NTFS has an equivalent fallback after iomap_dio_rw() returns
-> -ENOTBLK or a short write, but does not drain other in-flight DIO before
-> dirtying the page cache.
-> 
-> Wait for in-flight DIO before calling iomap_file_buffered_write() in the
-> fallback path.  Since NTFS supports IOCB_NOWAIT, do not enter the blocking
-> fallback for such requests.  Return -EAGAIN if no bytes were written, or
-> preserve the positive short-write result if the direct write made partial
-> progress.
-> 
-> A reproducer using concurrent AIO direct writes and buffered fallback
-> triggered the following warning and made a subsequent fsync() return
-> -EIO:
-> 
->    Page cache invalidation failure on direct I/O.  Possible data corruption
->    due to collision with buffered I/O!
-> 
-> Fixes: 9c87959601e8 ("ntfs: update file operations")
-> Link: https://lore.kernel.org/r/20260629113827.4074335-3-libaokun@linux.alibaba.com
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->   fs/ntfs/file.c | 13 +++++++++++++
->   1 file changed, 13 insertions(+)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 007d1614b9ac..8bbfa842889a 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -525,8 +525,21 @@ static ssize_t ntfs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   		ssize_t written;
->   		int ret2;
->   
-> +		if (iocb->ki_flags & IOCB_NOWAIT) {
-> +			if (!ret)
-> +				ret = -EAGAIN;
-> +			goto out;
-> +		}
-> +
->   		offset = iocb->ki_pos;
->   		iocb->ki_flags &= ~IOCB_DIRECT;
-> +
-> +		/*
-> +		 * Prevent concurrent direct I/O and buffered I/O to the same file
-> +		 * range. Wait for in-flight DIO to finish before dirtying pages.
-> +		 */
-> +		inode_dio_wait(file_inode(iocb->ki_filp));
-> +
->   		written = iomap_file_buffered_write(iocb, from,
->   				&ntfs_write_iomap_ops, &ntfs_iomap_folio_ops,
->   				NULL);
+Publish mdrv immediately after komeda_dev_create() succeeds and before
+enabling runtime PM.  This guarantees that runtime PM callbacks always
+see a fully initialized mdrv->mdev.
 
-Looks good to me.
+Fixes: efb465088518 ("drm/komeda: Add runtime_pm support")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/gpu/drm/arm/display/komeda/komeda_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+index 67fffab018ae..82efa74199be 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
+@@ -73,6 +73,8 @@ static int komeda_platform_probe(struct platform_device *pdev)
+ 		goto free_mdrv;
+ 	}
+ 
++	dev_set_drvdata(dev, mdrv);
++
+ 	pm_runtime_enable(dev);
+ 	if (!pm_runtime_enabled(dev)) {
+ 		err = komeda_dev_resume(mdrv->mdev);
+@@ -86,7 +88,6 @@ static int komeda_platform_probe(struct platform_device *pdev)
+ 		goto destroy_mdev;
+ 	}
+ 
+-	dev_set_drvdata(dev, mdrv);
+ 	drm_client_setup(&mdrv->kms->base, NULL);
+ 
+ 	return 0;
+-- 
+2.34.1
 
