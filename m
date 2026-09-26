@@ -1,108 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8AE33F589;
-	Sat, 26 Sep 2026 07:24:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13CA033F589;
+	Sat, 26 Sep 2026 07:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790407470; cv=none; b=AGySIVeHGuoIWPtJrgSsf95c/GMfZQAo0gPDksk3fwZkrklVaKAwYRFnwJ4V/DPhAOWmCDGbC+xy/qt+kIH87vEChhHjce3vSVyTPDzHd1OpSxahZStZR/hbMC5Y4ET6C7sVIJLIuMWowIBRATa2ZPCUVnQSKcRjoliRU0pttwY=
+	t=1790407598; cv=none; b=QbBLlZ3rCYSYgdp5+Zd6rqQ+IUYjXvJseMHG4m89HKPRDKgyybXiPeE4fSBDpI9Tt8lsTXRoe/PAr/QHurLi8Xw+jLvMXgDzKQHj7bwVJQIhynYijTSfM13jNmIk7g0OvVQ+vb0DaTX8kP/pJsKhhiT1Nj8W6nB2VNVlkPXQCGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790407470; c=relaxed/simple;
-	bh=LSFWMmwZm9AOOui3G9yO6os/W4ndoAnTIvP6M1MFVyw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Tp/AB1nLcE7ssaCIWMVluR2RIURcCyUKuG2QeyUe7OczsXpLUbiKUkfPNLY0/yutcEsJjFTH3+WH3q0EtA01BW5m1apZ6Dw1vBSiaQsTrYAI5jxVNjUTpWF+QxFhajjBSMM9iBVEoiKR03sZYxuGjQGi7tTtbRWaBMV6lBPTJAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F70k0EEf; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790407598; c=relaxed/simple;
+	bh=5gW3H/1yVOxL00jh4JY44hYMcfiOVXML9SuZIS61MNk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=fWMvRcBysLIJmzKFLnnghxGqqaU1rJlcX8YwAfNzLAWabhBtYv6jLPE0lDNgllT8HZQYv65qqnL0kI8niJNMlwMGae7rnycOidg5OdsuSvNG4SNvqV0AabS63Fkjtc0pzBYkk1b0DQ4446IA2V3kykhbOkWyLn9+r9nynRsp7Yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kjqyE3fU; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F70k0EEf"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 21047C2BCB8;
-	Sat, 26 Sep 2026 07:24:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790407470;
-	bh=LSFWMmwZm9AOOui3G9yO6os/W4ndoAnTIvP6M1MFVyw=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=F70k0EEfDlYyHcVUO1ludQ5Sq/5NlWWVaNpChhgYfOyEtspuKDmcTMX0TdJ7UxnmC
-	 e4em7lAOgJGOqqeiLMSXcQaTFlGFqEitG6JVaAXORSOcDXTZTAbCjUnSRm/2Ei3721
-	 DdF/rpRUglY+fs+3/7lcx/9Y+ruvOKaUF+/YosFeUOvbwoC+vQaJKKSF6EsjtHMaqD
-	 wOdtscZz+70I7FVyRbpejHuh3GOoL/kQHDw/pHdJRg6egT9mNi4XzH6MVgJw86TvPn
-	 LuqIONOpKtzopWldB8pCZblI2g4ba1ijQ83Kh9hGIZO51tymrZJiKz9WIRa6wYDNAT
-	 B3DpTnduGWJ3g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFDEFC98318;
-	Sat, 26 Sep 2026 07:24:29 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Sat, 26 Sep 2026 02:24:19 -0500
-Subject: [PATCH] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kjqyE3fU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2C
+	SflERWiIEUtHIYwYt7AZ8Vjsf1CeCsPdvuomIllHU=; b=kjqyE3fUy/uWn9Huy2
+	aS/+HwoL9OOkbC2P8QKcnXwjzHobJwdT5Cj4fo8L1opxEvJj5T/fcgnd0FGZdDn0
+	UcEEeh6WmdwVZ3GC/YfRIcYnGKznOCISgYCAr3JN7J08q3lQWnJEJwnrbq5RyFVM
+	F+5FNKMXE2eH8HFKJ1OFfwPpo=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3v62dc7dqbEDbAw--.41165S3;
+	Sat, 26 Sep 2026 15:26:23 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jan Kara <jack@suse.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH v2 1/3] ext2: drain in-flight DIO before buffered write fallback
+Date: Sat, 26 Sep 2026 15:26:10 +0800
+Message-Id: <20260926072612.3022680-2-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260926072612.3022680-1-yaojiale02@163.com>
+References: <20260926072612.3022680-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-tegra194-hda-sdo-v1-1-f7a636a07a58@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avIrBtQKdGuEi1Ep5qNhkYE4d2Tl
- m/x/wuVClOFWbxQ6ObKOXWoQUA4fNoJOXaDltpIpw1etBev3IhH9FhjRhXtGIy0k3IWenYW2vj
- 5l8va2gf4fpxUYgAAAA==
-X-Change-ID: 20260926-tegra194-hda-sdo-1d84c6085198
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Thierry Reding <treding@nvidia.com>, linux-sound@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790407469; l=1584;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=8rAycl98UAJVNpg4nxLeFSEwU8WePutSW40I7utV8vY=;
- b=jpT6mRhj6kFaT03vLb78Ga/cCq4a5oFDhA6+ifoHcGRLo0Q1WygeZdjkILrQ2wRqTUOIgSoJj
- ur/C6Ic/N/jCoPadVejJRrh2MNXBWbwY9PtMqbgCOK/Yg6KbL8H5cHw
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3v62dc7dqbEDbAw--.41165S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tFyUuryxtFyDXr47tF1DJrb_yoW8Zrykpr
+	Z093W5JryqyrZ7Wwn7Wa18ur1fK398ArW3XrWvv3WDCry5Gws0gF4ktr1jvF1fGFsrJw4Y
+	qan29r97u3W0yaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zinYFJUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgGNx2q3c6G66AAA3Y
 
-From: Aaron Kling <webgeek1234@gmail.com>
+An asynchronous direct write can remain in flight after the inode lock is
+released.  If another direct write falls back to buffered I/O while the
+first write is still pending, generic_perform_write() can dirty pages
+before the first write completes its post-I/O page cache invalidation.
+The invalidation then finds dirty pages, reports a page cache invalidation
+failure, and records -EIO in the mapping error sequence.  A later fsync()
+therefore returns -EIO.
 
-This workaround was originally added for Tegra194, but no longer gets
-applied for it. Commit 615d43540043 ("ALSA: hda/tegra: fix tegra-hda on
-tegra30 soc") changed the guard to tegra30-hda, which worked because all
-affected archs had the fallback compatible. However, commit 7f0ea5acfc19
-("arm64: tegra: Use correct compatible string for Tegra194 HDA") removed
-the fallback compatible for Tegra194, causing this to break.
+Commit 15cdefd0c0522f9d5e12d947fa04f4c11649b699 ("ext4: drain
+in-flight DIO before buffered write fallback") fixed the same race in
+ext4.  Ext2 has an equivalent fallback after iomap_dio_rw() returns
+-ENOTBLK or a short write, but does not drain other in-flight DIO before
+dirtying the page cache.
 
-Fixes: 7f0ea5acfc19 ("arm64: tegra: Use correct compatible string for Tegra194 HDA")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+Wait for in-flight DIO before calling generic_perform_write() in the
+fallback path.
+
+A reproducer using concurrent AIO direct writes and buffered fallback
+triggered the following warning and made a subsequent fsync() return
+-EIO:
+
+  Page cache invalidation failure on direct I/O.  Possible data corruption
+  due to collision with buffered I/O!
+
+Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
+Link: https://lore.kernel.org/r/20260629113827.4074335-3-libaokun@linux.alibaba.com
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
-ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
----
- sound/hda/controllers/tegra.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/ext2/file.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/sound/hda/controllers/tegra.c b/sound/hda/controllers/tegra.c
-index 31c14c4bbe683..674cc0f79c3c8 100644
---- a/sound/hda/controllers/tegra.c
-+++ b/sound/hda/controllers/tegra.c
-@@ -374,7 +374,8 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
- 	 * in powers of 2, next available ratio is 16 which can be
- 	 * used as a limiting factor here.
- 	 */
--	if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
-+	if (of_device_is_compatible(np, "nvidia,tegra30-hda") ||
-+	    of_device_is_compatible(np, "nvidia,tegra194-hda"))
- 		chip->bus.core.sdo_limit = 16;
+diff --git a/fs/ext2/file.c b/fs/ext2/file.c
+index b9020df7d89e..67fe423c3828 100644
+--- a/fs/ext2/file.c
++++ b/fs/ext2/file.c
+@@ -135,6 +135,13 @@ static ssize_t ext2_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		int ret2;
  
- 	/* codec detection */
-
----
-base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
-change-id: 20260926-tegra194-hda-sdo-1d84c6085198
-
-Best regards,
+ 		iocb->ki_flags &= ~IOCB_DIRECT;
++
++		/*
++		 * Prevent concurrent direct I/O and buffered I/O to the same file
++		 * range. Wait for in-flight DIO to finish before dirtying pages.
++		 */
++		inode_dio_wait(inode);
++
+ 		pos = iocb->ki_pos;
+ 		status = generic_perform_write(iocb, from);
+ 		if (unlikely(status < 0)) {
 -- 
-Aaron Kling <webgeek1234@gmail.com>
-
+2.34.1
 
