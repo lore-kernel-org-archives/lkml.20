@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D750B3A83AC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77B7420E7C;
 	Sat, 26 Sep 2026 12:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790426433; cv=none; b=knJ0FK34I0z4RYk3TAYNa4KoknvmFaQpn814usoHJdivRyAQi5Fyw0vFyYNEbixG9Hh7WiPgOHRbnCuvYTTpScyFPUwIBaDNzOaPfywI4qao80EvHkDqf2WrXMflpCr7W54WrfVm0nUe6HBxnP5sFzgGmu38IePeEQISdPs6Ans=
+	t=1790426433; cv=none; b=iaQ6Bo+QLDRJJ/Hy7p21S2C/Gost0t2hMIxnrbTtntvJNfu0JVCz9FRP6xnkM0FVBMKT/TtVX20wNMgHJ0Ax1xl7vCwvBc2EzAcg22Xx+L39OAzAVzDpZk7pESl6b8EXX65y8qe1u9EopJfsIM1UzTpYqbgtJQu64opTGtRQleI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790426433; c=relaxed/simple;
-	bh=fbeH1V4vzunDOndyawowxW/6qRCo8v7L07Fr6mvTg5k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=njVzCbOn0asWQIK4Drk2nFyv9JlRqNzZIVXFASO0L3VytE8VWS/Z37me+iZHrLkiXsSVaDJh2J/kiS+Y+nkWvcYWFIYSHw4mWOtQ5TsPqMN1S+Lnw0V4F625mjRTnwZU6KjvQ7TdQA/B0L8mX7vx83Z8LDfXHwFmnoDwFddlGeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pRx+Op4v; arc=none smtp.client-ip=10.30.226.201
+	bh=xjTU+sbFxgAggl/vVSj98MM476PDRp/Fsy3fzVYTSv4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BanIADQoqlfcWSLh6TZ0KaFpVZwcgmBzgpNeftOtYGTXol45nf7jeRbUOGUPNSlFAPclcMiaH30QqmqbbI9BI0HkfeGiEls1dI9bHoo7a+kfk2VVTTrpwgb0B9JOX68NITVToz0GXE9jR09e3zraorSjFlbFeciPjyageKzLo1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bE24dhkO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pRx+Op4v"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8A29EC32782;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bE24dhkO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 54A3CC2BCB8;
 	Sat, 26 Sep 2026 12:40:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790426433;
-	bh=fbeH1V4vzunDOndyawowxW/6qRCo8v7L07Fr6mvTg5k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=pRx+Op4v7ku1/IUyCHwevHXuHkCucoxQe0N9phyPYaX77lPzoBg9QnjNkn9Bzmf6S
-	 NVqz+cOV51xw9OsosZ7AX7cNHMOXzrmha1sx6xhEApB+joZvrTusBj51deDqNeLT5M
-	 bRQPU4agF2/JsdW5YK8x6ovFr9BrMUQWPeOU1Tj8hQ0U5l897BEgtUpBAo54y2+Gfv
-	 ye3yX+ROPx1AovA2L3AmBZq2s9FrgR4bnArriW3nrIw3i9pOLvrPWPZmw3XXF0u1WM
-	 KHJ3Z7bP1+eFsO6rkdO1BRXXSXuqdNmrBFKu0suVoUmCh4m4C9F5FL/Wg8XzBEJPE2
-	 /46mEwAj8An2Q==
+	bh=xjTU+sbFxgAggl/vVSj98MM476PDRp/Fsy3fzVYTSv4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=bE24dhkOlAkKBhE23guQZryTMkICDLRhSJUs4NvOrL3j7fXP5BdSaYtumo+UnvqF2
+	 gGTG7ImDNaUGcOIt0pc4cPYTZ54baVYrZPXg3wEaPtbTDauZwJ4vpYu6qbQLkvlC+O
+	 wQuuupYhx4dm2u2s0o0T1AhAZ4fg5ceXCfSplyRPyE+XOobp4mBzixEAJ5OtUtNbVx
+	 /0ToO+O6hqDFWzfINBeyTj2L4h95xXPek2SpgnSVP3NdTNTIpjX3Rx6/N9ToGtYdj/
+	 7DKXEeAMOanNbAAttcseKm2cm2gZ74zZA5IojiynOouNZXFSDTAI9hHMPM04vg+4Es
+	 tf0Pqupi58QEw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78AE1C98328;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E526C98328;
 	Sat, 26 Sep 2026 12:40:33 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sat, 26 Sep 2026 14:40:23 +0200
-Subject: [PATCH RFC 04/12] usb: typec: qcom: Make PMIC port probe
- selectable
+Subject: [PATCH RFC 00/12] Qualcomm Type-C support for 1st generation
+Date: Sat, 26 Sep 2026 14:40:19 +0200
+Message-Id: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,10 +39,11 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-typec-v1-4-31adc19f32c6@ixit.cz>
-References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
-In-Reply-To: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyMj3ZLKgtRkXbNkE4vUNPPEZIskAyWg2oKi1LTMCrA50UpBbs5KsRD
+ B4tKkrNTkEpAJSrW1AJSvOV1uAAAA
+X-Change-ID: 20260922-typec-6c48ef7ac8b0
 To: Alexey Minnekhanov <alexeymin@minlexx.ru>, 
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -61,116 +61,93 @@ Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
  phone-devel@vger.kernel.org, mfd@lists.linux.dev, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2776; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2898; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=0rBqhoYEUS5e6Dqw7gl8GlLS56lHpFV9ezYYskglvBA=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqt70+w/f0+R0Sai12heN/MhIh3cfG2zGBplQjT
- Amw5uAyGPOJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCare9PgAKCRBgAj/E00kg
- cq/aEACDASJtuj9XnIaBYYWlfCvYWzdnaO1kkWypCP+jJS9r7zLJAfnX7V+vN5kArhjrFrO46gk
- wHleVtVTSF2vyK8zTICd68HEyjr1rUL0LWxPZwPNiIvOF6oPeg3HuSVxk6WpWm1ySQt2o+L906B
- 0GYzUGwdQYDdV23gcLx8/016p1ubedMwj5IE3iSi4UyYZ7QDzVoigcMNXKvWsmjjBb0FpyB487y
- 6oFuYyuNPxdcUbO4nj0Y5smop/cVT0RkGwWPBsFSptKftApLgPTJM3pGqXUESqf24d3R1iJc2pH
- hd3EkC7gQvz5tao6GQC4J0W6RtWw1NhGHERO58xe4eiOlBw37j/ajp69Y6yI8kKiWeNOaM5cl8I
- 0TW8qnBMuFaxHhK8GrrC5YT/8gdVX1IaMafE8ZzeebEU9euOrUMRUQNBb8SRnjXBn/Q8veANnj8
- k2YJ+O/KPGpJbiWtuYcbHRtyy5+IqIQprLjhJ+MCc6a9jHsMKQz+LYZGv5lzaFi5m8mWtM42ail
- HiBo82MfXe5eaRKoSrEnA3Q73RGDRbLJfGzu1WHkJit5+kfCOoFBPoBpeux6s8wzjWgxEAWm7kD
- ptCg/Ko3aWWfoi0fTd2g9jasGpzv2KKr/4hg6c5jZe/gIp9dMPf1jOaTgKLHO/yy7hloxJVOuHi
- WLyGtBvZK1f26hg==
+ bh=xjTU+sbFxgAggl/vVSj98MM476PDRp/Fsy3fzVYTSv4=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqt709jwyJHrD6CfhHDqzowkW+fwNwrlSwXtg0O
+ hYU/0A3JkCJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCare9PQAKCRBgAj/E00kg
+ cl9lD/4rcGeu0us3gr1ySqw8KNKrs54/QxPwlFkuGnScpOzRvoBmGlwhjSVxHUwzVuwPv++lOnV
+ DOeQAip+sSE/2iDz2vIxpyvOYyvPsS1UgjV2abr+yLO8O5Frn3fyxCrsq1wQS1TIaxyo1SeFWGN
+ 9Iw4cuQf9Pr9NXOh0cPePkSrOOaxbX/10hk8WdDIFBPCzWtyMsiZIAsy0q+hLLrW2CAqysCKhOO
+ zscZNGtbrE1NQgRbO+B77YB3kiEDSPQ+XbISdkXD45ini1gbyOVJ26nzqC7GGTEcQetcfD3GR6A
+ b5t0P63Yv6oZ0mYhIH+WhR/EaOQX/1LtAmDsLm0X7MlkokZ1RTH1fugGSysaZHjKQ32VGEu3Zvr
+ QVXUWoR/pAe+IctupGWu2SY2WJ1li8kCRngBe0P10hvnjMvYZuwYgPs2aMWg278r7TbeK7L6+RV
+ gB36AQ63GzbJPeZhUEonjiTCzEduK+mdOaoCdiqBQjC6nK0CvAIjoy/hdobzK+yUAbuCJKLPxMy
+ 9kDVzAx82d7tHT8iHz9EHaKXx+ey3x17qZPkveT284VkIYH4UORftQdKaUJkrUBUFTm/DXpxpXN
+ n5LsdTfDuwhFZJdZBixrJ8zud0OaBRKcNh5C2nNL2U+ANSqrt7BwVfMsQEVzXIbWGQ09Pj6WP3r
+ ta6K+o3Dom9rdtA==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
+This series adds basic USB Type-C support for 1st gen devices, covering
+configurations that do not require VBUS power (e.g. devices using
+externally powered docks).
 
-This is a preparation for extending the support with 1st generation
-Type-C.
+VBUS support will be added in a follow-up series after this one is merged.
+Supporting VBUS will likely require refactoring parts of the SMBX charger
+support, which is why it is not included here.
 
-Assisted-by: LLM
-Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+Tested with an externally powered dock station:
+
+ - Pixel 3 / 3 XL
+ - SHIFT 6mq
+ - OnePlus 6
+
+Tested with an additional, not-yet-included VBUS patch for non-powered
+devices:
+
+ - Xiaomi Redmi Note 7
+ - Xiaomi Mi Pad 4
+
+Credits to everyone who has contributed to Type-C enablement before:
+
+ Casey Connolly
+ Zachary Dry — LLM generation and testing
+ Max Furman — LLM generation and testing
+
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Alexey Minnekhanov (1):
+      arm64: dts: qcom: pm660: Add USB Type-C port controller node
 
-diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
-index d770e58bc16cf..41aaae6bb3724 100644
---- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
-+++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
-@@ -13,19 +13,25 @@
- #include <linux/usb/tcpm.h>
- 
- #include <drm/bridge/aux-bridge.h>
- 
- #include "qcom_pmic_typec.h"
- #include "qcom_pmic_typec_pdphy.h"
- #include "qcom_pmic_typec_port.h"
- 
-+typedef int (*pmic_typec_port_probe_fn)(struct platform_device *pdev,
-+					struct pmic_typec *tcpm,
-+					const struct pmic_typec_port_resources *res,
-+					struct regmap *regmap, u32 base);
-+
- struct pmic_typec_resources {
- 	const struct pmic_typec_pdphy_resources	*pdphy_res;
- 	const struct pmic_typec_port_resources	*port_res;
-+	pmic_typec_port_probe_fn	port_probe;
- };
- 
- static int qcom_pmic_typec_init(struct tcpc_dev *tcpc)
- {
- 	return 0;
- }
- 
- static int qcom_pmic_typec_probe(struct platform_device *pdev)
-@@ -55,18 +61,17 @@ static int qcom_pmic_typec_probe(struct platform_device *pdev)
- 		dev_err(dev, "Failed to get regmap\n");
- 		return -ENODEV;
- 	}
- 
- 	ret = of_property_read_u32_index(np, "reg", 0, &base);
- 	if (ret)
- 		return ret;
- 
--	ret = qcom_pmic_typec_port_probe(pdev, tcpm,
--					 res->port_res, regmap, base);
-+	ret = res->port_probe(pdev, tcpm, res->port_res, regmap, base);
- 	if (ret)
- 		return ret;
- 
- 	if (res->pdphy_res) {
- 		ret = of_property_read_u32_index(np, "reg", 1, &base);
- 		if (ret)
- 			return ret;
- 
-@@ -132,21 +137,23 @@ static void qcom_pmic_typec_remove(struct platform_device *pdev)
- 	tcpm->port_stop(tcpm);
- 	tcpm_unregister_port(tcpm->tcpm_port);
- 	fwnode_handle_put(tcpm->tcpc.fwnode);
- }
- 
- static const struct pmic_typec_resources pm8150b_typec_res = {
- 	.pdphy_res = &pm8150b_pdphy_res,
- 	.port_res = &pm8150b_port_res,
-+	.port_probe = qcom_pmic_typec_port_probe,
- };
- 
- static const struct pmic_typec_resources pmi632_typec_res = {
- 	/* PD PHY not present */
- 	.port_res = &pm8150b_port_res,
-+	.port_probe = qcom_pmic_typec_port_probe,
- };
- 
- static const struct of_device_id qcom_pmic_typec_table[] = {
- 	{ .compatible = "qcom,pm8150b-typec", .data = &pm8150b_typec_res },
- 	{ .compatible = "qcom,pmi632-typec", .data = &pmi632_typec_res },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, qcom_pmic_typec_table);
+David Heidelberg (11):
+      usb: typec: tcpm: qcom: Release the connector fwnode reference
+      dt-bindings: usb: qcom,pmic-typec: Update example with vbus-supply
+      dt-bindings: usb: Add Qualcomm 1st-gen PMIC Type-C
+      usb: typec: qcom: Make PMIC port probe selectable
+      usb: typec: qcom: Make typec_port accept also different structure
+      usb: typec: qcom: Add gen1 Type-C port support
+      arm64: dts: qcom: pmi8998: Add USB Type-C port controller node
+      arm64: dts: qcom: sdm670-google-common: Enable USB Type-C port controller
+      arm64: dts: qcom: sdm845-google-common: Enable USB Type-C port controller
+      arm64: dts: qcom: sdm845-oneplus-common: Enable USB Type-C port controller
+      arm64: dts: qcom: sdm845-shift-axolotl: Enable USB Type-C port controller
 
--- 
-2.55.0
+ .../devicetree/bindings/mfd/qcom,spmi-pmic.yaml    |   4 +-
+ .../bindings/usb/qcom,pmic-typec-gen1.yaml         | 130 +++++
+ .../devicetree/bindings/usb/qcom,pmic-typec.yaml   |   3 +-
+ arch/arm64/boot/dts/qcom/pm660.dtsi                |  27 +
+ arch/arm64/boot/dts/qcom/pmi8998.dtsi              |  27 +
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi |  51 +-
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi |  59 +-
+ .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi |  48 +-
+ arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts  |  62 ++-
+ drivers/usb/typec/tcpm/qcom/Makefile               |   1 +
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c      |  20 +-
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h      |   2 +-
+ drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c |   2 +
+ .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.c    | 605 +++++++++++++++++++++
+ .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.h    |  15 +
+ 15 files changed, 1045 insertions(+), 11 deletions(-)
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260922-typec-6c48ef7ac8b0
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
