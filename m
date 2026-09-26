@@ -1,43 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328F63A9619;
-	Sat, 26 Sep 2026 10:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3EA22FE0E;
+	Sat, 26 Sep 2026 10:20:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.183.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790417935; cv=none; b=Fi+BEmn/p3WsSkKltVjF81Ep4rHDbiYPVSItwKilO+HAUfb6bVdaoM9fDzpu8EAVu72LPblSP9GMpkfQxpeky26tHloCxr+Zgr6EhHizQqEQ0L0QBGdpA+5RxSDkxNP49arzzHm4HyIv2tFmv3V6KmvMuTS2eZDkgvQcW9O/GnU=
+	t=1790418039; cv=none; b=hk4GNUnbKeRk8gA1MRaEm8wRPFHxio8DkKRp5MvQKws3Xagq4c/ZzheEwY8OdKi/4ZMsouzNditxQfy76EkasIncVvGQhupEJEjMG1tIGZLmYzXB6onPGr45ZHqjRU6SbJcyVCLnDe3qOXvQipXdj7J4RvOk4RxJooS5FR1Ieiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790417935; c=relaxed/simple;
-	bh=iEk7V1/0WBxsUmi09StiNddndOWxuQdkmi27S9qY7RQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=fi5q2yVPJnzNWmWPuYihexiUyuUmxoEWxl8jP2sN24Ny6q6ujZgIicdg/2PuzufehJyIVNTkPtyWOQWHdUoNMp6Ko4kCezJ4MupF0U5ATD5VXoUJcL6W5s27O9m5uN/xzAQpYhFnG2uoKfsBfM7jeoNoRNhz1ljRa1zKMvfR2zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W60/ZOSw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790418039; c=relaxed/simple;
+	bh=43ofujJnr8vmaLApvwUJmJxIrubUzaFziaGvD2mwblk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MV9s5foLQblC8y8yHYpBwXzyhJ5Z7WbvOEDwBSawQ03LcZOfWpcoX6CBM6RfHfEywSqRmt5vI8Rw99SEu26bWqy89mNhxjdfeNZtZg2vCDSU/ynMaotoZ0DiSYmTOmiWxdPj0+tnRkDeixdybAsrLzAPcrb34nH/XCEbjYRyKqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu; spf=pass smtp.mailfrom=erebion.eu; dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=O0yf0AJr; dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=PURBNfMD; arc=none smtp.client-ip=142.132.183.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W60/ZOSw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A12521F000FF;
-	Sat, 26 Sep 2026 10:18:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790417933;
-	bh=QWK9woV9CptYmbcc53OWuTMscc/CJL5LLAF/moZU1Zc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=W60/ZOSw9Cu1aLUmf/Ch6O5Ovd6odSXqJf5T9i0IylRZ0ENn4V42b6Qf1Ek3z9cc/
-	 pwhUaP5olsdy+cgw6I17OBDz9nGnFa3lFLlyy5OALzsqb28MFmdKKhXVXl6wZx5Zie
-	 5ZqMozYcHALb8DUL3AA6CwVFJNgKTraOPw1SGwMAB6eFq3M2Zq8YAQv8VE1Lt5VXzt
-	 vPTCn+oHUrxZMPOYwjIGYYd4MTf3zWcthxf2jqCVLf8l34EExejotQ3UiUNai+MIDo
-	 p3Rsw6hLrCsiGRU4/HIf1+KUPyNLUcwfv6NLaz99GSV61Z96U/06tXD73nSAoWZdAA
-	 9UbNp9fgm54dw==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
- Alexandra Lu <alexandra.lu@nokia.com>
-Cc: Vivek Pernamitta <vivek.pernamitta@oss.qualcomm.com>, 
- mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260807143353.1932381-1-alexandra.lu@nokia.com>
-References: <20260807143353.1932381-1-alexandra.lu@nokia.com>
-Subject: Re: [PATCH] bus: mhi: host: pci_generic: Fix runtime PM imbalance
- for no_m3 devices
-Message-Id: <179041793127.232689.3792166271248903025.b4-ty@b4>
-Date: Sat, 26 Sep 2026 12:18:51 +0200
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="O0yf0AJr";
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="PURBNfMD"
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=To:Message-Id:Subject:Date:From; t=1790418023; bh=hl4gXvKHLHoPiGCHe3mTxF9
+	dRNhREF5K1noN1S/CrVs=; b=O0yf0AJr3JYZ05/jJX54vXFhTrIKpnqJZvy73baL9cPihc9N60
+	UFEmg8CwP6mNhtaExb4Zje2vJtRXycsO8jAA==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=To:Message-Id:Subject:Date:From; t=1790418023; bh=hl4gXvKHLHoPiGCHe3mTxF9
+	dRNhREF5K1noN1S/CrVs=; b=PURBNfMDnCTF+c2Q/WTgzqFPCck2d+8lidvJdOida42sZ/6j2V
+	7u5zpVKawogKeYt7aqul+ig/ldlDURCAJBr8jnGjOqSVJVX4GBzLOU0ZiNBNAr+kXYrO9Yd+T3Y
+	VHXqZs3dkxjGgCUc5NJ7JvFpffgWKPFNSBG/riA3bQJ7HRA3Q7oTuFhCleHky8giFuMojMZLSDu
+	qvQndUQotRg3JDjiGWoqKHpYYoeSsbQPc/KU/mUqxBgv29Q4sGZizaD/bVGC/Him7ApOEjSpKVM
+	GE3FEAwCCtWyEAbcINpp65+H3mFR3P1J8HwxLhVqE+FPFw2ZrIwLDyyrGYIzAEzoQTA==;
+From: erebion <erebion@erebion.eu>
+Date: Sat, 26 Sep 2026 12:20:22 +0200
+Subject: [PATCH 5/8] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,33 +38,171 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-pdx213-upstream-3-v1-5-1609c18b5c1d@erebion.eu>
+References: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
+In-Reply-To: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ erebion <erebion@erebion.eu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790418021; l=3828;
+ i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
+ bh=43ofujJnr8vmaLApvwUJmJxIrubUzaFziaGvD2mwblk=;
+ b=fwo9IsXD5Bu/6+xmuttFK9AMot1UvZj61brHlvtaFiScuc7ol4rDm0MhC/l+gUxY7+eAesvUP
+ huWxoiMLTv0BWLQZ6CVTr53Z3X3Xg6quX/OOPn3vMV6AON/b9La7CYX
+X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
+ pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
+Configure the required regulators for Bluetooth and enable it on the
+Xperia 10 III.
 
-On Fri, 07 Aug 2026 14:33:53 +0000, Alexandra Lu wrote:
-> mhi_pci_probe() drops the runtime PM reference taken by local_pci_probe()
-> only when the device supports both PME from D3hot and M3, but
-> mhi_pci_remove() re-takes it based on PME capability alone, without
-> checking no_m3.
-> 
-> For a device that is PME capable and has no_m3 set, probe therefore never
-> drops the reference while remove takes an extra one, leaving the runtime
-> PM usage count one higher after every bind/unbind cycle.  That is benign
-> for the device being removed, since the PCI core resumes it to D0 on
-> unbind regardless, but the struct device outlives the binding, so the
-> count accumulates across repeated cycles and can end up preventing
-> runtime suspend altogether.
-> 
-> [...]
+Signed-off-by: erebion <erebion@erebion.eu>
+---
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 105 +++++++++++++++++++++
+ 1 file changed, 105 insertions(+)
 
-Applied, thanks!
+diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+index 146c7c5c45ea2..cb749cc121abf 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
++++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+@@ -19,6 +19,10 @@ / {
+ 	qcom,msm-id = <434 0x10000>, <459 0x10000>;
+ 	qcom,board-id = <0x1000b 0>;
+ 
++	aliases {
++		serial1 = &uart1;
++	};
++
+ 	chosen {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -392,6 +396,40 @@ &qupv3_id_1 {
+ 	status = "okay";
+ };
+ 
++/* UART1: HS UART for Bluetooth */
++&qup_uart1_cts {
++	/*
++	 * Configure a bias-bus-hold on CTS to lower power
++	 * usage when Bluetooth is turned off. Bus hold will
++	 * maintain a low power state regardless of whether
++	 * the Bluetooth module drives the pin in either
++	 * direction or leaves the pin fully unpowered.
++	 */
++	bias-bus-hold;
++};
++
++&qup_uart1_rts {
++	/* We'll drive RTS, so no pull */
++	drive-strength = <2>;
++	bias-disable;
++};
++
++&qup_uart1_rx {
++	/*
++	 * Configure a pull-up on RX. This is needed to avoid
++	 * garbage data when the TX pin of the Bluetooth module is
++	 * in tri-state (module powered off or not driving the
++	 * signal yet).
++	 */
++	bias-pull-up;
++};
++
++&qup_uart1_tx {
++	/* We'll drive TX, so no pull */
++	drive-strength = <2>;
++	bias-disable;
++};
++
+ &sdc2_off_state {
+ 	sd-cd-pins {
+ 		pins = "gpio94";
+@@ -435,6 +473,73 @@ ts_int_default: ts-int-default-state {
+ 		drive-strength = <2>;
+ 		bias-disable;
+ 	};
++
++	qup_uart1_sleep_cts: qup-uart1-sleep-cts-state {
++		pins = "gpio61";
++		function = "gpio";
++		/*
++		 * Configure a bias-bus-hold on CTS to lower power
++		 * usage when Bluetooth is turned off. Bus hold will
++		 * maintain a low power state regardless of whether
++		 * the Bluetooth module drives the pin in either
++		 * direction or leaves the pin fully unpowered.
++		 */
++		bias-bus-hold;
++	};
++
++	qup_uart1_sleep_rts: qup-uart1-sleep-rts-state {
++		pins = "gpio62";
++		function = "gpio";
++		/*
++		 * Configure pull-down on RTS. As RTS is active low
++		 * signal, pull it low to indicate the BT SoC that it
++		 * can wakeup the system anytime from suspend state by
++		 * pulling RX low (by sending wakeup bytes).
++		 */
++		bias-pull-down;
++	};
++
++	qup_uart1_sleep_rx: qup-uart1-sleep-rx-state {
++		pins = "gpio64";
++		function = "gpio";
++		/*
++		 * Configure a pull-up on RX. This is needed to avoid
++		 * garbage data when the TX pin of the Bluetooth module
++		 * is floating which may cause spurious wakeups.
++		 */
++		bias-pull-up;
++	};
++
++	qup_uart1_sleep_tx: qup-uart1-sleep-tx-state {
++		pins = "gpio63";
++		function = "gpio";
++		/*
++		 * Configure pull-up on TX when it isn't actively driven
++		 * to prevent BT SoC from receiving garbage during sleep.
++		 */
++		bias-pull-up;
++	};
++};
++
++&uart1 {
++	/delete-property/ interrupts;
++	interrupts-extended = <&intc GIC_SPI 602 IRQ_TYPE_LEVEL_HIGH>,
++			     <&tlmm 64 IRQ_TYPE_EDGE_FALLING>;
++
++	pinctrl-names = "default", "sleep";
++	pinctrl-1 = <&qup_uart1_sleep_cts>, <&qup_uart1_sleep_rts>, <&qup_uart1_sleep_tx>, <&qup_uart1_sleep_rx>;
++
++	status = "okay";
++
++	bluetooth {
++		compatible = "qcom,wcn3991-bt";
++		vddio-supply = <&pm6350_l11>;
++		vddxo-supply = <&pm6350_l7>;
++		vddrf-supply = <&pm6150l_l2>;
++		vddch0-supply = <&pm6150l_l10>;
++		swctrl-gpios = <&tlmm 69 GPIO_ACTIVE_HIGH>;
++		firmware-name = "crnv32u.bin";
++	};
+ };
+ 
+ &usb_1 {
 
-[1/1] bus: mhi: host: pci_generic: Fix runtime PM imbalance for no_m3 devices
-      commit: 95601e9948b42f82600ff2d9e0c2f699a067d561
-
-Best regards,
 -- 
-மணிவண்ணன் சதாசிவம்
+2.53.0
 
 
