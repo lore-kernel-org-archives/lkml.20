@@ -1,205 +1,495 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA7D2D7398
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790384975; cv=none; b=rGyRMW/q9iFC6a8spP1WjJqe8lFcLRWyeh1hhKV1+ortV4A8zJ3zZ79MyvOm5xmYKcU4+lOm1YzV0u9KEtt4PUTvhBWuf0Yzn6K5R5TdioxnQtI1/le25Rphgar1cDJdqkzQychoQ8pIDHz2rPqSAHs/zN/cYAvC/WFxxSdJ8a0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790384975; c=relaxed/simple;
-	bh=eiCd5uwNN6RH/GFD0Omq0r87XiJMZxbzVZDa48WNDps=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oeweWNyerkKGaAtva20kwNcLkkh4LcVXCSpZujN6pd+UIHzoqxVl9DyCAc3bo75JN96I+SyM/w//t4FdlP1q+pyi4hI5pZ0V6fn3RhvUfie351eKA1qYW+QYEOpWnd8IsPIOW1OAOYNDMUyVSOAgIeIrVgV2Skyb8a/7n1u6YqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IEHKVNXT; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7851B4223
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790385050; cv=pass; b=Bbfxr5jUKtD03hgXimH392GV6ldNNjMhL+lxx96Wz85zCc98gHuMUMurq5TbbplMn3J15zy2aGzPfYyh7XZFif3ZrOybcakgedi3BDkW35xlsVbrVWLZWzOXmLGbssjYT2AH2w+gDaCCwqmhtdfZHNsu1CUTXuoC5bRn8TRNbeE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790385050; c=relaxed/simple;
+	bh=gm7j70omIIs+grKMJ2WREi20iJRd/J5EWHD0Kt3VyE0=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=i4fzMQdVGE0iCEVnNzIyKH20nPaXTOUYQwV81aihugzR9LaXMxXaxUS4GZJk3nfVTaYrUMB1P27GvAiYeFM0jWEkXhDSbBU2B+H2GF74tFLr6ygAg/mjNhrOO5iioSMOgyFrySX7EI5oMN3Dmohf5WNwv2a/Kj8hsKFPTEwh27w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KOhVRM7G; arc=pass smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IEHKVNXT"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-144f9160b81so519683c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:09:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KOhVRM7G"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-910704e63a9so5943046d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:10:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790385047; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Q+eb/A3tZxePW8ooZSwMzlwMJjJjrkNomDw9V2L797QoyTkWkcMgFX8d5rOvm9ctpm
+         ASUEQ5iAAOWFqvftnn6tM4sCUPRFEOhXcmZD11a0jCW9DvdeD2931nYm5BKV+BO3tqAV
+         ir/qkeXYhZw50sS4zH99Tzns8MVkzKS3T76pdNQvgjBj0AQjsgDguqS1cqIurHgqe9hy
+         tcmM/Isy75dSJI/QwDwOrDAeHjjgqukxe1k1UV3L7EumJa2E2saQdzQQgOqCGwIms6Je
+         3VNu6NDIWpw+96j+O7yreJE1UmNI9b5JyuV/KE1tpWcopemc+aSoImcnJoyv4b84ystE
+         KYhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=gm7j70omIIs+grKMJ2WREi20iJRd/J5EWHD0Kt3VyE0=;
+        fh=XSAIkcDv6XiUnqMCt6g6AEM5BQqqPa03DWHwQLMEpIM=;
+        b=AYpI0j6D0uPGKIP7e1alRgM3zelVxF3J2TD+aTDOX91wU8b5gdYLHFRoxBtPpsqTC9
+         Huz+oMB525XfI8gnzXCVnMD7OPHM3/P5pNptty3+v1d2X4GhSiKXcE9KsYADSoyJVpFt
+         YhVCmNM6AhNwkJEXfMnbSq1H0U1+Q5F6cEEeaXVGEFcB6KhNNikm2SSmrQJiwnM2oVsn
+         Zp5cfeObANbMn2g4dDA5noQQIvMlFQusMs78vzW88Ur+vV5TIMeMyyQ7tmgFcIA2olSb
+         KTNqDDiEB29DZs/SjORHYZUwu5nzD2Xw1axbDWbk9CYXQARJ7RKRqzw0DVREOCZlBZ25
+         gFPQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790384973; x=1790989773; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3gFLrYFckZ5XIkN69t9A3jgRQQGtoPYpO5S0Nj1j4is=;
-        b=IEHKVNXTUlGeDIvB4OrUZkQLBveYNv3i/YnJkihmJGEgf5zti8UWtTr8IVfXulpoMD
-         aSUOGtZCFfh6Q7FWA6XSKxNRY++ER+Y+/eNriXr6Yaq77OANLVaK4gEF4VJgylvBiDsE
-         CPGlRK7f4fYFNQxFQLIlzD3mEu8/Kpcffm4C5uCvqgFI7o7SV/ZwJ88JNFGdk1pcTrEn
-         abpYLbX4p4jh791b2S4Mrl+UV7+Ih3bNBDsmJu3g20udo5vP40GY+jlu5j3I2Wb3szHQ
-         rYjzcSnliZe9L6sDu1NrI2c6HWj/AlcXW1ZADznZy0DFmLLzV+AwFP76LiJ5fWfij8iG
-         JcbA==
+        d=gmail.com; s=20251104; t=1790385047; x=1790989847; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gm7j70omIIs+grKMJ2WREi20iJRd/J5EWHD0Kt3VyE0=;
+        b=KOhVRM7GamYucbRC/9eXbyIcqKZjK4XwDWmdsWfIst9z7+mHp+XklTf4NqRGCNH73O
+         SaeeGhVCcGe/WpOKgrZHcuy53Nh/LUhjV7t3MIcP+D1xHLbRZidTjiVVfTSWqS3Gwego
+         dubOKsaiz/dSEAHGZto6ycg25iYkD8xtKqeh24+Q391ZqDOG/RZ9e5dr4JmTZ7Ib4Lpr
+         P5zNiHoLN95k3NljBawVCBSoajSU459wC8QGSslF4mz0A1MDyFNWvx3GmbMWLrxmmSr7
+         xObFgPmOEEPUoIwV6kPIbjawGiWdtrJWsN+QiKlCBPBDPOJpTC38x1j0AsGcQOBDWaak
+         mEHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790384973; x=1790989773;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3gFLrYFckZ5XIkN69t9A3jgRQQGtoPYpO5S0Nj1j4is=;
-        b=RvdMLS34LmU+DS/uAhEHGGYYORvrdsoD1U8n2DK8R6OMsrDWEgCxBbPp9agM+wHq3m
-         ZYYPout1JwBeUdmmOHALlcuQrpGXuy6RMZqP9BYaK+jeJO6uhs0lG5xmbQcDdXhQAJsc
-         72RAsFaaMzyQ4o2WsN2Z6EHtJRw4p5WB6tRe6Mj62Ro21ECFo0FYEuTzdxmszsxNUnlD
-         3SN++AoB8u6bRwYMv3kfjeFFpr9GtMMTWAUwoay1CNtvLisuRLUI8ArQWyH+v53zOyzb
-         qY4brD/RKBpI57HFjTJ4iPoaKdHAvRtGGZ6miUDshHVnuX6Jk/yMBQ+I8YKj2BGhDrhF
-         IF2g==
-X-Forwarded-Encrypted: i=1; AKwUvBy1XCEm+If2RzTZX9rCFRAB60U3GonbsdE1IbakH4pYzryrJnUo7yGC40/Nf9kGPVZOQHUIBiAaGf/NLg0=@vger.kernel.org
-X-Gm-Message-State: AFuF++no5zcT1Pj5t0uVdhtKrqQIVtui/YU1ToTPq0oDy5OB919WKnWO
-	yPUwZqD4oEKBzMWCUxLfRf4X9LbKvoTPaI/ZDFf29YzsnHuWAWNMbpQfYGRk9XItQfA=
-X-Gm-Gg: AYBFou19NrXT2600deEVQw/SJpWnzU2/fNzQkHaZiF7lAGq2E6edqdFy3x419pZRXiN
-	D+E/1OwySD2mMNkW7p4p6ScslXxtuEs+o6yf732NUC0Z4e6j3vyIQej8kc/1RfGGWx/1Ilmq5UV
-	qeDhGXQTlW7Ojp4beQGZcDbYBNu/CCfaF/ZB3ruM2ThoMUxsK0LOox5CEHv0RKqsjgbSLEL4uM2
-	xVxNVPI+T3xdOhOlBQbv2mf3CwdkyV3ipZGsjXs7RmAs+iTCAZKL2tzNcUyujJB8L73WVEEtvaL
-	kXVVKPaW5zARp+TblQyqXAgmxmp5DOhYOiZCl0WJ6QpJD4XTIFiASCp9hZPe0494cFZxy1Of1TS
-	KIBPbCsygfZq8cvr7Xphlku8R3XAp8rs7nehbeSawKpW6h4STjhcwAG+BM3o5vO/49uvfGysn8A
-	bXs5FkG5TjPwUEt20JLXH4ycCeAQP0ShODF3FPnRn5YWPbcuaBZ52+6TTKbyP9dQFLh48WrdTEU
-	1Pk/L7ttYhxDTW6QWcCgn8NOX5Djmn5hiRILNpzAhSYB1FCTDLtIqcCK5Z+oWGnoww=
-X-Received: by 2002:a05:7022:28a:b0:145:77f:293e with SMTP id a92af1059eb24-146d0497070mr1662276c88.39.1790384972895;
-        Fri, 25 Sep 2026 18:09:32 -0700 (PDT)
-Received: from [192.168.1.23] ([138.122.221.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-147913a776fsm900c88.17.2026.09.25.18.09.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 18:09:32 -0700 (PDT)
-Message-ID: <2f83be7e-f37c-4e52-8974-0c37d94a42ea@gmail.com>
-Date: Fri, 25 Sep 2026 22:09:28 -0300
+        d=1e100.net; s=20260707; t=1790385047; x=1790989847;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gm7j70omIIs+grKMJ2WREi20iJRd/J5EWHD0Kt3VyE0=;
+        b=pegDwLAj6mqAAZBo9b90ONGP7lgmxaybrmH7oBAbnhk4T75yDdCoVhcQQ+LT4K05L9
+         /95gqaTJXHPGGoU73OyoN6eCvvo61b/3c1tu3jwrGNEvcy7zfEnnvYSy474rNCSXvjJZ
+         kJxIydTaZpHlq+N5tcRl4OqUcxZCuPbwcJYI2yossNponOcFp9i+y4WDPQqiyHlhUoWJ
+         3Ev6xSO1w7VG37ATAvOiKGHyDKQQ4bKhHZs950LLlmX/dKn65+N7DKC/DrUrSOV0hyIL
+         UnX63Bm3UMtq723dcO+aWjbOqWoMLypnET1RsIC5dVKA0lNPZ9cSfVM2uCkkaPgEkxtx
+         4wqA==
+X-Gm-Message-State: AFuF++nRqqXmmJqEHjVtcQuy5kKj8c+vJub+YVGv2t0aSwFM243IQyjr
+	ueG1HSLh7HvbQ6IwTZi8Gc+ThHSQciFf4RQAt6b67hUKvousZ0XmsYQ/Fd4gJ8oxB3ewTk7Yh6c
+	S98Lp8mDSuR9C8B10ZU7VDo4XNqNp24nt/GwAMCyr9w==
+X-Gm-Gg: AYBFou31eB7QJMLMaj8evod86T1xY/8mpRkyfQ4ZxUHcarYALWWSOdRBwLSnbBLphLp
+	xqS6/sx7nMIUog2jhAhwJoosFHHu1d5iR8TJLlGV83Pt6z1YlnF9qDyt6Au1GYkykzqONvofo6p
+	02Vt9jm0wJ3bczUGJYsRIA33dXjVf0ej/Tx5ykY3XlortMBycaleZh/3oXTHfBW1cm1c0lK54FX
+	OzVr99A1YWA4Tc8rIqCmdCCvcrbXpa+2TuPx3/RhxHRxmXzcbk0nC7HzA3n/lOUg67epfFG/MtC
+	kbHT+UZXtyxefRnig78aKdbO1gaRDI+Dn+Y5T18XEROEqtLeQt+EPi0C7/+VdLtWLBsBtJIOUng
+	=
+X-Received: by 2002:a05:6214:3906:b0:8ee:d9b8:8538 with SMTP id
+ 6a1803df08f44-9142f72e6cfmr70993246d6.9.1790385047148; Fri, 25 Sep 2026
+ 18:10:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] hfs: handle extent B-tree write errors
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <c569d5f8ee542e5c86a7e4dee23df99f4ec0becd.camel@dubeyko.com>
- <20260924001623.1765392-1-davyfelipe34@gmail.com>
- <9c9fe0c7660ff1cf4fe81bb3b2c907555d8add4e.camel@dubeyko.com>
-Content-Language: en-US
-From: Davy Felipe <davyfelipe34@gmail.com>
-In-Reply-To: <9c9fe0c7660ff1cf4fe81bb3b2c907555d8add4e.camel@dubeyko.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: =?UTF-8?B?0JLQu9Cw0LQg0KTQtdC00YfQtdC90LrQvg==?= <fedchenkovlad852@gmail.com>
+Date: Sat, 26 Sep 2026 04:10:36 +0300
+X-Gm-Features: AclHuK9v8i_yif38PLm1nKswsmz-2Ez5J-9x5WDVgBbAj6KkkmF78dpWOEooAJE
+Message-ID: <CAO4=r9JhnPXeu3FTr2LiN2QQ_v8Hzo=HrKE-d5sinATU9P3u3A@mail.gmail.com>
+Subject: AMD Ryzen 9 8945HX: TSC synchronization failure with ~9.3 billion
+ cycle warp on Lenovo Legion R9000P ADR10
+To: tglx@linutronix.de
+Cc: linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000bf5831065c58802d"
 
-Hi Slava,
-Thanks for the review.
-Your suggested changes look reasonable to me. Please feel free to make
-these adjustments to the patch if you prefer.
-I am fine with renaming the helper and using size_t for expected_len.
-Regarding the error code, I am also fine with using -ERANGE if you think
-it better represents this condition.
-Thanks,
-Davy Felipe
+--000000000000bf5831065c58802d
+Content-Type: multipart/alternative; boundary="000000000000bf582f065c58802b"
 
-Em 24/09/2026 16:23, Viacheslav Dubeyko escreveu:
-> On Wed, 2026-09-23 at 21:16 -0300, Davy Felipe wrote:
->> hfs_brec_insert() may fail while inserting a new extent record, but
->> __hfs_ext_write_extent() currently ignores its return value and
->> clears
->> HFS_FLG_EXT_DIRTY and HFS_FLG_EXT_NEW as if the insertion had
->> succeeded.
->>
->> Propagate errors returned by hfs_brec_insert() and only clear the
->> extent flags after a successful insertion.
->>
->> When updating an existing extent record, hfs_bnode_write() returns
->> void. Validate the extent record size and use a reusable B-tree node
->> range helper to reject invalid write parameters before calling
->> hfs_bnode_write(). This prevents an invalid update from being treated
->> as successful and avoids clearing HFS_FLG_EXT_DIRTY in that case.
->>
->> Negative-path testing in QEMU confirmed that an insertion error is
->> propagated to the caller. Testing the existing-record path also
->> confirmed that invalid write parameters are rejected before
->> HFS_FLG_EXT_DIRTY is cleared.
->>
->> Signed-off-by: Davy Felipe <davyfelipe34@gmail.com>
->>
->> Sorry, I missed your suggestion about factoring the validation into a
->> reusable helper in v3. This revision addresses it.
->>
->> Changes in v4:
->> - Factor B-tree node range validation into a reusable helper, as
->>   suggested by Viacheslav Dubeyko.
->> - Keep the extent-record size check local to the extent write path.
->> - Preserve the error propagation and validation behavior from v3.
->>
->> ---
->>  fs/hfs/btree.h  |  7 +++++++
->>  fs/hfs/extent.c | 12 ++++++++++--
->>  2 files changed, 17 insertions(+), 2 deletions(-)
->>
->> diff --git a/fs/hfs/btree.h b/fs/hfs/btree.h
->> index b4c3f2a31471..576412e6901e 100644
->> --- a/fs/hfs/btree.h
->> +++ b/fs/hfs/btree.h
->> @@ -84,6 +84,13 @@ struct hfs_find_data {
->>  	int entryoffset, entrylength;
->>  };
->>  
->> +static inline bool hfs_bnode_is_valid_range(struct hfs_bnode *node,
->> +					    int off, int len)
-> 
-> You can use struct hfs_find_data *fd. It can make argument list
-> shorter. We need to find the node before read/write. So, I think we
-> should have hfs_find_data available.
-> 
->> +{
->> +	return off >= 0 && len > 0 &&
->> +	       (u64)off + len <= node->tree->node_size;
-> 
-> Maybe, it makes sense to check that node->tree pointers are valid?
-> 
->> +}
->> +
->>  
->>  /* btree.c */
->>  extern struct hfs_btree *hfs_btree_open(struct super_block *sb, u32
->> id,
->> diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
->> index f066a99a863b..ece782205b47 100644
->> --- a/fs/hfs/extent.c
->> +++ b/fs/hfs/extent.c
->> @@ -121,12 +121,20 @@ static int __hfs_ext_write_extent(struct inode
->> *inode, struct hfs_find_data *fd)
->>  		res = hfs_bmap_reserve(fd->tree, fd->tree->depth +
->> 1);
->>  		if (res)
->>  			return res;
->> -		hfs_brec_insert(fd, HFS_I(inode)->cached_extents,
->> sizeof(hfs_extent_rec));
->> +		res = hfs_brec_insert(fd, HFS_I(inode)-
->>> cached_extents,
->> +				      sizeof(hfs_extent_rec));
->> +		if (res)
->> +			return res;
->>  		HFS_I(inode)->flags &=
->> ~(HFS_FLG_EXT_DIRTY|HFS_FLG_EXT_NEW);
->>  	} else {
->>  		if (res)
->>  			return res;
->> -		hfs_bnode_write(fd->bnode, HFS_I(inode)-
->>> cached_extents, fd->entryoffset, fd->entrylength);
->> +		if (fd->entrylength != sizeof(hfs_extent_rec) ||
->> +		    !hfs_bnode_is_valid_range(fd->bnode, fd-
->>> entryoffset,
->> +					      fd->entrylength))
-> 
-> I think we can share with hfs_bnode_is_valid_range() expected size
-> sizeof(hfs_extent_rec) and hfs_bnode_is_valid_range() will be able to
-> check the fd->entrylength. What do you think?
-> 
-> Thanks,
-> Slava.
-> 
->> +			return -EIO;
->> +		hfs_bnode_write(fd->bnode, HFS_I(inode)-
->>> cached_extents,
->> +				fd->entryoffset, fd->entrylength);
->>  		HFS_I(inode)->flags &= ~HFS_FLG_EXT_DIRTY;
->>  	}
->>  	return 0;
+--000000000000bf582f065c58802b
+Content-Type: text/plain; charset="UTF-8"
 
+Hello,
+
+I am seeing a reproducible TSC synchronization failure on a Lenovo Legion
+R9000P ADR10 (83LV) with an AMD Ryzen 9 8945HX.
+
+On every boot, Linux detects a very large TSC warp between CPU 0 and CPU 1,
+marks TSC unstable, and falls back to HPET:
+
+tsc: Fast TSC calibration using PIT
+tsc: Detected 2495.162 MHz processor
+clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles:
+0x23f75fcb980, max_idle_ns: 440795305647 ns
+TSC synchronization [CPU#0 -> CPU#1]:
+Measured 9329553668 cycles TSC warp between CPUs, turning off TSC clock.
+tsc: Marking TSC unstable due to check_tsc_sync_source failed
+clocksource: Switched to clocksource hpet
+
+After boot, TSC is no longer available as a clocksource:
+
+$ cat /sys/devices/system/clocksource/clocksource0/current_clocksource
+hpet
+
+$ cat /sys/devices/system/clocksource/clocksource0/available_clocksource
+hpet acpi_pm
+
+System information:
+
+Distribution: Arch Linux
+Kernel: 7.2.6-arch2-1
+Architecture: x86_64
+
+Hardware vendor: Lenovo
+Hardware model: Legion R9000P ADR10
+Model: 83LV
+
+BIOS vendor: LENOVO
+BIOS version: RLCN33WW
+BIOS release date: 03/25/2026
+
+CPU: AMD Ryzen 9 8945HX with Radeon Graphics
+Vendor ID: AuthenticAMD
+CPU family: 25
+Model: 97
+Stepping: 2
+Logical CPUs: 32
+
+The issue is reproducible across reboots and has persisted across multiple
+clean Arch Linux installations.
+
+I previously used the Arch Linux LTS kernel and observed the same TSC
+synchronization failure and fallback to HPET there as well. Therefore, the
+issue does not appear to be specific to Linux 7.2.6 or to the current Arch
+Linux installation.
+
+Unfortunately, I no longer have the exact LTS kernel version or the old
+boot logs because those installations have since been removed.
+
+The current kernel taint value is:
+
+12288
+
+This is caused by the NVIDIA driver:
+
+nvidia: loading out-of-tree module taints kernel.
+nvidia: module verification failed: signature and/or required key
+missing - tainting kernel
+
+The TSC synchronization failure occurs during early boot, before the NVIDIA
+driver is relevant to clocksource selection.
+
+I have not forced tsc=reliable, clocksource=tsc, or disabled HPET. I have
+left the kernel's automatic fallback to HPET unchanged.
+
+I have not tested a current mainline/RC kernel yet. The system is currently
+running the Arch Linux 7.2.6 kernel. However, as mentioned above, I have
+previously reproduced the same behavior using an Arch Linux LTS kernel and
+across multiple clean installations.
+
+A complete kernel boot log from the affected system is available and I can
+provide it if needed.
+
+I have attached the complete kernel boot log (kernel-boot.log) from the
+affected system to this report.
+
+--000000000000bf582f065c58802b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p><span>Hello,</span></p><p><span>I am seeing a reproduci=
+ble TSC synchronization failure on a Lenovo Legion R9000P ADR10 (83LV) with=
+ an AMD Ryzen 9 8945HX.</span></p><p><span>On every boot, Linux detects a v=
+ery large TSC warp between CPU 0 and CPU 1, marks TSC unstable, and falls b=
+ack to HPET:</span></p><pre><code><span>tsc: Fast TSC calibration using PIT
+tsc: Detected 2495.162 MHz processor
+clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x23f75fcb980,=
+ max_idle_ns: 440795305647 ns
+TSC synchronization [CPU#0 -&gt; CPU#1]:
+Measured 9329553668 cycles TSC warp between CPUs, turning off TSC clock.
+tsc: Marking TSC unstable due to check_tsc_sync_source failed
+clocksource: Switched to clocksource hpet</span></code></pre><p><span>After=
+ boot, TSC is no longer available as a clocksource:</span></p><pre><code><s=
+pan>$ cat /sys/devices/system/clocksource/clocksource0/current_clocksource
+hpet
+
+$ cat /sys/devices/system/clocksource/clocksource0/available_clocksource
+hpet acpi_pm</span></code></pre><p><span>System information:</span></p><pre=
+><code><span>Distribution: Arch Linux
+Kernel: 7.2.6-arch2-1
+Architecture: x86_64
+
+Hardware vendor: Lenovo
+Hardware model: Legion R9000P ADR10
+Model: 83LV
+
+BIOS vendor: LENOVO
+BIOS version: RLCN33WW
+BIOS release date: 03/25/2026
+
+CPU: AMD Ryzen 9 8945HX with Radeon Graphics
+Vendor ID: AuthenticAMD
+CPU family: 25
+Model: 97
+Stepping: 2
+Logical CPUs: 32</span></code></pre><p><span>The issue is reproducible acro=
+ss reboots and has persisted across multiple clean Arch Linux installations=
+.</span></p><p><span>I previously used the Arch Linux LTS kernel and observ=
+ed the same TSC synchronization failure and fallback to HPET there as well.=
+ Therefore, the issue does not appear to be specific to Linux 7.2.6 or to t=
+he current Arch Linux installation.</span></p><p><span>Unfortunately, I no =
+longer have the exact LTS kernel version or the old boot logs because those=
+ installations have since been removed.</span></p><p><span>The current kern=
+el taint value is:</span></p><pre><code><span>12288</span></code></pre><p><=
+span>This is caused by the NVIDIA driver:</span></p><pre><code><span>nvidia=
+: loading out-of-tree module taints kernel.
+nvidia: module verification failed: signature and/or required key missing -=
+ tainting kernel</span></code></pre><p><span>The TSC synchronization failur=
+e occurs during early boot, before the NVIDIA driver is relevant to clockso=
+urce selection.</span></p><p><span>I have not forced </span><code><span>tsc=
+=3Dreliable</span></code><span>, </span><code><span>clocksource=3Dtsc</span=
+></code><span>, or disabled HPET. I have left the kernel&#39;s automatic fa=
+llback to HPET unchanged.</span></p><p><span>I have not tested a current ma=
+inline/RC kernel yet. The system is currently running the Arch Linux 7.2.6 =
+kernel. However, as mentioned above, I have previously reproduced the same =
+behavior using an Arch Linux LTS kernel and across multiple clean installat=
+ions.</span></p><p><span>A complete kernel boot log from the affected syste=
+m is available and I can provide it if needed.</span></p><p><span>I have at=
+tached the complete kernel boot log (</span><code dir=3D"ltr"><span>kernel-=
+boot.log</span></code><span>) from the affected system to this report.</spa=
+n></p></div>
+
+--000000000000bf582f065c58802b--
+--000000000000bf5831065c58802d
+Content-Type: text/x-log; charset="UTF-8"; name="kernel-boot.log"
+Content-Disposition: attachment; filename="kernel-boot.log"
+Content-Transfer-Encoding: base64
+Content-ID: <f_muhp0ksh0>
+X-Attachment-Id: f_muhp0ksh0
+
+W1tSRURBQ1RFRF9VU0VSXUBbUkVEQUNURURfSE9TVF0gfl0kIGZ3dXBkbWdyIGdldC1kZXZpY2Vz
+CkxFTk9WTyA4M0xWCuKUggrilJzilIBUb3VjaCBDb250cm9sbGVyIFNlbnNvcjoK4pSCICAgICBE
+ZXZpY2UgSUQ6ICAgICAgICAgIFtSRURBQ1RFRF9ERVZJQ0VfSURdCuKUgiAgICAgU3VtbWFyeTog
+ICAgICAgICAgICBUb3VjaHBhZArilIIgICAgIEN1cnJlbnQgdmVyc2lvbjogICAgMC42ODQ3OQri
+lIIgICAgIFZlbmRvcjogICAgICAgICAgICAgR29vZGl4IChISURSQVc6MHgyN0M2KQrilIIgICAg
+IEdVSURzOiAgICAgICAgICAgICAgW1JFREFDVEVEX0dVSURTXQrilIIgICAgICAgICAgICAgICAg
+ICAgICAgICAgW1JFREFDVEVEX0dVSURdIOKGkCBISURSQVdcVkVOXzI3QzYmREVWXzAxRTAmUElE
+X0dUNzg2MwrilIIgICAgIERldmljZSBGbGFnczogICAgICAg4oCiIEludGVybmFsIGRldmljZQri
+lIIgICAgICAgICAgICAgICAgICAgICAgICAg4oCiIFVwZGF0YWJsZQrilIIgICAgICAgICAgICAg
+ICAgICAgICAgICAg4oCiIFVuc2lnbmVkIFBheWxvYWQK4pSCICAgICAgICAgICAgICAgICAgICAg
+ICAgIOKAoiBDYW4gdGFnIGZvciBlbXVsYXRpb24K4pSCICAgCuKUnOKUgFVua25vd24gRGV2aWNl
+OgrilIIgICAgIERldmljZSBJRDogICAgICAgICAgW1JFREFDVEVEX0RFVklDRV9JRF0K4pSCICAg
+ICBWZW5kb3I6ICAgICAgICAgICAgIFBOUDpTVEcK4pSCICAgICBTZXJpYWwgTnVtYmVyOiAgICAg
+IFtSRURBQ1RFRF9TRVJJQUxdCuKUgiAgICAgR1VJRDogICAgICAgICAgICAgICBbUkVEQUNURURf
+R1VJRF0K4pSCICAgCuKUnOKUgEh1YjoK4pSCICAgICBEZXZpY2UgSUQ6ICAgICAgICAgIFtSRURB
+Q1RFRF9ERVZJQ0VfSURdCuKUgiAgICAgQ3VycmVudCB2ZXJzaW9uOiAgICA3Ni41MQrilIIgICAg
+IFZlbmRvcjogICAgICAgICAgICAgR2VuZXN5cyBMb2dpYywgSW5jLiAoVVNCOjB4MDVFMykK4pSC
+ICAgICBJbnN0YWxsIER1cmF0aW9uOiAgIDkgc2Vjb25kcwrilIIgICAgIEdVSURzOiAgICAgICAg
+ICAgICAgW1JFREFDVEVEX0dVSURTXQrilIIgICAgICAgICAgICAgICAgICAgICAgICAgW1JFREFD
+VEVEX0dVSURdIOKGkCBVU0JcVklEXzA1RTMmUElEXzA2MTAmSUNfMzUyMzMwJkJPTkRJTkdfMEYm
+UlVOTU9ERV9DCuKUgiAgICAgICAgICAgICAgICAgICAgICAgICBbUkVEQUNURURfR1VJRF0g4oaQ
+IFVTQlxWSURfMDVFMyZQSURfMDYxMCZWRU5ET1JfR0VORVNZU0xPR0lDJklDXzM1MjMzMCZCT05E
+SU5HXzBGJlBPUlROVU1fMjQmVkVORE9SU1VQXzc1QzU5RjdELUVERkEtNTQyOS04RDc2LTcxMjUx
+MUYzMzUyMwrilIIgICAgICAgICAgICAgICAgICAgICAgICAgW1JFREFDVEVEX0dVSURdIOKGkCBV
+U0JcVklEXzA1RTMmUElEXzA2MTAmUFJPSkVDVF80MzQ3OUQ1Qi04NTNDLTVGNjUtOUYzMi1GNjI2
+QTcwRkE5QTYK4pSCICAgICBEZXZpY2UgRmxhZ3M6ICAgICAgIOKAoiBVcGRhdGFibGUK4pSCICAg
+ICAgICAgICAgICAgICAgICAgICAgIOKAoiBDcnlwdG9ncmFwaGljIGhhc2ggdmVyaWZpY2F0aW9u
+IGlzIGF2YWlsYWJsZQrilIIgICAgICAgICAgICAgICAgICAgICAgICAg4oCiIFVuc2lnbmVkIFBh
+eWxvYWQK4pSCICAgICAgICAgICAgICAgICAgICAgICAgIOKAoiBDYW4gdGFnIGZvciBlbXVsYXRp
+b24K4pSCICAgCuKUnOKUgFJ5emVuIDkgODk0NUhYIHdpdGggUmFkZW9uIEdyYXBoaWNzOgrilIIg
+4pSCICAgRGV2aWNlIElEOiAgICAgICAgICBbUkVEQUNURURfREVWSUNFX0lEXQrilIIg4pSCICAg
+Q3VycmVudCB2ZXJzaW9uOiAgICAweDBhNjAxMjBjCuKUgiDilIIgICBWZW5kb3I6ICAgICAgICAg
+ICAgIEFNRArilIIg4pSCICAgR1VJRHM6ICAgICAgICAgICAgICBbUkVEQUNURURfR1VJRFNdCuKU
+giDilIIgICAgICAgICAgICAgICAgICAgICAgIFtSRURBQ1RFRF9HVUlEXSDihpAgQ1BVSURcUFJP
+XzAmRkFNXzE5Jk1PRF82MSZTVFBfMgrilIIg4pSCICAgRGV2aWNlIEZsYWdzOiAgICAgICDigKIg
+SW50ZXJuYWwgZGV2aWNlCuKUgiDilIIgCuKUgiDilJzilIBSYWRlb24gNjEwTToK4pSCIOKUgiDi
+lIIgICBEZXZpY2UgSUQ6ICAgICAgICBbUkVEQUNURURfREVWSUNFX0lEXQrilIIg4pSCIOKUgiAg
+IFN1bW1hcnk6ICAgICAgICAgIFJhcGhhZWwgR2VuZXJpYyBWQklPUwrilIIg4pSCIOKUgiAgIEN1
+cnJlbnQgdmVyc2lvbjogIDgK4pSCIOKUgiDilIIgICBWZW5kb3I6ICAgICAgICAgICBBTUQgKFBD
+SToweDEwMDIpCuKUgiDilIIg4pSCICAgR1VJRDogICAgICAgICAgICAgW1JFREFDVEVEX0dVSURd
+CuKUgiDilIIg4pSCICAgRGV2aWNlIEZsYWdzOiAgICAg4oCiIEludGVybmFsIGRldmljZQrilIIg
+4pSCIOKUgiAgICAgICAgICAgICAgICAgICAgIOKAoiBDYW4gdGFnIGZvciBlbXVsYXRpb24K4pSC
+IOKUgiDilIIgCuKUgiDilIIg4pSU4pSAQ1NPVCBUMzoK4pSCIOKUgiAgICAgICBEZXZpY2UgSUQ6
+ICAgICAgW1JFREFDVEVEX0RFVklDRV9JRF0K4pSCIOKUgiAgICAgICBWZW5kb3I6ICAgICAgICAg
+UE5QOkNTVwrilIIg4pSCICAgICAgIFNlcmlhbCBOdW1iZXI6ICBbUkVEQUNURURfU0VSSUFMXQri
+lIIg4pSCICAgICAgIEdVSUQ6ICAgICAgICAgICBbUkVEQUNURURfR1VJRF0K4pSCIOKUgiAgICAg
+CuKUgiDilJTilIBTZWN1cmUgUHJvY2Vzc29yOgrilIIgICAgICAgRGV2aWNlIElEOiAgICAgICAg
+W1JFREFDVEVEX0RFVklDRV9JRF0K4pSCICAgICAgIEN1cnJlbnQgdmVyc2lvbjogIDAwLjJiLjAw
+LjU5CuKUgiAgICAgICBCb290bG9hZGVyIFZlcnNpb246IDAwLjJiLjAwLjU5CuKUgiAgICAgICBW
+ZW5kb3I6ICAgICAgICAgICBBTUQgKFBDSToweDEwMjIpCuKUgiAgICAgICBHVUlEOiAgICAgICAg
+ICAgICBbUkVEQUNURURfR1VJRF0K4pSCICAgICAgIERldmljZSBGbGFnczogICAgIOKAoiBJbnRl
+cm5hbCBkZXZpY2UK4pSCICAgICAgICAgICAgICAgICAgICAgICAgIOKAoiBDYW4gdGFnIGZvciBl
+bXVsYXRpb24K4pSCICAgICAK4pSc4pSAU1NEIDk5MCBFVk8gUGx1cyAyVEI6CuKUgiAgICAgRGV2
+aWNlIElEOiAgICAgICAgICBbUkVEQUNURURfREVWSUNFX0lEXQrilIIgICAgIFN1bW1hcnk6ICAg
+ICAgICAgICAgTlZNIEV4cHJlc3Mgc29saWQgc3RhdGUgZHJpdmUK4pSCICAgICBDdXJyZW50IHZl
+cnNpb246ICAgIDJCMlFLWEc3CuKUgiAgICAgVmVuZG9yOiAgICAgICAgICAgICBTYW1zdW5nIChQ
+Q0k6MHgxNDREKQrilIIgICAgIFNlcmlhbCBOdW1iZXI6ICAgICAgW1JFREFDVEVEX1NFUklBTF0K
+4pSCICAgICBHVUlEczogICAgICAgICAgICAgIFtSRURBQ1RFRF9HVUlEU10K4pSCICAgICAgICAg
+ICAgICAgICAgICAgICAgIFtSRURBQ1RFRF9HVUlEXSDihpAgTlZNRVxWRU5fMTQ0RCZERVZfQTgw
+RCZTVUJTWVNfMTQ0REE4MDEK4pSCICAgICAgICAgICAgICAgICAgICAgICAgIFtSRURBQ1RFRF9H
+VUlEXSDihpAgU2Ftc3VuZyBTU0QgOTkwIEVWTyBQbHVzIDJUQgrilIIgICAgIERldmljZSBGbGFn
+czogICAgICAg4oCiIEludGVybmFsIGRldmljZQrilIIgICAgICAgICAgICAgICAgICAgICAgICAg
+4oCiIFVwZGF0YWJsZQrilIIgICAgICAgICAgICAgICAgICAgICAgICAg4oCiIFN5c3RlbSByZXF1
+aXJlcyBleHRlcm5hbCBwb3dlciBzb3VyY2UK4pSCICAgICAgICAgICAgICAgICAgICAgICAgIOKA
+oiBOZWVkcyBhIHJlYm9vdCBhZnRlciBpbnN0YWxsYXRpb24K4pSCICAgICAgICAgICAgICAgICAg
+ICAgICAgIOKAoiBEZXZpY2UgaXMgdXNhYmxlIGZvciB0aGUgZHVyYXRpb24gb2YgdGhlIHVwZGF0
+ZQrilIIgICAgICAgICAgICAgICAgICAgICAgICAg4oCiIFNpZ25lZCBQYXlsb2FkCuKUgiAgICAg
+ICAgICAgICAgICAgICAgICAgICDigKIgQ2FuIHRhZyBmb3IgZW11bGF0aW9uCuKUgiAgIArilJzi
+lIBTeXN0ZW0gRmlybXdhcmU6CuKUgiDilIIgICBEZXZpY2UgSUQ6ICAgICAgICAgIFtSRURBQ1RF
+RF9ERVZJQ0VfSURdCuKUgiDilIIgICBTdW1tYXJ5OiAgICAgICAgICAgIFVFRkkgU3lzdGVtIFJl
+c291cmNlIFRhYmxlIGRldmljZSAoVXBkYXRlZCB2aWEgY2Fwc3VsZS1vbi1kaXNrKQrilIIg4pSC
+ICAgQ3VycmVudCB2ZXJzaW9uOiAgICAxOTE3OTk3MTM4CuKUgiDilIIgICBNaW5pbXVtIFZlcnNp
+b246ICAgIDEzODAxMjI2MjQK4pSCIOKUgiAgIFZlbmRvcjogICAgICAgICAgICAgTEVOT1ZPIChE
+TUk6TEVOT1ZPKQrilIIg4pSCICAgVXBkYXRlIFN0YXRlOiAgICAgICBTdWNjZXNzCuKUgiDilIIg
+ICBHVUlEOiAgICAgICAgICAgICAgIFtSRURBQ1RFRF9HVUlEXQrilIIg4pSCICAgRGV2aWNlIEZs
+YWdzOiAgICAgICDigKIgSW50ZXJuYWwgZGV2aWNlCuKUgiDilIIgICAgICAgICAgICAgICAgICAg
+ICAgIOKAoiBVcGRhdGFibGUK4pSCIOKUgiAgICAgICAgICAgICAgICAgICAgICAg4oCiIFN5c3Rl
+bSByZXF1aXJlcyBleHRlcm5hbCBwb3dlciBzb3VyY2UK4pSCIOKUgiAgICAgICAgICAgICAgICAg
+ICAgICAg4oCiIE5lZWRzIGEgcmVib290IGFmdGVyIGluc3RhbGxhdGlvbgrilIIg4pSCICAgICAg
+ICAgICAgICAgICAgICAgICDigKIgQ3J5cHRvZ3JhcGhpYyBoYXNoIHZlcmlmaWNhdGlvbiBpcyBh
+dmFpbGFibGUK4pSCIOKUgiAgICAgICAgICAgICAgICAgICAgICAg4oCiIERldmljZSBpcyB1c2Fi
+bGUgZm9yIHRoZSBkdXJhdGlvbiBvZiB0aGUgdXBkYXRlCuKUgiDilIIgICBEZXZpY2UgUmVxdWVz
+dHM6ICAgIOKAoiBNZXNzYWdlCuKUgiDilIIgCuKUgiDilJzilIBQbGF0Zm9ybSBLZXk6CuKUgiDi
+lIIgICAgIERldmljZSBJRDogICAgICAgIFtSRURBQ1RFRF9ERVZJQ0VfSURdCuKUgiDilIIgICAg
+IFN1bW1hcnk6ICAgICAgICAgIFVFRkkgUGxhdGZvcm0gS2V5CuKUgiDilIIgICAgIEN1cnJlbnQg
+dmVyc2lvbjogIDIwMjYK4pSCIOKUgiAgICAgVmVuZG9yOiAgICAgICAgICAgVW5rbm93bgrilIIg
+4pSCICAgICBHVUlEOiAgICAgICAgICAgICBbUkVEQUNURURfR1VJRF0K4pSCIOKUgiAgICAgRGV2
+aWNlIEZsYWdzOiAgICAg4oCiIEludGVybmFsIGRldmljZQrilIIg4pSCICAgCuKUgiDilJzilIBV
+RUZJIEtleSBFeGNoYW5nZSBLZXk6CuKUgiDilIIg4pSCICAgRGV2aWNlIElEOiAgICAgICAgW1JF
+REFDVEVEX0RFVklDRV9JRF0K4pSCIOKUgiDilIIgICBEZXZpY2UgRmxhZ3M6ICAgICDigKIgSW50
+ZXJuYWwgZGV2aWNlCuKUgiDilIIg4pSCIArilIIg4pSCIOKUnOKUgEtFSyBDQToK4pSCIOKUgiDi
+lIIgICAgIERldmljZSBJRDogICAgICBbUkVEQUNURURfREVWSUNFX0lEXQrilIIg4pSCIOKUgiAg
+ICAgQ3VycmVudCB2ZXJzaW9uOiAyMDIzCuKUgiDilIIg4pSCICAgICBWZW5kb3I6ICAgICAgICAg
+TWljcm9zb2Z0IChVRUZJOk1pY3Jvc29mdCkK4pSCIOKUgiDilIIgICAgIEdVSURzOiAgICAgICAg
+ICBbUkVEQUNURURfR1VJRFNdCuKUgiDilIIg4pSCICAgICAgICAgICAgICAgICAgICAgW1JFREFD
+VEVEX0dVSURdIOKGkCBVRUZJXENSVF9ERUM2NEQ3NzQ2RDk4M0RCMzc3NDgyOUEwMEJGODI5RDlG
+MTlFOUNGCuKUgiDilIIg4pSCICAgICBEZXZpY2UgRmxhZ3M6ICAg4oCiIEludGVybmFsIGRldmlj
+ZQrilIIg4pSCIOKUgiAgICAgICAgICAgICAgICAgICAgIOKAoiBVcGRhdGFibGUK4pSCIOKUgiDi
+lIIgICAgICAgICAgICAgICAgICAgICDigKIgTmVlZHMgYSByZWJvb3QgYWZ0ZXIgaW5zdGFsbGF0
+aW9uCuKUgiDilIIg4pSCICAgICAgICAgICAgICAgICAgICAg4oCiIERldmljZSBpcyB1c2FibGUg
+Zm9yIHRoZSBkdXJhdGlvbiBvZiB0aGUgdXBkYXRlCuKUgiDilIIg4pSCICAgICAgICAgICAgICAg
+ICAgICAg4oCiIFNpZ25lZCBQYXlsb2FkCuKUgiDilIIg4pSCICAgICAgICAgICAgICAgICAgICAg
+4oCiIENhbiB0YWcgZm9yIGVtdWxhdGlvbgrilIIg4pSCIOKUgiAgIArilIIg4pSCIOKUlOKUgEtl
+eSBFeGNoYW5nZSBLZXk6CuKUgiDilIIgICAgICAgRGV2aWNlIElEOiAgICAgIFtSRURBQ1RFRF9E
+RVZJQ0VfSURdCuKUgiDilIIgICAgICAgQ3VycmVudCB2ZXJzaW9uOiAyMDI2CuKUgiDilIIgICAg
+ICAgVXBkYXRlIEVycm9yOiAgIE5vIHZlbmRvciBJRCBzZXQK4pSCIOKUgiAgICAgICBHVUlEOiAg
+ICAgICAgICAgW1JFREFDVEVEX0dVSURdCuKUgiDilIIgICAgICAgRGV2aWNlIEZsYWdzOiAgIOKA
+oiBJbnRlcm5hbCBkZXZpY2UK4pSCIOKUgiAgICAgICAgICAgICAgICAgICAgICAg4oCiIE5lZWRz
+IGEgcmVib290IGFmdGVyIGluc3RhbGxhdGlvbgrilIIg4pSCICAgICAgICAgICAgICAgICAgICAg
+ICDigKIgRGV2aWNlIGlzIHVzYWJsZSBmb3IgdGhlIGR1cmF0aW9uIG9mIHRoZSB1cGRhdGUK4pSC
+IOKUgiAgICAgICAgICAgICAgICAgICAgICAg4oCiIFVwZGF0YWJsZQrilIIg4pSCICAgICAgICAg
+ICAgICAgICAgICAgICDigKIgU2lnbmVkIFBheWxvYWQK4pSCIOKUgiAgICAgICAgICAgICAgICAg
+ICAgICAg4oCiIENhbiB0YWcgZm9yIGVtdWxhdGlvbgrilIIg4pSCICAgICAK4pSCIOKUnOKUgFVF
+RkkgU2lnbmF0dXJlIERhdGFiYXNlOgrilIIg4pSCIOKUgiAgIERldmljZSBJRDogICAgICAgIFtS
+RURBQ1RFRF9ERVZJQ0VfSURdCuKUgiDilIIg4pSCICAgRGV2aWNlIEZsYWdzOiAgICAg4oCiIElu
+dGVybmFsIGRldmljZQrilIIg4pSCIOKUgiAK4pSCIOKUgiDilJzilIBEYXRhYmFzZSBLZXk6CuKU
+giDilIIg4pSCICAgICBEZXZpY2UgSUQ6ICAgICAgW1JFREFDVEVEX0RFVklDRV9JRF0K4pSCIOKU
+giDilIIgICAgIEN1cnJlbnQgdmVyc2lvbjogMjAyNgrilIIg4pSCIOKUgiAgICAgVXBkYXRlIEVy
+cm9yOiAgIE5vIHZlbmRvciBJRCBzZXQK4pSCIOKUgiDilIIgICAgIEdVSUQ6ICAgICAgICAgICBb
+UkVEQUNURURfR1VJRF0K4pSCIOKUgiDilIIgICAgIERldmljZSBGbGFnczogICDigKIgSW50ZXJu
+YWwgZGV2aWNlCuKUgiDilIIg4pSCICAgICAgICAgICAgICAgICAgICAg4oCiIE5lZWRzIGEgcmVi
+b290IGFmdGVyIGluc3RhbGxhdGlvbgrilIIg4pSCIOKUgiAgICAgICAgICAgICAgICAgICAgIOKA
+oiBVcGRhdGFibGUK4pSCIOKUgiDilIIgICAgICAgICAgICAgICAgICAgICDigKIgU2lnbmVkIFBh
+eWxvYWQK4pSCIOKUgiDilIIgICAgICAgICAgICAgICAgICAgICDigKIgQ2FuIHRhZyBmb3IgZW11
+bGF0aW9uCuKUgiDilIIg4pSCICAgCuKUgiDilIIg4pSc4pSAT3B0aW9uIFJPTSBVRUZJIENBOgri
+lIIg4pSCIOKUgiAgICAgRGV2aWNlIElEOiAgICAgIFtSRURBQ1RFRF9ERVZJQ0VfSURdCuKUgiDi
+lIIg4pSCICAgICBDdXJyZW50IHZlcnNpb246IDIwMjMK4pSCIOKUgiDilIIgICAgIFZlbmRvcjog
+ICAgICAgICBNaWNyb3NvZnQgKFVFRkk6TWljcm9zb2Z0KQrilIIg4pSCIOKUgiAgICAgR1VJRHM6
+ICAgICAgICAgIFtSRURBQ1RFRF9HVUlEU10K4pSCIOKUgiDilIIgICAgICAgICAgICAgICAgICAg
+ICBbUkVEQUNURURfR1VJRF0g4oaQIFVFRklcQ1JUX0Y0NUI1NTlGQzFDNjBGMzFCMzA3MTAyMTI5
+OEQ1RUQ3RDc3MjgwQjAK4pSCIOKUgiDilIIgICAgIERldmljZSBGbGFnczogICDigKIgSW50ZXJu
+YWwgZGV2aWNlCuKUgiDilIIg4pSCICAgICAgICAgICAgICAgICAgICAg4oCiIFVwZGF0YWJsZQri
+lIIg4pSCIOKUgiAgICAgICAgICAgICAgICAgICAgIOKAoiBOZWVkcyBhIHJlYm9vdCBhZnRlciBp
+bnN0YWxsYXRpb24K4pSCIOKUgiDilIIgICAgICAgICAgICAgICAgICAgICDigKIgU2lnbmVkIFBh
+eWxvYWQK4pSCIOKUgiDilIIgICAgICAgICAgICAgICAgICAgICDigKIgQ2FuIHRhZyBmb3IgZW11
+bGF0aW9uCuKUgiDilIIg4pSCICAgCuKUgiDilIIg4pSc4pSAVUVGSSBDQToK4pSCIOKUgiDilIIg
+ICAgIERldmljZSBJRDogICAgICBbUkVEQUNURURfREVWSUNFX0lEXQrilIIg4pSCIOKUgiAgICAg
+Q3VycmVudCB2ZXJzaW9uOiAyMDIzCuKUgiDilIIg4pSCICAgICBWZW5kb3I6ICAgICAgICAgTWlj
+cm9zb2Z0IChVRUZJOk1pY3Jvc29mdCkK4pSCIOKUgiDilIIgICAgIEdVSURzOiAgICAgICAgICBb
+UkVEQUNURURfR1VJRFNdCuKUgiDilIIg4pSCICAgICAgICAgICAgICAgICAgICAgW1JFREFDVEVE
+X0dVSURdIOKGkCBVRUZJXENSVF83Q0Q3NDM3QzU1NUY4OUU3QzJCNTBFMjE5MzdFNDIwQzRFNTgz
+RTgwCuKUgiDilIIg4pSCICAgICBEZXZpY2UgRmxhZ3M6ICAg4oCiIEludGVybmFsIGRldmljZQri
+lIIg4pSCIOKUgiAgICAgICAgICAgICAgICAgICAgIOKAoiBVcGRhdGFibGUK4pSCIOKUgiDilIIg
+ICAgICAgICAgICAgICAgICAgICDigKIgTmVlZHMgYSByZWJvb3QgYWZ0ZXIgaW5zdGFsbGF0aW9u
+CuKUgiDilIIg4pSCICAgICAgICAgICAgICAgICAgICAg4oCiIFNpZ25lZCBQYXlsb2FkCuKUgiDi
+lIIg4pSCICAgICAgICAgICAgICAgICAgICAg4oCiIENhbiB0YWcgZm9yIGVtdWxhdGlvbgrilIIg
+4pSCIOKUgiAgIArilIIg4pSCIOKUlOKUgFdpbmRvd3MgVUVGSSBDQToK4pSCIOKUgiAgICAgICBE
+ZXZpY2UgSUQ6ICAgICAgW1JFREFDVEVEX0RFVklDRV9JRF0K4pSCIOKUgiAgICAgICBDdXJyZW50
+IHZlcnNpb246IDIwMjMK4pSCIOKUgiAgICAgICBWZW5kb3I6ICAgICAgICAgTWljcm9zb2Z0IChV
+RUZJOk1pY3Jvc29mdCkK4pSCIOKUgiAgICAgICBHVUlEczogICAgICAgICAgW1JFREFDVEVEX0dV
+SURTXQrilIIg4pSCICAgICAgICAgICAgICAgICAgICAgICBbUkVEQUNURURfR1VJRF0g4oaQIFVF
+RklcQ1JUX0E3OTQyNDBEMjVGMENDQjJFQzgxNDJEQzJGNzQxMTg5MDcxN0RFQUQK4pSCIOKUgiAg
+ICAgICBEZXZpY2UgRmxhZ3M6ICAg4oCiIEludGVybmFsIGRldmljZQrilIIg4pSCICAgICAgICAg
+ICAgICAgICAgICAgICDigKIgVXBkYXRhYmxlCuKUgiDilIIgICAgICAgICAgICAgICAgICAgICAg
+IOKAoiBOZWVkcyBhIHJlYm9vdCBhZnRlciBpbnN0YWxsYXRpb24K4pSCIOKUgiAgICAgICAgICAg
+ICAgICAgICAgICAg4oCiIFNpZ25lZCBQYXlsb2FkCuKUgiDilIIgICAgICAgICAgICAgICAgICAg
+ICAgIOKAoiBDYW4gdGFnIGZvciBlbXVsYXRpb24K4pSCIOKUgiAgICAgCuKUgiDilJTilIBVRUZJ
+IGRieDoK4pSCICAgICAgIERldmljZSBJRDogICAgICAgIFtSRURBQ1RFRF9ERVZJQ0VfSURdCuKU
+giAgICAgICBTdW1tYXJ5OiAgICAgICAgICBVRUZJIHJldm9jYXRpb24gZGF0YWJhc2UK4pSCICAg
+ICAgIFZlbmRvcjogICAgICAgICAgIE1pY3Jvc29mdCAoVUVGSTpNaWNyb3NvZnQpCuKUgiAgICAg
+ICBJbnN0YWxsIER1cmF0aW9uOiAxIHNlY29uZArilIIgICAgICAgR1VJRHM6ICAgICAgICAgICAg
+W1JFREFDVEVEX0dVSURTXQrilIIgICAgICAgICAgICAgICAgICAgICAgICAgW1JFREFDVEVEX0dV
+SURdIOKGkCBVRUZJXENSVF9BMTExN0Y1MTZBMzJDRUZDQkEzRjJEMUFDRTEwQTg3OTcyRkQ2QkJF
+OEZFMEQwQjk5NkUwOUU2NUQ4MDJBNTAzJkFSQ0hfWDY0CuKUgiAgICAgICAgICAgICAgICAgICAg
+ICAgICBbUkVEQUNURURfR1VJRF0g4oaQIFVFRklcQ1JUXzNDRDNGMDMwOUVEQUUyMjg3NjdBOTc2
+REQ0MEQ5RjRBRkZDNEZCRDUyMThGMkU4Q0MzQzlERDk3RThBQzZGOUQmQVJDSF9YNjQK4pSCICAg
+ICAgIERldmljZSBGbGFnczogICAgIOKAoiBJbnRlcm5hbCBkZXZpY2UK4pSCICAgICAgICAgICAg
+ICAgICAgICAgICAgIOKAoiBVcGRhdGFibGUK4pSCICAgICAgICAgICAgICAgICAgICAgICAgIOKA
+oiBOZWVkcyBhIHJlYm9vdCBhZnRlciBpbnN0YWxsYXRpb24K4pSCICAgICAgICAgICAgICAgICAg
+ICAgICAgIOKAoiBEZXZpY2UgaXMgdXNhYmxlIGZvciB0aGUgZHVyYXRpb24gb2YgdGhlIHVwZGF0
+ZQrilIIgICAgICAgICAgICAgICAgICAgICAgICAg4oCiIE9ubHkgdmVyc2lvbiB1cGdyYWRlcyBh
+cmUgYWxsb3dlZArilIIgICAgICAgICAgICAgICAgICAgICAgICAg4oCiIFNpZ25lZCBQYXlsb2Fk
+CuKUgiAgICAgICAgICAgICAgICAgICAgICAgICDigKIgQ2FuIHRhZyBmb3IgZW11bGF0aW9uCuKU
+giAgICAgCuKUnOKUgFRQTToK4pSCICAgICBEZXZpY2UgSUQ6ICAgICAgICAgIFtSRURBQ1RFRF9E
+RVZJQ0VfSURdCuKUgiAgICAgQ3VycmVudCB2ZXJzaW9uOiAgICA2LjMyLjAuNgrilIIgICAgIFZl
+bmRvcjogICAgICAgICAgICAgQU1EIChUUE06QU1EKQrilIIgICAgIEdVSURzOiAgICAgICAgICAg
+ICAgW1JFREFDVEVEX0dVSURTXQrilIIgICAgICAgICAgICAgICAgICAgICAgICAgW1JFREFDVEVE
+X0dVSURdIOKGkCBUUE1cVkVOX0FNRCZNT0RfQU1ECuKUgiAgICAgICAgICAgICAgICAgICAgICAg
+ICBbUkVEQUNURURfR1VJRF0g4oaQIFRQTVxWRU5fQU1EJkRFVl8wMDAxJlZFUl8yLjAK4pSCICAg
+ICAgICAgICAgICAgICAgICAgICAgIFtSRURBQ1RFRF9HVUlEXSDihpAgVFBNXFZFTl9BTUQmTU9E
+X0FNRCZWRVJfMi4wCuKUgiAgICAgRGV2aWNlIEZsYWdzOiAgICAgICDigKIgSW50ZXJuYWwgZGV2
+aWNlCuKUgiAgICAgICAgICAgICAgICAgICAgICAgICDigKIgU3lzdGVtIHJlcXVpcmVzIGV4dGVy
+bmFsIHBvd2VyIHNvdXJjZQrilIIgICAgICAgICAgICAgICAgICAgICAgICAg4oCiIE5lZWRzIGEg
+cmVib290IGFmdGVyIGluc3RhbGxhdGlvbgrilIIgICAgICAgICAgICAgICAgICAgICAgICAg4oCi
+IERldmljZSBjYW4gcmVjb3ZlciBmbGFzaCBmYWlsdXJlcwrilIIgICAgICAgICAgICAgICAgICAg
+ICAgICAg4oCiIFNpZ25lZCBQYXlsb2FkCuKUgiAgICAgICAgICAgICAgICAgICAgICAgICDigKIg
+Q2FuIHRhZyBmb3IgZW11bGF0aW9uCuKUgiAgIArilJzilIBVRUZJIERldmljZSBGaXJtd2FyZToK
+4pSCICAgICBEZXZpY2UgSUQ6ICAgICAgICAgIFtSRURBQ1RFRF9ERVZJQ0VfSURdCuKUgiAgICAg
+U3VtbWFyeTogICAgICAgICAgICBVRUZJIFN5c3RlbSBSZXNvdXJjZSBUYWJsZSBkZXZpY2UgKFVw
+ZGF0ZWQgdmlhIGNhcHN1bGUtb24tZGlzaykK4pSCICAgICBDdXJyZW50IHZlcnNpb246ICAgIDAK
+4pSCICAgICBNaW5pbXVtIFZlcnNpb246ICAgIDEK4pSCICAgICBWZW5kb3I6ICAgICAgICAgICAg
+IERNSTpMRU5PVk8K4pSCICAgICBVcGRhdGUgU3RhdGU6ICAgICAgIFN1Y2Nlc3MK4pSCICAgICBH
+VUlEOiAgICAgICAgICAgICAgIFtSRURBQ1RFRF9HVUlEXQrilIIgICAgIERldmljZSBGbGFnczog
+ICAgICAg4oCiIEludGVybmFsIGRldmljZQrilIIgICAgICAgICAgICAgICAgICAgICAgICAg4oCi
+IFVwZGF0YWJsZQrilIIgICAgICAgICAgICAgICAgICAgICAgICAg4oCiIFN5c3RlbSByZXF1aXJl
+cyBleHRlcm5hbCBwb3dlciBzb3VyY2UK4pSCICAgICAgICAgICAgICAgICAgICAgICAgIOKAoiBO
+ZWVkcyBhIHJlYm9vdCBhZnRlciBpbnN0YWxsYXRpb24K4pSCICAgICAgICAgICAgICAgICAgICAg
+ICAgIOKAoiBEZXZpY2UgaXMgdXNhYmxlIGZvciB0aGUgZHVyYXRpb24gb2YgdGhlIHVwZGF0ZQri
+lIIgICAgIERldmljZSBSZXF1ZXN0czogICAg4oCiIE1lc3NhZ2UK4pSCICAgCuKUnOKUgFVFRkkg
+RGV2aWNlIEZpcm13YXJlOgrilIIgICAgIERldmljZSBJRDogICAgICAgICAgW1JFREFDVEVEX0RF
+VklDRV9JRF0K4pSCICAgICBTdW1tYXJ5OiAgICAgICAgICAgIFVFRkkgU3lzdGVtIFJlc291cmNl
+IFRhYmxlIGRldmljZSAoVXBkYXRlZCB2aWEgY2Fwc3VsZS1vbi1kaXNrKQrilIIgICAgIEN1cnJl
+bnQgdmVyc2lvbjogICAgMjY3CuKUgiAgICAgTWluaW11bSBWZXJzaW9uOiAgICAxCuKUgiAgICAg
+VmVuZG9yOiAgICAgICAgICAgICBETUk6TEVOT1ZPCuKUgiAgICAgVXBkYXRlIFN0YXRlOiAgICAg
+ICBTdWNjZXNzCuKUgiAgICAgR1VJRDogICAgICAgICAgICAgICBbUkVEQUNURURfR1VJRF0K4pSC
+ICAgICBEZXZpY2UgRmxhZ3M6ICAgICAgIOKAoiBJbnRlcm5hbCBkZXZpY2UK4pSCICAgICAgICAg
+ICAgICAgICAgICAgICAgIOKAoiBVcGRhdGFibGUK4pSCICAgICAgICAgICAgICAgICAgICAgICAg
+IOKAoiBTeXN0ZW0gcmVxdWlyZXMgZXh0ZXJuYWwgcG93ZXIgc291cmNlCuKUgiAgICAgICAgICAg
+ICAgICAgICAgICAgICDigKIgTmVlZHMgYSByZWJvb3QgYWZ0ZXIgaW5zdGFsbGF0aW9uCuKUgiAg
+ICAgICAgICAgICAgICAgICAgICAgICDigKIgRGV2aWNlIGlzIHVzYWJsZSBmb3IgdGhlIGR1cmF0
+aW9uIG9mIHRoZSB1cGRhdGUK4pSCICAgICBEZXZpY2UgUmVxdWVzdHM6ICAgIOKAoiBNZXNzYWdl
+CuKUgiAgIArilJzilIBVRUZJIERldmljZSBGaXJtd2FyZToK4pSCICAgICBEZXZpY2UgSUQ6ICAg
+ICAgICAgIFtSRURBQ1RFRF9ERVZJQ0VfSURdCuKUgiAgICAgU3VtbWFyeTogICAgICAgICAgICBV
+RUZJIFN5c3RlbSBSZXNvdXJjZSBUYWJsZSBkZXZpY2UgKFVwZGF0ZWQgdmlhIGNhcHN1bGUtb24t
+ZGlzaykK4pSCICAgICBDdXJyZW50IHZlcnNpb246ICAgIDE2Nzc3MjI0CuKUgiAgICAgTWluaW11
+bSBWZXJzaW9uOiAgICAxCuKUgiAgICAgVmVuZG9yOiAgICAgICAgICAgICBETUk6TEVOT1ZPCuKU
+giAgICAgVXBkYXRlIFN0YXRlOiAgICAgICBTdWNjZXNzCuKUgiAgICAgR1VJRDogICAgICAgICAg
+ICAgICBbUkVEQUNURURfR1VJRF0K4pSCICAgICBEZXZpY2UgRmxhZ3M6ICAgICAgIOKAoiBJbnRl
+cm5hbCBkZXZpY2UK4pSCICAgICAgICAgICAgICAgICAgICAgICAgIOKAoiBVcGRhdGFibGUK4pSC
+ICAgICAgICAgICAgICAgICAgICAgICAgIOKAoiBTeXN0ZW0gcmVxdWlyZXMgZXh0ZXJuYWwgcG93
+ZXIgc291cmNlCuKUgiAgICAgICAgICAgICAgICAgICAgICAgICDigKIgTmVlZHMgYSByZWJvb3Qg
+YWZ0ZXIgaW5zdGFsbGF0aW9uCuKUgiAgICAgICAgICAgICAgICAgICAgICAgICDigKIgRGV2aWNl
+IGlzIHVzYWJsZSBmb3IgdGhlIGR1cmF0aW9uIG9mIHRoZSB1cGRhdGUK4pSCICAgICBEZXZpY2Ug
+UmVxdWVzdHM6ICAgIOKAoiBNZXNzYWdlCuKUgiAgIArilJTilIBZTVRDIFlNU1MyRUQwOEQyNU1D
+OgogICAgICBEZXZpY2UgSUQ6ICAgICAgICAgIFtSRURBQ1RFRF9ERVZJQ0VfSURdCiAgICAgIFN1
+bW1hcnk6ICAgICAgICAgICAgTlZNIEV4cHJlc3Mgc29saWQgc3RhdGUgZHJpdmUKICAgICAgQ3Vy
+cmVudCB2ZXJzaW9uOiAgICBMTjM2MDNEMwogICAgICBWZW5kb3I6ICAgICAgICAgICAgIFlhbmd0
+emUgTWVtb3J5IFRlY2hub2xvZ2llcyBDby4sTHRkIChQQ0k6MHgxRTQ5KQogICAgICBTZXJpYWwg
+TnVtYmVyOiAgICAgIFtSRURBQ1RFRF9TRVJJQUxdCiAgICAgIEdVSURzOiAgICAgICAgICAgICAg
+W1JFREFDVEVEX0dVSURTXQogICAgICAgICAgICAgICAgICAgICAgICAgIFtSRURBQ1RFRF9HVUlE
+XSDihpAgTlZNRVxWRU5fMUU0OSZERVZfMTA3MyZTVUJTWVNfMUU0OTEwNzMKICAgICAgICAgICAg
+ICAgICAgICAgICAgICBbUkVEQUNURURfR1VJRF0KICAgICAgICAgICAgICAgICAgICAgICAgICBb
+UkVEQUNURURfR1VJRF0g4oaQIFlNVEMgWU1TUzJFRDA4RDI1TUMKICAgICAgRGV2aWNlIEZsYWdz
+OiAgICAgICDigKIgSW50ZXJuYWwgZGV2aWNlCiAgICAgICAgICAgICAgICAgICAgICAgICAg4oCi
+IFVwZGF0YWJsZQogICAgICAgICAgICAgICAgICAgICAgICAgIOKAoiBTeXN0ZW0gcmVxdWlyZXMg
+ZXh0ZXJuYWwgcG93ZXIgc291cmNlCiAgICAgICAgICAgICAgICAgICAgICAgICAg4oCiIE5lZWRz
+IGEgcmVib290IGFmdGVyIGluc3RhbGxhdGlvbgogICAgICAgICAgICAgICAgICAgICAgICAgIOKA
+oiBEZXZpY2UgaXMgdXNhYmxlIGZvciB0aGUgZHVyYXRpb24gb2YgdGhlIHVwZGF0ZQogICAgICAg
+ICAgICAgICAgICAgICAgICAgIOKAoiBDYW4gdGFnIGZvciBlbXVsYXRpb24KICAgIApbW1JFREFD
+VEVEX1VTRVJdQFtSRURBQ1RFRF9IT1NUXSB+XSQgCg==
+--000000000000bf5831065c58802d--
