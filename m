@@ -1,96 +1,83 @@
-Received: from mail-pj2-f32.google.com (mail-pj2-f32.google.com [74.125.227.160])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2DE36DA1A
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.160
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDA2371CE9;
+	Sat, 26 Sep 2026 03:30:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790393388; cv=none; b=QzU6zxc7Zr5UwJP2i0QF2kEta2RR2uRy3V1IpVgia1ymz9h6FQEk2aHLsbSoCSc2pi/m5J0/uG9Pi/h0t/Hx9K+UcyqC7gv1W2Lq9+uLYlcoRjMxbsFyV8/P45jMMRXi1LNYy9axDd91m/w6YKoIE3hLMfT9oDVWoNcz5H9r274=
+	t=1790393435; cv=none; b=XHqbLmO77C/kZhYPSZKmNPrkOkPr4ijoDszokqZk1k3pN6bBETrBHtA/YoHz9+YqH/uUhq0CvbEXYe1Jef75pOqYttyDFSUS5MmEOpz5Uyo5Oh1nfFRzBt+gjUgZEGw+agJ7sHovKlA511QsSWxMvjYV4cXFSf9MFRbqjTSoEHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790393388; c=relaxed/simple;
-	bh=h9PxQncYBLh3youqxgEia4ZTQ8uVglHXzoWmBgb9eiQ=;
+	s=arc-20240116; t=1790393435; c=relaxed/simple;
+	bh=vGj8GW+JABu/P6bZyE3YYG9p7TQ37Szlbw91gruDUfQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uJn9gOzwLnHxx4mF56U15LOyX0U4o6TFyITM59bKPkstGi1gUlnYoW1SVvumJmFjCpgg4PWnu1DtN3Te6HC/e1rYquQzZ8u7RmH0g1ZOi0IRfl56RLEnEScXVh1fN2IDmBOrXu1Rfc6IVE14vBaiIUz2cr1JP7/S8oVSuJxjrZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jEvOuKUo; arc=none smtp.client-ip=74.125.227.160
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=g4M+7h88vdRG6i4Pdm13vGle+rovPN3uMOBJX4kiuT/oTv2d8MN0cWVPrOjspd71u9wM1ZM5nxCIJwMWof/IxK7q13D+yLskD9KNccDFSVu5SRClOFARwXhTYt/oQ7FGKU5Y96goH5PuevEilu41yc0IwxHUHSr0jN0U7AkWbZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P56hscMj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jEvOuKUo"
-Received: by mail-pj2-f32.google.com with SMTP id d9443c01a7336-2d747f05ffdso6419135ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:29:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790393382; x=1790998182; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1b7Xj/vB3OGygIglTW5p4IiMWkGrQYonjQ+99wVq5Rg=;
-        b=jEvOuKUo2XLi2xxmmQhs29NlRRK5d5bdlLIodxW99rypmn5WhWMaVIxzDRw7l5gJ2e
-         pl9CX0jtau5tn3hlThMw6AqgCJw0xKLJi3Tw0fgLfy0oIsDuZMsh/NGqgiyDiq2S5A8/
-         RpnyQTT4sC8DzCICbhlXXEenoTlkZzY0Pwt1v0owjecVRAw5Tyht8UC1HV2O9SwMVwnv
-         UAyXnaoKgoT/6oPmHTMPGmEmONkPGjpN2gGc9mKJqQwTe0JTD0p1i+okLr35/35aq89e
-         UIjzfRbL7oZ84SpktFfLwmM2+8xDi3qTq9dHABQiE07tNNfI58Y3Zq85QkgRjPB1t/pg
-         CJKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790393382; x=1790998182;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1b7Xj/vB3OGygIglTW5p4IiMWkGrQYonjQ+99wVq5Rg=;
-        b=pe6aXGYqt7hQprzok5eKP6Bb3GITuM1Dx//FeoxzyqmPMBzlRmpXgk158L2D2DfXpO
-         SZFR4xpFdPrUCajB7iDvoqJh16R+RM8FOLYw9GvPRgwxvHjdtT0RxQHpZhmt2VChNneG
-         vg7Vfhdguq9g8ERO+W/vFWDIzltgqt3raSU7oJqNh+surkfj4cMIp96i/cUh1v+GUgYf
-         ODSOOpIywb9JCjy7IB9qFWwIrmI1YCo9WaFYJkJrCv9UNo2q8x8v1xpuysdEbh3bB6vS
-         jPpi9g+5mj2uzg+jBlGYnd+JgRHLgw/eAnrzNdvZb4TVxBXEcNrT0uFXyt3xaF9HgGLD
-         9TtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxVWazKnQX+R+sdHlZ8lT9EuZBbkScsU8lYVUROXLyoUUecUB5oWS5cC+ewB70qGK4eKoOgX7ERTSpjqO0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOoX5VhWRbLmj143bGE1m3B/XQfOZstXBqGatP7iaRF3mgQ9Cj
-	kscxGFczu6qRrgeY1Ns9QMTcC32M5jQvN5zDOsS+M0QE//ztMzjQLWmJ
-X-Gm-Gg: AYBFou09I4E/9FR5KheEFDQWHo5FiRe5L0LqsVQKaMDsYLTZngb2dhd9Wp+LlVAWmVc
-	I28fMmb8FuaxViVS2NdpEPsH/05Ucj3w6Fdm4mgxsmUXL/PP7Wc1UWjAVJSN+Eo59sR1R7TLJF3
-	Q0RM6t5bsrvJBhhoMn5ggOTz56Z93v8sGvEfsPkgCPvuiKya+SvHEeItz3pxNau3O4EWquQvoYq
-	Z2cMhJfYjYD3sA36SGV8s97U8gA9qNTb00TnETe77VI+uozhYYqIr514yYsWjpbq817W2GAi0vq
-	eGQIfkm92HhhAkPGSlLxhE6+g1G3Vzd96TPJ5Ci28Oo9pVyKV/708El/iBH530g9n93Tiv6KZCG
-	KvWQ3yiSeJhtbbKfpYQqbuiv1QBoc0ntyANJMpMef9CPPoHZnlWnLOlNgUo1626c/1Ti3BgbXhs
-	jgxY4wmxw5pgd7BFy5XgvUKWPuk/awuOAQd0cKZx0MZj1NER6SIPQBUlDTfq91z4R/dIqfyeIvi
-	YVwcqh6pyHe
-X-Received: by 2002:a17:903:17ce:b0:2dd:8b0f:70ba with SMTP id d9443c01a7336-2df7e267763mr60112075ad.7.1790393382425;
-        Fri, 25 Sep 2026 20:29:42 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913fede2sm18554725ad.33.2026.09.25.20.29.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 20:29:41 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 25 Sep 2026 20:29:41 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: ASHISH YADAV <ashishyadav78@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ashish Yadav <ashish.yadav@infineon.com>
-Subject: Re: [PATCH 2/2] hwmon:(pmbus/xdpe1a2g7b) Add support for xdpe1a2g7c
- controller
-Message-ID: <46a43ee9-7d2b-45f6-9751-9436fd69f7ff@roeck-us.net>
-References: <20260921065702.93196-1-Ashish.Yadav@infineon.com>
- <20260921065702.93196-3-Ashish.Yadav@infineon.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P56hscMj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E27241F000FF;
+	Sat, 26 Sep 2026 03:30:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790393429;
+	bh=0tjl432vTB1/RxQoxphlMy3vxL19wMdIIx/XIy1XXaw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P56hscMjemKRrSfSpBib9EPK+8htmF1XvGOAzY3DdgA2RQxClSgLaUrEh8sOH5I09
+	 BhvZxI/MCLcWzLZdGnJ9aRRD2TRjnrKqIhfZq1U/feQkbL9aLSX/z9qduoyKlM4aaQ
+	 IzMuj3+RXDIvgu2MKksua1s3inWPwy3YBdFwXYlT4WXsGJjB/wX/audzcTIZzylQfG
+	 qQI6liUinBuHvWxfOj7wfWbPNeXuJZg6qscby9QNVsWa3DsSqSlY74NIAkOa6cobGZ
+	 W12r7ShPqSW4JLIUYsID8Wu/YtfmOCmRY6tZV3Ee95BaJ/wwM0pj2YLctYK6zjs/bW
+	 6qGbkkf9jsD+g==
+Date: Sat, 26 Sep 2026 05:30:07 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andy Yan <andy.yan@rock-chips.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Yubing Zhang <yubing.zhang@rock-chips.com>, 
+	Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
+	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
+	devicetree@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v15 04/16] phy: rockchip: usbdp: Fix
+ devm_clk_bulk_get_all check
+Message-ID: <vbzcpznlyxsuqbfnn3ywpuvk4kpokgodd73tgv27i6szk3acpv@5kt2d2rprpcn>
+References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
+ <20260915-rockchip-usbdp-cleanup-v15-4-80e2c11d1ce8@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921065702.93196-3-Ashish.Yadav@infineon.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-4-80e2c11d1ce8@collabora.com>
 
-On Mon, Sep 21, 2026 at 12:27:02PM +0530, ASHISH YADAV wrote:
-> From: Ashish Yadav <ashish.yadav@infineon.com>
+On Tue, Sep 15, 2026 at 03:49:51PM +0200, Sebastian Reichel wrote:
+> If devm_clk_bulk_get_all() returns -EPROBE_DEFER, it is replaced with
+> -ENODEV, permanently failing the driver probe instead of allowing it to
+> defer. Avoid masking the error code to fix the issue.
 > 
-> Extend xdpe1a2g7b driver to support xdpe1a2g7c model.
+> This effectively drops returning -ENODEV in case no clocks are being
+> described in DT. This special case will now be handled by the follow-up
+> check searching for "refclk" and exit with -EINVAL.
 > 
-> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
+> None of this will be hit in practice, since the driver is only used by
+> RK3588 and RK3576 - on these platforms the DT is validated to contain
+> the clocks and the clock driver is force probed early. Thus there is
+> no need to backport this.
+> 
+> Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.kernel.org/
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-Applied.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Thanks,
-Guenter
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
