@@ -1,125 +1,165 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from mail.archlinux.org (mail.archlinux.org [95.216.189.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E703E40FE;
-	Sat, 26 Sep 2026 10:37:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8771640E8FC;
+	Sat, 26 Sep 2026 10:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.216.189.61
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790419051; cv=none; b=dgUBe6EGGYFt1RD28W6PjJDvLoVHdRUwvjK2alFwOGweMNYnppaHKI1KC4kgoblBmsxdG+Wu2N5dTA9Jgw5AUcMhndt7YkmHCwiXi6z2KsUhD0sLhJXaODRM6WL9vJdDcSG5otXY0RGSFcDNR8pyWdmtrK3KaE30z3BN/L1T4c0=
+	t=1790419059; cv=none; b=eeqQY257pw4QWxIAUY1fjB/f9apM6YBEq0DQdhTGHNHFN0Q1hhgOk339627TUvoq0KGR9J652j3TjyXQ7g5mJlReoGVtz+npyageT8owu3BmN2jUq5qk0se8FqUpnDJggTd9/X8qDISyPxHAYkf3WwU/QVXHJxBY/WO8LSTGCaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790419051; c=relaxed/simple;
-	bh=BsDGVDEZSjuhu1wNUX4iNYuYBfY23zxzKR2rBx/mxOo=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=TbQcATRc573KYyI7rdWmay60rORHekhf9OoHP414wlw+en4GPPBsJ7WRqVw1NrLOHHxaCCNK1KRA731KyN1V6kZHZoKpOGL0Ys92uR/zHr5gQCwOnkRtaNHt//QZyFIajoPeVhwyxP9kSyzkztDvfRzCV45XPbAwa76tUWYxNoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=oIFBsw/w; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Vvr4vhpW; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790419059; c=relaxed/simple;
+	bh=4GVeqMERXyHpmGSmlHtJlc98rb5ykv8YtG7KQHafA6I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pVe1Cfdf7kJiuNfCrKZLleN7yauaDQMFlLLYozDzpkgTBISUClym85NvbKwq4+7Bpaz0eRDHKECJqrWsmiR1wj7mUGDUCvRWbHXmZdifyUSrKTL0/AFiqS/v+1Wg/QDq+WFXYcdU5udwb4TKmnMzNX+ZVjbahd/0HRgUVpuaRw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=archlinux.org; spf=pass smtp.mailfrom=archlinux.org; dkim=permerror (0-bit key) header.d=archlinux.org header.i=@archlinux.org header.b=4JCWWDUT; dkim=pass (4096-bit key) header.d=archlinux.org header.i=@archlinux.org header.b=lTNYagwC; arc=none smtp.client-ip=95.216.189.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=archlinux.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=archlinux.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="oIFBsw/w";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Vvr4vhpW"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790419035; bh=qB8YO82ighs/+w1xBuYuRJG
-	hgPr1wHIB0u6dBJhEEYQ=; b=oIFBsw/wexO9q/uuLmIrOWOcwxXLfyJAeTpf7/N3EeJpQrpx9Q
-	w1pxbjIwp8gIRlc6dmbcVQmqf3xtX6K31BpQot8pLLZEAyzI3FvpAKbB4N/USrh58mpgQsrM/A0
-	jLGPWB/nCSJYaMY55aMpmewGbjqmmqadEurcf+phgCFs3+UDrfTieWb/RhGnDCdNTBcMUFSdhG4
-	F7YyGq/Lrp/L0Pl720qxwxnZ8WMlLxxPXYts254og+4OiJhUOLBdYDOZv7mPgs3DSNFDjLGN51L
-	ltT1pYIp3E0DRoiyCAX/ZDS1KMzbfzkW5W74WF8y7d7ZZ1/wnR3m2VcXuuFBB8I39oA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790419035; bh=qB8YO82ighs/+w1xBuYuRJG
-	hgPr1wHIB0u6dBJhEEYQ=; b=Vvr4vhpWGj83aYoajP9W6LFKV5bXd/DBPEcVP6QHZsfSIQvsjD
-	T00tzR9CailePm2KfVPKL7Urj+0Ou3Q6htBA==;
-Date: Sat, 26 Sep 2026 11:37:15 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: kmehltretter@gmail.com
-CC: akpm@linux-foundation.org, brendan.higgins@linux.dev, david@davidgow.net,
- geert@linux-m68k.org, huang.ying.caritas@gmail.com,
- kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, raemoar63@gmail.com
-Subject: Re: [PATCH] resource, kunit: stop selecting GET_FREE_REGION
-In-Reply-To: <20260926002651.87267-1-kmehltretter@gmail.com>
-Message-ID: <40EFC2A1-D089-4E09-A804-CE0D42EACFAE@mainlining.org>
+	dkim=permerror (0-bit key) header.d=archlinux.org header.i=@archlinux.org header.b="4JCWWDUT";
+	dkim=pass (4096-bit key) header.d=archlinux.org header.i=@archlinux.org header.b="lTNYagwC"
+From: George Hu <integral@archlinux.org>
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=archlinux.org;
+	s=dkim-ed25519; t=1790419048;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=P/cPyPSknvkI8/btH4kSPiddxwVWDItnGF0wVFHGT70=;
+	b=4JCWWDUTF8YH/tL1vFeYCB+wqu/CcKycDDBMiNawf8u42mYZyhdNXcFGwjhj6jzha42jAS
+	8dqGxhxDOvvU5+AA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=archlinux.org;
+	s=dkim-rsa; t=1790419048;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=P/cPyPSknvkI8/btH4kSPiddxwVWDItnGF0wVFHGT70=;
+	b=lTNYagwCaBrr0VWJZmOmgxsv+H81r8pZjxW2SAHD2aP0z7AKfFWupV9P3xXpqwKRL5CEGQ
+	EIvQPc6Wk7g0awrr8rV0I1S9FiFDwU+i/fdCz1oMZqolj2d+JAaNCxVbLWcZN1LCJhEz42
+	khjOWzYQsOo8WMWPf3X8ZNmo0WSWLkQquqZdEvnPjcXUWTxcz/JYEGb5RZnp1VndA0U7NI
+	HblVsaqpRAgv71vHMT9wzzZbapVnggnrbu3sYgJuEeuWj9SkpXd7nry72etpoH7baD7dTd
+	NUStNpFyp40ObddcBOB7Cf7dgvcphz44HuBigfWhcvAIqr+eQK7D35Ww3OxxlvIXvNVJ0x
+	LCkMenbeHkeqe0pdN6y+cj3ItP5/fkfZGAwitlT6Xk2Dp9XrFYTLTdbbKyOI1/KWUBXzbd
+	x4s0XazxjX3PbO+8pumgN2Ys3JbR8vMmLsw9g4aq4EdxIK5DAe8QrHjamXm6hvrYx+Fv+7
+	C6kg/TMQYGq/cHMFpF2ST3rnGk5VQP5b5TYAjWoQigF1NXk1nJo8KEaV0REvxcRtmQs6de
+	yDR30YT1dnAMWPPm0OyY/oT7WwrsfsJ78ORYEyBc2CBw8COAwQ5f96p5qtR5ChIatyaDPm
+	9ATdd4cFUtGp1r5V5k+GlwN9YFDpJ590jBFJHh2U0Mx8NN1IKLGw4=
+Authentication-Results: mail.archlinux.org;
+	auth=pass smtp.auth=integral smtp.mailfrom=integral@archlinux.org
+To: David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>
+Cc: linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	George Hu <integral@archlinux.org>
+Subject: [PATCH] btrfs: use helper functions to check if a string has a given prefix
+Date: Sat, 26 Sep 2026 18:36:51 +0800
+Message-ID: <20260926103651.41722-1-integral@archlinux.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 26 September 2026 01:26:51 BST, Karl Mehltretter
-<kmehltretter@gmail.com> wrote:
->RESOURCE_KUNIT_TEST selects GET_FREE_REGION even when no other option
->needs it. Remove the selection to follow the dependency rule in
->Documentation/dev-tools/kunit/style.rst.
->
->Skip resource_test_region_intersects() when GET_FREE_REGION is disabled.
->GET_FREE_REGION has no prompt, so configurations without a production
->consumer cannot enable it. Most configurations will therefore skip this
->case; this is intentional. The union and intersection tests remain
->available.
->
->Since kunit_skip() does not return, the compiler drops the reference to
->the unavailable alloc_free_mem_region(), as in the CONFIG_OF_ADDRESS
->check in drivers/of/of_test.c.
->
->Fixes: 99185c10d5d9 ("resource, kunit: add test case for region_intersects()")
->Assisted-by: LLM
->Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
->---
->Validation:
->- Clang 22 and GCC 13 ARM builds pass with RESOURCE_KUNIT_TEST=y and =m
->  while GET_FREE_REGION=n. The built-in vmlinux images have no
->  alloc_free_mem_region symbol, and the modules have no undefined
->  reference to it.
->- Clang 22 x86_64 builds and QEMU 11.0.2 runs pass. GET_FREE_REGION=n
->  reports two passes and resource_test_region_intersects as SKIP;
->  DEVICE_PRIVATE=y enables GET_FREE_REGION and reports three passes.
->
-> kernel/resource_kunit.c | 3 +++
-> lib/Kconfig.debug       | 1 -
-> 2 files changed, 3 insertions(+), 1 deletion(-)
->
->diff --git a/kernel/resource_kunit.c b/kernel/resource_kunit.c
->index 42785796f1db..9eeb2b1a85c0 100644
->--- a/kernel/resource_kunit.c
->+++ b/kernel/resource_kunit.c
->@@ -225,6 +225,9 @@ static void resource_test_region_intersects(struct kunit *test)
-> 	struct resource *parent;
-> 	resource_size_t start;
-> 
->+	if (!IS_ENABLED(CONFIG_GET_FREE_REGION))
->+		kunit_skip(test, "CONFIG_GET_FREE_REGION is disabled");
+Replace strncmp() prefix checks with strstarts() when only a boolean result
+is needed, and with str_has_prefix() when the prefix length is needed after
+a successful match.
 
-Interesting.
+This makes prefix checks clearer and more concise.
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: George Hu <integral@archlinux.org>
+---
+ fs/btrfs/compression.c | 15 ++++-----------
+ fs/btrfs/compression.h |  2 +-
+ fs/btrfs/props.c       |  2 +-
+ fs/btrfs/super.c       |  5 ++---
+ fs/btrfs/xattr.c       |  3 +--
+ 5 files changed, 9 insertions(+), 18 deletions(-)
 
-Tested on Power10 (PowerPC), in courtesy of osuosl:
+diff --git a/fs/btrfs/compression.c b/fs/btrfs/compression.c
+index c62b5148d5ac..82d0413e6236 100644
+--- a/fs/btrfs/compression.c
++++ b/fs/btrfs/compression.c
+@@ -70,19 +70,12 @@ static struct compressed_bio *alloc_compressed_bio(struct btrfs_inode *inode,
+ 	return to_compressed_bio(bbio);
+ }
+ 
+-bool btrfs_compress_is_valid_type(const char *str, size_t len)
++bool btrfs_compress_is_valid_type(const char *str)
+ {
+-	int i;
+-
+-	for (i = 1; i < ARRAY_SIZE(btrfs_compress_types); i++) {
+-		size_t comp_len = strlen(btrfs_compress_types[i]);
+-
+-		if (len < comp_len)
+-			continue;
+-
+-		if (!strncmp(btrfs_compress_types[i], str, comp_len))
++	for (int i = 1; i < ARRAY_SIZE(btrfs_compress_types); i++)
++		if (strstarts(str, btrfs_compress_types[i]))
+ 			return true;
+-	}
++
+ 	return false;
+ }
+ 
+diff --git a/fs/btrfs/compression.h b/fs/btrfs/compression.h
+index 1022dc53ec51..1d8e12fcd488 100644
+--- a/fs/btrfs/compression.h
++++ b/fs/btrfs/compression.h
+@@ -131,7 +131,7 @@ extern const struct btrfs_compress_levels btrfs_lzo_compress;
+ extern const struct btrfs_compress_levels btrfs_zstd_compress;
+ 
+ const char* btrfs_compress_type2str(enum btrfs_compression_type type);
+-bool btrfs_compress_is_valid_type(const char *str, size_t len);
++bool btrfs_compress_is_valid_type(const char *str);
+ 
+ int btrfs_compress_heuristic(struct btrfs_inode *inode, u64 start, u64 end);
+ 
+diff --git a/fs/btrfs/props.c b/fs/btrfs/props.c
+index bb77d46376d4..c33930c58802 100644
+--- a/fs/btrfs/props.c
++++ b/fs/btrfs/props.c
+@@ -301,7 +301,7 @@ static int prop_compression_validate(const struct btrfs_inode *inode,
+ 	if (!value)
+ 		return 0;
+ 
+-	if (btrfs_compress_is_valid_type(value, len))
++	if (btrfs_compress_is_valid_type(value))
+ 		return 0;
+ 
+ 	if ((len == 2 && strncmp("no", value, 2) == 0) ||
+diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
+index ddb620ac241b..287cdc45bef8 100644
+--- a/fs/btrfs/super.c
++++ b/fs/btrfs/super.c
+@@ -263,10 +263,9 @@ static const struct fs_parameter_spec btrfs_fs_parameters[] = {
+ 
+ static bool btrfs_match_compress_type(const char *string, const char *type, bool may_have_level)
+ {
+-	const int len = strlen(type);
++	const size_t len = str_has_prefix(string, type);
+ 
+-	return (strncmp(string, type, len) == 0) &&
+-		((may_have_level && string[len] == ':') || string[len] == '\0');
++	return len && ((may_have_level && string[len] == ':') || string[len] == '\0');
+ }
+ 
+ static int btrfs_parse_compress(struct btrfs_fs_context *ctx,
+diff --git a/fs/btrfs/xattr.c b/fs/btrfs/xattr.c
+index ab55d10bd71f..9011d8096e2d 100644
+--- a/fs/btrfs/xattr.c
++++ b/fs/btrfs/xattr.c
+@@ -239,8 +239,7 @@ int btrfs_setxattr_trans(struct inode *inode, const char *name,
+ 		 * block_rsv of the handle and trigger a warning for the start
+ 		 * case.
+ 		 */
+-		ASSERT(strncmp(name, XATTR_SECURITY_PREFIX,
+-			       XATTR_SECURITY_PREFIX_LEN) == 0);
++		ASSERT(strstarts(name, XATTR_SECURITY_PREFIX));
+ 		trans = current->journal_info;
+ 	}
+ 
+-- 
+2.55.0
 
-Tested-by: Bradley Morgan <brads@mainlining.org> # Power10
-
-
->+
-> 	/* Find an iomem_resource hole to hold test resources */
-> 	parent = alloc_free_mem_region(&iomem_resource, RES_TEST_TOTAL_SIZE, SZ_1M,
-> 				       "test resources");
->diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
->index 134b15a44625..e7c5d5b5870f 100644
->--- a/lib/Kconfig.debug
->+++ b/lib/Kconfig.debug
->@@ -2776,7 +2776,6 @@ config RESOURCE_KUNIT_TEST
-> 	tristate "KUnit test for resource API" if !KUNIT_ALL_TESTS
-> 	depends on KUNIT
-> 	default KUNIT_ALL_TESTS
->-	select GET_FREE_REGION
-> 	help
-> 	  This builds the resource API unit test.
-> 	  Tests the logic of API provided by resource.c and ioport.h.
->
->base-commit: aa98230e410f0ed212b6788c46b1e4d49e0ff7ca
->
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
