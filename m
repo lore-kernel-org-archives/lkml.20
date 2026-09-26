@@ -1,159 +1,101 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB88837EFF1
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00E7331EBA
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790461413; cv=none; b=eGMEusCZJbtuIkQbzIpWG62Tqr3M9gmUIzSQ6OhZjwjN3EXk98stmEGLqo3VCfEmXwAzukw+mY9MW/gh1RmbqtOoc0YkiJXWeh5A98tMRghE6JXVt+tfVaTO4KAp81kXwhyvW0EqDPmXQQ705GwDl6kYpJKqR3ilPHDeMVTRf84=
+	t=1790462034; cv=none; b=XneTI5VrPyKlp5tGdzMQmJxVOxBik2yjLVWnxgrX1D0Ex98S02zNWZ0lKZ824adVanZfxlGrx9Wm1ZF51pvItXVO+zLFpNIePvfZ0YEyR068onsztfhmiMkh+MBipyhFw9ReTGckxRvON1rwFh/+lor4YP40jzHag5bO9DwASMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790461413; c=relaxed/simple;
-	bh=NPML9+6dXdZoN8Bk0OoABxJWQ+yVtxLx3/drBN0/cKc=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=JPDad3lt0HG2RivhnYG71xzdixcjesoinPCEkrPcP9xUMhLoCfnfF9fjNlvQWfGVCiOPvEAHLQtd1mAqS5cHJl6xrTAgfndGJFmPsEP1oUqrwNI+ddcqT8Ed4PUxr0h8pQ2gqqV7vgT5V+cqxpgEoiC1p6NHUWgBOCxJEPwN+3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cb254da90eso3452065b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:23:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790461410; x=1791066210;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zgnMvF8k80MkelLr8yx24geDiGOybqGlTuTOlprauxA=;
-        b=X2lKhmxG4QI6LpeKSHiL0I7KyGTstPrMIs7uKzBCbAHCDxgGRjMWkk8AeOdjixC+IT
-         thgmympthAE4lSq5cmJfz3shFIQP3nGyPHDdafrDcaSf1SchMhd909YtZBBHJVRPqt/u
-         wyvSpvFBEF/DY+0XAIyFCTfkHHb03tCXhRmI9rG9rwCQiCZjxrUSeu9kOF56O6/oTK3h
-         6kCP9xO5UBoFFT97dkkHEVrINFxWdiwvPDTnwDF2Ocw5/4Tn7FSfxWBQ/0SuQO9YwXxY
-         e464kaFDk9ph+rups9Zb7OV1ESW5rEB/ChWLyRGqdqV1aB0C6Czv9/8bsTwNICkTa6bf
-         CJfw==
-X-Forwarded-Encrypted: i=1; AKwUvBzMxT2t5ErtTxjtvgldADEq7NCuyf3ICEsgtk7OlDrKRSBO88FKJS/HkpMX0PQbBxWI5nIyXYKQOFO7I54=@vger.kernel.org
-X-Gm-Message-State: AFuF++kB0b8ejTzO1fyTkUYf1ctsOXK0tS/+IBSsIWEuKwtLeIHDe0q3
-	Bf7kxgESZK8Nd9fb5KGwL+LyTDfe1PczmLTKmI32CYHqKEM+rfBoEedzwrihN8GmDA7q1+wT3vm
-	IOESrv0eocnOG9OqK48zqef57Fr1UrUkpOHxNtJjliN3RYHq89FnKeNgtWho=
+	s=arc-20240116; t=1790462034; c=relaxed/simple;
+	bh=5EjlbXzfNhhj2rFbPScAbyukxVXncWxCqZbBtLgd2Gc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=eZviTUTlvZeSRgiia4rM5doDevS8RzvTbx6Bck24Q5QjWJMghkrzDsF0RIJVeRmXxNCp0QC7x31XrNHbDCoU48BXDpFeqpZbF4pXidHTueb7C0ZuxA1Z6/kBAXvKw1pudQZxg5Q6YaSc/UNUJJ2pREeJxvrn4nUyYg1zPch+jFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LskNpArg; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LskNpArg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3C0B4C2BCC7;
+	Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790462034;
+	bh=5EjlbXzfNhhj2rFbPScAbyukxVXncWxCqZbBtLgd2Gc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=LskNpArgBG/fYyfbkpDz2jDlqGHlCqQJ3QyIitRdBdxlgFIU46X+bw6Yx5YKf3bQE
+	 UEv348aKBPLKLiZpISVoqJeIwoTRNIAQ4XK4hyTlfGaheV1/M9ewui4UDuQS6i6h97
+	 t841JEaxFuJ4g8oDIzg6awRPCT5Yx3ZuWE63LT6zAjY3Wr18WCuH/gBR8uYoj0LvPh
+	 /2WKdgz/B7yNqoOgfRQceM6GD5FQHMEJE/PIIhNC6nMUV0SYPW7NGywVdLE4AxrUZJ
+	 sypKQhP9urJsFQmmRBz66QqbTnjHTl1cLLa3T6pZ8RYgTJwCXTY5HP/sfbK8RGchlu
+	 bBgi2EJv8Huyw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C439C9832A;
+	Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
+From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
+Date: Sat, 26 Sep 2026 16:33:32 -0600
+Subject: [PATCH 1/2] drm/print: Mark __drm_debug as __read_mostly
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fe0:b0:4d6:90d3:e187 with SMTP id
- 5614622812f47-4d72ea5cc31mr10616995b6e.48.1790461410569; Sat, 26 Sep 2026
- 15:23:30 -0700 (PDT)
-Date: Sat, 26 Sep 2026 15:23:30 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab845e2.e548f532.1ca396.0034.GAE@google.com>
-Subject: [syzbot] [btrfs?] WARNING in btrfs_add_reserved_bytes (2)
-From: syzbot <syzbot+9f330950ca662bc43bf0@syzkaller.appspotmail.com>
-To: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mason@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-rd-mostly-v1-1-28b7d714ed2c@gmail.com>
+References: <20260926-rd-mostly-v1-0-28b7d714ed2c@gmail.com>
+In-Reply-To: <20260926-rd-mostly-v1-0-28b7d714ed2c@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790462033; l=1186;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=NHYPZMcwo+bZTlMUWxR3C+eUOnJQOrGzS6sFjK6QR7o=;
+ b=SCaWekTeF5fI3x8YyVSdoR1Ax7xSj1vUuUes5O/Lc6T011ZE8poxxwKWNHG6UFxmCcbVFIVLu
+ XmfS+0EWTuNCmaFvvUO6vSgKQVVUBQmiYxmh1hytdPG4sKn4VpuvFIR
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
+ auth_id=958
+X-Original-From: Jim Cromie <jim.cromie@gmail.com>
+Reply-To: jim.cromie@gmail.com
 
-Hello,
+From: Jim Cromie <jim.cromie@gmail.com>
 
-syzbot found the following issue on:
+Under a multi-client workload of 12 concurrent vkcubes on AMD iGPU,
+__drm_debug is read at ~83.3 kHz across multiple cores during atomic
+and vblank checks.
 
-HEAD commit:    165768bb7026 Merge tag 'firewire-fixes-7.3-rc5' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16701205580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=2b924f079099ba6e
-dashboard link: https://syzkaller.appspot.com/bug?extid=9f330950ca662bc43bf0
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17920205580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=177ed205580000
+__drm_debug is written only when userspace does:
+  echo 0xff > /sys/module/drm/parameters/debug
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-165768bb.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/8937d1c35787/vmlinux-165768bb.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/04f73e6326ff/bzImage-165768bb.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/959597fde8f7/mount_0.gz
-  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=1208e2c9580000)
+Currently the linker packs __drm_debug into .bss adjacent to hot
+structures: drm_lease_idr_object, drm_class, and drm_global_mutex,
+causing unnecessary cacheline invalidations.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9f330950ca662bc43bf0@syzkaller.appspotmail.com
+Mark __drm_debug as __read_mostly to relocate it to .data..read_mostly.
 
-------------[ cut here ]------------
-1
-WARNING: fs/btrfs/space-info.h:286 at btrfs_space_info_update_bytes_may_use fs/btrfs/space-info.h:286 [inline], CPU#0: syz-executor/5443
-WARNING: fs/btrfs/space-info.h:286 at btrfs_add_reserved_bytes+0x51b/0x8b0 fs/btrfs/block-group.c:4029, CPU#0: syz-executor/5443
-Modules linked in:
-CPU: 0 UID: 0 PID: 5443 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:btrfs_space_info_update_bytes_may_use fs/btrfs/space-info.h:286 [inline]
-RIP: 0010:btrfs_add_reserved_bytes+0x51b/0x8b0 fs/btrfs/block-group.c:4029
-Code: ac 24 80 00 00 00 74 08 48 89 ef e8 2f b4 f6 fd 4c 8b 75 00 4c 89 f7 4c 89 ee e8 30 14 85 fd 4d 39 ee 73 18 e8 56 11 85 fd 90 <0f> 0b 90 45 31 f6 eb 2e e8 48 11 85 fd e9 f8 fb ff ff e8 3e 11 85
-RSP: 0018:ffffc90001e1ec10 EFLAGS: 00010293
-RAX: ffffffff8442dbba RBX: 1ffff1100889b910 RCX: ffff888000bc4b00
-RDX: 0000000000000000 RSI: 0000000000001000 RDI: 0000000000000000
-RBP: ffff8880444dc880 R08: ffffffff907a847f R09: 1ffffffff20f508f
-R10: dffffc0000000000 R11: fffffbfff20f5090 R12: ffff8880444dc800
-R13: 0000000000001000 R14: 0000000000000000 R15: ffff8880444dc820
-FS:  000055559168c500(0000) GS:ffff88808c2bf000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00005555916a7a28 CR3: 000000001f9a3000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- find_free_extent+0x3ff4/0x5cd0 fs/btrfs/extent-tree.c:4776
- btrfs_reserve_extent+0x349/0x850 fs/btrfs/extent-tree.c:4904
- btrfs_alloc_tree_block+0x1ed/0x1160 fs/btrfs/extent-tree.c:5375
- btrfs_force_cow_block+0x562/0x1bf0 fs/btrfs/ctree.c:501
- btrfs_cow_block+0x3f1/0xaf0 fs/btrfs/ctree.c:696
- btrfs_search_slot+0xd70/0x2d20 fs/btrfs/ctree.c:-1
- btrfs_insert_empty_items+0xa3/0x1a0 fs/btrfs/ctree.c:4310
- btrfs_insert_delayed_item fs/btrfs/delayed-inode.c:755 [inline]
- btrfs_insert_delayed_items fs/btrfs/delayed-inode.c:832 [inline]
- __btrfs_commit_inode_delayed_items+0xb0e/0x1ec0 fs/btrfs/delayed-inode.c:1115
- __btrfs_run_delayed_items+0x1d0/0x420 fs/btrfs/delayed-inode.c:1158
- btrfs_commit_transaction+0x844/0x3170 fs/btrfs/transaction.c:2383
- sync_filesystem+0x1d2/0x240 fs/sync.c:66
- generic_shutdown_super+0x77/0x2d0 fs/super.c:734
- kill_anon_super+0x3b/0x70 fs/super.c:1356
- btrfs_kill_super+0x41/0x50 fs/btrfs/super.c:2152
- deactivate_locked_super+0xbc/0x110 fs/super.c:589
- cleanup_mnt+0x3d3/0x460 fs/namespace.c:1317
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f68fe39f397
-Code: a2 c7 05 5c 43 25 00 00 00 00 00 eb 96 e8 e1 12 00 00 90 31 f6 e9 09 00 00 00 66 0f 1f 84 00 00 00 00 00 b8 a6 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8
-RSP: 002b:00007fffcd75c7e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000a6
-RAX: 0000000000000000 RBX: 00007f68fe4344bb RCX: 00007f68fe39f397
-RDX: 0000000000000000 RSI: 0000000000000009 RDI: 00007fffcd75c8a0
-RBP: 00007fffcd75c8a0 R08: 00007fffcd75d8a0 R09: 00000000ffffffff
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007fffcd75d930
-R13: 00007f68fe4344bb R14: 000000000006482c R15: 00007fffcd75d970
- </TASK>
-
-
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/gpu/drm/drm_print.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 86cef1a37678..50cdeb1b15e2 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -40,7 +40,7 @@
+  * __drm_debug: Enable debug output.
+  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
+  */
+-unsigned long __drm_debug;
++unsigned long __drm_debug __read_mostly;
+ EXPORT_SYMBOL(__drm_debug);
+ 
+ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+-- 
+2.55.0
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
