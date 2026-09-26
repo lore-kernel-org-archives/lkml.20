@@ -1,88 +1,169 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7E33E172F;
-	Sat, 26 Sep 2026 12:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790424830; cv=none; b=DSxGu6gocffFVrcB2F7hPrQIu7TxWbHbNb+iZbZgt8ycA8DtbfPr7ZmnsTkXTg6VPCX9BOjHGQIzcxU66TkAv1emPbbFDxVH0hgOYhfT3LFN3mnzLbZcOVsBg43A1Wj9LK/xS41fFc82e8Znr/3PiQcS/gY7KHEsFm0skY9BQqo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790424830; c=relaxed/simple;
-	bh=coy66B4h9bPVMLFrnm1ncohjxZfe6XeN23wu0jiXsOE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FaJzKujBhC7A+OE9z2FduP9c5aMOJkrexTimsIuS0SlmZeVEIDm7NYTTCisKAFQdTFy7zaIf2rPPiRG9vI+mtX2V37ZR4YmpalAaGRkh76+DoUjUq8bTE2yR+VbkgVTRn2fFTOGlT5qEMIa2RhnbvOOXXRwNNJO92PjeGypNKoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gouEGYUU; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A5E7427A04;
+	Sat, 26 Sep 2026 12:14:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790424870; cv=pass; b=npecqYcoFoQcMXJ7rKdjorSbcJoNxgJw2qGOeOYAZAg7fwohWhZKoGXUPeU1sC/aT4x+mLLtF5zTQFTWx9TRSWD4/nVIn29/ONT+xtm+sVmWNpmqtigZJa1Sq8GCMbBG67XRMMmtonFkOTsoFxny4OuVmcdHe9ARbl3eMfhCETw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790424870; c=relaxed/simple;
+	bh=GVUQhNQjJXnwH8G7vhVatVwWX3wmlrefb5ybpKyrZhc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VLi6J6q/2dnAvu6ee2GZ4myiC2B52kL14l7/qMKk0t7ykaJMEnU6zASqtMQUAUUXOVnqRU7dQpIOGfoU1FCW34BcuVCA8gTjlLSITiK5gJqZp5OD6QP2WzJGUVukEA2vwaaR4na9NSoTc+fpV3TeY7QSY6pV5/XMCt6ZWfcTFmc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=iPv2CDHq; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gouEGYUU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Pf
-	Q+eUGvS5YGA/VscR/3oNIajPr36RjH9P3BCUg6xzQ=; b=gouEGYUUXLSogCO3Vq
-	y8PvQsp8mE/Sw0PYpK9dBT5mgoQcsgupVmByKOxj2VevlCRQl1K/ghhwE94427oB
-	XpulkpK0WtSRuG8U1YVr1fgMaUwBQZYudLHCe/45dCjKniXTQt4ociVOn1NyPR1B
-	9sEEeJ+nX90Lz1Px6p3VL7yXc=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD338nKtrdqfXOcAw--.9011S2;
-	Sat, 26 Sep 2026 20:12:59 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andres Salomon <dilinger@queued.net>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Paul Fox <pgf@laptop.org>,
-	Dan Carpenter <error27@gmail.com>,
-	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-	Hyun Kwon <hyun.kwon@xilinx.com>,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	platform-driver-x86@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 0/3] debugfs: Reserve space for string terminators
-Date: Sat, 26 Sep 2026 20:12:47 +0800
-Message-Id: <20260926121250.3258285-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="iPv2CDHq"
+ARC-Seal: i=1; a=rsa-sha256; t=1790424821; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=nasoSrIl9KcUqK0DT8SzV5nVDXuxQRhCTTDweswR05ZrmYaXHn3oz9PlTU3oA5BvzEo1i9/OrERg6U/HNFW93k8Y1FFVHeNeLOk8fTw/1O/PiFtLVHvMrvWnGp9JbPR28G4UP3uNujBwxR1jPTFTHnysG9c7Y84viUOakjicA7o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790424821; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=NeIgan50r491jqmuR3ZRoobvDzKxm124IC7JCVTX4Hg=; 
+	b=U473Jxzs+gWttpqIClZECT9YHH0jfQMLHBhh78p2EE/W09lZmOmZbbuci6brvPYwSv1By9IHwDx+JZpVloBKcVbjxeL7eJy6mkILltw/k7pXJMKxzeIhH7FzyccCAXI+kOhoZInEaqVNHPdnZCr/kfNNHgTlLDl4ZBY8ng5k1Wc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790424821;
+	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+	bh=NeIgan50r491jqmuR3ZRoobvDzKxm124IC7JCVTX4Hg=;
+	b=iPv2CDHqWUGmUCmjfvIt2UOD5Nt5e7yhBJIBrktXvKsWVZr4Ffm4/i3FnSCBsc4s
+	lE69f5fnxybJi3c8wAATYcUHA0sXHztWAWr36Hczs6UzJ0wzxOGdyAhhsIlM6Wv2MgP
+	3p00SA60uTQWk8DmNWDlt8XbFNXG8n3Py8lS/njo=
+Received: by smtp.zohomail.com with SMTPS id 179042481925589.85921556278674;
+	Sat, 26 Sep 2026 05:13:39 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Leo Li <sunpeng.li@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
+Date: Sat, 26 Sep 2026 14:13:32 +0200
+Message-ID: <Fw4fv4KvQKui7PMYotsPFw@collabora.com>
+In-Reply-To: <8a3b2902-3255-4dd9-82f0-75a7747b710e@amd.com>
+References:
+ <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
+ <VERVf-aJRRKsBOI_3dpScg@collabora.com>
+ <8a3b2902-3255-4dd9-82f0-75a7747b710e@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD338nKtrdqfXOcAw--.9011S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruFWrtw1kCF1fKw15Gw1fCrg_yoWfurg_Z3
-	s5Krn7Jwn7Xws3Za42yFnFyrWSkFWaqF18Xwn8trySqry3JFyrAFs8WwnrGw4xWFs5Ar9r
-	Gr9FqrWfZry3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRKF4EDUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wtoomq3tssfmAAA3J
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-The same boundary mistake appears in three debugfs write handlers. Each
-handler has a zero-initialized buffer and allows a user write to fill the
-entire buffer. That overwrites the only NUL terminator before the input
-is parsed with sscanf(), strsep(), or strcasecmp(), which can then read
-beyond the end of the buffer.
+On Friday, 25 September 2026 20:42:05 Central European Summer Time Leo Li wrote:
+> 
+> On 2026-09-22 11:26, Nicolas Frattaroli wrote:
+> >>> + * VRR Limiter/Target Properties
+> >>> + * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >>> + *
+> >>> + * The ``VRR_{MIN,MAX}_{NUMERATOR,DENOMINATOR}`` properties expose a mechanism
+> >>> + * through which userspace can control the desired range of refresh rates in
+> >>> + * which VRR is allowed to operate. Each rate is expressed as a
+> >>> + * numerator/denominator fraction of refresh rates in Hz, allowing for rational
+> >>> + * target rates like 24/1.001 Hz with no loss of precision or ambiguity.
+> >>> + *
+> >>> + * If the minimum and maximum rate are set to the same value (and not 0), they
+> >>> + * are understood as a fixed target rate. This is especially useful for media
+> >>> + * playback, where the content's frame rate is both constant and known in
+> >>> + * advance. In such cases, a refresh rate that is not an integer multiple of the
+> >>> + * content's frame rate will introduce judder, since not every frame is
+> >>> + * displayed for the same amount of time. A modeset of the display with a
+> >>> + * compatible rate may in those cases be either undesirable or impossible, but
+> >>> + * the rate can still effectively be reached through VRR.
+> >>> + *
+> >>> + * .. _VRR-MIN-NUMERATOR:
+> >>> + *
+> >>> + * "VRR_MIN_NUMERATOR":
+> >>> + *	Default &drm_crtc integer property forming the numerator of a
+> >>> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
+> >>> + *	target rate. Set to 0 to disable.
+> >>> + *
+> >>> + * "VRR_MIN_DENOMINATOR":
+> >>> + *	Default &drm_crtc integer property forming the denominator of a
+> >>> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
+> >>> + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
+> >>> + *	zero, it must be non-zero.
+> >>> + *	Otherwise, must also be zero.
+> >>> + *
+> >>> + * .. _VRR-MAX-NUMERATOR:
+> >>> + *
+> >>> + * "VRR_MAX_NUMERATOR":
+> >>> + *	Default &drm_crtc integer property forming the numerator of a
+> >>> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
+> >>> + *	target rate. Set to 0 to disable.
+> >>> + *
+> >>> + * "VRR_MAX_DENOMINATOR":
+> >>> + *	Default &drm_crtc integer property forming the denominator of a
+> >>> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
+> >>> + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
+> >>> + *	zero, it must be non-zero. Otherwise, must also be zero.
+> >>>   */
+> >> If VRR_MIN_NUMERATOR == 0 && VRR_MAX_NUMERATOR > 0, do we interpret that as
+> >> vrr limiting is disabled?
+> > You can picture VRR limiting as always being active, but with a limit rational
+> > of 0 it uses the display's limit as per the EDID, which is what unlimited game
+> > mode is. So with how it's implemented right now in hdmi_validate_vrr(), your
+> > example would set a maximum target, but leave the minimum at whatever the
+> > display defaults to.
+> > 
+> > Now that I'm thinking through this, a possible problem is that
+> > drm_crtc_helper_vrr_is_fixed_rate() operates on the user supplied limits, but
+> > if the display supplied lower limit is equal to the user supplied upper limit,
+> > then we have a fixed rate scenario without recognising it as such. I think I
+> > need to have a ponder on what the least surprising behaviour for userspace
+> > is in that instance. The display limit stuff gets a bit complex due to
+> > CinemaVRR and QMS TFRmin/TFRmax.
+> > 
+> > I'll improve the documentation on the next revision to make the meanings more
+> > explicit.
+> 
+> Perhaps a simple way is to require simultaneous setting MIN and MAX pairs?
+> IOW, require userspace to set MIN and MAX simultaneously to >0, or =0. For example:
+> 
+> if ((vrr_min_n == 0 || vrr_min_d == 0 ||
+>      vrr_max_n == 0 || vrr_max_d == 0) &&
+>     (vrr_min_n > 0 || vrr_max_n > 0))
+> 	return -EINVAL;
+> 
+> That way, it's never ambiguous what userspace has requested for the range.
+> They can copy the EDID supported range if they don't care about limiting
+> one side, rather than leaving it at 0. It's then also clear if they requested
+> a static Hz.
 
-The write paths are independent, so the fixes are split by file and can
-be applied separately. Each patch reserves one byte for the terminating
-NUL while preserving the normal input size for that handler.
+That's a good thought. It makes a lot of the logic simpler to catch bad
+conditions, and it's the kind of thing that can definitely be checked in
+connector-agnostic shared CRTC atomic_check code.
 
-Jiale Yao (3):
-  platform/olpc: Reserve space for a string terminator
-  wifi: ath12k: Reserve space for a string terminator
-  dmaengine: xilinx: dpdma: Reserve space for a string terminator
+Thanks for the suggestion, I'll likely adopt it for the next revision!
 
- drivers/dma/xilinx/xilinx_dpdma.c                   | 2 +-
- drivers/net/wireless/ath/ath12k/debugfs_htt_stats.c | 2 +-
- drivers/platform/olpc/olpc-ec.c                     | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+Kind regards,
+Nicolas Frattaroli
 
--- 
-2.34.1
+> 
+> Thanks,
+> Leo
+>  
+
+
 
