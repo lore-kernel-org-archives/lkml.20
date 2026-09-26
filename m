@@ -1,124 +1,114 @@
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D23EA37DAA9;
-	Sat, 26 Sep 2026 10:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518473E4C96
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790418483; cv=none; b=JIOn2i7vsOo+bqIOwUYJkPJuVkd2jIdBy5op31BZViaT+0MB7sHS/0WOrKzGqT+eC3ViKc59LuiL/uDxV72WJ610hZ77t2j6xg+7/zcpHhUQcJkJy5+8J2QcY54R0TvhYW+IipUIox5ZuSs+tsyxvkM2Uns/rniCKT8aSZU58Is=
+	t=1790418484; cv=none; b=CXxM91dd8aQ8hIlN30OMuLaL+Xf50aU/po8k+IuRhUiLABKd2vXmj2CPchIE/dEe0QRYEM15Pz+m7r6CWrGtU6IrKTGsUyzTCuBfKR5s7U1CPR+VZRbZjshx0ZUyyJyKrrCcs2y5FoWs+OHpQ3SWGUVoOEupZsWZ4lNOV48OiJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790418483; c=relaxed/simple;
-	bh=zn3gB2iKw0TjEM28CjHqS24OFhOrsj4e3ejvq0z/5mY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pP20X6yk24EwfcQrb4/TzhEiWpMx6MhvUmJGU4bw7Mw6S23LJ3MHV++940vBDyutxdxM0Pt33tDUPXX6mP/VmPOf5DmT8KYsKLb9zE07xbPAPW2hPovcgoXAwfBf3B6N+1kqsagd1hIDeFDAF2a7k6ambJy0ApneM/T2ola+KNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
-Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1xAP4O-0007LN-00; Sat, 26 Sep 2026 11:51:48 +0200
-Received: by alpha.franken.de (Postfix, from userid 1000)
-	id D0EB9C0C84; Sat, 26 Sep 2026 11:37:12 +0200 (CEST)
-Date: Sat, 26 Sep 2026 11:37:12 +0200
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Orgad Shaneh <orgads@gmail.com>
-Cc: linux-mips@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, osalvador@suse.de,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] MIPS: mm: do not write a huge TLB entry when the
- probe misses
-Message-ID: <areSSGHptMhgnXQ3@alpha.franken.de>
-References: <20260915071329.15125-1-orgads@gmail.com>
- <20260915071329.15125-2-orgads@gmail.com>
+	s=arc-20240116; t=1790418484; c=relaxed/simple;
+	bh=EX4Uxb/Tm1kN69l5KZyoMnonP3Wjubs+yppWBVrvgsg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n1ssJDkZid7t7DsXmQa7vTLFIcKrpaiTrjmthrXlSPSNniapp3aPllKjCeCRQBNS0FAO67UXgIa7IHlmWFVFRxOdREzQJEDBZFmgIenyuS1KTFNJjPoqMsq3Iv2stq++tss1f0DhrPylvz9HOqOyvCyrBDuv+VXgIxmguk5JouE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e2VGVb0C; arc=none smtp.client-ip=74.125.229.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e2VGVb0C"
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-342d720df34so379829eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:27:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790418477; x=1791023277; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1oNYWnhVHWPsTs9fwu8jkatxdu2fZWhgiXhQOy61cHY=;
+        b=e2VGVb0CFDfhdYMjJxQHO4PVUdtLhLFgCWUvuIxBoUjXBm9wxmchOSnoUFajPkLTgv
+         xKCOp4tmO0NAbdkzq6kFRr5HacakoRsfpyS8iywPwi4or2diaTwHrx3R+e6dsM++DXPy
+         r1yuYuWbbZgb46LhNSSBgGZ2zMRAKYbAJtxgP3p1zbXSApVtaQgxeetdfFyvhX2Wz2WI
+         iNqq612+MQhZ0rDB5YZluwB8cINZ+sLB0mU+ozGf1+5wl7yVpywAiukSc2elaGcIkbeZ
+         ti+l9p8esO/IcVnxxO00TJVOrNFuU/dpFy4jzxhY3iatD1EgDiaT2bTJOscADKBskkqz
+         zHEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790418477; x=1791023277;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1oNYWnhVHWPsTs9fwu8jkatxdu2fZWhgiXhQOy61cHY=;
+        b=FoMY39t39V3XdKQoBQng3DsszxT6vbMY/CzHUZjaNnSM7eNdbm4zX4SJv5+F5okO+u
+         gwdSV+qNXEjkNOzvJmg5fhdwARei0XhevCGiJepQF50HNN6oTt+nItoTTEQgowt7iZ7b
+         mizNGZ+X0kBIwcbOpDfRgeZ4+Vpn10NG0sfflHIFmol04B5vH3DpiTGESJUFQ6J67sH1
+         W+eyLoCXqZ+rMhuvmpLa5Oefig519i3bARYDrVOr4z77DnU1g1nxi/SsqcY2rGYOnHdU
+         BEGdmrQrUboSmBuaiEimwIlgXZ72hDCqNR8JuH9YuwZu0C1knk71M3WNV5nvXQRJxWlC
+         SASQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy7VvGpfYQekLJgjYafSEz4ibF8aHq3PuPvYRRvzyGE1jFGf9uo8/0vo37pyIZuzl0VnjRkp7w9KZkGSSM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIn8rRaDg1x98FUfHBNhuu6bYYTpI9IyznuPJbLrJzO6gkyHhG9
+	RyRSg98Edu8JxhmvfPe4/kH0MPmTF3rqymTKW/WyaJSiFcbYlumBYHD3
+X-Gm-Gg: AYBFou1TPVFB/RX349SFtgLQWK/towdbiaoEeRnlrzvwkVCRcnBS45AE8sX9lG2nGHW
+	Vdl65bXu/PlYv6U5yOcPM4s8Ngf7as2TGIVIdpmJO92ohemrx9aiOhJWiu8jSqBHrkP7lqOdqt3
+	Dof+WWmpJsfSrtpr7RV1IUJefAtVA1PgZ5/WSHiD2/eOBc9aQBPR8OhYAocC8ST4PmoYFNMESNR
+	RKs7eOqo+j4no2GQqQJ9e2QTIlLWDZYM4xfxT8pFP1aytiy2Qd2UAsIP0IkyXMnaS95Jmzxn79R
+	XRe1sNHFPhk1Dl7NCJCboH6z+nOvqZ/2kelMAee7IkNjOVU+K448Cj8b1q/LE2NoUzxb2/w90jM
+	UN0Iy944W4+CyQGkjYSnXM2ehMNbcP/4KNxkzpZ8kkDAPTnpg6eCT8LwxOraLs0L+0anxguNuL8
+	/5v6P96teEzj08AYujtjjTSqDKHEcZRGBkZP7cy4HwFUTGCqaTCyun2p0rZUcwIIKOnFRo8x/9p
+	d6tx6a+BSGvol25i/4JgAlQVd9Y0VKpbtddXg==
+X-Received: by 2002:a05:7300:c88:b0:33c:e91:271b with SMTP id 5a478bee46e88-34273347562mr3890672eec.36.1790418476668;
+        Sat, 26 Sep 2026 03:27:56 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3413fc2413dsm13027997eec.0.2026.09.26.03.27.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 03:27:56 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Dan Carpenter <error27@gmail.com>,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] staging: rtl8723bs: make xmitframe_swencrypt() return void
+Date: Sat, 26 Sep 2026 10:27:36 +0000
+Message-ID: <20260926102736.2773-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915071329.15125-2-orgads@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 07:13:25AM +0000, Orgad Shaneh wrote:
-> __update_tlb() probes for the 8K pair at the address it is given and,
-> for a huge pmd, writes the huge entry with tlbwi at the probed index or
-> with tlbwr when the probe misses. That works only if the caller passes
-> the faulting address, so that the probe finds the 4K entry the refill
-> handler loaded for the faulting page and the huge entry replaces it.
-> 
-> update_mmu_cache_pmd() is not called that way. do_set_pmd() has always
-> passed the huge-aligned address, and since commit ebcfc63d6bca ("mm:
-> abstract THP allocation") the anonymous THP fault path does too
-> (map_anon_folio_pmd()). The probe then misses the stale 4K entry, which
-> sits at the faulting page somewhere else in the 2 MB range, tlbwr adds
-> a huge entry next to it, and the TLB holds two entries matching the
-> faulting address. Octeon raises "Machine Check exception - caused by
-> multiple matching entries in the TLB" on the next refill of that page;
-> a process on a CN63XX board died this way within a second of start, on
-> the first anonymous THP of its bss.
-> 
-> Skip the write when the probe misses. The refill and TLBL/TLBS handlers
-> probe the faulting address themselves and rewrite the stale entry with
-> the huge one (they also set the software young bit), so the entry is
-> installed on the next access at the cost of one exception.
-> 
-> Fixes: fd062c847a8c ("MIPS: TLB support for hugetlbfs.")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Orgad Shaneh <orgads@gmail.com>
-> ---
-> diff --git a/arch/mips/mm/tlb-r4k.c b/arch/mips/mm/tlb-r4k.c
-> --- a/arch/mips/mm/tlb-r4k.c
-> +++ b/arch/mips/mm/tlb-r4k.c
-> @@ -332,6 +332,19 @@ void __update_tlb(struct vm_area_struct * vma, unsigned long address, pte_t pte)
->  	/* this could be a huge page  */
->  	if (pmd_leaf(*pmdp)) {
->  		unsigned long lo;
-> +
-> +		/*
-> +		 * The probe above only covers the 8K pair at @address, and
-> +		 * a huge mapping is installed with the huge-aligned address
-> +		 * while the refill that started the fault left a 4K entry
-> +		 * for the faulting page elsewhere in the range. Writing the
-> +		 * huge entry to a random index would leave two entries
-> +		 * matching the faulting address; leave it to the refill and
-> +		 * TLBL/TLBS handlers, which probe the faulting address.
-> +		 */
-> +		if (idx < 0)
-> +			goto out;
-> +
->  		write_c0_pagemask(PM_HUGE_MASK);
->  		ptep = (pte_t *)pmdp;
->  		lo = pte_to_entrylo(pte_val(*ptep));
-> @@ -339,10 +352,7 @@ void __update_tlb(struct vm_area_struct * vma, unsigned long address, pte_t pte)
->  		write_c0_entrylo1(lo + (HPAGE_SIZE >> 7));
->  
->  		mtc0_tlbw_hazard();
-> -		if (idx < 0)
-> -			tlb_write_random();
-> -		else
-> -			tlb_write_indexed();
-> +		tlb_write_indexed();
->  		tlbw_use_hazard();
->  		write_c0_pagemask(PM_DEFAULT_MASK);
->  	} else
-> @@ -380,6 +390,7 @@ void __update_tlb(struct vm_area_struct * vma, unsigned long address, pte_t pte)
->  			tlb_write_indexed();
->  	}
->  	tlbw_use_hazard();
-> +out:
+xmitframe_swencrypt() always returns _SUCCESS, and none of its callers
+use the return value.
 
-If CONFIG_MIPS_HUGE_TLB_SUPPORT is unset, the not needed out: gives
-a warning. I've fixed that while applying.
+Change the function to return void.
 
->  	htw_start();
->  	flush_micro_tlb_vm(vma);
->  
-> -- 
-> 2.47.0
+No functional change.
 
-applied to mips-next
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ drivers/staging/rtl8723bs/core/rtw_xmit.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Thomas.
-
+diff --git a/drivers/staging/rtl8723bs/core/rtw_xmit.c b/drivers/staging/rtl8723bs/core/rtw_xmit.c
+index 95350fd6a94f..51d63fb7a311 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_xmit.c
++++ b/drivers/staging/rtl8723bs/core/rtw_xmit.c
+@@ -881,7 +881,7 @@ static int xmitframe_addmic(struct adapter *padapter, struct xmit_frame *pxmitfr
+ 	return 0;
+ }
+ 
+-static s32 xmitframe_swencrypt(struct adapter *padapter, struct xmit_frame *pxmitframe)
++static void xmitframe_swencrypt(struct adapter *padapter, struct xmit_frame *pxmitframe)
+ {
+ 	struct	pkt_attrib	 *pattrib = &pxmitframe->attrib;
+ 
+@@ -901,8 +901,6 @@ static s32 xmitframe_swencrypt(struct adapter *padapter, struct xmit_frame *pxmi
+ 				break;
+ 		}
+ 	}
+-
+-	return _SUCCESS;
+ }
+ 
+ int rtw_make_wlanhdr(struct adapter *padapter, u8 *hdr, struct pkt_attrib *pattrib)
 -- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+2.43.0
+
