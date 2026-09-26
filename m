@@ -1,131 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56616357CE1;
-	Sat, 26 Sep 2026 06:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB11A2E762C;
+	Sat, 26 Sep 2026 06:19:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790403442; cv=none; b=KTjeqydn1VpgRXaNOtC4cSoZ//p9BPKtunhg2bIwPk5kcs0zUGMzVK5RXPmidFFCw8Uefodhalwg0VRCcZgfK0Mvqs1MQBKcJdfqGaPHVEbpsDd1KOumoCyE5WW8dizEAr1Q2rnXM9gwtIfWEPq4yGAlfBoh0pdvDgKsXOvi4d4=
+	t=1790403551; cv=none; b=qOzM17GjkUt4zVbPZuTerdcmabZW1anivzdGxoPQaDOD+Th9n8c3dDdgFGbFMAUHpyz4Yet02RPfzJVaqrS+wbkATcUjGw5+fnDdotStLXPNndE5WhlIAb5FkkVG+EqnibkJfKNO527DRsG8s/xFYnDYjtBMA5lyU4iXBDw5LbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790403442; c=relaxed/simple;
-	bh=uz1qQsWM9XDZpqqxN47iDPynlINrnQvOxEdKWbh4xDw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sKAx21MMbI37YGCyYXEy8fWYtnOEPDh/rCJncjN8gF4oeo1Ui6R13k/J1HvGVZz0Y6VMRMhzFIDGeDlwNIvR0Wl7p+enruG7OzXHSdx/ujK/7EtTci7O7Si53zeqvoW8zLlLqHvaswd5YzRFdOfi0Xl1Jk8oy8fGqO2wEFi41LI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qaPAMcfX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790403551; c=relaxed/simple;
+	bh=LLAD/cysRIRq98BeK4gztFhOZ+m4K3Jogwtr/LAIuJI=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=Nor5nF8vlg1z6Ds/xeZjlSVMa1C8wWl7VN5nyIphxZkDNIEfQRLfLDebIx4QT+6UcCnlZej4Balf+gC4XDIZYqej+5Xoi62LIB/QtqFRLjyyfa35WcgAPov3PpX2y16I8JDUpvB4gECcOuMUB9LK1EvYh2utqhU1fGAexvyZI3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=UTmCT6tM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qaPAMcfX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C662BC2BCF5;
-	Sat, 26 Sep 2026 06:17:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790403441;
-	bh=uz1qQsWM9XDZpqqxN47iDPynlINrnQvOxEdKWbh4xDw=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=qaPAMcfXhtV7myD0LxuyGneAY0yyupIi4MNgM3XYCrvlsI14EPGQcxDKpshHNeq9u
-	 XBS1FIt/FEgAsM43hYv2YAuy4bdroblfd9t95W4C9Fp90Dwb/BlYmI/pZtW7fma0VZ
-	 CeD6KF4Mk0y+lIsGjM+nd0MdPCFGfQTevTCX54aRdIUCAf275sgFUC+CP6Vkz1a05B
-	 ORITNV3lQtnNbChJXA/Rud91e94Y7r392H/EwGvGfx1/nJeEhPY5lTfcMZ3szszf5I
-	 yRiqtNeiLG4139qYOObI2nz/m88lm7h7svfCZ/7dnyVkJGXW8ngjUfPPPf/lwnFuxe
-	 SC23l/ARwA5Pg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CC15C98328;
-	Sat, 26 Sep 2026 06:17:21 +0000 (UTC)
-From: Sam Day via B4 Relay <devnull+me.samcday.com@kernel.org>
-Date: Sat, 26 Sep 2026 16:17:13 +1000
-Subject: [PATCH] drm/msm/a3xx: fix VBIF halt mask for A306/A306A
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="UTmCT6tM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4691F000FF;
+	Sat, 26 Sep 2026 06:19:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1790403549;
+	bh=0d2FoQNgB7w5W4igVSjXZBz5vM5BFD2MZGCHDpY+/iY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UTmCT6tMUksCasct4m6WGBQGIIq91wboZ/ltaw9f0etfNs5HNBcuscWHiY4/AfSPL
+	 BF+Ryz+38xr+l3wstvnofOr0t+y/7Ozx6CN/DjlMRcwtAFe75KfAQ223AiHiIfEP6T
+	 E+hgCPcbvG4pQJpXrvNXHtGAGpJvfQ8GnCMNLriQ=
+Date: Fri, 25 Sep 2026 23:19:08 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Kaitao Cheng <kaitao.cheng@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Dan Williams
+ <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang
+ <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>, Ira
+ Weiny <iweiny@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ linux-mm@kvack.org, nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: Re: [PATCH 1/2] mm/page-flags: Define HWPoison test-and-change
+ helpers unconditionally
+Message-Id: <20260925231908.25febf6c085f52be3a65d59b@linux-foundation.org>
+In-Reply-To: <6eb272c0-0cfa-4354-a92b-4fc270e3b1fc@kernel.org>
+References: <20260903053535.17611-1-kaitao.cheng@linux.dev>
+	<20260903053535.17611-2-kaitao.cheng@linux.dev>
+	<6eb272c0-0cfa-4354-a92b-4fc270e3b1fc@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-a306-vbif-mask-v1-1-2bae5e81c05a@samcday.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MWwqDMBAF0K0M99uBmNpUs5XSj9hM7CA+SECE4
- N4LngWciiJZpcBTRZZDi24rPLUN4fsL6ySsEZ5gjXVmsB2Hh3F8jJp4CWXmZ59eg3HJdi6iIex
- Zkp53+P5c1x90ppU2YAAAAA==
-X-Change-ID: 20260924-a306-vbif-mask-58f7906f246d
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexandre MINETTE <contact@alex-min.fr>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Sam Day <me@samcday.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790403440; l=2199;
- i=me@samcday.com; s=20240502; h=from:subject:message-id;
- bh=oDYwGKGyfEkOHM+q+3q3tiYEXIpdYfuD7sbODF+IpJk=;
- b=P7wMnjbjN9vUTSd526bE/GsU+zAk9jbwq6ub1Lx30B47NQO4CXDtBYqViJyRqDCt3l1wtulhK
- NoKQEdFjxt6BW1Ct6DdfRTqUY5I3gYpcBggYA1+RfxzrqcGYXPri2C+
-X-Developer-Key: i=me@samcday.com; a=ed25519;
- pk=bzyS0akxWMqr9+AXzgBRIp28KKpEOs+GjYMc2yf+aeU=
-X-Endpoint-Received: by B4 Relay for me@samcday.com/20240502 with
- auth_id=595
-X-Original-From: Sam Day <me@samcday.com>
-Reply-To: me@samcday.com
 
-From: Sam Day <me@samcday.com>
+On Mon, 7 Sep 2026 17:42:11 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-A306 and A306A implement only three VBIF XIN halt request bits.
-Consequently, waiting for the full 6-bit A3xx mask times out and
-prevents runtime suspend.
+> On 9/3/26 07:35, Kaitao Cheng wrote:
+> > From: Kaitao Cheng <chengkaitao@kylinos.cn>
+> > 
+> > Page flag helpers for configuration-dependent flags provide false or no-op
+> > variants so that their users can be independent of the configuration.
+> > 
+> > The HWPoison helpers do not fully follow this pattern. When
+> > CONFIG_MEMORY_FAILURE is enabled, PAGEFLAG() and TESTSCFLAG() provide the
+> > regular, test-and-set, and test-and-clear operations. When it is disabled,
+> > only PAGEFLAG_FALSE() is instantiated, leaving TestSetPageHWPoison() and
+> > TestClearPageHWPoison() undefined.
+> > 
+> > Use TESTSCFLAG_FALSE() to provide the missing accessors when memory failure
+> > handling is disabled. Both accessors return false, which is consistent with
+> > HWPoison state being unavailable, and makes the accessor interface
+> > consistent across configurations.
+> > 
+> > Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+> > ---
+> >  include/linux/page-flags.h | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+> > index 7a863572adce..a2315ab1dd3a 100644
+> > --- a/include/linux/page-flags.h
+> > +++ b/include/linux/page-flags.h
+> > @@ -656,6 +656,7 @@ TESTSCFLAG(HWPoison, hwpoison, PF_ANY)
+> >  #define __PG_HWPOISON (1UL << PG_hwpoison)
+> >  #else
+> >  PAGEFLAG_FALSE(HWPoison, hwpoison)
+> > +TESTSCFLAG_FALSE(HWPoison, hwpoison)
+> >  #define __PG_HWPOISON 0
+> >  #endif
+> >  
+> 
+> Can we just squash this patch into #2 please?
 
-This issue was reproduced on a DragonBoard 410c: the request reads back
-as 0x7 and the acknowledgment as 0x00070007 - the poll eventually
-returns -ETIMEDOUT, and a3xx_pm_suspend fails with -EBUSY.
+I did that.
 
-The downstream kgsl driver corroborates this (see link). Since the
-single-character difference between A3XX_VBIF_XIN_HALT_CTRL0_MASK and
-A30X_VBIF_XIN_HALT_CTRL0_MASK could be confusing to read, the narrowed
-GENMASK is instead defined inline in a3xx_vbif_halt().
 
-Fixes: be0e82b8e0c9 ("drm/msm/a3xx: Drain VBIF before GPU suspend")
-Link: https://android.googlesource.com/kernel/msm/+/c90c7feeca2f5839ad6824f816c0bd207602a2f4/drivers/gpu/msm/adreno_a3xx.c#637
-Assisted-by: LLM
-Signed-off-by: Sam Day <me@samcday.com>
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: mm/page-flags: define HWPoison test-and-change helpers unconditionally
+Date: Thu, 3 Sep 2026 13:35:34 +0800
+
+Page flag helpers for configuration-dependent flags provide false or no-op
+variants so that their users can be independent of the configuration.
+
+The HWPoison helpers do not fully follow this pattern.  When
+CONFIG_MEMORY_FAILURE is enabled, PAGEFLAG() and TESTSCFLAG() provide the
+regular, test-and-set, and test-and-clear operations.  When it is
+disabled, only PAGEFLAG_FALSE() is instantiated, leaving
+TestSetPageHWPoison() and TestClearPageHWPoison() undefined.
+
+Use TESTSCFLAG_FALSE() to provide the missing accessors when memory
+failure handling is disabled.  Both accessors return false, which is
+consistent with HWPoison state being unavailable, and makes the accessor
+interface consistent across configurations.
+
+Also remove now-unneeded test_and_clear_pmem_poison() from nvdimm/pmem.
+
+Link: https://lore.kernel.org/20260903053535.17611-1-kaitao.cheng@linux.dev
+Link: https://lore.kernel.org/20260903053535.17611-2-kaitao.cheng@linux.dev
+Link: https://lore.kernel.org/20260903053535.17611-3-kaitao.cheng@linux.dev
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
+Cc: Alison Schofield <alison.schofield@intel.com>
+Cc: Dave Jiang <dave.jiang@intel.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vishal Verma <vishal.l.verma@intel.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Ira Weiny <iweiny@kernel.org>
 ---
- drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-index 0259e60b80115..f672abd5e15e4 100644
---- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
-@@ -500,14 +500,18 @@ static u64 a3xx_gpu_busy(struct msm_gpu *gpu, unsigned long *out_sample_rate)
+ drivers/nvdimm/pmem.c      |    2 +-
+ drivers/nvdimm/pmem.h      |   12 ------------
+ include/linux/page-flags.h |    1 +
+ 3 files changed, 2 insertions(+), 13 deletions(-)
+
+--- a/include/linux/page-flags.h~mm-page-flags-define-hwpoison-test-and-change-helpers-unconditionally
++++ a/include/linux/page-flags.h
+@@ -655,6 +655,7 @@ TESTSCFLAG(HWPoison, hwpoison, PF_ANY)
+ #define __PG_HWPOISON (1UL << PG_hwpoison)
+ #else
+ PAGEFLAG_FALSE(HWPoison, hwpoison)
++TESTSCFLAG_FALSE(HWPoison, hwpoison)
+ #define __PG_HWPOISON 0
+ #endif
  
- static int a3xx_vbif_halt(struct msm_gpu *gpu)
- {
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	u32 mask = A3XX_VBIF_XIN_HALT_CTRL0_MASK;
- 	u32 ack;
- 	int ret;
+--- a/drivers/nvdimm/pmem.c~mm-page-flags-define-hwpoison-test-and-change-helpers-unconditionally
++++ a/drivers/nvdimm/pmem.c
+@@ -80,7 +80,7 @@ static void pmem_mkpage_present(struct p
+ 		 * here since we're in the driver I/O path and
+ 		 * outstanding I/O requests pin the dev_pagemap.
+ 		 */
+-		if (test_and_clear_pmem_poison(page))
++		if (TestClearPageHWPoison(page))
+ 			clear_mce_nospec(pfn);
+ 	}
+ }
+--- a/drivers/nvdimm/pmem.h~mm-page-flags-define-hwpoison-test-and-change-helpers-unconditionally
++++ a/drivers/nvdimm/pmem.h
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+ #ifndef __NVDIMM_PMEM_H__
+ #define __NVDIMM_PMEM_H__
+-#include <linux/page-flags.h>
+ #include <linux/badblocks.h>
+ #include <linux/memremap.h>
+ #include <linux/types.h>
+@@ -31,15 +30,4 @@ long __pmem_direct_access(struct pmem_de
+ 		long nr_pages, enum dax_access_mode mode, void **kaddr,
+ 		unsigned long *pfn);
  
--	gpu_write(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL0,
--		  A3XX_VBIF_XIN_HALT_CTRL0_MASK);
-+	/* A306(A) only have three VBIF XIN ports. */
-+	if (adreno_is_a306(adreno_gpu) || adreno_is_a306a(adreno_gpu))
-+		mask = GENMASK(2, 0);
-+
-+	gpu_write(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL0, mask);
- 	ret = spin_until(((ack = gpu_read(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL1)) &
--			  A3XX_VBIF_XIN_HALT_CTRL0_MASK) ==
--			 A3XX_VBIF_XIN_HALT_CTRL0_MASK);
-+			  mask) == mask);
- 	gpu_write(gpu, REG_A3XX_VBIF_XIN_HALT_CTRL0, 0);
- 
- 	if (ret)
-
----
-base-commit: a15fac810c76397ec9f62a6fc26c4d7ab6e238a7
-change-id: 20260924-a306-vbif-mask-58f7906f246d
-
-Best regards,
--- 
-Sam Day <me@samcday.com>
-
+-#ifdef CONFIG_MEMORY_FAILURE
+-static inline bool test_and_clear_pmem_poison(struct page *page)
+-{
+-	return TestClearPageHWPoison(page);
+-}
+-#else
+-static inline bool test_and_clear_pmem_poison(struct page *page)
+-{
+-	return false;
+-}
+-#endif
+ #endif /* __NVDIMM_PMEM_H__ */
+_
 
