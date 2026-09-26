@@ -1,74 +1,90 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6BD547065
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C667227EA7
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:21:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790399917; cv=none; b=ecQPdVFv/YBGEbQTsqgckFP+l1pb8r8AqkXGst7A4BX6ipKyIV86fPJw4CpfO430kSDffmfGFGd/V+XvKE4TwEB6WnUK0cPSn8R2nqMEbCubQ0WJBOM9PEICbOYyNAke/cif2IljfEVp1zekoYn8SKgcpsy+IUkk0gqf1n2tRuU=
+	t=1790400087; cv=none; b=OnU0Ec4Z8yTcEvMTTvw7ku7z4GgZKIi2UxLNTiARKatHD1x6UECFBytx0/3mBEm1CBSMm9z5skJHiZNuqCY2G3ML9KHNKto4r6hRtbMM72RJOQ2JU54DPPMyt4jhMDyhjha/ww2VeDUdk52xN1MB2sE8ta3TZSyPxUCcqCUU4Pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790399917; c=relaxed/simple;
-	bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+	s=arc-20240116; t=1790400087; c=relaxed/simple;
+	bh=ypYWrvwi9aFjuhSzkVWqF3Oy6GywG6FOvw/6JMMIeLs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P6bYRXJ3DdoWBliSM7x9Tf+7DOML0ijR6ufHmr1VAirmheN48g8BX82ZVWPkUMX0kKHQKhfja8MrtlT6szk7eHHCfKGsgy5Mr5QGTW+kmJNwWFtJBkXelD323OgEzHc4dRya1LyeWa8/aMMi54lIIRvJxrmYXE8AOtG+DSEhYkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Hh4VyNLD; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=tztjWXLc+AGkWyWEa+an2+imFFZw9cAiavgXm7tYMuzKQ0SQpqUHkC41RHCodIIpfrbWF7+ZAm7hrrChPHeX9znN2lq/VvvbQccHr/PaIeljnziRVvajYviSH1Xyv5trnvctlrJEK7s5+LeEO58lB+TJ7qUeP6aofwUegKxaLnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lE5d0pEw; arc=none smtp.client-ip=74.125.229.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Hh4VyNLD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790399915;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
-	b=Hh4VyNLDWFm/CbE2yevz//Jn1KSOajyldgw7OW2ZU6egLHKF8n428/YF4oEsofJec0hYtq
-	OiXtwP8+6uwNcll7tjSxtTkwuU9S7XhMvvKzFhj16TOmqhLiyMY+XgXM9XP7tVeYMOpJxf
-	xYRfrk/DgwMAhMejG1c9kK1EFVZKsgc=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-43-j_rOfgzlNsqWzvsOBAFx3Q-1; Sat,
- 26 Sep 2026 01:18:30 -0400
-X-MC-Unique: j_rOfgzlNsqWzvsOBAFx3Q-1
-X-Mimecast-MFC-AGG-ID: j_rOfgzlNsqWzvsOBAFx3Q_1790399908
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 271711955F29;
-	Sat, 26 Sep 2026 05:18:27 +0000 (UTC)
-Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A9392180036E;
-	Sat, 26 Sep 2026 05:18:22 +0000 (UTC)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Anup Patel <anup@brainfault.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	kvm@vger.kernel.org,
-	kvm-riscv@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lE5d0pEw"
+Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-1474c6b7742so202681c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:21:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790400083; x=1791004883; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D9XDeps2pDxqilbZZVLJzWllpUPhrEleL/dVE//lxog=;
+        b=lE5d0pEw8DrzG7o/EIlf2zS6TgMBXOoUPQN5DIE0pLunRsjWYWsgbDRUvG60i64zY3
+         sbHTrynCndGj1wxRLs1Y07uQp46u6VUdSAOmLbyMe2+Ga51QkrnKhIFG/SQbfSDAcdbd
+         nVtHjVPe5goCODstCaich6K6ujr6wq/4amIajda31xfv+9VHhBoDF5hZ4545wP83lTar
+         4LuX+D/79AiTWZ/9ktHLVVJyCavK0o0lOELT15JzHyp42P0BBM5gwr3laUJBKzil66Qj
+         tpwYIo2soFhylSx/cAYS0tsKdRemYtPqGxRpcgu/3BWOmYn+QTuZnNTypYVN8ukPI4nX
+         BaDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790400083; x=1791004883;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D9XDeps2pDxqilbZZVLJzWllpUPhrEleL/dVE//lxog=;
+        b=s6x/fSdJig8axcfbYr6s157RmhbagRe+dXh17cMM04674ZOP42g1tMmg/ORK4gq21n
+         6inbF0Wa5mP84txhCk9eGfKnxLzGs3GR9e3FxldHRkbBm7yDEOzF7DPiXkvKWtQGNLxu
+         RW64rvyEKdtvYVrO9huaTekPa4u0CQ4Ca0WKqeOddfSfD14ZzE5oGLlhab93Za8eM0Kk
+         GTH6tSs+FLTGP8CSUwiUZbRHAML+9vxKdj3wna3M7UMzIE6fjP6JZYXqmizoOo6lUWKX
+         pYaFLOXnOCr5UYxZDTRBKrPUVxWlQ7H9oiMVck1nJv2zhqgbsGeZomGDoExIBX+RU98H
+         lm9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy/QlauGclikdyXy02EQQWDfDB3IC+5X9MKsU8LpyROLmRd211oMfdndKzwWEgxwvmFCapH1J1UIOGEkS0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXSDxpZXdlqHTybFkZPcJ/eYecutCZhFgUI+ZdZZrv4TTj6gaX
+	LMhwaUHqtsfb/siOEhuWcU/+Zf2b4rdf3wqHiebA13FwKjrfmoHWus05
+X-Gm-Gg: AYBFou358qz8S1kUrspGkPAb/W+LMYVLynf/N+yhCdzuOzdS+LrefkuplQ2gJTFY/mQ
+	Vu8X+IaRNKxwQXUnoPoOfDa3r0Oe6FmAALrF/bGRZ3Ic3MWoJnSw19oHNhE+MzNHvXoedjGa98t
+	oj0nGqcHDhjXwqBi/FITAZPUa4kYB3vFTat8/xNvbD30+qzh3fBQdgG+5B5J6rJvTqOt0DWCYtu
+	lJicMivT4S+Fb0fkv6ka9ssIklsUtAiWbcMtTYjuJnXckSUyJjGLuKAPl4d7AHveGDebaP187bJ
+	3gKLbamu/a2W0QxfKv56wqiVkc89j78rnAUuFr7rE5UCN4Xihfp0A7WVsmqUBKIA6DngYwwJYkE
+	o5Jgnsb3mzKGAMTWJNFPIv1dAfhwODWKguujlt6USK0+zkvW0h6J3rQ4V22KdNAj+8ybpsscWLu
+	PGIUzULlmXTukUOM6bEM/srEu1gHyf0joJKZmEpPfLPSEnuKC7583v4Yj/PBzdEAvQcpf7dVYA1
+	nfKK/qUU9kMm2dooHod51E4x/x7oggKXUqrKrt3CVg68JBMoQPRJ7+9eqKW8m0Ju6AIxjdervGQ
+	npN8tSf23tatP0vDTPFl6sB2LuvagAHYJYVCoCKyUhevvVDgSK0kmDS5GOA=
+X-Received: by 2002:a05:701b:2905:b0:145:5c7:716d with SMTP id a92af1059eb24-146d0f3313bmr2024006c88.42.1790400083367;
+        Fri, 25 Sep 2026 22:21:23 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145aa0cb7bcsm8670711c88.2.2026.09.25.22.21.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 22:21:22 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	pavel@kernel.org,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
 	x86@kernel.org,
-	linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jean-Christophe Guillain <jean-christophe@guillain.net>,
-	=?UTF-8?q?Pawe=C5=82=20S?= <spawel523@gmail.com>
-Subject: Re: [PATCH v2 0/7] KVM: Serialize vCPU creation and revert vcpu_ids tracking
-Date: Sat, 26 Sep 2026 01:18:20 -0400
-Message-ID: <20260926051820.192707-1-pbonzini@redhat.com>
-In-Reply-To: <20260921174445.911676-1-seanjc@google.com>
-References: 
+	hpa@zytor.com,
+	yu.c.chen@intel.com,
+	jlee@suse.com,
+	baoquan.he@linux.dev,
+	dyoung@redhat.com,
+	io@r-ricci.it,
+	scardracs@disroot.org,
+	moravec@ukf.sk,
+	kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] x86/hibernate: Ignore page-zero RAM in E820 checksum
+Date: Sat, 26 Sep 2026 13:21:17 +0800
+Message-ID: <20260926052117.3613637-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260805070900.3390978-1-matthias.goergens@gmail.com>
+References: <20260805070900.3390978-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,10 +92,146 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Queued, thanks.
+The legacy kexec_load path reconstructs the E820 map exported through
+sysfs.  kexec-tools leaves the first 1 KiB unavailable for the real-mode
+transition, so a kernel entered through kexec_load can see conventional
+RAM starting at 0x400.  A subsequent firmware boot reports the same RAM
+range starting at zero.
 
-Paolo
+The hibernation E820 checksum compares those byte representations and
+rejects the image, even though the maps agree from page one onwards.
+A QEMU guest showed this transition:
 
+  firmware:     RAM [0-0x9fbff]
+  kexec_load:   gap [0-0x3ff], RAM [0x400-0x9fbff]
+  firmware:     RAM [0-0x9fbff]
+
+The checksum covers e820_table_firmware, which trim_bios_range() leaves
+alone.  The nosave regions come from e820_table instead, where
+trim_bios_range() has already turned conventional RAM in page zero into
+reserved memory, so page zero never occurs in the image, whatever the
+firmware map says about it.
+
+Canonicalise only the conventional-RAM portion below PAGE_SIZE before
+calculating the checksum.  Preserve RESERVED, ACPI, NVS, UNUSABLE, PMEM
+and all other E820 types so that changes to exceptional mappings remain
+detectable.
+
+This is deliberately narrower than Marco Scardovi's June proposal to
+checksum only RAM and its opt-in relaxed_memmap successor.  Rafael
+noted that ignoring non-RAM changes could hide moved ACPI or UEFI
+regions still used by the resumed kernel.  This patch preserves every
+non-RAM entry and ignores only RAM within page zero, which common setup
+already reserves and excludes from the image.
+
+Bump RESTORE_MAGIC, since the checksum semantics change, so that an
+image written by a kernel without this change is refused by the magic
+check instead of being compared under different rules.
+
+In the same guest, with the page-zero difference kept, hibernation and
+resume now work after both a direct boot and a kexec_load boot.  An
+image written by an unpatched kernel is refused at resume with
+"Unrecognized hibernate image header format!", and the firmware-booted
+kernel carries on.
+
+Fixes: 62a03defeabd ("PM / hibernate: Verify the consistent of e820 memory map by md5 digest")
+Reported-by: Roberto Ricci <io@r-ricci.it>
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Link: https://lore.kernel.org/all/Z-hYWc9LtBU1Yhtg@desktop0a/
+Link: https://lists.openwall.net/linux-kernel/2025/04/04/1372
+Link: https://lore.kernel.org/all/CAJZ5v0jmOj0WBtMTvbnaD+2b0bTFowA=JWrqRzaaCYpHpai1Nw@mail.gmail.com/
+Link: https://lore.kernel.org/all/20260623165724.10753-1-scardracs@disroot.org/
+---
+Changes in v2:
+- Bump RESTORE_MAGIC, as Rafael asked:
+  https://lore.kernel.org/all/CAJZ5v0izV3g1mSKJtKMcc=TfeUjJofSXCX92y4XX55Lam28qOg@mail.gmail.com/
+- Say which E820 table the checksum covers and why page zero still
+  cannot be in the image; drop the paragraph on cross-version images,
+  which the magic now covers, and report that such an image is refused.
+- Rebased on 6812ce4e4379 ("Merge tag 'drm-fixes-2026-09-26' of
+  https://gitlab.freedesktop.org/drm/kernel").
+
+ arch/x86/power/hibernate.c | 51 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 45 insertions(+), 6 deletions(-)
+
+diff --git a/arch/x86/power/hibernate.c b/arch/x86/power/hibernate.c
+index a2294c1649f6..dbb340fb24ad 100644
+--- a/arch/x86/power/hibernate.c
++++ b/arch/x86/power/hibernate.c
+@@ -63,6 +63,25 @@ struct restore_data_record {
+ 	unsigned long e820_checksum;
+ };
+ 
++static bool trim_e820_page_zero_ram(struct e820_entry *entry)
++{
++	u64 lowmem_size;
++
++	/*
++	 * Page zero is BIOS-owned and registered as nosave.  Boot loaders may
++	 * therefore omit part of its conventional RAM entry without changing
++	 * any memory available to the image.  Preserve all other E820 types.
++	 */
++	if (entry->type != E820_TYPE_RAM || entry->addr >= PAGE_SIZE)
++		return true;
++
++	lowmem_size = min_t(u64, entry->size, PAGE_SIZE - entry->addr);
++	entry->addr += lowmem_size;
++	entry->size -= lowmem_size;
++
++	return entry->size;
++}
++
+ /**
+  * compute_e820_crc32 - calculate crc32 of a given e820 table
+  *
+@@ -70,18 +89,38 @@ struct restore_data_record {
+  *
+  * Return: the resulting checksum
+  */
+-static inline u32 compute_e820_crc32(struct e820_table *table)
++static u32 compute_e820_crc32(struct e820_table *table)
+ {
+-	int size = offsetof(struct e820_table, entries) +
+-		sizeof(struct e820_entry) * table->nr_entries;
++	struct e820_entry entry;
++	u32 crc = ~0;
++	u32 nr_entries = 0;
++	u32 i;
++
++	for (i = 0; i < table->nr_entries; i++) {
++		entry = table->entries[i];
++		if (trim_e820_page_zero_ram(&entry))
++			nr_entries++;
++	}
++
++	crc = crc32_le(crc, (unsigned char const *)&nr_entries,
++		       sizeof(nr_entries));
++
++	for (i = 0; i < table->nr_entries; i++) {
++		entry = table->entries[i];
++		if (!trim_e820_page_zero_ram(&entry))
++			continue;
++
++		crc = crc32_le(crc, (unsigned char const *)&entry,
++			       sizeof(entry));
++	}
+ 
+-	return ~crc32_le(~0, (unsigned char const *)table, size);
++	return ~crc;
+ }
+ 
+ #ifdef CONFIG_X86_64
+-#define RESTORE_MAGIC	0x23456789ABCDEF02UL
++#define RESTORE_MAGIC	0x23456789ABCDEF03UL
+ #else
+-#define RESTORE_MAGIC	0x12345679UL
++#define RESTORE_MAGIC	0x1234567AUL
+ #endif
+ 
+ /**
+
+base-commit: 6812ce4e4379ffc99c52401ec28f0d7ffbc36206
+-- 
+2.55.0
 
