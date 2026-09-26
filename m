@@ -1,78 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583E438BF7A;
-	Sat, 26 Sep 2026 10:18:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328F63A9619;
+	Sat, 26 Sep 2026 10:18:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790417920; cv=none; b=ZqBkL14b1GXFtgXDXgKoXqRMvedWvbm7I93NXCf3kJEH1shhWj6RnJTwpPeAfT00ZRydG5/oxzNh1z2a5C4JxtA1fx+X78StZyap5foGJE6wsvxrcXzhrQaZBGpukebuROCS2KeGhy9XeRi9A1xEcU35rZA7wuvdSZiR9D77TLo=
+	t=1790417935; cv=none; b=Fi+BEmn/p3WsSkKltVjF81Ep4rHDbiYPVSItwKilO+HAUfb6bVdaoM9fDzpu8EAVu72LPblSP9GMpkfQxpeky26tHloCxr+Zgr6EhHizQqEQ0L0QBGdpA+5RxSDkxNP49arzzHm4HyIv2tFmv3V6KmvMuTS2eZDkgvQcW9O/GnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790417920; c=relaxed/simple;
-	bh=koxNS8eQLTZC4Hkw1erNLLgpHyVN30inKtmKLYfV75E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BKLLlPQRhx1kmMAaauQBlvXTIGWeGqKUu3Xc6v3u8n4seZZFZ+jesRzOkymaV77Uh8jGtbsT2p8GwIVlmbYIPqcp3PGwEGKrB8Qp/Nd/MZ4fy2kl/FkgE3hAZgQci0gWj7wAXUQZKtLrenwxv+jowA/DBkFpKTNMMfZs4Epnhdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RNnd0DUU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790417935; c=relaxed/simple;
+	bh=iEk7V1/0WBxsUmi09StiNddndOWxuQdkmi27S9qY7RQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=fi5q2yVPJnzNWmWPuYihexiUyuUmxoEWxl8jP2sN24Ny6q6ujZgIicdg/2PuzufehJyIVNTkPtyWOQWHdUoNMp6Ko4kCezJ4MupF0U5ATD5VXoUJcL6W5s27O9m5uN/xzAQpYhFnG2uoKfsBfM7jeoNoRNhz1ljRa1zKMvfR2zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W60/ZOSw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RNnd0DUU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38E441F000FF;
-	Sat, 26 Sep 2026 10:18:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790417918;
-	bh=wEhsOn0MHBgu2cx4PsskVvMaQBB42FGNHfwp0REKX5o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RNnd0DUUeoHEfPWrWyS9Ff3XsS4+4XWF/EC2XhRRP1d/6HBSazGHOT8Z/O5HSLCIC
-	 l8WDmDdI4/pGGhkzgI5DNnjGYUt3HKlF3FQzovgnOeoC3wAWLJ9NJceryz0ZGqmrmA
-	 fwtgo2zdmkV9wgownjNbtepuvC5tD086Aty3JEag=
-Date: Sat, 26 Sep 2026 12:18:33 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: Jiaming Ouyang <jiamingouyang13@gmail.com>
-Cc: Dongliang Mu <dzm91@hust.edu.cn>, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, alexs@kernel.org, corbet@lwn.net,
-	skhan@linuxfoundation.org, si.yanteng@linux.dev,
-	rdunlap@infradead.org
-Subject: Re: [PATCH] docs/zh_CN: add Chinese translation for usb/ohci.rst
-Message-ID: <2026092601-fretted-humorous-c207@gregkh>
-References: <CAMnqnYyO98AEDOHfm32Cb4uGBDucLiZ8gKZ5S+jVf3DDCoFA5w@mail.gmail.com>
- <cfc9cb8d-d13a-4dd6-809c-1ecf3bc9c758@hust.edu.cn>
- <CAMnqnYxzfUUaeaGTG=pESVN+2yeue4b_7N6d=xMGNE7qdrNbYA@mail.gmail.com>
- <2026092601-reassure-darkness-229b@gregkh>
- <CAMnqnYwDoNc5=RjEkeRB3-yB+HJvYkrcTBHpPo6cxydSfRMphw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W60/ZOSw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A12521F000FF;
+	Sat, 26 Sep 2026 10:18:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790417933;
+	bh=QWK9woV9CptYmbcc53OWuTMscc/CJL5LLAF/moZU1Zc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=W60/ZOSw9Cu1aLUmf/Ch6O5Ovd6odSXqJf5T9i0IylRZ0ENn4V42b6Qf1Ek3z9cc/
+	 pwhUaP5olsdy+cgw6I17OBDz9nGnFa3lFLlyy5OALzsqb28MFmdKKhXVXl6wZx5Zie
+	 5ZqMozYcHALb8DUL3AA6CwVFJNgKTraOPw1SGwMAB6eFq3M2Zq8YAQv8VE1Lt5VXzt
+	 vPTCn+oHUrxZMPOYwjIGYYd4MTf3zWcthxf2jqCVLf8l34EExejotQ3UiUNai+MIDo
+	 p3Rsw6hLrCsiGRU4/HIf1+KUPyNLUcwfv6NLaz99GSV61Z96U/06tXD73nSAoWZdAA
+	 9UbNp9fgm54dw==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
+ Alexandra Lu <alexandra.lu@nokia.com>
+Cc: Vivek Pernamitta <vivek.pernamitta@oss.qualcomm.com>, 
+ mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260807143353.1932381-1-alexandra.lu@nokia.com>
+References: <20260807143353.1932381-1-alexandra.lu@nokia.com>
+Subject: Re: [PATCH] bus: mhi: host: pci_generic: Fix runtime PM imbalance
+ for no_m3 devices
+Message-Id: <179041793127.232689.3792166271248903025.b4-ty@b4>
+Date: Sat, 26 Sep 2026 12:18:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMnqnYwDoNc5=RjEkeRB3-yB+HJvYkrcTBHpPo6cxydSfRMphw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.2
 
-On Sat, Sep 26, 2026 at 12:10:16PM +0200, Jiaming Ouyang wrote:
-> docs/zh_CN: add Chinese translation for usb/ohci.rst
+
+On Fri, 07 Aug 2026 14:33:53 +0000, Alexandra Lu wrote:
+> mhi_pci_probe() drops the runtime PM reference taken by local_pci_probe()
+> only when the device supports both PME from D3hot and M3, but
+> mhi_pci_remove() re-takes it based on PME capability alone, without
+> checking no_m3.
 > 
-> Translate Documentation/usb/ohci.rst into Chinese Simplified.
+> For a device that is PME capable and has no_m3 set, probe therefore never
+> drops the reference while remove takes an extra one, leaving the runtime
+> PM usage count one higher after every bind/unbind cycle.  That is benign
+> for the device being removed, since the PCI core resumes it to D0 on
+> unbind regardless, but the struct device outlives the binding, so the
+> count accumulates across repeated cycles and can end up preventing
+> runtime suspend altogether.
 > 
-> The translation covers OHCI driver overview, hardware protocol
-> differences (OHCI vs UHCI), improvements since 2.4 kernel,
-> queueable interrupt transfers, and non-PCI support.
-> 
-> ---
-> Changes in v2:
-> - Correct the date
-> - Correct the layout
-> - Add specific details for it's contributors
+> [...]
 
-This goes below :
+Applied, thanks!
 
-> ---
-> Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
-> ---
+[1/1] bus: mhi: host: pci_generic: Fix runtime PM imbalance for no_m3 devices
+      commit: 95601e9948b42f82600ff2d9e0c2f699a067d561
 
-Here.
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
 
-Also your v2 should be in the subject line, right?  Again, take a look
-at the in-kernel documentation, it should explain this.
 
-thanks,
-
-greg k-h
