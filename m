@@ -1,248 +1,144 @@
-Received: from relay13.grserver.gr (relay13.grserver.gr [178.156.171.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C18420E7C
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.156.171.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4B042F6FA
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790421181; cv=none; b=ByttIVKL2j1ANzHb0VHEeP6+cGvRAQV7lKvmfCVqNfE9nXipWCf39xvJdOvwWH7fGcFQSpinGr6saEK7cV7/Di7W7gMDHbNQFJ4AdK2TjmDNB96q4uPXAEaJ1uFqH8PMqnGi6XMo/NTEdcOxZyZy81TOmcIYjvGSZzu6yeXGPi8=
+	t=1790421195; cv=none; b=pfBlXR2vQ6YvyOtCDSMgKPw4jGhRL3M374F5/GkVuqt+R2biQiwzGu/b5gHaJNpRh+XRbBX++3tLpOb3/q1E8725ceFs/zyXZkM/bnLypQXTR5GV7VhWoNAg5C9T4+Jd8QfxdhZymgAebjjzn7ahLWnY7ngeVRyprYst+2iMcu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790421181; c=relaxed/simple;
-	bh=vXfnXeYRUumTCSRWXFgE0vtFWMPd57CL4FKjc0+BJOY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u/he0ElAOWC6+fJifx/K41HbrPyBt0GgmulEHlEDRdtWqT1RZUa5pfrXvJtQDb64nvrv2DBrCYwGurXaqaQ1mOBMccCw0IxSg6KB//cwywAN615HhVpRfb297pW4Sw6ODXY1+94eVpCzy+3mk7juMgJRc4S39hp2XLbv/saoPcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=RVjEOWp4; arc=none smtp.client-ip=178.156.171.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1790421195; c=relaxed/simple;
+	bh=DLgC3aps3XoDhJw1Zkr5LjA4E7cGsw40nQ05koVXezU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JWUTyjY+4i9sEjz3qqcUtT917dRGgEx8UTXu6HWMXyPigHlLP625wvEVmWvgHTnUqjWnp/yIR/7GB+wp7lETtET+fJMLedy96Gt8fHdGxbfaFo+iJHNJBjVk3ZptPsWbbiAaQaZpMq68BoVQcA2rBMPpY2msglhv+QLbKd3oUS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ROKJgTLX; arc=none smtp.client-ip=74.125.228.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="RVjEOWp4"
-Received: from relay13 (localhost [127.0.0.1])
-	by relay13.grserver.gr (Proxmox) with ESMTP id 336D05E5C8
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:12:51 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay13.grserver.gr (Proxmox) with ESMTPS id F232A5E62B
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:12:48 +0300 (EEST)
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id D0A111FFA2C
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:12:47 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1790421168;
-	bh=xFkbRaOabfRBVw9vhprn3ZIPkocDhn20TDpdbxWpbJY=;
-	h=Received:From:Subject:To;
-	b=RVjEOWp4mitpAy1DRhY0GXXfuxMnUlYL7CI5ojU5Qq59289u7t0/wSCYIb433twLL
-	 lK/qj0Da+V/SpCykNk+0FaiVAXf9Gf9ArNdTP7qcz0BtFsOAe9wUd0hlvI3ijgJyrP
-	 M4nXqcrkGGmehccSXcSZE0kEhjCcpvHrykbQ8vczDgnAsPH3GG9RIXZ0xwI2tT+Nzx
-	 dzwxo1z9kP6IkvO5+BOPqqI6VABIYOPXsKUy4uC+1ITOaaKIesqhRmqHHngcEEPK64
-	 TGfvYhNpJarT9SZs4aWZLmmcA7WmPpxjeL4sFPBZVk8CnRQkezKrhAsstWOdAICMqk
-	 cmre5u6bb6eVA==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.228.38) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pz2-f38.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pz2-f38.google.com with SMTP id
- d2e1a72fcca58-882193a4625so44097b3a.1
-        for <linux-kernel@vger.kernel.org>;
- Sat, 26 Sep 2026 04:12:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvByRcgc40efE1GvX2/94vVgWhEZYOjyozNEuFZFgpPeHquYoMl3CRQErSuxagUhfBqjLbRsbVo7NlCIMg1A=@vger.kernel.org
-X-Gm-Message-State: AFuF++llkow8Xqt9+mEvUbF9LOGRRsf8OwF/Cie8U3/FYaDIGmVmyVae
-	uONrHB/eyBViJ2IypP4XKQW4vsbnw8Rmjj5Ca/J/rH16/bum18CrTZvD7yjNLGbmGZFxrH3m063
-	4cetImBCd1dzkfbIPcUCGvFxv3hKtKOg=
-X-Received: by 2002:a05:6a00:6f0f:b0:880:4d6e:fd03 with SMTP id
- d2e1a72fcca58-8804d6f0202mr2927594b3a.5.1790421166210; Sat, 26 Sep 2026
- 04:12:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ROKJgTLX"
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aae1f2cedfso2081302a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:13:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790421192; x=1791025992; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SV0LRzTvQ8p2vwhmqhzurHNmTdPATy7R4StnDd5yBSM=;
+        b=ROKJgTLXymsWgzJl5Ashi+MQIs7EI8mBXazssB5N7Vd52sxpM1ft8MPerTy97i0g2R
+         07qCC3Kf1mrO93cLwqh2IJxvxtpXXwaVazKrnFiN4UoQbVT4DV5H8JTud5UZHuferJJ5
+         SiEp9EWcO5M/XkX7IZULIKfQHGffj98FkiXg1TxuHgQAi7eOLfi5rgQpzgsMqpP/k4zf
+         mYcfs/Ev0HLKSgArAg9yENlDjCx6rnl/GK5zIvDeQQYd0PdZifv3R1e2SUFAFPLuRPcj
+         YvLJg+AamFBsFykvh3Bg6Fq5oD3S0YcUGV53tE7UeRrGlYuH96jxvzY2Y3s0mT4eH/o8
+         Kvuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790421192; x=1791025992;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SV0LRzTvQ8p2vwhmqhzurHNmTdPATy7R4StnDd5yBSM=;
+        b=yOrHqfQcViUQl57/ZacYTb6QFXq+9Hen8fPzvJctyUuTogqlgoGfoSngAqz0VJlnZx
+         ROKa20hOhS2XGWxGcS46PiwP26wmNbxl7PZ68d3KY4QzUUirUWIKr7goKfB1SwPd3Vus
+         4vGk5T4vT3BHNhU6ACMSlI+nAWMXumTGF+BdsGolmCzFLFGdFizYeMY3tUOeIX6ZjwRD
+         vpQvZcGnYkynxpykcFnGxMWBLbG9Ng/cyqrhgvlldJj2fmDZe8+7JyqZYRnkCo0laPhs
+         5W8fajzinyKkxImbPflvWCfjrIbATMmGF3hKG5BFujRQVofNsOyPj1Cmc/PFbOuu/mmd
+         6BMA==
+X-Forwarded-Encrypted: i=1; AKwUvBxyXI3eWE1voELOpKhWoqs7AxzJAVJRjcxCdjCSwwUG9wkn8iynYhtVUbv6SIEb470kUo2ursUNOkl4zRc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFqDUCBfTdnXgGj76yARWwq2pN6euU/1LFvQVzE/tYanmqJcGO
+	77s7/uW5KleTNYS2v0gamZnSi5PSkBGP0y8BB2uO3cJGAWkHGQrJd7au
+X-Gm-Gg: AYBFou1Fqt5ltV+KsAO3FVFoA3pLfEw2XPsEIt79Aq58kPgaYN3PYlUoEyLr9NRINEF
+	KluYiB/Z21vbV9Z6DAjsOpxvkxaxsYBf2vRnTD5+abLnduD214Hef+NB2OrAlf2HTSJhHBjMvmB
+	vqhysOp3bp2DbuwX36k4p7lM85jycN3iQOVJAaOFTr8fFaoJ4pBt6jX2LRZnreb3Ll1MXNwMAcu
+	w3rsKYbcN0teQhoZEkyC03MGlH9I/txeuYFERQ3V1PbIlG41t1QELWwDtdpBuaFvsaoeS3aATW8
+	y75K5Xqjvk2/PVBX8gjnwVAlHI+ioxdSYemDk2uVLWU2QpczKsJKcTOmxrfGB6y07DYIuvVc/Vw
+	/UvyRG+esv89Sli0JXppjHUmF1T7XlPezB+1e87UAaBXWoLRXhBH5eac0INtSradUSFh08uDDG4
+	W7Bo4k5RPO987lk1q3G1F1Lv8ycSXe1LY/ioaLJ84UtL9LGUZrvjwiSOq11dNW1YuYqu5q0DVLq
+	Pm5S6poES104F9HaCn3BasjzeqPQOFTise43GUZrcc=
+X-Received: by 2002:a05:6402:52c9:b0:6a9:984b:4c71 with SMTP id 4fb4d7f45d1cf-6aac90dca01mr6954387a12.33.1790421191787;
+        Sat, 26 Sep 2026 04:13:11 -0700 (PDT)
+Received: from fedora.localnet (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aae5dd5e49sm1928651a12.19.2026.09.26.04.13.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 04:13:11 -0700 (PDT)
+From: Erik =?UTF-8?B?SMOla2Fuc3Nvbg==?= <erikhakan@gmail.com>
+To: Oleksandr Natalenko <oleksandr@natalenko.name>
+Cc: Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+ Filipe =?UTF-8?B?TGHDrW5z?= <lains@riseup.net>,
+ Bastien Nocera <hadess@hadess.net>, Rafael Passos <rafael@rcpassos.me>,
+ =?UTF-8?B?R3LDqWdvaXJl?= Stein <greyxor@protonmail.com>,
+ Alexey Zagorodnikov <xglooom@gmail.com>,
+ Roman Stingler <roman.stingler@gmail.com>,
+ Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
+ =?UTF-8?B?S2F0ZcWZaW5hIE1lZHbEm2RvdsOh?= <k8ie@mcld.eu>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] HID: logitech-hidpp: fix Bolt hi-res wheel handling
+Date: Sat, 26 Sep 2026 13:13:09 +0200
+Message-ID: <2UD2rmaWS9W0wgq6AdNLxw@gmail.com>
+In-Reply-To: <6UWkRWWaSvGIWNWwY_bPDw@natalenko.name>
+References:
+ <20260922-feature-bolt-fix-v1-0-63b0fa8da0d3@gmail.com>
+ <r8QjhQUkS86zOaJsxE4nUw@gmail.com> <6UWkRWWaSvGIWNWwY_bPDw@natalenko.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924134945.3095661-1-sashal@kernel.org>
-In-Reply-To: <20260924134945.3095661-1-sashal@kernel.org>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sat, 26 Sep 2026 13:12:33 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwG0F88Ah8AEYf2u2BM-4bP+QnZe5p1qTFb4_H5acvaFkA@mail.gmail.com>
-X-Gm-Features: AclHuK-wG3Q7dAzGaz_XSxjYjAGh0dymYjJ1HQF7VhBQjKTkcShmejcHSsJBia8
-Message-ID: 
- <CAGwozwG0F88Ah8AEYf2u2BM-4bP+QnZe5p1qTFb4_H5acvaFkA@mail.gmail.com>
-Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
-To: Sasha Levin <sashal@kernel.org>
-Cc: corbet@lwn.net, workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	linux-kernel@vger.kernel.org, "kees@kernel.org" <kees@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179042116806.2669544.5294179386998042345@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-On Thu, 24 Sept 2026 at 15:49, Sasha Levin <sashal@kernel.org> wrote:
->
-> Most coding agents have standardized on AGENTS.md as the file they load
-> automatically from the root of a repository. README already tells AI
-> tools to read and follow Documentation/process/coding-assistants.rst,
-> but that only helps if the agent decides to read README before acting,
-> which in practice it often doesn't.
->
-> Add a top-level AGENTS.md symlink to README, so agents load it on their
-> own and follow its pointer to the AI guidelines. This keeps a single
-> entry point for every reader, and avoids adding a separate copy of the
-> policy that could drift from the RST.
->
-> As an example, two different agents were asked to "create a new commit
-> renaming the release (in the Makefile) to AI Test".
->
-> Without AGENTS.md, the first agent added a Signed-off-by for the user on
-> its own. It should never have done that: only the human submitter can
-> certify the Developer Certificate of Origin, after reviewing the change.
-> It also used its own attribution tag instead of Assisted-by:
->
-> > Makefile: rename release to AI Test
-> >
-> > Co-Authored-By: <model name> <noreply@...>
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
->
-> The second agent added no attribution at all:
->
-> > Rename release to AI Test
->
-> With AGENTS.md in place, neither agent added a Signed-off-by, and both
-> used the Assisted-by tag. README itself mentions neither tag, so both
-> agents followed its pointer to coding-assistants.rst:
->
-> > Makefile: rename release to "AI Test"
-> >
-> > Change the release name from "Baby Opossum Posse" to "AI Test".
-> >
-> > Assisted-by: LLM
->
-> > Makefile: rename release to AI Test
-> >
-> > Assisted-by: LLM
->
-> Both agents also followed the kernel's general guidelines more closely.
-> The second agent's subject gained the "subsystem: summary phrase" form
-> that submitting-patches.rst asks for, instead of a bare "Rename release
-> to AI Test", and the first agent added a body describing the change.
+Hi!
 
-Hi Sasha,
-I will second Theodore. I have been using LLM assistance working downstream.
+On Thursday, 24 September 2026 23:57:05 Central European Summer Time Oleksandr 
+Natalenko wrote:
 
-This patch has two issues.
+> No idea TBH. The mouse is this one:
+> 
+> https://www.logitech.com/en-us/shop/p/mx-master-4
+> 
+> I haven't seen proximity mentioned anywhere is specs. But I can try to sniff
+> for these events, just let me know how.
 
-1) Agents already read the readme. The canonical way to force load the
-readme at least for claude is @README, not just README. Even so, the
-readme is not tuned for agents and results in context bloat. You say
-that README is small, so it is ok. But it is not, it prompts the agent
-to read a lot of other useless readmes. Another issue is that you say
-that it is only read once, but that has not always been true and
-perhaps is still not true. The Claude harness used to append the
-agents.md file before every message. Unsure if it still does, I do not
-use Claude. agent.md files should be specifically designed for agents
-and handwritten. Moreover, they usually need to be tuned for the model
-generation in general, if not the provider and model specifically.
-Which brings us to 2.
+Great, thanks, we can do some tshark capture then. That's what I did locally. 
 
-2) You are suggesting starting to track agents.md on mainline. This
-will make it so you dirty the tree of anyone that uses a custom
-agents.md when they switch to mainline for a submission which is a
-major annoyance. It'd be better to gitignore {agents,claude}.md on
-mainline. This would allow anyone that wants to commit theirs
-downstream to do so, while allowing them to copy their agents.md for
-mainline submissions.
+1. First, in Solaar, make sure diversion is off.
 
-I personally no longer use an agents.md file for the kernel. I briefly
-experimented with it in april. But the models are getting much better.
-For example, in April they could not do rebases correctly. Now, they
-mostly can... Yes, it is true that my agent does not follow the
-Copyright / Assisted-by: / sign off as they should. But this is a
-small issue and can be rectified with a 5 line agents.md file that
-tells the agent exactly what it needs to commit for _me_. For various
-subsystems, it can also include common mishaps in that subsystem for
-the specific llm. For example, I found that Codex Sol does not use
-mutex guards. I could add that to my agents.md. But people that do not
-use mutexes need not do that. And when my model updates to one that
-does that, I can shed it while not affecting anyone that has a
-different model.
+2. Then, find what bus and device your mouse is on:
 
-A better suggestion would be an agents.md template that is stored in
-the kernel tree with instructions on how to make one. Perhaps some
-templates about custom workflows for agents as well so people can mix
-and match.
+lsusb -d 046d:c548
 
-To that end, I attach a sample agents.md config below after a trailer
-and cc Kees who acked. I just wrote it now based on my experience with
-Sol 6, so it is untested, but it should give you an idea of how an
-agents.md file should look. Compare that to README in terms of tokens
-and usable information.
+It should give an answer like this:
+Bus 005 Device 007: ID 046d:c548 Logitech, Inc. Logi Bolt Receiver
 
-On the broad aspect of LLM use in the kernel and open source, I still
-do not know how to feel about it. I have reservations about posting my
-_slopped_ drivers on the kernel and I know that especially for HID/WMI
-trees it is starting to become problematic at least to me, as people
-without kernel experience start to post 80% good nuff drivers that
-work in their usecase but are not mainline ready and working through
-them to do that is not practical. I could just reference the registers
-they use on their driver and have a mainline-ready submission in 10
-minutes while discarding their attempt.
+3. And from there you get bus=5 and device=7, so do a tshark capture:
+sudo tshark -i usbmon5 -Y 'usb.device_address == 7 && usb.urb_type == 0x43 && 
+usb.transfer_type == 0x01 && usb.data_len > 0' -x
 
-Creating a mainline ready driver used to take 10+ revisions, at least
-it did for me, and involved a lot of investment by the subsystem
-maintainers over months. They did that for me and I am very
-appreciative. But when someone random appears one day with a couple
-thousand lines of code, what are you supposed to do? I am not sure,
-but I am also not a subsystem maintainer so it is not for me to solve.
+This should output ALL incoming data, i.e. including every little mouse 
+movement, so it will be noisy.
+So try to keep the mouse stationary to minimize noise and try to only touch 
+the thumbwheel. Both hovering your finger very close but not quite touching, 
+then a single tap, and finally just holding your finger still on the wheel.
 
-Those are my 2 cents.
+I saw some information online though that the MX Master 4 supports touch, but 
+not tap or proximity, so presumably we'll only get one of the three.
 
-Feel free to cc on later revisions.
+4. Please also give me the output of:
+sudo lsusb -v -d 046d:c548 | grep -E 'bInterfaceNumber|bEndpointAddress'
+It should list the interfaces on the Bolt receiver, which should be the two 
+native HID interfaces and the HID++ interface that I think is for devices with 
+touchpads.
 
-Best,
-Antheas
+5. If you want, you can try the same when the Solaar Divert is set to on as 
+well, that would give confirmation that the mouse follows the protocol found 
+online.
 
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  AGENTS.md | 1 +
->  1 file changed, 1 insertion(+)
->  create mode 120000 AGENTS.md
->
-> diff --git a/AGENTS.md b/AGENTS.md
-> new file mode 120000
-> index 0000000000000..100b93820ade4
-> --- /dev/null
-> +++ b/AGENTS.md
-> @@ -0,0 +1 @@
-> +README
-> \ No newline at end of file
-> --
-> 2.53.0
->
+If you get a lot of data that you don't want to send on the LKML you can just 
+send it directly to me if you want :) 
 
----
-We are working on a downstream integration kernel to enable support
-for new devices.
+Cheers!
+Erik
 
-When committing a driver, please use the following tags information
-for the commit body:
 
-Assisted-by: LLM
-Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
 
-Use similar information for MAINTAINERS entries / copyright notices in
-drivers, which you should append when making a new driver.
-
-Our current test device is a Galaxy Book4 edge. You may access it
-through `ssh edge` to run commands. To sync a new kernel to it, use
-`./sync-arm.sh edge > /dev/null`. The device will reboot with the new
-kernel.
-
-If a mutex/spinlock is needed for a driver, please use the new guard
-syntax instead of separate lock/unlock. You may create new
-scripts/readmes for temporary integration. If doing so, please do not
-commit them alongside the driver as they should be discarded.
 
