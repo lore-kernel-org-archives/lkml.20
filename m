@@ -1,143 +1,294 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BB81D5174
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:46:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1182D6E72
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790387202; cv=none; b=WxQQSlvZXDVlVv5iighPjcazSfJde3VHQRj+ddo+Wy8InZAhTxGVR/gw4UR7EMtTVQRks0Tkn45iQRcNeXTwh0AdDZzdF4TlTlPpz7w2faI2xCgYzOhBbbqFwgthGt6G+PYC7mU4/jYzP9NX1K8N04hJyoI9JqScndHcoIOj/Nk=
+	t=1790387287; cv=none; b=lyhNuoukHe4ncsyu186Y1Dqt/h8VMBdBdX75D6YucGJ7XO0zMbb2VgHeJd1b+rxh53xsr0HL8T73lLfgjXdDgvGV1M+jcXU3xU0l6L2FZOoiKtltxagS4I8JEdrjG0KIZseDBMwNW9lQTzf5sCVYSqhZ8odg23hU7WEV7AbvFhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790387202; c=relaxed/simple;
-	bh=vwkqmE/L1SbBbgG7jkKKCIufo+UrUWTVHRbxZ9VQ6cw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PkAuyDAA29knY7YD1M4FpshMwforBMbITrjVxawW2jzOi8FSbgRc9x+V3cI861TS1RQ4A/lqtBzQGtRWJXjIhuaIa9yIB5BhQASXWkjWTniCPzUAO3f9yh118fBDQLWVASDF1ESY5khWNAqwrCjPHc6HINTc5mXXDgzjlzj24VY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=of053agu; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1790387287; c=relaxed/simple;
+	bh=TTVyPZcnJYABDmdRCD3Hn0KPAE4CSLVocgepqNv6eGM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rlgWKjBYmQ2uBKjDdJlq3r1vYtfLfNxv5lA9sv/KOIA27zgtjHGFn/jbA+jfdSYxnbF25qBOz9+tFhB0NmNWkUITp+1IcdMaS67cV5kENSCy9lrsujEO61vAHFvILf3naJ3gqS/kcuDusIGoDFlpch8Mlc3bvfjhu5SJjdMRop4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c0VUhBva; arc=none smtp.client-ip=74.125.228.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="of053agu"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f01363so9057095ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:46:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c0VUhBva"
+Received: by mail-pz2-f39.google.com with SMTP id d2e1a72fcca58-880adb5d043so435005b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:48:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790387200; x=1790992000; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NI/57maa8yM41Ln8iNyKbscX6tBjZSqd1TFGGzH5ius=;
-        b=of053aguhFI71MJxd8gWFiK7K5/WJ4h88aBU++86+I/9JIy3dWFLWPNhcp2NTnmCbw
-         WLCgiraNVLkRfzidgnH+OP3cBFR9FOphKFK+7N7NKNRx2h3owaT9YyK1320O+W40ra9d
-         h7z5Nnn/CXA/zaSm+D8om85/Wt6z8fuO5m8V5U39e92ERT6vI41N+ElUTdy8wiMVHGex
-         lQ1/LQ8bHlfZvSbiZyxmstyAu8EZOKRz0ZbrMkh3dneNFIlCUGXuwaF4/DFM/dxRE++F
-         jMhDiQsvXKp9BcFu4OjDKYGAKibDrE3Vbdf1/uSE945mHfKsBYV5WKINz/xlGAoISDsq
-         SuMw==
+        d=gmail.com; s=20251104; t=1790387285; x=1790992085; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u8E325Hob5EvNUG1ihDxwdbdqqSNh/dhHuy8AA89ZKE=;
+        b=c0VUhBvaUXAjhjhhVMBK8VRLWEsAKgSrU59gpHDtGJXqZjWGhqDD9owhV1ujI28iXo
+         r8b2cI4sDcQQxvy96KuLgzd1mzVmAU87wRlHshvd2TRUAdI6CeUvAkek6nsq08Qwy4Q3
+         dtbbdJtk1H+WrLFKeC0/t5FSaLD8xX/naKpXtVtSqaH6d2rsZIoT8RVfflAVP0wxX+rd
+         w8/dU/LYGjvfy69aSXGs49YtgExaw756KQq7oLhZ56YNW4PRTQgWzHa9kJpX1Ksgf6W5
+         AbOq7l7tVlmSh4g94brqv2eLXQBKahBpgUPDMf2fVw25HBXYb6lgv/s/yU7XclB/S5Qb
+         xbBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790387200; x=1790992000;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NI/57maa8yM41Ln8iNyKbscX6tBjZSqd1TFGGzH5ius=;
-        b=WP+711RmAUPA5CNxIvW7L8ULiePEMGO8hY8hzhWYy2H67rwYWGW/sQ9tZ3JptTtQx6
-         68bhRNDChjQwtxCdenEeXPhgYl7O49Jm4pPrrtFV+S9MEX6UKcwwE5kVeWKTOEja5kQU
-         YX4bKNQM7JiOQ5KDOFbfM+i8fPdYqneaafe9CeCVxwnpgNt6Axlg66cOi7tWHPUfvjfE
-         34CfdvggQUnMhYEwqIXeC8xUiWoeYCO3NvWCLNxh4ulHVGFWvEXIUIH2+iBSzmevgAZk
-         /Pw4ysL0dUwy+ypYQa/wH7azJMGgFTX9+xeym6vBdBLlKXOeKBgg/FB+bP32+73QbNFg
-         xdpg==
-X-Forwarded-Encrypted: i=1; AKwUvBybxJNxQX8vwRmJe42GwTE3JAbBCyhQ9H8jfQx9kQpvVzwm1ekD57F4SxgkM3Ra3cpLWwbC3//zTLeTIbk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mn1foO+3z2X1/5tVzeaK2Y3f2p9AWQHi8NJQIs0mR8gdZAnit8
-	JVYUZvuQEeacqiOLvW7SS8mVcE0IWhURO3MH5QhaC9VDIn8+tBLSpuL2W+6JN/W6
-X-Gm-Gg: AYBFou0jsza5l1q/orrfait6vJNPs1GtLRB3fv9x7hTNi21CAHx74bA8Wtvzqe2hYtC
-	3oNHhz6dP+dFFEOz45HQDGrAVs5Ghu9XOpHcSfZFjq68+5KvTGAf/flTzb+sofshaMW5eLbA5IL
-	xn0MAhnla1JJ6qCuBVTy7UjlY8lMTVCyrNo6vAt4RCJmFdYF2jIFuNjE+vf/U60wOKpeCcXs2mn
-	JCJH1KZ4ECxupA04m0Gj/ozsNDScHMtH5A0wc/vpv8l813umr4wwSvblCEK+F+5XChIeK+5uRjs
-	d0tkDtPR0ssJMjCZ8AZLd9LIsHL0MQ6tMEJvxRjRQgjEFRFC8KkYHfqwXvb8/qGcZZ83Z25s8yI
-	zLYxkzyxFHoq/+fmUxzLxnFXsteMXU+6ajKomS00qE0JmRCVzbJukzzDyFlYoQAMxLigvymlBTu
-	nTTnYcyd4vGipkutT/EdkLbW90j8aKn9yYD/g12ysSkUeUzUwAE8LIModxVcppZpTThqI9rFx5W
-	O3M8yRY6ZAsYVXPQF2daX8=
-X-Received: by 2002:a17:902:ebd1:b0:2dd:c100:9434 with SMTP id d9443c01a7336-2df94c1bc03mr31488365ad.50.1790387199777;
-        Fri, 25 Sep 2026 18:46:39 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913e030dsm17439105ad.16.2026.09.25.18.46.38
+        d=1e100.net; s=20260707; t=1790387285; x=1790992085;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u8E325Hob5EvNUG1ihDxwdbdqqSNh/dhHuy8AA89ZKE=;
+        b=f4lbdMlbviRakyDBJoGtR5jWpvKhMcSp+h5SbjUbg1EiBahFfi8ctAWk6b9Nof2EGe
+         dsjReRKvEdXbHLuJTldASKTiy3P8qs8LTBpf9i1fE5YhPSBbAOfMYHG6HzcTb8cKtOG9
+         5RcH4zTIIfIuL4Ni6dmJjoi/UZCp4pLqbr4dL+xxXRLy/Ru0HvMnPhaIWVicWEvx6rTp
+         ldzNjEwbbpINIDgRVep5egF25e/YRi8M9YQ/AmZHT1cjaE1Sq0Iae1Tk5EQmJfNWo94C
+         PkJWTs6DATsYFOftWF78iiZ8BZHELkCuzRMtW2jx90LJjlBThygdkF4TA/3srll6KVAt
+         vMiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwT9zrz1pGpO5ro0pME4qkSzIPB1v6K2dBjOCPIgm8LeGwgeMJYensh8grgMuQOYuX1G2D/wfOSuNwaMzY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQQACesSzCA55rd5UEygRfz4yT0IflcUcwFFfICducNL4l4EtA
+	wy6SD0xds06FrflCG25nipr9UhPdX3D7BmKJzqVaKM8w0aYr/SCu0/ZF
+X-Gm-Gg: AYBFou1rPNlcyKmDIcJCtmeQ7VNgmctQKRD2kkoqd+RWu9fH9K3YpcBHBrPef6aIK+a
+	7CplJCglzN8Vr21lMlOZomVq5BSBhYqjpi5a7+gqi7QMO1yBnUZrcGaSyeIMyrXds5XJYCxo5B2
+	0YdV+hfTMkRmX6rkfdYhpaEMl6m6SeoUfbCfcQtWpHg7Y70MwmG4UwrcJMmo7/MY6TTD524pOcP
+	bLOvxNx5KDxOowuH4vJfL1NcWZSNElbw+sqWuTYwMS0fiflpH5I5Q6URIbsm1Qs8J+om9PCIZEK
+	aNxsmwenJfPolp/E8qcnu9orz/XFBVurMlBH0sHdwRGIHcs9pp8yuB03cf0cD8Zk93YgboOw3kg
+	uluVthmNBN/FsfCF1UGlqX6mQJni+ldlMly3AhCi9zwEUAV/gPMNEUp6ljQlLqj+YGLUAz+2HKS
+	bm+2qwQQVIviFjVx49zbEgp/J1d/DmAS1ICUrc1TV+9HDBSRK6YQxcKbEY1Jmh+95EKcJWRWB6n
+	orOq4+Oh+EO4Varu/unWnv5oaSzgg1LJ3N/QMTqAg2kD6HJr3VVzMTmC6OeEK34BtIDFv1x2lei
+	pkiCf4s1jJX92XiYryseAu+lQLayM3dngIdKfBoVh34+77VL
+X-Received: by 2002:a05:6a20:e211:b0:3dd:a006:ed90 with SMTP id adf61e73a8af0-3de0e8b30c3mr6910904637.38.1790387285324;
+        Fri, 25 Sep 2026 18:48:05 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87fea18ff85sm1836463b3a.19.2026.09.25.18.48.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 18:46:39 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 25 Sep 2026 18:46:38 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: alexei.solcanu@pm.me
-Cc: Cryolitia PukNgae <cryolitia@uniontech.com>,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Antheas Kapenekakis <lkml@antheas.dev>
-Subject: Re: [PATCH] hwmon: (gpd-fan) Reset both fans to automatic on duo
- boards
-Message-ID: <78883f5d-e9b7-4fc4-a15a-d5ece6c9c8c3@roeck-us.net>
-References: <20260925-gpd-fan-duo-auto-v1-1-29bb670b3331@pm.me>
+        Fri, 25 Sep 2026 18:48:04 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-mtd@lists.infradead.org (open list:MEMORY TECHNOLOGY DEVICES (MTD)),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v4] dt-bindings: mtd: convert IBM NDFC binding to YAML
+Date: Fri, 25 Sep 2026 18:48:02 -0700
+Message-ID: <20260926014802.87255-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-gpd-fan-duo-auto-v1-1-29bb670b3331@pm.me>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 08:13:26PM -0400, Alexei Solcanu via B4 Relay wrote:
-> From: Alexei Solcanu <alexei.solcanu@pm.me>
-> 
-> On boards using gpd_duo_drvdata (GPD Duo, GPD Win 5), writing
-> pwm1_enable=2 only returns the first fan to EC control. The second fan
-> keeps its last manual duty cycle, e.g. full speed after pwm1=255, so a
-> fan control tool that exits leaves it running at that speed.
-> 
-> gpd_duo_write_pwm() writes both fan registers (pwm_write and
-> pwm_write + 1), but switching to automatic only clears pwm_write.
-> Also clear pwm_write + 1, so both fans return to EC control.
-> 
-> Tested on a GPD Win 5 (G1618-05). Not tested on the GPD Duo.
-> 
-> Fixes: 0ab88e239439 ("hwmon: add GPD devices sensor driver")
-> Assisted-by: LLM
-> Signed-off-by: Alexei Solcanu <alexei.solcanu@pm.me>
-> ---
-> Both fans were set to full speed (pwm1_enable=1, pwm1=255), then
-> switched to automatic (pwm1_enable=2). Values read from the EC 15
-> seconds later:
-> 
->                  0x047A  0x047B  fan 1     fan 2
->   without patch  0x00    0xf4    2542 rpm  6379 rpm
->   with patch     0x00    0x00    2545 rpm  2560 rpm
-> 
-> Fan 2's RPM, found by probing, is at EC 0x0476/0x0477.
+The NDFC NAND flash controller was only described in a legacy text file,
+so dtbs_check reported "failed to match any schema with compatible:
+['ibm,ndfc']" for the ndfc nodes of the bluestone, canyonlands, eiger,
+glacier, sequoia and warp device trees.
 
-If this system has two fans, why does it register only one 
-fan and pwm channel ? This seems conceptually wrong.
+Convert the binding to the YAML format so those nodes match the generic
+nand-controller-legacy schema.  Describe the node's reg, ccr and
+bank-settings properties, along with its "nand" chip node which carries
+the legacy partition layout.
 
-Guenter
+The "nand" chip node carries no unit address, so the "nand@[a-f0-9]"
+pattern of nand-controller-legacy.yaml never matches it and
+raw-nand-chip.yaml is never applied.  Describe it with mtd.yaml,
+nand-property.yaml and raw-nand-property.yaml instead, the way the
+controller level does, so that both the deprecated partition@ nodes and
+a modern "partitions" subnode are accepted.  The node name does not
+matter, the driver picks the first child of the controller node.
 
-> ---
->  drivers/hwmon/gpd-fan.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/hwmon/gpd-fan.c b/drivers/hwmon/gpd-fan.c
-> index ed212615b2f..b3b75f99f58 100644
-> --- a/drivers/hwmon/gpd-fan.c
-> +++ b/drivers/hwmon/gpd-fan.c
-> @@ -444,6 +444,7 @@ static void gpd_duo_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABL
->  		break;
->  	case AUTOMATIC:
->  		gpd_ecram_write(data->drvdata, data->drvdata->pwm_write, 0);
-> +		gpd_ecram_write(data->drvdata, data->drvdata->pwm_write + 1, 0);
->  		break;
->  	}
->  }
-> 
-> ---
-> base-commit: 3cbb5f15e464583e59c8501a7085ec12b53e23ac
-> change-id: 20260925-gpd-fan-duo-auto-871de9e006dc
-> 
-> Best regards,
-> --  
-> Alexei Solcanu <alexei.solcanu@pm.me>
-> 
-> 
-> 
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v4: allow modern partitions
+ v3: fix wrong regex
+ v2: fix reg value
+ .../devicetree/bindings/mtd/ibm,ndfc.txt      |  39 ------
+ .../devicetree/bindings/mtd/ibm,ndfc.yaml     | 128 ++++++++++++++++++
+ 2 files changed, 128 insertions(+), 39 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
+ create mode 100644 Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
+
+diff --git a/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt b/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
+deleted file mode 100644
+index 869f0b5f16e8..000000000000
+--- a/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
++++ /dev/null
+@@ -1,39 +0,0 @@
+-AMCC NDFC (NanD Flash Controller)
+-
+-Required properties:
+-- compatible : "ibm,ndfc".
+-- reg : should specify chip select and size used for the chip (0x2000).
+-
+-Optional properties:
+-- ccr : NDFC config and control register value (default 0).
+-- bank-settings : NDFC bank configuration register value (default 0).
+-
+-Notes:
+-- partition(s) - follows the OF MTD standard for partitions
+-
+-Example:
+-
+-ndfc@1,0 {
+-	compatible = "ibm,ndfc";
+-	reg = <0x00000001 0x00000000 0x00002000>;
+-	ccr = <0x00001000>;
+-	bank-settings = <0x80002222>;
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-
+-	nand {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-
+-		partition@0 {
+-			label = "kernel";
+-			reg = <0x00000000 0x00200000>;
+-		};
+-		partition@200000 {
+-			label = "root";
+-			reg = <0x00200000 0x03E00000>;
+-		};
+-	};
+-};
+-
+-
+diff --git a/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml b/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
+new file mode 100644
+index 000000000000..d5c392001ad3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
+@@ -0,0 +1,128 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mtd/ibm,ndfc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: IBM/AMCC NDFC (NAND Flash Controller)
++
++maintainers:
++  - Miquel Raynal <miquel.raynal@bootlin.com>
++  - Richard Weinberger <richard@nod.at>
++
++description: |
++  The NDFC is the NAND flash controller integrated into the IBM/AMCC
++  PowerPC 44x SoCs.
++
++allOf:
++  - $ref: nand-controller-legacy.yaml#
++
++properties:
++  compatible:
++    const: ibm,ndfc
++
++  reg:
++    description: Chip select and size used for the chip.
++    maxItems: 1
++
++  ccr:
++    description: NDFC config and control register value.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  bank-settings:
++    description: NDFC bank configuration register value.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  nand:
++    type: object
++    description: |
++      NAND chip attached to the controller. The driver picks the first
++      child of the controller node, so this node is not required to be
++      named "nand@<cs>".
++
++    allOf:
++      - $ref: mtd.yaml#
++      - $ref: nand-property.yaml#
++      - $ref: raw-nand-property.yaml#
++
++    properties:
++      "#address-cells":
++        const: 1
++      "#size-cells":
++        const: 1
++
++    patternProperties:
++      "^partition@[0-9a-f]+$":
++        $ref: /schemas/mtd/partitions/partition.yaml#/$defs/partition-node
++        deprecated: true
++
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    ebc {
++        #address-cells = <2>;
++        #size-cells = <1>;
++
++        ndfc@1,0 {
++            compatible = "ibm,ndfc";
++            reg = <0x00000001 0x00000000 0x00002000>;
++            ccr = <0x00001000>;
++            bank-settings = <0x80002222>;
++            #address-cells = <1>;
++            #size-cells = <1>;
++
++            nand {
++                #address-cells = <1>;
++                #size-cells = <1>;
++
++                partition@0 {
++                    label = "kernel";
++                    reg = <0x00000000 0x00200000>;
++                };
++                partition@200000 {
++                    label = "root";
++                    reg = <0x00200000 0x03e00000>;
++                };
++            };
++        };
++    };
++  - |
++    ebc {
++        #address-cells = <2>;
++        #size-cells = <1>;
++
++        ndfc@1,0 {
++            compatible = "ibm,ndfc";
++            reg = <0x00000001 0x00000000 0x00002000>;
++            #address-cells = <1>;
++            #size-cells = <1>;
++
++            nand {
++                #address-cells = <1>;
++                #size-cells = <1>;
++
++                partitions {
++                    compatible = "fixed-partitions";
++                    #address-cells = <1>;
++                    #size-cells = <1>;
++
++                    partition@0 {
++                        label = "kernel";
++                        reg = <0x00000000 0x00200000>;
++                    };
++                    partition@200000 {
++                        label = "root";
++                        reg = <0x00200000 0x03e00000>;
++                    };
++                };
++            };
++        };
++    };
++...
+-- 
+2.55.0
+
