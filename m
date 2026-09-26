@@ -1,345 +1,223 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF946361965;
-	Sat, 26 Sep 2026 05:54:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB998379998
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790402063; cv=none; b=rOWaWUmUtT2DaGwMG18i6pd/ef9MyQYWXJE6brmctk1/dYO0C+FwueU6iESClIYaakncg+1mfOsS2aNAfomwCQLDp6NLYi5sjmDOYPm5WgcchYntdG0sJcyOt7x5NNEAqDL5qup32Sl7dyIJ5XyszTETFNSp5FyZXOEXitYjoI8=
+	t=1790402108; cv=none; b=jTLn24UIbdHel+rXutCF6vSdndRGkGWYIikb5ccUjnWa7cLCVIpd0eBkdBBbEQ/gZQHjl8CgHjdzDOZAdp7V5GKN7J82JsbkJoBPV79oeYAvFKMg0Ks9xIc1nyrRpthgRh1urMHPCh8DdlIUDkSQeExDNJ5r5CmMrY2GH2ylFAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790402063; c=relaxed/simple;
-	bh=+7W+bhyWMTvMaVSEHJPYSWxf2O2tjcuXbDG5/AtHPfc=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=Q4QAxZIAPLxFbFGyd7cOamT564hsRgByuU2MO0BumJjWAkRr4giBblxZLUMe+VC/Mz9OoW+86BuLjViGGl0vdsYcGkuiV5T8W4dY7FpbUWjTdcWnrHh4/0MYpmj3gfZKd3NsOu0z32ztIthrfIumeSbmqdeEUR938z0DD89YLIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yx+5m4Uq; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=417MKIVV; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790402108; c=relaxed/simple;
+	bh=3WHZje11yMZBZBXyTJlYcEDav1jBX7oSpKCSUN+cI5A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D1x2P+xefwOGbSibCRr73Rc0yUc5UL0JJq81Pm2SkahwYivS2ykq5hUWli5aWOdXLwuzadbDMhX7vpL4vh7ZcECJZI3r7Mu2K4MhcwnS+cZIVynYNur1cOwsyq9Ag/6JbwdHM9Wa1xqATidItI2IR17Qu+vodIMopFvnVSakOT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HHfT+KiX; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yx+5m4Uq";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="417MKIVV"
-Date: Sat, 26 Sep 2026 05:54:17 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790402059;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EzYyGtk176OXZUNk1iDFHKVg/azsk2obUf0AhywmSMs=;
-	b=yx+5m4UqtpDNKhUxV+/Rh70hLYnm4F444Kt7hHgca5PDOPUNbnEuUBViF46Nrta4sJ7uWC
-	CmI/wLOuCY4QQ4cOEQm10wFgIz0t46Ev5+PZ0s4OZ4y3A8YY0k7jrJHkSvn3qECFH5Nhpm
-	vb//k179qGlwFJ9rg5OH52sjiq55x964+3PTxTAN7fi0OP47uwGSeinqYk8pBe8t1sNsAZ
-	F3QKgUqHrI9p+YxltsugJ0MG4OwZnSR0Bzb6DmEjXJ7+8TZQmP8HaThXfjMLhPj++qG7yO
-	t7ZbKh6oxyq23enEyaFyu71bDal9OUaeVKgjqxQ5LUginz2JOgWYrt33Waq0Pw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790402059;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EzYyGtk176OXZUNk1iDFHKVg/azsk2obUf0AhywmSMs=;
-	b=417MKIVVKuAFUPcqaYuq8kNxFBl7NT2ZOUvUy/aF/mYrWsMzZh8Yuk1Bak0m190LlMar31
-	wlMzorQzbSCH7ZCg==
-From: "tip-bot2 for Eric Biggers" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/fpu] x86/fpu: Remove unnecessary checks for X86_FEATURE_FPU
-Cc: Eric Biggers <ebiggers@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260924033405.57613-1-ebiggers@kernel.org>
-References: <20260924033405.57613-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HHfT+KiX"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86e6d007703so752557b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:55:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790402104; x=1791006904; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X/jLk3hOfvplWvnh8rdzJHMk4Xuu5RA6BKKGh8ixgRc=;
+        b=HHfT+KiX1nZdmG1IoZJN3DFiOb7T6TY5o3deob0OFyOLlqWgTObMGxLK0kClm64k7m
+         lP0LK2LJkWPtLbGoKV/kiPF0UiyGdHSktqqrsMp+5IDDx7I51qkhK3CcljAj6BJpDAPX
+         vH3dzoTW11H/hfCYnwhSwPnt3A/2pScycJOkbmC+MwyvM9Wqpn1+6aujfHWDeVRSwjPE
+         AsuutkrKosgeh6v3l6PKik1pEj5UuzQOxmBFS4E6LOuAZWuyxiPkrqwble7uQb2PFL5l
+         d8ctnnx2PhWJIRhDmhxsbEI/TknS9cuzL7AlLfzc7aIJul8IY9ukJmovZTeuHkqoD2N/
+         bv7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790402104; x=1791006904;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X/jLk3hOfvplWvnh8rdzJHMk4Xuu5RA6BKKGh8ixgRc=;
+        b=M6I6ilpcL1ClI/lX2b2NRYA6if/V3IQk1BXL0rURjDRD90yt5yZb/enHEVP01Tty9A
+         2ywIJDUOCxL4m68qm7E8o3yG3LZ7Hf7N7A3htUOu7k+2iB3Luv6gYfNC+ZO297gLZDCT
+         6uZZXDZaJVynKGMJYppo/G0vlY2dZrRTROJVssre4cpzTYQnYRalCv8vF/Fs5B2JxzYb
+         +MEZFX+BPtAjcpeSX8FrVOBlRwJgB/nxEmrdwpeSPCr9oQtrFn/SYxVqlnaDbia4hqOk
+         trORMTmzP/t5xqDyqVbXo8E4UOHulSBMB7ENsjLxhfrAWCegXQoeTxMO1DUubJhos44N
+         nGDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwSnEAZCTVyrGT6rB4WOcRXSdgiJ3s7vS5W9KO9Cte++mnZkSc0VrJK/A9qmRp06pRSu9EGw8m06nnBoyc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwLQXfjEi0uC9Y98TIz+WLxc33h6InnsxkCjxZ4QfrVbS/VxWU
+	svl2D2MBTbkySAJKULeeVYpjhrsLGb+GyNaimCaiwq+ON099gcjMfufG
+X-Gm-Gg: AYBFou22sVTkXi+BmqQ24L8zG0kKewUavPaFdLCEXbsW3cXSxF/JXfelvtJxaGXt5KH
+	gLWP91iKK0/OSlfOJ89bCY7BRcotC1j86o67Sx/Fn1qcvN0CpYkrbOOQE/XaGT96cmXsxmelu5+
+	jJ1lY5OjFLR3DiWcT4osZ+Z5W1i0Hf3GNmaMHTjQ1W5NJ48Tt+9NJLebDYuvd94FvIKy+4jQZ/F
+	k6D4Ksb8iJtGjnFt9LPDsHWwJjPvvbF1rVG1/KO5Wiu0JkQ2+YhyqGa1glOHZwhtuTz9P5B5IfY
+	IDjt36N2dw85vPWOQJctPGtMdcZXCRMgNifWrR1Lmpp2xETGVBGE90KEehIJ6/cLa4s8FuzS6TZ
+	0G2Ml1NhtyQmzkaYVeMOcXhY/EVAEJFPcXs80l4HxfzS85C7B1kSv/j2J2Xh6t3lZLHM1bVjyk4
+	5U+6jMsg2ZnFJeLcQ6n3Y5pkCX9TBWlfEGJSWlWhevzAYCIF8yhDr5UlOPoupM3hAN0Pyz0o4JW
+	4YigGFIaW3sTsqUA/2fJWvwfy0wmM/vNzwQbqE2SCrwd9g2Qas2dfBFHlwvikIEu7kVHKq/Kpg4
+	W+4dX4DzayoXmftKNy4lf8qScdBd4Y8QbxzdICGC5JONEKvP
+X-Received: by 2002:a05:6a00:a203:b0:878:3538:8f7e with SMTP id d2e1a72fcca58-87e9f82210amr5561877b3a.44.1790402104209;
+        Fri, 25 Sep 2026 22:55:04 -0700 (PDT)
+Received: from dell-pro-max-tower-t2.cse.unsw.EDU.AU (pag-t2-pc.cse.unsw.EDU.AU. [129.94.173.199])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87feac93380sm1964103b3a.33.2026.09.25.22.54.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 22:55:03 -0700 (PDT)
+From: Weigang He <geoffreyhe2@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Conall O'Griofa <conall.ogriofa@amd.com>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	linux-iio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Weigang He <geoffreyhe2@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
+Date: Sat, 26 Sep 2026 15:54:56 +1000
+Message-ID: <20260926055456.3289189-1-geoffreyhe2@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179040205775.3910103.9692398889354910887.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the x86/fpu branch of tip:
+ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
+ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
+channel specs and lets ams_init_module() fill them for the AMS node and
+each of its children, without telling it how much room is left.
 
-Commit-ID:     67639ee98521c1592190c5c67047067a9c3a3fd5
-Gitweb:        https://git.kernel.org/tip/67639ee98521c1592190c5c67047067a9c3=
-a3fd5
-Author:        Eric Biggers <ebiggers@kernel.org>
-AuthorDate:    Fri, 25 Sep 2026 21:30:07 -07:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Fri, 25 Sep 2026 21:35:37 -07:00
+For the PL-SYSMON node, ams_get_ext_chan() appends one channel per
+"channel@N" child after the 10 fixed PL channels. The binding allows
+reg values 20..50, so a PL node can have up to 31 such children, i.e.
+up to 41 PL channels, while only 31 are budgeted for it. Together with
+the 13 PS and 7 AMS control channels, this writes past the end of the
+buffer. Since the modules are filled in device tree order, the fixed
+channel blocks copied after the PL node can overflow as well.
 
-x86/fpu: Remove unnecessary checks for X86_FEATURE_FPU
+ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
+unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
+far out of bounds.
 
-Since
+Pass the remaining capacity down to ams_init_module() and
+ams_get_ext_chan() and fail with -EINVAL when a module does not fit,
+instead of writing past the buffer. Also reject reg values below 20, as
+the binding requires.
 
-  ab05214025ee ("x86/fpu: Remove MATH_EMULATION and related glue code"),
+Found by static analysis tool CodeQL.
 
-X86_FEATURE_FPU is mandatory.  If it's absent, the kernel halts execution in
-fpu__init_system_early_generic().
-
-Therefore, remove unnecessary checks for X86_FEATURE_FPU that occur later in
-x86/fpu code.
-
-This makes struct swregs_state and the extern declarations of fpregs_soft_get
-and fpregs_soft_set all unused.  So remove those too.
-
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Link: https://patch.msgid.link/20260924033405.57613-1-ebiggers@kernel.org
+Fixes: d5c70627a794 ("iio: adc: Add Xilinx AMS driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM codeql
+Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
 ---
- arch/x86/include/asm/fpu/regset.h |  6 ++----
- arch/x86/include/asm/fpu/sched.h  |  1 -
- arch/x86/include/asm/fpu/types.h  | 25 -------------------------
- arch/x86/kernel/fpu/bugs.c        |  4 ----
- arch/x86/kernel/fpu/core.c        | 13 +------------
- arch/x86/kernel/fpu/init.c        |  6 +-----
- arch/x86/kernel/fpu/regset.c      |  6 ------
- arch/x86/kernel/fpu/signal.c      | 15 ---------------
- arch/x86/kernel/fpu/xstate.c      |  5 -----
- 9 files changed, 4 insertions(+), 77 deletions(-)
 
-diff --git a/arch/x86/include/asm/fpu/regset.h b/arch/x86/include/asm/fpu/reg=
-set.h
-index 697b77e..4337209 100644
---- a/arch/x86/include/asm/fpu/regset.h
-+++ b/arch/x86/include/asm/fpu/regset.h
-@@ -9,10 +9,8 @@
-=20
- extern user_regset_active_fn regset_fpregs_active, regset_xregset_fpregs_act=
-ive,
- 				ssp_active;
--extern user_regset_get2_fn fpregs_get, xfpregs_get, fpregs_soft_get,
--				 xstateregs_get, ssp_get;
--extern user_regset_set_fn fpregs_set, xfpregs_set, fpregs_soft_set,
--				 xstateregs_set, ssp_set;
-+extern user_regset_get2_fn fpregs_get, xfpregs_get, xstateregs_get, ssp_get;
-+extern user_regset_set_fn fpregs_set, xfpregs_set, xstateregs_set, ssp_set;
-=20
- /*
-  * xstateregs_active =3D=3D regset_fpregs_active. Please refer to the comment
-diff --git a/arch/x86/include/asm/fpu/sched.h b/arch/x86/include/asm/fpu/sche=
-d.h
-index 89004f4..48d7437 100644
---- a/arch/x86/include/asm/fpu/sched.h
-+++ b/arch/x86/include/asm/fpu/sched.h
-@@ -32,7 +32,6 @@ extern void fpu_flush_thread(void);
- static inline void switch_fpu(struct task_struct *old, int cpu)
- {
- 	if (!test_tsk_thread_flag(old, TIF_NEED_FPU_LOAD) &&
--	    cpu_feature_enabled(X86_FEATURE_FPU) &&
- 	    !(old->flags & (PF_KTHREAD | PF_USER_WORKER))) {
- 		struct fpu *old_fpu =3D x86_task_fpu(old);
-=20
-diff --git a/arch/x86/include/asm/fpu/types.h b/arch/x86/include/asm/fpu/type=
-s.h
-index 93e99d2..ea02832 100644
---- a/arch/x86/include/asm/fpu/types.h
-+++ b/arch/x86/include/asm/fpu/types.h
-@@ -75,30 +75,6 @@ struct fxregs_state {
- #define MXCSR_AND_FLAGS_SIZE sizeof(u64)
-=20
- /*
-- * Software based FPU emulation state. This is arbitrary really,
-- * it matches the x87 format to make it easier to understand:
-- */
--struct swregs_state {
--	u32			cwd;
--	u32			swd;
--	u32			twd;
--	u32			fip;
--	u32			fcs;
--	u32			foo;
--	u32			fos;
--	/* 8*10 bytes for each FP-reg =3D 80 bytes: */
--	u32			st_space[20];
--	u8			ftop;
--	u8			changed;
--	u8			lookahead;
--	u8			no_update;
--	u8			rm;
--	u8			alimit;
--	struct math_emu_info	*info;
--	u32			entry_eip;
--};
--
--/*
-  * List of XSAVE features Linux knows about:
-  */
- enum xfeature {
-@@ -369,7 +345,6 @@ struct xregs_state {
- union fpregs_state {
- 	struct fregs_state		fsave;
- 	struct fxregs_state		fxsave;
--	struct swregs_state		soft;
- 	struct xregs_state		xsave;
- 	u8 __padding[PAGE_SIZE];
+Notes:
+    Compile-tested only (ARCH=arm64 allmodconfig, W=1). Not tested on
+    hardware, and there is no reproducer.
+    
+    The CodeQL query behind this report was synthesized with LLM assistance,
+    and the fix and changelog were drafted with LLM assistance; I have
+    reviewed them.
+
+ drivers/iio/adc/xilinx-ams.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/iio/adc/xilinx-ams.c b/drivers/iio/adc/xilinx-ams.c
+index 158e6133abf50..373a9e799ee63 100644
+--- a/drivers/iio/adc/xilinx-ams.c
++++ b/drivers/iio/adc/xilinx-ams.c
+@@ -1142,7 +1142,8 @@ static const struct iio_chan_spec ams_ctrl_channels[] = {
  };
-diff --git a/arch/x86/kernel/fpu/bugs.c b/arch/x86/kernel/fpu/bugs.c
-index edbafc5..4b84cd0 100644
---- a/arch/x86/kernel/fpu/bugs.c
-+++ b/arch/x86/kernel/fpu/bugs.c
-@@ -29,10 +29,6 @@ void __init fpu__init_check_bugs(void)
+ 
+ static int ams_get_ext_chan(struct fwnode_handle *chan_node,
+-			    struct iio_chan_spec *channels, int num_channels)
++			    struct iio_chan_spec *channels, int num_channels,
++			    int max_channels)
  {
- 	s32 fdiv_bug;
-=20
--	/* kernel_fpu_begin/end() relies on patched alternative instructions. */
--	if (!boot_cpu_has(X86_FEATURE_FPU))
--		return;
--
- 	kernel_fpu_begin();
-=20
- 	/*
-diff --git a/arch/x86/kernel/fpu/core.c b/arch/x86/kernel/fpu/core.c
-index d1aeecd..67d4db3 100644
---- a/arch/x86/kernel/fpu/core.c
-+++ b/arch/x86/kernel/fpu/core.c
-@@ -491,7 +491,7 @@ void kernel_fpu_begin_mask(unsigned int kfpu_mask)
- 	if (likely(kfpu_mask & KFPU_MXCSR) && boot_cpu_has(X86_FEATURE_XMM))
- 		ldmxcsr(MXCSR_DEFAULT);
-=20
--	if (unlikely(kfpu_mask & KFPU_387) && boot_cpu_has(X86_FEATURE_FPU))
-+	if (unlikely(kfpu_mask & KFPU_387))
- 		asm volatile ("fninit");
- }
- EXPORT_SYMBOL_GPL(kernel_fpu_begin_mask);
-@@ -672,9 +672,6 @@ int fpu_clone(struct task_struct *dst, u64 clone_flags, b=
-ool minimal,
-=20
- 	fpstate_reset(dst_fpu);
-=20
--	if (!cpu_feature_enabled(X86_FEATURE_FPU))
--		return 0;
--
- 	/*
- 	 * Enforce reload for user space tasks and prevent kernel threads
- 	 * from trying to save the FPU registers on context switch.
-@@ -833,11 +830,6 @@ void fpu__clear_user_states(struct fpu *fpu)
- 	WARN_ON_FPU(fpu !=3D x86_task_fpu(current));
-=20
- 	fpregs_lock();
--	if (!cpu_feature_enabled(X86_FEATURE_FPU)) {
--		fpu_reset_fpstate_regs();
--		fpregs_unlock();
--		return;
--	}
-=20
- 	/*
- 	 * Ensure that current's supervisor states are loaded into their
-@@ -874,9 +866,6 @@ void fpu_flush_thread(void)
-  */
- void switch_fpu_return(void)
+ 	struct iio_chan_spec *chan;
+ 	struct fwnode_handle *child;
+@@ -1151,9 +1152,15 @@ static int ams_get_ext_chan(struct fwnode_handle *chan_node,
+ 
+ 	fwnode_for_each_child_node(chan_node, child) {
+ 		ret = fwnode_property_read_u32(child, "reg", &reg);
+-		if (ret || reg > AMS_PL_MAX_EXT_CHANNEL + 30)
++		if (ret || reg < 30 - AMS_PL_MAX_FIXED_CHANNEL ||
++		    reg > AMS_PL_MAX_EXT_CHANNEL + 30)
+ 			continue;
+ 
++		if (num_channels >= max_channels) {
++			fwnode_handle_put(child);
++			return -EINVAL;
++		}
++
+ 		chan = &channels[num_channels];
+ 		ext_chan = reg + AMS_PL_MAX_FIXED_CHANNEL - 30;
+ 		memcpy(chan, &ams_pl_channels[ext_chan], sizeof(*channels));
+@@ -1183,7 +1190,7 @@ static void ams_iounmap_pl(void *data)
+ 
+ static int ams_init_module(struct iio_dev *indio_dev,
+ 			   struct fwnode_handle *fwnode,
+-			   struct iio_chan_spec *channels)
++			   struct iio_chan_spec *channels, int max_channels)
  {
--	if (!cpu_feature_enabled(X86_FEATURE_FPU))
--		return;
--
- 	fpregs_restore_userregs();
- }
- EXPORT_SYMBOL_FOR_KVM(switch_fpu_return);
-diff --git a/arch/x86/kernel/fpu/init.c b/arch/x86/kernel/fpu/init.c
-index 0d33c21..1a92ec4 100644
---- a/arch/x86/kernel/fpu/init.c
-+++ b/arch/x86/kernel/fpu/init.c
-@@ -31,8 +31,6 @@ static void fpu__init_cpu_generic(void)
-=20
- 	cr0 =3D read_cr0();
- 	cr0 &=3D ~(X86_CR0_TS|X86_CR0_EM); /* clear TS and EM */
--	if (!boot_cpu_has(X86_FEATURE_FPU))
--		cr0 |=3D X86_CR0_EM;
- 	write_cr0(cr0);
-=20
- 	/* Flush out any pending x87 state: */
-@@ -184,9 +182,7 @@ static void __init fpu__init_system_xstate_size_legacy(vo=
-id)
- 	 * Note that the size configuration might be overwritten later
- 	 * during fpu__init_system_xstate().
- 	 */
--	if (!cpu_feature_enabled(X86_FEATURE_FPU)) {
--		size =3D sizeof(struct swregs_state);
--	} else if (cpu_feature_enabled(X86_FEATURE_FXSR)) {
-+	if (cpu_feature_enabled(X86_FEATURE_FXSR)) {
- 		size =3D sizeof(struct fxregs_state);
- 		fpu_user_cfg.legacy_features =3D XFEATURE_MASK_FPSSE;
- 	} else {
-diff --git a/arch/x86/kernel/fpu/regset.c b/arch/x86/kernel/fpu/regset.c
-index 0986c22..f96affd 100644
---- a/arch/x86/kernel/fpu/regset.c
-+++ b/arch/x86/kernel/fpu/regset.c
-@@ -407,9 +407,6 @@ int fpregs_get(struct task_struct *target, const struct u=
-ser_regset *regset,
-=20
- 	sync_fpstate(fpu);
-=20
--	if (!cpu_feature_enabled(X86_FEATURE_FPU))
--		return fpregs_soft_get(target, regset, to);
--
- 	if (!cpu_feature_enabled(X86_FEATURE_FXSR)) {
- 		return membuf_write(&to, &fpu->fpstate->regs.fsave,
- 				    sizeof(struct fregs_state));
-@@ -441,9 +438,6 @@ int fpregs_set(struct task_struct *target, const struct u=
-ser_regset *regset,
- 	if (pos !=3D 0 || count !=3D sizeof(struct user_i387_ia32_struct))
- 		return -EINVAL;
-=20
--	if (!cpu_feature_enabled(X86_FEATURE_FPU))
--		return fpregs_soft_set(target, regset, pos, count, kbuf, ubuf);
--
- 	ret =3D user_regset_copyin(&pos, &count, &kbuf, &ubuf, &env, 0, -1);
- 	if (ret)
- 		return ret;
-diff --git a/arch/x86/kernel/fpu/signal.c b/arch/x86/kernel/fpu/signal.c
-index 594ba36..1f721ac 100644
---- a/arch/x86/kernel/fpu/signal.c
-+++ b/arch/x86/kernel/fpu/signal.c
-@@ -212,14 +212,6 @@ bool copy_fpstate_to_sigframe(void __user *buf, void __u=
-ser *buf_fx, int size, u
- 	ia32_fxstate &=3D (IS_ENABLED(CONFIG_X86_32) ||
- 			 IS_ENABLED(CONFIG_IA32_EMULATION));
-=20
--	if (!cpu_feature_enabled(X86_FEATURE_FPU)) {
--		struct user_i387_ia32_struct fp;
--
--		fpregs_soft_get(current, NULL, (struct membuf){.p =3D &fp,
--						.left =3D sizeof(fp)});
--		return !copy_to_user(buf, &fp, sizeof(fp));
--	}
--
- 	if (!access_ok(buf, size))
- 		return false;
-=20
-@@ -499,13 +491,6 @@ bool fpu__restore_sig(void __user *buf, int ia32_frame)
- 	if (!access_ok(buf, size))
- 		goto out;
-=20
--	if (!IS_ENABLED(CONFIG_X86_64) && !cpu_feature_enabled(X86_FEATURE_FPU)) {
--		success =3D !fpregs_soft_set(current, NULL, 0,
--					   sizeof(struct user_i387_ia32_struct),
--					   NULL, buf);
--		goto out;
--	}
--
- 	if (use_xsave()) {
- 		struct _fpx_sw_bytes fx_sw_user;
-=20
-diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
-index a2b6ede..561eec7 100644
---- a/arch/x86/kernel/fpu/xstate.c
-+++ b/arch/x86/kernel/fpu/xstate.c
-@@ -811,11 +811,6 @@ void __init fpu__init_system_xstate(unsigned int legacy_=
-size)
- 	int err;
- 	int i;
-=20
--	if (!boot_cpu_has(X86_FEATURE_FPU)) {
--		pr_info("x86/fpu: No FPU detected\n");
--		return;
--	}
--
- 	if (!boot_cpu_has(X86_FEATURE_XSAVE)) {
- 		pr_info("x86/fpu: x87 FPU will use %s\n",
- 			boot_cpu_has(X86_FEATURE_FXSR) ? "FXSAVE" : "FSAVE");
+ 	struct device *dev = indio_dev->dev.parent;
+ 	struct ams *ams = iio_priv(indio_dev);
+@@ -1191,6 +1198,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
+ 	int ret;
+ 
+ 	if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-ps")) {
++		if (max_channels < ARRAY_SIZE(ams_ps_channels))
++			return -EINVAL;
++
+ 		ams->ps_base = fwnode_iomap(fwnode, 0);
+ 		if (!ams->ps_base)
+ 			return -ENXIO;
+@@ -1202,6 +1212,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
+ 		memcpy(channels, ams_ps_channels, sizeof(ams_ps_channels));
+ 		num_channels = ARRAY_SIZE(ams_ps_channels);
+ 	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-pl")) {
++		if (max_channels < AMS_PL_MAX_FIXED_CHANNEL)
++			return -EINVAL;
++
+ 		ams->pl_base = fwnode_iomap(fwnode, 0);
+ 		if (!ams->pl_base)
+ 			return -ENXIO;
+@@ -1214,8 +1227,11 @@ static int ams_init_module(struct iio_dev *indio_dev,
+ 		memcpy(channels, ams_pl_channels, AMS_PL_MAX_FIXED_CHANNEL * sizeof(*channels));
+ 		num_channels += AMS_PL_MAX_FIXED_CHANNEL;
+ 		num_channels = ams_get_ext_chan(fwnode, channels,
+-						num_channels);
++						num_channels, max_channels);
+ 	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams")) {
++		if (max_channels < ARRAY_SIZE(ams_ctrl_channels))
++			return -EINVAL;
++
+ 		/* add AMS channels to iio device channels */
+ 		memcpy(channels, ams_ctrl_channels, sizeof(ams_ctrl_channels));
+ 		num_channels += ARRAY_SIZE(ams_ctrl_channels);
+@@ -1245,7 +1261,7 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
+ 		return -ENOMEM;
+ 
+ 	if (fwnode_device_is_available(fwnode)) {
+-		ret = ams_init_module(indio_dev, fwnode, ams_channels);
++		ret = ams_init_module(indio_dev, fwnode, ams_channels, ams_size);
+ 		if (ret < 0)
+ 			return ret;
+ 
+@@ -1253,7 +1269,8 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
+ 	}
+ 
+ 	device_for_each_child_node_scoped(dev, child) {
+-		ret = ams_init_module(indio_dev, child, ams_channels + num_channels);
++		ret = ams_init_module(indio_dev, child, ams_channels + num_channels,
++				      ams_size - num_channels);
+ 		if (ret < 0)
+ 			return ret;
+ 
+
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
+-- 
+2.43.0
+
