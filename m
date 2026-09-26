@@ -1,56 +1,55 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA4E371867
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D820C371CE9
 	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790400794; cv=none; b=DXA4pU3FDJr+gp7A58RZvgMhIdGToc16h5ku+yEA9w8SBj/vgN0WmLVsOu8Msa64OQGNZAn6PVgsAsJDNJQtMT3ozK+Tv/siZNqvQbLXuBTmoB5f9l4uBYvbFQRFactdwjTMJDyaEa/TO/Nn6JdejQDHcC31rK6B4WKSvRjKN00=
+	t=1790400794; cv=none; b=iNsML+c6mQqWzxY1t/Z+CJF3QOFLCLM0fDh1vwPQesHNGTlJXWpKiMnauP8bHrLuN3bB/CSjCXOangrOH3n0ngjUkuUGEQcWJdJzlMSPuTi8N4/PYoodbkWBo38tm7Knz61jamz/T7JIJFFWry9lU/YZAGX5QVR17BLWrWUUsaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790400794; c=relaxed/simple;
-	bh=NozE6ZyRX21wTdSzyR/Kd+1ZvM32QPct07jL95H6f6o=;
+	bh=GN8GZruQXYRaF7EO63+YgQk2i0jrLoiCCKQQn3gDa9Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JrNJirvgoZwQSXf6xkTQZYNGrtoMx7VfAiklSkPimKX+KhLBd7P+8FSTgaQm9ycOVxr1VL0x5LsBdARpPsULcRtv5o1Ax2T2pYktbWirEMvvTx6VoMq33wyAFRU0erAcOxTw6c84xUYY2aj3xBNnHM6+s4eSXHhkhCBUG/REw7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cu6Q53d0; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version:Content-Type; b=gsYIh0vdhOfbsUBE+nboxLvFzhDeyYrHSyWqf3CorFlsXb+K+pJHb92ZyRLn9JpZmWZnr47ms2TOw9X7lIiNrUwv4GNZ77Xdq/vKj5dzlzXOLl5GY/IDA0g56Ii/gy+501Ml4gPQZe8/kPud4E9M/0mOyJmA/Py41sQVa3+J+TE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TyNB3dZ6; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cu6Q53d0"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TyNB3dZ6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1790400785;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=a8N0qDuC4CA5sXsc7BZaPvEJeacrNS1f/RM+jI19DDs=;
-	b=cu6Q53d0YOMhNw0RjY7ZAYVRQkSJkyBBrjl5vL9kyB337hnV9ktfwy8Afo6UcWbCu99iNK
-	rj1ZrnkY51zNskd1hcHVEwqBthL86Jn+MZLwvdG6P7uZC1ZTF49lhkNewY3rT2JTnu8qgs
-	JW9HJ5qpaKZwHrM3176+ga+AXNlz3iY=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=+M2+L1H5egwQQlZ0xHrmsDhZ8xEZMT62MEpuXSNGixQ=;
+	b=TyNB3dZ6Ln9HSUrWAPnMzwCf/B9XQSYoTyuzTqBbDteVIfb7wi2mHK5GvLJN8QLpX+LGYp
+	G8C6TwdWc11WbF0f9QBlI4KBDjt79XgMEtx8Oa1P3XOgWG4reFB0jgBjgO8E0VXHDwpvVL
+	NzuEuSbYeS2LGQ/azM7MDCuk1D5yDyM=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-654-oQGo3TN_Mqmmh-FisiL9sw-1; Sat,
- 26 Sep 2026 01:33:00 -0400
-X-MC-Unique: oQGo3TN_Mqmmh-FisiL9sw-1
-X-Mimecast-MFC-AGG-ID: oQGo3TN_Mqmmh-FisiL9sw_1790400778
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-325-43i1mL1sM4qBU_AMwsrp5w-1; Sat,
+ 26 Sep 2026 01:32:58 -0400
+X-MC-Unique: 43i1mL1sM4qBU_AMwsrp5w-1
+X-Mimecast-MFC-AGG-ID: 43i1mL1sM4qBU_AMwsrp5w_1790400776
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C322319540CB;
-	Sat, 26 Sep 2026 05:32:58 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9400A1800871;
+	Sat, 26 Sep 2026 05:32:56 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 214A61956086;
-	Sat, 26 Sep 2026 05:32:58 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0A11F1956086;
+	Sat, 26 Sep 2026 05:32:55 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
-	stable@vger.kernel.org,
-	Stefan Teodorescu <fane@google.com>
-Subject: [PATCH 05/11] KVM: SVM: Use the active VMCB's MSR bitmap when checking if MSR is intercepted
-Date: Sat, 26 Sep 2026 01:32:47 -0400
-Message-ID: <20260926053253.195597-6-pbonzini@redhat.com>
+	stable@vger.kernel.org
+Subject: [PATCH 02/11] KVM: SVM: Update control fields on #VMEXIT if and only if VMRUN succeeded
+Date: Sat, 26 Sep 2026 01:32:44 -0400
+Message-ID: <20260926053253.195597-3-pbonzini@redhat.com>
 In-Reply-To: <20260926053253.195597-1-pbonzini@redhat.com>
 References: <20260926053253.195597-1-pbonzini@redhat.com>
 Precedence: bulk
@@ -65,47 +64,53 @@ X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
 From: Sean Christopherson <seanjc@google.com>
 
-Use the MSR permission bitmap of the active VMCB instead of assuming that
-KVM is always using vmcb02's bitmap when L2 is active, as KVM uses msrpm02
-if and only if L1 wants to intercept MSR accesses, i.e. if and only if KVM
-needs to merge msprm01 with msrpm12.
+Leave control.erap_ctl and control.clean as-is in the VMCS if VMRUN fails,
+because as per AMD:
 
-Don't bother tracking the virtual address of the bitmap that's being used,
-as __va() is cheap on x86, and caching the virtual address would introduce
-yet another source of potentially stale information.
+  there's no explicit architectural guarantee about the behavior in the
+  presence of VMRUN failures. So the best thing to do would be to assume
+  that if VMRUN fails, the actions requested in the control fields may not
+  have been performed.
 
-Fixes: b2ac58f90540 ("KVM/SVM: Allow direct access to MSR_IA32_SPEC_CTRL")
 Cc: stable@vger.kernel.org
-Reported-by: Stefan Teodorescu <fane@google.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260826195833.844526-1-seanjc@google.com>
+Message-ID: <20260904170642.3291466-3-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/svm/svm.c | 11 +----------
- 1 file changed, 1 insertion(+), 10 deletions(-)
+ arch/x86/kvm/svm/svm.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index f4f488328ea4..1f279cd91ecf 100644
+index afbaaaab84ed..b63e7c69aa1c 100644
 --- a/arch/x86/kvm/svm/svm.c
 +++ b/arch/x86/kvm/svm/svm.c
-@@ -673,16 +673,7 @@ static void clr_dr_intercepts(struct vcpu_svm *svm)
+@@ -4625,17 +4625,17 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
+ 	if (!svm_is_vmrun_failure(svm->vmcb->control.exit_code)) {
+ 		this_cpu_ptr(&svm_data)->flush_all_asids = false;
+ 		svm->vmcb->control.tlb_ctl = TLB_CONTROL_DO_NOTHING;
++
++		/*
++		 * Unconditionally mask off the CLEAR_RAP bit, the AND is just
++		 * as cheap as the TEST+Jcc to avoid it.
++		 */
++		if (cpu_feature_enabled(X86_FEATURE_ERAPS))
++			svm->vmcb->control.erap_ctl &= ~ERAP_CONTROL_CLEAR_RAP;
++
++		vmcb_mark_all_clean(svm->vmcb);
+ 	}
  
- static bool msr_write_intercepted(struct vcpu_svm *svm, u32 msr)
- {
 -	/*
--	 * For non-nested case:
--	 * If the L01 MSR bitmap does not intercept the MSR, then we need to
--	 * save it.
--	 *
--	 * For nested case:
--	 * If the L02 MSR bitmap does not intercept the MSR, then we need to
--	 * save it.
+-	 * Unconditionally mask off the CLEAR_RAP bit, the AND is just as cheap
+-	 * as the TEST+Jcc to avoid it.
 -	 */
--	void *msrpm = is_guest_mode(&svm->vcpu) ? svm->nested.msrpm : svm->msrpm;
-+	void *msrpm = __va(svm->vmcb->control.msrpm_base_pa);
- 
- 	return svm_test_msr_bitmap_write(msrpm, msr);
- }
+-	if (cpu_feature_enabled(X86_FEATURE_ERAPS))
+-		svm->vmcb->control.erap_ctl &= ~ERAP_CONTROL_CLEAR_RAP;
+-
+-	vmcb_mark_all_clean(svm->vmcb);
+-
+ 	/* if exit due to PF check for async PF */
+ 	if (svm->vmcb->control.exit_code == SVM_EXIT_EXCP_BASE + PF_VECTOR)
+ 		vcpu->arch.apf.host_apf_flags =
 -- 
 2.52.0
 
