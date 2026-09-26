@@ -1,212 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012068.outbound.protection.outlook.com [40.107.209.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B4B3438BB
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790425602; cv=none; b=Vt5IAsianRIPrYBem1V3eOEz1rKwuZytwqmn2PWHIWeJ2LgYZTDbt7LaG6UYaACwaIySsjMQvRVtI+yLf6mJ3V3Gg71+p3gv28KMTISo0eRGjDgpYFMDkBDJ55zOOmzW4dc5BNOv7O+L1QSihpE3RVaVgNVoNsapgOhq9AfMXF0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790425602; c=relaxed/simple;
-	bh=E4R6wgDixVnx5WniKYyW3DclFz7kYE/SibDUhFQrY1A=;
-	h=Date:From:To:Cc:Subject:Message-Id:Mime-Version:Content-Type; b=tG/ls0K62LLibjjy99KV9OEh2mLMqwMoxCiTRn9h8Sm1lU7n0ZlEFSRn3pJv3ew4KXjfoGAAXhyRXmUfszz8QVJvS6Y9pI9BerFtUMfBDNC+gAzj8vRiK4YBNDHFViaRTme/lA9zkW5uD0cytVcUXz48emJwyXH4JbgCIePcdQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eo4eZAbR; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9CC3438BB;
+	Sat, 26 Sep 2026 12:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790425759; cv=fail; b=hNAMlFFtSGQjMMgNoXUPOBiMzvJIfI4UBxLD+FHSx49HR+5yjV3WdSx+0UJLqX1zkeujlyeVEsFY720eONcJVovuUbec0qf3ClHM/DRd9aRuP6ZRC2LgGwRBuLNG+fpsm+pxStNtBllvyPCCS+1HPUG6o9SuQuhLP3pS1XwKI3k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790425759; c=relaxed/simple;
+	bh=hyFfMPH3cy1W+xPPSw4zaCTwupiymC2PFwUtg0ZzlRU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=f+IwVcA6U8mXKbbrl3ezTlwiki2robLWaa7QTIEpAY1tYpr3IYqMRgWD9plu2F6IzMQ+GvPasPUhLOyHyKVwE5CJB2Rwi4hO4Pn3P+LhBV0w7Ei6QcNS3UlX0ohEj0x67Fwt1AMAuS0N8jEUaQGFsNyhZxBBMgIw6JJYUgedzQA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com; spf=pass smtp.mailfrom=gehealthcare.com; dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b=q74sNMO3; arc=fail smtp.client-ip=40.107.209.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gehealthcare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eo4eZAbR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3C481F000FF;
-	Sat, 26 Sep 2026 12:26:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790425600;
-	bh=v9GahrCTAuW+XNGGeJo3b4DWy5wVhuBrnP1YI3KtbJ4=;
-	h=Date:From:To:Cc:Subject;
-	b=eo4eZAbRLNF30fKgqv2mbk9yvgywPiUABE/k/5oUHeH6+Vx2Uy9AMO74TUZRE6jZN
-	 YFI0qxddLMoSJntt+Dq8xPXKlnTr5FqItVzwZHUn1JUAR8KndoIVJeOCk8IrTGJnlP
-	 LXRzX9y3syzqzhkG8pRDLMSEOdpl9I9NI582LDYnMCucHctn4YRkmwwY1ta6Isss/7
-	 9oLy/rUNwHhaiYYPFFHfpbCr2ihn1dX4huYvG+7/KiYe7YWQ+KnxG6RMC/YDJRphYM
-	 ghOMa8Ij37usvpIrQkKW8OP7M1cS0JMfTiXJjNfcNx0lg+ZmXz8PO0ECoWwX6OqCZC
-	 ZUqXM+Fp+5b5A==
-Date: Sat, 26 Sep 2026 21:26:36 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Andrea Parri <parri.andrea@gmail.com>, David Carlier
- <devnexen@gmail.com>, Sven Schnelle <svens@linux.ibm.com>, Steven Rostedt
- <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- linux-kernel@vger.kernel.org
-Subject: [GIT PULL] probes: Fixes for v7.3-rc4
-Message-Id: <20260926212636.26253345778ff20d31e62ca9@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="q74sNMO3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NPolnr8wOeJ7dp+7tUKtFeBhDb9nC3LQIlyi7Ht0UfWHBNUZIoTRslPE2z3W8A374YCLrugirI2F3FL4NGpAHj/z4A7vjrDIqdVXA5kJMkBxqf4mld+bBhsqXA1DdGJ1+8CaT6DGU1b2EFwtd7skVO09/mbhuSGdTESD+WKd51sTJx/HBLbga2B+JVBEfgNvpmNNoiQfH4ewF466LW5/iu9x/FPB8ARktFNClO3wcTyVYpBg7YyUGxzuehGY5rWEFe4S+o60e3fdnjbHrdV+om8KS+SKt+rzDJi8iFDPctaMdLjikrE39m4/RrS6sLC2/cJ14r1XtXuzjyjfZzaSCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NUqXJmlKcf8QgI7j7RSthNKjE70SyqXPC96hruaAWYw=;
+ b=K7A0TuUaRQfNikYezwJgo74uU0gxxCUBn+7zWECs+f76WCHtR7BFOpcTERC5G/ZLeC//WgmSbmZ+X9hFpY8pcJ8X7iXxb/psgBo9/nYbgzEoPbQZ7jK/kog1DoyMwB5XJu81q6h7p4zbtWyDXqidVERoPHU7eqjuEFfx39DHBM2tjfXg8msXEQIdJPhTjonc2YISQzy09yEAzn1R2w2K9IdgHlUWV4pGLLDV+zlTjR0vnXYrgTrQMa8Oxj5M/VF+Ee0Uo2uO9WZC7EmarM56th5BYWLzc62U6zsydrbrpqbKoxyWauuncU3zIWoyivbMWXtWUpiqczULLvby606NeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 165.85.157.49) smtp.rcpttodomain=vger.kernel.org
+ smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
+ pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NUqXJmlKcf8QgI7j7RSthNKjE70SyqXPC96hruaAWYw=;
+ b=q74sNMO3ZnzNKyuewZRXtgDifHYG16+T4OqjHtMHOAEaEF+RK+dhwqKKqiAjuR+VHZ6G/E0+/uO6ttXKt7EdySDgNDzOxEcLPC1ek4zuChsBGg+HaS3a2XKoGLQs1kuvtKjP4YyAbRRuWNhQlb9qJdXW5W7ZchSlgsQmKK9Ls2iAR1WZyXR++0w8VUCv2fWQ7xSGHhuTqEVm1RFj+RzxI0d3AaMRs7qKCB0R9Odeh3Hgq+7e5YHRSc82NTDBwl3mqgvWScsN1Q8ENDnRmQDp2DBVB2kCcMOrFpO0ZSLkMXNaBVG6sEzLB4BrCNLtpRrJ2XbgGzK8ji69lJ5yO7QM1Q==
+Received: from BN9PR03CA0410.namprd03.prod.outlook.com (2603:10b6:408:111::25)
+ by SN7PR22MB4128.namprd22.prod.outlook.com (2603:10b6:806:2e8::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
+ 2026 12:29:14 +0000
+Received: from BN2PEPF000055DE.namprd21.prod.outlook.com
+ (2603:10b6:408:111:cafe::83) by BN9PR03CA0410.outlook.office365.com
+ (2603:10b6:408:111::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.19 via Frontend Transport; Sat,
+ 26 Sep 2026 12:29:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 165.85.157.49) smtp.mailfrom=gehealthcare.com; dkim=none (message not
+ signed) header.d=none;dmarc=fail action=quarantine
+ header.from=gehealthcare.com;
+Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
+ not designate 165.85.157.49 as permitted sender)
+ receiver=protection.outlook.com; client-ip=165.85.157.49;
+ helo=atlrelay1.compute.ge-healthcare.net;
+Received: from atlrelay1.compute.ge-healthcare.net (165.85.157.49) by
+ BN2PEPF000055DE.mail.protection.outlook.com (10.167.245.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.3 via Frontend Transport; Sat, 26 Sep 2026 12:29:13 +0000
+Received: from zeus.fihel.lab.ge-healthcare.net (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
+	by builder1.fihel.lab.ge-healthcare.net (Postfix) with ESMTP id 1C2EEE4DB;
+	Sat, 26 Sep 2026 15:29:11 +0300 (EEST)
+From: Ian Ray <ian.ray@gehealthcare.com>
+To: Ulf Hansson <ulfh@kernel.org>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Kamal Dasu <kamal.dasu@broadcom.com>
+Cc: Ian Ray <ian.ray@gehealthcare.com>,
+	stable@vger.kernel.org,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mmc: core: Don't program invalid host driver type for fixed eMMC type
+Date: Sat, 26 Sep 2026 15:29:07 +0300
+Message-ID: <20260926122908.866-1-ian.ray@gehealthcare.com>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DE:EE_|SN7PR22MB4128:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 47c4104f-aa14-4ee8-bd5a-08df1bc9c640
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|6133799003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	+Q02+5g8FIp1cbVveLoBHGwmV3TmkqpxsCT+2teWBosFtNn0TwRE7CTZiIQEu99zBrn9YL2xUWNOVzHNgnx2UZAR8cRv2oiBj+yOj3xpnxoSQe3iY5Ahx7YOn1GLpnA0wrVyEePTBX9KvH0R0UnOOTXNvPoWlcoOV3eXSsXqBT2W5nw0D+BzJGrt18yOcjTHMSWLyHnjEeTT2Uy2ectFvv26b8Pvwh19JiTzMOk7m5oGMETbJK/lAxe9JFVhu8i6oa8JP9yKYFwqCM1ZGGeKcTHa0bVzN2Eel7G7RruRjXTq3UTdGpuWY8vPJjrOeK22ZHbSBHfG3OAZtDHSef1Tq7wt4qbZxkzcihHySzHV02HSQOF+WGmvUFmnUAMiXn9tJhEGs4rLjvjHF8DGkJYotW78f8I7NsVM0xDCV6re1nYeWQYl3puvtK/xKO7SuOoEee5zVosNNvJQVCuxoHzd2qrdjbY5hUPu2uyG6SlnDoKz9rNlBPpvMqvVLl9xA4df5jbg0oNkopuElC5+bKYPXUB+k/viAeyCuUFvEgT8/vEuPGf64wQclK4H29XbWcPdL14YcJ03ric0K4vcvtO8cr/sz22in3h5BfqyNUh0r3uOFmsfyz8DJTySdzBfWfUw6itBt9cnMJ0HaYGzd+xQF3gsbWvGg5pfC75w5Bn2B2lTDTUqFDC0cfvCnwNjqaXrl+Pqj8ZWsgsFAWuDTPS34w==
+X-Forefront-Antispam-Report:
+	CIP:165.85.157.49;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:atlrelay1.compute.ge-healthcare.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	4eEJs2wvNWIDYtHUK2fFHZM25iu6HFGDYcEdKahExZmaijoKR7dz0Vq6sCuWCh+lcc2hOVUDjigLTLOHJnJLj0EQTMDyOH9+D3RHoTD0VmfFrvH/ukHKTof+3GA/jyb7I4+rzx0brWndLDvziQ9D3Px6abOKYlIETwxX43JnKZFDa63Dl/4Ebtj7hEaZNj4b1/vietKjqvkWWaj1EG4/4iPrciABHbLkgjH7OvXSfMRQbJ9sYzlgJI4AizYrvFzok4x46Af6CLpDnhSo+exCI+B9l6dsp4CnJe/NI+Lzw5/Gh1lj4knAPUu9sGDpPoDH1tIXFexJbfudVyMG5eV/hmKRKKb1CSyEEAckA+jfNph/tATup+JoNIpIb3O1vtkJE0yJN3PdBMvYpCNAzJXjD+r8zwbvOuAU3gUaIHelL9GE4gvTZht7iSoHT0fpifXG
+X-OriginatorOrg: gehealthcare.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 12:29:13.4985
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47c4104f-aa14-4ee8-bd5a-08df1bc9c640
+X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf;Ip=[165.85.157.49];Helo=[atlrelay1.compute.ge-healthcare.net]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN2PEPF000055DE.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR22MB4128
 
+The host controller driver type value used by the MMC core [1] _mostly_
+overlaps with the eMMC device I/O driver strength value [2] as shown in
+the table below; however, there is _no_ host mapping for eMMC value 4.
 
-Hi Linus,
+  host value/type   | eMMC value | nominal impedance | strength
+  ------------------+------------+-------------------+---------
+  0 / Type B        | 0          | 50 Ohm            | x1
+  1 / Type A        | 1          | 33 Ohm            | x1.5
+  2 / Type C        | 2          | 66 Ohm            | x0.75
+  3 / Type D        | 3          | 100 Ohm           | x0.5
+  (none)            | 4          | 40 Ohm            | x1.2
 
-Probes fixes for v7.3-rc4:
+[1] MMC_SET_DRIVER_TYPE_* in include/linux/mmc/host.h
 
-- kprobes: Fix permanent hang when flushing the kprobe optimizer
-  Fix a deadlock when disabling kprobe optimization via sysctl or debugfs
-  where flushers hung waiting for optimizer_completion. Replaced the
-  completion with an optimizer_passes counter and wait_var_event_mutex()
-  under kprobe_mutex so concurrent flushers can wait and wake up safely.
+[2] 'fixed-emmc-driver-type', see JESD84-B51 Table 206 and
+    Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
 
-- fprobe: Terminate the fgraph_data list when the reservation is not filled
-  Fix an issue where unused shadow stack data left uninitialized by
-  fprobe_fgraph_entry() was misparsed as stale fprobe headers on return.
-  Explicitly write a zero word to terminate the list and update
-  read_fprobe_header() to handle the zeroed slot properly.
+Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
+for fixed driver type"), the selected eMMC driver strength is passed
+directly to mmc_set_driver_type().  For a fixed eMMC driver type of 4
+this reaches sdhci_set_ios(), which only knows types 0..3 and therefore
+complains on every ios update:
 
-- ftracetest: Fix unique symbol check in kprobe_non_uniq_symbol.tc
-  Fix false test failures in kprobe_non_uniq_symbol.tc on architectures
-  like s390 where a symbol exists once in core kernel but also in modules.
-  Anchor the /proc/kallsyms search regex to the end of the line so that
-  module symbols are not incorrectly counted.
+  mmc2: invalid driver type, default to driver type B
 
+The mmc card itself is still programmed correctly (the HS_TIMING driver
+strength field is set from card->drive_strength independently), so this
+is a spurious, repeated warning for a valid, documented configuration.
 
-Please pull the latest probes-fixes-v7.3-rc4 tree, which can be found at:
+Change to only program the host when the eMMC driver type value maps to
+a valid host driver type.
 
+Tested on i.MX8MP (usdhc3, eMMC in HS400) with
+`fixed-emmc-driver-type = <4>`: the warning is no longer logged and the
+HS_TIMING register contains 0x43 as expected.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-probes-fixes-v7.3-rc4
+Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixed driver type")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
+---
+ drivers/mmc/core/mmc.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Tag SHA1: f300c5ce223f16f4affb9aae21d670efc673d219
-Head SHA1: 5bfa9f1a9dcb6ecb607adbc1c0226605c972935b
-
-
-Andrea Parri (1):
-      kprobes: Fix permanent hang when flushing the kprobe optimizer
-
-David Carlier (1):
-      fprobe: Terminate the fgraph_data list when the reservation is not filled
-
-Sven Schnelle (1):
-      selftests/ftrace: Fix unique symbol check in kprobe_non_uniq_symbol.tc
-
-----
- kernel/kprobes.c                                   | 22 ++++++++++++++--------
- kernel/trace/fprobe.c                              | 15 +++++++++++++++
- .../ftrace/test.d/kprobe/kprobe_non_uniq_symbol.tc |  2 +-
- 3 files changed, 30 insertions(+), 9 deletions(-)
----------------------------
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 6337da5cab9e..4edd8ca5c657 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -42,6 +42,7 @@
- #include <linux/execmem.h>
- #include <linux/cleanup.h>
- #include <linux/wait.h>
-+#include <linux/wait_bit.h>
+diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+index 05444ecf3909..ff5d4b805998 100644
+--- a/drivers/mmc/core/mmc.c
++++ b/drivers/mmc/core/mmc.c
+@@ -1371,9 +1371,11 @@ static void mmc_select_driver_type(struct mmc_card *card)
  
- #include <asm/sections.h>
- #include <asm/cacheflush.h>
-@@ -526,7 +527,8 @@ enum {
- 	OPTIMIZER_ST_FLUSHING = 2,
- };
+ 	card->drive_strength = drive_strength;
  
--static DECLARE_COMPLETION(optimizer_completion);
-+/* Bumped at the end of each kprobe_optimizer() pass, under 'kprobe_mutex' */
-+static unsigned long optimizer_passes;
- 
- #define OPTIMIZE_DELAY 5
- 
-@@ -654,9 +656,9 @@ static void kprobe_optimizer(void)
- 		do_free_cleaned_kprobes();
- 	}
- 
--	/* Step 5: Kick optimizer again if needed. But if there is a flush requested, */
--	if (completion_done(&optimizer_completion))
--		complete(&optimizer_completion);
-+	/* Step 5: Wake up flushers, and kick optimizer again if needed. */
-+	optimizer_passes++;
-+	wake_up_var_locked(&optimizer_passes, &kprobe_mutex);
- 
- 	if (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list))
- 		kick_kprobe_optimizer();	/*normal kick*/
-@@ -708,7 +710,8 @@ static void wait_for_kprobe_optimizer_locked(void)
- 	lockdep_assert_held(&kprobe_mutex);
- 
- 	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
--		init_completion(&optimizer_completion);
-+		unsigned long passes = optimizer_passes;
-+
- 		/*
- 		 * Set state to OPTIMIZER_ST_FLUSHING and wake up the thread if it's
- 		 * idle. If it's already kicked, it will see the state change.
-@@ -717,9 +720,12 @@ static void wait_for_kprobe_optimizer_locked(void)
- 			OPTIMIZER_ST_FLUSHING) != OPTIMIZER_ST_FLUSHING)
- 			wake_up(&kprobe_optimizer_wait);
- 
--		mutex_unlock(&kprobe_mutex);
--		wait_for_completion(&optimizer_completion);
--		mutex_lock(&kprobe_mutex);
-+		/*
-+		 * kprobe_optimizer() holds 'kprobe_mutex' for a whole pass, which
-+		 * this drops while sleeping, so a new count means a full pass ran.
-+		 */
-+		wait_var_event_mutex(&optimizer_passes,
-+				     optimizer_passes != passes, &kprobe_mutex);
- 	}
+-	if (fixed_drv_type >= 0 && drive_strength)
+-		mmc_set_driver_type(card->host, drive_strength);
+-	else if (drv_type)
++	if (fixed_drv_type >= 0 && drive_strength) {
++		/* eMMC driver types >= 4 have no host controller equivalent. */
++		if (drive_strength <= MMC_SET_DRIVER_TYPE_D)
++			mmc_set_driver_type(card->host, drive_strength);
++	} else if (drv_type)
+ 		mmc_set_driver_type(card->host, drv_type);
  }
  
-diff --git a/kernel/trace/fprobe.c b/kernel/trace/fprobe.c
-index 1e9b00997ff2..9f2d98181779 100644
---- a/kernel/trace/fprobe.c
-+++ b/kernel/trace/fprobe.c
-@@ -171,6 +171,11 @@ static inline bool write_fprobe_header(unsigned long *stack,
- static inline void read_fprobe_header(unsigned long *stack,
- 					struct fprobe **fp, unsigned int *size_words)
- {
-+	if (!*stack) {
-+		*fp = NULL;
-+		*size_words = 0;
-+		return;
-+	}
- 	*fp = arch_decode_fprobe_header_fp(*stack);
- 	*size_words = arch_decode_fprobe_header_size(*stack);
- }
-@@ -203,6 +208,12 @@ static inline void read_fprobe_header(unsigned long *stack,
- {
- 	struct __fprobe_header *fph = (struct __fprobe_header *)stack;
- 
-+	if (!*stack) {
-+		*fp = NULL;
-+		*size_words = 0;
-+		return;
-+	}
-+
- 	*fp = fph->fp;
- 	*size_words = fph->size_words;
- }
-@@ -635,6 +646,10 @@ static int fprobe_fgraph_entry(struct ftrace_graph_ent *trace, struct fgraph_ops
- 		}
- 	}
- 
-+	/* Terminate the list, fgraph_reserve_data() does not clear it. */
-+	if (used && used < reserved_words)
-+		fgraph_data[used] = 0;
-+
- 	/* If any exit_handler is set, data must be used. */
- 	return used != 0;
- }
-diff --git a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_non_uniq_symbol.tc b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_non_uniq_symbol.tc
-index bc9514428dba..07b1177c1634 100644
---- a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_non_uniq_symbol.tc
-+++ b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_non_uniq_symbol.tc
-@@ -6,7 +6,7 @@
- SYMBOL='name_show'
- 
- # We skip this test on kernel where SYMBOL is unique or does not exist.
--if [ "$(grep -c -E "[[:alnum:]]+ t ${SYMBOL}" /proc/kallsyms)" -le '1' ]; then
-+if [ "$(grep -c -E "[[:alnum:]]+ t ${SYMBOL}$" /proc/kallsyms)" -le '1' ]; then
- 	exit_unsupported
- fi
- 
-
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.49.0
+
