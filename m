@@ -1,172 +1,164 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0342A2DCBE3
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4191F37475D
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:23:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790446746; cv=none; b=BZZFF0AV7fcAk7VffkoRBJiboF7p5myeGotddVk11ug9vIyUyLYNWgGyJcFCuNi69zOq4HZTFmATvTxXPb0x4ICkaL/r8Ulbcy/PW9eTz1wgWu5SjCUGzeuJmtDDiuAX4ZK6TtUTQ+s7ePXySKD9XaJ5o9coluvjnI/P/jHLjf8=
+	t=1790447015; cv=none; b=osIToQimxYuTKMn59ZnIzdLv4EL2FbPJAMpJu1hoDxCcTvoLg0w3n0nLDkqxY30OTdnWI8tYrT/GTEX5T4uXKAFObW+0MDjScjpZX98Je7T+xLtwzggrcKH7yRIBGvDBGKjYti7NQZZ/nNxO28/jyHPeXVyaC57CpUiejjkZpMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790446746; c=relaxed/simple;
-	bh=cpF9jUuOal1P3jLM51JPKvAUhUnT39Pojo2P5ZrPNoU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t7o4W06PaY5ik8c2YI4KopYAQithYfGW2NElJD2twbMgS+fQtk8McCzhS+bEKhpFZ/v8ZGOpeO7AMQ3FOLj6noxmhEWjQXD6aWCA3h8qizJlqFsJ7xz7c9bJg8wthcmySTlRWIG47N0v+aiwz1yxbcr0911PLnzy3WwAodN2Vzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kSpnFZ0h; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kSpnFZ0h"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48882bfcbadso170510f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:19:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790446743; x=1791051543; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AVxJYsueLGzmq5Sv5/va4SD2sa8Mw9i6BNlW0/izabk=;
-        b=kSpnFZ0hRl+rwJ8uAtnOnNmAfdh7pZdzdxfAMprhoT9ImclRvsymvPtAZCBk3mMLPn
-         sT4faYpPgbQH+lnWhJSZjh85f07/BA62yn1ZBf9UXHsTnXOSHxlYKHEVYwsyGPjgt5dS
-         c9eMy7zdP2+S9/5WZTQ7YXwqKOuGNsQpk+W6nWqfXv9O/IhYrphy8zsxOeU9wnXOJATI
-         bL5ajOIVsanUtP2RX2lUOhVDfzR3TDyyLjKBuJKDWI0nremR38yGCBdNDCKpY30qDiz8
-         ZM5Nkn6rXKkIcHpncerrGQJUgkSkNmgTXR7Xk2asMvNKiHqMuaw1rNdYCK3wtslExWL2
-         QjyQ==
+	s=arc-20240116; t=1790447015; c=relaxed/simple;
+	bh=qfALQe90TeUnY37aQVtdHFc4lNsDWUqSJvSQILWWHpo=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=r6ME0MxzPgFMeQPnWP13jLlSATET0gerlhIiwJHwXFVQqNoDYVpx4iw38rluNVhf2IHZM8xwh/edqyPinEKDvjuiSQ7ghrKtB+ypnqsn9SPpgbF2Z90t5GFhZZ5+tt67FmOhP0+p7wTTtksbF0dodhXOlCJjgteo817QRcMk0FA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b2f2b8d88fso3267587b6e.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:23:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790446743; x=1791051543;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AVxJYsueLGzmq5Sv5/va4SD2sa8Mw9i6BNlW0/izabk=;
-        b=AYYXG0cKFD8/rOHJaeS5mmPy7GHbGqksrZsEp7ihpJNKAFEomuSeYDmcGSvDdvpMlv
-         dgceAznlOi6FowsD/cXi0W1mF+F8HoeRKQSsKfSrsvD6of9ZlMlahk8HwTy6QLfhpRC9
-         u08LR+bp5DUHGW8b3JKbgyeW5uKNLK+sNsiWbCDz6V7zNOnCTBWl/pPhZPbtV++Wu/Dy
-         FwtXUt2WrHO1tt4djt96kTcgja7LnhZdYEWMcv/aSrykzU++DcDcw4aXJ57K/UMDJXWo
-         9dPX+n94MsxwqQVCLn7FbYP4oBLt7PmrpJ3eooCXaNdyWadxblgVs75w4lEdTqlAvRBO
-         T4NA==
-X-Gm-Message-State: AFq9FYIPrkMhuys8Na7Y4NUiscIvHqJQECQMCQhbg7oq+NlLGvEjRDX0
-	BLk5pa0SaL2bQqQQmwgjiaJa7YNSi1FNpfTxIp30dkW551lZSTqP9Du0
-X-Gm-Gg: AYBFou2ZSP/S0h9F/JdS96GD55TeEYw4NJZMnJ/wswnOVMV5KDXkI6G6euTDtW+lUE7
-	xNAJ0w4UTNjvjFjbdD7D18TGgk/7shCfyvgFOVZkroxzm4PCZzDv5qecY9hqeSJNuRl/gJZrlsG
-	8gq99AIMKpdvGzLP987rajLcbjRwQVOAaQYxjDS9Zvs4vB9vmJQ+Usg/L+3QBbUfLsEJYdI99mC
-	HKr6/uDWIQc6mQJc4rXhIHEewk2u4JPpPc4tLkoqnBGuzfKXV76rv8dgYZ45DUy/DSe6zp5F5J3
-	LD0FlDOBFnjfuwcngM2psD/rEnRoPnKMklg4wnrqYBrXMGjs3jjllccAvq6oDLGwFh/3vbIiots
-	LLMHydM3ydiX4Ba+uW3724nZQkU7kqaLSD7/n8MRB/GlpOaNnaZGrMcQ4co39FzSbQ2i3lmOjbS
-	TDTBd7ElY50LGgr7d/u2GqWQ1NGow9RrTrCmgNuoI8bFvisFxXvLZ+qINGV7v6eSFXMIArFaLur
-	R0xbthOSayUYla4cgbGqoR57Z6sD+0=
-X-Received: by 2002:a05:6000:220f:b0:487:14e9:5cba with SMTP id ffacd0b85a97d-4887ace3cd2mr10551538f8f.6.1790446742977;
-        Sat, 26 Sep 2026 11:19:02 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b9aesm14297056f8f.5.2026.09.26.11.19.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 11:19:02 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: vincent.guittot@linaro.org,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	qyousef@layalina.io
-Subject: Re: [PATCH 7/8] sched/eevdf: Compare min slice during wake_affine
-Date: Sat, 26 Sep 2026 21:18:40 +0300
-Message-ID: <20260926181840.3107-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260921152238.3804392-8-vincent.guittot@linaro.org>
-References: <20260921152238.3804392-8-vincent.guittot@linaro.org>
+        d=1e100.net; s=20260707; t=1790447012; x=1791051812;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=InOuP8c6dtBIwm2Fjbz4yA5MQ5gnJ6A4TGBGUZFZG+w=;
+        b=DGr7W16pjx+dUQjW0zQH34YuZjbDxd4r7w0wNW9iSTmTvAJ1k5nW1bfyDCojLbSZDg
+         60BKz9Nr3qUCoGfkvtwSmSuohuRV1C6X/guiNmcjtmM8CaYF7QuIWSJ8tOvApeiMRIT7
+         tux6Ygz4SKFtELhF/uWGdQd6+ux4DrOJnUIP+OtFXev4/Ta4W+Vaw2QVT+7T1VK2krC6
+         V3gNw6FbB5Ua85CWuoflmIoksIDi6El2QQRpBBaNqNUKX9j+fzrBaC2ebWGwUE18BTwL
+         JDLpdmpJU47h9A8OAVrtlBPEeHCp5LLfheIwT3t/0LyqNTTIQKTjHjPFTtwSukPhrpzZ
+         59Og==
+X-Forwarded-Encrypted: i=1; AKwUvBxVntvtJSe0c6x8RDwDljQcE+b5bpOKYBwVEDX88QLj6Ymb7gGHS5KDiLfIrmbmrqOxCb4GJbpX0nXkSC4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVoK8Oe8ZSKEXMFiITdIKo9Fuv8oNpa1EhL1aCOgEebRiGpqv8
+	2naoY7WXUmGW1AD44ae0Ctl08B59OopCYZquKMxkmexIHceaIhHMIwVhxtS3rF2w4mfh2QN1AtX
+	nRQ47JnU66LnDYU2DsjBbNvuqvkXFto2xeZhI8yMR7FNo3TtjokZvE9bsWOc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:190d:b0:4c1:e6f4:f2c5 with SMTP id
+ 5614622812f47-4d728c29dadmr10660539b6e.2.1790447012256; Sat, 26 Sep 2026
+ 11:23:32 -0700 (PDT)
+Date: Sat, 26 Sep 2026 11:23:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab80da4.e548f532.1ca396.0032.GAE@google.com>
+Subject: [syzbot] [netfilter?] kernel BUG in nf_ip6_checksum
+From: syzbot <syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com>
+To: coreteam@netfilter.org, davem@davemloft.net, edumazet@google.com, 
+	fw@strlen.de, horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, pabeni@redhat.com, 
+	pablo@netfilter.org, phil@nwl.cc, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Vincent,
+Hello,
 
-> Add a new level in wake affine where we check on which CPU the task
-> would most probably run 1st between this and prev CPUs.
+syzbot found the following issue on:
 
-> @@ -8402,6 +8402,9 @@ static int wake_wide(struct task_struct *p)
->   * wake_affine_idle() - only considers 'now', it check if the waking CPU is
->   *			cache-affine and is (or	will be) idle.
->   *
-> + * wake_affine_slice() - only considers 'now', it check if the waking CPU can
-> + *			 be preempted because using longer slice.
-> + *
->   * wake_affine_weight() - considers the weight to reflect the average
->   *			  scheduling latency of the CPUs. This seems to work
->   *			  for the overloaded case.
-> @@ -8437,6 +8440,20 @@ wake_affine_idle(int this_cpu, int prev_cpu, int sync)
->  	return nr_cpumask_bits;
->  }
+HEAD commit:    eabc76156e86 Merge branch 'net-dsa-mv88e6xxx-ethtool-n-tup..
+git tree:       net-next
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=102d1405580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7a013aa2165022bf
+dashboard link: https://syzkaller.appspot.com/bug?extid=5a8667f002726fc59f88
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=122d1405580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15c58c5e580000
 
-> +static int
-> +wake_affine_slice(struct task_struct *p, int this_cpu, int prev_cpu)
-> +{
-> +	struct sched_entity *se = &p->se;
-> +
-> +	if (se->slice < get_rq_min_slice(cpu_rq(prev_cpu)))
-> +		return prev_cpu;
-> +
-> +	if (se->slice < get_rq_min_slice(cpu_rq(this_cpu)))
-> +		return this_cpu;
-> +
-> +	return nr_cpumask_bits;
-> +}
-> +
->  static int
->  wake_affine_weight(struct sched_domain *sd, struct task_struct *p,
->  		   int this_cpu, int prev_cpu, int sync)
-> @@ -8488,6 +8505,9 @@ static int wake_affine(struct sched_domain *sd, struct task_struct *p,
->  	if (sched_feat(WA_IDLE))
->  		target = wake_affine_idle(this_cpu, prev_cpu, sync);
->  
-> +	if (sched_feat(PREEMPT_SHORT) && target == nr_cpumask_bits)
-> +		target = wake_affine_slice(p, this_cpu, prev_cpu);
-> +
->  	if (sched_feat(WA_WEIGHT) && target == nr_cpumask_bits)
->  		target = wake_affine_weight(sd, p, this_cpu, prev_cpu, sync);
->  
-> -- 
-> 2.53.0
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/1d4c5734556a/disk-eabc7615.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/5c68f2f68d0d/vmlinux-eabc7615.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/f4fc253f3897/bzImage-eabc7615.xz
 
-this_cpu has min_slice of 7 while prev_cpu has min_slice of 5.
-se->slice == 4, so on wake_affine_slice() prev_cpu is chosen.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com
 
-Ain't getting onto a cpu with bigger min_slice is better for us?
-If so, is this works for you?
+ip6_tables: ip6tables: counters copy to user failed while replacing table
+------------[ cut here ]------------
+kernel BUG at net/core/skbuff.c:3606!
+Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+CPU: 0 UID: 0 PID: 5631 Comm: syz-executor206 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:skb_checksum+0x8b2/0x8c0 net/core/skbuff.c:3606
+Code: c4 3d 8c f8 e9 43 f9 ff ff 44 89 f9 80 e1 07 38 c1 0f 8c 59 f9 ff ff 4c 89 ff e8 49 3d 8c f8 e9 4c f9 ff ff e8 ef 35 1c f8 90 <0f> 0b 66 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90
+RSP: 0018:ffffc90003a3f000 EFLAGS: 00010293
+RAX: ffffffff89ab9c91 RBX: 000000000000053c RCX: ffff88807f8abe80
+RDX: 0000000000000000 RSI: 000000000000053c RDI: 0000000000000000
+RBP: dffffc0000000000 R08: ffff88807f8abe80 R09: 0000000000000002
+R10: 0000000000000002 R11: 0000000000000000 R12: 0000000000000000
+R13: 000000000000003c R14: 000000000000003c R15: 0000000000000578
+FS:  0000555590f26400(0000) GS:ffff888124cca000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000556b4bcc5000 CR3: 000000006f904000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ nf_ip6_checksum+0x1bd/0x320 net/netfilter/utils.c:89
+ synproxy_tg6+0x1a4/0x6e0 net/ipv6/netfilter/ip6t_SYNPROXY.c:21
+ ip6t_do_table+0xd37/0x15b0 net/ipv6/netfilter/ip6_tables.c:366
+ nf_hook_entry_hookfn include/linux/netfilter.h:165 [inline]
+ nf_hook_slow+0xc5/0x220 net/netfilter/core.c:619
+ nf_hook include/linux/netfilter.h:280 [inline]
+ NF_HOOK+0x21f/0x3c0 include/linux/netfilter.h:323
+ ip6_input+0x16a/0x270 net/ipv6/ip6_input.c:545
+ NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
+ __netif_receive_skb_one_core net/core/dev.c:6264 [inline]
+ __netif_receive_skb net/core/dev.c:6377 [inline]
+ netif_receive_skb_internal net/core/dev.c:6463 [inline]
+ netif_receive_skb+0x278/0xbf0 net/core/dev.c:6522
+ tun_rx_batched+0x1de/0x790 drivers/net/tun.c:1571
+ tun_get_user+0x2be0/0x44d0 drivers/net/tun.c:2045
+ tun_chr_write_iter+0x113/0x200 drivers/net/tun.c:2091
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f993fdff367
+Code: 48 89 fa 4c 89 df e8 78 1e 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffcd131e8b0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 0000555590f26400 RCX: 00007f993fdff367
+RDX: 000000000000004a RSI: 0000200000000500 RDI: 00000000000000c8
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
+R13: 0000000000000000 R14: 00007f993fe6ebe0 R15: 0000000000000002
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:skb_checksum+0x8b2/0x8c0 net/core/skbuff.c:3606
+Code: c4 3d 8c f8 e9 43 f9 ff ff 44 89 f9 80 e1 07 38 c1 0f 8c 59 f9 ff ff 4c 89 ff e8 49 3d 8c f8 e9 4c f9 ff ff e8 ef 35 1c f8 90 <0f> 0b 66 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90
+RSP: 0018:ffffc90003a3f000 EFLAGS: 00010293
+RAX: ffffffff89ab9c91 RBX: 000000000000053c RCX: ffff88807f8abe80
+RDX: 0000000000000000 RSI: 000000000000053c RDI: 0000000000000000
+RBP: dffffc0000000000 R08: ffff88807f8abe80 R09: 0000000000000002
+R10: 0000000000000002 R11: 0000000000000000 R12: 0000000000000000
+R13: 000000000000003c R14: 000000000000003c R15: 0000000000000578
+FS:  0000555590f26400(0000) GS:ffff888124cca000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000556b4bcc5000 CR3: 000000006f904000 CR4: 00000000003526f0
 
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 09f0667e97a2..e50c339e5c2d 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -8444,14 +8444,13 @@ static int
- wake_affine_slice(struct task_struct *p, int this_cpu, int prev_cpu)
- {
- 	struct sched_entity *se = &p->se;
-+	u64 min_prev = get_rq_min_slice(cpu_rq(prev_cpu));
-+	u64 min_this = get_rq_min_slice(cpu_rq(this_cpu));
- 
--	if (se->slice < get_rq_min_slice(cpu_rq(prev_cpu)))
--		return prev_cpu;
--
--	if (se->slice < get_rq_min_slice(cpu_rq(this_cpu)))
--		return this_cpu;
-+	if (se->slice >= max(min_prev, min_this))
-+		return nr_cpumask_bits;
- 
--	return nr_cpumask_bits;
-+	return min_prev >= min_this ? prev_cpu : this_cpu;
- }
- 
- static int
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Thanks, 
-Kayra
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
