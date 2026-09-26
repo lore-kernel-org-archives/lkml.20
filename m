@@ -1,164 +1,119 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011039.outbound.protection.outlook.com [40.93.194.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f39.google.com (mail-vs2-f39.google.com [74.125.227.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50B6371056
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790452731; cv=fail; b=jlY4VUWlXrHWa3rtF42K+kPhgRtAt76xfzE5WJfLzTQu8SSbE7fIqkDXokc2OEE55blthoAHGwSJJejmLj+YR/Szcg0Hk1OAFrrWgGktwQd/+Ysf5VELIv6LHiQwA+im7bAQ8trhoAfyWC8KYu8hvLzGu69cn75S0hXiat6LztU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790452731; c=relaxed/simple;
-	bh=xv3khOlPkYMbKBe8Is53uLjVMLP3ALsrrNTyuQF3JkU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=jlTBD1CzZD6Uav5shDZKUPWKdb/30vxnPKut+Zg82IUcR5Sz4ABFp42YIBTwTgEgwTIFnS+MlfhVZ0Q/PAxBVXYGIo07yS5A+E1irMuSO2PQLf1Wf3lM6os0hvYtqc5iYTlq621bcvZJHOk8v7o7HBY6B5SCVaNxbuRdjJtuBtw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Bi46Lez/; arc=fail smtp.client-ip=40.93.194.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338F8371056
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:58:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.39
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790452737; cv=none; b=QPF/wCHaRTno72db4GBYwM7cpTC6WBJGwn0k5F3vlaEbd5wIPtV13v9mzFsaZYi4aIB1Bi49AE05Vf7ETPyP9C1s0zEQOVhbs8s2MaoyUhK072hUm4F1Ljg5XCd4HIS5J6W8KHNtgySWT7kyIUuVdDbOYeO2DRTUIXUrmYC69Xk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790452737; c=relaxed/simple;
+	bh=OSBsZUvrhwcSIuPOCdqNSnmPQ4GkNDnc04aQTzCNXic=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MwebMZ85PkQtdKaVzQpJDxy7v02TyK36tMZ3hHPHy80jstoM8gnbI3/b6uLx8o/RzMaEy0g7u9A6E/H9oQjdk/Mj8rbeQfRY8Ec00QUMRtYASGxtQFQlDWOVTvjQNh9WZnkZk4Ku5v92aPOMGxE9J2ii2da+0xfTRcuz1vuqhbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oBZ4e1J+; arc=none smtp.client-ip=74.125.227.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Bi46Lez/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vfdr0rUkxDU071U/eYw2W/tYSR2MKzkQREokBnVVfyP4CVq9qJjDmoY/R9uRGHZ5YHQtOGharpx7FHEefP58GAGOnWwfrW2jKDpz6fpwVFKvcEZ/pn9Btf3LakIScNj/B9zQ26aj+nL0SIFnanQ60iiMaG3N/1EUB3OOQViNUEQcm6xw+a73OvkkUfEa/tM8kyl8Iss/UcUnDlykD3a+axKxlDLoAklR1cZDvhyVDyeRqiS4y+1f6s05hWU4e37cn541IuD3zkc9dgQVh7R2Cl4dV98P/QoEWGK9P6mbsWQ2i8U1Y+oiptzWwyjQ1sKhzpFz0hREoKNnOM7CiWNhYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K1J9txA6AZ5Wb3iRc28yePvE76f/AdjUgxVLrRtUDk4=;
- b=ScfDcDhG0poA2TVPGyP6RLbYiNwAzAk0tDNuLUnvsIA18U76lsYswHfOJRalaNhwOr6j9OPUec10MQL134k8WkcyCU2XOdhF6myzb2Ysgq+U/Tp3WwZhToQwe2Yx8rYpJYPniAjHeZtVNOpo1tG8Bgj4Teo45cKXyGGkKvXKwFqDW1cyxHB0f4PfUf/tZrUJa1s0HzJ/YBbbzVD7m+WMhUDjpeiweQHIcss+T/Q+veI9R36DY0BXLqFHpr7JjJXmntIJZrsmMWd3JoRmdqGayyfD6Cef2PMkax8I+MDSlDDqCifMM0MJb4vs7lzZWl5x2iYm7Hz59FUyiP7em8KkMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K1J9txA6AZ5Wb3iRc28yePvE76f/AdjUgxVLrRtUDk4=;
- b=Bi46Lez/odj2/MmcQeGBjXMIZCBzwby6aivwjLdJOOg29IluJAb+N31vj+67Pkla5HEM91Qu3NLRFIX9UqUfeefMzsMow+2FKUP95RiACv5wo4+KMGhUKe+o24zM6YqR+kT0udvKABaixm/zTNLAs2RwIYJW6no07h7WS89GInpla6cGakVF1rjLxWwE9iBrFbx8xF4eEUwyzyseO1fm7nYg7OZX9ttItYN3+TKNigYPPyCrMd0lD/SikAzeYXBF2i+kQxvdXw+T98wvwZTFvQzbCd4/dIgDM+3t4Wz5LjRRx95pPM0duAWbVoAakVXbdtDgew4NvbuA/znSEn01+A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by SN7PR12MB8132.namprd12.prod.outlook.com (2603:10b6:806:321::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
- 2026 19:58:46 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%3]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
- 19:58:46 +0000
-Date: Sat, 26 Sep 2026 21:58:37 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: cid: Represent clusters
- explicitly
-Message-ID: <argj7cXsK8WL6X0D@gpd4>
-References: <20260926152306.3190774-1-arighi@nvidia.com>
- <23db458c1526966f521d41322ab47056@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <23db458c1526966f521d41322ab47056@kernel.org>
-X-ClientProxiedBy: MI0P293CA0013.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:290:44::18) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oBZ4e1J+"
+Received: by mail-vs2-f39.google.com with SMTP id 71dfb90a1353d-5cca96ec1feso533535e0c.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:58:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790452735; x=1791057535; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oeIZwRgVz0RIdraMrjfODss1t6G6xITndUtYiEdrjvs=;
+        b=oBZ4e1J+hJWrLghT3UMHZq+DBTguJR+miXWs6/eLKKbsuRnQyHkP08QOwpM62hCiWG
+         EzKMEcTz//5CEyJaU101uS31TNdh6DZQPlVPfze2zGGc/ca49waIlyihIKReIYBXGMfj
+         K6om+HdpeKaph+Klg9Z8PY/KMnDqBhYQw38Xr6Tk4VPJDfQATabyMqKCVLXyYdzI1ZrP
+         Ir3uEUamKvuoT2nIZVPOYpPYAGD/DWTw25qf9OUSQUfbUak2HLGFW9PcUvOCa2UgMaNp
+         gWUpG0MgTYTLJDEZZtB5Kb3gndvvu7SmXvMno5Jm9YLF+JvgXjKIQ2cN41WUAjWCr5Ts
+         eHBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790452735; x=1791057535;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oeIZwRgVz0RIdraMrjfODss1t6G6xITndUtYiEdrjvs=;
+        b=OAcBv3SSXTzO4E5BgOv0jya7jEBzBBIR17/bfV5K3UPtVoPoM0Qq2q51VUWolIiHBy
+         KeM5Ytb3KOnr2/8h5Ht5pqpiW0KPf7l3fcdsr/g5+5wTfuDquuZPqKZQxvhnHtCU2X6j
+         rVbqDlvIu8bRh8qXYpv2FQAO3ThY8UeR0vN8djdY+K+tYGgAmdOb6n50X4G6nd7nfUUf
+         M9GlZD4v6Zwxh/z8fAchH1UHWaoAUlh1gRNVsSbNTa0tDJBOh3gi/e692Xn9BmFTg08H
+         0IcyqqB5rzYaJnW/EgAlVtZXggz019F9NyvcrC+XAOIwbIyy0r+TkpBXA+vsPE/RaThS
+         K1SA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjJhXmDWdxYLP8wNgBvjJimwB9+/qPmvqZk40YjZdGQbVGXxzZrNILtXfYUs8BpQpkZ3RaErE2PUbEGoM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nG3mpOS8szerlReTiAx3FKGTLG5ly15tW7WW0WFnfD36MDqU9C
+	6AMHYhx/SnFZrq0KXxlDht5HQbfCtuNGa4eZkvYVwHtOIZBJd610TnZc
+X-Gm-Gg: AYBFou1rg4p8jFs4vBM+c48wGegfqga0TjXrbvwYCWqCB9UBo1ltoi+AjJB81OjAcFw
+	l0mAfDSuOOWsr64vDpvwGOO+gzuRh30rNd8NlT4H1IYbDsYI0DCsOg9l7JhLtUMhRNvF0bSFeq1
+	QT7vBLdz971TdyPNlRmBfqNC2BQ/jPipdN74E+A6O1jSaYH1ckAVhQAxo2FQfYsxqC5uSXWgc7w
+	VGWxXcar3F/8n1yVXbqtHGqVIjZQ1+weTQRfPY/o4qE8GYr72GQn2P8KKbog1S7ICPrGkLRr0o8
+	JYE5QqJmFtRPiVnbY+ed8vPBp0aeXEtv+uWkAseraJ3YBNoz5NNWKs9whT8Z12FQkzMnOBoKDPK
+	s591JSwRiOGQd9HuVZRJqtZdZ+o/Ydu6yXfuK3LYvl8TBZ0FIrJkTP4FesJHBng/WNG/t5/R7sQ
+	zBFD53D+iqAt8rohoLV/TH9JxQ+M910Opp3j1MmEBH1N7zYjYziKfovcAd+rr9xSjKGbtkjXOwk
+	g==
+X-Received: by 2002:a05:6102:3912:b0:7a5:9a:3a31 with SMTP id ada2fe7eead31-7af1e0ef5f1mr3624522137.34.1790452735029;
+        Sat, 26 Sep 2026 12:58:55 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9861afedba5sm7437742241.8.2026.09.26.12.58.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 12:58:54 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	dakr@kernel.org
+Cc: johan@kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v4 0/2] debugfs: fix UAF and double-free in debugfs_str read/write
+Date: Sat, 26 Sep 2026 16:58:42 -0300
+Message-ID: <20260926195844.1296333-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <DLPDB44JJRGJ.3K6JNS746M71C@kernel.org>
+References: <DLPDB44JJRGJ.3K6JNS746M71C@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|SN7PR12MB8132:EE_
-X-MS-Office365-Filtering-Correlation-Id: e947a6c1-f64e-4c8b-847c-08df1c0892c8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|22082099003|4143699003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	itZPqVa9DzEXAJYJmV+d6L8jP7Xmk0qSJbfjVC9uorzLmXjOpJgoliGiSOCT/k3JtSUnpWxZ1KXL3DADEsgRG2XvvPUDc1faogCcbIqr64B997VPpfGsiW9Zz4viWlxUcdWLuP3elg5BgFMB3jSnh/qFwa4dKOyU8Ak1H5+oIGEzz68qr5vIPad5MqDTbn0WadlDJ8LOPlkgKD8X/FOCLXjSsDDpvtzPR4VuvXohPtkq6JwlhGlLUcjCncw9FewwG22S6ZbzC8ohEk5e8urTxxesWJrLx59IpZCDXbCdVBolCkKHd1IyXaLtfjofhdKhDIkZK9GGQFhxRMkaE1cRMu5pj1cAjXZXmArdT/nm50WsLw9SVQ63YKi2v5m7Qdds0HMVWIpU6hWe27ubi3AV8ThvVzdsLp73MBzDUCl7DFhYJDxgh57Jd4Hz9YyMMjhDZ3zYHD/Jmdao/R1ntlUFzlAdAX3h5LVbRaqvbKpLlfjUg2nUw7H6dQav/ljyq71MO4MywQ99+4G5Lwog5AcIC+i+U6ZJtihmMw1ypNW5pTkA8N3XKOB+ADGisZIluFqn+ucZh5g2M712fGko7/+cj2TKtz25ZCnlLgg724xbFjadNqYrvtqH+uFnWT0IzlHTFlc92szzaKY7ei/493M4UBZox3ziIiJFeKb72yxaRzQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(22082099003)(4143699003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?g3F9GPxsM6ORi9anIRv50JK5w0pSR1w5ZKOD+TwADYcPPLE11lAmBLtqrT5r?=
- =?us-ascii?Q?Z9YbGyDC2p7YBFSgohxa93TPBNOZRv8eEsY3Oa3F+G5OtZrC31K+RuiqK5yx?=
- =?us-ascii?Q?Cvk2YGg2SuGH3cC8KZzoOOZTryluBqCVEToenNjrPu2mS/M/cNLk8U4bjW/7?=
- =?us-ascii?Q?m30Zks3Wyrwop/JOVL37pBPHVPhumpX6/LdA5Mnfw4jFhHcX0UaxDB+NZJV9?=
- =?us-ascii?Q?ziTtxZZ0EJy9NtFVvEiUSMaWEIgeWR4t9wAC1/rXLA0gciQNxpAaMQaZGilw?=
- =?us-ascii?Q?lrHErNSET6cMnQVqgy/r5pxTbYzeOF3pouzAJzbS7k5wzOMjUeUMNJp3zR/W?=
- =?us-ascii?Q?dlj2tVVBQ2e/M0sYUQvPWtEd3gjq4sI36AlslvnTv90MjFzdnNed8XHe+dIr?=
- =?us-ascii?Q?VgB07IS9wGRSyoosQ22zlwGm7SvTMfPBeGqmpY1rqwYWBe7NgFSBW8JClYkY?=
- =?us-ascii?Q?RrOEClSfUfJ+92bDrG6VUA830BNLOnHvnoqOuYPafpOnVxBY5so6pRcf3IgI?=
- =?us-ascii?Q?4KnqcPj1dSDTCWpkm6NsgBurDENHuu51yRWTyGeR8k3Wz4ltbeR0a4Ui9s3k?=
- =?us-ascii?Q?UZBwUpGFKK/GkEOgOt1cZlfOEmMQMCXr4bGnOiuUBKgAyQU/j7xZIzgcD7Gc?=
- =?us-ascii?Q?F4IllSMjFs9qUMIAs4Eazl2Vqija8Ki1GSIbQ4ThdrHwbBpHV9cwEy1q4JBZ?=
- =?us-ascii?Q?fuCuowf5L/0IJIX8MP02Zgc61M9zLzvkPciczdWHMKgag2Q5bLByczYIVjEI?=
- =?us-ascii?Q?6i2Ykl4cCav0ofjztC4/Wo3bY5zhQ0cVPjwwQvW9EerFbvAOeYFwlBzQrCNv?=
- =?us-ascii?Q?BLTjl2QOraKFtdD3Vgl2jONgDl+ik58FUue247EU6WuwkJUUzDF3+5mVhv/5?=
- =?us-ascii?Q?jmVx8dwHtuJmtDRZLKgqvc9ix7OclzbpOeV/ipa5QvcZUp3Ce5njXC608PtM?=
- =?us-ascii?Q?lMYNxo5l5/a4MTUrsdaLDmkih4S314Dwh1Q3HrFZrWnRX+Rnb2G2S3uCLMqp?=
- =?us-ascii?Q?T+WhcEZP+Ojnk9YqIIsArALlmVuMCSwYxo4IjmVgPTGW/W/BDNvajl1ybAZD?=
- =?us-ascii?Q?P4IAq6EXrJOrHTP+pcyZuxaCDqQWT0p9q5vFzeh3W73DMLO4XhAgvDaLV0p4?=
- =?us-ascii?Q?57gw/QRP6wh7ZUfmZdLmSrjWSUUno4+Rqcq3lUxCS60KFabdCCEU6C/C98tj?=
- =?us-ascii?Q?MObJR0mHy3feYbq7eA3h/FaQyOHROrkPEQ5EUAnMJrd7ZmI1/7rrlY0Mq8Vg?=
- =?us-ascii?Q?ag27jqH3yigt36hfRy+Ph8AHXplnMcEyq1n5GXQJeVyUvI8ncwEYMx6WOUbo?=
- =?us-ascii?Q?OGQjG7feoBI0gO5L2jqrgeM/F2LR1uqmws/9DirA9ho86/djUU6G7wc15vkH?=
- =?us-ascii?Q?JvIihcUD9McHtsnWkTeOh6/eqGFFiEl0ARIN9yio4XxtdYWQ5xIDM1mCOQci?=
- =?us-ascii?Q?oGTTAseQ2Ei4URAW9cTymVGtsB/I5/f6ATL5zP4pkOT/f1lIKFgccIlg3b75?=
- =?us-ascii?Q?VILl3ctnMEV/olcw5beePOgDFVSz1etH2BFf2MPgNd3Ev3VqFmDndvpOqTr2?=
- =?us-ascii?Q?nmdcYHJJfwqT9r2X1jkZ4U9YgIaFQ7Hy1xpu/ueJv/pNg9cy+HtSs76drkef?=
- =?us-ascii?Q?QFjPv9UMRFKipnbmdu+/Uf7MgUCJ09ogWmQY8yFU2wa0iUPXe8ki+2CZBjgj?=
- =?us-ascii?Q?Iji++2czw+WLUNoGHPBzO1dwc2jW3rOd2LG22gnso0RoaRmmE0PIPPk8auEZ?=
- =?us-ascii?Q?2WvMdHb9tg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e947a6c1-f64e-4c8b-847c-08df1c0892c8
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 19:58:45.9315
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GFAGIRR+e+/Qt+rRxOxWUdjrcTn4S8WOBDTPBYRxQnyd/qLrdkfo45/ihSKBkdn54ZzCl2W5PlKdzZIX8tj4MQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8132
+Content-Transfer-Encoding: 8bit
 
-Hi Tejun,
+Changes since v3:
+  - Patch 1/2: drop GFP_ATOMIC as suggested by Danilo.  Measure the
+    string length under rcu_read_lock(), allocate with GFP_KERNEL
+    outside the RCU critical section, then re-read and copy with
+    strscpy() under a second rcu_read_lock().  If the current string
+    no longer fits the allocated buffer, retry with a PAGE_SIZE
+    allocation (upper bound enforced by the write path).
+  - Patch 2/2: unchanged.
+  - KASAN stress testing with both fixes applied completed with 0
+    reports; the concurrent-writer reproducer produces ~3900 double-free
+    reports without patch 2.
 
-On Sat, Sep 26, 2026 at 09:23:15AM -1000, Tejun Heo wrote:
-> Hello, Andrea.
-> 
-> On Sat, Sep 26, 2026 at 05:23:06PM +0200, Andrea Righi wrote:
-> >  - set @cluster_cid to the LLC's own CID when no cluster level exists,
-> >  - set @cluster_idx to -1 when no cluster level exists,
-> 
-> The other levels are inclusive: a level that doesn't exist for a cpu is
-> represented by the level below it, the way a core on a non-SMT machine is
-> just the cpu. Can we do the same here? A core without a cluster level is
-> its own cluster, cluster_cid = core_cid with a dense cluster_idx. Then
-> every cluster is a contiguous cid range, cluster_idx indexes per-cluster
-> arrays without a -1 special case, and cluster_cid can't alias between a
-> real cluster and the fallback cpus in the same LLC.
+Danilo also suggested introducing a struct debugfs_string with explicit
+synchronization to provide callers with a proper synchronization
+contract.  I agree that would address the broader API issue,
+and I'd be happy to work on it as a separate follow-up series
+if you think that would be useful.
 
-Makes sense, I'll change the fallback so each such core is its own cluster with
-cluster_cid = core_cid and a dense cluster_idx.
 
-> 
-> > +	s32 cluster_cid;
-> > +	s32 cluster_idx;
-> 
-> Growing struct scx_cid_topo breaks existing binaries: scx_bpf_cid_topo()
-> copies out the kernel's sizeof into a buffer the program sized from its
-> own vmlinux.h. I'm changing the kfunc to take the buffer size and copy the
-> smaller of the two, filling the rest with -1, and routing that through
-> for-7.3-fixes so that it lands before any growth. Can you base the next
-> version on top of it and append the new fields at the end of the struct?
+v3: regenerate patches with git format-patch (v2 failed to apply).
+v2: split into two patches, add Assisted-by, include KASAN splat.
+v1: https://lore.kernel.org/driver-core/20260925175831.3701812-1-qwe.aldo@gmail.com/
 
-Yes, I'll send a new version on top of your fix (already reviewed) and keep the
-new fields at the end.
+Aldo Ariel Panzardo (2):
+  debugfs: fix use-after-free in debugfs_read_file_str()
+  debugfs: serialize concurrent writers in debugfs_write_file_str()
 
-There's also a comment from Sashiko about dropping __uninit, but it looks like a
-false positive to me, the current verifier checks the out buffer for read access
-even with that suffix, so restoring it would not change whether an uninitialized
-stack buffer is accepted.
+ fs/debugfs/file.c | 55 ++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 35 insertions(+), 20 deletions(-)
 
-Thanks,
--Andrea
+
+base-commit: 6812ce4e4379ffc99c52401ec28f0d7ffbc36206
+--
+2.43.0
+
