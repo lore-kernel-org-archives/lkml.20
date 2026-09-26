@@ -1,56 +1,56 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8624388866
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:21:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989EB38F248
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790403689; cv=none; b=jOdzd2gwG8EiXSUIaYKFz0+WusAMedNpvebbofeQ5rlEb96zq1NIWusna83R3aK5o1vh/9nuBNmlPSpdaByKH7BipcEdfyawRIJdBtBx2H/8ns3LOvckcMDL4fmgmGRVlZtnZhSj2+eOojIwEAg2lvpoqMGxkZdRGsNAOazx0kM=
+	t=1790403686; cv=none; b=mr9VEIGlETfOODxsNfst54MZgmX6TDEuaTGSXkUpvcGwV4who41kP0AwUcbspWJt2F2HZcSvntgfHL7Tlg2bvlf3H0IxnT1eNJXJFT4mLmf4CTjtoiApwBn2kxmiSVR2AOBhQLy73fjuka+hOtGQIVhlG8tU7oQFXFKZ2SYSNw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790403689; c=relaxed/simple;
-	bh=vstN9V5PVQ/4gt3/DKShJNCXrSXllChjMMHOKUSy8g0=;
+	s=arc-20240116; t=1790403686; c=relaxed/simple;
+	bh=Kr5OeleJstb++k8KZyLVGC4d9kyLRaWCU17oF9MJqDY=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZXlQw3NwoSbDIl15ziBWfU73iYkQd65UXGd5hyYAsZlYLhmnjoaVs48zbtK1yGZjrundosUjeIpOcaJDDFYDix8uK5FNJceKYMIn29jpBfT5iftgaZ2RY7Pi6hcsyKiaeGZ5jRYoiGPbsVBHgPjIMwLWBM+LdUqgR/tW39suaO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qf9KPUnT; arc=none smtp.client-ip=74.125.82.199
+	 To:Cc:Content-Type; b=ZGXoN15aW7U/O27kajHoHZ6G88hsXkcUp+cAb8Y8r7FUns4st4Z6ZEzdIevWZ+5Br4DEEs9GoYzgjdU6AKU9uzRxozX9SEpDG+8yGYXhJo9DKkeeN3fWkI7pG6w/lNrusgnGg4H6ElXkXrMiJFh+PNtcbWvoT1oSWh7TiXY8iN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=arqkvmJH; arc=none smtp.client-ip=74.125.82.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qf9KPUnT"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3282d5302ffso2195700eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:21:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="arqkvmJH"
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34344599f01so247708eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:21:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790403686; x=1791008486; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790403683; x=1791008483; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JMuTiyaf8RLZgGMnqpEmNWwSOL4ew1Gnrcb09peYmkg=;
-        b=qf9KPUnTrYOXSCBd0QSrQdVYIoeubgezBtIC1Ktoj3+Ae27CZ88lbj3UTYI1yBZ7Xf
-         RQHfQbI9uI7BmMWeQyR1ZyS1KYLAJ6amvgkOQSc3VXPvLznT1oh52Fq+3WRGz+87MXVW
-         B4foM4J7Uk/2cWTEFpkd1gKrNgyHE5DmiNEPc9T5XYd4+nrTT+c6BNLy5Viw3KYr5rre
-         yijg0K5Uk/gSV4wtgwZXuMhb+3kL6kb3IUMNu46Rq92fnUIuCHmJcMuVaRd9lLmgrofX
-         CQYaGT9Xd8ZhoGpsxOsSOdEeTs/wQb8UirYXAimCnrIBBmaGlxIgj7WkeCl7y4/7k1Qt
-         im6A==
+        bh=tntSJiK9DGB8SYPMrHAaQoWdgRVKgGBg3ctxgSFNdfk=;
+        b=arqkvmJHhRoz05M7lJ3nyO2hpEhZ0sG/dTcQz/e1uU/RZoN8d2HxV3E+JJYb5GxHCv
+         V6lLEC+UcdleByzQ/VdhHuNq6TJtLFAIo2vEXk/3f2LOsyx2UqVET5ploHsU3buQz1MY
+         gLuVsUJFP4Bi1DHaStxXNCbdpo2czTe75xOZ4RJpVJoFl4js9VE3o3FgO6NwIPHlYJus
+         HVuNSqvfgARCh6SQx/WVG4G14lP7hEKXhhmnoV6woJG5HKH5P8Ahy5afAmu/hR4lipek
+         9Hfypgy3UJhFViHIk3V//EdzlknNZwXow+HIPjsQLkZtBApjtdEziJTdvM9oZzBPzPCh
+         ezeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790403686; x=1791008486;
+        d=1e100.net; s=20260707; t=1790403683; x=1791008483;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JMuTiyaf8RLZgGMnqpEmNWwSOL4ew1Gnrcb09peYmkg=;
-        b=XvGx4acw4s/sTDO7VADg1TDG2sQKX+tCnOp1wdsS6/0bW/XcL9tqsJDCAcV5SyhBsR
-         JevTFozEIW3dj3TKVDN/FESI39q+HdnzkMff0sSDqQnIvmlO/IsaqINFCpNR8uFD2BXH
-         u/A3GFyCCzo29d8ocGstzmzLV1heXKoHylPPZPTU9Z6XYQbYpq8B6qgjFuIrWVydMEr2
-         rTix7eE/CZjqkiPnUpQ6Yw8Dt2Y7y0cKU9pX+wVQdyN5xd7OdzsI4mZpUqvsKCFbomo0
-         ob4IufNI2IjlRVuiFPP5gnWtL5S3A2k1q1Z2MSsUBwepvx+FX0FEZUm2wDUVxaLUe+iX
-         C21w==
-X-Forwarded-Encrypted: i=1; AKwUvBwYJDk1ImxRUEdhqsEePHAB97L4Yv3ufqdixxOBYgbHE20rVqlOw2gfvRuJPfSKtpbdx8zTtDX1EfHD8ww=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvaE8h2esMNX2SK3a7MRQ2FnP+0L7qGYd69GKmVG6gQv+ctgF/
-	4Lx7JG//greIQNr6WpelI1eH1oe8/WnihLw2+ylWsnLozscvj9pSMxz8/JZMefQjWcdrVBOBT/+
-	4t0JB6Oxf7Q==
-X-Received: from dlbpu5.prod.google.com ([2002:a05:7022:e885:b0:144:f4b8:ee5e])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:454e:20b0:146:7648:619
- with SMTP id a92af1059eb24-146ce67ee01mr1815601c88.6.1790403685796; Fri, 25
- Sep 2026 23:21:25 -0700 (PDT)
-Date: Fri, 25 Sep 2026 23:19:41 -0700
+        bh=tntSJiK9DGB8SYPMrHAaQoWdgRVKgGBg3ctxgSFNdfk=;
+        b=Px4On7x7eJoBEYEc+f+wDNnZh5n4Zm11AyTrAuNArRiqp1kPQejngb5N1WGaQ3eqRg
+         H1CX966tYonoUIZdv7b//hGBcy6nfmvVDa9thL/0cP9qOy+KNYUjPUOLl1/yohFi4OFg
+         nLTPhu32jtNaJ9Q9d7LlHUp5ngGb5prSGSTt/7DSt0oW5hTvWkq0L/1HYf0ENC1nikUS
+         HnlJ8Av5il/rez2cB9v+ocjrg+ps5/7Mh4Nun9Lel/dt+1k/A/9wZyuqD478hBTk0nnG
+         3h0mxex2DNnuUJCB4oxD4mxQhg1DM3HYzK53R+QjFpJFzMpIDB18M1OQ+yDI/s7V/Kr+
+         CcUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxJtzdWo7eKOxnezyjHJ/v7Z5ztZQih0fuuI3XpKgqjKsyiqRwVpUhpXmgskYC1Xb7UWHKLcuH4oqtaxOA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVLqqzlDXU2RzX69elNE4QHqhngEtXiB3naDX+gHBr/OHs0xDl
+	cCQetkHFU3LpfV7Awb8OXYXdr0HQIJa2C9eojMslG37WxK+rYFj9AWcQh27vfGk91T0lUfarKBf
+	bOh/d7/vDtg==
+X-Received: from dlx14.prod.google.com ([2002:a05:7022:8e:b0:146:80a8:4131])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:458d:b0:13d:19da:9370
+ with SMTP id a92af1059eb24-146ce67ee18mr2030284c88.17.1790403682303; Fri, 25
+ Sep 2026 23:21:22 -0700 (PDT)
+Date: Fri, 25 Sep 2026 23:19:39 -0700
 In-Reply-To: <20260926062029.800743-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260923181213.3032038-1-irogers@google.com> <20260926062029.800743-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260926062029.800743-15-irogers@google.com>
-Subject: [PATCH v4 14/49] perf build: Make pylint build test opt-out (NO_PYLINT=1)
+Message-ID: <20260926062029.800743-13-irogers@google.com>
+Subject: [PATCH v4 12/49] perf test: Clean up mypy and pylint issues in shell
+ test libraries
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	james.clark@linaro.org, leo.yan@linux.dev, namhyung@kernel.org
@@ -70,148 +71,618 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	mingo@redhat.com, peterz@infradead.org, tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Commit 8a54784e708b ("perf build: Add pylint build tests") added a
-compile-time pylint check for Python files in tools/perf, but left it
-opt-in via PYLINT=1.
+Clean up mypy type errors and pylint errors/warnings in
+tools/perf/tests/shell/lib/ (attr.py, perf_json_output_lint.py, and
+perf_metric_validation.py):
+- Fix E0606 (possibly-used-before-assignment) in perf_metric_validation.py
+  by importing sys at module level.
+- Add type annotations for stack, second_results, collectlist,
+  get_bounds(), and main() in perf_metric_validation.py.
+- Avoid assigning -1 to list[int] expected_items in
+  perf_json_output_lint.py, rename shadowing variables, and remove
+  redundant lambdas.
+- Remove unnecessary semicolons, use lazy logging arguments, specify
+  exception types and file encodings, and initialize module-level logger
+  in attr.py.
 
-Now that pylint issues across tools/perf/python, tools/perf/pmu-events,
-and tools/perf/tests/shell/lib have been cleaned up, enable the pylint
-check by default when pylint is installed on the system, with an opt-out
-via NO_PYLINT=1 (matching NO_SHELLCHECK=1, NO_MYPY=1, and other perf
-build feature flags).
-
-Configure PYTHONPATH in Makefile.perf so pylint resolves perf.pyi type
-stubs and pmu-events modules, enable error and warning categories
-(--disable=all --enable=E,W --disable=W0123,W0311,W0511,W0603,W0622,W0718
---ignored-modules=textual,setproctitle) appropriate for perf's standalone
-CLI and test scripts, and require pylint >= 2.16.0 (skipping with a
-warning if an older version is installed).
+Also update tools/perf/tests/shell/lib/setup_python.sh to:
+- Avoid x-prefix string comparisons.
+- Export PYTHON and resolve PYTHONPATH and PERF_EXEC_PATH from
+  BASH_SOURCE[0], ../../../python (for nested test directories such as
+  coresight/), and the directory containing the perf binary so out-of-tree
+  builds and standalone perf python scripts work seamlessly.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/Build            |  2 +-
- tools/perf/Makefile.perf    | 40 +++++++++++++++++++++++++++++++++----
- tools/perf/pmu-events/Build |  2 +-
- tools/perf/tests/Build      |  2 +-
- tools/perf/util/Build       |  2 +-
- 5 files changed, 40 insertions(+), 8 deletions(-)
+ tools/perf/tests/shell/lib/attr.py            | 86 ++++++++++---------
+ .../tests/shell/lib/perf_json_output_lint.py  | 36 ++++----
+ .../tests/shell/lib/perf_metric_validation.py | 53 ++++++------
+ tools/perf/tests/shell/lib/setup_python.sh    | 29 ++++++-
+ 4 files changed, 113 insertions(+), 91 deletions(-)
 
-diff --git a/tools/perf/Build b/tools/perf/Build
-index 37d603faea6d..5bd0e58d7cb0 100644
---- a/tools/perf/Build
-+++ b/tools/perf/Build
-@@ -101,6 +101,6 @@ endif
+diff --git a/tools/perf/tests/shell/lib/attr.py b/tools/perf/tests/shell/lib/attr.py
+index bfccc727d9b2..7f3d5b64b00d 100644
+--- a/tools/perf/tests/shell/lib/attr.py
++++ b/tools/perf/tests/shell/lib/attr.py
+@@ -12,6 +12,8 @@ import re
+ import shutil
+ import subprocess
  
- $(OUTPUT)%.pylint_log: %
- 	$(call rule_mkdir)
--	$(Q)$(call echo-cmd,test)pylint "$<" > $@ || (cat $@ && rm $@ && false)
-+	$(Q)$(call echo-cmd,test)$(PYLINT) "$<" > $@ || (cat $@ && rm $@ && false)
- 
- perf-y += $(PYLINT_TEST_LOGS)
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index fbb5dfb67089..168b286770f3 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -128,6 +128,8 @@ include ../scripts/utilities.mak
- # Define NO_SHELLCHECK if you do not want to run shellcheck during build
- #
- # Define NO_MYPY if you do not want to run mypy during build
-+#
-+# Define NO_PYLINT if you do not want to run pylint during build
- 
- # As per kernel Makefile, avoid funny character set dependencies
- unexport LC_ALL
-@@ -281,9 +283,39 @@ ifneq ($(force_fixdep),1)
-   endif
- endif
- 
--# Runs pylint on perf python files
--ifeq ($(PYLINT),1)
--  PYLINT := $(shell which pylint 2> /dev/null)
-+# Runs pylint on perf python files.
-+# Require pylint >= 2.16.0 (which introduced W0718 broad-exception-caught and
-+# astroid .pyi stub support for perf.pyi).
-+# Disabled warnings:
-+#   W0123 (eval-used): Use of eval()
-+#   W0311 (bad-indentation): Non-4-space indentation
-+#   W0511 (fixme): Presence of FIXME/TODO comments
-+#   W0603 (global-statement): Use of the global statement
-+#   W0622 (redefined-builtin): Redefining a built-in name (e.g. id, type, dir)
-+#   W0718 (broad-exception-caught): Catching broad Exception
-+# Wait until after the fixdep bootstrap sub-make (force_fixdep != 1) before
-+# resolving PYLINT and stripping PYLINT=% from MAKEOVERRIDES (substituting
-+# escaped spaces so multi-word overrides are removed as a single token) so child
-+# Makefile.build sub-makes inherit the PYTHONPATH- and flag-wrapped export.
-+ifneq ($(force_fixdep),1)
-+  MAKEOVERRIDES := $(subst __SPACE__,\ ,$(filter-out PYLINT=%,$(subst \ ,__SPACE__,$(MAKEOVERRIDES))))
-+  ifeq ($(NO_PYLINT),1)
-+    override PYLINT :=
-+  else ifeq ($(filter-out 1,$(PYLINT)),)
-+    override PYLINT := $(shell which pylint 2> /dev/null)
-+  endif
++log = logging.getLogger('test')
 +
-+  ifneq ($(PYLINT),)
-+    ifneq ($(shell $(PYLINT) --version 2>/dev/null | \
-+          awk '/^pylint / { split($$2, v, "."); print (v[1]+0 > 2 || (v[1]+0 == 2 && v[2]+0 >= 16)) }'), 1)
-+      $(warning Warning: pylint version is older than 2.16.0, skipping pylint checks.)
-+      override PYLINT :=
-+    else
-+      override PYLINT := PYTHONPATH=$(srctree)/tools/perf/python:$(srctree)/tools/perf/pmu-events \
-+        $(PYLINT) --disable=all --enable=E,W --disable=W0123,W0311,W0511,W0603,W0622,W0718 \
-+        --ignored-modules=textual,setproctitle
-+    endif
-+  endif
- endif
+ def data_equal(a, b):
+     # Allow multiple values in assignment separated by '|'
+     a_list = a.split('|')
+@@ -89,19 +91,19 @@ class Event(dict):
  
- export srctree OUTPUT RM CC CXX RUSTC CLANG LD AR CFLAGS CXXFLAGS RUST_FLAGS V BISON FLEX AWK LIBBPF READELF
-@@ -963,7 +995,7 @@ clean:: $(LIBAPI)-clean $(LIBBPF)-clean $(LIBSUBCMD)-clean $(LIBSYMBOL)-clean $(
- 		$(OUTPUT)perf-iostat $(LANG_BINDINGS)
- 	$(Q)find $(or $(OUTPUT),.) -name '*.o' -delete -o -name '*.a' -delete -o \
- 		-name '\.*.cmd' -delete -o -name '\.*.d' -delete -o -name '*.shellcheck_log' -delete -o \
--		-name '*.mypy_log' -delete
-+		-name '*.mypy_log' -delete -o -name '*.pylint_log' -delete
- 	$(Q)$(RM) $(OUTPUT).config-detected
- 	$(call QUIET_CLEAN, core-progs) $(RM) $(ALL_PROGRAMS) perf perf-read-vdso32 \
- 		perf-read-vdsox32 $(OUTPUT)$(LIBJVMTI).so
-diff --git a/tools/perf/pmu-events/Build b/tools/perf/pmu-events/Build
-index c3542e5ae46f..1ac067be9d34 100644
---- a/tools/perf/pmu-events/Build
-+++ b/tools/perf/pmu-events/Build
-@@ -203,7 +203,7 @@ endif
- ifdef PYLINT
- define PYLINT_RULE
- $(2): $(1)
--	$$(Q)$$(call echo-cmd,test)pylint $(1) > $(2) || (cat $(2) && rm $(2) && false)
-+	$$(Q)$$(call echo-cmd,test)$$(PYLINT) $(1) > $(2) || (cat $(2) && rm $(2) && false)
- endef
- $(foreach src,$(wildcard pmu-events/*.py), \
-     $(eval dest := $(patsubst pmu-events/%,$(OUTPUT)pmu-events/%.pylint_log,$(src))) \
-diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
-index cd7b62a6c1b8..8fecd5390124 100644
---- a/tools/perf/tests/Build
-+++ b/tools/perf/tests/Build
-@@ -117,6 +117,6 @@ endif
+     def add(self, data):
+         for key, val in data:
+-            log.debug("      %s = %s" % (key, val))
++            log.debug("      %s = %s", key, val)
+             self[key] = val
  
- $(OUTPUT)%.pylint_log: %
- 	$(call rule_mkdir)
--	$(Q)$(call echo-cmd,test)pylint "$<" > $@ || (cat $@ && rm $@ && false)
-+	$(Q)$(call echo-cmd,test)$(PYLINT) "$<" > $@ || (cat $@ && rm $@ && false)
+     def __init__(self, name, data, base):
+-        log.debug("    Event %s" % name);
+-        self.name  = name;
++        log.debug("    Event %s", name)
++        self.name  = name
+         self.group = ''
+         self.add(base)
+         self.add(data)
  
- perf-test-y += $(PYLINT_TEST_LOGS)
-diff --git a/tools/perf/util/Build b/tools/perf/util/Build
-index f922794e8108..afcf98dc5006 100644
---- a/tools/perf/util/Build
-+++ b/tools/perf/util/Build
-@@ -438,7 +438,7 @@ endif
+     def equal(self, other):
+         for t in Event.terms:
+-            log.debug("      [%s] %s %s" % (t, self[t], other[t]));
++            log.debug("      [%s] %s %s", t, self[t], other[t])
+             if t not in self or t not in other:
+                 return False
+             if not data_equal(self[t], other[t]):
+@@ -118,7 +120,7 @@ class Event(dict):
+             if t not in self or t not in other:
+                 continue
+             if not data_equal(self[t], other[t]):
+-                log.warning("expected %s=%s, got %s" % (t, self[t], other[t]))
++                log.warning("expected %s=%s, got %s", t, self[t], other[t])
  
- $(OUTPUT)%.pylint_log: %
- 	$(call rule_mkdir)
--	$(Q)$(call echo-cmd,test)pylint "$<" > $@ || (cat $@ && rm $@ && false)
-+	$(Q)$(call echo-cmd,test)$(PYLINT) "$<" > $@ || (cat $@ && rm $@ && false)
+ def parse_version(version):
+     if not version:
+@@ -149,7 +151,7 @@ class Test(object):
+         parser = configparser.ConfigParser()
+         parser.read(path)
  
- perf-util-y += $(PYLINT_TEST_LOGS)
+-        log.warning("running '%s'" % path)
++        log.warning("running '%s'", path)
  
+         self.path     = path
+         self.test_dir = options.test_dir
+@@ -159,15 +161,15 @@ class Test(object):
+ 
+         try:
+             self.ret  = parser.get('config', 'ret')
+-        except:
++        except Exception:
+             self.ret  = 0
+ 
+         self.test_ret = parser.getboolean('config', 'test_ret', fallback=False)
+ 
+         try:
+             self.arch  = parser.get('config', 'arch')
+-            log.warning("test limitation '%s'" % self.arch)
+-        except:
++            log.warning("test limitation '%s'", self.arch)
++        except Exception:
+             self.arch  = ''
+ 
+         self.auxv = parser.get('config', 'auxv', fallback=None)
+@@ -175,7 +177,7 @@ class Test(object):
+         self.kernel_until = parse_version(parser.get('config', 'kernel_until', fallback=None))
+         self.expect   = {}
+         self.result   = {}
+-        log.debug("  loading expected events");
++        log.debug("  loading expected events")
+         self.load_events(path, self.expect)
+ 
+     def is_event(self, name):
+@@ -203,7 +205,7 @@ class Test(object):
+             else:
+                 try:
+                     value = int(items[-1], 0)
+-                except:
++                except ValueError:
+                     value = items[-1]
+             return (items[0], value)
+ 
+@@ -227,7 +229,7 @@ class Test(object):
+         # Handle negated list such as !s390x,ppc
+         if arch_list[0][0] == '!':
+             arch_list[0] = arch_list[0][1:]
+-            log.warning("excluded architecture list %s" % arch_list)
++            log.warning("excluded architecture list %s", arch_list)
+             for arch_item in arch_list:
+                 # log.warning("test for %s arch is %s" % (arch_item, myarch))
+                 if arch_item == myarch:
+@@ -243,19 +245,19 @@ class Test(object):
+     def restore_sample_rate(self, value=10000):
+         try:
+             # Check value of sample_rate
+-            with open("/proc/sys/kernel/perf_event_max_sample_rate", "r") as fIn:
++            with open("/proc/sys/kernel/perf_event_max_sample_rate", "r", encoding="utf-8") as fIn:
+                 curr_value = fIn.readline()
+             # If too low restore to reasonable value
+             if not curr_value or int(curr_value) < int(value):
+-                with open("/proc/sys/kernel/perf_event_max_sample_rate", "w") as fOut:
++                with open("/proc/sys/kernel/perf_event_max_sample_rate", "w", encoding="utf-8") as fOut:
+                     fOut.write(str(value))
+ 
+         except IOError as e:
+-            log.warning("couldn't restore sample_rate value: I/O error %s" % e)
++            log.warning("couldn't restore sample_rate value: I/O error %s", e)
+         except ValueError as e:
+-            log.warning("couldn't restore sample_rate value: Value error %s" % e)
++            log.warning("couldn't restore sample_rate value: Value error %s", e)
+         except TypeError as e:
+-            log.warning("couldn't restore sample_rate value: Type error %s" % e)
++            log.warning("couldn't restore sample_rate value: Type error %s", e)
+ 
+     def load_events(self, path, events):
+         parser_event = configparser.ConfigParser()
+@@ -266,7 +268,7 @@ class Test(object):
+         # event' first as a base
+         for section in filter(self.is_event, parser_event.sections()):
+ 
+-            parser_items = parser_event.items(section);
++            parser_items = parser_event.items(section)
+             base_items   = {}
+ 
+             # Read parent event if there's any
+@@ -280,7 +282,7 @@ class Test(object):
+             events[section] = e
+ 
+     def run_cmd(self, tempdir):
+-        junk1, junk2, junk3, junk4, myarch = (os.uname())
++        _junk1, _junk2, _junk3, _junk4, myarch = (os.uname())
+ 
+         if self.skip_test_arch(myarch):
+             raise Notest(self, myarch)
+@@ -299,7 +301,7 @@ class Test(object):
+               self.perf, self.command, tempdir, self.args)
+         ret = os.WEXITSTATUS(os.system(cmd))
+ 
+-        log.info("  '%s' ret '%s', expected '%s'" % (cmd, str(ret), str(self.ret)))
++        log.info("  '%s' ret '%s', expected '%s'", cmd, str(ret), str(self.ret))
+ 
+         if not data_equal(str(ret), str(self.ret)):
+             if self.test_ret:
+@@ -310,34 +312,34 @@ class Test(object):
+     def compare(self, expect, result):
+         match = {}
+ 
+-        log.debug("  compare");
++        log.debug("  compare")
+ 
+         # For each expected event find all matching
+         # events in result. Fail if there's not any.
+         for exp_name, exp_event in expect.items():
+             exp_list = []
+             res_event = {}
+-            log.debug("    matching [%s]" % exp_name)
++            log.debug("    matching [%s]", exp_name)
+             for res_name, res_event in result.items():
+-                log.debug("      to [%s]" % res_name)
++                log.debug("      to [%s]", res_name)
+                 if (exp_event.equal(res_event)):
+                     exp_list.append(res_name)
+                     log.debug("    ->OK")
+                 else:
+-                    log.debug("    ->FAIL");
++                    log.debug("    ->FAIL")
+ 
+-            log.debug("    match: [%s] matches %s" % (exp_name, str(exp_list)))
++            log.debug("    match: [%s] matches %s", exp_name, str(exp_list))
+ 
+             # we did not any matching event - fail
+             if not exp_list:
+                 if exp_event.optional():
+-                    log.debug("    %s does not match, but is optional" % exp_name)
++                    log.debug("    %s does not match, but is optional", exp_name)
+                 else:
+                     if not res_event:
+-                        log.debug("    res_event is empty");
++                        log.debug("    res_event is empty")
+                     else:
+                         exp_event.diff(res_event)
+-                    raise Fail(self, 'match failure');
++                    raise Fail(self, 'match failure')
+ 
+             match[exp_name] = exp_list
+ 
+@@ -354,38 +356,38 @@ class Test(object):
+                 if res_group not in match[group]:
+                     raise Fail(self, 'group failure')
+ 
+-                log.debug("    group: [%s] matches group leader %s" %
+-                         (exp_name, str(match[group])))
++                log.debug("    group: [%s] matches group leader %s",
++                          exp_name, str(match[group]))
+ 
+         log.debug("  matched")
+ 
+     def resolve_groups(self, events):
+         for name, event in events.items():
+-            group_fd = event['group_fd'];
++            group_fd = event['group_fd']
+             if group_fd == '-1':
+-                continue;
++                continue
+ 
+             for iname, ievent in events.items():
+                 if (ievent['fd'] == group_fd):
+                     event.group = iname
+-                    log.debug('[%s] has group leader [%s]' % (name, iname))
+-                    break;
++                    log.debug('[%s] has group leader [%s]', name, iname)
++                    break
+ 
+     def run(self):
+-        tempdir = tempfile.mkdtemp();
++        tempdir = tempfile.mkdtemp()
+ 
+         try:
+             # run the test script
+-            self.run_cmd(tempdir);
++            self.run_cmd(tempdir)
+ 
+             # load events expectation for the test
+-            log.debug("  loading result events");
++            log.debug("  loading result events")
+             for f in glob.glob(tempdir + '/event*'):
+-                self.load_events(f, self.result);
++                self.load_events(f, self.result)
+ 
+             # resolve group_fd to event names
+-            self.resolve_groups(self.expect);
+-            self.resolve_groups(self.result);
++            self.resolve_groups(self.expect)
++            self.resolve_groups(self.result)
+ 
+             # do the expectation - results matching - both ways
+             self.compare(self.expect, self.result)
+@@ -401,9 +403,9 @@ def run_tests(options):
+         try:
+             Test(f, options).run()
+         except Unsup as obj:
+-            log.warning("unsupp  %s" % obj.getMsg())
++            log.warning("unsupp  %s", obj.getMsg())
+         except Notest as obj:
+-            log.warning("skipped %s" % obj.getMsg())
++            log.warning("skipped %s", obj.getMsg())
+ 
+ def setup_log(verbose):
+     global log
+diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+index dafbde56cc76..8cde22ac9d97 100644
+--- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
++++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+@@ -46,46 +46,46 @@ def is_counter_value(num):
+ def is_metric_value(num):
+   return isfloat(num) or num == 'none'
+ 
+-def check_json_output(expected_items):
++def check_json_output(expected_count):
+   checks = {
+-      'counters': lambda x: isfloat(x),
++      'counters': isfloat,
+       'core': lambda x: True,
+-      'counter-value': lambda x: is_counter_value(x),
++      'counter-value': is_counter_value,
+       'cgroup': lambda x: True,
+-      'cpu': lambda x: isint(x),
++      'cpu': isint,
+       'cache': lambda x: True,
+       'cluster': lambda x: True,
+       'die': lambda x: True,
+       'event': lambda x: True,
+-      'event-runtime': lambda x: isfloat(x),
+-      'interval': lambda x: isfloat(x),
++      'event-runtime': isfloat,
++      'interval': isfloat,
+       'metric-unit': lambda x: True,
+-      'metric-value': lambda x: is_metric_value(x),
++      'metric-value': is_metric_value,
+       'metric-threshold': lambda x: x in ['unknown', 'good', 'less good', 'nearly bad', 'bad'],
+       'metricgroup': lambda x: True,
+       'node': lambda x: True,
+-      'pcnt-running': lambda x: isfloat(x),
++      'pcnt-running': isfloat,
+       'socket': lambda x: True,
+       'thread': lambda x: True,
+       'unit': lambda x: True,
+   }
+-  input = '[\n' + ','.join(Lines) + '\n]'
+-  for item in json.loads(input):
+-    if expected_items != -1:
++  json_input = '[\n' + ','.join(Lines) + '\n]'
++  for item in json.loads(json_input):
++    if expected_count:
+       count = len(item)
+-      if count not in expected_items and count >= 1 and count <= 7 and 'metric-value' in item:
++      if count not in expected_count and count >= 1 and count <= 7 and 'metric-value' in item:
+         # Events that generate >1 metric may have isolated metric
+         # values and possibly other prefixes like interval, core,
+         # counters, or event-runtime/pcnt-running from multiplexing.
+         pass
+-      elif count not in expected_items and count >= 1 and count <= 5 and 'metricgroup' in item:
++      elif count not in expected_count and count >= 1 and count <= 5 and 'metricgroup' in item:
+         pass
+-      elif count - 1 in expected_items and 'metric-threshold' in item:
++      elif count - 1 in expected_count and 'metric-threshold' in item:
+           pass
+-      elif count in expected_items and 'insn per cycle' in item:
++      elif count in expected_count and 'insn per cycle' in item:
+           pass
+-      elif count not in expected_items:
+-        raise RuntimeError(f'wrong number of fields. counted {count} expected {expected_items}'
++      elif count not in expected_count:
++        raise RuntimeError(f'wrong number of fields. counted {count} expected {expected_count}'
+                            f' in \'{item}\'')
+     for key, value in item.items():
+       if key not in checks:
+@@ -107,7 +107,7 @@ try:
+     expected_items = [1, 2]
+   else:
+     # If no option is specified, don't check the number of items.
+-    expected_items = -1
++    expected_items = []
+   check_json_output(expected_items)
+ except:
+   print('Test failed for input:\n' + '\n'.join(Lines))
+diff --git a/tools/perf/tests/shell/lib/perf_metric_validation.py b/tools/perf/tests/shell/lib/perf_metric_validation.py
+index 3d52f94f22b9..dff60337c030 100644
+--- a/tools/perf/tests/shell/lib/perf_metric_validation.py
++++ b/tools/perf/tests/shell/lib/perf_metric_validation.py
+@@ -1,10 +1,10 @@
+ # SPDX-License-Identifier: GPL-2.0
+-import re
+-import csv
+-import json
+ import argparse
++import json
+ from pathlib import Path
+ import subprocess
++import sys
++from typing import Any
+ 
+ 
+ class TestError:
+@@ -77,11 +77,11 @@ class Validator:
+ 
+     def read_json(self, filename: str) -> dict:
+         try:
+-            with open(Path(filename).resolve(), "r") as f:
++            with open(Path(filename).resolve(), "r", encoding="utf-8") as f:
+                 data = json.loads(f.read())
+         except OSError as e:
+             print(f"Error when reading file {e}")
+-            sys.exit()
++            sys.exit(1)
+ 
+         return data
+ 
+@@ -90,16 +90,16 @@ class Validator:
+         if not parent.exists():
+             parent.mkdir(parents=True)
+ 
+-        with open(output_file, "w+") as output_file:
++        with open(output_file, "w+", encoding="utf-8") as out_f:
+             json.dump(data,
+-                      output_file,
++                      out_f,
+                       ensure_ascii=True,
+                       indent=4)
+ 
+     def get_results(self, idx: int = 0):
+         return self.results.get(idx)
+ 
+-    def get_bounds(self, lb, ub, error, alias={}, ridx: int = 0) -> list:
++    def get_bounds(self, lb, ub, error, alias=None, ridx: int = 0) -> tuple:
+         """
+         Get bounds and tolerance from lb, ub, and error.
+         If missing lb, use 0.0; missing ub, use float('inf); missing error, use self.tolerance.
+@@ -111,6 +111,9 @@ class Validator:
+                   upper bound, return -1 if the upper bound is a metric value and is not collected
+                   tolerance, denormalized base on upper bound value
+         """
++        if alias is None:
++            alias = {}
++
+         # init ubv and lbv to invalid values
+         def get_bound_value(bound, initval, ridx):
+             val = initval
+@@ -120,7 +123,7 @@ class Validator:
+                 if bound == '':
+                     val = float("inf")
+                 elif bound in alias:
+-                    vall = self.get_value(alias[ub], ridx)
++                    vall = self.get_value(alias[bound], ridx)
+                     if vall:
+                         val = vall[0]
+                 elif bound.replace('.', '1').isdigit():
+@@ -213,7 +216,7 @@ class Validator:
+         @param alias: the dict has alias to metric name mapping
+         @returns: value of the formula is success; -1 if the one or more metric value not provided
+         """
+-        stack = []
++        stack: list[Any] = []
+         b = 0
+         errs = []
+         sign = "+"
+@@ -230,9 +233,9 @@ class Validator:
+                 else:
+                     f = f + "{0}(={1:.4f})".format(s, v[0])
+                     if sign == "*":
+-                        stack[-1] = stack[-1] * v
++                        stack[-1] = stack[-1] * v[0]
+                     elif sign == "/":
+-                        stack[-1] = stack[-1] / v
++                        stack[-1] = stack[-1] / v[0]
+                     elif sign == '-':
+                         stack.append(-v[0])
+                     else:
+@@ -263,7 +266,7 @@ class Validator:
+             alias[m['Alias']] = m['Name']
+         lbv, ubv, t = self.get_bounds(
+             rule['RangeLower'], rule['RangeUpper'], rule['ErrorThreshold'], alias, ridx=rule['RuleIndex'])
+-        val, f = self.evaluate_formula(
++        val, _ = self.evaluate_formula(
+             rule['Formula'], alias, ridx=rule['RuleIndex'])
+ 
+         lb = rule['RangeLower']
+@@ -316,7 +319,7 @@ class Validator:
+                 rerun.append(m['Name'])
+ 
+         if len(rerun) > 0 and len(rerun) < 20:
+-            second_results = dict()
++            second_results: dict[Any, Any] = dict()
+             self.second_test(rerun, second_results)
+             for name, val in second_results.items():
+                 if name not in failures:
+@@ -373,7 +376,7 @@ class Validator:
+                     name = result["metric-unit"].split("  ")[1] if len(result["metric-unit"].split("  ")) > 1 \
+                         else result["metric-unit"]
+                     metricvalues[name.lower()] = float(result["metric-value"])
+-            except ValueError as error:
++            except ValueError:
+                 continue
+         return
+ 
+@@ -383,7 +386,7 @@ class Validator:
+         wl = workload.split()
+         command.extend(wl)
+         print(" ".join(command))
+-        cmd = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
++        cmd = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8', check=False)
+         lines = cmd.stderr.splitlines() + cmd.stdout.splitlines()
+         data = []
+         for line in lines:
+@@ -397,9 +400,9 @@ class Validator:
+         Collect metric data with "perf stat -M" on given workload with -a and -j.
+         """
+         self.results = dict()
+-        print(f"Starting perf collection")
++        print("Starting perf collection")
+         print(f"Long workload: {workload}")
+-        collectlist = dict()
++        collectlist: dict[int, Any] = dict()
+         if self.collectlist != "":
+             collectlist[0] = {x for x in self.collectlist.split(",")}
+         else:
+@@ -441,7 +444,7 @@ class Validator:
+         """
+         command = ['perf', 'list', '-j', '--details', 'metrics']
+         cmd = subprocess.run(command, stdout=subprocess.PIPE,
+-                             stderr=subprocess.PIPE, encoding='utf-8')
++                             stderr=subprocess.PIPE, encoding='utf-8', check=False)
+         try:
+             data = json.loads(cmd.stdout)
+             for m in data:
+@@ -454,9 +457,9 @@ class Validator:
+                 self.metrics.add(name)
+                 if 'ScaleUnit' in m and (m['ScaleUnit'] == '1%' or m['ScaleUnit'] == '100%'):
+                     self.pctgmetrics.add(name.lower())
+-        except ValueError as error:
+-            print(f"Error when parsing metric data")
+-            sys.exit()
++        except ValueError:
++            print("Error when parsing metric data")
++            sys.exit(1)
+ 
+         return
+ 
+@@ -519,9 +522,6 @@ class Validator:
+ 
+     # Initialize data structures before data validation of each workload
+     def _init_data(self):
+-
+-        testtypes = ['PositiveValueTest',
+-                     'RelationshipTest', 'SingleMetricTest']
+         self.results = dict()
+         self.ignoremetrics = set()
+         self.errlist = list()
+@@ -572,7 +572,7 @@ class Validator:
+ # End of Class Validator
+ 
+ 
+-def main() -> None:
++def main() -> int:
+     parser = argparse.ArgumentParser(
+         description="Launch metric value validation")
+ 
+@@ -602,5 +602,4 @@ def main() -> None:
+ 
+ 
+ if __name__ == "__main__":
+-    import sys
+     sys.exit(main())
+diff --git a/tools/perf/tests/shell/lib/setup_python.sh b/tools/perf/tests/shell/lib/setup_python.sh
+index 2173215a0517..758834f8dcf8 100644
+--- a/tools/perf/tests/shell/lib/setup_python.sh
++++ b/tools/perf/tests/shell/lib/setup_python.sh
+@@ -1,29 +1,50 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
+ 
+-if [ "x$PYTHON" = "x" ]
++if [ -z "$PYTHON" ]
+ then
+   python3 --version >/dev/null 2>&1 && PYTHON=python3
+ fi
+-if [ "x$PYTHON" = "x" ]
++if [ -z "$PYTHON" ]
+ then
+   python --version >/dev/null 2>&1 && PYTHON=python
+ fi
+-if [ "x$PYTHON" = "x" ]
++if [ -z "$PYTHON" ]
+ then
+   echo Skipping test, python not detected please set environment variable PYTHON.
+   exit 2
+ fi
++export PYTHON
+ 
+-# Set PYTHONPATH to find the in-tree built perf.so first, avoiding system-wide perf.so
++# Set PYTHONPATH to find the built perf.so and standalone scripts first,
++# avoiding system-wide perf.so
+ if [ -n "$PERF_EXEC_PATH" ] && [ -d "$PERF_EXEC_PATH/python" ]; then
+   PYTHONPATH_DIR="$PERF_EXEC_PATH/python"
++elif [ -n "${BASH_SOURCE[0]}" ] && [ -d "$(dirname "${BASH_SOURCE[0]}")/../../../python" ]; then
++  PYTHONPATH_DIR="$(dirname "${BASH_SOURCE[0]}")/../../../python"
++elif [ -d "$(dirname "$0")/../../../python" ]; then
++  PYTHONPATH_DIR="$(dirname "$0")/../../../python"
+ elif [ -d "$(dirname "$0")/../../python" ]; then
+   PYTHONPATH_DIR="$(dirname "$0")/../../python"
+ elif [ -d "$(dirname "$0")/../python" ]; then
+   PYTHONPATH_DIR="$(dirname "$0")/../python"
+ fi
+ 
++if [ -n "${BASH_SOURCE[0]}" ] && [ -d "$(dirname "${BASH_SOURCE[0]}")/../../../python" ]; then
++  SRC_PYTHON_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../python" && pwd)"
++  export PYTHONPATH="$SRC_PYTHON_DIR${PYTHONPATH:+:$PYTHONPATH}"
++  if [ -z "$PERF_EXEC_PATH" ] || [ ! -f "$PERF_EXEC_PATH/python/perf_live.py" ]; then
++    PERF_EXEC_PATH="$(dirname "$SRC_PYTHON_DIR")"
++    export PERF_EXEC_PATH
++  fi
++fi
++
+ if [ -n "$PYTHONPATH_DIR" ]; then
+   export PYTHONPATH="$PYTHONPATH_DIR${PYTHONPATH:+:$PYTHONPATH}"
+ fi
++
++PERF_BIN=$(which perf 2>/dev/null || true)
++if [ -n "$PERF_BIN" ] && [ -d "$(dirname "$PERF_BIN")/python" ]; then
++  PERF_BIN_PYTHON="$(dirname "$PERF_BIN")/python"
++  export PYTHONPATH="$PERF_BIN_PYTHON${PYTHONPATH:+:$PYTHONPATH}"
++fi
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
