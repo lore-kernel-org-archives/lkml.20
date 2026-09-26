@@ -1,193 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0EA1231842;
-	Sat, 26 Sep 2026 18:06:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0D1231842
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:08:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790445974; cv=none; b=kGk9Ohr3/l6F77pSNTS6i+4nHDo1gF2rYE9vOCptEpkkguK87YFNI4dqKxMcjObchAztjXa1qHjQju+wT3JameR+dipD5lMIKRJskiZ0IONWoCVJMyx0AJCYtCyCTXAU1KMFj6lhi5lzePfOWtQtbe1CPUjqcWjxYfW6LHjrePE=
+	t=1790446128; cv=none; b=k7o0SjiwUXk6GJfh5sm4l1QwGPyJBeU+ZFhcI7nAqPBdS/oPBssNwsv70MubyuMxplGDlHXyAw1k2tLRa7SI+mu9s1o1kBHL6Gvc82QcELnZ5aHjFV1sSiRcYTcP4nD6Kq5Haaz0rzEl6fpyIBcniX1DMKf6Z6m5JTs9T7k1JZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790445974; c=relaxed/simple;
-	bh=H6MlZfmuqvEHiRpcKmmdEW8Vh9rNn2PQMtpFcbOse+s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nzxEAWMsu9z1v+Fp84EJhG64d1HZjG5HcMWnikCy3d1cZlBtE4wGd7L6i3W7RaOO00ewoOdNebbkj8e0w1NOPuPvGfe5UEc5V5UC0U6tH8r+JHMc2GSF8fA8CTVEY70Rqr4637ea3y0s3JrWZJNTlOD3CRYVartOjlS/symYQb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C3PKcs1G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790446128; c=relaxed/simple;
+	bh=/1Is6jwITKvcrzTEMMArf5g2GgzfewQ0ZKjCE8wrIA4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=S64I/q6ybera3r7OF7L7LPg/d3Jjg6qRP6p5uAugNQeVpTJ+X0Da/8s5X/fWsVbtcf1jjTHhaBtzufqQuOVuGOUXJ7cllHJ3emRmyPsnbLte2ylrICq17Ps3K5PKV/gndPyLnLKNHjTku6OxFZd58svEzZJxiWSGTjS85oL0P80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l4SqDFTF; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C3PKcs1G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACD071F000FF;
-	Sat, 26 Sep 2026 18:06:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790445972;
-	bh=wYYaiwkOPUjr+j4UaQRgxxzscg0L0EnuNJCXdqEfXQA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C3PKcs1G4z0FBX4/p60m8PgMsiYXohlNrKywBMGRldUPqllqJx0F14cckjHQvfkG8
-	 QCW+MZ5gc3DA1+BJteWB9rZx/KBR1o/BTKZkhAbaJwZ5LAf6aHKvt/XCSEF3WtqQQ6
-	 on5j+9CYViLcFfz0F+OTSvy8Lc1eXPnmkQyP64+tpawKHo0+KdG6dntzT8pU/XWgcp
-	 Fy25Fuz46gPGN+/NavM4wGEmi3M3Cqzf9AEEqk/S/1xp2OS5aW1m2YqZnyTUdYJshq
-	 xipS//mCqGJk+0DVEmnG/7MK9EqtWjtMf4rAZEJn8GVQX4R7xb6amKddJagXh/ISBY
-	 F7si8ncPH5aHQ==
-Date: Sat, 26 Sep 2026 19:06:07 +0100
-From: Conor Dooley <conor@kernel.org>
-To: linux-kernel-dev@aliel.fr
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: pwm: amlogic: Add core clock for T7
-Message-ID: <20260926-landless-prowess-df404db4d910@spud>
-References: <20260925-add-t7-sys-pwm-clk-v2-0-f23a22b71a5c@aliel.fr>
- <20260925-add-t7-sys-pwm-clk-v2-1-f23a22b71a5c@aliel.fr>
- <20260925-facial-follow-032de22361c1@spud>
- <8e23838a-da5e-499c-a8be-3e2a7a0939e7@aliel.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l4SqDFTF"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso13160755e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:08:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790446125; x=1791050925; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8ZgUyaMAO2CVOLqH2JOMYU6c+GcTyIKCAT4dA1Wtw3Y=;
+        b=l4SqDFTFeCC7rDXngC4Ek/odtLFihdDpZN5DwDn7eKtdEgUKdRRwg041h60lbUuX/Z
+         KM4XF+Q8EUpbYQGNgCv7zSFOjEekrsj8NYtse7Xk/KDLTmH9DLVQQtw8ITot6+60TDym
+         l6h7yazNce2DITMEBaynlt/KHr1i9jLaQ4yxuneSKthEgeDWFcKNgiQCKWZYQglO14An
+         JMyN85+mQpHQqgTEzXcgeTsgo3la3OOPH+X9T0DT6cTXMJS9fiWoo1NLFGqHcLTwkiyl
+         L/ZF8IB81A+uzPDURSXwI4ZgN/uQfky24MdIIUuKpndeEQlTVjgfIXc4svMGQ91jvu3I
+         UeGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790446125; x=1791050925;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8ZgUyaMAO2CVOLqH2JOMYU6c+GcTyIKCAT4dA1Wtw3Y=;
+        b=FzY/2OIsQK2iGIf6MNWABN/l8+xissaskdXyaXTRSs1PTHx53Azr25z3bl8eAP5Qq7
+         0JO4UQwvQjrt2RQ/ZuP0bAMJ6IIuk9KiMjW+PvpkSF/8orREH5xNLGDk8kVijZ1WLGg8
+         e7X46n93DcRp7Jz81VdQ27a/7iUWifglbRF3mh8lblJT4y0SK1nRKKkp6MyYI5Jq0RhC
+         sZZnCAm3b/SsJUtJZ1E/x+X8tOr1D59WCs81UMTZjkvok1nfz6sib1Fw4vz6YUU4yQqW
+         b4NwdwTBVFAwoFFygUCuUzDEJM6qKlK+HhHEuz4rWGNXgvW5cvMA58WpxP1K56wIZ2KV
+         Cj0w==
+X-Forwarded-Encrypted: i=1; AKwUvBx4xSP7EOLzlBDbmhV3frnIRZZ2LJDYBM6SSGcqrOjDdiPn3aRJKT+Kf4MFljueUsAFBpvb+p8QXBLPgvo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kovj2Tf4AV80Gf8YWa/69STi/4txZyUqJelEexsna5wwiNeB56
+	IJ2Tzcn7lan7ECe3CP4ZSmJK3lw/6LKAlMJt8iNMonlAwgJHFXDvLns=
+X-Gm-Gg: AYBFou2mlZu1iXC1fZIsYL2iC8BnbQ8d8iRIFZM+e/sIjX3tL9putTJfgGxJPOtZx8l
+	/Wa1bj9qwCuzxsNABuy+bDlIBeUjn8V5wNVkbFRyk9HbOCvY9M2m1ft+vXp4EMwD7dCbJHzcbmY
+	LjUtAkFuxBSPmFRAYY6pOcPh66LkuDlJHvIPSffONIQPnYbwIjqlQvwFy+ksVSoNmzWjiAXlpoZ
+	oZ3rCtZxNownyW2ac7vsa+XWU2X6uui/OUVFQLEEH3bM6tj+MxOujlL0c49VE5f8+fM0B8o7SRV
+	Ss2LaWeP9RPVYaThL8PP0HHRPUE+T11dtlyIUmEuOTNZoIb6EuFjK4HgerAvBbbz1lUY9KLLtkE
+	Per1HOXywX3XtbX91brNUJERiOdPHUxvj1HEJmB97hA5h4dKcIBdNwLMtGx3/+t1XS7SCCzfuhH
+	zoVY8LRyr7NH2a6aBgNwNCi5T/YFiEnGJ48/Z7g3QnsRW0maNZxVTKtYAWCpAdGh0maQuBbaWgz
+	QhQS4A5oA4PAICg2gFJeTeIbr+ZOScIwkCRkOrKvmtMh24P
+X-Received: by 2002:a05:600c:1546:b0:49c:fa20:cc00 with SMTP id 5b1f17b1804b1-49fe66f4f59mr157154635e9.23.1790446125211;
+        Sat, 26 Sep 2026 11:08:45 -0700 (PDT)
+Received: from localhost.localdomain ([31.223.3.6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef5fc189sm111337785e9.3.2026.09.26.11.08.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 11:08:44 -0700 (PDT)
+From: "=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?=" <habilerenturker@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
+To: corbet@lwn.net,
+	clemens@ladisch.de,
+	tglx@kernel.org
+Cc: skhan@linuxfoundation.org,
+	anna-maria@linutronix.de,
+	frederic@kernel.org,
+	linux-doc@vger.kernel.org,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Habil=20Eren=20T=C3=BCrker?= <habilerenturker@hotmail.com>
+Subject: [PATCH v2 0/2] docs: timers: hpet: Modernize and document API
+Date: Sat, 26 Sep 2026 21:08:36 +0300
+Message-ID: <20260926180838.8145-1-habilerenturker@hotmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <87o72mg21g.fsf@moria.home.lwn.net>
+References: <87o72mg21g.fsf@moria.home.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LVLyBwFl5JS2r2Gm"
-Content-Disposition: inline
-In-Reply-To: <8e23838a-da5e-499c-a8be-3e2a7a0939e7@aliel.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---LVLyBwFl5JS2r2Gm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series addresses the feedback from Jonathan Corbet on the initial 
+submission. The work has been split into two separate patches, and the 
+line length has been restricted to under 80 columns.
 
-On Sat, Sep 26, 2026 at 11:43:20AM +0200, linux-kernel-dev@aliel.fr wrote:
-> On 9/25/26 6:41 PM, Conor Dooley wrote:
-> > On Fri, Sep 25, 2026 at 05:13:28PM +0200, Ronald Claveau via B4 Relay w=
-rote:
-> >> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> >>
-> >> The T7, A1, C3, and S4 PWM controllers have a system clock in
-> >> addition to the two input clocks of channels A and B.
-> >>
-> >> The channel clocks are acquired by index in the pwm driver,
-> >> where the core clock is fetched by name, with optional get
-> >> which is silent when not provided.
-> >>
-> >> Require clock-names and minimum 3 items for T7, where the
-> >> PWM devices do not work without all 3 clocks.
-> >>
-> >> Add an example showing T7 usage with its fallback to
-> >> amlogic,meson-s4-pwm.
-> >>
-> >> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> >> ---
-> >>  .../devicetree/bindings/pwm/pwm-amlogic.yaml       | 33 +++++++++++++=
-+++++++--
-> >>  1 file changed, 31 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/=
-Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
-> >> index c337d85da40f1..59320f288552b 100644
-> >> --- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
-> >> +++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
-> >> @@ -62,7 +62,7 @@ properties:
-> >> =20
-> >>    clock-names:
-> >>      minItems: 1
-> >> -    maxItems: 2
-> >> +    maxItems: 3
-> >> =20
-> >>    power-domains:
-> >>      maxItems: 1
-> >> @@ -140,13 +140,34 @@ allOf:
-> >>      then:
-> >>        properties:
-> >>          clocks:
-> >> +          minItems: 2
-> >>            items:
-> >>              - description: input clock of PWM channel A
-> >>              - description: input clock of PWM channel B
-> >> -        clock-names: false
-> >> +            - description: gate clock for the PWM controller
-> >> +        clock-names:
-> >> +          minItems: 2
-> >> +          items:
-> >> +            - const: channel-a
-> >> +            - const: channel-b
-> >> +            - const: core
-> >>        required:
-> >>          - clocks
-> >> =20
-> >> +  - if:
-> >> +      properties:
-> >> +        compatible:
-> >> +          contains:
-> >> +            const: amlogic,t7-pwm
-> >=20
-> > Shouldn't this (based on your reply on the previous version) be s4?
-> >=20
->=20
-> The change above is for S4 and SOCs which fallback to S4. It allows the
-> third clock but let the schema validation compatible with two clocks
-> existing DTS. Here for the T7, I add requirement for the exact 3 clocks.
->=20
-> Do you recommend to require the 3 clocks for all S4 and S4 fallback, and
-> update the associated dtsi files ?
+Habil Eren Türker (2):
+  docs: timers: hpet: Modernize file references
+  docs: timers: hpet: Document userspace API and ioctl commands
 
-Yes, I think so. Sounds to me like they only work because of the
-CLK_IGNORE_UNUSED set in their clock controller drivers, so the correct
-thing to do is make them all require the third clock.
+ Documentation/timers/hpet.rst | 32 ++++++++++++++++++++++++++++++--
+ 1 file changed, 30 insertions(+), 2 deletions(-)
 
-Chers,
-Conor.
->=20
-> >> +    then:
-> >> +      properties:
-> >> +        clocks:
-> >> +          minItems: 3
-> >> +        clock-names:
-> >> +          minItems: 3
-> >> +      required:
-> >> +        - clock-names
-> >> +
-> >>    - if:
-> >>        properties:
-> >>          compatible:
-> >> @@ -182,3 +203,11 @@ examples:
-> >>        clocks =3D <&pwm_src_a>, <&pwm_src_b>;
-> >>        #pwm-cells =3D <3>;
-> >>      };
-> >> +  - |
-> >> +    pwm@60000 {
-> >> +      compatible =3D "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
-> >> +      reg =3D <0x60000 0x24>;
-> >> +      clocks =3D <&channel_a>, <&channel_b>, <&core>;
-> >> +      clock-names =3D "channel-a", "channel-b", "core";
-> >> +      #pwm-cells =3D <3>;
-> >> +    };
-> >>
-> >> --=20
-> >> 2.49.0
-> >>
-> >>
->=20
->=20
-> --=20
-> Best regards,
-> Ronald
+-- 
+2.47.3
 
---LVLyBwFl5JS2r2Gm
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCargJjwAKCRB4tDGHoIJi
-0hGlAPwPcQT485NFPVpsmaLttMgeXLihgXcxvovjhjL6RFevHAEAhbpFtA4RAfsa
-N/8aLtpv423553Psdr1Wrc70RFZcTwA=
-=Qo82
------END PGP SIGNATURE-----
-
---LVLyBwFl5JS2r2Gm--
