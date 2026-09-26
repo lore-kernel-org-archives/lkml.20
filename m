@@ -1,109 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14F33ABD80;
-	Sat, 26 Sep 2026 12:31:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2693E16A4;
+	Sat, 26 Sep 2026 12:33:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790425878; cv=none; b=rzLPqspWGJXQMZdEOcNh2JCDBa7KoLI1MqHCP28pL0ukVxgcAfaS459q/M3+d/TaXGH+ck979Hyi1JEl+ACQkY5Nmtq1lTYL2vLUWc9N5EYonlqi/rg7Y5eujvc3mh3CDIXHmGUleQk4fhXMt5TIbhQMOaenZz+3exVHYZOICY4=
+	t=1790425985; cv=none; b=GCVG0PyfW+snWQsInsltKAdaxjD/AmtymTxN4LURHbbj6loEAwPiZQtYWrv75JMFZzAYnwAN48C0bC/4ilqCw4sTrnt+zfZiyaxMv4u5sXOzAIY8GJspTdr9sf2xaOJcs4A1G12nGzy0arkIs7b1kiOJ1aqmLeei0Lza6tO7Lb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790425878; c=relaxed/simple;
-	bh=slv2mUguN12KMHBkXDyTurvhj0TSbSsRRo0SbtEdS9E=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=R+wIi8tYAu4fpySj6NtTCepQ8/RpavzLkyo6Tx/jqkcGiWFVeSxI/9Th2RZ5HrFtl0Ef9RuMk3vO5UWNCWQ7BSo3VU35tg1ezCgbQUzSnTju6A90KsY9PCTY3rZF8yt8JUNbJeADhBC4rdxZ/YPNjf4sJYsBwpin0dzyh2XpTA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SrlTOi2I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790425985; c=relaxed/simple;
+	bh=U99qmECVqrZaphrQ4iZ9gnL9T9adOep2t1USdze/Z/U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HdNIrSRfrBkfj+6ULcrJnjUdBf2aRaAH0C+ByfpB9ikqXdYlvHLDCq9u4+IjdVMesXl+pjnrcRfAqP6bjvC6xSkic+9Kg2Cgf83ZjZartrd7Gmbnic+BmHqFHLhi+fhqn9q2OY69h97AwwDn7JT7SlXNspk+w0aEQNSHtWLCkBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=jlCeeByi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SrlTOi2I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCC041F000FF;
-	Sat, 26 Sep 2026 12:31:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790425876;
-	bh=yyWyRTDztZItehKkx4bjDMd437FH163TOsfRDpL0Umk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=SrlTOi2IaqpHRA+UgAzI/Wk8QqtrRAHezbJUwO/1sWKhu3VrOAtZCKEWWVq88pj86
-	 bNZ4m+atzTY05GsbLr4Vh4jMt46q+JZJhtyS/g941B0ni6yKD3bugNj//Y6TO0xcYk
-	 Wa3bxjInrQ1tGm8ZYYxY0cTOveTzYkFCSEut8f95B3E/oaV/9gSESEnpfkCi0wFxsY
-	 TLnUapibFmKSSVZ1MIaM8zGoLd/8FWRiza8g/UCaqHWGApnT1IDZzcVIr/NtiOICre
-	 S/8AL8fvzMc61SMaoF3lwv41CpUOMWQEsob7zBMVzYyUPCHpOLB7ThJucZ8mEAyrbM
-	 qZxvCQsOxoyhg==
-Date: Sat, 26 Sep 2026 21:31:12 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Shuah Khan <shuah@kernel.org>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH] selftests/ftrace: skip gcov symbols when picking a
- function to probe
-Message-Id: <20260926213112.9f92e7958c2d12c946799a0f@kernel.org>
-In-Reply-To: <20260925133558.3636030-1-eva.kurchatova@virtuozzo.com>
-References: <20260925133558.3636030-1-eva.kurchatova@virtuozzo.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="jlCeeByi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C15541F000FF;
+	Sat, 26 Sep 2026 12:32:59 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=jlCeeByi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1790425978;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wN9D2nKA01y/2x8IJdWZfEnnjMzwFRK3N4mVnSJjkBY=;
+	b=jlCeeByiKyNAkRDIl4L4BWyGHQY1JK/6GovcSrkf8oXtiWNghruM3MspMqAjQRrS0A5Y4N
+	9+00l0im2/J3X1CtQ1hGQXUesbacPr8oKkkGy3jQrUfnbQNxrABBNqKeaKwtQlF9FRtom+
+	IijiL9NA1TH1lfYG6igzuyjRxzyvjCg=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 6d775622 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Sat, 26 Sep 2026 12:32:58 +0000 (UTC)
+Date: Sat, 26 Sep 2026 14:32:49 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Andreas Schwab <schwab@linux-m68k.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+Message-ID: <are7cfMIHZZn6jLz@zx2c4.com>
+References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
+ <87zex4ic68.fsf@linux-m68k.org>
+ <20260926121927.GA1486962@ax162>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260926121927.GA1486962@ax162>
 
-On Fri, 25 Sep 2026 16:35:41 +0300
-Eva Kurchatova <eva.kurchatova@virtuozzo.com> wrote:
-
-> kprobe_eventname.tc takes the last kallsyms entry whose name ends in
-> vfs_read and puts a probe on it. On a kernel built with
-> CONFIG_GCOV_PROFILE_ALL=y the counter symbol gcc emits for the function
-> sorts after it:
+On Sat, Sep 26, 2026 at 01:19:27PM +0100, Nathan Chancellor wrote:
+> On Sat, Sep 26, 2026 at 11:39:43AM +0200, Andreas Schwab wrote:
+> > On Sep 25 2026, Nathan Chancellor wrote:
+> > 
+> > > +#if __has_builtin(__builtin_memset_inline)
+> > > +#define memset_inline(dst, value, size) __builtin_memset_inline(dst, value, size)
+> > > +#elif IS_ENABLED(CONFIG_CC_HAS_OPT_INLINE_MEMSET)
+> > > +#define memset_inline(dst, value, size) __builtin_memset(dst, value, size)
+> > > +#else
+> > > +static inline void *memset_inline(void *dst, int value, size_t size)
+> > > +{
+> > > +	char *d = dst;
+> > > +
+> > > +	while (size--)
+> > > +		*d++ = value;
+> > > +
+> > > +	return d;
+> > > +}
+> > > +#endif
+> > > +
+> > 
+> > memset actually returns the original pointer, not the incremented one.
+> > Nothing uses the return value of memset_inline here, but it is
+> > confusing.
 > 
->   ffffffff819bd1e0 T vfs_read
->   ffffffff845013e0 t __gcov_.vfs_read
-> 
-> so the test picks __gcov_.vfs_read, which is not a function entry, and
-> the write fails:
-> 
->   kprobe_eventname.tc: line 10: echo: write error: Invalid argument
-> 
-> Leave those symbols out of the choice. The test then picks vfs_read and
-> passes; without a coverage build nothing changes, as no such symbol
-> exists there.
-> 
-> This is the same class of problem as commit 23a4b108accc
-> ("tracing/selftests: Fix kprobe event name test for .isra. functions"),
-> where a compiler-generated symbol was picked instead of a real function.
-> 
+> Whoops, good catch, I guess my fingers gave up on those last two
+> characters :) I will fix this for v3 once there has been some time for
+> further review.
 
-Oops, good catch! This looks good to me.
+Do we even need to return a value at all? Might as well just make the
+function two lines:
 
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
++       for (char *d = dst; size--;)
++               *d++ = value;
 
-Shuah, can you pick this fix via your selftest tree? I think this is a
-kind of selftest fix/improvement.
-
-Thanks,
-
-> Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-> ---
->  .../testing/selftests/ftrace/test.d/kprobe/kprobe_eventname.tc  | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_eventname.tc b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_eventname.tc
-> index ba19b81cef39..0688a5c47d1e 100644
-> --- a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_eventname.tc
-> +++ b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_eventname.tc
-> @@ -5,7 +5,7 @@
->  
->  :;: "Add an event on function without name" ;:
->  
-> -FUNC=`grep " [tT] .*vfs_read$" /proc/kallsyms | tail -n 1 | cut -f 3 -d " "`
-> +FUNC=`grep " [tT] .*vfs_read$" /proc/kallsyms | grep -v __gcov | tail -n 1 | cut -f 3 -d " "`
->  [ "x" != "x$FUNC" ] || exit_unresolved
->  echo "p $FUNC" > kprobe_events
->  PROBE_NAME=`echo $FUNC | tr ".:" "_"`
-> -- 
-> 2.55.0
-> 
-
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+(Technically that could even be one, but maybe that sort of golf loses
+clarity. Your choice.)
