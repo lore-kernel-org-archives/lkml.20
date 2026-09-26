@@ -1,78 +1,44 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6EF645C709
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5294E47729B;
+	Sat, 26 Sep 2026 14:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790431792; cv=none; b=IQho4TDvpQU2ryP8Z5qgnAjNvmWWgYGanS7EqXycEgOwpH0l8I8Gy9MPqVoog2uWKxN5GBm9BzBabRsdA8kpAHCKC/tenfHcNY31X5xadIC9PFfMRLHUWwzdfecGc6Cht2ga5wsXfmQZjeoDpfuon6bw/yCFTLiZtEbPwGUMTEM=
+	t=1790431826; cv=none; b=PlTN9GuD7meM+g2sJRYJz7tKHB6YeLBc1ufwSTbLIF325MV07VW1+PsMaLN8PWgyT6+Wp9BUe4noZNV7MrFD0hEAV9elQqTFsrJWXJI77SviTg6QH36XPqDjKSj3tYCvw7v/RVSyZBujj+ZKEtTLXbdtU6QQNkwEbqxx2vJue8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790431792; c=relaxed/simple;
-	bh=5NhOeMwcPL3cNQit8Uf28rrEJeSCa/+CpoNhBZRrIyA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qlEYvcIXyCPoiWO84bZg1eaERy8JTg61P30CxvhRFmLTNlrll0JxzJoAw485z9xGUk3uK0i/hvprS1cyuvqVfEv227yYqYASN2aDofpdudUqaDi5XRDLCBtfZTIFj8x5tsu4iUEdBfO6Bx/eq2asJgfEQYC4ryyNsTJ1Arso9vY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O/aHmaOH; arc=none smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790431826; c=relaxed/simple;
+	bh=JbDw+MUBwd1NuaHHbIXA89TRUzB3TM4Iy66hoxwmdYA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Qlw6RJCaoq40N1kQRWd37CvGJw25JosMs66Zp6+aPCATsa0RkQFN3/q23DSyomq6QYnnBbRrExiKgKvs+oC9FMJZMp9d7R1CfagtYL/SlY4p8b8civq2yzFfuoClUGLDD+VNorE3hxkJPAHxZBAsUH8V4rmv790dDjGBI5+60EA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=nx2rAX/f; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O/aHmaOH"
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-78564313adaso503144137.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:09:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790431781; x=1791036581; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CQMP576kCixbzoD00htnAcU/ItaFh/gYADgGL3x8irw=;
-        b=O/aHmaOHjYRx84iTOspstA/o04IxztWPwhPQNP8mbcDQxFjU2/OZmB7ny3Hu/Sh1A8
-         o5eA3c7CNZjmEql+oTWi64ayl8qYsAKIQmMJDIlML2MjdMuXM1FKeHkoXGd4153ZEdLf
-         iLoh6/KDBgFW60ZPM29VVmN73sgXt3JYClgMUszF+xdaNvQ8ZhERJPIzJjSDIU3FesFP
-         hDVb17UDceYU57kin5GOjN9FyOjVTxH2ZdcOxIC5nXe8YWGCjKl4aFlpAKRwN4dmkivf
-         l4M4VICPgDPTSi/chmSieuyXY1nsPjHWXBrnin5QQ01Vlh7OkV5UT0fl0K88BRM/KSsl
-         JedA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790431781; x=1791036581;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CQMP576kCixbzoD00htnAcU/ItaFh/gYADgGL3x8irw=;
-        b=VXIeUWhF2RNqNU0TZIvzQ5uy5Zybhv4zpZADyl5hAeC5mT4D05N7zXS/7+Wn+aqDM2
-         l/NyRNTIvPKk795oHHrhX0EFcECF/NgfJUyia1quLwFKtyq8L64zKOXuCDq+XMMwOuST
-         H98/XpAugiJwZ3KhNC8hZn1Oov02bH8oZYh2xczXww+ngQ4t/ssscuyC/0BMNe6l5AQm
-         Hbd24uNeVnlrB+ORNryxOkp4ADhhTX02ah846DxgZ8nzS5wCVHR1qJKEw12AtVBuvwKN
-         9rD/uOr+IB3cKYY8tcLkIaGSc+697YRrScwBm2KwaUD3y++2T5gGTyeL9aKen3Gui9ti
-         fHuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxb6BtQgAcUBajrgc8UYC5MF/G7unbaj+hXvlleT/AnFFgWb9wDUniyXOzVuWjDbGwPUC9LihbJ7lR0ODs=@vger.kernel.org
-X-Gm-Message-State: AFuF++leoc6m38zO4iOhBvBDKZxX4fkSY38abmT314j9l9dko9lOu5ry
-	W2S9xYj1TsKgmSjb5Hj8pmfA1X5OKwBm8MMjwnPiK1uM7bR0x6PpY9Tp
-X-Gm-Gg: AYBFou29anL5Xkdh/U71ab7znIHth3uxWKR0tXe3ZRP1lFMPu1UEHfc9bLEelmTyTW+
-	n+oboaM83xWzdavZp9LiplEZOV40fKiWTFEwk1Anx1q6HrMn7LTxmOn9yet8ecGnqfwH1B0XX7b
-	/661J3nPPjX+Gzzci19YesHigNOQS96VJMCTbxNfRBETb10H/L/l3iLKG03fpjJz1aOw2DAanjl
-	EUaXbMRbTOiievsD0rNMBD995ri5BItkLxTEyEcyuS4BZvGHJvvzMBe3neVmmnE0lZ2FSjlYqYN
-	zUrkxc1tzETFIVN3sL3pr6tsM+CfP6sj0xLwOF0+cxk02q9uE5OH0HjTrB316g3ySLOoEAzvubT
-	ZTfOCtQcDsytZQGj/f4h1HBffPyIRVkxp0c5eVyYBSE5A8ud2Ij1EzVIx3n6l55kIE4HURnOlBo
-	s7by/3GTUnJjomXuUwrioP/86YdgjcnE+vzN6C5KD8pliwMSWjTHGD+ZhL3Ld+k/0=
-X-Received: by 2002:a05:6102:390f:b0:7a6:d3f5:3554 with SMTP id ada2fe7eead31-7af1ebf5867mr3357716137.26.1790431780695;
-        Sat, 26 Sep 2026 07:09:40 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9861afb8343sm6580624241.5.2026.09.26.07.09.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 07:09:40 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: gregkh@linuxfoundation.org,
-	rafael@kernel.org,
-	dakr@kernel.org
-Cc: driver-core@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="nx2rAX/f"
+Received: from seu.edu.cn (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f321466a;
+	Sat, 26 Sep 2026 22:10:12 +0800 (GMT+08:00)
+From: Slavin Liu <bolin.liu@seu.edu.cn>
+To: error27@gmail.com
+Cc: shengjiu.wang@gmail.com,
+	xiubo.lee@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	"sashiko . dev" <sashiko-bot@kernel.org>
-Subject: [PATCH v3 2/2] debugfs: serialize concurrent writers in debugfs_write_file_str()
-Date: Sat, 26 Sep 2026 11:09:30 -0300
-Message-ID: <20260926140930.1077742-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026092647-ebony-unlatch-d3d0@gregkh>
-References: <2026092647-ebony-unlatch-d3d0@gregkh>
+	bolin.liu@seu.edu.cn
+Subject: Re: [PATCH] ASoC: fsl_asrc: check the second front-end DMA channel
+Date: Sat, 26 Sep 2026 22:10:11 +0800
+Message-Id: <20260926141011.451552-1-bolin.liu@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <arfGajXmMUeew0fr@stanley.mountain>
+References: <20260913125147.109920-1-bolin.liu@seu.edu.cn> <arfGajXmMUeew0fr@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,104 +46,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0de0d5af503a1kunm7bc9a132185a52
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZH0IfVkhCHUJIGE1PSE5MGlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0
+	NVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=nx2rAX/fYSaniaSuVhhX5H2iMYMQeNlAyPksRDdNVsEBeimgggPGhO8A8sDBPOXsOCk6JzAmbv6lOT/bjyhI+/A4IcMKEwAf1zZ8S7l/YpJeY9ccwaVHr5HRCq7ZENpkcB/FQ2UsXlEGbYK5CPMFLa72IWMAFnZirDrK/siPYjE=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=tn+AKePJ/UjAryEvi5oaTWRovtAQRbYO7Jysf+KDOFs=;
+	h=date:mime-version:subject:message-id:from;
 
-debugfs_write_file_str() reads the current string pointer into `old`,
-builds a replacement, publishes it with rcu_assign_pointer(), then frees
-`old` after synchronize_rcu().  There is no mutual exclusion between
-concurrent writers: two simultaneous calls can both load the same `old`
-pointer before either publishes a replacement, and when both later call
-kfree(old), the result is a double-free.
+Hi Dan,
 
-Serialize writers with inode_lock().  Use rcu_dereference_protected() to
-load `old` under the held lock, satisfying lockdep annotation.  Release
-the lock before synchronize_rcu() + kfree() so RCU readers are not
-stalled during the grace period.
+On Sat, Sep 26, 2026 at 04:19:38PM +0300, Dan Carpenter wrote:
+> The ->get_dma_channel() function pointer returns error pointers not
+> NULL.
+>
+>     sound/soc/fsl/fsl_asrc_dma.c:254 fsl_asrc_dma_hw_params()
+>     warn: 'tmp_chan' is an error pointer or valid
+>
+> sound/soc/fsl/fsl_easrc.c | (struct fsl_asrc)->get_dma_channel | fsl_easrc_get_dma_channel | 1
+> sound/soc/fsl/fsl_asrc.c | (struct fsl_asrc)->get_dma_channel | fsl_asrc_get_dma_channel | 1
 
-Tested on QEMU/KVM (7.3.0-rc4 + KASAN).  A reproducer that spawns
-concurrent write() calls on a debugfs string file triggers the
-double-free reliably (~3900 KASAN reports in a single run):
+Is this a false positive?: both implementations return
+dma_request_slave_channel(), which is an inline wrapper converting the
+ERR_PTR from dma_request_chan() to NULL before returning:
 
-  BUG: KASAN: double-free in debugfs_write_file_str+0x194/0x200
-  Free of addr ffff888104542ec0 by task poc/305
+	static inline struct dma_chan * __deprecated
+	dma_request_slave_channel(struct device *dev, const char *name)
+	{
+		struct dma_chan *ch = dma_request_chan(dev, name);
 
-  Call Trace:
-   kasan_report_invalid_free+0xb8/0xe0
-   check_slab_allocation+0xd9/0x100
-   kfree+0x163/0x510
-   debugfs_write_file_str+0x194/0x200
-   vfs_write+0x1ed/0x920
-   ksys_write+0xe5/0x1a0
+		return IS_ERR(ch) ? NULL : ch;
+	}
 
-  Allocated by task 307:
-   __kmalloc_noprof+0x264/0x680
-   debugfs_write_file_str+0x106/0x200
+So ->get_dma_channel() return NULL or a valid pointer.
 
-  Freed by task 306:
-   kfree+0x2e5/0x510
-   debugfs_write_file_str+0x194/0x200
+The same function backs this up: the persistent Front-End channel a
+few lines above comes from the same function pointer and is checked
+with !pair->dma_chan[!dir], while the Back-End channel is requested
+with dma_request_chan() directly and uses IS_ERR() -- the two check
+styles in one function match the two APIs.
 
-Cc: stable@vger.kernel.org
-Assisted-by: sashiko.dev <sashiko-bot@kernel.org>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- fs/debugfs/file.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/fs/debugfs/file.c b/fs/debugfs/file.c
-index ac4199e9f..c696fa44d 100644
---- a/fs/debugfs/file.c
-+++ b/fs/debugfs/file.c
-@@ -1054,40 +1054,44 @@ static ssize_t debugfs_write_file_str(struct file *file, const char __user *user
- 	if (unlikely(r))
- 		return r;
- 
--	old = *(char **)file->private_data;
-+	inode_lock(file_inode(file));
-+	old = rcu_dereference_protected(*(char __rcu **)file->private_data,
-+					lockdep_is_held(&file_inode(file)->i_rwsem));
- 
- 	/* only allow strict concatenation */
- 	r = -EINVAL;
- 	if (pos && pos != strlen(old))
--		goto error;
-+		goto unlock;
- 
- 	r = -E2BIG;
- 	if (pos + count + 1 > PAGE_SIZE)
--		goto error;
-+		goto unlock;
- 
- 	r = -ENOMEM;
- 	new = kmalloc(pos + count + 1, GFP_KERNEL);
- 	if (!new)
--		goto error;
-+		goto unlock;
- 
- 	if (pos)
- 		memcpy(new, old, pos);
- 
- 	r = -EFAULT;
- 	if (copy_from_user(new + pos, user_buf, count))
--		goto error;
-+		goto unlock;
- 
- 	new[pos + count] = '\0';
- 	strim(new);
- 
- 	rcu_assign_pointer(*(char __rcu **)file->private_data, new);
-+	inode_unlock(file_inode(file));
- 	synchronize_rcu();
- 	kfree(old);
- 
- 	debugfs_file_put(dentry);
- 	return count;
- 
--error:
-+unlock:
-+	inode_unlock(file_inode(file));
- 	kfree(new);
- 	debugfs_file_put(dentry);
- 	return r;
--- 
-2.43.0
-
+Best regards,
+Slavin Liu
