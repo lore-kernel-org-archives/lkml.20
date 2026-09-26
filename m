@@ -1,73 +1,81 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5348F315D53
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:49:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE74365A00
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790401779; cv=none; b=oHyHc6A7j6rmm2KCRsKewbStHHYID9VMuuU8ZI1f0ZRvfRhzKXElq0eLWoBC/FGs6SiNyQe+ryTHRfh5fwb78fzLdZFNGPp2Ar153Pw9wy72grXqaP06URtp7e3C8TCPOqCiC0PJX3oNLmsl23LiC43zBqGLnI3Qanr22CjmeOo=
+	t=1790401919; cv=none; b=bx3BZ9Lz8WzGNG9AVuoaHVoQ2JsoMRdiidqjx1JX0LfvBe0sSYhtxvLlQsBy0VbpNZ1XSlmfa3zOv20HAgFnDzKf4zpnFraoa7u9qzIbDm0eQv1TyNfDQNn9jUAUaIOWwwiQyFNl33bp5sHDJLB0JbsSTArRzU6nxiCN4IpquzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790401779; c=relaxed/simple;
-	bh=+hev5PH2vhYwXtrJnyBZNH9uDaSD97Y4xwd4MuE8gWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aoX/YQeHJDj+H1C2tKaC8xgi9Blg+/K2YmGdrfuuWPFT1HKuTKCGmpnTso2EwW6Am1C0xxKvfh+XK9XdSbLluulVlqMuLGrldc9SXJvTKkpR6tn7idPiBMGfOgFPmIaKLmx9bHs//RsrP3o/u9N93ZutXdOjs9S0ygn8lPpC4Tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VUiKK8e6; arc=none smtp.client-ip=74.125.227.166
+	s=arc-20240116; t=1790401919; c=relaxed/simple;
+	bh=9RXKOWZdfkg5EyFwqm8qaMXGUne5S50EBQ/ThlsAPSs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HJT5z7oTzx3bl2cI+WCKyc6jvWJb7zodq49hYBcvYc4YrXEPgsfMaGQOvqfQnUGdQZuNK2Omdl7heCWTLqsvskQxuce9UVbNwJylPfSY0RFgo/MrKfbYe95isiZOzuA5v0kMHHbPSxRMgSemt4tGB7OzBRNYMzaKVdBS8486eiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MbnMnVe5; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VUiKK8e6"
-Received: by mail-pj2-f38.google.com with SMTP id d9443c01a7336-2d747ec6185so6352145ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:49:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MbnMnVe5"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so915104f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:51:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790401777; x=1791006577; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790401916; x=1791006716; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bc4lPfWuVIP6LimbcOmRnoo1k4uOtFv6epL7v0d1oMA=;
-        b=VUiKK8e6tIS7foLpC6IVFDbVAmtu59V+rh1fn2c3CT116iKlO4aoAHUjw0CXW/nesA
-         07Mh1xbD/AI45EegQe0I/fHFQTGeUNXNaiW5SGp5sg+PlASwAyc8h65BDqsitiinix9Q
-         vAslAoHGy6sho0ZCyRYVwViSXYF3mKt2RJsnVvyHtyVWHIfBHKC24mHpFzTl1IDrIGV3
-         Vs1G5qYDn7sGSWSukcb6nKRAnBPX7/weFkczHyyYvigFrmH5AYVKddGAXUO+bJbVhKGK
-         OILOSqlVKQpTN33nXW9eEOCpSgv+clyuwDzdOtUDTxN6/3CtzhF/iJQ5786ljwYmhyuz
-         5E1Q==
+        bh=cuKCG/8Yq7XE4kptDjfwqIDbhWjCk5cWtvEdVchH9Gg=;
+        b=MbnMnVe5wQtZuWkfL2YrIkxta8viJ0lQkq3RhrcogMZ17MBJkZR/WpBv2lSE5rJZhx
+         6j3Rxt7YceHCpjbQ+w55i22EJAzFxE14ONUyE7j8pjZ+eiSH1K6RE6cjec+XZBWTJ48M
+         xt1iDZxnqZt7SCxUH8kNOBPzDD+K6jQ/IF7dIhmxqK7fkLDd5LNDJQd9aCtOC0gkFQ1x
+         IibdhTAFLLgSPNuMh5U2FWw6UlM565yAvMBW87OIAOx7/jeA3HDKBcWJWw1RzbwR/scp
+         IZnFgQwsGcWNQmjZ343s4qHQr7ZCQEuGioTPhzu9oldATgxt+ZeQA5LJDS4d7zuYq67b
+         dWGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790401777; x=1791006577;
+        d=1e100.net; s=20260707; t=1790401916; x=1791006716;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Bc4lPfWuVIP6LimbcOmRnoo1k4uOtFv6epL7v0d1oMA=;
-        b=BHGyf9OnWtNQ7xtpYnJCuR6kogfSYCBAY9+9oQoIhIoWqDjqGCwFQgpmC2FcmTRDr1
-         KL9/ec5P2rsN8WLprYQMufcLe2K+w17aDqTfzIA6V7QJazCQ0C6l80Ua6j/auduZ+S4o
-         M4RC84vLm92kbl+L24I0DOqbiy16+VoiFVt3D3242puWY3ct4Jf4I94S7gp/NgjrCq7p
-         Nr7ROSY5Z36WdP1WoukYp23abjNhmU0IydAWvg2pfrTsS8fDPYTy22Ty96EmRYK2n0rd
-         U+em9X5H5szom7xOGYwffkwNVaN9cBcsBw3lphYnIfSNsDNJHsZSU2H3+SiaqxbUrZFG
-         +f5w==
-X-Forwarded-Encrypted: i=1; AKwUvBwqeprNy93pdv0g7uMxsWNcLBLg0tdzcvIiOQXG83Bi44bGIDcZcdByKe79ybXblvNLpe+lXED5cbsAaWo=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5sK44uVOW1cYsn0JBEyeo/28bVO/m8sfaJOUdNNoa7BZNmK2m
-	BZF9C/sn2WhgpQlLK3fNWLd95yM8CJf3Ro4Ci4AM+LtzrJVcexApU5VA
-X-Gm-Gg: AYBFou28P1Ti5pR9ZqQZktP3Vutx1ORoSHZLMQ57l/jyzRNdHaaB2yi8wz8wInWhX2r
-	4WXhGz0u5jt57p1CDeCqf9FEmKKW7O0ts1FchAck/gAAcmXNqwrxk6dYes0eQ9IH0lgbF4jglh3
-	GIXhHgs0Pg9CE0G+bKxfpc0fTNpvT/XuLeHqkx3MCZshR5gSnyCLZ70cxGI5f6ODq38jaXhJOTe
-	2pFQN+fVUN1hvpFNy6YWMtUxQYBypo6wVCFloZyZHMDDn4QXUDcrWl3sKhHVZRQQGbp68NMjy46
-	m2b4zHnSFs0pPjTRDF9kKlULHTdWTjCTfF9dpTDKrIq4y46x90+hqVsuGLc+UqkBhev1BNmr16t
-	OulvrpnlK9jbU2WJxxjkbRNhiHndbnaT1LyrC/RwZPQoRHL16JxnNE0ALuBouiCUl0YVxS72X5l
-	cAOJQ14kQPgl1CAWh1ClGBpVVLV6yZB+r+3+V9lE+it1e5WkbxWL6eYya7EiH/mk6rdmWqMeYDp
-	7mT80eRiT9CdSsE4R8J+ngGW7aPKz9lpn8NZJBuGndM1+7wc0zvyvUB7p/SZSrcrk9AhFzSjnC1
-	wl0qvc8oRcnaGNgHsVNaFjsx4JYPb1EYoHM39w==
-X-Received: by 2002:a17:903:19cd:b0:2dd:c100:4249 with SMTP id d9443c01a7336-2df7e13fc47mr65469735ad.45.1790401777482;
-        Fri, 25 Sep 2026 22:49:37 -0700 (PDT)
-Received: from dell-pro-max-tower-t2.cse.unsw.EDU.AU (pag-t2-pc.cse.unsw.EDU.AU. [129.94.173.199])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df914024c4sm18622805ad.31.2026.09.25.22.49.34
+        bh=cuKCG/8Yq7XE4kptDjfwqIDbhWjCk5cWtvEdVchH9Gg=;
+        b=Tx7c7fABn+A9hanciXydp1I1FPwayGWE6ByBXgaL7mN0dVt3qWW6APALwC9ZP38341
+         k0XrPhoVQkfHU5yf6hvR/R5Y1kMbkdvqhYJPeoFe8/+bvlNdvX8Yix9+cGcmNe6oNVN7
+         C3O6hMe4N7nTYJDsKWipcUaLAsxM2bLdNEjRKDLumkckW3uVQL12CH5N4QsdPhrKtuoG
+         wZY6sMQ9zFjCo6S93m5Js0gyKsMN2wjYY2ZBr3T5A1eKQM1zvznGDh4yucMZwFSpqA7Q
+         LtSDn20pUBIj/ASRBIuQR2Y0uHlkv4V/SbHpmE/Eopwmny2fOCCcfBORggQ/S0wE7ro8
+         5PWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzD0b40CLITZ2/FsFKASkUY1txBhTUFWktyO1OlFC9knPZoOC/owbHg6EeKH7QV9QHG+aFwRVkY286GpgE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lH7WCEbiZV9+UrZefZlf/eceh8/HipazKWytk56P7JyPrZotDu
+	vhrXI9qQf/X/GGP8hq5V5FIsLXl2V0j81KBYITc4fREfdJCecdgedMP3dhOwchAR
+X-Gm-Gg: AYBFou2NIjjwoade4BdVjtWvcbl62Mjy+AF1mF4XA443mNnYzwn4Ko1TOgPksMdtJT6
+	GfYlUqYrshhpb67Yzcj2L3a/ARFdVY5k7cZxSrIYRxFDNL/FK1MWQuXAT7OVlT/+hElfWyi4dqm
+	EZtR15/wEVOIGijpol74xqsNMR4QO9141C0pMPp8gkj3AeQDG8gC/l2Jl3Yq/t1ug8lwKlVkUsS
+	lD2Ah4ZAjIJHIguxVJi4dzSpy0t/zhHjtoM982Aamk5d3SFqgGGTYCigoImpv/opbg/r/WictTb
+	aEPlsX86816PlxY8peaTTB+sEz7pGdl+OeHRR/cJdYEVrMVA/PNlzyV9KS3/QRL4ULeKXWNMkZ0
+	uiRNS1eirBpknwYEWttLGlujdScVw2cO3qhyWQDqUAnoPgCOh/HI7qOmKH6VkKMyfTZbuEPU54L
+	QiZPXFCQ8TWbk9ttoo/bBYjtM7f3TtMNDtv6lRlZhERNi/q3ufhUH/E1VCvB4jYhEvcq8p528Gz
+	8oePRcnf0UmNwNyWDKXdWevMdUyT82A1QnFMR5uQtBO
+X-Received: by 2002:a05:6000:2906:b0:487:ff1:6274 with SMTP id ffacd0b85a97d-488716b290cmr15769328f8f.7.1790401916378;
+        Fri, 25 Sep 2026 22:51:56 -0700 (PDT)
+Received: from localhost.suse.org ([37.109.167.253])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30bcc4sm12317560f8f.1.2026.09.25.22.51.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 22:49:36 -0700 (PDT)
-From: Weigang He <geoffreyhe2@gmail.com>
-To: Sean Young <sean@mess.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Weigang He <geoffreyhe2@gmail.com>
-Subject: [PATCH] media: rc: fintek-cir: process a full RX buffer instead of overflowing it
-Date: Sat, 26 Sep 2026 15:49:29 +1000
-Message-ID: <20260926054929.2686772-1-geoffreyhe2@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 25 Sep 2026 22:51:55 -0700 (PDT)
+From: Sebastian Chlad <sebastianchlad@gmail.com>
+X-Google-Original-From: Sebastian Chlad <sebastian.chlad@suse.com>
+To: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Sebastian Chlad <sebastian.chlad@suse.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] selftests: cgroup: Report failed checks in test_memcontrol
+Date: Sat, 26 Sep 2026 07:51:46 +0200
+Message-ID: <20260926055152.1684-1-sebastian.chlad@suse.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,66 +84,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fintek_get_rx_ir_data() drains the CIR RX FIFO into fintek->buf[], which
-holds RX_BUF_LEN (32) bytes, for as long as CIR_STATUS reports pending
-RX data:
+test_memcontrol fails intermittently, but most of its checks fail
+silently, so a "not ok" line gives no indication of how far off the
+measured value was. This series makes those failures print the observed
+and expected values. It does not change any threshold or pass/fail
+behaviour.
 
-	do {
-		sample = fintek_cir_reg_read(fintek, CIR_RX_DATA);
-		...
-		fintek->buf[fintek->pkts] = sample;
-		fintek->pkts++;
-		...
-	} while (status & rx_irqs);
+Patch 1 converts the terminal tolerance checks to values_close_report(),
+as was done for test_cpu in commit 4cdde87d723a ("selftests: cgroup: Use
+values_close_report in test_cpu"). values_close() is kept where it is a
+loop or retry condition, where a mismatch is expected.
 
-Nothing bounds fintek->pkts. If the hardware reports data for more than
-RX_BUF_LEN reads in one interrupt, the loop writes past the end of
-buf[], starting with the pkts counter that follows it in struct
-fintek_dev.
+Patch 2 reports the "memory.current < 50M" check in
+alloc_pagecache_50M_check(). Because test_memcg_high() calls the same
+helper expecting it to fail, it gets a quiet variant. An alternative
+would be to pass the flag through the currently unused void *arg of
+the cg_run() callback; I am happy to switch to that if preferred.
 
-Hand a full buffer to fintek_process_rx_ir_data(), which parses the
-samples and resets fintek->pkts, before storing the next sample. This
-keeps the parser state consistent and drops no samples. The loop still
-relies on the status register to terminate.
+With patch 1 applied, we observe at times failures like these:
 
-The driver does not document the hardware FIFO depth, so it is not
-known whether a working device can trigger this.
+  not ok 3 test_memcg_min
+  [FAIL] actual=18722816 expected=30408704 | diff=11685888 | limit=7369725 | tolerance=15% | actual_error=23.78%
 
-Found by static analysis tool CodeQL.
+  not ok 4 test_memcg_low
+  [FAIL] actual=20852736 expected=30408704 | diff=9555968 | limit=7689210 | tolerance=15% | actual_error=18.64%
 
-Fixes: 9bdc79ea07d9 ("[media] fintek-cir: new driver for Fintek LPC SuperIO CIR function")
-Assisted-by: LLM codeql
-Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
----
+  not ok 4 test_memcg_low
+  [FAIL] actual=14364672 expected=22020096 | diff=7655424 | limit=7276940 | tolerance=20% | actual_error=21.04%
 
-Notes:
-    Compile-tested only (ARCH=x86_64 allmodconfig, W=1). Not tested on
-    hardware, and there is no reproducer.
-    
-    The CodeQL query behind this report was synthesized with LLM assistance,
-    and the fix and changelog were drafted with LLM assistance; I have
-    reviewed them.
+These are the child memory.current checks in test_memcg_protection()
+(expected ~29M and ~21M). Their tolerances were already raised in commit
+d2def68ae06a ("selftests: memcg: increase error tolerance of child
+memory.current check in test_memcg_protection()"), and the values above
+still fall outside them. In the first case the child is about 38% below
+the expected 29M. This series only makes such failures visible; whether
+the expectations or the tolerances should change is left for a separate
+discussion.
 
- drivers/media/rc/fintek-cir.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes in v2:
+- Patch 1: pass the measured value first in the alloc_anon_50M_check()
+  values_close_report() call, so that a failure prints actual and
+  expected the right way round (reported by Sashiko AI review).
 
-diff --git a/drivers/media/rc/fintek-cir.c b/drivers/media/rc/fintek-cir.c
-index c196ee923ecd3..ce9c4eb4514e4 100644
---- a/drivers/media/rc/fintek-cir.c
-+++ b/drivers/media/rc/fintek-cir.c
-@@ -340,6 +340,10 @@ static void fintek_get_rx_ir_data(struct fintek_dev *fintek, u8 rx_irqs)
- 		sample = fintek_cir_reg_read(fintek, CIR_RX_DATA);
- 		fit_dbg("%s: sample: 0x%02x", __func__, sample);
- 
-+		/* Process a full buffer before storing the next sample. */
-+		if (fintek->pkts >= RX_BUF_LEN)
-+			fintek_process_rx_ir_data(fintek);
-+
- 		fintek->buf[fintek->pkts] = sample;
- 		fintek->pkts++;
- 
+v1: https://lore.kernel.org/all/20260926034923.31718-1-sebastian.chlad@suse.com/
 
-base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
+Sebastian Chlad (2):
+  selftests: cgroup: Use values_close_report in test_memcontrol
+  selftests: cgroup: Report memory.current shortfall in
+    alloc_pagecache_50M_check
+
+ .../selftests/cgroup/test_memcontrol.c        | 50 +++++++++++++------
+ 1 file changed, 36 insertions(+), 14 deletions(-)
+
 -- 
-2.43.0
+2.51.0
 
