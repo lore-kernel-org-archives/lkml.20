@@ -1,77 +1,75 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013038.outbound.protection.outlook.com [40.93.196.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57A31E7660
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:33:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790386410; cv=none; b=FUIL9mmGjB+mlX2J3IoDTHLGgJxvLQSxlIOHvvsmGOsfUFGMAzu2F8WnH2aESZrjXtabhRcR93C+IkVK6kzfE+5HkVmGAUiWS4Ob2eBV16NMv74clUY7D2JNOjxeZkMuLM1JJZASLI8HK+zFNEdKFVjuw02G7jsaMPn47B00JvU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790386410; c=relaxed/simple;
-	bh=1f1mz/u1DXLFELJxB0lWigtpTDzng/wOa0yeqTZVdUU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Srj80L3r1F9k4zS4ozbJ5GCNWK0lvgl8x/gBatB5PRf/tVloA0m5SNxXb1eyNxK9xgeqJ4djXPtaWTxjrB3Y1oqcyfAOf1zu3S+WRtbDWGWeWJaYsVqCyk/E8+uRgs3ZjjfRDc2xOiybUYUnwYMfjvW4la9BLn1NixlAEvMqxto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ULdY1+xs; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917D31A681B
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:35:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790386524; cv=fail; b=bApy77OSy18wR7W0YVUBNHLIux21BQNu1+y4XqDZ9kllf6/TYHdnfvOiNneHaI51dlASv9s6c6jHxLak16SC6iUqXtqDD9RlftoXypAU0OGO8Rv2wppcBVR8hNpmX2krs73B7eLHgWRrCx99h26esSY8StIXTfpC+Q4FEeVfGzg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790386524; c=relaxed/simple;
+	bh=o92CoLJJq1nAEHY0dgpW4txwmIt/N3ECPQDswx42Jb4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UzsUk+wMOLqtjVrvMG6DPk+e+WZUQDbUHFaeYWWbUHva6Hd5EzQYmhawcJM3p9UTbh83C2KGHrgGQIGriBkvpYR3p2YkMH9/kpf9JbGXp1YefwQW5BTWRaObPwWwODOEHdpCS3qBCKzF/m6ZscOH8s87qvscB8OXbvTZn5u40yY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ZruQtrXO; arc=fail smtp.client-ip=40.93.196.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ULdY1+xs"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2caced6038eso9223075ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:33:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790386408; x=1790991208; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XO5IQrDqXhCVEXobXwqmnVmb7P8gC0TesjStAXIcO2g=;
-        b=ULdY1+xsnz/tq00tmvNx6qoyew18D1cJcNxiL4bmI7C4hbENDIwiiGFq/bdTGk0abV
-         hHLWEWiNQ0wd/wm85I1Y3sPfiMk0K0K1Q8IlN80TvxpERd8+PutKTTbU1w1q4G0yNJdj
-         CuMv2fNGxwo4ZBWniUqKGVrLaRX9yUvBKW2EIQqUxzL66aBGmy7glZQqStFDk1d5ea16
-         a4DqnpivnP9JhhRe1d6OHMDyCToviItvixla+LzPAR6iUPXmWleyNJaLb2FU1noFiit5
-         wpn5C3vziWs9dFTOY3i8BVZIfLbLMeosiZw6FKYlO4c4kD40skl5z0/v/2mFKQ/j6HGb
-         EEfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790386408; x=1790991208;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XO5IQrDqXhCVEXobXwqmnVmb7P8gC0TesjStAXIcO2g=;
-        b=GS3HMY+TiUJlvuF1fMrhjAhURbYNodQ/XKQysh1G3B/Sd183qqjloBW+HuCanUdCIO
-         xipqoTOKciWGMqVYgFiZzHB7AcmUhvKXTDGLQ4qEJODgg343xPgvzfj5hMIg2+BWIqhO
-         eZpuc+8VLDPb/6LJ/0qznCO1ByGdG71fMrfU96SGHQScL/4ZsORDxYzvQXfD2dsaFivy
-         RoKH9ckNiHLxJdBR+BCpGYVJoTDoOmlYW6ndbJNJ5iP7UfC+KFJCr5TSMrHHmALTnYLK
-         JlDbD7n00duaAqGBXaQEhkS0CzNWdAIx0BRAJmfMw7XB3+tUCtbiTk1u3fXsrf3oXQEL
-         eqdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/MLCxe1i7lULH2/5ccJjDhgGXfPisnhHT99wrXiPRq8dFjcA+yY8fGnMAKTYS/fQxvhRuJv879uxc9mE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPVycKxVLa6g09LXyXeXAOeHV3fGHwfVwMD2VsQI4KZ4F0pAzx
-	/SUH6h3ZbFAzMbpGacBylPPmX531JfOoqlEniIn9y2li/svCc3WL8UCI
-X-Gm-Gg: AYBFou37a1klj3qkq0kyw1KvUi3psazvDO8d/zv+k9cp3/9JEpo/EhL+zNIF5Fq3lfJ
-	BnH3jAm3oLNghhYtzsNeNKTyVVz5lMTqi24GIgS6TBV/9YT2xuAu8vYeXgOPLSICBK/T4WgTi+y
-	8YJyqqxdeoQJ0AHadRJyh/4pOn4xq9hkJ54y2QoberXH02bUVeNF7pjz+zIyK7dDWcXUAzn7HvA
-	mKXY25aMtuL7FK+v0FycdIcwP58khzbPY4SVy3bQEcS/mkEVNnp9XryzSDzHRHKXBmFUq8ODk+0
-	49hHLsC0C0E89xdkuicK+KQvEemmx2txQkTbAMR5gYh91KQM0pWVag8wQVMimCdbGUqlPn8aV0U
-	snu5xeOydBNIbWQEI4MMZjuevQiCzcKPX0aMfF5ZMfdEO/Fox3MPVp29B9hZ5A4OZ/edD+nkmOX
-	6n/bBCIkS7y9qhlEmJIR2Ed0UJhlG5jk4M45CwtpbClfIJ34cgWE2806qOXDVhvK59mPck9Nh5C
-	nX5ERU0JvuiHlGnYRX24CTopq9padVgqgYn3Br2JyeZdSNpbOq6bR4KPVcHbu/baTtZnJgsXGQ+
-	nz9Vw0rHj3kmNlYCfyewOCGArcNNmsOwiUcy2ABGlk6jC8U0Jymy9QSWBYM=
-X-Received: by 2002:a17:902:cf0f:b0:2d9:2ff6:246e with SMTP id d9443c01a7336-2df7e251f3bmr42954915ad.23.1790386407959;
-        Fri, 25 Sep 2026 18:33:27 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fc39ddsm17396165ad.7.2026.09.25.18.33.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 18:33:27 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: mfd@lists.linux.dev
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Lee Jones <lee@kernel.org>,
-	linux-omap@vger.kernel.org (open list:OMAP2+ SUPPORT),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3] mfd: twl-core: Allocate modules with twl_private
-Date: Fri, 25 Sep 2026 18:33:25 -0700
-Message-ID: <20260926013325.75073-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ZruQtrXO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AVm3W98ApPyyx6JKIjWXgJRdwEqQYNcxjsjqyvwywsTBSYD/V9X0yipY+Dmw+PWIo2Vo4KM8Lld4qfoF8o7eEkAknAHUNuMNFbOaXTnNyoEv4aVZDi6vAlOGw1zgNLkP2qvJSkUhq7PEjw//RyeKOJRaeD4oyMLf3mPHFgCXzjk3GscWpe+OL09L13B836Tn0RzHmghL2FjqrGZPkSmynOcLM41ikHjWx1iFy53CYwWyk/kpN2Zh4UAJynGU/lAMFH/VCxOnAcQux5hSgDZiKAYdLpQ354WMVINCZdjINYBk2u3MYkWlP6KtjkoioBWNRaex0So5+kF0qJ2toxP3HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QcWwtA5fuNvPZrpQxAFELbI9Qyw0J7X4ifFjanWSTGc=;
+ b=BTHqrSEizGJ8bC6l4k4x23oYfkHhtHiFwaMd4fZXbBII33QnArigmX9woIy46SxfI0lHRUDPrgLN33ptyeSVMFYyzclaElf/oPPHV/6T5XWgZvuHF48lgStAmqE3rlr+MOLJg7M6Q7Ms0qNPKxSkWwDNTySKOWJYFV1eZbouH3dRHckpXV+VQS3vmsedDArvT/6/oCpIzFfTnrPsseNpl2LpDyUffQWbQUE1J5qVWm2flawXAPllYQ3dB4zvKTWLtiMG1GITK5pwp3RMe2yICw8ZP4QRzMH6Jtvh2M00W9wYV+o6QjaEsobwt0CanxeFYrWFDrIzm35RpQ+j191X6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QcWwtA5fuNvPZrpQxAFELbI9Qyw0J7X4ifFjanWSTGc=;
+ b=ZruQtrXOw8VlahqctBtTbroXcP2q7Zhl82HqK7Uf11MrI6p1/oQo6Jjl8YOcYs30CNl4qSfo5h8O/q2DdZiGLfpgjmX/6xv2TxG6aFu6cgl1jxStNp0hmDEKClAr7Mkt/dsyCP8Ww4xhbjKItVz0jl7vCUFGsgFmOCjwb+lZtqI=
+Received: from BN9PR03CA0085.namprd03.prod.outlook.com (2603:10b6:408:fc::30)
+ by DS0PR12MB8041.namprd12.prod.outlook.com (2603:10b6:8:147::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
+ 2026 01:35:18 +0000
+Received: from BN5PEPF0004698A.namprd02.prod.outlook.com
+ (2603:10b6:408:fc:cafe::86) by BN9PR03CA0085.outlook.office365.com
+ (2603:10b6:408:fc::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Sat,
+ 26 Sep 2026 01:35:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN5PEPF0004698A.mail.protection.outlook.com (10.167.245.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Sat, 26 Sep 2026 01:35:18 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
+ 2026 20:35:17 -0500
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 25 Sep 2026 20:35:16 -0500
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+	<mario.limonciello@amd.com>
+Subject: [PATCH V0 00/21] accel/amdxdna: Kernel submission and PM for AIE4
+Date: Fri, 25 Sep 2026 18:34:27 -0700
+Message-ID: <20260926013448.3840921-1-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <yidong.zhang@amd.com>
+References: <yidong.zhang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,59 +77,175 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN5PEPF0004698A:EE_|DS0PR12MB8041:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05ed9698-48f0-4045-9a2e-08df1b6e6bf0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|10067099003|3023799007|6133799003|56012099006|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	HGtUSE7nb3BtEz8NywFD5rMOTCdr1PY6LMp8IzHfNk8wiPhcuRIqbiO9uNnfELUi+/oBqMEF/iinrQoMrBFXiBT5gUSqkMreFFOo2QCKSwzmy6P2zhAVNoq1yLoPqGZ9RBaOESMUSH/IEofkAIGCtNstEeFONfcVJxHP+/mvVLSA9aiygyk2UvMkGo5euvZ8DZf4X3F3kbvuICn1uptzhTB0YXh32AqX8uz5bZRjp3sOXWX8XqGR/U/RJxhLdBoZHxFqwQE2LvlKV+7RcGrTyRO/wugRVpf0m2peSIieD0k4iqnlwzZHmv2C+yoh5aeO2bNllNcGfSVVj2lrpzOVu1lcaIjjjufHbMH2rl+j46fG+5ijoAaHyMb5EYmj7c/2Z1eX3U4JPWGAVooLWwzOGjBoKrmra/p54ygQFqgVLDog/q6Ys/PWLadGmMpgd4BM9ho058hwFE7E80rqbmonjajNXgqrSeKbLZQHFctt1nPqENa+MlcjnuYGL6K7tf6AZG4pYwPPDESbSdUPhZBfiNzjDoPz6ZIDk6TiuWtmDAZ+TOCvg2Jjc+L++iXwZpXbyHWcHE3P/m/VALTCdo3wnPcEJHS3do2XpRby7IfumNEZQNc7vKiw2WXCXRrC3PiqeeicZhTJOfI/Zf+UHtUAxnWOZG7jeybaIbKqHdCEKjDCLPWrDVv+2l5c1jI85gimnD6me38Ac1sJVKfzzj2VMw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(10067099003)(3023799007)(6133799003)(56012099006)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FfimWliRp31GZaRMASc4Mj29Mo60CjS9NI0dP4f5mK7JfUo+Ci1nffD7c832RBHxEqm/fc7pHPB5cZ6Gm2WSB9fow2JXzSl737e6+jPwfDsme+42Nx5kOel04cQJh4Cmn2xockrajExw2ff0cypxu1AxolnmlbHDrpL4qE8IXNvJIyNBkghIahOuZg3bnQaQYoBqQpU0fL4a05wgdOda4vaOYhwLGJgviiZ2J+BerJJh190364z9HFdkggcA3GPXz8kFOhqwKn9rrHfAU6W+tUCPUgb5fZQZClTnC89bqCiVo1aFyHArNIZC5A9Ac6LrSI4UkrFo8yg39/Q9aYohJK/2wWc0Y7g7mu2LTGyQ9Ipz1IlGL6VAA8HUdDcfWjMTTfsY8ZKN1BE8m4fxGszY/UQ/Vhh01Q1HH/+KqAtTSvRrk47unFRFtnGLOhVQmFwh
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:35:18.0764
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05ed9698-48f0-4045-9a2e-08df1b6e6bf0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN5PEPF0004698A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8041
 
-Use a flexible array member to allocate the twl_client array together
-with struct twl_private. This removes a separate devm_kcalloc() and
-keeps the module data tied to the main private structure.
+This patch series extends the amdxdna accelerator driver to support
+AMD AIE4 (NPU3) platforms with kernel-mode command submission (KMQ),
+device telemetry queries, comprehensive system and runtime power
+management, and NPU3 classic device support.
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v3: Capitalize Allocate.
- v2: don't use twl_get_num_slaves().
- drivers/mfd/twl-core.c | 16 ++++------------
- 1 file changed, 4 insertions(+), 12 deletions(-)
+Previously, AIE4 devices relied on userspace doorbell mapping for command
+dispatch. This series establishes kernel-mode submission as the default
+execution path, providing robust fence management, BO reservation
+locking, and queue lifecycle handling. Additionally, it implements full
+system suspend/resume and runtime power management across Physical
+Functions (PF), Virtual Functions (VF), and Classic devices, along with
+SR-IOV PM dependency linking and userspace runtime compatibility stubs.
 
-diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
-index f86df356d658..0b78fe30e047 100644
---- a/drivers/mfd/twl-core.c
-+++ b/drivers/mfd/twl-core.c
-@@ -159,7 +159,7 @@ struct twl_private {
- 	unsigned int twl_id;
- 
- 	struct twl_mapping *twl_map;
--	struct twl_client *twl_modules;
-+	struct twl_client twl_modules[];
- };
- 
- static struct twl_private *twl_priv;
-@@ -770,7 +770,9 @@ twl_probe(struct i2c_client *client)
- 		goto out;
- 	}
- 
--	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
-+	num_slaves = (id->driver_data & TWL6030_CLASS) ? 3 : 4;
-+	twl_priv = devm_kzalloc(&client->dev,
-+				struct_size(twl_priv, twl_modules, num_slaves),
- 				GFP_KERNEL);
- 	if (!twl_priv) {
- 		status = -ENOMEM;
-@@ -787,16 +789,6 @@ twl_probe(struct i2c_client *client)
- 		twl_regmap_config = twl4030_regmap_config;
- 	}
- 
--	num_slaves = twl_get_num_slaves();
--	twl_priv->twl_modules = devm_kcalloc(&client->dev,
--					 num_slaves,
--					 sizeof(struct twl_client),
--					 GFP_KERNEL);
--	if (!twl_priv->twl_modules) {
--		status = -ENOMEM;
--		goto out;
--	}
--
- 	for (i = 0; i < num_slaves; i++) {
- 		struct twl_client *twl = &twl_priv->twl_modules[i];
- 
+Series structure:
+
+1. Firmware Interfaces, Versioning & Compatibility (Patches 1-4)
+   - Patch 1: Rename NPU3 firmware filenames to match official release
+     binaries (npu.sbin, cert.sbin) and declare MODULE_FIRMWARE().
+   - Patch 2: Remove userspace doorbell mmap and default to kernel
+     submission with invalid doorbell offsets for user contexts.
+   - Patch 3: Add CERT (Column Enternal Run Time) firmware version
+     queries and protocol validation (aie_check_cert_protocol) before
+     upgrading queue layouts.
+   - Patch 4: Upgrade firmware interface version to 6.0, updating host
+     queue layout, opcode definitions, and hwctx creation requests.
+
+2. Device Operations, Telemetry & Power Modes (Patches 5-9)
+   - Patch 5: Add NPU3 classic device operations (aie4_classic_ops) and
+     register definitions, managing SMU/PSP firmware symmetrically, and
+     remove unreleased device IDs 0x1B0B and 0x1B0C.
+   - Patch 6: Expose AIE and NPU firmware versions via GET_INFO ioctl.
+   - Patch 7: Add power mode get/set support via GET_INFO and SET_STATE.
+   - Patch 8: Restore cached user power mode overrides on hardware start
+     so overrides persist across PM cycles and firmware reloads.
+   - Patch 9: Add clock metadata, DPM frequency table initialization,
+     and hardware resource info queries, generalizing DPM tracking
+     across AIE generations in struct aie_device, with independent
+     clock domain level handling for AIE compute and host clocks.
+
+3. Hardware Initialization & Transport Hooks (Patches 10-12)
+   - Patch 10: Add context switch hysteresis configuration with debugfs
+     control (ctx_switch_hysteresis_us) applied on hardware start.
+   - Patch 11: Refactor AIE4 hardware initialization sequence into
+     distinct modular phases (query_fw, config_fw, setup_aie) across
+     PF, VF, and classic devices.
+   - Patch 12: Decouple PCI doorbell and MSI-X notification transport
+     hooks from transport-neutral context management code.
+
+4. Kernel-Mode Command Submission & Fencing (Patches 13-16)
+   - Patch 13: Implement kernel queue lifecycle, job workqueue, and
+     memory layout for kernel-mode submission.
+   - Patch 14: Fix fence timeline name (dev_name() to prevent UAF after
+     context destruction) and allocate unique fence context per job to
+     prevent evicting fences in shared BO reservation objects.
+   - Patch 15: Prepare command submission structures, smp_rmb ordering
+     for read index updates, and asynchronous disconnect/reset checks.
+   - Patch 16: Implement full command packet building (direct/indirect
+     packets), BO reservation locking and fence attachment matching
+     AIE2, queue slot waiting, context reset recovery, and
+     aie4_hwctx_wait_for_running() to safely quiesce worker threads.
+
+5. System & Runtime Power Management (Patches 17-20)
+   - Patch 17: Fix runtime PM deadlock on device removal by finalizing
+     RPM before acquiring dev_lock, and symmetrically initialize RPM
+     during probe across all device types.
+   - Patch 18: Implement system suspend and resume for PF, VF, and
+     classic devices, draining in-flight jobs, restoring contexts, and
+     re-linking VFs.
+   - Patch 19: Link SR-IOV VFs via device_link_add() to ensure the PM
+     core suspends VFs before the PF and resumes the PF before VFs.
+   - Patch 20: Implement runtime suspend and resume support for AIE4
+     and AIE2, validating active VFs on PF and handling independent VF
+     runtime power states.
+
+6. Userspace ABI Compatibility (Patch 21)
+   - Patch 21: Add a stub hwctx_config callback returning 0 to support
+     the DRM_AMDXDNA_CONFIG_HWCTX ioctl, enabling userspace validation
+     runtimes (such as XRT GEMM tests) to run unmodified.
+
+Testing:
+- Tested on AMD AIE4/NPU3 hardware in both classic and SR-IOV (PF/VF)
+  modes.
+- Verified kernel-mode command submission with direct and indirect
+  execution packets under concurrent workloads.
+- Verified system suspend/resume (S2idle/S3) and runtime autosuspend
+  cycles during idle and active command submission.
+- Verified SR-IOV VF binding, execution, and PM dependency sequencing.
+- Confirmed no regression on existing AIE2 devices (NPU1/NPU4).
+
+David Zhang (21):
+  accel/amdxdna: Rename NPU3 firmware files
+  accel/amdxdna: Remove mmap for doorbell
+  accel/amdxdna: Add CERT firmware version support
+  accel/amdxdna: Upgrade firmware version to 6.0
+  accel/amdxdna: Add NPU3 classic device support
+  accel/amdxdna: Add AIE version query to aie4_get_info
+  accel/amdxdna: Add get and set power_mode for AIE4
+  accel/amdxdna: Restore power mode override on AIE4 hardware start
+  accel/amdxdna: Add clock, DPM frequency, and resource info queries for
+    AIE4
+  accel/amdxdna: Add context switch hysteresis with debugfs control
+  accel/amdxdna: Refactor AIE4 hardware initialization sequence
+  accel/amdxdna: Decouple AIE4 doorbell and MSI-X notification transport
+    hooks
+  accel/amdxdna: Implement AIE4 kernel queue lifecycle and memory layout
+  accel/amdxdna: Fix fence timeline name and context allocation
+  accel/amdxdna: Prepare for AIE4 command submission
+  accel/amdxdna: Implement AIE4 command packet building and submission
+  accel/amdxdna: Finalize runtime PM before acquiring dev_lock on
+    removal
+  accel/amdxdna: Implement AIE4 suspend and resume
+  accel/amdxdna: Link SR-IOV VFs for power management sequencing
+  accel/amdxdna: Implement runtime suspend and resume support
+  accel/amdxdna: Add stub hwctx_config for AIE4
+
+ drivers/accel/amdxdna/aie.c             |   45 +-
+ drivers/accel/amdxdna/aie.h             |   45 +-
+ drivers/accel/amdxdna/aie2_message.c    |    4 +-
+ drivers/accel/amdxdna/aie2_pci.c        |   65 +-
+ drivers/accel/amdxdna/aie2_pci.h        |   39 +-
+ drivers/accel/amdxdna/aie2_pm.c         |   10 +-
+ drivers/accel/amdxdna/aie4_ctx.c        | 1083 +++++++++++++++++++++--
+ drivers/accel/amdxdna/aie4_host_queue.h |   79 +-
+ drivers/accel/amdxdna/aie4_message.c    |  216 +++++
+ drivers/accel/amdxdna/aie4_msg_priv.h   |  137 ++-
+ drivers/accel/amdxdna/aie4_pci.c        |  812 ++++++++++++++++-
+ drivers/accel/amdxdna/aie4_pci.h        |  138 ++-
+ drivers/accel/amdxdna/aie4_sriov.c      |  104 ++-
+ drivers/accel/amdxdna/amdxdna_ctx.c     |   29 +-
+ drivers/accel/amdxdna/amdxdna_ctx.h     |   22 +
+ drivers/accel/amdxdna/amdxdna_debugfs.c |    3 +
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |   53 +-
+ drivers/accel/amdxdna/amdxdna_pci_drv.h |   18 +-
+ drivers/accel/amdxdna/amdxdna_pm.c      |   35 +
+ drivers/accel/amdxdna/amdxdna_pm.h      |    4 +-
+ drivers/accel/amdxdna/amdxdna_sysfs.c   |    2 +-
+ drivers/accel/amdxdna/npu1_regs.c       |   19 +-
+ drivers/accel/amdxdna/npu3_regs.c       |   99 ++-
+ drivers/accel/amdxdna/npu4_regs.c       |   30 +-
+ 24 files changed, 2805 insertions(+), 286 deletions(-)
+
 -- 
-2.55.0
+2.34.1
 
