@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B034369225;
-	Sat, 26 Sep 2026 02:34:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5144E3469FC;
+	Sat, 26 Sep 2026 02:34:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790390095; cv=none; b=TYr1AQ2NDE/jNVBufpiIAh/dwYx1Fq97gtJF+loTbtl9Lo3VYuI7bwUVEepwoRrBkJ8hE+EFXV12ri/oDy+bQ3U3XD/eiukwvQJAxrJkyx7cQy6PDjnsLamSaOoQOv+ET3wTBVMu/tRgJ2yAIJIYKJ7K9S49rsqAcXzaeZ7M1AQ=
+	t=1790390096; cv=none; b=mKcV1HM0bFUUd3OqLrmdP1ugUDR7Zmf3xp4IC9uulSeeE1cNivEWPy59SXRwPuGL5t5/fn/iJK3NRomRnB/z7uda7ig0W3nR5CgTcS6eUq1EkIxmFvTwYC9BH1oM98cATmd5P5x/hFZ3EnZkUlpfPiBWrWCOJft87Vsuw46fryA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790390095; c=relaxed/simple;
-	bh=m8fD1YBP1kOSeoMPnOqxuAUHZ6FZvqi4Eoq91WyehSM=;
+	s=arc-20240116; t=1790390096; c=relaxed/simple;
+	bh=UNVKywENbmjiLt76estWQYmCFW9m4Sg9jG4kjyzqrJo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cqvub5DDyOV7vJnsaY1joquZ9D30MK55iZD2QFVNxG+jCgZacFIAB5PqyzcPToQLU1ScYFDLM8uay9UtwEskpoPA9WG0hbXrLEc6yoVY/g3h6Zolhj9ZDP+/Zxa5nalq74jbz6+yiAYoxNplE0h9FxdKJPWiWZdfbTq8a5MWZzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cnCoCDyT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LcDSOmGX4IdukdCLBHqGoOlfTXF6gleCfnWDSRVUCey9FXWhXoGMwR3uoSAG5wVPuGP1hXHFIBUTO8xloTaLmFqST8njec2jD/5r2zlWX3Epq+fSlSYoz4eXgVu9kgVTcU23czLSBkx4sIns1mSgg6B8aIeoSRXoJr5BySNflzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WdWrnwhE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cnCoCDyT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7547C1F00898;
-	Sat, 26 Sep 2026 02:34:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WdWrnwhE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC66F1F00893;
+	Sat, 26 Sep 2026 02:34:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790390088;
-	bh=A/IxxE1jPG/+IwqTaHIkKikKX6Xu0AWWP9S+ZMIUIbA=;
+	s=k20260515; t=1790390089;
+	bh=wAhi364z7RfgNDZ3WLTol0mDPV349bJsQC0QRTOaOKw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cnCoCDyTFiagF8lKiJMA3+PMbaVWI3DghkR3oUlJv6pqnPt7/pWhTyWv4TbbJMq9I
-	 ozVrL9sKlNj+jUo2Jwb5UIsYUi2BKOR6F3AnM/Z3kV3KOOO03iryihEl+RBmhEZAZ5
-	 P25Q6bRjOB0O6vr7oSFZDmIUnjtREZuLtUDC7rTBXse76ArYO5yYAUYExkey4aRyr5
-	 lHcDcDkmEphkSi6K4N8yk1dulWwIUqmi3sj3C3DB+W8JpJ1RO+d/OJF4KY2cTSOjrC
-	 iuPeHPry4/gftBhw8ayOpyJdBwjAXGnB4zzigIZ7if99JqUck+IXJd4DRjeWyHbjbP
-	 3DGwwHmlIvsxA==
+	b=WdWrnwhEDFu7g5XroFCug37jWRX+qJbh3vgtpVScLds7CS8nNCkyg7oVgV3oAQ7MO
+	 lA/mPbZAiV8m5UWUA62qkuZJfu934yLAestg9xpizLyylpRRF0dERGsK28It2jN14A
+	 AYoB0KhnP7+YtkbIDbN807VS04J7p5rjnEbk2fhZSzR9UMHWr7hfXmqos613XBv0If
+	 8/ClW19i/sooS0rKk9PcrwlVPxNZMHb0fhEUeReqaoukDZWxfuG7uS/0KvuT5OO1XF
+	 O2u2i/YShWpgQx3QFClz8g8xVfqPKh25ni/6u43oLkGZobBh+d0NGzVg564fgdu4eF
+	 a7KrGR1IWFkxw==
 From: Jakub Kicinski <kuba@kernel.org>
 To: arouhi@sitime.com
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -44,12 +44,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	devicetree@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 07/14] dpll: sit9531x: add support to get and set priority on input pins
-Date: Fri, 25 Sep 2026 19:34:46 -0700
-Message-ID: <20260926023446.1567764-1-kuba@kernel.org>
+Subject: Re: [PATCH v10 08/14] dpll: sit9531x: add support to get and set frequency on pins
+Date: Fri, 25 Sep 2026 19:34:48 -0700
+Message-ID: <20260926023448.1567817-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921201108.42676-8-arouhi@sitime.com>
-References: <20260921201108.42676-8-arouhi@sitime.com>
+In-Reply-To: <20260921201108.42676-9-arouhi@sitime.com>
+References: <20260921201108.42676-9-arouhi@sitime.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,386 +61,335 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-dpll: sit9531x: add support to get and set priority on input pins
+dpll: sit9531x: add support to get and set frequency on pins
 
-This adds prio_get and prio_set callbacks for the sit9531x input pins.
-They are backed by a cached copy of each PLL's priority table, which
-sit9531x_prio_mask_build() now maintains. prio_set moves an input to the
-requested slot and notifies the other pins whose slots shifted, and
-sit9531x_prio_table_commit() gains a rollback of partially written slots.
+This commit adds frequency_get for input and XO pins, which reports the
+rate described in firmware. It also adds frequency_get and frequency_set
+for output pins, where the rate is Fvco / DIVO and Fvco comes from the
+PLL's DIVN registers and the crystal rate. A set writes a new DIVO inside
+the output-system programming state and then does a per-PLL phase flush.
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index 84c1f86e6d4cf..ac184c93258cb 100644
+> index ac184c93258cb..0687ad6de861c 100644
 > --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
-> @@ -543,34 +543,87 @@ bool sit9531x_input_prio_present(struct sit9531x_dev *sitdev, u8 pll_idx,
->  }
->  
->  /*
-> - * Rebuild a PLL's membership mask from the source codes of its priority
-> - * table.  The mask is what the pin state getters test, so it is refreshed
-> - * from exactly the values the table holds -- here after a write, and once
-> - * per poll from the read-back in sit9531x_chan_state_fetch().
-> + * sit9531x_input_prio_get - read an input's priority slot for a PLL
-> + * @input_idx:	input source in hardware encoding (see
-> + *		sit9531x_input_hw_src())
-> + * @prio:	output slot position (0 = highest)
-> + *
-> + * Reports the last slot this source occupied on this PLL.  The value is
-
-[Severity: Low]
-This isn't a bug, but is "last slot" accurate here?
-
-sit9531x_prio_mask_build() fills prio_last from first[], which holds the
-first (highest priority) slot a source occupies among its duplicates. It
-also clears the entry to 0 as soon as the source leaves the table:
-
-		if (!first[src_canon])
-			first[src_canon] = slot + 1;
-
-The "last-slot-seen array" wording in the sit9531x_prio_mask_build()
-comment below has the same problem. The @prio_last description in core.h
-does match the code.
+> @@ -418,6 +418,127 @@ static int sit9531x_output_forced_hiz(struct sit9531x_dev *sitdev,
 
 [ ... ]
 
-> +/*
-> + * Refresh a PLL's cached view of its priority table from the source codes
-> + * the table holds -- here after a write, and once per poll from the
-> + * read-back in sit9531x_chan_state_fetch().
-> + *
-> + * The membership mask is what the pin state getters test; the per-slot
-> + * copy and the last-slot-seen array are what priority get answers from,
-> + * so neither costs a register read per pin.
->   */
->  static void sit9531x_prio_mask_build(struct sit9531x_dev *sitdev, u8 pll_idx,
->  				     const u8 *srcs, u8 written)
->  {
-> +	struct sit9531x_chan *chan = &sitdev->chan[pll_idx];
-> +	u8 first[SIT9531X_PRIO_NUM_SRC] = { 0 };
->  	u16 mask = 0;
-> -	u8 slot;
-> -
-> -	/*
-> -	 * A table written only in part is not described by the values the
-> -	 * request carried, and there is nothing here to describe it with
-> -	 * instead, so the mask it had stands until the next poll reads the
-> -	 * table back.
-> -	 */
-> -	if (written < SIT9531X_PRIO_MAX_SLOTS)
-> -		return;
-> +	u8 slot, src, src_canon;
->  
->  	for (slot = 0; slot < SIT9531X_PRIO_MAX_SLOTS; slot++) {
-> -		u8 src = srcs[slot] & SIT9531X_PRIO_NIBBLE_MASK;
-> +		/*
-> +		 * A slot the caller could not write still holds what it
-> +		 * held before, so take that rather than the value the
-> +		 * request wanted to put there.
-> +		 */
-> +		src = slot < written ? srcs[slot] : chan->prio_srcs[slot];
-> +		src &= SIT9531X_PRIO_NIBBLE_MASK;
-> +		chan->prio_srcs[slot] = src;
-> +		src_canon = sit9531x_prio_src_canon(sitdev, src);
-> +		if (!sit9531x_prio_src_usable(src))
-> +			continue;
->  
-> -		if (sit9531x_prio_src_usable(src))
-> -			mask |= BIT(src);
-> +		mask |= BIT(src_canon);
-> +		if (!first[src_canon])
-> +			first[src_canon] = slot + 1;
->  	}
+> +static int sit9531x_prg_commit(struct sit9531x_dev *sitdev)
+> +{
+> +	int rc, rc2 = 0, rc3;
+> +	u8 attempt;
+> +
+> +	rc = sit9531x_write_u8(sitdev, SIT9531X_REG_PRG_DIR_GEN,
+> +			       SIT9531X_UPDATE_NVM);
+> +
+> +	/*
+> +	 * Issue the loop lock even if the update failed.  Callers reach
+> +	 * this function through a goto so that the chip never stays in
+> +	 * the PRG_CMD state with its loops open; returning early here
+> +	 * would defeat that and leave the outputs unlocked until the
+> +	 * next successful commit.
+> +	 */
 
 [Severity: Low]
-This isn't a bug, but this hunk changes sit9531x_prio_mask_build() in two
-ways that the commit message doesn't mention. Both affect existing users:
-the pin state getter, sit9531x_input_prio_present(),
-sit9531x_ref_pll_mask_rebuild() and the periodic poll.
+This isn't a bug, but this comment says callers reach this function
+through a goto. The only caller added here, sit9531x_output_freq_set(),
+calls it directly after sit9531x_output_divo_write().
 
-First, the mask is now built from BIT(src_canon) instead of BIT(src).
-Before this patch, when a differential pair's table entry held the N-lane
-code, the P-lane pin was reported as disconnected and prio_present()
-returned false. Now the same entry reports the pin as listed.
+The kernel-doc of sit9531x_dpll_input_pin_frequency_get() has a similar
+problem:
 
-Second, the early return on a partial write is gone. The requested values
-for the written slots are now merged with chan->prio_srcs for the rest.
-That changes what prio_present() tells the rollback branches of
-sit9531x_dpll_input_pin_state_on_dpll_set() after a failed commit.
+ * returns cached frequency from DT or last set.
 
-Should these changes be described in the commit message, or moved into
-the commit that introduced sit9531x_prio_mask_build()?
+Neither sit9531x_dpll_input_pin_ops nor sit9531x_dpll_xo_pin_ops has a
+.frequency_set, and ref[].freq is only written in prop.c at probe. So
+there is never a "last set" value. That is still true at the end of the
+series.
+
+Could both comments be updated?
 
 [ ... ]
 
-> @@ -629,9 +683,34 @@ static int sit9531x_prio_table_commit(struct sit9531x_dev *sitdev, u8 pll_idx,
->  
->  	written = SIT9531X_PRIO_MAX_SLOTS;
->  
-> +	if (rc && written) {
-> +		/*
-> +		 * Put the slots that did reach the device back the way they
-> +		 * were.  Latching a table that is neither the previous order
-> +		 * nor the requested one hands the reference selection loop
-> +		 * a priority list nobody asked for.  The cache is the table
-> +		 * as last read, which is what those slots held.
-> +		 */
-> +		for (slot = 0; slot < written; slot += 2) {
-> +			u8 old;
+> +	rc3 = sit9531x_write_u8(sitdev, SIT9531X_REG_OUTSYS_DEBUG,
+> +				SIT9531X_DEBUG_LOCK_VAL);
 > +
-> +			old = sit9531x_prio_slot_set(0, slot,
-> +						     chan->prio_srcs[slot]);
-> +			old = sit9531x_prio_slot_set(old, slot + 1,
-> +						     chan->prio_srcs[slot + 1]);
-> +			if (sit9531x_write_u8(sitdev,
-> +					      sit9531x_prio_reg(pll_idx, slot),
-> +					      old))
-> +				break;
+> +	if (rc)
+> +		return rc;
 > +
-> +			restored = slot + 2;
-> +		}
-> +		written = restored;
-> +	}
+> +	return rc2 ? rc2 : rc3;
+> +}
+
+[Severity: Low]
+Suppose UPDATE_NVM and LOOP_LOCK both succeed and only the final
+SIT9531X_REG_OUTSYS_DEBUG write fails. This returns rc3, but the new
+divider is already committed.
+
+sit9531x_output_freq_set() then returns early:
+
+	ret = sit9531x_prg_commit(sitdev);
+	if (ret && !rc)
+		rc = ret;
+	if (rc)
+		return rc;
+
+That skips the phase flush and the out[].freq update. At the end of the
+series it also skips the phase-adjust re-time.
+
+On an identical retry, dpll_pin_freq_set() calls frequency_get first. It
+reads the new rate back from hardware, sees freq == old_freq, and returns
+0 without calling the setter. Does that mean the skipped flush never runs?
+
+sit9531x_output_freq_set() already downgrades a failed flush to a warning
+for this reason ("the core asks for the current rate first and would drop
+an identical retry"). Should a failure of only the debug-key write be
+handled the same way?
+
+[ ... ]
+
+> @@ -1026,6 +1152,561 @@ int sit9531x_input_prio_add(struct sit9531x_dev *sitdev, u8 pll_idx,
+
+[ ... ]
+
+> +static s64 sit9531x_divn_fixed(u32 int_part, s64 fracn, u64 fracd)
+> +{
+> +	s64 whole = (s64)int_part * SIT9531X_DIVN_SCALE;
+> +	u64 frac;
+> +
+> +	if (!fracd)
+> +		return whole;
+> +
+> +	frac = mul_u64_u64_div_u64(abs(fracn), SIT9531X_DIVN_SCALE, fracd);
+
+[ ... ]
+
+> +	fref = (u64)sitdev->xtal_freq << doubler;
+> +
+> +	*fvco = mul_u64_u64_div_u64(fref, (u64)divn, SIT9531X_DIVN_SCALE);
 
 [Severity: Medium]
-Can this block ever run? Every failing register access earlier in
-sit9531x_prio_table_commit() jumps straight to the label:
+Can this double truncation leave fvco 1 Hz low?
 
-		rc = sit9531x_write_u8(sitdev, reg, val);
-		if (rc)
-			goto commit;
+sit9531x_divn_fixed() floors the fraction, and this multiply floors it
+again. Take fref = 48 MHz and DIVN = 104 + 1/6 (NUM 1, DEN raw 5). The true
+VCO is exactly 5,000,000,000 Hz, but the code computes:
 
-The read and the write of the last register use the same goto. The only
-way to reach "if (rc && written)" is to fall through after the last write
-succeeded, and rc is 0 at that point.
+  frac = 166,666,666,666
+  divn = 104,166,666,666,666
+  fvco = floor(4,999,999,999.999968) = 4,999,999,999
 
-So when a table write fails partway through prio_set, prio_add or
-prio_remove, sit9531x_prio_prg_commit() still latches the half-written
-table and the forced holdover is still released.
+That is inside the low band, so the clamp below does not apply.
 
-For example, take [A,B,C,D,E,F,G,H,X,I,J] and move X to slot 0. If the
-write for slots 4 and 5 fails, the device latches
-[X,A,B,C,E,F,G,H,X,I,J], and D drops out of this PLL's selection list.
+For a 10 MHz request, sit9531x_output_divo_calc() computes divo = 500.
+Then this check:
 
-The partial latch itself comes from the earlier "dpll: sit9531x: implement
-input pin state on a DPLL" commit. The comment here, though, says this
-block prevents it.
+	if (div64_u64(fvco, divo) != frequency) {
 
-If the gotos were pointed at this block, would a few more things need
-fixing?
+compares 9,999,999 with 10,000,000 and returns -EINVAL, even though
+DIVO = 500 gives exactly 10 MHz.
 
-With written == SIT9531X_PRIO_MAX_SLOTS (11), the loop reaches slot 10 and
-reads chan->prio_srcs[11], one past the end of the 11-entry array.
+sit9531x_output_freq_get() would also report and cache 9,999,999 Hz, and
+prop.c advertises that as the current rate. Meanwhile a DT-listed 10 MHz
+passes the core's supported-frequency check and then fails in the set.
 
-The last register shares its other nibble with CLK_ACTIVESEL. This block
-rewrites that register from a 0 base, not with the read-modify-write the
-forward path uses.
+This applies whenever the DIVN denominator has prime factors other than 2
+and 5. It is unchanged at the end of the series, and only a DT pll-fvco
+override avoids it.
 
-After "written = restored", sit9531x_prio_mask_build(sitdev, pll_idx,
-srcs, written) would cache the requested srcs[] for exactly the slots that
-were just put back to their old values.
-
-The commit message also doesn't mention this change to a helper shared by
-prio_add, prio_remove and prio_set.
-
-[ ... ]
-
-> diff --git a/drivers/dpll/sit9531x/core.h b/drivers/dpll/sit9531x/core.h
-> index 033e1059bde9b..2c5d0100b450e 100644
-> --- a/drivers/dpll/sit9531x/core.h
-> +++ b/drivers/dpll/sit9531x/core.h
-> @@ -126,6 +126,12 @@ struct sit9531x_out {
->   * @ho_freeze:		holdover freeze active
->   * @ho_valid:		holdover memory acquired, i.e. the holdover window
->   *			holds a valid estimate to fall back on
-> + * @prio_srcs:		cached copy of the priority table, one source code
-> + *			per slot; refreshed together with @prio_mask, so
-> + *			priority reads generate no register traffic
-> + * @prio_last:		slot each source occupies, plus one (0 = the source
-> + *			is not in the table); refreshed from the same scan
-> + *			as @prio_mask, so the two never disagree
->   * @prio_mask:		bit per hardware source code present in this PLL's
->   *			priority table, i.e. the sources it may select.  Read
-
-[Severity: Low]
-This isn't a bug, but the @prio_mask description still says "bit per
-hardware source code".
-
-sit9531x_prio_mask_build() now sets BIT(src_canon). An N-lane code in the
-table therefore sets the P-lane bit and leaves its own bit clear.
-
-Could this be updated to say the mask is indexed by the canonical source?
-
-[ ... ]
-
-> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index 4437c95f578f8..56a8213dee077 100644
-> --- a/drivers/dpll/sit9531x/dpll.c
-> +++ b/drivers/dpll/sit9531x/dpll.c
-> @@ -489,10 +489,139 @@ sit9531x_dpll_input_pin_state_on_dpll_set(const struct dpll_pin *pin,
-
-[ ... ]
-
-> +static int
-> +sit9531x_dpll_input_pin_prio_set(const struct dpll_pin *pin, void *pin_priv,
-> +				 const struct dpll_device *dpll,
-> +				 void *dpll_priv, u32 prio,
-> +				 struct netlink_ext_ack *extack)
-> +{
-
-[ ... ]
-
-> +	mutex_lock(&sitdev->multiop_lock);
-> +	rc = sit9531x_input_prio_set(sitdev, sitdpll->id,
-> +				     sit9531x_input_hw_src(dpin->id),
-> +				     (u8)prio);
-> +	if (!rc) {
-
-[Severity: Low]
-If sit9531x_input_prio_set() returns an error after the table has already
-changed, is the sibling update skipped entirely?
-
-In sit9531x_prio_table_commit(), the table is latched and
-sit9531x_prio_mask_build() refreshes prio_last before the holdover release
-is retried. A failure there still becomes the return value:
-
-	if (ho_rc) {
-		...
-		if (!rc)
-			rc = ho_rc;
-
-A partially written table is also latched and cached on the write failure
-paths.
-
-In both cases this callback returns an error, so dpll_pin_prio_set() in
-the core also skips __dpll_pin_change_ntf() for the named pin. Several
-pins' reported priorities can then change with no PIN_CHANGE_NTF for any
-of them, and sibling->prio stays stale.
-
-> +		list_for_each_entry(sibling, &sitdpll->pins, list) {
-> +			if (!sit9531x_dpll_is_input_pin(sibling) ||
-> +			    sit9531x_dpll_is_xo_pin(sibling))
-> +				continue;
-> +
-> +			hw_src = sit9531x_input_hw_src(sibling->id);
-> +			get_rc = sit9531x_input_prio_get(sitdev, sitdpll->id,
-> +							 hw_src, &slot);
-> +			if (get_rc)
-> +				continue;
-> +
-> +			if (sibling->prio == slot)
-> +				continue;
-> +
-> +			sibling->prio = slot;
-> +
-> +			/*
-> +			 * The core notifies the pin the request named, so
-> +			 * only the others are collected here.  A pin whose
-> +			 * dpll_pin is already NULL is mid-unregister: that
-> +			 * runs with the device lock dropped between the
-> +			 * unregister and the free, so it can be seen from
-> +			 * here, and notifying through it would follow a
-> +			 * pointer that is on its way out.
-> +			 */
-> +			if (sibling == dpin || !sibling->dpll_pin)
-> +				continue;
-> +
-> +			if (changed_cnt < ARRAY_SIZE(changed))
-> +				changed[changed_cnt++] = sibling->dpll_pin;
-> +		}
-> +	}
-> +	mutex_unlock(&sitdev->multiop_lock);
-
-[Severity: High]
-Is it safe to walk sitdpll->pins and read sibling->dpll_pin here while
-holding only multiop_lock and the core's dpll_lock? The teardown path
-takes neither lock for the list or for this field:
-
-drivers/dpll/sit9531x/core.c:sit9531x_dpll_pin_unregister() {
-	...
-	dpll_pin_unregister(sitdpll->dpll_dev, pin->dpll_pin, ops, pin);
-	dpll_pin_put(pin->dpll_pin, &pin->tracker);
-	pin->dpll_pin = NULL;
-	...
-}
-
-drivers/dpll/sit9531x/core.c:sit9531x_dpll_pins_unregister() {
-	...
-	list_for_each_entry_safe(pin, next, &sitdpll->pins, list) {
-		sit9531x_dpll_pin_unregister(pin);
-		list_del(&pin->list);
-		kfree(pin);
-	}
-}
-
-dpll_pin_unregister() and dpll_pin_put() each take and drop dpll_lock.
-The NULL store only happens after both.
-
-Suppose a PIN_SET prio request arrives for a pin that is still registered
-on the same DPLL while sit9531x_dev_stop() or a probe error path is
-running. Could this loop pick up a sibling's dpll_pin after the last
-dpll_pin_put() has freed it, and pass it to __dpll_pin_change_ntf()?
-
-Could the loop also be standing on a sit9531x_dpll_pin that another CPU
-is list_del()'ing and kfree()'ing? It would then write sibling->prio into
-freed memory or follow LIST_POISON1.
-
-sit9531x_dpll_pins_register() has a similar problem. It does
-list_add(&pin->list, &sitdpll->pins) without the lock, after earlier pins
-are already reachable from netlink.
-
-The !sibling->dpll_pin check added in v10 reads the pointer without any
-lock that orders it against teardown. It doesn't seem to close the window
-the comment describes.
-
-[ ... ]
-
-> +	/*
-> +	 * The core notifies only the pin the request named, so the ones whose
-> +	 * slots moved are notified here.  This runs inside a pin op, where
-> +	 * the core already holds the lock the notification needs, so it is
-> +	 * the underscore helper rather than the wrapper that takes it.
-> +	 */
-> +	while (changed_cnt--)
-> +		__dpll_pin_change_ntf(changed[changed_cnt]);
+> +	if (*fvco < fvco_min)
+> +		*fvco = fvco_min;
+> +	else if (*fvco > fvco_max)
+> +		*fvco = fvco_max;
 > +
 > +	return 0;
 > +}
 
 [Severity: Medium]
-Sibling notifications are only sent from this prio_set path. What about
-sit9531x_dpll_input_pin_state_on_dpll_set() with
-DPLL_PIN_STATE_DISCONNECTED?
+When the register-derived Fvco falls outside the band, this returns
+success with a band-edge value the VCO is not running at. Doesn't that
+defeat the exactness check in sit9531x_output_divo_calc()?
 
-That path calls sit9531x_input_prio_remove(). It rebuilds the table from
-the sources it keeps and backfills the tail:
+For example, take a high-band PLL (B or D) whose Fref * DIVN is 5.0 GHz.
+The clamp raises fvco to 6.875 GHz. A 12.5 MHz request gives DIVO = 550,
+and this check passes because it compares against the same clamped value:
 
-	} else {
-		/* Backfill freed tail slots with the lowest-priority src */
-		while (count < SIT9531X_PRIO_MAX_SLOTS) {
-			kept[count] = kept[count - 1];
-			count++;
-		}
-	}
+	if (div64_u64(fvco, divo) != frequency) {
 
-Every later source moves up a slot, and sit9531x_prio_mask_build() updates
-prio_last, which is what prio_get now reports. For example, removing A
-from [A,B,C,...] moves B from 1 to 0 and C from 2 to 1.
+sit9531x_output_freq_set() commits the divider and returns 0. The output
+actually runs at about 5.0e9 / 550, roughly 9.09 MHz.
 
-dpll_pin_state_set() in the core only notifies the named pin. The
-disconnect path neither notifies the siblings nor refreshes their
-sibling->prio.
+The clamp is in the shared accessor, so sit9531x_output_freq_get() reports
+12.5 MHz as well. Userspace has no way to see the mismatch.
 
-sit9531x_dpll_changes_check() doesn't catch this later either, because it
-only compares pin state:
+The comment in sit9531x_output_divo_calc() says "programming a divider
+from a guessed rate would put the output far from what was asked for while
+reporting success". That seems to be what happens in this case.
 
-		if (state != pin->pin_state) {
-			...
-			pin->pin_state = state;
-			dpll_pin_change_ntf(pin->dpll_pin);
-		}
+The final patch in the series adds sit9531x_fvco_in_band(), but only uses
+it to validate the DT override. This clamp is still there at the end of
+the series.
 
-Would userspace listening for PIN_CHANGE_NTF miss the priority changes of
-the other inputs after a disconnect?
+[ ... ]
+
+> +static int sit9531x_output_phase_flush(struct sit9531x_dev *sitdev, u8 pll_idx)
+> +{
+> +	u8 ctrl, orig;
+> +	int rc, ret;
+> +
+> +	/* Arm the on-demand phase-flush on the PLL page. */
+> +	rc = sit9531x_update_pll_u8(sitdev, pll_idx,
+> +				    SIT9531X_PLL_REG_PHFL_CTRL,
+> +				    SIT9531X_PLL_PHFL_ON_DEMAND_EN,
+> +				    SIT9531X_PLL_PHFL_ON_DEMAND_EN);
+> +	if (rc)
+> +		return rc;
+
+[ ... ]
+
+> +	rc = sit9531x_write_u8(sitdev, SIT9531X_REG_GPIO_FUNC_CTRL1,
+> +			       ctrl | SIT9531X_DIVO_PHASE_TRIG);
+
+[Severity: Medium]
+SIT9531X_REG_GPIO_FUNC_CTRL1 is SIT9531X_REG(0x00, 0x65), a chip-global
+Page 0 register. Which PLLs respond to this pulse depends on each PLL's
+own PHFL_CTRL bit 7.
+
+This function arms that bit only for pll_idx. It never checks or disarms
+it on the other three PLLs.
+
+If the loaded profile left on-demand phase flush enabled on another PLL,
+would a frequency set on one DPLL also step the phase of outputs that
+belong to other DPLLs, with no notification?
+
+That is wider than what the commit message describes:
+
+  The phase flush that follows a divider write realigns every output fed by
+  that PLL, not only the one that changed.
+
+[ ... ]
+
+> +disarm:
+
+[ ... ]
+
+> +	ret = sit9531x_update_pll_u8(sitdev, pll_idx,
+> +				     SIT9531X_PLL_REG_PHFL_CTRL,
+> +				     SIT9531X_PLL_PHFL_ON_DEMAND_EN, 0);
+> +	if (!ret)
+> +		ret = sit9531x_write_pll_u8(sitdev, pll_idx,
+> +					    SIT9531X_PLL_REG_SMALL_UPDATE,
+> +					    SIT9531X_SMALL_UPDATE_CMD);
+
+[Severity: Medium]
+The arm step at the top of this function sets
+SIT9531X_PLL_PHFL_ON_DEMAND_EN with regmap_update_bits() without saving the
+previous value. This path always clears it and latches the change with
+SIT9531X_SMALL_UPDATE_CMD.
+
+Suppose the loaded NVM profile had on-demand phase flush enabled on this
+PLL, for example on a board that realigns outputs from a GPIO trigger.
+Would the first output frequency set on that PLL turn it off for good, so
+that later GPIO-triggered flushes silently do nothing?
+
+This function already saves and restores GPIO_FUNC_CTRL1 through orig.
+Should PHFL_CTRL be saved and restored the same way?
+
+[ ... ]
+
+> +	for (j = 0; j < 5; j++) {
+> +		rc = sit9531x_write_u8(sitdev,
+> +				       SIT9531X_REG(page, base_reg - j),
+> +				       divo_bytes[j]);
+> +		if (rc)
+> +			goto rollback;
+> +		written++;
+> +	}
+> +
+> +	return 0;
+> +
+> +rollback:
+> +	for (j = 0; j < written; j++) {
+
+[Severity: Medium]
+written is only incremented after a successful write, so the byte whose
+write reported failure is never restored here.
+
+sit9531x_prg_enter() notes that "a transfer that reported an error may
+still have reached the part". If that byte did land,
+sit9531x_output_freq_set() still calls sit9531x_prg_commit()
+unconditionally, and that issues UPDATE_NVM and LOOP_LOCK.
+
+Can that commit a 34-bit divider that is part old and part new? The output
+would then run at neither the old rate nor the requested one, while the
+set returns an error and out[].freq keeps the old value.
+
+The comment above this function says "so the output keeps the divider it
+had rather than a mixture of the two". Should the rollback also restore
+old_bytes[written]?
+
+[ ... ]
+
+> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
+> index 56a8213dee077..9f0678ddfe0ee 100644
+> --- a/drivers/dpll/sit9531x/dpll.c
+> +++ b/drivers/dpll/sit9531x/dpll.c
+
+[ ... ]
+
+> @@ -691,8 +715,78 @@ sit9531x_dpll_output_pin_direction_get(const struct dpll_pin *pin,
+
+[ ... ]
+
+> +	mutex_lock(&sitdev->multiop_lock);
+> +	rc = sit9531x_output_freq_get(sitdev, dpin->id, frequency);
+> +	if (rc == -ENODEV)
+> +		*frequency = sit9531x_out_state_get(sitdev, dpin->id)->freq;
+> +	mutex_unlock(&sitdev->multiop_lock);
+> +
+> +	return rc == -ENODEV ? 0 : rc;
+> +}
+
+[Severity: Medium]
+Is -ENODEV reliable as the "not resolvable" sentinel here?
+
+sit9531x_output_freq_get() returns -ENODEV itself when divo is zero, and
+here:
+
+	rc = sit9531x_get_fvco(sitdev, pll_idx, &fvco);
+	if (rc)
+		return rc == -ENODATA ? -ENODEV : rc;
+
+It also passes register access errors from sit9531x_read_u8(),
+sit9531x_divn_static() and sit9531x_is_xo_doubler_enabled() through
+unchanged.
+
+The driver says elsewhere that the I2C layer returns -ENODEV for an
+adapter that has gone away. The comment in
+sit9531x_dpll_input_pin_phase_offset_get() reads: "Every other errno,
+-ENODEV from a vanished adapter included, is a failure."
+
+In that case a bus -ENODEV is reported here as a successful read of the
+cached rate. That contradicts the comment above this function, "so
+transport/register errors still surface".
+
+It also affects frequency set, because the core reads the old rate first:
+
+drivers/dpll/dpll_netlink.c:dpll_pin_freq_set() {
+    ...
+	ret = ops->frequency_get(pin, dpll_pin_on_dpll_priv(dpll, pin), dpll,
+				 dpll_priv(dpll), &old_freq, extack);
+    ...
+	if (freq == old_freq)
+		return 0;
+    ...
+}
+
+If the stale cached value equals the requested rate, the set reports
+success without touching the hardware. This is still present at the end
+of the series.
+
+Could sit9531x_output_freq_get() use an errno for the unresolvable case
+that a bus error cannot also produce?
 
 [ ... ]
