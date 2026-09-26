@@ -1,353 +1,150 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850DA448D03;
-	Sat, 26 Sep 2026 13:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6D14457C9
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:49:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790430573; cv=none; b=aksayFDtRAq9wPOEjivIfKjt0A4Ad/bm0TuoCT2t5tIrIEKjMRUAqZqMfp0QfaaOia5z5Y5ahHQ6tzi4YVWcjW3KrojeQGJsl2SxhtQuZJpBvCuD6a71gaNQmOcgUz3x6ntdN+QwFF4LxMM3g/KuLNfgy9pgAYUI8nEC497GwR4=
+	t=1790430595; cv=none; b=JDA5EnNW4d1URVtFHYrAETkL8HmqYJY8C0NcBQGWKy/U8/cYda5mpsAWcDIarpN1H6T770OvrUcFUiQOO10lLM0tUKGIx/tSwkHAJzTm4pIIMFKNE8/A2iMuYpo+JFsCkQy+Q0fpA7DF5/h0QgI5WBmdp1Xjdr2AybxE9U/2LqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790430573; c=relaxed/simple;
-	bh=+UzI8JHFa3d8FJeL50WT9IM5cul9uArWSPTiwUfNNmM=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RkNvkNFdAyWL/UuoF4c0k0mnjwSo6yI3yZYYJqg+eTZfSNI+2W0DqINqA4RwGdEd7okdcGhaKaAmgvs7Zb5AyZDuGgjZoTvPxiBNufx+xxa6vP1JPpK1Kbnn0sxX2P7u19OwYZndaB3sdPiLoJnzsRmj5ouKvuKHV/BScjkTW3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xASmL-000000001cm-15bN;
-	Sat, 26 Sep 2026 13:49:25 +0000
-Date: Sat, 26 Sep 2026 14:49:22 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: [PATCH net-next v18 3/6] driver core: add device_schedule_reprobe()
-Message-ID: <e70f147857d21b792de81c7d39c2f74c6e0ec3f5.1790426599.git.daniel@makrotopia.org>
-References: <cover.1790426599.git.daniel@makrotopia.org>
+	s=arc-20240116; t=1790430595; c=relaxed/simple;
+	bh=pg4htWPSTWhst5jptWH6ipeiHyaHtmPzw6NrMc48f10=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mgOtIoI///HhEx6p3k/kFb3fqySmzWCrVuCSuqT+yujYhGps+9Fg3n0KlDqjrTBdbQOjXrKYAG42IVdgtszhf6BuUtdcYJcWFwZVgU6mdR/wCWwIb5inONFmOmEP+NG1Y/Vw6HqJ9AQHx6KkwHUytEMBjA2yJ3Z/OUjUqE8/nYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nN8TGVJo; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nN8TGVJo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=IGr+dvrh4HuH30oh4FfmfQWp2wTHQLcHpe5e0TGlCNw=;
+	b=nN8TGVJozCUsP1bsGz2yBQY1UoF0IIgMFZ0SxxNE6PWykna96RJP4LNDqf1cnu
+	lazIPW2ZHSkz2tVD5Pgd356BYCUHJ75LqoFsOldygCl3uQXmpTkHGQRDH2oYorsY
+	MnpmGsOWIhC3wIm3J6a86VlcgAJuDIyOqva+bp8x73vY8=
+Received: from [IPV6:2409:8949:6ca0:7910:cfbd:ff70:c0fd:a387] (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wDnv6JTzbdqIb6jAw--.28866S2;
+	Sat, 26 Sep 2026 21:49:09 +0800 (CST)
+Message-ID: <21ffdfca-f58d-4509-889e-7f45e3266c30@163.com>
+Date: Sat, 26 Sep 2026 21:49:07 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1790426599.git.daniel@makrotopia.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/6] ntfs: report filesystem errors through fsnotify
+To: Hyunchul Lee <hyc.lee@gmail.com>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
+References: <20260924090102.2865942-1-liubaolin12138@163.com>
+ <CANFS6bZu50diLF6Rk2BNLgpCWry3yW3n+JAjiqBXTijviRJ8JQ@mail.gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <CANFS6bZu50diLF6Rk2BNLgpCWry3yW3n+JAjiqBXTijviRJ8JQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnv6JTzbdqIb6jAw--.28866S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF4fJr1rtF4kAFy3AFyftFb_yoWrXw13pF
+	Z7G3sxK3ykJry7twnIv3yUt3WFgrZ5J3yUXr13W34Ik3WYkr1jqFWxK3W09FW8urZ3t348
+	Xw4UK3srur1DAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2zuZUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwhUR22q3zVWWzgAA3A
 
-Drivers that need a deferred re-probe of their own device open-code a
-work item in module text. iwlwifi (iwl_trans_schedule_reprobe(), for a
-firmware crash a lighter restart cannot fix) and hci_h5
-(h5_btrtl_resume(), RTL devices lose their firmware state over suspend)
-both end that work function with put_device(); kfree();
-module_put(THIS_MODULE);, where a concurrent rmmod can free the module
-text the epilogue is still executing. Neither gates the re-probe on the
-device still being bound to the driver that scheduled it, which a driver
-cannot do from outside because device_reprobe() takes the device lock
-internally. Their conversion is left to follow-up patches.
 
-Add device_schedule_reprobe(), which detaches and re-probes a device
-after a caller-specified delay. The work function is built-in text, so a
-caller needs no module reference. The binding is recorded as the driver
-pointer plus a copy of its name: the stored pointer is only ever
-compared, never dereferenced, and the name copy rejects a freed struct
-device_driver address the allocator later hands to a different driver.
-The first user is the mxl862xx devlink flash path added later in this
-series.
 
-A failed re-probe leaves the device unbound, as a failed initial probe
-would. device_attach() reports that as 0, a failed probe being folded
-into "no driver matched", and 0 carries no errno for dev_err_probe(),
-so the message is a plain dev_err() that skips only -EPROBE_DEFER, which
-the deferred-probe machinery retries on its own.
+在 2026/9/26 08:33, Hyunchul Lee 写道:
+> Hi Baolin,
+> 
+> 2026년 9월 24일 (목) 오후 6:02, Baolin Liu <liubaolin12138@163.com>님이 작성:
+>>
+>> From: Baolin Liu <liubaolin@kylinos.cn>
+>>
+>> Report NTFS metadata and shutdown errors through the generic filesystem
+>> error notification infrastructure. Use file-level events for errors
+> 
+> There appear to be several error paths that identify corruption
+> but don't call any report_*_error(). For example:
+> 
+> * ntfs_lookup_inode_by_example(), ntfs_ib_read(),
+>    ntfs_read_iomap_begin_non_resident(), and etc.
+> 
 
-Nothing is locked in the caller's context, and its checks are unlocked
-snapshots the work repeats under the device lock, so the helper may be
-called with the device lock held, as the PM callbacks, ->remove() and
-->shutdown() hold it. The caller is the bound driver, in a context its
-->remove() waits for, which keeps the driver name readable for the
-copy. Buses that take the parent lock to bind are
-refused with -EINVAL: that lock has to be taken before @dev's own, so
-the parent would have to be recorded before either is held, where
-device_move() can replace it without taking any device lock.
-usb_bus_type is the only such bus and no caller needs it today.
+Hi Hyunchul,
+   Thank you for the suggestion. I agree that these corruption paths 
+should be covered.
+   I'll take some time to thoroughly review the remaining error paths 
+for similar omissions and add the missing reports in v4.
 
-While probing is blocked, which device_shutdown() and dpm_prepare() both
-set before they touch any device, the work re-arms itself, so a request
-pending across a system suspend runs once the system has resumed and
-one that fires during a shutdown detaches nothing. Beyond that gate
-this is device_reprobe() deferred and __device_release_driver() is
-unchanged, so it carries device_reprobe()'s pre-existing limitations:
-the detach and the re-attach are not one locked operation, so an
-administrative unbind between them may be undone, and detaching a device
-that has managed consumers unbinds them as any release does, so a
-re-probe a concurrent device_shutdown() overtakes may run ->remove() in
-place of ->shutdown(). None of this is specific to the helper.
+Thanks,
+Baolin.
 
-Assisted-by: LLM
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-v18:
- - re-arm the work while probing is blocked instead of dropping the
-   request: dpm_prepare() blocks probing as well, and a kexec jump or a
-   kernel without the suspend freezer reaches that window with the
-   workqueue running, which lost the request for good (found by Sashiko
-   AI review)
- - log an error for every unbound outcome of device_attach() except a
-   deferred probe: a failed probe comes back as 0, which the check for a
-   negative value missed (found by Sashiko AI review)
- - kernel-doc: the caller is the bound driver in a context its ->remove()
-   waits for, and a rebind of the same driver within the delay still
-   gets the re-probe (found by Sashiko AI review)
- - commit message: the caller's checks are unlocked snapshots, only the
-   stored driver pointer is never dereferenced, and the drivers named as
-   motivation are converted later (found by Sashiko AI review)
-v17:
- - drop the abort_if_blocked flag and the bool return of
-   __device_release_driver(), leaving that function unchanged: the flag
-   left the device-links state half torn down when it fired and did not
-   cover the consumers unbound in the same window, so the shutdown-vs-
-   release window it targeted is documented as pre-existing to every
-   unbind path instead (found by Sashiko AI review)
- - record the bound driver's name beside the pointer and compare both,
-   so a freed struct device_driver address reused by another driver is
-   not mistaken for the original binding (found by Sashiko AI review)
- - kernel-doc: add a Context line and state the pre-existing limitations
-   shared with device_reprobe() (found by Sashiko AI review)
-v16:
- - commit message: device_shutdown() blocks probing only once
-   wait_for_device_probe() has returned, so a re-probe already past the
-   test detaches the device instead of leaving it bound for its
-   ->shutdown()
- - take no lock in the caller's context and drop the parent snapshot,
-   refusing buses that need the parent lock instead: the caller-context
-   device lock inverted against the devlink instance lock on the flash
-   path and against a synchronous work cancel on the rescue path, and a
-   pinned parent can be freed by device_move() (found by Sashiko AI
-   review)
- - abandon the release when probing is blocked while the device links
-   loop has the locks dropped, rather than calling that window
-   pre-existing: a deferred re-probe is the one unbind that may be
-   abandoned, so it is the one that can close it (found by Sashiko AI
-   review)
- - commit message: describe what this patch changes rather than bugs in
-   drivers it does not convert, and name the first user (found by
-   Sashiko AI review)
- - kernel-doc: drop the promise that an administrative unbind always
-   wins, which unbind_store() does not guarantee (found by Sashiko AI
-   review)
-v15:
- - skip the detach while probing is blocked instead of adding a
-   per-device shutdown_done flag: device_shutdown() blocks probing
-   before its walk starts, so the flag left a window where the work
-   detached a device that then neither re-attached nor got its
-   ->shutdown() call (found by Sashiko AI review)
- - validate the device and snapshot the parent, its locking requirement
-   and the bound driver under the device lock, so an unregister racing
-   the allocation can neither leave a freed parent pinned nor pair a
-   NULL parent with a request to lock it (found by Sashiko AI review)
- - keep -EPROBE_DEFER out of the re-probe error path, where
-   dev_err_probe() would record the message as the device's deferred
-   probe reason (found by Sashiko AI review)
- - kernel-doc: a stale re-probe leaves an unbound device unbound, which
-   an unbind followed by a rebind within the delay does not (found by
-   Sashiko AI review)
-v14: no changes
-v13:
- - queue the work on system_freezable_wq, so a re-probe pending across
-   system suspend can neither detach a device the PM core has suspended
-   nor race its late suspend callbacks; it runs after resume instead
-   (found by Sashiko AI review)
- - record at scheduling time whether the parent needs locking, instead
-   of reading dev->bus in the work, which may be gone with its module
-   once the device has been unregistered (found by Sashiko AI review)
- - let __device_release_driver() report whether it released the driver,
-   so an administrative unbind that wins the race inside the device
-   links loop is not undone by the re-attach (found by Sashiko AI
-   review)
- - use dev_err_probe() for the re-probe error path, so a re-probe
-   deferred at resume no longer logs a spurious error (Hans de Goede,
-   on the standalone posting of this helper)
- - describe the parent pinning and locking in the commit message, as in
-   the standalone posting
+>> associated with an affected inode, and volume-level events for volume
+>> metadata and shutdown errors. Preserve the volume error flags and report
+>> failed recovery independently of the error that triggered it.
+>>
+>> Report errors where they are detected and leave queued event merging to
+>> fanotify. No error_reported state is carried through search contexts,
+>> mapping-pairs updates or MFT mappings, so releasing a context cannot lose
+>> that state or suppress a later rollback or restore failure.
+>>
+>> Changes since v2:
+>> - Follow Hyunchul Lee's suggestion to remove error_reported tracking and
+>>    the reporting-aware mapping APIs throughout the series.
+>> - Report independent cluster, mapping-pairs, ATTRIBUTE_LIST and MFT
+>>    bitmap recovery failures while preserving the original operation errno.
+>> - Base the series on ntfs-next at 401898d748fc ("ntfs: validate
+>>    attribute-list sizes before allocation"). Retain its MFT parent BIO
+>>    and folio writeback implementation. Report synchronous and asynchronous
+>>    device errors in the existing completion callback; fserror itself
+>>    defers notification work and holds the inode reference. No additional
+>>    NTFS completion workqueue or pending-I/O counter is introduced.
+>> - Cover stale extent references, failed extent-record cleanup, mirror
+>>    failures and MFT preparation errors. Resolve attribute-inode reports
+>>    to their base inode and keep cluster-free counts in 64-bit variables.
+>> - Split MFT reporting into two patches: metadata validation, allocation
+>>    and recovery in patch 4; write preparation, mirror and BIO completion
+>>    errors in patch 5. This keeps the two review topics separate.
+>>    Shutdown reporting is now patch 6.
+>>
+>> Testing on this base:
+>> - QEMU passed mount/read/write/fsync/truncate/xattr/rename/unlink, MFT
+>>    growth and unmount without FAN_FS_ERROR events during normal operation.
+>> - Verified EIO with a valid FID for file MFT corruption, EUCLEAN without
+>>    a valid FID for an MFT bitmap mismatch, and ESHUTDOWN for forced
+>>    shutdown.
+>> - Fault injection of an initial mapping-pairs error followed by an
+>>    independent restore failure produced a merged FAN_FS_ERROR event with
+>>    error_count=2. Synchronous and asynchronous MFT completion failures
+>>    also generated notifications. The injection code is test-only and is
+>>    excluded from the series.
+>>
+>> Baolin Liu (6):
+>>    ntfs: report allocation metadata errors to fsnotify
+>>    ntfs: report attribute errors to fsnotify
+>>    ntfs: report inode metadata errors to fsnotify
+>>    ntfs: report MFT metadata and recovery errors to fsnotify
+>>    ntfs: report MFT writeback errors to fsnotify
+>>    ntfs: report shutdown errors to fsnotify
+>>
+>>   fs/ntfs/attrib.c   |  84 ++++++++++++++------
+>>   fs/ntfs/attrlist.c |  17 ++--
+>>   fs/ntfs/bitmap.c   |   2 +-
+>>   fs/ntfs/inode.c    |  12 ++-
+>>   fs/ntfs/lcnalloc.c |   4 +-
+>>   fs/ntfs/logfile.c  |   2 +-
+>>   fs/ntfs/mft.c      | 192 ++++++++++++++++++++++++++++-----------------
+>>   fs/ntfs/super.c    |  32 +++++++-
+>>   fs/ntfs/volume.h   |   4 +
+>>   9 files changed, 235 insertions(+), 114 deletions(-)
+>>
+>> --
+>> 2.51.0
+>>
+> 
+> 
+> --
+> Thanks,
+> Hyunchul
 
-v12:
- - pin the parent device across the deferred work; a reference on the
-   child alone left device_reprobe_work_fn() dereferencing a freed
-   dev->parent under __device_driver_lock() when the device was
-   unregistered before the work ran (found by Sashiko AI review)
- - take the parent lock across device_attach() on buses that require
-   it, matching bus_rescan_devices_helper() (found by Sashiko AI review)
-
-v11: new patch: add device_schedule_reprobe() to the driver core (posted
-     earlier as an RFC) so mxl862xx can schedule its post-flash and
-     post-drain re-probe through the core instead of open-coding a work
-     item
-
- drivers/base/dd.c      | 126 +++++++++++++++++++++++++++++++++++++++++
- include/linux/device.h |   2 +
- 2 files changed, 128 insertions(+)
-
-diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-index f6525a7ee8c5..823a25f9c089 100644
---- a/drivers/base/dd.c
-+++ b/drivers/base/dd.c
-@@ -1436,3 +1436,129 @@ void driver_detach(const struct device_driver *drv)
- 		put_device(dev);
- 	}
- }
-+
-+struct device_reprobe {
-+	struct delayed_work work;
-+	const struct device_driver *drv;
-+	const char *drv_name;
-+	struct device *dev;
-+	unsigned long delay;
-+};
-+
-+static void device_reprobe_work_fn(struct work_struct *work)
-+{
-+	struct device_reprobe *rp = container_of(work, struct device_reprobe,
-+						 work.work);
-+	struct device *dev = rp->dev;
-+	bool detached = false;
-+	int ret;
-+
-+	device_lock(dev);
-+	/*
-+	 * rp->drv is only compared, never dereferenced: the driver it points
-+	 * to may have been unregistered and freed. The saved name rejects a
-+	 * freed address the allocator has since handed to another driver.
-+	 */
-+	if (!dev->p->dead && dev->driver == rp->drv &&
-+	    !strcmp(dev->driver->name, rp->drv_name)) {
-+		if (defer_all_probes) {
-+			device_unlock(dev);
-+			queue_delayed_work(system_freezable_wq, &rp->work,
-+					   rp->delay);
-+			return;
-+		}
-+		__device_release_driver(dev, NULL);
-+		detached = true;
-+	}
-+	device_unlock(dev);
-+
-+	if (detached) {
-+		ret = device_attach(dev);
-+		/* 0 is unbound too: a failed probe is folded into "no match" */
-+		if (ret <= 0 && ret != -EPROBE_DEFER)
-+			dev_err(dev, "re-probe left the device unbound\n");
-+	}
-+
-+	put_device(dev);
-+	kfree(rp->drv_name);
-+	kfree(rp);
-+}
-+
-+/**
-+ * device_schedule_reprobe - schedule a deferred detach and re-probe
-+ * @dev: device to detach and re-probe
-+ * @delay_ms: delay in milliseconds before the re-probe runs
-+ *
-+ * Schedule a detach and re-probe of @dev after @delay_ms milliseconds,
-+ * from built-in driver-core work rather than a driver-owned work item,
-+ * so the bound driver may call it without pinning its own module. The
-+ * binding is recorded as the driver pointer plus a copy of its name; the
-+ * pointer is only ever compared, never dereferenced, and the name copy
-+ * guards against a freed &struct device_driver address the allocator
-+ * later hands to a different driver.
-+ *
-+ * The re-probe is skipped when the work runs if @dev has since been
-+ * removed, is no longer bound or is bound to a different driver; an
-+ * unbind followed by a rebind of the same driver within the delay still
-+ * gets it. While probing is blocked, for a system suspend or shutdown,
-+ * the work re-arms itself after @delay_ms, so a request pending across
-+ * suspend runs once the system has resumed and one that fires during a
-+ * shutdown detaches nothing. A failed re-probe leaves @dev unbound, as a
-+ * failed initial probe would.
-+ *
-+ * This is device_reprobe() deferred, and shares its limitations;
-+ * __device_release_driver() is unchanged. The detach and the re-attach
-+ * are not one locked operation, so an administrative unbind arriving
-+ * between them may be undone, and the attach half runs the normal probe
-+ * path with no shutdown re-check of its own. If @dev has managed
-+ * consumers, detaching it unbinds them as any driver release does, so a
-+ * re-probe a concurrent device_shutdown() overtakes may run ->remove()
-+ * in place of ->shutdown(). None of this is specific to this helper.
-+ *
-+ * Buses that take the parent lock to bind (only usb_bus_type) are refused
-+ * with -EINVAL: the parent would have to be recorded before either lock
-+ * is held, where device_move() can replace it.
-+ *
-+ * Context: May sleep (allocates with %GFP_KERNEL). Must be called by the
-+ * driver bound to @dev, from a process context its ->remove() waits for,
-+ * so that the binding outlives the call; @dev's own device lock may be
-+ * held, but not from ->probe(), which the scheduled work would detach.
-+ *
-+ * Returns: 0 on success, -EINVAL if @dev is not a registered device
-+ * bound to a driver or sits on a bus which takes the parent lock to
-+ * bind, -ENOMEM on allocation failure.
-+ */
-+int device_schedule_reprobe(struct device *dev, unsigned int delay_ms)
-+{
-+	const struct device_driver *drv;
-+	struct device_reprobe *rp;
-+
-+	drv = READ_ONCE(dev->driver);
-+	/*
-+	 * A bus taking the parent lock would need @dev's parent pinned until
-+	 * the work runs, which device_move() can invalidate.
-+	 */
-+	if (!drv || !dev->bus || dev->bus->need_parent_lock || !dev->p ||
-+	    dev->p->dead || !device_is_registered(dev))
-+		return -EINVAL;
-+
-+	rp = kzalloc_obj(*rp);
-+	if (!rp)
-+		return -ENOMEM;
-+
-+	rp->drv_name = kstrdup(drv->name, GFP_KERNEL);
-+	if (!rp->drv_name) {
-+		kfree(rp);
-+		return -ENOMEM;
-+	}
-+
-+	rp->dev = get_device(dev);
-+	rp->drv = drv;
-+	rp->delay = msecs_to_jiffies(delay_ms);
-+
-+	INIT_DELAYED_WORK(&rp->work, device_reprobe_work_fn);
-+	queue_delayed_work(system_freezable_wq, &rp->work, rp->delay);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(device_schedule_reprobe);
-diff --git a/include/linux/device.h b/include/linux/device.h
-index aee79fd6b32b..7a9916950577 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -1314,6 +1314,8 @@ int  __must_check device_attach(struct device *dev);
- int __must_check driver_attach(const struct device_driver *drv);
- void device_initial_probe(struct device *dev);
- int __must_check device_reprobe(struct device *dev);
-+int __must_check device_schedule_reprobe(struct device *dev,
-+					 unsigned int delay_ms);
- 
- bool device_is_bound(struct device *dev);
- 
--- 
-2.55.0
