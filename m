@@ -1,78 +1,82 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wr2-f37.google.com (mail-wr2-f37.google.com [74.125.225.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88708363081
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A89C35BDC7
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790401209; cv=none; b=h7EyH0i63NHU9Q1TZf2T5vkrm6OtMZnxXBSC1asMpr2BTbiYFUcNHMkbLTt9GFFsEh/TMZ20FnPlFjMP8QGLuO5gnCkK6yHXylm9vvvNHTjEAZVlFRrFkZQueh8QPW3RfXkb24o+ODuEmKtAfGojt46AXcw/UZjc+dReIU1weeo=
+	t=1790401332; cv=none; b=lq/0Xxk/36UYog2jEiw0LaYc4RlEwQMLXwYyZ0aJl2pDAFP6uaJRCzzLtSiUT7fjVgPU74RIoUom1xA6AL2X2GGUrpoM0gAVOHYdAZAZHC583PpGr+7iI/hKC3WghwCWJlC72dkLiH1eYH/tZr+FExL4/8BaDcJEPAQzsh7IjwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790401209; c=relaxed/simple;
-	bh=HbE8bRzC3Goxq4kk8a/U3awPlEBLYj8peqtDmlNZCg8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gh7b58gDc0sryoQuGeIRwN7kUnE8pRWtKy888g6tYzXE905EUrffDaHmFAWZVbXXR6EKxubH3CuTfLIR1dDPZ+ZaUYzKOTf1UcpxCVDq0hX+vUIxlQO+KwsaV4CrtAFqPRgakQvT+7e3dZuPk4YHKI/xmoTax04VZQWxFuJgicc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CQbjL4fZ; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790401332; c=relaxed/simple;
+	bh=ihSErNzL28dopbbYtQk6sfe08O6dP4QtdIBtZVb4Srg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X/egzkj6cMoKqc6jsAPV+hGpmooti3pMsk3axh8QldIPVHFqryDVyzZ84vkfChNrshx8m+YxJZaVF+jab8VzJg94xH+v+nVf3qpy9YoS26Pht8gkoXpNR/e9JG3HUgyelzmaZLeMAUe9oD40e5+my3CXJi6NzSWLV2hNKUHWf3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p1tx3DnV; arc=none smtp.client-ip=74.125.225.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CQbjL4fZ"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso857030a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:40:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p1tx3DnV"
+Received: by mail-wr2-f37.google.com with SMTP id ffacd0b85a97d-4887840c529so530301f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:42:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790401208; x=1791006008; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790401329; x=1791006129; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/LOtpyVE9/QTeVfm3A+dR0c7jnfkvZnCHDHej3iEpao=;
-        b=CQbjL4fZG0bQdK6PdSMYy4WllTuc5QowzGNl8qeixG/vS9Sg7bmO82W7+FHU2ubkcP
-         01Vv1vi5ueo4+ou0bod5rN2tezH1Si+E7z0QpQX1jdJf75tw9yZRsorfQaShCn4eq3hp
-         iZAHP856fgojfimLaakg+ubQWoR7TAxoLDgJE3PLDuFcEGjLGFWSXVKr2qXbTSNshh73
-         vmNQmRwTUbUTBCVkhuXYiikbiAReQSdUSuOTCpj4IaDXfMJUFJoVo6SzZlGfVYw32awE
-         YMQbZ5HcVJV2c6BJ8R0o5SeBwIIyiTXH0K5bdxgPnS8TqDMm6zRdphZDgNMYo0Kk4Nj6
-         GzvA==
+        bh=poMR+QoD4H3NHZQTFS1CZaPTIlu9qbIcYvmcDeHr1ig=;
+        b=p1tx3DnVVwWjOFwADRo6uLbq1ztMJJ4/vjhUmWOw5FWhkmnAnw8pKPuIaTROtM/6Fe
+         2z+LnIvYoACIncm62wZ4rqxahJ4YHayGVfRgcdfD8pbY//jl4G2NoRtDR3dtmv16OBBc
+         wqtr8F8w60WpxiIztu3q4nYUyWW47BOGTx8g0FVeZz6qQ4VHJKNktPaa6GBLaQ7cSuqX
+         k9XRG5wwzugG67nBG7QnLCvEM8UmY7HrsuhuTr/HvhtRnoUcZ99qpEwca6J+L2DuKEdV
+         LngO1WtQwZD1sqN/mECpXJXw8GL1q8Mj5waqBzuGturUJtxF0lgOXWZKK/BC+uTWEdjX
+         ESKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790401208; x=1791006008;
+        d=1e100.net; s=20260707; t=1790401329; x=1791006129;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/LOtpyVE9/QTeVfm3A+dR0c7jnfkvZnCHDHej3iEpao=;
-        b=caGeNM0mARZoYHP5s2cttGLP/SUYU3yjogQWRtmDdZr3kqGJVSGkOD4lhBEFlFNlLq
-         IKXRQXT6ogyKoRoXaee3TPPBatHaB1Jmw+upyohAeg1v5xTZLCfSs3ty6HcOCi9SmjIc
-         Plg5Sfyj4G20VgnYx0sAGUEjTIzo0zwpkrQqgbDDm5ovAxaFyKiXld7xfN7vUUfg/1Wl
-         GFgelAMJNJzl5GlVvnx+YOKPsJdjyz5iP1fq1jDppoNvI2scO8hAK4j4hoXBDVuswSIS
-         ZOSDl76t0uHbALSuVPl3g5QhkPAN5PKz3ACeXxE+lmX+TyMYhQDrFepeFavROohjeD/D
-         dcZw==
-X-Forwarded-Encrypted: i=1; AKwUvBywi/cZIAt4OY+tATHtu+DY1lCkEx2hUS77u6QY9/2y2uteWzxliITxw+3Jtq3Gdl3XmIxGxZLkauT80u0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsLLW9DCyopef8r5Ii5/9dhLR4138YfJ3TLZgJFtU1jlmXHbbE
-	Y0o1Xj5wuZoWYSYv7fEBELa6Lrbfv0UvJP8pA8K6I0L0YpksFozxktB0
-X-Gm-Gg: AYBFou2kpal8VpMePpRtCBEUJVsGAbZNo+g7Y4h1d6h2ED36qaFgDykRdy81cwOJinw
-	r9etjQYbPTPsOE4CAWBObndExbK9z8xEhaI+e8M7W2/gnI8nUFHszW4K5fomOnqtLJLp4qPfW/W
-	P2nVxdrtGFVo7W924qnblIVg3UhrT+McwpK9bbUEtAauA+45n/G2WBgUdE+TW7OsCh7isjVGu/r
-	3xRErLtKYhQ645eaL2BKkDNGpvf0kTVs3DqtGGA5pd0GWIhPmLNYLMRZ46KCTFSmHWBWhHHSflG
-	1uI0BhOR6ve0FZgv9Zz7HWvMNGYkzMCmM1h+FyhSo4m1r7cYBK+JVNS3khGimH0JM2Bx3F96yy2
-	DgYCjkAe5YyKtb30muLcg6jB/9I24rKiFBX32VWf/36NbDw79Kb0g0/7OjjX+6gaOMyZnpKoIdD
-	26/Ro2pf+Py0QIuYhlR6l0vHWGjZQVeJwmuaztO65dHNic0am32ojsG6EkHtkXMkteF47jB46cG
-	XD1K49FVUhf7H3+PBaS8OxeSlB2j0WZJtCm571FD4CDPPvyeviH5+Xm1h1GkI8gBVaXBRTcy+R8
-	hOd2liLk8afjOMsAtWIzE0F0xW63Ztlh3VuAwQ==
-X-Received: by 2002:a17:90b:2748:b0:3a0:8a9e:1212 with SMTP id 98e67ed59e1d1-3a0985700bdmr5517140a91.7.1790401207720;
-        Fri, 25 Sep 2026 22:40:07 -0700 (PDT)
-Received: from dell-pro-max-tower-t2.cse.unsw.EDU.AU (pag-t2-pc.cse.unsw.EDU.AU. [129.94.173.199])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c7435sm14789739a91.11.2026.09.25.22.40.01
+        bh=poMR+QoD4H3NHZQTFS1CZaPTIlu9qbIcYvmcDeHr1ig=;
+        b=mj1ma2x26FkxV+s5ke27yO9MdUVxWa+M3m9dkEkXVrZmGndYtaMsIU5HrRJ7kgYwjU
+         KgtmloQw9Uq5hjVnTIVUKv0blZKM1peEoEn0q39mvrkdg3mgH1YEGm2T7tMG6OkWdikp
+         JMFt5Zvw13+ZCFL8EmrYdsGetzU/6mqjRddMtuNHDzb24rzgemsDGMwUHZf6kkoxOhZr
+         iJ1K+C6JGMQbvjOwDA0HZ6gWWduBHas0jiCBokHI73bZTsOub93LtasjvGIVTBonzNrr
+         1wGjLpBp4mPN+8iafIxr6jokXATEKgUqCO27rQUYbiQGOtHNaQGqadvgUAP5uYwb1/GS
+         tEdA==
+X-Forwarded-Encrypted: i=1; AKwUvBzZYEPacnddjcyrTFpB1Jd+V8KvZn3j2FTOT9sDqKEU24KEBEMgGim+bLR/ah/x/pJAi12++tTGLnslgCE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCKl+ZI5AFp9WarOmZczF/RvcIaCF3wITRXdTNeo9dZDanGKbh
+	leineOgZ+wLcgNj3JmSWUVdehk2ZEFB43/JncuRsPuQIodwKeBBDUaL3
+X-Gm-Gg: AYBFou2yj+zYtDo/EpX5m7NvIcNRwuD0LiTwJmmCuRtKSP/sUW5TBxXAHr8HT4SFV4U
+	lYojEymQXB0GPOxR6XQ/qQJG+HHEgMrEcb7nzcwpD1udCxRSJJ7xiuYeHOGnJE1wBAh0fN54aWR
+	Rk1+IyFNAtBEiGd4BRyOvQEqdmz2rh7H95Vjx6tOa+CmVIqbqNDjYiDSDBM1DFdCxf3jWJrkuJB
+	x1Id3tWwySXyG/9TiDgBoFr1t4P3GHvj8aAutPihiVPT34W7ibJ8RuA2d1yx2CXXOKA91M9Ribk
+	4KKOJlo6StDC8P+PtPH+fwFvoE62QKJFcVQ8o7Lxrl7bAuYTSgDPFHxv0Ax9/SVVMC7Abhf01eX
+	OT6iZL6B2APPZwhtgI1ELIrqM8jAa6Wxd0fJAOYl2PpCnJ4xMR4kP92QudKAc9QUM90Bai7DEHf
+	ToR3uiQtc61yyhjhpARx0EmVqajrSj8gsBxP1c4uRiktsROsdhlrTABZyBx2509ZY4Ojc7xQUX8
+	doiJd3oQFG8xOv9LZUFaPeqvt26NHEXb3HuWSvwh8d2
+X-Received: by 2002:a05:600c:6986:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-49fe66d05d7mr126116765e9.8.1790401328777;
+        Fri, 25 Sep 2026 22:42:08 -0700 (PDT)
+Received: from localhost.suse.org ([37.109.167.253])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff065873csm104782365e9.2.2026.09.25.22.42.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 22:40:05 -0700 (PDT)
-From: Weigang He <geoffreyhe2@gmail.com>
-To: Madalin Bucur <madalin.bucur@nxp.com>
-Cc: Sean Anderson <sean.anderson@linux.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Weigang He <geoffreyhe2@gmail.com>
-Subject: [PATCH net] fsl/fman: validate the port id in fman_set_port_params()
-Date: Sat, 26 Sep 2026 15:39:57 +1000
-Message-ID: <20260926053957.1628730-1-geoffreyhe2@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 25 Sep 2026 22:42:08 -0700 (PDT)
+From: Sebastian Chlad <sebastianchlad@gmail.com>
+X-Google-Original-From: Sebastian Chlad <sebastian.chlad@suse.com>
+To: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Sebastian Chlad <sebastian.chlad@suse.com>,
+	"T . J . Mercier" <tjmercier@google.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests: memcg: Don't hang in the inotify tests without IN_DELETE_SELF
+Date: Sat, 26 Sep 2026 07:42:03 +0200
+Message-ID: <20260926054205.28933-1-sebastian.chlad@suse.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,82 +85,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fman_set_port_params() uses the port id, which comes from the device
-tree "cell-index" property, to index fixed-size tables without
-validating it:
+test_memcg_inotify_delete_file() and test_memcg_inotify_delete_dir()
+wait for IN_DELETE_SELF with a blocking read() on the inotify fd. On a
+kernel that does not send IN_DELETE_SELF for kernfs files and
+directories, the read() never returns and test_memcontrol hangs until
+it is killed by the kselftest timeout. The remaining tests do not run
+and no result is reported for the inotify tests.
 
-	set_port_liodn(fman, port_id, fman->liodn_base[port_id],
-		       fman->liodn_offset[port_id]);
-	...
-	mac_id = hw_port_id_to_sw_port_id(fman->state->rev_info.major, port_id);
-	if (port_params->max_frame_length >= fman->state->mac_mfl[mac_id]) {
-		fman->state->port_mfl[mac_id] = port_params->max_frame_length;
+Wait for the first event with poll() and a timeout. If IN_DELETE_SELF
+does not arrive in time, report it and fail the test instead of
+blocking, so that test_memcontrol completes and the remaining results
+are reported.
 
-liodn_base[] and liodn_offset[] have FMAN_LIODN_TBL (64) entries, and
-set_port_liodn() also accesses fmbm_spliodn[port_id - 1]. mac_mfl[] and
-port_mfl[] have MAX_NUM_OF_MACS (10) entries, but
-hw_port_id_to_sw_port_id() maps, for example, RX port id 0x12 to 10 and
-TX port id 0x3f to 23. fman_port_probe() truncates the property to a u8
-and does not otherwise check it, so a device tree with a bad cell-index
-can cause out-of-bounds accesses.
-
-Reject a port id of 0, a port id outside the LIODN table, and a port id
-that does not map to a MAC, before any state or register is changed. A
-cell-index above 0xff that aliases a valid id after the u8 truncation
-is not caught here.
-
-Found by static analysis tool CodeQL.
-
-Fixes: 414fd46e7762 ("fsl/fman: Add FMan support")
-Assisted-by: LLM codeql
-Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
+Assisted-by: claude-opus-5-5
+Signed-off-by: Sebastian Chlad <sebastian.chlad@suse.com>
 ---
+ .../selftests/cgroup/test_memcontrol.c        | 27 ++++++++++++++++---
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
-Notes:
-    Compile-tested only (ARCH=arm64 and ARCH=x86_64 allmodconfig, W=1). Not
-    tested on hardware, and there is no reproducer.
-    
-    The CodeQL query behind this report was synthesized with LLM assistance,
-    and the fix and changelog were drafted with LLM assistance; I have
-    reviewed them.
-
- drivers/net/ethernet/freescale/fman/fman.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/freescale/fman/fman.c b/drivers/net/ethernet/freescale/fman/fman.c
-index 46cc28895e565..e25050189b1f3 100644
---- a/drivers/net/ethernet/freescale/fman/fman.c
-+++ b/drivers/net/ethernet/freescale/fman/fman.c
-@@ -2103,6 +2103,18 @@ int fman_set_port_params(struct fman *fman,
- 	unsigned long flags;
- 	u8 port_id = port_params->port_id, mac_id;
+diff --git a/tools/testing/selftests/cgroup/test_memcontrol.c b/tools/testing/selftests/cgroup/test_memcontrol.c
+index 0ed82347044e..c00420acc9a1 100644
+--- a/tools/testing/selftests/cgroup/test_memcontrol.c
++++ b/tools/testing/selftests/cgroup/test_memcontrol.c
+@@ -11,6 +11,7 @@
+ #include <sys/types.h>
+ #include <unistd.h>
+ #include <sys/inotify.h>
++#include <poll.h>
+ #include <sys/socket.h>
+ #include <sys/wait.h>
+ #include <arpa/inet.h>
+@@ -1655,10 +1656,20 @@ static int test_memcg_oom_group_score_events(const char *root)
+ 	return ret;
+ }
  
-+	/*
-+	 * port_id comes from the device tree: reject ids outside the LIODN
-+	 * table and ids that do not map to a MAC.
-+	 */
-+	mac_id = hw_port_id_to_sw_port_id(fman->state->rev_info.major, port_id);
-+	if (port_id == 0 || port_id >= FMAN_LIODN_TBL ||
-+	    mac_id >= MAX_NUM_OF_MACS) {
-+		dev_err(fman->dev, "%s: invalid port id %u\n", __func__,
-+			port_id);
-+		return -EINVAL;
-+	}
++#define INOTIFY_TIMEOUT_MS 5000
 +
- 	spin_lock_irqsave(&fman->spinlock, flags);
+ static int read_event(int inotify_fd, int expected_event, int expected_wd)
+ {
++	struct pollfd pfd = { .fd = inotify_fd, .events = POLLIN };
+ 	struct inotify_event event;
+ 	ssize_t len = 0;
++	int ret;
++
++	ret = poll(&pfd, 1, INOTIFY_TIMEOUT_MS);
++	if (ret == 0)
++		return -ETIMEDOUT;
++	if (ret < 0)
++		return -1;
  
- 	err = set_num_of_tasks(fman, port_params->port_id,
-@@ -2170,8 +2182,6 @@ int fman_set_port_params(struct fman *fman,
- 	if (fman->state->rev_info.major < 6)
- 		set_port_order_restoration(fman->fpm_regs, port_id);
+ 	len = read(inotify_fd, &event, sizeof(event));
+ 	if (len < (ssize_t)sizeof(event))
+@@ -1678,7 +1689,7 @@ static int test_memcg_inotify_delete_file(const char *root)
+ {
+ 	int ret = KSFT_FAIL;
+ 	char *memcg = NULL;
+-	int fd, wd;
++	int fd, wd, err;
  
--	mac_id = hw_port_id_to_sw_port_id(fman->state->rev_info.major, port_id);
--
- 	if (port_params->max_frame_length >= fman->state->mac_mfl[mac_id]) {
- 		fman->state->port_mfl[mac_id] = port_params->max_frame_length;
- 	} else {
-
-base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
+ 	memcg = cg_name(root, "memcg_test_0");
+ 
+@@ -1701,7 +1712,11 @@ static int test_memcg_inotify_delete_file(const char *root)
+ 	free(memcg);
+ 	memcg = NULL;
+ 
+-	if (read_event(fd, IN_DELETE_SELF, wd))
++	err = read_event(fd, IN_DELETE_SELF, wd);
++	if (err == -ETIMEDOUT)
++		fprintf(stderr, "no IN_DELETE_SELF event within %d ms\n",
++			INOTIFY_TIMEOUT_MS);
++	if (err)
+ 		goto cleanup;
+ 
+ 	if (read_event(fd, IN_IGNORED, wd))
+@@ -1723,7 +1738,7 @@ static int test_memcg_inotify_delete_dir(const char *root)
+ {
+ 	int ret = KSFT_FAIL;
+ 	char *memcg = NULL;
+-	int fd, wd;
++	int fd, wd, err;
+ 
+ 	memcg = cg_name(root, "memcg_test_0");
+ 
+@@ -1746,7 +1761,11 @@ static int test_memcg_inotify_delete_dir(const char *root)
+ 	free(memcg);
+ 	memcg = NULL;
+ 
+-	if (read_event(fd, IN_DELETE_SELF, wd))
++	err = read_event(fd, IN_DELETE_SELF, wd);
++	if (err == -ETIMEDOUT)
++		fprintf(stderr, "no IN_DELETE_SELF event within %d ms\n",
++			INOTIFY_TIMEOUT_MS);
++	if (err)
+ 		goto cleanup;
+ 
+ 	if (read_event(fd, IN_IGNORED, wd))
 -- 
-2.43.0
+2.51.0
 
