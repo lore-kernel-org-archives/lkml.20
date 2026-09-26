@@ -1,119 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9675725B091;
-	Sat, 26 Sep 2026 08:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684C238A72B
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790411702; cv=none; b=YVCAv4n5+1GvQMBZfFNZd6C+wDUz11M2xMbi4VRerAAbh66HMyl1y3NjOqq+PwpkkW9Dx0V3/QervxaGC9pQ6coqOGgKS/26QVAn17WoBRIghVRnU493IJKceH6laPRGNwr5YgB8HvPfmih6C4uoebpZpKT2MNp6CcGJshyq3bQ=
+	t=1790411722; cv=none; b=XMRG2q+QL9wDf3RqY5Sgx+OKFl/ON6Q8+8GZgCNiA52O/Hihzm9kvuRutXM5VJ/IOFaZxLKeXV98NU+NEIjBSF4UFqT4YxPGEBtoaOgXc0E/hIHcqLRIa4kUG1gQgtj/5HRORKVYzl0G7BGN3Yh7y7pvysVCoBmaXvcdgTyB3JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790411702; c=relaxed/simple;
-	bh=NzEIaAozYlSXXvCSG8F3Q9Lfk3SbQy+S17/CybfVKd4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X8ZLmI2lTv8RzENc7pHhVafTqtD9i6bGRy3vxI8/Rbs8jUP9439ydF7hwVkNBco/lTaYryFt4HL4vfn7dxnNjrbdFhWAqnQj0QziQx1hJyzisa8yPGE4IQapIjhu++/YH+sObBzPIY5PjmokhNpfdRotgqdSmB08PL7Bh0iaRFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EKI4YSoI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790411722; c=relaxed/simple;
+	bh=gD2nzsQEzocl8bIn/g7qzCa0+g5MyaOadrenMGGgIGc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cxePtrV3uS+uyvtSxHM+pxvKNsAUiV4AnVeK7+zn0iw4T3knPk45tY5L6SNmhzDvaQ6y1wHRhNThCp9GYNajCVbay+i0rx13ZuSza0Pk1TOa4ZMM3NmhjZ44Upm687KapJ8KIwrBUBHUPWiBh9BSybUBP+SWiSpn3aMte0cnhQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hr8bm1Cu; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EKI4YSoI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1282F1F000FF;
-	Sat, 26 Sep 2026 08:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790411701;
-	bh=/oS5cGci8QiKs9/+vr+9VzvkfNfCYGybORMZp8o7zYk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EKI4YSoIet132l4ifkQSXpJ5S/HAo847RXSPWXlIA//sS1T6DGjDQTSrpmN9w+Kk8
-	 js4BixlSkmCw0FEiWLxPcvGxE+3BW6mUpaVXp7XnIRL7QdFfavBtgd1//5Iee5neNs
-	 RbienQhHQWLrliSen8LuKxiRtjLuTujrUWtILEs7n/v8uXZzy1skEP7wNx/NpddT7Z
-	 GKDAu4WaRdM8Gb/v3pq+XXSFKIL8eKYWfrSN8F+Oz6PgY1dZcpz94w2o4EId72TGE1
-	 eqRFZeQmkE1AufPSMNNHLAa7nmcdoN/3AKwfCX7m1232ogKRodq5xYHa7hRr5g9vD9
-	 B4sDgFN4Tljag==
-Date: Sat, 26 Sep 2026 11:34:51 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Nicolas Schier <nsc@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Luis Augenstein <luis.augenstein@tngtech.com>,
-	Maximilian Huber <maximilian.huber@tngtech.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Alexander Graf <graf@amazon.com>, Willy Tarreau <w@1wt.eu>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Askar Safin <safinaskar@gmail.com>, linux-doc@vger.kernel.org,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>
-Subject: Re: [PATCH v3 0/2] Move tool for generating initramfs cpio to
- scripts/
-Message-ID: <areDq-1iFZUViDgS@kernel.org>
-References: <20260925-move-gen_init_cpio-to-scripts-v3-0-99c493f76722@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hr8bm1Cu"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0e7cbb608so65888a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:35:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790411721; x=1791016521; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QeKCQ/Vusfa8g3872G9mv1JHH4KuNXooSO8a1iwRbXc=;
+        b=hr8bm1CuueqeNYBTXg4iKRjQIt/4y44NvbjGK5gG2AUmtxt9WZdTbWFaT4D+/gIMXo
+         /+jQjvrUruNk5MsRMOt9xGGIcfV4DNnUUayrm0ZZW4H0BMVT2M18jSOn0uHBtBCY7MHp
+         ve/4dHRLnS6xHhIl8wOmIDi3z/WHCBYBUMRDKeeL+nUaioktdOZP7Q7NkNE6Nc8C6DbU
+         Hwenr56pfasEdEUQv7ijaftW5FZhuEWC6/kosYRzhKp0I2og3K+qPvLyxarnuX5eTSfj
+         R8LuFWL+6yMIoSriJbCKVL9IYazCXP//jxg7i+U/0sjxLcDblpKGt/jw2F0LmSqSXtzc
+         b4qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790411721; x=1791016521;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QeKCQ/Vusfa8g3872G9mv1JHH4KuNXooSO8a1iwRbXc=;
+        b=TYDakpK44HghXEyuYzVNNROmuxuyOfMoLR3WPW0oTncp+Bucj94cvmAHyFSTX1BetA
+         XHk/UxYPp0Ut/8qQhNOIKT57cr+xtyVon1mUf+MfnjXP5LHW6CaBWO2c2v+Le2inDT9l
+         5mVecHKuijESK94teGSSNEus+fWH4R/h03nBLM4iTBIShozS+8yyvXD8rWsVDRTnozmG
+         CiQHq71vNvZdKPThpzi39rUpKVvCDKmji+4kiXj+9V3UhWb47SZCN7qkp16tNcvNdq8O
+         zSR487NXpyMebx0WTgB/4olmJjzrzGCR7NnjMUkk57BDBf/0XXQngiBx2k4C5PTDhR/Q
+         RCFw==
+X-Forwarded-Encrypted: i=1; AKwUvByKpv+lp+pv7J66air2n3G133LD55r0+Sro4XvwcRjPZ1uWTQK/accQxUBiYdeh47fKibmUDJqQAivGJw0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9VdY0Dh3CsIo7ZRlJonq3BTEXjFht+pzCz3PxLI7MCb8jjosU
+	wcCRd1sGZaClLDHVO+lrIAjRzWRdkK3vFhigFURKrYQ4V05/TQQketG/
+X-Gm-Gg: AYBFou30m0j6BoAb4NVn1wjHZ9h3pOwyEka7eVKKhhIU4LEsNjilc4jTA0ifTz5t41/
+	rQH2k3+Sg8P2J2obEgderwVvaVxNTS/jio+XcaRIHGyeymOtHTBwBVlwkQU4E223Ev+ZBxkfKju
+	5uGhk8CnjnDLf8m+hxl0GLl2g68xHQW4zFE0V42ejLH8BceQXbPy4IQhGPPnEazY1nKQFr8jyWv
+	B96x7AuaP2gknNHq7kGyHoBPDEmHwpdufdHD3bWxmUaJsQZqytIPhA7TWDeUiAmMnzNP0XzyXUt
+	nMS74u/9317V8YtlJkI2ocAWRKzmDsxjBakWt6MACfKs9YXMgCq07dpt4QlkXfugDlZ6HAxNgvl
+	/NNGO1HF1xFR6WnDNGMy7a5P9kT1g5d5nYJb1AFJaxpTvo4xfw4ykpmzlWIoh8pvJZmvsfb2Lus
+	TVOqqJD84Js1G/PeLRx8590YC16SsAzxfq9rwCqFXRt4pCoqgfA7MF2YNmiFyRSHCk++hcoavC1
+	sih9dq3qK0EUOb0i8YlyHmYyQLoNT/Jtw1gJy4J9mx+WvL6yy2ABpYIBoSlmpgGRGTikYLA1B30
+	Ffcj/oYLWSpAI2HOTyeVbhG97Gsg+OQnrN6MyWrwFCBrAd7M9J2j/IRUZpH7XfUPV7v6DQ==
+X-Received: by 2002:a17:90b:518c:b0:3a0:dbfd:1a1f with SMTP id 98e67ed59e1d1-3a0dbfd269bmr980053a91.25.1790411720661;
+        Sat, 26 Sep 2026 01:35:20 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09766210bsm14697952a91.8.2026.09.26.01.35.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 01:35:20 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Hui Peng <benquike@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] isofs: bound empty directory blocks in isofs_read_level3_size()
+Date: Sat, 26 Sep 2026 16:35:17 +0800
+Message-ID: <20260926083517.556576-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cmlro2xzle2aa7ebflvxhbcv74mea7p6qvxhin6egpdvyzyuxh@s45tpgxdal3n>
+References: <20260919222553.3792320-1-benquike@gmail.com> <20260923175215.1577791-1-matthias.goergens@gmail.com> <w3rnunloyshklgq4ocr4jsullzhaey6u7odstfoyhd4usbfppo@m33jyem5jgrf> <20260924151356.3287733-1-matthias.goergens@gmail.com> <20260925043804.2091174-1-matthias.goergens@gmail.com> <cmlro2xzle2aa7ebflvxhbcv74mea7p6qvxhin6egpdvyzyuxh@s45tpgxdal3n>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925-move-gen_init_cpio-to-scripts-v3-0-99c493f76722@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-Hi Nicolas,
+isofs_read_level3_size() walks the sections of a level-3 (multi-extent)
+directory record and, on a zero length byte, moves on to the next
+block with no limit.  A crafted image can put a long run of empty
+blocks between two sections of a multi-extent file, and the walk reads
+every one of them before it gives up, all the way to the end of the
+device if it has to.
 
-On Fri, Sep 25, 2026 at 09:29:29PM +0200, Nicolas Schier wrote:
-> initramfs cpio tools had been subject of several recent discussions on
-> linux-kbuild.  Let's get two minor steps forward by enabling a
-> top-level target for building gen_init_cpio w/o the need of a valid
-> kbuild configuration [1] and move the tools for generating the built-in
-> initramfs from usr/ to scripts/ [2].
-> 
-> Link: https://lore.kernel.org/all/20260220191150.244006-1-safinaskar@gmail.com # [1]
-> Link: https://lore.kernel.org/all/aSdrCFkUQup3qb-q@derry.ads.avm.de/ # [2]
-> ---
-> Changes in v3:
->   * Update various remaining usr/gen_init* references treewide (Nathan)
->   * Link to v2: https://patch.msgid.link/20260720-move-gen_init_cpio-to-scripts-v2-0-26b7e15c7133@kernel.org
-> 
-> Changes in v2:
->   * Build gen_init_cpio only if CONFIG_BLK_DEV_INITRD (Thomas)
->   * Keep underscore top-level target name (scripts_gen_init_cpio)
->     (Thomas)
->   * Link to v1: https://patch.msgid.link/20260309-move-gen_init_cpio-to-scripts-v1-0-0c5059b1ec5b@kernel.org
-> 
-> ---
-> Nicolas Schier (2):
->       kbuild: Mark usr_gen_init_cpio as no-dot-config-target
->       kbuild: Move gen_init_cpio and gen_initramfs.sh to scripts/
-> 
->  .../early-userspace/early_userspace_support.rst          | 16 ++++++++--------
->  Documentation/filesystems/ramfs-rootfs-initramfs.rst     | 10 +++++-----
->  MAINTAINERS                                              |  1 +
->  Makefile                                                 |  9 +++++----
->  scripts/.gitignore                                       |  1 +
->  scripts/Makefile                                         |  3 +++
->  scripts/Makefile.package                                 |  2 +-
->  {usr => scripts}/gen_init_cpio.c                         |  0
->  {usr => scripts}/gen_initramfs.sh                        |  2 +-
->  scripts/remove-stale-files                               |  2 ++
->  scripts/sbom/tests/cmd_graph/test_savedcmd_parser.py     |  2 +-
->  tools/testing/selftests/kho/vmtest.sh                    |  2 +-
+Real discs do have trailing empty directory blocks, written by tools
+such as Easy CD Creator and Nero, but always at the end of the
+directory, never between two sections of a multi-extent record, so
+they do not exercise this path [1].
 
-There's also tools/testing/selftests/liveupdate/vmtest.sh I know of, didn't
-check for other users in tools/testing
+Jan Kara suggested treating an empty block like a section: count it
+towards the existing 100-section limit rather than adding a separate
+one [2].  Do that: both the section count and the empty-block count
+are checked against their combined total, so neither one alone can
+reach 100 while the other keeps growing.  Only a zero length byte at
+the start of a block counts as an empty block; the same byte later in
+a block still just ends that block's records, as it does today, and
+is not counted.
 
->  tools/testing/selftests/nolibc/Makefile.nolibc           |  2 +-
->  usr/.gitignore                                           |  4 +++-
->  usr/Kconfig                                              |  2 +-
->  usr/Makefile                                             |  4 +---
->  16 files changed, 35 insertions(+), 27 deletions(-)
-> ---
-> base-commit: 93f51579e7df248780214094418f205253383cc5
-> change-id: 20260225-move-gen_init_cpio-to-scripts-9e89ef99e51a
-> 
-> Best regards,
-> --  
-> Nicolas
-> 
+Hui Peng's earlier patch for this function added its own, separate
+limit on the number of empty blocks [3]; this uses the combined limit
+Jan suggested instead.
 
+Suggested-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+
+[1] https://lore.kernel.org/all/20260925043804.2091174-1-matthias.goergens@gmail.com/
+[2] https://lore.kernel.org/all/cmlro2xzle2aa7ebflvxhbcv74mea7p6qvxhin6egpdvyzyuxh@s45tpgxdal3n/
+[3] https://lore.kernel.org/all/20260919222553.3792320-1-benquike@gmail.com/
+---
+Tested with fs/isofs built as a userspace program under ASan and UBSan,
+and in a KASAN VM on Jan's for_next:
+
+- The real discs from [1] (DM_BXL2, Comdex_05, ITSOFTCD_39, each with
+  trailing empty directory blocks) and the level-3 images from the
+  earlier patches list and read the same with and without this patch.
+- A crafted multi-extent file with 150 empty blocks between two sections
+  now stops with "More than 100 file sections/empty blocks ?!?" instead
+  of reading all of them.
+- A crafted file with 60 sections and 50 empty blocks interleaved (110
+  in all) is rejected; without this patch it is accepted.
+
+The image generators are at
+https://github.com/matthiasgoergens/linux/tree/reproducer/2026-09-26-isofs-empty-blocks
+
+ fs/isofs/inode.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
+index 184350d2e6ad..e884618c0c53 100644
+--- a/fs/isofs/inode.c
++++ b/fs/isofs/inode.c
+@@ -1175,6 +1175,7 @@ static int isofs_read_level3_size(struct inode *inode)
+ 	struct buffer_head *bh = NULL;
+ 	unsigned long block, offset, block_saved, offset_saved;
+ 	int i = 0;
++	int empty_blocks = 0;
+ 	int more_entries = 0;
+ 	struct iso_inode_info *ei = ISOFS_I(inode);
+ 
+@@ -1202,9 +1203,14 @@ static int isofs_read_level3_size(struct inode *inode)
+ 
+ 		/*
+ 		 * If we are at the end of a block (or at its zero-padded
+-		 * tail), move on to the next block.
++		 * tail), move on to the next block.  A zero length byte at
++		 * the start of a block means the whole block is empty;
++		 * count that towards the same limit as sections below, or a
++		 * chain of empty blocks could be walked without bound.
+ 		 */
+ 		if (offset >= bufsize || de->length[0] == 0) {
++			if (offset == 0 && ++empty_blocks + i > 100)
++				goto out_toomany;
+ 			brelse(bh);
+ 			bh = NULL;
+ 			++block;
+@@ -1233,7 +1239,7 @@ static int isofs_read_level3_size(struct inode *inode)
+ 		more_entries = de->flags[-high_sierra] & 0x80;
+ 
+ 		i++;
+-		if (i > 100)
++		if (i + empty_blocks > 100)
+ 			goto out_toomany;
+ 	} while (more_entries);
+ out:
+@@ -1245,7 +1251,7 @@ static int isofs_read_level3_size(struct inode *inode)
+ 	return -EIO;
+ 
+ out_toomany:
+-	printk(KERN_INFO "%s: More than 100 file sections ?!?, aborting...\n"
++	printk(KERN_INFO "%s: More than 100 file sections/empty blocks ?!?, aborting...\n"
+ 		"isofs_read_level3_size: inode=%llu\n",
+ 		__func__, inode->i_ino);
+ 	goto out;
+
+base-commit: f622f21cddacf8a0ef3b0344382924dc52c72a72
 -- 
-Sincerely yours,
-Mike.
+2.55.0
+
