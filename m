@@ -1,327 +1,181 @@
-Received: from mail-ua2-f39.google.com (mail-ua2-f39.google.com [74.125.226.231])
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E064A2624
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 21:21:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E574F4A384B
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 21:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790457722; cv=none; b=PSxdEdqpR8VlP1cKEQjOTelectuzlQ5FojmbPSLjXAeldU2A8gbEP3oxzSLOVV475ktBZnbylIgLpPEUwKekrPxIOsmOXy3TRA9gypgZIwldRbXUVx8TUb4zZlLAn3dfcmU6LhTYZc9GzglDD/mcXbZ3f0y/dwuAmzoEAMIzqlE=
+	t=1790457742; cv=none; b=tA9kmy8DHgWuDnBX2MRMRltjwHGcA1e++skHSdVNKavK9+Y/0CQ3xyXqj5NCnB36OB8eWNHq3gYku6gHZRGRPzSr5JUDFGSMa3ukx/uzmOD/RPQUYGDgqytF3EnR2FnJhogqlFdTEjkwV6Mq1lBx9jUdLI84s/3vTYrYk5M1mM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790457722; c=relaxed/simple;
-	bh=iUsKcuSqM8LKxJ3OF5Fci9kpal55BiJ0imcLGZ8OU2I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mbz6IGf2o6y+JRUJFuQgosMxq50vfp0+FafK4JvitkQ3lm/02usMdfXg0wuGE72A163nP/u/aCZ4iN6ZKSR6rCJK3S1Eec+ZHFOfGzmirO3Gg9tEWH5QRoUx3XT0iR+0xAR41vKkBIMq7YSqlruIgCtERtT8wScZ/FOhVgOQ32c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=grgApZfd; arc=none smtp.client-ip=74.125.226.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790457742; c=relaxed/simple;
+	bh=2mTri71uNiEmsPH+mMJhT9tNhiUgh8M0ciZBOp6m704=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F1hk+8vIpe0r732X9b7gLmJv5XzZf/5P0AK/WKRjcqPy8j8V8Y9VkiRfdNRBxo9wb8dxW0JPclo5AIZyHNzxc/JVgJshVD0y72vWm8Ke+K2OVHqvOs9rkNVMHwUZHqbIYzSn6IsFFmbIZBkCa9HHIvar92FNvVlfWT5OW5gNpfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=NUnx0KhI; arc=none smtp.client-ip=74.125.228.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="grgApZfd"
-Received: by mail-ua2-f39.google.com with SMTP id a1e0cc1a2514c-982db8d3b1eso488136241.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:21:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="NUnx0KhI"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2bf3cc16baso106639466b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:22:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790457718; x=1791062518; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3//vnaiZHcbkMpFRtVySzfVBm8/5bMl7/bCO511VH1A=;
-        b=grgApZfdz5+U0TZw/wvPzM1+9xZfnzg8p4k7lRELDym+TTeEkw1F4i7ywoeRputXW+
-         gUlrd13/Bu1594dVnjBiEbE8r5wB8tmGuKpnsKaDTn7Qfe8Tg72rSY7bnCXYfqBqCRca
-         c7s03vfQXNpn7v7tHRkMV5P1v+sdQZq8OMZSIFBBu338rqiUpVoKXiUhUMCZKJtvXeN0
-         6TCKsSwVXQJ9zwclPqp56N38ks2M/NBvymJlcLqT9RPPxP1lhSFaivwD1tJyHRQHL/Hj
-         U6axNXc4DB1HjPvhvWVcLj3QmQLZ/6LCM0mcFvWfncd6pX/wgeANb4FMR6CMumOB0VE8
-         KFsA==
+        d=suse.com; s=google; t=1790457737; x=1791062537; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=skUUnKRXWcm12ROw8/UiYVb1bcscz3HcOKZ3b17jq10=;
+        b=NUnx0KhIBLr7/13BZeQgyBhqR7jcKzwWbcRD43EwK5F9dPCyEEyMp9oF77kVdTCero
+         NVvFbsQgn9NrZ8Pap9Zrz7ocFQQMc82NE3p+PoaBSU/K20rH+f+qnuzEBBUXBWPAoQXV
+         xSSqFCS8w9a0Ur2AH3BOJ8wg6dEA1v1bh0+rEGEsCBkrXqWoJUAFyOcktmTEMw3h5q1j
+         xrGE+1Sxu5RyszJ2d13vd5njPe1zsBLxbCF/P52dilmGJ/gUci4aPWgKAvq/zme98KaL
+         USIs5t43psGG2SMLURvIatXDeLiqKCOKWYa1rA75BhzlGRO8pW95VeM9qVjBhNQExjVu
+         7Ryg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790457718; x=1791062518;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3//vnaiZHcbkMpFRtVySzfVBm8/5bMl7/bCO511VH1A=;
-        b=rLCNDc33nYymCkBNYiFmer4+y9SS7LmuhjEDqmP5QDunJVRlzckg9RGcRW+DeKfO0A
-         L1aiLb78Il6bqp9R62hJUUUu0CGPO5gYqxxUW/JfGq6TXlxGbZicaIK371oelMZ7LvuH
-         ZDrNrB9zNccQWxo+daPnQ0d7+75395w3UeuOoQMNpWaKPD9nOwvpU4Gowp8qU7mdmNZs
-         f7BM7Tc1IOfLA5X+g9kFRKqEZ7EuQ9FY+zQozHKPo+j25uE3U06ah4kslLeBTs+YJqCo
-         E/qSbPVQ5xE9D+alajQl2GpDuI+M0YFwJ/TqzPiDPLgSqHjeNixEeum6JDly43t4Gj0f
-         BOhg==
-X-Forwarded-Encrypted: i=1; AKwUvBwKHyuuPxDp+1GlovYT+J/NRvYDlzGR5bToW4bI/2TYHaX39h5Nng6DXlMsNwkeaG86ROd1HyDjXrK3K/s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCA2hVOWLOyxj20dj+RBk94Qc3onv8koGYsrmwd2GrCjMwRyX8
-	BJifUewiwWT/B665tLXG6++oT0VXjldCryv7Fq6XLykUzwhr5cun3ozRX0MZ+tkG
-X-Gm-Gg: AYBFou0r8LQaNRTQyoYUB0gWa9XBSbNdO4bf9d6OjpcR18hwLezYVXX5nfu3EilPATu
-	5z9eJRVU1WmZH4MxdeBq9JawCuEBx3S7E4M+wG3sSoglixeEsUpew6ceFk/pynX8nRNfo6JJpoU
-	DLFcIsnIrvvU9UB//VUNdjpZ/lHff12tZqrmd2nOdzS2gc31Nk/EeVQVLciOwGZM34R/KsYyVhf
-	laJobdJGm74n1yM88XJZeaCxuxMqNPLMFIrmLdqo3ot68e5aZ54iZkYSRTGQWEP72a640TkDfgi
-	fTxVdlzZqcgLf5kHyRDvyNS9DTZPOdZ+GP/uq6aC7EiLhySem+n0eXtxsKDNJmgdpQmlVeGajzm
-	f2J0jfLQ9ROmnPkVWdSvzsLNzpjBx2wCTEQcvUK2QMcHQqmqYzUajsS1eFmoKckJbcmFmEOfQVF
-	PxaZNxRg1ZDaIzOvatPTdu+5+v9kC70Mdnsi9XAHkKBhmRUYwZlv+i4CR7WK4+DLMs
-X-Received: by 2002:a05:6102:3e8e:b0:7a2:2068:6b5e with SMTP id ada2fe7eead31-7b1c751f228mr1543838137.24.1790457717860;
-        Sat, 26 Sep 2026 14:21:57 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde615a356sm3003222e0c.14.2026.09.26.14.21.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 14:21:57 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: pav@iki.fi,
-	luiz.dentz@gmail.com
-Cc: marcel@holtmann.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v4] Bluetooth: SCO: serialise sco_conn lifetime against sco_recv_scodata()
-Date: Sat, 26 Sep 2026 18:21:45 -0300
-Message-ID: <20260926212145.1343318-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923122026.3465391-1-qwe.aldo@gmail.com>
-References: <20260923122026.3465391-1-qwe.aldo@gmail.com>
+        d=1e100.net; s=20260707; t=1790457737; x=1791062537;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=skUUnKRXWcm12ROw8/UiYVb1bcscz3HcOKZ3b17jq10=;
+        b=hKjf7Qc8L3OYYZpfd1UAwaZO30LpVURbyOPAiJ4w8SM55r+RL2u6R/Tfg/YF3eb0tw
+         qXWiyWLwHYmR9GVHJUY4XgTJ1yUFELqTtAzmVFVlgZgkC9rsY3ww7DO1T7Yl4VeblTb1
+         A0KQW79jrUtvhl4oSpqhWYB1NVGctIxfjD54Uvv87tWSahF03BWtNlDPrSpOzrkw0cqD
+         SoOKxFSdSC2DDRX5lgHF5fhq5KI0fqtS4BCEv1H2Q7IqXPOXh6RSxXJRRrDGKmdt3r+1
+         WLJNJlcP5MAAQR0Z1sHugah9aaR1wMPF3mfNsFvksEjLdim3DUOMzNeDhL4NWUyRASYp
+         Y4Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBwiBTnn0TBSVBMgq2aj8wLugbcRUuG97EvR2JYOXcsnwkGENHCVcCHPMTlCvXXdYMdFBBjNwVbuVcEINCU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ7+ASsSR7Jg3HWB0gxbY+GXHUpCdbX5F/eFEWMPDV8hXjKZF2
+	nfHNVr8DIRvq5jDHGPYtV/+Lr4OVuDzo2DiOMwZuvpFByXEPgLum4dzoK0t+rcoA3+o=
+X-Gm-Gg: AYBFou1HQ7kaZfYQLB8dbX5mb+eIx0tLNqwwiQTHQe5xAOqLx/0+FulHrNog6kESb7/
+	Ba41biDSkStmjV+trttgolbd3x+AfonPlogWZhdlTCnQaBQ8MB5cnPzBhLoG3Nx/Fb+u3nA37J2
+	jT1Q6lCoCJMenU/fB+fFdmfOaA+EbIa1cDDr/H5lv8JHXUkg7jQaFUAuANWgXYoqlS0KUQeBWLM
+	Z3ggFxKGJu/ySpr7kAautaemmjRM+oJXmVhasljzQnsCec9HeBhNCH3p/wLQIjk0OuYgIKcyaNW
+	ARJb/Lp9d8XpnUpY8Qzu7NEiUUPEVPE9W1ag0O2y6BeYLUh8Wog1+Wp0sbAkrtsW/UqHPcNM/Dc
+	qh7ZiYCL+wcse+r9FAy2JigfIwoOcmmy2etMMcpa34tTOyiExXKCnt1YLg4cYBlQNb2Evz3QomL
+	ZJzhlYaUKSrUSU5oy7n9fqPz8LYOqKY267tQo531hhTX/SZSXeaexVifliUIhfjRw=
+X-Received: by 2002:a17:907:c317:b0:c26:1649:47ab with SMTP id a640c23a62f3a-c2ac53c3702mr751964866b.33.1790457737059;
+        Sat, 26 Sep 2026 14:22:17 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78794331fsm2678892a12.20.2026.09.26.14.22.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 26 Sep 2026 14:22:14 -0700 (PDT)
+Message-ID: <18af260e-b53e-4156-a6a3-e34d9b3b6293@suse.com>
+Date: Sun, 27 Sep 2026 06:52:09 +0930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] btrfs: use strstarts() and str_has_prefix() for prefix
+ checks
+To: George Hu <integral@archlinux.org>
+Cc: dsterba@suse.com, linux-btrfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mason@kernel.org
+References: <a7d68d73-3ba1-46d3-a6c9-5ee213e5b551@suse.com>
+ <20260926122217.22759-1-integral@archlinux.org>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
+ Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
+ SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
+ YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
+ 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
+ vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20260926122217.22759-1-integral@archlinux.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-sco_recv_scodata() upgrades the weak hcon->sco_data back-pointer to a
-strong reference under hdev->lock:
 
-    hci_dev_lock(hdev);
-    hcon = hci_conn_hash_lookup_handle(hdev, handle);
-    ...
-    conn = sco_conn_hold_unless_zero(hcon->sco_data);
-    hci_dev_unlock(hdev);
 
-but the pointer is cleared from the other side without that lock. When
-the last sco_conn reference is dropped, sco_conn_free() ran
+在 2026/9/26 21:52, George Hu 写道:
+> Replace strncmp() prefix checks with strstarts() when only a boolean result
+> is needed, and with str_has_prefix() when the prefix length is needed after
+> a successful match.
+> 
+> This makes prefix checks clearer and more concise.
+> 
+> Signed-off-by: George Hu <integral@archlinux.org>
+> ---
+> V1 -> V2:
+>   - Avoid replacing strncmp() with strstarts() when the parameter is
+>     not NUL terminated
+>   - Revise subject
+> 
+>   fs/btrfs/super.c | 5 ++---
+>   fs/btrfs/xattr.c | 3 +--
+>   2 files changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
+> index ddb620ac241b..287cdc45bef8 100644
+> --- a/fs/btrfs/super.c
+> +++ b/fs/btrfs/super.c
+> @@ -263,10 +263,9 @@ static const struct fs_parameter_spec btrfs_fs_parameters[] = {
+>   
+>   static bool btrfs_match_compress_type(const char *string, const char *type, bool may_have_level)
+>   {
+> -	const int len = strlen(type);
+> +	const size_t len = str_has_prefix(string, type);
+>   
+> -	return (strncmp(string, type, len) == 0) &&
+> -		((may_have_level && string[len] == ':') || string[len] == '\0');
+> +	return len && ((may_have_level && string[len] == ':') || string[len] == '\0');
 
-    conn->hcon->sco_data = NULL;
+For this call site, both strings are NUL terminated so there is no 
+problem about accessing beyond boundary.
 
-with no hdev->lock held, so the RX path could read hcon->sco_data and
-call kref_get_unless_zero() on an sco_conn that was concurrently freed:
+But to be honest, I don't think this improves the readability.
 
-    BUG: KASAN: slab-use-after-free in sco_conn_hold_unless_zero+0xbe/0x160
-    Write of size 4 by task kworker/u17:0
-    Workqueue: hci0 hci_rx_work
-    Call Trace:
-     sco_conn_hold_unless_zero+0xbe/0x160
-     sco_recv_scodata+0x13f/0x490
-     hci_rx_work+0x3af/0x730
+I still have to check what str_has_prefix() really returns to understand 
+the code, as the function is not a common helper and just by the name I 
+don't get what if it will return.
 
-kref_get_unless_zero() only guards against a zero refcount, not against
-the backing memory already being freed.
+>   }
+>   
+>   static int btrfs_parse_compress(struct btrfs_fs_context *ctx,
+> diff --git a/fs/btrfs/xattr.c b/fs/btrfs/xattr.c
+> index ab55d10bd71f..9011d8096e2d 100644
+> --- a/fs/btrfs/xattr.c
+> +++ b/fs/btrfs/xattr.c
+> @@ -239,8 +239,7 @@ int btrfs_setxattr_trans(struct inode *inode, const char *name,
+>   		 * block_rsv of the handle and trigger a warning for the start
+>   		 * case.
+>   		 */
+> -		ASSERT(strncmp(name, XATTR_SECURITY_PREFIX,
+> -			       XATTR_SECURITY_PREFIX_LEN) == 0);
+> +		ASSERT(strstarts(name, XATTR_SECURITY_PREFIX));
 
-Give hcon->sco_data an actual reference on the sco_conn it points to, so
-the object cannot be freed while the pointer is still installed, and only
-clear and drop it from sco_conn_del(), which runs under hdev->lock (its
-callers, sco_connect_cfm() and sco_disconn_cfm(), hold it). The reader in
-sco_recv_scodata() also takes hdev->lock, so the store and the read are
-now serialised: the RX path either observes NULL or a reference that is
-guaranteed to stay valid until it drops its own.
+@name is not NUL-terminated, thus even the old code is not safe.
 
-sco_conn_add() no longer hands its kref_init() reference to the caller as
-the connection's only reference; that initial reference is the one owned
-by hcon->sco_data, and callers get their own via sco_conn_hold().
+The only thing saving us here is that we should have a security XATTR 
+passed in, thus the name must have the "security." prefix and not cause 
+access-beyond-boundary.
 
-Because the sco_conn can now outlive the socket (the association keeps it
-alive until the link goes down), the hci_conn can no longer be dropped
-from sco_conn_free() without regressing socket close: closing a connected
-SCO socket must still tear the link down. Move hci_conn ownership to the
-socket instead: __sco_chan_add() takes an hci_conn reference and it is
-released from sco_chan_del() and sco_sock_destruct(), exactly once. The
-sco_conn no longer owns an hci_conn reference, so sco_conn_add() stops
-consuming one and sco_connect() drops the hci_connect_sco() reference on
-every path; sco_connect_cfm() no longer needs its hci_conn_hold() dance.
+Again, I do not think it's a good idea to use strstarts() with any 
+non-NUL-terminated strings.
 
-Fixes: e6720779ae61 ("Bluetooth: SCO: Use kref to track lifetime of sco_conn")
-Cc: stable@vger.kernel.org
-Suggested-by: Pauli Virtanen <pav@iki.fi>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
-v4: remove early return in sco_sock_destruct() that skipped
-    skb_queue_purge() when conn was non-NULL (found by sashiko.dev).
-v3: fix two UAFs found by Pauli Virtanen in the v2 review:
-    - sco_chan_del(): drop hci_conn ref before clearing conn->sk so that
-      sco_conn_del() on another CPU cannot free hci_conn under our feet
-    - sco_sock_destruct(): same ordering fix
-    - remove dead branch in sco_conn_add() (conn->hcon == NULL impossible)
-    - move hci_conn_drop in sco_connect() tighter after __sco_chan_add()
-v2: quote inlined code and KASAN splat with spaces (bluez CI gitlint);
-    no functional change.
 
-diff --git a/net/bluetooth/sco.c b/net/bluetooth/sco.c
-index 3d4362a..a2f17ab 100644
---- a/net/bluetooth/sco.c
-+++ b/net/bluetooth/sco.c
-@@ -84,12 +84,14 @@ static void sco_conn_free(struct kref *ref)
- 	if (conn->sk)
- 		sco_pi(conn->sk)->conn = NULL;
- 
--	if (conn->hcon) {
--		conn->hcon->sco_data = NULL;
--		hci_conn_drop(conn->hcon);
--	}
-+	/* hcon->sco_data is cleared and the association's reference on the
-+	 * sco_conn is dropped in sco_conn_del() under hdev->lock, and the
-+	 * hci_conn is now owned by the socket (held in __sco_chan_add() and
-+	 * dropped in sco_chan_del()/sco_sock_destruct()), so there is nothing
-+	 * left to release towards hcon here.
-+	 */
- 
--	/* Ensure no more work items will run since hci_conn has been dropped */
-+	/* Ensure no more work items will run before the connection is freed */
- 	disable_delayed_work_sync(&conn->timeout_work);
- 
- 	kfree(conn);
-@@ -188,25 +190,19 @@ static void sco_sock_clear_timer(struct sock *sk)
- }
- 
- /* ---- SCO connections ---- */
--/* Consumes a reference on @hcon, which the returned sco_conn owns until it is
-- * freed. On failure (NULL return) the reference is left for the caller to drop.
-+/* Returns a new reference the caller must drop with sco_conn_put(). The
-+ * hcon->sco_data association holds its own reference on the sco_conn for the
-+ * connection's lifetime; it is dropped in sco_conn_del() under hdev->lock.
-+ * @hcon is not consumed: the hci_conn reference is taken and owned by the
-+ * socket in __sco_chan_add().
-  */
- static struct sco_conn *sco_conn_add(struct hci_conn *hcon)
- {
- 	struct sco_conn *conn = hcon->sco_data;
- 
- 	conn = sco_conn_hold_unless_zero(conn);
--	if (conn) {
--		if (!conn->hcon) {
--			sco_conn_lock(conn);
--			conn->hcon = hcon;
--			sco_conn_unlock(conn);
--		} else {
--			/* conn already owns a reference on hcon */
--			hci_conn_drop(hcon);
--		}
-+	if (conn)
- 		return conn;
--	}
- 
- 	conn = kzalloc_obj(struct sco_conn);
- 	if (!conn)
-@@ -227,7 +223,10 @@ static struct sco_conn *sco_conn_add(struct hci_conn *hcon)
- 
- 	BT_DBG("hcon %p conn %p", hcon, conn);
- 
--	return conn;
-+	/* kref_init() above set the association reference owned by
-+	 * hcon->sco_data; hand the caller its own reference.
-+	 */
-+	return sco_conn_hold(conn);
- }
- 
- /* Delete channel.
-@@ -242,6 +241,19 @@ static void sco_chan_del(struct sock *sk, int err)
- 	BT_DBG("sk %p, conn %p, err %d", sk, conn, err);
- 
- 	if (conn) {
-+		struct hci_conn *hcon;
-+
-+		sco_conn_lock(conn);
-+		hcon = conn->hcon;
-+		sco_conn_unlock(conn);
-+
-+		/* Drop the socket's hci_conn reference BEFORE clearing
-+		 * conn->sk, so sco_conn_del() on another CPU cannot free
-+		 * the hci_conn while we still hold a pointer to it.
-+		 */
-+		if (hcon)
-+			hci_conn_drop(hcon);
-+
- 		sco_conn_lock(conn);
- 		conn->sk = NULL;
- 		sco_conn_unlock(conn);
-@@ -266,6 +278,13 @@ static void sco_conn_del(struct hci_conn *hcon, int err)
- 
- 	BT_DBG("hcon %p conn %p, err %d", hcon, conn, err);
- 
-+	/* Detach from the hci_conn and drop the association's reference.
-+	 * The caller holds hdev->lock, which serialises this against the
-+	 * read of hcon->sco_data in sco_recv_scodata().
-+	 */
-+	hcon->sco_data = NULL;
-+	sco_conn_put(conn);
-+
- 	sco_conn_lock(conn);
- 	sk = sco_sock_hold(conn);
- 	sco_conn_unlock(conn);
-@@ -290,6 +309,11 @@ static void __sco_chan_add(struct sco_conn *conn, struct sock *sk,
- 	sco_pi(sk)->conn = sco_conn_hold(conn);
- 	conn->sk = sk;
- 
-+	/* The socket owns an hci_conn reference for as long as it stays
-+	 * attached; it is dropped in sco_chan_del()/sco_sock_destruct().
-+	 */
-+	hci_conn_hold(conn->hcon);
-+
- 	if (parent)
- 		bt_accept_enqueue(parent, sk, true);
- }
-@@ -371,6 +395,7 @@ static int sco_connect(struct sock *sk)
- 	if (sk->sk_state != BT_OPEN && sk->sk_state != BT_BOUND) {
- 		release_sock(sk);
- 		sco_conn_put(conn);
-+		hci_conn_drop(hcon);
- 		err = -EBADFD;
- 		goto unlock;
- 	}
-@@ -379,9 +404,13 @@ static int sco_connect(struct sock *sk)
- 	sco_conn_put(conn);
- 	if (err) {
- 		release_sock(sk);
-+		hci_conn_drop(hcon);
- 		goto unlock;
- 	}
- 
-+	/* __sco_chan_add() took its own hci_conn reference; drop ours. */
-+	hci_conn_drop(hcon);
-+
- 	/* Update source addr of the socket */
- 	bacpy(&sco_pi(sk)->src, &hcon->src);
- 
-@@ -495,9 +524,25 @@ static struct sock *sco_get_sock_listen(bdaddr_t *src)
- 
- static void sco_sock_destruct(struct sock *sk)
- {
-+	struct sco_conn *conn = sco_pi(sk)->conn;
-+
- 	BT_DBG("sk %p", sk);
- 
--	sco_conn_put(sco_pi(sk)->conn);
-+	/* If the channel was not already torn down via sco_chan_del(), drop
-+	 * the socket's own references here.
-+	 */
-+	if (conn) {
-+		struct hci_conn *hcon;
-+
-+		sco_conn_lock(conn);
-+		hcon = conn->hcon;
-+		sco_conn_unlock(conn);
-+
-+		if (hcon)
-+			hci_conn_drop(hcon);
-+		sco_pi(sk)->conn = NULL;
-+		sco_conn_put(conn);
-+	}
- 
- 	skb_queue_purge(&sk->sk_receive_queue);
- 	skb_queue_purge(&sk->sk_write_queue);
-@@ -1511,12 +1557,10 @@ static void sco_connect_cfm(struct hci_conn *hcon, __u8 status)
- 	if (!status) {
- 		struct sco_conn *conn;
- 
--		conn = sco_conn_add(hci_conn_hold(hcon));
-+		conn = sco_conn_add(hcon);
- 		if (conn) {
- 			sco_conn_ready(conn);
- 			sco_conn_put(conn);
--		} else {
--			hci_conn_drop(hcon);
- 		}
- 	} else
- 		sco_conn_del(hcon, bt_to_errno(status));
--- 
-2.43.0
+>   		trans = current->journal_info;
+>   	}
+>   
+
