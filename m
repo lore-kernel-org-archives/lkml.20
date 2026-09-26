@@ -1,111 +1,234 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-197.mta1.migadu.com [95.215.58.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AF923E342;
-	Sat, 26 Sep 2026 01:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACEA547072
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:41:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790386802; cv=none; b=CSc2sxa797oz9+pT1s+cDlDD8t8OhEidAA0PgaZ2LnMGA8xb0o5hh52xYNk5P7mEWwudcyreHlO65GC1zzuK5QNM7SfkQhx+D1Jd93g8Ah9IzRY1q+LBDi6JDlgRuCXYDeRnNYMx2YJqhrFuLDZ3QMJ/8F2oBpIjJNIgqdK3eo0=
+	t=1790386895; cv=none; b=BkPO/OCQFW/d4ppp8lvjzEHn/0GjJHJY9RxIidBzTQ8r9+GHPTNdV8exed7BqPAFSFVE/nKx/gM55Ga9vMLmhzEaRp841i9H0mP7N0/7dleas9NV0+fOq5cJ72hbI/MadOLXlEYmjiYdyY9JGePFpOwQwhgrTP2tc6/lm6YLk+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790386802; c=relaxed/simple;
-	bh=X3faKwDvWSThqPPI7PTR+IDDb6qKRyubeS4Cljfg/vI=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=n1Bze5oIilGV81aTANiSp3kiSGo4YUXrv18XeTT1TY2hqoPFrpt8rOesc7GZIVuszPil+HANdDyUonX0pdXayyB2oYS9SNBIX6PE2qlpcuT5sOp0f8NfYL2SwweQp1P243e56uDiZVbPPkQ1DabN1OLEqrhcHNqMB/63ztlbyTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=i/hoERwD; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=T5VxBVrj; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790386895; c=relaxed/simple;
+	bh=PKFI4CAgpsF0c7UevfCcZPOfjizkfAt5zLk68ph2gnY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D+hVI8qj3MeK+/oIe1Jsip8nkVhOqQrl0K7nK6inVSXsWGXw+FzxGcchRhJP1h00QpATQIIXhKm9vFJsMiDqzhiXm3M1bDCpJqoTg8Z9/uWNn9y4imRQBn2jTbGhDETzNRhDH25tYnacVkozE2QI+C8DuJvjzUepTUaaMLz5GWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tmkGjQlU; arc=none smtp.client-ip=95.215.58.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="i/hoERwD";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="T5VxBVrj"
-Date: Sat, 26 Sep 2026 01:39:56 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790386798;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FI6ZPRsNX39dk6yPxQiU/HFth36sczoNAMpNlAENoIE=;
-	b=i/hoERwDhTa8PVpq3KTOUCyPbo9kxPhIOIPw2ckSqSOw43GqrT5KCiNY3vNa3NK7eC4FUl
-	VNKB/8bCsktoHeJ0xi2YNMgINYPL0Xssz+4d29q8xuOyfobcGFi9ztUHwfj1S0go5qT98j
-	vM+xT38SxQbNhuXJzVyHWCmeyi91r0LcRQ5TUmf4pXJb7lEHkeC+2UQqXSePkRfpcO9TpB
-	wqZR//eLP+dr00wBjB+Pz8SRzFHZKy28UJAJZZQVSqPtvdAaaWhh0wYBr5HMQr6kOmX2PE
-	izHaIsCaJf66m81RS2qHJA2jYEt8dIZvZVTrmqzEbO/KTwLix4c2BGMiMBPoaQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790386798;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FI6ZPRsNX39dk6yPxQiU/HFth36sczoNAMpNlAENoIE=;
-	b=T5VxBVrjA7hTZMEyu7xoJ6pJsA1qIzf+uBA74wAgFlNhpgCeIvDRHytnVbpkWYW+N8/1cT
-	pCmaQ1fhILy+HLBg==
-From: "tip-bot2 for Tony Luck" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/cache] x86/resctrl: Update documented unit for the "activity" event
-Cc: Tony Luck <tony.luck@intel.com>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- Reinette Chatre <reinette.chatre@intel.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260915190431.18189-1-tony.luck@intel.com>
-References: <20260915190431.18189-1-tony.luck@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tmkGjQlU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PKFI4CAgpsF0c7UevfCcZPOfjizkfAt5zLk68ph2gnY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790386890; v=1; x=1790991690;
+ b=tmkGjQlUjRkCflFoKDxhiSWcx0Pyjl0/jZE1D2SY2VmO68KibpW/RqDjd/plmiXeDyhkAm7j
+ w+ROm5U+vsDmW0kXhMJ8+ArAyx36NL5/i14JIXGR1bMjo5c+aSXMKkGvK662DZxXr2+h2S5ZN0M
+ dVui4UR01CYVQK8w0FzMrygQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2e14a66ee420801c;
+	Sat, 26 Sep 2026 01:41:30 +0000
+X-Mizu-Trace-ID: 2e14a66ee420801c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c0301eb2-62b9-4dbd-ba24-3a2c40675b20@linux.dev>
+Date: Sat, 26 Sep 2026 03:41:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179038679694.3910103.13709225278150839530.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] platform/x86: asus-wmi: add TUF keyboard RGB
+ readback support
+To: Bartu Alev <bartualev@gmail.com>, platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Luke D . Jones" <luke@ljones.dev>, Denis Benato <benato.denis96@gmail.com>
+References: <20260925200744.129714-1-bartualev@gmail.com>
+ <20260926005625.171560-1-bartualev@gmail.com>
+ <20260926005625.171560-3-bartualev@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20260926005625.171560-3-bartualev@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the x86/cache branch of tip:
 
-Commit-ID:     a17d099481bd11f0911993a8e69992269f92ad12
-Gitweb:        https://git.kernel.org/tip/a17d099481bd11f0911993a8e69992269f9=
-2ad12
-Author:        Tony Luck <tony.luck@intel.com>
-AuthorDate:    Tue, 15 Sep 2026 12:04:31 -07:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Fri, 25 Sep 2026 18:35:50 -07:00
+On 9/26/26 02:56, Bartu Alev wrote:
+> TUF Gaming laptops expose kbd_rgb_mode and kbd_rgb_state as write-only
+> attributes (DEVICE_ATTR_WO), preventing userspace from querying the
+> active hardware configuration.
+>
+> Add readback support by querying ASUS_WMI_DEVID_TUF_RGB_READBACK
+> (0x0010005B) via the WMI DSTS method. On supported platforms this
+> evaluates the DSDT method EC0.KBLS(), which returns a 16-byte buffer
+> containing the active lighting mode, RGB color channels, effect speed
+> and power-state flags.
+>
+> Introduce kbd_rgb_read_status() to evaluate and validate the buffer,
+> and convert both attributes to DEVICE_ATTR_RW. Map the hardware speed
+> codes (0xe1, 0xeb, 0xf5) to their sysfs indices (0, 1, 2).
+>
+> The command field is not part of the status buffer: "immediate vs
+> save-to-flash" is a property of the write verb (0xb3/0xb4), not of
+> readable state, and the EC mirror is updated identically by both.
+> Readback therefore emits a synthetic leading '1' - the canonical
+> input form userspace writes - so that output matches input.
+>
+> Suggested-by: Denis Benato <denis.benato@linux.dev>
+> Signed-off-by: Bartu Alev <bartualev@gmail.com>
+> ---
+>  drivers/platform/x86/asus-wmi.c            | 79 +++++++++++++++++++++-
+>  include/linux/platform_data/x86/asus-wmi.h |  3 +
+>  2 files changed, 80 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+> index db6ee1974838..fe1dcc7701ad 100644
+> --- a/drivers/platform/x86/asus-wmi.c
+> +++ b/drivers/platform/x86/asus-wmi.c
+> @@ -1046,7 +1046,58 @@ static ssize_t gpu_mux_mode_store(struct device *dev,
+>  static DEVICE_ATTR_RW(gpu_mux_mode);
+>  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
+>  
+> +static int kbd_rgb_read_status(u8 data[16])
+> +{
+> +	int err;
+> +
+> +	err = asus_wmi_evaluate_method_buf(ASUS_WMI_METHODID_DSTS,
+> +					   ASUS_WMI_DEVID_TUF_RGB_READBACK,
+> +					   0, data, 16);
+> +
+> +	if (err)
+> +		return err < 0 ? err : -ENODEV;
+> +
+> +	/* DUBF[0] is a constant 1 set by the AML: anything else is not KBLS */
+> +	if (data[0] != 1)
+> +		return -ENODEV;
+> +
 
-x86/resctrl: Update documented unit for the "activity" event
+-ENODEV or -ENOTSUPP ? Which one is better suited for these kind of things?
 
-The unit for the AET (Application Energy Telemetry) activity event[1] is nF, =
-not F, see
-https://github.com/intel/Intel-PMT/blob/main/xml/CWF/OOBMSM/RMID-ENERGY/cwf_c=
-ommon.xml#L9
+If we go with two separate sysfs attrs you don't register the read one,
+otherwise I am not sure.
 
-Fixes: a8848c4b43ad ("x86,fs/resctrl: Update documentation for telemetry even=
-ts")
-Signed-off-by: Tony Luck <tony.luck@intel.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-Link: https://patch.msgid.link/20260915190431.18189-1-tony.luck@intel.com
----
- Documentation/filesystems/resctrl.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> +	return 0;
+> +}
+> +
+>  /* TUF Laptop Keyboard RGB Modes **********************************************/
+> +static ssize_t kbd_rgb_mode_show(struct device *dev,
+> +				 struct device_attribute *attr,
+> +				 char *buf)
+> +{
+> +	u8 data[16] = {};
+> +	u32 speed;
+> +	int err;
+> +
+> +	err = kbd_rgb_read_status(data);
+> +	if (err)
+> +		return err;
+> +
+> +	/* Map hardware speed codes back to sysfs index:
+> +	 * 0xe1 -> 0 (slow), 0xeb -> 1 (normal), 0xf5 -> 2 (fast)
+> +	 */
+> +	switch (data[5]) {
+> +	case 0xe1:
+> +		speed = 0;
+> +		break;
+> +	case 0xeb:
+> +		speed = 1;
+> +		break;
+> +	case 0xf5:
+> +		speed = 2;
+> +		break;
+> +	default:
+> +		speed = 1;
+> +		break;
+> +	}
+> +
+> +	return sysfs_emit(buf, "1 %d %d %d %d %d\n",
+> +			  data[1], data[2], data[3], data[4], speed);
 
-diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystem=
-s/resctrl.rst
-index dd4f80d..b52795e 100644
---- a/Documentation/filesystems/resctrl.rst
-+++ b/Documentation/filesystems/resctrl.rst
-@@ -642,7 +642,7 @@ When monitoring is enabled all MON groups will also conta=
-in:
- 	during execution of instructions summed across all logical CPUs on a
- 	package for the current monitoring group.
-=20
--	"activity" also reports a floating point value (in Farads).  This provides
-+	"activity" also reports a floating point value (in nanofarads).  This provi=
-des
- 	an estimate of work done independent of the frequency that the CPUs used
- 	for execution.
-=20
+We had this discussion in discord so I want to update everyone reading:
+the status returned is the current one and both cmd=0 and cmd=1 on write
+update the current status.
+
+Therefore this is an asymmetry that doesn't really need to be,
+what if we introduce another sysfs that is RO? Ilpo?
+
+> +}
+>  static ssize_t kbd_rgb_mode_store(struct device *dev,
+>  				 struct device_attribute *attr,
+>  				 const char *buf, size_t count)
+> @@ -1099,7 +1150,7 @@ static ssize_t kbd_rgb_mode_store(struct device *dev,
+>  
+>  	return count;
+>  }
+> -static DEVICE_ATTR_WO(kbd_rgb_mode);
+> +static DEVICE_ATTR_RW(kbd_rgb_mode);
+>  
+>  static DEVICE_STRING_ATTR_RO(kbd_rgb_mode_index, 0444,
+>  			     "cmd mode red green blue speed");
+> @@ -1115,6 +1166,30 @@ static const struct attribute_group kbd_rgb_mode_group = {
+>  };
+>  
+>  /* TUF Laptop Keyboard RGB State **********************************************/
+> +static ssize_t kbd_rgb_state_show(struct device *dev,
+> +				  struct device_attribute *attr,
+> +				  char *buf)
+> +{
+> +	u8 data[16] = {};
+> +	u8 flags;
+> +	int err;
+> +
+> +	err = kbd_rgb_read_status(data);
+> +	if (err)
+> +		return err;
+> +
+> +	/*
+> +	 * data[6] power-state bitmask:
+> +	 * BIT(1) boot, BIT(3) awake, BIT(5) sleep, BIT(7) shutdown
+> +	 */
+> +	flags = data[6];
+> +
+> +	return sysfs_emit(buf, "1 %d %d %d %d\n",
+> +			  !!(flags & BIT(1)),
+> +			  !!(flags & BIT(3)),
+> +			  !!(flags & BIT(5)),
+> +			  !!(flags & BIT(7)));
+> +}
+>  static ssize_t kbd_rgb_state_store(struct device *dev,
+>  				 struct device_attribute *attr,
+>  				 const char *buf, size_t count)
+> @@ -1146,7 +1221,7 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+>  
+>  	return count;
+>  }
+> -static DEVICE_ATTR_WO(kbd_rgb_state);
+> +static DEVICE_ATTR_RW(kbd_rgb_state);
+>  
+>  static DEVICE_STRING_ATTR_RO(kbd_rgb_state_index, 0444,
+>  			     "cmd boot awake sleep shutdown");
+> diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
+> index b5ed8c83ace1..1447c7f354bc 100644
+> --- a/include/linux/platform_data/x86/asus-wmi.h
+> +++ b/include/linux/platform_data/x86/asus-wmi.h
+> @@ -161,6 +161,9 @@
+>  /* TUF laptop RGB power/state */
+>  #define ASUS_WMI_DEVID_TUF_RGB_STATE	0x00100057
+>  
+
+The pre-existing one should probably be renamed to make clear
+it's write only and it is a command... In its own patch.
+
+ASUS_WMI_DEVID_TUF_RGB_CMD probably?
+
+> +/* TUF laptop RGB keyboard status readback*/
+> +#define ASUS_WMI_DEVID_TUF_RGB_READBACK	0x0010005B
+> +
+
+ASUS_WMI_DEVID_TUF_RGB_READ_STATUS ?
+
+
+>  /* Bootup sound control */
+>  #define ASUS_WMI_DEVID_BOOT_SOUND	0x00130022
+>  
