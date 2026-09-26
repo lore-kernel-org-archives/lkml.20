@@ -1,190 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA24547059;
-	Sat, 26 Sep 2026 10:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D071FA272
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790417016; cv=none; b=uu2D19DxbAUcENHCDlx+IczkzyGLhTjCvcEa/OIGbBxcYmBMIxBOzAzieUOA6UR/Imd7KBI3d/V8NT4/Ox5TcU7wMHpnyia2XKyP7XAQN72rnPSl+3s9Jk2qL2AnYbcICRM3EeD8Iy+GTqLw7U3jQuLIveSdTN2HMuSHrZiT3hI=
+	t=1790417065; cv=none; b=G3Ofgwv/T91gD4GOXmXKbKbhawrmfyQBDh49Z+24dfK2kXD3D0ZOUwLdTTdnXQhqCh2CB3M2Yse491sLj/vqqacnFSJTaXGSN/2vJe+FtOzpzR4SDsbHdGMKPu6VHkJaxnEf1pzJAedfcmOr0QWWsGYAeCoPMRrqvuXZcZFyrhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790417016; c=relaxed/simple;
-	bh=/OPHDkikK/SdUy/GZ5Mi0tR1Kqvo5SEVKTdbVKGcyD8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h+N4TYgZxqYKz6BH89uihikg82mX8cJ3DxdkAyhASOu6829NCsSZDvSL+4RL3ugDyOE0t/knLv9ZuRNrEgFCroPtu5A0yJk6drJmP0TISzDD+21IN2ZM6ZNYStfiewgh9XtTVmTripMZE6WVdS5bBvANlwt2sf6SG3HPWhDa2+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PotPzrZ5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790417065; c=relaxed/simple;
+	bh=euCMwxHALKONHLslqhqKhiO7u5b/S+Zz1OF1d1F2hSI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=A7haHI9hR1CpbgF5Qg9IOCJ48BlA/9TOLV78WtcbO8M5NEnySTRpJ7WDKnCs5j97hcFN/2w9RcXsQA/P/myoNXyYT0RBsNpjUDG2/8TU0JP6uqECVev9FeS9qcUVs4lFimA6PYO0hhUI3/8jIKnkV1zcLKo9KM+dRf0HZ7mUP2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bt3CzJgi; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PotPzrZ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F031F000FF;
-	Sat, 26 Sep 2026 10:03:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790417014;
-	bh=Ti2172MLMPIXoYLD6wBNBUuG1vVW74lvR3yPAsyJ4Mw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PotPzrZ5JhDcKjnjPPw4xklb2BV2GvKf2hehW5Y+mTu9Ze/h0GvM2oipY5M9D+/cd
-	 NRSteOJJVQwOgJ/Vk7qXpUvq2TlOQEyc8ylr6ggIIRLBObKxZ+LGlahTeOSiW1DP9A
-	 NCr80n3Ix3unBLfTdBkNTu/U313Twxe7BdIULH0hZv4+HKf9SLfgwohoZjpf9YbuDb
-	 pM/4foaBcqD6tdDoCnbsIxQUPKUzkTKJ14OcpqpL1z9ouoHn3tA5tZPlu8aWNsTXWH
-	 kG0V3eJydf9/vQZMEDvq3aPanED3H3sJB4bqO1nejPbFwjDnaIc7Dx5neGDSzNUBqo
-	 N5OxElMlwQ0bg==
-Date: Sat, 26 Sep 2026 11:03:02 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
-	Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Doug Gilbert <dgilbert@interlog.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
-	Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, linux-sound@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
-	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v3 17/40] mm/vma: add and use vma_[flags]_is_fixed_mapping
-Message-ID: <areX8JFWf2gJLVcf@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-17-4583d8a23bca@kernel.org>
- <DLOW5O2LS4KC.7BAL5Q24VJL@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bt3CzJgi"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so1146390a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:04:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790417063; x=1791021863; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=a2QwrJTjNePGvVoDDQsoh5hhf8GU4fREmLPOvIhMRHQ=;
+        b=Bt3CzJgiZikqVIVnL5X3UDUhEhCWZXamYXK3Wo05WNUusm91EzUh6tvbLqdC65a41z
+         Q6t9zG4Hw5ybpm/dJPF7trS8jeYwGrzX1lZ8fhN7GynCPwimYqV+63Fd9Sp2QmYvcdZK
+         7N6QFPkPRd7LOwRSRQYBey88TTchGy/aiHobGXe4M+mbTfjJUHXtz2AoUbZC56bC+v66
+         bV65k5xjmI7HwhZ0FZWdlUF6RxvPN1QWQmIe3GrjtVKLSzjTzQMjAdlTOrCtOEDUml6I
+         YoncmZFKDVNFa3G4PUIQJMwvG5o6h7MwI5PEWPfUO/JYF+2r37xmI3TXTy+EZBkL/HdS
+         CLvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790417063; x=1791021863;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=a2QwrJTjNePGvVoDDQsoh5hhf8GU4fREmLPOvIhMRHQ=;
+        b=q5ue0abocp5YY1EUIzdDSxAv3VGNB869MCw310M3BcvYEVAIuNv1MHGU6bFZYpzgd9
+         P25wP6E55tSwG8NKufRb5L2Elp+rBhxObG1BO3P1HTcZprSldm0Sn7YAysf9ZFlvU10p
+         t4B64nGK/l5922SrnWcurnj6LdB8mbrsdoe+L5hsxrctoz6/LDaUo4VBZcu0mK8vs9h/
+         ujMRPnbAjOApZ7GDK0K9q4WIpMlHXQHTPBqeC4h1bPBCuBms6V28m2Nt4mjbfjN7WQXw
+         W6LBEI01VlM51CZ7bXZQ3cqtICIg7AFmAItnjDB2jzGrmDbyEfQwioQwjFcH30/b0nB7
+         crmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBybmhnOVjz3iiqfKbjXZjosSnMGgn4Ky7q8WHuDobDoBYb0eCWpZIpAt3kqQ423syt5wLMY5q10uPDgom4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyqH9UhANFY94cOs9H24YbqZYABWXEy2LeobQ97aSESgr5l5Ir
+	NYv/lPFUJFfQI0u9QszoXwNqJy7Vcc7A29OVXJdjdnugvylD9A8xqe4q
+X-Gm-Gg: AYBFou1F+cYjAH/oXbmKd18mpv1EgvMZyyLDlyXdTTsU+mWsFxYJA0O1nM8QzlZf80E
+	6MV5K3oWqklS0ceYVSifwQ5k0ztuXcX6yMmdGH8+21q5TxBmZOsJUL9rXCKqyg+WVSP8I5xBXFI
+	yKMsNH25iNbH9EdfzJ/wnznFNg/1l0hm/tTVGi6oj+WmO/4RFOev40sRs1HspT5rahLc39SAua+
+	6ySFaj4W/txyVr4zJXTzgeT5VgMX5EvKRBcyql3MnpCUsKES7mY9lMffzru/AAGGgza5Mrzhloy
+	8luomek4ZUmNxidtB9zcbjf1dPd64A+NhMqOai4O3iXuTG9srYPfr7EsGMr4D7IfaNablAoCg0R
+	+R9Cu/T/urJmcmJmp75sZJa7OuJYpOt7TvWg6FrtbyZi5ZAHKpWlLQ1fLmPtAOhQKR3Sk9mK3kq
+	ZEnBfHJHdjhVjgCRm/NJy91G/3IJ5TvFVn2IelEXlVoJyK7V7mU1LYYQbI/ycu4sS8Xrffqutpa
+	sJUjnbf1eI3jQ54I/Bn
+X-Received: by 2002:a17:90b:17c9:b0:3a0:c833:de75 with SMTP id 98e67ed59e1d1-3a0c833e54amr3104087a91.30.1790417063447;
+        Sat, 26 Sep 2026 03:04:23 -0700 (PDT)
+Received: from localhost.localdomain ([104.28.254.47])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9481e17sm8806891a91.8.2026.09.26.03.04.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 03:04:23 -0700 (PDT)
+From: Chuanhong Guo <gch981213@gmail.com>
+Date: Sat, 26 Sep 2026 18:04:14 +0800
+Subject: [PATCH] pinctrl: mediatek: mt7629: fix the 2.4 GHz Wi-Fi pin mode
+ array
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLOW5O2LS4KC.7BAL5Q24VJL@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-b4-mt7629-pinctrl-v1-1-23904cb0c3f3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQrCMBBA0auUWTuYDJISryIukjjagXYsSSqB0
+ rsbXb7F/zsUzsIFrsMOmT9S5K0d9jRAmoK+GOXRDWTIGU8O4wWXOjryuIqmmme0yXmybJyjEXq
+ 3Zn5K+z9v9+4YCmPMQdP0O82iW0PlVs9LKJUzHMcXouaD74cAAAA=
+X-Change-ID: 20260926-b4-mt7629-pinctrl-1c6921e06627
+To: Sean Wang <sean.wang@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Ryder Lee <ryder.lee@mediatek.com>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Chuanhong Guo <gch981213@gmail.com>
+X-Mailer: b4 0.14.3
 
-On Fri, Sep 25, 2026 at 10:27:15PM -0400, Zi Yan wrote:
-> On Thu Sep 17, 2026 at 12:22 PM EDT, Lorenzo Stoakes (ARM) wrote:
-> > This determines whether a VMA cannot be expanded or merged because what
-> > they mapped was determined to be a set size at mmap time.
-> >
-> > This typically refers to kernel-owned mappings, however VMA_DONTEXPAND_BIT
-> > is not reliably set alongside VMA_PFNMAP_BIT or VMA_MIXEDMAP_BIT, so we
-> > must explicitly test for this for now.
-> >
-> > We also explicitly test for VMA_PFNMAP_BIT as VMA_DONTEXPAND_BIT may not be
-> > set for VMA_PFNMAP_BIT's despite the one implying the other.
-> >
-> > Use this predicate in vma_flags_can_merge() and in check_prep_vma() in the
-> > mremap logic testing to see if mremap() can expand the VMA. The criteria
-> > for khugepaged and MADV_COLLAPSE eligibility in
-> > __thp_vma_allowable_orders() are precisely those for mergeability, so use
-> > vma_can_merge() there (with an expanded comment).
-> >
-> > This obviates the need for the VM_NO_KHUGEPAGED mask, so remove it.
-> >
-> > Hugetlb VMAs remain excluded from khugepaged as hugetlbfs always sets
-> > VMA_DONTEXPAND_BIT.
-> >
-> > Also update the userland VMA tests to reflect the change.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  include/linux/mm.h              | 39 +++++++++++++++++++++++++++++++++++----
-> >  mm/huge_memory.c                | 11 +++++++----
-> >  mm/mremap.c                     |  5 ++---
-> >  tools/testing/vma/include/dup.h | 16 +++++++++++++++-
-> >  4 files changed, 59 insertions(+), 12 deletions(-)
-> >
-> <snip>
-> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> > index 4cd917f77f3f..4d0acd9a1099 100644
-> > --- a/mm/huge_memory.c
-> > +++ b/mm/huge_memory.c
-> > @@ -212,11 +212,14 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
-> >  		return in_pf ? orders : 0;
-> >
-> >  	/*
-> > -	 * khugepaged special VMA and hugetlb VMA.
-> > -	 * Must be checked after dax since some dax mappings may have
-> > -	 * VM_MIXEDMAP set.
-> > +	 * khugepaged moves data from VMAs once collapsed, after they have been
-> > +	 * faulted in, relying on refaulting for file-backed memory.
-> > +	 *
-> > +	 * Kernel-owned mappings cannot be reliably reconstructed from page
-> > +	 * faults, and fixed mappings (including hugetlb) may not be marked as
-> > +	 * kernel-owned - precisely the mappings which cannot be merged.
-> >  	 */
-> > -	if (!in_pf && !smaps && (vm_flags & VM_NO_KHUGEPAGED))
-> > +	if (!in_pf && !smaps && !vma_can_merge(vma))
->
-> I wonder if a function alias would improve the code readability.
-> Basically,
->
-> #define vma_no_khugepaged vma_can_merge
->
-> or just make vma_no_khugepaged static inline. And move the comment to
-> the function.
+The wf0_2g group contains nine pins but only eight mux values.
+mtk_pinmux_set_mux() indexes the mode array once for each pin, reading
+past its end when configuring pin 78 (WF0_2G_HB6). This can select an
+unrelated mux value or fail with -EINVAL, preventing the Wi-Fi device
+from probing.
 
-Hmm yeah, I'm not sure, I think given it's here and commented it's OK and
-avoids having to have a special snowflake entry for khugepaged, so unless
-it were referenced again elsewhere it's ok like this?
+Add the missing mode 1 entry for WF0_2G_HB6.
 
-If it gets used elsewhere in the THP code it could be relocated then maybe?
+Fixes: b44677375fee ("pinctrl: mediatek: add pinctrl support for MT7629 SoC")
+Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+---
+ drivers/pinctrl/mediatek/pinctrl-mt7629.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->
-> Regardless, this patch makes sense to me.
->
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
+diff --git a/drivers/pinctrl/mediatek/pinctrl-mt7629.c b/drivers/pinctrl/mediatek/pinctrl-mt7629.c
+index 385d66b8e3fb..29a4c171e8b6 100644
+--- a/drivers/pinctrl/mediatek/pinctrl-mt7629.c
++++ b/drivers/pinctrl/mediatek/pinctrl-mt7629.c
+@@ -294,7 +294,7 @@ static int mt7629_pwm_1_funcs[] = { 2, };
+ 
+ /* WF 2G */
+ static int mt7629_wf0_2g_pins[] = { 70, 71, 72, 73, 74, 75, 76, 77, 78, };
+-static int mt7629_wf0_2g_funcs[] = { 1, 1, 1, 1, 1, 1, 1, 1, };
++static int mt7629_wf0_2g_funcs[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, };
+ 
+ /* WF 5G */
+ static int mt7629_wf0_5g_pins[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, };
 
-Thanks! :)
+---
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+change-id: 20260926-b4-mt7629-pinctrl-1c6921e06627
 
->
->
-> --
-> Best Regards,
-> Yan, Zi
->
+Best regards,
+-- 
+Chuanhong Guo <gch981213@gmail.com>
 
---
-Cheers, Lorenzo
