@@ -1,73 +1,66 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9113C3803D2
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1043803D2;
+	Sat, 26 Sep 2026 18:43:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790448133; cv=none; b=VX6v88C7mFcGbnEU/WVnzAA+p+TWTEIQNe+0m8onIfJOjt9/NU79Mk2oq3FzWcztZeUJ4SZSeWVGnjuOCZhLPa7mpq6I4Ba90ZMNY//bTVjEjasunJVKO5WslitLMuxPAWT7bn0vy2HBFK7zLWIAm1g2fMzi6+O7/T58fOmcV6E=
+	t=1790448188; cv=none; b=sIDptHg+tl32qlnWjrSs65NMTlIHOMjzHWxqsdMtUv7Ks+nH/tPTCSaPPo/kFUPnBg63hb27nXNCmgqLun1wLMivuWuN/HQicVoOh3SsAc3Q2X7bhwgS5ovocutoawDDlh38nXRoNZvmTJEJanjzu8s6EcV069IBCKktdeKhM8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790448133; c=relaxed/simple;
-	bh=boXPXLGkg2VaTiorsvVz25Gpm8TO4haBSjqWWgMIdOc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=btc1XuKGVdRQ2AXNbxAcz4KfN27TzO3yak4p5LvOCVofE/iwrs6ZcDUPZvu6sp0E+zoAtux7b3xvylf7NgDFCa1LAs6DQEyUw0AwIA2goBh7jZlvNdr2uqlZW2D5ylxLgaVwyb681dysACHklnK1ova9dbgmYaETVDu7NbB3LEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bhrzkcxZ; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790448188; c=relaxed/simple;
+	bh=xsGuJk232I4PLTQmWUF7L02T34ag+5omrFDsR297W3w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fWX8Ke3zQqOrzUlTGyzcDUo1dFyW4WqWX1cTSh5nvFd8aBKmUDo8cZLKpvNfV5P+XjbnNeI17yVqiCjMTZps6U9vEC0yrgBBFiLgB3VQ6HcEvDILS1nDwXT6gvfNZPsBacv0sCiqOKRQXlO8oHE+e8y0p6RG1P9v1myfC1kbLlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JOdraxMQ; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bhrzkcxZ"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-343bdca7590so13787eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:42:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790448131; x=1791052931; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IwlsSfA7SK5PS+loMIuNUAYcVxuEJS/8KwFetEK6oME=;
-        b=bhrzkcxZbeRYWKDFy8UxCjHRUDn8lZmt/xgb+i5jC3StVlLFxei4XlXB9QXGgVokLL
-         xMi27F7p4U+0MuP07FQQBhR1gIZIHeCs6TUrDv/GVI7fTJqVdWPwtvgpVQhaPpjVDBrq
-         SrVyheqyKGqqIqSsuaIAiBLyUZGjLUBgOZmwxQY/yiWokxddicxvbCJrcSE2nnTDml2s
-         6MJmxPM4jKBIAmy/yOUsOW0bqCrStNNyJwydrecv8XcKM9L+m+0DDfiZjOL/GZoN4xxd
-         FgYFvaZQIR+zZKBvtOhl5vHHx+vi7VTQdlvbWE7LyEgiiU0ruB1XU98Eniw2KTeSW2Eg
-         Hc9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790448131; x=1791052931;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IwlsSfA7SK5PS+loMIuNUAYcVxuEJS/8KwFetEK6oME=;
-        b=JFSe2iXZRaE1QB3NMj9s17gzrxKPnMStCXbrAYW7LJPAjSnelyxi71qmXTAF2GGk/8
-         ZoBywmLEgy1y7FwGn3EszdNmrZ1wqG7JNLOkTcObcOWR6c5xH2jxpHfdTuo0y5LlomCF
-         KsX+otkOePYvesAwkaQkMqZH9+qGcy71mnvtSUcfFGtf0S/73eQqkHigXvrf5Ieiy9Hm
-         HRZBHzVc2aH1dyectGrziECtU6eMXboEjZyVbNoBWkxacOdGNW8Zc3W3WepC/sJ8toIb
-         uDorp/wTws5J1a5yrjcfnQNKXQUv000hQwITTlvP2SqeHI6sjYB/CA8l89j9T4ph42aw
-         mnaQ==
-X-Gm-Message-State: AFq9FYJ4dOcC9JYA4oaqZbMsNtLEzZvM8HtkVQmchAhk+6OqlAS4XIgG
-	wquMTNI4Pei9HllB5RMeNlrevgSvkp7Y7ILQhV1GB6v3hN1W2wXMjUtW
-X-Gm-Gg: AYBFou0FuDg2pspej3674+Hi/lRjoLunRu0+jWnJb6nEJkVKQOkBW3UVveTbd3fRuAU
-	eeSERNFMfMUdfKZL/NdXNrun1Cu1+mjRhW9VTxwKXw8pgJRVJuKtTryCgJusHzdimrw0CIi+fCc
-	SWMFVPwqtlWkjL/3Iv5kRJj88twYkxTV0Rh+H0WGzgTnQM9YHv0SbmSs0hbq84qvI9G2qw6s1RQ
-	vzDpEBKDAnILBZ9yYIdet2rUyQCfIHdkFQU2ykxD+ots0Uw0/1zSvhvxKGarhi/+Q1RDPQtBE2Y
-	sOXGlPftqWKZIw9pISLLi0D9ALNRdXI8h2lC5oc9agvJ2oAfrnNXcTekEJekJap6PSf3GMayr98
-	9E8cLzm2IMF1sqZqEHTkr4ffcFvjYEVYRfr9hwfQyXLlywK133PmmK/TBeop9bp06kBg1mH6eFP
-	5N255Gpr3DZL0Ck9g16wPyxEVGiJbdDpNFkrOcBGOq/aluUfxfm7Bez87hgInlDwMnet9IOWT93
-	UcXOPT5QB3MDpO19yzahZdOu3r73F5hcDORsH3XXie+xyojwEk+DNL9REHaiCKyEzXsMQ==
-X-Received: by 2002:a05:7301:b0e:b0:33f:3750:4e22 with SMTP id 5a478bee46e88-3426cce6521mr5663350eec.0.1790448129931;
-        Sat, 26 Sep 2026 11:42:09 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144f4eb9esm16221158eec.19.2026.09.26.11.42.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 11:42:09 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tty: Serialize saved termios access with device registration
-Date: Sun, 27 Sep 2026 02:41:54 +0800
-Message-ID: <20260926184154.3017929-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JOdraxMQ"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QH6ptI3178453;
+	Sat, 26 Sep 2026 18:42:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=5NWAaCwDcHhIw1u+lP8Elc0CPonTbbi0EH2sp3ZDw
+	v8=; b=JOdraxMQfCw6O5nhANanq2KcsYdLDVbjNbD3pW5MZAjU9ZEisTxr59Cj9
+	1qbwMrTigOdf6AJTWh+i62jFcM7b7AQOoCbbX5aI/HA2eQmux57ztqwhQfUoFWKu
+	gfXjtwDHmk1ugIvHzITie9MXSR1MhLG/j1arAxroAwnstuI3BJdrBzoEa6nmIXWV
+	G9DeDaMrhdvsRPiMv3ZRhW9GxLoArv4xMESmp1jhPIzXMlIARhdkoqctHkCqRGXf
+	cE3AQd+HWrxkwQeL9/AENsJyWRRtSeTl1c9PujOvB14LGN53S79nhHav8mZTpi6M
+	e86sEPvWg79+4DPm++XR7Hh+iEaZA==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fdtey0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sat, 26 Sep 2026 18:42:57 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68QH2Zrd1541370;
+	Sat, 26 Sep 2026 18:42:56 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu9730u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 26 Sep 2026 18:42:56 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68QIgqkW37814682
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 26 Sep 2026 18:42:52 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 120CC20040;
+	Sat, 26 Sep 2026 18:42:52 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EE50920043;
+	Sat, 26 Sep 2026 18:42:47 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.84.252])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Sat, 26 Sep 2026 18:42:47 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org
+Cc: James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
+        zohar@linux.ibm.com, stefanb@linux.ibm.com,
+        linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+        nayna@linux.ibm.com, rnsastry@linux.ibm.com, ssrish@linux.ibm.com
+Subject: [PATCH v3] keys/trusted/tpm2: Validate TPM2_Create object sizes separately
+Date: Sun, 27 Sep 2026 00:12:03 +0530
+Message-ID: <20260926184203.479203-1-ssrish@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,108 +68,185 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6ab81231 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=70sryTsWxkqKhW1QF0gA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA3NCBTYWx0ZWRfX6ms4ER1n89SF
+ v5ScGXfhmUPBtnZVn7KNaLJsT9s68Huso7yXUvV1Ofg53TOR1JkJhC/qBipYrV/2k0Mi/PePA4M
+ QlBSWpSJMWQfnJLkR1gZVAraRxrjExw=
+X-Proofpoint-ORIG-GUID: nTdd4-vL3TZhM0jIA4rjZRaRNcD007tn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA3NCBTYWx0ZWRfX2KowHOEgSA2O
+ LSCnrc3hHUR0OVkJ85Ju2qaJRBhl/6jdLkO5ZkX6f8ScLS91RzEMmv5VRAP2XjEZD/cekDr5/MI
+ 5STEWF02USQm9vlWfM2Nku4e+28Zimg27SlWlI4RYTVaiCpWBJyqB4IFyxABjHsNbm3Lq3MUM5F
+ vJ+emynSGR8CqPyKwc1SP4v1ihikbbABB5FjPV6K3VoAWznz2qGXtdNTIGSHY3+i/53znWG0BEV
+ QOADBAr0kn2hqjxMDN2o6qSkwOfGETTJLRM4lAeVUSSA6nrD6982AttHc72Ej8KGEqfw0bybOhF
+ qx7pFSTe6lBiA6rmz5hUDUw4imdJHW7KxG1WpIwFfm6KaAmDvYJ0ZEDjB2WWhJAwbpAaBee6QxL
+ lMpHQHY+RbbmknVwvn9wgEWqdy4W3nbMdLGkw2JY8fijYAYpnf3zNMzyV4gbB74C+376YZbnkpc
+ 6/w6tMTY8PyUjTbz1Mw==
+X-Proofpoint-GUID: nTdd4-vL3TZhM0jIA4rjZRaRNcD007tn
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609260074
 
-tty_register_device_attr() frees saved termios data when reusing a minor
-number without serializing with tty_init_termios() or tty_save_termios().
-The tty_mutex held by the open and close paths does not protect against
-this registration-side free.
+TPM2_Create returns outPrivate, outPublic, creationData, creationHash and
+creationTicket in its response parameter area. However, only outPrivate and
+outPublic are included in the trusted key blob. The size of the blob is
+therefore not determined by the size of the complete response parameter
+area.
 
-For example, an n_gsm mux reconfiguration can register a device while its
-previous tty is being released. tty_save_termios() loads the saved pointer,
-registration clears the array entry and frees the object, and
-tty_save_termios() then writes through its stale pointer. The saved-termios
-copy in tty_init_termios() is vulnerable to the same lifetime race.
+tpm2_seal_trusted() currently compares the size of the complete response
+parameter area against MAX_BLOB_SIZE. This can reject a valid response
+when the remaining response outputs cause the entire response parameter
+area to exceed MAX_BLOB_SIZE, even though the outPrivate and outPublic
+TPM2B structures consumed by tpm2_key_encode() remain small enough to be
+encoded in the key blob.
 
-KASAN reported:
+This is observed when creating larger trusted keys using the swtpm TPM 2.0
+emulator backed by libtpms.
 
-  BUG: KASAN: slab-use-after-free in tty_save_termios+0x39a/0x3d0
-  Write of size 44 at addr ffff8881012e8180 by task poc/114
+For example, requesting a 113-byte key succeeds, 114 fails.
 
-  Call Trace:
-   tty_save_termios+0x39a/0x3d0
-   release_tty+0xb3/0x7a0
-   tty_release_struct+0xa0/0xd0
-   tty_release+0xc1b/0x11b0
-   __fput+0x2f8/0x9e0
-   fput_close_sync+0xe2/0x190
-   __x64_sys_close+0x78/0xd0
+~$ keyctl add trusted trusted_key1 "new 113 keyhandle=0x81000001" @u
+520504613
+~$ keyctl add trusted trusted_key2 "new 114 keyhandle=0x81000001" @u
+add_key: Argument list too long
+~$
 
-  Allocated by task 110:
-   tty_save_termios+0x2c1/0x3d0
-   release_tty+0xb3/0x7a0
-   tty_release_struct+0xa0/0xd0
-   tty_release+0xc1b/0x11b0
+Remove the MAX_BLOB_SIZE check on the complete response parameter area.
+Instead, use the response length passed to tpm2_key_encode() to validate
+that the outPrivate and outPublic TPM2B structures are fully contained
+in the response before accessing them.
 
-  Freed by task 113:
-   kfree+0x131/0x3c0
-   tty_register_device_attr+0x498/0x8b0
-   gsm_activate_mux+0xfb/0x210
-   gsmld_ioctl+0x92f/0x14d0
-   tty_ioctl+0x915/0x1240
-   __x64_sys_ioctl+0x134/0x1c0
+Previously, a response parameter area larger than MAX_BLOB_SIZE was
+rejected with -E2BIG before ASN.1 encoding. With this change, if the
+resulting encoded blob does not fit in payload->blob, the error returned by
+asn1_encode_sequence() is propagated instead.
 
-Serialize the saved-termios copies and reset with a private mutex. Taking
-tty_mutex during registration would invert existing driver lock ordering:
-UART registration holds port->mutex, while tty_find_polling_driver() holds
-tty_mutex when calling uart_poll_init(), which takes port->mutex. Keep the
-new lock confined to the saved-termios operations, with no driver callbacks
-inside the critical sections.
+Also, use scope-based cleanup to simplify resource management.
 
-Fixes: 93857edd9829 ("tty: reset termios state on device registration")
-Cc: stable@vger.kernel.org
-Assisted-by: GPT-6-Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
 ---
- drivers/tty/tty_io.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+Changelog:
 
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index 48569035da56..26bdc4560a4c 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -143,6 +143,7 @@ LIST_HEAD(tty_drivers);			/* linked list of tty drivers */
+ v3:
+  - Simplify the TPM2B_PRIVATE and TPM2B_PUBLIC bounds checks
+  - Use appropriate error codes for failure returns
+  - Use scope-based cleanup to simplify resource management
+
+ v2:
+  - Exclude a comment pointed out by Jarkko
+
+ security/keys/trusted-keys/trusted_tpm2.c | 42 +++++++++++++----------
+ 1 file changed, 24 insertions(+), 18 deletions(-)
+
+diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+index 906700c3d7f0..920f45c7864b 100644
+--- a/security/keys/trusted-keys/trusted_tpm2.c
++++ b/security/keys/trusted-keys/trusted_tpm2.c
+@@ -25,24 +25,36 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+ {
+ 	struct trusted_key_tpm *private = options->private;
+ 	const int SCRATCH_SIZE = PAGE_SIZE;
+-	u8 *scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
+-	u8 *work = scratch, *work1;
+-	u8 *end_work = scratch + SCRATCH_SIZE;
++	u8 *scratch __free(kfree) = NULL;
++	u8 *work, *work1;
++	u8 *end_work;
+ 	u8 *priv, *pub;
+-	u16 priv_len, pub_len;
++	u32 priv_len, pub_len;
+ 	int ret;
  
- /* Mutex to protect creating and releasing a tty */
- DEFINE_MUTEX(tty_mutex);
-+static DEFINE_MUTEX(tty_termios_mutex);
- 
- static ssize_t tty_read(struct kiocb *, struct iov_iter *);
- static ssize_t tty_write(struct kiocb *, struct iov_iter *);
-@@ -1219,6 +1220,8 @@ void tty_init_termios(struct tty_struct *tty)
- 	if (tty->driver->flags & TTY_DRIVER_RESET_TERMIOS)
- 		tty->termios = tty->driver->init_termios;
- 	else {
-+		guard(mutex)(&tty_termios_mutex);
++	if (len < 4)
++		return -EINVAL;
 +
- 		/* Check for lazy saved data */
- 		tp = tty->driver->termios[idx];
- 		if (tp != NULL) {
-@@ -1441,6 +1444,8 @@ void tty_save_termios(struct tty_struct *tty)
- 	if (tty->driver->flags & TTY_DRIVER_RESET_TERMIOS)
- 		return;
+ 	priv_len = get_unaligned_be16(src) + 2;
+-	priv = src;
++	if (priv_len + 2 > len)
++		return -EIO;
  
-+	guard(mutex)(&tty_termios_mutex);
++	priv = src;
+ 	src += priv_len;
+ 
+ 	pub_len = get_unaligned_be16(src) + 2;
++	if (pub_len + priv_len > len)
++		return -EIO;
 +
- 	/* Stash the termios data */
- 	tp = tty->driver->termios[idx];
- 	if (tp == NULL) {
-@@ -3242,10 +3247,12 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
- 		 * Free any saved termios data so that the termios state is
- 		 * reset when reusing a minor number.
- 		 */
--		tp = driver->termios[index];
--		if (tp) {
--			driver->termios[index] = NULL;
--			kfree(tp);
-+		scoped_guard(mutex, &tty_termios_mutex) {
-+			tp = driver->termios[index];
-+			if (tp) {
-+				driver->termios[index] = NULL;
-+				kfree(tp);
-+			}
- 		}
+ 	pub = src;
  
- 		retval = tty_cdev_add(driver, devt, index, 1);
++	scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
+ 	if (!scratch)
+ 		return -ENOMEM;
+ 
++	work = scratch;
++	end_work = scratch + SCRATCH_SIZE;
++
+ 	work = asn1_encode_oid(work, end_work, tpm2key_oid,
+ 			       asn1_oid_len(tpm2key_oid));
+ 
+@@ -50,10 +62,9 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+ 		unsigned char bool[3], *w = bool;
+ 		/* tag 0 is emptyAuth */
+ 		w = asn1_encode_boolean(w, w + sizeof(bool), true);
+-		if (WARN(IS_ERR(w), "BUG: Boolean failed to encode")) {
+-			ret = PTR_ERR(w);
+-			goto err;
+-		}
++		if (WARN(IS_ERR(w), "BUG: Boolean failed to encode"))
++			return PTR_ERR(w);
++
+ 		work = asn1_encode_tag(work, end_work, 0, bool, w - bool);
+ 	}
+ 
+@@ -65,8 +76,7 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+ 	 */
+ 	if (WARN(work - scratch + pub_len + priv_len + 14 > SCRATCH_SIZE,
+ 		 "BUG: scratch buffer is too small")) {
+-		ret = -EINVAL;
+-		goto err;
++		return -EINVAL;
+ 	}
+ 
+ 	work = asn1_encode_integer(work, end_work, private->keyhandle);
+@@ -79,15 +89,10 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+ 	if (IS_ERR(work1)) {
+ 		ret = PTR_ERR(work1);
+ 		pr_err("BUG: ASN.1 encoder failed with %d\n", ret);
+-		goto err;
++		return ret;
+ 	}
+ 
+-	kfree(scratch);
+ 	return work1 - payload->blob;
+-
+-err:
+-	kfree(scratch);
+-	return ret;
+ }
+ 
+ struct tpm2_key_context {
+@@ -340,10 +345,11 @@ int tpm2_seal_trusted(struct tpm_chip *chip,
+ 		goto out;
+ 
+ 	blob_len = tpm_buf_read_u32(buf, &offset);
+-	if (blob_len > MAX_BLOB_SIZE || buf->flags & TPM_BUF_INVALID) {
++	if (buf->flags & TPM_BUF_INVALID) {
+ 		rc = -E2BIG;
+ 		goto out;
+ 	}
++
+ 	if (buf->length - offset < blob_len) {
+ 		rc = -EFAULT;
+ 		goto out;
 -- 
-2.43.0
+2.53.0
 
