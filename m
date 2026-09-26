@@ -1,66 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A92322C73
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:17:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6BD547065
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790399831; cv=none; b=IAYyHXBJDF8nMGc5MTt1cDcC/Rd1DN3TejA1u7679K7v+9kj2RGXGceuJeoHBPrrhyxP8jOZ5HMdj9afA0fapuMFeKg+0eexFtjCavnOhmEIFLVt4uOCVFB+IIWCYJWIpeqBB5Biwc/FQSPQr8zQcUjCMkjmuxlLZoCBfX2Evv8=
+	t=1790399917; cv=none; b=ecQPdVFv/YBGEbQTsqgckFP+l1pb8r8AqkXGst7A4BX6ipKyIV86fPJw4CpfO430kSDffmfGFGd/V+XvKE4TwEB6WnUK0cPSn8R2nqMEbCubQ0WJBOM9PEICbOYyNAke/cif2IljfEVp1zekoYn8SKgcpsy+IUkk0gqf1n2tRuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790399831; c=relaxed/simple;
-	bh=GRp8MdzGudENeWvHz0EuPgU49E6IjaTaLWCLq9HNbIo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BEoGa2NE03CysAnvmzJu66+bxOkDb4TPJC6ccgPwB5kSIBqJjIDYFyCIDK2Hw1OE5vYcFUNpGaKKx/SYQ1DtIzXKqhl559hEVAdRRFsh8atxfqVWa5hWWfNKPpVR9u13pQnRgWHbGuhqONXo2fiZM7RWFNaJh+WXAp4y30OYd18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YoAA97Zj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790399917; c=relaxed/simple;
+	bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P6bYRXJ3DdoWBliSM7x9Tf+7DOML0ijR6ufHmr1VAirmheN48g8BX82ZVWPkUMX0kKHQKhfja8MrtlT6szk7eHHCfKGsgy5Mr5QGTW+kmJNwWFtJBkXelD323OgEzHc4dRya1LyeWa8/aMMi54lIIRvJxrmYXE8AOtG+DSEhYkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Hh4VyNLD; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YoAA97Zj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 753381F000FF;
-	Sat, 26 Sep 2026 05:17:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790399830;
-	bh=dmbsubwsJv6grfemhX1Zv6FjAqGw9tQVhCke8CNIAq0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YoAA97ZjK1QOxsWw63FzE5sARM6ZMj8DWFBc+7bzzT1Djt2Rez+xGc+w/GMo9xSf5
-	 HcEDCUZlv9IPocsHFMOFaYjt81l9F1tincOwDWr5gS5uzoXS9DMaSrx5hHslvabVLw
-	 GNS3UULju4WMGNWPRGwc7FuR1iA1XFHekg5EA2U0kA1ZLcInzYEfhAnDcAvobBplZl
-	 bqqwHKz6k3PaUo+jhIoxjBb5XDXS54nY15BZUEZeXjOiaqGKzOcNxTsYnSyQJpajM1
-	 q9GD6fg3Vsrf01cjqUIfD3AGMb9jyiJu/ZWh4pTgQgwyMuJHf1zpmZu22ZMdE2p3Ff
-	 NFTMyL+kP5QLw==
-Date: Sat, 26 Sep 2026 07:16:52 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Zhang Yubing <yubing.zhang@rock-chips.com>, Frank Wang <frank.wang@rock-chips.com>, 
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: Re: [PATCH v15 08/11] phy: rockchip: usbdp: Add some extra debug
- messages
-Message-ID: <wqvcii3xylpu6e4kfvvundtj2v6x5nhe7hhxdlw6j7njtv7gm3@pdhlgezhpcem>
-References: <20260915-rockchip-usbdp-cleanup-part2-v15-0-8d507cb1174f@collabora.com>
- <20260915-rockchip-usbdp-cleanup-part2-v15-8-8d507cb1174f@collabora.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Hh4VyNLD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790399915;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+	b=Hh4VyNLDWFm/CbE2yevz//Jn1KSOajyldgw7OW2ZU6egLHKF8n428/YF4oEsofJec0hYtq
+	OiXtwP8+6uwNcll7tjSxtTkwuU9S7XhMvvKzFhj16TOmqhLiyMY+XgXM9XP7tVeYMOpJxf
+	xYRfrk/DgwMAhMejG1c9kK1EFVZKsgc=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-43-j_rOfgzlNsqWzvsOBAFx3Q-1; Sat,
+ 26 Sep 2026 01:18:30 -0400
+X-MC-Unique: j_rOfgzlNsqWzvsOBAFx3Q-1
+X-Mimecast-MFC-AGG-ID: j_rOfgzlNsqWzvsOBAFx3Q_1790399908
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 271711955F29;
+	Sat, 26 Sep 2026 05:18:27 +0000 (UTC)
+Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A9392180036E;
+	Sat, 26 Sep 2026 05:18:22 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Anup Patel <anup@brainfault.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jean-Christophe Guillain <jean-christophe@guillain.net>,
+	=?UTF-8?q?Pawe=C5=82=20S?= <spawel523@gmail.com>
+Subject: Re: [PATCH v2 0/7] KVM: Serialize vCPU creation and revert vcpu_ids tracking
+Date: Sat, 26 Sep 2026 01:18:20 -0400
+Message-ID: <20260926051820.192707-1-pbonzini@redhat.com>
+In-Reply-To: <20260921174445.911676-1-seanjc@google.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915-rockchip-usbdp-cleanup-part2-v15-8-8d507cb1174f@collabora.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Tue, Sep 15, 2026 at 05:06:11PM +0200, Sebastian Reichel wrote:
-> It's useful to log PHY reinit to ease debugging issues around
-> USB-C hotplugging.
-> 
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Queued, thanks.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Paolo
 
-- Mani
 
--- 
-மணிவண்ணன் சதாசிவம்
