@@ -1,108 +1,108 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3CD351C22
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8AE33F589;
+	Sat, 26 Sep 2026 07:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790407295; cv=none; b=P4xWd/P3VkAl6Yn2hwvMkTDZzrQT2hauX1cK9/q5TVIHbh30Ykx2hBlnGm0WNrmAWq4nznWk7ReYy26lW20S40nSkr4pqv8iR/HdYjrnQlapA1E5AOX/bIVPfrNAVs3AVXOK8ZpA0T1wefcH90gnpwssmW8LPmxqM68CDlGdTwM=
+	t=1790407470; cv=none; b=AGySIVeHGuoIWPtJrgSsf95c/GMfZQAo0gPDksk3fwZkrklVaKAwYRFnwJ4V/DPhAOWmCDGbC+xy/qt+kIH87vEChhHjce3vSVyTPDzHd1OpSxahZStZR/hbMC5Y4ET6C7sVIJLIuMWowIBRATa2ZPCUVnQSKcRjoliRU0pttwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790407295; c=relaxed/simple;
-	bh=afTOjIpKsXbSX2Mz3h184D00clNqY6BiL3/V60TY554=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O5a4d+DsojDngsT7JssOIposbFAjsD85IRqdMtTRggQ21a0GxXbrdR9WvrYXDWS52JXvdTnw4ppNq1SEFCaGyNDZCDeoZlaANzawDPnUJzWh6AzGK1jitz4qReu+NKIYI0WItuCxXBH5awviQM53LByNpWjaB6V0Yw/TX7PzjiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QHx642cy; arc=none smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790407470; c=relaxed/simple;
+	bh=LSFWMmwZm9AOOui3G9yO6os/W4ndoAnTIvP6M1MFVyw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Tp/AB1nLcE7ssaCIWMVluR2RIURcCyUKuG2QeyUe7OczsXpLUbiKUkfPNLY0/yutcEsJjFTH3+WH3q0EtA01BW5m1apZ6Dw1vBSiaQsTrYAI5jxVNjUTpWF+QxFhajjBSMM9iBVEoiKR03sZYxuGjQGi7tTtbRWaBMV6lBPTJAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F70k0EEf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QHx642cy"
-Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-881d9da69b1so27203b3a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:21:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790407293; x=1791012093; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z/ldK4ouh20PCbYhMUe4lvWnC4R67j5o9JpGKQtocEA=;
-        b=QHx642cywSwvNhDM98bd35WBJ+UxTmB512DFuK3BbJc7HA/JREBPYk+00ja7klXINJ
-         DxECgH5/ygbL16eC4sT6EJzbXO880HR1sz1CZBbRJ/wjRGUh7BCE24zPoJoDBm5g8mju
-         vtdB7aaM5z0YJ3xKkAwbVwEpaqB4bxUnJ6aoHLDOMAP4+oqCEIbrNuBcz3h0J31+D/i9
-         UwL2GPtK8GdbtyEnLxou7UwpelL39u2bxaHA2Wo3MB6y0Af/wbexUs3MV3FWpBLrCWB2
-         Wx3Oz1zmCKxOwCBPbbUbgf573Qis6iSkXUKiBBVcFYjE+2facD41W7VXb734mRReoH+c
-         6C0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790407293; x=1791012093;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z/ldK4ouh20PCbYhMUe4lvWnC4R67j5o9JpGKQtocEA=;
-        b=NDg1Fh27AQoIQqTF4N9IixDVUuGy+Prgy3eyurMnJkOWsvMWaCab/RXX8hTTuiakFe
-         kZbDkWaWLSdHLvgLzF4DE2b/jmmB+HjyyTMV2AGvI7V8JNU3tciPY+IU54+kedfgw3Qm
-         jKovUd3uSClVfA/e0zFU0ai9qMKvO0xPAPiKGnBhXkJ4JZDWd+EU9S0sUGdJV6jQGDuh
-         YMbG3EhRjcvUctQtqlVD2UKiM0K4GaYXvBIK/jIbVZduUXGxVK2osgat2ZA2dcFm6Gem
-         xEgiZ/72ioBmi0ia8U3qvm6a2mooe1slE5RlnDTGMD+1oBxiJMqdVx7cycZn90y6SWeH
-         E/OA==
-X-Forwarded-Encrypted: i=1; AKwUvBzckjQMhoznqLP+vGkXmdfhbHXymTd6o6AzoGzfxZfYi4z/QxMfTA6VW7zm7GGOMYpsMFmCbUWCeBmzbpg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQFT3RbxHj9cURxP6R943rx96kxl+g9qe52mGWvXOewLUuQBe5
-	TwRbse8IB3WTeIXc9XF863VEBGPgw16SIEkZJIa6Yp61Wfoc501KcCk=
-X-Gm-Gg: AYBFou2R7Ht3MFmtOWR0R8pDzHmTsSIM9hots0NtE4BDX+rq/z7azlbTMW7AIWHFVfC
-	NozC5QY2OVFCQb6l4wG0nZt322XFBbKq97h9j/27K/ViqldV8gCWd7mqO4RUdlSNEdCxvu8Wq8J
-	Zk6lGCWua3saZlw71PKZMAyxlK5KwCK3uoL0cLbU03bW/4VEDaDHFX96MG1DoBHkaU6CHrbx146
-	2fCYPr4z0FfLIOaf9creWYJUnBsinuUkC5AomJgVJuMxVyDSxSOp/SBi8H/d18pTdjQF3gIBiAC
-	4BNEr3hy03VU2WCXO7ZjOOYAkG4qdm3QL6dY3fM2d7/NZR6D6Pu54052nXSspzWeGOmpmVGTvz7
-	l1sbn7ufEaoeCz6s/bVuSMZFWN2iHmhphkN015LcC7iTt5mYtnBl3u4RprceUHh9Iu8nhvKSZtB
-	2cvEdtnW1bq4y/3P1eIPYSrf4TgKp9caF2EmpaN0KaW86s1vLUUSO70pNmJ3C56graOHa9YaXib
-	BZHj71oZZLN9gVAMbQcZSHYjA==
-X-Received: by 2002:a05:6a00:7585:b0:87f:dcc3:62f with SMTP id d2e1a72fcca58-87fdcc35542mr3183334b3a.60.1790407292877;
-        Sat, 26 Sep 2026 00:21:32 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87fea8894d7sm2002115b3a.26.2026.09.26.00.21.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 00:21:32 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	akpm@linux-foundation.org,
-	rppt@kernel.org,
-	peterx@redhat.com,
-	surenb@google.com,
-	aarcange@redhat.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	kirill@shutemov.name,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] selftests/mm: add a test for UFFDIO_MOVE of a write-protected swap entry
-Date: Sat, 26 Sep 2026 16:21:26 +0900
-Message-ID: <20260926072126.2870142-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <226ec797-ff8c-4465-a682-21c684a25021@kernel.org>
-References: <20260925042907.2330519-1-donggeunyoo.kernel@gmail.com> <20260925042907.2330519-3-donggeunyoo.kernel@gmail.com> <226ec797-ff8c-4465-a682-21c684a25021@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F70k0EEf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 21047C2BCB8;
+	Sat, 26 Sep 2026 07:24:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790407470;
+	bh=LSFWMmwZm9AOOui3G9yO6os/W4ndoAnTIvP6M1MFVyw=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=F70k0EEfDlYyHcVUO1ludQ5Sq/5NlWWVaNpChhgYfOyEtspuKDmcTMX0TdJ7UxnmC
+	 e4em7lAOgJGOqqeiLMSXcQaTFlGFqEitG6JVaAXORSOcDXTZTAbCjUnSRm/2Ei3721
+	 DdF/rpRUglY+fs+3/7lcx/9Y+ruvOKaUF+/YosFeUOvbwoC+vQaJKKSF6EsjtHMaqD
+	 wOdtscZz+70I7FVyRbpejHuh3GOoL/kQHDw/pHdJRg6egT9mNi4XzH6MVgJw86TvPn
+	 LuqIONOpKtzopWldB8pCZblI2g4ba1ijQ83Kh9hGIZO51tymrZJiKz9WIRa6wYDNAT
+	 B3DpTnduGWJ3g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EFDEFC98318;
+	Sat, 26 Sep 2026 07:24:29 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Sat, 26 Sep 2026 02:24:19 -0500
+Subject: [PATCH] ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-tegra194-hda-sdo-v1-1-f7a636a07a58@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avIrBtQKdGuEi1Ep5qNhkYE4d2Tl
+ m/x/wuVClOFWbxQ6ObKOXWoQUA4fNoJOXaDltpIpw1etBev3IhH9FhjRhXtGIy0k3IWenYW2vj
+ 5l8va2gf4fpxUYgAAAA==
+X-Change-ID: 20260926-tegra194-hda-sdo-1d84c6085198
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Thierry Reding <treding@nvidia.com>, linux-sound@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790407469; l=1584;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=8rAycl98UAJVNpg4nxLeFSEwU8WePutSW40I7utV8vY=;
+ b=jpT6mRhj6kFaT03vLb78Ga/cCq4a5oFDhA6+ifoHcGRLo0Q1WygeZdjkILrQ2wRqTUOIgSoJj
+ ur/C6Ic/N/jCoPadVejJRrh2MNXBWbwY9PtMqbgCOK/Yg6KbL8H5cHw
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-On Fri, 25 Sep 2026 09:41:24 +0200, David Hildenbrand (Arm) wrote:
-> Is this loop really required? I thought the page should just be unmapped from
-> the page table. It might still be in the swapcache and under writeback, but
-> that's irrelevant.
+From: Aaron Kling <webgeek1234@gmail.com>
 
-No, one call was enough in every run I did.  v3 calls it once and skips if
-the page isn't swapped out.
+This workaround was originally added for Tegra194, but no longer gets
+applied for it. Commit 615d43540043 ("ALSA: hda/tegra: fix tegra-hda on
+tegra30 soc") changed the guard to tegra30-hda, which worked because all
+affected archs had the fallback compatible. However, commit 7f0ea5acfc19
+("arm64: tegra: Use correct compatible string for Tegra194 HDA") removed
+the fallback compatible for Tegra194, causing this to break.
 
-> Do we also want to check wrp? I'd assume it suffers from the same problem (did
-> not check carefully though)
+Fixes: 7f0ea5acfc19 ("arm64: tegra: Use correct compatible string for Tegra194 HDA")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ALSA: hda/tegra: Re-enable SDO workaround for Tegra194
+---
+ sound/hda/controllers/tegra.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Yes, it does.  v3 adds a move-swap-rwp case, which fails without patch 1
-and passes with it.
+diff --git a/sound/hda/controllers/tegra.c b/sound/hda/controllers/tegra.c
+index 31c14c4bbe683..674cc0f79c3c8 100644
+--- a/sound/hda/controllers/tegra.c
++++ b/sound/hda/controllers/tegra.c
+@@ -374,7 +374,8 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
+ 	 * in powers of 2, next available ratio is 16 which can be
+ 	 * used as a limiting factor here.
+ 	 */
+-	if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
++	if (of_device_is_compatible(np, "nvidia,tegra30-hda") ||
++	    of_device_is_compatible(np, "nvidia,tegra194-hda"))
+ 		chip->bus.core.sdo_limit = 16;
+ 
+ 	/* codec detection */
 
-Thanks,
-Donggeun
+---
+base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
+change-id: 20260926-tegra194-hda-sdo-1d84c6085198
+
+Best regards,
+-- 
+Aaron Kling <webgeek1234@gmail.com>
+
+
