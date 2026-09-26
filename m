@@ -1,299 +1,170 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011024.outbound.protection.outlook.com [40.107.208.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED2E3A3821
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1FA3822A3;
+	Sat, 26 Sep 2026 08:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790413123; cv=pass; b=YMJiOrmXKgGoiBhz3IDH50y9LfL9jK1919M5WMnkdSQnIKRtZLDcyp3xVXuyqoFRSCBJNGzbKxhw0j8x1NLAEXEKm1skkWGcabZQgpR+R/u7vKlqepYRFh2L8jv6c4CjFAODXUlbgd2KlJxzsCdIBh6CijXXSGOkj03RHNf/X1s=
+	t=1790413180; cv=fail; b=IYl2g3xeYaTzo8BT/qrmsZ21+qLlH4STv2aXAFbEHQUGPanDLPU+ivhlGLk/2vbH9p2PNThZ3OAj/XmNb/iHm1oI7G8z7BM/lPi9Bijq0rofG9y8XsY581/BcJtnqAKI0og/xQRh8nb7JcuLgBobOIG9mddwdVyb9IZY0isGwZQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790413123; c=relaxed/simple;
-	bh=OQCD4U8C6TSULpjCMi6zqQfbL1jDsjPO8gEeTcXQ9ac=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A9+AyQIYT1yHQIKkFNnG26hMKTnTicyDwHdNP/tq5Waqj0S8o5jRtmihU7knO673tUWao6njYBSvFJYEkRS/8yRatds/hj15jQjuvr5TnIkfdgx3smplhyD6vfAXWsQzObuR0o47UK5D9gdGJnX6yavzPvepPvpGBt6sUE/LbEA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CSYTolPR; arc=pass smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790413180; c=relaxed/simple;
+	bh=g962SAQ85z4S18hw+OsIKittjcAxjnMPJ8B5PwSweSU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=U15Z1QValQqhvYa59zD1/wTizTUfdFHoF/cQgt+4hGOFRdWJ0LK1e/PLdaEkXCOezbIReIATgKbOM7dhNOMEmwGsck9zpXIW1f6+JNfSnaCuAgwQEzJ4aUis98yUtETOmBY2b+uWycODQ4b3hu6cT+Yx2Bh23dtjGTn9FYt01ec=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=czJU8aI5; arc=fail smtp.client-ip=40.107.208.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CSYTolPR"
-Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86efece610cso812718b3a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:58:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790413121; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Jq2hDpMqoBclNqYLZNEEBmouJD84UThlkVK9BfyVsSRJO3OBVSo2TVKelFa8PKOl0X
-         /Nly2fBKGWPQCbyCkXaI9Q89p0Ig8kwyCYxvbS17/43rrOiYGlCSkRgeMO6WfLNf59Z7
-         h1KYoRx5gUmCMhsnFANJmapCnIHCyyZWoUstZXlPKd0SoDcA6iPplg9U4U2TchsG3owR
-         tlPFYKZQGEaVRrz9MpeM6t6A59QjkkA3yLr6ifvD72SDtnIZ+t5uo1oCfiqzBu18OqN3
-         6hbv+pTvkrN9dCrYwPc6+s56WbHMRP2Mxd0tVUCbQXTQeVB8LoYnCaqwLtMPmKkcs4U9
-         v2DQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/L09o1VH6+wZLPxn4ggW0hajBAb5iNl9Iz95qERtT3M=;
-        fh=Xex8301DFt44SswF80fE3/10o7PGXAWPT/Lf7O2Afi4=;
-        b=pUuDW1FyKauaCWr0pWrdfCArYk5O7NNwh3d07VH5edrwAR6ExGLtQgbkGAnffHGicb
-         FjgfCP1jWJYbF/fd6a3m7bPQJ2S8iKd+pBgJVZPrEGbhSE6SdVZZcaxhPr9cFVtE+yc9
-         yWhaM4Z05tl1PEyF4YLBMTSfqUsPxAxDvY4GSLiZE7DoxsAt49/h+pj8fTe9JIhdnFq1
-         pAeim1YwLcdMwXA3H22VHtn/4llgU763oOSdpSh6llxPf+j6hEsTHckNVwDqKpJUhzK8
-         FPoJgDx4yyOAWaiN6F2n78SqPnTartnaPRwZbl1OsSJNtU6SnDWBJ6YPQpjTkkPIBOaO
-         0SVw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790413121; x=1791017921; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/L09o1VH6+wZLPxn4ggW0hajBAb5iNl9Iz95qERtT3M=;
-        b=CSYTolPRzgZlXug8nntuD1ZxxUI7cyA8q/h1dOoSB1wtzFHB/26be7YDhfhxClkn88
-         rq6PxPmpGh8kxrnxM5xisoEVGOSRdNH5kQJDEgF3xU5iMcaRwsg/SlVNFSQkkjNtxaKY
-         i7D6dH0uWDn9cPvHoJNYfNI/9WU2GqAdSW3VF83stEmDsMEA4vkTaaguvLNcE4wIG1ro
-         TrqKxvV5saQ6Vqu38/n7wbaeHbMnmbYe5lzl6vbZ/c+L7wYRL/cbI1AoL38DoXFl2KrB
-         J5d47rUT0q4vjPycTe/J2HPrpglt8Uk0J/FKJuOEEZTodsUuR8Shpp3cC8FaRdM9nBKI
-         X+ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790413121; x=1791017921;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/L09o1VH6+wZLPxn4ggW0hajBAb5iNl9Iz95qERtT3M=;
-        b=kev+Oidk7ahWuxzNqOvIxvAHV545czKjHzGCPP4HXCeLUtANCi2K2N2P1vp72DUdmN
-         c/4e2LruHf8yBqOLYR9WPT7KL99NVUiZFlHlaf+Kq+NCmty+rdkU3CCdntid1QnFKIKp
-         3dy9XRLFAk8LyvPlynzb99e5lCe7wI8980H45/olD4XuhTiCBlVzBb5HEmyiSZOu6kyA
-         MDt8xUrabOdO9MJl48po/4NnpawWYzN8vhRkgwUDdydrBBQu+nXObQQYuJXVqH+PyYgW
-         s0pMdmp873lHKtW7AbOGGLu2q/Hfhrj09Df7mGWaCYorwPLMTaDqyqkvn4oBWU0nBi1P
-         IOAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxJgpPeLG79SFWd0nOiC5vfmC33ntmgVPXlW3HQsTIZ0G/AjJgnY0p4GNcbKdllA84ewdTsI8wcREx8xW4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0MYnk/O4RX6asIQat4+jwnQiAtmenfZemZWqLhz9dpRS5xN6/
-	gpkeN/Mb1Zt8UCtn7gDS5JXXgKXGMItL3+Yf2JkJibhBXwFwvsMm6sLszGzd1xAYo0OZRvzUoiM
-	MJ4GUen63j890LhurKLN3Xj3wRVNnlhszErhBVc8=
-X-Gm-Gg: AYBFou0K4AFeFKc/kE7T0b+EyluQmf7992JZyhTA68lqs9yVOtoPVeRN7aoXHwqMUfz
-	glnK7miGUnwpEefPWK7QoNyCmTZBwfe+q6U5m8iGeC9ilCb2ihklLaN8NJ6QnGAm9Ifldl4yHrH
-	yTn15tVzqGeTecbuEoj0TSE4djzV20MF32xIOTNc8UEGcT99uj9vNnaNOl0e4Vjgz0bjreT6oRU
-	a0SYUSkxGn6YrDMJLu6PHOJQU/y0fGRosLDOas7iTOG+2sw4/46KEyVc7ceqoUlyjQOWqiAAxhy
-	lOcFA8gB+DJ+/kmEIaCP7e7WBNAAeOYYpBGu1aes9Nn+HUbIWVOx
-X-Received: by 2002:a05:6a00:14c4:b0:878:3705:2513 with SMTP id
- d2e1a72fcca58-87e9dfafffbmr6515627b3a.51.1790413120991; Sat, 26 Sep 2026
- 01:58:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="czJU8aI5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fcXpjRv21BPZopF6A+gIkW5q8VKSYf/U/uxAOcH4qYmsbjHqpUiHCyO8mO4h7AcXwoXFzgSzCRdjQykxGA6akpVjN2c6Zrmo0jVid1sg6DgcukcAXtqunZgnnh+rX+WeTPaPRyswJz9itbjBOblJOTpPX8UVUrU/ucLTrGLZNf+ejfh/yfPi7OAAud+nmbAewv9SFnoE9bbf674BdGjCu4OHwP+b2izwDzkD/8/7ilAx/Q+Xyl8AxEvc1SIISKy5Njs+S/rIY5hid2rajPqOcLcBYk558hOncKQr9LEqylwMh9pEw/6kD+DUDMu7T3XoqZKvVi0e2/VLrA1nued82w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8XY/c3TZqGf/GoxuGIDyciXEkjNnKaASIihPYMyzIsM=;
+ b=Dld17wZuC3yaKokajX6ggiyUnux2tAR1v7Z7WvRsCy1gVvcEy5HJQPMvFU80DCbVrF92QN36JQ70i7MdsXdU3bjrEIZGMPov5BJ4FUsTwVkRP4qLnqpUSNqephiiX7by4cmcUaSK/uWdXYxSYN9B/nlpKJNmkhzs0+JbJRhhJEURAs56wcxuC19RHeN6nWjbcJ5orySJsuXXagv+qfdrJ2FCrY5MeJOfPnBih5X04N+xd6N7SGN+kRb2fTlPx7P5a/wYpsKvQdxRIwfrRMwGmkjHEst2Wb0/cuMtI61xQ3Oy/JnKV/uZjyRyM6sfduy5YVOdV/AGSVPdBPP4MzPwjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8XY/c3TZqGf/GoxuGIDyciXEkjNnKaASIihPYMyzIsM=;
+ b=czJU8aI5DJCK5EnA5U2rquofEtdGuMQzOo4eN8BSHDNobHvzGnSdWCpPBf1l6RH3IwP8xjqqud76iOy0/VTMcm8gIkCg9oRWj/3gqurOMsZGNdGYt6N2ybWcCiZyJjH9hRJwEGzkMDnkZfnIaqqnRZNL7WQRdKokojsPYFKSPFs=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS2PR12MB9567.namprd12.prod.outlook.com (2603:10b6:8:27c::8) by
+ MN2PR12MB4318.namprd12.prod.outlook.com (2603:10b6:208:1d8::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
+ 2026 08:59:37 +0000
+Received: from DS2PR12MB9567.namprd12.prod.outlook.com
+ ([fe80::636:1b52:24ca:d7e5]) by DS2PR12MB9567.namprd12.prod.outlook.com
+ ([fe80::636:1b52:24ca:d7e5%4]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
+ 08:59:36 +0000
+Message-ID: <305d8770-50f5-4489-a901-f73069a1b964@amd.com>
+Date: Sat, 26 Sep 2026 14:28:19 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2 0/9] soundwire: amd: SoundWire manager driver bug fixes
+To: vkoul@kernel.org, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
+ yung-chuan.liao@linux.intel.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+ Syed.SabaKareem@amd.com, Mario.Limonciello@amd.com, Richard.Gong@amd.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0009.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:95::17) To DS2PR12MB9567.namprd12.prod.outlook.com
+ (2603:10b6:8:27c::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAHDTbUFX=8aAQnwv32hqmwHKkeJR0UA5XfZtMZRD1H+kV7uCzA@mail.gmail.com>
- <arZxz8rz6H6L99l4@hallyn.com>
-In-Reply-To: <arZxz8rz6H6L99l4@hallyn.com>
-From: =?UTF-8?B?5rSb56We6JG1?= <chengjna@gmail.com>
-Date: Sat, 26 Sep 2026 16:58:30 +0800
-X-Gm-Features: AclHuK-bOuJNx3l9TfFNHTrSM9DJ3Be_0lgB2lf05O-Hbf3wNGEnjS7yIL5dJN4
-Message-ID: <CAHDTbUF=PmRfFHzmFnqhpwB7h1paL2DfMQMgFpdAEwUsVWzeWw@mail.gmail.com>
-Subject: Re: [RFC] Proposal for a standard Competitive / Protected Session API
- in Linux
-To: "Serge E. Hallyn" <serge@hallyn.com>
-Cc: linux-security-module@vger.kernel.org, linux-api@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PR12MB9567:EE_|MN2PR12MB4318:EE_
+X-MS-Office365-Filtering-Correlation-Id: 561a4bb2-f500-4732-537a-08df1bac7d55
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	idxTcXVGI1Q8BPansI6zNadPcf6e8h4wCjrdjb7fqprxxqH6o0fHoCgjMU/uFjtLxygGCIaiUqE/wFsLdWkOGVmolL9khqR9MkF/z9C3VetGe6iEfYeZ4cQ4687G7Gb/gAcfSy2aqQZ7E+iQPrv1ArmKpQGYyNKL6TjEa18S3noRDtqPasECl4Hq51DIprfYCrTBvUAk7iE0YBZ/8t9SQ7WQ4WGKl7rK2HRjM+URETUjOUapp3nPF3XkjepQlHHFWCBXdQw3gs1F56rJjFxYL8X3ErVZ5pWsN0iK3HULFUlJjTbzWmTa2BTtN1/ufkl1tXW48LYCkf+whK9uPcPDRpmgN3t+XbBQGVnhOi37+ivLkV1kOKKHNz2w327pWxT2CKNWeKVs3wAq15x1RemGslwhog3ajqd9AoVpljGlff//PHAFOF3SSCjuGnw3rtmYgvFIiffC0bhHhTg4uYq7gdl5fgS5FPtZ/AnAx0cdeer8b7X6ezcmHdsbcXvrhMkT1/AJlQuCRAOujZSICoij5dH7nZSzlWnhQO4tNDlCE1bFvjwHOVckF3Qj9WjsbgKovgxt62gAJ5vieKPGQLcjtbjMRPqXyEcsxi/yac1rSaj5Jk7kLkY1/MPYINVPOFzaIMdKjS8ULRwtJ/NCKHG9YSAz9l2eTqJ1Tm4hPu2Wfwg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9567.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V0xmN0ZKdEI1YVZjdnljVlNKZ1VHMTNIREVZNVJrRG9LTmsxdXVaaEFoUTBm?=
+ =?utf-8?B?SS9HSXluY2xCTk1oT2F4NklKTHFNWGMvSWdXQWJmTXdncVY2UDRXMUZCWFZY?=
+ =?utf-8?B?bEZsbGxFU2JKcDZVYm40bFpLVTdpMksrb3BLUUFxYTFVLzVNcmJsemdxZUo3?=
+ =?utf-8?B?emg3OXBBSWpuOXVmdFI2MmtDNHpxQzJNOUF6M0xJWVUwVWhSSERUS1hJWW1x?=
+ =?utf-8?B?Q1Y0OW1FT1BDbjUvVWxhSWw3MW1XRUF3UzVuTWNPdERISmQ5Tithc09FcWVK?=
+ =?utf-8?B?TG9CNmdvenRSYlVxcTJFN1d2cUNyOGpZcUtKZkp2c01Nc2JkWVZ6MHJlQkhG?=
+ =?utf-8?B?SFllMVNDMjV3QnpwTklSUUxFRnZWT05iRFRrQVkvM3l2OGVCeWtaeFF3NldB?=
+ =?utf-8?B?VFJQOVdBYkJTT1FqcUJpK1BpNHVVd3RRVXVKMXl6NkNYWTBWWDNSV05JRWxn?=
+ =?utf-8?B?SnVwWXFvRmJta0lEdFNFaENDMjJpVGsxeGJoQVpYaU44TFZEQnFabmR4SXU2?=
+ =?utf-8?B?WWhYME01Z0RneVNveGhvMWxaS2xyMlFWRGtrMVpDUWo0SGNIdVlZa3ZEc1g1?=
+ =?utf-8?B?SkY0dU10SnZLdjJpKzR0Nk4reWxMY1lFVytIbU9xaEZEZ3J2K00zSHJpVkJ1?=
+ =?utf-8?B?ZmhoaUpvYUtnTmt3cXNqbE1jdXBuZ0RKbWl2MW40SXdpdFZ0Z0RoL3A5VFRJ?=
+ =?utf-8?B?S2FSbUdIVGpaNGd1b20yQUFLQzBCWVl0THZjQ1BnYUZ5bmhud3ZRNkhBWFQr?=
+ =?utf-8?B?SGlmdFRyM09ybHd2c1UyZDRxcmtGekI1cmFzWTduNGpZK3l0TkxrV3JaY2ZQ?=
+ =?utf-8?B?ODRWK09RaUE0SExodkxQWFlRMTMrVmVpZnl6WDBxak8xUUxKTisrYzFaTjgw?=
+ =?utf-8?B?V3p0VEJEZTRoejIvS3doSHpNb3FmN0h4THpwWG5ESHN0WTcyWE5oeFN6TU5M?=
+ =?utf-8?B?dU9mUUgyRnRFbVovenlQQm4wYUdNeVpBSzMwbTdPekl4djU4cXI4cEtPaEtJ?=
+ =?utf-8?B?c3lpWHRjMmZoa0YvbEs0VUdqNklaUUFLdThXY0JHekZ3VTVvMGNKaG1nYTZD?=
+ =?utf-8?B?bHFEYi9ldFhudmFBcUo5K1pYamhGZjlOcU0rUWxGN09aVzFScmtVNnlpcmIy?=
+ =?utf-8?B?Y1ZJOUhrTzlqQWhWeUk3a1hGUlBzOGZmQ0hpb2V0NFgwY3M0dG1kcHVLUGZ2?=
+ =?utf-8?B?Q0JMUitBWVQyN0lrWHJIa28rMXJWSmtuZ0RSY01aSmx3aVVvcFZyWWtlV3ZD?=
+ =?utf-8?B?YnRBWVIwL0VhUThUNHgrbWRJR0hCV0hlczZDRXorQnNhU2NlYlo2cWhtYnVR?=
+ =?utf-8?B?WEE5ZkYySzBIYXlGUXl3ajExTnJUQ2pwOEZuUUZ0dzZ2eEdoU1ltTEN0Z1Az?=
+ =?utf-8?B?d2N6ME9Ka1BKMWN0WnRRVFFxcStJNWxNNisxKzB4c0U2Mm5aSmMrZDlCeHVr?=
+ =?utf-8?B?Nzh1eUF2by9iYzVMMmtaNm5IYm1sc3QxcmJOa3BlR3dobUhuMkozN05ZT3BJ?=
+ =?utf-8?B?TFhTd21veUF1Wk5jVS90cXNoR0dtS2JlRWNtUUdxQndtQXJmcEpTTU0xSzFw?=
+ =?utf-8?B?ZE5DZmU3dDlXOU9VbSs2OHUxZTFleFRYQ0pZK2VrdWdhQTRERU9QSUVTNXhk?=
+ =?utf-8?B?M0VGL3dFc3R3MjNrY1hZZkhBUXI1WnVaaGU0SzZGVnZDWEN0ZVhFQlRrN2li?=
+ =?utf-8?B?MkdCVmY5WStwRHBuQWdjNy94Y1FhK1BxWS9JVEtrUTVIbGJlM1RVNXZJeVY0?=
+ =?utf-8?B?eDM4QkI3eVpwTzVzaHJ2WHUwbUdTTTNyTm5QUUVHZDNBd1E0ai9DMUNtMkVQ?=
+ =?utf-8?B?andmY3pWaXpLN0hBdDhXbUJ4M1p2VlhRUU8xRGtPNzNobHEyeE93czhSNHJW?=
+ =?utf-8?B?TjVWQjNWdDloVTZqTXF3ZjJqZHRGK3A2UmJqZ1hrcTRTc05PaVBkMlN2UHRP?=
+ =?utf-8?B?OW1xK3RQOWJUZGhFZWRoeWdmRk9xdTJ6RERoZHErbDRrTnlKSUR1SHZMWmlq?=
+ =?utf-8?B?UWpFUnEzSnB1YmZxK0YzY3kwR3B6dmREWi9LQzExWk9ubEhIYjZFdGtLMXYr?=
+ =?utf-8?B?M21nY01aWEtQU1B1K05MRkt2QzZzbGltNmF2WXM4KytKMTh3eU5ycEoydTJF?=
+ =?utf-8?B?aUZsZHJxMzBqTHpKUEpvaUhGRFFzV21BUkpDUWpPanNFUjFyZ0hoQ1B2ZWcz?=
+ =?utf-8?B?TXRPZDA0SkkybWFYcW05dTdJdWR3Y2kwcDFsZENBeDlQZFBOZ3JuTXpDZ2lo?=
+ =?utf-8?B?OVZ6VU9yamNpa2xncDI2YStQazNOeUlpTDFycFYzS0o4SEF2bzhxTmFsTVIz?=
+ =?utf-8?B?T3dzN2xoY0FsVE9EQy9ZUGlpN3BRMStIdm9zSHluKzFpVDMyNFRDZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 561a4bb2-f500-4732-537a-08df1bac7d55
+X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9567.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 08:59:36.4379
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /MSQ6MfMLX6yGD3GRRBJlh/sYOj1Zx2ajyomt7GYpiA0WzTjpHBvYxE0LZpnTIUSBt7h7NVehB8aI8Xynue+Tg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4318
 
-Hello,
 
-Thank you for the reply. After thinking about it again, I realized
-that my original proposal mixed up two different layers: the
-competitive policy of a gaming platform, and the generic mechanisms
-that the Linux kernel should provide.
 
-I now think that a Competitive Mode / Competitive Session would be
-better implemented by a distribution or gaming platform such as
-SteamOS, rather than being defined directly by the Linux kernel.
+On 9/17/26 14:04, Vijendar Mukunda wrote:
+> This series collects bug fixes for the AMD SoundWire manager
+> driver (ACP6.3/7.0/7.1/7.2). The patches address correctness issues
+> in command response handling, slave status caching, work-queue teardown
+> ordering, resource cleanup on probe failure, and power-management
+> suspend/resume sequences.
+Hi Vinod & Pierre
 
-For the Linux kernel itself, I think there may only be two generic
-capabilities worth considering.
+Could you please help to review the patch set?
 
-First, a unified and stable interface for userspace to obtain factual
-information about the current security state of the system, such as
-the boot chain, kernel integrity, module state, and other relevant
-security properties.
-
-Linux itself would not decide whether the system is "trusted". It
-would only report the relevant facts.
-
-SteamOS or another platform could then define its own Competitive
-Profile based on those facts, and a game could decide whether it
-accepts that profile.
-
-Second, a unified Protected Process / Protected Process Group semantic.
-
-The purpose would simply be to allow a process to request stronger
-isolation from unrelated processes that might observe, read, modify,
-debug, or otherwise interfere with its internal state.
-
-This should not take ultimate control of the machine away from its
-owner. The user should still be able to disable the protection, debug
-the process, or modify their own system. The upper layer would simply
-be able to determine that the protected state is no longer valid.
-
-The resulting model could therefore be quite simple:
-
-Linux Kernel:
-- provide a unified interface for security-state information;
-- provide a unified Protected Process primitive.
-
-SteamOS / Game Platform:
-- build a Competitive Session on top of those mechanisms;
-- define its own competitive security policy.
-
-Game:
-- decide whether the current environment is acceptable for ranked or
-competitive play.
-
-For the ordinary competitive-gaming threat model I had in mind, I also
-do not think it is necessary to immediately use a
-confidential-computing environment such as SEV-SNP or TDX. That seems
-more appropriate for a stronger threat model.
-
-Thanks again for the feedback.
-
-Serge E. Hallyn <serge@hallyn.com> =E4=BA=8E2026=E5=B9=B49=E6=9C=8825=E6=97=
-=A5=E5=91=A8=E4=BA=94 21:06=E5=86=99=E9=81=93=EF=BC=9A
+Thanks,
+Vijendar
 >
-> On Fri, Sep 25, 2026 at 05:14:46PM +0800, =E6=B4=9B=E7=A5=9E=E8=91=B5 wro=
-te:
-> > Hello,
-> >
-> > I would like to propose an idea for a Linux API intended for
-> > competitive games, online games, and potentially other applications
-> > that require a high-integrity execution environment.
-> >
-> > Linux already provides a number of relevant security mechanisms,
-> > including ptrace restrictions, process memory access controls, LSM,
-> > Secure Boot, kernel lockdown, and kernel module signing.
-> >
-> > However, these mechanisms are currently exposed separately. A game
-> > that wants to establish a trusted competitive environment may need to
-> > detect and combine several different mechanisms on its own.
-> >
-> > I would like to ask whether it would make sense to provide a unified
-> > Protected Session / Competitive Session API.
-> >
-> > The basic model could be relatively simple.
-> >
-> > When a game starts, it requests a protected session, for example:
-> >
-> > competitive_session_create(...)
-> >
-> > The kernel checks whether the current environment satisfies the
-> > requested protection level and returns something similar to:
-> >
-> > ALLOWED: the environment satisfies the requested requirements;
-> >
-> > DENIED: the environment does not satisfy them, together with a
-> > standardized reason.
-> >
-> > While the protected session is active, Linux would protect processes
-> > belonging to that session from unauthorized interference.
-> >
-> > For example, depending on the selected protection level, this could
-> > restrict other processes from:
-> >
-> > debugging or attaching to the protected process through ptrace;
-> >
-> > reading or modifying its process memory;
-> >
-> > obtaining sensitive information through /proc;
-> >
-> > using other kernel interfaces to observe or interfere with the
-> > protected process.
-> >
-> > The exact interfaces covered by such a mechanism would of course need
-> > further discussion.
-> >
-> > The game may explicitly terminate the protected session:
-> >
-> > competitive_session_close(...)
-> >
-> > Normal system behavior would then be restored.
-> >
-> > If the game crashes, is terminated, or the protected process exits,
-> > the session should automatically be destroyed by the kernel.
-> >
-> > This would ensure that the system cannot accidentally remain in a
-> > competitive/protected state if the application fails to shut down
-> > cleanly.
-> >
-> > A major advantage of this model is that game developers would not need
-> > broad permission to scan the user's system, inspect unrelated files,
-> > or monitor every other application.
+> Changes since v1:
+> - Update comment for ping_slave_stat variable description in patch 2/9.
+> - split the remove path work drain and pm ops guard patch into separate
+>    patches (patches 3/9 and 4/9) to improve clarity and maintainability.
 >
-> Why would they need to do that anyway?  What are you protecting them
-> from exactly?  Cheating?  Secret stealing?  Playing without a license?
+> Vijendar Mukunda (9):
+>    soundwire: amd: fix SDW command timeout return value handling
+>    soundwire: amd: cache ping slave status to avoid spurious disconnect
+>      on timeout
+>    soundwire: amd: fix work drain ordering in remove path
+>    soundwire: amd: pm_runtime guard in remove path
+>    soundwire: amd: fix ctx leak when sdw_amd_startup() fails
+>    soundwire: amd: propagate amd_init_sdw_manager() error on resume
+>    soundwire: amd: drop amd_deinit_sdw_manager() in POWER_OFF suspend
+>    soundwire: amd: replace >= ACP70 with explicit switch/case in PM paths
+>    soundwire: amd: fix interrupt gate and work drain ordering in PM ops
 >
-> This sounds like us going out of our way to enable proprietary software
-> to lock us down to protect their "rights" - DRM.
+>   drivers/soundwire/amd_init.c      |   9 +-
+>   drivers/soundwire/amd_manager.c   | 204 ++++++++++++++++++++----------
+>   include/linux/soundwire/sdw_amd.h |   4 +
+>   3 files changed, 149 insertions(+), 68 deletions(-)
 >
-> I guess what you're promising us is that "this way you won't be forced
-> to run crowdstrike and tenable and intune to be able to play these games"=
-.
-> But 1. I still prefer to say "then nobody *needs* to play these particula=
-r
-> games", and 2. I could just compile my own kernel with
-> competitive_session_create() being a noop, so you'd still be digging
-> around to make sure I didn't do that, right?
->
-> > Instead, Linux itself would establish and enforce the protected environ=
-ment.
-> >
-> > The game would only need to know:
-> >
-> > "Does the current system satisfy the requirements for this protected se=
-ssion?"
-> >
-> > In other words, the API would provide a trusted execution environment
-> > for the application rather than granting the application broader
-> > system-monitoring privileges.
-> >
-> > A simplified lifecycle would look like this:
-> >
-> > Game starts
-> > |
-> > v
-> > Request Protected Session
-> > |
-> > v
-> > Linux checks the environment
-> > |
-> > v
-> > ALLOWED / DENIED
-> > |
-> > v
-> > Game enters competitive mode
-> > |
-> > v
-> > Game exits or explicitly closes the session
-> > |
-> > v
-> > Protected Session is automatically destroyed
-> >
-> > My main questions are:
-> >
-> > Does Linux already provide a unified interface with similar semantics?
->
-> I think the closest you could come today is to run it in a
-> confidential computing VM like SEV-SNP/TDX.
->
-> > If not, would a Protected Session abstraction like this be worth
-> > discussing as a generic userspace API?
->
-> Possibly, but the first objection you'd have to overcome is that
-> you are asking us to reduce our rights on the hardware and software
-> that we own.  E.g. not being able to strace to figure out what is
-> missing when the software isn't working - yuck.
->
-> > Competitive gaming is the most obvious use case, but such a mechanism
-> > could potentially also be useful for other applications that need
-> > stronger protection of their process integrity or confidentiality, so
-> > I do not think it necessarily needs to be designed as a game-specific
-> > API.
-> >
-> > Thank you.
+
