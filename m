@@ -1,149 +1,130 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D74A322C73
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E19435507;
+	Sat, 26 Sep 2026 12:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790427202; cv=none; b=TkUExNUtXcq+fCrXbUThJPmM3Zlyz1wFHwT2QPGASbDbyGw+SxYwTNSESYUUsR12hwrP16myEdRMogo3bIjVMFaHW1f6qKNi41nM5NsAufeWrMalz6sodxLhpmA7/wQ7I3kr/j3JBXBNEU+L44vngZs2Xg/2OXr8JwyrZsVVw+8=
+	t=1790427286; cv=none; b=qyJY6p+lVN9lbr/7OnbjcvHp9gsBK5+Csmfol7m8dJoClOOvooQG2ThTE5YdtdizL5Q9dMZut957wcPzBKlrfP18Fezl0vv+BEu3JgC5T6C7VkYAQh/GfnvLfYukvsaBRQ9Vjf4HpZgyihxJ4KWNwdN5/39bcN/DZCIRF5RsmOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790427202; c=relaxed/simple;
-	bh=A9HS+gVdZjcLNBnpHSlruVJ50737lR2r9B8OkSSYKS8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=meL1xF6du8IUsFIicqb1E/Y88hk2vaNS6Te/S++iIVitTa9Dq5xMaBQI5F7xPn5aOPtlMxaPd/T7Lcj6yc2L688FfDxB+FvtCA9rJw9EUgSo4b6GK1YaS+t3prnPWaDyo/kfIwte28defgpylKEUbYvcL4c++3VSNgaE/eQ9R5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G++K7qqr; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790427286; c=relaxed/simple;
+	bh=oNz6sell6XKOwLw0TDtcAFRmwEe1yrH4ncDfkV/vayY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y85Hfy6S+smS9zkoHaI4zOdBTMu/JopXbOY24DXIjwaX3i0xXyLTOE3AJVtDzalrNz3ZieEAg/5Ej+uO8G+gXB3BHcx23qkp+kqUyhL92iYBpqaU3XXW1F2YKmIb9CHCISmAL+YJeW12bCaZc4L5utDT1Fn0B+czT1ORk14EZCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=lIqGliNq; arc=none smtp.client-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G++K7qqr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=0jkTHyU0InToqzfGvkxHo0JwF3ptW4i16rlCzwab6pU=;
-	b=G++K7qqrDBe9HT+NdLqOAZiFY+RdZQO8SCHrHnBMQw4qKeZByQZA9DulnZyFrQ
-	MgtjQif/l5TkE2BbrjwLGLPv3k9YbZG/2R5jp79vSHU+5ARYPKQbBC3G4wXmTWkX
-	VHoncDBpBI+gWQQF3leyM3gjuTIjocjEVZMWwdZYMwjAE=
-Received: from [IPV6:2409:8949:6ca0:7910:cfbd:ff70:c0fd:a387] (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnz8sRwLdqhP+xAw--.23214S2;
-	Sat, 26 Sep 2026 20:52:34 +0800 (CST)
-Message-ID: <285c4581-ee1b-4963-9741-ed44c9ad2583@163.com>
-Date: Sat, 26 Sep 2026 20:52:32 +0800
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="lIqGliNq"
+Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay07.hostedemail.com (Postfix) with ESMTP id AF45E160896;
+	Sat, 26 Sep 2026 12:46:57 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 14D5532;
+	Sat, 26 Sep 2026 12:46:50 +0000 (UTC)
+Date: Sat, 26 Sep 2026 08:46:47 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Vineet Gupta <vineet.gupta@linux.dev>, mhiramat@kernel.org,
+ mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE
+ to 1024
+Message-ID: <20260926084647.3685ae85@fedora>
+In-Reply-To: <20260924100040.GD4121339@noisy.programming.kicks-ass.net>
+References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
+	<20260922225526.1554758-2-vineet.gupta@linux.dev>
+	<20260924100040.GD4121339@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/6] ntfs: report shutdown errors to fsnotify
-To: Hyunchul Lee <hyc.lee@gmail.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
- linux-kernel@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
-References: <20260924090102.2865942-1-liubaolin12138@163.com>
- <20260924090102.2865942-7-liubaolin12138@163.com>
- <CANFS6baY+nbdzux-pF-MZ+8ryP8Q34RyO0Rh4qVR7rqvjsPHbg@mail.gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <CANFS6baY+nbdzux-pF-MZ+8ryP8Q34RyO0Rh4qVR7rqvjsPHbg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnz8sRwLdqhP+xAw--.23214S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXr4fWr4fXr45uFWxCw15urg_yoW5XrykpF
-	97AFnIkwsrXF129rsFqw43AF1Svas29w1UKr17Gw1Igr4vkr18tF4vkF1F9F4F9r9Y9w48
-	Z3WjganxurW7ZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UliiDUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRK8h2q3wBKuhAAA3N
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: e1bao6t1cr5fu77wybj3uqnu9hyppfu9
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 14D5532
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+detvj2Mb+Uir/a8JKayUwPlIX+aqfpKA=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=GOey0FkJywmjr6DnXdW757XDcEKE+vQJiVsQMU+r0d8=; b=lIqGliNqnjMEDUA15BokywbL6Uemv/GjVpc8UmoiZxKnMK3xlv6QlBgm1KEQnAA+lCVykoZhLXTsT3vzEHf4C7QAWu3Bdgb6amxW9omw061d6/3YBnWbrKFbmvNCuKamlJkTYTmWf0jVUuCxApDLEy4I0NnByHyhlSXg2pAAaQ8=
+X-HE-Tag: 1790426810-931399
+X-HE-Meta: U2FsdGVkX1/K9XxuXgRvlIpfTDDGDxRxFQCYlS5kemVW+V4Br8IotJW9C1NsQnLsLD0e8W3AvaNk7Ox9uVr6hTspzptgGu2WPJyAFIlJH8XitKFQOuku8j5z+vSq2xidnW+BYgnKn9gIXrLBn/f7d7eVdtW9F53TGWXpu2E+SVK+l+OVXAxfcBJBHVx25XT8jDcThU5uI+d7pZfTA5qIL7uWR/v0i8Uodmu/Caut/dknD9b9sulB7/HT+b1czHUFoWNU42neQ5uhlO2HVhWxk987I2wj/McCrGhKmk+JHtaQ06iDHU3B2vH9HooX3wE88GD+q6Kb/VYtRgbLLrek8DuWTjmBqp/Kz1RmSwY8zGAG5W5zqkYDaSbtKUNdx62l
 
-
-
-在 2026/9/26 08:40, Hyunchul Lee 写道:
-> 2026년 9월 24일 (목) 오후 6:02, Baolin Liu <liubaolin12138@163.com>님이 작성:
->>
->> From: Baolin Liu <liubaolin@kylinos.cn>
->>
->> Notify FAN_FS_ERROR listeners when NTFS enters forced shutdown after
->> FS_IOC_SHUTDOWN or backing-device removal. Keep the shutdown state
->> transition and notification together in a dedicated helper.
->>
->> Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
->> ---
->>   fs/ntfs/super.c  | 12 +++++++++---
->>   fs/ntfs/volume.h |  1 +
->>   2 files changed, 10 insertions(+), 3 deletions(-)
->>
->> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
->> index a7a7ecf9d074..a0d3934ef6c8 100644
->> --- a/fs/ntfs/super.c
->> +++ b/fs/ntfs/super.c
->> @@ -414,6 +414,12 @@ void ntfs_report_file_metadata_error(struct inode *inode, int error)
->>                  fserror_report_file_metadata(inode, error, GFP_ATOMIC);
->>   }
->>
->> +void ntfs_report_shutdown(struct ntfs_volume *vol)
->> +{
->> +       NVolSetShutdown(vol);
-> 
-> Could we call test_and_set(NV_Shutdown, &vol->flags)
-> to avoid races?
-
-Hi Hyunchul,
-    Thank you for pointing this out. I'll use test_and_set_bit() in v4 
-to avoid duplicate shutdown notifications from concurrent callers.
-
-Thanks,
-Baolin.
+On Thu, 24 Sep 2026 12:00:40 +0200
+Peter Zijlstra <peterz@infradead.org> wrote:
 
 > 
+> Does this work?
 > 
->> +       fserror_report_shutdown(vol->sb, GFP_ATOMIC);
->> +}
-> 
-> we can avoid test_and_set() to prevent race
-> 
-> 
->> +
->>   void ntfs_handle_error(struct super_block *sb)
->>   {
->>          struct ntfs_volume *vol = NTFS_SB(sb);
->> @@ -430,7 +436,7 @@ void ntfs_handle_error(struct super_block *sb)
->>                        sb->s_id);
->>          } else if (vol->on_errors == ON_ERRORS_CONTINUE) {
->>                  if (errseq_check(&sb->s_wb_err, vol->wb_err) == -ENODEV) {
->> -                       NVolSetShutdown(vol);
->> +                       ntfs_report_shutdown(vol);
->>                          vol->wb_err = sb->s_wb_err;
->>                  }
->>          }
->> @@ -2086,10 +2092,10 @@ int ntfs_force_shutdown(struct super_block *sb, u32 flags)
->>                  if (ret)
->>                          return ret;
->>                  bdev_thaw(sb->s_bdev);
->> -               NVolSetShutdown(vol);
->> +               ntfs_report_shutdown(vol);
->>                  break;
->>          case FS_SHUTDOWN_FLAGS_NOLOGFLUSH:
->> -               NVolSetShutdown(vol);
->> +               ntfs_report_shutdown(vol);
->>                  break;
->>          default:
->>                  return -EINVAL;
->> diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
->> index 366e9f5d0443..648fe8991304 100644
->> --- a/fs/ntfs/volume.h
->> +++ b/fs/ntfs/volume.h
->> @@ -256,6 +256,7 @@ DEFINE_NVOL_BIT_OPS(SymlinkNative)
->>
->>   void ntfs_report_metadata_error(struct ntfs_volume *vol, int error);
->>   void ntfs_report_file_metadata_error(struct inode *inode, int error);
->> +void ntfs_report_shutdown(struct ntfs_volume *vol);
->>
->>   static inline void ntfs_inc_free_clusters(struct ntfs_volume *vol, s64 nr)
->>   {
->> --
->> 2.51.0
->>
-> 
-> 
-> --
-> Thanks,
-> Hyunchul
+> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
+> index ed455b53513b..155dafad474d 100644
+> --- a/kernel/trace/fgraph.c
+> +++ b/kernel/trace/fgraph.c
+> @@ -1036,10 +1036,9 @@ trace_func_graph_ent_t ftrace_graph_entry = ftrace_graph_entry_stub;
+>  /* Try to assign a return stack array on FTRACE_RETSTACK_ALLOC_SIZE tasks. */
+>  static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
+>  {
+> -	int i;
+> -	int ret = 0;
+>  	int start = 0, end = FTRACE_RETSTACK_ALLOC_SIZE;
+>  	struct task_struct *g, *t;
+> +	int i, ret = 0;
+>  
+>  	if (WARN_ON_ONCE(!fgraph_stack_cachep))
+>  		return -ENOMEM;
+> @@ -1054,26 +1053,29 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
+>  		}
+>  	}
+>  
+> -	rcu_read_lock();
+> -	for_each_process_thread(g, t) {
+> -		if (start == end) {
+> -			ret = -EAGAIN;
+> -			goto unlock;
+> -		}
+> +	scoped_guard (rcu) {
+> +		for_each_process_thread(g, t) {
+> +			unsigned long *rs;
+> +
+> +			if (t->ret_stack)
+> +				continue;
+> +
+> +			rs = kmem_cache_alloc(fgraph_stack_cachep, GFP_NOWAIT);
+> +			if (!rs) {
+> +				if (start == end)
+> +					return -EAGAIN;
+> +				rs = ret_stack_list[start++];
+> +			}
+
+Yeah this is fine. This iteration code goes back to when function graph
+was first added back in 2008. Back then, looping all tasks required
+taking the task_list lock and I remember we didn't want to call
+kmalloc() while holding that. This code could definitely use some
+reassessment.
+
+-- Steve
+
+
+>  
+> -		if (t->ret_stack == NULL) {
+>  			atomic_set(&t->trace_overrun, 0);
+> -			ret_stack_init_task_vars(ret_stack_list[start]);
+> +			ret_stack_init_task_vars(rs);
+>  			t->curr_ret_stack = 0;
+>  			t->curr_ret_depth = -1;
+>  			/* Make sure the tasks see the 0 first: */
+> -			smp_wmb();
+> -			t->ret_stack = ret_stack_list[start++];
+> +			smp_store_release(&t->ret_stack, rs);
+>  		}
+>  	}
+>  
+> -unlock:
+> -	rcu_read_unlock();
+>  free:
+>  	for (i = start; i < end; i++)
+>  		kmem_cache_free(fgraph_stack_cachep, ret_stack_list[i]);
 
