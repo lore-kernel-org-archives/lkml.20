@@ -1,222 +1,252 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77070364058
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790420635; cv=none; b=rlpPKsatGA4SdiRlkWgsHpAcAHVJrzKVrdl48OC7ENy875fvBF+8RFxJKAdMiBERvbFO8FuoR2boKsAE1iCS+ZemrBtypC8MzLa/7iipubg730fn9KloTkjktl0kDEf92Wh0tuaWmmwaIhQavM+8Gy1sV0w2h3Xv72VsjNXHpFk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790420635; c=relaxed/simple;
-	bh=LlgiwfRzoIE3I8OMh+c127pf3rQzOOCuQVdOldcNTVk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C33A6k5415HO0KNkJ7hJlBNR4Axd3eqOR3XUD3fXXMEECCs99hWAuzDEi8ePdmG9K3hTfhFYXECcArmrDreoFRdKg4hZrAIoe7ggatYbKPTv8VIpyytR7ABB4SY+LLRZLwlfojbYPibRewMglPBKTCVpkjl51mkhPIIvnibYnBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AwhNXO1/; arc=none smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71902EC0A4;
+	Sat, 26 Sep 2026 11:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790420683; cv=pass; b=AToINDLeNBBPO+GTCZPZM3Kk9emYonccKjiV0D6iknhhBCKqXOEiyqt68OWQexYNXlOfvcGYTSPhkT1fDP00/VEj2cYpKTPzWocwZcP6FpchH7f4d9PtKxAAH6RIPvqcDH+1FFXb+KmETyooJ3n7pzhwL4HjHf4Q3Sp/7YHO0mk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790420683; c=relaxed/simple;
+	bh=FVTLEGLnSPHYozQMXZgufN+EgBxhrrYGVesl1fqJjOs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HQJBbtBp3/1I+g1EQwyg11fdXCdZp+N3omTqxqevrwbd3zZPDHXVQ3aIPxsZP8uQxp8SiU04yZBmP7RFS03WvYjABYwqFjK/KvIykVGOubRH2UiX1Ign2WrF/SLH2Bp0vyys7z7u0XUQRZ9EEPTPMLCoYENAABysRMxc57QazgY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=de3Qat5D; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AwhNXO1/"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6ab01dda422so671349a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:03:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790420632; x=1791025432; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MR+p7kdm5Q2w5aYk+kb35qoP6J7GzovzPKCQ9WjAH9M=;
-        b=AwhNXO1/nMV7kJhWz/RuDY3buvSXq02VJa1QSkfGSOMz/QKrBp8MEj+vSjynIP/8V+
-         troW13iLJG4XxOf437gozud6wF3aNm/7iaH7my1JvKQg2Fx0GgiDLmfVzjtIBJ/9fnVi
-         gYMdZaOrj4e4UY2DrmwKlfxRorBSF/gWJk/D3aYJ21046Q8p6zLaMN213fSizVjDwLki
-         00+gE9LpIr7D1PddTKlJHD8L29PYZBvveN77JJX8z5dVYN23XxLRIPDh/+I+rCJ5hTRu
-         B1XIGapiH1IpLmIxw/rLK6eexazM5L9LQLZR867me3Xgg+RylRZ8iR41UVkGrl3+o3S9
-         terw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790420632; x=1791025432;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MR+p7kdm5Q2w5aYk+kb35qoP6J7GzovzPKCQ9WjAH9M=;
-        b=X0TqGAAR/E8a9cOAqAsuL6D3zbxZWIiMR1I0vS8jkfJj83OlT+VkEbYeBNZlDXXSPb
-         EfB3w5T9TkylqPrxGBcZgB5QSVA77QemryYOjl2vSMmYBI2uIQUnCs/filONCgYiE24a
-         4XkCafJcgfcXvomSQKDWw4vFMesoAV46XriL0epM9fDzJWZLWzRmlPZomPE54zDcSWEj
-         mON0+l4EhKpKwHvRYDGSaiz1cnbWDJkZO1a8RrcCVKFqq/73NY6IqEHkU/MpaRsCXY1k
-         y9S6+eoCcpD569yxC7qGUvjfGbWgJuf9e3MM8CaAZ9wTtY42hlGVSAtrKaGwu1slhKQg
-         xeEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJonAS28Wc4+ifMx0Lcr19UCDrm13A9hpp2QRpb4PKxUao5KWV64K2DB6+iBPvZsGYw38gJ5kzdNxIbUQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWxGSdo5INKCr9Fbnqcmcn8UiE3WoGBayfIxElB4QEEVKpK7Kd
-	RkBjPFEDDEJyNjuH5ihhQULj9rdwfsg3mqD5oYB3yJgckprdf3c8JS8+YOvMFV4r5cs=
-X-Gm-Gg: AYBFou1mnq6FmE1Nd30p1zQeahyD1adKvRJX+FFkHuGecYS5lUu7i++gDkpOXprB+ww
-	jejxm+R/n1nHfgeWrHaDC3g8gGmvYN2Vt7cFlmDq7GQikTOP95aCe7rD4KP3e1oFOnU7d7sof+J
-	pp06lLc74tPNaYtCx+bBl7a+BFcjYz3cyMGVt7xsCvDun1L+E7HsJq7hl4pZqEApjQX9ovflYOe
-	R3bSHVpm+KihWZx494vGGkO6tkRSQc9+dLFRCO/bUK5pxGqg89+vVWobaaREx8Hs0qUb+CyNjcP
-	5rsPJqOfu8BqlGcof4Iz0qMUY0pE9OoL/ugcIzG5hCBbV/vQFCg8nge/OmgcoglBIaDgcPfw/Io
-	1amMiw0ygjYS1HzYJ/WwK4doxQ8HtCcPPxnVeoyiYogaLMwwWDzBqP7VEseDO1dHnxfem17I8zg
-	IRuF6UKlWVy7PGgNmr2p7X6U0YbHXaGkmIKdecrUCb47ubn4V9rORcweY2KQbwhQ==
-X-Received: by 2002:a17:907:6c17:b0:c29:f51b:f75 with SMTP id a640c23a62f3a-c2ac5398d8cmr713326566b.23.1790420631627;
-        Sat, 26 Sep 2026 04:03:51 -0700 (PDT)
-Received: from [10.86.128.19] ([149.22.87.44])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0bec30aaasm8519788a91.15.2026.09.26.04.03.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 26 Sep 2026 04:03:50 -0700 (PDT)
-Message-ID: <a7d68d73-3ba1-46d3-a6c9-5ee213e5b551@suse.com>
-Date: Sat, 26 Sep 2026 20:33:45 +0930
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="de3Qat5D"
+ARC-Seal: i=1; a=rsa-sha256; t=1790420616; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=J+d73KLeGearmnB+EsTVJtGDCcSURFACrgEwh5Gb7M21chj2jV1Iiit5g2XuHpnZOgApomGnOFshy2+ZE30TYmi6nLvX7XWaX3ZQ0NJbncOpDrpapmGFi2JDH4aar3UCF6ltRb51TYA3VIhMcspdRiaMrqpDZxado9d02/xh/JI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790420616; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=rjuEah86VS9smQcbw1BPf2x1MuqJ0in2mIL+HloaBaM=; 
+	b=OsZKRAMkF8q9LsPcTuoqp84kacZgiIo6b+GtRP0r9W02fJtB+IdlVaEptr8d2jnOGWX4MJlaY71EqZAPEL5e3kGCysQa8cnPXjb7P0ohs7tXOGQlJrSM9eVbm+ROS9y06UMDSypBdEj6EGQtP5fotEzox+qOcsnX7OlEIregMpY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790420616;
+	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+	bh=rjuEah86VS9smQcbw1BPf2x1MuqJ0in2mIL+HloaBaM=;
+	b=de3Qat5DuIdjZb7RKGMxcOSJibnNV+AOyda+7rjD/9kRdWeCv7eaCxRumnTNw0yg
+	2GK8KFKG72pJhpMyjbDG6PYCUF7AxmkDaBzBmMxAdLJMCyTH44V0un6ZpbVSV3AYipJ
+	+U6jHbOPfKhZYVu42mAeHC4//ujgMDLEI+MuFvhk=
+Received: by smtp.zohomail.com with SMTPS id 1790420615376767.1283057968208;
+	Sat, 26 Sep 2026 04:03:35 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Vidith Madhu <vmadhu@nvidia.com>
+Cc: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>,
+ wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH RFC 06/25] drm/connector: hdmi: Add VTEM EMP generation
+Date: Sat, 26 Sep 2026 13:03:27 +0200
+Message-ID: <FJ8OpdCORV2b1oivG9-G9Q@collabora.com>
+In-Reply-To: <a5bc012a-9b9e-eb2b-d67e-a91f2d93d6bf@nvidia.com>
+References:
+ <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
+ <20260921-vrr-limiter-uapi-v1-6-2fcd7d011646@collabora.com>
+ <a5bc012a-9b9e-eb2b-d67e-a91f2d93d6bf@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: use helper functions to check if a string has a
- given prefix
-To: George Hu <integral@archlinux.org>, David Sterba <dsterba@suse.com>,
- Chris Mason <mason@kernel.org>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260926103651.41722-1-integral@archlinux.org>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
- Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
- SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
- YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
- 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
- vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <20260926103651.41722-1-integral@archlinux.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-
-
-在 2026/9/26 20:06, George Hu 写道:
-> Replace strncmp() prefix checks with strstarts() when only a boolean result
-> is needed, and with str_has_prefix() when the prefix length is needed after
-> a successful match.
+On Friday, 25 September 2026 05:48:54 Central European Summer Time Vidith Madhu wrote:
 > 
-> This makes prefix checks clearer and more concise.
+> On Mon, 21 Sep 2026, Nicolas Frattaroli wrote:
 > 
-> Signed-off-by: George Hu <integral@archlinux.org>
-> ---
->   fs/btrfs/compression.c | 15 ++++-----------
->   fs/btrfs/compression.h |  2 +-
->   fs/btrfs/props.c       |  2 +-
->   fs/btrfs/super.c       |  5 ++---
->   fs/btrfs/xattr.c       |  3 +--
->   5 files changed, 9 insertions(+), 18 deletions(-)
+> > From: Derek Foreman <derek.foreman@collabora.com>
+> > 
+> > Add VTEM EMP generation to enable variable refresh rate signalling over
+> > HDMI.
+> > 
+> > These infoframes are only generated if the sink supports VRR.
+> > 
+> > Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 60 +++++++++++++++++++++++++
+> >  include/drm/drm_connector.h                     |  5 +++
+> >  2 files changed, 65 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > index d55548399687..33d0c9491643 100644
+> > --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > @@ -853,6 +853,56 @@ static int hdmi_generate_hdmi_vendor_infoframe(const struct drm_connector *conne
+> >  	return 0;
+> >  }
+> >  
+> > +static int hdmi_generate_emp_infoframe_vtem(const struct drm_connector *connector,
+> > +					    struct drm_connector_state *conn_state)
+> > +{
+> > +	const struct drm_display_info *info = &connector->display_info;
+> > +	const struct drm_crtc_state *crtc_state =
+> > +		drm_atomic_get_crtc_state(conn_state->state, conn_state->crtc);
+> > +	struct drm_connector_hdmi_infoframe *infoframe =
+> > +		&conn_state->hdmi.infoframes.vtem;
+> > +	struct hdmi_emp_infoframe_vtem *vtem =
+> > +		&infoframe->data.vtem;
+> > +	const struct drm_crtc_vrr_state *vrr = &crtc_state->vrr_state;
+> > +	int vfront;
+> > +
+> > +	infoframe->set = false;
+> > +
+> > +	if (!connector->hdmi.funcs->vtem.write_infoframe)
+> > +		return 0;
+> > +
+> > +	if (!info->hdmi.vrr_capable)
+> > +		return 0;
+> > +
+> > +	hdmi_emp_infoframe_vtem_init(vtem);
+> > +	if (!crtc_state->vrr_enabled || vrr->vic) {
+> > +		vtem->base_refresh_rate = 0;
+> > +		vtem->base_vfront = 0;
+> It shouldn't hurt to always populate base_refresh_rate and base_vfront, 
+> might be cleaner to skip this check.
+
+Hm, I thought they had to be blank when the vic was non-zero. If that's more
+of a "they can be blank" then yeah I'm fine with skipping it. But that makes
+me question the purpose of vrr->vic, which is then no longer needed as it's
+not used anywhere else.
+
+> > +	} else {
+> > +		vtem->base_refresh_rate = drm_mode_vrefresh(&crtc_state->mode);
+> > +		vfront = crtc_state->adjusted_mode.crtc_vsync_start -
+> > +			 crtc_state->adjusted_mode.crtc_vdisplay;
+> > +		if (vfront > U8_MAX || vfront < 0)
+> > +			return -EINVAL;
+> > +
+> > +		vtem->base_vfront = vfront;
+> > +	}
+> > +	vtem->fva_factor_m1 = 0;
+> > +	infoframe->set = true;
+> > +
+> > +	if (!crtc_state->vrr_enabled) {
+> I don't think we should use the vrr_enabled CRTC property to determine 
+> VRR_EN in the VTEM EMP. Transitioning the VRR mode sink-side typically causes
+> blanking, and it was discussed in patch [03/25] that drivers should be 
+> free to handle vrr_enabled changes as a seamless switch since it only 
+> concerns source-side VRR state (this is how the NVIDIA driver handles it).
+
+I'll be honest, this is the first time I've thought about the VRR state
+communicated from userspace to kernel to be different to the VRR state
+communicated from kernel to display.
+
+> Maybe it would make sense to extend the qms_enabled connector property 
+> introduced in this patchset to an enum of {Off, Gaming, QMS}? This would allow
+> a standard path to control the VRR state on the sink, separately from
+> vrr_enabled.
+
+An earlier version of the patch series I was working on internally had a
+VRR limiter property that would either be Off (i.e. Game), Game-Limited,
+QMS-Limited, and it self-inflicted some amount of confusion because of
+the way things were named, so I refactored it to the limiter values being
+what determines whether a limiter is used, and the QMS enable to determine
+whether QMS is used to apply said limit. So my initial reaction is to be
+hesitant about expanding the collection of possible states exposed through
+the uAPI.
+
+To help my understanding: what does
+
+ vrr_enabled=true
+ $new_property=Off
+
+mean for presentation? Another state I'm curious about is
+
+ vrr_enabled=false
+ $new_property=Game
+
+which I assume is the case you're interested in, where the compositor does
+not want VRR presentation but we're keeping the sink in Game mode to avoid
+having the display go blank.
+
+is that correct, and something that does need an expanded property? I feel
+like userspace could be smart enough to do that by keeping vrr_enabled=true
+and then setting a fixed target, if the goal is to have non-VRR but with the
+display still in VRR mode.
+
+Kind regards,
+Nicolas Frattaroli
+
+> > +		vtem->m_const = false;
+> > +		vtem->game_vrr_en = false;
+> > +		return 0;
+> > +	}
+> > +
+> > +	vtem->game_vrr_en = true;
+> > +
+> > +	vtem->m_const = !vrr->dynamic;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static int
+> >  hdmi_generate_infoframes(const struct drm_connector *connector,
+> >  			 struct drm_connector_state *conn_state)
+> > @@ -884,6 +934,10 @@ hdmi_generate_infoframes(const struct drm_connector *connector,
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > +	ret = hdmi_generate_emp_infoframe_vtem(connector, conn_state);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> >  	return 0;
+> >  }
+> >  
+> > @@ -1494,6 +1548,12 @@ int drm_atomic_helper_connector_hdmi_update_infoframes(struct drm_connector *con
+> >  			goto out;
+> >  	}
+> >  
+> > +	if (info->hdmi.vrr_capable)
+> > +		ret = write_or_clear_infoframe(connector,
+> > +					&funcs->vtem, "VTEM",
+> > +					&old_conn_state->hdmi.infoframes.vtem,
+> > +					&new_conn_state->hdmi.infoframes.vtem);
+> > +
+> >  out:
+> >  	mutex_unlock(&connector->hdmi.infoframes.lock);
+> >  	return ret;
+> > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> > index e561a444515f..6e431eb81705 100644
+> > --- a/include/drm/drm_connector.h
+> > +++ b/include/drm/drm_connector.h
+> > @@ -1180,6 +1180,11 @@ struct drm_connector_hdmi_state {
+> >  		 * matching our state.
+> >  		 */
+> >  		struct drm_connector_hdmi_infoframe hdmi;
+> > +
+> > +		/**
+> > +		 * @vtem: VTEM EMP infoframes structure matching our state.
+> > +		 */
+> > +		struct drm_connector_hdmi_infoframe vtem;
+> >  	} infoframes;
+> >  
+> >  	/**
+> > 
 > 
-> diff --git a/fs/btrfs/compression.c b/fs/btrfs/compression.c
-> index c62b5148d5ac..82d0413e6236 100644
-> --- a/fs/btrfs/compression.c
-> +++ b/fs/btrfs/compression.c
-> @@ -70,19 +70,12 @@ static struct compressed_bio *alloc_compressed_bio(struct btrfs_inode *inode,
->   	return to_compressed_bio(bbio);
->   }
->   
-> -bool btrfs_compress_is_valid_type(const char *str, size_t len)
-> +bool btrfs_compress_is_valid_type(const char *str)
->   {
-> -	int i;
-> -
-> -	for (i = 1; i < ARRAY_SIZE(btrfs_compress_types); i++) {
-> -		size_t comp_len = strlen(btrfs_compress_types[i]);
-> -
-> -		if (len < comp_len)
-> -			continue;
-> -
-> -		if (!strncmp(btrfs_compress_types[i], str, comp_len))
-> +	for (int i = 1; i < ARRAY_SIZE(btrfs_compress_types); i++)
-> +		if (strstarts(str, btrfs_compress_types[i]))
-
-strstarts() is using strlen(btrfs_compress_types[i]) to do the string 
-comparison, but the old code will skip the comparison completely, to 
-avoid accessing memory after @len.
-
-Since @str is not NUL terminated, this is very dangerous.
-
-To be honest, I didn't see strstarts() provides any readability benefit 
-unless the parameter is NUL terminated.
 
 
->   			return true;
-> -	}
-> +
->   	return false;
->   }
->   
-> diff --git a/fs/btrfs/compression.h b/fs/btrfs/compression.h
-> index 1022dc53ec51..1d8e12fcd488 100644
-> --- a/fs/btrfs/compression.h
-> +++ b/fs/btrfs/compression.h
-> @@ -131,7 +131,7 @@ extern const struct btrfs_compress_levels btrfs_lzo_compress;
->   extern const struct btrfs_compress_levels btrfs_zstd_compress;
->   
->   const char* btrfs_compress_type2str(enum btrfs_compression_type type);
-> -bool btrfs_compress_is_valid_type(const char *str, size_t len);
-> +bool btrfs_compress_is_valid_type(const char *str);
->   
->   int btrfs_compress_heuristic(struct btrfs_inode *inode, u64 start, u64 end);
->   
-> diff --git a/fs/btrfs/props.c b/fs/btrfs/props.c
-> index bb77d46376d4..c33930c58802 100644
-> --- a/fs/btrfs/props.c
-> +++ b/fs/btrfs/props.c
-> @@ -301,7 +301,7 @@ static int prop_compression_validate(const struct btrfs_inode *inode,
->   	if (!value)
->   		return 0;
->   
-> -	if (btrfs_compress_is_valid_type(value, len))
-> +	if (btrfs_compress_is_valid_type(value))
->   		return 0;
->   
->   	if ((len == 2 && strncmp("no", value, 2) == 0) ||
-> diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
-> index ddb620ac241b..287cdc45bef8 100644
-> --- a/fs/btrfs/super.c
-> +++ b/fs/btrfs/super.c
-> @@ -263,10 +263,9 @@ static const struct fs_parameter_spec btrfs_fs_parameters[] = {
->   
->   static bool btrfs_match_compress_type(const char *string, const char *type, bool may_have_level)
->   {
-> -	const int len = strlen(type);
-> +	const size_t len = str_has_prefix(string, type);
->   
-> -	return (strncmp(string, type, len) == 0) &&
-> -		((may_have_level && string[len] == ':') || string[len] == '\0');
-> +	return len && ((may_have_level && string[len] == ':') || string[len] == '\0');
->   }
->   
->   static int btrfs_parse_compress(struct btrfs_fs_context *ctx,
-> diff --git a/fs/btrfs/xattr.c b/fs/btrfs/xattr.c
-> index ab55d10bd71f..9011d8096e2d 100644
-> --- a/fs/btrfs/xattr.c
-> +++ b/fs/btrfs/xattr.c
-> @@ -239,8 +239,7 @@ int btrfs_setxattr_trans(struct inode *inode, const char *name,
->   		 * block_rsv of the handle and trigger a warning for the start
->   		 * case.
->   		 */
-> -		ASSERT(strncmp(name, XATTR_SECURITY_PREFIX,
-> -			       XATTR_SECURITY_PREFIX_LEN) == 0);
-> +		ASSERT(strstarts(name, XATTR_SECURITY_PREFIX));
->   		trans = current->journal_info;
->   	}
->   
+
 
