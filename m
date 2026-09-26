@@ -1,64 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422FC3AAF5E;
-	Sat, 26 Sep 2026 10:28:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8EF3E4C96;
+	Sat, 26 Sep 2026 10:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790418532; cv=none; b=ZXn/N4z2ZYR3qEaFeJjXrTS9SqyLNzIv0QMO9414PbSZEK6INbMAZ4Z/aaaLfLK6BH8DiW3fMih6jmfD6TozRYgw5Q98OxZ9y3n4oU+PFCDJIuTrzbx1Re7qOvJ+zCZxjPDuQMmEnq4Z4Hnl0qSJX4U5K7ZtRt5IMgnwssrdKTY=
+	t=1790418550; cv=none; b=pf1/qEYbiK4e7fTo/U06tIvCIFje4Mt7LYRzTkh0C8dH0v1xhoBEbSnC5q4LfMZ2qi1931j0BW4XbsQ6hm5OCHeckTpZhN9STEQvz+4Br1tX8ZDm9vY9VElLUh8OviN6Ubekke6W9QeVuU+ZHLOIgQ2gwDhtS5L4O28g0c/TuWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790418532; c=relaxed/simple;
-	bh=gnO98IlujCNtMxRlBjO6rmRLbt0edqfUP5GEQsjRiW4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=u//FoEAadZa4xySgrDz79HnDlvPj23tAjvEcsGVGL7qOU6CxFM4Tl89tlRGZ+tvK6AdCKMXLHxgDsZ9QO58XOr1sDN2be9y+GEfPskhFF6cvj4vC01qSx8ejsSCcxnqLTF0QWjkGSWDoEVWNqzS6fK/Jt3LzxE04NpVjLh0iAEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HDrcwj5o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790418550; c=relaxed/simple;
+	bh=P5VwNjmEWnrl21IUUSTUQWIlNQ59SIvqMp4GQYAA1rI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=iTSp3wdtyISiyyheH/+wGUNiAoI9rsXv3uqGtfAGjoKqrIJ65qhtwxcYRc/nEm5IWV6cr6CjYVXq7d99M9AKZOT4tCHYTYdUWNoHEtm5fV+Udbb5uhF8ft4xMLgBXkPvJgVMwQAL2iBbMlHzdNO6YlyZd3Tp7QXz/CeUYRpIMrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=T4Su1o7w; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HDrcwj5o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAB8F1F000FF;
-	Sat, 26 Sep 2026 10:28:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790418523;
-	bh=67HNK0CKGsahnJUPcrc2/mkfUFjOAaSPgaUK9YOt5dw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=HDrcwj5oPRG3R6iXIcSdPPT/NMyw3sr4SbkYoQYZT4ph6bDGt5s+33ubzK+q6qA0g
-	 BhbocZOZcvwQ8XLYN4+Doml8zGeC+wCPYmCEgS7hLdqYTSlnB3kekqSvze6rdNcwaw
-	 ZiIMLzd/noPd1FB6IKgxLAoP5cRu+M5rm7mFLzaz/axjNahlwFG93y8eK0pMMgkjQU
-	 WNSasCnS2MSJNUgIXeOtm0wGInnBU6Yn0PAE4L1ammOTpuqxGBCUH8zz4L44qIwIIs
-	 B6/1SEjFedlb1dnrBAR7W2hwTiF/2HNkgyTzPh35wAmRqvk0bmvuIqvV+ZXU37p/Vo
-	 6t4o6JbC9UqhA==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
- Hemanth Selam <hemanth.selam@gmail.com>
-Cc: linux-kernel@vger.kernel.org, mhi@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org
-In-Reply-To: <20260904124731.9011-1-hemanth.selam@gmail.com>
-References: <20260904124731.9011-1-hemanth.selam@gmail.com>
-Subject: Re: [PATCH] mhi: fix typo "intented" in comment
-Message-Id: <179041852144.233471.17271071144360894830.b4-ty@b4>
-Date: Sat, 26 Sep 2026 12:28:41 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="T4Su1o7w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=P5VwNjmEWnrl21IUUSTUQWIlNQ59SIvqMp4GQYAA1rI=; b=T
+	4Su1o7wHOCwlk8Z+jkQDa0ZL/NKP32ammIlvErXOxfZy+N1OlXvmYbpRBHfPOVZh
+	gS97dhN5b6POylqJBxwBh21VeSgGydLgUngOcF3v7sHJ9YUWDeBx/UOtCiRv1Jhm
+	ly8bKuMRpRHktoXkafaFPNn86PeClJ9RRnWO23U6nw=
+Date: Sat, 26 Sep 2026 18:28:40 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Biju Das" <biju.das.jz@bp.renesas.com>
+Cc: "Linus Walleij" <linusw@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re:Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without match
+ data
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <34472b57.1961.1a0dd3dff12.Coremail.19888972804@163.com>
+References: <20260925133804.2231004-1-yaojiale02@163.com>
+ <TY3PR01MB11346E0C01A9337A3AF4D97DC868F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <34472b57.1961.1a0dd3dff12.Coremail.19888972804@163.com>
+X-NTES-SC: AL_Qu2SAviat00p5iWdZOkcn08ShO49XMOyvfoi2YFTc8EEly7wyiUqcW1xI3HY/emGMCKDnD2bQTNR1MdDW4hBW+nZTjcs5tdawWp4wTJFfQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.15.2
+Message-ID: <1358a442.197f.1a0dd4289ef.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:gSgvCgD3vy9YnrdqRW5OAA--.560W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xhGgGq3nlisLwAA3p
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-On Fri, 04 Sep 2026 18:17:30 +0530, Hemanth Selam wrote:
-> Correct "intented" to "intended", reported by scripts/checkpatch.pl using
-> the misspelling list in scripts/spelling.txt.  Only touches comments, no
-> code changes.
-
-Applied, thanks!
-
-[1/1] mhi: fix typo "intented" in comment
-      commit: b1b35aa26037c2b93ff30087636aee7c87983878
-
-Best regards,
--- 
-மணிவண்ணன் சதாசிவம்
-
-
+QXQgMjAyNi0wOS0yNiAxODoyMzo0MiwgImppYWxlIHlhbyIgPDE5ODg4OTcyODA0QDE2My5jb20+
+IHdyb3RlOgo+SGkgQmlqdSwKPgo+QXQgMjAyNi0wOS0yNiAxODowNzoxNCwgIkJpanUgRGFzIiA8
+YmlqdS5kYXMuanpAYnAucmVuZXNhcy5jb20+IHdyb3RlOgo+PkhpLAo+Pgo+Pj4gLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0KPj4+IEZyb206IEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMuY29t
+Pgo+Pj4gU2VudDogMjUgU2VwdGVtYmVyIDIwMjYgMTQ6MzgKPj4+IFN1YmplY3Q6IFtQQVRDSF0g
+cGluY3RybDogbWNwMjNzMDg6IHJlamVjdCBkZXZpY2VzIHdpdGhvdXQgbWF0Y2ggZGF0YQo+Pj4g
+Cj4+PiBBIGRldmljZSBib3VuZCB0aHJvdWdoIGRyaXZlcl9vdmVycmlkZSBuZWVkIG5vdCBtYXRj
+aCBhbiBlbnRyeSBpbiB0aGUgZHJpdmVyIHRhYmxlcy4gSW4gdGhhdCBjYXNlCj4+PiBzcGlfZ2V0
+X2RldmljZV9tYXRjaF9kYXRhKCkgcmV0dXJucyBOVUxMLCBidXQgbWNwMjNzMDhfcHJvYmUoKSBs
+YXRlciBwYXNzZXMgdGhlIHJlc3VsdCB0byB0aGUgcmVnbWFwCj4+PiBzZXR1cCBhbmQgZGVyZWZl
+cmVuY2VzIGl0IHdoaWxlIHNldHRpbmcgdXAgZWFjaCBkZXZpY2UuCj4+Cj4+SSBiZWxpZXZlIHRo
+aXMgaXMgYW4gaW52YWxpZCB1c2UgY2FzZSBhcyB0aGUgdXNlciB0cnlpbmcgZHJpdmVyX292ZXJy
+aWRlCj4+YW5kIHRoZSBwcm9iZSByZXR1cm5zIGVycm9yLiBBbSBJIG1pc3NpbmcgYW55dGhpbmcg
+aGVyZT8KPgo+WWVzLCBteSBjb21taXQgbWVzc2FnZSB3YXMgbm90IGNsZWFyIGVub3VnaC4gVGhp
+cyBwYXRjaCBpcyBpbnRlbmRlZCB0byBmaXgKPmEgcmVncmVzc2lvbiBpbnRyb2R1Y2VkIGJ5IGNv
+bW1pdCAyZTQ0NTU1YjA1YzAsIHJhdGhlciB0aGFuIHRvIG1ha2UgYW4KPnVubWF0Y2hlZCBkZXZp
+Y2UgcHJvYmUgc3VjY2Vzc2Z1bGx5IHRocm91Z2ggZHJpdmVyX292ZXJyaWRlLgo+Cj5CZWZvcmUg
+dGhhdCBjb21taXQsIG1pc3NpbmcgbWF0Y2ggZGF0YSBlZmZlY3RpdmVseSByZXN1bHRlZCBpbiB0
+eXBlIDAsCj53aGljaCBmZWxsIHRocm91Z2ggdG8gdGhlIGRlZmF1bHQgc3dpdGNoIGNhc2UgYW5k
+IHJldHVybmVkIC1FSU5WQUwuCj5Db21taXQgMmU0NDU1NWIwNWMwIHJlcGxhY2VkIHRoZSB0eXBl
+IHZhbHVlIHdpdGggYW4gaW5mbyBwb2ludGVyLCBidXQgdGhlCj5TUEkgcGF0aCBtaXNzZWQgdGhl
+IGNvcnJlc3BvbmRpbmcgTlVMTCBjaGVjayBiZWZvcmUgZGVyZWZlcmVuY2luZwo+aW5mby0+dHlw
+ZS4gVGhlIEkyQyBwYXRoIHByZXNlcnZlZCB0aGUgcHJldmlvdXMgZXJyb3IgaGFuZGxpbmcgd2l0
+aCBhbgo+ZXhwbGljaXQgTlVMTCBjaGVjayBhZnRlciB0aGUgc2FtZSBjb252ZXJzaW9uLgoKSnVz
+dCBsaWtlLgotLS0KKyAgICAgICBpbmZvID0gaTJjX2dldF9tYXRjaF9kYXRhKGNsaWVudCk7Cisg
+ICAgICAgaWYgKCFpbmZvKQorICAgICAgICAgICAgICAgcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2
+LCAtRUlOVkFMLCAiaW52YWxpZCBkZXZpY2UgdHlwZVxuIik7Ci0tLQpUaGUgcmV0dXJuIHZhbHVl
+IG9mIHNwaV9nZXRfZGV2aWNlX21hdGNoX2RhdGEgc2hvdWxkIGJlIGNoZWNrIGFsc28uCgo+Cj5D
+b25zZXF1ZW50bHksIGFuIHVubWF0Y2hlZCBkZXZpY2UgYm91bmQgdGhyb3VnaCBkcml2ZXJfb3Zl
+cnJpZGUgdXNlZCB0bwo+ZmFpbCBjbGVhbmx5LiBJdCBjYW4gbm93IGNhdXNlIGEgTlVMTCBwb2lu
+dGVyIGRlcmVmZXJlbmNlIHdoZW4gYSB2YWxpZAo+c3BpLXByZXNlbnQtbWFzayBwcm9wZXJ0eSBp
+cyBwcmVzZW50LiBUaGlzIHBhdGNoIHJlc3RvcmVzIHRoZSBwcmV2aW91cwo+ZmFpbHVyZSBiZWhh
+dmlvci4KPgo+Pgo+PkNhbiB5b3UgcGxlYXNlIHByZXBhcmUgYSBwYXRjaCB0aGF0IG1ha2VzIHRo
+ZSBkcml2ZXIgcHJvYmUgc3VjY2VzcyBieSB1c2luZyBkcml2ZXJfb3ZlcnJpZGUKPj5GZWF0dXJl
+PyBBbHNvIHBsZWFzZSBzaGFyZSBzb21lIGxvZ3MgdG8gc2VlIGhvdyBpdCB3b3JrcyBpbiByZWFs
+IGRldmljZQo+Pgo+PkNoZWVycywKPj5CaWp1Cj4+Cj4+PiAKPj4+IFJlamVjdCBkZXZpY2VzIHdp
+dGhvdXQgbWF0Y2ggZGF0YSBiZWZvcmUgcmVhZGluZyBkZXZpY2UgcHJvcGVydGllcy4KPj4+IAo+
+Pj4gRml4ZXM6IDJlNDQ1NTViMDVjMCAoInBpbmN0cmw6IG1jcDIzczA4OiBTaW1wbGlmeSBwcm9i
+ZSgpL21jcDIzczA4X3NwaV9yZWdtYXBfaW5pdCgpIikKPj4+IFNpZ25lZC1vZmYtYnk6IEppYWxl
+IFlhbyA8eWFvamlhbGUwMkAxNjMuY29tPgo+Pj4gLS0tCj4+PiAgZHJpdmVycy9waW5jdHJsL3Bp
+bmN0cmwtbWNwMjNzMDhfc3BpLmMgfCAyICsrCj4+PiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0
+aW9ucygrKQo+Pj4gCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9waW5jdHJsL3BpbmN0cmwtbWNw
+MjNzMDhfc3BpLmMgYi9kcml2ZXJzL3BpbmN0cmwvcGluY3RybC1tY3AyM3MwOF9zcGkuYwo+Pj4g
+aW5kZXggYmFjZWJjZmY2N2VmLi45MjYwMzRmY2Q1MTIgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJz
+L3BpbmN0cmwvcGluY3RybC1tY3AyM3MwOF9zcGkuYwo+Pj4gKysrIGIvZHJpdmVycy9waW5jdHJs
+L3BpbmN0cmwtbWNwMjNzMDhfc3BpLmMKPj4+IEBAIC0xNDYsNiArMTQ2LDggQEAgc3RhdGljIGlu
+dCBtY3AyM3MwOF9wcm9iZShzdHJ1Y3Qgc3BpX2RldmljZSAqc3BpKQo+Pj4gIAl1OCB2Owo+Pj4g
+Cj4+PiAgCWluZm8gPSBzcGlfZ2V0X2RldmljZV9tYXRjaF9kYXRhKHNwaSk7Cj4+PiArCWlmICgh
+aW5mbykKPj4+ICsJCXJldHVybiAtRU5PREFUQTsKPj4+IAo+Pj4gIAlyZXQgPSBkZXZpY2VfcHJv
+cGVydHlfcmVhZF91OChkZXYsICJtaWNyb2NoaXAsc3BpLXByZXNlbnQtbWFzayIsICZ2KTsKPj4+
+ICAJaWYgKHJldCkgewo+Pj4gLS0KPj4+IDIuMzQuMQo+Cj5DaGVlcnMsCj5KaWFsZQo+Cg==
