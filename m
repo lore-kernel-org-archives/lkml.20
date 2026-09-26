@@ -1,183 +1,152 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805183DB655;
-	Sat, 26 Sep 2026 09:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36083DCD86
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:59:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790416509; cv=none; b=euh54/+Q5dF79um4bMioDTYR5cGIUnkjmdfoFshbIv25oWe4g8tIMBv1KtmOTxhgwwbxePvGnNuikEyyoMSAs/qNeEcoKP2it1QCLbqVtzsoAbB5vD/ekioDl5LDsXGZnbU6AYYGrvSLunXX/+sCgWCTBGTvWRcxgvrojSJD+Z4=
+	t=1790416770; cv=none; b=LuIy5AUt9+PY6zNm1CWIOSZC5TV5xmF+C+7nXwzX6gUi9lUgWI0uscKlXZAZUwTTVrfuykzqm/INAPrrEBRVCsMJa4JsmPCX6nXH6cmKPBkFhEqtAjJHTaA65Wee2etcPfyv41/VWJOL0l5H4Rd7QALKpYHG7l77/d3waRfGXe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790416509; c=relaxed/simple;
-	bh=d3yPoZPNCzeh+K127bR9RSO6Nj48iTjKgG7zkSD1icM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B1q0V/UMyevc2clsL/dDfYdvg4dru3xdoGUlTA8K23CSQmQVht+sRljxhYjUaweoHAOVXsQ0ZPyi34u8aRWA1/EsPMnB7oTn7cOfAS/5tJbCJFeJUmXPdi1X5Dyb/6zAu7xs5MxEEA7CF3cnBVPcnLqXRtwssslMQ11GiQ8F/QU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=sHRtMZAA; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790416770; c=relaxed/simple;
+	bh=i9bpAEGVHwsXNKL7VeERnZnRJZ7gmhLKwXwJddo1pws=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=q/wQuaZ3Qauoth7nubuLGsjvsBJILx+nZQ9+975OdmUxIM7wyHOVORgDaj/LQ5z4vA9nKXLpIHWkWuWBYs6io6JiXfwEip3w976h0bqA/PiPYWhVUUkI7WFnxlyebt+xMcsEHPoamuEVwer1a2hkrp1ELjUXkvn5cDL4qfWpfrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CFZ77hNq; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="sHRtMZAA"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id D5D9C5340CEE;
-	Sat, 26 Sep 2026 11:55:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790416504;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=32rpdRY1d+z3I43eDHyo/Txi1c6izkB8dW4wsRXOcy4=;
-	b=sHRtMZAAldTESvErMIFIB/BeSlgtma36U9wm1GorQc/UZg7tqznuPif/K+9E798gsxA+V4
-	Ib2lA1n86HZDSv3rNI9YM/+TKmXPOVWUiiY7zFT/TmhVtJkm9/1XWt7m75Cm6c6lwqeBWB
-	fEUTlc9ZvifG2qaaStCoQi85zjRZxRk=
-Message-ID: <187c9ec1-03fe-40a8-8c97-415b1a7aac23@ixit.cz>
-Date: Sat, 26 Sep 2026 11:55:03 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CFZ77hNq"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15b78so1403560e87.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:59:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790416765; x=1791021565; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aairqCQlQgiewQXylukFVs+L06uHBEYrUeNsgl4jBIo=;
+        b=CFZ77hNqdSsTiszi+6s7O9KYSdzC8Rh45z5ixFbG23jhVrWNhkxw5me5PZT6qVjQxF
+         vhpDMHJC4A453OzizhVd6hMHd9sCe8alUC/E8WEL2cz4+g76ae+8nHBG/93SjSVfIt4t
+         /PnSb7rZgIO/8t8O/Zdqmw7Fum6wWSg4fqIsfSULlC/QkXJBREEKiRi+dqGaRa4GLOye
+         7Imhk4b8gUXkZrjt57nr9ozjGVz6FRZvj0j67qNMwqIJROwwlDRn6+jmtPwbEdCRfs2E
+         szGA1471hBb3ERpo6mnTKbImmYETlXJm6q5/cmJmMPcQpxnpqlSsJu04yH5fGRQBggas
+         8QiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790416765; x=1791021565;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aairqCQlQgiewQXylukFVs+L06uHBEYrUeNsgl4jBIo=;
+        b=XSmI0A9upukXNViZNYf33cUTGqCKlEoIsOkUG7iDGdYgbk2WNI2X8COczGqkbxXxq8
+         /dcFYd5JKYtqg7Ocnjwz9HZExr8HJq/99N3Z3CvwFEHrwgoR5VNiOGydcEIULEy1NTfm
+         GdcVishl9JuqQMkmHMNgPPCQBtAhVueHbmyfpTNhIVx2OSAG1tyZUqL0qpS2J8qPtbG3
+         RwJi/jzXcguJbWX3E+iCwSeWXh/9uoyYnjtwQyHorOaFjwsMhAHIrfpJSG79E4NeV+xR
+         Ee9qV+p8U+tNMHeI+7+GvJHx/7lXuPUIx59cCrzrpfxh24NLFpb86ruNbwfREuf6wCfm
+         +5dA==
+X-Forwarded-Encrypted: i=1; AKwUvBzNI9oOSpfP3//WFVp80uW4SFh04PH0HPLgc5w/IF50lnYyIpPQ08UhGpd2BVu5wrH7do+2TVZDouZu8nc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFTPkcJyxgiowYrDrfS/67WJwGz1/qJmphZypmU1bNIuzia1cS
+	hbw7+AKvCxM0OwJYTXaH13MUyqOzwCk23lHIJdWCaV34QtZshioO8T9S
+X-Gm-Gg: AYBFou0ONKn+z4ovcRwyHLr1c1HFXPBNsm0oZ5q/VUdNa8NiiRb0jDyprGR/WaLExoE
+	1z0yGgXBuO3zwIxaz1UDMoXocBH1LyHtIqJpy+5maZOVcpeOSCKuxp3GpYINLmcvcQYJtADl3q5
+	hm5/CUDSAjXNlYuhghID5wGgJn22Tzcurt60xOKy481fjywGc8Aw0rxieZ2TTU3a/CuvpYq3Viv
+	r9q0nVu+NT5p2bqiwFCsc7NlgZa3clnzEDXHZGSRsSYJZkxIfFeWOlgs3HJEUA9mkS6r8B443yQ
+	gCRSxqpOaarXnJmqbBmtr6zsmeQV+tyMZGDLz4KpZiL+5lDYOc8Bv6wEgfgGX1zQ01ewLg8L8Fm
+	KILxKCh9nLbNHWNkUPTeU1EYuki+JI1ue9yG8XyckXS6tLTWxmLZ5MlehEFDRiIas83V2+OAOFY
+	u7x3plqC7RT7StnwoedFByU+JATZlet5E1rgBvUeF7Ty++sg0sgExp1HDhruZFymrB7utguUi7e
+	Fs=
+X-Received: by 2002:ac2:4646:0:b0:5b6:67b3:9f74 with SMTP id 2adb3069b0e04-5b8df0d4463mr2426298e87.5.1790416765142;
+        Sat, 26 Sep 2026 02:59:25 -0700 (PDT)
+Received: from arfa-server.perm ([37.114.244.211])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8e6ae5fbdsm1157522e87.14.2026.09.26.02.59.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 02:59:24 -0700 (PDT)
+From: Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
+Subject: [PATCH] selftests: ALSA: Skip tests when devices are unavailable
+Date: Sat, 26 Sep 2026 09:57:56 +0000
+Message-Id: <20260926095756.2051290-1-arfa79lg@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Input: s6sy761 - fix resume ordering and restore sensing
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Andi Shyti <andi@etezian.org>, Rob Herring <robh@kernel.org>,
- Marco Mattiolo <marco.mattiolo@hotmail.it>, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260923-s6sy761-suspend-v1-1-6fff96e71cb0@ixit.cz>
- <ardMSVsG1RlOOkNp@google.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <ardMSVsG1RlOOkNp@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26/09/2026 06:40, Dmitry Torokhov wrote:
-> Hi David,
-> 
-> On Wed, Sep 23, 2026 at 03:27:06PM +0200, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> System suspend powers the controller off and resume powers it back on,
->> but the resume path enables the interrupt before s6sy761_power_on()
->> checks the boot. The firmware raises its boot-complete event on the
->> interrupt line, the threaded handler consumes it, s6sy761_power_on()
->> then reads an empty event and resume fails with -ENODEV, skipping the
->> touch function setup:
->>
->>    s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
->>
->> Power the chip on first and only then unmask the interrupt. Once resume
->> completes the boot handshake the chip comes back with sensing off, as
->> at probe where input_open() turns it on, so the touchscreen stays dead
->> after resume. Send SENSE_ON again when the input device is open.
->>
->> Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
->> the touch function and sense status match the pre-suspend state.
->>
->> Assisted-by: LLM
->> Cc: stable@vger.kernel.org
->> Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   drivers/input/touchscreen/s6sy761.c | 11 ++++++++++-
->>   1 file changed, 10 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
->> index 0f24a9b730635..c52c45a7d1029 100644
->> --- a/drivers/input/touchscreen/s6sy761.c
->> +++ b/drivers/input/touchscreen/s6sy761.c
->> @@ -495,20 +495,29 @@ static int s6sy761_suspend(struct device *dev)
->>   	s6sy761_power_off(sdata);
->>   
->>   	return 0;
->>   }
->>   
->>   static int s6sy761_resume(struct device *dev)
->>   {
->>   	struct s6sy761_data *sdata = dev_get_drvdata(dev);
->> +	int err;
->>   
->> +	err = s6sy761_power_on(sdata);
->>   	enable_irq(sdata->client->irq);
-> 
-> Why are we enabling the interrupt even if power on failed?
+A kernel built without CONFIG_SND exposes no ALSA devices. In that
+environment, the mixer and PCM tests currently report success with a
+zero-test plan, while the userspace timer tests fail when opening
+/dev/snd/timer. Neither result accurately describes an unsupported test
+environment.
 
-originally I moved the enable_irq after condition, but LLM kept convincing me 
-it's wrong:
+Report KSFT_SKIP when no sound cards are detected and when the timer
+device is unavailable. Keep the PCM missing-card failures when a matching
+hardware configuration says that a card should exist, and continue to
+fail timer opens for unexpected errors.
 
-enable_irq() still runs when power-on fails. That is correct, because the next 
-suspend or unbind calls disable_irq() again through s6sy761_power_off(), and the 
-two calls must stay paired.
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=218479
+Signed-off-by: Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
+---
+ tools/testing/selftests/alsa/mixer-test.c  | 2 ++
+ tools/testing/selftests/alsa/pcm-test.c    | 2 ++
+ tools/testing/selftests/alsa/utimer-test.c | 6 ++++++
+ 3 files changed, 10 insertions(+)
 
-In case of failure the power_off will be run anyway, thus it make sense to me.
-
-> 
->> +	if (err)
->> +		return err;
->>   
->> -	return s6sy761_power_on(sdata);
->> +	guard(mutex)(&sdata->input->mutex);
->> +
->> +	if (!input_device_enabled(sdata->input))
->> +		return 0;
->> +
->> +	return i2c_smbus_write_byte(sdata->client, S6SY761_SENSE_ON);
-> 
-> Explicit return err/return 0 please - there are multiple failure points
-> in this function.
-
-Sure, I'll send next version making the explicit return.
-
-David
-
-> 
-> Thanks.
-> 
+diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
+index 6edffcd6f..ab70645d5 100644
+--- a/tools/testing/selftests/alsa/mixer-test.c
++++ b/tools/testing/selftests/alsa/mixer-test.c
+@@ -1378,6 +1378,8 @@ int main(void)
+ 	ksft_print_header();
+ 
+ 	find_controls();
++	if (!card_list)
++		ksft_exit_skip("No sound cards detected\n");
+ 
+ 	ksft_set_plan(num_controls * TESTS_PER_CONTROL);
+ 
+diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
+index ee04ccef7..de07de650 100644
+--- a/tools/testing/selftests/alsa/pcm-test.c
++++ b/tools/testing/selftests/alsa/pcm-test.c
+@@ -613,6 +613,8 @@ int main(void)
+ 	conf_load();
+ 
+ 	find_pcms();
++	if (!card_list && !conf_cards)
++		ksft_exit_skip("No sound cards detected\n");
+ 
+ 	for (conf = conf_cards; conf; conf = conf->next)
+ 		if (conf->card < 0)
+diff --git a/tools/testing/selftests/alsa/utimer-test.c b/tools/testing/selftests/alsa/utimer-test.c
+index 1a9ff010c..07aeaa777 100644
+--- a/tools/testing/selftests/alsa/utimer-test.c
++++ b/tools/testing/selftests/alsa/utimer-test.c
+@@ -51,6 +51,9 @@ FIXTURE_SETUP(timer_f) {
+ 	self->utimer_info->resolution = (NANO / FRAME_RATE * PERIOD_SIZE);
+ 
+ 	timer_dev_fd = open("/dev/snd/timer", O_RDONLY);
++	if (timer_dev_fd < 0 &&
++	    (errno == ENOENT || errno == ENODEV || errno == ENXIO))
++		SKIP(return, "ALSA timer device unavailable");
+ 	ASSERT_GE(timer_dev_fd, 0);
+ 
+ 	if (ioctl(timer_dev_fd, SNDRV_TIMER_IOCTL_CREATE, self->utimer_info) < 0) {
+@@ -156,6 +159,9 @@ TEST(wrong_timers_test) {
+ 	};
+ 
+ 	timer_dev_fd = open("/dev/snd/timer", O_RDONLY);
++	if (timer_dev_fd < 0 &&
++	    (errno == ENOENT || errno == ENODEV || errno == ENXIO))
++		SKIP(return, "ALSA timer device unavailable");
+ 	ASSERT_GE(timer_dev_fd, 0);
+ 
+ 	utimer_fd = ioctl(timer_dev_fd, SNDRV_TIMER_IOCTL_CREATE, &wrong_timer);
+-- 
+2.34.1
 
