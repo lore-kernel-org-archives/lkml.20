@@ -1,111 +1,147 @@
-Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1810446C4B0
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA5444CAE6
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:55:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790430899; cv=none; b=bCpPohfwUzx9qt5sZaJeVdb3mUCE+qjMVrCoGJTV+sq/cGx80smAy6ZF2zhKp8raMVQhyxDkFFs/n25ob1kPoS8K+UZ/TCkPusIK3kIS1lXKAX1s3WsoLWbFOnZutnxsD9KbHV7PcMkJjhkHChWoFl22ywiPYvrfxCRYUSxBkoc=
+	t=1790430936; cv=none; b=scKpMRUnjq26F/lxE6yoM2XlX+Fdrl5a04cP0K3DfV0okaIuHhyjLZ5Hp0Axpt9b8O++iFam0dBXOTrdfQ3BHiH1k1v/gi6Jgpbz+HggWe5hAKQNuYdtoum4n503PtXcF9v72nlsVi7r7DOnBE4Dqqm3RBRBDeQGxg+C0I+KUrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790430899; c=relaxed/simple;
-	bh=uV1gUFauIFFwAoGKortGYvqxA0j9X10wY+UMtq1n/tI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Mwar/WZboo4/pDfRhYW+EjZU1ZxyJSWBq+HQSZ1qncURVLuxrRIwM6wuAzHhKrVgEGtF0WShQ1LYT7hC7WnEYfqrWYd0AumXgCjoAUv/rCyVJKp17D5bAKD0sqZS5PYDaY1H7WEADzFg2d50SraEtlT+0OLiBqnvOaCSz3cfzyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dQUix9nl; arc=none smtp.client-ip=95.215.58.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790430936; c=relaxed/simple;
+	bh=YSm7PDSD7YQ5Kyna8L6yagS8jxKfWLhHBOiXFGWWYtQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lMiT7BdXE3iOy1B/hh/FC+9XjsYrBF6r1UeRotpibjwwWC6FgfCTbP6WQuUOhu+LS+6jc0UyhtwwvNHwdoIJ93crbHyzboT14h7YKsZY9CfYWKZUgMBWbqaNo32HJgufXknjBvzrM0G/aKjBxXdDpb/1E0uGX+kgoTBroLG/LIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=M/ePmRZy; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dQUix9nl"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uV1gUFauIFFwAoGKortGYvqxA0j9X10wY+UMtq1n/tI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790430891; v=1; x=1791035691;
- b=dQUix9nl7kfSRHqYaveCa8n9y1UUKHqJlupSsz1zkd602LFPeWfO57j7A1I8RpZykey83A+q
- UjC7vAuNZzqBcCbs2Hnqy2C3cNC1A40kgJvSKCe6yAuLeHIaHm0KPhFVlmD57aY2KHKrJx+TzBR
- Vb4Pxeo0smAsOhzi7aGxWLm0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ca2b2b4202485a3a;
-	Sat, 26 Sep 2026 13:54:50 +0000
-X-Mizu-Trace-ID: ca2b2b4202485a3a
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="M/ePmRZy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ot
+	yj80G23cc+R05rO+2Y+56r/yE3PniSD5GFFqBi3OE=; b=M/ePmRZyu4u6gmRp81
+	FsN6EpNyFpzq4FiFxpsFfHnUcoPTEX0HonzWp4U/apr5DRgeNE15y3EeIazUA68j
+	uIPbOVpMphNHIQxmDL11F3G49zKpmu2TQZ6QwHPafz1dcoyKoYJx7lF0zACBpnff
+	zLx5yQZ5hyOaGqtzlgGob5Nf8=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgAH11JzzrdqHnkHBg--.10131S2;
+	Sat, 26 Sep 2026 21:53:56 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	ZhengYuan Huang <gality369@gmail.com>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] ocfs2: validate filecheck inode slots
+Date: Sat, 26 Sep 2026 21:53:53 +0800
+Message-Id: <20260926135354.3420193-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 26 Sep 2026 13:54:45 +0000
-Message-Id: <DLPAS1T6DHBE.LUGVFAKFRVSG@linux.dev>
-Cc: <martin.lau@linux.dev>, <eddyz87@gmail.com>, <memxor@gmail.com>,
- <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
- <kpsingh@kernel.org>, <john.fastabend@gmail.com>, <leon.hwang@linux.dev>,
- <zirajs7@gmail.com>, <rhkrqnwk98@gmail.com>, <puranjay@kernel.org>,
- <xukuohai@huaweicloud.com>, <iii@linux.ibm.com>, <hbathini@linux.ibm.com>,
- <chleroy@kernel.org>, <naveen@kernel.org>, <bjorn@kernel.org>,
- <pulehui@huawei.com>, <yangtiezhu@loongson.cn>, <hengqi.chen@gmail.com>,
- <linux-kernel@vger.kernel.org>, <martin.lau@kernel.org>,
- <eddyz87@gmail.com>, <yonghong.song@linux.dev>, <mason@kernel.org>,
- <ihor.solodrai@linux.dev>
-Subject: Re: [PATCH bpf v4 1/3] bpf: Wait for an RCU tasks grace period
- before freeing trampoline progs
-From: "Florent Revest" <florent.revest@linux.dev>
-To: <bot+bpf-ci@kernel.org>, <bpf@vger.kernel.org>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>
-X-Mailer: aerc 0.17.0
-References: <20260925100342.481242-2-florent.revest@linux.dev>
- <22e95dbf944bdf6b657249657e884617f79972a92430f17abd47c472797ec4ff@mail.kernel.org>
-In-Reply-To: <22e95dbf944bdf6b657249657e884617f79972a92430f17abd47c472797ec4ff@mail.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgAH11JzzrdqHnkHBg--.10131S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr17KFWfZry7XF4xKr15urg_yoW5uFW5pF
+	1a9r1agr18GF1xu3Z3t34UXr1Skw1rWry7GFsaya45Xrn5tF9Fkas5Ary7WFyftr90q3W2
+	9a15ZFW7u34xuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEubyLUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BRZk2q3znStPgAA3a
 
-On Fri Sep 25, 2026 at 10:47 AM UTC,  wrote:
-> > diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-> > index 1d2676782d70..d4f732996b47 100644
-> > --- a/include/linux/bpf.h
-> > +++ b/include/linux/bpf.h
-> > @@ -1770,6 +1770,7 @@ struct bpf_prog_aux {
-> >  	bool offload_requested; /* Program is bound and offloaded to the netd=
-ev. */
-> >  	bool attach_btf_trace; /* true if attaching to BTF-enabled raw tp */
-> >  	bool attach_tracing_prog; /* true if tracing another tracing program =
-*/
-> > +	bool tramp_linked; /* true if it was ever called from a trampoline */
-> >  	bool func_proto_unreliable;
->
-> Does this comment accurately describe when the flag is set?
->
-> Looking at bpf_trampoline_add_prog() in kernel/bpf/trampoline.c, the
-> flag is set at link time, right after hlist_add_head():
->
-> 	hlist_add_head(&node->tramp_hlist, prog_list);
-> 	node->link->prog->aux->tramp_linked =3D true;
->
-> This happens before bpf_trampoline_update() has generated an image that
-> could call the prog. If bpf_trampoline_update() then fails,
-> __bpf_trampoline_link_prog() calls bpf_trampoline_remove_prog() and the
-> flag stays true even though no trampoline ever called the prog.
->
-> Setting the flag conservatively is correct for the free path, since it
-> only adds an RCU Tasks grace period. But the comment describes a
-> different condition than the one the code tracks. The field name and the
-> commit message both say "linked to a trampoline".
->
-> Would something like /* true if it was ever linked to a trampoline */
-> match the code better, and stop a later reader from assuming the flag is
-> only set once a trampoline image has actually run the prog?
+The online filecheck path reads inodes with
+ocfs2_filecheck_validate_inode_block() instead of
+ocfs2_validate_inode_block().  It does not check the slot fields that
+are used as indices into arrays sized by osb->max_slots.
 
-Done in v5.
+A corrupted dinode can set OCFS2_ORPHANED_FL or
+OCFS2_DIO_ORPHANED_FL while carrying an out-of-range orphan slot.  An
+out-of-range i_suballoc_slot can also bypass the normal validator
+through the filecheck path.  These values can later be used to index
+the slot-local system inode array.
 
-> [ ... ]
->
->
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a =
-bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
-E.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/361228=
-63248
+Mirror the normal validator's slot checks in the filecheck validator.
+Reject invalid slots in the repair path as well, since the correct
+slot cannot be recovered.
+
+Fixes: bb88131c9831 ("ocfs2: validate DIO orphan slot during inode read")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ fs/ocfs2/inode.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
+
+diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+index 180107a11046..ab82cf9146ef 100644
+--- a/fs/ocfs2/inode.c
++++ b/fs/ocfs2/inode.c
+@@ -1754,6 +1754,44 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+ 	return rc;
+ }
+ 
++/*
++ * Validate the slot fields used as indices into arrays sized by
++ * osb->max_slots.  The filecheck path uses this validator instead of
++ * ocfs2_validate_inode_block(), so it must enforce the same bounds.
++ */
++static int ocfs2_filecheck_validate_slots(struct super_block *sb,
++					  struct ocfs2_dinode *di,
++					  unsigned long long blkno)
++{
++	struct ocfs2_super *osb = OCFS2_SB(sb);
++
++	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
++	    (u32)le16_to_cpu(di->i_suballoc_slot) > osb->max_slots - 1) {
++		mlog(ML_ERROR,
++		     "Filecheck: invalid dinode #%llu: suballoc slot %u\n",
++		     blkno, le16_to_cpu(di->i_suballoc_slot));
++		return -OCFS2_FILECHECK_ERR_INVALIDINO;
++	}
++
++	if ((le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
++	    le16_to_cpu(di->i_orphaned_slot) >= osb->max_slots) {
++		mlog(ML_ERROR,
++		     "Filecheck: invalid dinode #%llu: orphaned slot %u\n",
++		     blkno, le16_to_cpu(di->i_orphaned_slot));
++		return -OCFS2_FILECHECK_ERR_INVALIDINO;
++	}
++
++	if ((le32_to_cpu(di->i_flags) & OCFS2_DIO_ORPHANED_FL) &&
++	    le16_to_cpu(di->i_dio_orphaned_slot) >= osb->max_slots) {
++		mlog(ML_ERROR,
++		     "Filecheck: invalid dinode #%llu: DIO orphaned slot %u\n",
++		     blkno, le16_to_cpu(di->i_dio_orphaned_slot));
++		return -OCFS2_FILECHECK_ERR_INVALIDINO;
++	}
++
++	return 0;
++}
++
+ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
+ 						struct buffer_head *bh)
+ {
+@@ -1835,6 +1873,10 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
+ 		goto bail;
+ 	}
+ 
++	rc = ocfs2_filecheck_validate_slots(sb, di, bh->b_blocknr);
++	if (rc)
++		goto bail;
++
+ 	if (ocfs2_dinode_has_size_without_clusters(sb, di)) {
+ 		if (S_ISDIR(le16_to_cpu(di->i_mode)))
+ 			mlog(ML_ERROR,
+@@ -1893,6 +1935,9 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
+ 		return -OCFS2_FILECHECK_ERR_VALIDFLAG;
+ 	}
+ 
++	if (ocfs2_filecheck_validate_slots(sb, di, bh->b_blocknr))
++		return -OCFS2_FILECHECK_ERR_INVALIDINO;
++
+ 	if (le64_to_cpu(di->i_blkno) != bh->b_blocknr) {
+ 		di->i_blkno = cpu_to_le64(bh->b_blocknr);
+ 		changed = 1;
+-- 
+2.34.1
 
