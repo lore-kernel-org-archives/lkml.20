@@ -1,44 +1,44 @@
 Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazolkn19010006.outbound.protection.outlook.com [52.103.20.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA10A430CE7;
-	Sat, 26 Sep 2026 12:26:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFA6439F83;
+	Sat, 26 Sep 2026 12:26:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.6
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790425581; cv=fail; b=ITp4haTY3FB5+XpdgZuRihx3/EmaaoLV6Qj1vzAA0RvuftvpiiE6QOQZzvRrQKtuU7XjNI0Ey5MG8SguMa0mTw6n7FwK2RlDndSrbdWx02C/uIaNr+TC9diPb/C7tpmzRCIoXfCsMKsnc6vqoNZ2JojxWpLRMayCJV6R4HkMa68=
+	t=1790425583; cv=fail; b=ktYexAeqMxA3Wyllkpzywkb5tj1rMRP8OJ40Wfrr4oVe3pyJvY3nErTq0+33ZR0f4CRPURArmJj2basF4zg4dkFw5HdyWQgfaiUS8ueSpgnijlpXoRv/BNsSqTf/UeinDCFZLB4HQ7+NOhXHqdR5Btai6qchVJX9USZzPdwi00o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790425581; c=relaxed/simple;
-	bh=PnFQTRdwOhGfoK+gUl5CeKcOyTtqLRTumU6AuHuvSQU=;
+	s=arc-20240116; t=1790425583; c=relaxed/simple;
+	bh=05viHTut1JNsCjLkx06Z6e4ctMWWoRYG1cYvxU0nEgc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VKInwCqxfIsj01Pto/YEnZxDPTOKBpLyfnNSPzaT4aCAyJKPqqYKjJrLCHEk9YnUOO1tMPWfFIutfF4svtZ2iISqjkhKUJC7gfPg8OJ27ZbLD/OXPgj6TwhyOwNJ6H7YlFfWanr5ktySF7neMRAPQ12RUCpPyXe2YlWUCeS11qM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it; spf=pass smtp.mailfrom=outlook.it; dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b=jBpLQaUW; arc=fail smtp.client-ip=52.103.20.6
+	 Content-Type:MIME-Version; b=UVEYPUoi9iG5V3TeNpgl2+I2JTOmE3gi2yKztl1wqrvl4CInHPbe+LjbCOcnF/rhWFCL8vmAK/BtgpesQ4KHe1c60Fg6qdwvxpkmckR3WdEEsyPeBPGtP25E1kgLrpADCJOjnm1af9u/2VYqEuhazvxpFusNEoLdhUmgXPJBpY4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it; spf=pass smtp.mailfrom=outlook.it; dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b=VRJbkDRE; arc=fail smtp.client-ip=52.103.20.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b="jBpLQaUW"
+	dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b="VRJbkDRE"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pM5dsV6FXFiixz8lt9gJIjl5iBIY+z/iOrja9/GGO13d8Q3xfpJFSWtXPXtNjpTiTTa2vCzB5PJw3H4zxnDB6rE+oSz277Q/3xND+on2d/hE+nVssazZbc4sBpWklWI24rb0k39GeQunMewGVmBMNdJMako+BpdGpj2HiptPwWEOuL4wkPOabt7m2rVGZaJ8tflLHuY7DPzzJ+8qpoUPtaXsgg3JzNnjzGfYd/UyVU6DKzVEHRBtomVjsFhbIhTnArGlRN0KDtNr1ylwQHEHPRK+Cqo6wU6Qg+gLo5UcFcfo5khUROp5YuHwrlEI5t9d7/ORfhat2tJCHdIj99afeQ==
+ b=c5hY3Zb0oylFA8LHlqhGT3/YSqrk95HbM7zVkeHEa8sdmbNmhlKXAa0570GyP1jtlPIigbMY8Ya6ru8F+G3lsokko/zfzZDCcRz3DbhXAJhRXcHjyhKHDH320KTdKT14FktulO3uCZD87t2fxI6+H15/Co+ghLhV5u1yKjAVnp1VNH1MNteSAcE7GXDhNxDi5OxcLBuJ4SSExAu3oC2dumV0w8VGBCOeh8vYK42IaoZj4bfeS2/DG2agROIASpWkBMG/UPdVpU5cVGrM3qbDjZp6/5DOcgTm1OCqGVyfl5M59LelSHIGW8KSl3DgM4ONitDsBn32cIBSI4IpZx8zqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9SNkUe3yf0j2yXboEnTp26NFC8zZ6RC14hSwq9fbNhc=;
- b=K8eg5K8K7frdIFQHwoPc12S7n1TTg/zGXdx9iDHliRgm5qvIFj58sfPAlO+PP5vrK47XcedIF3bihgOIp+UcSr9W1xJwRqFIsZkwOu+fAFNbTFrg+qhlnTE/XOoiqGT360x2m9ro79SkXUFCYHltRfccfHHhgp9RTFNQohepjhtJOK42bOszRuAZAhzW+hGnHicAJ3fWui/LwvLSe+9YRxksoT+zDGw2G1+YECqiISkX2H3D9eyJsDvEqCltCf97+FTb/BynXRoMzqQh9tnu7GnvioevYMtl30Qprm0TjDVXtVqrqb1Ol6OIC+KbXcPbTn0ogoCkHx2FzqQ91NtsbQ==
+ bh=8EoPO6DArVar1Ew8GfY87cW+RW4s31b1cUcjI6uq+8s=;
+ b=BxrLE98JSottLAYaQuTp6/eLd12Wmga0XqcCPTgUG3U9U3lX78feS/KeJx6vV/i17KrPXtZ5nfm5k2CoIn+8nSTnuJDngfGpYOUYru8Vgq+TCvSBUV8O0/h00nzgNNeXmau65NqUCpUG14l7cM72H/hVfpL/tRgEIcsOYZRMuchEG6akxwaEslhTgyzu9CthQCzGwT6q+ZKIqnrMsByVEfFWcvjuWuqAok/+jkpdY05CcS0PaX40V1AN1VXEO/WJ0En5SEBZtok+boF/xDfHX7ZkgcQ5yKkoTcYVTDBn/zGFi+UW1PLuWn6/zre5WwgPQnpvlljg+SMxRU8m42cf7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IT;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9SNkUe3yf0j2yXboEnTp26NFC8zZ6RC14hSwq9fbNhc=;
- b=jBpLQaUW3yCpLY0iD2wFqllFQ2Y97Ll5V2CdHuaraVwkGcS5nQ3VU+sK9Q51st/oQQrqQDElkSGNSTMgE/DEKo5TWcvjjswCKvzmBzNR61R5BeuLgVF8kYzAPiGPqJjR5MzjeoIjYw9DKNKmCiEmIIiyZVrDGdD7/vIdp822RnVjPawkop7auENWT5twUhzyjGj4dEM7SEPL1TIhLzjhs/MLP4L4afkjkVl+F9AzsULRvK/a+Hdc0FAxYQ7iVjqsn+CBzrBT7boWYKVV5BzsffsoCnICjLujpu9g6jIveQeHK5Lqw2STAWxsnXu0HAQxcWED56D4+ZcuKmvV1k47Tg==
+ bh=8EoPO6DArVar1Ew8GfY87cW+RW4s31b1cUcjI6uq+8s=;
+ b=VRJbkDREMTnfG2XEH4c0SFaD1Hcyhm0vOh2nyIsWXVRm4Bn6vMO0zR3GiWzO7yM4oTkTyLXXM3rqtpcGg5Y5YtX9nDXIJxEaSxQuvfNJc4hfJGmawo3Wi0AidGPx0oT5Rmf2MDJDFx62Njn7KwSSVjWz928L19aNRhLy8WMVJDc2sOr4F5a5dCsTuRUARKg6fPbDHMp1MtGhmRciGSvec+OJx4/vjfQ/IdcUqdENtb0SyA2ijt5fiPx/MJBNE3rxuvUx/70K5GaBDfAg+iERzmSev4WCHIVgKbByOtwtCTcQ0aahbFpqytFQXXnNNyekeH+oS6EQIqA/6dCOgtao3Q==
 Received: from SN6PR19MB2303.namprd19.prod.outlook.com (2603:10b6:805:56::19)
  by PH9PR19MB278024.namprd19.prod.outlook.com (2603:10b6:510:3ed::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
- 2026 12:26:17 +0000
+ 2026 12:26:19 +0000
 Received: from SN6PR19MB2303.namprd19.prod.outlook.com
  ([fe80::805c:7f80:c69f:876a]) by SN6PR19MB2303.namprd19.prod.outlook.com
  ([fe80::805c:7f80:c69f:876a%5]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
- 12:26:17 +0000
+ 12:26:19 +0000
 From: Marco Giunta <marco_giunta@outlook.it>
 To: Mark Brown <broonie@kernel.org>
 Cc: Liam Girdwood <lgirdwood@gmail.com>,
@@ -47,10 +47,10 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Marco Giunta <marco_giunta@outlook.it>
-Subject: [PATCH 1/2] ASoC: aw88399: skip BSTS check when boost converter is bypassed
-Date: Sat, 26 Sep 2026 14:25:58 +0200
+Subject: [PATCH 2/2] ASoC: aw88399: remove bsts_unreliable workaround
+Date: Sat, 26 Sep 2026 14:25:59 +0200
 Message-ID:
- <SN6PR19MB2303FF1922BF5F876378066FFC8F2@SN6PR19MB2303.namprd19.prod.outlook.com>
+ <SN6PR19MB2303CC64AF7DEC3C5C98A512FC8F2@SN6PR19MB2303.namprd19.prod.outlook.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <SN6PR19MB230304C2E75499FE23B53885FC8F2@SN6PR19MB2303.namprd19.prod.outlook.com>
 References: <SN6PR19MB230304C2E75499FE23B53885FC8F2@SN6PR19MB2303.namprd19.prod.outlook.com>
@@ -60,7 +60,7 @@ X-ClientProxiedBy: MI2PEPF00000B79.ITAP293.PROD.OUTLOOK.COM
  (2603:10a6:298:1::40d) To SN6PR19MB2303.namprd19.prod.outlook.com
  (2603:10b6:805:56::19)
 X-Microsoft-Original-Message-ID:
- <20260926122559.8062-2-marco_giunta@outlook.it>
+ <20260926122559.8062-3-marco_giunta@outlook.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,62 +70,62 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SN6PR19MB2303:EE_|PH9PR19MB278024:EE_
-X-MS-Office365-Filtering-Correlation-Id: 580af1f6-ced5-42a1-59c1-08df1bc95d12
+X-MS-Office365-Filtering-Correlation-Id: f35f15f7-42c6-4910-7db6-08df1bc95e28
 X-MS-Exchange-SLBlob-MailProps:
-	laRBL560oLSPhlJ95/U7v6W/AahuugGaX4k0U4lEj95z8x2OS32P0pRhB2fkYuaDy4n/Ip2n7UdfJPRjFQGWfCWsEQ6gNTwMDJ1m8tR2Nmflyu8H+f0qIzCOylAoJOsfHgEe9QT6yYsnXvZUNmoljy7yqQ3j/tAc8a253WskKRVkDNX7F1WJ80SxzHCeNL0/+fHgFzzLLIszlnPZBQOFfCw6O2x5MBuwTfwGz/o/szRo501UZeGYF2wIg9bfH0mavcK9JqsFpRDIJAHOlil8hpjNTg5o77FU1dwGciqaUJAswIkIVqoG0mqYBN/tNzcjprsi1xl2ySNi97huLGifqyxXhFwdkw+FCvIs8iG3FD9HWpdXIPp6BIrXNd1RWGWcDeV9nhRZSJ6GD9IeeHASjOLFxkuBIBeuCM6LalmPLLS383iEZBZajFKjpYdkRzji3m7j9yqluzMndJURHT7hHyeP9d5V739MPNci2oFKne9TAIiK0N7rvkvziRjY/W8NuLbpxrvhzETx1FM35y0yurmEyZTv1SYx79F+h1UNHc58bkS0g9ZjVoqRaLAyx8e/RjY7/sZzaQpKlIafUNFKdlj5FOXqVvlVhwl+FZ1JVyxqWHpkmwfYDPean6D5ekSrrNDLCIaj0cWoqoWkeQIE0WsoxkitK1sS2qySxge/wfmzqQ2SScEdv1xI9bO+U1VRrJnVYB9NJhaVkwBZ72yXXJAOgTBDdncm4p70TeJ8q74kl1L97jSteFcZgRYQmTmdkz5deWLnxlWnBtkct7NZYsrmQ7m8zkyT
+	laRBL560oLSPhlJ95/U7v6W/AahuugGaDCPNyN8s5H2lPGskYOewpRASOkLBCXVCvXvsx/3PfVBzo4qo+b8Y1ef4C5y8LHi3Y5qeCvU3bzl6wpBiuvL1p/s02zb0VZhcRtjac7N2Vqj272yf7A45QRmCNnTqdCBNigYkpBWcwphRWv/poCGbNHLCWQ1QnZFYyMh6iuwb6LtoiSiIj4xR2C1vH7lreKUWdBrK74N+dSKEqoZsBxTjfNbaGcu8MfSXU/PoTn63je+f7YzNnDVwuUSpY5513HMRzVSifv2K3hAesOBvXAiV/Qqu9gTz9/f65EJGVg87iLfWJ8cjmjb6qywicwx2YbptP4S8XQlX0wm5/0rvAQPxUYr9modkLLXlzF/NC+udveHdYgc4Vn97VjTd0VWtUMqzGtzosAL/mkfEOOP9YgH+V00blpeW0muohNQdtiot1VP6g8BNLOH1ya0A1ekINJMzTuM4QfdQ09tmRkp5Lz3ea6biet24VTnRxyvKo+3lkjNqy+6BmDMMP2SIKmyu976xStbB3AHWUiief42Hu3Ku+rP4tOAKofZL9egXBARQMcNySCmmLU3QaibIoIA1nWDQKqMfghGjspb7dFeGrMquHUCE8RVv7CZSdMbnViFWTJEGRsSRRdzd5dbmRJHHh96hL4bIutTWYOyuPOWs4cQj62UvpCCPsKQPzRl4NUpTyZ1AeuGEtHQyiLDe2nYLPitOupFvEOgxGvgKjFr07TebI5wzvVmriV/sCRhx1lcLMsMzvnaQvLMzm6nzUgjvHbor
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|12121999013|260925184616899003|41001999006|5072599009|23021999003|25010399006|15080799012|55001999006|51005399006|8060799015|19110799012|40105399003|2607281247196008|3412199025|440099028|19061999003|1710799026;
+	BCL:0;ARA:14566002|24021099003|12121999013|260925184616899003|41001999006|5072599009|23021999003|25010399006|15080799012|55001999006|51005399006|8060799015|19110799012|40105399003|2607281247196008|3412199025|440099028|1710799026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?l1vXrRnNuZ/ogF2JTDMYrIW+E839Di1w38mJH6FymGyEYyspKLwKq4DYajfO?=
- =?us-ascii?Q?e3SauEft54XoT/cpqkIB05cimuGWT27PaUaIhwNV9d59yMY19Z7KOU75fcu5?=
- =?us-ascii?Q?nV6aBIcaAosBjtvNQEe+21SI/I0mxCNQeHMVk1475O8Lry4lGV3fnUBUAdte?=
- =?us-ascii?Q?5JvwdT8/y/YOc397DllOgcgBli7Yn9XeVWh57+WWeowf2yxK38BIKhKNt6do?=
- =?us-ascii?Q?g5sb6To93WJNKCz+TvQHj+K+RU3wW8L/8Jn0pAXJpVXcxwx8wBwho5jyw6sF?=
- =?us-ascii?Q?VF2SbvoOL3YBtDy4Z8Es5eSESmm2Qed79kRWDbo2xo9YQogqE39vEVRkU7wu?=
- =?us-ascii?Q?URYzpdX3gCo7h66cSPq4Do74soSD0Pleox8kaKXS9210ZJ5yb7XcP8kOfLWD?=
- =?us-ascii?Q?fXDZpIAtWmWHQS/JRXqk0mnzzbz9lCgnY9+ZZqhyHrLFMvQToHBcf0GBKCgy?=
- =?us-ascii?Q?YrO0oh+qxPdUOgoKYuHUBS/qgNzsBhs15XLzA0nMng+A/eemUrxWpPr7daXP?=
- =?us-ascii?Q?ZE1a2zv+5H3AySXJnfdKmcQyt/Qk0qOinT/q6TDuPG9yzpyl3JmIfA4XYF96?=
- =?us-ascii?Q?THChvgrU08F48vKepOUltPlLD0LekItN1knBq+FREPbweaDyl23EMncYAg3o?=
- =?us-ascii?Q?MkNIPiluP9x8T+INN7iazbgBJ3xa1PNaTPBDRiVTcqjgx5OAzvtvBzXgZ6Zk?=
- =?us-ascii?Q?cWkdWNJl/nyqR4lw8zdEO9L524797+twt166I36VXuWDD8ooIUyNkWITof1j?=
- =?us-ascii?Q?vshomAOKTuUc4P/xs2WugyJ3mcIxE2/SLOiN3zcTqtpfB7QdhSA6D3tj7g9Q?=
- =?us-ascii?Q?m5JXAorWiEJgpIbkr27Y6+yWFXw9BUTZ+6nT8mJtZ4yZ2AiWjzxrcTcaVHHz?=
- =?us-ascii?Q?laCrCl3yHVql2bFojRorTHr9xSHPd1geZBJE/9JM/G8kpvLs2hwte0qJ9Seb?=
- =?us-ascii?Q?9myY1cadWWmMVvs0ARZxJ6mQGBGpKqPLrRBI1bNNPGkw7ksjCOw9lQ3BBYbs?=
- =?us-ascii?Q?H3cyyNpOqcImU9GqJgJGfQ8Bqx2skKXFEcZqFsdQRoy2LReIZYJ/54wSxook?=
- =?us-ascii?Q?XVliquSrFIrtf68drMcDIFNCzhslMg=3D=3D?=
+	=?us-ascii?Q?Q3Lq1uAYfoZHGObMznpetowqmnOgOiP3Tu4F4KZthy6L8M4RgnCRmRUf9iPM?=
+ =?us-ascii?Q?tMFqJv8pWhq6sEFupHZGid3L8zUmJwx/+91OpPXBWwqBurYy8E8Wh+FC1bl1?=
+ =?us-ascii?Q?9vhhoEpyoxZitGRX68Uwq/BeaaFc6VcyQURNAmmhoQgkTMfhNsIaUv5ErMR5?=
+ =?us-ascii?Q?ZhHYypkzl3b9tzzb3YnXznxVeNdMV8DXKko/IPe0e82HqZm06zoN14W6qAUJ?=
+ =?us-ascii?Q?yPSYl7ECCYM1NMD4MXja2Q/Tbr8ByPboc740TnIkSJMOtJc6q7P1EpRP5bbu?=
+ =?us-ascii?Q?bSrfMjEqRfQkxvN4DaNMoIAImFyBxl4zPYbAen1b42LDwSlDMYvJSoiZiGEA?=
+ =?us-ascii?Q?tp22aLhVDVMDjRFyqKefvya0ArmjZ7fWPiTLtS4np5XPFPj1kM3CVHvC9keK?=
+ =?us-ascii?Q?hwsBclo1q3Jo9muoF7Js/J9la/mFA2ex4VBPmJNRYjdY2NFfrSOUSlUe6dgn?=
+ =?us-ascii?Q?MXdZSnIHWOgqkOH7epdTJKHs61Q62M3dJpcAM3zXqnAleyCjV63T5CJ3ZE1j?=
+ =?us-ascii?Q?lsQTwB/Qs3UnmCTU7f+m4S1uZkQ0RwQ0OUX9K+ooZ8VRaoDIo1piq/mAIpyh?=
+ =?us-ascii?Q?VML4WTaAkYj1dXAMw7al6tZgEcCD4Z6H4Xj0cQntleVTH8BKIWic1V0zQl5W?=
+ =?us-ascii?Q?2qjSXVlfiuAuchAwtxPq6w03CXvjpYSd+kJ+1QuAnqbjy5dvgC5L6gP/uaqu?=
+ =?us-ascii?Q?4NUL/PCNzTRH97I/iunFY50EQresqX/yN4GWkd77t7GZeKBWJXjbu/SF6gz6?=
+ =?us-ascii?Q?lPxgi2H/uDT3EE91x5oXTtYkf+MDCFQh8G4lRp4P3qTQl+E+9FVlQ/IHo+YQ?=
+ =?us-ascii?Q?uYvb31GatlmhLxIXUVReJrkdQlA4nrzG1YdMLF5pRdPUonApvJPtP7yYLYJC?=
+ =?us-ascii?Q?t68QRG9LH9V4ZMHXTtGknU8olmy5rpR4adDzq3Qj+ncNYMCy/ZK1ORbB/fEV?=
+ =?us-ascii?Q?3ukpYOBR8Q0p104FTu+CotAN1V64mVOrUex1C5HuP7kSAuVjzWFr9m02CCf0?=
+ =?us-ascii?Q?+OyQ06U1+Oh0ZoTbbvDINXkTZVZGmls/qc5lnQGH3NlSh0pxzzgIt0ocIruM?=
+ =?us-ascii?Q?7BfTe/Yt?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GMCP158n/Eb1b2d4aXO3FJbVaf4dltyGix63KccvNwr5kUt2eBLEP8Zzce+H?=
- =?us-ascii?Q?KCOZprdR4wc8fuLivmLrc5n10DtQQihHV+d77mOWXjRg6AneGMeoyOeEkhMg?=
- =?us-ascii?Q?jqMVLTYmr1ebjf+27a6V4+u1L5dtri+9FAwD3cD76ydjhvqbTESHg54cQ3He?=
- =?us-ascii?Q?I1dqrIDnmCiVFneG29LR9E9A9ITWmglLKEr1MWy5QB8IPHh+Wow4uE/1pyS5?=
- =?us-ascii?Q?buGQ9fE/sFjzaNpPPTr7+NEvpeYpKzAIuh6EpdhXaIgl79Kh6rzRsyZSBDVr?=
- =?us-ascii?Q?oU2nKYEdeunSt1Wxh1ATyYYfwzs00G7aw/jdBCdH1rqRn5mQvsuiW5AYB/d+?=
- =?us-ascii?Q?yA/mHE4uNuEXIl6iVc5IYJJSsPFSiqfB7PCbuAW05kSX19TXiXFssFtEXZKV?=
- =?us-ascii?Q?7g7h5NoioclNDl9Qag7SAaum9aXkjytP4TJiP1lnpIMamE7bZj3augLwOYxp?=
- =?us-ascii?Q?D874o6Q92Ubxd7Ilz8q8y3KKt1o3TCcJL7iMHoibNJym/syxyPev4rvcHf7j?=
- =?us-ascii?Q?MkqKwhT/xenOeEr9j5gI1NPdwm1LtqyFiaEpUgC0Pyce7dcTf293fBgYTTay?=
- =?us-ascii?Q?ynO6MsRbu6dfM7P8b3NU7cfRZ1xXubp0lgyHQihGGYa2+Gj+yK9hNQNzugrb?=
- =?us-ascii?Q?XQXWeRQXOIrAP5Wu6fVIdUjPW9d7TGv7mlbEEETLjqZ3BRPNF253uLcwAzq6?=
- =?us-ascii?Q?OVj2eTV2ulcg5mxAicFmmveG9n7nyY8GeZSe81qORzSLW9HOCwe8b+z5wusO?=
- =?us-ascii?Q?VGEZW9c+4nLc3grzH/aIepenrv9+w3vj7XIqsWVti2Xo0vqS4AL8ttg8IYuV?=
- =?us-ascii?Q?O3ivQejBGan5JhfjlPp4ve3efkPZ6kcGnaGazDoRwPq1dOu4KA1qQ1ZUdqFm?=
- =?us-ascii?Q?lNoiLQwTmtAxr8dxphfBwuP0vAR1qDmnYjWb0KKdCxlmfWD5lG5oKwnYtYYF?=
- =?us-ascii?Q?C5hnV1SuTM2LyrpMDuo21bvhzQe0nniLRpxRJrtUsKbMB4FgU4zlnOT1iE/7?=
- =?us-ascii?Q?qFodtcvL5D/ILwGpG3kETcG8dVSeecnOgmQJQhTBSHA0IfTUCf31MR8Q1iaL?=
- =?us-ascii?Q?jlTa/BUDLtgKIsuPFOO38M5/EGmIb2cD9OmeHPWEfCSZfIEKIOxP8sp5jlZJ?=
- =?us-ascii?Q?FwfejfwWkotLWQeuH9cunqfjBUStL5W9Y7MZzAj0JRKkCUDsTBtvjOk0g4m1?=
- =?us-ascii?Q?r7PS8cSS92bjvgG7j7Xe7toDLIhp0wdtfTgtV3hDYKXn7km/zgJ+JA+epFPJ?=
- =?us-ascii?Q?QRUNpCGxwrBt8MXLMdb/dDFv2o8kipEMJxhlshL+BEecjEJom/FN0+Y8GhKF?=
- =?us-ascii?Q?FFKFp7qIvwqtaVqBuMueXOAKQgQpHlCiDfCXNovhzajcsqbI2lZFfCbF86U+?=
- =?us-ascii?Q?spNMeN7ywzjWEvNQXbkTG4qcPsqJ?=
+	=?us-ascii?Q?KXSzNJ1s82fAdBan1dUuooJFCXP6MrsyDHyO5kfd6gCb24reN+v3mmxz0XU1?=
+ =?us-ascii?Q?yVYNzu8XCw3Ea6PgfPhwWFxunMHuTP0nRxhzaoR6v9kwh+wobpiuVJfmxvui?=
+ =?us-ascii?Q?tzxUOKjJX6w3nDM18nnAoG5aoVFDfAKSwC66x0gKMsOJH76pOHzcP/DBg5tT?=
+ =?us-ascii?Q?tH2nP2OT1EmwJlQ2+Bh+Uq419++Odfy1eHg2fj96f8WmC50YqeQigQ9wKrnP?=
+ =?us-ascii?Q?3T9cdzBt8rxPHY3Mr9NlE1Vul8Sv7ZcDYIlY4zrKe2nGicuJCoKGm7Z3+cd7?=
+ =?us-ascii?Q?JLsJ/8PszKw+7N0kzxWdLFKXz+4Rv/6qWcEZoQtlCOH5hktsUNc9O1gGKUpM?=
+ =?us-ascii?Q?do8nRXVX2Ns5T+e40sHKtd+7H0SdUzI41V9dwPsLVxcRCH1KFnyayvTX/Qnl?=
+ =?us-ascii?Q?boVye6gbJ1t5l/I/IZi02m2efInHf8t5hclDO+xyUyr8UQzUx/7nVtR4W67o?=
+ =?us-ascii?Q?aSmqsQor6TAb/NJKVU9ClPYTi2Tp6gks96VlTmYh3ZMs9+UAuFPKe7ElnVgx?=
+ =?us-ascii?Q?J6bfqmlVx3r6sg6yRMoCLS+giWK+o5q0Xoq3owpPfFevxnVUrCG3cK6PwFU8?=
+ =?us-ascii?Q?i/Y3U0S2Lh4u7G7Uov90vdLJWhxnSY9IJEYLt7G+O1b4TYGBK/vhnZ1jEmAl?=
+ =?us-ascii?Q?Y/ePSxKBYb9Nb5Gv3fdneJsoaJD6f6SFI3rV9BaCEg/FhZ4vA1Rv0FQfBRIt?=
+ =?us-ascii?Q?KWlUlFXY9eKc36mMBFNji11RwE05N3KMsXcHwnQazjL2IEztxX75qhMZRBCF?=
+ =?us-ascii?Q?Ce4dAhu+8sjc/3Roz242mCIGDniY9IYNK3s9nHn7hHk2qChrJqi0rDEizS3E?=
+ =?us-ascii?Q?ti/7HVXovqJRWFr4KP4au4pA2k1Xl9pzTB3NVzHUO3pHsn3AV1KDzBLQJawG?=
+ =?us-ascii?Q?Udi7tMmcW1JWDFfysGWs+vwaobIis8mrK0qdrxpJyAej01RGQZIcysRc3XQE?=
+ =?us-ascii?Q?3gYnQLw/LYMM6IoKV5m5OZ0r8HZ2KLN3BFEa0xqT26VPJUZSodWsgfLy6FSL?=
+ =?us-ascii?Q?5GxYvwEzpVNDBP1Sa+T8IfeDLWd/HSGOX7+gbOvJNj4iZPGqfK3e6RQZ4ap2?=
+ =?us-ascii?Q?EsZ29C/e5w4pN70tq4ymhfwUazNW29HHz6/LWkwo4rx+J18PICieVYQzSyqU?=
+ =?us-ascii?Q?4nbpGm/hhCbXvkJFj4MMEzoaaXGX/y/bZTVDxwxVNWpxZCBd4wMYsLjoYzYO?=
+ =?us-ascii?Q?8EhSLQhhYahxHhqqIdN16LxEKDXvq2RezFgJIdt0mRzoMG89/OnO3/zMMmhW?=
+ =?us-ascii?Q?NcEKVGRLKHxU5rXqgKpxHSA5CEL3KVjQXX5MIKU5g+MVKhNAcSPZNr2D5MEO?=
+ =?us-ascii?Q?LHHrvqQoLfTyXhA6PAz0qBz2znBVpvVRvQqoPTS7B73enJjlNQ9CBEp6/jqV?=
+ =?us-ascii?Q?yg72qGsD39+wpv4XWH3Iwz02Dqct?=
 X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 580af1f6-ced5-42a1-59c1-08df1bc95d12
+X-MS-Exchange-CrossTenant-Network-Message-Id: f35f15f7-42c6-4910-7db6-08df1bc95e28
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR19MB2303.namprd19.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 12:26:17.5484
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 12:26:19.4746
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
@@ -133,65 +133,149 @@ X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
 	00000000-0000-0000-0000-000000000000
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR19MB278024
 
-The sysst check in aw_dev_check_sysst() requires BSTS (boost finished)
-to assert, but on hardware where the boost converter is bypassed via
-external power supply (BSTCTRL10 register 0x69, EN_HVBAT bit 2 set),
-BSTS (SYSST register 0x01, bit 9) will never assert.
+Now that the shared library correctly skips the BSTS check when the boost
+converter is bypassed, the per-instance bsts_unreliable flag added as a
+workaround in the HDA side codec driver is unnecessary.
+Remove it from the library, the HDA driver, and the shared header.
 
-The vendor's generic driver (aw883xx) handles this by reading EN_HVBAT and
-conditionally masking out BSTS from the sysst check. The in-tree driver
-missed this logic when the original code was ported upstream.
+This also simplifies testing the HDA side codec driver on new devices,
+as new models no longer need a quirk entry to bypass the BSTS check.
+Users can test via the model= module parameter in alc269 without a custom
+kernel.
 
-Add the same conditional check, matching the vendor driver's
-aw_dev_sysst_check() implementation.
-
-Fixes: 8ade6cc7e261 ("ASoC: codecs: Add aw88399 amplifier driver")
 Signed-off-by: Marco Giunta <marco_giunta@outlook.it>
 ---
- include/sound/aw88399.h        |  5 +++++
- sound/soc/codecs/aw88399-lib.c | 13 +++++++++++++
- 2 files changed, 18 insertions(+)
+ include/sound/aw88399.h                    |  1 -
+ sound/hda/codecs/side-codecs/aw88399_hda.c | 38 +++++-----------------
+ sound/hda/codecs/side-codecs/aw88399_hda.h |  1 -
+ sound/soc/codecs/aw88399-lib.c             | 13 ++------
+ 4 files changed, 10 insertions(+), 43 deletions(-)
 
 diff --git a/include/sound/aw88399.h b/include/sound/aw88399.h
-index a1e0de6be8ea..974b5774ac2b 100644
+index 974b5774ac2b..38d9bd6abd8b 100644
 --- a/include/sound/aw88399.h
 +++ b/include/sound/aw88399.h
-@@ -449,6 +449,11 @@
- #define AW88399_NOISE_GATE_EN_MASK	\
- 	(~(((1<<AW88399_NOISE_GATE_EN_BITS_LEN)-1) << AW88399_NOISE_GATE_EN_START_BIT))
+@@ -603,7 +603,6 @@ struct aw88399 {
+ 	unsigned int crc_init_val;
+ 	unsigned int vcalb_init_val;
+ 	unsigned int dither_st;
+-	bool bsts_unreliable;
+ 	bool fw_needs_reload;
+ };
  
-+#define AW88399_EPS_EN_START_BIT	(2)
-+#define AW88399_EPS_EN_BITS_LEN		(1)
-+#define AW88399_EPS_EN_MASK		\
-+	(~(((1 << AW88399_EPS_EN_BITS_LEN) - 1) << AW88399_EPS_EN_START_BIT))
-+
- #define AW88399_WDT_CNT_START_BIT	(0)
- #define AW88399_WDT_CNT_BITS_LEN	(8)
- #define AW88399_WDT_CNT_MASK		\
+diff --git a/sound/hda/codecs/side-codecs/aw88399_hda.c b/sound/hda/codecs/side-codecs/aw88399_hda.c
+index 11cef4923024..69d113af8ae3 100644
+--- a/sound/hda/codecs/side-codecs/aw88399_hda.c
++++ b/sound/hda/codecs/side-codecs/aw88399_hda.c
+@@ -118,7 +118,6 @@ static int aw88399_hda_init(struct aw88399_hda *aw88399)
+ 	mutex_init(&core->lock);
+ 	core->reset_gpio = aw88399->reset_gpio;
+ 	core->regmap = aw88399->regmap;
+-	core->bsts_unreliable = aw88399->bsts_unreliable;
+ 
+ 	aw88399_hw_reset(core);
+ 
+@@ -155,41 +154,20 @@ static int aw88399_swap_channels(struct aw88399_hda *aw88399)
+ 	return 0;
+ }
+ 
+-static int aw88399_skip_bsts_check(struct aw88399_hda *aw88399)
+-{
+-	/*
+-	 * BSTS (boost-finished) status bit does not reliably report on
+-	 * some hardware. On certain Lenovo Legion laptops, both amps
+-	 * report BSTS=0 (boost not finished) during normal playback
+-	 * despite clean audio output. Skip BSTS in the startup status
+-	 * check to avoid false init failures.
+-	 */
+-	aw88399->bsts_unreliable = true;
+-	dev_dbg(aw88399->dev, "BSTS status check disabled\n");
+-	return 0;
+-}
+-
+-static int aw88399_apply_legion_quirks(struct aw88399_hda *aw88399)
+-{
+-	aw88399_swap_channels(aw88399);
+-	aw88399_skip_bsts_check(aw88399);
+-	return 0;
+-}
+-
+ struct aw88399_prop_model {
+ 	const char *ssid;
+ 	int (*apply_prop)(struct aw88399_hda *aw88399);
+ };
+ 
+ static const struct aw88399_prop_model aw88399_prop_model_table[] = {
+-	{ "17AA3906", aw88399_apply_legion_quirks },
+-	{ "17AA3907", aw88399_apply_legion_quirks },
+-	{ "17AA3927", aw88399_apply_legion_quirks },
+-	{ "17AA3928", aw88399_apply_legion_quirks },
+-	{ "17AA3936", aw88399_apply_legion_quirks },
+-	{ "17AA3937", aw88399_apply_legion_quirks },
+-	{ "17AA3938", aw88399_apply_legion_quirks },
+-	{ "17AA3939", aw88399_apply_legion_quirks },
++	{ "17AA3906", aw88399_swap_channels },
++	{ "17AA3907", aw88399_swap_channels },
++	{ "17AA3927", aw88399_swap_channels },
++	{ "17AA3928", aw88399_swap_channels },
++	{ "17AA3936", aw88399_swap_channels },
++	{ "17AA3937", aw88399_swap_channels },
++	{ "17AA3938", aw88399_swap_channels },
++	{ "17AA3939", aw88399_swap_channels },
+ 	{ }
+ };
+ 
+diff --git a/sound/hda/codecs/side-codecs/aw88399_hda.h b/sound/hda/codecs/side-codecs/aw88399_hda.h
+index ca0aa5279298..af71083124bd 100644
+--- a/sound/hda/codecs/side-codecs/aw88399_hda.h
++++ b/sound/hda/codecs/side-codecs/aw88399_hda.h
+@@ -19,7 +19,6 @@ struct aw88399_hda {
+ 	struct gpio_desc *reset_gpio;
+ 	struct aw_device *aw_dev;
+ 	struct aw88399 *core;
+-	bool bsts_unreliable;
+ 
+ 	const char *acpi_subsystem_id;
+ 	int index;
 diff --git a/sound/soc/codecs/aw88399-lib.c b/sound/soc/codecs/aw88399-lib.c
-index 809c2faa0c0c..1ba0147cf4df 100644
+index 1ba0147cf4df..75a533c9b752 100644
 --- a/sound/soc/codecs/aw88399-lib.c
 +++ b/sound/soc/codecs/aw88399-lib.c
-@@ -183,6 +183,19 @@ static int aw_dev_check_sysst(struct aw88399 *aw88399)
- 	else
- 		check_val = AW88399_BIT_SYSST_SWS_CHECK;
+@@ -167,9 +167,8 @@ int aw_dev_check_syspll(struct aw_device *aw_dev)
+ }
+ EXPORT_SYMBOL_GPL(aw_dev_check_syspll);
  
-+	/*
-+	 * When an external power supply (EPS) is used to feed the amplifier
-+	 * (EN_HVBAT bit in BSTCTRL10 set), the boost converter is bypassed,
-+	 * and BSTS (boost finished) will never assert. Skip the BSTS check in
-+	 * this case, matching the vendor driver's behavior.
-+	 */
-+	ret = regmap_read(aw_dev->regmap, AW88399_BSTCTRL10_REG, &reg_val);
-+	if (ret)
-+		return ret;
-+
-+	if (reg_val & (~AW88399_EPS_EN_MASK))
-+		check_val &= ~AW88399_BSTS_FINISHED_VALUE;
-+
- 	/*
- 	 * On some hardware the BSTS (boost-finished) status bit does not
- 	 * reliably assert even when audio output is working normally.
+-static int aw_dev_check_sysst(struct aw88399 *aw88399)
++static int aw_dev_check_sysst(struct aw_device *aw_dev)
+ {
+-	struct aw_device *aw_dev = aw88399->aw_pa;
+ 	unsigned int check_val;
+ 	unsigned int reg_val;
+ 	int ret, i;
+@@ -196,14 +195,6 @@ static int aw_dev_check_sysst(struct aw88399 *aw88399)
+ 	if (reg_val & (~AW88399_EPS_EN_MASK))
+ 		check_val &= ~AW88399_BSTS_FINISHED_VALUE;
+ 
+-	/*
+-	 * On some hardware the BSTS (boost-finished) status bit does not
+-	 * reliably assert even when audio output is working normally.
+-	 * Allow per-instance bypass when flagged by the side-codec driver.
+-	 */
+-	if (aw88399->bsts_unreliable)
+-		check_val &= ~AW88399_BSTS_FINISHED_VALUE;
+-
+ 	for (i = 0; i < AW88399_DEV_SYSST_CHECK_MAX; i++) {
+ 		ret = regmap_read(aw_dev->regmap, AW88399_SYSST_REG, &reg_val);
+ 		if (ret)
+@@ -732,7 +723,7 @@ static int aw88399_dev_start(struct aw88399 *aw88399)
+ 	usleep_range(AW88399_1000_US, AW88399_1000_US + 50);
+ 
+ 	/* check i2s status */
+-	ret = aw_dev_check_sysst(aw88399);
++	ret = aw_dev_check_sysst(aw_dev);
+ 	if (ret) {
+ 		dev_err(aw_dev->dev, "sysst check failed");
+ 		goto sysst_check_fail;
 -- 
 2.55.0
 
