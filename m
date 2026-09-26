@@ -1,170 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE71838759C;
-	Sat, 26 Sep 2026 14:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B925B45C709
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790431623; cv=none; b=XSlAWT40Htx+3S+YjKQjqn41zyzhBrJ5f+qu0RYyV/3Fhog+27p5birssAbMumZ6oo3RQi4W838/r/ya7vNwsvBthWZGLRYglB/mALMTi9OM5GdMGAiusmax6DCnbWhyq3Tekq/C4z+H0LLLZvM+uOCeEeeNDszOGnsGIj4OHFg=
+	t=1790431764; cv=none; b=YkCWRGYus6xSgopJYEude9H68zUmoG7a/UyOyrG+8YtzEs2Ej76/+VWQwD4YFaLiWZp/L6dQl3yl7qHBB6ZRhttfRqzWFMJYL586ebVLdJgjuwRQ/+4L1/1QERPwqR0BX2fmQpLjy6GXtfwqiTwNhfpvmybsOCLQSSLlkz1gU6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790431623; c=relaxed/simple;
-	bh=ZGU/rJ293u2ZMYyBBxQPLyt2bBEUGW4wXCjoTuRkNnc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BvK7/YuzYMKhxsMFfAbjyOX++XkLm/D3RXZ+KWPpjeex84m6+Lz5yew5BOQjB6oufw0/F4oHtq59rPnzsP/QC/3iYZNYqzqgx4ejQtBdbxBr24r5Pmc1iOzf/CHSspIVMwaNZprallj0kJM6Upbg9LejZoHu6qRg84+IwheKlbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpMGSoWP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790431764; c=relaxed/simple;
+	bh=etrwk1jj7vbSnyTTqgF9FfjwDx8vHLxlRGzyAJzKVjM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QP0sEbtb7PSXAOpcJBUnejmQ9A6zjTXBNsV12GDZIQboKC0HqCaCkvkk8TB/7Zos34y3BJM6EfKRFnMlFxNlvh+CeeEWgoA01ZvCGE2XmegDQgKFZ7dS4IfHH4qs2wUDLicQMiXXF+P/jTNiLdFL2P8/z8rCCzjveywqiqXSX8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WbCMqEhv; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpMGSoWP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9E71F000FF;
-	Sat, 26 Sep 2026 14:07:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790431621;
-	bh=eVCGTQLN6HPS8MK6pZrD0g0NKPJ0VZomA/xRahikd58=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cpMGSoWPyCjQ6HvOhi6LHLVgpfEizzfMFCNgj2lT55Z3wsJxNs1fWiT2tNnU8Wubd
-	 TojgZ2Xj49NXAeclQwLmHdb0uecsDQWlXra1jl6QUjzs7INufbfTn5T8Yq9kMt2k8A
-	 E9Mv88yWvfMiL+2sWwMOM4CEPBSfdsf5gLEorFlEpRNFD7Quy3SBMwHFK1woil9Qzy
-	 Kqxo/YQgUFLVemzK8rlqEx1vjydq54NL7I4xpAaV8OpODljqey2EraX2wg3sUHzytS
-	 Ds5ce8+DiKfuE6T2+emS9ogK0SWgt+1X9IUOZbRHH4qMwK5Ig7cTR+HZyDZgf/ixmT
-	 88z3z+a7IbEQg==
-Subject: Re: [PATCH net-next] net: lan969x: correct RGMII port mapping index
-From: netdev-bot+sashiko@kernel.org
-To: robert.marko@sartura.hr
-Cc: daniel.machon@microchip.com, UNGLinuxDriver@microchip.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, Steen.Hegelund@microchip.com,
- netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
-Date: Sat, 26 Sep 2026 14:06:59 +0000
-Message-ID: <179043161980.2160803.10954047128891020505@kernel.org>
-In-Reply-To: <20260922125112.2111256-1-robert.marko@sartura.hr>
-References: <20260922125112.2111256-1-robert.marko@sartura.hr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WbCMqEhv"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c72bfe9so455242241.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:09:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790431758; x=1791036558; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vc1otBls11wsX+j5VdMpDkxyMmYSz8SI4nun8FL9hPM=;
+        b=WbCMqEhvzZQY8Xc70PP9vd1IBfiUyaUw96bVukEg8jEieRLApcNyvICyMiE+mUf3DQ
+         ndQ4mukeVLA+l0OBl9yJYU8c/sZ+2iwntzFmc3KcK9rhGvPssTz21JuBVZT+dInZ1xha
+         5Kj2RkijRgzRzIOBxpNVJ/48T/S/DIvEGbTXYGgIMA+fG2DAz8X3rUv1Mnn8eoR+5RGp
+         q8A9qqBFYNhEMq0aYtDniGWMffiJlsH4MTgBM2TCdI+iqGPIfsD2R0W6lZRNL1Ql+5vd
+         DEuhTgNx06wH7ImeZ7RByMvxLX6KUVR6e05Pfc4b7jCWsIkju/vLOko2ZCJAtOLs2b4K
+         Mt1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790431758; x=1791036558;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vc1otBls11wsX+j5VdMpDkxyMmYSz8SI4nun8FL9hPM=;
+        b=Z8Y7vRPUNg3cV4h9bWKmc/MJsbz5uAWRRK0x58wQq4EgLHlLS1hPFHlc1B/nszn3kp
+         VWAhB70i3ad+eaEm6EJv04F1Y8E5bno4MvBefPV6GOwSycZ8lm070bjFnzDzI3yK0gAt
+         9jY2WGQ3+vYPEJumEUMtsowNIcFeggNUaeFKe768CRE4WVw/E8Zt0rYPum79anFcIPDE
+         8rDZcnPVPO212BL5XOPIuYZJbjFPs6ItzKhnCmlh1UrejxXxwxNY7pkxH5gA1JRDrgzM
+         h8GbGxma710KQ+mVhSJ6MgsKOG719QmVJ4Y7m/w/By4515R8fL/Px1MYYBLGbebYWufa
+         XuHw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLc89N7m9KhecD9hyRjPekSFkDDIWC47ooYxZ6ZQEc9WWxi5K2I6m6wfRJgzpkwWsw1ae7XTR3yWX1l1Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nO5elVqBGyRKuzBqpuSgN9X3TVTYBibPfsJ5dD3fe877ZbaT2Z
+	72+EaHElGR7DEhV/oUfL+ZWdSdI1FmxR80dTuNIRlt5AJEMp/nfeUg9rXqxJ2oPc
+X-Gm-Gg: AYBFou0+6pSDFEPV9M+MHtK/m9IwTCju0SvUuUjgRLLgrGdACtjazIGab2feuaxDcsO
+	e8wqsQatX3pJOnGa14adkXxnSLkwi2Q4LTDGW2hB05JzMGw8EwVk8YyYjZ1WaTVnzfwxU7cIION
+	ghjdNojdcwwZOWjjtbUS+a+GsK/TUmEXn8BLVQxFptfdq4UgH8bH6nWf8LGVshHRfoIbgVBH11i
+	T5FCgqHgeAVNrfQeQ2rSmG6Qf8ZdIBDUFzUP0csVfcZXCAEg8jxhoOnTYYtbEhVJHZXCZ2ebseX
+	lMHLPZRihRsrukqbVv/LRA8xz11Cp2IEE+BcFpzboJrn/S8Uqb7Tlvx1LHBzl/ZuIChfYJrc2I2
+	J7tsjfKBRwEKxkwqBVk2FwvbNhEQvt0szcP6Sf7Q8zEAPV6zyrI/KDTfPaoe6aWdK4iAPiVGBud
+	yTFGzat57NxeEZEOb0c3vZ6pHjaFfaKsENbZbUU9gJ09Ru5FXRjjuKBhNsIgt0MTI=
+X-Received: by 2002:a05:6102:504d:b0:7a6:85d6:8ae0 with SMTP id ada2fe7eead31-7b1c4a2eae5mr1332435137.1.1790431757711;
+        Sat, 26 Sep 2026 07:09:17 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7b39b159055sm2319867137.3.2026.09.26.07.09.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 07:09:17 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	dakr@kernel.org
+Cc: driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v3 0/2] debugfs: fix UAF and double-free in debugfs_str read/write
+Date: Sat, 26 Sep 2026 11:09:03 -0300
+Message-ID: <20260926140903.1077151-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026092647-ebony-unlatch-d3d0@gregkh>
+References: <2026092647-ebony-unlatch-d3d0@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+v3: regenerate patches with git format-patch against current mainline
+    (v2 Failed to apply due to an incorrect manual edit.).
+    No code changes from v2.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+v2: split into two patches, add Assisted-by tag, include KASAN splat.
+    https://lore.kernel.org/driver-core/
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+v1: https://lore.kernel.org/driver-core/20260925175831.3701812-1-qwe.aldo@gmail.com/
 
-- [High] net: lan969x: the patch does not achieve its stated purpose —
-  the new DEVRGMII instance index it returns is never paired with…
+Aldo Ariel Panzardo (2):
+  debugfs: fix use-after-free in debugfs_read_file_str()
+  debugfs: serialize concurrent writers in debugfs_write_file_str()
+
+ fs/debugfs/file.c | 41 +++++++++++++++++++----------------------
+ 1 file changed, 19 insertions(+), 22 deletions(-)
 
 --
+2.43.0
 
-net: lan969x: correct RGMII port mapping index
-
-This adds an RGMII case to lan969x_port_dev_mapping() so that ports 28 and
-29 return DEVRGMII instance indices 0 and 1 instead of the physical port
-number. The helper is installed as sparx5_ops::get_port_dev_index and is
-read through sparx5_port_dev_index().
-
-> diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
-> index f3a9c71bea36a..bf5320c7a6ca8 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
-> @@ -142,6 +142,15 @@ static u32 lan969x_get_dev_mode_bit(struct sparx5 *sparx5, int port)
->  
->  static u32 lan969x_port_dev_mapping(struct sparx5 *sparx5, int port)
->  {
-> +	if (lan969x_port_is_rgmii(port)) {
-> +		switch (port) {
-> +		case 28:
-> +			return 0;
-> +		case 29:
-> +			return 1;
-> +		}
-> +	}
-> +
-
-[Severity: High]
-
-Can this new index ever reach DEVRGMII register space?  The value returned
-by lan969x_port_dev_mapping() is only read through sparx5_port_dev_index()
-and is always combined with a target coming from sparx5_to_high_dev() or
-sparx5_to_pcs_dev(), and neither of those has an RGMII case:
-
-drivers/net/ethernet/microchip/sparx5/sparx5_port.h:
-static inline u32 sparx5_to_high_dev(struct sparx5 *sparx5, int port)
-{
-	const struct sparx5_ops *ops = sparx5->data->ops;
-
-	if (ops->is_port_5g(port))
-		return TARGET_DEV5G;
-	if (ops->is_port_10g(port))
-		return TARGET_DEV10G;
-	return TARGET_DEV25G;
-}
-
-So for lan969x ports 28 and 29 the target stays TARGET_DEV25G (or
-TARGET_PCS25G_BR), never TARGET_DEVRGMII.
-
-The base then comes from an unchecked array index:
-
-drivers/net/ethernet/microchip/sparx5/sparx5_main.h:spx5_inst_get() {
-	return sparx5->regs[id + tinst];
-}
-
-With the new index that is regs[TARGET_DEV25G + 0] and
-regs[TARGET_DEV25G + 1].  The lan969x iomap in lan969x_main_iomap[] has no
-TARGET_DEV25G or TARGET_PCS25G_BR entries at all, so both slots are NULL.
-Before the patch, index 28 resolved to regs[TARGET_DEV25G + 28], which
-lands on a mapped (though unrelated) DEV2G5 base.
-
-Does that mean the commit message claim
-
-    So, check if requested port index is an RGMII port and return the correct
-    DEVRGMII index.
-
-is not reflected in any code path, since no consumer pairs this index with
-TARGET_DEVRGMII?
-
-The real DEVRGMII and HSIO_WRAP accesses compute the instance locally and do
-not use this helper:
-
-drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_rgmii.c:
-#define RGMII_PORT_IDX(port) ((port)->portno - LAN969X_RGMII_PORT_START_IDX)
-
-used by lan969x_rgmii_port_device_config(), lan969x_rgmii_tx_clk_config(),
-lan969x_rgmii_delay_config() and lan969x_rgmii_gpio_config().  Should the
-two sources of the same index be folded into one helper instead?
-
-There is also a latent NULL __iomem base introduced here.  In
-sparx5_port_init() the devinst and pcsinst pointers are computed for RGMII
-ports too:
-
-	devinst = spx5_inst_get(sparx5, devhigh, pix);
-	pcsinst = spx5_inst_get(sparx5, pcs, pix);
-	...
-	if (ops->is_port_rgmii(port->portno))
-		return 0; /* RGMII device - nothing more to configure */
-
-They are now NULL rather than a mapped base, and only the is_port_rgmii()
-early return keeps them from being dereferenced.  The other consumers of the
-pair are gated by unrelated conditions today: sparx5_port_max_tags_set()
-runs only after that early return, sparx5_port_disable() and
-sparx5_port_pcs_high_set() are reached via sparx5_pcs_config() where
-sparx5_phylink_mac_select_pcs() returns NULL for RGMII interface modes, and
-the ethtool device stat paths are gated by
-sparx5_is_baser(port->conf.portmode).  Would it be safer to also teach the
-target selection side about RGMII, for instance returning TARGET_DEVRGMII
-for is_port_rgmii() ports, so the index and the target stay consistent?
-
-If this is intended as preparatory work for a later change, could the commit
-message say so and name the dependent patch?  A Fixes: tag also seems to be
-missing for the addressing bug the changelog describes.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922125112.2111256-1-robert.marko%40sartura.hr
