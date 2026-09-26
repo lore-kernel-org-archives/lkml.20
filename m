@@ -1,36 +1,36 @@
 Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1CE47A87A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1214766BE;
 	Sat, 26 Sep 2026 14:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.183.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790431296; cv=none; b=a7J/6RJxjFEx8HwATbtGj1WSCgzA8570/Kh7r74AmJ6MT/B7suzo4q1bDh+OgMRJAsZ67lqKU8ot+73s6vHhn30rtzmUTMWeav/P09/Rjh+PjUnocOZF7Hg/KEoPyvX0dfm1QTGSsPepUuVPVwgRnmNJdJ2CbxFCDsWBMSrARQY=
+	t=1790431295; cv=none; b=Uqk83+VNITLcbsidIDYrU8vAgFvUmSjHKnqNmAjop+A+2GY1in5jTFblmWwH3IP/jcv2zg7YpEwXsNicHGn/gImoa8OogpQX9FJ1TkO8QKKT4ZBSTiy3eFh2gfkpLMGzzZu6QX6NGxJRGCfMjXi0IWHoYMDdZZkr/DqB7B8bPAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790431296; c=relaxed/simple;
-	bh=qQUIHhKBO/tEtR1HaQ3f9rkS9xI6r0srSNjHW1sYRsA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=po3ak0Mwyi40Okc91FhsIEUqTGa7fBw/xbSa7MVZWbuzDkC+QQVb7E/LUg9hodvBaoTGegsIf8Uz/AbAjGtBwqExlUfWHTYwO0Dcvgx1D3g7n4AVPkaB1qIXXWvvjN2DUoZaBYPcjEYbyWirKaapJAdPqxKIUOlVCHd6bTbPYFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu; spf=pass smtp.mailfrom=erebion.eu; dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=5+s05xVg; dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=B5v8Tksx; arc=none smtp.client-ip=142.132.183.134
+	s=arc-20240116; t=1790431295; c=relaxed/simple;
+	bh=67Ax9GT3XJZ/oPQ+TlKH+nxeny2DDTnLBR4v2OpX5Y0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VSnEaDRoHOq9bCVIg28J43IJi168IjOlclAhYDbuyHFk7Cw5O6Bhrhug5CFdoMFbyM9KyF8n6liiPaydrDImG9rIzjskGVXCR2uY3ZT+nop/WjXmfjLuUED+Txo3V7fkBd0+qcHDHnoc/lXENwBFY3WKcjGDcxYBgfD9w+zwokk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu; spf=pass smtp.mailfrom=erebion.eu; dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=tHmjixd1; dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=uIDHJeqV; arc=none smtp.client-ip=142.132.183.134
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="5+s05xVg";
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="B5v8Tksx"
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="tHmjixd1";
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="uIDHJeqV"
 DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1790431256; bh=8pv9T7LZK+v2vYBachbzhcd
-	FeZ+/Et9QVTzmQAU0NLY=; b=5+s05xVgzRkHHgJwbxZ/ekDehrARQ49WIawTN855UtPcRgglMH
-	xIXzKHDseTrRHDyfRsNdoht4bzRJ0WjJwZDg==;
+	h=To:Message-Id:Date:Subject:From; t=1790431254; bh=28CwxnSliVSpNHVTu/q9xzT
+	V56sbtRybuqgB3xHeeOE=; b=tHmjixd1gLaywcTqwyeblHEH06tOCAFMEMfoxaaaaTsPs9NpMO
+	WqH960bh5aQ2xCL5KM6vgXhKhhgkxsI1AkCw==;
 DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1790431256; bh=8pv9T7LZK+v2vYBachbzhcd
-	FeZ+/Et9QVTzmQAU0NLY=; b=B5v8Tksxt2bL3RsC1eqcJ/BJSrnEvD2zgKvrLanAsVFEVM7Kcp
-	/nFMub5rmUlKYyfbB5oCLPDFtcd5yo2PmqSrfNKXNCt6pmGz0+zaIb9zbZBuLs6NwZNvONV8kdZ
-	p88UL3/RRbM6pre4bxy/vFYmBYXPbluDDEimLacvRZY0QiRoU8Vv5sZEaUv1ZWNeAMjCsRd707H
-	MAWoLQDnZYszEKPtd5gpJuZhykZtgMx8aJaEUt4oPP8ijb/QEcFKsAKH+pmUOncuJ+PaCbAecPO
-	gQp5nkR4zBUz1WjwvZ18ur7dOH2VOXMYHHSV2Zj3GyVODMJxsMvbxWN9YqviyiPImaw==;
+	h=To:Message-Id:Date:Subject:From; t=1790431254; bh=28CwxnSliVSpNHVTu/q9xzT
+	V56sbtRybuqgB3xHeeOE=; b=uIDHJeqVuovotUwGmrTdd+3he6QCLaB3imrD0DG40GDwV1tNl3
+	68NA40pXo8IkfIMnh2HfbBvbi9/vmeLJ31Os46B2+9uBLh/WbQr7vpOVLkYHjOjQxGN3WTKTmIJ
+	BaAPdaty5jGN/oZ5iM1uncRDYF7cmp+go31LUXzVRXvT29DPns9dgOCSiKTzoykiQe2CgSGEtBJ
+	DMXEN6aoxDWJ+ZcY3bZ/30cj+is7l/fnOY9iqgqyguJo/c0Anhb7rJamwuFd+NzPexCUnn3N5bA
+	ife63bmOwCgAfsBQ0I1HRxJ/AXXV/0It+w3gQn88Cr0sRhUYIJFIkCIkIIQybFUjbEg==;
 From: erebion <erebion@erebion.eu>
-Date: Sat, 26 Sep 2026 16:00:55 +0200
-Subject: [PATCH v2 6/8] arm64: dts: qcom: sm6350-lena: Enable wifi
+Subject: [PATCH v2 0/8] Enable more nodes for the Xperia 10 III
+Date: Sat, 26 Sep 2026 16:00:49 +0200
+Message-Id: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,9 +39,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-pdx213-upstream-3-v2-6-b4612e3eb536@erebion.eu>
-References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
-In-Reply-To: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Pyw6CMBBFf4XM2iFtkefK/zAsaBmkJgi2hWAI/
+ 24pLl3ezH2c2cCS0WShijYwtGirx5cX4hKB6pvXg1C3XoNgImOFKHFqV8ETnCfrDDUDJtgyWbA
+ uv5YyleBzk6FOr6HzXp/azvJJyh1FP4eh9+zH3GkD2VhCNQ6DdlW05HGCRnE40r22bjSfALjwY
+ A4spcj+sCwcGXJ/VbyQqeLtzS9J/1NMM9T7vn8BWNP7e/EAAAA=
+X-Change-ID: 20260829-pdx213-upstream-3-d0b80f749b5b
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -55,41 +57,44 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  erebion <erebion@erebion.eu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790431254; l=856;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790431254; l=1202;
  i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=qQUIHhKBO/tEtR1HaQ3f9rkS9xI6r0srSNjHW1sYRsA=;
- b=Ny3B5ZkR/DMy2w4o1VgFmT9X3AIAKm3+dPTglM1yAt4Zhh5C9Yo8dS5SByNh+yzGSxsunArBy
- bGEJAdeqn8pBPYKnkHbDRwi+3roRgS2a/T0aeNeM1R7hTU865YERanV
+ bh=67Ax9GT3XJZ/oPQ+TlKH+nxeny2DDTnLBR4v2OpX5Y0=;
+ b=K/WuS0fhCgVgGk4henN3rUzofMfwh0d4avHMOmttKC0eXftIwl28mCpkoJsqrv0sjcqgxqKld
+ 8gH9XwR1XI2BuRUL7m3hTTtkJutY4sxt5ObHABbeUwGdVMLWhCcY0w0
 X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
  pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-Configure regulators and enable it for the Xperia 10 III
+Enable some more nodes for the Xperia 10 III.
 
 Signed-off-by: erebion <erebion@erebion.eu>
 ---
- arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Changes in v2:
+- Remove panel_reset_pin that shouldn't be part of this patch series
+- Remove incorrect reg from mpss
+- Fix conflicting bias pinctrl, as pinctrl nodes from sm6350.dtsi already contain a bias-* property
+- Fix incorrect unit name in &pmk8350_vadc
+- Link to v1: https://patch.msgid.link/20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 9be0e7ceccb55..b234919c301f0 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -559,3 +559,13 @@ &usb_1_qmpphy {
- 
- 	status = "okay";
- };
-+
-+&wifi {
-+	vdd-0.8-cx-mx-supply = <&pm6350_l4>;
-+	vdd-1.8-xo-supply = <&pm6350_l7>;
-+	vdd-1.3-rfa-supply = <&pm6150l_l2>;
-+	vdd-3.3-ch0-supply = <&pm6150l_l10>;
-+	vdd-3.3-ch1-supply = <&pm6150l_l11>;
-+
-+	status = "okay";
-+};
+---
+erebion (8):
+      arm64: dts: qcom: sm6350-lena: Add flash LED
+      arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem node
+      arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP & MPSS
+      arm64: dts: qcom: sm6350-lena: Enable IPA
+      arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+      arm64: dts: qcom: sm6350-lena: Enable wifi
+      arm64: dts: qcom: sm6350-lena: Enable PM7250B
+      arm64: dts: qcom: sm6350-lena: Enable PMK8350
 
--- 
-2.53.0
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 253 +++++++++++++++++++++
+ 1 file changed, 253 insertions(+)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260829-pdx213-upstream-3-d0b80f749b5b
+
+Best regards,
+--  
+erebion <erebion@erebion.eu>
 
 
