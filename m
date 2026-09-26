@@ -1,42 +1,83 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF66744470C
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47F741F34E
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:22:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790428809; cv=none; b=LrlkEADSQoR1Sh5WPbX7QuJBnkEmIUHLnkWyqFEvMNyuNfMMFPHTIXdy5s3ihCTKaOfCZKqagcoRD670qaKNHVY7iQyppAedG0s16yipmqn6DU5hWbm9atubgnC9asHdmtwjpWpXKEI3ePVZnpkOUdz4tizbMmmGwBG6Ahz8ZfA=
+	t=1790428943; cv=none; b=TPUPrRhga+KZuIw6Js+EQo8fHivPT5De/QnI2FTLIc6p+movmNOo/Sci9CZcbnA6MB9rqHISxTCaX3/oCCW1mQW2/+B+Q9SsHNCKs9L4b4kPE9/2Xv6swEKOr3KjA4ZtU501pUeEKwCRTL79TJwseXvl/2yO0Qzu5sOSjToSIfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790428809; c=relaxed/simple;
-	bh=Ag+HbidyTvBaqT5NW9TShkPeX7VzVuUFE9FYOTXUJAw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LzO42oX/rWGCiwsKKq21sjp/gmbhnOzl11h9B0lqKW9deIkLbxA9j2XmWYZNO3Amw0qhRE/NVpLgnrJOnMmPWFsT9cYu5LavUS3JWec40CG3y4uHrtNoPaoM+yeZKw8IfMosdLLPS/o0vB5uNY4U6nKgfkuwthwgr9rqBX0g+ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LkrVJlXb; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790428943; c=relaxed/simple;
+	bh=8rgTvvwDFSaspEHo+kCgQNZbcI/BJZf21gNZIv2AIRA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y0/ExV8Qv0TzanevPX2Mevskj0Ivi2/RsSZk7hvA27eBi10oAFrdYpQy2LqrRgz4iec4fX3j/2jlixX9ZB3+UeR/SccywJemIr/G7oDWMv/5+X0Tnr4dWTfW7Pi6ks7LBMiYgtDf2JU/BtwBotCvQj9FBlaUAluYmHRHPTBU/RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=IoYrGoTi; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LkrVJlXb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=iP
-	Z0JZ7WM/fQXNY4w67+kzgznitoNOikcSV8jn8csew=; b=LkrVJlXbI+qvuQod74
-	JDF9VoGfH0WTL1TSGtNLYbLMCge43OYIdHe6atHGJBl1UK6VjXjukul5Ur76tCxl
-	Kd/1JZARvDQCu8JZuyfrLjBx0g/mFitYZPBbRbX/K0uYRehQMjjJo92GlmD5qnVa
-	ZuzIFfIpo8lFDY+ySSV3Vcl/4=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3P0g5xrdq4wWDAw--.54767S2;
-	Sat, 26 Sep 2026 21:18:51 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Gang He <ghe@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] ocfs2: validate extent list in filecheck repair
-Date: Sat, 26 Sep 2026 21:18:47 +0800
-Message-Id: <20260926131848.3379842-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="IoYrGoTi"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0bcdf41a3so785150a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:22:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1790428940; x=1791033740; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WY6jVhJ1QtI7aO10MKO0OcssEc831y4vQM9w+i0byGU=;
+        b=IoYrGoTi6aru4z9/uiV1wb5/qC7Q0A21ix7UNXoBu9FYgU2RBHjFmFtcNtKLUkGV1w
+         S2VijHZiEk8TefWyF0w3KWsdYCoslzg37jalrDrUyGXX0+oZhuacBQk9M3bM6OSH/Lxp
+         3+M6xb3nObn4mxHxJzy48yyFtCvIVDM6RU3y0QkB6iQQ3LctdabJcs0qF7L9rAqeLy88
+         Df4TB4oZSoSxlJuoTg+VGzoXXqk0FNrqb14shOWd8e+5P60wAAZ83Ng/DaC+MGOY2Xxx
+         +l40q48wcJ21E6Aazf1Dr0xGYGQMgURJDnQ4wKDMHnwfq6tEXNTEqOQrPCpgi9PokdUM
+         Ldtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790428940; x=1791033740;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WY6jVhJ1QtI7aO10MKO0OcssEc831y4vQM9w+i0byGU=;
+        b=c+yuQNHmLxi3a4EWmN/7o3QLHqWk3siLAa0PxprgYFfxjeeQQElUEDF4xWMmWZiwnr
+         F60bsmLunB/aTkXNvq3nVknzM5jrg06b+zeSPWdYiGclFh1ORIjYnEEs2ke83vFSOcB4
+         g2lrIX4z7IKQtvlVBVB82x6m++J7KpmR1ROb16JRHZRxLcjXZ+FaOgPfRn/xiZRlDwiV
+         1wlDgHdRzZBJmm+9GBBw1eFxkso3jt7e0fUshPuuRvLvkQ4f30CJmq686h4z9vhZWJly
+         IOee0dTCsLH/CyShZLX/pBt5LmfAOFpN+bkANxHtF9T2NAUqdHhAXPbz4jTVUEBtEM/f
+         kdow==
+X-Forwarded-Encrypted: i=1; AKwUvBwrhbccpKQT274Ya35npJqToXSn/iniQBYaula17uTRpyl7s4msv1b0X6aapzRcUT1UNdKzBPcQZAMyxg4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxVfVYNCEzu0rjdj69v9Xbe+PIgmNYaUn7BgJ7jAyrbYyP9cco
+	qTCCDYBV3ohXOcHTyBy7bcz18tK4/D4e6rTBiHokmaAIlsJRbWepFoVH5CtqXe9URSZP
+X-Gm-Gg: AYBFou1l+C6VOIylD5kTikVn8NSfkzpgZq1Yz+LELscMwg9saZaFZT0aRG2hiZDREU0
+	iOv6pqF91pvga8Kjc0SsFGPGzR4t0JhUCm1yiXHy3/Bd+y6BjPQ/9bAFrR1zC+rFJ5SG3J6lAhZ
+	IWRoDb2wOYefs2GUJM6d/3ewxpFINUBYtkzSbkfYxvV48kYwW+xlZRYDooOBmbZHWygIfqHJz0C
+	Kn6fOTG6Wxj4PoRz9PnXpG2udvyNc9UY/58uk2fF8lGgeKE5Y32LVUR7Y3nhFS2f8/i69vaaC0T
+	YPrWn9NLfso+ZnPXMrAE4RqujU1FiPA6/oJD/su70vxq1tgrG8FIkV5DrVK7G1Z+2Kwse0e50QO
+	4Pfz3exYgRn7CDgH/5H95zt5fRVCzYaxnhm6nRRPYw+Xe/yweT1+cl+gjM1FelXC32Qyws5N/ar
+	h+M43ARSj7evLIF2NvoC3/GKms9yuNrIlHl0O+8PRtMxHhKVh+zMmBt2opaIL3KUqUbWQkEfy5M
+	h11/VBKUepsoYdiOCtF2YbaazQGdQ==
+X-Received: by 2002:a17:90b:3dc3:b0:3a0:ce5f:e292 with SMTP id 98e67ed59e1d1-3a0ce5fe752mr2448333a91.65.1790428940028;
+        Sat, 26 Sep 2026 06:22:20 -0700 (PDT)
+Received: from 954df21a5119.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efb156sm10619253a91.1.2026.09.26.06.22.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 06:22:19 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: pc@manguebit.org,
+	linkinjeon@kernel.org
+Cc: zihanx@nebusec.ai,
+	ronniesahlberg@gmail.com,
+	sprasad@microsoft.com,
+	tom@talpey.com,
+	bharathsm@microsoft.com,
+	dhowells@redhat.com,
+	stfrench@microsoft.com,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	kernel test robot <lkp@intel.com>,
+	Dan Carpenter <error27@gmail.com>,
+	Luxing Yin <root@tr0jan.top>
+Subject: [PATCH] smb: client: avoid NULL resp_iov dereference
+Date: Sat, 26 Sep 2026 13:22:08 +0000
+Message-ID: <20260926132208.23360-1-zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,130 +85,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P0g5xrdq4wWDAw--.54767S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJFyDAFyDKFWfCFykXF18Zrb_yoWrAFW7pF
-	1akr95Xr18G34xuas3t34DZr1fKr1xCrW7GF4Sk3s8GF1DJrZ0kFyqqFy7XF4ftrWrZrnF
-	9F15uFZrCa4fAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEL0ehUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhtIgmq3xjuG+AAA3B
 
-ocfs2_filecheck_validate_inode_block() does not validate the embedded
-extent list, while ocfs2_filecheck_repair_inode_block() only clamps
-l_next_free_rec to l_count.  The normal inode read path requires l_count
-to be non-zero, limits it to the number of extent records that fit in the
-inode, and requires l_next_free_rec not to exceed l_count.
+compound_send_recv() only populates response vectors when resp_iov is
+non-NULL. The final pre-authentication hash update nevertheless
+dereferences resp_iov[0] whenever all compound requests complete.
 
-Without the same checks, filecheck can report SUCCESS while leaving an
-invalid extent list on disk.  A later read through the normal inode
-validation path rejects the inode and makes the filesystem read-only.
+Guard the update with resp_iov to match the response-buffer handling and
+avoid a NULL pointer dereference on callers that do not request response
+vectors.
 
-Add a shared helper for the filecheck paths to check these invariants.
-The filecheck validator now rejects all three cases.  The repair path
-still clamps l_next_free_rec, but refuses to repair zero or oversized
-l_count values.
-
-Fixes: d56a8f32e4c6 ("ocfs2: check/fix inode block for online file check")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Fixes: 62432a3f5145 ("cifs: Clean up some places where an extra kvec[] was required for rfc1002")
+Cc: stable@vger.kernel.org
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/all/202609241449.HlHmnZFZ-lkp@intel.com/
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 ---
- fs/ocfs2/inode.c | 71 ++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 71 insertions(+)
+ fs/smb/client/transport.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 180107a11046..57168ed02915 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -249,6 +249,41 @@ static int ocfs2_dinode_has_extents(struct ocfs2_dinode *di)
- 	return 1;
- }
- 
-+enum ocfs2_extent_list_status {
-+	OCFS2_EXTENT_LIST_OK,
-+	OCFS2_EXTENT_LIST_ZERO_COUNT,
-+	OCFS2_EXTENT_LIST_OVERSIZED,
-+	OCFS2_EXTENT_LIST_BAD_NEXT_FREE,
-+};
-+
-+static enum ocfs2_extent_list_status
-+ocfs2_check_extent_list(struct super_block *sb, struct ocfs2_dinode *di)
-+{
-+	struct ocfs2_extent_list *el = &di->id2.i_list;
-+	u16 count;
-+	u16 next_free;
-+
-+	if (!ocfs2_dinode_has_extents(di))
-+		return OCFS2_EXTENT_LIST_OK;
-+
-+	count = le16_to_cpu(el->l_count);
-+	next_free = le16_to_cpu(el->l_next_free_rec);
-+	if (count == 0)
-+		return OCFS2_EXTENT_LIST_ZERO_COUNT;
-+	/*
-+	 * The exact capacity depends on i_xattr_inline_size, another
-+	 * unvalidated on-disk field. Inline xattrs only shrink the
-+	 * list, so the no-xattr maximum is a safe upper bound that a
-+	 * valid l_count never exceeds.
-+	 */
-+	if (count > ocfs2_extent_recs_per_inode(sb))
-+		return OCFS2_EXTENT_LIST_OVERSIZED;
-+	if (next_free > count)
-+		return OCFS2_EXTENT_LIST_BAD_NEXT_FREE;
-+
-+	return OCFS2_EXTENT_LIST_OK;
-+}
-+
- /*
-  * here's how inodes get read from disk:
-  * iget5_locked -> find_actor -> OCFS2_FIND_ACTOR
-@@ -1835,6 +1870,33 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
- 		goto bail;
- 	}
- 
-+	switch (ocfs2_check_extent_list(sb, di)) {
-+	case OCFS2_EXTENT_LIST_OK:
-+		break;
-+	case OCFS2_EXTENT_LIST_ZERO_COUNT:
-+		mlog(ML_ERROR,
-+		     "Filecheck: invalid dinode #%llu: extent list l_count is zero\n",
-+		     (unsigned long long)bh->b_blocknr);
-+		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+		goto bail;
-+	case OCFS2_EXTENT_LIST_OVERSIZED:
-+		mlog(ML_ERROR,
-+		     "Filecheck: invalid dinode #%llu: extent list l_count %u exceeds max %u\n",
-+		     (unsigned long long)bh->b_blocknr,
-+		     le16_to_cpu(di->id2.i_list.l_count),
-+		     ocfs2_extent_recs_per_inode(sb));
-+		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+		goto bail;
-+	case OCFS2_EXTENT_LIST_BAD_NEXT_FREE:
-+		mlog(ML_ERROR,
-+		     "Filecheck: invalid dinode #%llu: extent list l_next_free_rec %u exceeds l_count %u\n",
-+		     (unsigned long long)bh->b_blocknr,
-+		     le16_to_cpu(di->id2.i_list.l_next_free_rec),
-+		     le16_to_cpu(di->id2.i_list.l_count));
-+		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+		goto bail;
-+	}
-+
- 	if (ocfs2_dinode_has_size_without_clusters(sb, di)) {
- 		if (S_ISDIR(le16_to_cpu(di->i_mode)))
- 			mlog(ML_ERROR,
-@@ -1893,6 +1955,15 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
- 		return -OCFS2_FILECHECK_ERR_VALIDFLAG;
- 	}
- 
-+	switch (ocfs2_check_extent_list(sb, di)) {
-+	case OCFS2_EXTENT_LIST_OK:
-+	case OCFS2_EXTENT_LIST_BAD_NEXT_FREE:
-+		break;
-+	case OCFS2_EXTENT_LIST_ZERO_COUNT:
-+	case OCFS2_EXTENT_LIST_OVERSIZED:
-+		return -OCFS2_FILECHECK_ERR_INVALIDINO;
-+	}
-+
- 	if (le64_to_cpu(di->i_blkno) != bh->b_blocknr) {
- 		di->i_blkno = cpu_to_le64(bh->b_blocknr);
- 		changed = 1;
+diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
+index 6e21b5f8754a1..307bd82128781 100644
+--- a/fs/smb/client/transport.c
++++ b/fs/smb/client/transport.c
+@@ -1111,7 +1111,7 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
+ 	/*
+ 	 * Compounding is never used during session establish.
+ 	 */
+-	if (num_processed == num_rqst) {
++	if (num_processed == num_rqst && resp_iov) {
+ 		spin_lock(&ses->ses_lock);
+ 		if ((ses->ses_status == SES_NEW) || (optype & CIFS_NEG_OP) || (optype & CIFS_SESS_OP)) {
+ 			struct kvec iov = {
 -- 
-2.34.1
+2.43.0
 
