@@ -1,65 +1,100 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798DD3ACF17
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40929384CEE
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:18:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790460920; cv=none; b=ZEQtngLZOcg648JRuAO3eqnatN4MeEkDqObN/5huAcH2LpMFuxn3ZioOVBktGnWvuinUGgrhqMoDZH0nL4SgX0fbEo80+M/AKRrT5VdVNiXZmzdXY9++sa0p2172kVmLBHq6OQ/s4QzaNnCvFqvq/IHkOe5rYV3ercS44CWpVOY=
+	t=1790461096; cv=none; b=tg9Kee8hfCPpf3Z/quZ6rKvBK4rjKt35Yf3AQQPCP6+T5Kt1EX14RpRwyGTKqN7DwSqvPHU5hHuNCk323eI1n7x5PPld6lHMBAPunZNJOGK7gKpxvnYDz6u2F8gjo0zh123uO3oIU0ESQZW8MSUjjrF1IKv1nA4zGdn01BCMpCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790460920; c=relaxed/simple;
-	bh=3BbPYjemdXEWPMr4jBZuCTND32GsnCx7p9ChW7jJl7c=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NxLFGZ6x9SJhnET4/CD/Te8OMn5SKy0m0wU+jkGaRhns5iRoVr1ggOPMD0H6A65HcsPReYpbDTw73ptbJ3C3PgeznVew/6WpZcmKXKW83t8znW6LKmlSCpjX0YUpKT9wpJqhQMknS0tuQWHI/XMwJhAooF0ERLoaHG3GZmE/Oow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=jFAhr5qK; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790461096; c=relaxed/simple;
+	bh=bYz7lI9kjRgqFz5/nCU1yj4EWniipBajOaYadK9YXSc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tSsFM14vpP7E0pWP73wGSE8bgIpMWEl0go9d1gQdNHAMmiWoU+UvOPfBy7F5u1jTPcbTonUZw/Ibor710NJLf+iySObi0omsjSklYMr7qlQ5Vaxw6ubQtISAp5NKO/AJKp8tFPLHB2Kn9AkpekkxkEhJXSSikUETF2f5d3mrc88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mHTmCnZy; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="jFAhr5qK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790460914; x=1790720114;
-	bh=3BbPYjemdXEWPMr4jBZuCTND32GsnCx7p9ChW7jJl7c=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=jFAhr5qKIjINouvKnWdkw7tmoo1Gv935ImcmruzeGfFiqNU0IT393Pat7E3SW4dNh
-	 lUIaKRa5iODZ+8LtxNP5EFrNN4FVPS6k+UXYwQnvTmii1gRokiPAAToTG+vGzr6MQR
-	 5kCr46vf9xZHOYJNElkETlb/MBRMnG/sH4K+GRK0lHU4LyzJhWkVG6A5kLX5CUwHgI
-	 5BLAFN/pdSngKPuD6fv1ETnforJDUajJTwFcLwSBiwNjWGyNdWNoBoWpj1tNEGLdf9
-	 ek+LK4CrmzbZqHKadpPIoRprI4KKCDoUJ9paFoWFYsg0qYC0WKxnz6c1S7NZ/oPxYR
-	 XpPk/61PVMdBQ==
-Date: Sat, 26 Sep 2026 22:15:10 +0000
-To: Antheas Kapenekakis <lkml@antheas.dev>
-From: Alexei Solcanu <alexei.solcanu@pm.me>
-Cc: Guenter Roeck <linux@roeck-us.net>, Cryolitia PukNgae <cryolitia@uniontech.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] hwmon: (gpd-fan) Register both fans on the GPD Win 5
-Message-ID: <QSDYmpltVygiY2PJ_y1ySG-1KUVxaRFdsR4fOPLjy3SNL8Phr0Cplf4Hk1Q3rdpKh-ev80AA3e4hdCOrIlxEpY9yKjx-jDB65k0rDLWwINg=@pm.me>
-In-Reply-To: <CAGwozwG+JrZCJ-zkAB7yGCOgQPKDgQOu+oeXiSM9aVB-EbfYsA@mail.gmail.com>
-References: <20260926-gpd-fan-duo-auto-v2-0-0a2ea41ee3b5@pm.me> <20260926-gpd-fan-duo-auto-v2-2-0a2ea41ee3b5@pm.me> <CAGwozwG51ZAWEbhmwAfbU1RNu2QCJ-cnQhXcuKQb8e7bWKVeDQ@mail.gmail.com> <1BPT38hSheXA0fiDcjiUhe40l_nA8P9jiPQG4TfQCki6CMVZJr0V2DjfbEvQl1gD1UdajSdRKAlJwAVUWgODbxDTML6hk5lLxkaQeKN0e48=@pm.me> <CAGwozwG+JrZCJ-zkAB7yGCOgQPKDgQOu+oeXiSM9aVB-EbfYsA@mail.gmail.com>
-Feedback-ID: 211386292:user:proton
-X-Pm-Message-ID: 159a4f4fc4987ef5ab40d52338e913a13ee5ae75
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mHTmCnZy"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffe281cb1so3021415e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:18:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790461093; x=1791065893; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bYz7lI9kjRgqFz5/nCU1yj4EWniipBajOaYadK9YXSc=;
+        b=mHTmCnZyDSV8QHVko4l9814wBlm75POYo9MwodHLUISuesQgkMmeqmCcCDYSE3eRQT
+         tnKWG0HegaNh0KihEeI0qlD7+aVYn4bNIz/XP+o2AKMZK5PxIVhAkkOwDEADr/efkjgX
+         +NZ9R3OgqI0bq1Z2dW1175urMqAvpX8JUXt8zbahA8MBuVMv5DoHlaFJaP//r5AX3HUT
+         92PhqLGY8PfGlGlUNmbqGt0AgBpZg/Q84KD14xg3XE+kzU+FGKYH3IrxTyM9OOIflhb6
+         gE3y/0WV9inW18wil1SkTrP31N6Q9AuQCgVxciik9ncltdgvXRaXJuQwE8J4L93Ox/sT
+         flag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790461093; x=1791065893;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bYz7lI9kjRgqFz5/nCU1yj4EWniipBajOaYadK9YXSc=;
+        b=khtVZa3QOhZ17GnOtXpif6QdY+OkXGbkI49/o2e2qARGyIroatgpSSWinjkgNRYmV/
+         +Fm/OHgcHBElPzu9l/tEOkNDP5Qrpr3Ysa0c7U0ocQBjAko8qzROhNDkq1Kzo8KeVysK
+         odJSm6X3alG5NaX9+3538+O9+mb92LhPySSSEOrrISdR7m19Pg0BHcOHtXQMkVUymXQf
+         xcd/KLnNuNs/7gpEHFxYgsdqo4TGWw7HOiXJHgzj+2O/kSn+IbvpQ/lvVWsU027nRynT
+         ktskAky8HosTZdtnLMimOJsMj1+aOf7l7GcOQeFgoX5iPzyKKPlXXgXLWZhPZulYEcKd
+         8wnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxVrT9j1KPLTBAe/HA2ZpHc3S5Q0E27KZYoYjhxd0GpwJi50Kxe9agAFDmdRVUDlVtxtJwL74fAaN1MEFQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++msX4MAbqqjXUT+lTh7qYLv9DZwJyaX6nRZ5FzlLlU6/7xcgXLB
+	uSiWfnBTGpvjxyn1TXJojI/1J/N1XV2Dtd6AN8uLjO9CdOXpG9t94L11
+X-Gm-Gg: AYBFou0s1WIbdhISM2AQG5CgGCgOiFzmm5pLy/l0bmghHL1f6QdntPEEYZQq5Zkg7/+
+	etnp23SYLOzIMvTsnv7OW4UnF4Zg0MItSZOXZzbs2cTVWlM3diw68KE2xKabNDJ644TEHR17me+
+	DXVBR29ZgUGigGVYhd3CXTWFQAiVY7FPRcMvGSynUpy9IAJOM+yDGYKsDWRJzon/rHkJE48Y0RN
+	poTmcKY5Cf1VGr3QUHrelS2mGdOqnaAkFOfbgsXShIODjUuYNJNL1j4SGm6xgrt3pQvnM3ApK2/
+	Lq7/+2TIZHIKbnNfPD4NfeIIRNpcb4FPbtJI1DLEJYdEHoUT/02gNljPTK7oUjhpKKEIUTp4tyW
+	lFe8hvBu5deBq64o0+Fkm3clUTZCWylRiRUBUhKxszP4c5uKfvSWALyWWIW7OFchFkPvobgjKBD
+	1QiJKV7iqWUTLTJu61FQeGqf69yG9FFmVSk7twK2Zgjsm5Q9Tm4X7yPGRLDL5LWoYgWIGot4ARB
+	E0LIEtu
+X-Received: by 2002:a05:600c:4e90:b0:49f:bd0d:59f5 with SMTP id 5b1f17b1804b1-49ff06e506dmr100694585e9.18.1790461093272;
+        Sat, 26 Sep 2026 15:18:13 -0700 (PDT)
+Received: from [192.168.18.21] ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0016a8c2asm8941265e9.0.2026.09.26.15.18.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 26 Sep 2026 15:18:12 -0700 (PDT)
+Message-ID: <42367817-00b3-4e6e-9f16-50de4b49db64@gmail.com>
+Date: Sun, 27 Sep 2026 01:18:05 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xfrm: fix suspicious RCU usage in xfrm_nlmsg_multicast
+To: steffen.klassert@secunet.com, herbert@gondor.apana.org.au
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+d3bc2f2eb498a0175940@syzkaller.appspotmail.com
+References: <aoLLSiD7yjcaH_BI@secunet.com>
+ <20260818112038.56788-1-omermetekaya0@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>
+In-Reply-To: <20260818112038.56788-1-omermetekaya0@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 26 Sept 2026 at 23:52, Antheas Kapenekakis <lkml@antheas.dev> wrote=
-:
-> Actually, recalling what we said last year duo had the new layout but
-> only one fan if I recall. Cryolitia can confirm. Then, only Max 3
-> needs confirming but even then you still need the new quirk so most of
-> this patch is good as is
 
-Cryolitia confirmed the register layout last year in the out-of-tree
-driver [1]: the Duo has two duty cycle registers but only one RPM
-register, while the Win 5 has two of each.
 
-So v3 keeps the separate win5 board data, inlines the helpers as
-ternaries, and adds win5 to gpd_module_drvdata so gpd_fan_board=3Dwin5
-can be used on the Win Max 3 until it has a DMI entry.
+On 8/18/26 14:20, Ömer Mete Kaya wrote:
+> v2: Added Fixes: tag pointing to the commit that introduced
+> xfrm_nlmsg_multicast() and its RCU-locking contract, as requested
+> by Steffen.
 
-[1] https://github.com/Cryolitia/gpd-fan-driver/pull/21
+Hi Steffen,
+
+Gentle ping on this v2. Please let me know if any further changes are
+needed. Wanted to nudge it just in case it got missed.
+
+Thanks,
+Ömer
