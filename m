@@ -1,156 +1,220 @@
-Received: from mail-oo2-f37.google.com (mail-oo2-f37.google.com [74.125.231.165])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E0A33262A
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:28:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F71A20B80B
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790386102; cv=none; b=igOc76xtLlBkRmO8laHIpWKD4+peDMIw85T2W0po5wueKvU12VAYVKbhx+4K0XnUCBQSv7GUd+Z2TwbjFZ3qaNMQB9lXOmviFKwTr8WD7/QjkgTZmF3/0CUZbqotAFhxY+cYruOZGLxgOgaTjFPt194rFTIIoI49LF+rhRx32z8=
+	t=1790386291; cv=none; b=OLevr+eUKK0Z47Z+NOQtl4SfYu7TIm5hmaxnhrS10oRBLD6Bu62QjJtiWR/TwDJdgyMhenU+UCZvrk6N2ueoYlsMRgsrVbLvOrMdWJiK3NSTl0pteCv82rZ9pyquJARsci7BshwTLG7SQzVq1hGp8JNdeVEOVZzrHXvvKZUYmIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790386102; c=relaxed/simple;
-	bh=8f074t0PhW4bKYmSqUt9X0UaX6qttBGQDYhsJlTCgsM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tsH/U/JRoiRikKVJGl3jYTfFY536VgeI9Rb9B4SilMWZKi9SCdVZxUDiLzwTw4zZz6WXlBEXpMU7AYEBC1VXZLjIzV5p5NzHSAEde6t2EEC9yWxjt8dovr7S5W+P/OpX+UmG0pNH5m9SElrvMceXvE+QcxglYbgD6asLCsfadeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yg50hycZ; arc=none smtp.client-ip=74.125.231.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yg50hycZ"
-Received: by mail-oo2-f37.google.com with SMTP id 46e09a7af769-8175f76732eso897350a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:28:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790386099; x=1790990899; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ceesP0p9wSFk3r7eOvCPcEnEaxwgQZImuOn8nzfUzVI=;
-        b=Yg50hycZffOpgymx+oaSY4I4ygK9OwVQCjcJNRBj4JhEUcXMwyIyceQxh2/hXs0MuF
-         bH4uwOVEG+lv31cUsUF82cDxVYC4GLtL7LTmKqhUG/RPrPIF+yXS4sP+wVm859Kn/Pw+
-         Mqv2FB9w/Ok12hCiQYscB1MtLoJtH6L+oNXrkEh/N+cYu6pe9HYe0qzNb/dX2q9SI+XW
-         kMG1e4ttOwgexa6st3D07KOKArt3KOVwfr9Jv0xZUTxSlubk1c0VK75qD/DuNBozRMYj
-         1ctwIcqcAgjNjMw07ZDXgjsFXYph0Zy1re9mwF83KRvBYa/af1DK8L1kiGgh+PY/rx8i
-         JdmQ==
+	s=arc-20240116; t=1790386291; c=relaxed/simple;
+	bh=E5M8QhhrUI+c7txXAJHX7r7HyxnZRw+NlSkTWpXOXG4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=PjU7J7FHMNQV9ad7xrLVgY2sAgHcjcT04CLTld8kMgWSsxXTVvARleEVNPqm2gxH/cUDxkvAO+ZnCqrHbFyulbjOnim2AEEgot3G5Mda4xXyhgbBDxJTuOWXj2S7MxKcPKj/TDXsnTKR+JGGpzX+cZsQJUxB9eth5xc53MS4h+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b28dbf4197so2862736b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:31:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790386099; x=1790990899;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ceesP0p9wSFk3r7eOvCPcEnEaxwgQZImuOn8nzfUzVI=;
-        b=u31+TxrfjP1u7oyaCaN8JHc1ByCtlt+PJhENaBN8cnUX4uCWlzxld1qxT2ZpH2xmCR
-         a06xJPsxO3RkwPituTSnGRgUNJkREQjQq09lsuuccuD3tJUyoCrGftfVVygMG8rl2XuP
-         LmeUQOlAy3oLd57oza6tYVsgVD1LqPjkYPG300UxnwRNlV3BydZRHFvQTijw/s8GaB9a
-         nmVUaS2rQZEYzDzCmkhKBRDqK4KQokgnOU3oTLkvN1VF/W28nH+4j4JihjuWSmppvK4i
-         M05+PwWDw2B9wses+eKe34BXR8WE0axqL3I1FVFmBMd0Fs/8eW929aTDhKgOZM8dq+G3
-         5SSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBySh5+7XXYR4rIeT1E50n3lR2fCh/bbCam2yGEt2P62KUrdqftbuReVVJQxMrXM4CAMIG4Ir68hjPe1XZM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlDQve9XhGIz8zefKP/sEfane3h3q41aDyWXckGvOOuSp9qevD
-	7htx7fHa5vLxowvd4/P9y5Dk5HeYWczcdgoxg4MRNx5ghm9ba3KDKMhK
-X-Gm-Gg: AYBFou1ADw2Y2NkdLTzJIVylitBdQ7lxQoBV+pS3pQ6fKnvWWWVUP3Tp2NdXtsI5D1m
-	s4g2XNwIhO1KFLmdbVzpM0t1HO6Jd0JzkMBGmmoDLhIFDhGuv5FuLLXVFJl/dbVSshdSHuQiB/4
-	rGLhKrEGxGGUkw4JNYB0EUDD02Aq94BAWkfRd62T4uZfcPiydJVmAbnk/t8Z9y757QKWLaFsNro
-	FbRDQIJZHjOH3o0TWkmaNr3uztbXVpgk0WTjJSp2Furnqx0MDpDLvZIDUrCtQhUh02pPf8tCFMw
-	VBK5OH3HiHBGwVQ5nfvbDjtvBkttFzPl07AXB3ESJVgPPi0nEVNgQ8fVORqEgKtb3J+kVIRTiuc
-	V69uCITN2P4S4WInhwGAHjAiNPD2uBXndN7wzAsl2Qz/wbQTdybyl2z+je3JDVUiCVBaJS4gc0Y
-	aRk7ICPYcRHhYLr8XARI3V7M1LSlPh/uy9SruEoyhlWT4u5m8n/2oRlPHXYZ0tIO2GVHiz
-X-Received: by 2002:a05:6830:dc5:b0:7f4:d1aa:2f32 with SMTP id 46e09a7af769-81782c8976amr9142398a34.11.1790386099697;
-        Fri, 25 Sep 2026 18:28:19 -0700 (PDT)
-Received: from localhost ([2a03:2880:30ff:72::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-818e814ac66sm4210989a34.5.2026.09.25.18.28.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 18:28:18 -0700 (PDT)
-From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Fri, 25 Sep 2026 18:27:59 -0700
-Subject: [PATCH net-next 4/4] selftests: drv-net: psp: test that assocs
- require an established socket
+        d=1e100.net; s=20260707; t=1790386288; x=1790991088;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4cZSBn2zw/XbMeBYq5zuM8G+Y2uoeKGrGxErMpIJodw=;
+        b=SCIeFW+T6S7/zjgNphV3RAjMrk61i3nDIr5o7EVE0E3e8SSjkuUcqPzRhyRXsChOyj
+         mv4aDJ9/TuyA5hyIb+BaffN3wrF9MyVvNuVBpEV6JsDgIG3E0P/SSVCyc/oeAWtM98Ww
+         Q6TiTyoLJ2mEg6dkPdj+B19xfyV8eT74mCRevIwLazWOqI3VsN6Xi6NqVrSJ+XIrs8ba
+         /NoMCM26TKpwxNtCpPNDZI3IwgYz2uMpKvspVjgHJxj2/EaTC4gfmDyknDpy66LkZLZw
+         6IKaZl8MEvSns7uTwFZS6DG3mOT+nyYz/LeeoTEkE5T2jZnRDpghqWBf0Nbg1I9NTVDn
+         zz4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzstnuF2Yz/4b1Du3OvlPxpNtED21VIfnlLmRffHXfywugXu/ruUYT6Ztk4FzkNE1TQK6UWk8P4byq2y9w=@vger.kernel.org
+X-Gm-Message-State: AFuF++m83flOrINcg0rlqdk/vbpGAbEEQqRyaLsyMkRqfVKMaBjZ0joa
+	kZitFlSs2FHbz7lgS75xxd8Nf89LHyEd8Tt2v3UxNVwXlWiuXSNUfgP/Az/tkZZg0yPldADKEso
+	9Ofv+tq/ygeuelPb4/hho5QvC7coItVwyvYXv/QDqAP2Y361Igroa3igclIg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-psp-defeat-v1-4-9f0b430107aa@gmail.com>
-References: <20260925-psp-defeat-v1-0-9f0b430107aa@gmail.com>
-In-Reply-To: <20260925-psp-defeat-v1-0-9f0b430107aa@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Shuah Khan <shuah@kernel.org>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
- Willem de Bruijn <willemb@google.com>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-X-Mailer: b4 0.13.0
+X-Received: by 2002:a05:6808:1825:b0:4d6:93e2:5bc3 with SMTP id
+ 5614622812f47-4d72f4452b2mr8119550b6e.68.1790386288271; Fri, 25 Sep 2026
+ 18:31:28 -0700 (PDT)
+Date: Fri, 25 Sep 2026 18:31:28 -0700
+In-Reply-To: <6ab1c82d.514bccd6.255447.0018.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab72070.dc2998a4.2261f5.004f.GAE@google.com>
+Subject: Re: [syzbot] [xfs?] KASAN: slab-use-after-free Write in xlog_cil_push_work
+From: syzbot <syzbot+c32ff62cf4913d345d0c@syzkaller.appspotmail.com>
+To: cem@kernel.org, linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Cover the three ways a PSP association could previously be installed on a
-socket with no connection behind it: an unconnected socket, a listener,
-and a socket whose connection has already started to go away.
+syzbot has found a reproducer for the following issue on:
 
-Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
+HEAD commit:    aa98230e410f Merge tag 'vfs-7.3-rc5.fixes' of git://git.ke..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15b4025e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
+dashboard link: https://syzkaller.appspot.com/bug?extid=c32ff62cf4913d345d0c
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11440a05580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12a99d25580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/e111cbedae47/disk-aa98230e.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/448db8740448/vmlinux-aa98230e.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/bf2dee21a792/bzImage-aa98230e.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/e1fe55618d28/mount_0.gz
+  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=12ab2a05580000)
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c32ff62cf4913d345d0c@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: slab-use-after-free in __list_splice include/linux/list.h:577 [inline]
+BUG: KASAN: slab-use-after-free in list_splice_init include/linux/list.h:619 [inline]
+BUG: KASAN: slab-use-after-free in xlog_cil_push_pcp_aggregate fs/xfs/xfs_log_cil.c:137 [inline]
+BUG: KASAN: slab-use-after-free in xlog_cil_push_work+0x986/0x2a90 fs/xfs/xfs_log_cil.c:1417
+Write of size 8 at addr ffff88803ac995b0 by task kworker/u8:8/1160
+
+CPU: 1 UID: 0 PID: 1160 Comm: kworker/u8:8 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Workqueue: xfs-cil/loop0 xlog_cil_push_work
+Call Trace:
+ <TASK>
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ __list_splice include/linux/list.h:577 [inline]
+ list_splice_init include/linux/list.h:619 [inline]
+ xlog_cil_push_pcp_aggregate fs/xfs/xfs_log_cil.c:137 [inline]
+ xlog_cil_push_work+0x986/0x2a90 fs/xfs/xfs_log_cil.c:1417
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 6137:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:340 [inline]
+ __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:366
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ kmem_cache_alloc_noprof+0x360/0x690 mm/slub.c:5010
+ xfs_buf_item_init+0x6a/0x6e0 fs/xfs/xfs_buf_item.c:872
+ _xfs_trans_bjoin+0x46/0x110 fs/xfs/xfs_trans_buf.c:75
+ __xfs_trans_getsb+0x65/0x4a0 fs/xfs/xfs_trans_buf.c:191
+ xfs_log_sb+0x43/0x200 fs/xfs/libxfs/xfs_sb.c:1327
+ xfs_sync_sb_buf+0xc2/0x290 fs/xfs/libxfs/xfs_sb.c:1479
+ xfs_ioc_setlabel+0x1d7/0x340 fs/xfs/xfs_ioctl.c:1081
+ xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 6137:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kmem_cache_free+0x187/0x6d0 mm/slub.c:6635
+ xfs_buf_ioend+0x235/0x790 fs/xfs/xfs_buf.c:1167
+ xfs_buf_iowait+0x133/0x420 fs/xfs/xfs_buf.c:1336
+ xfs_bwrite+0x5f/0xe0 fs/xfs/xfs_buf.c:1239
+ xfs_sync_sb_buf+0x172/0x290 fs/xfs/libxfs/xfs_sb.c:1489
+ xfs_ioc_setlabel+0x1d7/0x340 fs/xfs/xfs_ioctl.c:1081
+ xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88803ac99540
+ which belongs to the cache xfs_buf_item of size 272
+The buggy address is located 112 bytes inside of
+ freed 272-byte region [ffff88803ac99540, ffff88803ac99650)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3ac99
+flags: 0x80000000000000(node=0|zone=1)
+page_type: f5(slab)
+raw: 0080000000000000 ffff88801e348b40 dead000000000122 0000000000000000
+raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 6116, tgid 6106 (syz.4.30), ts 150746597616
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2591/0x2600 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x230/0x5c0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d8/0x350 mm/slub.c:7417
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x339/0x690 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ kmem_cache_alloc_noprof+0x45d/0x690 mm/slub.c:5010
+ xfs_buf_item_init+0x6a/0x6e0 fs/xfs/xfs_buf_item.c:872
+ _xfs_trans_bjoin+0x46/0x110 fs/xfs/xfs_trans_buf.c:75
+ xfs_trans_read_buf_map+0x2ee/0x820 fs/xfs/xfs_trans_buf.c:294
+ xfs_trans_read_buf fs/xfs/xfs_trans.h:212 [inline]
+ xfs_read_icluster+0x218/0x3e0 fs/xfs/libxfs/xfs_inode_buf.c:139
+ xfs_iget_cache_miss fs/xfs/xfs_icache.c:663 [inline]
+ xfs_iget+0xc34/0x2f00 fs/xfs/xfs_icache.c:804
+ xfs_trans_metafile_iget+0x77/0x330 fs/xfs/xfs_icache.c:853
+ xfs_rtginode_load+0x3a3/0x920 fs/xfs/libxfs/xfs_rtgroup.c:469
+ xfs_rtmount_rtg fs/xfs/xfs_rtalloc.c:1684 [inline]
+ xfs_rtmount_inodes+0x245/0x7a0 fs/xfs/xfs_rtalloc.c:1721
+ xfs_mountfs+0x1254/0x2380 fs/xfs/xfs_mount.c:1095
+page last free pid 6120 tgid 6072 ts 149440641538 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ free_unref_folios+0xd0f/0x1950 mm/page_alloc.c:3022
+ folios_put_refs+0x815/0x920 mm/folio.c:1036
+ folio_batch_release include/linux/folio_batch.h:101 [inline]
+ mapping_try_invalidate+0x3b7/0x4b0 mm/truncate.c:579
+ xfs_ioc_setlabel+0x262/0x340 fs/xfs/xfs_ioctl.c:1091
+ xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff88803ac99480: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88803ac99500: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
+>ffff88803ac99580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                     ^
+ ffff88803ac99600: fb fb fb fb fb fb fb fb fb fb fc fc fc fc fc fc
+ ffff88803ac99680: fc fc fa fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
 ---
- tools/testing/selftests/drivers/net/psp.py | 43 ++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
-
-diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/selftests/drivers/net/psp.py
-index 0a2329f41431..6b761c981c6b 100755
---- a/tools/testing/selftests/drivers/net/psp.py
-+++ b/tools/testing/selftests/drivers/net/psp.py
-@@ -319,6 +319,49 @@ def assoc_sk_only_unconn(cfg):
-         ksft_eq(the_exception.nl_msg.error, -errno.EINVAL)
- 
- 
-+def assoc_rx_unconnected(cfg):
-+    """ Test that an Rx assoc is rejected on an unconnected socket """
-+    _init_psp_dev(cfg)
-+
-+    with socket.socket(socket.AF_INET6, socket.SOCK_STREAM) as s:
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.rx_assoc({"version": 0,
-+                                "dev-id": cfg.psp_dev_id,
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.ENOTCONN)
-+        ksft_eq(cm.exception.nl_msg.extack['bad-attr'], ".sock-fd")
-+
-+
-+def assoc_rx_listener(cfg):
-+    """ Test that an Rx assoc is rejected on a listening socket """
-+    _init_psp_dev(cfg)
-+
-+    with socket.create_server(("localhost", 0)) as s:
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.rx_assoc({"version": 0,
-+                                "dev-id": cfg.psp_dev_id,
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.ENOTCONN)
-+        ksft_eq(cm.exception.nl_msg.extack['bad-attr'], ".sock-fd")
-+
-+
-+def assoc_tx_non_established(cfg):
-+    """ Test that a Tx assoc is rejected in a post established state after shutdown """
-+    _init_psp_dev(cfg)
-+
-+    with _make_lo_conn() as s:
-+        assoc = cfg.pspnl.rx_assoc({"version": 0,
-+                                    "dev-id": cfg.psp_dev_id,
-+                                    "sock-fd": s.fileno()})
-+        s.shutdown(socket.SHUT_WR)
-+        with ksft_raises(NlError) as cm:
-+            cfg.pspnl.tx_assoc({"dev-id": cfg.psp_dev_id,
-+                                "version": 0,
-+                                "tx-key": assoc['rx-key'],
-+                                "sock-fd": s.fileno()})
-+        ksft_eq(cm.exception.nl_msg.error, -errno.ENOTCONN)
-+
-+
- def assoc_version_mismatch(cfg):
-     """ Test creating associations where Rx and Tx PSP versions do not match """
-     _init_psp_dev(cfg)
-
--- 
-2.52.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
