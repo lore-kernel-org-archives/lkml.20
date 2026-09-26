@@ -1,36 +1,36 @@
 Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5D537DAA9;
-	Sat, 26 Sep 2026 10:20:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527B938BF7A;
+	Sat, 26 Sep 2026 10:20:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.183.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790418039; cv=none; b=YmO0DAvbWRelHne5HYxI9WBdrl0Ei4fa2IogScfAPaI3FgX1aU7HGHrsPLAQ2WpMpVCuq464KbxfktMyeiEsyx2lvzDVctV2Pka7TnCaKI0aK52PqqsGQz+7VMDphWgEM6VBSx5fg0sk+nOfYVTCPaMdWmFQ+8NYzFYm3Wa7qXk=
+	t=1790418040; cv=none; b=SivEtuKqoPA3juaRdHX95dR33uKlbiAHKT+lGEqc/5rWT+TzjRtbfLM6XLazc9e5slVcSBvrD7w90q0SoGEXVuUvH1/+wPfE1f3ohXVcVlN2+hcJBqDVHHVa8E3yYaNN3an0hdytRTY40gX8WeMdei0xaBVunrzL/3k+70SjcBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790418039; c=relaxed/simple;
-	bh=KLlHO9g+T+Yj7FycdIZ6x56fp1RhrGOeRrv/Rrarm5w=;
+	s=arc-20240116; t=1790418040; c=relaxed/simple;
+	bh=iA1q1pIzfra+wLZHe0RRYckFNgRWQVBo0q0XvsN3PtY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Eosk9i+4OzKfSaWkBu7tqaS8CUOtK0zESZvIIem+yoZAlFAThK3DViLc8yAraoWJgW/GGECSbnxyH9PoE3KvTY1mjLGWx2qviC4sT9tyvJ+SV0mjZXUNm/o6+8LJ4S0+7xQzUaRwBjSauJhw05megp6YtuSiK9QoBglFzYyeVC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu; spf=pass smtp.mailfrom=erebion.eu; dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=kcJdxXS+; dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=OUrYtfeZ; arc=none smtp.client-ip=142.132.183.134
+	 In-Reply-To:To:Cc; b=DQV9D86fypf7eI12p3uLfVZqA+ljs303F6gB8RHcIKQ17+LcQJApjunV7EOEAvv/TUdjH+XLNA+4OiXr/IoI6tp/bPe1nsALVs0ZZxsRoItyCEio1s4aXOhOTP6a7zKEi/OdW/c7CvozV5vWnCBiT1J7G3zBblMiVV9UVIICVgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu; spf=pass smtp.mailfrom=erebion.eu; dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=SM68rivk; dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=JVYJTdI/; arc=none smtp.client-ip=142.132.183.134
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="kcJdxXS+";
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="OUrYtfeZ"
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="SM68rivk";
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="JVYJTdI/"
 DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1790418024; bh=lVlAnYc883cp2ahIumWV9sy
-	JCRy4qAhBeWrjjpiDrd0=; b=kcJdxXS+dW6Brd3cEIU4jILC+ktY26Dv0UhRGtCQrQDsXjnp2w
-	X8OHX5wLLIRBEnsvLZ0a0Wv0G0KwlwfQ4zCw==;
+	h=To:Message-Id:Subject:Date:From; t=1790418022; bh=8AGPwDSqEz2LX3saMt7CBR1
+	dAiSZVMcMXlYT9ypB6D8=; b=SM68rivkillGJyq0X2Yp/kyOZnu5+5kXdhaA023btIy/0Z6BEH
+	r9mT6O44rUMZwdK3j0ZYRbmSDx2pgd+z/pDQ==;
 DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1790418024; bh=lVlAnYc883cp2ahIumWV9sy
-	JCRy4qAhBeWrjjpiDrd0=; b=OUrYtfeZnlFFJXL6ipDSzTh79qjtnIznuhWOUpzDzPc/jKG1hO
-	LXhdvtw1Thk70gNXKwy6oTHr483K06Yx27PIzqseueVtmNALWDNqPc30Nti4fIxTSGowxCi5h2e
-	H+HeRDWexX9MxtkK4G/xaBCwLyjysOvHRsm0TaurH/9xnrgqOmeE6EUIDVMcWWUFa6w8i3pCU4z
-	O81Siw1vk2pyCdRGaBAZ3GyZ8e4OTi+Nk5ih7TFNEa8LkD/aX+1jZC7l2MZc2TwvmvlLHe/RU3T
-	kocAn7KDZR0DVrewY5pAZpUZI5MGL1UcyCJ+nSH8x2Cu4evr4NszHqLzDPiM9pNrCrg==;
+	h=To:Message-Id:Subject:Date:From; t=1790418022; bh=8AGPwDSqEz2LX3saMt7CBR1
+	dAiSZVMcMXlYT9ypB6D8=; b=JVYJTdI/DgmAEHdh9VZA3kuczLfmXaGfZR4QlBrdIZELQJeNXF
+	DUuQlq7eNX6xUu6Qp8Va4QUvcsYNNTfT6Bs8M79bpFwoLiDUdRnnqRUjOx0pQ/IJMarEqd/0si8
+	eEloQGM7ipFaZY4br8/xBTZXePLc4S5LTGMc2bu+2OJZtpimWFDqlq3pXHXQPo7IHzy3f5SUcdd
+	84xo0EKbLlvKG/VFhQaHRfiuob/NIBF9zFtenkv0jZEjlmmYPlB/JJCGgJi/BvqdyZ/Oi+B63jB
+	sUjgItrjzwuUQuiBKI7MN2I4z6VlBNJjxT7PPinsBZB0Zhp0uHuzwXlV3xZgXEaK+Vw==;
 From: erebion <erebion@erebion.eu>
-Date: Sat, 26 Sep 2026 12:20:24 +0200
-Subject: [PATCH 7/8] arm64: dts: qcom: sm6350-lena: Enable PM7250B
+Date: Sat, 26 Sep 2026 12:20:19 +0200
+Subject: [PATCH 2/8] arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,7 +39,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-pdx213-upstream-3-v1-7-1609c18b5c1d@erebion.eu>
+Message-Id: <20260926-pdx213-upstream-3-v1-2-1609c18b5c1d@erebion.eu>
 References: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
 In-Reply-To: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -55,94 +55,56 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  erebion <erebion@erebion.eu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790418021; l=1972;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790418021; l=1334;
  i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=KLlHO9g+T+Yj7FycdIZ6x56fp1RhrGOeRrv/Rrarm5w=;
- b=PPme/hK2x0lvSTxfN7R7zUIWSLBfjnGu6/GBeOtDAu1rnOCe6qR00JlftoOEEeocQnSpxmfhe
- +xmU5cm35bXCqVIg8T+omYUDS5poDR/Eem4EjWXkqR7wMKOq+soGNAK
+ bh=iA1q1pIzfra+wLZHe0RRYckFNgRWQVBo0q0XvsN3PtY=;
+ b=FTIL4v9aGi6msjqAoS9nNWnFpI2lhQqBUwecRN1wjugUom1OoDGGMH324KquuDRB3Z+fzTT21
+ F0+x1SM/BK0B8IOowqOs4F48jny6eYHuuentXnNaVH+w8cnzwFDNPsp
 X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
  pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-Enable PM7250B and some components on it for the Xperia 10 III.
+Adds the qcom,rmtfs-mem node required for the modem
 
 Signed-off-by: erebion <erebion@erebion.eu>
 ---
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 48 ++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 7c14360cb1838..265400aa945ba 100644
+index c72ccb5544589..56a863eb8e167 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -4,6 +4,10 @@
+@@ -4,6 +4,7 @@
   */
  /dts-v1/;
  
-+/* PM7250B is configured to use SID2/3 */
-+#define PM7250B_SID 2
-+#define PM7250B_SID1 3
-+
- #include <dt-bindings/firmware/qcom,scm.h>
++#include <dt-bindings/firmware/qcom,scm.h>
  #include <dt-bindings/leds/common.h>
  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-@@ -11,6 +15,7 @@
- #include "sm6350.dtsi"
- #include "pm6150l.dtsi"
- #include "pm6350.dtsi"
-+#include "pm7250b.dtsi"
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+@@ -54,6 +55,22 @@ touch_en_vreg: touch-en-regulator {
  
- / {
- 	model = "Sony Xperia 10 III";
-@@ -388,6 +393,49 @@ &pm6350_resin {
- 	status = "okay";
+ 		vin-supply = <&pm6350_l6>;
+ 	};
++
++	reserved-memory {
++		/*
++		 * The rmtfs memory region in downstream is 'dynamically allocated'
++		 * but given the same address every time. Hard code it as this address is
++		 * where the modem firmware expects it to be.
++		 */
++		rmtfs@fe901000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0x0 0xfe901000 0x0 0x280000>;
++			no-map;
++
++			qcom,client-id = <1>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
++		};
++	};
  };
  
-+&pm7250b_adc {
-+	channel@4d {
-+		reg = <ADC5_AMUX_THM1_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "charger_skin_therm";
-+	};
-+
-+	channel@4f {
-+		reg = <ADC5_AMUX_THM3_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "conn_therm";
-+	};
-+};
-+
-+&pm7250b_adc_tm {
-+	status = "okay";
-+
-+	charger-skin-therm@0 {
-+		reg = <0>;
-+		io-channels = <&pm7250b_adc ADC5_AMUX_THM1_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time-us = <200>;
-+	};
-+
-+	conn-therm@1 {
-+		reg = <1>;
-+		io-channels = <&pm7250b_adc ADC5_AMUX_THM3_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time-us = <200>;
-+	};
-+};
-+
-+&pm7250b_vbus {
-+	regulator-min-microamp = <500000>;
-+	regulator-max-microamp = <1500000>;
-+
-+	status = "okay";
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
+ &apps_rsc {
 
 -- 
 2.53.0
