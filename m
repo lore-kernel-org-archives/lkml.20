@@ -1,177 +1,185 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020143.outbound.protection.outlook.com [52.101.196.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1331547063;
-	Sat, 26 Sep 2026 23:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.143
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790466576; cv=fail; b=UWCuJ+Zpqqqkunw+LXhHi8tjCLTskBWQCR+196NTKXl05gyp2Xy5yo1jarjKpWVB0JyHq8rOgJd+3fZO3+753q2yzxjEZKKd6nrSoey/U7IytcQXQLMeNGg/o3HgqXNbG+gCMzFyVS/H/tVT205PbFrKbuhW8n15W6PecipomJE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790466576; c=relaxed/simple;
-	bh=dXp0SZaQTOJo8FnGS4hIC44BxhRBSjw9oq40zbkNzEg=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=NSe75b53MqJmN/mXwb8lX4gP73BBjmrCYU17gvXdEQ6Iw/0VJ3l3vIQ7U9dnmPcmXIUfdrEabwJ8o7FyOMd9hf+8gUwaE4kyRd6/vyOlojcmtVAfBzl7brLo+QaBST9/1AUwhYoIdOW6Fj+jc8byjwFMzfH8aRHbb0R1f3PFrbs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=PS/jPXqM; arc=fail smtp.client-ip=52.101.196.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A2B38F935
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790466635; cv=none; b=uoejALjU/8LYW5/D7NvZzWzX7YP34Zv4goufiHM5fRW8fb2EC5ZFB2SlVcbWzVXbSDF9e9lkBqGhdy+qnPa0U5h6zjaGkvSJ73mHb/Uo9X30JNgLUVLPOcSj7DxH2V68ReJFRNjtMTZ9X3RD3q8P8UrhOoFuZHrTtFPEVfq6MhY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790466635; c=relaxed/simple;
+	bh=8jMU1Dl9hhLUv5U752LLGbRGkvb/y7qgoM5KbktG3Ks=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fgU5diNfLC63YcDHbSSTi7PsMycvepJD+XLcApVQiu+UMmT3xo6POcpoJ7O5ozV4WNQQiqQ0XfgaVFO6n9Oclxp5uQvI9i1NnnBLsSU4L6izk+XP3o9qypO4Mf1zwWhBy9muRdy9+X/FbSZo+SUM9g7vxgF5ljJr9IEhvyf2Ans=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=J4/gq92E; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="PS/jPXqM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NB870HHr59rv2WmBvftJvoT3Tscgs6h/7pKSd7DK011nASTIgsiKNg3y7za154R6tsiQ6uC96OBQOUmFVNddYjxPQXmrbOYce9auQ0VaDPVs6XGk3vwWRJkB+S9+plkmc3WuWLrN8YMjMchzlX2LRjevpLAyAEvfobxHpkQkadbW3/eTheqny92AvNQuBffSBHn+y0whoMilaO17+a3PZGqiYMf3IbzH+YNiA3k2m1eiFo2c6ZmbvcNPun7q8WjjP8MjeBjwl8U7buMiBJ5BmArgUWW0DIaJjmzKIMivxGp3lXSxqTdWpK9PSiETLXpr2zE3p0KR48TggnjbHrTr5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zhF50AlMrc8cLGJlvHbKidqPm9H1VtjaljR2giLpbg8=;
- b=wTIqysq+YLYBvNWCEZVl2ovG3+K0v+fpBdyQpV5SgbYxdidzgAsIsNVDN58RiU8J3RwRgEx+6+wyPw5GtIhpSW8TPjQC5HM/jaPGNt4glZQxByxvHlurCieav4tg4aWGmIDhvI5YTAtXOoSipbj7u/vEMMMItvL6yGNNcmDriOoNXrKplEa57fj1wNTIB8AeEjLNxiWh2xgnGlwa57rbgWPKngpHxvL54szl9RcAsW+RHfaiaBN2puoNU3vInzADd0T3k/UbhjbPpJVtRLGU34Qrxj7yYiWVOFAtjpWbCRlWRrpreFJjAR2da73U6IlPfZUBj3mgwoz8TcOkrQKAvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zhF50AlMrc8cLGJlvHbKidqPm9H1VtjaljR2giLpbg8=;
- b=PS/jPXqMnzBM/5MZcT0jaB/KP31rLiHJx0xOY7Nf1l2P2jPKIc3fk0TsvGTRrAl8nOG6igqmI7wEcaYdjDdsONpQhGKyh1qg/d6UxZvZM/XByRA4FXQIJxF+Y7aHOPJj6bFtr0bUJZIogYxqq2jHdIG9JWoEvhQS/ryPlKTZczI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CW1P265MB7837.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:213::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Sat, 26 Sep
- 2026 23:49:30 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
- 23:49:30 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 27 Sep 2026 00:49:29 +0100
-Message-Id: <DLPNFF0JNNOQ.14JE7RL8LT79Q@garyguo.net>
-Subject: Re: [PATCH v3 1/2] rust: uapi: add zerocopy/zerocopy_derive
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
-Cc: "Deborah Brouwer" <deborah.brouwer@collabora.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
- <20260925-b4-gpu_info_intobytes-v3-1-e19bcb71980d@collabora.com>
- <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
- <DLPE0D8F96DE.91C7E0MAERDS@kernel.org>
- <DLPJT1IUSKQO.1CAWHDECQAFPO@garyguo.net>
- <DLPKN532X7JJ.14Z51ZIBUIK94@kernel.org>
-In-Reply-To: <DLPKN532X7JJ.14Z51ZIBUIK94@kernel.org>
-X-ClientProxiedBy: LO4P123CA0274.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:195::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="J4/gq92E"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48870973bddso845537f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:50:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1790466632; x=1791071432; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qteUU/69D9osiNFS2h08w3Fe+zYvU7Pt0cpz1kBDxMs=;
+        b=J4/gq92ESeBShUeKplDKIX7kq5OUYXq5aCUoLrOTl/VxYi2klkbyZ+YrBJZjVbau3g
+         zhNEVPWPFjjKtTJn+K3Uje7JupA0Mme11hFUuGBWje7OYlvCP8KUaV1SRQM762fZTIxQ
+         qXSbjW3R7HbLUJeSBpS+yPXxWEikBxPh+34y9dVqU5N7oxve5D/fO1JkVy1k8tGunxSd
+         kGcJunyyjNtjfoK35lpuxfWlhiZw4YtRtQhF55/cJv2MnVrUvi2VnW0SGqVitUt/FoxW
+         VtMv597Bww8Zjnb5k29O5tUl+gyBsQeumUJgjvXqn8ZSIxZ4ekgWsmSs1J81/cbxVQs8
+         d3dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790466632; x=1791071432;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qteUU/69D9osiNFS2h08w3Fe+zYvU7Pt0cpz1kBDxMs=;
+        b=JQwZEpBObeR2crnwqhgt+ZVBQPkl7fnS7W2BkchnJizU+eI61bqHFzLVlrNxblUwi8
+         MY8/+PGZlP0ghfsYdpiqFIACSFsYDxRyf1gtDXES3Sg8sy8s3SoEKdwmfnxHutcmYsQq
+         AWzJu+z00PZ0PvJHDLlUiKTWBzE3C+52m52DupfMPBP3aUv0z49lLpSTH1zeN2Bjw449
+         XZkMqFvp5S2/k/uFuWwsvGcOCElfbf3uxoatpWz4D9vVAFJoSTJmweWDWqyyddk3ckCI
+         3hgqbRaEJSKJMCbwDe1mVk1uG3XaQJZdE8wiiUGc2j5r40CpykuK3xA3A9FndZ5WrEAV
+         U9Bw==
+X-Forwarded-Encrypted: i=1; AKwUvByg3oC8HouiZEtGaGTVjyfVbuiASnXFsCaPzLVhQg50v7wBHckNoLcyQdndvXz6iAEQfRentsdppfce6hw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQHS62P6BLS8cohii9MOBsohApJqA71YWESYWTPTVRClqCg/me
+	9mdu+TuoxReqsOPF/xphC5PS5KJVKaq11PfqBeqH43VRJsYS0TMUWpzrYLMRQinrKoU=
+X-Gm-Gg: AYBFou3ae+a7BdI7itrv4p2CjoS6lvEJBQZAiZQnLrdma12kio7mlBwzkc/ZexJF0vB
+	ffpraEmr6H0A0F6CuH7mEqLRndsVQlzeqm352mco/F0KxzmRSFYKbvXB6ThzkDhJiAG86OaOghr
+	zjVQvhTvu2ZIYorIBD8yWtRt3BY/dXadPf/ZwpSgncNf8pz/UWP72l8OZeZpq+idHctxTpi9bQo
+	3H3uRkPgryeqODfBpemaTgSK/oimUPmFeaMoErgXv4VyFc1hsDuNFE5jTqjQE+l4wfssraU53MV
+	Dx8TFdJjA2Vh20YJEIWd2x87sG8nKzg7GXbhVXmnJ28XkN4DgQ5G7+N1wutl+KbxYwn8LP1L/Vl
+	vD5EBlEPuCWEcF0QMjuz6ykCGMoQukaTUwFh4ZdwkBFvjIu13a9tRt5qyo9RRktGwRPTP1Bb8tt
+	DCsQJdug/+9x3IUGcdjdkhRuOukZIfSCJdBDmGAOXUNf+UJXtNjuUMPuRZcYQb
+X-Received: by 2002:a05:6000:25fb:b0:487:25:71c7 with SMTP id ffacd0b85a97d-488716b96cemr19111229f8f.12.1790466632023;
+        Sat, 26 Sep 2026 16:50:32 -0700 (PDT)
+Received: from remote-01 ([84.17.55.134])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349fa1sm24716798f8f.8.2026.09.26.16.50.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 16:50:31 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
+	andrew+netdev@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	olteanv@gmail.com,
+	Thangaraj.S@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	steve.glendinning@shawell.net,
+	f.fainelli@gmail.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aleksei Sviridkin <f@lex.la>
+Subject: [PATCH net v11 1/4] net: usb: lan78xx: register the PHY interrupt with the MDIO bus
+Date: Sun, 27 Sep 2026 02:50:21 +0300
+Message-ID: <20260926235024.705646-2-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260926235024.705646-1-f@lex.la>
+References: <20260926235024.705646-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB7837:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05569dd3-7358-4ba4-c051-08df1c28cedb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|10070799003|18002099003|22082099003|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Tq7bWUxww0TDYWe3xrCRuY/ibZ2kcxB1j1EzOmfmsn8IapLhpL1OftWXq8nLUjlt3LWG7CZ3kxgQiBMzZj+P4c7tDu1vct+SItvu0i+1QHzDrdvxGCkYcHucn2HfLSqoLcU8v9oklOmU33QGX+rfXzCM3Rqv26h+DISKQkadnCanJcpZbmuGDC8LbZ1Ld4umVE5gIR+pIdiiF+G6ftLdpncoB0C5dFEMxY/PCXFhQG/G0LW3mxP3OZF5+3kOwpij+MrjaQqoofFf1Yg1WqiRsxfVOTXcY1RZ96uFMbzulJjKsW9DBNxsusSoPoMN9CT8vNS62xno+K9ABLuy2UVJX4gvVE8lsCFQqWWhbJpa3zIJ3p4hcncR4YLyqOXHLuqa2KsGkmFSPSIelorG9984XrF0VFiHyp83vH+IEpqqnD+XViBPhGV46hQ7Xjomvcu1kRQLH7/SKL2dnhIm920zlMCyq3/Ee/8Tg2wsn548kgnik1LBb99Fojnrk6Pa3SOXOO0mAuCA1ux8tSB8xZ4ucr+wn/9+hRQ6CdVCQx4wOB87PMMrU01U1kV6o74jn0BR6M+Y7Wi0YeofQSA92mzvKAzotX9nGWPIlYR0nAcwivrfOu4wu8dx5/aEUpU1DRiT6ZdeTauObgdZdt3UTJqSenhWMYl3ZpAywOo40xOzOzQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10070799003)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UHNtT3VmSVZtK2NCL21uQVdPd3RHSXlLTWVaMUNTLzdkY056RXp5c29BTktY?=
- =?utf-8?B?OUNYdVl2bVZJNkZMTjNDTzlOOWRZWUFlQXlPdGJtZmZmNkpJRk5vRlR2aHJw?=
- =?utf-8?B?VVpjQ1kvV0RVMUFYMWhvVWYzZzJMbTRFVFR6VGFWOHY1S29YeklLNUl0blJL?=
- =?utf-8?B?d2tUVHZtRVAxU3NSaXVvTzRid1owczYwZWlLNVF6Q3Bzb1A0R2JuWG5ka3Rl?=
- =?utf-8?B?S0pZWXE2c1lPZmZBczVhUUNOQjY0Rzk5clpsNnpzYTFyT2NDRFEwWDFjclky?=
- =?utf-8?B?bWxTU1ZTVEozTjZBVHFraHhyMm96c2E3WVhVdDhrRFpuWGhlTG01RDE5cC81?=
- =?utf-8?B?QzNTK3RTWWtyOG5NR0pzOTJqQ0NMR3NXVVFDM3lOd1NUQ1p1QVNIdDZwQVZC?=
- =?utf-8?B?WmdWVnYyWG1WdmhQRDNwVTBEVnh1SDFlampLMTFRcXJ2T2dFNmJjbGpDZnNX?=
- =?utf-8?B?VjVNVnl4RDg5YnV6dnZ0M1h3RGowRXFmVEkzbm5HQm0xTE9udlhZb1BnS1hj?=
- =?utf-8?B?cXlZOEhjR2lRYU5IV3pHZW1IeGE1SEVZalMrdGZXWS9Fc0EzTTc1d0JaS2JI?=
- =?utf-8?B?TWZOVlFqcEhHZVhNZ2lsSnFyMEg4QVVXVnYzMzhMSWdaaWtTMlkxMjZLNXB5?=
- =?utf-8?B?SmVQUWcvZ0VYdGc0UktGQkZ6NC9LOVRzTEkxNVdPNEx2VkN6OUlObUlYZlRI?=
- =?utf-8?B?TEhST1UvSU1xcC9UWFZpTVRrK2hPUjFMQ1pZdTNic3Eyd1VwdG02OThobUZh?=
- =?utf-8?B?dzZ1RHZjZ2R2bHFVVlRkY2tEUXFlcG8zYVVOa3A3VXdiUzROZXRrSTlFV0Na?=
- =?utf-8?B?SFo5K0dobFJ0SjFUZ001TGJpUmo0cDh4SkZQMnBLUVlJWk5Mb04yQURESTlF?=
- =?utf-8?B?U01MSDQrNTdrbjY4aHk4dlJHNEZTYkQ5WC9acE1HejAwVWlSK2lFTStqeXBw?=
- =?utf-8?B?MHZtZTVJUUZvelR2T21LR2R1dG0rOVhWRkw1b2VQUVhlSFpEYUI3TnFpZkpJ?=
- =?utf-8?B?QnpqckpFQVpEeVBPVGMzT2twTkZEY2VwZ0p6bEgrSEgwSVFyUldGS0szRXlN?=
- =?utf-8?B?S1JLVmkzNHN2SWdpTjEwZUVmMEVvSXRIaDE0SERPTHlMM2c0ckZvZWFnTWJu?=
- =?utf-8?B?bjNLMzI5TUhyc21makFXdWdzY1c3amx5b1FzWEdSdEs3VGlIcEdUcXRVeE52?=
- =?utf-8?B?d2p2amxyT1lSVVpya2NDQjBJWm9mNE9iM1NnYWdhNnMybVRLVU51eFpORGpM?=
- =?utf-8?B?YjF2cTg3M1NUM2E2NG5LZTVsUXJ5elY2emozWEdxQlp6T2k3N0FSdDJlOUVO?=
- =?utf-8?B?YXg2ZENqVmVNL2s3VWJldHZnQUlDQnlrbFJEZ09kZnBQRXRDWmVOQnFYUHRp?=
- =?utf-8?B?dzRvNGlhRDRPNTlrYVpRdWdySHJwNVgyK1lVaXZuNHVIb1IzY3MxYktLa2t0?=
- =?utf-8?B?NENMUEpsUU4yUWhaOHZ1RDdIOFdkWHkzQW50KzNuR2xwaXBySG5jT1RheS9i?=
- =?utf-8?B?YUl0d0M2ZjYzaUhGbDRpNmdQcE1iVUJLWEVZenB4SnVIVTE0akp1Z1IxbTB4?=
- =?utf-8?B?clNqZGE0NXZDQzNzKzNMZTRSejlxM1Q2NlVlSm5nYjJnTFFQckxSdWxINEVE?=
- =?utf-8?B?d0R3UmxhR2RaclBtcVIyNW1tKzFoWWl5bjlSb2htYXQwWVFyTmpvakhZdzU5?=
- =?utf-8?B?TDlLRWYyMDlWakVsOVJoSzQxUDRtWGk2RENuSktpMzVKYnE2ZFVLbzhxN3Y0?=
- =?utf-8?B?dUdQM3V5S2o4Z2hwcXNSeDJsSjFHQ1VyemhKYnpSa21NTUt5SnBFTllQMFVM?=
- =?utf-8?B?OFNVd2VoMEpPWEJnbTY0SVZRbXRSVEc3cXdDd0dGUWh4blpsUlAxdEloTDJ4?=
- =?utf-8?B?YTI3K3VIbGVaRHFlWEFiTWRVYStrRGRQWlkwWElYWnNPeUs2RWczWFJXKzU3?=
- =?utf-8?B?RXo4RHIzM044SzNUTTJhVTg3R1lIOG8rNDZoV0F6RnZ5bVdRejh4WVJwQ2U5?=
- =?utf-8?B?aXpoR2ZSZTRWQUJ0dkhVSE9EbUtiVDdBZTZUUlcrc056WlFHT0U4L3FpUWs3?=
- =?utf-8?B?NUNZWjRQQ2g5WXpoWXN4T1FaRVJMNGVCQ2xNUVFQL0FkdEpKQ3BUa2xFQ2x3?=
- =?utf-8?B?a0s2MlpIL3JrWFBGK2w4OHhIVUdqVGJ3Nnk1NThqRGFmOWJXUUFrUjRhWm4z?=
- =?utf-8?B?OTQxYnZJSTVpYndScFJvZnlLMlptU1hMWGhJRmpuZXRCMG1HRmhkVjZQOGRZ?=
- =?utf-8?B?L2d4eXFuWjlhYkZTLzBYdzJIYlFQa3Z6UzNmbGZ5NzYybDl2bWpHQ1J1L1p5?=
- =?utf-8?B?aVNmZGxCeVJCeVh5UkRuNnRkUWNGNWdKV1I1UDB6M2NhZndacmRTQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05569dd3-7358-4ba4-c051-08df1c28cedb
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 23:49:30.5533
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TGWq5dZRzRPyyD8SSGtNHRhq8P1/7aHz89C2ToZF1uM4wFwYGEfOPShumUx62fTFqckj36fu7a5O5IXszlc7jg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7837
+Content-Transfer-Encoding: 8bit
 
-On Sat Sep 26, 2026 at 10:38 PM BST, Danilo Krummrich wrote:
-> On Sat Sep 26, 2026 at 10:59 PM CEST, Gary Guo wrote:
->> On Sat Sep 26, 2026 at 5:26 PM BST, Danilo Krummrich wrote:
->>> On Sat Sep 26, 2026 at 5:50 PM CEST, Gary Guo wrote:
->>>> On Sat Sep 26, 2026 at 1:26 AM BST, Deborah Brouwer wrote:
->>>>> @@ -71,3 +71,6 @@
->>>>>  # Structs should implement `Zeroable` when all of their fields do.
->>>>>  --with-derive-custom-struct .*=3DMaybeZeroable
->>>>>  --with-derive-custom-union .*=3DMaybeZeroable
->>>>> +
->>>>> +# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
->>>>> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3Dzerocopy_deri=
-ve::most_traits
->>>>
->>>> This is Tyr specific change and should be in patch 2.
->>>
->>> Why list all of them separately? Can't we apply this to all uAPI struct=
-s?
->>
->> There are types with paddings which cannot derive `IntoBytes`.
->
-> We have some existing uAPI structs without explicit padding; new ones sho=
-uld use
-> explicit padding though.
->
-> But isn=E2=80=99t most_traits intended to handle this through best-effort=
- derivation,
-> leaving IntoBytes unavailable for types with implicit padding?
+The interrupt this driver maps for its PHY is written only into
+phydev->irq, while the bus table mdiobus->irq[] keeps reading PHY_POLL
+for the same address. That table is where phylib records what the bus
+described - phy_device_create() seeds phydev->irq from it - so the
+number lives only as long as nothing else writes that one field.
 
-I think the skip-on-error default was added in a version newer than what we=
-'ve
-vendored.
+Put it in the table before the bus is registered, so that the PHY the
+scan creates is born with the number, and drop the write to phydev->irq
+that phylib then makes by itself. Fill the whole table rather than one
+entry: for 7801 the address is not known until the scan, and for the
+other two phy_mask leaves only address 1 readable, so a loop costs less
+than a second switch on the chip id. A devicetree PHY node that
+describes an interrupt now overrides that, where the driver's number
+used to win.
 
-Best,
-Gary
+Found going through the drivers that keep a PHY interrupt outside the
+bus table, so that the restore on detach later in this series has a
+number to hand back here as well.
+
+Assisted-by: LLM
+Signed-off-by: Aleksei Sviridkin <f@lex.la>
+---
+
+Notes:
+    Compile-tested only; I have no LAN78xx device.
+    
+    No Fixes: tag on this one. On its own it fixes nothing - nothing reads the
+    bus table back until patch 3 - which is also why it sorts ahead of that
+    patch rather than after it.
+    
+    lan78xx_setup_irq_domain() runs before lan78xx_mdio_init() in
+    lan78xx_bind(), so the number is already mapped where the table is filled.
+    The fill covers the whole table because only the 7801 case leaves the
+    address open until of_mdiobus_register() has scanned; 7800 and 7850 set
+    phy_mask a few lines above, so every entry but address 1 is unreachable
+    and writing them costs nothing.
+    
+    The fill is a default rather than an override. For a PHY node that
+    describes an interrupt, fwnode_mdiobus_phy_device_register() writes the
+    devicetree number over the table entry, and into phydev->irq, once the
+    device exists. That inverts the old order, where the driver's own number
+    was written last and won. Neither in-tree lan78xx PHY node carries an
+    interrupts property, so nothing in tree changes, but a devicetree that
+    described one would now be believed.
+    
+    Teardown order keeps the number live for as long as it is read:
+    lan78xx_disconnect() detaches the PHY through phylink_disconnect_phy(), and
+    lan78xx_unbind() calls lan78xx_remove_irq_domain() only afterwards.
+
+ drivers/net/usb/lan78xx.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+index 5655941f1478..522fb4daeb46 100644
+--- a/drivers/net/usb/lan78xx.c
++++ b/drivers/net/usb/lan78xx.c
+@@ -2092,6 +2092,7 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
+ {
+ 	struct device_node *node;
+ 	int ret;
++	int i;
+ 
+ 	dev->mdiobus = mdiobus_alloc();
+ 	if (!dev->mdiobus) {
+@@ -2118,6 +2119,10 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
+ 		break;
+ 	}
+ 
++	if (dev->domain_data.phyirq > 0)
++		for (i = 0; i < PHY_MAX_ADDR; i++)
++			dev->mdiobus->irq[i] = dev->domain_data.phyirq;
++
+ 	node = of_get_child_by_name(dev->udev->dev.of_node, "mdio");
+ 	ret = of_mdiobus_register(dev->mdiobus, node);
+ 	of_node_put(node);
+@@ -2892,13 +2897,6 @@ static int lan78xx_phy_init(struct lan78xx_net *dev)
+ 		return 0;
+ 	}
+ 
+-	/* if phyirq is not set, use polling mode in phylib */
+-	if (dev->domain_data.phyirq > 0)
+-		phydev->irq = dev->domain_data.phyirq;
+-	else
+-		phydev->irq = PHY_POLL;
+-	netdev_dbg(dev->net, "phydev->irq = %d\n", phydev->irq);
+-
+ 	ret = phylink_connect_phy(dev->phylink, phydev);
+ 	if (ret) {
+ 		netdev_err(dev->net, "can't attach PHY to %s, error %pe\n",
+-- 
+2.53.0
+
