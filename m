@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00E7331EBA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFDB2C2360
 	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790462034; cv=none; b=XneTI5VrPyKlp5tGdzMQmJxVOxBik2yjLVWnxgrX1D0Ex98S02zNWZ0lKZ824adVanZfxlGrx9Wm1ZF51pvItXVO+zLFpNIePvfZ0YEyR068onsztfhmiMkh+MBipyhFw9ReTGckxRvON1rwFh/+lor4YP40jzHag5bO9DwASMc=
+	t=1790462034; cv=none; b=PKPMtWiL5DaVsKGvZan/mfac9sMMaa4t5ldUlaEzy5m8q1uB3HvhhIDPrfptJX9E2pKKOeW5EhE34/Q1sRd1f18lxljkODTHP5Odmui/zuh0wUqpgmlnxGI8kxRxLU3JYQo4mcp8didINh3Eq9R02553lYIYLinRzttQ+jEHQeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790462034; c=relaxed/simple;
-	bh=5EjlbXzfNhhj2rFbPScAbyukxVXncWxCqZbBtLgd2Gc=;
+	bh=VZulDtDxqhPLQ6+5jwWRkBXlKH0j6U1wO7eceuEiZCE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eZviTUTlvZeSRgiia4rM5doDevS8RzvTbx6Bck24Q5QjWJMghkrzDsF0RIJVeRmXxNCp0QC7x31XrNHbDCoU48BXDpFeqpZbF4pXidHTueb7C0ZuxA1Z6/kBAXvKw1pudQZxg5Q6YaSc/UNUJJ2pREeJxvrn4nUyYg1zPch+jFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LskNpArg; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=sHqD8ZPiRzqWiPFEaYQJ7V7JyqX4W1iLGIyp8wOIFQHXhlsY5z5Hfln1stqWPr0iLZKfeiPMOBh7zZylb2v5vxpAafGieTWxRRl0UuLfFVgs5ob3KxC/Irx0UurfvPJUz4ACGQz3cN14JNdRvt7moLyJ0zNpeh2iROpRzDCn1jU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kdLtRGZe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LskNpArg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3C0B4C2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kdLtRGZe"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4BEF1C2BCFA;
 	Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790462034;
-	bh=5EjlbXzfNhhj2rFbPScAbyukxVXncWxCqZbBtLgd2Gc=;
+	bh=VZulDtDxqhPLQ6+5jwWRkBXlKH0j6U1wO7eceuEiZCE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=LskNpArgBG/fYyfbkpDz2jDlqGHlCqQJ3QyIitRdBdxlgFIU46X+bw6Yx5YKf3bQE
-	 UEv348aKBPLKLiZpISVoqJeIwoTRNIAQ4XK4hyTlfGaheV1/M9ewui4UDuQS6i6h97
-	 t841JEaxFuJ4g8oDIzg6awRPCT5Yx3ZuWE63LT6zAjY3Wr18WCuH/gBR8uYoj0LvPh
-	 /2WKdgz/B7yNqoOgfRQceM6GD5FQHMEJE/PIIhNC6nMUV0SYPW7NGywVdLE4AxrUZJ
-	 sypKQhP9urJsFQmmRBz66QqbTnjHTl1cLLa3T6pZ8RYgTJwCXTY5HP/sfbK8RGchlu
-	 bBgi2EJv8Huyw==
+	b=kdLtRGZe73fngpDVokxQIaocmTf+0BVw/oXF53nTYc5ynV16AxQURzPyoMgxsb5DS
+	 DG3uIsbI3C8fWXkWQEEWOENTMOv89uTr400YAeQd7/5Xve3W9uwoRo/bNkuP8eAMXi
+	 7GMyxfazDKeuIPeMtRYPBC2traeKLlQWo3MZaAQlZS/tkUGy7mT0oXOGI4xQRuNgOH
+	 +LI6wVz5PE7ygu67Al8rWA8okPlAyeJ09/F14q7Nx+w6pQlimNCZZbdT2E52ghYY6M
+	 bNIS2+C/l65JwmmvUBRgUIujePnBG6w3K6y3nZeTGd2cXw+3uXfjP/gFd9UzNZR9zr
+	 fDJNs1DMwRmDg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C439C9832A;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D92FC9833E;
 	Sat, 26 Sep 2026 22:33:54 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Sat, 26 Sep 2026 16:33:32 -0600
-Subject: [PATCH 1/2] drm/print: Mark __drm_debug as __read_mostly
+Date: Sat, 26 Sep 2026 16:33:33 -0600
+Subject: [PATCH 2/2] drm: Fix incorrect ccflags-y spelling inside Makefile
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-rd-mostly-v1-1-28b7d714ed2c@gmail.com>
+Message-Id: <20260926-rd-mostly-v1-2-28b7d714ed2c@gmail.com>
 References: <20260926-rd-mostly-v1-0-28b7d714ed2c@gmail.com>
 In-Reply-To: <20260926-rd-mostly-v1-0-28b7d714ed2c@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,11 +49,11 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790462033; l=1186;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790462033; l=1146;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=NHYPZMcwo+bZTlMUWxR3C+eUOnJQOrGzS6sFjK6QR7o=;
- b=SCaWekTeF5fI3x8YyVSdoR1Ax7xSj1vUuUes5O/Lc6T011ZE8poxxwKWNHG6UFxmCcbVFIVLu
- XmfS+0EWTuNCmaFvvUO6vSgKQVVUBQmiYxmh1hytdPG4sKn4VpuvFIR
+ bh=k/p3/mF4PjoGAd1p0WbIzbzTATt0GlWd9hAVgx/C8sg=;
+ b=bsI2eblwopjRAJO9Q6o7zYYZ/Kl0joBNGfqKkrxAZc//Sxa+h9iENDsnV5jfIDaqARyTd1QOv
+ U97OkhBUfhbA0PXGax8ZzT7KTdN6cBxedw9fm2RbrswYs2s/1ZVNYAa
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -63,37 +63,31 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Under a multi-client workload of 12 concurrent vkcubes on AMD iGPU,
-__drm_debug is read at ~83.3 kHz across multiple cores during atomic
-and vblank checks.
-
-__drm_debug is written only when userspace does:
-  echo 0xff > /sys/module/drm/parameters/debug
-
-Currently the linker packs __drm_debug into .bss adjacent to hot
-structures: drm_lease_idr_object, drm_class, and drm_global_mutex,
-causing unnecessary cacheline invalidations.
-
-Mark __drm_debug as __read_mostly to relocate it to .data..read_mostly.
+Fix a longstanding spelling error in the DRM Makefile by changing
+'CFLAGS-y' to 'ccflags-y'. This fixes CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+dependent addition of -DDYNAMIC_DEBUG_MODULE, which is needed to
+enable dyndbg-under-drm-debug when only CONFIG_DYNAMIC_DEBUG_CORE is
+enabled (and not CONFIG_DYNAMIC_DEBUG itself).
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 86cef1a37678..50cdeb1b15e2 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -40,7 +40,7 @@
-  * __drm_debug: Enable debug output.
-  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
-  */
--unsigned long __drm_debug;
-+unsigned long __drm_debug __read_mostly;
- EXPORT_SYMBOL(__drm_debug);
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e635fcffd379..c42884d84ad1 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -3,7 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
  
- MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+-CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
++ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+= -DDYNAMIC_DEBUG_MODULE
++subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
+ 
+ # Unconditionally enable W=1 warnings locally
+ # --- begin copy-paste W=1 warnings from scripts/Makefile.warn
 
 -- 
 2.55.0
