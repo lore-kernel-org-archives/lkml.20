@@ -1,107 +1,123 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F7728DB55;
-	Sat, 26 Sep 2026 14:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9599632779D
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:32:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790433029; cv=none; b=YF09dhfpPv9gy8eRAZgkzqmzuMkkhqaz+KNiabRtOWs/B9ZrTEPhI5YK9qk8tFfYFnMgWPpqKgng0lk4+vQRk1xlatnjNKdljZfSYJ/Mp92e3268Wsy7EvgEiz3BDcBKazcbLk1zVz+Mlb8llNIlhrczN+D7zVY03PZHDriY3ko=
+	t=1790433126; cv=none; b=ekZEDqHr8qpm/QTLNDmIURrSOCO3rFgJcp34CMVi9ir1A5fOThUpOUt0KsmyW7VuZesoU95GFX8I1H6FLh77nasFm+FzjoZWrFKOPcgrtmxLG3czfNpV4j5BYIW+XYPWV4TK+73Y3y3FqVAc898j3GIZqnHQKtaf2I4WoYefiU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790433029; c=relaxed/simple;
-	bh=5OUwhCAJxeTYtuOFGq+98In/t3e8+SuwLlaouQgWS/Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RXZ9rTfZk5jWbrlvpONIab2lZDEbrlHr3g2Fdu+NOsT6DQ/ipIlgaIXhmAlVnrzp1uTL50M+tyXW4+tINRYwKXndwTghO5mNpvvrPcAm/7gnfB6AO4cNDGEXffZ1OxSypBpdI5/VekxZ3VhXqdtOBnFOUtDR28AtyUUjcwjijWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mVz4BVtj; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790433126; c=relaxed/simple;
+	bh=QXH2LiT8YGjoI7rTuB/5Bwfp0I60en8jf6uXJuf9Tts=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=gSBI4TBQbNl1SFlO1Q37/qmxBLg4l0mtk0zqQnDDu0wlRbBC+0xPhccOVrohL4ASXW9seDH/qdXXZJgS2PRu4s05SKiZZfoV/RGXsNgLCVXRhfppyfMA+RX2mVL2tNYvPW0MiPccy4TnBkQpBPgN7VFZSuGoh/hNiKtErmXJoT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UcQPa3aJ; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mVz4BVtj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790433027; x=1821969027;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5OUwhCAJxeTYtuOFGq+98In/t3e8+SuwLlaouQgWS/Q=;
-  b=mVz4BVtj5NmR/3s0jV3nJeuizK5hXec+SK0AJX1XSX3UOL935oqqf475
-   pWR2g3RqDWyJvZpubYnZ3+WAlTp1fxLHVm19NN4jMQQYSMlbnzF6Lq2TI
-   SvKk3cEyt3MukSCUYugpdxPkWY6FEwAxrT0oRTjH7gC8PT1tbI8sEicU0
-   3MDO5VbMy+JG0Nkd21qSEXzLUp/rNuMJyNdl4+q0Xbyd61N/cGnuO+psI
-   U448WyLJ75LTlHwXiOSG0njwgeazX8J4mqf+JbPzHu7N5tnWkOtlODaDM
-   zX0wpuQdivha4e9PVzy44OpVky0m6qfmQl9FH5PTIazCRMxo+IWAd5lC0
-   w==;
-X-CSE-ConnectionGUID: mq1XwV/GRGCwvrnjXcqApQ==
-X-CSE-MsgGUID: WrKfTY8CRzmDADWoAtzblw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="101367853"
-X-IronPort-AV: E=Sophos;i="6.27,124,1787036400"; 
-   d="scan'208";a="101367853"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Sep 2026 07:30:26 -0700
-X-CSE-ConnectionGUID: 2Bdoerq7Q5+MUd/FkX7RlQ==
-X-CSE-MsgGUID: J0/rUETGSXCDE/l23z38sw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,124,1787036400"; 
-   d="scan'208";a="312515518"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.219])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Sep 2026 07:30:21 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id C1E13121BAA;
-	Sat, 26 Sep 2026 17:30:22 +0300 (EEST)
-Date: Sat, 26 Sep 2026 17:30:22 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
-	vigneshr@ti.com, kristo@kernel.org, mripard@kernel.org,
-	jai.luthra@linux.dev, jai.luthra@ideasonboard.com, devarsht@ti.com,
-	y-abhilashchandra@ti.com, mirela.rabulea@nxp.com,
-	laurent.pinchart@ideasonboard.com
-Subject: Re: [RFC PATCH 2/8] media: v4l: Add 10-bit RGBIr formats
-Message-ID: <arfW_sncBRNsyP4L@kekkonen.localdomain>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-3-r-donadkar@ti.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UcQPa3aJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=91ZRTd//Cy0HjvpGiq45l4WHobWPEmRrOtgmFOlGYxg=;
+	b=UcQPa3aJ+hEFfrrsF4esGR7x+OlREP35kb6KBrK0tTHioyeZOGGdEldOHJmSuf
+	zsst9XNPdD0qIOug0W0Ry62P1p+W5208HBfN4UB+WvG9ZC5z4hEsi1QfUdtYg+89
+	/KC+o8nC4RVopZ40a850JZVatUHLH+UOZf8jluWf+/ULc=
+Received: from [IPV6:2409:8949:6ca0:7910:f5b:45b8:eba1:685a] (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD330c217dqjFyMAw--.59026S2;
+	Sat, 26 Sep 2026 22:31:20 +0800 (CST)
+Message-ID: <cad0b025-1c84-4076-8a3d-d04cd736a767@163.com>
+Date: Sat, 26 Sep 2026 22:31:17 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925133001.2780868-3-r-donadkar@ti.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] ntfs: drain in-flight DIO before buffered write
+ fallback
+To: Jiale Yao <yaojiale02@163.com>, Namjae Jeon <linkinjeon@kernel.org>,
+ Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260926072612.3022680-1-yaojiale02@163.com>
+ <20260926072612.3022680-3-yaojiale02@163.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260926072612.3022680-3-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD330c217dqjFyMAw--.59026S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWrWDZryfZF47Cw48Aw4DXFb_yoW5Jw4Dpr
+	Z0kFy3Jr9FyrWxWwn3GF48W3WF939rJ3y3urWkW3W7CrWrKr4vga18KF1Yvr4fJFnrJrW2
+	qF4v9rykCryUZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2-erUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hmMV2q31zlvkwAA3n
 
-Hi Rishikesh,
 
-On Fri, Sep 25, 2026 at 06:59:55PM +0530, Rishikesh Donadkar wrote:
-> From: Jai Luthra <j-luthra@ti.com>
+
+在 2026/9/26 15:26, Jiale Yao 写道:
+> An asynchronous direct write can remain in flight after the inode lock is
+> released.  If another direct write falls back to buffered I/O while the
+> first write is still pending, iomap_file_buffered_write() can dirty pages
+> before the first write completes its post-I/O page cache invalidation.
+> The invalidation then finds dirty pages, reports a page cache invalidation
+> failure, and records -EIO in the mapping error sequence.  A later fsync()
+> therefore returns -EIO.
 > 
-> Some camera sensors now use an expanded CFA pattern to capture near-IR
-> light along with the visible spectrum (R,G,B). This allows capturing
-> light in both low-light and day-light scenarios using the same sensor.
+> Commit 15cdefd0c0522f9d5e12d947fa04f4c11649b699 ("ext4: drain
+> in-flight DIO before buffered write fallback") fixed the same race in
+> ext4.  NTFS has an equivalent fallback after iomap_dio_rw() returns
+> -ENOTBLK or a short write, but does not drain other in-flight DIO before
+> dirtying the page cache.
 > 
-> Instead of having a 2x2 repetition of B,G,R like in older bayer formats,
-> here we have a 4x4 repetition of B,G,R,Ir where the number of G pixels
-> are the same, but half the B and R pixels are replaced with Ir. Thus
-> instead of having 4 total phases, we now have 8 total phases or
-> re-arrangements of this pattern.
+> Wait for in-flight DIO before calling iomap_file_buffered_write() in the
+> fallback path.  Since NTFS supports IOCB_NOWAIT, do not enter the blocking
+> fallback for such requests.  Return -EAGAIN if no bytes were written, or
+> preserve the positive short-write result if the direct write made partial
+> progress.
 > 
-> Co-developed-by: Rahul T R <r-ravikumar@ti.com>
-> Signed-off-by: Rahul T R <r-ravikumar@ti.com>
-> Signed-off-by: Jai Luthra <j-luthra@ti.com>
-> Co-developed-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+> A reproducer using concurrent AIO direct writes and buffered fallback
+> triggered the following warning and made a subsequent fsync() return
+> -EIO:
+> 
+>    Page cache invalidation failure on direct I/O.  Possible data corruption
+>    due to collision with buffered I/O!
+> 
+> Fixes: 9c87959601e8 ("ntfs: update file operations")
+> Link: https://lore.kernel.org/r/20260629113827.4074335-3-libaokun@linux.alibaba.com
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>   fs/ntfs/file.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+> 
+> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+> index 007d1614b9ac..8bbfa842889a 100644
+> --- a/fs/ntfs/file.c
+> +++ b/fs/ntfs/file.c
+> @@ -525,8 +525,21 @@ static ssize_t ntfs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>   		ssize_t written;
+>   		int ret2;
+>   
+> +		if (iocb->ki_flags & IOCB_NOWAIT) {
+> +			if (!ret)
+> +				ret = -EAGAIN;
+> +			goto out;
+> +		}
+> +
+>   		offset = iocb->ki_pos;
+>   		iocb->ki_flags &= ~IOCB_DIRECT;
+> +
+> +		/*
+> +		 * Prevent concurrent direct I/O and buffered I/O to the same file
+> +		 * range. Wait for in-flight DIO to finish before dirtying pages.
+> +		 */
+> +		inode_dio_wait(file_inode(iocb->ki_filp));
+> +
+>   		written = iomap_file_buffered_write(iocb, from,
+>   				&ntfs_write_iomap_ops, &ntfs_iomap_folio_ops,
+>   				NULL);
 
-I think we need to use the common raw mbus and pixel formats for the
-patterns that have IR pixels. See
-<URL:https://git.linuxtv.org/sailus/media_tree.git/log/?h=metadata>.
+Looks good to me.
 
-That's mostly pending on userspace support now.
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
-Can the sensor output Bayer pattern as well?
-
--- 
-Regards,
-
-Sakari Ailus
