@@ -1,192 +1,160 @@
-Received: from mail-wr2-f42.google.com (mail-wr2-f42.google.com [74.125.225.106])
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F7736B905
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:22:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552497478
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:24:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790414566; cv=none; b=DbtS/ZA+RnKoR7UEJd+XZ1v+87TbkYZLVnH75OmNapvTzoV2q7F7Iv+aqoj6oja6OzNehMfkRqbeQY8k1cZc00agzoMsAJU03DHojC9nR0L+jifWn6Tla3UPGg9pIhD/p5FU1uJXfIkXa0+bI/SQHtj4oiPYnrb5IYSTymj8GOo=
+	t=1790414695; cv=none; b=qDOxhLU/qeFvhhVZZ6DWZkofhp9Tfyq4Ny+Hqdmdwij3V1epC9ufDWs0qmFRDJNyuaO19J9ki29wJj7CCJhLnA3PfkT5AI9UO2t/5KpZAVlMEqXYwHr2GgtvR+FgCpL4DiwCYwG+bH5rUA8jmF9GAT9fAdcTUqf8CluaVy49Xk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790414566; c=relaxed/simple;
-	bh=GtaZyzdhln69h6A+uvKrkaqN0V1hWvpxkiSvYDKzWGE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fq0gVaLkm7pz1BNnBqp8l6rk+pbEjF7IoY5RBVU0Q48MWoL+69CVg2Y+goN88N2BMO2QdLqbv3MCQljtX51z5F+Zs58U9v16oIwGT9cSH5hsUg+KOiKfYWNVQMI/cyj4ndS7sWx/fRO87jeggh6FUuFSv7/dbIzoWsZqmxi3il4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XOb3ByNi; arc=none smtp.client-ip=74.125.225.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790414695; c=relaxed/simple;
+	bh=3pPmi7rHX3PiO/U/WkQSJqtpKBNHg/bW3ILMfWUeA6s=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=EugydfKQWpm4p4CEZnHrLu54V8ntq4RoIblI3H3M082RgwXfqAWvFcKTmgb5pOhEB3yS+bWoruHFK3aKrm++f/IlKOcR/ER1AzXbVQmFukOPri3clA39wZlhukddHLb0npZvutYRO5NAEq/3JBQ2FGd+PXWHJnF2lbsp+t1Sr8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uK+aYXc8; arc=none smtp.client-ip=209.85.218.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XOb3ByNi"
-Received: by mail-wr2-f42.google.com with SMTP id ffacd0b85a97d-4888598e4f9so485274f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:22:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uK+aYXc8"
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c210c66672eso207857466b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:24:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790414562; x=1791019362; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v9TrmrMnb+MXVfFJfRp27XAGJDT0tpc1zF4/Ua/Sl38=;
-        b=XOb3ByNiqBGKtdgnYqtaqvHxAEll/bebtWBs1XcrGcbmKfPthxbS5GgOnh9/pwXto6
-         jpZI6KZH2LvcLHufAmtZNAP6unODQT8sOABoFS1MMG3QbKrY9cRcE+ni0K+6ZTDqiqhS
-         oOUe6QR0HexUGyDRBwDEfJujCaJpYFVWEZuV6WRtntxXrYjx1M+JXzc2FZ0DUtWkqSfk
-         V5TNCRUfqzXsMBK+G0c15QCbX8oQAwR0TWb+iXv3hKnttJELjpmsR96IyGrag5KKNhC1
-         4AIwuCC+T5C6I86siMqGR8/f3qj8fqlu1GI/j9zdSI0ZZgQOEFGzpDXK+8tdO3EdgRTX
-         BCtQ==
+        d=google.com; s=20251104; t=1790414691; x=1791019491; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z4j7omQNB+TmgxmIXBVcLYQY7ezzfW8m8OBFfXrJ8Kk=;
+        b=uK+aYXc8/Y0w2SbassNJqRT/EMKtWnyNj2R9AGVgvm9b/L+Ki9OQk+fk6kHKm2+eyq
+         Ln1jaLbscXjuvwBTpAi3rxcRnIWaeiBfBNjouIFjzF0rX+nl/gHrbRZAbF3cgKDDghv/
+         6FZJBETiFGa04RvkgRCHpPe8DZ02WM2R9SnrCBgNLRIjnMuNzpO2kzWWCP2omVNhEgP6
+         KCVMSi2YgGHFkYT76t5s1X0LE0no9LwY67DfX0oWRdD+7xFxUPCcLwAc0GWLkUCOGHYL
+         vmi1/ikHbSMul3txryAlT5i3+TdakUrQn+VQXuo3vzVcqcTr79bo8XGjg0AnYg0Ek8P9
+         B3Kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790414562; x=1791019362;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v9TrmrMnb+MXVfFJfRp27XAGJDT0tpc1zF4/Ua/Sl38=;
-        b=P9IbwUsgRY2ebznLLQHDPdz1SFH8+sTyzN0cfX+m0Z2Hz2zfz8Wjyz77JKF+a7hrv/
-         7DJy+TENGXLt0wIH+IFqS/qxWj35oPTQQSNHZ43GVp1AHN7pXYbeptIReol0tmIz+aJe
-         LUo825yqPzPABdASZQAtHgjhbcpZROBGRMoLvByB90Od5ynsVcf2qwzBgqOf09ybTwbR
-         adUUq+s5G/rhKxhLOL5gJRzYWABzAgElqAwbOPrcNqY9YhKLfyAMh8njOOdRF6F0hYpG
-         +EqvYUhEDYfgFWrChdurPVHuZaBlW0QW58E4s+krO8HC4NSaMgR11yYiUxAc8k3x87dx
-         0dLA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwS7uUyeOV5GdeYonCEZH/lE/ToM0ErEgrQ3N4EOzDcwG6gY4+9o0aRTiJCcdN5dJQcv3fDh1OCQWIQvM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIU8n7ipUE3142cQXHf8MHTHHWcsqyiH4JueALOP+MJOOkhXng
-	xr6gguFj04RIIK4gkY5lnaEuFwFFN4RdLnu72R7nXqJZMMjJOTaXLJY6
-X-Gm-Gg: AYBFou3Vp2J92sN3z+ImXG5BeiM0rIViETolzXMdofEpzQ8Y6pVahK0VoLNpIypdoV3
-	Bg32pxet+mCnMjTS2iyr1a2l9H4NLWDACAonKh3UgRMCeMe1Zdhbas9pyFX0qL8L2Z9cRks4hea
-	5g4g2BNrTIRvMC9AdQ/b4rLUoEZQ5PjAprWoSZZs7fBVmL3CA4Si/cyjDpLpLPVruUtxODpFyUp
-	Sd0UIAW8GqkAD6UyxwRNKej3Zlfo+A6E2z/OBRMSHzg2yV/gMimXE0MWjBaSK3Ix0/YYEnr9/U4
-	mhKZKrLNGcXbzHESuttCsKJWwqQMX2GvxZnX2yWs/QTNaiT9Fi9iIg3AlxVWEQekYiaxW5CtS0Z
-	R2IY/U4QW2zuqF5en/lIY3IrTV94q1cyFhVPgBhi/t9L48JSkMzsVNt9K3HCMHuMYQ1YDeazM25
-	M93ilcGle3zOg3pNc8V5TvNM7UNUXM2jMK0rhq344KugHs8MMipWzXiKPv/urnH+CXVWFa1l6Zv
-	jTYJIk3VRse1jgsZIynNbEcYWoWYuXhxYot+2Y1ut3fL7ITEN6cHiZYpewiNVgzDA0R
-X-Received: by 2002:a05:6000:2302:b0:487:27f9:835 with SMTP id ffacd0b85a97d-4887170d4f6mr15558058f8f.42.1790414561982;
-        Sat, 26 Sep 2026 02:22:41 -0700 (PDT)
-Received: from shift (p200300d5ff3cee0050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff3c:ee00:50f4:96ff:fe46:beef])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a640df9sm12495506f8f.24.2026.09.26.02.22.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 02:22:41 -0700 (PDT)
-Received: from localhost ([127.0.0.1])
-	by shift.daheim with esmtp (Exim 4.100.1)
-	(envelope-from <chunkeey@gmail.com>)
-	id 1xAOaQ-0000000042U-0kW6;
-	Sat, 26 Sep 2026 11:22:39 +0200
-Message-ID: <eb76f982-d29a-41b4-a5ae-61ce486f4839@gmail.com>
-Date: Sat, 26 Sep 2026 11:22:39 +0200
+        d=1e100.net; s=20260707; t=1790414691; x=1791019491;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z4j7omQNB+TmgxmIXBVcLYQY7ezzfW8m8OBFfXrJ8Kk=;
+        b=Hj0lG2ns+exWtEGTNp3VaR7d8ge8nk57acz0MPmmrPGkOUHOKUgYtqf5RDZIiHKIRz
+         z4YV5xQg3mRxN+KhPh53Fxnx3bdkoKBj20MVvgf0DO9CHoXKPV5xMBsgxo0mP7y6tDtr
+         fRUhF13s+cJ1jAZEM3hpQ1x271pDNDkwzsMAgNNjblWcgfP4Jha7KOpPQnBgFhvBiG/y
+         sEKhT4xJ26BebDYsPn5zv4kA56IE9qCkntxWQkwhS1XZIs77A3BYdiOINc4pK6mzsSVG
+         6nXrBsjVOfLm4P18c+8dxvlxV1jFy0r1qIGyGiuHCBA85wnsmGsnBsXZOuP1spOoY0Gi
+         kouA==
+X-Gm-Message-State: AFuF++lzZTsR+VaoXAxsW/S+VVhOrbrl8v745jdO6e/At7o3VG0GDrhZ
+	kCJKgvNt+qgGRiJVKBGHoIHQMBU5Ct0EccbBRojNnBPB7EQKl+08W0NahcSDdjjbp3FLLs1pDvJ
+	aziuagVHGCVmE+NwVvg==
+X-Received: from ejv16.prod.google.com ([2002:a17:906:3090:b0:c2d:beff:b397])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:6c17:b0:c29:f5d8:9c71 with SMTP id a640c23a62f3a-c2ac223e35emr724660966b.32.1790414691194;
+ Sat, 26 Sep 2026 02:24:51 -0700 (PDT)
+Date: Sat, 26 Sep 2026 09:24:47 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Ridham Khurana <khurana.ridham222@gmail.com>,
- linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
- Christian Lamparter <chunkeey@googlemail.com>,
- Alexander Sverdlin <alexander.sverdlin@gmail.com>,
- Nikita Shubin <nikita.shubin@maquefel.me>, Shuah Khan <shuah@kernel.org>,
- Jori Koolstra <jkoolstra@xs4all.nl>,
- Brigham Campbell <me@brighamcampbell.com>,
- linux-kernel-mentees@lists.linux.dev
-References: <20260924205326.1739229-1-khurana.ridham222@gmail.com>
- <f28a5470-0d9e-4045-9c64-5614e0e88de2@gmail.com>
- <3334ba64-2f0b-4e66-9a3b-84f46af70212@roeck-us.net>
-Content-Language: en-US
-From: Christian Lamparter <chunkeey@gmail.com>
-In-Reply-To: <3334ba64-2f0b-4e66-9a3b-84f46af70212@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260926092448.4090401-1-tarunsahu@google.com>
+Subject: [PATCH v3 1/2] memblock: drop for_each_memblock_type() and open code
+ its users
+From: Tarun Sahu <tarunsahu@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	dmatlack@google.com, Mike Rapoport <rppt@kernel.org>, kexec@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, dev.jain@arm.com, 
+	Pratyush Yadav <pratyush@kernel.org>, linux-mm@kvack.org, Tarun Sahu <tarunsahu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+for_each_memblock_type() always starts the iteration at index 0 and its
+body is a trivial 'for' loop, so it hides very little. It also gets in
+the way of iterating from an arbitrary index, which the next patch
+needs.
 
-On 9/25/26 11:19 PM, Guenter Roeck wrote:
-> On Fri, Sep 25, 2026 at 08:03:06PM +0200, Christian Lamparter wrote:
->> On 9/24/26 10:53 PM, Ridham Khurana wrote:
->>> temp1_input_show() drops the low bits of the temperature register by
->>> dividing the raw value (raw / 32 on the LM70). These bits are not part
->>> of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
->>> return some of them as 1, and the TMP125 fills them with copies of the
->>> temperature LSB. Division rounds toward zero, so a negative temperature
->>> with any of these bits set is reported one LSB too high.
->>>
->>> For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
->>> driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
->>> the driver reports as -24750.
->>>
->>> Use an arithmetic right shift instead, which drops the low bits and
->>> rounds down. tmp421 had a similar problem with negative values, fixed
->>> by commit 724e8af85854 ("hwmon: (tmp421) fix rounding for negative
->>> values").
->>
->> For the TMP125 yes:
->>
->> Reviewed-by: Christian Lamparter <chunkeey@gmail.com>
->>
->>
->>> Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
->>> Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
->>> Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
->>> Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
->>> ----
->> I wrote a little test program by hand (see below) and ran it on x64.
->> No idea if different archs behave differently or if
->> a clever unsafe math optimizing compiler flag will
->> convert the  "/ 32" to a " >> 5" but I doubt that...
->>
->> ---
->> tmp125: raw:7ec0 tmp125_proposed: -2500 tmp125_now: -2500
->> tmp125: raw:7eff tmp125_proposed: -2250 tmp125_now: -2000  <--- loss of percision
->> tmp125: raw:7f00 tmp125_proposed: -2000 tmp125_now: -2000
->> tmp125: raw:7f3f tmp125_proposed: -1750 tmp125_now: -1500  <--- more
->> tmp125: raw:7f40 tmp125_proposed: -1500 tmp125_now: -1500
->> tmp125: raw:7f7f tmp125_proposed: -1250 tmp125_now: -1000  <--- and this
->> tmp125: raw:7f80 tmp125_proposed: -1000 tmp125_now: -1000
->> tmp125: raw:7fbf tmp125_proposed:  -750 tmp125_now:  -500  <--- also bad
->> tmp125: raw:7fc0 tmp125_proposed:  -500 tmp125_now:  -500
->> tmp125: raw:7fff tmp125_proposed:  -250 tmp125_now:     0  <--- ouch
->> tmp125: raw:   0 tmp125_proposed:     0 tmp125_now:     0
->> tmp125: raw:  3f tmp125_proposed:   250 tmp125_now:   250
->> tmp125: raw:  40 tmp125_proposed:   500 tmp125_now:   500
->> tmp125: raw:  7f tmp125_proposed:   750 tmp125_now:   750
->> tmp125: raw:  80 tmp125_proposed:  1000 tmp125_now:  1000
->> tmp125: raw:  bf tmp125_proposed:  1250 tmp125_now:  1250
->> tmp125: raw:  c0 tmp125_proposed:  1500 tmp125_now:  1500
->> tmp125: raw:  ff tmp125_proposed:  1750 tmp125_now:  1750
->> tmp125: raw: 100 tmp125_proposed:  2000 tmp125_now:  2000
->> tmp125: raw: 13f tmp125_proposed:  2250 tmp125_now:  2250
->> tmp125: raw: 140 tmp125_proposed:  2500 tmp125_now:  2500
->>
-> 
-> Sorry, you lost me with the above. Are you suggesting that the patch is
-> correct, that it is only correct for TMP125, or something else ?
-> 
-> Guenter
+Remove the macro and open code its three users: memblock_add_range(),
+memblock_isolate_range() and memblock_dump(). While at it, move the
+region pointer into the loop body scope.
 
-Ok, I guess the same thing happend to me now too?
+No functional change.
 
-Is there something specific you want to hear? My reasoning is that I wrote that
-cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
+Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
+Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+---
+v2 -> v3:
+- Move declaration of 'rgn' into loop body scope in memblock_add_range(),
+  memblock_isolate_range(), and memblock_dump()
+- Add Reviewed-by: Pratyush Yadav <pratyush@kernel.org>.
 
-I definitely wasn't aware that / 32 screws the with the rouding result for negative
-integers and >> 5 wasn't. For unsigned compilers actually replace the divison when
-the divisor is a 2^x constant on their own. You can find so many threads/topics about
-that explaining why (basically pick your favourite).
+ mm/memblock.c | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
 
-https://softwareengineering.stackexchange.com/questions/209678/why-does-division-and-multiplication-by-2-use-the-shift-operator-rather-than-div
-https://stackoverflow.com/a/27052650
-...
+diff --git a/mm/memblock.c b/mm/memblock.c
+index f5aaa38cfa31..59dda7d085f3 100644
+--- a/mm/memblock.c
++++ b/mm/memblock.c
+@@ -155,11 +155,6 @@ struct memblock_type physmem = {
+  */
+ static __refdata struct memblock_type *memblock_memory = &memblock.memory;
+ 
+-#define for_each_memblock_type(i, memblock_type, rgn)			\
+-	for (i = 0, rgn = &memblock_type->regions[0];			\
+-	     i < memblock_type->cnt;					\
+-	     i++, rgn = &memblock_type->regions[i])
+-
+ #define memblock_dbg(fmt, ...)						\
+ 	do {								\
+ 		if (memblock_debug)					\
+@@ -615,7 +610,6 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+ 	phys_addr_t obase = base;
+ 	phys_addr_t end = base + memblock_cap_size(base, &size);
+ 	int idx, nr_new, start_rgn = -1, end_rgn;
+-	struct memblock_region *rgn;
+ 
+ 	if (!size)
+ 		return 0;
+@@ -651,7 +645,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+ 	base = obase;
+ 	nr_new = 0;
+ 
+-	for_each_memblock_type(idx, type, rgn) {
++	for (idx = 0; idx < type->cnt; idx++) {
++		struct memblock_region *rgn = &type->regions[idx];
+ 		phys_addr_t rbase = rgn->base;
+ 		phys_addr_t rend = rbase + rgn->size;
+ 
+@@ -815,7 +810,6 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+ {
+ 	phys_addr_t end = base + memblock_cap_size(base, &size);
+ 	int idx;
+-	struct memblock_region *rgn;
+ 
+ 	*start_rgn = *end_rgn = 0;
+ 
+@@ -827,7 +821,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+ 		if (memblock_double_array(type, base, size) < 0)
+ 			return -ENOMEM;
+ 
+-	for_each_memblock_type(idx, type, rgn) {
++	for (idx = 0; idx < type->cnt; idx++) {
++		struct memblock_region *rgn = &type->regions[idx];
+ 		phys_addr_t rbase = rgn->base;
+ 		phys_addr_t rend = rbase + rgn->size;
+ 
+@@ -2194,11 +2189,11 @@ static void __init_memblock memblock_dump(struct memblock_type *type)
+ 	phys_addr_t base, end, size;
+ 	enum memblock_flags flags;
+ 	int idx;
+-	struct memblock_region *rgn;
+ 
+ 	pr_info(" %s.cnt  = 0x%lx\n", type->name, type->cnt);
+ 
+-	for_each_memblock_type(idx, type, rgn) {
++	for (idx = 0; idx < type->cnt; idx++) {
++		struct memblock_region *rgn = &type->regions[idx];
+ 		char nid_buf[32] = "";
+ 
+ 		base = rgn->base;
 
-It's been too long to remember what went through my head back then, but I knew that
-replacing / 32 with >> 5 is a common optimization because the bitshift operation is
-faster than spooling up the hardware dividers. But it would have looked funny when
-all the other conversion codes (especially the LM70s. Because it's almost identical...
-except the LM70 has the sign-bit at D15 and hence the raw value can be directly cast
-to a s16 type). So definitly that >> 5 was on my mind.
+base-commit: 1f18d740165163910df64d3063e1ad31648bc5e0
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-Now, I was surprised to hear that / 32 and >> 5 differ for negative numbers and I wanted
-to find out and the experiment tells me: yes, it's true.
-
-Do you get the same result? What if you replace the function with the other
-LM/TMP implementation?
-
-But I have the suspicion, this doesn't answer your question, or does it?
-
-Cheers,
-Christian
