@@ -1,220 +1,137 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F71A20B80B
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:31:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57A31E7660
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790386291; cv=none; b=OLevr+eUKK0Z47Z+NOQtl4SfYu7TIm5hmaxnhrS10oRBLD6Bu62QjJtiWR/TwDJdgyMhenU+UCZvrk6N2ueoYlsMRgsrVbLvOrMdWJiK3NSTl0pteCv82rZ9pyquJARsci7BshwTLG7SQzVq1hGp8JNdeVEOVZzrHXvvKZUYmIE=
+	t=1790386410; cv=none; b=FUIL9mmGjB+mlX2J3IoDTHLGgJxvLQSxlIOHvvsmGOsfUFGMAzu2F8WnH2aESZrjXtabhRcR93C+IkVK6kzfE+5HkVmGAUiWS4Ob2eBV16NMv74clUY7D2JNOjxeZkMuLM1JJZASLI8HK+zFNEdKFVjuw02G7jsaMPn47B00JvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790386291; c=relaxed/simple;
-	bh=E5M8QhhrUI+c7txXAJHX7r7HyxnZRw+NlSkTWpXOXG4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=PjU7J7FHMNQV9ad7xrLVgY2sAgHcjcT04CLTld8kMgWSsxXTVvARleEVNPqm2gxH/cUDxkvAO+ZnCqrHbFyulbjOnim2AEEgot3G5Mda4xXyhgbBDxJTuOWXj2S7MxKcPKj/TDXsnTKR+JGGpzX+cZsQJUxB9eth5xc53MS4h+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b28dbf4197so2862736b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:31:29 -0700 (PDT)
+	s=arc-20240116; t=1790386410; c=relaxed/simple;
+	bh=1f1mz/u1DXLFELJxB0lWigtpTDzng/wOa0yeqTZVdUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Srj80L3r1F9k4zS4ozbJ5GCNWK0lvgl8x/gBatB5PRf/tVloA0m5SNxXb1eyNxK9xgeqJ4djXPtaWTxjrB3Y1oqcyfAOf1zu3S+WRtbDWGWeWJaYsVqCyk/E8+uRgs3ZjjfRDc2xOiybUYUnwYMfjvW4la9BLn1NixlAEvMqxto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ULdY1+xs; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ULdY1+xs"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2caced6038eso9223075ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:33:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790386408; x=1790991208; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XO5IQrDqXhCVEXobXwqmnVmb7P8gC0TesjStAXIcO2g=;
+        b=ULdY1+xsnz/tq00tmvNx6qoyew18D1cJcNxiL4bmI7C4hbENDIwiiGFq/bdTGk0abV
+         hHLWEWiNQ0wd/wm85I1Y3sPfiMk0K0K1Q8IlN80TvxpERd8+PutKTTbU1w1q4G0yNJdj
+         CuMv2fNGxwo4ZBWniUqKGVrLaRX9yUvBKW2EIQqUxzL66aBGmy7glZQqStFDk1d5ea16
+         a4DqnpivnP9JhhRe1d6OHMDyCToviItvixla+LzPAR6iUPXmWleyNJaLb2FU1noFiit5
+         wpn5C3vziWs9dFTOY3i8BVZIfLbLMeosiZw6FKYlO4c4kD40skl5z0/v/2mFKQ/j6HGb
+         EEfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790386288; x=1790991088;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4cZSBn2zw/XbMeBYq5zuM8G+Y2uoeKGrGxErMpIJodw=;
-        b=SCIeFW+T6S7/zjgNphV3RAjMrk61i3nDIr5o7EVE0E3e8SSjkuUcqPzRhyRXsChOyj
-         mv4aDJ9/TuyA5hyIb+BaffN3wrF9MyVvNuVBpEV6JsDgIG3E0P/SSVCyc/oeAWtM98Ww
-         Q6TiTyoLJ2mEg6dkPdj+B19xfyV8eT74mCRevIwLazWOqI3VsN6Xi6NqVrSJ+XIrs8ba
-         /NoMCM26TKpwxNtCpPNDZI3IwgYz2uMpKvspVjgHJxj2/EaTC4gfmDyknDpy66LkZLZw
-         6IKaZl8MEvSns7uTwFZS6DG3mOT+nyYz/LeeoTEkE5T2jZnRDpghqWBf0Nbg1I9NTVDn
-         zz4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzstnuF2Yz/4b1Du3OvlPxpNtED21VIfnlLmRffHXfywugXu/ruUYT6Ztk4FzkNE1TQK6UWk8P4byq2y9w=@vger.kernel.org
-X-Gm-Message-State: AFuF++m83flOrINcg0rlqdk/vbpGAbEEQqRyaLsyMkRqfVKMaBjZ0joa
-	kZitFlSs2FHbz7lgS75xxd8Nf89LHyEd8Tt2v3UxNVwXlWiuXSNUfgP/Az/tkZZg0yPldADKEso
-	9Ofv+tq/ygeuelPb4/hho5QvC7coItVwyvYXv/QDqAP2Y361Igroa3igclIg=
+        d=1e100.net; s=20260707; t=1790386408; x=1790991208;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XO5IQrDqXhCVEXobXwqmnVmb7P8gC0TesjStAXIcO2g=;
+        b=GS3HMY+TiUJlvuF1fMrhjAhURbYNodQ/XKQysh1G3B/Sd183qqjloBW+HuCanUdCIO
+         xipqoTOKciWGMqVYgFiZzHB7AcmUhvKXTDGLQ4qEJODgg343xPgvzfj5hMIg2+BWIqhO
+         eZpuc+8VLDPb/6LJ/0qznCO1ByGdG71fMrfU96SGHQScL/4ZsORDxYzvQXfD2dsaFivy
+         RoKH9ckNiHLxJdBR+BCpGYVJoTDoOmlYW6ndbJNJ5iP7UfC+KFJCr5TSMrHHmALTnYLK
+         JlDbD7n00duaAqGBXaQEhkS0CzNWdAIx0BRAJmfMw7XB3+tUCtbiTk1u3fXsrf3oXQEL
+         eqdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/MLCxe1i7lULH2/5ccJjDhgGXfPisnhHT99wrXiPRq8dFjcA+yY8fGnMAKTYS/fQxvhRuJv879uxc9mE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPVycKxVLa6g09LXyXeXAOeHV3fGHwfVwMD2VsQI4KZ4F0pAzx
+	/SUH6h3ZbFAzMbpGacBylPPmX531JfOoqlEniIn9y2li/svCc3WL8UCI
+X-Gm-Gg: AYBFou37a1klj3qkq0kyw1KvUi3psazvDO8d/zv+k9cp3/9JEpo/EhL+zNIF5Fq3lfJ
+	BnH3jAm3oLNghhYtzsNeNKTyVVz5lMTqi24GIgS6TBV/9YT2xuAu8vYeXgOPLSICBK/T4WgTi+y
+	8YJyqqxdeoQJ0AHadRJyh/4pOn4xq9hkJ54y2QoberXH02bUVeNF7pjz+zIyK7dDWcXUAzn7HvA
+	mKXY25aMtuL7FK+v0FycdIcwP58khzbPY4SVy3bQEcS/mkEVNnp9XryzSDzHRHKXBmFUq8ODk+0
+	49hHLsC0C0E89xdkuicK+KQvEemmx2txQkTbAMR5gYh91KQM0pWVag8wQVMimCdbGUqlPn8aV0U
+	snu5xeOydBNIbWQEI4MMZjuevQiCzcKPX0aMfF5ZMfdEO/Fox3MPVp29B9hZ5A4OZ/edD+nkmOX
+	6n/bBCIkS7y9qhlEmJIR2Ed0UJhlG5jk4M45CwtpbClfIJ34cgWE2806qOXDVhvK59mPck9Nh5C
+	nX5ERU0JvuiHlGnYRX24CTopq9padVgqgYn3Br2JyeZdSNpbOq6bR4KPVcHbu/baTtZnJgsXGQ+
+	nz9Vw0rHj3kmNlYCfyewOCGArcNNmsOwiUcy2ABGlk6jC8U0Jymy9QSWBYM=
+X-Received: by 2002:a17:902:cf0f:b0:2d9:2ff6:246e with SMTP id d9443c01a7336-2df7e251f3bmr42954915ad.23.1790386407959;
+        Fri, 25 Sep 2026 18:33:27 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90fc39ddsm17396165ad.7.2026.09.25.18.33.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 18:33:27 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: mfd@lists.linux.dev
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Lee Jones <lee@kernel.org>,
+	linux-omap@vger.kernel.org (open list:OMAP2+ SUPPORT),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v3] mfd: twl-core: Allocate modules with twl_private
+Date: Fri, 25 Sep 2026 18:33:25 -0700
+Message-ID: <20260926013325.75073-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1825:b0:4d6:93e2:5bc3 with SMTP id
- 5614622812f47-4d72f4452b2mr8119550b6e.68.1790386288271; Fri, 25 Sep 2026
- 18:31:28 -0700 (PDT)
-Date: Fri, 25 Sep 2026 18:31:28 -0700
-In-Reply-To: <6ab1c82d.514bccd6.255447.0018.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab72070.dc2998a4.2261f5.004f.GAE@google.com>
-Subject: Re: [syzbot] [xfs?] KASAN: slab-use-after-free Write in xlog_cil_push_work
-From: syzbot <syzbot+c32ff62cf4913d345d0c@syzkaller.appspotmail.com>
-To: cem@kernel.org, linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+Use a flexible array member to allocate the twl_client array together
+with struct twl_private. This removes a separate devm_kcalloc() and
+keeps the module data tied to the main private structure.
 
-HEAD commit:    aa98230e410f Merge tag 'vfs-7.3-rc5.fixes' of git://git.ke..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15b4025e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
-dashboard link: https://syzkaller.appspot.com/bug?extid=c32ff62cf4913d345d0c
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11440a05580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12a99d25580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e111cbedae47/disk-aa98230e.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/448db8740448/vmlinux-aa98230e.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/bf2dee21a792/bzImage-aa98230e.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/e1fe55618d28/mount_0.gz
-  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=12ab2a05580000)
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c32ff62cf4913d345d0c@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: slab-use-after-free in __list_splice include/linux/list.h:577 [inline]
-BUG: KASAN: slab-use-after-free in list_splice_init include/linux/list.h:619 [inline]
-BUG: KASAN: slab-use-after-free in xlog_cil_push_pcp_aggregate fs/xfs/xfs_log_cil.c:137 [inline]
-BUG: KASAN: slab-use-after-free in xlog_cil_push_work+0x986/0x2a90 fs/xfs/xfs_log_cil.c:1417
-Write of size 8 at addr ffff88803ac995b0 by task kworker/u8:8/1160
-
-CPU: 1 UID: 0 PID: 1160 Comm: kworker/u8:8 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: xfs-cil/loop0 xlog_cil_push_work
-Call Trace:
- <TASK>
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- __list_splice include/linux/list.h:577 [inline]
- list_splice_init include/linux/list.h:619 [inline]
- xlog_cil_push_pcp_aggregate fs/xfs/xfs_log_cil.c:137 [inline]
- xlog_cil_push_work+0x986/0x2a90 fs/xfs/xfs_log_cil.c:1417
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 6137:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:340 [inline]
- __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:366
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x360/0x690 mm/slub.c:5010
- xfs_buf_item_init+0x6a/0x6e0 fs/xfs/xfs_buf_item.c:872
- _xfs_trans_bjoin+0x46/0x110 fs/xfs/xfs_trans_buf.c:75
- __xfs_trans_getsb+0x65/0x4a0 fs/xfs/xfs_trans_buf.c:191
- xfs_log_sb+0x43/0x200 fs/xfs/libxfs/xfs_sb.c:1327
- xfs_sync_sb_buf+0xc2/0x290 fs/xfs/libxfs/xfs_sb.c:1479
- xfs_ioc_setlabel+0x1d7/0x340 fs/xfs/xfs_ioctl.c:1081
- xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 6137:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kmem_cache_free+0x187/0x6d0 mm/slub.c:6635
- xfs_buf_ioend+0x235/0x790 fs/xfs/xfs_buf.c:1167
- xfs_buf_iowait+0x133/0x420 fs/xfs/xfs_buf.c:1336
- xfs_bwrite+0x5f/0xe0 fs/xfs/xfs_buf.c:1239
- xfs_sync_sb_buf+0x172/0x290 fs/xfs/libxfs/xfs_sb.c:1489
- xfs_ioc_setlabel+0x1d7/0x340 fs/xfs/xfs_ioctl.c:1081
- xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88803ac99540
- which belongs to the cache xfs_buf_item of size 272
-The buggy address is located 112 bytes inside of
- freed 272-byte region [ffff88803ac99540, ffff88803ac99650)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3ac99
-flags: 0x80000000000000(node=0|zone=1)
-page_type: f5(slab)
-raw: 0080000000000000 ffff88801e348b40 dead000000000122 0000000000000000
-raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 6116, tgid 6106 (syz.4.30), ts 150746597616
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2591/0x2600 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x230/0x5c0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d8/0x350 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x339/0x690 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x45d/0x690 mm/slub.c:5010
- xfs_buf_item_init+0x6a/0x6e0 fs/xfs/xfs_buf_item.c:872
- _xfs_trans_bjoin+0x46/0x110 fs/xfs/xfs_trans_buf.c:75
- xfs_trans_read_buf_map+0x2ee/0x820 fs/xfs/xfs_trans_buf.c:294
- xfs_trans_read_buf fs/xfs/xfs_trans.h:212 [inline]
- xfs_read_icluster+0x218/0x3e0 fs/xfs/libxfs/xfs_inode_buf.c:139
- xfs_iget_cache_miss fs/xfs/xfs_icache.c:663 [inline]
- xfs_iget+0xc34/0x2f00 fs/xfs/xfs_icache.c:804
- xfs_trans_metafile_iget+0x77/0x330 fs/xfs/xfs_icache.c:853
- xfs_rtginode_load+0x3a3/0x920 fs/xfs/libxfs/xfs_rtgroup.c:469
- xfs_rtmount_rtg fs/xfs/xfs_rtalloc.c:1684 [inline]
- xfs_rtmount_inodes+0x245/0x7a0 fs/xfs/xfs_rtalloc.c:1721
- xfs_mountfs+0x1254/0x2380 fs/xfs/xfs_mount.c:1095
-page last free pid 6120 tgid 6072 ts 149440641538 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- free_unref_folios+0xd0f/0x1950 mm/page_alloc.c:3022
- folios_put_refs+0x815/0x920 mm/folio.c:1036
- folio_batch_release include/linux/folio_batch.h:101 [inline]
- mapping_try_invalidate+0x3b7/0x4b0 mm/truncate.c:579
- xfs_ioc_setlabel+0x262/0x340 fs/xfs/xfs_ioctl.c:1091
- xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff88803ac99480: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88803ac99500: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
->ffff88803ac99580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                     ^
- ffff88803ac99600: fb fb fb fb fb fb fb fb fb fb fc fc fc fc fc fc
- ffff88803ac99680: fc fc fa fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ v3: Capitalize Allocate.
+ v2: don't use twl_get_num_slaves().
+ drivers/mfd/twl-core.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
+index f86df356d658..0b78fe30e047 100644
+--- a/drivers/mfd/twl-core.c
++++ b/drivers/mfd/twl-core.c
+@@ -159,7 +159,7 @@ struct twl_private {
+ 	unsigned int twl_id;
+ 
+ 	struct twl_mapping *twl_map;
+-	struct twl_client *twl_modules;
++	struct twl_client twl_modules[];
+ };
+ 
+ static struct twl_private *twl_priv;
+@@ -770,7 +770,9 @@ twl_probe(struct i2c_client *client)
+ 		goto out;
+ 	}
+ 
+-	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
++	num_slaves = (id->driver_data & TWL6030_CLASS) ? 3 : 4;
++	twl_priv = devm_kzalloc(&client->dev,
++				struct_size(twl_priv, twl_modules, num_slaves),
+ 				GFP_KERNEL);
+ 	if (!twl_priv) {
+ 		status = -ENOMEM;
+@@ -787,16 +789,6 @@ twl_probe(struct i2c_client *client)
+ 		twl_regmap_config = twl4030_regmap_config;
+ 	}
+ 
+-	num_slaves = twl_get_num_slaves();
+-	twl_priv->twl_modules = devm_kcalloc(&client->dev,
+-					 num_slaves,
+-					 sizeof(struct twl_client),
+-					 GFP_KERNEL);
+-	if (!twl_priv->twl_modules) {
+-		status = -ENOMEM;
+-		goto out;
+-	}
+-
+ 	for (i = 0; i < num_slaves; i++) {
+ 		struct twl_client *twl = &twl_priv->twl_modules[i];
+ 
+-- 
+2.55.0
+
