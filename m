@@ -1,172 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E00E40F750;
-	Sat, 26 Sep 2026 10:41:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B320A40BCBB;
+	Sat, 26 Sep 2026 10:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790419292; cv=none; b=Ld+7PSRh+VK37JZQReNkuwzTcke0P05cqnGuocCDDg+7YHJozapBErkHfzwds5Sz7ej5CsJrpO9NgEsGKY9XHiUcKzSjJ9QXhK7NdgdOa5kMdKszJDfh3eie0b4vXcH7txRmc81hXpMZCd7azM6AEGQp73deNVNJcJNuYTaT9FA=
+	t=1790419298; cv=none; b=Ho/olH7QWnB3CwRow3l/qS7jQyx/yTvbDbQdUKXoeiLCvLeAoJ6T3nee5QtGYqkHQLux9gsrneuATt4HEwaW1KGxnsRtYUAGyrz+j8mif8Md8/QHzE71Fs3MI8HQ1DvF6IvwQQGKUlTkkVDotlUEbFwigOXfr0Ct6KFwwViklkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790419292; c=relaxed/simple;
-	bh=QmSOJwju5TfiPg8slA7VLmMjfjzHO2fnrvsHpTcasuQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aNeeVR92qQo+LgDD3oULHk+kTx4MybYYOf1k0xsr0WKpH7+QLkFFk/0PmI/p18E43rN2NyOT0DNvaFZLc+8sCFdoBx9WWnyz4Cr+xpTMBMQbOJhCXYcWawdgOg2ZdJEj4UK1cMfLu1bzOPEIBCfrQ9jmXyq6KsIsOLMeRQwaotU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDlwayMn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDlwayMn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21B241F00893;
-	Sat, 26 Sep 2026 10:41:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790419286;
-	bh=SN9pBsYau6XqA12Xdl8N5Dmjue89SDbE0U+vn84I9OA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SDlwayMniSSzMZ/yLnVoRDTY/aOgPvhOA2LDiF/HlKzgD59VRgg8qfLbmWV7AjCq6
-	 KcV2jNVcf1F7ESdYqqNdVr2WdSLVNuqYjM8FKZInbRK6pksEv45OLMbpbPiXYiakAv
-	 GzJS+FJWIy3W4WFfo5Ti/kaKJ2vJzLZfe42+vQTxNR8h3N6RwzclBbPRVCG/jNPeY6
-	 sUw2rWFuNimrCLiB4hqW0C2nrzcAH9Wh9uh0Mm4I72cvVZR4P9bdx4pR+3TofHvUSS
-	 BAxuw0Jqca/FbYdDyfMaLQlNrMTYCBgzl/QDCcLbquBLipWly0Y6peVXaC44g1vd2b
-	 tvEK9r4ONorwA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sat, 26 Sep 2026 11:41:06 +0100
-Subject: [PATCH v3 1/6] mm: move drivers/char/mem.c to mm/char-mem.c
+	s=arc-20240116; t=1790419298; c=relaxed/simple;
+	bh=ed7HsDHriYrHElPsv+mn2vmxRLaB0S17KT/sVtk3G/Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tvR84S3M2O+Aka35rAaJ+g/45UjwT7qEks60zJIeR9mu7CdmqiIOUuffXmBPePjKKCfArhuUzVQR6hmKLkM+TuPQU/KwLt5Ig5u+oy0H42UrW/aOyGCnHv0H0hbL4x2dRB49998KzD/hv4phoPpqCUJPYo4cOhFnMB3m/lneWO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1xAP4O-0007Kq-00; Sat, 26 Sep 2026 11:51:48 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id E723AC0AC0; Sat, 26 Sep 2026 11:34:37 +0200 (CEST)
+Date: Sat, 26 Sep 2026 11:34:37 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: Orgad Shaneh <orgads@gmail.com>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] MIPS: OCTEON: cvmx-l2c: use the OCTEON II register
+ model on all CN6XXX
+Message-ID: <areRrVgv61sfHZno@alpha.franken.de>
+References: <20260915071306.15006-1-orgads@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-map-private-dev-zero-v3-1-d4781e84ccfc@kernel.org>
-References: <20260926-map-private-dev-zero-v3-0-d4781e84ccfc@kernel.org>
-In-Reply-To: <20260926-map-private-dev-zero-v3-0-d4781e84ccfc@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3650; i=ljs@kernel.org;
- h=from:subject:message-id; bh=QmSOJwju5TfiPg8slA7VLmMjfjzHO2fnrvsHpTcasuQ=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK2L/Q+/VRBOIGh33GV2KqlxwrmbZjPvVD3V/jBJdNPb
- NX1ezGptaOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATyVvAyHB/cdWRts5T9u3f
- F3OtFtnikhAgN4NTJtCSR8XV/EieSxAjQ9fhBx3mZfcf5SWt3Wt56MQ79hk1mUazDwhltj74mey
- 5nBkA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915071306.15006-1-orgads@gmail.com>
 
-The memory character driver implements several mm-specific features and is
-always compiled into the kernel, so move it to mm/ where it belongs.
+On Tue, Sep 15, 2026 at 07:12:44AM +0000, Orgad Shaneh wrote:
+> The L2 helpers pick between the OCTEON II and the CN3XXX/CN5XXX
+> register model with OCTEON_IS_MODEL(OCTEON_CN63XX), which matches the
+> CN63XX only. Every other OCTEON II part - CN66XX, CN68XX, CN61XX -
+> takes the CN3XXX/CN5XXX branch and touches registers that do not exist
+> on it: L2C_DBG, L2C_LCKBASE, L2C_LCKOFF and L2C_SPAR4 instead of the
+> LCKL2 cache operation, the L2C_WPAR_{PPX,IOBX} way-partitioning
+> registers and L2C_TADX_TAG.
+> 
+> On a CN6635 board cvmx_l2c_lock_line(), called from prom_init() under
+> CONFIG_CAVIUM_OCTEON_LOCK_L2 to lock the TLB refill and exception
+> vectors, therefore went through L2C_DBG/L2C_LCKBASE. Whatever those
+> writes hit inside the L2 controller left it silently dropping stores to
+> DRAM above 512 MB: a probe that wrote 0x20400000, 0x40000000,
+> 0x80000000 and 0xe0000000 in prom_init read its values back before the
+> lock block and the old contents right after it, on CCA 0, 2 and 3
+> alike, while writes below 256 MB and every u-boot "mw" stuck. Since the
+> cvmx bootmem free list keeps its nodes inside the free blocks
+> themselves, the kernel's first split above 0x20000000 was lost, the
+> walk of the free list stopped there, and the board came up with 248 MB
+> of its 8 GB.
+> 
+> Match the whole CN6XXX family, which is what these register accesses
+> are keyed to. The CN63XX keeps exactly the same path.
+> 
+> The geometry helpers in this file need the same treatment but not the
+> same condition; they are handled in the next patch.
+> 
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+> ---
+> diff --git a/arch/mips/cavium-octeon/executive/cvmx-l2c.c b/arch/mips/cavium-octeon/executive/cvmx-l2c.c
+> --- a/arch/mips/cavium-octeon/executive/cvmx-l2c.c
+> +++ b/arch/mips/cavium-octeon/executive/cvmx-l2c.c
+> @@ -54,7 +54,7 @@ int cvmx_l2c_get_core_way_partition(uint32_t core)
+>  	if (core >= cvmx_octeon_num_cores())
+>  		return -1;
+>  
+> -	if (OCTEON_IS_MODEL(OCTEON_CN63XX))
+> +	if (OCTEON_IS_MODEL(OCTEON_CN6XXX))
+>  		return cvmx_read_csr(CVMX_L2C_WPAR_PPX(core)) & 0xffff;
+>  
+>  	/*
+> @@ -91,14 +91,14 @@ int cvmx_l2c_set_core_way_partition(uint32_t core, uint32_t mask)
+>  	mask &= valid_mask;
+>  
+>  	/* A UMSK setting which blocks all L2C Ways is an error on some chips */
+> -	if (mask == valid_mask && !OCTEON_IS_MODEL(OCTEON_CN63XX))
+> +	if (mask == valid_mask && !OCTEON_IS_MODEL(OCTEON_CN6XXX))
+>  		return -1;
+>  
+>  	/* Validate the core number */
+>  	if (core >= cvmx_octeon_num_cores())
+>  		return -1;
+>  
+> -	if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
+> +	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+>  		cvmx_write_csr(CVMX_L2C_WPAR_PPX(core), mask);
+>  		return 0;
+>  	}
+> @@ -147,10 +147,10 @@ int cvmx_l2c_set_hw_way_partition(uint32_t mask)
+>  	mask &= valid_mask;
+>  
+>  	/* A UMSK setting which blocks all L2C Ways is an error on some chips */
+> -	if (mask == valid_mask	&& !OCTEON_IS_MODEL(OCTEON_CN63XX))
+> +	if (mask == valid_mask	&& !OCTEON_IS_MODEL(OCTEON_CN6XXX))
+>  		return -1;
+>  
+> -	if (OCTEON_IS_MODEL(OCTEON_CN63XX))
+> +	if (OCTEON_IS_MODEL(OCTEON_CN6XXX))
+>  		cvmx_write_csr(CVMX_L2C_WPAR_IOBX(0), mask);
+>  	else
+>  		cvmx_write_csr(CVMX_L2C_SPAR4,
+> @@ -160,7 +160,7 @@ int cvmx_l2c_set_hw_way_partition(uint32_t mask)
+>  
+>  int cvmx_l2c_get_hw_way_partition(void)
+>  {
+> -	if (OCTEON_IS_MODEL(OCTEON_CN63XX))
+> +	if (OCTEON_IS_MODEL(OCTEON_CN6XXX))
+>  		return cvmx_read_csr(CVMX_L2C_WPAR_IOBX(0)) & 0xffff;
+>  	else
+>  		return cvmx_read_csr(CVMX_L2C_SPAR4) & (0xFF);
+> @@ -313,7 +313,7 @@ static void fault_in(uint64_t addr, int len)
+>  
+>  int cvmx_l2c_lock_line(uint64_t addr)
+>  {
+> -	if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
+> +	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+>  		int shift = CVMX_L2C_TAG_ADDR_ALIAS_SHIFT;
+>  		uint64_t assoc = cvmx_l2c_get_num_assoc();
+>  		uint64_t tag = addr >> shift;
+> @@ -460,7 +460,7 @@ void cvmx_l2c_flush(void)
+>  int cvmx_l2c_unlock_line(uint64_t address)
+>  {
+>  
+> -	if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
+> +	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+>  		int assoc;
+>  		union cvmx_l2c_tag tag;
+>  		uint32_t tag_addr;
+> @@ -661,7 +661,7 @@ union cvmx_l2c_tag cvmx_l2c_get_tag(uint32_t association, uint32_t index)
+>  			     (int)index, cvmx_l2c_get_num_sets());
+>  		return tag;
+>  	}
+> -	if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
+> +	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+>  		union cvmx_l2c_tadx_tag l2c_tadx_tag;
+>  		uint64_t address = CVMX_ADD_SEG(CVMX_MIPS_SPACE_XKPHYS,
+>  						(association << CVMX_L2C_TAG_ADDR_ALIAS_SHIFT) |
+> @@ -745,7 +745,7 @@ uint32_t cvmx_l2c_address_to_index(uint64_t addr)
+>  	}
+>  
+>  	if (indxalias) {
+> -		if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
+> +		if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+>  			uint32_t a_14_12 = (idx / (CVMX_L2C_MEMBANK_SELECT_SIZE/(1<<CVMX_L2C_IDX_ADDR_SHIFT))) & 0x7;
+>  
+>  			idx ^= idx / cvmx_l2c_get_num_sets();
+> @@ -878,7 +878,7 @@ void cvmx_l2c_flush_line(uint32_t assoc, uint32_t index)
+>  		return;
+>  	}
+>  
+> -	if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
+> +	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+>  		uint64_t address;
+>  		/* Create the address based on index and association.
+>  		 * Bits<20:17> select the way of the cache block involved in
+> -- 
+> 2.47.0
 
-Among other things the driver implements /dev/mem which provides raw access
-to physical memory, and /dev/zero which either allows mapping of a shmem
-region (if mapped with MAP_SHARED) or, uniquely, anonymous memory (if
-mapped MAP_PRIVATE).
+applied to mips-next
 
-This change lays the foundations to allow MAP_PRIVATE-/dev/zero to be
-mapped precisely the same as anonymous memory is mapped as currently it is
-an edge case within mm.
-
-Also update a couple of comments that reference 'drivers/char/mem.c' to
-reference 'mm/char-mem.c'.
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- MAINTAINERS                         | 4 ++--
- drivers/char/Makefile               | 2 +-
- mm/Makefile                         | 3 ++-
- drivers/char/mem.c => mm/char-mem.c | 2 +-
- mm/shmem.c                          | 2 +-
- 5 files changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2133aec4a200..ebadf4cef076 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17272,7 +17272,7 @@ F:	Documentation/ABI/testing/sysfs-kernel-mm-memory-tiers
- F:	Documentation/ABI/testing/sysfs-kernel-mm-numa
- F:	Documentation/admin-guide/mm/
- F:	Documentation/mm/
--F:	drivers/char/mem.c
-+F:	mm/char-mem.c
- F:	include/linux/cma.h
- F:	include/linux/dmapool.h
- F:	include/linux/ioremap.h
-@@ -17477,7 +17477,7 @@ L:	linux-mm@kvack.org
- S:	Maintained
- W:	http://www.linux-mm.org
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
--F:	drivers/char/mem.c
-+F:	mm/char-mem.c
- F:	include/trace/events/mmap.h
- F:	fs/proc/task_mmu.c
- F:	fs/proc/task_nommu.c
-diff --git a/drivers/char/Makefile b/drivers/char/Makefile
-index a46d7bf7c4c8..bb3bf66937b3 100644
---- a/drivers/char/Makefile
-+++ b/drivers/char/Makefile
-@@ -3,7 +3,7 @@
- # Makefile for the kernel character device drivers.
- #
- 
--obj-y				+= mem.o random.o
-+obj-y				+= random.o
- obj-$(CONFIG_TTY_PRINTK)	+= ttyprintk.o
- obj-y				+= misc.o
- obj-$(CONFIG_TEST_MISC_MINOR)	+= misc_minor_kunit.o
-diff --git a/mm/Makefile b/mm/Makefile
-index e7245cb88c66..2a3ec53d62ee 100644
---- a/mm/Makefile
-+++ b/mm/Makefile
-@@ -55,7 +55,8 @@ obj-y			:= filemap.o mempool.o oom_kill.o fadvise.o \
- 			   mm_init.o percpu.o slab_common.o \
- 			   compaction.o show_mem.o \
- 			   interval_tree.o list_lru.o workingset.o \
--			   debug.o gup.o mmap_lock.o vma_init.o $(mmu-y)
-+			   debug.o gup.o mmap_lock.o vma_init.o char-mem.o \
-+			   $(mmu-y)
- 
- # Give 'page_alloc' its own module-parameter namespace
- page-alloc-y := page_alloc.o
-diff --git a/drivers/char/mem.c b/mm/char-mem.c
-similarity index 99%
-rename from drivers/char/mem.c
-rename to mm/char-mem.c
-index 63253d1de5d7..d2e575545044 100644
---- a/drivers/char/mem.c
-+++ b/mm/char-mem.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- *  linux/drivers/char/mem.c
-+ *  mm/char-mem.c
-  *
-  *  Copyright (C) 1991, 1992  Linus Torvalds
-  *
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 255d69ebceba..c92ed17dbc4a 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -2981,7 +2981,7 @@ unsigned long shmem_get_unmapped_area(struct file *file,
- 			sb = file_inode(file)->i_sb;
- 		} else {
- 			/*
--			 * Called directly from mm/mmap.c, or drivers/char/mem.c
-+			 * Called directly from mm/mmap.c, or mm/char-mem.c
- 			 * for "/dev/zero", to create a shared anonymous object.
- 			 */
- 			if (IS_ERR(shm_mnt))
+Thomas.
 
 -- 
-2.55.0
-
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
