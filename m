@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A83272E56;
-	Sat, 26 Sep 2026 04:03:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AD01F12FB;
+	Sat, 26 Sep 2026 04:04:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790395426; cv=none; b=TTUOIj9UuNVjs6qfIJCCFEHHCVn1wb5+AqymumWeqqJC+Kp4sIQ0wGZPUQ+xacJUiCzXy0xGdixCeoAzRQU+N8NNKtcbaPNWtU9k2swuxImQIDiXA3Jd8uQiMu5ZZ9I7KHIgcB31a9OuaOFHG/Yd4W3sP17jx/Oig2StmYJsKz0=
+	t=1790395477; cv=none; b=k7Imv0QA/1Yod6tqHb5YmivK2LC8o3+2JEuogktaQ/c8rMqs6lla/X2q8EKbq5HrsfKpwCfia8J3bYKRFHMBekD/naWQTNkX3DJks7ZUv9k+bDs7d5kAmgklFeICKZl7To9dS4SmrliADPgH1bcKIwd7QFkIjgpi7pDGKsd3KNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790395426; c=relaxed/simple;
-	bh=7Ct1YJonnLqq1btB67/JNbgOj4OTqxXqcm+es2sWijE=;
+	s=arc-20240116; t=1790395477; c=relaxed/simple;
+	bh=zrx3p39Pv9buQ/wqymq+JRlodo6arpzwp+Iv4wtasis=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p5kUsjU9ZB75XId+2VB7UGBwOwo8SV4o/aGH8TazUiy56seppiaNRCXmWtvZ56ijt3/PU9UI4dKq1sL4+Tmxb8B4YCgqIfL41fuPr0Ouk9rTuSqByZPDdZPIJeECQifdXVVoVRewM1x/95ddM53qaHgQOlfVCZijSdQj2qh1+tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJwntA0Z; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=j/BMMdXsplhxQIHpL70qfDzHGhbL5uFnVbfeF7cwPcWt+JdJ1mZkf+69Jr6vXHgDAnmtCt+TrPqy8YCgvn9sel10YbKHmHzTvAWIQe+eOMD9vFXbgRuMvKZqC5ozmLFMP3eBQwbIv+wmCJPiGir+wug1rLvFgrR8Y2lelAplqpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FpM5+rnV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJwntA0Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB071F000FF;
-	Sat, 26 Sep 2026 04:03:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FpM5+rnV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4BD1F000FF;
+	Sat, 26 Sep 2026 04:04:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790395425;
-	bh=Ez96NEwvtT1k9tGbEFCVRqt3OZGVg5le4zsDZGm02ag=;
+	s=k20260515; t=1790395475;
+	bh=xOUdZyaE4ZM74h/zxVnXNgegJ6IkaZJcYOAv1Dl9nzE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MJwntA0ZZjmKHhtCfYKPc1LdDWePisGyWu8LaXPwzLQ4Pfts2Xg//JV1tbCUu3BsV
-	 qop38+KgeqO3AENA5+YDBY2UVXMb7iMwLCFaiyQlKE6EO2ZrR07dc4fkC1eZp+JH2v
-	 pHaAZos4DE401O3IAgWfuidm7tqXPy8/aa+Bris7KcAYiuqn/saDuRnuqHs68iWnro
-	 MfuSof7ZmnjBSVZww9WmbvKE2UWTSVwiWARhSVmPjQGDRwNU9pKFOTZzncjIG9oCo+
-	 rQZWESHElx82csYwiw3KEFFE8IdJrEeERI4EJm2njWFBVjoN5HhZMT8yNraHiLaeH8
-	 iXG1yAE6+ulRQ==
-Date: Sat, 26 Sep 2026 06:03:25 +0200
+	b=FpM5+rnVVdGtECbvQlEoMK/d8cozDmixctv/d+o5Q68UYuWWjUE5b3QM3bEtuna1v
+	 xeAvjVWg9mOisCT6dkPzPHbD6I2b3WetxQMK2N35naNQINRGZ7AO0UwiuHKakbqOXY
+	 f+3A0clTtptG0MApsK2tZ05Idw98vZLzGfzuKbxZbGxWmiVsBeH8TULsr+8VFkQ5Tb
+	 UnruqkD+Xl8jI7dK3BpQcEl4Hv4oU1DEffFOO5FoqSa5cxCeJpfWRoGDc3jNJAOpsZ
+	 +s/zbtOWFrkPHeh96WiHvs4R2iAt6OPLt32e+oc/RnkE8souTrvCbO6L1HLy6yDESb
+	 mOqnK7avDNFEg==
+Date: Sat, 26 Sep 2026 06:04:16 +0200
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: Sebastian Reichel <sebastian.reichel@collabora.com>
 Cc: Vinod Koul <vkoul@kernel.org>, 
@@ -38,11 +38,12 @@ Cc: Vinod Koul <vkoul@kernel.org>,
 	Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
 	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
 	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v15 11/16] phy: rockchip: usbdp: Support single-lane DP
-Message-ID: <2z4yirs6dzf34ajrc7u4gv62v466iusxt6lqam6zjmxmbutd6d@fwdwmcvtiv74>
+	devicetree@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v15 12/16] phy: rockchip: usbdp: Limit DP lane count to
+ muxed lanes
+Message-ID: <rzxb3np7snoj52rn2cx2rfemelk3kyjpd2dr5v357td4vkrpma@cxun5v7lnojp>
 References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
- <20260915-rockchip-usbdp-cleanup-v15-11-80e2c11d1ce8@collabora.com>
+ <20260915-rockchip-usbdp-cleanup-v15-12-80e2c11d1ce8@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,14 +53,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-11-80e2c11d1ce8@collabora.com>
+In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-12-80e2c11d1ce8@collabora.com>
 
-On Tue, Sep 15, 2026 at 03:49:58PM +0200, Sebastian Reichel wrote:
-> From: Zhang Yubing <yubing.zhang@rock-chips.com>
+On Tue, Sep 15, 2026 at 03:49:59PM +0200, Sebastian Reichel wrote:
+> In theory the DP controller could request 4 lanes when the PHY is
+> restricted to 2 lanes as the other half is used by USB3.
 > 
-> Implement support for using just a single DisplayPort line.
+> With the current user (DW-DP) this cannot happen, but as the check is
+> cheap and users might change in the future protect things accordingly.
+> Not doing so would corrupt USB3 usage by the following code configuring
+> the voltages.
 > 
-> Signed-off-by: Zhang Yubing <yubing.zhang@rock-chips.com>
+> Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-phy/20260612165546.98E1F1F000E9@smtp.kernel.org/
 > Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
