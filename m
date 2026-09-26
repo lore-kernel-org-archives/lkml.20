@@ -1,133 +1,293 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D53837F8D6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611A437A836
 	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790437790; cv=none; b=PiPf6zlw9iIHgulCjwSe4moOl+U/uKLdVNzt6cao9/HqouAm0n8Y1r6SqVk27Xk/3NaS9zmI0Q1se0CmCxI1SD0+Hy7+r16l+LBpzeJWL3zTVVZViL076o4FrdSv26FzNqLOBH4VshzYtgZRBHVU8kVcmgGE1/HNjj/gWXQ86j8=
+	t=1790437790; cv=none; b=Ywvxjx3fHq77Qfg6CjjoECCl6v7pvyRavfiGKIEuVKOziZBBr4rZibqBuA9aU5f8Wo2Ob0VInITXLobFYM38e8K6hdtlwvVP7INHQZM8mPlQinN8J8vug8v7Bjg7H89MGO3tCIFZ9JBGx8hximycM1m6UMISE4khvF2NSATA6j8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790437790; c=relaxed/simple;
-	bh=fBLR33F1Xm8tcFI5vjRqJo/ve/V12XVUWanpWiSV9a0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JBI4MyviOQGrONcYHHIcV2IRSxS6sqngFdBV35Pbx6QxwVtVHxG///JZDu9y2CTSiK5KaXTK9VHbyDclQpITY7/zY2LW6DL4Lml8vJQC/+f7BXT4lzUHVj/eb6SJQvIHHFC/KSdeRFHeq/NsRcliuKVLMc/kLgCU/Lnbam46qqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SZlu3lsU; arc=none smtp.client-ip=74.125.225.140
+	bh=D8q+JFl8ShBAwd8HatsVWk4ClB609jvEFQM0NLY9Qlk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=BtrYJa/YJjgNS+kYMNEJSyIBPRCphU0wEDb2UKd8/4iRcXeBXjtNwsWEQHF7ov61+y0xG40sHAQCBUf+VlY7VXTKhNIuu8J7NP4MhV0GRy5yTdluCGf776DZxXfB1dY459RfV+FqMF08q2DivfJ+oFPejZN2OReSG4+MzKV1A7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sst8+Yxw; arc=none smtp.client-ip=74.125.231.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SZlu3lsU"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso12657475e9.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sst8+Yxw"
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b02c279beso211460a34.2
         for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:49:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790437784; x=1791042584; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=led8hfaOrEtmmOiSO1x3wL7AB5T4FRzeMXFG3N+Q9Cs=;
-        b=SZlu3lsUlr5hwvuyKD5g4gvbMXcMHrqpv0dTiiSMICuPFt6fUeHV84c2LWmBjylL1G
-         sWTGAogM0Jvj/eiIINg66wpvlimUYUL8/B8I4ZrfYHRCdLaUoE01PObHyZVYoR3JEjJv
-         4krxwTv8lfB7XAoZYmB5+PBYOqOgAormQSgEixFo9kkE2CLA7q3YJy12gzc20GBmTYTS
-         RoDyCZS9qVaW7gJsdGQ7rcW9cg5BL1cd+S1yTBm8w76V1fKLq1yEo/lpHv9NtzjO+5cm
-         pwAmFiAZDPh1wccr6IQzp5Si9DlKRsf3Y3nYuxtP++9TNSv4L2+SXQ2zlW9R/wfSNMN+
-         h25Q==
+        d=gmail.com; s=20251104; t=1790437785; x=1791042585; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v5J6qvfoNxCIHw/hgiMJQWPeLhNGA42IA+QA8tl0rh4=;
+        b=sst8+YxwPuldscdV+CM8PYE7o6nFopWbfVqJG2uWoMMhMDPD5b9rJ9Fb27MRox0q5T
+         N+tR/CxyBRvxlnxDFp+fI/dJEHCcXMaMk9SOD7as5MSmiLcneeEgFAjsV8P6qj7+OkNi
+         hFxQ3eDLCgy4vqqSwGn+UIQAeNVUEilKxQhjnxCPiuWFCoaP7QXpHo5wi8LuiCv8BzMR
+         fBU/m11m9j8rdbue4j3rRaFnp38v0pdhN4cUxuOR0jXUfed8cuQob5A7hlPfcNO2XGSx
+         w81t7Q9tl1Kc5I0Kc5roRMiP36228/h6ktrtL+MmEJhAQwkITv3nKE+Obkx2u3siUY7W
+         OLog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790437784; x=1791042584;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790437785; x=1791042585;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=led8hfaOrEtmmOiSO1x3wL7AB5T4FRzeMXFG3N+Q9Cs=;
-        b=2RukXGvgrN0ao4z2mVJBNOWNpcXYfG99Kdu7ztmCMRXxZg/CqKVuJXJJZcGy585r9E
-         +Bq8uQa8flZnr6ZYT8V1YORjC9BZtb/97LTdbKqgC5BweZqtqJSEuofHASoixskXDDsV
-         Leu/T0Cr1YOUfsVNGbCti4+8QW+dQjjmQ+MDGUakxCaY15afboT61F5d6esmkBd0wT41
-         9/p5ypSk0AFdpUASkMf6DxvDqQHUisH+DyMQITDbZ3gh9CRfDtzSwECwukE5r0byFUMI
-         /jShacTYyuI/8h65izVdM9zZpOvtJZZz762JmdaLKXsy2GKMZweDTeHfhO2+YB2o+bfn
-         IBcw==
-X-Forwarded-Encrypted: i=1; AKwUvBykdZxBfdRyuCvUbEvoNdEIy/GepXz4J+YECn6yjsmWMtpJOSZA5v468molgsHo32pZ/L3rIgovItnLwhU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbsTN9qiMIHDCRxf2iq3nINLcwSzXNKk/DIg2WLiPutJaOrKTN
-	X9lyYJbn/sa1jlryl0J0DFyFcOmyqJpNKUS8hTs8N9w1ve5XeKfWOeHv
-X-Gm-Gg: AYBFou0kGwxN79HH/adhXP5Kqf6E3t+8oEoCxN175cLqkL1+z7SDCkkr4qi4njrZPa8
-	fLDvk2Q/dBIKIvwOsEjyiOgS1ilNCe155TODpMVkJy54nBuZeSlu+bw+l1ueAIGn3hciuVIMy49
-	VKBLOn0vXlsqqunAZgFIB4g8AyBkOTSnuQwNwqUe/Iewe+dpmmFIUMF3pNgUuF2tRp0lUxZEJO5
-	XQSoNxt6quhWwHgke+w0L6eiUFs2aMp5RVw2oBF1ktBbsLrJtGlEtMSRU5vMBQNdysACOlEW8FJ
-	u0NHg+dHa6Jj7U1MBrYPmJnXo48Oq/S8hHXiYmp3OXYytndUMXKE6tRztQuycZfHTaj7220d5xH
-	NBAdRn1DvfDNtv1M+RJDa+c/TGha6SmpMhCgN/2lBBbh1F6/xIqi+3fJJjJcibZTYdqdetUruIk
-	TGx2H1nIv8wIvFQpEVZJfD0uo1QAZ3zkcPiJPXT/0+FbKEdc7GMPAt+u5L6/XWVfBE7iUiCyMZB
-	7fPn1VYOQ8h6AQjUie7EIq3iSqzgXbrrjNtybkScxNo
-X-Received: by 2002:a05:600c:46c6:b0:49f:fe88:e7d1 with SMTP id 5b1f17b1804b1-49ffe88e87dmr20467445e9.15.1790437784212;
-        Sat, 26 Sep 2026 08:49:44 -0700 (PDT)
-Received: from gmail.com ([188.250.243.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff065873csm136947835e9.2.2026.09.26.08.49.42
+        bh=v5J6qvfoNxCIHw/hgiMJQWPeLhNGA42IA+QA8tl0rh4=;
+        b=ov1dnXqkkaBD2cgSYk42UnSzigYREMRSe2l9F+yFHsMMJj6qrRebQiYbGEqpxdqr8F
+         xYyHcD08OFgEIRWs4YtiPZ74z1JXfNILE+hxViU7u0S8LZL81OVTAPKR3+l6EfhEIOX+
+         qeYtUmSjPxDObYA40c0am8TwgzYD2Gro+Vo/Lf1o9TrZp3p+jTgMYK1Mqw3Lz3WXQoYG
+         vhrA+CUqt2UcBjcnDJFkDxvtFgJO5IB8s9RAG9LigXNroJaOt6osbruV1ge5PFcniis5
+         +xtT8kWL0YtSuenqcoGleCDvrVyB22Q6gx+1iwt5SAkWeNxs3VN67bXxaSFZ21soPepR
+         LPeg==
+X-Forwarded-Encrypted: i=1; AKwUvBzXyOo99WHSEC3evqAEnn11sJn67kxNSHHT3l1idFgs98OV86SuzWxtsnSRL6z+Ev7IYOXf0sJnzTC9kLE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3/spWeEcK55Ko49ihBbKgHxumHnSsRa9Trz8utZ77jjzr6dBp
+	9PMp/eP6d1MVzGMYt7nAweE+GvPLxzWylsn4oWyT1Phx2NhiAcapGA3y
+X-Gm-Gg: AYBFou0IhTeA/ZbTWoHFy2cE9lNOcEgY4/0C1jfBRGjS9U0pL5MGDyUDqn4bS3bqAj8
+	8M91LSFXxInZGNzddQv/XcUcC6v2P1MetSky68IboeGZL9rm6HFC5YREP1adEyMGKcLp0y3bTag
+	EbBRRQOsMV7cRlGR6RRhlms9UUPZKb+H0Is079NvafshRNbu7GfoJY2wZyNilwR6STK2jchfWeG
+	lV5TkckOttBEz1jZHYCrtb1hw2jvQBfYULbsy+neeEFuKQ/0lMcpNEftsCV5uDv1mpgckP0wmx3
+	SRO6ZsOHPTr9MD71YhipKXR2Dyge05hNWbFklOjaWV64OIn+bdIVOrs4drCl3OEh2ufyzaMIRB8
+	HFSxwOPOZNQQ262cPAXkKuS8QTd9OnaneFqQA4GahzEsQsyIew8nfn0RnP/9u+Y4owKJHiDLIek
+	b8c12yoMS8NqSBn3M8eVBcWmfcFlagIOmJV4NCgH4ArWzyQuys6ihiLf2IWKH9LMlyU18N3jG8X
+	Rgzq0DEp4jup1ktJSAavf27f/xGu+BOlpUubrzLeTKaJ2vPwHXFEGvxHhbCL1y/w7EglHk2rbj/
+	3rsZHWSk3KSmrzsCx6HJK2b3SDk7rTjOQZsnp1EkGspm1YYyOFkVSwGvgyqwDZp5OHW+qqLN8B4
+	rCHivlQBvo5mMFjkJ7rVl
+X-Received: by 2002:a05:6830:6686:b0:7f4:eb76:881d with SMTP id 46e09a7af769-81780693ca6mr10527443a34.5.1790437785355;
+        Sat, 26 Sep 2026 08:49:45 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-818e98b16d4sm5442366a34.26.2026.09.26.08.49.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 08:49:43 -0700 (PDT)
-Date: Sun, 27 Sep 2026 00:49:40 +0900
-From: Youngjun Park <her0gyugyu@gmail.com>
-To: Lian Wang <lianux.mm@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, akpm@linux-foundation.org,
-	chrisl@kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kasong@tencent.com, mhocko@kernel.org,
-	roman.gushchin@linux.dev, shakeel.butt@linux.dev,
-	muchun.song@linux.dev, shikemeng@huaweicloud.com,
-	baoquan.he@linux.dev, baohua@kernel.org, yosry@kernel.org,
-	joshua.hahnjy@gmail.com, taejoon.song@lge.com
-Subject: Re: [RFC PATCH v11 0/4] mm/swap: priority-based swap tiers with
- per-cgroup selection
-Message-ID: <arfplImR24PFlk5H@gmail.com>
-References: <20260916183437.2946306-1-youngjun.park@lge.com>
- <20260916200434.GA5784@cmpxchg.org>
- <arAHu_BD5oqpZJER@gmail.com>
- <arQJIjzE0BlUg0CV@cmpxchg.org>
- <20260925065521.36340-1-lianux.mm@gmail.com>
+        Sat, 26 Sep 2026 08:49:44 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sat, 26 Sep 2026 09:49:07 -0600
+Subject: [PATCH net v4 12/15] xsk: allow drivers to retain DMA mappings
+ independently of pools
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925065521.36340-1-lianux.mm@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-submit-stmmac-reset-fixes-v1-v4-12-ec1c0250b3c9@gmail.com>
+References: <20260926-submit-stmmac-reset-fixes-v1-v4-0-ec1c0250b3c9@gmail.com>
+In-Reply-To: <20260926-submit-stmmac-reset-fixes-v1-v4-0-ec1c0250b3c9@gmail.com>
+To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Joakim Zhang <qiangqing.zhang@nxp.com>, 
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Christian Marangi <ansuelsmth@gmail.com>, 
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Serge Semin <fancer.lancer@gmail.com>, 
+ Suraj Jaiswal <quic_jsuraj@quicinc.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Joao Pinto <Joao.Pinto@synopsys.com>, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Ong Boon Leong <boon.leong.ong@intel.com>, 
+ Voon Weifeng <weifeng.voon@intel.com>, 
+ "Song, Yoong Siang" <yoong.siang.song@intel.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Simon Horman <horms@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: Richard Genoud <richard.genoud@bootlin.com>, 
+ Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org, 
+ ZhaoJinming <zhaojinming@uniontech.com>, 
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
+ Ding Hui <dinghui1111@163.com>, James Hilliard <james.hilliard1@gmail.com>, 
+ linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev
+X-Mailer: b4 0.15.2
 
-Hi Lian!
+An unsuccessful device shutdown does not make its DMA memory safe to
+unmap. AF_XDP pool removal must nevertheless complete: the last socket
+release invokes the driver detach callback and then destroys the pool,
+regardless of the callback's return value.
 
-> zram integration test, not yet a real multi-SSD performance test.
->
-> One result seems relevant to this discussion: with a restricted parent
-> and an unconfigured child, the child could still use the faster tier. I
+Provide an independent reference to the existing DMA mapping and its
+UMEM pages. A driver can take it while installing rings and release it
+after DMA has actually stopped. It does not retain pool metadata, fill
+or completion rings, or the pool users reference which triggers
+teardown.
 
-I intentionally left out the parent/child hierarchy handling in this
-version, since I thought it would be needed only at memcg integration
-time. At this point, though, I think it is better to keep the
-hierarchy even in the debugfs interface, 
-so after reconsideration. I'll do that in v12!
+Keep the DMA device and the mapping's netdev lookup key allocated,
+without taking a netdev usage reference that would prevent unregister.
+Save the mapping attributes and unmap before dropping the last retained
+UMEM reference. Mapping reference operations are serialized by RTNL,
+like the existing mapping list operations.
 
-> therefore agree that an inheritable memory.swap.prio.max looks like the
-> cleaner first cgroup interface. A hole in the mask worked mechanically,
-> but I do not yet have a convincing hierarchical use case for it; it felt
-> more like per-cgroup swap-pool membership.
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ include/net/xdp_sock_drv.h  | 23 ++++++++++++++++++++++
+ include/net/xsk_buff_pool.h |  4 ++++
+ net/xdp/xsk_buff_pool.c     | 48 +++++++++++++++++++++++++++++++++++++++++++--
+ 3 files changed, 73 insertions(+), 2 deletions(-)
 
-I plan to proceed with v12 as Johannes suggested. (I've replied
-with my thoughts in the thread.)
+diff --git a/include/net/xdp_sock_drv.h b/include/net/xdp_sock_drv.h
+index d94aeb506379..819410797db3 100644
+--- a/include/net/xdp_sock_drv.h
++++ b/include/net/xdp_sock_drv.h
+@@ -95,6 +95,20 @@ static inline void xsk_pool_dma_unmap(struct xsk_buff_pool *pool,
+ 	xp_dma_unmap(pool, attrs);
+ }
+ 
++/* RTNL must be held. Keep DMA mappings and pinned pages independently of
++ * the socket/pool lifetime, for rings whose DMA shutdown can fail.
++ * This does not keep pool metadata alive or postpone the detach callback.
++ */
++static inline struct xsk_dma_map *xsk_pool_dma_get(struct xsk_buff_pool *pool)
++{
++	return xp_dma_get(pool);
++}
++
++static inline void xsk_pool_dma_put(struct xsk_dma_map *dma_map)
++{
++	xp_dma_put(dma_map);
++}
++
+ static inline int xsk_pool_dma_map(struct xsk_buff_pool *pool,
+ 				   struct device *dev, unsigned long attrs)
+ {
+@@ -432,6 +446,15 @@ static inline void xsk_pool_dma_unmap(struct xsk_buff_pool *pool,
+ {
+ }
+ 
++static inline struct xsk_dma_map *xsk_pool_dma_get(struct xsk_buff_pool *pool)
++{
++	return NULL;
++}
++
++static inline void xsk_pool_dma_put(struct xsk_dma_map *dma_map)
++{
++}
++
+ static inline int xsk_pool_dma_map(struct xsk_buff_pool *pool,
+ 				   struct device *dev, unsigned long attrs)
+ {
+diff --git a/include/net/xsk_buff_pool.h b/include/net/xsk_buff_pool.h
+index a7df573784fd..25a09b098703 100644
+--- a/include/net/xsk_buff_pool.h
++++ b/include/net/xsk_buff_pool.h
+@@ -38,6 +38,8 @@ struct xsk_dma_map {
+ 	dma_addr_t *dma_pages;
+ 	struct device *dev;
+ 	struct net_device *netdev;
++	struct xdp_umem *umem;
++	unsigned long attrs;
+ 	refcount_t users;
+ 	struct list_head list; /* Protected by the RTNL_LOCK */
+ 	u32 dma_pages_cnt;
+@@ -143,6 +145,8 @@ void xp_fill_cb(struct xsk_buff_pool *pool, struct xsk_cb_desc *desc);
+ int xp_dma_map(struct xsk_buff_pool *pool, struct device *dev,
+ 	       unsigned long attrs, struct page **pages, u32 nr_pages);
+ void xp_dma_unmap(struct xsk_buff_pool *pool, unsigned long attrs);
++struct xsk_dma_map *xp_dma_get(struct xsk_buff_pool *pool);
++void xp_dma_put(struct xsk_dma_map *dma_map);
+ struct xdp_buff *xp_alloc(struct xsk_buff_pool *pool);
+ u32 xp_alloc_batch(struct xsk_buff_pool *pool, struct xdp_buff **xdp, u32 max);
+ bool xp_can_alloc(struct xsk_buff_pool *pool, u32 count);
+diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
+index c58f56f24a9c..8f95eddc91fc 100644
+--- a/net/xdp/xsk_buff_pool.c
++++ b/net/xdp/xsk_buff_pool.c
+@@ -360,7 +360,8 @@ static struct xsk_dma_map *xp_find_dma_map(struct xsk_buff_pool *pool)
+ }
+ 
+ static struct xsk_dma_map *xp_create_dma_map(struct device *dev, struct net_device *netdev,
+-					     u32 nr_pages, struct xdp_umem *umem)
++					     u32 nr_pages, struct xdp_umem *umem,
++					     unsigned long attrs)
+ {
+ 	struct xsk_dma_map *dma_map;
+ 
+@@ -376,6 +377,8 @@ static struct xsk_dma_map *xp_create_dma_map(struct device *dev, struct net_devi
+ 
+ 	dma_map->netdev = netdev;
+ 	dma_map->dev = dev;
++	dma_map->umem = umem;
++	dma_map->attrs = attrs;
+ 	dma_map->dma_pages_cnt = nr_pages;
+ 	refcount_set(&dma_map->users, 1);
+ 	list_add(&dma_map->list, &umem->xsk_dma_list);
+@@ -430,6 +433,47 @@ void xp_dma_unmap(struct xsk_buff_pool *pool, unsigned long attrs)
+ }
+ EXPORT_SYMBOL(xp_dma_unmap);
+ 
++struct xsk_dma_map *xp_dma_get(struct xsk_buff_pool *pool)
++{
++	struct xsk_dma_map *dma_map;
++
++	ASSERT_RTNL();
++	if (!pool->dma_pages)
++		return NULL;
++	dma_map = xp_find_dma_map(pool);
++	if (WARN_ON_ONCE(!dma_map))
++		return NULL;
++
++	refcount_inc(&dma_map->users);
++	xdp_get_umem(dma_map->umem);
++	get_device(dma_map->dev);
++	/* Keep the mapping's lookup key alive without preventing unregister. */
++	get_device(&dma_map->netdev->dev);
++	return dma_map;
++}
++EXPORT_SYMBOL_GPL(xp_dma_get);
++
++void xp_dma_put(struct xsk_dma_map *dma_map)
++{
++	struct net_device *netdev;
++	struct xdp_umem *umem;
++	struct device *dev;
++
++	ASSERT_RTNL();
++	if (!dma_map)
++		return;
++	dev = dma_map->dev;
++	netdev = dma_map->netdev;
++	umem = dma_map->umem;
++	if (refcount_dec_and_test(&dma_map->users))
++		__xp_dma_unmap(dma_map, dma_map->attrs);
++	/* Unmap before the final reference can unpin the UMEM pages. */
++	xdp_put_umem(umem, false);
++	put_device(&netdev->dev);
++	put_device(dev);
++}
++EXPORT_SYMBOL_GPL(xp_dma_put);
++
+ static void xp_check_dma_contiguity(struct xsk_dma_map *dma_map)
+ {
+ 	u32 i;
+@@ -487,7 +531,7 @@ int xp_dma_map(struct xsk_buff_pool *pool, struct device *dev,
+ 		return 0;
+ 	}
+ 
+-	dma_map = xp_create_dma_map(dev, pool->netdev, nr_pages, pool->umem);
++	dma_map = xp_create_dma_map(dev, pool->netdev, nr_pages, pool->umem, attrs);
+ 	if (!dma_map)
+ 		return -ENOMEM;
+ 
 
-> For the queue integration, one possible boundary is for the tier to own
-> the queue/reader and for the swap queue to become the default per-tier
-> device allocation policy. I would like to align this with both of you
-> before changing v2. I will also continue the real multi-SSD tests.
+-- 
+2.53.0
 
-I'd like to hear what Kairui and Chris think as well. If they agree,
-this is the direction I prefer. Honestly, beyond preference, I think
-it is the right one :) instead of allocating a separate swap queue
-structure, the swap tier itself can be used for it!
-
-> If either of you has suggestions or specific test cases you would like
-> to see, please let me know. I have a few test setups available and should
-> be able to try some of them. I am still getting up to speed on this part
-> of MM, so please correct me if I missed some context or got any detail
-> wrong.
-
-When I send v12, I'll spell out more clearly the parts where we can
-collaborate and what I'd like to propose to you. If anything comes up
-before then, I'll reply on the v2 thread.
-
-Thanks,
-Youngjun
