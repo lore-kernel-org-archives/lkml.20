@@ -1,109 +1,95 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADC2379EEF
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:19:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF29E207E00;
+	Sat, 26 Sep 2026 16:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790439604; cv=none; b=N/bUpzZNESCkX8QQKbdmONT49V1X5HDKHzs+pqJcEPqiV7nOorR1b/pJaYMGvrcrKPU/fu8zs0lYk+6PPiNFTJFosaTPxj8B3FVWaTooiO/wMviMATVimXPYwgF9rJa5S09zMuVcbDl0xz/CNS8bFaZvVDuBFWQ1+eVNfwc1gPE=
+	t=1790439732; cv=none; b=i7CoL0U3eUlPpi4VZAYjKShfEr1oO1o3A17po5ragpoNp7wDekuRCYlWiQ6ka+foSWs6YAemGAKwkorjuYABVe7AepwO0lnx1FykNJTvxVL7hSfF/YGlI5xS3KQYGfP0vGG985Dzpz17oPltrY+6eozKaupk/vNo0TTCR60+pQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790439604; c=relaxed/simple;
-	bh=TDq8I4yszb2l3Y4cpjONSWEFsN+qtzRX8w0fWiheeE8=;
+	s=arc-20240116; t=1790439732; c=relaxed/simple;
+	bh=9uFUYyle1YFb+YdZaC78mZ0aDMo/wx/Y+4R23X9phkc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FOrpRcqGjesGR5T3oS3EreejQUekw15ZRYHEdpCSxbQajWE0DKCOH0ADVEJOVZi6np0HZxO1DhYSRfZgoNNKdbx9Y98ZlKO/PSkazJMjJptMua0qhlkmPDEV7otG7MG+zBTST0HL+3We+tPcH/c3SqEFVf6kWEVf8OzkEH9S8cE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NmQmManh; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=uf97qC4RPi4vlPNaKl1ETOh34scgvf7ETtLMLi5hoWbbbiqqiS478fK0iiW7tArsQb6CT8epLPPWak+H/IV9HBllcOohAhC4NyesSkZ6I5i8yeJhWU3QF4SY06Wtnav3gAKmIChAUsI1gs40poBoQg9yLC5GCAtZgkKUCvfNGJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iwqgmk1e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NmQmManh"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff23af865so13014005e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:19:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790439597; x=1791044397; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eRtKYg0sOGgBmCELm1fPJpD8C1O0ubIGfHJNiovVGiE=;
-        b=NmQmManhs/8xRqD/e+N2PCa4WK790hMKFGRMWV5EL1lqy8gPSwy1oRP6z+i+BFORGs
-         r1vW2oZxS/IaSpLKItgGQKWOLJ3M7CrQ+OIkPuETATzKqBKNXhKX85A0jcIJdEa/hpKE
-         MAPRPFrKaoohTtN/XcefqcM0bYpITG76bcya4Nw8wWtlnCClkjB15VpDmhU3TCJJzmuR
-         hp+udJu4Od+BzJ2z8NNdAGA+O4OACDxB0BqKToWA+1hiO5a3VXBDkaGaMjT7m431HnWf
-         nnX/2UWZPryNhIFsbh6yov++iN42LlZt5UtjufrZXOhfvo8ewypwi3sgNn8kTlC17dSX
-         0Ajw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790439597; x=1791044397;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=eRtKYg0sOGgBmCELm1fPJpD8C1O0ubIGfHJNiovVGiE=;
-        b=xByaHeqqQvgTwG18B7f9of+mWGjv63OM+xIY27hNne8BuYPuA+Ewyj22DnNhbsmKno
-         DQ7pB806+WXIC7lg2N3RyYriMlwHk7xGjCsiQa8W7ywaipxw3QzduBVQ4069sH3RJPkP
-         CPNLaxX6IuEpRhRkpyWEOa9ytIeEhKHXXsqiNn7OnK28LJUky61BXTmKdqoqSaJZLcEL
-         cL5R8oRAXa3vDe/BaQpK+V00JdWzuE9sCbbN0zXGR6Ge4NT1Eh4SyJ0L/ChqKuEKuuHa
-         AV1qEeurQU0M4uTV4mbD1l1kB0b3KF6hyfeNlAcxWkbN/iD8gpOSpxL/+g0Pmk5sg7Nk
-         wJxw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNRbLaf+Gnj5/4Kt3amccGDC5BHryxszs9MKM9mr/6EpS73nxp/o1c0makvW2Gxqrc9Dj6zYiQ11ZEEgo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBeQZ3XVogDy/qE47iIGX3X8ffwB2h1iPmZq9/xNI2FL6WiG7p
-	ve0+APczt2EKOmwg1ISvsTXOY9dmau8+M61OTCnV6LhdxDxBUTT3Y/Mc
-X-Gm-Gg: AYBFou0iY9oc5sNwuAP1zrsK2sGhqqV6o6buXwMd85fxbAqDQbGG0oH8j5M5poa3gWk
-	X1lfjV6xoFD2sX4OArBTeizv//4nkYMzi45xIwx5Vztkobzl4YsEG7sYDdsm3nyC1/yrEdIiJXb
-	pVc7Ly1I3WgtqE3iYAwhA5k9SrXZKU2qk7go7WDgVObojhi8Xv9vIkxzUMcp3U0mW4IFTK/9IyY
-	01WH5uV2Zi8sygv3cCBZ4NxOzuEyATCDUlpjXx3P1slXC1b9wwCxeFtMDiqPMteAM9UAHQdt1dT
-	5ckbv/wJIP9ZoKeMqB1RwZHQCkvExTCoRbJ8mA3Eq3f3Mj1hFmbI+3T78VMpFGeGeQEKL8DPVBB
-	UMYyfJFjG2FMwXySerZTslJBAstBeqTh8GbgXMU8ucQFPfmOrIQ8SJ73wPW1Z5GAjXDWcajAlM9
-	vaNUY7dotNuPr0TMKPOQQ75IpzjRH5/RrMOaeYXTrWxw0/PjnRoBE4uWNrIwDUWVI8+L9FXnTXL
-	SKhb/+oqh52tXuIHMmTHKAMDz5aGCC5yfL2N53w82KTvdMHB+Y5QyRgySuISOceT3pT4fxAtj4Z
-	KcefDHura6IsT75y5/2n9peJ02xLTHmaP4v+RMNoFbChvgwBqSJIE83htwj9Cz2KuhgOKL1rVoh
-	klwdw
-X-Received: by 2002:a05:600c:4703:b0:49c:fc6e:a3e1 with SMTP id 5b1f17b1804b1-49fe66fd374mr152026325e9.32.1790439597094;
-        Sat, 26 Sep 2026 09:19:57 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b162-c701-4960-a998-3de8-2fce.310.pool.telefonica.de. [2a02:3100:b162:c701:4960:a998:3de8:2fce])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef60da94sm102924275e9.4.2026.09.26.09.19.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 09:19:56 -0700 (PDT)
-Date: Sat, 26 Sep 2026 18:19:54 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Russell King <linux@armlinux.org.uk>, 
-	linux-arm-kernel@lists.infradead.org, Oscar Salvador <osalvador@suse.de>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ARM: mm: align hugetlb mappings to the huge page size
-Message-ID: <arfwK6XInu-S9COc@gmail.com>
-References: <20260901085740.66283-1-kmehltretter@gmail.com>
- <5AB6FE85-4CB9-41EF-A700-BC5E071F29F5@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iwqgmk1e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256BC1F000FF;
+	Sat, 26 Sep 2026 16:22:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790439730;
+	bh=e+Qr2230Lu2sLj4UI5sDrSPVvb8HYtybN1/cvDBHd3E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Iwqgmk1eeGsFzySD6F5rYQQm0GYO9bhJEDdTKXHL+KDOeEGVPhqLg6jpSECUfNFSy
+	 RcOKPRYvZpmct50+ddgzN1AxWj9Z72FyGrgvSSUMrlgIDSKJnxCyzMmF2UsXXYIAfm
+	 lsr9PYToJNmEVdq0pXZC/i5cAFYE6xCWacnYCdkjOSqBmsO2UEMP/VNKrpiWoY7dgP
+	 Rz35fK/GVLjQ8M4WDRknNgYl97xk1Roqh0UMU5/6OPDzEWgM7Flgzlk1m0LoTK4hIx
+	 obDD/DdCPWABEi+agrwAbRFoIlEiNFtz/RCRNcooqw9PJ+88VTpV6UcIVpOMKmhHPh
+	 cM/zPICs+2+Hw==
+Date: Sat, 26 Sep 2026 17:22:05 +0100
+From: Simon Horman <horms@kernel.org>
+To: mhun512@gmail.com
+Cc: Wei Fang <wei.fang@nxp.com>, netdev@vger.kernel.org,
+	Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	imx@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: fec: drain PEROUT requests before canceling the
+ timer
+Message-ID: <20260926162205.GX13925@horms.kernel.org>
+References: <CAGEsz8EYe=gBFr_hEYFLUeiJMRtau=eV3cDUUmHJOQkC0qvfqw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5AB6FE85-4CB9-41EF-A700-BC5E071F29F5@linux.dev>
+In-Reply-To: <CAGEsz8EYe=gBFr_hEYFLUeiJMRtau=eV3cDUUmHJOQkC0qvfqw@mail.gmail.com>
 
-On Thu, Sep 24, 2026 at 04:41:30PM +0100, Muchun Song wrote:
-> > Fixes: 7bd3f1e1a9ae ("mm: make hugetlb mappings go through mm_get_unmapped_area_vmflags")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+On Thu, Sep 24, 2026 at 09:03:39PM -0500, mhun512@gmail.com wrote:
+> fec_ptp_stop() cancels perout_timer before unregistering the PTP clock.
+> A PEROUT ioctl can set perout_enable, release the driver's locks and
+> then be preempted before hrtimer_start(). The unregister path waits for
+> that ioctl, which can rearm the timer after it was canceled. Removal
+> then frees the netdev containing the still-armed timer.
 > 
-> Besides 32-bit Arm, the same regression appears to affect MIPS and
-> SuperH: both support HugeTLB and provide custom arch_get_unmapped_area*()
-> implementations that only enforce cache-colouring alignment, not the
-> hstate’s huge-page alignment.
+> Unregister the PTP clock first so all in-flight ioctls have returned
+> before canceling the timer. Clear the PEROUT state and compare channel
+> afterward, then disable PPS. Serialize the channel write with PTP clock
+> shutdown and skip it when that clock is off.
 > 
-> Acked-by: Muchun Song <muchun.song@linux.dev>
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
+> 
+> Fixes: 350749b909bf ("net: fec: Add support for periodic output signal of PPS")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>  drivers/net/ethernet/freescale/fec_ptp.c | 14 +++++++++-----
+>  1 file changed, 9 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/freescale/fec_ptp.c
+> b/drivers/net/ethernet/freescale/fec_ptp.c
+> index 56801c2009d5..67901e036ac3 100644
+> --- a/drivers/net/ethernet/freescale/fec_ptp.c
+> +++ b/drivers/net/ethernet/freescale/fec_ptp.c
+> @@ -506,10 +506,13 @@ static int fec_ptp_pps_disable(struct
+> fec_enet_private *fep, uint channel)
 
-Hi Muchun,
+Hi Myeonghun, all,
 
-Thanks for the ack. I've now submitted the patch to Russell's
-patch tracker:
+This patch does not apply because the two lines above should be a single line.
+Unfortunately this means that CI did not run on this patch.
 
-https://www.armlinux.org.uk/developer/patches/viewpatch.php?id=9524/1
+Please repost after figuring out what went wrong here.
 
-I'll also take a look at the MIPS and SuperH cases you mentioned.
-
-Karl
+-- 
+pw-bot: changes-requested
