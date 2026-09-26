@@ -1,223 +1,148 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DBE388E5B
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:40:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790397654; cv=pass; b=MqV0pRUVN0+v0+45G3Ps8VUe0ETZ4Vn4++yfBaXnClpXxrfPs8w0Kfhzs78xV2++CGTCQWvwm1ZN4B4rvuIvna7/PqjnyV3ffe6fEJERajnVPtq+sOmlM9/MKj81l5QmfKXx5RoboQ49pMScmVaPeyNNr5joXjj22DBJuxShXVU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790397654; c=relaxed/simple;
-	bh=BZAAORgGy6Ms3KnxsVv8dFpiAsr6V0VyBa8kffO+g4Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oavb9LGAwR/evUlYAfgdkFwiKMR873IXl8m98P2c8pPGOyGaK9wKP/+SjShlHxyh7tXb1fQBvYYZ/07RQERj2+o66msrymDMWVzflm3hjWyS13u2gfOu37DkylC/Mlf0+6L9jt93wxeCW5JAvZeY+TDqtnGZw3XC50IxqwhTZWI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KHkr0/OD; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=U0C8x8GB; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KHkr0/OD";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="U0C8x8GB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790397651;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JDMDQqBFeguZLrOJapnDiNiCw4jrA0CzviqQJznXwac=;
-	b=KHkr0/ODnhjV864fn9qtcfszxURenBmWMSagi30435GAn7NlxxSnAssdf93VWgQJ5EHntf
-	qMXtpTDQny5ys5rD/ImUHcOdgyUsnmBM7KhxxL4LebJNVO5SCrli1eNgTaQdAmMCAho+k/
-	joSbOZ8o/hgyR7anxHErqbxtQ6am9Uc=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-364-P6AFplloNeyOrpL6yf6mtw-1; Sat, 26 Sep 2026 00:40:49 -0400
-X-MC-Unique: P6AFplloNeyOrpL6yf6mtw-1
-X-Mimecast-MFC-AGG-ID: P6AFplloNeyOrpL6yf6mtw_1790397648
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49fe8bf258eso18672675e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:40:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790397648; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iJ+Gj3smCop9sSjsiqtx4/Y/E3Z+8fZR7d3FpqHBs5zyO8YKvs3m7CE9At63u4v3A2
-         bXxJuZnbuvfzcTXQXtS6SARc4gnEErGalPhsl41tvUy4uujLIXjvnuRLKpKqRMz1sriw
-         DG3aiI/HTv/PqfXDJ43TD4/t4KKqA9Hi7gTrVCPgiDNNiO99QeJpa+15PDcOITaWpJpE
-         imKHedHFxZ4clwqoI0gJbuyc2CoDUy8IQ5Ot6INiSnMIDRGwuaSbejn96xyBfAeInUvJ
-         bmvdF11dR1Fd+j1087vzIucRWB6A3mWg3jPd3Bsji0fYABNt1b5qsPMJx42tD2T8Aslo
-         xQXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JDMDQqBFeguZLrOJapnDiNiCw4jrA0CzviqQJznXwac=;
-        fh=8i2p5wCccPd1JG20ZiYnmZ+WFYYcV3+8njSSVhIH71Q=;
-        b=Pj2HUGKExU/FtFUtRnr4epcfiOYjyojhkJ64VvB+Ij7R6JXdwpSzUXG6JoIFGR0foe
-         WNUq6WZMvjH0FgQD91ycBdAkmG2fD5bznKiGuJgHfJgok/xMlmskOOERImK8Wx0a9V8r
-         v8HBPXiywSdlH2mFagm6EiOV6TE+1nmF74JeKPxIjuy/81LCvJcANA7k/yn3IHnb+wSZ
-         Qn4Yc7Jq+hcpWeYkAnUmiuvp65g8vB6bDprWGPP1RNyZQCfg9iybArWITuRYhlsnVJlB
-         jCfR0hOZI2vCQQi8nXw5UdGJobzcMdXR7smN6+i0S7Z3W5Y969aoRddDysnv/e++U9aJ
-         lXSQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790397648; x=1791002448; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JDMDQqBFeguZLrOJapnDiNiCw4jrA0CzviqQJznXwac=;
-        b=U0C8x8GBfoiqUG2a9EZT01iRBzPpNl6VKJFUkCnztue0IgziJwk/Cm4BBQ5OubK7vh
-         VvWg83eY0DwPXCqJk6iTAbxANMiFrr1NApShmyWaDFCYrodzrt0DkICcoy4zszDFR7qT
-         rtZ44X+vMTevtJGINcnyllEmc5WdTDE9ukdKMLiEIE9Hxa0yT+693PEPyzA4AzAScmHN
-         YnsHnJLH19LS89iOso5ddugHsrp1kgSwSaIC7ZRa+7NMr7nSBLWBIVL2ntAoRY1QATLr
-         5vfpc/0DwzWw4GnOcS2dV0RDDnzm2hb/UTQLi7xy9TK2SAXd/R+hFW/RkZ5z7npHK49V
-         lslQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790397648; x=1791002448;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JDMDQqBFeguZLrOJapnDiNiCw4jrA0CzviqQJznXwac=;
-        b=QJKXg1RuyRhE8Ul96UQEcTZOBOQ8s31hKaEmyA2R+hRfpxkaeHhRtOY9W5W/iTuvE/
-         47erNj2hIDHr4G+sQv8+Ccdyu0ZZ+WiVKfje2UR1/2gWOiTPxNvsz+dSAAbFSC8DtAu/
-         O3pqwGfAqiD3Q2rsGgQm3xwWYOrBpnUp+y1DMv3T7oV0ZsG9KTNbdQ3O3158uBQvHsIo
-         Kqwkv2akG9Decf4YUu/Zl3L4MpgvY0wAWWc4ZAEk62Zy7U8CCEJsiyNovvO6ro20l7JU
-         gVHivTQZN/DDYStEPwMg+UbpeLIoyc+j7CGJd/Uy1Y0CA4XjO7QVjbh0xGg6yLZI0B+8
-         AGWg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5hpsydfmf2rvFpMu0TGVG1wGt7r79vxiNOQMw5XpfOoR12664fJpqdmcnAnK6ROzikA8EpKqrotuhD6s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mb2yKtkn1cE9QnCcAl2xXOLg48nVW6yGWmtw3tu0vuyW6liJma
-	xadn6IrxU4u1u7eEEnlubFQa5XxQdG+tuvFGiZpDtP7qs7oybsg4FSxI2RsSFrq8264C/poSp70
-	GXtIza39r4hE8Jrfne1/V4Hi8ixbMrLr03vzu+FTx40xG4enTY3Aj5Gjiio/xb8w824k0C82ELI
-	U4iMC/QxthI49R+/wBITQjB+EXC5MLVS0FbKiAc327jdY89pqG
-X-Gm-Gg: AYBFou3gsWXJP4TaoksUV3AUAdDt7zb+ufvuSb8SXP6DO3X0266dgIZJlA0Vdfk38mN
-	VDj8SouN9Ec7djUqT3Rqvp5dIkfBUy8zajad0Vi6f+qr36e/8Ph6haMxnDbKTE1oYsNLlq8/QC4
-	GFiFpFX065KHoyvZDI47spwq+lZC5KlHc0pkosdkB+3bT0P2dJX78s5Zxi8FrHW0HiQSe+YSrhQ
-	io9cr8IC6wlZFUvyy6Xpq37KgkzOdymWj6evyY2rQsWtmEB9+KRwyNLBKzqJA==
-X-Received: by 2002:a05:600c:8486:b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-49fe66b426bmr138635015e9.12.1790397647686;
-        Fri, 25 Sep 2026 21:40:47 -0700 (PDT)
-X-Received: by 2002:a05:600c:8486:b0:49e:745d:c317 with SMTP id
- 5b1f17b1804b1-49fe66b426bmr138634725e9.12.1790397647309; Fri, 25 Sep 2026
- 21:40:47 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEFF30DECC;
+	Sat, 26 Sep 2026 04:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790398110; cv=none; b=HMWc8hFmOAD/TrkGzI+eGDs3fu0DngJOv+d78ifc1nR6fdbtBvxY39GvPXe918JhKh/Rp+totxCoJPxy1FtMAWHRmSk0TgOXV9XplzyzK0//iWHlrIna5jcra0UwobusmOFZ3VJFgVpQ8YsMS6zCjrk/gjcDU9X9nhj8JTJW+Uk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790398110; c=relaxed/simple;
+	bh=mBFmU/JfBeilGxJlg+wS32Pxwjct+vp+HXW1w4FjsC8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bJorZuXaZ6cXy/axaEG1vCD/dBfPBotnDPEHjP0IiOaqyD0bjGwZPD6n4eUDMW8ayo84dtJKLO1X1Y0i5mJITsJV9eVeVFjE0JbtTEpFzDmAY5kbpa15uc35PP+WHI1rH6aReiFptrMv35aKWee9COCFRu9YzYaCnp/gG0CoIkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
+	by APP-03 (Coremail) with SMTP id rQCowAAHE0GFTrdqYafICA--.2178S2;
+	Sat, 26 Sep 2026 12:48:07 +0800 (CST)
+Message-ID: <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
+ disable clearing FB_EN
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 26 Sep 2026 12:48:05 +0800
+In-Reply-To: <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+		 <20260918030125.315978-8-a0987203069@gmail.com>
+		 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+		 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
+		 <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
+		 <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+	 <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925233321.2381319-1-seanjc@google.com>
-In-Reply-To: <20260925233321.2381319-1-seanjc@google.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Sat, 26 Sep 2026 06:40:34 +0200
-X-Gm-Features: AclHuK_Yq44dj9CGbs6sF4OIA_FkwcvYoMqBVDfogFZ_KeuJ9XSHG47vC6oNiI0
-Message-ID: <CABgObfZeA_q_prxJhbdNqYpE8quPD360LhVBQv8ypcPpLA-Mhg@mail.gmail.com>
-Subject: Re: [GIT PULL] KVM: Fixes for 7.3-rcN
-To: Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-CM-TRANSID:rQCowAAHE0GFTrdqYafICA--.2178S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxuF1DCF17Ar48Ary5tFW3GFg_yoW5Ar17pF
+	ZrKa45KwsrJryIvwn2kw4kJa4YkrW8J34UJr95Gry0k398tFy8tFW8G3yfuFW8Xr4kWw12
+	qF4jyr95uFWkA37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU56yI5UUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Sat, Sep 26, 2026 at 1:33=E2=80=AFAM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> Please pull a variety of fixes.  Nothing is super urgent, but all of thes=
-e can
-> be fatal to the host and/or guest (except for the selftest change, which =
-fixes
-> a regression that was introduced in 7.3).
->
-> The following changes since commit d599822bdb66aeec5ec76297b0fc6efaaeefe0=
-7c:
->
->   Merge tag 'kvm-s390-master-7.3-1' of https://git.kernel.org/pub/scm/lin=
-ux/kernel/git/kvms390/linux into HEAD (2026-09-04 17:34:28 +0200)
->
-> are available in the Git repository at:
->
->   https://github.com/kvm-x86/linux.git tags/kvm-x86-fixes-7.3-rc5
->
-> for you to fetch changes up to 119e9db233ad0f4cbd4cfb9f9385a7bca378b37d:
->
->   KVM: Don't pre-reserve xarray entries when storing empty/NULL attribute=
-s (2026-09-22 08:36:16 -0700)
+=E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 22:55 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> =E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=
+=99=E9=81=93=EF=BC=9A
+> >=20
+> > Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
+=81=93:
+> > > Maybe it's better to just make it the 2nd patch in this patchset,
+> > > just
+> > > after the binding change.
+> > >=20
+> > > Waiting for something into drm-misc-fixes again will need another
+> > > fixes
+> > > pull and another RC back merge, which can consume weeks and miss
+> > > the
+> > > current merging window.
+> > >=20
+> > > In addition, it's possible that `drm/verisilicon: introduce per-
+> > > variant
+> > > hardware ops table` also gets backported for a more clean primary
+> > > plane
+> > > atomic_update disabling fix.
+> > Understood. I'll fold the FB_EN fix in as patch 2, right after the
+>=20
+> Should I just apply this revision of patch with this reorder?
 
-Pulled, thanks. I added on top the SEV cache writeback patches which
-are not present here.
+Oh I think more fixes are coming.
 
-Paolo
+There's one more DC8200-specific problem (which might be problematic on
+DC8000 but I am not sure): The vs_dc8200_panel_disable_ex sequence must
+be executed before vs_dc8200_panel_enable_ex, because some timing
+parameters seem to be latched when the value going from 0 to 1, and
+when a stale state is programmed before the driver is loaded (e.g. a
+firmware driving the display) and the timing isn't the same with the
+timing of the first modeset, the modeset will fail.
 
-> ----------------------------------------------------------------
-> KVM fixes for 7.3-rcN
->
->  - Fix a brown paper bag bug where KVM would incorrectly treat Intel PMU =
-MSRs
->    as valid on AMD.
->
->  - Fix a regression in the hardware disable selftest where it checked the=
- wrong
->    macro when detecting glibc support (breaks at least musl).
->
->  - Never clear KVM_REQ_VM_DEAD so that dead VMs stay dead, which is espec=
-ially
->    important for KVM_BUG_ON() flows, which often guard more dangerous bug=
-s.
->
->  - Re-pend GET_NESTED_STATE_PAGES if getting the pages fails, to fix a bu=
-g
->    where KVM would let userspace run a broken setup with stale vmcs12 pag=
-es.
->
->  - Fix a class of bugs where KVM would fail to fill kvm_run exit fields i=
-f
->    getting nested pages failed.
->
->  - Treat reserved entries in the memory attributes xarray as "no attribut=
-es",
->    to fix false positives when checking for mixed attributes.
->
->  - Fix memcg accounting for the memory attributes xarray (the xarray libr=
-ary
->    subtly requires the xarray to be configured for accounting upfront; th=
-e gfp
->    flags taken at runtime are used only rarely).
->
->  - Don't pre-reserve xarray entries when storing empty attributes, as sto=
-ring
->    NULL must not require memory allocation (KVM and other subsystems heav=
-ily
->    rely on this behavior).
->
-> ----------------------------------------------------------------
-> David Ballesteros (1):
->       KVM: Ensure memory attributes xarray nodes are accounted to the cal=
-ler's memcg
->
-> Jim Mattson (1):
->       KVM: x86/pmu: Move Intel PMU global MSRs to intel_is_valid_msr()
->
-> Sean Christopherson (4):
->       KVM: selftests: Use __GLIBC__, not _GNU_SOURCE, to detect actual gl=
-ibc
->       KVM: Never clear KVM_REQ_VM_DEAD from a vCPU's requests
->       KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fail=
-s
->       KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages=
-() error paths
->
-> Zeng Chi (2):
->       KVM: Don't treat reserved xarray entries as having memory attribute=
-s
->       KVM: Don't pre-reserve xarray entries when storing empty/NULL attri=
-butes
->
->  arch/arm64/kvm/arm.c                               |  2 +-
->  arch/x86/kvm/mmu/mmu.c                             |  2 +-
->  arch/x86/kvm/pmu.c                                 |  8 -----
->  arch/x86/kvm/svm/nested.c                          |  7 +----
->  arch/x86/kvm/vmx/nested.c                          | 15 ++++------
->  arch/x86/kvm/vmx/pmu_intel.c                       |  3 ++
->  arch/x86/kvm/vmx/tdx.c                             |  2 +-
->  arch/x86/kvm/x86.c                                 |  6 +++-
->  include/linux/kvm_host.h                           |  9 ++++--
->  .../testing/selftests/kvm/hardware_disable_test.c  |  6 ++--
->  virt/kvm/kvm_main.c                                | 35 ++++++++++++++++=
-++----
->  11 files changed, 56 insertions(+), 39 deletions(-)
->
+I'm thinking about sending a fix patchset first, which will pick the
+FB_EN fix here, implement a fix for the stale state problem and maybe
+implement fixes for the old state dereference problems for hidden
+planes in their atomic_update callback (although this fix will
+introduce a helper, which will then be moved and renamed in the DC8200
+ops patch).
+
+Thanks,
+Icenowy
+
+>=20
+> Thanks,
+> Icenowy
+>=20
+> > dt-bindings patch, targeting the current vs_primary_plane.c
+> > directly,
+> > so the ops-table patch just carries the already-corrected code
+> > forward
+> > into vs_dc8200.c. Agreed that's faster than round-tripping.
+> >=20
+> > On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
+> > still
+> > has a real per-variant operation there (clearing FB_EN + commit),
+> > while
+> > DC8000 leaves it NULL and does nothing, so the suffix still
+> > reflects
+> > an actual per-variant difference, not just structure introduced by
+> > the
+> > refactor.
+> >=20
+> > While testing the cursor plane, I found the same class of bug
+> > there:
+> > the disable register write was being triggered from the plane's
+> > atomic_update() invisible-branch using the old plane state to look
+> > up
+> > the CRTC/output, which can be stale or NULL on a plane's very first
+> > commit if it's already invisible then. I've fixed it locally by
+> > having
+> > atomic_update() derive the CRTC/output from the state it already
+> > holds
+> > before checking visibility, instead of falling through to the
+> > old-state-based disable path. Just flagging it here for now -
+> > vs_cursor_plane.c isn't touched by any of my patches.
+> >=20
+> > Thanks.
 
