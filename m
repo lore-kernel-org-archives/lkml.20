@@ -1,153 +1,115 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3E5308F03;
-	Sat, 26 Sep 2026 19:48:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FBF37B023
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790452143; cv=none; b=U3wVcbpKe4yCwCgN+d3RV1ck8MfDlwihufvOaw24E5EMVit8VHn2UmVnCrAseV0TFlSD1FUFImy9mL9C7L5rqr1EAaye1piyan5Vk6/x6zoAD4c06NXFRpmVG3wJpWOBy00bC+GUTLGBtV/vxlWmJjEoXGVP3eLgSy3O3Y1OAyk=
+	t=1790452169; cv=none; b=eDYNS4YCJG03Z0WfQ6pcnExm/NgXBuR7OzG6QlyULbfYfl1tNQbqhfO4WlkMhvLho2DtksysCTPqYjli4/dtn503g32vxwlsOXBEoQ8SWGxARe/FTEa+eE0yRlMHI5JKahdmrgCvNxn3VJlr5ZHGiHYZsa/aoaJvrWjb+KTvaNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790452143; c=relaxed/simple;
-	bh=Ibb/6XXCwXQp4NCYZvletoa717y4olArOp/reI1OTVc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=HQ3S0ATMRT7FlXyqpoq1VwCbv8dcyQyj1K0BlFFyvsNCwtza7WEfkKK8Qfpig2Ez4w+ibzK5XaA5yqIcWDMMevMbCm1Z2l8wGGuTxSNXxNkUGNtBTjE1dMcAmt8HxMYs9aTAPRJpY6G/jH7ugSq1HCuwSSIWwhGHPjxmw3rnawM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=jJQ12Axa; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1790452169; c=relaxed/simple;
+	bh=/DePFCEtObnLIzGyGVncSOC3Te/jkUfVOEKHBPWr07w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d5sGTu7/F73UK1CRc/TH+zZ4qNfuLzjGjiwB0Gs3+JkhLsvcFVHhOuVlaYWXdVRISi9eSg2SBJmeovo6QskKEHJsoo8+96dbj9/9j/c8t2rJur1rLCAe1f9fBpUEivFWPGkiSx1fi16E+8eENxnoO702LE3hzltPiil+qZl9n6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d/hPTyT1; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="jJQ12Axa"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 315D9213BC;
-	Sat, 26 Sep 2026 22:48:46 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=r65cERo9nN3Di2tCK7Ta1e4t4LWAALdjLsCb4qNUXHk=; b=jJQ12Axa2HCs
-	kfHXTLDavQxDxR/qvSBGW91RBDI0r2HBTMUiucDSuR1oXZzAiZTPZYrxaYISQ2lK
-	pdEWjpXx8afq8wDxHOYo33WpD8gbbrxNs+pk4Us6pQe8bkgcKhzJzsFMRTXs7sdz
-	rI4OwpOXzQOQWpPUn2o8JENhtBMVoULXeUhezYhuLuU1xj1h6b+nS0mO0mY7mdAW
-	XpOw9qAlflM3aGthodAb/uH4zpKo0DQxURziSqkDUgRyWNbNx6W3F+IPThQg8qU3
-	eZhFeAT0BdaZYPTDTx1KmwSqbSOARglq6E6tOF3aaFq0FATH6bJEs4ZiESr6DXsJ
-	nSQ0xTSr9c0e+89gdBA8yILMUCRN4IWF2ilKrB1S/IYk6TDln1zvOO9aZEl+J0S3
-	mbvgJcKWlVNy4dp47BA/WrEjzYsddagvKihTQWzSrfUpQ435bWtswdd2Dm3zD/DQ
-	FBl92HJcq9hWwN+Q4zgEJBCSj61RepqvUepMzZeKgHdioAJ6ogiQJnAgptq+GwqU
-	gbu+GuvW8TKz2jY54cIOTwTYgpi70VWjKTWNJrtmK3cwwWK6ATCQkapHjj2kE/Hv
-	ofJ86DKV2Uid/1A85+NWOqOplBMfJ+9JszdNlFgkeL1ukhPj7uUYxkz6Z24kyQW3
-	JS9A3hZLh1i7kOgvFfdSmyPy3qM+jVE=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Sat, 26 Sep 2026 22:48:46 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 4DCD4608A1;
-	Sat, 26 Sep 2026 22:48:48 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 68QJmeRi056579;
-	Sat, 26 Sep 2026 22:48:40 +0300
-Date: Sat, 26 Sep 2026 22:48:40 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-cc: Simon Horman <horms@verge.net.au>, Pablo Neira Ayuso <pablo@netfilter.org>,
-        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
-        lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
-        coreteam@netfilter.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH net] ipvs: Defer application parent freeing until after
- RCU readers
-In-Reply-To: <20260926175129.2612644-1-nicoyip.dev@gmail.com>
-Message-ID: <7ee83494-378a-ea25-6f31-e3164d533594@ssi.bg>
-References: <20260926175129.2612644-1-nicoyip.dev@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d/hPTyT1"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so10511895e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:49:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1790452165; x=1791056965; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/DePFCEtObnLIzGyGVncSOC3Te/jkUfVOEKHBPWr07w=;
+        b=d/hPTyT1+1vOyCgAJJUGe4lMmZl5bq1zRgOIrjH81Aw87tMs6Q2d/xlMplTucUvA+O
+         Ps0dFGOOCSFM36fmwNmF8W5dpimIRQPuCshXz+nDK7/fjOl2OMCbNXQaDpXMlrMpqm4E
+         mtq63JMfPeizK0m/LqgxDQed2hveLCXZcMDtM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790452165; x=1791056965;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/DePFCEtObnLIzGyGVncSOC3Te/jkUfVOEKHBPWr07w=;
+        b=XqFwlZuV0yHvj0bYX2whi2pRgnVjUgL1rJhvUYUBeJ6JoMQLVWKvUpSUaHhlAbucaJ
+         X5r7E0FRfyLGexcDP6iU6s/H7W6Taj7HHZJcjxB/JrN9y0vpp6M477t74YiiygBDaixO
+         //9Wxk64JOOl4gr4tmE3dGjZx9UvQvZyl1EHPtFttMFqp2zlrW3kSG+yjWEttGInJ7a6
+         pbsj75bCwk7WVwXHZnow4muVcoXAPemZWYj1KgfLV0YMRzayfmVcIEfuIiCFAYInHSPx
+         uMzi0uyp6j7repKLuwjHAT+HWTVfUJHQqVtMBEREcbopwoU064EA1SkW0qCtfyriK7g7
+         0QsA==
+X-Forwarded-Encrypted: i=1; AKwUvBxinXlrdZAF4FshTjG7Ol7doSUwQSWYjcnzdz1osS69T09EtUL9dkEnJyMnOsTdUTymop5c2BJ78TZfZM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbU4tyUBedx6ih3cuDgz/43uhF+H6HN50Q5tHdWiuIsV21Pm1d
+	fimxLW/vV9GigrJGs8nOWcrfJLB3vUGAWzJmfqR5W2JdYw31Nzps+ZIP/IT5ucN4Xpc=
+X-Gm-Gg: AYBFou20jxetdULAisCdxC4bX23M1N42VFfIzLlZ3ctGczmWfDbDBceNXZmVP2nNwdo
+	QinlzkGGlwW3CnlqXVHJfyXSTWoyZk2eKz9nlD9Qiuk8dGDB9WaEn2yDzyY53S/lk7sG8PT3V6W
+	gUPA8KM8efhHE99dEkkSlLgqNERBJUYz9mGmchEjQhVNv15CUwt5miaLr1x+6lXM6RZkbH9alva
+	Z3OGL2ZUCsrAvz48Tch1dKii0TolAtmjIP4XepZ+q1wQBGDOtF0v0t0Km+Kg8pqV8b/IMLrQHhU
+	q7zJI74K8Ex+AtSf8z7dfo6SDbSAmq162Kdnq4Wy4Le+iaN6lCaoVRKDfht5FDD2v73bscDicg9
+	MVyky251HrqxNgXXEktjdin1HQQ2LnmGMmlKZCc3Crt6J0uvi//gB0kv4X8CxJ2LgaQIJKD5l/M
+	4hPZ/QTHnU70SOftT5E6tUn+IKa/+oDK3a2w1Y8OZFkI//fN7lRhk7OZZjU4pJlLIUXQg3QlIjQ
+	AYOMGb0H7RL4lxj3MOIwAwxl/hCSfmPgdY/+nTf9I1Bs7X4rjhlF6hjBw==
+X-Received: by 2002:a05:600c:609a:b0:49c:dca2:ac47 with SMTP id 5b1f17b1804b1-49ff06b2db4mr107860355e9.2.1790452165483;
+        Sat, 26 Sep 2026 12:49:25 -0700 (PDT)
+Received: from [10.188.205.27] (cust-west-par-46-193-1-237.cust.wifirst.net. [46.193.1.237])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a35fb05sm17547635f8f.20.2026.09.26.12.49.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 26 Sep 2026 12:49:24 -0700 (PDT)
+Message-ID: <eeb557fb-7ae5-42f6-8167-83c3828169ef@linuxfoundation.org>
+Date: Sat, 26 Sep 2026 13:49:21 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] usbip: usbip_host: remove legacy rebind_store in
+ favor of drivers_probe
+To: Jeffin Philip <jeffinphilip14@gmail.com>
+Cc: gregkh@linuxfoundation.org, i@zenithal.me, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, shuah@kernel.org, stable@vger.kernel.org,
+ syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com,
+ valentina.manea.m@gmail.com, Shuah Khan <skhan@linuxfoundation.org>
+References: <20260811160541.29461-1-jeffinphilip14@gmail.com>
+ <20260820101800.14650-1-jeffinphilip14@gmail.com>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260820101800.14650-1-jeffinphilip14@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 8/20/26 04:18, Jeffin Philip wrote:
+> On Tue, 11 Aug 2026 21:35:39 +0530, Jeffin Philip wrote:
+>> do_rebind, which sleeps normally gets a mutex lock. However, it does not
+>> or should I say, cannot check for null udev between spin lock dropped in
+>> rebind_store and entering do_rebind. This is a potential race window
+>> already. So, even if we check for null udev under spinlock, we cannot do
+>> it outside. Regarding do_rebind, it is called during stub_device_rebind,
+>> but that function is called during module exit when all files are removed.
+>> So, do_rebind is not designed to work in a concurrent environment in the
+>> first place.
+>>
+>> We have a safer function that can already do what do_rebind does,
+>> drivers_probe. So, we use drivers_probe to rebind the device rather than
+>> use rebind_store.
+>>
+>> usbip tool references this function immediately after the device is unbound,
+>> which is safe for the tool itself but since we opted for drivers_probe, fix
+>> it by using drivers_probe rather than rebind_store after unbinding device
+>> which is more safer.
+>>
+>> Tested and working in both userspace via the tool and manually echoing
+>> the busid in the related nodes. rebind node is still left active with a
+>> warning to use drivers_probe upon encountering rebind_store.
 
-	Hello,
+I want to know your test setup. Can you reproduce this with usbip host and
+running bind command from the tool?
 
-On Sun, 27 Sep 2026, Chengfeng Ye wrote:
+Also send me the error messages.
 
-> unregister_ip_vs_app() removes each incarnation from its protocol list and
-> uses call_rcu() to defer freeing it, but frees the parent application
-> immediately. An RCU reader that already found an incarnation can still
-> access the parent through inc->app in ip_vs_app_inc_get().
-> 
-> During FTP helper module unload, the following interleaving is possible:
-> 
->   CPU 0 (RCU reader)                 CPU 1 (module unload)
->   tcp_app_conn_bind()
->     find inc in protocol list
->                                      unregister_ip_vs_app()
->                                        ip_vs_app_inc_release(inc)
->                                          list_del_rcu(&inc->p_list)
->                                          call_rcu(&inc->rcu_head, ...)
->                                        kfree(a)
->     ip_vs_app_inc_get(inc)
->       try_module_get(inc->app->module)
-> 
-> The helper module is already going away, so try_module_get() would fail,
-> but evaluating its argument first reads the freed parent. The subsequent
-> rcu_barrier() in pernet unregistration cannot protect this earlier free.
-> KASAN reported:
-> 
->   BUG: KASAN: slab-use-after-free in ip_vs_app_inc_get+0x7c/0x90
->   Call Trace:
->    ip_vs_app_inc_get+0x7c/0x90
->    tcp_app_conn_bind+0x1bc/0x290
->    ip_vs_conn_new+0x1915/0x20d0
->    ip_vs_schedule+0x697/0xea0
->    tcp_conn_schedule+0x489/0x820
->    ip_vs_in_hook+0x7bf/0x1f40
->   Allocated by task 88:
->    kmemdup_noprof+0x20/0x50
->    register_ip_vs_app+0x12d/0x2c0
->    __ip_vs_ftp_init+0x56/0x160 [ip_vs_ftp]
->   Freed by task 104:
->    kfree+0x131/0x3c0
->    unregister_ip_vs_app+0x2f4/0x5b0
->    unregister_pernet_operations+0x232/0x490
->    unregister_pernet_subsys+0x1c/0x30
->    __do_sys_delete_module+0x346/0x510
-> 
-> Use kfree_rcu() with the existing rcu_head to keep the parent alive until
-> these readers finish. Successful helper references already prevent normal
-> module unload, and incarnation RCU callbacks do not access the parent.
-> 
-> Fixes: 363c97d7435e ("ipvs: convert app locks")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-
-	Looks good to me for the nf tree, thanks!
-
-Acked-by: Julian Anastasov <ja@ssi.bg>
-
-> ---
->  net/netfilter/ipvs/ip_vs_app.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/net/netfilter/ipvs/ip_vs_app.c b/net/netfilter/ipvs/ip_vs_app.c
-> index 11cbdbaf561d..2c1b47702da2 100644
-> --- a/net/netfilter/ipvs/ip_vs_app.c
-> +++ b/net/netfilter/ipvs/ip_vs_app.c
-> @@ -242,7 +242,7 @@ void unregister_ip_vs_app(struct netns_ipvs *ipvs, struct ip_vs_app *app)
->  		}
->  
->  		list_del(&a->a_list);
-> -		kfree(a);
-> +		kfree_rcu(a, rcu_head);
->  
->  		/* decrease the module use count */
->  		ip_vs_use_count_dec();
-> -- 
-> 2.43.0
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
-
+thanks,
+-- Shuah
