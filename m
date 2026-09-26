@@ -1,153 +1,183 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA813955C7;
-	Sat, 26 Sep 2026 06:53:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D852828E0F
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:00:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790405620; cv=none; b=aoh1lY3KWM8MjR/2DSclaFC3tv/1015vYFmrfBbT8HVugcvtvJ6zhdrZXgpurc1h+uFnU0YSArWWJ8pkHfViyrU2OwaBMl++8vs8OxBzxP22QDKWf5p0AUlGSAfaggXDKunsd2r9WYVonnOYTQVBLsOZIxqlvIA9HmqsUbKYLbs=
+	t=1790406059; cv=none; b=M/cUBYvhu/OXpZgvwhIU7CAJPCeS/yzxZBPsO/wV5kKg+OGrNWDttx1AWUPMIIBvpkbPi65NyVKIlz2ZPoRIJo4Q6sEWzd2bLQXRdTTW+cZZAYV6cwvm6R+M1ee2t3AvxllyKhw+EvRy7zFAPIDQVJGheivndt7dz0kGNDTnnCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790405620; c=relaxed/simple;
-	bh=IgFSX+NT5ixZXRvozc6pj+ZX5W/v6azRk8t1fgoTluY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sTXTyvm+hntR/nCa3GAf6o4bTsticQjQiwK0H1hxAabgGB4G4s8a+ge9o4uDgZaC40gH7NxCg/D51A19BrXvjwdWAdk8R0p5da9Ob72CleS3WLI2p+C1QVhopfxRS60mdezjuQIjYbHJcdU3QAP7Far2022Wy1SXoCVG0w2WtB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ftTSIZ7m; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790406059; c=relaxed/simple;
+	bh=zYwQwewCk4P7+4enRD40+cZRarhYq0yRswb+8KrgcNk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=p3oDu9dwXYy31HVuiCAMoppyeWJ7Yny1cdmVfDDX8T1trZOfvut6/8SKjdZs8xQTOOU7E2MSjUHgBRytb7ZH7YigFsJzEWZweSuDn3BMQUeWGMpEZA51am6apVNX6o8QBGS4hCAevqWpGSO7OifgHA/70zvrkUbVlf+CMfyT1R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DtxoYN1q; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ftTSIZ7m"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68Q6ZS5O3249832;
-	Sat, 26 Sep 2026 06:53:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=Flwsh5G3bwDuiOqhNx7WwQBsds6csD
-	PfrslBfrpgMII=; b=ftTSIZ7m5EoCCDGSwhzevkyxUdWHNvXBhuYQjzKL+vB/f9
-	mUVx8ZfC2PFm2jklrfDw/Fov4MOHXPJ67ILqvDT/kdELAryEA2HoXQ+ceo+YN/9W
-	CoD45t/EafdIedPSqVO0zbt9B2DiArlXqalJs1YegowjG0xtA/RhEyoXe4kkYlF4
-	ehES+QnygD5tXRsA/0AOoJWmifymZ9ymxoarghGX/CDfj4UavxLvKu8Tw0XA77eI
-	XviciC79l/+cr8AvQs2V+R/zO0UZRERP1h37YHfb/DwFtnup4eDuec1h93RI5Wa8
-	KXNx6E6YuNY5EjkYwcYa/6DYvaq6dQhlZn55aXHA==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx5psrja0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 26 Sep 2026 06:53:27 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68Q6WdEI880571;
-	Sat, 26 Sep 2026 06:53:26 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu95ck2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 26 Sep 2026 06:53:26 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68Q6rMlq51904770
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 26 Sep 2026 06:53:22 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7F42C20043;
-	Sat, 26 Sep 2026 06:53:22 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 181E220040;
-	Sat, 26 Sep 2026 06:53:22 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.111.0.32])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Sat, 26 Sep 2026 06:53:22 +0000 (GMT)
-Date: Sat, 26 Sep 2026 08:53:20 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Mete Durlu <meted@linux.ibm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Juergen Christ <jchrist@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-Subject: Re: [PATCH v4 00/11] s390: More this_cpu_*() changes
-Message-ID: <1b8c8ce7-4a1a-4b76-ac3c-4b0bbd97965f-agordeev@linux.ibm.com>
-References: <20260921155806.2447506-1-hca@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DtxoYN1q"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fbef5018so10686545ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:00:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790406057; x=1791010857; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lFMzbROQnPZ03LFhgGCTeVYFQX7f/d2hoEAIuqyzaxg=;
+        b=DtxoYN1qAWaLz0Q/gRvQFhRXYDfHTV3nMgcReKZ6M+M+IfQnwvDobzzZb35n+z1ozV
+         DD7hW9eeARo4YbK7MTc/t347dJZUkNhld22G12gJ7sziJx7hQ/+tnOfoT8SZLMfNKrUL
+         CwdzGlGEWWR3EuY74G5X4aS4bSN8e7n736pAkU04DSKTwvMX2cM3ttgQs06+MggGsw+Q
+         BVpLO9QFg6793s6TgqfHBRMWqoJ4y3ajqNmlYmf30U7Jh+c6gKsq7kMsuRNK3WscA+cw
+         2vLe+SEocn3F3WWQmc5xPsAub1GCUS6ee1zdYUjvolV8BiSx4fkG+YnYF3yZsu8tqt1S
+         ESNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790406057; x=1791010857;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lFMzbROQnPZ03LFhgGCTeVYFQX7f/d2hoEAIuqyzaxg=;
+        b=xcHYUqGidcfMPxZ4H5xChs5245+2+gaIWxVBoAzoEzya/FUfm5G9VN2t6iKwSkSrj3
+         U2u60tXZFjzPATOBrxD3CwYxcYCpYeSm74byEglraqfI+Rhx1WuPdWkSYvE/4TXGF+ta
+         Leep4HSJ88CEwhSpCSnxMoxaI7ITFud6gj03hGsulgB17vJB0VZ/jJrvgPRX0in1P/WF
+         MhobRlTn2a3PlBknk+BKd0IlbJwLM7BJeTgIam0Aic5/vCT1t4U+5+6GkMyPz15azI4z
+         k0OxiSqeI2VB6YweXNVy+FjeA54w/iojfkt7GJ9SkZH3ZebH0fmgLdas45jm0mvWzooe
+         LX+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxfaJhWAmIW8OPoH/wrtvuC5euGuUbXrl6IEHMancfH0qsuMgRqptrXVNE2XZ3Utg7Avczh5VExHe5DkTA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/0I+qkv5W2Ivn7DjeQFAReAmnqThmFgl5YHuF2Dcq57TO8Si+
+	kLJlyAVSs3B0QtNCoCJJb/6Z+muZ59+K40wyV3Mja84JKdc7j9mNAFSA
+X-Gm-Gg: AYBFou3BNPsJ+U3TxXuEuazuiLuZAvu3PNWK4tTBBWNdWqpmJx5E3qa5Ks9zamQlBvv
+	UKKSYvWBsWUt6PvtV5+DZf9dUvVqtQ4FbENdZtRcMAd+oAQ0naCNAePcNBDmWvZMiW6mQPX5vwe
+	GZckx2CLpxFauJwax5zyudzdGAgl+ewOxuWzD6j6AqPR43lWx6F+/giSW/2IDtAqxX4yg6Fvxba
+	SLhd43Z6KmEAH4VkwwwsCnexl3pwwWTOZHfPtfbHvntU+E/OxheDCKLuaG6h8QtfMqQvy/WdMbA
+	0caQn9cjAFlXaLpAPTaDbmrZWxwwCtZ/Rw1iU2k0SITAM8UWOwor0gpEvASRFP9aGggo85JO/2v
+	Ew1bor6BvRT0lSxcoLvocdmcKB9VBhf3BdZRwHVMuUik8fK6O+rh0Bbl6rtCe86kMiKV/YMMxDE
+	Xhk23ShETQUnXYguRH4D6BPBqlW5a7Yv/SAst5XbdpQWR1TjSxdt5IqaYrktQQZ50/toWjKw==
+X-Received: by 2002:a17:90b:1b08:b0:39d:e213:9dd3 with SMTP id 98e67ed59e1d1-3a098d4769emr6127977a91.1.1790406057113;
+        Sat, 26 Sep 2026 00:00:57 -0700 (PDT)
+Received: from [10.1.2.130] ([67.185.120.12])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5d0sm15987119a91.4.2026.09.26.00.00.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 00:00:56 -0700 (PDT)
+From: Kir Kolyshkin <kolyshkin@gmail.com>
+Subject: [PATCH v2 0/2] mount: add OPEN_TREE_DROP_MNTNS_MOUNTS
+Date: Sat, 26 Sep 2026 00:00:52 -0700
+Message-Id: <20260926-nsfs-prune-rfc-v2-0-53509260e4e7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921155806.2447506-1-hca@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: sueQVPxIUgR9MUBbGoXMr72KyEsBf_qo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDAyNiBTYWx0ZWRfXzpKynrCKeamM
- QmziJYN9r6Bv96y9aAgXHn1Pvs/2X5SgKp9aPLYIpaYUwzeRiRPkJyg6hBuxFXXE1HBESACZ18U
- hxqVQytB8jSIC0K8th9m8elZxVxCYCAwdj95mJtfB6qfTe5dPiM9xwSlaqPsWy0em3wnCQvJLZj
- UX4ELz12oE6aHi9iaIUVwCyQL37cO9hWmtqd0izJQwBQg9eXoWDyCQxNxlnXOA4v5UvVoncGWMS
- 06XeSkXd8SxtuU2K8UYq/kEuZvGp8K016WB1Dx6sJXfGvn/yuND4BISosCqJA1vUl3WZEItNcdm
- q7gLe7lilRn02U/T+AjN1JocnXC1w8r+w8Au2/1wO9jZHaFYD5J1/HVvaeUtNmsrPWsINdRqXch
- T0ryovY+tRSrQwePJ+n7g7+GFfuVEt2Rmz1PiR4TlyU7Fr29gBccvNOYlLpvIzYNapY79qMJQhw
- PevVnJqAXugsqjyBmOw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDAyNiBTYWx0ZWRfX1T2niC1+Vj5p
- M9JdBpemTQQBWGvOi9v+hzYTMig4ciXBXBXF9VKlyP40Sx7ZyDOgqR2a6Nd1ggodKjjogwwiJDt
- 1FGa5Q+hrpPC7pFKz9Eykks4wKZDD1k=
-X-Authority-Analysis: v=2.4 cv=EY5d0/mC c=1 sm=1 tr=0 ts=6ab76be7 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=7CQSdrXTAAAA:8 a=VnNF1IyMAAAA:8 a=B12lUmBzN89-n_Us6HUA:9 a=CjuIK1q_8ugA:10
- a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: sueQVPxIUgR9MUBbGoXMr72KyEsBf_qo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1011
- malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609260026
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQqAMAxA0atIZgMlUEu9ijhoTTVLlQRFEO9uc
+ XzD/w8Yq7BB3zygfInJXiqobSBtU1kZZakGctS5SB6LZcNDz8KoOSHPlHwI0c+JoEaHcpb7Hw7
+ j+352CNG5YAAAAA==
+X-Change-ID: 20260925-nsfs-prune-rfc-eb2c57795bc2
+To: Christian Brauner <brauner@kernel.org>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Aleksa Sarai <cyphar@cyphar.com>
+Cc: Jan Kara <jack@suse.cz>, Jeff Layton <jlayton@kernel.org>, 
+ "Eric W . Biederman" <ebiederm@xmission.com>, 
+ David Howells <dhowells@redhat.com>, Amir Goldstein <amir73il@gmail.com>, 
+ Andrei Vagin <avagin@google.com>, Shuah Khan <shuah@kernel.org>, 
+ Giuseppe Scrivano <giuseppe@scrivano.org>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ containers@lists.linux.dev, Kir Kolyshkin <kolyshkin@gmail.com>
+X-Mailer: b4 0.14.3
 
-On Mon, Sep 21, 2026 at 05:57:54PM +0200, Heiko Carstens wrote:
-...
-> Most of this is only about cleaning up the percpu code after preemptible
-> this_cpu_*() operations have been implemented. The first ten patches are
-> all more or less trivial cleanup patches trying to make the code shorter
-> and more readable.
-> 
-> The only non-trivial patch is the last one, which converts s390's
-> this_cpu_*() operations to use a similar scheme like Mark Rutland
-> provided it for arm64 [1]. This allows to simplify the irq entry and exit
-> path, however at the cost of slightly worse code for this_cpu_*()
-> operations.
-> 
-> The simplified irq entry and exit code seems to be worth it. Usable
+crun, a container runtime, recently started using OPEN_TREE_NAMESPACE to
+set up the container's mount namespace, and open_tree(OPEN_TREE_CLONE)
+for the sources of its bind mounts.  This turns out not to work on hosts
+that have a mount namespace pinned anywhere below such a source: the
+recursive clone picks the pinned namespace up, and move_mount(2) then
+refuses to attach the tree with ELOOP from check_for_nsfs_mounts().
 
-To me it absolutely worth it!
+The rule behind that goes back to commit 8823c079ba71 ("vfs: Add setns
+support for the mount namespace"), which requires "all bind mounts be of
+a younger mount namespace into an older mount namespace" so that mount
+namespace reference loops cannot form.  OPEN_TREE_NAMESPACE ends up on
+the wrong side of it by construction: the namespace it creates is younger
+than everything else on the system, so from inside it every pinned
+namespace is older.
 
-> performance numbers are not available yet, however I don't expect big
-> difference to before.
-> 
-> [1] https://lore.kernel.org/all/20260904161758.376504-1-mark.rutland@arm.com/
-> 
-> Thanks,
-> Heiko
-> 
-> Heiko Carstens (11):
->   s390/percpu: Fix comment typo
->   s390/percpu: Add sanity check to GEN_MVIY macro
->   s390/lowcore: Remove _AC() from LOWCORE_ALT_ADDRESS
->   s390/percpu: Let MVIY_PERCPU() calculate alternative displacement
->   s390/percpu/lowcore: Add and use LC_PERCPU lowcore offset defines
->   s390/percpu: Rename inline assembly symbolic names
->   s390/percpu: Use __PCPU_BEGIN() and __PCPU_END() for inline assemblies
->   s390/percpu: Use percpu code section for this_cpu_cmpxchg128()
->   s390/percpu: Use percpu code section for this_cpu_xchg()
->   s390/percpu: Use percpu code section for this_cpu_cmpxchg()
->   s390/percpu: Rework to simplify percpu_entry() and percpu_exit()
-> 
->  arch/s390/include/asm/entry-percpu.h |  71 ++----
->  arch/s390/include/asm/lowcore.h      |   5 +-
->  arch/s390/include/asm/percpu.h       | 354 +++++++++++++++++----------
->  arch/s390/kernel/irq.c               |  10 +-
->  arch/s390/kernel/nmi.c               |   4 +-
->  arch/s390/kernel/traps.c             |   4 +-
->  6 files changed, 248 insertions(+), 200 deletions(-)
+By the time this fails there is nothing userspace can do.  setns() has
+already run, so the host tree is unreachable by path; it is unreachable
+through a fd saved beforehand as well, since mount(2) requires the source
+to live in the current mount namespace; and the offending mounts cannot
+be dropped from the detached copy first, because umount(2) requires
+check_mnt().  So a runtime cannot fall back to the pivot_root() path at
+that point -- it has to predict the situation before setns(), which is
+what crun now does, at the cost of the optimization on every such host.
 
-Acked-by: Alexander Gordeev <agordeev@linux.ibm.com>
+This is not a corner case: snapd pins mount namespaces under
+/run/snapd/ns, so on Ubuntu it affects any container that bind mounts the
+host root, which is not uncommon [2].
+
+Every other path that crosses a mount namespace boundary already leaves
+these mounts behind: copy_mnt_ns() passes CL_COPY_UNBINDABLE | CL_EXPIRE,
+and create_new_namespace() passes no CL_COPY_MNT_NS_FILE either -- the
+latter deliberately, per the comment added in commit 9b8a0ba68246
+("mount: add OPEN_TREE_NAMESPACE"): "When creating a new mount namespace
+we don't want to copy over mounts of mount namespaces to avoid the risk
+of cycles".  Only get_detached_copy() asks for them, inherited from the
+unconditional CL_COPY_MNT_NS_FILE that predates that exception.
+
+Patch 1 adds a flag so a caller can ask for a clone without them, as
+suggested by Aleksa when the exception was introduced [1]:
+
+    I kind of think this is a somewhat theoretical issue but I don't
+    think we'll be bitten by it. My gut feeling is that I'd prefer this
+    to be an OPEN_TREE_* flag that you have to set (so we can support
+    this in the future) but that's kinda ugly too...
+
+Keep it opt-in rather than changing the default.  A clone attached in the
+caller's own namespace, or in an older one, keeps such mounts usable, and
+open_tree(OPEN_TREE_CLONE) plus move_mount(2) is what mount --rbind is
+through a file descriptor, so dropping them by default would make
+mount --rbind / /mnt silently lose /run/snapd/ns/*.mnt on a live system.
+Only a caller heading into a younger namespace, where the tree is refused
+anyway, has reason to ask for this.
+
+With OPEN_TREE_NAMESPACE, which never copies these mounts, the flag is
+accepted and has no effect, so a runtime can pass it unconditionally.
+Locked nsfs mounts are skipped the same way copy_mnt_ns() already skips
+them, so this exposes nothing new.
+
+Containers observe no difference: set up the traditional way, with
+unshare(CLONE_NEWNS) and pivot_root(), they see no nsfs mounts under a
+recursive bind of the host root today.
+
+Tested by booting the patched kernel in qemu and running the selftests in
+tools/testing/selftests/filesystems/open_tree_ns: 19 pass (including
+the two new cases), 12 skip (all in the existing tests), none fail.
+Without the flag, move_mount() fails exactly as described, with ELOOP.
+
+Patch 2 adds the selftests.
+
+Changes since v1:
+ - split into the kernel change and the selftest (Christian)
+ - rename OPEN_TREE_SKIP_MNTNS to OPEN_TREE_DROP_MNTNS_MOUNTS (Christian)
+ - shorten the commit message
+
+v1: https://lore.kernel.org/linux-fsdevel/20260923205028.711077-1-kolyshkin@gmail.com/
+
+[1] https://lore.kernel.org/all/2026-01-07-oldest-grim-captions-spills-ywC2O3@cyphar.com/
+[2] https://github.com/containers/crun/issues/2262
+
+Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+---
+Kir Kolyshkin (2):
+      mount: add OPEN_TREE_DROP_MNTNS_MOUNTS
+      selftests/filesystems: test OPEN_TREE_DROP_MNTNS_MOUNTS
+
+ fs/namespace.c                                     |  14 +-
+ include/uapi/linux/mount.h                         |   1 +
+ .../filesystems/open_tree_ns/open_tree_ns_test.c   | 183 +++++++++++++++++++++
+ 3 files changed, 196 insertions(+), 2 deletions(-)
+---
+base-commit: b5a051f6b840d48f159166ef073d3021989bfb50
+change-id: 20260925-nsfs-prune-rfc-eb2c57795bc2
+
+Best regards,
+-- 
+Kir Kolyshkin <kolyshkin@gmail.com>
+
