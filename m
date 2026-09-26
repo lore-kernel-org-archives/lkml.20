@@ -1,161 +1,113 @@
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E541A267
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9C137A839
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:43:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790412211; cv=none; b=DoxAeUJLs8ncdoQpX/3I3vC8AZNGfcAo5t4x2vXiAu2KxAKLJ1NzEL7UmmDwNyisdHfviKyhCbvDz5PM+iikpDiyLMVgn2oK7jFzP9NUnq/g9oQSNsXrc0EAsqyCfRyrw87IHySj7Q8v3KQm4WsmV/AFrPjDZzIanVKfb62ql1Q=
+	t=1790412221; cv=none; b=H4wiHBRRvLtyPmKfwrS+ku9aCl2yp/oSBGAFcp+p8hTeY5QbNzGMDhCHiTkxinNKg91jm4lhoRlcYGm1KJw2r7KbAVpPTC6kjJexQEmvKHu706zkCGmrVgubZpON8v4762Hm8IkkOU3CSGatU4kPPwEpXzx16qk8hIWIZxcpsAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790412211; c=relaxed/simple;
-	bh=FXZ/O9NxkMPrU9h+reZfFy89Tqxxb60b+xqI2ZJbDKw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pxqv93glthR8Z/UqG4PtP/EveRGjTFURQHjy8f3N81EH2NLiDDAgZtVmjGAdYlb9kpgak3K4inzsKS/FnSTCOwKKc8VTmX7meqqO+TLqifjqkj1eUqSUtvIkAOfA1xthgcMBHPfa8TfAJ5dGqCkm+LxihjG2lnDjNDg5tNHwmDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sLt5gyoP; arc=none smtp.client-ip=74.125.229.7
+	s=arc-20240116; t=1790412221; c=relaxed/simple;
+	bh=12EUdsbFiHBURzlJjrzAK8K4NZINHomEF0ijgoIRkOM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nxAyjUEmocoRk7y8mL+IwR9APKDpKT0/8hXJw7APK1NBfXjo2RYH2O4NS2PK5TDG+VYh20VjfFeGpLSXCbmJtr6G4Yf4Dvta16OhVULK76j6tPbWeDRH555oIpGIXP3wIGhnhig9voGGSt9JY53c+JWnoMgbuoYC4YkR6cJrffM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQ9waO3B; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sLt5gyoP"
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so579155eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:43:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQ9waO3B"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so1285844f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:43:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790412209; x=1791017009; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yjxGTnd2mKbbrlmpZXTSuvBmHY+YigrHR6jMxFwo5ms=;
-        b=sLt5gyoPv7Iwgw7Qc2IIUh+/AXu33GpkrRb6iVoodfs3zlX+1RWj9u72g8RThtvsTN
-         XXVSiCcIg7N7UizidnD0qBDn4ZNJ8XSPFYubSu0cHFW9RmmhpjsuB0h9bWzctovxgMG9
-         39hCjTMeq0BpluKkPrKl3Xis5GS/+L56aZjtX7wUQL1R/jA0TvFG4X3lfEdg6OrYq+dO
-         qOmRXIImykzPDI2AhGWIQbPWWvwyCUKcnBXCMNgqyoVdhbXMR1zNfrZ9C7MYUshwCyyW
-         13jAcENpYxLPMzvl6RaKjIe1e//kvOQjJ2Tv3hX1SMmmFNW3RxlpDRKpaEVGrPTnJCtT
-         J9zA==
+        d=gmail.com; s=20251104; t=1790412219; x=1791017019; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QCwVdOxjrFD+KrFGvyZLlA0okXbQCYf9gkSOoPwm8f0=;
+        b=sQ9waO3BnTOzJMYOCXCLbcxZZobeBoAgwyUF4n0Itanw/bT0XnLu0IOpdVYUqDMUuY
+         CnYvDX+CzGQAPCE9CBJl/4b9zolIuYpJdWuzZZP/X1bfrfu3VV856s+xf3mp+oW4W5zs
+         c1u39oZiHrZBS0alTPpBNkqJ6VlGFu8rTRCMFgsBuJKJrxw+XN+ZLHC3z5fa5R635lLB
+         0eSu9NAao1vCpTbLcwWb9F3I1ThGBdLeIf2TNcjEXTMRYY5UHGZatJHphdTfjGaa4xyi
+         PayrediRnZ/8NO7cBojsw9lOfUsUjNUq/k/XM6+hAvdfDehzQlgpo/9tOOIwoqExXVjt
+         VKEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790412209; x=1791017009;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yjxGTnd2mKbbrlmpZXTSuvBmHY+YigrHR6jMxFwo5ms=;
-        b=GMbX8LvYiyp1lDXKrwmbR2hoRQXynxcQwmIhAYKgIXDeJAJOTnKWNCcsiuijR2Ia+R
-         NybN3DirWIXlxSuFvtBR7E0cy8/eGGXFO1q4gGQNEEhe2/Z8VXVax4gSmFac58dWr1Bf
-         USKXIlsaB9kKE4D42rk/yXMId/gVWg7ecog+b1gftZ7V69NOwOvCbojNWgG2sCTvhFlA
-         WyIKaImSMLyWq3PivDhLwILwONWOsnrfeTHbhp6N1UOp1oFml3gasYWz/RMhTGB9tSYr
-         xbAkuey7I8Ul6/SkQ2rdi4RWMbnQE1AQM/igmnisj5Nr8vRC9gCJAqouuw/e2JULLtkQ
-         +4Sg==
-X-Forwarded-Encrypted: i=1; AKwUvBw8Owwtu+4b24IAPsOJ/opSDNzkSN/KC2phM7hVRkcqnl7PPtyR7iirGs7aI880ly3di7nMYefGwwP09fI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+f10r5vF+KxZs3y60FOWTuQCTft5NlCI8QtYHO23RALUra92y
-	amPN83f17wYK4kUoRO2b6NL7ONkJY0UCg3GES5cY6uZES6lOGT89YjE6XN2fuv+IY8E=
-X-Gm-Gg: AYBFou0yEmd3LTi+SZr/ulsCoFQ3PUd22G2fHjmHJHl56XOFPHUjpZQfP5lGuKpWLIk
-	OnqW/P+s4QjOwGzAXKYV5url8eeUBqDobIrCpwg3l49BQSCmPlBFEsddIRHhTiyl9wM5o6tvQ/b
-	6PmMD+u6wsQBlo9WXOJF+v5bC/IOXvAuSJwg+tqlziikwt5nvtrDUjv6+WoBuyMVb/3cyag7xq2
-	k1uofhM6G/DQEEnynxe0e2X+PVB1mUBc1bhHq9IvwvLBepBWAxDk7CIWaidKbvFI5vRiN9PH632
-	56855eT0tatCl0U37G0oxyabx1lmYdPwJVn6VaNVcLm6my7Od0t8WttjTwL3INtelCoAayqSzJ9
-	jqyN9/Z3sJEoKXrczLl9xYmCbBDCkLDHaLQ1ZvqFBo/MH+HKyPr9ZPqogRSCvuMFrd2mm32XOZL
-	Ih4BVFh4upQJNJ5FMam0ISAQh0JQBFAutEkuMjV+rMEb1yJVUW3mLvGeJPgtnjnw0YhlqvjZhAV
-	MjDZCCbQ9qt8aGPxpXqgYuOKUlOiyr1k1W9GpIf+gEgnX1Tn7MdjC4=
-X-Received: by 2002:a05:7301:f10:b0:33b:c69b:7074 with SMTP id 5a478bee46e88-342700be120mr2225602eec.4.1790412208861;
-        Sat, 26 Sep 2026 01:43:28 -0700 (PDT)
-Received: from Raccoon ([157.51.160.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3421dbb2971sm8463086eec.10.2026.09.26.01.43.24
+        d=1e100.net; s=20260707; t=1790412219; x=1791017019;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QCwVdOxjrFD+KrFGvyZLlA0okXbQCYf9gkSOoPwm8f0=;
+        b=sJ9dqnkadcMQHj9h1J/MSdGZyhnC2sIPp6kvXISILB0tTMNhQJF9RsmUt7ioE4yZV4
+         L8kV5S+nSzADBhW8k1rh9MRB3bUcyVLn/OiTQltFwnBBsi8wRvuqVAYqcHFzbCiPCiFh
+         94X9UWADE4EZnU/riNqnbbygtiVqQYjS9T44zhdGPcJ6PMGM68pkZCnaAXbFh5sL3FvX
+         GJd3ZTv7bt+En+bu1m+IOx/aooY7DncMG8Ia5f3i1vkK0MleYZQQ6DsXh88hlSjTOwyG
+         wbZYyQ07rk4tOw7RCMA5AmAjrlKQQx3YAO6m4ro2tjiDasY7FapheSkZJp5KzgQBgZnc
+         +4lg==
+X-Forwarded-Encrypted: i=1; AKwUvByS/PrXNGRbxZLCxhEBn/y05TW3DGWsHJJ1ZeM3rsorJ22ZlXN0H1ogrT6+7HjtzHJLo9bbyTvG4EkDNWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwEpcwGjVNACLeSfTaukn4YS2YZC+0YGhzggIPynMI8zgd+i/g
+	Bsg4zCoxWslm/xqfKiw/VYhyQbvtxHupYcOdAdjt6k+rdaBO23YXho+O
+X-Gm-Gg: AYBFou0T8YylH4Wf5kYOxx9levUGmJClZBAOb6flb2TFRJIBQelsBA7zs0uaEqA0tRG
+	SwFEzzIYU7hSgYVi+/p0KAQiOcoekIp3U1mFZKvZFCBQYdtZLNTV4agSH5gR9+fkncO0UDq9tpI
+	N2SPwk4b1AkjIAvN6Co86oW02vwsYkmmSibfM6x4z/qw392O4BS3O0mEhLd/ZRLXVtYZJxb8Y23
+	RRjQmfWCrhTUb3zFY0aP7tXl8a2fzbrTzABQ1V3BY9WWvKMdcdUJNZSQ6TOEWstr8FS5x++I+Ok
+	qU/jn6WeRdm5QoJlTjuOnU9vgQ+Bewo0qezlTvsRchOFPfvHWK0LAYPyF6VIm9SqJK2ri2hX5Ex
+	/LDRX1nsTBWriJMvcdjRNfATL92NyGx4Ds65FAHAQTMvA0K1PHExgIASZrluQFF3lRp5jbFJKgk
+	2gjDdiejPXrbAq1TmrQYyXbzs919pnOwZLtYAmGdyIEgRDwPLhXggUrA0/4RqP4fddSdJrgSsCh
+	FdAQpsNn/op/AbmlOWF1i/M4XMbvzOX9jxu4GkUUqYZnayN7vOislswmNSEzBkdY6F66iMDPBCY
+	TjYBvybaVwy/FAMcyTyQlZ5lOw3A56Zb9DgkMzJdkndCsDAQyLwbJwLo0n9Qhe7TC8JzqT7Yt83
+	OqGi59t8S/ZRSqU1TIWojxg==
+X-Received: by 2002:a05:6000:1a85:b0:487:ee4:b5e4 with SMTP id ffacd0b85a97d-488716b6cd7mr15679810f8f.8.1790412218418;
+        Sat, 26 Sep 2026 01:43:38 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-b162-c701-4960-a998-3de8-2fce.310.pool.telefonica.de. [2a02:3100:b162:c701:4960:a998:3de8:2fce])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b1dfsm12979497f8f.4.2026.09.26.01.43.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 01:43:28 -0700 (PDT)
-From: Rohinthan P <rokinthanp03@gmail.com>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
-Subject: [PATCH v2] media: vivid: check for NULL dev in vivid_probe() control setup
-Date: Sat, 26 Sep 2026 14:13:18 +0530
-Message-ID: <20260926084318.12161-1-rokinthanp03@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922125434.19361-1-rokinthanp03@gmail.com>
-References: <20260922125434.19361-1-rokinthanp03@gmail.com>
+        Sat, 26 Sep 2026 01:43:37 -0700 (PDT)
+Date: Sat, 26 Sep 2026 10:43:35 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jeremy Kerr <jk@codeconstruct.com.au>
+Cc: Matt Johnston <matt@codeconstruct.com.au>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] net: mctp: Stop selecting flow support for
+ KUnit tests
+Message-ID: <areFT_yfInT01o2r@gmail.com>
+References: <20260925192510.93840-1-kmehltretter@gmail.com>
+ <8edc4e71edceb124e2dca233cddb75e198b53a51.camel@codeconstruct.com.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8edc4e71edceb124e2dca233cddb75e198b53a51.camel@codeconstruct.com.au>
 
-In vivid_probe(), after creating instances, the driver iterates
-through vivid_devs[0..n_devs-1] to populate HDMI and S-Video
-'Connected To' controls. However, it dereferences dev->has_vid_out
-without verifying that dev is non-NULL.
+On Sat, Sep 26, 2026 at 03:53:28PM +0100, Jeremy Kerr wrote:
+> Hi Karl,
+> 
+> > MCTP_TEST selects MCTP_FLOWS, which also enables SKB_EXTENSIONS when no
+> > transport requires them.
+> 
+> But we want to test the flows support, why disable this (and
+> consequently skip the flow tests in the vast majority of test runs)?
+> 
+> > Remove the selection to follow the dependency
+> > rule in Documentation/dev-tools/kunit/style.rst.
+> 
+> That suggests "depending on", rather than removing the coverage.
+> 
 
-If an instance fails during creation, vivid_devs[i] remains NULL,
-causing a general protection fault:
+Hi Jeremy,
 
-    Oops: general protection fault
-    KASAN: probably user-memory-access in range
-    [0x0000000000005f38-0x0000000000005f3f]
-    RIP: 0010:vivid_probe+0x579/0x10d0
+Thanks for the review!
 
-Add NULL pointer checks in both loops in vivid_probe() before accessing
-vivid_devs[i].
+OK, I can change that.
 
-Fixes: d7c969f37515 ("media: vivid: Add 'Is Connected To' menu controls")
-Reported-by: syzbot+caaca441bae2799984d3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=caaca441bae2799984d3
-Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
----
-Changes in v2:
-- Remove .suppress_bind_attrs = true so driver bind/unbind via sysfs
-  remains supported as required by the test-media test suite.
-- Update author name to "Rohinthan P".
+I was confused by the existing !MCTP_FLOWS fallbacks, but now understand
+that you want the suite to retain full flow-test coverage.
 
- drivers/media/test-drivers/vivid/vivid-core.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
-index 62cfb5f..1860ad6 100644
---- a/drivers/media/test-drivers/vivid/vivid-core.c
-+++ b/drivers/media/test-drivers/vivid/vivid-core.c
-@@ -2116,17 +2116,19 @@ static int vivid_probe(struct platform_device *pdev)
- 	for (int i = 0; i < n_devs; i++) {
- 		struct vivid_dev *dev = vivid_devs[i];
- 
-+		if (!dev)
-+			continue;
- 		if (!dev->has_vid_out)
- 			continue;
- 		for (int j = 0; j < dev->num_outputs && hdmi_count < MAX_MENU_ITEMS; ++j) {
- 			if (dev->output_type[j] == HDMI) {
--				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = vivid_devs[i];
-+				vivid_ctrl_hdmi_to_output_instance[hdmi_count] = dev;
- 				vivid_ctrl_hdmi_to_output_index[hdmi_count++] = j;
- 			}
- 		}
- 		for (int j = 0; j < dev->num_outputs && svid_count < MAX_MENU_ITEMS; ++j) {
- 			if (dev->output_type[j] == SVID) {
--				vivid_ctrl_svid_to_output_instance[svid_count] = vivid_devs[i];
-+				vivid_ctrl_svid_to_output_instance[svid_count] = dev;
- 				vivid_ctrl_svid_to_output_index[svid_count++] = j;
- 			}
- 		}
-@@ -2134,13 +2136,17 @@ static int vivid_probe(struct platform_device *pdev)
- 	hdmi_count = min(hdmi_count, MAX_MENU_ITEMS);
- 	svid_count = min(svid_count, MAX_MENU_ITEMS);
- 	for (int i = 0; i < n_devs; i++) {
--		for (int j = 0; j < vivid_devs[i]->num_hdmi_inputs; j++) {
--			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_hdmi_to_output[j];
-+		struct vivid_dev *dev = vivid_devs[i];
-+
-+		if (!dev)
-+			continue;
-+		for (int j = 0; j < dev->num_hdmi_inputs; j++) {
-+			struct v4l2_ctrl *c = dev->ctrl_hdmi_to_output[j];
- 
- 			v4l2_ctrl_modify_range(c, c->minimum, hdmi_count - 1, 0, c->default_value);
- 		}
--		for (int j = 0; j < vivid_devs[i]->num_svid_inputs; j++) {
--			struct v4l2_ctrl *c = vivid_devs[i]->ctrl_svid_to_output[j];
-+		for (int j = 0; j < dev->num_svid_inputs; j++) {
-+			struct v4l2_ctrl *c = dev->ctrl_svid_to_output[j];
- 
- 			v4l2_ctrl_modify_range(c, c->minimum, svid_count - 1, 0, c->default_value);
- 		}
--- 
-2.53.0
-
+Karl
