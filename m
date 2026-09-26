@@ -1,96 +1,100 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324AB4052C4;
-	Sat, 26 Sep 2026 15:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313184534B7;
+	Sat, 26 Sep 2026 15:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790436459; cv=none; b=C5PJCg29xiiz2+72YvsWKjH+hZX5qv/81k1mrD4/Pxlct07Wpa2JSwJfeeA/4ASGEdgtugJj5teSxUkmzVRei760XOkbyY+PeZzQDjB4+NU2eP7+GkIAA5K3TtiiDD2EfhRIJpgzq/wmCQ+1BGWNx5X/jR9Hi1e0LAvmum7KX+g=
+	t=1790436652; cv=none; b=SzZqiCbx2zp341MSr6S4ByNqm9DsJqW1TePiVbuKTXLEGjHzy+QBj9fvNZYeYaxuw7MEL8yGo+SS8rzBab4PiQGadzjrh9akEXKngMPYT5Ui4Zhjx6fWv2K8j7mp4YFVW26h8SjxKCniMB1A3cBSJxBeCLjxEWUUR3dLixmK8ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790436459; c=relaxed/simple;
-	bh=+xjcz8nLIIJX8fK6dKDCwgu+xS5L2cxDGJt1yLKiNKY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=izNVKU860JcJDcMUlok7W4OlLlcrxDlR0kEo878VLScLXLabKMntJXIaeJjQuW3VSfrRp5gnZDmQLlVM772xg3yWxf+aMm9PkzHuqEtHrzDr7Jt6VC3pB07qV0B1zrXBQhzY8h4Z36VdzRZQzGFXVaeT8xjWLn5aCMkujSqqbpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=CLthkADt; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1790436652; c=relaxed/simple;
+	bh=AzWuY2z8U/vUkS+ryriyFb9noPXYkL42OJCQbpmmsRM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=r0FgZRKwH39fXE9NYgWxxQF24KIjiuOQ2GFxrIEy+68QtGeFi1oaAB7tYQYWx8Ek6Q1lX+OAD6XX7OneIDYHLtJqRg0WB7SBBjp4tr1KvHc6d+R2nW1lMVYEyMBqMTomedOQxSzSKesediR7wIN5tH5XYBkQ0Q8SBFwYWczOzYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gDOKsAOO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="CLthkADt"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 5ABC0408B3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1790436457; bh=E+Q6hF7V9TA2udl8Xyg0aj+FaZq+4HVqvk+0lqYue/M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=CLthkADt4wB5puBdlNthPLhtg+5yOG0fnnt5OubyZG7nBI9m+tsxIpFBZ6PSRG5To
-	 B9kB5uusdyXK8VOcW22pTJuJEibu9VE4O9lHzYGu3kUxoiNf8nBQnCh86RnSDdcCT2
-	 Mt0lP65sYJv/Qe4oybOzvE6v5BtNI7SAWejti8G93kRe7M6xEKdwggw3B3C/nQoKr+
-	 HfpNro42xgYf3Ybf70imtITXZZBC2dXTPwYfMdK5FSIvZNsuJ688ASOT88yTgXtfhN
-	 sF6cDNXj89h8dj6/Mepin6Sp1Qs108d2S5sSV3Dc12PLfd+gXvKezvABtiufC3uCu2
-	 BsD1F6tP9rOfQ==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 5ABC0408B3;
-	Sat, 26 Sep 2026 15:27:37 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Kees Cook <kees@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Nathan Chancellor
- <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Miguel Ojeda
- <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, Maximilian Huber
- <maximilian.huber@tngtech.com>, Thomas =?utf-8?Q?Wei=C3=9Fschuh?=
- <thomas.weissschuh@linutronix.de>, Luis Augenstein
- <luis.augenstein@tngtech.com>, Breno Leitao <leitao@debian.org>, Masahiro
- Yamada <masahiroy@kernel.org>, Andrew Jones <andrew.jones@linux.dev>,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] docs: Makefile: Add a testdocs target for the
- documentation unit tests
-In-Reply-To: <20260916184107.i.183-kees@kernel.org>
-References: <20260916184107.i.183-kees@kernel.org>
-Date: Sat, 26 Sep 2026 09:27:36 -0600
-Message-ID: <87fqyw3udz.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gDOKsAOO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49DEB1F000FF;
+	Sat, 26 Sep 2026 15:30:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790436649;
+	bh=5jb3BDftf/ODffcy+muPOJTz2pJouvKTdOelPtX8WzM=;
+	h=From:Subject:Date:To:Cc;
+	b=gDOKsAOOGhlKivsrI26wSXM0rMpSe4IK/f3gFKDMS4ZGPdXVBhbq055FfoRZI5A/T
+	 2Q9gSZTlHm8kuHqRlziY5yYBvF/i3eEtKV3hpTMO2iVUD5uUm44PvErVC2OvYv4FY7
+	 PckJGrjatB1UedBwxzT9P8DJk896iJxTKCvBid9tajLAaDa1uDcs64dOJ1i7rn+LBb
+	 QjchE9NuVKob+zTgW6lkS42rjxX1QtkyJpm+aTjSJwdZZhcYCDewU8ZmBhv2AjPlzD
+	 J4vhhie+vAf+xHnlglZu6gcI4pQVUV+CpHZN3mv1PvD6vu37n9epEN1inq6Mtocp+s
+	 IHfaGWra/63og==
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Subject: [PATCH net-next 0/5] mptcp: misc improvements for v7.4
+Date: Sat, 26 Sep 2026 17:30:33 +0200
+Message-Id: <20260926-net-next-mptcp-misc-feat-7-4-v1-0-67af4ab37406@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWMQQrCQAxFr1KyNlAzU7VepbioMdUIHYeZKIXSu
+ 3esuPiLx+e9GbIklQznaoYkH836CgX2uwr40Ye7oN4KA9V0qFtqMIiVTYZjNI44amYcpDc8okd
+ HDYlvT+ych5KISQadtnwHfxMuvye/r09h+9ZhWVbQ+jwXigAAAA==
+X-Change-ID: 20260925-net-next-mptcp-misc-feat-7-4-3252e498c334
+To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
+ Quanye Yang <quanyeyang@proton.me>, Hangbin Liu <liuhangbin@kylinos.cn>, 
+ Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1522; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=AzWuY2z8U/vUkS+ryriyFb9noPXYkL42OJCQbpmmsRM=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLK2P1X+/93plBXvojVi876ltz/a3/7AbPPCI1wtEz+qL
+ Tzja3Fbp6OUhUGMi0FWTJFFui0yf+bzKt4SLz8LmDmsTCBDGLg4BWAinscZGdq+XlC0OrUrcle4
+ /KeTR7dNLChM53pf5Lfu1ttTL3mqm54yMvyfeX9ZXelG2YXvs1+aVU39u6FMSeNUT8QHaY+U9M0
+ fT3ABAA==
+X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
+ fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-Kees Cook <kees@kernel.org> writes:
+Here are some unrelated improvements for MPTCP and its selftests:
 
-> tools/unittests/run.py discovers and runs the unit tests there (which
-> are primarily documentation tools), but nothing in the build calls it,
-> so the tests are only run by whoever remembers that the script is there.
->
-> Give it a target, next to the other checks that need no Sphinx. The name
-> ends in "docs", so it matches the "%docs" pattern already in
-> no-dot-config-targets and runs without a configured tree, and it sets
-> PYTHONPYCACHEPREFIX as the other Python targets here do, to keep
-> __pycache__ directories out of the source tree.
->
->   $ make testdocs
->   ...
->   Ran 121 tests
->
-> with "make dochelp" listing it between refcheckdocs and cleandocs.
->
-> Tested with GNU Make 4.4.1 and Python 3.14.7, on a tree with no .config,
-> where it ran 121 tests and left no __pycache__ behind.
->
-> Assisted-by: LLM
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
-> I debated the naming here, since "tools/unittests/" is such a general
-> directory location, but figured I'd start with a target that made the most
-> logical sense given what is actually being tested there? I dunno. Maybe
-> "make testtools"? But that reads weird.
-> ---
->  Makefile               | 2 +-
->  Documentation/Makefile | 5 +++++
->  2 files changed, 6 insertions(+), 1 deletion(-)
+- Patch 1: reduce struct mptcp_subflow_context size: no need to store
+  the truncated HMAC for the whole connection.
 
-Applied, thanks.
+- Patches 2-3: shrink struct mptcp_options_received used to parse
+  incoming MPTCP options, from 136 to 72 bytes on x86_64.
 
-jon
+- Patches 4-5: convert IPTables to NFTables in MPTCP selftests.
+
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+---
+Hangbin Liu (2):
+      selftests: mptcp: convert iptables to nftables for mptcp_sockopt.sh
+      selftests: mptcp: convert iptables to nftables for mptcp_join.sh
+
+Matthieu Baerts (NGI0) (1):
+      mptcp: remove thmac from subflow ctx
+
+Quanye Yang (2):
+      mptcp: split FASTCLOSE key from rcvr_key
+      mptcp: shrink struct mptcp_options_received
+
+ net/mptcp/options.c                                |   6 +-
+ net/mptcp/protocol.h                               |  45 ++++---
+ net/mptcp/subflow.c                                |  18 +--
+ tools/testing/selftests/net/mptcp/config           |   4 +-
+ tools/testing/selftests/net/mptcp/mptcp_join.sh    | 149 ++++++++-------------
+ tools/testing/selftests/net/mptcp/mptcp_lib.sh     |   2 +-
+ tools/testing/selftests/net/mptcp/mptcp_sockopt.sh |  58 ++++----
+ 7 files changed, 136 insertions(+), 146 deletions(-)
+---
+base-commit: 42a9fb3382fc2573e92f41d203b095d9a372cfc9
+change-id: 20260925-net-next-mptcp-misc-feat-7-4-3252e498c334
+
+Best regards,
+--  
+Matthieu Baerts (NGI0) <matttbe@kernel.org>
+
