@@ -1,127 +1,124 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC63D381EB4
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:03:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790453025; cv=none; b=JU6nXclkLGtcrIZhPGMooILA0K2+tTnUBYGDnvHFXs3sx0vvPLs6gIULq0bVVbEkLOpfrTEq/m77I/0USH1aIce+0S/E2nXmDabtWTUSotXHUmUHnNTdtQEBOr5LUz4gmkyMtX2NQi+CM/e5tMICRw05Ag4ZCR0esuati/HNCS4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790453025; c=relaxed/simple;
-	bh=Fo5DaFstrSmVMLKymJkXSjconmfqfwAQOAVdYXURvOE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nSKxmyqeWL9NMj6qlrmoLx/h7+SjcvvCqSV0JoVNWMztpyBGAH+AJpIoXTHqEwuMoPQ7EP/MYo/BYanDbnTgYqfq3HiIZPefPCJ14QWvtEQ/l5I2GbNbhdxO9afeU1PwIJR8qglWYnE8Qeu5vriv9BZeIkQrhCj3I/sZrjzD+5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WcrOR122; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BDC368D66
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.167
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790453304; cv=pass; b=DZoUJrMeV9xY28ZFlGMXTMC41z8nz4UzltgyL4kNsbuqb2xR/uZdOqKwa5YtbvtoIC1TR5oPKv3zP/6RbUD+9vFWyEgboP5ZybAvgIqVWlso1pL/MpOYWMTnNSMn85nGlMypb4BulP/LFM5ryUNabGWyWSoCyU2xinGFRwQU9Uc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790453304; c=relaxed/simple;
+	bh=j5cJn449Zupx/yrvwZ/FfZPDNPlE7FEdRQOOPFzGeco=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ucHAaNOVQCxyhqhoWKybB6Nrtp+E0wkTnIjlIpPDmik3gunecT7w5mM7sm8naYhs8ZKQATBegQ4HR9YQ28XjaojiuNYDXT0dmIOWrdr+H2VPIKj0v2AkFH/l6MsoSN0P/h/gm2K3RYYR/oDzcwelmRPDqF92ni+OpUtIWa9X08s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rZml13t8; arc=pass smtp.client-ip=74.125.224.167
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WcrOR122"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so21381845e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:03:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rZml13t8"
+Received: by mail-yx2-f39.google.com with SMTP id 00721157ae682-8a8f3f7ff7cso6630307b3.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:08:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790453302; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LGFnY+zKpnQFTkWsn3twtbvE0mnW4+S2/FNjVQ0GY9SSlwqHwjRJ6F2ceIFmxrSsb8
+         +6bLO0U9+dLLXBljE8bW+o1YqRvXgRk1ZZbtiyE53T1pxZwMd/lFnDEksyNXmHEbRRYq
+         6S9XPh9vF1RmcFBzNZc65Rxp/2jUtMcHsU54a4lfv6uQHrr2+hjU/DWb81WB6f/YCU6q
+         kCDUsEyvgIZmdiZNGrpK9712ZPnUyfwfP2+Sf/cXUJTwKOgQRd2rNBcpGrHMfiABk8gH
+         ZEy2wLjukwuHgwTlVg02oAde8XQYq64Qrb52NT1kRweAebToESLLrsDe6YIoykYHmlr8
+         jSSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lxC0LKM6Lj9xYSTszPofCnIt6Px8YXou8XDsd//rGhA=;
+        fh=8Tc5pE7vRfP8lNVchu8U2DK51OoHFdBBjXy4jyqC8GM=;
+        b=m1pq79yMHIepleQCUilGgHP0xuW1U82tHnXMi7F6PkmYftX9SIsyF8WMDvqGFUNqxf
+         w4koE7Nl6qLBmVYQYhMmOKEMUshBOI/6e2eA+7TdiZWOMTYO/2MkgFIbg+n/+wJy0xRA
+         8KF2axPjPALjYhkl9Ig7Z2Itc3YFHAhtg7wPdJglPcAkHVAYPZ/KLnGNK2LVWPY8xZln
+         u05M4lo0m1XM9Nba7xD+icUU++fSJIAk0LzCElPhOAcxO7fbtR5TQ8k86Up9KtKRYNUd
+         QJ+87EirIo6CiVvyTepFvWWB+THVdOuWsyko71GBogZDRQr5SVHddaS67o2umeaX8KnS
+         bfyg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790453022; x=1791057822; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790453302; x=1791058102; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=crEKiHcNRykCDD/R67rRRmFahSTLMCA99xfWB3eHuVI=;
-        b=WcrOR122mae9HO/x4z+yYJGdqIkO/wD1nsbIDK0iL7xblmsaTcS9lwanj98goxZ4jH
-         F8ByVL55X7101ZSO4eYzmN1N+eSud1nwzDpZ7CMWuvacMtj/FKRkp/n1A25QG3B8txUW
-         j0WtUMm+X8PsF8niY8jfCwJve/TRmKdLkbLEy445jNRLs5YngRArHi8x3q8nLaDv3eBE
-         ZYEKyMUM4ZYlVBP9HmUy/UidcqsTGBwC2xNPzLjOxvzMEozz8OpZBF1rIWCggAJ2mGN6
-         9v2b7veGiqTlmPLSpZR2uIFRP8etUP8HKd5HL7BZz47M8p4Tj7ssDrg2hn3F/H/NycGr
-         IMgA==
+        bh=lxC0LKM6Lj9xYSTszPofCnIt6Px8YXou8XDsd//rGhA=;
+        b=rZml13t8IhfyCFiCb/mZdRbaebj/qub41KHRniJ1c26UmGtw+j9jwG2zhU1xy5qOXi
+         swYzc6doKL3t9ckq53t+RPMlHXZ9EitNyeOcOb/p5hGhPN8setFhCDBhkYSRfyb1UmQ3
+         Fe1wKWGo2yX/dXw8tFJJG4+/0u5vRJsksWjqgmC/Q/rKSQ8O6F0/BvcxhefP1vOxSibi
+         ewXB7eZhSpbxfJEC+6GU4iIJO75vwujCZY7tuVo6hezz7EJMk7SPGH0oTWfinJK62rGN
+         bw8pTTwUUIm+tLc0M6JWpEPrOCAbtOK1pDD0H9Uqe2OzP1qb6sNNhkXQ7aKRp2PJHkcH
+         wBvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790453022; x=1791057822;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790453302; x=1791058102;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=crEKiHcNRykCDD/R67rRRmFahSTLMCA99xfWB3eHuVI=;
-        b=ywbctHWSf8a3RUatlEY8Q9yWmkuZhNs976f7th5bt4t2aaVrUqzXb7rWHMR2PgcO9f
-         hPuwihDbkCxdvsnrWzJ/GXviuO+yJgv5U25qqLHBp0GZ4YQlrcZ1YjJRJ6pTKzyf+fuv
-         vpsjCNaotKwIn1KaTO2wyWkl2TMED96bNpMLzq8Wsr20PmWhCKoSrm/LT1kfXhjWNBst
-         sl0puN1OPMbjkeHTTZr7H5/jYx66E1Au7W9tnJYJ6RiQqqGOScwUP77IMHtA0A3PpgDL
-         vGZlbsLdJfK2nNOeHJhSAe8FFX3DBL+cU6jIe4GVuScURTM7YVP7GLZLImL6FV5O8Oq0
-         /lGg==
-X-Forwarded-Encrypted: i=1; AKwUvBx/dyhpkxOQf2IWtUZRUir7qstmblaZmqX/uHIbJkj3mWLPLBgMCUjmzxr+VJwe1zAd+fRQxVFbUv9SGFU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nx5eo7j4PSKESsFMXStY1qxtCECSo8ECLfmgG6NZ2vC6qnDyfB
-	ycBo1Ila1DthTlCltm60lmO60puNDtYQE9PcjbZVHTdTPem0sFISUIbB
-X-Gm-Gg: AYBFou07tduOfJ4I2JlNgqzBkqMGgZuDZNE/GUmCdOvj+JARKcrWdX38fSfDQkt808V
-	QOHDz6LXA0AwUgZgE0bz4eas7WVS1DdvrvHIrpSMXlsB+Enx1bsfdph4XbyLl9AbowSSj7wUPNt
-	3fGr63n6V4Tv/qrl7BQzlsShWAc85dADZkMogovOYffddr80WHLAu4OHrOXY5164QXRcMwMfVHL
-	boWUJ+e19qJ08w+snN/5LGWgote/Da4+dYNdhT/heQ+0lKNKh0yaleCwl05MsFgfjIAVTLQMLd2
-	klWqS2oWnklNVq2l3fMoW6jOOinUnmKcUKWIP/U4yTadgDt7fOqohF+poGCb07NcI2HIv0IxApb
-	+Wecu+BGcQGxUTYWHCya/MpgYLHx73ib/3hOmTh1cJyDiEXSMbC0WJo0oYiFMmDqLToRr76mm2j
-	MMUCf9DFuJt8puYnZOZnIkWcEsf9Dg6iNOWQPCcVVTcMCqDbsSuNEi3uAQgpBJGWzUBFdsUsixw
-	v1f15A=
-X-Received: by 2002:a05:600c:a00e:b0:49f:fe90:de63 with SMTP id 5b1f17b1804b1-49ffe910591mr28965985e9.28.1790453021999;
-        Sat, 26 Sep 2026 13:03:41 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff43ad975sm196648925e9.13.2026.09.26.13.03.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 13:03:41 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net
-Cc: john.fastabend@gmail.com,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-Subject: [RFC PATCH bpf-next 1/1] bpf: Remove redundant second __reg_deduce_bounds() call in reg_bounds_sync()
-Date: Sat, 26 Sep 2026 23:02:32 +0300
-Message-ID: <20260926200313.281893-2-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260926200313.281893-1-omermetekaya0@gmail.com>
-References: <20260926200313.281893-1-omermetekaya0@gmail.com>
+        bh=lxC0LKM6Lj9xYSTszPofCnIt6Px8YXou8XDsd//rGhA=;
+        b=Z38gGlssHCuveh5BxjcyjMwKXQEceZG45qzovhUC6rSk54Bc6I+toLeILOXnzKzX2g
+         hQozyatAgLZ2aoJ/aBAGlld0+BIqhzxNRr4/b2CV9vTAl7TZtgCBc+FgGj8Hyog9I1p+
+         Vn5KpQUXDD/dCQGqshvO0tLxDjCpS9Fj5shSXVaEDfsKmBWeMJ5FW8YEE9qNpUGe7bdp
+         E5I2HjWj13tyIRn1y+jAgxiSXyAj/ny+TWaE6tEh26U16AlPBe5MoUHuiTFwPfkEefCY
+         W0owfprFC/UWOZFcGly37V1MQwoCunG3STttlrvi94SX+FGuqkXo3bRFRN5hqZ1BTn5S
+         1hfA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMeYGFSnluuAPmLJduP61ciwRIwO2dMa0sztyw9zXNRtA0zJiKCU3HhhJiEv7L+rm4C/DOfdEhTJqEWkg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKL/jR5rQab9MQ1/7NKvp/YUA6mTmT7V7khLS1zj+soqPeoPnuC
+	WnskaozbqyjZvO0u1jwKBN5bbG8dt/xzQsGEWicfO6nwVNZKh3n54kMBY3QK/FywKTFVHJSnvJo
+	Nwzdcsa9RBW9Qt5Vy2G0HcGLyJYnTLfo=
+X-Gm-Gg: AYBFou0hE1wZ7wikOasMVCQaz3dwfXOHSIiJ40HWzKnrLDzK66DOO7dSqO7nKlWHERg
+	cQ//2++TBhRDz4rFCNceAROF3tII072rQluMxQe3mG27DmR2ZRZXxbtYCDhJ8lESkuzNvQ2fgJL
+	pOiQjNj5AsdtNAZ1bka4U7NG5zR8j1yR1SfEiXTn8SCgH3rN7EBL7bE4MEbj90d62GsNsfL1pue
+	SAjrbagAivwJ1u8w//AF62SOuG5C5u6npwURR09s6N4GR7tgvAfGwvdallVrXOg0j/APWDlSP2e
+	Psh62JplSNwW78EpUM5yMDPd+HdM9RgTUHrn6qOyVMZVwaKrEvzv8W8=
+X-Received: by 2002:a05:690e:12cb:b0:674:6809:6f15 with SMTP id
+ 956f58d0204a3-6746809704amr1146281d50.0.1790453301090; Sat, 26 Sep 2026
+ 13:08:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260923015631.44973-1-ginger.jzllee@gmail.com> <arZUjd5QIs85m_Wh@kekkonen.localdomain>
+In-Reply-To: <arZUjd5QIs85m_Wh@kekkonen.localdomain>
+From: Ginger <ginger.jzllee@gmail.com>
+Date: Sat, 26 Sep 2026 22:08:09 +0200
+X-Gm-Features: AclHuK-I0JLVJ75bEhvu7qJACiRAut3AQtqKovfR8PWHXrTZb0sdeNSDLJWlRrk
+Message-ID: <CAGp+u1aVQpqkyxFv1p897FjQMm=007FKiNBVDtxzU9pp-oJkSw@mail.gmail.com>
+Subject: Re: [PATCH] media: i2c: ov5648: Fix a data race on state->streaming
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-reg_bounds_sync() calls __reg_deduce_bounds() twice in a row.
-With the current cnum implementation, the second call is now redundant.
+Hi Sakari,
 
-__reg_deduce_bounds() first intersects r32 with the 32-bit values
-representable by r64, then intersects r64 with the values allowed by
-r32. After one call, cnum64_cnum32_intersect() guarantees that every
-value in r64 has its corresponding u32 value in r32. So, a
-second call cannot further restrict either view.
+Thanks a lot. I will pay attention next time.
 
-The old tnum + min/max representation could require multiple passes:
-tightening one of the 32-bit or 64-bit views could allow the other to
-be tightened further. The double call ensured that the bounds reached
-a fixpoint. With cnum, the first call already reaches the fixpoint.
+Best regards,
+Ginger
 
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
- kernel/bpf/verifier.c | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 8d8923ad5..1cd923363 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -2180,7 +2180,6 @@ static void reg_bounds_sync(struct bpf_reg_state *reg)
- 	__update_reg_bounds(reg);
- 	/* We might have learned something about the sign bit. */
- 	__reg_deduce_bounds(reg);
--	__reg_deduce_bounds(reg);
- 	/* We might have learned some bits from the bounds. */
- 	__reg_bound_offset(reg);
- 	/* Intersecting with the old var_off might have improved our bounds
---
-2.55.0
-
+On Fri, Sep 25, 2026 at 1:01=E2=80=AFPM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
+>
+> Hi Ginger,
+>
+> On Wed, Sep 23, 2026 at 09:56:31AM +0800, Ginger Li wrote:
+> > ov5648_s_stream() updates state->streaming after it has released
+> > sensor->mutex, while ov5648_resume() reads that field with sensor->mute=
+x
+> > held.  A concurrent resume can therefore observe a stale streaming stat=
+e and
+> > leave the sensor in standby while the software believes that it is stre=
+aming,
+> > or the other way around.
+>
+> Please wrap at 75 characters next time, I've fixed it this time.
+>
+> --
+> Sakari Ailus
