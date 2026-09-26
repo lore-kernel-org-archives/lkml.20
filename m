@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA0D2652A2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D643033DE;
 	Sat, 26 Sep 2026 00:50:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790383851; cv=none; b=s4Sqt48ec1WUkRIxKFxzGqEhzwpICbj1/Hisifyq5TRQK4thyO5Qr5zBoXRp1eWTo12V7OaUE2aPx2TrOEucxLX1N430NEXMtpX6dS1uHy3UnZeqBW19S6Uwg3LRH6Hv+HGFqNWW/izbOwD7rvcX7gFv2MglqJcTTLUou6V2Mco=
+	t=1790383851; cv=none; b=CDwAxaZhMX10G77YELAtuoyOxisQYicAgIui2MZvTpezJGX4MjgdHx+HKMkdJmOaYQCyYd9EPkBNCGt3DQXSKcN4E129cLYKVfX/PRe+A2cDRCow8N05SXgAZf/6F2u1DgP8RFL4g9MWJkh5lY8a/RPDQSENNJKpVckIxIIVHyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790383851; c=relaxed/simple;
-	bh=QZuGgIfedRt6E2ddYyTGPhayZrDoNOZ8hXwJcvPCbUk=;
+	bh=ubWWiG+VXO6CUxc0ijGW8hrKTYJibhDz9i2X6M32ZPU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Wa73HQ6iAhBQ0UBQjFE1esE2HSSIg60ruhdl//1s8fpTpObZausAWI+NBCbgTr178t44OzUxC5PQJgWgw0apil+H8Cdre/fsbfEjG1HoTsZ0HpeeagE5h6D/eNYr+RFZMx1qEzxgM3Van/EhjFjQtmoZpgJlkKSk7S0RWoGMTLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SL4wWBaL; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=WWDRFOZ3ijMJoDslCLm0kuApq2h9xbQOjaQbE/IGHhi+UytwPrBdFuFCf2Q4sVeKxGg+Z3kn+albYf5kCQKiixHtVgVRPbTbTaV3NVJYeBv/lpHddJLtaQlj1Q5eDLKnQ2eLQQrVESdD8EiYm80k65z3jEGfTkHHTyHd0pHXXmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFv1O9tr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SL4wWBaL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 62F1CC2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFv1O9tr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 89B74C4AF0D;
 	Sat, 26 Sep 2026 00:50:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790383851;
-	bh=QZuGgIfedRt6E2ddYyTGPhayZrDoNOZ8hXwJcvPCbUk=;
+	bh=ubWWiG+VXO6CUxc0ijGW8hrKTYJibhDz9i2X6M32ZPU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SL4wWBaL0A1NCCKm2k6XsrkSbrdgIbmexUyMwPhGGQMRwe6vPntwE56QPfUbwnh/B
-	 ExCh7c/0XGy5dEnoIIb4HCLSF0azYMFTvvNadXW4wMHj44imX8TUUu/mrF9iiOrcSW
-	 3pYxIpiizcU9xtyVnS0CsLsi0ETuDadTPWeCbYlaHUDDSnFhTrxpQQwTeGd09QPhcT
-	 1tEKSF9YjCaXhwNtNgIS8Q9qMYGGWhmn08/fzjY/0UqeqvB2YiAyOINVwq9BAcGh6F
-	 JDcqrfeBCKxFfU38exIy06kH7sKDi1YN2cjZzC7Xo+IfytRWOjSiNaZBbxvG1veCAe
-	 pAZTGzjAWkqyA==
+	b=lFv1O9trofogLXT9o2HZxDATk2aSrmIE9WkGLublAdrSXIuDA/e3ilMYZ25hdQHwh
+	 OKwOLnuTg678LTMm8HPTcmBWUUPK2+lX1oPn1Hlnhu25RL7pgCXycOXUTaJL/44vyw
+	 C/GwFOX1Vnb4TpI/ptdtbFUpIFqCnYsGcXN77pfxVg8dbWglBRdCGtq1hV2sIvN2Ve
+	 h6jIdtcOzKtiXFycKWsQaHgOyK9wqRqTy1MqBsh3GJnXAtckTj/2PkAOHzUqGpZlU8
+	 cjmt3ImwG1JlJYJyqvDT23lrUHIB6z84gV2Yv6o3qvxmUJaGj8lssfveD4vY8bBCAy
+	 S1EQ3ArhUNzmA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49E83C9830E;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B1FEC9832A;
 	Sat, 26 Sep 2026 00:50:51 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 25 Sep 2026 17:50:49 -0700
-Subject: [PATCH RFC 02/17] KVM: guest_memfd: Support provider folio
- allocation
+Date: Fri, 25 Sep 2026 17:50:50 -0700
+Subject: [PATCH RFC 03/17] KVM: guest_memfd: Support provider folio
+ invalidation
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-gmem-tmpfs-backend-v1-2-d36159822d18@google.com>
+Message-Id: <20260925-gmem-tmpfs-backend-v1-3-d36159822d18@google.com>
 References: <20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com>
 In-Reply-To: <20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com>
 To: Hugh Dickins <hughd@google.com>, 
@@ -64,11 +64,11 @@ Cc: kernel-team@android.com, kernel-team@meta.com,
  linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790383850; l=4521;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790383850; l=3424;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=k2wJag3xpkJiPwETrEDU9zeAf8p9w5PDeeJUkL2Wy30=;
- b=owZKCzvSRlsk4pNWUHrAac7TjSqV4V9OZ2vm5pyo4kxj3zk6HBlqYl6Pp0x4cTb4Dcq5IAsvj
- UN0BwPL00V3AdOv5deqq4zfA+D0roElHz1GSsNK5j/d5HO5QLYV9Gc7
+ bh=HcCpVRdef3JCMSn2VvVwvzxMYU+D6iq2rei81oGu4lo=;
+ b=eWvF/vgmoEI5Wqhqk1edUIUfKJCkkkuEQ5SluDzgA4sqW7on378bDcWX9fZvhhV6hfBE5zkE3
+ p1qPPfnWtm/B6laliCdNe2KkBm/AX2cVnPXANHEBFUmHG4vn88XsHd4
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -78,126 +78,94 @@ Reply-To: ackerleytng@google.com
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-If this guest_memfd was created with a provider, use the provider to
-allocate a folio. For folio-based providers, using guest_memfd's filemap is
-better because folio->mapping would be guest_memfd's mapping, and so
-guest_memfd can handle anything that makes decisions based off
-folio->mapping, like memory_failure().
+tmpfs increments the total number of used pages on the mount at allocation
+time, so that number has to be decremented when the folio is removed from
+tmpfs' ownership.
 
-Going along these lines of using gmem's filemap, passing gmem's filemap for
-the provider to insert into seems awkward. At least for tmpfs, the
-insertion function does a lot of stuff and assumes stuff about the filemap
-being a tmpfs one (completely fair). I think it's better to use gmem's
-filemap and do charging (memcg) and inode accounting according to
-guest_memfd's rules though, hence insertion is done within gmem, in a gmem
-filemap.
+In this model where guest_memfd allocates from a tmpfs mount, I believe we
+should respect the limits set in the mount, hence I require .alloc_folio()
+to increment.
 
-Going back to folio->mapping pointing to the gmem filemap, we could have
-special memory failure handling for guest_memfd folios too, if there's some
-kind of central registry of all PFNs belonging to guest_memfd? There are
-other usages of folio->mapping, but gmem doesn't participate in those since
-gmem doesn't do swap, etc now.
+.invalidate_folio() is then the counterpart to .alloc_folio(), for undoing
+any provider-specific per-folio work during allocations.
 
-For non-folio-based providers, here's my suggestion: Don't provide
-.alloc_folio(), provide some equivalent callback for pfns, track pfns in
-gmem. The provider can force gmem to return the folios anytime, the
-.attach() can be bidirectional.
+.invalidate_folio() requires mapping_set_release_always(). Not sure how odd
+it is to use that mapping flag.
+
+Using .free_folio() is hard because folio->mapping is NULL by then, so I
+can't reach provider information. The provider information could also be
+stuffed in folio->private? What do people think of that?
+
+Another alternative would be to use a custom truncation function in
+guest_memfd, just like shmem_truncate_range() or shmem_undo_range(). The
+con is that guest_memfd might at some point support more generic mm stuff
+like swap/reclaim, of some form? Or maybe never? Shall we go custom now and
+unify later? Or just not think too far ahead?
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- virt/kvm/guest_memfd.c | 44 ++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 40 insertions(+), 4 deletions(-)
+ virt/kvm/guest_memfd.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
 diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index a13445c26d9d6..5ac2d558c8dd8 100644
+index 5ac2d558c8dd8..00f3bd0cf21e6 100644
 --- a/virt/kvm/guest_memfd.c
 +++ b/virt/kvm/guest_memfd.c
-@@ -3,6 +3,7 @@
- #include <linux/backing-dev.h>
- #include <linux/falloc.h>
- #include <linux/fs.h>
-+#include <linux/guest_memfd.h>
- #include <linux/kvm_host.h>
- #include <linux/maple_tree.h>
- #include <linux/mempolicy.h>
-@@ -35,6 +36,9 @@ struct gmem_inode {
- 	struct inode vfs_inode;
- 	struct list_head gmem_file_list;
- 
-+	void *provider;
-+	const struct guest_memfd_provider_operations *provider_ops;
-+
- 	u64 flags;
- 	/*
- 	 * Every index in this inode, whether memory is populated or
-@@ -50,6 +54,16 @@ static __always_inline struct gmem_inode *GMEM_I(struct inode *inode)
- 	return container_of(inode, struct gmem_inode, vfs_inode);
+@@ -64,6 +64,13 @@ static inline struct folio *gmem_provider_alloc_folio(struct gmem_inode *gi,
+ 	return gi->provider_ops->alloc_folio(gi->provider, index, mpol);
  }
  
-+static inline struct folio *gmem_provider_alloc_folio(struct gmem_inode *gi,
-+						      pgoff_t index,
-+						      struct mempolicy *mpol)
++static inline void gmem_provider_invalidate_folio(struct gmem_inode *gi,
++						  struct folio *folio)
 +{
-+	if (!gi->provider_ops || !gi->provider_ops->alloc_folio)
-+		return ERR_PTR(-EOPNOTSUPP);
-+
-+	return gi->provider_ops->alloc_folio(gi->provider, index, mpol);
++	if (gi->provider_ops && gi->provider_ops->invalidate_folio)
++		gi->provider_ops->invalidate_folio(gi->provider, folio);
 +}
 +
  #define kvm_gmem_for_each_file(f, inode) \
  	list_for_each_entry(f, &GMEM_I(inode)->gmem_file_list, entry)
  
-@@ -128,6 +142,7 @@ static bool kvm_gmem_range_has_attributes(struct inode *inode,
-  */
- static struct folio *kvm_gmem_get_folio(struct inode *inode, pgoff_t index)
- {
-+	struct gmem_inode *gi = GMEM_I(inode);
- 	/* TODO: Support huge pages. */
- 	struct mempolicy *policy;
- 	struct folio *folio;
-@@ -140,10 +155,29 @@ static struct folio *kvm_gmem_get_folio(struct inode *inode, pgoff_t index)
- 	if (!IS_ERR(folio))
- 		return folio;
- 
--	policy = mpol_shared_policy_lookup(&GMEM_I(inode)->policy, index);
--	folio = __filemap_get_folio_mpol(inode->i_mapping, index,
--					 FGP_LOCK | FGP_CREAT,
--					 mapping_gfp_mask(inode->i_mapping), policy);
-+	policy = mpol_shared_policy_lookup(&gi->policy, index);
-+	/*
-+	 * TODO: Refactor the internal PAGE_SIZE gmem could be an internal
-+	 * provider with internal provider_ops.
-+	 */
-+	if (gi->provider_ops) {
-+		folio = gmem_provider_alloc_folio(gi, index, policy);
-+		if (!IS_ERR(folio)) {
-+			int r = filemap_add_folio(inode->i_mapping, folio,
-+						  index, GFP_KERNEL);
-+			if (r) {
-+				folio_put(folio);
-+				folio = ERR_PTR(r);
-+			} else {
-+				folio_mark_accessed(folio);
-+			}
-+		}
-+	} else {
-+		folio = __filemap_get_folio_mpol(inode->i_mapping, index,
-+						 FGP_LOCK | FGP_CREAT,
-+						 mapping_gfp_mask(inode->i_mapping),
-+						 policy);
-+	}
- 	mpol_cond_put(policy);
- 
- 	/*
-@@ -1334,6 +1368,8 @@ static struct inode *kvm_gmem_alloc_inode(struct super_block *sb)
- 	mt_init_flags(&gi->attributes, MT_FLAGS_LOCK_EXTERN | MT_FLAGS_USE_RCU);
- 
- 	gi->flags = 0;
-+	gi->provider = NULL;
-+	gi->provider_ops = NULL;
- 	INIT_LIST_HEAD(&gi->gmem_file_list);
- 	return &gi->vfs_inode;
+@@ -166,6 +173,7 @@ static struct folio *kvm_gmem_get_folio(struct inode *inode, pgoff_t index)
+ 			int r = filemap_add_folio(inode->i_mapping, folio,
+ 						  index, GFP_KERNEL);
+ 			if (r) {
++				gmem_provider_invalidate_folio(gi, folio);
+ 				folio_put(folio);
+ 				folio = ERR_PTR(r);
+ 			} else {
+@@ -893,10 +901,24 @@ static void kvm_gmem_free_folio(struct folio *folio)
  }
+ #endif
+ 
++static void kvm_gmem_invalidate_folio(struct folio *folio, size_t offset,
++				      size_t len)
++{
++	struct inode *inode = folio->mapping->host;
++	struct gmem_inode *gi = GMEM_I(inode);
++
++	/* guest_memfd only allows truncating full folios. */
++	if (WARN_ON_ONCE(offset != 0 || len != folio_size(folio)))
++		return;
++
++	gmem_provider_invalidate_folio(gi, folio);
++}
++
+ static const struct address_space_operations kvm_gmem_aops = {
+ 	.dirty_folio = noop_dirty_folio,
+ 	.migrate_folio	= kvm_gmem_migrate_folio,
+ 	.error_remove_folio = kvm_gmem_error_folio,
++	.invalidate_folio = kvm_gmem_invalidate_folio,
+ #ifdef CONFIG_HAVE_KVM_ARCH_GMEM_RECLAIM
+ 	.free_folio = kvm_gmem_free_folio,
+ #endif
+@@ -935,6 +957,7 @@ static int kvm_gmem_init_inode(struct inode *inode, loff_t size, u64 flags)
+ 	 */
+ 	mapping_set_inaccessible(inode->i_mapping);
+ 	WARN_ON_ONCE(!mapping_unevictable(inode->i_mapping));
++	mapping_set_release_always(inode->i_mapping);
+ 
+ 	gi->flags = flags;
+ 
 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
