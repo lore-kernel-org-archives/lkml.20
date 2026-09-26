@@ -1,182 +1,151 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7253A6EEB
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E749E438011;
+	Sat, 26 Sep 2026 13:48:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790430504; cv=none; b=iu0yuwwOuwnvSy6jWXVD0KeX46ZTnK1L3q8onggU4snBi6ENrjZWFuaF2Ed/39NVxyIZbobb8ycIhaYehY0qmdAVaOifAyREV6hvbOcdQN2VWXTw/KkIYINPpX87WCCA6gySG/UZxNmoESJQ+e97Wp1wmOMdRYHBHhgJc/XHIBs=
+	t=1790430541; cv=none; b=LumPgYkANER5KusJtVJn+eMXwNUHvuyaFGb/Q3oFGM0npASCGAetmb1osGjxZBpdjJS2lewECtLo6hdC68mBdZjN6ZK3cN6bYeVLBQJ5yeQbHjZkHCR7ttEUrpZfIY49QQX3xsnB8Az9/rvEH4PcKHPmldg+VlIGmVAx85WFQH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790430504; c=relaxed/simple;
-	bh=bBJpFyWvbS+RZVCK6Git+1Asl9nlHVjk3YAQ3yUX9CQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dH8XMIjgdFcXPYOWT4gD95XVmkIsX3Cf9JDAZenfn78MtJMgA3GcmG49yQRl2VS8wHwqaFLDG3btKMH8rQg6O0jJG7ptOaz0gBpP6+UEEke+HdYD2TkObxdiSdD0LusJsPsniixPZf88Xs57pE4rbWaBE0i5x/vL/xx5SXxGgso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qJuK6VHJ; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qJuK6VHJ"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-145ab8fd39cso1597179c88.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:48:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790430502; x=1791035302; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HeFcGxb1uwCheJVrqnsn9Byp0eD2Vym48SlgBoqjnW0=;
-        b=qJuK6VHJyBOZAuyd2SkE6XSxzzRYfKFzSB8ySjPfxivOwjIm/DNXdjJEbrq+otPkbx
-         OTrC9C1CNC9Lsq2O3PTql4ggBKdYKXug6Y9OJLlQoL7SbCystRWfbkwLeDz//NRTIw7D
-         w9Vx+iahl4d3xv8twCOcwPOayFJ0aO3KPVppSLyRc2ISLeXduC/776kYN9J6x5JHEUSl
-         hBJhMId+CevQd6dVFmbJMj1tkEFKaPxwdgzrPgrxFcum7hiwqf6tQbpxq89wa4wYwH0s
-         f1w4oPTayRcj4vk708bTK35tCJlWB/xBBDR+VK3ZO6oknPSjC6KoJQmqHj1p2+I3eDnY
-         PMXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790430502; x=1791035302;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HeFcGxb1uwCheJVrqnsn9Byp0eD2Vym48SlgBoqjnW0=;
-        b=TJ+y6Hh/RNlqWMDTHVAbD+HgO2z4r9dJgG8VGosDe5ZebwB0ZQ22jrG4w3o7hVdXb6
-         5ClpIilxVmnZh3sRpOw+M65ARuyNCmn5vcrsKEBvwwgjRJzz6CE8iRyMpOB9eX6s7K+s
-         7nmis7LWbAZzmrNlJUJhBHzgTMvnzPBsX9YWq9UQEBXpVNQ5XhnMIOjobvSucH/btt9S
-         5VQSiMSUvK0l1wvo+AdfrblkhV5V8KSsj7EBKO/9fd+AiTtMtNhUhuig4A7tSnKF98jc
-         txrKOD49jyRsMzvu2ahOQzQqe+MuyFd+XPrhLRWoCGWHooYJW4z/D9urAZJ0Qr2Byywk
-         HP5g==
-X-Forwarded-Encrypted: i=1; AKwUvBxY4vltocsm8ejt6s/RUjPacwYTTW1hJUu9ZPiO6nfPE8wgRH38jmj39lVTwtRS3kXbXM53VSAIjhTmh+I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFHlBz58t8oIKRvqIKKKa0QYWwXdYtWDg/tipZwU6GeRDzZPJ4
-	1aJbrfzdokVTKZE531Qtm7L0PYeqj50SP9pPhVNGraH1VbbaquUjUTte
-X-Gm-Gg: AYBFou2CP1djooYIobUwDrDAm7wYF60OvRC5iys69qI+3nmzBxB34v5YSLpdKCWyCCM
-	QTTQteglMDm82QZbq1cs2lZAW98qyWbdjcG1aaxMwqraxKzwVpZMoLKWma+zMNEGmeX/kgFnR1O
-	tXn6rA3DXEp1GfCYXZs8sUL49KWgmOX548Hnk+Y2c3zEkG0kq/YXEtK1X8VhLg1O9Iy0u7cegCU
-	b6BsNvEjrmtO2VAbXMDxFtzdPFQmblupbLwyT9/V+D/qYDCZ+ToPSv5l+CDIEOahFkl8BupFeX1
-	HxUzWzkdM2w1nFBFkAt8UYzCelFnwiBL6GUAoq8+Wk89toMWmXqfHMTD5Zccgdrk7jxxzcyQ4n6
-	6BYippI9VqN4xDGb9/bq+ukWHvGA2LEW6b7UhHyD7h0fn4UMSYOuQMQl3bpIA4qADXGdXmYyRFq
-	CqBstnCAB+Sb02ObFGvgURonhD8KiRT3v4aaIpFmv1s25GuFx79/r3Nsz4CMoBvHY=
-X-Received: by 2002:a05:7022:b055:10b0:145:bd2a:525a with SMTP id a92af1059eb24-146cfbd49a5mr3248533c88.26.1790430502451;
-        Sat, 26 Sep 2026 06:48:22 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144172de6sm23530135eec.9.2026.09.26.06.48.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 06:48:22 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: gregkh@linuxfoundation.org,
-	rafael@kernel.org,
-	dakr@kernel.org
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	"sashiko . dev" <sashiko-bot@kernel.org>
-Subject: [PATCH v2 2/2] debugfs: serialize concurrent writers in debugfs_write_file_str()
-Date: Sat, 26 Sep 2026 10:48:13 -0300
-Message-ID: <20260926134813.1063620-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026092647-ebony-unlatch-d3d0@gregkh>
-References: <2026092647-ebony-unlatch-d3d0@gregkh>
+	s=arc-20240116; t=1790430541; c=relaxed/simple;
+	bh=XvQHYxJ/SXZgkCS/oaA4k9fpjO+pfTixKzqePx6ZL98=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dRG4JZXsQc5u6RmJAOr//nUGzQXa77sAj67SCI3NoH8NniRFdwselis8Iijhb1V6wEWuz4BCNataSlWbdsOY0tXhr4yh7WZzASULS0JX8i4ffiPeAraiwQ2mpaIqYw9V26lbx6jMojYz39oR8qNJqqYyoxNo9TInhJUdg/kfgOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xASlr-000000001bi-0nHX;
+	Sat, 26 Sep 2026 13:48:55 +0000
+Date: Sat, 26 Sep 2026 14:48:52 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: [PATCH net-next v18 1/6] net: dsa: add devlink flash_update callback
+ to dsa_switch_ops
+Message-ID: <4556cfa2c7faa9ec9e8e78ea0e6f46ef3d073f4b.1790426599.git.daniel@makrotopia.org>
+References: <cover.1790426599.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1790426599.git.daniel@makrotopia.org>
 
-debugfs_write_file_str() reads the current string pointer into `old`,
-builds a replacement, publishes it with rcu_assign_pointer(), then frees
-`old` after synchronize_rcu().  There is no mutual exclusion between
-concurrent writers: two simultaneous calls can both load the same `old`
-pointer before either publishes a replacement, and when both later call
-kfree(old), the result is a double-free.
+Add a devlink_flash_update callback to dsa_switch_ops so that DSA
+drivers can support devlink dev flash without open-coding the devlink
+plumbing. Like the other trampolines in net/dsa/devlink.c, the op
+returns -EOPNOTSUPP when the driver does not implement the callback.
+The devlink core takes a non-NULL ops->flash_update as the capability
+gate, so on a switch without the callback a flash request now fetches
+the firmware file first: a missing file fails with -ENOENT instead of
+-EOPNOTSUPP, and a file that is found reaches the trampoline inside a
+FLASH_UPDATE/FLASH_UPDATE_END notification pair. Both are acceptable
+for an operation as infrequent as a firmware update.
 
-Serialize writers with inode_lock().  Use rcu_dereference_protected() to
-load `old` under the held lock, satisfying lockdep annotation.  Release
-the lock before synchronize_rcu() + kfree() so RCU readers are not
-stalled during the grace period.
+The devlink core calls the op with the devlink instance lock held and
+without rtnl_lock, whereas DSA serialises its switch and port ops
+under rtnl_lock, so a driver has to serialise a flash against its own
+ops itself.
 
-Tested on QEMU/KVM (7.3.0-rc4 + KASAN).  A reproducer that spawns
-concurrent write() calls on a debugfs string file triggers the
-double-free reliably (~3900 KASAN reports in a single run):
-
-  BUG: KASAN: double-free in debugfs_write_file_str+0x194/0x200
-  Free of addr ffff888104542ec0 by task poc/305
-
-  Call Trace:
-   kasan_report_invalid_free+0xb8/0xe0
-   check_slab_allocation+0xd9/0x100
-   kfree+0x163/0x510
-   debugfs_write_file_str+0x194/0x200
-   vfs_write+0x1ed/0x920
-   ksys_write+0xe5/0x1a0
-
-  Allocated by task 307:
-   __kmalloc_noprof+0x264/0x680
-   debugfs_write_file_str+0x106/0x200
-
-  Freed by task 306:
-   kfree+0x2e5/0x510
-   debugfs_write_file_str+0x194/0x200
-
-Cc: stable@vger.kernel.org
-Assisted-by: sashiko.dev <sashiko-bot@kernel.org>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- fs/debugfs/file.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+v18: no changes
+v17: no changes
+v16:
+ - commit message: name the errno and the notifications the shared ops
+   table changes for switches without the callback (found by Sashiko
+   AI review)
+ - commit message: a missing firmware file fails before the
+   notification pair, which wraps only the call into the trampoline
+v15: no changes
+v14: no changes, picked up Andrew's v13 Reviewed-by
+v13: no changes
+v12: no changes
+v11: no changes
+v10: no changes
+v9: install the flash_update op unconditionally and return -EOPNOTSUPP
+    from the trampoline like the other DSA devlink trampolines,
+    instead of a second devlink_ops permutation (Andrew Lunn)
+v8:
+ - retitled: this patch adds the callback, its first user is patch 3
+ - describe the op's calling context in the commit message
+v7: no changes
+v6: no changes
+v5: no changes
+v4: only install the flash_update op for drivers implementing the
+    callback so the devlink core keeps rejecting unsupported flash
+    requests before fetching the firmware file
+v3: no changes
+v2: align continuation lines with the open parenthesis
 
-diff --git a/fs/debugfs/file.c b/fs/debugfs/file.c
-index a4b7a5cb5e01..f8e2d3c9b712 100644
---- a/fs/debugfs/file.c
-+++ b/fs/debugfs/file.c
-@@ -1060,38 +1060,42 @@ static ssize_t debugfs_write_file_str(struct file *file, const char __user *user
- 	if (unlikely(r))
- 		return r;
+ include/net/dsa.h |  3 +++
+ net/dsa/devlink.c | 13 +++++++++++++
+ 2 files changed, 16 insertions(+)
 
--	old = *(char **)file->private_data;
-+	inode_lock(file_inode(file));
-+	old = rcu_dereference_protected(*(char __rcu **)file->private_data,
-+					lockdep_is_held(&file_inode(file)->i_rwsem));
-
- 	/* only allow strict concatenation */
- 	r = -EINVAL;
- 	if (pos && pos != strlen(old))
--		goto error;
-+		goto unlock;
-
- 	r = -E2BIG;
- 	if (pos + count + 1 > PAGE_SIZE)
--		goto error;
-+		goto unlock;
-
- 	r = -ENOMEM;
- 	new = kmalloc(pos + count + 1, GFP_KERNEL);
- 	if (!new)
--		goto error;
-+		goto unlock;
-
- 	if (pos)
- 		memcpy(new, old, pos);
-
- 	r = -EFAULT;
- 	if (copy_from_user(new + pos, user_buf, count))
--		goto error;
-+		goto unlock;
-
- 	new[pos + count] = '\0';
- 	strim(new);
-
- 	rcu_assign_pointer(*(char __rcu **)file->private_data, new);
-+	inode_unlock(file_inode(file));
- 	synchronize_rcu();
- 	kfree(old);
-
- 	debugfs_file_put(dentry);
- 	return count;
-
--error:
-+unlock:
-+	inode_unlock(file_inode(file));
- 	kfree(new);
- 	debugfs_file_put(dentry);
- 	return r;
---
-2.43.0
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 5d12191b6f6f..1fcf4af6c506 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -1176,6 +1176,9 @@ struct dsa_switch_ops {
+ 	int	(*devlink_info_get)(struct dsa_switch *ds,
+ 				    struct devlink_info_req *req,
+ 				    struct netlink_ext_ack *extack);
++	int	(*devlink_flash_update)(struct dsa_switch *ds,
++					struct devlink_flash_update_params *params,
++					struct netlink_ext_ack *extack);
+ 	int	(*devlink_sb_pool_get)(struct dsa_switch *ds,
+ 				       unsigned int sb_index, u16 pool_index,
+ 				       struct devlink_sb_pool_info *pool_info);
+diff --git a/net/dsa/devlink.c b/net/dsa/devlink.c
+index ed342f345692..25311a87cbc5 100644
+--- a/net/dsa/devlink.c
++++ b/net/dsa/devlink.c
+@@ -20,6 +20,18 @@ static int dsa_devlink_info_get(struct devlink *dl,
+ 	return -EOPNOTSUPP;
+ }
+ 
++static int dsa_devlink_flash_update(struct devlink *dl,
++				    struct devlink_flash_update_params *params,
++				    struct netlink_ext_ack *extack)
++{
++	struct dsa_switch *ds = dsa_devlink_to_ds(dl);
++
++	if (!ds->ops->devlink_flash_update)
++		return -EOPNOTSUPP;
++
++	return ds->ops->devlink_flash_update(ds, params, extack);
++}
++
+ static int dsa_devlink_sb_pool_get(struct devlink *dl,
+ 				   unsigned int sb_index, u16 pool_index,
+ 				   struct devlink_sb_pool_info *pool_info)
+@@ -169,6 +181,7 @@ dsa_devlink_sb_occ_tc_port_bind_get(struct devlink_port *dlp,
+ 
+ static const struct devlink_ops dsa_devlink_ops = {
+ 	.info_get			= dsa_devlink_info_get,
++	.flash_update			= dsa_devlink_flash_update,
+ 	.sb_pool_get			= dsa_devlink_sb_pool_get,
+ 	.sb_pool_set			= dsa_devlink_sb_pool_set,
+ 	.sb_port_pool_get		= dsa_devlink_sb_port_pool_get,
+-- 
+2.55.0
