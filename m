@@ -1,82 +1,79 @@
-Received: from www5210.sakura.ne.jp (www5210.sakura.ne.jp [133.167.8.150])
+Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204B9379C35;
-	Sat, 26 Sep 2026 17:21:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=133.167.8.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2119342538;
+	Sat, 26 Sep 2026 17:23:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.59.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790443301; cv=none; b=b089AMChkEDkreGmYHLXG94vsHLWkhkvkEuEoPPH1Hyw1bKj60Qc1yo7EzG9Ry39DI2Rgk6e/Xhg4hQIAWzCUKV34lHiVToiQmB7LVYRAWo+5DSKOuDcwy+QnVo/CUVx8vBvvJjttKeleG+yTqruw+jNTbdDavYjOeVjTkaDMoQ=
+	t=1790443420; cv=none; b=BEJaNrS+4wIsDihmhSM8AlBWFHo5Qk6rEcOFVg70VhJvrgQwvEybaU0dTmyVypmXEFOX4YYaVckYKlI6Kgb1VSyXMEygTCJmombAuWJHFlH+0rJG2XaJmIOGtiwqdQVtlngebBS4ZaweNW3CuyVZWvEuSdix0J8Ypi0ShRioFRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790443301; c=relaxed/simple;
-	bh=PKAmzdVbyaF31KV/p+hs0qg3JKH38sTcP725YVbI91g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VyhAy9WWmQBjuf6pBaIr6+znOxKGN7Wu4r99SIf/iJvgrOtsj7jrJn5GdQkHcQnEJZqxbJmAEyZFj6Y7X1B0wpTYC3ECr+0Le1iBW8gjhNnVSc8f0xbEW097VrJGuplaRTn/hnYlnsEopgDO8jsT7QkrsIbAeYmf1AS2vR5u7qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=mAUDJpo2; arc=none smtp.client-ip=133.167.8.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mgml.me
+	s=arc-20240116; t=1790443420; c=relaxed/simple;
+	bh=hRDyPq1CVvhOw9qrN3HGP9rtYUySEH4FnosZitYy5Bc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U2Jeq/g9oBpsDtN7L/ZlEO4sv5oO5PhPuaKg2d3XkQKMPWygXy96axU8Gtkvd0Wp451OYGxVchNTEjJHwVPFyC2nxSLEdKJlq1EXkZfu2j3SMvLus1Neu800ioZn5KB3vQvWng2heHNlD5UpzUT5BbetsS9b30epWhsjrCxSkqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu; spf=pass smtp.mailfrom=1wt.eu; dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b=nzpmTYr2; arc=none smtp.client-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="mAUDJpo2"
-Received: from NEET ([104.28.193.80])
-	(authenticated bits=0)
-	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68QHLFGj099249
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Sun, 27 Sep 2026 02:21:15 +0900 (JST)
-	(envelope-from k@mgml.me)
-DKIM-Signature: a=rsa-sha256; bh=komxAsBAeKVWiVU9cEuuT6C8YxdblA0qxPXmNE/d9VQ=;
-        c=relaxed/relaxed; d=mgml.me;
-        h=From:Message-ID:To:Subject:Date;
-        s=rs20250315; t=1790443275; v=1;
-        b=mAUDJpo2z87DwYwujDD6ONIoBCctJCrf+3xZrGX7g+j5JNVAjM1tM+3cpp7hu+wG
-         7OJpiMgaFApIjyX+Dwto/qdOJjaiCnq+lEPknO5dFLFsuB/iyTsZwBVCXPnH2tuW
-         lqHEvd6Q89Ut5IojLvyIvvUV/uJEhhdUS2tjA+fCssihsowK4aPIi7cLTQGukcRQ
-         +540fw1+kQ1WBsGgnpJcgNWcBxwU+CZu2QNRKMLYV+bNIv618Ti738CY2L8JIIxL
-         UdyMoJe2LtGJpmCseA0X1hmlYGfKo8XVhKuomi+hBpkCJrw8fp8kNQZT9HmeI1YS
-         e2ZM4NdF5KBRBW0ZpACkQw==
-Message-ID: <b2be67b6-137f-4381-86fb-0d7bc74dbd3f@mgml.me>
-Date: Sun, 27 Sep 2026 02:21:15 +0900
+	dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b="nzpmTYr2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
+	t=1790442861; bh=CmHOlFDk6UlCjro58JazdZXiCkRh1EGL0ccmJxXEbZA=;
+	h=From:Message-ID:From;
+	b=nzpmTYr2i+M/D8y8su33VkAlKGNyEiJ7fU4D+9eORRUu83ud2GLLo9nqU9qZjmKa3
+	 IbN86iRs4EWpEgxkdLIWmVXxSHW23TmZLItPmF6KrK8slxitpmaFL0PsdWcShPoVXs
+	 BifCqlwUtzzuUypebBEUkwuzts1mlhYzYuZs+q9U=
+Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
+	by mta1.formilux.org (Postfix) with ESMTP id D4ADBC0023;
+	Sat, 26 Sep 2026 19:14:20 +0200 (CEST)
+Date: Sat, 26 Sep 2026 19:14:20 +0200
+From: Willy Tarreau <w@1wt.eu>
+To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>
+Cc: Danish Khateeb <danishkhateeb03@gmail.com>, Shuah Khan <shuah@kernel.org>,
+        linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] tools/nolibc: stop rounding malloc() sizes up to
+ 4096 bytes
+Message-ID: <arf9bClKfvuztamr@1wt.eu>
+References: <20260926152414.251214-1-danishkhateeb03@gmail.com>
+ <20260926152414.251214-2-danishkhateeb03@gmail.com>
+ <d64fa7c0-e853-42ba-be3d-11a236c5182b@t-8ch.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15.y v3 3/7] KVM: x86/mmu: Derive shadow MMU page role
- from parent
-To: Sasha Levin <sashal@kernel.org>, Sean Christopherson <seanjc@google.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org,
-        Paolo Bonzini <pbonzini@redhat.com>, Peter Xu <peterx@redhat.com>,
-        David Matlack <dmatlack@google.com>
-References: <20260913155523.7423-4-k@mgml.me>
- <daily-reply-0006-re-kvm-mmu-derive-child-role-5-15@kernel.org>
- <arVZfjUskXC54OKZ@google.com>
- <2026-09-25-daily-reply-0014-re-kvm-mmu-role-prereqs-5-15@kernel.org>
-Content-Language: en-US
-From: Kenta Akagi <k@mgml.me>
-In-Reply-To: <2026-09-25-daily-reply-0014-re-kvm-mmu-role-prereqs-5-15@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d64fa7c0-e853-42ba-be3d-11a236c5182b@t-8ch.de>
 
-
-
-On 2026/09/26 3:48, Sasha Levin wrote:
->> I vote to backport the relevant upstream commits.  Reviewing this without those
->> commits is a pain.  I think it's these, to get fairly clean cherry-picks?
->>
->>   dc1ce45575b3401102568dd60ba8894849d1d64b KVM: MMU: update comment on the number of page role combinations
->>   41e35604eaff2266ba8523787ebe99c5ca4c4045 KVM: X86: Remove useless code to set role.gpte_is_8_bytes when role.direct
->>   b46a13cb7ea1137b2e01dfaafcacd5cd79db8390 KVM: X86: Calculate quadrant when !role.gpte_is_8_bytes
->>   bb3b394d35e80d7a58ce015191e4960a13f54ba5 KVM: X86: Rename gpte_is_8_bytes to has_4_byte_gpte and invert the direction
+On Sat, Sep 26, 2026 at 05:50:28PM +0200, Thomas Weißschuh wrote:
+> On 2026-09-26 10:24:13-0500, Danish Khateeb wrote:
+> > malloc() rounds the size of each mapping up to a multiple of 4096,
+> > presumably to align it to a page boundary. But the page size is not 4096
+> > on all architectures, and mmap() and munmap() round the length up to the
+> > page size themselves.
+> > 
+> > Drop the rounding. As heap->len is no longer rounded up, growing a block
+> > with realloc() now always creates a new mapping.
 > 
-> Agreed. Those four apply to 5.15 in that order without conflicts.
+> The series looks good to me, but I want to hear from Willy before
+> applying it.
+
+Fine by me as well. I remembered there was something for mmap() that had
+to be rounded to PAGE_SIZE but it's not len, it's the offset, so we're
+fine here.
+
+Also I've checked when __builtin_add_overflow() was added, and it's gcc 5
+so we're fine here as well.
+
+> > Assisted-by: LLM
+> > Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 > 
-> Kenta, could you send a v4 that starts with them and then carries 3/7 and
-> 4/7 in their upstream has_4_byte_gpte form? 3/7 doesn't apply on top of
-> them as it is now.
-Hi Sasha, Sean,
+> I'll add a Suggested-by here when applying.
 
-Thank you for the review and suggestion. 
-Understood, I'll test and send v4.
+For the series:
+  Reviewed-by: Willy Tarreau <w@1wt.eu>
 
-Thanks,
-Akagi
+Thanks!
+Willy
