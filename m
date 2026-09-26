@@ -1,82 +1,68 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0070C26B742;
-	Sat, 26 Sep 2026 04:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3916638657D
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790397261; cv=none; b=JSfg57eRi0TSETH/bUa0lJcHjnxx/2PIXJ8Di7tdC4T5Eb6RtvlI8DZr7Z5se7w/xWPZhmeDTtXdJOfeLADqG4qFSdiQUIYYSHFeWBts5e5r/hbXR3R0xtC2QWEtaS5NfXdG47CBPaE9SROo0y6m1Ex4q8CrBdcKEw4uC2WYlSE=
+	t=1790397464; cv=none; b=FfWge4EYUpBGR76fDtAqJr3bzHWIm24C9H9WmwabvqFJbFhTTn0t4PCE1OvotviXsbwE7h4IPb32/Mo9PExUNCpL0/dZwTx48kqj1+Jo8bNjqBb9SSJEpviKi1i9+ZVfRELlubuojKn3Tq7c9JDkmO17hvMRmuuFFxDXD3qHG0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790397261; c=relaxed/simple;
-	bh=EeDEawESlDcdhv22Xgc+V2t6DxfBca/df8KEC9OnmmU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oKre/DWWTUqnq4MNh5yFCRo+QiWS8a5H0lQ4CL8e1+Bh88cNIfCYf0hssm1+UGNjLFZ+SMPeSURPE/KY1liPoPzhV4em9ifHstc1i8dm426hHq35DNFSf/JajCq3wlkaZ3ydikF07PMSWr98+RUk0//xEeivyp3rbictYoujL9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=MDCo314I; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790397464; c=relaxed/simple;
+	bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ie970BMvMwpTrTzmeuiLBsNcmShPEpOdlZNhsmCuE9w0WpIURnimTrg5iV25Z7R6RH/XD/K/6MeTgnbYBdqh6WYrcfoxly5sTHcagss1WKFa6LG0xfTDhla0l2jRYGZreGXalekaWBNR6YKeN716hf2WTN4FMgntXB7+rd1J8Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YSg4fCos; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="MDCo314I"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hsF8Q4Y13z8v2P;
-	Sat, 26 Sep 2026 06:34:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790397254;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YSg4fCos"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790397462;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0mNruMgEL3fGNghAL1UFG8QVNZq3M8EqHIjf+VgnEkc=;
-	b=MDCo314I6VjAPnUo9loq2iA501bua9c83vSGksXe6VM1dXYDJIN/9E0Kt2d2aRZJdkiirc
-	1GEVPUyWGuv7T+AWAgJaIJt4H53QSYhsDQTuwNruDwRL4iHw23bNx3zx3rhRxmycg7MAPB
-	kYJDrTs6/8AXZpRbW9F+GX7Rfcd30LqBhEi4POGZmNnpnCtsn+3zFgby04o03jbMbNoSso
-	AdOeSuceXsY89wRbp+qhBykBMTrbOtLAiP0GVSyYvw+xm97BXytyNlbXCr8yZ637GeHrZK
-	fY6hZEwIheRbxj4nETZQslIxoitB5yJA4HnvSxRrrkuOaeuDZIZkkLcTYAi9JA==
-Message-ID: <1ae0d036-82a2-452f-9ee8-f7120a7552ee@mailbox.org>
-Date: Sat, 26 Sep 2026 06:34:10 +0200
+	bh=cyh9GNwkSeiWX8VVWJet6cmrStrv1Y1BhHYKMAKCy08=;
+	b=YSg4fCos52CJXdImq4+dXD4Y4cgsQ1OtNFxmEMowXh34uM4Bnm7uyfB1m08dyT1MtgTvYU
+	/5gL/F+ZmIDS3lD7oQZ7bcpk9UCHzsDyHtzRIZXe/VTHDlebcw1aUNyANutWAXZLwqLZ1O
+	UW2Pq5T0zWAdJ/qDKTWApynajbJyL3U=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-632-Z3RUTcuEOXe1-f9hmLnMSg-1; Sat,
+ 26 Sep 2026 00:37:37 -0400
+X-MC-Unique: Z3RUTcuEOXe1-f9hmLnMSg-1
+X-Mimecast-MFC-AGG-ID: Z3RUTcuEOXe1-f9hmLnMSg_1790397455
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5853319541B2;
+	Sat, 26 Sep 2026 04:37:35 +0000 (UTC)
+Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id AFF0330001BE;
+	Sat, 26 Sep 2026 04:37:34 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stefan Teodorescu <fane@google.com>
+Subject: Re: [PATCH 0/2] KVM: SEV: Fix intra-host migration cache bugs
+Date: Sat, 26 Sep 2026 00:37:33 -0400
+Message-ID: <20260926043733.187620-1-pbonzini@redhat.com>
+In-Reply-To: <20260923163721.1584779-1-seanjc@google.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/2] dt-bindings: PCI: rcar-gen4-pci-host: Fix reset-names
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260925205158.GA2087943@bhelgaas>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260925205158.GA2087943@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: d0c00d7916057249204
-X-MBO-RS-META: r7hagkew7hpnuaxmaajngby9jaredqob
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On 9/25/26 10:51 PM, Bjorn Helgaas wrote:
-> On Fri, Sep 25, 2026 at 10:29:51PM +0200, Marek Vasut wrote:
->> Drop maxItems: from reset-names, since the entry already contains items: .
->> Fixes the following warning detected by DT checker:
->> "
->> Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml: properties:reset-names: {'minItems': 1, 'maxItems': 2, 'items': [{'const': 'pwr'}, {'const': 'core'}]} should not be valid under {'required': ['maxItems']}
->>          hint: "maxItems" is not needed with an "items" list
->>          from schema $id: http://devicetree.org/meta-schemas/items.yaml
->> "
->>
->> Fixes: 50b1333e0c7b ("dt-bindings: PCI: rcar-gen4-pci-host: Document Application/Local register reset")
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> 
-> I squashed both of these into the relevant commits on
-> pci/controller/dwc-rcar-gen4, thanks!
-Thank you too .
+Queued, thanks.
+
+Paolo
+
+
