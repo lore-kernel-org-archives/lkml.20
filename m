@@ -1,157 +1,89 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF75415F08;
-	Mon, 28 Sep 2026 11:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6CE49E5E3;
+	Mon, 28 Sep 2026 11:07:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593631; cv=none; b=C5EEKbN1Qaf/04BlsP4meKEBZpWo/z6Qa5/jD9YrJAaZV8oXYEIt7WB2FC2b27dQVQSEaXetUm6DA12y85rK3Ob/M9G/ViiZqVlsXb3tEhj4/VJAuPpw40F4MbQk/Fq6D3u2j51Vd5F5sCjKngrGmiz0sZTV4IG2oalzRrrBck8=
+	t=1790593633; cv=none; b=nKxPad89L0USlrMoaNqdM7bQm+ZNOhJHe+xgplLEZoT6vKC5QQPd3UzbTizb2BxAUOtJdGHj4MuyU/1JaW0Ul6hne/LnRY91oTj1GHodOkIeCvuwSTLZdSWs5zokt1p7XuIWe5YsmgRb6FR2mvUt7hWc5rVordyuEaFfowqdJyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593631; c=relaxed/simple;
-	bh=JuFta5vYDKkfyWSB7vYFGBGTLaKRCKTKF6A01c56UNM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EGfU1YCJFpMfUNxX0xELjIb3CyMON6KUg4c/ht+oRkvoLFU9ObVNf4j1FN7dUi7jD5NHqJHH3V6M0Zkw/5oVNEcKZ9nAh9cO9DUdaDtVhM9HC5zScPhPUAVf+MSlKgk3snx1Y8KZ4TbF8I6slYgVlCqseDQ1qk6OUsL2ul1vdwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=plAWPkrL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=av87D/iR; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qV+phgV6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SMlY4QI+; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790593633; c=relaxed/simple;
+	bh=gLXFpV/UlSmNQkqR2Rdz3HkhcsW+kLh1NWeSv2ZMPtw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=hRWE7DLPTTjeuiy/rhoGMD25JDC58JXHUpVAI+1HIr7Jd2ZrvFYtGnZNokFGDf5/pnbTfsX/cfxMO/DXfd5Ykh1lpebzZQbkG2yb9RdbvGVycoxvLHuyOyutDLMFzndYGH3WkBtPmkBSxbGrZWn/ARj6i3CEpDSm/VkQ4sKQuqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j4SIJlcH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="plAWPkrL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="av87D/iR";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qV+phgV6";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SMlY4QI+"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7CF2D1F812;
-	Mon, 28 Sep 2026 11:07:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790593624; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9XybMtF/N4JRglGOx/jG/Xggqki2sIqdTfZWMVmqzXE=;
-	b=plAWPkrLz8aLCjXrVAmv1ExeAO6FfbtmGBZ2SeBdM56vh6tV78d8YrzKSBlPSjfJsWOK9g
-	MUT4SHj9rJeAQWf5yhbMaSU/CSYAeoHULduRDWpl6igy39dgSLnuQ+sSQOAGj65i5AZ8Q0
-	QYtlQzr9y/hYLGfw2N2XNUkTqvnh25Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790593624;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9XybMtF/N4JRglGOx/jG/Xggqki2sIqdTfZWMVmqzXE=;
-	b=av87D/iRaMe9qQExAttu/T6ud3rmCwBi6Hb5qgghSuMbdGRSpZL5+J2iIJAlt/lptVfbbz
-	yTAwbFna7pRc9TCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790593620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9XybMtF/N4JRglGOx/jG/Xggqki2sIqdTfZWMVmqzXE=;
-	b=qV+phgV6cxj/XOoeiigha3TjbiSxZg7LO+UYv5Q0huHpMdjjEw3ZdoDUMqxhYVnAuq1fRg
-	mDa7YKKEDdCT/N/+xLPhbEoYTDcM9ZtU1lWKINbuAAQOEhbJhZvD41NfbJZ80Ii3+aIeBO
-	izhF1lI4a6mhoZL0itTbyMXfrNwgNmg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790593620;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9XybMtF/N4JRglGOx/jG/Xggqki2sIqdTfZWMVmqzXE=;
-	b=SMlY4QI+BdXyYzr1A/WzPCNmErgLU3daJolaJc5N2xqQaSGlQ0Jy+4MLSpsTZHoCbywTHG
-	EMH8rM+y30+boGDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28FF5133F1;
-	Mon, 28 Sep 2026 11:07:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id HtepAFRKumqGJwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 28 Sep 2026 11:07:00 +0000
-Date: Mon, 28 Sep 2026 13:06:59 +0200
-Message-ID: <87eced7hyk.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: baojun.xu@ti.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/tas2781: Fix ACPI device double put in tas2781_read_acpi()
-In-Reply-To: <20260917164520.2163024-1-vulab@iscas.ac.cn>
-References: <20260917164520.2163024-1-vulab@iscas.ac.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j4SIJlcH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C86BB1F000FF;
+	Mon, 28 Sep 2026 11:07:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790593632;
+	bh=g4I3kZoi15a0UkSM62MyWrUzqeI7cpQOpRjyqBPRNhw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=j4SIJlcHkEPoCUJ/YDE/y7wfVo7IsxbGB731HWZ952JGgoeObAHAtRG8UE/3IV2h7
+	 HmjEp1hdFlpnsre6n800p1plp01zWxcGhkirzcHA9mJxt7Ri4DDmEa2ibEakajpGkL
+	 v4l48Q7r6NnGd87DROwFfeNhrJeW9y8bvrstEJvYOywsck3KWLkyXLJiSCCkMl69oz
+	 SxMNUpGtiMgc5P8LE2uTjQiZe0Eq7oNtaNXNE620tC3jCB79h0x+qpWa4goOhLzOzW
+	 xAseDZHpAyr5HnzJkjKpN48WvB9jDlVaPtBZbVIxKQWbf2ZsZl8ESO0fpGGJu7qXDk
+	 rYpm3M7Eq345A==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Zain Aboobacker <zainaboobacker33@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260926162533.25395-1-zainaboobacker33@gmail.com>
+References: <20260926162533.25395-1-zainaboobacker33@gmail.com>
+Subject: Re: [PATCH] ASoC: codecs: nau8825: fix typos in comments
+Message-Id: <179044076200.2399152.9420532434537995352.b4-ty@b4>
+Date: Sat, 26 Sep 2026 18:39:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1109; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=gLXFpV/UlSmNQkqR2Rdz3HkhcsW+kLh1NWeSv2ZMPtw=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqukpaVMLA3IpT/6No8hTbAYDVjGf5c5CP2ES1P
+ mgKO4CqkO6JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarpKWgAKCRAk1otyXVSH
+ 0Hm5B/oCQeLn09i5FLJ2DaFCkQG2Q2CzRXm4dibODPqCc1Fe+K8hKHp9zaZDZOZt/EHEJbWOb8C
+ jbu6CXl51ss6PdaO1OqS6v4hwAEZFYBMHbmAEhDRooecbdBnAjwy7/AM6fM5xXse+4rYkDw9mBX
+ Lw8tPZ/Ii7xMs6qO2NQ5VhYFdTwqwQhnioH4xBeqfGOdKA5nmm6y3qF5fNuxF1AJwjgA/9bWLLy
+ E9dl4w8yMujN7a5HM/H44hDlyV/wNut30GzmsWDhqWF7bQR7Er30OivwVPCJTc1YBBY28wk01fO
+ TrdW+TAC2y5gc7qhMPkSIlpvIOMzkKXbjnYoj4zR6f0Op09D
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 17 Sep 2026 18:45:20 +0200,
-Wentao Liang wrote:
-> 
-> The reference returned by acpi_dev_get_first_match_dev() is already
-> released right after the physical node is looked up. The adev variable
-> is not reassigned afterwards, so the acpi_dev_put() on the err path is a
-> second, spurious put of the same device, which unbalances the reference
-> count, or frees the device while physdev may still be in use.
-> 
-> Drop the redundant acpi_dev_put() from the error path.
-> 
-> Fixes: bb5f86ea50ff ("ALSA: hda/tas2781: Add tas2781 hda SPI driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+On Sat, 26 Sep 2026 12:25:33 -0400, Zain Aboobacker wrote:
+> ASoC: codecs: nau8825: fix typos in comments
 
-This should have been already addressed in the commit 8bec01c80e79.
-Could you verify whether there is still an issue in the latest
-upstream?
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-thanks,
+Thanks!
 
-Takashi
+[1/1] ASoC: codecs: nau8825: fix typos in comments
+      https://git.kernel.org/broonie/sound/c/20b2f7f75623
 
-> ---
->  sound/hda/codecs/side-codecs/tas2781_hda_spi.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c b/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
-> index 0e4f3553f273..63f8b15c2d8c 100644
-> --- a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
-> +++ b/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
-> @@ -386,7 +386,6 @@ static int tas2781_read_acpi(struct tas2781_hda *tas_hda,
->  err:
->  	dev_err(p->dev, "read acpi error, ret: %d\n", ret);
->  	put_device(physdev);
-> -	acpi_dev_put(adev);
->  
->  	return ret;
->  }
-> -- 
-> 2.34.1
-> 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
