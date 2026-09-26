@@ -1,384 +1,226 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C10836D9E0
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:02:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE8ED34252C
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790438548; cv=none; b=UT3Guz1Nry5Ss6i3yG8ouEU/f/4vgdzn7T7anARR9FS+6T4kl1Iv6t8oazFWh4LRLlkpNU5d/a2NK2YF4xXyCYiKo9oa/Fn/J/am2nC1T+pBx521JlY3anj9HcsaJgbnKsKkZME/zGse0CFtH6l/UBAP6HgRQghenCFssIgR/ac=
+	t=1790438549; cv=none; b=DDr10MjrpmRhxtGRyC90UsaUzSJpzIMMnQk4raXxlUPRwFegmzR1UPguaaii2IGiLIuBx30VPt/XIfIuJtLQqiRzcgyemMHC8xx4MeXZB/ANN3gTK0KEW4/DMEcKXfbr8jsvqFf5QDlV8P0Yv7+pk3MV16I3+qa06PsZItjlpzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790438548; c=relaxed/simple;
-	bh=Q8rrfl9uzxg5BsBKmhSIKYc4+X7CHhstnHUhApwz62c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fz/rnqtahmJ71Izvn7j4wuQqspct4sV3Hxb3zgv2/ekL/33bKePwOWam39hodOxby4GYGP6RDjHI4MModXCR+nrxbGWzcbcVz/aDTZ4gKO2fs7Ka7ImY868prHc9uwE2umi6NNnQELFm7IoB6P15pOVA7lNllzr9VL1wUfz41QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=GmpiQedz; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1790438549; c=relaxed/simple;
+	bh=g2ZnEMLX4rXLHxENQ+NiElkH82b634fQYyT4ov2Evmg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qSuDxl6ZwiBMdT8Hr6SkY9azEGoX63Wd2iLA0uvBar555kTkYeNscP0lNQLERGN14/cOTLe1SiKETy/fLDhOVYFLoLzpUmpN/QWRmmr4EATA8nlS9qC7LlQGKoq9LY8Vl1aYWmmtksL7VzeDHCACdXE/yMP4sjUkmV8275qd5Y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DR8uhm/k; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="GmpiQedz"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0df0bb2d6so331270a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:02:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790438546; x=1791043346; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VP5FvClOS/wtmhLyj2bxBgJAwktRlmBKPUQLZDuieYo=;
-        b=GmpiQedzhrfq+xIaGxvHb080UDc7YauTZoVRefB+REXP/6qKx7KY8d+bwKoHWO08Nc
-         eaf/t3lOI/8VyrWdv9kwjF1rx0ewMNJ1r7Dp9yyLLjE9ZvwMkWF2kErBvuwz5cpyb0WD
-         zpsw5N9DWHonPJqjnl3wOHOQG7lwjNwHe7caJkLyeuaYA/eeQke7ex7xONdpAEx2pmCV
-         khWhBNxKeCebGMH4ZWkxbb28vSblt1I4aExsgjlbWuN2RxFfz9d+PxZ/y5oI/nkc+gIl
-         xbCLGYA+F7XbCzhhNLRtkYEoahahx0wqO530iWATw24fFWxGObWjw7ALaT8KwtG9KYy4
-         Rhgw==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DR8uhm/k"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790438546;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sYsPa3ZkL4yz8PlqPdoc7ZdbfBh/s71jk6phvT+rCKY=;
+	b=DR8uhm/kf7RqBrMyPMTq04l6mhtXCsoT5GLgACIb6cSanbajDC1/PpH3ICmNRizj2iTKTw
+	5FDIEm3QhaXe+XN23RiC3KECX1ewDw4822uHt2S4vJtzsf1R1opIgU+Waao7CrwyHpi9zX
+	+fM5ikM3KcFlCvjlksQsHCX4YM3yQL0=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-299-Stbj8vSROY6o06mddHaqRw-1; Sat, 26 Sep 2026 12:02:25 -0400
+X-MC-Unique: Stbj8vSROY6o06mddHaqRw-1
+X-Mimecast-MFC-AGG-ID: Stbj8vSROY6o06mddHaqRw_1790438545
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-530f9b8cd29so35487181cf.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:02:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790438546; x=1791043346;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VP5FvClOS/wtmhLyj2bxBgJAwktRlmBKPUQLZDuieYo=;
-        b=jnZ8D+3zi8qiFtKhWB+KOb62Hy6aAdhYbw/zxvd8jKhb2uCAbP7V/KqNOUPWG5ASXY
-         3BV1yJvrXJqaWqxBm/i9q5DyVhPcAJL673y7UOQoczFm7j/ByJhLuiONKVgIKIyuP7jp
-         R0BgdyaambOFhZqRvqULoFNo1CwWY/IpTulurhMST39qEjFbdSwW/wGocKrh3Pahh36d
-         +KCK5xoqgenpFiKmSGGd3J2K0jbM0z3yVclAR5MELVIGxzAaWgJ/Cv4yzY9h2bo8Cx3O
-         mVOOGSLjQUyTMhd07a5sq9Fu1g5TZUWsczf2YcsfiWRKL1/YeVFr/XDHlR76cjLAEJlL
-         LmuQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXis+gWBG19Xk7PwCH1QOlRUpnEr3npgGXH+QkqlCIvCvq9G+limf59zap7z8H5Nz8whU9PrgKm+XurIk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIohr+ocnH7pJON8a5PLxX6BwHRp3NWQwK93rmU0X+i6zsW/rIh
-	QHveyeaL8NAqUE5hOsD1jITSs9LRpTi3767+KvQSxwJXJls5Ikvob6+9AiBCrrC+GCOn
-X-Gm-Gg: AYBFou1P20fEHkgEP5AALOHFG2DKHSPJKDNIdwfMaUU3fb0mh1Tr24BhtpV6Q9uXtVk
-	Pe5ID1IgVr/+ZC1nWLuazMUnhMyCbIoSVq4ESfhvN4wtdWlkZfn4ryRcIbphndu/qSRRdtl8zaW
-	i7n7vBkyVatfKaqjocEuEbUEPIWS1BTZY+eRcSvVlvxHxpADepphtFrbaT7xcelTbyzojCIrt/0
-	YMP67KpqtE1aK3IWnU69f4n1Y7HmARcTZ/L9wDKMjZltvbZ2//wbe96jP/uyLZbbmelddGdT91E
-	3MTrBi6CYFpt0+xHJW6hZBRUl16aFdVZBDFmLuYJhzBmEkwde2zSPb9g9d3BVvsE1rpAtkWRamO
-	iuajdMUCiDDGZYI/AyddFNMXVWXUsXz9+jeAxJ2Q1KSB0rCSk27lYx5Fla1qWlGxrF2MZXiaZEJ
-	Ke+9QZUZDRBYJ0B9HH5MJdNnALLLiIjGRZK6lfXERACbPDhqMkphpuVuLEkKE0uRCEha6ZzW4YP
-	hNMbyLCLP5ms7w2Rv6hfpQwlU6dAg==
-X-Received: by 2002:a17:90b:380a:b0:3a0:be2d:3853 with SMTP id 98e67ed59e1d1-3a0be2d3c4emr4591237a91.8.1790438545632;
-        Sat, 26 Sep 2026 09:02:25 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9356f48sm10449199a91.6.2026.09.26.09.02.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20260707; t=1790438545; x=1791043345;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sYsPa3ZkL4yz8PlqPdoc7ZdbfBh/s71jk6phvT+rCKY=;
+        b=VvYtfeiTW8DBFsG6GwI00NJ78HXZsctsuR0+vuJ+CM2emfmc8lDvWxXrm6Aos5ljHt
+         WZSU/jPa5Stf6pHlQNzbicT9hkVoIywBYseeskGh2WVWTD4SGMFzWpNhA+edmS9Kdf3q
+         Qcc+8XAAgkv+dQx2xXY+n/XvZja7sQcShDaPZSa8KyzdKD+WrG/cuwwpB0hrSIMdxNPT
+         yl4mrhJ0VL1/r98oKpztHrl/Vl8URCDTUECAhJpXVcgCGTjU3a9XsCeO2VmtBPUZxXbM
+         /cvaYlLEsHSL3p/rrlruVJxCN3welX+FAniv+QOVwF6wVFRHrnMKlveux6/5DR6YsQR1
+         7n7g==
+X-Gm-Message-State: AFuF++kXGBa9QfiBrjkvumQ3KSjH+6e+SF8D8dmmfVXM/3VsJPz5VRNM
+	lpC/gVxN8dPTRrNfGW6T6iHWSoCowzEeSo395ScdH8bdmbJWGHS0swFDtj8ODKcRUVdlas2kueD
+	baosCb84r+JPN3U+H2mos2pEer7wmhtz61kfI8poN/PwUQGzGr5ZQqtjYu1VGepTpohIbSNRdpi
+	v8
+X-Gm-Gg: AYBFou1rSs0SD8CCZpc9zyO+eY7Q3hF/6xsZMR9z5PrOfCT64nJoaER94bGqLE2pais
+	WzSkhyCqMS/UBpFQ0FtB1CMgIxljV2LxUOtx+D+n/8u7VQKDvDUlWY76kkNxlqIblhMz49mSng2
+	7KEA0Ud0JeAFsZZ2lPxFwM92Fkg7T2arKvP18ztfdTUTIf//NPCajoWqJImtIswTHWHRT/oan8y
+	UfmGpt/jjlFrTG4D/Ho5p34zZBsJ9zRUVeYV5/2XfAfZlYLkV3ZfqgauR5ZW7R1rrR5taejHGd3
+	IgTPXAZ39GbcUXRUPow1HIMyxf1TIaXz0pWm4glhh8lJD+H+d/4RyTHvPSaBKDB5q39Etww/Jx/
+	PkjA=
+X-Received: by 2002:a05:622a:15c4:b0:530:178a:9dd8 with SMTP id d75a77b69052e-5330b556ae7mr109260071cf.8.1790438544511;
         Sat, 26 Sep 2026 09:02:24 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH net v7 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
-Date: Sat, 26 Sep 2026 16:02:06 +0000
-Message-ID: <f2f46bb2d18375b2f02548cadb8d024d164bb020.1790427022.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790427022.git.zihanx@nebusec.ai>
-References: <cover.1790427022.git.zihanx@nebusec.ai>
+X-Received: by 2002:a05:622a:15c4:b0:530:178a:9dd8 with SMTP id d75a77b69052e-5330b556ae7mr109259531cf.8.1790438543973;
+        Sat, 26 Sep 2026 09:02:23 -0700 (PDT)
+Received: from [192.168.2.110] ([142.172.30.162])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533222585a1sm20528971cf.11.2026.09.26.09.02.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 26 Sep 2026 09:02:23 -0700 (PDT)
+Message-ID: <1a511636-7a55-4c98-a0b3-1ea0c301d749@redhat.com>
+Date: Sat, 26 Sep 2026 12:02:22 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: hunting memory corruption bug in 6.18.x
+To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
+ david@kernel.org, ljs@kernel.org
+References: <arY1Wq6R9OY20ans@pcnci.linuxbox.cz>
+Content-Language: en-US
+From: Luiz Capitulino <luizcap@redhat.com>
+In-Reply-To: <arY1Wq6R9OY20ans@pcnci.linuxbox.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-rxrpc_encap_rcv() queues encapsulated UDP packets on the RxRPC local
-queue without charging them to the UDP socket. If the I/O thread cannot
-keep up, the queue can therefore grow without bound.
 
-Charge each packet against the tunnel socket before queueing it, while
-holding sk_receive_queue.lock, and drop it when socket rmem or protocol
-memory accounting fails. Size the socket from the advertised RxRPC
-receive window, retain headroom for control and error packets, and
-refresh the cap when the window grows without shrinking an existing
-buffer. The lock also serializes sk_forward_alloc updates with the
-destructor path.
 
-Orphan charged PACKET skbs under the same lock when the I/O thread
-dequeues them. Keep the existing destructor for error skbs, clear
-skb->dev, drop the dst, and account drops with the corresponding UDP
-statistics and reasons.
+On 9/25/26 4:48 AM, Nikola Ciprich wrote:
+> Hi,
+> 
+> I've been hunting a weird memory corruption bug for the last few weeks,
+> without success so far, so I'd like to report it and kindly ask for help.
+> 
+> We first hit it after a live VM migration between two KVM hosts:
+> suddenly some dynamic libraries in the host appeared to be corrupted:
+> 
+> Inconsistency detected by ld.so: ../sysdeps/x86_64/dl-machine.h: 548: elf_machine_rela_relative: Assertion `ELFW(R_TYPE) (reloc->r_info) == R_X86_64_RELATIVE' failed!
+> 
+> (Later we also hit this with libcrypto.so.3 etc.) The files on disk
+> were OK; the problem seemed to exist only in RAM.
+> 
+> I'm fairly sure this is not hardware related: there were no ECC errors,
+> and we have since hit this (and similar issues, more on that below) on
+> multiple machines.
+> 
+> The problems started after we moved from 5.15.x to 6.18.x kernels.
 
-Since skb_set_owner_r() does not hold a socket reference, clear
-sk_user_data under RCU and release the socket only after purging the
-local queues.
+How long does it take to reproduce? Can you reliably distinguish good
+from bad?
 
-Fixes: 446b3e14525b ("rxrpc: Move packet reception processing into I/O thread")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v7:
-  - Rebase the fix onto net/main at a7bfaba4823e.
-  - v6 Link: https://lore.kernel.org/all/cover.1789608557.git.zihanx@nebusec.ai/
-changes in v6:
-  - refresh the tunnel socket receive-buffer cap when
-    rxrpc_rx_window_size increases, without shrinking an existing
-    socket
-  - distinguish socket receive-buffer exhaustion from protocol memory
-    accounting failures in the drop reason and UDP statistics
-  - cap the window-derived value at sysctl_rmem_max and only grow an
-    existing sk_rcvbuf; avoid the unexported sysctl_rmem_default
-  - v5 Link: https://lore.kernel.org/all/cover.1789273347.git.zihanx@nebusec.ai/
-changes in v5:
-  - size the tunnel sk_rcvbuf to one advertised window of ordinary
-    DATA (RXRPC_JUMBO(1)), doubled for typical 2-4KiB skb truesize,
-    plus 25% for ACKs/ICMP, capped by sysctl_rmem_max
-  - leave ICMP/error-queue headroom in the DATA rmem check
-  - count UDP RCVBUFERRORS/INERRORS and drop with
-    SKB_DROP_REASON_SOCKET_RCVBUFF
-  - drop the dst instead of skb_dst_force(); keep skb->dev = NULL
-  - refresh the cover crash log from the latest unfixed net/main
-    run; record the panic as a sender-path OOM, not an I/O-thread
-    allocation
-  - note that sk_rcvbuf is sized at socket open and is not updated
-    if rxrpc_rx_window_size later changes
-  - v4 Link: https://lore.kernel.org/all/cover.1788878590.git.zihanx@nebusec.ai/
-changes in v4:
-  - serialise UDP rmem charge/uncharge with sk->sk_receive_queue.lock
-  - use spin_lock() in encap_rcv() (BH) and spin_lock_bh() around
-    skb_orphan() in the I/O thread
-  - do not enqueue encapsulated skbs on the UDP receive queue
-  - orphan only PACKET skbs charged in encap_rcv(); leave error-queue
-    skb ownership alone
-  - restore the unprivileged namespace reproducer and document the
-    AFS callback listener
-  - clarify in the cover that the recorded panic is a downstream OOM
-    after extra I/O-thread contention, not the unprivileged flood
-    alone
-  - include the full OOM Mem-Info in the cover crash log
-  - v3 Link: https://lore.kernel.org/all/cover.1788539302.git.zihanx@nebusec.ai/
-changes in v3:
-  - orphan the skb when the I/O thread dequeues it from the local
-    queue so UDP rmem ownership does not follow packets onto
-    call/conn queues
-  - mention both io_thread.c and local_object.c in the cover opening
-  - distinguish the unprivileged flood from extra steps used to
-    record the panic
-  - attribute the OOM to skbuff growth rather than incoming-call
-    setup
-  - describe the recorded panic as a downstream OOM after I/O-thread
-    contention, not as an allocation at the encap_rcv enqueue site
-  - v2 Link: https://lore.kernel.org/all/cover.1785339953.git.zihanx@nebusec.ai/
-changes in v2:
-  - switch the drop path from atomic_inc(&udp_sk->sk_drops) to
-    sk_drops_inc(udp_sk)
-  - retarget Fixes to 446b3e14525b, the first boundary where encap_rcv
-    queued the skb onto local->rx_queue for later I/O-thread consumption
-  - rebase onto current net/main
-  - refresh the cover crash log from an unfixed 7.3.0-rc1+ net/main run
-    and include the decoded stack
-  - explain in the cover why packetdrill was not used
-  - document the actual flood command in the cover
-  - v1 Link: https://lore.kernel.org/all/cover.1784742007.git.zihanx@nebusec.ai/
----
- net/rxrpc/ar-internal.h  |  1 +
- net/rxrpc/io_thread.c    | 77 ++++++++++++++++++++++++++++++++++++++--
- net/rxrpc/local_object.c | 24 +++++++++++--
- 3 files changed, 98 insertions(+), 4 deletions(-)
+I know that Lorenzo jumped in and gave some good suggestions already,
+but in case you still find yourself without any further options you
+could consider if bisection is feasible: start with manual bisection
+to identify the first bad kernel between v5.15 and v6.18 and then the
+first bad -rc. You could go to git bisect from here, but it may take
+several weeks depending on how long it takes to reproduce.
 
-diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
-index 865f05fe37ab9..b079ec98aaa74 100644
---- a/net/rxrpc/ar-internal.h
-+++ b/net/rxrpc/ar-internal.h
-@@ -1323,6 +1323,7 @@ void rxrpc_send_version_request(struct rxrpc_local *local,
-  * local_object.c
-  */
- void rxrpc_local_dont_fragment(const struct rxrpc_local *local, bool set);
-+void rxrpc_adjust_rcvbuf(struct sock *sk);
- struct rxrpc_local *rxrpc_lookup_local(struct net *, const struct sockaddr_rxrpc *);
- struct rxrpc_local *rxrpc_get_local(struct rxrpc_local *, enum rxrpc_local_trace);
- struct rxrpc_local *rxrpc_get_local_maybe(struct rxrpc_local *, enum rxrpc_local_trace);
-diff --git a/net/rxrpc/io_thread.c b/net/rxrpc/io_thread.c
-index dc5184a2fa9d1..fa6cfd603548b 100644
---- a/net/rxrpc/io_thread.c
-+++ b/net/rxrpc/io_thread.c
-@@ -7,12 +7,55 @@
- 
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
-+#include <net/udp.h>
-+
- #include "ar-internal.h"
- 
- static int rxrpc_input_packet_on_conn(struct rxrpc_connection *conn,
- 				      struct sockaddr_rxrpc *peer_srx,
- 				      struct sk_buff *skb);
- 
-+/*
-+ * Drop UDP rmem ownership for packets charged in encap_rcv().
-+ * sk_forward_alloc is serialised by sk_receive_queue.lock.
-+ */
-+static void rxrpc_skb_orphan_udp(struct sk_buff *skb)
-+{
-+	struct sock *sk = skb->sk;
-+
-+	if (!sk)
-+		return;
-+
-+	spin_lock_bh(&sk->sk_receive_queue.lock);
-+	skb_orphan(skb);
-+	spin_unlock_bh(&sk->sk_receive_queue.lock);
-+}
-+
-+static void rxrpc_encap_rcv_drop(struct sock *udp_sk, struct sk_buff *skb,
-+				 enum skb_drop_reason reason)
-+{
-+	struct net *net = sock_net(udp_sk);
-+
-+	sk_drops_inc(udp_sk);
-+#if IS_ENABLED(CONFIG_IPV6)
-+	if (skb->protocol == htons(ETH_P_IPV6)) {
-+		if (reason == SKB_DROP_REASON_SOCKET_RCVBUFF)
-+			__UDP6_INC_STATS(net, UDP_MIB_RCVBUFERRORS);
-+		else
-+			__UDP6_INC_STATS(net, UDP_MIB_MEMERRORS);
-+		__UDP6_INC_STATS(net, UDP_MIB_INERRORS);
-+	} else
-+#endif
-+	{
-+		if (reason == SKB_DROP_REASON_SOCKET_RCVBUFF)
-+			__UDP_INC_STATS(net, UDP_MIB_RCVBUFERRORS);
-+		else
-+			__UDP_INC_STATS(net, UDP_MIB_MEMERRORS);
-+		__UDP_INC_STATS(net, UDP_MIB_INERRORS);
-+	}
-+	sk_skb_reason_drop(udp_sk, skb, reason);
-+}
-+
- /*
-  * handle data received on the local endpoint
-  * - may be called in interrupt context
-@@ -28,6 +71,9 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
- 	struct sk_buff_head *rx_queue;
- 	struct rxrpc_local *local = rcu_dereference_sk_user_data(udp_sk);
- 	struct task_struct *io_thread;
-+	enum skb_drop_reason reason;
-+	unsigned int headroom;
-+	unsigned int rcvbuf;
- 
- 	if (unlikely(!local)) {
- 		kfree_skb(skb);
-@@ -41,8 +87,6 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
- 	if (skb->tstamp == 0)
- 		skb->tstamp = ktime_get_real();
- 
--	skb->mark = RXRPC_SKB_MARK_PACKET;
--	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
- 	rx_queue = &local->rx_queue;
- #ifdef CONFIG_AF_RXRPC_INJECT_RX_DELAY
- 	if (rxrpc_inject_rx_delay ||
-@@ -52,9 +96,35 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
- 	}
- #endif
- 
-+	headroom = SKB_TRUESIZE(RXRPC_JUMBO(1)) * 2;
-+	spin_lock(&udp_sk->sk_receive_queue.lock);
-+	rxrpc_adjust_rcvbuf(udp_sk);
-+	rcvbuf = READ_ONCE(udp_sk->sk_rcvbuf);
-+	if ((unsigned int)atomic_read(&udp_sk->sk_rmem_alloc) +
-+	    skb->truesize + headroom >= rcvbuf) {
-+		reason = SKB_DROP_REASON_SOCKET_RCVBUFF;
-+		goto drop;
-+	}
-+	if (!sk_rmem_schedule(udp_sk, skb, skb->truesize)) {
-+		reason = SKB_DROP_REASON_PROTO_MEM;
-+		goto drop;
-+	}
-+
-+	skb->dev = NULL;
-+	skb_set_owner_r(skb, udp_sk);
-+	spin_unlock(&udp_sk->sk_receive_queue.lock);
-+	skb_dst_drop(skb);
-+
-+	skb->mark = RXRPC_SKB_MARK_PACKET;
-+	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
- 	skb_queue_tail(rx_queue, skb);
- 	wake_up_process(io_thread);
- 	return 0;
-+
-+drop:
-+	spin_unlock(&udp_sk->sk_receive_queue.lock);
-+	rxrpc_encap_rcv_drop(udp_sk, skb, reason);
-+	return 0;
- }
- 
- /*
-@@ -471,6 +541,9 @@ int rxrpc_io_thread(void *data)
- 		/* Distribute packets and errors. */
- 		while ((skb = __skb_dequeue(&rx_queue))) {
- 			struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
-+
-+			if (skb->mark == RXRPC_SKB_MARK_PACKET)
-+				rxrpc_skb_orphan_udp(skb);
- 			switch (skb->mark) {
- 			case RXRPC_SKB_MARK_PACKET:
- 				skb->priority = 0;
-diff --git a/net/rxrpc/local_object.c b/net/rxrpc/local_object.c
-index 169f9dfdaa77f..f519a93059244 100644
---- a/net/rxrpc/local_object.c
-+++ b/net/rxrpc/local_object.c
-@@ -22,6 +22,19 @@
- 
- static void rxrpc_local_rcu(struct rcu_head *);
- 
-+void rxrpc_adjust_rcvbuf(struct sock *sk)
-+{
-+	u32 rcvbuf, old_rcvbuf;
-+
-+	rcvbuf = READ_ONCE(rxrpc_rx_window_size) *
-+		SKB_TRUESIZE(RXRPC_JUMBO(1)) * 2;
-+	rcvbuf += rcvbuf / 4;
-+	rcvbuf = min_t(u32, rcvbuf, READ_ONCE(sysctl_rmem_max));
-+	old_rcvbuf = READ_ONCE(sk->sk_rcvbuf);
-+	if (rcvbuf > old_rcvbuf)
-+		WRITE_ONCE(sk->sk_rcvbuf, rcvbuf);
-+}
-+
- /*
-  * Handle an ICMP/ICMP6 error turning up at the tunnel.  Push it through the
-  * usual mechanism so that it gets parsed and presented through the UDP
-@@ -198,6 +211,9 @@ static int rxrpc_open_socket(struct rxrpc_local *local, struct net *net)
- 
- 	/* set the socket up */
- 	usk = local->socket->sk;
-+	spin_lock_bh(&usk->sk_receive_queue.lock);
-+	rxrpc_adjust_rcvbuf(usk);
-+	spin_unlock_bh(&usk->sk_receive_queue.lock);
- 	usk->sk_error_report = rxrpc_error_report;
- 
- 	switch (srx->transport.family) {
-@@ -437,8 +453,8 @@ void rxrpc_destroy_local(struct rxrpc_local *local)
- 	if (socket) {
- 		local->socket = NULL;
- 		kernel_sock_shutdown(socket, SHUT_RDWR);
--		socket->sk->sk_user_data = NULL;
--		sock_release(socket);
-+		rcu_assign_sk_user_data(socket->sk, NULL);
-+		synchronize_rcu();
- 	}
- 
- 	/* At this point, there should be no more packets coming in to the
-@@ -448,6 +464,10 @@ void rxrpc_destroy_local(struct rxrpc_local *local)
- 	rxrpc_purge_queue(&local->rx_delay_queue);
- #endif
- 	rxrpc_purge_queue(&local->rx_queue);
-+
-+	if (socket)
-+		sock_release(socket);
-+
- 	rxrpc_purge_client_connections(local);
- 	page_frag_cache_drain(&local->tx_alloc);
- }
--- 
-2.43.0
+Another option is to try latest Linus tree to see if the issue is there.
+If it's not there then it might have been fixed, in this case you could
+bisect for the fix (if feasible, of course).
+
+> 
+> Since then I've spent a lot of time trying to reproduce it on a lab
+> cluster, and we were able to trigger some corruption after days of
+> migrating VMs back and forth. At first I suspected the Intel ice driver,
+> for which I found similar reports, but we saw new problems even after
+> backporting fixes (and also with Mellanox cards).
+> 
+> So far we've hit three different kinds of problems, which may or may
+> not be related:
+> 
+> - .so library corruption right after VM migration
+> - VM crashes (or process crashes inside VMs), possibly related to
+>    migration (those always happened during migration)
+> - host crashes due to kernel structure corruption (these happened
+>    without any VM migration)
+> 
+> We first hit these problems with 6.18.31; the last crash I saw was
+> with 6.18.44.
+> 
+> All affected machines use AMD EPYC CPUs and act as KVM hosts; the OS
+> is AlmaLinux 9.
+> 
+> I suspect two subsystems that have seen a lot of changes:
+> 
+> - transparent hugepages
+> - NUMA balancing
+> 
+> (but those are just my guesses)
+> 
+> As a safety measure, we've disabled THP and NUMA balancing on all hosts.
+> 
+> I'm aware this is still a very vague report with a lot of guessing,
+> but my question is: has anybody hit similar problems with 6.18 or
+> newer kernels?
+> 
+> I see a lot of patches in every stable release, but simply trying
+> newer kernels doesn't seem efficient here. Deploying them is also
+> risky, since the hosts have to be emptied by migrating VMs off them
+> before reboot, and that migration itself may trigger more crashes.
+> None of the released or queued fixes for 6.18 seem to be directly
+> related.
+> 
+> I tried running my migration tests on hosts with KASAN enabled, and
+> also with SLUB debugging, but was never able to reproduce the problem
+> with those enabled (without them, I was able to hit issues within
+> days).
+> 
+> I'll start another round of migration tests in the lab, now with
+> 6.18.54-rc1, but I still thought it would be good to report this and
+> ask here.
+> 
+> last but not least, here's kdump from last crash (this was not related
+> to any VM migration, but is very similar to another few crashes
+> we got):
+> 
+> [1924553.414736] Oops: general protection fault, probably for non-canonical address 0xfffffff0c930038: 0000 [#1] SMP NOPTI
+> [1924553.434800] CPU: 23 UID: 189 PID: 7538 Comm: pacemaker-contr Kdump: loaded Tainted: G            E       6.18.44lb9.01 #1 PREEMPT(voluntary)
+> [1924553.456934] Tainted: [E]=UNSIGNED_MODULE
+> [1924553.465551] Hardware name: ASUSTeK COMPUTER INC. RS720A-E12-RS12/K14PP-D24 Series, BIOS 2305 11/21/2025
+> [1924553.484152] RIP: 0010:__d_lookup+0x4a/0xc0
+> [1924553.492878] Code: ff 48 89 c5 c1 e8 07 48 8d 1c c2 e8 60 8f d1 ff 48 8b 03 48 89 c3 48 83 e3 fe 48 83 f8 01 77 0a eb 2f 48 8b 1b 48 85 db 74 27 <39> 6b 18 75 f3 4c 8d 63 78 4c 89 e7 e8
+> d5 e1 7c 00 4c 39 6b 10 74
+> [1924553.525191] RSP: 0018:ff7532a13699fda0 EFLAGS: 00010212
+> [1924553.534986] RAX: 0fffffff0c930020 RBX: 0fffffff0c930020 RCX: 0000000000000000
+> [1924553.546679] RDX: ff2e6dbe0d9b6000 RSI: ff7532a13699fe60 RDI: ff2e6d1e4e630d80
+> [1924553.558367] RBP: 000000000b654440 R08: 0000000000002403 R09: 0000000000000179
+> [1924553.570026] R10: 000000000000000d R11: 0000000000000000 R12: 0000000001876e5c
+> [1924553.581601] R13: ff2e6d1e4e630d80 R14: ff7532a13699fe60 R15: 0000000000000000
+> [1924553.593115] FS:  00007ff8743aaa80(0000) GS:ff2e6e5e94c45000(0000) knlGS:0000000000000000
+> [1924553.605576] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [1924553.615611] CR2: 00007ffcd63a5000 CR3: 00000003ee840001 CR4: 0000000000771ef0
+> [1924553.627022] PKRU: 55555554
+> [1924553.633869] Call Trace:
+> [1924553.640353]  <TASK>
+> [1924553.646369]  d_lookup+0x27/0x50
+> [1924553.653366]  lookup_dcache+0x1f/0x80
+> [1924553.660713]  lookup_one_qstr_excl+0x1e/0xe0
+> [1924553.668589]  ? preempt_schedule_common+0x2c/0x70
+> [1924553.676837]  filename_create+0xc4/0x160
+> [1924553.684209]  do_mkdirat+0x5a/0x190
+> [1924553.691050]  __x64_sys_mkdir+0x42/0x60
+> [1924553.698163]  do_syscall_64+0x64/0xbf0
+> [1924553.705145]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [1924553.713533] RIP: 0033:0x7ff8754ff08b
+> [1924553.720358] Code: 8b 05 91 bd 0f 00 41 bc ff ff ff ff 64 c7 00 16 00 00 00 e9 4f ff ff ff e8 12 f7 01 00 66 90 f3 0f 1e fa b8 53 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5d
+> bd 0f 00 f7 d8 64 89 01 48
+> [1924553.748552] RSP: 002b:00007ffc05e5c148 EFLAGS: 00000246 ORIG_RAX: 0000000000000053
+> [1924553.759401] RAX: ffffffffffffffda RBX: 00005623cc0bd513 RCX: 00007ff8754ff08b
+> [1924553.769760] RDX: 000000000fde421b RSI: 00000000000001c0 RDI: 00005623cc0bd4f4
+> [1924553.780083] RBP: f49998db0aa753ff R08: 0000000000000004 R09: 0000000000000001
+> [1924553.790348] R10: 00007ff87587d000 R11: 0000000000000246 R12: 8421084210842109
+> [1924553.800604] R13: 00005623cc0bd513 R14: 00007ff8755bd740 R15: 000000000fde421b
+> [1924553.810819]  </TASK>
+> 
+> I'll be very very gratefull for any hints here..
+> 
+> with best regards
+> 
+> nikola ciprich
+> 
+> PS: I tried to CC maintainers of suspected subsystems, but those are just my guesses,
+> so I hope I won't offend anyone.
 
