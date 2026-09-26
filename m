@@ -1,89 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA9838B14C;
-	Sat, 26 Sep 2026 04:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A932264DB
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:29:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790396944; cv=none; b=Nx2OO5y1XHZ61FK0zpvJKl2YJVj8/SW2Dgcuhfc39V42zVEBMUSCoP6mkDyN7uT16dAAUQZDasI9SnN+zECewfnGcVyv+0G9mcklKeQjegUlNGu4qvPTfHGXe+KPMRWG0lUFaG3HRNwFQHOLw3mw8INm9lXFCm+pGhNVbBDG8f0=
+	t=1790396963; cv=none; b=rElzoBmijo4BsTfSU7LXiM9yyKsjtElOJKUQA0nLobsILpAUsil0eX4OxmovimXOg/h4KQSN+boaeM/dhg0H7jpYOxGGCgGxm7aSbeSAiVyN9DQqeVZ/4hP40irprHADYuONKgU4IsXdvMBTs3dnvHSuJQni5IzdSwhfIdCzzAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790396944; c=relaxed/simple;
-	bh=Z6ZT0vivWlsZQh8HPvLF2XG/EsfP/dtECkx3LFbT5gE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l/t+XqU+4cgLBpBdQuxxktRd991fWMFtuv3Ck4yrGJt/wxyGjFNBnUcVFIog2WhyowszCq67+5lMQD0cFcTrbL+srTZhvlbjNsx+0FQ3o4Xk99qrVsrPfKxWz7cBMWumchOJXbZsevsGTP6WJLobIqrerLrKQRg6/ZLV9HbjHfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TKhnyb6h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790396963; c=relaxed/simple;
+	bh=AmjAixs8IBLCEzpahClBNbu2H+CLMuGIdnJO6gvSlkU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jj8E5d2xhb2CiuQcPcOVxtc3EHGKVu1WJBWa6b4Qf/fooXlylK1oE2xaJ+ohp+UaxNpJoZjV//Xwd/ZKmfZgcC1PZDD+QOi2Lsp314or+cGu6Nu6ezVJRtMQnlmCxuiZrbon5oPNR1Zc/AotmasytgE6yGbTfmTSz8S7TLen5tY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BsQISLs1; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TKhnyb6h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB011F000FF;
-	Sat, 26 Sep 2026 04:28:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790396942;
-	bh=boCS0SjFdnwWnbkE5+zTwiuOZv4ydq9+oFzVHWADI/0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TKhnyb6h2ZXJuRPB7K6KSjYmrAU0t8F8802JIMaGkYXTN1UnVX95iG270wGedFOFB
-	 OjD6OxumDMzEvCVgTvyZ26ktX2/yqIwilYPSa+gJdFsTRSNX5qefzMlMSCnDsx4Vrr
-	 +uAhHNZWotyyYVSqsUYxMAIwzgmT58tKMTOIckzCBnOXX67mC61AMhNGAz3EYFtuh8
-	 HUWHcMfdFv/MK7sxsB3NmrKeLBbrR2rhwGXD/dfjb6hQmTLr3z0gRdUleI6HYDsorL
-	 ypNAdQuwwpqGRNMTC8FgiHLUoqQtzyZXcq6IKLegWdzWoNET0/1BbYubCck+P3poZS
-	 YSpwL+UzM0iUg==
-Date: Sat, 26 Sep 2026 06:28:42 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andy Yan <andy.yan@rock-chips.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Yubing Zhang <yubing.zhang@rock-chips.com>, 
-	Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v15 16/16] phy: rockchip: usbdp: Register DP aux bridge
-Message-ID: <ti26a3uyhfftlkhojhv56gxi3wzfeo7wj6a6rbm5eyqwgrxyxm@snn2psfln6d2>
-References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
- <20260915-rockchip-usbdp-cleanup-v15-16-80e2c11d1ce8@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BsQISLs1"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-340fbf9c1c6so895802eec.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:29:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790396961; x=1791001761; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VHcmLp5DVfoHotMAHwEml13kkU5IiEY0fdjQX09eX9g=;
+        b=BsQISLs1NWvOJQ3t8kBVUQCsP2kLm4re+DRcusyZ//Bu3+lVQW10dSbleaGYw8ZbbD
+         R6BAUQBEZviiwIv/+f5QaJW1HMAg8B2q9LiQcXB8LIAwrZKRew/+HGV8Pu7Yo8CA6ns2
+         TCCn51TMW6CDA1KEly2Lwja6udA9v0ebzItm9dvMwDYzzD5MCMxWA1vI/4KcJUkB5wCG
+         yVJkblk4qOM2tGKPLvj1YIL7CYryCXswyaMtLFE54cFyqoidPEBtzJRZP1CohbVfSI1z
+         9y7/J3YNv0U+yD885hwotywITRAFrs9Cs46+Yk183KRub1wuB6WVnOBLJikLBXD753or
+         dPVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790396961; x=1791001761;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VHcmLp5DVfoHotMAHwEml13kkU5IiEY0fdjQX09eX9g=;
+        b=rcAN/vcOEX2S1CAZ+ltwO7ZOu42b3xdu2fDVlFLebEjg+GLL6qreiXGfcvdCMDKuJC
+         1LGqYs57B+EcUPqHAP1hW/9i+DunCkrhEknmLhxkYCeEZOv6u58HPDGhpxA6OM1wKm7d
+         RDIOCQuUFU8D1UnLf1SXfKIt9anX9sFb/iHXxelQDlkUL0IIwjwIlXTArB8tmsR0nP6T
+         KlysrDTHRy89YWOJRFC0SLoI94pRKl0LH4F/Whm82WjEyFfK0/YiJ7EehKobe3UAB7V3
+         jRn+Ij+Wv4vGFPTTfWM8yK1JhPzx5FEOdOMGu6IQ1DbWuWtpvGoHNae75BZUuepdb8mH
+         CmyA==
+X-Forwarded-Encrypted: i=1; AKwUvBz7dyDw/9wfXojAzSJCDlz/sSdQkFW5P6uCdupH0QMXQqMuJ/5h5CmTYhkogMUNR/aOgI8zmtyGkF+SY2c=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2YTO+Js9sgOzcS3nPG422jO42V1NH/CcfcLQy6VdsYeOgKat4
+	YTaaSo6DNPYeIWk1QgejK8c5WR+OZwj/gwK1LCZwjdNKxOtedKlLceWR0dVAg4anRfnLZZPe
+X-Gm-Gg: AYBFou0KkeeMl11oasQ6PTLU/yAjmwGObhmZs+XqMZ9e1uyokMAHZP2zvcAVIJa/0Ou
+	m3XqOCodFjIIEg0NEuT62A27OpkD+xzolx/uhvG1mEWHh6dD7d5XtqrRYAS9hDVDJqoAkRZ6xWS
+	w/FB1n+FywPshFe/4O2qDhSUT4sf4VX401wb4K2WGEYMJumVeQIrJQOdYKXc/tIcoRPyV0rLtDh
+	yIIkvTZmbmLUHlE+nggw1JN0V+P1ECEi+SU5h8rGHpcZHctJ2LANTVx/rbvO4pMOKak/OXGd8OQ
+	Vi3Ct0/bLpw28m1tQX73Xxa3HYsHXqaX/wbp7NR5gVEdf8X6GZagETojg5HGHpSdQmoa7yhCKQP
+	FUJYaXWQmnliYjU/YlvFbiF+L5BbVXIjnGl9xZPczXa/yTKruWjXK2+rSOovtYcXnEMe6d3Uggr
+	zsvxvcIqa6/qe1AqPuPEi/XVKkFUj/M17BQtIN7dSjID9i0I+dtDQu1uSGjTh31L8gYfnkYS7Fs
+	siyYEnCqgml7hEttA+dpCwvsCFdshr4/X6C+cKU/s7q2comrX2QmhZvvxAewCcOM5uMwhkT70q7
+	Rw5BCEm9j21xCIIOSkh7Sy7eEXZz3pYzTEzAnnrqkkfrlOY50JBm5bbX4/w=
+X-Received: by 2002:a05:7300:26a0:b0:334:8fb7:1e55 with SMTP id 5a478bee46e88-342708b50dbmr1593391eec.17.1790396960614;
+        Fri, 25 Sep 2026 21:29:20 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3421dbb2971sm6342963eec.10.2026.09.25.21.29.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 21:29:20 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/4] isofs: bound the name conversion and return long Joliet names whole
+Date: Sat, 26 Sep 2026 12:29:12 +0800
+Message-ID: <20260926042916.3277409-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-16-80e2c11d1ce8@collabora.com>
 
-On Tue, Sep 15, 2026 at 03:50:03PM +0200, Sebastian Reichel wrote:
-> Add support to use USB-C connectors with the DP altmode helper code on
-> devicetree based platforms. To get this working there must be a DRM
-> bridge chain from the DisplayPort controller to the USB-C connector.
-> E.g. on Rockchip RK3576:
-> 
-> root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-> bridge[0]: dw_dp_bridge_funcs
->         refcount: 7
->         type: [10] DP
->         OF: /soc/dp@27e40000:rockchip,rk3576-dp
->         ops: [0x47] detect edid hpd
-> bridge[1]: drm_aux_bridge_funcs
->         refcount: 4
->         type: [0] Unknown
->         OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
->         ops: [0x0]
-> bridge[2]: drm_aux_hpd_bridge_funcs
->         refcount: 5
->         type: [10] DP
->         OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
->         ops: [0x4] hpd
-> 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Honza, this reworks v1 along the lines of your review, on top of your
+for_next: both converters take the buffer size, the callers pass it, and
+the buffer shrinks to what they need, without size asserts.  But on long
+Joliet names it deliberately goes the other way: 1/4 returns them whole
+instead of cutting them at NAME_MAX, and 2/4 reports the longer limit in
+statfs.  1/4 also corrects the v1 history of the PAGE_SIZE bound.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+1/4 is also a fix.  get_joliet_filename() keeps the converted length in
+an unsigned char, so a Joliet name longer than 255 bytes of UTF-8 wraps
+and is listed under a garbled short name that cannot be looked up.
+PowerISO and UltraISO write such names by default (up to 110 UTF-16
+units, 330 bytes for CJK).
 
-- Mani
+Such names are rare: in the Joliet trees of a few thousand archive.org
+images, mostly CJK, Thai or Indic, none is longer than 255 bytes.  The
+images I wrote with PowerISO and UltraISO (under wine), a crafted image
+with 111-unit names, and the survey scripts are at
 
+  https://github.com/matthiasgoergens/linux/tree/isofs-joliet-long-names
+
+(or I can post them here).
+
+Why whole: as with empty directory blocks [1], I'd follow Windows.
+Joliet is Microsoft's extension, discs with such names are made with
+Windows tools for people who read them on Windows, and Windows returns
+the names whole, including 111-unit names in records that leave out the
+padding byte.  Scripts and CI logs:
+
+  https://github.com/matthiasgoergens/isofs-windows-probe
+
+On Linux, vfat and exfat already return names of up to 765 bytes and
+report a limit of 1530 in statfs, vfat since f68e542f3478 ("fat: Fix
+statfs->f_namelen"), and the VFS itself only limits a name to PATH_MAX
+(verify_dirent_name()).  So what breaks is what breaks with vfat today:
+copying such a file to ext4 or tmpfs fails with ENAMETOOLONG, which cp,
+tar and rsync report before carrying on; readdir_r() and inotify readers
+sized by the man page fail; and fanotify reports the event without the
+name and hits the WARN_ON_ONCE() in fanotify_info_copy_name(), for which
+I have sent a fix [2].  1/4 has the full list.  Cutting at NAME_MAX
+avoids all of this, but lists names that Windows does not show and that
+can collide within a directory.
+
+If you still prefer NAME_MAX, I have that version ready and tested the
+same way: there 1/4 cuts long names at NAME_MAX on a character boundary,
+2/4 is dropped, and 4/4 shrinks the buffer to NAME_MAX + 1.
+
+Testing: a KASAN and UBSAN kernel under qemu, 19 images mounted with no
+iocharset, utf8, iso8859-1, cp932 and euc-jp, each with and without
+norock.  Only the four images with names over 255 bytes change, and only
+with no iocharset or utf8: their long names are now listed whole and
+open.  Everything else lists, looks up and reads as before.  Under a
+Debian userspace, ls, find, cp, tar, rsync, Python, readdir_r(), inotify
+and fanotify behave on the long-name images, including a crafted one
+with 111-unit names, as they do on a vfat with 765-byte names.  This
+replaces v1 2/2's claim, whose test never ran the Joliet or zisofs code.
+
+v1: https://lore.kernel.org/all/20260922155524.1993425-1-matthias.goergens@gmail.com/
+[1] https://lore.kernel.org/all/cmlro2xzle2aa7ebflvxhbcv74mea7p6qvxhin6egpdvyzyuxh@s45tpgxdal3n/
+[2] https://lore.kernel.org/all/20260926020851.2938961-1-matthias.goergens@gmail.com/
+
+Matthias Goergens (4):
+  isofs: return long Joliet names whole
+  isofs: report the Joliet name length in statfs
+  isofs: pass the name buffer size to get_rock_ridge_filename()
+  isofs: shrink the name conversion buffer
+
+ fs/isofs/dir.c    |  9 ++++++---
+ fs/isofs/inode.c  |  3 ++-
+ fs/isofs/isofs.h  | 14 ++++++++++++--
+ fs/isofs/joliet.c | 27 ++++++++++++++++++++-------
+ fs/isofs/namei.c  |  8 +++++---
+ fs/isofs/rock.c   |  8 ++++++--
+ 6 files changed, 51 insertions(+), 18 deletions(-)
+
+
+base-commit: c8437ca3d4386af1ae1f2869643e82fdb9c1f0f5
 -- 
-மணிவண்ணன் சதாசிவம்
+2.55.0
+
