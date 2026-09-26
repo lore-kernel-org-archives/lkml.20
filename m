@@ -1,141 +1,65 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFD51B3B19
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57632348477;
+	Sat, 26 Sep 2026 06:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790403199; cv=none; b=eMoY3QS/Q8z0LXtugSmA3rE70XJwR9Xiskfjnyn71KHJcqeoY93atL3zPCEDGxe3lh1CLd2V/RN/VDC6dq6SFpJcVrA3W0RGmdyUAWwbMkaFKMquw0MlN6c/cJHDWC5yY/EN1g1ht3EhBIC8gqDKNPIPP3LxTJd7+vnGXJdS7kc=
+	t=1790403257; cv=none; b=dquhOoQO6m8nrrJnwA6mcJCD5aunOqTr/Oa69vhPkSB9MZpEIOnD4Yc9oK3qM3FGswEwk2UA1G2MijAp815kKXwF4ru/Z/6toBqq2/u/hxsKGCgfgWL+XzgAmBcvJoVI5/0TiN2EqLAkMZoCppQ0JUjeEzF8TL/HP49MWB2CeII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790403199; c=relaxed/simple;
-	bh=JhcNgD5ym0n7rwQt8AOhW6hhqsqms6onYIIkuwgKgBQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n7N9Zq87EdIS1scqnkSgUPOOnidxoI1Jhwz8Tkxlv9vpzFuoDZ/tddo8DAEOe0LWTVVejwVqaiBPethxTFHpg80DDqstRiJbLQ7heoyXzdstjMlNw71BfN1AFib1dvGLxRvTVy6B3c2kZeUmm3CFvVPcUQota9nC/9wncBd5MX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=c0GRycFa; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790403257; c=relaxed/simple;
+	bh=UV6gRnr64yIOTFn3lSM9h1eMiEmacj0yx4FMR+VLWHo=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=gQUNelbzBzBZ3v2i71NOU5gMpHVCZWMMSuTBiHlDDdfcstJ9Kf13AMAquLHJOuf0RKjFqziiWIhE1ys1qj+Pvl6W/23ffmUK3r0kDWTP797pQ1+DnFfwy2vjEc9NrgpYoE8guRW9s8S+oaQ8drmjYpu6f7LksASqzTJ4erp77Wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=R4SsfPN+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="c0GRycFa"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so7818955e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:13:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="R4SsfPN+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8248D1F000FF;
+	Sat, 26 Sep 2026 06:14:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790403196; x=1791007996; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=n+km6I0NWRugPNV0kiVWI6nk70n82CkGaUZAPuixyOY=;
-        b=c0GRycFa3eglYxxl2TfiX9HAjmix0YX5ADYM2UGNIN/yiNhj6cO55TSRLUiz5o4lAx
-         uRZttNMsOg7dfoIGEUUQUgK/em5JwdtFAnfOrJ4PtqPJNd+/1FGtiOUcVJDjHLiUYmo5
-         QwgaGR2D0nnT/z/C9vobkhhXsD/vfKc3aKGg8tDb+K7dHwwedRGLcitbkp+DZS0tow/u
-         xbM643tCjRvhySTYPsPg5rVmaakY6ZHgXe+m5CuWE8iFBD1neB/X0XLofBg328v98j2D
-         bZ4p2isFCfP9a7vsqlruc4VCjgG4jNxWbXlFGgp/83eIyDdOaouUk/qHrCojrmdqQx3O
-         Zdzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790403196; x=1791007996;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n+km6I0NWRugPNV0kiVWI6nk70n82CkGaUZAPuixyOY=;
-        b=N2XJsrAvw2jCzoNVF7qfHDIW8bTP9gXSf2iGEiH1B0Q+0sP7xiZcN+cVXt3cbW/NZJ
-         ONcoE1rDgbFsGVIARkoHBUlt/kxDDQpgAgk/bsd8olHXeUfRHpMaG/XUbtXCzT3WqHfa
-         9Nj8vZUSuCVxAafOn3qdufpTCekA/OUZ9UxUXaAt27gw5/Lj1QcKSkLKKgVXRAT+drlB
-         ZY36GYtq72+C7uICPL8OKcB/qUfCKExxfHv423rp4efwSKQE18PedMw75IAYgJK0n483
-         pu1wDBcq+V13hTiYeY+Saqe9NZt8oTK78i/erOPLwgL5Po791aSCMtW6EljGe3dvCi76
-         +zRg==
-X-Forwarded-Encrypted: i=1; AKwUvBywP9tG0n0PHmmWrzCoeFeWNT2pARDGFvzjr2mOZzMB7V/nSzQLY/+TpLWT+Ega8hYOgJC3sknj9O5DCx0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWLv7xAz7EQUzjNPLTYjUX9WrHAw6Br/ypUKj6ai1SBb2HLQM1
-	RG0x0dF3oFfVp1Vc4nsLI52VCZ38mXos283NZ4ZJ5rMjvzhO0RVaLMbNVAxvrFWZqRQ=
-X-Gm-Gg: AYBFou2duusxMbjGrgTRPZSnMr/tkJeTbH3vwaO0A8K8zfNQXDrCy/N0NumjLQ7zf8v
-	587maf1qhs9xqq7Ph+fDHT2dc6U/Ru6ECDjFBuxMXE7NsuW/bihk0f7VpWZUviLY/bx6C7K6UZQ
-	LG7l51g1pkPRoJPBx+w2gSH3tUDGDFheDyyXK8W20/brmCa5QpiWArZ13T0Lc4+OGOP4sZq0qtG
-	8it11XnzWDvbpbZxoBz/KHj4wI7i2vhBqZd8Tmg1hM8LaCkvU744oYlIZfxhM1eK9HmzfwFpwu7
-	FirxzU0AZXh4qT4/4/w388Ch5jSdAnH08RYY3UY6lPtmcFQ9HwH4RiFw6MM15X1Jr3jCqJnm8X6
-	tAQf4c9I0ZkGLgO+F8Vcbd8ZpHWLp1iCjeSlK0ipa753wSWnNqwDbVnWbq+S7bvj3Po7xH1fxa6
-	zCJSMZONYtVaGzG2ZCaXgXUO230XxRQR0PrmlPqXze2KeqPXJ/ajvC3pKw9QFaIuI9oX13LerK6
-	ISs
-X-Received: by 2002:a05:600c:698e:b0:49c:fc6e:a3dc with SMTP id 5b1f17b1804b1-49fe66f1491mr142775025e9.27.1790403196073;
-        Fri, 25 Sep 2026 23:13:16 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49ff06b6108sm129009385e9.8.2026.09.25.23.13.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 23:13:15 -0700 (PDT)
-Date: Sat, 26 Sep 2026 08:13:13 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Jiale Yao <yaojiale02@163.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rodrigo Alencar <rodrigo.alencar@analog.com>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Anshul Dalal <anshulusr@gmail.com>, 
-	Antoniu Miclaus <antoniu.miclaus@analog.com>, Herve Codina <herve.codina@bootlin.com>, 
-	Shi Hao <i.shihao.999@gmail.com>, Linus Walleij <linusw@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Angel Iglesias <ang.iglesiasg@gmail.com>, linux@analog.com, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] iio: validate SPI match data before use
-Message-ID: <ardhvKaSdYh2HiS6@monoceros>
-References: <20260925131738.2200612-1-yaojiale02@163.com>
- <20260926021143.478d5361@jic23-hlaptop>
+	d=linux-foundation.org; s=korg; t=1790403255;
+	bh=NLKST/A5bmY6pU1AodPlaWRwJ8bQxj7G+3mVIWdaYDE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=R4SsfPN+BOCGJIw/tZn3wJe12obiZIpQBmdLhQNBcmKZIyyLSPdvsEcTxQpQBzb/N
+	 gD5sIxbPDK5gSOwncscqDKnj0sfN07vd5/tswOkbmjlnWgV+IgCFXuO7XWANCfwQQt
+	 pcaIbBxb2UQ+EfF8wohK5HjLftIlIiXSUy1o1SrQ=
+Date: Fri, 25 Sep 2026 23:14:15 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Meijing Zhao <zhaomeijing100@gmail.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, Meijing Zhao
+ <zhaomeijing@lixiang.com>, Steven Rostedt <rostedt@goodmis.org>, Masami
+ Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Wandun Chen <chenwandun@lixiang.com>,
+ linux-mm@kvack.org, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] mm: trace: decode architecture-specific VMA
+ flags
+Message-Id: <20260925231415.3d97401fe7746d82c6182060@linux-foundation.org>
+In-Reply-To: <cover.1788330432.git.zhaomeijing@lixiang.com>
+References: <cover.1788330432.git.zhaomeijing@lixiang.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qj3qlzf53fecmdod"
-Content-Disposition: inline
-In-Reply-To: <20260926021143.478d5361@jic23-hlaptop>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Wed,  2 Sep 2026 14:45:07 +0800 Meijing Zhao <zhaomeijing100@gmail.com> wrote:
 
---qj3qlzf53fecmdod
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/7] iio: validate SPI match data before use
-MIME-Version: 1.0
+> show_vma_flags(), which is used by VMA tracepoints and %pGv, names
+> generic VM_* bits but does not fully decode architecture-specific flag
+> positions.  As a result, trace output and VMA dumps can show a generic
+> "arch_1" name or a raw hexadecimal value instead of the meaning assigned
+> by the target architecture.
+> 
+> This series adds symbolic names for the arm64 and sparc64 meanings of
+> VM_ARCH_1, arm64 MTE flags, user shadow stack flags, and protection-key
+> encoding bits under their corresponding configuration guards.
 
-Hello Jonathan,
+We're presently not showing any review of this series, if someone is up
+for it.
 
-On Sat, Sep 26, 2026 at 02:11:43AM +0100, Jonathan Cameron wrote:
-> On Fri, 25 Sep 2026 21:17:29 +0800
-> Jiale Yao <yaojiale02@163.com> wrote:
->=20
-> > SPI driver_override can bind a device without a matching entry in the
-> > driver's ID tables.  spi_get_device_match_data() then returns NULL.
-> >=20
-> > These seven IIO drivers use that result without checking it, causing a
-> > NULL pointer dereference during probe.  Add the missing checks before
-> > the match data is used.
->=20
-> I was hoping we'd close this finally by adding a flag to the
-> drivers to say they should fail a match if driver_override is set.
-> Given I thought maybe that would happen when Andy looked into this
-> a while back I've been sitting on this problem for a while.
->=20
->=20
-> Unfortunately seems we have to carry on papering over it in the
-> drivers for now :(
-
-Note there is another effort:
-https://lore.kernel.org/lkml/20260922-driver-override-opt-out-v1-0-58c35ded=
-3b83@nvidia.com/
-
-Best regards
-Uwe
-
---qj3qlzf53fecmdod
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmq3YnYACgkQj4D7WH0S
-/k5G3wf+ISl+49DMFXf4GNQEB2v8tA68jc5xy+T5JzNOcNEajtXS1J/YhuorbySX
-ienyxR20KZdHnn2ax1uAP+2IjdhZbLyoRFxHUw+p+EJ5gEJNm4I0vQaMTr/IhF79
-Mkkc9TIyswqCMGbg3fUHtDOGWQTjUwlpRRZwKcdLvUgGL3A+ZAZXj36SlPhQn/cA
-DUo1TDIplGtu+FuHgPOXHd9TcmMbIsqz7Dw0UitCJPIMQl1NJRhracEWxaX3Ro4f
-/8sncXjnm7obW25uWPW2JvMqcZr8Kp6bUWsp3lj6gapfnyXXb97Htcoag4i+beMY
-kVyfupYJzav/YzrpCYV1FqnYd18jlQ==
-=VFj7
------END PGP SIGNATURE-----
-
---qj3qlzf53fecmdod--
+Thanks.
