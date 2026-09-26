@@ -1,89 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85037415F36;
-	Sat, 26 Sep 2026 11:26:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A3340F750;
+	Sat, 26 Sep 2026 11:26:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790421995; cv=none; b=kabnDMHzik/nyL92CTxEjwftKJdGbs3ww4yB5A1htf0z9TcWoNRTbdPnoJNSvw3s9Zso6Y+XpubeYVd8SlhkptMnEyFV/Q9gjd+JcmsmPwMZu/MsrFJco3EoX4NcjoIZQntE5ohnB7xW3IqX2mjhVD65TXMDspQKcJUyIuXM5rY=
+	t=1790422017; cv=none; b=nSH+VMCqZ3gXtMOF3kRWL7hwI8ikuBg4MQEl85CrY1MAQLdCRcVK6x3Aif4yx6pgZj+QxMQYn5/KzIw8D1JcUH1GR+xjbl5nVgJ9BhZ9IvupxQDARlIHZzVSrAsJdERhCgPHgq4B7ag5QOsF51Yza7KxiJ6ogi+kE98hLrJZAxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790421995; c=relaxed/simple;
-	bh=K1wCaMjlEn6zyMupTboGDcgRhJtcCweyxOXDWcswh4I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n4tAFaxOkyYx800rAEHYXeE7hm2dmcuJEOulULiEbYxV30+2gdiQiEEOPo7XErftpIVG3WFSOHwRhPBG8Bef3/jJpGoUlphGaZGxHU205t7xI2XMOHLtT9ctWBvxj3+dVEY8/7Avf75fjAPAgtbPHzO5pUtFtuDQlslXDvyqNMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zct4zqp/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790422017; c=relaxed/simple;
+	bh=AKNYMBCBNHg5CT75u4KYgsvAeMcJmlsYCtiIVUjfecg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HLf19DkLTV3Luklk4yjHDvaa/yB7gchomo/sYJmFQ614rtrOUbGtysc7CMrx0k6Ze40yrNNmJEUdO1VXt6e9JKcbJH4KKTOjFw8BUnnzDW/0W7KRVQqOW7PR4zLDJkmsh8TWCrzXKiJE4raqIY3v82zQpU35H7HNuCEUEHngpt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dvgL982u; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zct4zqp/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB5401F000FF;
-	Sat, 26 Sep 2026 11:26:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790421992;
-	bh=980fQ7kBt/d28PmP02rMg1BM1AiePRSmXEpKUdzVp58=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zct4zqp/0nNtWaPw65lJRYrurG6N/lGgQe8BLCLJIsOPzTXVfv6+18IRtm8pxvSbY
-	 f+b8sZFHvS3NR+sRgpNcLiGW+JTfd3eVgbPjFsIqMyIVcgu2QOIw7cYKboQbFF1Lp1
-	 5gSwbTIsdazCI70wikaMrYQk5AIpbgzyBq/CFsN9MUwTreBQf9jhBM4VXw0sGpVmdQ
-	 9WbDrrLleDHsRw5YGqrQJeGIkhwhLCymBUN3aWvL+PY3YR7EgieblL3QCGxQLXTOx+
-	 FVAozkUXm97+PjUBoUQ7ncaY9ZJIWt+90HZE8D+mElkd4FNCNnpouB77v3hREzfbrM
-	 wFnUEnn29RJTQ==
-Date: Sat, 26 Sep 2026 13:26:15 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Slark Xiao <slark_xiao@163.com>, jeff.hugo@oss.qualcomm.com, 
-	mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] bus: mhi: host: pci_generic: Add autosuspend_delay
- customized support
-Message-ID: <nsaa4cchprkgqka7uc4ccr5wq7v6uhue5dpsvquwxyk4ndr57t@i56bkvwpclpo>
-References: <20260919095506.9570-1-slark_xiao@163.com>
- <bf94f351-777d-4dc0-98a2-7af77f832f2b@oss.qualcomm.com>
- <1bec2fd7.99f3.1a0c8ea4db6.Coremail.slark_xiao@163.com>
- <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dvgL982u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Lr
+	dOerfazzeY+R2sJdlV/wqyAsV0SoA0l4FrqC0va9E=; b=dvgL982uLp/yVOvYdb
+	wHEc5m+poMw26PaOIm6RztNYqOi+NFSnS/wx3kaSeGMCJLJ2LFBMinkABWL4QRqa
+	DtwGw8VE4zv0xLXvYI6IJ84qmDTxlUnaQKR6eHsNAmOSRAl41DRU/3pnx9Fr7xqf
+	pCleKvqM3stc0d3z3iYclL+pk=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3H_vVq7dqbTy_Aw--.52876S2;
+	Sat, 26 Sep 2026 19:26:14 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Potnuri Bharat Teja <bharat@chelsio.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Steve Wise <larrystevenwise@gmail.com>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] RDMA/cxgb4: Do not allow userspace to write the status page
+Date: Sat, 26 Sep 2026 19:26:11 +0800
+Message-Id: <20260926112611.3214382-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
+X-CM-TRANSID:_____wD3H_vVq7dqbTy_Aw--.52876S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJrW7uF1rKr4fWw18ZF4fZrb_yoW8XFykpF
+	Z3GF929rWUJF48uw1ktayIvryFgrykta4qka4Dt3s5uF9xZw17urn0kFWaqF1kZr48Gr1a
+	vr45Xr18GF4jgrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEqg47UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8Bao4mq3q9ZnjQAA3m
 
-On Wed, Sep 23, 2026 at 09:24:55AM +0530, Krishna Chaitanya Chundru wrote:
-> 
-> 
-> On 9/22/2026 5:09 PM, Slark Xiao wrote:
-> > At 2026-09-22 12:12:35, "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com> wrote:
-> >>
-> >> On 9/19/2026 3:25 PM, Slark Xiao wrote:
-> >>> For some WWAN device, it may get a SYS ERROR issue when resuming
-> >>> from suspend state frequently. Refer to the Qualcomm Windows
-> >>> driver, the default value of autosuspend_delay_ms is set as 5000
-> >>> ms. But in Linux side, all WWAN device were set as 2000ms. We
-> >>> tried to set this value to 5000ms and we can get a positive test
-> >>> result.
-> >>>
-> >>> So we add a support to allow vendor to set a difference value for
-> >>> specific WWAN device.
-> >> you can change auto suspend delay from sysfs, please use that way instead of
-> >> doing in the driver.
-> >>
-> >> - Krishna Chaitanya.
-> > Yes, we can do this by setting the sysfs API . However, not all users 
-> > are aware of this method. Additionally, this approach is only
-> > effective for a single instance; it requires reconfiguration after each
-> > restart, which is quite inconvenient.
-> you can have udev rule to set this without any user intervention.
+The device status page is shared by all userspace contexts and contains
+db_off, which the driver updates to control doorbell flow. The rdma-core
+provider maps it with PROT_READ, but c4iw_mmap() passes the requested page
+protection through when handling CXGB4_MMAP_CONTIG.
 
-We should not rely on userspace to fix the SYS_ERROR. Userspace knob should only
-be exercised to customize the delay for power management purposes, not to fix
-firmware crash.
+A process can therefore request PROT_WRITE directly or later upgrade a
+read-only mapping with mprotect() because VM_MAYWRITE remains set. This
+lets userspace alter device-wide flow-control state seen by the kernel and
+other contexts.
 
-First we should know whether the default delay can be increased to 5000ms for
-all devices or not. If that is not desired, then we can go for Endpoint specific
-delay.
+Reject initially writable mappings and clear VM_MAYWRITE before mapping the
+page. This preserves the existing read-only userspace ABI.
 
-- Mani
+Fixes: 05eb23893c2c ("cxgb4/iw_cxgb4: Doorbell Drop Avoidance Bug Fixes")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/infiniband/hw/cxgb4/provider.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
+diff --git a/drivers/infiniband/hw/cxgb4/provider.c b/drivers/infiniband/hw/cxgb4/provider.c
+index ebe3170a641c..11c2a891f934 100644
+--- a/drivers/infiniband/hw/cxgb4/provider.c
++++ b/drivers/infiniband/hw/cxgb4/provider.c
+@@ -171,6 +171,11 @@ static int c4iw_mmap(struct ib_ucontext *context, struct vm_area_struct *vma)
+ 					 len, t4_pgprot_wc(vma->vm_page_prot));
+ 		break;
+ 	case CXGB4_MMAP_CONTIG:
++		if (vma->vm_flags & VM_WRITE) {
++			ret = -EPERM;
++			break;
++		}
++		vm_flags_clear(vma, VM_MAYWRITE);
+ 		ret = io_remap_pfn_range(vma, vma->vm_start,
+ 					 addr >> PAGE_SHIFT,
+ 					 len, vma->vm_page_prot);
 -- 
-மணிவண்ணன் சதாசிவம்
+2.34.1
+
