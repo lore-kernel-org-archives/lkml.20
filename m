@@ -1,182 +1,63 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B960392C4C
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EC6126C02;
+	Sat, 26 Sep 2026 18:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790447244; cv=none; b=IXsRhy8fsJMM6eTAJpGazsGeU8FZOFzqCcjuooHhGMENbA8gxmm3vLcd6Gz37AtCUDm+NNfjOnHa/4BtWsB4WkiqBUP7Ug240alZkvEdH47UhwdqUTgXHuIZmNIINoQfGMuOzLzFD9GUs3s8lZgRTz2ADWDB9JHAEd5NTrTqre0=
+	t=1790447456; cv=none; b=VTdi3SyP4ENtXFTZazshU3euzjiIhEWdBj2l20vK2HdrMUm1bGhVMS5RnaF+GHDI0KeP/sGhu9b43uZYscVCQ+XIUIFQwtlf5JelRIuzNVtprqmBdGn2AXnKcvVA6PBH7xbkSdER08Uz4ThUSIoQLdoGJ6i6rU8em2nPdnNcbzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790447244; c=relaxed/simple;
-	bh=qzwNqOoq5gIEteD6ff9IatsKKQaGCWKJS6LMm1QwduY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z8O+mPZQNiKZGatUh2vlIUG1SOxhfJ2qee7fwdnqFYxoBEk3cdfabGg1TEeyrLpaCCn4yiaFewdXEaT+aFqMzND3mDeKd0c8QTfTbZjTEiVHQmGxAQUY2Tzf5Cj57qBRsVeqvty+zVYWN1MjWDXOy12HqX8UsmZ87PLs3U8KLm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pr9e0W8B; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790447456; c=relaxed/simple;
+	bh=ycjJpWRxiS83B3Gb739axSwIYJArsGMxbymnVuLUfzw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SOau1zCQAPxbb/yjqvAVlp9GyGSy3FmE9cVMDl3PyDeNTDugppDnrfeMT3TqrOG+EtpwJTshCGk7N3ZG+JVqhi+YXaVqm/eG5L/E58xPZNMdLQ4p7jKjGdXVLMFwy33UE+ZH7U/PWHTOmfbweR4lxSxqMQo0itTs+GRLNNsigD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B7ZBNloI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pr9e0W8B"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso13205575e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:27:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790447240; x=1791052040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6zdetyxBKfTailvjdRzmjKkVNkh5L3fgaPZNlolghpE=;
-        b=pr9e0W8BwBr+4bE4dLBrjXu491trlOXwULzGbiRhh/qygDhLJEC54qeUjBs2W2n6Aw
-         UkLtVWVPfeZkYRjU+C1/s116TY25w8IO5AwD6WJsJMKd/e5WY1DPlWAPkVKpZo48idgL
-         BLdCgX1hDaMJSh9X7nYO5ddVmod0BJc/cXyv10n1ZMaMIgMEnHtkaalociCKn3tP2j9I
-         iEQW6DtA1+xMmAt0SlhXmqSb9wIaWZ7luTGM+LdW1DAcpV/meY2ZSBqsSt28G9PuHvUt
-         1P4NkI7+pomYFdIZ5+O2KUwiUvnYLunvjvyyrE2ipRahtuCAmZ4R7TcU0Mb+7EZiDKrO
-         251w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790447240; x=1791052040;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6zdetyxBKfTailvjdRzmjKkVNkh5L3fgaPZNlolghpE=;
-        b=GOnujKat/GQoA0cBDwwl9QrB6/8KwyXWM+B1cSKeTBc0mPJcQQmhUtKM+zlrencBl7
-         5VTXj2d/DZ4l0IjOwCLJAeOSuEdYJ1ojAMd6KpD7ARSCBFI6Xhx9pCWki7gI/rGxOIWL
-         7id0ZQPu2S+nBNht8cs1j61KV5IiLK98IqST6UPeK7ZC7X0WMUCLnopqGi/BqTLZopQG
-         5NFK9gyOoxtyJDzd7U9DIE0BjfMvk2ykx+NcuIyWjBoCjfuGgWti/RXpHXaadREP3Wkk
-         PQ/33wa+q6lxq1b2cUBFyJVHMJGAlhxyJFv4HkMo7LLtDg9vq1+kPaaJ1/vaYLl+Wh1u
-         Z0GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzEX+VELwWsbwbrMvLqoNKY8sA1cUAB/gltGXU/32uYLrVlqfmQgJq3eyz4f1MGNEzIyO39J2VhntdFM4Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++lL6FhbzwFFP8tfdOKZbE+oX9FA5aFlbXVEezZEItCZ0R/yhI9G
-	jW8Dj6h37MiblpMG3UurRCshL9y/OtwZ6HIlTs/dRVewv2toWlq5zWM0
-X-Gm-Gg: AYBFou0Ts2vo6K/hpP1zmc+R8sOe1NELbQC2ICW56o8VYNANvwrUbMWuEgLYHQxrsOt
-	w80j1UaeYje/WPG/cUjl12rSo2VAVVGyBA4NuADjbymqI2wgutnmOoM1j4RNZHGUUdStjQwsGUb
-	Mao11BD/Kazp22pw0FbrIuqDqQjoj3daTw9Hn5rbatUOn5AWWNAamePiIBS83PAQWy0/fttGemb
-	eJzFu9kNWrZCUHlg3Lpqmew/P292x6mT1L7A4Lk/W643iS0oI1UPag06kcDEJpQGT/s5gfUF+jY
-	BrKiS0WL2XkOqgF4iSIgGfTY9KBHZBTGRLNnM7x94XVlSzlJH8N3bRkb29J4vGX9XDu/D9r07Qw
-	H3zlD3Z8b358/GbdPLp2r1q4OdSEmWoLiRzXiQUSJ8+sMJAFex2z1AfvscRHfcF0EzonQ5pdYIW
-	nNNfO9smTP8P68/bfGsG3rjPDJ65KRGtkEm0Z5GMUkItgndyJFIeyCT1ostNZNAexWXvAI93t7j
-	vbY2ObX
-X-Received: by 2002:a05:600c:138f:b0:49f:cbf3:551c with SMTP id 5b1f17b1804b1-49fe66cc5camr155431025e9.12.1790447240357;
-        Sat, 26 Sep 2026 11:27:20 -0700 (PDT)
-Received: from m2.. ([37.142.154.181])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a000901b07sm11834725e9.9.2026.09.26.11.27.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 11:27:19 -0700 (PDT)
-From: Michael Zaidman <michael.zaidman@gmail.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: jikos@kernel.org,
-	bentiss@kernel.org,
-	brgl@kernel.org,
-	germain.hebert@ca.abb.com,
-	rio@r26.me,
-	brunoceg1@gmail.com,
-	contact@christina-quast.de,
-	daniel.beer@igorinstitute.com,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 08/13] HID: ft260: uart: add modem pins control via ioctl
-Date: Sat, 26 Sep 2026 21:27:09 +0300
-Message-ID: <20260926182712.24576-1-michael.zaidman@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAD++jLksAPyfZz6d--n7a1KhPackigEucQJqbYiA-e9S835seA@mail.gmail.com>
-References: <CAD++jLnKXqbV0xB3wvTF9Ri7g1MuWV6csO0MGzCtv5LBwmSr4g@mail.gmail.com> <20260827220805.23112-1-michael.zaidman@gmail.com> <CAD++jLksAPyfZz6d--n7a1KhPackigEucQJqbYiA-e9S835seA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B7ZBNloI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ECE61F000FF;
+	Sat, 26 Sep 2026 18:30:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790447455;
+	bh=3Q5k5U8Dr19/EVe/+cvogpoYKF40IMFVWgicWrcKqg4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B7ZBNloISndRdzb59HOU2N6Vd5rGOcPp8wJ90IhD/EohUCQGm/AakWEDnlt1eaPHd
+	 t6Pnc04UFFah3Nr6o4QFRW+U+teypjnTDA2dn4ScijaAj2PmNbWPBDFxd9CmaW3E+y
+	 aK/Ipct0HehLOof0NDT4Sx87zlX+oWEIBvTNDtBZdwr788SFH6gwMNkHmEu3A8qkAp
+	 YC+Mc+pPwAkETdRTB9lP9Feov8CECdKgtGQLU/TaM5U3YZROm9tzLJoYyXv8EupGEZ
+	 UCiGzIdlU1Uy6VOjHJnG9wyOzyHCaABlYYLmgoFTjMzUMgLSNMTm1zl0WjCkMhc6d/
+	 SlTkZuxmFVcwg==
+Date: Sat, 26 Sep 2026 20:30:51 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Hui Su <sh_def@163.com>
+Cc: Swapnil Sapkal <swapnil.sapkal@amd.com>,
+	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf synthetic-events: Check schedstat domain allocation
+ failure
+Message-ID: <argPW5kPvgKpMP2c@x2>
+References: <20260912031112.1814574-3-sh_def@163.com>
+ <4c3a6187e83a9d2e7074122316e65a18.sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4c3a6187e83a9d2e7074122316e65a18.sh_def@163.com>
 
-Hi Linus,
+On Sat, Sep 26, 2026 at 07:31:08PM +0900, Hui Su wrote:
+> Hi Arnaldo,
+> 
+> A gentle ping on this patch.
+> 
+> The separate schedstat event lifetime issue found during review has since
+> been fixed and applied to perf-tools-next for v7.4. This allocation
+> failure fix is independent and is still outstanding.
 
-On Mon, 14 Sep 2026 at 10:57 +0200, Linus Walleij wrote:
+Thanks, applied to perf-tools-next, for v7.4.
 
-> Can't you just patch mctrl to use gpiod_set_array_value_cansleep()
-> and gpiod_get_value_cansleep()?
->
-> I don't think any of the users depend on call thing this
-> in atomic context.
-
-That change is in drivers/tty/serial/serial_mctrl_gpio.c, not in
-hid-ft260.c. mctrl_gpio_set() calls gpiod_set_array_value() there, and
-both mctrl_gpio_get() and mctrl_gpio_get_outputs() call
-gpiod_get_value(). The FT260 gpiochip sets can_sleep, so calling those
-three functions from this driver warns until that file uses the
-_cansleep variants.
-
-The switch is not only a rename. serial_core.c calls ops->set_mctrl()
-under uart_port_lock_irqsave() in uart_update_mctrl(), and
-ops->get_mctrl() under uart_port_lock_irq() in uart_tiocmget().
-imx_uart_set_mctrl() and atmel_set_mctrl() call mctrl_gpio_set() from
-there, and serial8250_do_get_mctrl() calls mctrl_gpio_get() from
-there. These callers do run in atomic context, so _cansleep alone
-would put a sleeping call under a spinlock with interrupts off. A
-sleeping gpiochip also needs the serial core to call set_mctrl and
-get_mctrl outside the port lock. I will not put that in the FT260 v2
-series.
-
-> > - mctrl_gpio_init() takes a struct uart_port and its IRQ handler
-> >   needs it: uart_port_lock_irqsave(), uart_handle_dcd_change(),
-> >   port->icount, delta_msr_wait. This UART is a plain tty_driver
-> >   with a tty_port, so only mctrl_gpio_init_noauto() is left - and
-> >   the FT260 GPIO lines have no interrupts anyway.
->
-> I don't understand this :D
-> But hopefully the TTY/serial maintainer does.
-
-mctrl_gpio_init() in drivers/tty/serial/serial_mctrl_gpio.c takes a
-struct uart_port. Its interrupt handler, mctrl_gpio_irq_handle(), uses
-that port for uart_port_lock_irqsave(), uart_handle_dcd_change(),
-port->icount and delta_msr_wait.
-
-The FT260 UART is a tty_driver with a tty_port. It has no struct
-uart_port, so it cannot call mctrl_gpio_init(). The function it can
-call is mctrl_gpio_init_noauto(), which takes a struct device and does
-not set up that handler.
-
-The GPIO chip in hid-ft260.c registers no interrupt callback, so there
-is no GPIO interrupt for that handler to bind to.
-
-> Using software nodes is the way to go I think,
-> <linux/gpio/property.h> contains PROPERTY_ENTRY_GPIO.
-
-You are right. PROPERTY_ENTRY_GPIO has been available in
-include/linux/gpio/property.h since v6.2-rc1, and hid-ft260.c does not
-use it.
-
-mctrl_gpio_init_noauto() skips a line if the device lacks the
-corresponding property, such as cts-gpios. Providing these properties
-requires registering a software node using PROPERTY_ENTRY_GPIO. I will
-register that node in the patch that switches this driver to the
-serial_mctrl_gpio.c helpers, so it is not part of v2 either.
-
-> include "../tty/serial/serial_mctrl_gpio.h"
->
-> Otherwise we just bite the bullet and move
-> drivers/tty/serial/serial_mctrl_gpio.h
-> to
-> include/linux/serial_mctrl_gpio.h
-
-That move belongs to the same serial core patches, not to v2. I will
-ask Greg to say if he wants the relative include instead.
-
-> > That is a serial subsystem
-> > series to agree with Greg and Jiri Slaby, so I propose keeping
-> > the ioctl implementation in this series and doing the conversion
-> > as a follow-up.
->
-> These things have a tendency to never happen and it's
-> not like we have a shortage of technical debt.
-
-Fair point, a follow-up can stall. I will send the serial core
-RFC as its own thread, after this series is merged, and I ask that it
-not gate this series: it changes drivers/tty/serial, and the FT260
-UART works without it. If the serial core does not take it, what
-stays is ft260_uart_tiocmget() and ft260_uart_tiocmset() in
-hid-ft260.c, and nothing in drivers/tty.
-
-Thanks,
-Michael
+- Arnaldo
