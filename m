@@ -1,95 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF29E207E00;
-	Sat, 26 Sep 2026 16:22:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20B434B697;
+	Sat, 26 Sep 2026 16:23:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790439732; cv=none; b=i7CoL0U3eUlPpi4VZAYjKShfEr1oO1o3A17po5ragpoNp7wDekuRCYlWiQ6ka+foSWs6YAemGAKwkorjuYABVe7AepwO0lnx1FykNJTvxVL7hSfF/YGlI5xS3KQYGfP0vGG985Dzpz17oPltrY+6eozKaupk/vNo0TTCR60+pQs=
+	t=1790439796; cv=none; b=njYNqbBNDKQTRPxo23YmDW2bDONDucCB2nHEc2dJr/xIoqBIYrkuwcWfgyYvooSEH4pv91Cbl1eVT35RK6ssk0f2OEWNTyFMp4iizUGDdp5ldfC1xpZ0tHcsBmtNkpd/b6svWaw8FRA01nPHR98xo+1JJBQ7QhHL5gdbpg2USI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790439732; c=relaxed/simple;
-	bh=9uFUYyle1YFb+YdZaC78mZ0aDMo/wx/Y+4R23X9phkc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uf97qC4RPi4vlPNaKl1ETOh34scgvf7ETtLMLi5hoWbbbiqqiS478fK0iiW7tArsQb6CT8epLPPWak+H/IV9HBllcOohAhC4NyesSkZ6I5i8yeJhWU3QF4SY06Wtnav3gAKmIChAUsI1gs40poBoQg9yLC5GCAtZgkKUCvfNGJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iwqgmk1e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790439796; c=relaxed/simple;
+	bh=lVuH7qFpWQH76wp5FacuT3Zzo8joo8v3gTOUy+KtMmw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GVqvAEWaxzMw2nrhxw5kxpXA5FS4AJdreIOK0Am3LlXk1Bp5ZR+OClxdfMrCXXP16LfJLCHCgq6olkoGJ+ASs2qvE6K+Y+obdnHQmTh4hoOSToC8b/H+cW6/4D0dNiWVafKb+lFYTNeBHjOfsLU4ldG6xm2gOfOKxyb1Ad9qOm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HGeuNtS0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iwqgmk1e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256BC1F000FF;
-	Sat, 26 Sep 2026 16:22:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HGeuNtS0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90C491F000FF;
+	Sat, 26 Sep 2026 16:23:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790439730;
-	bh=e+Qr2230Lu2sLj4UI5sDrSPVvb8HYtybN1/cvDBHd3E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Iwqgmk1eeGsFzySD6F5rYQQm0GYO9bhJEDdTKXHL+KDOeEGVPhqLg6jpSECUfNFSy
-	 RcOKPRYvZpmct50+ddgzN1AxWj9Z72FyGrgvSSUMrlgIDSKJnxCyzMmF2UsXXYIAfm
-	 lsr9PYToJNmEVdq0pXZC/i5cAFYE6xCWacnYCdkjOSqBmsO2UEMP/VNKrpiWoY7dgP
-	 Rz35fK/GVLjQ8M4WDRknNgYl97xk1Roqh0UMU5/6OPDzEWgM7Flgzlk1m0LoTK4hIx
-	 obDD/DdCPWABEi+agrwAbRFoIlEiNFtz/RCRNcooqw9PJ+88VTpV6UcIVpOMKmhHPh
-	 cM/zPICs+2+Hw==
-Date: Sat, 26 Sep 2026 17:22:05 +0100
-From: Simon Horman <horms@kernel.org>
-To: mhun512@gmail.com
-Cc: Wei Fang <wei.fang@nxp.com>, netdev@vger.kernel.org,
-	Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: fec: drain PEROUT requests before canceling the
- timer
-Message-ID: <20260926162205.GX13925@horms.kernel.org>
-References: <CAGEsz8EYe=gBFr_hEYFLUeiJMRtau=eV3cDUUmHJOQkC0qvfqw@mail.gmail.com>
+	s=k20260515; t=1790439794;
+	bh=fl5lmGyMF1RWdAgtrF9R0uo85iRNCTQENGpIYhpXamg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HGeuNtS0QJpllq+JO2OxkZGnRkmpNGJFsit95JoS8a7pt6sb6pPRLCWx5bcsPo2Fd
+	 1HTjXzsJmxRXdjXAnyDFzbEHKE5jWoQhyJ4OxUNWPS9QTSCIIpI3YmSmFXXp//wiox
+	 36kvbk7c/WJVUWqnxFf34b7ZnFTpuv5qXsAp76/HJ8GC7UvhrNRrWTSIdL6qgQXLCz
+	 tzU41b/dDETyRqGgV6utNNNM2kjRvQc4/EZ3WjtvfFz8ytM9TodhMmsblxykCnfVoa
+	 tYE8W4VeOcqd7eQQ5mlJXWy5WcbFLO/kWbbCUDViC5eqaD+LtkEprMONbA5NSbKxry
+	 5SjeGnkjwPIwQ==
+From: Alexey Gladkov <legion@kernel.org>
+To: Joel Granados <joel.granados@kernel.org>
+Cc: =?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kees Cook <kees@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Serge Hallyn <serge@hallyn.com>,
+	"Eric W . Biederman" <ebiederm@xmission.com>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH v3 0/5] sysctl: add typed field descriptors
+Date: Sat, 26 Sep 2026 18:22:07 +0200
+Message-ID: <cover.1790439358.git.legion@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1789987960.git.legion@kernel.org>
+References: <cover.1789987960.git.legion@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAGEsz8EYe=gBFr_hEYFLUeiJMRtau=eV3cDUUmHJOQkC0qvfqw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 09:03:39PM -0500, mhun512@gmail.com wrote:
-> fec_ptp_stop() cancels perout_timer before unregistering the PTP clock.
-> A PEROUT ioctl can set perout_enable, release the driver's locks and
-> then be preempted before hrtimer_start(). The unregister path waits for
-> that ioctl, which can rearm the timer after it was canceled. Removal
-> then frees the netdev containing the still-armed timer.
-> 
-> Unregister the PTP clock first so all in-flight ioctls have returned
-> before canceling the timer. Clear the PEROUT state and compare channel
-> afterward, then disable PPS. Serialize the channel write with PTP clock
-> shutdown and skip it when that clock is off.
-> 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
-> 
-> Fixes: 350749b909bf ("net: fec: Add support for periodic output signal of PPS")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  drivers/net/ethernet/freescale/fec_ptp.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/freescale/fec_ptp.c
-> b/drivers/net/ethernet/freescale/fec_ptp.c
-> index 56801c2009d5..67901e036ac3 100644
-> --- a/drivers/net/ethernet/freescale/fec_ptp.c
-> +++ b/drivers/net/ethernet/freescale/fec_ptp.c
-> @@ -506,10 +506,13 @@ static int fec_ptp_pps_disable(struct
-> fec_enet_private *fep, uint channel)
+Hi,
 
-Hi Myeonghun, all,
+Some sysctl users copy an otherwise static ctl_table for each namespace or
+device, then replace data and limit pointers before registration. Besides
+the per-instance allocation, these fixups often depend on table indices:
+reordering an entry without updating the fixup can silently bind it to the
+wrong data or limits.
 
-This patch does not apply because the two lines above should be a single line.
-Unfortunately this means that CI did not run on this patch.
+This series lets such users describe a table once with static, read-only
+sysctl_field entries. Each field names a data type and an offset into an
+object selected by a sysctl_context at registration time. The offset
+helpers check the member type at build time. Limits and custom handlers
+remain optional properties of a field; the field type does not encode a
+choice of handler or whether limits are present. A subsystem that needs
+more than a namespace can embed sysctl_context in its own registration
+context.
 
-Please repost after figuring out what went wrong here.
+The sysctl core keeps the context with the table header and materializes
+a ctl_table entry when an existing handler, permission check or BPF hook
+needs one. Legacy ctl_table registrations retain their own path, and
+subsystems can convert tables independently. The IPC, mqueue and ucount
+conversions here remove table copies without changing their backing data.
 
+Changes since v2:
+
+- Drop sysctl_uint_vals, as requested by Joel. Existing limit constants
+  suffice for these conversions.
+- Drop the *_MINMAX field types. A field's type now describes its data,
+  while optional min/max pointers supply bounds to the selected handler.
+- Keep __register_sysctl_table() and __register_sysctl_fields() as separate
+  registration paths, sharing only allocation and tree insertion helpers.
+- Address the sashiko findings: avoid calling mode_fn under sysctl_lock,
+  validate the effective maxlen against the context object, and reject
+  NO_DATA fields paired with standard handlers that require data.
+
+This is the first part of the conversion. Network sysctls and other
+subsystem-specific users will follow in separate series for review by
+their maintainers.
+
+
+Alexey Gladkov (5):
+  proc: sysctl: address table entries by index
+  sysctl: add typed field descriptors
+  sysctl: ipc: use typed fields for IPC namespace sysctls
+  sysctl: mq: use typed fields for IPC namespace sysctls
+  sysctl: use typed fields for ucount limits
+
+ fs/proc/inode.c        |   2 +-
+ fs/proc/internal.h     |   2 +-
+ fs/proc/proc_sysctl.c  | 681 +++++++++++++++++++++++++++++------------
+ include/linux/sysctl.h | 138 ++++++++-
+ ipc/ipc_sysctl.c       | 189 +++++-------
+ ipc/mq_sysctl.c        | 104 +++----
+ kernel/ucount.c        |  64 ++--
+ 7 files changed, 772 insertions(+), 408 deletions(-)
+
+
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
 -- 
-pw-bot: changes-requested
+2.55.0
+
