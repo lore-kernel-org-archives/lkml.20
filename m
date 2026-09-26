@@ -1,137 +1,145 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8FA34DCC7;
-	Sat, 26 Sep 2026 17:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D3923A99F
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:03:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790445372; cv=none; b=EFs8BKATt9RYdBMAecEJxUF2AJumCcFrzt0sMpuyfbb1M3ooW5nxHLdaTiJYquDyi17oWyLmCG84K8X8Knb35Y5UMv2rUpHuHfbYPTR+UjBr1RMK2lIFh8ortOaOxgfVfyJVl7IXWnz9Tf80dxRGbVWNP9Bm9dgnlbWKciOKDBQ=
+	t=1790445812; cv=none; b=eN82Zi0HR2bJePpd6qWQWi2rI2ijs0p5CqgE+YlCIGlm3PxioN5ArHqTbxW8oR2tf+lATr3+pcwInqL/rr4dp3fCqsoyYSfRYrcg4pciO5lohm1QpfTKmAOOojgrdNy66IdCIEf9GQDBhTcQ87vOp6/+93p1pcPnq419uMliAtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790445372; c=relaxed/simple;
-	bh=EFbiypjzVoTipvbnxDPJ6ArGIBh4qUyMRv/lBDZxZ80=;
-	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=G+reS8LFkavRu2tDDA4pTSs33ym/AJ2ZwfidzB4Mgpie9RPXes5REpbL3BzZXlCB5XBDDUBdXDdgmOvZTTol8VNiZDo/s9bSBDe8IeslnmnFIS8kuppWtZ3W5a5FV5rKhgz1ipsKdJKCqQTkE/O1JQlQxZzNJki8aSG4/MgZim8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=WBoGu/dy; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
+	s=arc-20240116; t=1790445812; c=relaxed/simple;
+	bh=/fN6v7s/2DMzMfOOebxiqtenShDEcVAznAC+gi5VXdw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NGauBl9seeIksPAuICMkvvDP3jatOGHkRqbbycW493qwuTU25FzHFdASnAYMgL4dODFZBzovCLVFpnJNfoAXV3AIuOg6qI711RFsNo74+SDv+lC0rxBUiFFJ4FP+Uk+m0Nmte2ueCiYU0BUWPRG2NUOda4X64uDzi6vnJun7aS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JT4N0nQe; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="WBoGu/dy"
-Received: from smtpclient.apple (unknown [124.126.139.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4f3304f84;
-	Sun, 27 Sep 2026 01:55:58 +0800 (GMT+08:00)
-From: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JT4N0nQe"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7DC8CC653DD;
+	Sat, 26 Sep 2026 18:04:09 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1153860749;
+	Sat, 26 Sep 2026 18:03:21 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 47FAF102F1E44;
+	Sat, 26 Sep 2026 20:03:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790445799; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=7wqWo6d2hoyTR3HXYt29yOqJzvILVhwYEixBLkEwFTw=;
+	b=JT4N0nQeEv/BW+V5n4nDtHLXhmivbbaO2uIzJv5//eicL9pePAwXJdKNWG1s4KsBOi9PjH
+	RTxePoj2rc7W/jKGwoLAIcEYI6ud3MKeWM+34BVsw7blcGtyqzVZMWAL1pqWIb8xt7yyS7
+	5m/s4cstfj/vRH+15dJXd9KX/LPda7TZNl4glLZCUwEkZiH6JxDpy3j5iZ40ezWGRTkwSm
+	gxntcLwhXJoPZe95FPCvoh3u0FYNU/+ovGiKL48Hl+4nxK/620I/k5aLrFgKFh2HTLnBka
+	WUQn50+oT3mELzGEhcHKgWpoMe8ziTuqf6faGN4JtKJUEpqr+w1EQeT8UFwvzA==
+Message-ID: <8100d62f-7615-4129-a633-7f4c7404a0e2@bootlin.com>
+Date: Sat, 26 Sep 2026 20:03:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: [PATCH] afs: Don't flush dirty data when zapping an invalidated vnode
-Message-Id: <1DEF91FE-C380-49A4-87C4-2CCB380DD3E3@stu.pku.edu.cn>
-Date: Sun, 27 Sep 2026 01:55:48 +0800
-Cc: linux-afs@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-To: David Howells <dhowells@redhat.com>,
- Marc Dionne <marc.dionne@auristor.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-HM-Tid: 0aa0dedc0db503a1kunm880f196318d318
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSR5JVk0YTR0ZTUNDGUNNGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSU9VSklNVUpIQlVDTVlXWRYaDxIVHRRZQVlPS0hVSktJQk
-	NDTFVKS0tVS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=WBoGu/dyhjU+yx36gOoCcSuQGM1RnsVdHo2+CCAu4nx975q1IcM4FWfYEOhH3iIEd7D71moOqe9RONNQFSBnp7+W0B0FHVxMM5N96QMqP6MdmT0bK5fKUOq+wimU8eaxLkSAavIzpq1LP00178U7Uobfy/GeF8rPpuhIlYiuSWM=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
-	bh=+kFEbchyDi4fKjv3RwnDVu48+La/CHtkjA5TZYz19D4=;
-	h=date:mime-version:subject:message-id:from;
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 2/2] net: ethtool: let tsconfig reach a PHY-only
+ timestamp provider
+To: Nicolai Buchwitz <nb@tipi-net.de>, netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, andrew@lunn.ch,
+ kory.maincent@bootlin.com, vadim.fedorenko@linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260925135237.3432266-3-nb@tipi-net.de>
+ <179043085090.2160803.7251184093173489740@kernel.org>
+ <5ee2fdb9e5303f23b2d61c06479df489@tipi-net.de>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <5ee2fdb9e5303f23b2d61c06479df489@tipi-net.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-afs_validate() holds vnode->validate_lock for write while it
-revalidates the vnode.  If it determines that the vnode's data must be
-zapped, it calls afs_zap_data(), which for a regular file calls
-filemap_invalidate_inode() with flush=3Dtrue.  That submits WB_SYNC_ALL
-writeback, which re-enters afs_writepages() - and afs_writepages()
-takes validate_lock for read before it will write anything back.  The
-task thus deadlocks against itself in an uninterruptible sleep and
-hangs forever; with the hung-task watchdog set to panic, the kernel
-panics:
+Hi,
 
-  Kernel panic - not syncing: hung_task: blocked tasks
-  task:repro state:D pid:1
-  Call Trace:
-   <TASK>
-   rwsem_down_read_slowpath+0x4d0/0xde0
-   down_read+0xb6/0x220
-   afs_writepages+0xb8/0xd0
-   do_writepages+0x22c/0x550
-   filemap_writeback+0x1dc/0x260
-   afs_validate+0xd1d/0xfc0
-   afs_fsync+0xcb/0x1d0
-   do_fsync+0xac/0x200
-   __x64_sys_fsync+0x32/0x50
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
+On 9/26/26 19:53, Nicolai Buchwitz wrote:
+> Hi (Cl|S)ashiko
+> 
+> On 26.9.2026 15:54, netdev-bot+sashiko@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 1 potential
+>> issue(s) to consider.
+>>
+>> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+>>
+>> If you believe none of the issues are legitimate, please reply to each
+>> issue of Medium severity or higher and explain why the AI is wrong.
+>> If any of them are legitimate and you plan to respin, please let patchwork
+>> know by including "pw-bot: cr" as a separate line at the end of your reply
+>> (one such reply per series is enough).
+>>
+>> - [Medium] The removed ethnl_set_tsconfig_validate() required both
+>>   ndo_hwtstamp_set and ndo_hwtstamp_get.
+>>
+>> -- 
+>>
+>> net: ethtool: let tsconfig reach a PHY-only timestamp provider
+>>
+>> This patch lets TSCONFIG_GET and TSCONFIG_SET accept a device whose
+>> timestamping is served by a default timestamping PHY or an already
+>> installed hwprov, even when the netdev has no hwtstamp NDOs. It removes
+>> the set_validate callback and moves the check into ethnl_set_tsconfig().
+>> It also stops selecting a netdev source without ndo_hwtstamp_set, and
+>> adds a NULL check for ndo_hwtstamp_get in dev_get_hwtstamp_phylib().
+>>
+>>> diff --git a/net/ethtool/tsconfig.c b/net/ethtool/tsconfig.c
+>>> index 6be3aa5d4bc1e..2db0e7ba8b9f5 100644
+>>> --- a/net/ethtool/tsconfig.c
+>>> +++ b/net/ethtool/tsconfig.c
+> 
+>> [...]
+> 
+>>> @@ -313,6 +305,11 @@ static int ethnl_set_tsconfig(struct ethnl_req_info *req_base,
+>>>      if (!netif_device_present(dev))
+>>>          return -ENODEV;
+>>>
+>>> +    if (!dev->netdev_ops->ndo_hwtstamp_set &&
+>>> +        !phy_is_default_hwtstamp(dev->phydev) &&
+>>> +        !netdev_ops_lock_dereference(dev->hwprov, dev))
+>>> +        return -EOPNOTSUPP;
+>>> +
+>>
+>> [Severity: Medium]
+>>
+>> The removed ethnl_set_tsconfig_validate() required both ndo_hwtstamp_set
+>> and ndo_hwtstamp_get. This new check in ethnl_set_tsconfig() only tests
+>> ndo_hwtstamp_set. The matching check in tsconfig_prepare_data() only
+>> tests ndo_hwtstamp_get.
+>>
+>> What happens on a netdev that has ndo_hwtstamp_set but no
+>> ndo_hwtstamp_get, and has neither a default timestamping PHY nor a
+>> hwprov?
+> 
+> There is no in-tree driver with ndo_hwtstamp_set but not _get. All 73 files
+> have them in pairs...
+> 
+> Even further, the asymmetry is on purpose. The get side tests ndo_hwtstamp_get
+> and the set side tests ndo_hwtstamp_set, each gate testing what its own operation
+> needs.
+> 
+> If anyone insists on the symmetry, a v4 could add || !ndo_hwtstamp_get. But before
+> I respin again, let's hear if this is really needed.
 
-Trigger: fsync() on a dirty file whose server-side data version
-changed (callback break, v_break change or callback expiry) - a normal
-concurrency scenario, no malicious server required.  Everything stuck
-behind WB_SYNC_ALL (sync(), syncfs, umount, shutdown flush) hangs with
-it, and the task cannot be killed.
+The current way LGTM :)
 
-The read acquisition in afs_writepages() cannot be dropped: it orders
-writeback against afs_setattr() truncating the pagecache under the
-write lock.  So the flush has to go: invalidate the pages without
-flushing, which is what the directory and symlink branches of
-afs_zap_data() have always done.  Any queued writes are based on a
-stale data version at this point (that is why the zap was judged) and
-cannot be stored coherently anyway.
+BTW, I raised that point a while ago [1] but now that you're properly handling
+the "MAC can't TS, but PHY can" case, we may be able to get rid of the
+SIOCSHWTSTAMP code in phy_mii_ioctl() ? as a followup of course :)
 
-The workload that hangs the unpatched kernel was run on a build of
-7.3-rc3-135-g4982d3552a3bf with only this change applied: the fsync()
-that used to hang now completes cleanly, and several hundred ordinary
-file operations on the same build also completed without a crash.
+Maxime
 
-Fixes: d73065e60dcc8 ("afs: Use alternative invalidation to using =
-launder_folio")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
----
- fs/afs/validation.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+[1] : https://lore.kernel.org/netdev/20260718143848.677531-1-maxime.chevallier@bootlin.com/
+> 
+>> [...]
+> 
+> Thanks,
+> Nicolai
 
-diff --git a/fs/afs/validation.c b/fs/afs/validation.c
-index e997563af658b..20d654bbf7e8b 100644
---- a/fs/afs/validation.c
-+++ b/fs/afs/validation.c
-@@ -372,11 +372,15 @@ static void afs_zap_data(struct afs_vnode *vnode)
-=20
- 	/* nuke all the non-dirty pages that aren't locked, mapped or =
-being
- 	 * written back in a regular file and completely discard the =
-pages in a
--	 * directory or symlink */
--	if (S_ISREG(vnode->netfs.inode.i_mode))
--		filemap_invalidate_inode(&vnode->netfs.inode, true, 0, =
-LLONG_MAX);
--	else
--		filemap_invalidate_inode(&vnode->netfs.inode, false, 0, =
-LLONG_MAX);
-+	 * directory or symlink.
-+	 *
-+	 * Don't flush here: we hold validate_lock for write, and =
-writeback
-+	 * would take validate_lock for read again in afs_writepages(),
-+	 * deadlocking against ourselves.  The queued writes are also =
-based
-+	 * on a stale data version at this point and cannot be stored
-+	 * coherently anyway.
-+	 */
-+	filemap_invalidate_inode(&vnode->netfs.inode, false, 0, =
-LLONG_MAX);
- }
-=20
- /*
---=20
-2.43.0=
