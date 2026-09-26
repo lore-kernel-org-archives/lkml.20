@@ -1,267 +1,137 @@
-Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E544EADC
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 17:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.27.248.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8FA34DCC7;
+	Sat, 26 Sep 2026 17:56:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790445290; cv=none; b=S5eku2mm3xeeJUzglu3hh7n9N8t0QAZAEcrQo3izuR+U1fTEbzR7+XO3U3c8DwGotKPpsBol6fLA7suqJPtgKmhR60B6akSDJFZKp93jN48di0FBYp4OO9ZTPhpX7qHP30bDKuoHo9dbPYnkImnqSXoMGdLLCT4mqRkf+SLaZOU=
+	t=1790445372; cv=none; b=EFs8BKATt9RYdBMAecEJxUF2AJumCcFrzt0sMpuyfbb1M3ooW5nxHLdaTiJYquDyi17oWyLmCG84K8X8Knb35Y5UMv2rUpHuHfbYPTR+UjBr1RMK2lIFh8ortOaOxgfVfyJVl7IXWnz9Tf80dxRGbVWNP9Bm9dgnlbWKciOKDBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790445290; c=relaxed/simple;
-	bh=IwTob38rh9Nx3ag7H80F2xgQ+N1EfUyDcOwbdK45NAY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CP9pj1vJhmYFpiDHT8Ee7QPqYkYzikMgMuu4p2p4agEe/Owta+ZhYvAIqrX01fNcArkIQ5okwI/DIkgrL9e0Y2rNdOsTVChfts9F4tkEDZhAcFkWv/2GFf28Mb3HraK9jnR8vDGYMKs/aIybaT7532iviNMcVPFBB5tW+qp3fO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=JHfEfDTQ; arc=none smtp.client-ip=37.27.248.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1790445372; c=relaxed/simple;
+	bh=EFbiypjzVoTipvbnxDPJ6ArGIBh4qUyMRv/lBDZxZ80=;
+	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=G+reS8LFkavRu2tDDA4pTSs33ym/AJ2ZwfidzB4Mgpie9RPXes5REpbL3BzZXlCB5XBDDUBdXDdgmOvZTTol8VNiZDo/s9bSBDe8IeslnmnFIS8kuppWtZ3W5a5FV5rKhgz1ipsKdJKCqQTkE/O1JQlQxZzNJki8aSG4/MgZim8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=WBoGu/dy; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="JHfEfDTQ"
-Received: from relay10 (localhost.localdomain [127.0.0.1])
-	by relay10.grserver.gr (Proxmox) with ESMTP id 2628340019
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:54:42 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay10.grserver.gr (Proxmox) with ESMTPS id 124253F235
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:54:41 +0300 (EEST)
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 59F961FD64F
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:54:40 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1790445280;
-	bh=SzueBkeQ0eRG00xEUOwz7fXE2kK3yYyEowQoqM97mDo=;
-	h=Received:From:Subject:To;
-	b=JHfEfDTQ1FLZSEzgHrUNcvFNvVztIYFu2MhsvaNFQcPBqTXc2VD/3L+RehtRpd9SA
-	 eBIOv8EIc+j8tdyoKew64OHexN6mb1XfZ0oNMl7uBnLADT/0arG8QDIoM1XkoJwFvt
-	 m1S8lR+5wI1FDZH6P3eicdnIywl/biYQMJzls0ZH8pC9qsRH6FHHCOB1EZinP2W5Ek
-	 q0nfOS3Ye8faFMpQpPnjwhfcC8XY1eUl8Mykqra3l2MEmMvFiioRNF2g8L0zFp11lx
-	 EYC+BMAoTWX7IvmXjh9UT0Z2DO0qCiaAnZfu9ePVp9eK2y4+7eyhRfkcP41eDXCLHm
-	 vsl4YNx1LwHGg==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.227.140) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pj2-f12.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pj2-f12.google.com with SMTP id
- d9443c01a7336-2d747f05ffcso7938945ad.0
-        for <linux-kernel@vger.kernel.org>;
- Sat, 26 Sep 2026 10:54:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBwz61BY/Vn7b5Veq2mqFCbrcUgwKT+CgnbkNSasbyfM9ZavG2h1fIb6FCD9ArRsq2rvrMcrCKNqBbFkOJY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSdcetRprsJjf9hDY2hyCq45/lnDWoO8Khgnc87vmv9s/f9Ju+
-	V6zX56pa7En5i0B1hgNXO+IsVlEBwTXd4BBDUtfDeQ9ejrNG7jNgdWzax0C7apSBIRhN37dQ3u+
-	+/kz+1fs05tQv8OOyyGbMjqCKU70MjrE=
-X-Received: by 2002:a17:902:e80b:b0:2dd:c053:e0f2 with SMTP id
- d9443c01a7336-2df7e43e2e7mr68505505ad.33.1790445278841; Sat, 26 Sep 2026
- 10:54:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="WBoGu/dy"
+Received: from smtpclient.apple (unknown [124.126.139.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f3304f84;
+	Sun, 27 Sep 2026 01:55:58 +0800 (GMT+08:00)
+From: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260924134945.3095661-1-sashal@kernel.org>
- <CAGwozwG0F88Ah8AEYf2u2BM-4bP+QnZe5p1qTFb4_H5acvaFkA@mail.gmail.com>
- <arfpV7IXRAHREMzO@laps>
-In-Reply-To: <arfpV7IXRAHREMzO@laps>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sat, 26 Sep 2026 19:54:27 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwHY7FsYQZaNf22S-nWGPkc4qekk3H=Hno5a0d0iWVtSJw@mail.gmail.com>
-X-Gm-Features: AclHuK8r5dYvXEgLVx7Rw1HHqS5_fpk0bTtLL8r_IaRHZREQZj9kC2xc02FCrTA
-Message-ID: 
- <CAGwozwHY7FsYQZaNf22S-nWGPkc4qekk3H=Hno5a0d0iWVtSJw@mail.gmail.com>
-Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
-To: Sasha Levin <sashal@kernel.org>
-Cc: corbet@lwn.net, workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	linux-kernel@vger.kernel.org, "kees@kernel.org" <kees@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179044528055.4105903.5455350926623680743@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: [PATCH] afs: Don't flush dirty data when zapping an invalidated vnode
+Message-Id: <1DEF91FE-C380-49A4-87C4-2CCB380DD3E3@stu.pku.edu.cn>
+Date: Sun, 27 Sep 2026 01:55:48 +0800
+Cc: linux-afs@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+To: David Howells <dhowells@redhat.com>,
+ Marc Dionne <marc.dionne@auristor.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-HM-Tid: 0aa0dedc0db503a1kunm880f196318d318
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSR5JVk0YTR0ZTUNDGUNNGFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSU9VSklNVUpIQlVDTVlXWRYaDxIVHRRZQVlPS0hVSktJQk
+	NDTFVKS0tVS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=WBoGu/dyhjU+yx36gOoCcSuQGM1RnsVdHo2+CCAu4nx975q1IcM4FWfYEOhH3iIEd7D71moOqe9RONNQFSBnp7+W0B0FHVxMM5N96QMqP6MdmT0bK5fKUOq+wimU8eaxLkSAavIzpq1LP00178U7Uobfy/GeF8rPpuhIlYiuSWM=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
+	bh=+kFEbchyDi4fKjv3RwnDVu48+La/CHtkjA5TZYz19D4=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sat, 26 Sept 2026 at 17:48, Sasha Levin <sashal@kernel.org> wrote:
->
-> On Sat, Sep 26, 2026 at 01:12:33PM +0200, Antheas Kapenekakis wrote:
-> >1) Agents already read the readme. The canonical way to force load the
->
-> They didn't in my tests. Without AGENTS.md, neither agent opened README before
-> committing, and one of them added my Signed-off-by. Could you share how you
-> tested this?
->
-> >readme at least for claude is @README, not just README. Even so, the
->
-> With the symlink, README's content is loaded directly, so no @ import is
-> needed, and neither agent went on to read README's other pointers.
+afs_validate() holds vnode->validate_lock for write while it
+revalidates the vnode.  If it determines that the vnode's data must be
+zapped, it calls afs_zap_data(), which for a regular file calls
+filemap_invalidate_inode() with flush=3Dtrue.  That submits WB_SYNC_ALL
+writeback, which re-enters afs_writepages() - and afs_writepages()
+takes validate_lock for read before it will write anything back.  The
+task thus deadlocks against itself in an uninterruptible sleep and
+hangs forever; with the hung-task watchdog set to panic, the kernel
+panics:
 
-Ah, a symlink. I missed that. I read that as a string. Should be the
-same but better. I do not think all agents support the @ syntax.
+  Kernel panic - not syncing: hung_task: blocked tasks
+  task:repro state:D pid:1
+  Call Trace:
+   <TASK>
+   rwsem_down_read_slowpath+0x4d0/0xde0
+   down_read+0xb6/0x220
+   afs_writepages+0xb8/0xd0
+   do_writepages+0x22c/0x550
+   filemap_writeback+0x1dc/0x260
+   afs_validate+0xd1d/0xfc0
+   afs_fsync+0xcb/0x1d0
+   do_fsync+0xac/0x200
+   __x64_sys_fsync+0x32/0x50
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
 
-> >readme is not tuned for agents and results in context bloat. You say
-> >that README is small, so it is ok. But it is not, it prompts the agent
-> >to read a lot of other useless readmes. [...]
->
-> It didn't in my tests either. With AGENTS.md pointing at README, one agent read
-> only coding-assistants.rst, and the other read that plus generated-content.rst,
-> which coding-assistants.rst references. Neither opened any of README's other
-> pointers.
+Trigger: fsync() on a dirty file whose server-side data version
+changed (callback break, v_break change or callback expiry) - a normal
+concurrency scenario, no malicious server required.  Everything stuck
+behind WB_SYNC_ALL (sync(), syncfs, umount, shutdown flush) hangs with
+it, and the task cannot be killed.
 
-They usually read it when they need to. I find it is 60% of the time.
-Of course, this does not compensate for behavior that should always
-apply. Sol 6 also has the annoying habit of modifying readmes
-randomly.
+The read acquisition in afs_writepages() cannot be dropped: it orders
+writeback against afs_setattr() truncating the pagecache under the
+write lock.  So the flush has to go: invalidate the pages without
+flushing, which is what the directory and symlink branches of
+afs_zap_data() have always done.  Any queued writes are based on a
+stale data version at this point (that is why the zap was judged) and
+cannot be stored coherently anyway.
 
-> > [...] Another issue is that you say
-> >that it is only read once, but that has not always been true and
-> >perhaps is still not true. The Claude harness used to append the
->
-> Every model call resends the whole context, so that applies to any AGENTS.md,
-> including a hand-written one. Either way, most of it is served from the prompt
-> cache.
+The workload that hangs the unpatched kernel was run on a build of
+7.3-rc3-135-g4982d3552a3bf with only this change applied: the fsync()
+that used to hang now completes cleanly, and several hundred ordinary
+file operations on the same build also completed without a crash.
 
-Specifically for Claude, they used to paste it before every message as
-well to steer the model better. I am not saying this is right but it
-is what they did up to May. I am unsure what is happening now. This is
-a bit of folklore in any case and it varies by harness. Nevertheless,
-it underlines that agents.md files need to be carefully crafted.
+Fixes: d73065e60dcc8 ("afs: Use alternative invalidation to using =
+launder_folio")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
+---
+ fs/afs/validation.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-> >agents.md file before every message. Unsure if it still does, I do not
-> >use Claude. agent.md files should be specifically designed for agents
-> >and handwritten. Moreover, they usually need to be tuned for the model
-> >generation in general, if not the provider and model specifically.
-> >Which brings us to 2.
->
-> The rules README points to (DCO, Assisted-by, patch format) are the same for
-> every model. Personal and model-specific tuning belongs in a personal file.
-> Your sample shows why the shared part should come from the tree: it asks the
-> agent to add your Signed-off-by, which coding-assistants.rst says an agent must
-> never do.
-
-You are correct. Agents are tools. All of their outputs are the
-responsibility of their users. They cannot apply DCO.
-
-For me, I make sure to review copyright and test my kernel patches
-before sending them or pushing them to a remote. So my agent should
-add my sb and the assisted tag otherwise the patches need unnecessary
-cleanup. This is my personal preference. The mainline branch should
-not poison my agent's context or provide conflicting instructions.
-
-I do understand the frustration with people not following DCO and
-agents mistakenly entering the sign off. But I do not think poisoning
-every kernel developer's agent context and blocking it from what it is
-asked is appropriate.
-
-> >2) You are suggesting starting to track agents.md on mainline. This
-> >will make it so you dirty the tree of anyone that uses a custom
-> >agents.md when they switch to mainline for a submission which is a
-> >major annoyance. It'd be better to gitignore {agents,claude}.md on
-> >mainline. This would allow anyone that wants to commit theirs
-> >downstream to do so, while allowing them to copy their agents.md for
-> >mainline submissions.
->
-> Agents already have personal/override files to handle this.
->
-> We also already track .clang-format, .editorconfig and .rustfmt.toml on the
-> same terms. Ignoring AGENTS.md would leave users who don't write their own with
-> nothing, and a template has the same problem unless someone actually copies it.
-
-You are right that by default the kernel has no agents.md file and
-that perhaps it should. The kernel is already "unintuitive" in other
-regards so that used to act as a filter. I guess with agents it works
-the other way around though.
-
-But as far as I know personal snippets are meant to be additive. I do
-not think there is a widespread override for agents.md for the default
-one. Codex seems to have one but there is only one google result on
-it.
-
-It is assumed that agent.md files always apply for a project. So one
-would have to be universal. It is particular to the kernel that it is
-a very large project with a lot of downstream use-cases which makes
-this problematic.
-
-So the problems are:
-
-The agents.md file on mainline would always apply for mainline
-submissions, requiring gymnastics for upstreaming developers if it is
-not appropriate.
-
-A large generic readme that offshoots to 30 other readmes is not an
-appropriate agents.md file.
-Documentation/process/coding-assistants.rst would be a better start
-for a symlink but even that is not particularly lean and would likely
-degrade modern agents. It still contains offshoots to 4 different
-readmes, and the "Procedure for finding and fixing bugs" would degrade
-most modern models. They are already RL'd to do what they are asked,
-and conflicting instructions could lead them to e.g., commit when not
-asked to. For example consider:
-
-> Write a fix for the bug. This part is not optional: except in a few very rare cases, an AI assistant able to find a bug is able to fix it.
-
-Duh
-
-> Note that fixes written in the same session as used to find the bug will generally lead to better and more accurate fixes as the LLM's reasoning context remains present.
-
-How does this help the agent?
-
-> Build and verify that the fix works either using the reproducer or by re-running a complete analysis; drop any fix that doesn't work and try another one.
-
-Already done by modern models.
-
-> The fix must not add build warnings and must pass the checkpatch.pl checks (see submitting-patches.rst).
-
-Offshoots to a different random file bloating context. Modern models
-do that already. Sol 6 even runs checkpatch unprompted so it is
-context bloat for that model.
-
-The only models here are subpar models, and indeed looking at the commit text:
-
-> This was tested both against Qwen3.6-27B-Architect-Polaris2-Fable-B-F451 ... and Opus-5 [1]
-
-Qwen3.6 is a toy model. 3.8 is a bit better. I use 3.8 to tune some
-comfyui prompts and it works ok. A professor friend likes it for doing
-some simple programming tasks too. But it is not something to be taken
-seriously or base documentation on.  Esp. if it affects all
-developers. Opus 5 was considered to be a very bad model too and
-horrible at following instructions. But Opus 5.5 fixed that so it
-wouldn't apply to that and degrade it.
-
-In sum, adding a default agents.md is a big decision. If added, that
-file should be treated with care and be handwritten at minimum and
-
-(i) completely universal and non-conflicting if a global override does
-not exist (does not currently) or
-
-(ii) geared towards new contributors and cheap models if it does
-exist, and proposing an AGENTS.default.md is fair game AFAIK. But
-getting harness buy-in would be the problem in that case. But if it
-does happen, you can get more opinionated and make an
-AGENTS.default.md file that makes agents dumb and has them ask the
-user: are you sure you want to post this? _This is a big driver, it
-would take you 6 months and 12 revisions at least to merge, are you
-sure you want to spend your free time next year on this? You could
-make a helpful bug report instead._, I noticed we referenced code from
-X project, are you sure this complies with DCO? The copyright notice
-does not list the original project, what license should this be with
-OR to GPLv2? Review the driver, you authorize me to add your Sign-off?
-etc etc etc.
-
-Can be annoying enough to force experienced developers to do `touch
-AGENTS.md` and optionally customize it and fair game if it does and
-AGENTS.md has been added to the .gitignore
-
-For context, my job the past year has been doing agentic research in
-academia... so I guess I sunk my teeth in the topic more than most.
-
-Best,
-Antheas
-
-[1] https://github.com/torvalds/linux/commit/3d7c44f73765d98665fb97a4fb89c002c88ba1b9
-
-> --
-> Thanks,
-> Sasha
->
-
+diff --git a/fs/afs/validation.c b/fs/afs/validation.c
+index e997563af658b..20d654bbf7e8b 100644
+--- a/fs/afs/validation.c
++++ b/fs/afs/validation.c
+@@ -372,11 +372,15 @@ static void afs_zap_data(struct afs_vnode *vnode)
+=20
+ 	/* nuke all the non-dirty pages that aren't locked, mapped or =
+being
+ 	 * written back in a regular file and completely discard the =
+pages in a
+-	 * directory or symlink */
+-	if (S_ISREG(vnode->netfs.inode.i_mode))
+-		filemap_invalidate_inode(&vnode->netfs.inode, true, 0, =
+LLONG_MAX);
+-	else
+-		filemap_invalidate_inode(&vnode->netfs.inode, false, 0, =
+LLONG_MAX);
++	 * directory or symlink.
++	 *
++	 * Don't flush here: we hold validate_lock for write, and =
+writeback
++	 * would take validate_lock for read again in afs_writepages(),
++	 * deadlocking against ourselves.  The queued writes are also =
+based
++	 * on a stale data version at this point and cannot be stored
++	 * coherently anyway.
++	 */
++	filemap_invalidate_inode(&vnode->netfs.inode, false, 0, =
+LLONG_MAX);
+ }
+=20
+ /*
+--=20
+2.43.0=
