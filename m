@@ -1,68 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D53A35A3B1;
-	Sat, 26 Sep 2026 07:13:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD7C351C22;
+	Sat, 26 Sep 2026 07:16:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790406813; cv=none; b=qXBm/5fFRkRlBpG9/ZLMt9lXYGLLULFlyz19GDDhlgJWD4sjO8MAIzCIELZdmHvWuf6BIU586RGOOQz26IlZMCecUEHBCqWPk03CT+y4nSShoLmLDAWRfDyO6uYC2yQG5sKePqAemh3XMv/bGRnKLd6p8vLDn8tTW1tEwv+ExkY=
+	t=1790407017; cv=none; b=qU9YMqhwDlgLyUbgKN5g2yIZt5ZBO7wx2Hd32BNOGck2gNTnG6bpMoosVtN1mawQ6kI+r68MeuU1bczCaquVzOwTVM9hjraW2SkO3whUkOQs0Z9arColHqdu9yYkxUPnH70bX/FQjdxIzASOxRf3QwaLakp3sTwrHL2Uhs+VZcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790406813; c=relaxed/simple;
-	bh=1qfEqhjSld0puSnrHhyZu4W6RPie7ALX7LYjfzk4F7M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cljvYbyxJib55fBea0Cj3JFSpV6CIhHYfeRNDIXorsQbmtRkBOtjJv7sVqIp2HFcJIfEnDgCIdhh/nsqUxgIJHdufpsr7fQ3/14KtetfB/blwDtqODx8KpsPEaVgCbZpOfzvdzPBhno0UXDcXTZmcKNbfwXbIkWoxAVXwlzXCs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kwExNFGV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790407017; c=relaxed/simple;
+	bh=eQ7MB/qBuFHzMv4qVO3cAx9UnXEJ34m+nOfTXpVOyw0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oYZVVIhnobkHACsVz7JUN0glsr0Y0rt08zZmeff2aNy842T2u/g+svSV8LGGkqmTspvFCEgb5CYfxJfzAifexoa1CsdrbznmB6OCRCS9cwoq+wEUeJb/PLBDrIVzur5urk1YyqV3Pms7iPm8jQ70vE8efK8f07vr440HrRIEr5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aApRAPIu; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kwExNFGV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0D61F000FF;
-	Sat, 26 Sep 2026 07:13:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790406809;
-	bh=w4/up1OCvUJRCaiSeFTKMeUF7yD1oTUG/HImNfXyUhs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kwExNFGV/p8GCw4sEELdW+uLi6oU9nZk8iam2O7p3JUEM6u+xdCUyJBN1r7jhU58T
-	 FX1KE4mXdCtBh/eIWvKZqYI+RvsC9gZYicMmYiiZ+Zi76agx8YeREuKNjnWNA9pOfr
-	 /7ZyKRSTFM5xFDGH1RzbD7fqJyM0q/OY+/T/IRtg=
-Date: Sat, 26 Sep 2026 09:13:26 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: Jiaming Ouyang <jiamingouyang13@gmail.com>
-Cc: Dongliang Mu <dzm91@hust.edu.cn>, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, alexs@kernel.org, corbet@lwn.net,
-	skhan@linuxfoundation.org, si.yanteng@linux.dev,
-	rdunlap@infradead.org
-Subject: Re: [PATCH] docs/zh_CN: add Chinese translation for usb/ohci.rst
-Message-ID: <2026092601-reassure-darkness-229b@gregkh>
-References: <CAMnqnYyO98AEDOHfm32Cb4uGBDucLiZ8gKZ5S+jVf3DDCoFA5w@mail.gmail.com>
- <cfc9cb8d-d13a-4dd6-809c-1ecf3bc9c758@hust.edu.cn>
- <CAMnqnYxzfUUaeaGTG=pESVN+2yeue4b_7N6d=xMGNE7qdrNbYA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aApRAPIu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=73
+	XNOlAF6E96w2dh7owltodN0UASq3BclRNN+vB8FBk=; b=aApRAPIuaegCfEtdx4
+	KAhhMhIAmtfcuyumghTOTmgEYMVTuH5m7BCNIe0zbDLzyzecq736mqm1CKVTHvua
+	2RQub8XJ/g+SNHnWl3aix54Qph8kP/2dUjVNpdvlmQcwqoh7nmeqxQZMKt6kU1Hn
+	aWqUBnleZelFTVn7OQqrlFWdc=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDnTzo3cbdqUXJ1Aw--.58745S2;
+	Sat, 26 Sep 2026 15:16:08 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] cxl/acpi: Check ACPI companion before use
+Date: Sat, 26 Sep 2026 15:16:05 +0800
+Message-Id: <20260926071605.3013893-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMnqnYxzfUUaeaGTG=pESVN+2yeue4b_7N6d=xMGNE7qdrNbYA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnTzo3cbdqUXJ1Aw--.58745S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tryDtF1rtw15Aw1furW8Xrb_yoW8tFy7pF
+	Z7ta4FkrW8GrW0kw4qv3y5C3WF9a10ya4UCF1kGwn8u39Igr1DJFy3tFWUZr98Cr93tayI
+	yF1UtF10ka4UZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRR6wJUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BjyLWq3cTg8ggAA3d
 
-On Fri, Sep 25, 2026 at 05:28:47PM +0200, Jiaming Ouyang wrote:
-> Subject: [PATCH] docs/zh_CN: add Chinese translation for usb/ohci.rst
+Platform drivers can be forced to match devices outside their ID tables
+through driver_override.  cxl_acpi_probe() assumes that every bound device
+has an ACPI companion and dereferences adev->dev.bus without checking the
+result of ACPI_COMPANION().  Force-binding cxl_acpi to a platform device
+without a companion therefore causes a NULL pointer dereference.
 
-This shouldn't be in the email body :(
+This was reproduced by setting the driver override for the pcspkr platform
+device to cxl_acpi and binding it through sysfs:
 
-> 
-> Translate Documentation/usb/ohci.rst into Chinese Simplified.
-> 
-> The translation covers OHCI driver overview, hardware protocol
-> differences (OHCI vs UHCI), improvements since 2.4 kernel,
-> queueable interrupt transfers, and non-PCI support.
-> 
-> Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
-> ---
-> I have modified according to your feedback
+  BUG: kernel NULL pointer dereference, address: 0000000000000280
+  #PF: supervisor read access in kernel mode
+  RIP: cxl_acpi_probe+0xf4/0x220
+  Call Trace:
+   platform_probe+0x4d/0x80
+   really_probe+0x106/0x370
+   device_driver_attach+0x4c/0xa0
+   bind_store+0xd0/0x100
 
-Please provide proper v2 information as the documentation asks.
+Commit 2b3a5dabe89e ("platform/surface: acpi-notify: Check ACPI
+companion before use") fixed the same force-binding issue in another
+platform driver.  Check the companion before setting up the CXL root and
+return -ENODEV when it is absent.
 
-thanks,
+Fixes: 7d4b5ca2e2cb ("cxl/acpi: Add downstream port data to cxl_port instances")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
 
-greg k-h
+Notes:
+    Changes in v2:
+    - Move the ACPI companion assignment immediately before its NULL check.
+    - Reorder local declarations in reverse Christmas tree order.
+
+ drivers/cxl/acpi.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
+index 3b818adbd38b..fb09a5ff48c1 100644
+--- a/drivers/cxl/acpi.c
++++ b/drivers/cxl/acpi.c
+@@ -885,13 +885,17 @@ static int pair_cxl_resource(struct device *dev, void *data)
+ 
+ static int cxl_acpi_probe(struct platform_device *pdev)
+ {
+-	int rc;
++	struct cxl_cfmws_context ctx;
++	struct acpi_device *adev;
+ 	struct resource *cxl_res;
+ 	struct cxl_root *cxl_root;
+ 	struct cxl_port *root_port;
+ 	struct device *host = &pdev->dev;
+-	struct acpi_device *adev = ACPI_COMPANION(host);
+-	struct cxl_cfmws_context ctx;
++	int rc;
++
++	adev = ACPI_COMPANION(host);
++	if (!adev)
++		return -ENODEV;
+ 
+ 	device_lock_set_class(&pdev->dev, &cxl_root_key);
+ 	rc = devm_add_action_or_reset(&pdev->dev, cxl_acpi_lock_reset_class,
+-- 
+2.34.1
+
