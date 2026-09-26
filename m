@@ -1,137 +1,98 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541BB37F74B
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790441777; cv=pass; b=r+ZpGzADcUWdb+HI2yOGfewK5GDBmFUF8DvLDGEs1rOVaXhUQZEb9n7oxvKSAtjWa2F3t2RriCkkfcVUQHmmCLOsAJ1EAvC84C3SDV8FdkDPqwqFE8KysM6dmgemw4kiYbLHfzxHSFmzWPQ4ec+De51vZk1CdQducv2rc7XN79M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790441777; c=relaxed/simple;
-	bh=BFLuuX4oE73MpHMuvzlTcQtgZLxzLskCRkVBezS9eyU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fOuPpZ+YY91spKqQDXZU0BG/ZTz6smovwDH3ki3Nlvykh3vCTxzLM3CuFwdGa6CsbPkgNYjkf01TyLICXzcCnxJadAkNb5bCsu3lnAWnolMG/7ObQXiL83le55Z6pSZcvrUwLG7KU/TfbUUabHRndjdpGElkgnd5qZ3I/duz4Nc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WWTgj+tf; arc=pass smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFF0315D53;
+	Sat, 26 Sep 2026 16:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790441894; cv=none; b=sqxmcL+fUlUYFgv90HBI1Ehmzw9piIGFRQQh+vqzjxbg+ItBUa7/5OPnziAtMSdogwDG3vhRa8K7fAE0Ajppimz/1KTqqsSrzVFtojyx5iwNYKXQSu0TDvdls3+A4KmMHEiAEi6u9xJsLAurY+SSE/Nhfi7BW721PBqPhQesQpg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790441894; c=relaxed/simple;
+	bh=2zvlJjMk3xRnUTbQBiQaugAB5gNEtB/G1QBotC267xA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=MZNFS6G+/wVG2vjq1mPSJrEOW1qdY72tI0wS0jVqsUIhFK28I5yr9adyGwMWGn3AOILQ0s2DSGHutAxvwWnknq/NdPrYKAgKleJHs4iDU6EkyQWla+pYMNlmq8HhCKxLiam11i2uX3G0GZjwRtoR0kaMKaZC4cUYNwczztNfy0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LNv/El8x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WWTgj+tf"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aae1f2cedfso2270871a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:56:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790441774; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KihMe3HN3hoRSj4OWi1Q3xd8pVm8n0Ie2HmPjI0PoT+6mUTPhorSFH+kpmEIANSK6d
-         oNTUmApZ3niZV3JYJQLLt5pmmfg0QC9nIKzU7qlz5bO7jZP2YUqL+GVTa6FXqROfRqKk
-         Q3Vd2OolMRhN7RkmZITutKGTH7cnTiETjhIzTzvmhbU7LwcHYywZpnor45OT9PZICAM6
-         Tzx2klEHmCgqeguGlprTXjCFV4Bp+bIP0rvDavHsm6An1vxIjZTeafKxlEQgVU6xiS+H
-         h8I7XATc9Jvd8zY34fGZbsoMFkXvXdv4yvQmyu2Xa00ODrhPsFsh45xO9CyXDLCEfbho
-         ohWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/jNPRD3oMVaVsh6veaw1NKnURjzIQQ+FNTYBf29LQZ0=;
-        fh=CIBUKNwwvr5uitQbmNowel37uOv1kbPxz+2o8M2aUoA=;
-        b=mvEZCYY1mgZ8WfH/ASkPtyvmaQlN4pqIssSi+2VA/HLiBkQ9O4+LWj/GEj2P9Y1fsI
-         lg+n/gqCnSDvloJrgpCp7wQky+zyvJ3aNZ2aq90GusIy2nrcQuKymvQL6GD9rBgmY28f
-         GRTmQWjtcjtHTBGfVuojkLvE0ZHBmS+ilIbopSExkYZfs4BnqRHrmvuYv5EzowOvbeXL
-         HZDasCiiKc+3kvhwKF3xN6hPtolqeOIHkLOkMRt+OOut2lahwV8+Da++oXvntt/V6J7u
-         eDT5V8rF3dS2vZyFRxwwnulKxvE4YCsxXhycUqbVgG0OMTfIHM2HTd1lWZxhuak7kxeD
-         MsSQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790441774; x=1791046574; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/jNPRD3oMVaVsh6veaw1NKnURjzIQQ+FNTYBf29LQZ0=;
-        b=WWTgj+tfnSi0s6N5lHGiT/XRCdCfI3g0HaQu/G8o5aTo+Wc7GlINB9zMtywfVuOpjY
-         uMPAp72AcPHc7adl5gWmtot8ylurOcNZhYHzFv/HEjFiR6jcGNUsYJqtW6ZNE4DjVMxZ
-         TsqZgz3NG6sFN7Du9hwbgSmUQLslsSJddjafQVoJ2LuXiGuuXNuIElX3l5G46nU6wDgP
-         GZicBk241AHgrOY+PcEvRbMSm8wCCm34ShgNoEEKDsf8D8quo6bBT8ZdAbs30WzRE0+o
-         pcS9zMQiVc5OhPXde3BCTsQofBsaqcT8JYWfCCIYV2VB9BnrSYdoC2caXxdeVb3s8P+0
-         5LnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790441774; x=1791046574;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/jNPRD3oMVaVsh6veaw1NKnURjzIQQ+FNTYBf29LQZ0=;
-        b=TZQN63UZalIOrRvL0S/PLZ49gNanoBxFlO0y9RJxrwy6j1zUMNPh+GYhg20RpR+WSX
-         x2AOG0sEFURvx/P5Re8g91XW6jpO1RlquUb7+uusVA59qqGqWo9yy7JtnAxincQfXRBv
-         Rplyz5ZQ+Og2O/kkYwqanvFeYtfJwg93jRFLY3UqiaC7QMWSv8/pvT3gMos9wELZFI8Y
-         zpDEqguovM6T7B4nBxU6QCeo5hwlp3JP+Lbc1LZp+qeVW9jwDilUr0xUwoO9DyaKfXJx
-         ZKiSL+tG2KXaCbit4CRkkGcoGssd/1efbRP+FD80AOEVJy/jkXa5Wbj4j9M90Ak2Z8O3
-         FXOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwUFGgjByv60EjCxc1UKEtu/0ZVxnqPKbw/96OME/LJCLAtquGNcTmpAuJ7fqrsm5+OQR37AOK2QCzGpA8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRFMyAZv3+KBHbTZAitNAgEESpa9yYqsORouLPZWRUWuOFu/FN
-	lsb8a61pFul9dztDX+K2gyg6QDRJlq3wxOZchxyhwd12QSWwqY9K0qVi1k+tizO+F/ZIP//K77N
-	hw0fs9fYtOh+tFl0+UueBAtI+y0DzhMw=
-X-Gm-Gg: AYBFou0e8pWwGU9wHPYzrhg+LKCCRWtDxacYE70OiIGj3ynVSTq0xPBbP3KfSq1BW4d
-	eQizx5uyvecKo4W74+ByI8rz9a+L49ODdiT5yLlRqlFxHAKeHqU9fpc7KrMDvdNSoQNojhJ5YJY
-	SHKtl8phXQQ1Q3nZTyABqW4b0kYow8C9Xm5frucTe4jUfE8YQZvMvBuyRylZ2d7CIerG3AuyE/4
-	7+v6uHG4QmAt/qP8QucFVGuMRsNwgoN2FoClnnQL8exxfL77IC7hTB93iSvfiZUJUV2Hy6/0i2z
-	/ypVtnqvXhs//E7vHZGd6zfpSkCDt+kLuSNywzHuuekD8GhEqRpJXeBx1tvPVIuor2Q/Oi9Madr
-	kQuoP/HUpbdfDnLWZzl5JoabqsM1elmCxT4MWSgDj22A3ZKzk35owDJ6i5STsGSgyJyoKcPQHxC
-	7snvFCJGzaePqjFnIWn6VrtHRZUnKoJA/CMfWZ1+aSLK48c5BDeWo=
-X-Received: by 2002:a17:907:e153:b0:c2a:c793:be00 with SMTP id
- a640c23a62f3a-c2ac793c83bmr563678266b.15.1790441774263; Sat, 26 Sep 2026
- 09:56:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LNv/El8x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96EB51F000FF;
+	Sat, 26 Sep 2026 16:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790441892;
+	bh=8rHVHWDwI8K+3Fj53dqiLT5fT3kjwCMl8iDzx68xZgk=;
+	h=Date:From:To:Cc:Subject;
+	b=LNv/El8xST7pdvahB1Mqn4k8IncMZ8cYsAHpgap9AESW7bGgV1E5DvSbI0DiNuSKE
+	 8iZ5eAtsV+VLeZwpg3N27bU7MfeN5W7i9/eC8ESQ5nMr+LMHv36UTj0qxQ4LGfwXLt
+	 giW7U5S4NGLeBT2sHID0KOEfbWWfirGlwbUgbgWf0P+CGZBA7qz8Ot6Bmc5xUMmun1
+	 dHn7VPk5MBigbk1BIlzuFbUliTTvr/Per3QvfyvVN2vzHMY7nrAz8iPmKYkbVQw1qU
+	 0QDQQSQBVWxJponhtAKWvp2JTKZldlVIdWccpx2cIVtE8t6IPAnRS9j5auh61LMlIZ
+	 pJHtTOhTuWYwg==
+Date: Sat, 26 Sep 2026 11:58:11 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Mikael Etienne <mikael1022bzh@gmail.com>,
+	Arthur Husband <artmoty@gmail.com>,
+	Alvin Lim <alvinwylim@gmail.com>, Niklas Cassel <cassel@kernel.org>,
+	Roland Waltersson <roland.waltersson@netinsight.net>,
+	x86@kernel.org, Angel J <iamanaws@httpd.dev>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Andrea della Porta <andrea.porta@suse.com>,
+	Liz Fong-Jones <lizf@honeycomb.io>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Subject: [GIT PULL] PCI fixes for v7.3
+Message-ID: <20260926165811.GA2146023@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
- <20260925160913.1648565-2-andriy.shevchenko@linux.intel.com> <ardbPbkc5IyZWsZo@black.igk.intel.com>
-In-Reply-To: <ardbPbkc5IyZWsZo@black.igk.intel.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 26 Sep 2026 19:55:38 +0300
-X-Gm-Features: AclHuK9n5gUoraVKhWUuGL_-FGzi6edyz4lY6gv-HdsfU8bjWPEV9o9jeXqIE0A
-Message-ID: <CAHp75VdUHTZstgOWTGxyYua_PayNXnikgo=iM6kUCWjsTkqb8w@mail.gmail.com>
-Subject: Re: [PATCH v1 1/5] gpio: Move Intel GPIO drivers to the dedicated subfolder
-To: Raag Jadav <raag.jadav@intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Junjie Cao <junjie.cao@linux.dev>, 
-	Runyu Xiao <runyu.xiao@seu.edu.cn>, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
-	Peng Fan <peng.fan@nxp.com>, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>, 
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
-	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>, 
-	William Breathitt Gray <wbg@kernel.org>, Israel Cepeda <israel.a.cepeda.lopez@intel.com>, 
-	Hans de Goede <hansg@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sat, Sep 26, 2026 at 8:42=E2=80=AFAM Raag Jadav <raag.jadav@intel.com> w=
-rote:
-> On Fri, Sep 25, 2026 at 05:57:03PM +0200, Andy Shevchenko wrote:
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-...
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-> >  drivers/gpio/{ =3D> intel}/gpio-elkhartlake.c |  0
-> >  drivers/gpio/{ =3D> intel}/gpio-merrifield.c  |  0
-> >  drivers/gpio/{ =3D> intel}/gpio-tangier.c     |  0
-> >  drivers/gpio/{ =3D> intel}/gpio-tangier.h     |  0
-> >  9 files changed, 50 insertions(+), 38 deletions(-)
-> >  create mode 100644 drivers/gpio/intel/Kconfig
-> >  create mode 100644 drivers/gpio/intel/Makefile
-> >  rename drivers/gpio/{ =3D> intel}/gpio-elkhartlake.c (100%)
-> >  rename drivers/gpio/{ =3D> intel}/gpio-merrifield.c (100%)
-> >  rename drivers/gpio/{ =3D> intel}/gpio-tangier.c (100%)
-> >  rename drivers/gpio/{ =3D> intel}/gpio-tangier.h (100%)
->
-> These are already in good hands but I'd like to be atleast informed
-> about these. Although I'm not sure if it's worth a dedicated entry,
-> so I'll leave it upto you.
+are available in the Git repository at:
 
-The patch adding the respective entry to MAINTAINERS is welcome, if
-you think it worth doing.
+  git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git tags/pci-v7.3-fixes-2
 
---=20
-With Best Regards,
-Andy Shevchenko
+for you to fetch changes up to 4fde448225123442c5796f54b7a4400e2d3cbaf6:
+
+  x86/PCI: Disable enhanced atomics on AMD NBIO 7.7 and 7.11 (2026-09-23 13:42:21 -0500)
+
+----------------------------------------------------------------
+
+  - Make BAR resize work even for devices where no upstream bridge is
+    visible to the OS, which fixes an amdgpu regression on SolidRun
+    HoneyComb, which doesn't expose Root Ports to the OS (Liz Fong-Jones)
+
+  - Omit bus properties in dynamic OF nodes when a bridge has no
+    subordinate bus, which fixes early boot hangs caused by NULL pointer
+    dereferences with CONFIG_PCI_DYNAMIC_OF_NODES enabled (Angel J)
+
+  - Disable enhanced atomics on AMD NBIO 7.7 and 7.11 to avoid silent data
+    corruption on 64-bit DMAs (Mario Limonciello)
+
+----------------------------------------------------------------
+Angel J (1):
+      PCI: of_property: Omit bus properties without a subordinate bus
+
+Liz Fong-Jones (1):
+      PCI: Fix BAR resize for devices on a root bus
+
+Mario Limonciello (1):
+      x86/PCI: Disable enhanced atomics on AMD NBIO 7.7 and 7.11
+
+ arch/x86/pci/fixup.c      | 99 +++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/pci/of_property.c | 11 +++++-
+ drivers/pci/setup-bus.c   | 23 ++++++++---
+ 3 files changed, 125 insertions(+), 8 deletions(-)
