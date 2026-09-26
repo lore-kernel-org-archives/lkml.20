@@ -1,138 +1,120 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB7C54707B
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A932FFF89
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790388115; cv=none; b=BM9wDVK8Z8Uqz1Wx5KpIb/faKxzQRxWcETk2MbzkYBpQCWOY9UH1MMP4iO2UFFz6GIKucuuIp+I5R7T6r4vrDh2MUu+PHJMUgG1nk6bbAqOY1mlbUDHuFuEym/aDlke+2URNVyC7e4qsWiL8VVbmT/z40UcBwCngKTD/8xHaQ3g=
+	t=1790388199; cv=none; b=C6aTYddmmCwaF6IyIa6+CMKEck8WOOAB4VsEvuQrHzYB7D2vFhCWlVKf+RoJlWOd4wMWpoN1wEYXKiDywHD3Zke73HbPBZ1DH9orgZuKmrdjnynV3f+p4aqd1mnN0SV/MFEhhKsqMGWleC84lu/RK6UlpXYZBovGpILKXrC1fZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790388115; c=relaxed/simple;
-	bh=TyHMa884rEn3IuH6JzFdcB5NA7GYjcaY9Thmo8jQjK8=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=ORN+4iyEhpB0/9NtNUKsE1eaCIPwAu3eEk5o3b08dzlwYAKJINSub+SDdJIDOOwPI3IIJOSJy9esaNOtkvmEvj1jE8b8cGLyBdmvl7GKN7SsfVACBAtRYQD8E1WDEITwONNDBmBlHrLOAhoPT2W7IgbrOkz1/0vyut/06TzWiY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lVbyw/fo; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790388199; c=relaxed/simple;
+	bh=RP+5Ec9UeM9r+i1P+pNVYwSRiXYhsbr/Ikg0S83LBdU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VXTAtugjOfCVMv8xgPub0ESkv8dvNHzwHQdAsOxu4m2yE9Im9CSoshfnCAbBj7vECj4GVREnTpsHiIXeGWxapDWiPa/x8moP3dMUnE8PXW0UhrSVNE+tgGx2FIySgE3EGQ8liISKxilSm4uLF7mqVuDkWHS6cY2E1keXzWjro9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q32lRUpR; arc=none smtp.client-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lVbyw/fo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790388112; x=1821924112;
-  h=date:from:to:cc:subject:message-id;
-  bh=TyHMa884rEn3IuH6JzFdcB5NA7GYjcaY9Thmo8jQjK8=;
-  b=lVbyw/fozJrhshGmpYVzTs4CCmB0QJ57Zce6kUiYWFKfogytXsVWjwCt
-   w/QQf6fEZ9T+iaNRrszRXoNI/m3NLSNVS4u76PjTuaRVp8fVYbZWMSUF9
-   lp2OvpBI4Fv3dlJlBBwGlyLqozWAlABvsjY8eUKK03cF1eQbmofnoafH1
-   mEG0qHh7FlCRlgXgQilWs8GEEDlOMg6KAtmL9M98o+3XRrt/RybB8BFAx
-   fEoI2QUx50oIRxqlpqKB41Iyi03cN+SYhjCOPdHdDYf6WUKAPn3nMS9D1
-   vhAvuV13fm1vG2N3hB8lnGBnvtFTNu76Tf/L9XK/ph//+uE7IiVk4i+sC
-   Q==;
-X-CSE-ConnectionGUID: VjwVvnGUROSvzpZ8gP/VdA==
-X-CSE-MsgGUID: sAi4Y7HiTQWcEN8kZ4b/Lw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="107555456"
-X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
-   d="scan'208";a="107555456"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 19:01:52 -0700
-X-CSE-ConnectionGUID: y+WaXH3GTCWYcxKQDdNXnA==
-X-CSE-MsgGUID: WDdPEBriRtSLSkADRKwywA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
-   d="scan'208";a="303985537"
-Received: from igk-lkp-server01.igk.intel.com (HELO 7278393c7b39) ([10.211.93.152])
-  by orviesa002.jf.intel.com with ESMTP; 25 Sep 2026 19:01:50 -0700
-Received: from kbuild by 7278393c7b39 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xAHjX-000000000AN-32kx;
-	Sat, 26 Sep 2026 02:01:47 +0000
-Date: Sat, 26 Sep 2026 04:01:15 +0200
-From: kernel test robot <lkp@intel.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: include/linux/compiler.h:200:82: error: expression in static
- assertion is not an integer
-Message-ID: <202609260356.tJWbd1WU-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q32lRUpR"
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-8121458be2dso2003006a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:03:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790388197; x=1790992997; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lAXbW0zIqThSvZBW3q+aJhA/JQ2MT3RMwWvhV448ODw=;
+        b=Q32lRUpRc+Qeu+5VqeTl527qrkLgMttX9zZnDVUgOQOHCCYv6Z/EWlh/BfakCj3QHW
+         I0KQVJlRI/n4kyv+APGaV+jUfZWtwiSRz/RAbzojYsZhvG8VVS0DQNwG8UtebbYNTQBP
+         b4D/WdvFWHl+nnnyN95sfJVrdk3cciloa9Fg6WVMb7GhM575RoK/GE5M/5sFtVogZzSm
+         c7fyLECFdiH2tliwJMlnnEotgvso+MZY0hVz0Xa2K96MtZYc09nYc1GCn7PFkPRA2Nrh
+         rLwZu/iJasLpvgRst0u4P7ojQL2e1CnLN/pBubAeCJde46QIpH/MTp3hBtU9uHlfCDl1
+         MYAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790388197; x=1790992997;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lAXbW0zIqThSvZBW3q+aJhA/JQ2MT3RMwWvhV448ODw=;
+        b=1UsGoSfyDO8WyV/pTj1fMImoTUMMZQWHtSbnLWzDHH1ZwXU7TF3AYfr2Qma6MAdeja
+         0sl4NxWTqL+mifJv0nLuekLwxFmuCm5xpWD3B1Bzw9uVDbTFnEt2PybrxwsDlB/sMjxX
+         mMMG3IDLq5mnFL1q+/jdttUhVUvWxkrmvEhMbySwkKtQPHbMcKZPijmCx9OQMGYkrXp8
+         znX53raTWeeV6DwC4Ld4jzRDnUgK491xc9LjLaTiakieBoG5jV+VK6ewYL1OJ2gDneb4
+         azxtSDj04KIlonMijEYH/tCx5vtswQ9KhNtgoCFNBbW2UounyH1CHkCfDNpAdlO4usLc
+         T8kg==
+X-Forwarded-Encrypted: i=1; AKwUvBxbJPTWE2ec7LVHhGODo1iMoK+cJPpPR9L2CBD+ZgJ1CstpJ891mX/5B8mQVyt2/V9lf28B2j46JC9apgU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mIswyFepMr68J4A6X6RWWzxfh0EQptJugzvPWaq2tnvk78ycEe
+	24bkEbGnwfi6BrVf36QFNcxW8IgjhxEUQHc8Saqv0PcPl1g0vU8iTzGE
+X-Gm-Gg: AYBFou3LcefU2MZuRYaPSCbsAKt6EUPqw9y65WexAOCLR7wVxmZIlk4jmnpx0FwlGKB
+	6KNHJfENVIJB03uX1tWw6gsZWuxZ3uLmX7Dq7bJq62bhbo7efPabyC7zgm0LhFPA9foRF2Mxp8a
+	U1y9FSoajjcpGGDG8wUOe1BOF/fpqiEArj8VNBihXbvzATlOQxQ7AY9cFW2apLndtv05KabRAoH
+	GcaXn+deXhfV96U7xetZIbCCKHpKi/8V17MGKsrz1YdOZLt6uWBXkBob8jYL5yKyzSEc0DBqeM/
+	eCrebYk1u53VrXvb7kJE8BWD6VGoLNnMP6qixL2IRoNcgt/SxAuRmcODrb3L8JVtD+OuaNw9pZH
+	7oqjopWLCRe1ftmSPI34bZIGOkmx7qKBu+1GjIYjJGBfJgZavWPNuFvFTNkjfhUYesAIypvCMqz
+	aaMvW+LTnqejkWiH1HGzYub43B0GyWsgX7la0DPHbbhUMM1RlsklXzy1ekGDeBDoVsDHYE9hoU+
+	MEBFU3xaI4diUEuOHlC6oXqMZR9pdMhoSXzkrPa/UjHUeBW0A==
+X-Received: by 2002:a05:6830:a18a:20b0:816:f1c2:d6b8 with SMTP id 46e09a7af769-81780a93afbmr4940499a34.9.1790388197052;
+        Fri, 25 Sep 2026 19:03:17 -0700 (PDT)
+Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-81903f5f25csm3719365a34.18.2026.09.25.19.03.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 19:03:15 -0700 (PDT)
+From: Enzo Adriano <enzo.adriano.code@gmail.com>
+To: junhui.liu@pigmoral.tech
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>,
+	linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 7/8] clk: sunxi-ng: a733: Add bus clock gates
+Date: Fri, 25 Sep 2026 22:03:13 -0400
+Message-ID: <20260926020313.911537-1-enzo.adriano.code@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <DLLYUYMR3CZT.17I8APGBH9H8S@pigmoral.tech>
+References: <20260921-a733-clk-v4-0-9c184ebe9ac1@pigmoral.tech>  <20260921-a733-clk-v4-7-9c184ebe9ac1@pigmoral.tech>  <20260921200512.3179109-1-enzo.adriano.code@gmail.com> <DLLYUYMR3CZT.17I8APGBH9H8S@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Rosen,
+Hi Junhui,
 
-FYI, the error/warning still remains.
+Thanks for reproducing the ahb-cpus issue. Adding clk_ignore_unused lets
+the Cubie A7S reach an interactive initramfs shell.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   6812ce4e4379ffc99c52401ec28f0d7ffbc36206
-commit: 4d105880666ab7f7914a75716d3e95b0d8b879dc tty: serial: mpc52xx_uart: add bounds check for psc_num array index
-date:   3 months ago
-config: powerpc-randconfig-r2101-20260926 (https://download.01.org/0day-ci/archive/20260926/202609260356.tJWbd1WU-lkp@intel.com/config)
-compiler: powerpc-linux-gcc (GCC) 12.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260926/202609260356.tJWbd1WU-lkp@intel.com/reproduce)
+I reused the September 21 uninstrumented comparator: v7.3-rc1 plus the
+four single-divider patches, CCU v4, the seven pinctrl patches, and the
+minimal test DT, with only ahb_cpus_clk marked CLK_IS_CRITICAL. The Image,
+DTB and initramfs were byte-identical to that earlier comparator; the
+only boot-argument change was adding clk_ignore_unused.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 4d105880666a ("tty: serial: mpc52xx_uart: add bounds check for psc_num array index")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609260356.tJWbd1WU-lkp@intel.com/
+Without the flag, that comparator stopped producing serial output at
+"clk: Disabling unused clocks". With it, the confirmation run recorded:
 
-All errors (new ones prefixed by >>):
+  [    1.263452] clk: Not disabling unused clocks
+  [    1.292364] Run /bin/sh as init process
+  [    1.526500] mmc0: new high speed SDXC card at address 544c
 
-   In file included from include/linux/kernel.h:16,
-                    from arch/powerpc/include/asm/page.h:11,
-                    from arch/powerpc/include/asm/thread_info.h:13,
-                    from include/linux/thread_info.h:62,
-                    from arch/powerpc/include/asm/processor.h:41,
-                    from include/linux/sched.h:13,
-                    from include/linux/ratelimit.h:6,
-                    from include/linux/dev_printk.h:16,
-                    from include/linux/device.h:15,
-                    from drivers/tty/serial/mpc52xx_uart.c:31:
-   drivers/tty/serial/mpc52xx_uart.c: In function 'mpc512x_psc_handle_irq':
-   drivers/tty/serial/mpc52xx_uart.c:648:35: error: 'psc_mclk_clk' undeclared (first use in this function)
-     648 |         if (psc_num >= ARRAY_SIZE(psc_mclk_clk))
-         |                                   ^~~~~~~~~~~~
-   include/linux/array_size.h:11:33: note: in definition of macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                 ^~~
-   drivers/tty/serial/mpc52xx_uart.c:648:35: note: each undeclared identifier is reported only once for each function it appears in
-     648 |         if (psc_num >= ARRAY_SIZE(psc_mclk_clk))
-         |                                   ^~~~~~~~~~~~
-   include/linux/array_size.h:11:33: note: in definition of macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                 ^~~
-   In file included from include/linux/dev_printk.h:14:
->> include/linux/compiler.h:200:82: error: expression in static assertion is not an integer
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                  ^
-   include/linux/compiler.h:205:33: note: in expansion of macro '__BUILD_BUG_ON_ZERO_MSG'
-     205 | #define __must_be_array(a)      __BUILD_BUG_ON_ZERO_MSG(!__is_array(a), \
-         |                                 ^~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/array_size.h:11:59: note: in expansion of macro '__must_be_array'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                           ^~~~~~~~~~~~~~~
-   drivers/tty/serial/mpc52xx_uart.c:648:24: note: in expansion of macro 'ARRAY_SIZE'
-     648 |         if (psc_num >= ARRAY_SIZE(psc_mclk_clk))
-         |                        ^~~~~~~~~~
+Commands issued after the shell prompt returned the expected readiness
+and completion markers. No panic, oops or SError appeared in the capture.
+The RAM-only run was followed by a guarded 120-second power-off recovery,
+which restored the vendor kernel and eMMC root.
 
+This narrows the second failure to the path bypassed by clk_ignore_unused,
+but does not identify an individual clock: the flag also bypasses the
+runtime-PM acquisition and traversal before the per-clock disable calls.
+I therefore still cannot add a Tested-by for v4 as posted.
 
-vim +200 include/linux/compiler.h
+Assisted-by: Codex:gpt-6
 
-230fa253df6352 Christian Borntraeger 2014-11-25  196  
-cb7380de9e4cbc Kees Cook             2025-02-05  197  #ifdef __CHECKER__
-243c90e917f5cf Vincent Mailhol       2025-03-29  198  #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) (0)
-cb7380de9e4cbc Kees Cook             2025-02-05  199  #else /* __CHECKER__ */
-243c90e917f5cf Vincent Mailhol       2025-03-29 @200  #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-cb7380de9e4cbc Kees Cook             2025-02-05  201  #endif /* __CHECKER__ */
-cb7380de9e4cbc Kees Cook             2025-02-05  202  
-
-:::::: The code at line 200 was first introduced by commit
-:::::: 243c90e917f5cfc99821e5104d1c8a81c11cda4c build_bug.h: more user friendly error messages in BUILD_BUG_ON_ZERO()
-
-:::::: TO: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-:::::: CC: Yury Norov <yury.norov@gmail.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Regards,
+Enzo
