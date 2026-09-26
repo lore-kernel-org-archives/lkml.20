@@ -1,172 +1,99 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61AD92FFF89;
-	Sat, 26 Sep 2026 14:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DEE40F73B;
+	Sat, 26 Sep 2026 14:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790434301; cv=none; b=VGeZCJCE/uvngbKr1nwvT0FIQliB4GspFdw7WaTe0x6EZKerWdsiKst+HxknCRl8OmeIv3wGfMC4BFy1HJNxDrhrBhbXjwQRdqqyWdI4Xoo/PlCqbfX+Tnz2DAancMy2TX5aIOndMc72pi80NAGmZt3RMMce17qdveIFtf4YgHY=
+	t=1790434337; cv=none; b=Rws4/blE2VquMpd+PPIg5nAllyG6KX7qs4/mPq5mwxdckAoxDMgdVzRhurNshjwrrUDgy4I9Se2oNFtQPmH7YTUvNiMsHvigcNO8RogLFcZmDQldq8xd8VPc9b36LWfp03aFy3kYtvXkLyBcZ3ZaAE51vd9GKTcI6aiDDoqrlw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790434301; c=relaxed/simple;
-	bh=pZTeVCBlihakj8ZvNv1lAbjxoAd+n7SrGIEcG9d3MYs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cx11Ti2W98XwtF1uCCKvWbUZtOWNl933hpmSLTtoIKrmZm98tZwwy+4w1CDQNKReXRwKUe24m/ZARE/0kSq8tWX1Hpi5GQQgXU34ACvxYtn1cj3z0jmKiyN+i4HA/odDUaWn7raEe/LpMM6zM5ke8zP/gvSPhDhbkgyuHrxHDFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kgnQyVoJ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790434337; c=relaxed/simple;
+	bh=5abk7LyybJMxfmauaAYXDtYtWyg+bJ6GD6yviS5jHzI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ROXlLlFTiRoGCdjjnuD14M9zTr6EFMAbF6l4Olad3F3eR40xifE6uooM+y0e1h5AYMbKnNZBFpwa+lMYDqNwVDbEVirl8sipVPnHHMUoLmmcJ8nITvb9nPmcLETQCXU6gqAJP2mVK5hu6xbqBacge76NSE1jzl1/J8nFvVkmvxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=LWxRlisf; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kgnQyVoJ"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9022BB5;
-	Sat, 26 Sep 2026 16:49:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790434188;
-	bh=pZTeVCBlihakj8ZvNv1lAbjxoAd+n7SrGIEcG9d3MYs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kgnQyVoJjxp560wpTUaSNxt8ZRBb32HnVlVcX03MbARetRBUPqWOIAOFVDozVx52n
-	 MKRWUAA9xeLYfsE1Cf5qmbcAQa5CfPZEe7WcBTw0GUe2hbOcFjvOl/cmKkN/yHfaLE
-	 CjfEReU7M9nONodqmbLmRfImeplZEmP7oJpEjehE=
-Date: Sat, 26 Sep 2026 17:51:35 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
-	vigneshr@ti.com, kristo@kernel.org, sakari.ailus@linux.intel.com,
-	mripard@kernel.org, jai.luthra@linux.dev,
-	jai.luthra@ideasonboard.com, devarsht@ti.com,
-	y-abhilashchandra@ti.com, mirela.rabulea@nxp.com
-Subject: Re: [RFC PATCH 1/8] dt-bindings: media: Add bindings for Omnivision
- OV2312
-Message-ID: <20260926145135.GC764757@killaraus.ideasonboard.com>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-2-r-donadkar@ti.com>
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="LWxRlisf"
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1790434325;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=A9v+lq5mWAV72Yfuty4BldqMgAV25TnkmTFu7i2y98Q=;
+	b=LWxRlisfozjEhIessbuyZAk7IaeAMUg+HKCT5qMWQvG1zpBKMqtED9r5oByf6asRZD8SE+
+	gbfL1ThShjc3nKZ9Hax3VbKgf1d0prqblzjcFU6L/zhuC1aKBo0G9TGKavkXh5Y6Ps4FFT
+	LSxt4WXpb+plKo2MG/8iz+kitjTUKhU=
+Subject: [PATCH v2 0/2] pinctrl: apple: Add t8140-pinctrl support
+Date: Sat, 26 Sep 2026 16:51:44 +0200
+Message-Id: <20260926-apple-pinctrl-t8140-v2-0-620bd11cd2a1@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260925133001.2780868-2-r-donadkar@ti.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OwQqDMBBEf0X23JRsULE99T/EQ4ybukU0JGmoi
+ P/eaO89Pph5MxsE8kwB7sUGnhIHXuYM6lKAGfX8JMFDZlBS1fKmKqGdm0g4nk30k4gNllJIUkr
+ bEmvbGMhN58ny57S23Y/Du3+RiYfqSIwc4uLXczbhkfu/kFBIgVhhP2irrLUPs/bk88UlXAdK0
+ O37/gVqM55VzQAAAA==
+X-Change-ID: 20260925-apple-pinctrl-t8140-0e22af416f8c
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Mark Kettenis <kettenis@openbsd.org>
+Cc: Yureka Lilian <yureka@cyberchaos.dev>, asahi@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Fri, Sep 25, 2026 at 06:59:54PM +0530, Rishikesh Donadkar wrote:
-> From: Jai Luthra <j-luthra@ti.com>
-> 
-> Add DT bindings for Omnivision OV2312 camera sensor.
-> 
-> Signed-off-by: Jai Luthra <j-luthra@ti.com>
-> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> ---
->  .../bindings/media/i2c/ovti,ov2312.yaml       | 79 +++++++++++++++++++
->  1 file changed, 79 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov2312.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov2312.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov2312.yaml
-> new file mode 100644
-> index 000000000000..76929fcc6550
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov2312.yaml
-> @@ -0,0 +1,79 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/ovti,ov2312.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: OmniVision OV2312 Camera Sensor
-> +
-> +maintainers:
-> +  - Jai Luthra <j-luthra@ti.com>
-> +
-> +description: |-
-> +  Omnvision OV2312 is a camera sensor with an active array size of 1600x1300.
+This patch series has fixes for probing the pinctrl_ap GPIO controller
+on the MacBook Neo. The previous code would crash in the regmap_init on
+this device, since reading the REG_GPIOx for certain pins causes an
+SError.
+To mitigate this, we adapt the gpio-reserved-ranges property to describe
+pins which are unusable and whose REG_GPIOx should not be accessed.
 
-s/Omnvision/OmniVision/
+Also add the new t8140 base compatible to the dt-bindings, signifying
+the different behavior of the t8140 pinctrl_ap device, and make the
+driver accept it since it now respects the gpio-reserved-ranges property.
 
-(although they now seem to style the company name as OMNIVISION)
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+---
+Changes in v2:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v1: https://patch.msgid.link/20260925-apple-pinctrl-t8140-v1-0-1151bdaf2fff@cyberchaos.dev
 
-> +  It supports capture of frames with a 4x4 RGB-IR bayer pattern. This provides
-> +  both human (RGB) and machine vision (IR) capabilities in low-light scenarios.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ovti,ov2312
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    const: xvclk
+To: Sven Peter <sven@kernel.org>
+To: Janne Grunau <j@jannau.net>
+To: Neal Gompa <neal@gompa.dev>
+To: Linus Walleij <linusw@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Mark Kettenis <kettenis@openbsd.org>
+Cc: asahi@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-gpio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-If there's a single clock, drop the name.
+---
+Yureka Lilian (2):
+      dt-bindings: pinctrl: apple,pinctrl: Add t8140 compatible
+      pinctrl: apple: Add t8140-pinctrl support
 
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      Specifier for the GPIO connected to the RESET pin.
+ .../devicetree/bindings/pinctrl/apple,pinctrl.yaml  | 12 ++++++++++++
+ drivers/pinctrl/pinctrl-apple-gpio.c                | 21 ++++++++++++++++-----
+ 2 files changed, 28 insertions(+), 5 deletions(-)
+---
+base-commit: 63fcbd85bbb795805ce1014637de186c647fa59d
+change-id: 20260925-apple-pinctrl-t8140-0e22af416f8c
 
-You also need regulators.
+Best regards,
+--  
+Yureka Lilian <yureka@cyberchaos.dev>
 
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/properties/port
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: ../video-interfaces.yaml#
-> +        unevaluatedProperties: false
-
-The sensor supports both CSI-2 and parallel output. You need to be more
-precise here regarding the supported properties. The bus type, in
-particular, needs to be defined.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - port
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        camera@60 {
-> +            compatible = "ovti,ov2312";
-> +            reg = <0x60>;
-> +
-> +            clocks = <&fixed_clock>;
-> +            clock-names = "xvclk";
-> +
-> +            reset-gpios = <&gpio4 17 GPIO_ACTIVE_LOW>;
-> +
-> +            port {
-> +                camera1: endpoint {
-> +                    remote-endpoint = <&vin1a_ep>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +...
-
--- 
-Regards,
-
-Laurent Pinchart
