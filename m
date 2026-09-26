@@ -1,65 +1,64 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8282D148850
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5036A363C59
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:50:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790405429; cv=none; b=kNIZEDZmouv53T7Nh3GyDtiT7cxqwHQ/xeS8+EKGt1BUuNod04TflPg8FHWu0nAVh2zlTk7twCzXcxQ8OKf3KaNkUkkRVXuJGb559J5BH31V/C07Z3oB//PBTyqMSE4ZAEgEOQ8diTlMT7rHhj+i/fRpoTeZq+QywAZAMi0PBK4=
+	t=1790405435; cv=none; b=QybqpPvIJRcMlDO6ozbX4tgKN0J2+4mWVLBLEhq8Q4eLhj8JsqG0SmH3300Ca20zDh3Ewp12hJsvAlko3dYtjdQxr86LMkPANUgpzFJLcIlF6OvlX1rZnxjn7/TGO1jcWWeXIR8x9hVN24yPtHUNVontwLOwjL2EkGNN/xWNbHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790405429; c=relaxed/simple;
-	bh=rTGUtv+wPxJk5mSmM4Tl3xXZ3LO/rYIRQAR1R4Hrk/0=;
+	s=arc-20240116; t=1790405435; c=relaxed/simple;
+	bh=HXXQDQFDe6y3nQ/vamf6MNCnBdaQPhLlVMTawKOpJl4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iYgGfhaL4/tX7HbWKOUMCcG4J/FOav/hozziCHYyCPq7t7PWGHu1RZ9pHw7mqvoYRfsoSqvnFfNJn0hOemvkzr1zSbuPJUw1Uprmfpk+5Dxl1o6cr5ep3ajj0wQCrz1HsDSNrVytGAHFnPy5/JXcnaA2U2YFcQkp+7nZH+3BUJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=hpLG9uZU; arc=none smtp.client-ip=74.125.228.42
+	 MIME-Version; b=RXhWIwH2wNpkC9Scu9XiKoKBqUcM7pmPJX49HfniZ9QVxJ0O+mxp26x9On1DSdG3h9AHRsPy2dE4/igPQqy/yo1HXLKFqCxK9i7G3igdNHS/N1dnYWXiszL/V102xjGGERQRQ2mI7uqcbv2VCbI43uEhWYoB8ewKp7oCkfa12Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=KKJcTB+L; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="hpLG9uZU"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc797656e44so332839a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:50:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="KKJcTB+L"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0bcdf41a3so698839a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:50:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790405428; x=1791010228; darn=vger.kernel.org;
+        d=nebusec.ai; s=google; t=1790405434; x=1791010234; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qaSz2GdVx8A7Ex+8pGM2lnZM5Ln+swsfQUfhuKBlALc=;
-        b=hpLG9uZU96Qg3rkcWdkfKnGm+i7V5Wf6ritlkyqDjD3CX8HzWCeeFVv3188EnXspUj
-         mZIbG5z/uTBPFCi2UIZgZVM0u0AZ8ew1+XT/X3WgcU3zKOqd0S1022/BfhTeu7yMZfDV
-         I//JIxg+e5/nbuW5EXKhldO/O+fN2dEizs0DSY0+b1gS6m/1BjtG5Q/MsZ11ZGaaXO1b
-         iLr9M+gyOdsDLHQu29oXvSH3oqU1O6YtLgwvjras+krA4zHqZpVhg+2tKTcrtePlCZJV
-         z3M9B/lR/71m/KCWeqGSWW+r408XcxKmMOJKLixVow9zYYTTadBgEltyvxqt1L7qZmWA
-         SYKA==
+        bh=kwLyN45KcXkMlGV64Woz+4zZ99i3stRGQEp+uIa/oYs=;
+        b=KKJcTB+LXHmibGJJ8l1Bqq3mYXAP4jyXdZuMimyTM04u+yyqEOTfusm+2t/Xj/OVfN
+         4vOZ3e0WLVHnuDgkHMlUwmwdkthIulyoHGsmDjzPIcmNMilG929opSJAXMlrSEvGbKOd
+         dz+PBTof1cWGtoh1QUKJs8RuMBAqbDd3ss6Ye4x+qey17O18w6gDRDya2CZMLfjrwHzk
+         o2gVYgEngdweL1u/MKB2ym7mGWRpxHd6FCVZMoKl+H7U5laeDH0HlBP0cQIDkY9uyM7e
+         X5jcqP3c/ks6TAGv7uH/C1NTen1VLVSsWzKDXWyzHi1ethPQkwcRuryoKqPIP4KUqem9
+         ujrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790405428; x=1791010228;
+        d=1e100.net; s=20260707; t=1790405434; x=1791010234;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qaSz2GdVx8A7Ex+8pGM2lnZM5Ln+swsfQUfhuKBlALc=;
-        b=cAtl5nxQVlT2QdDSUfdAW9eJPqZZnhvWt4cxb8UB/TIFUSrXy2PxHX7LabttCaUW0C
-         v4MUzU9pYt9ZeFN47pEj8zHBm0jfcQLhF68E7dppi29BSB1CewvLifFQzqS0OG5e3v74
-         hSx/u/ZpCj6BC/P+ynQoZLwuE+d4t+meoAvBeF+O1S7jdL0cnTST4EkuAUuBiHKQ9Lmd
-         kgqSe+Ekf4GXDoJRxl+f4hc+ZL6TfCKETfGarL49MOh60OLRDytOQ3zvV6IT/w5Kkxuu
-         bnnMCoQwV4blreeJ7ptdGQHMVSyccZ99jP1pisMQ1RVInVEkiKf2ETnoOpOZFNr1mk3r
-         YXgg==
-X-Forwarded-Encrypted: i=1; AKwUvBwEMLXLd0FVI2Cf7v1Paf3hPcs3lEtQS22aL3+LEQjBUtdz/hBsKURXk7AC042aya4JcrZrnSV6z+pd6qg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKYecUrLiYLHSD8RmHUg2N/2Vo/50mlrGBMkc272UaoZGCZQgQ
-	6cI0HaBcspOXLzsPyTJTw/qwodk6AyCGqcaegT2Z/9+YiZiF1thtS1eQWCMKxi6pfdJRGc9CQ9C
-	KpOIgXA==
-X-Gm-Gg: AYBFou1ehLV8RrSWbjii9+oiR27GT1JcqXxV6350K8ilbTY/tppT+Afb9meraOpb9yl
-	bwgsUqRWUJXYYUcFHI4XypAfJpUdbH6y0K9dbS7t63jjEilciS03J0ElYJ8NGRjtABsdSgkHf87
-	LOEcrhN6FFfZrc7GoAHCQN2MZy9dSHagOh/8A50OApniEAzfNvWanBR4Uy7JpDkl+EbFnBPQV5g
-	uZIOVoDlYK/AbdsFeQvu2agQJdi9g0n0JKpcEcW035oTkK3XDWWBs0/yjRk3zoglPEPexr8Iecy
-	tFxR3KB9cJyN3k6GZRPX4MYoMxLDC4BBPZ9v5p+mDsFDf92EYUKEefX/m8rEhVwZ9DaVX0T3VDf
-	El5hwGv6pdftigVo90Ez9a0t72phZX+ieUsvYlkHwrFawGdllEfw6uUsYXLCFrXSouVOSWs5peu
-	A4CsOzL04QFd0yXlh8WdtlJWFl+ZRPYcadq9WfstCzNL3jf3uL976mzRTiuFgNwPU19+WznuLAy
-	Cut+89kfDIpCUAHZvo74PJqYO9QSA==
-X-Received: by 2002:a17:90b:314e:b0:39e:5ade:f9de with SMTP id 98e67ed59e1d1-3a098b431dbmr6905351a91.26.1790405427689;
-        Fri, 25 Sep 2026 23:50:27 -0700 (PDT)
+        bh=kwLyN45KcXkMlGV64Woz+4zZ99i3stRGQEp+uIa/oYs=;
+        b=TzXFPTXILunEiDJKuSWOK2K9wYQTjc1awfLms6zRHnwcqXx9UKCeCNNfnTjfGpRwzl
+         GFE5Em4uLZJE95bH6z9sXvWIXlTA6SLnek4F8DNuRXx4UCGB/Il0PVo5sDOnxvUutepJ
+         HEdLKRzHVuUn7GBbyJpXZDsckomAju6LsvN3shySUaizNLhMF+5SgiX/5bCpLKDedWSU
+         Hc0qbS1H74Xf3kRAS7CwhXBg6LCVVNtADaBrvB8AGAe3Y/+nttYWIhcwDfUbTa1N5fHx
+         0dMwXB3mcrwyuck/rgna7pH91bMQw143u4cz8y3D/XjJMJc885WeFRO5qZUPSQ9rLyGn
+         i0Kg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQIht5PRqfJtD0ZNzHnPObGKm0i1TftAu0OrHhRtoicCzPmAYMNaqJGBJaistLOtI5MTmXhFCwh3XBiOo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFJVMdzTNsL6ypSJu7eBpXyxRC8a2FWXvSUHV3TP9DwPCttJ80
+	5NIZCGBr6fYi3czwgN81BaOuvgruuzCR6K1c+stTzELG/VcHFfxHKKDnVEhBy2RqUEBD
+X-Gm-Gg: AYBFou2UEBFwT0pi6XE49NuEQ960S8Ap8rELKpadcez0FS0WPQDbA+1Td8dNvuWJaXF
+	SR5Ggy+ViC1I3PKeQowiMX+9DSFpjvpzQoxAuiFnhwjMMfepmOfXnyXm2aJMFgQhN+z0ATtdIhW
+	K85b2G81Y5wnzk+1zlvVWsNSriwraQELu2JZrxj8vfwAYEZRf/tdqaCoU6CIYKlfxMctKgbS9IF
+	xJ19INSFCFhJvU3M1LZc+CSCEsMV/Kie4cppta3NU21cTs/9hA+DBzfCnkfNHccnCfO729Sx630
+	/bpRsUCAnDLwjPezUIex9FxIiwFmHqyYaRRhecUyJ6NGo842kevlEX3ywFIZ1endN6i7BmVu6f6
+	be9sgOv2pYDPSWS3f24aKiiGLQDZVKSY9FqW3O1BekK4Knnt9vuiivzYtS8CGul+7tsd0oT+cT3
+	wUt+FVlZKzb2Fr4Qbs1MGERjLdtq1nxgiFfrQnTsxxohJOiI6Wo9YMI67u3XRTBNhLOXkZ+bo1d
+	efJyVPHWJswQhAYo2vtnQqfaGLKc1E=
+X-Received: by 2002:a17:90b:2785:b0:39e:6795:f7da with SMTP id 98e67ed59e1d1-3a09875ee61mr7024834a91.19.1790405433480;
+        Fri, 25 Sep 2026 23:50:33 -0700 (PDT)
 Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b498fb12sm3447327a91.0.2026.09.25.23.50.24
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b498fb12sm3447327a91.0.2026.09.25.23.50.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 23:50:27 -0700 (PDT)
+        Fri, 25 Sep 2026 23:50:32 -0700 (PDT)
 From: Zihan Xi <zihanx@nebusec.ai>
 To: sfrench@samba.org
 Cc: zihanx@nebusec.ai,
@@ -75,9 +74,9 @@ Cc: zihanx@nebusec.ai,
 	samba-technical@lists.samba.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v5 2/6] smb: client: validate POSIX create context length
-Date: Sat, 26 Sep 2026 06:49:22 +0000
-Message-ID: <fb456ba211e83a7e17ed2da6867ec4f88af4ff00.1790398755.git.zihanx@nebusec.ai>
+Subject: [PATCH v5 3/6] smb: client: close handle after create-context parsing failure
+Date: Sat, 26 Sep 2026 06:49:23 +0000
+Message-ID: <ab085417d625754208dd45f8ab751d4d06f410d8.1790398755.git.zihanx@nebusec.ai>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1790398755.git.zihanx@nebusec.ai>
 References: <cover.1790398755.git.zihanx@nebusec.ai>
@@ -89,18 +88,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-parse_posix_ctxt() reads the fixed nlink, reparse_tag, and mode fields
-before checking that the POSIX create context contains them.  A short
-context can pass the generic checks and still make these fixed-width
-reads run past its declared data.
+SMB2_open() accounts a successful CREATE response as a remote open before
+parsing its create contexts.  If smb2_parse_contexts() rejects malformed
+context data, SMB2_open() returns without closing the handle, leaving the
+server-side handle open and num_remote_opens elevated.
 
-The current in-tree smb2_open_file() path passes a NULL posix pointer,
-so this handler is not reached on the ordinary open path.  Still require
-the POSIX data to cover all three fields before reading them because the
-helper performs those unguarded reads.  Keep the existing soft-failure
-behavior so malformed optional metadata does not fail the open.
+Close the handle after a post-CREATE context parsing failure so the error
+path releases the remote resource and balances the open count.
 
-Fixes: 69dda3059e7a ("cifs: add SMB2_open() arg to return POSIX data")
+Fixes: af1689a9b770 ("smb: client: fix potential OOBs in smb2_parse_contexts()")
 Cc: stable@vger.kernel.org
 Reported-by: Vega <vega@nebusec.ai>
 Assisted-by: LLM
@@ -114,43 +110,35 @@ changes in v5:
     https://lore.kernel.org/r/202609241449.HlHmnZFZ-lkp@intel.com/
   - v4 Link: https://lore.kernel.org/all/cover.1789478666.git.zihanx@nebusec.ai/
 changes in v4:
-  - Keep the handler-level minimum check and preserve soft failure for
-    malformed optional POSIX metadata.
+  - Keep post-CREATE cleanup for parser failures and document the existing
+    best-effort close behavior.
   - v3 Link: https://lore.kernel.org/all/cover.1788516372.git.zihanx@nebusec.ai/
 changes in v3:
   - Split the POSIX handler check into a separate patch and corrected the
     parser Fixes history.
   - v2 Link: https://lore.kernel.org/all/cover.1787486936.git.zihanx@nebusec.ai/
 changes in v2:
-  - Add the POSIX handler check for the three fixed fields.
+  - Add cleanup after a create-context parsing failure.
   - v1 Link: https://lore.kernel.org/all/eb1bc35611f91bd10a4772400b37fac26f660956.1782579150.git.xizh2024@lzu.edu.cn/
 
 ---
- fs/smb/client/smb2pdu.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ fs/smb/client/smb2pdu.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 7a6627400ba30..1b2ca3b2c2f87 100644
+index 1b2ca3b2c2f87..12973f2e26b16 100644
 --- a/fs/smb/client/smb2pdu.c
 +++ b/fs/smb/client/smb2pdu.c
-@@ -2395,12 +2395,15 @@ static void
- parse_posix_ctxt(struct create_context *cc, struct smb2_file_all_info *info,
- 		 struct create_posix_rsp *posix)
- {
--	int sid_len;
- 	u8 *beg = (u8 *)cc + le16_to_cpu(cc->DataOffset);
--	u8 *end = beg + le32_to_cpu(cc->DataLength);
-+	u32 dlen = le32_to_cpu(cc->DataLength);
-+	u8 *end = beg + dlen;
-+	int sid_len;
- 	u8 *sid;
+@@ -3414,6 +3414,9 @@ SMB2_open(const unsigned int xid, struct cifs_open_parms *oparms, __le16 *path,
  
- 	memset(posix, 0, sizeof(*posix));
-+	if (dlen < 3 * sizeof(__le32))
-+		return;
+ 	rc = smb2_parse_contexts(server, &rsp_iov, &oparms->fid->epoch,
+ 				 oparms->fid->lease_key, oplock, file_info, posix);
++	if (rc)
++		SMB2_close(xid, tcon, oparms->fid->persistent_fid,
++			   oparms->fid->volatile_fid);
  
- 	posix->nlink = get_unaligned_le32(beg);
- 	posix->reparse_tag = get_unaligned_le32(beg + 4);
+ 	trace_smb3_open_done(xid, rsp->PersistentFileId, tcon->tid, ses->Suid,
+ 			     oparms->create_options, oparms->desired_access,
 -- 
 2.43.0
 
