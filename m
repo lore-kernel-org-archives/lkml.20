@@ -1,114 +1,80 @@
-Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518473E4C96
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:27:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.8
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48D8B39D6FA;
+	Sat, 26 Sep 2026 10:28:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790418484; cv=none; b=CXxM91dd8aQ8hIlN30OMuLaL+Xf50aU/po8k+IuRhUiLABKd2vXmj2CPchIE/dEe0QRYEM15Pz+m7r6CWrGtU6IrKTGsUyzTCuBfKR5s7U1CPR+VZRbZjshx0ZUyyJyKrrCcs2y5FoWs+OHpQ3SWGUVoOEupZsWZ4lNOV48OiJw=
+	t=1790418490; cv=none; b=jqHRVV9AGbYLna7CXuoxShDqIMxkxzg5OGyZF2tWBRI+gzI+Y2qMdeU0R/Ip+84ygZVPEE0mQrTCYhM0CR8Lz1sNtMZKmouvdtw/M+G8iBBPh1AP7fWHb/tRQrRtKuQuhg9PPPW/9ZCRNW27uR0W8Y4XUhmMfLMLiW25anyRdY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790418484; c=relaxed/simple;
-	bh=EX4Uxb/Tm1kN69l5KZyoMnonP3Wjubs+yppWBVrvgsg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n1ssJDkZid7t7DsXmQa7vTLFIcKrpaiTrjmthrXlSPSNniapp3aPllKjCeCRQBNS0FAO67UXgIa7IHlmWFVFRxOdREzQJEDBZFmgIenyuS1KTFNJjPoqMsq3Iv2stq++tss1f0DhrPylvz9HOqOyvCyrBDuv+VXgIxmguk5JouE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e2VGVb0C; arc=none smtp.client-ip=74.125.229.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e2VGVb0C"
-Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-342d720df34so379829eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:27:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790418477; x=1791023277; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1oNYWnhVHWPsTs9fwu8jkatxdu2fZWhgiXhQOy61cHY=;
-        b=e2VGVb0CFDfhdYMjJxQHO4PVUdtLhLFgCWUvuIxBoUjXBm9wxmchOSnoUFajPkLTgv
-         xKCOp4tmO0NAbdkzq6kFRr5HacakoRsfpyS8iywPwi4or2diaTwHrx3R+e6dsM++DXPy
-         r1yuYuWbbZgb46LhNSSBgGZ2zMRAKYbAJtxgP3p1zbXSApVtaQgxeetdfFyvhX2Wz2WI
-         iNqq612+MQhZ0rDB5YZluwB8cINZ+sLB0mU+ozGf1+5wl7yVpywAiukSc2elaGcIkbeZ
-         ti+l9p8esO/IcVnxxO00TJVOrNFuU/dpFy4jzxhY3iatD1EgDiaT2bTJOscADKBskkqz
-         zHEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790418477; x=1791023277;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1oNYWnhVHWPsTs9fwu8jkatxdu2fZWhgiXhQOy61cHY=;
-        b=FoMY39t39V3XdKQoBQng3DsszxT6vbMY/CzHUZjaNnSM7eNdbm4zX4SJv5+F5okO+u
-         gwdSV+qNXEjkNOzvJmg5fhdwARei0XhevCGiJepQF50HNN6oTt+nItoTTEQgowt7iZ7b
-         mizNGZ+X0kBIwcbOpDfRgeZ4+Vpn10NG0sfflHIFmol04B5vH3DpiTGESJUFQ6J67sH1
-         W+eyLoCXqZ+rMhuvmpLa5Oefig519i3bARYDrVOr4z77DnU1g1nxi/SsqcY2rGYOnHdU
-         BEGdmrQrUboSmBuaiEimwIlgXZ72hDCqNR8JuH9YuwZu0C1knk71M3WNV5nvXQRJxWlC
-         SASQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy7VvGpfYQekLJgjYafSEz4ibF8aHq3PuPvYRRvzyGE1jFGf9uo8/0vo37pyIZuzl0VnjRkp7w9KZkGSSM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIn8rRaDg1x98FUfHBNhuu6bYYTpI9IyznuPJbLrJzO6gkyHhG9
-	RyRSg98Edu8JxhmvfPe4/kH0MPmTF3rqymTKW/WyaJSiFcbYlumBYHD3
-X-Gm-Gg: AYBFou1TPVFB/RX349SFtgLQWK/towdbiaoEeRnlrzvwkVCRcnBS45AE8sX9lG2nGHW
-	Vdl65bXu/PlYv6U5yOcPM4s8Ngf7as2TGIVIdpmJO92ohemrx9aiOhJWiu8jSqBHrkP7lqOdqt3
-	Dof+WWmpJsfSrtpr7RV1IUJefAtVA1PgZ5/WSHiD2/eOBc9aQBPR8OhYAocC8ST4PmoYFNMESNR
-	RKs7eOqo+j4no2GQqQJ9e2QTIlLWDZYM4xfxT8pFP1aytiy2Qd2UAsIP0IkyXMnaS95Jmzxn79R
-	XRe1sNHFPhk1Dl7NCJCboH6z+nOvqZ/2kelMAee7IkNjOVU+K448Cj8b1q/LE2NoUzxb2/w90jM
-	UN0Iy944W4+CyQGkjYSnXM2ehMNbcP/4KNxkzpZ8kkDAPTnpg6eCT8LwxOraLs0L+0anxguNuL8
-	/5v6P96teEzj08AYujtjjTSqDKHEcZRGBkZP7cy4HwFUTGCqaTCyun2p0rZUcwIIKOnFRo8x/9p
-	d6tx6a+BSGvol25i/4JgAlQVd9Y0VKpbtddXg==
-X-Received: by 2002:a05:7300:c88:b0:33c:e91:271b with SMTP id 5a478bee46e88-34273347562mr3890672eec.36.1790418476668;
-        Sat, 26 Sep 2026 03:27:56 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3413fc2413dsm13027997eec.0.2026.09.26.03.27.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 03:27:56 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Dan Carpenter <error27@gmail.com>,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] staging: rtl8723bs: make xmitframe_swencrypt() return void
-Date: Sat, 26 Sep 2026 10:27:36 +0000
-Message-ID: <20260926102736.2773-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1790418490; c=relaxed/simple;
+	bh=H6N6pAq+DjIrovYoSA00wVda+pBoEDMYedDqq39xHgU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YNftCmGbCHOaKJE/U5xSKPutb6upN71dzQbUJafEr+bDsO2AIYFQTtT25uHckGEO25o2fdrTxILQb4lnSCEVz13xgkQ43YqdmZxLMrFf2BJUrsu9T4DmLGTchzn2fJ0qQ499dg3l3O+dSiGGrFp12zud+IKC1hZiFIliiePF8rA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1xAP4O-0007LJ-00; Sat, 26 Sep 2026 11:51:48 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id 5D1B9C0C8E; Sat, 26 Sep 2026 11:37:31 +0200 (CEST)
+Date: Sat, 26 Sep 2026 11:37:31 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: Orgad Shaneh <orgads@gmail.com>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] MIPS: Octeon: size the swiotlb for a modular OHCI
+ platform driver
+Message-ID: <areSW06DxCXn-4mR@alpha.franken.de>
+References: <20260915081828.25800-1-orgads@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915081828.25800-1-orgads@gmail.com>
 
-xmitframe_swencrypt() always returns _SUCCESS, and none of its callers
-use the return value.
+On Tue, Sep 15, 2026 at 08:18:24AM +0000, Orgad Shaneh wrote:
+> plat_swiotlb_setup() raises the swiotlb to 64 MB on OCTEON II with
+> memory above 4 GB, because that OHCI can only DMA to 32 bits. The test
+> is "#ifdef CONFIG_USB_OHCI_HCD_PLATFORM", which is false when the driver
+> is a module - the usual way to build it - so the bump is silently
+> skipped.
+> 
+> What is left depends on the rest of the function: with PCI enabled the
+> "memory past the BAR1 hole" branch happens to ask for the same 64 MB,
+> but with CONFIG_PCI off - which is normal on these SoCs when no PCI
+> devices are wired - swiotlbsize stays at the PAGE_SIZE it was
+> initialised to. A full- or low-speed device on an OCTEON II board with
+> more than 4 GB of RAM then has no bounce buffer to speak of.
+> 
+> Use IS_ENABLED() so a modular OHCI gets the same sizing as a built-in
+> one. Seen on a CN6635 board with 8 GB of RAM and
+> CONFIG_USB_OHCI_HCD_PLATFORM=m.
+> 
+> Fixes: a8667d706dfa ("MIPS: OCTEON: dma-octeon: fix OHCI USB config check")
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+> ---
+> diff --git a/arch/mips/cavium-octeon/dma-octeon.c b/arch/mips/cavium-octeon/dma-octeon.c
+> --- a/arch/mips/cavium-octeon/dma-octeon.c
+> +++ b/arch/mips/cavium-octeon/dma-octeon.c
+> @@ -228,7 +228,7 @@ void __init plat_swiotlb_setup(void)
+>  		swiotlbsize = 64 * (1<<20);
+>  	}
+>  #endif
+> -#ifdef CONFIG_USB_OHCI_HCD_PLATFORM
+> +#if IS_ENABLED(CONFIG_USB_OHCI_HCD_PLATFORM)
+>  	/* OCTEON II ohci is only 32-bit. */
+>  	if (OCTEON_IS_OCTEON2() && max_addr >= 0x100000000ul)
+>  		swiotlbsize = 64 * (1<<20);
+> -- 
+> 2.47.0
 
-Change the function to return void.
+applied to mips-next
 
-No functional change.
+Thomas.
 
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- drivers/staging/rtl8723bs/core/rtw_xmit.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/staging/rtl8723bs/core/rtw_xmit.c b/drivers/staging/rtl8723bs/core/rtw_xmit.c
-index 95350fd6a94f..51d63fb7a311 100644
---- a/drivers/staging/rtl8723bs/core/rtw_xmit.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_xmit.c
-@@ -881,7 +881,7 @@ static int xmitframe_addmic(struct adapter *padapter, struct xmit_frame *pxmitfr
- 	return 0;
- }
- 
--static s32 xmitframe_swencrypt(struct adapter *padapter, struct xmit_frame *pxmitframe)
-+static void xmitframe_swencrypt(struct adapter *padapter, struct xmit_frame *pxmitframe)
- {
- 	struct	pkt_attrib	 *pattrib = &pxmitframe->attrib;
- 
-@@ -901,8 +901,6 @@ static s32 xmitframe_swencrypt(struct adapter *padapter, struct xmit_frame *pxmi
- 				break;
- 		}
- 	}
--
--	return _SUCCESS;
- }
- 
- int rtw_make_wlanhdr(struct adapter *padapter, u8 *hdr, struct pkt_attrib *pattrib)
 -- 
-2.43.0
-
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
