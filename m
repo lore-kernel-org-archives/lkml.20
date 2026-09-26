@@ -1,75 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A61227EA7;
-	Sat, 26 Sep 2026 05:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C2233F8A1
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:26:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790400376; cv=none; b=BZ06ZTkfOmy1FrFjVcqCfAhlrCjJAaYfiGjkemYmKsH9W8YWANQF/WBJ75ol2xJ0q/aoKigpQjVSHlIVYRYbaNU0iI/MxFBnRgAAClHJO8hmHGQrvMM+y5nwNaH4zl/qFfnD09576f5kRJCnKvQtGpD7FmeT4jIlKnnIFM6oEek=
+	t=1790400414; cv=none; b=cBRZok2A7mXDQrD5MMJ3SQgMstXnt/uWP4yr7npHqX2fQ+QL+ARdyjZXfahNdr9TgXrVS135U7UaOffbk8WnjGaG3tZo+In2CyQIUFYkKkv8hNeMRwPfhGfVMMfYknUunLAIT209SXF5/QvotagqHata0k4d2LgbremdXquaUts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790400376; c=relaxed/simple;
-	bh=gIHPd9h5Vbnm5RLG7zQJ+SAj3Kkp0Sc1Q/tNWUYimD4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=S8SyUsftaYfZL4AgpvjuHwBVem9DcmQZ8zfuGOqxUHEcYhwN+IxGn7I98Yxak3DtaLgusuMwQv2dIgoLLF32ILltApJrPPUCkltthbRvSYTLzrTmu/zYZHKkduwRu7cBgiLAtwAGLIuKSpovEb2TriRtTkuOnJINwZN3X71eoQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NDhp/qQt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790400414; c=relaxed/simple;
+	bh=4P9v5MNF+H4noSBR7OJYRA03UpcVDJ1wkDA1N3AMcj4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HmwZcIkoWfIe/a1oI1jd12N0uDY6yHlbNDNFyqoNiZaKJ2ejNN8STFNbADvYioyrHhDqF35qklef3bj/jfKbMED5eFt0RQGRMq7OerQReXthv4Wq+ssvL2baVtjf4/DHFGMhNrPgmt2IyDilxY9yFCd24vb8WgBQX1BF4c/HgM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Pcm1by4v; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NDhp/qQt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD9971F000FF;
-	Sat, 26 Sep 2026 05:26:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790400374;
-	bh=hDa9npNfJuDxNd7gtgXXdOumIY/2QpBZnEXtltyonF0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NDhp/qQtHrKjJrdjeYqTs/N/AKf61PUhzJtReOlXhhjr97YI2ZUyncE4iDULD81Ag
-	 kpJZe2/HAfOxFGWjpINVGb5RFfl4TVa0mKcSWhNv2rzZsOYMGqTpNZ3wr+Bkn260ZT
-	 qxGQ3t4TW93zZO3tLe9dJuIN94uEM8K5ZBKbT++8J5koFcq7QVPcSxeuWAe3NQq5mM
-	 8LLhLxCgqErIsNGWPSuGIfQMTY4UuaP/9TImNnNPmNVGzU7o9qxZaq5hcvEXRLY8Gr
-	 0m76P1dmTlUtCBs+nVONlepNlMQ1nv80GBfJnymEh46LnPMpSCXXGpTwnpRCp5rhHt
-	 VCWChmEV6dZVg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] x86/hibernate: Ignore page-zero RAM in E820 checksum
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Matthias Goergens" <matthias.goergens@gmail.com>, "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: scardracs@disroot.org, linux-kernel@vger.kernel.org, mingo@redhat.com, tglx@kernel.org, dyoung@redhat.com, io@r-ricci.it, x86@kernel.org, linux-pm@vger.kernel.org, yu.c.chen@intel.com, kexec@lists.infradead.org, baoquan.he@linux.dev, hpa@zytor.com, moravec@ukf.sk, jlee@suse.com, dave.hansen@linux.intel.com, bp@alien8.de, pavel@kernel.org
-In-Reply-To: <20260926052117.3613637-1-matthias.goergens@gmail.com>
-References: <20260805070900.3390978-1-matthias.goergens@gmail.com>
- <20260926052117.3613637-1-matthias.goergens@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 26 Sep 2026 05:26:13 +0000
-Message-Id: <20260926052613.CD9971F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Pcm1by4v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790400410;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=NvmGXSA00HPZOSJCm9LwOa3iASeTeG9V+ogkkFW7yoI=;
+	b=Pcm1by4virfT78R3F64Jw0j16YtefuiuBqei5g+T8kxnfuLB1jJJH9iruoKD8wMFzvL7ca
+	zUreuCr/tVM6aPTwWIPJPXwVmXmE/mP/BClx82zcINgAC1Kv2bJrSlvYnGzUzAJS/xOG+b
+	+IgICd6n5foTPCerWfei8pEJwL9GH2Y=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-448-mf8t4hv8OJ20ml8ky0IVzw-1; Sat,
+ 26 Sep 2026 01:26:48 -0400
+X-MC-Unique: mf8t4hv8OJ20ml8ky0IVzw-1
+X-Mimecast-MFC-AGG-ID: mf8t4hv8OJ20ml8ky0IVzw_1790400407
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DC408195606F;
+	Sat, 26 Sep 2026 05:26:46 +0000 (UTC)
+Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 35B091956086;
+	Sat, 26 Sep 2026 05:26:46 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Gabriel Schneider <gbrls@osec.io>,
+	stable@vger.kernel.org
+Subject: [PATCH] KVM: x86/mmu: Bail from shadow walks if the root is invalid or a dummy
+Date: Sat, 26 Sep 2026 01:26:45 -0400
+Message-ID: <20260926052645.195528-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-> The legacy kexec_load path reconstructs the E820 map exported through
-> sysfs.  kexec-tools leaves the first 1 KiB unavailable for the real-mode
-> transition, so a kernel entered through kexec_load can see conventional
-> RAM starting at 0x400.  A subsequent firmware boot reports the same RAM
-> range starting at zero.
->=20
-> The hibernation E820 checksum compares those byte representations and
-> rejects the image, even though the maps agree from page one onwards.
-> A QEMU guest showed this transition:
->=20
->   firmware:     RAM [0-0x9fbff]
->   kexec_load:   gap [0-0x3ff], RAM [0x400-0x9fbff]
->   firmware:     RAM [0-0x9fbff]
->=20
-> The checksum covers e820_table_firmware, which trim_bios_range() leaves
-> [ ... ]
-> kernel carries on.
->=20
-> Fixes: 62a03defeabd ("PM / hibernate: Verify the consistent of e820 memor=
-y map by md5 digest")
-> Reported-by: Roberto Ricci <io@r-ricci.it>
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+From: Sean Christopherson <seanjc@google.com>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+When walking shadow page tables, immediately terminate the walk if the root
+is a "dummy" root, i.e. a root whose top-level page table is backed by the
+zero page, but otherwise doesn't exist.  If memslot creation races with a
+stage-2 page fault (EPT violation or #NPF) from L2, then if the stars align,
+KVM will attempt to walk shadow page tables using the zero page and hit a
+NULL pointer deref.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926052117.3613=
-637-1-matthias.goergens@gmail.com?part=3D1
+  BUG: kernel NULL pointer dereference, address: 0000000000000021
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  PGD 0 P4D 0
+  Oops: Oops: 0000 [#1] SMP
+  CPU: 30 UID: 1000 PID: 941 Comm: qemu Not tainted 7.2.0-rc2-1b731e5ded48-next-vm #1741 PREEMPTLAZY
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
+  RIP: 0010:__kvm_mmu_invalidate_addr+0xea/0x210 [kvm]
+  Call Trace:
+   <TASK>
+   kvm_mmu_invalidate_addr+0x92/0xe0 [kvm]
+   __kvm_inject_emulated_page_fault+0x67/0x80 [kvm]
+   ept_page_fault+0x160/0x850 [kvm]
+   kvm_mmu_do_page_fault+0x102/0x1f0 [kvm]
+   kvm_mmu_page_fault+0x8e/0x6b0 [kvm]
+   vmx_handle_exit+0x163/0x640 [kvm_intel]
+   kvm_arch_vcpu_ioctl_run+0x960/0x2120 [kvm]
+   kvm_vcpu_ioctl+0x2c7/0x970 [kvm]
+   __x64_sys_ioctl+0x90/0xd0
+   do_syscall_64+0x67/0x5f0
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+  RIP: 0033:0x7f606d0b53bb
+
+Opportunistically harden the shadow walks against fully invalid roots, but
+WARN, as all callers are expected/required to pre-check for a valid root.
+Don't WARN in the dummy root case as the whole point of using a dummy root
+is to provide a root that's valid enough to enter the guest, i.e. it should
+Just Work for all flows except those that *need* to know about dummy roots.
+
+Alternatively, KVM could allocate a dedicated page and associated shadow
+page structure for the dummy root, which is very tempting as it such an
+approach should be more resilient against unexpected behavior.  But that
+would be a much larger and thus riskier change than simply terminating
+walks of dummy roots.
+
+Fixes: 0e3223d8d00a ("KVM: x86/mmu: Use dummy root, backed by zero page, for !visible guest roots")
+Reported-by: Gabriel Schneider <gbrls@osec.io>
+Cc: stable@vger.kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260925234256.2384816-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ arch/x86/kvm/mmu/mmu.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 8e62476e477b..a0d608e3fceb 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -2512,6 +2512,12 @@ static void shadow_walk_init_using_root(struct kvm_shadow_walk_iterator *iterato
+ 
+ 	iterator->addr = addr;
+ 	iterator->shadow_addr = root;
++
++	if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root)) {
++		iterator->level = 0;
++		return;
++	}
++
+ 	iterator->level = vcpu->arch.mmu->root_role.level;
+ 
+ 	if (iterator->level >= PT64_ROOT_4LEVEL &&
+-- 
+2.52.0
 
