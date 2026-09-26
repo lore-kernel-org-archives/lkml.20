@@ -1,482 +1,142 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f36.google.com (mail-dy2-f36.google.com [74.125.229.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048E32D1907;
-	Sat, 26 Sep 2026 14:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988FB443ABE
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790434641; cv=none; b=ZEQHoKYRoKx5sVAOxvvfMUfWro5p8WvPRcFZoZI5ZN2MzGh9OB+tFvu6EePG9dAoSWRh6ElTjXhXqKeB1i60bLnPSamsijpYVSkDAqzN8Hy/YsItAW5xZLapN9n98HFyXttQYoEgrcoJSTaNLljcEUWT4AQbs+/9IukDGb99hxs=
+	t=1790434753; cv=none; b=am0KvUzAu98da5Q7Wjwd70keRCWC7/AX4/Vu9WvwhS9xFPlwsCGICFTLLlrBxrygDdQ9T1De8ojFR2AOvN3Fggit3ZTOYBbMxQ5N6fpr4/MIk/fA0bWoeDVOO1VUh+qlshTxQoHLdgcYNs9ak8gpU1iIuRjYd+9CgBcYl9eLFqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790434641; c=relaxed/simple;
-	bh=MnzDPDtMMNhamKHW99FoslhsRuKtscVO5qkdZNF/MyQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oavkAxoPnxSB4+0KstSAWf7KzvMKPwVGvYP2fqr6LPEKvioN2Eod4gmMAjQpdkOJd45vAfl9m1fJErFb+PNiHps9ND7Vo0CZLrTahhiRE7IJxNUnhvOIrZh8CIt/3IbNUPGWPpTUA91QreoacATiKJedgxig+mwOTQc5jF7Ib+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kyopCTyW; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790434753; c=relaxed/simple;
+	bh=0vLf4wsautSGPoindTukbpU3HzvGRz/8vbGGYbIW4Ss=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q+OMA2Zvt1Iob4ljDNsZ6+YJ+nlfUrUsa0HAQrrFKa9ikLblR9YxlfeYI3DSKBR5Ez1/UgqYRZXQCk8eD3dV0WnJBQ7M5NsfyBOlHectLW7s0oOQf5c3zyr9uAsuvvgHaycdW/XOWSeC8kX4duQ7ibmPMhRkEWNFw7iNWGz5VQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mUyb0VOk; arc=none smtp.client-ip=74.125.229.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kyopCTyW"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0DBD3B5;
-	Sat, 26 Sep 2026 16:55:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790434528;
-	bh=MnzDPDtMMNhamKHW99FoslhsRuKtscVO5qkdZNF/MyQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kyopCTyWJZ77lrsA1Wd1GnbcSF6k8FX/fR83MOIvjD3L9XkHkZhw2EgdzQlFlQLbx
-	 lmRDylvISE3Yc0kMPG6HPaMioO/FLwCBzT3dk8jpPRGKANb1s1HQrdL9xDChIQ3nW+
-	 PrYeOBl7n5rwzonYC8vCCFE9G+J8m48QmGhbCvDs=
-Date: Sat, 26 Sep 2026 17:57:15 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
-	vigneshr@ti.com, kristo@kernel.org, sakari.ailus@linux.intel.com,
-	mripard@kernel.org, jai.luthra@linux.dev,
-	jai.luthra@ideasonboard.com, devarsht@ti.com,
-	y-abhilashchandra@ti.com, mirela.rabulea@nxp.com
-Subject: Re: [RFC PATCH 7/8] arm64: dts: ti: k3-am62a7: FPDLink overlays for
- LI OV2312
-Message-ID: <20260926145715.GF764757@killaraus.ideasonboard.com>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-8-r-donadkar@ti.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mUyb0VOk"
+Received: by mail-dy2-f36.google.com with SMTP id 5a478bee46e88-328664c2da6so1237663eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:59:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790434752; x=1791039552; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7vjDxNGtx5H9Ua7b/Rh8PBSRk9w4/mM73r+TwEkNiRg=;
+        b=mUyb0VOkxarFhTkKvX/1taZ5w/BDNwKB5INM+90jsjQVsiFT4AN5RyyY/UX5J9F/hN
+         V6EGztJWCeIEMuqNQYy4sVoE1uf5XD192L6TP2R8wmTK2czRiJpHH50efnRqE8FWsSXc
+         tP5tX1B4YKRjUYl3BsyEEh007S3vrhaXJKCeO3mJ1/87k/HdDmOhXm5+Lbl702H9te8B
+         +c+hKtJH2ohgDi4kee7S7LIfdryq3tVQVO7/8a2ty3n6jCxP/jHB2j6dc+q9p0IfSjEG
+         LME0IoC1g0BSM8i+fxPAHTKr8lBKgzQGeQlAMJhgUrCW67T+kvT8PYMn1+LMiLWisvv4
+         o1wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790434752; x=1791039552;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7vjDxNGtx5H9Ua7b/Rh8PBSRk9w4/mM73r+TwEkNiRg=;
+        b=vm2NSxvigzQtyaPksTBi+SRKRtBTzU4jwpsgHp3Cri0I+0oufu3m0mWGwsPKE+q9II
+         SOlBia+Dl1GhiopkSJqdpz8x7GVu7tqJxAU2a4+LADlTtWgg0l/IKPxgvpsm55EovA9z
+         yBX9/X3M+7S+JXJ9z/4mStB0h7Lzt/8Leo/B/Ddn7bFfAUzxS9WapUn4vzFWizr8ctKy
+         R+2BUKapRZ2FpLdH/m82/nAeMO1J52Z2cGIRoaYUNXHc2b04bSv1qUg5srWceCZRT4w/
+         6EdR9UsjesbA6riDmfUJJ5hGQIusKxzcCSEyG+2EKONlaNRnTA6MiGVv0VitGWPGfxK8
+         oqVA==
+X-Forwarded-Encrypted: i=1; AKwUvByhyTbf0TVXyq0O4ZAF7Dl1+RqkwC9zUSDMS7nDmq49YwrJBLdL0lAKd6NhAsE46Xvg+Lg/8r3sYq/xiEw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1B8VBeb5hSMdED/qH9jRT1KYngMZfP9B4A3tI024bcwQtEZKE
+	DyK2wX0oBtDcQ+iyC0fkKpWBCSSsfFFFnHrBP0thPtZ2mfC1APO/L504
+X-Gm-Gg: AYBFou0i0EeV2cKwvLzpF/eFb7Okayt/SSxqp9LwxvkvmqTbb2m/o5IHMhBxX9/33ky
+	9UrJJvBNmPYBFzX+1Jup+UqdOQEBhZi7eI7meSQZEL63bNCsDPD0dmbDDsMJBxI2kgTFQLbkJIp
+	OPJdy7QVbW9VanaL5443JmkXBdlUv3uuyvOnoKckqfiZ/Ux3F1a5tEOoIPUj61lFrYgFF0G6Oes
+	+sWwqNzuZvzbHlUEDyTA+qmN9blyQG/XKNXzRGTZa7VLOpr3DYcxM/JFkG/EzbOcOTQSn8SSgPp
+	lDvVAwiPPOuzMPvQbemFOmPWNf5jB0tVRi/Lw29+Lw9S/kAQmSw9pObg0Bjr43ECFQrqadAdv6H
+	uOYO5IejiOvO24O4KgIhIUNTMz+1Bi2meSS079vffopuFAYiB4HOyqm3ENVzldJpxthEanPNDDJ
+	Ccobg79lrl3nsbAW3GAH23IgRCVOhV2gnkhqpC2e4nO4E8ZdU+OzncZLBENxKu60cGBQgpBn8CI
+	fhFdmxaePLZqzxuMQ==
+X-Received: by 2002:a05:7301:4301:b0:343:311a:372d with SMTP id 5a478bee46e88-343311a386amr2050888eec.28.1790434751423;
+        Sat, 26 Sep 2026 07:59:11 -0700 (PDT)
+Received: from kernel ([103.219.206.17])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145c166cfsm14171312eec.28.2026.09.26.07.59.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 07:59:10 -0700 (PDT)
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: herbert@gondor.apana.org.au,
+	ebiggers@kernel.org
+Cc: davem@davemloft.net,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] crypto: x86/aes-gcm - fix always true check for last AAD segment
+Date: Sat, 26 Sep 2026 20:29:03 +0530
+Message-ID: <20260926145903.6061-1-raizudeen.kerneldev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260925133001.2780868-8-r-donadkar@ti.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 07:00:00PM +0530, Rishikesh Donadkar wrote:
-> From: Jai Luthra <j-luthra@ti.com>
-> 
-> OV2312 is a raw (4x4 RGB-IR bayer) sensor, the LI-OV2312-FPDLinkIII-110H
-> module [1] packages it with an FPDLink-III serializer (DS90UB953) for
-> use with sensor fusion setups using FPDLink-III deserializer boards.
-> 
-> Link: https://www.leopardimaging.com/product/autonomous-camera/ti-fpdlinkiii-cameras/li-ov2312-fpdlinkiii/li-ov2312-fpdlinkiii-110h/ [1]
-> Signed-off-by: Jai Luthra <j-luthra@ti.com>
-> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> ---
->  arch/arm64/boot/dts/ti/Makefile               |  6 ++
->  .../boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso    | 89 +++++++++++++++++++
->  .../boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso    | 89 +++++++++++++++++++
->  .../boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso    | 89 +++++++++++++++++++
->  .../boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso    | 89 +++++++++++++++++++
+In gcm_process_assoc(), a segment that is not the last one must have its
+length rounded down to a multiple of 16 bytes, as required by the
+assembly. The check for a non-last segment is `if (unlikely(assoclen))
+/* Not the last segment yet? */` where assoclen is the number of AAD
+bytes remaining after the current segment.
 
-This seems to be a very strong candidate for the new DT addons
-(https://bootlin.com/blog/device-tree-addons-describing-non-discoverable-addon-boards-and-connectors/).
-It would help getting this feature merged if you could give it a try.
+Since the conversion to the new scatterwalk API, assoclen is decremented
+at the end of the loop body rather than the beginning, so it still
+includes the current segment when the check executes, making the check
+always true.
 
->  5 files changed, 362 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
->  create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
->  create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
->  create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
-> 
-> diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-> index 795978e962ee..8d608e244087 100644
-> --- a/arch/arm64/boot/dts/ti/Makefile
-> +++ b/arch/arm64/boot/dts/ti/Makefile
-> @@ -508,5 +508,11 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
->  	k3-j784s4-evm-usb0-type-a.dtb \
->  	k3-j784s4-evm-usxgmii-exp1-exp2.dtb
->  
-> +# FPDLink Sensors
-> +dtb-$(CONFIG_ARCH_K3) += k3-fpdlink-ov2312-0-0.dtbo \
-> +			 k3-fpdlink-ov2312-0-1.dtbo \
-> +			 k3-fpdlink-ov2312-0-2.dtbo \
-> +			 k3-fpdlink-ov2312-0-3.dtbo
-> +
->  # Enable support for device-tree overlays
->  DTC_FLAGS := -@
-> diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
-> new file mode 100644
-> index 000000000000..0829f01a0f90
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
-> @@ -0,0 +1,89 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * IMX390 FPD-Link 3 Camera Module
-> + * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +&deserializer_0_ports {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	/* FPDLink RX 0 */
-> +	port@0 {
-> +		reg = <0>;
-> +
-> +		ub960_fpd3_1_in: endpoint {
-> +			remote-endpoint = <&ub953_1_out>;
-> +		};
-> +	};
-> +};
-> +
-> +&deserializer_0_links {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	link@0 {
-> +		reg = <0>;
-> +		i2c-alias = <0x44>;
-> +
-> +		ti,rx-mode = <3>;
-> +
-> +		serializer: serializer {
-> +			compatible = "ti,ds90ub953-q1";
-> +			gpio-controller;
-> +			#gpio-cells = <2>;
-> +
-> +			#clock-cells = <0>;
-> +
-> +			ports {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				port@0 {
-> +					reg = <0>;
-> +					ub953_1_in: endpoint {
-> +						data-lanes = <1 2>;
-> +						/*clock-noncontinuous;*/
-> +						remote-endpoint = <&sensor_1_out>;
-> +					};
-> +				};
-> +
-> +				port@1 {
-> +					reg = <1>;
-> +
-> +					ub953_1_out: endpoint {
-> +						remote-endpoint = <&ub960_fpd3_1_in>;
-> +					};
-> +				};
-> +			};
-> +
-> +			i2c {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				sensor@60 {
-> +					compatible = "ovti,ov2312";
-> +					reg = <0x60>;
-> +
-> +					clocks = <&serializer>;
-> +					clock-names = "xvclk";
-> +					assigned-clocks = <&serializer>;
-> +					assigned-clock-rates = <24000000>;
-> +
-> +					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-> +
-> +					port {
-> +						sensor_1_out: endpoint {
-> +							remote-endpoint = <&ub953_1_in>;
-> +						};
-> +					};
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
-> new file mode 100644
-> index 000000000000..06cba8c7397f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
-> @@ -0,0 +1,89 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * IMX390 FPD-Link 3 Camera Module
-> + * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +&deserializer_0_ports {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	/* FPDLink RX 1 */
-> +	port@1 {
-> +		reg = <1>;
-> +
-> +		ub960_fpd3_1_in: endpoint {
-> +			remote-endpoint = <&ub953_1_out>;
-> +		};
-> +	};
-> +};
-> +
-> +&deserializer_0_links {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	link@1 {
-> +		reg = <1>;
-> +		i2c-alias = <0x45>;
-> +
-> +		ti,rx-mode = <3>;
-> +
-> +		serializer: serializer {
-> +			compatible = "ti,ds90ub953-q1";
-> +			gpio-controller;
-> +			#gpio-cells = <2>;
-> +
-> +			#clock-cells = <0>;
-> +
-> +			ports {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				port@0 {
-> +					reg = <0>;
-> +					ub953_1_in: endpoint {
-> +						data-lanes = <1 2>;
-> +						/*clock-noncontinuous;*/
-> +						remote-endpoint = <&sensor_1_out>;
-> +					};
-> +				};
-> +
-> +				port@1 {
-> +					reg = <1>;
-> +
-> +					ub953_1_out: endpoint {
-> +						remote-endpoint = <&ub960_fpd3_1_in>;
-> +					};
-> +				};
-> +			};
-> +
-> +			i2c {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				sensor@60 {
-> +					compatible = "ovti,ov2312";
-> +					reg = <0x60>;
-> +
-> +					clocks = <&serializer>;
-> +					clock-names = "xvclk";
-> +					assigned-clocks = <&serializer>;
-> +					assigned-clock-rates = <24000000>;
-> +
-> +					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-> +
-> +					port {
-> +						sensor_1_out: endpoint {
-> +							remote-endpoint = <&ub953_1_in>;
-> +						};
-> +					};
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
-> new file mode 100644
-> index 000000000000..7d377dbe5bbf
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
-> @@ -0,0 +1,89 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * IMX390 FPD-Link 3 Camera Module
-> + * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +&deserializer_0_ports {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	/* FPDLink RX 2 */
-> +	port@2 {
-> +		reg = <2>;
-> +
-> +		ub960_fpd3_1_in: endpoint {
-> +			remote-endpoint = <&ub953_1_out>;
-> +		};
-> +	};
-> +};
-> +
-> +&deserializer_0_links {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	link@2 {
-> +		reg = <2>;
-> +		i2c-alias = <0x46>;
-> +
-> +		ti,rx-mode = <3>;
-> +
-> +		serializer: serializer {
-> +			compatible = "ti,ds90ub953-q1";
-> +			gpio-controller;
-> +			#gpio-cells = <2>;
-> +
-> +			#clock-cells = <0>;
-> +
-> +			ports {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				port@0 {
-> +					reg = <0>;
-> +					ub953_1_in: endpoint {
-> +						data-lanes = <1 2>;
-> +						/*clock-noncontinuous;*/
-> +						remote-endpoint = <&sensor_1_out>;
-> +					};
-> +				};
-> +
-> +				port@1 {
-> +					reg = <1>;
-> +
-> +					ub953_1_out: endpoint {
-> +						remote-endpoint = <&ub960_fpd3_1_in>;
-> +					};
-> +				};
-> +			};
-> +
-> +			i2c {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				sensor@60 {
-> +					compatible = "ovti,ov2312";
-> +					reg = <0x60>;
-> +
-> +					clocks = <&serializer>;
-> +					clock-names = "xvclk";
-> +					assigned-clocks = <&serializer>;
-> +					assigned-clock-rates = <24000000>;
-> +
-> +					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-> +
-> +					port {
-> +						sensor_1_out: endpoint {
-> +							remote-endpoint = <&ub953_1_in>;
-> +						};
-> +					};
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
-> new file mode 100644
-> index 000000000000..f74bff5f12b0
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
-> @@ -0,0 +1,89 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * IMX390 FPD-Link 3 Camera Module
-> + * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +&deserializer_0_ports {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	/* FPDLink RX 3 */
-> +	port@3 {
-> +		reg = <3>;
-> +
-> +		ub960_fpd3_1_in: endpoint {
-> +			remote-endpoint = <&ub953_1_out>;
-> +		};
-> +	};
-> +};
-> +
-> +&deserializer_0_links {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	link@3 {
-> +		reg = <3>;
-> +		i2c-alias = <0x47>;
-> +
-> +		ti,rx-mode = <3>;
-> +
-> +		serializer: serializer {
-> +			compatible = "ti,ds90ub953-q1";
-> +			gpio-controller;
-> +			#gpio-cells = <2>;
-> +
-> +			#clock-cells = <0>;
-> +
-> +			ports {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				port@0 {
-> +					reg = <0>;
-> +					ub953_1_in: endpoint {
-> +						data-lanes = <1 2>;
-> +						/*clock-noncontinuous;*/
-> +						remote-endpoint = <&sensor_1_out>;
-> +					};
-> +				};
-> +
-> +				port@1 {
-> +					reg = <1>;
-> +
-> +					ub953_1_out: endpoint {
-> +						remote-endpoint = <&ub960_fpd3_1_in>;
-> +					};
-> +				};
-> +			};
-> +
-> +			i2c {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				sensor@60 {
-> +					compatible = "ovti,ov2312";
-> +					reg = <0x60>;
-> +
-> +					clocks = <&serializer>;
-> +					clock-names = "xvclk";
-> +					assigned-clocks = <&serializer>;
-> +					assigned-clock-rates = <24000000>;
-> +
-> +					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-> +
-> +					port {
-> +						sensor_1_out: endpoint {
-> +							remote-endpoint = <&ub953_1_in>;
-> +						};
-> +					};
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
+As a result the last segment was rounded down as well, causing some
+avoidable extra work: an additional memcpy into the temporary buffer and
+an additional call into the assembly afte the loop. The GCM
+authentication tag is unaffected either way, so the self-tests pass and
+this went unnoticed. It is purely an efficiency issue rather than a
+correctness one.
 
+Fix this by moving the assoclen decrement back to the beginning of the
+loop body.
+
+Fixes: e9787deff49ea ("crypto: x86/aes-gcm - use the new scatterwalk functions")
+Cc: stable@vger.kernel.org
+Suggested-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+---
+Changes in v2:
+- Use the correct Fixes commit and cc to stable
+- Change the fix by moving the assoclen decrement back to the top of the
+  loop body instead of changing the condition as suggested by Eric
+  Biggers.
+
+Link to v1: https://lore.kernel.org/all/20260926040614.8683-1-raizudeen.kerneldev@gmail.com/T/
+
+ arch/x86/crypto/aesni-intel_glue.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/crypto/aesni-intel_glue.c b/arch/x86/crypto/aesni-intel_glue.c
+index f522fff9231e..1903ed8bbe3b 100644
+--- a/arch/x86/crypto/aesni-intel_glue.c
++++ b/arch/x86/crypto/aesni-intel_glue.c
+@@ -1293,6 +1293,7 @@ static void gcm_process_assoc(const struct aes_gcm_key *key, u8 ghash_acc[16],
+ 		unsigned int len;
+ 		const u8 *src = walk.addr;
+ 
++		assoclen -= orig_len_this_step;
+ 		if (unlikely(pos)) {
+ 			len = min(len_this_step, 16 - pos);
+ 			memcpy(&buf[pos], src, len);
+@@ -1320,7 +1321,6 @@ static void gcm_process_assoc(const struct aes_gcm_key *key, u8 ghash_acc[16],
+ 			kernel_fpu_end();
+ 			kernel_fpu_begin();
+ 		}
+-		assoclen -= orig_len_this_step;
+ 	}
+ 	if (unlikely(pos))
+ 		aes_gcm_aad_update(key, ghash_acc, buf, pos, flags);
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
