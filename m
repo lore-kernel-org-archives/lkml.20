@@ -1,170 +1,164 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011039.outbound.protection.outlook.com [40.93.194.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88A6372EE2
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790452649; cv=none; b=ZU9yCUkSWO38ppJXdluZk+KGf/6FHxvFDv/l50PamoEDu/WtwXzSlKXhPU1hJmm6rPXJiBXoMV2tp4gz2io4jbEtjnWP1U/dEkEz5qByypbbGff2a62TPhJ4OCnbFTAXteSR1HyAYZwVT0AZOH+PNaG9+DF5PodmKaQPtiytPzI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790452649; c=relaxed/simple;
-	bh=qWq++QraPZZgfewzC7tf2JHtRehzSir1xvdICagfjjM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=et/ZKUfjLehQjWpuTsnxG+T3EsG69Gcaqneh3nL4PGkJFCp13jquXJDtfExR0hvgXXvizLjSLNuOx4uW+IsbdThG/BI2WaaKCbQWBqnh7dIgqxOESt9WkA617luqBIZJVOrr3E1Z6adsHiUliq6rDdQxi5+r2CndK5IH1l5o36A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RATiE6m3; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50B6371056
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790452731; cv=fail; b=jlY4VUWlXrHWa3rtF42K+kPhgRtAt76xfzE5WJfLzTQu8SSbE7fIqkDXokc2OEE55blthoAHGwSJJejmLj+YR/Szcg0Hk1OAFrrWgGktwQd/+Ysf5VELIv6LHiQwA+im7bAQ8trhoAfyWC8KYu8hvLzGu69cn75S0hXiat6LztU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790452731; c=relaxed/simple;
+	bh=xv3khOlPkYMbKBe8Is53uLjVMLP3ALsrrNTyuQF3JkU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=jlTBD1CzZD6Uav5shDZKUPWKdb/30vxnPKut+Zg82IUcR5Sz4ABFp42YIBTwTgEgwTIFnS+MlfhVZ0Q/PAxBVXYGIo07yS5A+E1irMuSO2PQLf1Wf3lM6os0hvYtqc5iYTlq621bcvZJHOk8v7o7HBY6B5SCVaNxbuRdjJtuBtw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Bi46Lez/; arc=fail smtp.client-ip=40.93.194.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RATiE6m3"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso1696435e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:57:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1790452645; x=1791057445; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UvlokUDDlkO4+4AUk5rq3f1vyywZ8aScoT8XENLNdjw=;
-        b=RATiE6m3NJ/EN5WtoynkuZZ+lstuFnbNTTA0fQkfp6MTize5jKHdCElW1LOVeHTIet
-         XiRp3RPCmSNChLgzAVJugHgZuELIBDKPMssGOktfBoozro5wh3RB7arDYFzMLeEYI7I4
-         ZLkCyUVq7m1ON3GANc9a0IP2wOhZ4E5a4LuYc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790452645; x=1791057445;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UvlokUDDlkO4+4AUk5rq3f1vyywZ8aScoT8XENLNdjw=;
-        b=2FrFBbIhPcjU57YXf0QfJica45J7KurPAwREJjnaUqKayp2egg1RMqXsbQVX4O1HQO
-         Nz28y2wZhYnFH5Xgd1REJwgcqrIgQ7JODvIaO1SCQ+RrAm0yl5LkYGiwk9hsrWq+ZxRz
-         Ib7vddrdPuHPlzSEICTIBoMgKytIVm4cGCPKxA8F6A+gWtdW61FIv2fmO0LEcUSsKjA7
-         pX7W4HluYZM8yuycBpwTfpOc+VxGTu01QB45KuWpyzYx0zfKUZWKSS+xsakOi4DtoIJ5
-         /0+2V8a7aap+9Ag4BBb3T9hRWDWbR79pLberKEyUHzymD/fCFVwZVZNOHufWwF+WWGbU
-         bkTg==
-X-Forwarded-Encrypted: i=1; AKwUvBzV4bjS2Xtb76XnERgmKTLwUpFsfkQ/OUdvxuuSIuhdjzNbh5ZVkRT10zI5u/9HQUC0uvcA0U4wcyXBf1c=@vger.kernel.org
-X-Gm-Message-State: AFuF++lMXQK3nGiv+GCoJI8vzTOW8CVDwpJgF0nGVGmvv6Q7VvWMzfz8
-	kDdlD7l0d4gKISaGjKVv/9JQ/iJCU9QJMuMHUVQMRb49VWYcGL5Sw1qZAk6UJhkuGSM=
-X-Gm-Gg: AYBFou2niaGZkwTPUo0nT/DsJ9rIMEkvo1bv1Ja9QAwIpMsc2H6C6Po/Hx+cjrzAVus
-	5BpjtYHup346DtYOD3pgcUTqydSdKKgKkqxoPQj44drUPxk2fG1b2/K0ntm9mlwq8tnm6ArVtgg
-	vhz7K/En2+qBsuPQIHBjYBZgeGouDHYcBS2kI+oEcDNcHWUaRmRNwz7XcXN0F0L9WktaUUWo1Gb
-	nho4qQHRVFNQCpVbHgNyle1qMpj78MQw933+g+k2/GueK1uVXrthW3mnPkYhrk7sF9NHXHi4qTk
-	L22C9WJNxGoEdAYpJYuCHHl+IsRUtlmEZP2QGEtBTjIArRvgOBq9CXvY8J4T7SKbY3NcgWHuS8f
-	/RASRQH18SmszqoCzaWUiVXjk3AOyjTB7Bqo1jz3lG6nZj3l8uGxgpbNkUCILKcvu/JeGbdSwEt
-	9R04C9OcR/cSuv6NzN1P2ACl5DL6Mn460wZUqFtSai8/Rx84rw7GnfsHp5t9+xSo5lvOMMIez1c
-	DP2rLN5A4BozeVsuIqFFhpiXPRpyiiPDnnny0dCAd8y55h9NaDEzNgRhzKzI9F1ECup
-X-Received: by 2002:a05:600c:4e14:b0:49f:ce78:3563 with SMTP id 5b1f17b1804b1-49fe66f1a7bmr146614685e9.20.1790452645039;
-        Sat, 26 Sep 2026 12:57:25 -0700 (PDT)
-Received: from [10.188.205.27] (cust-west-par-46-193-1-237.cust.wifirst.net. [46.193.1.237])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fffa334e6sm55147175e9.10.2026.09.26.12.57.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 26 Sep 2026 12:57:22 -0700 (PDT)
-Message-ID: <6a97a599-db32-4fbc-90ca-e052cc23d317@linuxfoundation.org>
-Date: Sat, 26 Sep 2026 13:57:19 -0600
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Bi46Lez/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vfdr0rUkxDU071U/eYw2W/tYSR2MKzkQREokBnVVfyP4CVq9qJjDmoY/R9uRGHZ5YHQtOGharpx7FHEefP58GAGOnWwfrW2jKDpz6fpwVFKvcEZ/pn9Btf3LakIScNj/B9zQ26aj+nL0SIFnanQ60iiMaG3N/1EUB3OOQViNUEQcm6xw+a73OvkkUfEa/tM8kyl8Iss/UcUnDlykD3a+axKxlDLoAklR1cZDvhyVDyeRqiS4y+1f6s05hWU4e37cn541IuD3zkc9dgQVh7R2Cl4dV98P/QoEWGK9P6mbsWQ2i8U1Y+oiptzWwyjQ1sKhzpFz0hREoKNnOM7CiWNhYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K1J9txA6AZ5Wb3iRc28yePvE76f/AdjUgxVLrRtUDk4=;
+ b=ScfDcDhG0poA2TVPGyP6RLbYiNwAzAk0tDNuLUnvsIA18U76lsYswHfOJRalaNhwOr6j9OPUec10MQL134k8WkcyCU2XOdhF6myzb2Ysgq+U/Tp3WwZhToQwe2Yx8rYpJYPniAjHeZtVNOpo1tG8Bgj4Teo45cKXyGGkKvXKwFqDW1cyxHB0f4PfUf/tZrUJa1s0HzJ/YBbbzVD7m+WMhUDjpeiweQHIcss+T/Q+veI9R36DY0BXLqFHpr7JjJXmntIJZrsmMWd3JoRmdqGayyfD6Cef2PMkax8I+MDSlDDqCifMM0MJb4vs7lzZWl5x2iYm7Hz59FUyiP7em8KkMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K1J9txA6AZ5Wb3iRc28yePvE76f/AdjUgxVLrRtUDk4=;
+ b=Bi46Lez/odj2/MmcQeGBjXMIZCBzwby6aivwjLdJOOg29IluJAb+N31vj+67Pkla5HEM91Qu3NLRFIX9UqUfeefMzsMow+2FKUP95RiACv5wo4+KMGhUKe+o24zM6YqR+kT0udvKABaixm/zTNLAs2RwIYJW6no07h7WS89GInpla6cGakVF1rjLxWwE9iBrFbx8xF4eEUwyzyseO1fm7nYg7OZX9ttItYN3+TKNigYPPyCrMd0lD/SikAzeYXBF2i+kQxvdXw+T98wvwZTFvQzbCd4/dIgDM+3t4Wz5LjRRx95pPM0duAWbVoAakVXbdtDgew4NvbuA/znSEn01+A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by SN7PR12MB8132.namprd12.prod.outlook.com (2603:10b6:806:321::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
+ 2026 19:58:46 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%3]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
+ 19:58:46 +0000
+Date: Sat, 26 Sep 2026 21:58:37 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: cid: Represent clusters
+ explicitly
+Message-ID: <argj7cXsK8WL6X0D@gpd4>
+References: <20260926152306.3190774-1-arighi@nvidia.com>
+ <23db458c1526966f521d41322ab47056@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <23db458c1526966f521d41322ab47056@kernel.org>
+X-ClientProxiedBy: MI0P293CA0013.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:44::18) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usbip: flush the event handler in usbip_stop_eh() to fix
- use-after-free
-To: =?UTF-8?Q?Jo=C3=A3o_Moreira_Fernandes?= <joao.fernandes@ist.utl.pt>,
- Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
- <shuah@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Hongren Zheng <i@zenithal.me>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
-References: <20260715133855.2312018-1-joao.fernandes@ist.utl.pt>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260715133855.2312018-1-joao.fernandes@ist.utl.pt>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|SN7PR12MB8132:EE_
+X-MS-Office365-Filtering-Correlation-Id: e947a6c1-f64e-4c8b-847c-08df1c0892c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|22082099003|4143699003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	itZPqVa9DzEXAJYJmV+d6L8jP7Xmk0qSJbfjVC9uorzLmXjOpJgoliGiSOCT/k3JtSUnpWxZ1KXL3DADEsgRG2XvvPUDc1faogCcbIqr64B997VPpfGsiW9Zz4viWlxUcdWLuP3elg5BgFMB3jSnh/qFwa4dKOyU8Ak1H5+oIGEzz68qr5vIPad5MqDTbn0WadlDJ8LOPlkgKD8X/FOCLXjSsDDpvtzPR4VuvXohPtkq6JwlhGlLUcjCncw9FewwG22S6ZbzC8ohEk5e8urTxxesWJrLx59IpZCDXbCdVBolCkKHd1IyXaLtfjofhdKhDIkZK9GGQFhxRMkaE1cRMu5pj1cAjXZXmArdT/nm50WsLw9SVQ63YKi2v5m7Qdds0HMVWIpU6hWe27ubi3AV8ThvVzdsLp73MBzDUCl7DFhYJDxgh57Jd4Hz9YyMMjhDZ3zYHD/Jmdao/R1ntlUFzlAdAX3h5LVbRaqvbKpLlfjUg2nUw7H6dQav/ljyq71MO4MywQ99+4G5Lwog5AcIC+i+U6ZJtihmMw1ypNW5pTkA8N3XKOB+ADGisZIluFqn+ucZh5g2M712fGko7/+cj2TKtz25ZCnlLgg724xbFjadNqYrvtqH+uFnWT0IzlHTFlc92szzaKY7ei/493M4UBZox3ziIiJFeKb72yxaRzQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(22082099003)(4143699003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?g3F9GPxsM6ORi9anIRv50JK5w0pSR1w5ZKOD+TwADYcPPLE11lAmBLtqrT5r?=
+ =?us-ascii?Q?Z9YbGyDC2p7YBFSgohxa93TPBNOZRv8eEsY3Oa3F+G5OtZrC31K+RuiqK5yx?=
+ =?us-ascii?Q?Cvk2YGg2SuGH3cC8KZzoOOZTryluBqCVEToenNjrPu2mS/M/cNLk8U4bjW/7?=
+ =?us-ascii?Q?m30Zks3Wyrwop/JOVL37pBPHVPhumpX6/LdA5Mnfw4jFhHcX0UaxDB+NZJV9?=
+ =?us-ascii?Q?ziTtxZZ0EJy9NtFVvEiUSMaWEIgeWR4t9wAC1/rXLA0gciQNxpAaMQaZGilw?=
+ =?us-ascii?Q?lrHErNSET6cMnQVqgy/r5pxTbYzeOF3pouzAJzbS7k5wzOMjUeUMNJp3zR/W?=
+ =?us-ascii?Q?dlj2tVVBQ2e/M0sYUQvPWtEd3gjq4sI36AlslvnTv90MjFzdnNed8XHe+dIr?=
+ =?us-ascii?Q?VgB07IS9wGRSyoosQ22zlwGm7SvTMfPBeGqmpY1rqwYWBe7NgFSBW8JClYkY?=
+ =?us-ascii?Q?RrOEClSfUfJ+92bDrG6VUA830BNLOnHvnoqOuYPafpOnVxBY5so6pRcf3IgI?=
+ =?us-ascii?Q?4KnqcPj1dSDTCWpkm6NsgBurDENHuu51yRWTyGeR8k3Wz4ltbeR0a4Ui9s3k?=
+ =?us-ascii?Q?UZBwUpGFKK/GkEOgOt1cZlfOEmMQMCXr4bGnOiuUBKgAyQU/j7xZIzgcD7Gc?=
+ =?us-ascii?Q?F4IllSMjFs9qUMIAs4Eazl2Vqija8Ki1GSIbQ4ThdrHwbBpHV9cwEy1q4JBZ?=
+ =?us-ascii?Q?fuCuowf5L/0IJIX8MP02Zgc61M9zLzvkPciczdWHMKgag2Q5bLByczYIVjEI?=
+ =?us-ascii?Q?6i2Ykl4cCav0ofjztC4/Wo3bY5zhQ0cVPjwwQvW9EerFbvAOeYFwlBzQrCNv?=
+ =?us-ascii?Q?BLTjl2QOraKFtdD3Vgl2jONgDl+ik58FUue247EU6WuwkJUUzDF3+5mVhv/5?=
+ =?us-ascii?Q?jmVx8dwHtuJmtDRZLKgqvc9ix7OclzbpOeV/ipa5QvcZUp3Ce5njXC608PtM?=
+ =?us-ascii?Q?lMYNxo5l5/a4MTUrsdaLDmkih4S314Dwh1Q3HrFZrWnRX+Rnb2G2S3uCLMqp?=
+ =?us-ascii?Q?T+WhcEZP+Ojnk9YqIIsArALlmVuMCSwYxo4IjmVgPTGW/W/BDNvajl1ybAZD?=
+ =?us-ascii?Q?P4IAq6EXrJOrHTP+pcyZuxaCDqQWT0p9q5vFzeh3W73DMLO4XhAgvDaLV0p4?=
+ =?us-ascii?Q?57gw/QRP6wh7ZUfmZdLmSrjWSUUno4+Rqcq3lUxCS60KFabdCCEU6C/C98tj?=
+ =?us-ascii?Q?MObJR0mHy3feYbq7eA3h/FaQyOHROrkPEQ5EUAnMJrd7ZmI1/7rrlY0Mq8Vg?=
+ =?us-ascii?Q?ag27jqH3yigt36hfRy+Ph8AHXplnMcEyq1n5GXQJeVyUvI8ncwEYMx6WOUbo?=
+ =?us-ascii?Q?OGQjG7feoBI0gO5L2jqrgeM/F2LR1uqmws/9DirA9ho86/djUU6G7wc15vkH?=
+ =?us-ascii?Q?JvIihcUD9McHtsnWkTeOh6/eqGFFiEl0ARIN9yio4XxtdYWQ5xIDM1mCOQci?=
+ =?us-ascii?Q?oGTTAseQ2Ei4URAW9cTymVGtsB/I5/f6ATL5zP4pkOT/f1lIKFgccIlg3b75?=
+ =?us-ascii?Q?VILl3ctnMEV/olcw5beePOgDFVSz1etH2BFf2MPgNd3Ev3VqFmDndvpOqTr2?=
+ =?us-ascii?Q?nmdcYHJJfwqT9r2X1jkZ4U9YgIaFQ7Hy1xpu/ueJv/pNg9cy+HtSs76drkef?=
+ =?us-ascii?Q?QFjPv9UMRFKipnbmdu+/Uf7MgUCJ09ogWmQY8yFU2wa0iUPXe8ki+2CZBjgj?=
+ =?us-ascii?Q?Iji++2czw+WLUNoGHPBzO1dwc2jW3rOd2LG22gnso0RoaRmmE0PIPPk8auEZ?=
+ =?us-ascii?Q?2WvMdHb9tg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e947a6c1-f64e-4c8b-847c-08df1c0892c8
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 19:58:45.9315
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GFAGIRR+e+/Qt+rRxOxWUdjrcTn4S8WOBDTPBYRxQnyd/qLrdkfo45/ihSKBkdn54ZzCl2W5PlKdzZIX8tj4MQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8132
 
-On 7/15/26 07:38, João Moreira Fernandes wrote:
-> usbip_stop_eh() is used by the stub, vhci and vudc sides to wait for the
-> event handler to finish with a usbip_device before the caller tears it
-> down.  It waits only on the event bitmask:
-> 
-> 	wait_event_interruptible(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
-> 
-> but event_handler() clears those bits with unset_event() *before* its
-> final dereferences of ud:
-> 
-> 	if (ud->event & USBIP_EH_SHUTDOWN) {
-> 		ud->eh_ops.shutdown(ud);
-> 		unset_event(ud, USBIP_EH_SHUTDOWN);   /* wait may now return */
-> 	}
-> 	...
-> 	mutex_unlock(&ud->sysfs_lock);            /* still touches ud */
-> 	wake_up(&ud->eh_waitq);                   /* still touches ud */
-> 
-> Once the last non-BYE bit is cleared the waiter can wake and the caller
-> proceeds to free ud.  For the stub side, stub_disconnect() ->
-> shutdown_busid() calls usbip_stop_eh() and then stub_device_free() frees
-> the stub_device that embeds ud, while event_handler() is still executing
-> mutex_unlock(&ud->sysfs_lock) and wake_up(&ud->eh_waitq), and may still
-> mutex_lock(&ud->sysfs_lock) on a second queued event for the same ud.
-> The result is a use-after-free in the usbip_event workqueue.
-> 
-> It is readily triggered by a reverse/exported-device teardown that
-> unbinds usbip-host while the importer is still attached: the socket EOF
-> queues SDEV_EVENT_ERROR_TCP (SHUTDOWN|RESET) from the stub_rx thread at
-> the same moment stub_disconnect() queues SDEV_EVENT_REMOVED
-> (SHUTDOWN|BYE), so the handler re-runs shutdown/reset on ud in the exact
-> window where it is being freed.
-> 
-> Reproduced under KASAN on v6.12.95 (usbip built as vhci_hcd importer and
-> usbip-host exporter on two separate VMs).  The freed object is the
-> stub_device, freed by the unbind write and then read by the event
-> workqueue:
-> 
->    BUG: KASAN: slab-use-after-free in event_handler+0x2ba/0x3a0
->    Read of size 8 at addr ffff888005cc6058 by task kworker/u8:5/63
->    Workqueue: usbip_event event_handler
->    Call Trace:
->     event_handler+0x2ba/0x3a0
->     process_one_work+0x5c2/0xfd0
->     worker_thread+0x49d/0xb00
->     kthread+0x246/0x300
-> 
->    Allocated by task 1657:
->     stub_probe+0xf0/0xb00
->     usb_probe_device+0xaa/0x2e0
->     bind_store+0xce/0x140
->     vfs_write+0x87c/0xd70
-> 
->    Freed by task 1660:
->     kfree+0x1a4/0x3a0
->     stub_disconnect+0x21e/0x340
->     usb_unbind_device+0x6b/0x170
->     device_release_driver_internal+0x384/0x550
->     unbind_store+0xdb/0xf0
->     vfs_write+0x87c/0xd70
-> 
-> The same run produced 37 KASAN splats against the one freed object,
-> reached through every place the handler still touches ud after clearing
-> the event bits: mutex_lock() on ud->sysfs_lock, the eh_waitq wake
-> (__wake_up_common / finish_wait / prepare_to_wait_event), and
-> stub_shutdown_connection() called from event_handler().
-> 
-> Waiting on the event bits cannot close the window, because the handler's
-> last accesses to ud are inherently after the bit is cleared.  Instead,
-> flush the event work in usbip_stop_eh() so the handler has fully returned
-> before the caller is allowed to free ud.  Every *_EVENT_REMOVED sets
-> USBIP_EH_BYE, after which usbip_event_add() no longer queues new work for
-> that ud, so flush_work() only has to wait out the in-flight run.  Guard
-> the flush with usbip_in_eh() so it is skipped in the (stub reset) path
-> that runs from the handler itself, and move the usbip_work declaration
-> above usbip_stop_eh() so it is in scope.  None of the three usbip_stop_eh()
-> callers hold ud->sysfs_lock, so flushing the worker (which takes it)
-> cannot deadlock.
-> 
-> With the patch applied, the same KASAN reproducer runs the teardown
-> suite repeatedly with zero KASAN reports.
+Hi Tejun,
 
-Hmm. Did you test this change with usbip host and client? What kind of
-testing was done on this change?
+On Sat, Sep 26, 2026 at 09:23:15AM -1000, Tejun Heo wrote:
+> Hello, Andrea.
+> 
+> On Sat, Sep 26, 2026 at 05:23:06PM +0200, Andrea Righi wrote:
+> >  - set @cluster_cid to the LLC's own CID when no cluster level exists,
+> >  - set @cluster_idx to -1 when no cluster level exists,
+> 
+> The other levels are inclusive: a level that doesn't exist for a cpu is
+> represented by the level below it, the way a core on a non-SMT machine is
+> just the cpu. Can we do the same here? A core without a cluster level is
+> its own cluster, cluster_cid = core_cid with a dense cluster_idx. Then
+> every cluster is a contiguous cid range, cluster_idx indexes per-cluster
+> arrays without a -1 special case, and cluster_cid can't alias between a
+> real cluster and the fallback cpus in the same LLC.
 
-thanks,
--- Shuah
+Makes sense, I'll change the fallback so each such core is its own cluster with
+cluster_cid = core_cid and a dense cluster_idx.
+
+> 
+> > +	s32 cluster_cid;
+> > +	s32 cluster_idx;
+> 
+> Growing struct scx_cid_topo breaks existing binaries: scx_bpf_cid_topo()
+> copies out the kernel's sizeof into a buffer the program sized from its
+> own vmlinux.h. I'm changing the kfunc to take the buffer size and copy the
+> smaller of the two, filling the rest with -1, and routing that through
+> for-7.3-fixes so that it lands before any growth. Can you base the next
+> version on top of it and append the new fields at the end of the struct?
+
+Yes, I'll send a new version on top of your fix (already reviewed) and keep the
+new fields at the end.
+
+There's also a comment from Sashiko about dropping __uninit, but it looks like a
+false positive to me, the current verifier checks the out buffer for read access
+even with that suffix, so restoring it would not change whether an uninitialized
+stack buffer is accepted.
+
+Thanks,
+-Andrea
