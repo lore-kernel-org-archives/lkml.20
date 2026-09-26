@@ -1,204 +1,135 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from sonic.asd.mail.yahoo.com (sonic-asso1-0020.asd.mail.yahoo.com [34.2.90.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53EBE3E4100
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:41:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5C2435ABA
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.90.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790437272; cv=none; b=h678ljd6lo0HHNLBxSCUIudhQWOhMcQFkqJ52tSSz99cb4+MizTwie1n59OZQcFMR94+8Nse4PzAJWinZAU4GfNwnfe4ilLkR+/Zl63s9dS4HNx02Ocg8IYpARZ4j4KykMLIzvsYf48K9x32xSVoE933BTVrPaVfLO+mWkwty4U=
+	t=1790437314; cv=none; b=E27w7uHFLDYbEWRBmZIQjPAJpglpfgm3VrRWMqFVAj5zmF9/WbkjXyiqgcxDWpGOG2FdvWcK0GTMuzy1JumH5l8WpzfBPQ5mOJQ5W7tjF/puClw8Gjtxw3l8Y8xJrxNcQRv/mS8ZctC81mB3UzdPDfFyMMFF3OA47m/sUKxnDe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790437272; c=relaxed/simple;
-	bh=nQWv5Uv6nSig9+JUMd7g2HmoHP+cptytoedxN5Hm80M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WrLyuIHqI/Q+iblVsO/9iHtKUqfXyhKOXjF4nXMP/iWFP5goiZeFOV9UdLOXbk74tpobNil++DehG3yoS9n6HrG48abv9N12ojWFopSDsh4dV8By5g85P9EwWobiBwYnKPLkNxVEJBwShdpt43G5JWQBKVp6iwrGShO/BDIvKyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kwPZ6TLS; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790437314; c=relaxed/simple;
+	bh=boRhzYo1vp8mJ62ZfBPoq8DB5FEW2n1uhxYfp1n55Rw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=q0ozcqMBmFIhp6gUbnCFoUaNzJiDKvtsHsq+yQPdP5KLyqlgUhSAws7+ixx+VbWjrWr6d8QA1X97gQJHlE8DOcoP/4NjOCp1Qm7+i1YYEQ3hywC9yXsDE7hCwoAt0dNbq5hnVwrOw5drOrHyRdOJ9EKCyxcDHQOw/cs3LkAGQ+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=Ws+HnoK6; arc=none smtp.client-ip=34.2.90.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kwPZ6TLS"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so1065550f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:41:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790437268; x=1791042068; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7iYAmkmIlPG9rrJ0GDs88tEbSInUH1AqiZDcZFT6as8=;
-        b=kwPZ6TLSHV/bHYaaSPd3lHJQX4l/vgJy1Aq5YjsR68FP1O3/ifHyzw1Wob/ELdrosi
-         CmjQ26SLUsJeEMtlA416T2jX2F+SwKlPMluKA6UeZVagMVfDNIX1LZO3cjCyF4IcCz9r
-         ahAWaMUFAJb2EEbXXEFFztYv/PN3R/ntvxutQq1ImLqenW9EcpkRIpeuyzBlMzp1q5pO
-         aPo9Jx0diUGPvwE0OQJHZbN1fwEQyplM87kzlrt4WEKcnbDTjqXFOxWTd83bPSpKg83K
-         J5r9haFV0qCltGWf/kkqf6UOHYDzZIawoQF5A1Szev2Lb9lB+1hlOTPHYJJJ0LqIEEFg
-         eCxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790437268; x=1791042068;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7iYAmkmIlPG9rrJ0GDs88tEbSInUH1AqiZDcZFT6as8=;
-        b=FjtOWwPG19nJ8raoPvgPINq3ddPtTUXzvSCxkoL+Ihp+qCvITzoIHgwF+MJO4gfOId
-         wXjx8fLCSeu6dN7XroYuECHAqpQcXsEcnxkLcgoWIy9Z+vkZZnMm0UcCQKjVUILOEGlo
-         HXkXwxbbVckURrBrkbhynplwCS1SYukQ6Wj9En6KV/GISuW95ROLn2Un30l/kR972VZQ
-         kiEYORjOg9NGGt1Qu1xAEQWrpg17LJ70Sdt/VOm/7RZctZHl1xX6tvzyBicwG16nlY9x
-         GVwBgeChDxb2HTkAGAFEWSYnqPTF3jLN9BFuab8NNoIB1Sp580xOyhBfQI4QUnBI9Dxy
-         Pbfw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2sWPxW2dkMK0tfGZU1ybbY3PsQFw8UrcdYq2zqeJyEd32aQHxGTIZyi6XSigB3Fu89wx1a7Z5blNIqno=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoFooyfaxquXAcnAWp3TPKdFuvQP59XA8+Itn58mvS5G80Txwk
-	/KI2KkTEhijDGerhvp3wnZkEiXokrV2gDB5W0++/Vn6SgCpTNY2arMHw
-X-Gm-Gg: AYBFou22N2ob1Ow7kF52S8Gcb13SKc3insR0TNrL1yeV/lmZkjZP3ciXPd+jArdqHK7
-	j9pw0nuoy5MiLkf+VdooOeUMuGZPkAOI9LXCzDMntPW14J+qsku+xxlrP2zwAId1QEcmNg2T6Hc
-	y4MyAn1ikSWwdY78d+OPZHG3uiCbTAcGrrY4xXNSjwvMjxvl5bYfk8Y2IGU4QDYIMq6wVWJtcv9
-	PiUrxhDPcFTGSnfFpZbj4dfO8MpOcm8obcpeV+f6nXxnrzAvY4ldib5eLxdi356wIwOaLQ7mQTg
-	06doyftDHUWsm31flZn3lQ5VvTNalsHSdSSRX/e8ibUFhY9KuMq+djPlhuNQDWWl+ZpDMtjiZR+
-	EWnHb1uVklsuOygRyO/+xVG5uz5tqjLGjXOwdK03oeackFbHDxGzHALcrIEl213lG37W4T/S7MS
-	Dp3uM4knctt6g/NyTvewvlZEKHt3MM+lCrZQYOOKxIPtA1lmeFWxWtAZt5IXnOj5s8kgiRQ5g+1
-	dCqGe3u21/7UT9IeXaG6+6x+TB56etvH+L0mkX1dc8j
-X-Received: by 2002:a05:6000:288e:b0:488:820b:7e24 with SMTP id ffacd0b85a97d-488820b7fedmr8759522f8f.28.1790437268482;
-        Sat, 26 Sep 2026 08:41:08 -0700 (PDT)
-Received: from gmail.com ([188.250.243.225])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a638sm14236008f8f.9.2026.09.26.08.41.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 08:41:07 -0700 (PDT)
-Date: Sun, 27 Sep 2026 00:41:04 +0900
-From: Youngjun Park <her0gyugyu@gmail.com>
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: akpm@linux-foundation.org, chrisl@kernel.org, linux-mm@kvack.org,
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kasong@tencent.com, mhocko@kernel.org, roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev, muchun.song@linux.dev,
-	shikemeng@huaweicloud.com, baoquan.he@linux.dev, baohua@kernel.org,
-	yosry@kernel.org, joshua.hahnjy@gmail.com, taejoon.song@lge.com,
-	lianux.mm@gmail.com
-Subject: Re: [RFC PATCH v11 0/4] mm/swap: priority-based swap tiers with
- per-cgroup selection
-Message-ID: <arfnkNBANl0fwrKb@gmail.com>
-References: <20260916183437.2946306-1-youngjun.park@lge.com>
- <20260916200434.GA5784@cmpxchg.org>
- <arAHu_BD5oqpZJER@gmail.com>
- <arQJIjzE0BlUg0CV@cmpxchg.org>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="Ws+HnoK6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790437308; bh=9qSwSt3Jhiots8IF9hOBrO+8UHsghCYhhmgo8FDqbnQ=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=Ws+HnoK6dctAlBcpznW02e/1l65jh8WGafc8v8CdtM+D6AwgsQ2DAm0oVGWjWsj0MKzfzC+9MozzgOZIcoJ+2eA6TPsdjDkYOLgwsiUhQIqT2CCmiRn/hLMKyr01o+l7YFgVTfqCvjm7Vbsh9EVWyWccgjon/ADIln/Aj3tyVV/3l6AC3rzPjtbEtne/0yAZrF87Wew99bFzJEcQm84WJP7HkqdepMbeESArSbJ7cZ3CSlAZXMbqXaBryRfOxA0bzvQJj4/LdKp0oTqipyVzSFXPeXMF0T21NC6U+jjkNWwe4pjU75Gd3s60uQEetdDc9MHaOQ7bAyAuTU7WJNbfhQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790437308; bh=b/QLxM1ikxnFXij3bFwPMLzFixCbMlMgwZ/Tci6HkJI=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=q/Y7qH6r1VVW9ior3HPpOTdlJiygMgzohizuE21Pbk+y/U3Rs8c8KPPmrReURD/gRyoVKI1M7SLApqjx0fU1Cs25AtR8ftxcmqVIFuCOGdLhKoOS4Df3Jp/V14FtGgV7t1m2XgyHKyyYLDrw+muQowJ1CWAEYa5J4qtLVlef9cGeOBKjCkz5MMocbMoZg8GbeLdMZJgkFzkVxT1sb4IDd9ix1xB3bAStAv/PZDy5Kk511ROPDaXHtwHP5uwuHXX3Pz6YbrUTDROzlzPmQK3a/NUT5KnfY7Q159MNyqHa9BZVBjtrquFuJFK6/nQCgf7/77Txv9o1mxqacA4dYof3hw==
+X-YMail-OSG: BGHCT.YVM1lOcwRtVg2kfdPxfZn7rU5VgCIp4ym2Wp2cktdNKOujmrBn7L2gHDb
+ hfKkLLW1q.hJjLjHU_KkPg.4.YI_._TgZXivhR_Ox15nRGQf1fAjyx7eLLyz3GAo_yoGmIzCBQWC
+ HzgNNgVfoXU2ApIobrKbxTY2Vf3xFE2lTwSiGz1N8UI824WRRuIIR2oz0iRsjLdgDgopDCh4HvSb
+ vrR7zPK49LnIZ93qQjHGRMW7zeM7JrcnHskxb8llxYLX0l.CboXzXUQZl6Oiku5Pd1ZGxzCAot.s
+ Kgji2nNe.Wp3N56fqA.dzc1jyC6hUsIvClHGSdYCcNkTYTB_lYPxMiTVRxb1WdQv.i3eMc3AF.mT
+ .pUrgOLyMxO7_w2LVTdQjW_JNG2jCOfbeLFsB8KgFo3BHFtIIFNfX1cnrI9anXWnxaU3zyX2VAfw
+ VWUdlTxtr.tNiltCQxJXW2vTroPD7LbRlOhIVIJzhe0hwi5NyMhR9wyTOxjxPeaBpi68o7dBu_Wb
+ VIhmihtCnhmkz1R7q01rE9ga6UZ1kb8LSMLuVc8kxIvklUDIwf.2ckEzss9MfvkdDJT8Y05o2kQq
+ 25U8TkEo5GUd5qGO7finkLwY73wuLee62PjhmQQwXL4837BxZ8aqQgTS8Ee20S9F2.3zgX6A1_wM
+ CD9TCDwfihSPkMf3IsKgemHNqJOTqISW3c3Prv0Lt9tNf86Uq8MI8GjGHeE5c_XZ8HeeMFSkfr66
+ FMC6oQm2WVdrMlbeAf34iT2l37Lfhxny.LNVtwaWqfQkiFY0sM1fkeRpHbSZnoiEyERgY2IIlJ2I
+ QVxnlkXLQTihHQWq.rUMbkycGRVLKxz9S_800zD0PntI1d4zggGz3xtIIlURaFwkslo156eC5vW.
+ utT8Cau1dwxyth4cPtF6Yu8Whtg0Ti.tLYaQRFJIe9AuZlw5yKHMHIDxNpH.lbYa_Rd0IBm8gT6o
+ w4bd15NbdP9lZCJJTOp5JEDYzWqcnzNjYr6caf8n8ge2rzZr1q0qN3enHPnlup0NnErGlP7mi2CQ
+ yw8XLYERbwaaSy9CzgUoRsyTDP0dDf5PKNgAiMOvOnHlwBlhQEAtwz2xW0xpLyI54v5YauuV2QKp
+ zQVHJyhA.mNWxsqRdIOE5l0DAnyf5JdlCEwtXQrETeooPzpkD9CPurn7cBXKoves025gxdwLWJ8Z
+ HjCD6PhQuUTmorQ9tP3ZYn09IpJz.YRmcPFjNAG8RO1AXhUPz7nwEHV_AwSQuSbJ.Xce1BYGy1sq
+ qInWGR7KruoHBTaZFLYPSPkXRxEoTgOS0glqivczYg16a3ClQUSoZ3avDxV9NOJ0pIY5D1R0aEgB
+ _0ifefgTZa6jrQ8FNtgpMwQeenMigTnGDmNDsT.7.rKV2OGxbpeYQt.8gqZASqVR.DieHeQBGC_P
+ GHhEz2XVbPjGhFfhHAm1CYX4xtCZnj6vV3ulfFJc2vZmRHFAPFG24ODjBXqT3TPjz5uN0Y.3tgcY
+ K5ab0EX0SUb_mgwUnv_JKbGnIb6a7utxHqaEpnLERf.lP6ty1TPaD304kWAanjk.QRBPfLMD7N.e
+ Yz1rHcUPaSJO5JUJN2Xz1Njt43wGbu_homF8VU9xFx6617toToHDaZimMuCqj58c2CCsenN2Su.i
+ g94ikQ3AnGHgPlTGE_AuYhXvluSbDWMaaVFns4Pt_Vt__bczMeLKyYXmZKiafO_pAh2CYF5aq3vY
+ IM1dBcWmbhxrM21HYHRCSaEzvq5RvdQ5rdvstfinRct7cYKmMw3l9NAV1qW45xpe_0IDRUIjd2tu
+ A2tneTp6CQuljRsrja.MZCn46QPxqQtpX_lyBNJ0p5iYgTQt3C4rCbYZyvH9QQxZjuH4BAlpSEP3
+ Myp1ON77e1Sb46p.ffpr6Q47t93_MyWcLZ2niszRafSs1uP9fEnDRVmEguPxK4F7.2r.Ej4Qh_cG
+ gWuHljCR.ErWjz2vk84xxc2oFLVjGULl9._26uFX5P6V8DfTGEOtie5YZswgCu_g1hNmn.UJ9yus
+ RtiWdQCezoMq4N9yHagCpnkZE3Yt3CcPE4YutZZmhDrfh
+X-Sonic-MF: <m.abubakar365@yahoo.com>
+X-Sonic-ID: b341e838-f06f-4747-99c5-1f8e428b1fc5
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-asso1-prod-sonicconsumer-svc-102 with HTTP; Sat, 26 Sep 2026 15:41:48 +0000
+Received: from dip33.lsn.bf1.yahoo.com ([67.195.177.42])
+          by hello (SMTP) with SMTP ID 46afa743fbae7daefe6e6367ec9b72bd;
+          Sat, 26 Sep 2026 15:41:44 +0000 (UTC)
+From: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Subject: [PATCH v3 0/2] iio: pressure: add Sensirion SDP31 driver
+Date: Sat, 26 Sep 2026 20:41:16 +0500
+Message-ID: <20260926154118.5471-1-m.abubakar365@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arQJIjzE0BlUg0CV@cmpxchg.org>
+Content-Transfer-Encoding: 8bit
+References: <20260926154118.5471-1-m.abubakar365.ref@yahoo.com>
 
-On 2026-09-23 13:15, Johannes Weiner wrote:
-> On Mon, Sep 21, 2026 at 01:20:11AM +0900, Youngjun Park wrote:
-> > On 2026-09-16 16:04, Johannes Weiner wrote:
-> > > On Thu, Sep 17, 2026 at 03:34:33AM +0900, Youngjun Park wrote:
-> > > > Per-cgroup swap in debugfs
-> > > > ==========================
-> > > > 
-> > > > Patches 3 and 4 let a memory cgroup choose its tiers through debugfs.
-> > > > 
-> > > >   # swapon -p 100 /dev/nvme0n1p2
-> > > >   # swapon -p 50 /dev/sdb2
-> > > >   # cat /sys/kernel/debug/swap/tiers
-> > > >   Idx   Prio
-> > > >   0     100
-> > > >   1     50
-> > > >   # echo "/batch 0x2" > /sys/kernel/debug/swap/memcg_tiers
-> > > > 
-> > > > Bit i of the mask is tier i, so /batch swaps only to sdb2. A tier keeps
-> > > > its index for its lifetime, so the mask keeps selecting the same tier
-> > > > across swapon and swapoff.
-> > >
-> > 
-> > Hello Johannes,
-> > 
-> > Sorry for the late reply on a good suggestion :)
-> 
-> No worries, and same ^_^
-> 
-> > > Can the cgroup be given a priority limit? That would have pretty
-> > > obvious inheritance semantics:
-> > > root
-> > > `- batch (memory.swap.prio.max = 20)
-> > >    `- task (memory.swap.prio.max = max)
-> > >    `- logs (memory.swap.prio.max = 10)
-> > > `- interactive (memory.swap.prio.max = max)
-> > >    `- task (memory.swap.prio.max)
-> > 
-> > Right, the inheritance is clear and easy to understand, and with this I
-> > can pre-define the limit without knowing the mask value.
-> >
-> > But first, let me check the intent. Is the point that capping batch keeps
-> > it from taking the faster tiers, so they are left for interactive?
-> 
-> Yes, basically, that's what I tried to express. Interactive has access
-> to all available capacity. Batch only has access to lower tiers.
-> 
-> > If so, that matches our use case. Latency sensitive workloads get the
-> > fast tiers, non-latency sensitive ones get the slow tiers. But...
-> > 
-> > Even then, the reverse cannot be expressed. A cap only cuts from the top,
-> > so a latency sensitive workload given max can still fall back to the slow
-> > tiers once the fast ones fill up. For example,
-> > 
-> >   tier0  tier1  tier2  tier3
-> >     0     10     20     30
-> > 
-> > there is no way to say "use tier0 and tier1, but never fall back to tier2
-> > or tier3". To cover that, the interface would also need a min value, or
-> > some way to express a range.
-> 
-> Correct, this isn't covered by the above.
-> > And even a range is not enough. Excluding only tier2 leaves a hole in the
-> > middle, which no min/max pair can express. That needs per-tier selection,
-> > which is what the mask,  and what I'd carry over to the memcg
-> > interface later (Currently memcg.swap.tiers.max).
-> > 
-> > How do you think?
-> 
-> I think it could help to aggregate the usecases in the cover
-> letter. Your cover letter describes how it works, which is great, but
-> it would be good to understand better what the constraints are, how it
-> fits in with other existing control surface and broader usage models.
-> 
-> With the above, yes, you can restrict who gets access to the
-> privileged tiers top down, but not bottom up. Is that an issue? Keep
-> in mind the alternative is cutting privileged groups OFF from certain
-> available capacity. This seems somewhat counter-intuitive to me, and
-> doesn't reflect a clean privilege hierarchy anymore.
+This series adds support for the Sensirion SDP31 differential pressure
+sensor, an I2C device that also reports temperature.
 
-Thanks for the explanation.
+The SDP31 uses a completely different I2C command protocol from the
+already supported SDP500 (command-triggered measurements with a per-word
+CRC-8), so extending the sdp500 driver does not make sense. No compatible
+parts from other vendors were found.
 
-I thought about it many times and concluded you are right.
-The reason is simple. the two cases the mask can express but prio.max
-cannot (holes and bottom-up restriction) are possible with the mask,
-but there is no real use case that needs them.
+Patch 1 adds the device tree binding.
+Patch 2 adds the IIO driver, which exposes differential pressure and
+temperature channels and validates each measurement using the sensor's
+CRC-8 checksum.
 
-Therefore I see no reason to keep the
-mask interface I proposed. prio.max can be extended naturally when needed.
+The driver was developed and tested on an SDP31 wired to the I2C bus of
+a Raspberry Pi 4.
 
-For the record, the interface semantics have evolved as below, and
-this discussion changes them once more.
+Changes since v2:
+- Remove leftover development annotation comments from the driver.
+- Drop the SDP31_TEMP_SCALE define and use the value inline.
+- In sdp31_send_cmd(), separate the declaration of ret from the call so
+  the call sits next to its error check.
+- Add blank lines before the trailing return statements.
+- Wait for the sensor's power-up time (datasheet t_PU) after enabling the
+  regulator, before the first I2C transaction.
 
-  1. Per-cgroup swap priority for our usecase (initial proposal)
-  2. Fixed ordering across cgroups (swap tier concept introduced)
-  3. Child tiers as a subset of the parent's (after LPC)
-  4. Switch to the memory.swap.tier.max interface
-  5. Agreement to add the memcg interface after virtual swap lands
-  6. Express tiers by swap priority, proposed as a debugfs interface
-     until the memcg interface is added
-  7. memory.swap.prio.max: cap the fastest tier a cgroup may use,
-     i.e. top-down restriction (this discussion)
+Changes since v1:
+- dt-bindings: make vdd-supply required, and enable the regulator in the
+  driver using devm_regulator_get_enable().
+- Move the MAINTAINERS entry into the dt-bindings patch; the driver patch
+  only adds its own file.
+- Populate the CRC-8 table with DO_ONCE() to avoid a race between
+  concurrent probes.
+- Use devm_mutex_init() and take the lock inside sdp31_measure() using
+  guard(mutex).
+- Build the command with __be16/cpu_to_be16() and parse the reply with
+  get_unaligned_be16().
+- Use a named initializer in the i2c_device_id table.
 
-I agree with this direction. I'll describe the discussion history and
-the resulting constraints more clearly in the cover letter.
+v1: https://lore.kernel.org/linux-iio/20260919223650.13396-1-m.abubakar365@yahoo.com/
+v2: https://lore.kernel.org/linux-iio/20260920164533.31988-1-m.abubakar365@yahoo.com/
 
-Here are the next steps.
+Muhammad Abu Bakar (2):
+  dt-bindings: iio: pressure: add Sensirion SDP31
+  iio: pressure: add Sensirion SDP31 driver
 
-  - Change the debugfs interface to take a maximum priority instead
-    of a tier mask.
-  - Introduce memory.swap.prio.max after virtual swap lands.
+ .../iio/pressure/sensirion,sdp31.yaml         |  41 ++++
+ MAINTAINERS                                   |   6 +
+ drivers/iio/pressure/Kconfig                  |  11 +
+ drivers/iio/pressure/Makefile                 |   1 +
+ drivers/iio/pressure/sdp31.c                  | 213 ++++++++++++++++++
+ 5 files changed, 272 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
+ create mode 100644 drivers/iio/pressure/sdp31.c
 
-Please let me know if you have further comments.
+-- 
+2.43.0
 
-Thanks,
-Youngjun
