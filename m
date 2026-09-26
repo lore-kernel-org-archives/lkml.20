@@ -1,133 +1,120 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0034638236E
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC7A2D73A0
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790440568; cv=none; b=feXiGqwozfd22ykwnAjL2OvN9xAmJa37MfGZwMnjdOpQqF8TrJ7DL7wvMBUE37cw6lCYawVzRy10nH5R1ccovFyV92WLm2VeiGp8Wdo2+/Z/ShM0KN/HPIFaJ+KNva7Wn1sFmHxm2TR5/Q9jK7uhJkBlI+wIJwsQY2cR0peb8WE=
+	t=1790441238; cv=none; b=JFt4WLbc3rBITOYuURxpalLJ3GGsnD6yYHCnPF+y7fFONDddy2M70SOdoksDkNvGW9rSw7rZ/u1q5wbkRfyqJa4GXjOpTeEz8pWXv1OlbGc6/7dbGW4EHwmvqFxp85fqbRaC8siwFSDMNhe9ZJbF9c1Ndcu2WfLp1XAWZCTzTJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790440568; c=relaxed/simple;
-	bh=bG4MyftsdfdbaBykmDiiNfkzsWo9nnA1ngVnb4LMZM8=;
+	s=arc-20240116; t=1790441238; c=relaxed/simple;
+	bh=hOehcCNhImc9jZdVfFWI/hxODane0XmTkFAYGXms0qE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QN/ujlh9EM68SZt9yoR/twNljLEBOZ6z5a/QtZGz1B/Ldj64YEawmSH7F9nHNo9VRZqEyV9RHsVq8CUvk8rT8A98i5s0JKh2gm2Q7Z7BDn7edd+thZMNh49bqv0vuAYnJR0ojNxP8BjaQkAhSh6G/a63zyl4ZGJZr5G1Ot7uzUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iYLy7tXS; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version:Content-Type; b=poVqs2VuE+++I4RzmRjZS0ttReikfMKcO32obezPkpKwEvvdn4Z1NVKoEW4JJWU+ZxA3Fqo3eCgCUjbvDG1xMKRtT+dGCb3RU6YglF8rYVyMo1Wt0fFAg1NhzZjG3tO9sxpcPEcBSj50lckCkaIfetKUDdH3a7B9oGxn8YveA0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EM4swh8b; arc=none smtp.client-ip=74.125.228.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iYLy7tXS"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso839007f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:36:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EM4swh8b"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af876539fso154429066b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:47:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790440563; x=1791045363; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iPw5CBxQDFpFXhy4vfMV2uncUCg9SZRmO0QrAN2QOdE=;
-        b=iYLy7tXShZxTAhG2W3NNlmxf6L4RtJ38na9e0k0glaO097X12jiRsivDkfbSyepjNU
-         3pZlupDMTTZxyjrRJBXMkORkTV7uqGPkKP4MY9832Zj3Va5oa4ZfHOWACt+JrlVuE3hH
-         7daMOWjwXyXxE4pTP7lsJ5nzRipcmElXadRxRY5OhrdwclMXFwTVHo/lLs6W9ro7Cicg
-         OhObvRR8xsXr6FcsG3tuz13C/F/+JmWMrnWG68OuWA761fCDy0utcPCfHqAExz9YUB/A
-         dwDCh+05CYuMU24D9C1CtIvYjY4A3maP0kPbJkaX0QJT0nj0r3+Xoa1Gwv6G/wH8J3wb
-         zRxA==
+        d=gmail.com; s=20251104; t=1790441235; x=1791046035; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SE+G7WveymjpodiwGFWjGZD7a7Jf5IhVJZYgV2T6LVE=;
+        b=EM4swh8benWfvaMnqm0Dl7zIklfK5ybtAjGsI6/mIWZCkbeRCvTjfyfdhcAyOPEF3e
+         OOmvpb9YJ/M7yk8/mnJCtd/utASB1tDUnsHAfo1bFZfwz+OoyKiO0GExH6ERtpnlx3vo
+         Pz0arxvo29JtE0Q5uFCCrd7+nGLMwNWLag7nfS2Q7VJ6m9ZeGLVh/iz4CKdjq2UqHy75
+         qHLpgE9LUG3G0LQ6O0YqMMpQzA8KfLdZFM1G33vTjnndDPSCFK2jR8xhMLYVBB4U99ra
+         MaVJHcjIWyPnmkao008GgaklJxMWjIL3M/EByROeTc0xSEEmoXDC4MjvDzC3Pa047DPn
+         M+SA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790440563; x=1791045363;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iPw5CBxQDFpFXhy4vfMV2uncUCg9SZRmO0QrAN2QOdE=;
-        b=WiyJvO7F6WQqY7zmfuNWx1PvX4CJs6AVvRAfAZt65ehC/mnEKxBXd0fwH1QuQ2515A
-         7ndk1ibvrbkzXxt6XvgV/+KDurFJVccUEwU048hhF8E3EXJviypi2fzRKWI5x4Cij0s9
-         G8bPrqevzzK39hMKXwirkIRiieMeX9QZq6QUdoRKdCvlYgUU1AQFTirnVogohcG17gM+
-         nTSb7BJfn4LBcvHLJYs3d6AJXczaN2ErUluqk6GC0hio24653zReTRB0+gk4rKoUtJpV
-         FKq5rHBEI55z0ItDm8BmTb06pyQcPEUjNvKhE1GQifjv85AMy5cYhN+3hfQoOJPQu/Y/
-         zCQg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2ubMQxXAfXi/03/q2+n+mqChOvhBU2jvxcRgt00O/lxHwy2/Pvz0g8+hDcDyq2pwXChVEvanNpvufn/U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsNRUzZ2J7768NMcB/K8ylf3nvOIxk1K0zwxmsdd7wmSIu6paf
-	I2WGRY3x9iGfEpWzhYhIpClrsRBmphKD7Q/aj93VnsCT7RFIjUONIZRd
-X-Gm-Gg: AYBFou3j0PWVa6vcFV7ZVtk+V0yGdolnH7W8NrAhRx1YX/+XBbDPUifhnlq2UC4c+jB
-	EGmpB8znu5QG6/XhwIJ2+7rBGC+6QTfQ9vZdHsx5p4o9Tnr6gutM/ZWCgjQrY7CyWThSVXbEBw2
-	i5npixF6xtpFap7DDkkn5JcL+V0JNvrKMWSh0j9zXerKale5AwJRSYacAigDONWe2Ht3xDCKMm6
-	azSEgaVHC6PJ4PCXl5NyX5VawyHV73cW3hK5/4GToLhYtvCCk0OiyHzyA0JBo4YL6ZzWe5FERck
-	cKVPjMsJ1/dHEqjsEdCvkkRT1B7umBNW3L2731wlGParI7uxVq9ZEg4Mvn4QqsHpKFv29sHH4U0
-	EIAaJNp92thLoW07c4ihSmfUYbe4lX2O+84EdR6iVWj3BcEyNk+DvrHcQOAr5jM8VoSG6ick/bN
-	AmIdWvVKB++CXbHM2aqiygmPSbsxLWEAW3P0rmmi2L0qiyPGil3TMtnpyHC2T+IAI46VTTC0peB
-	+Aqz6nf2OvyYop8EvQuvQsDwZEp3R013RRQBeKj0zryAnoAM/EzLFWryYZh6Vlofdw=
-X-Received: by 2002:a05:6000:2999:10b0:488:79e5:cb2b with SMTP id ffacd0b85a97d-48879e5ce9emr7985352f8f.43.1790440563055;
-        Sat, 26 Sep 2026 09:36:03 -0700 (PDT)
-Received: from moosama76.. ([102.44.245.127])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a355d96sm16176146f8f.17.2026.09.26.09.36.01
+        d=1e100.net; s=20260707; t=1790441235; x=1791046035;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SE+G7WveymjpodiwGFWjGZD7a7Jf5IhVJZYgV2T6LVE=;
+        b=APfvo2KG3lF8k5YyyxiVuCuqxolMI5uChYCQQLgOjIn2ElSEa/7WKZbFPzdlNfJaZ+
+         elSZkak30DH/vTyxm+ZGkj1ohCT/p3x/SWlR6TdIq2BRiaivwGi/CxMsCU5aixNPFOwj
+         b0EFTNZiGXJzezWbs3guaWB5KHOUYnEa6RmpiDznufWaIFdt96jBycp0EMlqVho8eDkE
+         W8f3wv9XVagXa5iVgREp61vvbvsk/w4/LhDnCW1mr8UoFCYTL8QykBM1aOYdalN0dTAQ
+         2bGNsOXc0yTvKreYOMkp16ob+ZQB0K4ljUGdY2PohH7T+F5jQ+ZvI+Qq4YfOI0VMmp68
+         QwEg==
+X-Forwarded-Encrypted: i=1; AKwUvBztrx8UKxdw3z5A8Ljm45OHGnSktP3mskMfqIz7XwTIHYXjf6jMmCh220/k24R+M1p4ErWtqNdUblqQaSE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHMkt536ke1h6HvG/jSSkVp5yNyEHaAh+MU4Ua1fLwbXDkgH3c
+	wMBw++C78W1VpzMdLi6kWtb11SMW41pNHvmhwS+R3Uu7a6liYpWyxSrC
+X-Gm-Gg: AYBFou1EBjTaC5pGVzSd0zItyKZdDXz9tVkjbq1RnEnrbioAn3igo8C5e2REWp6FtlB
+	SUpTUNcSup9TtQzjI5Bfe0kVkyhTYoyjx0gTLGbeVvXZ9/ob1zJ4Cwz7n2CrqoQ/OsPQ5uokQlM
+	tBTSs/q+tJKCmIWfR5gNl9b3Tvx8OgeqJXMwQea94Zx/hdDGd2XPJnG/CNs3sRGVro4uI8BUcwO
+	5JwDowBeIFzXKl9TosclJzktyIBQ7aC2Yi/M/0y7pYcLpN1Ac8NNLXSwic0hcf+AW4PzUPr268s
+	Z/YMG98ZKPdtie+hQlsEATXKcejHnn1hz53Srq67rBbuodhxbYakrMWv5VkJM1PHUvaCY++FHme
+	R0kUYY1pyj6zZFAjVyUJSw7kZQZ7XzevEceFyZjiHDA4DABoBFcs9h1/GOKElVlg5/kw01WO6pX
+	fonSHqyi49mTaZ+JjxR5DM/WmWqd5Fxr3R22J3NCVj9oenRoHhRcO5SLAoKMJWzvrhhRV9LyvMp
+	8L3V6cVdA782qvio+eRuRuHg4pB0FtpmVB0CIXHL+XB
+X-Received: by 2002:a17:907:7b9f:b0:c26:19de:9ad3 with SMTP id a640c23a62f3a-c2aea09c326mr440290666b.43.1790441235086;
+        Sat, 26 Sep 2026 09:47:15 -0700 (PDT)
+Received: from fedora.localnet (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2dbd3a0424sm66243966b.70.2026.09.26.09.47.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 09:36:02 -0700 (PDT)
-From: Mohamed Osama <mohamed.osama189110@gmail.com>
-To: ojeda@kernel.org
-Cc: boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	longman@redhat.com,
-	lyude@redhat.com,
-	linux-block@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 5/5] rust: sync: lock: use DropGuard
-Date: Sat, 26 Sep 2026 19:35:51 +0300
-Message-ID: <20260926163551.52371-6-mohamed.osama189110@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260926163551.52371-1-mohamed.osama189110@gmail.com>
-References: <20260926163551.52371-1-mohamed.osama189110@gmail.com>
+        Sat, 26 Sep 2026 09:47:13 -0700 (PDT)
+From: Erik =?UTF-8?B?SMOla2Fuc3Nvbg==?= <erikhakan@gmail.com>
+To: Oleksandr Natalenko <oleksandr@natalenko.name>
+Cc: Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+ Filipe =?UTF-8?B?TGHDrW5z?= <lains@riseup.net>,
+ Bastien Nocera <hadess@hadess.net>, Rafael Passos <rafael@rcpassos.me>,
+ =?UTF-8?B?R3LDqWdvaXJl?= Stein <greyxor@protonmail.com>,
+ Alexey Zagorodnikov <xglooom@gmail.com>,
+ Roman Stingler <roman.stingler@gmail.com>,
+ Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
+ =?UTF-8?B?S2F0ZcWZaW5hIE1lZHbEm2RvdsOh?= <k8ie@mcld.eu>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] HID: logitech-hidpp: fix Bolt hi-res wheel handling
+Date: Sat, 26 Sep 2026 18:47:12 +0200
+Message-ID: <fOP1GIoqSbWODEBBrJiNgQ@gmail.com>
+In-Reply-To: <CMu0gKyHR4W8ebuetRNJGA@natalenko.name>
+References:
+ <20260922-feature-bolt-fix-v1-0-63b0fa8da0d3@gmail.com>
+ <n9DH6GE8RMS3_4u3nLY20A@gmail.com> <CMu0gKyHR4W8ebuetRNJGA@natalenko.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-Replace the ScopeGuard usage in the Rust locking implementation with
-DropGuard.
+On Saturday, 26 September 2026 14:24:46 Central European Summer Time Oleksandr 
+Natalenko wrote:
+> 
+> Yes, there's a traffic.
+> 
+> One direction:
+> 
+> 0000  00 23 e7 90 c5 8d ff ff 43 01 83 03 01 00 2d 00   .#......C.....-.
+> 0010  18 b9 b7 6a 00 00 00 00 f4 a3 0a 00 00 00 00 00   ...j............
+> 0020  14 00 00 00 14 00 00 00 00 00 00 00 00 00 00 00   ................
+> 0030  01 00 00 00 00 00 00 00 04 02 00 00 00 00 00 00   ................
+> 0040  11 02 13 00 00 01 00 29 02 02 00 00 00 00 00 00   .......)........
+> 0050  00 00 00 00                                       ....
+> 
+> Opposite direction:
+> 
+> 0000  00 23 e7 90 c5 8d ff ff 43 01 83 03 01 00 2d 00   .#......C.....-.
+> 0010  18 b9 b7 6a 00 00 00 00 e2 1d 0c 00 00 00 00 00   ...j............
+> 0020  14 00 00 00 14 00 00 00 00 00 00 00 00 00 00 00   ................
+> 0030  01 00 00 00 00 00 00 00 04 02 00 00 00 00 00 00   ................
+> 0040  11 02 13 00 ff ff 00 59 02 02 00 00 00 00 00 00   .......Y........
+> 0050  00 00 00 00
+> 
 
-The guard preserves the existing scope-exit cleanup behavior while using
-the DropGuard API from the Rust kernel memory module.
+Perfect, thank you. It looks like expected, I think, so I think I can manage 
+to get this to work with HID++ diversion too.
 
-Signed-off-by: Mohamed Osama <mohamed.osama189110@gmail.com>
----
- rust/kernel/sync/lock.rs | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Cheers
+Erik
 
-diff --git a/rust/kernel/sync/lock.rs b/rust/kernel/sync/lock.rs
-index 10b6b5e9b024..15f9cbe76c8d 100644
---- a/rust/kernel/sync/lock.rs
-+++ b/rust/kernel/sync/lock.rs
-@@ -7,8 +7,9 @@
- 
- use super::LockClassKey;
- use crate::{
-+    mem::DropGuard,
-     str::{CStr, CStrExt as _},
--    types::{NotThreadSafe, Opaque, ScopeGuard},
-+    types::{NotThreadSafe, Opaque},
- };
- use core::{cell::UnsafeCell, marker::PhantomPinned, pin::Pin};
- use pin_init::{pin_data, pin_init, PinInit, Wrapper};
-@@ -242,7 +243,7 @@ pub(crate) fn do_unlocked<U>(&mut self, cb: impl FnOnce() -> U) -> U {
-         // SAFETY: The caller owns the lock, so it is safe to unlock it.
-         unsafe { B::unlock(self.lock.state.get(), &self.state) };
- 
--        let _relock = ScopeGuard::new(||
-+        let _relock = DropGuard::new((), |_|
-                 // SAFETY: The lock was just unlocked above and is being relocked now.
-                 unsafe { B::relock(self.lock.state.get(), &mut self.state) });
- 
--- 
-2.43.0
 
