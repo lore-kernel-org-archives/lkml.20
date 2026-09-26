@@ -1,149 +1,223 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1377386C0A
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790397638; cv=none; b=JoMq54JZ6kXGdMb39gXTg5KOxGM89nskRrG98VsOMsjgQ5SIv3xqXWNHKvTsPTk3OhHiTd8NFvrEWMMvK3PuXIuIJL/l+6vNsLI+O0vvPnfLbxcgpV/vQicGqR+QFxvO0sIYnwQR42zCIsJYNBuPFsedelGeW+1kw2iPnlVPjkE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790397638; c=relaxed/simple;
-	bh=9/8pQ7p02Q5KmGp4IRdYWIfOXW7xj9/SWyUcOpAt66s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T98pdcZe6Vs6Gsa8VIHYOMuS3w9iNQ7aDbzM6/1hMMgNJ3TLjAHB0PtlpdSAKVrkxCXRQKpnAHBeTFvhu4W20ciyPr4LDrP8DLo/j3PEMNFm4r0ug2xS+hAZWxFRAZslyap/SAgFtBgqaMjKV3LyAnse0/aRCJI/WuMKTRC3KQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZJ0X+k1Z; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DBE388E5B
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:40:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790397654; cv=pass; b=MqV0pRUVN0+v0+45G3Ps8VUe0ETZ4Vn4++yfBaXnClpXxrfPs8w0Kfhzs78xV2++CGTCQWvwm1ZN4B4rvuIvna7/PqjnyV3ffe6fEJERajnVPtq+sOmlM9/MKj81l5QmfKXx5RoboQ49pMScmVaPeyNNr5joXjj22DBJuxShXVU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790397654; c=relaxed/simple;
+	bh=BZAAORgGy6Ms3KnxsVv8dFpiAsr6V0VyBa8kffO+g4Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oavb9LGAwR/evUlYAfgdkFwiKMR873IXl8m98P2c8pPGOyGaK9wKP/+SjShlHxyh7tXb1fQBvYYZ/07RQERj2+o66msrymDMWVzflm3hjWyS13u2gfOu37DkylC/Mlf0+6L9jt93wxeCW5JAvZeY+TDqtnGZw3XC50IxqwhTZWI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KHkr0/OD; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=U0C8x8GB; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZJ0X+k1Z"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c24422d4dso1779248eec.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:40:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KHkr0/OD";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="U0C8x8GB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790397651;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JDMDQqBFeguZLrOJapnDiNiCw4jrA0CzviqQJznXwac=;
+	b=KHkr0/ODnhjV864fn9qtcfszxURenBmWMSagi30435GAn7NlxxSnAssdf93VWgQJ5EHntf
+	qMXtpTDQny5ys5rD/ImUHcOdgyUsnmBM7KhxxL4LebJNVO5SCrli1eNgTaQdAmMCAho+k/
+	joSbOZ8o/hgyR7anxHErqbxtQ6am9Uc=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-364-P6AFplloNeyOrpL6yf6mtw-1; Sat, 26 Sep 2026 00:40:49 -0400
+X-MC-Unique: P6AFplloNeyOrpL6yf6mtw-1
+X-Mimecast-MFC-AGG-ID: P6AFplloNeyOrpL6yf6mtw_1790397648
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49fe8bf258eso18672675e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:40:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790397648; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iJ+Gj3smCop9sSjsiqtx4/Y/E3Z+8fZR7d3FpqHBs5zyO8YKvs3m7CE9At63u4v3A2
+         bXxJuZnbuvfzcTXQXtS6SARc4gnEErGalPhsl41tvUy4uujLIXjvnuRLKpKqRMz1sriw
+         DG3aiI/HTv/PqfXDJ43TD4/t4KKqA9Hi7gTrVCPgiDNNiO99QeJpa+15PDcOITaWpJpE
+         imKHedHFxZ4clwqoI0gJbuyc2CoDUy8IQ5Ot6INiSnMIDRGwuaSbejn96xyBfAeInUvJ
+         bmvdF11dR1Fd+j1087vzIucRWB6A3mWg3jPd3Bsji0fYABNt1b5qsPMJx42tD2T8Aslo
+         xQXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JDMDQqBFeguZLrOJapnDiNiCw4jrA0CzviqQJznXwac=;
+        fh=8i2p5wCccPd1JG20ZiYnmZ+WFYYcV3+8njSSVhIH71Q=;
+        b=Pj2HUGKExU/FtFUtRnr4epcfiOYjyojhkJ64VvB+Ij7R6JXdwpSzUXG6JoIFGR0foe
+         WNUq6WZMvjH0FgQD91ycBdAkmG2fD5bznKiGuJgHfJgok/xMlmskOOERImK8Wx0a9V8r
+         v8HBPXiywSdlH2mFagm6EiOV6TE+1nmF74JeKPxIjuy/81LCvJcANA7k/yn3IHnb+wSZ
+         Qn4Yc7Jq+hcpWeYkAnUmiuvp65g8vB6bDprWGPP1RNyZQCfg9iybArWITuRYhlsnVJlB
+         jCfR0hOZI2vCQQi8nXw5UdGJobzcMdXR7smN6+i0S7Z3W5Y969aoRddDysnv/e++U9aJ
+         lXSQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790397636; x=1791002436; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=redhat.com; s=google; t=1790397648; x=1791002448; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=IUYBRI5sdXRLkIxlzo71bpLRDvT0ncaqZ/+GUrIm8/E=;
-        b=ZJ0X+k1ZokMbEMxaNXbmKkwxVT4DgAY4qGz8jtRM7WA1hMlBbEL3KR5UkrAXE/l3Ml
-         5aj3jEq9po2uT7rjl1kSTmSsl1QI2tOsbv1HTbZL8NXQ00cEqMFZMtfKR9lnY3uM/Upm
-         dmCteq9/XCCYXPaEBnXni8hojKoUR4eaRq2Rd6vRWMsrL2NNBmhTxq1y3Q5300QeUnk0
-         7S8pDT3f4iRRfw5O6h29OxRrsC6T7KTp5PBBjFj6OhULzDSU8oeTuXmHJ6zuWhAsfl8u
-         x11OiLXBKyjz4y/0HwF/LzPDu+ZJSyWNYGIBd+TEv4VLaRRJV6WNftleKhOgm2UnIobn
-         HcNg==
+        bh=JDMDQqBFeguZLrOJapnDiNiCw4jrA0CzviqQJznXwac=;
+        b=U0C8x8GBfoiqUG2a9EZT01iRBzPpNl6VKJFUkCnztue0IgziJwk/Cm4BBQ5OubK7vh
+         VvWg83eY0DwPXCqJk6iTAbxANMiFrr1NApShmyWaDFCYrodzrt0DkICcoy4zszDFR7qT
+         rtZ44X+vMTevtJGINcnyllEmc5WdTDE9ukdKMLiEIE9Hxa0yT+693PEPyzA4AzAScmHN
+         YnsHnJLH19LS89iOso5ddugHsrp1kgSwSaIC7ZRa+7NMr7nSBLWBIVL2ntAoRY1QATLr
+         5vfpc/0DwzWw4GnOcS2dV0RDDnzm2hb/UTQLi7xy9TK2SAXd/R+hFW/RkZ5z7npHK49V
+         lslQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790397636; x=1791002436;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790397648; x=1791002448;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IUYBRI5sdXRLkIxlzo71bpLRDvT0ncaqZ/+GUrIm8/E=;
-        b=PJ8KY0ReW+xf/qaf3tzn3cO79vqMF3ct1ouhtzSny8eK9t02/EGWAxsmXocLHA5brU
-         VzTXu/981dbPbD2pE4bx8Dgx2qG4Qy1HU7rZs9Bw3rgV6SH1q5G932lewqjqyXuCKQWi
-         DwKyRP/IEB2iCfutmYb/zoedjJ2jOdQDAue8qQTt1pOpipYMS6o4gMCHn3Cja9UnuZbY
-         AqNJp3ERBjb6Mi8NiP0p+eb9jGxZ83VMqaNU0BqxHqZJcqd/WzWX5+pxtfl7bPdoVCDa
-         c5i+xsNhboZa+S/zQJknFmPofLh2IZ5gf++rxw9jw9xgEPicwi74da3dknNsgR54/aBv
-         ui7w==
-X-Forwarded-Encrypted: i=1; AKwUvBzBVcJdU2fERx3rFlediEcgDgXN+jDe92MXILALpk3fim9ysxqsOahwZ1FoesSt2cTAPl6TrvS0h1t395k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbSY+oMZaVIAqT3c9mx3z0U9nugVmF0i83pIhbFyfKGchNQ/XA
-	DZjM9ZABvaIrJ0kirkLwaO9dymtP0pH9O97p6DSv/6Y0Dt0tOmb9cgfd
-X-Gm-Gg: AYBFou2/w8sosE/FOmj4cv1sYR7B7VNLANUroETsyqPHRPG9OLt5RnAMaEAyrYPY5Fl
-	aU/m/2enL0LDgMztQjKlATeBo6hsZo5FapmAgXy4UXh6ORBHJ+ifNGshW7ZYB7vH8ywAqsqPcLR
-	BNemF/QOtMZPGJc++U3Ww5ldpd9VsCqBJlFv4Ae2Q7aFdMvQCi9l2Ib7Mn11CYJw/kiBCPS7cxM
-	yytOB48/ZbFjUSxC51HaD/fs/iNLQB6Bc3PVEpLeAprTqJE086oZcMCWmIWnGB2iJlUne2yoDPZ
-	8JGq5+MU72KHjV86X3A6BJtkf9CPfS0iqAjPL0oNOgVp4wPkfRnd3H/dfziqPw9tj7+jIPWo06p
-	YXuIfAIuxYijYmQlTYuYYnEn1Hb8Kgf5Txq96RadDnQxrsSWFBVLHKtU6VIavPEWEbiWDfPjngp
-	kT7He5OSgTuulkLlm9ET4KQOhTRz2Rh6ud3U2cj2JfGwhS3EZ9WSsEQvvfhOAFtZTmLTd6DjRAA
-	aKGBhwWCu0v3u/ChxELble4SsO/cSbg8dQ+iX4=
-X-Received: by 2002:a05:7301:4d0b:b0:341:d191:b838 with SMTP id 5a478bee46e88-34272562bc0mr2032551eec.31.1790397636098;
-        Fri, 25 Sep 2026 21:40:36 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:375:19cf:5fee:be32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341447576b9sm11731720eec.15.2026.09.25.21.40.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 21:40:35 -0700 (PDT)
-Date: Fri, 25 Sep 2026 21:40:32 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: david@ixit.cz
-Cc: Andi Shyti <andi@etezian.org>, Rob Herring <robh@kernel.org>, 
-	Marco Mattiolo <marco.mattiolo@hotmail.it>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	phone-devel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] Input: s6sy761 - fix resume ordering and restore sensing
-Message-ID: <ardMSVsG1RlOOkNp@google.com>
-References: <20260923-s6sy761-suspend-v1-1-6fff96e71cb0@ixit.cz>
+        bh=JDMDQqBFeguZLrOJapnDiNiCw4jrA0CzviqQJznXwac=;
+        b=QJKXg1RuyRhE8Ul96UQEcTZOBOQ8s31hKaEmyA2R+hRfpxkaeHhRtOY9W5W/iTuvE/
+         47erNj2hIDHr4G+sQv8+Ccdyu0ZZ+WiVKfje2UR1/2gWOiTPxNvsz+dSAAbFSC8DtAu/
+         O3pqwGfAqiD3Q2rsGgQm3xwWYOrBpnUp+y1DMv3T7oV0ZsG9KTNbdQ3O3158uBQvHsIo
+         Kqwkv2akG9Decf4YUu/Zl3L4MpgvY0wAWWc4ZAEk62Zy7U8CCEJsiyNovvO6ro20l7JU
+         gVHivTQZN/DDYStEPwMg+UbpeLIoyc+j7CGJd/Uy1Y0CA4XjO7QVjbh0xGg6yLZI0B+8
+         AGWg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5hpsydfmf2rvFpMu0TGVG1wGt7r79vxiNOQMw5XpfOoR12664fJpqdmcnAnK6ROzikA8EpKqrotuhD6s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mb2yKtkn1cE9QnCcAl2xXOLg48nVW6yGWmtw3tu0vuyW6liJma
+	xadn6IrxU4u1u7eEEnlubFQa5XxQdG+tuvFGiZpDtP7qs7oybsg4FSxI2RsSFrq8264C/poSp70
+	GXtIza39r4hE8Jrfne1/V4Hi8ixbMrLr03vzu+FTx40xG4enTY3Aj5Gjiio/xb8w824k0C82ELI
+	U4iMC/QxthI49R+/wBITQjB+EXC5MLVS0FbKiAc327jdY89pqG
+X-Gm-Gg: AYBFou3gsWXJP4TaoksUV3AUAdDt7zb+ufvuSb8SXP6DO3X0266dgIZJlA0Vdfk38mN
+	VDj8SouN9Ec7djUqT3Rqvp5dIkfBUy8zajad0Vi6f+qr36e/8Ph6haMxnDbKTE1oYsNLlq8/QC4
+	GFiFpFX065KHoyvZDI47spwq+lZC5KlHc0pkosdkB+3bT0P2dJX78s5Zxi8FrHW0HiQSe+YSrhQ
+	io9cr8IC6wlZFUvyy6Xpq37KgkzOdymWj6evyY2rQsWtmEB9+KRwyNLBKzqJA==
+X-Received: by 2002:a05:600c:8486:b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-49fe66b426bmr138635015e9.12.1790397647686;
+        Fri, 25 Sep 2026 21:40:47 -0700 (PDT)
+X-Received: by 2002:a05:600c:8486:b0:49e:745d:c317 with SMTP id
+ 5b1f17b1804b1-49fe66b426bmr138634725e9.12.1790397647309; Fri, 25 Sep 2026
+ 21:40:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-s6sy761-suspend-v1-1-6fff96e71cb0@ixit.cz>
+References: <20260925233321.2381319-1-seanjc@google.com>
+In-Reply-To: <20260925233321.2381319-1-seanjc@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Sat, 26 Sep 2026 06:40:34 +0200
+X-Gm-Features: AclHuK_Yq44dj9CGbs6sF4OIA_FkwcvYoMqBVDfogFZ_KeuJ9XSHG47vC6oNiI0
+Message-ID: <CABgObfZeA_q_prxJhbdNqYpE8quPD360LhVBQv8ypcPpLA-Mhg@mail.gmail.com>
+Subject: Re: [GIT PULL] KVM: Fixes for 7.3-rcN
+To: Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi David,
+On Sat, Sep 26, 2026 at 1:33=E2=80=AFAM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> Please pull a variety of fixes.  Nothing is super urgent, but all of thes=
+e can
+> be fatal to the host and/or guest (except for the selftest change, which =
+fixes
+> a regression that was introduced in 7.3).
+>
+> The following changes since commit d599822bdb66aeec5ec76297b0fc6efaaeefe0=
+7c:
+>
+>   Merge tag 'kvm-s390-master-7.3-1' of https://git.kernel.org/pub/scm/lin=
+ux/kernel/git/kvms390/linux into HEAD (2026-09-04 17:34:28 +0200)
+>
+> are available in the Git repository at:
+>
+>   https://github.com/kvm-x86/linux.git tags/kvm-x86-fixes-7.3-rc5
+>
+> for you to fetch changes up to 119e9db233ad0f4cbd4cfb9f9385a7bca378b37d:
+>
+>   KVM: Don't pre-reserve xarray entries when storing empty/NULL attribute=
+s (2026-09-22 08:36:16 -0700)
 
-On Wed, Sep 23, 2026 at 03:27:06PM +0200, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> System suspend powers the controller off and resume powers it back on,
-> but the resume path enables the interrupt before s6sy761_power_on()
-> checks the boot. The firmware raises its boot-complete event on the
-> interrupt line, the threaded handler consumes it, s6sy761_power_on()
-> then reads an empty event and resume fails with -ENODEV, skipping the
-> touch function setup:
-> 
->   s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
-> 
-> Power the chip on first and only then unmask the interrupt. Once resume
-> completes the boot handshake the chip comes back with sensing off, as
-> at probe where input_open() turns it on, so the touchscreen stays dead
-> after resume. Send SENSE_ON again when the input device is open.
-> 
-> Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
-> the touch function and sense status match the pre-suspend state.
-> 
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  drivers/input/touchscreen/s6sy761.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
-> index 0f24a9b730635..c52c45a7d1029 100644
-> --- a/drivers/input/touchscreen/s6sy761.c
-> +++ b/drivers/input/touchscreen/s6sy761.c
-> @@ -495,20 +495,29 @@ static int s6sy761_suspend(struct device *dev)
->  	s6sy761_power_off(sdata);
->  
->  	return 0;
->  }
->  
->  static int s6sy761_resume(struct device *dev)
->  {
->  	struct s6sy761_data *sdata = dev_get_drvdata(dev);
-> +	int err;
->  
-> +	err = s6sy761_power_on(sdata);
->  	enable_irq(sdata->client->irq);
+Pulled, thanks. I added on top the SEV cache writeback patches which
+are not present here.
 
-Why are we enabling the interrupt even if power on failed?
+Paolo
 
-> +	if (err)
-> +		return err;
->  
-> -	return s6sy761_power_on(sdata);
-> +	guard(mutex)(&sdata->input->mutex);
-> +
-> +	if (!input_device_enabled(sdata->input))
-> +		return 0;
-> +
-> +	return i2c_smbus_write_byte(sdata->client, S6SY761_SENSE_ON);
+> ----------------------------------------------------------------
+> KVM fixes for 7.3-rcN
+>
+>  - Fix a brown paper bag bug where KVM would incorrectly treat Intel PMU =
+MSRs
+>    as valid on AMD.
+>
+>  - Fix a regression in the hardware disable selftest where it checked the=
+ wrong
+>    macro when detecting glibc support (breaks at least musl).
+>
+>  - Never clear KVM_REQ_VM_DEAD so that dead VMs stay dead, which is espec=
+ially
+>    important for KVM_BUG_ON() flows, which often guard more dangerous bug=
+s.
+>
+>  - Re-pend GET_NESTED_STATE_PAGES if getting the pages fails, to fix a bu=
+g
+>    where KVM would let userspace run a broken setup with stale vmcs12 pag=
+es.
+>
+>  - Fix a class of bugs where KVM would fail to fill kvm_run exit fields i=
+f
+>    getting nested pages failed.
+>
+>  - Treat reserved entries in the memory attributes xarray as "no attribut=
+es",
+>    to fix false positives when checking for mixed attributes.
+>
+>  - Fix memcg accounting for the memory attributes xarray (the xarray libr=
+ary
+>    subtly requires the xarray to be configured for accounting upfront; th=
+e gfp
+>    flags taken at runtime are used only rarely).
+>
+>  - Don't pre-reserve xarray entries when storing empty attributes, as sto=
+ring
+>    NULL must not require memory allocation (KVM and other subsystems heav=
+ily
+>    rely on this behavior).
+>
+> ----------------------------------------------------------------
+> David Ballesteros (1):
+>       KVM: Ensure memory attributes xarray nodes are accounted to the cal=
+ler's memcg
+>
+> Jim Mattson (1):
+>       KVM: x86/pmu: Move Intel PMU global MSRs to intel_is_valid_msr()
+>
+> Sean Christopherson (4):
+>       KVM: selftests: Use __GLIBC__, not _GNU_SOURCE, to detect actual gl=
+ibc
+>       KVM: Never clear KVM_REQ_VM_DEAD from a vCPU's requests
+>       KVM: x86: Re-pend GET_NESTED_STATE_PAGES if getting said pages fail=
+s
+>       KVM: x86: Fill kvm_run exit fields in common get_nested_state_pages=
+() error paths
+>
+> Zeng Chi (2):
+>       KVM: Don't treat reserved xarray entries as having memory attribute=
+s
+>       KVM: Don't pre-reserve xarray entries when storing empty/NULL attri=
+butes
+>
+>  arch/arm64/kvm/arm.c                               |  2 +-
+>  arch/x86/kvm/mmu/mmu.c                             |  2 +-
+>  arch/x86/kvm/pmu.c                                 |  8 -----
+>  arch/x86/kvm/svm/nested.c                          |  7 +----
+>  arch/x86/kvm/vmx/nested.c                          | 15 ++++------
+>  arch/x86/kvm/vmx/pmu_intel.c                       |  3 ++
+>  arch/x86/kvm/vmx/tdx.c                             |  2 +-
+>  arch/x86/kvm/x86.c                                 |  6 +++-
+>  include/linux/kvm_host.h                           |  9 ++++--
+>  .../testing/selftests/kvm/hardware_disable_test.c  |  6 ++--
+>  virt/kvm/kvm_main.c                                | 35 ++++++++++++++++=
+++----
+>  11 files changed, 56 insertions(+), 39 deletions(-)
+>
 
-Explicit return err/return 0 please - there are multiple failure points
-in this function.
-
-Thanks.
-
--- 
-Dmitry
