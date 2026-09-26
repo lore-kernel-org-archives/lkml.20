@@ -1,119 +1,76 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42DF322C73;
-	Sat, 26 Sep 2026 07:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3458C254B03;
+	Sat, 26 Sep 2026 07:51:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790408963; cv=none; b=o2jVV9dIKdJDlQ0CEMY3A5PRdpMxgJAwZ92pmcZwQyX3Vx3nT7K/HwAt4APKCYTkLnDshpOFdxyGMQJxqMjHTazFj9xuNcVO+29wyLcO2P+tJI10mS4NOLihg9+80nMK+Cm54bep6FKSbBwb6i/1YiXvRscUaqAY/U7p5l158Mk=
+	t=1790409114; cv=none; b=LFL9kZ8EoG0jJ0A1qZTazopwvL0uyLyjX4PVWKKnufHbznB6n/GvNwwnwW3UDeMKjhJ0BML/3MG8z+u35T6VOd/f2ZO9Aa1Cgu13BBpzYYxQy8o//kkaCX7avQ/M0qxPz08OLumffts7EM5P0sPRBEsCin/hQPdj0FlRI0bezus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790408963; c=relaxed/simple;
-	bh=dn02Q7ecKJWz5B04rCwHbNrQH8D02KhFAwFllXMLtEk=;
-	h=To:Cc:Message-ID:In-Reply-To:References:From:Subject:Date; b=eMPDKaELIjaXXDIk7+3NVCwnzqOGQ/LfkZqhSOqXKsJmFBXr7UGnYoaq0lmSw95/NvCbD/Ein26ooJKFAn7w8nuZsWC6i+3FXh5K0jkYOk7Rhc4TC2aLo47PXLOt+GhV/ZrdttL0+Io2Jec1/1qtLJ1jjCkSXtTOFp2jB4Bt2I8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=none smtp.mailfrom=linux-m68k.org; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ezr+W6gY; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux-m68k.org
+	s=arc-20240116; t=1790409114; c=relaxed/simple;
+	bh=8DRxHSPFRZBqJacBgoyZX7LA7wjfehxCP3aElo65pwM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hZQdhj+qv9H2SA8adeq1LwG0x7GjJg7YCP2q2KEDalV7R6YQUgWx9sWfr5bjA9sHmCDO3UfEoO9Ie3AGpSQF2dcCMwABGt3a1yCBHr1rRNI5DnnuYSOzf//ImZGWNyiAO6g7t4lg38HT0wmYVMETWUzdJ5EblDQda1tAWHXbFFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ROLQiP8a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ezr+W6gY"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfout.phl.internal (Postfix) with ESMTP id 5F1B9EC0118;
-	Sat, 26 Sep 2026 03:49:20 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Sat, 26 Sep 2026 03:49:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790408960; x=
-	1790495360; bh=s/bTxCYVDE7uT2dDkanJ5+/0oTAO+Kb1T6rIVmbsr/s=; b=E
-	zr+W6gYHEkEDPx/6ko3x6RhySfTKNAh3BfYkqtjit0+JA82V/m9UjjghXyxPp8jE
-	kQ8wTQyMTPxcXx8WQm75S3jc8bZubYhoCIzv+bBKViBMWRtaGPevU8tz0QIYWRt6
-	o3afzndYbmvBCi/vZ4JNI84uT3BpfEYPvrPje0EMZZ6s2anj9HZwtd1ETiJgyJQN
-	x2iXnUIG9A7+wiC78dfSFhgUIG+oe6SZNjUJsufmENMiw4N5R/rLPw3BJvJLJkLm
-	NiL2ue/5R4dRZh6uVckt4qjSNC3ZRei9TgeW8mCurMI9fMqtiNBpR0kmbdSiqYmm
-	El9OE64WtscleAF8GR0Yg==
-X-ME-Sender: <xms:AHm3akI-UTiNvKx083NJFi30Q6cXfH05229hf9QJWUnEu-2Tl1BV9A>
-    <xme:AHm3agLMFnoJsiZ7UkAz1FWnqzofuEBq1bb4hG2O4Q-xQ5CYsOX7nOabSgABDe-77
-    gev_zGsGRCtjNIMoV_anJRCtLySqBwFA3hLLAPKQ7WCGYmiwcwvUZA>
-X-ME-Received: <xmr:AHm3am75mcdo8saOo5qkrQmknuHD2f0FOhEs9TaH6vzI6hBv8Hrc9ildlxVxZMCCKaORgFf4i6trcb2aYqKPvJT9fzS5-POyTLY>
-X-ME-Proxy-Cause: dmFkZTFhgbhGL2sj4pJrw+Bgdida+aoInjEU9BhPhvnEODw606EnVRu1dtUBIWrHIHekHs
-    iPFmOMYom+uzd2hm7ODvC6qvS+UrltZ0XbuNmj1TOpI+GdMrWxrTg3t+GZ6GD785M8BoqG
-    ivRuNhwFUuwPia8CRYlTHrpJrtmEN+VpLVaEepzBBL0JSMs3+k/3ZbVn5SPHFypbmXHlCF
-    /W3XnSpXVQOE4/0N+kMzFoXtLehqeVQNxh1mLFOUBeoDti+xLVk+77y+w0Y1sGJmCD8cH6
-    ZVDanVVOCaa/YJ0Xmo8pYEptujYeBEVtsXgGW6oXN39UlMk1lro9/ZLIuE6YaRrTiRFVop
-    Ex0LzygTHBndrS88jiVsLgBCV9M+XL0XDbnsFZmzimnoPptSY3Zok/u/oY3yDYD4uF8qin
-    ZUyi+cDeghiz1Z8+LdBL8peuPyK4EYkUANGhZ1eRijgE+8Ngb5V6S2MvGVx/FrPENNZp8m
-    2Vh0s/GTqe3xvZQiX7WtYZf32BxWX4f9TtS93guT/Gmlkbt6ZmSLsOAQYliGJ14307sp0I
-    Hv10TCkTnpNV1VKZWIABGigjnkbHVpLxF1YuGJXReWXemHEPGqB6oy/Ht5pjf2tlDXOhXx
-    WHOuhFv5rubLdhAmrYu/WtC9osSSxhpYgJ6/wcpOMlaaiBEFLNQ5y3J8gPkQ
-X-ME-Proxy: <xmx:AHm3aifow9qPK2ExwXLjDIdctuEgJVDPuEqN5-574SfYTnBXRWZiqQ>
-    <xmx:AHm3apG3DoWu6bbQat1k1Xyk3A8cpCnry5oyCCcVDgxGTZZgnRD7Fg>
-    <xmx:AHm3ajQkaeXVs_LiCo-DaznGvKXJ5CgfcaJcjLrldNX3-MjxMKyk6g>
-    <xmx:AHm3avZRux35nWNfz-9u_9RBEYJNv7Ss4HJhyXkA79eg2Xv5O9ONLg>
-    <xmx:AHm3am43WEmzrK91LfAH5QAHcNTN8DB3RSAXZiSe_ih2H6T0Db__cpHz>
-Feedback-ID: i58a146ae:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 26 Sep 2026 03:49:17 -0400 (EDT)
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Laurent Vivier <laurent@vivier.eu>,
-    Stan Johnson <userm57@yahoo.com>,
-    Geert Uytterhoeven <geert@linux-m68k.org>,
-    Joshua Thompson <funaho@jurai.org>,
-    linux-block@vger.kernel.org,
-    linux-m68k@lists.linux-m68k.org,
-    linux-kernel@vger.kernel.org
-Message-ID: <418801832b878b9a3383aac4f7b9b9469ae494b0.1790408363.git.fthain@linux-m68k.org>
-In-Reply-To: <cover.1790408363.git.fthain@linux-m68k.org>
-References: <cover.1790408363.git.fthain@linux-m68k.org>
-From: Finn Thain <fthain@linux-m68k.org>
-Subject: [PATCH 2/2] swim, swim3: Fix FDEJECT ioctl for exclusive open
-Date: Sat, 26 Sep 2026 17:39:23 +1000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ROLQiP8a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560021F000FF;
+	Sat, 26 Sep 2026 07:51:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790409112;
+	bh=2ZjpK0JF2cbHk95sp5z75srSxbkoRMjDiFL2rI+O++w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ROLQiP8aWqQQ69Hn/WkAeq1snYbT8drZS+6o19Ia14LkQiCjM1vr1ZvQfzKYQTXKK
+	 EqUIJHbdRUlY4NSV8Z1FeoNE23zwF0QzFXFH9VFg51Ca/WyPCQ2PD6XHE9UxBEbRoc
+	 IVi5PG/Wy9e8NixqFQi/nBnLIh3b7LEo3EkzntQrAWnNeMoHhndkR1kOmsAEqEzWql
+	 xEeKz0leX6MpQYE+IiPN28mfQpOy2jep2cTrTjQ9qSLtclI6cbtASZMercHGtL8eJ2
+	 tgN6SUC2+OO2qB7f0fQU9N5Yt7I81BSJ7C36SMn4DEbyOjJyjA1U3EtOPglZpDgibS
+	 vAfMT+VeamWAQ==
+Date: Sat, 26 Sep 2026 09:51:37 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Igor Paunovic <royalnet026@gmail.com>, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org, kernel@collabora.com
+Subject: Re: [PATCH v16 4/6] usb: dwc3: rockchip: support PHY reset
+ notifications
+Message-ID: <totpimqouuaa4lysn57ga36y5u7htss5kju26s3yi3ey4d2vmr@4vpymy6enqhi>
+References: <20260924-b4-rockchip-dwc3-rockchip-glue-v16-0-126a2e9133c3@collabora.com>
+ <20260924-b4-rockchip-dwc3-rockchip-glue-v16-4-126a2e9133c3@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260924-b4-rockchip-dwc3-rockchip-glue-v16-4-126a2e9133c3@collabora.com>
 
-The eject command from the util-linux package does not work with swim3 or
-swim drivers: the drive doesn't eject anything and the command fails.
-Apparently, ioctl(fd, FDEJECT) returns -EBUSY when fd is opened O_EXCL.
-Fix this by checking ref_count for either 1 or -1. Either value means that
-the caller is the sole user of the disk.
+On Thu, Sep 24, 2026 at 07:25:40PM +0200, Sebastian Reichel wrote:
+> On recent Rockchip platforms (at least RK3588 & RK3576), DWC3 IP is used
+> with a USBDP PHY providing USB3 and DP. This PHY needs to be reset when
+> the mode changes, which may happen when plugging in different USB-C
+> devices.
+> 
+> If the USBDP PHY resets with the DWC3 IP running, its internal state
+> corrupts resulting in the USBDP PHY not being able to lock some PLL
+> clocks, which effectively renders USB3 unusable.
+> 
+> To fix the issue this adds handling for the new PHY framework reset
+> notifications, which will assert PHYSOFTRST before the actual PHY
+> is disabled and will deassert it once the PHY returns.
+> 
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 8852ecd97488 ("m68k: mac - Add SWIM floppy support")
-Signed-off-by: Finn Thain <fthain@linux-m68k.org>
----
- drivers/block/swim.c  | 2 +-
- drivers/block/swim3.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>  # PHY
 
-diff --git a/drivers/block/swim.c b/drivers/block/swim.c
-index 601b1ab1d32c..1552fee28eaa 100644
---- a/drivers/block/swim.c
-+++ b/drivers/block/swim.c
-@@ -696,7 +696,7 @@ static int floppy_ioctl(struct block_device *bdev, blk_mode_t mode,
- 
- 	switch (cmd) {
- 	case FDEJECT:
--		if (fs->ref_count != 1)
-+		if (fs->ref_count != -1 && fs->ref_count != 1)
- 			return -EBUSY;
- 		mutex_lock(&swim_mutex);
- 		err = floppy_eject(fs);
-diff --git a/drivers/block/swim3.c b/drivers/block/swim3.c
-index d4f0d43e0a72..aa27dfd2820e 100644
---- a/drivers/block/swim3.c
-+++ b/drivers/block/swim3.c
-@@ -898,7 +898,7 @@ static int floppy_locked_ioctl(struct block_device *bdev, blk_mode_t mode,
- 
- 	switch (cmd) {
- 	case FDEJECT:
--		if (fs->ref_count != 1)
-+		if (fs->ref_count != -1 && fs->ref_count != 1)
- 			return -EBUSY;
- 		err = fd_eject(fs);
- 		return err;
+- Mani
+
 -- 
-2.52.0
-
+மணிவண்ணன் சதாசிவம்
