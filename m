@@ -1,95 +1,194 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C7A36DA15;
-	Sat, 26 Sep 2026 20:39:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3854446E1;
+	Sat, 26 Sep 2026 20:41:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790455142; cv=none; b=ND2hJIo/9oXyneJvRpVy0m17u6jPstWIPk0Lq86A/lLy53b0EfXHSdufBPAGONrSC6HdKJQIC6L7Uk+XErWAdGzbMkHumgAdqBEnmqwWvyBHEUOu5HTbCfhctXlPXawMjJZ5HMnmaMK1aOh70AO72zuzNlR7YodzXunPSYzhOIA=
+	t=1790455280; cv=none; b=u1A9aTJcJ/t4iIw5p7zc5x3XYgHuO/LIfswyVwPoS9cu5bau3S2dsNehvBA0ld48yrTX+pduFLeEX1ReKYjlrdR8DGrUSCUljJLUp2gxB9W2fGqt/Apw9PptjI+nWFLCqRDrTx/sGV/EDyk4cr3mq99/xKjQGcFB02I12idutV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790455142; c=relaxed/simple;
-	bh=WcVTwGAqB8YmWIqbv12BtHyhd+b5UhezZLShFgEBfeY=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=gm4Y5Wa+xjswvXxS6lwRM0Zcgj/srnB7DWQW68nSJZO5HGkm2dQtg9YGOabFcC+LthtMNcnbFfKu9eNfqJlAw6lGPAtKkVNSdk7dlegD3CSoOuqpPfBIQuMsqGqo4THFovHeXomKoRO5pO2pW13Si8EwH8Vsib37OMScyXsCpYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=j3wf/B0P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790455280; c=relaxed/simple;
+	bh=QVIPVvL40F0jH+TrImWX6f8Uu2T/ApnoUzuZrmCrUb0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kJy+DfHwopG8oLEWf5OqX5j7F0z0V8WR3KLak/mVdtf07YYaHDEgE7uB72SmdI9129Ro23nXYhBVhMm1yXusM4zJIUsSCS64SLW+b4e5y2eGop29gAruUVO0YWq2rkaEENALJ84kwgaiz7GnZSe0tFPSX99w98oahX17wSJ6eM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwHUWgv9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="j3wf/B0P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5F01F000FF;
-	Sat, 26 Sep 2026 20:39:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790455140;
-	bh=02DQCrFlxmpCYsYFSl0Uzr7hhjDE/dW47AC7GUSlrxQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=j3wf/B0P5XyKqxSsEjcKXOxZ68HSNPr51dRebHjrAbWlXq+djrJhmIH+okuCnxdfS
-	 +4fSGzal0ks3J7vnJHvZmIZFYT+HeZMXtQ4WbVyBpFYBPSfzsyTuFZuMwi91/u4LGY
-	 BaOKmTDT/+RzC+VpowJzQWh7KM47juoEXrebiBpc=
-Date: Sat, 26 Sep 2026 13:38:59 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Jim Cromie <jim.cromie@gmail.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, David
- Laight <david.laight.linux@gmail.com>, Masahiro Yamada
- <masahiroy@kernel.org>, Jiri Olsa <olsajiri@gmail.com>,
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
- bpf@vger.kernel.org, Petr Mladek <pmladek@suse.com>
-Subject: Re: [PATCH v6 0/3] kallsyms: Accelerate symbol name lookups by ~7x
-Message-Id: <20260926133859.c8232c439184dfa17472b020@linux-foundation.org>
-In-Reply-To: <20260926-ksyms-tune-v6-0-236620c65e98@gmail.com>
-References: <20260926-ksyms-tune-v6-0-236620c65e98@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwHUWgv9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A841F000FF;
+	Sat, 26 Sep 2026 20:41:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790455278;
+	bh=0/Ue9aOV7GaX3/AYad1ce0pEPuS3AlPytYyapZ05/iw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KwHUWgv9qKrEpjOG2/UQwzlDXjn9BIvaWckD42PitTfKSb7fCG+W5ESab+U9rtNXb
+	 UGdWRMee1eJLflvvoNGeqeOTOh8hNZmHy8GC/nQjsr05L7JQRqmcR4r22HL+c3AyO0
+	 ADvZAeoByDUsYPtksuutlsh6naMwVx/SbdMnGldLVgGI0Z/OezYiwlDcLIwPY8u9K8
+	 MvNinBE2CKUmP4vg3ZJLhC+9lYjrp2Wv+phpVHffnKgbQC9k5KGVWFv9mlN5MNvvJh
+	 0v8RVcC9WfKbjSJ9Fyf80zqCScZNMJDL1xCEuDC++6x55SzT0z+RuiD5GOxK3Uh8ME
+	 tjEfHaHCjbIWg==
+Date: Sat, 26 Sep 2026 22:41:14 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: alice.mei.rogers@gmail.com, james.clark@linaro.org, leo.yan@linux.dev,
+	namhyung@kernel.org, adrian.hunter@intel.com,
+	dapeng1.mi@linux.intel.com, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, mingo@redhat.com,
+	peterz@infradead.org, tmricht@linux.ibm.com
+Subject: Re: [PATCH v4 00/49] perf: Complete transition to standalone Python
+ scripts
+Message-ID: <argt6raEAmM4e9PI@x2>
+References: <20260923181213.3032038-1-irogers@google.com>
+ <20260926062029.800743-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926062029.800743-1-irogers@google.com>
 
-On Sat, 26 Sep 2026 13:40:11 -0600 Jim Cromie <jim.cromie@gmail.com> wrote:
+On Fri, Sep 25, 2026 at 11:19:27PM -0700, Ian Rogers wrote:
+> The perf script command has historically supported running Python and Perl
+> scripts by embedding libpython and libperl. That approach has several
+> drawbacks:
+>  - high overhead from constructing Python dictionaries for every event
+>    (whether used by the script or not),
+>  - complex build dependencies on specific Python/Perl libraries,
+>  - threading and interpreter lifecycle complications from embedding the
+>    interpreter inside perf,
+>  - no unified model for standalone scripts such as ilist.py, treport.py,
+>    tracepoint.py, and twatch.py.
 
-> As measured by kernel/kallsyms_selftest across ~184k symbols,
-> kallsyms_lookup_names() binary search takes ~6.1 us per lookup due to
-> two inner-loop costs:
+So I applied it and tested on the containers, make -C tools/perf
+build-test and 'perf test', that has some flakiness running the new
+tests for these python scripts in parallel, nothing that prevents it
+from being merged now tho:
 
-We don't have a kallsyms maintainer afaik.  Petr is pretty active in
-there so let's give him a hopeful cc.
+=== Test Summary ===
+Passed main tests : 146
+Passed subtests   : 156
+Skipped tests     : 28
+Failed tests      : 13
+List of failed tests:
+   72: Test dwarf unwind
+   88: daemon operations
+  101: perf kvm tests
+  111: perf record tests
+  112: perf record sample filtering (by BPF) tests
+  117: perf sched tests
+  137: check-perf-trace python test
+  138: compaction-times python test
+  141: failed-syscalls-by-pid python test
+  142: failed-syscalls python test
+  144: futex-contention python test
+  157: sctop python test
+  159: stat-cpi python test
+root@x2:~# perf test 72
+ 72: Test dwarf unwind                                                                                         : Ok
 
-> 0. Candidate symbols are fully decompressed into a 512-byte stack buffer
->    before calling strcmp(), even though non-matching steps could choose on the
->    first differing character (0..N-1).
-> 
-> 1. Probes scan sequentially from 256:1 markers in kallsyms_names[],
->    decoding an average of 127.5 symbols per probe (~2,170 hops across a
->    17-step search).
-> 
-> This 3-patch series addresses both:
-> 
-> 0. Patch 1 introduces kallsyms_strcmp_symbol() to compare ASCII queries
->    against compressed tokens on the fly, bailing out on first mismatch.
->    Drops the 512-byte stack buffer and saves ~530 ns.
-> 
-> 1. Patch 2 increases marker density from 256:1 to 16:1, cutting average
->    scan distance from 127.5 to 7.5 hops and dropping lookup latency from
->    6,102 ns to 866 ns for +42.2 KiB of .rodata.
-> 
-> 2. Patch 3 inlines and unrolls get_symbol_seq() 24-bit reconstruction.
-> 
-> Results (kernel/kallsyms_selftest across ~184k symbols):
-> - Baseline (256:1):  6,102 ns
-> - Patch 1 (strcmp):  5,572 ns (-530 ns)
-> - Patch 2 (16:1):      866 ns (7.0x faster)
-> - Memory: +42.2 KiB .rodata, 0 bytes dynamic RAM
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+root@x2:~# perf test 88
+ 88: daemon operations                                                                                         : Ok
 
-Can you better explain the tradeoffs here?  Increased memory use?  If
-so how much?  Is any change in build time expected?
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+root@x2:~# perf test 101
+101: perf kvm tests                                                                                            : Ok
 
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+root@x2:~# perf test 112 ; perf test 117 ; perf test 137 ; perf test 141 ; perf test 142 ; perf test 144 ; perf test 157; perf test 159
+112: perf record sample filtering (by BPF) tests                                                               : Ok
 
-What isn't addressed in here (afaict) is "who cares".  Is there some
-workload which is kallsyms-intensive?
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+117: perf sched tests                                                                                          : Ok
 
-This info really should be right in the first para of the [0/N], and in
-detail.  What benefit does this work offer to our users?  Use cases,
-example scenarios, etc.
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+137: check-perf-trace python test                                                                              : Ok
 
-Apologies if I missed this in earlier discussions, but if it was in the
-[0/N] this wouldn't matter!
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+141: failed-syscalls-by-pid python test                                                                        : Ok
+
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+142: failed-syscalls python test                                                                               : Ok
+
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+144: futex-contention python test                                                                              : Ok
+
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+157: sctop python test                                                                                         : Ok
+
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+159: stat-cpi python test                                                                                      : Ok
+
+=== Test Summary ===
+Passed main tests : 1
+Passed subtests   : 0
+Skipped tests     : 0
+Failed tests      : 0
+root@x2:~# uname -a
+Linux x2 7.2.5-200.fc44.x86_64 #1 SMP PREEMPT_DYNAMIC Fri Sep 11 15:11:05 UTC 2026 x86_64 GNU/Linux
+root@x2:~# cat /etc/os-release
+NAME="Fedora Linux"
+VERSION="44 (Workstation Edition)"
+RELEASE_TYPE=stable
+ID=fedora
+VERSION_ID=44
+VERSION_CODENAME=""
+PRETTY_NAME="Fedora Linux 44 (Workstation Edition)"
+ANSI_COLOR="0;38;2;60;110;180"
+LOGO=fedora-logo-icon
+CPE_NAME="cpe:/o:fedoraproject:fedora:44"
+DEFAULT_HOSTNAME="fedora"
+HOME_URL="https://fedoraproject.org/"
+DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora/f44/"
+SUPPORT_URL="https://ask.fedoraproject.org/"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+REDHAT_BUGZILLA_PRODUCT="Fedora"
+REDHAT_BUGZILLA_PRODUCT_VERSION=44
+REDHAT_SUPPORT_PRODUCT="Fedora"
+REDHAT_SUPPORT_PRODUCT_VERSION=44
+SUPPORT_END=2027-05-19
+VARIANT="Workstation Edition"
+VARIANT_ID=workstation
+root@x2:~#
