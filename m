@@ -1,129 +1,146 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F315835F5ED;
-	Sat, 26 Sep 2026 17:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F72B3876C6
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 17:52:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790445127; cv=none; b=BdgYkIbFzKC0oR818vVLbyYMG3WKFBXzdJRdQKGXKmqbExF9LyMMjzA2DWXlgHhxbjNBZxQAYpPHDnEu3aY7YzUeUNnBQttwthDbr+lCXZN/8hs2pvrBEpoQpWljlKJZL5UImovVrgd2tlRyTJGpYhXK6o/yV02fujKmUtlXw3w=
+	t=1790445147; cv=none; b=OVZ9/GKUo/L5QcdbKNtSfY+i5p3dNZzPW8kYEYnS1FtITOjT/CzRgLa6xkijPY7Kd+kTAAFwNvwAFPS1wqrp5JdNerxS8U6d8l4X+UJ42CmadG5VQSG356n8NZBR0++WazXPD4Oj5/TKv/WZgkGOwnJHIJO5EsAZHPP+1G4rhak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790445127; c=relaxed/simple;
-	bh=wgAKn22Ni7MmAUF9oEw63JADTQTQaEwIMtLKGB/G/eo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=hk/0lcPu/KyzEHMYoFW/c8amQCFKyGPfqLM74DYFsvMTF/ZP3XRznb6zYz9klEulzdEdE/kXKDUeCAvSyqlAZxJ27863ZjeGYmD3Hf9FpitVqCriAJx00FvGmUWHo8/BsY+oA9Hzl/B8nSaCPouCcbms/5mILy8wZ81MdLsVnB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=Llw/Ozns; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1790445147; c=relaxed/simple;
+	bh=J+AhSgGwt6r0gJXNT77YyglaJAxP3u30DbwIyT1MBgM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pbmkcary6Otk0VtP+pbrEop6gvw1cXqX+n+DEEx9iSPkJQVZE1KXYTkVZqAatDxFptbf8BWdw00Ka2tcN+ajCuHrKnCYx9VdNIeB2/HIp+o9NmV/b30HizM4nJkvGTcHjCtv2VBwFM6nj5pGZcODHFMHNvPHMrrwPvQ0bfc7bRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RHAr7+C6; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="Llw/Ozns"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net E4202408B3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1790445123; bh=6NE3Q9JZyqp+/wTbVEXAF3fyZw5nQwa+hgB/Hr18ZK0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=Llw/OznsfKVAc7JPgpDcnVAd2FkrjLbWzFecVFOInN9m8M3heQuiHlCFH2E+a6uAY
-	 9uk7depmDp17bfvyHJ5uy4INjFd30wUaUq0+UcjEC7hGlX7w2I5P1Mib0EqXK377ej
-	 MuooYOnrXd2uGXBSkAqLtf+iLmRyNNK1L2B81KSWlnJdDiXujaIYMtyUttE1LSKnFH
-	 xjz13UklOpf+VIDYUL8twB29KwwoL9oajZaFr+Su/7SewHmSHvsN9IrDfkKHLCTZi8
-	 Ka+sOGdLzPFcTQy3z2fLH6ZyaijwkrV91w9laKLfhz6PNiEMCRaLScD04qFFcgTszz
-	 d13EFt3KiYTvQ==
-Received: from localhost (mdns.lwn.net [45.79.72.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id E4202408B3;
-	Sat, 26 Sep 2026 17:52:02 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Habil Eren =?utf-8?Q?T=C3=BCrker?= <habilerenturker@gmail.com>,
- clemens@ladisch.de,
- tglx@kernel.org
-Cc: skhan@linuxfoundation.org, anna-maria@linutronix.de,
- frederic@kernel.org, linux-doc@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Habil Eren =?utf-8?Q?T=C3=BCrker?=
- <habilerenturker@hotmail.com>
-Subject: Re: [PATCH] docs: timers: hpet: Modernize file references and
- document userspace API
-In-Reply-To: <20260926170649.6346-1-habilerenturker@hotmail.com>
-References: <20260926170649.6346-1-habilerenturker@hotmail.com>
-Date: Sat, 26 Sep 2026 11:52:01 -0600
-Message-ID: <87wls7529q.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RHAr7+C6"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3427977d677so125698eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:52:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790445142; x=1791049942; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MwvxlwyQkpsMgM6uNMmOr1LUHz18HQva7SpWQBiJmMA=;
+        b=RHAr7+C6j2hxZQNac9iNTMedEzf+XAqZiz8UBrbw1VVKP/DO583IaUZAu0NjfdDZji
+         w6sm8LFaSIURUgniznrLanYijIBDonAE/woTLtpQW7vMIqGD+hJTgxZXl0tFyyEZcqN6
+         AG6S/rL6QkvsvCgMfQ8I3YRezczag7P1YvOmI91Q6ST6DmtXmZiHFmsBQlOf7/yZYqoR
+         +OXXzYOpKMPFaDdZUwABNCYvWfnu8gd29QAqmjwUYtrOOcpE5+ClaBdCwdNrocAviuvH
+         btnn9JhBVncu4IMfniVx4rJa8cgFOi2sJp97At8kgLoG9vIt0ad0d4PlaNhwdLkPzBga
+         cRlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790445142; x=1791049942;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MwvxlwyQkpsMgM6uNMmOr1LUHz18HQva7SpWQBiJmMA=;
+        b=goPTAlmrw1ezFddE65w8HnZElIrC5luXulsnc9zf6Hng7P7YsgVcmiEld86IymEfnU
+         rNcbk6XkON+bGi+JL3/z6BwdJK9FFo5tuQcDU47CXXx7lhiuL1Z3NV62ZjxKwujKsk/A
+         xUJFmdpDZIQ91Dfj/ccTa/Zptje2jodGPI40AwUAsH3f2ex2P1syluSMs9NZD1SgjJ74
+         hoBe3bN1dXPzHa31vejFjVp5law6BayQ+6Zmoxsq+HqNIfV+qWcZ4x+eaMRJzIujWMiD
+         hnfAtEecI7qOqEtj76GBtYJcZniZXfXredpBk+km/ZLYHUeWjqw3gVoaVjMIkAQ+MMFB
+         +z0g==
+X-Forwarded-Encrypted: i=1; AKwUvByWESr9uPK3yrXWBXB3i2fpIwsyltL7eeUzOlx0AWlB7ob2Q/CsbPgapnxOJPQoMvggLNCcU+0oUdJj4SQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXM8jFGjKbqXtga8mWc9DLLXoo405GM/Jd8xMOz62evedapWrM
+	GBq5NIE5u6zbKvXUiE+rn7JtHGFTiooUHQGtDMCjmUYn16lrGx6DM4Mc
+X-Gm-Gg: AYBFou1wFrjTDf/ifDTVJEMMIIZryMXQzQw/o80VmorFZpYPbqN+DZp2X3iwqySRHx/
+	V20Wd7h3+4jEZ3uKRKBxZCjRUzWcKjFYBJ8peMB33ncfzxxv88zp55t1dtwz+jzgfIIRs/e/SL/
+	bJ1tRZG7zNEnx5MyqxsqK3Q7Y67QL0fUVGh7vZmfcJ8o5m0qJE8NS+M3aWnsTvyVR6FW8S+yI6X
+	xweGB4/DtrSp+G+8jl0PnYyD1iSHKcrTvHBLUbhQkQOSD8ohC5esywj7BFny5oalbqt9xEgpwSA
+	pIao5cTB6s8PKLAzbeA0Co2A1Fy5NmUrTDGKfGMUlBtoIUzzhr+gaRJO48kK3ajGJP4jwzIRVzi
+	zJ+9WPtCgnidE/DxJ+vcRlTsvvhcnWkpukp/Jhr7C/TgJyF9DwgfwNaE3HpTnoe2z4xG5ambLkb
+	hKszFnoBx0leQRA7taFeSpuGIASnqbInt4dMIEcBl7Ib7fcVMaqBONkoCKRJCm/X6KSP1CxutXU
+	TM5igMOrgZ6vauKU0fV6FjgWnabwLu3bVZsN6fqPnmgzaUHiJviNKI+YR24I1P5ryV9nN8=
+X-Received: by 2002:a05:7301:dd97:b0:33e:6a79:5a81 with SMTP id 5a478bee46e88-3427179721dmr5365610eec.1.1790445142180;
+        Sat, 26 Sep 2026 10:52:22 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341463ec3ecsm16482252eec.31.2026.09.26.10.52.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 10:52:21 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+Cc: netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] netfilter: conntrack: wait for RCU readers before freeing the hash
+Date: Sun, 27 Sep 2026 01:52:09 +0800
+Message-ID: <20260926175209.2618167-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-"Habil Eren T=C3=BCrker" <habilerenturker@gmail.com> writes:
+nf_ct_get_tuple_skb() calls into conntrack under rcu_read_lock() without
+holding a module reference. CAKE can use this hook to look up a packet
+without an attached conntrack, even during nf_conntrack module teardown.
 
-> The current HPET documentation contains outdated 'file:' prefixes for
-> source tree references, which breaks proper rendering and hyperlink
-> generation under the modern Sphinx-based documentation ecosystem.
->
-> Fix this by modernizing the paths using the standard literal backticks
-> formatting. Additionally, add a dedicated 'Userspace API and ioctl
-> Commands' section to clearly document the supported ioctl interfaces
-> extrapolated from include/uapi/linux/hpet.h and samples/timers/hpet_examp=
-le.c
+nf_conntrack_cleanup_end() clears nf_ct_hook but frees nf_conntrack_hash
+without waiting for existing readers. The grace period in per-net cleanup
+runs while the hook is still published, so a later reader can race as
+follows:
 
-"Additionally" is a clue that you should be dividing this work into two
-separate patches.
+  CPU 0 (packet path)                 CPU 1 (module teardown)
+  rcu_read_lock()
+  ct_hook = rcu_dereference(nf_ct_hook)
+                                     RCU_INIT_POINTER(nf_ct_hook, NULL)
+                                     kvfree(nf_conntrack_hash)
+  ct_hook->get_tuple_skb()
+    nf_conntrack_find_get()
+      access freed hash bucket
+  rcu_read_unlock()
 
-,
-> including the layout of struct hpet_info.
->
-> Signed-off-by: Habil Eren T=C3=BCrker <habilerenturker@hotmail.com>
-> ---
->  Documentation/timers/hpet.rst | 31 +++++++++++++++++++++++++++++--
->  1 file changed, 29 insertions(+), 2 deletions(-)
->
-> diff --git a/Documentation/timers/hpet.rst b/Documentation/timers/hpet.rst
-> index c9d05d3ca..e21a6185b 100644
-> --- a/Documentation/timers/hpet.rst
-> +++ b/Documentation/timers/hpet.rst
-> @@ -23,8 +23,35 @@ The driver supports detection of HPET driver allocatio=
-n and initialization
->  of the HPET before the driver module_init routine is called.  This enabl=
-es
->  platform code which uses timer 0 or 1 as the main timer to intercept HPET
->  initialization.  An example of this initialization can be found in
-> -arch/x86/kernel/hpet.c.
-> +``arch/x86/kernel/hpet.c``.
->=20=20
->  The driver provides a userspace API which resembles the API found in the
->  RTC driver framework.  An example user space program is provided in
-> -file:samples/timers/hpet_example.c
-> +``samples/timers/hpet_example.c``
-> +
-> +Userspace API and ioctl Commands
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +* ``HPET_IE_ON`` / ``HPET_IE_OFF``
-> +  Enables or disables the interrupt generation for the timer channel.
-> +
-> +* ``HPET_INFO``
-> +  It is used to query the capabilities and current status of the HPET.=20
-> +  When the ioctl call is made, the kernel populates the ``struct hpet_in=
-fo``=20
-> +  structure and returns it to userspace:
-> +
-> +  .. code-block:: c
-> +
-> +     struct hpet_info {
-> +         unsigned long hi_ireqfreq;	/* Hz */
-> +         unsigned long hi_flags;	/* information */
-> +         unsigned short hi_hpet;
-> +         unsigned short hi_timer;
-> +     };
-> +
-> +* ``HPET_EPI`` / ``HPET_DPI``
-> +  Enables or disables periodic interrupts. When activated, the timer tri=
-ggers continuously at the specified frequency.
+The same missing grace period affects initialization failure after
+nf_conntrack_init_end() publishes the hook. During module teardown,
+KASAN reported:
 
-Please keep text files to less than 80 columns.
+  BUG: KASAN: vmalloc-out-of-bounds in __nf_conntrack_find_get.isra.0
+  Read of size 8 at addr ffffc900012e2ae0 by task poc/90
+  Call Trace:
+   __nf_conntrack_find_get.isra.0+0xf87/0x10c0 [nf_conntrack]
+   nf_conntrack_get_tuple_skb+0x255/0x400 [nf_conntrack]
+   nf_ct_get_tuple_skb+0x75/0xb0
+   cake_hash+0xfdb/0x1e10
+   cake_enqueue+0x5cd/0x36e0
+   dev_qdisc_enqueue+0x40/0x170
+   __dev_queue_xmit+0x1e90/0x3110
 
-Thanks,
+Wait for an RCU grace period after clearing nf_ct_hook, before releasing
+the hash table and the remaining conntrack resources.
 
-jon
+Fixes: b60a60405fb9 ("netfilter: Add nf_ct_get_tuple_skb global lookup function")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+ net/netfilter/nf_conntrack_core.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/netfilter/nf_conntrack_core.c b/net/netfilter/nf_conntrack_core.c
+index d0d9e5ea84a0..b07e94e75d4d 100644
+--- a/net/netfilter/nf_conntrack_core.c
++++ b/net/netfilter/nf_conntrack_core.c
+@@ -2455,6 +2455,7 @@ void nf_conntrack_cleanup_start(void)
+ void nf_conntrack_cleanup_end(void)
+ {
+ 	RCU_INIT_POINTER(nf_ct_hook, NULL);
++	synchronize_rcu();
+ 	cancel_delayed_work_sync(&conntrack_gc_work.dwork);
+ 	kvfree(nf_conntrack_hash);
+ 
+-- 
+2.43.0
+
