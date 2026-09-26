@@ -1,76 +1,74 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3EB3911D5
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:29:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B2D37E5DE
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790396971; cv=none; b=haqiCQGIia9CUti12/RfqHJkwbqlcv1aBbRLNLjGKEcqGq3+CjB/zgPcdyNZVl2Gvj9IJ+Jm+RPjsSR0a+k9mB1WZytITQNLCIlmDhOjYNlCaBip8wbjH5MJLJ/26ZF4kcmLB6YjQVl7Pg59beCwlrYwApmnzo061D3e9Nuv02U=
+	t=1790396982; cv=none; b=lVLbz6OaNk7v86ZZfHlflVDo75VQca/CRKZrbAXjOGGuc7oEIX2Z5BUgN+IYklBazkPnm+LcPr9I6jMHoRnql01d9/b1NgCEMjTZxzuVAGaB09hTP6tvaHjCe/BP60XBQPEEjK95FWZcGXMp4DbsC5DJ8PqVFrnaFYvDZKUUfus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790396971; c=relaxed/simple;
-	bh=GpUUZlRSGDZdH9l14gIIKqilWznEEoD/ZnFf4baX0dE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X6oQZvZ32Vkbz9Cppwa6icxSSmogE4BtX3XS0s3iWFWuH/meXoR74/9aj5o47X/xiR9k55hOta5js0+/mfRpUX9xB8P7UgzpaDKDyZP4EuYC4TubAjVh4JqNtP/RArsjZtUmTb8b/mcYVKdDcO9y5VDsXvYB+8WP2N/vwWUQaRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o+aKNqdq; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1790396982; c=relaxed/simple;
+	bh=bWpGiVkFMDuSssWxODbLxUjWtqGMiUCzQ1jlycUTq/A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AeYwxPf5ujOHggfqgL3byNkjIY33ipyS8vlCPXJGTLjpjd7DP80p6w4M5x6V/oJpULpkhxzTjSS1hXaokxvQ/2T+V8Hdmq11N28DL8PHy1TqPgktnY6aANK69lIHPx2pyokDaGvDelD8FqheU6Z31Wvxk9VpDMoRfllkNXmJfus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L5dWfZJg; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o+aKNqdq"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e46a15703so1292592eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:29:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L5dWfZJg"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398beb616f5so798231a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:29:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790396968; x=1791001768; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0D44r2HU7mPFEg3suXmYiSPEArkz6cxgDH4F/lCy9n8=;
-        b=o+aKNqdq49edaUmqOxV9wdMXAUpN2UdejH9ruAGkLUpa9wisc6YKoOG+VO6S4TFIV6
-         DB02QVhKYW5CEJix3im32GHtcVsc7Tv5BQQ0w1+ZPhoCLWJxPW+ACgFeKUl9mT4CmJ0w
-         lFAo9nibq8PtGz57bSCSzEIW0PH4Xe7K16Vl6orZTqFNObiSLCClZwjVBXEiRRkUU2p+
-         I+toP5woQoWWwa2pPEEbcLLv0omn1h5eR9wp+eXxEtXh1/AYXurtiZw1gpkb2DBQ4hEX
-         mho99dkAylMhIrQhke7WqH5CWZhESaZOqduMCxfTCKkIn3R5IgMQ0HMx6ez9tMZJxg88
-         vU0w==
+        d=gmail.com; s=20251104; t=1790396980; x=1791001780; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MnArI2zFMgSLXsIUz65zFL4A+lede9eeiAgX2MVd7/Q=;
+        b=L5dWfZJgldykQ19Xj0dh6bOpFhcZVz9//fpHJPWZzdZm/a6hBjUqpViOBnpzgHtGP9
+         Cq83AlgrDfsWMCODSHJDaAQXt8EZ/OS2Cb8IJmowDYPsCJzFY0wOKu1LuhbTIIFXAljj
+         PGCMJwF7/OjADRDjwNNOwqpqO8CqRB7yITZUmXvJlJuQbW4uV6w9i31ovSSEBwYP017m
+         sBYosUoVouYEfxnZ1jZ5wLIQQ9Y/r06XXS9xuXIwhQV7Bk11qvL7k6Qa4pocXMbp+bao
+         S5/OXI3cXx2ez4mIQ/HoGmSbC4OHWTwUYSuC0oXKAhI5TIhZ0sPkHb8Q/YOOdwTchp3/
+         htbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790396968; x=1791001768;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0D44r2HU7mPFEg3suXmYiSPEArkz6cxgDH4F/lCy9n8=;
-        b=Y4fVQKXAwF8SmXtYxj/v3UaWckyxX+aqd2xyF9c1z8NfzOD9gZJ1H35UeYwqgJi/3P
-         5khQ2sZ336KzUU/7oG3CPFv06Kluqexm9/qZvz2f1s3ddNQ8EKL9v0LObtcMKWLfuaFp
-         paUrrDAQIzneEHJ71RLLBN4e2gWlAfyRHOPA9nP3PswfzhOx4cDrkA3pDfsks0xMT7H8
-         gGsdHQE2n4UFv88UISifDBKMdnKPkVCRLh8OcsT6//Gf9pz0ysxrHt/D8JG/RiHTgL4L
-         50ZoycukFq+1H9+TPx5geQHnyUMbw9o87buVZmtGjL5QaFxNNrzQWlDDBHcTfY8+2J1l
-         4vfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPQ2gWuU3QPiqySd8sIdaDStfSXMl//QayvC1DFQbV8Ei4Ex8iCqc99UtTq5Y1cZit2gmD4HbD89oYEco=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhMgBAiPBfwEBvUDzQFFkNgqJXjIMRhkp0EuqFxRBW4Vo6+Ynr
-	Z2btxnrTlSNXcwmGepKV4zueAz/ym8cnmYDp74vspESS/adsi0DvPD2D
-X-Gm-Gg: AYBFou3pTgfz6bBVGvD5DBiOr+H+Uh/7VU/6qQcZLFZ/gGhWOnUP3Uix3tc4jex1i73
-	ODh1GcuDgEPdEpzlk4DX1A5IhdXHTyBwZ6GQJwIbIYXPFXv0qDgsjNw8DBCsFtQsArWF63cdFAL
-	KDFrRkyCO1w1vf1Z+q+/BJYGbWl79RvizECDlDP47QnPneyzqqr04tcoyuSYBC19RlE1kIn/lDK
-	9qlFMj4hKZdpw6nss6nhq0wiAR1OveN7qHjAobPquTVKbHCuzf2lvyk7ST74383aLGFokjJ+qIT
-	ZcA2v1EdI3kQobTE4LgnFM+VUlsTYrumpW/EkuA9V6Z1/cgMEDdzG34xFDzASVKYJmwWBpkWPUM
-	EA9nIb2ph9J9DogIPh3ejPkNZhI3iZpZ7FmUv/Mrbqb1+2MA9i3YHpLuq9rpy+3lkqDr/cn3OwV
-	PzFM71gvozf2YkGKoKaSor/PRGyZhQJ20p0cMXUtp+8zEKURGEA3fwUrh4kT3jaAuCCgKPI7zE9
-	JtE6BnUp9UMqMNTWnr4cGV1S5zSt/nIKu4/5hE+Y55E/UzViIvUsSUJ46hz/wZSTk3+ABXuY5QW
-	IN+CjlDwj/qnVglnjCFn4+N8xUJLbvvYj4EAPY95yY6WBWDrWq+9FIAknGg=
-X-Received: by 2002:a05:7301:b95:b0:33c:16f1:2e3f with SMTP id 5a478bee46e88-3426fcc8442mr1784295eec.6.1790396968201;
-        Fri, 25 Sep 2026 21:29:28 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3421dbb2971sm6342963eec.10.2026.09.25.21.29.26
+        d=1e100.net; s=20260707; t=1790396980; x=1791001780;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MnArI2zFMgSLXsIUz65zFL4A+lede9eeiAgX2MVd7/Q=;
+        b=b+sYMLAa0IEVS38Xreaha/1Bdsq5WKAfkEwK/6qXkyO2rmPl67nUrt96vvdUmw87/+
+         FIBrXSFKMDkUutFwTgCsvvxNDjLbrs699mHijF1FaqoaOMHgNMNSWXMFN5N4fXHN8IMh
+         1y++0NzCrZlVMkmMThDgjeFohedeR/ZiwX21PM5W2qYrrGC4YhPrQPPNPPP836Y+K0Ow
+         dl6xz406pbWRyAGddOxVwyX/YuiNWJQQ2w9L7SkxY37d5dD8EZ5nit8aBMsW19nxFRDL
+         1/uvofrSGqIEq0gRQiC901kheuwB2E4l6dpQ1nNNO0R9agwSr3wpgzfWawD1tlvR8S5H
+         21rw==
+X-Forwarded-Encrypted: i=1; AKwUvBxt+FKA0TtPgGJdiD544Ta64YfMtnSOQIKAQ+FyqXMfU4SLC2VDFzim/zAviT7XRVvwdsUlhQqpRvBVoNE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbr68Gds0t8ShonDfSsHknOjhUoKU6kIyWdD40bshMUb19bIjy
+	/q9zsUozDqE1mZu9pYw09TKcaRlrjUTeVLTlAXVa/Jkkt8ybGKDptWQZ
+X-Gm-Gg: AYBFou0MNAYOkByjOzyPtzTKZ6hZ3a8zncaFioRTOyZEq0UURx0Wan4vuRDHu3gMpho
+	25ehpCctsf2jdQ7TdJYdomv/1sbuzR3HiJtRWXWg9LuuWeDVkNZ2w726SIFISm9jtXZQqRO6dXW
+	omPnqhiV9sjVaxmyzO1exglDr+mAFulSkkB8DKJ0OxLWLyDjPvacbPqO6qomWjpb+oLg9gXQFqv
+	zIqtlo7dkrG8/EgkQ9kM9HxRDyKRfBTbc0qJusdBh32MKDzMqYXL6e+E9o2oWUnETvsjChy0gLb
+	oagIymuG8vd/tPEADR+/17HeTJuKaKXOCFieGCBp1wFvPCMm13LMmgTk+BbFmiPUKUwLi4Jm9Sl
+	JOt/maDjCyx1TSXfE/73QIBRskMU5gR+YdXTW1slh6ZEEYBYbqC4SEomLji+g6ar4FBr4+S36Tv
+	iUvnCQkhNmfuyKFhwagWCfQTPgzpxM69gInLv8+3m8Tq+Fq+ua3dkC57XnUQMNo1fhnxPCYc9Zq
+	Q5KCQErxx6m90n8A1nFsR7TDkCqAlBKsAB0CmCYd8u6fC4IiQX4xd175JOUJku/KU/SJ5FK0REV
+	U/ynpK7FPtdtJp8rj3QYR6oHbs+SSxvL45HzeF7f455QbUiC
+X-Received: by 2002:a17:90b:5247:b0:39e:6c68:fd8f with SMTP id 98e67ed59e1d1-3a098b628d9mr4490672a91.36.1790396980415;
+        Fri, 25 Sep 2026 21:29:40 -0700 (PDT)
+Received: from dell-pro-max-tower-t2.cse.unsw.EDU.AU (pag-t2-pc.cse.unsw.EDU.AU. [129.94.173.199])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5dfsm13884039a91.3.2026.09.25.21.29.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 21:29:27 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Jan Kara <jack@suse.cz>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] isofs: shrink the name conversion buffer
-Date: Sat, 26 Sep 2026 12:29:16 +0800
-Message-ID: <20260926042916.3277409-5-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260926042916.3277409-1-matthias.goergens@gmail.com>
-References: <20260926042916.3277409-1-matthias.goergens@gmail.com>
+        Fri, 25 Sep 2026 21:29:39 -0700 (PDT)
+From: Weigang He <geoffreyhe2@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Weigang He <geoffreyhe2@gmail.com>
+Subject: [PATCH] soundwire: master: use sysfs_emit_at() to avoid sysfs buffer overflow
+Date: Sat, 26 Sep 2026 14:29:35 +1000
+Message-ID: <20260926042935.2284011-1-geoffreyhe2@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,51 +77,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-isofs_readdir() and isofs_lookup() allocate 1024 bytes for the name
-converters.  Now that get_rock_ridge_filename() and
-get_joliet_filename() are told the buffer size, nothing writes beyond
-JOLIET_NAME_MAX + 1 bytes: get_joliet_filename() is passed that size,
-get_rock_ridge_filename() is passed NAME_MAX + 1, isofs_name_translate()
-copies at most the 222 bytes of name a directory record can hold, and
-get_acorn_filename() appends at most five bytes to that.
+clock_frequencies_show() and clock_gears_show() loop over num_clk_freq /
+num_clk_gears, writing each entry into the sysfs output buffer with
+sprintf(buf + size, ...) without bounding the running offset against
+PAGE_SIZE. Both counts are taken from firmware-supplied properties
+(parsed in mipi_disco.c via fwnode_property_count_u32()) and are not
+otherwise capped, so a device whose firmware advertises a large enough
+array overflows the single-page sysfs buffer.
 
-Allocate JOLIET_NAME_MAX + 1 bytes, matching what the Joliet callers
-pass.
+Switch both loops to sysfs_emit_at(), which bounds each write to the
+PAGE_SIZE buffer.
 
-No functional change.
+Found by static analysis tool CodeQL.
 
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Fixes: c5778ca49a194 ("soundwire: master: add sysfs support")
+Assisted-by: LLM codeql
+Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
 ---
- fs/isofs/dir.c   | 2 +-
- fs/isofs/namei.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/isofs/dir.c b/fs/isofs/dir.c
-index dd8958617340..8b5f03b696b2 100644
---- a/fs/isofs/dir.c
-+++ b/fs/isofs/dir.c
-@@ -236,7 +236,7 @@ static int isofs_readdir(struct file *file, struct dir_context *ctx)
- 	char *tmpname;
- 	struct inode *inode = file_inode(file);
+Notes:
+    Compile-tested only (ARCH=arm64 and ARCH=x86_64 allmodconfig, W=1). Not
+    tested on hardware, and there is no reproducer.
+    
+    The CodeQL query behind this report was synthesized with LLM assistance,
+    and the fix and changelog were drafted with LLM assistance; I have
+    reviewed them.
+
+ drivers/soundwire/master.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/soundwire/master.c b/drivers/soundwire/master.c
+index 440bfc52ccba5..fb1ef2210732d 100644
+--- a/drivers/soundwire/master.c
++++ b/drivers/soundwire/master.c
+@@ -61,9 +61,9 @@ static ssize_t clock_frequencies_show(struct device *dev,
+ 	int i;
  
--	tmpname = kmalloc(1024, GFP_KERNEL);
-+	tmpname = kmalloc(JOLIET_NAME_MAX + 1, GFP_KERNEL);
- 	if (tmpname == NULL)
- 		return -ENOMEM;
+ 	for (i = 0; i < md->bus->prop.num_clk_freq; i++)
+-		size += sprintf(buf + size, "%8d ",
+-				md->bus->prop.clk_freq[i]);
+-	size += sprintf(buf + size, "\n");
++		size += sysfs_emit_at(buf, size, "%8d ",
++				      md->bus->prop.clk_freq[i]);
++	size += sysfs_emit_at(buf, size, "\n");
  
-diff --git a/fs/isofs/namei.c b/fs/isofs/namei.c
-index 9025ff74eb60..c2222504fde9 100644
---- a/fs/isofs/namei.c
-+++ b/fs/isofs/namei.c
-@@ -157,7 +157,7 @@ struct dentry *isofs_lookup(struct inode *dir, struct dentry *dentry, unsigned i
- 	struct inode *inode;
- 	char *tmpname;
+ 	return size;
+ }
+@@ -77,9 +77,9 @@ static ssize_t clock_gears_show(struct device *dev,
+ 	int i;
  
--	tmpname = kmalloc(1024, GFP_USER);
-+	tmpname = kmalloc(JOLIET_NAME_MAX + 1, GFP_USER);
- 	if (!tmpname)
- 		return ERR_PTR(-ENOMEM);
+ 	for (i = 0; i < md->bus->prop.num_clk_gears; i++)
+-		size += sprintf(buf + size, "%8d ",
+-				md->bus->prop.clk_gears[i]);
+-	size += sprintf(buf + size, "\n");
++		size += sysfs_emit_at(buf, size, "%8d ",
++				      md->bus->prop.clk_gears[i]);
++	size += sysfs_emit_at(buf, size, "\n");
  
+ 	return size;
+ }
+
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
+prerequisite-patch-id: c5a3be8688fd8e88a00352acb1374e91fcb52a03
+prerequisite-patch-id: 67693e2c08624df0841619cc085ce9200f4385fc
+prerequisite-patch-id: f3d73f7c19be7e952aa8061303f53f9a08576a88
+prerequisite-patch-id: 541e578709d048f4c8115f1d926be2f2c03ecb0e
+prerequisite-patch-id: f23f8e0693435497645805822d98a92e57fb46f3
+prerequisite-patch-id: eae82895db8ba67018a777a91a283ad6bc4a55b2
+prerequisite-patch-id: aed00f7502865e3f9262959d828eae4a4021108f
+prerequisite-patch-id: 4cd2054e4973f2ed050d71e0ad73147165913916
 -- 
-2.55.0
+2.43.0
 
