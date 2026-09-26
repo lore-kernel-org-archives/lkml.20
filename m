@@ -1,74 +1,334 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690B1547063;
-	Sat, 26 Sep 2026 07:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A893B352013
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790408136; cv=none; b=gM+Q4t/WIfvG6Yllzi/JJk8bBvMEOypP2RigovXXNLNpQjYqxPdhr6pNO+0UDgG/AaGVFgZgpaew0GihLIH7hoUhve6W/jDPKqlZKcQJrDINvFC7nnJ9yes+QXJP3UPQK5sKBTaaZcL6dtwwjgLtgcJhUQuhGUnYCEdCCOdziVs=
+	t=1790408371; cv=none; b=WBIHYDQ15bjTribLgmW4iCb5dEwWjh452CNKFqvpYqrD8qygfCGqI77VGvEpIm6vpMVaK6mcjCja7sg+IlV38uIFGkbnyINiqlO4l3q6D/Rx7+UPZ0ZoFzIh8nzP76QgFqO1mIovryAAu9oCJRCOhLdol2LAFFis2aB2ZfujOlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790408136; c=relaxed/simple;
-	bh=OHzHqRTu21BYYoyCvF3vAd+71SwW9M3ExArjCnqPCl8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rabN7c4AqAxUT6Vyj3FnrkzqsiCVC4RhvTwUnDgXuOq46g1tYKp4Y4f0mLBiDn7bqCjPjwonVLHMToRD59tF/42zbqNxr8zw3jxSK556DTnSn4FmhHFw3pAwnFsai74MCStu6S++iYzf/w+wVx5RflRyGIH01ztdsDetsEOkJKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=pXLVvox2; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	s=arc-20240116; t=1790408371; c=relaxed/simple;
+	bh=CXqRtoZh4GI3UnLTwnDqyxPCp9CeruuC/cJzJ/StYZ8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=TD9HD8FI8KBTJVFqN10iCUh8LcEe7WviqH8CgqMVbHIPwlOvux3K34tJPPsIJC6O6Qf775EuAGFOw5vnmFciRtRZJxcm1+MnklVsJte5asbgW/eRSRfxapDk1ll6HLD/hnxn7maN59hcPwh3Ah7tm+XDbUNTGGVhvniY7uP3APQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FdRVl9RH; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="pXLVvox2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1790408125;
-	bh=OHzHqRTu21BYYoyCvF3vAd+71SwW9M3ExArjCnqPCl8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pXLVvox2nygsb+Hwsy4Ar+HDjPfeJ8g1YGsahYDofuANCmujKB1vFaNl2k5v6Ejq4
-	 04ZnlipqzE6xjsBrQZJW/oPv4MtAcNgf+r+H3EHcGuRQw/A6OqK5FbNd11kDiqU/ab
-	 6l+uAsqp4Ufbo08assuYD1pXzSnkg7MCshMDKI0I=
-Date: Sat, 26 Sep 2026 09:35:25 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Willy Tarreau <w@1wt.eu>, Shuah Khan <shuah@kernel.org>, 
-	Sven Schnelle <svens@linux.ibm.com>, Benjamin Berg <benjamin.berg@intel.com>, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] tools/nolibc: fix readdir_r() and the FD_* macros
- on 64-bit
-Message-ID: <a06130a1-2b31-4f13-af24-a7f3e83135f1@t-8ch.de>
-References: <20260925211600.119116-1-danishkhateeb03@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FdRVl9RH"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f635552aso1186307f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:39:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790408368; x=1791013168; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UzNu4qsML/vUrmG56fm/uRslLdrHhJ56SN3Sn3YDpZg=;
+        b=FdRVl9RH+5vGkYo7Q3hjFnwMBW9PQdsUu2fgN7+lAh11gQ4MNfNICiIzcTbaHuM375
+         2l5av0/H2Iz5N+sHYhsq+vVQ6MMhJaO34DsU075qIt1rE8NlYuQlzrq9j2BftkWxvx5B
+         kDv6rEdQ/aOWaJry99j/hne5nnatV5TWI+m4KpwIiDAJS/D0nI+YeweYc2U+fpDAY8QZ
+         WkWMnY2rij5jwm/pcZbLo7chNQ8RmawlJwZ1ySzoQ9PBgKRnHIHtnj3JN4cwdqHuVuRf
+         DnZf7rAb0vVYYN0BI+nPI+xwqPQct5N/G2zRXtsFvABhwWXSWM8qmFCefz3B/BIkahY5
+         ENWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790408368; x=1791013168;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UzNu4qsML/vUrmG56fm/uRslLdrHhJ56SN3Sn3YDpZg=;
+        b=j0uyOXRy5MrjbL2RBQtvEs6wX+ihm2hS2aL9/ChoW/I6XZip7tfuSz5BVFvzxvJ3GF
+         7AzQFU8v/RyxF+Ax285Jz1YDaWDghgaV2fU9OKDkOVNcSNLfZdkmBD6W4iLLK+TbUB+b
+         KvxNSTT+vjFFHZ1LJC28Nas1QzefWE0UFenXO9UTrOvFxGElx/Yan5yFp8xBR4yMLGF1
+         GoaFLfihvmoxqsP9IDWiC8sPLS2u0YzxzPIUORQOK1inF6MDiVrvd7UTyC+yGIe41y8K
+         ZYm5PVVXDz3GdwkDg1GvpfDfSOvFt8wruaHbHvhpkx2zyDZLq7sc8kNxIBIO9uzVHQea
+         XsDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw8ltdPYpgToDSe2WiKH3LWKjbUo8+U/Ejt7HEcXDRF/KUzpaMebGirrh36CMelG0qDjSljvNkHg2LdAtE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbrFsDpVzp3H1GatFlZJbo+RRJEYfrMWNaco64GXIB1Uk1uTFv
+	zV1eCrKD3otrVFdJx6hSmO2NtmA36yztSr0whhBuztH8vUWrLAfPTNF/
+X-Gm-Gg: AYBFou0DwIKkxFIuXmNEe5t3yQvDlcwFQUWgXNoQjSRnVotj7bCD9ppyuXM6e2eZF9C
+	vP5HZnhDfVuy/8RamD5lEMVb8gLmpIyLDt9dz8uXpIlnhsf1J1dFJwMEkN6jyUCAG75TdimRVz3
+	LZg+39/DupguN6LTBSlogXW9RKtL/i92mxpVncZOlMJoEhd4xFEZKyeUOfnS7mFhAMa6FXYJEXV
+	KNcn6W8zgjDMpjG7IPwVIynaw7Rct1MZm939Omk2C1mlZVK5GxrNMwukY0SoyzvMRxulRQd7a1f
+	TbOe9G+oaCe55ZILAks8rucWP4J4PVoSWUMLE7MrHEDm88/pa4tgBMO7ZfYiQdahkIjKXw9hLen
+	UdX8sCdXVBAIN1MWe2ehm5S23CiRGkJyvuYMnjrv+RSXgjBRqWwrI1BzFOk4fIiAO89QG1mo1Oa
+	xa3FWmGb6lN3jlydLxmB3yWq+VeRrUTLghHO4dupR6OKHi7o76XvHbNp76vUGP2GuHFYdFkUDE9
+	64czNG4L377DVtkD94J8vVM3lOs/6JPzji1K5OhmJyny4LMJ15Rx+LDLQtjRvn0I+UuLz/leeeY
+	t53rUlDlEHSFwjdihB7b9I70nmV/LhRCkVXoav75u2sTKPYLqiV366tyEde8JDxCwBCOmUaPgg8
+	wANtEGo4=
+X-Received: by 2002:a05:600c:6990:b0:493:c47f:3c55 with SMTP id 5b1f17b1804b1-49fe7b52fd1mr130966035e9.5.1790408367344;
+        Sat, 26 Sep 2026 00:39:27 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b162-c701-4960-a998-3de8-2fce.310.pool.telefonica.de. [2a02:3100:b162:c701:4960:a998:3de8:2fce])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06b4d45sm118038915e9.7.2026.09.26.00.39.26
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 26 Sep 2026 00:39:26 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Breno Leitao <leitao@debian.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Rik van Riel <riel@surriel.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [PATCH 5.15.y] mm/hugetlb: fix avoid_reserve to allow taking folio from subpool
+Date: Sat, 26 Sep 2026 09:39:16 +0200
+Message-Id: <20260926073916.78450-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <2025021025-deflector-judge-df07@gregkh>
+References: <2025021025-deflector-judge-df07@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925211600.119116-1-danishkhateeb03@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-25 16:15:57-0500, Danish Khateeb wrote:
-> Two bugs that only show up on 64-bit architectures:
-> 
-> - readdir_r() truncates the directory offset to an int. On ext4 it
->   fails within the first few entries of almost every directory (since
->   v6.19), or returns the next-to-last entry twice and never the last
->   one (v6.15 to v6.18). Patch 1.
-> 
-> - FD_SET(), FD_CLR() and FD_ISSET() build their masks from an int, so
->   they use the wrong bits for fds 31-63 of each 64-bit word, and
->   select() on fd 40 fails with EBADF. Patch 2, with a test in patch 3.
-> 
-> There is no selftest for patch 1: it needs a directory with large
-> offsets, and nolibc-test only lists /proc/self, whose offsets are
-> small. I tested it with a small program that lists a directory with
-> readdir_r() instead.
-> 
-> Changes in v2:
-> - Dropped Cc: stable from patches 1 and 2, which are otherwise
->   unchanged.
-> - Patch 3: dropped the select() test, and moved the FD_* test to the
->   stdlib tests, with its helper in the same order as the test cases
->   (Thomas). It is also shorter: FD_CLR() is now checked on a set
->   filled with memset().
-> - Rebased on nolibc/for-next 6f114ae7b600.
+From: Peter Xu <peterx@redhat.com>
 
-Applied, thanks!
+commit 58db7c5fbe7daa42098d4965133a864f98ba90ba upstream.
 
-(...)
+Patch series "mm/hugetlb: Refactor hugetlb allocation resv accounting",
+v2.
+
+This is a follow up on Ackerley's series here as replacement:
+
+https://lore.kernel.org/r/cover.1728684491.git.ackerleytng@google.com
+
+The goal of this series is to cleanup hugetlb resv accounting, especially
+during folio allocation, to decouple a few things:
+
+  - Hugetlb folios v.s. Hugetlbfs: IOW, the hope is in the future hugetlb
+    folios can be allocated completely without hugetlbfs.
+
+  - Decouple VMA v.s. hugetlb folio allocations: allocating a hugetlb folio
+    should not always require a hugetlbfs VMA.  For example, either it got
+    allocated from the inode level (see hugetlbfs_fallocate() where it used
+    a pesudo VMA for allocation), or it can be allocated by other kernel
+    subsystems.
+
+It paves way for other users to allocate hugetlb folios out of either
+system reservations, or subpools (instead of hugetlbfs, as a file system).
+For longer term, this prepares hugetlb as a separate concept versus
+hugetlbfs, so that hugetlb folios can be allocated by not only hugetlbfs
+and other things.
+
+Tests I've done:
+
+- I had a reproducer in patch 1 for the bug I found, this will start to
+  work after patch 1 or the whole set applied.
+
+- Hugetlb regression tests (on x86_64 2MBs), includes:
+
+  - All vmtests on hugetlbfs
+
+  - libhugetlbfs test suite (which may fail some tests, but no new failures
+    will be introduced by this series, so all such failures happen before
+    this series so shouldn't be relevant).
+
+This patch (of 7):
+
+Since commit 04f2cbe35699 ("hugetlb: guarantee that COW faults for a
+process that called mmap(MAP_PRIVATE) on hugetlbfs will succeed"),
+avoid_reserve was introduced for a special case of CoW on hugetlb private
+mappings, and only if the owner VMA is trying to allocate yet another
+hugetlb folio that is not reserved within the private vma reserved map.
+
+Later on, in commit d85f69b0b533 ("mm/hugetlb: alloc_huge_page handle
+areas hole punched by fallocate"), alloc_huge_page() enforced to not
+consume any global reservation as long as avoid_reserve=true.  This
+operation doesn't look correct, because even if it will enforce the
+allocation to not use global reservation at all, it will still try to take
+one reservation from the spool (if the subpool existed).  Then since the
+spool reserved pages take from global reservation, it'll also take one
+reservation globally.
+
+Logically it can cause global reservation to go wrong.
+
+I wrote a reproducer below, trigger this special path, and every run of
+such program will cause global reservation count to increment by one, until
+it hits the number of free pages:
+
+  #define _GNU_SOURCE             /* See feature_test_macros(7) */
+  #include <stdio.h>
+  #include <fcntl.h>
+  #include <errno.h>
+  #include <unistd.h>
+  #include <stdlib.h>
+  #include <sys/mman.h>
+
+  #define  MSIZE  (2UL << 20)
+
+  int main(int argc, char *argv[])
+  {
+      const char *path;
+      int *buf;
+      int fd, ret;
+      pid_t child;
+
+      if (argc < 2) {
+          printf("usage: %s <hugetlb_file>\n", argv[0]);
+          return -1;
+      }
+
+      path = argv[1];
+
+      fd = open(path, O_RDWR | O_CREAT, 0666);
+      if (fd < 0) {
+          perror("open failed");
+          return -1;
+      }
+
+      ret = fallocate(fd, 0, 0, MSIZE);
+      if (ret != 0) {
+          perror("fallocate");
+          return -1;
+      }
+
+      buf = mmap(NULL, MSIZE, PROT_READ|PROT_WRITE,
+                 MAP_PRIVATE, fd, 0);
+
+      if (buf == MAP_FAILED) {
+          perror("mmap() failed");
+          return -1;
+      }
+
+      /* Allocate a page */
+      *buf = 1;
+
+      child = fork();
+      if (child == 0) {
+          /* child doesn't need to do anything */
+          exit(0);
+      }
+
+      /* Trigger CoW from owner */
+      *buf = 2;
+
+      munmap(buf, MSIZE);
+      close(fd);
+      unlink(path);
+
+      return 0;
+  }
+
+It can only reproduce with a sub-mount when there're reserved pages on the
+spool, like:
+
+  # sysctl vm.nr_hugepages=128
+  # mkdir ./hugetlb-pool
+  # mount -t hugetlbfs -o min_size=8M,pagesize=2M none ./hugetlb-pool
+
+Then run the reproducer on the mountpoint:
+
+  # ./reproducer ./hugetlb-pool/test
+
+Fix it by taking the reservation from spool if available.  In general,
+avoid_reserve is IMHO more about "avoid vma resv map", not spool's.
+
+I copied stable, however I have no intention for backporting if it's not a
+clean cherry-pick, because private hugetlb mapping, and then fork() on top
+is too rare to hit.
+
+Link: https://lkml.kernel.org/r/20250107204002.2683356-1-peterx@redhat.com
+Link: https://lkml.kernel.org/r/20250107204002.2683356-2-peterx@redhat.com
+Fixes: d85f69b0b533 ("mm/hugetlb: alloc_huge_page handle areas hole punched by fallocate")
+Signed-off-by: Peter Xu <peterx@redhat.com>
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Tested-by: Ackerley Tng <ackerleytng@google.com>
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ Karl Mehltretter: The upstream changes map directly to this stable tree's
+  page-based HugeTLB API. The backport retains this stable tree's inline
+  free-minus-reserved calculation and direct -ENOSPC return; the functional
+  changes otherwise match upstream. ]
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Tested against the current linux-5.15.y tip, 5.15.221:
+
+- x86-64 QEMU, 2 MiB HugeTLB pages, at 1 and 4 vCPUs
+- compared with the unpatched kernel, an extended version of the commit's
+  fork/COW reproducer kept the child mapping alive during the parent write
+  and changed HugePages_Rsvd after program cleanup from 5 to 4 and after
+  unmount from 1 to 0
+- parent/child data isolation passed and no kernel diagnostic was observed
+
+ mm/hugetlb.c | 22 +++-------------------
+ 1 file changed, 3 insertions(+), 19 deletions(-)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index e0908e491065d..947610e37a33c 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1144,8 +1144,7 @@ static struct page *dequeue_huge_page_nodemask(struct hstate *h, gfp_t gfp_mask,
+ 
+ static struct page *dequeue_huge_page_vma(struct hstate *h,
+ 				struct vm_area_struct *vma,
+-				unsigned long address, int avoid_reserve,
+-				long chg)
++				unsigned long address, long chg)
+ {
+ 	struct page *page = NULL;
+ 	struct mempolicy *mpol;
+@@ -1162,10 +1161,6 @@ static struct page *dequeue_huge_page_vma(struct hstate *h,
+ 			h->free_huge_pages - h->resv_huge_pages == 0)
+ 		goto err;
+ 
+-	/* If reserves cannot be used, ensure enough pages are in the pool */
+-	if (avoid_reserve && h->free_huge_pages - h->resv_huge_pages == 0)
+-		goto err;
+-
+ 	gfp_mask = htlb_alloc_mask(h);
+ 	nid = huge_node(vma, address, gfp_mask, &mpol, &nodemask);
+ 
+@@ -1179,7 +1174,7 @@ static struct page *dequeue_huge_page_vma(struct hstate *h,
+ 	if (!page)
+ 		page = dequeue_huge_page_nodemask(h, gfp_mask, nid, nodemask);
+ 
+-	if (page && !avoid_reserve && vma_has_reserves(vma, chg)) {
++	if (page && vma_has_reserves(vma, chg)) {
+ 		SetHPageRestoreReserve(page);
+ 		h->resv_huge_pages--;
+ 	}
+@@ -2775,17 +2770,6 @@ struct page *alloc_huge_page(struct vm_area_struct *vma,
+ 			vma_end_reservation(h, vma, addr);
+ 			return ERR_PTR(-ENOSPC);
+ 		}
+-
+-		/*
+-		 * Even though there was no reservation in the region/reserve
+-		 * map, there could be reservations associated with the
+-		 * subpool that can be used.  This would be indicated if the
+-		 * return value of hugepage_subpool_get_pages() is zero.
+-		 * However, if avoid_reserve is specified we still avoid even
+-		 * the subpool reservations.
+-		 */
+-		if (avoid_reserve)
+-			gbl_chg = 1;
+ 	}
+ 
+ 	/* If this allocation is not consuming a reservation, charge it now.
+@@ -2808,7 +2792,7 @@ struct page *alloc_huge_page(struct vm_area_struct *vma,
+ 	 * from the global free pool (global change).  gbl_chg == 0 indicates
+ 	 * a reservation exists for the allocation.
+ 	 */
+-	page = dequeue_huge_page_vma(h, vma, addr, avoid_reserve, gbl_chg);
++	page = dequeue_huge_page_vma(h, vma, addr, gbl_chg);
+ 	if (!page) {
+ 		spin_unlock_irq(&hugetlb_lock);
+ 		page = alloc_buddy_huge_page_with_mpol(h, vma, addr);
+-- 
+2.53.0
