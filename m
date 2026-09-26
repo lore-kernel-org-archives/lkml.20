@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7609039526F
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F41396560
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:12:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790399416; cv=none; b=HnNctC+eZi9AV9kD7Sb3kk12c32tta8C9knrGTI9ESxgwAQtoky6NraICNjraUxeznCK7Slf64Wcq0pJKOyXE6yTLKS1Vm07KW0L/C/Mza0HVj/e9cMmEo+mUq+m+zCFZ5+97Z5xiStI5Nv8tO4Yqoc2ywe+PIgjMyCPfM1YV/M=
+	t=1790399536; cv=none; b=h8E01hKmKsxWnVk3ZZ34iO3IcRBnpZNUDtD1SuCzfWxrST6c5CjNnA9Ym67I1Di6/1jIVbJfgbMHhqRLd1kmd0jvfSd5lxHaCfM/Bhvge9r91VGstVCCUsQroLkMWfOAThTDdMZse2akF4xJezhzOdqJStm7YsP4kIo481QUzpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790399416; c=relaxed/simple;
-	bh=ns8R+bYn4DkD/WdxkgG1bVYdthXXfuZKd20CA8CxIWk=;
+	s=arc-20240116; t=1790399536; c=relaxed/simple;
+	bh=Qk6pV1iHkW/sBQcPTMr1Z0loYPrA4pALpkRWoUNbNOk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XaXHzVYh4kwD+Y6qTHzGwM/5fAQ2xYn+sScJCENJwV+mM4mHVP6F8fvgg6rZ9nd+EjdD25FO99XoWuzIMohXo85gS8WCcB6t7on76uwoW84nm3sP02idNMM3xh+a1xXiQxFGs5lOCG6PUJX2xDTlQpol6Ee05gsTy4VdSWOnwsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AhQczImn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZAbYjJsxzRCGPikcNsilPb0iC8G7XxyzDBFOQPbFwvHxClQnFA27EhaiNAa4WE9GPZTBaXdbGxSwbvMU4w2r6T6QOW3Z2o6LslKSUzowXmKozCALDNxBRf3w9/lCOuEby5ygNWyjMxQ/7IDm0UqnczkRwrC20KsD84F5U8MuSSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hw8ZU1D6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AhQczImn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344C91F000FF;
-	Sat, 26 Sep 2026 05:10:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hw8ZU1D6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFE81F00893;
+	Sat, 26 Sep 2026 05:12:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790399415;
-	bh=3s5j8pQOgmFzwxdXRIENQONtbgTBd1Lm5Dh5URd63UI=;
+	s=k20260515; t=1790399534;
+	bh=XLu4w3tZoE/U6Lmgmazw/7zuFC7EGlznuS3/yeMf4oQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AhQczImnptOx3Wl0t9RACVb7zDVsmdDN2QGtMqcFS+poWoK1lQJsjWjv7KpZeAHSk
-	 ZVr8zmhHV2/PZaGzHyn6T59UekemJrS5OIkgredV3WHHwDbfFacU6D55uImbKTJZkv
-	 Rr1fBTjKf66aLN3FXh9tJtsGF0WCZW6LO7NYk34ib73wX7jtKR6ZuD447qikH+GCwF
-	 wAm6MSV58RrRj7epuSfylBt94azyMmISkdnV8LAg6HahlKdHViQBihsn/WGPPVr/RG
-	 m+rOW1ME57Gps8OoPKtBp760PfcQnqW8FQoTNmgPFMzgatuDanDulrKi16njfZMD4/
-	 wR9xZ9QHy29ag==
-Date: Sat, 26 Sep 2026 07:10:03 +0200
+	b=hw8ZU1D6Yml8tToKjBbk2tq8mT0UgHz/H945Zovmg6ktDWcfJBuV5X9yITN4Gh4tQ
+	 HcxSEH1SoEwftLJZjyKTibqObyvPEdUmtXbuRLlvOr05XK8FNnVi1jU4et0yOYsX26
+	 n2YnwFgQMu8aq46p4lbRDppXEUFsdAMGVhic2BqoTSXUWoQkKy34wuIukcvoKjBy58
+	 7DkvVWIp3Hmp3eZwA7fyh9hWkGPniae2e3cFLLVB1z/yZd9aXMSnQZDtKTdt42h6Sj
+	 Ot903xI8WqUwmXo4GHXm92Z456W+5P+WIWgZWYW2vIbW4dybqcJMnBLASxT0KTKjAS
+	 VhgvNDFY5aDnw==
+Date: Sat, 26 Sep 2026 07:11:54 +0200
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: Sebastian Reichel <sebastian.reichel@collabora.com>
 Cc: Vinod Koul <vkoul@kernel.org>, 
@@ -34,12 +34,12 @@ Cc: Vinod Koul <vkoul@kernel.org>,
 	Zhang Yubing <yubing.zhang@rock-chips.com>, Frank Wang <frank.wang@rock-chips.com>, 
 	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
 	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: Re: [PATCH v15 04/11] phy: rockchip: usbdp: Factor out lane_mux_sel
- setup
-Message-ID: <wwybb3nfv4tawgh7z3s2iunlm7cgh4cindkoy4bhlemnlivslu@rttrqzbvj6hb>
+	Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>
+Subject: Re: [PATCH v15 05/11] phy: rockchip: usbdp: Properly handle
+ TYPEC_STATE_SAFE and TYPEC_STATE_USB
+Message-ID: <jly6x4dqrd4gr24oo5d37b3nx6xizuu35bd4thh7vjcprqomjv@lf7mc5dpmeyc>
 References: <20260915-rockchip-usbdp-cleanup-part2-v15-0-8d507cb1174f@collabora.com>
- <20260915-rockchip-usbdp-cleanup-part2-v15-4-8d507cb1174f@collabora.com>
+ <20260915-rockchip-usbdp-cleanup-part2-v15-5-8d507cb1174f@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,12 +49,15 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915-rockchip-usbdp-cleanup-part2-v15-4-8d507cb1174f@collabora.com>
+In-Reply-To: <20260915-rockchip-usbdp-cleanup-part2-v15-5-8d507cb1174f@collabora.com>
 
-On Tue, Sep 15, 2026 at 05:06:07PM +0200, Sebastian Reichel wrote:
-> Avoid describing the USB+DP lane_mux_sel logic twice by introducing
-> a helper function to reduce code duplication.
+On Tue, Sep 15, 2026 at 05:06:08PM +0200, Sebastian Reichel wrote:
+> Handle TYPEC_STATE_SAFE and TYPEC_STATE_USB Type-C state events,
+> so that the muxing is properly updated when exiting DP AltMode.
 > 
+> Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/message/20260619155020.CC7361F000E9%40smtp.kernel.org
 > Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
