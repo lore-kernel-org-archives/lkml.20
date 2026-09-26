@@ -1,159 +1,165 @@
-Received: from mail-pj2-f20.google.com (mail-pj2-f20.google.com [74.125.227.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2B138911B
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D8B1624DF
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790447888; cv=none; b=QoSAXR1yGoCkS2eREMSo1e17v+Czu8MbvWaOuwZLk0vk+LYxXUN3qdzUixkEt7ewS0rgT1GmxkpnQBrp+bqdHDUJ3Lb30Z0Ugz1tGOFzQWSmsPdEUOjvbShFuBZSISXqYO1KUix6TdjozmEsqe+PIyQhsAfnTbNk1GeUKoZfuzc=
+	t=1790447911; cv=none; b=a7Y4dugkokCTDvt4vNQLFVfbWe4cULDQL9nTfADfMUCBkOmy7nHailk6iAQKOMFDNVGPNqHQo0+0WirEjdl/WtI/x5AVxD76EB1MDtA9dyWBhPQQdJIL5QbcPxHFPaQQhBhtxjXsYopk8ugMM9D4HgEl0ccF3pVIlZDEjYiGRaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790447888; c=relaxed/simple;
-	bh=MjR9f5NoOpd2UaB4XR935SG4yKAkwURqh5Ir7DGq2js=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JilKDSICn/TEWMnEK7zAXwBVcDMsCYuMnD4XoAc7ZFVJuJaIX9iifhIUI7A0pxPkooY9I8Mq8DZ1GG0KWvXLW/C2uAnjQ4mjxfBf73N1XIk6/M679R+nfd1mXTQvssf+yuua7gOqgi9HxnXGYD9ft6EPtLpObgv+r6Js9IIF7ZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/W2veP4; arc=none smtp.client-ip=74.125.227.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790447911; c=relaxed/simple;
+	bh=v5qWPwPmptIgOUMB5CFuulpDfvjtsgXAwWcBMYCtwUA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GsbCQqUonGE69jUz62tRKT2q3gFLTLhv0dp+UgP1xqd58pY6/SPWm22MhhFjCuo3V86Zkmuml7XP62JSaXPGC3huPA3xamAp91npDoG/L3nqfKZfak84kbtSAcKhZIGQ74bQaXhrtZNcrN5xyDTw0G12Ts1QtmSejmvBsB1j1Z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EV3/Fkdd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/W2veP4"
-Received: by mail-pj2-f20.google.com with SMTP id d9443c01a7336-2d747ed9866so13162005ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:38:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790447881; x=1791052681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d1XUqqZiqb1qQXuql8X0BjOj5vyi7AUzXY8wnAT+llc=;
-        b=R/W2veP4mzySdhsOnD0yds2gON7IT7lgnSOtYBBcJ21NG90/GMJXUEDrZ8+mxNYWn/
-         C9DjoGHTcot99i8bCDQQuGDUdltS0wciPA82mVFJBh8tKLB/+9Dnxr7B/bXhwD6db7bW
-         YdnbdI5HRd/nEeMw6sp+OORE+aBVfQIGAjyGUNJq8OBp4g/i7GSb9umD9Y53Au1gusBF
-         PSgjQCr7gD5h7mw+8Ro0nMhJYypTD4iVZWEdvYxq77T9/Uk0ZtpBnjeqX2kI+frEeRy+
-         4q9HgDVa7OBEVoJssugoJX2mXFVICMn7WMKO9F9/VLsPSCCV6oIbl2JUGZpYdzgjVb5h
-         sLfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790447881; x=1791052681;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d1XUqqZiqb1qQXuql8X0BjOj5vyi7AUzXY8wnAT+llc=;
-        b=05VmujuAnZSJsj3i1oDXsio7CeUncUeBpt0xm2Grw25Z8R3VBkG8ApJX3dZMSiNx8G
-         NQ3K5hwxfKYbDOJNdUuzGf0sSu6ev19qi5o2gR3gj3MlUlPE0t/5YGaGWIEqzChwuwYC
-         Q9eJ1YSN/DVMPoNDSHS6hRnozjfDWriZ8Vp4/IAV39ZFspxQCZpqigEWCW/Oex2qvNtm
-         C1AURocDN3OZiFSrgYCQTb7iQtsLnPKDGD703X8+R1lS2dv5DPdTqcRLJIpRoSdsNH9G
-         zXEsBMZeQWopDsJvomfqeVa8i9sNuxANQedth+7H150h2StL16MYbbfR4d4Ed+8rgikV
-         zfAw==
-X-Forwarded-Encrypted: i=1; AKwUvBx934aUeGDPF15MwXL7F9OrcX1xEoNBJ4reb3GHcSr/6yvkRwb81w1Qv2XuqQof4MlhaJYfCiYsGPo6RjM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISo2Rra8ohqimKNQQcwig0SY8cI7ZCJ9ejdVV6mbZ1ijPZifUb
-	uxD1Ngq+tYNvR+W/zJHXXVYqfQMtUDiEDj2+m7kqqWpxs3/bdSQRvAbr
-X-Gm-Gg: AYBFou3ha6RH9Ay1ThsEZOvcLKjyUDYBAYaI7bfO4b8HDHaHPB6RKBn4nH1t0eg+YP/
-	YvShV7DQOD+KEz6LeulIvUL5m7X0BoTFss/fboKPezP3tFQUkecY2nK/kizk14xsfygN8Uxv+vC
-	WF7Q73qGmZOapfQAOpTa/c2/Cy1sz2FeOZ9XAUIXQLKSOREE7+UnjzwYkz12GRj5wkqFF20RRy0
-	aFDz83ji1535UdoFjk2nUZozsMQ+5P65fH+56nrSpdGRRX1QYNRFB3hvI+8Dce0UeyRInJjrX3Y
-	GX7/wkmdvgJJdpdFp+B9G1xGjVBOfeOXNQouDEpWmF3tU/rAXtwRn24VW6EI8oCYJTa1GS9Gbb0
-	GNQdlZftfmqE3bdIVBhkkXUqNR3As2DY6MEzPnI01iQSwvgGZKa9jWgJYfTxhivr91MpXyFFyVv
-	iSbhjkqMmigWE3Lt3gqZN9tiwPKRDQb7kDdbcC8kYSiUldrNkKJZz90/2dU+HOhfDPYxZb6dIuI
-	eZ7Ax7GSgOgBp2/wM4hvK6CEOTNoGGFeA==
-X-Received: by 2002:a17:90b:1c92:b0:39e:6c68:c77d with SMTP id 98e67ed59e1d1-3a098e0515cmr8310824a91.51.1790447881043;
-        Sat, 26 Sep 2026 11:38:01 -0700 (PDT)
-Received: from jmoon ([118.220.156.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9355e49sm10939486a91.4.2026.09.26.11.37.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 11:38:00 -0700 (PDT)
-From: Jinmo Yang <jinmo44.yang@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Jinmo Yang <jinmo44.yang@gmail.com>,
-	Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] HID: wacom: fix NULL pointer dereference in wacom_intuos_pad()
-Date: Sun, 27 Sep 2026 03:37:57 +0900
-Message-ID: <20260926183757.3347378-1-jinmo44.yang@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <579o8so3-09o3-o312-4sq0-0qp6n672q46p@xreary.bet>
-References: <20260523150101.611473-1-jinmo44.yang@gmail.com> <20260523150619.615565-1-jinmo44.yang@gmail.com> <ahoH87pet5BUQwfD@google.com> <579o8so3-09o3-o312-4sq0-0qp6n672q46p@xreary.bet>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EV3/Fkdd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB10B1F00899
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:38:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790447907;
+	bh=8Qra4Hs5x0GhjkOw3qaqLENUU09DmiBO0O2Kq1ZFdXw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EV3/Fkddwj5kVdP+bqmr7VcdtLxJlmknKALyjXnJHBV6KMTwDpu8tzzr2r6v0MMQA
+	 xEMwNFF2kjjT3WONGHBBsiuTJlpfRF89nf+AN+7HTL55Im8JqCRi6pHjdRefLz49Qi
+	 GJatTdRYVmBuDo0EVJbYWK2lJ0d2kefQaGzBEz16E+JTqBIFPpk1RQAXIz/chePQjy
+	 ynE/jbTV5N1/kLmTVG6u7o9qC8Y74WN4gh3LaW3qvbK6uFSKMZU7yNFprH1du73yDh
+	 gLfHXKvAaJiqNDR+S4k3PY1mkvCTY0VYmRqlrERldQ0cBV7iqGfZxob3AKGrsBK0cM
+	 uBMaEa+FHdyZQ==
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2dc50c6edfso27320766b.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:38:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzZ5vKnUpx7BcvbftLKgqQ6pudI/zelQDnxJ0Yk428fA8Rcrv+ghfqKdgOYa5478q3QHrDlevAwyBtohMM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnM/eHWHoM+wT5OQQ/zOJB74XXhWs6Hv4ioOGaXOej3Qu/o4vY
+	7jcr2qEHqFPRHNo//65gggnX6GwX6051jZTLr7bSkkpEDYggeUJC2QPPFez5w5Mu91hEh1RilkT
+	2Hc8mcvbaUDcG+tRu2TL1rH0tcSb60fEsu09E7yXCfQ==
+X-Received: by 2002:a17:906:f588:b0:c2a:ad55:b3fa with SMTP id
+ a640c23a62f3a-c2ac22db042mr757145966b.7.1790447905700; Sat, 26 Sep 2026
+ 11:38:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260918180241.3424851-1-nphamcs@gmail.com> <20260918180241.3424851-2-nphamcs@gmail.com>
+ <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
+ <7571f005bca65aa4ad5e7ec89e62801ad058b689.camel@surriel.com>
+ <CACePvbV-tazW=LmsbUtAhHzR2d6JwFT5R1jYZ9_NTp1hxXH=bw@mail.gmail.com> <a30eb60221cda2fe726a86c2c6f859f71fc7a46d.camel@surriel.com>
+In-Reply-To: <a30eb60221cda2fe726a86c2c6f859f71fc7a46d.camel@surriel.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Sat, 26 Sep 2026 08:38:13 -1000
+X-Gmail-Original-Message-ID: <CACePvbVd8uE5mwPX8T95zbURhhXxO2zbRETziJcGwQs3tOLEng@mail.gmail.com>
+X-Gm-Features: AclHuK-N2jo4ZJ9-ufy2a2NhRahWQY5CCHBUKvfMp6i2GWnJxoh5F1ffpf_MpB0
+Message-ID: <CACePvbVd8uE5mwPX8T95zbURhhXxO2zbRETziJcGwQs3tOLEng@mail.gmail.com>
+Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
+To: Rik van Riel <riel@surriel.com>
+Cc: Nhat Pham <nphamcs@gmail.com>, akpm@linux-foundation.org, kasong@tencent.com, 
+	hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
+	shakeel.butt@linux.dev, yosry@kernel.org, david@kernel.org, 
+	muchun.song@linux.dev, shikemeng@huaweicloud.com, baoquan.he@linux.dev, 
+	baohua@kernel.org, youngjun.park@lge.com, chengming.zhou@linux.dev, 
+	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
+	surenb@google.com, qi.zheng@linux.dev, axelrasmussen@google.com, 
+	yuanchu@google.com, weixugc@google.com, gourry@gourry.net, 
+	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
+	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
+	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	cgroups@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 10 Jun 2026, Jiri Kosina wrote:
-> Jinmo, are you planning to submit extended version of the patch, please?
+On Thu, Sep 24, 2026 at 3:24=E2=80=AFPM Rik van Riel <riel@surriel.com> wro=
+te:
+>
+> On Thu, 2026-09-24 at 15:17 -1000, Chris Li wrote:
+> > On Thu, Sep 24, 2026 at 8:13=E2=80=AFAM Rik van Riel <riel@surriel.com>
+> > wrote:
+> > >
+> > > On Tue, 2026-09-22 at 23:18 -1000, Chris Li wrote:
+> > > > On Fri, Sep 18, 2026 at 1:03=E2=80=AFPM Nhat Pham <nphamcs@gmail.co=
+m>
+> > > > wrote:
+> > > > >
+> > > > >
+> > > > > @@ -482,6 +491,11 @@ void swap_read_folio(struct swap_io_ctx
+> > > > > *ctx,
+> > > > > struct folio *folio)
+> > > > >         if (zswap_load(folio) !=3D -ENOENT)
+> > > > >                 goto finish;
+> > > > >
+> > > > > +       if (unlikely(swap_is_vswap(sis))) {
+> > > >
+> > > > There are too many swap_is_vswap() in this series. It fragments
+> > > > the
+> > > > code path, making things harder to reason about. Esepcially
+> > > > around
+> > > > locks. I count 22 in this patch alone.
+> > > >
+> > > > I consider this the biggest drawback of this series. This
+> > > > fragmentation of the code path.
+> > >
+> > > Could we avoid that by simply always having everything
+> > > go through the vswap abstraction layer?
+> >
+> > Yes, but it will pay the price for going through the unnecessary
+> > redirection layer always. It incurs performance and meta data
+> > overhead. That was one of my previous objections to the earlier vswap
+> > version. Sorry I enjoy micro optimization too much, that is both my
+> > strength and weakness.
+>
+> We really only have two cases here, don't we?
+>
+> Either the data is in the swap cache, and
+> the vswap layer can directly look up the
+> swap cache page.
+>
+> Or the data is in some slower back-end,
+> and doing a second lookup is not going to
+> introduce noticeable overhead.
+>
+> If the micro optimization come at the cost
+> of less flexibility, and harder to maintain
+> code, are they really worth it?
 
-Yes - sorry for the long delay. Dmitry's observation turned out to be
-broader than pad_input, so I audited the whole driver before replying.
+In this case, yes. Because there is an alternative that can both keep
+code complexity down, perform well, keep metadata small, and be
+flexible.
 
-The check already exists in three places, just not everywhere:
+>
+> >
+> > > Handling the details of what's behind the vswap would
+> > > be handled one layer down.
+> > >
+> > > Chris, do you think that would be cleaner?
+> >
+> > If it can wrap below the swap_ops, it is just priviate inernal dedail
+> > of implementing its own indirections. That would be much cleaner.
+> > That
+> > is what I am trying to pitch to Nhat in prevoius email but does not
+> > have following actions.
+> >
+> Can you sketch out the details of what you
+> think that should look like?
+>
+> What would the data structures look like?
+>
+> What operations should there be at the
+> abstraction layer, and at the swap layers
+> below?
+>
+> How should migration of data from one swap
+> backend to another be handled?
+>
+> At this point the best way to make progress
+> would be to hash out those details.
+>
+> If you are unhappy with what you have seen
+> from others, what does your ideal design
+> look like?
 
-  wacom_wac.c:1807/1815  wacom_tpc_irq                  pen, touch
-  wacom_wac.c:1210       wacom_intuos_bt_process_data    pad
-  wacom_wac.c:2192       wacom_wac_pad_event             (HID_GENERIC)
+Those are very good questions for the people who want to take that
+path. I can work that person to figure those out. It will  not be me
+just handing out all the answers.
 
-so the inconsistency is inside the legacy dispatch. The clearest case is
-two adjacent lines in wacom_intuos_bt_process_data(), one checked and
-one not:
-
-	input_sync(wacom->pen_input);		/* :1209 */
-	if (wacom->pad_input)			/* :1210 */
-		input_sync(wacom->pad_input);
-
-The pointers can be NULL on a fully successful probe: the handler is
-chosen by features.type from the id table (wacom_sys.c:2945), while the
-input devices are allocated from what the descriptor declares. When
-wacom_setup_{pen,touch,pad}_input_capabilities() returns -ENODEV,
-wacom_setup_inputs() frees that input, NULLs the pointer and still
-returns 0 (wacom_sys.c:2172-2196) - "no pen in use on this interface".
-wacom_wac_irq() then still routes reports to a handler that dereferences
-it. No error injection is needed; a descriptor declaring only touch
-usages is enough.
-
-15 locations, each reproduced as a KASAN NULL-pointer dereference on
-linux-next 20260925, x86_64, from one /dev/uhid device plus a single
-UHID_INPUT2 write:
-
-  wacom_wac.c:137    wacom_penpartner_irq            pen_input
-  wacom_wac.c:227    wacom_pl_irq                    pen_input
-  wacom_wac.c:244    wacom_ptu_irq                   pen_input
-  wacom_wac.c:303    wacom_dtus_irq                  pad_input
-  wacom_wac.c:326    wacom_dtus_irq                  pen_input
-  wacom_wac.c:391    wacom_graphire_irq              pen_input
-  wacom_wac.c:444    wacom_graphire_irq              pad_input
-  wacom_wac.c:594    wacom_intuos_pad                pad_input
-  wacom_wac.c:1209   wacom_intuos_bt_process_data    pen_input
-  wacom_wac.c:1232   wacom_intuos_bt_irq            pen_input (dev_warn)
-  wacom_wac.c:3100   wacom_bpt_touch                 touch_input
-  wacom_wac.c:3117   wacom_bpt_touch                 pad_input
-  wacom_wac.c:3130   wacom_bpt3_touch_msg            touch_input
-  wacom_wac.c:3178   wacom_bpt3_button_msg           pad_input
-  wacom_wac.c:4229   wacom_report_numbered_buttons   pad_input
-
-Jason, your review of my earlier series ("HID: wacom: add report length
-validation in irq handlers", 17 May) asked for the length checks to move
-into the sub-functions with len passed in, plus WACOM_PKGLEN_* names.
-Eight handlers already take len and eight do not, and six of those eight
-are also on the list above - so I would like to fold the two together
-and do one edit per handler: take len, use a named constant, and check
-the input device in the same place.
-
-On the shape of the fix: I plan to put a check where each pointer is
-taken, as wacom_tpc_irq() already does. A per-features.type table of
-required inputs would be one place instead of ~15, but a handler's needs
-vary by report id - wacom_graphire_irq() takes pen_input on one branch
-and pad_input on another - so the mask would have to demand every input
-the handler might touch, and would then reject reports that work today
-on a pen-only interface, which the "no pen in use on this interface"
-case says is legitimate. Say the word if you would rather have that
-anyway.
-
-I will post it as a series split by device family shortly, with the
-shared helpers (wacom_report_numbered_buttons(),
-wacom_wac_finger_count_touches()) guarded once each, since several
-handlers converge on them.
-
-Thanks,
-Jinmo
+Chris
