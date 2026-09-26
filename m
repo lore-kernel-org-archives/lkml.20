@@ -1,103 +1,89 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037E619D074
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85037415F36;
+	Sat, 26 Sep 2026 11:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790421904; cv=none; b=HfWe58exbBnn+VTPwWOqC0bLsdL1TZkcIu3WXDyE439+bY/YGFdLhmKL/jrRbdzG/jPGnw2XQGH4sbo5Unqrc4k7T4/7QA97uSmQoPEPrGIaDJrcSpqiSxz60xC7/nU4EqoN/B8/qMRPa9gI4r7zv6N7QIMSuP0rmuDvCQzmwlw=
+	t=1790421995; cv=none; b=kabnDMHzik/nyL92CTxEjwftKJdGbs3ww4yB5A1htf0z9TcWoNRTbdPnoJNSvw3s9Zso6Y+XpubeYVd8SlhkptMnEyFV/Q9gjd+JcmsmPwMZu/MsrFJco3EoX4NcjoIZQntE5ohnB7xW3IqX2mjhVD65TXMDspQKcJUyIuXM5rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790421904; c=relaxed/simple;
-	bh=edDeV8IkdKZyB4f3UazoUcM9khWy+C3X6h1mRSlGPs8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Lar/CGedcZqgTnTRXBqJSRNfsZ71obSqYlwKB5JrGVzNH8YLnMWY46VKt7DTAQMctSMuhEtHsGEXvZdHMmmckeLjpafBsEd0JhtZrq/8HavwSHhoY1GnJwY+n5x2c/OE9696tT27NqNs2+/oFQSXhe548/jDCyqk1Fq5sxZI5zM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4e778acdbc6so152860b6e.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:25:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790421902; x=1791026702;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8gAIhTxCuX1CeFAsM1C8lpItug+WMMJnr9P6rv4ALks=;
-        b=Vw+qDaCkmpFvTi3q3yV5C4kt90gArPie9Ps1s2I3ef5u5OVLY5ZmrcnyyvKVpjwo+9
-         vZF79ACSwoQKX2ykUfV9fHils5KQrm8jEjzapuxWDERFGHxEKgcjN6U2NTGOk9vE3NdH
-         19Jv6wrxxA8hyejZqfBHVqOs1imo1AJ4VoMDyuiFCfyWAkoTCI34s+2PSu33faogdtQY
-         YtiNVb+vDigMzvBLVM+s0Ej1yre8+42oA0OAgS0V6IFoRoM9l1ZKGOMx4lLWSSuN8FJm
-         JXzjgjY2aFrwogv3mPNmZnfI4jXOg2aV2KeTZDXS75usr+cum4giPu4n9K9PGPmiKvI4
-         ji8g==
-X-Forwarded-Encrypted: i=1; AKwUvBxdhwpnptGzH008cUvySl3mkhFWWwsJvoL/lAznegIDnTjuB+iUWXZsIzAv7KLLXTGBRtIphzSZib/z2T4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nD61DwCNZOpCQ25zNecfxpAkVqMzmW5YrmBShU+tDdT3veSSu+
-	77p3UGyNpo7sjrCTo/czW8YunbnFpSG9HSHxe6R1ErjWqtgObc4euoBowqrYbpeTtDNPHJABgNE
-	DZNac+PTpPbZ++kzdy1q7KkvM+tl2w/9AKk1T7KN6VjP7M8WXfke+3TAHEm4=
+	s=arc-20240116; t=1790421995; c=relaxed/simple;
+	bh=K1wCaMjlEn6zyMupTboGDcgRhJtcCweyxOXDWcswh4I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n4tAFaxOkyYx800rAEHYXeE7hm2dmcuJEOulULiEbYxV30+2gdiQiEEOPo7XErftpIVG3WFSOHwRhPBG8Bef3/jJpGoUlphGaZGxHU205t7xI2XMOHLtT9ctWBvxj3+dVEY8/7Avf75fjAPAgtbPHzO5pUtFtuDQlslXDvyqNMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zct4zqp/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zct4zqp/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB5401F000FF;
+	Sat, 26 Sep 2026 11:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790421992;
+	bh=980fQ7kBt/d28PmP02rMg1BM1AiePRSmXEpKUdzVp58=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zct4zqp/0nNtWaPw65lJRYrurG6N/lGgQe8BLCLJIsOPzTXVfv6+18IRtm8pxvSbY
+	 f+b8sZFHvS3NR+sRgpNcLiGW+JTfd3eVgbPjFsIqMyIVcgu2QOIw7cYKboQbFF1Lp1
+	 5gSwbTIsdazCI70wikaMrYQk5AIpbgzyBq/CFsN9MUwTreBQf9jhBM4VXw0sGpVmdQ
+	 9WbDrrLleDHsRw5YGqrQJeGIkhwhLCymBUN3aWvL+PY3YR7EgieblL3QCGxQLXTOx+
+	 FVAozkUXm97+PjUBoUQ7ncaY9ZJIWt+90HZE8D+mElkd4FNCNnpouB77v3hREzfbrM
+	 wFnUEnn29RJTQ==
+Date: Sat, 26 Sep 2026 13:26:15 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Slark Xiao <slark_xiao@163.com>, jeff.hugo@oss.qualcomm.com, 
+	mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] bus: mhi: host: pci_generic: Add autosuspend_delay
+ customized support
+Message-ID: <nsaa4cchprkgqka7uc4ccr5wq7v6uhue5dpsvquwxyk4ndr57t@i56bkvwpclpo>
+References: <20260919095506.9570-1-slark_xiao@163.com>
+ <bf94f351-777d-4dc0-98a2-7af77f832f2b@oss.qualcomm.com>
+ <1bec2fd7.99f3.1a0c8ea4db6.Coremail.slark_xiao@163.com>
+ <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f0c:b0:4d7:17d5:6c9b with SMTP id
- 5614622812f47-4d728c2564amr9465633b6e.9.1790421901941; Sat, 26 Sep 2026
- 04:25:01 -0700 (PDT)
-Date: Sat, 26 Sep 2026 04:25:01 -0700
-In-Reply-To: <CA+xk8n9mG-FZ+0Xg5L-GSL2y8KJ+6CBvkXVKCvyJGzgeX+_qFg@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab7ab8d.80e1c6cc.1e8e5f.0043.GAE@google.com>
-Subject: Re: [syzbot] [kernel?] memory leak in dev_set_name
-From: syzbot <syzbot+87ce68d9f48eca96a84a@syzkaller.appspotmail.com>
-To: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
 
-Hello,
+On Wed, Sep 23, 2026 at 09:24:55AM +0530, Krishna Chaitanya Chundru wrote:
+> 
+> 
+> On 9/22/2026 5:09 PM, Slark Xiao wrote:
+> > At 2026-09-22 12:12:35, "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com> wrote:
+> >>
+> >> On 9/19/2026 3:25 PM, Slark Xiao wrote:
+> >>> For some WWAN device, it may get a SYS ERROR issue when resuming
+> >>> from suspend state frequently. Refer to the Qualcomm Windows
+> >>> driver, the default value of autosuspend_delay_ms is set as 5000
+> >>> ms. But in Linux side, all WWAN device were set as 2000ms. We
+> >>> tried to set this value to 5000ms and we can get a positive test
+> >>> result.
+> >>>
+> >>> So we add a support to allow vendor to set a difference value for
+> >>> specific WWAN device.
+> >> you can change auto suspend delay from sysfs, please use that way instead of
+> >> doing in the driver.
+> >>
+> >> - Krishna Chaitanya.
+> > Yes, we can do this by setting the sysfs API . However, not all users 
+> > are aware of this method. Additionally, this approach is only
+> > effective for a single instance; it requires reconfiguration after each
+> > restart, which is quite inconvenient.
+> you can have udev rule to set this without any user intervention.
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-memory leak in device_set_deferred_probe_reason
+We should not rely on userspace to fix the SYS_ERROR. Userspace knob should only
+be exercised to customize the delay for power management purposes, not to fix
+firmware crash.
 
-BUG: memory leak
-unreferenced object 0xffff888126289b00 (size 64):
-  comm "syz.0.305", pid 7769, jiffies 4294969835
-  hex dump (first 32 bytes):
-    67 61 64 67 65 74 3a 20 44 65 76 69 63 65 20 6e  gadget: Device n
-    6f 74 20 72 65 61 64 79 20 74 6f 20 70 72 6f 62  ot ready to prob
-  backtrace (crc 2d586e63):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4696 [inline]
-    slab_alloc_node mm/slub.c:4996 [inline]
-    __do_kmalloc_node mm/slub.c:5413 [inline]
-    __kmalloc_node_track_caller_noprof+0x40d/0x560 mm/slub.c:5545
-    kvasprintf+0x6e/0xf0 lib/kasprintf.c:25
-    kasprintf+0x6b/0x90 lib/kasprintf.c:59
-    device_set_deferred_probe_reason+0x41/0x70 drivers/base/dd.c:235
-    __dev_probe_failed+0xae/0xc0 drivers/base/core.c:5096
-    dev_err_probe+0x73/0xa0 drivers/base/core.c:5156
-    __driver_probe_device+0x185/0x1a0 drivers/base/dd.c:846
-    driver_probe_device+0x28/0xf0 drivers/base/dd.c:898
-    __driver_attach drivers/base/dd.c:1292 [inline]
-    __driver_attach+0x10a/0x200 drivers/base/dd.c:1232
-    bus_for_each_dev+0xb8/0x120 drivers/base/bus.c:383
-    bus_add_driver+0x122/0x280 drivers/base/bus.c:763
-    driver_register+0xb1/0x140 drivers/base/driver.c:174
-    usb_gadget_register_driver_owner+0x69/0xe0 drivers/usb/gadget/udc/core.c:1752
-    gadget_dev_desc_UDC_store+0x153/0x1e0 drivers/usb/gadget/configfs.c:300
-    flush_write_buffer fs/configfs/file.c:207 [inline]
-    configfs_write_iter+0x10d/0x1a0 fs/configfs/file.c:229
-    new_sync_write fs/read_write.c:595 [inline]
-    vfs_write+0x3ae/0x720 fs/read_write.c:687
+First we should know whether the default delay can be increased to 5000ms for
+all devices or not. If that is not desired, then we can go for Endpoint specific
+delay.
 
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
+- Mani
 
-
-Tested on:
-
-commit:         6812ce4e Merge tag 'drm-fixes-2026-09-26' of https://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=133592c9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5006f84926c45769
-dashboard link: https://syzkaller.appspot.com/bug?extid=87ce68d9f48eca96a84a
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=14146a05580000
-
+-- 
+மணிவண்ணன் சதாசிவம்
