@@ -1,136 +1,119 @@
-Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39A8378D8E
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 21:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.46.171.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3DB3A901D
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 21:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790459586; cv=none; b=P7ExnSgXji6qaJ4xExwBz3aRj1zUbwufuorhnhD3PoBLgNxmTv6X6qmjqPmIQriyHsh3MYTqG635MaxsSVRUz2fKx+tJ6HBq1GKd8MlfHbp2ZOzqKE7j5n2paBXqOemf4+L2ABpCIusce+U3pqRCpM0QqmuHDteVsyQoMSyFLjw=
+	t=1790459803; cv=none; b=mwqCJDZPVNuzBqEOAseokWStBf+Eq06C6T/IuWy+gzjtDNFRXJMVr8uUS7A6vqc6L3z3OmoKwTfkasTv87EUzO1dEFEfpBT7AcpqoHSjxNZz/By2dD1rhLjAEWHNT+1hoRR8zxOcPBoe0cDnabdFDqA03ZoNXEH17AzwJT2om7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790459586; c=relaxed/simple;
-	bh=YTeFp0jgejLVrCr+rBop1YjtHx69pHPQUyGMwzRTHmE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DXw3LxWWDiCfTYPIL0bYOLaEaroEE0L+r+nr4clFzkPDquCNeG1ST0WEvsewLfXrM5G3crWSOyq3ss5EYLcoBzrs+dQwlYogebqOhHwBK8VsnHf6ZlVux4dRuhboSCoysApRsW/sW8ra/ARd2jCt47q04+AxsQoFswYnlaX7VyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=jNHVzV7e; arc=none smtp.client-ip=78.46.171.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1790459803; c=relaxed/simple;
+	bh=Cjb0hFk+lYAxfdjkO8gmpN8O/Agd+iJy0foNMq2/kIc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hGOCMfXjNo3ARN2UDJGF2M6PwCvt74AQbCf/Hcr4d3CWpSvOK63I5RBHWUfLj0cIJJZdnktSgH/eXcfWpBMXkY0mRiTRCVHSaB4x1PJLl3OiGkZlgn74doSG0IGwOSN6QbBvhQXXpYXRbI776QnkJYfUcOmAL1MHpLkci9q8nKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SQBMNBSA; arc=none smtp.client-ip=74.125.230.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="jNHVzV7e"
-Received: from relay11 (localhost.localdomain [127.0.0.1])
-	by relay11.grserver.gr (Proxmox) with ESMTP id E53F8BC6D2
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:53:02 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay11.grserver.gr (Proxmox) with ESMTPS id 6A9DBBC6E4
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:53:02 +0300 (EEST)
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id C34111FF313
-	for <linux-kernel@vger.kernel.org>; Sun, 27 Sep 2026 00:53:01 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1790459582;
-	bh=YTeFp0jgejLVrCr+rBop1YjtHx69pHPQUyGMwzRTHmE=;
-	h=Received:From:Subject:To;
-	b=jNHVzV7efZZyvrLmv6LKvW+258JIMpUTEYBG1/0M7+d1X0EO5EP9AuxDD71Bhf2xd
-	 7TrJv5MfxOaxyhwkIP89ozYL+ywhg3QxncTdaB/wC3Z6KFABs5cEhRLWpbZqPFQ7Sy
-	 thfSPtCJuvI+RHzcqjAaqreO++sB6lRu7dvt4zOYQwkAC+bn25N8fxlYlGXmNJpfIp
-	 TtXU6yeiVJre/xOsC9UwEpM0WEWcBptTeOFxNgUYc8E/V+e2cqBBngqUoWtQBmQdru
-	 QhA8dSYv7gbMOlBeqqT6IWRNn1WIzqBAiCoymKGmKKvZOVuj1mHGwgaqSfvBJ7CPXe
-	 YMWfrgZ3m1m/Q==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.228.43) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pz2-f43.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pz2-f43.google.com with SMTP id
- d2e1a72fcca58-8631d0023daso970970b3a.2
-        for <linux-kernel@vger.kernel.org>;
- Sat, 26 Sep 2026 14:53:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvByt3FPZl9ikTGrvvbjgduGNslsKxJAaTBm+/uqglisPRyUjo+L8PJJuJsgsXw5WrXccg9wpNSSjuYfn7oU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mc4IUOJnGqEkxTEJOugcQGffjhg/3UdpO6hTfjc0GyH1hbTXds
-	5IKZbsFXt2WnmtTb9dD6Lk2l1423Wr3hEJ3FbGNU68yM/JnZrXlruj/WSfLbHDQquHyiLwny/AC
-	xE31V0+xOo/2L5Z7Yr1q6WLgkO3vt97c=
-X-Received: by 2002:a05:6a00:4650:b0:878:34d7:699f with SMTP id
- d2e1a72fcca58-87e9b79c67fmr7387971b3a.47.1790459580452; Sat, 26 Sep 2026
- 14:53:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SQBMNBSA"
+Received: by mail-qk2-f40.google.com with SMTP id d75a77b69052e-5332b967eb4so5438261cf.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:56:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790459799; x=1791064599; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=prCdYd82dRpV5/XCGhA/DCM01QvpeUvoZ3P5eCQY9/c=;
+        b=SQBMNBSA0F5BctiUKIYpoIYylqT23AzryuNWExNUyiEXuI78um2c3BaN94wmkuaF8e
+         HMEJqTcJhZYIrRPCDSWuq0Uvd+jMztOMkHJTMaFEalTGCWB7zqrav9CYhMPTp8nNd79x
+         SLy4u3oStq5SwY/IdgAoUbiGZRysPmiivgDBnqidjm2YmYr/TnjTnTaia8Y1hhHi4qxe
+         LRvVPvypZ6XigGbTUZHbMRnEZeK7tVDfKRxW+od8EHkQogEnecJSqfbEe9RusyAszTDn
+         BesziaQhnhpefQMcG3t4ns3B9EC5KvUHs54JfCX8MDAZGv4EsimT0rTLNy+DDz9nwtv0
+         nJ0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790459799; x=1791064599;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=prCdYd82dRpV5/XCGhA/DCM01QvpeUvoZ3P5eCQY9/c=;
+        b=WxJ5F7205/RAkHUiYlwWpnT0pELfmvnWhYhsZc2JVNnmQBWCJC1bvF1tyZEqQ8wY6X
+         F//h9B+4VC+8kfxc8dTFGsNl8yxEVBLhW1ywuskikQDONaL8/OUNTIUKY5S0dHcJfC7C
+         23J8GJR6KR1LekbAIvJbZo7h8R8BZyVnE8n/DmSZifwXaYAnYZ08GCrzkd4+0Cdex3xf
+         weYQ9MkkBVlJXH1WQK5gnX33WmoAxoC/JMuzQHaO8yrArGQWsK25E1CG910vjBKjON3S
+         BdhYVgoSjIoGq4jIjjL+ldlc34F3al1gGqcxap+jBejTZXkaa80OsyzjqV7oTMP74SOX
+         jDNA==
+X-Forwarded-Encrypted: i=1; AKwUvBzdvAgVl6YvrdO8qJJub5dxSCytuEncXjd1XgehaImAyhjqbI85BPmejAHpnrdnKu+ly8tVporIiog1WXY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqAUD0I2UbJPWV/KxWy9tCTfs0DTk7yD18Btkaqbqq/5GQ/nEA
+	Kn/r4r4hncRPwDnbTzobZWvpO9MY0xVqlfTWfqap95YardpGNBv7fXQR
+X-Gm-Gg: AYBFou1BrF4MnHrAcbGRETFMzQJQVkH0zhZqQLfG1rKbVeJGd6BB9M/JNH67ewpNRsI
+	nvGCm6tJ3vKTagksqda9OtMXf0ieiL4nqgaOlK/nIJzh8iHSFdXVEkCwQwMfpzemCwzlfRK4LHO
+	+m/ferJyqtDN3jjOkoTruTddkIOTni+gJ15qO5AYMpPvRR7rk/8s6UwXoG/OAtURaR8N8JChs4d
+	9dmuyMFOoF79rpxZRQraTUXvtVFKUSCsLEysOO7x0l+l5nDm/TB+XmH/fJmfuNLDT+u3rD+IKhH
+	iq5nrta0bwixNi09aTyvA5QfCgnA/Omy0U14CuKFJ7/4Y2I7Tr1nF8FpthP8MrDtwg603/kDrh2
+	8s88M/ZsdMTlv3M+FDvKkfILgRbK/WVrgiWN9yQSy+xMSVf1LtyLZ4cyUWkMc2ij7xSmNQqxn5f
+	3GHK2412r643VCgpGWCgP0+U1W3p8aTA22SWPI1MOJk2ezJUHwCEVzuO6uGbFe88cWMgZCOmdDB
+	CdicTr8pPz+5mtEplNofOk=
+X-Received: by 2002:a05:622a:6115:b0:533:33a6:8739 with SMTP id d75a77b69052e-53333a688a8mr24895121cf.7.1790459799409;
+        Sat, 26 Sep 2026 14:56:39 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332201fa44sm26850071cf.4.2026.09.26.14.56.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 14:56:38 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Dragos Tatulea <dtatulea@nvidia.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
+Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v1] vdpa/mlx5: Don't free QP buffers if destroying the QP fails
+Date: Sat, 26 Sep 2026 17:55:17 -0400
+Message-ID: <20260926215632.1343807-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926-gpd-fan-duo-auto-v2-0-0a2ea41ee3b5@pm.me>
- <20260926-gpd-fan-duo-auto-v2-2-0a2ea41ee3b5@pm.me>
- <CAGwozwG51ZAWEbhmwAfbU1RNu2QCJ-cnQhXcuKQb8e7bWKVeDQ@mail.gmail.com>
- <1BPT38hSheXA0fiDcjiUhe40l_nA8P9jiPQG4TfQCki6CMVZJr0V2DjfbEvQl1gD1UdajSdRKAlJwAVUWgODbxDTML6hk5lLxkaQeKN0e48=@pm.me>
-In-Reply-To: 
- <1BPT38hSheXA0fiDcjiUhe40l_nA8P9jiPQG4TfQCki6CMVZJr0V2DjfbEvQl1gD1UdajSdRKAlJwAVUWgODbxDTML6hk5lLxkaQeKN0e48=@pm.me>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sat, 26 Sep 2026 23:52:49 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwG+JrZCJ-zkAB7yGCOgQPKDgQOu+oeXiSM9aVB-EbfYsA@mail.gmail.com>
-X-Gm-Features: AclHuK8tcP6Ds9UmnsZwAsfoqjeG3H1jn48p6kEdNAPV_V0A8eC1PMP2fUYc3to
-Message-ID: 
- <CAGwozwG+JrZCJ-zkAB7yGCOgQPKDgQOu+oeXiSM9aVB-EbfYsA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] hwmon: (gpd-fan) Register both fans on the GPD Win
- 5
-To: Alexei Solcanu <alexei.solcanu@pm.me>
-Cc: Guenter Roeck <linux@roeck-us.net>,
- Cryolitia PukNgae <cryolitia@uniontech.com>,
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179045958204.826495.14200367195863718499@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Transfer-Encoding: 8bit
 
-On Sat, 26 Sept 2026 at 23:36, Alexei Solcanu <alexei.solcanu@pm.me> wrote:
->
-> On Sat, 26 Sept 2026 at 22:32, Antheas Kapenekakis <lkml@antheas.dev> wrote:
-> > in my view adding all these functions is unneeded complexity. There
-> > should be some simpler ternary way.
->
-> Ok, I'll inline them as ternaries in v3.
->
-> > Are you sure the correct number of fans are populated for each device
-> > because of the visible entry? If yes, it is fine for this hunk. If no,
-> > needs dynamic population for the struct in probe.
->
-> Yes. The hwmon core only creates the attributes for which is_visible()
-> returns non-zero. On the Win 5 both channels show up and work
-> independently. Loading the driver on it with gpd_fan_board=win_mini
-> works as expected: only fan1_input, pwm1 and pwm1_enable are created.
->
-> > You also add a board match for win5, but doesnt the duo have two fans?
-> [...]
-> > Verify which duo-like devices implement two fans, it should be all of
-> > them. I think Cryolitia has a Duo. Win Max 3 according to my GPD
-> > contact has a duo layout. Unfortunately, I have no users so no DMI. So
-> > it is at least Duo, Win Max 3, and Win5. Then make it so only these 3
-> > devices (which should need no separation) report two fans and two fan
-> > speeds throughout the driver.
->
-> Agreed. In v3 I'll drop the separate win5 board and give the duo board
-> data two channels instead, so the Duo and the Win 5 share it.
->
-> I don't have a Win Max 3, so I can't add its DMI string, but I'll add
-> the duo board data to gpd_module_drvdata, so gpd_fan_board=duo can be
-> used on it until it has a DMI entry.
->
-> I only have a Win 5, so I can't verify the Duo. On the Win 5 the
-> second fan's RPM is at 0x0476/0x0477. Cryolitia, could you confirm
-> that the Duo uses the same register?
+qp_destroy() only warns when DESTROY_QP fails and then frees the RQ
+buffer and doorbell record of the driver-owned QP anyway. The QP still
+exists in firmware, so the device can keep reading WQEs and the doorbell
+record from memory that has been returned to the allocator. This is
+reachable from teardown_vq(), which destroys the QPs even when
+destroy_virtqueue() fails and the virtqueue still uses them.
 
-Actually, recalling what we said last year duo had the new layout but
-only one fan if I recall. Cryolitia can confirm. Then, only Max 3
-needs confirming but even then you still need the new quirk so most of
-this patch is good as is
+Return after the warning, as cq_destroy() does, and leak the buffers
+instead. A device in internal error is not affected, since the mlx5 core
+reports success for DESTROY_QP in that state.
 
-Best,
-Antheas
+Fixes: 1a86b377aa21 ("vdpa/mlx5: Add VDPA driver for supported mlx5 devices")
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+ drivers/vdpa/mlx5/net/mlx5_vnet.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
->
+diff --git a/drivers/vdpa/mlx5/net/mlx5_vnet.c b/drivers/vdpa/mlx5/net/mlx5_vnet.c
+index 8563fec2855d..a01cd890bb58 100644
+--- a/drivers/vdpa/mlx5/net/mlx5_vnet.c
++++ b/drivers/vdpa/mlx5/net/mlx5_vnet.c
+@@ -483,8 +483,11 @@ static void qp_destroy(struct mlx5_vdpa_net *ndev, struct mlx5_vdpa_qp *vqp)
+ 	MLX5_SET(destroy_qp_in, in, opcode, MLX5_CMD_OP_DESTROY_QP);
+ 	MLX5_SET(destroy_qp_in, in, qpn, vqp->mqp.qpn);
+ 	MLX5_SET(destroy_qp_in, in, uid, ndev->mvdev.res.uid);
+-	if (mlx5_cmd_exec_in(ndev->mvdev.mdev, destroy_qp, in))
++	if (mlx5_cmd_exec_in(ndev->mvdev.mdev, destroy_qp, in)) {
++		/* The QP still owns its buffers */
+ 		mlx5_vdpa_warn(&ndev->mvdev, "destroy qp 0x%x\n", vqp->mqp.qpn);
++		return;
++	}
+ 	if (!vqp->fw) {
+ 		mlx5_db_free(ndev->mvdev.mdev, &vqp->db);
+ 		rq_buf_free(ndev, vqp);
+
+base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
+-- 
+2.43.0
 
