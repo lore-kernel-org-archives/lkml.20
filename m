@@ -1,152 +1,138 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36083DCD86
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCD13DD85F
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790416770; cv=none; b=LuIy5AUt9+PY6zNm1CWIOSZC5TV5xmF+C+7nXwzX6gUi9lUgWI0uscKlXZAZUwTTVrfuykzqm/INAPrrEBRVCsMJa4JsmPCX6nXH6cmKPBkFhEqtAjJHTaA65Wee2etcPfyv41/VWJOL0l5H4Rd7QALKpYHG7l77/d3waRfGXe0=
+	t=1790416784; cv=none; b=ZDrmHQIWCBoEBei+vX979iSSiwCps2Pt8tULLcvpZxqOSW4pN0u1kyaTvemdDqvzm83C5kin4sKAqDK/4kEF5kABEquJ3G3iaVTi1c6V+VBDrxWSaIAScQEWKR4W54vABSGIO22Nb+9Ki9XUwXkx6pJoXnbYHbKvczq0fIuZ060=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790416770; c=relaxed/simple;
-	bh=i9bpAEGVHwsXNKL7VeERnZnRJZ7gmhLKwXwJddo1pws=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=q/wQuaZ3Qauoth7nubuLGsjvsBJILx+nZQ9+975OdmUxIM7wyHOVORgDaj/LQ5z4vA9nKXLpIHWkWuWBYs6io6JiXfwEip3w976h0bqA/PiPYWhVUUkI7WFnxlyebt+xMcsEHPoamuEVwer1a2hkrp1ELjUXkvn5cDL4qfWpfrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CFZ77hNq; arc=none smtp.client-ip=74.125.229.205
+	s=arc-20240116; t=1790416784; c=relaxed/simple;
+	bh=9ZZ+x5hkD/0mxZXJpd66ErYLDuF7UKdZxcRaCMgFe+Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fTZ/2/WjtK+dljEP/hcV+QATKrh4+IMyaJDrbuvxKYyrCT4FblyWNuH9Rm2Ntk1RKrCFv9Ic/D1Zd8WLLPA5LPgtSa+3H5q1K9pIUwGV4M6nMNoef6aAFWO9JxT4BEMcaf6pioxEQfXVwqPv+Fp77MzFQBucoCTKGTG00/MpisA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JAcQXAFT; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CFZ77hNq"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15b78so1403560e87.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:59:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JAcQXAFT"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso1117192a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:59:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790416765; x=1791021565; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aairqCQlQgiewQXylukFVs+L06uHBEYrUeNsgl4jBIo=;
-        b=CFZ77hNqdSsTiszi+6s7O9KYSdzC8Rh45z5ixFbG23jhVrWNhkxw5me5PZT6qVjQxF
-         vhpDMHJC4A453OzizhVd6hMHd9sCe8alUC/E8WEL2cz4+g76ae+8nHBG/93SjSVfIt4t
-         /PnSb7rZgIO/8t8O/Zdqmw7Fum6wWSg4fqIsfSULlC/QkXJBREEKiRi+dqGaRa4GLOye
-         7Imhk4b8gUXkZrjt57nr9ozjGVz6FRZvj0j67qNMwqIJROwwlDRn6+jmtPwbEdCRfs2E
-         szGA1471hBb3ERpo6mnTKbImmYETlXJm6q5/cmJmMPcQpxnpqlSsJu04yH5fGRQBggas
-         8QiQ==
+        d=gmail.com; s=20251104; t=1790416782; x=1791021582; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kUiyvyXhITScv6LZw2RrZkQ+8/ZN40BHdOZkzQnRKMo=;
+        b=JAcQXAFTHCpeAKPZOkXYY9JMAUHuN82T8hqCcbla4DEoRIZotLtKIoSIxPxJflHuam
+         GwMsgVVGMT0HHoKk91LFylQ2bwTet+pBUVFHAaV37dtclhUrITWNdpRCY6i8ZAcj7lQ9
+         J5bfpt7Wh2AcQcdqX5XhzW4tfr8pvKow9S29kCkUy91DFffkVU/P8yWKs4rJs4ECR9h2
+         +2OtFrB21hnxpS5zwgci519LTTbM/RsmGEmjYgxBLJIRffpJKrFmYMNzBs98EyiHQIbj
+         D00HC5BaeHPDb0hb7fjNXm3iBugVBzAMCsymtIPcrHm7ku67TgLY3zGc3p9J9oLhEHNH
+         CxUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790416765; x=1791021565;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aairqCQlQgiewQXylukFVs+L06uHBEYrUeNsgl4jBIo=;
-        b=XSmI0A9upukXNViZNYf33cUTGqCKlEoIsOkUG7iDGdYgbk2WNI2X8COczGqkbxXxq8
-         /dcFYd5JKYtqg7Ocnjwz9HZExr8HJq/99N3Z3CvwFEHrwgoR5VNiOGydcEIULEy1NTfm
-         GdcVishl9JuqQMkmHMNgPPCQBtAhVueHbmyfpTNhIVx2OSAG1tyZUqL0qpS2J8qPtbG3
-         RwJi/jzXcguJbWX3E+iCwSeWXh/9uoyYnjtwQyHorOaFjwsMhAHIrfpJSG79E4NeV+xR
-         Ee9qV+p8U+tNMHeI+7+GvJHx/7lXuPUIx59cCrzrpfxh24NLFpb86ruNbwfREuf6wCfm
-         +5dA==
-X-Forwarded-Encrypted: i=1; AKwUvBzNI9oOSpfP3//WFVp80uW4SFh04PH0HPLgc5w/IF50lnYyIpPQ08UhGpd2BVu5wrH7do+2TVZDouZu8nc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFTPkcJyxgiowYrDrfS/67WJwGz1/qJmphZypmU1bNIuzia1cS
-	hbw7+AKvCxM0OwJYTXaH13MUyqOzwCk23lHIJdWCaV34QtZshioO8T9S
-X-Gm-Gg: AYBFou0ONKn+z4ovcRwyHLr1c1HFXPBNsm0oZ5q/VUdNa8NiiRb0jDyprGR/WaLExoE
-	1z0yGgXBuO3zwIxaz1UDMoXocBH1LyHtIqJpy+5maZOVcpeOSCKuxp3GpYINLmcvcQYJtADl3q5
-	hm5/CUDSAjXNlYuhghID5wGgJn22Tzcurt60xOKy481fjywGc8Aw0rxieZ2TTU3a/CuvpYq3Viv
-	r9q0nVu+NT5p2bqiwFCsc7NlgZa3clnzEDXHZGSRsSYJZkxIfFeWOlgs3HJEUA9mkS6r8B443yQ
-	gCRSxqpOaarXnJmqbBmtr6zsmeQV+tyMZGDLz4KpZiL+5lDYOc8Bv6wEgfgGX1zQ01ewLg8L8Fm
-	KILxKCh9nLbNHWNkUPTeU1EYuki+JI1ue9yG8XyckXS6tLTWxmLZ5MlehEFDRiIas83V2+OAOFY
-	u7x3plqC7RT7StnwoedFByU+JATZlet5E1rgBvUeF7Ty++sg0sgExp1HDhruZFymrB7utguUi7e
-	Fs=
-X-Received: by 2002:ac2:4646:0:b0:5b6:67b3:9f74 with SMTP id 2adb3069b0e04-5b8df0d4463mr2426298e87.5.1790416765142;
-        Sat, 26 Sep 2026 02:59:25 -0700 (PDT)
-Received: from arfa-server.perm ([37.114.244.211])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8e6ae5fbdsm1157522e87.14.2026.09.26.02.59.16
+        d=1e100.net; s=20260707; t=1790416782; x=1791021582;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=kUiyvyXhITScv6LZw2RrZkQ+8/ZN40BHdOZkzQnRKMo=;
+        b=VXSsnqb56mIKLOurbf7H8prH0CkF38jAj+HQy3csxS94K+l/5Hc74DNFSvTKPkMEFY
+         et4yw3juwdMbrVCzowda1kCDXV+7HshDT+2O43r4Xc9AYFlpULB4kS1sGB8+nXnJKyyu
+         SJEvyipyZIEYPZapWp+9T+aFyzxBQt6BP6FJPQgL03lJ5pkSDpHd7RwtyreDasRKVnv/
+         fHx/aouj/8MxusBkQ1q5ywHE+udr+EJI5VZy9hkK2Vym6lVUv7qCFyps7wbh2+g7/fcp
+         PhSD6ufHKtB3lOatUIMSwbPNZ7q8CHFaTgk7zZHMG87ly3UxHFhEiqKjtRBAav3FlcXZ
+         jilg==
+X-Forwarded-Encrypted: i=1; AKwUvBz8krwAB1A18pcioZBM5/k6QCzJv4mSyuYMUjpbnUlOr4RWTouy8PWrjdiiz8ziAd3wzJNODwAnFkJVkWg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFxAUWNpMG+X84Fr0lTYzZPY1AkFP55lkDD4Qe9owp7y6MLLWj
+	qFyi58AdZVmyozRlFos4zQELxuNG+ex451vCvGhScjTwZlHQIMSAWnBD
+X-Gm-Gg: AYBFou1fY3jPJshmg8+agyI5DqBMymSvjtz1ApGzGhSxjtgt/0WQPs7SOXEEFKbJpxw
+	cLzhGm8cuL7wvyQWUa7xI5UVveNOzeNDaGIO6AH3ecVWBE3bJKhep9hluWbYsNCi4rAvv3ThKWi
+	54sEjYkMGCd2ewb6qpncHJXLidcIgHMSXwzrMuxCI1P01+2YeDkyAraN6/S/c+SeRSBFp1kUG9T
+	/NGlzyy+zjFbNRI1PWNpC7wKObUQQ7pisv2nl3TvprZHyB1oguG0ABmBbuxMSAwNwA6Y31bGFlV
+	BtMh76Onds/OCkZ/UsrhRRtUSvWXbbtQuojTY4BO3T0znTUcWTtlDt2RnjBlYQG8ojk5xSj09eo
+	Zc2Rji4U14jmI1jvSflPp38ifAP6fVWUPAgwKCT0xguZmq+G86A2KqMc8NUmr7KRdb2MCLZvZGT
+	BW/jADBwSiSgv/tZL7vmnGqhs+PIX0wvJrKmNd6RVT5PU7Yub2HRJg0okkKy6+PrmohVsyNmAv+
+	N3ggo2/4w==
+X-Received: by 2002:a17:90b:4a45:b0:39e:1633:d29e with SMTP id 98e67ed59e1d1-3a098d43634mr7056631a91.5.1790416782257;
+        Sat, 26 Sep 2026 02:59:42 -0700 (PDT)
+Received: from localhost.localdomain ([2a09:bac5:55f7:25d7::3c5:1f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09766210bsm15033663a91.8.2026.09.26.02.59.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 02:59:24 -0700 (PDT)
-From: Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
-Subject: [PATCH] selftests: ALSA: Skip tests when devices are unavailable
-Date: Sat, 26 Sep 2026 09:57:56 +0000
-Message-Id: <20260926095756.2051290-1-arfa79lg@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Sat, 26 Sep 2026 02:59:41 -0700 (PDT)
+From: Chuanhong Guo <gch981213@gmail.com>
+Date: Sat, 26 Sep 2026 17:59:28 +0800
+Subject: [PATCH] pmdomain: mediatek: scpsys: add MT7629 support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260926-b4-mt7629-scpsys-v1-1-e02d03d2151e@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ6CMBBA0auQWTuxVlPAqxAXbRlkEqlkppoaw
+ t2tLt/i/w2UhEnh2mwg9GblZ6o4HRqIs093Qh6rwRrrTG8dhgsuuXW2R42rfhS7bjRxOrfRkYW
+ arUITl/9yuFUHr4RBfIrzb/Tg9CqYqOTj4jWTwL5/AfKwaoGGAAAA
+X-Change-ID: 20260926-b4-mt7629-scpsys-88d0cf37c6e2
+To: Ulf Hansson <ulfh@kernel.org>, Ryder Lee <ryder.lee@mediatek.com>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ linux-pm@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chuanhong Guo <gch981213@gmail.com>
+X-Mailer: b4 0.14.3
 
-A kernel built without CONFIG_SND exposes no ALSA devices. In that
-environment, the mixer and PCM tests currently report success with a
-zero-test plan, while the userspace timer tests fail when opening
-/dev/snd/timer. Neither result accurately describes an unsupported test
-environment.
+MT7629 currently uses the MT7622 domain table through the device tree
+fallback compatible. Attempting to power on the WB domain triggers a
+warning during boot, and powering off AUDSYS times out.
 
-Report KSFT_SKIP when no sound cards are detected and when the timer
-device is unavailable. Keep the PCM missing-card failures when a matching
-hardware configuration says that a card should exist, and continue to
-fail timer opens for unexpected errors.
+Add an MT7629-specific match entry to register only ETHSYS, HIF0 and
+HIF1, matching the domains exposed by the vendor driver. These occupy
+the first three entries in the MT7622 domain table.
 
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=218479
-Signed-off-by: Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
+Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
 ---
- tools/testing/selftests/alsa/mixer-test.c  | 2 ++
- tools/testing/selftests/alsa/pcm-test.c    | 2 ++
- tools/testing/selftests/alsa/utimer-test.c | 6 ++++++
- 3 files changed, 10 insertions(+)
+ drivers/pmdomain/mediatek/mtk-scpsys.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
-index 6edffcd6f..ab70645d5 100644
---- a/tools/testing/selftests/alsa/mixer-test.c
-+++ b/tools/testing/selftests/alsa/mixer-test.c
-@@ -1378,6 +1378,8 @@ int main(void)
- 	ksft_print_header();
+diff --git a/drivers/pmdomain/mediatek/mtk-scpsys.c b/drivers/pmdomain/mediatek/mtk-scpsys.c
+index efc8f276ffce..2b5bd8d61cb5 100644
+--- a/drivers/pmdomain/mediatek/mtk-scpsys.c
++++ b/drivers/pmdomain/mediatek/mtk-scpsys.c
+@@ -1073,6 +1073,17 @@ static const struct scp_soc_data mt7623a_data = {
+ 	.bus_prot_reg_update = true,
+ };
  
- 	find_controls();
-+	if (!card_list)
-+		ksft_exit_skip("No sound cards detected\n");
- 
- 	ksft_set_plan(num_controls * TESTS_PER_CONTROL);
- 
-diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
-index ee04ccef7..de07de650 100644
---- a/tools/testing/selftests/alsa/pcm-test.c
-+++ b/tools/testing/selftests/alsa/pcm-test.c
-@@ -613,6 +613,8 @@ int main(void)
- 	conf_load();
- 
- 	find_pcms();
-+	if (!card_list && !conf_cards)
-+		ksft_exit_skip("No sound cards detected\n");
- 
- 	for (conf = conf_cards; conf; conf = conf->next)
- 		if (conf->card < 0)
-diff --git a/tools/testing/selftests/alsa/utimer-test.c b/tools/testing/selftests/alsa/utimer-test.c
-index 1a9ff010c..07aeaa777 100644
---- a/tools/testing/selftests/alsa/utimer-test.c
-+++ b/tools/testing/selftests/alsa/utimer-test.c
-@@ -51,6 +51,9 @@ FIXTURE_SETUP(timer_f) {
- 	self->utimer_info->resolution = (NANO / FRAME_RATE * PERIOD_SIZE);
- 
- 	timer_dev_fd = open("/dev/snd/timer", O_RDONLY);
-+	if (timer_dev_fd < 0 &&
-+	    (errno == ENOENT || errno == ENODEV || errno == ENXIO))
-+		SKIP(return, "ALSA timer device unavailable");
- 	ASSERT_GE(timer_dev_fd, 0);
- 
- 	if (ioctl(timer_dev_fd, SNDRV_TIMER_IOCTL_CREATE, self->utimer_info) < 0) {
-@@ -156,6 +159,9 @@ TEST(wrong_timers_test) {
- 	};
- 
- 	timer_dev_fd = open("/dev/snd/timer", O_RDONLY);
-+	if (timer_dev_fd < 0 &&
-+	    (errno == ENOENT || errno == ENODEV || errno == ENXIO))
-+		SKIP(return, "ALSA timer device unavailable");
- 	ASSERT_GE(timer_dev_fd, 0);
- 
- 	utimer_fd = ioctl(timer_dev_fd, SNDRV_TIMER_IOCTL_CREATE, &wrong_timer);
++static const struct scp_soc_data mt7629_data = {
++	/* Reuse the MT7622 entries from ETHSYS through HIF1. */
++	.domains = scp_domain_data_mt7622,
++	.num_domains = MT7622_POWER_DOMAIN_HIF1 + 1,
++	.regs = {
++		.pwr_sta_offs = SPM_PWR_STATUS,
++		.pwr_sta2nd_offs = SPM_PWR_STATUS_2ND,
++	},
++	.bus_prot_reg_update = true,
++};
++
+ static const struct scp_soc_data mt8173_data = {
+ 	.domains = scp_domain_data_mt8173,
+ 	.num_domains = ARRAY_SIZE(scp_domain_data_mt8173),
+@@ -1105,6 +1116,9 @@ static const struct of_device_id of_scpsys_match_tbl[] = {
+ 	}, {
+ 		.compatible = "mediatek,mt7623a-scpsys",
+ 		.data = &mt7623a_data,
++	}, {
++		.compatible = "mediatek,mt7629-scpsys",
++		.data = &mt7629_data,
+ 	}, {
+ 		.compatible = "mediatek,mt8173-scpsys",
+ 		.data = &mt8173_data,
+
+---
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+change-id: 20260926-b4-mt7629-scpsys-88d0cf37c6e2
+
+Best regards,
 -- 
-2.34.1
+Chuanhong Guo <gch981213@gmail.com>
 
