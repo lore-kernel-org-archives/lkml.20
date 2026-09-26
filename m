@@ -1,148 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B4A372EE2
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F12380FC1
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:52:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790452300; cv=none; b=MFy59mP+PEdEYbbVUH5ab9xlGKF6hvM4GbICyaGFSgoH2Xm8VSxun20/I90yd7XiZpR9WCRqeZ90gUqyfviX0bLuIqOPhORcCIgq5QCaGEXmgSRdAHS8Hm27JGKBj7vrSFOOS8b/c8SZN58aTfp2CqVE54Ys1npfyv8IgUXcF+g=
+	t=1790452328; cv=none; b=ezd8O70JqTZYjwiAUascaIBpqLcQ/4EeF4qCSoYK7Hc1Hq3gAL4WBXtj1OTNU2pEzcCmnRSwfM2Rp+InuDBusIQBbkJf3pet0Gbk5e2PqLCT9PDKjcuGhwM9dMDE8XWqtFAwTgaxgL9s8Sl2JHnkw9rRVJRfntjDNObWaoyQ8as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790452300; c=relaxed/simple;
-	bh=dfjoZScS9ZOqe44JQfBF8wEPZ+pAl5CDH2L/a4RRcvI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kcnnFkFV7RDqKalN6qrzEW/dpyTRowr4MCIb8jlNFG/r8MWMEnifYMBub56BB1ikiv7n4QwOVtW9oRIZqn1CUlyjTvGH2akEkrJ5bN43x32UHMULlWnQ+fn+Gf9VWrx1eUGiHc0WbUz1pYrhXM8uT8RSWx7Xmk+GdgT3p5zI/Qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltk7eIYs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790452328; c=relaxed/simple;
+	bh=quK4ESbWBNP7NCO/VpFQ3aGBfCDPjj+jYULDZLt3xFY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ACAhILDniDxhH6u9vee2rzamFyuJ7aPvoGMwkuQrkOfPGi6p5i9Z8rPR6VI/JW0uaOs7EM2yQpeBAziPApmLLNvhk8FDX5NuQFOTParOv9FPQh9Dloz9pCNbTd1W2Ux1iEaIUXh/21jfh+/YsL/PhdUsw04mCXgHG4fJn0SqtPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IxYeNQa+; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltk7eIYs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83D71F00898
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790452298;
-	bh=dfjoZScS9ZOqe44JQfBF8wEPZ+pAl5CDH2L/a4RRcvI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ltk7eIYspc5iX+WoJuH4deJAsI+v79YNuC2rH5obY7fakhISSa8FM202OswthfePR
-	 7DiuSUOodmpxB97bybC/s+iqKw9gj/Pb+2gyGPmgkm/KivUC4RMh4ktIM6Ure4Zg0a
-	 wqdpAr2FX7Ymx9mJDs2WCMgA0cTijrW3FnrdJ52HgJOHBrJSzVtTibsQVt60+Pep5R
-	 v3wPI4/REMflYCfIxraiJqn6JFdmDMZAhtzupgNMahzxUp0swC7ztcT3bNPu144180
-	 N8A/aOnmTvDVIiudJF5PbQGfz6jf78ONVhpx6ySb2oBQE/XplvWzYAylUs/URSMCsR
-	 kJt6ULNAHPN9w==
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2dca989afcso19606666b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:51:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxEdhhSAvRnj8doAecNvTU3MQSzOy0qsVOpMxCmUqxFhbjRhfQCReznVhd314tJ0EWvVv8gTvNaX0STRPo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHUreOErMIQxFvcm99lScs9zHAtM891tiIMqK/o/7boMjA5vBQ
-	Nqni3iVzict4IFe0xtA7yKe0FSWjvRM0yVxav3mKYm7btqe/C0zKGV4QwYqKbO23EpavXUQ18Sp
-	dnnmwoRsoGl0qaUQ1XCJ5bCjVEmUQy/SQ5TqxPpz1FQ==
-X-Received: by 2002:a17:907:8908:b0:c26:3424:f7df with SMTP id
- a640c23a62f3a-c2ac24d3e8fmr788004566b.30.1790452295952; Sat, 26 Sep 2026
- 12:51:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IxYeNQa+"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so9998625e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:52:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790452325; x=1791057125; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=quK4ESbWBNP7NCO/VpFQ3aGBfCDPjj+jYULDZLt3xFY=;
+        b=IxYeNQa+l/BSiMAeCtVMRQZvYslgHiiBRmba5FXHPfdr8C3RPZvT8Q+7v1R7wzLVxJ
+         CkrecyEwh5SIVKKZ8z4aMDwWkcn5N9JeY2n0D8BA4kTO1iorB/IPS+nW85CNlUcN9vh4
+         bLN2TMHPtyWItZi+6AWiHtPGKhHewE+o2UTWXiG+zBjKI1K2jVNy51dEyZcLUAV/Blyk
+         vLHlDWYESsZY8w/oBUUa8iOiZpIFl3nJiqqI0P5gwQHNMJO0rqNwn9W/ZN5wXYaH8hng
+         civ2XhBDfBHYkQVoVMsiyefTOoCI/CR8he9h98tAHQkyVdGj5lezZ/e0kIgpvWT5/TSs
+         5x0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790452325; x=1791057125;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=quK4ESbWBNP7NCO/VpFQ3aGBfCDPjj+jYULDZLt3xFY=;
+        b=d2g9/pOqEHZWS1UTmjXKeu6Z/gyLfLbehB2Zs3cCkuqWPtkwYuaLgzTGBp5uaUHnv6
+         zA5RfAcBitFSW2ISese07yKcKpPI2oPZ/m7aGz9p4mYurF7We/KZvLURVXwjOUaFC7vK
+         y4LYqRpnNRRD0BDHx8hIgVcx38LkmeTKFZ1qWMa7ldlCi+mz8Xsqz/sW1OHVSqo9Ufhb
+         gdSI1tNJWDq1O5RM+CEOCdnxXfev44Ly8i4fCu4MNvkKsRssitYfjFGKXxWPieEfFKdA
+         vzaJKIb0TLjbmF1y1arGRLC43FNTBBqV938rtotvrv6QNhzU2p7slR2Oc35Cmrjjc3ml
+         0mMA==
+X-Forwarded-Encrypted: i=1; AKwUvByYfv3CfYuAITadtSNtJFxnQwfoY2ksTkTbGQIbv5L7DCKDZ1kisiiOIkVNosxhc0HvUU09jjXcx01tJ/g=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9/joxy6L/SF98G9cx20lcQcNHCpfwtafSlQsJiupLKzOls6b1
+	E8ueTjonUPvr2CnwE6tEy4XTTXuCQ/NxQsq2sA/F56lH7hZxTEKWHmOV
+X-Gm-Gg: AYBFou2jChWeR0DdUaw4aIjI7u36tbv9UEWAfcMNmxl4tYeTZUIfHjc9hmby8YreM0J
+	4AOIKWFsZNdm++BEBRk9yfX+IpY9VIf+m9JcIDTksRf7/LBvdA5Pa9Aste7XJ+0UntYIsJCyJt/
+	GC3vKT9fntDEjJT/t+zG+YnUoITn46zv4njIRcffr6vupRX9ymRedS6V74sBumLTWrEM7pCzoX1
+	FUIHrlbjDaAlDXZX9WnvhqnUgnkNU6kXKNTaVImclvhoyhwVanMF0PdCzD1Pux4XAAPCnvFxSGW
+	ka+UhXHvuoK9vHIMq5Th76Aubz69cMcGJuLXaSiBjuxJ0YAhnhRdhj1AVq2/V7DDhc/HlFelMq9
+	adXCaH+x9CEt62xZGyFy7UMQwc9fhGKxv8jtqHk7c2/r76gKP9LXCLm5Zu2SXmCyUWeP/b9Os/y
+	pcw+z3tw+0Qfr6BeG+2gVBozxr1DjA3aNGLtw9JzEJHyea/tjjWRxYLsiYK7V2VlKrzt5HFlmQf
+	BgDIvtB+1LjTq2ppw==
+X-Received: by 2002:a05:600c:4ec8:b0:49f:dd10:3c71 with SMTP id 5b1f17b1804b1-49fe66c61c4mr167010005e9.11.1790452325101;
+        Sat, 26 Sep 2026 12:52:05 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.74.168])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fef4fc959sm139458915e9.2.2026.09.26.12.52.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 12:52:03 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Lyude Paul <lyude@redhat.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/dp: don't mark the AUX backlight enabled when enabling failed
+Date: Sat, 26 Sep 2026 21:51:55 +0200
+Message-ID: <179045227485.41069.12855843493298872118@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CAD=FV=UohyFHM3r4i6NoDbzVFpY9xZzg_=FvGFhBgScaCUwH2w@mail.gmail.com>
+References: <CAD=FV=UohyFHM3r4i6NoDbzVFpY9xZzg_=FvGFhBgScaCUwH2w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918180241.3424851-1-nphamcs@gmail.com> <20260918180241.3424851-2-nphamcs@gmail.com>
- <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
- <7571f005bca65aa4ad5e7ec89e62801ad058b689.camel@surriel.com>
- <CACePvbV-tazW=LmsbUtAhHzR2d6JwFT5R1jYZ9_NTp1hxXH=bw@mail.gmail.com> <CAKEwX=NbD12FfApEb9g+3Gt_-Rmof0tovYZsxPPyk5TCbFq=Lw@mail.gmail.com>
-In-Reply-To: <CAKEwX=NbD12FfApEb9g+3Gt_-Rmof0tovYZsxPPyk5TCbFq=Lw@mail.gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Sat, 26 Sep 2026 09:51:24 -1000
-X-Gmail-Original-Message-ID: <CACePvbW2rejcNUhK7AG7xLv1C9PmdmdF+uvkV1665BYwG-GNBw@mail.gmail.com>
-X-Gm-Features: AclHuK-xpiJYlVPsv444_ENhKedDDd2x3kiC91E8lDWQNSSouldPc5mcq4B4NH8
-Message-ID: <CACePvbW2rejcNUhK7AG7xLv1C9PmdmdF+uvkV1665BYwG-GNBw@mail.gmail.com>
-Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Rik van Riel <riel@surriel.com>, akpm@linux-foundation.org, kasong@tencent.com, 
-	hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
-	shakeel.butt@linux.dev, yosry@kernel.org, david@kernel.org, 
-	muchun.song@linux.dev, shikemeng@huaweicloud.com, baoquan.he@linux.dev, 
-	baohua@kernel.org, youngjun.park@lge.com, chengming.zhou@linux.dev, 
-	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
-	surenb@google.com, qi.zheng@linux.dev, axelrasmussen@google.com, 
-	yuanchu@google.com, weixugc@google.com, gourry@gourry.net, 
-	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
-	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
-	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	cgroups@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 8:25=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
-:
->
-> On Thu, Sep 24, 2026 at 6:17=E2=80=AFPM Chris Li <chrisl@kernel.org> wrot=
-e:
-> >
-> > On Thu, Sep 24, 2026 at 8:13=E2=80=AFAM Rik van Riel <riel@surriel.com>=
- wrote:
-> >
-> > Yes, but it will pay the price for going through the unnecessary
-> > redirection layer always. It incurs performance and meta data
-> > overhead. That was one of my previous objections to the earlier vswap
-> > version. Sorry I enjoy micro optimization too much, that is both my
-> > strength and weakness.
-> >
-> > >
-> > > When everything in vswap, we don't need to test for it.
-> > >
-> > I've been there and done that, the result was pretty bad in those
-> > earlier series.
-> >
-> > > Handling the details of what's behind the vswap would
-> > > be handled one layer down.
-> > >
-> > > Chris, do you think that would be cleaner?
-> >
-> > If it can wrap below the swap_ops, it is just priviate inernal dedail
-> > of implementing its own indirections. That would be much cleaner. That
-> > is what I am trying to pitch to Nhat in prevoius email but does not
-> > have following actions.
->
-> Registering vswap's operation as into swap_ops isn't too hard. I
-> frankly don't see much wins to it for vswap itself, but it's not hard
-> to do if you like it.
+Hi Doug,
 
-I am offering these as ways to move forward with vswap. There is
-always the alternaive to use xswap instead.
+Sorry for the muddy commit message. Unfortunately i cannot reproduce
+the enable fail. I found the unchecked return while debugging eDP issues
+on glymur. Please drop the second paragraph when applying, or drop the
+patch if a code-inspection fix without a reproducer isn't worth taking.
 
->
-> What I'm disagreeing is treating it as "just another swap device". The
-> implementation shares a lot of swap device's machinery, so I have
-> don't mind adopting it, but you can't treat it like a normal swap
-> device, and expose it to userspace like one. You get issues with
-> allocations internally, and externally you give userspace a vector to
-> misconfigure with device priority.
-
-I'd like to hear more about this. If a user wants to shoot themselves
-in the foot. My philosophy is just let them. It is not worthwhile to
-complicate the code path. We can add a big fat warning that
-"Oh, you are configuring xswap with a priority other than the
-recommended one." But if the user really wants to do it, we should
-allow it.
-
-Another use case is when users employ more than one swap device to
-reduce swap device lock contention. It is not a big deal when you swap
-out a few GB of memory. But if you swap out more than 100G of memory,
-the swap device lock contention really shows up in the earlier version
-of the swap core. The new swap allocator and swap table significantly
-reduce that contention. But that contention still exists. A few
-hundred G of memory under one lock is just a bit too much. I think
-there is a legitimate reason to use more than one device to reduce
-lock contention.
-
-Granted, other ways exist to reduce lock contention, but they increase
-code complexity as well. The current swap device design is a good
-balance of code complexity and flexibility.
-
-> That's why I've been insisting on what's the use case that motivates
-> these aspects of the interface that you're interested in. A pretty
-> design is not a real usecase, especially one that creates problems
-> with userspace misconfigurations.
-
-Points taken; this isn't enough to justify the extra maintenance and
-complexity of vswap right now. A cleaner alternative exists with less
-complexity overhead.
-
-Chris
+Oleg
