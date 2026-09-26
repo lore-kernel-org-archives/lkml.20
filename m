@@ -1,71 +1,71 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E199E37E5E1
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C123876CD
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:49:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790437790; cv=none; b=fS628P6mwAKJlsnA4Iavc1RfpmhVSSrrSrKRsPofmDSg8IrldHPQIPAY2df16Yp7kLDFdfjQN+jmNzandMDxpJc8OHqznlJ8nQ2AB6n1Fb4r+OLa9BMXqWHCgPqEGzKga3M/Zm7S7Sm38j/2lURN1TuY7Pwr2yOrCu98c+K/IcU=
+	t=1790437795; cv=none; b=o5TcsdQvAg9/u/InPUp3MdelqzNgdINjEWRWvoq2HQjYox0lk6arEQvGgQVnU31UuG/pFoIAth5MQ5upYomI2DUKa/8NJmDlYhwTMsbeLEUfv7QJipuHL4NIQWnupJSsTAa9gxpz82L1vX0SQldOsjctowaTXMgWQ7mwC83iGNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790437790; c=relaxed/simple;
-	bh=AAtTdvZNrumwoPmEQLjH0UMJLifFnY3iZ+J8gFMDj0s=;
+	s=arc-20240116; t=1790437795; c=relaxed/simple;
+	bh=pXC6u2z4QzCd600gWVJtWtoFgabkjBB/NCPNcLpiYqI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LauEqbkuMOfzwBBg1Oh5V5SaC9VS4v9q779uK6LZn2GMqy4uyPeqjIIsE/3+jp3VibKU4zsOj0RRm5l0IlIXC4I85ngPF5qZCOQveC0W6bNJfRxSQxsTl6hMn8rgY8FeJsm+m8WkxW3eXT4+/C7d6kPSXx9M+Q5cEGrC72nkvDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVgyT9ZN; arc=none smtp.client-ip=74.125.231.171
+	 In-Reply-To:To:Cc; b=Ju1LNM95OwYQ4PiLrDQWa4BqcXgQL3o+vECiXGiNNlIKnudIvaLBUD7WqiUav8JxXevJYEId0Rwpm/3U2kqd91Gu7ARwSILuFSgJYn5dW4eOaUQTCuMowIvKgOP8eiEb9x9pGMSn6RZl0o/D2JkPJNb99hsDbiPy96nic/eaJIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Glg8gZsx; arc=none smtp.client-ip=74.125.231.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVgyT9ZN"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-81b15bca7e0so202428a34.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:49:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Glg8gZsx"
+Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-81b8e8e9cb0so10252a34.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:49:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790437783; x=1791042583; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790437790; x=1791042590; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Q30zsdAglVy5fQcIaWXAHFq5dI/FtpUN3Zb+euSKjCs=;
-        b=lVgyT9ZNWDq1v2vYk18T7sv3wFR/R4txc7ZSpm46c8JszfhlyluTu4xPpUKfzWl92q
-         CZpqGZGqniWZljHS6LKhL0LcLTZ4D9ooIBRAVa96FxWjOXXiusyzWFoDmKzM7yQPYBJC
-         4rT27h9KZXPYag60pPnGfW3AzhOp873LWCO5MMIzxwHArwFczQecZv/VouwK5NANeYaf
-         5Q2kljrMG+crlDnPDroozHvVvsXSXB/a3bHlvnzm9htIBowXs1joZizUsh8ReATp+frj
-         y6N5CK9tFVzeQKVa1oOUOKsXIaoG44WysIUMsbkU716yTqMdECPobx5fdyOQSNhX3djn
-         axDw==
+        bh=5KjS+S3ybo0qYcHE4tpSaMdCm52N9S5u9el69I6IvdE=;
+        b=Glg8gZsxDBwwQ3v3m0xjVQ7Z8qBX/1N+dDd05ozo2melldlq/rovrQqFKynOgbUJ4o
+         6tj4qQ95Ts9lWAumv956+bPRQOedRXbhzsqgxIcJCoK2thbIDic8ljGlAU5W1UD51KdL
+         IjYTpQ51mLb+LnTwhzZmxN/T2LcN7cc8EGvSJBXgzJhXVMc//ny5JFmN6yUZFOkkWWz2
+         xRFDW22E8WiYiCAbtQucfmKOODum6gtCrE88/WHabVOJI22x29aUECGJ8hYSB/ORpNm1
+         qhit6hrrz/d0s5nzM0xOD3vivfeGUGL6mZ478PyrRiU1luzvx3i83dK0Z1vP7PKKWGGm
+         DUYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790437783; x=1791042583;
+        d=1e100.net; s=20260707; t=1790437790; x=1791042590;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Q30zsdAglVy5fQcIaWXAHFq5dI/FtpUN3Zb+euSKjCs=;
-        b=hKgXnsPKxlS38xmo2gb4Y1CjO8MxupRgKZYiqWilv5byVBY0R5m64km6fxvFHryFAZ
-         irxfw8ujNtJk4YqXKyJYuv/lAHnKV6a6VI4G6q43e2u6G3X9TChwu1tmL1EP9lATitiT
-         kdeU39zOicAs95UNlJk9myWOkYv+0Tc9ufDGTvHhh0eV9O7Xv1pQjtgzYKixDZrfE3AP
-         uO3H2QnkvcldzeOWZWrpdmlLaxSCOtk6dTxPiWDGsekoC0OR+eOOKaJleofko7XO9Bga
-         pf8wBqV8cWQ+08Rt8JsK4dp+5VjjUHBMbrvF2GisWSfoIlyUogk6ocZ441KozkpDlFd1
-         uwSA==
-X-Forwarded-Encrypted: i=1; AKwUvByldfA5lzoxZrjOmpy8JJVU2qE2q7tlY8NXSEWmeusJASNo7tcyxIfNvHDLkBJBJCIpGnOh99yuJaBiICo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCjknU3+nOSHzuX/McQBkitnx6KOfHyj7Tg2r2SaWPIecEG/Bt
-	7jNB0QtYGepDM0i7bAtyC9c0LpLq5fPoDwyHh2vxjwiC2kza4oF/N0mb
-X-Gm-Gg: AYBFou2ZV8d1TKI/ahU6Bm9D6y3ulBxZVV2pNRNd9lFMqbZZoBPMsPrKfoI96ThezGN
-	pfHMDpxse2yYGRcJGad4GU9PgaT38wZKdbzrJGnVljUvsOfFP102Yh960D3KdCv4k1O+ZeBMbeY
-	e68JgMzeaf9S2mt8f+l30SqQbCStTXUV4NN6AVP2CusTS1qwfDZjgpjhpYMgcuFh0TVxjUB4h4g
-	rW+3V4cP5+ASN7kZA0oZ3EttaIqDBgDPBLZnJ6rxr27WLgel4GFNuLXJByT6gemhJrszRq+fvTE
-	CbbFsgu0reblNelendLdc42RMQOb+UucYlCsJ6I2PQ3ebBI4OMAjkv/k9qislVUp6VTc9cLDedR
-	jAMoXV0wETwLRx2vyxdaMI6hnXM4RX1QOXXlJdFiX0WAqAGLbwkfEzCMxbWjoTJ4n0P7GN4+ZHe
-	XYPNtgZaHa1jekMIyFwiektoYCeF0cUADXeXlsTVTjtEAWmasEpup12eEvX3UzZ7m0CivDayizG
-	snB8kY4yC0lW/IzLNkV9fZQ4qPBBmV6/i9YPiLhQ/q5reMggWxk7ar8llGyiMaH6FHkjgytiTnX
-	G94LrG3WHFmuxQK7zqQg1UOOWstgL4aYLd1+miNnBC/rhH1lkJZ3ASwf3NAiTS5WjizEIWhRArj
-	2JOc8CS7iYpb+cFEjFVGz
-X-Received: by 2002:a05:6830:3887:b0:7f5:17:3f2a with SMTP id 46e09a7af769-8178317d7ddmr9815575a34.15.1790437783091;
-        Sat, 26 Sep 2026 08:49:43 -0700 (PDT)
+        bh=5KjS+S3ybo0qYcHE4tpSaMdCm52N9S5u9el69I6IvdE=;
+        b=UyTehbDSxxORM4BFvogWWEOUUcEpejp16iVmiubJuLvYP1mp4gE4Qi+wvnJ783fykc
+         2LueuGXMXa2EzKcGb7XwWl/2h/Y9s9twnjcrrN57TCx9Ps1mwyzYmAffO+SHCxgtIQK0
+         xGxedK7CrcFz+r2YdQLU5Cc65hBuEghRZiMg91Z+aLpXdTA+ulbinu/60EDViKhKpZCr
+         MyU/MRjSqnO0mxzKlFALd+ge9JSKhXgnQCaDOXNxraixMFUxAHEx63/uz6hI+NYKMiJA
+         g6IV+1Xaq86oG8jV/0FwQ+BuCa0AojGF3IGJnsCom/z4VQxPy8L6YhXPysTE5LwtIldT
+         IQdw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcPaJNs158VPe4HDIxZi8vfx+WUm5oGlDZ+1wSMWjEbkB/11H7BPFZlFGVA66eJ1S2Ii4RFmKAdhk19KA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyY381+vzYJdEMditlLx9BSeYnvyEbEuUoWga9NkKN58z780zQ
+	Wg//r4GWFs75+WDf+k+/JX7dj5rhzRiCWA9hXH1D4kIyS6C0MXSb0ZAJ
+X-Gm-Gg: AYBFou32uKDrbtbDEWW7ojoJtvfGExJtxh4bgHpJCb4U2pzBANj5HBgQ7QK5JWbyDnz
+	gLRfo+NwnDcUNqYxbEgYWFpd7alYVc1Jwdd/f33nuRfpz+4NDDNRFTDyUj0wKW1Q31EaCb98Opz
+	paaeSbZjC2an12S7nTMyDMQmToaSKoRskM8DK8O1x+Edt6cYdFNNGvNLgEDsJ/bTVzfrsLoRv6/
+	fTPTp79DYh1U72e6DfXafXZo3sx8BMQp3ZYuBmoW48r4hRcBFldKkUZ0Dr2SNJWzJWJXIo9QTa6
+	Tne9zcPGuJ20kgGBGDNv4A0wAV+kRNkSYf5oD14Jli6yRYDtqQP/NeprCL1sEg9npt8CuAqk6Bh
+	zYXTR8rNuBAlkpxAOqfFo3tpIh5kk2LxkMZY3CUrQ/NDnQZcX+vYBrJ+oO6V0MhS9X4CqAbb1LM
+	oiEky7sHZUa1oDkOjRKuol47UL3lg7MCG+56PBt6p6l4NPeOAFwXOgal8NBaGV/5klOghW5Pbwk
+	cZ84MQ/0KkaOstxBiUCTyq80fDHVm1TeYOw89SNZO1AaV0znVh0l9ZQswhFu6rT8D2QQVCRJfXB
+	w2ZBnu5w4R/USpzqltsC2DV1VVooE3MXsTXD4hdhXSEZbjs564scOeVO0aAwq2pTsRVrQ/HW+un
+	aHVjwk6x88QEDsXJDYt6j
+X-Received: by 2002:a05:6830:6b07:b0:811:72c5:bd19 with SMTP id 46e09a7af769-81783684b1bmr9913596a34.25.1790437789641;
+        Sat, 26 Sep 2026 08:49:49 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-818e98b16d4sm5442366a34.26.2026.09.26.08.49.40
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-818e98b16d4sm5442366a34.26.2026.09.26.08.49.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 08:49:42 -0700 (PDT)
+        Sat, 26 Sep 2026 08:49:49 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sat, 26 Sep 2026 09:49:06 -0600
-Subject: [PATCH net v4 11/15] net: stmmac: restore TC offloads before
- restarting DMA
+Date: Sat, 26 Sep 2026 09:49:09 -0600
+Subject: [PATCH net v4 14/15] net: stmmac: prepare device-local DMA
+ interrupt quiescence
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-submit-stmmac-reset-fixes-v1-v4-11-ec1c0250b3c9@gmail.com>
+Message-Id: <20260926-submit-stmmac-reset-fixes-v1-v4-14-ec1c0250b3c9@gmail.com>
 References: <20260926-submit-stmmac-reset-fixes-v1-v4-0-ec1c0250b3c9@gmail.com>
 In-Reply-To: <20260926-submit-stmmac-reset-fixes-v1-v4-0-ec1c0250b3c9@gmail.com>
 To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
@@ -120,620 +120,297 @@ Cc: Richard Genoud <richard.genoud@bootlin.com>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev
 X-Mailer: b4 0.15.2
 
-A DMA software reset loses MAC filters and the MTL gate schedule, not
-just the ring addresses. Restore those offloads during ordinary hardware
-setup and resume. The later live-XDP reset fallback and retained-ring
-MTU transaction will use the same restoration.
+Add DMA interrupt-mask accessors for the supported cores and a
+per-channel gate protected by the channel lock. A handler invoked on a
+shared IRQ can then mask newly enabled device sources without
+acknowledging pending events or touching rings being replaced.
 
-Keep the parsed L3/L4 rule rather than only its cookie. Program from
-that saved definition both when installing a rule and after reset. Do
-not publish a partially programmed replacement; restore the previous
-slot when installation fails. Keep runtime VLAN priorities in the
-existing queue configuration and replay EtherType steering and the
-configured preemption/TC mapping. Preserve the additional fragment size.
-
-Restore EST after the timestamp counter is usable, advancing its saved
-base time by whole cycles when necessary. Delay DMA start until filters,
-timestamp state and the gate schedule have been restored. Propagate a
-replay error through the existing rollback or detached recovery path.
-
-Build and validate TAPRIO replacements separately, including the PHC time
-read, and publish the saved schedule only after hardware setup succeeds.
-Keep the previous schedule on rejection and attempt to restore it after
-a programming error. A rejected first install must not leave an enabled
-zero-cycle cache for PHC adjustment or reset replay. Serialize schedule
-publication with those consumers under the PTP mutex.
+The retained-ring MTU transaction will save and restore these masks and
+synchronize the registered handlers. No interrupt-controller line needs
+to be disabled, so other devices sharing the IRQ remain serviceable.
 
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h      |   9 +
- drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c  |   1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  25 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c   | 286 +++++++++++++++-------
- 4 files changed, 226 insertions(+), 95 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c  | 11 ++++++++
+ .../net/ethernet/stmicro/stmmac/dwmac1000_dma.c    |  1 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac100_dma.c |  1 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   |  2 ++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h   |  2 ++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c   | 11 ++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h    |  2 ++
+ drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c    | 10 ++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 11 ++++++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  5 ++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  2 ++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 30 ++++++++++++++++------
+ 12 files changed, 80 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+index 422d3df21ed9..31bebb2a9bab 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+@@ -374,6 +374,16 @@ static void sun8i_dwmac_disable_dma_irq(struct stmmac_priv *priv,
+ 	writel(value, ioaddr + EMAC_INT_EN);
+ }
+ 
++static u32 sun8i_dwmac_set_dma_irq_mask(struct stmmac_priv *priv,
++					void __iomem *ioaddr, u32 chan, u32 mask)
++{
++	u32 old_mask = readl(ioaddr + EMAC_INT_EN);
++
++	writel(mask, ioaddr + EMAC_INT_EN);
++	readl(ioaddr + EMAC_INT_EN);
++	return old_mask;
++}
++
+ static void sun8i_dwmac_dma_start_tx(struct stmmac_priv *priv,
+ 				     void __iomem *ioaddr, u32 chan)
+ {
+@@ -579,6 +589,7 @@ static const struct stmmac_dma_ops sun8i_dwmac_dma_ops = {
+ 	.enable_dma_transmission = sun8i_dwmac_enable_dma_transmission,
+ 	.enable_dma_irq = sun8i_dwmac_enable_dma_irq,
+ 	.disable_dma_irq = sun8i_dwmac_disable_dma_irq,
++	.set_irq_mask = sun8i_dwmac_set_dma_irq_mask,
+ 	.start_tx = sun8i_dwmac_dma_start_tx,
+ 	.stop_tx = sun8i_dwmac_dma_stop_tx,
+ 	.start_rx = sun8i_dwmac_dma_start_rx,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
+index 4cb7e6c16bdd..2285eac69071 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
+@@ -264,6 +264,7 @@ const struct stmmac_dma_ops dwmac1000_dma_ops = {
+ 	.enable_dma_reception = dwmac_enable_dma_reception,
+ 	.enable_dma_irq = dwmac_enable_dma_irq,
+ 	.disable_dma_irq = dwmac_disable_dma_irq,
++	.set_irq_mask = dwmac_set_dma_irq_mask,
+ 	.start_tx = dwmac_dma_start_tx,
+ 	.stop_tx = dwmac_dma_stop_tx,
+ 	.start_rx = dwmac_dma_start_rx,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac100_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac100_dma.c
+index 5ffd3c1471c4..41579d10af3c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac100_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac100_dma.c
+@@ -118,6 +118,7 @@ const struct stmmac_dma_ops dwmac100_dma_ops = {
+ 	.enable_dma_transmission = dwmac_enable_dma_transmission,
+ 	.enable_dma_irq = dwmac_enable_dma_irq,
+ 	.disable_dma_irq = dwmac_disable_dma_irq,
++	.set_irq_mask = dwmac_set_dma_irq_mask,
+ 	.start_tx = dwmac_dma_start_tx,
+ 	.stop_tx = dwmac_dma_stop_tx,
+ 	.start_rx = dwmac_dma_start_rx,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+index fb0a4e156a7b..86b23ce39d6b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+@@ -580,6 +580,7 @@ const struct stmmac_dma_ops dwmac4_dma_ops = {
+ 	.dma_tx_mode = dwmac4_dma_tx_chan_op_mode,
+ 	.enable_dma_irq = dwmac4_enable_dma_irq,
+ 	.disable_dma_irq = dwmac4_disable_dma_irq,
++	.set_irq_mask = dwmac4_set_dma_irq_mask,
+ 	.start_tx = dwmac4_dma_start_tx,
+ 	.stop_tx = dwmac4_dma_stop_tx,
+ 	.start_rx = dwmac4_dma_start_rx,
+@@ -611,6 +612,7 @@ const struct stmmac_dma_ops dwmac410_dma_ops = {
+ 	.dma_tx_mode = dwmac4_dma_tx_chan_op_mode,
+ 	.enable_dma_irq = dwmac4_enable_dma_irq,
+ 	.disable_dma_irq = dwmac4_disable_dma_irq,
++	.set_irq_mask = dwmac4_set_dma_irq_mask,
+ 	.start_tx = dwmac4_dma_start_tx,
+ 	.stop_tx = dwmac4_dma_stop_tx,
+ 	.start_rx = dwmac4_dma_start_rx,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+index 9352107204eb..edccc09f0b03 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+@@ -184,6 +184,8 @@ void dwmac4_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			   u32 chan, bool rx, bool tx);
+ void dwmac4_disable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			    u32 chan, bool rx, bool tx);
++u32 dwmac4_set_dma_irq_mask(struct stmmac_priv *priv, void __iomem *ioaddr,
++			    u32 chan, u32 mask);
+ void dwmac4_dma_start_tx(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			 u32 chan);
+ void dwmac4_dma_stop_tx(struct stmmac_priv *priv, void __iomem *ioaddr,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+index 9af0565a9bca..477bdb081c52 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+@@ -155,6 +155,17 @@ void dwmac4_disable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 	writel(value, ioaddr + DMA_CHAN_INTR_ENA(dwmac4_addrs, chan));
+ }
+ 
++u32 dwmac4_set_dma_irq_mask(struct stmmac_priv *priv, void __iomem *ioaddr,
++			    u32 chan, u32 mask)
++{
++	const struct dwmac4_addrs *dwmac4_addrs = priv->plat->dwmac4_addrs;
++	u32 old_mask = readl(ioaddr + DMA_CHAN_INTR_ENA(dwmac4_addrs, chan));
++
++	writel(mask, ioaddr + DMA_CHAN_INTR_ENA(dwmac4_addrs, chan));
++	readl(ioaddr + DMA_CHAN_INTR_ENA(dwmac4_addrs, chan));
++	return old_mask;
++}
++
+ int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			 struct stmmac_extra_stats *x, u32 chan, u32 dir)
+ {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h
+index 970495bccfd2..4726801253f5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h
+@@ -150,6 +150,8 @@ void dwmac_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			  u32 chan, bool rx, bool tx);
+ void dwmac_disable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			   u32 chan, bool rx, bool tx);
++u32 dwmac_set_dma_irq_mask(struct stmmac_priv *priv, void __iomem *ioaddr,
++			   u32 chan, u32 mask);
+ void dwmac_dma_start_tx(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			u32 chan);
+ void dwmac_dma_stop_tx(struct stmmac_priv *priv, void __iomem *ioaddr,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+index bb907db8fca1..88d904ed4685 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+@@ -84,6 +84,16 @@ void dwmac_disable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 	writel(value, ioaddr + DMA_CHAN_INTR_ENA(chan));
+ }
+ 
++u32 dwmac_set_dma_irq_mask(struct stmmac_priv *priv, void __iomem *ioaddr,
++			   u32 chan, u32 mask)
++{
++	u32 old_mask = readl(ioaddr + DMA_CHAN_INTR_ENA(chan));
++
++	writel(mask, ioaddr + DMA_CHAN_INTR_ENA(chan));
++	readl(ioaddr + DMA_CHAN_INTR_ENA(chan));
++	return old_mask;
++}
++
+ void dwmac_dma_start_tx(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			u32 chan)
+ {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+index ff83858ebc1f..30915d3f5230 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+@@ -256,6 +256,16 @@ static void dwxgmac2_disable_dma_irq(struct stmmac_priv *priv,
+ 	writel(value, ioaddr + XGMAC_DMA_CH_INT_EN(chan));
+ }
+ 
++static u32 dwxgmac2_set_dma_irq_mask(struct stmmac_priv *priv,
++				     void __iomem *ioaddr, u32 chan, u32 mask)
++{
++	u32 old_mask = readl(ioaddr + XGMAC_DMA_CH_INT_EN(chan));
++
++	writel(mask, ioaddr + XGMAC_DMA_CH_INT_EN(chan));
++	readl(ioaddr + XGMAC_DMA_CH_INT_EN(chan));
++	return old_mask;
++}
++
+ static void dwxgmac2_dma_start_tx(struct stmmac_priv *priv,
+ 				  void __iomem *ioaddr, u32 chan)
+ {
+@@ -604,6 +614,7 @@ const struct stmmac_dma_ops dwxgmac210_dma_ops = {
+ 	.dma_tx_mode = dwxgmac2_dma_tx_mode,
+ 	.enable_dma_irq = dwxgmac2_enable_dma_irq,
+ 	.disable_dma_irq = dwxgmac2_disable_dma_irq,
++	.set_irq_mask = dwxgmac2_set_dma_irq_mask,
+ 	.start_tx = dwxgmac2_dma_start_tx,
+ 	.stop_tx = dwxgmac2_dma_stop_tx,
+ 	.start_rx = dwxgmac2_dma_start_rx,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index 3bc4d955ef5f..e1630e84e91d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -197,6 +197,9 @@ struct stmmac_dma_ops {
+ 			       u32 chan, bool rx, bool tx);
+ 	void (*disable_dma_irq)(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 				u32 chan, bool rx, bool tx);
++	/* Replace and flush the full interrupt enable mask; return the old mask. */
++	u32 (*set_irq_mask)(struct stmmac_priv *priv, void __iomem *ioaddr,
++			    u32 chan, u32 mask);
+ 	void (*start_tx)(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			 u32 chan);
+ 	void (*stop_tx)(struct stmmac_priv *priv, void __iomem *ioaddr,
+@@ -263,6 +266,8 @@ struct stmmac_dma_ops {
+ 	stmmac_do_void_callback(__priv, dma, enable_dma_irq, __priv, __args)
+ #define stmmac_disable_dma_irq(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, dma, disable_dma_irq, __priv, __args)
++#define stmmac_set_dma_irq_mask(__priv, __args...) \
++	stmmac_do_callback(__priv, dma, set_irq_mask, __priv, __args)
+ #define stmmac_start_tx(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, dma, start_tx, __priv, __args)
+ #define stmmac_stop_tx(__priv, __args...) \
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index b65f47db3c2e..6abb0d1d4095 100644
+index e15bab9accce..9e711acb81fb 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -151,6 +151,9 @@ struct stmmac_fpe_cfg {
- 	struct ethtool_mmsv mmsv;
- 	const struct stmmac_fpe_reg *reg;
- 	u32 fpe_csr;	/* MAC_FPE_CTRL_STS reg cache */
-+	u32 preemptible_tcs;
-+	u32 add_frag_size;
-+	bool mapping_configured;
+@@ -146,6 +146,8 @@ struct stmmac_channel {
+ 	struct stmmac_priv *priv_data;
+ 	spinlock_t lock;
+ 	u32 index;
++	/* Protected by lock; IRQ handlers must not access the DMA rings. */
++	bool irq_quiesced;
  };
  
- struct stmmac_tc_entry {
-@@ -194,6 +197,10 @@ struct stmmac_flow_entry {
- 	unsigned long cookie;
- 	unsigned long action;
- 	u8 ip_proto;
-+	u32 ip4_src;
-+	u32 ip4_dst;
-+	u16 port_src;
-+	u16 port_dst;
- 	int in_use;
- 	int idx;
- 	int is_l4;
-@@ -433,6 +440,8 @@ void stmmac_set_ethtool_ops(struct net_device *netdev);
- void stmmac_ptp_register(struct stmmac_priv *priv);
- void stmmac_ptp_unregister(struct stmmac_priv *priv);
- int stmmac_ptp_restore(struct stmmac_priv *priv);
-+int stmmac_tc_restore_filters(struct stmmac_priv *priv);
-+int stmmac_tc_restore_est(struct stmmac_priv *priv);
- int stmmac_xdp_open(struct net_device *dev);
- void stmmac_xdp_release(struct net_device *dev);
- int stmmac_get_phy_intf_sel(phy_interface_t interface);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
-index c889204a7aa5..067ea1f5134b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
-@@ -195,6 +195,7 @@ void stmmac_fpe_set_add_frag_size(struct stmmac_priv *priv, u32 add_frag_size)
- 	value = readl(ioaddr + reg->mtl_fpe_reg);
- 	writel(u32_replace_bits(value, add_frag_size, FPE_MTL_ADD_FRAG_SZ),
- 	       ioaddr + reg->mtl_fpe_reg);
-+	priv->fpe_cfg.add_frag_size = add_frag_size;
- }
- 
- #define ALG_ERR_MSG "TX algorithm SP is not suitable for one-to-many mapping"
+ struct stmmac_fpe_cfg {
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 618e01772ab8..edcb9a025385 100644
+index 4d70645c4a4f..08049c05ffc4 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3756,6 +3756,11 @@ static int stmmac_hw_setup(struct net_device *dev)
- 		if (ret)
- 			return ret;
- 	}
-+	ret = stmmac_tc_restore_filters(priv);
-+	if (ret)
-+		return ret;
-+	if (stmmac_fpe_supported(priv))
-+		stmmac_fpe_set_add_frag_size(priv, priv->fpe_cfg.add_frag_size);
+@@ -3267,14 +3267,30 @@ static bool stmmac_safety_feat_interrupt(struct stmmac_priv *priv)
  
- 	/* Initialize Safety Features */
- 	stmmac_safety_feat_configuration(priv);
-@@ -3818,9 +3823,6 @@ static int stmmac_hw_setup(struct net_device *dev)
- 		stmmac_enable_tbs(priv, priv->ioaddr, enable, chan);
- 	}
- 
--	/* Start the ball rolling... */
--	stmmac_start_all_dma(priv);
--
- 	phylink_rx_clk_stop_block(priv->phylink);
- 	stmmac_set_hw_vlan_mode(priv, priv->hw);
- 	phylink_rx_clk_stop_unblock(priv->phylink);
-@@ -4348,6 +4350,14 @@ static int __stmmac_open(struct net_device *dev,
- 	stmmac_init_coalesce(priv);
- 
- 	stmmac_vlan_restore(priv);
-+	mutex_lock(&priv->ptp_mutex);
-+	ret = stmmac_tc_restore_est(priv);
-+	mutex_unlock(&priv->ptp_mutex);
-+	if (ret)
-+		goto irq_error;
-+
-+	/* All reset-sensitive offloads must be installed before DMA runs. */
-+	stmmac_start_all_dma(priv);
- 
- 	ret = stmmac_request_irq(dev);
- 	if (ret)
-@@ -8722,10 +8732,14 @@ int stmmac_resume(struct device *dev)
- 		goto error_stop_dma;
- 	}
- 
--	stmmac_init_timestamping(priv);
- 	mutex_lock(&priv->ptp_mutex);
--	stmmac_block_ptp(priv, false);
-+	stmmac_init_timestamping(priv);
-+	ret = stmmac_tc_restore_est(priv);
-+	if (!ret)
-+		stmmac_block_ptp(priv, false);
- 	mutex_unlock(&priv->ptp_mutex);
-+	if (ret)
-+		goto error_stop_dma;
- 
- 	stmmac_init_coalesce(priv);
- 	phylink_rx_clk_stop_block(priv->phylink);
-@@ -8734,6 +8748,7 @@ int stmmac_resume(struct device *dev)
- 
- 	stmmac_vlan_restore(priv);
- 
-+	stmmac_start_all_dma(priv);
- 	stmmac_enable_all_queues(priv);
- 	stmmac_enable_all_dma_irq(priv);
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index 9ded65750e89..de254919f6ab 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -14,12 +14,17 @@
- static int tc_config_preemption(struct stmmac_priv *priv,
- 				struct netlink_ext_ack *extack, u32 preemptible_tcs)
+ static int stmmac_napi_check(struct stmmac_priv *priv, u32 chan, u32 dir)
  {
--	/* Qdisc teardown must not access unpowered registers. */
--	if (priv->hw_unavailable)
--		return 0;
-+	int ret = 0;
- 
--	return stmmac_fpe_map_preemption_class(priv, priv->dev, extack,
--					      preemptible_tcs);
-+	/* Qdisc teardown still clears the saved mapping after failed resume. */
-+	if (!priv->hw_unavailable)
-+		ret = stmmac_fpe_map_preemption_class(priv, priv->dev, extack,
-+						      preemptible_tcs);
-+	if (!ret) {
-+		priv->fpe_cfg.preemptible_tcs = preemptible_tcs;
-+		priv->fpe_cfg.mapping_configured = true;
-+	}
-+	return ret;
- }
- 
- static void tc_fill_all_pass_entry(struct stmmac_tc_entry *entry)
-@@ -519,31 +524,15 @@ static int tc_add_ip4_flow(struct stmmac_priv *priv,
- {
- 	struct flow_rule *rule = flow_cls_offload_flow_rule(cls);
- 	struct flow_dissector *dissector = rule->match.dissector;
--	bool inv = entry->action & STMMAC_FLOW_ACTION_DROP;
- 	struct flow_match_ipv4_addrs match;
--	u32 hw_match;
--	int ret;
- 
- 	/* Nothing to do here */
- 	if (!dissector_uses_key(dissector, FLOW_DISSECTOR_KEY_IPV4_ADDRS))
- 		return -EINVAL;
- 
- 	flow_rule_match_ipv4_addrs(rule, &match);
--	hw_match = ntohl(match.key->src) & ntohl(match.mask->src);
--	if (hw_match) {
--		ret = stmmac_config_l3_filter(priv, priv->hw, entry->idx, true,
--					      false, true, inv, hw_match);
--		if (ret)
--			return ret;
--	}
--
--	hw_match = ntohl(match.key->dst) & ntohl(match.mask->dst);
--	if (hw_match) {
--		ret = stmmac_config_l3_filter(priv, priv->hw, entry->idx, true,
--					      false, false, inv, hw_match);
--		if (ret)
--			return ret;
--	}
-+	entry->ip4_src = ntohl(match.key->src) & ntohl(match.mask->src);
-+	entry->ip4_dst = ntohl(match.key->dst) & ntohl(match.mask->dst);
- 
- 	return 0;
- }
-@@ -554,11 +543,7 @@ static int tc_add_ports_flow(struct stmmac_priv *priv,
- {
- 	struct flow_rule *rule = flow_cls_offload_flow_rule(cls);
- 	struct flow_dissector *dissector = rule->match.dissector;
--	bool inv = entry->action & STMMAC_FLOW_ACTION_DROP;
- 	struct flow_match_ports match;
--	u32 hw_match;
--	bool is_udp;
--	int ret;
- 
- 	/* Nothing to do here */
- 	if (!dissector_uses_key(dissector, FLOW_DISSECTOR_KEY_PORTS))
-@@ -566,10 +551,7 @@ static int tc_add_ports_flow(struct stmmac_priv *priv,
- 
- 	switch (entry->ip_proto) {
- 	case IPPROTO_TCP:
--		is_udp = false;
--		break;
- 	case IPPROTO_UDP:
--		is_udp = true;
- 		break;
- 	default:
- 		return -EINVAL;
-@@ -577,23 +559,46 @@ static int tc_add_ports_flow(struct stmmac_priv *priv,
- 
- 	flow_rule_match_ports(rule, &match);
- 
--	hw_match = ntohs(match.key->src) & ntohs(match.mask->src);
--	if (hw_match) {
--		ret = stmmac_config_l4_filter(priv, priv->hw, entry->idx, true,
--					      is_udp, true, inv, hw_match);
-+	entry->port_src = ntohs(match.key->src) & ntohs(match.mask->src);
-+	entry->port_dst = ntohs(match.key->dst) & ntohs(match.mask->dst);
+-	int status = stmmac_dma_interrupt_status(priv, priv->ioaddr,
+-						 &priv->xstats, chan, dir);
+-	struct stmmac_rx_queue *rx_q = &priv->dma_conf->rx_queue[chan];
+-	struct stmmac_tx_queue *tx_q = &priv->dma_conf->tx_queue[chan];
+ 	struct stmmac_channel *ch = &priv->channel[chan];
++	struct stmmac_rx_queue *rx_q;
++	struct stmmac_tx_queue *tx_q;
+ 	struct napi_struct *rx_napi;
+ 	struct napi_struct *tx_napi;
+ 	unsigned long flags;
++	int status;
 +
-+	entry->is_l4 = true;
-+	return 0;
-+}
-+
-+static int tc_config_flow(struct stmmac_priv *priv,
-+			  const struct stmmac_flow_entry *entry)
-+{
-+	bool inv = entry->action & STMMAC_FLOW_ACTION_DROP;
-+	bool udp = entry->ip_proto == IPPROTO_UDP;
-+	int ret;
-+
-+	/* Clear the whole slot, including matches removed by a replacement. */
-+	ret = stmmac_config_l3_filter(priv, priv->hw, entry->idx, false,
-+				      false, false, false, 0);
-+	if (ret || !entry->in_use)
-+		return ret;
-+	if (entry->ip4_src) {
-+		ret = stmmac_config_l3_filter(priv, priv->hw, entry->idx, true,
-+					      false, true, inv, entry->ip4_src);
- 		if (ret)
- 			return ret;
- 	}
--
--	hw_match = ntohs(match.key->dst) & ntohs(match.mask->dst);
--	if (hw_match) {
-+	if (entry->ip4_dst) {
-+		ret = stmmac_config_l3_filter(priv, priv->hw, entry->idx, true,
-+					      false, false, inv, entry->ip4_dst);
-+		if (ret)
-+			return ret;
-+	}
-+	if (entry->port_src) {
- 		ret = stmmac_config_l4_filter(priv, priv->hw, entry->idx, true,
--					      is_udp, false, inv, hw_match);
-+					    udp, true, inv, entry->port_src);
- 		if (ret)
- 			return ret;
- 	}
--
--	entry->is_l4 = true;
-+	if (entry->port_dst)
-+		return stmmac_config_l4_filter(priv, priv->hw, entry->idx, true,
-+					      udp, false, inv, entry->port_dst);
- 	return 0;
- }
- 
-@@ -629,6 +634,7 @@ static int tc_add_flow(struct stmmac_priv *priv,
- {
- 	struct stmmac_flow_entry *entry = tc_find_flow(priv, cls, false);
- 	struct flow_rule *rule = flow_cls_offload_flow_rule(cls);
-+	struct stmmac_flow_entry new = {};
- 	int i, ret;
- 
- 	if (!entry) {
-@@ -637,23 +643,33 @@ static int tc_add_flow(struct stmmac_priv *priv,
- 			return -ENOENT;
- 	}
- 
--	ret = tc_parse_flow_actions(priv, &rule->action, entry,
-+	new.idx = entry->idx;
-+	ret = tc_parse_flow_actions(priv, &rule->action, &new,
- 				    cls->common.extack);
- 	if (ret)
- 		return ret;
- 
- 	for (i = 0; i < ARRAY_SIZE(tc_flow_parsers); i++) {
--		ret = tc_flow_parsers[i].fn(priv, cls, entry);
-+		ret = tc_flow_parsers[i].fn(priv, cls, &new);
- 		if (!ret)
--			entry->in_use = true;
-+			new.in_use = true;
- 		else if (ret == -EOPNOTSUPP)
- 			return ret;
- 	}
- 
--	if (!entry->in_use)
-+	if (!new.in_use)
- 		return -EINVAL;
- 
--	entry->cookie = cls->cookie;
-+	ret = tc_config_flow(priv, &new);
-+	if (ret) {
-+		/* Do not publish a rule that was only partially programmed. */
-+		if (tc_config_flow(priv, entry))
-+			netdev_err(priv->dev, "failed to restore flower filter %d\n",
-+				   entry->idx);
-+		return ret;
-+	}
-+	new.cookie = cls->cookie;
-+	*entry = new;
- 	return 0;
- }
- 
-@@ -739,6 +755,8 @@ static int tc_add_vlan_flow(struct stmmac_priv *priv,
- 
- 		prio = BIT(match.key->vlan_priority);
- 		stmmac_rx_queue_prio(priv, priv->hw, prio, tc);
-+		priv->plat->rx_queues_cfg[tc].prio = prio;
-+		priv->plat->rx_queues_cfg[tc].use_prio = true;
- 
- 		entry->in_use = true;
- 		entry->cookie = cls->cookie;
-@@ -760,6 +778,8 @@ static int tc_del_vlan_flow(struct stmmac_priv *priv,
- 
- 	if (stmmac_tc_active(priv))
- 		stmmac_rx_queue_prio(priv, priv->hw, 0, entry->tc);
-+	priv->plat->rx_queues_cfg[entry->tc].prio = 0;
-+	priv->plat->rx_queues_cfg[entry->tc].use_prio = true;
- 
- 	entry->in_use = false;
- 	entry->cookie = 0;
-@@ -934,6 +954,45 @@ static int tc_setup_cls(struct stmmac_priv *priv,
- 	return ret;
- }
- 
-+int stmmac_tc_restore_filters(struct stmmac_priv *priv)
-+{
-+	int i, ret;
-+
-+	for (i = 0; i < priv->flow_entries_max; i++) {
-+		struct stmmac_flow_entry *entry = &priv->flow_entries[i];
-+
-+		if (!entry->in_use)
-+			continue;
-+		ret = tc_config_flow(priv, entry);
-+		if (ret)
-+			return ret;
-+	}
-+	for (i = 0; i < priv->rfs_entries_total; i++) {
-+		struct stmmac_rfs_entry *entry = &priv->rfs_entries[i];
-+
-+		if (!entry->in_use)
-+			continue;
-+		switch (entry->type) {
-+		/* VLAN priorities are replayed by stmmac_mtl_configuration(). */
-+		case STMMAC_RFS_T_VLAN:
-+			break;
-+		case STMMAC_RFS_T_LLDP:
-+			stmmac_rx_queue_routing(priv, priv->hw, PACKET_DCBCPQ,
-+						entry->tc);
-+			break;
-+		case STMMAC_RFS_T_1588:
-+			stmmac_rx_queue_routing(priv, priv->hw, PACKET_PTPQ,
-+						entry->tc);
-+			break;
-+		}
-+	}
-+	/* The XGMAC callback also restores the runtime TC-to-queue mapping. */
-+	if (priv->fpe_cfg.mapping_configured)
-+		return tc_config_preemption(priv, NULL,
-+					    priv->fpe_cfg.preemptible_tcs);
-+	return 0;
-+}
-+
- struct timespec64 stmmac_calc_tas_basetime(ktime_t old_base_time,
- 					   ktime_t current_time,
- 					   u64 cycle_time)
-@@ -957,7 +1016,37 @@ struct timespec64 stmmac_calc_tas_basetime(ktime_t old_base_time,
- 	return time;
- }
- 
--static void tc_taprio_map_maxsdu_txq(struct stmmac_priv *priv,
-+/* Called after timestamp setup and before DMA starts, with ptp_mutex held.
-+ * The PHC can still be blocked while reset state is being restored.
-+ */
-+int stmmac_tc_restore_est(struct stmmac_priv *priv)
-+{
-+	struct stmmac_est *est = priv->est;
-+	struct timespec64 base;
-+	unsigned long flags;
-+	u64 now, cycle;
-+	int ret;
-+
-+	if (!est || !est->enable)
++	spin_lock_irqsave(&ch->lock, flags);
++	if (unlikely(ch->irq_quiesced)) {
++		/* A shared IRQ may still invoke us, and DMA initialization can
++		 * restore interrupt enables. Mask them again without acknowledging
++		 * pending events or accessing the configuration being replaced.
++		 */
++		stmmac_set_dma_irq_mask(priv, priv->ioaddr, chan, 0);
++		spin_unlock_irqrestore(&ch->lock, flags);
 +		return 0;
-+	mutex_lock(&priv->est_lock);
-+	read_lock_irqsave(&priv->ptp_lock, flags);
-+	ret = stmmac_get_systime(priv, priv->ptpaddr, &now);
-+	read_unlock_irqrestore(&priv->ptp_lock, flags);
-+	if (ret)
-+		goto out;
-+	cycle = (u64)est->ctr[1] * NSEC_PER_SEC + est->ctr[0];
-+	base = stmmac_calc_tas_basetime(ktime_set(est->btr_reserve[1],
-+						  est->btr_reserve[0]), now, cycle);
-+	est->btr[0] = base.tv_nsec;
-+	est->btr[1] = base.tv_sec;
-+	ret = stmmac_est_configure(priv, priv, est, priv->plat->clk_ptp_rate);
-+out:
-+	mutex_unlock(&priv->est_lock);
-+	return ret;
-+}
++	}
++	spin_unlock_irqrestore(&ch->lock, flags);
 +
-+static void tc_taprio_map_maxsdu_txq(struct stmmac_est *est,
- 				     struct tc_taprio_qopt_offload *qopt)
- {
- 	u32 num_tc = qopt->mqprio.qopt.num_tc;
-@@ -974,7 +1063,7 @@ static void tc_taprio_map_maxsdu_txq(struct stmmac_priv *priv,
- 		count = qopt->mqprio.qopt.count[i];
++	status = stmmac_dma_interrupt_status(priv, priv->ioaddr,
++					     &priv->xstats, chan, dir);
++	rx_q = &priv->dma_conf->rx_queue[chan];
++	tx_q = &priv->dma_conf->tx_queue[chan];
  
- 		for (j = offset; j < offset + count; j++)
--			priv->est->max_sdu[j] = qopt->max_sdu[i] + ETH_HLEN - ETH_TLEN;
-+			est->max_sdu[j] = qopt->max_sdu[i] + ETH_HLEN - ETH_TLEN;
- 	}
- }
- 
-@@ -984,8 +1073,9 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 	u32 size, wid = priv->dma_cap.estwid, dep = priv->dma_cap.estdep;
- 	struct netlink_ext_ack *extack = qopt->mqprio.extack;
- 	struct timespec64 time, current_time, qopt_time;
-+	struct stmmac_est *est;
- 	ktime_t current_time_ns;
--	int err, i, ret = 0;
-+	int i, ret;
- 	u64 ctr;
- 
- 	if (qopt->base_time < 0)
-@@ -1040,34 +1130,27 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 	if (qopt->cycle_time_extension >= BIT(wid + 7))
- 		return -ERANGE;
- 
--	if (!priv->est) {
--		priv->est = devm_kzalloc(priv->device, sizeof(*priv->est),
--					 GFP_KERNEL);
--		if (!priv->est)
--			return -ENOMEM;
--
--		mutex_init(&priv->est_lock);
--	} else {
--		mutex_lock(&priv->est_lock);
--		memset(priv->est, 0, sizeof(*priv->est));
--		mutex_unlock(&priv->est_lock);
--	}
-+	/* Build the replacement without changing the installed schedule. An
-+	 * entry rejected below must not leave an enabled, zero-cycle cache for
-+	 * PHC adjustment or reset replay to consume.
-+	 */
-+	est = kzalloc_obj(*est);
-+	if (!est)
-+		return -ENOMEM;
- 
- 	size = qopt->num_entries;
--
--	mutex_lock(&priv->est_lock);
--	priv->est->gcl_size = size;
--	priv->est->enable = qopt->cmd == TAPRIO_CMD_REPLACE;
--	mutex_unlock(&priv->est_lock);
-+	est->gcl_size = size;
-+	est->enable = true;
- 
- 	for (i = 0; i < size; i++) {
- 		s64 delta_ns = qopt->entries[i].interval;
- 		u32 gates = qopt->entries[i].gate_mask;
- 
--		if (delta_ns > GENMASK(wid - 1, 0))
--			return -ERANGE;
--		if (gates > GENMASK(31 - wid, 0))
--			return -ERANGE;
-+		if (delta_ns > GENMASK(wid - 1, 0) ||
-+		    gates > GENMASK(31 - wid, 0)) {
-+			ret = -ERANGE;
-+			goto free_est;
-+		}
- 
- 		switch (qopt->entries[i].command) {
- 		case TC_TAPRIO_CMD_SET_GATES:
-@@ -1079,47 +1162,69 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 			gates &= ~BIT(0);
- 			break;
- 		default:
--			return -EOPNOTSUPP;
-+			ret = -EOPNOTSUPP;
-+			goto free_est;
+ 	rx_napi = rx_q->xsk_pool ? &ch->rxtx_napi : &ch->rx_napi;
+ 	tx_napi = tx_q->xsk_pool ? &ch->rxtx_napi : &ch->tx_napi;
+@@ -3995,8 +4011,7 @@ static void stmmac_free_irq(struct net_device *dev,
+ 		for (j = irq_idx - 1; msi && j >= 0; j--) {
+ 			if (msi->tx_irq[j] > 0) {
+ 				irq_set_affinity_hint(msi->tx_irq[j], NULL);
+-				free_irq(msi->tx_irq[j],
+-					 &priv->channel[j]);
++				free_irq(msi->tx_irq[j], &priv->channel[j]);
+ 			}
+ 		}
+ 		irq_idx = priv->plat->rx_queues_to_use;
+@@ -4005,8 +4020,7 @@ static void stmmac_free_irq(struct net_device *dev,
+ 		for (j = irq_idx - 1; msi && j >= 0; j--) {
+ 			if (msi->rx_irq[j] > 0) {
+ 				irq_set_affinity_hint(msi->rx_irq[j], NULL);
+-				free_irq(msi->rx_irq[j],
+-					 &priv->channel[j]);
++				free_irq(msi->rx_irq[j], &priv->channel[j]);
+ 			}
  		}
  
--		priv->est->gcl[i] = delta_ns | (gates << wid);
-+		est->gcl[i] = delta_ns | (gates << wid);
- 	}
- 
--	mutex_lock(&priv->est_lock);
- 	/* Adjust for real system time */
--	priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
-+	ret = priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
-+	if (ret)
-+		goto free_est;
- 	current_time_ns = timespec64_to_ktime(current_time);
- 	time = stmmac_calc_tas_basetime(qopt->base_time, current_time_ns,
- 					qopt->cycle_time);
- 
--	priv->est->btr[0] = (u32)time.tv_nsec;
--	priv->est->btr[1] = (u32)time.tv_sec;
-+	est->btr[0] = (u32)time.tv_nsec;
-+	est->btr[1] = (u32)time.tv_sec;
- 
- 	qopt_time = ktime_to_timespec64(qopt->base_time);
--	priv->est->btr_reserve[0] = (u32)qopt_time.tv_nsec;
--	priv->est->btr_reserve[1] = (u32)qopt_time.tv_sec;
-+	est->btr_reserve[0] = (u32)qopt_time.tv_nsec;
-+	est->btr_reserve[1] = (u32)qopt_time.tv_sec;
- 
- 	ctr = qopt->cycle_time;
--	priv->est->ctr[0] = do_div(ctr, NSEC_PER_SEC);
--	priv->est->ctr[1] = (u32)ctr;
-+	est->ctr[0] = do_div(ctr, NSEC_PER_SEC);
-+	est->ctr[1] = (u32)ctr;
- 
--	priv->est->ter = qopt->cycle_time_extension;
-+	est->ter = qopt->cycle_time_extension;
- 
--	tc_taprio_map_maxsdu_txq(priv, qopt);
-+	tc_taprio_map_maxsdu_txq(est, qopt);
- 
--	ret = stmmac_est_configure(priv, priv, priv->est,
--				   priv->plat->clk_ptp_rate);
--	mutex_unlock(&priv->est_lock);
-+	if (!priv->est) {
-+		priv->est = devm_kzalloc(priv->device, sizeof(*priv->est),
-+					 GFP_KERNEL);
-+		if (!priv->est) {
-+			ret = -ENOMEM;
-+			goto free_est;
-+		}
-+		mutex_init(&priv->est_lock);
-+	}
-+
-+	mutex_lock(&priv->est_lock);
-+	ret = stmmac_est_configure(priv, priv, est, priv->plat->clk_ptp_rate);
- 	if (ret) {
- 		netdev_err(priv->dev, "failed to configure EST\n");
--		goto disable;
-+		goto restore;
- 	}
- 
- 	ret = tc_config_preemption(priv, extack, qopt->mqprio.preemptible_tcs);
- 	if (ret)
--		goto disable;
-+		goto restore;
- 
--	return 0;
-+	*priv->est = *est;
-+	mutex_unlock(&priv->est_lock);
-+free_est:
-+	kfree(est);
-+	return ret;
-+
-+restore:
-+	/* A failed hardware update must not publish the rejected schedule. */
-+	if (stmmac_est_configure(priv, priv, priv->est, priv->plat->clk_ptp_rate))
-+		netdev_err(priv->dev, "failed to restore EST\n");
-+	mutex_unlock(&priv->est_lock);
-+	goto free_est;
- 
- disable:
- 	if (priv->est) {
-@@ -1137,9 +1242,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 		mutex_unlock(&priv->est_lock);
- 	}
- 
--	err = tc_config_preemption(priv, extack, 0);
--
--	return qopt->cmd == TAPRIO_CMD_DESTROY ? err : ret;
-+	return tc_config_preemption(priv, extack, 0);
- }
- 
- static void tc_taprio_stats(struct stmmac_priv *priv,
-@@ -1180,7 +1283,10 @@ static int tc_setup_taprio(struct stmmac_priv *priv,
- 	switch (qopt->cmd) {
- 	case TAPRIO_CMD_REPLACE:
- 	case TAPRIO_CMD_DESTROY:
-+		/* Serialize cache publication with PHC adjustment and reset replay. */
-+		mutex_lock(&priv->ptp_mutex);
- 		err = tc_taprio_configure(priv, qopt);
-+		mutex_unlock(&priv->ptp_mutex);
- 		break;
- 	case TAPRIO_CMD_STATS:
- 		tc_taprio_stats(priv, qopt);
 
 -- 
 2.53.0
