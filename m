@@ -1,60 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF545315D53;
-	Sat, 26 Sep 2026 02:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790390295; cv=none; b=cYC8jicxlEMpivJEGfDwWmO6t1vFhjEF/IAgz8uhr8VQiBYvv810aTv5EHWK6fGd+deOGErxxnUE3yx0VRECpNERQWqxGaSwpb7y+SbYLnavKOidTO5e+lo9/CbMTN0OGLqaBIar8QUimJb+L5I8x58/6WS1N8ERSc6zWiZ/FpI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790390295; c=relaxed/simple;
-	bh=3kb80s3lg/5IlmooEWsOA8wvRHkzTI8u3lF5VCCh02g=;
-	h=To:Cc:Subject:From:In-Reply-To:Message-ID:References:Date:
-	 MIME-Version:Content-Type; b=Lql1X29uz09PM6yPT6FbRk0j3da6pgud0z9QyJTB1PMlbQD7lEplkrPw9JMzeisVBVWZKGcm0bNgnhna4cBJ7dHPNbwaqvOdz2u8uLacjtTUqTw96X//9AogDi8k4R/giYDcs6YlNgWv3HBiDdeO6f23F2MpvtoXfvoOcIJby7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmEScZiQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37691632E7;
+	Sat, 26 Sep 2026 02:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790390728; cv=pass; b=dDS85irPQ9OrDd4XFhmmBvt3Yc1l8ZEg0Jy+w4Px5H6YZP6SrBKW2Dkt8er4gtYDWBvbHEw7hj4TBZaG+7uEM6ZiNab3mkIfIL7rf6fe1aA5zhorldRQs8mibjzFv/0vPsirr5TEFEpQ+cvaeoJNhGn1KY8SEepbuaCQ/JiAjYc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790390728; c=relaxed/simple;
+	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=JJokTWdvM9Nl7laKNxer0Ub2f5NE4991Qp76cV1vvpuXfsGhR8eOhe3mXy035ZbvJ1v5xJV0bgBcx3oAqM5rXnlERj+b2PwM7Zd/ph/i4fzhtqHh2OzqO5AaeKexsMFJMw4GLDhp37R9RKM4UX1s2m/Vj9uFuP8l9uuqMJYKhbk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=D0kFkN2H; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmEScZiQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411291F000FF;
-	Sat, 26 Sep 2026 02:38:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790390294;
-	bh=tRefiV1w6pAG18rm1EoIHBCOfs55oCyFjLuuiqF32k8=;
-	h=To:Cc:Subject:From:In-Reply-To:References:Date;
-	b=kmEScZiQ/aTdEzhqD8h8LDhbCJ8Gvs2haPa/4aFPTatZU/NmVOHba8SCSlGX79Eri
-	 E71iU7UjjdPpIYSWLAnc/HWu3yqHMPYbun7AX0dPfYmM/KMq8Oje/FbmBAYnMcVK9T
-	 CbsS0jNuEuNCOMMD7h6UnzamtHwXEFD/zU6azltOjLne0QQ0vFY81Dg0turuRJVFnD
-	 9uV5Nvi2yoN/MHSmE4NNvtuPjZQg2jIauJHahhyQKFF4zK9y7zFUuISD0hsQMpfrr2
-	 y/xQ9gDe6kYrHXRJZmXyBV44zpuAhzKrLJUH9jp4LBede2bIQvLjTVVqKqFnmnAVMZ
-	 EKWNoY6sjTX2Q==
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,  Manivannan
- Sadhasivam <mani@kernel.org>,  "James E . J . Bottomley"
- <James.Bottomley@hansenpartnership.com>,  linux-arm-msm@vger.kernel.org,
-  linux-scsi@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ufs: host: qcom: Enable MCQ support for sa8255p
-From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-In-Reply-To: <aqyZKy1gMnHud4Vy@QCOM-aGQu4IUr3Y>
-Message-ID: <yq18q4opwj9.fsf@mail.kernel.org>
-References: <20260728051104.675088-1-shengchao.guo@oss.qualcomm.com>
-	<aqyZKy1gMnHud4Vy@QCOM-aGQu4IUr3Y>
-Date: Fri, 25 Sep 2026 22:38:13 -0400
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="D0kFkN2H"
+ARC-Seal: i=1; a=rsa-sha256; t=1790390697; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=kZ/avIoaWPHy8OoF9IcRpPcr+dqlSw2hpkLovlengxgzh6le9OGMeNaPvSzkrDeGPYWgt9nA2T2QkpUaykLZ9h6R/IAQTiBYnvI/4EHjySFBoXwHBhw58H+f5KubM3U3rBhoh9g06rzBrZfbaFIthCT873JFjTMaLHwwlOivS8o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790390697; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; 
+	b=ffxpmLi12Yk7RVgAyqN214iiqKIKY9v2yXNaCnczWR3/lD32Hd6daCRMQ2H8U8dFOeDoPqahI17StO6igi7t8yk4ZhsoGnASVkyL704tSLNovJyPPRBB1fzlGToiiV5SE3UGQqA7ghq/AtUoH80fmkgbz2hQ5phtKdm2iTVhCac=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790390697;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
+	b=D0kFkN2H//ZpbVgEHnCU4mb+feyLHQ6FRG3uW0nwLaVtfDOIl/arbKFh8bgM+sIq
+	7t/MV57vWJO4PGl6d2jeneUhjTHStucTv2hzcJJ/eql0AkgHLuQmPI3KUZTFYoumI7h
+	1OzP4Kex5WweerZcBXqO08Gc4UYpAfj7slNblQ/I=
+Received: by smtp.zohomail.com with SMTPS id 1790390696617100.96788790495134;
+	Fri, 25 Sep 2026 19:44:56 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH v3 2/2] drm/tyr: safely write GpuInfo to userspace
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260925-b4-gpu_info_intobytes-v3-2-e19bcb71980d@collabora.com>
+Date: Fri, 25 Sep 2026 23:44:39 -0300
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <08520F3C-9FFC-4EB3-9DFE-4FFEBF14B041@collabora.com>
+References: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
+ <20260925-b4-gpu_info_intobytes-v3-2-e19bcb71980d@collabora.com>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-
-Shawn,
-
->> The sa8255p vops (fw-managed variant) was missing the MCQ hooks, causing
->> the driver to silently fall back to SDB mode even when MCQ resource is
->> available. Wire up the same MCQ ops used by the standard qcom vops,
->> so that MCQ mode works on sa8255p.
-
-Applied to 7.4/scsi-staging, thanks!
-
--- 
-Martin K. Petersen
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
