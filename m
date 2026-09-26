@@ -1,185 +1,165 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8425921767D
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.235
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790395021; cv=pass; b=gITBjoDNOY5sRCOkvRd4oNKyPxb2AuRnYmFP8IjVwd/jpyuQiJmqQquGdTusRVFPdNUtPihHmVQKIPLiz2H1ATJNXkZF34fpQx33uyQAQs1KZbwS64NwDgxBKuameJAXWnVdmM3gjBitVaayX6WLrkczhMVB3cLSa24x3f3lMTs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790395021; c=relaxed/simple;
-	bh=kZy9FlRDjUea/4cavqBXm9PiQeLiuh2i8j3p75iGMn0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jsICqzS28xORa3r69NRmz38yQj2p2tgHCZS3L3dii8tMo3NzzUf2wNUZtdN9VgYL4KFU0ubLWqpzXz7BmCDa7Jgotr+YypfYniXOSf5O2o/ttoVRrsiIIvJ+neWLhZTHQKsTDtOiVabaB1yY5gPTGN9NYTPVAtDWUnx4BHe2C2M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rGIRSrWV; arc=pass smtp.client-ip=74.125.226.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBFF21767D
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:58:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790395103; cv=none; b=oVWh592iX1xfUjjrt247fgmgBZlXZ6QsoLaI2zmVkG/cQl8+/RLJ6GywCNTrHqL/LkhotY7V6kXlIQbYJDyp8ADK5DKQw65AgW4q/tup5kgTGnRdxjjjozVICX5WHo+kIubqkUEl9jkDKmFJhXY7zbt6V9kbCF6tlryD2ooekX8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790395103; c=relaxed/simple;
+	bh=3T0fIXqcvXOZV/S7e3pt0pv9VnXxwiBuxeb/dP/F3bU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ci27ynmhdUxKIUWBr4OFxdLnx6fKigbsgpCzT47pX5aSTlX4yjXZ5hxxq0UP29LuRYRVvjMZQU7BisdcA2kV51rUI3OQa7v7kRXWby5ZMTNxviJ9jGVe69v5igaQBSSVwXrhk4W6bGvwANxf7/+ycMsGZEUdKaJ1354pWaWzZeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pb+9Dv/d; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rGIRSrWV"
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-98334af2ca0so508249241.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:56:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790395018; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sQDtO0XdaTw7RSiexfOAJ0NMOfBJZ0o2vX7Bf/ymfXN8n50cQEBCvr46wRqK7+Xhlf
-         JH0x8F0IMg2HQGkhSnyeLvxFa2GOfvsnACjKqVtG7KoxnoTu/Q1wBkk+LlZSnyTfgqvp
-         XQyuLS8T4mMIes7WlMU3uU5G4iSAIlTGMTepDinzLmyUaKUU9XUTQ0EK/R9ajYri/ly1
-         5yRfL2tlvLqtQw+7N+bbWtkc24mnlM5lr2lhd/ZtEbruCoMqgEzsPeY59AIsc8afoHwS
-         U9scN5XehdadmBZQsB8emZ6XAWBD3gEQsV2m42t+qfzmFtFz4suTmN7LOpliWSQpD413
-         fD0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=31bXx9DDYtYaMyGphvOilRAP9jmRVAn7WJ7/Gygm+I4=;
-        fh=YDchlwIcxYCkrxptav/nQOTwLfAtEV31FOnGGBuwaFo=;
-        b=CeEwv9dgvznQDwLyS5hoLUiX6lp9ZOwEo4vGbZ5BwG5qSjwIVKBFsiz1S+9IQZMhLl
-         H26XFYY104zogiVjaJxAFHujZRbBkjGW2xhCMP43mA0gVwIuWCipuCcMeIOd2xSZIEe6
-         7X0i+VvkA1zt0iAGFzjiVq99UGCYPNkyzZxofeYf5l/qvZMlkxs2fKwMH7ACAjwkwf2z
-         Sgi8pExjleJynXTS1hPptGpJiYvpxH5boA55DctHFMJpzvmIMGl1wMcwl1iwaZpT7TDV
-         +jbd54MwUP81GGTKHsGHwaF+xA+TWCL4dfomoUulJB4cItY8gO/S7uYR84Lin0CJuxfN
-         gmmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pb+9Dv/d"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3413069aa25so839488eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:58:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790395018; x=1790999818; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=31bXx9DDYtYaMyGphvOilRAP9jmRVAn7WJ7/Gygm+I4=;
-        b=rGIRSrWVGL8wlG5UhqAbQoK+F7yZOaNmc9nLdr4Jcac2tQr22wQDB1r3Vx+7aFJ693
-         HDQT7ITvxNmAGSX7dFMFDeagsz6AyUCD7LtY82rYgqL9RCOxm4vleGeWruEY+Fpi2q0H
-         69Me0ZVT+136JVQBHGWzqphA2NoBrifKcJ3oao7LMtxa+QiccmHPjSh78RyjhSqvVOMl
-         28QaEBZYBZhGFHnMfqGA774hIykG0b56sGRkG3A34wIdoA8Q9j8YaNChwSzCW0Y0mDvq
-         J9dM7niD5sDpOEUePPotRlMRd/4Hgc6lgf4pJ+UQoZYU2XeEli4yPXkYBVkpjI6hhrYP
-         PEWA==
+        d=gmail.com; s=20251104; t=1790395101; x=1790999901; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=feSWp0FeA2kSuVMH2CMgZ8PGvP6pWP5LzQDclYVaTIQ=;
+        b=pb+9Dv/dz1Zy86ezAMT2uUH5GWa9og67AGQjgAINdGFDgvMOSB30SoKdkRvoy6S6Ih
+         B/b28wOuhUnBRrnmSZK1ZQmgBsiGTbf1s65PUCZ6Y8Y+TKDApfbwLvKqzg/bYWFRQuyg
+         ezWE0kEUoXjvIDb+R9bciICm+zKKTBwx2T3s33fwaLH3giQCCzNC2eEfx/TRKqNidt2W
+         U2TBQMfsENiWUTgPjru63ODjd7TcJBZaQqRA8KtkB+1hTxAJlcK+V81ZFd6RZCAQZKXd
+         YwSQiO24bXMgVop+c+9KPiKKvBKS5HdSe2dSoB51cdGtY8SMkPGchbSm3JCJ0/1Jw8YU
+         3lRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790395018; x=1790999818;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=31bXx9DDYtYaMyGphvOilRAP9jmRVAn7WJ7/Gygm+I4=;
-        b=Qr1R0mznMQpyJo3r0XT+ExzLbPFHCUvkux+TRU1SRNnMBPHs+UR67KXNFp/5X3qLQ6
-         C3hW82JJRt2L+DfQMi6q2h9ktD/m5/ynL1CM5Wp+2VimkHA4HLY0422C6vyJ/4rW3kpk
-         OjhfskUoGEXc6wE56lFkpwPcFLLOfbGnBqmlOgzCBnmDWWQeQUesUHvtU/KdRYTS3GDK
-         k94mv1t/wmnoOK0elG+KZK9Jk+PI5W1rmA1FTuLrJ3LqdJ9+dL5KagF2zzIFtVYX9DqL
-         Nz9j2Djn5Dibeo6Znv3l6RR0exGiYdHvfYZK35iiLE5kCE+QXD2wP2ekpgbWYjYqkut8
-         f12g==
-X-Forwarded-Encrypted: i=1; AKwUvBzPRpgE47bymIQ+/ittLSS3Iw4h3Gl54fodxiwOtkKi0tEljMzZn+0fj1XHvONh/YzXRC2WtVzA3lfg4b4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEXjnrnOmeoOOEmCvq11VjqkRPC09e2JhR6zyRTr5Dsy7GuIyW
-	7fFxIy/1tvhZSXK/3B8iQvzI2M/+dfi5Ht+ODRIFWN+4NG2Cih5t9gMWLFozaGzlqvRGtHCdUvM
-	1FYtrFnXPH8RUYlivFZ8rapqPKU8cFALO5D4OsRU=
-X-Gm-Gg: AYBFou2NRLxH2A9LSA9zOuZjSN1S1S9EZwEQyqjilHYeKpNr2oLZZQ5+vY4XprjYxuw
-	abXRqd7UUfB4eWf3GkXBmLEkGh5ucrqn2UhPYle1NkMoYV/n1nVzcSz2TXFEKeYwHJiRNVWBVQz
-	j8B7ewmLskQFdmiLnGLZdFVuGa2Dz/U3q/qMWADGeb7AMC2jzQmFn5CNxHlG7ghRmcSWmHa8uh9
-	maVQZ/ViDQMYO5ltPVPB2No8YK6BM0dVZtTVICcAw/BNaUC9WQdwpykVQxEaTulyZOo3B8enDnD
-	Og5rvb8yZSiC5aOwKD/nx3ARmq8Bmxbus1TKlO4B5xsfUrhMYa4iB9H1HVenJ9UkfDRmbsIE4Wp
-	5EWX31GxwbnXeXwjaohI4
-X-Received: by 2002:a05:6102:512b:b0:7b3:5cb7:49 with SMTP id
- ada2fe7eead31-7b35cc64b1emr468961137.31.1790395017546; Fri, 25 Sep 2026
- 20:56:57 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790395101; x=1790999901;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=feSWp0FeA2kSuVMH2CMgZ8PGvP6pWP5LzQDclYVaTIQ=;
+        b=JZXsnFb6VNhUyOY71gbpNQe6Hwk86NaAypkSAwBLiO0aeCdbY18RINc5EbsA67Fikq
+         Fz+MtrcdzCWSj2+iO4HHIIiRIKNLGQtY/NBHBkhguhOHQTrKI8lTvUg1SEGaKywFkZzc
+         yhIJ8UvDrEa92pRgCbom1ofHjTXS9j4oju72zIdjm6LT7jaK3TWfctzGsKl8KbPbvzvP
+         j7krhCbuUhD6OJCx1xdEfR4hu7wBcHV6NvC2+5YXwGroSzrsmAbd46bIt8LN/4p+XbxE
+         aIIUkMFqpzEUMTHERYWwY54bb0bYUimbd5bRRXLGbq2LGJgO17c6tUL22lQZ1PzLckoc
+         F6JA==
+X-Gm-Message-State: AFuF++lE+EW0idYnJMzLUbaKjgX2rrkM6M9OroVj8zKJuMvOqEijrUTz
+	porcMkztfbhUkbHOCEQLhZPqKZiIgYu5B628tbdpeoDQ7r7WfGu8i5Zx
+X-Gm-Gg: AYBFou0UAdM3huvCLJnplBBhTgqXr1k/2+osAt9McUHTNovjyXXDxTFjPzER505vHMr
+	Eifaj0L2kC9Es5vPMbxpTzbN133jY9kUv9z93NwcJyhgzR4RbP0y0yXT6EsskYM9CnmL1A0vkN8
+	VsQOsdVgKwV2P7UPH0HSJnefYO/cuYDFYhmoJD3Hisp8Dn1kL6QKC3SkAA77pgCYzCAsacRYu2T
+	msz/2wezlRafs2pJa+wJdNS1/MVP4uYbUwonWsGq7t6EK5x1H47qJehp3RGN0KcnC9CCBFlTmp2
+	rzStOD5LHcDZCNbq+Mr5pwHEP95NbNwuHHdWCWW7ubVpCZ7K9BAsTm1IOlBAV7TCvbIg/F9jg68
+	2z8msX6SvQR40d20VDF2QougCBjA/W+273FbUMYazCXuCaYBPzl+wGFwKFcGziKwvKa6NdEuZ+Q
+	7JSCMoMNbYfuAxNNijbiBssjOv//Mt/THG6BFmut/XH11AxZSvYzGVTunhQXMWQB82jpHp64TDx
+	pi5NOqGZSUz0A==
+X-Received: by 2002:a05:7301:1448:b0:342:6595:d750 with SMTP id 5a478bee46e88-342711aadcdmr1815588eec.2.1790395100853;
+        Fri, 25 Sep 2026 20:58:20 -0700 (PDT)
+Received: from Modern-15.. ([2401:4900:8206:fc0b:ca44:7562:7898:358b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-343539989casm364689eec.14.2026.09.25.20.58.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 20:58:20 -0700 (PDT)
+From: mathura kumar <mathura.kumar.tech@gmail.com>
+To: brauner@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	corbet@lwn.net,
+	mathura.kumar.tech@gmail.com
+Subject: [PATCH v5 0/4] Add two new system call mq_recvmmsg() and mq_sendmmsg() to posix ipc mqueue
+Date: Sat, 26 Sep 2026 09:26:59 +0530
+Message-ID: <20260926035705.307233-1-mathura.kumar.tech@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923055320.2602534-1-morbo@google.com> <SN6PR02MB4157A2693AE5369CA19A84DCD48F2@SN6PR02MB4157.namprd02.prod.outlook.com>
-In-Reply-To: <SN6PR02MB4157A2693AE5369CA19A84DCD48F2@SN6PR02MB4157.namprd02.prod.outlook.com>
-From: Bill Wendling <morbo@google.com>
-Date: Fri, 25 Sep 2026 20:56:41 -0700
-X-Gm-Features: AclHuK9ZglMRgpOjf7nJE9QEEZwUIEVC7ZTeuasL8ipLCjkjknKZffHOUZ4KyBI
-Message-ID: <CAGG=3QW1HvN9Rz0k41jnDv4YMY1-LA0NhiA1B+CqzRfZThspbQ@mail.gmail.com>
-Subject: Re: [PATCH] Drivers: hv: vmbus: annotate struct vmbus_gpadl with __counted_by_ptr
-To: Michael Kelley <mhklinux@outlook.com>
-Cc: "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Justin Stitt <justinstitt@google.com>, 
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, 
-	"llvm@lists.linux.dev" <llvm@lists.linux.dev>, 
-	"codemender-patching+linux@google.com" <codemender-patching+linux@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 6:55=E2=80=AFPM Michael Kelley <mhklinux@outlook.co=
-m> wrote:
->
-> From: Bill Wendling <morbo@google.com> Sent: Tuesday, September 22, 2026 =
-10:53 PM
-> >
-> > Add the "__counted_by_ptr" attribute to the buffer field of "struct
-> > vmbus_gpadl". This allows compilers (GCC and Clang) to perform
-> > compile-time and runtime bounds-checking when KASAN is enabled, prevent=
-ing
-> > potential out-of-bounds accesses to the GPADL buffer.
->
-> It turns out this "buffer" field is never dereferenced. The value is save=
-d
-> here only for the purpose of passing into set_memory_encrypted() as
-> called by vmbus_teardown_gpadl(). The memory *is* referenced, but
-> through a wraparound mapping created by vmap() from the struct page's
-> underlying the buffer. The mapping is created in hv_ringbuffer_init().
->
-> Given that, is this patch still appropriate?
->
-Hi Michael,
 
-Huh...so it is. The buffer is converted to 'unsigned long' (*sigh*)
-and then passed into arch-specific functions, which do what you
-mentioned above. Given that please feel free to ignore this patch.
-Apologies for the extra emails...
 
--bw
+Patch series overview:
 
-> > The fields "buffer" and "size" of "struct vmbus_gpadl" are assigned
-> > exactly once, during GPADL establishment inside
-> > "__vmbus_establish_gpadl()" in "drivers/hv/channel.c".
-> >
-> > To ensure that the count field ("size") is initialized before the
-> > pointer field ("buffer") is assigned, we reorder the assignments in
-> > "__vmbus_establish_gpadl()" so that "gpadl->size" is written before
-> > "gpadl->buffer".
-> >
-> > Cc: codemender-patching+linux@google.com
-> > Assisted-by: LLM
-> > Signed-off-by: Bill Wendling <morbo@google.com>
-> > ---
-> >  drivers/hv/channel.c   | 2 +-
-> >  include/linux/hyperv.h | 2 +-
-> >  2 files changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
-> > index 7e4cc6f55237..7042de2dd481 100644
-> > --- a/drivers/hv/channel.c
-> > +++ b/drivers/hv/channel.c
-> > @@ -548,8 +548,8 @@ static int __vmbus_establish_gpadl(struct vmbus_cha=
-nnel
-> > *channel,
-> >
-> >       /* At this point, we received the gpadl created msg */
-> >       gpadl->gpadl_handle =3D gpadlmsg->gpadl;
-> > -     gpadl->buffer =3D kbuffer;
-> >       gpadl->size =3D size;
-> > +     gpadl->buffer =3D kbuffer;
-> >
-> >
-> >  cleanup:
-> > diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-> > index 9e109d91aa14..408748a05440 100644
-> > --- a/include/linux/hyperv.h
-> > +++ b/include/linux/hyperv.h
-> > @@ -780,7 +780,7 @@ struct vmbus_device {
-> >  struct vmbus_gpadl {
-> >       u32 gpadl_handle;
-> >       u32 size;
-> > -     void *buffer;
-> > +     void *buffer __counted_by_ptr(size);
-> >       bool decrypted;
-> >  };
-> >
-> > --
-> > 2.55.0.1082.g2b9226bbc0-goog
-> >
->
+  1. Add New system call mq_recvmmsg(), mq_sendmmsg() and handler implementation.
+  2. Add system call number in all most common architectures.
+  3. Add entries in performance tools.
+  4. Prepared Documentation and test.
+
+  I am unware of some error code like ERESTARTSYS, it has special meaning and purpose
+  I had just sent v4  couple of day ago but was not handling it correctly.
+  
+  now with lot of continous grind I corrected it and done some optimization
+
+
+change since v4:
+
+ - optimization is done regarding memory footprint for userspace caller
+  by introducing two mode flag
+
+ - error handling and error propogation is improved
+
+ - documentation and test updated
+
+ - v4 Link: https://lore.kernel.org/all/20260924153505.620772-1-mathura.kumar.tech@gmail.com/
+
+
+
+mathura kumar (4):
+  IPC: Added two new system call mq_recvmmsg() and  mq_sendmmsg()
+  IPC: Added system call entry in all of most common  architectures
+  IPC: Added system call entry in performance tool
+  Test: Added self-testing and documentation
+
+ Documentation/userspace-api/index.rst         |   2 +
+ Documentation/userspace-api/mq_recvmmsg.rst   | 224 ++++++
+ Documentation/userspace-api/mq_sendmmsg.rst   | 174 +++++
+ arch/alpha/kernel/syscalls/syscall.tbl        |   2 +
+ arch/arm/tools/syscall.tbl                    |   2 +
+ arch/arm64/tools/syscall_32.tbl               |   3 +
+ arch/m68k/kernel/syscalls/syscall.tbl         |   2 +
+ arch/microblaze/kernel/syscalls/syscall.tbl   |   2 +
+ arch/mips/kernel/syscalls/syscall_n32.tbl     |   2 +
+ arch/mips/kernel/syscalls/syscall_n64.tbl     |   3 +
+ arch/mips/kernel/syscalls/syscall_o32.tbl     |   2 +
+ arch/parisc/kernel/syscalls/syscall.tbl       |   2 +
+ arch/powerpc/kernel/syscalls/syscall.tbl      |   2 +
+ arch/s390/kernel/syscalls/syscall.tbl         |   3 +
+ arch/sh/kernel/syscalls/syscall.tbl           |   2 +
+ arch/sparc/kernel/syscalls/syscall.tbl        |   3 +
+ arch/x86/entry/syscalls/syscall_32.tbl        |   2 +
+ arch/x86/entry/syscalls/syscall_64.tbl        |   3 +-
+ arch/xtensa/kernel/syscalls/syscall.tbl       |   2 +
+ include/linux/compat.h                        |  12 +-
+ include/linux/syscalls.h                      |   9 +
+ include/uapi/asm-generic/unistd.h             |   9 +-
+ include/uapi/linux/mqueue.h                   |  27 +-
+ ipc/mqueue.c                                  | 664 +++++++++++++++++-
+ ipc/msg.c                                     |   2 +-
+ ipc/msgutil.c                                 |  45 +-
+ ipc/util.h                                    |   3 +-
+ kernel/sys_ni.c                               |   6 +
+ scripts/syscall.tbl                           |   2 +
+ tools/include/uapi/asm-generic/unistd.h       |   8 +-
+ .../arch/alpha/entry/syscalls/syscall.tbl     |   4 +
+ .../perf/arch/arm/entry/syscalls/syscall.tbl  |   3 +
+ .../arch/arm64/entry/syscalls/syscall_32.tbl  |   3 +
+ .../arch/mips/entry/syscalls/syscall_n64.tbl  |   2 +
+ .../arch/parisc/entry/syscalls/syscall.tbl    |   3 +
+ .../arch/powerpc/entry/syscalls/syscall.tbl   |   3 +
+ .../perf/arch/s390/entry/syscalls/syscall.tbl |   2 +
+ tools/perf/arch/sh/entry/syscalls/syscall.tbl |   2 +
+ .../arch/sparc/entry/syscalls/syscall.tbl     |   2 +
+ .../arch/x86/entry/syscalls/syscall_32.tbl    |   2 +
+ .../arch/x86/entry/syscalls/syscall_64.tbl    |   2 +
+ .../arch/xtensa/entry/syscalls/syscall.tbl    |   2 +
+ tools/scripts/syscall.tbl                     |   2 +
+ tools/testing/selftests/ipc/Makefile          |   2 +-
+ tools/testing/selftests/ipc/mq_recvmmsg.c     | 393 +++++++++++
+ tools/testing/selftests/ipc/mq_sendmmsg.c     | 360 ++++++++++
+ 46 files changed, 1945 insertions(+), 66 deletions(-)
+ create mode 100644 Documentation/userspace-api/mq_recvmmsg.rst
+ create mode 100644 Documentation/userspace-api/mq_sendmmsg.rst
+ create mode 100644 tools/testing/selftests/ipc/mq_recvmmsg.c
+ create mode 100644 tools/testing/selftests/ipc/mq_sendmmsg.c
+
+-- 
+2.43.0
+
