@@ -1,126 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A8A30E858;
-	Sat, 26 Sep 2026 01:01:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD282EEE8C
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790384501; cv=none; b=EEaa/rmMOQ6jeQak34o1+ozU4+71ILI9hW/TPr+VOuLvICDRnm33lUuD3Dpu/O6S3cl3Rg+bVo7+LVhu0OoUufEe1jhTua0DLTKiSybegZBrn2Id/elu9U6ZPKlHoIGiaQpBMpPxemsACDdBT+QVqwX+Mo0ekY0ySQNTmL/3ZI4=
+	t=1790384726; cv=none; b=JCj+sY5tnGC0niHwwdvtAJQnYqTFFZ6ie/VvHQQvV2I62mJYVjK2qUwQFEt/b3+VGeAs7+EHT8OIw5MeQNeq8hiFjvMHJl+d+sFHl3s7un/jojZglU1ApoQpCDFwgDgh4oKG4yQe7ErA05KHiT85xFxbqVxF9+TABaPz8orqWg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790384501; c=relaxed/simple;
-	bh=WCM/Z7enFyM5Bk18cIfAZtmGL+pbvuTN+IBrXFve4rQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gir3evkNsrJaliWBwui2F7tUYGR3SG2NnVgcy77eM9pb0HT3Tlsnxy9Gnsj+JfnGpFeiQZjHX341SwCShsuPTC/gnEHJAp4Jh4b5RDo34JAhZAbMFuZ/uzMKfpq/mT6+OdEN4sOup9fSKJnz+eOY5y9ds5WZF7zSMcH8S/9+8BA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5sNKMx7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790384726; c=relaxed/simple;
+	bh=J1MUs+t76eeeTbPqrIITgHha8ImsL6NjzfrE8Z1XKRk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DdvuGAiwVZSn+r78Twixj9vmVVCQkV98igwWSeaHr/Mla+5VNMJkI54swwyT3EC14tE4bjb0rqnvyQTWXZuRmtl6IsIyAymb7EcESCOWLyqxkrXON4IdYUbqBJrzL4HocPVrXXO+2aRRAJ0AGlq5S6kN8GEIPKWzdaW/2U4WgBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m16U6ykq; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5sNKMx7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EA7B1F000FF;
-	Sat, 26 Sep 2026 01:01:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790384500;
-	bh=o3jc6OMeXfvVnh0p34oh6Oi7jzZHTaQhPi/PXeh+Xq8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=a5sNKMx7Btm/I872/rcSO2PRGlZqmcYPg/fe414ff1Fi0DVrlTrXBzANbfcEC/rVf
-	 gCm3sfW0fMZ0cXDDcthb1jyW8RUnE3C/mlBCsZMgBuWhUAOk7shTK7KeCRLMnVeNV6
-	 40qnsguCovSqdcz35Hk2IRTDmVFRLq3U148IEwtjlcoMpWSrK9QXp+LS/RIPJox5UG
-	 SzVdhDJkhPGJTj3lKfkz5DrCrDZs85BuCJVWKQliOO7A/hVu/g1l/eRjNcP1WyHio2
-	 z4vbuk+1Gvfi+Yu2THJeqRXZzCEfKgo9wAl0g8EKjD+/K2BDTLqzp74VLTJdcK+Efw
-	 dQ/YOxW9yXn4Q==
-Date: Sat, 26 Sep 2026 02:01:33 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "jiale yao" <19888972804@163.com>
-Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "David Lechner"
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, "Stepan Ionichev" <sozdayvek@gmail.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: gyro: bmg160: reject duplicate event disable
-Message-ID: <20260926020133.3699a786@jic23-hlaptop>
-In-Reply-To: <6b2f4eef.1cf6.1a0d8fc9ac6.Coremail.19888972804@163.com>
-References: <20260925140956.2254877-1-yaojiale02@163.com>
-	<araCndRmAqnX1K9k@ashevche-desk.local>
-	<6b2f4eef.1cf6.1a0d8fc9ac6.Coremail.19888972804@163.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m16U6ykq"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e630052ebso1689242eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:05:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790384724; x=1790989524; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1WuuprmVZsNCEEfwj0xF1pE+sLZ0PLBPX+ZV3SJldbA=;
+        b=m16U6ykqRNbMEytZ+tLZobjKL9CrA8XmbrgUoh9O4nP7z/ZwnuHo4de0HqKFvJq+y1
+         Vmau1goArC1ApMS3WXRBvFitUw+0HoBoT22hw14WeYP6TV7FbLwnCVKU0lmRwhF0dS2T
+         40UiMuypDmd+7Cgz77Cq+Lb9Wd6wtIEaZvTnrLoy+bTL49v/oH3E0KYGnIYNvLr+5bsN
+         71mGMXEXUPguFTKCoQpm//lI8mJcN5WInnTtJmAVy5CLINU+330laoYkHFhsuHh6APil
+         3dzqg3IUiE8EG110nP3A9P1/ebC3fcQ2lbCJTZOsmrM5BP7sADoksu6JaFzpcVOfJrue
+         11mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790384724; x=1790989524;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1WuuprmVZsNCEEfwj0xF1pE+sLZ0PLBPX+ZV3SJldbA=;
+        b=FgAW66b78iguqRfw5A9YWt8IRfacoEmkRcxO9dxaWAu8yibmxYrFfC7Jnu5yUSYr/y
+         elSUDYQhryquK0n9JW1bJP3T/uAt4yR8QLr5ZZXfZDRQbnHvsWWSyvpxx/fQRc28gO/p
+         UpTE9PRlDMiyUatdSgt++HJwGW35SQuJ44Wm8VFA0H7fj0r9bEz70yzhVqvvX3FuCRRR
+         m4oktb03WgeOtIL4ms5JFp9KRsHOzkJ33lRkAzlucX8Qy9kGM/2vcAWrWAwTZjSFFong
+         0PhD3W1jbyA3xl1/01zsnkInsu1RlVOReleVSbGq/neXVKfjxInu4bh55QIRpBW1SDzr
+         8u1Q==
+X-Forwarded-Encrypted: i=1; AKwUvByfg5nALuSZHZPfEPB7jLNDB9ttLbtjLroDGxCLEayIF6DU32minBhvKwq51arM8Cbse3r1V8GXUP4oWoE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKB3iWZUhKMXG6D5Q36iO4cIBiEtylBwIa1KTxC6hqimCX1WQS
+	PiFvlx224cEPmMi40KaokcTM/yPTLQgODAlbIW78ehQ+NCfpyK7DiVDFuBge3Oe/
+X-Gm-Gg: AYBFou0mad48l/m5srrb8fPNcHmicOWDP14vc/i7OxEdY6jiI8UBh4ydAW9Cghqopqk
+	GMNgs/3ThRiG+/mTFVxctiob6h5YS1g9d54l/U0F/mRVrqEXoQT8MSIVoAYMFejMMofN5Tr9bCe
+	5xYBRbwH80738nbMKaR3yV8i3BfC0SnucuxH0veeH5nc4kDuGFxXhMzm6gpXEdIoGM/SrRzbuVL
+	88v4ZZ+ZpSVkr7QgodnND11sOnCzIKYzIpTkbc5/wRfaUo7JKUYbFlWcQQ6ItIGRiwP6eTKGMze
+	LmF3MiiAfchapCnBgvRGlXrLgZPrUJZBqdiFWMWWiL9NqJoQe8pbLZfRle2akQvUsMqc2u+bUbq
+	lDwtLw5g93o2fyocXr6VLU2dylav9AodCrerkhEiZ6vW6+1H4nRuqXdBwyd1v/szOPmqsuNeFHV
+	KAbklDEiFZbb2IrucniXzRQSpBlJtHeeQNlJkAK4pQV4hY4m7jXNSonyFXUC3QD37wgqLrlIDhz
+	JYPf5Iep0gE+Ah5lvtPUlbJeayHPlksWpL2Dns=
+X-Received: by 2002:a05:7300:7683:b0:339:8131:424e with SMTP id 5a478bee46e88-342727579e5mr2179532eec.34.1790384724235;
+        Fri, 25 Sep 2026 18:05:24 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:375:19cf:5fee:be32])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144172d8asm9494823eec.5.2026.09.25.18.05.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 18:05:23 -0700 (PDT)
+Date: Fri, 25 Sep 2026 18:05:20 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Hans de Goede <hansg@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jens Reidel <adrian@mainlining.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: goodix_berlin - reject devices without match data
+Message-ID: <arcZ0zf2ZQn_Traj@google.com>
+References: <20260925133639.2229728-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925133639.2229728-1-yaojiale02@163.com>
 
-On Fri, 25 Sep 2026 22:33:48 +0800 (CST)
-"jiale yao" <19888972804@163.com> wrote:
+Hi Jiale,
 
-> At 2026-09-25 22:18:05, "Andy Shevchenko" <andriy.shevchenko@intel.com> wrote:
-> >On Fri, Sep 25, 2026 at 10:09:54PM +0800, Jiale Yao wrote:  
-> >> The IIO core does not filter duplicate writes to the event enable
-> >> attribute.  
-> >
-> >Can it be done there once for all?  
-> 
-> I don't think the core can safely do this generically, since it doesn't own
-> the per-event state and read_event_config() may reflect shared hardware state.
-> 
-> The runtime PM accounting is driver-specific, so handling duplicate writes in
-> the driver seems safer. gp2ap002 does the same in commit 579c049b4cb6,
-> refer https://lore.kernel.org/all/20260720193911.74919-2-nikhilgtr@gmail.com/
+On Fri, Sep 25, 2026 at 09:36:38PM +0800, Jiale Yao wrote:
+> A device bound through driver_override need not match an entry in the
+> driver tables. In that case spi_get_device_match_data() returns NULL,
+> but goodix_berlin_spi_probe() dereferences the result while calculating
+> the regmap transfer limits.
 
-Exactly right.
+We are not planning to address issues caused by incompatible writes to
+driver_override. This is a privileged operation.
 
-Event handling in the core would indeed require complex mapping of
-what can actually be enabled on a given device. Some of those we might
-be able to represent with simple approaches similar to what we do
-for avail_scan_masks for buffered channels but it is hard to generalize
-and FWIW that concept still misses some corner cases of channel enabling
-where drivers have to apply constraints in the actual buffer enable.
-Those are rare enough that it isn't too much of a problem in practice.
-Probably fine on 99% of drivers.
+Thanks.
 
-Events have simplre cases like:
-- 1 enable bit turns a whole load of events on (we don't filter in
-  the kernel - so userspace has to cope with surprise events).
-- Always on event signals.
-- Limited numbers of general purpose event engines (the ADI IMUs do
-  this as they tend to have 2 instances). Each engine can do anything
-  but there are only two of them.
-
-We also have more complex ones like mode bits that flip a subset
-of events from one enable state to another.  There are some really
-odd rules in some devices because some upstream filter that is needed
-for 5 seemingly unrelated events has to be in a particular state for
-subsets of them.
-
-Anyhow, all in all event control is a mess of 'original solutions'
-from vendors and relies on the (naughty) get out of IIO ABI that
-just occasionally any write to any userspace ABI element can
-change what is read back from any other.
-
-Not great, but I've never come up with a better solution for events.
-If anyone wants to have a go at architecting a filtering solution
-a bit like the IIO buffer demux maybe we can opt in to it from
-some drivers.
-
-I am wondering if it is worth registering a driver specific tidy
-up events call though that would disable everything a bit like
-we disable buffers as part of the userspace tear down.  That would
-close out some races sashiko has reported.  That project would
-I think be a lot simpler to implement.
-
-Jonathan
-
-> 
-> >  
-> >> bmg160_write_event_config() already ignores repeated enable
-> >> requests, but a repeated disable request still calls
-> >> bmg160_set_power_state(data, false), dropping a runtime PM reference
-> >> that was not acquired for this request. This can underflow the runtime
-> >> PM usage count and trigger a "Runtime PM usage count underflow" warning.
-> >> 
-> >> Return early when the requested state already matches ev_enable_state.  
-> >
-> >-- 
-> >With Best Regards,
-> >Andy Shevchenko
-> >  
-
+-- 
+Dmitry
