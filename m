@@ -1,72 +1,72 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010001.outbound.protection.outlook.com [52.101.46.1])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012048.outbound.protection.outlook.com [52.101.53.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA9131F989
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52DB345CA1
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790386541; cv=fail; b=my2CFL12wKj6DPjEQI5poSK97KolooZR8CuFUfhqD2GPzNeXheUvZQ5ogpsa3xXMXqm9GcCjKRSXcij84fFLnWQVF6ZcxtHpav4yDBrOTkKoZmvtKEI3CGcggC/AmREE+7AdmHI3RF3lYSzUKqMafdCiKIozBISM7jcrMjH1BK8=
+	t=1790386542; cv=fail; b=rQmIi9QBenTDR8HqqxOjAAmQt+5O4mdmb+W9dQq5eSyWl9FM0KrmDPuTLAuJH+WluFuLUdFmRynlmADLgpRykRTBUFUVcEkS5SXLtiim0ATwWm2LmNEZyxFC8p7OELu5uVobe207m+O+a2bub/NZUONYy3T8Dgdue+fE1iSICQ4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790386541; c=relaxed/simple;
-	bh=clx6ZRU0l4Jo4rvac9AfjYaA3Uf/K7oBAM7b73pKGzk=;
+	s=arc-20240116; t=1790386542; c=relaxed/simple;
+	bh=jMs3w/SjaPUzSPZ0yLWGULtWYJiaQBFKWxpUumGaBQA=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gZWDn/WCIvHvWI9UCV1K2OUGBLWmd49VyqQyUlLSKrI2vSPzWBsJxA5uvlt4fulspIpWPgGBilRt1eH6PU1qarcZwLLGfEd7UnCqQ6QDKXrpRc8nHiEj+23n4/4ghL9LE0slEfQV44v7qcPK867N7S0KMSwbfuiuNqM9FMQ3vVk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OXrOz+6D; arc=fail smtp.client-ip=52.101.46.1
+	 MIME-Version:Content-Type; b=oS+WGxjS9Zn7ImdauU+fi6HTHZa0YbnItIH+tEZnaFG51u4fd8yqZerXPbk57gcxTN8wKehFKhXOIdlBKG7onK1c93XuyMeMXMkwH6HG65Ai1qiDmj1FR50Ak20klyHQEY1kK+I439xEw12zfkNo9sE2bMsvJl3+rkYULKqo6Yg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tjiOEkVp; arc=fail smtp.client-ip=52.101.53.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OXrOz+6D"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tjiOEkVp"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MnF7dLuOfQU/7Lv5DobS0SS3UXjzskXu5xvK4PLYitwcOHNdGKZrxvugBWoP9T16znTJCNpF4q3ax41D6L+O0gtEYkUfrAsXUPIcXNIlLwA+dbhNXX3zHb0K0aj8hF4muSF8fZAqmHsrPr1D+yoqxf5HTn5b85dbjUMeEWE0r0dcERWvrvP9MsAf3C4rBqt5o3GzejXfjRcGC8+pr56nW9A6ThN7s6A6uRaCVoDzzlvRNsm3efwv4/VJX1QRfbsnv7woCvqLboKF8jBYuV3z+mtQJdQzlxul5C/05BioFKRQ0vJRl4ARijN+e/7DjA5T7Fj3vlQ4nyR0DTldcH6sgA==
+ b=kSlxvxQd3ojx3BX66+WPoipA6P0+NDTPcDIb9NA4TBozu8lPR1L7PfItGOT40gUAEjG5IiDuLf+AYhbWwEmCXds7ExgyBNMdqYsXC1RLuk2ccvi0DVcwtGnf0Axufm6pErJC45XlUhU8KKKVv6VT4deiI3fHLnUCqBQK03yVEhAg8fTuLTWXJTyy3ajSXusxvmdr2AHrsFFhl9BLoWByy+5+CkVeXPdHRT+TF3NANjqxGp2fjkzEwepmy4yK3/8cD316Y0s4OebdqzUqOoesaAwXg932kq1JVzvKGsLzO8LK0xyJgds0mfip3tzHpaTJ8yzJIeRiu5jmh1pwFMbtLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C0MiSvFoVRudiCEX2TkCxuQolP3aft8yoAALBZLybtc=;
- b=I9PFRS52Md+azzyMe6iBXFFmp19viqbY4L51EpAxBzM7p0WTADb+EhBSMY9Hl3VWwVqN2SVug8PAKjPH3Lx6SKOK78gHXvGlRH6fSEzxbWXTOPW037ExDwypnCaAqbVSfP18sCzn78Q4FgMcMS7iD3GPUunj5VrUyvIEyM1qeS4opxNruGMP4g3iWcHWPhNIdsiC/mc935qo9PFCphQlLFZKs9e8Ld12jaJrOHoHa07d0y3GHl+or/GH3IeDqIuCxgF3R7/kGtz745x0mTL2WFtEK8gF37+3QPAHw68jkgoOK8dtc1FgZD+gBEuhJ+ieCk53djGQy1CX9uEh1pIvyA==
+ bh=1AGXV3GXOTByUOrqUTYosgS9k9n4AHasVEoRtwXM2lo=;
+ b=QKvUGH8xQVlrutuBJZMs1nmx+W6XZIWroO8aOhWwkHXVsIcevYHbad0O7XMGCBmEgQ9bN84TTyb/XF4J2AK0RK6xGaJCeK3PbMTwRmeuBDc/IlVmKBMOV9oWyMi1Vky2mqXQZESn81VOc1GFv3ucQr7L1JNrP1Lm5H4VZ8i6fk3RlSNgIGFyYdWWdMc0vV0YmiVd1yayrQAJKV9IbBJiq9SUKXzyrQl+3nN0630lh2vB2vRDcMEi0rwflvHWum2Ghl6dcnFq+jKZDacFQmbDBmjYTNtoLkKaEbmMqQZaI4FsqhQ9+HJhL/RJlfzqfDSXEavUFHw9VylD/GiJvdsk5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C0MiSvFoVRudiCEX2TkCxuQolP3aft8yoAALBZLybtc=;
- b=OXrOz+6D1apRBh3op7m5nymScBHZ2ZKwKTAto/vvnKLAmRuDub0fdSByyhMu3CujVW/WyBAVibbRWQSzy0ePdN9Zhg0pmJKUIYT0Tu5tgRH3PNVxps15N8NUOWA51PsvPZ+WsL+5jFjoV/mN/xCIHTnX1TmBp7RqqaczwXfAPT8=
-Received: from CH0PR13CA0015.namprd13.prod.outlook.com (2603:10b6:610:b1::20)
- by SN7PR12MB6863.namprd12.prod.outlook.com (2603:10b6:806:264::19) with
+ bh=1AGXV3GXOTByUOrqUTYosgS9k9n4AHasVEoRtwXM2lo=;
+ b=tjiOEkVpzG3AShVxhTRmSsqZibrs/DkuDX8RcOlQAr0XZt2vE7eHMVCy1PLF5Uga3QFg5GFWmhd4NGQ9PqpDP2Bl1UOijdMA2BOb3+cAsHPZ3IUcXNJnYVdyA3VW0YDb8vcCUBYg2Za1U6AOvij7CVqj3ygqidOzClyHRjazfNg=
+Received: from BN9PR03CA0423.namprd03.prod.outlook.com (2603:10b6:408:113::8)
+ by LV2PR12MB5871.namprd12.prod.outlook.com (2603:10b6:408:174::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
- 2026 01:35:34 +0000
-Received: from BN5PEPF00046989.namprd02.prod.outlook.com
- (2603:10b6:610:b1:cafe::98) by CH0PR13CA0015.outlook.office365.com
- (2603:10b6:610:b1::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Sat,
- 26 Sep 2026 01:35:34 +0000
+ 2026 01:35:35 +0000
+Received: from BN2PEPF0000A7FF.namprd02.prod.outlook.com
+ (2603:10b6:408:113::4) by BN9PR03CA0423.outlook.office365.com
+ (2603:10b6:408:113::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Sat,
+ 26 Sep 2026 01:35:35 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN5PEPF00046989.mail.protection.outlook.com (10.167.245.38) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF0000A7FF.mail.protection.outlook.com (10.167.245.166) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Sat, 26 Sep 2026 01:35:34 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.451.8 via Frontend Transport; Sat, 26 Sep 2026 01:35:35 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 20:35:33 -0500
+ 2026 20:35:29 -0500
 Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 25 Sep 2026 20:35:32 -0500
+ Transport; Fri, 25 Sep 2026 20:35:28 -0500
 From: David Zhang <yidong.zhang@amd.com>
 To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
 	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
 	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
 	<mario.limonciello@amd.com>
-Subject: [PATCH V0 19/21] accel/amdxdna: Link SR-IOV VFs for power management sequencing
-Date: Fri, 25 Sep 2026 18:34:46 -0700
-Message-ID: <20260926013448.3840921-20-yidong.zhang@amd.com>
+Subject: [PATCH V0 14/21] accel/amdxdna: Fix fence timeline name and context allocation
+Date: Fri, 25 Sep 2026 18:34:41 -0700
+Message-ID: <20260926013448.3840921-15-yidong.zhang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260926013448.3840921-1-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
@@ -81,140 +81,124 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN5PEPF00046989:EE_|SN7PR12MB6863:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93275815-1965-4d57-33d4-08df1b6e75bb
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FF:EE_|LV2PR12MB5871:EE_
+X-MS-Office365-Filtering-Correlation-Id: b5352b83-d359-4fb4-3239-08df1b6e7689
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|36860700016|376014|82310400026|6133799003|18002099003|10067099003|11063799006|56012099006|4143699003|22082099003;
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|10067099003|22082099003|18002099003|3023799007|56012099006|11063799006|4143699003;
 X-Microsoft-Antispam-Message-Info:
-	RWwaRePwVZX6fRehCqz6cB1lhJ5AnK/DqKvnUWod5ehEjXYRlehUu/MBtcogN/M+LiwNK9JrFYEU4wRnQiEo21M+FBeecysHjy+N3x+kjqWjw5KJrSiVsAKtf8gc59Oyq06FT/GKNuYNLHHlhyj/hRR1z2NHENxYevICoPvvHTyVHz1PnT/g8QdT6DUMONlRiFWEastMovpDis/gPptVS/NXOvR/ODvjYxQ0rt0yDF56cdaenGUSd3JRo44HMZaIDUByX0DX9GcJc8wS9N8uvkERfgi/O8NfQ9azzrHKAzavRv7JtGRa10Ne9Hq+BBEEGI+wSANxppyhfEJEihwx7m0WofaOm8tnBJZ/YZGYbNVTpE+wXOXxq1OaBVXnPA+Y7kuDuwPl7FqQVCD4qaCT5L8KpbaXT6nG6M3CwnvmNY8w7ittVdRw6efOABFD7MI2oRj+mJllPC455+YoariWbl+Dri7zLzPYwHzNue7LPnb21GwAXtFV7BM35r8/tRTHE3swCuhWP1bVDmwvbvksAVj8Ra92SxxMjznX1nFNvjX1uybx0mDqaHrk4wRKIzz8SHy36Tf9gKOViQBRQELCC9/htvx4XU7/nP850l1solFOOe84jp5xzkEeB1LKjdzqM/RSdQkLVJ1o7ffWevu1WMk3UZcJbGvRjRS/bwGpkrDdVH60x1bRdMBaWeHNkPOjH+evo4IOXGnuYh9DhHNWfg==
+	Uh5mCN0M3tWxiS0XP0E/FQfbNYIQFhOLK8OaaK2MBnBgUatcj0eBpQEL1kGy9o/v80nryrRI38e+TBkaBxeEQHD1Wm7M7mwWdpo+dbcs1KJHWuETXS7tudT1ekNwL0neQ6n1a4T4Wu29qkYCITrYdC2fYBWpdb2N/H9oIcdrfKV+hN+oIYkbZ5bvx2YogW9GQU3Uc5c0+Y1s7x8UccGiFNwflMq9XSPHQ2yMFpr26b4u7PB4fG124Fc51KalvVSQDF/aQqZFyaE2Cnq0AlTBHG1gv6ZZR6B+08Y1FndiMEkR3mqT25N5AtRTKwBkyCgBb9zQOz9SPZj7Ow5NKfAQtTt7mZ0bI6DuCc8bATbQX2KtBOkEm7uCrRtCUJYgm40cKVYRbodyPcW94N0fY/FHsfK5dC46k8Y3ji8nU6BBW8E76HTCd/JhkFPVOXnliQ5WB/U8A2Q5K8W+9v6Z0feN3PP7uqqJOk4hv49SUfozrs/CMg3OAsiHLMmwqIam2CUaD0id7STXJFvSuadeu24pOPJWoPV8Qi5l8JytOoLkd4L4oHA7H+TVwgmD4IssbkamG/iO0AOdI3iVQyuexBjUOu3nmgd8ye9dMK2gvAOFTaxOWplQCq0Z+VoRWz7YMYuipBRjOfQVe6/Uzik5JS/gNyG/QBAoR5rvLaqqcBZ6KtRGAlAio59cg1yfXX80WgKfeJeMf4YfKTDst8M2zzPxSg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(36860700016)(376014)(82310400026)(6133799003)(18002099003)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(10067099003)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Tn9b9rMhKbjYDOqNNl4M+HzBX3GpiykC9eeDAwYS9/GCn68AUT1k9R26jwt1lGJswEcMpF+vhNUsuCucXPnDW2jJtndGdojaWbxBZWAPY3sVq2qIKWSgZH6SQ2m6ArDAYhA81uoA36ZH4nwxUOuOfWGr2UGGSdp1K6n1OAv4rK5t8ny84Z5xUQaBfw3mY6T6fXe3gpMpKo6VKGly8abwMcNZCVJLsBcwGLzCqzWtY74EuaKarztJr9UbJwZrw36A+o3XIhx0e+49R856vLSJjsXB6P+1MuGHsz9hbgqFXw4lMPFAgQgIIeXJFlN0HCnS4obLdjTu9+WMPo7utLyjbpzvcDrYdop0oMLkJx9OaItUwXDcgLVvNjKmcqxswUGO7itUJQDPQaLS1XPJuC2KlYS9KF3J94ykJdwQuO9xCRvKlgfU+bQM3HeXytHPGVCE
+	7pfxa8Wm650LLhoXuhmPdcwHQpr5t2CbqVeWkSnCnrQJcp9qDKb4yLi3X6hcVnm/g+d0bqJSC6tpSZ+5Q5HBNqny0aT9gOsTudYqvFMjWX0YasDSv7qDAU4dZCzWY+ZVYaXsa6OitzpODGRQtBxBPUhb9AchZj6cMxza0yLuCJTAziG7zHwNz1nCz7gY1pnpj5OEMflKflZWf3vx2pbLQqfPuHjLOhei+LPLiYZ5Nvvc5+1s8FG2DKNqvC1dS2t8niGXvMX/WaK/S+/lzm60ZU9LonVQu1K2UBwtEnWp+eai21ctyM7W19yvh7FUgUxdKNkZ67KMDqbffsNvpUzg9YMUZa0doPNzRf1WQTD7UWIIbiOC35FH1JdoHjOBtil183CHZMpIJfoRz/ZGcf09f3HH4ctB0hlPpfwP5wSw7C77gvBPZnFK9LoH6BCz0/gL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:35:34.5013
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:35:35.8531
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93275815-1965-4d57-33d4-08df1b6e75bb
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5352b83-d359-4fb4-3239-08df1b6e7689
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN5PEPF00046989.namprd02.prod.outlook.com
+	BN2PEPF0000A7FF.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6863
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5871
 
-Add PM device links between Physical Function (PF) supplier and Virtual
-Function (VF) consumers via device_link_add() upon SR-IOV enablement.
-This ensures the PM core enforces the proper power management sequence:
-suspending VFs before the PF, and resuming the PF before VFs. If linking
-fails, roll back SR-IOV initialization.
+This is part of the fix to align BO reservation locking and fence
+management with aie2.
 
-Also add a comment clarifying that pci_disable_sriov() removes VF drivers
-before firmware VF contexts are destroyed.
+Fences published into BO reservation objects via dma_resv_add_fence()
+can outlive the hardware context (e.g. when a BO is exported as a
+dma-buf and imported by another process). Using hwctx->name for the fence
+timeline name risks a use-after-free once the hwctx is destroyed.
+Switch timeline name to dev_name() which is backed by the device that
+outlives any individual context.
 
+Additionally, allocate a unique fence context via
+dma_fence_context_alloc(1) for each job fence so that dma_resv_add_fence()
+does not evict a prior in-flight job's fence from a shared BO's
+reservation object when multiple jobs touch the same BO. Also guard
+hwctx_fini call in amdxdna_hwctx_destroy_rcu() against NULL ops.
+
+The corresponding AIE4 command submission BO locking and fence
+attachment logic is implemented in a subsequent patch ("accel/amdxdna:
+Implement AIE4 command packet building and submission").
+
+Co-developed-by: Max Zhen <max.zhen@amd.com>
+Signed-off-by: Max Zhen <max.zhen@amd.com>
 Signed-off-by: David Zhang <yidong.zhang@amd.com>
 ---
- drivers/accel/amdxdna/aie4_sriov.c | 74 ++++++++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+ drivers/accel/amdxdna/amdxdna_ctx.c | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/aie4_sriov.c b/drivers/accel/amdxdna/aie4_sriov.c
-index 0eea28f62676..bfea6ff00ec0 100644
---- a/drivers/accel/amdxdna/aie4_sriov.c
-+++ b/drivers/accel/amdxdna/aie4_sriov.c
-@@ -56,9 +56,75 @@ int aie4_sriov_stop(struct amdxdna_dev_hdl *ndev)
+diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+index 888e857ec558..6ca7774150d5 100644
+--- a/drivers/accel/amdxdna/amdxdna_ctx.c
++++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+@@ -25,7 +25,7 @@
+ struct amdxdna_fence {
+ 	struct dma_fence	base;
+ 	spinlock_t		lock; /* for base */
+-	struct amdxdna_hwctx	*hwctx;
++	struct device		*dev;
+ };
  
- 	pci_disable_sriov(pdev);
- 	ndev->num_vfs = 0;
-+
+ static const char *amdxdna_fence_get_driver_name(struct dma_fence *fence)
+@@ -39,7 +39,14 @@ static const char *amdxdna_fence_get_timeline_name(struct dma_fence *fence)
+ 
+ 	xdna_fence = container_of(fence, struct amdxdna_fence, base);
+ 
+-	return xdna_fence->hwctx->name;
 +	/*
-+	 * pci_disable_sriov() removes VF drivers first; call destroy_vfs after
-+	 * so firmware VF contexts are not cleared before VF drivers finish cleanup.
++	 * Use device name rather than hwctx name: the fence is published into
++	 * BO reservation objects via dma_resv_add_fence() and can outlive the
++	 * hwctx (e.g. when a BO is exported as a dma-buf and imported by
++	 * another process). The device outlives any individual context, so
++	 * dev_name() is safe to call at any point during the fence's lifetime.
 +	 */
- 	return aie4_destroy_vfs(ndev);
++	return dev_name(xdna_fence->dev);
  }
  
-+static int aie4_for_each_vfs(struct amdxdna_dev *xdna,
-+			     int (*cb)(struct amdxdna_dev *, struct pci_dev *))
-+{
-+	struct pci_dev *pdev_pf = to_pci_dev(xdna->ddev.dev);
-+	struct pci_dev *pdev_vf;
-+	int pos, ret;
-+	u16 vf_did;
-+
-+	pos = pci_find_ext_capability(pdev_pf, PCI_EXT_CAP_ID_SRIOV);
-+	if (!pos)
-+		return 0;
-+	ret = pci_read_config_word(pdev_pf, pos + PCI_SRIOV_VF_DID, &vf_did);
-+	if (ret) {
-+		XDNA_ERR(xdna, "read VF Device ID failed %d", ret);
-+		return -ENODEV;
-+	}
-+
-+	for (pdev_vf = pci_get_device(pdev_pf->vendor, vf_did, NULL);
-+	     pdev_vf;
-+	     pdev_vf = pci_get_device(pdev_pf->vendor, vf_did, pdev_vf)) {
-+		if (!pdev_vf->is_virtfn || pdev_vf->physfn != pdev_pf)
-+			continue;
-+
-+		ret = cb(xdna, pdev_vf);
-+		if (ret) {
-+			/*
-+			 * On early return the next iteration never runs, so
-+			 * release the current device's ref manually.
-+			 * On normal loop exit pci_get_device() returning NULL
-+			 * already releases the last device's ref internally.
-+			 */
-+			pci_dev_put(pdev_vf);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int aie4_link_vf(struct amdxdna_dev *xdna, struct pci_dev *pdev_vf)
-+{
-+	struct pci_dev *pdev_pf = to_pci_dev(xdna->ddev.dev);
-+	struct device_link *link;
-+
-+	link = device_link_add(&pdev_vf->dev,   /* consumer = VF */
-+			       &pdev_pf->dev,   /* supplier = PF */
-+			       DL_FLAG_PM_RUNTIME | DL_FLAG_AUTOREMOVE_CONSUMER);
-+	if (!link) {
-+		XDNA_ERR(xdna, "Failed to link VF %s", pci_name(pdev_vf));
-+		return -EINVAL;
-+	}
-+
-+	XDNA_DBG(xdna, "Linked VF %s", pci_name(pdev_vf));
-+	return 0;
-+}
-+
-+static int aie4_link_vfs(struct amdxdna_dev *xdna)
-+{
-+	return aie4_for_each_vfs(xdna, aie4_link_vf);
-+}
-+
- static int aie4_sriov_start(struct amdxdna_dev_hdl *ndev, int num_vfs)
+ static const struct dma_fence_ops fence_ops = {
+@@ -55,9 +62,17 @@ static struct dma_fence *amdxdna_fence_create(struct amdxdna_hwctx *hwctx)
+ 	if (!fence)
+ 		return NULL;
+ 
+-	fence->hwctx = hwctx;
++	fence->dev = hwctx->client->xdna->ddev.dev;
+ 	spin_lock_init(&fence->lock);
+-	dma_fence_init(&fence->base, &fence_ops, &fence->lock, hwctx->id, 0);
++	/*
++	 * Part of the fix to align BO reservation locking and fence
++	 * management with AIE2: each job fence needs a unique context so
++	 * dma_resv_add_fence() does not evict a prior job's fence from a
++	 * shared BO's reservation object when two in-flight jobs touch
++	 * the same BO. The corresponding AIE4 command submission locking
++	 * and fence attachment is implemented in aie4_cmd_submit().
++	 */
++	dma_fence_init(&fence->base, &fence_ops, &fence->lock, dma_fence_context_alloc(1), 0);
+ 	return &fence->base;
+ }
+ 
+@@ -81,13 +96,13 @@ static void amdxdna_hwctx_release_expanded_heap(struct amdxdna_hwctx *hwctx)
+ static void amdxdna_hwctx_destroy_rcu(struct amdxdna_hwctx *hwctx,
+ 				      struct srcu_struct *ss)
  {
- 	struct amdxdna_dev *xdna = ndev->aie.xdna;
-@@ -76,6 +142,14 @@ static int aie4_sriov_start(struct amdxdna_dev_hdl *ndev, int num_vfs)
- 		return ret;
- 	}
+-	struct amdxdna_client *client = hwctx->client;
+-	struct amdxdna_dev *xdna = client->xdna;
++	struct amdxdna_dev *xdna = hwctx->client->xdna;
  
-+	ret = aie4_link_vfs(xdna);
-+	if (ret) {
-+		XDNA_ERR(xdna, "link VFs failed, ret: %d", ret);
-+		pci_disable_sriov(pdev);
-+		aie4_destroy_vfs(ndev);
-+		return ret;
-+	}
-+
- 	ndev->num_vfs = num_vfs;
- 	return num_vfs;
- }
+ 	synchronize_srcu(ss);
+ 
+ 	/* At this point, user is not able to submit new commands */
+-	xdna->dev_info->ops->hwctx_fini(hwctx);
++	if (xdna->dev_info->ops->hwctx_fini)
++		xdna->dev_info->ops->hwctx_fini(hwctx);
+ 
+ 	amdxdna_hwctx_release_expanded_heap(hwctx);
+ 	kfree(hwctx->name);
 -- 
 2.34.1
 
