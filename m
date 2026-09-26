@@ -1,134 +1,122 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D439D44A3F4
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:00:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583DF3A6EEB;
+	Sat, 26 Sep 2026 14:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790431236; cv=none; b=o5O/ppyKz7ClVyz5CAgTTXwy/S7fSIsg1VbGXkBiy+n6ZyZpaYTc+1h59AUrb2dH31D/KZiDzZNz2jRVrGdgoK53wWGXtOFWrTohGdm+FlVPEVAmhkFD5ra4/AajFUevZcf26S2L4Vkx5b3Ydr0L99MsfwuJuKUPIGfu5ifOES8=
+	t=1790431239; cv=none; b=BfOYI6M7lrBOYE/bTp2yKcj4XnLsk1lNeCypq85yqGmugTtpEWWTMARy+wZcv1DHiGSco1JZCj2P0CoEM++WI+wJpAjvMXsnoFRT0MIi5JDkqMEhch4sSl4Vx82FgC5cVq9VGZqbX3YqNVHefwhz/E9lY0NfrV/HFIUNx0PUy7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790431236; c=relaxed/simple;
-	bh=ZrqvVyMHr+q5Ctxd+RO7kvJ/wsARCDpgVsakUvrSNm4=;
-	h=Date:From:To:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=KBUC1bRrmtJQMnz39BZbotka2COMGvawZpUdV5veRkzwQEmvtL3Z5aeFYoS/CCdtpaehqiXCq/W1OOdMq7EUc0PJHzR94MK2wtTjMqaWMRjSlE6qrIC1Q7RtkeAPGOuj5mbdcI2wG0CuEQCjDZgV8Jk3VWKl3u2egsaQSLVwheI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YLSXdY36; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790431239; c=relaxed/simple;
+	bh=2Q9KfD8xPzCTbRnfq/tJk3nKETv0AKFOPWwDfXF+SF8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Q2fgIT4IcXct33FmkGSMXKV38c2JqZKp6ppkoFHq9NIQd03aIBhRKCMeDRRwDDXr2pB/t1Uq9JnQ77YVVScxlgfoWmqE950lHQx8CrqKZXqqSWCQVz699LJrUdaqndVtLJsOYB4kJiDwgOJPLJE2qGobE6rivtLiwRI+xV39vS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlDrvCV8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YLSXdY36"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=ZrqvVyMHr+q5Ctxd+RO7kvJ/wsARCDpgVsakUvrSNm4=; b=Y
-	LSXdY368w4qLazwainIq8hj/iNnwjG2naV+EorwKm0bRx/dBX3s/xXuZHTi37XxI
-	3gt9VqRq9NzRaCeZFN6fUyI0w+/AuZ58AtYMhWacGnWzTgWM5eBiOtDRFh5Oy1Sx
-	24CXbo/Fw+BlngWEy2ACFoJ/7uwRN4VFOurWeAi1DE=
-Date: Sat, 26 Sep 2026 21:59:22 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Mark Fasheh" <mark@fasheh.com>, "Joel Becker" <jlbec@evilplan.org>,
-	"Joseph Qi" <joseph.qi@linux.alibaba.com>,
-	"Andrew Morton" <akpm@linux-foundation.org>,
-	"ZhengYuan Huang" <gality369@gmail.com>, ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re:[PATCH] ocfs2: validate filecheck inode slots
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20260926135354.3420193-1-yaojiale02@163.com>
-References: <20260926135354.3420193-1-yaojiale02@163.com>
-X-NTES-SC: AL_Qu2SAviYvkkt5CWbZ+kcn08ShO49XMOyvfoi2YFTc+8GoRzV9zoEcVtuJUDT4v2BAg6MjQaKQSNj8spzXJZ2yNByWiWJPMRVrFxj52osKA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlDrvCV8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018661F00893;
+	Sat, 26 Sep 2026 14:00:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790431229;
+	bh=Xld9Y4axv1/BMk23dnVje6lvml/en/pW8VvvxYx9Ewk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BlDrvCV8WedOF3GYKcC3K9qeroiCVb6YdmK6u7HntFacIgYoycstOOrFwfZRD8q/4
+	 UuVOpyEO8sBvH2g1N0prCfugiPFlr5KEL70zz32vik6S6D7GR9wkwN9whTdxHgnIkZ
+	 ASeHoVloWiz0xxVRFDvC4OcfRw7lu7u+TDZur28N7SB/pHHq3A+T7YUBaFgSvcGVTr
+	 o9etLjRNSYYWjJXZktxB9vyC+guDpD1VDuLHvcHfC91KVWFafvr3smBBjtEYYrovKD
+	 7NmwQy+x1jYz4YIWdZGj4AszgLJCStVV8g6XrV6hNIxmnfwzx54ELFIkp2foYxPcqk
+	 Pp5+RxeXDBriA==
+Subject: Re: [PATCH v29 net-next 2/8] net/nebula-matrix: add common resource
+ implementation
+From: netdev-bot+sashiko@kernel.org
+To: illusion.wang@nebula-matrix.com
+Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
+ sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
+ edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org
+Date: Sat, 26 Sep 2026 14:00:28 +0000
+Message-ID: <179043122855.2160803.4088505740875316744@kernel.org>
+In-Reply-To: <20260922120311.86593-3-illusion.wang@nebula-matrix.com>
+References: <20260922120311.86593-3-illusion.wang@nebula-matrix.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <41659397.1e4f.1a0de0370ab.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:kygvCgD3v967z7dqBMBOAA--.711W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhuq5Gq3z7sctgAA3Y
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-QXQgMjAyNi0wOS0yNiAyMTo1Mzo1MywgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
-d3JvdGU6Cj5UaGUgb25saW5lIGZpbGVjaGVjayBwYXRoIHJlYWRzIGlub2RlcyB3aXRoCj5vY2Zz
-Ml9maWxlY2hlY2tfdmFsaWRhdGVfaW5vZGVfYmxvY2soKSBpbnN0ZWFkIG9mCj5vY2ZzMl92YWxp
-ZGF0ZV9pbm9kZV9ibG9jaygpLiAgSXQgZG9lcyBub3QgY2hlY2sgdGhlIHNsb3QgZmllbGRzIHRo
-YXQKPmFyZSB1c2VkIGFzIGluZGljZXMgaW50byBhcnJheXMgc2l6ZWQgYnkgb3NiLT5tYXhfc2xv
-dHMuCj4KPkEgY29ycnVwdGVkIGRpbm9kZSBjYW4gc2V0IE9DRlMyX09SUEhBTkVEX0ZMIG9yCj5P
-Q0ZTMl9ESU9fT1JQSEFORURfRkwgd2hpbGUgY2FycnlpbmcgYW4gb3V0LW9mLXJhbmdlIG9ycGhh
-biBzbG90LiAgQW4KPm91dC1vZi1yYW5nZSBpX3N1YmFsbG9jX3Nsb3QgY2FuIGFsc28gYnlwYXNz
-IHRoZSBub3JtYWwgdmFsaWRhdG9yCj50aHJvdWdoIHRoZSBmaWxlY2hlY2sgcGF0aC4gIFRoZXNl
-IHZhbHVlcyBjYW4gbGF0ZXIgYmUgdXNlZCB0byBpbmRleAo+dGhlIHNsb3QtbG9jYWwgc3lzdGVt
-IGlub2RlIGFycmF5LgoKUmVwcm9kdWNlZCBvbiA3LjMtcmM0ICh4ODZfNjQgUUVNVSwgS0FTQU4p
-OgoKWyAgIDQ1Ljk0Mjc4M10gQlVHOiBLQVNBTjogc2xhYi1vdXQtb2YtYm91bmRzIGluIG9jZnMy
-X2V2aWN0X2lub2RlKzB4MjhmNy8weDNhYzAKWyAgIDQ1Ljk0MjgxOF0gUmVhZCBvZiBzaXplIDQg
-YXQgYWRkciBmZmZmODg4MQpbICAgNDUuOTQyODI3XSBDYWxsIFRyYWNlOgpbICAgNDUuOTQyODI5
-XSAgZHVtcF9zdGFja19sdmwrMHgyZC8weDcwClsgICA0NS45NDI4MzNdICBwcmludF9yZXBvcnQr
-MHgxNzUvMHg3ZDAKWyAgIDQ1Ljk0MjgzNl0gIGthc2FuX3JlcG9ydCsweDEzOS8weDE3MApbICAg
-NDUuOTQyODM5XSAgb2NmczJfZXZpY3RfaW5vZGUrMHgyOGY3LzB4M2FjMApbICAgNDUuOTQyODQw
-XSAgZXZpY3QrMHgzNDQvMHg2ZTAKWyAgIDQ1Ljk0Mjg0Ml0gID8gaXB1dCsweDQ1ZC8weDczMApb
-ICAgNDUuOTQyODQzXSAgb2NmczJfZmlsZWNoZWNrX2F0dHJfc3RvcmUrMHg5NmEvMHhkMzAKWyAg
-IDQ1Ljk0Mjg0Nl0gIG9jZnMyX2ZpbGVjaGVja19zdG9yZSsweDVkLzB4OTAKWyAgIDQ1Ljk0Mjg0
-N10gIGtlcm5mc19mb3Bfd3JpdGVfaXRlcisweDI2Mi8weDM3MApbICAgNDUuOTQyODQ5XSAgdmZz
-X3dyaXRlKzB4OTMzLzB4Y2IwClsgICA0NS45NDI4NTJdICBrc3lzX3dyaXRlKzB4ZjIvMHgxYjAK
-WyAgIDQ1Ljk0Mjg1M10gIGRvX3N5c2NhbGxfNjQrMHgxNWIvMHg0MjAKWyAgIDQ1Ljk0Mjg1Nl0g
-IGVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZQouLi4KWyAgIDQ1Ljk0Mjg2N10gQWxsb2Nh
-dGVkIGJ5IHRhc2sgODE6ClsgICA0NS45NDI4NzBdICBfX2thc2FuX2ttYWxsb2MrMHg3Mi8weDkw
-ClsgICA0NS45NDI4NzFdICBfX2ttYWxsb2Nfbm9wcm9mKzB4MWQyLzB4NDcwClsgICA0NS45NDI4
-NzVdICBvY2ZzMl9maWxsX3N1cGVyKzB4MTk1Yi8weDU5ZjBzLCAuLi4pClsgICA0NS45NDI4ODVd
-IFRoZSBidWdneSBhZGRyZXNzIGlzIGxvY2F0ZWQgNCBieXRlcyB0byB0aGUgcmlnaHQgb2YKWyAg
-IDQ1Ljk0Mjg4NV0gIGFsbG9jYXRlZCA0LWJ5dGUgcmVnaW9uIFtmZmZmODg4MTA1ZjA0YTQwLCBm
-ZmZmODg4MTA1ZjA0YTQ0KQpbICAgNDUuOTQyOTEwXSBPb3BzOiBnZW5lcmFsIHByb3RlY3Rpb24g
-ZmF1bHQsIHByb2JhYmx5IGZvciBub24tY2Fub25pY2FsCiAgICAgICAgICAgYWRkcmVzcyAuLi4g
-KHRoZSBwb2ludGVyIHJlYWQgcGFzdCBpbm9kZSkKCj5NaXJyb3IgdGhlIG5vcm1hbCB2YWxpZGF0
-b3IncyBzbG90IGNoZWNrcyBpbiB0aGUgZmlsZWNoZWNrIHZhbGlkYXRvci4KPlJlamVjdCBpbnZh
-bGlkIHNsb3RzIGluIHRoZSByZXBhaXIgcGF0aCBhcyB3ZWxsLCBzaW5jZSB0aGUgY29ycmVjdAo+
-c2xvdCBjYW5ub3QgYmUgcmVjb3ZlcmVkLgo+Cj5GaXhlczogYmI4ODEzMWM5ODMxICgib2NmczI6
-IHZhbGlkYXRlIERJTyBvcnBoYW4gc2xvdCBkdXJpbmcgaW5vZGUgcmVhZCIpCj5TaWduZWQtb2Zm
-LWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPi0tLQo+IGZzL29jZnMyL2lub2Rl
-LmMgfCA0NSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiAx
-IGZpbGUgY2hhbmdlZCwgNDUgaW5zZXJ0aW9ucygrKQo+Cj5kaWZmIC0tZ2l0IGEvZnMvb2NmczIv
-aW5vZGUuYyBiL2ZzL29jZnMyL2lub2RlLmMKPmluZGV4IDE4MDEwN2ExMTA0Ni4uYWI4MmNmOTE0
-NmVmIDEwMDY0NAo+LS0tIGEvZnMvb2NmczIvaW5vZGUuYwo+KysrIGIvZnMvb2NmczIvaW5vZGUu
-Ywo+QEAgLTE3NTQsNiArMTc1NCw0NCBAQCBpbnQgb2NmczJfdmFsaWRhdGVfaW5vZGVfYmxvY2so
-c3RydWN0IHN1cGVyX2Jsb2NrICpzYiwKPiAJcmV0dXJuIHJjOwo+IH0KPiAKPisvKgo+KyAqIFZh
-bGlkYXRlIHRoZSBzbG90IGZpZWxkcyB1c2VkIGFzIGluZGljZXMgaW50byBhcnJheXMgc2l6ZWQg
-YnkKPisgKiBvc2ItPm1heF9zbG90cy4gIFRoZSBmaWxlY2hlY2sgcGF0aCB1c2VzIHRoaXMgdmFs
-aWRhdG9yIGluc3RlYWQgb2YKPisgKiBvY2ZzMl92YWxpZGF0ZV9pbm9kZV9ibG9jaygpLCBzbyBp
-dCBtdXN0IGVuZm9yY2UgdGhlIHNhbWUgYm91bmRzLgo+KyAqLwo+K3N0YXRpYyBpbnQgb2NmczJf
-ZmlsZWNoZWNrX3ZhbGlkYXRlX3Nsb3RzKHN0cnVjdCBzdXBlcl9ibG9jayAqc2IsCj4rCQkJCQkg
-IHN0cnVjdCBvY2ZzMl9kaW5vZGUgKmRpLAo+KwkJCQkJICB1bnNpZ25lZCBsb25nIGxvbmcgYmxr
-bm8pCj4rewo+KwlzdHJ1Y3Qgb2NmczJfc3VwZXIgKm9zYiA9IE9DRlMyX1NCKHNiKTsKPisKPisJ
-aWYgKGxlMTZfdG9fY3B1KGRpLT5pX3N1YmFsbG9jX3Nsb3QpICE9ICh1MTYpT0NGUzJfSU5WQUxJ
-RF9TTE9UICYmCj4rCSAgICAodTMyKWxlMTZfdG9fY3B1KGRpLT5pX3N1YmFsbG9jX3Nsb3QpID4g
-b3NiLT5tYXhfc2xvdHMgLSAxKSB7Cj4rCQltbG9nKE1MX0VSUk9SLAo+KwkJICAgICAiRmlsZWNo
-ZWNrOiBpbnZhbGlkIGRpbm9kZSAjJWxsdTogc3ViYWxsb2Mgc2xvdCAldVxuIiwKPisJCSAgICAg
-Ymxrbm8sIGxlMTZfdG9fY3B1KGRpLT5pX3N1YmFsbG9jX3Nsb3QpKTsKPisJCXJldHVybiAtT0NG
-UzJfRklMRUNIRUNLX0VSUl9JTlZBTElESU5POwo+Kwl9Cj4rCj4rCWlmICgobGUzMl90b19jcHUo
-ZGktPmlfZmxhZ3MpICYgT0NGUzJfT1JQSEFORURfRkwpICYmCj4rCSAgICBsZTE2X3RvX2NwdShk
-aS0+aV9vcnBoYW5lZF9zbG90KSA+PSBvc2ItPm1heF9zbG90cykgewo+KwkJbWxvZyhNTF9FUlJP
-UiwKPisJCSAgICAgIkZpbGVjaGVjazogaW52YWxpZCBkaW5vZGUgIyVsbHU6IG9ycGhhbmVkIHNs
-b3QgJXVcbiIsCj4rCQkgICAgIGJsa25vLCBsZTE2X3RvX2NwdShkaS0+aV9vcnBoYW5lZF9zbG90
-KSk7Cj4rCQlyZXR1cm4gLU9DRlMyX0ZJTEVDSEVDS19FUlJfSU5WQUxJRElOTzsKPisJfQo+Kwo+
-KwlpZiAoKGxlMzJfdG9fY3B1KGRpLT5pX2ZsYWdzKSAmIE9DRlMyX0RJT19PUlBIQU5FRF9GTCkg
-JiYKPisJICAgIGxlMTZfdG9fY3B1KGRpLT5pX2Rpb19vcnBoYW5lZF9zbG90KSA+PSBvc2ItPm1h
-eF9zbG90cykgewo+KwkJbWxvZyhNTF9FUlJPUiwKPisJCSAgICAgIkZpbGVjaGVjazogaW52YWxp
-ZCBkaW5vZGUgIyVsbHU6IERJTyBvcnBoYW5lZCBzbG90ICV1XG4iLAo+KwkJICAgICBibGtubywg
-bGUxNl90b19jcHUoZGktPmlfZGlvX29ycGhhbmVkX3Nsb3QpKTsKPisJCXJldHVybiAtT0NGUzJf
-RklMRUNIRUNLX0VSUl9JTlZBTElESU5POwo+Kwl9Cj4rCj4rCXJldHVybiAwOwo+K30KPisKPiBz
-dGF0aWMgaW50IG9jZnMyX2ZpbGVjaGVja192YWxpZGF0ZV9pbm9kZV9ibG9jayhzdHJ1Y3Qgc3Vw
-ZXJfYmxvY2sgKnNiLAo+IAkJCQkJCXN0cnVjdCBidWZmZXJfaGVhZCAqYmgpCj4gewo+QEAgLTE4
-MzUsNiArMTg3MywxMCBAQCBzdGF0aWMgaW50IG9jZnMyX2ZpbGVjaGVja192YWxpZGF0ZV9pbm9k
-ZV9ibG9jayhzdHJ1Y3Qgc3VwZXJfYmxvY2sgKnNiLAo+IAkJZ290byBiYWlsOwo+IAl9Cj4gCj4r
-CXJjID0gb2NmczJfZmlsZWNoZWNrX3ZhbGlkYXRlX3Nsb3RzKHNiLCBkaSwgYmgtPmJfYmxvY2tu
-cik7Cj4rCWlmIChyYykKPisJCWdvdG8gYmFpbDsKPisKPiAJaWYgKG9jZnMyX2Rpbm9kZV9oYXNf
-c2l6ZV93aXRob3V0X2NsdXN0ZXJzKHNiLCBkaSkpIHsKPiAJCWlmIChTX0lTRElSKGxlMTZfdG9f
-Y3B1KGRpLT5pX21vZGUpKSkKPiAJCQltbG9nKE1MX0VSUk9SLAo+QEAgLTE4OTMsNiArMTkzNSw5
-IEBAIHN0YXRpYyBpbnQgb2NmczJfZmlsZWNoZWNrX3JlcGFpcl9pbm9kZV9ibG9jayhzdHJ1Y3Qg
-c3VwZXJfYmxvY2sgKnNiLAo+IAkJcmV0dXJuIC1PQ0ZTMl9GSUxFQ0hFQ0tfRVJSX1ZBTElERkxB
-RzsKPiAJfQo+IAo+KwlpZiAob2NmczJfZmlsZWNoZWNrX3ZhbGlkYXRlX3Nsb3RzKHNiLCBkaSwg
-YmgtPmJfYmxvY2tucikpCj4rCQlyZXR1cm4gLU9DRlMyX0ZJTEVDSEVDS19FUlJfSU5WQUxJRElO
-TzsKPisKPiAJaWYgKGxlNjRfdG9fY3B1KGRpLT5pX2Jsa25vKSAhPSBiaC0+Yl9ibG9ja25yKSB7
-Cj4gCQlkaS0+aV9ibGtubyA9IGNwdV90b19sZTY0KGJoLT5iX2Jsb2NrbnIpOwo+IAkJY2hhbmdl
-ZCA9IDE7Cj4tLSAKPjIuMzQuMQo=
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
+
+Low priority / nit picks for your consideration:
+
+- [Low] Commit message statements are not backed by the submitted code:
+  (a) it says `nbl_res_ctrl_dev_setup_eth_info()` builds "the per-PF…
+
+--
+
+net/nebula-matrix: add common resource implementation
+
+This adds the chip-independent resource layer for the nbl driver: PF mask
+parsing, SR-IOV BDF table construction, eth info and VSI base id setup on
+the control PF, plus VSI/func/eth id conversion helpers.
+
+> - nbl_res_ctrl_dev_setup_eth_info(): validates that firmware port
+>   count (get_board_info()->eth_num) matches max_pf and the eth
+>   bitmap reported by get_fw_eth_map(), then builds the per-PF
+>   eth_id / logic_eth_id lookup tables.
+
+[Severity: Low]
+Is there really a logic_eth_id lookup table?  struct nbl_eth_info in
+nbl_hw/nbl_resource.h only carries eth_num and eth_id[]:
+
+> +struct nbl_eth_info {
+> +	u8 eth_num;
+> +	u8 resv[3];
+> +	u8 eth_id[NBL_MAX_ETHERNET];
+> +};
+
+and nbl_res_get_eth_id() computes the logical id on the fly from the
+relative PF id rather than reading it from a table:
+
+> +	*logic_eth_id = rel_pf_id;
+
+Would it be more accurate to say setup_eth_info() builds the per-PF eth_id
+table, and that logic_eth_id is derived from the relative PF id?
+
+> The resource conversion helpers themselves do not include locking;
+> all resource operations must be serialized by upper dispatch layer via
+> ops_mutex_lock. Non-control PF requests are routed to control PF via
+> mailbox RPC, and these helpers are only executed on control PF.
+
+[Severity: Low]
+Do ops_mutex_lock and the mailbox RPC routing exist at this commit?  A grep
+over drivers/net/ethernet/nebula-matrix/ at this revision finds no
+ops_mutex_lock at all, and enum nbl_chan_msg_type in
+nbl_include/nbl_def_channel.h only defines the ack opcode:
+
+enum nbl_chan_msg_type {
+	NBL_CHAN_MSG_ACK = 0,
+	/* mailbox msg end */
+	NBL_CHAN_MSG_MAILBOX_MAX,
+};
+
+The newly registered res_ops (get_vsi_id, get_eth_id) also have no caller
+yet, and non-control callers are rejected locally instead of being
+forwarded:
+
+> +	if (!common->has_ctrl || !eth_num || !eth_id || !logic_eth_id)
+> +		return -EINVAL;
+
+Both the ops_mutex_lock serialization and the mailbox RPC routing appear
+only in the later patches "dispatch: add control-level routing core
+infrastructure" and "dispatch: implement channel RPC framework and
+serialize hardware ops".  Could the message be reworded to describe those
+as coming later in the series, so the "lookup helpers require no internal
+locking" claim is justified by code that is actually present?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922120311.86593-2-illusion.wang%40nebula-matrix.com
