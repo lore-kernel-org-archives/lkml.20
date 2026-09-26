@@ -1,158 +1,125 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69803242D84;
-	Sat, 26 Sep 2026 09:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD44B3D813C
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:45:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790415882; cv=none; b=OLCcD0Lt3RmSnDUFTeAJBPNKNHn67Icl0s7U7DAeAy8cVEDhdKlmsdcSPTzm5ko76vjYwOjDd9FUSB6vhfnjo9AgUGwQVZReYDDJSAz6iXybi0o3ENJd/uhiMx3GHNHovFk2JYkCgZ+re70Z5J/91gxDz3phb+WMeG3b0h7buV8=
+	t=1790415964; cv=none; b=iV+pEOV2KTVys0TuZ9h5OiIsy8JEbdLGWdySnhtLT9Sug4VWJO9asB5h9gn34e5UVRHcGwR0Jjy24lOTGYrXpgSB/RGfZBOKpdtdYOFfE1N0zMM5vKZ/4Fu+4s33SW521J0tiI7W1BFsV8xz1SwIXmKvNGYTLQxDAWlcXDfA8XU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790415882; c=relaxed/simple;
-	bh=mNlV9athUZVILYw+C+CAVpi7ggsaI9JdHFx+6wEkvVM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=RvEKJEi9EIGyDVCSCpf8fEeOQUtwF5LZ80cJoFuCgHPhcScklI6ZGG8rmH/gHmBUyY2OCjOdzJq7+aypBhZhRCwQIg1WuqaycnDiER0G8+PhLgEvdY36GeY0q9quIBvrdqx/jUXMnUS/FukXAOeh6dpG4AGUrvJNyb2NhMxhzTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=mrwZa9xz; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1790415964; c=relaxed/simple;
+	bh=UH2A5NK9SgdrmzDfWv8ahzli7q0fuGF43H/u10D04xQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gxvapKkeK7JNAwDqF2os6iw0cSJEWc454RHqoGX1L/aiHnIXnnghq/7M67+Gq6dhr6hXCJhtiNQZc71Ox8cVlFvLyV1Zm07NFO2NKTxbMUGE3KbmqptjTylCHDgBC8CafE8v0nlW5edOPgdvs8SoYIYKEtLtk4ksoOFuCganIb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ni7uPmgD; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="mrwZa9xz"
-Message-ID: <8e23838a-da5e-499c-a8be-3e2a7a0939e7@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1790415876;
-	bh=mNlV9athUZVILYw+C+CAVpi7ggsaI9JdHFx+6wEkvVM=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=mrwZa9xzT1YkJ2pZFvLb8A/cm94js4G0nXfiyARNuhOOAnoumXHd5GT+BChB1+CUq
-	 IfGC0YBLSlNnMSM6LEcGBaSzpKizXVvTGbZ4qcjR108IDBpiITDGhqfUpZuzx9xBUI
-	 t1nZkILFNOeMAAHiaTpkG8hJFkKJaOROUTm3+4Jg=
-Date: Sat, 26 Sep 2026 11:43:20 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ni7uPmgD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Zm
+	hgy8VLcc991RdByPGcppYjL+AucZ6fnyr9HJ17QAw=; b=ni7uPmgDmyiXZHfoQZ
+	9ZwandFI5jOmSh6G1TwOGz0KghPLdt1b9dVOomK+ITjbPbg4DMDk7SWFaeRtl4MM
+	8UNWndZYjJDB4e2Ghbufns+NXIGEN1PhpBBgi3ytGmF0hMbP79IhdK/uS9/KW29Y
+	v+pPI21L/UPxqbG6naZ6BS0PY=
+Received: from wang-MACHR-WX9.. (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3j54hlLdqcWLHAw--.41710S2;
+	Sat, 26 Sep 2026 17:45:06 +0800 (CST)
+From: Wang Wensheng <wsw9603@163.com>
+To: pmladek@suse.com,
+	rostedt@goodmis.org,
+	john.ogness@linutronix.de,
+	senozhatsky@chromium.org,
+	linux-kernel@vger.kernel.org
+Cc: wsw9603@163.com
+Subject: [PATCH v2] printk_ringbuffer: Avoid needless read of prb_desc
+Date: Sat, 26 Sep 2026 17:45:02 +0800
+Message-ID: <20260926094502.251204-1-wsw9603@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: linux-kernel-dev@aliel.fr
-Subject: Re: [PATCH v2 1/3] dt-bindings: pwm: amlogic: Add core clock for T7
-To: Conor Dooley <conor@kernel.org>
-Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org
-References: <20260925-add-t7-sys-pwm-clk-v2-0-f23a22b71a5c@aliel.fr>
- <20260925-add-t7-sys-pwm-clk-v2-1-f23a22b71a5c@aliel.fr>
- <20260925-facial-follow-032de22361c1@spud>
-Content-Language: en-US
-In-Reply-To: <20260925-facial-follow-032de22361c1@spud>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3j54hlLdqcWLHAw--.41710S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCw4rJrW8XrW7Kr1kGw4kWFg_yoW5Ww1rpF
+	s3Ka9rKrWDu34rXr17uFy8ZF9xuan3A3yrXFWDZrWSvF1xtrWFqFnIvryFyF15JrWDAr12
+	ywn0v3srAa1UZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi89NxUUUUU=
+X-CM-SenderInfo: pzvzmliqt6il2tof0z/xtbC+QK1vWq3lCI56AAA3J
 
-On 9/25/26 6:41 PM, Conor Dooley wrote:
-> On Fri, Sep 25, 2026 at 05:13:28PM +0200, Ronald Claveau via B4 Relay wrote:
->> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
->>
->> The T7, A1, C3, and S4 PWM controllers have a system clock in
->> addition to the two input clocks of channels A and B.
->>
->> The channel clocks are acquired by index in the pwm driver,
->> where the core clock is fetched by name, with optional get
->> which is silent when not provided.
->>
->> Require clock-names and minimum 3 items for T7, where the
->> PWM devices do not work without all 3 clocks.
->>
->> Add an example showing T7 usage with its fallback to
->> amlogic,meson-s4-pwm.
->>
->> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
->> ---
->>  .../devicetree/bindings/pwm/pwm-amlogic.yaml       | 33 ++++++++++++++++++++--
->>  1 file changed, 31 insertions(+), 2 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->> index c337d85da40f1..59320f288552b 100644
->> --- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->> +++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->> @@ -62,7 +62,7 @@ properties:
->>  
->>    clock-names:
->>      minItems: 1
->> -    maxItems: 2
->> +    maxItems: 3
->>  
->>    power-domains:
->>      maxItems: 1
->> @@ -140,13 +140,34 @@ allOf:
->>      then:
->>        properties:
->>          clocks:
->> +          minItems: 2
->>            items:
->>              - description: input clock of PWM channel A
->>              - description: input clock of PWM channel B
->> -        clock-names: false
->> +            - description: gate clock for the PWM controller
->> +        clock-names:
->> +          minItems: 2
->> +          items:
->> +            - const: channel-a
->> +            - const: channel-b
->> +            - const: core
->>        required:
->>          - clocks
->>  
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: amlogic,t7-pwm
-> 
-> Shouldn't this (based on your reply on the previous version) be s4?
-> 
+Since commit f244b4dc53e5 ("printk: ringbuffer: Improve prb_next_seq()
+performance"), desc_read() allows @desc_out to be NULL. We can drop the
+local `desc` variable in desc_reopen_last() and prb_first_seq(). Also
+update the comment for desc_read().
 
-The change above is for S4 and SOCs which fallback to S4. It allows the
-third clock but let the schema validation compatible with two clocks
-existing DTS. Here for the T7, I add requirement for the exact 3 clocks.
+v1->v2:
+Update the comment suggested by John.
 
-Do you recommend to require the 3 clocks for all S4 and S4 fallback, and
-update the associated dtsi files ?
+Signed-off-by: Wang Wensheng <wsw9603@163.com>
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Reviewed-by: John Ogness <john.ogness@linutronix.de>
+---
+ kernel/printk/printk_ringbuffer.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
 
->> +    then:
->> +      properties:
->> +        clocks:
->> +          minItems: 3
->> +        clock-names:
->> +          minItems: 3
->> +      required:
->> +        - clock-names
->> +
->>    - if:
->>        properties:
->>          compatible:
->> @@ -182,3 +203,11 @@ examples:
->>        clocks = <&pwm_src_a>, <&pwm_src_b>;
->>        #pwm-cells = <3>;
->>      };
->> +  - |
->> +    pwm@60000 {
->> +      compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
->> +      reg = <0x60000 0x24>;
->> +      clocks = <&channel_a>, <&channel_b>, <&core>;
->> +      clock-names = "channel-a", "channel-b", "core";
->> +      #pwm-cells = <3>;
->> +    };
->>
->> -- 
->> 2.49.0
->>
->>
-
-
+diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
+index 85c0c854b3ce..d38e7c2f6887 100644
+--- a/kernel/printk/printk_ringbuffer.c
++++ b/kernel/printk/printk_ringbuffer.c
+@@ -439,13 +439,12 @@ static enum desc_state get_desc_state(unsigned long id,
+ }
+ 
+ /*
+- * Get a copy of a specified descriptor and return its queried state. If the
+- * descriptor is in an inconsistent state (miss or reserved), the caller can
+- * only expect the descriptor's @state_var field to be valid.
++ * Get the state of a specified descriptor.
+  *
+- * The sequence number and caller_id can be optionally retrieved. Like all
+- * non-state_var data, they are only valid if the descriptor is in a
+- * consistent state.
++ * Optionally, a copy of the descriptor, sequence number and/or caller ID can
++ * be retrieved. However, (with the exception of @desc_out->state_var) all
++ * retrieved values are invalid if the descriptor is in an inconsistent state
++ * (miss or reserved).
+  */
+ static enum desc_state desc_read(struct prb_desc_ring *desc_ring,
+ 				 unsigned long id, struct prb_desc *desc_out,
+@@ -1335,7 +1334,6 @@ static struct prb_desc *desc_reopen_last(struct prb_desc_ring *desc_ring,
+ {
+ 	unsigned long prev_state_val;
+ 	enum desc_state d_state;
+-	struct prb_desc desc;
+ 	struct prb_desc *d;
+ 	unsigned long id;
+ 	u32 cid;
+@@ -1346,7 +1344,7 @@ static struct prb_desc *desc_reopen_last(struct prb_desc_ring *desc_ring,
+ 	 * To reduce unnecessarily reopening, first check if the descriptor
+ 	 * state and caller ID are correct.
+ 	 */
+-	d_state = desc_read(desc_ring, id, &desc, NULL, &cid);
++	d_state = desc_read(desc_ring, id, NULL, NULL, &cid);
+ 	if (d_state != desc_committed || cid != caller_id)
+ 		return NULL;
+ 
+@@ -2007,14 +2005,13 @@ u64 prb_first_seq(struct printk_ringbuffer *rb)
+ {
+ 	struct prb_desc_ring *desc_ring = &rb->desc_ring;
+ 	enum desc_state d_state;
+-	struct prb_desc desc;
+ 	unsigned long id;
+ 	u64 seq;
+ 
+ 	for (;;) {
+ 		id = atomic_long_read(&rb->desc_ring.tail_id); /* LMM(prb_first_seq:A) */
+ 
+-		d_state = desc_read(desc_ring, id, &desc, &seq, NULL); /* LMM(prb_first_seq:B) */
++		d_state = desc_read(desc_ring, id, NULL, &seq, NULL); /* LMM(prb_first_seq:B) */
+ 
+ 		/*
+ 		 * This loop will not be infinite because the tail is
 -- 
-Best regards,
-Ronald
+2.43.0
+
