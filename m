@@ -1,252 +1,128 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1043803D2;
-	Sat, 26 Sep 2026 18:43:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05685367B90;
+	Sat, 26 Sep 2026 18:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790448188; cv=none; b=sIDptHg+tl32qlnWjrSs65NMTlIHOMjzHWxqsdMtUv7Ks+nH/tPTCSaPPo/kFUPnBg63hb27nXNCmgqLun1wLMivuWuN/HQicVoOh3SsAc3Q2X7bhwgS5ovocutoawDDlh38nXRoNZvmTJEJanjzu8s6EcV069IBCKktdeKhM8Y=
+	t=1790448240; cv=none; b=WSUexuMTg/kj38l6W8YoZBnYcCbSrMxJEpc+nWHrunW2/xHs+63is9bcy/umc1wuJdfTp4jQvnx5aC4kRPKywe3SIW7OFDZZugj5uSV3A4bQ//2UHfu9eWjxihgsoLATlfSS0VVXOItCZQHbU4yV+JNialF8uP3ANk54B2Z+Ft0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790448188; c=relaxed/simple;
-	bh=xsGuJk232I4PLTQmWUF7L02T34ag+5omrFDsR297W3w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fWX8Ke3zQqOrzUlTGyzcDUo1dFyW4WqWX1cTSh5nvFd8aBKmUDo8cZLKpvNfV5P+XjbnNeI17yVqiCjMTZps6U9vEC0yrgBBFiLgB3VQ6HcEvDILS1nDwXT6gvfNZPsBacv0sCiqOKRQXlO8oHE+e8y0p6RG1P9v1myfC1kbLlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JOdraxMQ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790448240; c=relaxed/simple;
+	bh=QIURmYUXBk4CGBkNo+YfBoc/rv9JGk/MEDxiCObHAY4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iTGrcv6UvS8n7I8mrmws7Q9Xkic7ZBzjUxIKFnCdSUZx15Pl0ANAIM3lZsNdZ0jlvgLzR2a+1R30xz2XByZRdVqF9NDXeVOgiq76NdSasiIzCvud/i/iF+M4QGe7Xj2cP9uy86qEOXHcWwF5Y6JxXyym3aDurqg8Zhm2WRxTuws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=DMpb17R7; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JOdraxMQ"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QH6ptI3178453;
-	Sat, 26 Sep 2026 18:42:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=5NWAaCwDcHhIw1u+lP8Elc0CPonTbbi0EH2sp3ZDw
-	v8=; b=JOdraxMQfCw6O5nhANanq2KcsYdLDVbjNbD3pW5MZAjU9ZEisTxr59Cj9
-	1qbwMrTigOdf6AJTWh+i62jFcM7b7AQOoCbbX5aI/HA2eQmux57ztqwhQfUoFWKu
-	gfXjtwDHmk1ugIvHzITie9MXSR1MhLG/j1arAxroAwnstuI3BJdrBzoEa6nmIXWV
-	G9DeDaMrhdvsRPiMv3ZRhW9GxLoArv4xMESmp1jhPIzXMlIARhdkoqctHkCqRGXf
-	cE3AQd+HWrxkwQeL9/AENsJyWRRtSeTl1c9PujOvB14LGN53S79nhHav8mZTpi6M
-	e86sEPvWg79+4DPm++XR7Hh+iEaZA==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx4fdtey0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 26 Sep 2026 18:42:57 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68QH2Zrd1541370;
-	Sat, 26 Sep 2026 18:42:56 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu9730u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 26 Sep 2026 18:42:56 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68QIgqkW37814682
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 26 Sep 2026 18:42:52 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 120CC20040;
-	Sat, 26 Sep 2026 18:42:52 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EE50920043;
-	Sat, 26 Sep 2026 18:42:47 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.84.252])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sat, 26 Sep 2026 18:42:47 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org
-Cc: James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
-        zohar@linux.ibm.com, stefanb@linux.ibm.com,
-        linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-        nayna@linux.ibm.com, rnsastry@linux.ibm.com, ssrish@linux.ibm.com
-Subject: [PATCH v3] keys/trusted/tpm2: Validate TPM2_Create object sizes separately
-Date: Sun, 27 Sep 2026 00:12:03 +0530
-Message-ID: <20260926184203.479203-1-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="DMpb17R7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=ZRqdnQVYOWo/r4+FEgARvCAFTE8PSP6/Q+C1nHisg48=; t=1790448237;
+	x=1791053037; b=DMpb17R7ahwBf2TPJAWOlB41YYPtIrB2D222YhWIfQgWVVnZ5cg5zJZKAnsXo
+	cV2j+q5x3X6zxckT9EXUoU6I3xOXzgISe4Rmd1MDZKJ7echI32Hkjs7jGooPbnHbC8Q4e+F3qTI7B
+	78Lr9VRriiOBx2SS6kk/Qe4Af2VGlcWPvztju/HybRuTVrF40Dv9GXCEkchkAwgcyjNrQWxDVHynK
+	m6aDmuoUH5dDSs9rvlEo5zJx25FDM/qN7OHatJ2FVsZDIBNTfbXBLkLmJuWV+capb9npOXC0K3/+C
+	+3UzaB0algKrjBsNJjRd/PkdhhvtsAiZ1bV+TqlzKlP5owofYA==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xAXNC-00000000zck-2x3m; Sat, 26 Sep 2026 20:43:46 +0200
+Received: from dynamic-002-245-050-003.2.245.pool.telefonica.de ([2.245.50.3] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xAXNC-000000022yM-1ytU; Sat, 26 Sep 2026 20:43:46 +0200
+Message-ID: <9b75aa51e19f9c0f5c97ac02cfc0948ab5bbf279.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH 0/2] sh: mm: fix hugetlb on SH-4
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Yoshinori Sato
+	 <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
+Cc: linux-sh@vger.kernel.org, Muchun Song <muchun.song@linux.dev>, Oscar
+ Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, Andrew
+ Morton	 <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Date: Sat, 26 Sep 2026 20:43:45 +0200
+In-Reply-To: <20260926183904.76186-1-kmehltretter@gmail.com>
+References: <20260926183904.76186-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=FYWiV5+6 c=1 sm=1 tr=0 ts=6ab81231 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=70sryTsWxkqKhW1QF0gA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA3NCBTYWx0ZWRfX6ms4ER1n89SF
- v5ScGXfhmUPBtnZVn7KNaLJsT9s68Huso7yXUvV1Ofg53TOR1JkJhC/qBipYrV/2k0Mi/PePA4M
- QlBSWpSJMWQfnJLkR1gZVAraRxrjExw=
-X-Proofpoint-ORIG-GUID: nTdd4-vL3TZhM0jIA4rjZRaRNcD007tn
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA3NCBTYWx0ZWRfX2KowHOEgSA2O
- LSCnrc3hHUR0OVkJ85Ju2qaJRBhl/6jdLkO5ZkX6f8ScLS91RzEMmv5VRAP2XjEZD/cekDr5/MI
- 5STEWF02USQm9vlWfM2Nku4e+28Zimg27SlWlI4RYTVaiCpWBJyqB4IFyxABjHsNbm3Lq3MUM5F
- vJ+emynSGR8CqPyKwc1SP4v1ihikbbABB5FjPV6K3VoAWznz2qGXtdNTIGSHY3+i/53znWG0BEV
- QOADBAr0kn2hqjxMDN2o6qSkwOfGETTJLRM4lAeVUSSA6nrD6982AttHc72Ej8KGEqfw0bybOhF
- qx7pFSTe6lBiA6rmz5hUDUw4imdJHW7KxG1WpIwFfm6KaAmDvYJ0ZEDjB2WWhJAwbpAaBee6QxL
- lMpHQHY+RbbmknVwvn9wgEWqdy4W3nbMdLGkw2JY8fijYAYpnf3zNMzyV4gbB74C+376YZbnkpc
- 6/w6tMTY8PyUjTbz1Mw==
-X-Proofpoint-GUID: nTdd4-vL3TZhM0jIA4rjZRaRNcD007tn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609260074
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-TPM2_Create returns outPrivate, outPublic, creationData, creationHash and
-creationTicket in its response parameter area. However, only outPrivate and
-outPublic are included in the trusted key blob. The size of the blob is
-therefore not determined by the size of the complete response parameter
-area.
+Hi Karl,
 
-tpm2_seal_trusted() currently compares the size of the complete response
-parameter area against MAX_BLOB_SIZE. This can reject a valid response
-when the remaining response outputs cause the entire response parameter
-area to exceed MAX_BLOB_SIZE, even though the outPrivate and outPublic
-TPM2B structures consumed by tpm2_key_encode() remain small enough to be
-encoded in the key blob.
+On Sat, 2026-09-26 at 20:39 +0200, Karl Mehltretter wrote:
+> Muchun Song noted in the review of the Arm hugetlb alignment fix [1]
+> that SuperH has the same arch_get_unmapped_area() gap. Reproducing it
+> in QEMU turned up a second, older bug that corrupts memory once the
+> mappings are aligned.
+>=20
+> Patch 1 fixes the page size in hugetlb PTEs. pte_mkhuge() ORs the huge
+> size into the base page size bits, so 64 KiB huge pages over 4 KiB
+> pages are loaded into the TLB as 1 MiB pages. User writes then land in
+> unrelated kernel memory. This dates back to the start of git history.
+>=20
+> Patch 2 aligns hugetlb mappings to the huge page size. Without it
+> mmap(MAP_HUGETLB) can return an address that is not aligned to the huge
+> page size, and process exit hits the BUG_ON() in
+> __unmap_hugepage_range(). This is a 6.13
+> regression.
+>=20
+> Patch 1 goes first because patch 2 alone makes the corruption reachable
+> through a plain mmap(). Both are marked for stable.
+>=20
+> Tested on QEMU r2d (SH7751R, rts7751r2dplus_defconfig plus HUGETLBFS
+> with 64 KiB huge pages, gcc 15.2) on top of fddfc3ec3179. A test init
+> maps two huge pages with the default and legacy layouts and with
+> MAP_FIXED, writes and reads back every 4 KiB, mprotect()s the mapping
+> read-only and back, and checks a COW write in a forked child:
+>=20
+>   kernel          MAP_FIXED       default/legacy mmap
+>   base            memory corrupt  misaligned, BUG at mm/hugetlb.c:5215
+>   patch 1         pass            misaligned, BUG
+>   patches 1+2     pass            pass
+>=20
+> SH-X2 (X2TLB) is only build tested (r7785rp_defconfig with 64 KiB huge
+> pages).
+>=20
+> QEMU's SH-4 TLB emulation flushes only the first 4 KiB of a 64 KiB or
+> 1 MiB entry when the entry is dropped [2]. Keep that in mind when
+> testing hugetlb on QEMU.
+>=20
+> [1] https://lore.kernel.org/r/5AB6FE85-4CB9-41EF-A700-BC5E071F29F5@linux.=
+dev
+> [2] https://gitlab.com/qemu-project/qemu/-/issues/4598
+>=20
+> Karl Mehltretter (2):
+>   sh: mm: replace the page size bits in pte_mkhuge()
+>   sh: mm: align hugetlb mappings to the huge page size
+>=20
+>  arch/sh/include/asm/pgtable_32.h |  7 +++++--
+>  arch/sh/mm/mmap.c                | 11 +++++++++--
+>  2 files changed, 14 insertions(+), 4 deletions(-)
 
-This is observed when creating larger trusted keys using the swtpm TPM 2.0
-emulator backed by libtpms.
+Thanks for the patch! This should definitely be tested on real hardware
+and I think it's a good reason to test this on my SH7785LCR which wouldn't
+boot on anything newer than 6.5.0.
 
-For example, requesting a 113-byte key succeeds, 114 fails.
+Adrian
 
-~$ keyctl add trusted trusted_key1 "new 113 keyhandle=0x81000001" @u
-520504613
-~$ keyctl add trusted trusted_key2 "new 114 keyhandle=0x81000001" @u
-add_key: Argument list too long
-~$
-
-Remove the MAX_BLOB_SIZE check on the complete response parameter area.
-Instead, use the response length passed to tpm2_key_encode() to validate
-that the outPrivate and outPublic TPM2B structures are fully contained
-in the response before accessing them.
-
-Previously, a response parameter area larger than MAX_BLOB_SIZE was
-rejected with -E2BIG before ASN.1 encoding. With this change, if the
-resulting encoded blob does not fit in payload->blob, the error returned by
-asn1_encode_sequence() is propagated instead.
-
-Also, use scope-based cleanup to simplify resource management.
-
-Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
----
-Changelog:
-
- v3:
-  - Simplify the TPM2B_PRIVATE and TPM2B_PUBLIC bounds checks
-  - Use appropriate error codes for failure returns
-  - Use scope-based cleanup to simplify resource management
-
- v2:
-  - Exclude a comment pointed out by Jarkko
-
- security/keys/trusted-keys/trusted_tpm2.c | 42 +++++++++++++----------
- 1 file changed, 24 insertions(+), 18 deletions(-)
-
-diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
-index 906700c3d7f0..920f45c7864b 100644
---- a/security/keys/trusted-keys/trusted_tpm2.c
-+++ b/security/keys/trusted-keys/trusted_tpm2.c
-@@ -25,24 +25,36 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
- {
- 	struct trusted_key_tpm *private = options->private;
- 	const int SCRATCH_SIZE = PAGE_SIZE;
--	u8 *scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
--	u8 *work = scratch, *work1;
--	u8 *end_work = scratch + SCRATCH_SIZE;
-+	u8 *scratch __free(kfree) = NULL;
-+	u8 *work, *work1;
-+	u8 *end_work;
- 	u8 *priv, *pub;
--	u16 priv_len, pub_len;
-+	u32 priv_len, pub_len;
- 	int ret;
- 
-+	if (len < 4)
-+		return -EINVAL;
-+
- 	priv_len = get_unaligned_be16(src) + 2;
--	priv = src;
-+	if (priv_len + 2 > len)
-+		return -EIO;
- 
-+	priv = src;
- 	src += priv_len;
- 
- 	pub_len = get_unaligned_be16(src) + 2;
-+	if (pub_len + priv_len > len)
-+		return -EIO;
-+
- 	pub = src;
- 
-+	scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
- 	if (!scratch)
- 		return -ENOMEM;
- 
-+	work = scratch;
-+	end_work = scratch + SCRATCH_SIZE;
-+
- 	work = asn1_encode_oid(work, end_work, tpm2key_oid,
- 			       asn1_oid_len(tpm2key_oid));
- 
-@@ -50,10 +62,9 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
- 		unsigned char bool[3], *w = bool;
- 		/* tag 0 is emptyAuth */
- 		w = asn1_encode_boolean(w, w + sizeof(bool), true);
--		if (WARN(IS_ERR(w), "BUG: Boolean failed to encode")) {
--			ret = PTR_ERR(w);
--			goto err;
--		}
-+		if (WARN(IS_ERR(w), "BUG: Boolean failed to encode"))
-+			return PTR_ERR(w);
-+
- 		work = asn1_encode_tag(work, end_work, 0, bool, w - bool);
- 	}
- 
-@@ -65,8 +76,7 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
- 	 */
- 	if (WARN(work - scratch + pub_len + priv_len + 14 > SCRATCH_SIZE,
- 		 "BUG: scratch buffer is too small")) {
--		ret = -EINVAL;
--		goto err;
-+		return -EINVAL;
- 	}
- 
- 	work = asn1_encode_integer(work, end_work, private->keyhandle);
-@@ -79,15 +89,10 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
- 	if (IS_ERR(work1)) {
- 		ret = PTR_ERR(work1);
- 		pr_err("BUG: ASN.1 encoder failed with %d\n", ret);
--		goto err;
-+		return ret;
- 	}
- 
--	kfree(scratch);
- 	return work1 - payload->blob;
--
--err:
--	kfree(scratch);
--	return ret;
- }
- 
- struct tpm2_key_context {
-@@ -340,10 +345,11 @@ int tpm2_seal_trusted(struct tpm_chip *chip,
- 		goto out;
- 
- 	blob_len = tpm_buf_read_u32(buf, &offset);
--	if (blob_len > MAX_BLOB_SIZE || buf->flags & TPM_BUF_INVALID) {
-+	if (buf->flags & TPM_BUF_INVALID) {
- 		rc = -E2BIG;
- 		goto out;
- 	}
-+
- 	if (buf->length - offset < blob_len) {
- 		rc = -EFAULT;
- 		goto out;
--- 
-2.53.0
-
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
