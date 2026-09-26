@@ -1,64 +1,64 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED7938A72C
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFF5388E6B
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790394574; cv=none; b=kXYBgOFnWENb+xHD8q81n2pM3ZPiFm4IcmyfWNSqwrtq9O/RxSEXYdHC6KLei1ilBYv318LXCRkOu1BD0EeCbfORb7DlI/UAsl02EF1YPVpAiVOcAkrRI/PKgtzKoDq540eamFQN1KxlUOvLE+0pnBZ9GCE0spccZ+wAYF6TbsQ=
+	t=1790394577; cv=none; b=T9ZCY6Amv8uMJG65G9U37J1NE/ePr6mZSXvFYpwDimdFJh13HaRGlo8UBQjHIR8t0AAX0gytak78thxNNbnyLpbn25XsVv2Gve0C5H/BbpkcFt+8ZKnPzzqHoFnxPWQjK+v0BQHRuUw/cJ66yUKLrAHjnATKBHtPanpW7DLo+jY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790394574; c=relaxed/simple;
-	bh=dRjSOX0gFUZyLW+TAn4WnqX6VewHhBxbXEOKe6zZPL8=;
+	s=arc-20240116; t=1790394577; c=relaxed/simple;
+	bh=4YVUr/SAhTBwjT0Go/F6m/FF9CaDGjuXGtYk+bGqmZc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f/7t/I6AjgJBRZN8SF3weOj9K7yjlyngYGIvlZapsZrKrEoLvlsrwsO+zDdMFMvKc9hMmc9wVzLAE7X4Dt0lSF1Ocnllivsp1vfWbBuosSq3BxMuPfDaBs1Aktf0vkC5S/LIQB0EWzHuPZDlJTXDyibOcl3Ag/AiKvhuE/MdPXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VNmu865J; arc=none smtp.client-ip=74.125.225.99
+	 MIME-Version; b=Be3mL/um4MryVPbmiscLTaY37uHktlFehWiYJbmSK4zu0mizgqhCFHHM3fPwmRY3PaZtnsHDggNV2/g/5DrGzVlYrySSXls8YIjeNT5I4vK+pa7dyV9MxBIUcDcG+MWbdDS7QbhqUO30pptQ3xhSoiDOnadFSheftp1k9GVl5j8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iFhDRQYM; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VNmu865J"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885d4825adso851486f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:49:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iFhDRQYM"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so14364325e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:49:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790394570; x=1790999370; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790394573; x=1790999373; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qI8gzoG27aGncFin1uBlOK6ZBd9hIaPKhApyur6iKoc=;
-        b=VNmu865Jc9bicoYYCJ6n474ne1xuWoLVgAo6TB41HvyczCleZW0ISjeE49SMGI3DrE
-         3rnyZ+gG2bsOukKHkBwJ4pAMFRFEN3WOmlANKUqPC08T5TaDYJOzHvwBCPH/f+8dVvvV
-         e4GR38dOW8GkvOk8QtYKEx06Z2inSoYT1maDf82gBGlQmTj36zTzCHp0VUif0tNIEx6O
-         PAmTJ9av4EXnkeJIPpL48yvzhOSYs9Y88iX0wTBp6wcHBxoezHTCN0vS2NSOsGT3qa/C
-         YwveaB+1pLk7YOBjXErAli6YVLE8qcTYhWc6nCq0krWA9/gElf5605MF5dHp70GpA0NN
-         ZCcw==
+        bh=5exqyQhzafqyOFiRdxT6ffSBUlENs1lok/PR/m34+0M=;
+        b=iFhDRQYMxHPXVYysuKqZmASu4GbBRpGnivIUJsSu2a5yDZ5qclApZQlpqo1KjMei7C
+         lUE4r/w27MieIcfwJuNg3LS6/kl8XV85C3lphXODQPp2/xykOZrOCxoHdQl+t1aStbDs
+         vqI2TjwU2aXBeNAPytTDfPqh3AnAAlfAj9b2QJ90ZFuyLYleo+TVik9G5M65EvH+CLq5
+         IVmd/ZufR34laQKhp8wXDY+naCj/7YzPVKnzh4bnF10ZZaWxDcSBbhM9MWiS4EMH+7/k
+         IuUG6S82nmaQoJHKqIH+QwKsHgOLGFSO9Y6V8qVj2PixEosa4X7uuiwZUAQtHClSXFZ0
+         dL/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790394570; x=1790999370;
+        d=1e100.net; s=20260707; t=1790394573; x=1790999373;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qI8gzoG27aGncFin1uBlOK6ZBd9hIaPKhApyur6iKoc=;
-        b=H0XCDHYrfKpsCJf+tTRRHJBmx7UuKJ1KB65xXyZQfulMeM8JlUqq83deciw/DnZ6Vp
-         vvdpo0OThF9Hl+KJAjv+xS9XUZPzgl9+TIavh4PJ+PxzdMfkVQSMuVgOoiEJxm+yH1Tz
-         75kOPedXh9m6ZvbITK4D7L+BC+GU5evKhNgy/dztuA/bMhcVRER8ndzK0gJMVsf545OQ
-         qIyTU4Gozd4dtEAgHNuZVnArR/ke+JHqQ/PSj8910HUb5a14143Hd1mldN+ZEkCooalH
-         eAYRNQsqFsy/2gD7PkesmeDRzlMSdtO+c2zW2bIhYdSM8sUhHBdWG4cED8jB5gzRBLDU
-         njTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwnHCrjPm3ftXJDIXrC6MXUJJYjVnNtOMOCz9dkOulp3IX4gPR6Ojl/rjzLNt028Mk65wAmEtM+Nd59QT4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2g7aESfYjrbPtD5aO566Eh135AFPCoxqOZJGR+qdq9o319UJn
-	EKV/+9AKduyGlVO7HgfDWc4lh4hjHbTOjDdOtRtkXMfaqOgB58Z+CjAD
-X-Gm-Gg: AYBFou2RqtHL1RKrmNcvSH7jlEhZ54UaNlOZEhNocfEooXUeS5KmFGJ99U+5oBGzV8f
-	o5mTSK9xy55dGF/vIucKh4FeEuqZ0lsam0vezQ/bUV9qdmklzWAUG6vioLSqVhjfKNWYWmceGCE
-	hV1jLqKHwgzT4xT8uSAbT8GnMz31InJUV+qMZ+s2oM5nMHQvmzLy2F30xjCo32CJG8ASpHvY1Bc
-	UDl3cdGvQ3Z8bqdViYj+Q479JR1SWghPu3+XHngTbkSnegmiMKLEICvg4xHDmYp8zm4xbkNMPVa
-	WYbJ8xGq7PWoM+LRBh5/GIFX95O4MzfZg0JmLI3mp8e1SHTqtjaATJ7E+LXqmSQr7GrZxBAMEF4
-	Sza5w4D8SF5BOuxs2fvDItaBSt8qcE9NKNKUrX9Z3KgXwdoenqgiaE5RGxKODbqhR096xxdYr/o
-	vFAL1F6uGYKpQkFqKxBjvuLwXgJp8l4JvpMkFzwDyj8jFadw41f/n+xxii+UoqgFVSPYadFieVm
-	qJsalQHp8l/lxnJ362wcVOWXjGPhIuyLw8EEdmIZHRZ
-X-Received: by 2002:a05:600c:3b1b:b0:49c:de80:b833 with SMTP id 5b1f17b1804b1-49fe66c8a1emr145611675e9.2.1790394570582;
-        Fri, 25 Sep 2026 20:49:30 -0700 (PDT)
+        bh=5exqyQhzafqyOFiRdxT6ffSBUlENs1lok/PR/m34+0M=;
+        b=ZVVFyvQ9AgJYFlYJqRsQPcmEAS9yLixMpPD06w7f1V0DXzh4uJD9EwfIcn5fxDHZkc
+         R7RA+uQ5iD/dwBnKA9NEGu2ff+NgPiPUxidEHrxEupeHDybCQ0vxcsljnfrO5C5wKkLq
+         P3npnQLQgqF+4aGvT1L9cAA4cns2tCWj/984z3Z2t64uevq8TyACDVpP4S6xjbwCHbY8
+         ykC1wOcFTcNw5uAJGOw3YUfq6lvj1qWxftueW4b9M7OJdin/PwGIyJO74XocVyYt0w6P
+         xkFU6YH5wSpH6F61s1BGBvDBRfLsoI35OJlKvy1ftUa8n2cc23NoS8eP86P+8AjqFOUe
+         /N/A==
+X-Forwarded-Encrypted: i=1; AKwUvByf+IXHBLYPpX7GU85ZLyA0DpxoaVhemSmANaOc+0amqsKJD8Te3WrBFEDlOgDWkFa28LOPlizCq4sYMzY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5AuC1/ivVC6UvgBnz/J/AlMfILTTajSKy8cYN1K+v/0H/SWdb
+	OyhtlnbmebOuDtkjbaS8yPlfFm00cRXP1ZDgtEtbxtcRsZvr69IDo/JN
+X-Gm-Gg: AYBFou0ZS29GeFp96RUwr9kOBQvHCPxxQ7a0DcgiPVx5sxeyVaAPRvN5l7zI6LwnOIj
+	8Pw+PqvnukbosX+TxbJ1p7CQsx9CiRMsiPmU3O+4WsobaS8xs3lx5Blg4Dq8Z72Rrek9yuuG2ZT
+	1A70ncuy+zWBB1Q8uUWMFVFDaDrN7iCy+RaXqoQaN6+R7YT+29cZ+iw3eWqyBf2GK5LEhdOpHrr
+	Wl4oFDKaiBn7+VF7a+AlggburHlHITjQJvPLp8RansVApR+8CtBWjRrNp7GucyoDcMbrDxp1Vc6
+	dnAqJ1xLZZBsjGNZjroulacCbQUstxy9NnJiuy+GvUXU9XUx3iGFCZNtYbM0Znq+nrVFgQXIXOE
+	2t9AgALT/fT/dRzEvKF7sy8AL+6czE2gC+otFdB3aJe8H/gCGYLdCIy6mS4vnB92mORzq0NC0Yf
+	JIPGy1ci5lkHy/n1O/y/aQLUHcAB0U25+vWDYLTrhe+ArxVkhVoRKRufR3T2dVW0MlhbBLTY1HO
+	PGr7KsGtQz4Xa4ZQYBUI7yWWJ5CLN/Xr0BjGmPd1/DP
+X-Received: by 2002:a05:600c:8b4c:b0:49e:8184:f63b with SMTP id 5b1f17b1804b1-49fe66f3a68mr132693255e9.16.1790394572642;
+        Fri, 25 Sep 2026 20:49:32 -0700 (PDT)
 Received: from localhost.suse.org ([37.109.167.253])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff43ad975sm116657205e9.13.2026.09.25.20.49.29
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff43ad975sm116657205e9.13.2026.09.25.20.49.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 20:49:30 -0700 (PDT)
+        Fri, 25 Sep 2026 20:49:32 -0700 (PDT)
 From: Sebastian Chlad <sebastianchlad@gmail.com>
 X-Google-Original-From: Sebastian Chlad <sebastian.chlad@suse.com>
 To: Tejun Heo <tj@kernel.org>,
@@ -74,9 +74,9 @@ Cc: Sebastian Chlad <sebastian.chlad@suse.com>,
 	linux-mm@kvack.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] selftests: cgroup: Use values_close_report in test_memcontrol
-Date: Sat, 26 Sep 2026 05:49:20 +0200
-Message-ID: <20260926034923.31718-2-sebastian.chlad@suse.com>
+Subject: [PATCH 2/2] selftests: cgroup: Report memory.current shortfall in alloc_pagecache_50M_check
+Date: Sat, 26 Sep 2026 05:49:21 +0200
+Message-ID: <20260926034923.31718-3-sebastian.chlad@suse.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260926034923.31718-1-sebastian.chlad@suse.com>
 References: <20260926034923.31718-1-sebastian.chlad@suse.com>
@@ -88,112 +88,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the terminal tolerance checks in test_memcontrol to
-values_close_report() so that a failure prints the observed and
-expected values instead of failing silently. Also report the
-"memory.current < size" check in alloc_anon_50M_check().
+alloc_pagecache_50M_check() fails silently when memory.current is below
+the 50M that was just written to the page cache. This is the check that
+can trip when the page cache of the test cgroup is reclaimed under
+global memory pressure, so print the observed value.
 
-values_close() is kept where it is used as a loop or retry condition
-(waiting for usage to settle in test_memcg_protection(), reclaim_until(),
-the reclaim retry loop and the socket test), since a mismatch there is
-expected and reporting it would print spurious failures.
+test_memcg_high() runs the same helper with memory.high set to 30M and
+expects it to fail, so reporting there would print a misleading failure
+message on every passing run. Split the body into
+__alloc_pagecache_50M_check() with a report flag, and give
+test_memcg_high() a quiet variant.
 
 Assisted-by: claude-opus-5-5
 Signed-off-by: Sebastian Chlad <sebastian.chlad@suse.com>
 ---
- .../selftests/cgroup/test_memcontrol.c        | 25 +++++++++++--------
- 1 file changed, 14 insertions(+), 11 deletions(-)
+ .../selftests/cgroup/test_memcontrol.c        | 27 ++++++++++++++++---
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
 diff --git a/tools/testing/selftests/cgroup/test_memcontrol.c b/tools/testing/selftests/cgroup/test_memcontrol.c
-index 0ed82347044e..14c0bb608175 100644
+index 14c0bb608175..d3b9295aad75 100644
 --- a/tools/testing/selftests/cgroup/test_memcontrol.c
 +++ b/tools/testing/selftests/cgroup/test_memcontrol.c
-@@ -200,17 +200,20 @@ static int alloc_anon_50M_check(const char *cgroup, void *arg)
- 		return -1;
+@@ -222,7 +222,7 @@ static int alloc_anon_50M_check(const char *cgroup, void *arg)
+ 	return ret;
+ }
+ 
+-static int alloc_pagecache_50M_check(const char *cgroup, void *arg)
++static int __alloc_pagecache_50M_check(const char *cgroup, bool report)
+ {
+ 	size_t size = MB(50);
+ 	int ret = -1;
+@@ -237,14 +237,19 @@ static int alloc_pagecache_50M_check(const char *cgroup, void *arg)
+ 		goto cleanup;
  
  	current = cg_read_long(cgroup, "memory.current");
 -	if (current < size)
 +	if (current < size) {
-+		fprintf(stderr, "memory.current %ld < expected %zu\n",
-+			current, size);
++		if (report)
++			fprintf(stderr, "memory.current %ld < expected %zu\n",
++				current, size);
  		goto cleanup;
 +	}
  
--	if (!values_close(size, current, 3))
-+	if (!values_close_report(size, current, 3))
- 		goto cleanup;
- 
- 	anon = cg_read_key_long(cgroup, "memory.stat", "anon ");
- 	if (anon < 0)
- 		goto cleanup;
- 
--	if (!values_close(anon, current, 3))
-+	if (!values_close_report(anon, current, 3))
- 		goto cleanup;
- 
- 	ret = 0;
-@@ -241,7 +244,7 @@ static int alloc_pagecache_50M_check(const char *cgroup, void *arg)
+ 	file = cg_read_key_long(cgroup, "memory.stat", "file ");
  	if (file < 0)
  		goto cleanup;
  
--	if (!values_close(file, current, 10))
-+	if (!values_close_report(file, current, 10))
+-	if (!values_close_report(file, current, 10))
++	if (report ? !values_close_report(file, current, 10) :
++		     !values_close(file, current, 10))
  		goto cleanup;
  
  	ret = 0;
-@@ -578,16 +581,16 @@ static int test_memcg_protection(const char *root, bool min)
- 	if (cg_run(parent[2], alloc_anon, (void *)MB(148)))
+@@ -254,6 +259,20 @@ static int alloc_pagecache_50M_check(const char *cgroup, void *arg)
+ 	return ret;
+ }
+ 
++static int alloc_pagecache_50M_check(const char *cgroup, void *arg)
++{
++	return __alloc_pagecache_50M_check(cgroup, true);
++}
++
++/*
++ * Same as alloc_pagecache_50M_check(), but silent on failure, for callers
++ * that expect the allocation to be held below 50M.
++ */
++static int alloc_pagecache_50M_check_quiet(const char *cgroup, void *arg)
++{
++	return __alloc_pagecache_50M_check(cgroup, false);
++}
++
+ /*
+  * This test create a memory cgroup, allocates
+  * some anonymous memory and some pagecache
+@@ -735,7 +754,7 @@ static int test_memcg_high(const char *root)
+ 	if (cg_run(memcg, alloc_anon, (void *)MB(31)))
  		goto cleanup;
  
--	if (!values_close(cg_read_long(parent[1], "memory.current"), MB(50), 3))
-+	if (!values_close_report(cg_read_long(parent[1], "memory.current"), MB(50), 3))
+-	if (!cg_run(memcg, alloc_pagecache_50M_check, NULL))
++	if (!cg_run(memcg, alloc_pagecache_50M_check_quiet, NULL))
  		goto cleanup;
  
- 	for (i = 0; i < ARRAY_SIZE(children); i++)
- 		c[i] = cg_read_long(children[i], "memory.current");
- 
--	if (!values_close(c[0], MB(29), 15))
-+	if (!values_close_report(c[0], MB(29), 15))
- 		goto cleanup;
- 
--	if (!values_close(c[1], MB(21), 20))
-+	if (!values_close_report(c[1], MB(21), 20))
- 		goto cleanup;
- 
- 	if (c[3] != 0)
-@@ -603,7 +606,7 @@ static int test_memcg_protection(const char *root, bool min)
- 	}
- 
- 	current = min ? MB(50) : MB(30);
--	if (!values_close(cg_read_long(parent[1], "memory.current"), current, 3))
-+	if (!values_close_report(cg_read_long(parent[1], "memory.current"), current, 3))
- 		goto cleanup;
- 
- 	if (!reclaim_until(children[0], MB(10)))
-@@ -691,7 +694,7 @@ static int alloc_pagecache_max_30M(const char *cgroup, void *arg)
- 		goto cleanup;
- 
- 	current = cg_read_long(cgroup, "memory.current");
--	if (!values_close(current, MB(30), 5))
-+	if (!values_close_report(current, MB(30), 5))
- 		goto cleanup;
- 
- 	ret = 0;
-@@ -1006,12 +1009,12 @@ static int alloc_anon_50M_check_swap(const char *cgroup, void *arg)
- 		return -1;
- 
- 	mem_current = cg_read_long(cgroup, "memory.current");
--	if (!mem_current || !values_close(mem_current, mem_max, 3))
-+	if (!mem_current || !values_close_report(mem_current, mem_max, 3))
- 		goto cleanup;
- 
- 	swap_current = cg_read_long(cgroup, "memory.swap.current");
- 	if (!swap_current ||
--	    !values_close(mem_current + swap_current, size, 3))
-+	    !values_close_report(mem_current + swap_current, size, 3))
- 		goto cleanup;
- 
- 	ret = 0;
+ 	if (cg_run(memcg, alloc_pagecache_max_30M, NULL))
 -- 
 2.51.0
 
