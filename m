@@ -1,117 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2693E16A4;
-	Sat, 26 Sep 2026 12:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3541400E1A
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:33:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790425985; cv=none; b=GCVG0PyfW+snWQsInsltKAdaxjD/AmtymTxN4LURHbbj6loEAwPiZQtYWrv75JMFZzAYnwAN48C0bC/4ilqCw4sTrnt+zfZiyaxMv4u5sXOzAIY8GJspTdr9sf2xaOJcs4A1G12nGzy0arkIs7b1kiOJ1aqmLeei0Lza6tO7Lb0=
+	t=1790426007; cv=none; b=CGKkhfnHUgrJx08JqCgQB3MkcnEXMSu4Q9QOvtqn6EbWoFP2CV6JGbInImrtBpSKHjkFWCw/gkFWo8+qvw3FvP/QUjVeVMREwKsz/x/NDV7ltAz8+cC82GFGiWkclPrXe+UoOJ1ZYQe/Y4xFqgUiDcNOUbgFsvMh8ILeUlTdveQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790425985; c=relaxed/simple;
-	bh=U99qmECVqrZaphrQ4iZ9gnL9T9adOep2t1USdze/Z/U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HdNIrSRfrBkfj+6ULcrJnjUdBf2aRaAH0C+ByfpB9ikqXdYlvHLDCq9u4+IjdVMesXl+pjnrcRfAqP6bjvC6xSkic+9Kg2Cgf83ZjZartrd7Gmbnic+BmHqFHLhi+fhqn9q2OY69h97AwwDn7JT7SlXNspk+w0aEQNSHtWLCkBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=jlCeeByi; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="jlCeeByi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C15541F000FF;
-	Sat, 26 Sep 2026 12:32:59 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=jlCeeByi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1790425978;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wN9D2nKA01y/2x8IJdWZfEnnjMzwFRK3N4mVnSJjkBY=;
-	b=jlCeeByiKyNAkRDIl4L4BWyGHQY1JK/6GovcSrkf8oXtiWNghruM3MspMqAjQRrS0A5Y4N
-	9+00l0im2/J3X1CtQ1hGQXUesbacPr8oKkkGy3jQrUfnbQNxrABBNqKeaKwtQlF9FRtom+
-	IijiL9NA1TH1lfYG6igzuyjRxzyvjCg=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 6d775622 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Sat, 26 Sep 2026 12:32:58 +0000 (UTC)
-Date: Sat, 26 Sep 2026 14:32:49 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Andreas Schwab <schwab@linux-m68k.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
- reserved in __cvdso_getrandom_data()
-Message-ID: <are7cfMIHZZn6jLz@zx2c4.com>
-References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
- <87zex4ic68.fsf@linux-m68k.org>
- <20260926121927.GA1486962@ax162>
+	s=arc-20240116; t=1790426007; c=relaxed/simple;
+	bh=axu9i4Oim6id0lM3e6yADH+YNdMz0RyBd27KvxTb0xM=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=WP7Ta47pqtpBS2YUqO7r7w5eYJcHwHF5f5dlr46mmXkbhDTJM7sPyMrW0hMycJjBiTz+T5Hc7qy0Q49NPpITUWVGYnz9GzpTzJPn0vm628B+lWdVUCBBSu214oDfPYrqSb/GBFmo2b/HR1nonUUIzyJisSL/lvD+6DknctXhnVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c307941971so3028373b6e.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:33:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790426005; x=1791030805;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dn/1qG5EZ8w6bLd3t3qw2KPKtRyyBsVwO/BuJ2xZiOI=;
+        b=VbgepjmUgv58xIpu9xvMnw4C8iiZ8jNiwmlcvwbQqkqY+aRWaAoe+eOSUWWozCIBNm
+         S87KEODYxY9VCjMo1m2qbK1sTc1rK+ZSQx0/Z3uN3OlDGj1Iy83pNO9kFy1+x8OGGI2h
+         twpNCaTX75sL+3hjhJ5BK297XBgmyhNv2KPNVd98H3GpgSZUsldaj8z83EBsLyxt17zA
+         U6I8RgMTNohZpDBzWvyHsXZWOOyQBn1ePIE4ABU51As0+2hz4+XZV2ce79AUh7KI1rOA
+         IzAE90dFGDjDcNgQANWltdaDdzR1yAWAh3/EolwcZiDgHhRk3z6Y7iOhmY2kTWYTSuSv
+         00XA==
+X-Forwarded-Encrypted: i=1; AKwUvBzxMhyirSLRskDGsiAGZAzW3I3wIL0IHZa7i/fwynZCuQOHw1zF1CNukSKy2D7UvjFdVyexQEZyAA9PdZc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+ExhmW9tsyYDDj76MESGOuYOoFxhZCju1YFyNML3WZYVrZ02X
+	2OuwKX1W5eLQWTqJt6Baug9fTrSWkSs8Ev2rgjLL24pYpkzRm+occzVv4WD2XGkjG6GSWThfVr8
+	DnCeKXAwEF61PRMlWkIdRyw0LHQyFLoRKl1/Pu3yNfQSZgCGKxWZSH7qyXbo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260926121927.GA1486962@ax162>
+X-Received: by 2002:a05:6808:23cc:b0:489:93ff:9ea0 with SMTP id
+ 5614622812f47-4d72c042a87mr8476874b6e.2.1790426004919; Sat, 26 Sep 2026
+ 05:33:24 -0700 (PDT)
+Date: Sat, 26 Sep 2026 05:33:24 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab7bb94.dc2998a4.2261f5.0056.GAE@google.com>
+Subject: [syzbot] Monthly nfc report (Sep 2026)
+From: syzbot <syzbot+lista86ace36a0e89d7697c1@syzkaller.appspotmail.com>
+To: krzk@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Sep 26, 2026 at 01:19:27PM +0100, Nathan Chancellor wrote:
-> On Sat, Sep 26, 2026 at 11:39:43AM +0200, Andreas Schwab wrote:
-> > On Sep 25 2026, Nathan Chancellor wrote:
-> > 
-> > > +#if __has_builtin(__builtin_memset_inline)
-> > > +#define memset_inline(dst, value, size) __builtin_memset_inline(dst, value, size)
-> > > +#elif IS_ENABLED(CONFIG_CC_HAS_OPT_INLINE_MEMSET)
-> > > +#define memset_inline(dst, value, size) __builtin_memset(dst, value, size)
-> > > +#else
-> > > +static inline void *memset_inline(void *dst, int value, size_t size)
-> > > +{
-> > > +	char *d = dst;
-> > > +
-> > > +	while (size--)
-> > > +		*d++ = value;
-> > > +
-> > > +	return d;
-> > > +}
-> > > +#endif
-> > > +
-> > 
-> > memset actually returns the original pointer, not the incremented one.
-> > Nothing uses the return value of memset_inline here, but it is
-> > confusing.
-> 
-> Whoops, good catch, I guess my fingers gave up on those last two
-> characters :) I will fix this for v3 once there has been some time for
-> further review.
+Hello nfc maintainers/developers,
 
-Do we even need to return a value at all? Might as well just make the
-function two lines:
+This is a 31-day syzbot report for the nfc subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/nfc
 
-+       for (char *d = dst; size--;)
-+               *d++ = value;
+During the period, 2 new issues were detected and 2 were fixed.
+In total, 10 issues are still open and 34 have already been fixed.
+There is also 1 low-priority issue.
 
-(Technically that could even be one, but maybe that sort of golf loses
-clarity. Your choice.)
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 325     Yes   WARNING in port100_send_cmd_async/usb_submit_urb (3)
+                  https://syzkaller.appspot.com/bug?extid=89f5f8143d8e62af2b61
+<2> 4       Yes   INFO: task hung in pn533_usb_probe
+                  https://syzkaller.appspot.com/bug?extid=8996fbe184c5b84f89d4
+<3> 4       Yes   general protection fault in nfcmrvl_bulk_complete
+                  https://syzkaller.appspot.com/bug?extid=59d5e6a8ed04e6a000c8
+<4> 1       No    WARNING in nci_unregister_device (2)
+                  https://syzkaller.appspot.com/bug?extid=c2d417f06523d8133c6a
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
