@@ -1,84 +1,125 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7045346E51
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E703E40FE;
+	Sat, 26 Sep 2026 10:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790419039; cv=none; b=gtlijktWyQqLk+ugGIE1ItX5pVAFXxHzhmfqMFM9P59mAo3CrZm4ZoFeHpxsu8AKPr/CmA+H03agTkwxGVwbjHzPXjLzK2zVPr73tn5kMUxp4kEKrZ6d9QewiMJBJRRH3LLVnpkZmF4js11Ho4GyclypjS9qrbQFYqLpNGe0R9I=
+	t=1790419051; cv=none; b=dgUBe6EGGYFt1RD28W6PjJDvLoVHdRUwvjK2alFwOGweMNYnppaHKI1KC4kgoblBmsxdG+Wu2N5dTA9Jgw5AUcMhndt7YkmHCwiXi6z2KsUhD0sLhJXaODRM6WL9vJdDcSG5otXY0RGSFcDNR8pyWdmtrK3KaE30z3BN/L1T4c0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790419039; c=relaxed/simple;
-	bh=rkswUNiZSPjc4VbKZlUJ7+Y6XGSSNG9joDXoTxXxoPo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=rslVh03PUQcnsM7RhwLFaY6xlAquG6TLOJZggIbFzfaTD+y+mtMnhO0/gPTCSzc9R8QzS5RVgmlsEo1FLNCifIUI21etTvowMaUoVGbca2+hexUQjvowxDH2F3ERlhYu2s3hbOQIK7pFyelQ9BA4Tb+424+DtGFbV8ifZk3C97g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4e778acdbc6so110265b6e.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:37:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790419035; x=1791023835;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8mpQ3CPSq4oqRG6slsXq4GnA/FjdN3wCsQ3cD51WXco=;
-        b=T3cTXUdUbLRx2t1vJLG4gTSaeGoPY/O5Pd54ySKr6TRG9LLgYNI8YWLzOjCefcZ37l
-         AzXoMFsUo80EOVtQfkaCWd1aZN8w9RB5nV13USj6LUd8ty/Wzwix4bOz6e09Kl62X/sY
-         kt8E6aa69/NCzQuNBE8SNN4teUxfxCCHBqdWNoM1sg1T2wLhs6G+TLOGLWF4i2PhTWuN
-         27vUP5yzkXgZG/y7wnaThTyCPCSsFCMZbmYX8ESY50qfi5aLnDr3wT8KCzgOC9YnazDv
-         gOKmePFojgRqn9gIUKrdWgqX8MYz/ZNBdhKcUDKisxcne4TQPAbh6hWsDk3r1nUtOhCR
-         oK4g==
-X-Gm-Message-State: AFuF++mjPKURO17emQ2L0mx2cmZkxtvLz+IVjUBS1FUp/Wm9zeXX1FmS
-	YxwxsKgiAYwZDA6MlzftJxnjur8rWUDt+Cty7Qg/zRVHgl5DIM1al8RP1nOK4RlKGgM+58GyebE
-	oo4SVmG/F/tUJTVbJwGXZiqNDM25oQkQOYHozrXrqpazya/FAI/MXhZ10UqI=
+	s=arc-20240116; t=1790419051; c=relaxed/simple;
+	bh=BsDGVDEZSjuhu1wNUX4iNYuYBfY23zxzKR2rBx/mxOo=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=TbQcATRc573KYyI7rdWmay60rORHekhf9OoHP414wlw+en4GPPBsJ7WRqVw1NrLOHHxaCCNK1KRA731KyN1V6kZHZoKpOGL0Ys92uR/zHr5gQCwOnkRtaNHt//QZyFIajoPeVhwyxP9kSyzkztDvfRzCV45XPbAwa76tUWYxNoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=oIFBsw/w; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Vvr4vhpW; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="oIFBsw/w";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Vvr4vhpW"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790419035; bh=qB8YO82ighs/+w1xBuYuRJG
+	hgPr1wHIB0u6dBJhEEYQ=; b=oIFBsw/wexO9q/uuLmIrOWOcwxXLfyJAeTpf7/N3EeJpQrpx9Q
+	w1pxbjIwp8gIRlc6dmbcVQmqf3xtX6K31BpQot8pLLZEAyzI3FvpAKbB4N/USrh58mpgQsrM/A0
+	jLGPWB/nCSJYaMY55aMpmewGbjqmmqadEurcf+phgCFs3+UDrfTieWb/RhGnDCdNTBcMUFSdhG4
+	F7YyGq/Lrp/L0Pl720qxwxnZ8WMlLxxPXYts254og+4OiJhUOLBdYDOZv7mPgs3DSNFDjLGN51L
+	ltT1pYIp3E0DRoiyCAX/ZDS1KMzbfzkW5W74WF8y7d7ZZ1/wnR3m2VcXuuFBB8I39oA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790419035; bh=qB8YO82ighs/+w1xBuYuRJG
+	hgPr1wHIB0u6dBJhEEYQ=; b=Vvr4vhpWGj83aYoajP9W6LFKV5bXd/DBPEcVP6QHZsfSIQvsjD
+	T00tzR9CailePm2KfVPKL7Urj+0Ou3Q6htBA==;
+Date: Sat, 26 Sep 2026 11:37:15 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: kmehltretter@gmail.com
+CC: akpm@linux-foundation.org, brendan.higgins@linux.dev, david@davidgow.net,
+ geert@linux-m68k.org, huang.ying.caritas@gmail.com,
+ kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, raemoar63@gmail.com
+Subject: Re: [PATCH] resource, kunit: stop selecting GET_FREE_REGION
+In-Reply-To: <20260926002651.87267-1-kmehltretter@gmail.com>
+Message-ID: <40EFC2A1-D089-4E09-A804-CE0D42EACFAE@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fce:b0:4cb:f21c:a79c with SMTP id
- 5614622812f47-4d72ac4ba52mr10888912b6e.36.1790419035120; Sat, 26 Sep 2026
- 03:37:15 -0700 (PDT)
-Date: Sat, 26 Sep 2026 03:37:15 -0700
-In-Reply-To: <6a7a06b7.b50370da.49fe0.0057.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab7a05b.dc2998a4.2261f5.0054.GAE@google.com>
-Subject: Forwarded: [PATCH] usb: fix memory leak in dev_set_name
-From: syzbot <syzbot+87ce68d9f48eca96a84a@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On 26 September 2026 01:26:51 BST, Karl Mehltretter
+<kmehltretter@gmail.com> wrote:
+>RESOURCE_KUNIT_TEST selects GET_FREE_REGION even when no other option
+>needs it. Remove the selection to follow the dependency rule in
+>Documentation/dev-tools/kunit/style.rst.
+>
+>Skip resource_test_region_intersects() when GET_FREE_REGION is disabled.
+>GET_FREE_REGION has no prompt, so configurations without a production
+>consumer cannot enable it. Most configurations will therefore skip this
+>case; this is intentional. The union and intersection tests remain
+>available.
+>
+>Since kunit_skip() does not return, the compiler drops the reference to
+>the unavailable alloc_free_mem_region(), as in the CONFIG_OF_ADDRESS
+>check in drivers/of/of_test.c.
+>
+>Fixes: 99185c10d5d9 ("resource, kunit: add test case for region_intersects()")
+>Assisted-by: LLM
+>Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+>---
+>Validation:
+>- Clang 22 and GCC 13 ARM builds pass with RESOURCE_KUNIT_TEST=y and =m
+>  while GET_FREE_REGION=n. The built-in vmlinux images have no
+>  alloc_free_mem_region symbol, and the modules have no undefined
+>  reference to it.
+>- Clang 22 x86_64 builds and QEMU 11.0.2 runs pass. GET_FREE_REGION=n
+>  reports two passes and resource_test_region_intersects as SKIP;
+>  DEVICE_PRIVATE=y enables GET_FREE_REGION and reports three passes.
+>
+> kernel/resource_kunit.c | 3 +++
+> lib/Kconfig.debug       | 1 -
+> 2 files changed, 3 insertions(+), 1 deletion(-)
+>
+>diff --git a/kernel/resource_kunit.c b/kernel/resource_kunit.c
+>index 42785796f1db..9eeb2b1a85c0 100644
+>--- a/kernel/resource_kunit.c
+>+++ b/kernel/resource_kunit.c
+>@@ -225,6 +225,9 @@ static void resource_test_region_intersects(struct kunit *test)
+> 	struct resource *parent;
+> 	resource_size_t start;
+> 
+>+	if (!IS_ENABLED(CONFIG_GET_FREE_REGION))
+>+		kunit_skip(test, "CONFIG_GET_FREE_REGION is disabled");
 
-***
+Interesting.
 
-Subject: [PATCH] usb: fix memory leak in dev_set_name
-Author: drifabdelmalekmohamedsaid@gmail.com
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-#syz test
+Tested on Power10 (PowerPC), in courtesy of osuosl:
 
-diff --git a/drivers/usb/gadget/legacy/raw_gadget.c
-b/drivers/usb/gadget/legacy/raw_gadget.c
-index 4febf8dac7ca..9c263950f609 100644
---- a/drivers/usb/gadget/legacy/raw_gadget.c
-+++ b/drivers/usb/gadget/legacy/raw_gadget.c
-@@ -327,9 +327,16 @@ static int gadget_bind(struct usb_gadget *gadget,
+Tested-by: Bradley Morgan <brads@mainlining.org> # Power10
 
- static void gadget_unbind(struct usb_gadget *gadget)
- {
-+       unsigned long flags;
-        struct raw_dev *dev = get_gadget_data(gadget);
 
-        set_gadget_data(gadget, NULL);
-+
-+       /*Avoid dangling pointer in case it remaining references*/
-+       spin_lock_irqsave(&dev->lock, flags);
-+       dev->gadget = NULL;
-+       spin_unlock_irqrestore(&dev->lock, flags);
-+
-        /* Matches kref_get() in gadget_bind(). */
-        kref_put(&dev->count, dev_free);
- }
+>+
+> 	/* Find an iomem_resource hole to hold test resources */
+> 	parent = alloc_free_mem_region(&iomem_resource, RES_TEST_TOTAL_SIZE, SZ_1M,
+> 				       "test resources");
+>diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+>index 134b15a44625..e7c5d5b5870f 100644
+>--- a/lib/Kconfig.debug
+>+++ b/lib/Kconfig.debug
+>@@ -2776,7 +2776,6 @@ config RESOURCE_KUNIT_TEST
+> 	tristate "KUnit test for resource API" if !KUNIT_ALL_TESTS
+> 	depends on KUNIT
+> 	default KUNIT_ALL_TESTS
+>-	select GET_FREE_REGION
+> 	help
+> 	  This builds the resource API unit test.
+> 	  Tests the logic of API provided by resource.c and ioport.h.
+>
+>base-commit: aa98230e410f0ed212b6788c46b1e4d49e0ff7ca
+>
+
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
