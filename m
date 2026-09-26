@@ -1,138 +1,141 @@
-Received: from mail-lr2-f34.google.com (mail-lr2-f34.google.com [74.125.230.98])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B863876A4
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:52:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.98
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790427133; cv=none; b=rli5AISlRNxzHSREd6Bp9XKI49YKvICAhHTXIgip9hnzzSOCRTnlWvhiR5HXerKKqOosP+ECvD4FfD4xeZJHVCfcE3/dpIvKRzFsLDcp6hKWi25WwkSfqkBIVYMYDVZ0HJ2D4v1TLkqSaAkKrSBPnWOk6ZaCunMsSH5lWBOursY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790427133; c=relaxed/simple;
-	bh=eTZ5DuYzgMC3w2K2nFxa/0/HtaOZqMC32yW/8AXoJMo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bx6DXgGuOlrV4bS66BfjGkEGw+xvN+lLIsESAnvfsny+ud5mbI1JpcM0AioqeP/3MNAKwTiuZGoxVcKapTE0WeSgsAt1WdwCzu5nwdPj2yVOj5CgMd8ovEm2lOyQ0d4JYJVEZ2XLU+O9huoH39ahHbi/3WDngfJCjdqMInmWUZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wc19Rcyr; arc=none smtp.client-ip=74.125.230.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76136284880
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790427168; cv=pass; b=mkPi2mPr0KQs4ls17MWEDlpc9dSd1a+kOtbViXVREvrif1nSJl2IX2qd1CUGlNbiTrTA0xrk34GDXUXB22gnuuoST/jOPfRwbZMOizimFYeLbZ9G7WIVSpkp5Ql0JlD0Lwo95cpn8UZifUHTlRW2cjwC3JKFJPoLNhPazIPgZQI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790427168; c=relaxed/simple;
+	bh=Kvts8LNu+OWd966oIXmCICAbccRKosY/VKYtUxrxvVQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EmBFWWxJJsgckIuKOLZYvG8v+FX0fBye9ae9hwjUQA+5zSZ/Eb/38XUSP/TNVaOfIStqKiWNBALzPGTkvLdfqibtgIdLpTBtQD9g41v0MckUmm/ib4XaTJIrkJwj9+QVDs4Og9UMxT/VMBW7eBjNT631i8yDAC4o2arxhLix0BE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hclHfs1m; arc=pass smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wc19Rcyr"
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a652e2149aso11585861fa.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:52:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hclHfs1m"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso18467785e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:52:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790427163; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jDHe6YuRwsfDEGf5rUVmrpAh7xPegHiogak9B1yJ7Nfb2vMC2NmpIUu9doWq5mSpcQ
+         FGKx5Ph6EdJdkXK50/s1tU0lxRdrqTkYYSFTPHQt9y5TS82jLKn4zpgvhqSGZKAId+q6
+         5TT/SHjcRzrKISLRKGt98Ehkd4czSfNdAwPkSVWHbTwyTzDcb0WV+r8kCyaC7YfEtHJ+
+         w0O3YtOghgaqG8kVYzDOdh8n2QFcbPpQSzX6cbn9l5gA+eJU4j0Lyxws7kQ1IPTC8SMY
+         06VDrzpgMtczyM6KOvH/00MIdxQ6CDNYPs3sWIVKT7D3k/T0eP9w/cTxmfW+q0qmtvDO
+         V4Bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Kvts8LNu+OWd966oIXmCICAbccRKosY/VKYtUxrxvVQ=;
+        fh=Taw8v9JnLjC0W5tn9IBMFaRqP4afTcZGLIMycrZNM/8=;
+        b=Q+TG3sVC0mYonpEvOQwA915TH3qygc8zXYwBL694qcG8W1TGexhra1ZapzaYZqYs33
+         9nLXKl/VRfKFVwSN60uq4ouhytTlpa8q1PIJS1xnrekjz4F3NrNFFQFXag0TM87veHBJ
+         hnINQpNvdGcVVAUcFWtSrsWX653oYlXHsqSmFDRVtB4YEzvIQGsqnTpOtGF4YsutcKE6
+         mRxw6HVVft9wQhr0SqrWLnxgFwgAUuFfmWBhi8zeZldRShVFHQbD66oTqN0wXrYPgnap
+         C0NZ/t4jwCk/ecvBJZVTTMjk38zKPOvZsF/pDuUa5ilm+0okwbKvrQCRuV3Z0wSQzkqY
+         ahUg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790427128; x=1791031928; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tv2uFM2roW3vT6//4Rn+XK2lNgMX3NDBuOtw2y4SaN4=;
-        b=Wc19RcyrmxoOmI5WjCO03ET8XndOAw6azmvce6s+xkCnSkhiIC6qdVRTrzx4G+utm5
-         58R/9XL2mdjPaTilYqO5RsmfjXBqSsJETMG/pwFnCR4+G434XTh5bfsA93eCTnqZMSlc
-         BjlFmcO5DJkhbuKz0FmZlu5RuxXjH47DrXPfNzZHhyYUrTW/Qa4ODb3kmziQMqlLyB6W
-         8F2gEYbgz7HspwOfqZCgyunYY5UQIQ/BvX66MbLaANPw6KmAflNKK6EbtiFr1O5msqO4
-         ox7iDvSBAAuMlie5ahPL7lb84XGXXgGv31qBjzEp/vbXfRHE/8xYFqHNOXqWYi8WZYoE
-         kHsw==
+        d=gmail.com; s=20251104; t=1790427163; x=1791031963; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kvts8LNu+OWd966oIXmCICAbccRKosY/VKYtUxrxvVQ=;
+        b=hclHfs1m/bCJgEcJZYiDFRPRQpnW10FD/B6dbCDq2Q3zVJx93wK40OwUzbFYFJygYF
+         ijJX0eWvKjgncAbUhB/GLoGa+W2ztRsS2vGpyFFtHIHlC46isrDBPEFQo+PeJrKTKJp6
+         x1XssO8i1UiiUrYSh+l6lciIeUaNkACs4jFV6Y7d+CR/iGL0ugfL2mphRdNGDuMBJNvi
+         D7lnd/U9ZoQETXpEM9vh4kthE0bBhIb6ZzPFHQhY3867eTNqzGZPYKcM+QnE2/pXOHsb
+         cd9chLwIWxLfzLQaqZwsC1FaCkvKZyc7aGbGoU12a1S2dIxzKQnylRqrHQ0JAYkD4gcO
+         eUkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790427128; x=1791031928;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tv2uFM2roW3vT6//4Rn+XK2lNgMX3NDBuOtw2y4SaN4=;
-        b=QxxwaXvSvp7Ex50DC3vnQGvFMeL7oi31fp8DJrzgDnIcMOgJjl02YlQtV4seM+G0cP
-         q4kLGx8WJbzgvys6p3KmhhKbnDcPxNdJpWcgkMSfiJatXoK9dlF5qeUH0oU3no/EiUMa
-         +FBO5rpKso5mn9cGXYlmIRaDpuzGDeFNfIRUPioNYY1jCUf2YMOZD5IjK8q+kH2JT3lW
-         81fwNj0pyf1DtxZhsZLGLUU5xSzYzJiSft5JS2PbJ/eIrlKusK5BNYdM+gyIyPEy26sV
-         3EA5IkMIZqBaO6IdeDdCW2YMBna2o0seoRNU6bCkNZMSNt1EZiG3dIZpFWnsOqdAu4IK
-         DXZw==
-X-Forwarded-Encrypted: i=1; AKwUvBw37zIUTPnCmWjRxNXlt1BfKf6HgG9XtIVGXAaz3PvgERNnNjBqQISmERv3uMR/mrZ0J3beJrXcpCsLvCw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZLYcEAjibBST0NWZtsywPszxVa74x9RgbbkDRJ46QcihnN2Tu
-	tM0o8J2PeBcrsim7FrA8z9gZcs3HAmRn+9sq5T4Hej7Q9T+i/AWxCnWKFQRHnh9vCyJgcw==
-X-Gm-Gg: AYBFou3GRLPiOovSk/0aBTOMCWYHWwNB47pDj1jYi1oSg+4aLTCkOXiaiS8rFxITTVU
-	wizzE82nRq/smpePlD4ulz1pnVDO/T3+fgjwPQ8othQ6oiwUOxYsEPh1+y2cJWN9rXZo5EEq5VV
-	UBWKOIyKbx2BrwtsRVhFhFyxahULIpjte7ZRjW9MQKot5GAsVwLGPFSdduHCBYz57IfZRmocaqe
-	jnR3DIIwg8sFARa4yJQ0vtQTaYCkvpXNLUl2xy/yJNjjb2AcAd8hpGkeoJqXcb/OY61x227nGst
-	fRPEuGDGLM2mAwA38ixGdckgUtEYR8bycXEgYDqXrTK/mMrY9BSNOAr+f1QP/NvrMqPTMk83uf1
-	+SxYKsIp168ZpvyzFWDHRKQ/i0QtGkBuMHVjY56JV+3KDgOm0mcaou3E/xP2IfYUzR4UOMf53VB
-	tKIz01ZuiDBNkhBbTnwhw1a7BpoyYXJAxj7L5UALCSLqsAWdoSH+mx2BzhIu+8iShkWGwcgVZLT
-	S4yD5S6YwoinIEjKP5H/i4mrIH5I0yktuHX5QvkJo4m6NoogQ==
-X-Received: by 2002:a05:651c:2212:b0:3a6:6282:563e with SMTP id 38308e7fff4ca-3a662825decmr192391fa.4.1790427127350;
-        Sat, 26 Sep 2026 05:52:07 -0700 (PDT)
-Received: from Hedgehog.. (broadband-188-32-185-163.ip.moscow.rt.ru. [188.32.185.163])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a64b436408sm13731261fa.3.2026.09.26.05.52.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 05:52:06 -0700 (PDT)
-From: Artem Shelenko <artem.shelenko@gmail.com>
-X-Google-Original-From: Artem Shelenko <Artem.Shelenko@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] staging: rtl8723bs: use unsigned int in HAL interface
-Date: Sat, 26 Sep 2026 15:51:50 +0300
-Message-ID: <20260926125150.161466-1-Artem.Shelenko@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1790427163; x=1791031963;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Kvts8LNu+OWd966oIXmCICAbccRKosY/VKYtUxrxvVQ=;
+        b=n/mFF5RYZOd8EVkvuARaaLON3ZPRtv3/gU0ftSCtAzZo6J5mDSpEywlSt5eHM4XYpM
+         mAnuSSnmwuUS5c0cSKHYugo51xtW+sOA8YMJcPjOBNBn3xVE1IDo3rImYYHEZnpnmTYu
+         zVUHjFUHDBNwRYotnR9pJQIPFksf1e1dVrPyuXko/iXoDTiHN28ECIxbyvSVxC1rcn6q
+         6q+AqVtUVamAyVSWOAITznZdDKNlFQCTIYihBBXA4G74YAf+yXPsQNRPPa8fvkzzJy7O
+         TuId7qTBBGZkLCmHHbF89/nGHD0vfGZoeHCHLMqfymmfyBHDb5YffgbeRqcaw0oOICtF
+         M0eg==
+X-Forwarded-Encrypted: i=1; AKwUvBw0BHNyEJFgjB+hlNW+dYXGf+bWehmUKJb/gg49GRW+wwV9N4zeqo/om4pl0keegFqZp0wyHPyrOgGbKLQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQh6ie350HMqv3JNxMtrI/PWyv/Rs3XZrLzIW04SoGG5VjCbjK
+	JEvbwUSYsMpSMIi/IF5QRbjH+E9Zp0U2jxrgKq2tD4hXoSnOSI4CHCdqztuAVAgKvqAJFwsLX1m
+	u/aWdek30S9VTEYQQH1YcFsalr+r8eET8OA==
+X-Gm-Gg: AYBFou0/JpVjpRxmHJVpx+BdepeLSS/0xsRBl6P2DK6fPzSv68ZS6V4L9/iFOekO2Zb
+	jgHi0CV0YmpMhzgUvPKjFn23Wn35Ir7KJA2zw3scslEd6lPjfVZvUA5U7iPB+iTxHKxhA7wtUp3
+	FbNteVvJMm2KpMiwtOjvKlWiODsNoksRLP6qRhqFALYQ1CPcqDKiqwEC9JGHwjeOjdFNY8QuYfc
+	SMoGek7CXqO5k60o7HPE6AInh7DwLAmQ/1c9sJ2Hd8SJ2bW2SOapjFsipaemY3MHMLA0O+/urZ2
+	W3xZ9Rx4k9iXirAvNeYlDYl49nin+Jp/xTtkTPhY0u74uW450XYhvkGJzNvbWXAJIPSLwvLF7Lk
+	gJ3tFUg3nGIs2bzNLFvJsGKup5b7SOXkPkXCWKoEixnOZW4qIs0FB0/MnpbvJmFEBMNKQvwicm2
+	/YJbHcupKiyVz4J39Su7HTV6UjRAnn4EaQAYVpzsM6HNeQcv7djBap3sWNsUwrzxW07/+Pm5WP6
+	hkMke/3jcxGZz7y/xy8CKhfJAV7VSndXkA=
+X-Received: by 2002:a05:600c:1c1c:b0:49c:fa21:1c7d with SMTP id
+ 5b1f17b1804b1-49fe7babc98mr166966135e9.18.1790427163252; Sat, 26 Sep 2026
+ 05:52:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260916124236.1389-1-joshua.crofts1@gmail.com>
+ <DLIC0I1VQLHE.13KVAJJ5FUYZN@baylibre.com> <20260918131504.00005d2a@gmail.com>
+ <DLMI87KFXHTQ.SWLSTWGCM2T4@baylibre.com> <20260923092437.00006b61@gmail.com>
+In-Reply-To: <20260923092437.00006b61@gmail.com>
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Date: Sat, 26 Sep 2026 14:52:31 +0200
+X-Gm-Features: AclHuK_D0j8esuuFZJv-lGLLnVq7Xcq0lvcWbnjnEOQaLlZlYUjvLFoeQECUknE
+Message-ID: <CALoEA-zkr2sj5tvN8RGAGhaNQQLBjZMRY9nwTn=H1c895O_Wyg@mail.gmail.com>
+Subject: Re: [PATCH] can: m_can: pci: add missing pm_runtime_dont_use_autosuspend()
+ call
+To: Markus Schneider-Pargmann <msp@baylibre.com>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The rtl8723bs TODO asks to convert remaining unusual variable types.
+On Wed, 23 Sept 2026 at 09:24, Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+>
+> On Wed, 23 Sep 2026 09:06:59 +0200
+> "Markus Schneider-Pargmann" <msp@baylibre.com> wrote:
+>
+> > On Fri Sep 18, 2026 at 1:15 PM CEST, Joshua Crofts wrote:
+> > > On Fri, 18 Sep 2026 11:24:09 +0200
+> > > "Markus Schneider-Pargmann" <msp@baylibre.com> wrote:
+> > >
+> > >> Hi Joshua,
+> > >>
+> > >> On Wed Sep 16, 2026 at 2:42 PM CEST, Joshua Crofts wrote:
+> > >> > m_can_pci_remove() forgets to call pm_runtime_dont_use_autosuspend() on
+> > >> > teardown, even though autosuspend is enabled in m_can_pci_probe().
+> > >> >
+> > >> > Add the missing function call.
+> > >> >
+> > >>
+> > >> Can you please add a Fixes: tag?
+> > >
+> > > I guess it's not a problem, however we had a discussion in the
+> > > USB subsystem whether this type of patch is a fix and ended up
+> > > agreeing that it's more hardening, hence no Fixes tag.
+> > >
+> > > Alright if I just append the tag here for b4 to collect?
+> >
+> > Yes, that's ok for me.
+> >
+>
+> Fixes: cab7ffc0324f ("can: m_can: add PCI glue driver for Intel Elkhart Lake")
+>
 
-Replace uses of the uint typedef with unsigned int in rtw_hal_init()
-and rtw_hal_deinit(), including their local status variables and
-declarations. uint is a typedef for unsigned int, so this does not
-change behavior.
+You can drop this patch, as I now have a patch queued for 7.4 that makes
+PM runtime call this automatically on driver unbind [1].
 
-Assisted-by: LLM
-Signed-off-by: Artem Shelenko <Artem.Shelenko@gmail.com>
----
- drivers/staging/rtl8723bs/hal/hal_intf.c     | 8 ++++----
- drivers/staging/rtl8723bs/include/hal_intf.h | 4 ++--
- 2 files changed, 6 insertions(+), 6 deletions(-)
+[1] https://lore.kernel.org/all/20260919-move-dont-use-autosuspend-v1-1-f6e2d1315c23@gmail.com/
 
-diff --git a/drivers/staging/rtl8723bs/hal/hal_intf.c b/drivers/staging/rtl8723bs/hal/hal_intf.c
-index 1443875d1..67b21b777 100644
---- a/drivers/staging/rtl8723bs/hal/hal_intf.c
-+++ b/drivers/staging/rtl8723bs/hal/hal_intf.c
-@@ -27,9 +27,9 @@ static void rtw_hal_init_opmode(struct adapter *padapter)
- 	rtw_setopmode_cmd(padapter, networkType, false);
- }
- 
--uint rtw_hal_init(struct adapter *padapter)
-+unsigned int rtw_hal_init(struct adapter *padapter)
- {
--	uint status;
-+	unsigned int status;
- 	struct dvobj_priv *dvobj = adapter_to_dvobj(padapter);
- 
- 	status = rtl8723bs_hal_init(padapter);
-@@ -54,9 +54,9 @@ uint rtw_hal_init(struct adapter *padapter)
- 	return status;
- }
- 
--uint rtw_hal_deinit(struct adapter *padapter)
-+unsigned int rtw_hal_deinit(struct adapter *padapter)
- {
--	uint status = _SUCCESS;
-+	unsigned int status = _SUCCESS;
- 	struct dvobj_priv *dvobj = adapter_to_dvobj(padapter);
- 
- 	status = rtl8723bs_hal_deinit(padapter);
-diff --git a/drivers/staging/rtl8723bs/include/hal_intf.h b/drivers/staging/rtl8723bs/include/hal_intf.h
-index 7b6311652..b43a9c86a 100644
---- a/drivers/staging/rtl8723bs/include/hal_intf.h
-+++ b/drivers/staging/rtl8723bs/include/hal_intf.h
-@@ -175,8 +175,8 @@ typedef s32 (*c2h_id_filter)(u8 *c2h_evt);
- #define	RX_PNOWakeUp			0x55
- #define	AP_WakeUp			0x66
- 
--uint rtw_hal_init(struct adapter *padapter);
--uint rtw_hal_deinit(struct adapter *padapter);
-+unsigned int rtw_hal_init(struct adapter *padapter);
-+unsigned int rtw_hal_deinit(struct adapter *padapter);
- void rtw_hal_stop(struct adapter *padapter);
- void rtw_hal_set_hwreg(struct adapter *padapter, u8 variable, u8 *val);
- void rtw_hal_get_hwreg(struct adapter *padapter, u8 variable, u8 *val);
-
-base-commit: 8444548bd905f22093729065408284a6b46f7eee
--- 
-2.43.0
-
+--
+Kind regards,
+Joshua Crofts
