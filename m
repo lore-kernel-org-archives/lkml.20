@@ -1,81 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816EB146A66;
-	Sat, 26 Sep 2026 03:03:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C2D1E7660;
+	Sat, 26 Sep 2026 03:18:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790391823; cv=none; b=UuxwF4AeVV9TAaMdg4/ZyAb6wiSAhfm19LCYAMFFBY9EajGKctVvroLN5CpOZ/sFVOSjA2h4Vn8bLAtRLVRqAYmvCKVxsQCXyjf25T84G+hhFLR8W63f31GEbiNeqMkAg4nH+we/o/cv90bHxMlXQt2zpjA4IdVW9cqzWoeIwjE=
+	t=1790392728; cv=none; b=cWgoGs3f88qw3IMv+wFf4c0IuK2QCkJiFjlxLSVHhh6B7fSmG4CMGjhlpqMoowm5RRfeu2B9YiCEz7O6ajnsvru6y6PEhaztPSsbhJZ8GVteTyjdHnrhVwVItC0N1WbMaCM8CfXFTSUd8kXtsDnNC4Bps4BVWQgzLayDd7jgK4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790391823; c=relaxed/simple;
-	bh=ZY79nSsXuEyT33TwOJZRo2xbbaqv5oYZF3ngJf1IrK0=;
+	s=arc-20240116; t=1790392728; c=relaxed/simple;
+	bh=ocgPHKZqsQUJdw6O+zlDwCgGVH62gAcmDu9EME62YhY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QOTlLqmGg8VLibo7id+elLYClVjq9e6BgIBc2l7eUpFEQc4HFpFLGu2kKBGIvdHFOg7B8T7ycZYpeq9JgKGImCk7u3O4EvqiKPpsJf5AnXgB7Yi+9fJT1vuVX5qpku+l2fzXZzHjfevKVvkJlaemi7ECsnHpEQrO6SUrLjYgds0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DtYP05pc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=KUKV5MKntr0kG3HKpf11g9xr/BS9yfnG+JC47dlu8oylhmRCDey15ee8BkoqksS8oooywoogTt9fWIUAwx0KMp1MNR8xVnqOxS/6WSfXWFHoM7f9DLUJaDZ/hz4FE7T3mZP9aEB3VELqxzQz7Xpo4LuhU5tvGx9rlwMFj+0oCdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G/ZLnxNm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DtYP05pc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54DEA1F000FF;
-	Sat, 26 Sep 2026 03:03:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G/ZLnxNm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBD061F000FF;
+	Sat, 26 Sep 2026 03:18:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790391822;
-	bh=fcwEOKvTAcr5srTqcm/F78nlg14U//P52goWuwTKyLw=;
+	s=k20260515; t=1790392727;
+	bh=XqhtRYfHxTdA5AHEl7GWLWSSMjHoYIs2MLO3IJpi5zg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DtYP05pc9ITgixVKLOCww902pGEJxidTb1udqL76exLQdXkTtwd6poDJnLeDDiXl6
-	 Hys/UoqowfPMZJsTuRjFk9T/od4oYguKzPSFFus+afhPE2Q9plncxUhUh2ZkCzgazO
-	 WCHTInSsT7vgK3U4YexodSgxfPxwe9p5mYMuT64PxwSsn5TM1mNYhOAhJ0bGzAY8C2
-	 Vtii32GY5AZK9MoKPtablB61rsjsS5HdSzkr477t1drhLS0TjLnJMQ59+gWC+Xe0Wr
-	 sa0mALTMP83oQ0Vqc/MwvTF6Yuf3Mhc0OZUJo8t4vmcKqdBQINW9hWj0V8LumQMTBu
-	 /MYu+uV96mtEg==
-Date: Fri, 25 Sep 2026 20:03:37 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ian Rogers <irogers@google.com>, Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>,
-	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Swapnil Sapkal <swapnil.sapkal@amd.com>,
-	Thomas Falcon <thomas.falcon@intel.com>,
-	Thomas Richter <tmricht@linux.ibm.com>,
-	Dmitrii Dolgov <9erthalion6@gmail.com>,
-	Eric Biggers <ebiggers@kernel.org>, Zecheng Li <zli94@ncsu.edu>,
-	Gabriel Marin <gmx@google.com>,
-	Tengda Wu <wutengda@huaweicloud.com>,
-	Derek Foreman <derek.foreman@collabora.com>,
-	Tanushree Shah <tshah@linux.ibm.com>,
-	Ankur Arora <ankur.a.arora@oracle.com>,
-	Aaron Tomlin <atomlin@atomlin.com>, tanze <tanze@kylinos.cn>,
-	Rui Qi <qirui.001@bytedance.com>,
-	Howard Chu <howardchu95@gmail.com>, Chuck Lever <cel@kernel.org>,
-	Shimin Guo <shimin.guo@skydio.com>,
-	Alessio Podda <aleph.pi.gh@gmail.com>, linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [RFC PATCH v1 0/8] perf/core, perf/tools: Add
- PERF_SAMPLE_BUILD_ID_OFFSET support
-Message-ID: <arc2CZ5SrPlI0hF_@google.com>
-References: <20260807071818.718751-1-irogers@google.com>
- <20260807111818.GN687043@noisy.programming.kicks-ass.net>
- <ao90ncOA2Ce8ezIc@google.com>
+	b=G/ZLnxNmeGfBJ4493KlkmVG/cHmt47L9J+GZg+mUIHKpOsJR82n9FHniGutYgqhp/
+	 ISs3jmqGb3MRo2fGMCZsXf2AThJkvEvu6E3vs8DUH0AlBvHelzyabWMn4fidvnJepX
+	 TWbcsJ++Osv6pDo9m/Ii+BSZjV87/lRS1y4JccKKIrGa2RPYW/XkjzCT0d66eOPfQq
+	 jBUUBqa1pJDW1AGsx3+ZuSmaAkOx1nMn+fKwk8lODDgVGxVHKI9YKCLlYpF3mz+Gfj
+	 fmKLIPAJR89RQO7bLIO/anVxJEq+TAfBpqbVkhFQAcQ79mURimEPtJrjdThgpd+TND
+	 1c7DTRz0FM4Tg==
+Date: Sat, 26 Sep 2026 05:18:23 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andy Yan <andy.yan@rock-chips.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Yubing Zhang <yubing.zhang@rock-chips.com>, 
+	Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
+	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
+	devicetree@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v15 02/16] phy: rockchip: usbdp: Update mode_change after
+ error handling
+Message-ID: <lywinqwwm2k7yycctngj7krt4e27dhi2pzzfcb5n4otgcj55rm@mk52fdcfq6yc>
+References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
+ <20260915-rockchip-usbdp-cleanup-v15-2-80e2c11d1ce8@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,57 +52,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ao90ncOA2Ce8ezIc@google.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-2-80e2c11d1ce8@collabora.com>
 
-On Wed, Aug 26, 2026 at 04:19:57PM -0700, Namhyung Kim wrote:
-> Hello,
+On Tue, Sep 15, 2026 at 03:49:49PM +0200, Sebastian Reichel wrote:
+> If rk_udphy_init() or rk_udphy_setup() fails, the reinit will not be
+> tried again. Fix this by only updating the variable after all potential
+> errors have been handled.
 > 
-> On Fri, Aug 07, 2026 at 01:18:18PM +0200, Peter Zijlstra wrote:
-> > On Fri, Aug 07, 2026 at 12:18:10AM -0700, Ian Rogers wrote:
-> > > This patch series introduces PERF_SAMPLE_BUILD_ID_OFFSET to the
-> > > perf_event UAPI and implements full support across both the kernel
-> > > and perf tools.
-> > > 
-> > > Background & Motivation:
-> > > 
-> > > In order for perf to translate virtual addresses of samples into
-> > > symbols a file and offset within the file are needed. During event
-> > > synthesis perf will create mmap events to facilitate the translation
-> > > of a virtual address to a file and offset by modelling the address
-> > > space of a process. By directly recording in a sample the Build ID of
-> > > a file and the offset within it, no synthesis is necessary. The Build
-> > > ID and offset as a pair are much larger than a virtual address, so
-> > > there is a trade-off between synthesis cost and extra size for
-> > > samples. These changes just facilitate Build ID and offset as a choice
-> > > for perf samples and the user can have the choice to use it when they
-> > > believe it is advantageous.
-> > > 
-> > > In practice perf still needs to map a build ID to a file, so by
-> > > default this change keeps synthesis to allow this. It is expected a
-> > > user that knows their build IDs, say through debuginfod, will disable
-> > > this option with say --synth=no.
-> > > 
-> > > The kernel support uses the existing build ID and offset support used
-> > > by BPF stack traces.
-> > 
-> > That is still a giant stinking mess that needs to cleaned up.
+> Note, that no errors have been seen on real hardware and failures would
+> most likely be fatal and require at least a full reboot as the function
+> already asserts the PHY reset lines. So this is more of a theoretical
+> issue.
 > 
-> Then we can discuss how we want to handle that as well. :)
-> 
-> I think this work would be useful on large systems with lots of tasks.
-> I've got reports it took too long on synthesis and timed out.  Also it's
-> racy and easy to miss new tasks..
-> 
-> So I think it's a good option to explore and maybe we can make default
-> once it turns out working great.  But I'm afraid it may need some kind
-> of optimization to handle multiple addresses like in callchains/LBRs.
+> Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-phy/20260612163835.8D5471F000E9@smtp.kernel.org/
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-One more thought.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Maybe it's not a good idea to traverse the VMA tree in NMI.  Can it use
-the deferred unwind framework to do that later?  We could extend it for
-non-callchain data like IP and BRANCH_STACKs for user space.
+- Mani
 
-Thanks,
-Namhyung
-
+-- 
+மணிவண்ணன் சதாசிவம்
