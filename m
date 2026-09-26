@@ -1,69 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB593288C2D;
-	Sat, 26 Sep 2026 01:48:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84387288C2D;
+	Sat, 26 Sep 2026 01:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790387331; cv=none; b=YwPl3Bdq/mqEg/ZBGYRxbiiia/mRkZAlJmZOClv+kVqcoHzjtNZWIrT8cy1tNAj8Tr8BI4F44lasvfluS23dWQywIdlkhf7SMXSGwhqmVNQpVoGxkzt8P8gGvO05ilzee+dYIm8Rvps86Q53oZjfHgyGXTmMogN2UANRpfANAlA=
+	t=1790387423; cv=none; b=G2zFuK1ZjFTMY7FCSE2G1/DF64Z5ZhdDXpDaLmPoSuz1QpFZW2zAYQbSV5WIlfuQy9x7UnBixkHEfNajyX9ze7qJBbvFg0gL1vfAQOjLwFuhwZm/9KeRcfDzZTuXPW5MfNI6rso9lCHih7ffkw0DWnbNj4/SvGShaFHJu+DykoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790387331; c=relaxed/simple;
-	bh=y8eZvRIFP4c7aKdQf1hRsNJ6pQpC2oLnyrPr5yBYrYo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NP5VDYAhZEcXZw8QFLGgxRjrFKIwOrggsmnI0ziOHAVBKwtOfMc3xQ/xaASQYV1eCynBgWt3E1aOwE2u5z9KAT1gEPB6JVFOMvjEJyOSuSGxTJwKB9KXdlQOilFL/Iemc/Q6s+zn7zmRcYhRxnNL/AKDHeBwNqLciw0H+oRns/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/voftPP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790387423; c=relaxed/simple;
+	bh=gvlAMryz1WLaIdzCvIYBahSgwylu41M6JAq44ILGcJM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HD8wRfcOkHeYyKjMrl8NT5DAaeDQ7qCI6PgZJFITcMGd43r+IfGmkVjNGJJW3TZS+4PJMUzkFbYlcnz/ppC7+DpLGjt5Vzt52CmeNvR85WXjU6PETFA9sz755nMpeHMQWBiPEJ+UWHYKCHN2JppvTGs1JBnK1EhEAC4gA02fvC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W+CZuW+o; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/voftPP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C30A1F000FF;
-	Sat, 26 Sep 2026 01:48:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790387329;
-	bh=Uo025O9H1s4JpC252yYksSrMRmfaaKJ2+LbHv7M10Gk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=U/voftPPYmPs4DqVmjfxJMGOWYB9Pjfi96SIBSYyIus28wpWLXaHNyDB+oZH2H/S2
-	 f2D0Eu5voWk5ya+IFdS2UoZCDVRcWqlyu7FJthmimqVKurYy0u0cB2eI8rWsOG2jbY
-	 h8HitcuuKu43G5qKpVF4NaWGKPsJC7jnsLKKN35Z0oVYhkT2HArs4yUDi0RtTRFHf+
-	 Zpp3Vnmcm9+zIDVQdeCq92C2mC6pAleXuEoLk3sszR1XoXgMkeiaRlDlzurC71i1ew
-	 jhL1bNNQtkLXKCtnU98HbSJF9Eughv7lU7Czvhhye0zxjLLEdYHYkfAWvPfh5+5jQC
-	 btACbRUoKbICw==
-Date: Fri, 25 Sep 2026 18:48:48 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: satishkh@cisco.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, sebaddel@cisco.com
-Subject: Re: [PATCH net-next 1/6] net: add netif_rx_mode_schedule_fresh()
-Message-ID: <20260925184848.770e0aed@kernel.org>
-In-Reply-To: <179029090875.2160803.9750318118693297771@kernel.org>
-References: <20260921-b4-enic-sriov-v2-vf-receive-control-v1-1-67a0a6e08d43@cisco.com>
-	<179029090875.2160803.9750318118693297771@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W+CZuW+o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790387421; x=1821923421;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gvlAMryz1WLaIdzCvIYBahSgwylu41M6JAq44ILGcJM=;
+  b=W+CZuW+ooGS9IlaGcfbPL77CKHkTGNYMyCtTBiKzVtAfBSYXUmMVQTjH
+   TVkMDnxGNY/ur68cGR7mYay8820e17kxl8OiZuAJYcf3aqhZnQ40pKVRp
+   7UTcmKu/c1eZ4hDGHGGUUTdizJpbvGUGt4pKxzY+0Eijbp+Ijx4j2Gnp3
+   0JlkT+rxAMpoPMcy2q+7l/hB+bCJz7h9eYagJw1eHLw8W+TIiM0CPC37I
+   73H38U+jnvmXTidHvypjIFpKlfYlvCeoMf9+rUu2orNzVKXhUjaWix8eM
+   XwE0DA1S5TdxcY5aIxdWi6ddXrMSMYuF40dgB3KsudlQMO48XX57JWLgC
+   g==;
+X-CSE-ConnectionGUID: MglgMDdvR2ewoMCjNSAXmQ==
+X-CSE-MsgGUID: HewxSX91SBS31UvmyePn5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="102541840"
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="102541840"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 18:50:20 -0700
+X-CSE-ConnectionGUID: X3qFXGIDQuGf03P7+LteNg==
+X-CSE-MsgGUID: /hzAtJMeT7CGXtiLpgUxpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="272636984"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by orviesa010.jf.intel.com with ESMTP; 25 Sep 2026 18:50:17 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xAHYM-00000000LRJ-2CH3;
+	Sat, 26 Sep 2026 01:50:14 +0000
+Date: Sat, 26 Sep 2026 09:49:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <lumag@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Can Guo <can.guo@oss.qualcomm.com>, Bean Huo <beanhuo@micron.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH] scsi: ufs: rpmb: register and unregister the ufs_rpmb bus
+Message-ID: <202609260913.FY1vuM99-lkp@intel.com>
+References: <20260920-fix-ufs-rpmb-v1-1-560b842c589d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920-fix-ufs-rpmb-v1-1-560b842c589d@oss.qualcomm.com>
 
-On Thu, 24 Sep 2026 23:01:48 +0000 netdev-bot+sashiko@kernel.org wrote:
-> The kernel-doc says the helper is for callers which need "the complete
-> receive configuration to be replayed".  Does the helper on its own produce
-> that replay for an ndo_set_rx_mode_async driver?
-> 
-> The queued run ends up in netif_rx_mode_run(), which snapshots the address
-> lists and then reconciles them.  __hw_addr_list_snapshot() copies sync_cnt
-> and refcount, __hw_addr_sync_dev() skips entries whose sync_cnt is already
-> nonzero, and the reconcile step then computes a zero delta, so addresses
-> that were already marked synced are not pushed to the driver again.
+Hi Dmitry,
 
-I was about to say this, the kdoc promises a full replay which is also
-what I suspect you want. but the callback delivers incremental updates
-by default so if the device was synced calling this does nothing.
+kernel test robot noticed the following build errors:
 
-If you do want full replay please fix, and also call it _replay()
-we already use that verb eg in udp_tunnel_nic_replay()
+[auto build test ERROR on 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998]
 
-If you just want a retry the kdoc and name should be updated..
--- 
-pw-bot: cr
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/scsi-ufs-rpmb-register-and-unregister-the-ufs_rpmb-bus/20260920-175018
+base:   3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
+patch link:    https://lore.kernel.org/r/20260920-fix-ufs-rpmb-v1-1-560b842c589d%40oss.qualcomm.com
+patch subject: [PATCH] scsi: ufs: rpmb: register and unregister the ufs_rpmb bus
+config: arc-randconfig-1001-20260926 (https://download.01.org/0day-ci/archive/20260926/202609260913.FY1vuM99-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 12.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260926/202609260913.FY1vuM99-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609260913.FY1vuM99-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   arc-linux-ld: drivers/ufs/core/ufs-rpmb.o: in function `ufs_rpmb_init':
+>> drivers/ufs/core/ufs-rpmb.c:280: multiple definition of `init_module'; drivers/ufs/core/ufshcd.o:drivers/ufs/core/ufshcd.c:11609: first defined here
+   arc-linux-ld: drivers/ufs/core/ufs-rpmb.o: in function `ufs_rpmb_exit':
+>> drivers/ufs/core/ufs-rpmb.c:285: multiple definition of `cleanup_module'; drivers/ufs/core/ufshcd.o:drivers/ufs/core/ufshcd.c:11623: first defined here
+
+
+vim +280 drivers/ufs/core/ufs-rpmb.c
+
+   277	
+   278	static int __init ufs_rpmb_init(void)
+   279	{
+ > 280		return bus_register(&ufs_rpmb_bus_type);
+   281	}
+   282	
+   283	static void __exit ufs_rpmb_exit(void)
+   284	{
+ > 285		bus_unregister(&ufs_rpmb_bus_type);
+   286	}
+   287	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
