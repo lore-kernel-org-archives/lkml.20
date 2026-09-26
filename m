@@ -1,171 +1,125 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188EB43E06A
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433F644065E;
+	Sat, 26 Sep 2026 12:49:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790426983; cv=none; b=g58sIc3UtR55RwuTt9XiYnJAtmzs4UrP0TMjtNJBAtr+9NCvxnJ3BZr9aj+hhAZS9rj9IuR3OI9n6NaQsM1vQxFYhyPOEtYvGnuCNxmLXL1zmg0gC8BfOIHIZU+IfsJgoM9y5ZbFVD1RTOQ9zSrnQYVEF4GX+lP8uc1h6WCIytI=
+	t=1790426992; cv=none; b=n35bRuSIkHpXJgeNlnG/T1W5RKwJyw+fpah78Xj+JdOunjDsb9t4qq6PDhxVWxtLOOb4xSkESgvqXxz3fsGWevhLMEEH3U0bPXl6OJLBrEJFDK5eL5U9GTbY7zPTpbmprzVs78j4ly1HtPD7ujklzPHNZXY8Y4332Qk2Rqb74yE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790426983; c=relaxed/simple;
-	bh=gKRD4NFUCHQezmtngowHc+jDAfxx84H1l2e/vlIJeyQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D1N1L+b+lbEiEu1vXiRMkTQTOBDVBGqH8VpF/JomJ/geWYpm864+z62MskvtDNIDsBJn+jSEBNPEtYANR/h3mgYcLaJ6y3y/HVkHE0MbdpBDXVL6K2Ha0PQoNtHw7F9juCiOcgt2slJ6KWXVBPuY50tieVCO5zTz5ag/EUivoYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GrDcMejl; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790426992; c=relaxed/simple;
+	bh=wJODCO7qLFS406HdWeGWn9AB/r+Nib0na9ZJ01dnJlI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I2V22UBxQv1Tp/5E9ibENWhiRa9NYejhpIr1fh8HbRup0FjeA+41HYTmLLV374UdxUvDmNYjsyfGvVFWdidFIsa1r2ToS27YkaIdHeK8lXwZjHxbd43OXop8k/jBXyhMdSwkz/8zeUWXesAfBQeXvbHzZ+RjWpHBy2FSeR6iOpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fd5egb/9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GrDcMejl"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso629273a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:49:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790426978; x=1791031778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5ROHNiM6rfL1rKoboMKSIKGA/8OXG5JLeTtjVlvBfcA=;
-        b=GrDcMejl8UC2yj18XtdZhPpnChsKsykL0wJGWR2+HY7mMcKCW+eCwfZb7mmrs6jOvP
-         DC3rUCPfmQUe+pJThvyyGOoxUhgREvxpwUZY9UdUfkw0nbf6rjd7+enbM/z5RJcQfxFD
-         xRLUK4BV4lDMPQWCtw5P8L1bIzeapuk+okCmvyFkgWqU5G3LV0MZmpptSr+KrZGvRhqf
-         VtMr3zAfR9sTZwpRS0qfCqUYK4/3DDjpcJFx2L+C5e8iQAgjaUCzipyXxxeVrrE80oIg
-         ZMFpCGAj9CMAZs1uAOA9z5C3B+ch3q6pnzAqAMqjeetd0sP6JUctNhqs6UVXCX/lSjjL
-         XiVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790426978; x=1791031778;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5ROHNiM6rfL1rKoboMKSIKGA/8OXG5JLeTtjVlvBfcA=;
-        b=mw+r46wOhZ/B7ET9cMbT2f3mAvAnw6pqSjzNoxvoyfHdBDYikso+EvEYJJsKgL7eaJ
-         3bl/mukRBf0GuZqynFCV4/E8PIEdtzmsKvlxadcVBAoehReldhlY7MfQlVu9sh3abFv7
-         IchZv1d9i6D2RMGBih7hWg6lrjrhKaIJx92e7lv3DQHxj4dxAZwiobvMR4WKhho6N+Qu
-         byLi3w1czBJahBzerWBDPzuzvctDGD+351s4+4WIhZoyYC9oFPyAFP3VdDmiWBqsKVYp
-         ciYrDRV9ERHzEnbDqkuqHEsnL3MWZCN3106pshSGoQApVMFSm47Au11Gc2OK+LlDjfsl
-         CS8g==
-X-Forwarded-Encrypted: i=1; AKwUvBybGNvl2zYQj9ofhDQBwe6BxiXDx5ebI+I5Q1fWm0tN9lfDSlqA9FGjz1aoGXDpP0jLOeOwDN3YodVdfF4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtKniuMxufJYpwAuj616O+woJ82NQhjEMPKiu1yjy+eXD2czrR
-	SRzBvBOAkzSJzHBrzgHi6E2f215GI98MReXv9pWudHYHCetkPaUxwf6g
-X-Gm-Gg: AYBFou0XM0awuB8Br2gA7x7SA4tH627CDnU7or97yLLdm9xcjSmpzL9GYSEX1YKeS4x
-	T+Mf2rH4Cf2+2wDv8hcpnrjvJSgdDW8uSBCMfAbjYQDC48L0TJzxx79b8OtGLu+xPb0ql6IaZiX
-	/nIBccswrKuZ0UIQAp42ua5JoFepCH3B+5sSLPVyYpKhtB+C777kiaydhEK7OVNcZIGGG8toPQ7
-	kx5Z5/WLKlYCmdHfDVq+7ukO2bG2MPmTnXQvJ3tRbHRLYQypvfc+mFwPjGy9xIUIIk+2rNpIm9r
-	F5eqz86LofycxVnzGK/Ts4wVBYDxltXpSEIeFLEpCzvVCrN008yZX7oEy53IIe2QTJIRfQuFQp1
-	OcmAA9oG45Xk3bleodykLyL0S9/1/1y51/+ZEmhSF5gUhV/VzWrhhA6GfFtpzTGeAXKN9E+4Ek+
-	cu+jQkjQ0mtQ8DmxedyMsuL0PX3Axolh1AR8JjlCa7ecu6WyWDspJDsnOX/7UEAecDxq6AEahvo
-	C+TsEPinDPM7TEwAfwx9hK1CVR1BugnwzlxcVbWx7sn7002CIOrp+PfAfGRxzT71kM8GvA5jul5
-	71ahZqKpaEYNZRMvHJDV9IvK2PZshExAbcNpOw==
-X-Received: by 2002:a17:90b:2247:b0:3a0:ca03:3e1f with SMTP id 98e67ed59e1d1-3a0ca03447amr2399868a91.32.1790426978417;
-        Sat, 26 Sep 2026 05:49:38 -0700 (PDT)
-Received: from dell-pro-max-tower-t2.cse.unsw.EDU.AU (pag-t2-pc.cse.unsw.EDU.AU. [129.94.173.199])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78794331fsm2450885a12.20.2026.09.26.05.49.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 05:49:37 -0700 (PDT)
-From: Weigang He <geoffreyhe2@gmail.com>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Eduardo Valentin <edubezval@gmail.com>,
-	Keerthy <j-keerthy@ti.com>
-Cc: Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	linux-pm@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Weigang He <geoffreyhe2@gmail.com>
-Subject: [PATCH] thermal/drivers/ti-soc-thermal: Cancel pending alert work on remove
-Date: Sat, 26 Sep 2026 22:49:31 +1000
-Message-ID: <20260926124931.3599746-1-geoffreyhe2@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fd5egb/9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6DC21F000FF;
+	Sat, 26 Sep 2026 12:49:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790426987;
+	bh=VcwH+9dD3jn1cikX304Fn2/psmP9ex3vbb4X9xZ4y0w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fd5egb/9VQIjjOqS4QVt0JCgY3CjQEWPCjDbq1JPvTO/u/NWzV+lbMU2GnucpD8Cg
+	 fQBncBItUBiNpft5Xle3TNZkvASdQXwYT782WczpRC4jNHKnURx/VR4lMI4JBZAg4b
+	 za0ej8mPU5YqIeMJVF26LmaALHmhJznID0Q97bqr7HNfNTSy14hNnajBL2yZtPoDr6
+	 ZPeKxz/NhMbw/6kJedmpg94MnX+XYJsijQGDTgqkeXja/IGUPPqM+mRcQX86S0NU8a
+	 AaymHjbxISsM0nBUg8bnqDkatbTzLbXwZiMwQwM34QeqRDonyX/y1rrUsoEZSMn7fp
+	 RycokNiL9jKuw==
+Date: Sat, 26 Sep 2026 13:49:38 +0100
+From: Nathan Chancellor <nathan@kernel.org>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Cc: Andreas Schwab <schwab@linux-m68k.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v2] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+Message-ID: <20260926124938.GC1486962@ax162>
+References: <20260925-vdso-getrandom-avoid-memset-llvm-24-v2-1-ce640f872393@kernel.org>
+ <87zex4ic68.fsf@linux-m68k.org>
+ <20260926121927.GA1486962@ax162>
+ <are7cfMIHZZn6jLz@zx2c4.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <are7cfMIHZZn6jLz@zx2c4.com>
 
-On a threshold crossing, the talert IRQ handler calls
-ti_thermal_report_sensor_temperature(), which queues the work embedded
-in the sensor's ti_thermal_data on the system workqueue. Nothing ever
-cancels or flushes that work.
+On Sat, Sep 26, 2026 at 02:32:49PM +0200, Jason A. Donenfeld wrote:
+> On Sat, Sep 26, 2026 at 01:19:27PM +0100, Nathan Chancellor wrote:
+> > On Sat, Sep 26, 2026 at 11:39:43AM +0200, Andreas Schwab wrote:
+> > > On Sep 25 2026, Nathan Chancellor wrote:
+> > > 
+> > > > +#if __has_builtin(__builtin_memset_inline)
+> > > > +#define memset_inline(dst, value, size) __builtin_memset_inline(dst, value, size)
+> > > > +#elif IS_ENABLED(CONFIG_CC_HAS_OPT_INLINE_MEMSET)
+> > > > +#define memset_inline(dst, value, size) __builtin_memset(dst, value, size)
+> > > > +#else
+> > > > +static inline void *memset_inline(void *dst, int value, size_t size)
+> > > > +{
+> > > > +	char *d = dst;
+> > > > +
+> > > > +	while (size--)
+> > > > +		*d++ = value;
+> > > > +
+> > > > +	return d;
+> > > > +}
+> > > > +#endif
+> > > > +
+> > > 
+> > > memset actually returns the original pointer, not the incremented one.
+> > > Nothing uses the return value of memset_inline here, but it is
+> > > confusing.
+> > 
+> > Whoops, good catch, I guess my fingers gave up on those last two
+> > characters :) I will fix this for v3 once there has been some time for
+> > further review.
+> 
+> Do we even need to return a value at all? Might as well just make the
+> function two lines:
+> 
+> +       for (char *d = dst; size--;)
+> +               *d++ = value;
 
-ti_bandgap_remove() frees the talert IRQ last. free_irq() waits for a
-running handler, but not for the work the handler has queued. When
-remove returns, devres unregisters and frees the thermal zones and then
-frees the devm-allocated ti_thermal_data, so a work item that is still
-pending runs ti_thermal_work() on freed memory:
+Yeah, good point, no point in returning something that we don't need
+plus this is basically what we had before, just with a different pointer
+type. Thanks for the suggestion.
 
-	ti_thermal_work()
-	  data = container_of(work, struct ti_thermal_data, thermal_wq);
-	  thermal_zone_device_update(data->ti_thermal, ...);
+> (Technically that could even be one, but maybe that sort of golf loses
+> clarity. Your choice.)
 
-Free the talert IRQ before removing the sensors, so that no new work
-can be queued, and cancel the work in ti_thermal_remove_sensor().
+I'll keep it two lines just for the sake of clarity.
 
-This needs an OMAP4460/4470 or OMAP5 SoC (DRA7 has TALERT but no
-->report_temperature, so it never queues the work), a threshold crossing
-just before the driver is unbound or unloaded, and the work still
-pending when devres frees the data.
-
-Found by static analysis tool CodeQL.
-
-Fixes: 445eaf871bf9 ("staging: omap-thermal: common code to expose driver to thermal framework")
-Assisted-by: LLM codeql
-Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
----
-
-Notes:
-    Compile-tested only (ARCH=arm64 and ARCH=x86_64 allmodconfig, and
-    ARCH=arm multi_v7_defconfig, W=1). Not tested on hardware: I have no
-    OMAP4460/4470 or OMAP5 board, and there is no reproducer. Unbinding or
-    unloading the driver needs root, so this is sent as a regular bug; no
-    stable Cc, but please add one if you think it is warranted.
-    
-    Found while reviewing a CodeQL report for this driver.
-
- drivers/thermal/ti-soc-thermal/ti-bandgap.c        | 7 ++++---
- drivers/thermal/ti-soc-thermal/ti-thermal-common.c | 4 ++++
- 2 files changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/thermal/ti-soc-thermal/ti-bandgap.c b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-index ba43399d0b384..507fe67eaffae 100644
---- a/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-+++ b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-@@ -1077,6 +1077,10 @@ void ti_bandgap_remove(struct platform_device *pdev)
- 	if (!soc_device_match(soc_no_cpu_notifier))
- 		cpu_pm_unregister_notifier(&bgp->nb);
- 
-+	/* Stop the alerts first: they queue work on the sensors' data */
-+	if (TI_BANDGAP_HAS(bgp, TALERT))
-+		free_irq(bgp->irq, bgp);
-+
- 	/* Remove sensor interfaces */
- 	for (i = 0; i < bgp->conf->sensor_count; i++) {
- 		if (bgp->conf->sensors[i].unregister_cooling)
-@@ -1093,9 +1097,6 @@ void ti_bandgap_remove(struct platform_device *pdev)
- 	clk_put(bgp->fclock);
- 	clk_put(bgp->div_clk);
- 
--	if (TI_BANDGAP_HAS(bgp, TALERT))
--		free_irq(bgp->irq, bgp);
--
- 	if (TI_BANDGAP_HAS(bgp, TSHUT))
- 		free_irq(gpiod_to_irq(bgp->tshut_gpiod), NULL);
- }
-diff --git a/drivers/thermal/ti-soc-thermal/ti-thermal-common.c b/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
-index 6e1bbdee53637..3073d4d9e4f36 100644
---- a/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
-+++ b/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
-@@ -195,6 +195,10 @@ int ti_thermal_remove_sensor(struct ti_bandgap *bgp, int id)
- 
- 	data = ti_bandgap_get_sensor_data(bgp, id);
- 
-+	/* Work queued by the talert IRQ must not outlive the data */
-+	if (!IS_ERR_OR_NULL(data))
-+		cancel_work_sync(&data->thermal_wq);
-+
- 	if (!IS_ERR_OR_NULL(data) && data->ti_thermal) {
- 		if (data->our_zone)
- 			thermal_zone_device_unregister(data->ti_thermal);
-
-base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
 -- 
-2.43.0
-
+Cheers,
+Nathan
