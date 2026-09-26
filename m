@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC5943F4A9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AA243F0B6;
 	Sat, 26 Sep 2026 12:40:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790426434; cv=none; b=LfkAB7Snu2qgMWhDwPxTpuDNxeUunTNvH9uEohk65nap7J7QzCK/iO7HBN45mxaJ7pYwcWoeL/HrvD+BMVCEQlkxsCnmiomfVdkJ4c9hLK5NEtMH0TvGCTM49ffycU6xDZdCHwouMpGtoWuR31OuR4O1/wyRNzknaQXoowxnOf0=
+	t=1790426434; cv=none; b=YlNZgFMjPOGTerFgiFjByYHyeE5GgAVu2M54Q8c3KTreXp4BsTgVsHLe0fK8ojb/SvPHVT5A0NKq89VVyQ5pj0UqtDeWziEMyzL6U1GnpLGcL3uhLa0aayLuIG4n/XrxYfHYmM9wKVyBu4tFrT5QMjPlxEBq2zW1EaopslS/ieQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790426434; c=relaxed/simple;
-	bh=IKIueHDGdKad1dbZuuleadx3ptYZIb6DginSe2S+pGw=;
+	bh=68Xo+7AbOTjtfo8IuA3Hr7KPjXQFLlOeewWxpvBQVgE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BaYpv3ZwVYjWUxMXZQTEhrBJC4OrImQKjfLZWZHZXb9V9llLgLDFH4/JfBmP2pJwr7vGPCj2U2X3rqU/iLxgh3nh0jE8taB0ABnpbeiH84dhbMahZHq7LdB/TX95zq4uSZQ78Q5u2yJWMuqGYgDiginNoUqT8QBcG58z5MUkxAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5g+k5pZ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=n2IDqWEAtewbiayatgoheJtsyxyX4zl9ykTU9ue2MrmNfGb6zyle+BU9okPRmX1Pgzwxi1OIZx9AcPl4PPnfKiY+EclI/Hpr2WkC95KQKWIyK78ozZH16scglvoYWriV15+fc9XhyDwovat4mv8G90I8oVlSTrADxBCXKRe/cBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqt5xZgn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5g+k5pZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A0936C2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqt5xZgn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C95D9C2BCFD;
 	Sat, 26 Sep 2026 12:40:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790426433;
-	bh=IKIueHDGdKad1dbZuuleadx3ptYZIb6DginSe2S+pGw=;
+	bh=68Xo+7AbOTjtfo8IuA3Hr7KPjXQFLlOeewWxpvBQVgE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Q5g+k5pZt0RL6PzhpUgUlzuqSTJ0oVd0QB5VWm4GVyLaaddzMjjKWJJICkSNUazUy
-	 taH9m5x7QuCOH0uvRDi08yB6r7zLi4xXA4WWEXEBy56TqznDJsAMLjGOjiKmGZtERq
-	 l7wzWGal49qqP5gQyrDxXWWKXQjsVVpF8CgdTk6uebxN5QfnPGgf5W590d16H6s2Ja
-	 No3/MK1+Sd9SC3vVSSg6ayAW07lziby52fXUhH0eflHCHtirgvRx8iZ9s0/3yMFkcE
-	 GUAHiG6Bs8H4C9yPRMT+VxzoQw8G+mvR3EsCcUbXhHIVsP2Y5HjBHWG6+l2qfHicJB
-	 CxSnbJqit8Bgw==
+	b=jqt5xZgnHJOa3OxB1/BVrQ7LoUoWcm/2e7BmzfqFS/mb8s1jMN0RYAI08ZvRemgnz
+	 sq37C6X6AN65iwaIywFM5Cf1Gyf7320+3cCwblowkZBrHxBxiMl5P82/lhv7i/r1Ik
+	 us9X7gASb5KnoXNvG1Vn9t/AV9VnmIeI2kFhrbp5fAufm2w12r7XliBrKgJZioysdk
+	 gHNyewXmw0xWCJrp2v3tQfSRMm4DmY/0G6Q0lhMQ81oaLRi8l1v5N5rXV1v88nXGvk
+	 f0P6iMcgSsmgUk2GtIRfZrKcEUMR8/4Os1PPiO4Rcapqq60fYpBJWijfpsgJokwZiS
+	 ye2xbSvweTKBw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B174C9833E;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3377C98338;
 	Sat, 26 Sep 2026 12:40:33 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sat, 26 Sep 2026 14:40:24 +0200
-Subject: [PATCH RFC 05/12] usb: typec: qcom: Make typec_port accept also
- different structure
+Date: Sat, 26 Sep 2026 14:40:26 +0200
+Subject: [PATCH RFC 07/12] arm64: dts: qcom: pm660: Add USB Type-C port
+ controller node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-typec-v1-5-31adc19f32c6@ixit.cz>
+Message-Id: <20260926-typec-v1-7-31adc19f32c6@ixit.cz>
 References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
 In-Reply-To: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
 To: Alexey Minnekhanov <alexeymin@minlexx.ru>, 
@@ -61,62 +61,94 @@ Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
  phone-devel@vger.kernel.org, mfd@lists.linux.dev, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1220; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2238; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=Rv/C1XQqReAptmVTI+ZJAAlK7aFi13337WHcMdGcM48=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqt70+EPEh7Pr+laDPW4tWdnCaH47gu2yL7r0Gt
- l2/AzxTDnCJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCare9PgAKCRBgAj/E00kg
- cr+8EACMj0EdXOb53DNNjlp+WWKFSp/7RfbfxhXER7ZgaAxztTLpMF8MUe49qSwIIE7evRvh3U2
- 3dtguNMZCawah/9kZLL89nEsaR0piJKrZLC1m6td+zSz0diVBwm22ixLjImzV1w1vkMJdicxH8A
- 8QzSC/SsegXq/dZZYXdBEv1N5wKE8WTUT59/4W+JDaYBu7eoB0oG+EcVhfNOrDF7kJxMfpUOZML
- oC8k3IuDvpdPuQ+zY1T+lcOsN8SlkU3HZjzjNY54VeoMz/DCZ0YUhIKnSeOspXgVPMsq82nvJAt
- hpOZosAoeYj4q0R9S9FTqycfx3ZNYdMnJBRaN6+tGK24U7p+8JD67ke/SPgQg3atm/Xnp8cFP70
- m1lKB8rdLu3OHSXEu8qUpi+xuvtFSCFJCWjC85N5cIWTC69oVWqPrb/hcEMkLuWlDYBGAQCIdly
- BtmDFEMkDbc8jcJbOtUnR5RUHWKC1Wv6ffjFCPbwn0Pr0XrL9JhS1U+11XnpgUs15KIpYW2YCqb
- LFMkID4eBa2HMb/cq25zJYFOaXYy12MnmuZcpO+dzIyIS6k9cvX5V80kiNJ7nHQMurJe9MYpgA9
- YWvMbtcY4i74m0sl7u7obrR6Cr1ib1JGhwgcoTcmsZGiQrz4SYGkm/lot/jrcr+3eJfBakNftN5
- MO9GKRI02vmmyFA==
+ bh=nfUfneQHFyPXoTLQ2iDCROlyx0D+c7Q2EAHBttmHuPo=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqt70+kPL94BUUjOGf4dU2jnzEuweWBFTQyYS1b
+ HYZ1UvtVlyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCare9PgAKCRBgAj/E00kg
+ cqVREACz+DbVUSwKhcqkKE4OxwCx4JSHA1cEOJA49V4LAZx/la2dL4AiUV3IlxIFYTbqLfKPpRR
+ eIaXAYKkUUnmXwNsEPZdpqPuruUdkhWm0phR28T7BRg4V+xf6d5euRn4MKo0OyErAAmsQbyxNPA
+ Xgxy0vCVrIybsEQwoNvK6UiSXbRlDyj1FZcc+fGmw+br9xRysgXO2ucMfeYlfWROW8d1Jg+zkqr
+ SU5/sVC0l60Oof+kgzSki+rrdc4FL+FPaeIfz1gUydnS2FCRZOPMVRB9vZ64E4bdENd6YvoLb6Y
+ S0G0MV7BJZRsdGFqt9joe/i8M2ZUrH0GJ7dFsk9zyKSqn7nwZS+5RQnWrjPWqddxV1uSSmWmqZp
+ Z1S1DPPVg0fQXxUCctvsN1+lNzkXNmVqsfDxjIIZkl3KYil4EdpwD5+xhOTmv6BuqVH4tJXjApx
+ s6V/BJkSUwmfocC09nYr2bdS9wGqQQ4N3Hmb4E++/jw8C6DPb45WBrv7lsC7ofo7axuPHG3ZR4i
+ 8jgGB2fwINzKdsN1GGWrqMw5BJnVScWmmE4kqDFoaBlBcPAUV0jpRmW76LwRIPFHOuoCRk/qPa9
+ aSBijLscrdMObCOLrHYFMS1ockbiHDiUqWzyZmDugImCaodL56lrSlY9/GlsMn5c0zarR3DxeHM
+ 5LMkgFXkKssTOyA==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
 
-This is needed by followup commit introducing 1st gen of type-c support.
+Add the PM660 Type-C port controller and PD PHY device node.
+
+As on PMI8998, the Type-C CC logic is part of the charger's USBIN
+peripheral at 0x1300, the PD PHY is at 0x1700. The node uses the
+'type-c-change' interrupt from the USBIN peripheral for CC state
+notifications, plus the 8 PD PHY interrupts, including fr-swap.
+
+The node is disabled by default; individual boards enable it and provide
+the USB-C connector description with PD capabilities and port graph.
 
 Assisted-by: LLM
-Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/pm660.dtsi | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h
-index 3c75820c91876..6f89d296ad151 100644
---- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h
-+++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h
-@@ -6,17 +6,17 @@
- #ifndef __QCOM_PMIC_TYPEC_H__
- #define __QCOM_PMIC_TYPEC_H__
+diff --git a/arch/arm64/boot/dts/qcom/pm660.dtsi b/arch/arm64/boot/dts/qcom/pm660.dtsi
+index 156b2ddff0dcb..37965a3607417 100644
+--- a/arch/arm64/boot/dts/qcom/pm660.dtsi
++++ b/arch/arm64/boot/dts/qcom/pm660.dtsi
+@@ -85,16 +85,43 @@ pm660_charger: charger@1000 {
  
- struct pmic_typec {
- 	struct device		*dev;
- 	struct tcpm_port	*tcpm_port;
- 	struct tcpc_dev		tcpc;
- 	struct pmic_typec_pdphy	*pmic_typec_pdphy;
--	struct pmic_typec_port	*pmic_typec_port;
-+	void			*pmic_typec_port;
+ 			io-channels = <&pm660_rradc 3>,
+ 				      <&pm660_rradc 4>;
+ 			io-channel-names = "usbin_i", "usbin_v";
  
- 	int (*pdphy_start)(struct pmic_typec *tcpm,
- 			   struct tcpm_port *tcpm_port);
- 	void (*pdphy_stop)(struct pmic_typec *tcpm);
+ 			status = "disabled";
+ 		};
  
- 	int (*port_start)(struct pmic_typec *tcpm,
- 			  struct tcpm_port *tcpm_port);
- 	void (*port_stop)(struct pmic_typec *tcpm);
++		pm660_typec: typec@1300 {
++			compatible = "qcom,pm660-typec";
++			reg = <0x1300>,
++			      <0x1700>;
++
++			interrupts = <0x0 0x13 0x7 IRQ_TYPE_EDGE_RISING>,
++				     <0x0 0x17 0x0 IRQ_TYPE_EDGE_RISING>,
++				     <0x0 0x17 0x1 IRQ_TYPE_EDGE_RISING>,
++				     <0x0 0x17 0x2 IRQ_TYPE_EDGE_RISING>,
++				     <0x0 0x17 0x3 IRQ_TYPE_EDGE_RISING>,
++				     <0x0 0x17 0x4 IRQ_TYPE_EDGE_RISING>,
++				     <0x0 0x17 0x5 IRQ_TYPE_EDGE_RISING>,
++				     <0x0 0x17 0x6 IRQ_TYPE_EDGE_RISING>,
++				     <0x0 0x17 0x7 IRQ_TYPE_EDGE_RISING>;
++			interrupt-names = "type-c-change",
++					  "sig-tx",
++					  "sig-rx",
++					  "msg-tx",
++					  "msg-rx",
++					  "msg-tx-failed",
++					  "msg-tx-discarded",
++					  "msg-rx-discarded",
++					  "fr-swap";
++
++			status = "disabled";
++		};
++
+ 		pm660_temp: temp-alarm@2400 {
+ 			compatible = "qcom,spmi-temp-alarm";
+ 			reg = <0x2400>;
+ 			interrupts = <0x0 0x24 0x0 IRQ_TYPE_EDGE_RISING>;
+ 			io-channels = <&pm660_adc ADC5_DIE_TEMP>;
+ 			io-channel-names = "thermal";
+ 			#thermal-sensor-cells = <0>;
+ 		};
 
 -- 
 2.55.0
