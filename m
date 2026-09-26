@@ -1,135 +1,138 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23B6243964
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:00:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB7C54707B
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:01:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790388044; cv=none; b=X/eKTmPtiYGPI/sRult15D6WfZ8AuWC47pLHOEsW2YRqJUam9NXf7CypqfeyyZ6rLoUeEnaAw8b+6xLAP+Lmgzvr3MawJoNAjFegwCw+Wj69GPS5Y1maY5ABBkAWiLKMixDfeUB3R/SLI5T9kwzzeGX448aLzg0v/F2yw6MkX0Y=
+	t=1790388115; cv=none; b=BM9wDVK8Z8Uqz1Wx5KpIb/faKxzQRxWcETk2MbzkYBpQCWOY9UH1MMP4iO2UFFz6GIKucuuIp+I5R7T6r4vrDh2MUu+PHJMUgG1nk6bbAqOY1mlbUDHuFuEym/aDlke+2URNVyC7e4qsWiL8VVbmT/z40UcBwCngKTD/8xHaQ3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790388044; c=relaxed/simple;
-	bh=0vjNW6Z/VkAoXl22hdO6l846oxvS2SwLTPDA8B+TIy4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fWcFU4sSxiHfwZ37qd+atIF/VBqjfemU0sYbjFoue9z7GCG3RmpY7gbFhPFgTfCdhsM8uX0LZuzeqMfslgPXsOPsDrk5RNQi2ChMYiNFkTARGQuRGk77H+Lz8KbVq9i66w3S668zOBSwVFMjY2PR5AIENMtQhYVYRTQAJZeyeCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=exabit.io; spf=none smtp.mailfrom=exabit.io; dkim=pass (2048-bit key) header.d=exabit-io.20251104.gappssmtp.com header.i=@exabit-io.20251104.gappssmtp.com header.b=hfEjIGMl; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=exabit.io
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=exabit.io
+	s=arc-20240116; t=1790388115; c=relaxed/simple;
+	bh=TyHMa884rEn3IuH6JzFdcB5NA7GYjcaY9Thmo8jQjK8=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=ORN+4iyEhpB0/9NtNUKsE1eaCIPwAu3eEk5o3b08dzlwYAKJINSub+SDdJIDOOwPI3IIJOSJy9esaNOtkvmEvj1jE8b8cGLyBdmvl7GKN7SsfVACBAtRYQD8E1WDEITwONNDBmBlHrLOAhoPT2W7IgbrOkz1/0vyut/06TzWiY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lVbyw/fo; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=exabit-io.20251104.gappssmtp.com header.i=@exabit-io.20251104.gappssmtp.com header.b="hfEjIGMl"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-398cb5615deso1206372a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:00:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=exabit-io.20251104.gappssmtp.com; s=20251104; t=1790388042; x=1790992842; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O/YZLqOMBC+Sifkt4qt6EWSQit/1O8w6WyxcrkXOcWo=;
-        b=hfEjIGMlVOzjoLvEqA2WuZXqC/7MPvlRk1Buzd+YOMvq4S+2NgPi2A9WxNDuQ61N4P
-         vypjJkpR66Tx7KcqYTohuXmj1taF9zeZ92OBNY2a9M/lH+n42ExTiOw3OU1jcF+QP7qx
-         1PNH7YaTcXaq+BEqnGI394eicmNvrUppMApsOSAZlaeNEvdV2brw6/IJ6TLsU5j4IkXt
-         rHPh4bwMeac5xAiZkjVT3Y6llhcSbQNl7MK26iaBEYrezMVC0GRjL4zJqKu7N5Yk46EG
-         ozhp1jKLWbmTEoNVFBEGz3My3U4gn8tC7vqNQx2SlQ+QjFTxMFfTzfNNZzqZUyUk7UP8
-         zx7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790388042; x=1790992842;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O/YZLqOMBC+Sifkt4qt6EWSQit/1O8w6WyxcrkXOcWo=;
-        b=JDFZ77h/52Sqe4S+qTLweaj7TvwwspduL5bUzHROtmyxuCS+fFiKmSHIlkYGEzeszt
-         rtR345QDXE/h9DO4nSGhm78An+3TSdnCBfEpvsaiktu+aNYY5VIY/PRvOaL+erlgzhH8
-         Jp6wmhoAGheGo4SPRCB4WKHUgVFm0igoKKW0TO3l3FO91TsMGgXrxMVoIQWqNOjFx0F7
-         vdOqcdblP88tAcDD2PurgYuh+1+LairZZIC7pCJYlMpHMn/Rrq2ng/Ji8IPfeMMeNIJE
-         Q3nZB4dEkvtphfbv1r4+f4rTqONCLZJ+rgTxT2Sjy9lueO0rK+cUzjoiABvYSjon8t7p
-         xIGw==
-X-Forwarded-Encrypted: i=1; AKwUvByZVl4Y2CeiZjkWjSPOUidAW2qRc96wDUYA1OYkirRNxAj3AJEE1QBJx2jEOHAifdzLkABLoWsv9prR9/Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++khvNGManSks5E6H1aibDihyaBS0MULvUlRWkxXX7iaggb94uMI
-	3zXEVY/tVQGijTjEZYffC+W59rv16dbeWxwo00kv2GUSXKNghZI5Wk+KLgRZoLy4Ilg=
-X-Gm-Gg: AYBFou2M45Qf7HHXpgwb4WBvGQ0Q2JRFXI9C24Vp+Pf9/8SWARuD6nAA+hcjavnqMSx
-	YX8loNTOsOxsEa22JaCCveqVLs7jZ+dtl/i5FOjWm9aNP0Uf0Kz6L4uJx4n3VgDMAEkbhz5VAF2
-	al6scq+B7mKC6s2b03g1cAAHJ6w0Z4O//E+gTny7C/LR357pvLcpwbOnaEDjHer+0QjQFyYJ4Fm
-	LZzU2YCeQt2UCp7nO15swApXI1Bq2XO1D3tvk94mNwgV1MiT8ddAvYo5nhqCWKdBMVNBuSNoCm2
-	ToCVHMubFzGYNG1h3i+MgIsghgpL6/wcrivRXQO8ggKoYlCp9a6FVBMtXVrnaBPII7Xz+VaNRrQ
-	OZwCr1JY7ygj/vBAnKs3LO/bD8+Ty3YnLywF0RKY0tpKPv2ZhVmj/E54w2rjtvJYZwynQuuIExB
-	xke6oHX/4YxWOCJH2I4J6FHcMQqfqAeT2hW4xA5QU/hKGf30gA/wyyBQQ1aRNWi8rnAsvWGzJi0
-	KE0o95vCnx1a6C7ky5ZvXxR6WWLk/V79YPQVMwvW3Ywc7DQFxI3GP/ljnCwHQLyQX2liEyk5BCF
-	x5ZXvuZiK+J4YtoD2tMEsBTJM8xO1G4p
-X-Received: by 2002:a17:90b:2ccf:b0:3a0:cc33:22af with SMTP id 98e67ed59e1d1-3a0cc33259emr1890297a91.2.1790388041938;
-        Fri, 25 Sep 2026 19:00:41 -0700 (PDT)
-Received: from macpro2019-01.. (c-71-236-167-8.hsd1.or.comcast.net. [71.236.167.8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0df64b233sm422959a91.2.2026.09.25.19.00.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 19:00:41 -0700 (PDT)
-From: Nikolas Joshua Britton <nbritton@exabit.io>
-To: Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof =?utf-8?q?Wilczy=C5=84ski?= <kw@linux.com>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/5] PCI: Resource placement algorithm fixes
-Date: Sat, 26 Sep 2026 02:00:40 +0000
-Message-ID: <20260926020040.8750-1-nbritton@exabit.io>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923131757.7792-1-ilpo.jarvinen@linux.intel.com>
-References: <20260923131757.7792-1-ilpo.jarvinen@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lVbyw/fo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790388112; x=1821924112;
+  h=date:from:to:cc:subject:message-id;
+  bh=TyHMa884rEn3IuH6JzFdcB5NA7GYjcaY9Thmo8jQjK8=;
+  b=lVbyw/fozJrhshGmpYVzTs4CCmB0QJ57Zce6kUiYWFKfogytXsVWjwCt
+   w/QQf6fEZ9T+iaNRrszRXoNI/m3NLSNVS4u76PjTuaRVp8fVYbZWMSUF9
+   lp2OvpBI4Fv3dlJlBBwGlyLqozWAlABvsjY8eUKK03cF1eQbmofnoafH1
+   mEG0qHh7FlCRlgXgQilWs8GEEDlOMg6KAtmL9M98o+3XRrt/RybB8BFAx
+   fEoI2QUx50oIRxqlpqKB41Iyi03cN+SYhjCOPdHdDYf6WUKAPn3nMS9D1
+   vhAvuV13fm1vG2N3hB8lnGBnvtFTNu76Tf/L9XK/ph//+uE7IiVk4i+sC
+   Q==;
+X-CSE-ConnectionGUID: VjwVvnGUROSvzpZ8gP/VdA==
+X-CSE-MsgGUID: sAi4Y7HiTQWcEN8kZ4b/Lw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11916"; a="107555456"
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="107555456"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 19:01:52 -0700
+X-CSE-ConnectionGUID: y+WaXH3GTCWYcxKQDdNXnA==
+X-CSE-MsgGUID: WDdPEBriRtSLSkADRKwywA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,123,1787036400"; 
+   d="scan'208";a="303985537"
+Received: from igk-lkp-server01.igk.intel.com (HELO 7278393c7b39) ([10.211.93.152])
+  by orviesa002.jf.intel.com with ESMTP; 25 Sep 2026 19:01:50 -0700
+Received: from kbuild by 7278393c7b39 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xAHjX-000000000AN-32kx;
+	Sat, 26 Sep 2026 02:01:47 +0000
+Date: Sat, 26 Sep 2026 04:01:15 +0200
+From: kernel test robot <lkp@intel.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: include/linux/compiler.h:200:82: error: expression in static
+ assertion is not an integer
+Message-ID: <202609260356.tJWbd1WU-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Wed, 23 Sep 2026, Ilpo Järvinen wrote:
-> In addition, the series corrects composite resource sizing to account
-> for gaps that have to be added due to alignment constaints and
-> remainder space not fully connecting (filling space all the way to
-> the bridge window align).
+Hi Rosen,
 
-Hi Ilpo,
+FYI, the error/warning still remains.
 
-Thanks, the series fixes the Mac Pro 7,1 case from my report. That is
-two Radeon Pro Vega II Duo cards, each with two GPU dies behind one root
-port, and BAR0 resized to 32 GB by setting the ReBAR control and
-rescanning the root port's bus (booted with pci=realloc).
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   6812ce4e4379ffc99c52401ec28f0d7ffbc36206
+commit: 4d105880666ab7f7914a75716d3e95b0d8b879dc tty: serial: mpc52xx_uart: add bounds check for psc_num array index
+date:   3 months ago
+config: powerpc-randconfig-r2101-20260926 (https://download.01.org/0day-ci/archive/20260926/202609260356.tJWbd1WU-lkp@intel.com/config)
+compiler: powerpc-linux-gcc (GCC) 12.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260926/202609260356.tJWbd1WU-lkp@intel.com/reproduce)
 
-I tested all five patches on top of v7.2.8, where they apply without
-fuzz, against plain v7.2.8 built with the same config.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 4d105880666a ("tty: serial: mpc52xx_uart: add bounds check for psc_num array index")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609260356.tJWbd1WU-lkp@intel.com/
 
-With plain v7.2.8 it fails as in the report: the root port window is
-64G+4M, and the second die gets no BAR:
+All errors (new ones prefixed by >>):
 
-  pci 0000:06:00.0: bridge window [mem 0x90000000000-0x910003fffff 64bit pref]: assigned
-  pci 0000:0b:00.0: BAR 0 [mem 0x90000000000-0x907ffffffff 64bit pref]: assigned
-  pci 0000:0e:00.0: BAR 0 [mem size 0x800000000 64bit pref]: can't assign; no space
+   In file included from include/linux/kernel.h:16,
+                    from arch/powerpc/include/asm/page.h:11,
+                    from arch/powerpc/include/asm/thread_info.h:13,
+                    from include/linux/thread_info.h:62,
+                    from arch/powerpc/include/asm/processor.h:41,
+                    from include/linux/sched.h:13,
+                    from include/linux/ratelimit.h:6,
+                    from include/linux/dev_printk.h:16,
+                    from include/linux/device.h:15,
+                    from drivers/tty/serial/mpc52xx_uart.c:31:
+   drivers/tty/serial/mpc52xx_uart.c: In function 'mpc512x_psc_handle_irq':
+   drivers/tty/serial/mpc52xx_uart.c:648:35: error: 'psc_mclk_clk' undeclared (first use in this function)
+     648 |         if (psc_num >= ARRAY_SIZE(psc_mclk_clk))
+         |                                   ^~~~~~~~~~~~
+   include/linux/array_size.h:11:33: note: in definition of macro 'ARRAY_SIZE'
+      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
+         |                                 ^~~
+   drivers/tty/serial/mpc52xx_uart.c:648:35: note: each undeclared identifier is reported only once for each function it appears in
+     648 |         if (psc_num >= ARRAY_SIZE(psc_mclk_clk))
+         |                                   ^~~~~~~~~~~~
+   include/linux/array_size.h:11:33: note: in definition of macro 'ARRAY_SIZE'
+      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
+         |                                 ^~~
+   In file included from include/linux/dev_printk.h:14:
+>> include/linux/compiler.h:200:82: error: expression in static assertion is not an integer
+     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
+         |                                                                                  ^
+   include/linux/compiler.h:205:33: note: in expansion of macro '__BUILD_BUG_ON_ZERO_MSG'
+     205 | #define __must_be_array(a)      __BUILD_BUG_ON_ZERO_MSG(!__is_array(a), \
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/array_size.h:11:59: note: in expansion of macro '__must_be_array'
+      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
+         |                                                           ^~~~~~~~~~~~~~~
+   drivers/tty/serial/mpc52xx_uart.c:648:24: note: in expansion of macro 'ARRAY_SIZE'
+     648 |         if (psc_num >= ARRAY_SIZE(psc_mclk_clk))
+         |                        ^~~~~~~~~~
 
-With the series, all four dies get their 32 GB BAR0, amdgpu binds all
-four, and they form one XGMI hive. Each root port window is now 96G
-(my one-liner gave 128G). The second sub-bridge window starts with the
-die's 2M BAR2 at its left edge, and the two nested bridges below it
-(0c:00.0, 0d:00.0) carry the same range:
 
-  pci 0000:06:00.0: bridge window [mem 0x9e800000000-0x9ffffffffff 64bit pref]: assigned
-  pci 0000:08:08.0: bridge window [mem 0x9e800000000-0x9f0001fffff 64bit pref]: assigned
-  pci 0000:08:10.0: bridge window [mem 0x9f7ffe00000-0x9ffffffffff 64bit pref]: assigned
-  pci 0000:0b:00.0: BAR 0 [mem 0x9e800000000-0x9efffffffff 64bit pref]: assigned
-  pci 0000:0e:00.0: BAR 2 [mem 0x9f7ffe00000-0x9f7ffffffff 64bit pref]: assigned
-  pci 0000:0e:00.0: BAR 0 [mem 0x9f800000000-0x9ffffffffff 64bit pref]: assigned
+vim +200 include/linux/compiler.h
 
-The second card (root port 16:00.0) is laid out the same way. No other
-device lost a resource: the only "can't assign" messages left are for
-the same I/O windows that fail on every kernel on this machine.
+230fa253df6352 Christian Borntraeger 2014-11-25  196  
+cb7380de9e4cbc Kees Cook             2025-02-05  197  #ifdef __CHECKER__
+243c90e917f5cf Vincent Mailhol       2025-03-29  198  #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) (0)
+cb7380de9e4cbc Kees Cook             2025-02-05  199  #else /* __CHECKER__ */
+243c90e917f5cf Vincent Mailhol       2025-03-29 @200  #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
+cb7380de9e4cbc Kees Cook             2025-02-05  201  #endif /* __CHECKER__ */
+cb7380de9e4cbc Kees Cook             2025-02-05  202  
 
-I used v7.2.8 rather than your v7.3-rc1 base because v7.3-rc4 powers
-this machine off during boot, with or without the series. I haven't
-looked into that yet.
+:::::: The code at line 200 was first introduced by commit
+:::::: 243c90e917f5cfc99821e5104d1c8a81c11cda4c build_bug.h: more user friendly error messages in BUILD_BUG_ON_ZERO()
 
-Tested-by: Nikolas Joshua Britton <nbritton@exabit.io>
+:::::: TO: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+:::::: CC: Yury Norov <yury.norov@gmail.com>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
