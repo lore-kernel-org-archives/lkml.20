@@ -1,115 +1,148 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FBF37B023
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B4A372EE2
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790452169; cv=none; b=eDYNS4YCJG03Z0WfQ6pcnExm/NgXBuR7OzG6QlyULbfYfl1tNQbqhfO4WlkMhvLho2DtksysCTPqYjli4/dtn503g32vxwlsOXBEoQ8SWGxARe/FTEa+eE0yRlMHI5JKahdmrgCvNxn3VJlr5ZHGiHYZsa/aoaJvrWjb+KTvaNM=
+	t=1790452300; cv=none; b=MFy59mP+PEdEYbbVUH5ab9xlGKF6hvM4GbICyaGFSgoH2Xm8VSxun20/I90yd7XiZpR9WCRqeZ90gUqyfviX0bLuIqOPhORcCIgq5QCaGEXmgSRdAHS8Hm27JGKBj7vrSFOOS8b/c8SZN58aTfp2CqVE54Ys1npfyv8IgUXcF+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790452169; c=relaxed/simple;
-	bh=/DePFCEtObnLIzGyGVncSOC3Te/jkUfVOEKHBPWr07w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d5sGTu7/F73UK1CRc/TH+zZ4qNfuLzjGjiwB0Gs3+JkhLsvcFVHhOuVlaYWXdVRISi9eSg2SBJmeovo6QskKEHJsoo8+96dbj9/9j/c8t2rJur1rLCAe1f9fBpUEivFWPGkiSx1fi16E+8eENxnoO702LE3hzltPiil+qZl9n6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d/hPTyT1; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1790452300; c=relaxed/simple;
+	bh=dfjoZScS9ZOqe44JQfBF8wEPZ+pAl5CDH2L/a4RRcvI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kcnnFkFV7RDqKalN6qrzEW/dpyTRowr4MCIb8jlNFG/r8MWMEnifYMBub56BB1ikiv7n4QwOVtW9oRIZqn1CUlyjTvGH2akEkrJ5bN43x32UHMULlWnQ+fn+Gf9VWrx1eUGiHc0WbUz1pYrhXM8uT8RSWx7Xmk+GdgT3p5zI/Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltk7eIYs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d/hPTyT1"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so10511895e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:49:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1790452165; x=1791056965; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/DePFCEtObnLIzGyGVncSOC3Te/jkUfVOEKHBPWr07w=;
-        b=d/hPTyT1+1vOyCgAJJUGe4lMmZl5bq1zRgOIrjH81Aw87tMs6Q2d/xlMplTucUvA+O
-         Ps0dFGOOCSFM36fmwNmF8W5dpimIRQPuCshXz+nDK7/fjOl2OMCbNXQaDpXMlrMpqm4E
-         mtq63JMfPeizK0m/LqgxDQed2hveLCXZcMDtM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790452165; x=1791056965;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/DePFCEtObnLIzGyGVncSOC3Te/jkUfVOEKHBPWr07w=;
-        b=XqFwlZuV0yHvj0bYX2whi2pRgnVjUgL1rJhvUYUBeJ6JoMQLVWKvUpSUaHhlAbucaJ
-         X5r7E0FRfyLGexcDP6iU6s/H7W6Taj7HHZJcjxB/JrN9y0vpp6M477t74YiiygBDaixO
-         //9Wxk64JOOl4gr4tmE3dGjZx9UvQvZyl1EHPtFttMFqp2zlrW3kSG+yjWEttGInJ7a6
-         pbsj75bCwk7WVwXHZnow4muVcoXAPemZWYj1KgfLV0YMRzayfmVcIEfuIiCFAYInHSPx
-         uMzi0uyp6j7repKLuwjHAT+HWTVfUJHQqVtMBEREcbopwoU064EA1SkW0qCtfyriK7g7
-         0QsA==
-X-Forwarded-Encrypted: i=1; AKwUvBxinXlrdZAF4FshTjG7Ol7doSUwQSWYjcnzdz1osS69T09EtUL9dkEnJyMnOsTdUTymop5c2BJ78TZfZM8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbU4tyUBedx6ih3cuDgz/43uhF+H6HN50Q5tHdWiuIsV21Pm1d
-	fimxLW/vV9GigrJGs8nOWcrfJLB3vUGAWzJmfqR5W2JdYw31Nzps+ZIP/IT5ucN4Xpc=
-X-Gm-Gg: AYBFou20jxetdULAisCdxC4bX23M1N42VFfIzLlZ3ctGczmWfDbDBceNXZmVP2nNwdo
-	QinlzkGGlwW3CnlqXVHJfyXSTWoyZk2eKz9nlD9Qiuk8dGDB9WaEn2yDzyY53S/lk7sG8PT3V6W
-	gUPA8KM8efhHE99dEkkSlLgqNERBJUYz9mGmchEjQhVNv15CUwt5miaLr1x+6lXM6RZkbH9alva
-	Z3OGL2ZUCsrAvz48Tch1dKii0TolAtmjIP4XepZ+q1wQBGDOtF0v0t0Km+Kg8pqV8b/IMLrQHhU
-	q7zJI74K8Ex+AtSf8z7dfo6SDbSAmq162Kdnq4Wy4Le+iaN6lCaoVRKDfht5FDD2v73bscDicg9
-	MVyky251HrqxNgXXEktjdin1HQQ2LnmGMmlKZCc3Crt6J0uvi//gB0kv4X8CxJ2LgaQIJKD5l/M
-	4hPZ/QTHnU70SOftT5E6tUn+IKa/+oDK3a2w1Y8OZFkI//fN7lRhk7OZZjU4pJlLIUXQg3QlIjQ
-	AYOMGb0H7RL4lxj3MOIwAwxl/hCSfmPgdY/+nTf9I1Bs7X4rjhlF6hjBw==
-X-Received: by 2002:a05:600c:609a:b0:49c:dca2:ac47 with SMTP id 5b1f17b1804b1-49ff06b2db4mr107860355e9.2.1790452165483;
-        Sat, 26 Sep 2026 12:49:25 -0700 (PDT)
-Received: from [10.188.205.27] (cust-west-par-46-193-1-237.cust.wifirst.net. [46.193.1.237])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a35fb05sm17547635f8f.20.2026.09.26.12.49.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 26 Sep 2026 12:49:24 -0700 (PDT)
-Message-ID: <eeb557fb-7ae5-42f6-8167-83c3828169ef@linuxfoundation.org>
-Date: Sat, 26 Sep 2026 13:49:21 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltk7eIYs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83D71F00898
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 19:51:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790452298;
+	bh=dfjoZScS9ZOqe44JQfBF8wEPZ+pAl5CDH2L/a4RRcvI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ltk7eIYspc5iX+WoJuH4deJAsI+v79YNuC2rH5obY7fakhISSa8FM202OswthfePR
+	 7DiuSUOodmpxB97bybC/s+iqKw9gj/Pb+2gyGPmgkm/KivUC4RMh4ktIM6Ure4Zg0a
+	 wqdpAr2FX7Ymx9mJDs2WCMgA0cTijrW3FnrdJ52HgJOHBrJSzVtTibsQVt60+Pep5R
+	 v3wPI4/REMflYCfIxraiJqn6JFdmDMZAhtzupgNMahzxUp0swC7ztcT3bNPu144180
+	 N8A/aOnmTvDVIiudJF5PbQGfz6jf78ONVhpx6ySb2oBQE/XplvWzYAylUs/URSMCsR
+	 kJt6ULNAHPN9w==
+Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2dca989afcso19606666b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:51:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxEdhhSAvRnj8doAecNvTU3MQSzOy0qsVOpMxCmUqxFhbjRhfQCReznVhd314tJ0EWvVv8gTvNaX0STRPo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHUreOErMIQxFvcm99lScs9zHAtM891tiIMqK/o/7boMjA5vBQ
+	Nqni3iVzict4IFe0xtA7yKe0FSWjvRM0yVxav3mKYm7btqe/C0zKGV4QwYqKbO23EpavXUQ18Sp
+	dnnmwoRsoGl0qaUQ1XCJ5bCjVEmUQy/SQ5TqxPpz1FQ==
+X-Received: by 2002:a17:907:8908:b0:c26:3424:f7df with SMTP id
+ a640c23a62f3a-c2ac24d3e8fmr788004566b.30.1790452295952; Sat, 26 Sep 2026
+ 12:51:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] usbip: usbip_host: remove legacy rebind_store in
- favor of drivers_probe
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: gregkh@linuxfoundation.org, i@zenithal.me, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, shuah@kernel.org, stable@vger.kernel.org,
- syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com,
- valentina.manea.m@gmail.com, Shuah Khan <skhan@linuxfoundation.org>
-References: <20260811160541.29461-1-jeffinphilip14@gmail.com>
- <20260820101800.14650-1-jeffinphilip14@gmail.com>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260820101800.14650-1-jeffinphilip14@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260918180241.3424851-1-nphamcs@gmail.com> <20260918180241.3424851-2-nphamcs@gmail.com>
+ <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
+ <7571f005bca65aa4ad5e7ec89e62801ad058b689.camel@surriel.com>
+ <CACePvbV-tazW=LmsbUtAhHzR2d6JwFT5R1jYZ9_NTp1hxXH=bw@mail.gmail.com> <CAKEwX=NbD12FfApEb9g+3Gt_-Rmof0tovYZsxPPyk5TCbFq=Lw@mail.gmail.com>
+In-Reply-To: <CAKEwX=NbD12FfApEb9g+3Gt_-Rmof0tovYZsxPPyk5TCbFq=Lw@mail.gmail.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Sat, 26 Sep 2026 09:51:24 -1000
+X-Gmail-Original-Message-ID: <CACePvbW2rejcNUhK7AG7xLv1C9PmdmdF+uvkV1665BYwG-GNBw@mail.gmail.com>
+X-Gm-Features: AclHuK-xpiJYlVPsv444_ENhKedDDd2x3kiC91E8lDWQNSSouldPc5mcq4B4NH8
+Message-ID: <CACePvbW2rejcNUhK7AG7xLv1C9PmdmdF+uvkV1665BYwG-GNBw@mail.gmail.com>
+Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Rik van Riel <riel@surriel.com>, akpm@linux-foundation.org, kasong@tencent.com, 
+	hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
+	shakeel.butt@linux.dev, yosry@kernel.org, david@kernel.org, 
+	muchun.song@linux.dev, shikemeng@huaweicloud.com, baoquan.he@linux.dev, 
+	baohua@kernel.org, youngjun.park@lge.com, chengming.zhou@linux.dev, 
+	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
+	surenb@google.com, qi.zheng@linux.dev, axelrasmussen@google.com, 
+	yuanchu@google.com, weixugc@google.com, gourry@gourry.net, 
+	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
+	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
+	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	cgroups@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/20/26 04:18, Jeffin Philip wrote:
-> On Tue, 11 Aug 2026 21:35:39 +0530, Jeffin Philip wrote:
->> do_rebind, which sleeps normally gets a mutex lock. However, it does not
->> or should I say, cannot check for null udev between spin lock dropped in
->> rebind_store and entering do_rebind. This is a potential race window
->> already. So, even if we check for null udev under spinlock, we cannot do
->> it outside. Regarding do_rebind, it is called during stub_device_rebind,
->> but that function is called during module exit when all files are removed.
->> So, do_rebind is not designed to work in a concurrent environment in the
->> first place.
->>
->> We have a safer function that can already do what do_rebind does,
->> drivers_probe. So, we use drivers_probe to rebind the device rather than
->> use rebind_store.
->>
->> usbip tool references this function immediately after the device is unbound,
->> which is safe for the tool itself but since we opted for drivers_probe, fix
->> it by using drivers_probe rather than rebind_store after unbinding device
->> which is more safer.
->>
->> Tested and working in both userspace via the tool and manually echoing
->> the busid in the related nodes. rebind node is still left active with a
->> warning to use drivers_probe upon encountering rebind_store.
+On Fri, Sep 25, 2026 at 8:25=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
+:
+>
+> On Thu, Sep 24, 2026 at 6:17=E2=80=AFPM Chris Li <chrisl@kernel.org> wrot=
+e:
+> >
+> > On Thu, Sep 24, 2026 at 8:13=E2=80=AFAM Rik van Riel <riel@surriel.com>=
+ wrote:
+> >
+> > Yes, but it will pay the price for going through the unnecessary
+> > redirection layer always. It incurs performance and meta data
+> > overhead. That was one of my previous objections to the earlier vswap
+> > version. Sorry I enjoy micro optimization too much, that is both my
+> > strength and weakness.
+> >
+> > >
+> > > When everything in vswap, we don't need to test for it.
+> > >
+> > I've been there and done that, the result was pretty bad in those
+> > earlier series.
+> >
+> > > Handling the details of what's behind the vswap would
+> > > be handled one layer down.
+> > >
+> > > Chris, do you think that would be cleaner?
+> >
+> > If it can wrap below the swap_ops, it is just priviate inernal dedail
+> > of implementing its own indirections. That would be much cleaner. That
+> > is what I am trying to pitch to Nhat in prevoius email but does not
+> > have following actions.
+>
+> Registering vswap's operation as into swap_ops isn't too hard. I
+> frankly don't see much wins to it for vswap itself, but it's not hard
+> to do if you like it.
 
-I want to know your test setup. Can you reproduce this with usbip host and
-running bind command from the tool?
+I am offering these as ways to move forward with vswap. There is
+always the alternaive to use xswap instead.
 
-Also send me the error messages.
+>
+> What I'm disagreeing is treating it as "just another swap device". The
+> implementation shares a lot of swap device's machinery, so I have
+> don't mind adopting it, but you can't treat it like a normal swap
+> device, and expose it to userspace like one. You get issues with
+> allocations internally, and externally you give userspace a vector to
+> misconfigure with device priority.
 
-thanks,
--- Shuah
+I'd like to hear more about this. If a user wants to shoot themselves
+in the foot. My philosophy is just let them. It is not worthwhile to
+complicate the code path. We can add a big fat warning that
+"Oh, you are configuring xswap with a priority other than the
+recommended one." But if the user really wants to do it, we should
+allow it.
+
+Another use case is when users employ more than one swap device to
+reduce swap device lock contention. It is not a big deal when you swap
+out a few GB of memory. But if you swap out more than 100G of memory,
+the swap device lock contention really shows up in the earlier version
+of the swap core. The new swap allocator and swap table significantly
+reduce that contention. But that contention still exists. A few
+hundred G of memory under one lock is just a bit too much. I think
+there is a legitimate reason to use more than one device to reduce
+lock contention.
+
+Granted, other ways exist to reduce lock contention, but they increase
+code complexity as well. The current swap device design is a good
+balance of code complexity and flexibility.
+
+> That's why I've been insisting on what's the use case that motivates
+> these aspects of the interface that you're interested in. A pretty
+> design is not a real usecase, especially one that creates problems
+> with userspace misconfigurations.
+
+Points taken; this isn't enough to justify the extra maintenance and
+complexity of vswap right now. A cleaner alternative exists with less
+complexity overhead.
+
+Chris
