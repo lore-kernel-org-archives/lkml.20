@@ -1,71 +1,80 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A8C37E5E1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1E3376A08
 	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790439905; cv=none; b=DLRvYQtXmRXeUPeXofqK1XOO5Kz/uCcq6YGa55jofAlaW2nYpeRNfrjxGk2DWWQ657M3ItlbUawyGg8p5eWROCJj/NhhTSvhqYHWjWUIgKMdjABO2Qo/0xV+d3e4J59uVPV6OX91EDCj3n2uInzOHyWBYUYVoaDOeoqGHIHWmmA=
+	t=1790439904; cv=none; b=PAiETizQ3Du++TL12K2K80ZzOO52rqi0kiX9gYkhPEcnDVqwcHpKEM2zrTmqMQrIoZ1FfPw6IbkdyLE2P5+X7mb4dYI/WEeVn5tqyRXR8FxwL7pHvcxif9Nq54i2Y+HCoyHg72CJKrLUq5Ju9bVNjadYLfCnfP5bPWIBxV1Pb8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790439905; c=relaxed/simple;
-	bh=yEAjJLLW2mUFewhC7K8QsWCSw5B9UcetRCPCEY9zmDg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bWTrJcGqLhwzTm2wWWo1sueFmgWXPtowINUUBEE91k0HfyVmSve+JI7Yaom5mI53FhIeqm+dyK7E8a/foXNJ5XhXpf/ZTBCvRhxF866KfK52gOGtK1RO/76XyTjR26lnWyLVbdUefMqcKdMLubbyryFhD3s3H43XBaXHOy/Hq6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FD2vFnm0; arc=none smtp.client-ip=74.125.230.235
+	s=arc-20240116; t=1790439904; c=relaxed/simple;
+	bh=ixeaZErFclci1n8yNGa8V3opsxlJMTYP3hAcmBz8kF0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RkevD61pZMBKxpdxo3K3XivvwEm2axO0f47UphvyjzNNF2Ds6zb/hbtQzvL4GYUOGbFe0VOub0TeUezGfiTvTd1+7dbMxwdM+KyfXTbx2rrs626ANVZ1T9LMTlB2rkLU2hNcRzMkPTb8TTneEy31cqqPSKaovY58TlDPn3uN7lU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JXW2zUOg; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FD2vFnm0"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910ad20d4so222148785a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:25:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JXW2zUOg"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85f0fc1fd8eso950908b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:24:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790439898; x=1791044698; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790439899; x=1791044699; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lcedmEUDuhdephxMCHT6cYbYrSuUGs6yxAq+AhOHg5Y=;
-        b=FD2vFnm0dh13lq36yhbZcJkxuZpHykvICWazMvo8dOYu/KPrvNJW2UJ73CsPtrdAhG
-         Y7SFkDzkIJoz2AxLLgGJJ81sog1bQqp3jFilNlbwxQuxl0LRWMN89EGe4gnsEi4uhRku
-         TyVzrLG/qhpIB/p2ilOFx6C13CjK78Mw711+9dyWstrQ5842aJAsHcsKD4QfpPrPpC5O
-         gscdDvik4Ck/qfmQ0li9rKHW3VSNDD5MVkUfPpSNqFaSz8hJbdGDjnOhdDD2+QZWafmh
-         rjhlqMv1/x4zYA49Y6Hz+vt3Mth2Q55NxGZTIfdnU0tHzYXMN5p5ZsN/JyOk+D7Ngt5X
-         eGng==
+        bh=JxTb4rTnxrDZeiosOy7T/2r+lQDYr7z98o9aA1mZOX8=;
+        b=JXW2zUOgGq3WY/3MNo0KgKWXnDXttc5E7LOmx38RVg8drAXIvGAdfl/5trHkSQPDb0
+         ThcIYTTCQBkbYh79OFzBm3LAadbn0jtZV2GJfKIh9lqICJcPjeVEOLO1GumyGGzHy14M
+         ykVPayL/e9qZ0wY4ZyP57DCAyP5LsT4xag42Czm7ihhq6C56IsFtnGn0Hi7UswsyL67v
+         RmmX0SCNo6nHYJwCXEJ/mgzNOsU8LXW/e0FoCsz/RrRVe2kYJ786ii9DBf5F8jUO1FSt
+         tLfOxq+7nZEPSys4X4lCe0gQr6U4NRmbDhoBReoMlRGtiNG3DUMdlwR1PH5TSre7otnl
+         i23A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790439898; x=1791044698;
+        d=1e100.net; s=20260707; t=1790439899; x=1791044699;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lcedmEUDuhdephxMCHT6cYbYrSuUGs6yxAq+AhOHg5Y=;
-        b=goInxrXjaCbnH3QVbzY1mkojSaYjEVIMML6zFWvhPDzSZOCMVKhM7ivyftRYeOR2Cw
-         o94v5vXBrOZZr+F8TAGPGHEnE6hhCYGWJchr1Gmq01bP459SymugqSmRxusJR4AZ2sFC
-         CZlCzOMEn/A0pGqqtOkMNopbxXhGLGztYh2arIMB6LipDFhZJnaUDfUG7Y+5QDtXkvGY
-         JDp9kZbXqH/vafJh/2LYjqYdGYiLtDx6haBnie/HzdlyG6CyWxBMtV3Ty/1/YGSAZHk3
-         Z3XnK3/baB1esxEDdPe09IOe/dt0rlKwCZdOkPlsmLKoOtpZfMvMjyEUTWG+qFhmRTdz
-         JAwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwuynsIbxtlxhvRI5C+hWdb4xYYTjU791vUSwNJx3e/bXdsg9PjP4AV+T2yU3S8QLAYIwtMrFzi08J54ZM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lF4Xz0lhTUuakZTaqPudCmZN9Ryi4gM4xfmrPcAJDbeV6aL8TM
-	eH85fwtR68diNGu/aRWQxGN6I4dxLr2N2lyxplvurKtO5pMFxwkQGDNp
-X-Gm-Gg: AYBFou3yvYlHgHSioONU2AVkqY82svXPOXc2mEgkbntcHbF/oVpLqCZFUP9oqR4U5z1
-	MfCIH0yu6HuFxoJksoAgntyYXRTe/CKhD1GAwU4P6nxnyAIaOLd6kbQGmQpMJqL0FLscipXttxW
-	mjJNGaAN1+04XfOQGBSM70ijtTmx+Rp3UkJJkCQaSq54W3QqOUjXdBWTfcjp99DEkMNBRtFzzfZ
-	nCiVxPsdZWCfhIEDBZ7kJ62u0TdkOd/xFjCQ+B9DipNyjurFoyU+2AUwuTL+rLgPX/SoJpesVae
-	WNsxIJQ2dWR8lU44DUxr+X5Mr+UBFTpHzNA3oVJDOC3B7PiwygGhW7XOHeQTDcP6xywO2ZoFPcO
-	miaygzqjzshCCgZEnFUoLv2mbbhstO/LW0sjL3S7ayc9QNhK4moBWZdkPBDDJJgucknj7QWovJn
-	2GTmyDVOeKDN0/aFUI+OMsSftvRGv1l96N2dBv2lNJBKoPN/5moRQlARkVY1jFwSLSCA/R8bRL2
-	j3cyxZ2vPSv52SPfV1XYt42idrUMXgtaOMcjGfZEvm49vYh
-X-Received: by 2002:a05:620a:4809:b0:939:6de8:43dd with SMTP id af79cd13be357-93c47511ed9mr943179885a.49.1790439898560;
+        bh=JxTb4rTnxrDZeiosOy7T/2r+lQDYr7z98o9aA1mZOX8=;
+        b=n30s09hA6IkleroVLzsOO4KFUGq0wXgBN8iK5ArsP8Q1ewQcotQTNh/pMXc5UPCXJS
+         ZC6eGPe1JKvnHkR5neIjptwuyCj9l54gyD6Vw56mfXx49hTTidKD2hWuPQ/EVfJ1x5TT
+         q1tQ1Q1iI0IGpDGnu4ePXcDCIO/04w86e09XRR0j46n8ejiXf9+Bn3IjE4lhDUvCss8X
+         10PRHtAoNkIL1LvDztuF3NVdX7lB0bVp+83SuLZZtrXTJLl4qVdYGqai/LfkS4efugYp
+         7BvjiVSxhwN+zlLA1oZ1GdEP1wJDAYN9YEguJfziNmPNSWXoy9v7Q45hsJTALuPHpmf1
+         sJmg==
+X-Forwarded-Encrypted: i=1; AKwUvBwg1O8PduBzGU+TSPGfsY69mQGtaZL40M7BtSKt8oyVKnvTW9Kg0yhTpCRUD5vIeO32kJpXWM9KF7ybKC0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLJxP7t3m5WHVWkCo7x0ZDz96QHlFbA8UIe081OBlFFP+o8Lp7
+	1CkIfevfU8Ngj6gJmb5hPbB4sPeKwfAYurhcHlBaA5Y2L16B1WbkIsu0
+X-Gm-Gg: AYBFou3qbbEJcHKzoLzjmuEYN+8z3MTi+iki45yoEy4Y4EADRS3op7H8BNYCMhGQ9W2
+	eHSD+4J4tXICUlQBV9ObouH9vKx9simx4QpyOgXSvQX7AHUvQzGhqe0JfVtt53a8Pe4HCWTX3xO
+	m2VeM3j97uRT0aMVqQiHXJUMy/J2oLCkuJv8KhSwQIlRS2lH+T+xcxWyUb4RiLdOWveaP7Kq2pu
+	DdsgFrX42ubaHVYB654v8+jcbCJPrs3L1d7k4xgT8nudWQ0GzR80TdsEtx66myXwlRO3Wkdec1Q
+	L7tEMC1T19D4x9oL8ZQ4qZnO5aWaOWqSeZBHIziIpJJK7voC87PTitANN0Kg4nc1p1+PH2z1dW5
+	6lQLSJzVI+q+zI6klVDSymw/KyGLdoxbCZSm3rHeNRJMhP51hUkaSn4gg6HTKbFSwcXXMZ3ATgD
+	dzchBpCRNxNUw26GqdYIce2dwaDi4Ut7nCHbvuKAIumflzphwirr2iTWP2MbyO0zMXUEZeyIhzx
+	QQXAGS7+V0VOXTC9egEmxCLQJs=
+X-Received: by 2002:a05:6a00:4099:b0:87c:3660:fa76 with SMTP id d2e1a72fcca58-87e9b69f43fmr6347352b3a.34.1790439898653;
         Sat, 26 Sep 2026 09:24:58 -0700 (PDT)
-Received: from zaina.localdomain ([172.56.198.134])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c448f57b1sm448507385a.22.2026.09.26.09.24.57
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:a00e:c90a:972a:c5a2])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87fea19800esm2323249b3a.10.2026.09.26.09.24.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 26 Sep 2026 09:24:58 -0700 (PDT)
-From: Zain Aboobacker <zainaboobacker33@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: saa7146: remove unused dump_registers() debug helper
-Date: Sat, 26 Sep 2026 12:24:45 -0400
-Message-ID: <20260926162445.25173-1-zainaboobacker33@gmail.com>
-X-Mailer: git-send-email 2.53.0
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: David Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+Subject: [PATCH] drm/virtio: share one vbuf cache across all devices
+Date: Sat, 26 Sep 2026 23:24:52 +0700
+Message-ID: <20260926162452.136863-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,39 +83,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dump_registers() is compiled out with #if 0 and has no callers.
-Remove the dead code.
+virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
+"virtio-gpu-vbufs" for every device and destroys it from
+virtio_gpu_release(), which only runs once the last drm_device
+reference is dropped. If a reference outlives the PCI removal (for
+instance an open /dev/fbN), a rescan probes the device again while the
+old cache still exists:
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Zain Aboobacker <zainaboobacker33@gmail.com>
+  kmem_cache of name 'virtio-gpu-vbufs' already exists
+  WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
+  Call Trace:
+   virtio_gpu_alloc_vbufs
+   virtio_gpu_init
+   virtio_gpu_probe
+   ...
+   pci_rescan_bus
+   rescan_store
+
+kmem_cache_create() then fails and the new device does not probe.
+
+The vbuf size is the same for every device, so create the cache once
+at module init and destroy it at module exit instead of per device.
+
+Reported-by: syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
+Fixes: dc5698e80cf7 ("Add virtio gpu driver.")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- drivers/media/common/saa7146/saa7146_core.c | 11 -----------
- 1 file changed, 11 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_drv.c | 13 ++++++++++++-
+ drivers/gpu/drm/virtio/virtgpu_drv.h |  5 ++---
+ drivers/gpu/drm/virtio/virtgpu_kms.c |  8 --------
+ drivers/gpu/drm/virtio/virtgpu_vq.c  | 26 ++++++++++++++------------
+ 4 files changed, 28 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/media/common/saa7146/saa7146_core.c b/drivers/media/common/saa7146/saa7146_core.c
-index b705c4bcaffa..92b5be153613 100644
---- a/drivers/media/common/saa7146/saa7146_core.c
-+++ b/drivers/media/common/saa7146/saa7146_core.c
-@@ -18,17 +18,6 @@ unsigned int saa7146_debug;
- module_param(saa7146_debug, uint, 0644);
- MODULE_PARM_DESC(saa7146_debug, "debug level (default: 0)");
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+index 2aaa7cb08085..eec6f73a4c15 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.c
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+@@ -283,6 +283,10 @@ static int __init virtio_gpu_driver_init(void)
+ 	struct pci_dev *pdev;
+ 	int ret;
  
--#if 0
--static void dump_registers(struct saa7146_dev* dev)
--{
--	int i = 0;
--
--	pr_info(" @ %li jiffies:\n", jiffies);
--	for (i = 0; i <= 0x148; i += 4)
--		pr_info("0x%03x: 0x%08x\n", i, saa7146_read(dev, i));
--}
--#endif
--
- /****************************************************************************
-  * gpio and debi helper functions
-  ****************************************************************************/
-
-base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
++	ret = virtio_gpu_vbufs_init();
++	if (ret)
++		return ret;
++
+ 	pdev = pci_get_device(PCI_VENDOR_ID_REDHAT_QUMRANET,
+ 			      PCI_DEVICE_ID_VIRTIO_GPU,
+ 			      NULL);
+@@ -291,7 +295,7 @@ static int __init virtio_gpu_driver_init(void)
+ 			VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM);
+ 		if (ret) {
+ 			pci_dev_put(pdev);
+-			return ret;
++			goto err_vbufs;
+ 		}
+ 	}
+ 
+@@ -305,12 +309,19 @@ static int __init virtio_gpu_driver_init(void)
+ 		pci_dev_put(pdev);
+ 	}
+ 
++	if (ret)
++		goto err_vbufs;
++	return 0;
++
++err_vbufs:
++	virtio_gpu_vbufs_exit();
+ 	return ret;
+ }
+ 
+ static void __exit virtio_gpu_driver_exit(void)
+ {
+ 	unregister_virtio_driver(&virtio_gpu_driver);
++	virtio_gpu_vbufs_exit();
+ }
+ 
+ module_init(virtio_gpu_driver_init);
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 9df4c7117341..f6009fc8472f 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -261,7 +261,6 @@ struct virtio_gpu_device {
+ 	struct virtio_gpu_queue ctrlq;
+ 	struct virtio_gpu_queue cursorq;
+ 	bool vqs_released;
+-	struct kmem_cache *vbufs;
+ 
+ 	atomic_t pending_commands;
+ 
+@@ -361,8 +360,8 @@ void virtio_gpu_array_put_free_delayed(struct virtio_gpu_device *vgdev,
+ void virtio_gpu_array_put_free_work(struct work_struct *work);
+ 
+ /* virtgpu_vq.c */
+-int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev);
+-void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev);
++int virtio_gpu_vbufs_init(void);
++void virtio_gpu_vbufs_exit(void);
+ void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev);
+ void virtio_gpu_cmd_create_resource(struct virtio_gpu_device *vgdev,
+ 				    struct virtio_gpu_object *bo,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+index 1d4d3bf46a20..047b591b5da2 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_kms.c
++++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+@@ -264,11 +264,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+ 		DRM_ERROR("failed to find virt queues\n");
+ 		goto err_vqs;
+ 	}
+-	ret = virtio_gpu_alloc_vbufs(vgdev);
+-	if (ret) {
+-		DRM_ERROR("failed to alloc vbufs\n");
+-		goto err_vbufs;
+-	}
+ 
+ 	/* get display info */
+ 	virtio_cread_le(vgdev->vdev, struct virtio_gpu_config,
+@@ -324,8 +319,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+ 	virtio_reset_device(vgdev->vdev);
+ 	virtio_gpu_modeset_fini(vgdev);
+ err_scanouts:
+-	virtio_gpu_free_vbufs(vgdev);
+-err_vbufs:
+ 	vgdev->vdev->config->del_vqs(vgdev->vdev);
+ err_vqs:
+ 	dev->dev_private = NULL;
+@@ -365,7 +358,6 @@ void virtio_gpu_release(struct drm_device *dev)
+ 		return;
+ 
+ 	virtio_gpu_modeset_fini(vgdev);
+-	virtio_gpu_free_vbufs(vgdev);
+ 	virtio_gpu_cleanup_cap_cache(vgdev);
+ 
+ 	if (vgdev->has_host_visible)
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index c02c03c10d92..769b6e70feda 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -70,21 +70,23 @@ void virtio_gpu_cursor_ack(struct virtqueue *vq)
+ 	schedule_work(&vgdev->cursorq.dequeue_work);
+ }
+ 
+-int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev)
++/* Shared by all devices: a per-device cache would collide by name. */
++static struct kmem_cache *virtio_gpu_vbufs;
++
++int virtio_gpu_vbufs_init(void)
+ {
+-	vgdev->vbufs = kmem_cache_create("virtio-gpu-vbufs",
+-					 VBUFFER_SIZE,
+-					 __alignof__(struct virtio_gpu_vbuffer),
+-					 0, NULL);
+-	if (!vgdev->vbufs)
++	virtio_gpu_vbufs = kmem_cache_create("virtio-gpu-vbufs",
++					     VBUFFER_SIZE,
++					     __alignof__(struct virtio_gpu_vbuffer),
++					     0, NULL);
++	if (!virtio_gpu_vbufs)
+ 		return -ENOMEM;
+ 	return 0;
+ }
+ 
+-void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev)
++void virtio_gpu_vbufs_exit(void)
+ {
+-	kmem_cache_destroy(vgdev->vbufs);
+-	vgdev->vbufs = NULL;
++	kmem_cache_destroy(virtio_gpu_vbufs);
+ }
+ 
+ /* For drm_panic */
+@@ -93,7 +95,7 @@ virtio_gpu_panic_get_vbuf(struct virtio_gpu_device *vgdev, int size)
+ {
+ 	struct virtio_gpu_vbuffer *vbuf;
+ 
+-	vbuf = kmem_cache_zalloc(vgdev->vbufs, GFP_ATOMIC);
++	vbuf = kmem_cache_zalloc(virtio_gpu_vbufs, GFP_ATOMIC);
+ 
+ 	vbuf->buf = (void *)vbuf + sizeof(*vbuf);
+ 	vbuf->size = size;
+@@ -110,7 +112,7 @@ virtio_gpu_get_vbuf(struct virtio_gpu_device *vgdev,
+ {
+ 	struct virtio_gpu_vbuffer *vbuf;
+ 
+-	vbuf = kmem_cache_zalloc(vgdev->vbufs, GFP_KERNEL | __GFP_NOFAIL);
++	vbuf = kmem_cache_zalloc(virtio_gpu_vbufs, GFP_KERNEL | __GFP_NOFAIL);
+ 
+ 	BUG_ON(size > MAX_INLINE_CMD_SIZE ||
+ 	       size < sizeof(struct virtio_gpu_ctrl_hdr));
+@@ -205,7 +207,7 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
+ 	if (vbuf->resp_size > MAX_INLINE_RESP_SIZE)
+ 		kfree(vbuf->resp_buf);
+ 	kvfree(vbuf->data_buf);
+-	kmem_cache_free(vgdev->vbufs, vbuf);
++	kmem_cache_free(virtio_gpu_vbufs, vbuf);
+ }
+ 
+ void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
 -- 
-2.53.0
+2.43.0
 
