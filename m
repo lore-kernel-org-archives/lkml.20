@@ -1,107 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB54D19D074;
-	Sat, 26 Sep 2026 09:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03D33A6F0F;
+	Sat, 26 Sep 2026 09:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790414165; cv=none; b=eCq6iPmew3hFyETnQqDfN6vB+qil/yvXzD3XV8Cd1WShbopIrt911nGbPK/K5VGCTuDXeI5oGcIoO8R8Gy0CDpU9pwNblLFmox/iKNKnnROTjevOsh0plceLGf1/eYPy3EliKM4Fa0jaOBrqExoN32FBc7ehyus1NZgf5X7b9RY=
+	t=1790414533; cv=none; b=OM314eyj6L7jNRHIFDp4BQVZDGP7OTUg/f02fmhY/V30Ce9jrzWEl2SQ9DZ845O88DP/mJXnd8kt7U9uUFi38lMaky3Bofv/46UXXNkkAQ6HdfZphWI7dNNI8TLnL7MvllvcJCye1Y1rN84edBMjBpMzz9UoZP94zUzmMzscKb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790414165; c=relaxed/simple;
-	bh=N4bWsh+Pc9s6sIGPF4Grv7BRltIPfKgjNpbCy4AEEXA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r+nZtC86Hdiwa9PTCED8d2plg65MZSR0Q7Qa43Dxh/H3g95ciWrxPQ7AREODx7BsyRZtFpfWPC2GDt3xKNUxZBt168nehOWTROfLHquTcIsmomV8VbdbWlXj2s++vMwIqoKivKFEyP0vjfBdHgmT9jcgxHj2GmxOih6as6RysyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/cy2uAq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790414533; c=relaxed/simple;
+	bh=DOThejXWVqAfk3OaqwNpRk1a5A1+irOq8Jh0nrn3g5g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ceW1EXOq2bWcl2h5uKfUSwsM+Q8HzMt9rjAhcxB1fqjXFjj+BNPskz/DP5gETGff6oLlS1BrVx1QF+CJ7FfP6xdFJkghOofWLdJjhVDV+7n7sMQww25pW1EcUVbiP83nytxHQIfoww6aJtHfNDEet3rtkR5LR3fbnWz7YaLDmik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Fz/VZxVz; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/cy2uAq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6591F000FF;
-	Sat, 26 Sep 2026 09:15:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790414163;
-	bh=N4bWsh+Pc9s6sIGPF4Grv7BRltIPfKgjNpbCy4AEEXA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i/cy2uAqCW0oNOWoQHl6gMve0xGBebGA1qmqR1XrS9a5R9KjUOKFr6umhqPOwVAfq
-	 JV6o+g9ZbwsyFiC1yXxh+8YSz9r3KSw26jRgxGioo81b3ckcBjRXINtVkE5FLLobZm
-	 cEXp3py7fiL/jCemhyNfo4o04u6qGas4PLNjGw3xPqVwYER6r75qK1Kpvp2M23DpoY
-	 0BBb6c0Da8U0FS8/BGW5K1g9Jfq3Q/44IR7oFF8xFbzjaFcMlW6oTmaVRUNooMJemG
-	 74S09dqAtiFGHl507QSUC4HwsG7rqGMANSDx0f//8KLgYHgnF7DXbYK/029YJkc1x3
-	 aMwcgwNgXEt7w==
-Date: Sat, 26 Sep 2026 10:15:51 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Alexandre Ghiti <alex@ghiti.fr>, Borislav Petkov <bp@alien8.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
-	Ingo Molnar <mingo@redhat.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Paul Walmsley <pjw@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, 
-	Ritesh Harjani <ritesh.list@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Shrikanth Hegde <sshegde@linux.ibm.com>, Suren Baghdasaryan <surenb@google.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org
-Subject: Re: [PATCH] arch, mm: promote DEBUG_WX to CHECK_WX
-Message-ID: <areNQfnAdkfR8fAf@gremlin>
-References: <20260925-direct-map-verify-wx-v1-1-7fd2f7d6d23b@kernel.org>
- <91d800d6-03f3-4068-8c12-618529a81528@kernel.org>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Fz/VZxVz"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4f2ff7121;
+	Sat, 26 Sep 2026 17:21:53 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Breno Leitao <leitao@debian.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Lee Duncan <lduncan@suse.com>,
+	Hannes Reinecke <hare@suse.com>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	linux-nvme@lists.infradead.org,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH v6 0/4] nvmet: avoid recursive configfs open
+Date: Sat, 26 Sep 2026 17:21:44 +0800
+Message-Id: <20260926092148.128937-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <91d800d6-03f3-4068-8c12-618529a81528@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0dd05665c03a1kunmac953e9e17aa20
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHRlOVkoYSR1NH05JSx9MSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Fz/VZxVz/PWuYCuYwrwz2XrVbk7oBRQJFvoIkAQjyzm3u5XfLgCSd7SWmD6EcMU6sDrYmxsVwY6svKD/85IA5eFN2to5zJWJRHY23+9yFz6mSt98fzMiXlaZRganuymXlYzX0PMzQOhXguFQcStAP7QhXSzTKa9XAP1CbdNBdFY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=a2KrQAmn3m5S4sDMBQfBCI0DjfyHtfNQlht7r6HJ/4Y=;
+	h=date:mime-version:subject:message-id:from;
 
-On Fri, Sep 25, 2026 at 01:01:51PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/25/26 11:53, Mike Rapoport (Microsoft) wrote:
-> > Verification that the kernel does not have writable + executable
-> > mappings is about detecting security risks rather than a pure debug
-> > feature.
-> >
-> > Major distribution configurations enable it in their kernels as well as
-> > defconfigs of most architectures that have ARCH_HAS_DEBUG_WX.
-> >
-> > Rename relevant generic configuration options to use CHECK_WX and move
-> > their definitions from mm/Kconfig.debug to mm/Kconfig.
-> >
-> > For arm that does not widely enable it, only rename its variants of the
-> > config options.
-> >
-> > Enabling CHECK_WX adds a few kilobytes to the kernel binary and while
-> > the added size can be slightly reduced with churny updates of
-> > architecture implementations of ptdump, the core functionality takes
-> > most of the added size. It cannot be moved to .init.text because the
-> > verification has to happen after init sections are freed.
-> >
-> > With this, make generic CHECK_WX default to STRICT_KERNEL_RWX while
-> > still leaving users targeting small kernels the possibility to opt-out.
-> >
-> > Suggested-by: Dave Hansen <dave.hansen@linux.intel.com>
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
->
-> Makes sense to me
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Several configfs store callbacks open user-configured paths while holding
+the item's frag_sem.  If a configured path resolves into configfs, the open
+can re-enter __configfs_open_file() and try to acquire the same
+non-recursive semaphore again.
 
-Similarly LGTM so:
+Add helpers in configfs for opening non-configfs paths, then use them in the
+nvmet file-backed namespace and passthru paths.  The series also pins the
+target-core db_root path and uses the root-relative helper for ALUA and APTPL
+metadata, so the helper has its target-core consumer in the same series.
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Changes since v5:
+- Add the target-core db_root patch as 4/4 and use configfs_open_root() for
+  validation and metadata opens.
+- Replace the verbose helper kerneldoc with concise interface descriptions.
+- Keep the Reviewed-by tags on the unchanged nvmet patches.
 
->
-> --
-> Cheers,
->
-> David
+Runyu Xiao (4):
+  fs: configfs: add helpers for opening non-configfs paths
+  nvmet: avoid recursive configfs open for file-backed namespaces
+  nvmet: avoid recursive configfs open for passthru
+  scsi: target: pin db_root for metadata writes
 
---
-Cheers, Lorenzo
+ drivers/nvme/target/io-cmd-file.c     |   3 +-
+ drivers/nvme/target/passthru.c        |   3 +-
+ drivers/target/target_core_alua.c     |  42 +++++-----
+ drivers/target/target_core_configfs.c | 116 ++++++++++++++++++++------
+ drivers/target/target_core_internal.h |   3 +
+ drivers/target/target_core_pr.c       |  21 +++--
+ fs/configfs/mount.c                   |  53 ++++++++++++
+ include/linux/configfs.h              |   5 ++
+ 8 files changed, 189 insertions(+), 57 deletions(-)
+
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
+-- 
+2.34.1
