@@ -1,46 +1,46 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012048.outbound.protection.outlook.com [52.101.53.48])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011036.outbound.protection.outlook.com [52.101.52.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52DB345CA1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CA633688D
 	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.48
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.36
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790386542; cv=fail; b=rQmIi9QBenTDR8HqqxOjAAmQt+5O4mdmb+W9dQq5eSyWl9FM0KrmDPuTLAuJH+WluFuLUdFmRynlmADLgpRykRTBUFUVcEkS5SXLtiim0ATwWm2LmNEZyxFC8p7OELu5uVobe207m+O+a2bub/NZUONYy3T8Dgdue+fE1iSICQ4=
+	t=1790386542; cv=fail; b=ZOv/VMCyfmvxMdVpcvIVp977GREoIBZAdO1tq6JH9QanI0aBa9LW1LLDBFkMBUposrBwrQebcsg53JgsMydbqBBR+7RO3s5ixBv5P3/lJrqF1Q15MpMNBGbKQErxM8RegwINbcZTCsc1lsQyv7VYk7ZVDuee50kG1s7rFzZ3z8M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790386542; c=relaxed/simple;
-	bh=jMs3w/SjaPUzSPZ0yLWGULtWYJiaQBFKWxpUumGaBQA=;
+	bh=TDfc3qaubyPtXZy9C0AObgflGHcd3KYDJRGvSw9tbtw=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oS+WGxjS9Zn7ImdauU+fi6HTHZa0YbnItIH+tEZnaFG51u4fd8yqZerXPbk57gcxTN8wKehFKhXOIdlBKG7onK1c93XuyMeMXMkwH6HG65Ai1qiDmj1FR50Ak20klyHQEY1kK+I439xEw12zfkNo9sE2bMsvJl3+rkYULKqo6Yg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tjiOEkVp; arc=fail smtp.client-ip=52.101.53.48
+	 MIME-Version:Content-Type; b=JX4qHKhekWqu+ix4f4J5GqzuYN7wBllaT9MgUBuhatvPEKqVDdK1H2d/5WQSmfsZ4/NWUk53C/JCXwg1bU7PzMyh/VoiYzAFJ7/48u842/3Br0/aM1dF5UHMFxMBmt3T6rwwadvuIP1wdw6VC0Ei/UkOBGnpZaqbE4fO6QSKVEc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=B9EJPonK; arc=fail smtp.client-ip=52.101.52.36
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tjiOEkVp"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="B9EJPonK"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kSlxvxQd3ojx3BX66+WPoipA6P0+NDTPcDIb9NA4TBozu8lPR1L7PfItGOT40gUAEjG5IiDuLf+AYhbWwEmCXds7ExgyBNMdqYsXC1RLuk2ccvi0DVcwtGnf0Axufm6pErJC45XlUhU8KKKVv6VT4deiI3fHLnUCqBQK03yVEhAg8fTuLTWXJTyy3ajSXusxvmdr2AHrsFFhl9BLoWByy+5+CkVeXPdHRT+TF3NANjqxGp2fjkzEwepmy4yK3/8cD316Y0s4OebdqzUqOoesaAwXg932kq1JVzvKGsLzO8LK0xyJgds0mfip3tzHpaTJ8yzJIeRiu5jmh1pwFMbtLQ==
+ b=eo90L98bw2ngCYLBBUDOOuOE5oG1oac61lSYroJxmxzz9T88cV1oZDkqVXzIcjaajZGcwv6g7tKdPfcjksYTiuWBpLu3907IdAtMB7NYEZIff94kKcIqhUzmSrFujQGLptQo5AoLI/6mlQonhC1jcYIsvStZd0Pz/P5Gwynw5d0sWZuV6DQp6zI72xGd4U+aMYv0rtrKzOd2BqrIymRkXuWnlr29sKYktiRQoHikl6St953n35Y01i7FBsrNR+rxACVvjN4lJhw7UCvjig27opcpXx/iLGCv0wKxEjgR2ejaGgbMvf6BRNyLCiy8sBT13NpH4umJ48F4aWoivOZuWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1AGXV3GXOTByUOrqUTYosgS9k9n4AHasVEoRtwXM2lo=;
- b=QKvUGH8xQVlrutuBJZMs1nmx+W6XZIWroO8aOhWwkHXVsIcevYHbad0O7XMGCBmEgQ9bN84TTyb/XF4J2AK0RK6xGaJCeK3PbMTwRmeuBDc/IlVmKBMOV9oWyMi1Vky2mqXQZESn81VOc1GFv3ucQr7L1JNrP1Lm5H4VZ8i6fk3RlSNgIGFyYdWWdMc0vV0YmiVd1yayrQAJKV9IbBJiq9SUKXzyrQl+3nN0630lh2vB2vRDcMEi0rwflvHWum2Ghl6dcnFq+jKZDacFQmbDBmjYTNtoLkKaEbmMqQZaI4FsqhQ9+HJhL/RJlfzqfDSXEavUFHw9VylD/GiJvdsk5g==
+ bh=PHKUUYuDAGPzvYJGhUpXIkyUbtijIoGAOPzhnAF9Ncc=;
+ b=caz243q/R55eiAAMHRaTZmwq3rXk+6kEMJ0e5vQeF14pJy43UU7R7UneDHqYs1g5egETnd+DhALzzOmqG7vKtKpHhIwWQxT7RfzgN7J/tzE0PQRLiGDI+121s/woNfmsU4KeCcf61ItuuwprojafjkgorPZik65BxZ+WT7bXKoaEZUkQkITha15s/gewIwQTeHlC0Y0yb4C+khYmvuHxQjNL+AE/rwPHkdOPCMEFKPXv4gHJWnigqG8AT/he9WrgKbix2yHl/3GTg8+OnTw/yvnnZo/teT8DsYqLzrt7dbH97zhfagwzsq6dRf5m0f1nMU+NMY5DDujwHnNXjlvvmA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1AGXV3GXOTByUOrqUTYosgS9k9n4AHasVEoRtwXM2lo=;
- b=tjiOEkVpzG3AShVxhTRmSsqZibrs/DkuDX8RcOlQAr0XZt2vE7eHMVCy1PLF5Uga3QFg5GFWmhd4NGQ9PqpDP2Bl1UOijdMA2BOb3+cAsHPZ3IUcXNJnYVdyA3VW0YDb8vcCUBYg2Za1U6AOvij7CVqj3ygqidOzClyHRjazfNg=
-Received: from BN9PR03CA0423.namprd03.prod.outlook.com (2603:10b6:408:113::8)
- by LV2PR12MB5871.namprd12.prod.outlook.com (2603:10b6:408:174::13) with
+ bh=PHKUUYuDAGPzvYJGhUpXIkyUbtijIoGAOPzhnAF9Ncc=;
+ b=B9EJPonKj3LJ0vgR7NW6Ibu46JkCo1hfC8Y737V1alsaFOuuLofyHLyM88rH7ZdVoRq/N/dmuL+n4ECIhaKyloHrFGawaCJxc7ADr6M7LtOP68p1gGVPan21VlXMmPtg+I/1WaOUClAlCsIdyjdUVfR/3vlPJ711DSSVmATQGfo=
+Received: from BN9PR03CA0783.namprd03.prod.outlook.com (2603:10b6:408:13f::8)
+ by BL1PR12MB5755.namprd12.prod.outlook.com (2603:10b6:208:392::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
- 2026 01:35:35 +0000
-Received: from BN2PEPF0000A7FF.namprd02.prod.outlook.com
- (2603:10b6:408:113::4) by BN9PR03CA0423.outlook.office365.com
- (2603:10b6:408:113::8) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 01:35:34 +0000
+Received: from BN2PEPF0000A801.namprd02.prod.outlook.com
+ (2603:10b6:408:13f:cafe::40) by BN9PR03CA0783.outlook.office365.com
+ (2603:10b6:408:13f::8) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Sat,
- 26 Sep 2026 01:35:35 +0000
+ 26 Sep 2026 01:35:34 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,25 +48,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A7FF.mail.protection.outlook.com (10.167.245.166) with Microsoft
+ BN2PEPF0000A801.mail.protection.outlook.com (10.167.245.170) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Sat, 26 Sep 2026 01:35:35 +0000
+ 15.21.451.8 via Frontend Transport; Sat, 26 Sep 2026 01:35:34 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 20:35:29 -0500
+ 2026 20:35:27 -0500
 Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 25 Sep 2026 20:35:28 -0500
+ Transport; Fri, 25 Sep 2026 20:35:26 -0500
 From: David Zhang <yidong.zhang@amd.com>
 To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
 	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
 	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>
-Subject: [PATCH V0 14/21] accel/amdxdna: Fix fence timeline name and context allocation
-Date: Fri, 25 Sep 2026 18:34:41 -0700
-Message-ID: <20260926013448.3840921-15-yidong.zhang@amd.com>
+	<mario.limonciello@amd.com>, Wendy Liang <wendy.liang@amd.com>
+Subject: [PATCH V0 12/21] accel/amdxdna: Decouple AIE4 doorbell and MSI-X notification transport hooks
+Date: Fri, 25 Sep 2026 18:34:39 -0700
+Message-ID: <20260926013448.3840921-13-yidong.zhang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260926013448.3840921-1-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
@@ -81,124 +81,303 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FF:EE_|LV2PR12MB5871:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5352b83-d359-4fb4-3239-08df1b6e7689
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A801:EE_|BL1PR12MB5755:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa7e84be-7cfc-496b-5262-08df1b6e75a3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|10067099003|22082099003|18002099003|3023799007|56012099006|11063799006|4143699003;
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|10067099003|56012099006|6133799003|18002099003|22082099003|4143699003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	Uh5mCN0M3tWxiS0XP0E/FQfbNYIQFhOLK8OaaK2MBnBgUatcj0eBpQEL1kGy9o/v80nryrRI38e+TBkaBxeEQHD1Wm7M7mwWdpo+dbcs1KJHWuETXS7tudT1ekNwL0neQ6n1a4T4Wu29qkYCITrYdC2fYBWpdb2N/H9oIcdrfKV+hN+oIYkbZ5bvx2YogW9GQU3Uc5c0+Y1s7x8UccGiFNwflMq9XSPHQ2yMFpr26b4u7PB4fG124Fc51KalvVSQDF/aQqZFyaE2Cnq0AlTBHG1gv6ZZR6B+08Y1FndiMEkR3mqT25N5AtRTKwBkyCgBb9zQOz9SPZj7Ow5NKfAQtTt7mZ0bI6DuCc8bATbQX2KtBOkEm7uCrRtCUJYgm40cKVYRbodyPcW94N0fY/FHsfK5dC46k8Y3ji8nU6BBW8E76HTCd/JhkFPVOXnliQ5WB/U8A2Q5K8W+9v6Z0feN3PP7uqqJOk4hv49SUfozrs/CMg3OAsiHLMmwqIam2CUaD0id7STXJFvSuadeu24pOPJWoPV8Qi5l8JytOoLkd4L4oHA7H+TVwgmD4IssbkamG/iO0AOdI3iVQyuexBjUOu3nmgd8ye9dMK2gvAOFTaxOWplQCq0Z+VoRWz7YMYuipBRjOfQVe6/Uzik5JS/gNyG/QBAoR5rvLaqqcBZ6KtRGAlAio59cg1yfXX80WgKfeJeMf4YfKTDst8M2zzPxSg==
+	D50umme44NYlIMpIZFBCiUCh2lESv8NXnRlSA0OfkrSVMYbSLG6sT/MZtcbOMFAbYY82QgDBZM4Rzvqxwu4qCdmxnhIFcHOIIsP2A/iL7HbwJtM6vEJtEOHQjQlZ6cRogiPtKtaf1AaFaptPCe6NlRLPH4eC/MYR0+2i5WbpLHDs3ZX2rqlhzYs6Xwur1rNi0SNmEkwkr8mCrgGmg6yoEvQnX34m1ctkBqeHojd/EYll21chLxtX3pEs364/X02BiR+e7wX9dBb2b4zc/FvkEdjcS1SqnKoOUXRI7OpoS353AQCYeuk4ldp1UNKhhL90DlofOKc9d6RYfYE26/YWZuXa2LQSdX0qJQyWhbKLrQOiGHTWMIQvPudue1ezoVayngxqtNxfNd+N8WNl8J2nPbqZA0zBeTts7Z05M0Do5TCaKcco9FPydwBj9GVPs2L41i6Rc7hR8jnKsLhiZ/BdESXVA+GFW6BePegwez5/hB1tKdldZwTD9s8wHcgXho0d+bPgCRKQ1991jKyFR3WK0kRLDN1w6v2JqbPBUyhjf5zGNm9XUpfjMqBbwhWxpM9wigRhD5q7pH9IaxsqNA23vCCle/hDeSS3WAA5GLvn7yw1pZf61t2ZEIU5dlaSie4+6yHhpDTiz57YklAssTca1UMI/jAMgVF5FO0DJ/pMeUnt+YvUbi63496cPZRKYmGlXnljQwowM7Oyuqbwm9Z8vg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(10067099003)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	7pfxa8Wm650LLhoXuhmPdcwHQpr5t2CbqVeWkSnCnrQJcp9qDKb4yLi3X6hcVnm/g+d0bqJSC6tpSZ+5Q5HBNqny0aT9gOsTudYqvFMjWX0YasDSv7qDAU4dZCzWY+ZVYaXsa6OitzpODGRQtBxBPUhb9AchZj6cMxza0yLuCJTAziG7zHwNz1nCz7gY1pnpj5OEMflKflZWf3vx2pbLQqfPuHjLOhei+LPLiYZ5Nvvc5+1s8FG2DKNqvC1dS2t8niGXvMX/WaK/S+/lzm60ZU9LonVQu1K2UBwtEnWp+eai21ctyM7W19yvh7FUgUxdKNkZ67KMDqbffsNvpUzg9YMUZa0doPNzRf1WQTD7UWIIbiOC35FH1JdoHjOBtil183CHZMpIJfoRz/ZGcf09f3HH4ctB0hlPpfwP5wSw7C77gvBPZnFK9LoH6BCz0/gL
+	URBpBfa+Pej4piKem7Vo8bM14DOIM1yC+3QaSBnAdQHpa/TGAGwBn8M8H+NxAHuX8x3TJ0wWS4+G7Btq1gsBoWjrrRdCfqhMYslfsIqZOBEpyyXHZPoVJX31nj0pcvkOvzWDIHkQiZ1CfF40bxyF3ci4y7tznQRVe6Fy4z/N9utYPzq7HF68reLjqPKtKbmhOwZDjtxtVMhhqW8eMRypOAoCWwZUCdbvNj0CHaHLIzgUph9NbUR29K80TKZRK+Pzx0mm3xqAVgOdSckEBf65Y9v0BWuIdC8T4WiwucyhR4scUspNk7syEzZxU3guqq4SlkaRshe1jQ3hWJuwoboc7Gwpr8cnMO8I+54T3rwfCwML/CqqIdevPrSyz5DfAEbj6ACe6/sfZpDkjmKJRVOq9EpyocMMcN5uuvbOBNK1M/sd8r77IkFr42iZSO0Hefzo
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:35:35.8531
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:35:34.3505
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5352b83-d359-4fb4-3239-08df1b6e7689
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa7e84be-7cfc-496b-5262-08df1b6e75a3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A7FF.namprd02.prod.outlook.com
+	BN2PEPF0000A801.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5871
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5755
 
-This is part of the fix to align BO reservation locking and fence
-management with aie2.
+Separate PCI-specific doorbell and interrupt notification handling from
+the transport-neutral context code:
+- Move MSI-X ISR and registration out of aie4_ctx.c into transport hooks
+  aie4_request_notification() and aie4_free_notification() in aie4_pci.c.
+- Add transport hooks aie4_doorbell_setup() and aie4_doorbell_ring() to
+  validate the doorbell offset against the mapped doorbell BAR and ring
+  the hardware doorbell.
+- Map the doorbell BAR (BAR 2) via pcim_iomap() in aie4m_pcidev_init()
+  and record ndev->doorbell_base. The doorbells are used exclusively by
+  kernel submit driver on VF and classic devices. PF devices only perform
+  management functions, and never host hardware contexts, thus never use
+  the doorbells.
 
-Fences published into BO reservation objects via dma_resv_add_fence()
-can outlive the hardware context (e.g. when a BO is exported as a
-dma-buf and imported by another process). Using hwctx->name for the fence
-timeline name risks a use-after-free once the hwctx is destroyed.
-Switch timeline name to dev_name() which is backed by the device that
-outlives any individual context.
-
-Additionally, allocate a unique fence context via
-dma_fence_context_alloc(1) for each job fence so that dma_resv_add_fence()
-does not evict a prior in-flight job's fence from a shared BO's
-reservation object when multiple jobs touch the same BO. Also guard
-hwctx_fini call in amdxdna_hwctx_destroy_rcu() against NULL ops.
-
-The corresponding AIE4 command submission BO locking and fence
-attachment logic is implemented in a subsequent patch ("accel/amdxdna:
-Implement AIE4 command packet building and submission").
-
-Co-developed-by: Max Zhen <max.zhen@amd.com>
-Signed-off-by: Max Zhen <max.zhen@amd.com>
+Co-developed-by: Wendy Liang <wendy.liang@amd.com>
+Signed-off-by: Wendy Liang <wendy.liang@amd.com>
 Signed-off-by: David Zhang <yidong.zhang@amd.com>
 ---
- drivers/accel/amdxdna/amdxdna_ctx.c | 29 ++++++++++++++++++++++-------
- 1 file changed, 22 insertions(+), 7 deletions(-)
+ drivers/accel/amdxdna/aie4_ctx.c    | 29 +++--------
+ drivers/accel/amdxdna/aie4_pci.c    | 79 +++++++++++++++++++++++++++++
+ drivers/accel/amdxdna/aie4_pci.h    | 18 +++++++
+ drivers/accel/amdxdna/amdxdna_ctx.h |  2 +
+ 4 files changed, 107 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index 888e857ec558..6ca7774150d5 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -25,7 +25,7 @@
- struct amdxdna_fence {
- 	struct dma_fence	base;
- 	spinlock_t		lock; /* for base */
--	struct amdxdna_hwctx	*hwctx;
-+	struct device		*dev;
+diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
+index 90da4e8c4f54..fba4ef25ffbe 100644
+--- a/drivers/accel/amdxdna/aie4_ctx.c
++++ b/drivers/accel/amdxdna/aie4_ctx.c
+@@ -21,18 +21,9 @@
+ #include "amdxdna_mailbox_helper.h"
+ #include "amdxdna_pci_drv.h"
+ 
+-static irqreturn_t cert_comp_isr(int irq, void *p)
+-{
+-	struct cert_comp *cert_comp = p;
+-
+-	wake_up_all(&cert_comp->waitq);
+-	return IRQ_HANDLED;
+-}
+-
+ static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32 msix_idx)
+ {
+ 	struct amdxdna_dev *xdna = ndev->aie.xdna;
+-	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+ 	struct cert_comp *cert_comp;
+ 	int ret;
+ 
+@@ -50,32 +41,27 @@ static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32
+ 
+ 	cert_comp->ndev = ndev;
+ 	cert_comp->msix_idx = msix_idx;
++	cert_comp->irq = -ENOENT;
+ 	init_waitqueue_head(&cert_comp->waitq);
+ 	kref_init(&cert_comp->kref);
+ 
+-	ret = pci_irq_vector(pdev, cert_comp->msix_idx);
+-	if (ret < 0) {
+-		XDNA_ERR(xdna, "MSI-X idx %u is invalid, ret:%d", msix_idx, ret);
+-		goto free_cert_comp;
+-	}
+-	cert_comp->irq = ret;
+-
+-	ret = request_irq(cert_comp->irq, cert_comp_isr, 0, "xdna_hsa", cert_comp);
++	/* Transport-specific: PCI wires an MSI-X irq, platform an IPI callback. */
++	ret = aie4_request_notification(cert_comp);
+ 	if (ret) {
+-		XDNA_ERR(xdna, "request irq %d failed %d", cert_comp->irq, ret);
++		XDNA_ERR(xdna, "request notification for msix idx %u failed %d", msix_idx, ret);
+ 		goto free_cert_comp;
+ 	}
+ 
+ 	ret = xa_err(xa_store(&ndev->cert_comp_xa, msix_idx, cert_comp, GFP_KERNEL));
+ 	if (ret) {
+-		XDNA_ERR(xdna, "store cert_comp for msix idx %d failed %d", msix_idx, ret);
++		XDNA_ERR(xdna, "store cert_comp for msix idx %u failed %d", msix_idx, ret);
+ 		goto free_irq;
+ 	}
+ 
+ 	return cert_comp;
+ 
+ free_irq:
+-	free_irq(cert_comp->irq, cert_comp);
++	aie4_free_notification(cert_comp);
+ free_cert_comp:
+ 	kfree(cert_comp);
+ 	return NULL;
+@@ -89,7 +75,7 @@ static void cert_comp_release(struct kref *kref)
+ 	drm_WARN_ON(&ndev->aie.xdna->ddev, !mutex_is_locked(&ndev->cert_comp_lock));
+ 
+ 	xa_erase(&ndev->cert_comp_xa, cert_comp->msix_idx);
+-	free_irq(cert_comp->irq, cert_comp);
++	aie4_free_notification(cert_comp);
+ 	kfree(cert_comp);
+ }
+ 
+@@ -99,6 +85,7 @@ static void aie4_put_cert_comp(struct cert_comp *cert_comp)
+ 
+ 	ndev = cert_comp->ndev;
+ 	guard(mutex)(&ndev->cert_comp_lock);
++
+ 	kref_put(&cert_comp->kref, cert_comp_release);
+ }
+ 
+diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+index 1e2b120c4972..7b36bd001b64 100644
+--- a/drivers/accel/amdxdna/aie4_pci.c
++++ b/drivers/accel/amdxdna/aie4_pci.c
+@@ -14,6 +14,7 @@
+ 
+ #include "aie.h"
+ #include "aie4_msg_priv.h"
++#include "amdxdna_ctx.h"
+ #include "aie4_pci.h"
+ #include "amdxdna_mailbox.h"
+ #include "amdxdna_mailbox_helper.h"
+@@ -110,6 +111,82 @@ static void aie4_mailbox_fini(struct amdxdna_dev_hdl *ndev)
+ 	ndev->mbox = NULL;
+ }
+ 
++static irqreturn_t cert_comp_isr(int irq, void *p)
++{
++	struct cert_comp *cert_comp = p;
++
++	wake_up_all(&cert_comp->waitq);
++	return IRQ_HANDLED;
++}
++
++/*
++ * Transport hook: wire the per-cert completion notification.  PCI maps the
++ * firmware-provided MSI-X index to a Linux irq and registers cert_comp_isr;
++ * the platform build registers an IPI mailbox callback instead.
++ */
++int aie4_request_notification(struct cert_comp *comp)
++{
++	struct pci_dev *pdev = to_pci_dev(comp->ndev->aie.xdna->ddev.dev);
++	int ret;
++
++	ret = pci_irq_vector(pdev, comp->msix_idx);
++	if (ret < 0)
++		return ret;
++	comp->irq = ret;
++
++	ret = request_irq(comp->irq, cert_comp_isr, 0, "xdna_hsa", comp);
++	if (ret) {
++		comp->irq = -ENOENT;
++		return ret;
++	}
++
++	return 0;
++}
++
++/* Transport hook: tear down the completion notification wired by the hook above. */
++void aie4_free_notification(struct cert_comp *comp)
++{
++	if (comp->irq >= 0)
++		free_irq(comp->irq, comp);
++}
++
++/*
++ * Transport hook: take what this transport needs from the create-context
++ * response.  PCI validates the firmware-provided doorbell offset against the
++ * mapped doorbell BAR and stores this context's kick target.
++ */
++int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
++			const struct aie4_msg_create_hw_context_resp *resp)
++{
++	struct amdxdna_dev *xdna = hwctx->client->xdna;
++	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
++	struct amdxdna_hwctx_priv *priv = hwctx->priv;
++	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
++	u64 db_off = (u64)ndev->priv->doorbell_off + resp->doorbell_offset;
++
++	/*
++	 * doorbell_base is a pcim_iomap() of the whole doorbell BAR.  The offset
++	 * comes from firmware (or, on a VF, the PF/hypervisor); reject one that
++	 * would place the u32 doorbell write past the mapped BAR before
++	 * aie4_doorbell_ring() ever dereferences priv->doorbell_addr.
++	 */
++	if (db_off + sizeof(u32) >
++	    pci_resource_len(pdev, xdna->dev_info->doorbell_bar)) {
++		XDNA_ERR(xdna, "doorbell offset 0x%llx out of BAR", db_off);
++		return -EINVAL;
++	}
++
++	priv->doorbell_addr = ndev->doorbell_base + ndev->priv->doorbell_off +
++			      resp->doorbell_offset;
++	return 0;
++}
++
++/* Transport hook: ring this context's doorbell (kick CERT). */
++void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx)
++{
++	writel(0, hwctx->priv->doorbell_addr);
++}
++
+ static int aie4_irq_init(struct amdxdna_dev *xdna)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+@@ -634,6 +711,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
+ 		set_bit(SMU_REG_BAR(ndev, i), &bars);
+ 	set_bit(xdna->dev_info->mbox_bar, &bars);
+ 	set_bit(xdna->dev_info->sram_bar, &bars);
++	set_bit(xdna->dev_info->doorbell_bar, &bars);
+ 
+ 	for (i = 0; i < PCI_NUM_RESOURCES; i++) {
+ 		if (!test_bit(i, &bars))
+@@ -647,6 +725,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
+ 
+ 	ndev->mbox_base = tbl[xdna->dev_info->mbox_bar];
+ 	ndev->rbuf_base = tbl[xdna->dev_info->sram_bar];
++	ndev->doorbell_base = tbl[xdna->dev_info->doorbell_bar];
+ 
+ 	pci_set_master(pdev);
+ 
+diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
+index 063cedfe3c9d..c6e7f6a80f69 100644
+--- a/drivers/accel/amdxdna/aie4_pci.h
++++ b/drivers/accel/amdxdna/aie4_pci.h
+@@ -32,6 +32,8 @@ struct amdxdna_hwctx_priv {
+ 
+ 	struct cert_comp                *cert_comp;
+ 	u32                             hw_ctx_id;
++
++	void                    __iomem *doorbell_addr;
  };
  
- static const char *amdxdna_fence_get_driver_name(struct dma_fence *fence)
-@@ -39,7 +39,14 @@ static const char *amdxdna_fence_get_timeline_name(struct dma_fence *fence)
+ struct amdxdna_dev_priv {
+@@ -54,6 +56,7 @@ struct amdxdna_dev_hdl {
+ 	const struct amdxdna_dev_priv	*priv;
+ 	void			__iomem *mbox_base;
+ 	void			__iomem *rbuf_base;
++	void			__iomem *doorbell_base;
  
- 	xdna_fence = container_of(fence, struct amdxdna_fence, base);
+ 	struct mailbox			*mbox;
+ 	u32				partition_id;
+@@ -114,6 +117,21 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
+ /* aie4_pci.c */
+ int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev);
  
--	return xdna_fence->hwctx->name;
-+	/*
-+	 * Use device name rather than hwctx name: the fence is published into
-+	 * BO reservation objects via dma_resv_add_fence() and can outlive the
-+	 * hwctx (e.g. when a BO is exported as a dma-buf and imported by
-+	 * another process). The device outlives any individual context, so
-+	 * dev_name() is safe to call at any point during the fence's lifetime.
-+	 */
-+	return dev_name(xdna_fence->dev);
- }
++/*
++ * Transport hooks: one definition per build (aie4_pci.c for PCI; a future
++ * OF/platform transport provides its own), selected at compile time.  aie4_ctx.c is
++ * transport-neutral and reaches the doorbell kick and the completion interrupt
++ * only through these.  The cert_comp object itself (allocation/xarray/kref/
++ * waitq) is firmware-driven and stays neutral in aie4_ctx.c; only the notification
++ * wiring (PCI MSI-X vs platform IPI callback) is transport-specific.
++ */
++struct aie4_msg_create_hw_context_resp;
++int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
++			const struct aie4_msg_create_hw_context_resp *resp);
++void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx);
++int aie4_request_notification(struct cert_comp *comp);
++void aie4_free_notification(struct cert_comp *comp);
++
+ /* aie4_sriov.c */
+ #if IS_ENABLED(CONFIG_PCI_IOV)
+ int aie4_sriov_configure(struct amdxdna_dev *xdna, int num_vfs);
+diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
+index 6e78bab8a02c..1529e7507fed 100644
+--- a/drivers/accel/amdxdna/amdxdna_ctx.h
++++ b/drivers/accel/amdxdna/amdxdna_ctx.h
+@@ -6,9 +6,11 @@
+ #ifndef _AMDXDNA_CTX_H_
+ #define _AMDXDNA_CTX_H_
  
- static const struct dma_fence_ops fence_ops = {
-@@ -55,9 +62,17 @@ static struct dma_fence *amdxdna_fence_create(struct amdxdna_hwctx *hwctx)
- 	if (!fence)
- 		return NULL;
++#include <drm/gpu_scheduler.h>
+ #include <linux/bitfield.h>
  
--	fence->hwctx = hwctx;
-+	fence->dev = hwctx->client->xdna->ddev.dev;
- 	spin_lock_init(&fence->lock);
--	dma_fence_init(&fence->base, &fence_ops, &fence->lock, hwctx->id, 0);
-+	/*
-+	 * Part of the fix to align BO reservation locking and fence
-+	 * management with AIE2: each job fence needs a unique context so
-+	 * dma_resv_add_fence() does not evict a prior job's fence from a
-+	 * shared BO's reservation object when two in-flight jobs touch
-+	 * the same BO. The corresponding AIE4 command submission locking
-+	 * and fence attachment is implemented in aie4_cmd_submit().
-+	 */
-+	dma_fence_init(&fence->base, &fence_ops, &fence->lock, dma_fence_context_alloc(1), 0);
- 	return &fence->base;
- }
+ #include "amdxdna_gem.h"
++#include "drm/amdxdna_accel.h"
  
-@@ -81,13 +96,13 @@ static void amdxdna_hwctx_release_expanded_heap(struct amdxdna_hwctx *hwctx)
- static void amdxdna_hwctx_destroy_rcu(struct amdxdna_hwctx *hwctx,
- 				      struct srcu_struct *ss)
- {
--	struct amdxdna_client *client = hwctx->client;
--	struct amdxdna_dev *xdna = client->xdna;
-+	struct amdxdna_dev *xdna = hwctx->client->xdna;
+ struct amdxdna_hwctx_priv;
  
- 	synchronize_srcu(ss);
- 
- 	/* At this point, user is not able to submit new commands */
--	xdna->dev_info->ops->hwctx_fini(hwctx);
-+	if (xdna->dev_info->ops->hwctx_fini)
-+		xdna->dev_info->ops->hwctx_fini(hwctx);
- 
- 	amdxdna_hwctx_release_expanded_heap(hwctx);
- 	kfree(hwctx->name);
 -- 
 2.34.1
 
