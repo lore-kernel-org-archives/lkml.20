@@ -1,117 +1,139 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay15.grserver.gr (relay15.grserver.gr [46.62.234.254])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFBA49D58A
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992A0472071
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.62.234.254
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790454048; cv=none; b=p5RZVoHtNA4HM30t9ZygjJtWL4EMKDgBhHwVjXYMTmxrlVzehIOsnB2rRRtYd3pCD6pBSqReAHNnkTKxj1sBt5WTX+iw1ZUVzVrowCXfsrOylPftcRcr3Ce4gs2iE0p0tIwptYWas9h7yQKL58XC2DS8hedsvEmxHoG7DF78BbQ=
+	t=1790454162; cv=none; b=NQKDb7VqQBuiYnTzmtBLIDo0xoyVUbgUGuijGhKXhp0PSygTJrcYHU88lAOsQ2sZwEZGsAhcnRDRKNmBIRO3NMPbJzugs6zVvqTnQJKzBzTkvH+Wwsbb3V1pHJKC2Zakl/1ouDKuvLg3GPQmuK4vd80jc/HWNnyveLVa3Y/FXak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790454048; c=relaxed/simple;
-	bh=TeA4rzx3tIqodbILhjQ27AMr7aKkw2UurfV3eDfJVl0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=el183AjGdbnYASBr5XwhApOQasltdqwOyBMm+xgOJrQAVOYskonz/U1DFvzp+rYY/20u+nrpqc6VnAIKAqOg8noKM03MAuejrR2YbUgQqT+PURSvuWt258XCvY5RbQ/rnbIQXWrp0FLdhy/43FDWe695ok6T9gtYF5QG5xJ7vMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4C9Ye8v; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790454162; c=relaxed/simple;
+	bh=z9jMUG55HtxWkLl+HhAWppHqiNUvDp2n8qmnfb3C/VE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u2a71veKXpLD3/9AS15wva3XYkKI+PEkftBi0mY4zjNw+na7LCl/FlhkODtdlGkuEU76wCLRAKsNQfhQDHYs3QinOGBbrNhWt53IOToeXnZvq85Ry+gM1Q7uv9usr5DW1aNcO/YwnPX5Vy8f23fwzChUeU4secPfjWNtH5zqR6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=MS8HsQzH; arc=none smtp.client-ip=46.62.234.254
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4C9Ye8v"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-532db7db0c6so18043461cf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:20:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790454046; x=1791058846; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1yMSXbv0RzpnT7LQIOAfBfWiKfyiEPbJB+JqeZgxSJQ=;
-        b=B4C9Ye8vDV0EFsr3oKHAyHI/kH/795eJXULV6vT3OFXuif5LrmDFJ2MYGsg7JXT4uT
-         ufJt4GlDu/P+DI6O4ptzoISLqHmP4k13q8/+xaH2/oq06MPe+304AwYH+9JSpIHukkrj
-         msYhQ6rZYWa8HlPg8jofzEwYIisYXyzCD2dHDLQZe0M9XIuso7NblssbQdhBIXM3Gumb
-         zxSj4v98NHWT3y4NhbeheZ3ZQkPxXLVeGoro3sIOMV3IjoK9NUsjOd0lS6Yv7yEFMpXa
-         XVrq1faiFZeIj0VRrlETekFJrbaoCjUf0ueeUmifrAZ8aECYbb87fbG9m3nA9rsgHvDj
-         I89A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790454046; x=1791058846;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1yMSXbv0RzpnT7LQIOAfBfWiKfyiEPbJB+JqeZgxSJQ=;
-        b=KLTujmUgYocNZZ8woWIbABeUg8Xp9vs9mxE3ZX0/RSgNiB9tKJT1JN+SF9H1QlMBy3
-         6jWohTAW+UdFH0/VaFw13RQ6cUYA+ivEUQPGhGcYz4p1/P85mTiNNX0Z5VlbFIPYE+Ws
-         Ko7gpRVIoKRb5F3nL/4BIhppUGi57GfShFI01wWJrTVtW9YJGTsiR2odfRVzFcCYvWRg
-         8uv6z/IEnmOtL51pkB5tSYQluZLNvH2Tyl8vgNeScR3VNRK+VxY7STxDz42CDMcTgXg3
-         TyuHw8gP7Lr/qHdjOUUtjH6J58Z3jLR2Dg9hVeqBKxpCNaAHBBZEgF7IdxWUXeYzfms+
-         yAeg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+AGjpcKzK7GkSifok9RZuqLfCTM5BrjQ/4khL4g5uvS1/CbnuZWvKRvhw03y7pDBAwKSDneSNJkfT4pQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mg4kLw1dMNOzgIUb/tupPuR27c+4GeFVxfYw+haf25+bxT7NLK
-	oQw2WYU4zcQ+NbI1OEoplk9w/QyiluhGN9W4ZhL5gut7g/n3n0F/wjmH
-X-Gm-Gg: AYBFou0VC8hhLgvKGoQHgcZx5EykXT2M2HpSrlj0ys63YHkSsvXKAODlwTFfllGAZcX
-	uURKBOBG//WjbryDfW+uKBDuDYytU++YPOYKfQDzb/nKNS2xUG6cTEUrFoMn8qzyjHKWn0fmGYa
-	pPoYEAA39366rsBg/W91LXhuPiaIoczSAvVDTetUcgErd7tjCfRhq3rJlGY64RbkUEVfmEiE++T
-	2OWE2HKInqy1L2lbsrPHDygSeYyllsrlEGMoyEbfY0BVfX7s1ZNT/6RjqXgIq2DqdAar2wUv00J
-	rai4042J5IEXAHcpx6tmvckm6T+wyRAb3DvuYGHeCXKw9IyswkFdyWSrBYM8E5+knmfgJUyALKi
-	axkf5XMO5kyhMVILJKK506nJI9XRdJw68yxA8DYShGtS8O32wSqqrC7HM9qt3r/qFnItsvpsQYa
-	yI4JsNFDfery2zlofXw3iVynU8vp92c7oSuW+zZ32J9OGvvoV7Baw7YQeI3nBgzV5ZHVArNEGWg
-	Nu4IMHJKCkH+uQBlRv9LA==
-X-Received: by 2002:a05:622a:15c4:b0:530:178a:9dd8 with SMTP id d75a77b69052e-5330b556ae7mr122052901cf.8.1790454046528;
-        Sat, 26 Sep 2026 13:20:46 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332238c585sm25325811cf.20.2026.09.26.13.20.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 13:20:46 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Dongwon Kim <dongwon.kim@intel.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v1] drm/virtio: Reset device before deleting virtqueues on freeze
-Date: Sat, 26 Sep 2026 16:20:27 -0400
-Message-ID: <20260926202040.1313385-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="MS8HsQzH"
+Received: from relay15 (localhost [127.0.0.1])
+	by relay15.grserver.gr (Proxmox) with ESMTP id 31DEE3FF25
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:22:32 +0000 (UTC)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay15.grserver.gr (Proxmox) with ESMTPS id 987C63FE3D
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 20:22:31 +0000 (UTC)
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 8D57D1FF2D6
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:22:30 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1790454151;
+	bh=7UncYzXhWq4TBr27aqXftzhgIR88dvJWApzZd7nrD5s=;
+	h=Received:From:Subject:To;
+	b=MS8HsQzHJLGxNp7tkbV3CvHaVmvUpofxnfXUcvJxD1Zs7vOnustCdHwImyogGY3Xk
+	 BOW6lh9yfwnqK/iC5INxf8F4QvfJBN5q1L/mxwpmTvdEcJ7UrDGgkeVev7HvNy1Dlw
+	 B+MQmWXMsOO19SLAGf1GUfvhleNQfpwyLB17Khqij73/xql0Htpilo8JoAaSvqJawZ
+	 8QMECv4R2WqiSCEH8WUMgtkT7lSt+TP4Vd5/v5BaZTPANu171qeF8evuxD+3M+paqV
+	 jBGiGJ6qLNdLp4fFGHclgpCb84rucwaZjp/ROWWHAPWLoFdrQ9APVvwACGEkwiofM9
+	 sko9YI+6kWivA==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 74.125.227.169) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pj2-f41.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pj2-f41.google.com with SMTP id
+ 98e67ed59e1d1-3a0abca97c0so998509a91.1
+        for <linux-kernel@vger.kernel.org>;
+ Sat, 26 Sep 2026 13:22:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzyFx4X9SBr5bwbHTKR180yJdVHJjSGp/Uhrdf8mXzy7AoAQoDZbAXb4LRokfLoM/O4iz399+DHFmkgQnU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlltCBI5xbQavi248s5TXG2xgepm6Hw5iyteIYaP/d+cSuA+sM
+	gz58aaS+w2fAirZmLcqzcW87neLd/wazln0oiMX0dKr745birDigjQlxXy9DMPKAoyQLYH8bJam
+	4KcW2Tb8VQpX0LNRAt9Rfr3J7JfYD77o=
+X-Received: by 2002:a17:90b:5847:b0:3a0:b40d:827 with SMTP id
+ 98e67ed59e1d1-3a0b40d1ebamr5438590a91.0.1790454148933; Sat, 26 Sep 2026
+ 13:22:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260926-gpd-fan-duo-auto-v2-0-0a2ea41ee3b5@pm.me>
+ <20260926-gpd-fan-duo-auto-v2-1-0a2ea41ee3b5@pm.me>
+In-Reply-To: <20260926-gpd-fan-duo-auto-v2-1-0a2ea41ee3b5@pm.me>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Sat, 26 Sep 2026 22:22:17 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwGiM=OGp9T=4B0VouHYU4ZZVAFTN0u8ThE82xzO-_V1aA@mail.gmail.com>
+X-Gm-Features: AclHuK-2w66LiASkiFvCoMQDD08ofVnCMYU_6argHvoEzG0TF-dHbuwt5hJDS2w
+Message-ID: 
+ <CAGwozwGiM=OGp9T=4B0VouHYU4ZZVAFTN0u8ThE82xzO-_V1aA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] hwmon: (gpd-fan) Reset both fans to automatic on
+ duo boards
+To: alexei.solcanu@pm.me
+Cc: Guenter Roeck <linux@roeck-us.net>,
+ Cryolitia PukNgae <cryolitia@uniontech.com>,
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <179045415087.517390.8079178487785404306@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-virtgpu_freeze() waits for the control and cursor queues to drain and
-then deletes the virtqueues, but nothing tells the device to stop first.
-del_vqs() frees the vring backing, but does not provide a generic device
-quiesce operation. In particular, modern virtio-pci keeps enabled queues
-active until the device is reset, so the device is left DRIVER_OK with
-its queues pointing at memory that has been freed and may be reused while
-the guest is suspended. virtio_device_restore() only resets the device
-later, on resume.
+On Sat, 26 Sept 2026 at 22:12, Alexei Solcanu via B4 Relay
+<devnull+alexei.solcanu.pm.me@kernel.org> wrote:
+>
+> From: Alexei Solcanu <alexei.solcanu@pm.me>
+>
+> On boards using gpd_duo_drvdata (GPD Duo, GPD Win 5), writing
+> pwm1_enable=2 only returns the first fan to EC control. The second fan
+> keeps its last manual duty cycle, e.g. full speed after pwm1=255, so a
+> fan control tool that exits leaves it running at that speed.
+>
+> gpd_duo_write_pwm() writes both fan registers (pwm_write and
+> pwm_write + 1), but switching to automatic only clears pwm_write.
+> Also clear pwm_write + 1, so both fans return to EC control.
+>
+> Tested on a GPD Win 5 (G1618-05). Not tested on the GPD Duo.
 
-Reset the device before deleting the virtqueues, the way
-virtio_gpu_deinit() already does on removal.
+We expect the Win Max 3 to release with the same register layout. Can
+you verify it has two fans? If yes this is good to go.
 
-Fixes: cad6a879a7fb ("drm/virtio: Freeze and restore hooks to support suspend and resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
- drivers/gpu/drm/virtio/virtgpu_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+I will try to pull this patch for testing. Second one will take a bit
+longer because it needs (my) userspace changes.
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 2aaa7cb08085..52c174f9bff7 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -225,6 +225,7 @@ static int virtgpu_freeze(struct virtio_device *vdev)
- 		goto err_resume;
- 	}
- 
-+	virtio_reset_device(vdev);
- 	vdev->config->del_vqs(vdev);
- 
- 	return 0;
--- 
-2.43.0
+Thanks,
+Antheas
+
+Reviewed-by: Antheas Kapenekakis <lkml@antheas.dev>
+
+> Fixes: 0ab88e239439 ("hwmon: add GPD devices sensor driver")
+> Assisted-by: LLM
+> Signed-off-by: Alexei Solcanu <alexei.solcanu@pm.me>
+> ---
+>  drivers/hwmon/gpd-fan.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/hwmon/gpd-fan.c b/drivers/hwmon/gpd-fan.c
+> index ed212615b2f..b3b75f99f58 100644
+> --- a/drivers/hwmon/gpd-fan.c
+> +++ b/drivers/hwmon/gpd-fan.c
+> @@ -444,6 +444,7 @@ static void gpd_duo_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABL
+>                 break;
+>         case AUTOMATIC:
+>                 gpd_ecram_write(data->drvdata, data->drvdata->pwm_write, 0);
+> +               gpd_ecram_write(data->drvdata, data->drvdata->pwm_write + 1, 0);
+>                 break;
+>         }
+>  }
+>
+> --
+> 2.55.0
+>
+>
+>
 
