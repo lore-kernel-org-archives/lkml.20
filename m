@@ -1,52 +1,53 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4836F231842
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB88837EFF1
 	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 22:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790461413; cv=none; b=n2e8p3V5pljF9Cz61X6QaoUH6k8KNpnh1l9Xa9YW7V5d10ng8css2VqORZ/UermcJsnMqK/D5d1flAwa/9fc/HwzRm24nC6QazeAe6q+uPk/pn1XWLuTPOTu0kNOakakq6JmJ7PtsfjIr+d9ChHvyHHijWwGQ+hJQA+jRgfUYFI=
+	t=1790461413; cv=none; b=eGMEusCZJbtuIkQbzIpWG62Tqr3M9gmUIzSQ6OhZjwjN3EXk98stmEGLqo3VCfEmXwAzukw+mY9MW/gh1RmbqtOoc0YkiJXWeh5A98tMRghE6JXVt+tfVaTO4KAp81kXwhyvW0EqDPmXQQ705GwDl6kYpJKqR3ilPHDeMVTRf84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790461413; c=relaxed/simple;
-	bh=/R+QVqr3aAgIHoKL9XnLG4r1x5KOKm9X430DAmdgfVo=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=YU5xyY4hGFoC430MLD2d6u79ZtxWU080Awk5E6Zt32OhpAmOjsrX0h7arGDfB84jky8nPxrz3p6DfxazwUZi+HavjSxU+2EygmmYiMrMrWWXiVIB0+psSuA+jmHVFP74+ipmNlkog6OJEfYDv4h0Z1h4bJo+sVuZSzLU63DkAsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+	bh=NPML9+6dXdZoN8Bk0OoABxJWQ+yVtxLx3/drBN0/cKc=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=JPDad3lt0HG2RivhnYG71xzdixcjesoinPCEkrPcP9xUMhLoCfnfF9fjNlvQWfGVCiOPvEAHLQtd1mAqS5cHJl6xrTAgfndGJFmPsEP1oUqrwNI+ddcqT8Ed4PUxr0h8pQ2gqqV7vgT5V+cqxpgEoiC1p6NHUWgBOCxJEPwN+3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b28dbf4197so4009942b6e.2
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cb254da90eso3452065b6e.0
         for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:23:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790461410; x=1791066210;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ddSBLIw73d/Y9INkuZNrFEgdyDpyN4p2NvVyq+7XVwo=;
-        b=DUI/AqNI0oGfBwu3N8US8EWE3lvc3EGgTToSmy1L5/mj9QfiDTkseRajiKq1NzEWwl
-         8itD/5EaT8ER4PhPAWs97T0CZhF+yYoBK4uUjJjJoeb8g6fTSIbtJfJpNcy2ZU9f5JJH
-         b6cC1x2IKDNwF8fKJ26tmVmcqk6+Z0rUpcrajiXUI39gEwnpxs7JFXF0Fa6gPBy0C5YW
-         A1SDKEM5f9GayBTPXa/RlHi+K2GawM0ELSyYNHPhufxwSZVfYYpvcxAb9qbFG/ztn6Qy
-         duA2zL8DPDl0Yp/QA3Iv2h7BGTjS0ly5G2s0xymnPVcIdJ6EqpkNGP19+HR4obRxDeIZ
-         th4A==
-X-Gm-Message-State: AFuF++k+hXaM/up/rZGvGeV5wEvJD6MrcfNlJKfvnzl6E1OSfYcBuVOF
-	UVtiuPGgD8TvWCDtwd3aMIwA4culbLhhXqSFu3reUL4CB2RUw996uThCybHK95nEJj97d45L2R4
-	cX1z/4WT5RU/tCqrMXCSzDvmESC97+Rbi22j7qrfXso39FhAa45D7O6kS0Uc=
+        bh=zgnMvF8k80MkelLr8yx24geDiGOybqGlTuTOlprauxA=;
+        b=X2lKhmxG4QI6LpeKSHiL0I7KyGTstPrMIs7uKzBCbAHCDxgGRjMWkk8AeOdjixC+IT
+         thgmympthAE4lSq5cmJfz3shFIQP3nGyPHDdafrDcaSf1SchMhd909YtZBBHJVRPqt/u
+         wyvSpvFBEF/DY+0XAIyFCTfkHHb03tCXhRmI9rG9rwCQiCZjxrUSeu9kOF56O6/oTK3h
+         6kCP9xO5UBoFFT97dkkHEVrINFxWdiwvPDTnwDF2Ocw5/4Tn7FSfxWBQ/0SuQO9YwXxY
+         e464kaFDk9ph+rups9Zb7OV1ESW5rEB/ChWLyRGqdqV1aB0C6Czv9/8bsTwNICkTa6bf
+         CJfw==
+X-Forwarded-Encrypted: i=1; AKwUvBzMxT2t5ErtTxjtvgldADEq7NCuyf3ICEsgtk7OlDrKRSBO88FKJS/HkpMX0PQbBxWI5nIyXYKQOFO7I54=@vger.kernel.org
+X-Gm-Message-State: AFuF++kB0b8ejTzO1fyTkUYf1ctsOXK0tS/+IBSsIWEuKwtLeIHDe0q3
+	Bf7kxgESZK8Nd9fb5KGwL+LyTDfe1PczmLTKmI32CYHqKEM+rfBoEedzwrihN8GmDA7q1+wT3vm
+	IOESrv0eocnOG9OqK48zqef57Fr1UrUkpOHxNtJjliN3RYHq89FnKeNgtWho=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6712:b0:4b9:e6ab:d07c with SMTP id
- 5614622812f47-4d72cb41489mr9816168b6e.28.1790461410322; Sat, 26 Sep 2026
+X-Received: by 2002:a05:6808:4fe0:b0:4d6:90d3:e187 with SMTP id
+ 5614622812f47-4d72ea5cc31mr10616995b6e.48.1790461410569; Sat, 26 Sep 2026
  15:23:30 -0700 (PDT)
 Date: Sat, 26 Sep 2026 15:23:30 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab845e2.e548f532.1ca396.0033.GAE@google.com>
-Subject: [syzbot] [media?] [usb?] general protection fault in mxl111sf_ep6_streaming_ctrl
-From: syzbot <syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org, mchehab@kernel.org, mkrufky@linuxtv.org, 
+Message-ID: <6ab845e2.e548f532.1ca396.0034.GAE@google.com>
+Subject: [syzbot] [btrfs?] WARNING in btrfs_add_reserved_bytes (2)
+From: syzbot <syzbot+9f330950ca662bc43bf0@syzkaller.appspotmail.com>
+To: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mason@kernel.org, 
 	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
@@ -54,97 +55,82 @@ Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    6812ce4e4379 Merge tag 'drm-fixes-2026-09-26' of https://g..
+HEAD commit:    165768bb7026 Merge tag 'firewire-fixes-7.3-rc5' of git://g..
 git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=133dc605580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=c35815bad054e6ad396e
+console output: https://syzkaller.appspot.com/x/log.txt?x=16701205580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2b924f079099ba6e
+dashboard link: https://syzkaller.appspot.com/bug?extid=9f330950ca662bc43bf0
 compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12c77a05580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14d05a05580000
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17920205580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=177ed205580000
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/75990baa24e4/disk-6812ce4e.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/bc9afcf309d7/vmlinux-6812ce4e.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/35a3beb2ec93/bzImage-6812ce4e.xz
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-165768bb.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/8937d1c35787/vmlinux-165768bb.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/04f73e6326ff/bzImage-165768bb.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/959597fde8f7/mount_0.gz
+  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=1208e2c9580000)
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c35815bad054e6ad396e@syzkaller.appspotmail.com
+Reported-by: syzbot+9f330950ca662bc43bf0@syzkaller.appspotmail.com
 
-usb 1-1: dvb_usb_v2: could not submit urb no. 0 - get them all back
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000061: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
-CPU: 0 UID: 0 PID: 5651 Comm: syz-executor908 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-RIP: 0010:mxl111sf_ep6_streaming_ctrl+0x2e/0x2e0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:348
-Code: 55 41 57 41 56 41 54 53 89 f5 49 89 fe 49 bc 00 00 00 00 00 fc ff df e8 10 62 93 f9 49 8d 9e 08 03 00 00 48 89 d8 48 c1 e8 03 <42> 80 3c 20 00 74 08 48 89 df e8 53 66 03 fa 48 8b 1b 48 83 c3 38
-RSP: 0018:ffffc900036b7b30 EFLAGS: 00010212
-RAX: 0000000000000061 RBX: 0000000000000308 RCX: ffff88807faf0000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: 0000000000000001 R08: ffffc900036b7647 R09: 1ffff920006d6ec8
-R10: dffffc0000000000 R11: ffffffff883479d0 R12: dffffc0000000000
-R13: ffff8880798113b8 R14: 0000000000000000 R15: ffff8880798108d8
-FS:  000055558749c400(0000) GS:ffff888124cca000(0000) knlGS:0000000000000000
+------------[ cut here ]------------
+1
+WARNING: fs/btrfs/space-info.h:286 at btrfs_space_info_update_bytes_may_use fs/btrfs/space-info.h:286 [inline], CPU#0: syz-executor/5443
+WARNING: fs/btrfs/space-info.h:286 at btrfs_add_reserved_bytes+0x51b/0x8b0 fs/btrfs/block-group.c:4029, CPU#0: syz-executor/5443
+Modules linked in:
+CPU: 0 UID: 0 PID: 5443 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:btrfs_space_info_update_bytes_may_use fs/btrfs/space-info.h:286 [inline]
+RIP: 0010:btrfs_add_reserved_bytes+0x51b/0x8b0 fs/btrfs/block-group.c:4029
+Code: ac 24 80 00 00 00 74 08 48 89 ef e8 2f b4 f6 fd 4c 8b 75 00 4c 89 f7 4c 89 ee e8 30 14 85 fd 4d 39 ee 73 18 e8 56 11 85 fd 90 <0f> 0b 90 45 31 f6 eb 2e e8 48 11 85 fd e9 f8 fb ff ff e8 3e 11 85
+RSP: 0018:ffffc90001e1ec10 EFLAGS: 00010293
+RAX: ffffffff8442dbba RBX: 1ffff1100889b910 RCX: ffff888000bc4b00
+RDX: 0000000000000000 RSI: 0000000000001000 RDI: 0000000000000000
+RBP: ffff8880444dc880 R08: ffffffff907a847f R09: 1ffffffff20f508f
+R10: dffffc0000000000 R11: fffffbfff20f5090 R12: ffff8880444dc800
+R13: 0000000000001000 R14: 0000000000000000 R15: ffff8880444dc820
+FS:  000055559168c500(0000) GS:ffff88808c2bf000(0000) knlGS:0000000000000000
 CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fbf685aaa20 CR3: 0000000020716000 CR4: 0000000000350ef0
+CR2: 00005555916a7a28 CR3: 000000001f9a3000 CR4: 0000000000352ef0
 Call Trace:
  <TASK>
- dvb_usb_start_feed+0x57a/0xc70 drivers/media/usb/dvb-usb-v2/dvb_usb_core.c:308
- dmx_ts_feed_start_filtering+0x129/0x220 drivers/media/dvb-core/dvb_demux.c:747
- dvb_dmxdev_start_feed drivers/media/dvb-core/dmxdev.c:658 [inline]
- dvb_dmxdev_filter_start+0x434/0x10d0 drivers/media/dvb-core/dmxdev.c:769
- dvb_demux_do_ioctl+0x48b/0x540 drivers/media/dvb-core/dmxdev.c:1099
- dvb_usercopy+0x199/0x2e0 drivers/media/dvb-core/dvbdev.c:996
- dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ find_free_extent+0x3ff4/0x5cd0 fs/btrfs/extent-tree.c:4776
+ btrfs_reserve_extent+0x349/0x850 fs/btrfs/extent-tree.c:4904
+ btrfs_alloc_tree_block+0x1ed/0x1160 fs/btrfs/extent-tree.c:5375
+ btrfs_force_cow_block+0x562/0x1bf0 fs/btrfs/ctree.c:501
+ btrfs_cow_block+0x3f1/0xaf0 fs/btrfs/ctree.c:696
+ btrfs_search_slot+0xd70/0x2d20 fs/btrfs/ctree.c:-1
+ btrfs_insert_empty_items+0xa3/0x1a0 fs/btrfs/ctree.c:4310
+ btrfs_insert_delayed_item fs/btrfs/delayed-inode.c:755 [inline]
+ btrfs_insert_delayed_items fs/btrfs/delayed-inode.c:832 [inline]
+ __btrfs_commit_inode_delayed_items+0xb0e/0x1ec0 fs/btrfs/delayed-inode.c:1115
+ __btrfs_run_delayed_items+0x1d0/0x420 fs/btrfs/delayed-inode.c:1158
+ btrfs_commit_transaction+0x844/0x3170 fs/btrfs/transaction.c:2383
+ sync_filesystem+0x1d2/0x240 fs/sync.c:66
+ generic_shutdown_super+0x77/0x2d0 fs/super.c:734
+ kill_anon_super+0x3b/0x70 fs/super.c:1356
+ btrfs_kill_super+0x41/0x50 fs/btrfs/super.c:2152
+ deactivate_locked_super+0xbc/0x110 fs/super.c:589
+ cleanup_mnt+0x3d3/0x460 fs/namespace.c:1317
+ task_work_run+0x1d9/0x270 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
+ do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fbf6855bcf9
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff0240de98 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fbf6855bcf9
-RDX: 0000200000000100 RSI: 0000000040146f2c RDI: 0000000000000004
-RBP: 00000000000f4240 R08: 0000000000000000 R09: 0000000000000009
-R10: 0000000000000000 R11: 0000000000000246 R12: 00000000000140fe
-R13: 00007fff0240deac R14: 00007fff0240dec0 R15: 00007fff0240deb0
+RIP: 0033:0x7f68fe39f397
+Code: a2 c7 05 5c 43 25 00 00 00 00 00 eb 96 e8 e1 12 00 00 90 31 f6 e9 09 00 00 00 66 0f 1f 84 00 00 00 00 00 b8 a6 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8
+RSP: 002b:00007fffcd75c7e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000a6
+RAX: 0000000000000000 RBX: 00007f68fe4344bb RCX: 00007f68fe39f397
+RDX: 0000000000000000 RSI: 0000000000000009 RDI: 00007fffcd75c8a0
+RBP: 00007fffcd75c8a0 R08: 00007fffcd75d8a0 R09: 00000000ffffffff
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007fffcd75d930
+R13: 00007f68fe4344bb R14: 000000000006482c R15: 00007fffcd75d970
  </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:mxl111sf_ep6_streaming_ctrl+0x2e/0x2e0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:348
-Code: 55 41 57 41 56 41 54 53 89 f5 49 89 fe 49 bc 00 00 00 00 00 fc ff df e8 10 62 93 f9 49 8d 9e 08 03 00 00 48 89 d8 48 c1 e8 03 <42> 80 3c 20 00 74 08 48 89 df e8 53 66 03 fa 48 8b 1b 48 83 c3 38
-RSP: 0018:ffffc900036b7b30 EFLAGS: 00010212
-RAX: 0000000000000061 RBX: 0000000000000308 RCX: ffff88807faf0000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: 0000000000000001 R08: ffffc900036b7647 R09: 1ffff920006d6ec8
-R10: dffffc0000000000 R11: ffffffff883479d0 R12: dffffc0000000000
-R13: ffff8880798113b8 R14: 0000000000000000 R15: ffff8880798108d8
-FS:  000055558749c400(0000) GS:ffff888124dca000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fff0240ce50 CR3: 0000000020716000 CR4: 0000000000350ef0
-----------------
-Code disassembly (best guess):
-   0:	55                   	push   %rbp
-   1:	41 57                	push   %r15
-   3:	41 56                	push   %r14
-   5:	41 54                	push   %r12
-   7:	53                   	push   %rbx
-   8:	89 f5                	mov    %esi,%ebp
-   a:	49 89 fe             	mov    %rdi,%r14
-   d:	49 bc 00 00 00 00 00 	movabs $0xdffffc0000000000,%r12
-  14:	fc ff df
-  17:	e8 10 62 93 f9       	call   0xf993622c
-  1c:	49 8d 9e 08 03 00 00 	lea    0x308(%r14),%rbx
-  23:	48 89 d8             	mov    %rbx,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
-  2f:	74 08                	je     0x39
-  31:	48 89 df             	mov    %rbx,%rdi
-  34:	e8 53 66 03 fa       	call   0xfa03668c
-  39:	48 8b 1b             	mov    (%rbx),%rbx
-  3c:	48 83 c3 38          	add    $0x38,%rbx
 
 
 ---
