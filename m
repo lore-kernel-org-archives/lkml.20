@@ -1,130 +1,100 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E19435507;
-	Sat, 26 Sep 2026 12:54:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C276439F74
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790427286; cv=none; b=qyJY6p+lVN9lbr/7OnbjcvHp9gsBK5+Csmfol7m8dJoClOOvooQG2ThTE5YdtdizL5Q9dMZut957wcPzBKlrfP18Fezl0vv+BEu3JgC5T6C7VkYAQh/GfnvLfYukvsaBRQ9Vjf4HpZgyihxJ4KWNwdN5/39bcN/DZCIRF5RsmOY=
+	t=1790427603; cv=none; b=EJeezSKTbQRIRm+92rlN8dzLkICSWXpEbYPrehiCN1GrAW4awE/rjAMuRP21AGz55ogmSOsyKNhUyKJjN4+6fQrYP+tTUbwQ1uTWiJKJEzDcKnbv4K1n0qIh/LjmxYTQpMfbLHAq4CwSgJ28wAU0GW1bScNhkEebkdWtbxxuz1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790427286; c=relaxed/simple;
-	bh=oNz6sell6XKOwLw0TDtcAFRmwEe1yrH4ncDfkV/vayY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y85Hfy6S+smS9zkoHaI4zOdBTMu/JopXbOY24DXIjwaX3i0xXyLTOE3AJVtDzalrNz3ZieEAg/5Ej+uO8G+gXB3BHcx23qkp+kqUyhL92iYBpqaU3XXW1F2YKmIb9CHCISmAL+YJeW12bCaZc4L5utDT1Fn0B+czT1ORk14EZCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=lIqGliNq; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1790427603; c=relaxed/simple;
+	bh=E3Lfkr3xrImZFSABQNFxau/Yja44Z9Ogq6/F/qSM8WA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FWjO2mKcETtTs0u1+/co9ypl33A/9WrOijuGVgD+W5CqmuwWESb3AvS/fSc1swv2B3LXHSBMxjGOb1iltXySNqR1vjtcijTMwFmSTtjAnPN7d8LlyIZXFxaxLCYxGGcs7su8/C4rIG25DpWZ5JIYVif2xX2pwgJhEA6JzmfVXmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AXHg9RWY; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="lIqGliNq"
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id AF45E160896;
-	Sat, 26 Sep 2026 12:46:57 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 14D5532;
-	Sat, 26 Sep 2026 12:46:50 +0000 (UTC)
-Date: Sat, 26 Sep 2026 08:46:47 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Vineet Gupta <vineet.gupta@linux.dev>, mhiramat@kernel.org,
- mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE
- to 1024
-Message-ID: <20260926084647.3685ae85@fedora>
-In-Reply-To: <20260924100040.GD4121339@noisy.programming.kicks-ass.net>
-References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
-	<20260922225526.1554758-2-vineet.gupta@linux.dev>
-	<20260924100040.GD4121339@noisy.programming.kicks-ass.net>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AXHg9RWY"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so13508935e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:00:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790427600; x=1791032400; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QVHZ0P3dYyoak6azvRs7KE33EPBoZDYqlIBWuemBV/Y=;
+        b=AXHg9RWYuqf2PUSSID49olScW/6Kfhkj4Ik5nzqLNucvznejNdsBxuiiP2CV42lWg+
+         J29LdwtWyyy2DkTstvqpJfFjh8NnAIGFBrmx+vhiaLLSDXXHSeCiSG15jhl/lbMJE+hO
+         a/TB3FjIySYUnBKwxeYz7tZnOrrPHh2jBuNNFqm2LpbfOLtDE7XdN9pxDAdfACY5Grw1
+         BrQ0n57+4fyzW4AJzkhRkTtyzmoxedkA92Kpwxi6HsFj+F3+94CpQu1gWeiJueoXT/9j
+         0AefhW5sgolkCjpGN8AYRt9WMWLK9KJJKHewjhMvf/s9PC3QHg1kETroLCQMaoMxAjOo
+         RvZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790427600; x=1791032400;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QVHZ0P3dYyoak6azvRs7KE33EPBoZDYqlIBWuemBV/Y=;
+        b=kxyNNGp4aB64d4k0KhT+iY5cVM2zkYUehx5QYEjGSKQUJW4OiSMJw8gdFoN8V68KaY
+         MJoW12Z2CCPWBL0b/icLqf/qhDhGZr6olrhJZuYDRIFM+vp9OpU4tIePhTyGmDhACJad
+         /uHG1W2bH27fRF5zM0wZruJ4v1dm2dZy8FiVLv5rPtOQWU/lPhjXaq2s7y8mZPNgpc4v
+         aBwrpEPxmUjVTAmpvaDvAkQc9D8sfOldpGhdtzlV8b0x4DqX+3QtcAfrx29Es26mhziw
+         9Tr6A609OD0m+mIsPXFiFx07oWahlfUfFh9qzJm9/YZJmoWs3pyQmsljWv4Mr8PuEVn6
+         jJ+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwdpUFqGLLO0tDLyvS5K5Y/aB3w89HE+ALuUrvjzEMvFjdktael6s0L9zEtH0KgfRxj5K7telPvEIexQRM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQBT5Ou0Y7hdpQSvo67xqiftdGc/hhc22+ilFgBY7rE/PP77QU
+	yplApvxeS5+VhuqhJi4Wy5SXMLfqeFwNMf51HJrhYYjL8DV4XLmJJv20
+X-Gm-Gg: AYBFou2kGj4xwaUNB+L2OaF+WBbKOREfL4yaZFmGjMwvXK68Qoq2cDqi6tGQvfs5E7e
+	sY4C/5chfI0nmN8rtEHuT5RjuOcBgx1iFBj/j7fcXEnQAUFEQp3eqnOYdwi28jUv5bzqFRWrSsf
+	Q6cEbP+DPoLGesEJKiJvQ7imv9DYsoYTPSA4Zy2SwWSmwKZjGOZFU3+Q1s/w7+HjepVcUIbrsRN
+	DXtFEhzFh8ANIwv/TspA4BD8qgxkGGU2ol7qwmmBrMmpJQMiJF3pLbH8yi+c0BIzVN0zWSFLkeQ
+	H5+Tw42rCv/i6WoSmJ/BVrH2umlLJ02TP+84VTfKJ5TAXRR/hFAR/a1SefiKmqAjZkADBVe4A+y
+	f4dN1lo+cHDtdYrRQJZtCBlvL446AysGTPMv/Z3b1So2Do7r+B7F4wYDyeS1lxrV4R3R7y1DxaL
+	yXTjgaIRusAp5PamB8PlY0KpVMSy0b0llDLY8u7PmszKbu/WJ7r9oKeATYVMsQiV8eVLg=
+X-Received: by 2002:a05:600c:1d29:b0:49d:797:83bf with SMTP id 5b1f17b1804b1-49fe66f3c7cmr169660015e9.21.1790427599583;
+        Sat, 26 Sep 2026 05:59:59 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ffd66aa24sm29687885e9.14.2026.09.26.05.59.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 05:59:59 -0700 (PDT)
+Date: Sat, 26 Sep 2026 15:59:55 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Artem Shelenko <artem.shelenko@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: use unsigned int in HAL interface
+Message-ID: <arfBy_n6FsDI39p-@stanley.mountain>
+References: <20260926125150.161466-1-Artem.Shelenko@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: e1bao6t1cr5fu77wybj3uqnu9hyppfu9
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 14D5532
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+detvj2Mb+Uir/a8JKayUwPlIX+aqfpKA=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=GOey0FkJywmjr6DnXdW757XDcEKE+vQJiVsQMU+r0d8=; b=lIqGliNqnjMEDUA15BokywbL6Uemv/GjVpc8UmoiZxKnMK3xlv6QlBgm1KEQnAA+lCVykoZhLXTsT3vzEHf4C7QAWu3Bdgb6amxW9omw061d6/3YBnWbrKFbmvNCuKamlJkTYTmWf0jVUuCxApDLEy4I0NnByHyhlSXg2pAAaQ8=
-X-HE-Tag: 1790426810-931399
-X-HE-Meta: U2FsdGVkX1/K9XxuXgRvlIpfTDDGDxRxFQCYlS5kemVW+V4Br8IotJW9C1NsQnLsLD0e8W3AvaNk7Ox9uVr6hTspzptgGu2WPJyAFIlJH8XitKFQOuku8j5z+vSq2xidnW+BYgnKn9gIXrLBn/f7d7eVdtW9F53TGWXpu2E+SVK+l+OVXAxfcBJBHVx25XT8jDcThU5uI+d7pZfTA5qIL7uWR/v0i8Uodmu/Caut/dknD9b9sulB7/HT+b1czHUFoWNU42neQ5uhlO2HVhWxk987I2wj/McCrGhKmk+JHtaQ06iDHU3B2vH9HooX3wE88GD+q6Kb/VYtRgbLLrek8DuWTjmBqp/Kz1RmSwY8zGAG5W5zqkYDaSbtKUNdx62l
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926125150.161466-1-Artem.Shelenko@gmail.com>
 
-On Thu, 24 Sep 2026 12:00:40 +0200
-Peter Zijlstra <peterz@infradead.org> wrote:
-
+On Sat, Sep 26, 2026 at 03:51:50PM +0300, Artem Shelenko wrote:
+> The rtl8723bs TODO asks to convert remaining unusual variable types.
 > 
-> Does this work?
+> Replace uses of the uint typedef with unsigned int in rtw_hal_init()
+> and rtw_hal_deinit(), including their local status variables and
+> declarations. uint is a typedef for unsigned int, so this does not
+> change behavior.
 > 
-> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-> index ed455b53513b..155dafad474d 100644
-> --- a/kernel/trace/fgraph.c
-> +++ b/kernel/trace/fgraph.c
-> @@ -1036,10 +1036,9 @@ trace_func_graph_ent_t ftrace_graph_entry = ftrace_graph_entry_stub;
->  /* Try to assign a return stack array on FTRACE_RETSTACK_ALLOC_SIZE tasks. */
->  static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
->  {
-> -	int i;
-> -	int ret = 0;
->  	int start = 0, end = FTRACE_RETSTACK_ALLOC_SIZE;
->  	struct task_struct *g, *t;
-> +	int i, ret = 0;
->  
->  	if (WARN_ON_ONCE(!fgraph_stack_cachep))
->  		return -ENOMEM;
-> @@ -1054,26 +1053,29 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
->  		}
->  	}
->  
-> -	rcu_read_lock();
-> -	for_each_process_thread(g, t) {
-> -		if (start == end) {
-> -			ret = -EAGAIN;
-> -			goto unlock;
-> -		}
-> +	scoped_guard (rcu) {
-> +		for_each_process_thread(g, t) {
-> +			unsigned long *rs;
-> +
-> +			if (t->ret_stack)
-> +				continue;
-> +
-> +			rs = kmem_cache_alloc(fgraph_stack_cachep, GFP_NOWAIT);
-> +			if (!rs) {
-> +				if (start == end)
-> +					return -EAGAIN;
-> +				rs = ret_stack_list[start++];
-> +			}
 
-Yeah this is fine. This iteration code goes back to when function graph
-was first added back in 2008. Back then, looping all tasks required
-taking the task_list lock and I remember we didn't want to call
-kmalloc() while holding that. This code could definitely use some
-reassessment.
+This sort of patch isn't the correct thing.  These functions should
+be changed to return zero on success and standard negative error codes
+on failure.
 
--- Steve
+It's actually a good thing when bad code looks bad because then there
+are tools which complain about it and it motivates people to fix it
+correctly.  That's the whole point of static checkers to complain about
+bad code, so we're working against ourselves by silencing the checkers.
 
-
->  
-> -		if (t->ret_stack == NULL) {
->  			atomic_set(&t->trace_overrun, 0);
-> -			ret_stack_init_task_vars(ret_stack_list[start]);
-> +			ret_stack_init_task_vars(rs);
->  			t->curr_ret_stack = 0;
->  			t->curr_ret_depth = -1;
->  			/* Make sure the tasks see the 0 first: */
-> -			smp_wmb();
-> -			t->ret_stack = ret_stack_list[start++];
-> +			smp_store_release(&t->ret_stack, rs);
->  		}
->  	}
->  
-> -unlock:
-> -	rcu_read_unlock();
->  free:
->  	for (i = start; i < end; i++)
->  		kmem_cache_free(fgraph_stack_cachep, ret_stack_list[i]);
+regards,
+dan carpenter
 
