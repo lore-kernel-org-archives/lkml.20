@@ -1,64 +1,64 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5036A363C59
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:50:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9852639B96A
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790405435; cv=none; b=QybqpPvIJRcMlDO6ozbX4tgKN0J2+4mWVLBLEhq8Q4eLhj8JsqG0SmH3300Ca20zDh3Ewp12hJsvAlko3dYtjdQxr86LMkPANUgpzFJLcIlF6OvlX1rZnxjn7/TGO1jcWWeXIR8x9hVN24yPtHUNVontwLOwjL2EkGNN/xWNbHg=
+	t=1790405442; cv=none; b=T6+JM5d8z3YInvx7Fgzxy+/rQPMIVJYYw3rF5v1pN612yi1J83Q9VGm4X8QLfY6SwZp9Hn1Tw7kg8gM3hMcN1tUww5rzvZ2kaBT3Fgz/oq5OMNy2j0C4zSv4bwUegW+f8Kn+hqGZDBbzw9ZkhxqxSAoAlcW3f+9+zR9C0W0nbXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790405435; c=relaxed/simple;
-	bh=HXXQDQFDe6y3nQ/vamf6MNCnBdaQPhLlVMTawKOpJl4=;
+	s=arc-20240116; t=1790405442; c=relaxed/simple;
+	bh=mFXrpdHur6ulVZ7FvboHg5CLmQFWfcNDbSrvMkyHvmM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RXhWIwH2wNpkC9Scu9XiKoKBqUcM7pmPJX49HfniZ9QVxJ0O+mxp26x9On1DSdG3h9AHRsPy2dE4/igPQqy/yo1HXLKFqCxK9i7G3igdNHS/N1dnYWXiszL/V102xjGGERQRQ2mI7uqcbv2VCbI43uEhWYoB8ewKp7oCkfa12Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=KKJcTB+L; arc=none smtp.client-ip=74.125.227.169
+	 MIME-Version; b=c/y5uUXJrFQT91ceyOS1EoXTS+tr1/6dnPDlfhABSCc69yID7UOCa88gW3f86KZXjZ/WdtuTyJa0CrcEy2WQJ3WVfbfzu9hEc792GY70Ly1tQ87yMB40lVqvU6OquufzEIqdURskfi801PsVFqXaleEERBi1ODaWr7b/k5U9H/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=Ru1lt7nS; arc=none smtp.client-ip=74.125.228.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="KKJcTB+L"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0bcdf41a3so698839a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:50:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="Ru1lt7nS"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc7979d1dedso350082a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:50:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790405434; x=1791010234; darn=vger.kernel.org;
+        d=nebusec.ai; s=google; t=1790405440; x=1791010240; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kwLyN45KcXkMlGV64Woz+4zZ99i3stRGQEp+uIa/oYs=;
-        b=KKJcTB+LXHmibGJJ8l1Bqq3mYXAP4jyXdZuMimyTM04u+yyqEOTfusm+2t/Xj/OVfN
-         4vOZ3e0WLVHnuDgkHMlUwmwdkthIulyoHGsmDjzPIcmNMilG929opSJAXMlrSEvGbKOd
-         dz+PBTof1cWGtoh1QUKJs8RuMBAqbDd3ss6Ye4x+qey17O18w6gDRDya2CZMLfjrwHzk
-         o2gVYgEngdweL1u/MKB2ym7mGWRpxHd6FCVZMoKl+H7U5laeDH0HlBP0cQIDkY9uyM7e
-         X5jcqP3c/ks6TAGv7uH/C1NTen1VLVSsWzKDXWyzHi1ethPQkwcRuryoKqPIP4KUqem9
-         ujrg==
+        bh=8BskrzkXLwZJX8rcZQGp1wKf7XH5Yk+fLwNViAloYy8=;
+        b=Ru1lt7nSkiIx3L3AdhhedyAfa+NZf2ZEffPDWUYttcVnKdoYcNlHFkV34W49/4mY8O
+         4J5u5Jf4j5at8U2FwGMTgW5kx7dy0bOIb5AnryZz4o/E2S3QpPFC/pL6G7vJlZE+jqWW
+         O/Czs7h4ta3xgNsPFPJsoUcLx6FdCmUVAozn9/fBhMlA/lOnVd0aykq7XXCNofTWHB8Y
+         GZXmrKYFfcvx0U0dgPMeDmAhGpufIy+hFvbaDjwRcnd7cAaPWXgkIZUG4VwnEXZ1WFGB
+         PRDLPIO9gYry/vhsKJcUUgtPR7veYjxE7uqycfRqbIj7R3nK3nuvR6xkOToWfeqQYXQd
+         G7YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790405434; x=1791010234;
+        d=1e100.net; s=20260707; t=1790405440; x=1791010240;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kwLyN45KcXkMlGV64Woz+4zZ99i3stRGQEp+uIa/oYs=;
-        b=TzXFPTXILunEiDJKuSWOK2K9wYQTjc1awfLms6zRHnwcqXx9UKCeCNNfnTjfGpRwzl
-         GFE5Em4uLZJE95bH6z9sXvWIXlTA6SLnek4F8DNuRXx4UCGB/Il0PVo5sDOnxvUutepJ
-         HEdLKRzHVuUn7GBbyJpXZDsckomAju6LsvN3shySUaizNLhMF+5SgiX/5bCpLKDedWSU
-         Hc0qbS1H74Xf3kRAS7CwhXBg6LCVVNtADaBrvB8AGAe3Y/+nttYWIhcwDfUbTa1N5fHx
-         0dMwXB3mcrwyuck/rgna7pH91bMQw143u4cz8y3D/XjJMJc885WeFRO5qZUPSQ9rLyGn
-         i0Kg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQIht5PRqfJtD0ZNzHnPObGKm0i1TftAu0OrHhRtoicCzPmAYMNaqJGBJaistLOtI5MTmXhFCwh3XBiOo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFJVMdzTNsL6ypSJu7eBpXyxRC8a2FWXvSUHV3TP9DwPCttJ80
-	5NIZCGBr6fYi3czwgN81BaOuvgruuzCR6K1c+stTzELG/VcHFfxHKKDnVEhBy2RqUEBD
-X-Gm-Gg: AYBFou2UEBFwT0pi6XE49NuEQ960S8Ap8rELKpadcez0FS0WPQDbA+1Td8dNvuWJaXF
-	SR5Ggy+ViC1I3PKeQowiMX+9DSFpjvpzQoxAuiFnhwjMMfepmOfXnyXm2aJMFgQhN+z0ATtdIhW
-	K85b2G81Y5wnzk+1zlvVWsNSriwraQELu2JZrxj8vfwAYEZRf/tdqaCoU6CIYKlfxMctKgbS9IF
-	xJ19INSFCFhJvU3M1LZc+CSCEsMV/Kie4cppta3NU21cTs/9hA+DBzfCnkfNHccnCfO729Sx630
-	/bpRsUCAnDLwjPezUIex9FxIiwFmHqyYaRRhecUyJ6NGo842kevlEX3ywFIZ1endN6i7BmVu6f6
-	be9sgOv2pYDPSWS3f24aKiiGLQDZVKSY9FqW3O1BekK4Knnt9vuiivzYtS8CGul+7tsd0oT+cT3
-	wUt+FVlZKzb2Fr4Qbs1MGERjLdtq1nxgiFfrQnTsxxohJOiI6Wo9YMI67u3XRTBNhLOXkZ+bo1d
-	efJyVPHWJswQhAYo2vtnQqfaGLKc1E=
-X-Received: by 2002:a17:90b:2785:b0:39e:6795:f7da with SMTP id 98e67ed59e1d1-3a09875ee61mr7024834a91.19.1790405433480;
-        Fri, 25 Sep 2026 23:50:33 -0700 (PDT)
+        bh=8BskrzkXLwZJX8rcZQGp1wKf7XH5Yk+fLwNViAloYy8=;
+        b=I2PZkArgsJULWmCS09nF8lk+rgDq1fBoO24dF0tgrXCDjYfASgxxCgYeWPVenDT9Rf
+         Ep3GJIEOMKMzHnb887ByMWQj6heNkocW4a5zHWQvZz0qS+DhV49tS1WtiPdKUab9Wd2S
+         XHUb7sCqj0yKamS7EoCqCXARvTMwPPcPPAY7RZ8aCQHmAanzIjS04jbW+8ZAMn6bhWot
+         i0PIclh92AsnkDxv9SvCe+KCsyuKLHJH4/JJUmxyQ6eRSsSiFnDUweD8n2AdPDrEbGz6
+         UbCp/0gI1EVVumGhM2UVqEXUTo/Ao902I7A6wrlaDETrRRGzHn9Fl5JmhXwQ/PEt2/Pj
+         TVNg==
+X-Forwarded-Encrypted: i=1; AKwUvBylZooM+bHj7GZ8VRB0pK+bqA85MPncNCSIJt10c1Oo35Af3RPgr5dNuB/OIsZ1tuj9nXn53QxZlT/UB24=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIh+17FI51IG1jQWRtgFtBYeBVFxghjN4boVJ7GijdHAjfQFo4/
+	fxDsBZLmUCcd4VfvPmKlMyKLSGGTQYwEh1tpnGDh3GVtmdO4ZKpsJ+pdtJWo5unQMKZG
+X-Gm-Gg: AYBFou3FKTmvfgvA0O9NT9OCPdZUtZ+UdlPwfQY4U65QpfssCPHOKHSxLusSiXYpFe6
+	ma9s+pFX5XbVuGNApj5l9wdPJQBwnirUoCekCBY+zdLJcVpJc3/rUYjmrSQv6arFJL23FKedyIr
+	g0ap5T28D3r/fdTLFWXWlzbGaKZgY2p70UY8OTdJQMStTdIRgSXGaLsDmucr7/akD8Kcbeqd4Bx
+	ungESWPRpSLUbFWf9+4HL1irQlqlSVSmPEoeSMRUBUTAzFuY1egyVsDnF+4h4/mdY8vB8LyxZsi
+	c6Y8ACGVb1nSJcy2rwSoELfy316On/4jPCOoI7pWa3zW0sBeYVni/B9lT9WmCuMD9mZunp0hfHf
+	OEFo00WR+1DqZ7K9c3pEhEdV/Zqe5SOSClqFKVAyYKlIHfLT6mjczh8cJ4dW30P0VWJvxfjW4tB
+	ve6T5SrZ10V9a6FMHngzU2J+yd1EHUfWjSuWaVXiKtfT+ESJwFiASDLpZxlfFIXAZqY3U7Fvk65
+	G1AS60pGMOxYgwiCXCLWtt6G08tKg==
+X-Received: by 2002:a17:90a:d883:b0:3a0:2900:f577 with SMTP id 98e67ed59e1d1-3a098dff5b4mr6227823a91.51.1790405439780;
+        Fri, 25 Sep 2026 23:50:39 -0700 (PDT)
 Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b498fb12sm3447327a91.0.2026.09.25.23.50.29
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b498fb12sm3447327a91.0.2026.09.25.23.50.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 23:50:32 -0700 (PDT)
+        Fri, 25 Sep 2026 23:50:39 -0700 (PDT)
 From: Zihan Xi <zihanx@nebusec.ai>
 To: sfrench@samba.org
 Cc: zihanx@nebusec.ai,
@@ -74,9 +74,9 @@ Cc: zihanx@nebusec.ai,
 	samba-technical@lists.samba.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v5 3/6] smb: client: close handle after create-context parsing failure
-Date: Sat, 26 Sep 2026 06:49:23 +0000
-Message-ID: <ab085417d625754208dd45f8ab751d4d06f410d8.1790398755.git.zihanx@nebusec.ai>
+Subject: [PATCH v5 4/6] smb: client: clean up failed cached directory opens
+Date: Sat, 26 Sep 2026 06:49:24 +0000
+Message-ID: <4f216702a1f10927e20ed5295cd1a04a895978ea.1790398755.git.zihanx@nebusec.ai>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1790398755.git.zihanx@nebusec.ai>
 References: <cover.1790398755.git.zihanx@nebusec.ai>
@@ -88,15 +88,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SMB2_open() accounts a successful CREATE response as a remote open before
-parsing its create contexts.  If smb2_parse_contexts() rejects malformed
-context data, SMB2_open() returns without closing the handle, leaving the
-server-side handle open and num_remote_opens elevated.
+open_cached_dir() sends CREATE and QUERY_INFO as a compound request. If
+the CREATE succeeds but a later command returns an error, the function
+must retain the CREATE FID so common cleanup can issue SMB2_close(). It
+also must not treat a response error as a valid CREATE.
 
-Close the handle after a post-CREATE context parsing failure so the error
-path releases the remote resource and balances the open count.
+Validate the CREATE response before using its fields, record the FIDs, and
+mark the handle open before handling errors from later compound commands.
+Move the -EREMCHG reconnect handling before response validation so a
+missing response does not hide the reconnect request. Count the handle
+when it is marked open; confirmed close responses decrement the counter,
+while existing close retry behavior remains best effort on transport
+failures.
 
-Fixes: af1689a9b770 ("smb: client: fix potential OOBs in smb2_parse_contexts()")
+Fixes: b0f6df737a1c ("cifs: cache FILE_ALL_INFO for the shared root handle")
 Cc: stable@vger.kernel.org
 Reported-by: Vega <vega@nebusec.ai>
 Assisted-by: LLM
@@ -110,35 +115,89 @@ changes in v5:
     https://lore.kernel.org/r/202609241449.HlHmnZFZ-lkp@intel.com/
   - v4 Link: https://lore.kernel.org/all/cover.1789478666.git.zihanx@nebusec.ai/
 changes in v4:
-  - Keep post-CREATE cleanup for parser failures and document the existing
-    best-effort close behavior.
+  - Validate CREATE status and FIDs before marking the cached-directory handle
+    open, preserve reconnect handling, and balance cleanup accounting.
+  - Keep the cached-directory Fixes attribution at b0f6df737a1c.
   - v3 Link: https://lore.kernel.org/all/cover.1788516372.git.zihanx@nebusec.ai/
 changes in v3:
   - Split the POSIX handler check into a separate patch and corrected the
     parser Fixes history.
   - v2 Link: https://lore.kernel.org/all/cover.1787486936.git.zihanx@nebusec.ai/
 changes in v2:
-  - Add cleanup after a create-context parsing failure.
+  - Add cached-directory cleanup for failed compound opens.
   - v1 Link: https://lore.kernel.org/all/eb1bc35611f91bd10a4772400b37fac26f660956.1782579150.git.xizh2024@lzu.edu.cn/
 
 ---
- fs/smb/client/smb2pdu.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/smb/client/cached_dir.c | 32 ++++++++++++++++++++++----------
+ 1 file changed, 22 insertions(+), 10 deletions(-)
 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 1b2ca3b2c2f87..12973f2e26b16 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -3414,6 +3414,9 @@ SMB2_open(const unsigned int xid, struct cifs_open_parms *oparms, __le16 *path,
+diff --git a/fs/smb/client/cached_dir.c b/fs/smb/client/cached_dir.c
+index 88d5e9a32f28b..647fa26da4d24 100644
+--- a/fs/smb/client/cached_dir.c
++++ b/fs/smb/client/cached_dir.c
+@@ -8,6 +8,7 @@
+ #include <linux/namei.h>
+ #include "cifsglob.h"
+ #include "cifsproto.h"
++#include "../common/smb2status.h"
+ #include "cifs_debug.h"
+ #include "smb2proto.h"
+ #include "cached_dir.h"
+@@ -323,25 +324,37 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
+ 	rc = compound_send_recv(xid, ses, server,
+ 				flags, 2, rqst,
+ 				resp_buftype, rsp_iov);
+-	if (rc) {
+-		if (rc == -EREMCHG) {
+-			tcon->need_reconnect = true;
+-			pr_warn_once("server share %s deleted\n",
+-				     tcon->tree_name);
+-		}
+-		goto oshr_free;
++	if (rc == -EREMCHG) {
++		tcon->need_reconnect = true;
++		pr_warn_once("server share %s deleted\n",
++			     tcon->tree_name);
+ 	}
+-	cfid->is_open = true;
  
- 	rc = smb2_parse_contexts(server, &rsp_iov, &oparms->fid->epoch,
- 				 oparms->fid->lease_key, oplock, file_info, posix);
+-	spin_lock(&cfids->cfid_list_lock);
++	if (!rsp_iov[0].iov_base || rsp_iov[0].iov_len < sizeof(*o_rsp)) {
++		if (!rc)
++			rc = -EIO;
++		goto oshr_free;
++	}
+ 
+ 	o_rsp = (struct smb2_create_rsp *)rsp_iov[0].iov_base;
++	if (o_rsp->hdr.Status != STATUS_SUCCESS) {
++		if (!rc)
++			rc = -EIO;
++		goto oshr_free;
++	}
++
+ 	oparms.fid->persistent_fid = o_rsp->PersistentFileId;
+ 	oparms.fid->volatile_fid = o_rsp->VolatileFileId;
+ #ifdef CONFIG_CIFS_DEBUG2
+ 	oparms.fid->mid = le64_to_cpu(o_rsp->hdr.MessageId);
+ #endif /* CIFS_DEBUG2 */
++	cfid->is_open = true;
++	atomic_inc(&tcon->num_remote_opens);
+ 
 +	if (rc)
-+		SMB2_close(xid, tcon, oparms->fid->persistent_fid,
-+			   oparms->fid->volatile_fid);
++		goto oshr_free;
++
++	spin_lock(&cfids->cfid_list_lock);
  
- 	trace_smb3_open_done(xid, rsp->PersistentFileId, tcon->tid, ses->Suid,
- 			     oparms->create_options, oparms->desired_access,
+ 	if (o_rsp->OplockLevel != SMB2_OPLOCK_LEVEL_LEASE) {
+ 		spin_unlock(&cfids->cfid_list_lock);
+@@ -408,7 +421,6 @@ int open_cached_dir(unsigned int xid, struct cifs_tcon *tcon,
+ 		close_cached_dir(cfid);
+ 	} else {
+ 		*ret_cfid = cfid;
+-		atomic_inc(&tcon->num_remote_opens);
+ 	}
+ 	kfree(utf16_path);
+ 
 -- 
 2.43.0
 
