@@ -1,318 +1,169 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azolkn19010019.outbound.protection.outlook.com [52.103.12.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34FD423C8AE
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790425539; cv=none; b=bYtFIEy0SWF9I/+x2kZSIt6GlEc0wKp4V8S1H175MMZ7V/Vza3dBIM81G2g8LgvyeaYrUTOa/HcSQffYu9PDncpICxVT/KblL9VWPLoKvIOJ4/SOB13YdqBPL2HHDvqXTfGMpNZHCGPj+C04J9xWJWBm2synNX2Pj6k9F0GQb5U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790425539; c=relaxed/simple;
-	bh=+MxQJxfxyXhn2hlgfXKOF0r0b76GvWH1hzAhmky7Su0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HWQktY8QASHx8o/cWP8plkaggoQfDSvp8621Y76ZwmuCsFDIFsS+5QLc8fn4tlCIZVVavvBJ2lfL4bLIkZ12r2iQ/Svif39MB04dnju2hQS7moj8WvpN7RpzajvfJ2gdXqZ0l84aqRzcbPKd69xUhJljpPKfBFkrhAu5P6tcjJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=obIhTuA+; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D41623C8AE;
+	Sat, 26 Sep 2026 12:26:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.12.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790425576; cv=fail; b=BtirN2Bckw2eS/Ly0V0ffxlgOtIcq2uGyYJW1TaNRLCfzAHUAd/eo+Bp3tx9aVqvXbXqHyQLOzLLqFxFqujBeD7DcRqDaUXfFQ6We27jHVEzNULjMTru2qOF/BaeKNid6bszsB2tf7qyFt9Nceb0WGJnNl/TyJyxFFLeSJFMQHo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790425576; c=relaxed/simple;
+	bh=xqb1aCkx93UmePFYkWQpmWWcekNzedbDzbI6lbAVE/g=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=j0intDuRNDfNT6Kb5t6ELbzzmHfGacn33MdjwbWPfvmNNFMndzg5odLlan48sj9hT+d4xoveb5sX9BkxVgfgPhani0Ah/ezmoni4WlCXaYsISPOcVUBH9VyODRcP54S0PUFg0f2TgMCPi/oU1GjbNiYduVtqtOwum+j/UEiirhw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it; spf=pass smtp.mailfrom=outlook.it; dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b=MBIwTkJo; arc=fail smtp.client-ip=52.103.12.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="obIhTuA+"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-530e28a62abso26424381cf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:25:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790425536; x=1791030336; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0+TVRBcBiysASXeDoTATHtlh2YPl6QD63Z7oJTtZse0=;
-        b=obIhTuA+jQeOg9izWUIJPJxrccKgQZMI0pjvD7UfJJirtoAuXMDkmrVWQH/r6NWzrn
-         H9F1eud6IGa/CV+jJGNACz7CQKAvNqXiSJeKmIRye8bCQTHzCdt1uP9aDKLiseapNrpX
-         e3WUSzXYrrJlcHsDngnHUu+/HYagKqTfqDC+HgJKvSJos3C87Dncsx1ctrecJYRBvLOI
-         HWtK148xuKPCNLg4Cvh77ecr5kLhWyWlquB6byKTZeLYgHh5JTQI0DfPUK2bHx/CvUQ2
-         8ZM8PFRX2Irjl2J/32M8Zs3dJ1UX6Zspn2YOUJaarZemgYPAZGgwWL77MQmXzbkue+jc
-         tJwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790425536; x=1791030336;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0+TVRBcBiysASXeDoTATHtlh2YPl6QD63Z7oJTtZse0=;
-        b=tgoeBLbpNyH3iypm4ekS6oESvxv3QsLqMVWJQ888G6sLt5il7fwhssTCAso8jehaHa
-         +to1WtxBRoH0QwJEdC8/UllHleSI8d94ftr2xbtDJefGX8FP9cG5fXHgSHxvgqvE0eg8
-         r7TmyWoRBeBRFXX6cd02NuZDvtB5mbk9QuuGAKVLCp6eokVMzydXCKE/rfNfxSfCpuEo
-         Y6y6fCjEUsBngWBp8EfLCyBk9jsQyTaFzEAcziNPRPnR3dtDO8S1aS4XAJ/6ehpPKa0Z
-         cr7tYa4ixL1qFfb+IO4fIR4nHUiui9KLNeHnQqisZR8bgFbnkrc7Sjs/hcQ4U9xK3yKE
-         VNug==
-X-Forwarded-Encrypted: i=1; AKwUvByr4NbF7TurQV84RcIRxm2vqii/QWsPEC1NW0F08TV5Gr9vTPJihLDsjEacKfFDXm5K3E0oYT1PcNwmWHQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCXBtci9VEtanqdsVxw3YYNcVC866ym2yjB0vDCdcyVD52TfOQ
-	FhG2iMre2B+9/8/xpqPsjhJ9IKU0Tl7Phr8iBd1IKJchfT6eulkbGIfkat+fNZMjpQ8=
-X-Gm-Gg: AYBFou02Ulbk9nAjj8HXWQK3D7HZ5g4ikxTmHtlMcRQcwBpjmxPnPLBQb+Dx3iHmjwR
-	8ZESlPTcgcy7HYTjVjAicY3uJRsmrP6+aTila9jcxId7dsPJh9S3GRyOZwlviBmOllAyGY6csPk
-	Eww5kMS8tflQF4BrHF9dOL7i9sXwzX2N7ZJy6IfF8yeKU1QZBdrGnKKUPLj0uTsuisYSUz8YXJ/
-	i3UeSEXzyMBVzXklMkVGzeAiWy6gri3tGN2QC+JgdcsoyKpMyNdZbkEgNuniGDWxbukPIuQOgGN
-	nrQXYfKU8QUDxGGCaWaknlSGftLklarrU3DRUG9TdoYqikyym+ridqSwjuxhU3OtwyQe5Pv3+DT
-	k70C8MAzV8QEbi6ThCspNBPaMf4gEZwNGOylAqVVyl48oRfFVHyHVSaFrIe1luPBh82GZgoOOlB
-	Av7UxqoHLGy2ttxtagR4GE4fEIBYIp7DJnLTo7uPkKO02EpvT6ODir1gxfbg==
-X-Received: by 2002:a05:620a:6602:b0:939:f89:3688 with SMTP id af79cd13be357-93c47498f78mr873998785a.42.1790425535907;
-        Sat, 26 Sep 2026 05:25:35 -0700 (PDT)
-Received: from armok ([2605:a601:a61d:7a00::2])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430ecf80csm38377966d6.49.2026.09.26.05.25.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 05:25:35 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b="MBIwTkJo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I7aEEuFsy9m65OFdrEikGnTd//QCLrwpP8VyUHGVrnfMZqwr9QtIpM50j2EM32wFe4V9HJSZ6q+mz3H5K8y643LIRM/FCsAnSxBMc7/ROfYHVB4vXFNJ0fDeNdm8Dr4m9DAKrWA7/8KT3UkkBewPytSBMILjms9cWj6RrYr3EGMm8Js3PPgu9aIX+E/FEHPoDhR+8XvMlDGBL9vkFkgqfy/+iwLLykM7r3q/2XLqXQlG3lENtMxT+7eaSfY80VX89f/ZVefgVrx50aouLva8he4bsk473yOMmLuS7SCDqV7NUIo2stlBhx/3VjYwptehrUc9Rd/soXrCZO8YhxaIxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/31ESikXFD7XUYlcdwwBv22/qen+J5klXH3M9lNhdgM=;
+ b=N3clS8zQova09zs0tnK80J43viH8MyW8CA9kSmVNqrT7OO5Tnd5MOFpObwPI4XEzzAxr7pna2NprV4BqHjwcNQmwjsOpioFZ0TRbUXun7Ou4bcXLGJW5QvbucJx3a0vCUY2cVXBocR8deLCsASxrrQREvKO0UFXwHPIJ/NaPdIq3Vj1K0FHD+6DvE0dfCTNhmovYppJDaqHA9GcwH6EHSVNf1B/M9klpa+MTfArRCf+zY3rRwGaVW5fQGpFQ4GFF5HK+39G81rcvuXbTOm7f8EpMZagp1+VIQlSkAOuMUYiTYdIBXRprDxKGX/vUTzrCjbMIXN0Q4R2hG4ku9OTyTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IT;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/31ESikXFD7XUYlcdwwBv22/qen+J5klXH3M9lNhdgM=;
+ b=MBIwTkJox0b5Csd0hbzqrV8AimDEdZC/CcKidOGj1HEqpsysShZECsNGvLoUxkOX1Tu5hJxGzPwaPmzdiosaQpQFEvoeHqgRfmQO/mUmVRoEok1wMAigljnoFQie8wa5e7CFPME/GoQ6d9HaueqyagIfyNY5ORgtFgtUgAoUQ6XxlcELha+wjeBYJJd04Es0N+V2mTbxR3+LbUgmwpOp7fgwgz+pwS3zuCISOZIeFVbOPBqQzUbWpb7IXzK9zNhvcP8HooGTaE/n38MfBNwBWcb1/UBAa3eAKOlsBKPMFLKOqSsZB8AAhSBsQfhOMNkR1D2fuzVoZ8rmk2WYsLo1ww==
+Received: from SN6PR19MB2303.namprd19.prod.outlook.com (2603:10b6:805:56::19)
+ by PH9PR19MB278024.namprd19.prod.outlook.com (2603:10b6:510:3ed::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
+ 2026 12:26:11 +0000
+Received: from SN6PR19MB2303.namprd19.prod.outlook.com
+ ([fe80::805c:7f80:c69f:876a]) by SN6PR19MB2303.namprd19.prod.outlook.com
+ ([fe80::805c:7f80:c69f:876a%5]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
+ 12:26:11 +0000
+From: Marco Giunta <marco_giunta@outlook.it>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: [PATCH v3] arm64: dts: qcom: x1e80100-dell-xps13-9345: add the front camera
-Date: Sat, 26 Sep 2026 08:25:33 -0400
-Message-ID: <20260926122533.8200-1-lnicoara@thinkoid.org>
+	Marco Giunta <marco_giunta@outlook.it>
+Subject: [PATCH 0/2] ASoC: aw88399: fix BSTS check using vendor driver logic
+Date: Sat, 26 Sep 2026 14:25:57 +0200
+Message-ID:
+ <SN6PR19MB230304C2E75499FE23B53885FC8F2@SN6PR19MB2303.namprd19.prod.outlook.com>
 X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI2PEPF00000B79.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::40d) To SN6PR19MB2303.namprd19.prod.outlook.com
+ (2603:10b6:805:56::19)
+X-Microsoft-Original-Message-ID:
+ <20260926122559.8062-1-marco_giunta@outlook.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN6PR19MB2303:EE_|PH9PR19MB278024:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad7ab12a-da16-4772-578b-08df1bc9586f
+X-MS-Exchange-SLBlob-MailProps:
+	8U9+OAG/EBKkI8GgeR43xRMrZ/+qH0EF+JG6abuQbr2YZ7sM51Ze5xptI9/xWBeE7LWVZgVZEQYR6viNuHHjZHUVsjTsWc1LwA3AkhdlTdVhf3haiMZ814WtQp4YX8LmtmS1hg4dsUD6R/Z35BzED6LsKoqmkrvm1wZCv3nVWgS/FjLhrcv+zaUHKw7a2DTj1N85K4W15FgoBZHzXX5d39tnYp2wEOn8VmF4yDkP2UqQEeF93216NBs1MWr4EBLo4JpMVYGENWSmgtPrzpAf565et2M1mwEm9AkmMUOoGv6l+FeooYWaV4VgVK03plq/LC6wYms+vj9oNmqKzlHGg2TPsUSGx6S5Gf6yRsGaODxlRojkA7EC9x9NKWgswApyOHStDfw+yKNiZgMUur4ycfFFuEhnqzfLY1xJLRZtOLG498X7hIBDu4amgzlGc1/0NghbZw4nbpZ3liix6Ovi3sZjFpWNTr4g9cQ/b6cujhTbaCcTzuzICKxAjwaG0tVitJRE83VuqWP9keeSLvchAMhW1okPbu6BDBfTcixUyF3Q1H4gOIcAQGjYOKBnbnYz4FECfcl2s8/1KW5YAI24c5IMb7zMllYFsqlTWx6mm/1890anQ2Jg105OF1UWm1n/Zql5bRTwk0GnYO2GwgUZtiBAvBxGHto7OGOdeHR3zES1TJCMuapYnGfBpOaak2aTqGQy+3gwA7qxxZvrXYEnu22ADCJsVfGWlmNDr6tZhm4PaWZWb0xmtThqUm+QiCF2Bs+W1bYPkqmVX+FhyUusXhp+sYIk+0SBJ0kU+0dsLb2l8XI/EUo9+ZFPYqPthjCip+craHzbbFta8FP1or8f3Q==
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|24021099003|12121999013|260925184616899003|5072599009|23021999003|25010399006|15080799012|55001999006|51005399006|8060799015|19110799012|40105399003|2607281247196008|10035399007|3412199025|440099028|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?kvVnRg07F7unHI43aW5qrK8fnafFaiZkPi/TBx7PI+rzvl/6pvJOKgEGL4sh?=
+ =?us-ascii?Q?QAA1jALpAJX1gpNfN0A7z2asPIrhztOqNktw/UYJcpFXQs/MWv67q1Q/rHv9?=
+ =?us-ascii?Q?frZvzS65A6er90rKNHOOY9qnZdcyqSh/s0uSwVIqcaU5pzIJRCZLSYMeT7NL?=
+ =?us-ascii?Q?aw5mVJAowItU+GpZ/Z4KIHVYy0MeoOYOaUt51su7amwkjFmL6nx1uiYHxHMu?=
+ =?us-ascii?Q?nfb5IcP+M2hBSGELNL2X7YterAAU9N4ICX+rwxkR2jp/b5FcDgsY40exgKLX?=
+ =?us-ascii?Q?2JnlKkhJk3H6WY7zvAsWg3+W6mSHl2vkoY4ExbyA3bJFPKNLigMe8b9rFkDN?=
+ =?us-ascii?Q?Tt4gTps2Tvn6nmUs/NQ1JwXE+Olt4FDnlJbxMNtCToYOzCaCCeLsEh9Dj6Uw?=
+ =?us-ascii?Q?IFCuqbVrazoNWnqaEc34X1Ft+bBAMfynoHNnLaSMwsZscI+GLaNToYHxMaz6?=
+ =?us-ascii?Q?d8rGyp62ztejXhooygc4+o6bHvTbGHkdJXdVVSkgy8u0EeCoJuin0xepqI0V?=
+ =?us-ascii?Q?PLkaaGt2qfGrKpKpXBuNgnmFbeWdpfuRPQWN7wpzG8bifruBw3pf89YHpyv8?=
+ =?us-ascii?Q?xwhxgliQ03B7SIk+xkMbYg4XEKIVjivE6erPf4iTeL3DH6Hj0auXb9wWR0ob?=
+ =?us-ascii?Q?Js7sdE1XXR82PoV7a8fSt6/qbYzByMtaeZ2K2TLVNjiUbKmbYtRoCFj8sek0?=
+ =?us-ascii?Q?nOS1XqdifuNxVVetTgosIiI0exwdUgQHjCSKb85QIfQxTgai+Fp2mEZgS4HZ?=
+ =?us-ascii?Q?QpXlzWdOdEVnBU8EOTQAQ+f2M6k9s8dG4fWEqhyPevAWNC5xZMofor+kyMKp?=
+ =?us-ascii?Q?N24V9/fAWpkRDfW18ZWRt4+x305SgUCfcGPGqxrwoXSOmMSXHqsLE38nzQLY?=
+ =?us-ascii?Q?GE0gUL7Je4A58JR+j1CMczTAtnJtWb/rxAYapqagHQjso3BZKo8bd5C6SUOc?=
+ =?us-ascii?Q?hY2xgk+ETMSYUaoV0C5LRfy63YoP52AoiG5S1jl8TgpaLPtuUZolCvtuO22s?=
+ =?us-ascii?Q?d6MQ5oHPsrlLjRr+oapM9ucwBw=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/c22kqz3cgdfGK3ph7zQDjV2GDjs+eitq+3kX7HAvrCAmGkYw2SBm2S6sc8B?=
+ =?us-ascii?Q?A1X++hum3rFdUUZzyR895anFHKwwcu98X82oFPn7WvkJlEDc8AGkjrU03upt?=
+ =?us-ascii?Q?O54eRVXKCrnWEw7kEhx2+4PDJfcMi6J7Cb8haMgWay4KsW7j5iYGm7e/u3Yx?=
+ =?us-ascii?Q?tiNIXUmxqbelb1tGTeX4FcbYOU2O2lr/QBh1DWn+1vaMhOeXFXRtZ3cZhXHn?=
+ =?us-ascii?Q?EOhoolrgNLLK4+xCSdy8QgIabQsQyM5xJsf5mOO6arFA1njXH/GA6GWLqqIa?=
+ =?us-ascii?Q?3p9JzQ0TknY3sV8YhFnNS+XS9m58COFdf6IiIl+WoVXqt9QUK7FTotbgOjHo?=
+ =?us-ascii?Q?iQQIdHy6Z4Tl+lnJ5k02u2D7DGeZj4W4nfCsF/SpsyEkFBY1iUYJk04bWOwg?=
+ =?us-ascii?Q?TQDqVSduUQpptis99qAK8GKwDw4bZuI2dQtxjh8cO+BDiKZUNpS8tb+InNrv?=
+ =?us-ascii?Q?BbCTT68t/y5f4H3rCYKZRsM5Mxjz3sT3LWYL8+In64kv1myh9tnhGG0hZcll?=
+ =?us-ascii?Q?tuR5gvRxXCy5yWErhjHFZEfWigCEjaZ9LXy3gcEX68WI5sZvGvuVv8n2kTJz?=
+ =?us-ascii?Q?RkSZUAXKyn0nRYeX9IUMaLW2ESaG7t40twtz3jKs/U/W5DnGQ8BnjNRxoOW8?=
+ =?us-ascii?Q?iw5ekKo9Nkv78QWzmnmo/5DzCLkv6h/1c36OjEGHi9FnFZA1kw1qkiVXyVkA?=
+ =?us-ascii?Q?0VkHl2w8tDfmGCI8ZX9qzuELEdxLM+OSU04cQbUztb4CjvDYQwvmmyUB6QW3?=
+ =?us-ascii?Q?MJQAxKMMesX8ccMJxTGL0kqtYUrZ4GIeMlNid4ecvrnNE7BZap8QET3SVEy3?=
+ =?us-ascii?Q?4v1q0laOd5/njqQ5swPzn7aPyA7m8tmSdjBbKSNsMdJniywD69LPl79E3Q9a?=
+ =?us-ascii?Q?0euzWoc7fJiLzJQURAXu7Kg1xlb3k4ZLteeYz7CyuyM8XY5kUdATIB6ONllO?=
+ =?us-ascii?Q?p0pWzo8RzeHXv5tbJWSzq1sZMcYDWVV0R1L/tdwY0OPy4EtdAzbD7uWVgXLh?=
+ =?us-ascii?Q?xAOhzuMETgLnD23R0R67yY77/mv6UkHwPPCvBjQGVceVt1GfACjH1++1W4r5?=
+ =?us-ascii?Q?pkGaN/KNaX1G8mL9FshjjPqLsnjjD24f2SP6chG/IuCD8ojgE8T7EY4qireo?=
+ =?us-ascii?Q?Lpy4QaCqxBWowq1/7e0vR8ujj3xmCoQsM5krykj6wPKDoofaeAmMzseOo6fX?=
+ =?us-ascii?Q?6H4y4hdA2rOfb/yYT7+Nn8Z/3IX52MgD+xMKm+tFCQ+KP2dZpk3i2L/H9L7o?=
+ =?us-ascii?Q?pzXvdsHu28D/wVozQ1AbzpBzzylbTvaZbIPAvpRwjFkYiN4EhiCUzCQ9v+3c?=
+ =?us-ascii?Q?Ut92yU4y3MpDEdmfEHtyw9iaXnO3OMVpLFmufaZGrzWQFeD+8mki0034uAFj?=
+ =?us-ascii?Q?gcocB/aoaJEuP31z4bNYFlf6cEWh?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad7ab12a-da16-4772-578b-08df1bc9586f
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR19MB2303.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 12:26:10.3917
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR19MB278024
 
-Describe the OV02C10 front camera on CCI1 bus 1 at 0x36, fed by MCLK4
-at 19.2 MHz into CSIPHY4 over two D-PHY lanes at 400 MHz, the only
-link frequency the ov02c10 driver offers.
+The aw88399 sysst check requires BSTS (boost finished) to assert during
+startup. On hardware where the boost converter is bypassed via external
+power supply (EN_HVBAT in BSTCTRL10, i.e. register 0x69 bit 2), BSTS never
+asserts and init fails.
 
-The wiring comes from the Windows driver store. CAMF_RES_QRD.bin
-switches a single rail, GPIO 91, before releasing reset on GPIO 237;
-GPIOs 235 and 236 are muxed to aon_cci there, the CCI1 bus 1 pins, not
-rail enables. No camera resource file votes a PMIC rail for the
-sensor, so avdd and dvdd are left out and fall to dummy regulators.
-The CSI PHY file votes LDO1_C at 1.2 V and LDO2_C at 0.88 V for the
-PHYs, which is vdda-1p2 and vdda-0p9 here, as on the Inspiron 14 Plus.
-MCLK drive strength is 2 mA, as CAMP_RES_QRD.bin programs GPIO 100,
-and tested streaming.
+The vendor's generic Android driver (aw883xx, [1]) handles this by reading
+EN_HVBAT and conditionally skipping the BSTS check.
+When the original aw88399 driver was ported to the in-tree ASoC driver,
+this logic was not included.
 
-The module sits upside down in the lid: with both sensor flips on, the
-picture is upright and unmirrored, so rotation is 180.
+During the development of the HDA side codec driver, I worked around this
+with a per-instance bsts_unreliable flag set from the HDA scodec
+driver's per-model quirk table. While functional, this approach requires
+every new device where the boost converter is bypassed to carry a quirk
+entry, and prevents users from testing the driver on such devices via the
+model= alc269 module parameter without a custom kernel to add the entry.
 
-The white camera indicator on GPIO 110 becomes the sensor's privacy LED,
-so the V4L2 core lights it while the sensor streams and takes it away
-from sysfs; the comment waiting for a "camera on" trigger goes, and
-panic-indicator stays, as on the X13s.
+This series adds the correct hardware-based check from the vendor driver
+(patch 1) and removes the now-unnecessary workaround (patch 2),
+simplifying the code and removing a barrier to testing on new devices.
 
-Assisted-by: LLM
-Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
----
-v3: add the Signed-off-by missing from v2; no other change.
+[1] https://www.awinic.com/en/driver/AW88399QNR/594
 
-v2:
-- Drop the dependency paragraph from the commit message (Abel).
-- Say in the message that panic-indicator stays, as on the X13s.
-No change to the DT.
+Marco Giunta (2):
+  ASoC: aw88399: skip BSTS check when boost converter is bypassed
+  ASoC: aw88399: remove bsts_unreliable workaround
 
-v2: https://lore.kernel.org/all/20260926122032.4847-1-lnicoara@thinkoid.org/
-v1: https://lore.kernel.org/all/20260925181024.20352-1-lnicoara@thinkoid.org/
+ include/sound/aw88399.h                    |  6 +++-
+ sound/hda/codecs/side-codecs/aw88399_hda.c | 38 +++++-----------------
+ sound/hda/codecs/side-codecs/aw88399_hda.h |  1 -
+ sound/soc/codecs/aw88399-lib.c             | 18 ++++++----
+ 4 files changed, 24 insertions(+), 39 deletions(-)
 
-Depends on the x1e80100 camera DT series, v7:
-https://lore.kernel.org/all/20260917-x1e-camss-csi2-phy-dtsi-v7-0-1a63eb35838b@linaro.org/
-and on the CAMSS PHY API series, v20 patches 5/6 and 6/6, which read the
-CAMSS endpoint's data-lanes as 1-based:
-https://lore.kernel.org/all/20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org/
 
-Built and checked (dtbs_check, W=1) on next-20260925 with the DT series
-applied. Run-tested on 7.2.6 with the same board hunks, the CSI2 PHY
-driver v18, the PHY API series v20 and patches 1-4 of the DT series:
-the sensor streams at 30 fps through libcamera's software ISP, and the
-privacy LED lights while it streams and goes out after.
-
-Bryan, happy for you to fold this into your next version of the DT
-series if that is easier.
-
- .../dts/qcom/x1e80100-dell-xps13-9345.dts     | 120 +++++++++++++++++-
- 1 file changed, 118 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-index ad62350ba670..73f06fdcd138 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-@@ -10,6 +10,8 @@
- #include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "hamoa.dtsi"
-@@ -46,14 +48,13 @@ leds {
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&cam_indicator_en>;
- 
--		led-camera-indicator {
-+		privacy_led: led-camera-indicator {
- 			label = "white:camera-indicator";
- 			function = LED_FUNCTION_INDICATOR;
- 			color = <LED_COLOR_ID_WHITE>;
- 			gpios = <&tlmm 110 GPIO_ACTIVE_HIGH>;
- 			linux,default-trigger = "none";
- 			default-state = "off";
--			/* Reuse as a panic indicator until we get a "camera on" trigger */
- 			panic-indicator;
- 		};
- 	};
-@@ -151,6 +152,25 @@ linux,cma {
- 		};
- 	};
- 
-+	/*
-+	 * The one rail Windows switches for the front camera
-+	 * (CAMF_RES_QRD.bin: TLMM 91 high before reset release), the 1.8 V
-+	 * LDO enable on the sibling thena boards.
-+	 */
-+	vreg_cam_1p8: regulator-cam-1p8 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_CAM_1P8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 91 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&cam_ldo_en>;
-+		pinctrl-names = "default";
-+	};
-+
- 	vreg_edp_3p3: regulator-edp-3p3 {
- 		compatible = "regulator-fixed";
- 
-@@ -674,6 +694,78 @@ vreg_l3j_0p8: ldo3 {
- 	};
- };
- 
-+&camss {
-+	status = "okay";
-+};
-+
-+&camss_csiphy4_in_port {
-+	camss_csiphy4_inep: endpoint {
-+		data-lanes = <1 2>;
-+		remote-endpoint = <&csiphy4_out_ep>;
-+	};
-+};
-+
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c1 {
-+	camera@36 {
-+		compatible = "ovti,ov02c10";
-+		reg = <0x36>;
-+
-+		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&cam_rgb_default>;
-+		pinctrl-names = "default";
-+
-+		clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clock-rates = <19200000>;
-+
-+		orientation = <MEDIA_ORIENTATION_FRONT>;
-+		/* upside down in the lid; both sensor flips give an upright, unmirrored image */
-+		rotation = <180>;
-+
-+		leds = <&privacy_led>;
-+		led-names = "privacy";
-+
-+		/*
-+		 * Windows switches no rail for avdd or dvdd, only GPIO 91; they
-+		 * are left to dummy regulators rather than invented.
-+		 */
-+		dovdd-supply = <&vreg_cam_1p8>;
-+
-+		port {
-+			ov02c10_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <400000000>;
-+				remote-endpoint = <&csiphy4_in_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&csiphy4 {
-+	vdda-0p9-supply = <&vreg_l2c_0p8>;
-+	vdda-1p2-supply = <&vreg_l1c_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&csiphy4_in_port {
-+	csiphy4_in_ep: endpoint {
-+		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+		data-lanes = <1 2>;
-+		remote-endpoint = <&ov02c10_ep>;
-+	};
-+};
-+
-+&csiphy4_out_port {
-+	csiphy4_out_ep: endpoint {
-+		remote-endpoint = <&camss_csiphy4_inep>;
-+	};
-+};
-+
- &gpu {
- 	status = "okay";
- };
-@@ -1102,6 +1194,30 @@ cam_indicator_en: cam-indicator-en-state {
- 		bias-disable;
- 	};
- 
-+	cam_ldo_en: cam-ldo-en-state {
-+		pins = "gpio91";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	cam_rgb_default: cam-rgb-default-state {
-+		/* 2 mA streams; the sibling X1E boards use 16 */
-+		mclk-pins {
-+			pins = "gpio100";
-+			function = "cam_aon";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+
-+		reset-n-pins {
-+			pins = "gpio237";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
- 	edp_bl_en: edp-bl-en-state {
- 		pins = "gpio74";
- 		function = "gpio";
-
-base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
-prerequisite-patch-id: a7fbea14628b62a8de096dea420473b283010aba
-prerequisite-patch-id: 270d82b4c1760f1ec0a64a1b56c68ce26e6ae3b1
-prerequisite-patch-id: a12186bafac9b287c19fd719aeceb8ff1372dfbf
-prerequisite-patch-id: 4bc923fa59ee4c1ff68e64497f11e937c0ab3918
-prerequisite-patch-id: 4d000086386a3b344b1d6d345ab93d9b2b569615
-prerequisite-patch-id: 8cde6fd860c857dd7f3efce25970c88c783193b3
-prerequisite-patch-id: 1f22ff7fc93d0135e8759d45955bf998b037e11e
-prerequisite-patch-id: edb32e32f2b6be0b93f66d8da460c9f9de0c52e2
-prerequisite-patch-id: 09444936808e801a58c83356c9ae95415bacc83a
-prerequisite-patch-id: 348caa9cd0d1d70f181a47b40e2d75e8b25b5938
-prerequisite-patch-id: 1c4e4c457d8f95d8f5aaa2d93976c374b8282bf0
-prerequisite-patch-id: deedbed2643ca8a0f26bd87175d787d2f0c87417
+base-commit: 015201f85aca1832e07e2fd4f5a8cb3e74d300c0
 -- 
 2.55.0
 
