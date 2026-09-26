@@ -1,112 +1,145 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2642E736E;
-	Sat, 26 Sep 2026 00:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790382397; cv=pass; b=Y3+AZsTE8NfJBcCudKa5xuDkmKoft11L9uFbZR3OZbFSyek7/Zq06AQh5hFjGFQmJeFFjyamzAKqGDGYG5aF0awVF8Ii8fi1r1yFhP3AL0JWYu/nOuaa1Ga+KJI5cy/vLXknBqQb5Ejvs037PB2Yv1QQDNg8m+k7cDPhFSZ0/3c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790382397; c=relaxed/simple;
-	bh=hfK5OVz+2QcBJEGQp5s7j+sgirY7kP6SRjDdPIZcJd0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NmM3r1YnuDl+FIk2xwPi2BZz/WITZRREdWiwzsNx1ZVSahEpDZ/nOfre/cfLuCCwK7EhDq8de8yN96gBcqLNizDI4JQZdyr5Qs9X2DqNcHklJ/BEDU1pIoIoF/NrC576Yxy8+clXm87WjmC4zJehYqTJPynnidzoZAiElYIRE9M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=bevBJB7x; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B932C2360
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790382423; cv=none; b=aiYykDU6eUol/QB9F12pU4B8qhu4chd9imvwuRRFgqFCopbsc+zpkc+g5/mTO+KSMlWC8m0HnCrvcxSitke+75cUDkGPJ1+FQYMNizfD50sCru2uaCa69FkIBExbv3btSP5ImwlqOFw9Fq23hKZIQwLAGdMuA45B3zmUs6Q6fpk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790382423; c=relaxed/simple;
+	bh=eH+CnV08N2fIKSTwegC8XAg8UFfA280SaOjukzHDpMI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=alJgzzM4G0bmVjS7Eaug9ZyTHprB6xdp0gnIdrUTp8FlooL/hzxZUb8X5egg1opEm6IjFPCMZ42dQpZxgJ8+6SK858fZD2BRKnp9ToU5IMXcviU7gkq3yo2pOjats8VZzUMCUCZ9oLrMSBjlOrJ8DwFeamMiCorQpwy9PJvn3A4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CrX9TEgn; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="bevBJB7x"
-ARC-Seal: i=1; a=rsa-sha256; t=1790382372; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=O8LVy66XgkSSFMoP0QVFIy2/voxkfMS/j8bmyyeOFL2FSFq47dQFaPuaLL8zrL0kzrcX6IxxB2PGQ7o6RJSnfeaWB0ZAE4lbpM+2cIxhQyDLPir+WpmMrbwQ4mc2M8XabP6ErTsuGfEsUgXGdLKKFO0oMuTyXTByk/bZY8nAILQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790382372; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=rwYYr3dzkkUgcOzLC5zgNrkaVjsF9YoWpxyb4GV7h14=; 
-	b=bP4FXyfQcs6+IOAU1pEpJMGFkVnShDG9nnFqHpHUyFkxgXaSMS5qhiWC1hLtKpv8XvZVBdcNgy2qUwVBNv12i8ARniE7nS3d8loFgIfxuzK4uUmmItqUL8UpUy6awWyqta65q4UNYqzwFVo8VtsIdXTBkwGoLsnpyRMUe6WDcgg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
-	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790382372;
-	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
-	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
-	bh=rwYYr3dzkkUgcOzLC5zgNrkaVjsF9YoWpxyb4GV7h14=;
-	b=bevBJB7xQ7zmgyWERBazYF4tlCO0TlN0nmK5k3Dtkzeohub2uQN3pcwZinYAQwl+
-	OycGyGtctZcJvEetykgiioAGjOyElBEUTdkdWPY8QqBAdIZwSrTx5BptjtN10VWSXau
-	RpmAizxyGqP6NgVYVnCxIZSP07uZ6KxcYAltMFrI=
-Received: by smtp.zohomail.com with SMTPS id 1790382371486273.5271645872215;
-	Fri, 25 Sep 2026 17:26:11 -0700 (PDT)
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Subject: [PATCH v3 0/2] drm/tyr: safely write GpuInfo to userspace
-Date: Fri, 25 Sep 2026 17:26:08 -0700
-Message-Id: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CrX9TEgn"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49febbce9afso9046025e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 17:27:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790382420; x=1790987220; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J8AxWCgmThRPp+cgG4iRbScwCflkBmLtbfRDzGlnHd8=;
+        b=CrX9TEgnFHm8a6Bpyep06GMTWqecNes0h1Pbsf29BawjQzA9FFn7V9UAMrsyDYMLwN
+         D2yx6zEwpRDXBbh3p3QCcKwgT+moXe73+fDOq6+zWC5C35FqeIuakuC4gfgHMxWGW2ie
+         DP2DHW2oKzCCiqv2GUm59xXENha0YbBFasl0s1itJI1CMHCnHGFQnaGMxt5F21lMN2mr
+         MDXpj0yHsTLxsqGFecktMvwLpyKBaNNDHZZzC4GvqFag7t42KIdJxsITHwpG5MyJE58n
+         KoC6neHB2rf+KtsfVzyf6rsnetPHfxxV9fYaMbqAYTo1c0qtHCaFDum45pdh2uBU28jN
+         HC1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790382420; x=1790987220;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J8AxWCgmThRPp+cgG4iRbScwCflkBmLtbfRDzGlnHd8=;
+        b=N4voRYWpp4Ds5Nf6pJZI06JCztcJ+NO6RSii3CKOltOgjLt4GgVRWnXz6HG8uvF2fo
+         NNfcSEuKAPMrX+/q/jLEMQnJ5ORED/z1AdEykPyLy2BhoAiT0zfiPc/cpdMxxWydqxje
+         U5kd+Jm6n7kZ4nok5OVrQ29Ui27LSu4U4cVKVpUgNbanYzMdpKyV7Ui6rriAfLP6aBeO
+         By3GuRg0mghIQFQ55pvrvH/GfhuUJDOMk99RvNopkbhuoIAwmvINRrbzVfXxfLObA817
+         6YUyBGS272NzJWqtzztFmV9a2oczz+ou9S9+TczkieP+tDtO8ZzyDC4qczTyxq83UHzS
+         xiGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwF7HVfKluMEP2cUQbcA/HROuTX487iKpLGmtPucycLCdRDdk0FuZm0olThbVW2clREILhJ1SW0pY2Detw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFYmesUxFdvKggEZGOg4vzdsZYYgtqcYmPZHLqJ8Magb0u5TOT
+	9Az4Jd3M+MQKcHz5oJuXb4WEsGO4RcmYL3/BHeqKxHw9fcMLIxnZPSgJ
+X-Gm-Gg: AYBFou2p5so71qKVrnYQwXbJd4kq+A05QpLc9n+z0w79/gjc4IHpYIkRsfMMvlSUM/P
+	XAutK7SZIdrY1nVNyWshcGFuY9NDQgnVWpjRqzmyb9HbQ7i4v3utUJ12F+TiKWAH3MTkX13rHHq
+	Kk8wxQr9fAB2HjRJaRb/Z7bAD5qOL0eEuEcSOCKJZZ2im8pnrlW2cb6VT6gGObiSFt1/AU0RHh4
+	cfx2IJzgmTP05/9wivU8dZVU5Y/tiAdfZX1hMNG60AmyJ5/ckLasmuQ1dk1y0AoCJ3yqZQeg/AF
+	HNwIvgNr3kwR8eym+IcyUKSNkmOOV5WnLfFLtH7ZYKzvJyC+Z/XVmVVIoh5v4gPUw5Bbnwx10Vo
+	L3Am73rUF9hz7YvIg9PRm9nWSJ1Ih1YvdWKFjuvIE0tV4kcT7aboF4LTZffkog241wf+2wJbzug
+	urxr0i/WMA0g9olUH8YsT/NU072Su9pNjNLlSu6Xwn743ixbJlbOCTvBGMtexPbdoJjzpCwQdMI
+	JuCyi3IJa4dlSq5RSu+YJKmj+5y/MpBXXIYCWUbfjqnySh3bCwsJNQ+IVuPeYrPF6KVL9kOPJG+
+	rvIkwC5YDV/sV6WIETK9LXKrPJXayQSfX3OyiiGdIiThWv2JcdTVmQgkLtaoFjxnrl9ndXA0k60
+	lPCnG62Y=
+X-Received: by 2002:a05:600c:3b84:b0:49f:f099:6f98 with SMTP id 5b1f17b1804b1-49ff09970dcmr81426865e9.20.1790382419512;
+        Fri, 25 Sep 2026 17:26:59 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a9e5-4c01-21ce-313a-e569-2df7.310.pool.telefonica.de. [2a02:3100:a9e5:4c01:21ce:313a:e569:2df7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06cbdfasm89908685e9.14.2026.09.25.17.26.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 25 Sep 2026 17:26:59 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Ying Huang <huang.ying.caritas@gmail.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>,
+	Rae Moar <raemoar63@gmail.com>,
+	linux-kselftest@vger.kernel.org,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] resource, kunit: stop selecting GET_FREE_REGION
+Date: Sat, 26 Sep 2026 02:26:51 +0200
+Message-Id: <20260926002651.87267-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNUQuCMBDA8a8Se27h3WZpT32PiHDzpgNzstlIx
- O/e9CmC6OXgf3C/m1kgbymw825mnqIN1vUpxH7HdFv1DXFbp2aY4TErUXAleTM877Y3Lo3RqWm
- kwDXWMjdYilwXLN0Onox9be71lrq1YXR+2t5EWLf/xAgcuFIIJ2FKIICLdl1XKeerg3YPtqoRP
- yX5S8IkgcpyEqI2RSW/pWVZ3vuzyYIIAQAA
-X-Change-ID: 20260923-b4-gpu_info_intobytes-c2d45f2935c8
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1260;
- i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=hfK5OVz+2QcBJEGQp5s7j+sgirY7kP6SRjDdPIZcJd0=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFnbBZWUpBZ5CT44nXzjkuDzHE0hCW3/iqd1sVffKev0z
- q/5WFjbUcrCIMbFICumyHLW3qhHvOq9ke78/80wc1iZQIYwcHEKwETyHRgZTm6/eub3JtfvbzWC
- Wl2iq5fkL1w0Q4bzSCPTSu7/ep251YwMW9aLRGe52IYka2Rdj5waIlWRk/NEgu/O26nFvq9lTOS
- ZAA==
-X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
- fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
+Content-Transfer-Encoding: 8bit
 
-This series makes zerocopy and zerocopy_derive available to the UAPI crate
-so that zerocopy derive attributes can be added to generated UAPI
-bindings. It derives the zerocopy traits specifically for struct
-drm_panthor_gpu_info, allowing Tyr to safely copy this struct byte-for-
-byte into userspace memory.
+RESOURCE_KUNIT_TEST selects GET_FREE_REGION even when no other option
+needs it. Remove the selection to follow the dependency rule in
+Documentation/dev-tools/kunit/style.rst.
 
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Skip resource_test_region_intersects() when GET_FREE_REGION is disabled.
+GET_FREE_REGION has no prompt, so configurations without a production
+consumer cannot enable it. Most configurations will therefore skip this
+case; this is intentional. The union and intersection tests remain
+available.
+
+Since kunit_skip() does not return, the compiler drops the reference to
+the unavailable alloc_free_mem_region(), as in the CONFIG_OF_ADDRESS
+check in drivers/of/of_test.c.
+
+Fixes: 99185c10d5d9 ("resource, kunit: add test case for region_intersects()")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-Changes in v3:
-- split the commit into two to keep Tyr changes separate
-- Link to v2: https://lore.kernel.org/r/20260924-b4-gpu_info_intobytes-v2-1-1b05e33df8a4@collabora.com
+Validation:
+- Clang 22 and GCC 13 ARM builds pass with RESOURCE_KUNIT_TEST=y and =m
+  while GET_FREE_REGION=n. The built-in vmlinux images have no
+  alloc_free_mem_region symbol, and the modules have no undefined
+  reference to it.
+- Clang 22 x86_64 builds and QEMU 11.0.2 runs pass. GET_FREE_REGION=n
+  reports two passes and resource_test_region_intersects as SKIP;
+  DEVICE_PRIVATE=y enables GET_FREE_REGION and reports three passes.
 
-Changes in v2:
-- use zerocopy_derive::most_traits
-- Link to v1: https://lore.kernel.org/r/20260923-b4-gpu_info_intobytes-v1-1-bb2173f91e11@collabora.com
+ kernel/resource_kunit.c | 3 +++
+ lib/Kconfig.debug       | 1 -
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
----
-Deborah Brouwer (2):
-      rust: uapi: add zerocopy/zerocopy_derive
-      drm/tyr: safely write GpuInfo to userspace
+diff --git a/kernel/resource_kunit.c b/kernel/resource_kunit.c
+index 42785796f1db..9eeb2b1a85c0 100644
+--- a/kernel/resource_kunit.c
++++ b/kernel/resource_kunit.c
+@@ -225,6 +225,9 @@ static void resource_test_region_intersects(struct kunit *test)
+ 	struct resource *parent;
+ 	resource_size_t start;
+ 
++	if (!IS_ENABLED(CONFIG_GET_FREE_REGION))
++		kunit_skip(test, "CONFIG_GET_FREE_REGION is disabled");
++
+ 	/* Find an iomem_resource hole to hold test resources */
+ 	parent = alloc_free_mem_region(&iomem_resource, RES_TEST_TOTAL_SIZE, SZ_1M,
+ 				       "test resources");
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 134b15a44625..e7c5d5b5870f 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2776,7 +2776,6 @@ config RESOURCE_KUNIT_TEST
+ 	tristate "KUnit test for resource API" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT
+ 	default KUNIT_ALL_TESTS
+-	select GET_FREE_REGION
+ 	help
+ 	  This builds the resource API unit test.
+ 	  Tests the logic of API provided by resource.c and ioport.h.
 
- drivers/gpu/drm/tyr/file.rs |  2 +-
- drivers/gpu/drm/tyr/gpu.rs  | 12 ------------
- rust/Makefile               | 12 +++++++++---
- rust/bindgen_parameters     |  3 +++
- 4 files changed, 13 insertions(+), 16 deletions(-)
----
-base-commit: 896ed083362758b33c49a1b5e5a3423c5814d87e
-change-id: 20260923-b4-gpu_info_intobytes-c2d45f2935c8
-
-Best regards,
+base-commit: aa98230e410f0ed212b6788c46b1e4d49e0ff7ca
 -- 
-Deborah Brouwer <deborah.brouwer@collabora.com>
-
+2.39.5 (Apple Git-154)
