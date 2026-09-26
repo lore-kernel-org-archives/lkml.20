@@ -1,72 +1,75 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011036.outbound.protection.outlook.com [52.101.52.36])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013048.outbound.protection.outlook.com [40.107.201.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CA633688D
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BF7223DEA
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790386542; cv=fail; b=ZOv/VMCyfmvxMdVpcvIVp977GREoIBZAdO1tq6JH9QanI0aBa9LW1LLDBFkMBUposrBwrQebcsg53JgsMydbqBBR+7RO3s5ixBv5P3/lJrqF1Q15MpMNBGbKQErxM8RegwINbcZTCsc1lsQyv7VYk7ZVDuee50kG1s7rFzZ3z8M=
+	t=1790386540; cv=fail; b=QnOTfCT6GWSGINNpDRUfslitFo4qUGdhs08CE1gaU2VBPjZwPCQcAmbzFEadZfSzYIkUEB6fGPvcHSCgj9NJ3y8K04qUwBAedbIkpcUVitOrMKLPXTZIpwDwsPlPe1vmcpQn813eKWMQRRYhjkAh/b1H983ZS/+uyVN9nviHEFs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790386542; c=relaxed/simple;
-	bh=TDfc3qaubyPtXZy9C0AObgflGHcd3KYDJRGvSw9tbtw=;
+	s=arc-20240116; t=1790386540; c=relaxed/simple;
+	bh=PZ+3Tn/I17nCsdCWtrpcyzZ8uXwY+Iq3t3jwgM4G/pE=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JX4qHKhekWqu+ix4f4J5GqzuYN7wBllaT9MgUBuhatvPEKqVDdK1H2d/5WQSmfsZ4/NWUk53C/JCXwg1bU7PzMyh/VoiYzAFJ7/48u842/3Br0/aM1dF5UHMFxMBmt3T6rwwadvuIP1wdw6VC0Ei/UkOBGnpZaqbE4fO6QSKVEc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=B9EJPonK; arc=fail smtp.client-ip=52.101.52.36
+	 MIME-Version:Content-Type; b=CFoEa1LwpZvh/rXbouvK0fZfGSB3FPe/jvqcK0vXv+aY6wOAfWvnROKoCl9xrsw3lqWL9r67tPCK4lYEMJi8EPzHRlktzgKTSXZpp0hCqTJAc06eN3LzD8Zn7m7x74k/Ra9bz5vUdpc7brG266T0eN4J75sN2TAMeSzauzyX7qw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bkSNvXpa; arc=fail smtp.client-ip=40.107.201.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="B9EJPonK"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bkSNvXpa"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eo90L98bw2ngCYLBBUDOOuOE5oG1oac61lSYroJxmxzz9T88cV1oZDkqVXzIcjaajZGcwv6g7tKdPfcjksYTiuWBpLu3907IdAtMB7NYEZIff94kKcIqhUzmSrFujQGLptQo5AoLI/6mlQonhC1jcYIsvStZd0Pz/P5Gwynw5d0sWZuV6DQp6zI72xGd4U+aMYv0rtrKzOd2BqrIymRkXuWnlr29sKYktiRQoHikl6St953n35Y01i7FBsrNR+rxACVvjN4lJhw7UCvjig27opcpXx/iLGCv0wKxEjgR2ejaGgbMvf6BRNyLCiy8sBT13NpH4umJ48F4aWoivOZuWg==
+ b=WVJ2xgTpoSJbHpyGcX0APcnbWuLTdPPB6sLdqnhSe06niFZczYhqRyNfLnBVB5SPNGgEua1uvDm+zo78dVFZMHSAjSgeEzXGsoL5ZfDcD/punQ2dQ64TxLvx1fp5JrgzebUkByyV3vvM/5wEFsnxBfk+dQV0gunvG1obHeXH62k65BnaitAGoF7/t42w8pRNWgx7+SDcWkdwstYlYJgeUQ03NdU0dUb2XsXeJNHGFuD5mXfUv5lWmYv6lisXdTmiS5+xXmcZoHwMT7+5WPyhcuSFDc37qCKM7UFMVv6GEeq6EPio1vS7wulVxGPwQy1PixeZWKzRLO921zMyx6YI9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PHKUUYuDAGPzvYJGhUpXIkyUbtijIoGAOPzhnAF9Ncc=;
- b=caz243q/R55eiAAMHRaTZmwq3rXk+6kEMJ0e5vQeF14pJy43UU7R7UneDHqYs1g5egETnd+DhALzzOmqG7vKtKpHhIwWQxT7RfzgN7J/tzE0PQRLiGDI+121s/woNfmsU4KeCcf61ItuuwprojafjkgorPZik65BxZ+WT7bXKoaEZUkQkITha15s/gewIwQTeHlC0Y0yb4C+khYmvuHxQjNL+AE/rwPHkdOPCMEFKPXv4gHJWnigqG8AT/he9WrgKbix2yHl/3GTg8+OnTw/yvnnZo/teT8DsYqLzrt7dbH97zhfagwzsq6dRf5m0f1nMU+NMY5DDujwHnNXjlvvmA==
+ bh=nfyihi2ZXzbpa81Z4bcekk27XyIgb3bkavNSdXS/xxs=;
+ b=EbWvy0EUz08j4AOojPKuehhXsaSLdcKPjqyG/gAUSOzfWQQA4PfYweajJGPx4h6SaBkQv80r6n2ukYV5EX5OAgc/VQA/j0JGwKpGQYjm9wnFrdWmhDGGqBlUDMKYdVygnyW8JsKSYQrUNc9IsUUgE2j4aGRenH414eIRS8SGs8ArXgiFEdXDWAqtLaLvAisoIFGrOrP7bUo9r8TB5ajSxTM134r6dbHuTT+R1N/SMhH+QDOOZow02fRV8UrruFq61ZEAIhymWpTlyTPYeQYvSBuq0ajNfF5DDYmHTimY/zGCASHYAGsuWX6oOu5hQdkM27WsShnehw1ipR2AnTCcRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PHKUUYuDAGPzvYJGhUpXIkyUbtijIoGAOPzhnAF9Ncc=;
- b=B9EJPonKj3LJ0vgR7NW6Ibu46JkCo1hfC8Y737V1alsaFOuuLofyHLyM88rH7ZdVoRq/N/dmuL+n4ECIhaKyloHrFGawaCJxc7ADr6M7LtOP68p1gGVPan21VlXMmPtg+I/1WaOUClAlCsIdyjdUVfR/3vlPJ711DSSVmATQGfo=
-Received: from BN9PR03CA0783.namprd03.prod.outlook.com (2603:10b6:408:13f::8)
- by BL1PR12MB5755.namprd12.prod.outlook.com (2603:10b6:208:392::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
- 2026 01:35:34 +0000
-Received: from BN2PEPF0000A801.namprd02.prod.outlook.com
- (2603:10b6:408:13f:cafe::40) by BN9PR03CA0783.outlook.office365.com
- (2603:10b6:408:13f::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Sat,
- 26 Sep 2026 01:35:34 +0000
+ bh=nfyihi2ZXzbpa81Z4bcekk27XyIgb3bkavNSdXS/xxs=;
+ b=bkSNvXpaARIdB42+QCFVzAJz1PRXS4Y3dUtyUuiPexNhMljuWwSJDp+3StNeFtSWpJIryl8gJuQO4Gn+90opyshIWLw2JEfz7akuxgPesdREaJFl13aLpKy5e2c4Gc1SZScugy0Hs0eeow0K4fLHWGPTI3YFDeNlGzOkUygxcls=
+Received: from CH0PR13CA0028.namprd13.prod.outlook.com (2603:10b6:610:b1::33)
+ by DM4PR12MB6304.namprd12.prod.outlook.com (2603:10b6:8:a2::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.22; Sat, 26 Sep 2026 01:35:30 +0000
+Received: from BN5PEPF00046989.namprd02.prod.outlook.com
+ (2603:10b6:610:b1:cafe::7) by CH0PR13CA0028.outlook.office365.com
+ (2603:10b6:610:b1::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Sat,
+ 26 Sep 2026 01:35:30 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000A801.mail.protection.outlook.com (10.167.245.170) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN5PEPF00046989.mail.protection.outlook.com (10.167.245.38) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Sat, 26 Sep 2026 01:35:34 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.451.8 via Frontend Transport; Sat, 26 Sep 2026 01:35:29 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
- 2026 20:35:27 -0500
+ 2026 20:35:28 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 25 Sep
+ 2026 20:35:28 -0500
 Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 25 Sep 2026 20:35:26 -0500
+ Transport; Fri, 25 Sep 2026 20:35:27 -0500
 From: David Zhang <yidong.zhang@amd.com>
 To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
 	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
 	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
 	<mario.limonciello@amd.com>, Wendy Liang <wendy.liang@amd.com>
-Subject: [PATCH V0 12/21] accel/amdxdna: Decouple AIE4 doorbell and MSI-X notification transport hooks
-Date: Fri, 25 Sep 2026 18:34:39 -0700
-Message-ID: <20260926013448.3840921-13-yidong.zhang@amd.com>
+Subject: [PATCH V0 13/21] accel/amdxdna: Implement AIE4 kernel queue lifecycle and memory layout
+Date: Fri, 25 Sep 2026 18:34:40 -0700
+Message-ID: <20260926013448.3840921-14-yidong.zhang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260926013448.3840921-1-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
@@ -81,303 +84,642 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A801:EE_|BL1PR12MB5755:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa7e84be-7cfc-496b-5262-08df1b6e75a3
+X-MS-TrafficTypeDiagnostic: BN5PEPF00046989:EE_|DM4PR12MB6304:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91a1990c-f26e-4a5c-400a-08df1b6e7304
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|10067099003|56012099006|6133799003|18002099003|22082099003|4143699003|11063799006;
+	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|10067099003|4143699003|11063799006|56012099006|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	D50umme44NYlIMpIZFBCiUCh2lESv8NXnRlSA0OfkrSVMYbSLG6sT/MZtcbOMFAbYY82QgDBZM4Rzvqxwu4qCdmxnhIFcHOIIsP2A/iL7HbwJtM6vEJtEOHQjQlZ6cRogiPtKtaf1AaFaptPCe6NlRLPH4eC/MYR0+2i5WbpLHDs3ZX2rqlhzYs6Xwur1rNi0SNmEkwkr8mCrgGmg6yoEvQnX34m1ctkBqeHojd/EYll21chLxtX3pEs364/X02BiR+e7wX9dBb2b4zc/FvkEdjcS1SqnKoOUXRI7OpoS353AQCYeuk4ldp1UNKhhL90DlofOKc9d6RYfYE26/YWZuXa2LQSdX0qJQyWhbKLrQOiGHTWMIQvPudue1ezoVayngxqtNxfNd+N8WNl8J2nPbqZA0zBeTts7Z05M0Do5TCaKcco9FPydwBj9GVPs2L41i6Rc7hR8jnKsLhiZ/BdESXVA+GFW6BePegwez5/hB1tKdldZwTD9s8wHcgXho0d+bPgCRKQ1991jKyFR3WK0kRLDN1w6v2JqbPBUyhjf5zGNm9XUpfjMqBbwhWxpM9wigRhD5q7pH9IaxsqNA23vCCle/hDeSS3WAA5GLvn7yw1pZf61t2ZEIU5dlaSie4+6yHhpDTiz57YklAssTca1UMI/jAMgVF5FO0DJ/pMeUnt+YvUbi63496cPZRKYmGlXnljQwowM7Oyuqbwm9Z8vg==
+	qE7DhsUrBmyDAtEYAy2Uizg4Vzt2jONvinwt2ESh1xGvtmH8g1561QANxieQ4PoAN8ujdKWCm6kgDHHWKwcZsdorq7vRCzEUABzqDvos8FyXBWM4ogC02V/OIv+9V7XY5qqQRAoNq+Bm3deVJR2S+r50W0J7WTgRwaPaLQ5Uv4cdoQEPlaGbPpUTsMDZ4DFdZba9vd+PvR9m0Qn8OWV+9W2oWEO8dQe4UMNpdsG7PNKuLr35WaXY2K1HyMxxu94pjia5xkDnZPKe4oIWNszY/qii3FWSl5YLukmIk0G+1JZ/eivLOotvCI+bdO5TmBcKx5E5plXrgdOHVLLu5GR2vkVRoabvVZwpWxiBbTU7pevA1bi9h617y2auCMugsyUgsoN9b1CwhKXHNnOVrEY5NmS3lqGpxcnM3iqo5tnsSrNrbJQOwvQ+o7585GKiXmvA75PzTxbm7RQPOXzPeFqoDXZj0S92cQXhC22GKutmmKy21BmBhuItJdxNCw+8TpifeFHIjYSeI7dmKuIBbzdUB4LOLYhu8CK7SmWkm3NoIcnxs2Avqqx5jW7RsjjBRAyoCADVZjcTlzLZrqFjnCcRTNpq9faQjISGBhqCosNEWSPuIaCynxcPGOJpai7r8b+rhSRmlh245vsnoRHbrL8src8NqophCqVVrnrCeDhthtVKF+T3dZ1CUbjTMW+mV15oRpuD6lw7fRj4W0UwKZPcLg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(10067099003)(4143699003)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	URBpBfa+Pej4piKem7Vo8bM14DOIM1yC+3QaSBnAdQHpa/TGAGwBn8M8H+NxAHuX8x3TJ0wWS4+G7Btq1gsBoWjrrRdCfqhMYslfsIqZOBEpyyXHZPoVJX31nj0pcvkOvzWDIHkQiZ1CfF40bxyF3ci4y7tznQRVe6Fy4z/N9utYPzq7HF68reLjqPKtKbmhOwZDjtxtVMhhqW8eMRypOAoCWwZUCdbvNj0CHaHLIzgUph9NbUR29K80TKZRK+Pzx0mm3xqAVgOdSckEBf65Y9v0BWuIdC8T4WiwucyhR4scUspNk7syEzZxU3guqq4SlkaRshe1jQ3hWJuwoboc7Gwpr8cnMO8I+54T3rwfCwML/CqqIdevPrSyz5DfAEbj6ACe6/sfZpDkjmKJRVOq9EpyocMMcN5uuvbOBNK1M/sd8r77IkFr42iZSO0Hefzo
+	jfIGSoCgB6JJgx9TtCfm432FGVekoZy8ZiDbinHPtZWYQNBS1oirO3lRCe2ssPk0O3YVphabgSKTmKTCENmEDk3j3zUULEjEVOLX1x3BWOWEMOUkCyoRtv6VnerPqqlITnbdpNDcGnweCPBAagNp4csZlCOBhoLBkNbyTwcZ8UuO5loS1uN3+uN7KuAWXhz1LPct+kWNlo8UyYK9OMQsKuKyQBLcmuIqVZSKDV2SNxfUIsYl9w1Cfa2PpV1YsgYqASP4RlX0qBpt5yGop+0xKc+T7XPbP7CbzVncJL5km1VKm9DRvCX/qWVDnTt1kVdQdmfSZLWY2ZEP6tV0GTpObqOuEeJsLD7oWlE4NnKSfAD8cvRZVIkVPd7xVquS7nuslPG1bnmHwYUjUmu7VNSTdZQqIuVgojrdYQ1SQIn3LgQOEgbn3oBmlb6xkApxau4P
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:35:34.3505
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 01:35:29.9485
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa7e84be-7cfc-496b-5262-08df1b6e75a3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91a1990c-f26e-4a5c-400a-08df1b6e7304
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A801.namprd02.prod.outlook.com
+	BN5PEPF00046989.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5755
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6304
 
-Separate PCI-specific doorbell and interrupt notification handling from
-the transport-neutral context code:
-- Move MSI-X ISR and registration out of aie4_ctx.c into transport hooks
-  aie4_request_notification() and aie4_free_notification() in aie4_pci.c.
-- Add transport hooks aie4_doorbell_setup() and aie4_doorbell_ring() to
-  validate the doorbell offset against the mapped doorbell BAR and ring
-  the hardware doorbell.
-- Map the doorbell BAR (BAR 2) via pcim_iomap() in aie4m_pcidev_init()
-  and record ndev->doorbell_base. The doorbells are used exclusively by
-  kernel submit driver on VF and classic devices. PF devices only perform
-  management functions, and never host hardware contexts, thus never use
-  the doorbells.
+Initialize kernel-mode submission required buffers, workqueue, and
+hardware contexts:
+- Update queue definition that is being used to send requests.
+- Add job workqueue for pending and running jobs.
+- Add mutex protection for each io.
+- Initialize queue with direct and indirect packet, format queue header.
+- Add kernel-mode submission required steps in hwctx create/destroy.
+- Add aie4_get_cert_comp() to safely acquire a reference to the
+  per-hwctx completion tracker under io_lock in aie4_cmd_wait() before
+  waiting on the queue, preventing race conditions with
+  aie4_hwctx_destroy().
 
+Also change aie4_lookup_cert_comp() to return ERR_PTR() instead of NULL
+on failure so callers can distinguish error causes, drop the now-stale
+drm_WARN_ON() lock assertion in cert_comp_release() (cert_comp_release()
+no longer requires cert_comp_lock to be held by all callers), and add
+enum aie4_hwctx_flags, a currently-unused flags parameter threaded
+through aie4_hwctx_destroy() for use by later patches.
+
+Co-developed-by: Max Zhen <max.zhen@amd.com>
+Signed-off-by: Max Zhen <max.zhen@amd.com>
 Co-developed-by: Wendy Liang <wendy.liang@amd.com>
 Signed-off-by: Wendy Liang <wendy.liang@amd.com>
 Signed-off-by: David Zhang <yidong.zhang@amd.com>
 ---
- drivers/accel/amdxdna/aie4_ctx.c    | 29 +++--------
- drivers/accel/amdxdna/aie4_pci.c    | 79 +++++++++++++++++++++++++++++
- drivers/accel/amdxdna/aie4_pci.h    | 18 +++++++
- drivers/accel/amdxdna/amdxdna_ctx.h |  2 +
- 4 files changed, 107 insertions(+), 21 deletions(-)
+ drivers/accel/amdxdna/aie4_ctx.c        | 225 ++++++++++++++++++++----
+ drivers/accel/amdxdna/aie4_host_queue.h |  65 +++++++
+ drivers/accel/amdxdna/aie4_pci.h        |  54 ++++++
+ 3 files changed, 311 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
-index 90da4e8c4f54..fba4ef25ffbe 100644
+index fba4ef25ffbe..af52a1ea45e8 100644
 --- a/drivers/accel/amdxdna/aie4_ctx.c
 +++ b/drivers/accel/amdxdna/aie4_ctx.c
-@@ -21,18 +21,9 @@
+@@ -21,6 +21,13 @@
  #include "amdxdna_mailbox_helper.h"
  #include "amdxdna_pci_drv.h"
  
--static irqreturn_t cert_comp_isr(int irq, void *p)
--{
--	struct cert_comp *cert_comp = p;
--
--	wake_up_all(&cert_comp->waitq);
--	return IRQ_HANDLED;
--}
--
++#define CTX_INVALID_ID			(~0U)
++#define CTX_INVALID_DOORBELL		AMDXDNA_INVALID_DOORBELL_OFFSET
++
++static void job_worker(struct work_struct *work)
++{
++}
++
  static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32 msix_idx)
  {
  	struct amdxdna_dev *xdna = ndev->aie.xdna;
--	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
- 	struct cert_comp *cert_comp;
- 	int ret;
+@@ -37,7 +44,7 @@ static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32
  
-@@ -50,32 +41,27 @@ static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32
+ 	cert_comp = kzalloc_obj(*cert_comp);
+ 	if (!cert_comp)
+-		return NULL;
++		return ERR_PTR(-ENOMEM);
  
  	cert_comp->ndev = ndev;
  	cert_comp->msix_idx = msix_idx;
-+	cert_comp->irq = -ENOENT;
- 	init_waitqueue_head(&cert_comp->waitq);
- 	kref_init(&cert_comp->kref);
- 
--	ret = pci_irq_vector(pdev, cert_comp->msix_idx);
--	if (ret < 0) {
--		XDNA_ERR(xdna, "MSI-X idx %u is invalid, ret:%d", msix_idx, ret);
--		goto free_cert_comp;
--	}
--	cert_comp->irq = ret;
--
--	ret = request_irq(cert_comp->irq, cert_comp_isr, 0, "xdna_hsa", cert_comp);
-+	/* Transport-specific: PCI wires an MSI-X irq, platform an IPI callback. */
-+	ret = aie4_request_notification(cert_comp);
- 	if (ret) {
--		XDNA_ERR(xdna, "request irq %d failed %d", cert_comp->irq, ret);
-+		XDNA_ERR(xdna, "request notification for msix idx %u failed %d", msix_idx, ret);
- 		goto free_cert_comp;
- 	}
- 
- 	ret = xa_err(xa_store(&ndev->cert_comp_xa, msix_idx, cert_comp, GFP_KERNEL));
- 	if (ret) {
--		XDNA_ERR(xdna, "store cert_comp for msix idx %d failed %d", msix_idx, ret);
-+		XDNA_ERR(xdna, "store cert_comp for msix idx %u failed %d", msix_idx, ret);
- 		goto free_irq;
- 	}
- 
- 	return cert_comp;
- 
- free_irq:
--	free_irq(cert_comp->irq, cert_comp);
-+	aie4_free_notification(cert_comp);
+@@ -64,7 +71,7 @@ static struct cert_comp *aie4_lookup_cert_comp(struct amdxdna_dev_hdl *ndev, u32
+ 	aie4_free_notification(cert_comp);
  free_cert_comp:
  	kfree(cert_comp);
- 	return NULL;
-@@ -89,7 +75,7 @@ static void cert_comp_release(struct kref *kref)
- 	drm_WARN_ON(&ndev->aie.xdna->ddev, !mutex_is_locked(&ndev->cert_comp_lock));
- 
- 	xa_erase(&ndev->cert_comp_xa, cert_comp->msix_idx);
--	free_irq(cert_comp->irq, cert_comp);
-+	aie4_free_notification(cert_comp);
- 	kfree(cert_comp);
+-	return NULL;
++	return ERR_PTR(ret);
  }
  
-@@ -99,6 +85,7 @@ static void aie4_put_cert_comp(struct cert_comp *cert_comp)
+ static void cert_comp_release(struct kref *kref)
+@@ -72,8 +79,6 @@ static void cert_comp_release(struct kref *kref)
+ 	struct cert_comp *cert_comp = container_of(kref, struct cert_comp, kref);
+ 	struct amdxdna_dev_hdl *ndev = cert_comp->ndev;
  
- 	ndev = cert_comp->ndev;
+-	drm_WARN_ON(&ndev->aie.xdna->ddev, !mutex_is_locked(&ndev->cert_comp_lock));
+-
+ 	xa_erase(&ndev->cert_comp_xa, cert_comp->msix_idx);
+ 	aie4_free_notification(cert_comp);
+ 	kfree(cert_comp);
+@@ -81,20 +86,42 @@ static void cert_comp_release(struct kref *kref)
+ 
+ static void aie4_put_cert_comp(struct cert_comp *cert_comp)
+ {
+-	struct amdxdna_dev_hdl *ndev;
++	struct amdxdna_dev_hdl *ndev = cert_comp->ndev;
+ 
+-	ndev = cert_comp->ndev;
  	guard(mutex)(&ndev->cert_comp_lock);
-+
+ 
  	kref_put(&cert_comp->kref, cert_comp_release);
  }
  
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index 1e2b120c4972..7b36bd001b64 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -14,6 +14,7 @@
+-static int aie4_msg_destroy_context(struct amdxdna_dev_hdl *ndev, u32 hw_context_id)
++static struct cert_comp *aie4_get_cert_comp(struct amdxdna_hwctx *hwctx)
++{
++	struct amdxdna_hwctx_priv *priv = hwctx->priv;
++	struct cert_comp *cert_comp;
++
++	/*
++	 * priv->cert_comp is the per-hwctx field, guarded by io_lock. A non-NULL
++	 * value means this ctx still holds its link-ref, so the object is alive and
++	 * the kref_get here cannot race the free.
++	 */
++	guard(mutex)(&priv->io_lock);
++
++	cert_comp = READ_ONCE(priv->cert_comp);
++	if (cert_comp)
++		kref_get(&cert_comp->kref);
++
++	return cert_comp;
++}
++
++static void aie4_msg_destroy_context(struct amdxdna_dev_hdl *ndev, u32 hw_context_id)
+ {
+ 	DECLARE_AIE_MSG(aie4_msg_destroy_hw_context, AIE4_MSG_OP_DESTROY_HW_CONTEXT);
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
++	int ret;
+ 
+ 	req.hw_context_id = hw_context_id;
+-	return aie_send_mgmt_msg_wait(&ndev->aie, &msg);
++	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
++	if (ret)
++		XDNA_WARN(xdna, "destroy ctx id %d failed %d", hw_context_id, ret);
+ }
+ 
+ static u8 aie4_parse_priority_to_dev(u32 priority)
+@@ -113,19 +140,20 @@ static u8 aie4_parse_priority_to_dev(u32 priority)
+ 	}
+ }
+ 
+-static int aie4_hwctx_create(struct amdxdna_hwctx *hwctx)
++int aie4_hwctx_create(struct amdxdna_hwctx *hwctx)
+ {
+ 	DECLARE_AIE_MSG(aie4_msg_create_hw_context, AIE4_MSG_OP_CREATE_HW_CONTEXT);
+ 	struct amdxdna_client *client = hwctx->client;
+ 	struct amdxdna_hwctx_priv *priv = hwctx->priv;
+-	struct amdxdna_dev *xdna = hwctx->client->xdna;
++	struct amdxdna_dev *xdna = client->xdna;
+ 	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
++	struct cert_comp *cert_comp;
+ 	int ret;
+ 
+ 	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
+ 
+ 	if (!ndev->partition_id || !hwctx->num_tiles) {
+-		XDNA_ERR(xdna, "invalid request partition_id %d, num_tiles %d",
++		XDNA_ERR(xdna, "invalid request partition_id %u, num_tiles %d",
+ 			 ndev->partition_id, hwctx->num_tiles);
+ 		return -EINVAL;
+ 	}
+@@ -134,7 +162,6 @@ static int aie4_hwctx_create(struct amdxdna_hwctx *hwctx)
+ 	req.request_num_tiles = hwctx->num_tiles;
+ 	req.pasid = aie4_msg_pasid(client);
+ 	req.priority_band = aie4_parse_priority_to_dev(hwctx->qos.priority);
+-
+ 	req.hsa_addr_high = upper_32_bits(amdxdna_gem_dev_addr(priv->umq_bo));
+ 	req.hsa_addr_low = lower_32_bits(amdxdna_gem_dev_addr(priv->umq_bo));
+ 
+@@ -148,72 +175,166 @@ static int aie4_hwctx_create(struct amdxdna_hwctx *hwctx)
+ 	}
+ 
+ 	XDNA_DBG(xdna, "resp msix: %d, ctx id: %d, doorbell: %d",
+-		 resp.job_complete_msix_idx,
+-		 resp.hw_context_id,
++		 resp.job_complete_msix_idx, resp.hw_context_id,
+ 		 resp.doorbell_offset);
+ 
+ 	/* setup interrupt completion per msix index */
+-	priv->cert_comp = aie4_lookup_cert_comp(ndev, resp.job_complete_msix_idx);
+-	if (!priv->cert_comp) {
++	cert_comp = aie4_lookup_cert_comp(ndev, resp.job_complete_msix_idx);
++	if (IS_ERR(cert_comp)) {
+ 		aie4_msg_destroy_context(ndev, resp.hw_context_id);
+-		return -EINVAL;
++		return PTR_ERR(cert_comp);
+ 	}
+ 
+ 	priv->hw_ctx_id = resp.hw_context_id;
+-	hwctx->doorbell_offset = AMDXDNA_INVALID_DOORBELL_OFFSET;
++
++	hwctx->fw_ctx_id = resp.hw_context_id;
++	hwctx->start_col = 0;
++	hwctx->num_col = ndev->total_col;
++
++	/*
++	 * Kernel-mode submission: set up this context's doorbell kick target
++	 * (transport-specific, via aie4_doorbell_setup) so the driver can ring
++	 * it, and keep it out of user space (hand back an invalid offset so the
++	 * doorbell cannot be mmap'd/rung by the user).
++	 */
++	mutex_lock(&priv->io_lock);
++	ret = aie4_doorbell_setup(hwctx, &resp);
++	if (ret) {
++		mutex_unlock(&priv->io_lock);
++		aie4_put_cert_comp(cert_comp);
++		aie4_msg_destroy_context(ndev, resp.hw_context_id);
++		priv->hw_ctx_id = CTX_INVALID_ID;
++		hwctx->fw_ctx_id = -1;
++		return ret;
++	}
++	WRITE_ONCE(priv->cert_comp, cert_comp);
++	mutex_unlock(&priv->io_lock);
++	hwctx->doorbell_offset = CTX_INVALID_DOORBELL;
++	wake_up_all(&priv->job_list_wq);
+ 
+ 	return 0;
+ }
+ 
+-static void aie4_hwctx_destroy(struct amdxdna_hwctx *hwctx)
++void aie4_hwctx_destroy(struct amdxdna_hwctx *hwctx, enum aie4_hwctx_flags flags)
+ {
+ 	struct amdxdna_client *client = hwctx->client;
+ 	struct amdxdna_hwctx_priv *priv = hwctx->priv;
+ 	struct amdxdna_dev *xdna = client->xdna;
+ 	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
++	struct cert_comp *cert_comp;
+ 
+ 	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
+ 
+-	aie4_msg_destroy_context(ndev, priv->hw_ctx_id);
+-	aie4_put_cert_comp(priv->cert_comp);
++	mutex_lock(&priv->io_lock);
++	cert_comp = priv->cert_comp;
++	WRITE_ONCE(priv->cert_comp, NULL);
++	mutex_unlock(&priv->io_lock);
++
++	if (cert_comp) {
++		wake_up_all(&cert_comp->waitq);
++		aie4_put_cert_comp(cert_comp);
++	}
++
++	if (flags != AIE4_HWCTX_DISCONNECT)
++		aie4_msg_destroy_context(ndev, priv->hw_ctx_id);
++
++	priv->hw_ctx_id = CTX_INVALID_ID;
++	hwctx->fw_ctx_id = -1;
++	hwctx->doorbell_offset = CTX_INVALID_DOORBELL;
++
++	cancel_work_sync(&priv->job_work);
+ }
+ 
+ static void aie4_hwctx_umq_fini(struct amdxdna_hwctx *hwctx)
+ {
+ 	if (hwctx->priv && hwctx->priv->umq_bo)
+-		amdxdna_gem_put_obj(hwctx->priv->umq_bo);
++		drm_gem_object_put(to_gobj(hwctx->priv->umq_bo));
+ }
+ 
+ static int aie4_hwctx_umq_init(struct amdxdna_hwctx *hwctx)
+ {
++	const size_t indir_pkts_sz = CTX_MAX_CMDS * HSA_MAX_LEVEL1_INDIRECT_ENTRIES *
++				     sizeof(struct host_indirect_packet_data);
++	const size_t pkts_sz = CTX_MAX_CMDS * sizeof(struct host_queue_packet);
+ 	struct amdxdna_hwctx_priv *priv = hwctx->priv;
+ 	struct amdxdna_dev *xdna = hwctx->client->xdna;
+ 	struct amdxdna_gem_obj *umq_bo;
+ 	struct host_queue_header *qhdr;
++	u64 data_dev_addr;
++	void *umq_va;
+ 	int ret;
++	int i;
+ 
++	/*
++	 * The HSA queue lives in a user-allocated BO (umq_bo_hdl) in both user- and
++	 * kernel-mode submission; the driver does not allocate it privately. Under
++	 * PASID/SVA the device reaches the queue through the submitting process's
++	 * own page tables, so it must have a user virtual address - a kernel-private
++	 * buffer would be unreachable by the device.
++	 */
+ 	umq_bo = amdxdna_gem_get_obj(hwctx->client, hwctx->umq_bo_hdl, AMDXDNA_BO_SHARE);
+ 	if (!umq_bo) {
+ 		XDNA_ERR(xdna, "cannot find umq_bo handle %d", hwctx->umq_bo_hdl);
+ 		return -ENOENT;
+ 	}
+-	if (umq_bo->mem.size < sizeof(*qhdr)) {
+-		XDNA_ERR(xdna, "umq_bo size is too small");
++
++	/*
++	 * Kernel-mode submission: the driver fills the host queue and rings the
++	 * doorbell, so the user umq_bo must hold the header plus the direct and
++	 * level-1 indirect packet arrays.
++	 */
++	if (umq_bo->mem.size < sizeof(*qhdr) ||
++	    (umq_bo->mem.size < sizeof(*qhdr) + pkts_sz + indir_pkts_sz)) {
++		XDNA_ERR(xdna, "umq_bo size %zu is too small",
++			 (size_t)umq_bo->mem.size);
+ 		ret = -EINVAL;
+ 		goto put_umq_bo;
+ 	}
+ 
+-	/* get kva address for host queue read index and write index */
+-	qhdr = amdxdna_gem_vmap(umq_bo);
+-	if (!qhdr) {
++	umq_va = amdxdna_gem_vmap(umq_bo);
++	if (!umq_va) {
+ 		ret = -ENOMEM;
+ 		goto put_umq_bo;
+ 	}
++	qhdr = umq_va;
+ 
+ 	priv->umq_bo = umq_bo;
+ 	priv->umq_read_index = &qhdr->read_index;
+ 	priv->umq_write_index = &qhdr->write_index;
+ 
++	/*
++	 * The queue content is driver-owned and never trusted from user space
++	 * (only read_index is read back to detect completion). Lay out the
++	 * direct packets right after the header and the indirect packets after
++	 * them, and publish the same base via data_address for CERT.
++	 */
++	data_dev_addr = amdxdna_gem_dev_addr(umq_bo) + sizeof(*qhdr);
++	priv->umq_pkts = umq_va + sizeof(*qhdr);
++	priv->umq_indirect_pkts = umq_va + sizeof(*qhdr) + pkts_sz;
++	priv->umq_indirect_pkts_dev_addr = data_dev_addr + pkts_sz;
++
++	/*
++	 * Only the header + direct/indirect packet regions are driver-owned and
++	 * used for kernel submission; the size check above guarantees they fit.
++	 * Clear just that range, not the whole user-sized BO, so an oversized
++	 * umq_bo cannot force a huge memset (and page faults) under dev_lock.
++	 */
++	memset(umq_va, 0, sizeof(*qhdr) + pkts_sz + indir_pkts_sz);
++	priv->write_index = QUEUE_INDEX_START;
++	qhdr->read_index = QUEUE_INDEX_START;
++	qhdr->write_index = QUEUE_INDEX_START;
++	qhdr->version.major = HOST_QUEUE_MAJOR_VERSION;
++	qhdr->version.minor = HOST_QUEUE_MINOR_VERSION;
++	qhdr->capacity = CTX_MAX_CMDS;
++	qhdr->data_address = data_dev_addr;
++	for (i = 0; i < CTX_MAX_CMDS; i++)
++		priv->umq_pkts[i].pkt_header.common_header.opcode = OPCODE_EXEC_BUF;
++	for (i = 0; i < CTX_MAX_CMDS * HSA_MAX_LEVEL1_INDIRECT_ENTRIES; i++) {
++		priv->umq_indirect_pkts[i].header.opcode = OPCODE_EXEC_BUF;
++		priv->umq_indirect_pkts[i].header.count = sizeof(struct exec_buf);
++		priv->umq_indirect_pkts[i].header.distribute = 1;
++	}
++
+ 	return 0;
+ 
+ put_umq_bo:
+@@ -225,28 +346,56 @@ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx)
+ {
+ 	struct amdxdna_client *client = hwctx->client;
+ 	struct amdxdna_dev *xdna = client->xdna;
++	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
+ 	struct amdxdna_hwctx_priv *priv;
+ 	int ret;
+ 
++	if (!AIE_FEATURE_ON(&ndev->aie, AIE4_HSA_COMMAND))
++		return -EOPNOTSUPP;
++
+ 	priv = kzalloc_obj(*priv);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 	hwctx->priv = priv;
++	priv->hwctx = hwctx;
++
++	/*
++	 * io_lock guards the per-hwctx cert_comp binding (the connected sentinel)
++	 * for every ctx, so initialize it unconditionally.  kzalloc left cert_comp
++	 * NULL: disconnected until create links it.
++	 */
++	mutex_init(&priv->io_lock);
++
++	INIT_LIST_HEAD(&priv->pending_job_list);
++	INIT_LIST_HEAD(&priv->running_job_list);
++	init_waitqueue_head(&priv->job_list_wq);
++	INIT_WORK(&priv->job_work, job_worker);
+ 
+ 	ret = aie4_hwctx_umq_init(hwctx);
+ 	if (ret)
+-		goto free_priv;
++		goto destroy_lock;
+ 
+ 	ret = aie4_hwctx_create(hwctx);
+ 	if (ret)
+ 		goto umq_fini;
+ 
+-	XDNA_DBG(xdna, "hwctx %s init completed", hwctx->name);
++	priv->job_work_q = alloc_ordered_workqueue("aie4_job_%d_%d", 0,
++						   client->pid, hwctx->fw_ctx_id);
++	if (!priv->job_work_q) {
++		XDNA_ERR(xdna, "Create job_work_q failed");
++		ret = -ENOMEM;
++		goto destroy_ctx;
++	}
++
++	XDNA_DBG(xdna, "hwctx %d.%d init completed", client->pid, hwctx->fw_ctx_id);
+ 	return 0;
+ 
++destroy_ctx:
++	aie4_hwctx_destroy(hwctx, AIE4_HWCTX_NORMAL);
+ umq_fini:
+ 	aie4_hwctx_umq_fini(hwctx);
+-free_priv:
++destroy_lock:
++	mutex_destroy(&priv->io_lock);
+ 	kfree(priv);
+ 	hwctx->priv = NULL;
+ 	return ret;
+@@ -254,8 +403,14 @@ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx)
+ 
+ void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx)
+ {
+-	aie4_hwctx_destroy(hwctx);
++	struct amdxdna_hwctx_priv *priv = hwctx->priv;
++
++	aie4_hwctx_destroy(hwctx, AIE4_HWCTX_ERROR);
++	cancel_work_sync(&priv->job_work);
++	if (priv->job_work_q)
++		destroy_workqueue(priv->job_work_q);
+ 	aie4_hwctx_umq_fini(hwctx);
++	mutex_destroy(&priv->io_lock);
+ 	kfree(hwctx->priv);
+ }
+ 
+@@ -299,10 +454,12 @@ static inline bool check_cmd_done(struct amdxdna_hwctx *hwctx, u64 seq)
+ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout)
+ {
+ 	unsigned long wait_jifs = MAX_SCHEDULE_TIMEOUT;
+-	struct amdxdna_hwctx_priv *priv = hwctx->priv;
+-	struct cert_comp *cert_comp = priv->cert_comp;
++	struct cert_comp *cert_comp = aie4_get_cert_comp(hwctx);
+ 	long ret;
+ 
++	if (!cert_comp)
++		return -EAGAIN;
++
+ 	if (timeout)
+ 		wait_jifs = msecs_to_jiffies(timeout);
+ 
+@@ -313,5 +470,7 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout)
+ 	if (!ret)
+ 		ret = -ETIME;
+ 
++	aie4_put_cert_comp(cert_comp);
++
+ 	return ret <= 0 ? ret : 0;
+ }
+diff --git a/drivers/accel/amdxdna/aie4_host_queue.h b/drivers/accel/amdxdna/aie4_host_queue.h
+index 97e535939b32..6876811b05f2 100644
+--- a/drivers/accel/amdxdna/aie4_host_queue.h
++++ b/drivers/accel/amdxdna/aie4_host_queue.h
+@@ -6,9 +6,14 @@
+ #ifndef _AIE4_HOST_QUEUE_H_
+ #define _AIE4_HOST_QUEUE_H_
+ 
++#include <linux/bits.h>
+ #include <linux/types.h>
+ 
+ #define CTX_MAX_CMDS                    32
++#define HSA_MAX_LEVEL1_INDIRECT_ENTRIES	6
++#define QUEUE_INDEX_START		0
++#define HOST_QUEUE_MAJOR_VERSION	1
++#define HOST_QUEUE_MINOR_VERSION	0
+ 
+ /*
+  * Host queue header layout.
+@@ -31,4 +36,64 @@ struct host_queue_header {
+ 	__u64 data_address; /* The xdna dev addr for payload. */
+ } __packed;
+ 
++/* Payload for an OPCODE_EXEC_BUF host-queue packet (single command). */
++struct exec_buf {
++	u32 dtrace_buf_host_addr_low;
++	u32 dpu_control_code_host_addr_low;
++	u32 dpu_control_code_host_addr_high;
++	u16 args_len;
++	u16 dtrace_buf_host_addr_high;
++	u32 args_host_addr_low;
++	u32 args_host_addr_high;
++} __packed;
++
++#define OPCODE_EXEC_BUF		1
++#define CHAIN_FLG_LAST_CMD	0
++#define CHAIN_FLG_NOT_LAST_CMD	1
++struct common_header {
++	u16 reserved; /* MBZ. */
++	u8 opcode;
++	u8 chain_flag;
++	u16 count;
++	u8 distribute;
++	u8 indirect;
++} __packed;
++
++struct host_queue_packet_header {
++	struct common_header common_header;
++	u64 completion_signal;
++} __packed;
++
++struct host_queue_packet {
++	struct host_queue_packet_header pkt_header;
++	u32 data[12]; /* total 64-byte packet */
++} __packed;
++
++struct host_indirect_packet_entry {
++	u32 host_addr_low;
++	u32 host_addr_high_uc_index;
++} __packed;
++
++#define HIPE_HOST_ADDR_HIGH_SHIFT	0
++#define HIPE_HOST_ADDR_HIGH_MASK	GENMASK(24, 0)
++#define HIPE_UC_INDEX_SHIFT		25
++#define HIPE_UC_INDEX_MASK		GENMASK(31, 25)
++
++static inline void hipe_set_host_addr_high(u32 *val, u32 addr_hi)
++{
++	*val &= ~HIPE_HOST_ADDR_HIGH_MASK;
++	*val |= (addr_hi << HIPE_HOST_ADDR_HIGH_SHIFT) & HIPE_HOST_ADDR_HIGH_MASK;
++}
++
++static inline void hipe_set_uc_index(u32 *val, u32 uc_idx)
++{
++	*val &= ~HIPE_UC_INDEX_MASK;
++	*val |= (uc_idx << HIPE_UC_INDEX_SHIFT) & HIPE_UC_INDEX_MASK;
++}
++
++struct host_indirect_packet_data {
++	struct common_header header;
++	struct exec_buf payload;
++} __packed;
++
+ #endif /* _AIE4_HOST_QUEUE_H_ */
+diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
+index c6e7f6a80f69..f549d9e69d41 100644
+--- a/drivers/accel/amdxdna/aie4_pci.h
++++ b/drivers/accel/amdxdna/aie4_pci.h
+@@ -8,7 +8,10 @@
+ 
+ #include <linux/device.h>
+ #include <linux/iopoll.h>
++#include <linux/list.h>
+ #include <linux/pci.h>
++#include <linux/wait.h>
++#include <linux/workqueue.h>
  
  #include "aie.h"
  #include "aie4_msg_priv.h"
-+#include "amdxdna_ctx.h"
- #include "aie4_pci.h"
- #include "amdxdna_mailbox.h"
- #include "amdxdna_mailbox_helper.h"
-@@ -110,6 +111,82 @@ static void aie4_mailbox_fini(struct amdxdna_dev_hdl *ndev)
- 	ndev->mbox = NULL;
- }
+@@ -25,15 +28,57 @@ struct cert_comp {
+ 	wait_queue_head_t               waitq;
+ };
  
-+static irqreturn_t cert_comp_isr(int irq, void *p)
-+{
-+	struct cert_comp *cert_comp = p;
-+
-+	wake_up_all(&cert_comp->waitq);
-+	return IRQ_HANDLED;
-+}
-+
 +/*
-+ * Transport hook: wire the per-cert completion notification.  PCI maps the
-+ * firmware-provided MSI-X index to a Linux irq and registers cert_comp_isr;
-+ * the platform build registers an IPI mailbox callback instead.
++ * aie4 kernel-submission job states (stored in amdxdna_sched_job priv.aie4.state).
++ * Anonymous enum - the aie4_job_state identifier is already a field-access macro.
 + */
-+int aie4_request_notification(struct cert_comp *comp)
-+{
-+	struct pci_dev *pdev = to_pci_dev(comp->ndev->aie.xdna->ddev.dev);
-+	int ret;
++enum {
++	AIE4_JOB_STATE_INIT,
++	AIE4_JOB_STATE_PENDING,
++	AIE4_JOB_STATE_SUBMITTING,
++	AIE4_JOB_STATE_SUBMITTED,
++	AIE4_JOB_STATE_DONE,
++};
 +
-+	ret = pci_irq_vector(pdev, comp->msix_idx);
-+	if (ret < 0)
-+		return ret;
-+	comp->irq = ret;
-+
-+	ret = request_irq(comp->irq, cert_comp_isr, 0, "xdna_hsa", comp);
-+	if (ret) {
-+		comp->irq = -ENOENT;
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/* Transport hook: tear down the completion notification wired by the hook above. */
-+void aie4_free_notification(struct cert_comp *comp)
-+{
-+	if (comp->irq >= 0)
-+		free_irq(comp->irq, comp);
-+}
-+
-+/*
-+ * Transport hook: take what this transport needs from the create-context
-+ * response.  PCI validates the firmware-provided doorbell offset against the
-+ * mapped doorbell BAR and stores this context's kick target.
-+ */
-+int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
-+			const struct aie4_msg_create_hw_context_resp *resp)
-+{
-+	struct amdxdna_dev *xdna = hwctx->client->xdna;
-+	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
-+	struct amdxdna_hwctx_priv *priv = hwctx->priv;
-+	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-+	u64 db_off = (u64)ndev->priv->doorbell_off + resp->doorbell_offset;
-+
-+	/*
-+	 * doorbell_base is a pcim_iomap() of the whole doorbell BAR.  The offset
-+	 * comes from firmware (or, on a VF, the PF/hypervisor); reject one that
-+	 * would place the u32 doorbell write past the mapped BAR before
-+	 * aie4_doorbell_ring() ever dereferences priv->doorbell_addr.
-+	 */
-+	if (db_off + sizeof(u32) >
-+	    pci_resource_len(pdev, xdna->dev_info->doorbell_bar)) {
-+		XDNA_ERR(xdna, "doorbell offset 0x%llx out of BAR", db_off);
-+		return -EINVAL;
-+	}
-+
-+	priv->doorbell_addr = ndev->doorbell_base + ndev->priv->doorbell_off +
-+			      resp->doorbell_offset;
-+	return 0;
-+}
-+
-+/* Transport hook: ring this context's doorbell (kick CERT). */
-+void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx)
-+{
-+	writel(0, hwctx->priv->doorbell_addr);
-+}
-+
- static int aie4_irq_init(struct amdxdna_dev *xdna)
- {
- 	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-@@ -634,6 +711,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
- 		set_bit(SMU_REG_BAR(ndev, i), &bars);
- 	set_bit(xdna->dev_info->mbox_bar, &bars);
- 	set_bit(xdna->dev_info->sram_bar, &bars);
-+	set_bit(xdna->dev_info->doorbell_bar, &bars);
- 
- 	for (i = 0; i < PCI_NUM_RESOURCES; i++) {
- 		if (!test_bit(i, &bars))
-@@ -647,6 +725,7 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
- 
- 	ndev->mbox_base = tbl[xdna->dev_info->mbox_bar];
- 	ndev->rbuf_base = tbl[xdna->dev_info->sram_bar];
-+	ndev->doorbell_base = tbl[xdna->dev_info->doorbell_bar];
- 
- 	pci_set_master(pdev);
- 
-diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-index 063cedfe3c9d..c6e7f6a80f69 100644
---- a/drivers/accel/amdxdna/aie4_pci.h
-+++ b/drivers/accel/amdxdna/aie4_pci.h
-@@ -32,6 +32,8 @@ struct amdxdna_hwctx_priv {
+ struct amdxdna_hwctx_priv {
++	struct amdxdna_hwctx		*hwctx;
+ 	struct amdxdna_gem_obj          *umq_bo;
+ 	u64                             *umq_read_index;
+ 	u64                             *umq_write_index;
++	/* Last valid read_index, returned when a sampled index looks invalid. */
++	u64                             last_read_index;
  
  	struct cert_comp                *cert_comp;
  	u32                             hw_ctx_id;
+ 
++	/* Kernel-mode submission: driver fills the user HSA queue and rings
++	 * the doorbell.  umq_pkts/umq_indirect_pkts alias the user umq_bo;
++	 * their content is driver-owned, only read_index is trusted from the
++	 * shared queue.
++	 */
++	u64                             write_index;
++	struct host_queue_packet        *umq_pkts;
++	struct host_indirect_packet_data *umq_indirect_pkts;
++	u64                             umq_indirect_pkts_dev_addr;
++	/*
++	 * Transport-private doorbell kick target.  On PCI this is doorbell_base +
++	 * doorbell_off + firmware offset, set by aie4_doorbell_setup() and
++	 * dereferenced only by aie4_doorbell_ring() in aie4_pci.c.  Never touched
++	 * by aie4_ctx.c (unused on the platform build).  Gated by the cert_comp
++	 * connected sentinel, so it needs no INVALID poison.
++	 */
+ 	void                    __iomem *doorbell_addr;
 +
-+	void                    __iomem *doorbell_addr;
++	struct mutex                    io_lock; /* serialize submit, protect job lists */
++	struct list_head                pending_job_list;
++	/* Head of pending_job_list, updated under io_lock; read locklessly by the
++	 * submit wait condition so it never takes a lock inside wait_event().
++	 */
++	struct amdxdna_sched_job        *pending_head;
++	struct list_head                running_job_list;
++	wait_queue_head_t               job_list_wq;
++	struct work_struct              job_work;
++	struct workqueue_struct         *job_work_q;
  };
  
  struct amdxdna_dev_priv {
-@@ -54,6 +56,7 @@ struct amdxdna_dev_hdl {
- 	const struct amdxdna_dev_priv	*priv;
- 	void			__iomem *mbox_base;
- 	void			__iomem *rbuf_base;
-+	void			__iomem *doorbell_base;
+@@ -110,9 +155,18 @@ int aie4_set_ctx_hysteresis(struct amdxdna_dev_hdl *ndev, u32 timeout_us);
+ u32 aie4_msg_pasid(struct amdxdna_client *client);
  
- 	struct mailbox			*mbox;
- 	u32				partition_id;
-@@ -114,6 +117,21 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
+ /* aie4_ctx.c */
++enum aie4_hwctx_flags {
++	AIE4_HWCTX_NORMAL = 0,
++	AIE4_HWCTX_GRACEFUL,
++	AIE4_HWCTX_DISCONNECT, /* sets has_reset, do not destroy context */
++	AIE4_HWCTX_ERROR, /* sets has_reset, destroy context */
++};
++
+ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx);
+ void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx);
+ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
++int aie4_hwctx_create(struct amdxdna_hwctx *hwctx);
++void aie4_hwctx_destroy(struct amdxdna_hwctx *hwctx, enum aie4_hwctx_flags);
+ 
  /* aie4_pci.c */
  int aie4_restore_power_mode(struct amdxdna_dev_hdl *ndev);
- 
-+/*
-+ * Transport hooks: one definition per build (aie4_pci.c for PCI; a future
-+ * OF/platform transport provides its own), selected at compile time.  aie4_ctx.c is
-+ * transport-neutral and reaches the doorbell kick and the completion interrupt
-+ * only through these.  The cert_comp object itself (allocation/xarray/kref/
-+ * waitq) is firmware-driven and stays neutral in aie4_ctx.c; only the notification
-+ * wiring (PCI MSI-X vs platform IPI callback) is transport-specific.
-+ */
-+struct aie4_msg_create_hw_context_resp;
-+int aie4_doorbell_setup(struct amdxdna_hwctx *hwctx,
-+			const struct aie4_msg_create_hw_context_resp *resp);
-+void aie4_doorbell_ring(struct amdxdna_hwctx *hwctx);
-+int aie4_request_notification(struct cert_comp *comp);
-+void aie4_free_notification(struct cert_comp *comp);
-+
- /* aie4_sriov.c */
- #if IS_ENABLED(CONFIG_PCI_IOV)
- int aie4_sriov_configure(struct amdxdna_dev *xdna, int num_vfs);
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
-index 6e78bab8a02c..1529e7507fed 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.h
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.h
-@@ -6,9 +6,11 @@
- #ifndef _AMDXDNA_CTX_H_
- #define _AMDXDNA_CTX_H_
- 
-+#include <drm/gpu_scheduler.h>
- #include <linux/bitfield.h>
- 
- #include "amdxdna_gem.h"
-+#include "drm/amdxdna_accel.h"
- 
- struct amdxdna_hwctx_priv;
- 
 -- 
 2.34.1
 
