@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2B4309F09;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6F030C632;
 	Sat, 26 Sep 2026 00:50:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790383851; cv=none; b=BecxuAdsN8kEGa5PDC4+N1lfu5o2WcU2Rp3d2vyuultAvFvrD0xHnzhUwy0agTWZ1PVQBiraEiF33AOIPFa7zAra/olzHr3rVWulajDSnutmnPG0y0ggdY1J6K+nLljzCVAG9aS9Lu4ug9ccJk9iq2NofoDj423fxbqTR1bahnY=
+	t=1790383852; cv=none; b=iLMsU9R/Vk9V4o7tVwQiGM+yUy3aeHm0Zd82gh5dY6WYjj7lsILqOD7L+Gov4DIB5XypGuKl+ouJr4HIPY692A0RjT8UWtygXiL1z/MGxRQSy7V1RYXR79O6Qf6T7SLTmAiy00HxIE+Lo9LQCg3+WE9Up/m6+NQrNAbJSKIM+E8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790383851; c=relaxed/simple;
-	bh=scd7V/LVJivphFiPiDvRuz42sItWihE//ekPollR9ww=;
+	s=arc-20240116; t=1790383852; c=relaxed/simple;
+	bh=mZ6OpaKM8VSu2SUTDptmmvQXAdF/0DN8J0W5GQhjVxA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=svfcIsAkA6S9GXKDQzNHoYQCw+2Ckngm5KuPQViMf9F6WVVOk/I7JsKJXZ1e6J1K39Bv5Mx7Y6y8jCYo0VJBfCSGDuMDbbxA7M2/NDu2BP/cYbz0NxaIDrsiwgMy28EjMpTu2iVklBx9gf1Oi0fc23PcpLJZBKvnVm8SvwTpJPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VlIbi7CG; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=qiktlNRLEwrnvNwTXRQrosTzw8aAFMkCm/LJXyRIYjkjabM0uCJ8lWy6YQC0VA9BbypM1xWLzDPErOyrW0VAnHC9wm81o2wH74Te5hV1ajfzFFKwAScKpR23Of+ax3I88y7CFIZRfgV6BRvBB3coCVsA+j9vzT3EvsWRUNx1sw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UspMjIxQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VlIbi7CG"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 98520C2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UspMjIxQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B91C7C2BD04;
 	Sat, 26 Sep 2026 00:50:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790383851;
-	bh=scd7V/LVJivphFiPiDvRuz42sItWihE//ekPollR9ww=;
+	bh=mZ6OpaKM8VSu2SUTDptmmvQXAdF/0DN8J0W5GQhjVxA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=VlIbi7CGBVC1DMNetWyfB8xLyeMaQt84miSWHEyYRFw2SrAcS1IRXzGZVD5kNFnZe
-	 Qfr6jxWfKyVOu48L8NI+6XNPbbhz8RVqxXXlnN5MebjdTS8FuQ5+V5vM3tb5XV7tFy
-	 AhAspGmk90sOGAvjNcOvafwN6KcwenYmLqgrVqW3ept76WgZB5Uq1aPlFBaRGWLm2y
-	 KpaDU6EMC4s3Q3Ff3NWr3Vs63iTil8M9KskZXA5AV7U4njaOlke/AB9jMUeo87fdub
-	 wXahmRd/iKQKGwuJMbdSWgMIX4PoED9dGX33IzOpkkKUJNrZW5LcSpqdVdZGSRrFJ+
-	 0eZKZbqdZ5A0A==
+	b=UspMjIxQEFvLsiPa9D9JSrei2wJz1ci0gFONIhtAqb67tNFtAT5mLgMCFE/dSH/BB
+	 ZOmZDz/RyUGjmGAitUGHv0I22Jp68jtWVc/gVDn+5ZWrpcP/kP8gYBxkt9HSTo6mFj
+	 PsFMRlr2JTrPguxNGQD9PDc+PJWCKaMcs75jihPYuvTygWEMfpJZUqQSbtIF0Aofkj
+	 DZ6EFz45igxPuiqL0zsK7RA9FaxomxQZRG5Ceis+7cwuatYA2KleYQ4wBm3Bz/wkw+
+	 9L+HNygzTF8LZY3DfKoCFwESTGhlcCE0g2W/HJCeOnGJxd8ZiytYlmIwNZ0pfzg31r
+	 Uy8ALX2tguiHg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80CC7C98326;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A14E9C9830E;
 	Sat, 26 Sep 2026 00:50:51 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Fri, 25 Sep 2026 17:50:52 -0700
-Subject: [PATCH RFC 05/17] KVM: selftests: Add helper to create guest_memfd
- with a resource file
+Date: Fri, 25 Sep 2026 17:50:54 -0700
+Subject: [PATCH RFC 07/17] KVM: selftests: Test rejection of unsupported
+ filesystem for resource_fd
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-gmem-tmpfs-backend-v1-5-d36159822d18@google.com>
+Message-Id: <20260925-gmem-tmpfs-backend-v1-7-d36159822d18@google.com>
 References: <20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com>
 In-Reply-To: <20260925-gmem-tmpfs-backend-v1-0-d36159822d18@google.com>
 To: Hugh Dickins <hughd@google.com>, 
@@ -64,11 +64,11 @@ Cc: kernel-team@android.com, kernel-team@meta.com,
  linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790383850; l=2918;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790383850; l=1760;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=a/IEkQZJisftLh4S+E8BZovfShlWauj9NzlVULRnFLg=;
- b=7ARebru5UbY4aUsqapWdwIr6jjRLvLKYLPWf3bBzdcMmZAQ4uzWyZEWPEWNPpEI+RT7Pue/c9
- 2nchVurQunNCDcbczxcNhXiAZELx4OWz4fTcupDdwsNJ/jvk1VphSOc
+ bh=c84B6n44NVtK2sHukMLB5KU4J3iKw7GkSZw3Puqe1NE=;
+ b=mcUInbCP1l8RBE0LpSG40yF7SVS0NuEdAcubDuydYZGl6HTZiLO6aKz+MNMBBt9W88whJp98Y
+ rYy1PfGCdV/CUbRH++lB6miMh/H7JzZ5SsHOreuZCnL0q9f+cNQcqzO
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -78,85 +78,55 @@ Reply-To: ackerleytng@google.com
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Add a helper to create guest_memfd instances with a resource file
-descriptor, and update the existing creation helper to pass a zero
-resource file descriptor.
+Add test coverage verifying that passing a directory file descriptor
+from an unsupported filesystem without provider operations as a resource
+file fails with EOPNOTSUPP.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- tools/include/uapi/linux/kvm.h                 |  5 ++++-
- tools/testing/selftests/kvm/include/kvm_util.h | 23 ++++++++++++++++++-----
- 2 files changed, 22 insertions(+), 6 deletions(-)
+ tools/testing/selftests/kvm/guest_memfd_test.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/tools/include/uapi/linux/kvm.h b/tools/include/uapi/linux/kvm.h
-index 419011097fa8e..66c1f40b50c29 100644
---- a/tools/include/uapi/linux/kvm.h
-+++ b/tools/include/uapi/linux/kvm.h
-@@ -1654,11 +1654,14 @@ struct kvm_memory_attributes {
- #define KVM_CREATE_GUEST_MEMFD	_IOWR(KVMIO,  0xd4, struct kvm_create_guest_memfd)
- #define GUEST_MEMFD_FLAG_MMAP		(1ULL << 0)
- #define GUEST_MEMFD_FLAG_INIT_SHARED	(1ULL << 1)
-+#define GUEST_MEMFD_FLAG_USE_RESOURCE	(1ULL << 2)
- 
- struct kvm_create_guest_memfd {
- 	__u64 size;
- 	__u64 flags;
--	__u64 reserved[6];
-+	__s32 resource_fd;
-+	__u32 pad;
-+	__u64 reserved[5];
- };
- 
- #define KVM_PRE_FAULT_MEMORY	_IOWR(KVMIO, 0xd5, struct kvm_pre_fault_memory)
-diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
-index 777fa3dbf88d6..9eeaefe5a1839 100644
---- a/tools/testing/selftests/kvm/include/kvm_util.h
-+++ b/tools/testing/selftests/kvm/include/kvm_util.h
-@@ -767,26 +767,39 @@ static inline bool is_smt_on(void)
- 
- void vm_create_irqchip(struct kvm_vm *vm);
- 
--static inline int __vm_create_guest_memfd(struct kvm_vm *vm, u64 size,
--					  u64 flags)
-+static inline int __vm_create_guest_memfd_resource(struct kvm_vm *vm, u64 size,
-+						   u64 flags, int resource_fd)
- {
- 	struct kvm_create_guest_memfd guest_memfd = {
- 		.size = size,
- 		.flags = flags,
-+		.resource_fd = resource_fd,
- 	};
- 
- 	return __vm_ioctl(vm, KVM_CREATE_GUEST_MEMFD, &guest_memfd);
+diff --git a/tools/testing/selftests/kvm/guest_memfd_test.c b/tools/testing/selftests/kvm/guest_memfd_test.c
+index 84b958b9ef715..31bc74c4c26bd 100644
+--- a/tools/testing/selftests/kvm/guest_memfd_test.c
++++ b/tools/testing/selftests/kvm/guest_memfd_test.c
+@@ -436,6 +436,27 @@ static void test_resource_fd_invalid(struct kvm_vm *vm)
+ 	TEST_ASSERT_EQ(errno, EBADF);
  }
  
--static inline int vm_create_guest_memfd(struct kvm_vm *vm, u64 size,
--					u64 flags)
-+static inline int __vm_create_guest_memfd(struct kvm_vm *vm, u64 size,
-+					  u64 flags)
++static void test_resource_fd_unsupported_fs(struct kvm_vm *vm)
 +{
-+	return __vm_create_guest_memfd_resource(vm, size, flags, 0);
++	int fd, file_fd;
++
++	/*
++	 * Passing an FD from an unsupported filesystem without provider ops
++	 * (e.g. the /proc mount root directory) is rejected by KVM with
++	 * EOPNOTSUPP.
++	 */
++	file_fd = open("/proc", O_DIRECTORY | O_RDONLY);
++	TEST_ASSERT(file_fd >= 0, "open /proc failed");
++
++	fd = __vm_create_guest_memfd_resource(vm, page_size,
++					      GUEST_MEMFD_FLAG_USE_RESOURCE,
++					      file_fd);
++	TEST_ASSERT(fd < 0, "guest_memfd with /proc fd should fail");
++	TEST_ASSERT_EQ(errno, EOPNOTSUPP);
++
++	close(file_fd);
 +}
 +
-+static inline int vm_create_guest_memfd_resource(struct kvm_vm *vm, u64 size,
-+						 u64 flags, int resource_fd)
- {
--	int fd = __vm_create_guest_memfd(vm, size, flags);
-+	int fd = __vm_create_guest_memfd_resource(vm, size, flags, resource_fd);
+ #define ____gmem_test(__test, __vm, __flags, __gmem_size, args...)	\
+ do {									\
+ 	int fd = vm_create_guest_memfd(__vm, __gmem_size, __flags);	\
+@@ -495,6 +516,7 @@ static void test_guest_memfd(unsigned long vm_type)
+ 	test_guest_memfd_flags(vm);
  
- 	TEST_ASSERT(fd >= 0, KVM_IOCTL_ERROR(KVM_CREATE_GUEST_MEMFD, fd));
- 	return fd;
- }
+ 	test_resource_fd_invalid(vm);
++	test_resource_fd_unsupported_fs(vm);
  
-+static inline int vm_create_guest_memfd(struct kvm_vm *vm, u64 size,
-+					u64 flags)
-+{
-+	return vm_create_guest_memfd_resource(vm, size, flags, 0);
-+}
-+
- void vm_set_user_memory_region(struct kvm_vm *vm, u32 slot, u32 flags,
- 			       gpa_t gpa, u64 size, void *hva);
- int __vm_set_user_memory_region(struct kvm_vm *vm, u32 slot, u32 flags,
+ 	__test_guest_memfd(vm, 0);
+ 
 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
