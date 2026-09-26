@@ -1,328 +1,209 @@
-Received: from flow-a6-smtp.messagingengine.com (flow-a6-smtp.messagingengine.com [103.168.172.141])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C0E2E7BD9;
-	Sat, 26 Sep 2026 13:07:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A5F39FCCA
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790428040; cv=none; b=LHTFsMpEt13USu9HeMsUElviBDbXakGh/BVQrLdDpdPjfppJc/k301DI/JS7U0dOhkHQa4LHyCkQwCzeT6g6RNHtXLWrqzYQ4S/tDf9KBIHKC4VPrct090TXd2TboaIEaQdE2VcgzZ1zOhC8KR/q3X2TMuaH3qjd6gUS+YebX6U=
+	t=1790428100; cv=none; b=SyBf8O4J9WHXotGHwjGvNqS/Pq6dhxGqsw2g75FDEt6wj/aehq8r9sp+pQE9kZisXHxq5aH7hT5mCAOfyJfnlqLDZeBaivTaPnpyfqvZL58iKzrcvF8IXZZII7XKQl99zdIEdl/UgfIxBBaqMB7aRoHHjd3z3lrcl7V1eLQl3Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790428040; c=relaxed/simple;
-	bh=wko7kmHoPQKSvHJFu02PIBG+REawZo/0kXd/Igypq3o=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=PeKUwu/VkZcAsYQlRhD/aEYl/9X1wk7hWEjQ0J0g32Dpz2cGUSiNBpQco6qeEVcVocgMCmUsV3ZagJd6oTpN+D0Zd0wVxQgYD0chX2YyFpkZVc7x6nikuNqW3FchIz4QGPS3Oc5Znazd4zNxadz/Pkz3EMBRLGmaWdbBOST5ouM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=GUmK00Nm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CFCADCnP; arc=none smtp.client-ip=103.168.172.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1790428100; c=relaxed/simple;
+	bh=O5RHq8VbDNAX2oaGL7TqD33eUDnNypgHfkK31Ne8IfM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 In-Reply-To:References:To:Cc; b=bBXoM9yAsfv/60GMGpW54i6OivcpExwLdpyvWW8g2FffrUuGuFkRnhI4NuP9PE9rTMoGVaNWu7QSZgCS/SQ0MKe8/WUaku5AyuboXxyERySBv/H4hXRVEt76ggLb9fPlbDv2IaBV+PCx11qA8UBf4NuZ7XbXUn2WuW6t2NlTJBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HB7pgl9B; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WbuHzyJv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="GUmK00Nm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CFCADCnP"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.phl.internal (Postfix) with ESMTP id B12EC1380386;
-	Sat, 26 Sep 2026 09:07:13 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sat, 26 Sep 2026 09:07:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1790428032;
-	 x=1790435232; bh=E/0Aixz4MoGQbluxHxh98fr8xrgoH3pVa08CacPtFqs=; b=
-	GUmK00NmjYxSwfTBR3tVNjpqLAkVRWaCBtQW8hPgHgcvYPwGIIBCDq+aR194QZJV
-	hmIcmgKgFrX27w+CIuLZuGT+yAFPNfLObwbKGmV03uNiklrcV1jmuaY6kEgV6x+q
-	WRmC/1yuc3swDBfzqYG9TWNOngXm1W05PRIhj/dtOD6JqYWH9z9czT6feZHU2JL3
-	JlQkDDPxveVpZogI1dYghXXZz++8wtMbQ/lGmn0NVM61W0LRFcwZWYUslQl8bO8O
-	UX5rFh6elLuPZ8IbUOIIE0sUFyCCB2PLQbbO8ZRv4Z20dH1JfoSTZZZNWihCrVx9
-	4U3VBA18TINEk/vd5YlE2g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790428032; x=
-	1790435232; bh=E/0Aixz4MoGQbluxHxh98fr8xrgoH3pVa08CacPtFqs=; b=C
-	FCADCnP4fRR97/s//gFNfg+o+dRoT3zAGmmVQgzGghEZGGxzUUe6/HRcoxd0Wg1G
-	g/HL22FnHnD3JvV0Dgj/rtpsMttSHnLk2hw5GuDQVsB9O1YsKx0PDaNwhGHxs7Z4
-	3yzAqm5Dy1VVfvzQEYifHlvzaW2kEkSCIoH/+P2bVn2V9YgQVxn/pdYQA2rgNAx5
-	67xRqC8Rz+PiPjdOzdId03n7pB6tcKzF4LBtK2G+iJk/8veJj42P4Bud7seJhcKM
-	a9xTeAIp8QgYEr0LPZkLtZzLvDWJ1EdO7EU5y2Trcfp8zShGMwSGmxEVyk27RcDm
-	3//dExIenidGLUR3jnVhg==
-X-ME-Sender: <xms:d8O3au7n76eGhw2jpYdaVcHYn7upNz3419mg3XiM0JtuvZuHQIUVeA>
-    <xme:d8O3aitofBqjo_lbLDOAU7mZfGFzex12BqHRTCkWnEKu20vrV6Gu_C_19EF4s5u5Q
-    uVEwdBKfpJgOZoKzIw3RmstgUNQ8069BcGi5cScnfwl2JtyCll0uws>
-X-ME-Proxy-Cause: dmFkZTGUsKpqFXqlz0GGP/SFu+nZLjbDSu7At32QI34HLKVvf1fGYqDec9fSpPeFMwM2na
-    lCIyfst1DkAn1nxttW/0OGqAIcgR9hP0+9KRaczAEVzAiyIUrCzfAz3NG4OEkYMphPiska
-    sxzrcia7B/OfHjuc0OL3x2A6enil36KUIzawLytpDPNS07jW2p5hyCyp71P9EehHhgSWHo
-    13Bfkrk0kKx87sKF02XDEMx1t5GR+s+avdeSQ+AKRYbyaAuXdnE7xZSXQLdPsxEPtOlIpj
-    o0ANo6Se5VTMUcD0Mj9SJPo17T3fs8fxxCSDV2AftKwgRroxTJNkJPQnQ7BWLJ6W6fgTL5
-    wcNX32wzcM+QcLysY+pG69bj2RWFiUEd6wCYRTkVdCNfg7iFgjgAMtc09dsEXp4rUb9h87
-    Oh8IM3cXORgKjuqI9lWC+3kWwTogF+JMgqrNQVO7wVPJtcj/YPXt3JSnFSK50DuW3jJQwf
-    vC9xfsQarOpSwgT1SAHLeR5I1+SexGjeb1uJYikij/Vz/Qj8km+B2lRt2ir399BexDXylD
-    PxhinKlmSGCiwMsbu3RaQoA44Ynwc4XeDZEW0AvzHcge9LqoiYgRJjopaNATJs7VKeCwkb
-    Jf57C98/6wGVpJMIDVVR8ZEuU5t017X4o0/d6NVEbPZlm4dkUa5KYbehg+PA
-X-ME-Proxy: <xmx:fMO3apNP7HWsw2MPRs-ieBJZJpJm3doBBN88O0NvYsDI9Xk97LbkcA>
-    <xmx:fMO3asQhfZWmNKKQDfWOq1r6BmT1NpDzrtyIVNly6k8o72fqmwu0-Q>
-    <xmx:fMO3av5b2ChKxwow5wOHgSJTP_6AHC2Hcrx_qsRy59RQjkEcTmxgSg>
-    <xmx:fMO3agURH6NbNbT-w9t55VsJrrqeLwZ3RwxTXuqbm65L-K8N8i-6xA>
-    <xmx:gMO3ashG8E4Vx1KpZYgMvK8nuPd1Idi8GbsxL2-2Fwaj5ZgG-zhsdId_>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 577F132A0087; Sat, 26 Sep 2026 09:07:03 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HB7pgl9B";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WbuHzyJv"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68QAo49V3045857
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:08:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	AR+q3wVR+Kss3Eawd9nmtdjN9B3OfgoqT4zSL+4Xwr8=; b=HB7pgl9B/gtAdyJZ
+	XFU47cdYI9sSP+fA19FFjeyuhh9XDoZDXMwEIaPgkPFAZcBjZsELQvTvsquoIL9D
+	oTMcqEn0/LjrcosJLl9buHV2tEgQ77gRLAbyLhWGsIi+YbHo20bHQ4WRsIT/giCH
+	7w4xikgyjfxqnyF3wKNsq/gpHkiUIAaV8Lg8XkMUx8QC0sQchtuSejF/NEodP8KM
+	ogLsBeAMrYPfUGeXuVTvYNZ2q0Nz4NZlhUrUIH1HaeZ/wF1SyR7r9xXmg6nQQbjZ
+	pyXUHiu44MTdn5rhr1EdNvgU3mIEBLz/usuSkgyb64NmpvIHVvNTOp3t5xIkCq9s
+	kp4GiQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx6e80upn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:08:18 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so3721400eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:08:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790428097; x=1791032897; darn=vger.kernel.org;
+        h=cc:to:references:in-reply-to:content-transfer-encoding:content-type
+         :mime-version:message-id:date:subject:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AR+q3wVR+Kss3Eawd9nmtdjN9B3OfgoqT4zSL+4Xwr8=;
+        b=WbuHzyJvKRlPtUhQKTdlmD5GzWp9LAmyNlBELusAg9HgPkVcrHiqP1lkdUWu6rl7vU
+         AoxdS8vzH00aYQWxmwCD9Aoz/EeOdZFiyWMzpB7tNShGQicrSV5zXIMDFFhgmlsZOxTT
+         Yyfg+v4JX1B+Gx9aSjwwuRQYlrHb5U7+7bfcYNlCw7MoqkvtZgYGF546ZEzj8txZ5fjS
+         O73RuLQ7Kzhma7LPWC00xdVS+vcEQrpl8v1TMLdpRWwDPrRzqYYTa8tRoBK3B3mT4tIr
+         QGi20ILJKEDvLTQcyOCY/3wh/hnhXBWrDgUvhn6K97l4cI5MtfrBMq7QpxRDXFrYIaCs
+         +4Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790428097; x=1791032897;
+        h=cc:to:references:in-reply-to:content-transfer-encoding:content-type
+         :mime-version:message-id:date:subject:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AR+q3wVR+Kss3Eawd9nmtdjN9B3OfgoqT4zSL+4Xwr8=;
+        b=vBU0RdxmusRS3Z4LQp41aHyMAK5wmq44xmcjml9ADVxa7ADDGKMmriV3jd/PMEPbtr
+         7UbOoDWWLwqaqzL61294DezA0oOGxQmjyP25YNFDkciwoW5HcLM9kHgvhvc4+29RC6aN
+         ANHy3rlNY4+kmQ/tqBawlfCivYypte03qdQJYnOQDn7KqGJA1sKAnMO7FsU2ZoriOcA3
+         vMdMfRfHZxyik9gIgou/WyTpWZ1hzLImGAQiye4QHP04UwkWSBQ7xH29bg6gchcpcIdZ
+         CWANqq4a3YvzeNVID60UYIgatMiVOlVRB11xi9fHGUqLx2sJ2j/urWgBr2llBa1WhgUa
+         qkYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzR90RMc60WBsI0Ek8nLmMPw9OwJM9mp72zXSZkKdgVb8PggqM7a7SjZ7GBP/uRQCC1dgNca57V+vOCNDY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mrcpRUEF3HI0Iw3cLNGT0LzUagZReEpfugkrtEzsN0h6q6Vc2f
+	Wl2TVyadTQuRd9+gCvjdAyFJ8Hyb5FRITxLIFbRetQKKNQf+TDeG0kSWyCmVju4agCsElBhECDb
+	UP+TjXJpPcZxTkPWkqkEnDvMm3co8rxAx2aOs2CSfgDeg7LQQ/Ka45yTkjSduHnMfT50=
+X-Gm-Gg: AYBFou30EKBX4FrpA48PLX2nuEEpw1QW809rU/GfaJQ9rTe26WherHh6W2GZWJzQGJi
+	Q2FpMg7XYzNLUB2mg1DbSSyfpQRm9F1m8BSe/UJsM3HMnWCKri6SWP7sVgXrw8Ua/KkLnRdlLrS
+	weqKXvW7DbA26c+GFqA4rNza09tDAWv7vSBKAF0L4OYBZ2UrhX7soV/zuSFbYxLXwcXf4Czi0N3
+	BpaOvtUzyKwHDBL8VLKpzLmj3t4Fr3GpxryEMHl60orEcIK1y2c8qmxk+wkjScz6qAUjZ3Letbs
+	UfV2AH9XCCSRz2kWevIB7qZNPpZldcNdE0IFlwZeaGthHXogrbqSwJ6Lru3pFP7fn+S57wZP4P6
+	zGWqpNqfVe8yNW+GUXYTUPQPuu0KjWTg=
+X-Received: by 2002:a05:7300:3e95:b0:33b:e842:c0ff with SMTP id 5a478bee46e88-3426cce7bcdmr2549572eec.0.1790428097094;
+        Sat, 26 Sep 2026 06:08:17 -0700 (PDT)
+X-Received: by 2002:a05:7300:3e95:b0:33b:e842:c0ff with SMTP id 5a478bee46e88-3426cce7bcdmr2549538eec.0.1790428096372;
+        Sat, 26 Sep 2026 06:08:16 -0700 (PDT)
+Received: from hu-sachinku-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341460f5166sm15356614eec.29.2026.09.26.06.08.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 06:08:15 -0700 (PDT)
+From: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] media: iris: add vbv delay support
+Date: Sat, 26 Sep 2026 18:38:05 +0530
+Message-Id: <20260926-iris_vbv_delay-v2-0-83dd80765dee@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AJwEWD5WPnhk
-Date: Sat, 26 Sep 2026 15:06:33 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Lorenzo Stoakes" <ljs@kernel.org>
-Cc: "Andrew Morton" <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- "Jann Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Mike Rapoport" <rppt@kernel.org>,
- "Suren Baghdasaryan" <surenb@google.com>,
- "Michal Hocko" <mhocko@suse.com>, "Jonathan Corbet" <corbet@lwn.net>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Dennis Dalessandro" <dennis.dalessandro@cornelisnetworks.com>,
- "Jason Gunthorpe" <jgg@ziepe.ca>, "Leon Romanovsky" <leon@kernel.org>,
- "Paul Moore" <paul@paul-moore.com>,
- "Stephen Smalley" <stephen.smalley.work@gmail.com>,
- "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>,
- "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>,
- "Andrii Nakryiko" <andrii@kernel.org>,
- "Eduard Zingerman" <eddyz87@gmail.com>,
- "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Zi Yan" <ziy@nvidia.com>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Nico Pache" <nico.pache@linux.dev>,
- "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>,
- "Barry Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>,
- "Usama Arif" <usama.arif@linux.dev>,
- "Kirill A. Shutemov" <kas@kernel.org>,
- "Doug Gilbert" <dgilbert@interlog.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- "Jaya Kumar" <jayalk@intworks.biz>, "Simona Vetter" <simona@ffwll.ch>,
- "Helge Deller" <deller@gmx.de>, "Sebastian Reichel" <sre@kernel.org>,
- "John Hubbard" <jhubbard@nvidia.com>, peterx <peterx@redhat.com>,
- "Masami Hiramatsu" <mhiramat@kernel.org>,
- "Oleg Nesterov" <oleg@redhat.com>,
- "Peter Zijlstra" <peterz@infradead.org>,
- "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>,
- "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
- "Arnaldo Carvalho de Melo" <acme@kernel.org>,
- "Namhyung Kim" <namhyung@kernel.org>,
- "Mark Rutland" <mark.rutland@arm.com>, "Rik van Riel" <riel@surriel.com>,
- "Harry Yoo" <harry@kernel.org>, "Juri Lelli" <juri.lelli@redhat.com>,
- "Vincent Guittot" <vincent.guittot@linaro.org>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Dave Airlie" <airlied@gmail.com>, "Will Deacon" <will@kernel.org>,
- "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- "Nicholas Piggin" <npiggin@gmail.com>,
- "Muchun Song" <muchun.song@linux.dev>,
- "Oscar Salvador" <osalvador@suse.de>,
- "Matthew Wilcox" <willy@infradead.org>, "Jan Kara" <jack@suse.cz>,
- "Marc Zyngier" <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>,
- "Catalin Marinas" <catalin.marinas@arm.com>,
- "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Anup Patel" <anup@brainfault.org>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>,
- "Albert Ou" <aou@eecs.berkeley.edu>,
- "Christian Borntraeger" <borntraeger@linux.ibm.com>,
- "Janosch Frank" <frankja@linux.ibm.com>,
- "Claudio Imbrenda" <imbrenda@linux.ibm.com>,
- "Alexander Gordeev" <agordeev@linux.ibm.com>,
- "Gerald Schaefer" <gerald.schaefer@linux.ibm.com>,
- "Heiko Carstens" <hca@linux.ibm.com>,
- "Vasily Gorbik" <gor@linux.ibm.com>,
- "David S . Miller" <davem@davemloft.net>,
- "Andreas Larsson" <andreas@gaisler.com>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christian Brauner" <brauner@kernel.org>,
- "Matthew Brost" <matthew.brost@intel.com>,
- "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>,
- "Byungchul Park" <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>,
- "Ying Huang" <ying.huang@linux.alibaba.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Chris Li" <chrisl@kernel.org>,
- "Kairui Song" <kasong@tencent.com>,
- "Kemeng Shi" <shikemeng@huaweicloud.com>,
- "Nhat Pham" <nphamcs@gmail.com>, "Baoquan He" <baoquan.he@linux.dev>,
- "Youngjun Park" <youngjun.park@lge.com>,
- "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng" <qi.zheng@linux.dev>,
- "Shakeel Butt" <shakeel.butt@linux.dev>,
- "Axel Rasmussen" <axelrasmussen@google.com>,
- "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>,
- "Chengming Zhou" <chengming.zhou@linux.dev>,
- "Michal Hocko" <mhocko@kernel.org>, "Miklos Szeredi" <miklos@szeredi.hu>,
- "Xu Xin" <xu.xin@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org,
- selinux@vger.kernel.org, linux-sound@vger.kernel.org,
- bpf@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- Linux-Arch <linux-arch@vger.kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- fuse-devel@lists.linux.dev, "Takashi Iwai" <tiwai@suse.de>,
- "Emil Tsalapatis" <emil@etsalapatis.com>
-Message-Id: <408aef6e-5b0a-482f-8ba8-f8c20ee870e5@app.fastmail.com>
-In-Reply-To: <areSEI5pWBadkqIe@gremlin>
-References: 
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <d4d7d4c2-a1d5-41d0-b1c8-8ea0cc5a0397@app.fastmail.com>
- <areSEI5pWBadkqIe@gremlin>
-Subject: Re: [PATCH v3 00/40] mm: make VMA flag semantics explicit, eliminate
- VM_SPECIAL
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALbDt2oC/3WMyw6CMBBFf4XM2pLSgqgr/8MQ0hcyCVDtaCMh/
+ Xcrezc3OTc5ZwNyAR3BpdgguIiEfskgDgWYUS13x9BmBsHFkbeSMwxIfdSxt25SK5O1tGJQkp9
+ qAVl6BDfgZw/euswj0suHde/H6vf+TcWKcdbqRrXnRmpjh6snKp9vNRk/z2Ue6FJKX4XDTnSzA
+ AAA
+X-Change-ID: 20260730-iris_vbv_delay-343d2fa30842
+In-Reply-To: <20260730-iris_vbv_delay-v1-0-7b5a7953bcdf@oss.qualcomm.com>
+References: <20260730-iris_vbv_delay-v1-0-7b5a7953bcdf@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790428092; l=3228;
+ i=sachin.garg@oss.qualcomm.com; s=20260211; h=from:subject:message-id;
+ bh=O5RHq8VbDNAX2oaGL7TqD33eUDnNypgHfkK31Ne8IfM=;
+ b=fI76ZFFysWZsEgisPaLk6ES6kEfc1D3mbz/CRegf8D8j9A7m5vc3x4xZqqfsI2tYgDtF3XDQG
+ rhS7F8azeacDlRc0zv92RKY13NTYPP54UX5OeQHI+eZpu10iwpkSpfK
+X-Developer-Key: i=sachin.garg@oss.qualcomm.com; a=ed25519;
+ pk=KcRhp4CP9cR1V2tg6xSNRnB2STYaU0vVigdUF4Actu0=
+X-Proofpoint-GUID: 8zMT0OCnT7qv9VgbNeANOyGNfVGimFAT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI2MDA1MiBTYWx0ZWRfXxZ09m0qw7rVM
+ 8kM83jLHDR0Rq4xciCT5QN35Emy/SEih5hMCN69PYTe5lkXDm0MRubBCbTuJ+f1gn8swWV0rnU2
+ m6fyPZpI+95+6E1+NbZCmXT8aldLZ2tn+uHIBn+U5HyTyCfxL4QKY/SfTtmyNtu01mkyW6L1SwL
+ mys64fgH7E9HTSA/25yQ+DAF9B9n5E7QYGIXD1tNPfkHwp2Ey1kzPA7hNJOq06TfyEr0Zvv0d/q
+ iSK00UIwV8ggmfFAYyNt93KLPUtgCoKCLxzRAozqmuUmu57bA36/vY1F5arHZzMvEFa/22wtFaB
+ pAZFyXh5Gcv34JkokB3gHaQN9mzh0rrFUvbB6TbzkciqrtV1ZXH4Qkc8EJzajs7SIURhhgA1fNy
+ mPWTUFOFOWs7gYTGzktBWvEEGpDXCaUHgcPrq1IukOO6vBetE8yUjWH+07Xk4mTgALhieFdFqvw
+ IREN6W4KoyaH3HFFSwA==
+X-Proofpoint-ORIG-GUID: 8zMT0OCnT7qv9VgbNeANOyGNfVGimFAT
+X-Authority-Analysis: v=2.4 cv=aIFlOr9m c=1 sm=1 tr=0 ts=6ab7c3c2 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=C5IDlBnpNeGhfuk2CuwA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI2MDA1MiBTYWx0ZWRfX8mluUpZianxA
+ WNNMWnvbTsm6hmCc3uBoKXDKneszmu/6SF8g1wQV4UJZq4TLrI8IJTgltfm472Npl9BRgWtCkwt
+ G4+rCzTP/Ircs0pHH3ui/Ug0lXbcbYc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 suspectscore=0 adultscore=0 priorityscore=1501
+ clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609260052
 
-On Sat, Sep 26, 2026, at 11:40, Lorenzo Stoakes (ARM) wrote:
-> On Sat, Sep 26, 2026 at 12:06:22AM +0200, Arnd Bergmann wrote:
->>
->> mm/vma.c: In function '__mmap_region':
->> mm/vma.c:3083:1: error: the frame size of 1552 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
->>
->> I don't immediately see anything that you did that would have introduced
->> something bad that wasn't already there, so it's likely just gone from
->> just below the limit I was using for my testing to just above. The 1536
->> byte limit is what I use on 64-bit builds with KASAN and otherwise
->> still has a clean build (with a small number of local fixup patches).
->
-> Hmm are you specifying this limit manually somehow?
+This series adds VBV_DELAY (V4L2_CID_MPEG_VIDEO_VBV_DELAY) support
+for Qualcomm iris encoder sessions, allowing users to configure the
+initial VBV (Video Buffer Verifier) delay for CBR-encoded streams.
+This is useful for latency-sensitive encoding use cases (e.g.
+low-latency streaming) where the client needs explicit control over
+the encoder's buffering delay.
 
-It's a Kconfig setting upstream, but the way I'm doing it is to have
-patch that calculates a sensible default based on other options that
-is a little smaller than the default (currently 2048 bytes) on x86-64
-to catch more cases where something sticks out.
+Patch 1 is a prerequisite for patch 2. The PIPE capability (control
+over the number of VPP hardware pipes used for a session) was
+previously only wired up for decoder sessions. Achieving low VBV delay
+values (34-100 ms) requires the encoder to be constrained to a single
+VPP pipe, so patch 1 enables the PIPE capability on the encoder path as
+well, which patch 2 then relies on to force single-pipe operation when
+VBV delay falls in that low-latency range.
 
->> If I sprinkle some 'noinline_for_stack' annotations on functions
->> called by __mmap_region(), I can get the size down to 1144 in this
->> config, but that doesn't sound like a great workaround.
->>
->> The large stack usage is potentially harmful if this ends up
->> in call chains that have additional large stack usage (e.g.
->> kmalloc() leading to reclaim). Any ideas for how to reduce it here?
->
-> That can never happen :) this call chain is _only_ for an mmap() call.
+Patch 2 adds the VBV_DELAY capability: it registers HFI_PROP_VBV_DELAY,
+wires up the V4L2_CID_MPEG_VIDEO_VBV_DELAY control for the gen2
+encoder, and only applies the property when rate control is set to CBR
+since VBV delay is only meaningful for constant-bitrate encoding.
+It adds vbv_delay support for iris HFI Gen2 based targets (qcs8300,
+sm8550, sm8650, sm8750, x1p42100). Support for HFI Gen1 targets will
+be added in a follow-up series.
 
-I mean more functions called /from/ here, something like
+This series has been verified with GST level testing.
+Command used:
+gst-launch-1.0 -v videotestsrc ! video/x-raw,format=NV12, \
+width=1280,height=720,framerate=30/1 ! v4l2h264enc output-io-mode=4 \
+capture-io-mode=4 extra-controls="controls,video_bitrate_mode=1, \
+initial_delay_for_vbv_control=300;" ! filesink location=/opt/test_enc.h264
 
-  __mmap_region()
-  __mmap_new_vma()
-  vm_area_alloc()
-  kmem_cache_alloc(..., GFP_KERNEL)
-  slab_alloc_node()
-  allocate_slab()
-  alloc_slab_page()
-  __alloc_pages_slowpath()
-  __alloc_pages_direct_reclaim()
-  __perform_reclaim()
-  try_to_free_pages()
-  shrink_zones()
-  shrink_node()
-  lru_gen_shrink_node()
-  shrink_many()
-  shrink_one()
-  try_to_shrink_lruvec()
-  evict_folios()
-  shrink_folio_list()
-  pageout()
-  shmem_writeout()
-  swap_writeout()
-  swap_add_folio()
-  swap_write_submit()
-  nfs_swap_submit_write()
-  nfs_file_direct_write()
-  nfs_direct_extract_pages()
-  nfs_do_recoalesce()
-  __nfs_pageio_add_request()
-  nfs_pageio_doio()
-  pnfs_generic_pg_writepages()
-  pnfs_do_write()
-  pnfs_try_to_write_data()
-  filelayout_write_pagelist()
-  nfs_initiate_pgio()
-  nfs_local_doio()
-  nfs_local_do_write()
-  nfs_local_call_write()
-  ->write_iter()
-  generic_file_write_iter()
-  generic_write_sync()
-  vfs_fsync_range()
-  ->fsync()
-  xfs_file_fsync()
-  file_write_and_wait_range()
-  filemap_fdatawrite_range()
-  filemap_writeback()
-  do_writepages()
-  ->writepages()
-  xfs_vm_writepages()
-  iomap_writepages()
-  iomap_writeback_folio()
-  iomap_writeback_range()
-  ->writeback_range()
-  xfs_zoned_writeback_range()
-  iomap_add_to_ioend()
-  ->writeback_submit()
-  xfs_zoned_writeback_submit()
-  xfs_zone_alloc_and_submit()
-  xfs_submit_zoned_bio()
-  submit_bio()
-  submit_bio_noacct()
-  submit_bio_noacct_nocheck()
-  __submit_bio_noacct()
-  __submit_bio()
-  blk_mq_submit_bio()
-  blk_mq_run_dispatch_ops()
-  blk_mq_try_issue_directly()
-  blk_mq_run_hw_queue()
-  blk_mq_sched_dispatch_requests()
-  blk_mq_do_dispatch_sched()
-  __blk_mq_do_dispatch_sched()
-  blk_mq_dispatch_rq_list()
-  ->queue_rq()
-  scsi_queue_rq()
-  scsi_dispatch_cmd()
-  ->queuecommand()
-  ata_scsi_queuecmd()
-  __ata_scsi_queuecmd()
-  ata_scsi_translate()
-  ata_scsi_qc_issue()
-  ata_qc_issue()
-  qc_issue()
-  ata_sff_qc_issue()
-  ata_sff_queue_pio_task()
+Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+---
+Changes in v2:
+- iris_set_pipe(): use inclusive VBV_DELAY bounds (>= 34 && <= 100 ms)
+  matching the documented range.
+- iris_set_pipe(): only force single-pipe under CBR rate control so
+  a stale in-range VBV_DELAY no longer affects non-CBR streams.
+- iris_set_pipe(): read fw_caps[VBV_DELAY].value once instead of
+  twice in the same condition, and derive the default work_route from
+  the immutable fw_caps[PIPE].max instead of the self-mutated .value,
+  writing the final decision back into .value so frequency scaling
+  picks up the corrected pipe count instead of a stale one.
+- iris_set_vbv_delay(): drop the dev_err() logged for non-CBR rate
+  control; that is an expected, valid configuration, not an error.
+- Link to v1: https://lore.kernel.org/r/20260730-iris_vbv_delay-v1-0-7b5a7953bcdf@oss.qualcomm.com
 
-There are many ways the call chain can go of course, but the actual
-stack overflows do tend to follow this pattern where you are at a
-function with high stack usage and call kmalloc() during low memory
-condition and that ends up waiting for a block I/O down the line.
-(you normally don't go through swap and nfs, I was just looking
-for the worst case I could easily see in the code)
+---
+Sachin Kumar Garg (2):
+      media: iris: enable pipe for hfi gen2 encoder
+      media: iris: add support for vbv delay
 
-> In general I am absolutely taking this seriously and will find a way to
-> reduce this, but my only question is whether this is actually something
-> that needs to be done in this series?
->
-> Because it's already huge and I would rather avoid adding yet another patch
-> to it if possible.
->
-> If I can do it as a follow-up that'd be ideal!
+ drivers/media/platform/qcom/iris/iris_ctrls.c      | 52 ++++++++++++++++++++--
+ drivers/media/platform/qcom/iris/iris_ctrls.h      |  1 +
+ drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 19 +++++++-
+ .../platform/qcom/iris/iris_hfi_gen2_defines.h     |  1 +
+ .../platform/qcom/iris/iris_platform_common.h      |  1 +
+ 5 files changed, 69 insertions(+), 5 deletions(-)
+---
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
+change-id: 20260730-iris_vbv_delay-343d2fa30842
 
-What I was hoping for is that as you are already deep into the
-exact code that caused the warning and you can already see something
-in there that may help.
+Best regards,
+-- 
+Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
 
-I don't think it's urgent, I just don't want it to be forgotten.
-
-     Arnd
