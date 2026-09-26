@@ -1,131 +1,173 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6E53385BC
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF66744470C
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 13:20:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790428788; cv=none; b=ZkxSCkVc8iIXNKTRP8+spQKlyACvj07STZngsP4R4PVNei343vEAoM1RdzDsiHypMHksUvYNn7xkFHVDBPaT/j9ySO1AB7s6p8POis640KNGSedg28du4k+nx0nF6KdsHwpE+3rPb/1x0wgjlaD2tlIUQeb81Dc2ot36x5QLxe4=
+	t=1790428809; cv=none; b=LrlkEADSQoR1Sh5WPbX7QuJBnkEmIUHLnkWyqFEvMNyuNfMMFPHTIXdy5s3ihCTKaOfCZKqagcoRD670qaKNHVY7iQyppAedG0s16yipmqn6DU5hWbm9atubgnC9asHdmtwjpWpXKEI3ePVZnpkOUdz4tizbMmmGwBG6Ahz8ZfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790428788; c=relaxed/simple;
-	bh=RjoEqXLjxq93HwjNyWQIaPTDo0YhISB9Ja4xipmLNaQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UMBdyXSisR59WSikPFJ4G4qKiKzMlRkHo6apmhOP3pD0PmS2zdKntMGVbMzsPEiXTQDkbYptPgozm91MDsdACv9TllNd8gp+LeaMwU8zr0RJ/e+nRuVkbjCoOU9r89AnTTpaucf8YafcOfdsDDye2MZtrZWHLyB2dJ/fgo1msh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UBwyk0vK; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790428809; c=relaxed/simple;
+	bh=Ag+HbidyTvBaqT5NW9TShkPeX7VzVuUFE9FYOTXUJAw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LzO42oX/rWGCiwsKKq21sjp/gmbhnOzl11h9B0lqKW9deIkLbxA9j2XmWYZNO3Amw0qhRE/NVpLgnrJOnMmPWFsT9cYu5LavUS3JWec40CG3y4uHrtNoPaoM+yeZKw8IfMosdLLPS/o0vB5uNY4U6nKgfkuwthwgr9rqBX0g+ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LkrVJlXb; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UBwyk0vK"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so9644265e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:19:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790428783; x=1791033583; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KxBdd5YtiikdA2EB3RaEsDlyXLxZtzJpIW7hxYmjpy0=;
-        b=UBwyk0vKD/u1DIN7x697Mg7qao8dMQwQGI3fzcaBcZgQh8lxba1zmWZSybXK8WLlZy
-         pLKm2bKkOgtHU45GyyTTxBrZntS1L/ZHcFYFt59T8KiTGR98u5tXnUyLzOk7i9eO/SKI
-         6kB8oOePCKWzC9kZEnZr5fhRRSIr2iBAuMmRJwBxnuUJFFAPxMyK9RdKmQ4w1vASAzdU
-         tEC16IGKMpMcIkafYBN8t3tBHrqv6y88l8vF2c8cDxXtN8wLuGF6YGr8YIWMEvodzLDX
-         we5yooJWX5eSm5mjFYEgQIwDxI7xFq4uhdSDMZ6tYTF8BI+cUuwvKsVZSATnFVmVYKXT
-         bljA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790428783; x=1791033583;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KxBdd5YtiikdA2EB3RaEsDlyXLxZtzJpIW7hxYmjpy0=;
-        b=GjQ7UBxfVV1lrRNkxbZ5WSj8zKHYeHHFC4ASryNe5QL/f1AMqLrSBmy86DcoeytBcA
-         r12NdIa07iHzVim1Y8fznBpGqgu1sbWCZNcIqHKOiplMmVUXElg5tAtI8IsOLMwKriT0
-         KwoOJVjcNEGoSl5VYGIxXBnXpH/ZziHQr+XHNzq+n6WoQPaPU7nr5HCmkmELfrYlvfTy
-         nuDjRCXuCVqJN18SHxda+tofccOJLlDtGVyiODyYCI9KYiH9se/RcKq/7pevufBzb3SZ
-         C8uamY+GITGKv9uydz3W8/0JKwr2uvPsu08xKOZvtLLNXB2yAw358AGQxAngicx+RifV
-         QoMA==
-X-Forwarded-Encrypted: i=1; AKwUvBzx6euGcyWKyxQgPR5jWhzHb6okHca7OMKtTKNVUNpIOI6acqt0X0/o4yXI8/aDQ/Lft4ezbaJb/vj9yIU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBCQUTyL5B8L3PpfU3M4102PvStRVkrZI0lRs39epu6RYMx8AB
-	q/xZikMbZppIqrzP6JMAfMGpMjh9/SrEkSW1AKw+jEdtQZ++Tp4lFAJr
-X-Gm-Gg: AYBFou3AdtO10RENF/gD2+/nB/kM9/49dlbLIb4nvygWl2s6J87qoi8ZXny61PodH7m
-	xnGQcR5hdwZNUj2ptPaEC5zuwYZSJnQpOTd/AyHS2rI6Fn96H9hW+krcaIHNv5IfWJUfpe4/y3p
-	XW1xmKO7IT7MpfCPPjriNLsYMASSVNsgOOc5gRjuvotBr9DUmCjXrjN6sNbtad946RdiwxCXem4
-	yc2a+r0K82ihefdJCwbsQuGkaw5DlzPBNASt9mWvKgT6EhPjtJzXPvbNbhdsb3oCFu7RTr2Xigc
-	aiGpI2cu63cca1Ed83e191I+67t3KyjqGr6aaT0sOE96if92+CDPH8bW/AAPPF7wmd1cIue6W/B
-	GHcKTbetnOMzvVQsBS4y0JA5PeRpy9a53rgmqv239ES/DQ801bKfc6DDAcZpmhFLMjDJ+DT6Nk8
-	toh+SioxSJngNkoCcKgJMu/gOIbICZ8bP6g7dmJtphypuXvE2k8CmqIaVcp0ZnRgDJFD0=
-X-Received: by 2002:a05:600c:1391:b0:49f:ce73:5e96 with SMTP id 5b1f17b1804b1-49fe670af91mr159689215e9.34.1790428782920;
-        Sat, 26 Sep 2026 06:19:42 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a84205esm13861406f8f.37.2026.09.26.06.19.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 06:19:42 -0700 (PDT)
-Date: Sat, 26 Sep 2026 16:19:38 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Slavin Liu <bolin.liu@seu.edu.cn>
-Cc: shengjiu.wang@gmail.com, xiubo.lee@gmail.com, lgirdwood@gmail.com,
-	broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
-	festevam@gmail.com, nicoleotsuka@gmail.com,
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LkrVJlXb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=iP
+	Z0JZ7WM/fQXNY4w67+kzgznitoNOikcSV8jn8csew=; b=LkrVJlXbI+qvuQod74
+	JDF9VoGfH0WTL1TSGtNLYbLMCge43OYIdHe6atHGJBl1UK6VjXjukul5Ur76tCxl
+	Kd/1JZARvDQCu8JZuyfrLjBx0g/mFitYZPBbRbX/K0uYRehQMjjJo92GlmD5qnVa
+	ZuzIFfIpo8lFDY+ySSV3Vcl/4=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3P0g5xrdq4wWDAw--.54767S2;
+	Sat, 26 Sep 2026 21:18:51 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Gang He <ghe@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: fsl_asrc: check the second front-end DMA channel
-Message-ID: <arfGajXmMUeew0fr@stanley.mountain>
-References: <20260913125147.109920-1-bolin.liu@seu.edu.cn>
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] ocfs2: validate extent list in filecheck repair
+Date: Sat, 26 Sep 2026 21:18:47 +0800
+Message-Id: <20260926131848.3379842-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913125147.109920-1-bolin.liu@seu.edu.cn>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P0g5xrdq4wWDAw--.54767S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJFyDAFyDKFWfCFykXF18Zrb_yoWrAFW7pF
+	1akr95Xr18G34xuas3t34DZr1fKr1xCrW7GF4Sk3s8GF1DJrZ0kFyqqFy7XF4ftrWrZrnF
+	9F15uFZrCa4fAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEL0ehUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhtIgmq3xjuG+AAA3B
 
-On Sun, Sep 13, 2026 at 08:51:47PM +0800, Slavin Liu wrote:
-> The temporary Front-End DMA request can fail independently of the
-> persistent channel acquired earlier in fsl_asrc_dma_hw_params(). The
-> returned NULL pointer is immediately used to read its private data.
-> 
-> Check the temporary channel and release the previously acquired
-> persistent Front-End channel on failure. Clear its slot so a later
-> hw_free cannot release it twice. ASoC marks a component's hw_params
-> only after success and skips unmarked components during rollback, so
-> returning an error alone would leak the earlier channel.
-> 
-> Detected by static analysis and reviewed with AI-assisted source auditing.
-> 
-> Fixes: 3117bb3109dc ("ASoC: fsl_asrc: Add ASRC ASoC CPU DAI and platform drivers")
-> Assisted-by: LLM
-> Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
-> ---
->  sound/soc/fsl/fsl_asrc_dma.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-> index 2f662bdf14d0..64f2b0612274 100644
-> --- a/sound/soc/fsl/fsl_asrc_dma.c
-> +++ b/sound/soc/fsl/fsl_asrc_dma.c
-> @@ -248,6 +248,11 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
->  
->  		/* Get DMA request of Front-End */
->  		tmp_chan = asrc->get_dma_channel(pair, dir);
+ocfs2_filecheck_validate_inode_block() does not validate the embedded
+extent list, while ocfs2_filecheck_repair_inode_block() only clamps
+l_next_free_rec to l_count.  The normal inode read path requires l_count
+to be non-zero, limits it to the number of extent records that fit in the
+inode, and requires l_next_free_rec not to exceed l_count.
 
-The ->get_dma_channel() function pointer returns error pointers not
-NULL.
+Without the same checks, filecheck can report SUCCESS while leaving an
+invalid extent list on disk.  A later read through the normal inode
+validation path rejects the inode and makes the filesystem read-only.
 
-    sound/soc/fsl/fsl_asrc_dma.c:254 fsl_asrc_dma_hw_params()
-    warn: 'tmp_chan' is an error pointer or valid
+Add a shared helper for the filecheck paths to check these invariants.
+The filecheck validator now rejects all three cases.  The repair path
+still clamps l_next_free_rec, but refuses to repair zero or oversized
+l_count values.
 
-sound/soc/fsl/fsl_easrc.c | (struct fsl_asrc)->get_dma_channel | fsl_easrc_get_dma_channel | 1
-sound/soc/fsl/fsl_asrc.c | (struct fsl_asrc)->get_dma_channel | fsl_asrc_get_dma_channel | 1
+Fixes: d56a8f32e4c6 ("ocfs2: check/fix inode block for online file check")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ fs/ocfs2/inode.c | 71 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 71 insertions(+)
 
-regards,
-dan carpenter
+diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+index 180107a11046..57168ed02915 100644
+--- a/fs/ocfs2/inode.c
++++ b/fs/ocfs2/inode.c
+@@ -249,6 +249,41 @@ static int ocfs2_dinode_has_extents(struct ocfs2_dinode *di)
+ 	return 1;
+ }
+ 
++enum ocfs2_extent_list_status {
++	OCFS2_EXTENT_LIST_OK,
++	OCFS2_EXTENT_LIST_ZERO_COUNT,
++	OCFS2_EXTENT_LIST_OVERSIZED,
++	OCFS2_EXTENT_LIST_BAD_NEXT_FREE,
++};
++
++static enum ocfs2_extent_list_status
++ocfs2_check_extent_list(struct super_block *sb, struct ocfs2_dinode *di)
++{
++	struct ocfs2_extent_list *el = &di->id2.i_list;
++	u16 count;
++	u16 next_free;
++
++	if (!ocfs2_dinode_has_extents(di))
++		return OCFS2_EXTENT_LIST_OK;
++
++	count = le16_to_cpu(el->l_count);
++	next_free = le16_to_cpu(el->l_next_free_rec);
++	if (count == 0)
++		return OCFS2_EXTENT_LIST_ZERO_COUNT;
++	/*
++	 * The exact capacity depends on i_xattr_inline_size, another
++	 * unvalidated on-disk field. Inline xattrs only shrink the
++	 * list, so the no-xattr maximum is a safe upper bound that a
++	 * valid l_count never exceeds.
++	 */
++	if (count > ocfs2_extent_recs_per_inode(sb))
++		return OCFS2_EXTENT_LIST_OVERSIZED;
++	if (next_free > count)
++		return OCFS2_EXTENT_LIST_BAD_NEXT_FREE;
++
++	return OCFS2_EXTENT_LIST_OK;
++}
++
+ /*
+  * here's how inodes get read from disk:
+  * iget5_locked -> find_actor -> OCFS2_FIND_ACTOR
+@@ -1835,6 +1870,33 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
+ 		goto bail;
+ 	}
+ 
++	switch (ocfs2_check_extent_list(sb, di)) {
++	case OCFS2_EXTENT_LIST_OK:
++		break;
++	case OCFS2_EXTENT_LIST_ZERO_COUNT:
++		mlog(ML_ERROR,
++		     "Filecheck: invalid dinode #%llu: extent list l_count is zero\n",
++		     (unsigned long long)bh->b_blocknr);
++		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
++		goto bail;
++	case OCFS2_EXTENT_LIST_OVERSIZED:
++		mlog(ML_ERROR,
++		     "Filecheck: invalid dinode #%llu: extent list l_count %u exceeds max %u\n",
++		     (unsigned long long)bh->b_blocknr,
++		     le16_to_cpu(di->id2.i_list.l_count),
++		     ocfs2_extent_recs_per_inode(sb));
++		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
++		goto bail;
++	case OCFS2_EXTENT_LIST_BAD_NEXT_FREE:
++		mlog(ML_ERROR,
++		     "Filecheck: invalid dinode #%llu: extent list l_next_free_rec %u exceeds l_count %u\n",
++		     (unsigned long long)bh->b_blocknr,
++		     le16_to_cpu(di->id2.i_list.l_next_free_rec),
++		     le16_to_cpu(di->id2.i_list.l_count));
++		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
++		goto bail;
++	}
++
+ 	if (ocfs2_dinode_has_size_without_clusters(sb, di)) {
+ 		if (S_ISDIR(le16_to_cpu(di->i_mode)))
+ 			mlog(ML_ERROR,
+@@ -1893,6 +1955,15 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
+ 		return -OCFS2_FILECHECK_ERR_VALIDFLAG;
+ 	}
+ 
++	switch (ocfs2_check_extent_list(sb, di)) {
++	case OCFS2_EXTENT_LIST_OK:
++	case OCFS2_EXTENT_LIST_BAD_NEXT_FREE:
++		break;
++	case OCFS2_EXTENT_LIST_ZERO_COUNT:
++	case OCFS2_EXTENT_LIST_OVERSIZED:
++		return -OCFS2_FILECHECK_ERR_INVALIDINO;
++	}
++
+ 	if (le64_to_cpu(di->i_blkno) != bh->b_blocknr) {
+ 		di->i_blkno = cpu_to_le64(bh->b_blocknr);
+ 		changed = 1;
+-- 
+2.34.1
 
-> +		if (!tmp_chan) {
-> +			dma_release_channel(pair->dma_chan[!dir]);
-> +			pair->dma_chan[!dir] = NULL;
-> +			return -EINVAL;
-> +		}
->  		tmp_data = tmp_chan->private;
->  		pair->dma_data.dma_request2 = tmp_data->dma_request;
->  		pair->dma_data.peripheral_type = tmp_data->peripheral_type;
