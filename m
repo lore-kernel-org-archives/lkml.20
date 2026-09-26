@@ -1,117 +1,188 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9DD2931FF
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790393536; cv=none; b=o00dYBodbGkwemZMAzgR3tp4FnKMoyvKUweq8HpuLfyBfm4pZZbTA2UxiN7moBmjMKoHsnPcgzCp2/wQqHByjxdTFvL4iYXrgZGWmc56apj86yaPgZ6NJfAMDBEEVbOfu/3Ik9AjYXnuoaZXg0knJMIIHWx8CxQ+Z8M451Z4TWY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790393536; c=relaxed/simple;
-	bh=BLv0rRdoWToZOH28vOWENZ07pNp7lKwV0lf3MjaJwMw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445003783D5
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790393582; cv=pass; b=VnVW+TuAv/omd3O1j0zf2s9Xl08NXLVH7xzeJjQOciEtfLRxcftt3B1ZluAADjiNuQF0OcwXyIIa88ZmXX4sJ5fIkupmJTvk/fyF2dxVXcB1Y2FU1trJZ0p4tpZ94XcMjfBaAIKX8Jz1Jkv2pcQnR6AmYxsMKuMD7lLZZqyIe8k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790393582; c=relaxed/simple;
+	bh=Mrl9hnYjNzsvW5V/54263E3XvGLPbjPgQW7Qq+pl7+8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YDtSmBsipWWQUhqnSKGbgtH5kQTSAXDf0pu2BAoUNWhnLr6aM5Mg1JqtkMANsQPzJfiyh3Z+wT6WSLwvkn6UHJgjlnQIu0NSJwpmdD1CpZ8L+EK5l9lrRoQqf+yoJcAJeQOV8PvWUZi016rZF1erkXSuvk8O07Bqncr5fCbOTp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=jo9wQQ7m; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	 To:Cc:Content-Type; b=twhNH3iaVZVexwq4/mCgPmZ2QpqbnGhtOTxIR0yho3yOQVaREt5zvNGgtclW0YGckqU1sqnkqqy7uh62mkD82ARXVl+kznhnQFI49a6F3j9PI8T+dEMlXWbe2BO5dhTJ7DgBGQViddA5lEsWAlkpuQTdR8o1jB3MFcMq3c5BgNQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WVriEuJI; arc=pass smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="jo9wQQ7m"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:Content-Type
-	:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version:
-	Reply-To:Content-ID:Content-Description;
-	bh=AQLmCm/9B4mrJDzPpo+c4kOsaksdj2bsxYt/mOLsFQ8=; b=jo9wQQ7mm1/ITjk+ho4Jqb3VQ4
-	pZIm1U2kqU9EuqV46lVDXBxtDVqh6mbj/xZCVgKxADk0e2A+hQc6WwZfju0uf/V9QQDHCcacY0TFO
-	kvEYBfRRfI7hAG62lVNBjhLw3NdbPvg/A/lUr8mu8Z/uP1+PInYzLX2mvLZidv8ajyiaLyE9N/WXN
-	DiWG1A+Y4rYjXLv7HkZsYQ9Fu1lUSzYgN0eO9ym8loXE/rzLtByS5fEFW7wwesxFNYSNy/NVqgAlC
-	p5RVlYBoeEHqVbXfwr/vSn+oAcQhe7y0NVmH4v6jfafS+/SH1x4gI3ntSvqjYJyPDFRi/2TfNfFv2
-	ozuxqb4A==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128)
-	(Exim 4.96)
-	(envelope-from <domibel@debian.org>)
-	id 1xAJ91-005nOa-2h
-	for linux-kernel@vger.kernel.org;
-	Sat, 26 Sep 2026 03:32:12 +0000
-Received: by mail-pz2-x0d.google.com with SMTP id d2e1a72fcca58-8692a856865so734946b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:32:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByWmybwsqkxdvltg6Wi6HrjVRcBJ1GTx+eoWhyckeRHlREos300fftKPjGdJow3pUdKx3QHIV5ayleu2zo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k02bZEyKXSG+/hn+hDgbylCUCEJgF6VxXrCwR7AuG8dkE8wjnS
-	yY9HqOGuuKFNy3BXBFZjZvmYRbGOncgA8V2P19UQBQFm0UIiUlDn15LgcwWJE9D8SXBf5OrR6FG
-	cEvu99DoL75GV8Uvjnbjeb30Op4xg+q8=
-X-Received: by 2002:aa7:888b:0:b0:880:7e9a:6e56 with SMTP id
- d2e1a72fcca58-8807e9a73a8mr2177107b3a.13.1790393525763; Fri, 25 Sep 2026
- 20:32:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WVriEuJI"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53328262efbso24511cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:33:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790393580; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aQbEP0GOrCxJuGFYuzKdc2XMfGkEo9+Ke64yU3H/bLQ4mXAPLs3ug/XFmWO3fwbD5a
+         HptZCIIqAVnjcoaks1Pd3BzllHNrFRdB9UuzcKsEg/VeduIV0CEizwUiF7t9AXdWBR5N
+         mAuu1NfGkq16RMWsiy+pwqKIJ1dIRXj50SVVFb8SdH5FAFlX3g4ZDCTIleEgjjrST3+d
+         13dC/FPiCVlPqtBXXAKigtma7rD8vp6kIO1QdtE0lkZJHK36d5AihjRaXmiQrQLN/Ni+
+         +zbCX8KBqAuCx4oAho4cBV5zWYdyTLjAbSaMVTRhXUtBiQldrLgRLSj3hyzmFUSEiE/2
+         fCpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+uCSvMpSE+JPBUO8LTByUk9lpkLbBmHFzIVMWFzxgaw=;
+        fh=/s5ElnPJM8e9vGkycDB79+Kbz5WMqhXwGWsWBG7VjS0=;
+        b=l5WwNSlJrb3CiOwmBxeHYWD6Eqhqb1Diec8mm3P99VLEPNIpph/zABat7J6CwpXwc+
+         XCb0gWP6cVwrZsK1S1mfRvp+I7m01KiYIFPt13sYdPQTBvwKZ3C9FUGKRRMgpBTPuAIE
+         kUpkKHSMRtzhmJM6bQHhsbS04IbEC9uYVkJSEUfmjDX1R0ywdjRB/REaxa5RDziQzg+1
+         xL2PEpWbjnBSAxS1RcTQuT0isIb8MpL67ORUg1aamsPcE2VXZ8nIGCjQbv0e/XyrfQxR
+         fTTgnGyj9NLfqK5lXPxKoPrLyoUq7UUJO1Grl6g15GkmsAiB0JQZN9eaLxTLKknjP6M1
+         Ksaw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790393580; x=1790998380; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+uCSvMpSE+JPBUO8LTByUk9lpkLbBmHFzIVMWFzxgaw=;
+        b=WVriEuJItxd3dx61FWbAq2BFcTZ5g17EhX3ymbqaMvFMr0SU1/Qk9Z7qK0Qq1BNySw
+         2P4AS3Gcx9lSPgWV+N7lWWhn4aBKfHRr1j9+oQQYQknOLL0t3LGSiLBQDI+0FmHEx7zF
+         +XRIJ3fd5IysW/OVkjflA9lC7BBvFx09GyCXmkVcHQeKt1Np5jBA02TMV5KlJ54ys1TR
+         ytXMVvjr1KV52Bxh8LxgQ6WoglKWgp65BdGo5ygO5PBG706a2esSlIj8Q8g+XlF+8N9B
+         eV1RPc0FijG7WRsbQSOmV/ore9GvaNqn97DGD4qRUQ88hoobFl0/twideJJVFDX2hK9K
+         kGNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790393580; x=1790998380;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+uCSvMpSE+JPBUO8LTByUk9lpkLbBmHFzIVMWFzxgaw=;
+        b=XVVVfZgblKs4vT+FdxG6Mzt/bv5CsfxaG6xzNgCUD/vf/8DqOMNYFboWCNhkkIkfY/
+         1QQF1zaDVNDfyGPqq+Wzm4otXxQaQ55C62bEiAzB+ZamDR9xa5L8hqcrMq7r8rgYMsWy
+         WCVU/h9rdVSyLM1Nh99w91L+yJ0R5BwDe5fwkf/sL7EzdKVDmZBNgCTqQEKbis0xoSq7
+         K5xr+ZCT2lK4tX0tBTCeti4nUBUDqkdfX8CZGhoBw+rnb5oNVnsl8a9sLvCH7/36hCAE
+         YAbTb0MJe3Ns6ePP1ugJWHUogTiXbKKO3j7NQkmyjroP+cm8pKObeEI0rXMdEzV1+BuR
+         wplw==
+X-Forwarded-Encrypted: i=1; AKwUvBzrWHjxnV9vvlSNv8egNXlEeOSTLzc5rksSubgbDNBc0Km+kcuQLklmiVAAaHNTrDLJ9NeMa8Y8sDDN130=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/3XCpVzfL8on9A//jJ5NqCbgdWNiQolZ83gfvI+ZDb8Mrnp7g
+	X+jkWlyvT+2ehgMls3x3cfQKb+5p64VIMvZPfGzEYEywqe9nmmSEJZHfDBzJpXTit/rcBukBmUj
+	+Zt9xA17VuOGZ5v7ILQqJ1o7CYkYUZMKSXgGPIi8F
+X-Gm-Gg: AYBFou16ZlAvkzJ0wCYFExhHE3jVw2kadtxIKURUtRELuytlYClHwoZg1c/OwoqURlE
+	5jdDewSneThF3/Q4wn3hlycOz7mCWvOO+c0NiSvGvSRKQKWXpT/psyeY7wfe0pyFGD6m5BKPx7h
+	3jWamWS42gXz3XoghudeUwE6uUPAAALgnNSxhI2fHTMYR8EI+UO4460eEYzK5idEK4UiBwos81J
+	rNwf27pMneW+YbbFlQRHPi8M9anLRLeGgI4hUqGjNM/WyBXJ+3uTVmferuXXmwrZeDvcUBppxEe
+	kroIo0zJ4JbuI+IDppsluH7eOc9ea6ZpzuBVTCH3YNDSU95FBAigAJM=
+X-Received: by 2002:ac8:5c95:0:b0:532:eff9:ca08 with SMTP id
+ d75a77b69052e-53320176517mr3678531cf.12.1790393579518; Fri, 25 Sep 2026
+ 20:32:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CGME20260915153246eucas1p289987fd8757c89ff865c99b6465708a8@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com> <20260915-jh7110-clean-send-v4-18-f0e4fd6f2cc8@samsung.com>
-In-Reply-To: <20260915-jh7110-clean-send-v4-18-f0e4fd6f2cc8@samsung.com>
-From: Dominique Belhachemi <domibel@debian.org>
-Date: Fri, 25 Sep 2026 23:31:54 -0400
-X-Gmail-Original-Message-ID: <CAAvaLCzm1o=m6P88KNeHCG9BuTBu4AQmAec90kN3MMC6ZpALaQ@mail.gmail.com>
-X-Gm-Features: AclHuK8_8y3EcFqb3OgZBY9WaeDxyzPMPd1_yK_ekhMIXfr7tAphtd8D7H_5xEI
-Message-ID: <CAAvaLCzm1o=m6P88KNeHCG9BuTBu4AQmAec90kN3MMC6ZpALaQ@mail.gmail.com>
-Subject: Re: [PATCH v4 18/20] phy: starfive: Add jh7110-inno-hdmi-phy driver
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
-	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, 
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>, 
-	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+References: <20260807071818.718751-1-irogers@google.com> <20260807111818.GN687043@noisy.programming.kicks-ass.net>
+ <ao90ncOA2Ce8ezIc@google.com> <arc2CZ5SrPlI0hF_@google.com>
+In-Reply-To: <arc2CZ5SrPlI0hF_@google.com>
+From: Ian Rogers <irogers@google.com>
+Date: Fri, 25 Sep 2026 20:32:47 -0700
+X-Gm-Features: AclHuK9Y-s7mwnYOc2bTtxVwmooo95aKKvfwHl6gj3vOPc0ZaRqs9Us7YYM1Bps
+Message-ID: <CAP-5=fVbfU+eCqasH7U5366jgHzP-7+H5Lg_Vm5-C_-dt5ceKg@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 0/8] perf/core, perf/tools: Add PERF_SAMPLE_BUILD_ID_OFFSET
+ support
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
+	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Ravi Bangoria <ravi.bangoria@amd.com>, Swapnil Sapkal <swapnil.sapkal@amd.com>, 
+	Thomas Falcon <thomas.falcon@intel.com>, Thomas Richter <tmricht@linux.ibm.com>, 
+	Dmitrii Dolgov <9erthalion6@gmail.com>, Eric Biggers <ebiggers@kernel.org>, Zecheng Li <zli94@ncsu.edu>, 
+	Gabriel Marin <gmx@google.com>, Tengda Wu <wutengda@huaweicloud.com>, 
+	Derek Foreman <derek.foreman@collabora.com>, Tanushree Shah <tshah@linux.ibm.com>, 
+	Ankur Arora <ankur.a.arora@oracle.com>, Aaron Tomlin <atomlin@atomlin.com>, tanze <tanze@kylinos.cn>, 
+	Rui Qi <qirui.001@bytedance.com>, Howard Chu <howardchu95@gmail.com>, 
+	Chuck Lever <cel@kernel.org>, Shimin Guo <shimin.guo@skydio.com>, 
+	Alessio Podda <aleph.pi.gh@gmail.com>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, coresight@lists.linaro.org, 
+	linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Debian-User: domibel
 
-On Tue, Sep 15, 2026 at 11:32=E2=80=AFAM Michal Wilczynski
-<m.wilczynski@samsung.com> wrote:
+On Fri, Sep 25, 2026 at 8:03=E2=80=AFPM Namhyung Kim <namhyung@kernel.org> =
+wrote:
 >
-> +static int starfive_hdmi_phy_probe(struct platform_device *pdev)
-> +{
-> +       ret =3D clk_set_rate(inno->phyclk, 297000000);
-> +       if (ret) {
-> +               dev_err(dev, "Failed to set default rate: %d\n", ret);
-> +               goto err_del_clk_provider;
-> +       }
+> On Wed, Aug 26, 2026 at 04:19:57PM -0700, Namhyung Kim wrote:
+> > Hello,
+> >
+> > On Fri, Aug 07, 2026 at 01:18:18PM +0200, Peter Zijlstra wrote:
+> > > On Fri, Aug 07, 2026 at 12:18:10AM -0700, Ian Rogers wrote:
+> > > > This patch series introduces PERF_SAMPLE_BUILD_ID_OFFSET to the
+> > > > perf_event UAPI and implements full support across both the kernel
+> > > > and perf tools.
+> > > >
+> > > > Background & Motivation:
+> > > >
+> > > > In order for perf to translate virtual addresses of samples into
+> > > > symbols a file and offset within the file are needed. During event
+> > > > synthesis perf will create mmap events to facilitate the translatio=
+n
+> > > > of a virtual address to a file and offset by modelling the address
+> > > > space of a process. By directly recording in a sample the Build ID =
+of
+> > > > a file and the offset within it, no synthesis is necessary. The Bui=
+ld
+> > > > ID and offset as a pair are much larger than a virtual address, so
+> > > > there is a trade-off between synthesis cost and extra size for
+> > > > samples. These changes just facilitate Build ID and offset as a cho=
+ice
+> > > > for perf samples and the user can have the choice to use it when th=
+ey
+> > > > believe it is advantageous.
+> > > >
+> > > > In practice perf still needs to map a build ID to a file, so by
+> > > > default this change keeps synthesis to allow this. It is expected a
+> > > > user that knows their build IDs, say through debuginfod, will disab=
+le
+> > > > this option with say --synth=3Dno.
+> > > >
+> > > > The kernel support uses the existing build ID and offset support us=
+ed
+> > > > by BPF stack traces.
+> > >
+> > > That is still a giant stinking mess that needs to cleaned up.
+> >
+> > Then we can discuss how we want to handle that as well. :)
+> >
+> > I think this work would be useful on large systems with lots of tasks.
+> > I've got reports it took too long on synthesis and timed out.  Also it'=
+s
+> > racy and easy to miss new tasks..
+> >
+> > So I think it's a good option to explore and maybe we can make default
+> > once it turns out working great.  But I'm afraid it may need some kind
+> > of optimization to handle multiple addresses like in callchains/LBRs.
+>
+> One more thought.
+>
+> Maybe it's not a good idea to traverse the VMA tree in NMI.  Can it use
+> the deferred unwind framework to do that later?  We could extend it for
+> non-callchain data like IP and BRANCH_STACKs for user space.
 
-Hi Michal,
+Thanks Namhyung! I will incorporate this in v2.
 
-Can we drop these 5 lines?
-When my 4K monitor comes up in mode (3840x2160@30, 297 MHz) the screen
-stays blank.
+Ian
 
-When the first real modeset requests a mode whose pixel clock is also 297 M=
-Hz,
-clk_set_rate(hdmi_pclk, 297000000) then sees cur =3D=3D want and does nothi=
-ng.
-So the pre-PLL is never actually programmed.
-
-Without these 5 lines inno->pixclock stays 0,
-so the first modeset's clk_set_rate() always runs .set_rate() for real.
-
-Together with my forgotten fix from May we can have working 4K@30 on the VF=
-2.
-https://lore.kernel.org/all/20260528184145.384114-1-domibel@debian.org/
-
-Best
--Dominique
+> Thanks,
+> Namhyung
+>
