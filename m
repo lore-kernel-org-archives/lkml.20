@@ -1,165 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D8B1624DF
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBCD1624DF
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790447911; cv=none; b=a7Y4dugkokCTDvt4vNQLFVfbWe4cULDQL9nTfADfMUCBkOmy7nHailk6iAQKOMFDNVGPNqHQo0+0WirEjdl/WtI/x5AVxD76EB1MDtA9dyWBhPQQdJIL5QbcPxHFPaQQhBhtxjXsYopk8ugMM9D4HgEl0ccF3pVIlZDEjYiGRaI=
+	t=1790447971; cv=none; b=nxMFS0CstNOLj/4LO/cP9SPz8FNRTjAjO0t4V71Z/IXvx9F4ytrLX8Ar8r9eYGx1KMz+YEmJJsXZs9zLgnOrF9UbCKLvMiWgqCrpHiaSLSpctFIMmEptueytY7fQ6F0XoKV89QWsQwx90ciu2LLaNTL+nfU9ppr4NzdMMzCHuBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790447911; c=relaxed/simple;
-	bh=v5qWPwPmptIgOUMB5CFuulpDfvjtsgXAwWcBMYCtwUA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GsbCQqUonGE69jUz62tRKT2q3gFLTLhv0dp+UgP1xqd58pY6/SPWm22MhhFjCuo3V86Zkmuml7XP62JSaXPGC3huPA3xamAp91npDoG/L3nqfKZfak84kbtSAcKhZIGQ74bQaXhrtZNcrN5xyDTw0G12Ts1QtmSejmvBsB1j1Z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EV3/Fkdd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790447971; c=relaxed/simple;
+	bh=l0Xyu0t7fZH3pbxaEjct938LlOec4HZEkRRf1F/wvxw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KcKEAcsABSruByf15KlieJsNOhRIPBvv9KccYRn6rOchrFtfhOMqGJ9hct8AXTgQDO/5IbhbTmJc8y1MpUM9fA9i34rO4ngKt4rsoeWgN16Nw3WzlpiNcKg+Fmm3Sv5bW7/3BOmVRdhiLCYriw7gmY97RGtnK8WNZBkr/N9X9rg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gb/iWfI5; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EV3/Fkdd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB10B1F00899
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:38:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790447907;
-	bh=8Qra4Hs5x0GhjkOw3qaqLENUU09DmiBO0O2Kq1ZFdXw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EV3/Fkddwj5kVdP+bqmr7VcdtLxJlmknKALyjXnJHBV6KMTwDpu8tzzr2r6v0MMQA
-	 xEMwNFF2kjjT3WONGHBBsiuTJlpfRF89nf+AN+7HTL55Im8JqCRi6pHjdRefLz49Qi
-	 GJatTdRYVmBuDo0EVJbYWK2lJ0d2kefQaGzBEz16E+JTqBIFPpk1RQAXIz/chePQjy
-	 ynE/jbTV5N1/kLmTVG6u7o9qC8Y74WN4gh3LaW3qvbK6uFSKMZU7yNFprH1du73yDh
-	 gLfHXKvAaJiqNDR+S4k3PY1mkvCTY0VYmRqlrERldQ0cBV7iqGfZxob3AKGrsBK0cM
-	 uBMaEa+FHdyZQ==
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2dc50c6edfso27320766b.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:38:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzZ5vKnUpx7BcvbftLKgqQ6pudI/zelQDnxJ0Yk428fA8Rcrv+ghfqKdgOYa5478q3QHrDlevAwyBtohMM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnM/eHWHoM+wT5OQQ/zOJB74XXhWs6Hv4ioOGaXOej3Qu/o4vY
-	7jcr2qEHqFPRHNo//65gggnX6GwX6051jZTLr7bSkkpEDYggeUJC2QPPFez5w5Mu91hEh1RilkT
-	2Hc8mcvbaUDcG+tRu2TL1rH0tcSb60fEsu09E7yXCfQ==
-X-Received: by 2002:a17:906:f588:b0:c2a:ad55:b3fa with SMTP id
- a640c23a62f3a-c2ac22db042mr757145966b.7.1790447905700; Sat, 26 Sep 2026
- 11:38:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gb/iWfI5"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dc83so1508456f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:39:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790447966; x=1791052766; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7jles6kOLK/nYoY3nT9JUOZhy6Cidsz25VDFnXK9X6A=;
+        b=Gb/iWfI5hD9UuZhUAYxBCYyq2Uhn0RTNpohBv12zAC3jbk/4EyxP98LNeWIQxeNusm
+         3fENxun9BeoGfHbpFXCWPntI/YaOH0RE3u/hWhPQi6TPP8NQpqk/lutHeQPInqnFK1oZ
+         /yvkxly71nyCvLr/3muqfH2+lXIN7aN2S/+XTFaYL2kb+0SHEcOMr0uYpiQJBtbCTKgU
+         rx+jmOXYwo4n7NiKlTDPjJAXJRjIq1mOWW9nn/z9g7EWxYkfJwOAdenUpz7O8cjl/MSO
+         wtJ82rDK9ECA6MvYPeWVEIB2lWQ6EJ65gFlO44UoNeXJtl0xGFkOztlq7qokJm9XmxrB
+         YBsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790447966; x=1791052766;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7jles6kOLK/nYoY3nT9JUOZhy6Cidsz25VDFnXK9X6A=;
+        b=xRgPr68acft7UOPyZl/zhVLOHIuBGaNCwmLIkh17R6HFINKHkruMcXE7lEJRe4nKcJ
+         NBnvN8lp8p8blIVjBAe5xatga9kEOjRlSEadhICWwQQDUWtMr2iTkj86Jn1fwTUV1xbD
+         peqDE97aZSQhje/enzMLObZM/cw99rklVgFBRpYvg7gAaMwrzVPqtT3lFmsnDmF931oy
+         GeD3kVTUFAxPcTmichD+ZNXlSvHLOlsCuBCJ5wyahZYlPzQTuT/vUz6qpqSo4BStDfmb
+         W8ymnhxfBRyH7cF37G47vlIMZHCkgFxk2KzPHy0D/gb9WaXWluuvOj1hSyIIr/oU/rW3
+         b08A==
+X-Forwarded-Encrypted: i=1; AKwUvByFYCDuD7hJyTy+X/E23VEYlCZGGzB8FL8yJDaHypfM2cnNzc/Shndudsi9C5OxUeAVi8OXv83w4UY5c/U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIru2zpKOitBzhKFTZm005epB2g4tqm7+bX3nbCNEm++obq8LpW
+	1TYofGVnml4cZZvkkS/ifQZf8lnUciLarmfaIoeIpgGQNVWu86O3Q+Tr
+X-Gm-Gg: AYBFou2LLsYrFYipsCWyxVGr8OYHFqSTDjri2o2I3bfMuLtrJ46+BpdYoPZ90BbPEmX
+	V5AUHQLiElU2u/E9L7U45c1KY40xkTWp9+XtzRSBVcO039yeeByA8m+qthtcRPCwFHdmMbrrZj7
+	Ovw/sW+WM3l0QLgsg3I0AwugqQl3ISGakLKWFEzy/+Gm7iu0cvCM55awz/NxOhNQKmBhnY3eD4z
+	7oe6mJufkP5bPpf+NY0PjH9BLDsOFfWNkUslRXVnuVmmBS1PUNysl2Lk31EZAlJJiyTYT2OhwRb
+	lwoEM+JXa8SheeC0eQ2/qlN0pkLYLZsuaKgjRuQDgMvsgtuf9fyYxjSeq97Z9es0cX3cprKtdCM
+	dcstG/Tm+IEr+8ugaUEEbUqTkGnaXX/Evmo4Un5biT9OgGrqk4gpwIDXsyieCdi6SF+bQWp5zpx
+	qM8OmJRhAhoUqBGYshWL0K2BkJMk3pxI4XBpuD4YDvVltoEDan/1dyX+fyGKLi9ePPj/GdHzJG6
+	AJ7QLgyy/4ujT9LnhGgbMcQK9NfUUd2XwH9787rXr5qM7ok21aK34Il8mYvhRbtHvzM6AjO05yn
+	JXlw58PzajvSeN/fb9pdIY2bwGqhNWiP8fy3rE8CZZ4V+NAaIEYBTACS85o6XTNH2uSS2xRdV3V
+	tGg==
+X-Received: by 2002:a05:6000:4707:b0:488:5fcd:c1e with SMTP id ffacd0b85a97d-48872a72594mr14913212f8f.18.1790447966239;
+        Sat, 26 Sep 2026 11:39:26 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b162-c701-4960-a998-3de8-2fce.310.pool.telefonica.de. [2a02:3100:b162:c701:4960:a998:3de8:2fce])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a648895sm15430376f8f.28.2026.09.26.11.39.24
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 26 Sep 2026 11:39:25 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: linux-sh@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Karl Mehltretter <kmehltretter@gmail.com>
+Subject: [PATCH 0/2] sh: mm: fix hugetlb on SH-4
+Date: Sat, 26 Sep 2026 20:39:02 +0200
+Message-Id: <20260926183904.76186-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918180241.3424851-1-nphamcs@gmail.com> <20260918180241.3424851-2-nphamcs@gmail.com>
- <CACePvbVaDNspMDSw_qAcapKAzXj3JGV-KMYmow7aePa0POHpSg@mail.gmail.com>
- <7571f005bca65aa4ad5e7ec89e62801ad058b689.camel@surriel.com>
- <CACePvbV-tazW=LmsbUtAhHzR2d6JwFT5R1jYZ9_NTp1hxXH=bw@mail.gmail.com> <a30eb60221cda2fe726a86c2c6f859f71fc7a46d.camel@surriel.com>
-In-Reply-To: <a30eb60221cda2fe726a86c2c6f859f71fc7a46d.camel@surriel.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Sat, 26 Sep 2026 08:38:13 -1000
-X-Gmail-Original-Message-ID: <CACePvbVd8uE5mwPX8T95zbURhhXxO2zbRETziJcGwQs3tOLEng@mail.gmail.com>
-X-Gm-Features: AclHuK-N2jo4ZJ9-ufy2a2NhRahWQY5CCHBUKvfMp6i2GWnJxoh5F1ffpf_MpB0
-Message-ID: <CACePvbVd8uE5mwPX8T95zbURhhXxO2zbRETziJcGwQs3tOLEng@mail.gmail.com>
-Subject: Re: [PATCH v5 01/11] mm, swap: add virtual swap device infrastructure
-To: Rik van Riel <riel@surriel.com>
-Cc: Nhat Pham <nphamcs@gmail.com>, akpm@linux-foundation.org, kasong@tencent.com, 
-	hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
-	shakeel.butt@linux.dev, yosry@kernel.org, david@kernel.org, 
-	muchun.song@linux.dev, shikemeng@huaweicloud.com, baoquan.he@linux.dev, 
-	baohua@kernel.org, youngjun.park@lge.com, chengming.zhou@linux.dev, 
-	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, 
-	surenb@google.com, qi.zheng@linux.dev, axelrasmussen@google.com, 
-	yuanchu@google.com, weixugc@google.com, gourry@gourry.net, 
-	haowenchao22@gmail.com, corbet@lwn.net, hughd@google.com, 
-	baolin.wang@linux.alibaba.com, tj@kernel.org, mkoutny@suse.com, 
-	skhan@linuxfoundation.org, kunwu.chan@linux.dev, kernel-team@meta.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	cgroups@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 3:24=E2=80=AFPM Rik van Riel <riel@surriel.com> wro=
-te:
->
-> On Thu, 2026-09-24 at 15:17 -1000, Chris Li wrote:
-> > On Thu, Sep 24, 2026 at 8:13=E2=80=AFAM Rik van Riel <riel@surriel.com>
-> > wrote:
-> > >
-> > > On Tue, 2026-09-22 at 23:18 -1000, Chris Li wrote:
-> > > > On Fri, Sep 18, 2026 at 1:03=E2=80=AFPM Nhat Pham <nphamcs@gmail.co=
-m>
-> > > > wrote:
-> > > > >
-> > > > >
-> > > > > @@ -482,6 +491,11 @@ void swap_read_folio(struct swap_io_ctx
-> > > > > *ctx,
-> > > > > struct folio *folio)
-> > > > >         if (zswap_load(folio) !=3D -ENOENT)
-> > > > >                 goto finish;
-> > > > >
-> > > > > +       if (unlikely(swap_is_vswap(sis))) {
-> > > >
-> > > > There are too many swap_is_vswap() in this series. It fragments
-> > > > the
-> > > > code path, making things harder to reason about. Esepcially
-> > > > around
-> > > > locks. I count 22 in this patch alone.
-> > > >
-> > > > I consider this the biggest drawback of this series. This
-> > > > fragmentation of the code path.
-> > >
-> > > Could we avoid that by simply always having everything
-> > > go through the vswap abstraction layer?
-> >
-> > Yes, but it will pay the price for going through the unnecessary
-> > redirection layer always. It incurs performance and meta data
-> > overhead. That was one of my previous objections to the earlier vswap
-> > version. Sorry I enjoy micro optimization too much, that is both my
-> > strength and weakness.
->
-> We really only have two cases here, don't we?
->
-> Either the data is in the swap cache, and
-> the vswap layer can directly look up the
-> swap cache page.
->
-> Or the data is in some slower back-end,
-> and doing a second lookup is not going to
-> introduce noticeable overhead.
->
-> If the micro optimization come at the cost
-> of less flexibility, and harder to maintain
-> code, are they really worth it?
+Muchun Song noted in the review of the Arm hugetlb alignment fix [1]
+that SuperH has the same arch_get_unmapped_area() gap. Reproducing it
+in QEMU turned up a second, older bug that corrupts memory once the
+mappings are aligned.
 
-In this case, yes. Because there is an alternative that can both keep
-code complexity down, perform well, keep metadata small, and be
-flexible.
+Patch 1 fixes the page size in hugetlb PTEs. pte_mkhuge() ORs the huge
+size into the base page size bits, so 64 KiB huge pages over 4 KiB
+pages are loaded into the TLB as 1 MiB pages. User writes then land in
+unrelated kernel memory. This dates back to the start of git history.
 
->
-> >
-> > > Handling the details of what's behind the vswap would
-> > > be handled one layer down.
-> > >
-> > > Chris, do you think that would be cleaner?
-> >
-> > If it can wrap below the swap_ops, it is just priviate inernal dedail
-> > of implementing its own indirections. That would be much cleaner.
-> > That
-> > is what I am trying to pitch to Nhat in prevoius email but does not
-> > have following actions.
-> >
-> Can you sketch out the details of what you
-> think that should look like?
->
-> What would the data structures look like?
->
-> What operations should there be at the
-> abstraction layer, and at the swap layers
-> below?
->
-> How should migration of data from one swap
-> backend to another be handled?
->
-> At this point the best way to make progress
-> would be to hash out those details.
->
-> If you are unhappy with what you have seen
-> from others, what does your ideal design
-> look like?
+Patch 2 aligns hugetlb mappings to the huge page size. Without it
+mmap(MAP_HUGETLB) can return an address that is not aligned to the huge
+page size, and process exit hits the BUG_ON() in
+__unmap_hugepage_range(). This is a 6.13
+regression.
 
-Those are very good questions for the people who want to take that
-path. I can work that person to figure those out. It will  not be me
-just handing out all the answers.
+Patch 1 goes first because patch 2 alone makes the corruption reachable
+through a plain mmap(). Both are marked for stable.
 
-Chris
+Tested on QEMU r2d (SH7751R, rts7751r2dplus_defconfig plus HUGETLBFS
+with 64 KiB huge pages, gcc 15.2) on top of fddfc3ec3179. A test init
+maps two huge pages with the default and legacy layouts and with
+MAP_FIXED, writes and reads back every 4 KiB, mprotect()s the mapping
+read-only and back, and checks a COW write in a forked child:
+
+  kernel          MAP_FIXED       default/legacy mmap
+  base            memory corrupt  misaligned, BUG at mm/hugetlb.c:5215
+  patch 1         pass            misaligned, BUG
+  patches 1+2     pass            pass
+
+SH-X2 (X2TLB) is only build tested (r7785rp_defconfig with 64 KiB huge
+pages).
+
+QEMU's SH-4 TLB emulation flushes only the first 4 KiB of a 64 KiB or
+1 MiB entry when the entry is dropped [2]. Keep that in mind when
+testing hugetlb on QEMU.
+
+[1] https://lore.kernel.org/r/5AB6FE85-4CB9-41EF-A700-BC5E071F29F5@linux.dev
+[2] https://gitlab.com/qemu-project/qemu/-/issues/4598
+
+Karl Mehltretter (2):
+  sh: mm: replace the page size bits in pte_mkhuge()
+  sh: mm: align hugetlb mappings to the huge page size
+
+ arch/sh/include/asm/pgtable_32.h |  7 +++++--
+ arch/sh/mm/mmap.c                | 11 +++++++++--
+ 2 files changed, 14 insertions(+), 4 deletions(-)
+
+
+base-commit: fddfc3ec31799a932bb92f1b8a84cb3d1f963be9
+-- 
+2.39.5 (Apple Git-154)
+
