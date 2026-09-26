@@ -1,82 +1,74 @@
-Received: from mail-qk2-f35.google.com (mail-qk2-f35.google.com [74.125.230.227])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D98346FBC
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251AC28033B
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 12:11:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790424395; cv=none; b=NgppHtNh0UqjGLs379SPFXEDsl3Tjvp8FEAW4TfnQRTFpvnrpVk2HGrnUCVcomqF4kETuPUMXFTcUpArxsniMVP6aXrE3gtBb7Ze9HFy1NntrYDf8+I8EHhSoLcv6vY0AocWviu+xroQZaoeJ7fgIliBaDrntn9OU4o9TsmGPpM=
+	t=1790424695; cv=none; b=fKzDXkdGu5BIryvMuFFXqr112OIHmJ9AE1je+XHgematXZADUy+OXyPiUAiE+aG8lXL0TeIeCwyifvYGxphdafEAG7rCLF3uhGtSCHfWduXMHBoexc+dr2vYjqKArfz/Xj2I4/0Y++bgTVeNMBQ6tiX2rzWg4uahKNlT1tyJf4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790424395; c=relaxed/simple;
-	bh=CH4Prtq0c/7ze11i5Sq86XT/bKlln4TK5tWRhirwDq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eFoSmH8/nhTnIRYzQClITMGBbx0zJOdiFXNwVAfyYqwpnTP5uAb2DQJrrOQctrUFrtvCZnbkaf148iW9NJaFtJksNbuK7PGJ76ISAv1fAekjnibjUTW9+Wyt/PtIAmpW9Sjqda2nTzly1YwRbMD3LqHhr+4FTfmzTJzKVtfnMQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=UfTg07ox; arc=none smtp.client-ip=74.125.230.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	s=arc-20240116; t=1790424695; c=relaxed/simple;
+	bh=LPLjbx8I8Er+Ls1rTGy3VE3lTFlXqKXn4zGM+1+2f5g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S2tNicX4HoyRph8MBYRL0FUUd3/LggBb9QKl9TCGhPSlj0s19eTRK9JAzC2/vzVMBqX95cKva2q62HDABHicoSCa5D2ijCVz4kV9DV0TJnP0f52qH7dP5QDBSpdv89CBR4qCITKpaeppAfyu8+Psw+RAackDgP3gRnfP+n34Fs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i+sk5qJu; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="UfTg07ox"
-Received: by mail-qk2-f35.google.com with SMTP id d75a77b69052e-533264052d0so3636261cf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:06:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i+sk5qJu"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db18fe433fso7191635ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:11:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790424393; x=1791029193; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CH4Prtq0c/7ze11i5Sq86XT/bKlln4TK5tWRhirwDq4=;
-        b=UfTg07oxKs0svAvereKcUHzppvRcGBfglBZYIb/htceKdk/jDDHxHEU555xai4O8cN
-         4HWobDy10KJGPUw7lcEaScl372RPTQR17ecwZxl83eNCknvvqeImJE6EI8cFlGyBgBdS
-         F79PPOkOWbDWEjJDJnNYV+SVrFvB8GPemQar0vzO+O9zTDovsSOVxuIV6/JoOkGNTVl4
-         JaspCDGvAD1G+fxPaDMg/xyEK2ARPskF3qbt3xkOAWr8wyfieD0rW0qRCuaLl91c6GgQ
-         v1/s/pbxltOhebcxRiBUeVMXP7J5U9An/cdJKwnirQtCavxkwXEGH7j0YHrsAj+rSYDG
-         aOYw==
+        d=gmail.com; s=20251104; t=1790424693; x=1791029493; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5UCqXVsEit/5UgovE1bO5G5/xS9YReJJK497aNTHOdc=;
+        b=i+sk5qJuLG66S6nC7xXOHVYHkaQcO2NQAeSz1VZTONJ3UQt6ZysaNEEXJE+eQh133M
+         aaNgb2hYkvXviU2eRFwu9a5xr5GmBJ6okAQezikfO1BSBEatxs4JPzAk0zTBSt5W6BN7
+         it/GMfUEaDEohznpgf/TeSSRNBBNNM/uG857LEFdWhKv+hW8GY36yqjP1SsZMsvmHCuJ
+         Rskejsv299DEj6XULGd9E6GddrpOMY/yNVewt7aPINVfl2Uo9JK4S7CoowxOJqXfqb42
+         QYo6xA+5bLQ9XZN3wCAVtb8iG6bWzO+a1GFv6mw6wqXotn8cUq3qtw+IXk828Ouy5E0u
+         GjVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790424393; x=1791029193;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CH4Prtq0c/7ze11i5Sq86XT/bKlln4TK5tWRhirwDq4=;
-        b=2YcG2U3glnTpbU5VKKBnjEwsuIM4tJ31O8dE8qDTRG9wjx0k30T9UTyeZ0PAcFNKr5
-         tE4eMYBl5MXr5n3M1IN/M2BN0UNL5TViBQtx5CEObD6N9Ipr0kGN543ov/JuPoR5Rcor
-         QzyYw88XEfJJZMCCHcbdG1igp9iMmQrjadgArwXwD4RCoBEZZGvwRqFWE8Ibix/3IudT
-         RzRcJT4OIvrlVULbCcmDwGHpWlaNjez5ZFcuzmAeyP/aXqV8dvzyr+0KAeEu+0W+EAil
-         SzrI9IHknz9fvwylGvEmReBilYzXExm4CTjHEaAYdBPKMFlzWM/x0Xltq8ZYMNKwPQXi
-         5FWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBysOe6/bvl2ErVGKmwEl4TX1W6Rg6qrWrAOctifIztjumjITktXrcgvCpspRxVHs1EAYW3V5IZKK9zYYx8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHWbQiNWJCZFCUgb8ksjIXKv7iEUQ9uzQ9T5YD8dSh01fneoOu
-	9hQHjGQYcSqpF4z7I0qDlmlS1J4PhUfK3PsU0vthWAOV6SYcwwAURzemWIGnwanZjfE=
-X-Gm-Gg: AYBFou0g13WG/+fIsyswRycQ7+oUm19zBj2TjNFEo+YmR2Fn+SmqH2Ejoj1lCzCgvu6
-	1SwcHQZEFskuudJrGDGACVCo1pKWGIg9FVmXFhOz2HHgjEcbzX5PlSIYvIViTpRL3hEoE4Jz5KG
-	kXX3SlaF62CLbFmBq7iDCo2KwyQcXrGkef+nl6V1fg9ikUOtx6ukoVN4lRJMah+MprCT/7n/gdr
-	Lbls4GwmvNjCKW+iQAOUou9BAJ0syrEaj+LRZMHYhKH5a1eNCygyeZSFdL78T75dxGawYX2fAbi
-	ipF0btAHHnnDpWvTXFW/WyMveRdEZL5n+XJ3v59R4gWJd7BbDqJVqATl0w80hQCjPsSsO8JlwMf
-	5fV1rFJtf75xKcbHQEXIIOXmZZ8eG4DMFB4T36AkQfehOzQO2KCTpRqYCGRQcfHCaiYpM/aF1o7
-	LVScae0Aqi5NoMAtHA3gM9eCldWe7heTUSBaAPzdtNrbMVae9ablY/vlhNzQ==
-X-Received: by 2002:a05:622a:8cd:b0:530:d0c0:3ce1 with SMTP id d75a77b69052e-5330b5cabaemr99774151cf.21.1790424392756;
-        Sat, 26 Sep 2026 05:06:32 -0700 (PDT)
-Received: from armok ([2605:a601:a61d:7a00::2])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332225a696sm16438811cf.14.2026.09.26.05.06.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 05:06:32 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: x1e80100-dell-xps13-9345: add the front camera
-Date: Sat, 26 Sep 2026 08:06:26 -0400
-Message-ID: <20260926120626.26514-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <qmc4prmummwwwel4zukqh5fy6jy2f6qke3ygdnv6a7ygvsowkq@gtmznsipiyhb>
-References: <qmc4prmummwwwel4zukqh5fy6jy2f6qke3ygdnv6a7ygvsowkq@gtmznsipiyhb>
+        d=1e100.net; s=20260707; t=1790424693; x=1791029493;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5UCqXVsEit/5UgovE1bO5G5/xS9YReJJK497aNTHOdc=;
+        b=hUYzduKTLK9nIULxhDZRp8YDu9C6QVeYs/1yQEgifgfDjIL71eyWbOjj8oW3g6N9iA
+         iJPPfCWBVem53R2QO9DS8nTmTiUYcs/S/IML0HFwLaWC0JtsILZYowDQK5bANdVKl1JU
+         meMC9Vp2+Vs5eKjkK5vTfToUREzrB4HuKms3c/UsjujE7ahwYsJWC92xVAmD51qixHvD
+         5kFhrSi/VobwsB8nxx1B+GBRdvy9IzlyiJeYyXvlsYdtzNDvmGiRAQKLyH+BWLF5TzXW
+         6LwI8SL6PjNGRDNavrzjHla64olM+bUkfudiAXADItEIge80iUd8dEHnW9XucScCAYh9
+         5MOw==
+X-Forwarded-Encrypted: i=1; AKwUvByKQxNIEH1M4BcszENltpcFq+gqb4NkQcJCtE4nfRfAuyD+vvb95RuEggJvBRDGukoubsdiJ6tqHG/OLAQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMfK6XVQHmmiUAY/7Cqm0+KwUtA1u8L2sCXPmQolY9XNNZuDBa
+	ueYQvcQskuJI3dKRMOmsx9eJ2cMpF8orXoiMyKSkK+YgH9XT/EdYl0o8
+X-Gm-Gg: AYBFou1RH8BLPnLfok43VANlAa9zmf7JDsPWqZKFPtz/1IkUb1M/ssh+bkawULpxzJR
+	zHeGNwftIy8TkxE3w5uumIgdGvdE9kl1ix006WJg26wRx458ThCxU9S0FI4cZSFhHu9OCglHGsx
+	adnpi8nEMeEqvFcDgAN5F3RA972MclX6ve9i3fMI4RN70a/piHF++OONdLJXcuJRG6ecqrw3ghR
+	k/6qszReOzQJX84uuzLtq+QRZxGHmrU/+BhdxvF1ngfhUOahUSUSboZQrFwo4tt9H8KAzT91HVN
+	QmcMqPLO8kuEObGLos/xvdx7FLCFtbkzADy/Qvc9dB+M8QKimiOaX9BMGNdr2rR0eCbIQQVU7hJ
+	Cpuy1iSEJWAvW8qZbwGpvqyMlDtRH1G9VKD6o7S0uvFe00h4DPNcn6DsdmGEMRIEvaRgIuHLg4z
+	bs4gtZXRQASg7AF54X9LWN8GFJRsFG4tdBURIsMARsydlgzdiTQpvnIH1jLK0I+5vAteB3xX98t
+	A2WHNOP6nFz6xmi0h6IbpBtwNqCWsjvp1jaSNKpVbRT
+X-Received: by 2002:a17:903:22c4:b0:2df:8ef0:4597 with SMTP id d9443c01a7336-2df8ef04654mr43600025ad.42.1790424693330;
+        Sat, 26 Sep 2026 05:11:33 -0700 (PDT)
+Received: from localhost.localdomain ([2409:40e3:208b:3411:14ea:51a9:50f2:5786])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913dfe98sm21709715ad.22.2026.09.26.05.11.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 26 Sep 2026 05:11:31 -0700 (PDT)
+From: Rounak Das <rounakdas2025@gmail.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Dinh Nguyen <dinguyen@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rounak Das <rounakdas2025@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] EDAC/altera: Fix device node reference leaks in the SDMMC ECC setup
+Date: Sat, 26 Sep 2026 17:38:46 +0530
+Message-ID: <20260926120846.35716-1-rounakdas2025@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,21 +77,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sat, 26 Sep 2026 13:17:34 +0300, Abel Vesa wrote:
-> On 26-09-25 14:10:24, Liviu Nicoara wrote:
-> > Depends on the x1e80100 camera DT series (v7), and on the CAMSS PHY API
-> > patches (v20 5/6 and 6/6), which read the CAMSS endpoint's data-lanes
-> > as 1-based.
->
-> This shouldn't be part of the commit message. Drop it.
+Under altr_portb_setup() and socfpga_init_sdmmc_ecc(),
+of_find_compatible_node() was being used to look up the sdmmc-ecc
+node. This node wasn't being dropped using of_node_put().
 
-Will do in v2; it will stay below the --- line only.
+altr_portb_setup() did not drop its reference under its success path
+or on any error path.
 
-> At some point, there was a patch from Laurentiu Tudor, but I cannot find
-> that patch on the mailing list, so I guess you sent it first.
+socfpga_init_sdmmc_ecc() did an early return thereby skipping the
+common exit label and thus leaking the reference.
 
-I have not seen it; the wiring here came from the Windows driver
-store, as in the message. I could not find it on the list either.
+Add the missing of_node_put() calls in altr_portb_setup(), and route
+socfpga_init_sdmmc_ecc()'s success path through the common exit label.
 
-Thanks for the review,
-Liviu
+Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
+Fixes: 788586efd116 ("EDAC/altera: Initialize peripheral FIFOs in probe()")
+Cc: stable@vger.kernel.org # 6.18+
+Closes: https://sashiko.dev/#/patchset/20260708091135.94114-1-rounakdas2025%40gmail.com
+Acked-by: Dinh Nguyen <dinguyen@kernel.org>
+Signed-off-by: Rounak Das <rounakdas2025@gmail.com>
+---
+v3:
+ - Rebase on top of Dinh's "Address sashiko reviews part 1" series (Dinh).
+ - Limit stable backport to 6.18+.
+v2: https://lore.kernel.org/all/20260717131720.19038-1-rounakdas2025@gmail.com/
+v1: https://lore.kernel.org/all/20260717102549.13309-1-rounakdas2025@gmail.com/
+---
+ drivers/edac/altera_edac.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+index 4c20fb926160..bb95dab847b3 100644
+--- a/drivers/edac/altera_edac.c
++++ b/drivers/edac/altera_edac.c
+@@ -1506,6 +1506,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	dci = edac_device_alloc_ctl_info(sizeof(*altdev), ecc_name, 1,
+ 					 ecc_name, 1, 0, edac_idx);
+ 	if (!dci) {
++		of_node_put(np);
+ 		edac_printk(KERN_ERR, EDAC_DEVICE,
+ 			    "%s: Unable to allocate PortB EDAC device\n",
+ 			    ecc_name);
+@@ -1518,6 +1519,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 
+ 	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL)) {
+ 		edac_device_free_ctl_info(dci);
++		of_node_put(np);
+ 		return -ENOMEM;
+ 	}
+ 
+@@ -1584,6 +1586,8 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 		rc = -ENOMEM;
+ 		goto err_release_group_1;
+ 	}
++	of_node_put(np);
++
+ 	altr_create_edacdev_dbgfs(dci, prv);
+ 
+ 	list_add(&altdev->next, &altdev->edac->a10_ecc_devices);
+@@ -1600,6 +1604,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	 */
+ 	devres_release_group(device->edac->dev, altr_portb_setup);
+ 	edac_device_free_ctl_info(dci);
++	of_node_put(np);
+ 	edac_printk(KERN_ERR, EDAC_DEVICE,
+ 		    "%s:Error setting up EDAC device: %d\n", ecc_name, rc);
+ 	return rc;
+@@ -1627,7 +1632,7 @@ static int socfpga_init_sdmmc_ecc(struct altr_edac_device_dev *device)
+ 		goto exit;
+ 
+ 	/* Setup portB */
+-	return altr_portb_setup(device);
++	rc = altr_portb_setup(device);
+ 
+ exit:
+ 	of_node_put(child);
+
+base-commit: eef3b67f9c6782127163b631c9043011a68016e2
+-- 
+2.54.0 (Apple Git-157)
+
