@@ -1,44 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D9D3A7848
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:07:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB54D19D074;
+	Sat, 26 Sep 2026 09:16:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790413625; cv=none; b=ChwzqPfXM+FGKXNdULY8IF837cpVAi0yEH1K92qWcH7+7GNTUwBK6sfmKKxQ+xi377lLsCqBw10t7O+/69hrcDb7TOAT+tiXXPp6rMMs3PC67AMO6Apx5U0ly8XhQ3K9fnRfiMi4cTnDju6bBdEDh8eKzyQmBZYRv+6Tk+LKX3s=
+	t=1790414165; cv=none; b=eCq6iPmew3hFyETnQqDfN6vB+qil/yvXzD3XV8Cd1WShbopIrt911nGbPK/K5VGCTuDXeI5oGcIoO8R8Gy0CDpU9pwNblLFmox/iKNKnnROTjevOsh0plceLGf1/eYPy3EliKM4Fa0jaOBrqExoN32FBc7ehyus1NZgf5X7b9RY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790413625; c=relaxed/simple;
-	bh=WvfBGpR1GBcOSA8H2wzRgak34aXBgjkHoqzet2bCmX0=;
+	s=arc-20240116; t=1790414165; c=relaxed/simple;
+	bh=N4bWsh+Pc9s6sIGPF4Grv7BRltIPfKgjNpbCy4AEEXA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PIgTZFlgylzjw3I80OSobJapeU9cbW0oxk3Rc7yOUW7I/tLe9XZC+SH9DwM/5h8tvbeZEzpkloQzgE99zzAWZWWceCs7JPmfEMWYQmGGnWsIF+bScsfcrhF+tnLStnTczIRI4H3WTzUSQajOTxfw9I+CAy6MuVV5P2b5CuIp20I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lf0MJXkU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=r+nZtC86Hdiwa9PTCED8d2plg65MZSR0Q7Qa43Dxh/H3g95ciWrxPQ7AREODx7BsyRZtFpfWPC2GDt3xKNUxZBt168nehOWTROfLHquTcIsmomV8VbdbWlXj2s++vMwIqoKivKFEyP0vjfBdHgmT9jcgxHj2GmxOih6as6RysyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/cy2uAq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lf0MJXkU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491B71F000FF;
-	Sat, 26 Sep 2026 09:06:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/cy2uAq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6591F000FF;
+	Sat, 26 Sep 2026 09:15:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790413623;
-	bh=0MN7/YNmFykM+Q/E4Xx2sgObdvP7k1Pyx2eBjEnQm+E=;
+	s=k20260515; t=1790414163;
+	bh=N4bWsh+Pc9s6sIGPF4Grv7BRltIPfKgjNpbCy4AEEXA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lf0MJXkUoYjmOO8Zwb8vIvA5uxqyFRr42qmD8bpiiuuc+YlAQbA5FZg6WmohA2S2W
-	 BcPl9Ua2Y0vA4e5sWNQ3N6sorsf4zmkGr6JurTKOEYK2RyUDThaUTviF8/8BfUJI/p
-	 8Y4Z+1XRSq0Vk1au3yRFRfptTt1kf1NiZ5T5g//k6ePXa/exIUNtQWRqREzz8jscJU
-	 fH+5pnTW869euEUnAZfj/UmTB5EJDr9D7CJC0N1XSRyWETcOOFTKXG7X0rmY6kKoRv
-	 hVimUOo8K8gOAtJioFv225DwUSJ/4Je4ZgWAWEl5vBmdYO0/4AftlodYCTfj+23udv
-	 ecAcwpbb0lQ8Q==
-Date: Sat, 26 Sep 2026 12:06:56 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: kexec@lists.infradead.org, Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	George Guo <guodongtai@kylinos.cn>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH] kho: fix global scratch size calculation
-Message-ID: <areLMLTC-bO1zcXP@kernel.org>
-References: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
+	b=i/cy2uAqCW0oNOWoQHl6gMve0xGBebGA1qmqR1XrS9a5R9KjUOKFr6umhqPOwVAfq
+	 JV6o+g9ZbwsyFiC1yXxh+8YSz9r3KSw26jRgxGioo81b3ckcBjRXINtVkE5FLLobZm
+	 cEXp3py7fiL/jCemhyNfo4o04u6qGas4PLNjGw3xPqVwYER6r75qK1Kpvp2M23DpoY
+	 0BBb6c0Da8U0FS8/BGW5K1g9Jfq3Q/44IR7oFF8xFbzjaFcMlW6oTmaVRUNooMJemG
+	 74S09dqAtiFGHl507QSUC4HwsG7rqGMANSDx0f//8KLgYHgnF7DXbYK/029YJkc1x3
+	 aMwcgwNgXEt7w==
+Date: Sat, 26 Sep 2026 10:15:51 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Alexandre Ghiti <alex@ghiti.fr>, Borislav Petkov <bp@alien8.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Ingo Molnar <mingo@redhat.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Michal Hocko <mhocko@suse.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Paul Walmsley <pjw@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Ritesh Harjani <ritesh.list@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Suren Baghdasaryan <surenb@google.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH] arch, mm: promote DEBUG_WX to CHECK_WX
+Message-ID: <areNQfnAdkfR8fAf@gremlin>
+References: <20260925-direct-map-verify-wx-v1-1-7fd2f7d6d23b@kernel.org>
+ <91d800d6-03f3-4068-8c12-618529a81528@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,143 +59,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
+In-Reply-To: <91d800d6-03f3-4068-8c12-618529a81528@kernel.org>
 
-Hi Sourabh,
+On Fri, Sep 25, 2026 at 01:01:51PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/25/26 11:53, Mike Rapoport (Microsoft) wrote:
+> > Verification that the kernel does not have writable + executable
+> > mappings is about detecting security risks rather than a pure debug
+> > feature.
+> >
+> > Major distribution configurations enable it in their kernels as well as
+> > defconfigs of most architectures that have ARCH_HAS_DEBUG_WX.
+> >
+> > Rename relevant generic configuration options to use CHECK_WX and move
+> > their definitions from mm/Kconfig.debug to mm/Kconfig.
+> >
+> > For arm that does not widely enable it, only rename its variants of the
+> > config options.
+> >
+> > Enabling CHECK_WX adds a few kilobytes to the kernel binary and while
+> > the added size can be slightly reduced with churny updates of
+> > architecture implementations of ptdump, the core functionality takes
+> > most of the added size. It cannot be moved to .init.text because the
+> > verification has to happen after init sections are freed.
+> >
+> > With this, make generic CHECK_WX default to STRICT_KERNEL_RWX while
+> > still leaving users targeting small kernels the possibility to opt-out.
+> >
+> > Suggested-by: Dave Hansen <dave.hansen@linux.intel.com>
+> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > ---
+>
+> Makes sense to me
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-On Tue, Sep 22, 2026 at 06:42:16PM +0530, Sourabh Jain wrote:
-> KHO calculates the global scratch size based on memblock-reserved kernel
-> memory. It passes NUMA_NO_NODE to memblock_reserved_kern_size() for
-> this calculation.
-> 
-> When memblock_reserved_kern_size() is called with NUMA_NO_NODE, it
-> counts both:
-> 
-> - memory reserved for a specific NUMA node
-> - memory reserved with NUMA_NO_NODE
-> 
-> KHO needs to distinguish between these two types of reservations.
-> When calculating the size of global scratch memory, KHO only needs to
-> account for reservations made with NUMA_NO_NODE. Reservations made for
-> a specific NUMA node must not be included in the global scratch size.
-> 
-> Add memblock_reserved_size_nid() to calculate reserved memory for a
-> given reservation type and NUMA node. When NUMA_NO_NODE is passed, it
-> counts only memory reserved with NUMA_NO_NODE.
-> 
-> Use the new API for lowmem, global, and per-node KHO scratch size
-> calculations. For lowmem and global scratch, count only memory
-> reservations that were made with NUMA_NO_NODE. For per-node scratch,
-> count only memory reservations that were made with the corresponding
-> NUMA node ID.
-> 
-> Remove memblock_reserved_hugetlb_size() since it has the same
-> implementation as the new API and differs only in the memblock
-> reservation flag being checked. The new API handles both kernel and
-> HugeTLB reservations through its reservation type argument.
-> 
-> Define the new helper as a static function in the KHO implementation,
-> since it is only used by KHO and has no users outside
-> kernel/liveupdate/kexec_handover.c.
-> 
-> On powerpc, the difference can be seen in the scratch_len values
-> reported by:
-> 
-> cat /sys/kernel/debug/kho/out/scratch_len
-> 
-> Before this change, the global scratch allocation was 0x12000000
-> (288 MB):
-> 
-> 0x1000000   (16 MB)
-> 0x12000000  (288 MB)  <- global allocation
-> 0x5000000   (80 MB)
-> 
-> After this change, the global scratch allocation is 0xd000000
-> (208 MB):
-> 
-> 0x1000000   (16 MB)
-> 0xd000000   (208 MB)  <- global allocation
-> 0x5000000   (80 MB)
-> 
-> The 80 MB difference is the per-node reservation that was previously
-> being included in the global allocation.
-> 
-> The same issue also affects lowmem scratch memory, but its impact is
-> limited because the lowmem scratch memory calculation is restricted to
-> the first 4G of memory. The changes also cover the lowmem scratch
-> memory case.
-> 
-> Cc: Alexander Graf <graf@amazon.com>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: George Guo <guodongtai@kylinos.cn>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-> Cc: Pratyush Yadav <pratyush@kernel.org>
-> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-mm@kvack.org
-> Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> ---
->  include/linux/memblock.h           |  1 -
->  kernel/liveupdate/kexec_handover.c | 49 ++++++++++++++++++++++--------
->  mm/memblock.c                      | 22 --------------
->  3 files changed, 37 insertions(+), 35 deletions(-)
-> 
-> diff --git a/include/linux/memblock.h b/include/linux/memblock.h
-> index d62db9e776cf..678fe466529a 100644
-> --- a/include/linux/memblock.h
-> +++ b/include/linux/memblock.h
-> @@ -487,7 +487,6 @@ static inline __init_memblock bool memblock_bottom_up(void)
->  phys_addr_t memblock_phys_mem_size(void);
->  phys_addr_t memblock_reserved_size(void);
->  phys_addr_t memblock_reserved_kern_size(phys_addr_t limit, int nid);
-> -phys_addr_t memblock_reserved_hugetlb_size(phys_addr_t limit, int nid);
->  unsigned long memblock_estimated_nr_free_pages(void);
->  phys_addr_t memblock_start_of_DRAM(void);
->  phys_addr_t memblock_end_of_DRAM(void);
-> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-> index 7c4d86daf86d..dc809e1e768c 100644
-> --- a/kernel/liveupdate/kexec_handover.c
-> +++ b/kernel/liveupdate/kexec_handover.c
-> @@ -752,6 +752,31 @@ static int __init kho_parse_scratch_size(char *p)
->  }
->  early_param("kho_scratch", kho_parse_scratch_size);
->  
-> +static phys_addr_t __init_memblock memblock_reserved_size_nid(phys_addr_t limit, int nid,
-> +							      enum memblock_flags region_type)
-> +{
+Similarly LGTM so:
 
-Why is this in kexec_handover.c and not in memblock.c?
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-> +	struct memblock_region *r;
-> +	phys_addr_t total = 0;
-> +
-> +	for_each_reserved_mem_region(r) {
-> +		phys_addr_t size = r->size;
-> +
-> +		if (r->base > limit)
-> +			break;
-> +
-> +		if (r->base + r->size > limit)
-> +			size = limit - r->base;
-> +
-> +#ifdef CONFIG_NUMA
-> +		if (nid == memblock_get_region_node(r))
-> +#endif
+>
+> --
+> Cheers,
+>
+> David
 
-Do we really need the #ifdef here?
-
-> +			if (r->flags & region_type)
-> +				total += size;
-> +	}
-> +
-> +	return total;
-> +}
-> +
->  static void __init scratch_size_update(void)
->  {
->  	/*
-
--- 
-Sincerely yours,
-Mike.
+--
+Cheers, Lorenzo
