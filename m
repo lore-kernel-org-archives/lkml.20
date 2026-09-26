@@ -1,142 +1,60 @@
-Received: from mail-dy2-f36.google.com (mail-dy2-f36.google.com [74.125.229.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.enpas.org (lighthouse.enpas.org [46.38.232.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988FB443ABE
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 14:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19664349B2;
+	Sat, 26 Sep 2026 15:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.38.232.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790434753; cv=none; b=am0KvUzAu98da5Q7Wjwd70keRCWC7/AX4/Vu9WvwhS9xFPlwsCGICFTLLlrBxrygDdQ9T1De8ojFR2AOvN3Fggit3ZTOYBbMxQ5N6fpr4/MIk/fA0bWoeDVOO1VUh+qlshTxQoHLdgcYNs9ak8gpU1iIuRjYd+9CgBcYl9eLFqo=
+	t=1790434883; cv=none; b=HpoQCLckfo1R17HK+LHRngA5yLIafKvjJmnqHDJJSKvbjInLiaoq0LGm1HWqxPsDxqM/LtBqZ/20L9k+IlJIJz1f/O3/SeNg9WFYPMeWUDcU8gwO3mg9o8Io/MqFqXm+96S2eWcxBMbjgP5v294mUbQ3af1LiF0yVWNzMl8ERz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790434753; c=relaxed/simple;
-	bh=0vLf4wsautSGPoindTukbpU3HzvGRz/8vbGGYbIW4Ss=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q+OMA2Zvt1Iob4ljDNsZ6+YJ+nlfUrUsa0HAQrrFKa9ikLblR9YxlfeYI3DSKBR5Ez1/UgqYRZXQCk8eD3dV0WnJBQ7M5NsfyBOlHectLW7s0oOQf5c3zyr9uAsuvvgHaycdW/XOWSeC8kX4duQ7ibmPMhRkEWNFw7iNWGz5VQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mUyb0VOk; arc=none smtp.client-ip=74.125.229.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mUyb0VOk"
-Received: by mail-dy2-f36.google.com with SMTP id 5a478bee46e88-328664c2da6so1237663eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 07:59:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790434752; x=1791039552; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7vjDxNGtx5H9Ua7b/Rh8PBSRk9w4/mM73r+TwEkNiRg=;
-        b=mUyb0VOkxarFhTkKvX/1taZ5w/BDNwKB5INM+90jsjQVsiFT4AN5RyyY/UX5J9F/hN
-         V6EGztJWCeIEMuqNQYy4sVoE1uf5XD192L6TP2R8wmTK2czRiJpHH50efnRqE8FWsSXc
-         tP5tX1B4YKRjUYl3BsyEEh007S3vrhaXJKCeO3mJ1/87k/HdDmOhXm5+Lbl702H9te8B
-         +c+hKtJH2ohgDi4kee7S7LIfdryq3tVQVO7/8a2ty3n6jCxP/jHB2j6dc+q9p0IfSjEG
-         LME0IoC1g0BSM8i+fxPAHTKr8lBKgzQGeQlAMJhgUrCW67T+kvT8PYMn1+LMiLWisvv4
-         o1wQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790434752; x=1791039552;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7vjDxNGtx5H9Ua7b/Rh8PBSRk9w4/mM73r+TwEkNiRg=;
-        b=vm2NSxvigzQtyaPksTBi+SRKRtBTzU4jwpsgHp3Cri0I+0oufu3m0mWGwsPKE+q9II
-         SOlBia+Dl1GhiopkSJqdpz8x7GVu7tqJxAU2a4+LADlTtWgg0l/IKPxgvpsm55EovA9z
-         yBX9/X3M+7S+JXJ9z/4mStB0h7Lzt/8Leo/B/Ddn7bFfAUzxS9WapUn4vzFWizr8ctKy
-         R+2BUKapRZ2FpLdH/m82/nAeMO1J52Z2cGIRoaYUNXHc2b04bSv1qUg5srWceCZRT4w/
-         6EdR9UsjesbA6riDmfUJJ5hGQIusKxzcCSEyG+2EKONlaNRnTA6MiGVv0VitGWPGfxK8
-         oqVA==
-X-Forwarded-Encrypted: i=1; AKwUvByhyTbf0TVXyq0O4ZAF7Dl1+RqkwC9zUSDMS7nDmq49YwrJBLdL0lAKd6NhAsE46Xvg+Lg/8r3sYq/xiEw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1B8VBeb5hSMdED/qH9jRT1KYngMZfP9B4A3tI024bcwQtEZKE
-	DyK2wX0oBtDcQ+iyC0fkKpWBCSSsfFFFnHrBP0thPtZ2mfC1APO/L504
-X-Gm-Gg: AYBFou0i0EeV2cKwvLzpF/eFb7Okayt/SSxqp9LwxvkvmqTbb2m/o5IHMhBxX9/33ky
-	9UrJJvBNmPYBFzX+1Jup+UqdOQEBhZi7eI7meSQZEL63bNCsDPD0dmbDDsMJBxI2kgTFQLbkJIp
-	OPJdy7QVbW9VanaL5443JmkXBdlUv3uuyvOnoKckqfiZ/Ux3F1a5tEOoIPUj61lFrYgFF0G6Oes
-	+sWwqNzuZvzbHlUEDyTA+qmN9blyQG/XKNXzRGTZa7VLOpr3DYcxM/JFkG/EzbOcOTQSn8SSgPp
-	lDvVAwiPPOuzMPvQbemFOmPWNf5jB0tVRi/Lw29+Lw9S/kAQmSw9pObg0Bjr43ECFQrqadAdv6H
-	uOYO5IejiOvO24O4KgIhIUNTMz+1Bi2meSS079vffopuFAYiB4HOyqm3ENVzldJpxthEanPNDDJ
-	Ccobg79lrl3nsbAW3GAH23IgRCVOhV2gnkhqpC2e4nO4E8ZdU+OzncZLBENxKu60cGBQgpBn8CI
-	fhFdmxaePLZqzxuMQ==
-X-Received: by 2002:a05:7301:4301:b0:343:311a:372d with SMTP id 5a478bee46e88-343311a386amr2050888eec.28.1790434751423;
-        Sat, 26 Sep 2026 07:59:11 -0700 (PDT)
-Received: from kernel ([103.219.206.17])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145c166cfsm14171312eec.28.2026.09.26.07.59.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 07:59:10 -0700 (PDT)
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: herbert@gondor.apana.org.au,
-	ebiggers@kernel.org
-Cc: davem@davemloft.net,
-	skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	jkoolstra@xs4all.nl,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] crypto: x86/aes-gcm - fix always true check for last AAD segment
-Date: Sat, 26 Sep 2026 20:29:03 +0530
-Message-ID: <20260926145903.6061-1-raizudeen.kerneldev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1790434883; c=relaxed/simple;
+	bh=2cfQhex3AF52tIuFyhNqUECYkXA1L/HLDSLfFHWSkRM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=FZdMZzE/YepfIlMB4PUM2S3kb9oMzToRO1GEzkBtmklAXRh4nuqv3DdPCBbFlnAYk49Gbu/rqqxI5Os4vVvfG837fcH1zt3hzmluWCZQjGiaH4pjzcHvyfkBz62HxAVrY5H/8mgVZGIj93oXqwj0PguqepB2g01LFeDbTketKfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enpas.org; spf=pass smtp.mailfrom=enpas.org; arc=none smtp.client-ip=46.38.232.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enpas.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enpas.org
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by mail.enpas.org (Postfix) with ESMTPSA id 61B2F104F78;
+	Sat, 26 Sep 2026 14:54:04 +0000 (UTC)
+Message-ID: <93a9dbca-4f3b-4b01-8e07-1dbc7035a96d@enpas.org>
+Date: Sat, 26 Sep 2026 23:53:56 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Max Staudt <max@enpas.org>
+Subject: Re: [PATCH v6 1/3] can: at91_can: release the rx-offload on teardown
+To: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
+ <mailhol@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Markus Schneider-Pargmann <msp@baylibre.com>,
+ Heiko Stuebner <heiko@sntech.de>, Manivannan Sadhasivam <mani@kernel.org>,
+ Thomas Kopp <thomas.kopp@microchip.com>, Ming Yu <tmyu0@nuvoton.com>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, NXP S32 Linux Team <s32@nxp.com>,
+ imx@lists.linux.dev, Haibo Chen <haibo.chen@nxp.com>,
+ Enric Balletbo <eballetb@redhat.com>
+References: <20260925144558.2909639-1-ciprianmarian.costea@oss.nxp.com>
+ <20260925144558.2909639-2-ciprianmarian.costea@oss.nxp.com>
+Content-Language: en-US
+In-Reply-To: <20260925144558.2909639-2-ciprianmarian.costea@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-In gcm_process_assoc(), a segment that is not the last one must have its
-length rounded down to a multiple of 16 bytes, as required by the
-assembly. The check for a non-last segment is `if (unlikely(assoclen))
-/* Not the last segment yet? */` where assoclen is the number of AAD
-bytes remaining after the current segment.
+This is not my driver, but the patch looks reasonable to me. While we 
+wait for someone else's proper review, let's call it
 
-Since the conversion to the new scatterwalk API, assoclen is decremented
-at the end of the loop body rather than the beginning, so it still
-includes the current segment when the check executes, making the check
-always true.
 
-As a result the last segment was rounded down as well, causing some
-avoidable extra work: an additional memcpy into the temporary buffer and
-an additional call into the assembly afte the loop. The GCM
-authentication tag is unaffected either way, so the self-tests pass and
-this went unnoticed. It is purely an efficiency issue rather than a
-correctness one.
+Acked-by: Max Staudt <max@enpas.org>
 
-Fix this by moving the assoclen decrement back to the beginning of the
-loop body.
 
-Fixes: e9787deff49ea ("crypto: x86/aes-gcm - use the new scatterwalk functions")
-Cc: stable@vger.kernel.org
-Suggested-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
----
-Changes in v2:
-- Use the correct Fixes commit and cc to stable
-- Change the fix by moving the assoclen decrement back to the top of the
-  loop body instead of changing the condition as suggested by Eric
-  Biggers.
-
-Link to v1: https://lore.kernel.org/all/20260926040614.8683-1-raizudeen.kerneldev@gmail.com/T/
-
- arch/x86/crypto/aesni-intel_glue.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/crypto/aesni-intel_glue.c b/arch/x86/crypto/aesni-intel_glue.c
-index f522fff9231e..1903ed8bbe3b 100644
---- a/arch/x86/crypto/aesni-intel_glue.c
-+++ b/arch/x86/crypto/aesni-intel_glue.c
-@@ -1293,6 +1293,7 @@ static void gcm_process_assoc(const struct aes_gcm_key *key, u8 ghash_acc[16],
- 		unsigned int len;
- 		const u8 *src = walk.addr;
- 
-+		assoclen -= orig_len_this_step;
- 		if (unlikely(pos)) {
- 			len = min(len_this_step, 16 - pos);
- 			memcpy(&buf[pos], src, len);
-@@ -1320,7 +1321,6 @@ static void gcm_process_assoc(const struct aes_gcm_key *key, u8 ghash_acc[16],
- 			kernel_fpu_end();
- 			kernel_fpu_begin();
- 		}
--		assoclen -= orig_len_this_step;
- 	}
- 	if (unlikely(pos))
- 		aes_gcm_aad_update(key, ghash_acc, buf, pos, flags);
--- 
-2.53.0
+Thank you!
 
