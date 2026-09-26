@@ -1,72 +1,70 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0224937E5E1
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:25:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E8737F748
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:25:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790439947; cv=none; b=KwYF+pqwzR9mY1kBjnAM1M1oOaLJLX27SNQY/GhLf8BwkRGFiz3ys7YLLTRe8jxFGCPkbRV/nhHr+BxkeVl30XK7nD6jBkKZeYTF0akk54yMSV1UQEanKESCvifxuKcF5jvX3DkQGIXqiJ2NLD8HF3zA89bXN7B4E3siBURvcJY=
+	t=1790439950; cv=none; b=bYX6s3d6Q1KjeXuzTX/MCoyRl7AjND2ZRXD3VBqOp5FIxm9JwvBcIj/QeOxdxkGALQ6xoqMv3rruAOPEr0VrO+EZWAd8WSYHkeBTMtT9ouX97XnT/osMK0K/otgBdAFSi44RyV4qEBTHF4C/V9Bqrxv5BOT6akdR1fvbRnbYSqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790439947; c=relaxed/simple;
-	bh=uAK+c3uS770aBBl08QziNKBe/WozSrIjOMo5yfY0S0s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e72zdhTHANjsi3bm2QgHqin66Gs+aDDx6Ozh5v6De+BZnDmg29qUHEM69MueNHQ80j7L/2rxBFcCcJ0nnIPNfYZNRRdvadve256kmfpPlbu7/FNEI5mockW/PwuJyDmNz6e8JupRmKKqWREIXQbC+435JFQCgkvL3iFAo3Z+bUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=chB9Xm57; arc=none smtp.client-ip=74.125.230.234
+	s=arc-20240116; t=1790439950; c=relaxed/simple;
+	bh=T7F3dDvikqn4CAXmXQRDaPb9qUyC4LYQrttvZDvAdEc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eqN6ot9+nomRj/m8+7ikPDXqcZMplZxEZtCl2X0TqtZ/2JJr5D0QPgT/MP4aV2uveAuqGI53zqOyezbiebwmpYvtvKKuw1FY3CvYmvkvI+gQxhfjpYUwOsU8IX/e4sufZBOtRQeFXERBZp3pO1dQy9q9AQ0Yq9vxND1tO4/j0Lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dsUea9j9; arc=none smtp.client-ip=74.125.230.233
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="chB9Xm57"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-5332048323bso7460921cf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:25:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dsUea9j9"
+Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-533245fd18dso4589491cf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:25:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790439937; x=1791044737; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790439942; x=1791044742; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pb4G303oMO0K/1dMnbkNBZNTh/B98CHRE5BZkAKVABk=;
-        b=chB9Xm578oXHP4IVldcU7UtR+Sje5DHgNHu8QeXjFonaIbVEZ6MHTDkh5Hmuu/ZtDp
-         bDAEAi3uL6wGZo5GkOioMSlh4tIecEOcTMsUr+mzN1SJvk61VS1MIqE9r8BFoirUrWnW
-         E5LRBVDbRPmTMfHkzGuaKEvGbaI/yjiNfbKIGY0WMPm5aKiQXTVt2Zz91WFBzHpHXm/7
-         nXPN2i2uq1i3BLrylY9+X+4ieKnjIOKTQKogLNZvNtBXQZ03n+Ib5QldNQJzxgG4Q1a3
-         RKEDhucDp4iNpff2kamkFE8QFVWeck04B5Voot08y5lHvieDFloz1k/bJn8F2lSMdCY5
-         9a6w==
+        bh=XwZsRWJlx8nUAInFaW9/7sGkNwUQw33SuDu+YxFV2cw=;
+        b=dsUea9j9IJJPuYcald7sTZymd4nZhu4XuD2NR2mLAECd7hrhdzOf2psTsw5LKvkoIq
+         hknBgp/IOOxBamfat5aJ7p0Blq2HmK9Oh6Dhr7aYDxzTib21bQALvaxjF1WYqyzY7n2W
+         SBSez5BFV5hce7ujbd49ixHo0Ci/K1jB7aWP0tmHeLc+UTA9YY5zLcfnEPQtMsrv4nqm
+         p7ShZ1xoYxXIbFfLWxi8ICds+CPo4QGZCPY2sp9nJ6Rw90DeGzVKYOHxty+CMwa+pLIm
+         VJcuDuDzPJXfflBxI+S3gDk+QNCsFKTmb+YRGzL2R8wgUpqSsVuv2Ht+kdA4Mz7ZveGC
+         zLLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790439937; x=1791044737;
+        d=1e100.net; s=20260707; t=1790439942; x=1791044742;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pb4G303oMO0K/1dMnbkNBZNTh/B98CHRE5BZkAKVABk=;
-        b=Rjmnk2isVpUJgcWOd4MYlV2S+E4Ik4DK0D96PyUNWk857hBCAe5IHMMfGousrtOezZ
-         K5MeTmU+4WujuyI1G40iu7UDlGqH0vIA4AGVxNoyBjWZKe3P3o98HeIeKBBhE9rX4we+
-         ySkDW4sJ0+UCvgE4pf92ULvNI9Ylq3D0FFxOL3sg4DIpAHEQBfa7YWtptU1Zle+z68cH
-         H/WOx60/1qeMREOj8cJ2jqTiNq+T8LeLRm5S+cKzyrDGChUCtBKdB0BT4D9kUt3gdIjL
-         Mtl5HX1TjG5L+Q69/dwsgcGrdsTayghrd7RTWW0dsB9f+wLd/OlCLaIjuWJL0QUM5Yvh
-         vilw==
-X-Forwarded-Encrypted: i=1; AKwUvBz6BsRKTEzaSoJjtz89OI89jFC67UNdnflsTcpr6QYCRUMUFyZgji3IyOX0dnSX89qm3vgJuJ4j0DUQVsQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfh1wtDIv1cGNODlc5yPrm9PcrTvvWLauSIRrC1K73JTdwG3fz
-	fo7Nzm5CAEjz+ONv/1ntQFuFotfAUGthJM9PsOsnDmgJIMpZF+iQCHSB
-X-Gm-Gg: AYBFou1ox3URdpraxcBStC6XKPSeVVgpJ38DWVzwrFgRht55cFNHrdh74IaZSzGRNLX
-	pL4VA0qwqYXVQiHT8s9pDrinuGLK5Lf5r9OJ2Qx/Fl4QtIt7xVZSjvj+tXUVBXBsRXDr/3nuoRt
-	ueE+2DpzDIdDXETg4GNcNDeWnbUkDRztzamIhN9jZ2BXYR4sIMNPiruEyX98kolkGGVy888bq7h
-	6E6+WHMeX6fpZ26iif/U7zxlNfewwxMHnAGLIydXyYnuAP5ozaJWL3AoQWkTHJbQiAsJ+aRPo0i
-	31JMmxx49NDRFkKheyzVzoDckIpzeUgJY4LFpDTZbMWW5Vnbn5MlFLchVajbnmRXU+BuNcNqrcY
-	DvWfL9uqMV0amtleAgsDRoqP1T0b4bBqnvwcfu8WrOpw3aqP1yXFmlPV+igvOmptNaUbc/xfvFe
-	BiNGxOs3h4RBCjCJOCgN+j8BD+fsHArzZM24wjF2RMFtb76TKHTxGMIk14Cyr1bIJwfDtJdJTdc
-	QL7PFZQt21Dmo/V8sNSVn0JZj2cYEtzIK+jKC09ZTmVso7ehlS0dFmXwqSe
-X-Received: by 2002:ac8:5f4a:0:b0:530:3052:5257 with SMTP id d75a77b69052e-5330b5dba09mr118633901cf.27.1790439937300;
-        Sat, 26 Sep 2026 09:25:37 -0700 (PDT)
+        bh=XwZsRWJlx8nUAInFaW9/7sGkNwUQw33SuDu+YxFV2cw=;
+        b=s2vO+Qe3oXrv8uaxHiKqhka12F/6LD2Kazre9u0fm1K0NlVrmRqjprfnKOnYcnUVaH
+         Di6BfXslFXGmGOd3MADuZVZ5p+zqGPsMWuiu9pHbacJnSX0fwC7VwkObWwxCZzi6gF6n
+         X7830CB/B43xwA0A32OXwM3NmkNl5m2LN8HWtp6WnguK66WWHwqd8doz7EOLzL8bkRhe
+         D9Is2XYhGbHHoJ+T31D0P9VNHcdYZ56G3/avKHoRdqsLsYk9Pe7Ffp+BlSVfWErJmsXj
+         ZOs2BbekaGHrD+b1JBNM1JgHgq9s+fCV48pr59UAwz8JrKA1a4fzQRqHuscAPg/+wPQw
+         ZkQw==
+X-Forwarded-Encrypted: i=1; AKwUvBzBKLcJA2AFyuixlKIG4rIJTWZmqKGqhtgneiE2jhhhpSgW2rgrDW8hNeEFIt4zIW/w+8qLkBbtYE4P75E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnqo6YV4hU8+JBZq7jfQ3fRxUgAi5x0KpZjbWhuhwFQH8sMZ1M
+	TfsmydS4VeNXJVpDx0hDVaPjxlEEFZ3nXTR8maRLSrgnzMaOU7UP9L4GEdYl2q7s
+X-Gm-Gg: AYBFou2Ku/DvlTY4I8WQDeXVbg25lIJFg2FZcRVjouwaecC5+Xy6IEkZDtFNZ/V7kzZ
+	mYlD4M5IEH3zZBjZ8rZOmeY/bgsXB1juzxjVRJKb7IGjf9pH8+JUdKma3ppmkTRbAUZP5AMyaLd
+	3HCyPBup5/1MXtsDmvvpSTbwAmgZDuu5BFR3xYxrGqTrMMAvRHIBbDLmWD3SFXeoLsYfu4P/ukI
+	G9gTfaEXMUPJFZ3Cz/V2vWqjItoim0U4j3zqpY8ex308adPeOUYEzS/cAz5PHz6j6Q7XVxXk6Sc
+	WhhkD3x6zgjJw9fwBsJCTUSNfC/WBPOngnfacxjPzhtTHuPq5o1mQQ6eh4siT3cru3MuOMKjcjF
+	PisCoGLYYUjJKXb/plDqbWryUKDd9yarQOP2+s+b1G18KNcZb3S1REIofQ82payXUqBRoDWl971
+	eI0gE3r6ssfjQ6fYAC7PDZl0KHCq2GJujKC287tus7wmbeqOd6g891OoUQJKpFiFLLFQ6nlOWSk
+	9Oxju19RwYspKsIPE9aAk7tUGGQU4Pdv8FNbbQIKq+vSia4Tw==
+X-Received: by 2002:a05:622a:e199:10b0:533:2ad7:42c8 with SMTP id d75a77b69052e-5332ad7487dmr19534821cf.2.1790439942170;
+        Sat, 26 Sep 2026 09:25:42 -0700 (PDT)
 Received: from zaina.localdomain ([172.56.198.134])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533220200cdsm21445101cf.2.2026.09.26.09.25.36
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332201fa44sm21330871cf.4.2026.09.26.09.25.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 09:25:36 -0700 (PDT)
+        Sat, 26 Sep 2026 09:25:41 -0700 (PDT)
 From: Zain Aboobacker <zainaboobacker33@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org,
+To: Wensheng Wang <wenswang@yeah.net>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: codecs: nau8825: fix typos in comments
-Date: Sat, 26 Sep 2026 12:25:33 -0400
-Message-ID: <20260926162533.25395-1-zainaboobacker33@gmail.com>
+Subject: [PATCH] hwmon: (pmbus/mp2985) fix typos in comments
+Date: Sat, 26 Sep 2026 12:25:39 -0400
+Message-ID: <20260926162539.25432-1-zainaboobacker33@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -81,58 +79,52 @@ Fix various spelling mistakes in comments found by codespell.
 Assisted-by: Claude:claude-opus-5-5 codespell
 Signed-off-by: Zain Aboobacker <zainaboobacker33@gmail.com>
 ---
- sound/soc/codecs/nau8825.c | 10 +++++-----
+ drivers/hwmon/pmbus/mp2985.c | 10 +++++-----
  1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
-index 2eb0efc983a0..63d927f31409 100644
---- a/sound/soc/codecs/nau8825.c
-+++ b/sound/soc/codecs/nau8825.c
-@@ -348,7 +348,7 @@ static u32 nau8825_intlog10_dec3(u32 value)
-  * @sig_org: original signal level
-  * @sig_cros: cross talk signal level
-  *
-- * The original and cross talk signal vlues need to be characterized.
-+ * The original and cross talk signal values need to be characterized.
-  * Once these values have been characterized, this sidetone value
-  * can be converted to decibel with the equation below.
-  * sidetone = 20 * log (original signal level / crosstalk signal level)
-@@ -725,7 +725,7 @@ static void nau8825_xtalk_measure(struct nau8825 *nau8825)
- 		break;
- 	case NAU8825_XTALK_IMM:
- 		/* In impedance measure state, the original and cross talk
--		 * signal level vlues are ready. The side tone gain is deter-
-+		 * signal level values are ready. The side tone gain is deter-
- 		 * mined with these signal level. After all, restore codec
- 		 * configuration.
+diff --git a/drivers/hwmon/pmbus/mp2985.c b/drivers/hwmon/pmbus/mp2985.c
+index b0a4796ca8ce..89b437cc54c0 100644
+--- a/drivers/hwmon/pmbus/mp2985.c
++++ b/drivers/hwmon/pmbus/mp2985.c
+@@ -12,7 +12,7 @@
+ #include "pmbus.h"
+ 
+ /*
+- * Vender specific register READ_PIN_EST(0x93), READ_IIN_EST(0x8E),
++ * Vendor specific register READ_PIN_EST(0x93), READ_IIN_EST(0x8E),
+  * MFR_VR_MULTI_CONFIG_R1(0x0D) and MFR_VR_MULTI_CONFIG_R2(0x1D).
+  * The READ_PIN_EST is used to read pin telemetry, the READ_IIN_EST
+  * is used to read iin telemetry and the MFR_VR_MULTI_CONFIG_R1,
+@@ -62,9 +62,9 @@ static u16 mp2985_linear_exp_transfer(u16 word, u16 expect_exponent)
+ 	target_exponent = (s16)((expect_exponent & 0x1f) << 11) >> 11;
+ 
+ 	/*
+-	 * The MP2985 does not support negtive limit value, if a negtive
++	 * The MP2985 does not support negative limit value, if a negative
+ 	 * limit value is written, the limit value will become to 0. And
+-	 * the maximum positive limit value is limitted to 0x3FF.
++	 * the maximum positive limit value is limited to 0x3FF.
+ 	 */
+ 	if (mantissa < 0) {
+ 		mantissa = 0;
+@@ -133,7 +133,7 @@ static int mp2985_read_word_data(struct i2c_client *client, int page, int phase,
+ 		/*
+ 		 * The MP2985 has standard PMBUS_READ_IIN register(0x89), but this is
+ 		 * not used to read the input current of per rail. The input current
+-		 * is read through the vender redefined register READ_IIN_EST(0x8E).
++		 * is read through the vendor redefined register READ_IIN_EST(0x8E).
  		 */
-@@ -771,7 +771,7 @@ static void nau8825_xtalk_work(struct work_struct *work)
- 
- static void nau8825_xtalk_cancel(struct nau8825 *nau8825)
- {
--	/* If the crosstalk is eanbled and the process is on going,
-+	/* If the crosstalk is enabled and the process is on going,
- 	 * the driver forces to cancel the crosstalk task and
- 	 * restores the configuration to original status.
- 	 */
-@@ -1303,7 +1303,7 @@ static int nau8825_hw_params(struct snd_pcm_substream *substream,
- 			NAU8825_CLK_ADC_SRC_MASK,
- 			osr->clk_src << NAU8825_CLK_ADC_SRC_SFT);
- 
--	/* make BCLK and LRC divde configuration if the codec as master. */
-+	/* make BCLK and LRC divide configuration if the codec as master. */
- 	regmap_read(nau8825->regmap, NAU8825_REG_I2S_PCM_CTRL2, &ctrl_val);
- 	if (ctrl_val & NAU8825_I2S_MS_MASTER) {
- 		/* get the bclk and fs ratio */
-@@ -2897,7 +2897,7 @@ static int nau8825_i2c_probe(struct i2c_client *i2c)
- 	nau8825->dev = dev;
- 	nau8825->irq = i2c->irq;
- 	/* Initiate parameters, semaphore and work queue which are needed in
--	 * cross talk suppression measurment function.
-+	 * cross talk suppression measurement function.
- 	 */
- 	nau8825->xtalk_state = NAU8825_XTALK_DONE;
- 	nau8825->xtalk_protect = false;
+ 		ret = pmbus_read_word_data(client, page, phase, READ_IIN_EST);
+ 		break;
+@@ -141,7 +141,7 @@ static int mp2985_read_word_data(struct i2c_client *client, int page, int phase,
+ 		/*
+ 		 * The MP2985 has standard PMBUS_READ_PIN register(0x97), but this
+ 		 * is not used to read the input power of per rail. The input power
+-		 * of per rail is read through the vender redefined register
++		 * of per rail is read through the vendor redefined register
+ 		 * READ_PIN_EST(0x93).
+ 		 */
+ 		ret = pmbus_read_word_data(client, page, phase, READ_PIN_EST);
 -- 
 2.53.0
 
