@@ -1,100 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF112750F2;
-	Sat, 26 Sep 2026 00:21:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F3454707A;
+	Sat, 26 Sep 2026 00:23:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790382082; cv=none; b=uEs/10Aj+0xJkzhy/y5t8V7ykql06wxne/fZkZJDRWz2Txe0/HICQ48RhSeKrwHevUtleoCuG/rYw6YgX3tKv+f+d66ZO8yc0SIj6CVZzOdMjg+bd5+c5Ozz9sZlmDTEk6+22sXrHFs2ypP9YIOSuNwkbkNah2bWR/M9vQrkG+M=
+	t=1790382186; cv=none; b=lE24AVhAGWBCVFKMK1b2VuNBhwW5CdJCD/OXmFtnF7gwIqgTDoMQoRlqI+9LQkDp9NGPBvK+WEqWLfGMZMBMmlCNw5sMwnJdlzhmCcgf7Hi5kKRgv7rexCJFLd+hwJdX9yGp0UanuypncuV290ZF3NReYlJmFVl2oA0UGrD0itk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790382082; c=relaxed/simple;
-	bh=4Dia/lNWtkxXs+meuKwoNzwt2RlyA/ZtSTIRA9Pr+Ok=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=oxGAXl/t9tX3AMbTyzPJ4tLuwnpdr07UVoZa+S8gLHAZLaNH9c9MTUL413T9shmF8AibBM5GgqkKwZroClOfZnDkSXE7aUX6sw3THsQo5qBXSn7v2aCph8aA5KOq075ND2LIpnRLH4FL1FCvSIqK8Mf+5oM798Ke6huf6ZCCe14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0XJUoqi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790382186; c=relaxed/simple;
+	bh=fRMUdJ8vjW6p1nlb4SHwlr3DYAV30ITj/1LALlrkqus=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WYzM57MKmveTpPjiv3VHStt2iSF1rMDkSVoZ2Js9NQ490eZdaNPYsg1vslMlEJqZHVQD6qo3i/r2w6eih6e922/eHTFDNwnV43KjN7eycIFZ46FzfNOX10Z/wXFqLAPmMlAliXOakBkuzdpvBKMDlp4JdXk4WCeiq7UD7eoJzKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WP2Wkff2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0XJUoqi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E641F000FF;
-	Sat, 26 Sep 2026 00:21:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WP2Wkff2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1241F000FF;
+	Sat, 26 Sep 2026 00:23:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790382080;
-	bh=13uNuSjv5f/qBg9Qh+xrVuVXkYX8fPzZDY//XM8e+4c=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=m0XJUoqiIa2cWk5Sv9gfDWf5UMNJVR85JEDB4JkhFD1+ylvmC6tKN4bm5vWoCRYL/
-	 fPhpq9ZjfQ/M2G+S12wnBk/4pH5nIf3+j6Q/gJoILDYcn8XWqajuUuZZHpWInvFVTO
-	 vcdGR9NhpEdrunTvb4WoT24yvMuVPAuMkcaD+8Lv+jWP+hvY+Xe0xCXU/bs+NVb/P5
-	 2asEeW0rg07JOQr+P1ye9AjDLpvrdE/9ejeqtxtI8oIGPVSptYRrsZOMzheA50NAIJ
-	 n4qbd8ocfQi/F9uIvrgBwI+5P6tWFd2u+TLXIRMydV2opf6PdVG/SM8LkPr9JxekFb
-	 R8FIS0CZKIexw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56B2C3809A04;
-	Sat, 26 Sep 2026 00:20:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790382185;
+	bh=0/wwdqxxP3JImm4pML8mkdI+NlGI/uvOGcu4Chp3Ins=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WP2Wkff2WP3ah+/vc4fhHRrza6LaTC8TpahvNRxFQpIjhcvee+GprEpKN6l24Eci5
+	 agkGjllVpuCNQ3JDNDShmO+U8jF4coqUAx499vC5kWH7UBoQSPInd7q36JujquNnZc
+	 KgZga2X0I6jfSBeHW9VThBy57dSMpqmEuzMOSdRcaWdrucn582mLKUBTEsqV8tDJKP
+	 8f7K1jg7UOzKosbnIEiyyb8iVuZRxco2VVTFu7nAg3HOwkilr8ceYWyz9k/gjUHkK4
+	 X7UASJXuauBUPuBvsYjn3MKbjBTvsRlPvyJVmd+buo10U3LdB/V0EAQ3sfehBJe0SZ
+	 WB9qAk/N26PCQ==
+Date: Sat, 26 Sep 2026 01:23:04 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "David Lechner (TI)" <dlechner@baylibre.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Sashiko
+ <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 1/2] iio: adc: ti-ads112c14: fix negative settlingtime
+ check
+Message-ID: <20260926012304.6eb5aaab@jic23-hlaptop>
+In-Reply-To: <20260925-iio-adc-ti-ads112c14-fix-settlingtime-sign-v1-1-1fd53e7242e8@baylibre.com>
+References: <20260925-iio-adc-ti-ads112c14-fix-settlingtime-sign-v1-0-1fd53e7242e8@baylibre.com>
+	<20260925-iio-adc-ti-ads112c14-fix-settlingtime-sign-v1-1-1fd53e7242e8@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v4 0/8] net: dsa: motorcomm: Add SerDes PCS
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179038200814.3217464.2719386526229401334.git-patchwork-notify@kernel.org>
-Date: Sat, 26 Sep 2026 00:20:08 +0000
-References: <20260923021945.2203368-1-mmyangfl@gmail.com>
-In-Reply-To: <20260923021945.2203368-1-mmyangfl@gmail.com>
-To: David Yang <mmyangfl@gmail.com>
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux@armlinux.org.uk, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On Fri, 25 Sep 2026 16:27:43 -0500
+"David Lechner (TI)" <dlechner@baylibre.com> wrote:
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Wed, 23 Sep 2026 10:19:32 +0800 you wrote:
-> Rework chip_info to tell SERDES ports from xMII ones, identify the port type
-> at runtime from the pad configuration, and add a phylink PCS driver for the
-> internal SerDes, so that the link of SERDES ports can be established through
-> in-band negotiation instead of a fixed configuration.
+> Fix checking for negative values when writing the settlingtime
+> attribute. MICRO is an unsigned long, so on 32-bit architectures,
+> integer * MICRO is evaluated as a 32-bit unsigned value. A negative
+> integer part is then zero-extended to a positive s64 and passes the
+> < 0 check. Large positive values can also wrap around.
 > 
-> v4:
->   - fix 1000basex
->   - YT921X_SPEED_NUM -> YT921X_SPEED_INVALID
->   - reword commit message
-> v3: https://lore.kernel.org/r/20260917185010.3189199-1-mmyangfl@gmail.com
->   - fix build error
-> v2: https://lore.kernel.org/r/20260916164310.3168269-1-mmyangfl@gmail.com
->   - Remove YT921X_PORT_MASK_* macros
->   - code style nits
->   - unconditionally write BMCR_ANRESTART
-> v1: https://lore.kernel.org/r/20260909190541.466476-1-mmyangfl@gmail.com
+> Reject negative input before doing the multiplication and do the
+> multiplication as 64-bit.
 > 
-> [...]
+> Fixes: 839cbb1e2331 ("iio: adc: ti-ads112c14: add settlingtime attribute")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/message/20260910-iio-adc-ti-ads112c14-filter-support-v3-9-e5a9b27ddb1a%40baylibre.com
+> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+> ---
+>  drivers/iio/adc/ti-ads112c14.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
+> index 3c877126b0be..483f159e2836 100644
+> --- a/drivers/iio/adc/ti-ads112c14.c
+> +++ b/drivers/iio/adc/ti-ads112c14.c
+> @@ -729,10 +729,11 @@ static ssize_t ads112c14_write_settling_time(struct iio_dev *indio_dev,
+>  	if (ret)
+>  		return ret;
+>  
+> -	settling_time_us = integer * MICRO + fract;
+> -	if (settling_time_us < 0)
+> +	if (integer < 0 || fract < 0)
+>  		return -EINVAL;
+>  
+> +	settling_time_us = (s64)integer * MICRO + fract;
+Hi David,
 
-Here is the summary with links:
-  - [net-next,v4,1/8] net: dsa: motorcomm: Remove YT921X_PORT_MASK_* macros
-    https://git.kernel.org/netdev/net-next/c/b6d2762919bc
-  - [net-next,v4,2/8] net: dsa: motorcomm: Split xMII and SERDES port masks
-    https://git.kernel.org/netdev/net-next/c/605597aff803
-  - [net-next,v4,3/8] net: dsa: motorcomm: Identify port type at runtime
-    https://git.kernel.org/netdev/net-next/c/07b60e1bf4a1
-  - [net-next,v4,4/8] net: dsa: motorcomm: Fix register bit field names
-    https://git.kernel.org/netdev/net-next/c/be5cdff08903
-  - [net-next,v4,5/8] net: dsa: motorcomm: Introduce yt921x_speed
-    https://git.kernel.org/netdev/net-next/c/5423f892f129
-  - [net-next,v4,6/8] net: dsa: motorcomm: Hoist port_to_priv helper into chip.h
-    https://git.kernel.org/netdev/net-next/c/c9996cf718ec
-  - [net-next,v4,7/8] net: dsa: motorcomm: Split MDIO bus module
-    https://git.kernel.org/netdev/net-next/c/b9eca1c2be7f
-  - [net-next,v4,8/8] net: dsa: motorcomm: Add SerDes PCS
-    https://git.kernel.org/netdev/net-next/c/4b8fbb875a54
+Given you sanity checked that this can't be negative, is it worth changing
+settling_time_us to a u64 to reflect that?
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Jonathan
 
+> +
+>  	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+>  	if (IIO_DEV_ACQUIRE_FAILED(claim))
+>  		return -EBUSY;
+> 
 
