@@ -1,355 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7163890E4;
-	Sat, 26 Sep 2026 08:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19156286A4
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:42:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790412094; cv=none; b=pR2J/CXsiJU1ATQKlQvzbR2wCcWiuRr7MIGVysGceu4WJBmEHsXJyF7b/TMKqlrqW79I5MHzlwqFYMjITwQVDRv2xsSlD72M2/Tn8FwFi2xQf2vlWlzbzw9yxGwCMoG0SxtNK4B3F8i3LIHedFbruXUxm18KvI5HsPpkIIo9AZs=
+	t=1790412167; cv=none; b=bGACv1zjQojH3CL6JQaBzcd6M+szjib4snDqwuoGcxTMBV1SrHabZEMCPOsWpJxNEEV0c1ohG0cEBsn70qhCe23ZO8tiuKbTDWHMyOvVfZVfe66PCX0+54gs7GaR3MWdd21RQMo9F+AgNKXUjYiLKpuH7yAVqUHCciUj1WrrTxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790412094; c=relaxed/simple;
-	bh=LLm+ZqSNsynAo06tkRic+CA/iWyG5WOhtBzQj8B/x/A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=laGZOUd9gZQCpXssxuf53V3wlWVereHjkjRxG+W4pqJSH+WcDVYqkanLtHpXqIxeFzCPyKbWeWtfoZfZfgEkyu/OaGUXLzEMZiGsh/j8yQ5XsGPjdMbLFEgXZhecXApLzWPO6YIGP40M7DC3xX2eDQLZjiJ4oK05FcHS7QfjggM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=he1vvRNG; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790412167; c=relaxed/simple;
+	bh=OpP6bakpKsCRPiFsW3JcnQpiV9Lm4ipMp0hYM5XGiBc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MmtPqz5kA7apuizYx7AeB3MJqqN7WZx7ttWf5hmlIA+05sLC+GT2fZLr97OUspmdJFkro6RMXdpIBrD/BTEZQS6RGQIgwinE5tE8FYBKxXfYw29W9aL4BK5h+AbG7ym/7CAf9AU67GLuFmAdU0xys5lKlpHtoQsLNLSP/v/GJKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UDSbjbiF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="he1vvRNG"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 06255C2BCF7;
-	Sat, 26 Sep 2026 08:41:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790412094;
-	bh=LLm+ZqSNsynAo06tkRic+CA/iWyG5WOhtBzQj8B/x/A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=he1vvRNGkn5DlMFl5GsnuJpNCapRTZ96799htAfwyX47hZkzkE8MfPcnV+MCdCpWn
-	 AQRxxmPMtThYy+Bhh2uNoaD+pqVx41XG1IJG9giUnRrODPBZtyLNvmiCeRdlUy3rdp
-	 0qMwj14/ILwGVvv16/1qxTQF5bNJ3LJvd4ZseK1sXBaBj9/mbmbElOs3FDKnTSkAKT
-	 pMBecNoyJv4tFxxUy/koW4dLKMSppNpvsty1DneV5UtUeTeQxr+o/rqwZag1MmuHyh
-	 Ebu2LB8l7qbow+FqJQvRn5s6cEeKmPNjEk+T82hj+UseAUUA/Z9kM9ySLeDYJgxNiO
-	 tbNZg8SnVDncQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9A08C98318;
-	Sat, 26 Sep 2026 08:41:33 +0000 (UTC)
-From: Sam Day via B4 Relay <devnull+me.samcday.com@kernel.org>
-Date: Sat, 26 Sep 2026 18:41:32 +1000
-Subject: [PATCH v5 1/3] arm64: dts: qcom: sdm670: add default uart pinctrl
- nodes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UDSbjbiF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8CA51F000FF;
+	Sat, 26 Sep 2026 08:42:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790412165;
+	bh=V2AoDkHxt5/ck9ZyVPAFqWeUoxXW3bq3RmcY+WbOVMQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UDSbjbiFlxck3G3UTrDTNp+LBwXGOGJgGWH/TI22gK2RQ9e4khhack8IOymoenAoG
+	 //PI20I/PaLEdbgOnUOMEmOg4ZBRQXulshPCcN4rIsaMgPlZruNC3ZtqiJ0cQ4Dgk2
+	 503Rhmjw0Hz6JxAwkOrp//mDsVBsPubn/zs6FVZ0qLpEXfmW0EL95EsYXIIQBO3/gH
+	 1ee29WJ/vm8pLLWdJbEkXyP3BFkCuqQF5yeUmPSKJvddvSuN6s6ps7CoOyCMWPsrwI
+	 Yg7clPL5wuGZhUuWBYQKhSbD6mMov1pBWwQndkC7LcYwy1j2gCs3fJGV3o0eNZ1GQE
+	 9ivwAli37OWvA==
+Date: Sat, 26 Sep 2026 10:42:32 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Zhang Yubing <yubing.zhang@rock-chips.com>, Frank Wang <frank.wang@rock-chips.com>, 
+	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
+	Igor Paunovic <royalnet026@gmail.com>
+Subject: Re: [PATCH v15 6/6] phy: rockchip: usbdp: Add USB-C state without DP
+ enabled
+Message-ID: <rdx2u4cnxgbdkumgh4oaux7wvmb545ygcnuidpp6yvfntjtwgb@i7w72g4ebc62>
+References: <20260915-b4-rockchip-usbdp-cleanup-part3-v15-0-9ad90a456953@collabora.com>
+ <20260915-b4-rockchip-usbdp-cleanup-part3-v15-6-9ad90a456953@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-1-db74ff64a7e7@samcday.com>
-References: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-0-db74ff64a7e7@samcday.com>
-In-Reply-To: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-0-db74ff64a7e7@samcday.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>, 
- =?utf-8?q?Pablo_Correa_G=C3=B3mez?= <pabloyoyoista@postmarketos.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Sam Day <me@samcday.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790412092; l=5952;
- i=me@samcday.com; s=20240502; h=from:subject:message-id;
- bh=hUNBmM8bvKT0yQH74K4n83NfYx+CXMZCZPR8Oii1LAM=;
- b=+XOS3tpF0pNO7nb/Hy8axf5ILTuwICauA8ye8Qh8t+2gOqac60evnXsR6OXvS8SlZ6lbLLVSd
- Dt4rUDomL9IAEIbKVOnkklj5xEAOXhlGgKC3oDEieCNNMsZHlHK5yVE
-X-Developer-Key: i=me@samcday.com; a=ed25519;
- pk=bzyS0akxWMqr9+AXzgBRIp28KKpEOs+GjYMc2yf+aeU=
-X-Endpoint-Received: by B4 Relay for me@samcday.com/20240502 with
- auth_id=595
-X-Original-From: Sam Day <me@samcday.com>
-Reply-To: me@samcday.com
+In-Reply-To: <20260915-b4-rockchip-usbdp-cleanup-part3-v15-6-9ad90a456953@collabora.com>
 
-From: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
+On Tue, Sep 15, 2026 at 05:32:53PM +0200, Sebastian Reichel wrote:
+> The driver currently only differs between 4 lanes DP mode or combined DP
+> + USB3 mode. This makes sense from a lane routing point of view, as the
+> hardware only has 2 lanes of USB3.
+> 
+> But adding a separate state for USB-only helps with power management,
+> since we always power up all PHY parts according to the current hardware
+> setup to avoid data stream interruptions. Even if some lanes are muxed
+> to the DP controller there is no need to keep the DP side enabled if
+> something without DP AltMode is plugged into USB-C.
+> 
+> This potentially triggers some more USB reconnections during the PD
+> AltMode negotiation when switching from USB-only to combined USB+DP
+> mode. This should be fine, as the cable is freshly plugged at this
+> point.
+> 
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-This is a pre-requisite to enable UART in sargo and bonito. Values for
-the pins have been taken from sdm845, and cross-checking dowstream,
-where available.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Signed-off-by: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
-[sam: drop the tx/rx subnode labels, add drive-strength/bias-disable]
-Assisted-by: LLM
-Signed-off-by: Sam Day <me@samcday.com>
----
- arch/arm64/boot/dts/qcom/sdm670.dtsi | 256 +++++++++++++++++++++++++++++++++++
- 1 file changed, 256 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-index 5c60ea36f04a1..09e9d5afa6f65 100644
---- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-@@ -1343,6 +1343,262 @@ qup_i2c15_default: qup-i2c15-default-state {
- 				function = "qup15";
- 			};
- 
-+			qup_uart0_default: qup-uart0-default-state {
-+				tx-pins {
-+					pins = "gpio2";
-+					function = "qup0";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio3";
-+					function = "qup0";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart1_default: qup-uart1-default-state {
-+				tx-pins {
-+					pins = "gpio19";
-+					function = "qup1";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio20";
-+					function = "qup1";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart2_default: qup-uart2-default-state {
-+				tx-pins {
-+					pins = "gpio29";
-+					function = "qup2";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio30";
-+					function = "qup2";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart3_default: qup-uart3-default-state {
-+				tx-pins {
-+					pins = "gpio43";
-+					function = "qup3";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio44";
-+					function = "qup3";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart4_default: qup-uart4-default-state {
-+				tx-pins {
-+					pins = "gpio91";
-+					function = "qup4";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio92";
-+					function = "qup4";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart5_default: qup-uart5-default-state {
-+				tx-pins {
-+					pins = "gpio87";
-+					function = "qup5";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio88";
-+					function = "qup5";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart6_default: qup-uart6-default-state {
-+				tx-pins {
-+					pins = "gpio47";
-+					function = "qup6";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio48";
-+					function = "qup6";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart7_default: qup-uart7-default-state {
-+				tx-pins {
-+					pins = "gpio95";
-+					function = "qup7";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio96";
-+					function = "qup7";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart8_default: qup-uart8-default-state {
-+				tx-pins {
-+					pins = "gpio67";
-+					function = "qup8";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio68";
-+					function = "qup8";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart9_default: qup-uart9-default-state {
-+				tx-pins {
-+					pins = "gpio4";
-+					function = "qup9";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio5";
-+					function = "qup9";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart10_default: qup-uart10-default-state {
-+				tx-pins {
-+					pins = "gpio53";
-+					function = "qup10";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio54";
-+					function = "qup10";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart11_default: qup-uart11-default-state {
-+				tx-pins {
-+					pins = "gpio33";
-+					function = "qup11";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio34";
-+					function = "qup11";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart12_default: qup-uart12-default-state {
-+				tx-pins {
-+					pins = "gpio51";
-+					function = "qup12";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio52";
-+					function = "qup12";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart13_default: qup-uart13-default-state {
-+				tx-pins {
-+					pins = "gpio107";
-+					function = "qup13";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio108";
-+					function = "qup13";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart14_default: qup-uart14-default-state {
-+				tx-pins {
-+					pins = "gpio31";
-+					function = "qup14";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio32";
-+					function = "qup14";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart15_default: qup-uart15-default-state {
-+				tx-pins {
-+					pins = "gpio83";
-+					function = "qup15";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio84";
-+					function = "qup15";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
- 			sdc1_state_on: sdc1-on-state {
- 				clk-pins {
- 					pins = "sdc1_clk";
+- Mani
 
 -- 
-2.55.0
-
-
+மணிவண்ணன் சதாசிவம்
