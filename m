@@ -1,99 +1,117 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BA81B4138;
-	Sat, 26 Sep 2026 00:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95DB1A9F91;
+	Sat, 26 Sep 2026 00:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790381694; cv=none; b=dYaRJXZx6q9ktrYS6HUQXIaKLrI9aUm0zmGPgEe7/b5FwOkhjOJb4flriUJzN8uIfsclfGu3zoN6+B+tpTS6RZkRkVtN3k65AdCTF6ECxp3hmGcdDnOHuQdqpb73V4nlq1cGawEMbUqruB1xjbw+lyL8heHJ1HHamFS9dY6efXU=
+	t=1790381702; cv=none; b=jE0zcFmzMWCf24TxzIzuq9qUHjyhOEyCkl6Mq2YiOG4BBUIGggRo5OBIuuKaIaXaZmnpitnIbp44zI0M9+JVh1qsgFhtPkowCn62WzmfKcejSPm2B6xIM3n7ZQFv1KO9ce3mWfHECQlzC5KRViowslo67k0QyqLcBPCfXqZiYXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790381694; c=relaxed/simple;
-	bh=73zDcFxCJNmY8+y1oHpRxHe3D5YNjpgRhzJvTA/RfGg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EoyI6Js8c93Fq3h/ECgXFvnuQNyO5qCFrDvFhAvxKGIse7gc18oQErGUDzk5SwcvbVnG8mybiaP93GsoKfMwZbmLCei/R9jBipem3wnt1+efZZ5jvNo+EDsGjW94rw4btF1i/0OhEI8fmLskUmfLrFeHmv/swxqffzLZ6JBJgZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=aSEH92q5; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1790381702; c=relaxed/simple;
+	bh=Ysf3hXdapRgJKjXRQBvcacrX48OYb5yYpwnETBQnhs4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hOq19aGu61npWZHTeqwnOFoDRXF5LjuHdwqBx+D2wfeicOOEHRrixs90mM8sRy34pD1cou4oMLWXBY8pCrVNh3vBUaxaGJDAC2h+bqh4aGEQisaNiPQOor+hBVUTV/GHHgDsloavDNbIxqsfNmCXmB2rP5i1LT4V8+6FbIm0ImE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RpbwFj5/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="aSEH92q5"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hs7P83HyGzlfvpc;
-	Sat, 26 Sep 2026 00:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1790381686; x=1792973687; bh=7v+zkNkjRpE7DXlQVabvCmsv
-	fQ88G89t5EZa799eRqk=; b=aSEH92q5meO6DSGVRkkrrugZD86HeZqywTqvzwiW
-	uQAuA7VHn2CjXfijYyE/5SSMSlGy6r8b07O4kIY/O1yue5AKOxadHIGNQDU7DFfE
-	pGXIIWWvApNqPt7r8LElPdeCIe1V85i95W1jwxirh/eHCaBzGQk20tyVgzYk3KwF
-	ibr3bHxFdGzOejjQu+amOtO5Oj/YYlDAMVOHG5exGnon3gYkd4ug2UuvofJ6uLer
-	Fx3symwwYxJy+R93SBEDtyUPMFuYunU00ax52G/44Q5yDhVDSRK2D/JAM1wQ82g+
-	qqK60bNfgrvjVo3enrKSaZM9IryASnqhein3Qs7oOp7msA==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id orVRGeWBoGZK; Sat, 26 Sep 2026 00:14:46 +0000 (UTC)
-Received: from [192.168.0.215] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hs7Ny6kkczlfvpM;
-	Sat, 26 Sep 2026 00:14:42 +0000 (UTC)
-Message-ID: <5315b896-e496-4020-9e46-77ffb942ea37@acm.org>
-Date: Fri, 25 Sep 2026 17:14:40 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RpbwFj5/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 66EB6C2BCF4;
+	Sat, 26 Sep 2026 00:15:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790381701;
+	bh=Ysf3hXdapRgJKjXRQBvcacrX48OYb5yYpwnETBQnhs4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=RpbwFj5/sRdN5cnKZFaY7S+8h8LngOkXWZqUn+sd2f2bPuejYwu1cqCKwoAttl0iI
+	 jPPjgAT31HGF5yomwMEPs/LziC9PUBp7VJ+QHsVo51v4Lz+Y3Lvn6WC2AsYk318k2t
+	 KyPFCn/fhTaZhcUmJCBRmClgHczigF1Dt28F9oZ4Kqi9C1OtpGSI/Id4Vlq2fnkw7f
+	 4m9XHP9cLLVQQPIbnW1F9hiouEzf8395ShY/cMx5tBEb7XhlZ24gRuQdbT91SCU16c
+	 oW6BRL3tHWxq+k80oKnl7m2xuaAOpHoKPpeBCm5eMgLe+UNXVLJgJvyrN740whPd5r
+	 UdM8wOxcmAiAg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4388EC98326;
+	Sat, 26 Sep 2026 00:15:01 +0000 (UTC)
+From: Alexei Solcanu via B4 Relay <devnull+alexei.solcanu.pm.me@kernel.org>
+Date: Fri, 25 Sep 2026 20:13:26 -0400
+Subject: [PATCH] hwmon: (gpd-fan) Reset both fans to automatic on duo
+ boards
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: kdoc: parse context_lock_struct() as struct
- declaration
-To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
- peterz@infradead.org, elver@google.com, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
- mchehab@kernel.org, aleksandr.loktionov@intel.com, kees@kernel.org,
- tudor.ambarus@linaro.org
-References: <20260925234054.128477-1-emmaonana18@gmail.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260925234054.128477-1-emmaonana18@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-gpd-fan-duo-auto-v1-1-29bb670b3331@pm.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAxA0atI1gZqQUe9irioTdS4aKW1Ioh3n
+ 46zfIv/b4gchCP0xQ2BT4niXUZVFmBX4xZGoWzQSjeq0zUuO+FsHFLyaNLhsf1UxB0r1ZCFnO2
+ BZ7ne5TD+HdO0sT1+H3ieL+BMUxV0AAAA
+X-Change-ID: 20260925-gpd-fan-duo-auto-871de9e006dc
+To: Guenter Roeck <linux@roeck-us.net>, 
+ Cryolitia PukNgae <cryolitia@uniontech.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Antheas Kapenekakis <lkml@antheas.dev>, 
+ Alexei Solcanu <alexei.solcanu@pm.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790381700; l=1730;
+ i=alexei.solcanu@pm.me; s=20260925; h=from:subject:message-id;
+ bh=51VJvSwDQla9NOxqOKK4VxeGGVC99wAKjXjwdGLu0nY=;
+ b=thvE8DAPsnC+GtKVFFkyEKs3q+UviEB0Q5G5Hs9qNhaXgBPQPJRPeUgAs4jomqp4K8qAv1vnQ
+ tKUqDY/QZX9Bo8LqXDij1Rzq9UtugXoIdm7qu1w6ZIo/Xri3oyFTiwQ
+X-Developer-Key: i=alexei.solcanu@pm.me; a=ed25519;
+ pk=iK6ervbccknflfirBb6E4x7TaOyCpnoGd33gzfiNEeo=
+X-Endpoint-Received: by B4 Relay for alexei.solcanu@pm.me/20260925 with
+ auth_id=1064
+X-Original-From: Alexei Solcanu <alexei.solcanu@pm.me>
+Reply-To: alexei.solcanu@pm.me
 
-On 9/25/26 4:40 PM, Omokefe Emmanuel Onanaroghene wrote:
-> kernel-doc fails to parse struct declarations wrapped in
-> context_lock_struct(), e.g. struct debugfs_cancellation:
+From: Alexei Solcanu <alexei.solcanu@pm.me>
 
-Has this alternative been considered: instead of modifying
-tools/lib/python/kdoc/kdoc_parser.py, apply the following change:
+On boards using gpd_duo_drvdata (GPD Duo, GPD Win 5), writing
+pwm1_enable=2 only returns the first fan to EC control. The second fan
+keeps its last manual duty cycle, e.g. full speed after pwm1=255, so a
+fan control tool that exits leaves it running at that speed.
 
-diff --git a/include/linux/debugfs.h b/include/linux/debugfs.h
-index 4177c4738282..aa591f0b0920 100644
---- a/include/linux/debugfs.h
-+++ b/include/linux/debugfs.h
-@@ -233,13 +233,14 @@ ssize_t debugfs_write_file_bool(struct file *file, 
-const char __user *user_buf,
-  ssize_t debugfs_read_file_str(struct file *file, char __user *user_buf,
-  			      size_t count, loff_t *ppos);
+gpd_duo_write_pwm() writes both fan registers (pwm_write and
+pwm_write + 1), but switching to automatic only clears pwm_write.
+Also clear pwm_write + 1, so both fans return to EC control.
 
-+context_lock_struct(debugfs_cancellation);
-  /**
-   * struct debugfs_cancellation - cancellation data
-   * @list: internal, for keeping track
-   * @cancel: callback to call
-   * @cancel_data: extra data for the callback to call
-   */
--context_lock_struct(debugfs_cancellation) {
-+struct debugfs_cancellation {
-  	struct list_head list;
-  	void (*cancel)(struct dentry *, void *);
-  	void *cancel_data;
+Tested on a GPD Win 5 (G1618-05). Not tested on the GPD Duo.
 
-Thanks,
+Fixes: 0ab88e239439 ("hwmon: add GPD devices sensor driver")
+Assisted-by: LLM
+Signed-off-by: Alexei Solcanu <alexei.solcanu@pm.me>
+---
+Both fans were set to full speed (pwm1_enable=1, pwm1=255), then
+switched to automatic (pwm1_enable=2). Values read from the EC 15
+seconds later:
 
-Bart.
+                 0x047A  0x047B  fan 1     fan 2
+  without patch  0x00    0xf4    2542 rpm  6379 rpm
+  with patch     0x00    0x00    2545 rpm  2560 rpm
+
+Fan 2's RPM, found by probing, is at EC 0x0476/0x0477.
+---
+ drivers/hwmon/gpd-fan.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/hwmon/gpd-fan.c b/drivers/hwmon/gpd-fan.c
+index ed212615b2f..b3b75f99f58 100644
+--- a/drivers/hwmon/gpd-fan.c
++++ b/drivers/hwmon/gpd-fan.c
+@@ -444,6 +444,7 @@ static void gpd_duo_set_pwm_enable(struct gpd_fan_data *data, enum FAN_PWM_ENABL
+ 		break;
+ 	case AUTOMATIC:
+ 		gpd_ecram_write(data->drvdata, data->drvdata->pwm_write, 0);
++		gpd_ecram_write(data->drvdata, data->drvdata->pwm_write + 1, 0);
+ 		break;
+ 	}
+ }
+
+---
+base-commit: 3cbb5f15e464583e59c8501a7085ec12b53e23ac
+change-id: 20260925-gpd-fan-duo-auto-871de9e006dc
+
+Best regards,
+--  
+Alexei Solcanu <alexei.solcanu@pm.me>
+
+
