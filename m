@@ -1,55 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7316136F8EF;
-	Sat, 26 Sep 2026 02:34:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD673672AE
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790390101; cv=none; b=gW1nG8B3YORsobfiHWWDbeE0mwAelWZRSBjn1wUnOq752mQG2xAyg+etxjfarWQp2h+0H0WE88lXZq+MU2x8lAcY/0qsfgNRbAwN+bEpQYET3uBCMKTcdI+XlgqCT6jWzRHBMIh6XhpCVG06IpXI4HYae0iV3e4gTyA/sGP7ulc=
+	t=1790390118; cv=none; b=jzAisAm0EVd12sEE/IcfLkqIfW8ki7bwvnTZd1hqELTzHcno8adXFi0UqoLFMvLpl5geRdZ/0ksCSQiTWvnU3IIAhLPmVsI+RwCoM5HMevWWMRWS91v1jXEoLoKNA9ZBtXmBKu0GxfAQLfpGU9nJ1i0kbuH/nmuk7Q8frxf6wgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790390101; c=relaxed/simple;
-	bh=nBtSJwB60628F1rshHK3VxI9jXZbvhPgSd47DFRpOXA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dxu/4YAXorxiJNZodwJFlMUyWRkzYDIN4LhI7OvFURXUF+bFEIhSJIirKorQ7wdWMbqT8V6L6D/bOj2xvR3M/eL39l5cU45xSmESGMH1kFpIrCaYPk0LjbX/C6/iC3Fi56nxPwcole0OEZLz2a3hxwVm/0ywuqw4yVRi2AUJdwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ri92z3In; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790390118; c=relaxed/simple;
+	bh=vZJPbgJPdsXpKopo28Dsi+J0Feh0C3IQQRqQQTBqjPQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fpkRCRpl7lMkV+YsxuJYtXMSPFLQkdKyhJDz8czAs12CPyGlx76P1xSq5NRDBf0srVwoFPKWM6zL7a3/1GDsX50I1KxABlnSrKn89hwGtUnoY8eOPzpyi1LtdYWtLAwlBysv4egRktuSVo0tSoScR62TV6jZMJXGqZ2PCAE2DZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qvalIY2W; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ri92z3In"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95861F0089A;
-	Sat, 26 Sep 2026 02:34:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790390093;
-	bh=+1+ptnfXpAtBeBNWfraAbfOKXm2NLnbq/EN2aiYlMjo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ri92z3InlNgNn3iZu0hsxW3obzJINmj9D+EYp1HdIDbJwe1edl6xvozU8Ys0lNp4w
-	 r6TxX2KZ3u6wvy9q/3AqcOPGh1kJUqh5j1bmixEkE768lmJuYzD7qRp/kl2cPcAI4z
-	 9RQpKdEOVvc40O/Zq7UdIzYAkbPAZ7+/eUjhgQE9Ub3rXatq9IzVcETfrM/RobNhpF
-	 fxKWZniY8v7mS3A5r093o3WE5y9T5cwRF9cWN3iH48MyBnImqeva+1HF96JNLp9V1Y
-	 VjyBVF5ZCOOoGEiMRwJTu3MNpAJ9/szvaCfZnQlzu6wYfx2RDmWebs8X5j/OJTWOPJ
-	 DcjQpSXKPNoDw==
-From: Jakub Kicinski <kuba@kernel.org>
-To: arouhi@sitime.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	jiri@resnulli.us,
-	vadim.fedorenko@linux.dev,
-	arkadiusz.kubalewski@intel.com,
-	ivecera@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	cjubran@nvidia.com,
-	pabeni@redhat.com,
-	Oleg.Zadorozhnyi@devoxsoftware.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com,
-	dev@kael-k.io,
-	devicetree@vger.kernel.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qvalIY2W"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300825so8539905ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 19:35:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790390116; x=1790994916; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zTNC5edU10uB/RUSjLI3cwaqFAWGhgn7z7X8/RqAWVs=;
+        b=qvalIY2W3ZjhAQWwygxxlcpEjwKS3Qa3BhJtooenciJQxNCGGckqd8CkoTLMb/g42F
+         TFdN3mm9PneLXmvz36y1S30KDVw4xD5X8F1KJnRyvpN8af4hYRCiS6eGKy6D5m310OMg
+         521Ys0rrBp2Pf9X12mZtLCKf+8jmkRPmEd/nu+UlPIkNlUjiGy4J/n65gO6MbMG2VtRn
+         o2ZDtgYbq2C4ypr1hnXEEVcSEj5PqVO+WXpikAMtHMFS/SqqBFa4kBg3ke8i0R3kNZao
+         LFBMNA5woJDCSfz/uhrFAPuDmNAQrwj+c47ow8Ms0/mKKfm1SncUOIk5g8aFIlKmKlvy
+         5Ewg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790390116; x=1790994916;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zTNC5edU10uB/RUSjLI3cwaqFAWGhgn7z7X8/RqAWVs=;
+        b=Xdf4YZoY70eRZteY+M0H0xMhZc0J8yqsWaoKLP93XCiLPdaSUFmAFQ46sj6ldS6/tc
+         WVGHELIoWfoZ7XshF1zELUNUnpMIatXz6/ZIiweMGApvQHDSMpi7nU/mNs0hQtBez7qB
+         44ZautHTVGiIBTxO0sYfLZoWuoSKTDiGyKq1hufBcSxritXg1I1VD7LoxUJxgvDXxkTu
+         Z+Vf08w+EIsK3a5w8cAD57/f/Fy05UsECoRWO2mOro9IwIT24RgRskMWYDA+AV22NdY3
+         OAZpclbQsNqJvEiixh/8JzlewiC4Rk09JMOriC42pEHCnnWVaCHiJCaqqqBUWkaXiPQs
+         epkg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLjYKcwiijbm6147ji2DlhKne4f8pSIFuI9o8Uy3no9jbQgxSCko8tCNT9C47x2ZsYTXA2ir1EFUCtU1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nudB8JNBvsqowjo5PduA+ccqEmWt1bv8fmjlW0i1bjDcl9o1SF
+	vx8pR3xvieh8Q4MPuURiOhsKz9nrrV+3AvsTeSDErzDR80goq7Gcz9h6s3oCzHYKTkR4nlgo
+X-Gm-Gg: AYBFou1WWZPPSguh9NeRYv9MQn5sOFgJGoDq+AhUm3XPw1K1YgsPigpB2bh/pUZ6StS
+	NTBshBjEVu5ykUwb5hMAYTWd8prB1iNTKLi9htnLTVO9pvCxuY927Arc9aL7maDKiNA/uTb6X9/
+	OPZy4PL6N4VWwz2nuN1VF2TUFuDsAwGmnwGRc65lXiFMW99klA9wvVys13vJ3CeiubpBZKNwGyP
+	5sYvD79RyZliU6nkKbV/JJTTWKGpl79wkWUgf38gq1gGDpFPUFYgwSTRFYA0pPxP/FRGE/M/4MZ
+	y2pdKen/HvQ5/CwIwdTbya4gC/n9eOOaI6OwdGlKnLid8xS7tdGq1XMaqdgFFZ7ZEGFvHfyyBSb
+	WuWUpDurjrUo9EonOi6L7HPJ2SJ6Nroqjfu+pOwH5ufxx7l5t+jJbLO5qD+1MAQMwfmgTfBQ0ak
+	2YjiHhHaOpADx0RJo1t8V2iaYdCOTYwPFGCY8Kh30zXi9KptMv2JhMqe4n6JSOiPdD+vrfWFvOe
+	T7UBBboVB59VgpcbiDTjByIA/Nqcoah+6Cq0EJ0MIQI2Jilnq8s+TSq/5tnvWPEKkIaneICd4rj
+	5ELp4X5uDlZd4ntWqhrIljoWAN5UqaMDVgZwset0q3MosKJikOBIgTv1J3o=
+X-Received: by 2002:a17:90b:384c:b0:3a0:c8e6:ab23 with SMTP id 98e67ed59e1d1-3a0c8e6b96bmr2206750a91.54.1790390116029;
+        Fri, 25 Sep 2026 19:35:16 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99917besm7163204a91.14.2026.09.25.19.35.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 19:35:15 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: jack@suse.com
+Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 11/14] dpll: sit9531x: add support to get phase offset on the connected input pin
-Date: Fri, 25 Sep 2026 19:34:52 -0700
-Message-ID: <20260926023452.1568058-1-kuba@kernel.org>
+Subject: [PATCH] udf: don't let a stale metadata buffer overwrite expanded file data
+Date: Sat, 26 Sep 2026 10:35:12 +0800
+Message-ID: <20260926023512.3035718-1-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921201108.42676-12-arouhi@sitime.com>
-References: <20260921201108.42676-12-arouhi@sitime.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,288 +74,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
+Since commit 62333e480d12 ("udf: Fix data loss when converting inline
+inodes to out of line"), udf_expand_file_adinicb() allocates the data
+block itself with udf_map_block() and then writes the folio with
+filemap_fdatawrite().  Writeback maps the block through
+udf_get_block_wb(), which does not allocate, so the buffer is never new
+and nothing calls clean_bdev_aliases() for the block, as the generic
+code does for every block get_block() reports as new.
+
+A recently freed block can still have a dirty buffer in the block device
+page cache.  The common case is the file entry of a deleted file:
+udf_evict_inode() updates it with sync_inode_metadata(), which for an
+inode that is not IS_SYNC only marks the buffer dirty, and then frees
+the block.  If that block becomes the data block of an expanded file,
+the next writeback of the block device writes the old file entry over
+the file's data.
+
+On a fresh mkudffs image, creating 20 small files, deleting them and
+then creating five files with "printf hello >f; truncate -s 3000 f"
+leaves all five with a deleted file's extended file entry as their first
+block after sync and remount.  This happened in 400 of 400 runs, on
+bitmap and table images alike.  When the file is extended by writing
+instead of truncating, the write dirties the data again and the outcome
+depends on writeback order: the data was corrupted in about 7% of runs.
+
+Clean the aliases of the new block, as block_write_begin() and
+mpage_writepages() would have done.
+
+Fixes: 62333e480d12 ("udf: Fix data loss when converting inline inodes to out of line")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 ---
-dpll: sit9531x: add support to get phase offset on the connected input pin
+This is a regression in v7.3-rc1, and 62333e480d12 is also in 7.2.6 and
+6.18.52.  On 7.2.7 and 6.18.54 the truncate case corrupts the data in
+400 of 400 runs, as on mainline, and the write case in 10 and 7 of 400
+runs; with this patch, which applies cleanly to both, there was no
+corruption in 400 runs of either case.  Before 62333e480d12, extending
+the file by writing was safe (no corruption in 400 runs with it
+reverted): the write allocated the block through udf_get_block(), which
+marks it new, so block_write_begin() cleaned the alias.  Truncating up
+lost the data before 62333e480d12 as well, which is what that commit
+fixed.
 
-This adds a phase_offset_get callback for sit9531x input pins. It reads the
-on-chip TDC through the per-PLL debug window and converts the code to
-picoseconds using the VCO frequency. Only the input the PLL has selected
-gets a measurement; other pins and dormant PLLs report zero.
+To reproduce, run this as root in a VM; cmp reports every corrupted
+file:
 
-> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index c8c3cd6a64baf..8f6f8ffc8dc13 100644
-> --- a/drivers/dpll/sit9531x/core.c
-> +++ b/drivers/dpll/sit9531x/core.c
-> @@ -2314,6 +2314,221 @@ int sit9531x_clear_notifications(struct sit9531x_dev *sitdev)
+#!/bin/sh
+img=/tmp/udf.img mnt=/tmp/udf.mnt
+truncate -s 1M $img
+mkudffs $img >/dev/null
+mkdir -p $mnt
+mount -t udf -o loop $img $mnt
+for i in $(seq 20); do echo small >$mnt/s$i; done
+rm $mnt/s*
+for i in $(seq 5); do
+	printf hello >$mnt/f$i
+	truncate -s 3000 $mnt/f$i
+done
+sync
+umount $mnt
+mount -t udf -o loop $img $mnt
+printf hello >/tmp/expect
+truncate -s 3000 /tmp/expect
+for i in $(seq 5); do cmp $mnt/f$i /tmp/expect && echo "f$i ok"; done
+umount $mnt
 
-[ ... ]
+ fs/udf/inode.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> +/*
-> + * sit9531x_phase_offset_read - read phase difference via TDC
-> + * @phase_ps:	output phase difference in picoseconds
-> + *
-> + * Reads the Time-to-Digital Converter (TDC) signed 35-bit code from the
-> + * PLL page registers, then converts to picoseconds using the VCO
-> + * frequency: phase_diff = tdc_code / fvco.
-> + *
-> + * Caller must hold sitdev->multiop_lock.
-> + */
-> +int sit9531x_phase_offset_read(struct sit9531x_dev *sitdev, u8 pll_idx,
-> +			       s64 *phase_ps)
-> +{
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index e45e546a739a..804554d26595 100644
+--- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -442,6 +442,13 @@ int udf_expand_file_adinicb(struct inode *inode)
+ 	err = udf_map_block(inode, &map);
+ 	if (err < 0)
+ 		goto restore;
++	/*
++	 * The block may have held metadata that is still dirty in the block
++	 * device page cache (e.g. the file entry of a deleted inode). Make
++	 * sure writeback of that buffer cannot overwrite our data.
++	 */
++	if (map.oflags & UDF_BLK_NEW)
++		clean_bdev_aliases(inode->i_sb->s_bdev, map.pblk, 1);
+ 
+ 	folio_mark_dirty(folio);
+ 	folio_unlock(folio);
 
-[Severity: Low]
-This isn't a bug, but is "signed 35-bit code" accurate? The decode below
-builds a 35-bit magnitude from DBG_DATA_4[2:0] through DBG_DATA_0. The sign
-comes from a separate bit in DATA_4, so the field is 36-bit sign-magnitude:
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
+-- 
+2.55.0
 
-	sign = !!(v & BIT(SIT9531X_TDC_SIGN_BIT));
-	tdc_raw = (u64)(v & SIT9531X_TDC_MAG_HI_MASK) << 32;
-
-regs.h also describes DATA_4 as "[34:32] + sign".
-
-This header also opens with /* rather than /**. It doesn't document
-@sitdev, @pll_idx or a Return: section, while
-sit9531x_chan_selected_ref_read() just above it does.
-
-[ ... ]
-
-> +	/*
-> +	 * Remember the tap selection so it can be put back.  The key
-> +	 * register is re-locked below, but the mux is not part of the key:
-> +	 * leaving it parked on the TDC with a slow sampling clock selected
-> +	 * is a state change the caller did not ask for, and the next reader
-> +	 * of a different tap would have to know to undo it.
-> +	 */
-> +	if (!sit9531x_read_pll_u8(sitdev, pll_idx,
-> +				  SIT9531X_PLL_REG_DBG_WRITE_CODE,
-> +				  &old_write_code) &&
-> +	    !sit9531x_read_pll_u8(sitdev, pll_idx,
-> +				  SIT9531X_PLL_REG_DBG_READ_CODE,
-> +				  &old_read_code))
-> +		have_old = true;
-> +
-> +	/*
-> +	 * Select the debug clock for taps below 200 kHz, then point the
-> +	 * readback at the TDC.  Only the one bit is touched: writing the
-> +	 * modifier register whole would clear the fields belonging to
-> +	 * other taps.
-> +	 */
-> +	rc = sit9531x_update_pll_u8(sitdev, pll_idx,
-> +				    SIT9531X_PLL_REG_DBG_WRITE_CODE,
-> +				    SIT9531X_DBG_LOW_FREQ_CLK_BIT,
-> +				    SIT9531X_DBG_LOW_FREQ_CLK_BIT);
-> +	if (rc)
-> +		goto relock;
-> +	rc = sit9531x_write_pll_u8(sitdev, pll_idx,
-> +				   SIT9531X_PLL_REG_DBG_READ_CODE,
-> +				   SIT9531X_DBG_READ_CODE_TDC);
-> +	if (rc)
-> +		goto relock;
-
-[Severity: Medium]
-What happens if either snapshot read fails? have_old stays false, but the
-sequence continues. SIT9531X_DBG_LOW_FREQ_CLK_BIT is still set in WRITE_CODE,
-and SIT9531X_DBG_READ_CODE_TDC is still written to READ_CODE.
-
-The restore at the relock label below is then skipped because have_old is
-false. The PLL is left with the mux parked on the TDC and the slow sampling
-clock selected, which is the state the comment above says must not be left
-behind.
-
-The next successful call then snapshots this modified state and restores to
-it, so the change is never undone.
-
-Separately, the two restore sit9531x_write_pll_u8() calls at relock ignore
-their return values. A failed restore still lets the function return 0.
-
-The v10 notes say "Restored the debug tap selection the read changes".
-Should a failed snapshot abort before the tap is modified? Should restore
-errors be folded into rc?
-
-In this series, sit9531x_dbg_sample() reprograms both registers itself, so
-no in-driver reader currently sees the wrong tap.
-
-[ ... ]
-
-> +	rc = sit9531x_get_fvco(sitdev, pll_idx, &fvco);
-> +	if (rc) {
-> +		if (rc == -ENODATA)
-> +			dev_dbg(sitdev->dev,
-> +				"PLL%c: Fvco unknown, skip TDC\n",
-> +				'A' + pll_idx);
-> +		goto relock;
-> +	}
-
-[ ... ]
-
-> +relock:
-> +	if (have_old) {
-> +		sit9531x_write_pll_u8(sitdev, pll_idx,
-> +				      SIT9531X_PLL_REG_DBG_READ_CODE,
-> +				      old_read_code);
-> +		sit9531x_write_pll_u8(sitdev, pll_idx,
-> +				      SIT9531X_PLL_REG_DBG_WRITE_CODE,
-> +				      old_write_code);
-> +	}
-> +
-
-[ ... ]
-
-> +	lock_rc = sit9531x_write_pll_u8(sitdev, pll_idx,
-> +					SIT9531X_PLL_REG_DEBUG,
-> +					SIT9531X_PLL_DEBUG_LOCK);
-> +	if (lock_rc && !rc)
-> +		rc = lock_rc;
-> +
-> +	return rc;
-> +}
-
-[Severity: Medium]
-On a dormant PLL, can a bus error still reach user space as a valid zero
-reading?
-
-sit9531x_get_fvco() runs only after the debug window has been unlocked, the
-tap reprogrammed, the trigger read and DATA_4..DATA_0 read. When it returns
--ENODATA, the code jumps to relock with rc == -ENODATA.
-
-The restore writes there ignore their errors. A failed lock write is also
-dropped, because rc is already nonzero when this runs:
-
-	if (lock_rc && !rc)
-		rc = lock_rc;
-
-The function returns -ENODATA. sit9531x_dpll_input_pin_phase_offset_get()
-then turns that into success:
-
-	if (rc == -ENODATA) {
-		*phase_offset = 0;
-		return 0;
-	}
-
-The PLL debug key can stay unlocked, and the tap may stay parked on the TDC,
-while user space sees a successful 0.
-
-sit9531x_dpll_selection_state_get() doesn't check chan->active. A dormant PLL
-with a populated priority table can therefore pass the gate in the caller.
-
-The v10 notes say "Gave the dormant-PLL case its own errno, so a bus error is
-not reported as a valid zero reading."
-
-Would it close this gap to check Fvco before opening the debug window, and
-to fold lock and restore errors into rc whatever its previous value?
-
-> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index af1089f192b6f..5f7c2d01562c9 100644
-> --- a/drivers/dpll/sit9531x/dpll.c
-> +++ b/drivers/dpll/sit9531x/dpll.c
-> @@ -638,6 +638,123 @@ sit9531x_dpll_input_pin_prio_set(const struct dpll_pin *pin, void *pin_priv,
->  	return 0;
->  }
->  
-> +/*
-> + * sit9531x_dpll_input_pin_phase_offset_get - phase offset of a reference
-> + *
-
-[ ... ]
-
-> + * Precondition, which this callback cannot create: the TDC compares
-> + * against a signal the PLL drives, so a PLL driving no output with its
-> + * zero-delay buffer off has nothing to measure.  SiTime confirms this is
-> + * a property of the hardware rather than of their measurement script.
-> + * The script satisfies it by mapping a spare output and restarting the
-> + * PLL -- side effects that do not belong in a getter, so a reading taken
-> + * in that state is simply not meaningful.
-
-[Severity: Medium]
-If a reading in this state is not meaningful, what stops it from being
-published?
-
-Before sit9531x_phase_offset_read() runs, the only checks are the cached
-CONNECTED state, the live ACTIVESEL match and the -ENODATA dormant-DIVN
-case.
-
-Take a PLL with a programmed DIVN and a selected reference but no routed or
-enabled output. The TDC is still sampled. The value is scaled by
-DPLL_PHASE_OFFSET_DIVIDER and returned as a valid DPLL_A_PIN_PHASE_OFFSET.
-User space can't tell it apart from a real measurement.
-
-The driver already tracks output routing in struct sit9531x_out (routed,
-pll_idx, enabled). sit9531x_out_state_fetch() fills these from the OUT_MAP
-registers and the Hi-Z force bits. From the code it isn't clear whether a
-Hi-Z output counts as driving for the TDC, and ZDB state isn't tracked. The
-no-routed-output case does look detectable, though.
-
-Could the callback report 0 when the PLL drives no output, as it does for
-the dormant-DIVN case?
-
-The commit message doesn't mention this limitation, and it describes the
-value as "the measurement".
-
-[ ... ]
-
-> +	/*
-> +	 * Which pin the sample belongs to is read from the device rather
-> +	 * than taken from the monitor's cache: the device selects its own
-> +	 * reference, so a cache up to a poll period old could attribute a
-> +	 * live measurement to the pin that used to be selected.
-> +	 */
-> +	rc = sit9531x_chan_selected_ref_read(sitdev, sitdpll->id,
-> +					     &selected);
-
-[ ... ]
-
-> +	sit9531x_dpll_selection_state_get(sitdev, sitdpll, dpin->id, &state);
-> +	if (state != DPLL_PIN_STATE_CONNECTED || selected != dpin->id) {
-> +		mutex_unlock(&sitdev->multiop_lock);
-> +		*phase_offset = 0;
-> +		return 0;
-> +	}
-
-[Severity: Low]
-Does this match the comment above it? The gate still needs
-sit9531x_dpll_selection_state_get() to return CONNECTED, and that result
-comes from the cached chan->selected_ref and chan->mode:
-
-	active_input = !chan->mode && chan->selected_ref == pin_id;
-
-So the live ACTIVESEL read can only veto a sample. It doesn't decide which
-pin gets it.
-
-Suppose the device switches from IN0 to IN1 on its own. IN0 reports 0
-because the live value no longer matches. IN1 also reports 0 because the
-cache still says SELECTABLE. This lasts until the next
-sit9531x_dev_periodic_work() poll refreshes the cache.
-
-No wrong value is published. However, this comment and the
-sit9531x_chan_selected_ref_read() kernel-doc ("close enough for reporting
-pin state but not for attributing a measurement") both describe live-only
-attribution.
-
-Could the comments be updated to say that both the cached state and the live
-read are required?
-
-> +
-> +	rc = sit9531x_phase_offset_read(sitdev, sitdpll->id, &offset);
-> +	mutex_unlock(&sitdev->multiop_lock);
-
-[Severity: Low]
-Can the device fail over between the ACTIVESEL read above and the TDC latch?
-
-Before the three SIT9531X_PLL_REG_DBG_TRIGGER reads latch the sample,
-sit9531x_phase_offset_read() does several I2C transactions: the unlock, two
-snapshot reads, the write-code update and the read-code write.
-multiop_lock serialises the driver's accesses, but not the device's own
-reference selection.
-
-If the device switches reference in that window, the TDC samples against
-the new reference. The result is then published as the old pin's phase
-offset. This is the case the v10 change targets, now limited to a few
-milliseconds.
-
-Would re-reading ACTIVESEL after the latch, and reporting 0 on a mismatch,
-close this?
-
-[ ... ]
