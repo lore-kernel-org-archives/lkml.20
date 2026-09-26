@@ -1,138 +1,129 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953723451C1
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 15:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A731634D91F
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:00:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790438146; cv=none; b=VOxA6B7JRTvOpn8iUOOoMv1Iemx6XAQfvc3q60mCTvILUWGiy8E5GqQIOOTXkdvDircqpDSE8ObE77mmPYpE7X+KPKuNEgN1qIC61qTQE/uEvoIc0qyBKABCQ4orJuGBEfoZ4UanJVdDMaGgTcLK8qP2wxtsyOihZs/MxgaNmgE=
+	t=1790438449; cv=none; b=XAzf4HGkFBm3EkMi424B6BdTLFK4Xie9XtIqjmeHdZq3RAgopqBdhct8Ky7ysQbsnI8oR77Aorm8SSMHDo+TBtKVcGo2STusTBMOYMCrPvt8ndGEWyM9HSwm29F5Q1eOhSCBTKFJVpPnyFcBAvzj3bq7pdEuI49X/VJ7M1Js57w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790438146; c=relaxed/simple;
-	bh=pz7lKiug+kfyw4RvUQK+q1wYZURn+2I5w2W1ivVBNlE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PExx54agdEEHfRVsq8+SzaIEVqsK3wOYmhq0VY1IVAC6N/UOnTZYXZlVWnz+O1fNtDRsNycQI1QyWV2sA3tOIvGQAAlSNPdKgtbB4CuSj6jF1bt/S7alecA6UB0u95awdyLniOVm49YW6lsPQ5F07iOP7ovkkRXKUEymInzC7+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AKucldy0; arc=none smtp.client-ip=74.125.231.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790438449; c=relaxed/simple;
+	bh=bVUzZjxHMO8CHtvlSqa0+RggUMRBNcvulOYT5UeurPQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iqfrO31LWq/FdTCQXdUWL4WJneRGctpsuo5fR0p7pig+j9kpijud+Wp+jXSfe1IBE8kBtY/9kDYFplQ8FF/eMUZejT5k8DLZro/D8QnB64Q1jD8EvxA9w68Pqe3Rm7xjq5QWdx3C0leuy1jum/X2qBUsVUnqHm/CXgzFjkx1cFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=1JjUSgZf; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AKucldy0"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-478cbd5b48aso1216238fac.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:55:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790438143; x=1791042943; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S/X8WtMKO+kM8/RymoeclZdtD8nVgAtWR81xquL6WA4=;
-        b=AKucldy0BSWrP7oNT8dckrFs2XKr+kPsLDTCwO5aTwfn9ZM6ypppS8GYXHvn6yFHIy
-         alTTkc2FsgwFb1fSNIc9kg/cc7j9pzJ57JYZ4g0AB7KJFclLMz9hVpyuCKDU08BqBRjk
-         7Q7ZdQHftrltt6VeVumPpfqMvLVjoqfVUukh+Zc4FjDCloK92TLr1WEDRQmUV1KcwnLM
-         D9qoq9MG4Xxyr2mkp6G08qz6CAJUg+zf6dJNuWVQ+ZG0jYy6S+6upo2sKCGVcBch2CMr
-         St9eoBvZnlT3sGRddYiCvEM79jH0ezgVCLOdTCOYweMj/P/0xMH1Ct3NbXNS+RI8kZBY
-         mnjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790438143; x=1791042943;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S/X8WtMKO+kM8/RymoeclZdtD8nVgAtWR81xquL6WA4=;
-        b=SYIhe2Np+W6bGS3B/Fe8C4vtdSvVTdsI29+WiXYNOHjplEmir9QpLclmkqeKSyL8xz
-         zJi6Z7FaY/jukh2IUWCIIIXNIioDZR2E4J1GoEREZbUerCV8iIGfNj+Chq+U6Nrgadm4
-         guOF57YMfNeyHzsfRV9QadnvJZdCCHsbMiN0lSRIFJWMX6QjrfCB5rJ1iFXpuBrNcRT8
-         KuIx6YB70IG3zKopsys8U++bYwrrpELWPX6RVeVolN6tqXE0eHOOTCIKM9fHuu35929q
-         w8cJKV6AZPX6BworxF9Aj/AIbhHEmzvsFdgaSxjzGA83qLcYOVrzTZOsRyA7g+kn46ca
-         t0qg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1RXT6bXnsR5S18JAD866udQa2Iiojfx+yUyFOd6jF9TC8KoaF65+x2rL3EY2Rvr8l7HAGSeqlmjfaEMQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljGaO9ucbCqdfEUs9fQcflT5u1Sf07bFFn6i+FUDCIr0Mgc2N1
-	R8ctkkjpn0+EmW0oqYxJxsXHgeSKf3YWK1mNCk4XTI4NPfcQFdWBQ0Ck
-X-Gm-Gg: AYBFou374cdfBp/SAIdX8wxgkDitY02MfQhGa4heDxCaVdpAkji3K0vkKAO5Fra1hKt
-	1FayfD7RNH/203/retR2vfySPIzt+65B0OHqHQsJ9hT89U6Vywr8HROGmBTM1yZb3Raogf/bBm/
-	VXFhdQ1ROf3Y1hg8hUcUpWHyL78ejHCMby12r2d78YqGdLFZZououIDMrkroa0WvxYqgjzUouHH
-	JJ9XhTnhEsW8xAPCNLtc+J9ZDkuwoUuStvJxQ22YIUi9MpOTkx0NGjhPtMWGUJPrV0ck9H39geh
-	BEqjoJAFY0SjQIuLV0BZEIb1QpuaN1wMek3LYmxrcr7lrygHPVOmonj5t3hsUe8q2k+6nTHVY+A
-	ApDJAU0cmHoz6uY3/iIooTD4w8MPqKD2tmkeT4VGDiOkM/Dzi6Z7fGcNUSG7wXcsG598JfwcKqN
-	rVExYJCO6vXNXls76V3n+9jnmq/wMQYeb7NhyZEVyrLYZ5wG8FPvZR+Iph5+ujVVdDXC2LrstnD
-	1otjFrccmPSSkQoiY3wsjywS175mxkr2blw8+qOD3VdnGVeLJw=
-X-Received: by 2002:a05:6808:23ce:b0:4c0:9d00:b46d with SMTP id 5614622812f47-4d72be38df9mr8255004b6e.13.1790438143549;
-        Sat, 26 Sep 2026 08:55:43 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4dbf3d74e99sm4577446b6e.4.2026.09.26.08.55.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 08:55:42 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Andy Chiu <andybnac@gmail.com>,
-	Sergey Matyukevich <geomatsi@gmail.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	linux-riscv@lists.infradead.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>
-Subject: [PATCH 2/2] selftests: riscv: vector: Fix the check for children exiting with -1
-Date: Sat, 26 Sep 2026 10:55:35 -0500
-Message-ID: <20260926155535.306111-3-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260926155535.306111-1-danishkhateeb03@gmail.com>
-References: <20260926155535.306111-1-danishkhateeb03@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="1JjUSgZf"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CA1E21A0FD0;
+	Sat, 26 Sep 2026 16:00:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8E54260749;
+	Sat, 26 Sep 2026 16:00:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3E4BD102F1E54;
+	Sat, 26 Sep 2026 18:00:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790438441; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=mF1te5gqabP+5Yeutw1bTB4Li95rX1u1z21hvfD/sjY=;
+	b=1JjUSgZf+1Qlrz9yaHy7YnGvulxuyne9Db1Z3hoIbBILjgLKvagOMrh6zXm+LtmeoyVAxt
+	rE2m1OPP15bj1XPYkOEbcoxbID+IuvnZ84GmGO5sTu+2BTNuOzrefdZT1a6zOKZD55mwf2
+	wdFfbgIYyvhqLsOmXhC6cKKHohYQ4QtfL8G9bjg4Zcf2j2AsxPLgx7xrUS6x8oOBUJ5AX4
+	AESgI0lGEsivAPNmPxiednYXeSn+xeykI5WfkPM7O6P8suAq59Ijm5QUHSXRSRR79gad81
+	SGTzRMyA2VZSktD6UMrxwbPibAFENNDjhx/wV/ZNquwjh7V8LZRcoJP+eRQf7Q==
+Message-ID: <8ed1298a-4c29-4db3-b76e-c8d34f91b4c9@bootlin.com>
+Date: Sat, 26 Sep 2026 18:00:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4 00/15] net: stmmac: preserve datapath state across
+ MTU and resume failures
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Joakim Zhang <qiangqing.zhang@nxp.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Serge Semin <fancer.lancer@gmail.com>,
+ Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Joao Pinto <Joao.Pinto@synopsys.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Voon Weifeng <weifeng.voon@intel.com>,
+ "Song, Yoong Siang" <yoong.siang.song@intel.com>,
+ Linus Walleij <linusw@kernel.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Magnus Karlsson <magnus.karlsson@intel.com>,
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+ Simon Horman <horms@kernel.org>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: Richard Genoud <richard.genoud@bootlin.com>,
+ Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org,
+ ZhaoJinming <zhaojinming@uniontech.com>,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Ding Hui <dinghui1111@163.com>, linux-tegra@vger.kernel.org,
+ linux-sunxi@lists.linux.dev
+References: <20260926-submit-stmmac-reset-fixes-v1-v4-0-ec1c0250b3c9@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260926-submit-stmmac-reset-fixes-v1-v4-0-ec1c0250b3c9@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-vstate_exec_nolibc and launch_test() look for a child which failed with
-exit(-1) by checking WEXITSTATUS(status) == -1. But WEXITSTATUS() only
-returns the low 8 bits of the exit code, so the check never matches.
+Hello James,
 
-vstate_exec_nolibc then returns ctrl as if the child had succeeded,
-which is the value the harness expects. So when a child finds that its
-vstate_ctrl differs from its parent's, it prints an error, but the test
-still passes.
+On 9/26/26 17:48, James Hilliard wrote:
+> Keep the stmmac datapath coherent after failed MTU changes or hardware
+> resume without changing the interface's administrative state. Retain the
+> working MTU configuration for rollback, and allow ordinary down/up recovery
+> when hardware cannot be restored.
+> 
+> The fifteen patches put independent fixes and lifetime prerequisites ahead
+> of the retained-ring MTU transaction:
+> 
+>   1. Correct the WoL/safety IRQ unwind order.
+>   2. Reuse the MDIO reset GPIO across repeated resets.
+>   3. Allow phylink_stop() to finish a suspended instance.
+>   4. Freeze deferred AF_XDP pool teardown before device system suspend.
+>   5. Serialize PHC changes and cache reset-sensitive timestamp settings.
+>   6. Keep normal-size MTU changes running, including supported AF_XDP MTUs.
+>   7. Unwind partial DMA allocations and fix saved RX skb ownership.
+>   8. Keep DMA configurations and IRQ contexts at stable addresses, and
+>      drain timer producers before cancelling their timers.
+>   9. Track datapath and power ownership across MTU, XDP and ethtool reopen
+>      failures, including noirq clock handling and unpowered-access guards.
+>  10. Use the tracked restart for XSK pool changes.
+>  11. Restore TC filters, steering, preemption mapping and EST before DMA.
+>  12. Allow independent references to AF_XDP DMA mappings and UMEM pages.
+>  13. Retain DMA memory until hardware confirms shutdown or reset.
+>  14. Prepare device-local interrupt masking and DMA-handler quiescence.
+>  15. Retain rings and IRQ registrations across jumbo MTU replacement.
 
-Compare the exit status with 255 instead. A successful child exits with
-its vstate_ctrl, which is at most 0x1f. launch_test() already failed
-the test on 255, but now reports it as an abnormal exit.
+Please look at the mailing list, several of these patches are already being
+worked on and have gone through multiple iterations and reviews.
 
-Fixes: 7cf6198ce22d ("selftests: Test RISC-V Vector prctl interface")
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
----
- tools/testing/selftests/riscv/vector/v_helpers.c          | 2 +-
- tools/testing/selftests/riscv/vector/vstate_exec_nolibc.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Thanks :)
 
-diff --git a/tools/testing/selftests/riscv/vector/v_helpers.c b/tools/testing/selftests/riscv/vector/v_helpers.c
-index de6da7c8d2f1..8942ddf2b52b 100644
---- a/tools/testing/selftests/riscv/vector/v_helpers.c
-+++ b/tools/testing/selftests/riscv/vector/v_helpers.c
-@@ -81,7 +81,7 @@ int launch_test(char *next_program, int test_inherit, int xtheadvector)
- 		return -3;
- 	}
- 
--	if ((WIFEXITED(status) && WEXITSTATUS(status) == -1) ||
-+	if ((WIFEXITED(status) && WEXITSTATUS(status) == 255) ||
- 	    WIFSIGNALED(status)) {
- 		printf("child exited abnormally\n");
- 		return -4;
-diff --git a/tools/testing/selftests/riscv/vector/vstate_exec_nolibc.c b/tools/testing/selftests/riscv/vector/vstate_exec_nolibc.c
-index 5f53e5e8ac52..05f18b13a36a 100644
---- a/tools/testing/selftests/riscv/vector/vstate_exec_nolibc.c
-+++ b/tools/testing/selftests/riscv/vector/vstate_exec_nolibc.c
-@@ -74,7 +74,7 @@ int main(int argc, char **argv)
- 		exit(-1);
- 	}
- 
--	if (WIFEXITED(status) && WEXITSTATUS(status) == -1) {
-+	if (WIFEXITED(status) && WEXITSTATUS(status) == 255) {
- 		puts("child exited abnormally\n");
- 		exit(-1);
- 	}
--- 
-2.55.0
-
+Maxime
