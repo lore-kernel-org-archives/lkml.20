@@ -1,211 +1,330 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF632931F0;
-	Sat, 26 Sep 2026 08:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FF426056C
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 08:04:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790409785; cv=none; b=kHDkH+nooVUiVOSipLaLuHZSjPcMRyIr064Qpod6JCJNBKZ8p214y/pI7QN6kBLxoKb1nO64M40xCcQZo/9g4k0VY/mASIyaTJAP4xbPIWIa8yWEm3tUS0ihiTf4Ult7kkMRdAAO50ixeZwJZQI9qOgpIRG60eFMoViBCsYgSPA=
+	t=1790409898; cv=none; b=G5HIkxXDnJIjmnUc2y3PZvXibi5ni1tsXi7edIHlyZVufULDWAZ1HMbovHJcTs9sHb3HKsMPrXMMZ/TjV4tKBqeIl8rEwpWp1GDSy3CIKnFXXs8uN91fUv0QyE6UYbW0wvEUEpULXQnQ52T3uDh6vp3SNvakaNV3WGnBnwjFQlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790409785; c=relaxed/simple;
-	bh=meX05x/qb+aTrfX8PdfJ8kPS9GwY7+R4mHjgfNEduQo=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=jQ9GKQC8Hdup/s/dz6vSgO71eBR3QNOzEIBxFBcNsgGRDYEbK8COlWGL+A4kGu8PylR7VF7a0NEANUWrXQ3lPZ5323I0aC51qgSSa8bMGqsuobCL4O3+krLyl85f0JtEmTXiWX1mRDkcDr8a/TXuAlRYcQVrLuThLFVOc/Cf/FA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=lXCQQ4e6; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790409898; c=relaxed/simple;
+	bh=2+Wf9CTFkssOjA8yFTJDy8XhrKs+fVGTlq64tyWU6Xk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=RAbRKO2gQRvopwh8RhivZq5vyFCFniqLqS6nCfBZyJXX3odhLmVTL773FUOZgXxCIzLTWZpYStHNfpN5t7x06tIAuCZ4Z5Ow7Yhbz6vQ5nXQ0FpxAvINi5oT6mGgGBy+JOwiYzYrdbkGqJ3ojhg/uKohdzYIfJwH+nM5Z3aJw7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KSrXLSKm; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="lXCQQ4e6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790409772; x=1790668972;
-	bh=y3QtTJM5zi6YAYgx277/9ll1wtOMyFdmMR3MXGN0KcA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=lXCQQ4e6cC1QFio+E23dIfyBIgtWC2/NhT2mmsafgIuxNqgWW0fIcucV+R/lAQBz7
-	 XzgqqRSpKCF5WPezO3U4mOsAxSMobi2bNRuV9lAxmzZniLTDCWZ80eFSxjWRmY3Z2W
-	 5twDfL5xPxXx1FJxQ1hwRZ/Q8V8LbUAF+RJoSaSzuOx3gH8gRQfixXbyXXqrFVWtEz
-	 /+Usf1rh8e1YxZnBLBKmB3PXCWU9EJw83vUFlIGB3FGiqT8J8i1r4jW+Lqq4o90gtA
-	 PNuQFFP47YE3E0XkA+MvzBIeyLP2yMVVCJWNx5b+BK/OTo7+BCanPfZvyDv2zPY1WX
-	 ZwdeDnHsVJVWA==
-Date: Sat, 26 Sep 2026 08:02:48 +0000
-To: linux-media@vger.kernel.org
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] media: i2c: ov13858: add horizontal and vertical flip controls
-Message-ID: <20260926080242.93628-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: b1c0ea2ed939e8f532f28fd12e143d7e0664dc13
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KSrXLSKm"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so14194975e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:04:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790409894; x=1791014694; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7HZxt3zeKnEnrs8DVV8VtTUi6IgHEqmk5kCmbCMy8wo=;
+        b=KSrXLSKmZs5cklPv+IM8FELqwVeF/UbXxwV4a9A6mvlnFE3LObzCU0G14MyGy7z59t
+         hMclzZuNDdIyW+RtHw6dWuIB7s+Wc9niRRJi8Jta38aKOfWvPiDQJpGztbR6++qX0BII
+         nW4AQdvgO0i2tlvb+iFFXk/tyq/E7kpPcsYEX/V3SRAfCe8hKJfcI4IXSGb0+PUq3w5P
+         kaAejmFn/2DkgjzPR4jr09Tg9X1pJtU3zCthCnZR5gZ7S3iZOPdmazAjxNWTZMhqsAkR
+         LsZz+Jx2Jv9Hd561VbA+GyuGsl+jttdh04rdgupU669drqAVjUb4mKZcApAlf+vPUTw6
+         pRng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790409894; x=1791014694;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7HZxt3zeKnEnrs8DVV8VtTUi6IgHEqmk5kCmbCMy8wo=;
+        b=eC7GQtX6z7NbTpu3H/i1MfrOvFPumTu6T2FIbnHnNOyqj7J9hEcS7sTODogKCqBD6u
+         uDyJibypx75TZxzuBfSMN9cbgxU7hOTGgYI2CYBGO8J21IIpJRNAJmMW4t5MDZ9OBliK
+         V9uFAdLVXkkadbKzBBal/O2FszsGUXICALwrOx3Y8I3UvgTScQy9C84UazJngV4tK6uY
+         tn7uHvWz7FlEafa2ClEkjkn3BbRNi+9p1QsMR0SvlO3T3ddWq3Pa4a4S/r+IAkeGIrtS
+         9XhtovWVRXo4SWqC9mKUE5I/aZCjbjyYwRMrNzGBxWHbz5Kp+6gObFIPjkSNvsBf110I
+         X2nA==
+X-Forwarded-Encrypted: i=1; AKwUvBzv67TLb6mCkNdF6SGaL3NM/4TbcTNbzbOD8qcyGAekNI7oyD5VlNpLmGkoB5q3/8fVzUuwpaAXGNvp2sY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7n0WT8ZkI2RhGM79uraItbRKFi4vtCPD3u/CCWhFxiQmhKNCs
+	/lWSRsyIIJYMzraADOz1l5gdotMDzxTUs/thmzQdtBFHYRbkSm1ApKKk
+X-Gm-Gg: AYBFou0z6qmlmVwDmPDO+4ECL8TIDORUigVC3pANh5Cll7929eYaRT95gIRvq4lcfay
+	pTde9X7ySVfzwKdvnty0YqLuUANgWJ4hrJRCcGHzapSOD9L0a53zjqKTogAB3OfoV7scuvJYXdL
+	JMa05lFFp4U7t5dkT/yTzhDEB6657npLCTPvMdkv/Yu/RNo6tudak/Yo3NFAIOrvOBZqwjiF3nQ
+	TdQ7XTm3tg6SGHs68dvsU3LZzUnxDBkkThItek+ul+VzrEhVQjrTBDT6LM0QTkpK61CFwoKntt7
+	R0ElwOAkmMz+8ra9H6HVKbD7eiQZ0BEx3bTAmRLSQ4iHZ/B9BbY+zonGymYT/DW0NMLlt7o0R6x
+	crPVXWRvHUSSeWPhgasdpkFd4SzfPVMKOT+3SIQ9q0TaDByj/SMMLAejRk3PlIsZJn79LfDqDAG
+	co4aYJHikNTEdMmms/ed15e8VxebA1rHJ+qUfcA+jaVGo8VZBGzZk4YJoIvO1lt+oHw1iqP4dKb
+	9X3b2WgFcQHiyg9OfIWl1173zo09TuIap322oPDd4U8WIclA5QuL44HutiACfxb3NmLJEHUvq3G
+	sC/tL1cE5euVK05mI9jXlHjAmp4GZzSA5bJWPUTwabI7VC0h0UZXxZS+sUvixlwgpW/UGqkdbHC
+	JeEHTahKGL3QTibd2eEp3xA==
+X-Received: by 2002:a05:600d:644e:10b0:49f:e3d4:4c1f with SMTP id 5b1f17b1804b1-49fe7b62d1bmr99568365e9.8.1790409894114;
+        Sat, 26 Sep 2026 01:04:54 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-b162-c701-4960-a998-3de8-2fce.310.pool.telefonica.de. [2a02:3100:b162:c701:4960:a998:3de8:2fce])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5dfa6a7sm326651415e9.12.2026.09.26.01.04.52
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 26 Sep 2026 01:04:53 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Breno Leitao <leitao@debian.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Rik van Riel <riel@surriel.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [PATCH 5.10.y] mm/hugetlb: fix avoid_reserve to allow taking folio from subpool
+Date: Sat, 26 Sep 2026 10:04:49 +0200
+Message-Id: <20260926080449.80322-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <2025021033-cupcake-spud-c04d@gregkh>
+References: <2025021033-cupcake-spud-c04d@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The driver programs OV13858_REG_FORMAT1 (0x3820) from its mode tables and
-never exposes the readout direction, so a module mounted rotated cannot be
-corrected.
+From: Peter Xu <peterx@redhat.com>
 
-The Microsoft Surface Pro 11 for Business (Intel) mounts this sensor upside
-down, and ipu-bridge now says so - commit b238116ccd4b ("media: ipu-bridge:
-Add upside-down quirk for Surface Pro 11"). libcamera reads that rotation
-and tries to compensate with sensor flips, finds neither control, and falls
-back to Rot0, so with the quirk alone the picture stays upside down in any
-application that does not rotate it itself.
+commit 58db7c5fbe7daa42098d4965133a864f98ba90ba upstream.
 
-In 0x3820, BIT(4) set flips vertically and BIT(3) cleared mirrors - the
-mirror is active low, which is ordinary for the family. There is no public
-datasheet, so the bits were found by experiment: every bit of 0x3820
-through 0x3823 written singly mid-stream, and exactly two move the image.
-Two existing drivers agree. Intel's out-of-tree ov13858 declares 0x3820 as
-a bitfield with "hflip: 0 enable, 1 disable" at BIT(3) and "vflip: 0
-disable, 1 enable" at BIT(4), and writes !ctrl->val for the mirror;
-ov13b10 clears BIT(3) and sets BIT(4) of the same register in tree.
+Patch series "mm/hugetlb: Refactor hugetlb allocation resv accounting",
+v2.
 
-Both controls were checked by eye, one static scene in all four states:
-unflipped the image is upside down, vflip alone stands it up, hflip alone
-mirrors it, and the two together give the view this machine needs. The
-Bayer order at the output is the same in all four, so unlike imx219 and
-imx258, whose flips select a different media bus code, these controls do
-not need V4L2_CTRL_FLAG_MODIFY_LAYOUT.
+This is a follow up on Ackerley's series here as replacement:
 
-Every mode table already sets the mirror bit, so the defaults write back
-what the mode list just wrote. __v4l2_ctrl_handler_setup() runs after that
-list and before MODE_SELECT, so the read-modify-write here sees the value
-the mode just programmed.
+https://lore.kernel.org/r/cover.1728684491.git.ackerleytng@google.com
 
-The two are clustered, so a combined S_EXT_CTRLS costs one register
-read-modify-write rather than two, and grabbed while streaming: nothing
-here documents a mid-stream flip as safe, and imx290 and imx219 grab
-theirs because on those parts it is not.
+The goal of this series is to cleanup hugetlb resv accounting, especially
+during folio allocation, to decouple a few things:
 
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
-Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
+  - Hugetlb folios v.s. Hugetlbfs: IOW, the hope is in the future hugetlb
+    folios can be allocated completely without hugetlbfs.
+
+  - Decouple VMA v.s. hugetlb folio allocations: allocating a hugetlb folio
+    should not always require a hugetlbfs VMA.  For example, either it got
+    allocated from the inode level (see hugetlbfs_fallocate() where it used
+    a pesudo VMA for allocation), or it can be allocated by other kernel
+    subsystems.
+
+It paves way for other users to allocate hugetlb folios out of either
+system reservations, or subpools (instead of hugetlbfs, as a file system).
+For longer term, this prepares hugetlb as a separate concept versus
+hugetlbfs, so that hugetlb folios can be allocated by not only hugetlbfs
+and other things.
+
+Tests I've done:
+
+- I had a reproducer in patch 1 for the bug I found, this will start to
+  work after patch 1 or the whole set applied.
+
+- Hugetlb regression tests (on x86_64 2MBs), includes:
+
+  - All vmtests on hugetlbfs
+
+  - libhugetlbfs test suite (which may fail some tests, but no new failures
+    will be introduced by this series, so all such failures happen before
+    this series so shouldn't be relevant).
+
+This patch (of 7):
+
+Since commit 04f2cbe35699 ("hugetlb: guarantee that COW faults for a
+process that called mmap(MAP_PRIVATE) on hugetlbfs will succeed"),
+avoid_reserve was introduced for a special case of CoW on hugetlb private
+mappings, and only if the owner VMA is trying to allocate yet another
+hugetlb folio that is not reserved within the private vma reserved map.
+
+Later on, in commit d85f69b0b533 ("mm/hugetlb: alloc_huge_page handle
+areas hole punched by fallocate"), alloc_huge_page() enforced to not
+consume any global reservation as long as avoid_reserve=true.  This
+operation doesn't look correct, because even if it will enforce the
+allocation to not use global reservation at all, it will still try to take
+one reservation from the spool (if the subpool existed).  Then since the
+spool reserved pages take from global reservation, it'll also take one
+reservation globally.
+
+Logically it can cause global reservation to go wrong.
+
+I wrote a reproducer below, trigger this special path, and every run of
+such program will cause global reservation count to increment by one, until
+it hits the number of free pages:
+
+  #define _GNU_SOURCE             /* See feature_test_macros(7) */
+  #include <stdio.h>
+  #include <fcntl.h>
+  #include <errno.h>
+  #include <unistd.h>
+  #include <stdlib.h>
+  #include <sys/mman.h>
+
+  #define  MSIZE  (2UL << 20)
+
+  int main(int argc, char *argv[])
+  {
+      const char *path;
+      int *buf;
+      int fd, ret;
+      pid_t child;
+
+      if (argc < 2) {
+          printf("usage: %s <hugetlb_file>\n", argv[0]);
+          return -1;
+      }
+
+      path = argv[1];
+
+      fd = open(path, O_RDWR | O_CREAT, 0666);
+      if (fd < 0) {
+          perror("open failed");
+          return -1;
+      }
+
+      ret = fallocate(fd, 0, 0, MSIZE);
+      if (ret != 0) {
+          perror("fallocate");
+          return -1;
+      }
+
+      buf = mmap(NULL, MSIZE, PROT_READ|PROT_WRITE,
+                 MAP_PRIVATE, fd, 0);
+
+      if (buf == MAP_FAILED) {
+          perror("mmap() failed");
+          return -1;
+      }
+
+      /* Allocate a page */
+      *buf = 1;
+
+      child = fork();
+      if (child == 0) {
+          /* child doesn't need to do anything */
+          exit(0);
+      }
+
+      /* Trigger CoW from owner */
+      *buf = 2;
+
+      munmap(buf, MSIZE);
+      close(fd);
+      unlink(path);
+
+      return 0;
+  }
+
+It can only reproduce with a sub-mount when there're reserved pages on the
+spool, like:
+
+  # sysctl vm.nr_hugepages=128
+  # mkdir ./hugetlb-pool
+  # mount -t hugetlbfs -o min_size=8M,pagesize=2M none ./hugetlb-pool
+
+Then run the reproducer on the mountpoint:
+
+  # ./reproducer ./hugetlb-pool/test
+
+Fix it by taking the reservation from spool if available.  In general,
+avoid_reserve is IMHO more about "avoid vma resv map", not spool's.
+
+I copied stable, however I have no intention for backporting if it's not a
+clean cherry-pick, because private hugetlb mapping, and then fork() on top
+is too rare to hit.
+
+Link: https://lkml.kernel.org/r/20250107204002.2683356-1-peterx@redhat.com
+Link: https://lkml.kernel.org/r/20250107204002.2683356-2-peterx@redhat.com
+Fixes: d85f69b0b533 ("mm/hugetlb: alloc_huge_page handle areas hole punched by fallocate")
+Signed-off-by: Peter Xu <peterx@redhat.com>
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Tested-by: Ackerley Tng <ackerleytng@google.com>
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ Karl Mehltretter: The upstream changes map directly to this stable tree's
+  older page-based HugeTLB API. The backport retains this stable tree's
+  SetPagePrivate() reserve marker, plain hugetlb_lock calls and direct
+  -ENOSPC return; the functional changes otherwise match upstream. ]
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-v3, commit message only:
+Tested against the current linux-5.10.y tip, 5.10.270:
 
- - Cites b238116ccd4b in the "commit <sha> (...)" form checkpatch asks
-   for; the Media CI flagged v2 for it.
- - v2 said the quirk on its own "names a rotation nothing can undo".
-   Snapshot and Firefox do undo it - they rotate the picture themselves -
-   and qcam, which does not, shows it upside down. The sentence now says
-   that.
- - Tested-by from German Pablo Lindo, on a second Surface Pro 11: qcam
-   upright with this patch, Snapshot and Firefox unchanged.
+- x86-64 QEMU, 2 MiB HugeTLB pages, at 1 and 4 vCPUs
+- compared with the unpatched kernel, an extended version of the commit's
+  fork/COW reproducer kept the child mapping alive during the parent write
+  and changed HugePages_Rsvd after program cleanup from 5 to 4 and after
+  unmount from 1 to 0
+- parent/child data isolation passed and no kernel diagnostic was observed
 
-The code is v2's, byte for byte. Sakari's set_selection() point is
-answered in v2's notes, and nothing here changes it.
+ mm/hugetlb.c | 22 +++-------------------
+ 1 file changed, 3 insertions(+), 19 deletions(-)
 
-v2: https://lore.kernel.org/all/20260921124444.79396-1-lsa.uz@pm.me/
-v1: https://lore.kernel.org/all/20260921082609.30830-1-lsa.uz@pm.me/
-
- drivers/media/i2c/ov13858.c | 52 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
-
-diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
-index de2b79a9a0e..d870d2edb4f 100644
---- a/drivers/media/i2c/ov13858.c
-+++ b/drivers/media/i2c/ov13858.c
-@@ -76,6 +76,14 @@
- #define OV13858_DGTL_GAIN_DEFAULT=091024=09/* Default gain =3D 1 X */
- #define OV13858_DGTL_GAIN_STEP=09=091=09/* Each step =3D 1/1024 */
-=20
-+/*
-+ * Readout direction. The mirror bit is active low, and the value every mo=
-de
-+ * table programs already has it set.
-+ */
-+#define OV13858_REG_FORMAT1=09=090x3820
-+#define OV13858_FORMAT1_VFLIP=09=09BIT(4)
-+#define OV13858_FORMAT1_HFLIP_N=09=09BIT(3)
-+
- /* Test Pattern Control */
- #define OV13858_REG_TEST_PATTERN=090x4503
- #define OV13858_TEST_PATTERN_ENABLE=09BIT(7)
-@@ -1042,6 +1050,8 @@ struct ov13858 {
- =09struct v4l2_ctrl *vblank;
- =09struct v4l2_ctrl *hblank;
- =09struct v4l2_ctrl *exposure;
-+=09struct v4l2_ctrl *hflip;
-+=09struct v4l2_ctrl *vflip;
-=20
- =09/* Current mode */
- =09const struct ov13858_mode *cur_mode;
-@@ -1208,6 +1218,31 @@ static int ov13858_enable_test_pattern(struct ov1385=
-8 *ov13858, u32 pattern)
- =09=09=09=09 OV13858_REG_VALUE_08BIT, val);
- }
-=20
-+static int ov13858_update_flips(struct ov13858 *ov13858)
-+{
-+=09u32 val;
-+=09int ret;
-+
-+=09ret =3D ov13858_read_reg(ov13858, OV13858_REG_FORMAT1,
-+=09=09=09       OV13858_REG_VALUE_08BIT, &val);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09if (ov13858->vflip->val)
-+=09=09val |=3D OV13858_FORMAT1_VFLIP;
-+=09else
-+=09=09val &=3D ~OV13858_FORMAT1_VFLIP;
-+
-+=09/* The mirror bit is active low, as it is on ov13b10. */
-+=09if (ov13858->hflip->val)
-+=09=09val &=3D ~OV13858_FORMAT1_HFLIP_N;
-+=09else
-+=09=09val |=3D OV13858_FORMAT1_HFLIP_N;
-+
-+=09return ov13858_write_reg(ov13858, OV13858_REG_FORMAT1,
-+=09=09=09=09 OV13858_REG_VALUE_08BIT, val);
-+}
-+
- static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 70fe6a11daba0..b23c8b2699b58 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1137,8 +1137,7 @@ static struct page *dequeue_huge_page_nodemask(struct hstate *h, gfp_t gfp_mask,
+ 
+ static struct page *dequeue_huge_page_vma(struct hstate *h,
+ 				struct vm_area_struct *vma,
+-				unsigned long address, int avoid_reserve,
+-				long chg)
++				unsigned long address, long chg)
  {
- =09struct ov13858 *ov13858 =3D container_of(ctrl->handler,
-@@ -1254,6 +1289,10 @@ static int ov13858_set_ctrl(struct v4l2_ctrl *ctrl)
- =09=09=09=09=09ov13858->cur_mode->height
- =09=09=09=09=09  + ctrl->val);
- =09=09break;
-+=09case V4L2_CID_HFLIP:
-+=09case V4L2_CID_VFLIP:
-+=09=09ret =3D ov13858_update_flips(ov13858);
-+=09=09break;
- =09case V4L2_CID_TEST_PATTERN:
- =09=09ret =3D ov13858_enable_test_pattern(ov13858, ctrl->val);
- =09=09break;
-@@ -1481,6 +1520,13 @@ static int ov13858_set_stream(struct v4l2_subdev *sd=
-, int enable)
- =09=09pm_runtime_put(ov13858->dev);
- =09}
-=20
-+=09/*
-+=09 * Do not let the flips change while streaming. ov13858->mutex is the
-+=09 * control handler's own lock and is held here, hence the __ form.
-+=09 */
-+=09__v4l2_ctrl_grab(ov13858->hflip, enable);
-+=09__v4l2_ctrl_grab(ov13858->vflip, enable);
-+
- =09mutex_unlock(&ov13858->mutex);
-=20
- =09return ret;
-@@ -1619,6 +1665,12 @@ static int ov13858_init_controls(struct ov13858 *ov1=
-3858)
- =09=09=09  OV13858_DGTL_GAIN_MIN, OV13858_DGTL_GAIN_MAX,
- =09=09=09  OV13858_DGTL_GAIN_STEP, OV13858_DGTL_GAIN_DEFAULT);
-=20
-+=09ov13858->hflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
-+=09=09=09=09=09   V4L2_CID_HFLIP, 0, 1, 1, 0);
-+=09ov13858->vflip =3D v4l2_ctrl_new_std(ctrl_hdlr, &ov13858_ctrl_ops,
-+=09=09=09=09=09   V4L2_CID_VFLIP, 0, 1, 1, 0);
-+=09v4l2_ctrl_cluster(2, &ov13858->hflip);
-+
- =09v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &ov13858_ctrl_ops,
- =09=09=09=09     V4L2_CID_TEST_PATTERN,
- =09=09=09=09     ARRAY_SIZE(ov13858_test_pattern_menu) - 1,
---=20
-2.54.0 (Apple Git-157)
-
-
+ 	struct page *page;
+ 	struct mempolicy *mpol;
+@@ -1155,14 +1154,10 @@ static struct page *dequeue_huge_page_vma(struct hstate *h,
+ 			h->free_huge_pages - h->resv_huge_pages == 0)
+ 		goto err;
+ 
+-	/* If reserves cannot be used, ensure enough pages are in the pool */
+-	if (avoid_reserve && h->free_huge_pages - h->resv_huge_pages == 0)
+-		goto err;
+-
+ 	gfp_mask = htlb_alloc_mask(h);
+ 	nid = huge_node(vma, address, gfp_mask, &mpol, &nodemask);
+ 	page = dequeue_huge_page_nodemask(h, gfp_mask, nid, nodemask);
+-	if (page && !avoid_reserve && vma_has_reserves(vma, chg)) {
++	if (page && vma_has_reserves(vma, chg)) {
+ 		SetPagePrivate(page);
+ 		h->resv_huge_pages--;
+ 	}
+@@ -2350,17 +2345,6 @@ struct page *alloc_huge_page(struct vm_area_struct *vma,
+ 			vma_end_reservation(h, vma, addr);
+ 			return ERR_PTR(-ENOSPC);
+ 		}
+-
+-		/*
+-		 * Even though there was no reservation in the region/reserve
+-		 * map, there could be reservations associated with the
+-		 * subpool that can be used.  This would be indicated if the
+-		 * return value of hugepage_subpool_get_pages() is zero.
+-		 * However, if avoid_reserve is specified we still avoid even
+-		 * the subpool reservations.
+-		 */
+-		if (avoid_reserve)
+-			gbl_chg = 1;
+ 	}
+ 
+ 	/* If this allocation is not consuming a reservation, charge it now.
+@@ -2383,7 +2367,7 @@ struct page *alloc_huge_page(struct vm_area_struct *vma,
+ 	 * from the global free pool (global change).  gbl_chg == 0 indicates
+ 	 * a reservation exists for the allocation.
+ 	 */
+-	page = dequeue_huge_page_vma(h, vma, addr, avoid_reserve, gbl_chg);
++	page = dequeue_huge_page_vma(h, vma, addr, gbl_chg);
+ 	if (!page) {
+ 		spin_unlock(&hugetlb_lock);
+ 		page = alloc_buddy_huge_page_with_mpol(h, vma, addr);
+-- 
+2.53.0
