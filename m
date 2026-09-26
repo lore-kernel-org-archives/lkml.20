@@ -1,237 +1,467 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1BB4399E5
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FF1415B6E;
+	Sat, 26 Sep 2026 11:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790420799; cv=none; b=dACNNwOx8OM+uqBw3Mg0WmGOwPlSFZKJe6Gt0lnAVQzw8zUJ2ZVzqV8hUlMoAGbZI7E0gMhgLsKnALovX8/Mo5vqWa7hIwA3AqIKaXR8fLJzplVRDjjmEj0fIBxbbO8JgTf5A3+h3IeQ76cFYUPmPWttv68asfh10YzlNwgiQwU=
+	t=1790420818; cv=none; b=T42JX9qCPu5TdQ051+NYely3QCDPPPBREWBRV8JK2dt1JPN0VkMUUJutbytsk9X5pAr0+W4JvCL2yBPULtw+KDMyY9DoGxzqdKeDOpXuFQWLDgMrtOq8UwzWaw4N1q6zA1bN8E9SuDuSUmVLlmegeVIg2I59929Kt6y1qm5J4/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790420799; c=relaxed/simple;
-	bh=1msmKYuNovKJCEu2Eg9jzolVXqozK1HaBSjClyN0HFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NLMV+khcKXO3gCEWU3Ibb1xph29D1aeIVvou+NppTDC3nPxUIXLFa0n6+qLqpu/BXgb7jEieWczLqQ9C0fA4trUshdG+4OXa7OBFAV/ww5N8CSCnQzvXT306TrUMdD4k9FmOPXESgrifKt0vUoJMK+FnRF0/Tlu2SD8yDkqdjTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UtvJZ+++; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790420818; c=relaxed/simple;
+	bh=W7mI4gTGjxlNCsXrGc6C3iq9sXvDW/6vSYG5vbcBje8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g8m2zKjl9Rg/2kgfHS+eUeibp6Qar0WQGYI1CZbLr7rOQ5ZYwy8jLD2nbBquHOUXSI5W7vU+GFH+ob/nYCT/71ZFb3y+r4l7fLzsPH52Hq2jXWNT9aadpIDBTPRfDqp4lGyOuAocCklQFN11dWHrgS6nMDjI2YZivWXRRvhHAgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZwehQIOs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UtvJZ+++"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffe817151so885825e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:06:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790420794; x=1791025594; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DETyHTH+1SFUdbDpZ6PXLVMzsHnJRWHB9+9aLI0a21o=;
-        b=UtvJZ+++sc0ySKv7KKyG+NaiFLQs5G0D7UWrtBm2+VaDK3zG2sTKX0L8EtupswKtu0
-         P8OI7uMcPByVvCPiDdUgdQw1f0ppn9hby6ZDbvHErUZYT1T36UMBA/Z5BB4syGC9eONY
-         HHO6CA8n3d6hxUxVU9rEsuBFGtoxsa947+E2pne6xv9vZCeBjAs/NKuwGh3AH93cO6Ny
-         IC/Nm6/ndHFeibhREawIBDTTgpZ8Drjnk61xPAz9T2NfpUZdB+9mB7M6dAJlEWlYlMW2
-         4l4ExzOXVkHwGpFYPvDbeIWrrC/JBMUTmxbTLSsLVrWg/+zPmVO8RwKdTiHbKYqhjmQ8
-         rc9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790420794; x=1791025594;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DETyHTH+1SFUdbDpZ6PXLVMzsHnJRWHB9+9aLI0a21o=;
-        b=ByURPaD4W9JZEELppOoNjzcmFK00SD5tRwoIXhaTvTWR9w9OzbU37d/RUOxE0Q6fxW
-         AKuFPtAFpBGP+4EwTx1RNyxh98Gnb2TOy/xbXDdnQSw81EQzKt1slvXyl/fUMBnVGmLM
-         aHQ9UtxIs+joV58l4CksUXTz54iQHj83zUcJ8kp0J8qw9Y+PT6+maDBptuONqmQlWEoq
-         CdmAA6orwq1a8eip3DI3LJCX/TYK3ouU8MQBDbEhpGqI+u2hQSGXQsdsiaq4EM6abcy2
-         wLS1ZPwNyW/YJPqZ0dheXmOlIqr095fABRxd77afH4L8ZbkeVPF3WmUVuWWFb48MkYE+
-         R4Og==
-X-Forwarded-Encrypted: i=1; AKwUvBzCL/xb3VPhgDyvuaZLuO7F5HCqtr4Rp/EuemUS8QMSwR47T3+YgyDmYyUKdqc/fbBw+znYrHyA7ttkrlM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5/jOXn0Y8SZL+c0oGc+XEqUqTBakkj53U2eZHtTuU49lai3mt
-	N25PyrvuaSCc5NXLzwxJ3fjtTpmiHF98ttqOlPZXtPZQ/rOySEjGjdiU
-X-Gm-Gg: AYBFou0Tw+cnjOR8iLgu/jo2on9ZUB6N1ImyvcW1bqeOkHbkosOghOT+2BBFJdtR+yk
-	8Gg8dP2vM2/ZlSx6DG1yC/ktPBQYn9RM1+Od37oS3maPhCNxFIyCktu6TDGvF6y8zTJSvRJVxNp
-	xFT0xOcB8a/YcoxdaUBLLH4kcxIydwQEMvJrnAKVezl6IizR4InQDkeSfkirxNXMF7yVYsy6bAV
-	VDQ5KIJ+EZRAhEeEeAxx7g5GnF9eytlNQgf++/gefqW7s071mHDGT1iwUkkL4ZbFowa0S4QM+4m
-	2Ch66VNOU5UXQLiF/XyluRMYmTPsYdwbxuFZVemvG1OCyr5ShS0VyJlnkcv4NJi5mf+OA5Y5OJV
-	kdOFkI5TJdCXzOG1VBv0S74tcYJ48D57toz0K73cyds4oTfZ+yNZRDLw+onQn4CHw53rDHHNGl1
-	kL2m80rauM98v16Q0XfbERInDKksFhcG5UbSN1nuTCVoIeDF5WNa8x/xRsxmVA0INTGXrSmPTgq
-	+rRub0db245s6/AvKUtXkcWTbTvCdtGv9d+h3fHMgP+I/OKSQ==
-X-Received: by 2002:a05:600c:a418:b0:49f:e4ca:e1d with SMTP id 5b1f17b1804b1-49fe66fa070mr120630635e9.27.1790420793656;
-        Sat, 26 Sep 2026 04:06:33 -0700 (PDT)
-Received: from DESKTOP-IR7J1S9.esi-lan.dz ([154.121.80.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06cbd2dsm122149255e9.12.2026.09.26.04.06.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 04:06:33 -0700 (PDT)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>,
-	syzbot+d4c69e884538d43cc946785d621314039a1ed491@syzkaller.appspotmail.com
-Subject: [PATCH] usb: raw-gadget: fix UAF in raw_process_ep_io
-Date: Sat, 26 Sep 2026 12:06:24 +0100
-Message-ID: <20260926110624.1419-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZwehQIOs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9121F000FF;
+	Sat, 26 Sep 2026 11:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790420816;
+	bh=QGNOrjyJ6PWr4LmDdqZwbqPfTJT5WT6uKZE3BfJJ0q4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZwehQIOsI8/DU4MisaFy3nj1IBH743u4OfUcuj3VwK5GPfACwSPTJaHaI5svTuzh1
+	 1/jGghIq2mFDkcfOH7bpeatB267/ZsBSTpr42cVhzkmHGov63iJKEr1F3b7wRzv8tF
+	 c36hOVyJkvd2u7Im/aW/gNdu4rAFkdPONoERAg7/Zy738pAzr+YxDp91bVJIhLI8zB
+	 669LjMApL6uFYi49iLUGiZSmKLVvr/5+X0emw15PlPHdsQ7oHEGMK0om7+NnAzGYOw
+	 uzRCyRoyJ3N8kFYLPWPk+MLn18cM/txOQHfxE6F0HIbZWcCgTQ3UdHv7Obw0BaDrVG
+	 YavCopeYLCmDg==
+Date: Sat, 26 Sep 2026 13:06:43 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
+Cc: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, mhi@lists.linux.dev, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Subject: Re: [PATCH v6 1/3] bus: mhi: host: clients: Add loopback driver with
+ sysfs interface
+Message-ID: <xji3thurj6lnez56opmh5xoxzjiwtlh4o5qd6iqokbqkcb4rxu@mblahsfmtioz>
+References: <20260908-lb-v6-0-66755ceb16cc@oss.qualcomm.com>
+ <20260908-lb-v6-1-66755ceb16cc@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260908-lb-v6-1-66755ceb16cc@oss.qualcomm.com>
 
-syzbot reported
+On Tue, Sep 08, 2026 at 02:57:22PM +0530, Sumit Kumar wrote:
+> The MHI specification defines a LOOPBACK channel. The endpoint firmware
+> echoes back whatever the host sends on this channel. Without a host-side
+> driver, there is no way to exercise this channel to validate MHI data path
+> integrity between host and endpoint.
+> 
+> Add a host-side loopback driver that binds to the LOOPBACK channel and
+> expose a sysfs interface for data path testing. The sysfs interface allows
+> users to configure TRE buffer size and count, trigger a loopback test, and
+> read the result.
+> 
+> The new sysfs ABI is documented under Documentation/ABI/testing/, not
+> stable/, since this is a new interface without established API
+> guarantees yet. It is unrelated to the existing stable MHI sysfs ABI
+> documented in Documentation/ABI/stable/sysfs-bus-mhi, despite both
+> being covered by the same MAINTAINERS entry.
+> 
+> Co-developed-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
+> ---
+>  .../ABI/testing/sysfs-bus-mhi-devices-loopback     |  40 +++
+>  MAINTAINERS                                        |   1 +
+>  drivers/bus/mhi/host/Kconfig                       |   1 +
+>  drivers/bus/mhi/host/Makefile                      |   1 +
+>  drivers/bus/mhi/host/clients/Kconfig               |  17 ++
+>  drivers/bus/mhi/host/clients/Makefile              |   2 +
+>  drivers/bus/mhi/host/clients/loopback.c            | 287 +++++++++++++++++++++
+>  7 files changed, 349 insertions(+)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-bus-mhi-devices-loopback b/Documentation/ABI/testing/sysfs-bus-mhi-devices-loopback
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..9e47e8443f309199691a50d70adadf84f3237037
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/sysfs-bus-mhi-devices-loopback
+> @@ -0,0 +1,40 @@
+> +What:		/sys/bus/mhi/devices/mhi<N>_LOOPBACK/tre_size
+> +Date:		August 2026
+> +KernelVersion:	7.4
+> +Contact:	mhi@lists.linux.dev
+> +Description:
+> +		(RW) Size of each Transfer Ring Element (TRE) buffer in bytes
+> +		used for the loopback test. Valid range is 1 to the value
+> +		reported by max_tre_size. Default value is 32 bytes.
+> +
+> +What:		/sys/bus/mhi/devices/mhi<N>_LOOPBACK/max_tre_size
+> +Date:		August 2026
+> +KernelVersion:	7.4
+> +Contact:	mhi@lists.linux.dev
+> +Description:
+> +		(RO) Maximum allowed Transfer Ring Element (TRE) size in bytes.
+> +		Reading this file returns the upper bound for the tre_size
+> +		attribute.
+> +
+> +What:		/sys/bus/mhi/devices/mhi<N>_LOOPBACK/num_tre
+> +Date:		August 2026
+> +KernelVersion:	7.4
+> +Contact:	mhi@lists.linux.dev
+> +Description:
+> +		(RW) Number of Transfer Ring Elements (TREs) to use per
+> +		loopback test. Must be greater than zero and must not exceed
+> +		the channel ring capacity. Default value is 1.
 
-BUG: KASAN: slab-use-after-free in string_nocheck lib/vsprintf.c:648 [inline]
-BUG: KASAN: slab-use-after-free in string+0x471/0x4d0 lib/vsprintf.c:730
-Read of size 1 at addr ffff88802c217340 by task syz-executor384/5947
+How does the user know 'channel ring capacity'?
 
-CPU: 1 UID: 0 PID: 5947 Comm: syz-executor384 Not tainted syzkaller #0 PREEMPT(full)
-Hardware name: Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-Call Trace:
-<TASK>
-__dump_stack lib/dump_stack.c:94 [inline]
-dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
-print_address_description mm/kasan/report.c:378 [inline]
-print_report+0x13d/0x4b0 mm/kasan/report.c:482
-kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
-string_nocheck lib/vsprintf.c:648 [inline]
-string+0x471/0x4d0 lib/vsprintf.c:730
-vsnprintf+0x422/0x1300 lib/vsprintf.c:2945
-snprintf+0xc7/0x100 lib/vsprintf.c:3043
-set_dev_info drivers/base/core.c:4984 [inline]
-dev_vprintk_emit+0x375/0x3e0 drivers/base/core.c:4994
-dev_printk_emit+0xd2/0x10d drivers/base/core.c:5007
-__dev_printk+0xcb/0x100 drivers/base/core.c:5019
-_dev_err+0xef/0x127 drivers/base/core.c:5062
-raw_process_ep_io.cold+0x43/0x83 drivers/usb/gadget/legacy/raw_gadget.c:1116
-raw_ioctl_ep_write drivers/usb/gadget/legacy/raw_gadget.c:1153 [inline]
-raw_ioctl+0x25a/0x2b80 drivers/usb/gadget/legacy/raw_gadget.c:1325
-vfs_ioctl fs/ioctl.c:51 [inline]
-__do_sys_ioctl fs/ioctl.c:597 [inline]
-__se_sys_ioctl fs/ioctl.c:583 [inline]
-__x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
-do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
-entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc86effa5eb
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48
-Code: 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05
-Code: <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00
-RSP: 002b:00007ffcab99fea0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fc86effa5eb
-RDX: 00007ffcab99ff14 RSI: 0000000040085507 RDI: 0000000000000003
-RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
-R10: 00007ffcab99fec0 R11: 0000000000000246 R12: 0000000000000003
-R13: 00007ffcab99ff08 R14: 00007fc86f07dcc0 R15: 0000000000000002
-</TASK>
+> +
+> +What:		/sys/bus/mhi/devices/mhi<N>_LOOPBACK/start
+> +Date:		August 2026
+> +KernelVersion:	7.4
+> +Contact:	mhi@lists.linux.dev
+> +Description:
+> +		(WO) Write any value to trigger a loopback test. The driver
+> +		sends random data to the endpoint using the configured tre_size
+> +		and num_tre parameters, waits for the endpoint to echo it back,
+> +		and verifies the received data matches what was sent.
+> +
+> +		This is a blocking write that returns when the test completes
+> +		or times out after 5 seconds. The write returns an error code
+> +		if the test fails or times out.
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 70663089f071c4eaa07fe7b9baf9003d8b981c07..b10f8cd592954e1450e5851045962bf05dcf1a50 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17628,6 +17628,7 @@ L:	linux-arm-msm@vger.kernel.org
+>  S:	Maintained
+>  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mani/mhi.git
+>  F:	Documentation/ABI/stable/sysfs-bus-mhi
+> +F:	Documentation/ABI/testing/sysfs-bus-mhi-devices-loopback
+>  F:	Documentation/mhi/
+>  F:	drivers/bus/mhi/
+>  F:	drivers/pci/endpoint/functions/pci-epf-mhi.c
+> diff --git a/drivers/bus/mhi/host/Kconfig b/drivers/bus/mhi/host/Kconfig
+> index da5cd0c9fc620ab595e742c422f1a22a2a84c7b9..627c57948235aa52348179ae8b2d0826ebaed01e 100644
+> --- a/drivers/bus/mhi/host/Kconfig
+> +++ b/drivers/bus/mhi/host/Kconfig
+> @@ -29,3 +29,4 @@ config MHI_BUS_PCI_GENERIC
+>  	  This driver provides MHI PCI controller driver for devices such as
+>  	  Qualcomm SDX55 based PCIe modems.
+>  
+> +source "drivers/bus/mhi/host/clients/Kconfig"
+> diff --git a/drivers/bus/mhi/host/Makefile b/drivers/bus/mhi/host/Makefile
+> index 859c2f38451c669b3d3014c374b2b957c99a1cfe..2a16008aeb38127494782bbff4e1656428d2b776 100644
+> --- a/drivers/bus/mhi/host/Makefile
+> +++ b/drivers/bus/mhi/host/Makefile
+> @@ -4,3 +4,4 @@ mhi-$(CONFIG_MHI_BUS_DEBUG) += debugfs.o
+>  
+>  obj-$(CONFIG_MHI_BUS_PCI_GENERIC) += mhi_pci_generic.o
+>  mhi_pci_generic-y += pci_generic.o
+> +obj-y += clients/
+> diff --git a/drivers/bus/mhi/host/clients/Kconfig b/drivers/bus/mhi/host/clients/Kconfig
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..8bb5715e61d0d6e64a51012b4e1594ba46e5bfc1
+> --- /dev/null
+> +++ b/drivers/bus/mhi/host/clients/Kconfig
+> @@ -0,0 +1,17 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +config MHI_BUS_LOOPBACK
+> +	tristate "MHI LOOPBACK client driver"
+> +	depends on MHI_BUS
+> +	help
+> +	  MHI LOOPBACK client driver that binds to the MHI LOOPBACK channel
+> +	  as defined in the MHI specification. The LOOPBACK channel is
+> +	  implemented by MHI-based devices (e.g. modems, WLAN) in the field,
+> +	  where the endpoint firmware echoes back whatever the host sends.
+> +
+> +	  This driver exposes a sysfs interface for testing MHI data path
+> +	  integrity between host and endpoint. Users can configure the TRE
+> +	  size and count, and trigger a loopback test.
+> +
+> +	  To compile this driver as a module, choose M here. The module
+> +	  will be called mhi_loopback.
+> diff --git a/drivers/bus/mhi/host/clients/Makefile b/drivers/bus/mhi/host/clients/Makefile
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..3811b6928f42b38f94b1167941cf3b0fe512d32b
+> --- /dev/null
+> +++ b/drivers/bus/mhi/host/clients/Makefile
+> @@ -0,0 +1,2 @@
+> +obj-$(CONFIG_MHI_BUS_LOOPBACK) += mhi_loopback.o
+> +mhi_loopback-y += loopback.o
+> diff --git a/drivers/bus/mhi/host/clients/loopback.c b/drivers/bus/mhi/host/clients/loopback.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..058a8b587933245230eaae61bb7fe3361d4a362a
+> --- /dev/null
+> +++ b/drivers/bus/mhi/host/clients/loopback.c
+> @@ -0,0 +1,287 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <linux/atomic.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/completion.h>
+> +#include <linux/errno.h>
+> +#include <linux/mhi.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/random.h>
+> +#include <linux/sizes.h>
+> +#include <linux/slab.h>
+> +#include <linux/string.h>
+> +#include <linux/sysfs.h>
+> +#include <linux/types.h>
+> +
+> +#define MHI_LOOPBACK_DEFAULT_TRE_SIZE	32
+> +#define MHI_LOOPBACK_DEFAULT_NUM_TRE	1
+> +#define MHI_LOOPBACK_TIMEOUT_MS		5000
+> +#define MHI_LOOPBACK_MAX_TRE_SIZE	(SZ_64K - 1)
+> +
+> +struct mhi_loopback {
+> +	struct mhi_device *mdev;
+> +	/* Serializes the sysfs attributes against a running test */
+> +	struct mutex lb_mutex;
+> +	struct completion comp;
+> +	/* Tracks outstanding DL+UL completions; comp fires when it hits zero */
 
-Allocated by task 1:
-kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
-kasan_save_track+0x14/0x30 mm/kasan/common.c:78
-poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
-__kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
-kasan_kmalloc include/linux/kasan.h:263 [inline]
-__do_kmalloc_node mm/slub.c:5334 [inline]
-__kmalloc_node_track_caller_noprof+0x331/0x830 mm/slub.c:5471
-kvasprintf+0xbc/0x150 lib/kasprintf.c:25
-kvasprintf_const+0x66/0x1a0 lib/kasprintf.c:49
-kobject_set_name_vargs+0x5a/0x140 lib/kobject.c:274
-dev_set_name+0xc7/0x100 drivers/base/core.c:3560
-usb_add_gadget+0x520/0x920 drivers/usb/gadget/udc/core.c:1459
-usb_add_gadget_udc_release drivers/usb/gadget/udc/core.c:1517 [inline]
-usb_add_gadget_udc+0x26/0x70 drivers/usb/gadget/udc/core.c:1564
-dummy_udc_probe+0x69e/0x960 drivers/usb/gadget/udc/dummy_hcd.c:1121
-platform_probe+0x106/0x1d0 drivers/base/platform.c:1439
-call_driver_probe drivers/base/dd.c:628 [inline]
-really_probe+0x241/0xa60 drivers/base/dd.c:706
-__driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
-driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
-__device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
-bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
-__device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
-device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
-bus_probe_device+0x64/0x160 drivers/base/bus.c:620
-device_add+0x121d/0x1970 drivers/base/core.c:3772
-platform_device_add+0x35a/0x800 drivers/base/platform.c:762
-dummy_hcd_init+0x803/xc00 drivers/usb/gadget/udc/dummy_hcd.c:2894
-do_one_initcall+0x11d/0x700 init/main.c:1347
-do_initcall_level init/main.c:1409 [inline]
-do_initcalls init/main.c:1425 [inline]
-do_basic_setup init/main.c:1445 [inline]
-kernel_init_freeable+0x6ea/0x7b0 init/main.c:1658
-kernel_init+0x1f/0x1e0 init/main.c:1548
-ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
-ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+This variable is only used in dl_callback.
 
-Freed by task 5947:
-kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
-kasan_save_track+0x14/0x30 mm/kasan/common.c:78
-kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
-poison_slab_object mm/kasan/common.c:253 [inline]
-__kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
-kasan_slab_free include/linux/kasan.h:235 [inline]
-slab_free_hook mm/slub.c:2677 [inline]
-slab_free mm/slub.c:6377 [inline]
-kfree+0x22b/0x6c0 mm/slub.c:6692
-kfree_const+0x5a/0x70 mm/util.c:46
-kobject_cleanup lib/kobject.c:695 [inline]
-kobject_release lib/kobject.c:720 [inline]
-kref_put include/linux/kref.h:65 [inline]
-kobject_put+0x218/0x640 lib/kobject.c:737
-put_device+0x1f/0x30 drivers/base/core.c:3880
-platform_remove+0x5f/0x80 drivers/base/platform.c:1456
-device_remove+0xcb/0x180 drivers/base/dd.c:616
-__device_release_driver drivers/base/dd.c:1349 [inline]
-device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
-unbind_store+0xf8/0x110 drivers/base/bus.c:244
-drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
-sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
-kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
-new_sync_write fs/read_write.c:595 [inline]
-vfs_write+0x6ac/0x1050 fs/read_write.c:687
-ksys_write+0x12a/0x250 fs/read_write.c:739
-do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
-entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> +	atomic_t tre_pending;
+> +	u32 num_tre;
+> +	u32 tre_size;
+> +};
+> +
+> +static ssize_t tre_size_show(struct device *dev,
+> +			     struct device_attribute *attr, char *buf)
+> +{
+> +	struct mhi_loopback *loopback = dev_get_drvdata(dev);
+> +
+> +	return sysfs_emit(buf, "%u\n", loopback->tre_size);
+> +}
+> +
+> +static ssize_t tre_size_store(struct device *dev,
+> +			      struct device_attribute *attr,
+> +			      const char *buf, size_t count)
+> +{
+> +	struct mhi_loopback *loopback = dev_get_drvdata(dev);
+> +	u32 val;
+> +
+> +	if (kstrtou32(buf, 0, &val))
+> +		return -EINVAL;
+> +
+> +	if (val == 0 || val > MHI_LOOPBACK_MAX_TRE_SIZE)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&loopback->lb_mutex);
+> +	loopback->tre_size = val;
+> +
+> +	return count;
+> +}
+> +static DEVICE_ATTR_RW(tre_size);
+> +
+> +static ssize_t max_tre_size_show(struct device *dev,
+> +				 struct device_attribute *attr, char *buf)
+> +{
+> +	return sysfs_emit(buf, "%u\n", MHI_LOOPBACK_MAX_TRE_SIZE);
+> +}
+> +static DEVICE_ATTR_RO(max_tre_size);
+> +
+> +static ssize_t num_tre_show(struct device *dev,
+> +			    struct device_attribute *attr, char *buf)
+> +{
+> +	struct mhi_loopback *loopback = dev_get_drvdata(dev);
+> +
+> +	return sysfs_emit(buf, "%u\n", loopback->num_tre);
+> +}
+> +
+> +static ssize_t num_tre_store(struct device *dev,
+> +			     struct device_attribute *attr,
+> +			     const char *buf, size_t count)
+> +{
+> +	struct mhi_loopback *loopback = dev_get_drvdata(dev);
+> +	u32 val;
+> +	int el_num;
+> +
+> +	if (kstrtou32(buf, 0, &val))
+> +		return -EINVAL;
+> +
+> +	if (val == 0)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&loopback->lb_mutex);
+> +
+> +	el_num = min(mhi_get_free_desc_count(loopback->mdev, DMA_TO_DEVICE),
+> +		     mhi_get_free_desc_count(loopback->mdev, DMA_FROM_DEVICE));
+> +	if (val > el_num) {
+> +		dev_err(dev, "num_tre (%u) exceeds ring capacity (%d)\n", val, el_num);
+> +		return -EINVAL;
+> +	}
+> +
+> +	loopback->num_tre = val;
+> +
+> +	return count;
+> +}
+> +static DEVICE_ATTR_RW(num_tre);
+> +
+> +static ssize_t start_store(struct device *dev,
+> +			   struct device_attribute *attr,
+> +			   const char *buf, size_t count)
+> +{
+> +	struct mhi_loopback *loopback = dev_get_drvdata(dev);
+> +	u32 total_size, tre_count, tre_size;
+> +	int i, ret;
+> +
+> +	guard(mutex)(&loopback->lb_mutex);
+> +
+> +	tre_size = loopback->tre_size;
+> +	tre_count = loopback->num_tre;
+> +	total_size = size_mul(tre_count, tre_size);
+> +
+> +	if (total_size > KMALLOC_MAX_SIZE)
+> +		return -EINVAL;
+> +
+> +	if (tre_count > mhi_get_free_desc_count(loopback->mdev, DMA_TO_DEVICE) ||
+> +	    tre_count > mhi_get_free_desc_count(loopback->mdev, DMA_FROM_DEVICE)) {
+> +		dev_err(dev, "Not enough ring space for %u TREs\n", tre_count);
+> +		return -ENOSPC;
+> +	}
+> +
+> +	void *recv_buf __free(kfree) = kzalloc(total_size, GFP_KERNEL);
+> +	if (!recv_buf)
+> +		return -ENOMEM;
+> +
+> +	void *send_buf __free(kfree) = kzalloc(total_size, GFP_KERNEL);
+> +	if (!send_buf)
+> +		return -ENOMEM;
+> +
+> +	get_random_bytes(send_buf, total_size);
+> +
+> +	atomic_set(&loopback->tre_pending, tre_count);
+> +	reinit_completion(&loopback->comp);
+> +
+> +	for (i = 0; i < tre_count; i++) {
+> +		ret = mhi_queue_buf(loopback->mdev, DMA_FROM_DEVICE,
+> +				    recv_buf + (i * tre_size), tre_size, MHI_EOT);
+> +		if (ret) {
+> +			dev_err(dev, "Unable to queue read TRE %d: %d\n", i, ret);
+> +			if (atomic_sub_and_test(tre_count - i, &loopback->tre_pending))
+> +				complete(&loopback->comp);
+> +			return ret;
 
-When the UDC backing a raw-gadget instance is unbound, the UDC core
-unregisters the gadget and frees the struct usb_gadget. gadget_unbind is
-eventually called but there still remains a dangling pointer for the
-gadget in raw_dev. Because the fd for raw_gadget is still open, a
-reference to it remains. Following calls from ioctl would pass the
-checks. When usb_ep_queue fails, it calls dev_err with dev->gadget->dev.
-Since gadget is freed, this causes a UAF.
+Both recv_buf and send_buf are allocated with '__free' cleanup. So these buffers
+will get freed once this function exits. But these buffer might've already
+queued to the device in past iterations, making these pointers dangling.
 
-To fix it, we simply nullify dev->gadget in gadget_unbind. This requires
-a spinlock.
+Maybe you should reset the channel as you've done below for completion timeout?
 
-Reported-by: syzbot+d4c69e884538d43cc946785d621314039a1ed491@syzkaller.appspotmail.com
-Tested-by: syzbot+d4c69e884538d43cc946785d621314039a1ed491@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d4c69e884538d43cc946785d621314039a1ed491
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
----
- drivers/usb/gadget/legacy/raw_gadget.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+> +		}
+> +	}
+> +
+> +	for (i = 0; i < tre_count - 1; i++) {
+> +		ret = mhi_queue_buf(loopback->mdev, DMA_TO_DEVICE,
+> +				    send_buf + (i * tre_size), tre_size, MHI_CHAIN);
+> +		if (ret) {
+> +			dev_err(dev, "Unable to queue send TRE %d: %d\n", i, ret);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	ret = mhi_queue_buf(loopback->mdev, DMA_TO_DEVICE,
+> +			    send_buf + (i * tre_size), tre_size, MHI_EOT);
+> +	if (ret) {
+> +		dev_err(dev, "Unable to queue final TRE: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	if (!wait_for_completion_timeout(&loopback->comp,
+> +					 msecs_to_jiffies(MHI_LOOPBACK_TIMEOUT_MS))) {
+> +		dev_err(dev, "Loopback test timed out\n");
+> +		/* Reset the channel to reclaim the TREs still pointing at the buffers */
+> +		mhi_unprepare_from_transfer(loopback->mdev);
+> +		ret = mhi_prepare_for_transfer(loopback->mdev);
+> +		if (ret)
+> +			dev_err(dev, "Failed to re-prepare channel for transfers: %d\n", ret);
+> +
+> +		return -ETIMEDOUT;
+> +	}
+> +
+> +	if (memcmp(send_buf, recv_buf, total_size)) {
+> +		dev_err(dev, "Loopback data mismatch\n");
+> +		return -EIO;
+> +	}
+> +
+> +	return count;
+> +}
+> +static DEVICE_ATTR_WO(start);
+> +
+> +static void mhi_loopback_dl_callback(struct mhi_device *mhi_dev,
+> +				     struct mhi_result *mhi_res)
+> +{
+> +	struct mhi_loopback *loopback = dev_get_drvdata(&mhi_dev->dev);
+> +
+> +	if (mhi_res->transaction_status && mhi_res->transaction_status != -ENOTCONN)
+> +		dev_err(&mhi_dev->dev, "DL callback error: status %d\n",
+> +			mhi_res->transaction_status);
+> +
+> +	if (atomic_dec_and_test(&loopback->tre_pending))
+> +		complete(&loopback->comp);
+> +}
+> +
+> +static void mhi_loopback_ul_callback(struct mhi_device *mhi_dev,
+> +				     struct mhi_result *mhi_res)
+> +{
+> +	if (mhi_res->transaction_status && mhi_res->transaction_status != -ENOTCONN)
+> +		dev_err(&mhi_dev->dev, "UL callback error: status %d\n",
+> +			mhi_res->transaction_status);
+> +}
+> +
+> +static struct attribute *mhi_loopback_attrs[] = {
+> +	&dev_attr_tre_size.attr,
+> +	&dev_attr_max_tre_size.attr,
+> +	&dev_attr_num_tre.attr,
+> +	&dev_attr_start.attr,
+> +	NULL
+> +};
+> +
+> +static const struct attribute_group mhi_loopback_group = {
+> +	.attrs = mhi_loopback_attrs,
+> +};
+> +
+> +static int mhi_loopback_probe(struct mhi_device *mhi_dev,
+> +			      const struct mhi_device_id *id)
+> +{
+> +	struct mhi_loopback *loopback;
+> +	int ret;
+> +
+> +	loopback = devm_kzalloc(&mhi_dev->dev, sizeof(*loopback), GFP_KERNEL);
+> +	if (!loopback)
+> +		return -ENOMEM;
+> +
+> +	loopback->mdev = mhi_dev;
+> +	loopback->tre_size = MHI_LOOPBACK_DEFAULT_TRE_SIZE;
+> +	loopback->num_tre = MHI_LOOPBACK_DEFAULT_NUM_TRE;
+> +
+> +	mutex_init(&loopback->lb_mutex);
+> +	init_completion(&loopback->comp);
+> +
+> +	dev_set_drvdata(&mhi_dev->dev, loopback);
+> +
+> +	ret = mhi_prepare_for_transfer(mhi_dev);
+> +	if (ret)
+> +		return dev_err_probe(&mhi_dev->dev, ret, "Failed to prepare for transfers\n");
+> +
+> +	ret = sysfs_create_group(&mhi_dev->dev.kobj, &mhi_loopback_group);
+> +	if (ret) {
+> +		dev_err(&mhi_dev->dev, "Failed to create sysfs attributes: %d\n", ret);
+> +		mhi_unprepare_from_transfer(mhi_dev);
+> +		return ret;
+> +	}
 
-diff --git a/drivers/usb/gadget/legacy/raw_gadget.c b/drivers/usb/gadget/legacy/raw_gadget.c
-index 4febf8dac7ca..9c263950f609 100644
---- a/drivers/usb/gadget/legacy/raw_gadget.c
-+++ b/drivers/usb/gadget/legacy/raw_gadget.c
-@@ -327,9 +327,16 @@ static int gadget_bind(struct usb_gadget *gadget,
- 
- static void gadget_unbind(struct usb_gadget *gadget)
- {
-+	unsigned long flags;
- 	struct raw_dev *dev = get_gadget_data(gadget);
- 
- 	set_gadget_data(gadget, NULL);
-+
-+	/*Avoid dangling pointer in case it remaining references*/
-+	spin_lock_irqsave(&dev->lock, flags);
-+	dev->gadget = NULL;
-+	spin_unlock_irqrestore(&dev->lock, flags);
-+
- 	/* Matches kref_get() in gadget_bind(). */
- 	kref_put(&dev->count, dev_free);
- }
+You can use mhi_driver->driver.dev_groups to let the driver core create sysfs
+groups for you.
+
+- Mani
+
 -- 
-2.43.0
-
+மணிவண்ணன் சதாசிவம்
