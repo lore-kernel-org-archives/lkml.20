@@ -1,73 +1,77 @@
-Received: from mail-dy2-f18.google.com (mail-dy2-f18.google.com [74.125.229.18])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07E354707C
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:26:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC2B3328E6
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 01:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790386019; cv=none; b=dZXLfpQa/+qLAzUEwxCmCV5HMy3xU4RFBrYGcjs5DnAoWa+Cy8+Re/UgnzlCcTdZMWdc/DfVntP5qUepx6xHCKDslnDjRDxZijRngSr0FSZMVd40UUdvyn4yEZyh6yZ7GG8bfROwKCXxBgM6hh5f7GsAF5YQQwZc8D3a7+g2+Qc=
+	t=1790386021; cv=none; b=e0xZZOWiwZDBdFCEEWR6AeB/X06szo6ikkRovD+lrABhBWEk+NwXljhicl6XRVkCyJXQrDpgQLN10tgNxKfw2qMPg22lLZDtGW6SLd2oFSn3dicgaAMp20fBRGn1JH2HodhrK3NZ2dMa409yP4+zFypgtrUyB9dAQlKQA4eE6nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790386019; c=relaxed/simple;
-	bh=McT+3nU97+uEmwsYTVIAwdYsdN1fAkDCYPr4Ya3XDqU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iCbxThUHoWExmWaSjVkjkxK9LJ2AiCsct7ZgRiyoHzvLimsQ0D8elbeYkXSxboJt+pYlRyU8r8gLD0EfiQi2r2Y9Wzvlpj5ozq2IrJ530pqhkFSX5RZ9AoCUejAO5YDFb3JgTvP8vAixTb8ck1Nb6l9tuqm5hEX1y9xw+v+qmsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lR5e/GCi; arc=none smtp.client-ip=74.125.229.18
+	s=arc-20240116; t=1790386021; c=relaxed/simple;
+	bh=5R6zxCwAeO30xRSGENQTXQyKFP1+YNPjBJ6VD9M4MKY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=H5S6FRzHlvsGo0JMPJRZlGHBbiVcHMfL8DdXKoI47PBA750BLjwTLXI1PVyZ1a/mGOf3aloadvhbP6JlKPSgVCICdpry1LyDanTXXEXdkLdE5Ana6c2Mddbn8/v4CCKkfPCLQG4Wur2iTBTxGXM1WyAUHlg6UjuW9TKatjLOjkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OIHR2Emn; arc=none smtp.client-ip=74.125.229.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lR5e/GCi"
-Received: by mail-dy2-f18.google.com with SMTP id 5a478bee46e88-342773d94a7so431257eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:26:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OIHR2Emn"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3428f70d7e7so427422eec.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 18:26:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790386017; x=1790990817; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cHte4Neu3W8RZcyDmv52kr0y+zD01fxuvsRbU2Mqdec=;
-        b=lR5e/GCi1zbEc0fjV3cZjTbDAzSXA7M6HxJNSuM/JmCYtEYBzEWNCKRpjsD6LX0MTz
-         RBfHiEntaWSafxzdF8A2BB9SJ85U5j98cEdSm7K+4GDIFs+K35y9xrOuImek8G9mbVeX
-         psXDyZyrNwaESkQg7dzEvoYwnWOsXGYohqdovPd101Q2W9nDjpP3QiDrxxOi4UKF0FHQ
-         72e3Ft/6nUdpXdLO7CizLsvEUcaIq70AegT4XycRHs4yTk9ZLFxQ/bHXxf1yIJS0+n1m
-         teOecWvaKWuKKFeBJmsLbjThDqCUDQXBT8/FisLEVJTgj67FfZwvOLvJWYlx6r1wtYv6
-         0zSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790386017; x=1790990817;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790386019; x=1790990819; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cHte4Neu3W8RZcyDmv52kr0y+zD01fxuvsRbU2Mqdec=;
-        b=ESm8LfugovTLKocWNA+BDLsgkIMEvlxKKcgN4ZPZmdorNdMxQv1Mq2JwnmaCZq+5gZ
-         XTwbOQPRMWPwyfBX01oBnU6ORcyqQ9QY4Yq37xLzDezFrVMjuowR/gw6U1wmShAcfhn3
-         Tzl+9Fnu6qja0r4UAiaRUCPuWS3lkBPNFu+84zomDS3ANc8bNRzLT+pmQjeOp47zrN/n
-         Zw6WAzVwJYiJEmTw6hsGtAhf4ElRcglzVZRrx+1JOEzuroWCSCZ9gCYAYW3kZYMBkd8H
-         /0K5qiNqmZfIdGxEBxY1pWFI09a//mFlq9DfN5yPtkKfwbyOs6WhpWhgUy2/UCHTkWpF
-         9K/Q==
-X-Forwarded-Encrypted: i=1; AKwUvByrPItoptXdV2VDutQrcjMRBjOCMHdVjLM/liOO5Pbedf2b4UrXPTjNWpfakcP226ASe0Bz2q1atVQRbtk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPb7IBMSCstqHyKhRmyB2FKtpK8VGlVt821brAWJFGngFY4oUt
-	wirxYCZ/m4+phyXXPP1qVIuud+YmFmHw6e3Och1XixO+ENoQHNRYuX2NJWj0lWrI
-X-Gm-Gg: AYBFou2SCJzhuyu+MK74XXYJ7RdlyYpHFLI3eIxlIk2v9dXhVbmL9pIewWFYp5Yxrnf
-	ELb+S3Uy6CvIbdU+KgC7/3bmQwz8mxwLJps9dG8i+9AJICgSKrb3L1Y1Tbh8KSyKt21zzLH/51f
-	gCoU0OES6RIdWelew0L+DjRPX62stIMklgEXwWcem2/5jDKI5yxynpdP5l/1VRFtdjvMI7HuYvu
-	uVxxgtuY/s3ueRmE5vvlSm/SpEqmnIgNMzMSvuRaRjbdxcy0B1zhvGWRXubCc+pA4CnqivdgeYH
-	I3StqD8evvXlp8fxdZRQhUvEkefzJkaI1IelgGtzQB+npmjwd/5nFBsjjkPZuob/oIaffY4YUx5
-	KyuYHPGnFBl/NbXy3RPW4MMXbj0y7HjxawNgKaWI84vCeV5nmq6FDWqzPYNoMk81i7XbQQzre/E
-	jyKJhWfRtvfgjuXdqWEaqG/fwnciTJTu36hUGDN/+EbdBhwEjjXj4sTFLZBCkw8IgPOAnMlbssh
-	6UuYgy7pFljirsV51yWhe274VNfBj2YEgDXfavE7QFrwYcMBOF2j3eiR7TR1AjuwMyosy6cqUQr
-	u+Au8hotGTdOXbGdCh2Kc4ptlVqQ9flLoy7Qtu1Lc6ALAlaveunDALKrS/74EIHu4Xzy7tBNmdC
-	iZbeOXi/D
-X-Received: by 2002:a05:7300:a987:b0:341:bcd4:7b6a with SMTP id 5a478bee46e88-3426f8c1dcfmr2250317eec.4.1790386016524;
-        Fri, 25 Sep 2026 18:26:56 -0700 (PDT)
+        bh=AAX2DC2Qj07KVXhO6M4DWhFN0YqZQz8iozKl41wB380=;
+        b=OIHR2EmnZdCqpCYatADGE6Ia97BFeAAdIeeeUEYhJLomiFgX1q0q/eg1ebpAH7RBxs
+         Yf68yuYr+bxJcKp8cB6brKL9JeBjIFaUBsD73w0K6fB+EFvLJU8SpygrZ6VhLlg/s4t+
+         kf/iVynrpaNXeDUbUMfGAy0U+2adAK3E5GiNxboRXETA/p6JFhK094ZuEcF7B+BWAYSA
+         ZKhv5hKZztYMrx3YgI6vofA7ax18g1OJJY0n0nTdH8gdacEzJZfZj4/X7XgP5b6bKxI4
+         JxAhCm75Y6fHVqS9mN4ZKPH699bJZ8Xoaq2Q2nGJWEMmFc6kN06Ez6lv3otLujmQ67vH
+         iyrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790386019; x=1790990819;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AAX2DC2Qj07KVXhO6M4DWhFN0YqZQz8iozKl41wB380=;
+        b=yiaovrFnKW5YwC4vIytSiXLgM9HC309o1mhbxh1L588/qZr9/CR6NbmGFKE9ZTAC3u
+         gAhgD1gyoA+bCfPlB8wr4RU0fjj5C9aBR0TRH1WUkzP30UWGOenA2I6Cgz5XBJuPBJg4
+         tSBOE+cmP7AgfVD5dWmF8aOm3TmRAB2gghIYl2eMGk68hj4iVvuhXWJgg/9a1d+fyt00
+         HAfaGsY94WwsXDz/yhCBrwjc9jPg3igVLT4P4Gdo+F3cb8gDeSc/qr4ZtTGbGdDiXVEf
+         WiBWQSHVw3KwfmAE7uLD9IQfz0mZ0kWr0KXgLj/t5k3Bq2u/EeRTMjm+vc6+euao1F2Y
+         bvfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw/ITnvljLTSGQRh+fMG5nGxhUGIAfo3unOwqwJMUaGNhsoh5NDl6k12OcTCyBOU4ejChy5jjZoLOKUDcU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdbnvSoTeIScjd5xnM9zfAwtjIauX8IRVY8oqITp4yUtmrUrCA
+	HnjVmcSOpfAmKr8MT0wODfEEnp4rIKOywCHe5pw+M2XWUk6Uf7gqWa65
+X-Gm-Gg: AYBFou3+D9FE+hTy3B8tWgCAoi6/31CGilcOuF9vPk3KZsuaLSWdZDz1Boc70f+6cVe
+	pxjxEHOeiZNfKz4CVR30WnjUnkMg5re651/S0bLqWkeDbszbGLx7xmHymc9lQic7UKlULgX5j9N
+	K7xmrTzpAd/D4gZdEi/nKJDY4tjods3pj4khtfIA/oHpjhOm3Eiiz7vpvDFetoTARiFUx8eUllu
+	RLPLXdKMy6zNnnQWihLUkrQ1visXaI/NdpRWshvWxTVDuacuhg9NXBKIDFrT2XVaFoyvvXnscUk
+	aNIu3FgPr1u3g+nu/sw1uPiH+9A0AYBbdgN3KKk1U7RCqN/48Xh6pUoa5//7pfQ4wy63ZNXTM1d
+	t6ksDHX1N4etwqzqn02A0x8cQvi/Um1EqjjOPnzIhdmT+HsFDbpMYXsfpdvQ3MoYNwKzY35+lEf
+	+ICvIHH8BsHUYwthjgxAajemIl98NjEQAJLzZTE0Q8bAP4H5L0gnCTeXvZwuJJcwn+U4woa4e54
+	uz+GQtuldJAHZAw6e5KON1+rihynJAl6D4fcm60nH3dqPYJHwGHUtg1d7UCpZsEbp+3KTR54/bM
+	sgUhfGGWmnUiuaYBRWu+fo8cjbmG6ztVttJUcMHImCtaj+jHia13eC98WST4DlE9/zR+kCsBXA=
+	=
+X-Received: by 2002:a05:7300:d80c:b0:33c:2873:8ead with SMTP id 5a478bee46e88-342711aaf3emr1499377eec.16.1790386019057;
+        Fri, 25 Sep 2026 18:26:59 -0700 (PDT)
 Received: from FT6N242TWK ([223.181.117.160])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341f2b18cbfsm6746171eec.30.2026.09.25.18.26.54
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341f2b18cbfsm6746171eec.30.2026.09.25.18.26.56
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 25 Sep 2026 18:26:55 -0700 (PDT)
+        Fri, 25 Sep 2026 18:26:58 -0700 (PDT)
 From: Shashank Mohan Jain <jain.sm@gmail.com>
 To: Yury Norov <yury.norov@gmail.com>
 Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/6] bitmap: fix three parsing bugs in bitmap_parse() and bitmap_parselist()
-Date: Sat, 26 Sep 2026 06:56:45 +0530
-Message-ID: <20260926012651.15524-1-jain.sm@gmail.com>
+Subject: [PATCH v2 1/6] bitmap: bitmap_parse(): reject non-hex character before 8 digits
+Date: Sat, 26 Sep 2026 06:56:46 +0530
+Message-ID: <20260926012651.15524-2-jain.sm@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260926012651.15524-1-jain.sm@gmail.com>
+References: <20260926012651.15524-1-jain.sm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,59 +80,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes three cases where the bitmap string parsers accept
-input they are documented to reject, or produce a different mask than
-the one requested.  Each fix is followed by a patch adding the failing
-cases to lib/test_bitmap.c.
+bitmap_parse() is documented to return -EINVAL for illegal characters,
+and it does so everywhere except when the illegal character directly
+precedes a chunk of exactly eight hex digits.
 
- 1-2: bitmap_parse() treats a non-hex character directly before a chunk
-      of exactly eight hex digits as a separator, so "x12345678" and
-      "0x0000000f" are accepted while "0xf" is rejected.  This is a
-      regression from the bitmap_parse() rework; the old __bitmap_parse()
-      rejected all of them.
+bitmap_get_x32_reverse() parses a chunk from right to left.  After it
+has consumed eight digits it looks at one more character: a hex digit
+means the chunk is wider than 32 bits and -EOVERFLOW is returned.  Any
+other character is silently consumed as if it were a separator, and the
+remaining input is parsed as the next chunk.  As a result:
 
- 3-4: bitmap_parselist() does not check for the end of the region after
-      the group size of a "range:used/group" region, so since N and
-      all became valid region starts, "0-7:1/2N" or "0-7:1/2all" are
-      silently parsed as two regions.
+  "x12345678"   -> 0x12345678, returns 0 (expected -EINVAL)
+  "1g12345678"  -> 0x1_12345678, returns 0 (expected -EINVAL)
+  "0x0000000f"  -> 0xf, returns 0, while "0xf" returns -EINVAL
 
- 5-6: bitmap_parselist() walks a "range:used/group" region with an
-      unsigned int that wraps around when the group size is close to
-      UINT_MAX, setting bits below the requested range.  This needs an
-      absurd group size and never writes out of bounds.
+bitmap_parse() backs cpumask_parse() and cpumask_parse_user(), so the
+same inconsistency is visible when writing masks such as
+/proc/irq/*/smp_affinity or the network queue rps_cpus/xps_cpus files.
 
-With the series applied, test_bitmap reports "all 391544 tests passed"
-(UML, x86_64).  The three fixes are independent and can be applied in
-any order.
+__bitmap_parse(), which this function replaced in commit 2d6261583be0
+("lib: rework bitmap_parse()"), rejected all three strings with -EINVAL,
+and a "0x" prefix is accepted today only when exactly eight digits
+follow it, so no reliably working input is lost.
 
-These patches were prepared with Claude Code (Anthropic), model Claude Opus 5.5
-(claude-opus-5-5): the analysis, the Lean models used to find and check the bugs,
-the fixes and the tests. I reviewed them and take responsibility for them. The
-trailer only says "Assisted-by: LLM", as Documentation/process/coding-assistants.rst
-requires since commit 816d9992d9ed ("coding-assistants: simplify attribution").
+When the loop falls through, *end is known to be a non-separator
+character inside the buffer, so return -EOVERFLOW if it is a hex digit
+and -EINVAL otherwise.
 
-Changes in v2:
-- Resent with my full name, as asked by Yury.
-- Stated the tool and model used above.
-- No code changes.
+Fixes: 2d6261583be0 ("lib: rework bitmap_parse()")
+Assisted-by: LLM
+Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
+---
+ lib/bitmap-str.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-v1: https://lore.kernel.org/r/20260925102307.49513-1-jain.sm@gmail.com
-
-
-smjain (6):
-  bitmap: bitmap_parse(): reject non-hex character before 8 digits
-  bitmap: test bitmap_parse() with an illegal character before 8 hex
-    digits
-  bitmap: bitmap_parselist(): reject trailing characters after group
-    size
-  bitmap: test bitmap_parselist() with text after the group size
-  bitmap: bitmap_parselist(): don't wrap around on a huge group size
-  bitmap: test bitmap_parselist() with a group size close to UINT_MAX
-
- lib/bitmap-str.c  | 24 +++++++++++++++++++-----
- lib/test_bitmap.c |  9 +++++++++
- 2 files changed, 28 insertions(+), 5 deletions(-)
-
+diff --git a/lib/bitmap-str.c b/lib/bitmap-str.c
+index dd9aa0635fa5..e02c5bc80951 100644
+--- a/lib/bitmap-str.c
++++ b/lib/bitmap-str.c
+@@ -414,8 +414,12 @@ static const char *bitmap_get_x32_reverse(const char *start,
+ 			goto out;
+ 	}
+ 
+-	if (hex_to_bin(*end--) >= 0)
+-		return ERR_PTR(-EOVERFLOW);
++	/*
++	 * Eight digits have been consumed and the next character is not a
++	 * separator: another hex digit means the chunk does not fit in 32
++	 * bits, anything else is an illegal character.
++	 */
++	return ERR_PTR(hex_to_bin(*end) >= 0 ? -EOVERFLOW : -EINVAL);
+ out:
+ 	*num = ret;
+ 	return end;
 -- 
 2.43.0
 
