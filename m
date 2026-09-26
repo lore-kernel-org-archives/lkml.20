@@ -1,150 +1,151 @@
-Received: from sender5-pp-e106.zoho.com (sender5-pp-e106.zoho.com [165.173.182.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9687A261B9E;
-	Sat, 26 Sep 2026 18:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.106
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790447457; cv=pass; b=YZ2j5b7/OF8EaRl8u2yGJ7c9eSOwExvCABJlkQHVm5rhUF1/uA0+Nex7lfrULbHnZN7yCXCZtMzB+Brn59qpAJUMTi9itApWrCnEFw14GP2+z6UBJWtJzZAZitDVj9cxYFRZGfHW3AI0dziUzsNMPXhjI0NSmYnjlkiCE8SPK2g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790447457; c=relaxed/simple;
-	bh=4PHW3Eo2viww0JvJE1mAzFr6/DfBWETPmCDLuXl3Rko=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=p5EzcFbarywR9iPHyxBwfmK06oNnwijjwTY/2ss40IEb2E9cChFyUzbbkrfeM2S+L8Cjf7lA79osiD5q3ltx9wLSPyFaV3ixgcQg4NSo7eatiKF0/d+b6xPGDzUZS8KRqgNZnbVokGaw7PPISUb3TwhXIPW608cPWfK0zCrorcA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=Q1mjfQIw; arc=pass smtp.client-ip=165.173.182.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 224DB36897C
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 18:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790447509; cv=none; b=gDGVJqvEK895AmSSD/5qwxIdudahie7o9NSu1osy/PHYFGayTWSHi1fEULEVnD+GJWVUkE+5MxJWtCw8wp8OF1wXOnd1CSLekwXutbrRjV8Du799LhCorM0wlOkwHi44GyII5sDSXVxVlTRr2I49YUOR30khqcp/PsRabHskSVY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790447509; c=relaxed/simple;
+	bh=ZTJPjPJxE0WNlUfHRSqhiAYlVk8gMUP4vwmB54Medcc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cVYpmqYM9NtMePL9Z4Kjr9MH7IWYacWd4EjBFcFVSFqvMS8n+2a8/HJAzPBf+0T6OCyOIDN9H4B8zuRENdfozG25hWs9+9evbrokgbgpA1rcHS0Ns7hlPuUdZuIl3sUPCKd1rJMVLCVIt297ifav+/FVvx3UfMgbGCOSvWLdc38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PM727M6b; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="Q1mjfQIw"
-ARC-Seal: i=1; a=rsa-sha256; t=1790447428; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JCI4FJnY+tDdh6G0n1+B773G31oYN99r4XkaSRVnqsqKbMKDlM5W/Ko/ffYfOn9SRzUI8ehULiMHSw2iDnB6w81aGoPnbSGs+P1iH0epxC4eB9UwPKWmZcuNeg5bRMz0l4ydyycFHN/6HkSZ20jbHaCHBGtDSCjwL9OEwT5tBt0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790447428; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=4PHW3Eo2viww0JvJE1mAzFr6/DfBWETPmCDLuXl3Rko=; 
-	b=BCDFMZH0/MvpUZNlU7jnqc4sMZgXL8LAutvJ0o9W1IHGRLRcYWAZrsbk1MrCkbhOqnT+j/O/z/a7D/d81rysvAW1Wmh4kqfE8XaWemTxQtMgAjhXWYXnu9pORorYRTQzrBMjwpCJqzvC5YRLlqwhyfwRJ8D6vvBf8CJuFPkoP64=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790447428;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=4PHW3Eo2viww0JvJE1mAzFr6/DfBWETPmCDLuXl3Rko=;
-	b=Q1mjfQIwDqIBPaAG1HQFlh67x9nWyHyUp+4pntTjYB8Db5kGg2i3lvRbeO9NggGY
-	vW11SR4LFU41ipWjJMvPdGq+7O1o4Q4RsAE32votvIfdFjLCwL5nK2PP03r/ThFAqxM
-	KF9LIXgVmfKbcVynTd9J+pONRRBZ4KMutK2usbG3zDP9Z4b0qNeePhLqjQR/eA7B1kP
-	BH06jOCFg82E7y3V7jBJlqdorDGq/Uf8rdiIS8i8p6Eh9F8Dnx9BF4OrunXoXaUuT2S
-	TNTjGs94/kIvPbkdQJwrLk/puvOX9Hrk79feNpZodoQ7DMs6nOPptramq1KzopNyTI0
-	hmMa7kYIQA==
-Received: by smtp.zohomail.com with SMTPS id 1790447427547685.9333117180373;
-	Sat, 26 Sep 2026 11:30:27 -0700 (PDT)
-Message-ID: <98dc534b684e3301bf30c9d7a3e97196f7eff4d5.camel@rong.moe>
-Subject: Re: [PATCH 0/4] ALSA: usb-audio: Demote the severity of sticky
- GET_CUR
-From: Rong Zhang <i@rong.moe>
-To: Faaris Ansari <faaris.ansari@gmail.com>, tiwai@suse.de
-Cc: adventureFAN@gmx.de, corbet@lwn.net, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, perex@perex.cz, 
-	rdunlap@infradead.org, skhan@linuxfoundation.org, tiwai@suse.com
-In-Reply-To: <191af638-f19f-423c-8306-d96ea2b3dcad@gmail.com>
-References: <87h5klw6kp.wl-tiwai@suse.de>
-	 <191af638-f19f-423c-8306-d96ea2b3dcad@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 02:25:22 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PM727M6b"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48881a62e09so880231f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:31:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790447505; x=1791052305; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZTJPjPJxE0WNlUfHRSqhiAYlVk8gMUP4vwmB54Medcc=;
+        b=PM727M6bvHo7LgABTeXzZQHagXOS00tJFIBldBtAB+kks9qKxu7mvzqzk4pXqFGcZs
+         TqOhueVag5HuxXVZSxYY1mronhkUNpH+OOVxTfRb+HwAQmMiIrbwrA3lmt1j4nxMYX0u
+         X1/PcNoQ+fzK6EWWwIEpox6lXzEj339SixBak/3xJZ0fGVIrXo1U5yluCo/NOgFcS73v
+         2Wje4DvclSs/QIEhKT6y8wTSSz355LYFuR8i4+Vdt+Qbl0oUeNdRiEOJRkmDn79YVbnK
+         JY9HalDRj+XsgTFJvT7L4KfQNGOoN/1S1JEipUu25BTYkZ93qGO65pAu1HnyNuqwJxd5
+         Rj4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790447505; x=1791052305;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZTJPjPJxE0WNlUfHRSqhiAYlVk8gMUP4vwmB54Medcc=;
+        b=1jWL1Yx4h2oHm/hA3ys6H2ltoatUktZEDlDTzmN3CWNSHoth0fi5c+YVajo0IQJSKb
+         Vuc7rralBq2YZ8ihpP922NKKlgCZzsAwX2W70z5K7+T15qsIGFIE9D4iUz/2kRLehIrA
+         EZN1pRmv8MfuoWm5jItAwXA7tULOwIphtfaZCLkgdb3roGJjS3OJFKCIf/Ikq3psDBes
+         8yHvqR/sFeKW1vNQEWGTiY7Iekwjq1Y3UoddllO3r+UUOtZCfMro8NAhmI36So9xdsdQ
+         28feeEKRbSMHx4dAgNkCcLmYuUL4pnqRltvWeiJHx7MsBwFNkYDRynTZEyh7cch/eztj
+         cKEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzAa93t9+58M3lv/mqBXN9zVyvl3cEh3U5hoUwzmuwzXs5wf84E9PLq3NrFJgLdxkFXQBdq/kLV45i8Voc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRX/0KRE294Yeao4nMEStqa/cl1CCjT2shJfknNKPClMGxxcA+
+	DhOq8g0D/YSNKldRU/21rQXfd2snH/kR4puVRUqSlghtFdGja7bAEMlq
+X-Gm-Gg: AYBFou0801g35e8oX0SnvxVgql/SN7NeJrGszqpTN4i+y7Ljmqe6hni3BXstIkjwbS0
+	fgYSh4iP3SqYrhJr+UIIgdLBFvQ2c7ZQ0F3B64CXVWJQ7JqCNTpI7Kx9S/I0yiM1U8rvSRwSrWE
+	OLnf2iNr1hIWOUqQ2ht97UFrzl6Tfv/YHU7Mlli0SrPowYXkglheQsXcQ86s4nky2nmwl6tcVZt
+	jdndkaITdoIhzPyS+4X/mwEz1a2ucL+4OhvnlJKRqxk5qBeXY0N8pXIHLiVWl23xnHyVTtbQwWA
+	bjh8YaTCgPExpSxxgk5qIkfsT58SPXAUFdR0nnlAcjSJadAomPK6IYrzNmmphPIWt/WPw1i4K+F
+	badhFmaTp0gUkMg9GaB6fBbGqP4/OBgrZ4OAWnTxpd/B2sxbHqELAaQZATZBZ+FL6dCD7ipgT0g
+	DIGHMUofNxIQc07bds0GKSkf1TRWETOcKv7dqvtUrGjN4Pm5HXAJWsz/dG+wplCXpub/MXfddED
+	lQ0JSJa
+X-Received: by 2002:a05:6000:468c:b0:488:79db:c73b with SMTP id ffacd0b85a97d-48879dbca28mr7473819f8f.24.1790447505235;
+        Sat, 26 Sep 2026 11:31:45 -0700 (PDT)
+Received: from m2.. ([37.142.154.181])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4887a34a4e9sm13167970f8f.11.2026.09.26.11.31.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 11:31:44 -0700 (PDT)
+From: Michael Zaidman <michael.zaidman@gmail.com>
+To: Benjamin Tissoires <bentiss@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: michael.zaidman@gmail.com,
+	jikos@kernel.org,
+	brgl@kernel.org,
+	linux-input@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/13] HID: ft260: add UART and GPIO support, plus I2C fixes
+Date: Sat, 26 Sep 2026 21:31:34 +0300
+Message-ID: <20260926183136.25146-1-michael.zaidman@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <aqvHqSOgziyfhWgp@beelink>
+References: <20260827205116.GJ2943942@google.com> <20260827222550.24634-1-michael.zaidman@gmail.com> <apaLLD4ZXhNV-Dph@beelink> <CAD++jLng_gdqoehT+c8sXoqy+tdUc7eAXXpAvhC_zJZwnX5tzA@mail.gmail.com> <20260916125806.GR11487@google.com> <aqucXBi0Fmq-tCWr@beelink> <20260917100455.GG1605367@google.com> <aqvHqSOgziyfhWgp@beelink>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Faaris,
+Hi Benjamin, Lee, Linus,
 
-On Fri, 2026-09-25 at 19:33 +0100, Faaris Ansari wrote:
-> Hi there,
->=20
-> I am continuing to have a bug across the latest 7.2 kernels, as well as=
-=20
-> 6.18 and 6.12 LTS branches concerning hardware volume control on my=20
-> Audient EVO4, that I think is related to this issue - would appreciate=
-=20
-> some guidance if not.
->=20
-> Specifically, when changing volume via the knob on the front of the=20
-> device, everything works perfectly, but when modifying volume through=20
-> pwvucontrol or wpctl the volume drastically lowers. As far as I can=20
-> understand, pipewire is resorting to a software mixer for the device for=
-=20
-> some reason, whilst also actively modifying the hardware volume at the=
-=20
-> same time - is this what should occur with "sticky mixers"?
->=20
-> prior to kernels 7.2 (tested 7.1.13) the volume control works perfectly=
-=20
-> via wpctl.
->=20
-> I attempted to add a quirk flag to snd_usb_audio to work around the=20
-> issue without success:
->=20
-> ```
->=20
-> sudo modprobe snd_usb_audio quirk_flags=3D2708:0006:mixer_get_cur_broken
->=20
-> ```
+On Thu, 17 Sep 2026 at 13:07 +0200, Benjamin Tissoires wrote:
 
-Nah. This is not the proper way to specify module parameters. It silently
-succeeds when the module is already loaded, without actually modifying
-the parameter. It only works when the module has not been loaded.
+> I think HID is just the transport layer (like USB, I2C, SPI, etc...) so
+> it shouldn't count as one of the additional subsystems to MFD.
 
-It's more preferred to write the option to /etc/modprobe.d/, unload the
-module, and probe the driver again. After that, check
-/sys/module/snd_usb_audio/parameters/quirk_flags to see if it's applied.
+Agreed for the FT260. The HID reports are the transport. The functions
+are UART, GPIO and I2C.
 
-Note that while you can modify the parameter through sysfs, I don't
-recommend you to do so, as it can't handle line feed properly.
+Jiri answered me off-list on 11 September, before the mails of 14 to
+17 September. He has no strong preference, and he left the sequencing
+to me.
 
->=20
->=20
-> I also tried applying these patches to add extra mixer controls to my=20
-> EVO4: https://lore.kernel.org/lkml/20260919151840.24371-1-arc@gmx.li/
->=20
-> This worked fine after I modified the UCM conf for the device to follow=
-=20
-> the new (correct) naming scheme for the master volume, but the volume=20
-> problem was still occuring.
->=20
->=20
-> is this problem I'm having related to these sticky mixers?
->=20
->=20
-> I originally reported this to wireplumber thinking it was an issue=20
-> there, more information is provided at the link below:
->=20
-> https://gitlab.freedesktop.org/pipewire/wireplumber/-/work_items/1022
->=20
->=20
-> As I've never reported anything upstream to the kernel before, I'd=20
-> appreciate extra guidance where necessary. Would love to get this solved=
-=20
-> as its making all volume control on my system unusable, and the change=
-=20
-> which has caused it has also been pushed to LTS kernels,=C2=A0
->=20
+I will land the current driver first, and do the MFD split as its own
+series once this one is in the tree.
 
-No, v7.2 is a *stable* version instead of an *LTS* version.
+GPIO support has been in the out-of-tree driver since 20 November 2022
+[1]. The serial driver was added there on 12 January 2024.
+That is where its bugs were found and fixed. Folding an MFD conversion
+into the same series would replace that structure while the UART and
+GPIO support is still under review. Landing the tested layout first
+keeps those two reviews apart.
 
-> leaving me with=20
-> no working kernel besides reverting to the now EOL 7.1 series.
+I maintain this driver in my free time, and my bandwidth for the next
+few months is limited. A split across drivers/mfd, drivers/tty,
+drivers/gpio and drivers/i2c in this series would stall the UART and
+GPIO support.
 
-Please test v7.3-rc.
+The parent device depends on the strap pins. One HID feature report,
+0xA1 System Settings, carries chip mode, the clock, i2c_enable,
+uart_mode, the UART frame and flow control, and the GPIO pin-function
+selects. The I2C interface owns that report, and registers the
+gpiochip, in I2C-only mode. The UART interface does both once UART is
+strapped. Enabling I2C or changing the UART mode moves pins between the
+I2C or UART function and GPIO. That parent is easier to define against
+a driver that is already in the tree.
+
+The MFD series will follow the constraints from this thread. Lee, the
+code that calls the MFD API will live in drivers/mfd, and that file
+will do the shared setup only. The UART, GPIO and I2C drivers will live
+in their own subsystems. Benjamin, the child devices will keep fwnode
+support, so an ACPI or DT child can attach the way your cp2112 CI does
+today.
+
+On Tue, 1 Sep 2026 at 16:02 +0200, Benjamin Tissoires wrote:
+
+> It is maybe a lot to ask, but Michael, can you demo the MFD split on
+> one/two functionality so we can check which approach is the best?
+> Ideally 2 features that would be intricating well enough to demonstrate
+> how hard/easy it would be.
+
+The two features that interact here are GPIO and the I2C and UART
+functions.
+The split is one MFD parent for the two HID interfaces. A demo that
+splits only the I2C part cannot show the gpiochip ownership above,
+which moves between the I2C and the UART interface: with the I2C side
+moved out, there is no configuration where that change can be tested.
+The MFD series has to do the whole device at once, and it comes after
+this one.
+
+[1] https://github.com/MichaelZaidman/hid-ft260/commit/e40e56953e8c2b23c222d76e97b5f5e274b91603
 
 Thanks,
-Rong
-
->=20
->=20
-> Faaris
+Michael
