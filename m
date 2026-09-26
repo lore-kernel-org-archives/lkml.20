@@ -1,115 +1,294 @@
-Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
+Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41DE328C037
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:52:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974DE3AB288
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:53:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790423568; cv=none; b=p9rmnUpU8GxOY0KGH1KTuFeQxiDYKNXHJcKzih0x++wgwksvZBQg0wb4nRDF1CKwnTopQoKHkukrPRvAUfztnnwZ2vWTYKs4hnfW8RWi1yFjgW3/YiQhyzTo3vXSHb78GJmcHSkCIK+/sA30CEqiyOj5BQlR8Zk2WQ7lPErQKF8=
+	t=1790423600; cv=none; b=oDO27RFCiz2SPQW2N4ZBTJI96dZ9QZ/Jy091p93s65Fwm0E00jjRVQNlR0JTbngCUYrAUvsmioOJHqOuUMARszFV2GT7kGbRU2CXI3RmegUZ/RK5Z+38m7qH+2OchhvAy7Fy4HMS1KHcc96FL97JRzAhZpOTAZ/sD8+Tzc7dBqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790423568; c=relaxed/simple;
-	bh=LNGo9Lk6YmczPhmSAhIOAoe3rGeQtCB78blB4lGK4ec=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kylZY8kxu6FF362FahgoPZvBtGkSIRST3F6RWMhbYgtpFU7FnFaqh91KCPbBegXuPvMq4ifYkN7g1yHFAU8G+NqhX2yL81RT4RMQeVE3a+IQDK4M4LuOYN/JD4hHi8JoN+gnjrRlQykgtnc3DglNN28TJXB4QP5d71G8/6ac3xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mUa2i5PO; arc=none smtp.client-ip=74.125.228.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790423600; c=relaxed/simple;
+	bh=ivuVvapfFqcBCQfIlJy9T8sIn0vl2q8rghP2jWsPEqs=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=tQhwW0Fu1rBqw8PZgHC2SP9eHE8fAZt1YjuKFk07nk6t8ZNvt6OyE+3wexxuSJ/CTd4zqc8igi5q54KMSw2p/OdhAC1RulDa18jcqBWAU2EXFoTzERyAGCJ02sDCnf0xf3KS+dmCe28UP2hju6jTaYwena6VZWP/z03BHyE4mlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CESE5CWs; arc=none smtp.client-ip=95.215.58.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mUa2i5PO"
-Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ab06778bdfso531748a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:52:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790423565; x=1791028365; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jOZJQtJF+6fvMtqVqH7Ln6MjEBTAkHYNteQQULMHp44=;
-        b=mUa2i5POAb3aQkstDAzP2yPAI/sWYdXK8hXR7bou4CcpG+EKqTVD6hiJ+CPNwudPbe
-         qQgdrP8fXTfNdthd8MceEm0Y59d+QsTnmFd2Y5UNI4seX425tA++2l2E4r/urO4Rss2U
-         JP+RwZRrfQh9L2fjm+80kIL0Q6q9tXJgSX4+yCCLeDQlqKrRGm6sKVYlGgwsSoOrsOqP
-         DuxlzNMh51sHRL/6BLobNj3rYvyrbnehJ1eboUXjVK0BVYoWVneysqGnFfouMuC9OfWd
-         6wEZlnL618uYNo9gufrkznMXLOzmCWeyLWqBCtRONonwcS0zx+k+SHsqstmDfh3IKxV0
-         BFqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790423565; x=1791028365;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jOZJQtJF+6fvMtqVqH7Ln6MjEBTAkHYNteQQULMHp44=;
-        b=SNfuRq5tkI9v08R49y0ceF3uETJ70ZRwB3sb7Yrr7Q0R8cgbUjLCcNZ0wWyVgNFhN4
-         3g9G+z2vDOCRrjVgkDjbf2fYuP/3HmrNkJZ7XEDTd4nQ6tdRL6ok7tVXpMA8evK14OJE
-         ovIjPRQDllA7LDxLchi75BOB4gWKjP6zaY3QcX+rM1iASM7uV5CYbkXvV54MduVOZx13
-         NLFjt49ZMVRWaKGZIGTNXo1V1UYcZ8ConDA50hNT6aOwUpapOIqQb1pfRcR2M3ZPfpam
-         NkCQiG5CTLBJ2su0FFj/PmE4n+9xoEFVAuqSsT+Gn8iMQ7kTOaqwq7J+NexnMAvjoIjf
-         d6jg==
-X-Forwarded-Encrypted: i=1; AKwUvBwFyufOqE1LQ/8/FCaB6o7XCZ1Pa1/KoplcFf6t1x+6cATs3FBhb8zbJ3r64PkBoxq0ylAls/hoVw7TUlo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJDHPVVCtH+Gucu+zk2/mW5aGpWb3aSFaH8q2+20WdaYPuzrKq
-	Lrx6fDJi6o1FEYo8lLZdGBAV00ZsNqGMFECJJaJ323UDLbztVz4fjZi+
-X-Gm-Gg: AYBFou3p72qvBPCKIi5vjEcoFCwZCvzznz7z2pD+e41N233wPsVjtXMcSwK2yxFD6Ck
-	txxpti+/ATD8twU2Au4R+RbIfKmh2nVjcmR+Xm280CL9OUnnEDLyxKDLsYPZDYr6y+gAyU+8Qqq
-	P2b86NuBF5bAWUDnMM1p7sUOh9UpkTEiSt9Ll+HLpa0DNVZpSKpbjzTUmsAN+8zlgSNhL1N9aTV
-	5giQ2NFdGHtvM+9DIBBOrXZWql9fLDEXoaTeajazdRSROYyLCCmayeeI4+qqRZPX+onFOgHQ2Ki
-	UK8KQKzlWz4zQJFthKZ+0A4MNkhDW1SSmnet0snpAbqiOe+ns/MWeat3BaQOGaLJ8Z8pBwhobUg
-	3CS5kCcCy4E3QsgYL44WVodY7hQ4eaNRa2zvcsiC7lgNC2XdFOSf6NM1dGLh60qW72RNVAZn2tJ
-	oHia94jltZT7OE3AhZey76eXntUUPKjJVphQfOBX8usuYh4vwguOqN1EFwKfWGey1eoR/PNA53x
-	2pIsP5xP5Eu2/EOTHcBm/pVvAphN6CJfDLJcwsNNaU=
-X-Received: by 2002:a05:6402:21d8:b0:6aa:734b:1a2e with SMTP id 4fb4d7f45d1cf-6aac9090952mr6404194a12.40.1790423565326;
-        Sat, 26 Sep 2026 04:52:45 -0700 (PDT)
-Received: from fedora.localnet (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ab5be57b13sm414448a12.33.2026.09.26.04.52.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 04:52:42 -0700 (PDT)
-From: Erik =?UTF-8?B?SMOla2Fuc3Nvbg==?= <erikhakan@gmail.com>
-To: Roman Stingler <roman.stingler@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>, johannes.goede@oss.qualcomm.com
-Cc: Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
- Filipe Lains <lains@riseup.net>, Bastien Nocera <hadess@hadess.net>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-Subject:
- Re: [PATCH] HID: logitech-hidpp: do not overwrite the device's hi-res wheel
- mode
-Date: Sat, 26 Sep 2026 13:52:40 +0200
-Message-ID: <407JHeAkQjaIVOP3-Y7zGg@gmail.com>
-In-Reply-To: <9acaeb9e-551d-474a-9c3e-9be5f667297f@oss.qualcomm.com>
-References:
- <20260923181203.422097-1-roman.stingler@gmail.com>
- <9acaeb9e-551d-474a-9c3e-9be5f667297f@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CESE5CWs"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ivuVvapfFqcBCQfIlJy9T8sIn0vl2q8rghP2jWsPEqs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790423595; v=1; x=1791028395;
+ b=CESE5CWsVzACQd/tx9XBFihMuouxeIPxrhaty56aqC7DKz/D3D9Go5En1JZW6swR+rsRLQb+
+ npjeuAy4zLN4ewTbRSl1/YFeOjgN7+wRYxqUcQ93bPcilZOZZaYILRAPcsqUpwLUoVXxx0HSlzH
+ SGjQ0mktzw3tx7IzRrtaN4Mk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a8e8853c3480c98a;
+	Sat, 26 Sep 2026 11:53:14 +0000
+X-Mizu-Trace-ID: a8e8853c3480c98a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <16ab27fc-c1e7-459d-ba78-fd3fcd3e3ad4@linux.dev>
+Date: Sat, 26 Sep 2026 19:53:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Shuah Khan <shuah@kernel.org>, cgroups@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Ziyang Men <ziyang.meme@gmail.com>, Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [PATCH v5] selftests/cgroup: add PSI pressure trigger and
+ validation tests
+To: Suren Baghdasaryan <surenb@google.com>
+References: <20260902040725.877155-1-cui.tao@linux.dev>
+ <aphkAGKpg3dgFc6c@localhost.localdomain>
+ <8c816b23-d394-4389-94ab-7fec889b1300@linux.dev>
+ <CAJuCfpEFmV9hE4dT2B_KTEaZfPe-tfkwJmYhgRRRFm-LqiwUrQ@mail.gmail.com>
+ <CAJuCfpF3qhfDazeOBbRqdqEG6D5P3S3dhVEFHC_pB9ie6kSD9g@mail.gmail.com>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <CAJuCfpF3qhfDazeOBbRqdqEG6D5P3S3dhVEFHC_pB9ie6kSD9g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi!
+Hi Suren,
 
-I just wanted to point out that the original patch has been reverted due the 
-issues caused so this patch can't be applied currently, but I'm working on a 
-new approach that I hope will fix everything.
+在 2026/9/25 14:48, Suren Baghdasaryan 写道:
+> On Thu, Sep 24, 2026 at 11:42 PM Suren Baghdasaryan <surenb@google.com> wrote:
+>>
+>> On Thu, Sep 3, 2026 at 12:24 AM Tao Cui <cui.tao@linux.dev> wrote:
+>>>
+>>> Hello Michal, Suren,
+>>>
+>>> 在 2026/9/3 02:47, Michal Koutný 写道:
+>>>> Hello Tao.
+>>>>
+>>>> On Wed, Sep 02, 2026 at 12:07:25PM +0800, Tao Cui <cui.tao@linux.dev> wrote:
+>>>>> +/* PSI triggers are written with a trailing NUL the kernel parser expects. */
+>>>>> +static ssize_t write_trigger(int fd, const char *trigger)
+>>>>> +{
+>>>>> +    return write(fd, trigger, strlen(trigger) + 1);
+>>>>> +}
+>>>>
+>>>> Hyrum's law. It all works for me: NUL, \n or just write(2) the exact
+>>>> length of the string.
+>>>> For conventionality, I'd prefer the simple literals and plain strlen() +
+>>>> 0. (I reckon cg_write() cannot be used because of FD access.)
+>>>>
+>>>
+>>> Your Hyrum's law point made me look at the parser, and I'm glad it
+>>> did, because the behavior is more subtle than "all of them work".
+>>> psi_write() does
+>>>
+>>>         buf[buf_size - 1] = '\0';
+>>>
+>>> i.e. it overwrites the last byte of whatever was written. With a plain
+>>> strlen()-sized write that eats the last digit: "some 150000 2000000"
+>>> silently arms a 200000us window when privileged, and fails with EINVAL
+>>> for unprivileged users (200000 is not a multiple of the 2s minimum). I
+>>> reproduced both on 7.0.0-28 here. I suspect your runs succeeded
+>>> because a truncated window still makes a valid trigger for root, so
+>>> nothing looked off.
+>>>
+>>> I went with your \n variant instead: the newline gets clobbered, the
+>>> payload stays intact, and it is the conventional procfile form. So the
+>>> reliance on the undocumented NUL is gone, even though not quite via
+>>> strlen()+0.
+>>>
+>>> Two follow-ups this suggests, if there is interest (I'm not pushing
+>>> either within this series):
+>>>
+>>> - psi.rst says nothing about the terminator while sysfs documents its
+>>>   (append, not clobber) behavior explicitly; a sentence in psi.rst
+>>>   would at least make the convention discoverable.
+>>> - kernfs and sysfs both append the NUL after the written data, so the
+>>>   user bytes survive. psi_write() could do the same with
+>>>   buf_size = min(nbytes, sizeof(buf) - 1) and buf[buf_size] = '\0'.
+>>>   Terminator-terminated writes keep their exact meaning, and a bare
+>>>   strlen() write would parse in full instead of losing its last digit.
+>>>   That would be the more principled fix, but it is a behavior change
+>>>   for unterminated writes, so it needs a call from the PSI maintainers.
+>>
+>> Yeah, I was expecting a NUL-terminated string with the NUL included
+>> when we write, like shown in the psi.rst code example:
+>>
+>> write(fds.fd, trig, strlen(trig) + 1)
+>>
+>> but I agree that this might be unconventional.
+>> I guess we could check if buf[buf_size - 1] is already '\0' then do
+>> nothing (keeps current users happy) and otherwise we append the NUL at
+>> the end. That way both write(fds.fd, trig, strlen(trig) + 1) and
+>> write(fds.fd, trig, strlen(trig) + 0) would work. Would you agree or
+>> did I miss anything?
+> 
+> Hmm. I'm looking into v6 version of your patch and you are adding '\n'
+> at the end. So, my plan would not work for this case and I really
+> don't want to handle these terminators as special cases...
+> 
 
-On Friday, 25 September 2026 11:50:59 Central European Summer Time 
-johannes.goede@oss.qualcomm.com wrote:
-> So in so far as this is a solution at all, it really should be
-> limited to Bolt devices only. Although I wonder what switching
-> Bolt devices to the hidpp driver wins us after this patch?
-> Do they still gain any meaningful functionality from the switch
-> to the hidpp driver?
+Understood -- the '\n' is not something I'm attached to.
 
-Mainly it's getting device information such as battery and connection status, 
-but also, theoretically supporting multiple Bolt devices that have different 
-capabilities and settings. E.g. two different mice, one with high resolution, 
-one without, or two identical mice but one with invert enabled and one 
-without, etc. Unlikely scenarios, but at least theoretically possible.
-And same for keyboards, it enables separation by device of any Logitech-
-proprietary signals coming through the receiver, as well as optionally e.g. 
-media keys and brightness, etc.
+The issue I was trying to point out is really the truncation of
+unterminated writes, not that '\n' itself should be treated specially.
+If supporting only the documented NUL-terminated form keeps the parser
+simpler, I'm fine with that as well.
 
-Cheers
-Erik
+Thanks again for all the reviews. They made this test much better than
+what I started with.
 
+Thanks,
+Tao
 
+>>
+>>>
+>>>>> +
+>>>>> +static int pressure_open(const char *resource)
+>>>>> +{
+>>>>> +    char path[PATH_MAX];
+>>>>> +    int fd;
+>>>>> +
+>>>>> +    snprintf(path, sizeof(path), "/proc/pressure/%s", resource);
+>>>>> +    fd = open(path, O_RDWR);
+>>>>> +    if (fd < 0)
+>>>>> +            ksft_perror(path);
+>>>>
+>>>> This outputs:
+>>>> | # /proc/pressure/irq: No such file or directory (2)
+>>>> | #      SKIP      /proc/pressure/irq unavailable
+>>>>
+>>>> I.e. similar message is printed twice.
+>>>> Since strace is a companion of cgroup selftests, I'd keep this helper
+>>>> silent.
+>>>>
+>>>
+>>> Agreed, the helper is silent now. The duplicate was my own doing: I
+>>> added the print in v5 on Suren's v4 request (it replaced a raw
+>>> fprintf) without noticing the SKIP message right below it already
+>>> carries the reason, so removing it satisfies both comments.
+>>>
+>>>>> +    return fd;
+>>>>> +}
+>>>>> +
+>>>>> +FIXTURE(psi)
+>>>>> +{
+>>>>> +    char root[PATH_MAX];
+>>>>> +    char *cg;
+>>>>> +};
+>>>>> +
+>>>>> +FIXTURE_SETUP(psi)
+>>>>> +{
+>>>>> +    int psi_fd;
+>>>>> +
+>>>>> +    if (cg_find_unified_root(self->root, sizeof(self->root), NULL))
+>>>>> +            SKIP(return, "cgroup v2 isn't mounted");
+>>>>> +
+>>>>> +    /* PSI must be enabled (CONFIG_PSI=y, not disabled on the cmdline). */
+>>>>> +    psi_fd = open("/proc/pressure/memory", O_RDONLY);
+>>>>> +    if (psi_fd < 0)
+>>>>> +            SKIP(return, "PSI unavailable (CONFIG_PSI=n or psi=0)");
+>>>>> +    close(psi_fd);
+>>>>> +
+>>>>> +    self->cg = cg_name(self->root, "psi_trigger_test");
+>>>>> +    if (!self->cg)
+>>>>> +            SKIP(return, "failed to allocate cgroup name");
+>>>>> +    if (cg_create(self->cg))
+>>>>> +            SKIP(return, "failed to create cgroup: %s", strerror(errno));
+>>>>
+>>>> Why are these two SKIPs (not failures)?
+>>>>
+>>>
+>>> You're right, they are not environment problems. They are ASSERTs in
+>>> FIXTURE_SETUP() now, so a run without privileges fails loudly instead
+>>> of vanishing into skips.
+>>>
+>>>>> +TEST_F(psi, cgroup_trigger_fire)
+>>>>> +{
+>>>>> +    char *cpupress;
+>>>>> +    struct pollfd pfd = { .events = POLLPRI };
+>>>>> +    long ncpus;
+>>>>> +    int fd;
+>>>>> +    int i;
+>>>>> +
+>>>>> +    cpupress = cg_control(self->cg, "cpu.pressure");
+>>>>> +    ASSERT_NE(NULL, cpupress);
+>>>>> +    fd = open(cpupress, O_RDWR);
+>>>>> +    free(cpupress);
+>>>>> +    ASSERT_GE(fd, 0);
+>>>>> +    pfd.fd = fd;
+>>>>> +
+>>>>> +    /*
+>>>>> +     * 1usec threshold over a 2s window: any CPU stall fires it. The 2s
+>>>>> +     * window is the smallest unprivileged users are allowed to arm.
+>>>>> +     */
+>>>>> +    ASSERT_GT(write_trigger(fd, "some 1 2000000"), 0);
+>>>>
+>>>> The selftest rarely can be run as unprivileged user (even test cgroup
+>>>> creation needs privileges), so this comment is irrelevant. (But it's
+>>>> fine to test with that value.)
+>>>>
+>>>
+>>> Dropped.
+>>>
+>>>> On the more abstract level -- I was playing with this and thinking about
+>>>> a value that'd test both sides, i.e. false triggers as well as false
+>>>> non-triggers. I'd find that to be the half of the window and the number
+>>>> of tasks should be then (3*ncpus + 1) / 2.
+>>>> Or perhaps test two thresholds, one tiny like you did and one maximum
+>>>> (whole window) with same amount tasks but expect trigger, no trigger
+>>>> respectively.
+>>>>
+>>>
+>>> I tried both of your variants before picking one. The half-window
+>>> threshold with (3*ncpus+1)/2 hogs fired reliably, and the two-threshold
+>>> variant also held up on the negative side: with the threshold equal to
+>>> the whole window, ncpus+1 hogs never fired it (measured cpu.pressure
+>>> "some" stays around 2-17% under that oversubscription, so the margin
+>>> is comfortable rather than borderline). I kept the existing tiny-
+>>> threshold test and added cgroup_trigger_no_fire for the whole-window
+>>> side, which matches your second variant and keeps the hog setup shared.
+>>>
+>>>>
+>>>>> +
+>>>>> +    ncpus = sysconf(_SC_NPROCESSORS_ONLN);
+>>>>> +    if (ncpus == -1)
+>>>>> +            TH_LOG("sysconf(_SC_NPROCESSORS_ONLN): %s", strerror(errno));
+>>>>> +    ASSERT_NE(-1, ncpus);
+>>>>
+>>>> Same as messages from pressure_open() above. Simply assert.
+>>>>
+>>>>> +
+>>>>> +    /* ncpus+1 hogs guarantee CPU contention inside the cgroup. */
+>>>>> +    for (i = 0; i < ncpus + 1; i++)
+>>>>> +            ASSERT_GE(cg_run_nowait(self->cg, hog_cpu, NULL), 0);
+>>>>> +
+>>>>> +    ASSERT_EQ(1, poll(&pfd, 1, PSI_POLL_TIMEOUT_MS));
+>>>>> +    ASSERT_NE(0, pfd.revents & POLLPRI);
+>>>>> +    close(fd);
+>>>>> +}
+>>>>> +
+>>>>> +TEST_HARNESS_MAIN
+>>>>
+>>>> All in all, this looks so much better than the initial version, well
+>>>> done. Just a few polishing touches.
+>>>>
+>>>
+>>> All 7 tests pass on a 2-CPU and a 16-CPU machine.
+>>>
+>>> Thank you both, this series learned a lot from you: Suren walked me
+>>> through the harness conversion and the reporting details, and you kept
+>>> the semantics honest, which is what surfaced the parser behavior. The
+>>> test is in a much better shape than what I started with, and the
+>>> parser finding above came out of your push on both directions of the
+>>> trigger.
+>>>
+>>> Thanks
+>>> Tao
+>>>
+>>>> Michal
+>>>
 
