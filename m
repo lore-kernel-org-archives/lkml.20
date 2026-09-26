@@ -1,183 +1,110 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96893090E8;
-	Sat, 26 Sep 2026 03:24:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17034346E70
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790393080; cv=none; b=ANnjCEqMz9K8IIQFFTi8ZsfGF0a619jb1SdbZkoa5lbl8iylW6MFlRFt1uZw4MgwsgH2a7SoKzUOoZyu4jQRW5DF5JMV8CAgcw+SL3haRxiOFZbXM6vQKuIdlXP/qwZUuT18X7sthhWmWTaV1S61QPlClU6Gxb+QeeOpOqpv62I=
+	t=1790393163; cv=none; b=j8O+IlqTonI4z3AMtBNPZwsEmE++k9f4ET3faQnMVGopFCKgv1IuDf2K28l/+3y/0m0uPETbgd7+EhIIJZTQP7Y5Z9PzIWt6jiLWoxuEGJFeoq+8j2OS5ru0XP93ivRbKpjGwGDPhsV/AWdW5kiiz9hHSyFZ8VT15HyZ55IPB/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790393080; c=relaxed/simple;
-	bh=u2bKMqmHH9et5bmwCUGc4r3mQCwAL+nmjWrOC5+NGQU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LSXAKP7piNuBgIiN8TU7LRWwjtnMkAzL3OJf8jN5JL7OK2BXm/iWl33FvtKJrvECtj7tVgH34Z3hfgfh6ThOcDBY44N1J30c8ddQ1cfy1Vn/Bjf/rItIZRDaLP4MqpHnJV0ip/MgzjXyIDkwOVKkVUPd8qIqXBu1rEdK2ohQtFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: c343442cb95911f19a56ed5b684f684d-20260926
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:da21d866-1b8c-42a3-b086-51ce81a585f3,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:5bdde6c24e8d515c24ed0be13df09ffd,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c343442cb95911f19a56ed5b684f684d-20260926
-X-User: xiongxin@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiongxin@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 204045198; Sat, 26 Sep 2026 11:24:20 +0800
-From: Xiong Xin <xiongxin@kylinos.cn>
-To: rafael@kernel.org,
-	lenb@kernel.org,
-	pavel@kernel.org
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiong Xin <xiongxin@kylinos.cn>,
-	Riwen Lu <luriwen@kylinos.cn>
-Subject: [PATCH v2] PM: hibernate: flush icache for restored pages from task context
-Date: Sat, 26 Sep 2026 11:24:16 +0800
-Message-Id: <20260926032416.467937-1-xiongxin@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790393163; c=relaxed/simple;
+	bh=GBcORWffZ7qQhvpMu408WBMZ3ZAf50Ak4kkEpdiYuG8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C6XfCbqiFoEUJFVdEkHMByFTYx9iC4AS/Ilu5noV/OGCea/kj/eLrbln8zgs94LO3vJwtYKpG1b6ILHZhVKJEdVVymJDqsYTh7TCjn3r7hssuQQK8YfxA3Ob4qghCyaJYR+NI8C2Cndel+6+kdfiTC9s+vzHxjwpZaoC31SGJXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fhcYV0cB; arc=none smtp.client-ip=74.125.228.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fhcYV0cB"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc79223bcfbso708935a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 20:26:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790393161; x=1790997961; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1vjySsVVmbKiFInGwDGm2D0Hk00yL7CXO9MMmjGNncI=;
+        b=fhcYV0cBVsA3XvzbwVPS5O7Pe506FeW/DEi/zIlEmVw7Ukc4wLpMu+ZgwaxJN6jFJZ
+         mlPepZNb35+XDALbJj2cCP58g0ngbIybaOsiJuMmCzxdi8ebb5uYarJfMWYny+b+NkIZ
+         dSBuqRkxjpZSZOuxGfYcapD0IHiajhzwSs3F6vMzgZthOUTTb8CJKMpoi/I6Fo+GZBNk
+         G5Aa0nAQVCligdcblaejw7x3Q35wx5cFKFQNut9SJROkyB7mKgtYhMjpz+2xJbS50Acm
+         mvOobv5tvKuD3KqEH2WW13mLBhNMzbww++7UbpuGBxVY8v0zzZfspr+6gjBuaU/6CvEK
+         Cc6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790393161; x=1790997961;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1vjySsVVmbKiFInGwDGm2D0Hk00yL7CXO9MMmjGNncI=;
+        b=RcVVmVPZFiENBrEZ7hLBuXDS/gy8CZZUUyLBTi835Z9w+yafZEKRe2jBGGAkJde461
+         ScNqfdH9pMaO6knh+eAB7uj+TOu3Rd1Ek/3AzF4ksSa/3JT2QezhmiON2b6qYgnTuUSs
+         /T+dGF4XjcRqb2cEYww2VYyNEhvdJNlPi+iPL+6aAhoDtcVwUhNH2UtUI+b1H0J7cAVu
+         HbfC7/fBzdthSadq5M4NG1T78hCQqUPzZZr7Vl6RW4g9/GMQYCP9dkMTTyOsvq1MDn1g
+         y7fbq/dWr3y+Ru/L5wY9sWPTD8S67rEiv6BccN+2S5Kn8rFq0OAkXCdz6MadhVRC5V/B
+         lKIw==
+X-Forwarded-Encrypted: i=1; AKwUvByPJ098MMmH5DZCQxHxRIB8FonIKYak8X6Mi2VJTEkOCjIxhyvJGKZsSITfLhAlYao6YVfr0HtEBVy3y9o=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZ0bDV2UMR9M79p022oU5PNY4GYSx+OquSy0fFicAcZhu6DkWJ
+	UElCYgghy/J43+j1X5RtvrTpL3UIlLe+YtIM245oJ5bb04E0kpIo4oKN
+X-Gm-Gg: AYBFou0+ngF8JtK0edPEr0xBP+ruw0YyNbdfnbdAZqF8rD7QF73X/NSTv1nHxhmwCPE
+	L1zFE3zdvlWH4yhbYAGLGLwv97NeEa2r99Q/f2JZ0+mErYl6keyKw/FPNURzcH8EwyEcxUwdNqZ
+	S2H968husho1cnZprfUwlWBzqPvv9+uMYHO2B0cAwahb4muUgO3JQfB9Q/U0BAjJZ71hfrKb3ld
+	Zj283SPtPC9xwKYPbbdR+iHi221OsY0caAA6YSG7ZTeawBv6Rw6p5DPx+T0VPfzsCaO5xNUJDEk
+	T39FbosUuA5lHgoKwNHUJR2etkPnUkTUAAbXJLctNWFYaH4iQ161nhWOKf5BADdy5iXf9nMHrUj
+	GQASPYsBQ/j6Gf364ToHu1Ob2DNWs7uGL9MYMf8Re9sfiMXKVxoTzcL8K9+K/AbUO3k8PCx3m2n
+	OzRzDPCAdJgn4H65pRzS/Lnx0Rn5iOQSDo7frXmCK1oBtACEV5w/wW08EkLmjnli4VUUa7xDp64
+	UUnUxcpYH7h6A==
+X-Received: by 2002:a17:90b:2245:b0:39d:84af:a0b3 with SMTP id 98e67ed59e1d1-3a098b46f17mr6499116a91.18.1790393161354;
+        Fri, 25 Sep 2026 20:26:01 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0c3f74e5bsm5653572a91.5.2026.09.25.20.26.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 20:26:00 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 25 Sep 2026 20:25:59 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Tom Verdonck <tom.verdonck@inspiral.be>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Nishanth Menon <nm@ti.com>
+Subject: Re: [PATCH 1/3] hwmon: (tmp102) Fix jiffies wraparound in
+ conversion-ready check
+Message-ID: <7194c93e-9c9c-4b3a-b0de-28fb7a5a00eb@roeck-us.net>
+References: <cover.1790358356.git.tom.verdonck@inspiral.be>
+ <2952f070f82913aea96eec25d28008d3b9058656.1790358356.git.tom.verdonck@inspiral.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2952f070f82913aea96eec25d28008d3b9058656.1790358356.git.tom.verdonck@inspiral.be>
 
-With `hibernate=nocompress`, load_image() submits read bios asynchronously
-and hib_end_io() completes them from hardirq/softirq context.  Commit
-f6cf0545ec69 ("PM / Hibernate: Call flush_icache_range() on pages restored
-in-place") calls flush_icache_range() there, which on ARM64 ends with
-kick_all_cpus_sync() and so triggers
+On Fri, Sep 25, 2026 at 08:23:22PM +0200, Tom Verdonck wrote:
+> tmp102 records a one-shot deadline in ->ready_time at probe (and resume)
+> and, on every temperature read, refuses the read with -EAGAIN while
+> time_before(jiffies, ready_time) is true, in order to skip the first
+> ~35 ms conversion.
+> 
+> ->ready_time is an unsigned long compared with time_before(), whose
+> signed difference is only meaningful while the two values are within
+> LONG_MAX jiffies of each other. Because ->ready_time is set once and
+> never refreshed, jiffies keeps advancing away from it, and after 2^31
+> jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
+> happens ~248.5 days after boot: time_before() then permanently reports
+> "not ready" and the driver returns -EAGAIN on every read, without ever
+> touching the sensor, until the next reboot.
+> 
+> Store the deadline as a 64-bit jiffies value and compare it with
+> get_jiffies_64()/time_before64(), which does not wrap in any practical
+> uptime.
+> 
+> Fixes: 3d8f7a89a197 ("hwmon: (tmp102) Improve handling of initial read delay")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
 
-    WARN_ON_ONCE(!in_task());
+Applied.
 
-in smp_call_function(), as in_task() is always false in interrupt context.
-
-Only the nocompress path is affected: load_compressed_image() flushes from
-the decompression kthread, in task context.
-
-Defer the flush to task context.  hib_end_io() now only records the
-restored page on a per-batch list (page->lru is free to use, as safe
-in-place pages are on no LRU).  Once hib_wait_io() returns to load_image(),
-hib_flush_icache_pages() walks the list and flushes each page, preserving
-the asynchronous batched I/O throughput.
-
-Fixes: f6cf0545ec69 ("PM / Hibernate: Call flush_icache_range() on pages restored in-place")
-Assisted-by: GLM:5.3
-Acked-by: Riwen Lu <luriwen@kylinos.cn>
-Signed-off-by: Xiong Xin <xiongxin@kylinos.cn>
-
-diff --git a/kernel/power/swap.c b/kernel/power/swap.c
-index c78f1593600b..6d1019a2780f 100644
---- a/kernel/power/swap.c
-+++ b/kernel/power/swap.c
-@@ -223,6 +223,8 @@ struct hib_bio_batch {
- 	wait_queue_head_t	wait;
- 	blk_status_t		error;
- 	struct blk_plug		plug;
-+	struct list_head	icache_pages;
-+	spinlock_t		icache_lock;
- };
- 
- static void hib_init_batch(struct hib_bio_batch *hb)
-@@ -230,6 +232,8 @@ static void hib_init_batch(struct hib_bio_batch *hb)
- 	atomic_set(&hb->count, 0);
- 	init_waitqueue_head(&hb->wait);
- 	hb->error = BLK_STS_OK;
-+	INIT_LIST_HEAD(&hb->icache_pages);
-+	spin_lock_init(&hb->icache_lock);
- 	blk_start_plug(&hb->plug);
- }
- 
-@@ -249,11 +253,19 @@ static void hib_end_io(struct bio *bio)
- 			 (unsigned long long)bio->bi_iter.bi_sector);
- 	}
- 
--	if (bio_data_dir(bio) == WRITE)
-+	if (bio_data_dir(bio) == WRITE) {
- 		put_page(page);
--	else if (clean_pages_on_read)
--		flush_icache_range((unsigned long)page_address(page),
--				   (unsigned long)page_address(page) + PAGE_SIZE);
-+	} else if (clean_pages_on_read) {
-+		/*
-+		 * Stash the page on the batch list, load_image()
-+		 * will flush it once hib_wait_io() has returned to task
-+		 * context. The page is neither on an LRU nor in the page
-+		 * cache, so its lru member is free to use as link node.
-+		 */
-+		spin_lock(&hb->icache_lock);
-+		list_add(&page->lru, &hb->icache_pages);
-+		spin_unlock(&hb->icache_lock);
-+	}
- 
- 	if (bio->bi_status && !hb->error)
- 		hb->error = bio->bi_status;
-@@ -295,6 +307,23 @@ static int hib_wait_io(struct hib_bio_batch *hb)
- 	return blk_status_to_errno(hb->error);
- }
- 
-+/*
-+ * Flush the icache for pages restored since the last hib_wait_io().
-+ * Must be called from task context (after hib_wait_io() returned): all
-+ * bios of the batch have completed, so the icache_pages list is no longer
-+ * touched by hib_end_io() and can be walked without the lock.
-+ */
-+static void hib_flush_icache_pages(struct hib_bio_batch *hb)
-+{
-+	struct page *page, *tmp;
-+
-+	list_for_each_entry_safe(page, tmp, &hb->icache_pages, lru) {
-+		list_del_init(&page->lru);
-+		flush_icache_range((unsigned long)page_address(page),
-+				   (unsigned long)page_address(page) + PAGE_SIZE);
-+	}
-+}
-+
- /*
-  * Saving part
-  */
-@@ -1116,8 +1145,12 @@ static int load_image(struct swap_map_handle *handle,
- 		ret = swap_read_page(handle, data_of(*snapshot), &hb);
- 		if (ret)
- 			break;
--		if (snapshot->sync_read)
-+		if (snapshot->sync_read) {
- 			ret = hib_wait_io(&hb);
-+			if (ret)
-+				break;
-+			hib_flush_icache_pages(&hb);
-+		}
- 		if (ret)
- 			break;
- 		if (!(nr_pages % m))
-@@ -1131,10 +1164,17 @@ static int load_image(struct swap_map_handle *handle,
- 	if (!ret)
- 		ret = err2;
- 	if (!ret) {
-+		hib_flush_icache_pages(&hb);
- 		pr_info("Image loading done\n");
- 		ret = snapshot_write_finalize(snapshot);
- 		if (!ret && !snapshot_image_loaded(snapshot))
- 			ret = -ENODATA;
-+	} else {
-+		/*
-+		 * Reinit the list instead of walking it to avoid
-+		 * use-after-free.
-+		 */
-+		INIT_LIST_HEAD(&hb.icache_pages);
- 	}
- 	swsusp_show_speed(start, stop, nr_to_read, "Read");
- 	return ret;
--- 
-2.25.1
-
+Thanks,
+Guenter
