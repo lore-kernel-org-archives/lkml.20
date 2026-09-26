@@ -1,97 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8934A361940;
-	Sat, 26 Sep 2026 16:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790441738; cv=none; b=nJkmQ3u9VMbkheIsD2qcLt5ggtWV1TcSZqO536oOFGz9N7sSLuef+O8lodsGL8PONGS3yIQZGj0g7FjkSvzt+fRV28Ng+5XYm122UI4WzlE8+W3XFF3qT2OwUrPg8e/OAJ3ZpLh5OI5/waFVdQnxcFxJhVZV1Pg1+WMa5Ur+kl0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790441738; c=relaxed/simple;
-	bh=CqvP7gf2Dq7rvjICIZzTaMz2GgkhJDhdjg8YLb2Ql8U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GaVgunRt5f1JEUWLUqECw5VlnUZdeNnrRNa9Bq/SuO4cKx/yckfSc4egK0XEAOJbi7u2oe42ulombj3lAV19Am7I7a3jSFgPB/cPtBX46zsC+HVdhqm6pkj+tm23kgTcZr9VzNMIDBRMAD4xvVaOn1BwKT8X5CoZ732Q2p/uHMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jkIulwEo; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541BB37F74B
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:56:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790441777; cv=pass; b=r+ZpGzADcUWdb+HI2yOGfewK5GDBmFUF8DvLDGEs1rOVaXhUQZEb9n7oxvKSAtjWa2F3t2RriCkkfcVUQHmmCLOsAJ1EAvC84C3SDV8FdkDPqwqFE8KysM6dmgemw4kiYbLHfzxHSFmzWPQ4ec+De51vZk1CdQducv2rc7XN79M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790441777; c=relaxed/simple;
+	bh=BFLuuX4oE73MpHMuvzlTcQtgZLxzLskCRkVBezS9eyU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fOuPpZ+YY91spKqQDXZU0BG/ZTz6smovwDH3ki3Nlvykh3vCTxzLM3CuFwdGa6CsbPkgNYjkf01TyLICXzcCnxJadAkNb5bCsu3lnAWnolMG/7ObQXiL83le55Z6pSZcvrUwLG7KU/TfbUUabHRndjdpGElkgnd5qZ3I/duz4Nc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WWTgj+tf; arc=pass smtp.client-ip=74.125.228.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jkIulwEo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B641F000FF;
-	Sat, 26 Sep 2026 16:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790441737;
-	bh=HjCztDYloo8Gq2CmHiYQoWS93PLouDS1at7hq64aQWM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jkIulwEowEWqBhMVaWgL/0jaXL5MkxmJ3nc44StW31NdYzyA0SiRtWof7oxAcRXMY
-	 U/W5IumWU9L1SZjFo1MpMW83a/3CmGFIiIQ/s/tqpj40tfpWMdmVqaNQ9B/VgT3UkX
-	 DCYxyyTW7LDAkskdxUzmrInIQ5JInqpbjizDfFlmJqCV4VztWZdXoXnkeWRNZs7Mz9
-	 f4eBxN7qCDLi6eVEfCaDoebG55M0g8vo+H4IiAGvhzXOUCbnv99q1HHZieng1DLyED
-	 2tbdZcMu1k5cKVxID1xbWy22KJ9NOdIV/DNS3K7pSGwhSuxwayYNhDA/YH2OSVQPN1
-	 CIQj/00I2EZgw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 99ED112359BD; Sat, 26 Sep 2026 17:55:34 +0100 (BST)
-Date: Sat, 26 Sep 2026 18:55:34 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Alireza Feyzabadi Farahani <arfa79lg@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Shuah Khan <shuah@kernel.org>, linux-sound@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests: ALSA: Skip tests when devices are unavailable
-Message-ID: <arf5Bp6v36JoNH76@sirena.org.uk>
-References: <20260926095756.2051290-1-arfa79lg@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WWTgj+tf"
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aae1f2cedfso2270871a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:56:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790441774; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KihMe3HN3hoRSj4OWi1Q3xd8pVm8n0Ie2HmPjI0PoT+6mUTPhorSFH+kpmEIANSK6d
+         oNTUmApZ3niZV3JYJQLLt5pmmfg0QC9nIKzU7qlz5bO7jZP2YUqL+GVTa6FXqROfRqKk
+         Q3Vd2OolMRhN7RkmZITutKGTH7cnTiETjhIzTzvmhbU7LwcHYywZpnor45OT9PZICAM6
+         Tzx2klEHmCgqeguGlprTXjCFV4Bp+bIP0rvDavHsm6An1vxIjZTeafKxlEQgVU6xiS+H
+         h8I7XATc9Jvd8zY34fGZbsoMFkXvXdv4yvQmyu2Xa00ODrhPsFsh45xO9CyXDLCEfbho
+         ohWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/jNPRD3oMVaVsh6veaw1NKnURjzIQQ+FNTYBf29LQZ0=;
+        fh=CIBUKNwwvr5uitQbmNowel37uOv1kbPxz+2o8M2aUoA=;
+        b=mvEZCYY1mgZ8WfH/ASkPtyvmaQlN4pqIssSi+2VA/HLiBkQ9O4+LWj/GEj2P9Y1fsI
+         lg+n/gqCnSDvloJrgpCp7wQky+zyvJ3aNZ2aq90GusIy2nrcQuKymvQL6GD9rBgmY28f
+         GRTmQWjtcjtHTBGfVuojkLvE0ZHBmS+ilIbopSExkYZfs4BnqRHrmvuYv5EzowOvbeXL
+         HZDasCiiKc+3kvhwKF3xN6hPtolqeOIHkLOkMRt+OOut2lahwV8+Da++oXvntt/V6J7u
+         eDT5V8rF3dS2vZyFRxwwnulKxvE4YCsxXhycUqbVgG0OMTfIHM2HTd1lWZxhuak7kxeD
+         MsSQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790441774; x=1791046574; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/jNPRD3oMVaVsh6veaw1NKnURjzIQQ+FNTYBf29LQZ0=;
+        b=WWTgj+tfnSi0s6N5lHGiT/XRCdCfI3g0HaQu/G8o5aTo+Wc7GlINB9zMtywfVuOpjY
+         uMPAp72AcPHc7adl5gWmtot8ylurOcNZhYHzFv/HEjFiR6jcGNUsYJqtW6ZNE4DjVMxZ
+         TsqZgz3NG6sFN7Du9hwbgSmUQLslsSJddjafQVoJ2LuXiGuuXNuIElX3l5G46nU6wDgP
+         GZicBk241AHgrOY+PcEvRbMSm8wCCm34ShgNoEEKDsf8D8quo6bBT8ZdAbs30WzRE0+o
+         pcS9zMQiVc5OhPXde3BCTsQofBsaqcT8JYWfCCIYV2VB9BnrSYdoC2caXxdeVb3s8P+0
+         5LnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790441774; x=1791046574;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/jNPRD3oMVaVsh6veaw1NKnURjzIQQ+FNTYBf29LQZ0=;
+        b=TZQN63UZalIOrRvL0S/PLZ49gNanoBxFlO0y9RJxrwy6j1zUMNPh+GYhg20RpR+WSX
+         x2AOG0sEFURvx/P5Re8g91XW6jpO1RlquUb7+uusVA59qqGqWo9yy7JtnAxincQfXRBv
+         Rplyz5ZQ+Og2O/kkYwqanvFeYtfJwg93jRFLY3UqiaC7QMWSv8/pvT3gMos9wELZFI8Y
+         zpDEqguovM6T7B4nBxU6QCeo5hwlp3JP+Lbc1LZp+qeVW9jwDilUr0xUwoO9DyaKfXJx
+         ZKiSL+tG2KXaCbit4CRkkGcoGssd/1efbRP+FD80AOEVJy/jkXa5Wbj4j9M90Ak2Z8O3
+         FXOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwUFGgjByv60EjCxc1UKEtu/0ZVxnqPKbw/96OME/LJCLAtquGNcTmpAuJ7fqrsm5+OQR37AOK2QCzGpA8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRFMyAZv3+KBHbTZAitNAgEESpa9yYqsORouLPZWRUWuOFu/FN
+	lsb8a61pFul9dztDX+K2gyg6QDRJlq3wxOZchxyhwd12QSWwqY9K0qVi1k+tizO+F/ZIP//K77N
+	hw0fs9fYtOh+tFl0+UueBAtI+y0DzhMw=
+X-Gm-Gg: AYBFou0e8pWwGU9wHPYzrhg+LKCCRWtDxacYE70OiIGj3ynVSTq0xPBbP3KfSq1BW4d
+	eQizx5uyvecKo4W74+ByI8rz9a+L49ODdiT5yLlRqlFxHAKeHqU9fpc7KrMDvdNSoQNojhJ5YJY
+	SHKtl8phXQQ1Q3nZTyABqW4b0kYow8C9Xm5frucTe4jUfE8YQZvMvBuyRylZ2d7CIerG3AuyE/4
+	7+v6uHG4QmAt/qP8QucFVGuMRsNwgoN2FoClnnQL8exxfL77IC7hTB93iSvfiZUJUV2Hy6/0i2z
+	/ypVtnqvXhs//E7vHZGd6zfpSkCDt+kLuSNywzHuuekD8GhEqRpJXeBx1tvPVIuor2Q/Oi9Madr
+	kQuoP/HUpbdfDnLWZzl5JoabqsM1elmCxT4MWSgDj22A3ZKzk35owDJ6i5STsGSgyJyoKcPQHxC
+	7snvFCJGzaePqjFnIWn6VrtHRZUnKoJA/CMfWZ1+aSLK48c5BDeWo=
+X-Received: by 2002:a17:907:e153:b0:c2a:c793:be00 with SMTP id
+ a640c23a62f3a-c2ac793c83bmr563678266b.15.1790441774263; Sat, 26 Sep 2026
+ 09:56:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="D2rAHvqMhlmFtLx+"
-Content-Disposition: inline
-In-Reply-To: <20260926095756.2051290-1-arfa79lg@gmail.com>
-X-Cookie: Orders subject to approval.
-
-
---D2rAHvqMhlmFtLx+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
+ <20260925160913.1648565-2-andriy.shevchenko@linux.intel.com> <ardbPbkc5IyZWsZo@black.igk.intel.com>
+In-Reply-To: <ardbPbkc5IyZWsZo@black.igk.intel.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sat, 26 Sep 2026 19:55:38 +0300
+X-Gm-Features: AclHuK9n5gUoraVKhWUuGL_-FGzi6edyz4lY6gv-HdsfU8bjWPEV9o9jeXqIE0A
+Message-ID: <CAHp75VdUHTZstgOWTGxyYua_PayNXnikgo=iM6kUCWjsTkqb8w@mail.gmail.com>
+Subject: Re: [PATCH v1 1/5] gpio: Move Intel GPIO drivers to the dedicated subfolder
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Junjie Cao <junjie.cao@linux.dev>, 
+	Runyu Xiao <runyu.xiao@seu.edu.cn>, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
+	Peng Fan <peng.fan@nxp.com>, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>, 
+	William Breathitt Gray <wbg@kernel.org>, Israel Cepeda <israel.a.cepeda.lopez@intel.com>, 
+	Hans de Goede <hansg@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 26, 2026 at 09:57:56AM +0000, Alireza Feyzabadi Farahani wrote:
-> A kernel built without CONFIG_SND exposes no ALSA devices. In that
-> environment, the mixer and PCM tests currently report success with a
-> zero-test plan, while the userspace timer tests fail when opening
-> /dev/snd/timer. Neither result accurately describes an unsupported test
-> environment.
->=20
-> Report KSFT_SKIP when no sound cards are detected and when the timer
-> device is unavailable. Keep the PCM missing-card failures when a matching
-> hardware configuration says that a card should exist, and continue to
-> fail timer opens for unexpected errors.
->=20
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D218479
+On Sat, Sep 26, 2026 at 8:42=E2=80=AFAM Raag Jadav <raag.jadav@intel.com> w=
+rote:
+> On Fri, Sep 25, 2026 at 05:57:03PM +0200, Andy Shevchenko wrote:
 
-The timer tests are clearly a good fix here but the other two programs
-are a lot less clear - they aren't reporting any false errors, they're
-just reporting a pass as they found no sound cards and therefore no
-problems on them.  Or to put it another way all the available sound
-cards were fine.  We don't know if this was due to missing configs, or
-just that the machine physically has no sound cards (eg, a VM).  I'd at
-least make this two patches, or TBH just leave the PCM and mixer tests
-alone.  They certainly don't have an issue that needs fixing in the same
-way that the timer test does.
+...
 
---D2rAHvqMhlmFtLx+
-Content-Type: application/pgp-signature; name="signature.asc"
+> >  drivers/gpio/{ =3D> intel}/gpio-elkhartlake.c |  0
+> >  drivers/gpio/{ =3D> intel}/gpio-merrifield.c  |  0
+> >  drivers/gpio/{ =3D> intel}/gpio-tangier.c     |  0
+> >  drivers/gpio/{ =3D> intel}/gpio-tangier.h     |  0
+> >  9 files changed, 50 insertions(+), 38 deletions(-)
+> >  create mode 100644 drivers/gpio/intel/Kconfig
+> >  create mode 100644 drivers/gpio/intel/Makefile
+> >  rename drivers/gpio/{ =3D> intel}/gpio-elkhartlake.c (100%)
+> >  rename drivers/gpio/{ =3D> intel}/gpio-merrifield.c (100%)
+> >  rename drivers/gpio/{ =3D> intel}/gpio-tangier.c (100%)
+> >  rename drivers/gpio/{ =3D> intel}/gpio-tangier.h (100%)
+>
+> These are already in good hands but I'd like to be atleast informed
+> about these. Although I'm not sure if it's worth a dedicated entry,
+> so I'll leave it upto you.
 
------BEGIN PGP SIGNATURE-----
+The patch adding the respective entry to MAINTAINERS is welcome, if
+you think it worth doing.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq3+QUACgkQJNaLcl1U
-h9CXYQf/ZciubfZTlExAKfqewMjkhfZgA+oy8coSJ1uxLUFRBPXt3E6Jf7kuCEZI
-ceW9a/bnk6av+s54Df96YwibjQBK1hgWyktKsR51i/cs0KY3WrONHW3QXm6lo42X
-7rRguyFs0TIAsiv1cbTgMeSMtG7oHQfQxTzSDloSrU64l0bmIIEyR1gOh4d3tHK8
-fWYQHBqwyqwrF5V+MPj+A8etHi4UWVYJzdjSwx1wWX2SXY2tW8YZchfbv//Vi0xT
-NXPuBzI4tuIYidLoU9DGDcY92r0MTbPuD0Gzg7UPg8TaB8ePCwzQjHFVgwOIGQqj
-q/w7bJ8VX08jqtBHwfq9gJWJ4r1/pQ==
-=6Pxc
------END PGP SIGNATURE-----
-
---D2rAHvqMhlmFtLx+--
+--=20
+With Best Regards,
+Andy Shevchenko
