@@ -1,253 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020143.outbound.protection.outlook.com [52.101.196.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF9B2673B0;
-	Sat, 26 Sep 2026 23:33:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790465626; cv=none; b=QZJimrczJKU1mzmL4cWN+GlTiR3d9jtijYfBLgGAirH70R8799SwNGz65IV8/f0cNL7aMgw2GQE1vebYHiRpMIyGa3S8p4BypEGTc8epG682Wvj7LL6mWpwZvqHSUMPQLTfUX+6x8N9jPXoqRRktHgO9tHw3Of0ESm6Cq/eyUrU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790465626; c=relaxed/simple;
-	bh=MfGzSCc8SXHx1oywkMzxZQGcgBju3HaeHsl7BrLtmws=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UjR4sv8WZ/K9KoKHIDgEtHlgDzBpp62dqhD58SqH2RP8gOuBrAh5B/1HMicZ9zxN4A1hZtC89gSfqksE3tX3fhlSoke8jFJQR8Azz665bGrqYumd8QV+DHfgCZmTYRKKYHltTsnWEp9Ow/TLBR+ofeCf5tfF+uI1mPalwuLPpHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eRXjA+ZW; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1331547063;
+	Sat, 26 Sep 2026 23:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.143
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790466576; cv=fail; b=UWCuJ+Zpqqqkunw+LXhHi8tjCLTskBWQCR+196NTKXl05gyp2Xy5yo1jarjKpWVB0JyHq8rOgJd+3fZO3+753q2yzxjEZKKd6nrSoey/U7IytcQXQLMeNGg/o3HgqXNbG+gCMzFyVS/H/tVT205PbFrKbuhW8n15W6PecipomJE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790466576; c=relaxed/simple;
+	bh=dXp0SZaQTOJo8FnGS4hIC44BxhRBSjw9oq40zbkNzEg=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=NSe75b53MqJmN/mXwb8lX4gP73BBjmrCYU17gvXdEQ6Iw/0VJ3l3vIQ7U9dnmPcmXIUfdrEabwJ8o7FyOMd9hf+8gUwaE4kyRd6/vyOlojcmtVAfBzl7brLo+QaBST9/1AUwhYoIdOW6Fj+jc8byjwFMzfH8aRHbb0R1f3PFrbs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=PS/jPXqM; arc=fail smtp.client-ip=52.101.196.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eRXjA+ZW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C07141F000FF;
-	Sat, 26 Sep 2026 23:33:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790465624;
-	bh=9RkUhFAL62ohEscAjBGNX48Voa4MxdKcG5fMWMesOEM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=eRXjA+ZWYBY5SpjosjiSNnRcuD2bGsAOppwZrn26rDr2DTi0LG+wVEfD3cA0pHG1z
-	 RVDvA+Cc12RqemZBm7+g/3bGDmTwh/QPziSN8xmFzvpLKxFEjli13KybXwxsOF1vNR
-	 at3FaPCmjEB6Uq6yYijqEqV0nfES1krwVPIbEt7l7tQ8drsXevcrAKpE+mtxXRlRot
-	 fHMZ37Ew7cg6s70HKY/uaDbccZFrJ49tsYyUB4kznQv5cdjIuhoK6OQK/3orgrfhCq
-	 9rzf/JBvk5j1kX/ESEuq8DiVVcQfzD1ybpT7aDeHCSxE7e7tc+ow262nQeQuc+YQyZ
-	 i7UCQSkFE0Dng==
-Subject: Re: [PATCH] net: stmmac: dwxgmac2: enable L2 split header support
-From: netdev-bot+sashiko@kernel.org
-To: sagar.cheluvegowda@oss.qualcomm.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- lorenzo.bianconi@oss.qualcomm.com, hongmei.xu@oss.qualcomm.com,
- abhishek.chauhan@oss.qualcomm.com, sarosh.hasan@oss.qualcomm.com
-Date: Sat, 26 Sep 2026 23:33:43 +0000
-Message-ID: <179046562333.2160803.721625925826147093@kernel.org>
-In-Reply-To: <20260922232116.889630-1-sagar.cheluvegowda@oss.qualcomm.com>
-References: <20260922232116.889630-1-sagar.cheluvegowda@oss.qualcomm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="PS/jPXqM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NB870HHr59rv2WmBvftJvoT3Tscgs6h/7pKSd7DK011nASTIgsiKNg3y7za154R6tsiQ6uC96OBQOUmFVNddYjxPQXmrbOYce9auQ0VaDPVs6XGk3vwWRJkB+S9+plkmc3WuWLrN8YMjMchzlX2LRjevpLAyAEvfobxHpkQkadbW3/eTheqny92AvNQuBffSBHn+y0whoMilaO17+a3PZGqiYMf3IbzH+YNiA3k2m1eiFo2c6ZmbvcNPun7q8WjjP8MjeBjwl8U7buMiBJ5BmArgUWW0DIaJjmzKIMivxGp3lXSxqTdWpK9PSiETLXpr2zE3p0KR48TggnjbHrTr5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zhF50AlMrc8cLGJlvHbKidqPm9H1VtjaljR2giLpbg8=;
+ b=wTIqysq+YLYBvNWCEZVl2ovG3+K0v+fpBdyQpV5SgbYxdidzgAsIsNVDN58RiU8J3RwRgEx+6+wyPw5GtIhpSW8TPjQC5HM/jaPGNt4glZQxByxvHlurCieav4tg4aWGmIDhvI5YTAtXOoSipbj7u/vEMMMItvL6yGNNcmDriOoNXrKplEa57fj1wNTIB8AeEjLNxiWh2xgnGlwa57rbgWPKngpHxvL54szl9RcAsW+RHfaiaBN2puoNU3vInzADd0T3k/UbhjbPpJVtRLGU34Qrxj7yYiWVOFAtjpWbCRlWRrpreFJjAR2da73U6IlPfZUBj3mgwoz8TcOkrQKAvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zhF50AlMrc8cLGJlvHbKidqPm9H1VtjaljR2giLpbg8=;
+ b=PS/jPXqMnzBM/5MZcT0jaB/KP31rLiHJx0xOY7Nf1l2P2jPKIc3fk0TsvGTRrAl8nOG6igqmI7wEcaYdjDdsONpQhGKyh1qg/d6UxZvZM/XByRA4FXQIJxF+Y7aHOPJj6bFtr0bUJZIogYxqq2jHdIG9JWoEvhQS/ryPlKTZczI=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CW1P265MB7837.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:213::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Sat, 26 Sep
+ 2026 23:49:30 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
+ 23:49:30 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 27 Sep 2026 00:49:29 +0100
+Message-Id: <DLPNFF0JNNOQ.14JE7RL8LT79Q@garyguo.net>
+Subject: Re: [PATCH v3 1/2] rust: uapi: add zerocopy/zerocopy_derive
+From: "Gary Guo" <gary@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
+Cc: "Deborah Brouwer" <deborah.brouwer@collabora.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
+ <20260925-b4-gpu_info_intobytes-v3-1-e19bcb71980d@collabora.com>
+ <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
+ <DLPE0D8F96DE.91C7E0MAERDS@kernel.org>
+ <DLPJT1IUSKQO.1CAWHDECQAFPO@garyguo.net>
+ <DLPKN532X7JJ.14Z51ZIBUIK94@kernel.org>
+In-Reply-To: <DLPKN532X7JJ.14Z51ZIBUIK94@kernel.org>
+X-ClientProxiedBy: LO4P123CA0274.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:195::9) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB7837:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05569dd3-7358-4ba4-c051-08df1c28cedb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|10070799003|18002099003|22082099003|4143699003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Tq7bWUxww0TDYWe3xrCRuY/ibZ2kcxB1j1EzOmfmsn8IapLhpL1OftWXq8nLUjlt3LWG7CZ3kxgQiBMzZj+P4c7tDu1vct+SItvu0i+1QHzDrdvxGCkYcHucn2HfLSqoLcU8v9oklOmU33QGX+rfXzCM3Rqv26h+DISKQkadnCanJcpZbmuGDC8LbZ1Ld4umVE5gIR+pIdiiF+G6ftLdpncoB0C5dFEMxY/PCXFhQG/G0LW3mxP3OZF5+3kOwpij+MrjaQqoofFf1Yg1WqiRsxfVOTXcY1RZ96uFMbzulJjKsW9DBNxsusSoPoMN9CT8vNS62xno+K9ABLuy2UVJX4gvVE8lsCFQqWWhbJpa3zIJ3p4hcncR4YLyqOXHLuqa2KsGkmFSPSIelorG9984XrF0VFiHyp83vH+IEpqqnD+XViBPhGV46hQ7Xjomvcu1kRQLH7/SKL2dnhIm920zlMCyq3/Ee/8Tg2wsn548kgnik1LBb99Fojnrk6Pa3SOXOO0mAuCA1ux8tSB8xZ4ucr+wn/9+hRQ6CdVCQx4wOB87PMMrU01U1kV6o74jn0BR6M+Y7Wi0YeofQSA92mzvKAzotX9nGWPIlYR0nAcwivrfOu4wu8dx5/aEUpU1DRiT6ZdeTauObgdZdt3UTJqSenhWMYl3ZpAywOo40xOzOzQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10070799003)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UHNtT3VmSVZtK2NCL21uQVdPd3RHSXlLTWVaMUNTLzdkY056RXp5c29BTktY?=
+ =?utf-8?B?OUNYdVl2bVZJNkZMTjNDTzlOOWRZWUFlQXlPdGJtZmZmNkpJRk5vRlR2aHJw?=
+ =?utf-8?B?VVpjQ1kvV0RVMUFYMWhvVWYzZzJMbTRFVFR6VGFWOHY1S29YeklLNUl0blJL?=
+ =?utf-8?B?d2tUVHZtRVAxU3NSaXVvTzRid1owczYwZWlLNVF6Q3Bzb1A0R2JuWG5ka3Rl?=
+ =?utf-8?B?S0pZWXE2c1lPZmZBczVhUUNOQjY0Rzk5clpsNnpzYTFyT2NDRFEwWDFjclky?=
+ =?utf-8?B?bWxTU1ZTVEozTjZBVHFraHhyMm96c2E3WVhVdDhrRFpuWGhlTG01RDE5cC81?=
+ =?utf-8?B?QzNTK3RTWWtyOG5NR0pzOTJqQ0NMR3NXVVFDM3lOd1NUQ1p1QVNIdDZwQVZC?=
+ =?utf-8?B?WmdWVnYyWG1WdmhQRDNwVTBEVnh1SDFlampLMTFRcXJ2T2dFNmJjbGpDZnNX?=
+ =?utf-8?B?VjVNVnl4RDg5YnV6dnZ0M1h3RGowRXFmVEkzbm5HQm0xTE9udlhZb1BnS1hj?=
+ =?utf-8?B?cXlZOEhjR2lRYU5IV3pHZW1IeGE1SEVZalMrdGZXWS9Fc0EzTTc1d0JaS2JI?=
+ =?utf-8?B?TWZOVlFqcEhHZVhNZ2lsSnFyMEg4QVVXVnYzMzhMSWdaaWtTMlkxMjZLNXB5?=
+ =?utf-8?B?SmVQUWcvZ0VYdGc0UktGQkZ6NC9LOVRzTEkxNVdPNEx2VkN6OUlObUlYZlRI?=
+ =?utf-8?B?TEhST1UvSU1xcC9UWFZpTVRrK2hPUjFMQ1pZdTNic3Eyd1VwdG02OThobUZh?=
+ =?utf-8?B?dzZ1RHZjZ2R2bHFVVlRkY2tEUXFlcG8zYVVOa3A3VXdiUzROZXRrSTlFV0Na?=
+ =?utf-8?B?SFo5K0dobFJ0SjFUZ001TGJpUmo0cDh4SkZQMnBLUVlJWk5Mb04yQURESTlF?=
+ =?utf-8?B?U01MSDQrNTdrbjY4aHk4dlJHNEZTYkQ5WC9acE1HejAwVWlSK2lFTStqeXBw?=
+ =?utf-8?B?MHZtZTVJUUZvelR2T21LR2R1dG0rOVhWRkw1b2VQUVhlSFpEYUI3TnFpZkpJ?=
+ =?utf-8?B?QnpqckpFQVpEeVBPVGMzT2twTkZEY2VwZ0p6bEgrSEgwSVFyUldGS0szRXlN?=
+ =?utf-8?B?S1JLVmkzNHN2SWdpTjEwZUVmMEVvSXRIaDE0SERPTHlMM2c0ckZvZWFnTWJu?=
+ =?utf-8?B?bjNLMzI5TUhyc21makFXdWdzY1c3amx5b1FzWEdSdEs3VGlIcEdUcXRVeE52?=
+ =?utf-8?B?d2p2amxyT1lSVVpya2NDQjBJWm9mNE9iM1NnYWdhNnMybVRLVU51eFpORGpM?=
+ =?utf-8?B?YjF2cTg3M1NUM2E2NG5LZTVsUXJ5elY2emozWEdxQlp6T2k3N0FSdDJlOUVO?=
+ =?utf-8?B?YXg2ZENqVmVNL2s3VWJldHZnQUlDQnlrbFJEZ09kZnBQRXRDWmVOQnFYUHRp?=
+ =?utf-8?B?dzRvNGlhRDRPNTlrYVpRdWdySHJwNVgyK1lVaXZuNHVIb1IzY3MxYktLa2t0?=
+ =?utf-8?B?NENMUEpsUU4yUWhaOHZ1RDdIOFdkWHkzQW50KzNuR2xwaXBySG5jT1RheS9i?=
+ =?utf-8?B?YUl0d0M2ZjYzaUhGbDRpNmdQcE1iVUJLWEVZenB4SnVIVTE0akp1Z1IxbTB4?=
+ =?utf-8?B?clNqZGE0NXZDQzNzKzNMZTRSejlxM1Q2NlVlSm5nYjJnTFFQckxSdWxINEVE?=
+ =?utf-8?B?d0R3UmxhR2RaclBtcVIyNW1tKzFoWWl5bjlSb2htYXQwWVFyTmpvakhZdzU5?=
+ =?utf-8?B?TDlLRWYyMDlWakVsOVJoSzQxUDRtWGk2RENuSktpMzVKYnE2ZFVLbzhxN3Y0?=
+ =?utf-8?B?dUdQM3V5S2o4Z2hwcXNSeDJsSjFHQ1VyemhKYnpSa21NTUt5SnBFTllQMFVM?=
+ =?utf-8?B?OFNVd2VoMEpPWEJnbTY0SVZRbXRSVEc3cXdDd0dGUWh4blpsUlAxdEloTDJ4?=
+ =?utf-8?B?YTI3K3VIbGVaRHFlWEFiTWRVYStrRGRQWlkwWElYWnNPeUs2RWczWFJXKzU3?=
+ =?utf-8?B?RXo4RHIzM044SzNUTTJhVTg3R1lIOG8rNDZoV0F6RnZ5bVdRejh4WVJwQ2U5?=
+ =?utf-8?B?aXpoR2ZSZTRWQUJ0dkhVSE9EbUtiVDdBZTZUUlcrc056WlFHT0U4L3FpUWs3?=
+ =?utf-8?B?NUNZWjRQQ2g5WXpoWXN4T1FaRVJMNGVCQ2xNUVFQL0FkdEpKQ3BUa2xFQ2x3?=
+ =?utf-8?B?a0s2MlpIL3JrWFBGK2w4OHhIVUdqVGJ3Nnk1NThqRGFmOWJXUUFrUjRhWm4z?=
+ =?utf-8?B?OTQxYnZJSTVpYndScFJvZnlLMlptU1hMWGhJRmpuZXRCMG1HRmhkVjZQOGRZ?=
+ =?utf-8?B?L2d4eXFuWjlhYkZTLzBYdzJIYlFQa3Z6UzNmbGZ5NzYybDl2bWpHQ1J1L1p5?=
+ =?utf-8?B?aVNmZGxCeVJCeVh5UkRuNnRkUWNGNWdKV1I1UDB6M2NhZndacmRTQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05569dd3-7358-4ba4-c051-08df1c28cedb
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2026 23:49:30.5533
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TGWq5dZRzRPyyD8SSGtNHRhq8P1/7aHz89C2ToZF1uM4wFwYGEfOPShumUx62fTFqckj36fu7a5O5IXszlc7jg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7837
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+On Sat Sep 26, 2026 at 10:38 PM BST, Danilo Krummrich wrote:
+> On Sat Sep 26, 2026 at 10:59 PM CEST, Gary Guo wrote:
+>> On Sat Sep 26, 2026 at 5:26 PM BST, Danilo Krummrich wrote:
+>>> On Sat Sep 26, 2026 at 5:50 PM CEST, Gary Guo wrote:
+>>>> On Sat Sep 26, 2026 at 1:26 AM BST, Deborah Brouwer wrote:
+>>>>> @@ -71,3 +71,6 @@
+>>>>>  # Structs should implement `Zeroable` when all of their fields do.
+>>>>>  --with-derive-custom-struct .*=3DMaybeZeroable
+>>>>>  --with-derive-custom-union .*=3DMaybeZeroable
+>>>>> +
+>>>>> +# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
+>>>>> +--with-derive-custom-struct '^drm_panthor_gpu_info$'=3Dzerocopy_deri=
+ve::most_traits
+>>>>
+>>>> This is Tyr specific change and should be in patch 2.
+>>>
+>>> Why list all of them separately? Can't we apply this to all uAPI struct=
+s?
+>>
+>> There are types with paddings which cannot derive `IntoBytes`.
+>
+> We have some existing uAPI structs without explicit padding; new ones sho=
+uld use
+> explicit padding though.
+>
+> But isn=E2=80=99t most_traits intended to handle this through best-effort=
+ derivation,
+> leaving IntoBytes unavailable for types with implicit padding?
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 1
+I think the skip-on-error default was added in a version newer than what we=
+'ve
+vendored.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The new writes in dwxgmac2_enable_sph() use XGMAC register
-  offsets, but the XLGMAC core runs the same code and its register map…
-- [High] net: stmmac: kernel memory information leak in split-header path
-- [Medium] In dwxgmac2_enable_sph(), the new MAC-global writes (SPLM(1)
-  and SAVE_EN in XGMAC_EXT_CFG1, and clearing VPRE in XGMAC_EXT_CFG0)…
-- [Low] The commit message says it fixes an existing bug in
-  dwxgmac2_get_rx_header_len(): on a first-but-not-last descriptor,…
-
---
-
-net: stmmac: dwxgmac2: enable L2 split header support
-
-This patch programs SPLM and SAVE_EN in XGMAC_EXT_CFG1 and clears the
-variable-length preamble bit in XGMAC_EXT_CFG0 from dwxgmac2_enable_sph().
-It also changes dwxgmac2_get_rx_header_len() to read RDES2[9:0] on
-non-last descriptors, and adds L2T-based header length decoding on the
-last descriptor.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> index 6719ac6e395bc..65ac5403ec583 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> @@ -292,8 +292,18 @@ static int dwxgmac2_get_rx_hash(struct dma_desc *p, u32 *hash,
->  
->  static void dwxgmac2_get_rx_header_len(struct dma_desc *p, unsigned int *len)
->  {
-> -	if (le32_to_cpu(p->des3) & XGMAC_RDES3_L34T)
-> +	u32 rdes3 = le32_to_cpu(p->des3);
-> +
-> +	/* when FD=1 and LD=0, HL is RDES2[9:0] */
-> +	if (!(rdes3 & XGMAC_RDES3_LD)) {
-> +		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
-> +		return;
-> +	}
-
-[Severity: Low]
-The commit message presents this as a fix for an existing bug: on a
-first-but-not-last descriptor, RDES3.L34T can hold stale write-back data.
-The L34T-gated logic being replaced came from commit 67afd6d1cfdf ("net:
-stmmac: Add Split Header support and enable it in XGMAC cores") and commit
-96147375d49f ("net: stmmac: xgmac: Only get SPH header len if available").
-
-If that is correct, current kernels would compute the wrong buffer 1
-length for multi-descriptor split packets in stmmac_rx_buf1_len():
-
-	stmmac_get_rx_header_len(priv, p, &hlen);
-	if (priv->sph_active && hlen) {
-
-Could this part go in its own patch with a Fixes: tag, so it can reach
-stable? Right now it is bundled into a feature patch. The new
-L2T/NONIPHL decoding also relies on the SPLM/SAVE_EN programming added
-in the same patch, so the fix cannot be backported by itself.
-
-> +
-> +	if (rdes3 & XGMAC_RDES3_L34T)
->  		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
-> +	else if (rdes3 & XGMAC_RDES3_L2T)
-> +		*len = (le32_to_cpu(p->des2) & XGMAC_RDES2_NONIPHL) >> 2;
->  }
-
-[Severity: High]
-The non-IP path masks RDES2 with GENMASK(9, 2) and shifts the result
-down by 2. If RDES2 holds the header length in bytes, as it does on
-the L34T path, this gives roughly a quarter of the real length. A
-14-byte untagged Ethernet header becomes 3, and an 18-byte tagged
-header becomes 4.
-
-stmmac_rx_buf1_len() returns that hlen as the buffer 1 length on the
-first descriptor. stmmac_rx_buf2_len() then computes the buffer 2
-length on the last descriptor as the frame length minus the
-accumulated len. An undersized buffer 1 length therefore has two
-effects:
-
-- the header copied into the skb is truncated;
-- buffer 2 is treated as longer than what the DMA wrote, by the same
-  number of bytes.
-
-Those trailing bytes come from a recycled page_pool page. They can
-hold data from an earlier packet, which is then handed to the stack
-and possibly to userspace or forwarded out.
-
-The wire can trigger this with any non-IP frame (ARP, AVTP, ...) that
-fits in one descriptor, since FD and LD are both set then. That is the
-common case for the tagged AV traffic this patch targets.
-
-This is also inconsistent within the function. The non-last
-descriptor path just above reads RDES2[9:0] with no shift.
-dwmac4_get_rx_header_len() uses RDES2_HL, bits 9:0, directly as a
-byte count.
-
-What unit does the XGMAC2 databook give for the header length on L2T
-packets? If it is a byte count in RDES2[9:0], should the mask and
-shift be dropped? If the field really is an 8-bit byte count starting
-at bit 2, could a comment or the commit message say so, and explain
-why the non-LD path reads the same register differently?
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> index ff83858ebc1f3..0a9c787305a4e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> @@ -561,6 +561,16 @@ static void dwxgmac2_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
->  	value |= XGMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
->  	writel(value, ioaddr + XGMAC_RX_CONFIG);
->  
-> +	value = readl(ioaddr + XGMAC_EXT_CFG1);
-> +	value |= XGMAC_CONFIG1_SPLM(1);
-> +	value |= XGMAC_CONFIG1_SAVE_EN;
-> +	writel(value, ioaddr + XGMAC_EXT_CFG1);
-> +
-> +	/* Disable variable preambles to keep the L2 split offset deterministic. */
-> +	value = readl(ioaddr + XGMAC_EXT_CFG0);
-> +	value &= ~XGMAC_EXT_CFG0_VPRE;
-> +	writel(value, ioaddr + XGMAC_EXT_CFG0);
-
-[Severity: High]
-XLGMAC cores run this code as well. Is offset 0x140 still EXT_CFG0 on
-those cores? The XLGMAC entry in stmmac_hw[] in hwif.c reuses the XGMAC
-DMA ops:
-
-		.dma = &dwxgmac210_dma_ops,
-		.mac = &dwxlgmac2_ops,
-
-On XLGMAC, 0x140 is the RX queue enable register (dwxlgmac2.h):
-
-#define XLGMAC_RXQ_ENABLE_CTRL0		0x00000140
-
-dwxlgmac2_rx_queue_enable() programs it using 2-bit per-queue fields:
-
-	value = readl(ioaddr + XLGMAC_RXQ_ENABLE_CTRL0) & ~XGMAC_RXQEN(queue);
-	if (mode == MTL_QUEUE_AVB)
-		value |= 0x1 << XGMAC_RXQEN_SHIFT(queue);
-
-With RX queue 4 in AVB mode, that sets BIT(8), which is the same bit as
-XGMAC_EXT_CFG0_VPRE. Would clearing VPRE here disable RX queue 4 on
-XLGMAC?
-
-In stmmac_hw_setup(), stmmac_mtl_configuration() ->
-stmmac_mac_enable_rx_queues() runs first. The split header loop runs
-after it, with no sph_capable check:
-
-	sph_en = (priv->hw->rx_csum > 0) && priv->sph_active;
-	for (chan = 0; chan < rx_cnt; chan++)
-		stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
-
-That means the clear would happen on every open, whether or not SPH is
-supported. stmmac_xdp_open() and stmmac_set_features() repeat it.
-
-The EXT_CFG1 write at 0x144 (SPLM bits 9:8 and bit 24) also lands on
-XLGMAC. The driver headers do not say what register sits at that
-offset on XLGMAC.
-
-Should these writes be limited to XGMAC cores?
-
-> +
->  	value = readl(ioaddr + XGMAC_DMA_CH_CONTROL(chan));
->  	if (en)
->  		value |= XGMAC_SPH;
-
-[Severity: Medium]
-Only XGMAC_SPH depends on en here. The new MAC-global EXT_CFG0/EXT_CFG1
-writes run for both values of en.
-
-stmmac_hw_setup() and stmmac_xdp_open() call stmmac_enable_sph() for
-every RX channel without checking priv->sph_capable. Does this mean
-every XGMAC gets VPRE cleared and SPLM/SAVE_EN set? That would include
-parts without SPH, parts with STMMAC_FLAG_SPH_DISABLE, and parts where
-SPH is inactive because of XDP or because rx_csum is off.
-
-That does not match the commit message:
-
-    Finally, disable the variable-length preamble when L2 splitting
-    is enabled.
-
-When SPH is turned off at runtime, through stmmac_set_features() or an
-XDP attach via stmmac_xdp_open(), only the DMA SPH bit is cleared. VPRE
-is never restored, and SPLM/SAVE_EN are never cleared.
-
-Also, value |= XGMAC_CONFIG1_SPLM(1) does not clear GENMASK(9, 8) first.
-If the field already holds a non-zero value, it is ORed with 1 rather
-than replaced. And since enable_sph() is called per channel, these
-MAC-global writes are repeated once per RX channel.
-
-dwmac4_enable_sph() also writes SPLM/SAVE_EN unconditionally, but the
-unconditional VPRE clear is new in this patch.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922232116.889630-1-sagar.cheluvegowda%40oss.qualcomm.com
+Best,
+Gary
