@@ -1,154 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8FC483825;
-	Sat, 26 Sep 2026 15:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F913E4C96;
+	Sat, 26 Sep 2026 15:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790436667; cv=none; b=PR0UZx8fgSPDHiMcyy/V/T0ktQJYbx/3+wf/UFBfzqTFpFmb619K/VmJkLFs6HOLGw8PIP7Uwf9MFMd0gaPyhtVnSf0jYSkIpFAzafRKpBNped1eu4pc2hp57v0geFhqCwGAnVbuxvLwxt+VoCfm69mEd53283bzVzFpp2N1E58=
+	t=1790436707; cv=none; b=djiehd+Y3p3ud0mkSMCJnArhfOuXU7TEQEerYGTc8Y5vlDir3W5EEX9AELY7g9XQBM9WaBKoBsY3OtjV3+SpADxzHj0Gd+E0WKRVdeG/rmeIEYKrbJWu328CqmVuiiyt1RopnogTlkk4aF0vKCAJ4aXeAD2SjshCJGVZw52DpN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790436667; c=relaxed/simple;
-	bh=4dnmjPKMgvpPoV1XuMAF3hmIKkD1wUAnZAncgZ5bsMQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jnNmd1cFEguJY1bo2NX3CBW5fPIIEUjq+Jb46wQ1Yf3j/ERsvq0bO2tlcsaXFvRRDbNm+Z36aqhf2kpUcTwbmfKlt6gFYlOur/sNuc7JQl+C3jJNkbiOXT8dhk2CcSheTR2hl7ZtZjffcYc5D54x/RyNB8sAMEKF+BYGtcQqqn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BQZ072wT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790436707; c=relaxed/simple;
+	bh=+TznahWGP/R9f+buMzIm2pnastsjQqrvftK9LcrJHIw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=mOpeFwmLvXYGw7HAjRID0QCRKTyrm3B1rZYIdar7J5AXrjEuj/qfAG4V/KnSU4MBDqlhsyKYhAfe49ONAqBKo+0BYVJTf6oKkCQzIEsGIw4wdARGZ+Ax6PdD8AnGmIIRa1bU32v08qa/wiBpYfuJKKIxFGH+J/XXFQ4Epy/Mmxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=bzNV7R0F; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BQZ072wT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AABCC1F000FF;
-	Sat, 26 Sep 2026 15:30:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790436656;
-	bh=zkOBSfjteipAXDmKPSIjR8Lqk8DWRo/YB1D1TGRtsIE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BQZ072wTx4Qe+3s/P8gS2eLDQcrZGgwdTbBNS74ZsLg0D91oQPNB/DYC3HlaiM6hk
-	 J9Of0Mb9xTXqOKNEYtC8CGAbV9wPdIZN3/nOstfTtaF4+cEJDAIEu8JuBcLf1ZLL3A
-	 nswKXSqeCrBTy7Iax4tzn5hOvurHUMNnHXgzMVmRbJAglM0kyNQpv4De+gcVJQxVk6
-	 x98DGvD0xQ8AGE6zE/QJn4CZjRC/X/NiHhEaANeGaQGBssFiGGTEWVup0VDhhcxObC
-	 763oLf7+PMft/DPn4SgwHZDmyMRSftJuDBCvdm1zOBd6KPouq6tqZ1Q7Oji6iJcd8q
-	 x4+S2wnx1gwvQ==
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Sat, 26 Sep 2026 17:30:36 +0200
-Subject: [PATCH net-next 3/5] mptcp: shrink struct mptcp_options_received
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="bzNV7R0F"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 836DD408B3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1790436705; bh=jZxL8se37Nbgnf+brwBoJ1zGPO5KTS1yFCFAXNFy734=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=bzNV7R0FVYOB98DLRHHq0AiIBG8hxU0g/xsFQSvLOOj4/nkc2ZMxPSynhpGxDG8W9
+	 o6mnoWMITcph9w8o7uQGNt2lhTM7j5o8brIISGrbgG5u08L4gfis/AB5h31yCdIyFm
+	 wTjFSg/limzm2ZwHYvJHulk1jk1KdQUATiJaHhfcABsKwoKWVZcDIjOSshzCGSRuex
+	 Johl91Gf0f5fi5AxOJic47DEfiuMIOTJErNLXl/0G6Xw3dBrTRabow2htJCJHFWY6x
+	 nxVXWqlIUTWy0T+bkFi/5EiN8HxTiHGtYbG888IJEUzfKrPpA6O0wtTdi6ebkD0pL4
+	 daRVsTE2TtJoA==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 836DD408B3;
+	Sat, 26 Sep 2026 15:31:45 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Lucas Adryell Ramalho <lucasadramalho@gmail.com>, Daniel Pereira
+ <danielmaraboo@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>, Randy
+ Dunlap <rdunlap@infradead.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Lucas Adryell
+ Ramalho <lucasadramalho@gmail.com>
+Subject: Re: [PATCH v4] docs: translations: pt_BR: translate
+ stable-api-nonsense.rst
+In-Reply-To: <20260831-ptbr-stable-api-nonsense-v4-1-0ef5e58504cc@gmail.com>
+References: <20260831-ptbr-stable-api-nonsense-v4-1-0ef5e58504cc@gmail.com>
+Date: Sat, 26 Sep 2026 09:31:44 -0600
+Message-ID: <87cxu03u73.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-net-next-mptcp-misc-feat-7-4-v1-3-67af4ab37406@kernel.org>
-References: <20260926-net-next-mptcp-misc-feat-7-4-v1-0-67af4ab37406@kernel.org>
-In-Reply-To: <20260926-net-next-mptcp-misc-feat-7-4-v1-0-67af4ab37406@kernel.org>
-To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
- linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- Quanye Yang <quanyeyang@proton.me>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2777; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=v0/cB1TTY50IeKgy7oF8vfX3CvLtPvrhfv/tK3GUpoA=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLK2P1X9Gv50imlVtvB69g+rW3e51YfE/axw2JbZxR/Fl
- aiuum93RykLgxgXg6yYIot0W2T+zOdVvCVefhYwc1iZQIYwcHEKwETuSDD80/wR9f/4ToP88IbM
- Vy1PfKxnqXWIiE6fLctyuv7c9ktfFzAyTNmxc9qWOr3dMmUKaZzmqZyPVH5WF0ws23fiV++bpr5
- ADgA=
-X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
- fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
+Content-Type: text/plain
 
-From: Quanye Yang <quanyeyang@proton.me>
+Lucas Adryell Ramalho <lucasadramalho@gmail.com> writes:
 
-struct mptcp_options_received is allocated on the stack while parsing
-incoming MPTCP options. Several suboptions are mutually exclusive, as
-enforced by mptcp_parse_option(), so their payloads can overlap.
+> Translate Documentation/process/stable-api-nonsense.rst into Brazilian
+> Portuguese.
+>
+> Assisted-by: ChatGPT:GPT-5.5
+> Acked-by: Daniel Pereira <danielmaraboo@gmail.com>
+> Signed-off-by: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
+> ---
+> Changes in v4:
+> - Fix nested list formatting that caused an error during make htmldocs.
+> - Remove trailing whitespace reported by checkpatch.
+> - Link to v3: https://lore.kernel.org/r/20260823-ptbr-stable-api-nonsense-v3-1-58c9beebf9bd@gmail.com
+>
+> Changes in v3:
+> - Remove blank lines between bullet points, as Daniel suggested, to match
+>   the style used in the other kernel documentation files.
+> - Link to v2: https://lore.kernel.org/r/20260821-ptbr-stable-api-nonsense-v2-1-f07df4a0fc3b@gmail.com
+>
+> Changes in v2:
+> - Remove the unnecessary top-of-file label that caused a duplicate-label warning during the documentation build.
+> - Add disclosure for generative tools used while preparing and reviewing the translation.
+> - Build the documentation with make htmldocs and verify that the translated document introduces no new warnings or errors.
+> - Link to v1: https://lore.kernel.org/r/20260820-ptbr-stable-api-nonsense-v1-1-0341f55fec2d@gmail.com
+>
+> I used ChatGPT and DeepL to help me clarify some Portuguese sentences that did not sound entirely natural or clear to me.
+> ---
+>  Documentation/translations/pt_BR/process/index.rst |   1 +
+>  .../pt_BR/process/stable-api-nonsense.rst          | 208 +++++++++++++++++++++
+>  2 files changed, 209 insertions(+)
 
-Group fields by suboption and place the mutually exclusive payloads in
-an anonymous union. Keep DSS and rm_list outside the union: they can
-be combined with other suboptions. Move join_id into the MP_JOIN
-group, and overlap token, thmac and hmac inside that group.
+Applied, thanks.
 
-Further shrinking would require changing the parser so currently
-coexisting fields (DSS mapping vs ACK, rm_list, status flags) can
-overlap. That adds complexity for little gain, since the outer union is
-already dominated by the MP_JOIN / ADD_ADDR members.
-
-This reduces the structure size from 136 to 72 bytes on x86_64.
-
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/625
-Signed-off-by: Quanye Yang <quanyeyang@proton.me>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
----
- net/mptcp/protocol.h | 45 ++++++++++++++++++++++++++++-----------------
- 1 file changed, 28 insertions(+), 17 deletions(-)
-
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 6b9bffc5992b..29b03275a59e 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -145,16 +145,13 @@ static inline bool before64(__u64 seq1, __u64 seq2)
- #define after64(seq2, seq1)	before64(seq1, seq2)
- 
- struct mptcp_options_received {
--	u64	sndr_key;
--	union {
--		u64	rcvr_key;
--		u64	fc_recv_key;
-+	struct { /* DSS, also used by MP_CAPABLE with data */
-+		u64	data_ack;
-+		u64	data_seq;
-+		u32	subflow_seq;
-+		u16	data_len;
-+		__sum16	csum;
- 	};
--	u64	data_ack;
--	u64	data_seq;
--	u32	subflow_seq;
--	u16	data_len;
--	__sum16	csum;
- 	struct_group(status,
- 		u16 suboptions;
- 		u16 use_map:1,
-@@ -170,15 +167,29 @@ struct mptcp_options_received {
- 		    deny_join_id0:1,
- 		    __unused:2;
- 	);
--	u8	join_id;
--	u32	token;
--	u32	nonce;
--	u64	thmac;
--	u8	hmac[MPTCPOPT_HMAC_LEN];
--	struct mptcp_addr_info addr;
- 	struct mptcp_rm_list rm_list;
--	u64	ahmac;
--	u64	fail_seq;
-+	/* Options below are mutually exclusive, see mptcp_parse_option() */
-+	union {
-+		struct { /* MP_CAPABLE */
-+			u64	sndr_key;
-+			u64	rcvr_key;
-+		};
-+		struct { /* MP_JOIN */
-+			u32	nonce;
-+			u8	join_id;
-+			union {
-+				u32	token;			 /* SYN */
-+				u64	thmac;			 /* SYN + ACK */
-+				u8	hmac[MPTCPOPT_HMAC_LEN]; /* ACK */
-+			};
-+		};
-+		struct { /* ADD_ADDR */
-+			struct mptcp_addr_info addr;
-+			u64	ahmac;
-+		};
-+		u64	fail_seq;	/* MP_FAIL */
-+		u64	fc_recv_key;	/* MP_FASTCLOSE */
-+	};
- };
- 
- static inline __be32 mptcp_option(u8 subopt, u8 len, u8 nib, u8 field)
-
--- 
-2.55.0
-
+jon
