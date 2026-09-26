@@ -1,274 +1,162 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB95318EE7
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88708363081
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:40:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790400925; cv=none; b=c7MxLQhg/pFDT84bP7FLJ5NqHXoh+viQPu/HnOU70+M/e5sQf+3taWeJifoK3vzI8u29X3cAc6McYPR62rCmgAR8k6HPrVtjUG7xra2MNvWGO6RZE3I5XAe9P6U75NnsZWTijOWJtnRECvOs4Qr2qa7ptVunimMzj8bOVE9Wra0=
+	t=1790401209; cv=none; b=h7EyH0i63NHU9Q1TZf2T5vkrm6OtMZnxXBSC1asMpr2BTbiYFUcNHMkbLTt9GFFsEh/TMZ20FnPlFjMP8QGLuO5gnCkK6yHXylm9vvvNHTjEAZVlFRrFkZQueh8QPW3RfXkb24o+ODuEmKtAfGojt46AXcw/UZjc+dReIU1weeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790400925; c=relaxed/simple;
-	bh=J6Prvg+6vaewHBeT2b1h/LdSJwG0urcGl1JQlFweaoY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=oe3iRMfPCrnXLxq15BGylWBMaloqWG2g3xM67kBl8tNm0pFlgd92GtQw8FllJ65+CZtPMsTXoXeux/kdDETSf4ARVyF5H3kliavVjt4mf8aWfAnOpm2JuCzi0N9Bh7zWoAiUZZrHCGW2CMCn/DRvSl8syCTufMSCFS/3NTo0rAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dw6SmMx/; arc=none smtp.client-ip=74.125.229.42
+	s=arc-20240116; t=1790401209; c=relaxed/simple;
+	bh=HbE8bRzC3Goxq4kk8a/U3awPlEBLYj8peqtDmlNZCg8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gh7b58gDc0sryoQuGeIRwN7kUnE8pRWtKy888g6tYzXE905EUrffDaHmFAWZVbXXR6EKxubH3CuTfLIR1dDPZ+ZaUYzKOTf1UcpxCVDq0hX+vUIxlQO+KwsaV4CrtAFqPRgakQvT+7e3dZuPk4YHKI/xmoTax04VZQWxFuJgicc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CQbjL4fZ; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dw6SmMx/"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3411e0ace58so1904794eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:35:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CQbjL4fZ"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso857030a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 22:40:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790400923; x=1791005723; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EVNin9yaHMh2i8wnCnC2c+dtKTQhoPPNqR7Ci+QQIb4=;
-        b=Dw6SmMx/QKg/1/kxWtElvq9bBoZX4+GNqOvnCpc/2elcd9s8j3UsxNxrxJH34kNEbC
-         iRsr1+MX8X0V4nzXxfvndOS7JI0AS2H43Wfki+UCR783h+D4wgi30P5vW9Pwv+e/WU02
-         OgnJvcKuIk2N82BnGRIwSFb7N2rPzCCt5+6Qrm8dAbi7cZoUnrsbtjEqSpbgdAPBZcHe
-         wgHT3paPQGidL4N+UQfwHhK4IKR3/xz2Imizoz/mzzMdHUq0R51wI8GH2vP931BoOwIe
-         mZ0mJEteQ6/1VBC9gARUsxd3kIU9IpTyCjU781S8ECFzjlI2wWDU22uVWm+X3pkK5YZn
-         2sPg==
+        d=gmail.com; s=20251104; t=1790401208; x=1791006008; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/LOtpyVE9/QTeVfm3A+dR0c7jnfkvZnCHDHej3iEpao=;
+        b=CQbjL4fZG0bQdK6PdSMYy4WllTuc5QowzGNl8qeixG/vS9Sg7bmO82W7+FHU2ubkcP
+         01Vv1vi5ueo4+ou0bod5rN2tezH1Si+E7z0QpQX1jdJf75tw9yZRsorfQaShCn4eq3hp
+         iZAHP856fgojfimLaakg+ubQWoR7TAxoLDgJE3PLDuFcEGjLGFWSXVKr2qXbTSNshh73
+         vmNQmRwTUbUTBCVkhuXYiikbiAReQSdUSuOTCpj4IaDXfMJUFJoVo6SzZlGfVYw32awE
+         YMQbZ5HcVJV2c6BJ8R0o5SeBwIIyiTXH0K5bdxgPnS8TqDMm6zRdphZDgNMYo0Kk4Nj6
+         GzvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790400923; x=1791005723;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790401208; x=1791006008;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EVNin9yaHMh2i8wnCnC2c+dtKTQhoPPNqR7Ci+QQIb4=;
-        b=l228pkjx6EEw0uWX+bzzXbRNiumMqSbS5oXdZem85vv1vaLD3hoEs1z+x8sizX2Fp4
-         vDvB320244RUxpbkicgR5lhuzYL6qLx8fOFJV+eJL32ThjyNPvugP6wQ0M0Q40SkXXe8
-         4s7MchwFrLON0qKGvMCCUSZXbhDvZgnTcdxeDUtkLG+Pts8t71xYjJuKh0akmAhp02jD
-         YvRwpA1sJ3CnNLiyEonlarU+kgAz8s6Vz+OOMR9wYq+NFUfp6et3WebzR1T/6bL/uqRL
-         yrbZmkc8FWv8mcK6AeCrd27K9eiMo3VObvPpphRbVWhIrUZw9CYp8xeNj4BA8PBNYocr
-         j2ag==
-X-Forwarded-Encrypted: i=1; AKwUvBxNjv7QmMXKEMspNmIys47p3C4vIxBEd2eRcaseFVit+03UITQzJob/Ly1yMYAzlcvEMMrza6nM+3TlJjo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEPvSAQYIgS9B9vV3QpZ5w0rqMqoBNRYe/Z3s0NtamjZvoODfR
-	SXA7yIdvD5nNk/LdIbIznFK+mtKDNSr/MqoQhiShwtDEVn+YK+wMNvdn
-X-Gm-Gg: AYBFou0EQmIJmSgNGzWBEyCO6rQR4ihklYY+U9bGruWNx12zbAHMj+/uvb302I/9KqB
-	dsNfg++96FWzHBexMWgzznwaSYn1n0jOrixYWy5Aat973Y0vx0sl1p33DMnAayD1DYdtFGAbwLj
-	D+CyNRMjGlTXcVcASo6yFfl5JFplEziyL0XgVDfcIaIULylsbGWnsh15z+su3YiO0wyNzjpwSKu
-	XtZeTXr6VysnSYQu7EiRZSreJVZq4nabUbbBUTvMsoidMlIWSt8xH84Flakk2GbFke57gaeCtTE
-	jnKst/RWlgCKheK5Y0e3qQQEiuakBklcUjKXaOPRBzbLvRSibUeJc2weB2yFVg9yDJrXC0TMpQi
-	TUhMOuB5pTtryVPau4VIV71AMqiEXwY4eXtn62XIyL9OlTAKmBIGIJX+c1sPdlv9LAv0lu+W5jm
-	eO5iQtnM6YMxcjJupjL/sYnxWSQZ91zBmQdLJU4hc84QnlpGBWUk96x5DGGaZ1ILRhOzgHOyBBl
-	hsdid2Ae0jmm0vcdQ+tLQNFbYaZ5Hyu4mT/iqk=
-X-Received: by 2002:a05:7301:428b:b0:33e:3f5b:3ffe with SMTP id 5a478bee46e88-34272a4579emr2026486eec.27.1790400923325;
-        Fri, 25 Sep 2026 22:35:23 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:375:19cf:5fee:be32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145727589sm10629611eec.23.2026.09.25.22.35.22
+        bh=/LOtpyVE9/QTeVfm3A+dR0c7jnfkvZnCHDHej3iEpao=;
+        b=caGeNM0mARZoYHP5s2cttGLP/SUYU3yjogQWRtmDdZr3kqGJVSGkOD4lhBEFlFNlLq
+         IKXRQXT6ogyKoRoXaee3TPPBatHaB1Jmw+upyohAeg1v5xTZLCfSs3ty6HcOCi9SmjIc
+         Plg5Sfyj4G20VgnYx0sAGUEjTIzo0zwpkrQqgbDDm5ovAxaFyKiXld7xfN7vUUfg/1Wl
+         GFgelAMJNJzl5GlVvnx+YOKPsJdjyz5iP1fq1jDppoNvI2scO8hAK4j4hoXBDVuswSIS
+         ZOSDl76t0uHbALSuVPl3g5QhkPAN5PKz3ACeXxE+lmX+TyMYhQDrFepeFavROohjeD/D
+         dcZw==
+X-Forwarded-Encrypted: i=1; AKwUvBywi/cZIAt4OY+tATHtu+DY1lCkEx2hUS77u6QY9/2y2uteWzxliITxw+3Jtq3Gdl3XmIxGxZLkauT80u0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsLLW9DCyopef8r5Ii5/9dhLR4138YfJ3TLZgJFtU1jlmXHbbE
+	Y0o1Xj5wuZoWYSYv7fEBELa6Lrbfv0UvJP8pA8K6I0L0YpksFozxktB0
+X-Gm-Gg: AYBFou2kpal8VpMePpRtCBEUJVsGAbZNo+g7Y4h1d6h2ED36qaFgDykRdy81cwOJinw
+	r9etjQYbPTPsOE4CAWBObndExbK9z8xEhaI+e8M7W2/gnI8nUFHszW4K5fomOnqtLJLp4qPfW/W
+	P2nVxdrtGFVo7W924qnblIVg3UhrT+McwpK9bbUEtAauA+45n/G2WBgUdE+TW7OsCh7isjVGu/r
+	3xRErLtKYhQ645eaL2BKkDNGpvf0kTVs3DqtGGA5pd0GWIhPmLNYLMRZ46KCTFSmHWBWhHHSflG
+	1uI0BhOR6ve0FZgv9Zz7HWvMNGYkzMCmM1h+FyhSo4m1r7cYBK+JVNS3khGimH0JM2Bx3F96yy2
+	DgYCjkAe5YyKtb30muLcg6jB/9I24rKiFBX32VWf/36NbDw79Kb0g0/7OjjX+6gaOMyZnpKoIdD
+	26/Ro2pf+Py0QIuYhlR6l0vHWGjZQVeJwmuaztO65dHNic0am32ojsG6EkHtkXMkteF47jB46cG
+	XD1K49FVUhf7H3+PBaS8OxeSlB2j0WZJtCm571FD4CDPPvyeviH5+Xm1h1GkI8gBVaXBRTcy+R8
+	hOd2liLk8afjOMsAtWIzE0F0xW63Ztlh3VuAwQ==
+X-Received: by 2002:a17:90b:2748:b0:3a0:8a9e:1212 with SMTP id 98e67ed59e1d1-3a0985700bdmr5517140a91.7.1790401207720;
+        Fri, 25 Sep 2026 22:40:07 -0700 (PDT)
+Received: from dell-pro-max-tower-t2.cse.unsw.EDU.AU (pag-t2-pc.cse.unsw.EDU.AU. [129.94.173.199])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c7435sm14789739a91.11.2026.09.25.22.40.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 22:35:22 -0700 (PDT)
-Date: Fri, 25 Sep 2026 22:35:19 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Yazen Ghannam <yazen.ghannam@amd.com>, Borislav Petkov <bp@alien8.de>, 
-	Tony Luck <tony.luck@intel.com>
-Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] EDAC/amd64: Stop allocating ECC settings separately
-Message-ID: <ardZinoPZXbXZvhe@google.com>
+        Fri, 25 Sep 2026 22:40:05 -0700 (PDT)
+From: Weigang He <geoffreyhe2@gmail.com>
+To: Madalin Bucur <madalin.bucur@nxp.com>
+Cc: Sean Anderson <sean.anderson@linux.dev>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Weigang He <geoffreyhe2@gmail.com>
+Subject: [PATCH net] fsl/fman: validate the port id in fman_set_port_params()
+Date: Sat, 26 Sep 2026 15:39:57 +1000
+Message-ID: <20260926053957.1628730-1-geoffreyhe2@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-There is no reason to allocate and manage ECC settings separately when
-struct ecc_settings can be embedded directly into the driver-private
-struct amd64_pvt.
+fman_set_port_params() uses the port id, which comes from the device
+tree "cell-index" property, to index fixed-size tables without
+validating it:
 
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+	set_port_liodn(fman, port_id, fman->liodn_base[port_id],
+		       fman->liodn_offset[port_id]);
+	...
+	mac_id = hw_port_id_to_sw_port_id(fman->state->rev_info.major, port_id);
+	if (port_params->max_frame_length >= fman->state->mac_mfl[mac_id]) {
+		fman->state->port_mfl[mac_id] = port_params->max_frame_length;
+
+liodn_base[] and liodn_offset[] have FMAN_LIODN_TBL (64) entries, and
+set_port_liodn() also accesses fmbm_spliodn[port_id - 1]. mac_mfl[] and
+port_mfl[] have MAX_NUM_OF_MACS (10) entries, but
+hw_port_id_to_sw_port_id() maps, for example, RX port id 0x12 to 10 and
+TX port id 0x3f to 23. fman_port_probe() truncates the property to a u8
+and does not otherwise check it, so a device tree with a bad cell-index
+can cause out-of-bounds accesses.
+
+Reject a port id of 0, a port id outside the LIODN table, and a port id
+that does not map to a MAC, before any state or register is changed. A
+cell-index above 0xff that aliases a valid id after the u8 truncation
+is not caught here.
+
+Found by static analysis tool CodeQL.
+
+Fixes: 414fd46e7762 ("fsl/fman: Add FMan support")
+Assisted-by: LLM codeql
+Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
 ---
-Changes in v2:
-- Return -ENOMEM directly on allocation failure in probe_one_instance()
-  and amd64_edac_init() instead of using error labels (Yazen Ghannam)
-- Keep the blank line after clearing pci_ctl_dev in amd64_edac_exit()
-  (Yazen Ghannam)
-- Make the comment above struct ecc_settings a single-line comment
-  (Yazen Ghannam)
-- Link to v1: https://lore.kernel.org/r/arCC5ukNvN11l1aj@google.com
 
- drivers/edac/amd64_edac.c | 42 +++++----------------------------------
- drivers/edac/amd64_edac.h | 25 ++++++++++++-----------
- 2 files changed, 18 insertions(+), 49 deletions(-)
+Notes:
+    Compile-tested only (ARCH=arm64 and ARCH=x86_64 allmodconfig, W=1). Not
+    tested on hardware, and there is no reproducer.
+    
+    The CodeQL query behind this report was synthesized with LLM assistance,
+    and the fix and changelog were drafted with LLM assistance; I have
+    reviewed them.
 
-diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
-index 475235c402e8..6b9d7bb11d76 100644
---- a/drivers/edac/amd64_edac.c
-+++ b/drivers/edac/amd64_edac.c
-@@ -30,9 +30,6 @@ static inline u32 get_umc_reg(struct amd64_pvt *pvt, u32 reg)
- 	return 0;
- }
+ drivers/net/ethernet/freescale/fman/fman.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/freescale/fman/fman.c b/drivers/net/ethernet/freescale/fman/fman.c
+index 46cc28895e565..e25050189b1f3 100644
+--- a/drivers/net/ethernet/freescale/fman/fman.c
++++ b/drivers/net/ethernet/freescale/fman/fman.c
+@@ -2103,6 +2103,18 @@ int fman_set_port_params(struct fman *fman,
+ 	unsigned long flags;
+ 	u8 port_id = port_params->port_id, mac_id;
  
--/* Per-node stuff */
--static struct ecc_settings **ecc_stngs;
--
- /* Device for the PCI component */
- static struct device *pci_ctl_dev;
- 
-@@ -3999,19 +3996,11 @@ static int probe_one_instance(unsigned int nid)
- {
- 	struct pci_dev *F3 = node_to_amd_nb(nid)->misc;
- 	struct amd64_pvt *pvt = NULL;
--	struct ecc_settings *s;
- 	int ret;
- 
--	ret = -ENOMEM;
--	s = kzalloc_obj(struct ecc_settings);
--	if (!s)
--		goto err_out;
--
--	ecc_stngs[nid] = s;
--
- 	pvt = kzalloc_obj(struct amd64_pvt);
- 	if (!pvt)
--		goto err_settings;
-+		return -ENOMEM;
- 
- 	pvt->mc_node_id	= nid;
- 	pvt->F3 = F3;
-@@ -4042,7 +4031,7 @@ static int probe_one_instance(unsigned int nid)
- 		} else
- 			amd64_warn("Forcing ECC on!\n");
- 
--		if (!enable_ecc_error_reporting(s, nid, F3))
-+		if (!enable_ecc_error_reporting(&pvt->ecc, nid, F3))
- 			goto err_enable;
- 	}
- 
-@@ -4051,7 +4040,7 @@ static int probe_one_instance(unsigned int nid)
- 		amd64_err("Error probing instance: %d\n", nid);
- 
- 		if (boot_cpu_data.x86 < 0x17)
--			restore_ecc_error_reporting(s, nid, F3);
-+			restore_ecc_error_reporting(&pvt->ecc, nid, F3);
- 
- 		goto err_enable;
- 	}
-@@ -4067,18 +4056,12 @@ static int probe_one_instance(unsigned int nid)
- 	hw_info_put(pvt);
- 	kfree(pvt);
- 
--err_settings:
--	kfree(s);
--	ecc_stngs[nid] = NULL;
--
--err_out:
- 	return ret;
- }
- 
- static void remove_one_instance(unsigned int nid)
- {
- 	struct pci_dev *F3 = node_to_amd_nb(nid)->misc;
--	struct ecc_settings *s = ecc_stngs[nid];
- 	struct mem_ctl_info *mci;
- 	struct amd64_pvt *pvt;
- 
-@@ -4089,10 +4072,7 @@ static void remove_one_instance(unsigned int nid)
- 
- 	pvt = mci->pvt_info;
- 
--	restore_ecc_error_reporting(s, nid, F3);
--
--	kfree(ecc_stngs[nid]);
--	ecc_stngs[nid] = NULL;
-+	restore_ecc_error_reporting(&pvt->ecc, nid, F3);
- 
- 	/* Free the EDAC CORE resources */
- 	mci->pvt_info = NULL;
-@@ -4148,14 +4128,9 @@ static int __init amd64_edac_init(void)
- 
- 	opstate_init();
- 
--	err = -ENOMEM;
--	ecc_stngs = kzalloc_objs(ecc_stngs[0], amd_nb_num());
--	if (!ecc_stngs)
--		goto err_free;
--
- 	msrs = msrs_alloc();
- 	if (!msrs)
--		goto err_free;
-+		return -ENOMEM;
- 
- 	for (i = 0; i < amd_nb_num(); i++) {
- 		err = probe_one_instance(i);
-@@ -4195,10 +4170,6 @@ static int __init amd64_edac_init(void)
- 	msrs_free(msrs);
- 	msrs = NULL;
- 
--err_free:
--	kfree(ecc_stngs);
--	ecc_stngs = NULL;
--
- 	return err;
- }
- 
-@@ -4218,9 +4189,6 @@ static void __exit amd64_edac_exit(void)
- 	for (i = 0; i < amd_nb_num(); i++)
- 		remove_one_instance(i);
- 
--	kfree(ecc_stngs);
--	ecc_stngs = NULL;
--
- 	pci_ctl_dev = NULL;
- 
- 	msrs_free(msrs);
-diff --git a/drivers/edac/amd64_edac.h b/drivers/edac/amd64_edac.h
-index 1757c1b99fc8..2c6b0429916e 100644
---- a/drivers/edac/amd64_edac.h
-+++ b/drivers/edac/amd64_edac.h
-@@ -322,6 +322,17 @@ struct amd64_family_flags {
- 	      __reserved	: 63;
- };
- 
-+/* per-node ECC settings descriptor */
-+struct ecc_settings {
-+	u32 old_nbctl;
-+	bool nbctl_valid;
++	/*
++	 * port_id comes from the device tree: reject ids outside the LIODN
++	 * table and ids that do not map to a MAC.
++	 */
++	mac_id = hw_port_id_to_sw_port_id(fman->state->rev_info.major, port_id);
++	if (port_id == 0 || port_id >= FMAN_LIODN_TBL ||
++	    mac_id >= MAX_NUM_OF_MACS) {
++		dev_err(fman->dev, "%s: invalid port id %u\n", __func__,
++			port_id);
++		return -EINVAL;
++	}
 +
-+	struct flags {
-+		unsigned long nb_mce_enable:1;
-+		unsigned long nb_ecc_prev:1;
-+	} flags;
-+};
-+
- struct amd64_pvt {
- 	struct low_ops *ops;
+ 	spin_lock_irqsave(&fman->spinlock, flags);
  
-@@ -372,6 +383,8 @@ struct amd64_pvt {
- 	/* place to store error injection parameters prior to issue */
- 	struct error_injection injection;
+ 	err = set_num_of_tasks(fman, port_params->port_id,
+@@ -2170,8 +2182,6 @@ int fman_set_port_params(struct fman *fman,
+ 	if (fman->state->rev_info.major < 6)
+ 		set_port_order_restoration(fman->fpm_regs, port_id);
  
-+	struct ecc_settings ecc;
-+
- 	/*
- 	 * cache the dram_type
- 	 *
-@@ -441,18 +454,6 @@ static inline u8 dct_sel_interleave_addr(struct amd64_pvt *pvt)
- 
- 	return	((pvt)->dct_sel_lo >> 6) & 0x3;
- }
--/*
-- * per-node ECC settings descriptor
-- */
--struct ecc_settings {
--	u32 old_nbctl;
--	bool nbctl_valid;
+-	mac_id = hw_port_id_to_sw_port_id(fman->state->rev_info.major, port_id);
 -
--	struct flags {
--		unsigned long nb_mce_enable:1;
--		unsigned long nb_ecc_prev:1;
--	} flags;
--};
- 
- /*
-  * Each of the PCI Device IDs types have their own set of hardware accessor
+ 	if (port_params->max_frame_length >= fman->state->mac_mfl[mac_id]) {
+ 		fman->state->port_mfl[mac_id] = port_params->max_frame_length;
+ 	} else {
+
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.43.0
 
-
--- 
-Dmitry
