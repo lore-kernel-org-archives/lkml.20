@@ -1,98 +1,115 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44D93515F7;
-	Sat, 26 Sep 2026 17:03:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BB437F74B
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 17:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790442229; cv=none; b=kYxaWGJF8zp4v/PVcMJu3hCpTtJuI5NBFisviep49KNMwtAeM+pIDCInS4HLXzuCQzs3ohung0QlAuGhDCBkBKAkTTrA+JbTd6JGaaCR7OkWJnpjRXo4yeghbgvW+YQLvbnGAqweBroKR6GfY721zNfOyvAmGIO4ns1GYXoBZDY=
+	t=1790442252; cv=none; b=dtSezHBsr0GKlfcBsFOO0sBCWQ2cCFwgIt1kLkwFyZmDHQCbr6xoFAznwB2EcIEy1RrFq+hNGbOfxjrz6PyGHaQ7Q1ao85Tmm/48byr9xlsljM0yZ3JtZ7PYaewFy4Q6jB/4yjjx6WjRkvnuPzXs5t1hlI9F9qkh6LjU25eBtZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790442229; c=relaxed/simple;
-	bh=aoUcH8q6R4+eyNaifFoH2Aor4f8mjT4hXKCOfkY4BSc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qBON8gjI3puq2x5RWsXDsbW/t8iCgq4UWsFLFPUVfg5BhS1p+Q26l0Smy2jA6IH0IIriPIHwB/baE73jJwyW325aX7OT4oDuZDWgnRPZecpNdgxMuyVIlYwo5Z7U1KzBwJ3D7W5O1ra5Wjgx2MRmy9r/Arz6nW5VryYaxnfaMeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=a2EG3wDb; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790442252; c=relaxed/simple;
+	bh=inMJoch2yghjdV4xO7nIz2vYijRVDjnXOVGSDrF05pE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mHpVS3C2/UuHK6NZING5gjL++7TLD1X+43Jf6552PiS+cIEj0LzRNl8JPt/OI7/gG6nTiSPI5U9eEUX/vo6DCxII2S3GeDQWccGtiW8emYtw8V0Nfwpr1goikdNls1/8ihfDHpcJZDF47IEmr3ZbNY53mEDwmu9cgWTtkDIQZtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sCCHN8jN; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="a2EG3wDb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790442219; x=1790701419;
-	bh=qRKBBHzxeQEyTEnSiATT4uABiyIjz34v74Z/J4pJSPU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=a2EG3wDbE9/OUkViBeHIr0LOf1PFP7Lc5MMFLPbfIl01u6pODfVyzB9Nd6LRjCB3K
-	 xcuoKq2U0bO/JGx8fOK1rSBE/PtyJiYplHAx+ljfRfj/57RP2Tv3bD4u8dsB8YXNwE
-	 r2sTKmeWzFOPEu6LoAv4hfqSg4QJ8+GIyty94AEq4jzda60UreOPQla8DALNeJsHn1
-	 FFDqrTJk3OS7cRpaVDTaxzY0VvKc6y5QfecgHodJkHxq4hpwDKj88NTXN7nVYFWRVI
-	 bkNydKl1FbO/pnGgUjlWLUQSRyGIVcIelvR+/vdviuuFQIILeCGlEvw6XwBQCyQPNW
-	 Ln9vCnwYB4TWg==
-Date: Sat, 26 Sep 2026 17:03:35 +0000
-To: German Pablo Lindo <germanpapulindez@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: Test for [PATCH v7 0/3] Add support for the Sony IMX681 camera sensor
-Message-ID: <20260926170327.60895-1-lsa.uz@pm.me>
-In-Reply-To: <20260926092828.11675-1-germanpapulindez@gmail.com>
-References: <20260923211816.89954-1-lsa.uz@pm.me> <20260926092828.11675-1-germanpapulindez@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 9196d4447cd0c8e3597aa7400bc62f11c2160366
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sCCHN8jN"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bc6ff6cadso217629eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:04:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790442250; x=1791047050; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WRViZuXEz1jF5ev0OclSbo0VNbuCsP09mnY0HfqPJoY=;
+        b=sCCHN8jNE1jb0ko7cOQeRkgEEBA1ROn9aaMuaGoaMO2K5NCCd5vDwRPdA8zasvsHFj
+         4fLpo7GZEXTOhreEjMKeuNlXtkMp0bVavi0oD1SQcfQ0s1VzNZL4WOh1MA/yqdNaOERN
+         v7CwC++xIuf+xRykj5OaRwW8uHSe+BgzMc9+yO2BrIPNOMGRgoFiRn/eGBBtrQDDNdz/
+         mLaR7VsZDXmcOWBgY07RHBTWKv0/U/EH9nGm/JN1xhRetRCfo4yW9ypNr2+nFvafVbVe
+         RuFnNZvWBkYpJlDulKc2G+LU7fcO4V+iqM5L4zdUkfPzyitR1U6lw4yr56yUGKdLPMO7
+         zxSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790442250; x=1791047050;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WRViZuXEz1jF5ev0OclSbo0VNbuCsP09mnY0HfqPJoY=;
+        b=WEvcr4/2ML5PBAHvCRUrqrZIgE2wD2NhhsUw3mbw6gYV7qkvfohlayFC0Le20btVmZ
+         zGaiksghParoFcSWdlfNqgsUVKUy4NnO5z7tnZV8+DCdpUNalubLYmjBkDT/C+9TQaW7
+         IByRjkbK775KKcL/n6f9kFL00vRf1qkV7kW/b2FjzOzlprObATcjxPPm6v0KPBT/Ppi3
+         Rugdktt59BXoEtZceebOuncbwcatVYTjPxxbVMD216x58CiLdKKkftEMMgNokOU1PEOe
+         ufQS7mJHodTrQc8O3CVWjXdLq3nQaxI2cOmkV/rpy1+KRJc5444vlgFHBUOdh/wfx9QW
+         pIcg==
+X-Forwarded-Encrypted: i=1; AKwUvByDLMEe6V2sLLoY5/SQAtfZxTqahas+k/6tjQFyroEdBw6a3imEDoroa3ygh0CDOcbzL7pfL0yF3tl9Zxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++niDWTebGvtJosHg4pEJ/dKOyOihw7KXajsMRh5gAfvkFRLo2S3
+	qdxMbzLhbCCZ+7ug2YF73XvKjpsKo8dnwXo63ZLItkI+eHX5DBrb9Y4IhZQJoncbQCMa6Q==
+X-Gm-Gg: AYBFou1FOkCwbuzi64h/kti5LbfLg7xnidxelzGvA4Up+cq1A8YUboDzoRu5LifYuIr
+	rk53s66d/XoHp4zgRS3NkdIV1HlslOLGz5oa36DE/0/k83kQKgNhS+FXmKynZ1fSEFozbUUuK6s
+	nYxW0AMQZ8iQhecI8KfGc+e5kGCtoHsClrjQs277NSyciq1tE8dvgcsRI/bjpkjubZWNN8rTXhA
+	C3K1zTQ1KORGjVo4vzQHsHHf+EitI/HQv9V9HX3QCKEcRws562WV4h3IzOQDSxPSD3EX+32rkwx
+	U+YfDiAi3TnNR+mfcnmzE/lMWQIyi88+GAra+mAYjMVOQOXsWXmyfRxuWdr0xmeI7bTowTwEFHL
+	9Zq6BeMbil5cSF1NV/9H7paiXPNaoXdU/MCo+ZCssTIRMiwkUWjPGnK/gjBnGd5hjV3gCM3PGSU
+	X5///BUxmt4ufHv3JFY3IFfFe00O5rH+rvTIKHeYQCJazCxlV3lAJJoW+jfHrp5bTgSdLP/dVA2
+	g9uCASGSxmBU7yppQ/H/oAVh9vQBJpFcwhTh5GNrrOrCdFsiS1j1rayJYR2+wYUM2/QkQ==
+X-Received: by 2002:a05:701a:c919:b0:143:3240:89ac with SMTP id a92af1059eb24-146cfdcef79mr6053761c88.2.1790442249577;
+        Sat, 26 Sep 2026 10:04:09 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145a7318afcsm13343905c88.0.2026.09.26.10.04.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 10:04:09 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Gustavo Padovan <padovan@profusion.mobi>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>
+Subject: [PATCH net 0/2] Bluetooth: Serialize TX scheduling with teardown
+Date: Sun, 27 Sep 2026 01:04:01 +0800
+Message-ID: <cover.1790407061.git.nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-German,
+The TX scheduler drops its RCU read lock before using the selected channel
+or connection. Teardown on the separate request workqueue can then free
+that object while transmission is still using it.
 
-Thank you - for building v7 on 7.3-rc4 with the two-line change, for
-putting it through qcam, Firefox and Snapshot on the CPU and the GPU,
-and for the Tested-by.
+This series fixes two distinct lifetime bugs using the existing device
+mutex:
 
-I rebuilt libcamera 0.7.2, your version, with its stock tuning, and
-checked your three points on it.
+  1. Protect channel selection, transmission and priority recalculation
+     in the ACL and LE schedulers against channel deletion.
+  2. Protect connection selection and transmission in the SCO and ISO
+     schedulers against connection teardown.
 
-1. The slow start is real, and it is two things. Since v6 the driver
-   starts at the minimum exposure, four lines, as Sakari asked in review,
-   and 0.7.2's AGC climbs from there in small steps: 0.7 ms after 6 s,
-   17 ms after 13.5 s, and on the GPU the picture stays grey for about
-   the first ten seconds. And libcamera has no helper for this sensor, so
-   it takes the gain code for the gain - a code of 17 is 1.02x on this
-   sensor, not 17x. I sent libcamera a helper on 31 August, which also
-   gives it the black level; it has not been reviewed yet:
-   https://patchwork.libcamera.org/patch/28155/
+Please apply the patches in order. Patch 2 depends on the ACL/LE locking
+introduced by patch 1: it uses a lock-held SCO helper for their nested SCO
+calls, while direct SCO calls from the TX worker use a locking wrapper.
+This preserves packet scheduling order without recursively taking the
+device mutex. Timeout checks remain outside the critical sections.
 
-2. The mirroring is the reverse of what you saw on v3 on the 10th, when
-   Snapshot was the odd one out, and it is the driver that changed. Up to
-   v5 it mirrored every frame in its register list; since v6 it delivers
-   the image as the lens forms it and leaves mirroring to HFLIP and
-   VFLIP. Whether a front camera's preview is shown mirrored is then up
-   to the application, and the three you tried decide differently.
+The transmit path can sleep, so extending ordinary RCU across transmission
+is not a suitable substitute for the mutex.
 
-3. The lines are there on 0.7.2, on both cameras, and only on the GPU
-   path: the front camera's GPU output carries blue and yellow stripes
-   about 25 pixels apart across the whole frame, the rear camera's blue
-   lines at fixed rows (311 and 791 of 1920x1080). The CPU path shows
-   none of it, on either camera, same scenes. The pattern is fixed in
-   the frame, so anything moving across it shows it. It is libcamera's
-   GPU debayer, not the drivers - its issue #351:
-   https://gitlab.freedesktop.org/camera/libcamera/-/issues/351
+Validation: rebuilt hci_core.o after each patch and completed a full kernel
+build with CONFIG_BT, CONFIG_BT_BREDR and CONFIG_BT_LE enabled. Both patches
+pass strict checkpatch and apply in order to the stated base. Runtime PoC
+replay and runtime lockdep testing have not been performed for this series.
 
-   The shader fix proposed in that issue removes both here. Measured on
-   0.7.2 with and without it, same scene: the stripes and the fixed rows
-   are gone and the GPU output is as clean as the CPU's; only the
-   frame's first rows stay off. It is a one-file patch against 0.7.2,
-   linked from the issue - if you can rebuild libcamera, it would be
-   good to know whether it clears the lines on your machine as well.
+Chengfeng Ye (2):
+  Bluetooth: hci_core: Serialize ACL scheduling with channel deletion
+  Bluetooth: hci_core: Serialize SCO and ISO scheduling with teardown
 
-   You saw them on the CPU as well. Snapshot, and Firefox through the
-   camera portal, run libcamera inside PipeWire, which does not see
-   LIBCAMERA_SOFTISP_MODE set in a shell - could that test have run on
-   the GPU? qcam started with the variable set is certain to be the CPU.
+ net/bluetooth/hci_core.c | 34 ++++++++++++++++++++++++++--------
+ 1 file changed, 26 insertions(+), 8 deletions(-)
 
-Sergey
 
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
+-- 
+2.43.0
