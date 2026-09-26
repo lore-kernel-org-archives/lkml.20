@@ -1,54 +1,71 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C9AEA14F70;
-	Sat, 26 Sep 2026 23:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D94346ACE
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 23:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790463698; cv=none; b=Xj+FsvDX7uT9eAnN3Tcje9uwTjSDH8cG96MjNcK5F5NpZHiSbOqslV5i7YVgjjxPJBnVy4XdNVPPzf1v7+7P+TS2k63DVj+OB13qIzthQduLgzF6QK4+bLq6qCyfe6K90uF4SGHehobED4eidjF7kk0VY9kbnODtVfTF3MhmJzI=
+	t=1790463942; cv=none; b=VFZPkuJq1jNqgAAKuHmHakh5KOz90ieDinoG5I5Gf2jGa/SYgfYSnTdYACK/v/H6H+DBfie96w1T/c8mHnwTwhyJexz9MTETDgbFvEdK85Xp7BqEyrVDBut8Jx1SZozUPpAa7Xr+2DHR9NwZDUU2WgRGsnI7ZVZEftxmTCkPM8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790463698; c=relaxed/simple;
-	bh=8VPJKxA1h0I6ZQ84vbcbxPyKkIiVETvj5Q5vm55qJRs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bsmqU0KyHZsgQrty4ehI6x5nvE5Nr8kANIrNKN/J2RN4BDNmhJDaxivDbuNXq8b+MP+/DVwJtT0QiLDNOZqlqv52/niM+WpVPuh3+xYbfJ5GDly0zJLN7DGGIDYhtk/HC9dm9Rmflo2o37LK2mK96wyp0cA7DAJ6RhVYNiiknaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m8924jxP; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790463942; c=relaxed/simple;
+	bh=lUZwpcjfJVbjPXfPcIHxuhk3nhpQ2sZnS/KtAXx4GVI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B6ZmVHAOVNY8fFCAlhj1F7jPUHGwlyRsuqoyaxXGm52HrXw04cKFJGZEt6UrPMqI3B3U5YdvGSxe9m/dKR1YWAvm+K9y4aqENhWXjkc1wD6bF2OfxUTOzvxUNy4WCpdu/GhJFGZPLq0zwf3/CIOM4QR1TatCt9zRej7mikPxCMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pxAM65l6; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m8924jxP"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C868E169C;
-	Sat, 26 Sep 2026 16:01:30 -0700 (PDT)
-Received: from ryzen.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 851063F632;
-	Sat, 26 Sep 2026 16:01:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790463694; bh=8VPJKxA1h0I6ZQ84vbcbxPyKkIiVETvj5Q5vm55qJRs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=m8924jxPDvdmgPSc/sF7a6J90ZQizMYYSii5hQHby60nETVkn0UIV4j2zS5exHlSj
-	 PB3idRgZM1OvcnYKfw5A3IPMIFLR87ye1OZvDBhgYoMFP5MXY3TgL6IOqbpDgFzHvQ
-	 4WoYUel/dcNJfg0d8/h880cd28SZHW02gD1He9nU=
-From: Andre Przywara <andre.przywara@arm.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>,
-	Liu Changjie <liucj1228@outlook.com>,
-	Per Larsson <per@palvencia.se>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 5/5] net: phy: maxio: add support for -Q2C variant
-Date: Sun, 27 Sep 2026 00:56:25 +0200
-Message-ID: <20260926225625.25969-6-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.46.4
-In-Reply-To: <20260926225625.25969-1-andre.przywara@arm.com>
-References: <20260926225625.25969-1-andre.przywara@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pxAM65l6"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so652966a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:05:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790463940; x=1791068740; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5b+3IogLhmEcJn2krORIy7k4m3K29JGGK/T/+oSR1EY=;
+        b=pxAM65l60lZ2HlYEikg54edpgUfZrqhxZYv/ooKkv4BstNJinUOdZVWF5lyS1QiBdc
+         FTj7wDn+KdIqp2i0TLcZasj87lmTRIWsRNXLNo80hbzfMtsgfwwRxeZY3syC+8KHeNKB
+         QzS3zYiwpnNvuLKzVDDSHaeSxNASvpDORrG2Uw/+4HiHowa9+MDeefoPVZzz7P067uus
+         itLPBJcxwzUIliZxLqhW4GzyyWeaOtHzMA0dtUS4g5cKmv8DSK3656XIrCj3cPY8zMLp
+         wrb0ZnE4fU6QHN28So5++s6JaFGqeYMs6WJQvbMhAPliDLL2JgWllbTqwqFVJkggX+2O
+         MfLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790463940; x=1791068740;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5b+3IogLhmEcJn2krORIy7k4m3K29JGGK/T/+oSR1EY=;
+        b=Oh14kHHq6II08SWHBNe9uLzIG3gUrCfAxIC3J4M3LhhcKqbX1VYWNUHOL2gFyww9hy
+         e4wd63t7WAtlTzOWw24YPDTyyJ1B1yeh66A/Oma/cypsHqT8GyB8hQUjTnCoTne/IQLi
+         QnbbzxjJ76aDxmZZztb/M9q05kJmvtJ9xU/0ZGaXeypDhN7Kjef9rnJI60JM6/Y6bSMn
+         2lKYi4m5TySpemgKKIoiVNM6M2u5DUFxxhz1MqNjGxO6/RJ5o4COt4oZ+fmu/nB45IeM
+         jCrFDA/aaRzP6R0377UIuTEkmdxBcyoot/wo/fsKOBstr3fJgh4Os6di4locz9Pg1hso
+         gwYg==
+X-Forwarded-Encrypted: i=1; AKwUvBx5+h9f8DrJBJc0qz5D4wFhIVUTXI3toGsDAs9ARmxdeEgiD0nSwqirjnDFDy0kWbaHIPkMOTzDImuscN8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRplRWKby/3goSDZtvXBDhDznglEC4Hv81KuvDHLt2FPpSd0Tj
+	bnf+WqlheiJO9FWWOCO2BpO/UtVX8bFbL1vEOn/Wtk+0P+mpcwMbSItt
+X-Gm-Gg: AYBFou3cuMmysqcLW71igXiM1WTG9x4n6C/gmckXIHt1miXYyKEvozgphr0dk3WIqxw
+	6LEJ0rypOj+YzH5XD31qNIvoZ/TxLJJgBye843K3kHx+SI/7MLBKEFtZLD1TgQ5z1/Ec5azZEoF
+	cAk5RXAilftb1p4BnOxSIxdSWmAnYzsNBHkXYVuJFPjCUIgrWT4tbFv0sjk/Yi+LxxRk8phKyap
+	75IjJXPPVzFWEOb0dgLZZXVxcFAj7AVIM0gpcK0V6gmeUpQWO9rArLJv1VQgaQcnCTx88+BeY5v
+	5eCAkM0h9II67u0/osQEPjXIW7CFg2qW/NLZCOPEpHqbnT9qWMnPeUYAi1Fk76ajnvslmQxhhUz
+	bM+X6FpzWpCy+DoOk9mWNMYy6nu8Io1nONf1uc1J78jCUE3ZJE818caCeRfjHyZB7L2mNBMqncW
+	SEAj19rL2q8SMCEwAIknK/6ZIF5xxqVpTLPtQOPQXTF8RyO7r9Mk090c/+n0CwJPwWjkFI5+HIg
+	T6HSyBWfNleTj6Mix2ItyT+NFouZ9sQwCA0ODhHFiH1CXgjzdVuK+eeyEQk6MMdaxygl80SlXz/
+	e83E3XKQYbC6OIMD6G46K4njhSb1CW1Fpu5ffynxamRVq0Uh
+X-Received: by 2002:a17:90b:5247:b0:39e:6c68:fd8f with SMTP id 98e67ed59e1d1-3a098b628d9mr5530592a91.36.1790463940362;
+        Sat, 26 Sep 2026 16:05:40 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b9355e49sm11778543a91.4.2026.09.26.16.05.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 16:05:39 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] USB: bcma: defer probe until USB3 is ready
+Date: Sat, 26 Sep 2026 16:05:38 -0700
+Message-ID: <20260926230538.223565-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,67 +74,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently the maxio Ethernet PHY driver expects a Maxio MAE0621A-Q3C PHY
-matching exactly the one ID provided: 0x7b744412. There exist an earlier
-variant of the PHY, still used on some devices, its label differs by using
-the -Q2C suffix, and its PHY ID is 0x7b744411.
+Northstar SuperSpeed data goes to xHCI while D+/D- go to EHCI. If EHCI
+probes first with VBUS already on, a SuperSpeed device falls back to
+high-speed and stays there.
 
-Some vendor drivers floating around in the web suggest they are somewhat
-different, although for now this driver does not deal with any of those
-registers, and the 125M clock switch is identical between the two.
-Nevertheless prepare for future driver divergence by describing two
-drivers, although using the same functions for now.
+Defer the NS USB2 core until the USB3 core has probed, and enable VBUS
+only after that host init (of_platform_populate binds xHCI when
+xhci-plat is already registered). USB2-only chips have no NS USB3 core
+and are unchanged.
 
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Remove the TODO since checks are being added.
+
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/net/phy/maxio.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/usb/host/bcma-hcd.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/phy/maxio.c b/drivers/net/phy/maxio.c
-index 266be95b949a8..8c33c8433b127 100644
---- a/drivers/net/phy/maxio.c
-+++ b/drivers/net/phy/maxio.c
-@@ -7,7 +7,8 @@
- #include <linux/phy.h>
- #include <linux/property.h>
+diff --git a/drivers/usb/host/bcma-hcd.c b/drivers/usb/host/bcma-hcd.c
+index 519386255886..9a5704358996 100644
+--- a/drivers/usb/host/bcma-hcd.c
++++ b/drivers/usb/host/bcma-hcd.c
+@@ -396,8 +396,13 @@ static int bcma_hcd_probe(struct bcma_device *core)
+ {
+ 	int err;
+ 	struct bcma_hcd_device *usb_dev;
++	struct bcma_device *usb3;
  
--#define MAXIO_MAE0621A_PHY_ID		0x7b744412
-+#define MAXIO_MAE0621A_Q2C_PHY_ID	0x7b744411
-+#define MAXIO_MAE0621A_Q3C_PHY_ID	0x7b744412
+-	/* TODO: Probably need checks here; is the core connected? */
++	if (core->id.id == BCMA_CORE_NS_USB20) {
++		usb3 = bcma_find_core(core->bus, BCMA_CORE_NS_USB30);
++		if (usb3 && !bcma_get_drvdata(usb3))
++			return -EPROBE_DEFER;
++	}
  
- #define MAXIO_PAGE_SELECT		0x1f
- #define MAXIO_MAE0621A_PHYCR2_PAGE	0xa43
-@@ -89,8 +90,18 @@ static int maxio_mae0621a_config_init(struct phy_device *phydev)
- 
- static struct phy_driver maxio_drivers[] = {
- 	{
--		PHY_ID_MATCH_EXACT(MAXIO_MAE0621A_PHY_ID),
--		.name		= "Maxio MAE0621A",
-+		PHY_ID_MATCH_EXACT(MAXIO_MAE0621A_Q2C_PHY_ID),
-+		.name		= "Maxio MAE0621A-Q2C",
-+		.probe		= maxio_mae0621a_probe,
-+		.config_init	= maxio_mae0621a_config_init,
-+		.suspend	= genphy_suspend,
-+		.resume		= genphy_resume,
-+		.read_page	= maxio_read_page,
-+		.write_page	= maxio_write_page,
-+	},
-+	{
-+		PHY_ID_MATCH_EXACT(MAXIO_MAE0621A_Q3C_PHY_ID),
-+		.name		= "Maxio MAE0621A-Q3C",
- 		.probe		= maxio_mae0621a_probe,
- 		.config_init	= maxio_mae0621a_config_init,
- 		.suspend	= genphy_suspend,
-@@ -102,7 +113,8 @@ static struct phy_driver maxio_drivers[] = {
- module_phy_driver(maxio_drivers);
- 
- static const struct mdio_device_id __maybe_unused maxio_tbl[] = {
--	{ PHY_ID_MATCH_EXACT(MAXIO_MAE0621A_PHY_ID) },
-+	{ PHY_ID_MATCH_EXACT(MAXIO_MAE0621A_Q2C_PHY_ID) },
-+	{ PHY_ID_MATCH_EXACT(MAXIO_MAE0621A_Q3C_PHY_ID) },
- 	{ }
- };
- MODULE_DEVICE_TABLE(mdio, maxio_tbl);
+ 	usb_dev = devm_kzalloc(&core->dev, sizeof(struct bcma_hcd_device),
+ 			       GFP_KERNEL);
 -- 
-2.46.4
+2.55.0
 
