@@ -1,56 +1,56 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4265839EF3F
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45BE23ADB98
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:22:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790403731; cv=none; b=aLqflfNZp61Vj3pTR99Sp+Ou8mUcJ0D1uST76qWYZgQLTvR9O8iEbIMPujImi+fsbJgiQjW3+puYp35lbBdgTsVeB5m+dUi/vk6MtTpPNd1Ys6jzAWs5M02YQb+jNYKwVLwLJBuIwm4DTnmchPFeFIHJsM7aaktYld2HenbTmgg=
+	t=1790403735; cv=none; b=ql7Nwy3fn7G4+ZnvGbz1i4jZmkM6SmKydEhYCQzvWyZ7riKNPwWwWmnKsd+cYXrvhJ4YtWhkInKeOwzzLboh2RT4jXjJwY61w3Bo9ZFqyxmXQLZ2JxdCDSWHIBuuW1AkQrI5CXi6XijUCLVZM+sMBJR7BYlGAbEmSUpk64TGcJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790403731; c=relaxed/simple;
-	bh=01RuEVirhIA+hgBGv3rRQv7SzBqwuzzvNvkWffN9B2Y=;
+	s=arc-20240116; t=1790403735; c=relaxed/simple;
+	bh=BpsuwMNPBXGZACyKQ+ImXN7ZhOsoMsvpLcaTJHc95Kk=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=JItr8eGQPfHOWmM729Q77z3BGR9mZUdUuNtLWYJFXLkOwE4u/86A576CQD7kMzynBox2qt1hY5sadfWf1M9zWvWCEwsnffOcfIljUotEFqhjJUQ4VOMjYXBqa2vXlhAocu8yZ92gSsMq2TZXO1pRaqzu/k8aQE114NoIv+Pnfi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UmDzswQQ; arc=none smtp.client-ip=74.125.82.198
+	 To:Cc:Content-Type; b=EZyxk96MBP9R5HUt0cmQLJ/fRtGRVLJfE3mi6abY0XyTjBAImhiMGCvAj3cHQUKyCZHRecQKhQTnrjp650ZAuMa+WSLvSlFKwBhG/SfCO3Xmkaqp6N/itJnuDyTQ8l6ycL/qwuKa0/o6ipkPa58Q531sgl857cPP0L99iRw9rYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CO0kHV0X; arc=none smtp.client-ip=74.125.82.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UmDzswQQ"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-32b8c2b30c4so2839493eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:22:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CO0kHV0X"
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-139b62317d0so6202894c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:22:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790403728; x=1791008528; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790403731; x=1791008531; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rjWBh5kSOmy8mdBcD2MjDs0hj26F+tK8Ewte+dynJoA=;
-        b=UmDzswQQmbstwcA23bKGmq/ThTbwlMyDhUlaeXZi8x/ozYmrYf/Lc0TWEXKIwfOjfi
-         W0ikDecif9jcoiOSjwGgcwyFponzDGE0+Kluz2C49vwfYC2xfFE9mezn/uwYb8K0OnSU
-         E6UjF9wGdgaDtxsSjSyhtG5MzK5mqVSvxaGKn9LULf7onKexae+PV4ppxdj3Uiscu4BI
-         YAt9iWw8nI7MDQaa2jjLZ5UJnPhSk9TTc1CZvc/F2PC80i0p9oGF/HTzFmbpib697Dis
-         4ZmCBmavhLhxhNdqkqH26PNnQ4mJ34K1BuodbU7kNBiSMSd7t/4T6CdY8yI0LOtE6IVD
-         GH0w==
+        bh=pmDhqxFjJc9BJFvASfIDDLM7WpOHWjP/BVx5wOIn11g=;
+        b=CO0kHV0XtMnNJYl1WDT0WWXmPAh0lwdqycFPO6Iq1ngXvUXenggitaix7AtAGO/yxr
+         4XrlSkhfTEy6BouwZX03HLD4j3NhngcfaneM8Sce0rZJH2M/a/kDdkvSe2lQpfWrnjNS
+         GSXPKT0Dfp/D+OueR/3WC+vHb0HLa0S7LTuN1iShYiaSkJgcWOlXF3O9+ruykwCkmoKS
+         ZK3A6Xml7N/lHN63/f2HZgwG+vaSyEWqWcpf82iR0bLnjdAw9VEVwZTSA1FssPj4Ycbq
+         EUvL+0igEhsZ3O7KBgQCsMmz1SP9JkSdAGeQs9/k2N7DBzyb8cPEDD6kh9E9aMAA2tM8
+         PorQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790403728; x=1791008528;
+        d=1e100.net; s=20260707; t=1790403731; x=1791008531;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rjWBh5kSOmy8mdBcD2MjDs0hj26F+tK8Ewte+dynJoA=;
-        b=TJ+kAl1mTGoGInCSgb1dGRKrxIpYmSYXGicSXR5/yCxqTzmjkuCRu+WBc0S+FCcP9e
-         QaStMWh6aUcOGzEI5DyER+6JiUWb9yqPsPg92Ios7HLEDH5nt0dGRAzc6rqpkJ98AwpA
-         r/YrgkqssxLbRbmNFj5uQdE4DrJXB/UDywhe7d2V+9cbn/L1NICcQDeKJFJbgMKWHHHA
-         d2ZG2dyjhI9VoYglovYpKvuOZ0dMVjyAbHImQhDFKMm90UoIjo2q+DQPzXL1NWDA3M47
-         dj0miK6QApASHgFnGaGj2brRCZ5GyB7gBUvqKog1icXZwW4DXYOiCxXh0yJDpVMPAJ6o
-         FDng==
-X-Forwarded-Encrypted: i=1; AKwUvBy91G9kx+lQImLjFQz7FiEpRZAnlYqPTjCzJW/g7B0m39F1ATlktK3Ld1PJgOdEPwMBGnsuorgywMErWqs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhN7xupabFe0qBqkJ1clDJ9b+6ycdm11ju3mw0pikKopGg6HPU
-	VJze8AOhIavooJPJFZk12PX/2kK0clYfD7PN8Ok2wTNhi5bwv7oj2a31p/YJE27DP1LFc5qQ9dV
-	HfR+9fSiRNA==
-X-Received: from dlk29.prod.google.com ([2002:a05:7022:11d:b0:146:80a8:412d])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:1584:b0:145:152:b547
- with SMTP id a92af1059eb24-146ce1aab23mr2073975c88.1.1790403727577; Fri, 25
- Sep 2026 23:22:07 -0700 (PDT)
-Date: Fri, 25 Sep 2026 23:20:01 -0700
+        bh=pmDhqxFjJc9BJFvASfIDDLM7WpOHWjP/BVx5wOIn11g=;
+        b=OsddZG7uLNcsabJ6KBe3CGmIBOlcgJXrYAPmIkiFGsoy3sFjz6ILTIDZv+4971pwy+
+         LckNbp3lQ4Ef/Qp6ECdevvBUz1rP0r9l+LKqHbNTvAWUnUr4lG34luw5Vni8lfYDVf7J
+         aprk3KyfKjTGgDHoA+lNptYREE+VMEzFPvPNDprA3gBtxHdVTcKbEAyI26/EKl37gVX4
+         mXXmPyb5iR+wtj/5/RhOvv6i4wwaoAY0cRK3++DS5uP3KYAGPeucBjpI6y/qc5ZG5mT0
+         aoq5/+yL6PZsQ+vwyKJJQAwZ4v9bb9U0KOOpAxkNVdMjeLOhi6WhGAyZpu4i/tB5fmDX
+         vSYg==
+X-Forwarded-Encrypted: i=1; AKwUvBwcMCQ3daMvaNtdIdTeTOWrs0PFjIXn3NsckhIfIrjYn62CSx9z2VYTnPf0xAOodf/SDfDGGGiCFfAw6Mc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIYgnpa6ifOKUt40jWfyx0CBZqDR7FzRvyM2/F/yUXZGO3Ma9X
+	PpslxkjVpj1leQairoNQrz5HHj71661D22b29BqubAjHia+wFyCfnNsDr437ZrcHTE3oNhrFngu
+	5Xpl/dBLFfQ==
+X-Received: from dlbox15.prod.google.com ([2002:a05:7022:120f:b0:144:f706:dbd4])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:2406:b0:145:4d:5abc
+ with SMTP id a92af1059eb24-146ce1a8d25mr2091645c88.10.1790403730937; Fri, 25
+ Sep 2026 23:22:10 -0700 (PDT)
+Date: Fri, 25 Sep 2026 23:20:03 -0700
 In-Reply-To: <20260926062029.800743-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260923181213.3032038-1-irogers@google.com> <20260926062029.800743-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20260926062029.800743-35-irogers@google.com>
-Subject: [PATCH v4 34/49] perf python: Port compaction-times to perf module
+Message-ID: <20260926062029.800743-37-irogers@google.com>
+Subject: [PATCH v4 36/49] perf python: Port netdev-times to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	james.clark@linaro.org, leo.yan@linux.dev, namhyung@kernel.org
@@ -70,407 +70,538 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	mingo@redhat.com, peterz@infradead.org, tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Port compaction-times.py to a standalone script in tools/perf/python/
-using the perf module directly to analyze mm_compaction tracepoints.
+Port netdev-times.py from tools/perf/scripts/python/ to a standalone
+script in tools/perf/python/:
+- Refactor the script into a NetDevTimesAnalyzer class with full type
+  annotations to encapsulate state.
+- Collect events via perf.session and sort them in timestamp order
+  before analysis so multi-CPU TX and RX packet timelines are
+  reconstructed deterministically.
+- Replace custom argument parsing with argparse (-i/--input, --tx,
+  --rx, --dev, --debug), extract tracepoint fields directly from sample
+  attributes, and remove Python 2 compatibility artifacts.
 
-Improvements compared to the legacy script:
-- Replace Python 2 constructs (such as sys.maxint and raw integer
-  bitmasks) with Python 3 enum.IntEnum (Popt) and enum.IntFlag (Topt)
-  types.
-- Access tracepoint fields directly on perf.sample_event and add
-  -i/--input CLI option support via argparse.
-- Add full type annotations passing mypy and pylint without suppression
-  comments.
-
-Add a shell test (test_compaction_times_python.sh) to verify the
-standalone script.
+Add a shell test (test_netdev_times_python.sh) to verify the standalone
+script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/compaction-times.py         | 362 ++++++++++++++++++
- .../shell/test_compaction_times_python.sh     | 127 ++++++
- 2 files changed, 489 insertions(+)
- create mode 100755 tools/perf/python/compaction-times.py
- create mode 100755 tools/perf/tests/shell/test_compaction_times_python.sh
+ tools/perf/python/netdev-times.py             | 494 ++++++++++++++++++
+ .../tests/shell/test_netdev_times_python.sh   | 104 ++++
+ 2 files changed, 598 insertions(+)
+ create mode 100755 tools/perf/python/netdev-times.py
+ create mode 100755 tools/perf/tests/shell/test_netdev_times_python.sh
 
-diff --git a/tools/perf/python/compaction-times.py b/tools/perf/python/compaction-times.py
+diff --git a/tools/perf/python/netdev-times.py b/tools/perf/python/netdev-times.py
 new file mode 100755
-index 000000000000..48d6af005c46
+index 000000000000..f0f829987447
 --- /dev/null
-+++ b/tools/perf/python/compaction-times.py
-@@ -0,0 +1,362 @@
++++ b/tools/perf/python/netdev-times.py
+@@ -0,0 +1,494 @@
 +#!/usr/bin/env python3
 +# SPDX-License-Identifier: GPL-2.0
 +"""
-+Report time spent in memory compaction.
++Display a process of packets and processed time.
++It helps us to investigate networking or network device.
 +
-+Memory compaction is a feature in the Linux kernel that defragments memory
-+by moving used pages to create larger contiguous blocks of free memory. This
-+is particularly useful for allocating huge pages.
-+
-+This script processes trace events related to memory compaction and reports:
-+- Total time spent in compaction (stall time).
-+- Statistics for page migration (moved vs. failed).
-+- Statistics for the free scanner (scanned vs. isolated pages).
-+- Statistics for the migration scanner (scanned vs. isolated pages).
-+
-+Definitions:
-+- **Compaction**: Defragmenting memory by moving allocated pages.
-+- **Migration**: Moving pages from their current location to free pages found by the free scanner.
-+- **Free Scanner**: Scans memory (typically from the end of a zone) to find free pages.
-+- **Migration Scanner**: Scans memory (typically from the beginning of a zone)
-+  to find pages to move.
-+- **Isolated Pages**: Pages that have been temporarily removed from the buddy
-+  system for migration or as migration targets.
-+
-+Ported from tools/perf/scripts/python/compaction-times.py to the modern perf Python module.
++Ported from tools/perf/scripts/python/netdev-times.py
 +"""
-+from __future__ import annotations
 +
++from __future__ import annotations
 +import argparse
-+import enum
-+import re
-+import signal
++from collections import defaultdict
 +import sys
-+from typing import Callable, Dict, List, Optional, Any
++from typing import Optional
 +import perf
 +
-+if hasattr(signal, "SIGPIPE"):
-+    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
++# Format for displaying rx packet processing
++PF_IRQ_ENTRY = "  irq_entry(+%.3fmsec irq=%d:%s)"
++PF_SOFT_ENTRY = "  softirq_entry(+%.3fmsec)"
++PF_NAPI_POLL = "  napi_poll_exit(+%.3fmsec %s)"
++PF_JOINT = "         |"
++PF_WJOINT = "         |            |"
++PF_NET_RECV = "         |---netif_receive_skb(+%.3fmsec skb=%x len=%d)"
++PF_NET_RX = "         |---netif_rx(+%.3fmsec skb=%x)"
++PF_CPY_DGRAM = "         |      skb_copy_datagram_iovec(+%.3fmsec %d:%s)"
++PF_KFREE_SKB = "         |      kfree_skb(+%.3fmsec location=%x)"
++PF_CONS_SKB = "         |      consume_skb(+%.3fmsec)"
 +
-+class Popt(enum.IntEnum):
-+    """Process display options."""
-+    DISP_DFL = 0
-+    DISP_PROC = 1
-+    DISP_PROC_VERBOSE = 2
 +
-+class Topt(enum.IntFlag):
-+    """Trace display options."""
-+    DISP_TIME = 0
-+    DISP_MIG = 1
-+    DISP_ISOLFREE = 2
-+    DISP_ISOLMIG = 4
-+    DISP_ALL = DISP_MIG | DISP_ISOLFREE | DISP_ISOLMIG
++class NetDevTimesAnalyzer:
++    """Analyzes network device events and prints charts."""
 +
-+# Globals to satisfy pylint when accessed in functions before assignment in main.
-+OPT_NS = True
-+opt_disp = Topt.DISP_ALL
-+opt_proc = Popt.DISP_DFL
-+session = None
++    def __init__(self, cfg: argparse.Namespace):
++        self.args = cfg
++        self.session: Optional[perf.session] = None
++        self.show_tx = cfg.tx or (not cfg.tx and not cfg.rx)
++        self.show_rx = cfg.rx or (not cfg.tx and not cfg.rx)
++        self.dev = cfg.dev
++        self.debug = cfg.debug
++        self.buffer_budget = 65536
++        self.irq_dic: dict[int, list[dict]] = defaultdict(list)
++        self.net_rx_dic: dict[int, dict] = {}
++        self.receive_hunk_list: list[dict] = []
++        self.rx_skb_list: list[dict] = []
++        self.tx_queue_list: list[dict] = []
++        self.tx_xmit_list: list[dict] = []
++        self.tx_free_list: list[dict] = []
 +
-+def get_comm_filter(regex: re.Pattern) -> Callable[[int, str], bool]:
-+    """Returns a filter function based on command regex."""
-+    def filter_func(_pid: int, comm: str) -> bool:
-+        regex_match = regex.search(comm)
-+        return regex_match is None or regex_match.group() == ""
-+    return filter_func
++        self.buffer_budget = 65536
++        self.of_count_rx_skb_list = 0
++        self.of_count_tx_queue_list = 0
++        self.of_count_tx_xmit_list = 0
 +
-+def get_pid_filter(low_str: str, high_str: str) -> Callable[[int, str], bool]:
-+    """Returns a filter function based on PID range."""
-+    low = 0 if low_str == "" else int(low_str)
-+    high = None if high_str == "" else int(high_str)
++    def diff_msec(self, src: int, dst: int) -> float:
++        """Calculate a time interval(msec) from src(nsec) to dst(nsec)."""
++        return (dst - src) / 1000000.0
 +
-+    def filter_func(pid: int, _comm: str) -> bool:
-+        return not (pid >= low and (high is None or pid <= high))
-+    return filter_func
-+
-+def ns_to_time(ns: int) -> str:
-+    """Format nanoseconds to string based on options."""
-+    return f"{ns}ns" if OPT_NS else f"{round(ns, -3) // 1000}us"
-+
-+class Pair:
-+    """Represents a pair of related counters (e.g., scanned vs isolated, moved vs failed)."""
-+    def __init__(self, aval: int, bval: int,
-+                 alabel: Optional[str] = None, blabel: Optional[str] = None):
-+        self.alabel = alabel
-+        self.blabel = blabel
-+        self.aval = aval
-+        self.bval = bval
-+
-+    def __add__(self, rhs: 'Pair') -> 'Pair':
-+        return Pair(self.aval + rhs.aval, self.bval + rhs.bval, self.alabel, self.blabel)
-+
-+    def __iadd__(self, rhs: 'Pair') -> 'Pair':
-+        self.aval += rhs.aval
-+        self.bval += rhs.bval
-+        return self
-+
-+    def __str__(self) -> str:
-+        return f"{self.alabel}={self.aval} {self.blabel}={self.bval}"
-+
-+class Cnode:
-+    """Holds statistics for a single compaction event or an aggregated set of events."""
-+    def __init__(self, ns: int):
-+        self.ns = ns
-+        self.migrated = Pair(0, 0, "moved", "failed")
-+        self.fscan = Pair(0, 0, "scanned", "isolated")
-+        self.mscan = Pair(0, 0, "scanned", "isolated")
-+
-+    def __add__(self, rhs: 'Cnode') -> 'Cnode':
-+        res = Cnode(self.ns + rhs.ns)
-+        res.migrated = self.migrated + rhs.migrated
-+        res.fscan = self.fscan + rhs.fscan
-+        res.mscan = self.mscan + rhs.mscan
-+        return res
-+
-+    def __iadd__(self, rhs: 'Cnode') -> 'Cnode':
-+        self.ns += rhs.ns
-+        self.migrated += rhs.migrated
-+        self.fscan += rhs.fscan
-+        self.mscan += rhs.mscan
-+        return self
-+
-+    def __str__(self) -> str:
-+        prev = False
-+        s = f"{ns_to_time(self.ns)} "
-+        if opt_disp & Topt.DISP_MIG:
-+            s += f"migration: {self.migrated}"
-+            prev = True
-+        if opt_disp & Topt.DISP_ISOLFREE:
-+            s += f"{' ' if prev else ''}free_scanner: {self.fscan}"
-+            prev = True
-+        if opt_disp & Topt.DISP_ISOLMIG:
-+            s += f"{' ' if prev else ''}migration_scanner: {self.mscan}"
-+        return s
-+
-+    def complete(self, secs: int, nsecs: int) -> None:
-+        """Complete the node with duration."""
-+        self.ns = (secs * 1000000000 + nsecs) - self.ns
-+
-+    def increment(self, migrated: Optional[Pair], fscan: Optional[Pair],
-+                  mscan: Optional[Pair]) -> None:
-+        """Increment statistics."""
-+        if migrated is not None:
-+            self.migrated += migrated
-+        if fscan is not None:
-+            self.fscan += fscan
-+        if mscan is not None:
-+            self.mscan += mscan
-+
-+class Chead:
-+    """Aggregates compaction statistics per process (PID) and maintains total statistics."""
-+    heads: Dict[int, 'Chead'] = {}
-+    val = Cnode(0)
-+    fobj: Optional[Any] = None
-+
-+    @classmethod
-+    def add_filter(cls, fobj: Any) -> None:
-+        """Add a filter object."""
-+        cls.fobj = fobj
-+
-+    @classmethod
-+    def create_pending(cls, pid: int, comm: str, start_secs: int, start_nsecs: int) -> None:
-+        """Create a pending node for a process."""
-+        filtered = False
-+        try:
-+            head = cls.heads[pid]
-+            filtered = head.is_filtered()
-+        except KeyError:
-+            if cls.fobj is not None:
-+                filtered = cls.fobj(pid, comm)
-+            head = cls.heads[pid] = Chead(comm, pid, filtered)
-+
-+        if not filtered:
-+            head.mark_pending(start_secs, start_nsecs)
-+
-+    @classmethod
-+    def increment_pending(cls, pid: int, migrated: Optional[Pair],
-+                          fscan: Optional[Pair], mscan: Optional[Pair]) -> None:
-+        """Increment pending stats for a process."""
-+        if pid not in cls.heads:
++    def print_transmit(self, hunk: dict) -> None:
++        """Display a process of transmitting a packet."""
++        if self.dev and hunk['dev'].find(self.dev) < 0:
 +            return
-+        head = cls.heads[pid]
-+        if not head.is_filtered():
-+            if head.is_pending():
-+                head.do_increment(migrated, fscan, mscan)
-+            else:
-+                sys.stderr.write(f"missing start compaction event for pid {pid}\n")
++        queue_t_sec = hunk['queue_t'] // 1000000000
++        queue_t_usec = hunk['queue_t'] % 1000000000 // 1000
++        print(f"{hunk['dev']:7s} {hunk['len']:5d} "
++              f"{queue_t_sec:6d}.{queue_t_usec:06d}sec "
++              f"{self.diff_msec(hunk['queue_t'], hunk['xmit_t']):12.3f}msec      "
++              f"{self.diff_msec(hunk['xmit_t'], hunk['free_t']):12.3f}msec")
 +
-+    @classmethod
-+    def complete_pending(cls, pid: int, secs: int, nsecs: int) -> None:
-+        """Complete pending stats for a process."""
-+        if pid not in cls.heads:
++    def print_receive(self, hunk: dict) -> None:
++        """Display a process of received packets and interrupts."""
++        show_hunk = False
++        irq_list = hunk['irq_list']
++        if not irq_list:
 +            return
-+        head = cls.heads[pid]
-+        if not head.is_filtered():
-+            if head.is_pending():
-+                head.make_complete(secs, nsecs)
++        cpu = irq_list[0]['cpu']
++        base_t = irq_list[0]['irq_ent_t']
++
++        if self.dev:
++            for irq in irq_list:
++                if irq['name'].find(self.dev) >= 0:
++                    show_hunk = True
++                    break
++        else:
++            show_hunk = True
++
++        if not show_hunk:
++            return
++
++        base_t_sec = base_t // 1000000000
++        base_t_usec = base_t % 1000000000 // 1000
++        print(f"{base_t_sec}.{base_t_usec:06d}sec cpu={cpu}")
++        for irq in irq_list:
++            print(PF_IRQ_ENTRY %
++                  (self.diff_msec(base_t, irq['irq_ent_t']),
++                   irq['irq'], irq['name']))
++            print(PF_JOINT)
++            irq_event_list = irq['event_list']
++            for irq_event in irq_event_list:
++                if irq_event['event'] == 'netif_rx':
++                    print(PF_NET_RX %
++                          (self.diff_msec(base_t, irq_event['time']),
++                           irq_event['skbaddr']))
++                    print(PF_JOINT)
++
++        print(PF_SOFT_ENTRY % self.diff_msec(base_t, hunk['sirq_ent_t']))
++        print(PF_JOINT)
++        event_list = hunk['event_list']
++        for i, event in enumerate(event_list):
++            if event['event_name'] == 'napi_poll':
++                print(PF_NAPI_POLL %
++                      (self.diff_msec(base_t, event['event_t']),
++                       event['dev']))
++                if i == len(event_list) - 1:
++                    print("")
++                else:
++                    print(PF_JOINT)
 +            else:
-+                sys.stderr.write(f"missing start compaction event for pid {pid}\n")
++                print(PF_NET_RECV %
++                      (self.diff_msec(base_t, event['event_t']),
++                       event['skbaddr'],
++                       event['len']))
++                if 'handle' in event:
++                    print(PF_WJOINT)
++                    if event['handle'] == "kfree_skb":
++                        print(PF_KFREE_SKB %
++                              (self.diff_msec(base_t, event['comm_t']),
++                               event['location']))
++                    elif event['handle'] == "consume_skb":
++                        print(PF_CONS_SKB %
++                              self.diff_msec(base_t, event['comm_t']))
++                    elif event['handle'] == "skb_copy_datagram_iovec":
++                        print(PF_CPY_DGRAM %
++                              (self.diff_msec(base_t, event['comm_t']),
++                               event['pid'], event['comm']))
++                print(PF_JOINT)
 +
-+    @classmethod
-+    def gen(cls):
-+        """Generate heads for display."""
-+        if opt_proc != Popt.DISP_DFL:
-+            yield from cls.heads.values()
++    def handle_irq_handler_entry(self, event: dict) -> None:
++        """Handle irq:irq_handler_entry event."""
++        time = event['time']
++        cpu = event['cpu']
++        irq = event['irq']
++        irq_name = event['irq_name']
++        irq_record = {'irq': irq, 'name': irq_name, 'cpu': cpu,
++                      'irq_ent_t': time, 'event_list': []}
++        self.irq_dic[cpu].append(irq_record)
 +
-+    @classmethod
-+    def get_total(cls) -> Cnode:
-+        """Get total statistics."""
-+        return cls.val
++    def handle_irq_handler_exit(self, event: dict) -> None:
++        """Handle irq:irq_handler_exit event."""
++        time = event['time']
++        cpu = event['cpu']
++        irq = event['irq']
++        if cpu not in self.irq_dic or not self.irq_dic[cpu]:
++            return
++        if irq != self.irq_dic[cpu][-1]['irq']:
++            return
++        irq_record = self.irq_dic[cpu].pop()
++        irq_record['irq_ext_t'] = time
++        # if an irq doesn't include NET_RX softirq, drop.
++        if irq_record['event_list']:
++            self.irq_dic[cpu].append(irq_record)
 +
-+    def __init__(self, comm: str, pid: int, filtered: bool):
-+        self.comm = comm
-+        self.pid = pid
-+        self.val = Cnode(0)
-+        self.pending: Optional[Cnode] = None
-+        self.filtered = filtered
-+        self.list: List[Cnode] = []
++    def handle_irq_softirq_raise(self, event: dict) -> None:
++        """Handle irq:softirq_raise event."""
++        time = event['time']
++        cpu = event['cpu']
++        if cpu not in self.irq_dic or not self.irq_dic[cpu]:
++            return
++        irq_record = self.irq_dic[cpu].pop()
++        irq_record['event_list'].append({'time': time, 'event': 'sirq_raise'})
++        self.irq_dic[cpu].append(irq_record)
 +
-+    def mark_pending(self, secs: int, nsecs: int) -> None:
-+        """Mark node as pending."""
-+        self.pending = Cnode(secs * 1000000000 + nsecs)
++    def handle_irq_softirq_entry(self, event: dict) -> None:
++        """Handle irq:softirq_entry event."""
++        time = event['time']
++        cpu = event['cpu']
++        self.net_rx_dic[cpu] = {'sirq_ent_t': time, 'event_list': []}
 +
-+    def do_increment(self, migrated: Optional[Pair], fscan: Optional[Pair],
-+                     mscan: Optional[Pair]) -> None:
-+        """Increment pending stats."""
-+        if self.pending is not None:
-+            self.pending.increment(migrated, fscan, mscan)
++    def handle_irq_softirq_exit(self, event: dict) -> None:
++        """Handle irq:softirq_exit event."""
++        time = event['time']
++        cpu = event['cpu']
++        irq_list = None
++        event_list = None
++        sirq_ent_t = None
 +
-+    def make_complete(self, secs: int, nsecs: int) -> None:
-+        """Make pending stats complete."""
-+        if self.pending is not None:
-+            self.pending.complete(secs, nsecs)
-+            Chead.val += self.pending
++        if cpu in self.irq_dic:
++            irq_list = self.irq_dic[cpu]
++            del self.irq_dic[cpu]
++        if cpu in self.net_rx_dic:
++            sirq_ent_t = self.net_rx_dic[cpu]['sirq_ent_t']
++            event_list = self.net_rx_dic[cpu]['event_list']
++            del self.net_rx_dic[cpu]
++        if not irq_list or event_list is None or sirq_ent_t is None:
++            return
++        rec_data = {'sirq_ent_t': sirq_ent_t, 'sirq_ext_t': time,
++                    'irq_list': irq_list, 'event_list': event_list}
++        self.receive_hunk_list.append(rec_data)
 +
-+            if opt_proc != Popt.DISP_DFL:
-+                self.val += self.pending
++    def handle_napi_poll(self, event: dict) -> None:
++        """Handle napi:napi_poll event."""
++        time = event['time']
++        cpu = event['cpu']
++        dev_name = event['dev_name']
++        work = event['work']
++        budget = event['budget']
++        if cpu in self.net_rx_dic:
++            event_list = self.net_rx_dic[cpu]['event_list']
++            rec_data = {'event_name': 'napi_poll',
++                        'dev': dev_name, 'event_t': time,
++                        'work': work, 'budget': budget}
++            event_list.append(rec_data)
 +
-+                if opt_proc == Popt.DISP_PROC_VERBOSE:
-+                    self.list.append(self.pending)
-+            self.pending = None
++    def handle_netif_rx(self, event: dict) -> None:
++        """Handle net:netif_rx event."""
++        time = event['time']
++        cpu = event['cpu']
++        skbaddr = event['skbaddr']
++        skblen = event['skblen']
++        dev_name = event['dev_name']
++        if cpu not in self.irq_dic or not self.irq_dic[cpu]:
++            return
++        irq_record = self.irq_dic[cpu].pop()
++        irq_record['event_list'].append({'time': time, 'event': 'netif_rx',
++                                         'skbaddr': skbaddr, 'skblen': skblen,
++                                         'dev_name': dev_name})
++        self.irq_dic[cpu].append(irq_record)
 +
-+    def enumerate(self) -> None:
-+        """Enumerate verbose stats."""
-+        if opt_proc == Popt.DISP_PROC_VERBOSE and not self.is_filtered():
-+            for i, pelem in enumerate(self.list):
-+                sys.stdout.write(f"{self.pid}[{self.comm}].{i+1}: {pelem}\n")
++    def handle_netif_receive_skb(self, event: dict) -> None:
++        """Handle net:netif_receive_skb event."""
++        time = event['time']
++        cpu = event['cpu']
++        skbaddr = event['skbaddr']
++        skblen = event['skblen']
++        if cpu in self.net_rx_dic:
++            rec_data = {'event_name': 'netif_receive_skb',
++                        'event_t': time, 'skbaddr': skbaddr, 'len': skblen}
++            event_list = self.net_rx_dic[cpu]['event_list']
++            event_list.append(rec_data)
++            self.rx_skb_list.insert(0, rec_data)
++            if len(self.rx_skb_list) > self.buffer_budget:
++                self.rx_skb_list.pop()
++                self.of_count_rx_skb_list += 1
 +
-+    def is_pending(self) -> bool:
-+        """Check if node is pending."""
-+        return self.pending is not None
++    def handle_net_dev_queue(self, event: dict) -> None:
++        """Handle net:net_dev_queue event."""
++        time = event['time']
++        skbaddr = event['skbaddr']
++        skblen = event['skblen']
++        dev_name = event['dev_name']
++        skb = {'dev': dev_name, 'skbaddr': skbaddr, 'len': skblen, 'queue_t': time}
++        self.tx_queue_list.insert(0, skb)
++        if len(self.tx_queue_list) > self.buffer_budget:
++            self.tx_queue_list.pop()
++            self.of_count_tx_queue_list += 1
 +
-+    def is_filtered(self) -> bool:
-+        """Check if node is filtered."""
-+        return self.filtered
++    def handle_net_dev_xmit(self, event: dict) -> None:
++        """Handle net:net_dev_xmit event."""
++        time = event['time']
++        skbaddr = event['skbaddr']
++        rc = event['rc']
++        if rc == 0:  # NETDEV_TX_OK
++            for i, skb in enumerate(self.tx_queue_list):
++                if skb['skbaddr'] == skbaddr:
++                    skb['xmit_t'] = time
++                    self.tx_xmit_list.insert(0, skb)
++                    del self.tx_queue_list[i]
++                    if len(self.tx_xmit_list) > self.buffer_budget:
++                        self.tx_xmit_list.pop()
++                        self.of_count_tx_xmit_list += 1
++                    return
 +
-+    def display(self) -> None:
-+        """Display stats."""
-+        if not self.is_filtered():
-+            sys.stdout.write(f"{self.pid}[{self.comm}]: {self.val}\n")
++    def handle_kfree_skb(self, event: dict) -> None:
++        """Handle skb:kfree_skb event."""
++        time = event['time']
++        skbaddr = event['skbaddr']
++        comm = event['comm']
++        pid = event['pid']
++        location = event['location']
++        for i, skb in enumerate(self.tx_queue_list):
++            if skb['skbaddr'] == skbaddr:
++                del self.tx_queue_list[i]
++                return
++        for i, skb in enumerate(self.tx_xmit_list):
++            if skb['skbaddr'] == skbaddr:
++                skb['free_t'] = time
++                self.tx_free_list.append(skb)
++                del self.tx_xmit_list[i]
++                return
++        for i, rec_data in enumerate(self.rx_skb_list):
++            if rec_data['skbaddr'] == skbaddr:
++                rec_data.update({'handle': "kfree_skb",
++                                 'comm': comm, 'pid': pid, 'comm_t': time, 'location': location})
++                del self.rx_skb_list[i]
++                return
 +
-+def trace_end() -> None:
-+    """Called at the end of trace processing."""
-+    sys.stdout.write(f"total: {Chead.get_total()}\n")
-+    for i in Chead.gen():
-+        i.display()
-+        i.enumerate()
++    def handle_consume_skb(self, event: dict) -> None:
++        """Handle skb:consume_skb event."""
++        time = event['time']
++        skbaddr = event['skbaddr']
++        for i, skb in enumerate(self.tx_xmit_list):
++            if skb['skbaddr'] == skbaddr:
++                skb['free_t'] = time
++                self.tx_free_list.append(skb)
++                del self.tx_xmit_list[i]
++                return
++        for i, rec_data in enumerate(self.rx_skb_list):
++            if rec_data['skbaddr'] == skbaddr:
++                rec_data.update({'handle': "consume_skb", 'comm_t': time})
++                del self.rx_skb_list[i]
++                return
 +
-+def process_event(sample: perf.sample_event) -> None:
-+    """Callback for processing events."""
-+    event_name = str(sample.evsel)
-+    pid = sample.sample_tid
-+    comm = "[unknown]"
-+    try:
-+        if session:
-+            thread = session.find_thread(sample.sample_pid, pid)
-+            if thread:
-+                comm = thread.comm() or "[unknown]"
-+    except (TypeError, AttributeError):
-+        pass
-+    secs = sample.sample_time // 1000000000
-+    nsecs = sample.sample_time % 1000000000
++    def handle_skb_copy_datagram_iovec(self, event: dict) -> None:
++        """Handle skb:skb_copy_datagram_iovec event."""
++        time = event['time']
++        skbaddr = event['skbaddr']
++        comm = event['comm']
++        pid = event['pid']
++        for i, rec_data in enumerate(self.rx_skb_list):
++            if skbaddr == rec_data['skbaddr']:
++                rec_data.update({'handle': "skb_copy_datagram_iovec",
++                                 'comm': comm, 'pid': pid, 'comm_t': time})
++                del self.rx_skb_list[i]
++                return
 +
-+    if "evsel(compaction:mm_compaction_begin)" in event_name:
-+        Chead.create_pending(pid, comm, secs, nsecs)
-+    elif "evsel(compaction:mm_compaction_end)" in event_name:
-+        Chead.complete_pending(pid, secs, nsecs)
-+    elif "evsel(compaction:mm_compaction_migratepages)" in event_name:
-+        nr_migrated = getattr(sample, "nr_migrated", 0)
-+        nr_failed = getattr(sample, "nr_failed", 0)
-+        Chead.increment_pending(pid, Pair(nr_migrated, nr_failed), None, None)
-+    elif "evsel(compaction:mm_compaction_isolate_freepages)" in event_name:
-+        nr_scanned = getattr(sample, "nr_scanned", 0)
-+        nr_taken = getattr(sample, "nr_taken", 0)
-+        Chead.increment_pending(pid, None, Pair(nr_scanned, nr_taken), None)
-+    elif "evsel(compaction:mm_compaction_isolate_migratepages)" in event_name:
-+        nr_scanned = getattr(sample, "nr_scanned", 0)
-+        nr_taken = getattr(sample, "nr_taken", 0)
-+        Chead.increment_pending(pid, None, None, Pair(nr_scanned, nr_taken))
++    def print_summary(self) -> None:
++        """Print charts."""
++
++        # display receive hunks
++        if self.show_rx:
++            for hunk in self.receive_hunk_list:
++                self.print_receive(hunk)
++
++        # display transmit hunks
++        if self.show_tx:
++            print("   dev    len      Qdisc        "
++                  "       netdevice             free")
++            for hunk in self.tx_free_list:
++                self.print_transmit(hunk)
++
++        if self.debug:
++            print("debug buffer status")
++            print("----------------------------")
++            print(f"xmit Qdisc:remain:{len(self.tx_queue_list)} "
++                  f"overflow:{self.of_count_tx_queue_list}")
++            print(f"xmit netdevice:remain:{len(self.tx_xmit_list)} "
++                  f"overflow:{self.of_count_tx_xmit_list}")
++            print(f"receive:remain:{len(self.rx_skb_list)} "
++                  f"overflow:{self.of_count_rx_skb_list}")
++
++    def handle_single_event(self, event: dict) -> None:
++        """Handle a single processed event."""
++        name = event['name']
++        if name == 'irq:softirq_exit':
++            self.handle_irq_softirq_exit(event)
++        elif name == 'irq:softirq_entry':
++            self.handle_irq_softirq_entry(event)
++        elif name == 'irq:softirq_raise':
++            self.handle_irq_softirq_raise(event)
++        elif name == 'irq:irq_handler_entry':
++            self.handle_irq_handler_entry(event)
++        elif name == 'irq:irq_handler_exit':
++            self.handle_irq_handler_exit(event)
++        elif name == 'napi:napi_poll':
++            self.handle_napi_poll(event)
++        elif name == 'net:netif_receive_skb':
++            self.handle_netif_receive_skb(event)
++        elif name == 'net:netif_rx':
++            self.handle_netif_rx(event)
++        elif name == 'skb:skb_copy_datagram_iovec':
++            self.handle_skb_copy_datagram_iovec(event)
++        elif name == 'net:net_dev_queue':
++            self.handle_net_dev_queue(event)
++        elif name == 'net:net_dev_xmit':
++            self.handle_net_dev_xmit(event)
++        elif name == 'skb:kfree_skb':
++            self.handle_kfree_skb(event)
++        elif name == 'skb:consume_skb':
++            self.handle_consume_skb(event)
++
++    def process_event(self, sample: perf.sample_event) -> None:
++        """Process events directly on-the-fly."""
++        name = str(sample.evsel)
++        ev_name = name[6:-1] if name.startswith("evsel(") else name
++        pid = sample.sample_pid
++        if hasattr(self, 'session') and self.session:
++            try:
++                thread = self.session.find_thread(sample.sample_pid, sample.sample_tid)
++                comm = (thread.comm() if thread else None) or "[unknown]"
++            except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError):
++                comm = "[unknown]"
++        else:
++            comm = "Unknown"
++        event_data = {
++            'name': ev_name,
++            'time': sample.sample_time,
++            'cpu': sample.sample_cpu,
++            'pid': pid,
++            'comm': comm,
++        }
++
++        # Extract specific fields based on event type
++        if ev_name.startswith("irq:softirq_"):
++            event_data['vec'] = getattr(sample, "vec", 0)
++            # Filter for NET_RX
++            if event_data['vec'] != 3:  # NET_RX_SOFTIRQ is usually 3
++                return
++        elif ev_name == "irq:irq_handler_entry":
++            event_data['irq'] = getattr(sample, "irq", -1)
++            event_data['irq_name'] = getattr(sample, "name", "[unknown]")
++        elif ev_name == "irq:irq_handler_exit":
++            event_data['irq'] = getattr(sample, "irq", -1)
++            event_data['ret'] = getattr(sample, "ret", 0)
++        elif ev_name == "napi:napi_poll":
++            event_data['napi'] = getattr(sample, "napi", 0)
++            event_data['dev_name'] = getattr(sample, "dev_name", "[unknown]")
++            event_data['work'] = getattr(sample, "work", 0)
++            event_data['budget'] = getattr(sample, "budget", 0)
++        elif ev_name in ("net:netif_receive_skb", "net:netif_rx",
++                         "net:net_dev_queue"):
++            event_data['skbaddr'] = getattr(sample, "skbaddr", 0)
++            event_data['skblen'] = getattr(sample, "len", 0)
++            event_data['dev_name'] = getattr(sample, "name", "[unknown]")
++        elif ev_name == "net:net_dev_xmit":
++            event_data['skbaddr'] = getattr(sample, "skbaddr", 0)
++            event_data['skblen'] = getattr(sample, "len", 0)
++            event_data['rc'] = getattr(sample, "rc", 0)
++            event_data['dev_name'] = getattr(sample, "name", "[unknown]")
++        elif ev_name == "skb:kfree_skb":
++            event_data['skbaddr'] = getattr(sample, "skbaddr", 0)
++            event_data['location'] = getattr(sample, "location", 0)
++            event_data['protocol'] = getattr(sample, "protocol", 0)
++            event_data['reason'] = getattr(sample, "reason", 0)
++        elif ev_name == "skb:consume_skb":
++            event_data['skbaddr'] = getattr(sample, "skbaddr", 0)
++            event_data['location'] = getattr(sample, "location", 0)
++        elif ev_name == "skb:skb_copy_datagram_iovec":
++            event_data['skbaddr'] = getattr(sample, "skbaddr", 0)
++            event_data['skblen'] = getattr(sample, "len", 0)
++
++        self.handle_single_event(event_data)
++
++
++NetdevTimes = NetDevTimesAnalyzer
++
 +
 +if __name__ == "__main__":
-+    ap = argparse.ArgumentParser(description="Report time spent in compaction")
-+    ap.add_argument("-p", action="store_true", help="display by process")
-+    ap.add_argument("-pv", action="store_true", help="display by process (verbose)")
-+    ap.add_argument("-u", action="store_true", help="display results in microseconds")
-+    ap.add_argument("-t", action="store_true", help="display stall times only")
-+    ap.add_argument("-m", action="store_true", help="display stats for migration")
-+    ap.add_argument("-fs", action="store_true", help="display stats for free scanner")
-+    ap.add_argument("-ms", action="store_true", help="display stats for migration scanner")
-+    ap.add_argument("filter", nargs="?", help="pid|pid-range|comm-regex")
++    ap = argparse.ArgumentParser(description="Display a process of packets and processed time.")
 +    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
-+    args = ap.parse_args()
++    ap.add_argument("--tx", action="store_true", help="show only tx chart")
++    ap.add_argument("--rx", action="store_true", help="show only rx chart")
++    ap.add_argument("--dev", default=None, help="show only specified device")
++    ap.add_argument("--debug", action="store_true",
++                    help="work with debug mode. It shows buffer status.")
++    ap.add_argument("positionals", nargs="*",
++                    help="optional positional arguments (tx, rx, dev=<name>, debug)")
++    args, unknown_args = ap.parse_known_args()
 +
-+    opt_proc = Popt.DISP_DFL
-+    if args.pv:
-+        opt_proc = Popt.DISP_PROC_VERBOSE
-+    elif args.p:
-+        opt_proc = Popt.DISP_PROC
++    parsed_args = argparse.Namespace(
++        tx=args.tx, rx=args.rx, dev=args.dev, debug=args.debug, input=args.input
++    )
 +
-+    OPT_NS = not args.u
++    for arg in list(args.positionals) + unknown_args:
++        if not arg or not isinstance(arg, str):
++            continue
++        if arg in ('tx', '--tx'):
++            parsed_args.tx = True
++        elif arg in ('rx', '--rx'):
++            parsed_args.rx = True
++        elif arg.startswith('dev='):
++            parsed_args.dev = arg[4:]
++        elif arg.startswith('--dev='):
++            parsed_args.dev = arg[6:]
++        elif arg in ('debug', '--debug'):
++            parsed_args.debug = True
 +
-+    opt_disp = Topt.DISP_ALL
-+    if args.t or args.m or args.fs or args.ms:
-+        opt_disp = Topt(0)
-+        if args.t:
-+            opt_disp |= Topt.DISP_TIME
-+        if args.m:
-+            opt_disp |= Topt.DISP_MIG
-+        if args.fs:
-+            opt_disp |= Topt.DISP_ISOLFREE
-+        if args.ms:
-+            opt_disp |= Topt.DISP_ISOLMIG
-+
-+    if args.filter:
-+        PID_PATTERN = r"^(\d*)-(\d*)$|^(\d*)$"
-+        pid_re = re.compile(PID_PATTERN)
-+        match = pid_re.search(args.filter)
-+        filter_obj: Any = None
-+        if match is not None and match.group() != "":
-+            if match.group(3) is not None:
-+                filter_obj = get_pid_filter(match.group(3), match.group(3))
-+            else:
-+                filter_obj = get_pid_filter(match.group(1), match.group(2))
-+        else:
-+            try:
-+                comm_re = re.compile(args.filter)
-+            except re.error:
-+                sys.stderr.write(f"invalid regex '{args.filter}'\n")
-+                sys.exit(1)
-+            filter_obj = get_comm_filter(comm_re)
-+        Chead.add_filter(filter_obj)
++    analyzer = NetDevTimesAnalyzer(parsed_args)
 +
 +    try:
-+        session = perf.session(perf.data(args.input), sample=process_event)
 +        try:
-+            session.process_events()
-+        except KeyboardInterrupt:
-+            pass
-+        trace_end()
-+    finally:
-+        # Break the reference cycle between the global session and the
-+        # process_event callback so the C perf.session object is freed.
-+        session = None
-diff --git a/tools/perf/tests/shell/test_compaction_times_python.sh b/tools/perf/tests/shell/test_compaction_times_python.sh
++            analyzer.session = perf.session(
++                perf.data(parsed_args.input), sample=analyzer.process_event
++            )
++            try:
++                analyzer.session.process_events()
++            except KeyboardInterrupt:
++                pass
++        finally:
++            # Break the reference cycle between analyzer.session and the bound
++            # analyzer.process_event callback so the C perf.session object is freed.
++            analyzer.session = None
++        analyzer.print_summary()
++    except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError) as e:
++        print(f"Error processing events: {e}")
++        sys.exit(1)
+diff --git a/tools/perf/tests/shell/test_netdev_times_python.sh b/tools/perf/tests/shell/test_netdev_times_python.sh
 new file mode 100755
-index 000000000000..ad950f3602b5
+index 000000000000..bb0f8c30207f
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_compaction_times_python.sh
-@@ -0,0 +1,127 @@
++++ b/tools/perf/tests/shell/test_netdev_times_python.sh
+@@ -0,0 +1,104 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# compaction-times python test
++# netdev_times python test
 +
 +set -e
 +
@@ -478,22 +609,21 @@ index 000000000000..ad950f3602b5
 +# shellcheck source=lib/setup_python.sh
 +. "${shelldir}"/lib/setup_python.sh
 +
-+# If we don't have the perf python module, we can't test
 +if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
 +	echo "Skipping test, perf python module not found"
 +	exit 2
 +fi
 +
-+if ! perf check feature -q libtraceevent; then
-+	echo "Skipping test, perf built without libtraceevent"
++script_dir="$(dirname "$0")/../../python"
++script_path="${script_dir}/netdev-times.py"
++
++if ! perf check feature -q libtraceevent > /dev/null 2>&1; then
++	echo "Skipping test, libtraceevent is disabled"
 +	exit 2
 +fi
 +
-+script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/compaction-times.py"
-+
 +if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, compaction-times.py not found at $script_path"
++	echo "Skipping test, netdev-times.py not found at $script_path"
 +	exit 2
 +fi
 +
@@ -504,95 +634,73 @@ index 000000000000..ad950f3602b5
 +cleanup() {
 +	rm -f "${temp_data}" "${temp_out}"
 +}
-+
 +trap 'cleanup' EXIT TERM INT
 +
 +temp_data=$(mktemp /tmp/perf.data.XXXXXX)
 +temp_out=$(mktemp /tmp/perf.out.XXXXXX)
 +
-+test_file_mode() {
-+	echo "Testing compaction-times.py..."
++echo "Testing netdev-times.py..."
 +
-+	# Check for any compaction events to see if kernel supports it
-+	if ! perf list | grep -q "compaction:mm_compaction_begin"; then
-+		echo "Skipping test, compaction tracepoints not found"
-+		exit 2
-+	fi
++if ! "$PYTHON" - "$script_path" << 'EOF'
++import argparse
++import contextlib
++import importlib.util
++import io
++import sys
 +
-+	# Generate some events
-+	# We might not naturally trigger compaction in 0.5s sleep, but the script
-+	# should parse the empty or sparse file correctly without crashing.
-+	if ! perf record -e "compaction:*" -a -o "${temp_data}" -- sleep 0.5 >/dev/null 2>&1; then
-+		echo "Skipping test, perf record failed"
-+		exit 2
-+	fi
-+
-+	# Run the script with some filters to validate filtering logic
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
-+		echo "File mode default test failed."
-+		err=1
-+	elif ! grep -q "total:" "${temp_out}"; then
-+		echo "File mode default test missing 'total:' output."
-+		err=1
-+	fi
-+
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" "0-0" > "${temp_out}"; then
-+		echo "File mode strict PID filter test failed."
-+		err=1
-+	elif ! grep -q "total:" "${temp_out}"; then
-+		echo "File mode strict PID filter test missing 'total:' output."
-+		err=1
-+	fi
-+
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" "sleep" > "${temp_out}"; then
-+		echo "File mode comm filter test failed."
-+		err=1
-+	elif ! grep -q "total:" "${temp_out}"; then
-+		echo "File mode comm filter test missing 'total:' output."
-+		err=1
-+	fi
-+
-+	# Deterministic unit test of comm filtering and non-zero duration aggregation
-+	if ! "$PYTHON" -c "
-+import re, sys, importlib.util
-+spec = importlib.util.spec_from_file_location('compaction_times', sys.argv[1])
++spec = importlib.util.spec_from_file_location("netdev_times", sys.argv[1])
 +mod = importlib.util.module_from_spec(spec)
 +spec.loader.exec_module(mod)
 +
-+class DummyThread:
-+    def comm(self): return 'sleep'
++cfg = argparse.Namespace(tx=True, rx=False, dev=None, debug=False, input="perf.data")
++analyzer = mod.NetdevTimes(cfg)
++analyzer.handle_net_dev_queue({
++    "time": 1_000_000_000,
++    "skbaddr": 0xdeadbeef,
++    "skblen": 1500,
++    "dev_name": "eth0",
++})
++analyzer.handle_net_dev_xmit({
++    "time": 1_000_500_000,
++    "skbaddr": 0xdeadbeef,
++    "rc": 0,
++})
++analyzer.handle_kfree_skb({
++    "time": 1_000_750_000,
++    "skbaddr": 0xdeadbeef,
++    "comm": "ping",
++    "pid": 42,
++    "location": 0xffffffff81000000,
++})
 +
-+class DummySession:
-+    def find_thread(self, pid, tid): return DummyThread()
++buf = io.StringIO()
++with contextlib.redirect_stdout(buf):
++    analyzer.print_summary()
++out = buf.getvalue()
++assert "eth0" in out and "1500" in out and "1.000000sec" in out, out
++assert "0.500msec" in out and "0.250msec" in out, out
++EOF
++then
++	echo "netdev-times.py synthetic unit test failed"
++	exit 1
++fi
 +
-+class DummySample:
-+    def __init__(self, evsel, time, **kw):
-+        self.evsel = evsel
-+        self.sample_time = time
-+        self.sample_pid = 100
-+        self.sample_tid = 100
-+        for k, v in kw.items():
-+            setattr(self, k, v)
++# Create a perf.data file. Force dropping a packet if tracepoint is available!
++if ! perf record -e skb:kfree_skb -a -o "${temp_data}" \
++	-- ping -c 1 127.0.0.1 >/dev/null 2>&1; then
++	perf record -e cycles -o "${temp_data}" \
++		-- perf test -w noploop >/dev/null 2>&1 || \
++		{ echo "Skipping test, perf record failed"; exit 2; }
++fi
 +
-+mod.Chead.add_filter(mod.get_comm_filter(re.compile('sleep')))
-+mod.session = DummySession()
-+mod.process_event(DummySample('evsel(compaction:mm_compaction_begin)', 1000))
-+mod.process_event(DummySample('evsel(compaction:mm_compaction_end)', 2500))
-+mod.trace_end()
-+" "$script_path" > "${temp_out}"; then
-+		echo "Deterministic comm filter unit test failed."
-+		err=1
-+	elif ! grep -q "total: 1500ns" "${temp_out}"; then
-+		echo "Deterministic comm filter unit test did not report expected 1500ns total."
-+		err=1
-+	fi
-+
-+	if [ $err -eq 0 ]; then
-+		echo "File mode test passed."
-+	fi
-+}
-+
-+test_file_mode
++# Check that the script executes
++if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
++	echo "netdev-times.py test failed"
++	err=1
++else
++	echo "netdev-times test passed."
++fi
++rm -f "${temp_out}"
 +
 +exit $err
 -- 
