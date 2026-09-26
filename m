@@ -1,61 +1,63 @@
-Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36145423E9E
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144083BE17E
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 10:51:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790419878; cv=none; b=UBxbreUR1Kws8ni/cyuGE1IJoSdrS0d4C55F2Aftfsi5jDimjXqIhKyIcHQN/cOSyjEKVeoPXyhVlQ98uUh5tTUVNNCCr4/7tq+UqBw4jhHSs23CnKkJkZYf+9kGIF3xt2fTsWI+yC+HBgB+xvVdCfKlJHGxvKiT6vgh/MzSRs0=
+	t=1790419881; cv=none; b=SwGnXroA80M+9QZ0G3WisJ5zpbV7B92sYFv1LW5StirH+30xavlD2WJR+Z2407fYMFLNpkGPaxJOSiQ1+Y89kEOPdNRUSng9c2OZrW0HuLGRLN7TjhXJaYJcHPGY8atxL5uZMJ2ADtsQ1RkTUdnRmJWSlDL207s+U57jQalB9XM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790419878; c=relaxed/simple;
-	bh=KaCGZHclEi7vRyauxRwtUWXorE/ecwSVoVfhExE/pck=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OgnWbOYwgDYzp4gPNJIQreLsJ8+id9jZ7eRohWd0hs74l8uWnqwBjAMETN3/8u94ylqyonZ31gZgNhVrGod3HfuMfDeVh+XPLDJaY0UFj0VFlY7fBpZhjcj3KOX06KnkYLmAJdrb9ZCrX2/nvt8RKYIhBUMt8X9sAkYCvXZXF4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=qygI8Rgr; arc=none smtp.client-ip=74.125.230.231
+	s=arc-20240116; t=1790419881; c=relaxed/simple;
+	bh=4LUXkhF82+wYvXhjC2uAbOQL+aa144oON5hXHL+RpQc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GJrc8ZCeu3Q8+emch97DgF6HyvyafTmQbuRdhbDB/fDJTZAauyJ1OOD3Irn8t6e8xeun+R9q4sNu+ybSkNt4X21wLnhKkNXYHGzqueufmcHvNBRBzsfGe3zDBmby0QJkkoKKCZgtHtXwgJZXMMex3HRUVmXYl4pcIFBIwgxVs3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=U27xRN6b; arc=none smtp.client-ip=74.125.230.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="qygI8Rgr"
-Received: by mail-qk2-f39.google.com with SMTP id d75a77b69052e-5332bdd8296so3969391cf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:51:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="U27xRN6b"
+Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-52fb76ec395so15833531cf.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 03:51:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790419873; x=1791024673; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nhXhBLbXkdtNzOcTcim9FzBfpMg5vkoQVWLwtE5p/IQ=;
-        b=qygI8RgrbHPfJrnySoOxSuRHCeAKX1Fkj8NISWON6yYOmp4UtgWoFNSJNCSJDJ/hRD
-         jreMHWxQVv9L5RthIaRLbZUAEujmFK2INewriiYbET+f+Cu3+ihpN5eVo0BFFMSvRGG6
-         QWCUukkezl5qIhHG0lOFJESGChlTt/4/8obM16nYQzLUsx80R59fnag2mpyYx78oeLhH
-         ee+iL+kcLMtI6Yc/r4ayS3jjXx19oNOix5VL1bjOvbp4eHgpdxPv1oywuIZJbl9FUQV3
-         +5I0G2v4NRDcj2ZzJpYnFYaUhBMnJ9HZIrxPtxy7xOR0lfhDAFD4enh931ehZg60xr6F
-         pa0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790419873; x=1791024673;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gourry.net; s=google; t=1790419875; x=1791024675; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nhXhBLbXkdtNzOcTcim9FzBfpMg5vkoQVWLwtE5p/IQ=;
-        b=hCmaoRJypz30zOauTju4in+SUdtNDXCUepOzD0dbQluT1lT8myHcpv/JuxYaY8xleZ
-         AZNozo90cZ1IkUmSMNVfymeU0LhC5gnWFBLk5Zv86+1hxS6oQx35IBtiNRFxMoAsSuyf
-         GeNlLRfk1dKTq1xMoiw9W+pfFCsXhSeQj08dX/bKuYAeUNc+I31V3iqOzFe4xK4hpbuY
-         CHBzcQWq2phTkwJJ+qzsJNj8tD+dKWP0n4Z15vtMqu72UZmKQVb3jbMlytmX4NASpj/V
-         JtFHVSXf9Z00Bqxhg3ZEeDi0jr6unQElKtmaYO+5NHOMsBK7dozl8vDX+DvBKHDieBJ6
-         4pMg==
-X-Gm-Message-State: AFuF++nHobpLxRFoNAT2Dea/seub4eeA1vbkDmnOnML+l2e5OTFEgPZN
-	zPOML94ceMH6vWxTUA83j7xC8mL4XjrD2EJGtbupTEO1VKKGKzGlwvu8JeSnROdnyNc=
-X-Gm-Gg: AYBFou1mFngWVmSCAqz++iSk3reIjZWFzuEw832vdW74sI/1jy8qrDg33KFC7BE7CVa
-	5dmG67fnUTnk3iEx4PJk04NK5qehEuzQPlJdD2BaeOK8XHj5+hzCBmr6hfh34PHiuCA3PhfRN/J
-	hBzRivKQ1C1q1/Nhq0LhEzapq+7vRHtfQ4Au86veDzTAh8lXX3RwJDXejBEMInfgrAZXcvDP/md
-	WU7q15FMDtCI9riH5VpO0kwGCWHJB774mXe8ufNiS6iiTJC2tcTReHUUFa+XoHPADgw7IlnnFha
-	7cKgSKtjn351vqjKGvFaG1QRv587zceWoD3tIy6CKEOC/MEXkl1Vi8Mrncbr77VyemNFv6ujKJE
-	wFR/nN87ue4D8bMalr9q5kFt5/WjEMqjAUmzS1HSWGOZhy4apHWFQ4Y6vikGrPmjlhSdmcJbrDj
-	7q3062AhEKrp0ghG+RbST9K3T7ytfEY25a8qMPTvHATMPdASbwl9itprb/kf8LtcGtOLIBaDbRF
-	I0oondIF1dSlP4LTcrNnbUtc+icM5uEIZ7riLEQpe0Tf1yXFjXh6CVCCXp8
-X-Received: by 2002:a05:622a:e150:10b0:532:9bac:55ed with SMTP id d75a77b69052e-5330b583945mr70779921cf.7.1790419873168;
-        Sat, 26 Sep 2026 03:51:13 -0700 (PDT)
+        bh=reM3bvpTAJ659qLf9u3c5WYxIz1dkkiHph331s5crXk=;
+        b=U27xRN6bh8lw0Y2A5Yg++RUZ7tHT1+eNJqvxQjUbVYnZG29u28JRbvqZLws3qCLNHd
+         r5H+lM6cQHkbs5y4cpBh1UFyHTZtfaMGm6kuh5P3Cc+dDZdvUSrL91r07OOSdPdcdhlt
+         64nJKco91/jHecv+9gvDB7iNbxZY81+YWNf8VmCEDlD3yT75++Hjrb57kfQbYIy/pNEq
+         b0HBVezTTeeypdXgiU5+gZ7TUocRgI82UslWDn9xbnAPEnaS/YsNlHeowtlcCMxKHQ8F
+         3xbUZDKFOtNqOy2++9omUvgPSvYSwpTDJXa5qhTxcShwm/ZCn7/pzU7EuHT5xJF2A5Ts
+         /UPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790419875; x=1791024675;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=reM3bvpTAJ659qLf9u3c5WYxIz1dkkiHph331s5crXk=;
+        b=rm4w48lnzugPS8AiNkphf9PlQshls7xnJm4AX1kHkqWgBy2WC69TCrq9h1YZCfX4dX
+         r2a9ZktLDMhQnSuL16hdiQlf8w90Z21gC+FA+xGf6nZcqPfZq+VgE2FZDNaEqYjL5CLd
+         zZUDjT2y0p3w8K6VkyisgxbP/AYEk9oB7bWD35GTG6cdwxzKFcF2eNG/0TqJO9Ppf+pX
+         j3OxCO+f0gpAE5scS+nMX5Bm139pRd/ewtKCIgyd2TrqMCMMGmX3051ZaQ4RbTNiTuwu
+         Oxap3vJln5Fk18wBzhGNECaC3kzM8ua80f7YQoBPYrlcbdkgXt0rdqwuBcz0uN3YX2gg
+         4y5Q==
+X-Gm-Message-State: AFuF++n7OiQ56Yy9rL5Q6hvMdf4HLYm0mQJpRhLheinCZtrY6SXQ5jWG
+	ba61GKdB6qykC3ZGcyrYm4S0gNNtOF22flQ0ho6BvXsSlbKokUqXwv/wMKmIpTMknsg=
+X-Gm-Gg: AYBFou1q8wZLSeiE2Ygb9jdRWbBNzUAuM/VxM/9KGQ2UaLo1uFMFmDd24igA0DLgxU6
+	py8AnNommT85IO9t425Ya7aGRi+aOQ2xFyJfHW0mZ8p+NTeW0Efkbrup0hZm2dFBiBIuB96gefh
+	SYqkx11KZwhfQ3e9DOGIKdnRKE21fpgAvle29rSb9fVFEvm6+EGbkVpyYc4qDmV78Fg1a3eqWRX
+	/7eCiiOIoxY1vlxNMTBrsUi2juUX843timwjZZkw84R2J7KHxKK59qApgg4jNbeBb4rjgWRvssM
+	15dYaaRg0LzuOyZiiiXaWP7UMqNQ52KakloVbmqH+XGIxw+8cH84lQu+n9T28YLp1VorXeIsHsC
+	ujL7fUKaYk+BAmTsnzUxlJtpUyuoNlRRZqQCvyu/19jLAblg0qyJyR/Xxew3y+K5TU4L4vy2KGx
+	B+GDOsrE2S5+b8bwpJW04L2VI/sN0UaHM2W2tZnxc4A9/pyyNO16EdD9GlfB8o52Bn0P8rJhU0N
+	pepbpWImLHaQDmExHhr2YSEmjbUj25IxJcRi2Z2PDWFwJVdiWwzkGq/kfm1
+X-Received: by 2002:a05:622a:4c89:b0:51a:896c:9aae with SMTP id d75a77b69052e-5330b58ea31mr96997851cf.13.1790419875616;
+        Sat, 26 Sep 2026 03:51:15 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322422063sm15060361cf.28.2026.09.26.03.51.12
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322422063sm15060361cf.28.2026.09.26.03.51.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 03:51:12 -0700 (PDT)
+        Sat, 26 Sep 2026 03:51:14 -0700 (PDT)
 From: Gregory Price <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -73,11 +75,14 @@ Cc: linux-kernel@vger.kernel.org,
 	ying.huang@linux.alibaba.com,
 	peterx@redhat.com,
 	jgg@ziepe.ca,
-	sashiko-bot <sashiko-bot@kernel.org>
-Subject: [PATCH v3 0/2] mm: stop calling pmd_folio() on special PMDs
-Date: Sat, 26 Sep 2026 06:51:08 -0400
-Message-ID: <20260926105110.2156652-1-gourry@gourry.net>
+	sashiko-bot <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
+Date: Sat, 26 Sep 2026 06:51:09 -0400
+Message-ID: <20260926105110.2156652-2-gourry@gourry.net>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260926105110.2156652-1-gourry@gourry.net>
+References: <20260926105110.2156652-1-gourry@gourry.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,89 +91,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two page table walkers resolve the folio behind a PMD with pmd_folio(),
-which is only valid for a PMD mapping a refcounted struct page:
+mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
+vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
 
-  madvise_cold_or_pageout_pte_range()   mm/madvise.c
-  queue_folios_pmd()                    mm/mempolicy.c
+	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
 
-vmf_insert_pfn_pmd() installs special PMDs holding a raw pfn that need not
-have a memmap entry at all.  Both walkers can reach one and fault on the
-first folio field read.  The PTE halves of both already use
-vm_normal_folio(); these two patches make the PMD halves match.
+With a stand-in module for the driver:
 
-The four callers of vmf_insert_pfn_pmd(), and which walker each reaches:
+  BUG: unable to handle page fault for address: fffff96dc0000008
+  RIP: 0010:queue_folios_pte_range+0xaf/0x440
+   walk_pgd_range+0x52b/0xaf0
+   __walk_page_range+0x6a/0x1d0
+   walk_page_range_mm_unsafe+0x193/0x230
+   queue_pages_range+0x64/0xa0
+   do_mbind+0x25e/0x640
 
-  drivers/vfio/pci/vfio_pci_core.c        VM_PFNMAP     mempolicy
-  drivers/gpu/drm/drm_gem_shmem_helper.c  VM_PFNMAP     mempolicy
-  drivers/gpu/drm/panthor/panthor_gem.c   VM_PFNMAP     mempolicy
-  drivers/hv/mshv_vtl_main.c              VM_MIXEDMAP   both
+queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
+is raw MMIO with no memmap entry, so the folio lands in unpopulated
+vmemmap.  Neither guard stops the walk:
 
-can_madv_lru_vma() rejects VM_PFNMAP, so only mshv_vtl_low reaches the
-madvise walker, and that needs CAP_SYS_ADMIN.  queue_pages_walk_ops
-supplies its own ->test_walk, so walk_page_test()'s generic VM_PFNMAP skip
-never runs and vfio-pci is reachable by any process holding the device fd.
-Hence the different stable tags.
+  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
+                           supplies ->test_walk, so it never runs
+  queue_pages_test_walk()  honours vma_migratable(), but only while
+                           MPOL_MF_STRICT is clear
 
-One behaviour change: mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP
-region now returns 0 rather than -EIO.  The PTE loop already returned 0
-there.  drm_gem_shmem and panthor are where this is observable, since they
-PMD map pages that do have a memmap entry and so never faulted.
+A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
+mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
+into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
+mapping.
 
-Reproducer
-==========
+Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
+queue_folios_pte_range() already does with vm_normal_folio().  This also
+filters the huge zero PMD, so its separate check is no longer needed.
 
-No hardware needed.  An out of tree module stands in for the drivers above:
-three misc devices, each with a ->huge_fault calling vmf_insert_pfn_pmd(),
-plus VM_HUGEPAGE so the fault path takes the PMD branch.
+mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
+rather than -EIO.  The PTE loop already returned 0 there.
 
-  /dev/pmdspec_mixed    VM_MIXEDMAP, pfn at the 1 TiB mark, no memmap
-  /dev/pmdspec_pfnmap   VM_PFNMAP,   pfn at the 1 TiB mark, no memmap
-  /dev/pmdspec_real     VM_PFNMAP,   real alloc_pages(PMD_ORDER) on node 0
-
-Userspace maps the device into a PMD aligned window, reads one byte to
-fault the PMD in, checks a module parameter to confirm it went in, then
-issues the operation.
-
-  vng --run <bzImage> --user root --memory 4G --verbose \
-      --append "numa=fake=2" \
-      --exec "insmod pmdspec.ko && ./pmdspec_test <subtest>"
-
-numa=fake=2 gives a node 1 to bind to; the module allocates its real page
-on node 0, which is what makes queue_folio_required() true.
-
-  subtest        operation                              parent   series
-  --------------------------------------------------------------------
-  madv_cold      madvise(MADV_COLD)                     oops     ret=0
-  madv_pageout   madvise(MADV_PAGEOUT)                  oops     ret=0
-  mbind_mixed    mbind(MPOL_BIND, n1, MPOL_MF_MOVE)     oops     ret=0
-  mbind_pfnmap   mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   oops     ret=0
-  mbind_real     mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   -EIO     ret=0
-
-Two things the table shows that are easy to miss in the code:
-
-  - mbind_mixed passes only MPOL_MF_MOVE.  MPOL_MF_STRICT is not needed for
-    a VM_MIXEDMAP vma: walk_page_test() only skips VM_PFNMAP, and
-    vma_migratable() is true for VM_MIXEDMAP.
-
-  - mbind_real demonstrates the user visible change (-EIO -> 0)
-
+Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
 Reported-by: sashiko-bot <sashiko-bot@kernel.org>
 Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 ---
-v3: improvements from Lorenzo
-v2: improvements from David
-
-Gregory Price (2):
-  mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
-  mm/madvise: use vm_normal_folio_pmd() in cold/pageout PMD range
-
- mm/madvise.c   |  7 +++----
  mm/mempolicy.c | 13 +++++--------
- 2 files changed, 8 insertions(+), 12 deletions(-)
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 2063ab7577d7..40744658483b 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -667,7 +667,8 @@ static inline bool queue_folio_required(struct folio *folio,
+ 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
+ }
+ 
+-static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
++static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
++		struct mm_walk *walk)
+ {
+ 	struct folio *folio;
+ 	struct queue_pages *qp = walk->private;
+@@ -678,13 +679,9 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
+ 			qp->nr_failed++;
+ 		return;
+ 	}
+-	folio = pmd_folio(pmdval);
+-	if (folio_is_zone_device(folio))
++	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
++	if (!folio || folio_is_zone_device(folio))
+ 		return;
+-	if (is_huge_zero_folio(folio)) {
+-		walk->action = ACTION_CONTINUE;
+-		return;
+-	}
+ 	if (!queue_folio_required(folio, qp))
+ 		return;
+ 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
+@@ -717,7 +714,7 @@ static int queue_folios_pte_range(pmd_t *pmd, unsigned long addr,
+ 
+ 	ptl = pmd_trans_huge_lock(pmd, vma);
+ 	if (ptl) {
+-		queue_folios_pmd(pmd, walk);
++		queue_folios_pmd(pmd, addr, walk);
+ 		spin_unlock(ptl);
+ 		goto out;
+ 	}
 -- 
 2.55.0
 
