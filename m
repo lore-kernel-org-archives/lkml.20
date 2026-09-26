@@ -1,36 +1,36 @@
 Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FA545D19D;
-	Sat, 26 Sep 2026 14:01:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4923947989A;
+	Sat, 26 Sep 2026 14:01:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.183.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790431276; cv=none; b=XAj/6t9birL2JXscD1v5NOioA/DhlTpmBTJ9P01KfPgYq+4XO3mNa8CeX0LK8JWOB2QZg3MpIDidtrUuaE1VYicJuYeUl7QVlMqJ9XGd4V81/QPi6ZtlIG7MZnIkvZ81a2+oXzcbZYxOivzqF5OkUahcImfF6faYwVx1sI64lNg=
+	t=1790431284; cv=none; b=VYFxOzDceGR6bTxqAXGvlRT911NwifA0qcZa6ttuMMU3fgn5c7m26IeDnVGccCY8DPeVdyXXRAq7Y+ZeZlLCU9Kb9DvAnyrVUd31QAGw7beJhZGnP5XIz6bgCf/Vx3OSP1tF8eQIgBn7BJQuLNCW5KWGQSYGVAhweM4h1HsGykw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790431276; c=relaxed/simple;
-	bh=vk2GPq7qsEA/L4uDnPpI1cOC2gwiuDW0uR2knzJ9WXg=;
+	s=arc-20240116; t=1790431284; c=relaxed/simple;
+	bh=3+xYgttIy7nAGxUYfdGkemOjVdFz7kvLTdidBd8rAmI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=g++1jAet2ATraZYPzEwiaSTRK47er5gsHQhfYWFzbEYFc9rjWJefLJvZ6//KxGZk4yyhP0fge0opXmW8WwbHXUIT4hCYAylVatBuMQCLt26rqEC53CjGEdlN6AfbuevYBSaaV0iQMsu1atEQIUkg6/QrZ9/GT72xb5PcKEyrZ2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu; spf=pass smtp.mailfrom=erebion.eu; dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=rb3Qn0Ah; dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=HpiUrq3Z; arc=none smtp.client-ip=142.132.183.134
+	 In-Reply-To:To:Cc; b=bShEpHyQSmNW7RTW2jzVLODmDKO1EX2zaxmSoRamykPUViIe/9pYnM3gR3Db7BNQiJYcpI5de9UxHU/AyUX+VoCbtIjUfNVMkpI1vRMClD9cu62KG9LiLMdxkCzHn41JxGVsaJl4m8R83/i04AyY9xM7a7U58TJDe6CfZ1tz2Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu; spf=pass smtp.mailfrom=erebion.eu; dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=CyRfwpMo; dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=IgXwblYC; arc=none smtp.client-ip=142.132.183.134
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="rb3Qn0Ah";
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="HpiUrq3Z"
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="CyRfwpMo";
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="IgXwblYC"
 DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1790431257; bh=b3sZd1ykxk9GXbHiEiBdMWw
-	9RTheY88Isn5UVJrCHKs=; b=rb3Qn0AhRtwAED2T0FwoAfx2Lci40ICI4nRvhF7qc3n5fYEx9N
-	33vIPhJ7OIpYJ+qt0ymYMdl5prWnpvIfC0Bg==;
+	h=To:Message-Id:Subject:Date:From; t=1790431254; bh=B8OXuGZFYsl/0u0iIDWh1o9
+	a4vzeNq0gVlCcVDMTqAE=; b=CyRfwpMocuX1RYx7mqPzEet2wmF5L/lebJirZIhWz7d/HOnYlA
+	MkW1gXM2mIQHwjKG9RSupGtaROm0VcOuPVAA==;
 DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1790431257; bh=b3sZd1ykxk9GXbHiEiBdMWw
-	9RTheY88Isn5UVJrCHKs=; b=HpiUrq3Zzrjuw0j7+jQaSo4U0atmOY7rv1AtAQBTvnTaGz1Y15
-	o4z+azxZSYJDuNW+sLTTciDsKW039NwkWtdkyZk/s/M4SjuEtccqxFSWJEsSLtzhja7vCRv5uDa
-	VI34haC6EskvbxD+6guNJO9pz6wOGhMairU4L6Ex5YzDPfyHqeyFxuZd311s/GqfSB3cnWaazaD
-	G0Eev6ygYkCCaMWTsWFgJ4IIBPRORirRJq6b9dTPIpwE/d8kMMAH9BxnMJPsCDAH6fJ7I9pcPJb
-	xJ/LyNQtCBlDMtoIjgjeG0xLG/RqJm9fqhnSvuuY36Jcdg/MX7wejxPgpB3xNQpgQRQ==;
+	h=To:Message-Id:Subject:Date:From; t=1790431254; bh=B8OXuGZFYsl/0u0iIDWh1o9
+	a4vzeNq0gVlCcVDMTqAE=; b=IgXwblYCsDkbzNEiP0BUPbNPB2hKu7VfT05k5aNI1acvFwnVdG
+	pH7WlX8LhnkRdEd6NB91wjs2GyrRONwGVERwoNQ88vHRQ39wquY54RWtfmVM5o/xk8tkRClUau0
+	3HoqQm1XXSmrFTbIQJpOptoxYSlTuc60ZUZgPu7shooqCXj+e7Uuml69mnaBSmaDzBof0eNe1w8
+	W5dKn6o3gmHo7diFn/YnMip09rWlWeJVEHKdeTTlXZyHdMf0QUHDaaDxNGXHLiiDQXzeZNe302B
+	sWXsiZID58Uphyz1e5TXcEb2N4FGsMseIgnzscbcwAmOVuD2+DLZQIbhEaUtQP84HLA==;
 From: erebion <erebion@erebion.eu>
-Date: Sat, 26 Sep 2026 16:00:57 +0200
-Subject: [PATCH v2 8/8] arm64: dts: qcom: sm6350-lena: Enable PMK8350
+Date: Sat, 26 Sep 2026 16:00:50 +0200
+Subject: [PATCH v2 1/8] arm64: dts: qcom: sm6350-lena: Add flash LED
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,7 +39,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-pdx213-upstream-3-v2-8-b4612e3eb536@erebion.eu>
+Message-Id: <20260926-pdx213-upstream-3-v2-1-b4612e3eb536@erebion.eu>
 References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
 In-Reply-To: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -55,77 +55,57 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  erebion <erebion@erebion.eu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790431254; l=1710;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790431254; l=1223;
  i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=vk2GPq7qsEA/L4uDnPpI1cOC2gwiuDW0uR2knzJ9WXg=;
- b=p5vx5luSVUdetoA1RwAY5SSZ71F94UGiyTAtTyOBwzlzA4w/ZC2gti5s/Vr4tg1e3Agc+/6Qq
- NBrgICP9mnNDvNWgZbvyTsyVG+BOyz3QIvb61TSy1HfdQmpd4lZW2QB
+ bh=3+xYgttIy7nAGxUYfdGkemOjVdFz7kvLTdidBd8rAmI=;
+ b=rii/+qz5v8lbPBImtbMa3k//xu7oDVVhDqA/jj+k2Z2kswVbNlUt29o6uzJJ5aqk7EBOKmcJa
+ obzrCl+LDn5DVPd5YpqJlpHY+eCQ0Jybt2IKkmsT96Qk+YSx8Dz3Hnn
 X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
  pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-Configure and enable nodes for PMK8350 on the Xperia 10 III.
+Add a node for the camera flash LED found on the Xperia 10 III
 
 Signed-off-by: erebion <erebion@erebion.eu>
 ---
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 30 ++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts      | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 08ad5613cb6de..0f0e81683f2e5 100644
+index 6e2bbf4f060ac..79aa2521aed40 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -8,7 +8,11 @@
- #define PM7250B_SID 2
- #define PM7250B_SID1 3
+@@ -4,9 +4,11 @@
+  */
+ /dts-v1/;
  
-+/* PMK8350 (in reality a PMK8003) is configured to use SID6 instead of 0 */
-+#define PMK8350_SID 6
-+
- #include <dt-bindings/firmware/qcom,scm.h>
-+#include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
- #include <dt-bindings/leds/common.h>
++#include <dt-bindings/leds/common.h>
  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-@@ -16,6 +20,7 @@
- #include "pm6150l.dtsi"
+ #include "sm6350.dtsi"
++#include "pm6150l.dtsi"
  #include "pm6350.dtsi"
- #include "pm7250b.dtsi"
-+#include "pmk8350.dtsi"
  
  / {
- 	model = "Sony Xperia 10 III";
-@@ -425,6 +430,31 @@ &pm7250b_vbus {
- 	status = "okay";
+@@ -302,6 +304,19 @@ touchscreen@48 {
+ 	};
  };
  
-+&pmk8350_adc_tm {
++&pm6150l_flash {
 +	status = "okay";
 +
-+	xo-therm@0 {
-+		reg = <0>;
-+		io-channels = <&pmk8350_vadc PMK8350_ADC7_AMUX_THM1_100K_PU>;
-+		qcom,hw-settle-time-us = <200>;
-+		qcom,ratiometric;
++	led-0 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_WHITE>;
++		led-sources = <1>;
++		led-max-microamp = <180000>;
++		flash-max-microamp = <1000000>;
++		flash-max-timeout-us = <1280000>;
 +	};
 +};
 +
-+&pmk8350_rtc {
-+	status = "okay";
-+};
-+
-+&pmk8350_vadc {
-+	channel@644 {
-+		reg = <PMK8350_ADC7_AMUX_THM1_100K_PU>;
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+		label = "xo_therm";
-+	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
+ &pm6350_gpios {
+ 	vol_down_n: vol-down-n-state {
+ 		pins = "gpio2";
 
 -- 
 2.53.0
