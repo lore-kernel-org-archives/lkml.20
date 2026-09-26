@@ -1,58 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3CD21A459
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49C31FF1C7
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 06:11:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790402888; cv=none; b=tO122h94IJkrIk9/R6Lxi8at8K3yjvrDgPzyXD0F8X8mqB6rHs2yvCZSXsqG3s6K5pru9sMWt6urCEJWVuyyWTeXYt1M7yEqXigknLBX7LglOXXb54x21/Kg7cDyf0sePVp8YeyhKF3T7SPBIuZXiFYnhf5wmGwmuSK4RxBS9to=
+	t=1790403104; cv=none; b=QO8iEuam4auODoBsLXot0yQi9IISW+ZiymyIkHkpa0UEWD1upjiAj2kb+ZHuA+cXZRrciWVw9BwGMKI+kZEM+dWxMj+qCVrUKbLfvAN6ZW3/4EBZVN7ouvS0q9tt3NFAnX3HBszPCYglprbWTyKTiob3cKaWBiH3JFIE7hQT0xs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790402888; c=relaxed/simple;
-	bh=5S03sfs41oZC/sNWfjMq78eOdiKS5Y1fhXBHF0wra/Y=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=YgnBvzvVFAHAvydBmXIqHQlT8mk7KOzNilRq7Tuv9JWBsztrXbssCjG37d3onbv8MOBDX3xL/xKI9ANwMCdygMgx0jPCB/5BsC/lB2oTEYoihx+j+rPqYVpDF2UwUUl/E5O0qKhLztl0Le4gxQkZtkIGl+UXVC0WfdBabJr6Eyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=mnlznwik; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790403104; c=relaxed/simple;
+	bh=aMAVCwYAzwgjRTTqaVNCL6KskGTUJHm3j8ZOolxqAAo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o2z5JOoOE2PDCphDzLm4ZsVod+hbbVw42ko1/xw4KBa6GHWMHMs1wUvXom1Wn+KPXZqbyL74VWTs4UIqGFaHaWZqYf9dAGZYe2QyYFTDU1P7sWPw8UR/1NweL4ZCVHNeAb4JHLiuAItRog+aC7YTKSIINe8PgXlfb/Pes+aF7xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QsKzxQIW; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fADPd94d; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="mnlznwik"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6108B1F000FF;
-	Sat, 26 Sep 2026 06:08:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QsKzxQIW";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fADPd94d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790403101;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o1xKo46sR3x0JxHMDQkcV1eouqIgMqjiPh6siPlWkc0=;
+	b=QsKzxQIWbXqgQ/Sdv7GzboL4uacK4Rnec6JjrTQ4jSj0kfg3Hv94Z5W1+4CBpiea3ls/d/
+	tDs2WcotpCYi1wMMzzVllRDQ9TirCdVmWYs1WPhB4m0QTWJpf2xpwpzS8UcJlMvpxO7Xe7
+	xHDmOt61vZBr2+s02RAMtaLs7g4HTdg=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-13-_prCeEevNo69KhS8YMPnjg-1; Sat, 26 Sep 2026 02:11:39 -0400
+X-MC-Unique: _prCeEevNo69KhS8YMPnjg-1
+X-Mimecast-MFC-AGG-ID: _prCeEevNo69KhS8YMPnjg_1790403098
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4887efa4486so1031706f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 23:11:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790402886;
-	bh=0e6tVO+MRkbZ8ZY9CxiKyu4lnjfzpRHKXdU6fEeSY7g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mnlznwikUN92d+Aeks2ykZCcs/fimoxLT4LyBBmI3/7pEWogkMVUmsdRMOqZhSu/D
-	 I+hAknFAbcjkrymv3NgOpM+vVoHqYhWBnIC+9YU8i0C1SssnialK7d8kER5gRSL4TI
-	 qu1MdFcMH3rgaySVPJ/5j3NrZmNp7UXcXDxoEMHk=
-Date: Fri, 25 Sep 2026 23:08:05 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Longlong Xia <xialonglong2025@163.com>
-Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
- mike.kravetz@oracle.com, yuzhao@google.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Longlong Xia <xialonglong@kylinos.cn>
-Subject: Re: [PATCH v2 0/2] mm/hugetlb: fix surplus accounting and
- availability checks during demotion
-Message-Id: <20260925230805.8e763371bf9c6a54fa02fc28@linux-foundation.org>
-In-Reply-To: <20260831133519.2505020-1-xialonglong2025@163.com>
-References: <20260831133519.2505020-1-xialonglong2025@163.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=redhat.com; s=google; t=1790403098; x=1791007898; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o1xKo46sR3x0JxHMDQkcV1eouqIgMqjiPh6siPlWkc0=;
+        b=fADPd94dDYoLt7vOFkr6Znp287dzdXlRlmG2CJwBJXFNyF/0u+y30OmpAfypU7F3YN
+         TaFh0tZFlsgQcxcFvnlwP/OpIjJDuydDXzbefB9CdozhcsNoVJvhDqxHc4F4OH1huOSb
+         C1xR6jo0TVQ3uPJTtuKUJfcU3eE2vdPMOwT2jpRn3aTtbOMwEwc+cO+NJogfNfS1tYmK
+         2AOx0338oUVp7gjyeqigVtAsZhbN7tw7tzthlCqOfyeUcdpcAfDOk4yInVRpPy5ab+ZQ
+         R3eL9O/fvK5IDMubAoOA6LcufsMlQOjm9g31yi+d2pY7v5PuchVBrYX9XXSMFBW4YvDP
+         Fclg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790403098; x=1791007898;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o1xKo46sR3x0JxHMDQkcV1eouqIgMqjiPh6siPlWkc0=;
+        b=laKTSwMxq5mt6M4PIl1iqOLLXtXNHJKOSqlAEPK5oG2f/MfpJ4vSW/57oi5rl60HSu
+         3uVTN344yTKrsnb+BCMTa8QC8rVKe6Cvw3lbkvD9WVmLguKKV43c/jP/7ePC/aVu2aE0
+         6IRPFq4QhXOBD4gW/pXxCi5Fys+dW6K1ta2f4UTdz8QddHmvfFPBPbfgkJDigwOh3/Xa
+         5fmqurxTLK9C4MSh3DwiFgV9q3vxpXbtLjkTjGgV5SPBSS0yRzYomQWEIZkPTTX8EoPo
+         2ooF5g9G8nmHCglLPIZPR7ZN3arPbEXq79QOIkmegcML1pnYOAgkLlEXg1HxBCyXs/Wh
+         8pOw==
+X-Gm-Message-State: AFuF++mhylHHhf8UDWSx7UFuYyS0NKwFSQT54rrynOtFCaIo4E0TpWRV
+	3+9/MMEKus70qC5H3AoBoHkuxjnAd9ezpuVwVjiCnNmmfvUeF08Efej0WWx3qdBlLLWqLm66ES+
+	dK1uUV8GOawDB1qhpaBl1T71w5/2Yc8KChajwI3bNTKyAkwO6qlYx4Wu6dei8NNLw/QJb1EQ89t
+	E98GwDyMPdavju0bBhxmO8Z/1LxHHT52dQvaBQwZgtD4/0y/ftDw==
+X-Gm-Gg: AYBFou0lsrjHWjMhdqFlSXwNVWwFEs6e/yS5kC5Qs21h44L53g/Sc9kjrp2OmJf9aOx
+	rRYtbJkedAloOq6zq1hz424YFx2rrA/s9gBOymhrgm9TtsTWyDCtbUpE099v0f0s27Vh1oYxWre
+	ndENj8EqGRo2FmAIPf6HQ3ZP3V1WQX/xqrku60LMsU0NpBnwUib/kQ7HMcqG8i+GwTAceRwf1vc
+	FUAYnTY2Q3uvtVFQXokFiqLUfF3xOsCpYKcADw7ocgpb/OrBce2Q92H5kOcsEzoNqSjBk9ELfqu
+	vvTT7S0qu5/ZwJysV3I6+noU397zWcnD8hVpgSVDb9iQTMi5HJ35sMylXChqJfbiIQmNuDPOM+G
+	BcGWD0G4PnnVTGAkwOII14veVbEQLJDTp7hAGFQrPoEA34eEbT9cEZfY9fvNj5y+5bKt9ahoevz
+	CJi2V9
+X-Received: by 2002:a05:600c:4f83:b0:49f:fdca:c361 with SMTP id 5b1f17b1804b1-49ffdcac67dmr5718445e9.12.1790403098324;
+        Fri, 25 Sep 2026 23:11:38 -0700 (PDT)
+X-Received: by 2002:a05:600c:4f83:b0:49f:fdca:c361 with SMTP id 5b1f17b1804b1-49ffdcac67dmr5718175e9.12.1790403098002;
+        Fri, 25 Sep 2026 23:11:38 -0700 (PDT)
+Received: from [192.168.10.48] ([151.49.232.249])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5dff204sm293694945e9.14.2026.09.25.23.11.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 23:11:36 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: seanjc@google.com
+Subject: Re: [PATCH 00/11] KVM: fix issues with stale control fields
+Date: Sat, 26 Sep 2026 08:11:35 +0200
+Message-ID: <20260926061135.714158-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260926053253.195597-1-pbonzini@redhat.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 31 Aug 2026 21:35:17 +0800 Longlong Xia <xialonglong2025@163.com> wrote:
-
-> From: Longlong Xia <xialonglong@kylinos.cn>
-> 
-> This is v2 of the two-patch series fixing surplus accounting and
-> availability checks in the hugetlb demote path.
-> 
-
-Could we please get some review of these two fixes?
-
-Thanks.
+> Fix two bugs where the guest could do stupid things on purpose to=0D
+> cause problems in the host.=0D
+>=0D
+> Patches 1-5 cover cases where actions done through VMCB control fields=0D
+> have to be redone if VMRUN fails.  In particular, failed VMRUNs can=0D
+> cause pending TLB flushes to be dropped.=0D
+>=0D
+> Patch 6 fixes a case where eVMCS execution controls can cause the=0D
+> host to use a stale MSR permission bitmap.  Patches 7-11 are tests=0D
+> for nested x2APIC; don't run them on an unpatched kernel.=0D
+=0D
+In addition to what was reported by Sashiko, the test does not pass on=0D
+SVM.  Fixed as follows:=0D
+=0D
+diff --git a/tools/testing/selftests/kvm/x86/nested_x2apic_test.c b/tools/t=
+esting/selftests/kvm/x86/nested_x2apic_test.c=0D
+index eb89d5bfc0fe..ce204ce29a9c 100644=0D
+--- a/tools/testing/selftests/kvm/x86/nested_x2apic_test.c=0D
++++ b/tools/testing/selftests/kvm/x86/nested_x2apic_test.c=0D
+@@ -48,6 +48,7 @@ static void l1_svm_code(struct svm_test_data *svm)=0D
+ 	GUEST_ASSERT_EQ(ctrl->exit_code, SVM_EXIT_CPUID);=0D
+=0D
+ 	stgi();=0D
++	x2apic_write_reg(APIC_TASKPRI, 0);=0D
+ }=0D
+=0D
+ static void l1_vmx_code(struct vmx_pages *vmx, struct hyperv_test_pages *h=
+v_pages)=0D
+@@ -80,14 +81,12 @@ static void l1_vmx_code(struct vmx_pages *vmx, struct h=
+yperv_test_pages *hv_page=0D
+ 	control |=3D CPU_BASED_USE_MSR_BITMAPS | CPU_BASED_TPR_SHADOW;=0D
+ 	GUEST_ASSERT_EQ(vmwrite(CPU_BASED_VM_EXEC_CONTROL, control), 0);=0D
+=0D
+-	if (control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS) {=0D
+-		control =3D vmreadz(SECONDARY_VM_EXEC_CONTROL);=0D
+-		control |=3D SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE |=0D
+-			   SECONDARY_EXEC_APIC_REGISTER_VIRT |=0D
+-			   SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY;=0D
+-		control &=3D (rdmsr(MSR_IA32_VMX_PROCBASED_CTLS2) >> 32);=0D
+-		GUEST_ASSERT_EQ(vmwrite(SECONDARY_VM_EXEC_CONTROL, control), 0);=0D
+-	}=0D
++	control =3D vmreadz(SECONDARY_VM_EXEC_CONTROL);=0D
++	control |=3D SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE |=0D
++		   SECONDARY_EXEC_APIC_REGISTER_VIRT |=0D
++		   SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY;=0D
++	control &=3D (rdmsr(MSR_IA32_VMX_PROCBASED_CTLS2) >> 32);=0D
++	GUEST_ASSERT_EQ(vmwrite(SECONDARY_VM_EXEC_CONTROL, control), 0);=0D
+=0D
+ 	GUEST_ASSERT(!vmlaunch());=0D
+ 	GUEST_ASSERT_EQ(vmreadz(VM_EXIT_REASON), EXIT_REASON_CPUID);=0D
+@@ -103,7 +102,7 @@ static void l1_vmx_code_part2(void)=0D
+ 	control &=3D ~CPU_BASED_TPR_SHADOW;=0D
+ 	GUEST_ASSERT_EQ(vmwrite(CPU_BASED_VM_EXEC_CONTROL, control), 0);=0D
+=0D
+-	control =3D vmread(SECONDARY_VM_EXEC_CONTROL, &control);=0D
++	control =3D vmreadz(SECONDARY_VM_EXEC_CONTROL);=0D
+ 	control &=3D ~(SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE |=0D
+ 			SECONDARY_EXEC_APIC_REGISTER_VIRT |=0D
+ 			SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY);=0D
+@@ -154,21 +153,23 @@ static void l1_guest_code(void *test_data, void *hv_p=
+ages)=0D
+=0D
+ 	l1_test_x2apic_intercepts();=0D
+=0D
+-	if (this_cpu_has(X86_FEATURE_VMX))=0D
++	if (this_cpu_has(X86_FEATURE_VMX)) {=0D
+ 		l1_vmx_code_part2();=0D
+-=0D
+-	l1_test_x2apic_intercepts();=0D
++		l1_test_x2apic_intercepts();=0D
++	}=0D
+=0D
+ 	GUEST_DONE();=0D
+ }=0D
+=0D
+-static void __test_x2apic_intercepts(bool use_evmcs)=0D
++static void test_x2apic_intercepts(bool with_inhibit_apicv, bool use_evmcs=
+)=0D
+ {=0D
+ 	gva_t nested_test_data_gva, hv_pages_gva =3D 0;=0D
+ 	struct kvm_vcpu *vcpu;=0D
+ 	struct kvm_vm *vm;=0D
+ 	struct ucall uc;=0D
+=0D
++	inhibit_apicv =3D with_inhibit_apicv;=0D
++=0D
+ 	vm =3D vm_create_with_one_vcpu(&vcpu, l1_guest_code);=0D
+ 	vm_install_exception_handler(vm, POSTED_INTR_VECTOR, guest_irq_handler);=
+=0D
+ 	vm_install_exception_handler(vm, POSTED_INTR_WAKEUP_VECTOR, guest_irq_han=
+dler);=0D
+@@ -207,29 +208,15 @@ static void __test_x2apic_intercepts(bool use_evmcs)=
+=0D
+ 	kvm_vm_free(vm);=0D
+ }=0D
+=0D
+-#define _test_x2apic_intercepts(inhibit_apic_setting)	\=0D
+-do {							\=0D
+-							\=0D
+-	inhibit_apic_setting;				\=0D
+-							\=0D
+-	__test_x2apic_intercepts(use_evmcs);		\=0D
+-} while (0)=0D
+-=0D
+-#define test_x2apic_intercepts(use_evmcs_setting)	\=0D
+-do {							\=0D
+-	bool use_evmcs_setting;				\=0D
+-							\=0D
+-	_test_x2apic_intercepts(inhibit_apicv =3D true);	\=0D
+-	_test_x2apic_intercepts(inhibit_apicv =3D false);	\=0D
+-} while (0)=0D
+-=0D
+-=0D
+ int main(int argc, char *argv[])=0D
+ {=0D
+ 	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM) || kvm_cpu_has(X86_FEATURE_VMX)=
+);=0D
+=0D
+-	test_x2apic_intercepts(use_evmcs =3D false);=0D
++	test_x2apic_intercepts(true, false);=0D
++	test_x2apic_intercepts(false, false);=0D
+=0D
+-	if (kvm_has_cap(KVM_CAP_HYPERV_ENLIGHTENED_VMCS))=0D
+-		test_x2apic_intercepts(use_evmcs =3D true);=0D
++	if (kvm_has_cap(KVM_CAP_HYPERV_ENLIGHTENED_VMCS)) {=0D
++		test_x2apic_intercepts(true, true);=0D
++		test_x2apic_intercepts(false, true);=0D
++	}=0D
+ }=0D
+=0D
+Paolo=0D
 
