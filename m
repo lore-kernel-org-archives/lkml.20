@@ -1,241 +1,150 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010014.outbound.protection.outlook.com [52.101.56.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF60138DC44
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:32:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790422344; cv=none; b=NlBCfXPKiI52jnDuAuFKl0n2h0kBVrwqesMnz8y6FUdi331ZEltwix5GKppKw9S9emn585IMvdt8mKWHDPQWEm+VhpRCD82jagQzP8+K8Z3hJmJ80QJNeecnwiJ897Yu5147WjdjU5BkZytL3iFQw7BlvbCsMZQqXYcXU5+lGlM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790422344; c=relaxed/simple;
-	bh=8IVFXp8tl/nwKPrrJEG/SxqJdustiqxpwp9MAE+ck3o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dmKS/7274X3MplFS8aW+xo4t56u35j93cS9MPvVh33vWTOHzrqSIBL2abXbJHboOQAFt5ZTlYnWA3i4Mz6pPgAUGxT4cDJgZRFjSLzx4LomADrhOv625AbelyGyG3RdpzjSKtdCXPTy+o33lb1v0TO0EMSZRd6ce7XEUHAOZ5Ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tK10ZOzv; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5014334DC
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 11:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790422396; cv=fail; b=sQ7CJyIr/tU7cNUcYnUDmKFc+i06s8OfWxluz4MCAZ03YIeCc3Fb7ApwFpd4OZhhOPIPRRkhj+8OXf6qDglyTKQvCUFtcAwYdkB+yHJ8k25GcP9lEIhsa4dyTni34mrbvcNTD3kpL+Ykekzqq+6bvRCLy7Dq9wPPS13k+3N7a0A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790422396; c=relaxed/simple;
+	bh=aDsUTFHpgYSoGE4GMgTY2p54I1ZK7Jy6oQelWXVm60g=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Ye5Jy47aEYJls8iMz6ZqtL3tWd86V//C7wkG5DTPEqSeKFOeiSjRVvD+uGVCZ8p7gQ+rlz5VtudTwuyZDCIJBcdzahW0pDd+/pV2wbqqXeF4rmMXConeVeFpAvtq2O+B0PfiFw3ALkdat7qVdTqJTgtCdpKURq0BHWSmsoO005I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=EpKOip7Q; arc=fail smtp.client-ip=52.101.56.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tK10ZOzv"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so1006095f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:32:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790422340; x=1791027140; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Os2bYo4AnRwo9QH8egs2OdVlJ8NoUt4djnpg859QIl0=;
-        b=tK10ZOzvoPmkC8rClB+g0CG+ey32jsqYWpubLVeCWxakUKfEsfoHW+dCwfQNxUs4mn
-         53SW2pzHqOt0bSYOhJSLbY9cg1nZQpZGtcetwxpLVLqTqkfFAVWHl4IBACgwqZAdYMAq
-         SYZUCtIb69pMWePFuV2R9wgRlEUUjyhqI5dnbi9Sl8RHKqZDraZiFUfj9PaHlybCxCgA
-         1PP6jSrQhSGnbH29kanpmdtRpBik9Ein5tCv591AQTV+uX3c28R8eAbSqtISF7VQu2EF
-         DCEQCVo2ru0zueSfxD6UGWXZ4LyjcD7LS8GInipgL2c8zI4YTHocinoi0xP4twLXB45k
-         PpaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790422340; x=1791027140;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Os2bYo4AnRwo9QH8egs2OdVlJ8NoUt4djnpg859QIl0=;
-        b=cR+BIiFBOZNVWyn0B86t1VtbRTkhL9alYmQub+smn4vpKMGByXRpVo5K5AvbOxX77j
-         Nv6Uyfdq9yylcaEFrWTE4A32WRp1sGPJ8zZSqD+3s3pEna1rgSLwIRdgR/ZqfH96njct
-         kXbAyhZITKlPyc2qUgQjNLz3dKb+5jkw7SK4fv+gPEyXp0x5mZy2hybZht8UqR93MGyC
-         3f5ch+FNDChfpslPJvVNvW940mKNPafbmziiA1PryLRoUF4mDMTgwev0qVPE78fL5IVl
-         PgVs+/qnq7dg0N/n9NgD9n43oPEuxbBN+jSULbLozlqbSgW+TnkjXhQgqoh+EBv1BARs
-         7drQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBxLCcJPjgYDF1Bk/WifhDU7ppywjMHLjBrBiEzirdFJoSVaNRkWnJeih+xKliDY6QQuiNMASZZLhMzFg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIVR6lGose/sedpzSCpTtYCvfpxLK9D01aZzScQjQSPk9femsc
-	gUyTmCvA3fO4PrZadv50yRdGgMImSODT0q5DG/SCI3ZUb1stEawGrbXs
-X-Gm-Gg: AYBFou1qG/GWf6CF//LI6GTkvlioZVsC/XB/FcEbGKGW4qOFvWUmuWAwLor+N53Dfzy
-	ySyqjB3McNbIE76dgsNYCwWLu/UGt7QybOfVDn0L21rEruA+9YBLYVRtIZnE+afxIuZdXqHh2FT
-	Zw3aZJq6fPTgiQnV/L37HBsvdHRxWTGRo13apgi7sXFhHUdbvRk8Pt1nAYxNG0une65ZThB6BFU
-	4OYRouW3yD++TrE1bpTT9K0XGsaucFEBKRYgtxIoXrxXchgDipnSa/Nh3s0Qg/ii5JnViq99cv8
-	syW7HjCgdPrqap1MdVy2NoJFMp3cK9p6mgCSnu8ciUQFi11dwUfzyypUXboghfYLi0mpPiUUpiR
-	18E3h652SJAxMj+Q+TYSsfUP7hXeISjPnfyWxD0ynjdI3EaHwgPcYQwx44A0uK9VAUk8ud7n/ro
-	sKX3dTrWCcDqvNyQFXmoF1K2eslpqHk6ueK9QEHgMhLwg8VcXWlwxJPfsXg/qYlUoPhMsI02kxq
-	GNuMXTbTfh/VD975NVGwAiDJRfHlM+UD9tJohc0EqAX2Hb+hQ==
-X-Received: by 2002:a05:600c:4703:b0:49c:fc6e:a3e1 with SMTP id 5b1f17b1804b1-49fe66fd374mr142201825e9.32.1790422339428;
-        Sat, 26 Sep 2026 04:32:19 -0700 (PDT)
-Received: from DESKTOP-IR7J1S9.localdomain ([154.121.80.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5df44f9sm204031025e9.11.2026.09.26.04.32.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 04:32:18 -0700 (PDT)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Kees Cook <kees@kernel.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+596b59aea1a9deaaab67@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Subject: [PATCH v2] usb: raw-gadget: fix UAF in raw_process_ep_io
-Date: Sat, 26 Sep 2026 12:32:12 +0100
-Message-ID: <20260926113213.1469-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="EpKOip7Q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YV0rUbIEUKw/qSZyQi9eTkBFZDL5CI17ZFgAipwDr+2WklFWJZrB4vs4KCd9sWKybJyraZ17MO+fOcNdLkRbO8SEbhfK0Plu3Xxv9LWCfEC8GJUTghRi3MKbrzzfE0xK6o6Gg3Jdh8ABSxMRKuRStsljXCaxbVccIrFRmKluUGf4h2KVR2jgA1Tup+fFHWrcWkZ7oQuW5oXX37BpzSACflxc25tedEMbRhmMf4oa942zLhQvKUG4YPAfpBojZRSSYJPUK0y40KYHzXoNMLKvnUUsUJbXijGj9lJ0BcFh1sv8US+W1P+cCI6dH044Nw4QaQLkkc/7GGj6MnNMW0Nt/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aDsUTFHpgYSoGE4GMgTY2p54I1ZK7Jy6oQelWXVm60g=;
+ b=JDv8wXpNVNIF1wq+MuI1jZqmihIVypXlrtbZ0fJR4qw79dLfoD/m7KxRM0wp0fmeYiDFF8lQh+StbfnorF8Q4eL0uZLX27y3FhxEnaCDgrdvIuZ7v9NglVTdk6d6dhifXBfg9dnSIiZwfQK4sRUBVpEvCJTd5As9Pfxg4ytAVuiKSrBEFdcLWf4khQJF9KaT7pd6BSsPkwdDmVR5+Vtf++8oR5tvRa82L1V6slCm25q+9OvDlJ/mfIjUMCi8Yjp0j0ZiO7AhncnHibvqxsHh3C5Cg6lPCo0oCqJBEt7EtPF+iDjU3N0twO0mR7pe7nVZoVm6G414X/GRcM4wOSZadw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aDsUTFHpgYSoGE4GMgTY2p54I1ZK7Jy6oQelWXVm60g=;
+ b=EpKOip7QJ4ZUkYIdgernN6bbJDi7eFSgRDWfMOnHGv8DiZN8CDnS4kVfIdSHLlyRuNZs5MJRhb+4urWoxySOmVX5BF7LU8uuJM022ftwgP5Z9dGxqR38NNVjkolkgboGdv/hODsprS09k3qdjK+cckmqMJtslHlzfscx5IVyuy2hPtLdSDFxeZ/PDT/AnUMk2Kvd595HBMN5bgmfNEo44zdSIbD8gWIy8tX4qn4c/9D1tAfNO1Ri6oIh6AHgQEdTeVlksycGewrajAR4prdasafTRXM5uq4wAwg4Ishb/4fXQLRRv/ffcrwxAMZwfPSjDMfWY2sfQN0ipCD4rCKl7Q==
+Received: from SAWPR12MB999267.namprd12.prod.outlook.com
+ (2603:10b6:806:55f::17) by SA3PR12MB7902.namprd12.prod.outlook.com
+ (2603:10b6:806:305::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Sat, 26 Sep
+ 2026 11:33:09 +0000
+Received: from SAWPR12MB999267.namprd12.prod.outlook.com
+ ([fe80::fe35:8a00:d9eb:40f9]) by SAWPR12MB999267.namprd12.prod.outlook.com
+ ([fe80::fe35:8a00:d9eb:40f9%4]) with mapi id 15.21.0451.014; Sat, 26 Sep 2026
+ 11:33:09 +0000
+From: Ankit Agrawal <ankita@nvidia.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"kvmarm@lists.linux.dev" <kvmarm@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: Alexey Kardashevskiy <aik@amd.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, Dan Williams <dan.j.williams@intel.com>, Jason
+ Gunthorpe <jgg@ziepe.ca>, Jonathan Cameron <jic23@kernel.org>, Marc Zyngier
+	<maz@kernel.org>, Samuel Ortiz <sameo@rivosinc.com>, Steven Price
+	<steven.price@arm.com>, Suzuki K Poulose <Suzuki.Poulose@arm.com>, Will
+ Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
+Subject: Re: [PATCH v5 11/15] coco: host: arm64: Connect RMM pdev streams for
+ IDE devices
+Thread-Topic: [PATCH v5 11/15] coco: host: arm64: Connect RMM pdev streams for
+ IDE devices
+Thread-Index: AQHdQTBNZsWT6J6bdkaQWvWFEK2da7bg0YGq
+Date: Sat, 26 Sep 2026 11:33:09 +0000
+Message-ID:
+ <SAWPR12MB99926745B6BD6A876FC837D32DB08F2@SAWPR12MB999267.namprd12.prod.outlook.com>
+References: <20260910140509.868402-1-aneesh.kumar@kernel.org>
+ <20260910140509.868402-12-aneesh.kumar@kernel.org>
+In-Reply-To: <20260910140509.868402-12-aneesh.kumar@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SAWPR12MB999267:EE_|SA3PR12MB7902:EE_
+x-ms-office365-filtering-correlation-id: 06b24f39-4015-4edc-9b5b-08df1bc1f112
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|18002099003|22082099003|10067099003|38070700021|56012099006|11063799006|4143699003;
+x-microsoft-antispam-message-info:
+ kRVYnv7029FVcXToD9BOXBL6dC7tbVVVibNsLU+SyNTKTkaY4haJubtaF9cXSVzRL5V08E3mEvWtmuZOuN6B+NkLDoe9YpZ+xxSRz8nsJjB5F1ml6z91FGHRTkc24nnFh0qF64oAfDmdfg7fEVyj/KL3fk7m40MI6adsEh64uWZgVF0Oq6+XEZ4F2k6awSdWH27ZoWngH137XjQql9lZD+6rHIsQ26vq3/jTE3dyUwWGQ8x5pHXxk+iZVraRKY706oWecBKRA0YEGjWnBdqnJLLSGxOxD1/1For2fbGGRpvC+MFmEj0V+XVsYWMSQrwAldmor7FgqUurcU9dH/IJCP/BD0YZE3UzwxiBUOOfRqZSyd85fVQ/mFLtZc/bz6jsO4kFfxC1UL+2+2HarMiH3PZQxQbyu4+gMZrCiNw5o/+RR5a2lp7LhCto5RzSi5LR9E6okMmmyDSdnweE5eF8a6gqXyjgzDuiKNvu+sRrJcvgjulkN77SzsIznrr3XjW+MNqNCFyRFqNF0rckyorB5S4qjZ/m9x4D5nVyp6k1+RVjkhTTs/oc1mHb1gC1LzZXFBHgsXTUg75bFJFDct1VKiyt1GpZasYmS3ZtUnma5KssCsjpslveX594sbFYZZ3YKZlWjx4k/cIQB7U15EOyMVV75YcOMEZ08w57OQRpi2IM96m/P87xBfRzIHMa2INNwDSvB1AmRy+5JIHvqn/8nCCsOsAq/hPnkrheBebCUUA=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SAWPR12MB999267.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(18002099003)(22082099003)(10067099003)(38070700021)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?MHIPlg9+A29+LmfJYO5zQkgXGSDGdsg1nleRSAg+OVP656JsUzNockOE8E?=
+ =?iso-8859-1?Q?HbXZ0ujP8oEPssdUl/9HTCSVo29ibbe2xsjnY/+BxHfAcL38AdIsG2PhB3?=
+ =?iso-8859-1?Q?Z17758E1cV70padzmH/e4+/v4XD+SwgZacBuKqvV5B19FFjuLtKfqhESrw?=
+ =?iso-8859-1?Q?7PvQ7gmZOSDLG4SeVNMPCy7X2lRU2Q5xEMw+szIPLan3jjpLPsDspB6RVR?=
+ =?iso-8859-1?Q?k1fmGGJVZ6BbyV2Suxc+9h732mZoyvPLg0gw3Ge2DrvMx5Baf7IdTO/deT?=
+ =?iso-8859-1?Q?MHXWLF/GDqq2Ba7tCQ4+MyPnOZyB6LcNX7ZfFGglbd9gBMQVtJ6mykpG/t?=
+ =?iso-8859-1?Q?o5cR4lamlfLLAvYX9M2q73CWiuWsZilSVbosRkBA6y0oSYYIRQ/jid4kr9?=
+ =?iso-8859-1?Q?GvVpAg+yxE1zP8O7P7yhWvitLcXfVUkTnX5/yoyHxkRn72o1owawQyPxU0?=
+ =?iso-8859-1?Q?yHJl72al9+Xe3suVLLxsIcHl6tjpFxmqM69idr6PjsSG+Y1XtZKRjpd13u?=
+ =?iso-8859-1?Q?6IUqEdvF423XkCSc8HAfxaoG4xOhTmOvIZPNyV1EdDQRufyEceTpeNZCWJ?=
+ =?iso-8859-1?Q?oRx5bKLSTy+Fk/jVSvtKZ9aTTb5Sxrm2Gj8OZLcSNLHta+TR/D8QX9b+pO?=
+ =?iso-8859-1?Q?Q9KSC7+nvvFumGinPQN5VrJ7qOxxnUQLOM56AjGwS8wpKnR92GzdmAcd0w?=
+ =?iso-8859-1?Q?spi2rdSA3g2qxSpm2n81E+qghiqKzy++EQiexWUHUjWEWEJjPMkQlhuTjU?=
+ =?iso-8859-1?Q?XeP9UukpcFaq1AnTDqFDbbwlLjrRMBLgfa7CdT1Ft2pVcZIqP2BvFvkaNN?=
+ =?iso-8859-1?Q?f5twJ+hWWIgPEBgspyTKH5I4Xrzxkzt11ZCTLdD6qTcej1XnOTW0LbWOKq?=
+ =?iso-8859-1?Q?UIRm1Q0NcJ5MRPE69pvviIey/QX42FHiEj1ovF5zmX5vUPKx2xEImXFtwP?=
+ =?iso-8859-1?Q?hUuLB01TMC7D+8z655q0X7eXNWX9fiFltWzg68RnCY7p3I9zLcsByszf/3?=
+ =?iso-8859-1?Q?A/60Cz5tJgdRstJZI8e8n5dska8Aj+f7pEly4mFZ7GdH7eSZUZ51MW0t19?=
+ =?iso-8859-1?Q?I1qWE35fj+U5kLhlgSs7xDUXGYvfnIP0Qm9Jnjcai0VUbTvkiL7is1iJkC?=
+ =?iso-8859-1?Q?xRR6p0EsPl2Ec18mlAG+U9Zf+1t0gJ8Zpmgu29K9L0dxYmZ0HLd7GN6G4a?=
+ =?iso-8859-1?Q?hdMwhmkjp+zx67FpjZw0ZIc9a6N6yF45DWYqwJQp6PFP3ejWFJsxQ0Bbky?=
+ =?iso-8859-1?Q?6Hw4lTHTScPBh/GY8/nBV+gONfpAXB386I4MUQWkBxZgMzjjX01HHjEPze?=
+ =?iso-8859-1?Q?C7FLedFXvPxHGOLzljGvNOz1sd5V6IauOpX+TqfZ1eF0P9qtvkzm9zURFs?=
+ =?iso-8859-1?Q?jAKFiYiNRNXPlFEzsksJdHbVke+yOUI/ioLpR5DUsea2DxYgMtW7nmwt3D?=
+ =?iso-8859-1?Q?hJY2aAzAgAomXgjrqd+40P426HLsNUqpxO162Y4mxQ+OY6wzCNHXdz5En+?=
+ =?iso-8859-1?Q?pMM/5vhTISgSfF9OESjiMzZQWGO7Nt94lOftcvIsTN9F6e1KQAHgU6HLPb?=
+ =?iso-8859-1?Q?z4fP3eDLw67RGWA7e+D7rUUAGd68pPu+BczLC/Z7lkoV75kNwb81APqvHh?=
+ =?iso-8859-1?Q?JKkfF6tGLBseHO6kOOexEaADsZJPQlwHd6l7B7X3rX16IW9Vfhi/m6CVok?=
+ =?iso-8859-1?Q?IerjPBQAdfNg3/m9fX/KN43/SluQW6R6xrd8o79PugXjrFglT2laC6308n?=
+ =?iso-8859-1?Q?8fDkE2Bwx4gOnKW3Vsir2RJhravMKvCZLGh9X0v+fxTjAo?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SAWPR12MB999267.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06b24f39-4015-4edc-9b5b-08df1bc1f112
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2026 11:33:09.6132
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: uTpbvobMeWzkpWpP9D7XhQCuorqVI2gfukXCj8WJ531Rrslws/59kwYRbVp/NE12heL3q382Q/F0Q09J8yUs4w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7902
 
-syzbot reported
-
-BUG: KASAN: slab-use-after-free in string_nocheck lib/vsprintf.c:648 [inline]
-BUG: KASAN: slab-use-after-free in string+0x471/0x4d0 lib/vsprintf.c:730
-Read of size 1 at addr ffff88802c217340 by task syz-executor384/5947
-
-CPU: 1 UID: 0 PID: 5947 Comm: syz-executor384 Not tainted syzkaller #0 PREEMPT(full)
-Hardware name: Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-Call Trace:
-<TASK>
-__dump_stack lib/dump_stack.c:94 [inline]
-dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
-print_address_description mm/kasan/report.c:378 [inline]
-print_report+0x13d/0x4b0 mm/kasan/report.c:482
-kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
-string_nocheck lib/vsprintf.c:648 [inline]
-string+0x471/0x4d0 lib/vsprintf.c:730
-vsnprintf+0x422/0x1300 lib/vsprintf.c:2945
-snprintf+0xc7/0x100 lib/vsprintf.c:3043
-set_dev_info drivers/base/core.c:4984 [inline]
-dev_vprintk_emit+0x375/0x3e0 drivers/base/core.c:4994
-dev_printk_emit+0xd2/0x10d drivers/base/core.c:5007
-__dev_printk+0xcb/0x100 drivers/base/core.c:5019
-_dev_err+0xef/0x127 drivers/base/core.c:5062
-raw_process_ep_io.cold+0x43/0x83 drivers/usb/gadget/legacy/raw_gadget.c:1116
-raw_ioctl_ep_write drivers/usb/gadget/legacy/raw_gadget.c:1153 [inline]
-raw_ioctl+0x25a/0x2b80 drivers/usb/gadget/legacy/raw_gadget.c:1325
-vfs_ioctl fs/ioctl.c:51 [inline]
-__do_sys_ioctl fs/ioctl.c:597 [inline]
-__se_sys_ioctl fs/ioctl.c:583 [inline]
-__x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
-do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
-entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc86effa5eb
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48
-Code: 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05
-Code: <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00
-RSP: 002b:00007ffcab99fea0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fc86effa5eb
-RDX: 00007ffcab99ff14 RSI: 0000000040085507 RDI: 0000000000000003
-RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
-R10: 00007ffcab99fec0 R11: 0000000000000246 R12: 0000000000000003
-R13: 00007ffcab99ff08 R14: 00007fc86f07dcc0 R15: 0000000000000002
-</TASK>
-
-Allocated by task 1:
-kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
-kasan_save_track+0x14/0x30 mm/kasan/common.c:78
-poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
-__kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
-kasan_kmalloc include/linux/kasan.h:263 [inline]
-__do_kmalloc_node mm/slub.c:5334 [inline]
-__kmalloc_node_track_caller_noprof+0x331/0x830 mm/slub.c:5471
-kvasprintf+0xbc/0x150 lib/kasprintf.c:25
-kvasprintf_const+0x66/0x1a0 lib/kasprintf.c:49
-kobject_set_name_vargs+0x5a/0x140 lib/kobject.c:274
-dev_set_name+0xc7/0x100 drivers/base/core.c:3560
-usb_add_gadget+0x520/0x920 drivers/usb/gadget/udc/core.c:1459
-usb_add_gadget_udc_release drivers/usb/gadget/udc/core.c:1517 [inline]
-usb_add_gadget_udc+0x26/0x70 drivers/usb/gadget/udc/core.c:1564
-dummy_udc_probe+0x69e/0x960 drivers/usb/gadget/udc/dummy_hcd.c:1121
-platform_probe+0x106/0x1d0 drivers/base/platform.c:1439
-call_driver_probe drivers/base/dd.c:628 [inline]
-really_probe+0x241/0xa60 drivers/base/dd.c:706
-__driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
-driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
-__device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
-bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
-__device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
-device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
-bus_probe_device+0x64/0x160 drivers/base/bus.c:620
-device_add+0x121d/0x1970 drivers/base/core.c:3772
-platform_device_add+0x35a/0x800 drivers/base/platform.c:762
-dummy_hcd_init+0x803/xc00 drivers/usb/gadget/udc/dummy_hcd.c:2894
-do_one_initcall+0x11d/0x700 init/main.c:1347
-do_initcall_level init/main.c:1409 [inline]
-do_initcalls init/main.c:1425 [inline]
-do_basic_setup init/main.c:1445 [inline]
-kernel_init_freeable+0x6ea/0x7b0 init/main.c:1658
-kernel_init+0x1f/0x1e0 init/main.c:1548
-ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
-ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 5947:
-kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
-kasan_save_track+0x14/0x30 mm/kasan/common.c:78
-kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
-poison_slab_object mm/kasan/common.c:253 [inline]
-__kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
-kasan_slab_free include/linux/kasan.h:235 [inline]
-slab_free_hook mm/slub.c:2677 [inline]
-slab_free mm/slub.c:6377 [inline]
-kfree+0x22b/0x6c0 mm/slub.c:6692
-kfree_const+0x5a/0x70 mm/util.c:46
-kobject_cleanup lib/kobject.c:695 [inline]
-kobject_release lib/kobject.c:720 [inline]
-kref_put include/linux/kref.h:65 [inline]
-kobject_put+0x218/0x640 lib/kobject.c:737
-put_device+0x1f/0x30 drivers/base/core.c:3880
-platform_remove+0x5f/0x80 drivers/base/platform.c:1456
-device_remove+0xcb/0x180 drivers/base/dd.c:616
-__device_release_driver drivers/base/dd.c:1349 [inline]
-device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
-unbind_store+0xf8/0x110 drivers/base/bus.c:244
-drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
-sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
-kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
-new_sync_write fs/read_write.c:595 [inline]
-vfs_write+0x6ac/0x1050 fs/read_write.c:687
-ksys_write+0x12a/0x250 fs/read_write.c:739
-do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
-entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-When the UDC backing a raw-gadget instance is unbound, the UDC core
-unregisters the gadget and frees the struct usb_gadget. gadget_unbind is
-eventually called but there still remains a dangling pointer for the
-gadget in raw_dev. Because the fd for raw_gadget is still open, a
-reference to it remains. Following calls from ioctl would pass the
-checks. When usb_ep_queue fails, it calls dev_err with dev->gadget->dev.
-Since gadget is freed, this causes a UAF.
-
-To fix it, we simply nullify dev->gadget in gadget_unbind. This requires
-a spinlock.
-
-Reported-by: syzbot+596b59aea1a9deaaab67@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=596b59aea1a9deaaab67
-Tested-by: syzbot+596b59aea1a9deaaab67@syzkaller.appspotmail.com
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
----
-v2: 
-  -fixed a typo, added syzbot to cc to get tracked by dashboard, my bad.
-
- drivers/usb/gadget/legacy/raw_gadget.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/usb/gadget/legacy/raw_gadget.c b/drivers/usb/gadget/legacy/raw_gadget.c
-index 4febf8dac7ca..9c263950f609 100644
---- a/drivers/usb/gadget/legacy/raw_gadget.c
-+++ b/drivers/usb/gadget/legacy/raw_gadget.c
-@@ -327,9 +327,16 @@ static int gadget_bind(struct usb_gadget *gadget,
- 
- static void gadget_unbind(struct usb_gadget *gadget)
- {
-+	unsigned long flags;
- 	struct raw_dev *dev = get_gadget_data(gadget);
- 
- 	set_gadget_data(gadget, NULL);
-+
-+	/* Avoid dangling pointer in case of remaining references */
-+	spin_lock_irqsave(&dev->lock, flags);
-+	dev->gadget = NULL;
-+	spin_unlock_irqrestore(&dev->lock, flags);
-+
- 	/* Matches kref_get() in gadget_bind(). */
- 	kref_put(&dev->count, dev_free);
- }
--- 
-2.43.0
-
+Hi Aneesh=0A=
+=0A=
+It isn't clear to me why does pci_dev_addr_range() derive addr_range=0A=
+from the upstream bridge PCI_BRIDGE_MEM_WINDOW /=0A=
+PCI_BRIDGE_PREF_MEM_WINDOW rather than from pdev's own=0A=
+regions? Should it be filled up with device regions instead?=0A=
+=0A=
+IIUC, there may be a couple of issues with the current approach:=0A=
+1. The bridge's window can be wider than what pdev actually owns due=0A=
+to alignment padding.=0A=
+2. If the bridge has multiple downstream devices (are there any?),=0A=
+the window spans address space belonging to sibling devices too=0A=
+and not just this pdev. So RMM would get a range that isn't=0A=
+exclusive to the pdev/stream being connected.=0A=
