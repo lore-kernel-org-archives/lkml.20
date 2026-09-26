@@ -1,70 +1,69 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-qk2-f40.google.com (mail-qk2-f40.google.com [74.125.230.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E2837F8A1
-	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FC537F010
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 16:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790439924; cv=none; b=HshS4DUZDJLyaf/8s2e0es1D60WTwfPJ5PvgivWHctApuI1igsgGdzb1YYqScltzyzzgaknIj0fmg1H1NQUvF+fEUHFkEh0E/KShlOoMSsYF2TkWS1OQPRicjW9ooidM4Qi9YDIgBJdKL5MdA8zPA8S96GUxPD9Ld8wCZfvMo6s=
+	t=1790439938; cv=none; b=IwYUl+QdIg3T9zrtgHW8nd+Xy7+mjeR9Hdi1jd7NIMQwFxpuc2LYegi5ttKEEm3hkpMPP8ysW/w/8mtgIxz+dLUlmQfq12I/aG5jTQcpg6SX2gAR/Gbs3+5OGVraOj3gwp1GXHyjjz3/pkDMPTBmcskNGfVnbTAEPyW3Oz58fqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790439924; c=relaxed/simple;
-	bh=guq+rkDi2+E+Dj+mrhLgj+C5Kv+YlrMk5QkUERPxIs4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IPYNXW46QvTRYRAYI+uZF55X2A+iOWbdFFGFYQ8A9xJbi1+cxGvI2Ub+vrbl/m3VwpishpgreqHl4SA35GYhQD1ThKw3xvNmzaDxCRAwZ1tEqVdA6tdOSEf0G+G8dQCUXx6+/kCXt6bR7fpNP2BelyhxRbapEJe4lzhamYEmUeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s4z01Go9; arc=none smtp.client-ip=74.125.230.235
+	s=arc-20240116; t=1790439938; c=relaxed/simple;
+	bh=KHu6n6nF7r8HoMbgICyqgJcdR6e9Uz2lwSDzo87ed9o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LqA2eTbjI6vK8qetFpj2MripAkUow392SvRz70/gviAgut03Nm23D7PGxCeFr8IXxxNP1ayAwAhdzn7Qf04bpxa0aRTSJ6G9TVIBTJ7cTcvi1CoxoCvtI9HQZ9uLiIGu/9Q/QbkMBbAc4EznkPmvY0dlHBwwfrABjg42qkX+j7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m4kt2Q2c; arc=none smtp.client-ip=74.125.230.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s4z01Go9"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93a2dea320fso190702385a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:25:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m4kt2Q2c"
+Received: by mail-qk2-f40.google.com with SMTP id af79cd13be357-93c5b166acdso56927485a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:25:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790439916; x=1791044716; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790439927; x=1791044727; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G9Q4b0eLORsQAHfEyrgPHMbEPou/wIlLxhzXAIh54I8=;
-        b=s4z01Go92wDlC8k/R5ZcTEbmUrPZUk/QLo8zzrprfei1hJLkU0BPPm8GGeI0zxtvJ6
-         cU0Lu0ulGltkFmVBQeWMrUt0oCholT8052ZuudFaHSgawBYDLHsobimck15kGtZUCMA5
-         nWpjTiJdl42wx/TjZC31hD0rkendmgb72dzA4Np/7nFik0qIqTrDOs9fIdrmSktS6crc
-         cDyhP7fGC42UQ3FqUqN3zFP824U/Zx3+c1zUsnhBEjE6ektbLWIyp95OvMt6OE5k2zfS
-         POQ+5Zf4c81UD9ZS+VtvrZmZTdCwYVBe4Xg5WC+PuDV7Z/RuJalAMCVLK4Tcl39oVi65
-         ideg==
+        bh=yxGw90+JpYDU2nxs8d7bIbWjyZdBY1QVcTsJVhZ3GNI=;
+        b=m4kt2Q2c5pA1VSj4Zp8vqILDOQM+yQ+cnrNu8NJp6OocUIsaYs7FwpS7tP9KoHdEun
+         RtALTZ7n0s1REPOLxwcIyTHIJ0kad6Yn3WUJj/FMM7DjZ28QIW9fj9FnXAjfWbZr2kGe
+         cUETHvyp+/Tn5VJ2RIGbHE/sWA5oppZCcc519Ila0rAykWXmweIg1HjpXsm3pf6e/KQi
+         bzRU9tr2YbvT1crVSQub336JREZB7a7J28w8X7q21RlNl3WIL6bZrTYDkQZljLH2Wh+W
+         0u44pTlP13sXqwYOMS1+gVmIzBtH+Fs0aoY2+Y5rOdjuImsoo9VWQjeArhoDXqutk0ls
+         6kPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790439916; x=1791044716;
+        d=1e100.net; s=20260707; t=1790439927; x=1791044727;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G9Q4b0eLORsQAHfEyrgPHMbEPou/wIlLxhzXAIh54I8=;
-        b=DQQ29DgTbzyqbShF1ANsNkFX3GgfAtHFCkqf6HRR0fm/Lrks6Awxa/iq/kM1IC3E6t
-         JlDVCFtta8Rv1ICBsb2HFBhrAbGWJKKD8FXL6qOCb66pRuPM5l9yqq+zHz81OSPk2Hml
-         FMZCtX7TSJdaIAKglf/qBJfS1TegzMM9m/n2Uyo9pO12b7mMMPbPaatekq8MzaVuzuPK
-         NX0TQhEDIzeFMmgr3mNRzF7rVoimJc8wYLc28wEqsy6QKRDyEXLhTO+GxUuBF9GttcY2
-         MD/Srx1jasRVPEmf1O6mGIjnhz4Uyv+RqNZ4YLsNpQJOhIs3yt/zRObkk0M4dl6k8X6O
-         Ow0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxExzhgGfBzIS58QPKkNoV5+9YVApLsdS4/w0WtisjVx1Y3IEqi21YfJIdJIcrBfwnpj28VQj9GAP9yjVE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZKBQl3YvWFC0RAnBlB9b2vlrQYDdYTmsLIpBPhUSFUhfXCB6f
-	uFBoZZHcXzvbwuyQTVxuR0gEN/emRTKJ2tfeD9o8GIyOGSddqkHXqvUqGa662EE6
-X-Gm-Gg: AYBFou2uTsjMDhOTrvgfC/vUTR7EkGRb3oJn9IDRaFy8Ufx6qwIlViLMc1vDAPrV6Mo
-	H9S7BWJrOIqb5mVB3tKSPX/8G5KOsf1kRP4dnP7KtX1rwCPfat4gPdLtoj475YA86sWAhy3xU/O
-	Am7Jg1h00Fm9DoiF2PuwHB+EJgZnsG1Kf/YFoeFx65ioKzWebQqp0zRTdmxmTHVvZYmO5qhWXEz
-	nIaRBIkyKST2Of0NViW9r9kJ9uXQKAMyR9rL/jSllAtutLfwTNuehQdCxorXiw8l1wePefG1DfS
-	1rd81373FIRocDeFBh2Olt666Tugif4I2ADsPqWJ5RvDN0/C2nAQfsrTGE4Xn4pJokUbhqRa1sI
-	obt3xq+jqkrdAmPRq/VkXHjjzBuXcWYv+1iQrbWjEsVsuxhIpXY4ZtK5663nowpPDN9n9w2PKvX
-	LtXE/NyNHcvdq9IiwedS+romXo+WXitBgJlEFN3/kr8dHf24mFF41aGmiRCUxtq1MOViRLktFjI
-	0iDmPeW4spFYa33/HNF4dO79CIXvRNa0/1d6AAn2dgoIWrE
-X-Received: by 2002:a05:620a:1a1b:b0:939:d38:3ab8 with SMTP id af79cd13be357-93c43b6120emr1113869385a.12.1790439916403;
-        Sat, 26 Sep 2026 09:25:16 -0700 (PDT)
+        bh=yxGw90+JpYDU2nxs8d7bIbWjyZdBY1QVcTsJVhZ3GNI=;
+        b=wzy7j+k/noHbiVMyIGGAV+ZIaRjifTPYfhXLyPhH6S+hFSbPrl7JqQLpp+bc3sqe6p
+         WFhUw1rfLbbysgpgpxOIA1RiJlIUJEeXykjKISqU0BWAGjblaw8Z7SMvWConPOw8kl81
+         yheefGE2v7Fc2amgS/3Luhsxv12xrMSjnPWcmj3FDo0H1gsmPVqWa96bV8d8IKOcfb9V
+         /1/5lOs/6hQMae+zTjxwUdLfKRKsPFZUzvc/82ZFQinfZLGZxROYQJ0Qasuwcdruo2OW
+         tJf9E4P658rMr1BBTi/sOSk0qgVb/ORRzotgZwqm6sPhWTEKACQbotcneAkaT54lqnMu
+         wzew==
+X-Forwarded-Encrypted: i=1; AKwUvBxESsInXO8z/tImOeTUnhKpBJC4XDohzQ4salbqpAkgMaZteKao7J7D/l104T/MfvxACeb6jfvmUWVlENw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/5TYTCuY08eIZdRTwJcRDxgHbNkPz1E5zPHj35Iartj//HG2l
+	6vmj75T4nISxvCgswblRHacJif+g8NWqdSjVpUmRyDfyHpvKILU5XhKHVf1EK5tc
+X-Gm-Gg: AYBFou1noICglUJjcPsrIpVIVvmZE4MRXxtvsjlXsEkGDENOcyWjzFbJh2+TRjxEL8o
+	SzY6Zu7RrP8MWqKVwX9ZH85g0IEcT6mjZ8V9KdCHobCVQuRv9zuu6QjdEyF5+i3+OXtTIBzh2Rc
+	GB6sf7NmR32gy6+s16vvGKPyVA9CSNkVKWtRKZFDeHbfieQUebOnCi8sOPmr3n7hvZ+RGWWpygJ
+	If8JeMqLO4mxkMg8VTpFkwQZ/uKMwg57+PalsHzZSsKzcHSHDB/iFubRCE5a1tXCeEwc8DV5fBa
+	RfqEq58/1+/r4IUhjfI/FxOlse/P1AgjlRf59ehh0k9gAYGn6YviPLdDXfFzX6CFE4xzYLvERkr
+	pep4uwrwHwoQm3Ovs2Lb/vgemOVIZOsrmLTJkM7dkqrBEpo8/xI/nqO0fROYHKEwAPw8aXWk+uF
+	drYZg7IMjUY9u9rL1c+IbB7BO3KJMcyQhBz1UhHzwUwHwHZbiDKfQUKSvmIMMjfiBBIF0ZAkiaP
+	9S9BBtTB3wIEIAtLZZrfy71hoh7vF0VnfQjl+eVe2KUaIBntQ==
+X-Received: by 2002:a05:620a:4492:b0:939:2c5c:7977 with SMTP id af79cd13be357-93c43c75a3emr1115967985a.20.1790439926593;
+        Sat, 26 Sep 2026 09:25:26 -0700 (PDT)
 Received: from zaina.localdomain ([172.56.198.134])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c448ae879sm444974685a.13.2026.09.26.09.25.15
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430ecf80csm42110476d6.49.2026.09.26.09.25.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 09:25:16 -0700 (PDT)
+        Sat, 26 Sep 2026 09:25:26 -0700 (PDT)
 From: Zain Aboobacker <zainaboobacker33@gmail.com>
-To: Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: ohci-sa1111: remove unused dump_hci_status() debug helper
-Date: Sat, 26 Sep 2026 12:25:13 -0400
-Message-ID: <20260926162513.25268-1-zainaboobacker33@gmail.com>
+Subject: [PATCH] usb: gadget: pch_udc: fix typos in comments
+Date: Sat, 26 Sep 2026 12:25:23 -0400
+Message-ID: <20260926162523.25335-1-zainaboobacker33@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,40 +73,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dump_hci_status() is compiled out with #if 0 and has no callers.
-Remove the dead code.
+Fix various spelling mistakes in comments and kernel-doc found by
+codespell.
 
-Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Claude:claude-opus-5-5 codespell
 Signed-off-by: Zain Aboobacker <zainaboobacker33@gmail.com>
 ---
- drivers/usb/host/ohci-sa1111.c | 14 --------------
- 1 file changed, 14 deletions(-)
+ drivers/usb/gadget/udc/pch_udc.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/usb/host/ohci-sa1111.c b/drivers/usb/host/ohci-sa1111.c
-index aca0338a2983..7e500c772616 100644
---- a/drivers/usb/host/ohci-sa1111.c
-+++ b/drivers/usb/host/ohci-sa1111.c
-@@ -40,20 +40,6 @@
- #define USB_STATUS_NHCIMFCLR      (1 << 10)
- #define USB_STATUS_USBPWRSENSE    (1 << 11)
+diff --git a/drivers/usb/gadget/udc/pch_udc.c b/drivers/usb/gadget/udc/pch_udc.c
+index 99b3ce28210f..e8ad452a852f 100644
+--- a/drivers/usb/gadget/udc/pch_udc.c
++++ b/drivers/usb/gadget/udc/pch_udc.c
+@@ -53,7 +53,7 @@
+ #define UDC_EPCTL_F			(1 << 1)
+ #define UDC_EPCTL_S			(1 << 0)
+ #define UDC_EPCTL_ET_SHIFT		4
+-/* Mask patern */
++/* Mask pattern */
+ #define UDC_EPCTL_ET_MASK		0x00000030
+ /* Value for ET field */
+ #define UDC_EPCTL_ET_CONTROL		0
+@@ -73,7 +73,7 @@
+ #define UDC_EPSTS_BNA			(1 << 7)
+ #define UDC_EPSTS_IN			(1 << 6)
+ #define UDC_EPSTS_OUT_SHIFT		4
+-/* Mask patern */
++/* Mask pattern */
+ #define UDC_EPSTS_OUT_MASK		0x00000030
+ #define UDC_EPSTS_ALL_CLR_MASK		0x1F0006F0
+ /* Value for OUT field */
+@@ -110,7 +110,7 @@
+ #define UDC_DEVSTS_ALT_SHIFT		8
+ #define UDC_DEVSTS_INTF_SHIFT		4
+ #define UDC_DEVSTS_CFG_SHIFT		0
+-/* Mask patern */
++/* Mask pattern */
+ #define UDC_DEVSTS_TS_MASK		0xfffc0000
+ #define UDC_DEVSTS_ENUM_SPEED_MASK	0x00006000
+ #define UDC_DEVSTS_ALT_MASK		0x00000f00
+@@ -132,7 +132,7 @@
+ #define UDC_DEVINT_ES			(1 << 2)
+ #define UDC_DEVINT_SI			(1 << 1)
+ #define UDC_DEVINT_SC			(1 << 0)
+-/* Mask patern */
++/* Mask pattern */
+ #define UDC_DEVINT_MSK			0x7f
  
--#if 0
--static void dump_hci_status(struct usb_hcd *hcd, const char *label)
--{
--	unsigned long status = readl_relaxed(hcd->regs + USB_STATUS);
--
--	printk(KERN_DEBUG "%s USB_STATUS = { %s%s%s%s%s}\n", label,
--	     ((status & USB_STATUS_IRQHCIRMTWKUP) ? "IRQHCIRMTWKUP " : ""),
--	     ((status & USB_STATUS_IRQHCIBUFFACC) ? "IRQHCIBUFFACC " : ""),
--	     ((status & USB_STATUS_NIRQHCIM) ? "" : "IRQHCIM "),
--	     ((status & USB_STATUS_NHCIMFCLR) ? "" : "HCIMFCLR "),
--	     ((status & USB_STATUS_USBPWRSENSE) ? "USBPWRSENSE " : ""));
--}
--#endif
--
- static int ohci_sa1111_reset(struct usb_hcd *hcd)
- {
- 	struct ohci_hcd *ohci = hcd_to_ohci(hcd);
+ /* Endpoint irq register */
+@@ -141,7 +141,7 @@
+ #define UDC_EPINT_OUT_SHIFT		16
+ #define UDC_EPINT_IN_EP0		(1 << 0)
+ #define UDC_EPINT_OUT_EP0		(1 << 16)
+-/* Mask patern */
++/* Mask pattern */
+ #define UDC_EPINT_MSK_DISABLE_ALL	0xffffffff
+ 
+ /* UDC_CSR_BUSY Status register */
+@@ -162,7 +162,7 @@
+ #define UDC_CSR_NE_INTF_SHIFT		11
+ #define UDC_CSR_NE_ALT_SHIFT		15
+ #define UDC_CSR_NE_MAX_PKT_SHIFT	19
+-/* Mask patern */
++/* Mask pattern */
+ #define UDC_CSR_NE_NUM_MASK		0x0000000f
+ #define UDC_CSR_NE_DIR_MASK		0x00000010
+ #define UDC_CSR_NE_TYPE_MASK		0x00000060
+@@ -296,7 +296,7 @@ struct pch_udc_ep {
+ };
+ 
+ /**
+- * struct pch_vbus_gpio_data - Structure holding GPIO informaton
++ * struct pch_vbus_gpio_data - Structure holding GPIO information
+  *					for detecting VBUS
+  * @port:		gpio descriptor for the VBUS GPIO
+  * @intr:		gpio interrupt number
+@@ -319,7 +319,7 @@ struct pch_vbus_gpio_data {
+  * @ep:			array of endpoints
+  * @lock:		protects all state
+  * @stall:		stall requested
+- * @prot_stall:		protcol stall requested
++ * @prot_stall:		protocol stall requested
+  * @suspended:		driver in suspended state
+  * @connected:		gadget driver associated
+  * @vbus_session:	required vbus_session state
+@@ -332,7 +332,7 @@ struct pch_vbus_gpio_data {
+  * @base_addr:		for mapped device memory
+  * @bar:		PCI BAR used for mapped device memory
+  * @cfg_data:		current cfg, intf, and alt in use
+- * @vbus_gpio:		GPIO informaton for detecting VBUS
++ * @vbus_gpio:		GPIO information for detecting VBUS
+  */
+ struct pch_udc_dev {
+ 	struct usb_gadget		gadget;
+@@ -846,7 +846,7 @@ static inline u32 pch_udc_read_ep_interrupts(struct pch_udc_dev *dev)
+ }
+ 
+ /**
+- * pch_udc_write_ep_interrupts() - Clear endpoint interupts
++ * pch_udc_write_ep_interrupts() - Clear endpoint interrupts
+  * @dev:	Reference to structure of type pch_udc_regs
+  * @val:	The value to be written to interrupt register
+  */
+@@ -1064,7 +1064,7 @@ static void pch_udc_init(struct pch_udc_dev *dev)
+ 	if (speed_fs)
+ 		pch_udc_bit_set(dev, UDC_DEVCFG_ADDR, UDC_DEVCFG_CSR_PRG |
+ 				UDC_DEVCFG_SP | UDC_DEVCFG_SPD_FS);
+-	else /* defaul high speed */
++	else /* default high speed */
+ 		pch_udc_bit_set(dev, UDC_DEVCFG_ADDR, UDC_DEVCFG_CSR_PRG |
+ 				UDC_DEVCFG_SP | UDC_DEVCFG_SPD_HS);
+ 	pch_udc_bit_set(dev, UDC_DEVCTL_ADDR,
+@@ -2569,7 +2569,7 @@ static void pch_udc_svc_intf_interrupt(struct pch_udc_dev *dev)
+ 	dev->setup_data.bRequestType = USB_RECIP_INTERFACE;
+ 	dev->setup_data.wValue = cpu_to_le16(dev->cfg_data.cur_alt);
+ 	dev->setup_data.wIndex = cpu_to_le16(dev->cfg_data.cur_intf);
+-	/* programm the Endpoint Cfg registers */
++	/* program the Endpoint Cfg registers */
+ 	/* Only one end point cfg register */
+ 	reg = pch_udc_read_csr(dev, UDC_EP0OUT_IDX);
+ 	reg = (reg & ~UDC_CSR_NE_INTF_MASK) |
 -- 
 2.53.0
 
