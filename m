@@ -1,54 +1,56 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFA735C69C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A7137A839
 	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 05:33:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790400788; cv=none; b=NHRs6JLWZ3symgbs6ZR5d0YpOpkiaF54tra58cdoFdUMV4utS1x64wnIs6R0eC8kNvkfgIeAz9V2F3sFIc2FReAj9z6oWS1FrYs14xNMkUd3dCCqxmbaZ1NWSzyB05KwA/BpSbDIXDx9/fgZtWNHrYixjTSC/0mPjE3I3EOnN00=
+	t=1790400788; cv=none; b=YfHaZptvhHD2VWSqUSTflN3GA72Y0kBzByWe9/SAGtWXFrHmvo8UOnU67cR34tjYoGNmYYCRvSdK4XIN7jdf899c6VTmrZSsILu0k/Ldhyx9h/e5qQPOhEdure5yFeTwFOTuL3ojcewUp4/n9DRoZWx5VjgCzFKb0XzzE5tKUuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790400788; c=relaxed/simple;
-	bh=xcWx2XfEoFQY0Oze+QRhr1BZnMwBGrdUDI8F5ui96Z8=;
+	bh=qIkQ6MQyGnoAAQ5Sa8eDyvnkbfgQaM0rO33iPuvoy74=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=n+nr5ClkI2+kWbapW6aMs7GbxOMkPryt/ZzLS/N8Ze8LCLeJLLUjn06kNuo5Li+iuuem7U4r21OwQmVAtfFoRLiCgUqKqARC08JB75s1VgTI+TLzYeCi88LJwT+OGI+gcM7etgZEOq8glmczFxwBEf4bZXjRZhYBrg/2Dt6e3xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CIt+bvJL; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version:Content-Type; b=KaN6MI1lPWtC9o1ByzWOJQs5L9uXbB6MPSfp1C0iOiGdbKfvQ2J5jp6nWkPtcgZk3xJR6SGbCVgYazIlfOUrwPr+cTV3MWqiNm0GlqZQFFAeHJefYHlZ0ODlyjki9CzUpsmGZgv384hZV4ueMI/yp/oFnveEU2Qm2SmMPuQtELk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gLomLEyE; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CIt+bvJL"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gLomLEyE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1790400784;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=U9D7UxZMovIJPaD3/L8K7Sdj8yR5mvMSMSxU70deVL8=;
-	b=CIt+bvJLMFXklS3c/qlvFPpjsbZcv/E+NV5LVQfsPsa17Y2aaNI6oPoT7OV5oWGRRh+WGF
-	CmNvfq6Bt1n2WAFoYygHMJANs51tKzAgwEODcuTfU1UYllGi1lDgPqQZZVpTwz6HBj1xtB
-	vS42e7P2XW+gpc8mAaqZMk/OQgGOZG4=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+	bh=swg/O/aAJab+PGMsJFcDfjnZcC8fg7p7jjtw5EIsJaU=;
+	b=gLomLEyEHNevhja/G9aEvZn5jTBzkldYxeVvxTEa7yjJHbbSKj5jAVr2/vKGvhfBBCjTkk
+	t6tsNDy9hO3pb3WfGAUku8K7RKPPMjkLn6cw4XB+iZWmnXZCobmEK5uLsP6ptfzSyscrhJ
+	zpQBDvgI0cWCW4iJYXV9s+fly3NNun0=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-637-apraSQZBOfu2yfbh5kyX4g-1; Sat,
- 26 Sep 2026 01:33:01 -0400
-X-MC-Unique: apraSQZBOfu2yfbh5kyX4g-1
-X-Mimecast-MFC-AGG-ID: apraSQZBOfu2yfbh5kyX4g_1790400781
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-497-0fEplLNvOj2qDbUE5XKL9Q-1; Sat,
+ 26 Sep 2026 01:33:00 -0400
+X-MC-Unique: 0fEplLNvOj2qDbUE5XKL9Q-1
+X-Mimecast-MFC-AGG-ID: 0fEplLNvOj2qDbUE5XKL9Q_1790400779
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D6181180AE30;
-	Sat, 26 Sep 2026 05:33:00 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A42631800632;
+	Sat, 26 Sep 2026 05:32:59 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 629C41956086;
-	Sat, 26 Sep 2026 05:33:00 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EA09F1956086;
+	Sat, 26 Sep 2026 05:32:58 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>
-Subject: [PATCH 08/11] KVM: selftests: Run the nested x2APIC with and without APICv being inhibited in L2
-Date: Sat, 26 Sep 2026 01:32:50 -0400
-Message-ID: <20260926053253.195597-9-pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+	stable@vger.kernel.org,
+	Vitaly Kuznetsov <vkuznets@redhat.com>
+Subject: [PATCH 06/11] KVM: nVMX: Force MSR bitmap refresh if runtime eVMCS controls are modified
+Date: Sat, 26 Sep 2026 01:32:48 -0400
+Message-ID: <20260926053253.195597-7-pbonzini@redhat.com>
 In-Reply-To: <20260926053253.195597-1-pbonzini@redhat.com>
 References: <20260926053253.195597-1-pbonzini@redhat.com>
 Precedence: bulk
@@ -63,78 +65,47 @@ X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
 From: Sean Christopherson <seanjc@google.com>
 
+Force a refresh of the vmcs02 MSR bitmap during nested VM-Enter if the
+runtime eVMCS controls (pin, primary, secondary, etc.) are being updated.
+If L1 isn't intercepting TPR writes, runs L2 with TPR virtualization, and
+then runs the same L2 with TPR virtualization disabled, KVM will fail to
+refresh msr_bitmap02 and leave TPR in passthrough mode even though TPR
+virtualization is disabled.  I.e. failure to refresh the bitmap lets L2 (or
+L1 by proxy) read and write L0's TPR.
+
+Fixes: 502d2bf5f2fd ("KVM: nVMX: Implement Enlightened MSR Bitmap feature")
+Cc: stable@vger.kernel.org
+Reviewed-by: Vitaly Kuznetsov <vkuznets@redhat.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260813223610.2043560-4-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- .../selftests/kvm/x86/nested_x2apic_test.c    | 25 ++++++++++++++++---
- 1 file changed, 21 insertions(+), 4 deletions(-)
+ arch/x86/kvm/vmx/nested.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/tools/testing/selftests/kvm/x86/nested_x2apic_test.c b/tools/testing/selftests/kvm/x86/nested_x2apic_test.c
-index e77b4c347272..a1072bf499ee 100644
---- a/tools/testing/selftests/kvm/x86/nested_x2apic_test.c
-+++ b/tools/testing/selftests/kvm/x86/nested_x2apic_test.c
-@@ -15,6 +15,7 @@
- #define POSTED_INTR_WAKEUP_VECTOR	0xf1
- #define POSTED_INTR_NESTED_VECTOR	0xf0
- 
-+static bool inhibit_apicv;
- static volatile unsigned int nr_irqs;
- 
- static void guest_irq_handler(struct ex_regs *regs)
-@@ -25,7 +26,8 @@ static void guest_irq_handler(struct ex_regs *regs)
- 
- static void l2_guest_code(void)
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 40c1a5f6fa8a..b25216862740 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -1754,6 +1754,9 @@ static void copy_vmcs12_to_shadow(struct vcpu_vmx *vmx)
+ static void copy_enlightened_to_vmcs12(struct vcpu_vmx *vmx, u32 hv_clean_fields)
  {
--	wrmsr(MSR_IA32_APICBASE, rdmsr(MSR_IA32_APICBASE) & GENMASK_ULL(11, 0));
-+	if (inhibit_apicv)
-+		wrmsr(MSR_IA32_APICBASE, rdmsr(MSR_IA32_APICBASE) & GENMASK_ULL(11, 0));
- 	asm volatile("cpuid" ::: "eax", "ebx", "ecx", "edx");
- }
+ #ifdef CONFIG_KVM_HYPERV
++	const u64 runtime_controls = HV_VMX_ENLIGHTENED_CLEAN_FIELD_CONTROL_GRP1 |
++				     HV_VMX_ENLIGHTENED_CLEAN_FIELD_CONTROL_GRP2 |
++				     HV_VMX_ENLIGHTENED_CLEAN_FIELD_CONTROL_PROC;
+ 	struct vmcs12 *vmcs12 = vmx->nested.cached_vmcs12;
+ 	struct hv_enlightened_vmcs *evmcs = nested_vmx_evmcs(vmx);
+ 	struct kvm_vcpu_hv *hv_vcpu = to_hv_vcpu(&vmx->vcpu);
+@@ -1762,6 +1765,9 @@ static void copy_enlightened_to_vmcs12(struct vcpu_vmx *vmx, u32 hv_clean_fields
+ 	vmcs12->tpr_threshold = evmcs->tpr_threshold;
+ 	vmcs12->guest_rip = evmcs->guest_rip;
  
-@@ -78,20 +80,20 @@ static void l1_guest_code(void *test_data)
- 	GUEST_DONE();
- }
- 
--int main(int argc, char *argv[])
-+static void __test_x2apic_intercepts(void)
- {
- 	gva_t nested_test_data_gva;
- 	struct kvm_vcpu *vcpu;
- 	struct kvm_vm *vm;
- 	struct ucall uc;
- 
--	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM) || kvm_cpu_has(X86_FEATURE_VMX));
--
- 	vm = vm_create_with_one_vcpu(&vcpu, l1_guest_code);
- 	vm_install_exception_handler(vm, POSTED_INTR_VECTOR, guest_irq_handler);
- 	vm_install_exception_handler(vm, POSTED_INTR_WAKEUP_VECTOR, guest_irq_handler);
- 	vm_install_exception_handler(vm, POSTED_INTR_NESTED_VECTOR, guest_irq_handler);
- 
-+	sync_global_to_guest(vm, inhibit_apicv);
++	if ((hv_clean_fields & runtime_controls) != runtime_controls)
++		vmx->nested.force_msr_bitmap_recalc = true;
 +
- 	if (kvm_cpu_has(X86_FEATURE_SVM))
- 		vcpu_alloc_svm(vm, &nested_test_data_gva);
- 	else
-@@ -115,3 +117,18 @@ int main(int argc, char *argv[])
- 
- 	kvm_vm_free(vm);
- }
-+
-+#define test_x2apic_intercepts(inhibit_apic_setting)	\
-+do {							\
-+	inhibit_apic_setting;				\
-+							\
-+	__test_x2apic_intercepts();			\
-+} while (0)
-+
-+int main(int argc, char *argv[])
-+{
-+	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM) || kvm_cpu_has(X86_FEATURE_VMX));
-+
-+	test_x2apic_intercepts(inhibit_apicv = true);
-+	test_x2apic_intercepts(inhibit_apicv = false);
-+}
+ 	if (unlikely(!(hv_clean_fields &
+ 		       HV_VMX_ENLIGHTENED_CLEAN_FIELD_ENLIGHTENMENTSCONTROL))) {
+ 		hv_vcpu->nested.pa_page_gpa = evmcs->partition_assist_page;
 -- 
 2.52.0
 
