@@ -1,212 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EF039060C;
-	Sat, 26 Sep 2026 09:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A233A6B6F
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 09:27:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790414836; cv=none; b=bSIl706kyaw7GaWOFwHDy6RYKu0FLUyhb06pMhFlnZdwJk6tdjaawrQVAnkealmuJECR01ZzIM+K98DAzgHP70xfYPjmSksl9At+qmmWK6QPxPmVE3ra96cfKeSbdNK3BKfrOLDh78w7JZLFtkmvFXVhy7pTf55zUtckWGPSQXA=
+	t=1790414860; cv=none; b=Acghgo46GQkQrbXdWd0V4okn1NDI/LNhemfaAxDbGHNlBEeIwG2SPoURcPWD1QkVb+h/JfYMOIZPXuiBZli/LTru6C67k/eCJ/JqmLdjCIpSIDiHKzwreaEsU98DLmfvLMLZ9qVmT17i23MyacWtb8pGG2Ofq8DpUiupTgnwtuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790414836; c=relaxed/simple;
-	bh=kNRuPrqgtHcxY8p63nt0TcL87K8N5D5xRZrd6GnaHiw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=INNb8GTnO+H6sEzt34F26j4A6nX7k2KcjMJljXoRoWZOp0U+CWrw8PU4PpsO3/TWFI3dEwmG9+10lxo94ksKcoOAMmS9aajon2CsKTtgiqpRDVMupcoQynh9DHxFXGGdfVBJl8oL2oxe1u6at5HiYw7E6BcPS/L24g5uZIimINo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bLWp7dPv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790414860; c=relaxed/simple;
+	bh=LPm95XpnLeXQybjSBPGU+TvJ2dM+a6JBCBNVIAJlkKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Kqm8GyY4xLPahy34AwZSxaCZl6JweWXmPNuKhDnV9QqDdvhyoBLrGQttVO24uwJJGctABIOmslZv9vOzjxoHjuFqs19QBoLYHNFFDksBImCp1YTM6yOAKyFlhGdtV017DNj8+tm4skM4cOFd4y5jAvGAqOms7ouUANpd2952rAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m6ikRdh6; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bLWp7dPv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4E41F00893;
-	Sat, 26 Sep 2026 09:27:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790414828;
-	bh=2IB/emxkyHo2HX8WhbXxbTX5kHFJvnRUt1R1zJ5EJrY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=bLWp7dPvvkC5iYRn7QCrP+n9zSTEV8wSmdq5FLV+7rYRGdMhh+tpPjxpnq+4hKK+J
-	 8BKlAXrHl9Cp9xDuPkaBrwHNg/in02IrPjosuTDhMQczYv27FfMLn8pJlJho48qLT6
-	 Z3IIFsrvAPo6O4v6WpPzfb4JBsmop7Jxbs44KA+6ugbrbZeEDkQHbs/bwwRe8TiGiZ
-	 nM20PIm1RDsbFfAV5pfG/hgppsIWZE13Hhthp4QxT9HNKxPadW2zjX5/pY/kFPJkxw
-	 hbWNIET7AKzXxDO8ucZep/LqAibyByxWc17RpEqLwaAQ6jgvO/L5N6tF6wNH9kSk12
-	 iHr1cJxNWeKzw==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Sat, 26 Sep 2026 12:26:34 +0300
-Subject: [PATCH v2 5/5] hibernation: make hibernation unavailable when
- debug_pagealloc is on
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m6ikRdh6"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffb83bf7aso2812025e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 02:27:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790414857; x=1791019657; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WfhSiXHQRTZVo3RbQYIEvZbWb2gG5Hiz9roKfYWz+ac=;
+        b=m6ikRdh6FBJNJMOpoyGR6P8xdOm/kNjIv+x7ZxyMmdcDvhZJzGaJd30IfD44Gfp7lC
+         uclK2ihC7lovaT472q+FrL9BwqCUm8g7CDsiyrLbhb40Cotn6PE0wP8/dEsNo7A5KVdO
+         MjufvcwsPrs6mBxuzGloni2lujJNPhDxbTMSmt+Y0pdOfgcF8Yxm7CKnuGhZJjn2QGLR
+         TwvpRCsz4ZT0ayG9pBAqWcyAmv/S0TvXuuPpC3grIQjZbHVAeOlQC9YwtnwSooLjxwKX
+         59HiZUHIgNCElw9xCEFPQ3Km7M4/3atkIGM/acmZu0SLJ4Y5oQmxPk+dHrz92cGb8uR7
+         5IMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790414857; x=1791019657;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WfhSiXHQRTZVo3RbQYIEvZbWb2gG5Hiz9roKfYWz+ac=;
+        b=I551m+C/2NnMF+eTM7jFWyungfHvuVIb7bEWiJyPKyff3DbecmcsHNvbPgS0EAPaM0
+         X0OIz8NU9zgQe/O+i08RBXV9L1zzzpOEMKEv5YlOwAznLZbyV2MI9fOxhCy7+IbjClAX
+         +kDGYX6JNAEPIsZoJ6+T9IIIkOHn9JWOE8Jx0kyqRczgSeYkvucB2T7nVXC5u30vIW07
+         Y8G5hZJpoGGjEAHHRD5TPTOXzdXjzpn0uzdY3KVKeBQtEpaWHJg7ZlBrXtipGlTKAsek
+         bAWv8dmK1yoz/4rp+qqTkUVjnz85Q9TclWvomRZJ7m+XyDAWQxu9dDqaCvTXdGFBRz6K
+         AkAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwmEl7s7HePee5o7jBckKh5Wk9YQMsC4Mk/xuV0qc00emQ8a/LOgdS1d0HDnE5YlAlTLCXaFqz1ZxLYqH0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nY1YBM1SbAHrBzp9hWWa9oaUtjw5grB3wBexteTA5jBI7CNrh4
+	0nRYad2HibnPx4lQN4iGbqHwxXcN1vv8xwpTvUwI+Z5AUphoJHOhaZQZ
+X-Gm-Gg: AYBFou29U1KWY5VNGIDWWaWtRPugbar5Baxzbfy5rUr6g2aYD0j93FKOiIR7hQU45dN
+	FKHtV1MsI74h9U3zAH2hs6c9wsvnbcLNGf2063mTAJdFSLH7BTp6TTf7JOTZDvdOYHZHF0ZaY1y
+	Ho67oIQYiVHp05u1We8SvI6lJGD1IPzEDmfAz/bhorbhc72aPZdp6/Bvu1rxbgl5GRwieT8qKgB
+	9WLDto5wciqWZPTWLcV/Mmd40f7VBMwOE7/a24a9bfGJtPttj0+NyOa4VSOGAfg1kNQyH8Lb4EK
+	AyD8nVOLcHKXi6nU5qaZrvXyAO7cJV2iFqLU+DtONuJku1ZDEu7PCLGznj8v6zN7Aiu/Hl31bX9
+	CK9Uj+uvzkYNHmzxBaCeFTXbk5K0SBlWYwUdiSh7sObqSdl99sXnnCVgy9rbKwoPvPz4KmBfVF2
+	dhQmR5Wn9omBXgPaTnMLstGJxnze6hhc3mddVM4RseRenSDegdEAcj+0qfXYE5RkWuNhNeU9wgV
+	vcBpEV9BZoTb0owj+xTtV/NkBASaI37v9fcVeWEhOXgATmx93szvg==
+X-Received: by 2002:a05:600c:4e49:b0:49d:1cc7:5ec3 with SMTP id 5b1f17b1804b1-49fe66d456cmr137424985e9.9.1790414856635;
+        Sat, 26 Sep 2026 02:27:36 -0700 (PDT)
+Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06bdef2sm119604705e9.11.2026.09.26.02.27.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 02:27:36 -0700 (PDT)
+From: German Pablo Lindo <germanpapulindez@gmail.com>
+To: lsa.uz@pm.me
+Cc: andre.gilerson@gmail.com,
+	conor+dt@kernel.org,
+	dan.scally@ideasonboard.com,
+	devicetree@vger.kernel.org,
+	germanpapulindez@gmail.com,
+	hansg@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com,
+	sashiko-bot@kernel.org
+Subject: Test for [PATCH v7 0/3] Add support for the Sony IMX681 camera sensor
+Date: Sat, 26 Sep 2026 11:27:30 +0200
+Message-ID: <20260926092735.11605-1-germanpapulindez@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923211816.89954-1-lsa.uz@pm.me>
+References: <20260923211816.89954-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-hibernation-v2-5-235f69f3ab2a@kernel.org>
-References: <20260926-hibernation-v2-0-235f69f3ab2a@kernel.org>
-In-Reply-To: <20260926-hibernation-v2-0-235f69f3ab2a@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Alexander Potapenko <glider@google.com>, 
- David Hildenbrand <david@kernel.org>, Marco Elver <elver@google.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Dmitry Vyukov <dvyukov@google.com>, Len Brown <lenb@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, linux-pm@vger.kernel.org
-X-Mailer: b4 0.16.1-dev
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Back in 2008 when commit 8a235efad548a ("Hibernation: Handle
-DEBUG_PAGEALLOC on x86") enabled coexistence of hibernation and
-DEBUG_PAGEALLOC, the world was simpler, the combination was only supported
-on x86 and a non-present page in the direct map meant that the page was
-free and debug_pagealloc removed its mapping.
+For this test im using every component and program used to its latest version available in the stable chanel (the only exception is the kernel, wich is 7.3-rc4): mesa 3:26.2.3-1 libcamera 0.7.2-4.1
 
-Nowadays there are more architectures with inconsistent views of how the
-direct map should be managed, there are more debug mechanisms in MM that
-can either drop a page from the direct map (e.g. KFENCE) or require that a
-page must be mapped immediately after resume (e.g. init_on_free).
+After applying the necesarry patch that deletes the line "const struct v4l2_subdev_client_info *ci,", the kernel compiled correctly whith the patch applyed
 
-The latter constraint is particularly nasty, because enabling
-debug_pagealloc and PAGE_POISON at the same time simply breaks resume:
-
-  BUG: unable to handle page fault for address: ffff888000100000
-  #PF: supervisor write access in kernel mode
-  #PF: error_code(0x0002) - not-present page
-  PGD 4f0c067 P4D 4f0c067 PUD 4f0d067 PMD 4f0e067 PTE 800fffffffeff020
-  Oops: Oops: 0002 [#1] SMP DEBUG_PAGEALLOC NOPTI
-  CPU: 0 UID: 0 PID: 477 Comm: bash Not tainted 7.3.0-rc3-00090-g4a613f1d9124 #1 PREEMPT(full)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-  RIP: 0010:__kernel_poison_pages+0x45/0x70
-  Code: 89 fa 48 c1 e6 06 48 01 fe 48 89 d1 48 2b 0d 9a ed 87 01 48 83 c2 40 48 c1 f9 06 48 c1 e1 0c 48 03 0d 97 ed 87 01 48 8d 79 08 <48> 89 01 48 83 e7 f8 48 89 81 f8 0f 00 00 48 29 f9 81 c1 00 10 00
-  RSP: 0018:ffffc900017dfd78 EFLAGS: 00010086
-  RAX: aaaaaaaaaaaaaaaa RBX: 0000000000000000 RCX: ffff888000100000
-  RDX: ffffea0000004040 RSI: ffffea0000004040 RDI: ffff888000100008
-  RBP: 0000000000000000 R08: ffff888130fcada0 R09: 00000000723e0de4
-  R10: 0000000096ad9215 R11: 00000000db907bcf R12: 0000000000000005
-  R13: 0000000000000005 R14: 0000000000000000 R15: 0000000000000000
-  FS:  00007f8f2243e780(0000) GS:ffff8882e8e13000(0000) knlGS:0000000000000000
-  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-  CR2: ffff888000100000 CR3: 0000000140679000 CR4: 0000000000750ef0
-  PKRU: 55555554
-  Call Trace:
-   <TASK>
-   clear_or_poison_free_pages+0xd1/0xe0
-   hibernation_snapshot+0x548/0x5a0
-   hibernate.cold+0xcb/0x321
-   state_store+0xc3/0xd0
-   kernfs_fop_write_iter+0x163/0x240
-   vfs_write+0x21f/0x550
-   ksys_write+0x70/0xf0
-   do_syscall_64+0xb1/0x590
-   ? __irq_exit_rcu+0x40/0x110
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-  RIP: 0033:0x7f8f224d0687
-  Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-  RSP: 002b:00007ffe7bbe0910 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-  RAX: ffffffffffffffda RBX: 00007f8f2243e780 RCX: 00007f8f224d0687
-  RDX: 0000000000000005 RSI: 000055e3e53135d0 RDI: 0000000000000001
-  RBP: 000055e3e53135d0 R08: 0000000000000000 R09: 0000000000000000
-  R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000005
-  R13: 00007f8f226295c0 R14: 00007f8f22626e80 R15: 0000000000000000
-   </TASK>
-  Modules linked in:
-  CR2: ffff888000100000
-
-It's possible to build a complex infrastructure involving a new page flag
-and/or page_type to allow robust hibernation and restore with
-debug_pagealloc enabled.
-
-This infrastructure requires a proper detection whether it is safe to
-temporarily remap a page to include it in the hibernation snapshot because
-relying on kernel_page_present() is too permissive and may include pages
-that were deliberately removed from the direct map for security reasons.
-
-This complexity does not seem justified to deal with an esoteric use case
-of hibernating a system that runs with debug_pagealloc enabled.
-
-Make hibernation unavailable when debug_pagealloc is enabled and simplify
-hibernate_{map,unmap}_page() that don't need to deal with debug_pagealloc
-anymore.
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
- kernel/power/hibernate.c |  1 +
- kernel/power/snapshot.c  | 31 +++++--------------------------
- 2 files changed, 6 insertions(+), 26 deletions(-)
-
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index 97de677e360f..187ec6e87345 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -110,6 +110,7 @@ bool hibernation_available(void)
- {
- 	return nohibernate == 0 &&
- 		!security_locked_down(LOCKDOWN_HIBERNATION) &&
-+		!debug_pagealloc_enabled() &&
- 		!secretmem_active() && !cxl_mem_active();
- }
+I made a thorough investigation of the camera and came accross the following problems that affect the camera using the CPU or GPU
+ 1) The first startup uf the camera is somewhat slow, it starts from a grey image and then slowly starts to recover the color of the room
+ 2) The camera is horizontally mirrored in qcam and Firefox but not in Gnome Snapshot ¿maybe the camera has a mecanism that Gnome Snapshot uses for the correct horientation?
+ 3) There seems to exist a bug in wich, if there is an object that moves fast in the capture zone (like for example, a hand or a person), blue and yellow lines appear in the area in wich the object moves. This problem does not only affect the front camera (IMX681), but also the rear camera (OV13858). This issue is present both in GPU and CPU mode, but the error seems more prominent if the object exits and reappears in the capture zone and while the camera is starting up in the first use, This error is also visible if the GPU is used and if you put an objet close to the camera (for example, a white sheet of paper) ¿Maybe is caused by the ligth the camera recieves?
  
-diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
-index 6868d6155daa..17b7cbbfc441 100644
---- a/kernel/power/snapshot.c
-+++ b/kernel/power/snapshot.c
-@@ -85,12 +85,7 @@ static inline int hibernate_map_page(struct page *page)
- 	if (is_kfence_address(page_address(page)))
- 		return kfence_force_mapping(page) ? 0 : -EFAULT;
- 
--	if (IS_ENABLED(CONFIG_ARCH_HAS_SET_DIRECT_MAP)) {
--		return set_direct_map_default_noflush(page, 1);
--	} else {
--		debug_pagealloc_map_pages(page, 1);
--		return 0;
--	}
-+	return 0;
- }
- 
- static inline int hibernate_unmap_page(struct page *page)
-@@ -98,17 +93,6 @@ static inline int hibernate_unmap_page(struct page *page)
- 	if (is_kfence_address(page_address(page)))
- 		return kfence_reset_mapping(page) ? 0 : -EFAULT;
- 
--	if (IS_ENABLED(CONFIG_ARCH_HAS_SET_DIRECT_MAP)) {
--		unsigned long addr = (unsigned long)page_address(page);
--		int ret  = set_direct_map_invalid_noflush(page, 1);
--
--		if (ret)
--			return ret;
--
--		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
--	} else {
--		debug_pagealloc_unmap_pages(page, 1);
--	}
- 	return 0;
- }
- 
-@@ -1446,10 +1430,10 @@ static inline bool do_copy_page(long *dst, long *src)
- /*
-  * safe_copy_page - Copy a page in a safe way.
-  *
-- * Check if the page we are going to copy is marked as present in the kernel
-- * page tables. This always is the case if CONFIG_DEBUG_PAGEALLOC or
-- * CONFIG_ARCH_HAS_SET_DIRECT_MAP is not set. In that case kernel_page_present()
-- * always returns 'true'.
-+ * Page could be not present in the kernel page tables. Try to map it before
-+ * copiyng and unmap back as needed.
-+ * If the kernel page table update fails, bail out with an error.
-+ *
-  * Sets @zeros_only to true if the page was entirely composed of zeros.
-  *
-  * Returns 0 on success, a negative error code on failure.
-@@ -1458,11 +1442,6 @@ static int safe_copy_page(void *dst, struct page *s_page, bool *zeros_only)
- {
- 	int err;
- 
--	if (kernel_page_present(s_page)) {
--		*zeros_only = do_copy_page(dst, page_address(s_page));
--		return 0;
--	}
--
- 	err = hibernate_map_page(s_page);
- 	if (err)
- 		return err;
-
--- 
-2.53.0
-
+ The GPU debayer is still broken but i do not have the knowledge or time to identify the root cause, make a solution, create the report and send it to the corresponding place
