@@ -1,127 +1,214 @@
-Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 678BE12C534;
-	Sat, 26 Sep 2026 04:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457DC36195D
+	for <linux-kernel@vger.kernel.org>; Sat, 26 Sep 2026 04:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790396307; cv=none; b=OI7EZQ7GfxfpzPJXbYujbw0RXEIBYtKnBnXLIZ+8X1OEWiwap5YKzMHHn9RH4tHBQpLyAl8X9xR8y6LsL8yUtPPP4fs7Ozg8WJ2w5NqMzyugWGGQzBVlcdo4f86SKmD1xBYV24fQ42xtZD9CQVEHr0GWI3oHOxNwCBB2pTFqamw=
+	t=1790396392; cv=none; b=ntw2Oh3ztsE8fqMs3qOBNyx+J295mQLiE0a38xPbweyLjQKHyNDEgI34vo9iXzPxSKhrdZsy2uKuZAmTkhU/L45iIPuAF6pYCTfyH5mERzMLE4rKQD6VMBJ2z9+oHXaoguBh0G4IQ6EJs2tp2Fj3mEOzeVEzcmJBwyGO0dQntbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790396307; c=relaxed/simple;
-	bh=PRfOzZrYIdg1BcLblrEwxtGq+g0dYvoRy7CknEd4ogo=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=cYuLvM5JGB1bqL6uDcKZ+gRqe0HNzNT/F8piveo82zR7vKGoaKm1iF4ZmYihGXnvPbXhkXgE6UTgGjYi8OrBPln3VP4/1YKTMnFOgGfwNAMhG9p38pruQHlr+UxF1ZgnrIl9P2rZTvviK9EaqhMsWXSrPWTFKKAxvEU2RVUqPZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=Wtink7/2; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=NFXffhzp; arc=none smtp.client-ip=160.80.4.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	s=arc-20240116; t=1790396392; c=relaxed/simple;
+	bh=4Y6o1wBsF/eQEgPBi/+abCQE6Kdn5XxfWvwfQFGZyX8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ge+I77GAa3dhEMaxeHPxUIikVIY1TT1Vikkj0dHcCfRoap3iBnqfVVSdOdE4PtXyAuitkjx4EXo0ZF+wORHG4gN0zopOeaFhwQzjr6C6U91zFmn6okODpk0IylJbEuLmPYCXnENSqvqwcgEQjWIUm9z5CZ6Fn0ZRlu7gZpY7oqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=keoUxYD0; arc=none smtp.client-ip=74.125.230.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="Wtink7/2";
-	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="NFXffhzp"
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 68Q4HhaG012552;
-	Sat, 26 Sep 2026 06:17:49 +0200
-Received: from lubuntu-18.04 (host-95-234-228-71.retail.telecomitalia.it [95.234.228.71])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id DC322120F5D;
-	Sat, 26 Sep 2026 06:17:38 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1790396259; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JAXY2biKxunPrl11EaBx+857E89xXyTGFogWVcbu66E=;
-	b=Wtink7/2uySDOMS/1vz1DLI9hL12TgbfnHvXobGaIVwMe0Dtp5JgRXcKh5YXezHrykKvXa
-	QhIGB4ZK5TN0FuCA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1790396259; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JAXY2biKxunPrl11EaBx+857E89xXyTGFogWVcbu66E=;
-	b=NFXffhzpK20XNzzwl2Eq2ABpFeFF759Ri0YEUqTa7tIKRdeIEo/+q4MZ9U47wuSysI+pWX
-	qeWWBvL+ucxc1fNQJM9w94gU+t+GOkhTmOBsN4nEhInEptjpV2nUILJxeyVf/FfbFPL9Yh
-	h8omKSN8kJqTBK0tNdJZebntsXp9ntiWhXfnNTfyedqIB4p6I+kZHzy4bplpFse3bLS8wG
-	BX4wVDE2WXLWRmiFNQw6WxtyubZddo31Afzypfv7FaFoEhFwteMdZ4e/l//NCJt/Er4XXB
-	ZEzITB5VXmwh/tdELLbYeQj5Hpnhz0Jwb4OSM1GLqEHu9CXgXL9LP/E/wQY06Q==
-Date: Sat, 26 Sep 2026 06:17:38 +0200
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        David Ahern
- <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-        David Lebrun
- <david.lebrun@uclouvain.be>,
-        Ahmed Abdelsalam <amsalam20@gmail.com>, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stefano.salsano@uniroma2.it,
-        Andrea Mayer <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH net] seg6: fix HMAC validation when an extension header
- precedes the SRHA
-Message-Id: <20260926061738.25343ff4cf4ecd54e7f0750a@uniroma2.it>
-In-Reply-To: <20260923-b4-seg6-hmac-transport-header-v1-1-3ae85dc0fdb9@gmail.com>
-References: <20260923-b4-seg6-hmac-transport-header-v1-1-3ae85dc0fdb9@gmail.com>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="keoUxYD0"
+Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-53320dc09f3so4160131cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 25 Sep 2026 21:19:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790396390; x=1791001190; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O714HpujpOiT7ZMzjlfSNzchhvC2uNBRKyYZGVRuelY=;
+        b=keoUxYD0P0e00/4AUO8rWEggVmlBjWv7z8K3malOM20KRwQAczsKAB6VeuCmm/iNMH
+         8fH86AU96YVB9cQtKIv8WGAUO1oWwOPkWmLJ90AX3mi7DVDVFl6Fwcm8gA38fbXWRnSR
+         qPdeuAwgrBiy7/MuXlG6tYzwoge3W3cgf3Ey11zlj6mZ3SOPUCjqEP1rqmGkWQblPReH
+         +1QC7zAe489oAiDf4FxzT/4ZCipTGdF6qPHLW8ZD3Lf71Ja1L8n0UnyTo4yMq7nuzBZZ
+         /jFigN0Y+lXAGkb8Ec8azkOjYpa2bpxpa62GjIDr5xCh18cy85uj2ehYhiLemBXJns1x
+         czAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790396390; x=1791001190;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O714HpujpOiT7ZMzjlfSNzchhvC2uNBRKyYZGVRuelY=;
+        b=Qh8/0mlJrD9Eat4vJT1/sAkkqTQhmbKeRoXb01l1915lVaBD8v/GaX2ZhfYpychkqA
+         HHYyAKMdYmyRTLuq9tNsnXTiNCkZ2PH2kOfpgY1UFc0yFHu0qn3j557bK/lZTRjbbTvs
+         LdE2nXwutAKPGwDy753k/kqbtmoR30Jd8049j0HBtpInSPaAlTQentMXeBMSBdX3OEeA
+         tEE/Udtwp+okgX0s2X9aefC/LomaGusngtbQcoDsNQ0QaXIcP4WGm2aVgd+9YetwfdWs
+         hRHcr0JlPKHfDGsGSvPTRHLIJhNb+1P9P2h9Vb9TiSWxNjIzs7+IAOlpL39k2jfUlFH6
+         JiQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwRlXWn/EjvUkDVT4O5W+HHoKQqeOfvOnBW9adiJ+Hkud1iisj7By2DR8NXfJcg8g9Xf3vchbriiJyQBwU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKtWuJUZ2wY+2npf1k7yhkMj1dsdmZO5OE/DEnPBwz6Toyjk71
+	3G/fb3sI6irLuA3geFGGOi1ws1SDyRJIIUl9T5/9QXetWkdt+bMN77Uz
+X-Gm-Gg: AYBFou1k6fpDSdOfFY+O7dp2T4fzmqrpM1VwWd7QRRbIKTeDZUebnhHbCzwM/NLQQ3o
+	5OD/tASsJgPCnyNXBqiGUROxur6eglqrWfcMHgFfs3JKiYyWL+IDYQBl7Bq9RUTT670/pmZMYHe
+	9kvmYn7wsc6Bi3N4DHU5EwSkzPYpf1h0e7fXJ0YGW27G6p4JzcYx+OWQmOausHUT8VlYdUtGdRj
+	u6Se5fjleg1gZg/bWd0YQY3I3bYiULnlyWZRA/n5KUYGuWoikV3qGHuU5rHlvZOY3urugsTJajN
+	iu0p2gl0QygnxGmeWNUaUQrJhwsigKSvAxParGwPGu43YJiNVJZQ9/bJXwXE5kktqTH4PRjSRAj
+	gkw2bzIRboaHC+SWs1v8zs9HlypIunx7XAeSpwPN0OfGBzOiDsPskDMuldum8BM78olU51ui6K4
+	Eh6HB8zB1ENsxV4I8TC0zZpj00yJ4wQSIhKSMvI25wZLhxMPz4qCVlNK+PjYAxTo2cWGlA7XquI
+	J6HQmKnIsDbjooEeZaBow==
+X-Received: by 2002:a05:622a:250c:b0:530:ea12:caad with SMTP id d75a77b69052e-5330b6bfaddmr71181341cf.50.1790396390127;
+        Fri, 25 Sep 2026 21:19:50 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322133f07sm9070031cf.6.2026.09.25.21.19.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 21:19:48 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>
+Cc: linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] remoteproc: virtio: Synchronize virtqueue teardown with rproc_vq_interrupt()
+Date: Sat, 26 Sep 2026 00:19:31 -0400
+Message-ID: <20260926041943.1124650-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 23 Sep 2026 13:51:37 +0900
-Yuya Kusakabe <yuya.kusakabe@gmail.com> wrote:
+rproc_vq_interrupt() looks up rvring->vq and passes it to
+vring_interrupt() without synchronizing against __rproc_virtio_del_vqs(),
+which clears rvring->vq and frees the virtqueue. rproc_stop() and
+__rproc_detach() stop the subdevices, and so delete the virtqueues,
+before the remote processor is stopped or detached, so the remote can
+still signal a vring meanwhile. The interrupt path can then pass a NULL
+or already freed virtqueue to vring_interrupt().
 
-> seg6_hmac_validate_skb() derived the SRH from skb_transport_header().
-> That only holds while the two coincide, which is not true on the
-> seg6_local input path.
-> 
-> ip6_rcv_core() leaves the transport header just past the IPv6 header.
-> A Hop-by-Hop options header is consumed before the route lookup and
-> advances it, but a Destination Options header is not: the seg6_local
-> lwtunnel is entered through an input redirect from the route lookup,
-> which bypasses the extension header handlers. The transport header
-> then still points at the Destination Options header while
-> seg6_get_srh() has located the real SRH further down the chain.
-> 
-> The HMAC is therefore computed over the Destination Options header,
-> and a packet carrying a valid HMAC TLV is dropped when
-> seg6_require_hmac is set. Such a packet is legitimate: RFC 8200 allows
-> Destination Options before a routing header, and get_srh() has walked
-> the header chain since commit 5829d70b0b6c ("ipv6: sr: fix get_srh() to
-> comply with IPv6 standard "RFC 8200""). The misread header is covered
-> by the pskb_may_pull() in seg6_get_srh(), so the result is a wrong
-> verdict, not an out-of-bounds access.
+Protect rvring->vq with SRCU: rproc_vq_interrupt() uses the virtqueue
+inside a read-side section, and __rproc_virtio_del_vqs() clears the
+pointers and waits for readers before freeing the virtqueues. Plain RCU
+is not usable because rproc_vq_interrupt() is also called from process
+context, where vring callbacks may sleep.
 
-Thanks for the patch.
+Fixes: 7a186941626d ("remoteproc: remove the single rpmsg vdev limitation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+Changes in v2:
+- Rework the fix: v1 only loaded rvring->vq once, which closes the NULL
+  window but not the use-after-free once the virtqueue is freed after
+  the load (Mathieu Poirier). Use SRCU so __rproc_virtio_del_vqs()
+  waits for rproc_vq_interrupt() before freeing the virtqueues.
+- Update the subject accordingly.
 
-This patch also closes an out-of-bounds read that the commit message
-does not mention. The commit says the misread gives a wrong verdict,
-not an out-of-bounds access. That holds for Destination Options, which
-has the same length encoding as the SRH. A Fragment or an Authentication
-header is encoded differently, and a forged packet can put one before
-the SRH. The old code read that header at skb_transport_header() as an
-SRH, and seg6_get_tlv_hmac() computed the TLV pointer from its second
-byte. The pull in seg6_get_srh() covers only the bytes up to the end of
-the real SRH, and the TLV pointer can land past them. This runs before
-seg6_require_hmac is read, and the default configuration reaches it.
+v1: https://lore.kernel.org/all/20260922190159.509836-1-oss.patchbox@gmail.com/
 
-Before this patch, a forged Fragment before the SRH toward an End SID
-faults in that read (KASAN, DEBUG_PAGEALLOC):
+Compile-tested only (arm64 and x86_64 defconfig + REMOTEPROC/RPMSG_VIRTIO, 
+W=1, sparse).
 
-  BUG: unable to handle page fault for address: ffff888106304078
-  RIP: seg6_hmac_validate_skb (net/ipv6/seg6_hmac.c:91 net/ipv6/seg6_hmac.c:192)
-   input_action_end_core.isra.0 (net/ipv6/seg6_local.c:225 net/ipv6/seg6_local.c:413)
-   seg6_local_input_core (net/ipv6/seg6_local.c:1640)
-   seg6_local_input (net/ipv6/seg6_local.c:1662)
-  Kernel panic - not syncing: Fatal exception in interrupt
+ drivers/remoteproc/remoteproc_virtio.c | 35 +++++++++++++++++++++-----
+ include/linux/remoteproc.h             |  2 +-
+ 2 files changed, 30 insertions(+), 7 deletions(-)
 
-Could the commit message also mention the out-of-bounds read?
+diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+index d5e9ff045a28a..cd8f3a8b4870a 100644
+--- a/drivers/remoteproc/remoteproc_virtio.c
++++ b/drivers/remoteproc/remoteproc_virtio.c
+@@ -16,6 +16,7 @@
+ #include <linux/of_reserved_mem.h>
+ #include <linux/platform_device.h>
+ #include <linux/remoteproc.h>
++#include <linux/srcu.h>
+ #include <linux/virtio.h>
+ #include <linux/virtio_config.h>
+ #include <linux/virtio_ids.h>
+@@ -26,6 +27,14 @@
+ 
+ #include "remoteproc_internal.h"
+ 
++/*
++ * Protects rproc_vring->vq: rproc_vq_interrupt() uses the virtqueue inside a
++ * read-side section, and __rproc_virtio_del_vqs() waits for those sections to
++ * finish before freeing it. Sleepable RCU is used because vring callbacks may
++ * sleep when rproc_vq_interrupt() is called from process context.
++ */
++DEFINE_STATIC_SRCU(rproc_vq_srcu);
++
+ static int copy_dma_range_map(struct device *to, struct device *from)
+ {
+ 	const struct bus_dma_region *map = from->dma_range_map, *new_map, *r;
+@@ -88,15 +97,24 @@ static bool rproc_virtio_notify(struct virtqueue *vq)
+  */
+ irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int notifyid)
+ {
++	irqreturn_t ret = IRQ_NONE;
+ 	struct rproc_vring *rvring;
++	struct virtqueue *vq;
++	int idx;
+ 
+ 	dev_dbg(&rproc->dev, "vq index %d is interrupted\n", notifyid);
+ 
+ 	rvring = idr_find(&rproc->notifyids, notifyid);
+-	if (!rvring || !rvring->vq)
++	if (!rvring)
+ 		return IRQ_NONE;
+ 
+-	return vring_interrupt(0, rvring->vq);
++	idx = srcu_read_lock(&rproc_vq_srcu);
++	vq = srcu_dereference(rvring->vq, &rproc_vq_srcu);
++	if (vq)
++		ret = vring_interrupt(0, vq);
++	srcu_read_unlock(&rproc_vq_srcu, idx);
++
++	return ret;
+ }
+ EXPORT_SYMBOL(rproc_vq_interrupt);
+ 
+@@ -153,8 +171,8 @@ static struct virtqueue *rp_find_vq(struct virtio_device *vdev,
+ 
+ 	vq->num_max = num;
+ 
+-	rvring->vq = vq;
+ 	vq->priv = rvring;
++	rcu_assign_pointer(rvring->vq, vq);
+ 
+ 	/* Update vring in resource table */
+ 	rsc = (void *)rproc->table_ptr + rvdev->rsc_offset;
+@@ -168,11 +186,16 @@ static void __rproc_virtio_del_vqs(struct virtio_device *vdev)
+ 	struct virtqueue *vq, *n;
+ 	struct rproc_vring *rvring;
+ 
+-	list_for_each_entry_safe(vq, n, &vdev->vqs, list) {
++	list_for_each_entry(vq, &vdev->vqs, list) {
+ 		rvring = vq->priv;
+-		rvring->vq = NULL;
+-		vring_del_virtqueue(vq);
++		RCU_INIT_POINTER(rvring->vq, NULL);
+ 	}
++
++	/* Wait for rproc_vq_interrupt() callers still using the virtqueues */
++	synchronize_srcu(&rproc_vq_srcu);
++
++	list_for_each_entry_safe(vq, n, &vdev->vqs, list)
++		vring_del_virtqueue(vq);
+ }
+ 
+ static void rproc_virtio_del_vqs(struct virtio_device *vdev)
+diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+index a44368737b39a..919d19fe99198 100644
+--- a/include/linux/remoteproc.h
++++ b/include/linux/remoteproc.h
+@@ -340,7 +340,7 @@ struct rproc_vring {
+ 	u32 align;
+ 	int notifyid;
+ 	struct rproc_vdev *rvdev;
+-	struct virtqueue *vq;
++	struct virtqueue __rcu *vq;
+ };
+ 
+ /**
 
-Ciao,
-Andrea
+base-commit: aa98230e410f0ed212b6788c46b1e4d49e0ff7ca
+-- 
+2.43.0
+
