@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4127C44A40F;
-	Sat, 26 Sep 2026 14:00:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201CC4418F0;
+	Sat, 26 Sep 2026 14:00:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790431249; cv=none; b=rGmsVlY8+YNwQ9hfjb8RIujAW4MwukYietWnKOk4eEu19HaVmPcf2Fahenb8rJwTK94ME2sQhtHXpfWTV5mfz3xDSc6WOC4SKarzybQmO4rJnWHIbmJ0qjwbjm8LDUoclU901vdNfQI2WbzDSPyM82BmLxy/NpWK6YRf3zcfqxg=
+	t=1790431249; cv=none; b=muh0AY7DP+t6pqJ7dAF+wpYmKe+2Jgi0Aq+12UAxX12mLok1mMaG7GvmY6jftEZkjUzmrsd9kCj6i0uEkqT8JYUV048gloTZlW5yP0WkYj9ACTx4LSzcVh+RyqOlL2qQJdGx9OQKOJBjJS8mIRCLNe8KdmZMciLsgre5+hRmDWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790431249; c=relaxed/simple;
-	bh=fJNnmA0srwbU0i+wVKht+7ndG3HFGL7GyzybeLQqbjk=;
+	bh=G+9u/CVuxQJLViGVZtloBJwKTlG2Zbx3U6oEuOnJg/E=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Cyp5Ku6XMpSlLrLGpvGI4Cd0T4ebhinGrAfNgax1hl/QH6U6e5tVl+B+wSIBbaMhjpESPycV53dEVzgARA0Np673QOyerB2pZcJ/9Vt1xcE77y7B5EIxex1mwSXjFWDEBdKIxDkXuWP2PWKuR8Pp3CMu5/gTbjABmnSnrYm8G8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EPq6+0gH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=ChWNFz+B1hB1Gxp021gACsqkCb6vgaXPDFRqW5IA7Kq/GgIcGY6q0Defc5JoF9lptECQZHcvbRogC8mS1rLyURUZXzdNQzAvrVNvJGwxKjio3QR4epPjyjqH14Sr239F4BfLm8ZUBMzcArk9OV4Dreqjv5T0VQmR8XERbBRRQKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+4roPw0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EPq6+0gH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58111F0089D;
-	Sat, 26 Sep 2026 14:00:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+4roPw0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7601F0089C;
+	Sat, 26 Sep 2026 14:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790431236;
-	bh=dHWI2IBmBClY2UpHRSlgiQdrTuiKXJbfVW4rY7icnMs=;
+	s=k20260515; t=1790431235;
+	bh=6Mjhsps4m/5az2aSJpNK4HCAF92PT0bofHC2tJDdkDg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EPq6+0gHnTMl+C0sJynu1TKCU3XlbGosSFFxLC5jr6r271hHIgAcj/Q6HTSdBBtvl
-	 etqu7ubWQ4wjnN0fxK+xFLpPSL+xT0jJabXccgYX7YptkegjRnF0ddyqYBTsOZokp+
-	 mHR796KwbdPRruQPy6ByLgCX4cy8F6830+IjYrv/sbyMXhcIpvKaGnQbA2L3BzulUR
-	 KpYHRTMstbhdOB2R08RwJ7nsg9eMEKFpAsbzKoMrtCCd+FCqKYOtswuUkwdD802hqU
-	 VNS4SUeW4V+FtB1UvXtqDQtXj4mog/y7jcoEuWV2qINMegaReN87ls1pGEufGJXpoo
-	 58LiRRyuheRvQ==
-Subject: Re: [PATCH v29 net-next 8/8] net/nebula-matrix: add common dev
- start/stop operation
+	b=e+4roPw0+W6ER8ubnXgLt0V+0/75H1TsmQGzwCvcktlld4gYhTVLaffQOtKNftd4V
+	 GfOugupojMdCZq6GZSmEsFtFaffWUomngsbBKhP1cz7bnsldnb56xdxYt4Ys04cOPS
+	 aSsNMw+j572lqVBvAX4pu5TZxlTo39DXzkT3S9Q1aJ4AVDhjgxwHn5ajtzlTewCjUk
+	 kzgPzYieswn24EQHcniRk3jZHSUrq34QVSWi07tB9i1oI9LJLm7PBTOwQH2XqEqkrS
+	 k8UBsLAOYG4b+d1/nNMDqnOSW5ZHE/mvQnS33+cBg41xHm5yfWGG6FN4GD5/YfhUne
+	 yOF1vPhpCkncg==
+Subject: Re: [PATCH v29 net-next 7/8] net/nebula-matrix: add common/ctrl dev
+ init/remove operation
 From: netdev-bot+sashiko@kernel.org
 To: illusion.wang@nebula-matrix.com
 Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
  sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
  edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Sat, 26 Sep 2026 14:00:35 +0000
-Message-ID: <179043123539.2160803.12073720136764328000@kernel.org>
-In-Reply-To: <20260922120311.86593-9-illusion.wang@nebula-matrix.com>
-References: <20260922120311.86593-9-illusion.wang@nebula-matrix.com>
+Date: Sat, 26 Sep 2026 14:00:34 +0000
+Message-ID: <179043123425.2160803.17622692985729273243@kernel.org>
+In-Reply-To: <20260922120311.86593-8-illusion.wang@nebula-matrix.com>
+References: <20260922120311.86593-8-illusion.wang@nebula-matrix.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -47,10 +47,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 1
+Critical: 0 · High: 2 · Medium: 2 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -58,243 +58,279 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] nbl_dev_start() only translates -ETIMEDOUT into -EPROBE_DEFER
-  for the get_vsi_id()/get_eth_id() RPCs, but the *first* mailbox RPC a…
-- [Medium] nbl_dev_clear_interrupt_scheme() (nbl_dev.c:221-231) has an
-  empty body, yet the two call sites assert that kernel-side MSI-X…
-- [Low] Concern (validated as a false positive for the current code,
-  retained for policy): nbl_dev_init_interrupt_scheme() (nbl_dev.c:206)…
+- [High] nbl_dev_remove_ctrl_dev() (drivers/net/ethernet/nebula-
+  matrix/nbl/nbl_core/nbl_dev.c:177-183) calls disp_ops->deinit_module()…
+- [High] There is no synchronization between the chip-global operations
+  this patch adds and sibling (non-control) PFs that are concurrently…
+- [Medium] The commit message lists "Program mailbox QINFO routing map
+  (bus/devid for each PF)" under "Control device setup…
+- [Medium] nbl_dev_remove_common_dev() (nbl_dev.c:128-142) reduces a
+  failed mailbox queue teardown to dev_warn("mailbox queue teardown…
+- [Low] nbl_dev_setup_ctrl_dev() (nbl_dev.c:144-155) contains a pointless
+  round trip: `ret = disp_ops->init_module(...); if (ret) return ret;…
 
 --
 
-net/nebula-matrix: add common dev start/stop operation
+net/nebula-matrix: add common/ctrl dev init/remove operation
 
-This adds nbl_dev_start() and nbl_dev_stop() to configure the hardware
-MSI-X map, fetch VSI/ETH identity, allocate MSI-X vectors and set up the
-mailbox interrupt, plus nbl_core_start()/nbl_core_stop() wrappers hooked
-into the PCI probe and remove paths.
+This patch adds the nbl_dev layer with nbl_dev_setup_common_dev() and
+nbl_dev_setup_ctrl_dev() plus their teardown counterparts, and wires
+nbl_dev_init() / nbl_dev_remove() into nbl_core_init() / nbl_core_remove().
+Common device setup creates the mailbox channel queue and the mailbox clean
+work, while control device setup runs the chip-wide init_module() callback.
 
-A few questions about the start/stop paths below.
+A few questions below about the control-PF paths and about some commit
+message and comment text that does not seem to match the code.
 
 > diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c
-> index 35410c6f1fb9c..e672478f61146 100644
-> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c
+> new file mode 100644
+> index 0000000000000..35410c6f1fb9c
+> --- /dev/null
 > +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c
+> @@ -0,0 +1,259 @@
 
 [ ... ]
 
-> @@ -18,6 +29,206 @@ static void nbl_dev_init_msix_cnt(struct nbl_dev_mgt *dev_mgt)
-
-[ ... ]
-
-> +static int nbl_dev_init_interrupt_scheme(struct nbl_dev_mgt *dev_mgt)
+> +/* ----------  Channel config  ---------- */
+> +static void nbl_dev_setup_chan_qinfo(struct nbl_dev_mgt *dev_mgt, u8 chan_type)
 > +{
-> +	struct nbl_dev_common *dev_common = dev_mgt->common_dev;
-> +	struct nbl_msix_info *msix_info = &dev_common->msix_info;
+> +	struct nbl_channel_ops *chan_ops = dev_mgt->chan_ops_tbl->ops;
+> +	struct nbl_channel_mgt *priv = dev_mgt->chan_ops_tbl->priv;
 > +	struct nbl_common_info *common = dev_mgt->common;
-> +	int needed = 0;
-> +	int err;
-> +	int i;
 > +
-> +	for (i = 0; i < NBL_MSIX_TYPE_MAX; i++)
-> +		needed += msix_info->serv_info[i].num;
+> +	if (!chan_ops->check_queue_exist(priv, chan_type))
+> +		return;
 > +
-> +	err = pci_alloc_irq_vectors(common->pdev, needed, needed,
-> +				    PCI_IRQ_MSIX | PCI_IRQ_AFFINITY);
-
-[Severity: Low]
-This isn't a bug in this patch, but PCI_IRQ_AFFINITY makes the mailbox
-vector an affinity-managed vector.
-
-Today that is harmless: nbl_dev_init_msix_cnt() only sets
-serv_info[NBL_MSIX_MAILBOX_TYPE].num = 1, and with one group
-__group_cpus_evenly() takes the
-
-	if (numgrps <= nodes) {
-
-branch, which ORs every node's CPUs into masks[0], so the vector's mask
-covers all CPUs and can never lose its last online CPU.
-
-Once net vectors are added and the spreading no longer degenerates, a
-managed mailbox vector can be shut down by CPU offline while
-NBL_CHAN_IRQ_RDY is still set, which would turn every mailbox RPC into a
-timeout. Would it be worth excluding the administrative vector up front via
-irq_affinity.pre_vectors?
-
-> +	if (err < 0) {
-> +		dev_err(common->dev,
-> +			"pci_alloc_irq_vectors failed, err = %d\n", err);
-> +		return err;
-> +	}
-> +	if (err != needed) {
-> +		dev_err(common->dev, "pci_alloc_irq_vectors got %d vecs, need %d\n",
-> +			err, needed);
-> +		return -ENOSPC;
-> +	}
-> +	return 0;
-> +}
-> +
-> +static void nbl_dev_clear_interrupt_scheme(struct nbl_dev_mgt *dev_mgt)
-> +{
 > +	/*
-> +	 * pcim_enable_device() is used in nbl_probe().
-> +	 * pci_alloc_irq_vectors() registers pcim_msi_release devres callback,
-> +	 * which invokes pci_free_irq_vectors() automatically on device detach.
-> +	 * Do NOT call pci_free_irq_vectors() explicitly here to avoid
-> +	 * double-free.
+> +	 * common->hw_bus is the control PF's real bus number, captured in
+> +	 * nbl_res_ctrl_dev_sriov_info_init() during nbl_res_init_leonis().
+> +	 * nbl_core_init() runs resource init before nbl_dev_init(), so the
+> +	 * value is always initialized when this control-PF-only path runs;
+> +	 * nbl_res_intr_cfg_msix_map() consumes it for cfg_msix_map() the
+> +	 * same way.
 > +	 */
+> +	chan_ops->cfg_chan_qinfo_map_table(priv, common->hw_bus, common->devid);
+> +}
+
+[ ... ]
+
+> +static void nbl_dev_remove_common_dev(struct nbl_adapter *adapter)
+> +{
+> +	struct nbl_dev_mgt *dev_mgt = adapter->core.dev_mgt;
+> +	struct nbl_dev_common *common_dev = dev_mgt->common_dev;
+> +	int ret;
+> +
+> +	if (!common_dev)
+> +		return;
+> +	cancel_work_sync(&common_dev->clean_mbx_task);
+> +	ret = nbl_dev_remove_chan_queue(dev_mgt, NBL_CHAN_TYPE_MAILBOX);
+> +	if (ret)
+> +		dev_warn(&adapter->pdev->dev, "mailbox queue teardown failed, inflight DMA may exist: %d\n",
+> +			 ret);
+> +	nbl_dev_register_chan_task(dev_mgt, NBL_CHAN_TYPE_MAILBOX, NULL);
 > +}
 
 [Severity: Medium]
-nbl_dev_clear_interrupt_scheme() has an empty body, yet both call sites
-state that the kernel-side vectors are released at that point. In the
-err_destroy_map block of nbl_dev_start():
+Should the teardown failure be propagated instead of only warned about?
 
-	 * Destroy device-side MSI-X map BEFORE releasing kernel-side
-	 * vectors. This masks all hardware vectors and clears the
-	 * pcompleter map entry, so no MSI-X message can fire after
-	 * vector release.
-	 ...
-	 * This is best-effort teardown: we still release kernel vectors
-	 * even if remote RPC fails.
+nbl_dev_remove_common_dev() returns void, so nbl_dev_remove() continues to
+nbl_dev_remove_ctrl_dev() -> deinit_module() even after this dev_warn()
+fires, and devres then releases the mailbox rings once remove() returns.
 
-and in nbl_dev_stop():
+nbl_chan_teardown_queue() returns -ETIMEDOUT when the inflight TX drain
+times out, and on that same branch it can also fail the trylock and skip
+the hardware stop entirely:
 
-	 * This is best-effort teardown: if destroy_msix_map RPC fails,
-	 * hardware MSI-X map remains valid. We proceed to release
-	 * kernel vectors anyway.
+nbl_channel.c:nbl_chan_teardown_queue() {
+	...
+	} else if (mutex_trylock(&chan_info->txq_lock)) {
+		nbl_chan_stop_queue(chan_mgt);
+		mutex_unlock(&chan_info->txq_lock);
+	} else {
+		dev_crit(... "zombie channel: ... HW stop skipped ...");
+	...
+}
 
-Nothing is released here, so pdev->msix_enabled is still set when
-nbl_dev_stop() returns, and the ordering invariant is only established later
-by pcim_msi_release() at device detach. Could these comments be reworded to
-say that the vectors deliberately stay allocated until detach?
+nbl_chan_stop_queue() is what disables both the mailbox RX and TX queues,
+so on that path the RX queue stays enabled pointing at the
+dmam_alloc_coherent() rings that devres frees right after remove().
 
-Related to that, nbl_core_start()/nbl_core_stop() are exported in nbl_core.h
-as a pair, but the pair is not repeatable: a second nbl_dev_start() calls
-pci_alloc_irq_vectors() again on a device that still has MSI-X enabled, and
-__pci_enable_msix_range() starts with
+That also seems to conflict with the precondition documented in the
+hardware layer:
 
-	if (WARN_ON_ONCE(dev->msix_enabled))
-		return -EINVAL;
+nbl_hw_leonis.c:nbl_hw_deinit_module() {
+ * Caller must ensure no new DMA is initiated after this point.
+ * The mailbox channel is stopped by nbl_chan_teardown_queue()
+ * before this function is called, so no in-flight mailbox DMA
+ * remains.
+}
 
-Is only probe/remove ever expected to call these?
+Can the device write into the freed coherent mailbox buffers in that case?
 
-[ ... ]
-
-> @@ -257,3 +476,126 @@ void nbl_dev_remove(struct nbl_adapter *adapter)
->  	if (common->has_ctrl)
->  		nbl_dev_remove_ctrl_dev(adapter);
->  }
 > +
-> +/* ----------  Dev start process  ---------- */
-> +int nbl_dev_start(struct nbl_adapter *adapter)
+> +static int nbl_dev_setup_ctrl_dev(struct nbl_adapter *adapter)
 > +{
 > +	struct nbl_dev_mgt *dev_mgt = adapter->core.dev_mgt;
 > +	struct nbl_dispatch_ops *disp_ops = dev_mgt->disp_ops_tbl->ops;
-> +	struct nbl_dispatch_mgt *priv = dev_mgt->disp_ops_tbl->priv;
-> +	struct nbl_dev_common *common_dev = dev_mgt->common_dev;
-> +	struct nbl_common_info *common = dev_mgt->common;
-> +	int cleanup_ret;
 > +	int ret;
 > +
-> +	ret = nbl_dev_cfg_msix_map(dev_mgt);
+> +	ret = disp_ops->init_module(dev_mgt->disp_ops_tbl->priv);
 > +	if (ret)
-> +		goto err_destroy_map;
-
-[Severity: High]
-The commit message says:
-
-    For non-control PF, if mailbox RPC times out because control
-    PF is not ready yet, return -EPROBE_DEFER to trigger deferred
-    probing, so kernel will retry later once PF0 comes up.
-
-Does that cover the first RPC? On a non-control PF, nbl_dev_cfg_msix_map()
-is already a cross-PF mailbox call: disp_ops->cfg_msix_map is
-nbl_disp_chan_cfg_msix_map_req(), which sends an ack-requested message to
-common->mgt_pf:
-
-	ret = chan_ops->send_msg(disp_mgt->chan_ops_tbl->priv, &chan_send);
-	if (ret)
-		return ret;
-
-NBL_CHAN_IRQ_RDY has not been set yet at this point, so nbl_chan_send_msg()
-takes the polling path and, if nobody answers, returns after
-NBL_CHAN_TX_WAIT_ACK_TIMES(5000) x ~1ms:
-
-		dev_err_ratelimited(dev,
-				    "Channel polling ack failed, message type: %d msg id: %u\n",
-				    chan_send->msg_type, msgid);
-		ret = -ETIMEDOUT;
-
-That -ETIMEDOUT reaches err_destroy_map unchanged, so nbl_probe() returns
--ETIMEDOUT and the driver core treats it as a hard probe failure with no
-retry once PF0 binds. The -EPROBE_DEFER conversion below is unreachable in
-exactly the case the commit message describes. Should the conversion be
-applied to nbl_dev_cfg_msix_map() as well, and to set_mailbox_irq() in
-nbl_dev_enable_mailbox_irq(), which returns an untranslated timeout too?
-
-Is nbl_probe_chip_deps() sufficient to order this? device_link_add() is
-called from the consumer's own probe, and an unbound func 0 gives a DORMANT
-link, so this probe attempt still continues into nbl_dev_start().
-
-One more effect of the same path: err_destroy_map issues another
-ack-requested RPC (destroy_msix_map) to the same unresponsive control PF, so
-the failing probe spends a second ~5 s polling timeout and logs
-"rollback: destroy MSI-X map failed".
-
-> +
-> +	/* Fetch VSI/ETH identity after cfg_msix_map */
-> +	ret = disp_ops->get_vsi_id(priv, NBL_VSI_DATA, &common->vsi_id);
-> +	if (ret) {
-> +		if (!common->has_ctrl && ret == -ETIMEDOUT)
-> +			ret = -EPROBE_DEFER;
-> +		goto err_destroy_map;
-> +	}
-> +	ret = disp_ops->get_eth_id(priv, common->vsi_id, &common->eth_num,
-> +				   &common->eth_id, &common->logic_eth_id);
-> +	if (ret) {
-> +		if (!common->has_ctrl && ret == -ETIMEDOUT)
-> +			ret = -EPROBE_DEFER;
-> +		goto err_destroy_map;
-> +	}
-> +
-> +	ret = nbl_dev_init_interrupt_scheme(dev_mgt);
-> +	if (ret)
-> +		goto err_destroy_map;
-> +
-> +	ret = nbl_dev_request_mailbox_irq(dev_mgt);
-> +	if (ret)
-> +		goto err_destroy_map;
-> +
-> +	ret = nbl_dev_enable_mailbox_irq(dev_mgt);
-> +	if (ret)
-> +		goto err_disable_irq;
+> +		return ret;
 > +
 > +	return 0;
+> +}
 
-[ ... ]
+[Severity: Medium]
+The commit message lists, under "Control device setup
+(nbl_dev_setup_ctrl_dev, control PF only)":
 
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
-> index d362f1270d83e..170a4d13494b7 100644
-> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
+    - Program mailbox QINFO routing map (bus/devid for each PF)
 
-[ ... ]
+and the teardown comment below says "The qinfo map programmed in
+setup_ctrl_dev".  Does nbl_dev_setup_ctrl_dev() program the QINFO map?
 
-> @@ -181,7 +191,13 @@ static int nbl_probe(struct pci_dev *pdev,
->  		goto adapter_init_err;
->  	}
->  	pci_set_drvdata(pdev, adapter);
-> +	err = nbl_core_start(adapter);
-> +	if (err)
-> +		goto core_start_err;
+The body above only calls disp_ops->init_module(); the QINFO map is
+programmed from nbl_dev_init() via nbl_dev_setup_chan_qinfo(), which runs
+before nbl_dev_setup_common_dev() creates the mailbox queue and before
+init_module():
+
+	if (common->has_ctrl)
+		nbl_dev_setup_chan_qinfo(dev_mgt, NBL_CHAN_TYPE_MAILBOX);
+
+That call performs chip-wide register writes for every active PF:
+
+nbl_channel.c:nbl_chan_cfg_qinfo_map_table() {
+	for (func_id = 0; func_id < NBL_MAX_PF; func_id++)
+		if (!(pf_mask & (1 << func_id)))
+			hw_ops->cfg_mailbox_qinfo(p, func_id, bus, devid, func_id);
+}
+
+So the documented "Init order: create mailbox(common_dev) → ctrl dev init"
+does not seem to describe the order in which hardware writes actually
+happen, and this QINFO programming is also outside the setup_ctrl_dev_fail
+unwind path.  Could the changelog and the comment be adjusted to match, or
+the call moved into nbl_dev_setup_ctrl_dev()?
+
+[Severity: Low]
+This isn't a bug, but there is nothing between the call and the return, so
+the local ret and the error check are redundant here:
+
+	return disp_ops->init_module(dev_mgt->disp_ops_tbl->priv);
+
 > +
->  	return 0;
-> +core_start_err:
-> +	nbl_core_remove(adapter);
->  adapter_init_err:
->  chip_deps_err:
->  	pci_clear_master(pdev);
+> +/*
+> + * Tear down control device: deinit_module sets driver_status=false
+> + * to notify firmware to clean all per-PF hardware state (including
+> + * qinfo registers).  The qinfo map programmed in setup_ctrl_dev is
+> + * not explicitly cleared; firmware handles it on driver_status change.
+> + *
+> + * Teardown ordering guarantee: every non-management PF creates a
+> + * consumer->control PF device link in its probe path, so the driver
+> + * core always unbinds all siblings before allowing the control PF to
+> + * be detached (sysfs unbind, driver unregister and hot-unplug alike).
+> + *
+> + * Safety net: this registry check additionally blocks the chip-global
+> + * deinit if a sibling PF is somehow still bound on the same chip
+> + * (defense in depth for paths that bypass device-link ordering).
+> + * Skipping deinit leaves firmware/qinfo routing alive for the siblings;
+> + * their control plane stays functional at the cost of deferring the
+> + * global firmware cleanup until the next control PF init_module().
+> + * Direct control-PF FLR (which never runs driver teardown) cannot be
+> + * guarded here.
+> + */
+> +static void nbl_dev_remove_ctrl_dev(struct nbl_adapter *adapter)
+> +{
+> +	struct nbl_dev_mgt *dev_mgt = adapter->core.dev_mgt;
+> +	struct nbl_dispatch_ops *disp_ops = dev_mgt->disp_ops_tbl->ops;
+> +
+> +	disp_ops->deinit_module(dev_mgt->disp_ops_tbl->priv);
+> +}
+
+[Severity: High]
+Where is the registry check that this comment and the commit message
+describe?
+
+The commit message says:
+
+    A registry check is added as defense-in-depth, to skip global chip deinit
+    if sibling PFs remain bound.
+
+and the comment above says "this registry check additionally blocks the
+chip-global deinit if a sibling PF is somehow still bound on the same chip".
+
+The function body is a single unconditional deinit_module() call, and the
+only condition below it is has_ctrl:
+
+nbl_chip.c:nbl_res_chip_deinit_module() {
+	if (!common->has_ctrl)
+		return;
+	hw_ops->deinit_module(res_mgt->hw_ops_tbl->priv);
+}
+
+The only chip-dependency code in the driver is nbl_probe_chip_deps() in
+nbl_main.c, and it just creates a device link:
+
+	if (!device_link_add(&pdev->dev, &mgt->dev, DL_FLAG_AUTOREMOVE_CONSUMER)) {
+
+There is no registry, sibling list or sibling-bound check anywhere for the
+teardown path to consult.  Should the check be implemented, or should the
+changelog and the comment be corrected so reviewers do not assume a guard
+that is not there?
+
+> +
+> +static struct nbl_dev_mgt *nbl_dev_setup_dev_mgt(struct nbl_common_info *common)
+
+[ ... ]
+
+> +int nbl_dev_init(struct nbl_adapter *adapter)
+> +{
+
+[ ... ]
+
+> +	dev_mgt->disp_ops_tbl = disp_ops_tbl;
+> +	dev_mgt->chan_ops_tbl = chan_ops_tbl;
+> +	adapter->core.dev_mgt = dev_mgt;
+> +	if (common->has_ctrl)
+> +		nbl_dev_setup_chan_qinfo(dev_mgt, NBL_CHAN_TYPE_MAILBOX);
+
+[Severity: High]
+What serializes these chip-global operations against sibling PFs that are
+already bound or still probing?
+
+This call rewrites the shared mailbox QINFO entry of every hardware-active
+PF, clearing MSIX_IDX / MSIX_IDX_VALID in nbl_hw_cfg_mailbox_qinfo(), with
+no check for siblings that are already live.  On the other side,
+nbl_dev_remove_ctrl_dev() -> deinit_module() sets driver_status=false, which
+per the comments makes firmware asynchronously wipe per-PF state including
+sibling QINFO registers.
+
+The commit message states:
+
+    The device link guarantees the kernel unbinds all non-control PFs before
+    the control PF can be removed, preventing broken cross-PF mailbox RPC.
+
+Does the managed link created inside the consumer's own probe give that
+guarantee?  In drivers/base/core.c, device_link_init_status() assigns
+DL_STATE_DORMANT when the supplier has no driver, device_links_driver_bound()
+later promotes DORMANT only to DL_STATE_AVAILABLE, and
+device_links_unbind_consumers() force-unbinds only ACTIVE links:
+
+drivers/base/core.c:device_links_unbind_consumers() {
+		WRITE_ONCE(link->status, DL_STATE_SUPPLIER_UNBIND);
+		if (status == DL_STATE_ACTIVE) { /* only then force-unbind consumer */
+}
+
+So a sequence like "unbind func0; bind func1; bind func0; unbind func0"
+leaves func1 bound and live while the control PF runs deinit_module().
+
+In the opposite direction, device_link_add() returns a valid link with
+status DL_STATE_SUPPLIER_UNBIND when the supplier is already unbinding, and
+nbl_probe_chip_deps() only checks for NULL, so a sibling can keep probing
+into nbl_dev_init() and enable its mailbox while func0 is inside
+nbl_dev_remove().  PCI does not set need_parent_lock, so no common device
+lock serializes the two.  Can this leave a sibling PF with its mailbox
+routing torn down underneath it?
 
 [ ... ]
 
